@@ -18,7 +18,7 @@ function detail(bx,sm) {
 	if (se.className == "hide") {	   	
 		 se.className  = "regular";
 		 url = "ParameterSystemLicense.cfm?systemmodule=" + sm
-		 ColdFusion.navigate(url,bx)				
+		 ptoken.navigate(url,bx)				
 	 } else {		   	    
     	 se.className  = "hide"
 	 }				 		
@@ -33,7 +33,7 @@ function editLDAP(LDAPServer){
 }
 
 function deleteLDAP(){
-	alert('delete');
+	ptoken.navigate('ParameterSystemEditLDAP.cfm?action=delete&LDAPServer='+LDAPServer,'idLDAP');
 }
 
 function changePwdMode(val)

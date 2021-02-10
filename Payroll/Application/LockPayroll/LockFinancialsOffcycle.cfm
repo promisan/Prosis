@@ -3,14 +3,15 @@
 
 <!--- entity parameters to be passed for loading into GL --->
 <cfparam name="url.mission"        				default="OICT">
-<cfparam name="url.settlementId"        		default="75F04F35-60D3-4CDD-A909-FA7FB0A94139">
+<cfparam name="url.settlementId"        		default="00000000-0000-0000-0000-000000000000">
+<cfparam name="settlements"             		default="">
+
 
 <!--- added a provision to set the journal postings referenceNo to Final --->
 
 <!--- -------------------------------------------------- --->
 <!--- ----determine default accounting Period (Year) --- --->
 <!--- -------------------------------------------------- --->
-
 
 <cfquery name="get"
    datasource="AppsPayroll" 
@@ -41,20 +42,30 @@
 					 AND ESL.Mission        = ES.Mission 
 					 AND ESL.PaymentDate    = ES.PaymentDate 
 		WHERE  	ES.PersonNo = '#Object.PersonNo#' 
-		AND (
-				ES.PaymentStatus = '1'	 <!--- offcycle --->  
-				OR
-				ES.PaymentFinal = '1'    <!--- generated for final payment --->
-				OR
-				(ES.Source = '#get.Source#' and ES.PaymentStatus = '1')	
-		)
-		AND  	ES.PaymentDate >= (SELECT PaymentDate 
-		                           FROM   Payroll.dbo.EmployeeSettlement 
-								   WHERE  SettlementId = '#url.settlementId#')
 				
-		ORDER BY PaymentDate DESC				
+		<cfif settlements neq "">
+		
+		    AND     SettlementId IN (#preservesingleQuotes(Settlements)#)
+		
+		<cfelse>
+				
+			AND (
+					ES.PaymentStatus = '1'	 <!--- offcycle --->  
+					OR
+					ES.PaymentFinal = '1'    <!--- generated for final payment --->
+					OR
+					(ES.Source = '#get.Source#' and ES.PaymentStatus = '1')	
+			)
+			AND  	ES.PaymentDate >= (SELECT PaymentDate 
+			                           FROM   Payroll.dbo.EmployeeSettlement 
+									   WHERE  SettlementId = '#url.settlementId#')
+								   
+		</cfif>					   
+		
+		ORDER BY PaymentDate DESC
+		
+		
 </cfquery> 
-
 
 <cfset payStatus ="1">
 
@@ -79,7 +90,7 @@
 
 	<cfset Settlements = QuotedValueList(getInternal.SettlementId)>
 	<cfset Settlements = "#Settlements#,'#url.settlementid#'">
-		
+
 	<cfquery name="get"
 	   datasource="AppsEmployee" 
 	   username="#SESSION.login#" 
@@ -563,7 +574,6 @@
 					)	
 					
 				</cfquery>
-				
 			<cfelse>
 	
 				<cfsavecontent variable="MyPositions">
@@ -749,15 +759,18 @@
 					    ReturnVariable  = "EOD">	
 				
 				<tr class="labelmedium">
-				<td>
+				<td valign="top" style="min-width:140px">
+				
 				<table>
+				
 					<tr><td height="10px"></td></tr>
-					<tr class="labelmedium"><td style="padding-left:34px">
-					
-					
-					Set final payment transaction date :
+					<tr class="labelmedium"><td style="padding-left:6px">					
+					Apply transactiondate :
 					</td>
+					</tr>
+					<tr>
 					<td style="padding-left:4px">
+					
 					<cfquery name="getPeriod" 
 					datasource="appsPayroll" 
 					username="#SESSION.login#" 
@@ -776,10 +789,9 @@
 						AND       PayrollEnd >= '#eod#'					     
 						</cfif>
 						ORDER BY PayrollEnd DESC
-						
 					</cfquery>
 										
-					<select name="PaymentDate" class="regularxl" onchange="Prosis.busy('yes');ptoken.navigate('<cfoutput>#session.root#/Payroll/Application/LockPayroll/applyPaymentDate.cfm?settlementId=#get.SettlementId#</cfoutput>&paymentdate='+this.value,'process')">
+					<select id="paymentdate" name="PaymentDate" class="regularxl" style="width:120px" onchange="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('<cfoutput>#session.root#/Payroll/Application/LockPayroll/applyPaymentDate.cfm?settlementId=#get.SettlementId#</cfoutput>','process','','','post','formembed')">
 					<cfoutput query="GetPeriod">
 						<option value="#dateformat(PayrollEnd,client.dateSQL)#" <cfif get.PaymentDate eq PayrollEnd>selected</cfif>>#dateformat(PayrollEnd,client.dateformatshow)#</option>
 					</cfoutput>
@@ -788,9 +800,48 @@
 					</td>
 					<td id="process"></td>
 					</tr>
-				</table>				
-				</td></tr>
-				<tr><td>
+					<tr class="labelmedium"><td style="padding:6px">					
+					Off-cycle settlements included
+					</td>
+					</tr>
+					
+					<tr><td style="padding-left:4px">
+					
+					<cfquery name="getSettlement" 
+					datasource="appsPayroll" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">	
+						SELECT    *
+						FROM      EmployeeSettlement
+						WHERE     Mission        = '#get.Mission#' 
+						AND       SalarySchedule = '#get.SalarySchedule#'
+						AND       PersonNo       = '#get.PersonNo#'
+						AND       PaymentStatus  = '1'
+						AND       PaymentDate >= '#get.PaymentDate#'											     						
+					</cfquery>
+					
+					<select name="SettlementId" style="text-align:center;height:100px;width:120px;border:0px" size="6" disabled multiple class="regularxl" onChange="Prosis.busy('yes');ptoken.navigate('<cfoutput>#session.root#/Payroll/Application/LockPayroll/applyPaymentDate.cfm?settlementId=#get.SettlementId#</cfoutput>','process','','','post','formembed')">
+					<cfoutput query="GetSettlement">
+						<option value="#settlementId#" <cfif get.SettlementId eq settlementId>selected</cfif>>#dateformat(PaymentDate,client.dateformatshow)#</option>
+					</cfoutput>
+					</select>
+										
+					</td></tr>
+					
+					<tr><td style="padding-left:4px">
+					
+				    <input type="button"
+					  name="Apply" value="Apply" class="button10g" 
+					  onclick="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('<cfoutput>#session.root#/Payroll/Application/LockPayroll/applyPaymentDate.cfm?settlementId=#get.SettlementId#</cfoutput>','process','','','post','formembed')">
+										
+					</td>
+					</tr>
+					
+				</table>	
+				
+				</td>
+				
+				<td style="width:100%;padding-left:10px;border-left:1px solid silver">
 					
 				<cfoutput> <!---contains the link for the PPost file generated to be downloaded ----->
 					#htmlToShow#

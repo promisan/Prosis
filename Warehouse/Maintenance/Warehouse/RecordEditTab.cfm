@@ -147,9 +147,23 @@ password="#SESSION.dbpw#">
 		function removeBlankSpaces(el) {
 			$(el).val($(el).val().replace(/\s/g,''));
 		}
+						
+		function addLocation(){
+		    ProsisUI.createWindow('mydialog', 'Add Location', '',{x:30,y:30,height:360,width:600,modal:true,center:true});
+			ptoken.navigate('../WarehouseLocation/LocationAdd.cfm?warehouse=#url.id1#&systemfunctionid=#url.systemfunctionid#','mydialog');
+		}
+		
+		function locationsave() {
+		
+			document.locationform.onsubmit() 
+			if( _CF_error_messages.length == 0 ) {	            	          
+			   ptoken.navigate('../WarehouseLocation/LocationAddSubmit.cfm?id2=new&warehouse=#url.id1#&systemfunctionid=#url.systemfunctionid#','addlocation','','','POST','locationform')
+		    }   
+				
+		}
+					
+   </script>
 	
-	</script>
-
 </cfoutput>
 
 <table style="min-width:1200px" width="100%" height="100%" align="center">
@@ -157,11 +171,11 @@ password="#SESSION.dbpw#">
 	
 	<tr><td>
 	
-		<table width="100%" align="center" cellspacing="0" cellpadding="0">
+		<table width="100%" align="center">
 		<tr>
 		
-				<cfset wd = "64">
-				<cfset ht = "64">		
+				<cfset wd = "60">
+				<cfset ht = "60">		
 				<cfset itm="1">	
 						
 				<cf_tl id = "Settings" var = "vName1">

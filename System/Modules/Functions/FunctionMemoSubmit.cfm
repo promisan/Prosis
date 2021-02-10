@@ -8,6 +8,10 @@ password="#SESSION.dbpw#">
 	WHERE    SystemFunctionId = '#URL.SystemFunctionId#'
 </cfquery>
 
+<script>
+alert('saved')
+</script>
+
 <!---
 <cfinclude template="FunctionMemo.cfm">
 --->

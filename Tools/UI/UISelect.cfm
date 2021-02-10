@@ -40,7 +40,7 @@
 				     <cfset vSelected = "#vSelected#,'#Replace(element,"'","","ALL")#'">					
 				</cfif>
 			</cfloop>
-			
+						
             <input name="#Attributes.Name#"	style="width:300px" id="#Attributes.Name#" type="hidden" value="#attributes.selected#">
 			
         </cfif>

@@ -149,6 +149,7 @@
 				   ApplicationHome       = '#Form.ApplicationHome#',					  	 
 				   ApplicationRootPath   = '#Form.ApplicationRootPath#',	
 				   		 
+				   DocumentRoot          = '#Form.DocumentRoot#',
 				   DocumentRootPath      = '#Form.DocumentRootPath#',	
 				   DocumentServer        = '#Form.DocumentServer#',
 				   DocumentServerLogin   = '#Form.DocumentServerLogin#',

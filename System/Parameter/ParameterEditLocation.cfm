@@ -57,6 +57,14 @@ datasource="AppsInit">
 	
 		
 	<!--- Field: Prosis Document Root Path--->
+	<TR>
+    <td style="padding-left:10px;" class="labelit" width="160">Default Attachment URL:</td>
+    <TD colspan="2">
+        <cfoutput query="get">
+			<cfinput class="regularxl" type="Text" name="DocumentRoot" value="#DocumentRoot#" message="Please enter the correct attachment URL" required="Yes" size="75" maxlength="100">
+		</cfoutput>	 	   
+    </TD>
+	</TR>
     <TR>
     <td style="padding-left:10px;" class="labelit" width="160">Default Attachment Path:</td>
     <TD colspan="2">

@@ -17,7 +17,7 @@
 
 --->
 
-<cfajaximport tags="CFFORM,CFWINDOW">
+<cfajaximport tags="cfform">
 
 <!-- <cfform> -->
 
@@ -628,8 +628,7 @@ password="#SESSION.dbpw#">
 					
 				</td>
 				
-			</tr>
-								
+			</tr>								
 					
 			<cfif Purchase.ReceiptDeliveryTime eq "0">
 					
@@ -781,15 +780,15 @@ password="#SESSION.dbpw#">
 		<cfif Line.PersonNo neq "">
 			<cfdiv bind="url:#link#&selected=#Line.PersonNo#" id="employee"/>
 		<cfelse>
+		
 			<cfquery name="getUser" 
-		   datasource="AppsSystem"
-		  username="#SESSION.login#" 
-		  password="#SESSION.dbpw#">
-		 	SELECT  * 
-			 FROM   UserNames
-			 WHERE  Account = '#session.acc#' 
-			</cfquery>	
-			
+			   datasource="AppsSystem"
+			  username="#SESSION.login#" 
+			  password="#SESSION.dbpw#">
+			 	SELECT  * 
+				FROM   UserNames
+				WHERE  Account = '#session.acc#' 
+			</cfquery>				
 			
 			<cfif getUser.PersonNo neq "">	
 				<cfdiv bind="url:#link#&selected=#getUser.PersonNo#" id="employee"/>	
@@ -798,6 +797,7 @@ password="#SESSION.dbpw#">
 			<cfelse>
 			    <cfdiv bind="url:#link#&selected=" id="employee"/>	
 			</cfif>
+			
 		</cfif>	
 				
 		</td>		
@@ -837,9 +837,9 @@ password="#SESSION.dbpw#">
 	   datasource="AppsMaterials"
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
-	 	SELECT  * 
-		 FROM   ItemClassification 
-		 WHERE  ItemNo = '#Line.WarehouseItemNo#' 
+	 	 SELECT  * 
+		 FROM    ItemClassification 
+		 WHERE   ItemNo = '#Line.WarehouseItemNo#' 
 	</cfquery>	
 			
 	<cfset selectmode = "regular">
@@ -1189,9 +1189,9 @@ password="#SESSION.dbpw#">
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-				    SELECT *
-				    FROM   Item
-					WHERE  ItemNo = '#Requisition.WarehouseItemNo#'								
+					    SELECT *
+					    FROM   Item
+						WHERE  ItemNo = '#Requisition.WarehouseItemNo#'								
 				</cfquery>	
 				
 				<!--- determine if we can indeed receive this item into this warehouse based on the modeSetItem settings --->
@@ -1294,7 +1294,7 @@ password="#SESSION.dbpw#">
 			</cfquery>	
 										
 			<select name="warehouse" id="warehouse" class="regularxl enterastab"
-			     onchange="ColdFusion.navigate('setReceiptLinePrice.cfm?purchaseno=#purchase.purchaseno#&warehouse='+this.value+'&itemno='+document.getElementById('itemno').value+'&uom='+document.getElementById('itemuom').value,'processlines')">
+			     onchange="ptoken.navigate('setReceiptLinePrice.cfm?purchaseno=#purchase.purchaseno#&warehouse='+this.value+'&itemno='+document.getElementById('itemno').value+'&uom='+document.getElementById('itemuom').value,'processlines')">
 				 
 				<cfloop query="warehouse">
 				
@@ -1544,7 +1544,7 @@ password="#SESSION.dbpw#">
 							 </cfquery>
 						
 						
-						<table  cellspacing="0" cellpadding="0">
+						<table>
 						<tr>
 						<td>
 					    <input type="text"   name="itembarcode"      id="itembarcode"     value="#ItemUoM.ItemBarCode#"    size="10"  class="regularxl" readonly style="text-align: center;">

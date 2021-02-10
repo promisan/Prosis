@@ -17,17 +17,17 @@ password="#SESSION.dbpw#">
 	AND    R.Role = Role.Role
 </cfquery>
 
-<cfform onsubmit="return false" name="entityform">
+<cfform onsubmit="return false" name="entityform" style="height:98%">
 
 <cfif url.mode eq "dialog">
 	
-	<table width="100%" height="100%" bgcolor="ffffff" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" height="98%" bgcolor="ffffff" align="center">
 	
 <cfelse>
 
 	<cf_screentop height="100%" scroll="Yes" html="No">
 	
-	<table height="100%" width="96%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+	<table height="100%" width="96%" align="center" class="formpadding">
 	
 	<!---	
     <tr>
@@ -41,14 +41,14 @@ password="#SESSION.dbpw#">
 	<tr>
 	  <td colspan="4" valign="top">
 	
-			<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
+			<table width="98%" align="center">
 			
 			<cfoutput query="Entity">
 		
 				<TR>	   
-				    <TD height="23" class="labelmedium"><b>#EntityDescription# [#EntityCode#]</TD>				    
-					<TD class="labelmedium"><i>Role:</i>&nbsp;#Description#</TD>
-				    <TD align="right" style="padding-right:4px" class="labelmedium">#DateFormat(Created, "#CLIENT.DateFormatShow#")#</td>
+				    <TD height="23" class="labelmedium2"><b>#EntityDescription# [#EntityCode#]</TD>				    
+					<TD class="labelmedium2"><i>Role:</i>&nbsp;#Description#</TD>
+				    <TD align="right" style="padding-right:4px" class="labelmedium2">#DateFormat(Created, "#CLIENT.DateFormatShow#")#</td>
 					<cfif url.mode neq "Dialog">
 					<td width="120" id="result" align="right"></td> 			
 					</cfif>
@@ -126,7 +126,7 @@ password="#SESSION.dbpw#">
 
 <tr><td height="100%" colspan="4">
 
-	 <table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
+	 <table width="100%" height="100%" align="center">
 	 
 	 <cf_menucontainer name="entitytg" item="1" class="regular">			
 	 

@@ -372,7 +372,7 @@ password="#SESSION.dbpw#">
 
 	<tr><td colspan="12" height="40">
 				  
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+		<table width="100%" align="center" class="formpadding">
 			<cfoutput>	
 			
 			<tr><td width="20%" class="labelit"><cf_tl id="Edition">:</td>

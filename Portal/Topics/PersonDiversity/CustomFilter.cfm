@@ -11,16 +11,43 @@
 	
 </cfloop>
 
-<cfif url.orgunit neq "">
 
+<cfset org = "">
+
+<cfif url.orgunit neq "" and url.orgunit neq "null">
+	
+	<cfloop index="itm" list="#url.orgunit#">
+         <cfif org eq "">
+		 	<cfset org = "'#itm#'">
+		 <cfelse>
+		   	<cfset org = "#org#,'#itm#'">
+		 </cfif>
+	</cfloop>
+	
 	<cfquery name="get" 
 	     datasource="AppsOrganization" 
 	     username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">	
-		 SELECT * 
-		 FROM   Organization 
-		 WHERE  OrgUnit = '#url.orgunit#' 
+			 SELECT  * 
+			 FROM    Organization 		
+	    	 WHERE   OrgUnit IN (#preserveSingleQuotes(org)#) 
 	</cfquery>
+	
+	<cfset conorg = "">
+	
+	<cfloop query="get">
+		
+		<cfif conorg eq "">
+			<cfset conorg = "HierarchyCode LIKE ('#hierarchyCode#%')">
+		<cfelse>
+			<cfset conorg = "#conorg# OR HierarchyCode LIKE ('#hierarchyCode#%')">
+		</cfif>
+	
+	</cfloop>
+	
+<cfelse>
+
+	<cfparam name="get.OrgUnitName" default="#url.mission#">		
 	
 </cfif>
 
@@ -66,18 +93,18 @@
 	    AND       P.Mission = '#url.mission#' 
 		AND       P.DateEffective <= GETDATE() AND P.DateExpiration > GETDATE()	   
 		<cfif url.orgunit neq "">
-		AND       P.OrgUnitOperational IN (SELECT OrgUnit 
-		                                 FROM   Organization.dbo.Organization
-										 WHERE  Mission   = '#url.mission#'
-										 AND    MandateNo = '#get.MandateNo#'
-										 AND    HierarchyCode LIKE ('#get.HierarchyCode#%')
-										)  
+		AND       P.OrgUnitOperational IN (SELECT  OrgUnit 
+		                                   FROM    Organization.dbo.Organization
+										   WHERE   Mission   = '#url.mission#'
+										   AND     MandateNo = '#get.MandateNo#'
+										   AND    (#preservesingleQuotes(conorg)#)
+										  )  
 		</cfif>	    
 </cfquery>	
 
 <cfset link = "#session.root#/Portal/Topics/PersonDiversity/Staffing.cfm?mission=#url.mission#&orgunit=#url.orgunit#&period=#url.period#">
 
-	<table width="100%">	
+	<table>	
 	
 		<cfset mis = replace(URL.mission, "-", "", "ALL")>
 		<cfset box = "pane_#targetbox#_diversity_#mis#">
@@ -87,13 +114,13 @@
 		<td style="padding-left:10px;width:100%">
 		
 			    <table width="100%">
-			    <tr class="labelit" style="font-size:12px">				
+			    <tr class="labelmedium2" style="font-size:12px">				
 								
-				<td style="padding-top:2px;padding-left:10px;border-bottom:1px solid silver;border-left:1px solid silver" ><cf_tl id="Category"></td>
+				<td style="padding-top:2px;padding-left:10px" ><cf_tl id="Category"></td>
 											
-					<td class="label" style="color:gray;padding-left:4px;border-bottom:1px solid silver;">	
+					<td class="label" style="color:gray;padding-left:4px">	
 										 
-					  <select style="border:0px" class="regularxl" id="<cfoutput>fldfund_#url.mission#</cfoutput>" 
+					  <select class="regularxb" id="<cfoutput>fldfund_#url.mission#</cfoutput>" 
 					       onchange="<cfoutput>doChangeFilter('#link#','#box#',this,document.getElementById('fldpostclass_#url.mission#'),getElementById('fldcategorydiv_#url.mission#'),getElementById('fldauthorised_#url.mission#'))</cfoutput>">					 		
 					       <option value="">ALL</option>
 						  <cfoutput query="getCategory" group="PostType">
@@ -108,10 +135,10 @@
 				
 				<cfoutput>				
 								
-				<td style="padding-top:2px;padding-left:10px;border-bottom:1px solid silver;border-left:1px solid silver"><cf_tl id="Class"></td>
+				<td style="padding-top:2px;padding-left:10px"><cf_tl id="Class"></td>
 				
-				<td class="label" style="color:gray;padding-left:4px;border-bottom:1px solid silver;">	
-					  <select style="border:0px" class="regularxl" id="fldpostclass_#url.mission#" 
+				<td class="label" style="color:gray;padding-left:4px">	
+					  <select class="regularxb" id="fldpostclass_#url.mission#" 
 					       onchange="doChangeFilter('#link#','#box#',document.getElementById('fldfund_#url.mission#'),this,getElementById('fldcategorydiv_#url.mission#'),getElementById('fldauthorised_#url.mission#'))">					 		
 					       <option value="">ANY</option>
 						  <cfloop query="getClass">				  
@@ -120,10 +147,10 @@
 					  </select>	
 				</td>		
 				
-				<td style="padding-top:2px;padding-left:10px;border-left:1px solid silver;border-bottom:1px solid silver;"><cf_tl id="Incumbency"></td>
+				<td style="padding-top:2px;padding-left:10px"><cf_tl id="Incumbency"></td>
 				
-				<td class="label" style="color:gray;padding-left:4px;border-bottom:1px solid silver;">	
-					  <select  style="border:0px;width:60px;" class="regularxl" id="fldcategorydiv_#url.mission#" 
+				<td class="label" style="color:gray;padding-left:4px">	
+					  <select  class="regularxb" id="fldcategorydiv_#url.mission#" 
 					       onchange="doChangeFilter('#link#','#box#',document.getElementById('fldfund_#url.mission#'),getElementById('fldpostclass_#url.mission#'),this,getElementById('fldauthorised_#url.mission#'))">					 		
 					       <option value="100">> 0</option>
 						   <option value="0">0</option>
@@ -131,11 +158,11 @@
 					  </select>	
 				</td>		
 				
-				<td style="padding-top:2px;padding-left:10px;border-left:1px solid silver;border-bottom:1px solid silver;"><cf_tl id="Authorised"></td>
+				<td style="padding-top:2px;padding-left:10px"><cf_tl id="Authorised"></td>
 				
-				<td class="label" style="color:gray;padding-left:4px;border-bottom:1px solid silver;">	
+				<td class="label" style="color:gray;padding-left:4px">	
 				       
-					  <select  style="border:0px;width:60px" class="regularxl" id="fldauthorised_#url.mission#" 
+					  <select class="regularxb" id="fldauthorised_#url.mission#" 
 					       onchange="doChangeFilter('#link#','#box#',document.getElementById('fldfund_#url.mission#'),getElementById('fldpostclass_#url.mission#'),getElementById('fldcategorydiv_#url.mission#'),this)">					 		
 					       <option value="">All</option>
 						   <option value="1">Yes</option>						 

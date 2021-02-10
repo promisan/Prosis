@@ -29,14 +29,11 @@
 	<tr class="#attributes.class#"
 	    id="#attributes.name##attributes.item#" 
 		name="#attributes.name##attributes.item#">
-								
-		<!--- align="center" is giving issues in IE7-9 --->
-							
+										
 	   <td height="90%" width="90%" valign="top" style="overflow:hidden"
 	       id="content#attributes.name##attributes.item#" 
 		   name="content#attributes.name##attributes.item#">
-		   	
-				   		   		   
+		   					   		   		   
 	</cfif>	   
 					   		   											
 		   <cfif attributes.iframe neq "">
@@ -51,10 +48,8 @@
 					
 		   <cfelseif attributes.template neq "">
 		   
-		   		 <cf_divscroll overflowx="auto" style="width:100%">	
-				 				 							 			   		
-			           <cfinclude template="#attributes.template#">		
-															
+		   		 <cf_divscroll overflowx="auto" style="width:100%">					 				 							 			   		
+			           <cfinclude template="#attributes.template#">																
 				 </cf_divscroll>
 							
 		   </cfif>
@@ -69,13 +64,10 @@
 		
 	<cfelse>
 	
-	   </td>
-	</tr>
+	   </td></tr>
 	
 	</cfif>	
-	
-	
-	   
+		   
 </cfif>
 	 
 

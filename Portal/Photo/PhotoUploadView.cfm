@@ -9,17 +9,23 @@
 
 	<cfif url.mode eq "user">
 	
-		<table width="250px" height="200px" style="border:1px dotted silver">
+		<table style="border:1px solid silver">
 			<tr>
 				<td align="center">	
 						
-				 <cfif FileExists("#SESSION.rootDocumentPath#\#url.destination#\#url.filename#.jpg")>		 
-												 		
+				 <cfif FileExists("#SESSION.rootDocumentPath#\#url.destination#\#url.filename#.jpg")>	
+				 
+				 		<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\#url.destination#\#url.filename#.jpg")>
+					    <cfimage source="#myImage#" width="170" height="200" action="writeToBrowser">	 
+						
+						<!---						 		
 					  <img src="#SESSION.rootDocument#\#url.destination#\#url.filename#.jpg?id=#rowguid#"
 						     alt=""
 						     style="height:200px; width:auto; #url.style#"
 						     border="0px"
 						     align="absmiddle">
+							 
+							 --->
 					 
 			  	 <cfelse>		 
 						 
@@ -32,17 +38,22 @@
 		
 	<cfelseif url.mode eq "applicant">
 	
-		<table width="250px" height="200px" style="border:1px dotted silver">
+		<table style="border:1px dotted silver">
 			<tr>
 				<td align="center">	
 						
-				 <cfif FileExists("#SESSION.rootDocumentPath#\#url.destination#\#url.filename#.jpg")>		 
-												 		
+				 <cfif FileExists("#SESSION.rootDocumentPath#\#url.destination#\#url.filename#.jpg")>	
+				 
+				 	  <cfset myImage=ImageNew("#SESSION.rootDocumentpath#\#url.destination#\#url.filename#.jpg")>
+					  <cfimage source="#myImage#" width="170" height="200" action="writeToBrowser">	 		 
+					
+					<!---							 		
 					  <img src="#SESSION.rootDocument#\#url.destination#\#url.filename#.jpg?id=#rowguid#"
 						     alt=""
 						     style="height:200px; width:auto; #url.style#"
 						     border="0px"
 						     align="absmiddle">
+							 --->
 					 
 			  	 <cfelse>		 
 						 
@@ -54,14 +65,19 @@
 		</table>
 	
 	<cfelseif url.mode eq "staffing">
-		
+
 		<cfif FileExists("#SESSION.rootDocumentPath#\#url.destination#\#url.filename#.jpg")>	
+		
+				<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\#url.destination#\#url.filename#.jpg")>
+			    <cfimage source="#myImage#" width="170" height="200" action="writeToBrowser">	
 	
-			<img src="#SESSION.rootDocument#\#url.destination#\#url.filename#.jpg?id=#rowguid#"
+			<!---
+			<img src="#SESSION.rootDocument#/#url.destination#/#url.filename#.jpg?id=#rowguid#"
 				alt=""
 				style="height:200px; width:auto; display:block; #url.style#"
 				border="0px"
 				align="absmiddle">
+				--->
 		
 		<cfelse>		 
 		

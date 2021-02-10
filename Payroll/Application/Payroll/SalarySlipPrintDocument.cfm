@@ -121,19 +121,15 @@
           bookmark="False"
           localurl="Yes">
 		  
-	<cfset label = "font-size: 15px; font-family: Calibri;">
-	<cfset field = "font-size: 17px;font-family: Calibri;">		  
-
-	<cfoutput>			
+		<cfset label = "font-size: 15px; font-family: Calibri;">
+		<cfset field = "font-size: 17px;font-family: Calibri;">	
 		
 		<cfif getParameter.payslipTemplate eq "">		
 		    <cfinclude template="SalarySlipPrintDocumentContent.cfm">
 		<cfelse>				
 			<cfinclude template="#getParameter.PayslipTemplate#">
-		</cfif>
-				
-	</cfoutput>
-
+		</cfif>		
+		
 </cfdocument>
 
 <cfif url.sendemail eq 1>

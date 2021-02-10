@@ -94,12 +94,20 @@ password="#SESSION.dbpw#">
 								
 							 	<td style="width:35px">
 									<cfif not FileExists("#session.rootdocumentpath#\EmployeePhoto\#OfficerUserId#.jpg")>
-										<cfset vEmpPhotoPath = "#session.root#/images/logos/no-picture-male.png">	
-									<cfelse>
-										<cfset vEmpPhotoPath = "#session.rootdocument#/EmployeePhoto/#OfficerUserId#.jpg">									
-									</cfif>
 									
-									<img src="#vEmpPhotoPath#" title="#OfficerFirstName# #OfficerLastName#" style="border:1px solid black;height:20px;" align="absmiddle">
+										<cfset vEmpPhotoPath = "#session.root#/images/logos/no-picture-male.png">	
+									
+									<cfelse>
+																		
+											<cffile action="COPY" 
+												source="#SESSION.rootDocumentpath#\EmployeePhoto\#OfficerUserId#.jpg" 
+									  	    	destination="#SESSION.rootPath#\CFRStage\EmployeePhoto\#OfficerUserId#.jpg" nameconflict="OVERWRITE">
+									
+										<cfset vEmpPhotoPath = "#session.root#/CFRStage/EmployeePhoto/#OfficerUserId#.jpg">									
+										
+									</cfif>								
+									
+									<img src="#vEmpPhotoPath#" title="#OfficerFirstName# #OfficerLastName#" style="border-radius:20px;border:1px solid black;height:30px;" align="absmiddle">
 									
 								</td>
 								

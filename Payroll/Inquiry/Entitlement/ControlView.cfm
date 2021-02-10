@@ -17,7 +17,9 @@
 
 <cf_tl id="Payroll entitlement review" var="1">
 
-<cf_screenTop height="100%" title="#lt_text#" jquery="Yes" html="no" border="0" scroll="no" layout="webapp">
+<cf_screenTop height="100%" title="#lt_text#" 
+systemmodule="payroll" functionclass="portal" functionname="entitlement"
+jquery="Yes" html="yes" border="0" scroll="no" layout="webapp">
 
 <cf_layout type="border" id="mainLayout" width="100%">	
 			
@@ -28,19 +30,11 @@
 			size       ="200"
 			overflow ="scroll">				
 
-			<cfform>
-			<table width="100%">
-				  
-			 <tr><td style="padding-left:20px;padding-top:10px">
-			 			
-				<cf_payrollEntitlementTreeData mission = "#URL.Mission#" schedule="#url.schedule#">	  
-							
-							
-			 </td></tr>
-				
-			</table>
-			</cfform>
-
+			<table width="100%">				  
+			 <tr><td style="padding-left:20px;padding-top:10px">			 			
+				<cf_payrollEntitlementTreeData mission = "#URL.Mission#" schedule="#url.schedule#" systemfunctionid="#url.systemfunctionid#">														
+			 </td></tr>				
+			</table>		
 				
 	</cf_layoutArea>
 			

@@ -27,6 +27,7 @@
 				[TransactionReference] [varchar] (20) NULL ,
 				[Location]             [varchar] (20) NULL ,
 				[ItemNo]               [varchar] (20) NULL ,
+				[ItemNoExternal]       [varchar] (20) NULL ,
 				[ReservationClass]     [varchar] (20) NULL  ,
 				[WorkOrderid]          [uniqueidentifier] NULL ,	<!--- earmarking of stock by a order --->
 				[WorkOrderLine]        [int] NULL ,	

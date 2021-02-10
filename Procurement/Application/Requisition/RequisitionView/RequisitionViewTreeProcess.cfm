@@ -72,7 +72,7 @@
 		AND    Period = '#url.period#'  <!--- <cfqueryparam value="#URL.Period#" cfsqltype="CF_SQL_CHAR">  --->
 </cfquery>
 	
-<table width="100%" border="0" cellspacing="0" class="formpadding">
+<table width="100%" class="formpadding">
   	   
 	  <tr><td class="line"></td></tr> 
 	 	    	  
@@ -99,7 +99,7 @@
 				onClick="Period#PNo#.style.fontWeight='bold';updatePeriod(this.value,'#MandateNo#')"
 				<cfif URL.Period eq Period>Checked</cfif>>
 				</td>
-				<td class="labelmedium" style="height:20px;font-size:13px;padding-left:4px;padding-right:4px">#Description#
+				<td class="labelmedium2" style="height:20px;padding-left:4px;padding-right:4px">#Description#
 				
 		        	<cfif URL.Period eq Period>
 						<input type="hidden" name="PeriodSelect" id="PeriodSelect" value="#Period#">

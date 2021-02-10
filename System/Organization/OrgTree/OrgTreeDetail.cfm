@@ -6,6 +6,10 @@
 <cfparam name="url.flat" 				default="0">
 <cfparam name="url.showDirectoryView"	default="1">
 
+<cftry>
+ <cfdirectory action="CREATE" directory="#SESSION.rootPath#\CFRStage\EmployeePhoto\">
+ <cfcatch></cfcatch>
+</cftry> 
 
 <cfif trim(url.functions) neq "">
 
@@ -390,6 +394,7 @@
 						#Country#
 						#vFormattedTelephone#
 					</div>
+					
 			        <div class="hpanel #vColor# contact-panel" style="cursor:pointer;">
 			            <div class="panel-body #vRemovePanelAnimation#" style="#vColorBodyStyle#">
 						
@@ -397,18 +402,12 @@
 							<div style ="width:100%; overflow:hidden;"> 
 							<div style="width:50%; float:left; text-align:center;">
 						</cfif>		
-								<cfset vIndexNo = IndexNo>
-								<cfset vGender = Gender>
-								<cfset vUserAccount = UserAccount>
-								<cfinclude template="getProfilePicture.cfm">
-				                <cfif url.flat eq 1>
-				                	<div class="img-circle clsRoundedPicture">
-				                		<img src='#vPhoto#' class="img-circle clsRoundedPicture" style="height:75px; width:75px;">
-				                	</div>
-				                <cfelse>
-									<div class="img-circle clsRoundedPicture" style="background-image:url('#vPhoto#'); height:80px; width:80px;"></div>				                
-				                </cfif> 	
-								
+																		
+						<cf_getProfilePicture 
+							    IndexNo="#IndexNo#" 
+								UserAccount="#useraccount#" 
+								Gender="#Gender#">
+														
 				                <h3><a style="font-size:55%;" href="##"><span style="text-transform:capitalize;">#lcase(firstName)#</span> #ucase(lastName)#</a></h3>
 				                
 								<p style="text-transform:capitalize; font-size:85%;">#FunctionDescription#</p>

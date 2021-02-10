@@ -210,7 +210,7 @@
 
 						<tr><td height="5"></td></tr>
 
-						<tr class="labelmedium">
+						<tr class="labelmedium2">
 							<td  width="100px"><cf_tl id="Type">:</td>
 							<td>
 								<table width="100%">
@@ -225,15 +225,13 @@
 								</table>
 							</td>
 						</tr>
-
 						
-
 						<tr><td height="5"></td></tr>
 
-						<tr class="labelmedium line">
+						<tr class="line labelmedium2">
 							<td><cf_tl id="Schedule">:</td>
 							<td>
-								<select name="SalarySchedule" id="SalarySchedule" class="regularxl" style="height:30px; width:100%;">
+								<select name="SalarySchedule" id="SalarySchedule" class="regularxxl" style="border:0px;height:30px; width:100%;">
 									<option value=""> - <cf_tl id="Select a salary schedule"> -
 									<cfloop query="getSalarySchedules">
 										<option value="#SalarySchedule#"> #Description# (#SalarySchedule#)

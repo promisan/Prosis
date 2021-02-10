@@ -1,5 +1,14 @@
-<cfparam name="URL.ID" default="">
+<cfparam name="URL.ID"     default="">
 <cfparam name="URL.IDMenu" default="">
+
+<cfquery name="Module" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT *
+	FROM   Ref_ModuleControl
+	WHERE  SystemFunctionId = '#URL.IdMenu#'	
+</cfquery>
 
 <cfquery name="Get" 
 datasource="AppsSystem" 
@@ -16,6 +25,29 @@ password="#SESSION.dbpw#">
 	AND   LanguageCode  = '#Client.Languageid#' 
 </cfquery>
 
+<cfquery name="check" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT *
+	FROM   HelpProjectClass
+	WHERE  ProjectCode = '#URL.Code#'
+	AND    TopicClass  = '#url.class#'	
+</cfquery>
+
+<cfif check.recordcount eq "0">
+	
+	<cfquery name="check" 
+	datasource="AppsSystem" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		INSERT INTO HelpProjectClass
+		(ProjectCode,TopicClass)
+		VALUES ('#url.code#','#url.class#')	
+	</cfquery>
+
+</cfif>
+
 <cfoutput>
 
 <cf_textareascript>
@@ -26,11 +58,11 @@ password="#SESSION.dbpw#">
 <cf_screentop jquery="Yes" banner="green" bannerforce="Yes"  layout="webapp" html="Yes" scroll="Yes" label="#URL.Code#|#URL.Class#: Help Project Topic" doctype="HTML5">
 </cfif>
 	
-<table width="99%" height="100%" align="center" cellspacing="0" cellpadding="0"">
+<table width="99%" height="100%" align="center">
 
 <tr><td colspan="2" style="height:100%;padding:10px">
 
-	<cfform style="height:100%" action="RecordSubmit.cfm?module=#url.module#&idmenu=#URL.idmenu#&code=#URL.code#&class=#URL.class#&id=#URL.ID#" method="POST" target="process" name="dialog">
+	<cfform style="height:100%" action="RecordSubmit.cfm?module=#module.systemmodule#&idmenu=#URL.idmenu#&code=#URL.code#&class=#URL.class#&id=#URL.ID#" method="POST" target="process" name="dialog">
 
 	<cf_divscroll style="height:100%">
 		
@@ -45,12 +77,13 @@ password="#SESSION.dbpw#">
 	    <tr><td height="6"></td></tr>
 	    				
 		<TR>
-		    <TD class="labelmedium"><cf_tl id="Topic">:</TD>
+		    <TD class="labelmedium2"><cf_tl id="Topic">:</TD>
 		    <TD class="labelit">
 			   <table cellspacing="0" cellpadding="0">
 			   <tr>
 				   <td class="labelit">
-			  	   <cfinput type="Text" name="TopicName" value="#Get.TopicName#" message="Please enter a description" required="Yes" size="60" maxlength="60" class="regularxl enterastab">
+			  	   <cfinput type="Text" name="TopicName" value="#Get.TopicName#" message="Please enter a description" required="Yes" size="60" maxlength="60"
+				     class="regularxxl enterastab">
 				   </td>
 				   <!---
 				   <TD class="labelit" style="padding-left:20px">Listing order:&nbsp;</TD>
@@ -64,10 +97,11 @@ password="#SESSION.dbpw#">
 		</TR>		
 		
 		<TR>
-	    <TD width="150" class="labelmedium">Code: <font size="3">#URL.Code#-</TD>
+	    <TD width="150" class="labelmedium2">Code: <font size="3">#URL.Code#-</TD>
 		<TD class="labelit">				
 		  
-			  	   <cfinput type="Text" name="TopicCode" value="#Get.TopicCode#" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl enterastab">
+			  	   <cfinput type="Text" name="TopicCode" value="#Get.TopicCode#" message="Please enter a code" required="Yes" size="10" maxlength="10" 
+				   class="regularxxl enterastab">
 								
 				   <!---
 				   <img src="<cfoutput>#SESSION.root#</cfoutput>/images/finger.gif" alt="" border="0" align="absmiddle">
@@ -87,9 +121,9 @@ password="#SESSION.dbpw#">
 		</TR>		
 		
 		<tr>
-			<TD class="labelmedium" width="70"><cf_tl id="Language">:</TD>
+			<TD class="labelmedium2" width="70"><cf_tl id="Language">:</TD>
 			<TD class="labelit">
-				<select name="LanguageCode" id="LanguageCode" class="regularxl enterastab">
+				<select name="LanguageCode" id="LanguageCode" class="regularxxl enterastab">
 				  <cfloop query="Language">
 				  <option value="#Code#" 
 				      <cfif Code eq "#get.LanguageCode#">selected</cfif>>#LanguageName#</option>
@@ -99,20 +133,20 @@ password="#SESSION.dbpw#">
 		</tr>					
 					
 		<TR>
-			<TD class="labelmedium"><cf_tl id="Label">:</TD>
+			<TD class="labelmedium2"><cf_tl id="Label">:</TD>
 		    <TD class="labelit">
-		  	   <cfinput type="Text" name="UITextHeader" value="#Get.UITextHeader#" size="70" maxlength="80" class="regularxl enterastab">			   
+		  	   <cfinput type="Text" name="UITextHeader" value="#Get.UITextHeader#" size="70" maxlength="80" class="regularxxl enterastab">			   
 		    </TD>
 		</TR>	
 		
 		<tr>
-			<TD class="labelmedium" width="90"><cf_tl id="Presentation">:</TD>
+			<TD class="labelmedium2" width="90"><cf_tl id="Presentation">:</TD>
 			<TD class="labelit">
 			
 			<table cellspacing="0" cellpadding="0">
 			<tr>
 			<td class="labelit">
-				<select name="TopicPresentation" id="TopicPresentation" class="regularxl enterastab">
+				<select name="TopicPresentation" id="TopicPresentation" class="regularxxl enterastab">
 				  <option value="Embed"  <cfif get.TopicPresentation eq "Embed">selected</cfif>>Embed</option>
 				  <option value="Dialog"  <cfif get.TopicPresentation eq "Dialog">selected</cfif>>Window</option>
 				  <option value="Modal"   <cfif get.TopicPresentation eq "Modal">selected</cfif>>Modal Dialog</option>
@@ -124,12 +158,12 @@ password="#SESSION.dbpw#">
 			
 			        <table><tr>
 
-					<td><input name="UITextHeaderIcon" id="UITextHeaderIcon" class="enterastab" type="radio" value="" <cfif Get.UITextHeaderIcon eq "">checked</cfif>></td>
+					<td><input name="UITextHeaderIcon" id="UITextHeaderIcon" class="enterastab radiol" type="radio" value="" <cfif Get.UITextHeaderIcon eq "">checked</cfif>></td>
 					<td class="labelmedium" style="padding-left:4px">Default</td>
 																
 					<cfloop index="icn" list="help1.png,help2.png,help3.png" delimiters=",">
 						<td style="padding-left:4px">
-							<input name="UITextHeaderIcon" id="UITextHeaderIcon" type="radio" class="enterastab" value="#icn#" <cfif Get.UITextHeaderIcon eq icn>checked</cfif>>
+							<input name="UITextHeaderIcon" id="UITextHeaderIcon" type="radio" class="enterastab radiol" value="#icn#" <cfif Get.UITextHeaderIcon eq icn>checked</cfif>>
 						</td>
 						<td style="padding-left:4px">
 							<img src="#SESSION.root#/Images/#icn#" align="absmiddle" alt="" border="0">		

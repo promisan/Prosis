@@ -125,7 +125,7 @@ password="#SESSION.dbpw#">
 		
 	<table width="100%" align="center" class="navigation_table">
 
-		    <tr class="labelmedium fixrow3 clsFilterRow">
+		    <tr class="labelmedium2 fixrow3 clsFilterRow">
 			   <td style="min-width:26px;top:53px"></td>			  
 			   <td style="min-width:110px;top:53px"><cf_tl id="Roll"></td>	
 			   <td style="min-width:200px;top:53px"><cf_tl id="Earmarked"></td>   <!--- earmark --->			  		   		  			   
@@ -152,7 +152,7 @@ password="#SESSION.dbpw#">
 			<td colspan="10"><table>
 				<tr class="labelmedium">
 					<td style="font-size:15px;padding-left:40px;min-width:70px;"><a href="javascript:locationitem('#itemLocationId#')" class="ccontent">#ItemNo#</a></td>
-					<td class="ccontent" style="height:26;font-size:15px">#ItemDescription#</td>
+					<td class="ccontent" style="height:26;font-size:15px">#ItemDescription# <cfif ItemNoExternal neq "">/ #itemNoExternal#</cfif></td>
 					<td style="display:none;" class="ccontent">#ItemBarCode#</td>
 				</tr>
 				</table>
@@ -213,6 +213,7 @@ password="#SESSION.dbpw#">
 							       <cfinclude template="InventoryViewListLine.cfm"> 
 								   <td class="ccontent hide">#ItemNo#</td>
 								   <td class="ccontent hide">#ItemDescription#</td>
+								   <td class="ccontent hide">#ItemNoExternal#</td>	
 								</tr>	
 								
 								<tr id="locarc#url.box#_#currentrow#_box" class="hide">		
@@ -242,7 +243,8 @@ password="#SESSION.dbpw#">
 														
 								<tr bgcolor="#color#" class="#cl# clsFilterRow navigation_row line <cfif abs(onhand) lte "0.02">zero<cfelse>standard</cfif>">																		  				
 								   <cfinclude template="InventoryViewListLine.cfm">	
-								   <td class="ccontent hide">#ItemNo#</td>													   
+								   <td class="ccontent hide">#ItemNo#</td>			
+								   <td class="ccontent hide">#ItemNoExternal#</td>											   
 								   <td class="ccontent hide">#ItemDescription#</td>
 								</tr>		
 								
@@ -277,6 +279,9 @@ password="#SESSION.dbpw#">
 						</cfloop>
 						<cfloop query="list">
 							<div style="display:none;" class="ccontent">#ItemBarCode#</div>
+						</cfloop>
+						<cfloop query="list">
+							<div style="display:none;" class="ccontent">#ItemNoExternal#</div>
 						</cfloop>
 					</td>	
 				</tr>
@@ -314,7 +319,7 @@ password="#SESSION.dbpw#">
 							      class = "regular enterastab" 
 							      totlength="400"
 							      onkeyup="return ismaxlength(this)"					
-							      style="padding:3px;font-size:13px;height:38;width:98%"></textarea>
+							      style="padding:3px;font-size:14px;height:38;width:98%"></textarea>
 	
 				  	</td>			  	   
 				</tr>

@@ -92,8 +92,7 @@
 					 SupplyWarehouse,
 					 </cfif>				
 					 TaskingMode,
-					 ModeSetItem,
-					 QuotationMode,
+					 ModeSetItem,					
 					 SaleMode,
 					 SaleCurrency,
 					 <cfif trim('Form.SaleBackground') neq "">SaleBackground,</cfif>
@@ -120,8 +119,7 @@
 					   '#Form.SupplyWarehouse#',
 					  </cfif>
 					  '#Form.TaskingMode#',
-					  '#Form.ModeSetItem#',
-					  '#Form.QuotationMode#',
+					  '#Form.ModeSetItem#',					  
 					  '#Form.SaleMode#',
 					  '#Form.SaleCurrency#',
 					  <cfif trim('Form.SaleBackground') neq "">'#Form.SaleBackground#',</cfif>

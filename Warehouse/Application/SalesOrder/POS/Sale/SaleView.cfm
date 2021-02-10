@@ -115,7 +115,7 @@ password="#SESSION.dbpw#">
 			
 			<tr id="header" class="<cfif url.scope eq 'POS'>regular<cfelse>hide</cfif>" style="border-bottom:1px solid gray">
 																		
-			    <td width="100%" style="height:63px;border-bottom-left-radius:0px;background-image: linear-gradient(to bottom,##bababa,##bababa);">
+			    <td width="100%" style="height:63px;border-bottom-left-radius:0px;background-image: linear-gradient(to bottom,##ffffff,##d6d6d6);">
 												  											
 					<table width="100%">
 							
@@ -125,11 +125,11 @@ password="#SESSION.dbpw#">
 													
 						  <cf_getWarehouseTime warehouse="#url.warehouse#">	
 																			
-						  <table border="0">
+						  <table>
 						  
 					        <tr>
 							
-							<td style="padding-left:5px;padding-top:6px" onClick="stockfullview()">
+							<td style="padding-left:5px;padding-top:6px;padding-right:5px" onClick="stockfullview()">
 				
 						               <cfquery name="getLogo" 
 									     datasource="AppsInit">
@@ -149,11 +149,12 @@ password="#SESSION.dbpw#">
 					                       <cfset vLogoSource="#SESSION.root#/#getLogo.logopath#/#getLogo.logofilename#">
 					                   </cfif>
 					                   <img style="border:1px solid silver;border-radius:5px;height:48px" src="#vLogoSource#">
+									   &nbsp;
 					                </td>
 					            
-	                            <td valign="middle" align="left">
-	                                    <span style="padding-left:3px;font-size:27px;font-weight:bold;padding-left:15px">#get.WarehouseName#
-	                                    <span style="padding-top:8px;padding-left:3px;font-size:13px;font-weight:400;">#get.Address#</span>						  
+	                            <td align="left" style="padding-top:14px:padding-left:8px;font-size:32px">
+	                                    #get.WarehouseName#
+	                                    <span style="padding-left:8px;font-size:13px">#get.Address#</span>						  
 								 </td>  
 					        </tr>		
 														
@@ -176,7 +177,7 @@ password="#SESSION.dbpw#">
 												
 						</td>
 						
-						<td style="width:160px" align="right" class="clsNoPrint">		
+						<td style="width:160px;padding-top:3px;padding-bottom:3px" align="right" class="clsNoPrint">		
 															  
 			                  <table align="center" width="100%">
 							 										    				  		   											
@@ -185,7 +186,7 @@ password="#SESSION.dbpw#">
 													  
 							  <tr><td width="100%" style="padding-right:5px;padding-top:5px;">
 							  
-							  	  <table width="100%" style="border:1px solid silver;background-color:f1f1f1">
+							  	  <table width="100%" style="border:1px solid silver;background-color:##ffffaf50">
 							  
 								  <tr>
 								  <td style="padding-left:15px;padding-right:10px;min-width:30px;">						  			 
@@ -195,7 +196,7 @@ password="#SESSION.dbpw#">
 								  <td>						  
 									<input type="hidden" name="itoday" id="itoday" value="#dateformat(now(),CLIENT.DateFormatShow)#">							
 									
-									<div id="dtoday" style="padding-bottom:10px;" class="labellarge">#dateformat(now(),CLIENT.DateFormatShow)#</div>							
+									<div id="dtoday" style="padding-bottom:10px;;padding-top:18px" class="labellarge">#dateformat(now(),CLIENT.DateFormatShow)#</div>							
 									
 									<cf_getWarehouseTime warehouse="#url.warehouse#">													
 									
@@ -216,7 +217,7 @@ password="#SESSION.dbpw#">
 								  
 								  <td align="right" width="50" style="padding-left:4px">
 								  
-								    <div id="dhour" class="labellarge" style="padding-bottom:10px;width:20px;" align="right">#hr#</div>					
+								    <div id="dhour" class="labellarge" style="padding-bottom:10px;width:20px;;padding-top:18px" align="right">#hr#</div>					
 								
 									<select name="Transaction_hour" id="Transaction_hour"  style="height:28px;font-size:14px" class="hide">
 									
@@ -233,9 +234,9 @@ password="#SESSION.dbpw#">
 									</select>					
 						
 								  </td>						  
-								  <td style="padding-top:10px;width:1px;padding-bottom:13px" class="labellarge" align="center">:</td>						
+								  <td style="padding-top:10px;width:1px;padding-bottom:13px;padding-top:18px" class="labellarge" align="center">:</td>						
 								  
-								  <td style="padding-left:2px"><div class="labellarge" style="padding-bottom:10px" id="dminute">#mn#&nbsp;</div>		
+								  <td style="padding-left:2px"><div class="labellarge" style=";padding-top:18px;padding-bottom:10px" id="dminute">#mn#&nbsp;</div>		
 								    
 									<select name="Transaction_minute" id="Transaction_minute"  style="height:28px;font-size:14px" class="hide">
 										
@@ -316,7 +317,7 @@ password="#SESSION.dbpw#">
 			   
 			   </cfif>
 																		
-			<td colspan="1" valign="top" style="min-width:65%;border-top-left-radius:0px;border-bottom-left-radius:1px;<cfif url.scope eq 'POS'>border:1px solid gray;background-image:linear-gradient(to bottom,##dadada,##dadada)</cfif>;padding-right:15px;height:80px;" id="customer_box">
+			<td colspan="1" valign="top" style="min-width:65%;border-radius:15px;border-bottom-left-radius:1px;<cfif url.scope eq 'POS'>border:0px solid silver;background-image:linear-gradient(to bottom,##f1f1f1,##f1f1f1)</cfif>;padding-right:15px;height:80px;" id="customer_box">
 						
 				<table width="100%" align="left" style="min-width:360px">
 				
@@ -434,7 +435,7 @@ password="#SESSION.dbpw#">
 			   </td>			   
 			  			   			   	  			  			 			   	  			  
 			   <td valign="top" 
-			       style="min-width:200px;padding-left:5px;<cfif url.scope eq 'POS'>border:1px solid gray;background-image:linear-gradient(to bottom,##c1c1c1,##c1c1c1)</cfif>" 
+			       style="border-radius:15px;min-width:200px;padding-left:5px;<cfif url.scope eq 'POS'>border:0px solid gray;background-image:linear-gradient(to bottom,##ffffaf,##ffffaf)</cfif>" 
 				   class="#full#">
 			   
 				   <table width="100%" border="0"> 
@@ -567,11 +568,11 @@ password="#SESSION.dbpw#">
 			<tr>
 			<td style="padding-top:5px;height:34px;padding-left:14px;padding-right:10px" colspan="5">
 						
-			<table height="100%" align="left" style="background-color:e1e1e1">
+			<table height="100%" align="left">
 									
 			<tr style="height:32px;" class="labelmedium">
 								
-					<td style="border:1px solid silver;min-width:60px;font-size:20px;border-bottom:0px solid gray" id="trarequestno" align="center">					
+					<td style="border:0px solid silver;min-width:60px;font-size:20px" id="trarequestno" align="center">					
 					<cfinclude template="getCustomerRequest.cfm">					
 					</td>			
 												
@@ -579,8 +580,8 @@ password="#SESSION.dbpw#">
 					<!--- CURRENCY SELECT --->
 					<!--- --------------- --->		
 			
-					<td style="border:1px solid silver;border-bottom:0px solid gray;height:20px;padding-right:4px;min-width:80px;padding-left:15px; color:##000000;"><cf_tl id="currency"></td>
-					<td style="min-width:70px;border:1px solid silver;border-bottom:0px solid gray">				
+					<td style="border:0px solid silver;border-bottom:0px solid gray;height:20px;padding-right:4px;min-width:80px;padding-left:15px; color:##000000;"><cf_tl id="currency"></td>
+					<td style="min-width:70px;border-bottom:0px solid gray">				
 									
 					<cfquery name="currencylist" 
 					  datasource="AppsLedger" 
@@ -591,7 +592,7 @@ password="#SESSION.dbpw#">
 							WHERE  EnableProcurement = 1	   							   
 					</cfquery>
 					
-					<select name="currency" id="currency" style="font-size:16px;height:100%;width:100%;border:0px;" class="regularXXL"
+					<select name="currency" id="currency" style="background-color:f1f1f1;font-size:16px;height:100%;width:100%;border:0px;" class="regularXXL"
 						onchange="ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=currency&currency='+this.value+'&requestno='+document.getElementById('RequestNo').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value,'salelines','','','POST','saleform')">
 						
 						<cfloop query="currencylist">
@@ -606,13 +607,13 @@ password="#SESSION.dbpw#">
 					<!--- ---Commision--- --->
 					<!--- --------------- --->		
 					
-					<td align="right" style="padding-left:15px;border-top:1px solid gray;border-right:1px solid gray">
+					<td align="right" style="padding-left:15px;border-top:0px solid gray;border-right:0px solid gray">
 					
 						<table style="height:100%">
-						<tr class="labelmedium">
+						<tr class="labelmedium2">
 						
 						<td style="padding-right:10px; color:000000;min-width:70px"><cf_tl id="Sale"></td>
-						<td style="min-width:120px;border-left:1px solid gray" id="personbox">
+						<td style="min-width:120px;border-left:0px solid gray" id="personbox">
 						
 						<!--- get people that have an active assignment in the mission and in the orgunit of the warehouse --->
 																
@@ -633,12 +634,12 @@ password="#SESSION.dbpw#">
 					<!--- SCHEDULE SELECT --->
 					<!--- --------------- --->				
 					
-					<td align="left" style="padding-left:15px;;border-top:1px solid gray;border-right:1px solid gray">
+					<td align="left" style="padding-left:15px;;border-top:0px solid gray;border-right:0px solid gray">
 					
 						<table style="height:100%">
-						<tr class="labelmedium">						
+						<tr class="labelmedium2">						
 						<td style="padding-right:10px; color:##000000;min-width:90px"><cf_tl id="Schedule"></td>
-						<td style="min-width:100px;border-left:1px solid gray" id="schedulebox">
+						<td style="min-width:100px;border-left:0px solid gray" id="schedulebox">
 						
 						<cfinclude template="getSchedule.cfm">					
 						
@@ -653,12 +654,12 @@ password="#SESSION.dbpw#">
 					
 					<td align="left">
 					
-						<table height="100%" style="border-top:1px solid gray">
+						<table height="100%" style="border-top:0px solid gray">
 						
-						<tr class="labelmedium">
+						<tr class="labelmedium2">
 						
 						<td style="padding-left:15px;padding-right:10px; color:##000000;"><cf_tl id="Discount"></td>
-						<td style="border-left:1px solid gray;border-right:1px solid gray;" id="discountbox">
+						<td style="border-left:0px solid gray;border-right:0px solid gray;" id="discountbox">
 						
 						<cfinclude template="getDiscount.cfm">
 																		
@@ -676,9 +677,9 @@ password="#SESSION.dbpw#">
 							
 				<cfset htx = "100%">
 												
-					<table border="0" width="100%" height="100%" style="border-top:1px solid silver;">
+					<table border="0" width="100%" height="100%" style="border-top:0px solid silver;">
 										   						
-						<tr style="background-color:##f1f1f1;height:10px;border-bottom:1px solid silver">
+						<tr style="height:10px;border-bottom:1px solid silver">
 						<td style="padding:5px 10px 6px 0;">
 						
 							<table width="99%" border="0" class="clsPOSDetailLinesHeader">
@@ -715,7 +716,7 @@ password="#SESSION.dbpw#">
 						
 						<tr style="border-bottom:1px solid silver;">
 													
-						    <td height="100%" width="100%" valign="top" bgcolor="ffffff"> 		
+						    <td height="100%" width="100%" valign="top" style="background-color:f9f9f9"> 		
 						    <cf_divscroll id="salelines" overflowy="scroll">																
 							   <cfinclude template="SaleViewLines.cfm">								
 							</cf_divscroll>   							
@@ -800,7 +801,7 @@ password="#SESSION.dbpw#">
 				
 				<td width="50%" style="padding-top:4px;height:100px;" valign="top" class="clsFooterDetail clsCustomeradditional;#full#">
 													
-					<div id="customeradditional" style="border-bottom-left-radius:10px;height:100%; padding-top:1px; padding-bottom:3px;background-image: linear-gradient(to bottom,##d6d6d6,##f1f1f1);">								
+					<div id="customeradditional" style="border-bottom-left-radius:10px;height:100%; padding-top:1px; padding-bottom:3px;background-image: linear-gradient(to bottom,##ffffff,##fffffff);">								
 						<cfinclude template="getCustomerInfo.cfm">
 					</div>
 													
@@ -816,7 +817,7 @@ password="#SESSION.dbpw#">
 				
 					<table width="100%" height="100%">
 																					
-						<tr><td style="border-bottom-right-radius:10px;padding-bottom:5px;padding-top:4px;background-image: linear-gradient(to bottom,##eaeaea,##eaeaea);">
+						<tr><td style="border-bottom-right-radius:10px;padding-bottom:5px;padding-top:4px;background-image: linear-gradient(to bottom,##fafafa,##eaeaea);">
 																		
 						<cfquery name="getTotal"
 							datasource="AppsMaterials" 

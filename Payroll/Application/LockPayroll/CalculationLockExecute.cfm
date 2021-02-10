@@ -39,7 +39,7 @@
 		</td></tr>
 		<tr><td colspan="2" height="1" class="line"></td></tr>
 		<tr><td align="center" colspan="2">
-		<input type="button" onclick="ColdFusion.Window.hide('executetask');history.go()" class="button10g" name="Close" value="Close">
+		<input type="button" onclick="ProsisUI.closeWindow('executetask');history.go()" class="button10g" name="Close" value="Close">
 		</td></tr>
 		</table>
 	

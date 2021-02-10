@@ -116,7 +116,7 @@ password="#SESSION.dbpw#">
 
 <cf_divscroll style="height:100%">
 
-<table style="width:98.5%">
+<table style="width:98.5%" align="center">
 
 <cfoutput>
 <!--- added button to trigger a refresh --->

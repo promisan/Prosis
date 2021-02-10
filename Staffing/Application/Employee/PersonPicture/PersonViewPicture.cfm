@@ -23,8 +23,7 @@
 		  returnvariable="accessStaffing">				
 		
 		<tr>
-			<td width="#url.PictureWidth#" class="labelit" 
-			   height="#url.PictureHeight#" align="center" style="border:0px dotted silver">
+			<td class="labelit" align="center" style="width:#url.PictureWidth#;height:#url.PictureHeight#;border:1px solid gray">
 			   
 				<cf_assignid>
 												
@@ -63,12 +62,18 @@
 													
 				 <cfelse>	
 				 
+				 	<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg")>
+					<cfimage source="#myImage#" width="114" height="#url.pictureheight#" action="writeToBrowser">
+				 
+				 <!---
 			  	    <img src="#SESSION.rootDocument#\EmployeePhoto\#pict#.jpg?id=#rowguid#" 
 						 title="Picture" name="EmployeePhoto"  
 						 id="EmployeePhoto" 
 						 width="130" 
 						 height="#url.PictureHeight#" 
 						 align="absmiddle">
+						 
+						 --->
 
 						 
 				 </cfif>
@@ -81,7 +86,7 @@
 			<cfif IndexNo neq "">
 			
 			<tr>
-			 	<td align="center" class="labelmedium clsNoPrint" style="cursor:pointer;padding:1px;border:0px solid black">
+			 	<td align="center" class="labelmedium2 clsNoPrint" style="cursor:pointer;padding:1px;border:0px solid black">
 				
 			 		<a href="javascript:uploadPictureProfile('#url.indexNo#');">
 						

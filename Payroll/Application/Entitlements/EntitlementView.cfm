@@ -4,10 +4,10 @@
 <cf_tl id="Employee Personnel Action and Entitlement Inquiry" var="1">
 
 <cf_screenTop height="100%" title="#URL.Mission# #lt_text#" 
-    jQuery="Yes" html="No" border="0" scroll="no" flush="Yes" MenuAccess="Yes" validateSession="Yes">
+    jQuery="Yes" html="No" border="0" scroll="no" MenuAccess="Yes" validateSession="Yes">
 	 
 <cf_LayoutScript>
-<cfajaximport tags="cftree,cfform">	
+<cfajaximport tags="cfform">	
 	 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>
 

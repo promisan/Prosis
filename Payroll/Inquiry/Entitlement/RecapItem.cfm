@@ -18,10 +18,12 @@
   WHERE  	S.CalculationId   = '#URL.ID2#' 
   AND    	S.SalarySchedule  = L0.SalarySchedule
   AND    	S.PayrollStart    = L0.PayrollStart
+  AND    	S.Mission         = L0.Mission
   AND    	L0.PersonNo       = L.PersonNo
   AND    	L0.PayrollStart   = L.PayrollStart
   AND    	L0.PayrollCalcNo  = L.PayrollCalcNo
   AND    	C.PayrollItem     = L.PayrollItem
+ 
   <cfif url.id eq "TOT">
   AND        C.PrintGroup      = '#URL.ID3#' 
   <cfelse>
@@ -37,12 +39,7 @@
 
 <cfif Component.recordCount neq "0">
 
-	<table width="98%" 
-	       height="100%" 
-		   border="0" 	   
-		   align="center" 
-		   cellpadding="0" 
-		   cellspacing="0">
+	<table width="98%" height="100%" align="center">
 
     <tr><td height="3"></td></tr>
 	<tr><td colspan="3" height="35" align="center">
@@ -58,14 +55,14 @@
 	<tr><td height="5"></td></tr>
 	<tr><td valign="top" style="border:0px solid silver">
 		
-		<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+		<table width="100%" align="center">
 								
 		<tr>
 			<td align="center" width="35%" valign="top" style="min-width:400px;padding-right:10px; border-right:1px solid Silver;">
 			
-				<table width="95%" border="0" cellpadding="0" cellspacing="0" class="navigation_table formpadding"> 
+				<table width="95%" class="navigation_table formpadding"> 
 				
-					<tr class="line labelmedium">
+					<tr class="line labelmedium2">
 					    <td>&nbsp;</td>
 					    <td><cf_tl id="Code"></td>
 						<td><cf_tl id="Item"></td>
@@ -80,7 +77,7 @@
 						<cfif currentrow eq recordCount>
 							<cfset vLineTotal = "line">
 						</cfif>
-						<tr style="cursor: pointer; height:15px;" class="line navigation_row labelmedium #vLineTotal#" onclick="javascript:listing('#url.id#','#url.id1#','#url.id2#','#url.id3#','#PayrollItem#')">
+						<tr style="cursor: pointer; height:15px;" class="line navigation_row labelmedium2 #vLineTotal#" onclick="javascript:listing('#url.id#','#url.id1#','#url.id2#','#url.id3#','#PayrollItem#')">
 					        <td>&nbsp;</td>
 					        <td style="padding-right:8px;">#PayrollItem#</td>
 							<td width="50%">#PrintDescriptionLong#</td>
@@ -91,7 +88,7 @@
 					</cfoutput>
 						
 					
-					<tr class="labelmedium">
+					<tr class="labelmedium2">
 					    <td>&nbsp;</td>
 						<td colspan="3"><cf_tl id="Total"></b></td>
 						<td align="right" style="padding-right:5px"><b><cfoutput>#NumberFormat(Sum,",.__")#</cfoutput></b></td>
@@ -108,7 +105,7 @@
 				<tr><td align="center" valign="middle" style="padding-top:9px">
 				
 				<cfchart format="png"
-		           chartheight="400"
+		           chartheight="200"
 		           chartwidth="700"
 		           showygridlines="no"
 		           seriesplacement="default"
@@ -143,7 +140,7 @@
 		</td>
 	</tr>
 		
-	<tr><td height="600" valign="top" align="center" style="padding:4px;border-top:1px solid silver" id="listingcontent"></td></tr>
+	<tr><td height="600" align="center" style="padding-left:4px;padding-right:4pxborder-top:1px solid silver" id="listingcontent"></td></tr>
 	
 	</table>
 

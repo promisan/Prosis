@@ -101,8 +101,8 @@ password="#SESSION.dbpw#">
 					  				  			  
 					  (SELECT   TOP 1 CP.Description
 					   FROM     PersonContract G, Ref_PostGrade CG, Ref_PostGradeParent CP
-					   WHERE    G.PersonNo = P.PersonNo
-					   AND      G.ContractLevel = CG.PostGrade
+					   WHERE    G.PersonNo         = P.PersonNo
+					   AND      G.ContractLevel    = CG.PostGrade
 					   AND      CG.PostGradeParent = CP.Code
 					   AND      ActionStatus = '1'
 					   ORDER BY G.Created DESC
@@ -227,11 +227,11 @@ password="#SESSION.dbpw#">
 							
 	<cfset itm = itm+1>
 	<cf_tl id="IndexNo" var = "1">			
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "IndexNo",					
-						alias         = "",							
-						width         = "20",																	
-						search        = "text"}>		
+	<cfset fields[itm] = {label           = "#lt_text#",                    
+	     				field             = "IndexNo",					
+						alias             = "",							
+						width             = "20",																	
+						search            = "text"}>		
 				
 	<cfset itm = itm+1>
 	<cf_tl id="Name" var = "1">		
@@ -241,8 +241,29 @@ password="#SESSION.dbpw#">
 						functionfield     = "PersonNo",		
 						functioncondition = "PersonEvent",						
 						width             = "40",																		
-						search            = "text"}>													
+						search            = "text"}>	
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Gender" var = "1">		
+	<cfset fields[itm] = {label           = "#lt_text#",                    
+	     				field             = "Gender",																							
+						display           = "0",																																					
+						displayfilter     = "no",	
+						column            = "common",																	
+						search            = "text"}>		
+						
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Grade" var = "1">		
+	<cfset fields[itm] = {label           = "#lt_text#",                    
+	     				field             = "ContractLevel",	
+						fieldsort         = "ContractLevel",																							
+						display           = "0",																																					
+						displayfilter     = "no",	
+						column            = "common",																	
+						search            = "text"}>																						
 	
+	<!---
 	<cfset itm = itm+1>	
 	<cf_tl id="Entity" var = "1">		
 	<cfset fields[itm] = {label       = "#lt_text#",                    
@@ -251,6 +272,8 @@ password="#SESSION.dbpw#">
 						displayfilter = "yes",																																									
 						search        = "text",
 						filtermode    = "3"}>			
+						
+	--->					
 	
 	<cfif url.unit eq "">
 	
@@ -313,7 +336,8 @@ password="#SESSION.dbpw#">
 	     				field         = "TriggerDescription",	
 						functionscript = "eventdialog",
 						functionfield = "EventId",														
-						display       = "1",																																					
+						display       = "1",		
+						column         = "common",																																			
 						displayfilter = "yes",																																									
 						search        = "text",
 						filtermode    = "3"}>	
@@ -324,7 +348,8 @@ password="#SESSION.dbpw#">
 	     				field          = "EventDescription",								
 						display        = "0",	
 						rowlevel       = "1",
-						Colspan        = "1",																																				
+						Colspan        = "1",	
+						column         = "common",																																			
 						displayfilter  = "yes",																																									
 						search         = "text",
 						filtermode     = "3"}>	
@@ -335,6 +360,7 @@ password="#SESSION.dbpw#">
 	     				field          = "ContractLevel",																																												
 						search         = "text",
 						display        = "0",
+						column         = "common",
 						displayfilter  = "Yes",
 						filtermode     = "3"}>							
 								
@@ -390,24 +416,26 @@ password="#SESSION.dbpw#">
 						width         = "35",		
 						display       = "0",																																						
 						search        = "text",
-						filtermode    = "2"}>	
+						filtermode    = "3"}>	
 						
 	<cfset itm = itm+1>		
 	<cf_tl id="Status" var = "1">		
 	<cfset fields[itm] = {label       = "Status",      
-						LabelFilter = "#lt_text#", 
-						field       = "ActionStatusDescription",  	
-						search      = "text",		
+						LabelFilter   = "#lt_text#", 
+						field         = "ActionStatusDescription",  	
+						search        = "text",		
+						
 						display       = "0",	
 						displayfilter = "Yes",					   												
-						filtermode  = "3"}>											
+						filtermode    = "3"}>											
 
 	<cfset itm = itm+1>		
 	<cf_tl id="Status" var = "1">		
 	<cfset fields[itm] = {label       = "S",      
 						LabelFilter = "#lt_text#", 
 						field       = "ActionStatus",  
-						width       = "4",    											
+						width       = "4",    	
+						column        = "common",										
 						formatted   = "Rating",
 						ratinglist  = "9=Red,0=white,1=Yellow,3=Green"}>															
 	
@@ -522,7 +550,7 @@ password="#SESSION.dbpw#">
 
 <cf_listing
 	    header              = "myevent"
-	    box                 = "myeventlisting"
+	    box                 = "myeventlisting_#url.mission#"
 		link                = "#SESSION.root#/Staffing/Reporting/ActionLog/EventListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&unit=#url.unit#&selection=#url.selection#"
 	    html                = "No"		
 		tableheight         = "99%"

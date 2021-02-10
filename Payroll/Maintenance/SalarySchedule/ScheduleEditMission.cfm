@@ -22,7 +22,7 @@
 				
 				<tr><td height="8" colspan="5" ></td></tr>		
 				
-				<tr class="labelmedium line">
+				<tr class="labelmedium2 line">
 					<td>Op</td>		
 					<td>Entity</td>							
 					<td>Effective</td>
@@ -63,7 +63,7 @@
 												
 				<cfset ln = ln + 1>
 													
-				<tr class="labelmedium line">
+				<tr class="labelmedium2 line">
 				
 					 <cfif used.recordcount gte "1">		  
 				   
@@ -123,9 +123,9 @@
 				   
 				    <td>
 				   
-				   <select name="PostingMode_#ln#" style="width:90px;" class="regularxl" onchange="togglePostingMode(this.value, '.clsPostingMode_#mission#');">					
-					   <option value="Schedule" <cfif get.PostingMode eq "Schedule">selected</cfif>>Schedule</option>					
-					   <option value="Individual" <cfif get.PostingMode eq "Individual">selected</cfif>>Individual</option>				
+				   <select name="PostingMode_#ln#" style="width:150px;" class="regularxl" onchange="togglePostingMode(this.value, '.clsPostingMode_#mission#');">					
+					   <option value="Schedule"   <cfif get.PostingMode eq "Schedule">selected</cfif>><cf_tl id="Schedule"></option>					
+					   <option value="Individual" <cfif get.PostingMode eq "Individual">selected</cfif>><cf_tl id="Individual"></option>				
 					</select>
 					
 					<cfset vPostingModeToggle = "">

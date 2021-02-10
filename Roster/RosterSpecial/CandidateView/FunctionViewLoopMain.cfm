@@ -138,12 +138,8 @@
 						<cfif Function.FunctionRoster eq "0" 
 							AND Function.ReferenceNo neq "Direct"
 							AND (accessRoster eq "EDIT" OR accessRoster eq "ALL")>
-																				
-								<tr>
-								<td colspan="1" class="labelmedium"><cf_tl id="Reassign To">:</td>
-							    <td colspan="3" valign="middle">
-								
-								<cfquery name="FunctionNew" 
+							
+							    <cfquery name="FunctionNew" 
 								 datasource="AppsSelection" 
 								 username="#SESSION.login#" 
 								 password="#SESSION.dbpw#">
@@ -157,23 +153,31 @@
 								 ORDER BY FunctionDescription
 								</cfquery>
 								
-								<form action="FunctionViewLoopSubmit.cfm" method="post" onSubmit="return ask()">
-								<input type="hidden" name="FunctionId" value="<cfoutput>#Function.FunctionId#</cfoutput>">
+								<cfif functionnew.recordcount gte "1"> 
+																				
+									<tr>
+									<td colspan="1" class="labelmedium"><cf_tl id="Reassign To">:</td>
+								    <td colspan="3" valign="middle">
+									
+									<form action="FunctionViewLoopSubmit.cfm" method="post" onSubmit="return ask()">
+									<input type="hidden" name="FunctionId" value="<cfoutput>#Function.FunctionId#</cfoutput>">
+									
+									<table><tr><td>
+																
+									<select name="FunctionNew" id="FunctionNew" class="regularxl">
+									<cfoutput query="FunctionNew">
+									  <option value="#FunctionNo# #FunctionDescription#">#FunctionDescription#</option>
+									</cfoutput>
+									</select>
+									</td>
+									<td style="padding-left:4px">							
+									<input type="submit" class="button10g" style="height:25px;width:70px" name="Save" value="Apply">							
+									</td></tr></table>
+									</form>		
+									</td>
+									</tr>	
 								
-								<table><tr><td>
-															
-								<select name="FunctionNew" id="FunctionNew" class="regularxl">
-								<cfoutput query="FunctionNew">
-								  <option value="#FunctionNo# #FunctionDescription#">#FunctionDescription#</option>
-								</cfoutput>
-								</select>
-								</td>
-								<td style="padding-left:4px">							
-								<input type="submit" class="button10g" style="height:25px;width:70px" name="Save" value="Apply">							
-								</td></tr></table>
-								</form>		
-								</td>
-								</tr>						
+								</cfif>					
 																
 						</cfif>
 						
@@ -186,7 +190,6 @@
 		  	</table>		  
 		  	</td>
 			</tr>			
-		
 					
 			<tr><td height="99%" width="100%" valign="top" id="detail"></td></tr>
 			<tr><td height="5"></td></tr>

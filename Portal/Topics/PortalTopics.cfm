@@ -125,8 +125,7 @@ password="#SESSION.dbpw#">
 	AND      M.Operational  = '1' 
 	AND      M.MenuClass    = 'Topic'
 	AND      U.Account      = '#SESSION.acc#' 
-	AND      M.SystemModule IN (SELECT SystemModule FROM Ref_SystemModule WHERE Operational = 1)
-	
+	AND      M.SystemModule IN (SELECT SystemModule FROM Ref_SystemModule WHERE Operational = 1)	
 	
 	ORDER BY U.OrderListing, 
 	         M.FunctionClass, 
@@ -188,8 +187,7 @@ password="#SESSION.dbpw#">
 			    </cfif>			
 				</td>
 				<td width="97%" onClick="action('#SystemFunctionId#','#currentrow#')" style="cursor:pointer;color:F24F00;padding-left:10px;font-size:20px" class="labelmedium">#FunctionMemo#</td>
-				</tr>
-				
+				</tr>	
 				
 			</table>
 	   
@@ -207,8 +205,8 @@ password="#SESSION.dbpw#">
 				   </cfif>
 			  
 			   </td>
-			   <td colspan="1" align="left" style="border:0px solid silver;padding-right:5px;padding-left:6px;">
-			      <cf_img icon="delete_large" onClick="refreshme('#SystemFunctionId#','del','#currentrow#')">					
+			   <td align="left" style="border:0px solid silver;padding-right:5px;padding-left:6px;">
+			        <cf_img icon="delete_large" onClick="refreshme('#SystemFunctionId#','del','#currentrow#')">					
 			   </td>
 			   </tr>
 			   
@@ -217,24 +215,22 @@ password="#SESSION.dbpw#">
    </tr>
       			    
    <tr id="box_#currentrow#" class="<cfif Status is "1">regular<cfelse>hide</cfif>">
-      <td colspan="6">
-		    
-		 <table width="100%" cellspacing="0" cellpadding="0" align="center">
+      
+	  <td colspan="6">		    
+		 <table width="100%" align="center">
 		    <tr>					
 		     <cfif Status is "1">
 			 	<td style="padding-left:47px;padding-top:4px" align="center" id="content_#currentrow#">
-				 <cfset scope = "topic">				
-				 				 
-				 <cfinclude template="#FunctionPath#/Topic.cfm">
-				 
+				 <cfset scope = "topic">					 				 
+				 <cfinclude template="#FunctionPath#/Topic.cfm">				 
 				 </td>
 			 <cfelse>
 			    <td style="padding-left:47px;padding-top:4px" align="center" id="content_#currentrow#"></td>	 				 
 			 </cfif>
 			 </tr>
-		 </table>
-		 
+		 </table>		 
 	  </td>
+	  
    </tr>		 
          
 </cfoutput>

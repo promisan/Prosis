@@ -34,7 +34,7 @@
 
 	 <table align="center">
 	 <tr class="line">
-	 	<td align="center" style="padding-top:20px;height:42;font-size:28px;font-weight:200" class="labellarge"><font color="FF0000"><cf_tl id="This receipt document was cancelled"></td>
+	 	<td align="center" style="padding-top:20px;height:40px;font-size:26px;font-weight:200" class="labellarge"><font color="FF0000"><cf_tl id="This receipt document was cancelled"></td>
 	 </tr>
 	 </table>	
 

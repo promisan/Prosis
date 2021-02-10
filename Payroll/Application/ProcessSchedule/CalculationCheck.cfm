@@ -26,8 +26,10 @@
 		SELECT     SUM(PaymentAmount) AS Amount
 		FROM       EmployeeSalaryLine L INNER JOIN
                    EmployeeSalary S ON L.PersonNo = S.PersonNo 
-					  AND L.PayrollStart = S.PayrollStart 
-					  AND L.PayrollCalcNo = S.PayrollCalcNo 
+				      AND L.SalarySchedule  = S.SalarySchedule 
+					  AND L.PayrollStart    = S.PayrollStart 
+					  AND L.Mission         = S.Mission
+					  AND L.PayrollCalcNo   = S.PayrollCalcNo 
 		WHERE      S.Mission        = '#Schedule.Mission#'		   
 	    AND        S.SalarySchedule = '#Schedule.SalarySchedule#'
 	    AND		   S.PayrollStart   = '#dateformat(schedule.PayrollStart,client.dateSQL)#'    

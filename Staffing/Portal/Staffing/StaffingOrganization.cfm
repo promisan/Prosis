@@ -1,4 +1,10 @@
 
+
+<cftry>
+ <cfdirectory action="CREATE" directory="#SESSION.rootPath#\CFRStage\EmployeePhoto\">
+ <cfcatch></cfcatch>
+</cftry> 
+
 <table style="height:100%;width:100%">
 
 <!---

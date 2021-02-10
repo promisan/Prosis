@@ -118,7 +118,11 @@
 		  		  
 		  <td align="right" width="40%">
 		  
-			<table align="right"><tr><td>
+			<table align="right">
+			<tr>
+			
+			<!---
+			<td>
 
 			<cf_tl id="Crosstab" var="1">
 			<cf_button2 
@@ -132,6 +136,7 @@
 
 			</td>
 			<td style="padding-left:5px; padding-right:5px">|</td>
+			--->
 			<td>
 
 			<cf_tl id="Summary" var="1">

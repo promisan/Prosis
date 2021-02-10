@@ -175,8 +175,14 @@
 	     }   
     }	
 		
-	function reloadForm(mode,sort) {	    
-		ptoken.location("POViewGeneral.cfm?header=#url.header#&Mode=" + mode + "&role=#URL.Role#&ID1=#URL.ID1#&Sort="+sort) 
+	function reloadForm(mode,sort,head) {	
+		    
+		 if (head == "undefined") {
+		    header = "#url.header#"
+		} else { 
+		    header = head
+		}	    
+		ptoken.location("POView.cfm?Mode=" + mode + "&role=#URL.Role#&ID1=#URL.ID1#&Sort="+sort+"&header="+header) 
 	}
 	
 	function amendpurchase() {	
@@ -316,7 +322,7 @@
 		</td>
 
 	    <td align="right" style="background-color:white">
-		  	<select name="sort" id="sort" size="1" class="regularxl" onChange="reloadForm('<cfoutput>#URL.Mode#</cfoutput>',this.value)">
+		  	<select name="sort" id="sort" size="1" class="regularxl" onChange="reloadForm('<cfoutput>#URL.Mode#</cfoutput>',this.value,'yes')">
    	  		    <option value="Line" <cfif URL.Sort eq "Line">selected</cfif>><cf_tl id="Default">
 			    <option value="GL"   <cfif URL.Sort eq "GL">selected</cfif>><cf_tl id="Show Ledger Transaction">
 		 	</select>

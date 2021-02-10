@@ -3,18 +3,18 @@
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT *
-FROM   Ref_ParameterMission
-WHERE  Mission = '#URL.Mission#' 
+	SELECT *
+	FROM   Ref_ParameterMission
+	WHERE  Mission = '#URL.Mission#' 
 </cfquery>
 
 <cfquery name="PA" 
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT *
-FROM   Ref_LeaveType
-WHERE  ActionCode IN (SELECT ActionCode FROM Ref_Action) 
+	SELECT *
+	FROM   Ref_LeaveType
+	WHERE  ActionCode IN (SELECT ActionCode FROM Ref_Action) 
 </cfquery>
 
 <cfoutput query="get">
@@ -22,23 +22,23 @@ WHERE  ActionCode IN (SELECT ActionCode FROM Ref_Action)
 <cfform method="POST"
   name="formleave">
   
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding formspacing">
 	
 	<tr><td height="5"></td></tr>	
 	
 	<TR>
-	    <td width="170" class="labelmedium"><cf_UIToolTip tooltip="Enable Leave workflow">PA Leave Workflow:</b></cf_UIToolTip></td>
+	    <td width="170" class="labelmedium2"><cf_UIToolTip tooltip="Enable Leave workflow">PA Leave Workflow:</b></cf_UIToolTip></td>
 								 
-	    <TD width="75%" class="labelmedium">
+	    <TD width="75%" class="labelmedium2">
 		
-		    <cfdiv bind="url:#SESSION.root#/system/entityAction/EntityFlow/EntityAction/EntityStatus.cfm?mission=#url.mission#&entitycode=EntLve" 
+		    <cf_securediv bind="url:#SESSION.root#/system/entityAction/EntityFlow/EntityAction/EntityStatus.cfm?mission=#url.mission#&entitycode=EntLve" 
 			  id="wfPersonLeave">
 		
 			</td>
     </tr>
 		
 	<tr>
-	   <td class="labelmedium">Personnel Action enabled leave:</td>
+	   <td class="labelmedium2">Personnel Action enabled leave:</td>
 	   <td>
 	   <table>
 	   <cfloop query="PA">
@@ -50,7 +50,7 @@ WHERE  ActionCode IN (SELECT ActionCode FROM Ref_Action)
 	</tr>
 	
 	<TR>
-    <td class="labelmedium">Leave Balance Auto calculate:</b></td>
+    <td class="labelmedium2">Leave Balance Auto calculate:</b></td>
     <TD>	
 	<table>
 		<tr>
@@ -63,7 +63,7 @@ WHERE  ActionCode IN (SELECT ActionCode FROM Ref_Action)
 	
 	
 	<TR>
-    <td class="labelmedium">Disable Timesheet:</b></td>
+    <td class="labelmedium2">Disable Timesheet:</b></td>
     <TD>	
 	<table><tr>
 	<td ><input type="radio" class="radiol" name="DisableTimesheet" <cfif DisableTimesheet eq "0">checked</cfif> value="0"></td><td style="padding-left:4px" class="labelmedium">No,enabled</td>
@@ -74,7 +74,7 @@ WHERE  ActionCode IN (SELECT ActionCode FROM Ref_Action)
     </tr>
 	
 	<TR>
-    <td class="labelmedium">Payroll Overtime:</b></td>
+    <td class="labelmedium2">Payroll Overtime:</b></td>
     <TD>	
 	<table><tr>
 	<td ><input type="radio" class="radiol" name="OvertimePayroll" <cfif OvertimePayroll eq "0">checked</cfif> value="0"></td><td style="padding-left:4px" class="labelmedium">Disabled</td>
@@ -91,9 +91,8 @@ WHERE  ActionCode IN (SELECT ActionCode FROM Ref_Action)
 	       class="button10g"
 		   value="Update"
 	       name="Update" 
-		   onclick="ColdFusion.navigate('ParameterEditLeaveSubmit.cfm?mission=#url.mission#','contentbox1','','','POST','formleave')">
-	</td></tr>
-	
+		   onclick="ptoken.navigate('ParameterEditLeaveSubmit.cfm?mission=#url.mission#','contentbox1','','','POST','formleave')">
+	</td></tr>	
 	
 	<tr><td height="5"></td></tr>
 	

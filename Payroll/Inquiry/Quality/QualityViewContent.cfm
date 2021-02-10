@@ -282,9 +282,9 @@
 										type		= "Print"
 										title       = "#lt_text#" 
 										id          = "Print"
-										height		= "30px"
-										width		= "35px"
-										imageHeight = "28px"
+										height		= "25px"
+										width		= "25px"
+										imageHeight = "20px"
 										printTitle	= "##printTitle"
 										printContent = "##divContent"
 										printCallback="$('.clsCFDIVSCROLL_MainContainer').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','height:100%;');">
@@ -292,7 +292,7 @@
 								</td>
 								<cf_tl id="Export to Excel" var="1">
 								<td style="padding-left:2px;">
-									<img src="#session.root#/images/Excel.png" style="cursor:pointer; margin-top:12px; height:28px;" onclick="Prosis.exportToExcel('mainQualityViewTable');" title="#lt_text#">
+									<img src="#session.root#/images/Excel.png" style="cursor:pointer; margin-top:12px; height:25px;" onclick="Prosis.exportToExcel('mainQualityViewTable');" title="#lt_text#">
 								</td>
 							</tr>
 							
@@ -321,13 +321,13 @@
 					<table width="100%">
 							<tr>
 				
-							<td class="labelmedium" style="font-weight:250"><cf_tl id="Variation"> (<cf_tl id="percentage from the previous calculation">):</td>
+							<td class="labelmedium2"><cf_tl id="Variation"> (<cf_tl id="percentage from the previous calculation">):</td>
 							<td class="labellarge" align="right">
 								&plusmn;
 								<input 
 									type="text" 
 									id="sliderOutput" 
-									class="regularxl" 
+									class="regularxxl" 
 									style="width:40px; text-align:right; padding-right:5px;" 
 									value="#vInitialVariationValue#" 
 									onchange="setSliderValue(this.value);">

@@ -68,7 +68,7 @@
 
 <cfoutput>
 
-<select name="PriceSchedule" id="PriceSchedule" style="font-size:16px;height:100%;width:100%;border:0px;" class="regularXXL"
+<select name="PriceSchedule" id="PriceSchedule" style="font-size:16px;height:100%;width:100%;border:0px;background-color:f1f1f1;" class="regularXXL"
 	onchange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=schedule&priceschedule='+this.value+'&requestno='+document.getElementById('RequestNo').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value,'salelines','','','POST','saleform')">
 	
 	<!--- <option value="">&nbsp;&nbsp;&nbsp;--- <cf_tl id="default"> ---</option> --->

@@ -20,7 +20,7 @@ password="#SESSION.dbpw#">
 	ORDER BY R.TriggerGroup,R.SalaryTrigger, C.EntitlementPointer, ListingOrder DESC
 </cfquery>
 
-<tr class="labelmedium fixrow">
+<tr class="labelmedium2 fixrow">
     <td></td>
 	<td><cf_tl id="Description"></td>
 	<td><cf_tl id="M"></td>
@@ -34,26 +34,26 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="SearchResult" group="TriggerGroup">
 
-	<tr class="fixrow2 labelmedium">
+	<tr class="fixrow2 labelmedium2">
 	<td colspan="9" style="height:45px;font-size:30px;padding-left:10px">#TriggerGroup#</td></tr>
 	
 	<cfoutput group="SalaryTrigger">
 	
-	<tr class="line fixrow3 labelmedium">
-	    <td colspan="9" style="padding-left:30px;height:30px;top:65px;"><font color="6688aa">#TriggerDescription#</td></tr>
+	<tr class="line fixrow3 labelmedium2">
+	    <td colspan="9" style="font-size:18px;padding-left:30px;height:30px;top:65px;">#TriggerDescription#</td></tr>
 		
 		<cfoutput group="EntitlementPointer">  
 		
 		<cfoutput>     
 						
 			<cfif operational eq "0">
-				<tr bgcolor="f2f2f2" style="height:23px" class="navigation_row labelmedium"> 
+				<tr bgcolor="f2f2f2" class="navigation_row labelmedium2"> 
 			<cfelse>
-				<tr style="height:23px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('ffffff'))#" class="navigation_row labelmedium"> 
+				<tr bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('ffffff'))#" class="navigation_row labelmedium2"> 
 			</cfif> 
 		    
 				<td width="6%" align="center" style="padding-left:10px;padding-top:1px;">
-				<cf_img icon="edit" navigation="yes" onclick="recordedit('#Code#')">
+				<cf_img icon="open" navigation="yes" onclick="recordedit('#Code#')">
 				</td>	
 				<td>#Description#</td>
 				<td><cfif triggergroup neq "Personal">#SalaryMultiplier#</cfif></td>

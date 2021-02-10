@@ -83,26 +83,39 @@
 	</cfif>
 
 	<cf_assignid>
+	
+	<cftry>
+	 <cfdirectory action="CREATE" directory="#SESSION.rootPath#\CFRStage\Signature\">
+	 <cfcatch></cfcatch>
+	</cftry> 
 
 	<table width="400" height="90">
 
 	<tr><td align="center">
 
-	 <cfif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.png")>		 
+	 <cfif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.png")>	
+	 
+	 	<cffile action="COPY" 
+			source="#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.png" 
+	    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">  	 
 		 	 								 		
-		  <img src="#SESSION.rootDocument#\User\Signature\#attributes.account#.png?id=#rowguid#"			   
+		  <img src="#SESSION.root#\\CFRStage\Signature\#attributes.account#.jpg?id=#rowguid#"			   
 			   border="0"
 			   align="absmiddle"
                height="#attributes.imageheight#" 
 			   width="#attributes.imagewidth#">			  			  
 						
 	 <cfelseif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg")>	
+	 
+	 	  <cffile action="COPY" 
+			source="#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg" 
+	    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">   	
 	 	 											 		
-		  <img src="#SESSION.rootDocument#\User\Signature\#attributes.account#.jpg?id=#rowguid#"		       
+		  <img src="#SESSION.root#\\CFRStage\Signature\#attributes.account#.jpg?id=#rowguid#"			   
 			   border="0"
 			   align="absmiddle"
-	           height="#attributes.imageheight#" 
-			   width="#attributes.imagewidth#">			
+               height="#attributes.imageheight#" 
+			   width="#attributes.imagewidth#">
 		 
   	 <cfelse>		 
 			 

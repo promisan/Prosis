@@ -129,12 +129,12 @@ function batchrefresh(id) {
    
 	<cfoutput>
 	
-	<tr><td colspan="2" style="height:30" class="Labelmedium"><b><cf_tl id="Journal Classification"> #get.mission#</font></td></tr>
+	<tr><td colspan="2" style="height:30" class="labelmedium2"><b><cf_tl id="Journal Classification"> #get.mission#</font></td></tr>
 	<tr><td colspan="2" height="1" class="linedotted"></td></tr>
 	<tr class="hide"><td id="process"></td></tr>
 				
 	<TR>
-    <TD height="20" class="labelmedium"><font color="0080C0">#get.glcategory#:</TD>
+    <TD height="20" class="labelmedium2"><font color="0080C0">#get.glcategory#:</TD>
     <TD> 
 	
 	<cfif used.recordcount eq "0">
@@ -160,7 +160,7 @@ function batchrefresh(id) {
 		<tr>
 		<td>
 		
-		   <select name="transactioncategory" id="transactioncategory" class="regularxl" onChange="system()">
+		   <select name="transactioncategory" id="transactioncategory" class="regularxxl" onChange="system()">
 	     	   <cfloop query="category">
 	        	<option value="#TransactionCategory#"<cfif get.transactioncategory is TransactionCategory>selected</cfif>>#TransactionCategory#
 				</option>
@@ -170,7 +170,7 @@ function batchrefresh(id) {
 		
 		<td style="padding-left:3px">
 		
-		    <select name="currency" class="regularxl">
+		    <select name="currency" class="regularxxl">
 	     	   <cfloop query="currency">
 	        	<option value="#Currency#" <cfif currency eq get.currency>selected</cfif>>#Currency#
 				</option>
@@ -184,8 +184,8 @@ function batchrefresh(id) {
 	
 	<cfelse>
 	
-	   <input type="text" name="transactioncategory" value="#get.transactioncategory#" class="regularxl" size="10" readonly  style="background-color:e4e4e4;text-align: center;">
-	   <input type="text" name="currency" value="#get.currency#" size="4" readonly class="regularxl" style="background-color:e4e4e4;text-align: center;">
+	   <input type="text" name="transactioncategory" value="#get.transactioncategory#" class="regularxxl" size="10" readonly  style="background-color:e4e4e4;text-align: center;">
+	   <input type="text" name="currency" value="#get.currency#" size="4" readonly class="regularxxl" style="background-color:e4e4e4;text-align: center;">
 	   
 	</cfif>   
    
@@ -193,16 +193,16 @@ function batchrefresh(id) {
 	</TR>
    	
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Journal No">:</TD>
+    <TD class="labelmedium2"><cf_tl id="Journal No">:</TD>
     <TD>
-  	   <input type="Text" name="Journal" value="#get.journal#" size="10" class="regularxl" maxlength="10" readonly style="text-align: center;">
+  	   <input type="Text" name="Journal" value="#get.journal#" size="10" class="regularxxl" maxlength="10" readonly style="text-align: center;">
     </TD>
 	</TR>
 		
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Description">:</TD>
+    <TD class="labelmedium2"><cf_tl id="Description">:</TD>
     <TD>
-		<input type="Text" name="Description" value="#get.Description#" size="40" class="regularxl" maxlength="50" style="text-align: left;">
+		<input type="Text" name="Description" value="#get.Description#" size="40" class="regularxxl" maxlength="50" style="text-align: left;">
     </TD>
 	</TR>
 	
@@ -244,10 +244,10 @@ function batchrefresh(id) {
 		 </cfquery>
 	
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Enabled for owner">:</TD>
+    <TD class="labelmedium2"><cf_tl id="Enabled for owner">:</TD>
     <TD>
 	 
-  	    <select name="OrgUnitOwner" class="regularxl">
+  	    <select name="OrgUnitOwner" class="regularxxl">
 		   <option value="" <cfif get.OrgUnitOwner is "">selected</cfif>>Any</option>
      	   <cfloop query="Parent">
         	    <option value="#OrgUnit#" <cfif getOwner.MissionorgUnitid is MissionOrgUnitId>selected</cfif>>#OrgUnitName#</option>
@@ -262,10 +262,10 @@ function batchrefresh(id) {
 	
 	
 	<TR>
-    <TD class="labelmedium"><cf_tl id="System Journal">:</TD>
+    <TD class="labelmedium2"><cf_tl id="System Journal">:</TD>
     <TD>
 	 
-  	    <select name="SystemJournal" class="regularxl">
+  	    <select name="SystemJournal" class="regularxxl">
 		    <option value="" <cfif get.systemjournal is "">selected</cfif>>N/A</option>
      	   <cfloop query="Preset">
         	<option value="#Area#" <cfif get.systemjournal is area>selected</cfif>>#area#</font>
@@ -279,9 +279,9 @@ function batchrefresh(id) {
 	</cfoutput>
 		      	
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Type">:</TD>
+    <TD class="labelmedium2"><cf_tl id="Type">:</TD>
      <TD>
-  	    <select name="journaltype" class="regularxl">
+  	    <select name="journaltype" class="regularxxl">
      	   <cfoutput query="type">
         	<option value="#JournalType#" <cfif get.journaltype is journaltype>selected</cfif>>#JournalType#</option>
          	</cfoutput>
@@ -294,9 +294,9 @@ function batchrefresh(id) {
 	<cfif get.TransactionCategory eq "Payment" or get.TransactionCategory eq "DirectPayment">
 		
 		<TR>
-	    <TD class="labelmedium"><cf_UItooltip  tooltip="Bank account"><cf_tl id="Bank Account">:</cf_UItooltip>:</TD>
+	    <TD class="labelmedium2"><cf_UItooltip  tooltip="Bank account"><cf_tl id="Bank Account">:</cf_UItooltip>:</TD>
 	    <TD>
-	  	      <select name="bankid" class="regularxl">
+	  	      <select name="bankid" class="regularxxl">
 			    <option value="">Any</option>
 	            <cfloop query="Bank">
 	        	<option value="#BankId#" <cfif Get.BankId eq BankId>selected</cfif>>#BankName#</font>
@@ -305,7 +305,7 @@ function batchrefresh(id) {
 		    </select>
 	    </TD>
 		</TR>	
-		<tr><td></td><td width="70%" class="labelmedium"><i>Transactions under this journal will be routed to the selected bank account for payment. You must
+		<tr><td></td><td width="70%" class="labelmedium2"><i>Transactions under this journal will be routed to the selected bank account for payment. You must
 		define this bank account to a contra-account of a banking journal to ensure reconciliation. 
 		</td></tr>
 		
@@ -317,8 +317,8 @@ function batchrefresh(id) {
 		
 	</cfoutput>
 	
-	<tr><td class="labelmedium" style="height:20px;cursor: pointer;"><cf_UItooltip  tooltip="Allow to schedule transactions for this journal"><cf_tl id="Schedule Transactions">:</cf_UItooltip></td>
-	<TD class="labelmedium">
+	<tr><td class="labelmedium2" style="height:20px;cursor: pointer;"><cf_UItooltip  tooltip="Allow to schedule transactions for this journal"><cf_tl id="Schedule Transactions">:</cf_UItooltip></td>
+	<TD class="labelmedium2">
 	    <input type="radio" class="radiol" name="EnableScheduler" value="1" <cfif get.EnableScheduler is "1">checked</cfif>>
 		Yes
 		<input type="radio" class="radiol" name="EnableScheduler" value="0" <cfif get.EnableScheduler is "0">checked</cfif>>
@@ -326,8 +326,8 @@ function batchrefresh(id) {
     </TD>
 	</tr>
 	
-	<tr><td class="labelmedium" style="height:20"><cf_tl id="Operational">:</td>
-	<TD class="labelmedium">
+	<tr><td class="labelmedium2" style="height:20"><cf_tl id="Operational">:</td>
+	<TD class="labelmedium2">
 	    <input type="radio" class="radiol" name="Operational" value="1" <cfif get.operational is "1">checked</cfif>>
 		Yes
 		<input type="radio" class="radiol" name="Operational" value="0" <cfif get.operational is "0">checked</cfif>>
@@ -336,14 +336,14 @@ function batchrefresh(id) {
 	</tr>
 	
 	<tr><td height="4"></td></tr>
-	<tr><td colspan="2" style="height:30" class="labelmedium">Transaction Recording Settings</td></tr>
+	<tr><td colspan="2" style="height:30" class="labelmedium2">Transaction Recording Settings</td></tr>
 	<tr><td colspan="2" height="1" class="linedotted"></td></tr>
 	<tr><td height="4"></td></tr>
 	
 	<cfoutput>
 	
 	<TR>
-    <TD class="labelmedium" style="cursor: pointer;">
+    <TD class="labelmedium2" style="cursor: pointer;">
 	  <cf_UItooltip tooltip="Contra-Book transactions recorded for this journal on the selected account"><cf_tl id="Default contra-account">:</cf_UItooltip>
 	</TD>
    
@@ -351,9 +351,9 @@ function batchrefresh(id) {
 	
 		<table cellspacing="0" cellpadding="0"><tr>
 								  
-  		   <td><input type="text" name="glaccount"     id="glaccount"      value="#DefaultContraAccount.glaccount#"      size="5"  readonly class="regularxl" style="text-align: center;"></td>
-    	   <td style="padding-left:1px"><input type="text" name="gldescription" id="gldescription"  value="#DefaultContraAccount.gldescription#"  size="35" readonly class="regularxl" style="text-align: center;"></td>
-		   <td style="padding-left:1px"><input type="text" name="debitcredit"   id="debitcredit"    value="#DefaultContraAccount.accounttype#"    size="3"  readonly class="regularxl" style="text-align: center;"></td>
+  		   <td><input type="text" name="glaccount"     id="glaccount"      value="#DefaultContraAccount.glaccount#"      size="5"  readonly class="regularxxl" style="text-align: center;"></td>
+    	   <td style="padding-left:1px"><input type="text" name="gldescription" id="gldescription"  value="#DefaultContraAccount.gldescription#"  size="35" readonly class="regularxxl" style="text-align: center;"></td>
+		   <td style="padding-left:1px"><input type="text" name="debitcredit"   id="debitcredit"    value="#DefaultContraAccount.accounttype#"    size="3"  readonly class="regularxxl" style="text-align: center;"></td>
 		   		   
 		   <td style="padding-left:1px">  <img src="#SESSION.root#/Images/search.png" alt="Select account" name="img3" 
 			  onMouseOver="document.img3.src='#SESSION.root#/Images/contract.gif'" 
@@ -367,9 +367,9 @@ function batchrefresh(id) {
 	
 	<tr>
 	
-		<td class="labelmedium"><cf_UItooltip tooltip="Workflow associated to transactions under this journal"><cf_tl id="Workflow Trigger">:</cf_UItooltip></td>
+		<td class="labelmedium2"><cf_UItooltip tooltip="Workflow associated to transactions under this journal"><cf_tl id="Workflow Trigger">:</cf_UItooltip></td>
 		<td>		
-		 <select name="EntityClass" class="regularxl">
+		 <select name="EntityClass" class="regularxxl">
 	     	   <cfloop query="Workflow">
 	        	<option value="#EntityClass#" <cfif get.entityClass is EntityClass>selected</cfif>>#EntityClassName#</option>
 	         	</cfloop>
@@ -393,14 +393,14 @@ function batchrefresh(id) {
 	<cfoutput>
 		
 	<TR>
-    <TD height="20" class="labelmedium">
+    <TD height="20" class="labelmedium2">
 	  Subperiods:
 	</td>
 		
 	<td>
 	
 		<table cellspacing="0" cellpadding="0">
-		<tr><td class="labelmedium"><cf_tl id="Default">:</td>
+		<tr><td class="labelmedium2"><cf_tl id="Default">:</td>
 		   <td>	
 		   <cfdiv id="subperiod" bind="url:journalbatch.cfm?journal=#url.id1#"/>	   
 		   </td>	
@@ -416,9 +416,9 @@ function batchrefresh(id) {
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Speedtype">:</TD>
+    <TD class="labelmedium2"><cf_tl id="Speedtype">:</TD>
     <TD>
-  	    <select name="speedtype" class="regularxl">
+  	    <select name="speedtype" class="regularxxl">
 		<option value=''>N/A</option>  
      	   <cfloop query="speedtype">
         	<option value="#Speedtype#" <cfif get.speedtype is speedtype>selected</cfif>>#Speedtype# #Description#
@@ -429,7 +429,7 @@ function batchrefresh(id) {
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Next Journal SerialNo">: </font> </TD>
+    <TD class="labelmedium2"><cf_tl id="Next Journal SerialNo">: </font> </TD>
      <TD>
 	 <!---
   	    <cfinput type="Text"
@@ -444,7 +444,7 @@ function batchrefresh(id) {
        size="4"
 	   style="width:40px;text-align: center;">
 	   --->
-	   <input type="Text" name="JournalSerialNo" value="#get.JournalSerialNo+1#" size="4" class="regularxl" maxlength="50" style="text-align: center;">
+	   <input type="Text" name="JournalSerialNo" value="#get.JournalSerialNo+1#" size="4" class="regularxxl" maxlength="50" style="text-align: center;">
     </TD>
 	</TR>
 		

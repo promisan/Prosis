@@ -179,7 +179,7 @@
 		<tr><td colspan="2" style="padding-left:2px">
 
 		    <textarea class="regular" 		          
-				  style="width:99%;font-size:13px;padding:3px;height:45px" 				 
+				  style="width:99%;font-size:14px;padding:4px;height:75px" 				 
 				  name="ActionRemarks" 
 				  type="text"><cfoutput query="Get" maxrows=1>#RosterGroupMemo#</cfoutput></textarea>
 				  

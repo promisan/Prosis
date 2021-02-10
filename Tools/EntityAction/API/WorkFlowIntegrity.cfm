@@ -1,6 +1,7 @@
 
 <cfparam name="attributes.Datasource" default="appsOrganization">
 
+
 <cfquery name="getEntity" 
 	 datasource="#attributes.Datasource#"
 	 username="#SESSION.login#" 
@@ -10,12 +11,44 @@
 		WHERE      EntityCode IN (SELECT  EntityCode
     	                          FROM    Organization.dbo.OrganizationObject
         	                      WHERE   EntityCode = B.EntityCode)
+		AND        Role IN (SELECT Role 
+		                    FROM   Ref_AuthorizationRole
+							WHERE  SystemModule IN (SELECT SystemModule
+							                        FROM   System.dbo.Ref_SystemModule
+													WHERE  Operational = 1)) 						  
 </cfquery>	
 
 <cfloop query="getEntity">						  
 
-	<cfif EnableIntegrityCheck eq "1">
-						
+	<!--- check table --->
+	
+	<cfset go = "">
+	
+	<cftry>		
+	
+		<cfquery name="Check" 
+		 datasource="#attributes.Datasource#"
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+			SELECT TOP 1 *
+	    	FROM   #EntityTableName#
+		</cfquery>
+			
+		<cfset go = "1">
+		
+		zzzz
+	
+	<cfcatch>
+	
+		<cfset go = "0">
+				
+	</cfcatch>
+	
+	</cftry>
+		
+
+	<cfif EnableIntegrityCheck eq "1" and go eq "1">
+							
 		<cfquery name="Clean" 
 		 datasource="#attributes.Datasource#"
 		 username="#SESSION.login#" 

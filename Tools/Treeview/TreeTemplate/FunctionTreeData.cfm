@@ -56,7 +56,7 @@
 			<cfoutput>
 			
 			 <cf_UITreeitem value="#systemmodule#"
-		        display="<span style='font-size:14px;'>#ModuleDescription#</span>"
+		        display="<span style='font-size:15px;'>#ModuleDescription#</span>"
 				parent="#code#"
 				href="javascript:editfunction('#systemModule#')"										
 		        expand="No">	
@@ -64,7 +64,7 @@
 			<cfif systemmodule eq "selfservice">
 			
 				<cf_UITreeitem value="#systemModule#_selfservice"
-				        display="<span>Instances</span>"
+				        display="<span style='font-size:14px;'>Instances</span>"
 						img="#SESSION.root#/Images/select.png"
 						parent="#systemmodule#"
 						href="javascript:more('#systemModule#','1','Selfservice','')"														
@@ -73,7 +73,7 @@
 			<cfelseif systemmodule eq "PMobile">
 			
 				<cf_UITreeitem value="#systemModule#_selfservice"
-				        display="<span>Applications</span>"
+				        display="<span style='font-size:14px;'>Applications</span>"
 						img="#SESSION.root#/Images/select.png"
 						parent="#systemmodule#"
 						href="javascript:more('#systemModule#','1','PMobile','')"														
@@ -98,14 +98,14 @@
 				<cfif itm eq "1">
 													
 					  <cf_UITreeitem value="#systemmodule#_#itm#"
-			        	display="<span>#label#</span>"
+			        	display="<span style='font-size:14px;'>#label#</span>"
 						parent="#systemmodule#"
 			        	expand="No">
 				
 				<cfelse>
 				
 					  <cf_UITreeitem value="#systemmodule#_#itm#"
-			        	display="<span>Context Menu</span>"
+			        	display="<span style='font-size:14px;'>Context Menu</span>"
 						parent="#systemmodule#"
 			        	expand="No">
 				
@@ -166,7 +166,7 @@
 					<cfloop query="Class">
 						
 						<cf_UITreeitem value="#SystemModules.SystemModule#_#itm#_#FunctionClass#"
-					        display="<span style='color: ##333333;font-size:12px;'>#FunctionClass#</span>"
+					        display="<span style='font-size:13px;'>&nbsp;#FunctionClass#</span>"
 							img="#SESSION.root#/Images/select.png"
 							parent="#SystemModules.SystemModule#_#itm#"
 							href="javascript:more('#SystemModules.SystemModule#','#itm#','#FunctionClass#','')"														
@@ -179,9 +179,7 @@
 			  <cfif systemmodule neq "portal">							
 			 			
 				  <cf_UITreeitem value="#systemmodule#_help"
-			        display="<span>Help Topics</span>"
-					parent="#systemmodule#"						
-			        expand="No">					
+			        display="<span style='font-size:14px;'>Help Topics</span>" parent="#systemmodule#" expand="No">					
 					
 					<cfquery name="Class"
 						datasource="AppsSystem" 
@@ -196,7 +194,7 @@
 					<cfloop query="Class">
 						
 						<cf_UITreeitem value="#SystemModules.SystemModule#_#topicClass#"
-					        display="<span style='color: Gray;'>#TopicClass#</span>"
+					        display="<span style='font-size:14px;'>#TopicClass#</span>"
 							img="#SESSION.root#/Images/select.png"
 							parent="#SystemModules.SystemModule#_help"
 							href="javascript:help('#SystemModules.SystemModule#','#topicclass#')"														

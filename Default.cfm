@@ -16,7 +16,7 @@
 <cfparam name="SESSION.last"              default="">
 <cfparam name="SESSION.first"             default="">
 
-<cf_setRelease version="8.80.00562" release="20210123">
+<cf_setRelease version="8.82.00589" release="20210205">
 
 <cfquery name="Get" 
 datasource="AppsSystem">
@@ -70,11 +70,11 @@ datasource="AppsSystem">
 <!--- ---------- check coldfusion version ----------- --->
 <!--- ----------------------------------------------- --->
 
-<cfif Server.Coldfusion.ProductVersion lte "11,0,10">						
+<cfif Server.Coldfusion.ProductVersion lte "16,0,0">						
 		
 		<cfoutput>						
 		<table align="center"><tr><td class="labelmedium" align="center" style="font-size:25px;padding-top:40px">		
-                 #Parameter.SystemTitle# is no longer supported under Adobe ColdFusion 11,0,10 <br> Please contact your administrator
+                 #Parameter.SystemTitle# is no longer supported under Adobe ColdFusion 16,0,0 <br> Please contact your administrator
 		</td></tr></table>	
 		</cfoutput>
 			
@@ -233,9 +233,8 @@ datasource="AppsSystem">
 			}
 			
 		function requestacc() {		    
-			ColdFusion.Window.create('mydialog', 'Access', '',{x:100,y:100,height:600,width:730,modal:true,center:true})    
-			ColdFusion.Window.show('mydialog') 				
-			ColdFusion.navigate('#session.root#/Portal/SelfService/Extended/Account/AccountRequest.cfm?showClose=0&id=support','mydialog') 		
+			ProsisUI.createWindow('mydialog', 'Access', '',{x:100,y:100,height:600,width:730,modal:true,center:true})    					
+			ptoken.navigate('#session.root#/Portal/SelfService/Extended/Account/AccountRequest.cfm?showClose=0&id=support','mydialog') 		
 			
 		}	
 			
@@ -267,7 +266,7 @@ datasource="AppsSystem">
 							<td valign="top" height="100%">						
 								
 								<cfset path = "custom/logon/#Parameter.applicationServer#/">
-								
+																
 								<cfif directoryexists("#session.rootpath#\#replace(path,"/","\","ALL")#")>								
 									<cfset found = "Yes">
 								<cfelse>
@@ -280,8 +279,7 @@ datasource="AppsSystem">
 								
 								   <tr>
 								   <cfif Parameter.ApplicationTheme eq "Standard" or found eq "No">
-								   cc
-								   								   
+								   								   								   
 									    <cfset custom = 0> 
 									    <td width="331" height="100%" bgcolor="FF8000">
 										    <cfinclude template="Portal/Provider.cfm">

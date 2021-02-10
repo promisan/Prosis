@@ -695,7 +695,8 @@ password="#SESSION.dbpw#">
 	INSERT INTO EmployeeSalaryLine
 			(SalarySchedule, 
 			 PersonNo, 
-			 PayrollStart, 
+			 PayrollStart,
+			 Mission, 
 			 PayrollCalcNo,
 			 PayrollItem, 
 			 EntitlementPercentage,
@@ -728,6 +729,7 @@ password="#SESSION.dbpw#">
 	SELECT   '#Form.Schedule#',
 			 PersonNo, 
 			 #SALSTR#, 
+			 '#form.mission#',
 			 Line,
 			 PayrollItem,
 			 Percentage,

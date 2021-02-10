@@ -39,7 +39,7 @@
 	  
 <cfset accessarray =  ListToArray(AccessList)>
 	  
-<table height="26" width="320" class="formpadding">
+<table height="26" width="350">
 
 <cfset cnt = 1>
 <cfset go  = 0>
@@ -56,10 +56,10 @@
 				    height="22" 
 					id="status_#currentrow#" 
 					align="left" 					
-					style=";border:1px solid gray"
+					style="border:1px solid silver;border-radius:5px"
 					bgcolor="yellow">
 					
-					<table cellspacing="0" cellpadding="0" class="formpadding">
+					<table class="formpadding">
 					<tr><td style="padding-left:6px">
 															
 					 <cfif findNoCase(Status, AccessList)>
@@ -79,7 +79,7 @@
 						
 					    </td>
 						
-						<td style="padding-left:6px" class="labelmedium"><!---#status#---> #Meaning#</td>
+						<td style="padding-left:6px;font-size:17px" class="labelmedium2"><!---#status#---> #Meaning#</td>
 						
 					</tr>
 						
@@ -95,7 +95,7 @@
 					 
 		  <cfif cnt eq "1"><tr></cfif>
 				<td width="15%" id="status_#currentrow#" align="left"
-					style="padding-left:6px;border: 1px solid gray;"  class="regular"> 
+					style="padding-left:6px;border: 1px solid silver;"  class="regular"> 
 					
 					<cfset ruleDescription = "">
 						
@@ -118,14 +118,13 @@
 						<cfset ruleDescription = GetRule.Description>
 					 </cfif>
 					
-					<table cellspacing="0" cellpadding="0" width="100%" align="left"><tr><td width="15px">
+					<table width="100%" align="left"><tr><td width="15px">
 				        <input type="radio" class="radiol" onclick="st('#Attributes.CurrentStatus#','#Status#','#Attributes.ApplicantNo#','#Attributes.FunctionId#')" id="status" name="status" value="#Status#">
 					 </td>
 					<td style="padding-top:1px;padding-left:3px" align="left">
-					    <table>
-						<tr class="labelmedium">
-						 <td style="padding-left:0px"><!---#status#---></td>
-						 <td style="padding-left:3px">#Meaning#</td>
+					    <table class="formpadding">
+						<tr class="labelmedium2">						 
+						 <td style="font-size:16px;padding-left:3px">#Meaning#</td>
 						 <td style="padding-left:2px">
 						<cfif ruleDescription neq "">
 							<img src="#client.root#/images/link.gif" alt="Process rule: #ruleDescription#" style="cursor:pointer; vertical-align:middle">

@@ -215,92 +215,90 @@
 						  					
 							<cfif attributes.mode eq "edit">
 															 
-								   <table width="100%" height="100%">
-								  
-								   <cfif attributes.form neq "">		
-								   <tr><td align="right" id="memcount_#nm#"></td></tr>
-								   </cfif>
-						   
-								   <tr><td width="100%" class="labelit" title="Please submit entry in #LanguageName#">		
+							   <table width="100%" height="100%">
+							  
+							   <cfif attributes.form neq "">		
+							   <tr><td align="right" id="memcount_#nm#"></td></tr>
+							   </cfif>
+					   
+							   <tr><td width="100%" class="labelit" title="Please submit entry in #LanguageName#">		
+							
+								<cfif Attributes.type eq "Input">
 								
-									<cfif Attributes.type eq "Input">
+									<cfif SystemDefault neq "1">
+										<cfset st = "#attributes.style#;background-color: F0FFFF;">
+									<cfelse>
+									    <cfset st = "#attributes.style#;background-color: FFFFFF;">	
+									</cfif>		
+																																										
+									<cfinput type = "text" 
+									    name      = "#nm#" 
+										size      = "#Attributes.size#" 
+									    maxlength = "#Attributes.maxlength#"
+										value     = "#val#" 											
+										class     = "#Attributes.Class#"
+										required  = "#Attributes.Required#"
+										onchange  = "#Attributes.onchange#"
+										style     = "#st#"
+										message   = "#Attributes.message# #LanguageName#">
+										  
+								<cfelse>	
+								
+								    <cfif Attributes.type eq "HTML">
 									
-										<cfif SystemDefault neq "1">
-											<cfset st = "#attributes.style#;background-color: F0FFFF;">
-										<cfelse>
-										    <cfset st = "#attributes.style#;background-color: FFFFFF;">	
-										</cfif>		
-																																											
-										<cfinput type = "text" 
-										    name      = "#nm#" 
-											size      = "#Attributes.size#" 
-										    maxlength = "#Attributes.maxlength#"
-											value     = "#val#" 											
-											class     = "#Attributes.Class#"
-											required  = "#Attributes.Required#"
-											onchange  = "#Attributes.onchange#"
-											style     = "#st#"
-											message   = "#Attributes.message# #LanguageName#">
-											  
-									<cfelse>	
+									        <cf_textarea name="#nm#" id="#nm#"                                            
+											   height         = "#attributes.height#"
+											   toolbar        = "basic"
+											   resize         = "no"
+											   init           = "Yes"
+											   color          = "ffffff">#val#</cf_textarea>
 									
-									    <cfif Attributes.type eq "HTML">
+									<cfelse>
+																		
+																							
+										<cfif attributes.form neq "">
 										
-										        <cf_textarea name="#nm#" id="#nm#"                                            
-												   height         = "#attributes.height#"
-												   toolbar        = "basic"
-												   resize         = "no"
-												   init           = "Yes"
-												   color          = "ffffff">#val#</cf_textarea>
-										
-										<cfelse>
-																			
-																								
-											<cfif attributes.form neq "">
+											<textarea rows="#Attributes.Rows#"  
+												 name="#nm#" 
+												 class="#Attributes.Class#"
+												 maxlength="#Attributes.maxlength#"
+												 onKeyUp="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/tools/input/text/memolength.cfm?field=#nm#&size=#Attributes.maxlength#','memcount_#nm#','','','POST','#attributes.form#')"											 
+												 style="max-width:99%;width:99%;resize: vertical;background-color:<cfif SystemDefault neq '1'>F0FFFF<cfelse>F1F1F1</cfif>;border-radius:3px;font-size:14px;padding:8px">#val#</textarea>		
 											
-												<textarea rows="#Attributes.Rows#"  
-													 name="#nm#" 
-													 class="#Attributes.Class#"
-													 maxlength="#Attributes.maxlength#"
-													 onKeyUp="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/tools/input/text/memolength.cfm?field=#nm#&size=#Attributes.maxlength#','memcount_#nm#','','','POST','#attributes.form#')"											 
-													 style="max-width:99%;width:99%;resize: vertical;background-color:<cfif SystemDefault neq '1'>F0FFFF<cfelse>F1F1F1</cfif>;border-radius:3px;font-size:14px;padding:8px">#val#</textarea>		
-												
-											<cfelse>
-																									
-												<textarea rows="#Attributes.Rows#"  
-													 name="#nm#" 
-													 class="#Attributes.Class#"
-													 maxlength="#Attributes.maxlength#"
-													 onkeyup="return ismaxlength(this)"
-													 style="font-size:14px;max-width:99%;width:99%;resize: vertical;background-color:<cfif SystemDefault neq '1'>F0FFFF<cfelse>F1F1F1</cfif>;border-radius:3px;padding:8px">#val#</textarea>		
-													 
-											</cfif>		
-										
-										</cfif>
-																								 
-										
-									</cfif>
+										<cfelse>
+																								
+											<textarea rows="#Attributes.Rows#"  
+												 name="#nm#" 
+												 class="#Attributes.Class#"
+												 maxlength="#Attributes.maxlength#"
+												 onkeyup="return ismaxlength(this)"
+												 style="font-size:14px;max-width:99%;width:99%;resize: vertical;background-color:<cfif SystemDefault neq '1'>F0FFFF<cfelse>F1F1F1</cfif>;border-radius:3px;padding:8px">#val#</textarea>		
+												 
+										</cfif>		
 									
-									<font style="background: F0FFFF;"></font>
-									
-									<label>
-									<cfif Attributes.ShowLanguageOperational eq 1>
-										<input title="Operational" type="Checkbox" name="Operational_#nm#" id="Operational_#nm#" <cfif FunctionOperational eq 1>checked</cfif> <cfif SystemDefault eq 1 and attributes.enforcedefault eq "1">disabled</cfif>>
 									</cfif>
-									</label>
+																							 
+									
+								</cfif>
 								
-								  </td>
-								  </tr>
-								  
-								  </table>
+								<font style="background: F0FFFF;"></font>
+								
+								<label>
+								<cfif Attributes.ShowLanguageOperational eq 1>
+									<input title="Operational" type="Checkbox" name="Operational_#nm#" id="Operational_#nm#" <cfif FunctionOperational eq 1>checked</cfif> <cfif SystemDefault eq 1 and attributes.enforcedefault eq "1">disabled</cfif>>
+								</cfif>
+								</label>
+							
+							  </td>
+							  </tr>
+							  
+							  </table>
 							
 							<cfelse>
 							
 									<cfif Attributes.type eq "Input">#val#<cfelse>#ParagraphFormat(val)#</cfif>
 									
-									<input type = "hidden" 
-									    name      = "#nm#" 										
-										value     = "#val#">
+									<input type = "hidden" name = "#nm#" value = "#val#">
 																		
 							</cfif>							
 									

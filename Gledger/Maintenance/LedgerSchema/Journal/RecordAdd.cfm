@@ -85,18 +85,18 @@ function applyaccount(acc) {
 
 <!--- Entry form --->
 
-<cfform action="RecordSubmit.cfm?mode=insert" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm?mode=insert" method="POST" name="dialog">
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="92%" align="center" class="formpadding">
 	
 	<tr class="hide"><td id="process"></td></tr>
 	<tr><td height="10"></td></tr>	
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD><cf_tl id="Entity">:</TD>
     <TD>
 	 
-  	    <select name="mission" id="mission" class="regularxl" onChange="javascript:system()">
+  	    <select name="mission" id="mission" class="regularxxl" onChange="javascript:system()">
      	   <cfoutput query="missionselect">
         	<option value="#Mission#" <cfif url.mission eq mission>selected</cfif>>#Mission#
 			</option>
@@ -106,9 +106,9 @@ function applyaccount(acc) {
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Ledger Class">:</TD>
+    <TD class="labelmedium2"><cf_tl id="Ledger Class">:</TD>
     <TD>
-  	    <select name="GLCategory" class="regularxl" onChange="glclass(this.value)">
+  	    <select name="GLCategory" class="regularxxl" onChange="glclass(this.value)">
      	   <cfoutput query="GLCategory">
         	<option value="#GLCategory#">#GLCategory#
 			</option>
@@ -132,11 +132,11 @@ function applyaccount(acc) {
 
 	</cfoutput>
 
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD><cf_tl id="Category">:</TD>
     <TD id="categorybox">
 	
-  	    <select name="transactioncategory" id="transactioncategory" class="regularxl" onChange="system()">
+  	    <select name="transactioncategory" id="transactioncategory" class="regularxxl" onChange="system()">
      	   <cfoutput query="category">
         	<option value="#TransactionCategory#"<cfif URL.ID is TransactionCategory>selected</cfif>>#TransactionCategory#
 			</option>
@@ -148,7 +148,7 @@ function applyaccount(acc) {
 	      	
 	
 	
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD><cf_tl id="Journal Code">:</TD>
     <TD>
   	   <cfinput type="Text"
@@ -159,11 +159,11 @@ function applyaccount(acc) {
 	       enabled="Yes"
 	       size="10"
 	       maxlength="10"
-	       class="regularxl">
+	       class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD><cf_tl id="Description">:</TD>
     <TD>
   	    <cfinput type="Text"
@@ -174,7 +174,7 @@ function applyaccount(acc) {
 	       enabled="Yes"
 	       size="40"
 	       maxlength="50"
-	       class="regularxl">
+	       class="regularxxl">
     </TD>
 	</TR>
 	
@@ -195,7 +195,7 @@ function applyaccount(acc) {
 	</cfoutput>
 	
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD><cf_tl id="System Journal for">:</TD>
     <TD id="systembox">
 	 
@@ -213,7 +213,7 @@ function applyaccount(acc) {
 						    AND    SystemJournal is not NULL) 
 		</cfquery>
 					 
-  	    <select name="SystemJournal" id="SystemJournal" class="regularxl">
+  	    <select name="SystemJournal" id="SystemJournal" class="regularxxl">
 		   <option value="" selected>N/A</option>
      	   <cfoutput query="Preset">
         	<option value="#Area#">#area#</font>
@@ -224,11 +224,11 @@ function applyaccount(acc) {
     </TD>
 	</TR>
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 	
 		<td><cf_UItooltip tooltip="Workflow associated to transactions under this journal"><cf_tl id="Workflow Class">:</cf_UItooltip></td>
 		<td>		
-		 <select name="EntityClass" class="regularxl">
+		 <select name="EntityClass" class="regularxxl">
 	     	   <cfoutput query="Workflow">
 	        	<option value="#EntityClass#">#EntityClassName#</option>
 	         	</cfoutput>
@@ -236,10 +236,10 @@ function applyaccount(acc) {
 		</td>		
 	</tr>
 	      	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD><cf_tl id="Type">:</TD>
      <TD>
-  	    <select name="journaltype" class="regularxl">
+  	    <select name="journaltype" class="regularxxl">
      	   <cfoutput query="type">
 	        	<option value="#JournalType#">#JournalType#</option>
            </cfoutput>
@@ -253,10 +253,10 @@ function applyaccount(acc) {
 		<cfset cl = "hide">
 	</cfif>
 			
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD><cf_tl id="Journal Currency">:</TD>
      <TD>
-  	    <select name="currency" class="regularxl">
+  	    <select name="currency" class="regularxxl">
      	   <cfoutput query="currency">
         	<option value="#Currency#" <cfif currency eq APPLICATION.BaseCurrency>selected</cfif>>#Currency#
 			</option>
@@ -266,9 +266,9 @@ function applyaccount(acc) {
 	</TR>
 	
 	<TR id="bank" class="<cfoutput>#cl#</cfoutput>">
-    <TD class="labelmedium"><cf_UItooltip  tooltip="Bank account"><cf_tl id="Pay Through">:</cf_UItooltip>:</TD>
+    <TD class="labelmedium2"><cf_UItooltip  tooltip="Bank account"><cf_tl id="Pay Through">:</cf_UItooltip>:</TD>
     <TD>
-  	      <select name="bankid" class="regularxl">
+  	      <select name="bankid" class="regularxxl">
 		    <option value="">Any</option>
             <cfoutput query="Bank">
         	<option value="#BankId#">#BankName# (#Currency#)</font>
@@ -278,17 +278,17 @@ function applyaccount(acc) {
     </TD>
 	</TR>	
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD style="cursor: pointer;"><cf_UItooltip  tooltip="Contra-Book transactions recorded for this journal on the selected account"><cf_tl id="Contra-account">:</cf_UItooltip></TD>
     <TD>
 	    <cfoutput>	 
 		   <table><tr><td>
-		      <input type="Text" name="glaccount" id="glaccount" size="6" class="regularxl" readonly>
+		      <input type="Text" name="glaccount" id="glaccount" size="6" class="regularxxl" readonly>
 		   </td>
-		   <td>
-    	      <input type="text" name="gldescription" id="gldescription" value="" class="regularxl" size="50" readonly>
+		   <td style="padding-left:4px">
+    	      <input type="text" name="gldescription" id="gldescription" value="" class="regularxxl" size="50" readonly>
 		   </td style="padding-left:4px">
-		      <input type="hidden" name="debitcredit" id="debitcredit" value="" class="regularxl" size="6">
+		      <input type="hidden" name="debitcredit" id="debitcredit" value="" class="regularxxl" size="6">
 		   <td style="padding-left:4px">
 		    <img src="#SESSION.root#/Images/search.png" alt="Select account" name="img3" 
 				  onMouseOver="document.img3.src='#SESSION.root#/Images/contract.gif'" 
@@ -302,10 +302,10 @@ function applyaccount(acc) {
 	</TD>
 	</TR>
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 	<td style="cursor: pointer;"><cf_UItooltip  tooltip="Allow to schedule transactions for this journal"><cf_tl id="Schedule Transactions">:</cf_UItooltip></td>
 	<TD><table>
-	    <tr class="labelmedium">
+	    <tr class="labelmedium2">
 		    <td><input type="radio" class="radiol" name="EnableScheduler" value="1"></td>
 		    <td style="padding-left:5px">Yes</td>
 			<td style="padding-left:10px"><input type="radio" class="radiol"  name="EnableScheduler" value="0" checked></td>
@@ -315,12 +315,12 @@ function applyaccount(acc) {
     </TD>
 	</tr>	
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
     <td valign="top" style="padding-top:5px"><cf_tl id="Transaction Sub period">:</td>
     <td>
 	
 	  <table cellspacing="0" cellpadding="0" class="formspacing">
-		  <tr class="labelmedium">
+		  <tr class="labelmedium2">
 		   <td>No:</td>
 		   <td>&nbsp;</td>
 		   <td>
@@ -328,27 +328,27 @@ function applyaccount(acc) {
 		       value="0" validate="integer" required="No"
 		       visible  = "Yes" 
 			   enabled  = "Yes"
-			   class    = "regularxl"
+			   class    = "regularxxl"
 		       tooltip  = "Cluster Transactions under a single batch"
 		       size     = "4"
 			   style    = "width:40px;text-align: center;">
 		   </td>
 		   </tr>
 		   <tr>
-		   <td class="labelmedium"><cf_tl id="Reference">:</td>		
+		   <td class="labelmedium2"><cf_tl id="Reference">:</td>		
 		   <td>&nbsp;</td> 
 		   <td>
 			   <cfinput type="Text"
 		       name="BatchCategory"
 		       required="No"
 		       visible="Yes"
-			   class="regularxl"			   
+			   class="regularxxl"			   
 		       enabled="Yes"
 		       size="20"
 		       maxlength="20">
 		   </td>		   
 		  </tr>
-		   <tr class="labelmedium">
+		   <tr class="labelmedium2">
 		   <td><cf_tl id="Description">:</td>	
 		   <td>&nbsp;</td>	 
 		   <td>
@@ -356,7 +356,7 @@ function applyaccount(acc) {
 		       name="BatchDescription"
 		       required="No"
 		       visible="Yes"
-			   class    = "regularxl"
+			   class    = "regularxxl"
 		       enabled="Yes"
 		       size="40"
 		       maxlength="50">
@@ -366,11 +366,11 @@ function applyaccount(acc) {
     </TD>
 	</TR>
 			
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD><cf_tl id="Data entry Form Settings">:</TD>
     <TD>
 	
-  	    <select name="speedtype" class="regularxl">
+  	    <select name="speedtype" class="regularxxl">
     		<option value="">N/A</option>  
      	   <cfoutput query="speedtype">
         	<option value="#Speedtype#">#Speedtype# #Description#</option>

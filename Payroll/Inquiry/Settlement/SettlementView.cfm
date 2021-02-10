@@ -29,7 +29,8 @@
    <tr>
 
    <td colspan="1" height="100%" valign="top" style="padding:0px">
-		<cf_securediv id="divListingContainer" style="height:100%" bind="url:#session.root#/Payroll/Inquiry/Settlement/SettlementViewListing.cfm?mission=#url.mission#&SystemFunctionId=#url.idmenu#">        	
+		<cf_securediv id="divListingContainer" style="height:100%" 
+		    bind="url:#session.root#/Payroll/Inquiry/Settlement/SettlementViewListing.cfm?mission=#url.mission#&SystemFunctionId=#url.idmenu#">        	
 	</td>	
 	
    </tr>

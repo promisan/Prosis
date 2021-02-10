@@ -18,9 +18,9 @@ password="#SESSION.dbpw#">
         name="job">	
 
 		
-<table width="94%" border="0" cellspacing="0" align="center" class="formspacing">
+<table width="94%" border="0" cellspacing="0" align="center" class="formspacing formpadding">
 					
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <td width="180">Prefix/LastNo:</b></td>
     <TD>
  		<input type="text" class="regularxl" name="QuotationPrefix" id="QuotationPrefix" value="#QuotationPrefix#" size="6" maxlength="4" style="text-align: right;">
@@ -28,55 +28,55 @@ password="#SESSION.dbpw#">
     </TD>
 	</TR>
 		
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <td>Attachment Path:</b></td>
     <TD>
   	    <cfinput class="regularxl" type="Text" name="QuotationLibrary" value="#QuotationLibrary#" message="Please enter a directory name" required="Yes" size="30" maxlength="30">
     </TD>
 	</TR>	
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <td>Print Template:</b></td>
     <TD>
   	    <cfinput class="regularxl" type="Text" name="QuotationTemplate" value="#QuotationTemplate#" message="Please enter a directory name" required="No" size="80" maxlength="90">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <td><cf_UIToolTip tooltip="Turn off/on the workflow for procurement jobs">Job Workflow:</b></cf_UIToolTip></b></td>
-	<TD width="80%" class="labelmedium">		
+	<TD width="80%" class="labelmedium2">		
 		<cfdiv bind="url:#SESSION.root#/system/entityAction/EntityFlow/EntityAction/EntityStatus.cfm?mission=#url.mission#&entitycode=procjob" id="wfprocjob">		
 	</td>
 	</tr>
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <td><cf_tl id="Vendor Roster"></td>
     <TD>
 	<table>
 	    <tr>
-		<td><input type="radio" class="radiol" name="EnableVendorRoster" id="EnableVendorRoster" <cfif #EnableVendorRoster# eq "1">checked</cfif> value="1"></td><td class="labelmedium" style="padding-left:3px">Yes</td>
-		<td style="padding-left:4px"><input type="radio" class="radiol" name="EnableVendorRoster" id="EnableVendorRoster" <cfif #EnableVendorRoster# eq "0">checked</cfif> value="0"></td><td class="labelmedium" style="padding-left:3px">No</td>
+		<td><input type="radio" class="radiol" name="EnableVendorRoster" id="EnableVendorRoster" <cfif #EnableVendorRoster# eq "1">checked</cfif> value="1"></td><td class="labelmedium2" style="padding-left:3px">Yes</td>
+		<td style="padding-left:4px"><input type="radio" class="radiol" name="EnableVendorRoster" id="EnableVendorRoster" <cfif #EnableVendorRoster# eq "0">checked</cfif> value="0"></td><td class="labelmedium2" style="padding-left:3px">No</td>
 		</tr>
 	</table>
     </td>
     </tr>
 	
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <td><cf_UIToolTip tooltip="Inherit the requisition costprice/value when selecting a vendor a quote">Quick Quote:</cf_UIToolTip></b></td>
    	<TD>
 	<table>
-	    <tr class="labelmedium">
+	    <tr class="labelmedium2">
 		<td><input type="radio" class="radiol" name="EnableQuickQuote" id="EnableQuickQuote" <cfif EnableQuickQuote eq "1">checked</cfif> value="1"></td>
-		<td class="labelmedium" style="padding-left:3px">Yes</td>
+		<td class="labelmedium2" style="padding-left:3px">Yes</td>
 		<td style="padding-left:4px"><input type="radio" class="radiol" name="EnableQuickQuote" id="EnableQuickQuote" <cfif EnableQuickQuote eq "0">checked</cfif> value="0"></td>
-		<td class="labelmedium" style="padding-left:3px">No</td>
+		<td class="labelmedium2" style="padding-left:3px">No</td>
 		</tr>
 	</table>	
     </td>
     </tr>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <td>Default Tax:</b></td>
     <TD>
 		<input type="Text"
@@ -94,26 +94,26 @@ password="#SESSION.dbpw#">
 	</td>
     </tr>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <td><cf_UIToolTip tooltip="Default setting when recording quotes">Tax Included in Quote:</cf_UIToolTip></b></td>
     <TD><table>
-	    <tr class="labelmedium">
-		<td><input type="radio" class="radiol" name="DefaultTaxIncluded" id="DefaultTaxIncluded" <cfif DefaultTaxIncluded eq "1">checked</cfif> value="1"></td><td class="labelmedium" style="padding-left:3px">Yes</td>
-		<td style="padding-left:4px"><input type="radio" class="radiol" name="DefaultTaxIncluded" id="DefaultTaxIncluded" <cfif DefaultTaxIncluded eq "0">checked</cfif> value="0"></td><td class="labelmedium" style="padding-left:3px">No</td>
+	    <tr class="labelmedium2">
+		<td><input type="radio" class="radiol" name="DefaultTaxIncluded" id="DefaultTaxIncluded" <cfif DefaultTaxIncluded eq "1">checked</cfif> value="1"></td><td class="labelmedium2" style="padding-left:3px">Yes</td>
+		<td style="padding-left:4px"><input type="radio" class="radiol" name="DefaultTaxIncluded" id="DefaultTaxIncluded" <cfif DefaultTaxIncluded eq "0">checked</cfif> value="0"></td><td class="labelmedium2" style="padding-left:3px">No</td>
 		</tr>
 	</table>	
     </td>
     </td>
     </tr>	
 			
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <td>Buyer Label:</b></td>
     <TD>
 	    <input class="regularxl" type="Text" name="BuyerDescription" id="BuyerDescription" value="<cfif BuyerDescription eq "">Buyer<cfelse>#BuyerDescription#</cfif>" size="30" maxlength="30">
      </td>
     </tr>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <td>Job Reference Name:</b></td>
     <TD>
 	    <input class="regularxl" type="Text" name="JobReferenceName" id="JobReferenceName" value="<cfif JobReferenceName eq "">CaseNo<cfelse>#JobReferenceName#</cfif>" size="15" maxlength="15">
@@ -128,7 +128,7 @@ password="#SESSION.dbpw#">
 		FROM         Ref_AddressType	
 	</cfquery>	
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <td>RFQ Mailing address:</b></td>
     <TD>		
 		<select name="AddressTypeRFQ" id="AddressTypeRFQ" class="regularxl">
@@ -141,7 +141,7 @@ password="#SESSION.dbpw#">
 	</td>
 	</tr>		
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 	<td style="padding-top:6px" valign="top">
 	<cf_UIToolTip tooltip="<b>Attention:</b><br>Adding a user account will mean that a requisition after it has been reviewed <br> will go straight to the buyer for Job processing and will skip the buyer assignment process.">
 	Default Buyer
@@ -166,11 +166,11 @@ password="#SESSION.dbpw#">
 		FROM       Ref_Award	
 	</cfquery>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
 	<cf_UIToolTip tooltip="Default code used for by the system determined lowest bid.">
-	<td class="labelmedium"><cf_tl id="Lowest Bid"></td>
+	<td class="labelmedium2"><cf_tl id="Lowest Bid"></td>
 	</cf_UIToolTip>
-    <TD class="labelmedium">
+    <TD class="labelmedium2">
 	<select name="AwardLowestBid" id="AwardLowestBid" class="regularxl">
 	<cfloop query="Award">
 	<option value="#Code#" <cfif get.AwardLowestBid eq Code>selected</cfif>>#Code#: #Description#</option>

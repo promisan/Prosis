@@ -223,16 +223,16 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 				   if (se) {} else { 		   
 					  // alert("View could not be updated : "+ajaxid); target="" 
 					  }		   
-				}									
-																																				  			  		   		   
+				}
+																																								  			  		   		   
 				if (target != "") {		   		   	  		   		   	 					   		   
 				
 				   sfld  = document.getElementById('selectedfields').value	 					    			 		 
 				   if (lkf == "") {					   
 				   	  window['__printListingCallback'] = function(){ if (callback) callback(); };								 						  	  											  
-				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&refresh='+md,target,'__printListingCallback','','POST','listfilter')				  
+				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'__printListingCallback','','POST','listfilter')				  
 				   } else {						   				         	      		   			 						  
-				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&refresh='+md,target,'','','POST',lkf)		  						  
+				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'','','POST',lkf)		  						  
 				   }		   
 				}	
 							  
@@ -275,9 +275,9 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 		   if (target != "") {
 		   
 			   	if (lkf == "") {			  	 			
-			     	ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1',target,'','','POST','listfilter')
+			     	ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'','','POST','listfilter')
 			   	} else {			
-			      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1',target,'','','POST',lkf)
+			      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'','','POST',lkf)
 			   	}
 		   } else { Prosis.busyRegion('no','_divSubContent');
 	 } }
@@ -598,25 +598,27 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu, 'listingdialog_'+drillbox,'left=20, top=20, width=' + val[1] + 'px, height= ' + val[0] + 'px, status=yes, toolbar=no, scrollbars=yes, resizable=yes')				
 		}	
 		
+		// +'&ts='+new Date().getTime()
+		
 	if (mode == "windowfull") {
 		val = arg.split(";");		
 		w = #CLIENT.width# - 60;
         h = #CLIENT.height# - 120;	
-		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu+'&ts='+new Date().getTime(), 'dialog', 'left=20, top=20, width=' + w + ', height= ' + h + ', status=yes, toolbar=no, fullscreen=yes, scrollbars=yes, resizable=yes')				
+		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu, 'dialog'+key, 'left=20, top=20, width=' + w + ', height= ' + h + ', status=yes, toolbar=no, fullscreen=yes, scrollbars=yes, resizable=yes')				
 		}	
 		
 	if (mode == "tab") {
 		val = arg.split(";");		
 		w = #CLIENT.width# - 60;
         h = #CLIENT.height# - 120;			
-		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu+'&ts='+new Date().getTime(),'dialog'+key)				
+		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu,'dialog'+key)				
 		}	
 		
 	if (mode == "top") {
 		val = arg.split(";");		
 		w = #CLIENT.width# - 60;
         h = #CLIENT.height# - 120;			
-		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu+'&ts='+new Date().getTime(),'_top')				
+		ptoken.open('#SESSION.root#/'+template+key+str+'&idmenu='+idmenu,'_top')				
 		}						
 	}	
 

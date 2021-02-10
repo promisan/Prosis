@@ -71,6 +71,8 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 			WHERE     ActionId   = '#URL.ID#'
 			AND       DocumentId = '#DocumentId#' 
 		</cfquery>
+		
+		<cfset priorsign = "">
 						
 		<cfif check.recordcount eq "0" or (check.recordcount eq "1" and Check.documentContent eq "")>
 				
@@ -88,6 +90,8 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 				ORDER BY Created DESC				
 			</cfquery>		
 			
+			<cfset priorsign = last.SignatureBlock>
+			
 			 <cfquery name="Signature" 
 			 datasource="appsOrganization" 
 			 username="#SESSION.login#" 
@@ -95,7 +99,7 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 				SELECT *
 				FROM   Ref_EntityDocumentSignature
 				WHERE  EntityCode = '#Object.EntityCode#'
-				AND    Code       = '#Last.SignatureBlock#' 
+				AND    Code       = '#priorsign#' 
 				AND    Operational= 1
 		    </cfquery>		
 							
@@ -104,7 +108,9 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 				<!--- parse the document --->				   
 					    
 				<cfquery name="Language" 
-					 	datasource="AppsSystem">
+					 	datasource="AppsSystem" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
 						 	SELECT  *
 						 	FROM    Ref_SystemLanguage
 						 	WHERE   Code = '#DocumentLanguageCode#'  
@@ -133,8 +139,7 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 						#cfcatch.message#
 					</cfcatch>		
 					</cftry>		
-				</cfsavecontent>	
-							
+				</cfsavecontent>								
 		
 			<cfelseif DocumentMode eq "AsIs" and DocumentLayout eq "PDF">			
 			
@@ -241,8 +246,7 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 															
 					</cfif>		
 					
-				</cfif>	
-				 								
+				</cfif>					 								
 				
 				<cfif check.recordcount eq "0">
 							
@@ -268,15 +272,14 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 								  <cfif DocumentLayout eq "PDF">
 									  '\WFObjectReport\#URL.ActionID#\#DocumentCode#.pdf',
 								  </cfif>	  
-								  '#Last.SignatureBlock#',
+								  '#priorsign#',
 								  '#SESSION.acc#',
 								  '#SESSION.last#',
 								  '#SESSION.first#')
 								  
 					</cfquery>			
 				
-				<cfelse>
-				
+				<cfelse>				
 								
 					<cfquery name="Update" 
 						datasource="appsOrganization" 
@@ -285,7 +288,7 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 						
 							UPDATE    OrganizationObjectActionReport
 							SET       DocumentContent = '#text#',
-							          SignatureBlock  = '#last.SignatureBlock#'
+							          SignatureBlock  = '#priorsign#'
 							WHERE     ActionId        = '#URL.ID#'
 							AND       DocumentId      = '#DocumentId#'			
 					</cfquery>	

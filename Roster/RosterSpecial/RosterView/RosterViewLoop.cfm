@@ -40,13 +40,15 @@
 	 html="yes"
 	 jQuery="Yes"
 	 systemmodule="Roster"
+	 functionclass="edition" 
+	 functionname="#URL.Edition#"
 	 busy="busy10.gif"
 	 layout="webapp" 
 	 banner="blue" 	 
 	 bannerforce="yes"
 	 scroll="Yes">	 
-
 	 
+
 <!-- provision to add acdess to general roster --->
 <cfinclude template="RosterViewAccess.cfm">  
 
@@ -126,6 +128,9 @@ password="#SESSION.dbpw#">
 	WHERE      FO.GradeDeployment = GP.GradeDeployment
 	AND        GP.PostGradeParent = P.Code
 	AND        GP.PostGradeBudget = G.PostGradeBudget
+	<cfif URL.Edition neq "All">
+	AND   FO.SubmissionEdition = '#url.edition#'
+	</cfif>
 	AND        FO.SubmissionEdition IN (SELECT SubmissionEdition 
 	                                    FROM   Applicant.dbo.Ref_SubmissionEdition 
 										WHERE  Owner = '#URL.Owner#'
@@ -166,6 +171,7 @@ password="#SESSION.dbpw#">
    <cfset columnParent[currentRow] = Resource.Code>
 </cfloop>
 
+<!--- this query takes 3.5 seconds we can speed it up --->
 <cfinclude template="RosterViewPrepare.cfm">
 
 <cfset tblr  = 3+Resource.RecordCount>
@@ -337,4 +343,6 @@ password="#SESSION.dbpw#">
 </table>
 
 <cf_screenBottom layout="webapp">
+
+
 

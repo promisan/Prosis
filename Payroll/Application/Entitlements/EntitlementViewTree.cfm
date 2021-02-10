@@ -16,10 +16,10 @@
 <table width="95%" align="center">
    	 			
 	  <tr><td style="padding-top:17px; padding-left:5px">	
-	  	    	   
+	  	  	  	    	   
 		    <cf_EntitlementTreeData
 				 mission     = "#URL.Mission#"
-				 period      = "#URL.Period#"
+				 period      = "#URL.Period#"				 
 				 destination = "EntitlementViewOpen.cfm">
 			
 	 </td></tr>	

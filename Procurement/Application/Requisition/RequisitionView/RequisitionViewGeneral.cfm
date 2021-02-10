@@ -8,7 +8,7 @@
 <!--- End Prosis template framework --->
 
 <cfif url.id neq "WHS" and url.id1 neq "locate">
-	<cf_screentop height="100%" scroll="Yes" html="No">		
+	<cf_screentop height="100%" jquery="Yes" scroll="Yes" html="No">		
 </cfif>
 
 <cfparam name="CLIENT.Sort" default="OrgUnit">
@@ -96,14 +96,14 @@
 <cf_tl id="Of" var="1">
 <cfset vOf= lt_text>
 
-<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="99%" height="100%" align="center">
      
 	  <cfif url.id neq "WHS">
 	  	  
-		  <tr>
-			   <td style="font-weight:200;height:49px;font-size:25px;padding-left:5px;padding-right:4px" class="labellarge"><cfoutput>#Title#</b></cfoutput>
+		  <tr class="line">
+			   <td style="height:30px;font-size:20px;padding-left:5px;padding-right:4px" class="labellarge"><cfoutput>#Title#</cfoutput>
 			   <cfoutput query="DisplayPeriod">
-				   [#Description#]
+				   #Description#
 			   </cfoutput>		
 			   </td>				
 			   <td align="right">		
@@ -116,7 +116,7 @@
 					 
 					 	<cfoutput>
 					 
-						 <table cellspacing="0" cellpadding="0" class="formpadding">
+						 <table class="formpadding">
 						 <tr>			 			       
 						     
 						  <td><input type="radio" 
@@ -198,7 +198,7 @@
 		  	  
 	  <tr style="height:1">  
 		  <td colspan="2">
-			 <table width="97%" border="0" cellspacing="0" cellpadding="0" bgcolor="white" align="center">
+			 <table width="97%" bgcolor="white" align="center">
 		   	 <tr>
 			 
 			 <cfif url.id neq "Loc">
@@ -227,8 +227,7 @@
 			 <td width="130" height="38">
 			 
 			   <cfoutput>
-			   <table border="0" cellspacing="0" cellpadding="0" style="border:1px solid silver"><tr>
-			   			   
+			   <table style="border:1px solid silver"><tr>			   			   
 			    <td>
 			 
 			    <cfparam name="url.find" default="">
@@ -236,7 +235,7 @@
 				<input type     = "text" 
 					   name     = "find" 
                        id       = "find"
-					   class    = "regularxl" 
+					   class    = "regularxxl" 
 					   style    = "border:0px;padding-left:5px;padding-top:1px;font-size:17px"
 					   onKeyUp  = "search()"
 					   value    = "#url.find#">
@@ -245,20 +244,20 @@
 				  
 				  <td style="border-left: 1px solid gray;"></td> 
 				  <td width="34" align="center" style="cursor:pointer">
-				  <cf_space spaces="6">
+				  
+				    <cf_space spaces="6">
 				  
 				    <img src="#SESSION.root#/Images/search.png" 
 					     alt="" 
 						 height="29"
 						 width="29"
-						 name="findlocate"
-						 id="findlocate"
+						 name="findlocate" id="findlocate"
 						 onclick="reloadForm('',view.value,lay.value,sort.value,filter.value,'<cfoutput>#URL.fileNo#</cfoutput>')"
-						 border="0" 
-						 align="absmiddle">
+						 border="0" align="absmiddle">
 					
-				</td></tr></table>
-				 </cfoutput>
+				</td></tr>
+				</table>
+				</cfoutput>
 			
 			 </td>
 			  
@@ -268,7 +267,7 @@
 			 
 			  <cfif url.id eq "WHS">
 						  
-				  <select name="sort" id="sort" class="regularxl" style="font-size:12px;height:20"
+				  <select name="sort" id="sort" class="regularxxl" style="font-size:12px;height:20"
 					onChange="stockonorder('s')">
 			   	     <OPTION value="RequestDescription" <cfif URL.Sort eq "RequestDescription">selected</cfif>><cf_tl id="Order by Description">
 					 <OPTION value="RequestQuantity" <cfif URL.Sort eq "RequestQuantity">selected</cfif>><cf_tl id="Order by Quantity">
@@ -276,7 +275,7 @@
 			  
 			  <cfelse>
 			  
-				  <select name="sort" id="sort" class="regularxl" 
+				  <select name="sort" id="sort" class="regularxxl" 
 					onChange="reloadForm('',view.value,lay.value,this.value,'<cfoutput>#URL.filter#</cfoutput>','<cfoutput>#URL.fileNo#</cfoutput>')">
 			   	     <OPTION value="Reference" <cfif URL.Sort eq "Reference">selected</cfif>><cf_tl id="Order by RequisitionNo">
 					 <OPTION value="ActionStatus" <cfif URL.Sort eq "ActionStatus">selected</cfif>><cf_tl id="Order by Status">				    
@@ -287,7 +286,7 @@
 				  
 				  <input type="hidden" name="lay" id="lay" value="Reference">        
 					 
-				  <select name="view" id="view" class="regularxl"
+				  <select name="view" id="view" class="regularxxl"
 					onChange="reloadForm('',this.value,lay.value,sort.value,'<cfoutput>#URL.filter#</cfoutput>','<cfoutput>#URL.fileNo#</cfoutput>')">
 			   	         <OPTION value="Hide" <cfif URL.view eq "Hide">selected</cfif>><cf_tl id="Hide">
 					 <OPTION value="Show" <cfif URL.view eq "Show">selected</cfif>><cf_tl id="Show">
@@ -367,7 +366,7 @@
 		
 		</cfif>
 					
-		<tr style="height:10px"><td colspan="2" style="padding-left:10px">										 
+		<tr style="height:10px"><td colspan="2" style="padding-left:10px;padding-right:10px">										 
 			<cfinclude template="Navigation.cfm"> 							 
 		</td></tr>	
 		

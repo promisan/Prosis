@@ -22,8 +22,7 @@
 	   FROM   Applicant.dbo.Parameter
 	</cfquery>
 		
-	<CFSET Caller.RosterActionNo = new.RosterActionNo>
-			
+	<CFSET Caller.RosterActionNo = new.RosterActionNo>			
 			
 	   <cftry>
 	
@@ -63,24 +62,22 @@
 			   <cfelse>
 			   '#attributes.date#'
 			   </cfif>)
-			</cfquery>
+			</cfquery>		
 		
-		
-		<cfcatch>
-			
-				<cfoutput>
+			<cfcatch>
 				
-					 <cf_RosterActionNo 
-					   ActionCode="#Attributes.ActionCode#"
-		  			   ActionStatus="#Attributes.ActionStatus#" 
-				       ActionRemarks="#Attributes.ActionRemarks#"> 		
-				   
-				</cfoutput>   
-				
-		</cfcatch>
+					<cfoutput>
+					
+						 <cf_RosterActionNo 
+						   ActionCode="#Attributes.ActionCode#"
+			  			   ActionStatus="#Attributes.ActionStatus#" 
+					       ActionRemarks="#Attributes.ActionRemarks#"> 		
+					   
+					</cfoutput>   
+					
+			</cfcatch>
 		
-		</cftry>
-		
+		</cftry>		
 		
 </cflock>
 

@@ -128,11 +128,11 @@
 		
 			<tr>
 			  <td>
-			    <table width="100%" cellspacing="0" cellpadding="0">	
+			    <table width="100%">	
 						
 				<tr>
 			     
-		         <td style="height:40px;padding-top:2px;font-weight:200;font-size:18px" class="labelmedium">
+		         <td style="padding-left:7px;height:34px;padding-top:2px;font-size:18px" class="labelmedium2">
 				 	
 				    <a href="javascript: ProcReqEntry('#URL.Mission#',document.getElementById('PeriodSelect').value,'#url.systemfunctionid#')">							
 					    <cf_tl id="Record Requisitions">
@@ -379,8 +379,7 @@
 	  	  
 	  </cfswitch>	  
 		  
-	  </cfoutput>  	  	
-	  
+	  </cfoutput>    
 	  
 <cfinvoke component = "Service.Process.Procurement.Requisition"  
 	   method           = "getQueryScope" 

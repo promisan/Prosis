@@ -15,7 +15,7 @@ password="#SESSION.dbpw#">
 		
 <cfoutput query="Get">
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="97%" class="formpadding formspacing" align="center">
 		
 	<tr><td height="8"></td></tr>
 	<tr class="line"><td colspan="2" class="labellarge" style="font-weight:200;height:40px;font-size:25px"><cf_tl id="Requisition Funding Settings"></td></tr>
@@ -30,7 +30,7 @@ password="#SESSION.dbpw#">
 	</cfquery>
 		
 	<TR>
-    <td style="padding-left:10px" class="labelmedium" width="180" height="30">Default Period:</b></td>
+    <td style="padding-left:10px" class="labelmedium" width="180">Default Period:</b></td>
     <TD width="70%"><select name="defaultperiod" id="defaultperiod" class="regularxl">
 	    <cfloop query="Period">
 		<option value="#Period#" <cfif period eq get.Defaultperiod>selected</cfif>>#Period#</option>
@@ -325,7 +325,7 @@ password="#SESSION.dbpw#">
 		
 		</cfif>		
 		
-		<table border="0" bordercolor="silver" rules="none" cellspacing="0" cellpadding="0">
+		<table>
 				
 		<cfset cnt = 0>
 		
@@ -335,7 +335,7 @@ password="#SESSION.dbpw#">
 		
 		<cfif cnt eq "1"><tr></cfif>
 				
-			<td style="padding-left:10px;padding-right:4px" class="labelmedium">#Description#:</td>			
+			<td style="padding-left:10px;padding-right:4px" class="labelmedium2">#Description#:</td>			
 			<td style="padding-right:10px"><input type="Checkbox" class="radiol" value="1" name="ItemMasterObjectExtend_#entryclass#" id="ItemMasterObjectExtend_#entryclass#" <cfif ItemMasterObjectExtend eq "1">checked</cfif>></td>
 		<cfif cnt eq "3"></tr><cfset cnt = 0></cfif>				
 		
@@ -346,12 +346,12 @@ password="#SESSION.dbpw#">
 		
 	</tr>
 	
-	<tr><td style="padding-left:10px" valign="top" class="labelmedium">Exceptions:</td>
+	<tr><td style="padding-left:10px" valign="top" class="labelmedium2">Exceptions:</td>
 	<td>
 		
 			<table cellspacing="0" cellpadding="0">
 			<tr>
-				<td class="labelmedium"><font color="FF8000">Disable sufficiency check and Object filtering settings for the following Execution periods:</td>
+				<td class="labelmedium2"><font color="FF8000">Disable sufficiency check and Object filtering settings for the following Execution periods:</td>
 			</tr>
 			
 			<tr><td>
@@ -365,7 +365,7 @@ password="#SESSION.dbpw#">
 				WHERE Mission = '#url.mission#'
 			</cfquery>
 			
-			<table cellspacing="0" cellpadding="0">
+			<table>
 			
 			<cfset row = 1>
 			
@@ -385,7 +385,7 @@ password="#SESSION.dbpw#">
 				
 				<cfset row = row+1>
 				
-				<td style="padding-left:4px" class="labelmedium">#Period#</td>
+				<td style="padding-left:4px" class="labelmedium2">#Period#</td>
 				<td style="padding-left:4px">
 				<input name="b#currentrow#DisabledFundingCheck" id="b#currentrow#DisabledFundingCheck" type="checkbox" value="1" <cfif Check.DisableFundingCheck eq "1">checked</cfif>>				
 				</td>

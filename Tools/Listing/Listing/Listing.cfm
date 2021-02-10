@@ -39,6 +39,8 @@
 <cfparam name="attributes.printshowrows"      default="500">
 <cfparam name="attributes.printshowtitle"     default="">
 
+<!--- deprecated --->
+
 <cfparam name="attributes.AnalysisModule"     default="">
 <cfparam name="attributes.AnalysisReportname" default="">
 <cfparam name="attributes.AnalysisPath"       default="">
@@ -122,7 +124,9 @@
 <cfparam name="attributes.deletescript"       default="">
 <cfparam name="attributes.deletecondition"    default="">
 
-<!--- optioon to control the default mode of taking fresh data--->
+<cfparam name="url.contentmode"               default="1">
+
+<!--- option to control the default mode of taking fresh data--->
 <cfparam name="attributes.refresh"            default="1">
 
 <!--- ----------------------------- --->
@@ -260,7 +264,6 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 				
 </cfif>	
 
-
 <!--- default group --->
 
 <cfparam name="URL.listgroup"     default="">
@@ -305,18 +308,27 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cfcatch></cfcatch>	
 </cftry>
 
-<cfif datediff("d",now(),session.listingdata[box]['timestamp']) gte 1> 
-	<!--- listing has expired 24 hours so we refresh per definition --->  	
-	<cfset attributes.refresh = "1">				
-<cfelseif attributes.refresh eq "1" and form.useCache eq "">
-	<!--- this is the default value upon opening --->
+<cfif url.contentmode eq "5">
+
+	<!--- we force refresh as we want to see new records --->
+	<cfset attributes.refresh = "1">	
+
 <cfelse>
-    <!--- interface enforces the refresh --->
-	<cfif form.useCache eq "0">
-		<cfset attributes.refresh = "1">			
+	
+	<cfif datediff("d",now(),session.listingdata[box]['timestamp']) gte 1> 
+		<!--- listing has expired 24 hours so we refresh per definition --->  	
+		<cfset attributes.refresh = "1">				
+	<cfelseif attributes.refresh eq "1" and form.useCache eq "">
+		<!--- this is the default value upon opening --->
 	<cfelse>
-		<cfset attributes.refresh = "0">			
-	</cfif>
+	    <!--- interface enforces the refresh --->
+		<cfif form.useCache eq "0">
+			<cfset attributes.refresh = "1">			
+		<cfelse>
+			<cfset attributes.refresh = "0">			
+		</cfif>
+	</cfif>	
+	
 </cfif>	
 
 <cfif url.systemfunctionid neq "">
@@ -332,6 +344,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 		<cfparam name="fields.searchfield"  default="#fields.field#">	
 	    <cfparam name="fields.fieldsort"    default="#fields.field#">	
 	    <cfparam name="fields.alias"        default="">		
+		<cfparam name="fields.fieldentry"   default="">	
 		<cfparam name="fields.searchalias"  default="#fields.alias#">	
 							
 		<cfif not findNoCase(fields.field,declaredfields)>			
@@ -344,7 +357,15 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 		
 		<cfif not findNoCase(fields.searchfield,declaredfields)>
 			 <cfset declaredfields = "#declaredfields#,'#fields.searchfield#'">
-		</cfif>						
+		</cfif>		
+		
+		<cfif fields.fieldentry eq "1">
+			<cfif fields.alias neq "">
+			    <cfset qentrykey = "#fields.alias#.#fields.field#">
+			<cfelse>	
+				<cfset qentrykey = "#fields.field#">
+			</cfif>	
+		</cfif>				
 									
 	</cfloop>
 	
@@ -404,9 +425,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 		<cfset url.listgroup             = "#form.groupfield#">
 		<cfset url.listgroupfield        = "#form.groupfield#">	
 		<cfset url.listgroupsort         = "#form.groupfield#">	
-		<cfset url.listgroupalias        = "">		
-		
-		
+		<cfset url.listgroupalias        = "">	
 			
 		<cfloop array="#attributes.listlayout#" index="fields">	
 		
@@ -453,7 +472,14 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 		<cfset url.listgroupdir   = form.groupdir>
 		
 		<!--- enable pivot / explore --->
-		<cfset url.listgrouptotal        = "#form.grouptotal#">	
+		
+		<cfif url.contentmode eq "5">
+			<cfset url.listgrouptotal        = "0">
+		<cfelse>
+			<cfset url.listgrouptotal        = "#form.grouptotal#">	
+		</cfif>	
+		
+		
 		
 		<!--- enable columns --->
 		<cfset url.listcolumn1           = "#form.colfield1#">          <!--- i.e transactiondate                   --->
@@ -1052,13 +1078,19 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 
 <cfset box = attributes.box>  <!--- set by hanno 12/9/19 as box was blank --->
 
-
 <cfif url.ajaxid eq "content">
   
 	<cfif attributes.showlist eq "Yes">				
 		<!--- shows the listing as HTML and header --->			
 		<cfinclude template="ListingShow.cfm">																			
-	</cfif>	
+	</cfif>		
+
+<cfelseif url.ajaxid eq "new">
+  
+	<cfif attributes.showlist eq "Yes">				
+		<!--- shows the listing as HTML and header --->			
+		<cfinclude template="ListingShow.cfm">																			
+	</cfif>		
 	
 <cfelseif url.ajaxid eq "append">	
 

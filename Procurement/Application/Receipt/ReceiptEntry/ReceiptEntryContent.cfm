@@ -439,7 +439,7 @@
 	<cfelse>
 			
 	<tr class="line" style="border-top:1px solid silver">
-	<td colspan="1" valign="bottom" style="height:40px;padding-left:10px;font-size:35px;font-weight:200" class="labelmedium"><cf_tl id="This Receipt"></td></tr>	  
+	<td colspan="1" valign="bottom" style="height:40px;padding-left:10px;font-size:32px" class="labelmedium"><cf_tl id="This Receipt"></td></tr>	  
 	 		 		 		  	  
 		 <cf_workflowenabled 
 		     mission="#po.mission#" 

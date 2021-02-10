@@ -22,8 +22,8 @@
 					
 	<tr class="fixrow"><td colspan="14" colspan="#col#"><cfinclude template="Navigation.cfm"></td></tr>
 	
-	<TR class="labelit fixrow2 line">
-	    <td colspan="4" height="20"></td>	   		
+	<TR class="labelmedium2 fixrow2 line" style="height:25px">
+	    <td colspan="4"></td>	   		
 		<TD><cf_tl id="Name"></TD>
 		<TD><cfoutput>#client.IndexNoName#</cfoutput></TD>
 		<td></td>
@@ -190,12 +190,12 @@
 												
 					<cfif currrow gte first and currrow lte last>
 											 
-						<tr id="#ApplicantNo#" class="line labelmedium navigation_row" style="height:29px">
+						<tr id="#ApplicantNo#" class="line labelmedium2 navigation_row">
 						    
 							<cfif mission eq "">
-						    <td align="center" style="height:22px;width:20px;padding-right:5px;padding-left:5px">
+						    <td align="center" style="width:20px;padding-right:5px;padding-left:5px">
 							<cfelse>
-							<td align="center" style="height:22px;width:20px;padding-right:5px;padding-left:5px">
+							<td align="center" style="width:20px;padding-right:5px;padding-left:5px">
 							</cfif>						
 							
 							<cfif PerT neq PersonNo>
@@ -211,7 +211,7 @@
 							</td>							
 							--->
 													
-							<td align="center"  style="padding:0 4px 0 5px;border-right:1px solid ##efefef;border-left:1px solid ##efefef;">					
+							<td align="center" style="border-right:1px solid silver;border-left:1px solid silver">					
 							
 								<i class="fas fa-user-edit" style="color: ##c83702;font-size: 15px;position: relative;top:-1px;"
                                    onclick="ShowFunction('#ApplicantNo#','#FunctionId#','#URL.tab#','#url.box#','#url.owner#','#url.process#','#day#','#status#','#url.level#','#url.processmeaning#','#meaning#','#url.total#','#url.page#','php')">
@@ -245,13 +245,13 @@
 							
 							--->	
 							
-							<td align="center" style="padding:0 5px;border-right:1px solid ##efefef;">							
+							<td align="center" style="border-right:1px solid silver;">							
 								<cfif eMailAddress is not ''>
 								    <i class="fas fa-envelope" style="color: ##c83702;font-size: 18px;" onClick="email('#eMailAddress#','','','','Applicant','#PersonNo#')"></i>								 
 								</cfif>							
 							</td>		
 							
-							<td style="height:20px;padding:0 5px;border-left:0px solid d4d4d4;border-right:1px solid ##efefef">
+							<td align="center" style="border-right:1px solid silver">
 							
 							    <cfif url.print eq "0">
 												
@@ -294,7 +294,8 @@
 						    <TD style="padding-right:4px"><cfif Nationality eq ""><font color="FF0000">N/A</font><cfelse>#Nationality#</cfif></TD>							
 							<td style="border-right:1px solid d4d4d4">
 							
-								<table cellspacing="0" cellpadding="0" class="formspacing">
+								<table class="formspacing">
+								
 									<tr>							
 									
 									<td title="Has one or more education records" style="padding:0 5px;border-right:1px solid ##efefef;" align="center">

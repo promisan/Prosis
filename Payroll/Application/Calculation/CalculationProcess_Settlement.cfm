@@ -534,7 +534,7 @@ password="#SESSION.dbpw#">
 	FROM     PersonAssignment PA, 
              Position P, 
 			 Organization.dbo.Organization Org
-    WHERE    Org.Mission       = '#Form.Mission#' 
+    WHERE    Org.Mission   IN (#preservesingleQuotes(assmission)#) 
 	AND      Org.OrgUnit       = P.OrgUnitOperational
 	AND      PA.PositionNo     = P.PositionNo
 	AND      PA.AssignmentStatus IN ('0','1')

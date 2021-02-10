@@ -30,7 +30,7 @@
 	</cfif>
 	
 	<cfoutput query="lookup">
-		<tr style="height:20px" class="line labelmedium2 navigation_row">
+		<tr class="line labelmedium2 navigation_row">
 			<td>
 				  
 				<cfquery name="Validate" 

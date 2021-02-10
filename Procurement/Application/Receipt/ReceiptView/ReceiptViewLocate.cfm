@@ -64,30 +64,30 @@
 	<table width="98%" align="center" class="formpadding">
 	
 		<TR>
-		<TD class="labelmedium"><cf_tl id="Receipt No">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Receipt No">:</TD>
 		<TD>	
-		<input type="text" name="receiptNo" id="receiptNo" value="" size="20" class="regularxl">		
+		<input type="text" name="receiptNo" id="receiptNo" value="" size="20" class="regularxxl">		
 		</TD>
 		
-		<TD class="labelmedium"><cf_tl id="Packingslip No">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Packingslip No">:</TD>
 		<TD>
-		<input type="text" name="PackingSlipNo" id="PackingSlipNo" value="" size="20" class="regularxl">		
+		<input type="text" name="PackingSlipNo" id="PackingSlipNo" value="" size="20" class="regularxxl">		
 		</TD>
 		</tr>
 		
 		<TR>
-		<TD class="labelmedium"><cf_tl id="Received in period from">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Received in period from">:</TD>
 		<TD>	
 		
 		 <cf_intelliCalendarDate9
 			FieldName="datestart" 
 			Default="01/01/#year(period.DateEffective)#"
 			AllowBlank="True"
-			Class="regularxl">	
+			Class="regularxxl">	
 			
 		</TD>
 		
-		<TD class="labelmedium"><cf_tl id="until">:</TD>
+		<TD class="labelmedium2"><cf_tl id="until">:</TD>
 		
 			<TD>
 			
@@ -97,7 +97,7 @@
 				FieldName="dateend" 
 				Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
 				AllowBlank="True"
-				Class="regularxl">	
+				Class="regularxxl">	
 				
 			<cfelse>
 			
@@ -105,7 +105,7 @@
 				FieldName="dateend" 
 				Default="#Dateformat(Period.dateExpiration, CLIENT.DateFormatShow)#"
 				AllowBlank="True"
-				Class="regularxl">	
+				Class="regularxxl">	
 			
 			
 			</cfif>	
@@ -115,10 +115,10 @@
 		</tr>
 			
 		<TR>
-		<TD class="labelmedium"><cf_tl id="Order type">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Order type">:</TD>
 				
 		<td align="left" valign="top">
-		<select name="ordertype" id="ordertype" size="1" class="regularxl">
+		<select name="ordertype" id="ordertype" size="1" class="regularxxl">
 		    <option value="" selected><cf_tl id="All"></option>
 		    <cfoutput query="ordertype">
 			<option value="#Ordertype#">#Ordertype#</option>
@@ -126,10 +126,10 @@
 	    </select>
 		</td>	
 			
-		<TD class="labelmedium"><cf_tl id="Order Class">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Order Class">:</TD>
 				
 		<td align="left" valign="top">
-		<select name="orderclass" id="orderclass" size="1" class="regularxl">
+		<select name="orderclass" id="orderclass" size="1" class="regularxxl">
 		    <option value="" selected><cf_tl id="All"></option>
 		    <cfoutput query="class">
 			<option value="#OrderClass#">#Description#</option>
@@ -141,19 +141,19 @@
 		
 		<TR>
 		
-		<TD class="labelmedium"><cf_tl id="Vendor">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Vendor">:</TD>
 				
 		<td align="left" valign="top">
-		    <select name="orgunitvendor" id="orgunitvendor" size="1" style="width:250px" class="regularxl">
+		    <select name="orgunitvendor" id="orgunitvendor" size="1" style="width:250px" class="regularxxl">
 			<option value="" selected><cf_tl id="All"></option>
 		    <cfoutput query="Vendor">
 				<option value="#OrgUnit#">#OrgUnitName#</option>
 			</cfoutput>
 		    </select>
 		</td>	
-		<td class="labelmedium"><cf_tl id="Status">:</td>
+		<td class="labelmedium2"><cf_tl id="Status">:</td>
 		<td>
-		 <select name="actionstatus" id="actionstatus" size="1" class="regularxl">
+		 <select name="actionstatus" id="actionstatus" size="1" class="regularxxl">
 			<option value="1" selected><cf_tl id="Accepted"></option>
 		    <option value="9" <cfif url.actionstatus eq "9">selected</cfif>><cf_tl id="Rejected"></option>
 	     </select>
@@ -162,9 +162,9 @@
 		</tr>
 		
 		<TR>
-			<TD class="labelmedium"><cf_tl id="Item description matches">:</TD>
+			<TD class="labelmedium2"><cf_tl id="Item description matches">:</TD>
 			<TD colspan="3">	
-			<input type="text" name="receiptitem" id="receiptitem" value="" style="width:90%" size="40" class="regularxl">
+			<input type="text" name="receiptitem" id="receiptitem" value="" style="width:90%" size="40" class="regularxxl">
 			</TD>		
 		</tr>
 		

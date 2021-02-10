@@ -1,19 +1,25 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_screentop height="100%" scroll="Yes" html="No" jquery="yes">
+
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="yes" systemmodule="Accounting" functionclass="Maintain" functionname="Journal" menuclass="Dialog">
+
+<cf_listingscript>
 
 <cfparam name="URL.ID" default="Hide">
+
+<!--- old 
 
 <cfquery name="SearchResult"
 datasource="AppsLedger" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT  J.*, 
+	
 	        (SELECT count(*) 
 			 FROM  TransactionHeader 
 			 WHERE Journal = J.Journal) as Lines,
 			
-			 (SELECT TOP 1 GLAccount 
+			(SELECT TOP 1 GLAccount 
 			  FROM  JournalAccount  
 			  WHERE Journal = J.Journal
 			  AND   Mode = 'Contra'
@@ -22,12 +28,12 @@ password="#SESSION.dbpw#">
 	         T.TransactionCategory as Category, 
 			 T.Description as DescriptionCategory,
 			 T.OrderListing 
-	FROM   Journal J, Ref_transactionCategory T
-	WHERE  J.transactionCategory = T.transactionCategory
-	AND    J.Mission = '#URL.Mission#'
+			 
+	FROM     Journal J, Ref_transactionCategory T
+	WHERE    J.transactionCategory = T.transactionCategory
+	AND      J.Mission = '#URL.Mission#'
 	ORDER BY J.Mission, T.OrderListing, J.Journal
 </cfquery>
-
 
 <script>
 
@@ -143,15 +149,41 @@ function recordedit(id) {
 		   </cfoutput>
 		   
 	</cfoutput>    
-	
-	
+		
 	</table>
 	
 	</cf_divscroll>
 	
 	</td>
-	</tr>
-	
+	</tr>	
 	
 	</table>
 </div>
+
+--->
+
+<!--- new --->
+
+<script>
+	
+	function recordadd(mis) {
+	     ptoken.open("RecordAdd.cfm?mission="+mis, "Add", "left=80, top=80, width=880, height=700, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	}
+
+</script>
+
+<table width="98%" align="center" height="100%">	
+
+	<tr style="height:20px" class="line clsNoPrint">
+		<td class="labellarge" style="font-size:43px;font-weight:200;padding-top:9px;padding-left:7px;height:43px"><cfoutput>#url.Mission#</cfoutput></td>	
+	</tr>	
+
+	<tr>
+	<td colspan="2" valign="top">
+	   <cfinclude template="RecordListingContent.cfm">
+	</td>
+	</tr>
+			
+</table>
+		
+

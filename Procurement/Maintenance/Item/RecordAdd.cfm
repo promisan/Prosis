@@ -1,6 +1,6 @@
 <cf_textareascript>
 
-<cf_screentop layout="webapp" html="Yes" JQuery="Yes" height="100%" scroll="Yes" >
+<cf_screentop layout="webapp" label="Add Item Master" html="Yes" JQuery="Yes" height="100%" scroll="Yes" >
   
 <cfparam name="URL.Mode"     default="entry">
 <cfparam name="URL.Mission"  default="">
@@ -19,7 +19,7 @@ password="#SESSION.dbpw#">
 
 <CFFORM action="RecordSubmit.cfm?object=#url.object#" method="post" name="dialog" target="result">
 
-<table width="91%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="91%" align="center" class="formpadding formspacing">
 	
 	<tr><td height="5"></td></tr>
 	<tr class="hide"><td colspan="2"><iframe name="result" id="result"></iframe></td></tr>
@@ -103,16 +103,16 @@ password="#SESSION.dbpw#">
 	
 	 
 	 <TR>
-	 <TD width="150" class="labelmedium"><cf_tl id="Managed by">: <font color="FF0000">*</font>&nbsp;</TD>  
-	 <TD class="labelmedium">
-	 	<cfselect name="mission" id="mission" class="regularxl" query="Mis" value="mission" display="mission" required="Yes" message="Please, select a valid entity">
+	 <TD width="150" class="labelmedium2"><cf_tl id="Managed by">: <font color="FF0000">*</font>&nbsp;</TD>  
+	 <TD class="labelmedium2">
+	 	<cfselect name="mission" id="mission" class="regularxxl" query="Mis" value="mission" display="mission" required="Yes" message="Please, select a valid entity">
 		</cfselect> &nbsp;&nbsp; <span style="font-size:12px; color:gray;">(<cf_tl id="You must have granted ""AdminProcurement"" role for the selected entities">)</span>
 	 </TD>
 	 </TR>	
 	 
 	 <tr>
-	 	<td class="labelmedium"><cf_tl id="Enabled for">:</td>
-		<td class="labelmedium">
+	 	<td class="labelmedium2"><cf_tl id="Enabled for">:</td>
+		<td class="labelmedium2">
 			<cfif Mis.recordcount eq 1>
 			 	<cfset isChecked = "checked">
 			<cfelse>
@@ -129,9 +129,9 @@ password="#SESSION.dbpw#">
 	</tr>
 	  
 	<TR>
-	 <TD class="labelmedium"><cf_tl id="Code">:<font color="FF0000">*</font>&nbsp;</TD>  
+	 <TD class="labelmedium2"><cf_tl id="Code">:<font color="FF0000">*</font>&nbsp;</TD>  
 	 <TD>
-	 	<cfinput type="Text" name="Code" message="Please enter a code" required="Yes" visible="Yes" enabled="Yes" size="10" maxlength="20" class="regularxl">
+	 	<cfinput type="Text" name="Code" message="Please enter a code" required="Yes" visible="Yes" enabled="Yes" size="10" maxlength="20" class="regularxxl">
 	 </TD>
 	</TR>
 	
@@ -139,7 +139,7 @@ password="#SESSION.dbpw#">
 	
 	 <!--- Field: Description --->
     <TR>
-    <TD class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Description">:<font color="FF0000">*</font> &nbsp;</TD>
+    <TD class="labelmedium2" valign="top" style="padding-top:5px"><cf_tl id="Description">:<font color="FF0000">*</font> &nbsp;</TD>
     <TD >	
 	
 	<cf_LanguageInput
@@ -153,14 +153,14 @@ password="#SESSION.dbpw#">
 			Message         = "Please enter a description"
 			MaxLength       = "80"
 			Size            = "50"
-			Class           = "regularxl">
+			Class           = "regularxxl">
 				
     </TD>
 	</TR>
 	 
 	
 	<TR>
-    <td class="labelmedium" style="cursor:help"><cf_UIToolTip tooltip="Interface"><cf_tl id="Requisition Interface">:<font color="FF0000">*</font></cf_UIToolTip></b></td>
+    <td class="labelmedium2" style="cursor:help"><cf_UIToolTip tooltip="Interface"><cf_tl id="Requisition Interface">:<font color="FF0000">*</font></cf_UIToolTip></b></td>
     <TD>
 		
 		<!--- Query returning search results --->
@@ -236,7 +236,7 @@ password="#SESSION.dbpw#">
 				ORDER BY ListingOrder 
 			</cfquery>
 				
-		<select name="EntryClass" id="EntryClass" class="regularxl" onchange="ColdFusion.navigate('getEntryClass.cfm?code='+this.value,'checkme')">		
+		<select name="EntryClass" id="EntryClass" class="regularxxl" onchange="ColdFusion.navigate('getEntryClass.cfm?code='+this.value,'checkme')">		
 		
 			<cfoutput query="entryList">
 				<option value="#code#" <cfif currentrow eq "1">checked</cfif>>#Description#</option>
@@ -254,15 +254,15 @@ password="#SESSION.dbpw#">
 	</cfif>
 		
 	<TR id="material" class="<cfoutput>#cl#</cfoutput>">
-    <td class="labelmedium" style="cursor:help"><cf_UIToolTip tooltip="Enforce selection of a warehouse item"><cf_tl id="Classified Item">:</cf_UIToolTip></b></td>
-    <TD class="labelmedium">
+    <td class="labelmedium2" style="cursor:help"><cf_UIToolTip tooltip="Enforce selection of a warehouse item"><cf_tl id="Classified Item">:</cf_UIToolTip></b></td>
+    <TD class="labelmedium2">
 		<table><tr>
 		<td><input type="radio" class="radiol" name="EnforceWarehouse" id="EnforceWarehouse" value="1"></td>
-		<td class="labelmedium" style="padding-left:5px"><cf_tl id="Yes, at Request stage"></td>
+		<td class="labelmedium2" style="padding-left:5px"><cf_tl id="Yes, at Request stage"></td>
 		<td style="padding-left:5px"><input type="radio" class="radiol" name="EnforceWarehouse" id="EnforceWarehouse" value="2"></td>
-		<td class="labelmedium" style="padding-left:5px"><cf_tl id="Yes, at Receipt stage"></td>
+		<td class="labelmedium2" style="padding-left:5px"><cf_tl id="Yes, at Receipt stage"></td>
 		<td style="padding-left:5px"><input type="radio" class="radiol" name="EnforceWarehouse" id="EnforceWarehouse" value="0" checked></td>
-		<td class="labelmedium" style="padding-left:5px"><cf_tl id="No"></td>
+		<td class="labelmedium2" style="padding-left:5px"><cf_tl id="No"></td>
 		</tr></table>
     </td>
     </tr>
@@ -271,8 +271,8 @@ password="#SESSION.dbpw#">
 	
 	 <!--- Field: Description --->
     <TR>
-    <TD class="labelmedium"><cf_tl id="Cost price">:&nbsp;</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2"><cf_tl id="Cost price">:&nbsp;</TD>
+    <TD class="labelmedium2">
   	  	<cfinput type="Text"
        name="CostPrice"
        message="Please enter a price"
@@ -280,38 +280,38 @@ password="#SESSION.dbpw#">
        required="No"      
        size="5"
        maxlength="10"
-       class="regularxl"> <cfoutput>#Param.BaseCurrency#</cfoutput>
+       class="regularxxl"> <cfoutput>#Param.BaseCurrency#</cfoutput>
 				
     </TD>
 	</TR>
 	
 	<TR>
-    <td class="labelmedium" style="cursor:help"><cf_UIToolTip tooltip="Custom Dialog defined by entry class"><cf_tl id="Custom Dialog">:</cf_UIToolTip></b></td>
-    <TD class="labelmedium">
+    <td class="labelmedium2" style="cursor:help"><cf_UIToolTip tooltip="Custom Dialog defined by entry class"><cf_tl id="Custom Dialog">:</cf_UIToolTip></b></td>
+    <TD class="labelmedium2">
 	<input type="radio" class="radiol" name="CustomDialog" id="CustomDialog" checked value="1"><cf_tl id="Enabled">
 	<input type="radio" class="radiol" name="CustomDialog" id="CustomDialog" value="0"><cf_tl id="Suppressed">
     </td>
     </tr>	
 			
 	<TR class="<cfoutput>#cl#</cfoutput>">
-	    <td class="labelmedium" style="cursor:help"><cf_UIToolTip tooltip="Enforce show in list"><cf_tl id="Enforce Listing">:</cf_UIToolTip></b></td>
-	    <TD class="labelmedium">
+	    <td class="labelmedium2" style="cursor:help"><cf_UIToolTip tooltip="Enforce show in list"><cf_tl id="Enforce Listing">:</cf_UIToolTip></b></td>
+	    <TD class="labelmedium2">
 		<input type="radio" class="radiol" name="EnforceListing" id="EnforceListing" value="1"><cf_tl id="Yes">
 		<input type="radio" class="radiol" name="EnforceListing" id="EnforceListing" checked value="0"><cf_tl id="No">
 	    </td>
     </tr>
 	
-	<TR><td class="labelmedium"><cf_tl id="Is UoM Each">:</td>
-	    <TD class="labelmedium">
+	<TR><td class="labelmedium2"><cf_tl id="Is UoM Each">:</td>
+	    <TD class="labelmedium2">
 		  <table>
-		  <tr><td><input type="radio" class="radiol" name="IsUoMEach" id="IsUoMEach" value="1"></td><td class="labelmedium"><cf_tl id="Yes, item/uoms can be treated as one"></td></tr>
-		  <tr><td><input type="radio" class="radiol" name="IsUoMEach" id="IsUoMEach" checked value="0"></td><td class="labelmedium"><cf_tl id="No, each item/uom may be different"></td></tr>
+		  <tr><td><input type="radio" class="radiol" name="IsUoMEach" id="IsUoMEach" value="1"></td><td class="labelmedium2"><cf_tl id="Yes, item/uoms can be treated as one"></td></tr>
+		  <tr><td><input type="radio" class="radiol" name="IsUoMEach" id="IsUoMEach" checked value="0"></td><td class="labelmedium2"><cf_tl id="No, each item/uom may be different"></td></tr>
 		  </table>			
 	    </td>
     </tr>	
 	
  	<TR>	
-       <TD class="labelmedium"><cf_tl id="Associated Object">:&nbsp;</TD>
+       <TD class="labelmedium2"><cf_tl id="Associated Object">:&nbsp;</TD>
 	   <td>
 	   <cfdiv bind="url:RecordAddObject.cfm?mission={mission}&object=#url.object#" id="object">	  
 	   </td>
@@ -319,7 +319,7 @@ password="#SESSION.dbpw#">
 	
 	 <!--- Field: Description --->
     <TR>
-    <TD class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Memo">:&nbsp;</TD>
+    <TD class="labelmedium2" valign="top" style="padding-top:5px"><cf_tl id="Memo">:&nbsp;</TD>
     <TD><textarea style="padding;3px;font-size:13px;height:40px;width:90%" name="Memo" class="regular"></textarea></TD>
 	</TR>		
 		

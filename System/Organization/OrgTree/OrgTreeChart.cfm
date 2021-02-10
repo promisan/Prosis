@@ -331,11 +331,21 @@
 							    <cfif Gender neq "">
 								
 								<div class="col-lg-2" onclick="showProfile('#personno#');">
+								
+								    <cf_getProfilePicture 
+									    IndexNo = "#IndexNo#" 
+										UserAccount = "#useraccount#" 
+										Gender = "#Gender#" 
+										style="#vManagerProfileStyle# #vManagerMargin#">
+									
+									<!---	
 									<cfset vIndexNo = IndexNo>
 									<cfset vGender = Gender>
 									<cfset vUserAccount = UserAccount>
 									<cfinclude template="getProfilePicture.cfm">
 									<div class="img-circle clsRoundedPicture" style="background-image:url('#vPhoto#'); #vManagerProfileStyle# #vManagerMargin#"></div>
+									--->
+									
 									<div class="text-center" style="font-size:110%; text-transform:capitalize;">#lcase(FirstName)# #lcase(LastName)#<cfif trim(contractLevel) neq ""><br>(#ContractLevel#)</cfif></div>
 									<div class="searchable" style="display:none;">#lcase(FirstName)# #lcase(LastName)# #IndexNo# #ContractLevel#</div>
 								</div>								
@@ -346,11 +356,21 @@
 									<cfoutput>
 										<cfif cnt neq 1>
 											<div class="col-lg-3 col-sm-6" onclick="showProfile('#personno#');" style="margin-bottom:15px; height:100px;">
+											
+											   <cf_getProfilePicture 
+												    IndexNo = "#IndexNo#" 
+													UserAccount = "#useraccount#" 
+													Gender = "#Gender#" 
+													style="#vPeopleProfileStyle# #vPeopleMargin#">
+										
+										        <!---
 												<cfset vIndexNo = IndexNo>
 												<cfset vGender = Gender>
 												<cfset vUserAccount = UserAccount>
 												<cfinclude template="getProfilePicture.cfm">
 												<div class="img-circle clsRoundedPicture" style="background-image:url('#vPhoto#'); #vPeopleProfileStyle# #vPeopleMargin#"></div>
+												--->
+												
 												<div class="text-center" style="text-transform:capitalize;">#lcase(FirstName)# #lcase(LastName)#<cfif trim(contractLevel) neq ""><br>(#ContractLevel#)</cfif></div>
 												<div class="searchable" style="display:none;">#lcase(FirstName)# #lcase(LastName)# #IndexNo# #ContractLevel#</div>
 											</div>

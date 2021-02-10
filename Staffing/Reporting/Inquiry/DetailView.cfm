@@ -50,7 +50,7 @@
 <script language="JavaScript">	
 
 	function returnmain() {	 
-	 window.open("../PostView/Staffing/PostViewLoop.cfm?#link#","_self")
+	   ptoken.open("../PostView/Staffing/PostViewLoop.cfm?#link#","_self")
 	}	
 				
 	function facttablexls1(control,format,box) {
@@ -58,7 +58,7 @@
 		if (confirm("Do you want to export to Excel ?")) { 
 		    w = #CLIENT.width# - 80;
 		    h = #CLIENT.height# - 110;	
-			window.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?fileno=#fileno#&data=1&controlid="+control+"&format="+format+"&ts="+new Date().getTime(), "facttable", "unadorned:yes; edge:raised; status:no; dialogHeight: "+h+" px; dialogWidth:"+w+" px; help:no; scroll:no; center:yes; resizable:no");	
+			ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?fileno=#fileno#&data=1&controlid="+control+"&format="+format+"&ts="+new Date().getTime(), "facttable", "unadorned:yes; edge:raised; status:no; dialogHeight: "+h+" px; dialogWidth:"+w+" px; help:no; scroll:no; center:yes; resizable:no");	
 		}
 		return false	
 	}	
@@ -82,7 +82,7 @@
 		 count++			 
 		 }	
 		 _cf_loadingtexthtml="";	 						 
-		 ColdFusion.navigate('#SESSION.root#/#base#/#fil#/DetailNavigate.cfm','listing') 					  
+		 ptoken.navigate('#SESSION.root#/#base#/#fil#/DetailNavigate.cfm','listing') 					  
 		 
    	}   
 				
@@ -91,23 +91,23 @@
 	 if (mode == "undefined") { mode = "listing" }	
 	   	
 	   itm = document.getElementById('itemselected').value			   					    
-	   ColdFusion.navigate('#SESSION.root#/#base#/#path#/Listing.cfm?mode='+mode+'&fileno=#fileno#&item='+itm+'&series='+graphseries.value+'&select='+graphselect.value+crit,mode) 			
-	   ColdFusion.Window.create('rightpanel', 'Selection Summary', '',{height:340,width:350,modal:false,center:true})				  
-  	   ColdFusion.Window.hide('rightpanel')	 
+	   ptoken.navigate('#SESSION.root#/#base#/#path#/Listing.cfm?mode='+mode+'&fileno=#fileno#&item='+itm+'&series='+graphseries.value+'&select='+graphselect.value+crit,mode) 			
+	   // ProsisUI.createWindow('rightpanel', 'Selection Summary', '',{height:340,width:350,modal:false,center:true})				  
+  	   // ProsisUI.closeWindow('rightpanel')	 
 	   _cf_loadingtexthtml="";	 
-   	   ColdFusion.navigate('#SESSION.root#/#base#/#pty#/Property.cfm?fileno=#fileno#&item='+itm+'&series='+graphseries.value+'&select='+graphselect.value+crit,'rightpanel') 						 	  
+   	   // ptoken.navigate('#SESSION.root#/#base#/#pty#/Property.cfm?fileno=#fileno#&item='+itm+'&series='+graphseries.value+'&select='+graphselect.value+crit,'rightpanel') 						 	  
 	 }						
 				
 	function pivot() {
 	   itm = document.getElementById('itemselected').value	
 	   _cf_loadingtexthtml="";	
-	   ColdFusion.navigate('#SESSION.root#/#base#/#path#/PivotData.cfm?fileno=#fileno#&item='+itm+'&series='+graphseries.value+'&select='+graphselect.value,'listing') 						 
+	   ptoken.navigate('#SESSION.root#/#base#/#path#/PivotData.cfm?fileno=#fileno#&item='+itm+'&series='+graphseries.value+'&select='+graphselect.value,'listing') 						 
 	}
 	
 	function pivotsubmit() {	
 	   itm = document.getElementById('itemselected').value		
 	   _cf_loadingtexthtml="";		   
-	   ColdFusion.navigate('#SESSION.root#/#base#/#path#/PivotData.cfm?fileno=#fileno#&item='+itm+'&series='+graphseries.value+'&select='+graphselect.value,'listing','','','POST','pivotform') 						 		   	
+	   ptoken.navigate('#SESSION.root#/#base#/#path#/PivotData.cfm?fileno=#fileno#&item='+itm+'&series='+graphseries.value+'&select='+graphselect.value,'listing','','','POST','pivotform') 						 		   	
 	}
 		
     function listener(val,series) {
@@ -121,20 +121,20 @@
     function request(id,alias,node,section,frame,mode,af,av,as,bf,bv,bs,yf,yv,ys,xf,xv,xs,header,srt,condition) {			    
 	   
 	    try {
-	    ColdFusion.Window.create('drillbox', 'Listing', '',{height:600,width:800,modal:true,center:true})	
-		ColdFusion.Window.hide('rightpanel')				
+	    ProsisUI.createWindow('drillbox', 'Listing', '',{height:600,width:800,modal:true,center:true})	
+		// ProsisUI.closeWindow('rightpanel')				
 		} catch(e) {}
-	    ColdFusion.Window.show('drillbox')
-		ColdFusion.navigate('#SESSION.root#/#base#/#fil#/PivotDrillSubmit.cfm?xf='+xf+'&yf='+yf+'&xv='+xv+'&yv='+yv,'drillbox') 						
+	    // ColdFusion.Window.show('drillbox')
+		ptoken.navigate('#SESSION.root#/#base#/#fil#/PivotDrillSubmit.cfm?xf='+xf+'&yf='+yf+'&xv='+xv+'&yv='+yv,'drillbox') 						
 	}	
 				
 	function inspect(mde) {
-	
-	    ColdFusion.Window.create('rightpanel', 'Selection Summary', '',{height:340,width:350,modal:false,center:true})		
-		ColdFusion.Window.show('rightpanel')
-		if (mde == "all") { 
-		  ColdFusion.navigate('#SESSION.root#/#base#/#pty#/Property.cfm?fileno=#fileno#','rightpanel') 						 
-	    }		
+		   
+	    ProsisUI.createWindow('rightpanel', 'Selection Summary', '',{height:340,width:350,modal:false,center:true})				
+		// if (mde == "all") { 
+		// Hanno better to show the content of the listing here
+		  ptoken.navigate('#SESSION.root#/#base#/#pty#/Property.cfm?fileno=#fileno#','rightpanel') 						 
+	    // }		
 	}	
 	
 	function reload(itm,fil,scp) {
@@ -146,25 +146,25 @@
 		//var iframe = document.getElementById('graphdata'); 
 		//iframe.src = "#SESSION.root#/#base#/#path#/GraphData.cfm?scope="+scp+"&format="+fmt+"&ts="+new Date().getTime()+"&fileno=#fileno#&item="+itm; 
 	    _cf_loadingtexthtml='';			
-		ColdFusion.navigate("#SESSION.root#/#base#/#path#/GraphData.cfm?scope="+scp+"&format="+fmt+"&ts="+new Date().getTime()+"&fileno=#fileno#&item="+itm,"graphdata")  				
+		ptoken.navigate("#SESSION.root#/#base#/#path#/GraphData.cfm?scope="+scp+"&format="+fmt+"&ts="+new Date().getTime()+"&fileno=#fileno#&item="+itm,"graphdata")  				
 		_cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy10.gif'/>";	
 		reloadlisting() 
 		if (fil == 'yes') {
-		ColdFusion.navigate('#SESSION.root#/#base#/#fil#/Filter.cfm?fileno=#fileno#&item='+itm+"&scope="+scp,'filter') 						 			
+		ptoken.navigate('#SESSION.root#/#base#/#fil#/Filter.cfm?fileno=#fileno#&item='+itm+"&scope="+scp,'filter') 						 			
 	    } 	
 	}						
 											 
 	function printdetail(itm,sel,mode) {
 		fmt = document.getElementById('formatselected').value	
 		if (mode != 'pivot') {
-		window.open("#SESSION.root#/#base#/#path#/Listing.cfm?format="+fmt+"&mode="+mode+"&fileno=#fileno#&print=yes&item="+itm+"&select="+sel,"_blank", "left=35, top=15, width=700, height=660, status=yes, toolbar=no, scrollbars=yes, resizable=yes")  			 		 
+		ptoken.open("#SESSION.root#/#base#/#path#/Listing.cfm?format="+fmt+"&mode="+mode+"&fileno=#fileno#&print=yes&item="+itm+"&select="+sel,"_blank", "left=35, top=15, width=700, height=660, status=yes, toolbar=no, scrollbars=yes, resizable=yes")  			 		 
 		} else {
-		window.open("#SESSION.root#/#base#/#path#/PivotData.cfm?format="+fmt+"&mode="+mode+"&fileno=#fileno#&print=yes&item="+itm+"&select="+sel,"_blank", "left=35, top=15, width=700, height=660, status=yes, toolbar=no, scrollbars=yes, resizable=yes")  			 		 			
+		ptoken.open("#SESSION.root#/#base#/#path#/PivotData.cfm?format="+fmt+"&mode="+mode+"&fileno=#fileno#&print=yes&item="+itm+"&select="+sel,"_blank", "left=35, top=15, width=700, height=660, status=yes, toolbar=no, scrollbars=yes, resizable=yes")  			 		 			
 		}
 	} 
 									
    function filterapply(itm,no,scp) {
-	    ColdFusion.navigate('#SESSION.root#/#base#/#fil#/FilterSubmit.cfm?item='+itm+'&scope='+scp,'filterapply','','','POST','filterform')		
+	    ptoken.navigate('#SESSION.root#/#base#/#fil#/FilterSubmit.cfm?item='+itm+'&scope='+scp,'filterapply','','','POST','filterform')		
 	}	
 		 
 </script>

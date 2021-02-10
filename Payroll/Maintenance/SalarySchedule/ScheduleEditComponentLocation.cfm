@@ -18,7 +18,6 @@
 
 <table width="100%">
 
-
 <cfquery name="check"
 	datasource="AppsPayroll" 
 	username="#SESSION.login#" 
@@ -31,7 +30,7 @@
 
 <cfif check.period eq "DAY" or check.period eq "HOUR">
 	
-	<tr class="line"><td colspan="4">
+	<tr><td colspan="4">
 	
 			<cfquery name="get"
 			datasource="AppsPayroll" 
@@ -66,7 +65,7 @@
 														     WHERE  SalarySchedule = '#url.schedule#'))
 					</cfquery>		   
 										
-					<select name="ratecomponent_#id#" class="regularxl" style="width:250px">
+					<select name="ratecomponent_#id#" class="regularxxl" style="width:250px">
 					    <option value="">n/a</option>
 						<cfloop query="parent">
 							<option value="#Code#" <cfif get.ratecomponentname eq code>selected</cfif>>#Description#</option>
@@ -76,7 +75,7 @@
 				</td>
 				<td style="padding-left:10px"><cf_tl id="Percentage">:</td>	
 				<td style="padding-left:10px">
-				    <input class="regularxl" value="#get.ratepercentage#" style="text-align:right;width:90px" name="ratepercentage_#id#">
+				    <input class="regularxxl" value="#get.ratepercentage#" style="text-align:right;width:90px" name="ratepercentage_#id#">
 				</td>		
 				<td style="padding-left:2px">%</td>
 				</tr>
@@ -107,10 +106,10 @@
 	<cfset cnt = cnt + 1>
 	
 	<cfif cnt eq "1">
-	<tr class="labelmedium line" style="height:20px">
+	<tr class="labelmedium2" style="height:20px">
 	</cfif>
 	
-		<td style="width:70;padding-left:7px"><input type="checkbox" name="location_#id#" value="#LocationCode#" <cfif check.recordcount gte "1">checked</cfif>></td>
+		<td style="width:70;padding-left:7px"><input class="radiol" type="checkbox" name="location_#id#" value="#LocationCode#" <cfif check.recordcount gte "1">checked</cfif>></td>
 		<td style="width:45% padding-right:20px">#Description#</td>
 		
 	<cfif cnt eq "2"></tr></cfif>	

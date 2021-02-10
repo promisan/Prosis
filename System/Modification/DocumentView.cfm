@@ -111,11 +111,11 @@
 	</cf_layoutarea>		
 	 	 
 	<cf_layoutarea 
-	    position    = "left" 
+	    position    = "right" 
 		name        = "commentbox" 
 		maxsize     = "500" 		
 		size        = "25%" 		
-		minsize     = "360"
+		minsize     = "380"
 		collapsible = "true" 
 		splitter    = "true"
 		overflow    = "scroll"

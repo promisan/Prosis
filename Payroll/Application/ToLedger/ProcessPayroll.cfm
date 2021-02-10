@@ -69,7 +69,7 @@ the prosis budget PERIOD will be determined through the editionfund combination
     datasource="appsLedger">
 	SELECT   *
 	FROM     Journal
-	WHERE    Mission = '#mission#' 
+	WHERE    Mission       = '#mission#' 
 	AND      SystemJournal = 'Payroll'		
 </cfquery>			
 
@@ -89,7 +89,7 @@ the prosis budget PERIOD will be determined through the editionfund combination
 
 </cfoutput>
 
-<table width="80%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="80%" align="center" class="formpadding">
 
 <!--- Attention : the journal will need to have the months defined as subperiods
 for that journal in JournalBatch this will then match the month of the payroll --->

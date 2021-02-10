@@ -112,7 +112,7 @@
                 <cfset vLeftBorder = "border-left: 1px solid ##EDEDED;">
             </cfif>
 
-            <cf_MobileCell style="#vLeftBorder#" class="clsPosition clsSearchable toggleScroll-y col-xs-12 col-md-6 col-lg-#INT(12/vCols)#">
+            <cf_MobileCell style="#vLeftBorder#" class="clsPosition clsSearchable toggleScroll-y col-xs-12 col-lg-6 col-xl-#INT(12/vCols)#">
                 <cfinclude template="StaffingPositionContainer.cfm">	
             </cf_MobileCell>
 

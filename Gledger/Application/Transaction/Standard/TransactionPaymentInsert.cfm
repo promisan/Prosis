@@ -49,7 +49,7 @@ password="#SESSION.dbpw#">
 
 <cfif discount.recordcount eq "0">
 
-	 <tr><td class="labelmedium">
+	 <tr><td class="labelmedium2" style="font-size:20px">
 	   <font style="color: B22222;">Problem, discount gl account was not been defined</font>
 	 </td></tr>	 
 	 <cfabort>
@@ -79,27 +79,22 @@ password="#SESSION.dbpw#">
 	<cfset serNo = serNo + 1>
 	
 	<cfquery name="SearchResult"
-	datasource="AppsLedger" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	 	SELECT  P.*, 
-		        JA.GLAccount, 
-				J.AccountType, 
-				J.Currency, 
-				C.ExchangeRate
-		 FROM   TransactionHeader P, 
-		        Journal J, JournalAccount JA,
-				Currency C,
-				Ref_Account A 
-		 WHERE  P.Journal          = J.Journal
-		   AND  J.Journal          = JA.Journal 
-		   AND  JA.ListDefault     = 1
-		   AND  JA.GlAccount       = A.GlAccount
-		   AND  J.Currency         = C.Currency 
-		   AND  P.AmountOutstanding > 0
-		   AND  A.AccountClass     = 'Balance' 
-		   AND  P.TransactionId    = '#preserveSingleQuotes(itm)#' 		
-		   	   
+		datasource="AppsLedger" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		 	SELECT  P.*, 
+			        JA.GLAccount, 
+					J.AccountType, 
+					J.Currency, 
+					C.ExchangeRate
+			 FROM   TransactionHeader P 
+			        INNER JOIN Journal J         ON P.Journal      = J.Journal
+					INNER JOIN JournalAccount JA ON J.Journal      = JA.Journal AND JA.ListDefault = 1
+					INNER JOIN Currency C        ON J.Currency     = C.Currency
+					INNER JOIN Ref_Account A     ON JA.GlAccount   = A.GlAccount 
+			 WHERE 	P.AmountOutstanding > 0
+			 AND    A.AccountClass     = 'Balance' 
+			 AND    P.TransactionId    = '#preserveSingleQuotes(itm)#' 				   	   
 	</cfquery>
 			
 	<!--- Add TransactionHeader in a loop to the temp table --->
@@ -436,17 +431,19 @@ password="#SESSION.dbpw#">
 		   <cf_exchangeRate CurrencyFrom="#HeaderSelect.currency#" CurrencyTo="#Parameter.BaseCurrency#">			  
 		   <cfset bexc  = exc>
 		
-		</cfif>
+		</cfif>		
+		
+		
 		
 						
-		<cfif AccountType neq "Debit">  <!--- this is now a reverse teneinde de correctie te maken !! --->
+		<cfif AccountType eq "Debit">  <!--- this is now a reverse teneinde de correctie te maken !! --->
 		
 			  <cfset debit       = amt>
 			  <cfset credit      = 0>
 		  	  <cfset debitbase   = amtB>
 		      <cfset creditbase  = 0>
 		      <cfset accounttype = "Debit">		
-			
+			 			
 		<cfelse>
 				
 			  <cfset credit      = amt>
@@ -454,9 +451,9 @@ password="#SESSION.dbpw#">
 			  <cfset creditbase  = amtB>
 			  <cfset debitbase   = 0> 
 			  <cfset accounttype = "Credit"> 
-			 
+			  			 
 		</cfif>		
-						
+								
 		<cfif payment gt "0">	
 							
 			<cfquery name="Insert" 

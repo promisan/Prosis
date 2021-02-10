@@ -165,7 +165,7 @@
 		actionobjectkeyvalue1="#url.id#">
 </cfif>	
 
-<table width="99%" height="100%" align="center" style="min-width:970" class="formpadding">
+<table width="99%" height="100%" align="center" style="min-width:970px" class="formpadding">
 
 	<tr><td height="10" style="padding-left:7px">	
 		  <cfset ctr        = "1">	
@@ -177,9 +177,9 @@
 	    
    <cfparam name="URL.View" default="Entitlement">
 
-   <tr><td height="20" valign="top">	
+   <tr class="line"><td height="20" valign="top">	
    
-	   <table width="98%" cellspacing="0" cellpadding="0" align="center">
+	   <table width="99%" align="center">
 	   
 	   <tr>			
 	   		   	   	   						
@@ -314,20 +314,13 @@
    </tr>	 
    
    <cf_menuscript>
-          
-   <tr><td height="1" colspan="1">
-        <table width="98%" align="center"><tr><td class="line" height="1"></td></tr></table>
-   </td></tr>
-	
+       	
    <tr><td height="100%" style="padding-right:16px">
    
    		<cf_divscroll overflowy="scroll">
 		
-		<table width="99%" 
-		      border="0"
-			  height="100%"
-			  cellspacing="0" 
-			  cellpadding="0" 
+		<table width="100%" 		     
+			  height="100%"			 
 			  align="center">	  
 		 		
 				<tr class="hide"><td valign="top" height="1" id="result"></td></tr>							

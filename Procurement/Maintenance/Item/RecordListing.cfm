@@ -133,11 +133,11 @@ function recordedit(id1) {
 function refreshlist(id1) {	 
 	
 	 _cf_loadingtexthtml='';	
-	 ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=code',id1+'_code')
-	 ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=desc',id1+'_desc')	
-	 ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=objc',id1+'_objc')	
-	 ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=clss',id1+'_clss')	
-	 ColdFusion.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=oper',id1+'_oper')
+	 ptoken.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=code',id1+'_code')
+	 ptoken.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=desc',id1+'_desc')	
+	 ptoken.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=objc',id1+'_objc')	
+	 ptoken.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=clss',id1+'_clss')	
+	 ptoken.navigate('RecordListingRefresh.cfm?id1='+id1+'&col=oper',id1+'_oper')
 	
 }
 

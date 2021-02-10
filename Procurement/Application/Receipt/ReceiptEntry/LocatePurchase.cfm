@@ -6,9 +6,8 @@
 <!--- Search form --->
 <cfform name="formlocate" onsubmit="return false">
 
-<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-	
-		
+<table width="99%" border="0" align="center" class="formpadding">
+			
 	<tr><td height="3"></td></tr>
 	
 	<cfquery name="Vendor" 
@@ -94,34 +93,34 @@
 		</cfquery>
 	
 		<tr>
-		<TD class="labelmedium"><cf_tl id="Period">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Period">:</TD>
 				
 		<td align="left">
-		<select name="Period" id="Period" size="1" class="regularxl">
+		<select name="Period" id="Period" size="1" class="regularxxl">
 		    <option value="" selected><cf_tl id="Any"></option>
 		    <cfoutput query="tPeriod">
 			<option value="#Period#" <cfif URL.Period eq Period>selected</cfif> >#Period#</option>
 			</cfoutput>
 		    </select>
 		</td>	
-		<TD class="labelmedium"><cf_tl id="Requisition">/<cf_tl id="WorkOrder">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Requisition">/<cf_tl id="WorkOrder">:</TD>
 		<TD>	
-		<input type="text" class="regularxl" name="reference" id="reference" value="" size="15" style="text-align: left;">
+		<input type="text" class="regularxxl" name="reference" id="reference" value="" size="15" style="text-align: left;">
 		
 		</TD>
 		</tr>
 			
 		<TR>
-		<TD class="labelmedium"><cf_tl id="Order No">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Order No">:</TD>
 		<td colspan="1">	
-		<input type="text" class="regularxl" name="purchaseno" id="purchaseno" value="" size="10">
+		<input type="text" class="regularxxl" name="purchaseno" id="purchaseno" value="" size="10">
 		</td>
-		<TD class="labelmedium"><cf_tl id="Issued after">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Issued after">:</TD>
 		<TD>	
 		 <cf_intelliCalendarDate9
 			FieldName="orderdate" 
 			Default=""
-			class="regularxl"
+			class="regularxxl"
 			AllowBlank="True">	
 		</TD>
 		</tr>
@@ -129,10 +128,10 @@
 		</TR>
 			
 		<TR>
-		<TD class="labelmedium"><cf_tl id="Order type">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Order type">:</TD>
 				
 		<td align="left" valign="top">
-		<select name="ordertype" id="ordertype" size="1" class="regularxl">
+		<select name="ordertype" id="ordertype" size="1" class="regularxxl">
 		    <option value="" selected>All</option>
 		    <cfoutput query="ordertype">
 			<option value="#Ordertype#">#Ordertype#</option>
@@ -140,10 +139,10 @@
 	    </select>
 		</td>	
 			
-		<TD class="labelmedium"><cf_tl id="Order Class">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Order Class">:</TD>
 				
 		<td align="left" valign="top">
-		<select name="orderclass" id="orderclass" size="1" class="regularxl">
+		<select name="orderclass" id="orderclass" size="1" class="regularxxl">
 		    <option value="" selected><cf_tl id="Any"></option>
 		    <cfoutput query="class">
 			<option value="#OrderClass#">#Description#</option>
@@ -156,15 +155,15 @@
 		
 		<!--- Field: Pur_head.VendorName=CHAR;80;FALSE --->
 		<TR>
-		<TD class="labelmedium"><cf_tl id="Vendor code">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Vendor code">:</TD>
 				
 		<td align="left" valign="top">
-		<cfinput type="Text" name="orgunit" message="Please enter a valid vendor code (999999) " class="regularxl" validate="integer" required="No" size="10">
+		<cfinput type="Text" name="orgunit" message="Please enter a valid vendor code (999999) " class="regularxxl" validate="integer" required="No" size="10">
 		</td>	
-		<TD class="labelmedium"><cf_tl id="Name">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Name">:</TD>
 				
 		<td align="left" valign="top">
-		    <select name="orgunitvendor" id="orgunitvendor" size="1" style="width:300px" class="regularxl">
+		    <select name="orgunitvendor" id="orgunitvendor" size="1" style="width:300px" class="regularxxl">
 			<option value="" selected><cf_tl id="All"></option>
 		    <cfoutput query="Vendor">
 				<option value="#OrgUnit#">#OrgUnitName#</option>
@@ -175,35 +174,35 @@
 		</tr>
 		
 		<TR>
-		<TD class="labelmedium"><cf_tl id="Order amount">:</TD>
-		<TD><SELECT name="amountoperator" id="amountoperator" class="regularxl">
+		<TD class="labelmedium2"><cf_tl id="Order amount">:</TD>
+		<TD><SELECT name="amountoperator" id="amountoperator" class="regularxxl">
 				<option value=">=" selected><cf_tl id="greater than">
 				<OPTION value="<="><cf_tl id="smaller than">
 			</SELECT>
-			<input type="text" name="amount" id="amount" value="0" size="10" class="regularxl" style="width:80px;text-align: right;">
+			<input type="text" name="amount" id="amount" value="0" size="10" class="regularxxl" style="width:80px;text-align: right;">
 			<cfoutput>#APPLICATION.BaseCurrency#</cfoutput>
 		</TD>
 		
-		<TD class="labelmedium"><cf_tl id="Item description matches">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Item description matches">:</TD>
 		<TD>	
-		<input type="text" name="orderitem" id="orderitem" class="regularxl" value="" style="width:300px" size="40">
+		<input type="text" name="orderitem" id="orderitem" class="regularxxl" value="" style="width:300px" size="40">
 		</TD>
 		
 		</TR>
 			
 		<TR>
-		<TD class="labelmedium"><cf_tl id="Purchase status">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Purchase status">:</TD>
 		<td align="left" valign="top">
-		    <select name="actionstatus" id="actionstatus" size="1" class="regularxl">
+		    <select name="actionstatus" id="actionstatus" size="1" class="regularxxl">
 			<option value=""><cf_tl id="All"></option>
 		    <cfoutput query="OrderStatus">
 				<option value="#ActionStatus#" <cfif ActionStatus eq "3">selected</cfif>>#Description#</option>
 			</cfoutput>
 		    </select>
 		</td>	
-		<TD class="labelmedium"><cf_tl id="Delivery status">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Delivery status">:</TD>
 		<TD>
-		    <SELECT name="deliverystatus" id="deliverystatus" class="regularxl">
+		    <SELECT name="deliverystatus" id="deliverystatus" class="regularxxl">
 		        <OPTION value="0" selected><cf_tl id="Outstanding">
 				<OPTION value="3"><cf_tl id="Completed">
 			</SELECT>		
@@ -231,7 +230,7 @@
 		   value="#lt_text#" 
 		   class="button10g" 
 		   onclick="filter()" 
-		   style="font-size:13px;width:160px;height:25px">		
+		   style="width:180px;height:28px">		
 
 	</td>
 </tr>

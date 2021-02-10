@@ -228,21 +228,19 @@
 	    <TD class="labellarge">
 	  	    <cfoutput query="get">
 			<INPUT type="radio" name="MailOutputMode" id="MailOutputMode" value="HTML" <cfif Get.MailOutputMode eq "HTML">checked</cfif>> HTML
-			<INPUT type="radio" name="MailOutputMode" id="MailOutputMode" value="LotusNotes" <cfif Get.MailOutputMode eq "LotusNotes">checked</cfif>> Lotus Notes
+			<INPUT type="radio" disabled name="MailOutputMode" id="MailOutputMode" value="LotusNotes" <cfif Get.MailOutputMode eq "LotusNotes">checked</cfif>> Lotus Notes
 			</cfoutput>
 	    </TD>
 		</TR>				
 		
 		<tr><td height="10"></td></tr>
 		
-		<TR>
-		    <td colspan="2" width="100%" height="100%" id="idLDAP">
+		<TR class="line">
+		    <td colspan="2" style="width:100%" id="idLDAP">
 				<cfinclude template="ParameterSystemEditLDAP.cfm">
 			</td>
 		</tr>
-		
-		<tr><td class="line" colspan="2"></td></tr>
-		
+				
 		<tr><td colspan="2" height="25">
 	
 			<input type="submit" name="Update" id="Update" value=" Apply " class="button10g">	

@@ -153,6 +153,7 @@ password="#SESSION.dbpw#">
 				height           = "100%"
 				Mission          = "#mission#"		
 				Units            = "#units#"	
+				UnitsMultiple    = "Yes"	
 				Period           = "#per#"		
 				Option           = "Parent"
 				DefaultOrgUnit   = "#defunit#"

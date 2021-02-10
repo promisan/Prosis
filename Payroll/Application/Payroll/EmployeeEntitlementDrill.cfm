@@ -46,8 +46,9 @@
 			FROM     EmployeeSalaryLine L INNER JOIN EmployeeSalary S ON S.PersonNo = L.PersonNo
 			AND      S.SalarySchedule = L.SalarySchedule
 			AND      S.PayrollStart   = L.PayrollStart
+			AND      S.Mission        = L.Mission
 			AND      S.PayrollCalcNo  = L.PayrollCalcNo
-			
+						
 			WHERE    S.PersonNo          = '#URL.ID#'	
 			<cfif url.mode eq "Year">
 			AND      S.Mission          = '#url.mission#'
@@ -215,6 +216,7 @@
 				AND      S.SalarySchedule = L.SalarySchedule
 				AND      S.PayrollStart   = L.PayrollStart
 				AND      S.PayrollCalcNo  = L.PayrollCalcNo
+				AND      S.Mission        = L.Mission
 				
 				WHERE    S.PersonNo          = '#URL.ID#'	
 				AND      L.EntitlementYear   = '#EntitlementYear#'

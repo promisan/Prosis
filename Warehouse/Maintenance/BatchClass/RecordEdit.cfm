@@ -60,37 +60,37 @@ password="#SESSION.dbpw#">
 
 <!--- edit form --->
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="92%" align="center" class="formpadding">
 
 	<tr><td colspan="2" align="center" height="10"></tr>
 	
     <cfoutput>
-    <TR>
-    <TD class="labelit"><cf_tl id="Code">:</TD>
-    <TD class="labelmedium">
+    <TR class="labelmedium2">
+    <TD><cf_tl id="Code">:</TD>
+    <TD>
   	   #get.Code#
 	   <input type="hidden" name="Codeold" id="Codeold" value="#get.Code#" size="20" maxlength="10"class="regular">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit"><cf_tl id="Description">:</TD>
-    <TD class="labelit">
-  	   <cfinput type="text" name="Description" value="#get.Description#" message="please enter a description" required="Yes" size="30" maxlength = "50" class= "regularxl">
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Description">:</TD>
+    <TD>
+  	   <cfinput type="text" name="Description" value="#get.Description#" message="please enter a description" required="Yes" size="30" maxlength = "50" class= "regularxxl">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit"><cf_tl id="Order">:</TD>
-    <TD class="labelit">
-  	   <cfinput type="text" name="ListingOrder" value="#get.ListingOrder#" message="please enter a numeric order" validate="integer" required="Yes" size="1" maxlength = "3" class= "regularxl" style="text-align:center;">
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Order">:</TD>
+    <TD>
+  	   <cfinput type="text" name="ListingOrder" value="#get.ListingOrder#" message="please enter a numeric order" validate="integer" required="Yes" size="1" maxlength = "3" class= "regularxxl" style="text-align:center;">
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelit"><cf_tl id="Printout">:</TD>
-    <TD class="labelit">
-		<table cellpadding="0" cellspacing="0">
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Printout">:</TD>
+    <TD>
+			<table cellpadding="0" cellspacing="0">
 			<tr>
 				<td>
 					<cfinput 
@@ -102,11 +102,11 @@ password="#SESSION.dbpw#">
 						required="No" 
 						size="40" 
 						maxlength="80" 
-						class= "regularxl"
-						onblur= "ColdFusion.navigate('FileValidation.cfm?template='+this.value+'&container=pathValidationDiv&resultField=validatePath','pathValidationDiv')" >
+						class= "regularxxl"
+						onblur= "ptoken.navigate('FileValidation.cfm?template='+this.value+'&container=pathValidationDiv&resultField=validatePath','pathValidationDiv')" >
 				</td>
 				<td valign="middle" align="left">
-					<cfdiv id="pathValidationDiv" bind="url:FileValidation.cfm?template=#get.ReportTemplate#&container=pathValidationDiv&resultField=validatePath">				
+					<cf_securediv id="pathValidationDiv" bind="url:FileValidation.cfm?template=#get.ReportTemplate#&container=pathValidationDiv&resultField=validatePath">				
 				</td>
 			</tr>
 		</table>

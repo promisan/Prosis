@@ -96,7 +96,6 @@
 		AND       ActionStatus != '9'		
 </cfquery> 
 
-
 <cfif PurchaseClass.PurchaseTemplate neq "">
    <cfset tmp = "#PurchaseClass.PurchaseTemplate#">
 <cfelseif Parameter.PurchaseTemplate neq "">
@@ -141,8 +140,15 @@
 	     }   
     }	
 		
-	function reloadForm(mode,sort) {	    
-		ptoken.location("POView.cfm?header=#url.header#&Mode=" + mode + "&role=#URL.Role#&ID1=#URL.ID1#&Sort="+sort) 
+	function reloadForm(mode,sort,head) {	    
+	    
+	    if (head == "undefined") {
+		    header = 1
+		} else { 
+		    header = head
+		}	
+		
+		ptoken.location('POView.cfm?header='+header+'&Mode=' + mode + '&role=#URL.Role#&ID1=#URL.ID1#&Sort='+sort) 
 	}
 	
 	function amendpurchase() {	
@@ -273,15 +279,15 @@ password="#SESSION.dbpw#">
 
 <cf_verifyOperational        
          module    = "Procurement" 
-		 Warning   = "No">		
-		
+		 Warning   = "No">	
+		 
 <cfif url.header eq "Yes" and Object.recordcount gte "1" and operational eq "1">
 
 		<cf_screentop  
 			    layout        = "webapp" 
 				html          = "No" 
 				label         = "#lt_text# #URL.Id1#" 		
-				banner        = "green" 
+				banner        = "gray" 
 				bannerforce   = "Yes"
 				scroll        = "No"	
 				line          = "no"
@@ -304,7 +310,7 @@ password="#SESSION.dbpw#">
 				  size="50"
 		          name="controltop">	
 				  
-				<cf_ViewTopMenu label="#lt_text# #URL.Id1#" menuaccess="context" background="blue">
+				<cf_ViewTopMenu label="#lt_text# #URL.Id1#" menuaccess="context" background="gray">
 						
 			</cf_layoutarea>		 
 		

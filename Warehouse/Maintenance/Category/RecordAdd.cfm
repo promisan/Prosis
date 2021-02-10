@@ -67,40 +67,38 @@ function toggleEnableTransactions(control,id) {
 	
 <table width="100%"
        border="0"
-	   height="100%"
-	   cellspacing="0"
-       cellpadding="0">
+	   height="100%">
 
 <tr><td colspan="2" bgcolor="white" valign="top">  
 	 
-<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST" enablecab="Yes" name="category">
+<cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#" method="POST"  name="category">
 
 <!--- Entry form --->
 
 <cfoutput>
 
-<table width="92%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="92%" align="center" class="formpadding">
 
  <tr><td height="6"></td></tr>
    <!--- Field: Id --->
     <TR>
-    <TD class="labelit"><cf_tl id="Id">:</TD>
-    <TD class="labelit">
-		<cfinput class="regularxl" type="Text" name="Category" message="Please enter an Id" required="Yes" size="20" maxlength="20">
+    <TD class="labelmedium2"><cf_tl id="Id">:</TD>
+    <TD class="labelmedium2">
+		<cfinput class="regularxxl" type="Text" name="Category" message="Please enter an Id" required="Yes" size="20" maxlength="20">
 	</TD>
 	</TR>
 	
 	<TR>
-		<TD class="labelit"><cf_tl id="Acronym">:&nbsp;</TD>  
-		<TD class="labelit">
-		<cfinput type="Text" name="Acronym" value="" message="Please enter a valid acronym" required="No" size="5" maxlength="2" class="regularxl">
+		<TD class="labelmedium2"><cf_tl id="Acronym">:&nbsp;</TD>  
+		<TD class="labelmedium2">
+		<cfinput type="Text" name="Acronym" value="" message="Please enter a valid acronym" required="No" size="5" maxlength="2" class="regularxxl">
 		</TD>
 	</TR>
 	
 	   <!--- Field: Description --->
     <TR>
-    <TD class="labelit" valign="top" style="padding-top:4px"><cf_tl id="Description">:</TD>
-    <TD class="labelit">
+    <TD class="labelmedium2" valign="top" style="padding-top:4px"><cf_tl id="Description">:</TD>
+    <TD class="labelmedium2">
 			
 	<cf_LanguageInput
 			TableCode       = "Ref_Category" 
@@ -111,23 +109,23 @@ function toggleEnableTransactions(control,id) {
 			Message         = "Please enter a description"
 			MaxLength       = "50"
 			Size            = "50"
-			Class           = "regularxl">
+			Class           = "regularxxl">
 			
 	</TD>
 	</TR>
 	
 	<!--- Field: tabOrder --->
 	 <TR>
-		 <TD class="labelit"><cf_tl id="Tab Order">:&nbsp;</TD>  
-		 <TD class="labelit">
-		 	<cfinput type="Text" name="tabOrder" value="" message="Please enter a numeric Tab Order" validate="integer" required="No" size="5" maxlength="3" class="regularxl">
+		 <TD class="labelmedium2"><cf_tl id="Tab Order">:&nbsp;</TD>  
+		 <TD class="labelmedium2">
+		 	<cfinput type="Text" name="tabOrder" value="" message="Please enter a numeric Tab Order" validate="integer" required="No" size="5" maxlength="3" class="regularxxl">
 		 </TD>
 	 </TR>
 	 
 	 <!--- Field: tabIcon --->
 	 <TR>
-		 <TD class="labelit"><cf_tl id="Icon">:&nbsp;</TD>  
-		 <TD class="labelit">
+		 <TD class="labelmedium2"><cf_tl id="Icon">:&nbsp;</TD>  
+		 <TD class="labelmedium2">
 		    #SESSION.root#/Custom/
 		 	<cfset iconDirectory = "Custom/">
 			
@@ -139,7 +137,7 @@ function toggleEnableTransactions(control,id) {
 				required="No" 
 				size="30" 
 				maxlength="60" 
-				class="regularxl">										
+				class="regularxxl">										
 		 </TD>
 		 <td valign="middle">
 		 	<cfdiv id="iconValidationDiv" bind="url:CollectionTemplate.cfm?template=#iconDirectory#&container=iconValidationDiv&resultField=validateIcon">				
@@ -148,57 +146,57 @@ function toggleEnableTransactions(control,id) {
 	
     <!--- Field: Initial review --->
     <TR>
-    <TD class="labelit"><cf_tl id="Initial review requisition">: </font> </TD>
-    <TD class="labelit"><table cellspacing="0" cellpadding="0" class="formpadding">
+    <TD class="labelmedium2"><cf_tl id="Initial review requisition">: </font> </TD>
+    <TD class="labelmedium2"><table cellspacing="0" cellpadding="0" class="formpadding">
 		<tr>
-		<td style="padding-left:3px"><input type="radio" class="radiol" name="InitialReview" id="InitialReview" value="0" checked></td><td style="padding-left:4px" class="labelit"><cf_tl id="No"></td>
-		<td style="padding-left:13px"><input type="radio" class="radiol" name="InitialReview" id="InitialReview" value="1"></td><td style="padding-left:4px" class="labelit"><cf_tl id="Yes"></td>
+		<td style="padding-left:3px"><input type="radio" class="radiol" name="InitialReview" id="InitialReview" value="0" checked></td><td style="padding-left:4px" class="labelmedium2"><cf_tl id="No"></td>
+		<td style="padding-left:13px"><input type="radio" class="radiol" name="InitialReview" id="InitialReview" value="1"></td><td style="padding-left:4px" class="labelmedium2"><cf_tl id="Yes"></td>
 		</tr></table>
 	</TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelit"><cf_tl id="Stock Management Mode">: </font> </TD>
-    <TD class="labelit">
+    <TD class="labelmedium2"><cf_tl id="Stock Management Mode">: </font> </TD>
+    <TD class="labelmedium2">
 	<table cellspacing="0" cellpadding="0" class="formpadding">
 		<tr>
-		<td style="padding-left:3px"><input type="radio" class="radiol" name="StockControlMode" id="StockControlMode" value="Stock" checked></td><td style="padding-left:4px" class="labelit"><cf_tl id="Accumulated stock"> [<cf_tl id="Default">]</td>
-		<td style="padding-left:13px"><input type="radio" class="radiol" name="StockControlMode" id="StockControlMode" value="Individual"></td><td style="padding-left:4px" class="labelit"><cf_tl id="Transactional"></td>
+		<td style="padding-left:3px"><input type="radio" class="radiol" name="StockControlMode" id="StockControlMode" value="Stock" checked></td><td style="padding-left:4px" class="labelmedium2"><cf_tl id="Accumulated stock"> [<cf_tl id="Default">]</td>
+		<td style="padding-left:13px"><input type="radio" class="radiol" name="StockControlMode" id="StockControlMode" value="Individual"></td><td style="padding-left:4px" class="labelmedium2"><cf_tl id="Transactional"></td>
 		</tr></table>
 	</TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelit"><cf_tl id="Finished Product"> (<cf_tl id="WorkOrder">): </font> </TD>
-    <TD class="labelit">
+    <TD class="labelmedium2"><cf_tl id="Finished Product"> (<cf_tl id="WorkOrder">): </font> </TD>
+    <TD class="labelmedium2">
 		<table cellspacing="0" cellpadding="0" class="formpadding">
 		<tr>
-		<td style="padding-left:3px"><input type="radio" class="radiol" name="FinishedProduct" id="FinishedProduct" value="0" checked></td><td style="padding-left:4px" class="labelit"><cf_tl id="No"></td>
-		<td style="padding-left:13px"><input type="radio" class="radiol" name="FinishedProduct" id="FinishedProduct" value="1"></td><td style="padding-left:4px" class="labelit"><cf_tl id="Yes"></td>
+		<td style="padding-left:3px"><input type="radio" class="radiol" name="FinishedProduct" id="FinishedProduct" value="0" checked></td><td style="padding-left:4px" class="labelmedium2"><cf_tl id="No"></td>
+		<td style="padding-left:13px"><input type="radio" class="radiol" name="FinishedProduct" id="FinishedProduct" value="1"></td><td style="padding-left:4px" class="labelmedium2"><cf_tl id="Yes"></td>
 		</tr></table>
 	</TD>
 	</TR>
 	
 	<!--- Field: Initial review --->
     <TR>
-    <TD class="labelit"><cf_tl id="Sensitivity Level">: </font> </TD>
-    <TD  class="labelit">
+    <TD class="labelmedium2"><cf_tl id="Sensitivity Level">: </font> </TD>
+    <TD  class="labelmedium2">
 		<table cellspacing="0" cellpadding="0" class="formpadding">
 		<tr>
-		<td style="padding-left:3px"><input type="radio" class="radiol" name="SensitivityLevel" id="SensitivityLevel" value="0" checked></td><td style="padding-left:4px" class="labelit"><cf_tl id="Low"></td>
-		<td style="padding-left:6px"><input type="radio" class="radiol" name="SensitivityLevel" id="SensitivityLevel" value="1"></td><td style="padding-left:4px" class="labelit"><cf_tl id="High"></td>
+		<td style="padding-left:3px"><input type="radio" class="radiol" name="SensitivityLevel" id="SensitivityLevel" value="0" checked></td><td style="padding-left:4px" class="labelmedium2"><cf_tl id="Low"></td>
+		<td style="padding-left:6px"><input type="radio" class="radiol" name="SensitivityLevel" id="SensitivityLevel" value="1"></td><td style="padding-left:4px" class="labelmedium2"><cf_tl id="High"></td>
 		</tr></table>
 	</TD>
 	</TR>
 	
 	<!--- Field: Volume Management --->
     <TR>
-    <TD  class="labelit"><cf_tl id="Volume Management">:</TD>
-    <TD class="labelit">
+    <TD  class="labelmedium2"><cf_tl id="Volume Management">:</TD>
+    <TD class="labelmedium2">
 	<table cellspacing="0" cellpadding="0" class="formpadding">
 		<tr>
-		<td style="padding-left:3px"><input type="radio" class="radiol" name="VolumeManagement" id="VolumeManagement" value="0" checked></td><td style="padding-left:4px" class="labelit">#vNo#</td>
-		<td style="padding-left:13px"><input type="radio" class="radiol" name="VolumeManagement" id="VolumeManagement" value="1"></td><td style="padding-left:4px" class="labelit">#vYes#</td>
+		<td style="padding-left:3px"><input type="radio" class="radiol" name="VolumeManagement" id="VolumeManagement" value="0" checked></td><td style="padding-left:4px" class="labelmedium2">#vNo#</td>
+		<td style="padding-left:13px"><input type="radio" class="radiol" name="VolumeManagement" id="VolumeManagement" value="1"></td><td style="padding-left:4px" class="labelmedium2">#vYes#</td>
 		</tr>
 	</table>	
 	</TD>
@@ -206,12 +204,12 @@ function toggleEnableTransactions(control,id) {
 	
 	<!--- Field: Initial review --->
     <TR>
-    <TD class="labelit"><cf_tl id="Enable Transactions">:</TD>
-    <TD class="labelit">
+    <TD class="labelmedium2"><cf_tl id="Enable Transactions">:</TD>
+    <TD class="labelmedium2">
 		<table cellspacing="0" cellpadding="0" class="formpadding">
 		<tr>
-		<td style="padding-left:3px"><input type="radio" class="radiol" name="EnableTransaction" id="EnableTransaction" value="0" checked></td><td style="padding-left:4px" class="labelit"><cf_tl id="No"></td>
-		<td style="padding-left:13px"><input type="radio" class="radiol" name="EnableTransaction" id="EnableTransaction" value="1"></td><td style="padding-left:4px" class="labelit"><cf_tl id="Yes"></td>
+		<td style="padding-left:3px"><input type="radio" class="radiol" name="EnableTransaction" id="EnableTransaction" value="0" checked></td><td style="padding-left:4px" class="labelmedium2"><cf_tl id="No"></td>
+		<td style="padding-left:13px"><input type="radio" class="radiol" name="EnableTransaction" id="EnableTransaction" value="1"></td><td style="padding-left:4px" class="labelmedium2"><cf_tl id="Yes"></td>
 		</tr></table>
 	</TD>
 	</TR>
@@ -224,18 +222,18 @@ function toggleEnableTransactions(control,id) {
 	<tr><td height="3"></td></tr>
 	
 	<tr>
-		<td class="labelit"><cf_tl id="Distribution Mode">:</td>
+		<td class="labelmedium2"><cf_tl id="Distribution Mode">:</td>
 		<td>
 		<table cellspacing="0" cellpadding="0" class="formpadding">
 		<tr>
 		<td style="padding-left:3px">
-			<select name="DistributionMode" id="DistributionMode" class="regularxl">
+			<select name="DistributionMode" id="DistributionMode" class="regularxxl">
 				<option value="Standard"><cf_tl id="Standard">
 				<option value="Meter"><cf_tl id="Meter">
 			</select>
 		</td>
 		<td style="padding-left:13px">
-		<input type="radio" class="radiol" name="DistributionFilter" id="DistributionFilter" value="1"></td><td style="padding-left:4px" class="labelit">#vYes#</td>
+		<input type="radio" class="radiol" name="DistributionFilter" id="DistributionFilter" value="1"></td><td style="padding-left:4px" class="labelmedium2">#vYes#</td>
 		</tr>
 		</table>
 	</TD>
@@ -243,12 +241,12 @@ function toggleEnableTransactions(control,id) {
 	
 	<!--- Field: Initial review --->
     <TR>
-    <TD  class="labelit"><cf_tl id="Limit Issuance to enabled Warehouse">:</TD>
-    <TD class="labelit">
+    <TD  class="labelmedium2"><cf_tl id="Limit Issuance to enabled Warehouse">:</TD>
+    <TD class="labelmedium2">
 	<table cellspacing="0" cellpadding="0" class="formpadding">
 		<tr>
-		<td style="padding-left:3px"><input type="radio" class="radiol" name="DistributionFilter" id="DistributionFilter" value="0" checked></td><td style="padding-left:4px" class="labelit">#vNo#</td>
-		<td style="padding-left:13px"><input type="radio" class="radiol" name="DistributionFilter" id="DistributionFilter" value="1"></td><td style="padding-left:4px" class="labelit">#vYes#</td>
+		<td style="padding-left:3px"><input type="radio" class="radiol" name="DistributionFilter" id="DistributionFilter" value="0" checked></td><td style="padding-left:4px" class="labelmedium2">#vNo#</td>
+		<td style="padding-left:13px"><input type="radio" class="radiol" name="DistributionFilter" id="DistributionFilter" value="1"></td><td style="padding-left:4px" class="labelmedium2">#vYes#</td>
 		</tr>
 	</table>
 	</TD>	
@@ -256,12 +254,12 @@ function toggleEnableTransactions(control,id) {
 	
 	<!--- Field: Commision Management --->
     <TR>
-    <TD style="padding-right:10px" class="labelit"><cf_tl id="Commisson Mode"> (<cf_tl id="Sale">):</TD>
-    <TD class="labelit" style="height:28">
+    <TD style="padding-right:10px" class="labelmedium2"><cf_tl id="Commisson Mode"> (<cf_tl id="Sale">):</TD>
+    <TD class="labelmedium2" style="height:28">
 	<table cellspacing="0" cellpadding="0" class="formpadding">
 		<tr>
-		<td style="padding-left:3px"><input type="radio" class="radiol" name="CommissionMode" id="CommissionMode" value="0" checked></td><td style="padding-left:4px" class="labelit">#vNo#</td>
-		<td style="padding-left:13px"><input type="radio" class="radiol" name="CommissionMode" id="CommissionMode" value="1"></td><td style="padding-left:4px" class="labelit">#vYes#</td>
+		<td style="padding-left:3px"><input type="radio" class="radiol" name="CommissionMode" id="CommissionMode" value="0" checked></td><td style="padding-left:4px" class="labelmedium2">#vNo#</td>
+		<td style="padding-left:13px"><input type="radio" class="radiol" name="CommissionMode" id="CommissionMode" value="1"></td><td style="padding-left:4px" class="labelmedium2">#vYes#</td>
 		</tr>
 	</table>
 	</TD>

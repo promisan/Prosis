@@ -13,10 +13,10 @@
 
 <table width="98%" align="center" class="navigation_table">
 	<tr><td height="10"></td></tr>
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 		<td width="8%" align="center">
 			<cfoutput>
-				<a href="javascript:editJournalAccount('#url.id1#','');" style="color:##4DA0FF;">[<cf_tl id="Add">]</a>
+				<a href="javascript:editJournalAccount('#url.id1#','')"><cf_tl id="Add"></a>
 			</cfoutput>
 		</td>
 		<td width="6%" align="center"><cf_tl id="Order"></td>
@@ -26,7 +26,7 @@
 	</tr>	
 	<tr><td colspan="5" class="line"></td></tr>	
 	<cfoutput query="List">
-		<tr class="labelmedium navigation_row">
+		<tr class="labelmedium2 navigation_row line">
 			<td align="center">
 				<table>
 					<tr>

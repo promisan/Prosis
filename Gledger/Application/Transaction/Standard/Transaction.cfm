@@ -477,9 +477,9 @@ function togglebox(val) {
 										 <input type="hidden" name="debitcredit"     id="debitcredit"   value="#url.AccountType#"           size="8" style="text-align: center;" readonly class="disabled">
 									  </td>		
 									  
-									   <td class="labelmedium2" style="font-size:15px;border:0px solid silver;padding-right:4px">#Distribution.GLAccount#</td>								 		 
+									   <td class="labelmedium2" style="border:0px solid silver;padding-right:4px">#Distribution.GLAccount#</td>								 		 
 									  					 
-									  <td align="center" class="labelmedium2" style="font-size:15px;border:0px solid silver;padding-left:6px;padding-right:4px">(#url.AccountType#)</td> 
+									  <td align="center" class="labelmedium2" style="background-color:f1f1f1;border:0px solid silver;padding-left:6px;padding-right:4px">#url.AccountType#</td> 
 									  
 								    </tr>
 								</table>	
@@ -530,7 +530,7 @@ function togglebox(val) {
 								
 								  </td>						  	 
 								  					 
-								  <td align="center" class="labelmedium2" style="padding-left:5px;padding-right:5px;border-left:1px solid silver;padding-left:6px;padding:2px;padding-right:4px">(#HeaderSelect.ContraGLAccountType#)</td> 
+								  <td align="center" class="labelmedium2" style="background-color:f4f4f4;padding-left:5px;padding-right:5px;border-left:1px solid silver;padding-left:6px;padding:2px;padding-right:4px">#HeaderSelect.ContraGLAccountType#</td> 
 								  
 							    </tr>
 							</table>	

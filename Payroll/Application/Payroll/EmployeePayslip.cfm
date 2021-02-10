@@ -34,7 +34,7 @@
 		 } else {
 		 			
 			 url = "#session.root#/Payroll/Application/Payroll/SalarySlip.cfm?ts="+new Date().getTime()+"&id=#URL.ID#"+"&settlementid="+id+"&currency="+cur+"&settlmentphase="+phase		   
-			 ColdFusion.navigate(url,'i'+box)     
+			 ptoken.navigate(url,'i'+box)     
 			 se.className = "regular"	 
          }	
 	}		
@@ -44,7 +44,7 @@
 	}
 				
 	function print(id,phase,docCur) {
-		window.open("#session.root#/Payroll/Application/Payroll/SalarySlipView.cfm?settlementphase="+phase+"&settlementid="+id+"&documentCurrency="+docCur,"_blank","left=40, top=10, width=840, height=960, status=yes, menubar=no, toolbar=no, scrollbars=yes, resizable=yes")	
+		ptoken.open("#session.root#/Payroll/Application/Payroll/SalarySlipView.cfm?settlementphase="+phase+"&settlementid="+id+"&documentCurrency="+docCur,"_blank","left=40, top=10, width=840, height=960, status=yes, menubar=no, toolbar=no, scrollbars=yes, resizable=yes")	
 	}		
 			
 	</script>
@@ -63,11 +63,8 @@
 	      
    <tr><td height="100%">
 		
-		<table width="100%" 
-		      border="0"
-			  height="100%"
-			  cellspacing="0" 
-			  cellpadding="0" 
+		<table width="100%" 		     
+			  height="100%"			 
 			  align="center" 
 		      bordercolor="d4d4d4">	  
 		 		

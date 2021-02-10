@@ -11,7 +11,7 @@ password="#SESSION.dbpw#">
 	   AND     SalarySchedule = '#SalarySchedule#'		
 </cfquery>		
 
-<cfquery name="Last"
+<cfquery name="myLast"
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
@@ -33,7 +33,7 @@ password="#SESSION.dbpw#">
 					 
 			SELECT  'Entitlement' as Class, MIN(DateEffective) as CalcDate
 			FROM    PersonEntitlement
-			WHERE   (DateEffective < '#last.PayrollStart#') AND (Created >= '#last.PayrollStart#' and Created <= '#last.PayrollEnd#') AND Status IN ('2')
+			WHERE   (DateEffective < '#mylast.PayrollStart#') AND (Created >= '#mylast.PayrollStart#' and Created <= '#mylast.PayrollEnd#') AND Status IN ('2')
 			AND     PersonNo IN (SELECT PersonNo 
 			                     FROM   Employee.dbo.PersonContract 
 								 WHERE  SalarySchedule = '#SalarySchedule#' 
@@ -46,7 +46,7 @@ password="#SESSION.dbpw#">
 			SELECT  'Overtime' as Class, 
 			        MIN(OvertimeDate) as CalcDate
 			FROM    PersonOvertime
-			WHERE   (OvertimeDate < '#last.PayrollStart#') AND (Created >= '#last.PayrollStart#' and Created <= '#last.PayrollEnd#') AND Status IN ('2')
+			WHERE   (OvertimeDate < '#mylast.PayrollStart#') AND (Created >= '#mylast.PayrollStart#' and Created <= '#mylast.PayrollEnd#') AND Status IN ('2')
 			AND     PersonNo IN (SELECT PersonNo 
 			                     FROM   Employee.dbo.PersonContract 
 								 WHERE  SalarySchedule = '#SalarySchedule#' 
@@ -59,7 +59,7 @@ password="#SESSION.dbpw#">
 			SELECT  'Miscellaneous' as Class, 
 			        MIN(DateEffective) as CalcDate
 			FROM    PersonMiscellaneous
-			WHERE   (DateEffective < '#last.PayrollStart#') AND (Created >= '#last.PayrollStart#' and Created <= '#last.PayrollEnd#') AND Status IN ('2')
+			WHERE   (DateEffective < '#mylast.PayrollStart#') AND (Created >= '#mylast.PayrollStart#' and Created <= '#mylast.PayrollEnd#') AND Status IN ('2')
 			AND     PersonNo IN (SELECT PersonNo 
 			                     FROM   Employee.dbo.PersonContract 
 								 WHERE  SalarySchedule = '#SalarySchedule#' 
@@ -72,8 +72,8 @@ password="#SESSION.dbpw#">
 			SELECT  'Leave' as Class, 
 			        MIN(DateEffective) as CalcDate
 			FROM    Employee.dbo.PersonLeave
-			WHERE   (DateEffective < '#last.PayrollStart#') 
-			AND     (Created >= '#last.PayrollStart#' and Created <= '#last.PayrollEnd#')
+			WHERE   (DateEffective < '#mylast.PayrollStart#') 
+			AND     (Created >= '#mylast.PayrollStart#' and Created <= '#mylast.PayrollEnd#')
 			AND     LeaveType IN (SELECT LeaveType 
 			                      FROM   Employee.dbo.Ref_LeaveType 
 								  WHERE  LeaveParent = 'LWOP')
@@ -98,7 +98,9 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput>
 		
-		<tr class="line"><td class="labelmedium" colspan="11" align="center">It is recommended that you recalculate as of #dateformat(dt,CLIENT.DateFormatShow)# (<cfloop query="check">#class#<cfif currentrow neq recordcount>,</cfif></cfloop>)</td></tr>
+		<tr class="line">
+		     <td class="labelmedium" colspan="11" align="center">It is recommended that you recalculate as of #dateformat(dt,CLIENT.DateFormatShow)# (<cfloop query="check">#class#<cfif currentrow neq recordcount>,</cfif></cfloop>)</td>
+		</tr>
 				
 	</cfoutput>
 

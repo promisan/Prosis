@@ -99,6 +99,7 @@ allowance is not higher than 40% of the NET RENT
 		AND       PayrollItem   = '#PayrollItem#' 
 		AND       PayrollCalcNo = '#line#'
 		AND       PayrollStart  = #SALSTR#
+		AND       Mission       = '#form.Mission#'
 	</cfquery>	
 
 	<cfoutput>
@@ -288,6 +289,7 @@ allowance is not higher than 40% of the NET RENT
 				AND       PayrollItem   = '#PayrollItem#' 
 				AND       PayrollCalcNo = '#line#'
 				AND       PayrollStart  = #SALSTR#
+				AND       Mission       = '#form.Mission#'
 				AND       EntitlementPeriod = '#entitlementDays#'			
 			</cfquery>	
 		
@@ -301,10 +303,11 @@ allowance is not higher than 40% of the NET RENT
 			password="#SESSION.dbpw#">
 			SELECT    SUM(AmountPayroll) as Total
 			FROM      EmployeeSalaryLine					  
-			WHERE     PersonNo      = '#PersonNo#' 			
+			WHERE     PersonNo       = '#PersonNo#' 			
 			AND       SalarySchedule = '#Form.Schedule#'		 			
-			AND       PayrollStart  = #SALSTR#	
-			AND       PayrollItem   = '#PayrollItem#'					
+			AND       PayrollStart   = #SALSTR#	
+			AND       PayrollItem    = '#PayrollItem#'		
+			AND       Mission        = '#form.mission#'			
 		</cfquery>	
 			
 		
@@ -323,6 +326,7 @@ allowance is not higher than 40% of the NET RENT
 				AND       SalarySchedule = '#Form.Schedule#'	 			
 				AND       PayrollStart   = #SALSTR#
 				AND       PayrollItem    = '#PayrollItem#'
+				AND       Mission        = '#form.Mission#'
 			</cfquery>	
 			
 		</cfif>

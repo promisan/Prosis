@@ -270,6 +270,8 @@ datasource="AppsInit">
   for opening --->	
 	
 <cfset SESSION.rootDocument     = System.DocumentServer>  
+
+
 <cfset CLIENT.ReportingServer   = System.ReportingServer>
   
 <cfset APPLICATION.BaseCurrency   = System.BaseCurrency>
@@ -310,6 +312,10 @@ datasource="AppsInit">
 
 <cfset SESSION.rootPath             = "#Parameter.ApplicationRootPath#">
 <cfset SESSION.protectionmode       = "#Parameter.SessionProtectionMode#">
+
+<cfif Parameter.DocumentRoot neq "">	
+	    <cfset SESSION.rootDocument = "#Parameter.DocumentRoot#"> 
+</cfif>
 <cfset SESSION.rootDocumentPath     = "#Parameter.DocumentRootPath#">
 
 <cfset SESSION.rootReport           = "#Parameter.ReportRoot#">

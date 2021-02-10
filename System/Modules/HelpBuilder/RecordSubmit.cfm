@@ -38,8 +38,7 @@
 	
 	<cfif Verify.recordCount is 0>
 	
-		<cftry>
-	   
+			   
 	   <cfquery name="Insert" 
 		datasource="AppsSystem"
 		username="#SESSION.login#" 
@@ -94,12 +93,6 @@
 			 '#SESSION.first#')
 		 </cfquery>
 		 
-		 <cfcatch>		    
-		 	 <cf_alert message="Topic already exists. Please use a different code" return="back">
-			 <cfabort>
-		 </cfcatch>		 
-		 
-		 </cftry>
 		 
 	<cfelse>	 
 	

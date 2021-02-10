@@ -234,7 +234,7 @@ password="#SESSION.dbpw#">
 	<td><cf_tl id="Type"></td>
 	<td><cf_tl id="Status"></td>
 	<td><cf_tl id="Vendor"></td>
-	<td align="right"><cf_tl id="Amount"></td>
+	<td align="right" style="padding-right:5px"><cf_tl id="Amount"></td>
 </tr>
 
 <cfif ResultSet.recordcount eq "0">
@@ -247,12 +247,14 @@ password="#SESSION.dbpw#">
 	
 	<tr class="navigation_row labelmedium2">
 	
-	<td align="center" width="2%">
+	<td align="center" width="2%" style="padding-left:3px">
 	
 	    <cfif ActionStatus eq "3">
 	      <cfset rct = "1">
 	    <cfelseif ActionStatus lt "3" and Parameter.ReceiptPriorApproval eq "1">
 		  <cfset rct = "1">
+		<cfelseif ActionStatus eq "4" and Parameter.InvoicePriorReceipt eq "1">
+		  <cfset rct = "1">  
 	    <cfelse>
 		  <cfset rct = "0">
 		</cfif>
@@ -289,14 +291,14 @@ password="#SESSION.dbpw#">
 	<td>#OrderTypeDescription#</td>
 	<td>#ActionDescription#</td>
 	<td>#OrgUnitName#</td>
-	<td align="right" style="padding-right:4px">#currency# #NumberFormat(TotalOrderAmount,",.__")#</td>
+	<td align="right" style="padding-right:6px">#currency# #NumberFormat(TotalOrderAmount,",.__")#</td>
 	</tr>	
 	
 	<tr id="#purchaseno#" class="hide">
 	<td colspan="#colspan#">
-		 <table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
+		 <table width="100%" class="navigation_table">
 				<cfoutput>		
-				<tr class="navigation_row labelmedium line" style="height:20px">
+				<tr class="navigation_row labelmedium2 line" style="height:20px">
 					<td width="5%"></td>
 					<td style="width:80%">#OrderItem#</td></td>
 				   	<td style="min-width:100px" align="right">#OrderQuantity#</td>
@@ -304,7 +306,7 @@ password="#SESSION.dbpw#">
 					<td style="min-width:100px" width="20%" align="center">#OrderUoMVolume#</td>
 					<td style="min-width:40px" align="center">#Currency#</td>
 					<td style="min-width:120px" width="12"  align="right">#NumberFormat(OrderAmount/OrderQuantity,",.__")#</td>
-				    <td style="min-width:120px" width="12%" align="right" style="padding-right:10px">#NumberFormat(OrderAmount,",.__")#</td>
+				    <td style="min-width:120px;padding-right:10px" width="12%" align="right">#NumberFormat(OrderAmount,",.__")#</td>
 				</tr>			
 				</cfoutput>
 		  </table>

@@ -16,6 +16,7 @@ make a correction for the base salary ONLY
 				 Processed = '1'
 		WHERE    SalarySchedule   = '#Form.Schedule#'
 		AND      PayrollStart     = #SALSTR#
+		AND      Mission          = '#form.Mission#'
 		<cfif Form.PersonNo neq "">
 		AND      PersonNo = '#form.PersonNo#'
 		</cfif>

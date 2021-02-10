@@ -664,7 +664,7 @@ password="#SESSION.dbpw#">
 				
 			<cfelse>
 			
-				<cfset per = Param.CurrentAccountPeriod>
+				<cfset per = url.year>
 			
 			</cfif>
 			
@@ -851,61 +851,61 @@ password="#SESSION.dbpw#">
 							
 							<cfif GLAccount eq Period.GLAccount>
 							
-								<cf_GledgerEntryLine
-									Lines                 = "1"
-									Datasource            = "appsOrganization"
-								    Journal               = "#URL.Journal#"										
-									JournalNo             = "#JournalSerialNo#"
-									JournalTransactionNo  = "PR#PaymentYear#-#PaymentMonth#"	
-									LogTransaction        = "No"
-									AccountPeriod         = "#per#"					
-									Currency              = "#Currency#"
-									CurrencyDate          = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
-									TransactionDate       = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"															
-									TransactionSerialNo1  = "#currentrow#"				
-									Class1                = "Debit"
-									Reference1            = "Liability" 		
-									ReferenceNo1          = "#ProgramPeriod.reference#"
-									Description1		  = "#PayrollLines.PersonNo#"
-									ReferenceName1        = "#SchedulePeriod.SalarySchedule#: #PaymentYear#-#PaymentMonth#"
-									GLAccount1            = "#GLAccount#"											
-									Fund1                 = "#Fund#"			
-									Costcenter1           = "#orgUnit#"				
-									ProgramCode1          = "#ProgramCode#"
-									ObjectCode1           = "#ObjectCode#"
-									ProgramPeriod1        = "#getPeriod.Period#" 
-									ReferenceId1          = ""
-									TransactionType1      = "Standard"
-									Amount1               = "#PostingAmount#">
+									<cf_GledgerEntryLine
+										Lines                 = "1"
+										Datasource            = "appsOrganization"
+									    Journal               = "#URL.Journal#"										
+										JournalNo             = "#JournalSerialNo#"
+										JournalTransactionNo  = "PR#PaymentYear#-#PaymentMonth#"	
+										LogTransaction        = "No"
+										AccountPeriod         = "#per#"					
+										Currency              = "#Currency#"
+										CurrencyDate          = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
+										TransactionDate       = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"															
+										TransactionSerialNo1  = "#currentrow#"				
+										Class1                = "Debit"
+										Reference1            = "Payroll cost" 		
+										ReferenceNo1          = "#ProgramPeriod.reference#"
+										Description1		  = "#PayrollLines.PersonNo#"
+										ReferenceName1        = "#SchedulePeriod.SalarySchedule#: #PaymentYear#-#PaymentMonth#"
+										GLAccount1            = "#GLAccount#"											
+										Fund1                 = "#Fund#"			
+										Costcenter1           = "#orgUnit#"				
+										ProgramCode1          = "#ProgramCode#"
+										ObjectCode1           = "#ObjectCode#"
+										ProgramPeriod1        = "#getPeriod.Period#" 
+										ReferenceId1          = ""
+										TransactionType1      = "Standard"
+										Amount1               = "#PostingAmount#">
 							
 							<cfelse>					 						 
 								
-							<cf_GledgerEntryLine
-									Lines                 = "1"
-									Datasource            = "appsOrganization"
-								    Journal               = "#URL.Journal#"										
-									JournalNo             = "#JournalSerialNo#"
-									JournalTransactionNo  = "PR#PaymentYear#-#PaymentMonth#"	
-									LogTransaction        = "No"
-									AccountPeriod         = "#per#"					
-									Currency              = "#Currency#"
-									CurrencyDate          = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
-									TransactionDate       = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"															
-									TransactionSerialNo1  = "#currentrow#"				
-									Class1                = "Debit"
-									Reference1            = "Payroll cost" 		
-									ReferenceNo1          = "#ProgramPeriod.reference#"
-									Description1 		  = "#PayrollLines.PersonNo#"				
-									ReferenceName1        = "#SchedulePeriod.SalarySchedule#: #PaymentYear#-#PaymentMonth#"
-									GLAccount1            = "#GLAccount#"											
-									Fund1                 = "#Fund#"			
-									Costcenter1           = "#orgUnit#"				
-									ProgramCode1          = "#ProgramCode#"
-									ObjectCode1           = "#ObjectCode#"
-									ProgramPeriod1        = "#getPeriod.Period#"  
-									ReferenceId1          = ""
-									TransactionType1      = "Standard"
-									Amount1               = "#PostingAmount#">
+								<cf_GledgerEntryLine
+										Lines                 = "1"
+										Datasource            = "appsOrganization"
+									    Journal               = "#URL.Journal#"										
+										JournalNo             = "#JournalSerialNo#"
+										JournalTransactionNo  = "PR#PaymentYear#-#PaymentMonth#"	
+										LogTransaction        = "No"
+										AccountPeriod         = "#per#"					
+										Currency              = "#Currency#"
+										CurrencyDate          = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
+										TransactionDate       = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"															
+										TransactionSerialNo1  = "#currentrow#"				
+										Class1                = "Debit"
+										Reference1            = "Payroll cost" 		
+										ReferenceNo1          = "#ProgramPeriod.reference#"
+										Description1 		  = "#PayrollLines.PersonNo#"				
+										ReferenceName1        = "#SchedulePeriod.SalarySchedule#: #PaymentYear#-#PaymentMonth#"
+										GLAccount1            = "#GLAccount#"											
+										Fund1                 = "#Fund#"			
+										Costcenter1           = "#orgUnit#"				
+										ProgramCode1          = "#ProgramCode#"
+										ObjectCode1           = "#ObjectCode#"
+										ProgramPeriod1        = "#getPeriod.Period#"  
+										ReferenceId1          = ""
+										TransactionType1      = "Standard"
+										Amount1               = "#PostingAmount#">
 									
 							</cfif>		
 																

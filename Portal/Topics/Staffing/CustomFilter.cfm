@@ -11,23 +11,41 @@
 	
 </cfloop>
 
-<cfif url.orgunit eq "null">
-	<cfset url.orgunit = "">
-</cfif>
 
-<cfif url.orgunit neq "">
+<cfset org = "">
+
+<cfif url.orgunit neq "" and url.orgunit neq "null">
+	
+	<cfloop index="itm" list="#url.orgunit#">
+         <cfif org eq "">
+		 	<cfset org = "'#itm#'">
+		 <cfelse>
+		   	<cfset org = "#org#,'#itm#'">
+		 </cfif>
+	</cfloop>
 
 	<cfquery name="get" 
 	     datasource="AppsOrganization" 
 	     username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">	
-		 SELECT * 
-		 FROM   Organization 
-		 WHERE  OrgUnit = '#url.orgunit#' 
+			 SELECT  * 
+			 FROM    Organization 		
+	    	 WHERE   OrgUnit IN (#preserveSingleQuotes(org)#) 
 	</cfquery>
 	
+	<cfset conorg = "">
+	
+	<cfloop query="get">
+		
+		<cfif conorg eq "">
+			<cfset conorg = "HierarchyCode LIKE ('#hierarchyCode#%')">
+		<cfelse>
+			<cfset conorg = "#conorg# OR HierarchyCode LIKE ('#hierarchyCode#%')">
+		</cfif>
+	
+	</cfloop>
+	
 </cfif>
-
 
 <cfquery name="Param" 
 	     datasource="AppsEmployee" 
@@ -52,9 +70,9 @@
 			<cfif url.orgunit neq "">
 			AND       P.OrgUnitOperational IN (SELECT OrgUnit 
 			                                 FROM   Organization.dbo.Organization
-											 WHERE  Mission   = '#url.mission#'
-											 AND    MandateNo = '#get.MandateNo#'
-											 AND    HierarchyCode LIKE ('#get.HierarchyCode#%')
+											 WHERE  Mission      = '#url.mission#'
+											 AND    MandateNo    = '#get.MandateNo#'
+											 AND    (#preservesingleQuotes(conorg)#)
 											)  
 			</cfif>	    
 	</cfquery>	
@@ -75,7 +93,7 @@
 			                                 FROM   Organization.dbo.Organization
 											 WHERE  Mission   = '#url.mission#'
 											 AND    MandateNo = '#get.MandateNo#'
-											 AND    HierarchyCode LIKE ('#get.HierarchyCode#%')
+											 AND    (#preservesingleQuotes(conorg)#)
 											)  
 			</cfif>	    
 	</cfquery>	
@@ -93,11 +111,11 @@
 		AND       P.DateEffective <= GETDATE() AND P.DateExpiration > GETDATE()	   
 		<cfif url.orgunit neq "">
 		AND       P.OrgUnitOperational IN (SELECT OrgUnit 
-		                                 FROM   Organization.dbo.Organization
-										 WHERE  Mission   = '#url.mission#'
-										 AND    MandateNo = '#get.MandateNo#'
-										 AND    HierarchyCode LIKE ('#get.HierarchyCode#%')
-										)  
+		                                   FROM   Organization.dbo.Organization
+										   WHERE  Mission   = '#url.mission#'
+										   AND    MandateNo = '#get.MandateNo#'
+										   AND    (#preservesingleQuotes(conorg)#)
+										  )  
 		</cfif>	    
 </cfquery>	
 
@@ -113,12 +131,12 @@
 	    <tr><td style="padding-left:10px">
 		
 			    <table>
-			    <tr class="labelit" style="font-size:12px">				
+			    <tr class="labelmediun2">				
 								
-				<td style="padding-left:10px" ><cf_tl id="Fund">:</td>
+				<td style="padding-left:10px" ><cf_tl id="Fund"></td>
 											
-					<td class="label" style="color:gray;padding-left:4px">	
-					  <select class="regularxl" id="fldfund_#url.mission#" 
+					<td style="padding-left:4px">	
+					  <select class="regularxxl" style="background-color:f1f1f1;border:0px" id="fldfund_#url.mission#" 
 					       onchange="doChangeStaffing('#link#','#box#',this,document.getElementById('fldpostclass_#url.mission#'),getElementById('fldcategory_#url.mission#'),getElementById('fldauthorised_#url.mission#'))">					 		
 					       <option value="">ANY</option>
 						  <cfloop query="getFund">				  
@@ -127,10 +145,10 @@
 					  </select>	
 				</td>						
 								
-				<td style="padding-left:10px"><cf_tl id="Post class">:</td>
+				<td style="padding-left:10px"><cf_tl id="Class"></td>
 				
-				<td class="label" style="color:gray;padding-left:4px">	
-					  <select class="regularxl" id="fldpostclass_#url.mission#" 
+				<td style="color:gray;padding-left:4px">	
+					  <select style="background-color:f1f1f1;border:0px" class="regularxxl" id="fldpostclass_#url.mission#" 
 					       onchange="doChangeStaffing('#link#','#box#',document.getElementById('fldfund_#url.mission#'),this,getElementById('fldcategory_#url.mission#'),getElementById('fldauthorised_#url.mission#'))">					 		
 					       <option value="">ANY</option>
 						  <cfloop query="getClass">				  
@@ -139,21 +157,21 @@
 					  </select>	
 				</td>		
 				
-				<td style="padding-left:10px"><cf_tl id="Category">:</td>
+				<td style="padding-left:10px"><cf_tl id="Category"></td>
 				
-				<td class="label" style="color:gray;padding-left:4px">	
-					  <select class="regularxl" id="fldcategory_#url.mission#" 
+				<td style="color:gray;padding-left:4px">	
+					  <select style="background-color:f1f1f1;border:0px" class="regularxxl" id="fldcategory_#url.mission#" 
 					       onchange="doChangeStaffing('#link#','#box#',document.getElementById('fldfund_#url.mission#'),getElementById('fldpostclass_#url.mission#'),this,getElementById('fldauthorised_#url.mission#'))">					 		
 					       <option value="All">All</option>
 						   <option value="Total">Total</option>						 
 					  </select>	
 				</td>		
 				
-				<td style="padding-left:10px"><cf_tl id="Authorised">:</td>
+				<td style="padding-left:10px"><cf_tl id="Authorised"></td>
 				
-				<td class="label" style="color:gray;padding-left:4px">	
+				<td style="color:gray;padding-left:4px">	
 				       
-					  <select class="regularxl" id="fldauthorised_#url.mission#" 
+					  <select style="background-color:f1f1f1;border:0px" class="regularxxl" id="fldauthorised_#url.mission#" 
 					       onchange="doChangeStaffing('#link#','#box#',document.getElementById('fldfund_#url.mission#'),getElementById('fldpostclass_#url.mission#'),getElementById('fldcategory_#url.mission#'),this)">					 		
 					       <option value="">All</option>
 						   <option value="1">Authorised</option>						 

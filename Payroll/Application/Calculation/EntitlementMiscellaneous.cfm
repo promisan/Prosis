@@ -42,6 +42,7 @@ to be processed earlier (affecting the exchange rate) we clean it
 			 WHERE  PersonNo       = '#Form.PersonNo#'			
 			 AND    PayrollCalcNo  = '1'
 			 AND    SalarySchedule = '#Form.Schedule#'		
+			 AND    Mission        = '#form.mission#'
 			 AND    PayrollStart > 	#SALEND#	 
 			 AND    ReferenceId IN (SELECT CostId
 			 						FROM   PersonMiscellaneous Cost
@@ -289,6 +290,7 @@ password="#SESSION.dbpw#">
 		  (SalarySchedule,
    		   PersonNo, 
 		   PayrollStart, 
+		   Mission,
 		   PayrollCalcNo,
 		   PayrollItem, 
 		   EntitlementPeriod,
@@ -314,6 +316,7 @@ password="#SESSION.dbpw#">
 	SELECT '#Form.Schedule#',
 	       PersonNo, 
 		   DatePayroll, 
+		   '#Form.Mission#',
 		   Line,
 		   PayrollItem,
 		   '1',

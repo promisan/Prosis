@@ -7,7 +7,6 @@
 <cfparam name="url.category"    default="All">
 <cfparam name="url.authorised"  default="">
 
-
 <cfquery name="Param" 
 	     datasource="AppsEmployee" 
 	     username="#SESSION.login#" 
@@ -18,30 +17,48 @@
 </cfquery>
 
 <cfquery name="Mandate" 
-	     datasource="AppsOrganization" 
-	     username="#SESSION.login#" 
-	     password="#SESSION.dbpw#">	
-		 SELECT * 
-		 FROM   Ref_Mandate 
-		 WHERE  Mission = '#url.mission#' 
-		 AND    DateEffective <= getDate()+180
+	 datasource="AppsOrganization" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">	
+		 SELECT   * 
+		 FROM     Ref_Mandate 
+		 WHERE    Mission = '#url.mission#' 
+		 AND      DateEffective <= getDate()+180
 		 ORDER BY DateExpiration DESC
-	</cfquery>
+</cfquery>
 
-<cfif url.orgunit eq "null">
-	<cfset url.orgunit = "">
-</cfif>
+<cfset org = "">
 
-<cfif url.orgunit neq "" >
-
+<cfif url.orgunit neq "" and url.orgunit neq "null">
+	
+	<cfloop index="itm" list="#url.orgunit#">
+         <cfif org eq "">
+		 	<cfset org = "'#itm#'">
+		 <cfelse>
+		   	<cfset org = "#org#,'#itm#'">
+		 </cfif>
+	</cfloop>
+	
 	<cfquery name="get" 
 	     datasource="AppsOrganization" 
 	     username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">	
-		 SELECT * 
-		 FROM   Organization 
-		 WHERE  OrgUnit = '#url.orgunit#' 
+			 SELECT  * 
+			 FROM    Organization 		
+	    	 WHERE   OrgUnit IN (#preserveSingleQuotes(org)#) 
 	</cfquery>
+	
+	<cfset conorg = "">
+	
+	<cfloop query="get">
+		
+		<cfif conorg eq "">
+			<cfset conorg = "HierarchyCode LIKE ('#hierarchyCode#%')">
+		<cfelse>
+			<cfset conorg = "#conorg# OR HierarchyCode LIKE ('#hierarchyCode#%')">
+		</cfif>
+	
+	</cfloop>
 	
 </cfif>
 
@@ -138,11 +155,12 @@
 		</cfif>
 		
 		<cfif url.orgunit neq "">
-		AND       OrgUnitOperational IN (SELECT OrgUnit 
+		AND       OrgUnitOperational IN (
+		                                 SELECT OrgUnit 
 		                                 FROM   Organization.dbo.Organization
-										 WHERE  Mission   = '#url.mission#'
-										 AND    MandateNo = '#get.MandateNo#'
-										 AND    HierarchyCode LIKE ('#get.HierarchyCode#%')
+										 WHERE  Mission    = '#url.mission#'
+										 AND    MandateNo  = '#get.MandateNo#'
+										 AND    (#preservesingleQuotes(conorg)#)
 										)  
 		</cfif>
 		
@@ -220,10 +238,10 @@
 				
 					 <table width="100%">
 					
-						<tr><td style="font-size:20px;height:26;padding-left:6px" class="labelmedium"><cf_tl id="Positions"></td>
+						<tr><td style="font-size:20px;height:26;padding-left:6px" class="labelmedium2"><cf_tl id="Positions"></td>
 						
 						<cfoutput>	
-						    <td align="right" class="labelmedium clsNoPrint" style="cursor:pointer;padding-right:10px" 
+						    <td align="right" class="labelmedium2 clsNoPrint" style="font-size:16px;cursor:pointer;padding-right:10px" 
 							onclick="loadmodule('#session.root#/Staffing/Reporting/PostView/Staffing/PostViewLoop.cfm','#url.mission#','acc=#session.acc#&Mandate=#Mandate.MandateNo#&tree=Operational&Unit=cum','')">
 								  	<a><cf_tl id="Open Matrix"></a>
 								  </td>
@@ -249,7 +267,7 @@
 						 <td style="height:30px;padding-left:4px">
 							  
 						  	<table>
-							    <tr class="labelmedium">
+							    <tr class="labelmedium2">
 						  		<cfloop query="Summary">			  			
 						  			<td style="padding-left:10px;min-width:70px">#PostClassGroup#</td>	
 									<td style="font-size:17px;padding-left:6px;min-width:50px;padding-right:4px" align="right"><b>#summary.PostTotal#</td>				  						  		
@@ -259,14 +277,16 @@
 								
 						  </td>		  	
 						 
+						  <!---
 						  <cfif url.orgunit neq "">
 						  
-						   <td align="center" class="labelmedium clsNoPrint" style="cursor:pointer;padding-right:10px" 
-						   onclick="alert('a');ptoken.open('#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?header=1&ID=ORG&ID1=#get.orgunitcode#&ID2=#url.Mission#&ID3=#get.MandateNo#', 'staffing_#url.orgunit#')">
+						   <td align="center" class="labelmedium2 clsNoPrint" style="cursor:pointer;padding-right:10px" 
+						   onclick="ptoken.open('#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?header=1&ID=ORG&ID1=#get.orgunitcode#&ID2=#url.Mission#&ID3=#get.MandateNo#', 'staffing_#url.orgunit#')">
 						  	<a><cf_tl id="Open Detail"></a>
 						   </td>
 						   <td>|</td>
 						  </cfif>
+						  --->
 						 
 								  
 					  </cfoutput>
@@ -313,8 +333,8 @@
 						tipbgcolor="##000000" 
 						showmarkers="yes" 						
 						backgroundcolor="##ffffff"					
-				       	chartheight="315" 
-					   	chartwidth="395">	
+				       	chartheight="279" 
+					   	chartwidth="450">	
 											
 						   <cfchartseries type="pie"
 					             query="Summary"
@@ -368,8 +388,8 @@
 						showmarkers="yes" 
 						markersize="30" 
 						backgroundcolor="##ffffff"					
-				       	chartheight="160" 
-					   	chartwidth="535">	
+				       	chartheight="110" 
+					   	chartwidth="500">	
 											
 						   <cfchartseries type="bar"
 					             query="Summary"
@@ -438,8 +458,7 @@
 							
 							<cfset pos = 0>
 						    <cfset vac = 0>
-						    <cfset inc = 0>
-							
+						    <cfset inc = 0>							
 																							
 							<cfoutput>				
 							
@@ -448,7 +467,7 @@
 								<cfset vac = vac + (posts - incumbency)>
 								<cfset per = (posts - incumbency)*100 / posts>
 																
-								<tr class="navigation_row labelmedium2">
+								<tr class="navigation_row labelmedium2 linedotted">
 								  <td style="padding-left:26px;"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', '')"><font color="000000">#PostGradeBudget#</a></td>
 								  <td align="right" style="padding-right:2px;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', '')"><font color="008000">#Posts#</a></td>
 								  <td align="right" style="padding-right:2px;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','#postGradebudget#', 'I')">#Incumbency#</a></td>
@@ -458,13 +477,11 @@
 								</tr>		
 										
 							</cfoutput>		
-														
 												
 					</cfoutput>				
 					
 					</table>
-					
-										
+									
 		  </td>
 		  
 		  </tr>
@@ -475,8 +492,10 @@
 			<tr><td colspan="2" id="StaffingDetail_#url.mission#"></td></tr>
 		</cfoutput>
 	
-
 </table>
 
-
 <cfset ajaxOnLoad("doHighlight")>
+
+<script>
+   try { Prosis.busyRegion('no','pane_1_Staffing_BAMBINO') } catch(e) {}
+</script>

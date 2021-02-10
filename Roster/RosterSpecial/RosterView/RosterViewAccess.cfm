@@ -7,6 +7,8 @@
 	   method="roster" 
 	   returnvariable="Access"
 	   role="'AdminRoster'">	
+	   
+<cfparam name="url.edition" default="all">	   
 	
 <cfquery name="Check" 
  datasource="AppsSelection" 
@@ -51,6 +53,9 @@
 		 password="#SESSION.dbpw#"> 
 			 DELETE FROM RosterAccessAuthorization
 			 WHERE   UserAccount = '#SESSION.acc#'
+			 <cfif URL.Edition neq "All">
+			 AND     FunctionId IN (SELECT FunctionId FROM FunctionOrganization WHERE SubmissionEdition = '#url.edition#')
+			 </cfif> 
 			 AND     Source       = 'Manager' 	 <!--- inherited access --->
 		</cfquery>	 
 		
@@ -83,13 +88,16 @@
 						'#SESSION.acc#','#SESSION.last#','#SESSION.first#',#now()#
 						
 				FROM    FunctionOrganization FO INNER JOIN
-				        Ref_SubmissionEdition S ON FO.SubmissionEdition = S.SubmissionEdition INNER JOIN
+				        Ref_SubmissionEdition S ON FO.SubmissionEdition = S.SubmissionEdition      INNER JOIN
 				        Organization.dbo.OrganizationAuthorization A ON S.Owner = A.ClassParameter INNER JOIN
 				        Ref_StatusCode R ON S.Owner = R.Owner
-				WHERE   A.Role = 'AdminRoster'
+				WHERE   A.Role         = 'AdminRoster'
 				AND 	R.Id           = 'Fun' 
 				AND 	S.Operational  = 1
 				AND 	R.RosterAction = '1' 
+				<cfif URL.Edition neq "All">
+				AND     FO.SubmissionEdition = '#url.edition#'
+				</cfif>
 				AND 	A.UserAccount  = '#SESSION.acc#'
 				AND 	FO.FunctionId NOT IN (SELECT FunctionId 
 					                          FROM   RosterAccessAuthorization
@@ -100,7 +108,7 @@
 											  AND    AccessLevel IN ('1','2')) 
 							   
 				</cfquery>
-									
+																
 				<cfcatch></cfcatch>
 				
 			</cftry>
@@ -144,12 +152,15 @@
 		              Ref_SubmissionEdition S ON FO.SubmissionEdition = S.SubmissionEdition INNER JOIN
 		              Organization.dbo.OrganizationAuthorization A ON S.Owner = A.ClassParameter INNER JOIN
 		              FunctionTitle F ON FO.FunctionNo = F.FunctionNo AND A.GroupParameter = F.OccupationalGroup
-			WHERE    A.Role        = 'RosterClear' 
-				AND  A.UserAccount = '#SESSION.acc#'
-				AND  S.Operational = 1
-				AND  A.Mission is NULL
-				AND  A.AccessLevel != '0'
-				AND  NOT EXISTS (SELECT FunctionId 
+			WHERE     A.Role        = 'RosterClear' 
+				AND   A.UserAccount = '#SESSION.acc#'
+				AND   S.Operational = 1
+				AND   A.Mission is NULL
+				<cfif URL.Edition neq "All">
+				AND   FO.SubmissionEdition = '#url.edition#'
+				</cfif>
+				AND   A.AccessLevel != '0'
+				AND   NOT EXISTS (SELECT FunctionId 
 					                           FROM   RosterAccessAuthorization
 					                           WHERE  UserAccount = '#SESSION.acc#'
 											   AND    FunctionId  = FO.FunctionId
@@ -181,6 +192,9 @@
 				AND  A.UserAccount = '#SESSION.acc#'
 				AND  S.Operational = 1			
 				AND  A.AccessLevel != '0' 
+				<cfif URL.Edition neq "All">
+				AND   FO.SubmissionEdition = '#url.edition#'
+				</cfif>
 				AND  NOT EXISTS (SELECT FunctionId 
 		                         FROM   RosterAccessAuthorization
 		                         WHERE  UserAccount = '#SESSION.acc#'
@@ -211,6 +225,9 @@
 				AND S.Operational = 1
 				AND A.Mission is NULL
 				AND A.AccessLevel = '0' 
+				<cfif URL.Edition neq "All">
+				AND   FO.SubmissionEdition = '#url.edition#'
+				</cfif>
 				AND NOT EXISTS (SELECT FunctionId 
 	                            FROM   RosterAccessAuthorization
 	                            WHERE  UserAccount = '#SESSION.acc#'

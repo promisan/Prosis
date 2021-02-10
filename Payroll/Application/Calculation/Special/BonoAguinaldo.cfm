@@ -381,6 +381,7 @@
 		INSERT INTO EmployeeSalaryLine
 		(SalarySchedule,PersonNo,  
 		 PayrollStart, 
+		 Mission,
 		 PayrollCalcNo,
 		 PayrollItem, 
 		 EntitlementPeriod,
@@ -398,6 +399,7 @@
 		 OfficerFirstName)
 		SELECT '#Form.Schedule#',PersonNo, 
 		 #SALSTR#, 
+		 '#form.mission#',
 		 '1',
 		 PayrollItem,
 		 EntitlementDays,

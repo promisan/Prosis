@@ -60,6 +60,7 @@
 			<!-- <cfform> -->
 			<td style="padding-right:4px"><cf_tl id="Trigger"></td>
 			<td>
+			
 			<cfselect name="Trigger"
 	          group="TriggerGroup"
 	          queryposition="below"

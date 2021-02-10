@@ -111,9 +111,7 @@
 		</cftry>
 		
 		<cftry>
-		
-		
-				
+						
 		<cfquery name="searchResult" dbtype="query">
 			SELECT * 
 			FROM   Searchresult
@@ -158,8 +156,7 @@
 		<cfset rowdatatarget = url.grouptarget>				
 	
 	</cfif>
-	
-	
+		
 <cfelseif attributes.listtype eq "SQL">  <!--- in case of append we use the same query object --->
 
 	<cfoutput>
@@ -249,9 +246,9 @@
 		</cfif>			
 								
 		<!--- we are going to determine if the main portion of the query has a group by --->
-											
+													
 		<cfif not findnocase("GROUP BY ",listquery) and not findnocase("--Condition",listquery)>	
-		
+				
 			<cfif form.annotationsel neq "">
 						
 				<cfsavecontent variable="ann">	
@@ -292,19 +289,26 @@
 				<cfif condition neq "">
 				#preserveSingleQuotes(condition)# 
 				</cfif>	
-								
-				<!--- filter on the ajax id only --->				
-				<cfif url.ajaxid neq "content">
-				AND #qdrillkey# = '#url.ajaxid#' 
+												
+				<!--- filter on the ajax id only in order to refresh the row --->				
+				<cfif url.ajaxid neq "content">				
+				    AND #qdrillkey# = '#url.ajaxid#' 
+				<!--- 7/2/2021 filter on the recently added record only --->										
 				<cfelse>
+				
+					<cfif url.contentmode eq "5" and qentrykey neq "">	
+					AND #qentrykey# > getDate() - 1
+					</cfif>
+					
 				#ann#
 				#listsorting#	
+				
 				</cfif>											
 			
 			</cfsavecontent>													
 				
 		<cfelseif findnocase("--Condition",listquery)>	
-								
+				
 			<!--- 16/6/2014 recompose the query that contains a --condition indicator to 
 			
 			 determine where the listing condition should go  --->			
@@ -337,8 +341,12 @@
 					
 					<!--- filter on the ajax id only --->				
 					<cfif url.ajaxid neq "content">
-					AND #qdrillkey# = '#url.ajaxid#'		
-					</cfif>	  			
+					AND #qdrillkey# = '#url.ajaxid#'	
+					<cfelse>										
+						<cfif url.contentmode eq "5" and qentrykey neq "">	
+						AND #qentrykey# > getDate() - 1
+						</cfif>
+					</cfif>	
 										 
 				</cfsavecontent>	
 								
@@ -348,8 +356,14 @@
 							
 				<!--- filter on the ajax id only --->				
 				<cfif url.ajaxid neq "content">
-				AND #qdrillkey# = '#url.ajaxid#'											
-				</cfif>	  			
+				AND #qdrillkey# = '#url.ajaxid#'	
+				<cfelse>	
+				
+					<cfif url.contentmode eq "5">	
+					AND #qentrykey# > getDate() - 1
+					</cfif>			
+												
+				</cfif>	 
 										 
 				</cfsavecontent>								 
 				
@@ -362,7 +376,7 @@
 			</cfif>
 			
 			<!--- compose the query --->
-			
+						
 			<cfset querylist = "#strleft# #strwhr# #condition# #ann# #strright# #listsorting#">			
 													
 		<cfelse>
@@ -402,7 +416,13 @@
 				
 				<!--- filter on the ajax id only --->				
 				<cfif url.ajaxid neq "content">
-				AND #qdrillkey# = '#url.ajaxid#'				
+				AND #qdrillkey# = '#url.ajaxid#'	
+				<cfelse>	
+				
+					<cfif url.contentmode eq "5">	
+					AND #qentrykey# > getDate() - 1
+					</cfif>		
+									
 				</cfif>	  			
 										 
 				</cfsavecontent>		
@@ -447,7 +467,7 @@
 		  <cfoutput>
 		 #conditioncheck#
 		 </cfoutput>
-		 <cfabort>	      
+		 <cfabort>	   
 		 
 		 --->
 				
@@ -720,8 +740,7 @@
 		</cftry>
 		
 	</cfif>		
-	
-	
+		
 	<!---
 		
 	<cfif url.listorder neq "">

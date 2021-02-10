@@ -58,31 +58,29 @@ password="#SESSION.dbpw#">
 	WHERE EntityCode = 'ProcReview'
 </cfquery>
 
-<table width="700" border="0" cellspacing="0" cellpadding="0">
-<tr>
-    <td class="labelit">Entry Class</td>	
-	<td colspan="1" class="labelit">Mail Template file</td>
+<table width="700">
+<tr class="labelmedium2 line">
+    <td>Entry Class</td>	
+	<td colspan="1">Mail Template file</td>
 	
 </tr>	
 	
 <!--- ajax box for saving --->
 <tr class="hide"><td id="saveclass"></td></tr>
 
-<tr><td colspan="10" height="1" class="linedotted"></td></tr>
-
 <cfoutput query="Class">
 	
-	<tr>
-		<td width="20%" class="labelit">#Description#:</td>
+	<tr class="labelmedium2 line">
+		<td width="20%">#Description#:</td>
 		<td width="80%">  
 		
 				<input type="Text"
 			       name="duemailtemplate_#entryclass#"
 		           id="duemailtemplate_#entryclass#"
 			       value="#Class.duemailtemplate#"	            
-				   onChange="ColdFusion.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=&class=#entryclass#&field=duemailtemplate&value='+this.value,'saveclass')"   
-				   style="width:300"
-				   class="regularxl"    
+				   onChange="ptoken.navigate('ParameterEditReqEntryClassSave.cfm?mission=#url.mission#&period=&class=#entryclass#&field=duemailtemplate&value='+this.value,'saveclass')"   
+				   style="width:99%;border:0px;background-color:f1f1f1"
+				   class="regularxxl"    
 			       visible="Yes">
 		
 		</td>

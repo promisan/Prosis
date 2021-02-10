@@ -5,8 +5,11 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		
-		SELECT 	*
-		FROM  	Ref_EntryClass
+		SELECT 	*, (SELECT count(*) 
+		            FROM   ItemMaster 
+					WHERE  EntryClass = L.Code 
+					AND    Operational = 1) as ItemMaster
+		FROM  	Ref_EntryClass L
 		WHERE 	1=1
 		<cfif url.fmission neq "">
 		AND   	Code IN (
@@ -38,6 +41,7 @@
 	<TD width="5%">&nbsp;</TD>
     <TD><cf_tl id="Code"></TD>
 	<TD><cf_tl id="Description"></TD>
+	<TD align="right"><cf_tl id="IM">#</TD>
 	<TD align="center"><cf_tl id="Sort"></TD>	
 	<td><cf_tl id="Interface"></td>
 	<TD><cf_tl id="Officer"></TD>
@@ -57,10 +61,11 @@
 	
     <TR class="navigation_row labelmedium2 line"> 
 		<TD height="18" align="center" style="padding-top:1px">
-		    <cf_img icon="select" navigation="yes" onclick="recordedit('#Code#','#url.fmission#')">
+		    <cf_img icon="open" navigation="yes" onclick="recordedit('#Code#','#url.fmission#')">
 		</TD>
 		<TD><a href="javascript:recordedit('#Code#','#url.fmission#')">#Code#</a></TD>
 		<TD>#Description#</TD>
+		<td align="right">#ItemMaster#</td>
 		<TD align="center">#ListingOrder#</TD>
 		<td><cfif CustomDialog eq "">None<cfelse>#CustomDialog#</cfif></td>
 		<TD>#OfficerFirstName# #OfficerLastName#</TD>

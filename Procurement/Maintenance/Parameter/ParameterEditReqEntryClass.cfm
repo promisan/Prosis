@@ -123,7 +123,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <table style="border-top:1px solid silver;min-width:1000">
-<tr class="labelmedium line" style="height:28px">
+<tr class="labelmedium2 line" style="height:28px">
     <td style="width:200px;padding-left:3px">Entry Class</td>
 	<td>Oper.</td>
 	<td align="center" colspan="1" bgcolor="F0F2CC">Preparation</td>
@@ -136,7 +136,7 @@ password="#SESSION.dbpw#">
 	--->
 </tr>	
 
-<tr class="labelmedium line" style="height:28px">
+<tr class="labelmedium2 line" style="height:28px">
 	<td></td>
 	<td></td>
 	<td style="padding-left:3px;" bgcolor="F0F2CC"><font color="808080"><cf_UIToolTip  tooltip="Enabled through role : ProcReqDefine">Workflow</cf_UIToolTip></td>
@@ -159,7 +159,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Class">
 
-	<tr class="labelmedium line" style="height:23px">
+	<tr class="labelmedium2 line">
 	
 	<td style="padding-left:4px">#Description#:</td>
 	<td style="padding-left:1px">

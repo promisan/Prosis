@@ -5,8 +5,7 @@
 <script>
  
 function entityedit(id,mis) {
-
-	ColdFusion.Window.create('entityedit', 'Maintain Object Settings', '',{x:100,y:100,height:660,width:890,resizable:false,modal:false,center:true})	
+	ProsisUI.createWindow('entityedit', 'Maintain Object Settings', '',{x:100,y:100,height:660,width:890,resizable:false,modal:true,center:true})	
 	ptoken.navigate('#SESSION.root#/system/entityAction/EntityFlow/EntityAction/EntityEdit.cfm?mission='+mis+'&ID=' + id,'entityedit')	
 }
   
@@ -26,7 +25,7 @@ function validate() {
     
    	document.entityform.onsubmit() 	
 	if( _CF_error_messages.length == 0 ) {
-        	ColdFusion.navigate('#SESSION.root#/system/entityAction/EntityFlow/EntityAction/EntitySubmit.cfm','result','','','POST','entityform')
+       	ptoken.navigate('#SESSION.root#/system/entityAction/EntityFlow/EntityAction/EntitySubmit.cfm','result','','','POST','entityform')
 	 }   
 	 	 
 }	

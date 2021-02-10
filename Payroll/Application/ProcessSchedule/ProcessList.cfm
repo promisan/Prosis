@@ -7,9 +7,6 @@
 <cf_listingscript>
 <cf_dialogstaffing>
 
-<table width="94%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
-
-<TR class="hide"><TD id="contentbox1" height="10"></TD></TR>
 
 <cfoutput>
 
@@ -41,7 +38,6 @@
 		 }
 					 		
 	  }
-
 	  	  
 	  function getDetails(sc,m,pe,cid,act)  {
 
@@ -97,12 +93,10 @@ password="#SESSION.dbpw#">
 			 
 			 (SELECT   TOP (1) Created
 			  FROM     CalculationLog
-              WHERE    (PersonNo = '') 
-			  AND      ProcessClass = 'Calculation'
+              WHERE    PersonNo       = '' 
+			  AND      ProcessClass   = 'Calculation'
 			  AND      ProcessBatchId = P.CalculationId
-			  ORDER BY ProcessNo DESC	
-			  ) as LastCalculation,
-	 
+			  ORDER BY ProcessNo DESC  ) as LastCalculation,	 
 			 
 			 SettleInitial,
 			 M.DateEffectivePosting,
@@ -123,13 +117,18 @@ password="#SESSION.dbpw#">
 				               AND     SalarySchedule = S.SalarySchedule) 
 	AND      S.Operational     = 1
 	ORDER BY S.ListingOrder, P.SalarySchedule, P.PayrollStart DESC 	
+		
 </cfquery>		
 
+<table width="94%" height="100%" align="center" class="formpadding">
+
+<TR class="hide"><TD id="contentbox1" height="10"></TD></TR>
+
 <tr>
-	<td height="20" colspan="1" align="left" style="padding-top:5px;padding-left:4px">
+	<td height="20" colspan="1" align="left" style="padding-top:5px;padding-left:14px">
 	    <cf_tl id="Calculate Selected In-cycle periods" var="1">
 		<cfoutput>
-		<input type="button" class="button10g" style="width:360;height:35;font-size:15px" id="submit" name="submit" value="#lt_text#" onclick="calc()">
+		<input type="button" class="button10g" style="width:460px;height:35px;font-size:16px" id="submit" name="submit" value="#url.mission# #lt_text#" onclick="calc()">
 		</cfoutput>	
 	</td>
 </tr>
@@ -138,26 +137,27 @@ password="#SESSION.dbpw#">
 
 	<cf_divscroll>
 				
-		<table width="98%" border="0" align="center">
+		<table width="98%" align="center">
 		
-		<tr class="labelmedium line fixrow">
+		<tr class="labelmedium2 line fixrow" style="height:30px">
 		
-		<td style="min-width:10px"></td>
-		<td style="min-width:200px;width:100%"><cf_tl id="Month"></td>
-		<td style="min-width:150px"><cf_tl id="Last calculated"></td>
-		<td style="min-width:250px"><cf_tl id="Separation"></td>
-		<td style="min-width:250px"><cf_tl id="Status"></td>
+			<td style="min-width:10px"></td>
+			<td style="min-width:200px;width:100%"><cf_tl id="Month"></td>
+			<td style="min-width:150px"><cf_tl id="Last calculated"></td>
+			<td style="min-width:250px"><cf_tl id="Separation"></td>
+			<td style="min-width:250px"><cf_tl id="Status"></td>
 		
 		</tr>
 					
 		<!--- ------------------------------ --->
 		<!--- preparation of the calculation --->
 		<!--- ------------------------------ --->
-						
+		
 		<cfoutput query="SearchResult" group="SalarySchedule">
 		
 		<cfset row = 0>
-				
+		
+						
 		<cfquery name="Current"
 			datasource="AppsPayroll" 
 			username="#SESSION.login#" 
@@ -244,11 +244,16 @@ password="#SESSION.dbpw#">
 				
 				GROUP BY PersonNo
 									   
-		 </cfquery>				 			   
+		 </cfquery>	
+		 
+		
+		<!--- ----------------- ---> 
+		<!--- show the schedule --->
+		<!--- ----------------- --->		 			 			   
 				
-		<tr>
+		<tr class="labelmedium2">
 					
-		     <td style="padding-top:5px;font-weight:200;height:40px;font-size:23px;" valign="top" class="labelmedium" colspan="2">
+		     <td style="padding-top:5px;height:40px;font-size:23px;" valign="top" class="labelmedium" colspan="2">
 			   <a href="javascript:scheduleedit('#SalarySchedule#')"><font color="black">#Description# 
 			   <cfif dateExpiration neq ""><font size="2" color="FF0000"><cf_tl id="Expiry">: #dateFormat(DateExpiration,client.dateformatShow)#</font></cfif>
 			   </a>
@@ -263,41 +268,42 @@ password="#SESSION.dbpw#">
 			 </cfquery>		
 			 
 				 <cfif Last.FirstAction neq "" and PayrollStart gt Last.FirstAction>
+				 
 				 <table class="navigation_table">
-				 <tr class="labelmedium line">
-				 <td colspan="6">
-				 	Recommended recalculation:<font color="FF0000"> <b>#dateFormat(Pending.FirstAction,'MMMM YYYY')#</b>						
-				 </td></tr>
+					 <tr class="labelmedium line">
+					 <td colspan="6">
+					 	Recommended recalculation:<font color="FF0000"> <b>#dateFormat(Pending.FirstAction,'MMMM YYYY')#</b>						
+					 </td></tr>
 				 
-				 <cfset row = "0">
+				     <cfset row = "0">
 				 
-				 <cfloop query="Pending">
-				 
-				 	<cfset row = row+1>
-					 <cfif row eq "1">
-					 <tr class="line labelmedium">
-					 </cfif>
-					 <td style="padding-left:3px;padding-right:7px">
-					 <a href="javascript:EditPerson('#PersonNo#','#url.idmenu#','Contract')">#PersonNo#</a>
-					 </td>
+					 <cfloop query="Pending">
 					 
-					 <cfquery name="Person"
-						datasource="AppsEmployee" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">		
-						SELECT *
-						FROM Person
-						WHERE PersonNo = '#PersonNo#'
-					  </cfquery>
-					  
-					  <td style="padding-left:3px;padding-right:7px">#Person.FirstName# #Person.LastName#</td>
-					  <td align="right" style="padding-left:3px;padding-right:7px">#Class#</td>
-					 
-					 <cfif row eq "2">
-					 </tr><cfset row = "0">
-					 </cfif>
-					 
-				 </cfloop>
+					 	<cfset row = row+1>
+						 <cfif row eq "1">
+						 <tr class="line labelmedium">
+						 </cfif>
+						 <td style="padding-left:3px;padding-right:7px">
+						 <a href="javascript:EditPerson('#PersonNo#','#url.idmenu#','Contract')">#PersonNo#</a>
+						 </td>
+						 
+						 <cfquery name="Person"
+							datasource="AppsEmployee" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">		
+							SELECT *
+							FROM Person
+							WHERE PersonNo = '#PersonNo#'
+						  </cfquery>
+						  
+						  <td style="padding-left:3px;padding-right:7px">#Person.FirstName# #Person.LastName#</td>
+						  <td align="right" style="padding-left:3px;padding-right:7px">#Class#</td>
+						 
+						 <cfif row eq "2">
+						 </tr><cfset row = "0">
+						 </cfif>
+						 
+					 </cfloop>
 				 					 
 				 </table>
 				 </cfif>
@@ -305,24 +311,29 @@ password="#SESSION.dbpw#">
 			 </td>
 		
 		</tr>
-			
+							
 		<tr><td style="height:5px"></td></tr>
+		
+		<!--- ----------------------------------------------- --->
+		<!--- -----show the content of the schedule --------- --->
+		<!--- ----------------------------------------------- --->
 		
 		<tr class="line">
 		
 		    <td style="padding-left:10px;padding-right:10px" colspan="5">
 								
-			<table width="100%" border="0" class="navigation_table">
-					
+			<table width="100%" border="0" class="navigation_table">					
 						
 			<cfinclude template="CalculationStart.cfm">
 				
 			<cfset p = "">
-			
+									
 				<cfoutput group="PayrollEnd">	
-					
-					<cfoutput>					
-										
+				
+									
+					<cfoutput>		
+								
+														
 						<cfquery name="Schedule"
 						datasource="AppsPayroll" 
 						username="#SESSION.login#" 
@@ -345,11 +356,11 @@ password="#SESSION.dbpw#">
 						<!--- --------------------------- --->
 						<!--- ------ Period Lines ------- --->
 						<!--- --------------------------- --->
+						
+						<cfif p neq PayrollEnd>
 								
 						<TR id="#SalarySchedule#" name="#name#" class="#show#" style="height:20px"> 
-						
-							<cfif p neq PayrollEnd>
-							
+													
 							   <td align="center" style="border:1px solid silver;border-bottom:0px;width:4%;padding-left:10px;padding-right:5px">
 							       <cfif DateEffectivePosting lte PayrollEnd>
 								      <input type="checkbox" class="radiol" name="calculate" value="'#CalculationId#'">	
@@ -461,485 +472,490 @@ password="#SESSION.dbpw#">
 							   </td>
 							   
 							   <td colspan="8" align="right" style="border:1px solid silver;border-bottom:0px;padding-right:5px;min-width:250" class="labelit">
-							   					   
+							   							   							   					   
 							        <table class="formpadding">
 									
-										<tr style="height:20px">				
-										
-										<td id="st#calculationid#" class="labelmedium" style="padding-right:10px">
-								   		
-										<table>
-										
-										<tr class="labelmedium" style="height:20px">
-																	   				
-							   			<cfif CalculationStatus eq "0">
-																							
-											<cfif SettleInitial neq "100">
-											
-												<td style="padding-right:5px"><cf_tl id="Process">:</td>
-												<td style="padding-left:5px">#SettleInitial# %</td>
-																	
-											<cfelse>
-											
-												<td style="padding-right:5px"></td>
-																	
-											</cfif>
-										
-									    <cfelseif CalculationStatus eq "1">
-										
-											<cfif SettleInitial neq "100">									
-												<td style="padding-right:5px"><cf_tl id="Calculated">:</td>
-												<td style="padding-left:5px;padding-right:5px">#SettleInitial# %</td>															
-											<cfelse>									
-												<td style="padding-right:5px;padding-right:5px"><cf_tl id="Calculated">:</td>															
-											</cfif>
-										
-										    <cfif ProcessMode eq "Financials">
-											
-												<cfif SettleInitial neq "100">		
+											<tr style="height:20px">				
 												
-													<cfif CalculationStatus eq "1" and transactionCount gte "0" and accessPayroll eq "ALL">
+												<td id="st#calculationid#" class="labelmedium" style="padding-right:10px">
+										   		
+												<table>
 												
-														<td>
-														<!--- initial mode not enabled --->
-													    <a href="javascript:lock('#CalculationId#','2')" title="Lock and Record Advance">
-														<cf_tl id="Post Advance to Ledger"></a>
-														<td>
-																							
-													</cfif>				
-												
-												<cfelse>
-											
-													<cfif CalculationStatus eq "1" and transactionCount gte "0" and accessPayroll eq "ALL">
-												
-														<td>
-														<!--- initial mode not enabled --->
-													    <a href="javascript:lock('#CalculationId#','3')" title="Lock and Record Final Settlement">
-														<cf_tl id="Post to Ledger"></a>
-														<td>
-																							
-													</cfif>		
-												
-												</cfif>							
-										
-										    <cfelse>
-											
-												<!---
-											
-												<cfif CalculationStatus eq "1" and transactionCount gte "0" and accessPayroll eq "ALL">
-											
-													<td>
-												    <a href="javascript:lock('#CalculationId#','2')" title="Lock and Record Settlement and Obligation"><font color="0080C0">
-													<cf_tl id="Lock Initial Settlement"></font></a>
-													</td>
-																						
-												</cfif>		
-												
-												--->
-											
-											</cfif>
-										
-										<cfelseif CalculationStatus eq "2">							
-										
-										    <td style="padding-right:4px">					
-											<cfif TransactionPayment neq "0">								
-											<font color="6688aa"><cf_tl id="Advance processed"></b> 
-											</cfif>
-											</td>
-						
-											 <cfif ProcessMode eq "Procurement">
-											 
-											     <!---
-												 <td>					 
-												 [<a href="javascript:RequisitionView('#mission#','','#reference#')">
-												 <cfif ObligationLink eq Reference>#Reference#<cfelse><font color="FF0000">Disconnected</cfif></a>]
-												 </td>
-												 --->
-												 
-											 <cfelse>
-											 												 	
-												 <cfif PostingLink neq "">
-												 
-													<cfquery name="Header"
-														datasource="AppsLedger"
-														username="#SESSION.login#" 
-														password="#SESSION.dbpw#">
-													    SELECT   *
-														FROM     TransactionHeader
-														WHERE    ReferenceId = '#PostingLink#'		
-														AND 	 Journal in (
-																SELECT Journal FROM Accounting.dbo.Journal WHERE SystemJournal ='Payroll' AND TransactionCategory != 'Payables'
-															)
-													</cfquery>	
-													
-													 <td>
-													 	
-													 
-													 <table>
-													 
-													 <cfloop query="Header">	
-													 
-													 <tr style="height:20px">								
-													 	 <td style="min-width:165px" class="labelit">
-														 <a href="javascript:ShowTransaction('#Header.Journal#','#Header.JournalSerialNo#','1')">
-														 #Header.Journal#-#Header.JournalSerialNo# #referenceno#</a>
-														 </td>
-													 </tr>
-													 
-													 </cfloop>
-													 
-													 </table>
-													 
-													 </td>
-													
-												 </cfif>							 
-												 
-											 </cfif>
-											 
-											 <cfquery name="due"
-												datasource="AppsPayroll" 
-												username="#SESSION.login#" 
-												password="#SESSION.dbpw#">
-													 SELECT   TOP 1 *
-													 FROM     SalarySchedulePeriod
-													 WHERE    Mission        = '#URL.Mission#'
-													 AND      SalarySchedule = '#SalarySchedule#'
-													 AND      CalculationStatus = '2' 
-													 ORDER BY PayrollStart
-											  </cfquery>		
-											
-											  <cfif due.CalculationId eq calculationid>
-											  											  											  											  											 							 									 								 											 
-												 <cfif CalculationStatus eq "2" and transactionCount gt "0" and accessPayroll eq "ALL">
-												 
-												    <!--- posting only if final records are found and caculated --->
-																									
-												    <cfif TransactionPaymentFinal neq "0">
-												
-														<td style="padding-left:5px">
-														    <a href="javascript:lock('#CalculationId#','3')" title="Lock and Record Settlement">
-															<font color="green"><cf_tl id="Post Final Settlement"></font>
-															</a>
-														</td>													
-																							
-													</cfif>
-																																
-												</cfif>		
-																													
-											  </cfif>
-															
-										<cfelseif CalculationStatus eq "3">
-										
-										    <td>
-											
-											<table width="100%">
-											
 												<tr class="labelmedium" style="height:20px">
-												<td style="padding-right:9px">		
-														
-												<font color="green"><cf_tl id="Locked">
-												</td>
+																			   				
+									   			<cfif CalculationStatus eq "0">
+																									
+													<cfif SettleInitial neq "100">
+													
+														<td style="padding-right:5px"><cf_tl id="Process">:</td>
+														<td style="padding-left:5px">#SettleInitial# %</td>
 																			
-												<cfif PostingLink neq "">
+													<cfelse>
+													
+														<td style="padding-right:5px"></td>
+																			
+													</cfif>
 												
-												     <cfquery name="Header"
-														datasource="AppsLedger"
+											    <cfelseif CalculationStatus eq "1">
+												
+													<cfif SettleInitial neq "100">									
+														<td style="padding-right:5px"><cf_tl id="Calculated">:</td>
+														<td style="padding-left:5px;padding-right:5px">#SettleInitial# %</td>															
+													<cfelse>									
+														<td style="padding-right:5px;padding-right:5px"><cf_tl id="Calculated">:</td>															
+													</cfif>
+												
+												    <cfif ProcessMode eq "Financials">
+													
+														<cfif SettleInitial neq "100">		
+														
+															<cfif CalculationStatus eq "1" and transactionCount gte "0" and accessPayroll eq "ALL">
+														
+																<td>
+																<!--- initial mode not enabled --->
+															    <a href="javascript:lock('#CalculationId#','2')" title="Lock and Record Advance">
+																<cf_tl id="Post Advance to Ledger"></a>
+																<td>
+																									
+															</cfif>				
+														
+														<cfelse>
+													
+															<cfif CalculationStatus eq "1" and transactionCount gte "0" and accessPayroll eq "ALL">
+														
+																<td>
+																<!--- initial mode not enabled --->
+															    <a href="javascript:lock('#CalculationId#','3')" title="Lock and Record Final Settlement">
+																<cf_tl id="Post to Ledger"></a>
+																<td>
+																									
+															</cfif>		
+														
+														</cfif>							
+												
+												    <cfelse>
+													
+														<!---
+													
+														<cfif CalculationStatus eq "1" and transactionCount gte "0" and accessPayroll eq "ALL">
+													
+															<td>
+														    <a href="javascript:lock('#CalculationId#','2')" title="Lock and Record Settlement and Obligation"><font color="0080C0">
+															<cf_tl id="Lock Initial Settlement"></font></a>
+															</td>
+																								
+														</cfif>		
+														
+														--->
+													
+													</cfif>
+												
+												<cfelseif CalculationStatus eq "2">							
+												
+												    <td style="padding-right:4px">					
+													<cfif TransactionPayment neq "0">								
+													<font color="6688aa"><cf_tl id="Advance processed"></b> 
+													</cfif>
+													</td>
+								
+													 <cfif ProcessMode eq "Procurement">
+													 
+													     <!---
+														 <td>					 
+														 [<a href="javascript:RequisitionView('#mission#','','#reference#')">
+														 <cfif ObligationLink eq Reference>#Reference#<cfelse><font color="FF0000">Disconnected</cfif></a>]
+														 </td>
+														 --->
+														 
+													 <cfelse>
+													 												 	
+														 <cfif PostingLink neq "">
+														 
+															<cfquery name="Header"
+																datasource="AppsLedger"
+																username="#SESSION.login#" 
+																password="#SESSION.dbpw#">
+															    SELECT   *
+																FROM     TransactionHeader
+																WHERE    ReferenceId = '#PostingLink#'		
+																AND 	 Journal in (
+																		SELECT Journal FROM Accounting.dbo.Journal WHERE SystemJournal ='Payroll' AND TransactionCategory != 'Payables'
+																	)
+															</cfquery>	
+															
+															 <td>
+															 	
+															 
+															 <table>
+															 
+															 <cfloop query="Header">	
+															 
+															 <tr style="height:20px">								
+															 	 <td style="min-width:165px" class="labelit">
+																 <a href="javascript:ShowTransaction('#Header.Journal#','#Header.JournalSerialNo#','1')">
+																 #Header.Journal#-#Header.JournalSerialNo# #referenceno#</a>
+																 </td>
+															 </tr>
+															 
+															 </cfloop>
+															 
+															 </table>
+															 
+															 </td>
+															
+														 </cfif>							 
+														 
+													 </cfif>
+													 
+													 <cfquery name="due"
+														datasource="AppsPayroll" 
 														username="#SESSION.login#" 
 														password="#SESSION.dbpw#">
-													    SELECT   *
-														FROM     TransactionHeader
-														WHERE    ReferenceId = '#PostingLink#'	
-														AND 	 Journal in (
-																         SELECT Journal
-																		 FROM   Accounting.dbo.Journal 
-																		 WHERE  SystemJournal ='Payroll' 
-																		 AND    TransactionCategory != 'Payables'
-															)	
-													</cfquery>	
+															 SELECT   TOP 1 *
+															 FROM     SalarySchedulePeriod
+															 WHERE    Mission        = '#URL.Mission#'
+															 AND      SalarySchedule = '#SalarySchedule#'
+															 AND      CalculationStatus = '2' 
+															 ORDER BY PayrollStart
+													  </cfquery>		
 													
-													 <td>
-													 
-													 <table>
-													 
-													 <cfloop query="Header">	
-													 
-													     <cfif currentrow eq "1"><tr></cfif>									 							
-														 	<td class="labelit" style="padding-right:5px;min-width:135px">
-															 <a href="javascript:ShowTransaction('#Header.Journal#','#Header.JournalSerialNo#','1')">
-															 #referenceno#: #Header.Journal#-#Header.JournalSerialNo#</a>
-															</td>
-														<cfif currentrow eq "2"></tr></cfif>	
-												 
-													 </cfloop>
-													 
-													 </table>	
-													 
-													 </td>													 
-																			
-												<cfelseif ObligationLink neq "">		
-												
-												 <td>						
-												 <a href="javascript:RequisitionView('#mission#','','#reference#')">#Reference#</a>;
-												 <a href="javascript:RequisitionView('#mission#','','#referenceFinal#')">#ReferenceFinal#</a>
-												 </td>
-												
-												</cfif> 	
-												
-												</tr>
-												
-											</table>
-											
-											</td>	 				 						 				
-										
-										</cfif>
-										
-										</table>
-										
-										</td>
-										 
-									   <td style="min-width:30px;padding-left:4px">
-									   
-									  
-										   	<cfif transactioncount gt "0">
-										
-										
-											<img src="#SESSION.root#/Images/Expand.png" alt="" width="18" height="16"
-												id="#CalculationId#Exp" border="0" class="regular" 
-												align="absmiddle" style="cursor: pointer;" 
-												onClick="morea('#CalculationId#','show')">
-													
-											<img src="#SESSION.root#/Images/Collapse.png" width="18"  height="16"
-												id="#CalculationId#Min" alt="" border="0" 
-												align="absmiddle" class="hide" style="cursor: pointer;" 
-												onClick="morea('#CalculationId#','hide')">
-											
-												
-											</cfif>	
-											
-										
-										</td>
-										
-										 <cfif CalculationStatus lte "2" and CalculationStatus gt "0">			
-									   		<td style="padding-left:1px">				  
-									            <cf_img icon="delete" onClick="del('#CalculationId#')">								  							
-											</td>																																			
-									   </cfif>		
-									   
-									   </tr>
-									   
-									   </table>
+													  <cfif due.CalculationId eq calculationid>
+													  											  											  											  											 							 									 								 											 
+														 <cfif CalculationStatus eq "2" and transactionCount gt "0" and accessPayroll eq "ALL">
+														 
+														    <!--- posting only if final records are found and caculated --->
+																											
+														    <cfif TransactionPaymentFinal neq "0">
 														
-							        </TD>
-											   
-								</tr>
-													 
-								<!--- ---------------------------- --->
-								<!--- ---- Calculation Line ------ --->
-								<!--- ---------------------------- --->			
-									
-								<cfset show = "hide">		
-									
-								<tr><td></td>
-									<td colspan="5">
-								
-									<table width="100%">		
+																<td style="padding-left:5px">
+																    <a href="javascript:lock('#CalculationId#','3')" title="Lock and Record Settlement">
+																	<font color="green"><cf_tl id="Post Final Settlement"></font>
+																	</a>
+																</td>													
+																									
+															</cfif>
+																																		
+														</cfif>		
+																															
+													  </cfif>
+																	
+												<cfelseif CalculationStatus eq "3">
+												
+												    <td>
+													
+													<table width="100%">
+													
+														<tr class="labelmedium" style="height:20px">
+														<td style="padding-right:9px">		
+																
+														<font color="green"><cf_tl id="Locked">
+														</td>
+																					
+														<cfif PostingLink neq "">
+														
+														     <cfquery name="Header"
+																datasource="AppsLedger"
+																username="#SESSION.login#" 
+																password="#SESSION.dbpw#">
+															    SELECT   *
+																FROM     TransactionHeader
+																WHERE    ReferenceId = '#PostingLink#'	
+																AND 	 Journal in (
+																		         SELECT Journal
+																				 FROM   Accounting.dbo.Journal 
+																				 WHERE  SystemJournal ='Payroll' 
+																				 AND    TransactionCategory != 'Payables'
+																	)	
+															</cfquery>	
+															
+															 <td>
 															 
-										<TR id="detail#CalculationId#" name="detail#CalculationId#" style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;" class="#show#" bgcolor="<cfif calculationstatus eq "3">e4e4e4<cfelse>eaeaea</cfif>"> 
+															 <table>
+															 
+															 <cfloop query="Header">	
+															 
+															     <cfif currentrow eq "1"><tr></cfif>									 							
+																 	<td class="labelit" style="padding-right:5px;min-width:135px">
+																	 <a href="javascript:ShowTransaction('#Header.Journal#','#Header.JournalSerialNo#','1')">
+																	 #referenceno#: #Header.Journal#-#Header.JournalSerialNo#</a>
+																	</td>
+																<cfif currentrow eq "2"></tr></cfif>	
+														 
+															 </cfloop>
+															 
+															 </table>	
+															 
+															 </td>													 
+																					
+														<cfelseif ObligationLink neq "">		
+														
+														 <td>						
+														 <a href="javascript:RequisitionView('#mission#','','#reference#')">#Reference#</a>;
+														 <a href="javascript:RequisitionView('#mission#','','#referenceFinal#')">#ReferenceFinal#</a>
+														 </td>
+														
+														</cfif> 	
+														
+														</tr>
+														
+													</table>
+													
+													</td>	 				 						 				
+												
+												</cfif>
+												
+												</table>
+												
+												</td>
+												 
+											   <td style="min-width:30px;padding-left:4px">
+											   
+											  
+												   	<cfif transactioncount gt "0">
+												
+												
+													<img src="#SESSION.root#/Images/Expand.png" alt="" width="18" height="16"
+														id="#CalculationId#Exp" border="0" class="regular" 
+														align="absmiddle" style="cursor: pointer;" 
+														onClick="morea('#CalculationId#','show')">
+															
+													<img src="#SESSION.root#/Images/Collapse.png" width="18"  height="16"
+														id="#CalculationId#Min" alt="" border="0" 
+														align="absmiddle" class="hide" style="cursor: pointer;" 
+														onClick="morea('#CalculationId#','hide')">
+													
+														
+													</cfif>	
+													
+												
+												</td>
+												
+												 <cfif CalculationStatus lte "2" and CalculationStatus gt "0">			
+											   		<td style="padding-left:1px">				  
+											            <cf_img icon="delete" onClick="del('#CalculationId#')">								  							
+													</td>																																			
+											   </cfif>		
+											   
+											   </tr>
+											   
+										   </table>
 										   
-										   <td colspan="2" style="border:0px solid silver;padding:2px"></td>			    
-										   <td class="labelit" style="border:0px solid silver;padding:2px">
-										   <cfif CalculationStatus neq "0">					   
-											    <cfif getAdministrator("*") eq "1" and transactionCount gte "1">
-													<a href="javascript:recap('#CalculationId#')"><font color="0080C0"><cf_tl id="Entitlement calculation">:</font></a> 
-												<cfelse>		   
-													<font color="808080"><cf_tl id="Entitlement calculation">:
-												</cfif>   
-										   </cfif>
-										   </td>
-										   <TD class="labelit" style="border:0px solid silver;padding:2px"><cfif CalculationStatus neq "0">#Dateformat(CalculationDate, "#CLIENT.DateFormatShow#")#</cfif></TD>
-										   <td class="labelit" style="border:0px solid silver;padding:2px"><cfif CalculationStatus neq "0">#OfficerFirstName# #OfficerLastName#</cfif></td>
-														  
-										   <td class="labelit" style="min-width:120px;border:0px solid silver;padding:2px;padding-left:20" align="right">
-										   <cfif CalculationStatus neq "0">
-												<cfif transactioncount eq "0"><font color="FF8040"></cfif>
-												<font color="808080">Staff:</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#TransactionCount#
-											</cfif>
-										   </td>
-											
-										   <td class="labelit" style="border:0px solid silver;padding:2px;padding-left:20px"><cfif CalculationStatus neq "0"><font color="808080"><font color="808080">Control SUM:</font></cfif></td>			   
-										   <td class="labelit" style="border:0px solid silver;padding:2px"><cfif CalculationStatus neq "0"><font color="808080">#PaymentCurrency#</font></cfif></td>
-										   <TD class="labelit" align="right" colspan="2" style="border:0px solid silver;padding:2px">					
-												 <cfif CalculationStatus eq "1"> #NumberFormat(TransactionValue, ",.__")#
-										   		 <cfelseif CalculationStatus eq "2" or CalculationStatus eq "3"><font color="408080">#NumberFormat(TransactionValue, ",.__")#</font></b>
-											     </cfif>
-										   </td>
-										  
-										   <td width="20" class="labelit" align="center" style="border:0px solid silver;padding-top:3px">
-												<cfif CalculationStatus neq "0">							
-													<cf_img icon="open" tooltip="Verify Calculation with source data" onClick="javascript:check('#CalculationId#')"> 					   												
-										   	    </cfif>										 
-											</td>
-		
-											<td width="20" class="labelit" align="center" style="border:0px solid silver;padding-top:3px">
-												<cfif CalculationStatus neq "0">							
-													<cf_img icon="open" tooltip="check balances of financial posted transaction" onClick="javascript:checkBalances('#CalculationId#')"> 
-										   	    </cfif>										 
-											</td>
-														   
-									   <cfelse>
-									   
-									       <td colspan="11" bgcolor="white"></td>
-										   
-									   </cfif>
-									
+										   														
+								        </TD>
+												   
 									</tr>
-						
+													 
+									<!--- ---------------------------- --->
+									<!--- ---- Calculation Line ------ --->
+									<!--- ---------------------------- --->			
+										
+									<cfset show = "hide">		
+																		
+									<tr><td></td>
+										<td colspan="5">									
+																		
+										<table width="100%">		
+																 
+											<TR id="detail#CalculationId#" name="detail#CalculationId#" style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;" 
+											class="#show#" bgcolor="<cfif calculationstatus eq "3">e4e4e4<cfelse>eaeaea</cfif>"> 
+											   
+											   <td colspan="2" style="border:0px solid silver;padding:2px"></td>			    
+											   <td class="labelmedium2" style="padding:2px">
+											   <cfif CalculationStatus neq "0">					   
+												    <cfif getAdministrator("*") eq "1" and transactionCount gte "1">
+														<a href="javascript:recap('#CalculationId#')"><cf_tl id="Entitlement calculation"></a> 
+													<cfelse>		   
+														<font color="808080"><cf_tl id="Entitlement calculation">:
+													</cfif>   
+											   </cfif>
+											   </td>
+											   <TD class="labelmedium2" style="border:0px solid silver;padding:2px"><cfif CalculationStatus neq "0">#Dateformat(CalculationDate, "#CLIENT.DateFormatShow#")#</cfif></TD>
+											   <td class="labelmedium2" style="border:0px solid silver;padding:2px"><cfif CalculationStatus neq "0">#OfficerLastName#</cfif></td>
+															  
+											   <td class="labelmedium2" style="min-width:120px;border:0px solid silver;padding:2px;padding-left:20" align="right">
+											   <cfif CalculationStatus neq "0">
+													<cfif transactioncount eq "0"><font color="FF8040"></cfif>
+													<font color="808080">Staff:</font>&nbsp;&nbsp;&nbsp;#TransactionCount#
+												</cfif>
+											   </td>
+												
+											   <td class="labelmedium2" style="border:0px solid silver;padding:2px;padding-left:20px"><cfif CalculationStatus neq "0"><font color="808080">Control SUM:</font></cfif></td>			   
+											   <td class="labelmedium2" style="border:0px solid silver;padding:2px"><cfif CalculationStatus neq "0"><font color="808080">#PaymentCurrency#</font></cfif></td>
+											   <TD class="labelmedium2" align="right" colspan="2" style="border:0px solid silver;padding:2px">					
+													 <cfif CalculationStatus eq "1"> #NumberFormat(TransactionValue, ",.__")#
+											   		 <cfelseif CalculationStatus eq "2" or CalculationStatus eq "3"><font color="408080">#NumberFormat(TransactionValue, ",.__")#</font></b>
+												     </cfif>
+											   </td>
+											  
+											   <td width="20" class="labelmedium2" align="center" style="border:0px solid silver;padding-top:3px">
+													<cfif CalculationStatus neq "0">							
+														<cf_img icon="open" tooltip="Verify Calculation with source data" onClick="javascript:check('#CalculationId#')"> 					   												
+											   	    </cfif>										 
+												</td>
+			
+												<td width="20" class="labelmedium2" align="center" style="border:0px solid silver;padding-top:3px">
+													<cfif CalculationStatus neq "0">							
+														<cf_img icon="open" tooltip="check balances of financial posted transaction" onClick="javascript:checkBalances('#CalculationId#')"> 
+											   	    </cfif>										 
+												</td>
+																					
+										</tr>
+							
 										<!--- --------------------------- --->
 										<!--- ---- Settlement Line ------ --->
 										<!--- --------------------------- --->
-								
+									
 										<cfif CalculationStatus neq "0">
+															
+												<tr id="detail#CalculationId#" name="detail#CalculationId#" class="#show#" style="border-right:1px solid silver;border-left:1px solid silver;border-top:1px solid silver"
+												bgcolor="<cfif calculationstatus eq "3">ffffaf<cfelse>ffffcf</cfif>">
+													
+												   <td style="border:0px solid silver;padding:2px"></td>	
+												   <td align="center" class="labelmedium2" style="min-width:150px;border:0px solid silver;padding:2px">
+												      									  		  
+												   		<cfif transactionCount eq "0" and calculationStatus eq "1">
 														
-											<tr id="detail#CalculationId#" name="detail#CalculationId#" class="#show#" style="border-right:1px solid silver;border-left:1px solid silver;border-top:1px solid silver"
-											bgcolor="<cfif calculationstatus eq "3">ffffaf<cfelse>ffffcf</cfif>">
-												
-											   <td style="border:0px solid silver;padding:2px"></td>	
-											   <td align="center" class="labelit" style="min-width:150px;border:0px solid silver;padding:2px">
-											      									  		  
-											   		<cfif transactionCount eq "0" and calculationStatus eq "1">
-													
-													  <font color="FF0000"><cf_tl id="Empty Payroll"></font>
-													  
-													   <img src="#SESSION.root#/Images/alert.gif" 
-														     name="img6#currentrow#" 						 
-															 style="cursor: pointer;"
-															 width="12" 
-															 height="13" 
-															 alt="Empty Payroll" 
-															 border="0" 
-															 align="absmiddle">
-																
-													</cfif>
-											  		   						
-													<cfif CalculationStatus eq "2" or CalculationStatus eq "3">
-													
-													<!---
-													<img src="#SESSION.root#/Images/key.gif" alt="Locked Settlement" 
-													      name="img6#currentrow#" 
-														  style="cursor: pointer;" width="13" height="14" alt="" border="0" align="absmiddle">
-														  --->
-														  <cfinvoke component="Service.Access"
-																	Method="PayrollOfficer"
-																	Role="PayrollOfficer"
-																	Mission="#mission#"
-																	ReturnVariable="PayrollAccess">	
-													
-														<cfif getAdministrator("*") eq "1" or  PayrollAccess eq "ALL">
+														  <font color="FF0000"><cf_tl id="Empty Payroll"></font>
+														  
+														   <img src="#SESSION.root#/Images/alert.gif" 
+															     name="img6#currentrow#" 						 
+																 style="cursor: pointer;"
+																 width="12" 
+																 height="13" 
+																 alt="Empty Payroll" 
+																 border="0" 
+																 align="absmiddle">
+																	
+														</cfif>
+												  		   						
+														<cfif CalculationStatus eq "2" or CalculationStatus eq "3">
 														
-															 <cfif CalculationStatus eq "2">
-							
-																 <cfif TransactionPayment eq "0" and TransactionPaymentFinal neq "0">
-																 
-																 <!--- NADA --->
-																 
-																 <cfelseif TransactionPayment neq "0">
-																 
-																 <input type="button" value="Undo Posting Initial" id="undo_#CalculationId#" name="undo" class="button10g" style="height:20px;width:140px" onclick="unlock('#CalculationId#')">
-																 										 								 
-																 </cfif>
-																 
-															 <cfelseif CalculationStatus eq "3">
-															 
-															 	<cfif TransactionPayment neq "0">									 
-															 	<input type="button" value="Undo posting Final" id="undo_#CalculationId#" name="undo" class="button10g" style="height:20px;width:140px" onclick="unlock('#CalculationId#')">										
-																<cfelse>	
-		
-																	<input type="button" value="Undo posting" id="undo_#CalculationId#" name="undo" class="button10g" style="height:20px;width:140px" onclick="unlock('#CalculationId#')">
-		
-																</cfif>
-																										 
-															</cfif>
-													
-													</cfif>   
-													
-												 </cfif>	
-											   
-											   </td>		
-											   
-											   <td class="labelit" style="border:0px solid silver;padding:2px"><font><cf_tl id="Payroll Entitlements">:</td>	
-											   	   		   	   
-											   <td colspan="2" class="labelit" height="100%">
-												   	<table width="100%" height="100%">
-													
-													   <cfif TransactionPayment eq "0" and TransactionPaymentFinal neq "0">
-													   
-													   <tr>
-														   <td class="labelit" style="border-left:1px solid silver;padding-right:4px" align="center">#dateFormat(SettlementFinalDate, "#CLIENT.DateFormatShow#")#</td>
-														   <td class="labelit" style="border-left:1px solid silver;padding-right:4px" align="right">#NumberFormat(TransactionPaymentFinal, ",.__")#</td>
-													   </tr>
-													   
-													   <cfelse>
-													   
-													   <tr>
-														   <td class="labelit" style="border-left:1px solid silver;padding-left:4px"><cf_tl id="Initial">:</td>
-														   <td class="labelit" style="border-left:1px solid silver;padding-right:4px" align="center"> #dateFormat(SettlementDate, "#CLIENT.DateFormatShow#")#</td>
-														   <td class="labelit" style="border-left:1px solid silver;padding-right:4px" align="right">#NumberFormat(TransactionPayment, ",.__")#</td>
-													   </tr>
-													   
-													    <tr>
-														   <td class="labelit" style="border-left:1px solid silver;padding-left:4px"><cf_tl id="Final">:</td>
-														   <td class="labelit" style="border-left:1px solid silver;padding-right:4px" align="center"> #dateFormat(SettlementFinalDate, "#CLIENT.DateFormatShow#")#</td>
-														   <td class="labelit" style="border-left:1px solid silver;padding-right:4px" align="right">#NumberFormat(TransactionPaymentFinal, ",.__")#</td>
-													   </tr>
-													   
-													   </cfif>
-													   
-													  
-												   </table>
-											   
-											   </td>		
-											   					   
-											   <td style="border:1px dotted silver;padding:2px"></td>	
-											   
-											   <cfif ProcessMode eq "Financials">
-											   
-											  	   <td class="labelit" style="border-left:1px solid silver;padding-left:6px"><cf_tl id="For staff net payments">:</td>
-												   <td class="labelit" colspan="3" align="right" style="border-left:1px solid silver;padding-right:4px">#NumberFormat(TransactionPosting, ",.__")#</font></td>		  
-											   
-											   <cfelse>   
-											   		   
-												   <td class="labelit" style="border:0px solid silver;padding:2px"><font color="808080"><cf_tl id="Settlement Final">:</td>
-												   <td class="labelit" style="border:0px solid silver;padding:2px">#dateFormat(SettlementFinalDate, "#CLIENT.DateFormatShow#")#</td>
-												   <td class="labelit" align="right" style="border:0px solid silver;padding:2px;padding:2px">
-												   <b><font color="408080">#NumberFormat(TransactionPaymentFinal, ",__.__")#</font></b>	  
-												   </td>		 
-											   
-											   </cfif>
-											   
-											   <td></td>
-											   <td></td>
-												
-										</tr>		
-				
-										<tr class="hide" id="final#CalculationId#">			   										  
-										   <td id="final_details#CalculationId#" colspan="8" align="right" style="padding:3px;border:0px solid silver;"></td>
-									    </tr>
-									    									
-										<tr class="hide" id="cd#CalculationId#" colspan="2">			   
-										   <td id="ci#CalculationId#" colspan="12" align="right"></td>
-									    </tr>
+														<!---
+														<img src="#SESSION.root#/Images/key.gif" alt="Locked Settlement" 
+														      name="img6#currentrow#" 
+															  style="cursor: pointer;" width="13" height="14" alt="" border="0" align="absmiddle">
+															  --->
+															  <cfinvoke component="Service.Access"
+																		Method="PayrollOfficer"
+																		Role="PayrollOfficer"
+																		Mission="#mission#"
+																		ReturnVariable="PayrollAccess">	
 														
-										<tr bgcolor="ffffef" class="hide" id="ed#CalculationId#">
-										    <td id="ei#CalculationId#" colspan="12"></td>
-									    </tr>						
-										
-								</cfif>
+															<cfif getAdministrator("*") eq "1" or  PayrollAccess eq "ALL">
+															
+																 <cfif CalculationStatus eq "2">
 								
-								</table>
-								</td>
+																	 <cfif TransactionPayment eq "0" and TransactionPaymentFinal neq "0">
+																	 
+																	 <!--- NADA --->
+																	 
+																	 <cfelseif TransactionPayment neq "0">
+																	 
+																	 <input type="button" value="Undo Posting Initial" id="undo_#CalculationId#" name="undo" class="button10g" style="height:25px;width:140px" onclick="unlock('#CalculationId#')">
+																	 										 								 
+																	 </cfif>
+																	 
+																 <cfelseif CalculationStatus eq "3">
+																 
+																 	<cfif TransactionPayment neq "0">									 
+																 	<input type="button" value="Undo posting Final" id="undo_#CalculationId#" name="undo" class="button10g" style="height:25px;width:140px" onclick="unlock('#CalculationId#')">										
+																	<cfelse>	
+			
+																		<input type="button" value="Undo posting" id="undo_#CalculationId#" name="undo" class="button10g" style="height:25px;width:140px" onclick="unlock('#CalculationId#')">
+			
+																	</cfif>
+																											 
+																</cfif>
+														
+														</cfif>   
+														
+													 </cfif>	
+												   
+												   </td>		
+												   
+												   <td class="labelmedium2" style="border:0px solid silver;padding:2px"><font><cf_tl id="Payroll Entitlements"></td>	
+												   	   		   	   
+												   <td colspan="2" class="labelmedium2" height="100%">
+												   
+													   	<table width="100%" height="100%">
+														
+														   <cfif TransactionPayment eq "0" and TransactionPaymentFinal neq "0">
+														   
+														   <tr class="labelmedium2">
+															   <td style="border-left:1px solid silver;padding-right:4px" align="center">#dateFormat(SettlementFinalDate, "#CLIENT.DateFormatShow#")#</td>
+															   <td style="border-left:1px solid silver;padding-right:4px" align="right">#NumberFormat(TransactionPaymentFinal, ",.__")#</td>
+														   </tr>
+														   
+														   <cfelse>
+														   
+														   <tr class="labelmedium2">
+															   <td style="border-left:1px solid silver;padding-left:4px"><cf_tl id="Initial">:</td>
+															   <td style="border-left:1px solid silver;padding-right:4px" align="center"> #dateFormat(SettlementDate, "#CLIENT.DateFormatShow#")#</td>
+															   <td style="border-left:1px solid silver;padding-right:4px" align="right">#NumberFormat(TransactionPayment, ",.__")#</td>
+														   </tr>
+														   
+														    <tr class="labelmedium2">
+															   <td style="border-left:1px solid silver;padding-left:4px"><cf_tl id="Final">:</td>
+															   <td style="border-left:1px solid silver;padding-right:4px" align="center"> #dateFormat(SettlementFinalDate, "#CLIENT.DateFormatShow#")#</td>
+															   <td style="border-left:1px solid silver;padding-right:4px" align="right">#NumberFormat(TransactionPaymentFinal, ",.__")#</td>
+														   </tr>
+														   
+														   </cfif>														   
+														  
+													   </table>
+												   
+												   </td>		
+												   					   
+												   <td style="border:1px dotted silver;padding:2px"></td>	
+												   
+												   <cfif ProcessMode eq "Financials">
+												   
+												  	   <td class="labelmedium2" style="border-left:1px solid silver;padding-left:6px"><cf_tl id="Total payments (staff, insurance)">:</td>
+													   <td class="labelmedium2" colspan="3" align="right" style="border-left:1px solid silver;padding-right:4px">#NumberFormat(TransactionPosting, ",.__")#</font></td>		  
+												   
+												   <cfelse>   
+												   		   
+													   <td class="labelit" style="border:0px solid silver;padding:2px"><font color="808080"><cf_tl id="Settlement Final">:</td>
+													   <td class="labelit" style="border:0px solid silver;padding:2px">#dateFormat(SettlementFinalDate, "#CLIENT.DateFormatShow#")#</td>
+													   <td class="labelit" align="right" style="border:0px solid silver;padding:2px;padding:2px">
+													   <b><font color="408080">#NumberFormat(TransactionPaymentFinal, ",__.__")#</font></b>	  
+													   </td>		 
+												   
+												   </cfif>
+												   
+												   <td></td>
+												   <td></td>
+													
+											</tr>		
+											
+											
+					
+											<tr class="hide" id="final#CalculationId#">			   										  
+											   <td id="final_details#CalculationId#" colspan="8" align="right" style="padding:3px;border:0px solid silver;"></td>
+										    </tr>
+										    									
+											<tr class="hide" id="cd#CalculationId#" colspan="2">			   
+											   <td id="ci#CalculationId#" colspan="12" align="right"></td>
+										    </tr>
+															
+											<tr bgcolor="ffffef" class="hide" id="ed#CalculationId#">
+											    <td id="ei#CalculationId#" colspan="12"></td>
+										    </tr>	
+											
+										</cfif>					
+										
+									</table>
+																	
+									</td>
 								</tr>
-							
-						<cfset p = PayrollEnd>	    
+																				
+						<cfset p = PayrollEnd>	   
+						
+						<cfelse>
+									   
+					       <!--- nada --->
+										   
+			  	     </cfif> 
 					   
 					</cfoutput>  	 
 						
@@ -947,8 +963,10 @@ password="#SESSION.dbpw#">
 				
 				</TABLE>
 			
-		</td>
-		</tr>
+			</td>
+			</tr>
+		
+		 
 		
 		<cfif row gte "5">
 			<tr><td height="20" colspan="9" class="labelmedium" style="padding-left:30px;padding-top:5px;font-size:12px">						

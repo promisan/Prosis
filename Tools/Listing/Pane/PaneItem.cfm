@@ -15,6 +15,7 @@
 <cfparam name="attributes.source"		        default="">
 <cfparam name="attributes.mission"	            default="">
 <cfparam name="attributes.units"		        default="0">
+<cfparam name="attributes.unitsMultiple"	    default="No">
 <cfparam name="attributes.period"	            default="">
 <cfparam name="attributes.option"	            default="">
 <cfparam name="attributes.DefaultOrgUnit"	    default="0">
@@ -61,7 +62,7 @@
 	     <table cellspacing="0" cellpadding="0" style="width:100%">
 		 
 		 <tr>
-		 	<td class="labellarge" style="padding:#attributes.headerPadding#; #attributes.headerStyle#" id="paneTitle_#parentId#_#attributes.id#">			
+		 	<td class="labellarge" style="font-size:25px;padding:#attributes.headerPadding#; #attributes.headerStyle#" id="paneTitle_#parentId#_#attributes.id#">			
 		 		 #Attributes.Label#
 				 <div style="display:none;" class="pane_clsPaneFilterContent pane_clsPaneFilterContent_#parentId#">#attributes.filterValue#</div>
 			</td>
@@ -155,51 +156,17 @@
 		 			
 		 <cfif attributes.mission neq "">
 		 
-		 <tr><td colspan="2" valign="bottom" style="padding:2px">
+		 <tr><td colspan="2" style="padding:2px">
 		 
-			 <table><tr>	
+			 <table style="width:100%">
+			 <tr class="line" style="height:35px">	
 			 
 			 		<cfset linksave = "#session.root#/Tools/Listing/Pane/setSelection.cfm?systemfunctionid=#attributes.systemfunctionid#&conditionfield=mission&conditionvalue=#attributes.mission#">
-			 
-			 		<!--- select period --->		
-										
-					<cfif customFilterUrl eq "">										
-					  <cfset cus = "">					  
-					 <cfelse>					 										
-					  <cfset cus = "_cf_loadingtexthtml='';ptoken.navigate('#customFilterUrl#period='+this.value+'&orgunit='+$('###attributes.id#_#parentId#_org').val(),'paneCustomFilter_#parentId#_#attributes.id#')">					 
-					 </cfif>								
-					 
-					 <cfif attributes.Period neq "">						
-					 
-						 <td style="padding-left:7px;">
-						 						 
-						 <select id="#attributes.id#_#parentId#_period" 
-						    class="regularxl" 
-							onchange="ptoken.navigate('#linksave#&conditionvalueattribute2='+$('###attributes.id#_#parentId#_period').val(),'panesave_#parentId#_#attributes.id#');ptoken.navigate('#targeturl#period='+this.value+'&orgunit='+$('###attributes.id#_#parentId#_org').val()+'&mode='+$('###attributes.id#_#parentId#_selectmode').val(),'pane_#parentId#_#attributes.id#');#cus#">						
-							 <cfloop index="per" list="#Attributes.Period#">
-							 
-							 	<cfif attributes.DefaultPeriod eq "">
-								   <cfset attributes.DefaultPeriod = per>					
-								</cfif>
-								
-							    <option value="#per#" <cfif attributes.DefaultPeriod eq per>selected</cfif>>#Per#</option>
-							 </cfloop>			 
-						 </select>
-						 
-						 </td>
-						 
-					<cfelse>	
-					
-					   <input type="hidden" id="#attributes.id#_#parentId#_period" value=""> 
-														 
-					</cfif>	
-					
-					<!--- select mission branch --->
-					
-									 			
+			 					<!--- select mission branch --->
+														 			
 					<cfif attributes.option eq "Parent">
 							 					
-						<td class="labelmedium" style="padding-left:7px;">
+						<td class="labelmedium" style="padding-left:7px;width:400px">
 																						 
 						 	<cfquery name="Mandate" 
 						     datasource="AppsOrganization" 
@@ -211,11 +178,11 @@
 								 AND    DateEffective <= getDate()
 								 AND    DateExpiration > getDate()
 							 </cfquery>
-														 
+												 
 							 <cfif customFilterUrl eq "">
-							 	  <cfset cus = "">								  
+							 	  <cfset cus = "Prosis.busyRegion('yes','pane_#parentId#_#attributes.id#');">								  
 							 <cfelse>							 
-							 	  <cfset cus = "_cf_loadingtexthtml='';ptoken.navigate('#customFilterUrl#orgunit='+this.value+'&period='+$('###attributes.id#_#parentId#_period').val(),'paneCustomFilter_#parentId#_#attributes.id#')">							  
+							 	  <cfset cus = "Prosis.busyRegion('yes','pane_#parentId#_#attributes.id#');_cf_loadingtexthtml='';ptoken.navigate('#customFilterUrl#orgunit='+$('###attributes.id#_#parentId#_org').val()+'&period='+$('###attributes.id#_#parentId#_period').val(),'paneCustomFilter_#parentId#_#attributes.id#')">							  
 							 </cfif>
 							 
 							 <cfquery name="getOrg" 
@@ -233,23 +200,28 @@
 									 </cfif>								 
 									 
 									 ORDER BY  HierarchyCode 								 
-							 </cfquery>
+							 </cfquery>																						
 							 
 							 <cfif getOrg.recordcount gte "1">
-							 							 
-								 <select id="#attributes.id#_#parentId#_org"
-								    class="regularxl" style="width:240px"
-									onchange="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('###attributes.id#_#parentId#_org').val(),'panesave_#parentId#_#attributes.id#');ptoken.navigate('#targeturl#period='+$('###attributes.id#_#parentId#_period').val()+'&orgunit='+this.value+'&mode='+$('###attributes.id#_#parentId#_selectmode').val(),'pane_#parentId#_#attributes.id#');#cus#">
-									
-									<cfif attributes.units eq "0" or attributes.units eq "">									
-										 <option value="">All</option>
-									</cfif>
-										 									
-									 <cfloop query="getOrg">
-									    <option value="#orgUnit#" <cfif attributes.DefaultOrgUnit eq orgunit>selected</cfif>>#OrgUnitName#</option>
-									 </cfloop>			 
-								 </select>
 							 
+									 <cf_UIselect name = "#attributes.id#_#parentId#_org"	
+										    onchange       = "ptoken.navigate('#linksave#&conditionvalueattribute1='+$('###attributes.id#_#parentId#_org').val(),'panesave_#parentId#_#attributes.id#');ptoken.navigate('#targeturl#period='+$('###attributes.id#_#parentId#_period').val()+'&orgunit='+$('###attributes.id#_#parentId#_org').val()+'&mode='+$('###attributes.id#_#parentId#_selectmode').val(),'pane_#parentId#_#attributes.id#');#cus#"
+											class          = "regularXXL"
+											id             = "#attributes.id#_#parentId#_org"		
+											multiple       = "#attributes.UnitsMultiple#"													
+											style          = "border:0px;background-color:f1f1f1"											
+											query          = "#getOrg#"
+											queryPosition  = "below"
+											selected       = "#attributes.DefaultOrgUnit#"
+											value          = "OrgUnit"
+											display        = "OrgUnitName">
+											
+										<cfif attributes.units eq "0" or attributes.units eq "" and attributes.OrgUnitsMultiple neq "multiple">									
+											 <option value="">All</option>
+										</cfif> 
+									
+									</cf_UISelect>
+							 							 
 							 <cfelse>
 							 
 								  <cfquery name="getOrg" 
@@ -264,16 +236,17 @@
 										 ORDER BY  HierarchyCode 								 
 								 </cfquery>
 								 
-								 <select id="#attributes.id#_#parentId#_org"
-								    class="regularxl" style="width:240px"
-									onchange="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('###attributes.id#_#parentId#_org').val(),'panesave_#parentId#_#attributes.id#');ptoken.navigate('#targeturl#period='+$('###attributes.id#_#parentId#_period').val()+'&orgunit='+this.value+'&mode='+$('###attributes.id#_#parentId#_selectmode').val(),'pane_#parentId#_#attributes.id#');#cus#">
-																												 									
-									 <cfloop query="getOrg">
-									    <option value="#orgUnit#" <cfif attributes.DefaultOrgUnit eq orgunit>selected</cfif>>#OrgUnitName#</option>
-									 </cfloop>			 
-								 </select>
-							 
-							 
+								  <cf_UIselect name = "#attributes.id#_#parentId#_org"	
+										    onchange       = "ptoken.navigate('#linksave#&conditionvalueattribute1='+$('###attributes.id#_#parentId#_org').val(),'panesave_#parentId#_#attributes.id#');ptoken.navigate('#targeturl#period='+$('###attributes.id#_#parentId#_period').val()+'&orgunit='++$('###attributes.id#_#parentId#_org').val()+'&mode='+$('###attributes.id#_#parentId#_selectmode').val(),'pane_#parentId#_#attributes.id#');#cus#"
+											class          = "regularXXL"
+											id             = "#attributes.id#_#parentId#_org"		
+											multiple       = "#attributes.UnitsMultiple#"													
+											style          = "border:0px;background-color:f1f1f1"											
+											query          = "#getOrg#"
+											queryPosition  = "below"
+											selected       = "#attributes.DefaultOrgUnit#"
+											value          = "OrgUnit"
+											display        = "OrgUnitName"/>
 							 
 							 </cfif>
 						 				 
@@ -295,9 +268,9 @@
 							 </cfquery>
 														 
 							 <cfif customFilterUrl eq "">
-							 	  <cfset cus = "">								  
+							 	  <cfset cus = "Prosis.busyRegion('yes','pane_#parentId#_#attributes.id#');">								  
 							 <cfelse>							 
-							 	  <cfset cus = "_cf_loadingtexthtml='';ptoken.navigate('#customFilterUrl#orgunit='+this.value+'&period='+$('###attributes.id#_#parentId#_period').val(),'paneCustomFilter_#parentId#_#attributes.id#')">							  
+							 	  <cfset cus = "Prosis.busyRegion('yes','pane_#parentId#_#attributes.id#');_cf_loadingtexthtml='';ptoken.navigate('#customFilterUrl#orgunit='+$('###attributes.id#_#parentId#_org').val()+'&period='+$('###attributes.id#_#parentId#_period').val(),'paneCustomFilter_#parentId#_#attributes.id#')">							  
 							 </cfif>
 							 
 							 <cfquery name="getOrg" 
@@ -316,20 +289,25 @@
 									 ORDER BY  HierarchyCode 								 
 							 </cfquery>
 							 
-							 <cfif getOrg.recordcount gte "1">
-							 							 
-								 <select id="#attributes.id#_#parentId#_org"
-								    class="regularxl" style="width:240px"
-									onchange="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('###attributes.id#_#parentId#_org').val(),'panesave_#parentId#_#attributes.id#');ptoken.navigate('#targeturl#period='+$('###attributes.id#_#parentId#_period').val()+'&orgunit='+this.value+'&mode='+$('###attributes.id#_#parentId#_selectmode').val(),'pane_#parentId#_#attributes.id#');#cus#">
+							 <cfif getOrg.recordcount gte "1">							 
+							 
+							  		<cf_UIselect name = "#attributes.id#_#parentId#_org"	
+											onchange       = "ptoken.navigate('#linksave#&conditionvalueattribute1='+$('###attributes.id#_#parentId#_org').val(),'panesave_#parentId#_#attributes.id#');ptoken.navigate('#targeturl#period='+$('###attributes.id#_#parentId#_period').val()+'&orgunit='+$('###attributes.id#_#parentId#_org').val()+'&mode='+$('###attributes.id#_#parentId#_selectmode').val(),'pane_#parentId#_#attributes.id#');#cus#"									
+											class          = "regularXXL"
+											id             = "#attributes.id#_#parentId#_org"		
+											multiple       = "#attributes.UnitsMultiple#"													
+											style          = "border:0px;background-color:f1f1f1"											
+											query          = "#getOrg#"
+											queryPosition  = "below"
+											selected       = "#attributes.DefaultOrgUnit#"
+											value          = "OrgUnit"
+											display        = "OrgUnitName">
+											
+										<cfif attributes.units eq "0" or attributes.units eq "" and attributes.OrgUnitsMultiple neq "multiple">									
+											 <option value="">All</option>
+										</cfif> 
 									
-									<cfif attributes.units eq "0" or attributes.units eq "">									
-										 <option value="">All</option>
-									</cfif>
-										 									
-									 <cfloop query="getOrg">
-									    <option value="#orgUnit#" <cfif attributes.DefaultOrgUnit eq orgunit>selected</cfif>>#HierarchyCode# #OrgUnitName#</option>
-									 </cfloop>			 
-								 </select>
+									</cf_UISelect>					 		
 							 
 							 <cfelse>
 							 
@@ -345,17 +323,18 @@
 										 ORDER BY  HierarchyCode 								 
 								 </cfquery>
 								 
-								 <select id="#attributes.id#_#parentId#_org"
-								    class="regularxl" style="width:240px"
-									onchange="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('###attributes.id#_#parentId#_org').val(),'panesave_#parentId#_#attributes.id#');ptoken.navigate('#targeturl#period='+$('###attributes.id#_#parentId#_period').val()+'&orgunit='+this.value+'&mode='+$('###attributes.id#_#parentId#_selectmode').val(),'pane_#parentId#_#attributes.id#');#cus#">
-																												 									
-									 <cfloop query="getOrg">
-									    <option value="#orgUnit#" <cfif attributes.DefaultOrgUnit eq orgunit>selected</cfif>>#HierarchyCode# #OrgUnitName#</option>
-									 </cfloop>			 
-								 </select>
-							 
-							 
-							 
+								 <cf_UIselect name = "#attributes.id#_#parentId#_org"	
+										onchange       = "ptoken.navigate('#linksave#&conditionvalueattribute1='+$('###attributes.id#_#parentId#_org').val(),'panesave_#parentId#_#attributes.id#');ptoken.navigate('#targeturl#period='+$('###attributes.id#_#parentId#_period').val()+'&orgunit='+$('###attributes.id#_#parentId#_org').val()+'&mode='+$('###attributes.id#_#parentId#_selectmode').val(),'pane_#parentId#_#attributes.id#');#cus#"
+										class          = "regularXXL"
+										id             = "#attributes.id#_#parentId#_org"		
+										multiple       = "#attributes.UnitsMultiple#"													
+										style          = "border:0px;background-color:f1f1f1"											
+										query          = "#getOrg#"
+										queryPosition  = "below"
+										selected       = "#attributes.DefaultOrgUnit#"
+										value          = "OrgUnit"
+										display        = "OrgUnitName"/>																 
+															 
 							 </cfif>
 						 				 
 						 </td>	 
@@ -364,7 +343,42 @@
 					 					 					
 					   <input type="hidden" id="#attributes.id#_#parentId#_org" value=""> 										
 					 
-					 </cfif>		
+					 </cfif>	
+					 
+					 <!--- select period --->	
+					 
+					
+										
+					<cfif customFilterUrl eq "">										
+					  <cfset cus = "Prosis.busyRegion('yes','pane_#parentId#_#attributes.id#');">					  
+					 <cfelse>					 										
+					  <cfset cus = "Prosis.busyRegion('yes','pane_#parentId#_#attributes.id#');_cf_loadingtexthtml='';ptoken.navigate('#customFilterUrl#period='+this.value+'&orgunit='+$('###attributes.id#_#parentId#_org').val(),'paneCustomFilter_#parentId#_#attributes.id#')">					 
+					 </cfif>								
+					 
+					 <cfif attributes.Period neq "">						
+					 
+						 <td style="padding-left:7px;">
+						 						 
+						 <select id="#attributes.id#_#parentId#_period" 
+						    class="regularxxl" style= "border:0px;background-color:f1f1f1"
+							onchange="ptoken.navigate('#linksave#&conditionvalueattribute2='+$('###attributes.id#_#parentId#_period').val(),'panesave_#parentId#_#attributes.id#');ptoken.navigate('#targeturl#period='+this.value+'&orgunit='+$('###attributes.id#_#parentId#_org').val()+'&mode='+$('###attributes.id#_#parentId#_selectmode').val(),'pane_#parentId#_#attributes.id#');#cus#">						
+							 <cfloop index="per" list="#Attributes.Period#">
+							 
+							 	<cfif attributes.DefaultPeriod eq "">
+								   <cfset attributes.DefaultPeriod = per>					
+								</cfif>
+								
+							    <option value="#per#" <cfif attributes.DefaultPeriod eq per>selected</cfif>>#Per#</option>
+							 </cfloop>			 
+						 </select>
+						 
+						 </td>
+						 
+					<cfelse>	
+					
+					   <input type="hidden" id="#attributes.id#_#parentId#_period" value=""> 
+														 
+					</cfif>		
 					 
 					 <!--- custom mode for the topics --->	 
 					 
@@ -389,7 +403,7 @@
 								  <td style="padding-left:10px">								 
 								  
 								  <input type="radio" name="#attributes.id#_#parentId#_selectmodename" <cfif row eq "1" or Attributes.DefaultList eq itm>checked</cfif> value="#itm#" onclick="ptoken.navigate('#linksave#&conditionvalueattribute3='+this.value,'panesave_#parentId#_#attributes.id#');$('###attributes.id#_#parentId#_selectmode').val(this.value);ptoken.navigate('#targeturl#period='+$('###attributes.id#_#parentId#_period').val()+'&orgunit='+#attributes.id#_#parentId#_org+'&mode=#itm#','pane_#parentId#_#attributes.id#');"></td>
-								  <td style="padding-left:4px" class="labelmedium">#itm#</td>
+								  <td style="padding-left:4px" class="labelmedium2">#itm#</td>
 								  
 							 </cfloop>
 						 
@@ -418,18 +432,12 @@
 						 	 
 		 </cfif>		
 		 
-		 <tr class="hide">
-		 	<td colspan="2" style="padding-top:2px">		
-				<cfdiv id="panesave_#parentId#_#attributes.id#">		
-			</td>		
-		 </tr>			 	
-		
-		 <tr><td colspan="2" style="padding-top:2px">	
-		
+		 <tr class="hide"><td colspan="2"><cfdiv id="panesave_#parentId#_#attributes.id#"></td></tr>			 	
+		 		
+		 <tr><td colspan="2" style="padding-top:2px">			
 			<cfset mid = oSecurity.gethash()/>  						
 			<cfdiv id="pane_#parentId#_#attributes.id#" 
-			   bind="url:#targeturl#orgunit=#attributes.defaultorgunit#&period=#attributes.defaultPeriod#&mode=#attributes.DefaultList#&mid=#mid#">		
-			   
+			   bind="url:#targeturl#orgunit=#attributes.defaultorgunit#&period=#attributes.defaultPeriod#&mode=#attributes.DefaultList#&mid=#mid#">					   
 			</td>
 		
 		 </tr>

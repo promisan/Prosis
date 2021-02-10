@@ -8,16 +8,39 @@
 <cfparam name="url.postgradebudget"   default="">
 <cfparam name="url.authorised"        default="">
 
-<cfif url.orgunit neq "">
+
+<cfset org = "">
+
+<cfif url.orgunit neq "" and url.orgunit neq "null">
+	
+	<cfloop index="itm" list="#url.orgunit#">
+         <cfif org eq "">
+		 	<cfset org = "'#itm#'">
+		 <cfelse>
+		   	<cfset org = "#org#,'#itm#'">
+		 </cfif>
+	</cfloop>
 
 	<cfquery name="get" 
 	     datasource="AppsOrganization" 
 	     username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">	
-		 SELECT * 
-		 FROM   Organization 
-		 WHERE  OrgUnit = '#url.orgunit#' 
+			 SELECT  * 
+			 FROM    Organization 		
+	    	 WHERE   OrgUnit IN (#preserveSingleQuotes(org)#) 
 	</cfquery>
+	
+	<cfset conorg = "">
+	
+	<cfloop query="get">
+		
+		<cfif conorg eq "">
+			<cfset conorg = "HierarchyCode LIKE ('#hierarchyCode#%')">
+		<cfelse>
+			<cfset conorg = "#conorg# OR HierarchyCode LIKE ('#hierarchyCode#%')">
+		</cfif>
+	
+	</cfloop>
 	
 </cfif>
 
@@ -136,7 +159,7 @@
 		                                 FROM   Organization.dbo.Organization
 										 WHERE  Mission   = '#url.mission#'
 										 AND    MandateNo = '#get.MandateNo#'
-										 AND    HierarchyCode LIKE ('#get.HierarchyCode#%')
+										 AND    (#preservesingleQuotes(conorg)#)
 										)  
 		</cfif>	
 
@@ -173,14 +196,14 @@
 <cfif detail.recordcount eq "0">
 
 	<table width="100%">
-	   <tr><td align="center" class="labelmedium"><cf_tl id="No records to show in this view"></td></tr>
+	   <tr><td align="center" class="labelmedium2"><cf_tl id="No records to show in this view"></td></tr>
 	</table>
 
 <cfelse>
   	
 	<table width="100%">
 	
-	   <tr style="border-top:1px solid silver" class="labelmedium line navigation_table fixrow">
+	   <tr style="border-top:1px solid silver" class="labelmedium2 line navigation_table fixrow">
 	   	   <td></td>
 	       <td><cf_tl id="Position"></td>
 		   <td><cf_tl id="Grade"></td>	 
@@ -211,7 +234,7 @@
 					 WHERE  Code = '#Person.Nationality#' 		 
 			</cfquery>
 	   	  	   
-		   <tr class="labelmedium navigation_row linedotted" style="height:20px">
+		   <tr class="labelmedium2 navigation_row linedotted" style="height:20px">
 		   	   <td style="padding-left:4px">#currentrow#.</td>
 		       <td style="padding-left:4px">
 			   <a href="javascript:EditPosition('','','#PositionNo#')">

@@ -170,14 +170,17 @@
 	
 </cfif>
 
-<cfoutput>		
+<cfoutput>	
+
+	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/>      			
 				 
 	<script>		
 	   
 		try {	
 		parent.opener.applyfilter('','','content') } 
 		catch(e) {}
-		parent.window.location = 'DocumentView.cfm?drillid=#form.observationid#'
+		parent.ptoken.location('DocumentView.cfm?mid=#mid#&drillid=#form.observationid#')
 		
 	</script>
 

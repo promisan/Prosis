@@ -12,18 +12,18 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput>
 	
-	 <table width="100%" height="100%" cellspacing="0" align="center" cellpadding="0">
+	 <table width="100%" height="100%" align="center">
 	 
 	 		<tr class="hide"><td id="process"></td></tr>
 							
-			<tr><td valign="top" height="100%" style="padding-top:6px">			
+			<tr class="line"><td valign="top" height="100%" style="padding-left:20px;padding-right:10px">			
 
 				<cf_textarea 
 					 name="FunctionInfo"  		          
-					 height="72%"					 				 		 
+					 height="90%"					 				 		 
 					 color="ffffff"
 					 init = "No"
-					 toolbar="full"					 
+					 toolbar="mini"					 
 					 resize="true">#Line.FunctionInfo#</cf_textarea>
 				 
 				 </td>

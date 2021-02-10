@@ -46,11 +46,11 @@
 				
 	</td>	
 			
-	<td align="center" onclick="stockquotedialog('#url.requestNo#')" style="cursor:pointer;font-size:17px;padding-top:2px;background-color:white;padding-left:6px;padding-right:6px;cursor:pointer;border-left:1px solid gray">
+	<td align="center" onclick="stockquotedialog('#url.requestNo#')" style="cursor:pointer;font-size:17px;padding-top:2px;background-color:white;padding-left:6px;padding-right:6px;cursor:pointer;border-left:0px solid gray">
 		#getRequest.Source#				
 	</td>		
 		
-	<td style="min-width:80px;border-right:1px solid gray">	
+	<td style="min-width:80px;border-right:0px solid gray">	
 		
 	<select name="RequestNo"  id="RequestNo" style="text-align:center;font-size:19px;height:100%;width:100%;border:0px;" class="regularXXL" 
 	onchange="ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/applyCustomer.cfm?requestNo='+this.value+'&mission=#getRequest.Mission#&warehouse=#getRequest.warehouse#&category=&itemno=&search=&customerid='+document.getElementById('customeridselect').value+'&addressid=#getRequest.AddressId#','customerbox')">													
@@ -61,7 +61,7 @@
 	
 	</td>	
 		
-	<td align="center" style="padding-left:6px;padding-right:6px;;border-left:1px solid gray">
+	<td align="center" style="padding-left:6px;padding-right:6px;;border-left:0px solid gray">
 	
 		<i class="fas fa-plus-circle" style="cursor:pointer;color:##033F5D;font-size:18px;padding-top:3.5px;;min-width:25px" class="clsNoPrint" 
 			onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/applyCustomer.cfm?quote=add&mission=#getRequest.Mission#&warehouse=#getRequest.warehouse#&category=&itemno=&search=&customerid='+document.getElementById('customeridselect').value+'&addressid=#getRequest.AddressId#','customerbox')">

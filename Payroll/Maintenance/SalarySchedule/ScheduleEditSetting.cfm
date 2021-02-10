@@ -5,26 +5,26 @@
 		<tr class="line"><td colspan="2" class="labellarge" style="font-weight:200;font-size:25px">Schedule general settings</td></tr>
 		
 		<TR>
-	    <TD style="padding-left:10" width="20%" class="labelmedium"><cf_tl id="Name">:</TD>
+	    <TD style="padding-left:10" width="20%" class="labelmedium2"><cf_tl id="Name">:</TD>
 	    <TD>
 			<table width="100%" cellspacing="0" cellpadding="0"><tr><td>
-		  	   <input type="hidden" name="SalarySchedule" value="#get.SalarySchedule#" size="10" maxlength="10" class="regularxl" disabled>
+		  	   <input type="hidden" name="SalarySchedule" value="#get.SalarySchedule#" size="10" maxlength="10" class="regularxxl" disabled>
 		  	   <cfinput type="text" name="Description" value="#get.Description#" message="please enter a description" required=  "yes" size="40" 
-			   maxlenght = "40" class="regularxl" style="height:28">
+			   maxlenght = "40" class="regularxxl" style="height:28">
 		    </TD>
 			<td align="right" style="padding-right:20px">
 			 <table>
 			 <tr>
-			   <td class="labelmedium"><cf_tl id="Sort">:</td>
+			   <td class="labelmedium2"><cf_tl id="Sort">:</td>
 			   
 			  <td>
-			   <input type="text" name="ListingOrder" value="<cfoutput>#get.ListingOrder#</cfoutput>" style="text-align:center;width:30px" class="regularxl">
+			   <input type="text" name="ListingOrder" value="<cfoutput>#get.ListingOrder#</cfoutput>" style="text-align:center;width:30px" class="regularxxl">
 			   </td>
 			 
 			  <td>
 			   <input type="checkbox" name="Operational" class="radiol" value="1" <cfif get.Operational eq "1">checked</cfif>>
 			   </td>
-			   <td class="labelmedium" style="padding-left:4px">Operational</td>
+			   <td class="labelmedium2" style="padding-left:4px">Operational</td>
 			   </tr></table>
 			</td>
 					
@@ -34,10 +34,10 @@
 		</tr>
 		
 		<tr>		
-	    <TD style="padding-left:10"  class="labelmedium"><cf_tl id="Calculation Period">:</TD>
+	    <TD style="padding-left:10"  class="labelmedium2"><cf_tl id="Calculation Period">:</TD>
 	    <TD>
 		   <table cellspacing="0" cellpadding="0"><tr><td>
-		   <select name="SalaryCalculationPeriod" class="regularxl">
+		   <select name="SalaryCalculationPeriod" class="regularxxl">
 		   <option value="MONTH" <cfif Get.SalaryCalculationPeriod eq "MONTH">selected</cfif>>MONTH</option>
 		   <!---
 		   <option value="2WEEK" <cfif #Get.SalaryCalculationPeriod# eq "2WEEK">checked</cfif>>BI-WEEKLY</option>
@@ -48,7 +48,7 @@
 		   <td style="padding-left:3px">
 		  
 
-			   <select name="SalaryBasePeriodDays" class="regularxl">
+			   <select name="SalaryBasePeriodDays" class="regularxxl">
 			   <option value="30"    <cfif Get.SalaryBasePeriodDays eq "30">selected</cfif>>Actual Calendar Days (28-31)</option>
 			   <option value="30fix" <cfif Get.SalaryBasePeriodDays eq "30fix">selected</cfif>>Fixed 30 Day month</option>
 			   <option value="21.75" <cfif Get.SalaryBasePeriodDays eq "21.75">selected</cfif>>Average Working days (21.75)</option>	
@@ -56,10 +56,10 @@
 	  
 		   </td>
 		   		   		   
-		   <TD style="padding-left:10" class="labelmedium"><cf_tl id="Day definition">:&nbsp;</TD>
+		   <TD style="padding-left:10" class="labelmedium2"><cf_tl id="Day definition">:&nbsp;</TD>
 		       <TD>
 			
-			   <select name="SalaryBasePeriodMode" class="regularxl">			   				   
+			   <select name="SalaryBasePeriodMode" class="regularxxl">			   				   
 				   <option value="0" <cfif get.SalaryBasePeriodMode eq "0">selected</cfif>>Consistent</option>			 
 				   <option value="1" <cfif get.SalaryBasePeriodMode eq "1">selected</cfif>>Opportunistic</option>
 			   </select>	
@@ -76,10 +76,10 @@
 		</tr>
 				
 		<tr>	   
-	    <TD style="padding-left:10" class="labelmedium"><cf_tl id="Entitlement rounding">:</TD>
+	    <TD style="padding-left:10" class="labelmedium2"><cf_tl id="Entitlement rounding">:</TD>
     	<TD>
 			<table>
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			<td><input type="radio" name="PaymentRounding" <cfif Get.PaymentRounding eq "3">checked</cfif> value="3"></td>
 			<td style="padding-left:4px">.00n</td>
 			<td style="padding-left:10px"><input type="radio" name="PaymentRounding" <cfif Get.PaymentRounding eq "2">checked</cfif> value="2"></td>
@@ -95,10 +95,10 @@
 		</TR>
 		
 		<tr>
-		 <TD style="padding-left:10px" class="labelmedium"><cf_tl id="Include Zero Incumbency">:&nbsp;</TD>
+		 <TD style="padding-left:10px" class="labelmedium2"><cf_tl id="Include Zero Incumbency">:&nbsp;</TD>
 		       <TD>
 			
-			   <select name="IncumbencyZero" class="regularxl">			   
+			   <select name="IncumbencyZero" class="regularxxl">			   
 				   <option value="1" <cfif get.IncumbencyZero eq "1">selected</cfif>>Yes</option>
 				   <option value="0" <cfif get.IncumbencyZero eq "0">selected</cfif>>No</option>			 
 			   </select>	
@@ -107,10 +107,10 @@
 		</tr>	
 					
 		<tr>
-		 <TD style="padding-left:10px" class="labelmedium"><cf_tl id="Enforce Program">:</TD>
+		 <TD style="padding-left:10px" class="labelmedium2"><cf_tl id="Enforce Program">:</TD>
 		       <TD>
 			
-			   <select name="EnforceProgram" class="regularxl">			   
+			   <select name="EnforceProgram" class="regularxxl">			   
 				   <option value="1" <cfif get.EnforceProgram eq "1">selected</cfif>>Yes</option>
 				   <option value="0" <cfif get.EnforceProgram eq "0">selected</cfif>>No</option>			 
 			   </select>	
@@ -124,9 +124,9 @@
 		
 		<tr>	
 		
-	    <TD style="padding-left:10px" class="labelmedium"><cf_tl id="Mode">:</TD>
+	    <TD style="padding-left:10px" class="labelmedium2"><cf_tl id="Mode">:</TD>
 	    <TD>
-		   <select name="SalaryBaseRate" onchange="base(this.value)" class="regularxl">
+		   <select name="SalaryBaseRate" onchange="base(this.value)" class="regularxxl">
 		   <option value="1" <cfif Get.SalaryBaseRate eq "1">selected</cfif>>Rate (default)</option>
 		   <option value="0" <cfif Get.SalaryBaseRate eq "0">selected</cfif>>Contract Amount</option>	
 		   </select>
@@ -136,7 +136,7 @@
 		   function base(val) {
 		   se = document.getElementById("salarybasepayrollitem")
 		   if (val == "0") {
-		     se.className = "regularxl"
+		     se.className = "regularxxl"
 		   } else {
 		     se.className = "hide"
 		   }	
@@ -153,7 +153,7 @@
 				ORDER BY ComponentOrder
 			</cfquery>
 			
-			 <select id="salarybasepayrollitem" class="regularxl" name="salarybasepayrollitem" <cfif Get.SalaryBaseRate eq "1">class="hide"</cfif>>
+			 <select id="salarybasepayrollitem" class="regularxxl" name="salarybasepayrollitem" <cfif Get.SalaryBaseRate eq "1">class="hide"</cfif>>
 				  <cfoutput query="PayrollItem">
 				  <option value="#PayrollItem#" <cfif get.SalaryBasePayrollItem eq PayrollItem>selected</cfif>>#PayrollItemName#</option>
 				  </cfoutput>
@@ -168,7 +168,7 @@
 		
 		<tr>
 
-			<TD style="padding-left:10" class="labelmedium"><cf_tl id="Currency">:&nbsp;</TD>
+			<TD style="padding-left:10" class="labelmedium2"><cf_tl id="Currency">:&nbsp;</TD>
 		    <TD>
 			
 			<cfquery name="CurrencyList" 
@@ -179,7 +179,7 @@
 				</cfquery>
 				
 	
-		  <select name="Currency" class="regularxl">
+		  <select name="Currency" class="regularxxl">
 			  <cfoutput query="CurrencyList">
 			   <option value="#currency#" <cfif Get.Paymentcurrency eq currency>selected</cfif>>#Currency#</option>		 
 			  </cfoutput> 
@@ -190,10 +190,10 @@
 		</tr>
 				
 		<TR>
-	    <TD style="padding-left:10" class="labelmedium">
+	    <TD style="padding-left:10" class="labelmedium2">
 			<cf_UItooltip tooltip="Option to allow settlement of entitlements enabled for this schedule and that were build-up under a different payroll schedule and that were not settled yet. (SAT related)"><cf_tl id="Settlement Mode">:</cf_UItooltip></TD>
 	    <TD>		
-		   <select name="SettleOtherSchedules" class="regularxl">
+		   <select name="SettleOtherSchedules" class="regularxxl">
 		   <option value="1" <cfif Get.SettleOtherSchedules eq "1">selected</cfif>>Settle always all entitlements</option>
 		   <option value="0" <cfif Get.SettleOtherSchedules eq "0">selected</cfif>>Settle only entitlements for this schedule</option>	
 		   </select>
@@ -203,13 +203,13 @@
 		
 		<tr>	
 		
-			<TD style="padding-left:10" class="labelmedium"><cf_tl id="Process">:&nbsp;</TD>
+			<TD style="padding-left:10" class="labelmedium2"><cf_tl id="Process">:&nbsp;</TD>
 		    <TD>
 			
 			 <table cellspacing="0" cellpadding="0">
 			  <tr><td>
 			
-			   <select name="ProcessMode" class="regularxl">			   
+			   <select name="ProcessMode" class="regularxxl">			   
 			   		<option value="None" <cfif get.ProcessMode eq "None">selected</cfif>>None</option>
 			   		<option value="Financials" <cfif get.ProcessMode eq "Financials">selected</cfif>>Financials (Ledger)</option>
 			   		<option value="Procurement" <cfif Get.SalaryBasePeriodDays eq "Procurement">selected</cfif>>Procurement (Obligation)</option>	
@@ -224,10 +224,10 @@
 		</tr>	
 		
 		<tr>
-		<td style="padding-left:10;padding-top:3px" class="labelmedium" valign="top"><cf_tl id="Payslip Mail Memo">:</td>
+		<td style="padding-left:10;padding-top:7px" class="labelmedium2" valign="top"><cf_tl id="Payslip Mail Memo">:</td>
 		<td>
 		<cfoutput>
-		<textarea name="PaySlipMailText" style="font-size:13px;padding:5px;width:90%;height:150px" class="regular">#get.PayslipMailText#</textarea>
+		<textarea name="PaySlipMailText" style="font-size:14px;padding:5px;width:96%;height:150px" class="regular">#get.PayslipMailText#</textarea>
 		</cfoutput>
 		</td>
 		

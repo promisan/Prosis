@@ -73,267 +73,262 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <!--- Search form --->
-<cfform target="detail" name="formlocate" onsubmit="return false">
+<cfform target="detail" name="formlocate" style="padding:0px" onsubmit="return false">
 	
-<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" bordercolor="silver" class="formpadding">
-<tr><td style="padding:8px"></td></tr>
+<table width="98%" align="center">
 
 <tr class="hide"><td height="100" id="processmanual"></td></tr>
 
 <!--- extended search --->
 <tr><td>
 
-<table width="100%" cellspacing="0" cellpadding="0">
-
-	<!--- Field: Pur_head.OrderType=CHAR;20;TRUE --->
+	<table width="100%" class="formpadding">
+	
+		<!--- Field: Pur_head.OrderType=CHAR;20;TRUE --->
 			
-	<tr><td height="2"></td></tr>
-	
-	<!--- disabled 1/1/2011 as it was not finished in the code --->
-	
-	<!---
-	<cfif Parameter.EnableExecutionRequest eq "1">		
-	
-		<tr><td>Request class:</td>
-					
-		<td colspan="4" height="30">
 		
-			<input type="radio" name="RequestClass" value="requisition" checked>Procurement Requisition
-			<input type="radio" name="RequestClass" value="execution">Procurement Execution Request
+		<!--- disabled 1/1/2011 as it was not finished in the code --->
 		
-		</td>
-			
-		</tr>	
-		<tr><td colspan="4" class="line"></td></tr>	
-		<tr><td height="4"></td></tr>
-	
-	</cfif>
-	
-	--->
-	
-	<TR>
-
-	<TD class="labelmedium"><cf_tl id="Period">:</TD>
-			
-	<td align="left" valign="top">
-	<select name="period" id="period" size="1" class="regularxl">
-	    <option value="" selected>All</option>
-	    <cfoutput query="tPeriod">
-		<option value="#Period#" <cfif URL.Period eq Period>selected</cfif> >#Period#</option>
-		</cfoutput>
-	    </select>
-	</td>	
-
-	<TD class="labelmedium"><cf_tl id="Status">:</TD>
-			
-	<td align="left" valign="top">
-		 <select name="actionstatus" id="actionstatus" size="1" class="regularxl">
-			 <option value="" selected>All</option>
-			 <cfoutput query="tStatus">
-		 		<option value="'#sCode#'">#sDescription#</option>
-			 </cfoutput>
-		 </select>
-	</td>	
-	
-	</TR>
-	
-	<tr><td height="3"></td></tr>
-	
-	<TR>
-
-	<TD class="labelmedium">Class:</TD>
-			
-	<td align="left" valign="top">
-	
-		<select name="entryclass" id="entryclass" size="1" class="regularxl">
-	    <option value="" selected>All</option>
-	    <cfoutput query="class">
-		<option value="#Code#">#Description#</option>
-		</cfoutput>
-	    </select>
+		<!---
+		<cfif Parameter.EnableExecutionRequest eq "1">		
 		
-	</td>	
-	
-	<TD class="labelmedium">Staff/Contractor:</TD>
-		
+			<tr><td>Request class:</td>
+						
+			<td colspan="4" height="30">
 			
-	<td align="left">
-	
-		<cfset link = "#SESSION.root#/Procurement/Application/Requisition/RequisitionView/getEmployee.cfm?PersonNo=#URL.PersonNo#">	 	
-		
-		<table cellspacing="0" cellpadding="0">
-			<tr>
-			<td>
-			   <cf_selectlookup box        = "employee"
-					button     = "Yes"
-					link       = "#link#"
-					icon       = "Search.png"
-					iconheight = "24"
-					iconwidth  = "25"
-					close      = "Yes"
-					type       = "employee"
-					des1       = "Selected">
+				<input type="radio" name="RequestClass" value="requisition" checked>Procurement Requisition
+				<input type="radio" name="RequestClass" value="execution">Procurement Execution Request
+			
 			</td>
-			
-			<td style="padding-left:0px">
-			   <cfdiv bind="url:#link#" id="employee"/>
-			</td>			
+				
 			</tr>	
-			
-		</table>
+			<tr><td colspan="4" class="line"></td></tr>	
+			<tr><td height="4"></td></tr>
 		
-	</td>		  
-	
-	</TR>
-	
-	<tr><td height="2"></td></tr>
-
-	<!--- Field: Pur_head.VendorName=CHAR;80;FALSE --->
-	<TR>
-	<TD class="labelmedium"><cf_tl id="Descriptive">:</TD>
-			
-	<td align="left">
-	   <input type="text" name="RequestDescription" id="RequestDescription" value="" size="20" class="regularxl">
-	</td>	
+		</cfif>
 		
-	<TD class="labelmedium">Program/Project:</TD>
+		--->
+		
+		<TR>
+	
+		<TD class="labelmedium2"><cf_tl id="Period">:</TD>
+				
+		<td align="left" valign="top">
+		<select name="period" id="period" size="1" class="regularxxl">
+		    <option value="" selected>All</option>
+		    <cfoutput query="tPeriod">
+			<option value="#Period#" <cfif URL.Period eq Period>selected</cfif> >#Period#</option>
+			</cfoutput>
+		    </select>
+		</td>	
+	
+		<TD class="labelmedium2"><cf_tl id="Status">:</TD>
+				
+		<td align="left" valign="top">
+			 <select name="actionstatus" id="actionstatus" size="1" class="regularxxl">
+				 <option value="" selected>All</option>
+				 <cfoutput query="tStatus">
+			 		<option value="'#sCode#'">#sDescription#</option>
+				 </cfoutput>
+			 </select>
+		</td>	
+		
+		</TR>
 			
-	<td align="left">
+		<TR>
 	
-		<table cellspacing="0" cellpadding="0"><tr><td style="padding-left:2px">
-	
-		  <cfoutput>
-			   <img src="#SESSION.root#/Images/search.png" alt="Select item master" name="img5" 
-					  onMouseOver="document.img5.src='#SESSION.root#/Images/contract.gif'" 
-					  onMouseOut="document.img5.src='#SESSION.root#/Images/search.png'"
-					  style="cursor: pointer;" alt="" width="25" height="24" border="0" align="absmiddle" 
-					  onClick="selectprogram('#URL.mission#',document.getElementById('period').value,'applyprogram','')">
+		<TD class="labelmedium2">Class:</TD>
+				
+		<td align="left" valign="top">
+		
+			<select name="entryclass" id="entryclass" size="1" class="regularxxl">
+		    <option value="" selected>All</option>
+		    <cfoutput query="class">
+			<option value="#Code#">#Description#</option>
+			</cfoutput>
+		    </select>
+			
+		</td>	
+		
+		<TD class="labelmedium2">Staff/Contractor:</TD>		
+				
+		<td align="left">
+		
+			<cfset link = "#SESSION.root#/Procurement/Application/Requisition/RequisitionView/getEmployee.cfm?PersonNo=#URL.PersonNo#">	 	
+			
+			<table>
+				<tr>
+							
+				<td style="padding-left:0px">
+				   <cf_securediv bind="url:#link#" id="employee">
+				</td>	
+				
+				<td style="padding-left:2px">
+				   <cf_selectlookup box        = "employee"
+						button     = "Yes"
+						link       = "#link#"
+						icon       = "Search.png"
+						iconheight = "24"
+						iconwidth  = "25"
+						close      = "Yes"
+						type       = "employee"
+						des1       = "Selected">
+				</td>
+						
+				</tr>	
+				
+			</table>
+			
+		</td>		  
+		
+		</TR>
+		
+		<!--- Field: Pur_head.VendorName=CHAR;80;FALSE --->
+		<TR class="labelmedium2">
+		<TD><cf_tl id="Descriptive">:</TD>
+				
+		<td align="left">
+		   <input type="text" name="RequestDescription" id="RequestDescription" value="" size="20" class="regularxxl">
+		</td>	
+			
+		<TD>Program/Project:</TD>
+				
+		<td align="left">
+		
+			<cfoutput>
+		
+			<table cellspacing="0" cellpadding="0">
+			<tr>		  
+				  <td style="padding-left:2px">		  
+				  <input type="text" name="programdescription" id="programdescription" class="regularxxl" size="30" maxlength="80" readonly>
+				  <input type="hidden" name="programcode" id="programcode" readonly>
 					  
-			  </td>		  
-			  <td style="padding-left:2px">		  
-			  <input type="text" name="programdescription" id="programdescription" class="regularxl" size="30" maxlength="80" readonly>
-			  <input type="hidden" name="programcode" id="programcode" readonly>
+			
+			</td>		
+			<td style="padding-left:2px">	
 			  
-		</cfoutput>			  
+				   <img src="#SESSION.root#/Images/search.png" alt="Select item master" name="img5" 
+						  onMouseOver="document.img5.src='#SESSION.root#/Images/contract.gif'" 
+						  onMouseOut="document.img5.src='#SESSION.root#/Images/search.png'"
+						  style="cursor: pointer;" alt="" width="25" height="24" border="0" align="absmiddle" 
+						  onClick="selectprogram('#URL.mission#',document.getElementById('period').value,'applyprogram','')">
+						  
+				  </td>
+	        <td id="processmanual"></td>		
+			</tr>
+			</table>		
+				  
+			</cfoutput>	
+					
+		</td>	
+			
+		</tr>
+			
+		<!--- Field: Pur_head.AmountUSD=FLOAT;8;FALSE --->
+		
+		<TR class="labelmedium2">
+		<TD><cf_tl id="Requisition No">:</TD>
+		<TD>	
+		<input type="text" name="Reference" id="Reference" value="" size="20" class="regularxxl">
+		</TD>
+				
+		<cf_verifyOperational 
+	         datasource= "appsSystem"
+	         module    = "WorkOrder" 
+			 Warning   = "No">
+		
+		<cfif Operational eq "0">
+		
+		<input type="hidden" name="workorderid" id="workorderid" size="40" maxlength="60" value="">		
+		
+		<cfelse>
+			
+		<TD><cf_tl id="WorkOrder">:</TD>					 
+		<td>
+			
+			<cfparam name="url.workorderid" default="">
+		
+			<cfset link = "#SESSION.root#/Procurement/Application/Requisition/RequisitionView/getWorkorder.cfm?">	 	
+			
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+				
+				<td style="padding-left:0px">
+				   <cfdiv bind="url:#link#workOrderId=#URL.WorkOrderId#&doFilter=#URL.DoFilter#" id="workorder"/>
+				</td>	
+				
+				<td style="padding-left:2px">
+				   <cf_selectlookup box = "workorder"
+						button       = "Yes"
+						link         = "#link#"
+						icon         = "Search.png"
+						iconheight   = "24"
+						iconwidth    = "25"
+						close        = "Yes"
+						title        = "Locate workorder"
+						filter1      = "w.mission"
+						filter1value = "#url.mission#"
+						class        = "workorder"
+						des1         = "workorderid">
+				</td>
+						
+				</tr>	
+				
+			</table>
 		
 		</td>
-		<td id="processmanual"></td>
-		</tr></table>
-
 		
-	</td>	
+		</cfif>
+				
+		</tr>	
+				
+		<TR class="labelmedium2">
+		<TD><cf_tl id="Job Case No">:</TD>
+				
+		<td align="left">
+		   <input type="text" name="CaseNo" id="CaseNo" value="" size="20" class="regularxxl">
+		</td>	
 		
-	</tr>
-		
-	<tr><td height="2"></td></tr>
-	
-	<!--- Field: Pur_head.AmountUSD=FLOAT;8;FALSE --->
-	
-	<TR>
-	<TD class="labelmedium"><cf_tl id="Requisition No">:</TD>
-	<TD>	
-	<input type="text" name="Reference" id="Reference" value="" size="20" class="regularxl">
-	</TD>
+		<td><cf_tl id="Classification">:</td>
+		<td>
+		<cf_annotationfilter>
+		</td>				
 			
-	<cf_verifyOperational 
-         datasource= "appsSystem"
-         module    = "WorkOrder" 
-		 Warning   = "No">
-	
-	<cfif Operational eq "0">
-	
-	<input type="hidden" name="workorderid" id="workorderid" size="40" maxlength="60" value="">		
-	
-	<cfelse>
+		</tr>
+				
+		<!--- Field: Pur_head.AmountUSD=FLOAT;8;FALSE --->
 		
-	<TD class="labelmedium"><cf_tl id="WorkOrder">:</TD>					 
-	<td>
+		<cf_calendarscript>
 		
-		<cfparam name="url.workorderid" default="">
-	
-		<cfset link = "#SESSION.root#/Procurement/Application/Requisition/RequisitionView/getWorkorder.cfm?">	 	
+		<TR class="labelmedium2">
+		<TD><cf_tl id="Prepared in period from">:</TD>
+		<TD>	
 		
-		<table cellspacing="0" cellpadding="0">
-			<tr>
-			<td>
-			   <cf_selectlookup box = "workorder"
-					button       = "Yes"
-					link         = "#link#"
-					icon         = "Search.png"
-					iconheight   = "24"
-					iconwidth    = "25"
-					close        = "Yes"
-					title        = "Locate workorder"
-					filter1      = "w.mission"
-					filter1value = "#url.mission#"
-					class        = "workorder"
-					des1         = "workorderid">
-			</td>
+		 <cf_intelliCalendarDate9
+			FieldName="datestart" 
+			Default=""
+			Class="regularxxl"
+			AllowBlank="True">	
 			
-			<td style="padding-left:0px">
-			   <cfdiv bind="url:#link#workOrderId=#URL.WorkOrderId#&doFilter=#URL.DoFilter#" id="workorder"/>
-			</td>			
-			</tr>	
+		</TD>
+		
+		<TD><cf_tl id="until">:</TD>
+		<TD>
+		
+		<cf_intelliCalendarDate9
+			FieldName="dateend" 
+			Default=""
+			Class="regularxxl"
+			AllowBlank="True">	
 			
-		</table>
-	
-	</td>
-	
-	</cfif>
-			
-	</tr>	
-	
-	<tr><td height="2"></td></tr>
+		</TD>
+		</tr>
 		
-	<TR>
-	<TD class="labelmedium"><cf_tl id="Job Case No">:</TD>
-			
-	<td align="left">
-	   <input type="text" name="CaseNo" id="CaseNo" value="" size="20" class="regularxl">
-	</td>	
-	
-	<td class="labelmedium"><cf_tl id="Classification">:</td>
-	<td>
-	<cf_annotationfilter>
-	</td>				
-		
-	</tr>
-		
-	<tr><td height="2"></td></tr>
-	
-	<!--- Field: Pur_head.AmountUSD=FLOAT;8;FALSE --->
-	
-	<cf_calendarscript>
-	
-	<TR>
-	<TD class="labelmedium"><cf_tl id="Prepared in period from">:</TD>
-	<TD style="z-index:10; position:relative;padding:0px">	
-	
-	 <cf_intelliCalendarDate9
-		FieldName="datestart" 
-		Default=""
-		Class="regularxl"
-		AllowBlank="True">	
-		
-	</TD>
-	
-	<TD class="labelmedium"><cf_tl id="until">:</TD>
-	<TD style="z-index:10; position:relative;padding:0px">
-	
-	<cf_intelliCalendarDate9
-		FieldName="dateend" 
-		Default=""
-		Class="regularxl"
-		AllowBlank="True">	
-		
-	</TD>
-	</tr>
-	
-</TABLE>
+	</TABLE>
 
 </td></tr>
-<tr><td class="linedotted" height="10"></td></tr>
-<tr><td align="center" height="30" >
+
+<tr class="line"><td class="line" align="center" height="30" >
 
 	<cfoutput>	
 	<input type="reset"  class="button10g" value="#vReset#" style="width:140px">

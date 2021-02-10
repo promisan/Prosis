@@ -95,7 +95,7 @@ password="#SESSION.dbpw#">
 	<!--- Field: Description --->
     <TR>
     <TD class="labelmedium"><cf_tl id="Name">:</TD>
-    <TD style="min-width:40%">
+    <TD>
 		<cfinput class="regularxl" 
 		     type="Text" 
 			 style="padding-left:3px"
@@ -124,7 +124,7 @@ password="#SESSION.dbpw#">
 	<cfelse>			
 	    
 	    <TD style="width:120px" class="labelmedium"><cf_tl id="Facility Class">:</TD>
-	    <TD style="min-width:40%">	
+	    <TD>	
 		    	 
 			<cfselect name="WarehouseClass" 
 			   style="font:10px" query="getClass" 
@@ -301,7 +301,7 @@ password="#SESSION.dbpw#">
 	    <TD>	
 		<cfinput class="regularxl" style="padding-left:3px" onchange="#maplink#" type="Text" name="address" value="#get.Address#" message="Please enter an address" required="Yes" size="50" maxlength="100">	   	
 		</TD>
-		<td colspan="2" rowspan="8" style="border:1px solid silver">		
+		<td colspan="2" rowspan="8" style="background-color:f4f4f4">		
 	
 			<cfif client.googleMAP eq "1">
 		
@@ -487,7 +487,7 @@ password="#SESSION.dbpw#">
 
 </tr>
 
-<tr><td colspan="1" style="padding-left:20px">
+<tr><td colspan="1" style="padding-left:17px">
 <table width="100%" class="formpadding">
 
 <tr><td colspan="2" height="20" style="border-bottom:1px dotted silver">
@@ -589,7 +589,7 @@ password="#SESSION.dbpw#">
 		
 			
 	<tr>
-	<td class="labelmedium" height="20" style="padding-left:33px"><cf_UIToolTip tooltip="Taskorder Sourcing"><cf_tl id="Tasking Mode"></cf_UIToolTip>:</td>
+	<td class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="Taskorder Sourcing"><cf_tl id="Tasking Mode"></cf_UIToolTip>:</td>
 	<td>   
 	   <table cellspacing="0" cellpadding="0">
 	   <tr><td>

@@ -566,24 +566,20 @@
 		<cfelse>#ReferenceName#</cfif>
 		
 		</td>
-		
-			
-
-      </tr>
+	      </tr>
 	  </cfoutput>
 	  	  
     </table>
     </td>
   </tr>
-  
-  
+    
   <!--- show actions with regards to the header --->
         
   <cfquery name="Action" 
 		datasource="AppsLedger" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT   R.Code, 
+			SELECT   TOP 2 R.Code, 
 			         R.Description, 
 					 T.ActionId,
 					 T.ActionMode,
@@ -600,57 +596,63 @@
 			AND      R.Code = 'Invoice'
 			ORDER BY R.Code, ActionDate DESC
  </cfquery>
-   
- <cfoutput query="Action" group="Code">
+ 
+  <cfif action.recordcount gte "1">
+ 
+  <tr><td colspan="2" height="20" bgcolor="f4f4f4">
   
-	 <cfoutput>
-	 
-	 <tr><td colspan="2" height="20" bgcolor="f4f4f4">
-	 <table cellspacing="0" width="100%" cellpadding="0" class="formspacing">
-	 <tr class="labelmedium2">	   
-	    <td style="border:0px solid silver;padding-left:4px" width="20%">#Description#:<cf_space spaces="30"></td>
-		<td align="center" width="90" style="background-color:ffffcf;border:1px solid silver;padding-left:3px;padding-right:3px">#dateformat(ActionDate,CLIENT.DateFormatShow)#</td>
-		<td align="center" style="background-color:ffffcf;border:1px solid silver;padding-left:3px;padding-right:3px" width="20">#ActionStatus#</td>
-		<td align="center" style="background-color:ffffcf;border:1px solid silver;padding-left:3px;padding-right:3px" width="20">#ActionMode#</td>
-		<td align="center" style="background-color:ffffcf;border:1px solid silver;padding-left:3px;padding-right:3px" width="15%">#ActionReference1#</td>
-		<td align="center" style="background-color:ffffcf;border:1px solid silver;padding-left:3px;padding-right:3px" width="15%">#ActionReference2#</td>
-		<td align="center" style="background-color:ffffcf;border:1px solid silver;padding-left:3px;padding-right:3px" width="15%">#ActionReference3#</td>
-		<td align="center" style="background-color:ffffcf;border:1px solid silver;padding-left:3px;padding-right:3px" width="15%">#ActionReference4#</td>
+	 <table width="100%" class="formpadding" style="border-left:1px solid silver;border-right:1px solid silver">
+   
+	 <cfoutput query="Action" group="Code">
+  	  
+	 <cfoutput>	 
+	
+	 <tr class="labelmedium2 linedotted">	   
+	    <!--- <td style="border:0px solid silver;padding-left:4px" width="20%">#Description#:<cf_space spaces="30"></td> --->
+		<td align="center" width="90" style="background-color:ffffcfpadding-left:3px;padding-right:3px">#dateformat(ActionDate,CLIENT.DateFormatShow)#</td>
+		<td align="center" style="background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px" width="20">#ActionStatus#</td>
+		<td align="center" style="background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px" width="20">#ActionMode#</td>
+		<td align="center" style="background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px" width="25%">#ActionReference1#</td>
+		<td align="center" style="background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px" width="15%">#ActionReference2#</td>
+		<td align="center" style="background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px" width="15%">#ActionReference3#</td>
+		<td align="center" style="background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px" width="15%">#ActionReference4#</td>
 	  </tr>
 	  
-	  <cf_filelibraryCheck
-			DocumentPath="LedgerAction"
-			SubDirectory="#Journal#\#JournalSerialNo#" 
-			Filter="#code#_#actionid#">	
-					
-	  <cfif files gte "1">
-			
-		  <tr>	
-		    <td></td>
-			<td colspan="7" width="80%">
-					 			 
-					<cf_filelibraryN
-							DocumentPath="LedgerAction"
-							SubDirectory="#Journal#\#JournalSerialNo#" 
-							Filter="#code#_#ActionId#"
-							Insert="no"
-							color="ffffef"
-							Remove="no"
-							reload="true">		 				 
-			
-			</td>
+		  <cf_filelibraryCheck
+				DocumentPath="LedgerAction"
+				SubDirectory="#Journal#\#JournalSerialNo#" 
+				Filter="#code#_#actionid#">	
+						
+		  <cfif files gte "1">
+				
+			  <tr>	
+			    <td></td>
+				<td colspan="7" width="80%">
+						 			 
+						<cf_filelibraryN
+								DocumentPath="LedgerAction"
+								SubDirectory="#Journal#\#JournalSerialNo#" 
+								Filter="#code#_#ActionId#"
+								Insert="no"
+								color="ffffef"
+								Remove="no"
+								reload="true">		 				 
+				
+				</td>
+			 
+			 </tr>
 		 
-		 </tr>
+		 </cfif>
+		 		 
+	 </cfoutput>
 	 
-	 </cfif>
+	 </cfoutput>
 	 
 	 </table>	 
 	 
 	 </td></tr>	 
 	 
-	 </cfoutput>
-	 
- </cfoutput>
+  </cfif>
         	            
   <cfoutput query="Transaction">
     

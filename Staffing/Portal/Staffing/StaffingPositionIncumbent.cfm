@@ -16,33 +16,18 @@
 				     <cfset size = "85px">
 				  <cfelse>
 				     <cfset size = "85px">
-				  </cfif>
-				  
+				  </cfif>				 
+				 
 				  <cfset ind = rereplace(Indexno,'^0+','','ALL')>
 				  								  
 				  <cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#IndexNo#.jpg") and indexNo gt "0">                           		
-						<cfset pict = IndexNo>  
-				  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#ind#.jpg")>                           		
-				  
-						<cfset pict = ind>     				   									    
+						<cfset pict = IndexNo>  						
+				  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#ind#.jpg")>                           						  
+						<cfset pict = ind>     				   									    						
 				  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Personno#.jpg")>   
-						<cfset pict = Personno>	   											
-				  <cfelse>
+						<cfset pict = Personno>	   																	
+				  <cfelse>				  
 						 <cfset pict = "">      
-				  </cfif>
-				  
-				  <cfif pict neq "">
-				  
-					  	<cfset  vPhoto = "#SESSION.rootDocument#/EmployeePhoto/#pict#.jpg?id=1">
-				  
-				  <cfelse>
-					  					  
-					  <cfif Gender eq "Female">
-						  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-female.png">
-					  <cfelse>
-						  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-male.png">
-					  </cfif>
-					  
 				  </cfif>
 				  
 				  <cf_UITooltip
@@ -53,9 +38,39 @@
 					Width      = "580"
 					ShowOn     = "click"
 					Height     = "200"
-					Duration   = "300">												  	  
-				      <img src="#vPhoto#" class="img-circle clsRoundedPicture" style="cursor:pointer;height:#size#; width:#size#;">					  
-				  </cf_UItooltip>				  
+					Duration   = "300">
+				  
+				  <cfif pict neq "">
+				  
+					  <cffile action="COPY" 
+						source="#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg" 
+  		    			destination="#SESSION.rootPath#\CFRStage\EmployeePhoto\#pict#.jpg" nameconflict="OVERWRITE">
+				
+						<cfset vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg">						
+						
+						<img src="#vPhoto#" class="img-circle clsRoundedPicture" style="cursor:pointer;height:#size#; width:#size#;">		
+						
+						<!---
+											 				 
+ 						<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\EmployeePhoto/#pict#.jpg")>						
+					    <cfimage class="img-circle clsRoundedPicture" source="#myImage#" width="#size#" height="#size#" action="writeToBrowser">												
+						
+						--->
+				  
+				  <cfelse>
+					  					 					  
+					  <cfif Gender eq "Female">
+						  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-female.png">
+					  <cfelse>
+						  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-male.png">
+					  </cfif>
+					  					  
+					  <img src="#vPhoto#" class="img-circle clsRoundedPicture" style="cursor:pointer;height:#size#; width:#size#;">		
+					  
+				  </cfif>
+				  
+				  </cf_UItooltip>
+				 	  
 				  
 			      </td>
 				  </tr>

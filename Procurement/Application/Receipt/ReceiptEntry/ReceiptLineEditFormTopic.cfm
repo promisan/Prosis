@@ -87,7 +87,7 @@
 						
 		    <td style="padding-right:7px">			
 				
-				<cfdiv id="divCategoryItem" bind="url:#SESSION.root#/Warehouse/Maintenance/Item/getCategoryItem.cfm?Category=#getItemMaster.Category#&CategoryItem=#categoryItem#">
+				<cf_securediv id="divCategoryItem" bind="url:#SESSION.root#/Warehouse/Maintenance/Item/getCategoryItem.cfm?Category=#getItemMaster.Category#&CategoryItem=#categoryItem#">
 			
 		    </td>
 			
@@ -101,8 +101,8 @@
 		  password="#SESSION.dbpw#">
 		  SELECT   *
 		  FROM     Ref_Topic T, Ref_TopicEntryClass C
-		  WHERE    T.Code = C.Code
-		  AND      EntryClass = '#Requisition.EntryClass#'
+		  WHERE    T.Code        = C.Code
+		  AND      EntryClass    = '#Requisition.EntryClass#'
 		  AND      T.Operational = 1
 		  ORDER BY ListingOrder
 	</cfquery>
@@ -167,8 +167,8 @@
 					</cfif>
 					
 					<!--- helper --->
-					<cfif StructKeyExists(helper['topics'],'#Requisition.EntryClass#')>
-						<cfset lastSelected = listGetAt(helper['topics']['#Requisition.EntryClass#'],cont)>
+					<cfif StructKeyExists(helper['topics'],Requisition.EntryClass)>
+						<cfset lastSelected = listGetAt(helper['topics'][Requisition.EntryClass],cont)>
 					<cfelse>
 					
 						<!--- get from requisition classificati8on --->
@@ -177,9 +177,10 @@
 						  datasource="appsPurchase" 
 						  username="#SESSION.login#" 
 						  password="#SESSION.dbpw#">
-							SELECT     *
-							FROM       RequisitionLineTopic
-							WHERE     (RequisitionNo = '#url.reqno#') AND (Topic = '#GetTopics.Code#')
+							SELECT   *
+							FROM     RequisitionLineTopic
+							WHERE    RequisitionNo = '#url.reqno#' 
+							AND      Topic = '#GetTopics.Code#'
 						 </cfquery>
 						 
 						<cfset lastSelected = getValue.ListCode>
@@ -187,7 +188,7 @@
 					</cfif>
 					<!--- /helper --->
 					
-				    <select class="regularxl" style="width:200px" name="Topic_#GetTopics.Code#" ID="Topic_#GetTopics.Code#">
+				    <select class="regularxxl" style="width:200px" name="Topic_#GetTopics.Code#" ID="Topic_#GetTopics.Code#">
 					
 					<!--- disabled
 					<cfif ValueObligatory eq "0">

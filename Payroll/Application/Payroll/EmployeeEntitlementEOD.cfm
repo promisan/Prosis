@@ -3,12 +3,15 @@
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT   Mission
-	FROM     EmployeeSalary AS ES INNER JOIN
-	            EmployeeSalaryLine AS ESL ON ES.SalarySchedule = ESL.SalarySchedule AND ES.PayrollStart = ESL.PayrollStart AND ES.PersonNo = ESL.PersonNo AND 
-	            ES.PayrollCalcNo = ESL.PayrollCalcNo
+	SELECT   ES.Mission
+	FROM     EmployeeSalary AS ES 
+	         INNER JOIN EmployeeSalaryLine AS ESL ON ES.SalarySchedule = ESL.SalarySchedule 
+			                                     AND ES.PayrollStart = ESL.PayrollStart 
+												 AND ES.PersonNo = ESL.PersonNo 
+												 AND ES.PayrollCalcNo = ESL.PayrollCalcNo 
+												 AND ES.Mission = ESL.Mission
 	WHERE    ES.PersonNo = '#URL.ID#'	
-	GROUP BY Mission
+	GROUP BY ES.Mission
 </cfquery>
 
 <cfquery name="getPerson" 
@@ -20,12 +23,11 @@ password="#SESSION.dbpw#">
 	WHERE    PersonNo = '#URL.ID#'
 </cfquery>
 
-<table style="min-width:900" width="100%" align="center">
+<table style="min-width:1000" width="100%" align="center">
 <tr>
 <td class="clsPrintContent">
 
-
-	<table width="98%" align="center" border="0" class="navigation_table">
+	<table width="99%" align="center" border="0" class="navigation_table">
 	
 	<cfif Entity.recordcount eq "0">
 	
@@ -55,6 +57,7 @@ password="#SESSION.dbpw#">
 					  AND ES.PayrollStart  = ESL.PayrollStart 
 					  AND ES.PersonNo      = ESL.PersonNo 
 					  AND ES.PayrollCalcNo = ESL.PayrollCalcNo
+					  AND ES.Mission = ESL.Mission
 		
 			WHERE     ES.Mission      = '#mission#'
 			AND       ES.PersonNo     = '#URL.ID#'
@@ -63,7 +66,7 @@ password="#SESSION.dbpw#">
 			
 		</cfquery>
 	
-		<tr class="line labelmedium">
+		<tr class="line labelmedium2">
 		<td style="width:90%;height:35px;font-size:25px;font-weight:200;padding-left:2px" colspan="5" align="left">		
 			<b>#Mission# <font size="2">(<cf_tl id="until">#dateformat(Last.PayrollStart,"YYYY MMMM")# )</font></b>	
 		</td>
@@ -73,7 +76,7 @@ password="#SESSION.dbpw#">
 			
 			<tr>		
 			<td style="font-size:15px;padding-right:6px;width:200px;">
-			<a href="javascript:ptoken.navigate('#session.root#/payroll/application/Payroll/EmployeeEntitlement.cfm?id=#url.id#','contentbox1')">Show by Calendar Year</a>
+			<a href="javascript:ptoken.navigate('#session.root#/payroll/application/Payroll/EmployeeEntitlement.cfm?id=#url.id#','contentbox1')"><cf_tl id="Calendar Year"></a>
 			</td>		
 			<td align="right" style="padding-right:4px">
 			
@@ -99,13 +102,13 @@ password="#SESSION.dbpw#">
 		</td>
 		</tr>	
 		
-		<tr class="line labelmedium">
+		<tr class="line labelmedium2">
 		 <td></td>
 		 <td style="min-width:90%" colspan="2"><cf_tl id="Item"></td>
 		 <td colspan="1"></td>
 		 <td colspan="1" width="50"></td>
 		 <td colspan="1" align="right" style="width:140px"><cf_tl id="Entitlement"></td>
-		 <td colspan="1" align="right" style="width:140px"><cf_tl id="Settled"><cf_space spaces="40"></td>
+		 <td colspan="1" align="right" style="width:140px"><cf_tl id="Settled"></td>
 		</tr>
 		
 		<cfquery name="Item" 
@@ -121,6 +124,7 @@ password="#SESSION.dbpw#">
 			AND      PayrollItem IN ( SELECT   PayrollItem 
 			                          FROM     EmployeeSalaryLine E
 									  WHERE    PersonNo       = '#URL.ID#'
+									  AND      Mission        = '#mission#'
 									  -- AND      PayrollStart  >= '#EOD#'									 
 									  UNION ALL										
 									  SELECT   PayrollItem 				
@@ -141,7 +145,7 @@ password="#SESSION.dbpw#">
 			SELECT   DISTINCT ES.PaymentCurrency 
 			FROM     EmployeeSalary AS ES INNER JOIN
 		             EmployeeSalaryLine AS ESL ON ES.SalarySchedule = ESL.SalarySchedule AND ES.PayrollStart = ESL.PayrollStart AND ES.PersonNo = ESL.PersonNo AND 
-		             ES.PayrollCalcNo = ESL.PayrollCalcNo	
+		             ES.PayrollCalcNo = ESL.PayrollCalcNo AND ES.Mission = ESL.Mission	
 			WHERE    ES.Mission = '#mission#'
 			AND      ES.PersonNo       = '#URL.ID#'
 			-- AND      ES.PayrollEnd >= '#EOD#'
@@ -160,7 +164,7 @@ password="#SESSION.dbpw#">
 					 SUM(ESL.PaymentAmount) AS Entitlement
 			FROM     EmployeeSalary AS ES INNER JOIN
 		             EmployeeSalaryLine AS ESL ON ES.SalarySchedule = ESL.SalarySchedule AND ES.PayrollStart = ESL.PayrollStart AND ES.PersonNo = ESL.PersonNo AND 
-		             ES.PayrollCalcNo = ESL.PayrollCalcNo	
+		             ES.PayrollCalcNo = ESL.PayrollCalcNo AND ES.Mission = ESL.Mission	
 			WHERE    ES.Mission        = '#mission#'
 			AND      ES.PersonNo       = '#URL.ID#'
 			-- AND      ES.PayrollEnd    >= '#EOD#'
@@ -199,7 +203,7 @@ password="#SESSION.dbpw#">
 		<cfloop query="Item">
 		
 			<cfif Source neq prior>	
-				<tr class="line"><td style="padding-top:0px;height:36px;font-size:19px;font-weight:300" colspan="7" class="labellarge">#Source#</td></tr>	
+				<tr class="line labelmedium2" style="background-color:ffffaf"><td style="padding-left:5px;height:30px;font-size:16px" colspan="7">#Source#</td></tr>	
 			</cfif>
 		
 			<cfset prior = source>

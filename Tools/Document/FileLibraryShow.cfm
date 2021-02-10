@@ -385,6 +385,7 @@
 	
 												<cfelse>		
 												
+																								
 													<cfset vServerPathDoc = "">
 													<cfset vReplaceDashes = 0>
 													<cfif attachment.server eq "documentserver" or attachment.server eq "document">
@@ -407,24 +408,37 @@
 															<cfset vServerPathDocFull = replace(vServerPathDocFull,"/","\","ALL")>
 														</cfif>
 														
-														<cftry>		
-																										
-														<cffile action="COPY" 
-															source="#vServerPathDocFull#" 
-										    		    	destination="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\tn_#name#" 
-															nameconflict="OVERWRITE">
-																										
-														<img src="#SESSION.root#/CFRStage/User/#SESSION.acc#/tn_#name#" 
-														    style="cursor:pointer;border:1px solid ##;" 
-															align="absmiddle" 
-															alt="Open Image" height="36" width="60" border="0" align="center">	
-															
-															<cfcatch></cfcatch>																							
+														<cftry>	
+	
+														<cfif findNoCase(",",vServerPathDocFull) or findNoCase(" ",vServerPathDocFull)>
+														
+														<img src="#SESSION.root#/Images/file_image.jpg" 
+															    style="width:35px;height:35px;cursor:pointer;border:0px solid silver;" 
+																align="absmiddle" 
+																alt="Open Image" border="0" align="center">	
+																												
+														<cfelse>		
+																							
+														   																																								
+															<cffile action="COPY" 
+																source="#vServerPathDocFull#" 
+											    		    	destination="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\tn_#trim(name)#" 
+																nameconflict="OVERWRITE">																																														
+																																									
+															<img src="#SESSION.root#/CFRStage/User/#SESSION.acc#/tn_#trim(name)#" 
+															    style="cursor:pointer;border:1px solid silver;" 
+																align="absmiddle" 
+																alt="Open Image" height="36" width="60" border="0" align="center">	
+																																														
+														</cfif>
+																														
+														<cfcatch></cfcatch>																							
 															
 														</cftry>	
 														
 													</cfif>
 													
+																									
 												</cfif>											
 																							
 											</td>																											  
@@ -433,7 +447,7 @@
 											   onclick="" class="cellcontent">
 											   
 											   <table>											   
-											   <tr class="labelmedium"><td style="color:6688aa">
+											   <tr class="labelmedium"><td>
 											   <a href="javascript:embedfile('#contextmode#','#attachment.attachmentid#','show','#attachment.attachmentid#')">#Nameshow#</a></td></tr>											   
 											   <cfif len(Attachment.attachmentMemo) gte "5" and attachment.attachmentmemo neq "Detected">									 	
 													<tr class="labelmedium" style="height:15px">													    
@@ -543,11 +557,11 @@
 								    	
 								    	<cfif DocumentServerIsOp eq "0">
 									    	<TD width="10%" class="cellcontent" nowrap>#DateFormat(DateLastModified, CLIENT.DateFormatShow)#&nbsp;#TimeFormat(DateLastModified, "HH:MM")#&nbsp;</TD>
-								    		<TD width="10%" class="cellcontent" style="padding-right:10px" align="right"><cfset kb = (Size/1024)/1024> #numberFormat(kb, "_____._" )#mb&nbsp;</TD>	
+								    		<TD width="10%" class="cellcontent" style="padding-right:10px" align="right"><cfset kb = (Size/1024)> #numberFormat(kb, "_____._" )#kb</TD>	
 								    	</cfif>															
 																	
-										<td width="20">
-										
+										<td width="20" style="padding-right:7px">
+																				
 											<img src="#SESSION.root#/Images/Info.png" alt="Log" 
 												border="0" 
 												height="16" width="16"

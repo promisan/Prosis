@@ -1,6 +1,5 @@
 
 
-
 <cfparam name="url.data" default="0">
 <cfparam name="url.box"  default="">
 
@@ -14,25 +13,48 @@
 		 AND      DateEffective <= getDate()
 		 ORDER BY DateExpiration DESC
 	</cfquery>
+	
 
-<cfif url.orgunit neq "">
+<cfset org = "">
 
+<cfif url.orgunit neq "" and url.orgunit neq "null">
+	
+	<cfloop index="itm" list="#url.orgunit#">
+         <cfif org eq "">
+		 	<cfset org = "'#itm#'">
+		 <cfelse>
+		   	<cfset org = "#org#,'#itm#'">
+		 </cfif>
+	</cfloop>
+	
 	<cfquery name="get" 
 	     datasource="AppsOrganization" 
 	     username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">	
-		 SELECT * 
-		 FROM   Organization 
-		 WHERE  OrgUnit = '#url.orgunit#' 
+			 SELECT  * 
+			 FROM    Organization 		
+	    	 WHERE   OrgUnit IN (#preserveSingleQuotes(org)#) 
 	</cfquery>
 	
-<cfelse>	
+	<cfset conorg = "">
+	
+	<cfloop query="get">
+		
+		<cfif conorg eq "">
+			<cfset conorg = "HierarchyCode LIKE ('#hierarchyCode#%')">
+		<cfelse>
+			<cfset conorg = "#conorg# OR HierarchyCode LIKE ('#hierarchyCode#%')">
+		</cfif>
+	
+	</cfloop>
+	
+<cfelse>
 
-	<cfparam name="get.OrgUnitName" default="#url.mission#">	
+	<cfparam name="get.OrgUnitName" default="#url.mission#">		
 	
 </cfif>
-
- <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#Diversity_#url.mission#">	
+	
+<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#Diversity_#url.mission#">	
 
 <cftransaction isolation="READ_UNCOMMITTED">
 
@@ -227,7 +249,7 @@
 		                                 FROM   Organization.dbo.Organization
 										 WHERE  Mission   = '#url.mission#'
 										 AND    MandateNo = '#Mandate.MandateNo#'
-										 AND    HierarchyCode LIKE ('#get.HierarchyCode#%')
+										 AND    (#preservesingleQuotes(conorg)#)
 										)  
 		</cfif>
 		    
@@ -366,7 +388,7 @@
 				                                 FROM   Organization.dbo.Organization
 												 WHERE  Mission   = '#url.mission#'
 												 AND    MandateNo = '#get.MandateNo#'
-												 AND    HierarchyCode LIKE ('#get.HierarchyCode#%')
+												 AND    (#preservesingleQuotes(conorg)#)
 												)  
 				</cfif>
 			    
@@ -439,9 +461,7 @@
 				AND          A.PostClass = '#url.postclass#'
 				</cfif>				
 			    
-		</cfquery>
-		
-		
+		</cfquery>	
 		
 </cfif>		
 			

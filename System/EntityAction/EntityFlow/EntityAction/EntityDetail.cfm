@@ -234,10 +234,10 @@ function hl(itm,fld){
     				
 		<cfcase value="step">	
 				   
-			 <table width="95%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+			 <table width="95%" align="center" class="formpadding">
 			 
 				 <tr><td height="3"></td></tr>
-				 <tr><td style="height:34px;font-size:20px" class="labelmedium"><cf_tl id="Action Grouping"></td></tr>				
+				 <tr><td style="height:34px;font-size:20px" class="labelmedium2"><cf_tl id="Action Grouping"></td></tr>				
 				 <tr><td>  
 				 
 				 <cfoutput>
@@ -246,7 +246,7 @@ function hl(itm,fld){
 				 
 				 </td></tr>
 				 
-				 <tr><td style="height:34px;font-size:20px" class="labelmedium"><cf_tl id="Action Library"></td></tr>				
+				 <tr><td style="height:34px;font-size:20px" class="labelmedium2"><cf_tl id="Action Library"></td></tr>				
 				 <tr><td>  	   
 					   
 					 <cfoutput>

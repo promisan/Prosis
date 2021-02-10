@@ -16,7 +16,7 @@
 	<script>
 	
 	function recordadd(grp) {
-	      ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=890, height=790, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+	      ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add category");
 	}
 	
 	function recordedit(id1) {

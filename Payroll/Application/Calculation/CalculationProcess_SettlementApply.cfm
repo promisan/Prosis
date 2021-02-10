@@ -596,7 +596,7 @@
 				     SELECT   TOP 1 P.PositionParentId			
 					 FROM     Employee.dbo.PersonAssignment PA, 
 				              Employee.dbo.Position P
-				     WHERE    P.Mission          = '#Form.Mission#' 				
+				     WHERE    P.Mission     IN (#preservesingleQuotes(assmission)#) 			
 					 AND      PA.PositionNo      = P.PositionNo
 					 AND      PA.AssignmentStatus IN ('0','1')
 					 AND      PA.DateEffective  <= #CALCEND# 									 
@@ -629,7 +629,7 @@
 				    SELECT   TOP 1 P.OrgUnitOperational				
 					FROM     Employee.dbo.PersonAssignment PA, 
 				             Employee.dbo.Position P
-				    WHERE    P.Mission          = '#Form.Mission#' 				
+				    WHERE    P.Mission      IN (#preservesingleQuotes(assmission)#) 		
 					AND      PA.PositionNo      = P.PositionNo
 					AND      PA.AssignmentStatus IN ('0','1')
 					AND      PA.DateEffective  <= #CALCEND# 									

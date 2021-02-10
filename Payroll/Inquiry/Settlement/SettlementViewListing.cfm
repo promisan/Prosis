@@ -212,11 +212,12 @@ password="#SESSION.dbpw#">
 					  INNER JOIN  Program.dbo.Program AS M ON F.ProgramCode = M.ProgramCode 
 					  --->
 					  INNER JOIN  SalarySchedule AS SS ON S.SalarySchedule = SS.SalarySchedule 
-					  INNER JOIN  SalaryScheduleMission AS SM ON S.SalarySchedule = SM.SalarySchedule AND S.Mission = SM.Mission AND S.PaymentDate <= SM.DateEffectivePortal 
+					  INNER JOIN  SalaryScheduleMission AS SM ON S.SalarySchedule = SM.SalarySchedule AND S.Mission = SM.Mission AND S.PaymentDate >= SM.DateEffectivePortal 
 					  INNER JOIN  Ref_PayrollItem AS I ON L.PayrollItem = I.PayrollItem 
 					  INNER JOIN  Employee.dbo.Person AS P ON S.PersonNo = P.PersonNo 
 					  INNER JOIN  Organization.dbo.Organization AS O ON L.OrgUnit = O.OrgUnit
-		WHERE        S.Mission = '#url.mission#' AND L.DocumentAmount is not NULL
+		WHERE        S.Mission = '#url.mission#' 
+		 --          AND L.DocumentAmount is not NULL
 		
 		
 		) as B
@@ -224,8 +225,8 @@ password="#SESSION.dbpw#">
 		WHERE 1=1 
 				
 			-- condition
-						
-						
+			
+			
 
 </cfsavecontent>
 
@@ -359,11 +360,11 @@ password="#SESSION.dbpw#">
 
 <cf_listing
 	    header              = "payroll settlement"
-	    box                 = "settlementlisting_#url.mission#"
+	    box                 = "payrollsettlementlisting_#url.mission#"
 		link                = "#SESSION.root#/Payroll/Inquiry/Settlement/SettlementViewListing.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
 	    html                = "No"		
 		tableheight         = "100%"
-		tablewidth          = "100%"
+		tablewidth          = "98%"
 		calendar            = "9" 
 		font                = "Calibri"
 		datasource          = "AppsPayroll"

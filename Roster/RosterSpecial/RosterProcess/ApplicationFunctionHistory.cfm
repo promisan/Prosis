@@ -43,12 +43,12 @@
 </tr>
 --->
 
-<tr class="labelmedium line">
+<tr class="labelmedium2 line">
    	<td width="130" style="padding-left:10px"><cf_tl id="Officer"></td>
    	<TD><cf_tl id="Timestamp"></TD>
 	<TD><cf_tl id="Process action"></TD>
 	<td><cf_tl id="Applied"></td>
-	<TD align="right"><cf_tl id="Roster Action"></TD>	
+	<TD><cf_tl id="Roster Action"></TD>	
 	<td align="right"><cf_tl id="Confirmation"></td>
 </TR>
    
@@ -60,18 +60,20 @@
 	
     <cfoutput query="History">
  	  
-     <TR class="line labelmedium navigation_row" style="height:20px">
+     <TR class="line labelmedium2 navigation_row" style="height:20px">
      <td style="padding-left:10px">#OfficerUserFirstName# #OfficerUserLastName#</td>
      <TD>#DateFormat(ActionSubmitted, CLIENT.DateFormatShow)# #TimeFormat(ActionSubmitted, "HH:MM")#</TD>
      <TD><cfif status eq "3"><font color="008000"></cfif>#Status# - #Meaning#</font></TD>
 	 <td>#DateFormat(StatusDate, CLIENT.DateFormatShow)#</b></td>
-	 <TD align="center" style="padding-left:4px">#RosterActionNo#</TD>
+	 <TD style="padding-left:4px">#RosterActionNo#</TD>
     
 	 <td style="padding-right:3px" align="right">
 	 
 	 	<cfif mailid neq ""> 
 		
-		        <table><tr><td>
+		        <table>
+				<tr>
+				<td>
 		
 				<cfif mailstatus eq "9"><font color="FF0000">Mail [not sent]<cfelse>Mail</cfif>
 				
@@ -87,10 +89,11 @@
 					<img src="#SESSION.root#/Images/icon_collapse.gif" 
 					id="d#CurrentRow#Exp" alt="" border="0" 
 					align="absmiddle" class="hide" style="cursor: pointer;" 
-					onClick="memo('d','#CurrentRow#')">	 
-						
+					onClick="memo('d','#CurrentRow#')">						
 				
-			</td></tr></table>
+			     </td>
+				 </tr>
+				 </table>
 													
 		</cfif>
 	
@@ -100,7 +103,7 @@
 	
 	<cfif actionRemarks neq "">
 	
-	<tr class="labelmedium navigation_row_child line" style="height:15px">
+	<tr class="labelmedium2 navigation_row_child line" style="height:15px">
 	    <td></td>
 	    <TD colspan="5"><font color="408080">#ActionRemarks#</TD>
 	</tr>

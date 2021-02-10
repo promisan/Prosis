@@ -75,9 +75,9 @@ function updateoption(per,subperiod) {
 			  <table>
 			  <tr>
 			  <td style="font-size:17px;padding-left:3px;height:41px" class="labelmedium"><cf_tl id="Fiscal Period">:</td>			  
-			  <td>
+			  <td style="padding-bottom:3px">
 			    <cfoutput>
-	    	    <select name="Period" id="Period" class="regularxl" onchange="_cf_loadingtexthtml='';ptoken.navigate('JournalViewTreeShow.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&glcategory=Actuals&Period=' + this.value,'treeshow')">
+	    	    <select name="Period" id="Period" style="background-color:f1f1f1;font-size:20px;height:35px;border:0px" class="regularxxl" onchange="_cf_loadingtexthtml='';ptoken.navigate('JournalViewTreeShow.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&glcategory=Actuals&Period=' + this.value,'treeshow')">
 		        <cfloop query = "Period"> 
 				    <option value="#AccountPeriod#" <cfif Parameter.CurrentAccountPeriod eq AccountPeriod>selected</cfif>>#Description#
 					    <cfif Parameter.CurrentAccountPeriod eq AccountPeriod>&nbsp;[<cf_tl id="default">]</cfif>

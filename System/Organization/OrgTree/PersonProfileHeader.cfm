@@ -132,17 +132,15 @@
 <cfoutput>
 
 	<div class="media social-profile clearfix">
-	    <a class="pull-left" style="padding-right:18px;" href="javascript:enlargeProfilePicture('.profilePicture_#personNo#');">
-			<cfset vIndexNo = getPerson.IndexNo>
-			<cfset vGender = getPerson.Gender>
-			<cfset vUserAccount = getPerson.UserAccount>
-			<cfinclude template="getProfilePicture.cfm">
-
-	        <cf_tl id="Zoom in/out" var="1">
-	        <div 
-				title="#lt_text#" 
-				class="img-round-border clsRoundedPicture clsEnableTransition profilePicture_#personNo#" 
-				style="background-image:url('#vPhoto#'); height:120px; width:120px; border:3px solid ##aaaaaa;"></div>
+	    
+		<a class="pull-left" style="padding-right:18px;" href="javascript:enlargeProfilePicture('.profilePicture_#personNo#');">
+					
+			<cf_getProfilePicture 
+			    IndexNo      = "#getPerson.IndexNo#" 
+				UserAccount  = "#getPerson.useraccount#" 
+				Gender       = "#getPerson.Gender#"
+				Class        = "clsEnableTransition profilePicture_#personNo#"
+				style        = "height:120px; width:120px; border:3px solid ##aaaaaa;">
 
 	    </a>
 		

@@ -81,7 +81,7 @@
 </cfquery>
 
 
-<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="98%" height="100%"  align="center" class="navigation_table">
 
 <tr>
 <td width="100%">
@@ -106,7 +106,7 @@
 		
 		<table width="100%" align="center">
 		
-			<tr class="line fixrow labelmedium">
+			<tr class="line fixrow labelmedium2">
 			<TD  style="min-width:20"></TD>			
 		    <TD  style="min-width:30"></TD>   
 			<TD  style="width:15%"><cf_tl id="Class"></TD> 
@@ -126,17 +126,17 @@
 			
 				<cfset row = row+1>
 			    	
-				<TR style="height:21px" class="labelmedium navigation_row line"> 
+				<TR style="height:21px" class="labelmedium2 navigation_row line"> 
 				
 					<td style="min-width:20" height="18" style="padding-left:3px">#row#.</td>
 					
-					<TD style="min-width:30" align="center" style="padding-top:2px;">
+					<TD style="min-width:30" align="center" style="padding-top:1px;">
 					
 					     <cfif access eq "0">
 						 
 						 <cfelse>
 					
-						 	<cf_img icon="edit" navigation="Yes" onclick="recordedit('#Code#');">
+						 	<cf_img icon="open" navigation="Yes" onclick="recordedit('#Code#');">
 							  
 						 </cfif>	  
 								  

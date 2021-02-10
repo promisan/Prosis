@@ -9,22 +9,22 @@
 	}
 </script>
 
-<table width="98%" align="center" class="navigation_table">
+<table width="98%" style="min-width:1000px"align="center" class="navigation_table">
 	 
-	 <tr class="labelmedium line">
-	 <td width="30" height="20"></td>
-	 <td width="30"></td>
+	 <tr class="labelmedium line fixrow">
+	 <td height="20"></td>
+	 <td></td>
 	 <td width="38%"><cf_tl id="Item"></td>
-	 <td width="80"></td>
-	 <td width="7%"><cf_tl id="UoM"></td>
-	 <td width="5%"><cf_tl id="Volume"></td>
-	 <td width="40"><cf_tl id="Curr."></td>
-	 <td width="150" align="right"><cf_tl id="Price"></td>
-	 <td width="80" align="right"><cf_tl id="Disc"></td>
-	 <td width="100" align="right"><cf_tl id="Qty"></td>
-	 <td width="100" align="right"><cf_tl id="Total"></td>
-	 <td width="100" align="right"><cf_tl id="Tax"></td>	
-	 <td width="50" align="center"><cf_tl id="H"></td>	 
+	 <td></td>
+	 <td><cf_tl id="UoM"></td>
+	 <td><cf_tl id="Volume"></td>
+	 <td><cf_tl id="Curr."></td>
+	 <td style="min-width:80px" align="right"><cf_tl id="Price"></td>
+	 <td style="min-width:60px" align="right"><cf_tl id="Disc"></td>
+	 <td style="min-width:60px" align="right"><cf_tl id="Qty"></td>
+	 <td style="min-width:100px" align="right"><cf_tl id="Total"></td>
+	 <td style="min-width:80px" align="right"><cf_tl id="Tax"></td>	
+	 <td style="min-width:80px" align="center"><cf_tl id="H"></td>	 
 			 
 	 <cfquery name="TaskOrder" 
 		 datasource="AppsMaterials"
@@ -148,7 +148,7 @@
 		   		
 			  <!--- Show task order lines to be recorded --->
 				
-			   <tr class="labelmedium" bgcolor="f1f1f1" style="height:10px">			   
+			   <tr class="labelmedium2 linedotted">			   
 		       <td align="center"></td>				   
 			   <td height="18" align="center" style="padding-left:3px;padding-right:6px">#CurrentRow#.</td>
 			   <td>#OrderItem#</td>
@@ -156,11 +156,11 @@
 			   <td>#OrderUoM#</td>
 			   <td>#OrderUoMVolume#</td>
 			   <td>#Currency#</td>				   
-			   <td align="right">#NumberFormat(OrderPrice,",.__")#</td>
-			   <td align="right">#NumberFormat(OrderDiscount*100,"._")#%</td>
-			   <td  align="right">#NumberFormat(OrderQuantity,",__")#</td>
-			   <td align="right">#NumberFormat(OrderAmount,',.__')#</td>
-			   <td align="right">#NumberFormat(OrderAmountTax,",.__")#</td>			   
+			   <td style="min-width:100px" align="right">#NumberFormat(OrderPrice,",.__")#</td>
+			   <td style="min-width:100px" align="right">#NumberFormat(OrderDiscount*100,"._")#%</td>
+			   <td style="min-width:100px" align="right">#NumberFormat(OrderQuantity,",__")#</td>
+			   <td style="min-width:100px" align="right">#NumberFormat(OrderAmount,',.__')#</td>
+			   <td style="min-width:100px" align="right">#NumberFormat(OrderAmountTax,",.__")#</td>			   
 			   <td align="center"></td>
 			   
 			   <td colspan="2" align="right" style="padding-right:4px">
@@ -215,13 +215,13 @@
 												   
 					   </cfif>		
 					   							
-					   <tr class="labelmedium">
+					   <tr class="labelmedium2">
 				   
 				       <td align="center"></td>					   
 					   <td style="padding-left:16p;padding-right:10px" align="center">#CurrentRow#.</td>
 					   <td>#ItemDescription#</td>
 					   <td width="100">					   
-						    <a href="javascript:StockOrderEdit('#stockorderid#')"><font color="0080C0">#TaskOrderReference#</font></a>			
+						    <a href="javascript:StockOrderEdit('#stockorderid#')">#TaskOrderReference#</a>			
 							<cf_space spaces="20">		   		 
 					   </td>
 					   <td>#UoMDescription#</td>
@@ -289,7 +289,7 @@
 							   RequisitionNo    = "#RequisitionNo#"
 							   returnvariable   = "Delivery">		
 		   
-			   <tr class="navigation_row labelmedium" style="border-top:1px solid silver;<cfif Delivery.Status neq "3">height:26px</cfif>">
+			   <tr class="navigation_row labelmedium2 linedotted" style="border-top:1px solid silver;<cfif Delivery.Status neq "3">height:26px</cfif>">
 			   
 				   <td align="center">				   
 				  				   				   					 				   
@@ -312,7 +312,7 @@
 				   <cfif Delivery.Status eq "3">
 				   <td>#OrderItem# <cfif CaseNo neq "">(#CaseNo#)</cfif></td>
 				   <cfelse>
-				   <td style="font-size:15px;font-weight:normal">#OrderItem# <cfif CaseNo neq "">(#CaseNo#)</cfif></td>
+				   <td>#OrderItem# <cfif CaseNo neq "">(#CaseNo#)</cfif></td>
 				   </cfif>
 				   <td>#OrderItemNo#</td>
 				   <td>#OrderUoM#</td>
@@ -456,7 +456,7 @@
 						   </cfif>
 						  					  
 						   <table><tr class="labelmedium"><td align="right">
-						    <a href="javascript:setQty(#out#, '#rw#')" style="font-size:17px;color:green;cursor:pointer">#NumberFormat(out,",.__")#</a></td></tr></table>
+						    <a href="javascript:setQty(#out#, '#rw#')" style="font-size:17px;cursor:pointer"><u>#NumberFormat(out,",.__")#</a></td></tr></table>
 						   
 						   </cfif>
 						   
@@ -700,7 +700,7 @@
 					<tr>
 					
 					  <td colspan="2" bgcolor="white"></td>					  
-					  <td colspan="14" class="labelit" align="center">
+					  <td colspan="14" class="labelmedium2" align="center">
 					  <font color="FF0000">Problem : Requested classified item (#WarehouseItemNo#) no longer exists.</font>					  
 					  </td>
 					  
@@ -711,8 +711,8 @@
 					<tr>
 					
 					  <td colspan="2" bgcolor="white"></td>					  
-					  <td colspan="14" class="labelit" align="center">
-					  <font color="FF0000">Problem : Requested uom (#WarehouseUoM#) no longer exists.</font>					  
+					  <td colspan="14" class="labelmedium2" align="center">
+					  <font color="FF0000">Problem : Requested UOM (#WarehouseUoM#) no longer exists.</font>					  
 					  </td>
 					  
 					</tr>  									  			

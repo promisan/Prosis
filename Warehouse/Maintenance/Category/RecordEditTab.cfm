@@ -85,21 +85,20 @@ function applyaccount(val,area) {
 
 </cfoutput>
 
-<cfajaximport tags="cfwindow,cfdiv,cfform">
+<cfajaximport tags="cfdiv,cfform">
 
 <cf_dialogLedger>
 <cf_menuscript>
 
-<table width="95%"      
-	   height="100%">
+<table width="100%" align="center" height="100%">
 
 	<tr>
 		<td align="center" valign="top">
 		
 			<table width="100%" align="center">
 				<tr>
-				<cfset wd = "64">
-				<cfset ht = "64">
+				<cfset wd = "60">
+				<cfset ht = "60">
 				
 				<cf_menutab item  = "1" 
 			       iconsrc    = "Information.png" 

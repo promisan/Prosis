@@ -1070,13 +1070,14 @@
 						<input type="button" name="Amend" value="#vAmend#" style="font-size:14px;width:270;height:28" class="button10g" onClick= "amendpurchase()">
 					
 					<cfelseif getAdministrator(PO.mission) eq "1">
-									
+					
+														
 							<cf_tl id="Edit Purchase Order" var="vEdit">
 								
 							 <cfif PO.ActionStatus gt "3">
-							 <input type="button" name="Amend" value="#vEdit# [admin]" style="font-size:14px;width:270;height:25" class="button10g" onClick= "reloadForm('edit',sort.value)">												
+							 <input type="button" name="Amend" value="#vEdit# [admin]" style="font-size:14px;width:270;height:25" class="button10g" onClick= "reloadForm('edit',sort.value,'yes')">												
 							 <cfelse>
-						 	 <input type="button" name="Amend" value="#vEdit#" style="font-size:14px;width:270;height:25" class="button10g" onClick= "reloadForm('edit',sort.value)">																		
+						 	 <input type="button" name="Amend" value="#vEdit#" style="font-size:14px;width:270;height:25" class="button10g" onClick= "reloadForm('edit',sort.value,'yes')">																		
 							 </cfif>   							 
 											 
 					</cfif>		 

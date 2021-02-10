@@ -28,7 +28,17 @@
     <cfelse>
 	
 	    <cftransaction>
-
+		
+		<cfif form.GLCategory is "Payment">
+		
+		    <cfset dc = "Credit">
+		
+		<cfelse>
+		
+			<cfset dc = Form.DebitCredit>
+		
+		</cfif>
+		
 		<cfquery name="Insert" 
 		datasource="AppsLedger" 
 		username="#SESSION.login#" 
@@ -69,7 +79,7 @@
 				  NULL,
 				  </cfif>
 				  '#Form.EntityClass#',
-				  '#Form.DebitCredit#',
+				  '#dc#',
 				  '#Form.EnableScheduler#',
 				  <cfif form.bankid neq "">
 				  '#Form.BankId#',
@@ -151,12 +161,31 @@
 			
 		</cfif>		
 		
-		</cftransaction>  
+		</cftransaction>  	
+		 
+		 <script language="JavaScript">
+	   
+		     window.close()
+			 opener.applyfilter('5','','content')
+	        
+		</script> 
    
 	</cfif>
+	
+	
 </cfif>
 
 <cfif URL.mode eq "update"> 
+
+	<cfif form.TransactionCategory is "Payment">
+		
+		<cfset dc = "Credit">
+		
+	<cfelse>
+		
+		<cfset dc = Form.DebitCredit>
+		
+	</cfif>
 	
 	<cfquery name="Update" 
 	datasource="AppsLedger" 
@@ -169,8 +198,8 @@
 		   <cfelse>
 			 SystemJournal       = NULL,
 		   </cfif>
-		   <cfif Form.GLAccount neq "">		  
-		   AccountType           = '#FORM.DebitCredit#',
+		   <cfif dc neq "">		  
+		   AccountType           = '#dc#',
 		   </cfif>
 		   OrgUnitOwner          = '#Form.OrgUnitOwner#',
 		   EntityClass           = '#Form.EntityClass#',
@@ -255,6 +284,18 @@
 	 	 
 	 </cfif>
 	 
+	 <cfoutput>
+	 
+	 <script language="JavaScript">
+	   	     
+		 opener.applyfilter('1','','#jrn#')
+		 window.close()
+	        
+	</script> 
+	
+	</cfoutput>
+	
+	 
 </cfif>	
 
 <cfif URL.mode eq "delete"> 
@@ -263,47 +304,50 @@
       datasource="AppsLedger" 
       username="#SESSION.login#" 
       password="#SESSION.dbpw#">
-      SELECT *
-      FROM TransactionHeader
-      WHERE Journal  = '#jrn#' 
+	      SELECT *
+	      FROM   TransactionHeader
+	      WHERE  Journal  = '#jrn#' 
 	</cfquery>
 
     <cfif CountRec.recordCount gt 0>
 		 
-     <script language="JavaScript">
-    
-	   alert("Journal is in use. Operation aborted.")
-     
-     </script>  
-	 
- 
+	     <script language="JavaScript">
+	    
+		   alert("Journal is in use. Operation aborted.")
+	     
+	     </script>  
 	 
     <cfelse>
 	
-	<cfquery name="Delete" 
-datasource="AppsLedger" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	DELETE FROM JournalBatch
-	WHERE Journal        = '#jrn#'
-    </cfquery>
-			
-	<cfquery name="Delete" 
-datasource="AppsLedger" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	DELETE FROM Journal
-	WHERE Journal        = '#jrn#'
-    </cfquery>
+		<cfquery name="Delete" 
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			DELETE FROM JournalBatch
+			WHERE  Journal        = '#jrn#'
+	    </cfquery>
+				
+		<cfquery name="Delete" 
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			DELETE FROM Journal
+			WHERE  Journal        = '#jrn#'
+	    </cfquery>
 	
 	</cfif>
+	
+	<cfoutput>
+				
+	<script language="JavaScript">
+	   	     
+		 opener.applyfilter('1','','#jrn#')
+		 window.close()
+	        
+	</script> 
+	
+	</cfoutput>
+	
 </cfif>	
-
-
-<script language="JavaScript">
-   
-     window.close()
-	 opener.location.reload()
-        
-</script>  
+ 
 

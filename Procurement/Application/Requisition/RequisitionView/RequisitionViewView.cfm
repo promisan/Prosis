@@ -6,7 +6,7 @@
 <cfparam name="URL.id1"  	  default="">
 <cfparam name="URL.doFilter"  default="0">
 
-<cfajaximport tags="cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 <input type="hidden" value="refresh" id="refreshbutton" onclick="parent.document.getElementById('refreshbutton').click()">
 
 <cfif url.id neq "WHS">
@@ -21,24 +21,15 @@
 			
 </cfif>
 
-<table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0">
+<table height="100%" width="100%">
 
     <tr class="hide"><td id="process"></td></tr>
 	
     <cfif url.id1 eq "Locate">
 		<tr><td height="100">
-			<cfinclude template="RequisitionViewLocate.cfm">
-			
-		</td>
-		</tr>
-		<tr><td class="line"></td></tr>
-		<tr><td height="90%" valign="top" style="padding-right:4px">	
-				
-		    <cf_divscroll style="height:100%;padding-top:4px;padding-bottom:4px;padding-right:0px"> 			
-				<cfdiv id="detail">
-			</cf_divscroll>
-			
-		</td></tr>
+			<cfinclude template="RequisitionViewLocate.cfm">			
+		</td></tr>		
+		<tr><td valign="top" style="height:100%;padding-right:4px" id="detail"></td></tr>
 		
 	<cfelseif url.id eq "WRF">
 	
@@ -61,10 +52,8 @@
 						
 	   <table width="100%" height="100%" align="center">		
 	   
-	    <cfoutput>
-	   
-	    <tr><td style="padding-left:25px;padding-right:25px;padding-top:15px" class="labellarge"><b>Workforce for which one or more requisitions were raised for positions in #url.period#</td></tr>
-		
+	    <cfoutput>	   
+	    <tr><td style="padding-left:25px;padding-right:25px;padding-top:15px" class="labellarge"><b>Workforce for which one or more requisitions were raised for positions in #url.period#</td></tr>		
 		</cfoutput>
 		
 		<tr><td width="100%" height="100%" valign="top" align="center" style="padding-left:25px;padding-right:25px;padding-top:15px">	

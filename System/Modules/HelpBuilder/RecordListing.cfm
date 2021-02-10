@@ -10,7 +10,7 @@
 	password="#SESSION.dbpw#">
 	    SELECT  * 
 	    FROM    Ref_ModuleControl 
-		WHERE   SystemFunctionId   = '#URL.SystemFunctionId#'
+		WHERE   SystemFunctionId   = '#URL.SystemFunctionId#'		
 	</cfquery>	
 	
 	<cfquery name="Project"
@@ -19,8 +19,30 @@
 	password="#SESSION.dbpw#">
 	    SELECT  *
 	    FROM    HelpProject 
-		WHERE   SystemModule = '#get.SystemModule#'
+		WHERE   SystemModule = '#get.SystemModule#'		
 	</cfquery>	
+	
+	<cfif Project.recordcount eq "0">
+	
+		<cfquery name="Add"
+		datasource="AppsSystem" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    INSERT INTO HelpProject
+			(ProjectCode, ProjectName, SystemModule, OfficerUserId, OfficerLastName, OfficerFirstName)
+			VALUES ('#get.SystemModule#','#get.SystemModule#','#get.SystemModule#','#session.acc#','#session.last#','#session.first#')		
+		</cfquery>
+	
+		<cfquery name="Project"
+		datasource="AppsSystem" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT  *
+		    FROM    HelpProject 
+			WHERE   SystemModule = '#get.SystemModule#'		
+		</cfquery>	
+	
+	</cfif>
 	
 	<cfquery name="SearchResult"
 	datasource="AppsSystem" 
@@ -72,21 +94,21 @@
 </cfoutput>
 --->
 
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="96%" align="center">
 
-	<tr><td colspan="2" class="labelmedium" style="padding-left:7px">
+	<tr class="labelmedium2"><td colspan="2" style="padding-left:7px">
 		
 		<cfif Searchresult.recordcount eq "0">
-		
+				
 		    <cfoutput>		
 			    <cfif project.recordcount gte "1">
-			    <a href="javascript:helpedit('#Project.SystemModule#','#Project.ProjectCode#','#url.class#','','#url.systemfunctionid#')">[Add Help topic]</a>
+			    <a href="javascript:helpedit('#Project.SystemModule#','#Project.ProjectCode#','#url.class#','','#url.systemfunctionid#')">Add Help topic</a>
 				</cfif>
 			</cfoutput>
 			
 		<cfelse>
 			
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+			<table width="100%" align="center" class="navigation_table">
 			
 				<tr><td colspan="7" style="height:40px;font-weight:200;font-size:21px" class="labelmedium">
 								
@@ -96,7 +118,7 @@
 						
 				</td></tr>
 				
-				<tr class="labelmedium line">
+				<tr class="labelmedium2 line">
 					<td></td>
 					<td></td>
 					<td><cf_tl id="Name"></td>
@@ -108,10 +130,10 @@
 				
 				<cfoutput query="SearchResult">	
 				  	   			  
-				  	<tr class="navigation_row labelmedium line" style="height:20px">			   		   
+				  	<tr class="navigation_row labelmedium2 line">			   		   
 					    <td width="10"></td>
-						<td width="3%" style="padding-left:4px;padding-top:3px">			
-							<cf_img icon="select" navigation="yes" onClick="helpedit('#Project.Systemmodule#','#ProjectCode#','#url.class#','#TopicId#','#systemfunctionid#')">			
+						<td width="3%" style="padding-left:4px;padding-top:1px">			
+							<cf_img icon="open" navigation="yes" onClick="helpedit('#Project.Systemmodule#','#ProjectCode#','#url.class#','#TopicId#','#systemfunctionid#')">			
 						</td>	
 						<td width="30%"><cfif len(TopicName) gt "50">#left(TopicName,50)#..<cfelse>#TopicName#</cfif></TD>
 						<td width="8%">#TopicCode#</TD>

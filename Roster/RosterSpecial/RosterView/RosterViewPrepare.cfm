@@ -121,20 +121,20 @@ password="#SESSION.dbpw#">
 		    </cfif>	
 		
 		</cfif>
+		
 		<cfif Owner.HideEmptyBucket eq "1">		
 		AND    Fo.FunctionId IN (SELECT FunctionId 
 		                         FROM   ApplicantFunction 
 								 WHERE  FunctionId = Fo.FunctionId)
 		</cfif>
-		GROUP BY  F.OccupationalGroup, R.PostGradeBudget, R.PostGradeParent 
-				
+		GROUP BY  F.OccupationalGroup, R.PostGradeBudget, R.PostGradeParent 			
 		
 	</cfquery>
 	
 	<!---
 	<cfoutput>1. #cfquery.executionTime#  </cfoutput>	
 	--->
-					
+						
 	<!--- ----------------------------------------------------------------- --->
 	<!--- base summary queries, limited to buckets to which you have access --->
 	<!--- -----------------  stuatus       -------------------------------- --->

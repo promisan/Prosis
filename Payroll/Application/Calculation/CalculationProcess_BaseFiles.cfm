@@ -32,7 +32,7 @@ III.  Create data set with rates to be used
 <!--- select the people that are eligible for the payroll assignment + contract --->
 <!--- ------------------------------------------------------------------------- --->
 
-<!--- if a person has several assignments this will return more than one record --->"
+<!--- if a person has several assignments this will return more than one record --->
 
 <cfquery name="thisSchedule" 
 datasource="AppsEmployee" 
@@ -43,6 +43,21 @@ password="#SESSION.dbpw#">
 	WHERE  SalarySchedule = '#Form.Schedule#'
 </cfquery>
 
+<!--- Enterprise adjustment Charlie : we only pay people that are actually working for the period, but we now enable staff that is working within the enterprise
+	to be paid as well, so based on the selected entity we do qualify assignments outside the current entity hereto we 
+	qualify all entities that share the same schedule which is calculated 	
+--->
+
+<cfquery name="AssignmentEntity" 
+datasource="AppsEmployee" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT * 
+	FROM   Payroll.dbo.SalaryScheduleMission
+	WHERE  SalarySchedule = '#Form.Schedule#'
+</cfquery>
+
+<cfset assmission = quotedvalueList(AssignmentEntity.Mission)>
 
 <cfquery name="StaffOnBoardForPayrollPeriod" 
 datasource="AppsEmployee" 
@@ -68,7 +83,7 @@ password="#SESSION.dbpw#">
 		FROM     PersonAssignment PA, 
 	             Position P, 
 				 Organization.dbo.Organization Org
-	    WHERE    Org.Mission       = '#Form.Mission#' 
+	    WHERE    Org.Mission       IN (#preservesingleQuotes(assmission)#) 
 		AND      Org.OrgUnit       = P.OrgUnitOperational
 		AND      PA.PositionNo     = P.PositionNo
 		AND      PA.AssignmentStatus IN ('0','1')
@@ -230,9 +245,6 @@ password="#SESSION.dbpw#">
 	  <!--- we allow for multiple schedules in case a person moves in the month from schedule A to B --->
 	  
 	  AND       SalarySchedule != 'NoPay'
-	  							 
-	
-	  					 						 
 							 
 	  AND       PC.DateEffective   <= #SALEND# 
 	  AND       (PC.DateExpiration >= #SALSTR# OR PC.DateExpiration IS NULL)						 

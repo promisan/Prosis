@@ -2,6 +2,8 @@
 <cfparam name="url.owner"             default="">
 <cfparam name="url.exerciseclass"     default="">
 
+
+
 <cfoutput>
 
 	<cfsavecontent variable="myquery">		
@@ -166,6 +168,7 @@
             link="#session.root#/Roster/Maintenance/RosterEdition/Candidate/CandidateListingContent.cfm?systemfunctionid=#url.systemfunctionid#&SubmissionEdition=#url.submissionedition#&ExerciseClass=#url.exerciseclass#&owner=#url.Owner#" 
             html="No" 
 			show="40" 
+			width="98%"
 			datasource="AppsSelection" 
 			listquery="#myquery#"
             listorder="LastName" 

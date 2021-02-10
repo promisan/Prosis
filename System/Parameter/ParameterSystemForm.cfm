@@ -24,14 +24,14 @@ password="#SESSION.dbpw#">
 	WHERE  Operational > 0
 </cfquery>
 
-<cfform action="ParameterSystemSubmit.cfm" onsubmit="Prosis.busy('yes')" method="POST" name="parameter" target="result">		
+<cfform action="ParameterSystemSubmit.cfm" method="POST" name="parameter" target="myresult">		
 
-<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="98%" align="center" class="formpadding">
 
 <tr><td height="3"></td></tr>
 
-<tr class="hide"><td colspan="5" height="500">
-	<iframe name="result" id="result" width="100%" height="500" scrolling="no" frameborder="0"></iframe>
+<tr class="xhide"><td colspan="5" height="300">
+	<iframe name="myresult" id="myresult" width="100%" height="500" scrolling="no" frameborder="0"></iframe>
 </td></tr>
 
 <tr><td colspan="5">
@@ -43,19 +43,17 @@ password="#SESSION.dbpw#">
 	
 <cf_menuscript>
 	
-<tr><td class="linedotted"></td></tr>
+<tr><td class="line"></td></tr>
 		
 <tr><td valign="top" height="90%" width="100%">
 	
 	<cfset ht = "64">
 	<cfset wd = "64">
 	
-	<table height="98%" cellspacing="0" cellpadding="0">
+	<table height="98%">
 	
 	<tr>
-	
 				
-							
 
 			<cfif url.action eq 1><cfset vclass="highlight1"><cfelse><cfset vclass="normal"></cfif>													
 			<cf_menutab item       = "1" 
@@ -118,26 +116,30 @@ password="#SESSION.dbpw#">
 		     <cfinclude template="ParameterSystemEditAuthentication.cfm">
 		<cf_menucontainer>
 		
+			
 		<cfif url.action eq 2><cfset vclass="regular"><cfelse><cfset vclass="hide"></cfif>
 		<cf_menucontainer item="2" class="#vclass#">
 			 <cfinclude template="ParameterSystemEditRegistration.cfm">
-		<cf_menucontainer>
-		
-		
+		<cf_menucontainer>		
+				
 		<cfif url.action eq 3><cfset vclass="regular"><cfelse><cfset vclass="hide"></cfif>
 		<cf_menucontainer item="3" class="#vclass#">
 			<cfinclude template="ParameterSystemEditServer.cfm">
 		<cf_menucontainer>
 		
+		
+		
 		<cfif url.action eq 4><cfset vclass="regular"><cfelse><cfset vclass="hide"></cfif>
 		<cf_menucontainer item="4" class="#vclass#">
 			<cfinclude template="ParameterSystemEditReporting.cfm">
 		<cf_menucontainer>
-
+		
+				
 		<cfif url.action eq 5><cfset vclass="regular"><cfelse><cfset vclass="hide"></cfif>		
 		<cf_menucontainer item="5" class="#vclass#">
 			<cfinclude template="ParameterSystemEditLicense.cfm">
 		<cf_menucontainer>
+				
 	
 	</table>
 	
@@ -149,7 +151,7 @@ password="#SESSION.dbpw#">
 	
 		<table height="100%" cellspacing="0" cellpadding="0" class="formpadding">	
 		
-		<tr><td class="labelmedium" style="padding:10px"><font color="C10000">Installation Parameters should <b>only</b> be changed if you are absolutely certain of their effect on the system.</font>
+		<tr><td class="labelmedium2" style="padding:4px"><font color="C10000">Installation Parameters should <b>only</b> be changed if you are absolutely certain of their effect on the system.</font>
 		<font color="808080">Change to any of the Parameters values <b>IS</b> logged in an Audit Trail. In case you have any doubt always consult your assignated focal point.</td></tr>
 		</table>
 	

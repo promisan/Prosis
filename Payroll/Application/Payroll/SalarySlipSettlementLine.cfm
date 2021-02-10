@@ -45,7 +45,7 @@
 		AND          E.PayrollItem    = '#url.payrollitem#'
 	</cfquery>
 	
-	<tr class="line labelmedium navigation_row">
+	<tr class="line labelmedium2 navigation_row">
 		<td style="padding-left:4px"><cf_tl id="Period"></td>
 		<td style="padding-left:4px"><cf_tl id="Currency"></td>
 		<td align="right" style="padding-right:4px"><cf_tl id="Amount"></td>
@@ -54,7 +54,7 @@
 	
 	<cfoutput query="list">
 	
-	<tr class="<cfif currentrow neq recordcount>line</cfif> labelmedium navigation_row" style="height:20px">
+	<tr class="<cfif currentrow neq recordcount>line</cfif> labelmedium2 navigation_row" style="height:20px">
 		<td style="padding-left:4px">#dateformat(PayrollEnd,client.dateformatshow)#</td>
 		<td style="padding-left:4px">#Currency#</td>
 		<td align="right" style="padding-right:5px" id="val#paymentid#"><cfif PrintGroup eq "Contributions">#NumberFormat(Amount,",.__")#<cfelse>#NumberFormat(PaymentAmount,",.__")#</cfif></td>

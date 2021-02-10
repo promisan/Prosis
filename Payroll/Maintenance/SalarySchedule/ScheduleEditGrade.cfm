@@ -8,25 +8,24 @@
 		ORDER BY PostOrder
 	</cfquery>
 	
-	<table width="100%"  border="0" cellspacing="0" cellpadding="0" bordercolor="silver">
+	<table width="100%">
 	<tr>
 	
-	<td width="30%" valign="top">
+	<td valign="top">
 	
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+		<table width="100%" align="center">
 	
-			<tr><td height="21" align="center" class="labelmedium"><font color="gray">Service Levels to be covered</td></tr>		
-			<tr><td height="1" class="line"></td></tr>
+			<tr class="line"><td height="21" align="center" class="labelmedium2">Service Levels to be covered</td></tr>		
 						
 			<tr><td align="center">
 			
-				<table width="90%" border="0" cellspacing="0" cellpadding="0" align="center">			
+				<table width="96%" border="0" align="center">			
 				
 					  <cfset row = 1>
 					  
 				      <cfoutput query="SelectGrade">
 					   
-					       <cfif row eq 1><tr style="height:14px" class="labelmedium line"></cfif> 	  
+					       <cfif row eq 1><tr style="height:14px" class="labelmedium2 line"></cfif> 	  
 					      			
 							  <cfquery name="check"
 				              datasource="AppsPayroll" 
@@ -43,7 +42,7 @@
 								 
 								  
 								<input type="checkbox" 								  
-								   name="selectedgrade" 
+								   name="selectedgrade" class="radiol"
 								   value="#SelectGrade.PostGrade#" <cfif check.recordcount gte "1">checked</cfif>>
 										   
 							</td>			

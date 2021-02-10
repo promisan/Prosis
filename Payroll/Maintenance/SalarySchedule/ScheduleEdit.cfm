@@ -41,7 +41,7 @@ function savedates(com) {
 		}
 			 	
 	url = "ScheduleEditDatesSave.cfm?componentid="+com+"&dates="+date;
-	ColdFusion.navigate(url,'i'+com)
+	ptoken.navigate(url,'i'+com)
  
 }
 
@@ -68,124 +68,120 @@ function togglePostingMode(v, sel) {
 	<cfform style="height:100%"
 	  action="ScheduleEditSubmit.cfm?idmenu=#URL.idmenu#&ID1=#URL.ID1#" method="POST" target="result">
 		
-	<table width="98%" height="100%" align="center" cellspacing="0" cellpadding="0" class="formpadding">	
-	
-	<tr class="hide"><td colspan="5"><iframe name="result" id="result" width="100%" height="100"></iframe></td></tr>
-	
-	<tr><td height="5"></td></tr>
+		<table width="98%" height="100%" align="center" class="formpadding">	
 		
-	<tr><td height="100%">			
+		<tr class="hide"><td colspan="5"><iframe name="result" id="result" width="100%" height="100"></iframe></td></tr>
+		
+		<tr><td height="5"></td></tr>
 			
-		<table width="100%" height="100%">
-		
-		<cfoutput>
-		<tr class="line"><td height="40">
-		
-				<!--- top menu --->
-						
-				<table width="100%" border="0" align="center">		  		
-								
-					<cfset ht = "64">
-					<cfset wd = "64">
-										
-					<tr>					
-								
-							<cf_menutab item       = "1" 
-							            iconsrc    = "Logos/Payroll/Green/SalarySchedule.png" 
-										iconwidth  = "#wd#" 
-										iconheight = "#ht#" 
-										class      = "highlight1"
-										name       = "General settings">		
-										
-							<cf_menutab item       = "2" 
-							            iconsrc    = "Logos/System/Green/Entity.png" 
-										iconwidth  = "#wd#" 
-										iconheight = "#ht#" 
-										name       = "Entities">							
-											
-							<cf_menutab item       = "3" 
-							            iconsrc    = "Logos/Payroll/Green/Staff.png" 
-										iconwidth  = "#wd#" 
-										iconheight = "#ht#" 
-										name       = "Staff Grades">						
-										
-							<cf_menutab item       = "4" 
-							            iconsrc    = "Logos/Payroll/Green/Component.png" 
-										iconwidth  = "#wd#" 
-										iconheight = "#ht#" 
-										name       = "Set Components">			
-
-							<cf_menutab item       = "5" 
-							            iconsrc    = "Logos/Staffing/Green/WorkSchedule.png" 
-										iconwidth  = "#wd#" 
-										iconheight = "#ht#" 
-										name       = "Default WorkSchedule">		
-										
+		<tr><td height="100%">			
+				
+			<table width="100%" height="100%">
+			
+			<cfoutput>
+			<tr class="line"><td height="40">
+			
+					<!--- top menu --->
 							
-																				 		
-						</tr>
-				</table>
-		
-			</td>
-		 </tr>
-		 </cfoutput>
-		 		
-		<tr><td height="100%">
-		
-		   
+					<table width="100%" border="0" align="center">		  		
+									
+						<cfset ht = "58">
+						<cfset wd = "58">
+											
+						<tr>					
+									
+								<cf_menutab item       = "1" 
+								            iconsrc    = "Logos/Payroll/Green/SalarySchedule.png" 
+											iconwidth  = "#wd#" 
+											iconheight = "#ht#" 
+											class      = "highlight1"
+											name       = "General settings">		
+											
+								<cf_menutab item       = "2" 
+								            iconsrc    = "Logos/System/Green/Entity.png" 
+											iconwidth  = "#wd#" 
+											iconheight = "#ht#" 
+											name       = "Entities">							
+												
+								<cf_menutab item       = "3" 
+								            iconsrc    = "Logos/Payroll/Green/Staff.png" 
+											iconwidth  = "#wd#" 
+											iconheight = "#ht#" 
+											name       = "Staff Grades">						
+											
+								<cf_menutab item       = "4" 
+								            iconsrc    = "Logos/Payroll/Green/Component.png" 
+											iconwidth  = "#wd#" 
+											iconheight = "#ht#" 
+											name       = "Set Components">			
+	
+								<cf_menutab item       = "5" 
+								            iconsrc    = "Logos/Staffing/Green/WorkSchedule.png" 
+											iconwidth  = "#wd#" 
+											iconheight = "#ht#" 
+											name       = "Default WorkSchedule">	
+																					 		
+							</tr>
+					</table>
 			
-			<table width="100%" 			     
-				  height="100%"				 
-				  align="center">	  
+				</td>
+			 </tr>
+			 </cfoutput>
 			 		
-					<tr class="hide"><td valign="top" id="result"></td></tr>
-					
-					<cf_menucontainer item="1" class="regular">
-					    <cfinclude template="ScheduleEditSetting.cfm">
-					</cf_menucontainer>
-					<cf_menucontainer item="2" class="hide">	
-					    <cfinclude template="ScheduleEditMission.cfm">
-					</cf_menucontainer> 
-					<cf_menucontainer item="3" class="hide">	
-					    <cfinclude template="ScheduleEditGrade.cfm">
-					</cf_menucontainer> 
-					<cf_menucontainer item="4" class="hide">			
-					    <cfinclude template="ScheduleEditComponent.cfm">
-					</cf_menucontainer> 	
-					<cf_menucontainer item="5" class="hide">			
-					    <cfinclude template="ScheduleWorkdays.cfm">
-					</cf_menucontainer> 	
-								
+			<tr><td height="100%">			   
+				
+				<table width="100%" 			     
+					  height="100%"				 
+					  align="center">	  
+				 		
+						<tr class="hide"><td valign="top" id="result"></td></tr>
+						
+						<cf_menucontainer item="1" class="regular">
+						    <cfinclude template="ScheduleEditSetting.cfm">
+						</cf_menucontainer>
+						<cf_menucontainer item="2" class="hide">	
+						    <cfinclude template="ScheduleEditMission.cfm">
+						</cf_menucontainer> 
+						<cf_menucontainer item="3" class="hide">	
+						    <cfinclude template="ScheduleEditGrade.cfm">
+						</cf_menucontainer> 
+						<cf_menucontainer item="4" class="hide">			
+						    <cfinclude template="ScheduleEditComponent.cfm">
+						</cf_menucontainer> 	
+						<cf_menucontainer item="5" class="hide">			
+						    <cfinclude template="ScheduleWorkdays.cfm">
+						</cf_menucontainer> 	
+									
+				</table>
+						
+			</td></tr>
+			
 			</table>
-					
+		
+		</td>
+		</tr>
+			
+		<tr><td colspan="1" class="line"></td></tr>
+		<tr><td colspan="1" align="center" style="padding-bottom:10px">
+		
+		<cfquery name="Check"
+			datasource="AppsPayroll" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT TOP 1 *
+			FROM   EmployeeSalary
+			WHERE  SalarySchedule = '#URL.ID1#'
+		</cfquery>
+		
+		<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
+		<cfif check.recordcount eq "0">
+			<input class="button10g" type="submit" name="Delete" value="Delete">
+		</cfif>
+	    <input class="button10g" type="submit" name="Update" value=" Save ">
+			
 		</td></tr>
-		
-		</table>
-	
-	</td>
-	</tr>
-		
-	<tr><td colspan="1" class="line"></td></tr>
-	<tr><td colspan="1" align="center" height="35">
-	
-	<cfquery name="Check"
-		datasource="AppsPayroll" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		SELECT TOP 1 *
-		FROM   EmployeeSalary
-		WHERE  SalarySchedule = '#URL.ID1#'
-	</cfquery>
-	
-	<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
-	<cfif check.recordcount eq "0">
-		<input class="button10g" type="submit" name="Delete" value="Delete">
-	</cfif>
-    <input class="button10g" type="submit" name="Update" value=" Save ">
-		
-	</td></tr>
-		
-	</table>	
+			
+		</table>	
 			
 	</cfform>	
 		

@@ -1,3 +1,4 @@
+
 <cf_screentop height="100%" scroll="Yes" html="No" jQuery="Yes">
 
 <cfparam name="Form.EnforcePassword"   default="0">
@@ -102,7 +103,11 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Module">
    
-   <cfset desc       = Evaluate("FORM.Description_" & #SystemModule# & "_#client.languageId#")>
+   <cftry>
+   
+   <cfparam name="FORM.Description_#SystemModule#_#client.languageId#" default="#SystemModule#">
+     	  
+   <cfset desc       = Evaluate("FORM.Description_#SystemModule#_#client.languageId#")>   
    <cfset menu       = Evaluate("FORM.MenuOrder_" & #SystemModule#)>
    <cfset role       = Evaluate("FORM.RoleOwner_" & #SystemModule#)>
    <cfset Lic        = Evaluate("FORM.LicenseId_" & #SystemModule#)>
@@ -155,20 +160,24 @@ password="#SESSION.dbpw#">
 				password="#SESSION.dbpw#">			
 					UPDATE Ref_MissionModule
 					SET    LicenseId = '#Lic#'
-					WHERE SystemModule = '#Module.SystemModule#'
-					AND   Mission = '#Mission#'
+					WHERE  SystemModule = '#Module.SystemModule#'
+					AND    Mission = '#Mission#'
 				</cfquery>
 				
 		<cfcatch></cfcatch>		
 		</cftry>
 	   
-	</cfloop>			 
+	</cfloop>	
+	
+	<cfcatch></cfcatch>
+	
+	</cftry>		 
 		 
 </cfoutput>
 
 <script> 
+    alert('Saved')
     parent.Prosis.busy('no')		
 </script>
 
-   
 	

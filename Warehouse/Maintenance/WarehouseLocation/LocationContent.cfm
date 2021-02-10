@@ -21,7 +21,9 @@
 			            R.Description  AS LocationClass, 
 						WL.Location    AS LocationCode, 
 						WL.Description AS LocationName, 
-						Location.LocationName AS GeoLocation, 
+						(SELECT LocationName
+						FROM   Location
+						WHERE Location = WL.LocationId) AS GeoLocation, 
                         ISNULL ((SELECT  OrgUnitName
                                  FROM    Organization.dbo.Organization
                                  WHERE   OrgUnit = WL.OrgUnitOperator), 'Internal') AS Operator,
@@ -33,8 +35,7 @@
 						 WL.Operational, 
 						 WL.Created
 			FROM         WarehouseLocation AS WL INNER JOIN
-                         Ref_WarehouseLocationClass AS R ON WL.LocationClass = R.Code INNER JOIN
-                         Location ON WL.LocationId = Location.Location
+                         Ref_WarehouseLocationClass AS R ON WL.LocationClass = R.Code 
 			WHERE        WL.Warehouse = '#url.warehouse#'
 			
 		) as D
@@ -91,8 +92,7 @@
 					search            = "text",	
 					filtermode        = "3",
 					formatted         = "Rating",
-					ratinglist        = "0=yellow,1=Green"}>							
-
+					ratinglist        = "0=yellow,1=Green"}>
 				
 <cfset itm = itm+1>		
 <cfset fields[itm] = {label           = "#vOperator#",                    
@@ -101,14 +101,10 @@
 					filtermode        = "2"}>		
 			
 <cfset itm = itm+1>		
-
 <cfset fields[itm] = {label           = "#vBilling#",                    
      				field             = "BillingMode",	
 					search            = "text",						
 					filtermode        = "2"}>		
-					
-					
-
 				
 <cfset itm = itm+1>		
 <cfset fields[itm] = {label           = "#vOperational#",                    	                    
@@ -117,26 +113,20 @@
 					  formatted       = "Rating",																								
 					  ratinglist      = "0=Red,1=Green"}>	
 										  		  						
-
 <cfset itm = itm+1>						
 <cf_tl id="Created" var="1">
 <cfset fields[itm] = {label      = "#lt_text#",    					
-					field        = "Created",							
+					field        = "Created",		
+					fieldentry   = "1",					
 					labelfilter  = "#lt_text#",						
-					formatted    = "dateformat(Created,CLIENT.DateFormatShow)"}>	
-					
-			
+					formatted    = "dateformat(Created,CLIENT.DateFormatShow)"}>					
 		
-<cfset itm = itm+1>
-			
-<!--- hidden fields --->
-		
+<cfset itm = itm+1>			
+<!--- hidden fields --->		
 <cfset fields[itm] = {label     = "Id",                    
      				field       = "StorageId",					
 					display     = "No",
 					alias       = ""}>		
-						
-			
 				
 			
 <!--- define access 
@@ -156,49 +146,83 @@
 
 <cfset menu=ArrayNew(1)>	
 
-<cfinvoke component         = "Service.Access"  
-		   method           = "WarehouseProcessor" 
-		   mission          = "#url..mission#"	  
-		   warehouse        = "#url.warehouse#"
-		   systemfunctionid = "#url.systemfunctionid#"
-		   returnvariable   = "access">			   	     
-				  
-<cfif url.warehouse neq "" and url.systemfunctionid neq "">
+<cfquery name="getWhs" 
+datasource="AppsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM   Warehouse
+	WHERE  Warehouse = '#url.warehouse#'	
+</cfquery>
+
+<cfif url.systemfunctionid neq "">	
+	
+	<cfquery name="check" 
+	datasource="AppsSystem" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+	    FROM   Ref_ModuleControl
+		WHERE  SystemFunctionId = '#url.systemfunctionid#'	
+	</cfquery>
+
+	<cfif check.FunctionClass eq "Maintain">
 		
-		<cfif access eq "EDIT" or access eq "ALL" or getFunction.FunctionClass eq "Maintain">		
-		
-			<cf_tl id="Add Location" var="addNew">
-			
-			<!---
-														
-			<cfset menu[1] = {label = "#addNew#", icon = "insert.gif", script = "#myaddscript#"}>	
-			
-			--->
-										
-		</cfif>
+		 <cfset access = "ALL">
+
+	<cfelse>	
 				
-</cfif>
+		<cfinvoke component = "Service.Access"  
+			   method           = "RoleAccess" 
+			   mission          = "#getWhs.Mission#" 
+			   role             = "'WhsPick'"
+			   parameter        = "#url.systemfunctionid#"
+			   accesslevel      = "'1','2'"
+			   returnvariable   = "accessright">	
+						   
+	   <cfif accessright eq "GRANTED">
+	       <cfset access = "ALL">
+	   <cfelse>
+	   	   <cfset access = "NONE">
+	   </cfif>
+	   
+	 </cfif>  
+
+<cfelse>
+
+	<cfparam name="Access" default="EDIT">
+	
+</cfif>	
+
+<cfif access eq "ALL">
+
+	<cfset newLabel = "Add location">
+	<cf_tl id="#newLabel#" var="1">
+	<cfset menu[1] = {label = "#lt_text#", script = "addLocation()"}>		
+	
+</cfif>	
 	   
 <!--- embed|window|dialogajax|dialog|standard --->		
-	<cf_listing
-	    header              = "itemlocationlist"
-	    box                 = "warehouselocation_#url.warehouse#"
-		link                = "#SESSION.root#/Warehouse/Maintenance/WarehouseLocation/LocationContent.cfm?mission=#url.mission#&warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#"		
-		datasource          = "AppsMaterials"
-		listquery           = "#myquery#"	
-		listgroup           = "LocationClass"			
-		listorder           = "LocationName"
-		listorderalias      = ""
-		listorderdir        = "ASC"		
-		show                = "500"		
-		menu                = "#menu#"
-		filtershow          = "Hide"
-		excelshow           = "Yes" 		
-		listlayout          = "#fields#"
-		drillmode           = "tab" 
-		drillargument       = "#client.height-90#;#client.width-90#;false;false"	
-		drilltemplate       = "Warehouse/Maintenance/WarehouseLocation/LocationView.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&location="
-		drillkey            = "LocationCode">	
+
+<cf_listing
+    header              = "itemlocationlist"
+    box                 = "warehouselocation_#url.warehouse#"
+	link                = "#SESSION.root#/Warehouse/Maintenance/WarehouseLocation/LocationContent.cfm?mission=#url.mission#&warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#"		
+	datasource          = "AppsMaterials"
+	listquery           = "#myquery#"	
+	listgroup           = "LocationClass"			
+	listorder           = "LocationName"
+	listorderalias      = ""
+	listorderdir        = "ASC"				
+	show                = "500"		
+	menu                = "#menu#"	
+	filtershow          = "Hide"
+	excelshow           = "Yes" 		
+	listlayout          = "#fields#"
+	drillmode           = "tab" 
+	drillargument       = "#client.height-90#;#client.width-90#;false;false"	
+	drilltemplate       = "Warehouse/Maintenance/WarehouseLocation/LocationView.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&location="
+	drillkey            = "LocationCode">	
 		
 
 

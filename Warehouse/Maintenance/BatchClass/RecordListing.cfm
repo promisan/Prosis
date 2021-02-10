@@ -23,11 +23,11 @@ password="#SESSION.dbpw#">
 <script>
 
 	function recordadd(grp) {
-	          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=550, height=250, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width=550, height=250, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 	
 	function recordedit(id1) {
-	          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=550, height=300, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=550, height=300, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	}
 
 </script>	
@@ -38,9 +38,9 @@ password="#SESSION.dbpw#">
 
 <cf_divscroll>
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="97%" align="center" class="navigation_table">
 
-<tr class="line labelmedium fixrow">
+<tr class="line labelmedium2 fixrow">
     <TD></TD>
     <TD><cf_tl id="Code"></TD>
 	<TD><cf_tl id="Description"></TD>
@@ -52,7 +52,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="SearchResult">
     
-    <TR class="navigation_row labelmedium line"> 
+    <TR class="navigation_row labelmedium2 line"> 
 		<td align="center">
 		    <cf_img navigation="yes" icon="open" onclick="recordedit('#Code#');">
 		</td>

@@ -164,7 +164,7 @@
 	</cfquery>
 	
 		
-	<tr class="line labelmedium fixrow" style="background-color:white">
+	<tr class="line labelmedium2 fixrow" style="background-color:white">
 	 <td align="right" style="width:25px">C</td>
 	 <td width="3%"></td>
 	 <td style="min-width:70px"><cf_tl id="Period"></td>
@@ -199,7 +199,7 @@
 	<cfif Settlement.recordcount eq "0">
 	
 	<tr>
-	<td colspan="15" style="padding-top:10px" align="center" class="labelmedium" height="50"><cf_tl id="There are no records found to show in this view">.</td>
+	<td colspan="15" style="padding-top:10px" align="center" class="labelmedium2" height="50"><cf_tl id="There are no records found to show in this view">.</td>
 	</tr>
 	
 	</cfif>
@@ -216,7 +216,7 @@
 					<cfif url.scope neq "portal">
 						<table width="100%" border="0">
 						    <tr>
-							<td valign="top" style="height:40px;padding-left:10px;font-size:27px;padding-top:0px;padding-right:10px;" class="labelmedium">
+							<td valign="top" style="height:40px;padding-left:10px;font-size:27px;padding-right:10px;" class="labelmedium">
 								#year(PaymentDate)#
 							</td>
 							<td style="width:96%">
@@ -316,7 +316,7 @@
 					</cfif>			   
 				</cfif>
 		
-				<tr bgcolor="#c#" style="height:21px" class="line labelmedium navigation_row">
+				<tr bgcolor="#c#" style="height:21px" class="line labelmedium2 navigation_row">
 				
 					<cfif hasContract eq "0" and ActionStatus neq "3" and PaymentFinal eq "0">
 					<td align="right" style="background-color:red;padding-left:2px;;padding-right:8px">
@@ -324,14 +324,14 @@
 					<td align="right" style="padding-left:2px;;padding-right:8px">
 					</cfif>		
 					
-					<td align="center" width="50" style="padding-top:5px;padding-left:1px">																
+					<td align="center" width="50" style="padding-top:8px;padding-left:1px">																
 						<cf_img icon="expand" id="show#currentrow#" navigation="Yes" toggle="yes" onclick="detail('#currentrow#','#settlementid#','#currency#','#settlementphase#')">		
 					</td>
-					<td><cfif pdate neq paymentdate>#DateFormat(PaymentDate,"MMMM")#<cfelse>&nbsp;&nbsp;..</cfif></td>
+					<td style="padding-left:4px"><cfif pdate neq paymentdate>#DateFormat(PaymentDate,"MMMM")#<cfelse>..</cfif></td>
 					<td>#Mission#</td>	
-					<td>#SalaryScheduleName#</td>	
-					<td>#DateFormat(Created,client.dateformatshow)# - #TimeFormat(Created,"HH:MM")#</td>	
-					<td><cfif Created neq LastUpdated>#DateFormat(LastUpdated,client.dateformatshow)# - #TimeFormat(Created,"HH:MM")#<cfelse>..</cfif></td>	
+					<td style="min-width:200px;padding-left:5px">#SalaryScheduleName#</td>	
+					<td style="padding-left:4px">#DateFormat(Created,client.dateformatshow)#-<font size="1">#TimeFormat(Created,"HH:MM")#</font></td>	
+					<td style="padding-left:4px"><cfif Created neq LastUpdated>#DateFormat(LastUpdated,client.dateformatshow)#-<font size="1">#TimeFormat(Created,"HH:MM")#</font><cfelse>..</cfif></td>	
 					<td>	
 					<cfif PaymentStatus eq "1"><cf_tl id="Off cycle"><cfelse><cf_tl id="In cycle"></cfif></td>						
 					<td>

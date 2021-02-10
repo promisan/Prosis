@@ -280,7 +280,7 @@
           name          = "listingbox"
 		  overflow      = "hidden">
 		
-		<table width="100%" height="100%"><tr><td valign="top" id="listing"></td></tr></table>  			
+		<table width="100%" height="100%"><tr><td style="padding-left:15px" valign="top" id="listing"></td></tr></table>  			
 			
 	</cf_layoutarea>		
 				  							   		

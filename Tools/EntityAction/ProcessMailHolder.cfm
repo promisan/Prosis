@@ -8,6 +8,7 @@
  <cfparam name="Attributes.sendTo"      default="">
  <cfparam name="Attributes.sendCc"      default="">
  <cfparam name="Attributes.sendBcc"     default="">
+ <cfparam name="Attributes.sendAttObj"  default="">
  
  <cfparam name="Attributes.sendSubject" default="">
  

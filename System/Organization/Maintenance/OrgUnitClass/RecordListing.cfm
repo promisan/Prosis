@@ -21,11 +21,11 @@ password="#SESSION.dbpw#">
 <script>
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 390, height= 260, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 390, height= 260, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 390, height= 260, toolbar=no, status=yes, scrollbars=no, resizable=no");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 390, height= 260, toolbar=no, status=yes, scrollbars=no, resizable=no");
 }
 
 </script>	
@@ -34,9 +34,9 @@ function recordedit(id1) {
 	
 <tr><td colspan="2">
 
-<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="95%" align="center" class="navigation_table">
 
-<tr class="line labelmedium">
+<tr class="line labelmedium2">
     <TD></TD>
     <TD>Code</TD>
 	<TD>Description</TD>
@@ -47,9 +47,9 @@ function recordedit(id1) {
 
 <cfoutput query="SearchResult">
  
-    <TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#" style="height:35px" class="navigation_row line labelmedium"> 
-	<td align="center" style="width:40;padding-top:4px;height:21">
-		  <cf_img icon="edit" navigation="Yes" onClick="recordedit('#OrgUnitClass#')">
+    <TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#" style="height:35px" class="navigation_row line labelmedium2"> 
+	<td align="center" style="width:40;padding-top:1px">
+		  <cf_img icon="open" navigation="Yes" onClick="recordedit('#OrgUnitClass#')">
 	</td>	
 	<TD>#OrgUnitClass#</TD>
 	<TD>#Description#</TD>

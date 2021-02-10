@@ -55,18 +55,18 @@ password="#SESSION.dbpw#">
 <tr>
 <td height="94%" valign="top">
 
-	<table height="100%" width="97%" cellspacing="0" cellpadding="0" align="center">
+	<table height="100%" width="97%" align="center">
 							
 		<tr><td valign="top" width="800">		
 		
 		<!--- top menu --->
 					
-			<table border="0" width="100%" align="center" cellspacing="0" cellpadding="0">		  		
+			<table width="100%" align="center">		  		
 							
-				<cfset ht = "48">
-				<cfset wd = "48">
+				<cfset ht = "40">
+				<cfset wd = "40">
 								
-				<tr>					
+				<tr class="line">					
 							
 						<cf_menutab item       = "1" 
 						            iconsrc    = "Logos/System/Global.png" 
@@ -75,11 +75,11 @@ password="#SESSION.dbpw#">
 									padding    = "0"
 									class      = "highlight1"
 									name       = "Global Settings (all entities)"
-									source     = "ParameterEditMiscellaneous.cfm">	
-									
+									source     = "ParameterEditMiscellaneous.cfm">										
 						
 						<td width="3%" align="center">
-						<select name="selmis" id="selmis" class="regularxl" style="font-size:27px;height:55;width:230px" onChange="document.getElementById('menu1').click()">
+						<select name="selmis" id="selmis" class="regularxxl" style="background-color:f1f1f1;border:0px;font-size:27px;height:55;width:230px" 
+						   onChange="document.getElementById('menu2').click()">
 						
 							<cfoutput query="MissionList">
 							 <option value="#Mission#" <cfif mission eq "#URL.mission#">selected</cfif>>#Mission#
@@ -124,7 +124,7 @@ password="#SESSION.dbpw#">
 		
 		<tr><td height="100%">
 			<cf_divscroll>
-			<table cellpadding="0" cellspacing="0" width="100%" height="100%">
+			<table width="100%" height="100%">
 				<cf_menucontainer item="1" class="regular">
 					<cfinclude template="ParameterEditMiscellaneous.cfm">
 				</cf_menucontainer>
@@ -142,8 +142,7 @@ password="#SESSION.dbpw#">
 		
 	<td class="line" valign="top">
 	
-		<table align="center" cellspacing="0" cellpadding="0" class="formpadding">
-						
+		<table align="center" class="formpadding">						
 			
 			<tr><td  align="center" class="labelit">
 			Staffing Setup Parameters are applied per Entity (Mission) and should <b>only</b> be changed if you are absolutely certain of their effect on the system.
@@ -155,8 +154,5 @@ password="#SESSION.dbpw#">
 		
 	</td>
 	</tr>
-	
 
 </table>
-
-</BODY></HTML>

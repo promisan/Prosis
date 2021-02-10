@@ -105,7 +105,7 @@
 	     </cfif>		
 	
 		<cfif currrow gte last>
-        	 <tr><td height="14" colspan="10">
+        	 <tr><td height="14" colspan="10" style="padding-right:10px">
 			 <cfinclude template="Navigation.cfm">
 		     </td></tr>			 			 
 		</cfif>	

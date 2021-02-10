@@ -20,23 +20,23 @@ FROM Ref_AddressType
 <cfform method="POST"
    name="formmiscell">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding formspacing">
 		
 	<tr><td height="5"></td></tr>	
 	
 	<TR>
-    <td class="labelmedium">Personnel Action Mode:</b></td>
-    <TD class="labelmedium">	
+    <td class="labelmedium2">Personnel Action Mode:</b></td>
+    <TD class="labelmedium2">	
 	<table><tr>
 	  <td><input type="radio" name="ActionMode" <cfif ActionMode eq "1">checked</cfif> value="1"></td>
-	  <td class="labelmedium">Enabled (strongly recommended)</td>
+	  <td class="labelmedium2">Enabled (strongly recommended)</td>
 	  <td><input type="radio" name="ActionMode" <cfif ActionMode eq "0">checked</cfif> value="0"></td>
-	  <td class="labelmedium">Disabled</td>
+	  <td class="labelmedium2">Disabled</td>
 	  </tr>
 	</table>   	
     </td>
     </tr>	
-	<tr><td></td><td class="labelmedium">
+	<tr><td></td><td class="labelmedium2">
 	<font color="808080">
 	- If enabled the system will separately record a personnel action entry for contract, assignments, leave and dependent entries and/or amendments.<br>
 	- It will create a clearance workflow only if this enabled for the action class for that entity (refer to the other tabs in this function). <br>
@@ -44,25 +44,25 @@ FROM Ref_AddressType
 	</font></td></tr>
 			
 	<TR>
-    <td style="height:25px;width:300px" class="labelmedium">Edit/Show Dependent Entitlements:</b></td>
-    <TD class="labelmedium">	
+    <td style="height:25px;width:300px" class="labelmedium2">Edit/Show Dependent Entitlements:</b></td>
+    <TD class="labelmedium2">	
 	<table><tr>
 	  <td><input class="radiol" type="radio" name="DependentEntitlement" id="DependentEntitlement" <cfif DependentEntitlement eq "1">checked</cfif> value="1"></td>
-	  <td class="labelmedium">Show even if payroll is disabled</td>
+	  <td class="labelmedium2">Show even if payroll is disabled</td>
 	  <td><input class="radiol" type="radio" name="DependentEntitlement" id="DependentEntitlement" <cfif DependentEntitlement eq "0">checked</cfif> value="0"></td>
-	  <td class="labelmedium">Only if Payroll is enabled</td>
+	  <td class="labelmedium2">Only if Payroll is enabled</td>
 	  </tr></table>   	
     </td>
     </tr>		
 	
 	<TR>
-    <td style="height:25px;width:300px" class="labelmedium">Enable Custom Fields Employee:</b></td>
-    <TD class="labelmedium">	
+    <td style="height:25px;width:300px" class="labelmedium2">Enable Custom Fields Employee:</b></td>
+    <TD class="labelmedium2">	
 	 <table><tr>
 	  <td><input class="radiol" type="radio" name="EnablePersonGroup" id="EnablePersonGroup" <cfif EnablePersonGroup eq "0">checked</cfif> value="0"></td>
-	  <td class="labelmedium">No</td>
+	  <td class="labelmedium2">No</td>
 	  <td><input class="radiol" type="radio" name="EnablePersonGroup" id="EnablePersonGroup" <cfif EnablePersonGroup eq "1">checked</cfif> value="1"></td>
-	  <td class="labelmedium">Yes</td>
+	  <td class="labelmedium2">Yes</td>
 	  </tr></table>   
 		
     </td>
@@ -70,30 +70,30 @@ FROM Ref_AddressType
 		
 		
 	<TR>
-    <td style="height:25px;width:300px" class="labelmedium">Create candidate upon personnel record:</b></td>
-    <TD class="labelmedium">	 
+    <td style="height:25px;width:300px" class="labelmedium2">Create candidate upon personnel record:</b></td>
+    <TD class="labelmedium2">	 
 	  <table><tr>
 	  <td><input class="radiol" type="radio" name="GenerateApplicant" id="GenerateApplicant" <cfif Get.GenerateApplicant eq "0">checked</cfif> value="0"></td>
-	  <td class="labelmedium">No</td>
+	  <td class="labelmedium2">No</td>
 	  <td><input class="radiol" type="radio" name="GenerateApplicant" id="GenerateApplicant" <cfif Get.GenerateApplicant eq "1">checked</cfif> value="1"></td>
-	  <td class="labelmedium">Yes</td>
+	  <td class="labelmedium2">Yes</td>
 	  </tr></table>   
     </td>
     </tr>
 	
 	<TR>
-    <td style="height:25px;width:300px" class="labelmedium">Enforce Leave request fields:</b></td>
+    <td style="height:25px;width:300px" class="labelmedium2">Enforce Leave request fields:</b></td>
     <TD>	
 	<table><tr>
-	<td ><input type="radio" class="radiol" name="LeaveFieldsEnforce" <cfif get.LeaveFieldsEnforce eq "0">checked</cfif> value="0"></td><td style="padding-left:4px" class="labelmedium">Disabled</td>
-	<td style="padding-left:4px" ><input class="radiol" type="radio" name="LeaveFieldsEnforce" <cfif get.LeaveFieldsEnforce eq "1">checked</cfif> value="1"></td><td style="padding-left:4px"  class="labelmedium">Enabled</td>	
+	<td ><input type="radio" class="radiol" name="LeaveFieldsEnforce" <cfif get.LeaveFieldsEnforce eq "0">checked</cfif> value="0"></td><td style="padding-left:4px" class="labelmedium2">Disabled</td>
+	<td style="padding-left:4px" ><input class="radiol" type="radio" name="LeaveFieldsEnforce" <cfif get.LeaveFieldsEnforce eq "1">checked</cfif> value="1"></td><td style="padding-left:4px"  class="labelmedium2">Enabled</td>	
 	</tr>
 	</table>
     </td>
     </tr>
 	
 	<TR>
-    <td class="labelmedium">Indexno Label:</b></td>
+    <td class="labelmedium2">Indexno Label:</b></td>
     <TD>	
 	
 	   <table><tr><td>
@@ -105,11 +105,11 @@ FROM Ref_AddressType
 	       enabled="Yes"    
 	       maxlength="10"
 	       style="width:75px"
-	         class="regularxl">
+	         class="regularxxl">
 		 
 		 </td>
 		 
-		 <td class="labelmedium" style="padding-left:10px">Indexno Last:</b></td>
+		 <td class="labelmedium2" style="padding-left:10px">Indexno Last:</b></td>
 		 
 		 <td>
 		 <cfinput type="Text"
@@ -120,10 +120,10 @@ FROM Ref_AddressType
 	       enabled="Yes"    
 	       maxlength="10"
 	       style="width:50px;text-align:center"
-	         class="regularxl">
+	         class="regularxxl">
 		 </td>
 		 
-		 <td class="labelmedium" style="padding-left:5px"><font color="808080">Leave blank to allow for manual entry</td>
+		 <td class="labelmedium2" style="padding-left:5px"><font color="808080">Leave blank to allow for manual entry</td>
 		 
 		 </tr>
 		 
@@ -132,20 +132,20 @@ FROM Ref_AddressType
     </tr>	
 	
 	<TR>
-    <td class="labelmedium">Profile Picture:</b></td>
+    <td class="labelmedium2">Profile Picture:</b></td>
     <TD>	
 	<table cellspacing="0" cellpadding="0">
-	<tr><td class="labelmedium">Height:</td><td style="padding-left:4px">
+	<tr><td class="labelmedium2">Height:</td><td style="padding-left:4px">
 		<cfinput type="Text"
 	       name="PictureWidth"
     	   validate="integer"
 		   value="#PictureWidth#"
 		   style="width:35px"
 	       required="Yes"
-		   class="regularxl"
+		   class="regularxxl"
 	       visible="Yes"
 	       enabled="Yes">
-	   </td><td class="labelmedium" style="padding-left:10px">Width:</td>
+	   </td><td class="labelmedium2" style="padding-left:10px">Width:</td>
 	    <td style="padding-left:4px">
 		<cfinput type="Text"
 	       name="PictureHeight"
@@ -153,7 +153,7 @@ FROM Ref_AddressType
 		   value="#PictureHeight#"
 		   style="width:35px"
 	       required="Yes"
-		   class="regularxl"
+		   class="regularxxl"
 	       visible="Yes"
 	       enabled="Yes">		
 		</td></tr>
@@ -162,12 +162,12 @@ FROM Ref_AddressType
     </tr>	
 	
 	<TR>
-    <td style="cursor: pointer;" class="labelmedium">
+    <td style="cursor: pointer;" class="labelmedium2">
 	<cf_UIToolTip  tooltip="Show address information in employee profile banner">Profile Address:</cf_UIToolTip>
 	</td>
     <TD>	
 	
-		<cfselect name="AddressType" class="regularxl" tooltip="Show address information in employee profile banner">
+		<cfselect name="AddressType" class="regularxxl" tooltip="Show address information in employee profile banner">
 			<cfloop query="Address">
 				<option value="#AddressType#" <cfif addresstype eq get.addresstype>selected</cfif>>#Description#</option>
 			</cfloop>
@@ -184,10 +184,10 @@ FROM Ref_AddressType
 	
 	<tr><td colspan="2" align="center">
 	<input type="button" 
-	       class="button10s" style="width:120"
+	       class="button10g" style="width:120"
 		   value="Save"
 	       name="Update" 
-		   onclick=" if (confirm('These settings will apply to all entities. Do you want to continue?')) ColdFusion.navigate('ParameterEditMiscellaneousSubmit.cfm','contentbox1','','','POST','formmiscell')">
+		   onclick=" if (confirm('These settings will apply to all entities. Do you want to continue?')) ptoken.navigate('ParameterEditMiscellaneousSubmit.cfm','contentbox1','','','POST','formmiscell')">
 	</td></tr>
 	
 	<tr><td height="5"></td></tr>

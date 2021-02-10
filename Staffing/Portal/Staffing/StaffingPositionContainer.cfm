@@ -116,7 +116,7 @@
 			  
 			  <cfif ApprovalPostGrade neq "" or ApprovalPostGrade neq "">		
 			    <td align="center" onclick="ViewPosition('#PositionParentId#')"
-				  style="cursor:pointer;height:23px;background-color:##bfff80;min-width:130px;padding-left:3px;padding-right:4px">		
+				  style="cursor:pointer;height:34px;background-color:##bfff80;min-width:130px;padding-left:3px;padding-right:4px">		
 				  
 				  <u><cf_tl id="Classified"></u>
 				  
@@ -172,7 +172,7 @@
 		</tr>		  											
 		
 		<tr class="labelmedium2 line">
-		
+				
 		<cfquery name="VacancyClass" 
 			datasource="AppsEmployee" 
 			username="#SESSION.login#" 
@@ -182,7 +182,7 @@
 				 WHERE  Code = '#VacancyActionClass#'		
 			</cfquery>
 		
-		  <td style="background-color:#vacancyClass.PresentationColor#;padding:4px;min-width:120px" align="center">#VacancyClass.Description#</td>
+		  <td style="background-color:#vacancyClass.PresentationColor#;padding:3px;min-width:120px" align="center">#VacancyClass.Description#</td>
 			  
 		    <cfset url.ajaxid = "recruit_#PositionParentId#">
 		
@@ -260,26 +260,36 @@
 										</td>			
 										<td style="min-width:25px;height:21px" align="center">
 										
-										 <cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#IndexNo#.jpg") and indexNo gt "0">                           		
-											 <cfset pict = IndexNo>     				    
-										 <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Personno#.jpg")>   
-											 <cfset pict = Personno>	   
-										 <cfelse>
-											 <cfset pict = "">      
-										 </cfif>
-										  
-										 <cfif pict neq "">										  
-											  	<cfset  vPhoto = "#SESSION.rootDocument#\EmployeePhoto\#pict#.jpg?id=1">										  
-										 <cfelse>											  					  
+										<cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#IndexNo#.jpg") and indexNo gt "0">                           		
+													<cfset pict = IndexNo>  						
+											  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#ind#.jpg")>                           						  
+													<cfset pict = ind>     				   									    						
+											  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Personno#.jpg")>   
+													<cfset pict = Personno>	   																	
+											  <cfelse>				  
+													 <cfset pict = "">      
+											  </cfif>
+																				
+										 <cfif pict neq "">		
+										 
+										 	<cffile action="COPY" 
+													source="#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg" 
+							  		    			destination="#SESSION.rootPath#\CFRStage\EmployeePhoto\#pict#.jpg" nameconflict="OVERWRITE">
+										 								  
+											 <cfset  vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg?id=1">										  
+											 
+										 <cfelse>	
+										 										  					  
 											  <cfif Gender eq "Female">
 												  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-female.png">
 											  <cfelse>
 												  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-male.png">
 											  </cfif>											  
+											  
 										 </cfif>
 								
 										 <cfset size = "20px">														  
-										 <img src='#vPhoto#' class="img-circle clsRoundedPicture" style="height:#size#; width:#size#;">	
+										 <img src="#vPhoto#" class="img-circle clsRoundedPicture" style="height:#size#; width:#size#;">	
 													
 										</td>
 									</tr>
