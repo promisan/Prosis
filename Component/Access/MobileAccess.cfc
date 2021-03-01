@@ -63,8 +63,20 @@
 							<cfset version = "#left(CGI.HTTP_USER_AGENT,200)#">
 						<cfelse>
 							<cfset version = "#CGI.HTTP_USER_AGENT#">
-						</cfif>		  	  
-					
+						</cfif>
+
+
+						<cfquery name="Insert"
+								datasource="AppsSystem">
+							INSERT INTO UserActionLog
+							(Account, NodeIP,ActionClass, ActionMemo, AccountMode)
+							VALUES ( '#Account#',
+									'#CGI.Remote_Addr#',
+									'Logon',
+									'Successfull:#Account#','Mobile')
+						</cfquery>
+
+
 						<cfset host = cgi.http_host>
 						
 						<cfquery name="Init" 
@@ -151,15 +163,40 @@
 						<cfset vAccount = getUser.Account>
 						<cfset vName = getUser.FirstName & " " & getUser.LastName>
 					
-					<cfelse>	  
-					
+					<cfelse>
+
+
+						<cfquery name="Insert"
+								datasource="AppsSystem">
+							INSERT INTO UserActionLog
+							(Account, NodeIP,ActionClass, ActionMemo, AccountMode)
+							VALUES ( '#Account#',
+						'#CGI.Remote_Addr#',
+						'Logon',
+						'Denied:#Account#','Mobile')
+						</cfquery>
+
+
 						<cfset vSessionId = "">
 						<cfset vAccount   = "">
 						<cfset vName      = "">
-					
+
+
+
+
 					</cfif> 
 					
 			<cfelse>
+
+					<cfquery name="Insert"
+							datasource="AppsSystem">
+						INSERT INTO UserActionLog
+						(Account, NodeIP,ActionClass, ActionMemo, AccountMode)
+						VALUES ( '#Account#',
+					'#CGI.Remote_Addr#',
+					'Logon',
+					'Denied:#Account#','Mobile')
+					</cfquery>
 			
 					<cfset vSessionId     = "">
 					<cfset vAccount       = "">

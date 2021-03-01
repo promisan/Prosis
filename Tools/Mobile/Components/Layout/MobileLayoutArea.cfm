@@ -3,6 +3,9 @@
 <cfparam name="attributes.id"					default="mainContainer">
 <cfparam name="attributes.prosisMenu"			default="yes">
 <cfparam name="attributes.showRightLink"		default="no">
+<cfparam name="attributes.showAppLogo"			default="yes">
+<cfparam name="attributes.showBrandLogo"		default="yes">
+<cfparam name="attributes.showUserInfo"			default="yes">
 <cfparam name="attributes.textRightLink"		default="Context Menu">
 <cfparam name="attributes.footerRightText"		default="Promisan, #year(now())#">
 <cfparam name="attributes.applicationLogo"		default="">
@@ -71,8 +74,12 @@
 			    <nav role="navigation">
 			        <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
                     <cfoutput>
-            			<img src="#attributes.applicationLogo#" style="height:40px; width:auto; margin-top:8px; float:left; padding-right:15px;">
-                		<h2 class="hidden-xs" style="padding-left:15px; border-left:1px solid ##ccc; float:left;">
+						<cfset vLeftBorder = "">
+						<cfif trim(lcase(attributes.showAppLogo)) eq "1" or trim(lcase(attributes.showAppLogo)) eq "yes">
+            				<img src="#attributes.applicationLogo#" style="height:40px; width:auto; margin-top:8px; float:left; padding-right:15px;">
+							<cfset vLeftBorder = "padding-left:15px; border-left:1px solid ##ccc;">
+						</cfif>
+                		<h2 class="hidden-xs" style="#vLeftBorder# float:left;">
                 			#attributes.Title#
                 		</h2>
                     </cfoutput>
@@ -81,7 +88,7 @@
 							<cfif trim(lcase(attributes.showRightLink)) eq "1" or trim(lcase(attributes.showRightLink)) eq "yes">
 				                <li>
 				                    <a href="#" id="sidebar" class="right-sidebar-toggle">
-				                        <i class="pe-7s-upload pe-7s-news-paper"></i>
+				                        <i class="pe-7s-upload pe-7s-left-arrow"></i>
 				                    </a>
 				                </li>
 							</cfif>
@@ -107,50 +114,56 @@
 
 			<aside id="menu">
 			    <div id="navigation">
-			    	<!-- Navigation -->
-					<div id="logo" class="light-version" onclick="window.location.reload();" style="cursor:pointer;text-align:center;display:block;padding:0;height:auto;">
-			        	<cfoutput><img src="#attributes.brandLogo#" style="height:auto;"></cfoutput>
-					</div>
+
+					<cfif trim(lcase(attributes.showBrandLogo)) eq "1" or trim(lcase(attributes.showBrandLogo)) eq "yes">
+						<!-- Navigation -->
+						<div id="logo" class="light-version" onclick="window.location.reload();" style="cursor:pointer;text-align:center;display:block;padding:0;height:auto;">
+							<cfoutput><img src="#attributes.brandLogo#" style="height:auto;"></cfoutput>
+						</div>
+					</cfif>
 				
 				    <cfif not IsAnonimousContext>
-				        <div class="profile-picture" style="clear:both;">
-				            <a>
-								<cfoutput>
-									<cfif FileExists("#session.rootdocumentpath#\EmployeePhoto\#session.acc#.jpg")>
-										<cfset vUserPhotoURL = "#session.rootdocument#/EmployeePhoto/#session.acc#.jpg">
-									<cfelse>
-										<cfset vUserPhotoURL = "#session.root#/images/user2.png">
-									</cfif>
-					                <img src="#vUserPhotoURL#?ts=#getTickCount()#" class="m-b" alt="logo" style="height:50px;border-radius:6px;border: 3px solid ##033F5D;">
-								</cfoutput>
-				            </a>
-				
-				            <div class="stats-label text-color">
-				                <div class="dropdown">
-				                    <a class="dropdown-toggle" data-toggle="dropdown">
-										<div class="font-extra-bold font-uppercase">
-											<cfoutput>
-												#session.first# #session.last#
-											</cfoutput>
-										</div>
-				                        <small class="text-muted"><cfoutput>#session.acc#</cfoutput><cfif vAllowLogout> <b class="caret"></b></cfif></small>
-				                    </a>
-				                    <cfif vAllowLogout>
-					                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
-											<cfif trim(lcase(attributes.showRightLink)) eq "1" or trim(lcase(attributes.showRightLink)) eq "yes">
+
+						<cfif trim(lcase(attributes.showUserInfo)) eq "1" or trim(lcase(attributes.showUserInfo)) eq "yes">
+							<div class="profile-picture" style="clear:both;">
+								<a>
+									<cfoutput>
+										<cfif FileExists("#session.rootdocumentpath#\EmployeePhoto\#session.acc#.jpg")>
+											<cfset vUserPhotoURL = "#session.rootdocument#/EmployeePhoto/#session.acc#.jpg">
+										<cfelse>
+											<cfset vUserPhotoURL = "#session.root#/images/user2.png">
+										</cfif>
+										<img src="#vUserPhotoURL#?ts=#getTickCount()#" class="m-b" alt="logo" style="height:50px;border-radius:6px;border: 3px solid ##033F5D;">
+									</cfoutput>
+								</a>
+					
+								<div class="stats-label text-color">
+									<div class="dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown">
+											<div class="font-extra-bold font-uppercase">
 												<cfoutput>
-							                        <li class="right-sidebar-toggle hide-menu"><a href="##">#attributes.textRightLink#</a></li>
-													<li class="divider"></li>
+													#session.first# #session.last#
 												</cfoutput>
-											</cfif>
-											<cfoutput>
-												<li><a href="#session.root#/portal/mobile/logoff.cfm?appId=#attributes.appId#&ts=#getTickCount()#">Logout</a></li>
-											</cfoutput>
-					                    </ul>
-				                    </cfif>
-				                </div>
-				            </div>
-				        </div>
+											</div>
+											<small class="text-muted"><cfoutput>#session.acc#</cfoutput><cfif vAllowLogout> <b class="caret"></b></cfif></small>
+										</a>
+										<cfif vAllowLogout>
+											<ul class="dropdown-menu animated fadeInRight m-t-xs">
+												<cfif trim(lcase(attributes.showRightLink)) eq "1" or trim(lcase(attributes.showRightLink)) eq "yes">
+													<cfoutput>
+														<li class="right-sidebar-toggle hide-menu"><a href="##">#attributes.textRightLink#</a></li>
+														<li class="divider"></li>
+													</cfoutput>
+												</cfif>
+												<cfoutput>
+													<li><a href="#session.root#/portal/mobile/logoff.cfm?appId=#attributes.appId#&ts=#getTickCount()#">Logout</a></li>
+												</cfoutput>
+											</ul>
+										</cfif>
+									</div>
+								</div>
+							</div>
+						</cfif>
 						
 						<cfif trim(lcase(attributes.prosisMenu)) eq "1" or trim(lcase(attributes.prosisMenu)) eq "yes">
 							<cf_mobileProsisMenu appId="#attributes.appId#">

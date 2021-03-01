@@ -3,7 +3,6 @@
 <cfparam name="url.search" default="">
 <cfparam name="itemlist" default="">	
 
-
 <!--- ------------------------------------- --->
 <!--- ------------------------------------- --->
 <!--- ------------------------------------- --->
@@ -74,14 +73,23 @@
 			 OR I.ItemNo = '#url.search#'
 
 			 )
+		
+		<!--- is intended --->
 			 
+		AND    EXISTS (SELECT ItemNo 
+		               FROM   ItemUoMMission 
+					   WHERE  ItemNo = I.ItemNo 
+					   AND    Mission IN (SELECT Mission FROM Warehouse WHERE Warehouse = '#url.filter1value#'))	 
+		
+		<!--- is enabled --->	
+		 
 		AND (
 				I.ItemClass IN ('Service') OR  
-				I.ItemNo IN (SELECT ItemNo 
-			                   FROM   ItemWarehouse
-							   WHERE  Warehouse   = '#url.filter1value#'
-							   AND    ItemNo      = I.ItemNo
-							   AND    Operational = 1) 	  
+				EXISTS (SELECT ItemNo 
+			            FROM   ItemWarehouse
+						WHERE  Warehouse   = '#url.filter1value#'							     
+						AND    ItemNo      = I.ItemNo
+						AND    Operational = 1) 	  
 			)
 						 
 		AND   I.Operational = 1		

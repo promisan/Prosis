@@ -308,10 +308,11 @@
 					              Code,
 								  Description,
 								  ViewOrder
-					 	 FROM     Post
+					 	FROM      Post
 					  	GROUP BY  Code, Description, ViewOrder
-						ORDER BY ViewOrder
+						ORDER BY  ViewOrder
 				  	</cfquery>	
+									
 							
 				  	<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 					
@@ -334,17 +335,21 @@
 						showmarkers="yes" 						
 						backgroundcolor="##ffffff"					
 				       	chartheight="279" 
-					   	chartwidth="450">	
+					   	chartwidth="500">	
 											
 						   <cfchartseries type="pie"
 					             query="Summary"
-				    	         itemcolumn="Description"
-				        	     valuecolumn="PostTotal"								 							 
+				    	         							 							 
 					             serieslabel=""
 							     colorlist="##2574A9,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"
-				        	     markerstyle="circle">
+				        	     markerstyle="circle">	
 								 
-								 
+								 <cfloop query="summary">							 
+								    <cfif posttotal gt "4">
+								    <cfchartdata item="#Description#" value="#PostTotal#">
+									</cfif>
+								 </cfloop>
+								 								 
 								 </cfchartseries>							 
 								 
 					</cfchart>
@@ -434,7 +439,7 @@
 									   							  
 							<cfif url.category eq "ALL">			
 								<tr style="background-color:efefef;border-top:1px solid silver;border-bottom:1px solid silver">
-								<td style="font-size:17px;padding-left:6px" class="labelmedium">#Description#</td>
+								<td style="font-size:16px;padding-left:6px" class="labelmedium2">#Description#</td>
 								
 								<cfoutput>				
 							
@@ -448,7 +453,7 @@
 								
 								 <td align="right" style="font-size:15px;padding-right:2px;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', '')"><font color="008000">#pos#</a></td>
 								 <td align="right" style="font-size:15px;padding-right:2px;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', 'I')">#inc#</a></td>
-	  							 <td align="right" style="font-size:15px;padding-right:2px:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', 'V')"><font color="FF0000">#vac#</a></td>				  	
+	  							 <td align="right" style="font-size:15px;padding-right:2px;border-left:1px dotted silver"><a href="javascript:doStaffing('#url.mission#','#url.orgunit#','#url.period#','#url.fund#','#url.postclass#','#url.authorised#','#code#','', 'V')"><font color="FF0000">#vac#</a></td>				  	
 								 <td style="font-size:15px;padding-right:4px;border-left:1px dotted silver" align="right"><cfif per eq "0">--<cfelseif per eq "100">#numberformat(per,',')#<cfelse>#numberformat(per,'._')#</cfif></td>								
 																
 								</tr>						

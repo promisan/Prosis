@@ -193,7 +193,8 @@ password="#SESSION.dbpw#">
 						align       = "right",				
 						alias       = "",			
 						aggregate   = "sum",		
-						formatted   = "numberformat(TransactionQuantity,',__')",														
+						formatted   = "numberformat(TransactionQuantity,'[precision]')",							
+						precision   = "ItemPrecision",													
 						search      = "number"}>								
 	
 	<!--- define access --->

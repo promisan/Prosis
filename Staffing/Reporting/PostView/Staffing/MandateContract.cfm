@@ -5,6 +5,7 @@
 	<proDes>Translated</proDes>
 	<proCom></proCom>
 </cfsilent>
+
 <!--- End Prosis template framework --->
 
 <cfinvoke component = "Service.Access"  
@@ -12,12 +13,13 @@
    mission          = "#URL.Mission#"
    mandate          = "#URL.Mandate#"
    returnvariable   = "mandateAccessStaffing">	
-   
+      
 <cfinvoke component = "Service.Access"  
    method           = "position" 
    mission          = "#URL.Mission#"
    mandate          = "#URL.Mandate#"
-   returnvariable   = "mandateAccessPosition">	   
+   returnvariable   = "mandateAccessPosition">	
+     
 
 <cfif mandateAccessStaffing eq "NONE" and mandateAccessPosition eq "NONE">
 
@@ -29,30 +31,29 @@
 
 <cfelse>
 		
-	<table width="98%" align="center" height="100%" border="0" cellspacing="0" cellpadding="0">
+	<table width="98%" align="center" height="100%">
 	   
 	 <tr class="line"> 
-	     <td><font color="808080">
-		 
+	     <td>
+		 		 
 		  <cfquery name="Parent" 
 			datasource="AppsEmployee" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-				SELECT * 
-				FROM  Ref_PostGradeParent
-				WHERE Code IN (
-								SELECT DISTINCT R.PostGradeParent
-							    FROM   PersonContract AS P INNER JOIN
-							           Ref_PostGrade AS R ON P.ContractLevel = R.PostGrade
-							    WHERE  P.Mission = '#Attributes.Mission#'	
-										OR EXISTS (SELECT 'X' 
-									               FROM   PersonAssignment PA, Position Pos
-												   WHERE  PA.PositionNo = Pos.PositionNo
-												   AND    PA.PersonNo   = P.PersonNo
-												   AND    Pos.Mission = '#url.Mission#')
-								)
-				 				
-				ORDER BY Vieworder
+			
+			SELECT * 
+			FROM Ref_PostGradeParent WHERE Code IN (
+
+				SELECT R.PostGradeParent FROM PersonContract AS P INNER JOIN Ref_PostGrade AS R ON P.ContractLevel = R.PostGrade
+				WHERE P.Mission = '#url.Mission#'
+				UNION 
+				SELECT R.PostGradeParent FROM PersonContract AS P INNER JOIN Ref_PostGrade AS R ON P.ContractLevel = R.PostGrade
+				WHERE EXISTS (SELECT 'X' FROM PersonAssignment PA, Position Pos WHERE PA.PositionNo = Pos.PositionNo AND PA.PersonNo = P.PersonNo AND Pos.Mission = '#url.Mission#') 
+
+			) 
+
+			ORDER BY Vieworder
+			
 		   </cfquery>
 		   		   
 	   
@@ -106,3 +107,5 @@
 	</table>   
 	
 </cfif>	
+
+<cfoutput>4.#now()#</cfoutput> 

@@ -46,7 +46,7 @@
 		   	ProcessBatchId = "#url.calculationid#"	
 			ActionStatus   = "9"	
 			StepStatus	   = "9"
-			Description    = "A Payroll payment contra account has not been defined for #Period.Mission#">	
+			Description    = "A Payroll payment contra account has not been defined for #SchedulePeriod.Mission#">	
 			
 		<cfset stop = "1">
 	
@@ -521,7 +521,7 @@ password="#SESSION.dbpw#">
 				   PaymentDate      = "#dateformat(PayrollEnd,client.dateformatshow)#"
 				   SettlementPhase  = "#refno#">			
 					
-			 <!--- check missing/incorrect distributions --->
+    			 <!--- check missing/incorrect distributions --->
 			 
 				 <cfquery name="incompleteDistributions" 
 					datasource="appsOrganization" 
@@ -570,6 +570,7 @@ password="#SESSION.dbpw#">
 									
 						WHERE	ABS(ISNULL(Settled.Amount, 0) - ISNULL(Distribution.Amount, 0)) > 0.05 
 						AND     Settled.Amount	> 0
+						
 				</cfquery>
 			
 				<cfif incompleteDistributions.recordcount gt 0>
@@ -590,39 +591,60 @@ password="#SESSION.dbpw#">
 						datasource="appsOrganization" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-						SELECT TOP 1 L.PersonNo, 'PersonGledger' origin FROM Payroll.dbo.EmployeeSettlementDistribution as L
+						
+						SELECT TOP 1 L.PersonNo, 'PersonGledger' origin 
+						FROM       Payroll.dbo.EmployeeSettlementDistribution as L
 						WHERE      L.Mission         = '#Period.Mission#' 					
 						AND        L.SalarySchedule  = '#Period.SalarySchedule#'
 						AND        L.PaymentDate     = '#payrollend#' 	
-						AND        L.SettlementPhase = '#refno#'
+						AND        L.SettlementPhase = '#refno#'							
 						AND        L.PaymentStatus   = '0'
-						AND NOT EXISTS (SELECT 'X' FROM Employee.dbo.PersonGLedger WHERE Area= 'Payroll' and PersonNo = L.PersonNo)
+						<cfif Period.DistributionMode eq "1">
+						AND        L.PaymentMode IN ('Check')
+						</cfif>
+						AND NOT EXISTS (SELECT 'X' 
+						                FROM   Employee.dbo.PersonGLedger 
+										WHERE  Area= 'Payroll' 
+										AND    PersonNo = L.PersonNo)
+								
+						
 						UNION
-						SELECT TOP 1 L.PersonNo, 'Ref_Account' origin FROM Payroll.dbo.EmployeeSettlementDistribution as L
+						
+						SELECT     TOP 1 L.PersonNo, 'Ref_Account' origin 
+						FROM       Payroll.dbo.EmployeeSettlementDistribution as L
 						WHERE      L.Mission         = '#Period.Mission#' 					
 						AND        L.SalarySchedule  = '#Period.SalarySchedule#'
 						AND        L.PaymentDate     = '#payrollend#' 	
 						AND        L.SettlementPhase = '#refno#'
 						AND        L.PaymentStatus   = '0'
-						AND NOT EXISTS (SELECT 'X' FROM Accounting.dbo.Ref_Account WHERE GLAccount IN(SELECT GLAccount FROM Employee.dbo.PersonGledger as PG WHERE PG.PersonNo = L.PersonNo and Area ='Payroll'))
+						<cfif Period.DistributionMode eq "1">
+						AND        L.PaymentMode IN ('Check')
+						</cfif>
+						AND NOT EXISTS (SELECT 'X' 
+						                FROM   Accounting.dbo.Ref_Account 
+						                WHERE  GLAccount IN (SELECT GLAccount 
+										                     FROM   Employee.dbo.PersonGledger as PG 
+															 WHERE  PG.PersonNo = L.PersonNo 
+															 AND    Area        = 'Payroll')
+										 )
 				</cfquery>
 										
 				<cfif validGLaccounts.recordCount gte 1>
 				
 					<cf_CalculationLockProgressInsert
 			   			ProcessNo      = "#url.processno#"
-			  				ProcessBatchId = "#url.calculationid#"	
+			  			ProcessBatchId = "#url.calculationid#"	
 						ActionStatus   = "9"	
 						StepStatus	   = "9"
-						StepException  = "Distribution Problem: Record a GLaccount type for: #validGLaccounts.PersonNo# for #validGlaccounts.Origin#"
+						StepException  = "Distribution problem: Record a GLaccount type for Person: #validGLaccounts.PersonNo# for #validGlaccounts.Origin#"
 						Description    = "Initializing">	
+						
 					<cfset stop = "1">
 											
 				</cfif>
 	
 		</cfif>
-	
-	 				
+		 				
 		<cfif stop eq "0">	
 		
 			<cfquery name="Total" 
@@ -631,19 +653,19 @@ password="#SESSION.dbpw#">
 					password="#SESSION.dbpw#">		
 					SELECT    ROUND(SUM(Amount), 2) AS PostingAmount
 					FROM      Payroll.dbo.EmployeeSettlementLine as SL 
-							  INNER JOIN 	Payroll.dbo.EmployeeSettlement as ESET
+							  INNER JOIN Payroll.dbo.EmployeeSettlement as ESET
 								ON 	SL.PersonNo 			= ESET.PersonNo
 								AND SL.SalarySchedule 		= ESET.SalarySchedule
 								AND SL.Mission 				= ESET.Mission
 								AND SL.PaymentDate 			= ESET.PaymentDate
 								AND SL.PaymentStatus		= ESET.PaymentStatus
-								AND ESET.ActionStatus = '1' <!--- released --->
+								AND ESET.ActionStatus       = '1' <!--- released --->
 								
-					WHERE     ESET.Mission             = '#Period.Mission#' 					
-					AND       ESET.SettlementSchedule  = '#Period.SalarySchedule#'
-					AND       ESET.PaymentDate           = '#payrollend#' 		
-					AND       SL.SettlementPhase       = '#refno#'	
-					AND       SL.PaymentStatus         = '0'
+					WHERE     ESET.Mission                  = '#Period.Mission#' 					
+					AND       ESET.SettlementSchedule       = '#Period.SalarySchedule#'
+					AND       ESET.PaymentDate              = '#payrollend#' 		
+					AND       SL.SettlementPhase            = '#refno#'	
+					AND       SL.PaymentStatus              = '0'
 			</cfquery>	
 			
 			<cfquery name="getPeriod" 
@@ -669,6 +691,14 @@ password="#SESSION.dbpw#">
 			</cfif>
 			
 			<cfif total.PostingAmount neq "">	
+			
+				<!--- base payroll booking we have 3 modes
+				
+				   Schedule / entity posting per program
+				   Schedule / entity / orgunit booking
+				   Schedule / entity / person booking : disabled 
+				   
+			     --->
 			   							
 				<cf_GledgerEntryHeader
 					    Mission               = "#SchedulePeriod.Mission#"
@@ -713,8 +743,8 @@ password="#SESSION.dbpw#">
 										  PF.ProgramCode, 
 										  PF.Fund,									   
 										  ObjectCode, 
-										  GLAccount, 
-										  T.PersonNo,
+										  GLAccount,
+										  <!---  T.PersonNo, --->
 										  ROUND(SUM(Amount*PF.Percentage), 2) AS PostingAmount
 										  
 								FROM      Payroll.dbo.EmployeeSettlementLine T 
@@ -743,10 +773,9 @@ password="#SESSION.dbpw#">
 										  PaymentYear, 
 										  Currency,
 										  PaymentMonth, 
-										  GLAccount,
-										  T.PersonNo
-										  
-								
+										  GLAccount
+										  <!--- , T.PersonNo --->
+									
 								UNION ALL
 								
 								<!--- we want to prevent this --->
@@ -761,8 +790,8 @@ password="#SESSION.dbpw#">
 										  '' as ProgramCode, 
 										  '' as Fund, 
 										  ObjectCode, 
-										  GLAccount, 
-										  T.PersonNo,									  
+										  GLAccount,
+										  <!--- T.PersonNo, --->									  
 										  ROUND(SUM(Amount), 2) AS PostingAmount
 								FROM      Payroll.dbo.EmployeeSettlementLine T
 										  INNER JOIN 	Payroll.dbo.EmployeeSettlement as ESET
@@ -790,8 +819,10 @@ password="#SESSION.dbpw#">
 										  PaymentYear, 
 										  Currency,
 										  PaymentMonth, 
-										  GLAccount,
+										  GLAccount
+										  <!--- ,
 										  T.PersonNo						  
+										  --->
 	
 										  
 						</cfquery>	
@@ -865,8 +896,7 @@ password="#SESSION.dbpw#">
 										TransactionSerialNo1  = "#currentrow#"				
 										Class1                = "Debit"
 										Reference1            = "Payroll cost" 		
-										ReferenceNo1          = "#ProgramPeriod.reference#"
-										Description1		  = "#PayrollLines.PersonNo#"
+										ReferenceNo1          = "#ProgramPeriod.reference#"										
 										ReferenceName1        = "#SchedulePeriod.SalarySchedule#: #PaymentYear#-#PaymentMonth#"
 										GLAccount1            = "#GLAccount#"											
 										Fund1                 = "#Fund#"			
@@ -877,6 +907,8 @@ password="#SESSION.dbpw#">
 										ReferenceId1          = ""
 										TransactionType1      = "Standard"
 										Amount1               = "#PostingAmount#">
+										
+										<!--- Description1		  = "#PayrollLines.PersonNo#" --->
 							
 							<cfelse>					 						 
 								
@@ -894,8 +926,7 @@ password="#SESSION.dbpw#">
 										TransactionSerialNo1  = "#currentrow#"				
 										Class1                = "Debit"
 										Reference1            = "Payroll cost" 		
-										ReferenceNo1          = "#ProgramPeriod.reference#"
-										Description1 		  = "#PayrollLines.PersonNo#"				
+										ReferenceNo1          = "#ProgramPeriod.reference#"													
 										ReferenceName1        = "#SchedulePeriod.SalarySchedule#: #PaymentYear#-#PaymentMonth#"
 										GLAccount1            = "#GLAccount#"											
 										Fund1                 = "#Fund#"			
@@ -906,6 +937,8 @@ password="#SESSION.dbpw#">
 										ReferenceId1          = ""
 										TransactionType1      = "Standard"
 										Amount1               = "#PostingAmount#">
+									
+									<!--- Description1 		  = "#PayrollLines.PersonNo#"	--->
 									
 							</cfif>		
 																
@@ -922,7 +955,7 @@ password="#SESSION.dbpw#">
 										  PaymentMonth, 
 										  Currency,													 
 										  GLAccountLiability, 
-										  PersonNo,
+										  <!--- PersonNo, --->
 										  ProgramCode, 
 										  Fund,									   
 										  ObjectCode,
@@ -934,7 +967,9 @@ password="#SESSION.dbpw#">
 										  				esl.PaymentMonth, 
 										  				esl.Currency,
 										  				esl.PayrollItem,
+														<!--- 
 														esl.PersonNo,
+														--->
 														PF.ProgramCode, 
 														PF.Fund,									   
 														ObjectCode,													 
@@ -967,7 +1002,7 @@ password="#SESSION.dbpw#">
 										  Currency,
 										  PaymentMonth, 
 										  GLAccountLiability,
-										  PersonNo,
+										  <!---  PersonNo, --->
 										  ProgramCode, 
 										  Fund,									   
 										  ObjectCode 
@@ -1037,16 +1072,18 @@ password="#SESSION.dbpw#">
 									ProgramPeriod1        = "#getPeriod.Period#" 
 									ReferenceId1          = ""
 									ReferenceNo1          = "#ProgramPeriod.reference#"
-									TransactionType1      = "Contra-Account"
-									Description1		  = "#LiabilityLines.PersonNo#"
+									TransactionType1      = "Contra-Account"									
 									Amount1               = "#PostingAmount#">		
+									
+									<!--- Description1		  = "#LiabilityLines.PersonNo#" --->
 								
 						</cfoutput>										
 				
 						<cfquery name="CrossReference" 
 						datasource="appsOrganization" 
 						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">			
+						password="#SESSION.dbpw#">		
+							
 								UPDATE   SL
 								SET      SL.Journal           = '#URL.Journal#', 
 								         SL.JournalSerialNo   = '#JournalSerialNo#'
@@ -1059,23 +1096,197 @@ password="#SESSION.dbpw#">
 											AND SL.PaymentStatus		= ESET.PaymentStatus
 											AND ESET.ActionStatus = '1' <!--- released --->
 											
-										 INNER JOIN
-								         Payroll.dbo.SalarySchedulePayrollItem R ON SL.SalarySchedule = R.SalarySchedule 
-									                   AND SL.Mission = R.Mission 
-											 		   AND SL.PayrollItem = R.PayrollItem
-								WHERE    R.Mission          = '#Period.Mission#'
-								AND      SL.SalarySchedule  = '#Period.SalarySchedule#'
+										 INNER JOIN Payroll.dbo.SalarySchedulePayrollItem R ON SL.SalarySchedule = R.SalarySchedule 
+							                   AND SL.Mission = R.Mission 
+									 		   AND SL.PayrollItem = R.PayrollItem
+											   
+								WHERE    R.Mission             = '#Period.Mission#'
+								AND      SL.SalarySchedule     = '#Period.SalarySchedule#'
 								AND      SL.PaymentDate        = '#payrollend#'	
 								AND      SL.SettlementPhase    = '#refno#'
 								AND      SL.PaymentStatus      = '0' 
 						</cfquery>		
 						
-					<!--- if individual posting mode is enabled then we make another booking for the amount posted on the account of the
-						schedule/mission --->
+					<!--- if individual posting mode is enabled then we make another booking 
+					    for the amount posted on the account of the	schedule/mission --->
+																	
+					<cfif Period.PostingMode eq "Schedule">  
+					
+					    <!--- default mode to make postings for the AP --->
+					
+						<cfif Period.DisableDistribution eq "0">
 						
-					<cfif Period.PostingMode neq "Schedule">
+							   <!--- only if distribution is not enabled --->
 						
-							<cfif Period.DisableDistribution eq "1">
+						      <cfquery name="OffsetScheduleAccount" 
+										datasource="appsOrganization" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+										
+										
+										SELECT     ESD.SalaryScheduleGLAccount, 
+										           ESD.PayThroughGLAccount, 
+												   ESD.PayThroughBankName, 
+												   ESD.PaymentCurrency, 
+												   ESD.PersonNo,
+												   CASE WHEN (SELECT  GLAccount 
+											              FROM    Employee.dbo.PersonGLedger
+								 						  WHERE   PersonNo = ESD.PersonNo 
+														  AND     Area = 'Payroll') IS NOT NULL 
+														  
+												    THEN (SELECT  GLAccount
+								                          FROM    Employee.dbo.PersonGLedger
+						                                  WHERE   PersonNo = ESD.PersonNo 
+														  AND     Area = 'Payroll') ELSE '599999999' END AS PersonGLAccount,
+												   ROUND(SUM(ESD.PaymentAmount), 2) AS PaymentAmount
+												   
+										FROM       Payroll.dbo.EmployeeSettlementDistribution AS ESD
+												   INNER JOIN 	Payroll.dbo.EmployeeSettlement as ESET
+														ON 	ESD.PersonNo 			= ESET.PersonNo
+														AND ESD.SalarySchedule 		= ESET.SalarySchedule
+														AND ESD.Mission 			= ESET.Mission
+														AND ESD.PaymentDate 		= ESET.PaymentDate
+														AND ESD.PaymentStatus		= ESET.PaymentStatus
+														AND ESET.ActionStatus = '1' <!--- released --->
+													
+										WHERE      ESD.Mission         = '#Period.Mission#' 					
+										AND        ESD.SalarySchedule  = '#Period.SalarySchedule#'
+										AND        ESD.PaymentDate     = '#payrollend#' 	
+										AND        ESD.SettlementPhase = '#refno#'	
+										AND        ESD.PaymentStatus   = '0'
+										
+										<!--- only for checks --->
+										
+										<cfif Period.DistributionMode eq "1">
+										<!--- only for checks --->
+										AND        ESD.PaymentMode IN ('Check')
+										</cfif>
+																		
+										GROUP BY   ESD.SalaryScheduleGLAccount, 
+										           ESD.PayThroughGLAccount, 
+												   ESD.PayThroughBankName, 
+												   ESD.PaymentCurrency,
+												   ESD.PersonNo						
+												   <!--- rfuentes to avoid offset for the ones on LWOP in negative settlement --->
+										/*HAVING ROUND(SUM(ESD.PaymentAmount), 2) >0*/
+							</cfquery>
+							
+							<cfquery name="thisJournal" 
+								datasource="appsOrganization" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+								SELECT TOP 1 * 
+								FROM   Accounting.dbo.Journal 
+								WHERE  TransactionCategory = 'Payables' 
+								AND    Mission             = '#SchedulePeriod.Mission#'
+								AND    Currency            = '#Schedule.PaymentCurrency#'
+								AND    SystemJournal       = 'Settlement'
+							</cfquery>
+							
+							<cfif thisJournal.recordcount eq "0">
+							
+								<cfquery name="thisJournal" 
+									datasource="appsOrganization" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+									SELECT TOP 1 * 
+									FROM   Accounting.dbo.Journal 
+									WHERE  TransactionCategory = 'Payables' 
+									AND    Mission             = '#SchedulePeriod.Mission#'
+									AND    Currency            = '#Schedule.PaymentCurrency#'										
+								</cfquery>
+							
+							</cfif>
+							
+							<!--- this records offsets the payroll for an AP transaction to actually pay the person : check or transfer 
+							but for that we need to know the correct bank account to be set in the transaction itself : Ana --->
+							
+							<cfloop query="OffsetScheduleAccount">
+													
+								<cf_GledgerEntryHeader
+								    Mission               = "#SchedulePeriod.Mission#"
+								    OrgUnitOwner          = "#tOwner#"							
+									Datasource            = "appsOrganization"
+								    Journal               = "#thisJournal.Journal#"
+									AccountPeriod         = "#per#"							
+									JournalTransactionNo  = "#year(PendingPosting.payrollend)#-#month(PendingPosting.payrollend)#"
+									Description           = "#PayThroughBankName#: #DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
+									TransactionSource     = "PayrollSeries"		
+									TransactionSourceId   = "#SchedulePeriod.CalculationId#"			
+									TransactionCategory   = "Payables"
+									MatchingRequired      = "1"			
+									Workflow              = "Yes"  		
+									ActionStatus          = "0"		
+									Reference             = "Payment"  									
+									ReferenceName         = "#PayThroughBankName#"
+									ReferencePersonNo     = "#PersonNo#"																								
+									TransactionDate       = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
+									DocumentCurrency      = "#PaymentCurrency#"
+									CurrencyDate          = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
+									DocumentDate          = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"										
+									DocumentAmount        = "#PaymentAmount#"
+									OfficerUserId         = "#SESSION.acc#"
+									OfficerLastName       = "#SESSION.last#"
+									OfficerFirstName      = "#SESSION.first#">
+									
+									<!--- validate if negative settlement, to set an AR for the Employee instead of the Bank dist  --->
+									<cfset DebitGLAccount =  OffsetScheduleAccount.PayThroughGLAccount>
+									
+									<cfif PaymentAmount lt 0>
+										<cfset DebitGLAccount =  OffsetScheduleAccount.PersonGLAccount>
+									</cfif>										
+									
+									<cf_GledgerEntryLine
+										Lines                    = "2"
+										Datasource               = "appsOrganization"
+									    Journal                  = "#thisJournal.Journal#"
+										JournalNo                = "#JournalSerialNo#"
+										JournalTransactionNo     = "#year(SchedulePeriod.PayrollEnd)#-#month(SchedulePeriod.PayrollEnd)#"		
+										LogTransaction           = "Yes"
+										AccountPeriod            = "#per#"																								 
+										DocumentCurrency         = "#PaymentCurrency#"
+										AmountCurrency           = "#PaymentCurrency#"
+										CurrencyDate             = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
+										TransactionDate          = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
+										ParentJournal            = "#URL.Journal#"
+									    ParentJournalSerialNo    = "#parentJournalSerialNo#"
+																				
+										TransactionSerialNo1     = "1"				
+										Class1                   = "Credit"
+										Reference1               = "Bank Charge"       
+										ReferenceName1           = "#PayThroughBankName#: #year(PendingPosting.payrollend)#-#month(PendingPosting.payrollend)#"										
+										Description1             = "#PayThroughBankName#"
+										GLAccount1               = "#DebitGLAccount#"											
+										ReferenceId1             = ""
+										TransactionType1         = "Contra-Account"
+										Amount1                  = "#PaymentAmount#"
+										
+										TransactionSerialNo2     = "0"				
+										Class2                   = "Debit"
+										Reference2               = "Offset" 						
+										ReferenceName2           = "#SchedulePeriod.SalarySchedule#: #year(PendingPosting.payrollend)#-#month(PendingPosting.payrollend)#"
+										Description2             = "#PayThroughBankName#"																							
+										GLAccount2               = "#SalaryScheduleGLAccount#"
+										ReferenceId2             = ""
+										TransactionType2         = "Standard"
+										Amount2                  = "#PaymentAmount#">										
+																																										
+							</cfloop>			
+												
+						</cfif>
+											
+					<cfelse>
+					
+						   <!--- individual : STL posting 
+						   
+						   first we make 
+						   
+						   --->
+											
+						   <cfif Period.DisableDistribution eq "1">
+							
+								<!--- no distribution so we make a 
+								  per personal cost account offsetting the booking above --->	
 													
 								 <cfquery name="Journal" 
 									datasource="appsOrganization"  
@@ -1086,7 +1297,7 @@ password="#SESSION.dbpw#">
 											WHERE    Journal = '#Period.Journal#'	
 								   </cfquery>												
 								
-									<cfif Journal.TransactionCategory eq "Payables" or Journal.TransactionCategory eq "DirectPayment">													   
+								   <cfif Journal.TransactionCategory eq "Payables" or Journal.TransactionCategory eq "DirectPayment">													   
 																   
 									   <!--- contra account --->
 									   
@@ -1210,26 +1421,28 @@ password="#SESSION.dbpw#">
 																																									
 											</cfloop>					
 										
-									     </cfif> 
+								        </cfif> 
 										 
-									</cfif>	 
+							  	  </cfif>	 
 													   
-							<cfelse>
-							
-								<!--- meta code 
+						    <cfelse>
+													
+								<!--- distribution / settlement 
 								
-								I    We post for each person the amount to be settled and the amount paid to that person for the distribution
+								I    We post for each person the amount to be settled & the amount paid to that person for the distribution
+								             
 								II.  We post based on the information above the offset of the net schedule account 4003 onbehalf of the
-								various bank accounts we use 
+								various bank accounts we use as we assume the full process is completed 
 								
 								--->
 							
-								<!--- post the offset of the bank accounts was II --->
-								
+								<!--- post the offset of the bank accounts as II --->								
+															
 								<cfquery name="OffsetScheduleAccount" 
 											datasource="appsOrganization" 
 											username="#SESSION.login#" 
 											password="#SESSION.dbpw#">
+											
 											SELECT     ESD.SalaryScheduleGLAccount, 
 											           ESD.PayThroughGLAccount, 
 													   ESD.PayThroughBankName, 
@@ -1245,14 +1458,15 @@ password="#SESSION.dbpw#">
 							                                  WHERE   PersonNo = ESD.PersonNo 
 															  AND     Area = 'Payroll') ELSE '599999999' END AS PersonGLAccount,
 													   ROUND(SUM(ESD.PaymentAmount), 2) AS PaymentAmount
+													   
 											FROM       Payroll.dbo.EmployeeSettlementDistribution AS ESD
 													   INNER JOIN 	Payroll.dbo.EmployeeSettlement as ESET
-														ON 	ESD.PersonNo 			= ESET.PersonNo
-														AND ESD.SalarySchedule 		= ESET.SalarySchedule
-														AND ESD.Mission 			= ESET.Mission
-														AND ESD.PaymentDate 		= ESET.PaymentDate
-														AND ESD.PaymentStatus		= ESET.PaymentStatus
-														AND ESET.ActionStatus = '1' <!--- released --->
+															ON 	ESD.PersonNo 			= ESET.PersonNo
+															AND ESD.SalarySchedule 		= ESET.SalarySchedule
+															AND ESD.Mission 			= ESET.Mission
+															AND ESD.PaymentDate 		= ESET.PaymentDate
+															AND ESD.PaymentStatus		= ESET.PaymentStatus
+															AND ESET.ActionStatus = '1' <!--- released --->
 														
 											WHERE      ESD.Mission         = '#Period.Mission#' 					
 											AND        ESD.SalarySchedule  = '#Period.SalarySchedule#'
@@ -1302,8 +1516,7 @@ password="#SESSION.dbpw#">
 										
 										<cfif PaymentAmount lt 0>
 											<cfset DebitGLAccount =  OffsetScheduleAccount.PersonGLAccount>
-										</cfif>
-										
+										</cfif>										
 										
 										<cf_GledgerEntryLine
 											Lines                    = "2"
@@ -1378,6 +1591,7 @@ password="#SESSION.dbpw#">
 										AND        L.PaymentDate      = '#payrollend#' 	
 							    		AND        L.SettlementPhase  = '#refno#'
 										AND        L.PaymentStatus    = '0'
+																			
 										
 										GROUP BY   L.PersonNo,
 										           P.LastName, 
@@ -1401,7 +1615,23 @@ password="#SESSION.dbpw#">
 										WHERE  TransactionCategory = 'Payables' 
 										AND    Mission             = '#SchedulePeriod.Mission#'
 										AND    Currency            = '#Persons.PaymentCurrency#'
+										AND    SystemJournal       = 'Settlement'
 									</cfquery>
+									
+									<cfif thisJournal.recordcount eq "0">
+									
+										<cfquery name="thisJournal" 
+											datasource="appsOrganization" 
+											username="#SESSION.login#" 
+											password="#SESSION.dbpw#">
+											SELECT TOP 1 * 
+											FROM   Accounting.dbo.Journal 
+											WHERE  TransactionCategory = 'Payables' 
+											AND    Mission             = '#SchedulePeriod.Mission#'
+											AND    Currency            = '#Persons.PaymentCurrency#'										
+										</cfquery>
+									
+									</cfif>
 									
 									<cf_GledgerEntryHeader
 									    Mission               = "#SchedulePeriod.Mission#"
@@ -1466,16 +1696,17 @@ password="#SESSION.dbpw#">
 																																										
 								</cfloop>					
 																				
-							</cfif>	  
+						   </cfif>	  
 					
 				 	</cfif>  
+			
+			<!--- process if posting amount > 0 --->
 								
 			</cfif>	
 							
 		</cfif>		
 		
-	</cfif>		
-											
+	</cfif>										
 									
 </cfloop>						
 

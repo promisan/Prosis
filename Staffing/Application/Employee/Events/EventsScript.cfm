@@ -42,8 +42,7 @@
     	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?scope='+scope+'&portal=0&id='+key,'evdialog')
 	}
     
-    function checkevent() {
-		
+    function checkevent() {		
 		tc  = document.getElementById('triggercode');
 		rid = document.getElementById('eventid');
 		mis = document.getElementById('mission');	
@@ -52,12 +51,13 @@
     	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?personno='+per.value+'&triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value+'&pevent='+pevent.value,'dEvent')
     }    
 
-    function checkreason() {
-		tc = document.getElementById('triggercode');
-		ev = document.getElementById('eventcode');
-		rid = document.getElementById('eventid');
+    function checkreason() {	   
+	    mis     = document.getElementById('mission');
+		tc      = document.getElementById('triggercode');
+		ev      = document.getElementById('eventcode');
+		rid     = document.getElementById('eventid');
 		preason = document.getElementById('preason');
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value+'&preason='+preason.value,'dReason');		
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?mission='+mis.value+'&triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value+'&preason='+preason.value,'dReason');		
 		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value+'&preason='+preason.value,'dCondition');
     }
 	    
@@ -106,7 +106,7 @@
 		} else if (exp.value == '' && ebx.className!= 'hide') {
 			Ext.Msg.alert('Effective date', 'Please specify an expiration Date.');		
 		} 
-		else{
+		else{		
     		ptoken.navigate('#SESSION.root#/Staffing/Application/employee/events/EventFormSubmit.cfm?scope='+scope+'&box='+box+'&eventid='+id,'process','','','POST','eventform')		
 		}
 	}

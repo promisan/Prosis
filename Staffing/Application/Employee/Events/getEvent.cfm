@@ -104,9 +104,9 @@
 
 </cfif>
 
-<select name="eventcode" id="eventcode" class="regularxl" style="width:95%" 
-    onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getReason.cfm?triggercode='+document.getElementById('triggercode').value+'&eventcode='+this.value+'&eventid='+'&preason=#url.preason#','dReason')">
-	<cfif qEvent.recordcount gt "1">
+<select name="eventcode" id="eventcode" class="regularxxl" style="width:95%" 
+    onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getReason.cfm?mission=#url.mission#&triggercode='+document.getElementById('triggercode').value+'&eventcode='+this.value+'&eventid='+'&preason=#url.preason#','dReason')">
+	<cfif qEvent.recordcount eq "0" and qEvents.recordcount gt "1">
 	<option value=""><cf_tl id="Please select">...</option>
 	</cfif>
 	<cfoutput query="qEvents">
@@ -115,6 +115,14 @@
 <select>
 
 <cfoutput>		
+
+<cfif getTrigger.entitycode eq "PersonContract" and getContract.dateExpiration neq "">
+	
+	<script>
+		document.getElementById('ActionDateEffective').value = "#dateformat(getContract.DateExpiration+1,client.dateformatshow)#"
+	</script>
+
+</cfif>
 
 <cfloop list="VacCandidate,Requisition" index="itm">
 	

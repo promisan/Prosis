@@ -1,0 +1,100 @@
+
+<cfparam name="url.action" default="view">
+<cfparam name="url.actionid" default="">
+
+<cfparam name="Transaction.ActionStatus" default="0">
+
+ <cfif url.action eq "delete">
+ 
+  <!--- you have the actionId to do the stuff here --->
+  
+ </cfif>
+
+<cfquery name="Action" 
+		datasource="AppsLedger" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT   TOP 3
+		         R.Code, 
+		         R.Description, 
+				 T.Journal,
+				 T.JournalSerialNo,
+				 T.ActionId,
+				 T.ActionMode,
+				 T.ActionStatus,
+				 T.ActionReference1,
+				 T.ActionReference2,
+				 T.ActionReference3,
+				 T.ActionReference4,
+				 T.ActionDate
+		FROM     TransactionHeaderAction T, Ref_Action R
+		WHERE    T.ActionCode      = R.Code
+		AND      T.Journal         = '#url.Journal#'
+		AND      T.JournalSerialNo = '#url.JournalSerialNo#'
+		AND      R.Code = 'Invoice'
+		ORDER BY R.Code, ActionDate DESC
+ </cfquery>
+ 
+ <table width="100%" class="formpadding" style="border-left:1px solid silver;border-right:1px solid silver">
+   
+	 <cfoutput query="Action" group="Code">
+  	  
+		 <cfoutput>	 
+		 
+		 <cfif actionstatus eq "9">		  
+		      <cfset st = "color:red;text-decoration-line: line-through;background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px">
+		 <cfelse>
+			 <cfset st = "background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px">
+		 </cfif>	 
+		
+		 <tr class="labelmedium2 linedotted">	   
+		    <!--- <td style="border:0px solid silver;padding-left:4px" width="20%">#Description#:<cf_space spaces="30"></td> --->
+			<cfif Transaction.ActionStatus eq "0">
+			<td align="center" style="width:20px;background-color:f4f4f4;border-right:1px solid silver">
+			<cfif actionMode eq "2">
+			<cf_img icon="delete"
+			    tooltip="cancel action" 
+				onclick="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/Gledger/Application/Transaction/View/getTransactionAction.cfm?action=delete&actionid=#actionid#&journal=#journal#&journalserialNo=#journalserialno#','invoiceactionbox')">
+			</cfif>	
+			</td>		
+			</cfif>
+			<td align="center" width="90" style="background-color:f4f4f4;padding-left:3px;padding-right:3px">#dateformat(ActionDate,CLIENT.DateFormatShow)#</td>		
+			<td align="center" style="#st#" width="20">#ActionStatus#</td>
+			<td align="center" style="#st#" width="20">#ActionMode#</td>
+			<td align="center" style="#st#" width="25%">#ActionReference1#</td>
+			<td align="center" style="#st#" width="15%">#ActionReference2#</td>
+			<td align="center" style="#st#" width="15%">#ActionReference3#</td>
+			<td align="center" style="#st#" width="15%">#ActionReference4#</td>
+		  </tr>
+		  
+			  <cf_filelibraryCheck
+					DocumentPath="LedgerAction"
+					SubDirectory="#Journal#\#JournalSerialNo#" 
+					Filter="#code#_#actionid#">	
+							
+			  <cfif files gte "1">
+					
+				  <tr>	
+				    <td></td>
+					<td colspan="7" width="80%">
+							 			 
+							<cf_filelibraryN
+									DocumentPath="LedgerAction"
+									SubDirectory="#Journal#\#JournalSerialNo#" 
+									Filter="#code#_#ActionId#"
+									Insert="no"
+									color="ffffef"
+									Remove="no"
+									reload="true">		 				 
+					
+					</td>
+				 
+				 </tr>
+			 
+			 </cfif>
+			 		 
+		 </cfoutput>
+	 
+	 </cfoutput>
+	 
+ </table>	 

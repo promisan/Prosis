@@ -41,21 +41,22 @@ password="#SESSION.dbpw#">
 <cfajaximport tags="cfform">
 <cfdiv id="divNewElement" style="display:none;">
 
-<table width="95%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 <tr class="hide"><td><iframe name="formTarget" id="formTarget"></iframe></td></tr>
 <tr><td>
+
 <cfform action="RecordSubmit.cfm" method="POST" name="dialog" id="dialog" target="formTarget" style="height:100%">
 
 <!--- Entry form --->
 
-<table width="95%" cellspacing="0" cellpadding="0" class="formpadding formspacing" align="center">
+<table width="95%" class="formpadding formspacing" align="center">
 
     <tr><td height="3"></td></tr>
 	
     <TR>
-    <td class="labelmedium" width="140">Leavetype:</td>
+    <td class="labelmedium2" width="140"><cf_tl id="Type">:</td>
     <TD>
-		<select name="LeaveType" id="LeaveType" class="regularxl">
+		<select name="LeaveType" id="LeaveType" class="regularxxl">
 		   <cfoutput query="LeaveType">
      	   	<option value="#LeaveType.LeaveType#" <cfif URL.ID eq LeaveType.LeaveType>selected</cfif>>#LeaveType.Description#</option>
        	   </cfoutput>	
@@ -64,9 +65,9 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Contract:</TD>
+    <TD class="labelmedium2">Contract:</TD>
     <TD>
-	<select name="ContractType" id="ContractType" class="regularxl">
+	<select name="ContractType" id="ContractType" class="regularxxl">
 		   <cfoutput query="Contract">
      	   	  <option value="#Contract.ContractType#">#ContractType# #Description#</option>
        	   </cfoutput>	
@@ -75,12 +76,12 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Effective:</TD>
+    <TD class="labelmedium2">Effective:</TD>
     <TD>
 	<cf_intelliCalendarDate9
 		FieldName="dateeffective" 
-		class="regularxl"
-		Default="01/01/2000"
+		class="regularxxl"
+		Default="#dateformat(now(),client.dateformatshow)#"
 		AllowBlank="No">	
 	</TD>
 	</TR>
@@ -88,8 +89,8 @@ password="#SESSION.dbpw#">
 	<tr><td height="3"></td></tr>
 	
 	<TR>
-    <TD class="labelmedium">Accrual period:</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2">Accrual period:</TD>
+    <TD class="labelmedium2">
 	    <INPUT type="radio" name="CreditPeriod" id="CreditPeriod" value="Month" checked onclick="toggleCreditCalculation(this);"> Month 
 		<INPUT type="radio" name="CreditPeriod" id="CreditPeriod" value="Contract" onclick="toggleCreditCalculation(this);"> Contract duration
 	</TD>
@@ -100,8 +101,8 @@ password="#SESSION.dbpw#">
 	<cfset vDisplayCreditEntitlement = "display:none;">
 			
 	<TR class="clsCreditCalculation" style="<cfoutput>background-color:#vCreditDetailBGColor#; #vDisplayCreditCalculation#</cfoutput>">
-    <TD class="labelmedium">Credit UoM:</TD>
-    <TD class="labelmedium">
+    <TD class="labelmedium2">Credit UoM:</TD>
+    <TD class="labelmedium2">
 	  <cfif get.LeaveAccrual eq "1">
 	  
 	  	  <cfinput type="Text"
@@ -111,7 +112,7 @@ password="#SESSION.dbpw#">
 				   message="Please enter a credit" 
 				   style="text-align: center;" 
 				   validate="float" 
-				   class="regularxl"
+				   class="regularxxl"
 				   required="Yes" 
 				   size="5" 
 				   maxlength="5">
@@ -128,16 +129,16 @@ password="#SESSION.dbpw#">
 	<cfif get.LeaveAccrual eq "1">
 	
 		<TR class="clsCreditCalculation" style="<cfoutput>background-color:#vCreditDetailBGColor#; #vDisplayCreditCalculation#</cfoutput>">
-	    <TD class="labelmedium">Credit Calculation:</TD>
-	     <TD class="labelmedium">
+	    <TD class="labelmedium2">Credit Calculation:</TD>
+	     <TD class="labelmedium2">
 		    <table width="100%">
-				<tr class="labelmedium"><td><INPUT type="radio" class="radiol" name="Calculation" id="Calculation" value="Day" checked></td>
+				<tr class="labelmedium2"><td><INPUT type="radio" class="radiol" name="Calculation" id="Calculation" value="Day" checked></td>
 				    <td style="padding-left:5px">Pro-rated per day (0.5 days)</td>
 				</tr>
-				<tr class="labelmedium"><td><INPUT type="radio" class="radiol" name="Calculation" id="Calculation" value="WorkDay"></td>
+				<tr class="labelmedium2"><td><INPUT type="radio" class="radiol" name="Calculation" id="Calculation" value="WorkDay"></td>
 				    <td style="padding-left:5px">Pro-rated per Work day (0.5 days)</td>
 				</tr>
-				<tr class="labelmedium"><td><INPUT type="radio" class="radiol" name="Calculation" id="Calculation" value="Formula"></td>
+				<tr class="labelmedium2"><td><INPUT type="radio" class="radiol" name="Calculation" id="Calculation" value="Formula"></td>
 				    <td style="padding-left:5px">UN Formula (2;16)</td>
 				</tr>	
 			</table>
@@ -147,8 +148,8 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 	<TR class="clsCreditEntitlement" style="<cfoutput>#vDisplayCreditEntitlement#</cfoutput>">
-    <TD class="labelmedium" valign="top" style="padding-top:5px;">Entitlement:</TD>
-    <TD class="labelmedium" valign="top" style="padding-top:3px;">
+    <TD class="labelmedium2" valign="top" style="padding-top:5px;">Entitlement:</TD>
+    <TD class="labelmedium2" valign="top" style="padding-top:3px;">
   	   <cfdiv id="divCreditEntitlement" bind="url:getCreditEntitlement.cfm?leaveType=&contractType=&dateEffective=">
     </TD>
 	</TR>
@@ -156,25 +157,25 @@ password="#SESSION.dbpw#">
 	<tr><td height="3"></td></tr>
 	
 	<TR>
-    <TD class="labelmedium">Carry Over (max):</TD>
+    <TD class="labelmedium2">Carry Over (max):</TD>
    	
 	<TD>
 	  <table cellspacing="0" cellpadding="0">
 	  <tr>
 	   
 	   <td>
-  	   <cfinput class="regularxl" type="Text" name="CarryOverMaximum" id="CarryOverMaximum" message="Please enter a maximum" style="width:40;text-align: center;" validate="numeric" required="Yes" size="8" maxlength="6">
+  	   <cfinput class="regularxxl" type="Text" name="CarryOverMaximum" id="CarryOverMaximum" value="30" message="Please enter a maximum" style="width:40;text-align: center;" validate="numeric" required="Yes" size="8" maxlength="6">
 	   </td>
 	   
-	   <td style="padding-left:10px" class="labelmedium">Apply on:</td>
+	   <td style="padding-left:10px" class="labelmedium2">Apply on:</td>
 	   
 	   <td style="padding-left:10px">
-	   <cfinput type="Text" class="regularxl" name="CarryOverOnMonth" id="CarryOverOnMonth" range="1,12" value="1" message="Please enter a month No" validate="integer" required="Yes" 
+	   <cfinput type="Text" class="regularxxl" name="CarryOverOnMonth" id="CarryOverOnMonth" range="1,12" value="1" message="Please enter a month No" validate="integer" required="Yes" 
 	  			 size="2" maxlength="2" style="text-align: center;">
 	   </td>
 	   
-	   <td style="padding-left:2px" class="labelmedium">=</td>
-	   <td style="padding-left:6px" class="labelmedium">
+	   <td style="padding-left:2px" class="labelmedium2">=</td>
+	   <td style="padding-left:6px" class="labelmedium2">
 	     <cfdiv bind="url:GetMonth.cfm?mth={CarryOverOnMonth}">
 	   </td>
 	   </tr>
@@ -185,23 +186,23 @@ password="#SESSION.dbpw#">
 	</TR>
 			
 	<TR>
-    <TD class="labelmedium">Maximum in Credit Period:</TD>
-    <TD class="labelmedium">
-  	   <cfinput class="regularxl" type="Text" name="AccumulationPeriod" id="AccumulationPeriod" value="0" message="Please enter a number of months" style="text-align: center;" validate="integer" required="Yes" size="4" maxlength="4">&nbsp;&nbsp;Months
+    <TD class="labelmedium2">Maximum in Credit Period:</TD>
+    <TD class="labelmedium2">
+  	   <cfinput class="regularxxl" type="Text" name="AccumulationPeriod" id="AccumulationPeriod" value="0" message="Please enter a number of months" style="text-align: center;" validate="integer" required="Yes" size="4" maxlength="4">&nbsp;&nbsp;Months
     </TD>
 	</TR>
 		
 	<TR>
-    <TD class="labelmedium">Maximum in Overall Balance:</TD>
+    <TD class="labelmedium2">Maximum in Overall Balance:</TD>
     <TD>
-  	   <cfinput class="regularxl" type="Text" name="MaximumBalance" id="MaximumBalance" value="100" message="Please enter a maximum" style="text-align: center;" validate="integer" required="Yes" size="4" maxlength="4">
+  	   <cfinput class="regularxxl" type="Text" name="MaximumBalance" id="MaximumBalance" value="100" message="Please enter a maximum" style="text-align: center;" validate="integer" required="Yes" size="4" maxlength="4">
     </TD>
 	</TR>	
 	
 	<TR>
-    <TD class="labelmedium">Advance credits:</TD>
+    <TD class="labelmedium2">Advance credits:</TD>
     <TD>
-  	   <cfinput class="regularxl" type="Text" name="AdvanceInCredit" id="AdvanceInCredit" value="4" message="Please enter a number" style="width:30;text-align: center;" validate="integer" required="Yes" size="2" maxlength="3">
+  	   <cfinput class="regularxxl" type="Text" name="AdvanceInCredit" id="AdvanceInCredit" value="4" message="Please enter a number" style="width:30;text-align: center;" validate="integer" required="Yes" size="2" maxlength="3">
     </TD>
 	</TR>
 	

@@ -54,7 +54,7 @@
 						  <cfif url.fmission neq ""> 
 						  WHERE   Mission = '#url.fmission#'
 						  <cfelse> 
-						  WHERE 1=1
+						  WHERE   1=1
 						  </cfif>
 						  AND     ItemNo = I.ItemNo ) as OnHand,
 							 
@@ -114,7 +114,7 @@
 			) SubQ
 		WHERE 1=1
 		-- condition
-
+		
 	
 </cfsavecontent>
 </cfoutput>
@@ -242,7 +242,8 @@
 					width            = "0", 
 					field            = "OnHand",	
 					align            = "right",			
-					formatted        = "lsNumberFormat(OnHand,',')",
+					formatted        = "lsNumberFormat(OnHand,'[precision]')",
+					precision        = "ItemPrecision",
 					search           = "amount"}>	
 					
 <cfset itm = itm+1>		

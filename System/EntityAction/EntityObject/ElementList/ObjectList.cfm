@@ -45,23 +45,23 @@ password="#SESSION.dbpw#">
 
 <cfform name="formlist" id="formlist">
 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 	 
 	 	<tr>
 	
 	    <td width="100%">
-	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+	    <table width="100%" class="navigation_table">
 				
 	    <TR class="labelmedium line" height="18">
-		   <td style="padding-left:4px;width:40px">Code</td>
-		   <td width="60%">Description</td>
-		   <td width="50"  style="text-align:center">Sort</td>
-		   <td width="30" align="center">Active</td>
-		   <td colspan="2" align="right" style="width:40px">
+		   <td style="padding-left:4px;width:40px"><cf_tl id="Code"></td>
+		   <td width="80%"><cf_tl id="Description"></td>
+		   <td style="min-width:40px;text-align:center"><cf_tl id="Sort"></td>
+		   <td style="min-width:40px" align="center"><cf_tl id="Active"></td>
+		   <td colspan="2" align="right" style="min-width:40px">
 	       <cfoutput>
 			 <cfif URL.ID2 neq "new">
 			     <A href="#ajaxLink('../../EntityObject/ElementList/ObjectList.cfm?DocumentId=#URL.DocumentId#&ID2=new')#">
-				 <font color="0080FF">[add]</font></a>
+				 [add]</a>
 			 </cfif>
 			 </cfoutput>&nbsp;
 		   </td>		  
@@ -80,7 +80,7 @@ password="#SESSION.dbpw#">
 											
 			    <input type="hidden" name="DocumentItem" id="DocumentItem" value="<cfoutput>#nm#</cfoutput>">
 													
-				<TR style="height:30px;padding-left:4px" class="labelmedium line navigation_row">
+				<TR style="height:30px;padding-left:4px" class="labelmedium2 line navigation_row">
 				   <td style="padding-left:4px">#nm#</td>
 				   <td>
 				   	   <cfinput type="Text" 
@@ -90,11 +90,11 @@ password="#SESSION.dbpw#">
 						required="Yes" 
 						size="80" 
 						style="width:99%"
-						maxlength="80" 
-						class="regularxl">
+						maxlength="200" 
+						class="regularxxl">
 				  
 		           </td>
-				   <td height="22">
+				   <td>
 				   	<cfinput type="Text"
 					       name="ListingOrder"
 						   style="text-align:center"
@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
 					       typeahead="No"
 					       size="1"
 					       maxlength="2"
-					       class="regularxl">
+					       class="regularxxl">
 				   			   
 				     </td>
 				  
@@ -121,7 +121,7 @@ password="#SESSION.dbpw#">
 						onclick = "javascript:saveList('#URL.DocumentId#','#url.id2#')" 
 				        value	= "Save" 
 						class	= "button10g" 
-						style	= "width:50;height:25px">
+						style	= "width:50px;height:25px">
 					</td>
 			    </TR>	
 				
@@ -149,7 +149,7 @@ password="#SESSION.dbpw#">
 					AND   DocumentItem = '#DocumentItem#'
 				</cfquery>	
 						
-				<TR class="labelmedium line navigation_row" bgcolor="fcfcfc">
+				<TR class="labelmedium2 line navigation_row" bgcolor="fcfcfc">
 				   <td height="15" style="padding-left:4px">#nm#</td>
 				   <td>#de#</td>
 				   <td style="text-align:center">#ls#</td>
@@ -182,7 +182,7 @@ password="#SESSION.dbpw#">
 						 required="Yes" 
 						 size="2" 
 						 maxlength="20" 
-						 class="regularxl">
+						 class="regularxxl">
 	        </td>
 						   
 			    <td>
@@ -192,8 +192,8 @@ password="#SESSION.dbpw#">
 						 required="Yes" 
 						 size="80" 
 						 style="width:99%"
-						 maxlength="80" 
-						 class="regularxl">
+						 maxlength="200" 
+						 class="regularxxl">
 				</td>								 
 				<td>
 				   <cfinput type="Text" 
@@ -205,7 +205,7 @@ password="#SESSION.dbpw#">
 					  value="#last.Last#"
 					  validate="integer"
 					  maxlength="2" 
-					  class="regularxl">
+					  class="regularxxl">
 				</td>
 			
 			<td align="center">
@@ -218,7 +218,7 @@ password="#SESSION.dbpw#">
 						onclick = "javascript:saveList('#URL.DocumentId#','new')" 
 						value="Add" 
 						class="button10g" 
-						style="width:50;height:25px">
+						style="width:50px;height:25px">
 				</cfoutput>
 									
 			</td>			    

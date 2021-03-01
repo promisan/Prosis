@@ -142,7 +142,7 @@
 	
 			<cfoutput>
 			
-			<select name="#FieldName#" id="#FieldName#" class="regularxl">
+			<select name="#FieldName#" id="#FieldName#" class="regularxxl">
 			
 			  <cfif FieldName eq "SecondReviewerUserId">
 			  	<option value="">[n/a]</option>
@@ -327,7 +327,7 @@
 	  
 	  <cfoutput>
 	  
-	  <select name="#FieldName#" id="#FieldName#" required class="regularxl enterastab" style="min-width:340px">
+	  <select name="#FieldName#" id="#FieldName#" required class="regularxxl enterastab" style="min-width:340px">
 						
 			  <cfif FieldName eq "SecondReviewerUserId" and LeaveType.ReviewerTwoForce eq "0">
 			  	  <option>--<cf_tl id="select">--</option>

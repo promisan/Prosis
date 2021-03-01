@@ -26,10 +26,10 @@
 					<td>Op</td>		
 					<td>Entity</td>							
 					<td>Effective</td>
-					<td align="center">Unit</td>
-					<td align="center">Disable Distribution</td>
 					<td>Posting Level</td>	
-					<td>Posting Journal</td>					
+					<td>Posting Journal</td>			
+					<td align="center">Post unit</td>
+					<td align="center">Settlement handling</td>																	
 					<td>Person Liability</td>							
 				</tr>				
 									
@@ -109,18 +109,6 @@
 				   
 				   </td>
 				   
-				   <td align="center">
-				  
-				   <input type="checkbox" class="radiol" name="orgunit_#ln#" value="1" <cfif get.OrgUnit eq "1">checked</cfif> class="labelit">
-									   
-				   </td>
-
-				   <td align="center">
-				  
-				   <input type="checkbox" class="radiol" name="disableDistribution_#ln#" value="1" <cfif get.DisableDistribution eq "1">checked</cfif> class="labelit">
-									   
-				   </td>
-				   
 				    <td>
 				   
 				   <select name="PostingMode_#ln#" style="width:150px;" class="regularxl" onchange="togglePostingMode(this.value, '.clsPostingMode_#mission#');">					
@@ -146,11 +134,11 @@
 							SELECT  *
 						    FROM    Journal 
 						   	WHERE   Mission  =  '#mission#'				
-							AND     TransactionCategory IN ('Payables','DirectPayment')
+							AND     TransactionCategory IN ('Payables','DirectPayment','Memorial')
 							AND 	Currency = (SELECT Paymentcurrency FROM Payroll.dbo.SalarySchedule WHERE SalarySchedule = '#URL.ID1#')
 						</cfquery>
 						
-						<select name="journal_#ln#" style="width:180px; #vPostingModeToggle#" class="regularxl clsPostingMode_#vMissionId#">
+						<select name="journal_#ln#" style="width:280px;" class="regularxl">
 						<option value="">--- select ---</option>
 						<cfloop query="Journal">
 							<option value="#Journal#" <cfif get.Journal eq Journal>selected</cfif>>#Journal# #Description#</option>					
@@ -158,6 +146,32 @@
 						</select>
 					
 				   </td>
+				   
+				   <td align="center">
+				  
+				   <input type="checkbox" class="radiol" name="orgunit_#ln#" value="1" <cfif get.OrgUnit eq "1">checked</cfif>>
+									   
+				   </td>
+
+				   <td align="center">
+				  
+					   <table>
+					   <tr class="labelmedium2">
+					   <td>AP</td>
+					   <td><input type="radio" class="radiol" name="disableDistribution_#ln#" value="0" <cfif get.DisableDistribution eq "0">checked</cfif>></td>				   
+					   <td>Check only:</td>
+					   <td><input type="checkbox" class="radiol" name="DistributionMode_#ln#" value="1" <cfif get.DistributionMode eq "1">checked</cfif>></td>				  
+					   <td style="padding-left:10px">
+					   <input type="radio" class="radiol" name="disableDistribution_#ln#" value="1" <cfif get.DisableDistribution eq "1">checked</cfif>>
+					   </td>
+					   <td>Disabled</td>
+					   </tr>
+					   </table>
+				   
+				   </td>				   
+				   
+				   
+				   
 					 
 				   <td style="width:200px;">
 				   

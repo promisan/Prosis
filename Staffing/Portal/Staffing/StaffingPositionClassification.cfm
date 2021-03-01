@@ -153,7 +153,7 @@ password="#SESSION.dbpw#">
 		<tr>
 		<td align="center" colspan="2" style="padding-top:7px;border-top:1px solid silver">	
 			<input type="button" name="Initiate request" class="botton10g" style="width:220px;height:29px" value="#lt_text#"
-			onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Staffing/Portal/Staffing/StaffingPositionWorkflowClassification.cfm?positionparentid=#url.positionparentid#&ajaxid=#url.ajaxid#&portal=1&init=1','#url.ajaxid#','','','POST','formclassification');ProsisUI.closeWindow('classify')">					
+			onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Staffing/Portal/Staffing/StaffingPositionWorkflowClassification.cfm?positionparentid=#url.positionparentid#&ajaxid=#url.ajaxid#&portal=1&init=1','#url.ajaxid#','','','POST','formclassification')">					
 		</td>
 		</tr>
 		

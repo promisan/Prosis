@@ -53,7 +53,7 @@ password="#SESSION.dbpw#">
 		
 	    <table width="100%">
 			
-	    <TR class="line labelmedium fixrow">
+	    <TR class="line labelmedium2 fixrow">
 		   
 		   <td width="80"><cf_space spaces="34">Code</b>		   
 		   <td width="45%">Description</td>
@@ -89,7 +89,7 @@ password="#SESSION.dbpw#">
 						
 		    <input type="hidden" name="EntityCode" id="EntityCode" value="<cfoutput>#cd#</cfoutput>">
 												
-			<TR class="line labelmedium">
+			<TR class="line labelmedium2">
 			
 			   <td style="padding-right:4px">#nm#</td>
 			   				 
@@ -163,7 +163,7 @@ password="#SESSION.dbpw#">
 		
 			<cfset edit = "javascript:ptoken.navigate('ActionClass.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','icls')">
 						
-			<TR class="labelmedium navigation_row line" style="height:23px">
+			<TR class="labelmedium2 navigation_row line" style="height:23px">
 			
 			   <!---
 			   <td onclick="#edit#"><cfif ow eq ""><font color="C0C0C0">All<cfelse>#ow#</cfif></td>
@@ -185,7 +185,7 @@ password="#SESSION.dbpw#">
 				</cfif>		   					   
 			   </td>
 			   <td align="right" style="padding-right:4px">			   
-			      <cf_img icon="edit" navigation="Yes" onClick="javascript:ptoken.navigate('ActionClass.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','icls')">			 				 
+			      <cf_img icon="open" navigation="Yes" onClick="javascript:ptoken.navigate('ActionClass.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','icls')">			 				 
 			   </td>
 			   
 			   <td align="left" style="padding-left:2px;padding-top:2px;padding-right:3px">

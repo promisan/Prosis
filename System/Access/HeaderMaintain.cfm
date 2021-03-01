@@ -1,5 +1,5 @@
 
-<cfparam name="menu"        default="1">
+<cfparam name="menu"        default="0">
 <cfparam name="page"        default="1">
 <cfparam name="add"         default="1">
 <cfparam name="save"        default="0">
@@ -56,7 +56,7 @@ function menu() {
 
 	<table width="100%" align="center" align="center" class="formpadding">
 	
-		<cfif menu eq '1'>
+		<cfif menu eq "1">
 		<tr><td colspan="1" class="line"></td></tr>
 		<cfelse>
 		<tr><td height="6"></td></tr>

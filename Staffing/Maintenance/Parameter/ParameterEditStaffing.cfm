@@ -12,12 +12,12 @@ password="#SESSION.dbpw#">
 
 <cfform method="POST" name="formstaffing">
 
-<table width="95%" align="center" class="formspacing">
+<table width="95%" align="center" class="formspacing formpadding">
 			   		
 	<TR>
 	
-	<cf_UIToolTip tooltip="Enable/Disable the option to associate a position to an external reference No (IMIS, SAIT)">
-   		<td class="labelmedium2" style="cursor: pointer;">External Position Administration:</b></td>
+	<cf_UIToolTip tooltip="Enable/Disable the option to associate a position to an external reference No (i.e Umoja SAIT)">
+   		<td class="labelmedium2" style="cursor: pointer;">External Position Administration:</td>
 	</cf_UIToolTip>
 	
     <td><input type="checkbox" class="radiol" name="EnableSourcePost" <cfif EnableSourcePost eq "1">checked</cfif> value="1"></td>
@@ -29,7 +29,7 @@ password="#SESSION.dbpw#">
 	</tr>
 	<tr><td class="linedotted" colspan="2"></td></tr>
 			
-	<tr class="labelmedium2" style="height:22px">
+	<tr class="labelmedium2">
     	<td style="padding-left:10px;cursor: pointer;">Enable Assignment Entry:</b></td>
 	    <TD>	
 			<table>
@@ -41,7 +41,7 @@ password="#SESSION.dbpw#">
     	</td>
     </tr>	
 	
-	<tr class="labelmedium2" style="height:22px">
+	<tr class="labelmedium2">
     	<td style="padding-left:10px;cursor: pointer;">Highlight Expiring assigments:</b></td>
 	    <TD>	
 		<cfinput type="text" name="AssignmentExpiration" validate="integer" value="#AssignmentExpiration#" class="regularxxl" style="text-align:center;width:30"> days in advance
@@ -67,7 +67,7 @@ password="#SESSION.dbpw#">
     </tr>
 	
 	
-	<TR class="labelmedium2" style="height:22px">
+	<TR class="labelmedium2">
 	    <td style="padding-left:10px;cursor: pointer;" width="190"><cf_UIToolTip tooltip="Enable Transfer workflow for actions that are Personnel Actions">Transfer&nbsp;(0006)&nbsp;or&nbsp;Change&nbsp;Title&nbsp;(0007)&nbsp;Workflow:</b></cf_UIToolTip></td>
 	    <TD width="75%">
 		
@@ -82,7 +82,7 @@ password="#SESSION.dbpw#">
 		The workflow class is determed by the assignment action as it is determined by the system (0001 - 0007)</i></td>	
 	</tr>
 	
-	<TR class="labelmedium2" style="height:22px">
+	<TR class="labelmedium2">
     <td style="padding-left:10px;cursor: pointer;">Assignment Location Lookup:</b></td>
     <TD>	
 	<table cellspacing="0" cellpadding="0">
@@ -97,7 +97,7 @@ password="#SESSION.dbpw#">
 	<tr><td style="font-size:25px;height:45px" class="labellarge" colspan="2">Miscellaneous Settings</td></tr>
 	<tr><td height="1" colspan="2" class="linedotted"></td></tr>
 	
-	<TR class="labelmedium2" style="height:22px">
+	<TR class="labelmedium2">
 	<cf_UIToolTip tooltip="Enforce Position to be associated to a grade which has been enabled in the Function Maintenance">
     <td style="padding-left:10px;cursor: pointer;">Enforce Position Grade:</b></td>
 	</cf_UIToolTip>
@@ -106,7 +106,7 @@ password="#SESSION.dbpw#">
     </td>
     </tr>
 	
-	<TR class="labelmedium2" style="height:22px">
+	<TR class="labelmedium2">
     <td style="padding-left:10px;cursor: pointer;">Fund registration:</b></td>
     <TD>	
 	<table cellspacing="0" cellpadding="0">
@@ -120,7 +120,7 @@ password="#SESSION.dbpw#">
     </tr>
 	
 	
-	<TR class="labelmedium2" style="height:22px">
+	<TR class="labelmedium2">
     <td style="padding-left:10px;cursor: pointer;">Position Period:</b></td>
     <TD>	
 	<table cellspacing="0" cellpadding="0">
@@ -132,7 +132,7 @@ password="#SESSION.dbpw#">
     </td>
     </tr>
 	
-	<TR class="labelmedium2" style="height:22px">
+	<TR class="labelmedium2">
     <td style="padding-left:10px;cursor: pointer;">Entity Assignment Start and End:</b></td>
     <TD>
 	<table cellspacing="0" cellpadding="0">
@@ -144,7 +144,7 @@ password="#SESSION.dbpw#">
     </td>
     </tr>
 		
-	<TR class="labelmedium2" style="height:22px">
+	<TR class="labelmedium2">
 	<cf_UIToolTip tooltip="Shows additional rows in the staffing table view">
     <td style="padding-left:10px;cursor: pointer;">Staffing View Mode:</b></td>
 	</cf_UIToolTip>
@@ -158,7 +158,7 @@ password="#SESSION.dbpw#">
     </td>
     </tr>
 	
-	<TR class="labelmedium2" style="height:22px">
+	<TR class="labelmedium2">
 	<cf_UIToolTip tooltip="Refresh mode of the staffing table view">
     <td style="padding-left:10px;cursor: pointer;">Staffing table View Load Mode:</b></td>
 	</cf_UIToolTip>
@@ -176,7 +176,7 @@ password="#SESSION.dbpw#">
 	<tr><td colspan="2" style="font-size:25px;height:45px" class="labellarge">Recruitment Integration Settings</td></tr>
 	<tr><td height="1" colspan="2" class="linedotted"></td></tr>
 	
-	<TR class="labelmedium2" style="height:22px">
+	<TR class="labelmedium2">
 	<cf_UIToolTip tooltip="Allow Employee record to be generated from the recruitment track once a candidate is selected (2s)">
     <td style="padding-left:10px;cursor: pointer;">Create Employee record for candidate:</b></td>
 	</cf_UIToolTip>
@@ -190,7 +190,7 @@ password="#SESSION.dbpw#">
     </td>
     </tr>
 			
-	<TR class="labelmedium2" style="height:22px">
+	<TR class="labelmedium2">
 	<cf_UIToolTip tooltip="Create Applicant records for all Employees recorded under this entity (Batch)">
     <td style="padding-left:10px;cursor: pointer;">Applicant records:</b></td>
 	</cf_UIToolTip>
@@ -225,8 +225,7 @@ password="#SESSION.dbpw#">
     </tr>
 	
 	--->
-		
-			
+					
 	<tr><td colspan="2" align="center">
 	<input type    = "button" 
 	       class   = "button10g" 

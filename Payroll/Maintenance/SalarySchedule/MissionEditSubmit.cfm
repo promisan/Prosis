@@ -1,5 +1,7 @@
  
-<cf_wait Text="Saving schedule components">
+
+<cfparam name="Form.SettleInitialMode" default="0">
+<cfparam name="Form.SettleInitial" default="100">
 
 <cfif url.action eq "delete">
  
@@ -28,13 +30,19 @@
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
 	     UPDATE SalaryScheduleMission
-		 SET    DateEffective          = #STR#	 	 
-		  <cfif operational eq "1">
-		  , GLAccount = '#Form.GLAccount#'
-		  </cfif>	 	
-		  	 	
+		 SET    DateEffective          = #STR#,
+		        SettleInitialMode      = '#form.settleInitialMode#',
+				<cfif form.settleinitialmode eq "0">
+				SettleInitial          = '100'
+				<cfelse>
+				SettleInitial          = '#form.settleInitial#'	 	 
+				</cfif>
+		        <cfif operational eq "1">
+		        , GLAccount = '#Form.GLAccount#'
+		        </cfif>			  	 	
 		 WHERE  SalarySchedule  = '#URL.Schedule#'
-		 AND    Mission  = '#URL.Mission#'
+		 AND    Mission         = '#URL.Mission#'
+		
 	</cfquery>
 	
 	<cfquery name="Update"
@@ -43,7 +51,7 @@
 	  password="#SESSION.dbpw#">
 	     DELETE FROM SalaryScale
 		 WHERE  SalarySchedule  = '#URL.Schedule#'
-		 AND    Mission  = '#URL.Mission#'
+		 AND    Mission         = '#URL.Mission#'
 		 AND    SalaryEffective < #STR#
 	</cfquery>
 	
@@ -53,7 +61,7 @@
 	  password="#SESSION.dbpw#">
 	     DELETE FROM EmployeeSalary
 		 WHERE  SalarySchedule  = '#URL.Schedule#'
-		 AND    Mission  = '#URL.Mission#'
+		 AND    Mission         = '#URL.Mission#'
 		 AND    PayrollStart < #STR#
 	</cfquery>
 			

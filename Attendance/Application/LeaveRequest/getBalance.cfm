@@ -226,8 +226,10 @@ in which the leave ends --->
 		    password="#SESSION.dbpw#">
 			   	SELECT 	 *
 			    FROM 	 PersonContract 
-			   	WHERE	 DateEffective <= #END# 
-				AND      PersonNo      = '#url.id#'
+			   	WHERE    PersonNo      = '#url.id#'
+				<!--- remove as this will not show future contracts which are needed 
+				AND      DateEffective <= #END# 
+				--->				
 				AND      ActionStatus != '9'
 				AND      (DateExpiration >= #END# or DateExpiration is NULL)					
 			    AND      Mission       = '#orgunit.mission#'	

@@ -33,7 +33,8 @@
 	<!---- before we have used : form.eventId --->
 
 	<cf_assignId>
-
+	
+	
 	<cfquery name="qInsert" 
 			 datasource="AppsEmployee" 
 			 username="#SESSION.login#" 
@@ -69,6 +70,7 @@
 					    ActionDateExpiration,
 			            ActionStatus,
 			            Remarks,
+						Source,
 			            OfficerUserId,
 			            OfficerLastName,
 			            OfficerFirstName)
@@ -99,8 +101,13 @@
 			         #dted#,
 					 #eff#,
 					 #exp#,
-			         0,
+			         0,					 
 			         '#FORM.Remarks#',
+					 <cfif url.scope eq "Portal" or url.box neq "">
+					 'Portal',
+					 <cfelse>
+					 'Manual',
+					 </cfif>
 			         '#SESSION.acc#',
 			         '#SESSION.last#',
 			         '#SESSION.first#')
@@ -138,6 +145,7 @@
 			Show             = "No"
 			HideCurrent      = "No"			
 			ObjectURL        = "#link#">
+						
 	
 <cfelse>
 
@@ -145,6 +153,7 @@
 			 datasource="AppsEmployee" 
 			 username="#SESSION.login#" 
 			 password="#SESSION.dbpw#">
+			 
 				UPDATE PersonEvent
 				SET EventTrigger        = '#FORM.TriggerCode#',
 					EventCode           = '#FORM.EventCode#',
@@ -177,13 +186,6 @@
 
 </cfif>
 
-<!---
-<cfoutput>
-<script>
-  alert('#url.scope#')
-</script>
-</cfoutput>
---->
 
 <cfif url.box neq "">
 
@@ -198,7 +200,7 @@
 <cfelseif url.scope eq "portal">	
 
 	<cfoutput>
-		<script>
+		<script>		
 			ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/Selfservice.cfm?id=#FORM.PersonNo#&mission=#form.mission#&trigger=#form.triggercode#&event=#form.eventcode#','divEventDetail');
 			try { ProsisUI.closeWindow('evdialog',true) } catch(e) {}
 		</script>

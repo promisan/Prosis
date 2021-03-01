@@ -1,10 +1,15 @@
+<cfparam name="url.useraccount" default="">
+
 <cfquery name="get" 
 	 datasource="AppsOrganization"
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 	 	SELECT  * 
 		FROM    OrganizationObjectActionSession		
-		WHERE   ActionId = '#url.ActionId#'	
+		WHERE   ActionId        = '#url.ActionId#'	
+		<cfif url.useraccount neq "">
+		AND     UserAccount     = '#url.useraccount#'
+		</cfif>
 		AND     EntityReference = '#url.entityReference#'
 	</cfquery>
 	
@@ -12,13 +17,13 @@
 	
 <cfif get.recordcount eq "0">	
 
-	<img src="#session.root#/images/logos/system/communication.png" style="height:20px;width:22px" alt="Candidate communication" 
-    border="0" onclick="workflowsession('#url.ActionId#','#url.entityReference#')">
+	<img src="#session.root#/images/logos/system/communication.png" style="height:20px;width:22px" title="Candidate communication not enabled" 
+    onclick="workflowsession('#url.ActionId#','#url.entityReference#','#url.useraccount#')">
 	
 <cfelse>
 
-		<img src="#session.root#/images/logos/system/session.png" style="height:24px;width:22px" alt="Candidate communication" 
-    border="0" onclick="workflowsession('#url.ActionId#','#url.entityReference#')">
+		<img src="#session.root#/images/logos/system/session.png" style="height:24px;width:22px" title="Candidate communication enabled" 
+    onclick="workflowsession('#url.ActionId#','#url.entityReference#','#url.useraccount#')">
 
 </cfif>	
 

@@ -175,7 +175,7 @@
 							
 							<cfif Purchase.recordCount gt 0>
 								<cfif Purchase.WarehousePrice eq "">
-									<cfif currency neq purchase.currency>#purchase.Currency#</cfif> #numberformat(Purchase.ReceiptPrice/ReceiptMultiplier,'.,__')#																
+									<cfif currency neq purchase.currency>#purchase.Currency#</cfif> #numberformat(Purchase.ReceiptPrice/Purchase.ReceiptMultiplier,'.,__')#																
 								<cfelseif Purchase.WarehouseCurrency eq Currency or Purchase.WarehouseCurrency eq "">											
 									#numberformat(Purchase.WarehousePrice,'.,__')#							
 								<cfelse>						

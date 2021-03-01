@@ -157,7 +157,7 @@
 	<cfset SESSION.root             = "#Init.ApplicationRoot#">
 	<cfset CLIENT.root              = "#Init.ApplicationRoot#">
 	
-	<cfif Parameter.DocumentRoot neq "">	
+	<cfif Init.DocumentRoot neq "">
 	    <cfset SESSION.rootDocument = "#Init.DocumentRoot#"> 
 	</cfif>
 	<cfset SESSION.rootDocumentPath = "#Init.DocumentRootPath#">	

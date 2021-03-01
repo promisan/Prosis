@@ -24,7 +24,7 @@
 <table width="94%" align="center" class="navigation_table">
  <tr><td height="7" id="select"></td></tr>
  <tr><td colspan="7"><cfinclude template="BroadCastNavigation.cfm"></td></tr>
- <tr height="20" class="labelmedium line">
+ <tr height="20" class="labelmedium2 line">
      <td width="20" align="center"></td>
      <td align="center">No.</td>
      <td>Audience</td>
@@ -50,9 +50,9 @@
 	
 	<td width="25" align="center">
 		<cfif broadcaststatus eq "0" and url.id neq broadcastid>
-		  <cf_img icon="edit" navigation="Yes" onclick="broadcastreload('#broadcastid#')">
+		  <cf_img icon="open" navigation="Yes" onclick="broadcastreload('#broadcastid#')">
 		<cfelseif broadcaststatus eq "1" and url.id neq broadcastid>
-		  <cf_img icon="open" navigation="Yes" onclick="broadcastreload('#broadcastid#')">		
+		  <cf_img icon="select" navigation="Yes" onclick="broadcastreload('#broadcastid#')">		
 		</cfif>
 	</td>
     <td align="center">#currentrow#</td>

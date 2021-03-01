@@ -197,8 +197,7 @@ function applyaccount(acc) {
 	
 	<TR class="labelmedium2">
     <TD><cf_tl id="System Journal for">:</TD>
-    <TD id="systembox">
-	 
+    <TD id="systembox">	 
 	     
 		<cfquery name="Preset" 
 		datasource="AppsLedger" 
@@ -367,7 +366,7 @@ function applyaccount(acc) {
 	</TR>
 			
 	<TR class="labelmedium2">
-    <TD><cf_tl id="Data entry Form Settings">:</TD>
+    <TD><cf_tl id="Speedtype">:</TD>
     <TD>
 	
   	    <select name="speedtype" class="regularxxl">

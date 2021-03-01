@@ -20,9 +20,9 @@
 	     }	 
 		 	 		 	
 		 if (fld != false){		
-			 itm.className = "highLight2";
+			 itm.className = "highLight2 line";
 		 }else{		
-		     itm.className = "regular";		
+		     itm.className = "labelmedium2 line";		
 		 }
 	  }
     
@@ -66,7 +66,6 @@
 			AND      EAP.ActionPublishNo = '#Object.ActionPublishNo#' 
 			AND      D.DocumentType      = 'mail'
 </cfquery>
-
 
 <cfoutput>
 
@@ -119,6 +118,7 @@
 	 FROM     Organization
 	 WHERE    OrgUnit = '#Object.OrgUnit#'
 	 </cfquery>
+	
 	
 	<cfquery name="Potential" 
 	 datasource="AppsOrganization"
@@ -186,7 +186,7 @@
 		 ORDER BY LastName, FirstName 	
 	 	 
 	</cfquery>	
-	 
+	
 	<script>
 	 
 	 function check(val) {
@@ -200,9 +200,9 @@
 			 row = document.getElementById("d"+count)		 
 			 if (row) {
 				 if (val == true) {
-				 row.className = "highlight1"
+				 row.className = "highlight1 line"
 				 } else {
-				 row.className = "regular"
+				 row.className = "labelmedium2 line regular"
 				 }
 		 		 }		 
 			 }
@@ -225,7 +225,7 @@
 			 <td><cf_tl id="Last alert">:</td>
 			 <td><cf_tl id="EMail address"></td>
 			 <td align="center">
-				 <input type="checkbox" name="account" id="account" value="" <cfif potential.recordcount gte "4">checked</cfif> onClick="check(this.checked)">
+				 <input type="checkbox" name="account" id="account" value="" <cfif potential.recordcount lte "4">checked</cfif> onClick="check(this.checked)">
 			 </td>
 		 </tr>	 
 		 
@@ -247,6 +247,8 @@
 			 </td></tr>
 			 
 		 </cfif>
+		
+		 
 		 
 		 <cfset row = 0>
 		 
@@ -276,8 +278,7 @@
 					mission        = "#Object.Mission#"
 					user           = "#Account#"
 					entitygroup    = "#Object.EntityGroup#" 
-					returnvariable = "entityaccess">
-					
+					returnvariable = "entityaccess">					
 								  
 			    <cfif entityaccess eq "EDIT">
 																
@@ -327,7 +328,7 @@
 					<td>#Potential.emailAddress#</td>
 					<td height="25" align="center">
 						<cfif Potential.eMailAddress neq "">
-					    	<input type="checkbox" name="account" class="radiol" id="account" value="'#Account#'" <cfif potential.recordcount gte "4">checked</cfif> onClick="hl(this,this.checked)">
+					    	<input type="checkbox" name="account" class="radiol" id="account" value="'#Account#'" <cfif potential.recordcount lte "4">checked</cfif> onClick="hl(this,this.checked)">
 						<cfelse>
 							<cf_tl id="Not available">	
 						</cfif>
@@ -341,7 +342,7 @@
 		 </cfloop>	
 		 
 		 </tr>
-		 	 	 
+		 		 	 	 
 		 <script language="JavaScript">
 		 
 			 function exit() {

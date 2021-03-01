@@ -45,12 +45,33 @@
 				
 			    <cfset cnt = cnt+1>
 														
-				<cfparam name="current.formatted"      default="#current.field#">						
+				<cfparam name="current.formatted"      default="#current.field#">		
+				<cfparam name="current.precision"      default="">					
 				<cfparam name="current.functionscript" default="">
 				<cfparam name="current.drilltemplate"  default="">
 				<cfif current.formatted eq "">
 					<cfset current.formatted = "#current.field#">
 				</cfif>
+				
+				<cfset contentformat = current.formatted>
+											
+				<cfif findNoCase("[precision]",contentformat)>
+				
+					<cfif current.precision neq "">		
+																			
+						<cf_precision number="#evaluate(current.precision)#">
+										
+						<cfset contentformat = replaceNoCase("#contentformat#","[precision]","#pformat#")>
+										
+					<cfelse>
+					
+						<cfset contentformat = replaceNoCase("#contentformat#","[precision]",",")>
+						
+					</cfif>
+														
+				</cfif>
+				
+				
 				<cfparam name="current.align" default="left">							
 						
 				<!--- edit field:  and evaluate(accesslevel) gte "1" --->		
@@ -304,7 +325,7 @@
 					 <cfif url.ajaxid eq "content">																			
 		
 		<td <cfif currentalign neq "left">align="#current.align#"</cfif> class="#attributes.classcell#" <cfif colspan neq "left">colspan="#colspan#"</cfif> style="color:#fontcolor#;#current.style#"					   
-		id="f#box#_#dkey#_#rowshow#_#cnt#" onclick="toggledrill('#drillmode#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">#evaluate(current.formatted)#</td>					
+		id="f#box#_#dkey#_#rowshow#_#cnt#" onclick="toggledrill('#drillmode#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">#evaluate(contentformat)#</td>					
 		
 					 <cfelseif url.ajaxid eq "append">
 					 
@@ -314,7 +335,7 @@
 						 
 						 <cfscript>
 					 
-						   inner = evaluate(current.formatted)						 
+						   inner = evaluate(contentformat)						 
 						   if (len(cellclick) gte "2") {
 							    myclick = "onclick=toggledrill('#drillmode#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')"
 							} else {	
@@ -353,7 +374,7 @@
 					<cfset cellstyle  = "">
 				
 					<cfset fontcolor = "">			
-					<cfset inner = evaluate(current.formatted)>		
+					<cfset inner = evaluate(contentformat)>		
 																 
 					<cfif inner neq "" and current.functionscript neq "" and (url.ajaxid eq "content" or url.ajaxid eq "append")> <!--- somehow the inner would not work for a refresh --->
 						

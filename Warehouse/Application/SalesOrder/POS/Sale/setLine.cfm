@@ -203,11 +203,24 @@ password="#SESSION.dbpw#">
 			<cfif not isNumeric(url.value)>
 			
 			  <script>
-				  alert("invalid price")
+				  alert("Invalid price")
 			  </script>
 			  
 			<cfelse>  
-			
+								
+						
+				<cfif url.value eq '0'>		
+					<script>			
+					   document.getElementById('SalesPrice_#url.line#').style.backgroundColor = "FF8080"	
+					   document.getElementById('total_#url.line#').style.backgroundColor = "FF8080"					   		
+					</script>
+				<cfelse>
+					<script>
+					    document.getElementById('SalesPrice_#url.line#').style.backgroundColor = "ffffff"	
+						document.getElementById('total_#url.line#').style.backgroundColor = "transparent"						
+					</script>
+				</cfif>
+															
 				<cfset qty   = get.TransactionQuantity>
 				<cfset price = url.value>
 			    <cfset tax   = get.TaxPercentage>

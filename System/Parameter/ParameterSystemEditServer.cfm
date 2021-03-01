@@ -10,7 +10,7 @@
 	    <td class="labellarge" style="padding-left:10" width="170">Virtual Directory to root:</td>
 	    <TD width="70%">
 	  	    <cfoutput query="get">
-			<cfinput class="regularxl" type="Text" name="VirtualDirectory" value="#VirtualDirectory#" required="Yes" size="30" maxlength="30">
+			<cfinput class="regularxl" type="Text" name="VirtualDirectory" value="#VirtualDirectory#" required="No" size="30" maxlength="30">
 			</cfoutput>
 	    </TD>
 		</TR>

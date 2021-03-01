@@ -153,7 +153,7 @@
 	listlayout    = "#fields#"
 	filterShow    = "Hide"
 	excelShow     = "Yes"
-	drillmode     = "window"
+	drillmode     = "tab"
 	drillargument = "960;1200;false;false"	
 	drilltemplate = "Staffing/Application/Employee/PersonView.cfm?id="
 	drillkey      = "PersonNo">

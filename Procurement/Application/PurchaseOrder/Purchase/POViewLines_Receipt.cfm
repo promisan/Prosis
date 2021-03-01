@@ -105,6 +105,7 @@
 						  	</cfquery>			
 					   
 					   	   <cf_precision number="#getItem.ItemPrecision#">
+						   
 						   #numberformat("#ReceiptWarehouse#","#pformat#")#
 					      				   
 					   <cfelse>

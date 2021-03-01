@@ -47,23 +47,45 @@
 						
 						  <cfset size = "60px">
 						  <cfset pict = "">    
-						  				  
-						<cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Person.IndexNo#.jpg") and indexNo gt "0">                           		
+						  
+						  <!---	removed to isolate performance issue 					  			   
+						  <cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Person.IndexNo#.jpg") and indexNo gt "0"> 						                            		
 								<cfset pict = Person.IndexNo>     				    
-						  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Person.Personno#.jpg")>   
+						  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Person.Personno#.jpg")>   						  
+								<cfset pict = Person.Personno>	   				  						   
+						  </cfif>
+						  --->
+						  						  
+						  <cfif FileExists("#SESSION.rootPath#\CFRStage\EmployeePhoto\#Person.IndexNo#.jpg") and indexNo gt "0"> 						                            		
+								<cfset pict = Person.IndexNo>     				    
+						  <cfelseif FileExists("#SESSION.rootPath#\CFRStage\EmployeePhoto\#Person.Personno#.jpg")>   						  
 								<cfset pict = Person.Personno>	   				  						   
 						  </cfif>
 						  
-						  <cfif pict neq "">				  
-							  <cfset vPhoto = "#SESSION.rootDocument#/EmployeePhoto/#pict#.jpg">				  
-						  <cfelse>					  					  
+						  <cfif pict neq "">	
+						  
+						    <!--- 
+						    <cffile action="COPY" 
+							    source="#SESSION.rootDocumentpath#\EmployeePhoto\#vPhoto#.jpg" 
+				  		    	destination="#SESSION.rootPath#\CFRStage\EmployeePhoto\#vPhoto#.jpg" nameconflict="OVERWRITE">
+								
+								--->
+												
+					  		  <cfset vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg">						
+						  					  
+						  <cfelse>		
+										
+						  						  			  					  
 							  <cfif Person.Gender eq "Female">
 								  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-female.png">
 							  <cfelse>
 								  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-male.png">
 							  </cfif>					  
-						  </cfif>				 
+							  
+						  </cfif>	
+						  						  						  			 
 						  <img src="#vPhoto#" class="img-circle clsRoundedPicture" style="height:#size#; width:#size#;">
+						 
 													
 					</td>
 					<td style="background-color:white;padding-bottom:4px" valign="bottom">			

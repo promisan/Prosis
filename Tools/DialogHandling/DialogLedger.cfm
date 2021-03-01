@@ -27,6 +27,12 @@ function ShowTransaction(jrn,ser,mde,tgt,rle) {
 	}
 }
 
+function viewEvent(id) {
+    w = #CLIENT.width# - 100;
+	h = #CLIENT.height# - 155;
+	ptoken.open(root + "/Gledger/Application/Event/EventView.cfm?id=" + id, "event"+id);	
+}
+
 function EnterTransaction(mis,own,jrn,per,refid,reforg) {
     w = #CLIENT.width# - 100;
 	h = #CLIENT.height# - 155;

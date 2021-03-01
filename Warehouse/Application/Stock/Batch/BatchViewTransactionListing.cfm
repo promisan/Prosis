@@ -248,7 +248,8 @@ password="#SESSION.dbpw#">
 	     				field       	= "TransactionQuantity",	
 						align       	= "right",				
 						alias       	= "",					
-						formatted   	= "numberformat(TransactionQuantity,',__')",														
+						formatted   	= "numberformat(TransactionQuantity,'[precision]')",
+						precision       = "ItemPrecision",														
 						search      	= ""}>								
 	
 	<!--- define access 

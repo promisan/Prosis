@@ -81,7 +81,7 @@ password="#SESSION.dbpw#">
 	ORDER BY   P.Incumbency DESC <!--- first the highest --->	  
 </cfquery>
 
-<cfif orgUnit.recordcount neq "1">
+<cfif orgUnit.recordcount eq "0">
   
   		<cf_tl id="but I am not able to define your current assignment" var="vAssignment">
   			

@@ -500,7 +500,7 @@ password="#SESSION.dbpw#">
 		   target="saveposition"
 		   name="positionedit">
 		      
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="96%" align="center">
 
   <tr class="hide"><td id="process" height="5"></td></tr>
   <tr class="hide"><td height="60" colspan="2"><iframe name="saveposition" id="saveposition" width="100%" frameborder="0"></iframe></td></tr>
@@ -508,26 +508,7 @@ password="#SESSION.dbpw#">
   <cfoutput>
       
   <tr><td height="4"></td></tr>	  
- 
-  
-  <cfif url.action neq "view">
-
-  <tr> 
-    <td colspan="2" class="labelit" style="padding-left:5px;height:35px;font-size:23px;font-weight:200;">
-	    <font color="black">	   		
-	    <cfif URL.Action eq "Edit">		
-		    <cf_tl id="#URL.ActionText#">
-		<cfelse>	
-		   <font color="red">
-			<cf_tl id="#URL.ActionText#">	
-		</cfif>		
-    </td>	
-  </tr>
-  
-  </cfif>
-  	
-  <tr><td height="4"></td></tr>	   
-	       
+   	       
   <input type="hidden" name="missionselect"    id="missionselect"    value="#Position.Mission#">	
   <input type="hidden" name="PositionNo"       id="PositionNo"       value="#URL.ID2#">	
   <input type="hidden" name="PositionParentId" id="PositionParentId" value="#Position.PositionParentId#">	
@@ -538,39 +519,33 @@ password="#SESSION.dbpw#">
 	  
   <cfset c = "ffffff">
   
-  <tr>
+  <tr style="border-top:1px solid silver">
     <td width="100%" colspan="2">
 	
-    <table width="99%" class="formpadding" align="center">
+    <table width="99%" class="formpadding formspacing" align="center">
 		   
 	<cfif PositionParent.DateEffective neq Mandate.DateEffective or 
 	      PositionParent.DateExpiration neq Mandate.DateExpiration>
 	
-		<tr bgcolor="#c#">
-		   <td style="padding-left:6px;border:1px solid silver;" style="padding-left:6px" class="labelmedium2">#Mandate.Mission#<cf_tl id="Staffing Period">:</td>
-		   <td style="padding-left:10px" class="labelmedium2">#DateFormat(Mandate.DateEffective,CLIENT.DateFormatShow)#&nbsp;<font color="808080">-</font>&nbsp;#DateFormat(Mandate.DateExpiration,CLIENT.DateFormatShow)#</b></td>
+		<tr bgcolor="#c#" class="line">
+		   <td style="padding-left:6px;background-color:ffffcf;border-bottom:1px solid silver;" style="padding-left:6px" class="labelmedium2">#Mandate.Mission#<cf_tl id="Staffing Period">:</td>
+		   <td style="padding-left:10px" class="labelmedium2">#DateFormat(Mandate.DateEffective,CLIENT.DateFormatShow)#&nbsp;-</font>&nbsp;#DateFormat(Mandate.DateExpiration,CLIENT.DateFormatShow)#</b></td>
 		</tr>	
 	
 	</cfif>	   
 					
-	<tr bgcolor="#c#">
-	   <td class="labelmedium2" style="height:30px;border:1px solid silver;width:150px;padding-left:6px"><cf_space spaces="65"><cf_tl id="Owner">/<cf_tl id="Budget Title">/<cf_tl id="Grade">:</td>
+	<tr bgcolor="#c#" class="line">
+	   <td class="labelmedium2" style="height:30px;background-color:ffffcf;width:150px;padding-left:6px"><cf_space spaces="65"><cf_tl id="Owner">|<cf_tl id="Budget Title">|<cf_tl id="Grade">|<cf_tl id="Period"></td>
 	   <td class="labelmedium2" style="padding-left:10px">		   
-		      #PositionParent.OrgUnitName# / #PositionParent.FunctionDescription# / #PositionParent.PostGrade#			
-	   </td>
-	</tr>
-					
-	<tr bgcolor="#c#">
-	   <td style="height:30px;padding-left:6px;border:1px solid silver;" class="labelmedium2"><cf_tl id="Parent Position Effective">:</td>
-	   <td class="labelmedium2" style="padding-left:10px">#DateFormat(PositionParent.DateEffective,CLIENT.DateFormatShow)#&nbsp;<font color="808080">-</font>&nbsp;#DateFormat(PositionParent.DateExpiration,CLIENT.DateFormatShow)#</b>
+		      #PositionParent.OrgUnitName# | #PositionParent.FunctionDescription# | #PositionParent.PostGrade# | #DateFormat(PositionParent.DateEffective,CLIENT.DateFormatShow)#&nbsp;-</font>&nbsp;#DateFormat(PositionParent.DateExpiration,CLIENT.DateFormatShow)#</b>
 	   &nbsp;
 	   <cfif Position.PositionStatus eq "1">
 	   <img src="#SESSION.root#/Images/check_mark.gif" align="absmiddle" alt="" border="0">
 	   <font color="008080"><cf_tl id="Locked"> <cfelse>
-	   <font color="0080FF">[<cf_tl id="Staffing period Pending clearance">]</font></cfif>
+	   <font color="0080FF">[<cf_tl id="Staffing period Pending clearance">]</font></cfif>			
 	   </td>
-	</tr>	
-	
+	</tr>
+		
 	<cfquery name="LaterPosition" 
      datasource="AppsEmployee" 
      username="#SESSION.login#" 
@@ -582,12 +557,28 @@ password="#SESSION.dbpw#">
 		 AND    DateEffective  > '#DateFormat(Position.DateExpiration,client.dateSQL)#'
 	</cfquery>	
 	
+	<cfif url.action neq "view">
+
+	  <tr> 
+	    <td colspan="2" class="labelit" style="padding-left:5px;height:35px;font-size:23px;font-weight:200;">
+		    <font color="black">	   		
+		    <cfif URL.Action eq "Edit">		
+			    <cf_tl id="#URL.ActionText#">
+			<cfelse>	
+			   <font color="red">
+				<cf_tl id="#URL.ActionText#">	
+			</cfif>		
+	    </td>	
+	  </tr>
+	  
+	  </cfif>
+	
 	<cfif URL.Action eq "Edit">
 		     
 		 <cfif LaterPosition.recordcount eq "0">
 	
 		<tr bgcolor="#c#">
-		   <td style="height:30px;padding-left:6px;border:1px solid silver;" class="labelmedium2"><cf_tl id="Loan status">:</td>
+		   <td style="height:30px;padding-left:6px;background-color:f1f1f1;border-bottom:1px solid silver;" class="labelmedium2"><cf_tl id="Loan status">:</td>
 		   
 		   <td class="labelmedium2" style="height:25;padding-left:10px">
 		   
@@ -602,13 +593,13 @@ password="#SESSION.dbpw#">
 			    <cfif PositionParent.OrgUnitOperational neq Position.OrgUnitOperational or
 			       PositionParent.FunctionNo neq Position.FunctionNo>
 				   
-				   <table cellspacing="0" cellpadding="0">
+				   <table>
 				   
 				   	<tr><td class="labelmedium2">
 									   				   
 				    	<b><cf_tl id="Loaned to">:</b> <cfif PositionParent.Mission neq Organization.Mission><u>#Organization.Mission#</u> -</cfif> #Organization.OrgUnitName#
 					
-						</td></tr>
+						</td>
 				   	   
 					    <cfif URL.Action neq "Owner" and 
 						    (AccessLoaner eq "EDIT" or AccessLoaner eq "ALL" 
@@ -619,12 +610,12 @@ password="#SESSION.dbpw#">
 							  <cfif LaterPosition.recordcount eq "0"> 
 	 						    <cf_tl id="Return to Owner" var="1">
 								
-								<tr><td>
+								<td style="padding-left:10px">
 								  
-							  	    <input type="button" style="height:23px" class="button10g" value="<cfoutput>#lt_text#</cfoutput>" onclick="owner('Owner','Return to owner')">								
+							  	    <input type="button" style="width:160px;height:23px" class="button10g" value="<cfoutput>#lt_text#</cfoutput>" onclick="owner('Owner','Return to owner')">								
 															
-									</td>
-								</tr>
+								</td>
+								
 							  
 							  </cfif>	
 							  
@@ -634,18 +625,20 @@ password="#SESSION.dbpw#">
 								
 									<cf_tl id="Return Owner" var="1">
 									
-									<tr><td>
+									<td style="padding-left:10px">
 									
-									 <input type="button" style="height:23px" class="button10g" value="<cfoutput>#lt_text#</cfoutput>" onclick="owner('Owner','Return to owner')">								
+									 <input type="button" style="width:160px;height:23px" class="button10g" value="<cfoutput>#lt_text#</cfoutput>" onclick="owner('Owner','Return to owner')">								
 															
-									</td></tr>							    
+									</td>							    
 								
 							    </cfif>	
 								
-								<tr><td class="labelmedium2"><cf_tl id="Position incumbered until"><b>#DateFormat(PositionParent.DateExpiration, CLIENT.DateFormatShow)#</b></td></tr>
+								<td class="labelmedium2"><cf_tl id="Position incumbered until"><b>#DateFormat(PositionParent.DateExpiration, CLIENT.DateFormatShow)#</b></td>
 								
 							</cfif>
 						</cfif>
+						
+						</tr>
 						
 						</table>
 				
@@ -692,9 +685,7 @@ password="#SESSION.dbpw#">
 	</cfoutput>
 							
 	<tr><td height="10"></td></tr>
-	
-	<tr class="line"><td colspan="2" class="labelit" style="padding-left:2px;height:29px;font-size:17px;border-top:0px solid silver;border-bottom:1px solid silver"><font color="black"><cf_tl id="Usage"></td></tr>
-		
+			
 	<cfif URL.Action eq "Edit">
 	
 	      <cfset eff = "#Position.DateEffective#">
@@ -720,6 +711,8 @@ password="#SESSION.dbpw#">
 			
 		<cfelse>
 		
+	       <tr class="line"><td colspan="2" class="labelit" style="padding-left:2px;height:29px;font-size:17px;border-top:0px solid silver;border-bottom:1px solid silver"><font color="black"><cf_tl id="Usage"></td></tr>	
+		
 			<cfset eff = "#Position.DateEffective#">
 			
 		</cfif>
@@ -733,18 +726,17 @@ password="#SESSION.dbpw#">
 		<!--- for post manager --->
 		
 		<TR bgcolor="ffffff">
-	    <TD class="labelmedium2" height="18" style="border:1px solid silver;padding-left:6px"><font color="808080"><cf_tl id="Effective period">:</TD>
+	    <TD class="labelmedium2" height="18" style="background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="Effective period">:</TD>
 	    <TD style="padding-left:10px">
 		<table border="0" cellspacing="0" cellpadding="0">
 		<tr>
-		<td style="height:25;padding-left:2px" class="labelmedium2">
-		
-		
+		<td style="height:25;padding-left:2px" class="labelmedium2">	
+				
 			<cfif (Position.PositionStatus eq "0" 
 			     AND (AccessPosition eq "EDIT" OR AccessPosition eq "ALL"))>
 								 
 					<cf_intelliCalendarDate9
-					    class="regularxl"
+					    class="regularxxl"
 						FieldName="dateeffective" 
 						DateValidStart="#Dateformat(PositionParent.DateEffective, 'YYYYMMDD')#"
 						DateValidEnd="#Dateformat(PositionParent.DateExpiration, 'YYYYMMDD')#"
@@ -769,13 +761,12 @@ password="#SESSION.dbpw#">
 		<td height="18" style="padding-left:6px">-</td>
 		
 		<td class="labelmedium2" style="padding-left:6px" class="labelmedium2">
-						
-						
+													
 			<cfif (Position.PositionStatus eq "0" AND (AccessPosition eq "EDIT" OR AccessPosition eq "ALL"))>
 																	
 				<cf_intelliCalendarDate9
 					FieldName="DateExpiration" 
-					class="regularxl"
+					class="regularxxl"
 					Default="#Dateformat(exp, CLIENT.DateFormatShow)#"
 					DateValidStart="#Dateformat(PositionParent.DateEffective, 'YYYYMMDD')#"
 					DateValidEnd="#Dateformat(PositionParent.DateExpiration, 'YYYYMMDD')#"
@@ -795,10 +786,9 @@ password="#SESSION.dbpw#">
 	    </cfoutput>
 		</td>
 				
-		<cfif PositionParent.DateEffective gt Position.DateEffective or 
-	      PositionParent.DateExpiration lt Position.DateExpiration>
+		<cfif PositionParent.DateEffective gt Position.DateEffective or PositionParent.DateExpiration lt Position.DateExpiration>
 		  
-		  <td class="labelmedium2" style="padding-left:8px"><font color="FF0000">Effective period does not lie within the parent</font></td>
+		  <td class="labelmedium2" style="padding-left:8px"><font color="FF0000">Effective period does not lie within the budget position #dateformat(PositionParent.DateEffective,client.dateformatshow)# - #dateformat(PositionParent.DateExpiration,client.dateformatshow)#</font></td>
 		
 		</cfif>
 		
@@ -823,7 +813,7 @@ password="#SESSION.dbpw#">
 		</cfquery>
 	
 		<TR bgcolor="ffffff">
-	    <TD class="labelmedium2" height="18" style="border:1px solid silver;padding-left:6px"><cf_tl id="Effective">:</TD>
+	    <TD class="labelmedium2" height="18" style="background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="Effective">:</TD>
 	    <TD style="padding-left:10px">
 		<table border="0" cellspacing="0" cellpadding="0">
 		<tr>
@@ -833,33 +823,38 @@ password="#SESSION.dbpw#">
 			      URL.Action eq "Owner" or 
 				  (PositionParent.DateEffective lte eff and EarlierPosition.recordcount eq "0" AND AccessPosition eq "EDIT" or AccessPosition eq "ALL")>				  
 				
-				<table><tr class="labelmedium2"><td>												
-				<cf_intelliCalendarDate9
-					FieldName="dateeffective" 
-					class="regularxl"
-					DateValidStart="#Dateformat(PositionParent.DateEffective, 'YYYYMMDD')#"
-					DateValidEnd="#Dateformat(PositionParent.DateExpiration, 'YYYYMMDD')#"
-					Default="#Dateformat(eff, CLIENT.DateFormatShow)#">	
+				<table>
+				<tr class="labelmedium2">
+				<td>	
+								
+					<cf_intelliCalendarDate9
+						FieldName      = "dateeffective" 
+						class          = "regularxxl"
+						DateValidStart = "#Dateformat(Position.DateEffective, 'YYYYMMDD')#"
+						DateValidEnd   = "#Dateformat(PositionParent.DateExpiration, 'YYYYMMDD')#"
+						Default        = "#Dateformat(eff, CLIENT.DateFormatShow)#">	
+						
+						</td>
+						
+						<cfif PositionParent.DateEffective lte eff and EarlierPosition.recordcount eq "0">
+						
+							<cfif url.action neq "loan" and url.action neq "owner">
+	                             <td style="padding-left:5px">
+	                             <input type="checkbox" name="forceamend" value="1" checked>
+	                             </td>
+	                             <td style="padding-left:4px"><cf_UItooltip tooltip="Use this option to amend both position AND parent position"><cf_tl id="Amend"></cf_UItooltip></td>
+		                    <cfelse>	                              
+	                              <input class="hide" type="checkbox" name="forceamend" value="0">	                            
+		                    </cfif>
+							
+						<cfelse>
+						
+						<input class="hide" type="checkbox" name="forceamend" value="0">	
+						
+						</cfif>					
 					
-					</td>
-					
-					<cfif PositionParent.DateEffective lte eff and EarlierPosition.recordcount eq "0">
-					
-						<cfif url.action neq "loan" and url.action neq "owner">
-                             <td style="padding-left:5px">
-                             <input type="checkbox" name="forceamend" value="1" checked>
-                             </td>
-                             <td style="padding-left:4px"><cf_tl id="Amend"></td>
-	                    <cfelse>
-                              <td style="padding-left:5px">
-                              <input class="hide" type="checkbox" name="forceamend" value="0">
-                              </td>
-                              <td style="padding-left:4px"></td>
-	                    </cfif>
-					
-					</cfif>					
-					
-					</tr></table>	
+				</tr>
+				</table>	
 					
 					
 			<cfelse>
@@ -882,7 +877,7 @@ password="#SESSION.dbpw#">
 																		
 				<cf_intelliCalendarDate9
 					FieldName="DateExpiration"
-					class="regularxl"
+					class="regularxxl"
 					DateValidStart="#Dateformat(Mandate.DateEffective, 'YYYYMMDD')#"
 					DateValidEnd="#Dateformat(Mandate.DateExpiration, 'YYYYMMDD')#" 
 					Default="#Dateformat(exp, CLIENT.DateFormatShow)#">	
@@ -898,15 +893,18 @@ password="#SESSION.dbpw#">
 		</td>	
 			
 		<cfoutput>
+		
 			<input type="hidden" name="DateExpirationOld" value="#Dateformat(Position.DateExpiration, CLIENT.DateFormatShow)#">
-	    </cfoutput>
+	    
 		
-		<cfif PositionParent.DateEffective gt Position.DateEffective or 
-	      PositionParent.DateExpiration lt Position.DateExpiration>
-		  
-		  	<td class="labelmedium2" style="padding-left:10px"><font color="FF0000">ALERT: Effective period does not lie within the [Parent Effective Period]</font></td>
+			<cfif PositionParent.DateEffective gt Position.DateEffective or 
+		      PositionParent.DateExpiration lt Position.DateExpiration>
+			  
+			  	<td class="labelmedium2" style="padding-left:10px"><font color="FF0000">ALERT: Effective period does not lie within the Budget Position period  #dateformat(PositionParent.DateEffective,client.dateformatshow)# - #dateformat(PositionParent.DateExpiration,client.dateformatshow)#</font></td>
+			
+			</cfif>
 		
-		</cfif>
+		</cfoutput>
 		
 		</tr>
 		
@@ -926,7 +924,7 @@ password="#SESSION.dbpw#">
 	        <!--- change in owner mode if allowed --->
 			
 			<TR>
-		    <TD class="labelmedium2" style="padding-left:6px;border:1px solid silver;"><cf_tl id="Loan to other entity">:</TD>
+		    <TD class="labelmedium2" style="padding-left:6px;background-color:f1f1f1;border-bottom:1px solid silver;"><cf_tl id="Loan to other entity">:</TD>
 			
 			<TD style="padding-left:10px">
 			
@@ -944,7 +942,7 @@ password="#SESSION.dbpw#">
 				
 				</script>
 		
-			   	<select name="missionoperational" id="missionoperational" class="regularxl" size="1" onChange="positionreset()">
+			   	<select name="missionoperational" id="missionoperational" class="regularxxl" size="1" onChange="positionreset()">
 			    	<cfoutput query="Mission">
 					<option value="#Mission#" <cfif Position.MissionOperational eq Mission>selected</cfif>>
 			    		#Mission#
@@ -972,7 +970,7 @@ password="#SESSION.dbpw#">
 	<!--- TREE ORGUNIT --->	
 				
 	<TR bgcolor="ffffff">
-    <TD class="labelmedium2" style="border:1px solid silver;height:30;padding-left:6px"><cf_tl id="Organization">:<font color="FF0000">*</font></TD>
+    <TD class="labelmedium2" style="background-color:f1f1f1;border-bottom:1px solid silver;height:30;padding-left:6px"><cf_tl id="Organization">:<font color="FF0000">*</font></TD>
 		
     <TD  style="padding-left:10px" class="labelmedium2">
 	
@@ -992,9 +990,9 @@ password="#SESSION.dbpw#">
 		<cfif (Position.PositionStatus eq "0" AND (AccessPosition eq "EDIT" or AccessPosition eq "ALL")) 
 		      OR (URL.Action eq "Loan")>
 			
-			<table cellspacing="0" cellpadding="0">
+			<table>
 			<tr><td>
-				<input type="text" name="orgunitname" id="orgunitname" value="<cfoutput>#Organization.OrgUnitName#</cfoutput>" class="regularxl" size="60" maxlength="60" readonly>
+				<input type="text" name="orgunitname" id="orgunitname" value="<cfoutput>#Organization.OrgUnitName#</cfoutput>" class="regularxxl" size="60" maxlength="60" readonly>
 			</td>
 			<td style="padding-left:2px">		
 				<input type="button" name="btnFunction" value="..." style="width:30px;height:25" 
@@ -1034,7 +1032,7 @@ password="#SESSION.dbpw#">
 	</TR>	
 	
 	<TR bgcolor="ffffff">
-    <TD width="160" height="19" style="padding-left:6px;border:1px solid silver;">			
+    <TD width="160" height="19" style="padding-left:6px;background-color:f1f1f1;border-bottom:1px solid silver;">			
 	    <cf_helpfile SystemModule = "Staffing" Class = "Position" HelpId = "admorg" LabelId = "Administrative Organization">			 			
 	</TD>
 	
@@ -1059,8 +1057,8 @@ password="#SESSION.dbpw#">
 			<table>
 				<tr>
 				<td>
-			    <input type="text" id="mission1"     name="mission1"       value="<cfoutput>#Organization.Mission#</cfoutput>"   class="regularxl" size="14" maxlength="20" readonly> 
-				<input type="text" id="orgunitname1" name="orgunitname1" value="<cfoutput>#Organization.OrgUnitName#</cfoutput>" class="regularxl" size="60" maxlength="60" readonly> 
+			    <input type="text" id="mission1"     name="mission1"       value="<cfoutput>#Organization.Mission#</cfoutput>"   class="regularxxl" size="14" maxlength="20" readonly> 
+				<input type="text" id="orgunitname1" name="orgunitname1" value="<cfoutput>#Organization.OrgUnitName#</cfoutput>" class="regularxxl" size="60" maxlength="60" readonly> 
 				</td>			
 				<td style="padding-top:1px;padding-left:2px">
 				
@@ -1069,9 +1067,9 @@ password="#SESSION.dbpw#">
 				</td>			
 				
 				<cfquery name="Tree" 
-				datasource="AppsOrganization" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
 					SELECT  *
 					FROM    Ref_Mission
 					WHERE   Mission = '#URL.ID#'
@@ -1145,14 +1143,14 @@ password="#SESSION.dbpw#">
     </cfquery>
 		
 	<TR bgcolor="ffffff">
-    <TD width="150"  class="labelmedium2" style="height:30px;border:1px solid silver;padding-left:6px"><cf_tl id="Functional Unit">:</TD>
+    <TD width="150"  class="labelmedium2" style="height:30px;background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="Functional Unit">:</TD>
 	
 	<cfif AccessPosition eq "EDIT" OR AccessPosition eq "ALL">
 	
 		<TD style="padding-left:10px">
 			<table><tr><td>
-		    <input type="text"  id="mission2"     name="mission2"     value="<cfoutput>#Organization.Mission#</cfoutput>"     class="regularxl" size="14" maxlength="20" readonly> 
-			<input type="text"  id="orgunitname2" name="orgunitname2" value="<cfoutput>#Organization.OrgUnitName#</cfoutput>" class="regularxl" size="60" maxlength="60" readonly> 
+		    <input type="text"  id="mission2"     name="mission2"     value="<cfoutput>#Organization.Mission#</cfoutput>"     class="regularxxl" size="14" maxlength="20" readonly> 
+			<input type="text"  id="orgunitname2" name="orgunitname2" value="<cfoutput>#Organization.OrgUnitName#</cfoutput>" class="regularxxl" size="60" maxlength="60" readonly> 
 			</td>
 			<td style="padding-top:1px;padding-left:2px">
 			
@@ -1213,7 +1211,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 	<TR bgcolor="ffffff">
-    <TD style="border:1px solid silver;height:30px;padding-left:6px" class="labelmedium2"><cf_tl id="Location">:</TD>
+    <TD style="background-color:f1f1f1;border-bottom:1px solid silver;height:30px;padding-left:6px" class="labelmedium2"><cf_tl id="Location">:</TD>
     <TD style="padding-left:10px" class="labelmedium2">
 		
 	  <cfif (Position.PositionStatus eq "0" AND (AccessPosition eq "EDIT" or AccessPosition eq "ALL"))
@@ -1226,7 +1224,7 @@ password="#SESSION.dbpw#">
 					  
 			<table cellspacing="0" cellpadding="0">
 				<tr><td>		
-				   	<input type="text" name="locationname" id="locationname" value="<cfoutput>#Location.LocationName#</cfoutput>" class="regularxl" size="60" maxlength="60" readonly>			
+				   	<input type="text" name="locationname" id="locationname" value="<cfoutput>#Location.LocationName#</cfoutput>" class="regularxxl" size="60" maxlength="60" readonly>			
 				</td>
 				<td style="padding-left:2px">			
 					<input type="button" class="button10g" style="width:30px;height:25" value="..." onClick="selectlocation('webdialog','locationcode','locationname',document.getElementById('missionoperational').value)"> 			 			
@@ -1283,7 +1281,7 @@ password="#SESSION.dbpw#">
 				  	
 	<TR bgcolor="ffffff">
 	
-    <TD class="labelmedium2" style="border:1px solid silver;height:30px;padding-left:6px"><cf_tl id="Functional Title">: <font color="FF0000">*</font></TD>
+    <TD class="labelmedium2" style="background-color:f1f1f1;border-bottom:1px solid silver;height:30px;padding-left:6px"><cf_tl id="Functional Title">: <font color="FF0000">*</font></TD>
 			
     <TD style="padding-left:10px" class="labelmedium2">
 				
@@ -1303,7 +1301,7 @@ password="#SESSION.dbpw#">
 				   <table cellspacing="0" cellpadding="0">
 					<tr><td>	
 				   
-				   <input type="text" id="functiondescription" name="functiondescription" value="<cfoutput>#PositionParent.functiondescription#</cfoutput>" class="regularxl" size="60" maxlength="60" readonly> 
+				   <input type="text" id="functiondescription" name="functiondescription" value="<cfoutput>#PositionParent.functiondescription#</cfoutput>" class="regularxxl" size="60" maxlength="60" readonly> 
 				   </td>
 					 <td style="padding-left:2px">	
 				   	<!---	does not make sense to change in a return action		  
@@ -1324,7 +1322,7 @@ password="#SESSION.dbpw#">
 				   
 				    <table cellspacing="0" cellpadding="0">
 					<tr><td>	
-					   <input type="text" id="functiondescription" name="functiondescription" value="<cfoutput>#Position.functiondescription#</cfoutput>" class="regularxl" size="60" maxlength="60" readonly> 
+					   <input type="text" id="functiondescription" name="functiondescription" value="<cfoutput>#Position.functiondescription#</cfoutput>" class="regularxxl" size="60" maxlength="60" readonly> 
 				    </td>
 				    <td style="padding-left:2px">				   
 				    <input type="button" name="btnFunction" value="..." style="height:25;width:30px;" class="button10g" onClick="selectfunction('webdialog','functionno','functiondescription','<cfoutput>#mission.mission#</cfoutput>','','')"/> 
@@ -1393,15 +1391,9 @@ password="#SESSION.dbpw#">
 		}      
 		
 	</script>
-
-	<tr><td height="3"></td></tr>
-				
-	<!---			
-	<tr class="line"><td colspan="2" class="labelit" style="padding-left:2px;height:29px;font-size:17px;border-top:0px solid silver;border-bottom:1px solid silver"><font color="black"><cf_tl id="Modality"></td></tr>
-	--->
 		
 	<TR>
-    <TD class="labelmedium2" style="border:1px solid silver;padding-left:6px;height:31px"><font color="808080"><cf_tl id="Authorised">:</TD>
+    <TD class="labelmedium2" style="background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px;height:31px"><cf_tl id="Authorised">:</TD>
     <TD style="padding-left:10px;padding-top:4px" class="labelmedium2">
 		
 	<cfif (Position.PositionStatus eq "0" AND AccessPosition eq "EDIT") OR (AccessPosition eq "ALL")>
@@ -1422,7 +1414,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<TR bgcolor="ffffff">
-    <TD class="labelmedium2" style="border:1px solid silver;padding-left:6px"><font color="808080"><cf_tl id="Post type">: <font color="FF0000">*</font></TD>
+    <TD class="labelmedium2" style="background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="Post type">: <font color="FF0000">*</font></TD>
 
     <TD style="padding-left:10px"><table cellspacing="0" cellpadding="0">
 		<tr>
@@ -1491,7 +1483,7 @@ password="#SESSION.dbpw#">
 					
 					</cfif>
 				
-				   	<select name="posttype" id="posttype" size="1" style="width:150px" class="regularxl">
+				   	<select name="posttype" id="posttype" size="1" style="width:150px" class="regularxxl">
 				    <cfoutput query="PostType">
 					<option value="#PostType#" <cfif Posttype eq Position.Posttype>selected</cfif>>
 			    		#Description#
@@ -1509,7 +1501,7 @@ password="#SESSION.dbpw#">
 				</cfif>	
 				</TD>				
 				
-				<TD style="padding-left:20px;min-width:100px" class="labelmedium2"><font color="808080"><cf_tl id="Grade">:<font color="FF0000">*</font></TD>
+				<TD style="padding-left:20px;min-width:100px" class="labelmedium2"><cf_tl id="Grade">:<font color="FF0000">*</font></TD>
 			    <TD>
 					<table cellspacing="0" cellpadding="0">
 					<tr><td class="labelmedium2">
@@ -1541,7 +1533,7 @@ password="#SESSION.dbpw#">
 					
 					<cfoutput>
 					
-						<a href="javascript:gjp('#Position.functionNo#','#Position.postgrade#')"><font color="0080FF"><u><cf_tl id="View Job profile for Grade and Title"></font></a>
+						<a href="javascript:gjp('#Position.functionNo#','#Position.postgrade#')"><cf_tl id="Open Job profile for Grade and Title"></a>
 						</cfoutput>
 							
 					</TD>
@@ -1560,8 +1552,8 @@ password="#SESSION.dbpw#">
   	     
 		<!--- Postclass --->				
 				
-		 <td WIDTH="100" style="border:1px solid silver;padding-left:6px" class="labelmedium2">
-		   <font color="808080"><cf_tl id="Post class">: <font color="FF0000">*</font></TD>
+		 <td WIDTH="100" style="background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px" class="labelmedium2">
+		   <cf_tl id="Post class">: <font color="FF0000">*</font></TD>
 											
 			<cfquery name="Color" 
 			datasource="AppsEmployee" 
@@ -1580,7 +1572,7 @@ password="#SESSION.dbpw#">
 			<cfif (AccessPosition eq "EDIT" OR AccessPosition eq "ALL")
 				OR (Position.PositionStatus eq "1" AND (AccessLoaner eq "EDIT" or AccessLoaner eq "ALL"))>
 				
-			   	<select name="PostClass" class="regularxl" style="width:150px">
+			   	<select name="PostClass" class="regularxxl" style="width:150px">
 			    <cfoutput query="PostClass">
 				<cfif PostClass.accessLevel eq "2">
 					<cfif AccessPosition eq "ALL" or AccessLoaner eq "ALL">
@@ -1612,12 +1604,12 @@ password="#SESSION.dbpw#">
 		
 		<cfif ParamMission.ShowPositionFund eq "1">
      
-		   <td class="labelmedium2" style="padding-left:20px;min-width:100px"><font color="808080"><cf_tl id="Fund">: <font color="FF0000">*</font></td>
+		   <td class="labelmedium2" style="padding-left:20px;min-width:100px"><cf_tl id="Fund">: <font color="FF0000">*</font></td>
 	       <TD WIDTH="130" class="labelmedium2">
 		
 			<cfif (Position.PositionStatus eq "0" AND AccessPosition eq "EDIT")	OR (AccessPosition eq "ALL")>
 						
-				  	<select name="Fund" size="1" class="regularxl" style="width:110px">
+				  	<select name="Fund" size="1" class="regularxxl" style="width:110px">
 					    <cfoutput query="FundTable">			
 							<option value="#Code#" <cfif Code eq Trim(PositionParent.Fund)> selected </cfif>>
 					   		#Code# 
@@ -1649,7 +1641,7 @@ password="#SESSION.dbpw#">
 	
 	
 	<TR>
-    <TD class="labelmedium2" style="border:1px solid silver;padding-left:6px;height:33px"><font color="808080"><cf_tl id="Classification">:</TD>
+    <TD class="labelmedium2" style="background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px;height:33px"><cf_tl id="Classification">:</TD>
     
 	<TD style="padding-left:10px;padding-top:3px">
 	
@@ -1683,12 +1675,12 @@ password="#SESSION.dbpw#">
 								  
 					</td>
 					 
-					<TD style="padding-left:9px" class="labelmedium2"><font color="808080"><cf_tl id="Reference No">:</TD>
+					<TD style="padding-left:9px" class="labelmedium2"><cf_tl id="Reference No">:</TD>
 				    <TD style="padding-left:4px" class="labelmedium2">					
 											
 							<cfoutput>
 						        <input type="text" 
-								    class="regularxl" 
+								    class="regularxxl" 
 									name="approvalreference" value="#PositionParent.ApprovalReference#" size="20" maxlength="20">
 							</cfoutput>							
 											
@@ -1707,7 +1699,7 @@ password="#SESSION.dbpw#">
 				<input type="hidden" name="approvalpostgrade" value="#PositionParent.ApprovalPostGrade#">
 				</cfoutput>
 				</td>
-				<TD style="padding-left:9px" class="labelmedium2"><font color="808080"><cf_tl id="Reference No">:</TD>
+				<TD style="padding-left:9px" class="labelmedium2"><cf_tl id="Reference No">:</TD>
 				<TD class="labelmedium2">
 					<cfif PositionParent.ApprovalReference eq "">N/A<cfelse><cfoutput>#PositionParent.ApprovalReference#</cfoutput></cfif>
 				</td>
@@ -1723,7 +1715,7 @@ password="#SESSION.dbpw#">
 	  
    			   
 	<TR class="labelmedium2">
-        <td valign="top" style="border:1px solid silver;padding-top:6px;padding-left:6px;height:30px"><font color="808080"><cf_tl id="Categorization">:</td>
+        <td valign="top" style="background-color:f1f1f1;border-bottom:1px solid silver;padding-top:6px;padding-left:6px;height:30px"><cf_tl id="Categorization">:</td>
         <td style="padding-left:10px">
 		   <cfinclude template="PositionEditGroup.cfm">
 		</td>
@@ -1732,10 +1724,10 @@ password="#SESSION.dbpw#">
 	<cfif AccessPosition eq "EDIT" OR AccessPosition eq "ALL" OR URL.Action eq "Loan" OR AccessStaffing eq "EDIT" or AccessStaffing eq "ALL">	
 		   
 	    <TR class="labelmedium2">
-	    <TD style="border:1px solid silver;padding-left:6px"><font color="808080"><cf_tl id="Vacancy class">:<font color="FF0000">*</font> </TD>
+	    <TD style="background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="Vacancy class">:<font color="FF0000">*</font> </TD>
 	    <TD style="padding-left:10px">
 		
-		  	<select name="vacancyActionClass" size="1" class="regularxl">
+		  	<select name="vacancyActionClass" size="1" class="regularxxl">
 			   
 				<cfoutput query="VacancyClass">
 				<option value="#Code#" <cfif Code eq Position.VacancyActionClass> selected </cfif>>
@@ -1750,7 +1742,7 @@ password="#SESSION.dbpw#">
 	<cfelse>
 	
 		<TR class="labelmedium2" bgcolor="ffffff">
-	    <TD style="height:30px;border:1px solid silver;padding-left:6px"><font color="808080"><cf_tl id="Vacancy class"> </TD>
+	    <TD style="height:30px;background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="Vacancy class"> </TD>
 	    <TD style="padding-left:10px">
 		
 		  <cfquery name="VacancyClass" 
@@ -1773,7 +1765,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 		
 	<TR class="labelmedium2">
-    <TD style="height:30px;border:1px solid silver;padding-left:6px"><font color="808080"><cf_tl id="Source Post number">:</TD>
+    <TD style="height:30px;background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="Source Post number">:</TD>
     <TD style="padding-left:10px">
 		
 	<cfquery name="Parameter" 
@@ -1788,12 +1780,12 @@ password="#SESSION.dbpw#">
 	
 		<cfif AccessPosition eq "EDIT" OR AccessPosition eq "ALL">
 			
-			<INPUT type="text" class="regularxl" name="SourcePostNumber" id="SourcePostNumber" value="<cfoutput>#Position.sourcepostnumber#</cfoutput>" maxLength="20" size="10">
+			<INPUT type="text" class="regularxxl" name="SourcePostNumber" id="SourcePostNumber" value="<cfoutput>#Position.sourcepostnumber#</cfoutput>" maxLength="20" size="10">
 		
 		<cfelse>
 		
 			<cfoutput><cfif Position.sourcepostnumber neq "">#Position.sourcepostnumber#<cfelse>Not entered</cfif></cfoutput>
-			<INPUT type="hidden" class="regularxl" name="SourcePostNumber" id="SourcePostNumber" value="<cfoutput>#Position.sourcepostnumber#</cfoutput>" maxLength="20" size="10">
+			<INPUT type="hidden" class="regularxxl" name="SourcePostNumber" id="SourcePostNumber" value="<cfoutput>#Position.sourcepostnumber#</cfoutput>" maxLength="20" size="10">
 		
 		</cfif>
 	
@@ -1802,7 +1794,7 @@ password="#SESSION.dbpw#">
 		<cfif AccessPosition eq "EDIT" OR AccessPosition eq "ALL">
 			
 			<INPUT type="text" 
-			 class="regularxl" id="SourcePostNumber"
+			 class="regularxxl" id="SourcePostNumber"
 			 name="SourcePostNumber" 
 			 value="<cfoutput>#PositionParent.sourcepostnumber#</cfoutput>" 
 			 maxLength="10" 
@@ -1812,7 +1804,7 @@ password="#SESSION.dbpw#">
 		
 			<cfoutput><cfif PositionParent.sourcepostnumber neq "">#PositionParent.sourcepostnumber#<cfelse>Not entered</cfif></cfoutput>
 			<INPUT type="hidden" 
-			  class="regularxl" id="SourcePostNumber"
+			  class="regularxxl" id="SourcePostNumber"
 			  name="SourcePostNumber" 
 			  value="<cfoutput>#PositionParent.sourcepostnumber#</cfoutput>" 
 			  maxLength="10" 
@@ -1827,18 +1819,18 @@ password="#SESSION.dbpw#">
 	<cfif Position._sourcepostnumber neq "">
 	
 	<TR class="labelmedium2">
-    <TD style="height:30px;border:1px solid silver;padding-left:6px"><font color="808080"><cf_tl id="IMIS Post number">:</TD>
+    <TD style="height:30px;background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="IMIS Post number">:</TD>
     <TD style="padding-left:10px">
 		
 		
 		<cfif AccessPosition eq "EDIT" OR AccessPosition eq "ALL">
 			
-			<INPUT type="text" class="regularxl" name="_SourcePostNumber" id="_SourcePostNumber" value="<cfoutput>#Position._sourcepostnumber#</cfoutput>" maxLength="20" size="10" readonly>
+			<INPUT type="text" class="regularxxl" name="_SourcePostNumber" id="_SourcePostNumber" value="<cfoutput>#Position._sourcepostnumber#</cfoutput>" maxLength="20" size="10" readonly>
 		
 		<cfelse>
 		
 			<cfoutput><cfif Position._sourcepostnumber neq "">#Position._sourcepostnumber#<cfelse>Not entered</cfif></cfoutput>
-			<INPUT type="hidden" class="regularxl" name="_SourcePostNumber" id="_SourcePostNumber" value="<cfoutput>#Position._sourcepostnumber#</cfoutput>" maxLength="20" size="10" readonly>
+			<INPUT type="hidden" class="regularxxl" name="_SourcePostNumber" id="_SourcePostNumber" value="<cfoutput>#Position._sourcepostnumber#</cfoutput>" maxLength="20" size="10" readonly>
 		
 		</cfif>
 		
@@ -1886,7 +1878,7 @@ password="#SESSION.dbpw#">
 		<cfoutput query="topic">
 		
 			<tr>
-				<td class="labelmedium2" style="height:30px;border:1px solid silver;padding-left:6px"><font color="808080">#Description#: <font color="FF0000">*</font></td>
+				<td class="labelmedium2" style="height:30px;background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px">#Description#: <font color="FF0000">*</font></td>
 				<td style="padding-left:10px" class="labelmedium2">
 				
 				<cfquery name="Group" 
@@ -1913,7 +1905,7 @@ password="#SESSION.dbpw#">
 					 ORDER BY GroupListOrder, GroupListCode
 				</cfquery>				
 								
-				<select name="ListCode_#Code#" required="No" class="regularxl">
+				<select name="ListCode_#Code#" required="No" class="regularxxl">
 					<cfloop query="List">
 					<option value="#GroupListCode#" <cfif #Group.GroupListCode# eq "#GroupListCode#">selected</cfif>>#Description#</option>
 					</cfloop>
@@ -1954,7 +1946,7 @@ password="#SESSION.dbpw#">
 	<cfif files gte "1" or AccessPosition eq "EDIT" or AccessPosition eq "ALL" or AccessLoaner eq "EDIT" or AccessLoaner eq "ALL">	
 	
 	<tr>
-		<td valign="top" class="labelmedium2" style="border:1px solid silver;padding-top:4px;padding-left:6px"><font color="808080"><cf_tl id="Attachments">:</td>
+		<td valign="top" class="labelmedium2" style="background-color:f1f1f1;border-bottom:1px solid silver;padding-top:4px;padding-left:6px"><cf_tl id="Attachments">:</td>
 		<td class="labelmedium2" style="padding-top:3px;padding-left:10px">
 		
 		<cfif AccessPosition eq "EDIT" or AccessPosition eq "ALL" or AccessLoaner eq "EDIT" or AccessLoaner eq "ALL">
@@ -2015,7 +2007,7 @@ password="#SESSION.dbpw#">
 	   <cfif files gte "1">	
 		
 		<tr>
-			<td height="30" class="labelmedium2" style="border:1px solid silver;padding-top:4px;padding-left:6px"><font color="808080"><cf_tl id="Attachment Log"><cfoutput>/ #spst#</cfoutput>:</td>
+			<td height="30" class="labelmedium2" style="background-color:f1f1f1;border-bottom:1px solid silver;padding-top:4px;padding-left:6px"><cf_tl id="Attachment Log"><cfoutput>/ #spst#</cfoutput>:</td>
 			<td class="labelmedium2" style="padding-left:10px">
 			
 				<cfif AccessPosition eq "EDIT" or AccessPosition eq "ALL" or AccessLoaner eq "EDIT" or AccessLoaner eq "ALL">
@@ -2064,7 +2056,7 @@ password="#SESSION.dbpw#">
    </cfloop>
       						   
    <TR bgcolor="ffffff" class="line">
-        <td class="labelmedium2" valign="top" style="height:30px;border:1px solid silver;padding-top:3px;padding-left:6px"><font color="808080"><cf_tl id="Remarks">:</td>
+        <td class="labelmedium2" valign="top" style="height:30px;background-color:f1f1f1;border-bottom:1px solid silver;padding-top:3px;padding-left:6px"><cf_tl id="Remarks">:</td>
         <TD class="labelmedium2" style="padding-left:10px">
 		
 		<cfif AccessPosition eq "EDIT" OR AccessPosition eq "ALL">
@@ -2115,7 +2107,7 @@ password="#SESSION.dbpw#">
    
    <cfif laterPosition.recordcount gte "1">
    
-   		    <font color="808080">There is already an instance with the later effective period for this position. <u>Select Classify and Loan to review.</u>
+   		    There is already an instance with the later effective period for this position. <u>Select Classify and Loan to review.</u>
    
 	   		<!--- no ability to edit this one anymore --->
    

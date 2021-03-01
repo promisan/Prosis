@@ -66,6 +66,7 @@
 		 <cfif fields.display eq "Yes" and fields.field neq url.listgroupfield>
 		 
 		    <cfparam name="fields.aggregate" default=""> 
+			<cfparam name="fields.precision" default="">
 	
 		    <cfset col = col + 1> 	
 													
@@ -74,8 +75,24 @@
 			    <cfif session.listingdata[box]['firstsummary'] eq "0">								
 					<cfset session.listingdata[box]['firstsummary'] = col>  <!--- which column needs the first summary --->
 				</cfif>  
-								
-			    <cfset aggregateformat = fields.formatted>		
+				
+				<cfset aggregateformat = fields.formatted>	
+				
+				<cfif findNoCase("[precision]",aggregateformat)>
+				
+					<cfif fields.precision neq "">				
+														
+						<cf_precision number="1">					
+						<cfset aggregateformat = replaceNoCase("#aggregateformat#","[precision]","#pformat#")>
+										
+					<cfelse>
+					
+						<cfset aggregateformat = replaceNoCase("#aggregateformat#","[precision]",",")>
+						
+					</cfif>
+														
+				</cfif>
+							    	
 				<cfset aggregateformat = replaceNoCase(aggregateformat,fields.field,"subtotal.#fields.field#")>
 				<cfset grp[col] = "#evaluate(aggregateformat)#">			
 				 

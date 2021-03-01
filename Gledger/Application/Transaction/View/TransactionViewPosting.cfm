@@ -12,12 +12,12 @@
 		datasource="AppsLedger"
 		username="#SESSION.login#"
 		password="#SESSION.dbpw#">
-	SELECT   H.*,P.ActionStatus as AccountStatus
-	FROM     TransactionHeader H, Period P
-	WHERE    H.Journal         = '#URL.Journal#'
-	AND      H.JournalSerialNo = '#URL.JournalSerialNo#'
-	AND      H.AccountPeriod = P.AccountPeriod
-	ORDER BY H. TransactionDate
+		SELECT   H.*,P.ActionStatus as AccountStatus
+		FROM     TransactionHeader H, Period P
+		WHERE    H.Journal         = '#URL.Journal#'
+		AND      H.JournalSerialNo = '#URL.JournalSerialNo#'
+		AND      H.AccountPeriod = P.AccountPeriod
+		ORDER BY H. TransactionDate
 </cfquery>
 
 <cfquery name="JournalList"

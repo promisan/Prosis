@@ -109,7 +109,7 @@ function list(page) {
 
 		<cfif URL.Scope neq "Inquiry">
 		
-			<table width="100%" height="99%" >
+			<table width="100%" height="99%">
 			
 			<tr><td height="5"></td></tr>
 					
@@ -201,7 +201,7 @@ function list(page) {
 				
 				<td height="20" name="search">				
 								
-					<table width="98%" align="center" class="formspacing">
+					<table width="90%" align="center" class="formspacing">
 							   						
 						<tr class="labelmedium2">
 							
@@ -217,9 +217,9 @@ function list(page) {
 						<INPUT type="hidden" name="Crit8_FieldName" value="A.IndexNo">
 						<INPUT type="hidden" name="Crit8_FieldType" value="CHAR">
 						<TD style="padding-left:10px"><cfoutput query="Parameter">#IndexNoName#:</cfoutput></TD>
-						<TD>
+						<TD>						
 									
-						<SELECT name="Crit8_Operator" class="regularxl">
+						<SELECT name="Crit8_Operator" class="regularxl" style="border:0px">
 							
 								<OPTION value="CONTAINS">contains
 								<OPTION value="BEGINS_WITH">begins with
@@ -237,7 +237,7 @@ function list(page) {
 						
 						<cfif url.class eq "">
 								
-						<TD style="padding-left:10"><cf_tl id="Roster bucket">:</TD>
+						<TD style="padding-left:10px"><cf_tl id="Roster bucket">:</TD>
 						
 						<TD>
 						
@@ -250,7 +250,7 @@ function list(page) {
 							WHERE  Operational = 1
 						</cfquery>
 						
-						<select name="Roster" class="regularxl" onchange="formvalidate()">
+						<select name="Roster" style="width:300px" class="regularxxl" onchange="formvalidate()">
 						   <option value="" selected>All</option>
 						   <option value="1">Candidates cleared for at least one bucket</option>
 						   
@@ -270,7 +270,7 @@ function list(page) {
 							
 							<TD style="padding-left:10px"><cf_tl id="Reference">:</TD>
 							<TD>
-							<SELECT name="Crit2a_Operator" class="regularxl">
+							<SELECT name="Crit2a_Operator" class="regularxl" style="border:0px">
 								
 									<OPTION value="CONTAINS">contains
 									<OPTION value="BEGINS_WITH">begins with
@@ -295,7 +295,7 @@ function list(page) {
 						<TR class="labelmedium2">
 						<TD style="padding-left:10px"><cf_tl id="Full Name">:</TD>
 						<TD>
-						<SELECT name="Crit2_Operator" class="regularxl">
+						<SELECT name="Crit2_Operator" class="regularxl" style="border:0px">
 							
 								<OPTION value="CONTAINS">contains
 								<OPTION value="BEGINS_WITH">begins with
@@ -314,7 +314,7 @@ function list(page) {
 							<TD style="padding-left:10px"><cf_tl id="Candidate Assessment">:</TD>
 							<TD>
 							
-							<select name="Assessment" class="regularxl">
+							<select name="Assessment" class="regularxxl">
 							   <option value="" selected>N/A</option>
 							   <option value="1">Candidates WITH a Skill Assessment</option>
 							   <option value="0">Candidates WITHOUT a Skill Assessment</option>
@@ -327,7 +327,7 @@ function list(page) {
 							<TD style="padding-left:10px"><cf_tl id="Assessment">:</TD>
 							<TD>
 							
-							<select name="Assessment" class="regularxl">
+							<select name="Assessment" class="regularxxl">
 							   <option value="" selected>N/A</option>
 							   <option value="1"><cf_tl id="Cleared"></option>
 							   <option value="0"><cf_tl id="Pending"></option>
@@ -346,7 +346,7 @@ function list(page) {
 						<INPUT type="hidden" name="Crit3_FieldType" value="CHAR">
 						<TD style="padding-left:10px"><cf_tl id="First name"></TD>
 						<TD class="regular">
-						<SELECT name="Crit3_Operator" class="regularxl">
+						<SELECT name="Crit3_Operator" class="regularxl" style="border:0px">
 							
 								<OPTION value="CONTAINS">contains
 								<OPTION value="BEGINS_WITH">begins with
@@ -385,7 +385,7 @@ function list(page) {
 						<TR class="labelmedium2">
 						<td style="padding-left:10px"><cf_tl id="Person Id">:</td>
 						<TD>
-						<SELECT name="Crit7_Operator" class="regularxl">
+						<SELECT name="Crit7_Operator" class="regularxl" style="border:0px">
 							
 								<OPTION value="CONTAINS">contains
 								<OPTION value="BEGINS_WITH">begins with
@@ -409,7 +409,7 @@ function list(page) {
 								
 						<TD style="padding-left:10px"><cf_tl id="Source">:</TD>
 						<TD>
-						<SELECT name="Crit6_Operator" class="regularxl">
+						<SELECT name="Crit6_Operator" class="regularxl" style="border:0px">
 							
 								<OPTION value="CONTAINS">contains
 								<OPTION value="BEGINS_WITH">begins with
@@ -432,14 +432,11 @@ function list(page) {
 						<!--- Field: Staff.FirstName=CHAR;40;FALSE --->
 						<INPUT type="hidden" name="Crit5_FieldName" value="A.EMailAddress">
 						<INPUT type="hidden" name="Crit5_FieldType" value="CHAR">
-						<TD style="padding-left:10px"><cf_tl id="Email">:
-						<cf_space spaces="20">
-						
-						</TD>
+						<TD style="padding-left:10px"><cf_tl id="Email">:</TD>
 						
 						<TD>
 									
-							<SELECT name="Crit5_Operator" class="regularxl">
+							<SELECT name="Crit5_Operator" class="regularxl" style="border:0px">
 							
 								<OPTION value="CONTAINS">contains
 								<OPTION value="BEGINS_WITH">begins with
@@ -462,7 +459,7 @@ function list(page) {
 						
 						<TD>
 						
-							<SELECT name="Crit5a_Operator" class="regularxl">
+							<SELECT name="Crit5a_Operator" class="regularxl" style="border:0px">
 							
 								<OPTION value="CONTAINS">contains
 								<OPTION value="BEGINS_WITH">begins with
@@ -507,10 +504,9 @@ function list(page) {
 							   
 						  	</TD>
 						
-						</TR>				 	 
-											
+						</TR>												
 									
-						<tr><td valign="center" style="padding-top:4px" colspan="4" align="center">
+						<tr><td class="line" valign="center" style="padding-top:4px" colspan="4" align="center">
 						
 						    <cfoutput>
 						
@@ -535,8 +531,7 @@ function list(page) {
 								color       = "636334"
 								fontsize    = "11px">   
 								
-							</cfoutput>						
-								
+							</cfoutput>									
 						
 						</td></tr>
 						
@@ -548,7 +543,9 @@ function list(page) {
 					
 		<cfoutput>
 			
-			<tr id="toggle" class="hide" style="height:10px"><td width="100%">
+			<tr id="toggle" class="hide" style="height:10px">
+			
+			    <td width="100%">
 			
 				<table width="100%" style="padding-right:5px">
 										
@@ -563,8 +560,11 @@ function list(page) {
 							</td>
 						</tr>	
 											
-				</table>		
-			</td></tr>
+				</table>	
+					
+				</td>
+				
+			</tr>
 		
 		</cfoutput>	
 		

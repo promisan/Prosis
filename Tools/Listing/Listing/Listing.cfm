@@ -12,6 +12,7 @@
 	functionfield     : if blank takes default field
 	functioncondition : adds to the function attributes
 	formatted         : the script for formatting the field value
+	precision         : the field that contains the precision of the number field 
 	alias             : the alias to be used to detect the correct field
 	search            : the option to add the field to the search, keep "" to no show, otherwise use number, mail, default, text
 	searchfield       : the alternate field used for searching

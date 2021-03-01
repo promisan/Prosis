@@ -48,7 +48,7 @@ password="#SESSION.dbpw#">
 	AND           S.Mission             = '#Contract.Mission#' 
 	AND           S.ServiceLocation     = '#Contract.ServiceLocation#' 
 	AND           SL.ServiceLevel       = '#contract.ContractLevel#' 
-	AND           SL.ServiceStep        = '#contract.ContractStep#' 
+	AND           SL.ServiceStep        = '#contract.ContractStep#' 	
 	AND           SL.Operational        = 1 
 	<cfif attributes.componentName neq "">
 	AND           SL.ComponentName      = '#attributes.ComponentName#' 

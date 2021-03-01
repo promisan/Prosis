@@ -84,13 +84,14 @@
 	<script>
 
 		function checkUserSession() {		
-			_cf_loadingtexthtml='';				
-			ptoken.navigate('#session.root#/tools/entityaction/session/checkSession.cfm?id=#url.id#&mode=init','sessionbox')
+			_cf_loadingtexthtml='';						
+			ptoken.navigate('#session.root#/tools/entityaction/session/checkSession.cfm?id=#url.id#&mode=init','sessionbox')			
 		}
 		
 	</script>
 
 </cfoutput>
+
 
 <div class="main float-bottom-right">
 
@@ -104,7 +105,7 @@
 		</cfquery>
 
 		<div class="logoContainer">
-		
+				
 			<table style="width:100%">
 			<tr style="border-bottom:1px solid black" class="labelmedium"><td style="padding-bottom:5px">
 			<cfoutput>
@@ -135,7 +136,7 @@
 				</cfquery>	
 									
 				<cfset go = "1">	
-						
+										
 				<cfif SessionAction.ActionId neq "">
 								
 					<cfquery name="Action" 
@@ -164,7 +165,7 @@
 						</cfquery>		
 					
 					</cfif>
-													
+																		
 					<div class="title" id="sessionbox"></div>
 				
 				</cfif>
@@ -208,9 +209,16 @@
 											AND ECM.Mission = O.Mission
 		WHERE	S.ActionSessionId = '#SessionAction.ActionSessionId#'
 	</cfquery>
-
-	<cfif getBackground.recordCount eq 1 AND getBackground.SessionBackground neq "">
-		<cfoutput>
+	
+	<cfquery name="param" 
+	datasource="AppsInit">
+		SELECT *
+		FROM Parameter 
+		WHERE HostName = '#cgi.http_host#' 
+	</cfquery>
+			
+	<cfoutput>
+		<cfif getBackground.recordCount eq 1 AND getBackground.SessionBackground neq "">
 			<style>
 				body {
 					background-image: url("#session.root#/#getBackground.SessionBackground#");
@@ -219,8 +227,21 @@
   					background-size: cover; 
 				}
 			</style>
+			
+		<cfelseif param.ApplicationThemeBackground neq "">
+		
+		<style>
+				body {
+					background-image: url("#session.root#/#param.ApplicationThemeBackground#");
+					background-position: center; 
+  					background-repeat: no-repeat; 
+  					background-size: cover; 
+				}
+			</style>		
+		
+		</cfif>	
 		</cfoutput>
-	</cfif>
+	
 		
 	<cfoutput>
 	

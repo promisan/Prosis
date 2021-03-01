@@ -36,22 +36,24 @@
 <cfif url.search eq "inmemory">	
 
 	<!--- we take only people that could be reaonable still waiting in store --->
-
+	
 	<cfquery name="Get" 
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT     DISTINCT TOP 10 A.*			
+			SELECT     DISTINCT TOP 20 A.*			
 			FROM       Customer A INNER JOIN vwCustomerRequest C ON A.CustomerId = C.CustomerId	
-			WHERE      C.Mission     = '#url.mission#'
-			AND        C.Warehouse   = '#url.warehouse#' 
+			WHERE      C.Warehouse   = '#url.warehouse#' 
 			AND        C.Created > getDate()-1
 			AND        ActionStatus ! = '9'
 			AND        BatchNo is NULL
 			<!--- not loaded from existing --->
 			AND        BatchId is NULL				
 			ORDER BY   CustomerName 
+			
 	</cfquery>
+	
+	
 
 <cfelse>
 	

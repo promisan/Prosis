@@ -8,39 +8,16 @@
 <cfparam name="url.postgradebudget"   default="">
 <cfparam name="url.authorised"        default="">
 
-
-<cfset org = "">
-
-<cfif url.orgunit neq "" and url.orgunit neq "null">
-	
-	<cfloop index="itm" list="#url.orgunit#">
-         <cfif org eq "">
-		 	<cfset org = "'#itm#'">
-		 <cfelse>
-		   	<cfset org = "#org#,'#itm#'">
-		 </cfif>
-	</cfloop>
+<cfif url.orgunit neq "">
 
 	<cfquery name="get" 
 	     datasource="AppsOrganization" 
 	     username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">	
-			 SELECT  * 
-			 FROM    Organization 		
-	    	 WHERE   OrgUnit IN (#preserveSingleQuotes(org)#) 
+		 SELECT * 
+		 FROM   Organization 
+		 WHERE  OrgUnit = '#url.orgunit#' 
 	</cfquery>
-	
-	<cfset conorg = "">
-	
-	<cfloop query="get">
-		
-		<cfif conorg eq "">
-			<cfset conorg = "HierarchyCode LIKE ('#hierarchyCode#%')">
-		<cfelse>
-			<cfset conorg = "#conorg# OR HierarchyCode LIKE ('#hierarchyCode#%')">
-		</cfif>
-	
-	</cfloop>
 	
 </cfif>
 
@@ -77,7 +54,8 @@
 				  (SELECT LocationNameShort
 				  FROM Location
 				  WHERE LocationCode = P.LocationCode) as LocationName,
-		          PA.PersonNo,					
+		          PA.PersonNo,	
+				  PA.Incumbency,				
 				  R.Description, 
 				  R.ViewOrder,
 				  R.Code,
@@ -159,7 +137,7 @@
 		                                 FROM   Organization.dbo.Organization
 										 WHERE  Mission   = '#url.mission#'
 										 AND    MandateNo = '#get.MandateNo#'
-										 AND    (#preservesingleQuotes(conorg)#)
+										 AND    HierarchyCode LIKE ('#get.HierarchyCode#%')
 										)  
 		</cfif>	
 
@@ -196,22 +174,23 @@
 <cfif detail.recordcount eq "0">
 
 	<table width="100%">
-	   <tr><td align="center" class="labelmedium2"><cf_tl id="No records to show in this view"></td></tr>
+	   <tr><td align="center" class="labelmedium"><cf_tl id="No records to show in this view"></td></tr>
 	</table>
 
 <cfelse>
   	
 	<table width="100%">
 	
-	   <tr style="border-top:1px solid silver" class="labelmedium2 line navigation_table fixrow">
+	   <tr style="border-top:1px solid silver" class="labelmedium line navigation_table fixrow">
 	   	   <td></td>
 	       <td><cf_tl id="Position"></td>
 		   <td><cf_tl id="Grade"></td>	 
 		   <td><cf_tl id="Location"></td>	
 		   <td><cf_tl id="Class"></td>
 	       <td><cf_tl id="IndexNo"></td>
-	       <td><cf_tl id="Name"><cf_space spaces="50"></td>		
-		   <td><cf_tl id="Nationality"><cf_space spaces="50"></td>		 
+		   <td><cf_tl id="Incumbency"></td>
+	       <td><cf_tl id="Name"></td>		
+		   <td><cf_tl id="Nationality"></td>		 
 	   </tr>   	  
 	 	   
 	   <cfoutput query="detail">
@@ -234,7 +213,7 @@
 					 WHERE  Code = '#Person.Nationality#' 		 
 			</cfquery>
 	   	  	   
-		   <tr class="labelmedium2 navigation_row linedotted" style="height:20px">
+		   <tr class="labelmedium navigation_row linedotted" style="height:20px">
 		   	   <td style="padding-left:4px">#currentrow#.</td>
 		       <td style="padding-left:4px">
 			   <a href="javascript:EditPosition('','','#PositionNo#')">
@@ -253,6 +232,7 @@
 				   </tr>
 				   </table>
 			   </td>
+			   <td>#Incumbency#</td>	
 		       <td style="padding-right:5px">#Person.FirstName# #Person.LastName#</td>	
 			   <td>#Nation.Name#</td>		  
 			   <cfelse>

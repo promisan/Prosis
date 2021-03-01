@@ -148,7 +148,7 @@
 	}
 	
 	function maildialog(obt,cde,glob) {			   
-		ptoken.open("ProcessMailDialog.cfm?objectid="+obt+"&actioncode="+cde+"&NotificationGlobal="+glob, "wMailDialog", "height=700, width=700");				
+		window.open('#session.root#/Tools/entityaction/ProcessMailDialog.cfm?objectid='+obt+'&actioncode='+cde+'&NotificationGlobal='+glob, 'wMailDialog');								
 	}	
 					
 	function embedtabdoc(actionid,docid,sign,language,format,no,act) {		

@@ -64,7 +64,7 @@
     }
 	
 	function eventsubmit(id,box) {
-	
+		
 		tc  = document.getElementById('triggercode');
 		ev  = document.getElementById('eventcode');
 		de  = document.getElementById('DateEvent');
@@ -79,7 +79,8 @@
 		dbx = document.getElementById('documentbox');
 		pbx = document.getElementById('positionbox');	
 		rbx = document.getElementById('requisitionbox');
-		ebx = document.getElementById('expirybox');					
+		ebx = document.getElementById('expirybox');		
+			
 
 		if (pos.value=='' && pbx.className!= 'hide') {
 			Ext.Msg.alert('Position', 'Please specify a position.');			
@@ -101,6 +102,7 @@
 			Ext.Msg.alert('Effective date', 'Please specify Action effective Date.');		
 		} 
 		else{
+		
     		ptoken.navigate('#SESSION.root#/Staffing/Application/employee/events/EventFormSubmit.cfm?box='+box+'&eventid='+id,'process','','','POST','eventform')		
 		}
 	}

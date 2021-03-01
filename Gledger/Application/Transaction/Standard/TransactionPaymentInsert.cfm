@@ -106,7 +106,7 @@ password="#SESSION.dbpw#">
 		<!--- --------------- --->
 		
 		<cfif ReferenceId neq "" or ReferenceNo neq "">
-		
+				
 		    <!--- determine if we have an advance recorded for this PO order based on the invoice->PO association  
 			                                or 
 			new : based on the entry in the system journal advance with the same reference --->
@@ -149,8 +149,8 @@ password="#SESSION.dbpw#">
                                         WHERE    SystemJournal = 'Advance' 
 										AND      Mission      = '#mission#') 						  		 
 				AND      TransactionSerialNo != '0'						
-				AND      ParentLineId is NULL					
-				
+				AND      ParentLineId is NULL		
+												
 				</cfif>	
 				
 				
@@ -167,6 +167,7 @@ password="#SESSION.dbpw#">
 			</cfquery>
 			
 			<cfif Advance.recordcount gte "1">
+			
 										
 			    <!--- determine how much was already offsetted for the found advances  --->
 						
@@ -433,8 +434,6 @@ password="#SESSION.dbpw#">
 		
 		</cfif>		
 		
-		
-		
 						
 		<cfif AccountType eq "Debit">  <!--- this is now a reverse teneinde de correctie te maken !! --->
 		
@@ -453,14 +452,15 @@ password="#SESSION.dbpw#">
 			  <cfset accounttype = "Credit"> 
 			  			 
 		</cfif>		
-								
+		
+												
 		<cfif payment gt "0">	
 							
 			<cfquery name="Insert" 
 			datasource="AppsQuery" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-									
+												
 				INSERT INTO dbo.#SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# 
 					   (Journal,
 					   JournalSerialNo,

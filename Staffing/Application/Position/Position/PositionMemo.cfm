@@ -62,17 +62,11 @@ password="#SESSION.dbpw#">
 
 <cfform name="memoform" id="memoform">
 	
-	<table width="95%" 
-	  align="center" 	 
-	  border="0" 
-	  bordercolor="e4e4e4" 
-	  class="navigation_table"	
-	  cellspacing="0" 
-	  cellpadding="0">
+	<table width="95%" align="center" class="navigation_table">
 	  
-	 <tr><td height="5"></td></tr> 
+	<tr><td height="5"></td></tr> 
 	
-	<tr class="labelmedium line">
+	<tr class="labelmedium2 line">
 	    <td height="20" style="min-width:30px"></td>
 		<td width="80%"><cf_tl id="Memo"></td>
 		<td style="min-width:180px"><cf_tl id="Officer"></td>
@@ -111,17 +105,17 @@ password="#SESSION.dbpw#">
 	
 	
 	    <cfif SESSION.acc eq OfficerUserId>
-		<tr class="labelmedium navigation_row line">
+		<tr class="labelmedium2 navigation_row line">
 		<cfelse>
-		<tr class="labelmedium line">
+		<tr class="labelmedium2 line">
 		</cfif>
 		    <td height="20" style="padding-left:3px">#currentrow#.</td>
 			<td width="70%" style="padding-left:3px">#paragraphformat(PositionMemo)#</td>
 			<td>#OfficerLastName#</td>
 			<td>#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>
-			<td align="center" style="padding-top:4px;padding-right:4px">		
+			<td align="center" style="padding-top:1px;padding-right:4px">		
 			<cfif SESSION.acc eq OfficerUserId>
-			<cf_img icon="edit" navigation="Yes" onclick="ptoken.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','contentbox2')">
+			<cf_img icon="open" navigation="Yes" onclick="ptoken.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','contentbox2')">
 			</cfif>
 			</td>
 		</tr>

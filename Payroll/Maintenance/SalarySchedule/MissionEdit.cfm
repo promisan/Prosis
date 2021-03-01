@@ -14,7 +14,7 @@
 	
 	<cfoutput>
 	 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
 	
 	    <TD width="20%"><cf_tl id="Effective Date">:</TD>
 	    <TD>
@@ -44,26 +44,58 @@
 				WHERE    GLAccount = '#get.GLAccount#'
 			</cfquery>	
 			
-			<TR class="labelmedium">
+			<TR class="labelmedium2">
 		    <TD><cf_tl id="Payroll Account">:</TD>
 		    <TD>	
 				    <cfoutput>	 
+					
+					<table><tr><td>
 				    <img src="#SESSION.root#/Images/contract.gif" alt="Payroll Account" name="img3" 
 						  onMouseOver="document.img3.src='#SESSION.root#/Images/button.jpg'" 
 						  onMouseOut="document.img3.src='#SESSION.root#/Images/contract.gif'"
-						  alt="" width="25" height="28" border="0" align="absmiddle" 
+						  alt="" width="30" height="30" border="0" align="absmiddle" 
 						  onclick="selectaccountgl('#URL.mission#','glaccount','','','applyaccount','')">
-	
+						</td>
+						<td style="padding-left:2px">
 					    <input type="text"   name="glaccount"     id="glaccount"     size="6" value="#GL.glaccount#" class="regularxxl" readonly style="text-align: center;">
+						</td>
+						<td style="padding-left:2px">
 				    	<input type="text"   name="gldescription" id="gldescription" value="#GL.description#" class="regularxxl" size="40" readonly style="text-align: center;">
 					    <input type="hidden" name="debitcredit"   id="debitcredit"   value="">
+						</td></tr></table> 
 				   </cfoutput>
 			
 		     </TD>
 			</TR>
 		
 		</cfif>
-
+		
+		<TR class="labelmedium">
+	
+	    <TD width="20%"><cf_tl id="Advance">:</TD>
+	    <TD>
+		
+		<table>
+			<tr class="labelmedium2">
+				<td>
+				<input type="radio" class="radiol" name="SettleInitialMode" value="0" <cfif get.SettleInitialMode eq "0">checked</cfif> value="1">		
+				</td>
+				<td><cf_tl id="No"></td>
+				<td style="padding-left:10px">
+				<input type="radio" class="radiol" name="SettleInitialMode" value="1" <cfif get.SettleInitialMode eq "1">checked</cfif>>
+				</td>
+				<td><cf_tl id="Yes"></td>
+				<td style="padding-left:8px">
+				<input type="text" name="SettleInitial" class="regularxxl" value="#get.SettleInitial#" value="#get.SettleInitial#" maxlength="3" style="text-align:center;width:40px">
+				</td>
+				<td style="padding-left:3px">%</td>
+			</tr>
+		</table>
+		
+	    </TD>
+        
+	</TR>
+	
 	<tr><td id="processmanual"></td></tr>
 	
 	<tr><td class="line" colspan="2" align="center" height="30">
@@ -78,7 +110,7 @@
 				AND    Mission = '#URL.Mission#'
 			</cfquery>
 		
-		<input class="button10g" type="button" name="Cancel" value="Cancel" onClick="ProsisUI.closeWindow('misdialog')">
+		<input class="button10g" type="button" name="Cancel" value="Close" onClick="ProsisUI.closeWindow('misdialog')">
 		<cfif check.recordcount eq "0">
 		<input class="button10g" type="submit" name="Delete" value="Delete" onclick"missioneditsubmit('#url.schedule#','#url.mission#','delete')>
 		</cfif>

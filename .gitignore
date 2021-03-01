@@ -5,6 +5,8 @@ CFReports/
 Custom/
 Manual/
 *.doc
+*.rar
+*.zip
 _*
 .metadata/
 .project

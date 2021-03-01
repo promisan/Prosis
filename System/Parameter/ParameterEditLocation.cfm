@@ -125,7 +125,7 @@ datasource="AppsInit">
 	   </cfoutput>
     </TD>
 	<td rowspan="5" style="min-width:80px;border:0px solid silver" align="center">	
-		<cf_reportlogo size="140">	
+		<cf_reportlogo size="120">	
 	</td>
 	</TR>	
 	
@@ -151,7 +151,7 @@ datasource="AppsInit">
 	</TR>
 	
 	<TR>
-    <td style="padding-left:10px;" class="labelit" width="160">Report Logo path:</b></td>
+    <td style="padding-left:10px;" class="labelit" width="160">Logo Report path:</b></td>
     <TD>
 	<table cellspacing="0" cellpadding="0"><tr><td>
     	<cfoutput query="get">
@@ -169,7 +169,7 @@ datasource="AppsInit">
 	</TR>
 	
 	<TR>
-    <td style="padding-left:10px;" class="labelit" width="160">Application Logo path:</b></td>
+    <td style="padding-left:10px;" class="labelit" width="160">Logo Application path:</b></td>
     <TD>
 	<table cellspacing="0" cellpadding="0"><tr><td>
     	<cfoutput query="get">
@@ -185,7 +185,9 @@ datasource="AppsInit">
 	</TD>		
 	
 	</TR>
-					
+	
+	
+						
 	<!--- Field: Prosis Document Root Path--->
     <TR>
     <td style="padding-left:10px;" class="labelit" width="160">Scheduler Root path:</td>

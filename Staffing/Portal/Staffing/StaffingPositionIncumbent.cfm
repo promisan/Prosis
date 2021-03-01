@@ -145,7 +145,7 @@
 						</cfquery>			
 
 						<tr class="labelmedium2">					      						   
-					   	   <td colspan="2" style="padding-right:5px;">#Track.entityclassName#:</td>
+					   	   <td colspan="2" style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;">#Track.entityclassName#</td>
 				   	   	   <td align="right" style="padding-right:5px;color:green"><cfif fo.recordcount eq "1">#FO.ReferenceNo#<cfelse>#docno#</cfif></td>				
 						</tr>	
 						
@@ -156,16 +156,16 @@
 				   <cfif getContract.ContractLevel neq "">	
 				   	
 					   <tr class="labelmedium2">							   
-					   	   <td colspan="2"><cf_tl id="Type of appointment">:</td>
+					   	   <td style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;" colspan="2"><cf_tl id="Type of appointment"></td>
 					       <td align="right" style="padding-right:5px">#getContract.ContractType#</td>
 					   </tr>	
 					   
 					   <tr><td colspan="3" class="line"></td></tr>							   
 					   							   
 					   <tr class="labelmedium2">
-						   <td><cf_tl id="Grade">|<cf_tl id="Step">:</td>
+						   <td style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;"><cf_tl id="Grade">|<cf_tl id="Step"></td>
 						   <cfif getContractAdjustment.recordcount gte "1">
-						   <td align="right" style="padding-right:5px">SPA: #getContractAdjustment.PostAdjustmentLevel# | #getContractAdjustment.PostAdjustmentStep#</td>
+						   <td align="right" style="padding-right:5px">SPA #getContractAdjustment.PostAdjustmentLevel# | #getContractAdjustment.PostAdjustmentStep#</td>
 						   <cfelse>
 						   <td></td>
 						   </cfif>
@@ -203,7 +203,7 @@
 						<cfif getContract.DateExpiration neq "">							   
 						   
 							   <tr class="labelmedium2">
-								   <td colspan="2"><cf_tl id="Appointment Expiry">:</td>
+								   <td style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;" colspan="2"><cf_tl id="Appointment Expiry"></td>
 								   <td align="right" style="padding-right:5px">
 									   <cfif dateDiff("d",now(),getContract.DateExpiration) lte 50>
 									   <font color="FF0000">#dateformat(getContract.DateExpiration,client.dateformatshow)#</font>
@@ -289,7 +289,7 @@
 					</cfif>	  
 					 
 					<tr class="labelmedium2">
-					   <td colspan="2"><cf_tl id="Assignment Expiry">:</td>
+					   <td style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;" colspan="2"><cf_tl id="Assignment Expiry"></td>
 					   <td align="right" style="padding-right:5px">
 						   <cfif dateDiff("d",now(),DateExpiration) lte 50>
 						   <span style="color:##FF0000;">#dateformat(DateExpiration,client.dateformatshow)#</span>
@@ -312,7 +312,7 @@
 						 <input type="hidden" 
 							   name="workflowcondition_#url.ajaxid#" 
 							   id="workflowcondition_#url.ajaxid#" 		   
-							   value="?personno=#Personno#&positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#&mde=ctr">	
+							   value="?personno=#Personno#&positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#&mde=ass">	
 					   
 						 <td id="#url.ajaxid#" colspan="3" align="center" style="padding:2px">
 						   <cfset mde = "ass">

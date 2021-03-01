@@ -60,7 +60,7 @@ password="#SESSION.dbpw#">
 	function missioneditsubmit(sch,mis,act) {
 		document.formmission.onsubmit() 
 		if( _CF_error_messages.length == 0 ) {           
-			ptoken.navigate('MissionEditSubmit.cfm?idmenu=#URL.idmenu#&action='+act+'&mission='+mis+'&schedule='+sch,'process','','','POST','formmission')
+			ptoken.navigate('MissionEditSubmit.cfm?idmenu=#URL.idmenu#&action='+act+'&mission='+mis+'&schedule='+sch,'processmanual','','','POST','formmission')
 		}   
     }	
 	

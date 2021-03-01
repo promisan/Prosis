@@ -196,7 +196,7 @@ password="#SESSION.dbpw#">
 	
 	<INPUT type="hidden" name="Crit2_FieldType" value="CHAR">
 	<TR>
-	<TD class="labelmedium">Last name:</b></TD>
+	<TD class="labelmedium"><cf_tl id="Last name">:</TD>
 	<TD><SELECT name="Crit2_Operator" class="regularxl">
 		
 			<OPTION value="CONTAINS"><cfoutput>#vcontains#</cfoutput>
@@ -221,7 +221,7 @@ password="#SESSION.dbpw#">
 	
 	<INPUT type="hidden" name="Crit3_FieldType" value="CHAR">
 	<TR>
-	<TD class="labelmedium">First name:</b>
+	<TD class="labelmedium"><cf_tl id="First name">:</b>
     </TD>
 	<TD><select name="Crit3_Operator" class="regularxl">
 		

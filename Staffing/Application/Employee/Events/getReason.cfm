@@ -1,5 +1,6 @@
 <cfparam name="URL.eventid" default="">
 <cfparam name="URL.preason" default="">
+<cfparam name="URL.mission" default="">
 
 <cfif URL.eventId neq "">
 
@@ -90,6 +91,31 @@
 
 </script>
 
+
+<cfquery name="getInstruction" 
+	 datasource="AppsEmployee" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+		SELECT *
+		FROM   Ref_PersonEventMission 
+		WHERE  PersonEvent    = '#url.eventcode#'
+		AND    Mission = '#url.mission#'			
+</cfquery>
+
+<cfif getInstruction.Instruction neq "">
+
+  <script>  
+	  ptoken.navigate('#session.root#/Staffing/Application/Employee/Events/getInstruction.cfm?eventcode=#url.eventcode#&mission=#url.mission#','myinstruction')
+  </script>
+  
+ <cfelse>
+ 
+ 	<script>
+		document.getElementById('myinstruction').innerHTML = ""
+	</script> 
+
+</cfif>
+
 </cfoutput>
 
 <cfif qReasons.recordcount neq 0>
@@ -100,7 +126,7 @@
     
 	<cfoutput>
 			
-		<select name="reasoncode" id="reasoncode" class="regularxl" style="width:95%">
+		<select name="reasoncode" id="reasoncode" class="regularxxl" style="width:95%">
 			<cfloop query="qReasons">
 				<option value="#GroupListCode#" <cfif qCurrentEvent.ReasonListCode eq GroupListCode OR GroupListCode eq url.preason>selected</cfif>>#GroupListCode#-#Description#</option>
 			</cfloop>

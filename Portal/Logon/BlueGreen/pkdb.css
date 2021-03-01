@@ -509,6 +509,11 @@ TABLE.formpadding > tbody > tr > td {
 	padding-bottom:2px;
 	padding-top:2px;
 }
+
+TABLE.formpadding1 > tbody > tr > td {	
+	padding-top:1px;
+}
+
 TABLE.highlight {
 	background-color:#ffffcf;
 	border:1px;

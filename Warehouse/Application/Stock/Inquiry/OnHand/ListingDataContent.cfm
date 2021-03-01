@@ -210,7 +210,8 @@
 		<cfset fields[itm] = {label     = "#vPending#",                    
 		     				field       = "OnHandPending",							
 							align       = "right",																			
-							formatted   = "numberformat(OnHandPending,'__,__')",
+							formatted   = "numberformat(OnHandPending,'[precision]')",							
+							precision   = "ItemPrecision",
 							search      = "number"}>	
 						
 	</cfif>										
@@ -221,7 +222,8 @@
 	     				field       = "OnHand",		
 						aggregate   = "SUM",						
 						align       = "right",																			
-						formatted   = "numberformat(OnHand,',__')",
+						formatted   = "numberformat(OnHand,'[precision]')",
+						precision   = "ItemPrecision",
 						search      = "number"}>		
 	
 	<!--- Hardcoded temporarily as per Hanno's advise, until we discuss about the Lot barcode. --->	

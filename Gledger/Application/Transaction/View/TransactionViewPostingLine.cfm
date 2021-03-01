@@ -24,8 +24,15 @@
    
 	   <table width="100%" cellspacing="0" cellpadding="0">
 		   <tr class="labelmedium" style="height:19px">
-		   <td><cf_space spaces="32"><a href="javascript:showledger('#mission#','#orgunitowner#','#accountperiod#','#glaccount#')"><cfif Lines.accountlabel neq "">#Lines.accountlabel#<cfelse>#GLAccount#</cfif></a></td>		   
-		   <td style="width:100%;padding-left:2px"><a href="javascript:showledger('#mission#','#orgunitowner#','#accountperiod#','#glaccount#')">#GLDescription#</a></td>
+		   
+		   <cfif Lines.accountLabel neq "">
+			   <cfset sl = Lines.accountLabel>
+		   <cfelse>
+			   <cfset sl = Lines.glaccount>
+		   </cfif>
+		   
+		   <td style="min-width:#len(sl)*10#"><a href="javascript:showledger('#mission#','#orgunitowner#','#accountperiod#','#glaccount#')">#sl#</a></td>		   
+		   <td style="width:100%;padding-left:2px">#Lines.GLDescription#</td>
 		   </tr>
 	   </table>
    </td>  

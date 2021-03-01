@@ -298,9 +298,11 @@
 						 </cfquery>
 						 
 						 <cfif Exchange.recordcount eq "1">
-						 
-						 	<cfset exp = exp+(amt*Exchange.Exchange)>
-						 
+							 	<cfif amt neq "">
+								 	<cfset exp = exp+(amt*Exchange.Exchange)>
+								<cfelse>
+									<cfset exp = 1>
+								</cfif>
 						 <cfelse>
 												
 							<cf_exchangeRate 

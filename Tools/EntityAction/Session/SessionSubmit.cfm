@@ -2,7 +2,7 @@
 <!--- submit session --->
 
 <cfparam name="Form.Operational" default="0">
-<cfparam name="Form.SessionIP" default="">
+<cfparam name="Form.SessionIP"   default="">
 
 <cfquery name="UserSession" 
  datasource="AppsOrganization"
@@ -12,6 +12,9 @@
 	FROM      OrganizationObjectActionSession
 	WHERE     ActionId        = '#url.actionid#'
 	AND       EntityReference = '#url.referenceId#'
+	<cfif url.useraccount neq "">
+	AND       UserAccount = '#url.useraccount#'
+	</cfif>
 </cfquery>
 
 <cfquery name="Object" 
@@ -51,7 +54,7 @@
 	 password="#SESSION.dbpw#">
 		UPDATE  OrganizationObjectActionSession
 		SET     SessionPlanStart  = #str#, 
-				SessionPlanEnd    = #end#, 		
+				SessionPlanEnd    = #end#, 				
 				SessionIP         = '#form.sessionip#', 
 				SessionPasscode   = '#form.passcode#',
 				Operational       = '#form.Operational#'
@@ -71,6 +74,7 @@
 					(ActionSessionId, 
 					 EntityCode, 
 					 EntityReference, 
+					 UserAccount,
 					 ActionId, 
 					 SessionDocumentId, 		 
 					 SessionPlanStart, 
@@ -84,6 +88,11 @@
 		VALUES   ('#rowguid#',
 				  '#Object.EntityCode#',
 				  '#url.Referenceid#',
+				  <cfif url.useraccount neq "">
+				  '#url.useraccount#',
+				  <cfelse>
+				  NULL,
+				  </cfif>	
 				  '#url.actionid#',
 				  '#form.documentId#',
 				  #str#,
@@ -104,6 +113,9 @@
 		FROM      OrganizationObjectActionSession
 		WHERE     ActionId        = '#url.actionid#'
 		AND       EntityReference = '#url.referenceId#'
+		<cfif url.useraccount neq "">
+		AND       UserAccount = '#url.useraccount#'
+		</cfif>
 	</cfquery>	  					 
 
 </cfif>
@@ -112,7 +124,11 @@
 
 	<script>	
 	    _cf_loadingtexthtml='';
+		<cfif url.useraccount neq "">
+		ptoken.navigate('#session.root#/tools/entityaction/session/setsession.cfm?actionid=#Usersession.ActionId#&entityreference=#Usersession.entityreference#&useraccount=#url.useraccount#','session_#url.Referenceid#_#url.useraccount#')			
+		<cfelse>
 		ptoken.navigate('#session.root#/tools/entityaction/session/setsession.cfm?actionid=#Usersession.ActionId#&entityreference=#Usersession.entityreference#','session_#url.Referenceid#')	
+		</cfif>
 		ProsisUI.closeWindow('wfusersession')
 	</script>
 

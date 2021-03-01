@@ -336,6 +336,7 @@
 
 </cfoutput>
 
+
 <!--- Query returning search results --->
 
 <cftransaction isolation="READ_UNCOMMITTED">
@@ -380,12 +381,13 @@
 --->
 
 	<cftransaction isolation="READ_UNCOMMITTED">
-		
+			
 	<!--- Query returning search results --->
 	<cfquery name="SearchResult" 
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
+		
 		SELECT *
 		INTO   userQuery.dbo.#SESSION.acc#Person_#fileNo# 
 		

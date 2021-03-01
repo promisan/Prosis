@@ -844,6 +844,7 @@
 						   AND      Currency        = S.Currency						   					   					   					  
 						  ) 	
 		
+		
 	</cfquery>
 	
 	<!---

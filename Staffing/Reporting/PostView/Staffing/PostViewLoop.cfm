@@ -20,7 +20,7 @@
 	 
 --->
 		
-<cfajaximport tags="cfwindow,cfdiv,cfform">
+<cfajaximport tags="cfdiv,cfform">
 
 <cfparam name="URL.FilterId" 			default="00000000-0000-0000-0000-000000000000">
 <cfparam name="URL.systemfunctionid" 	default="00000000-0000-0000-0000-000000000000">
@@ -375,13 +375,13 @@
 			  			   
 			   </cfif>
 			   
-			   <!---
+			   <!---			   
 			    <cfset itm = itm+1>	      	     		  
 			   <cf_menucontainer item="#itm#" class="hide">		
 				     <cfinclude template="MandateAction.cfm"> 
 			   </cf_menucontainer>		
 			   --->
-			   			   			   
+			   			   			   			   
 			   <cfset itm = itm+1>
 			   <cf_menucontainer item="#itm#" class="hide">		
 				     <cfinclude template="MandateContract.cfm"> 

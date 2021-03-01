@@ -94,8 +94,6 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
-<cfajaximport tags="cfwindow">
-
 <script language="JavaScript">
 
 function askjournal() {
@@ -107,9 +105,8 @@ function askjournal() {
 
 function batchperiod() {
     
-	try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-	ColdFusion.Window.create('mydialog', 'Subperiod', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    		
-	ColdFusion.navigate('#session.root#/Gledger/Maintenance/LedgerSchema/Journal/BatchView.cfm?Journal=#url.id1#','mydialog') 	
+	ProsisUI.createWindow('mydialog', 'Subperiod', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    		
+	ptoken.navigate('#session.root#/Gledger/Maintenance/LedgerSchema/Journal/BatchView.cfm?Journal=#url.id1#','mydialog') 	
 
 }
 
@@ -353,7 +350,6 @@ function batchrefresh(id) {
 								  
   		   <td><input type="text" name="glaccount"     id="glaccount"      value="#DefaultContraAccount.glaccount#"      size="5"  readonly class="regularxxl" style="text-align: center;"></td>
     	   <td style="padding-left:1px"><input type="text" name="gldescription" id="gldescription"  value="#DefaultContraAccount.gldescription#"  size="35" readonly class="regularxxl" style="text-align: center;"></td>
-		   <td style="padding-left:1px"><input type="text" name="debitcredit"   id="debitcredit"    value="#DefaultContraAccount.accounttype#"    size="3"  readonly class="regularxxl" style="text-align: center;"></td>
 		   		   
 		   <td style="padding-left:1px">  <img src="#SESSION.root#/Images/search.png" alt="Select account" name="img3" 
 			  onMouseOver="document.img3.src='#SESSION.root#/Images/contract.gif'" 
@@ -364,6 +360,32 @@ function batchrefresh(id) {
 			</tr></table>  
 	</TD>
 	</TR>
+	
+	
+	<TR>
+    <TD class="labelmedium2" style="cursor: pointer;">
+	  <cf_UItooltip tooltip="Main purpose of the journal is to record an asset or liability">Purpose:</cf_UItooltip>
+	</TD>
+   
+     <td style="padding-left:1px">
+	 <table>
+	 <tr class="labelmedium2">
+	 <td>	 
+	 <input type="radio" name="debitcredit"   id="debitcredit"    value="Debit"  <cfif get.AccountType eq "Debit">checked</cfif> class="radiol" style="text-align: center;">
+	 </td>
+	 <td>Asset</td>
+	 <td style="padding-left:10px">
+	  <input type="radio" class="radiol"  name="debitcredit"   id="debitcredit"    value="Credit" class="regularxxl" <cfif get.AccountType eq "Credit">checked</cfif> style="text-align: center;">
+	 </td> 
+	 <td>Liability</td>
+	 </tr>
+	 </table>
+	 
+		   		   
+		
+	</TD>
+	</TR>
+	
 	
 	<tr>
 	
@@ -416,7 +438,7 @@ function batchrefresh(id) {
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium2"><cf_tl id="Speedtype">:</TD>
+    <TD class="labelmedium2"><cf_tl id="Speedtype"></TD>
     <TD>
   	    <select name="speedtype" class="regularxxl">
 		<option value=''>N/A</option>  
@@ -464,9 +486,9 @@ function batchrefresh(id) {
 	</cfquery>
 	
 	<cfif countrec.recordcount eq "0">
-		<input class="button10g" style="height:26px" type="button" name="Delete" value=" Delete " onclick="return askjournal()">
+		<input class="button10g" style="width:200px;height:28px" type="button" name="Delete" value=" Delete " onclick="return askjournal()">
 	</cfif>
-	<input class="button10g" style="height:26px" type="button" name="Update" value=" Update " onclick = "javascript:do_submit()">
+	<input class="button10g" style="width:200px;height:28px" type="button" name="Update" value=" Update " onclick = "javascript:do_submit()">
 	</td></tr>
 	
 </table>

@@ -1,3 +1,4 @@
+
 <cfparam name="URL.ID" 			default="">
 <cfparam name="URL.PersonNo" 	default="">
 <cfparam name="URL.PositionNo" 	default="">
@@ -11,6 +12,7 @@
 <cfparam name="URL.preason" 	default="">
 
 <script>	
+    _cf_loadingtexthtml='';	
 	Prosis.busy('no');
 </script>
 
@@ -45,7 +47,7 @@
 	<input type="hidden" id="conditiongroupcode" name="conditiongroupcode" value="">
 </cfoutput>
 
-<table width="94%" class="formpadding" align="center">
+<table width="94%" class="formpadding formspacing" align="center">
 
 	<cfoutput>
 		
@@ -63,7 +65,7 @@
 		</cfif>
 		
 		<tr><td style="height:5px"></td></tr>	
-		<tr class="labelmedium">
+		<tr class="labelmedium2">
 			
 			<td width="20%"><cf_tl id="Entity">:</td>
 			<td style="padding-left:0px">
@@ -81,9 +83,9 @@
 						SELECT Mission 
 						FROM   Organization.dbo.Ref_Mission
 						WHERE  Mission IN (SELECT Mission 
-						                   FROM  Organization.dbo.Ref_EntityMission  
-										   WHERE EntityCode='PersonEvent' 
-										   AND   WorkflowEnabled=1)
+						                   FROM   Organization.dbo.Ref_EntityMission  
+										   WHERE  EntityCode      = 'PersonEvent' 
+										   AND    WorkflowEnabled = 1)
 					
 					<cfelse>
 					
@@ -94,23 +96,21 @@
 						AND     Mission IS NOT NULL
 						AND     Mission IN (SELECT Mission 
 						                    FROM   Organization.dbo.Ref_EntityMission  
-						                    WHERE  EntityCode='PersonEvent' 
-										    AND    WorkflowEnabled=1)
+						                    WHERE  EntityCode  = 'PersonEvent' 
+										    AND    WorkflowEnabled = 1)
 						UNION
 						
 						<!--- Employee has had assignments or contracts in missions... --->
 						
-						SELECT Distinct MissionOperational 
+						SELECT DISTINCT MissionOperational 
 						FROM   Employee.dbo.Position 
-						WHERE  PositionNo IN (
-											SELECT DISTINCT PositionNo 
-											FROM   Employee.dbo.PersonAssignment
-											WHERE  PersonNo = '#URL.PersonNo#'
-											)
+						WHERE  PositionNo IN (SELECT DISTINCT PositionNo 
+											  FROM   Employee.dbo.PersonAssignment
+											  WHERE  PersonNo = '#URL.PersonNo#' )
 						AND    Mission IN (SELECT Mission 
 				                           FROM   Organization.dbo.Ref_EntityMission  
-										   WHERE  EntityCode='PersonEvent' 
-										   AND    WorkflowEnabled=1)
+										   WHERE  EntityCode = 'PersonEvent' 
+										   AND    WorkflowEnabled = 1)
 										   						
 						UNION	
 						
@@ -119,10 +119,10 @@
 						WHERE  PersonNo = '#URL.PersonNo#'
 						AND    Mission IN (SELECT Mission 
 						                   FROM   Organization.dbo.Ref_EntityMission  
-										   WHERE  EntityCode='PersonEvent' 
+										   WHERE  EntityCode = 'PersonEvent' 
 										   AND    WorkflowEnabled=1)
 								
-								
+						ORDER BY Mission		
 					</cfif>
 					
 				</cfquery>				
@@ -165,7 +165,7 @@
 					 
 					 </cfif>  
 					 
-					<select name="mission" id="mission" class="regularxl">
+					<select name="mission" id="mission" class="regularxxl">
 					
 						<cfloop query="qMission">					
 						
@@ -199,7 +199,7 @@
 						 WHERE    PositionNo  = '#URL.PositionNo#'					 			
 					 </cfquery>  	
 				 
-					<select name="mission" id="mission" class="regularxl">														
+					<select name="mission" id="mission" class="regularxxl">														
 						<option value="#Position.MissionOperational#">#Position.MissionOperational#</option>											
 					</select>
 								
@@ -221,7 +221,7 @@
 						FieldName="DateEvent" 
 						Default="#DateFormat(vDate,'#CLIENT.DateFormatShow#')#"
 						AllowBlank="False"
-						Class="regularxl">
+						Class="regularxxl">
 				</td>
 				
 				</tr>
@@ -234,63 +234,35 @@
 			
 			<tr><td height="1" colspan="2" class="line"></td></tr>
 			
-			<tr class="labelmedium">
+			<cfif url.trigger eq "">
+			
+			<tr class="labelmedium2">
 				
 				<td  style="padding-left:3px" width="20%"><cf_tl id="Nature">:</td>
-			    <td style="padding-left:0px;font-size:16px">					
-				
-				    <cfif url.trigger neq "">
+			    <td style="padding-left:0px;font-size:16px">					    
+														    			
+					<cf_securediv id="mynaturebox" bind="url:#session.root#/staffing/Application/Employee/Events/getTrigger.cfm?personno=#url.personno#&eventid=#URL.id#&mission={mission}&Positionno=#url.positionno#&scope=#url.scope#&portal=#url.portal#&ptrigger=#url.ptrigger#&preason=#url.preason#&pevent=#url.pevent#">						
 					
-						<cfquery name="get" 
-						 datasource="AppsEmployee" 
-						 username="#SESSION.login#" 
-						 password="#SESSION.dbpw#">
-							 SELECT * 
-							 FROM Ref_EventTrigger
-							 WHERE Code = '#url.trigger#'							
-						</cfquery>	
-						
-						<input type="hidden" name="triggercode" id="triggercode" value="<cfoutput>#url.trigger#</cfoutput>"> 						
-						<cfoutput>#get.Description#</cfoutput>
-										
-					<cfelse>
-									    			
-						<cf_securediv id="mynaturebox" bind="url:#session.root#/staffing/Application/Employee/Events/getTrigger.cfm?personno=#url.personno#&eventid=#URL.id#&mission={mission}&Positionno=#url.positionno#&scope=#url.scope#&portal=#url.portal#&ptrigger=#url.ptrigger#&preason=#url.preason#&pevent=#url.pevent#">						
-												
-					</cfif>
 				</td> 
 				
-			</tr>		
+			</tr>	
 			
-			<tr name="VacCandidate" id="documentbox" class="hide">
-				<td style="padding-left:3px" width="20%">
-					<cf_tl id="Recruitment JO No">:
-				</td>				
-				<td>				
-				<cfinput type="text" mask="999999" id="documentno" name="DocumentNo" value="#qEvent.DocumentNo#" style="width:90" class="regularxl">											  
-		  		</td>						
-			</tr>				
-
-			<tr name="Requisition" id="requisitionbox" class="hide">
-				<td style="padding-left:3px" width="20%">
-					<cf_tl id="Requisition No">:
-				</td>				
-				<td>				
-				<cfinput type="text" mask="9999999999" id="requisitionNo" name="requisitionNo" value="#qEvent.RequisitionNo#" style="width:90" class="regularxl">											  
-		  		</td>						
-			</tr>				
-
-			<tr class="labelmedium">				
-				<td  style="padding-left:3px" width="20%"><cf_tl id="Requested action">:</td>
-			    <td style="padding-left:0px" id="dEvent"></td> 								
-			</tr>
-
-			<tr id="reasonbox" class="labelmedium hide">				
-				<td style="padding-left:3px" width="20%"><cf_tl id="Reason">:</td>
-			    <td style="padding-left:0px" id="dReason"></td> 								
-			</tr>
+			<cfelse>
 			
-			<tr class="labelmedium" id="unitbox">
+			<cfquery name="get" 
+			 datasource="AppsEmployee" 
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+				 SELECT * 
+				 FROM Ref_EventTrigger
+				 WHERE Code = '#url.trigger#'							
+			</cfquery>	
+			
+				<input type="hidden" name="triggercode" id="triggercode" value="<cfoutput>#url.trigger#</cfoutput>"> 						
+				
+			</cfif>	
+			
+			<tr class="labelmedium2 hide" id="unitbox">
 			
 				<td width="20%" style="padding-left:3px"><cf_tl id="Unit">:</td>								
 				<td>	
@@ -302,13 +274,13 @@
 				</td>				
 			</tr>					
 			
-			<tr class="labelmedium" id="positionbox">
+			<tr class="labelmedium2" id="positionbox">
 			
 				<td width="20%" style="padding-left:3px"><cf_tl id="Position">:</td>				
 				<td>
 		
-				<table width="100%" cellspacing="0" cellpadding="0" style="z-index:3;">
-					<tr><td width="100"> 
+				<table width="100%" style="z-index:3;">
+					<tr><td width="95%"> 
 					
 						 <cfquery name="qEvent" 
 							 datasource="AppsEmployee" 
@@ -338,10 +310,10 @@
 							
 						  	<input type= "text" 
 							 name      = "positionselect" 
-							 class     = "regularxl"
+							 class     = "regularxxl"
 							 id        = "positionselect"	
 							 value     = "#trim(Position.SourcePostNumber)# #trim(Position.FunctionDescription)# #trim(Position.PostGrade)#"
-							 style     = "padding-left:6px;padding-top:1px;width:400;font-size:16px; z-index:3;"  readonly>
+							 style     = "padding-left:6px;padding-top:1px;width:100%;font-size:16px; z-index:3;"  readonly>
 							 
 					    <cfelse>
 						
@@ -358,10 +330,10 @@
 							
 						  	<input type= "text" 
 							 name      = "positionselect" 
-							 class     = "regularxl"
+							 class     = "regularxxl"
 							 id        = "positionselect"	
 							 value     = "#trim(Position.SourcePostNumber)# #trim(Position.FunctionDescription)# #trim(Position.PostGrade)#"
-							 style     = "padding-left:6px;padding-top:2px;width:400;font-size:16px; z-index:3; <cfif url.positionno neq ''>background-color:eaeaea</cfif>" readonly>
+							 style     = "padding-left:6px;padding-top:2px;width:100%;font-size:16px; z-index:3; <cfif url.positionno neq ''>background-color:eaeaea</cfif>" readonly>
 												
 						</cfif>	 
 				
@@ -369,7 +341,7 @@
 					  
 					  <cfif url.positionno eq "">
 					
-						  <td style="padding-left:2px;border:0px solid gray">
+						  <td style="padding-left:12px;border:0px solid gray">
 												  
 					  		<cfset link = "#SESSION.root#/Staffing/Application/Employee/Events/getPosition.cfm?event=1">
 							
@@ -382,7 +354,7 @@
 								filter1      = "Mission"
 								filter1Value = "{mission}"
 								button       = "No"
-								style        = "width:28;height:25"
+								style        = "width:28px;height:28px"
 								close        = "Yes"			
 								datasource	 = "AppsEmployee"		
 								class        = "PositionSingle">	
@@ -402,16 +374,46 @@
 				</td>						
 			</tr>
 			
+			<tr name="VacCandidate" id="documentbox" class="hide">
+				<td style="padding-left:3px" width="20%">
+					<cf_tl id="Recruitment JO No">:
+				</td>				
+				<td>				
+				<cfinput type="text" mask="999999" id="documentno" name="DocumentNo" value="#qEvent.DocumentNo#" style="width:90" class="regularxxl">											  
+		  		</td>						
+			</tr>				
+
+			<tr name="Requisition" id="requisitionbox" class="hide">
+				<td style="padding-left:3px" width="20%">
+					<cf_tl id="Requisition No">:
+				</td>				
+				<td>				
+				<cfinput type="text" mask="9999999999" id="requisitionNo" name="requisitionNo" value="#qEvent.RequisitionNo#" style="width:90" class="regularxxl">											  
+		  		</td>						
+			</tr>				
+
+			<tr class="labelmedium2">				
+				<td  style="padding-left:3px" width="20%"><cf_tl id="Requested action">:</td>
+			    <td style="padding-left:0px" id="dEvent"></td> 								
+			</tr>
+
+			<tr id="reasonbox" class="labelmedium2 hide">				
+				<td style="padding-left:3px" width="20%"><cf_tl id="Reason">:</td>
+			    <td style="padding-left:0px" id="dReason"></td> 								
+			</tr>
+			
+			
+			
 			<tr class="hide"><td colspan="2" id="assignmentbox" style="padding-left:30px;padding-right:30px">
 				<cf_securediv bind="url:#session.root#/staffing/Application/Employee/Events/getAssignment.cfm?positionno=#qEvent.PositionNo#">															
 			</td></tr>
 			
-			<tr id="conditionbox" class="labelmedium xxxxxxxhide">				
+			<tr id="conditionbox" class="labelmedium2 hide">				
 				<td style="padding-left:3px" width="20%"><cf_tl id="ePerformance">:</td>
 			    <td style="padding-left:0px" id="dCondition"></td> 								
 			</tr>			
 									
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 				
 				<td style="padding-left:3px" width="20%"><span id="actiondatelabeleffective"></span><cf_tl id="Effective">:</td>
 				<td style="padding-left:0px">
@@ -428,7 +430,7 @@
 						FieldName="ActionDateEffective" 
 						Default="#DateFormat(vDate,'#CLIENT.DateFormatShow#')#"
 						AllowBlank="True"
-						Class="regularxl">
+						Class="regularxxl">
 						
 				</td>
 				  
@@ -451,7 +453,7 @@
 						FieldName="ActionDateExpiration" 
 						Default="#DateFormat(vDate,'#CLIENT.DateFormatShow#')#"
 						AllowBlank="True"
-						Class="regularxl">
+						Class="regularxxl">
 						
 				</td>
 				  
@@ -463,12 +465,9 @@
 						
 			<tr><td colspan="2" class="labellarge" style="padding-left:3px;font-size:18px"><font color="0080C0"><cf_tl id="Instructions"></td></tr>
 						
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 				
-				<td style="padding-left:3px" width="20%"><cf_tl id="Preparation due">:
-				
-				<cf_space spaces="42">
-				</td>
+				<td style="padding-left:3px" width="20%"><cf_tl id="Preparation due">:</td>
 				<td style="padding-left:0px">
 				
 					<cf_space spaces="38">
@@ -487,16 +486,16 @@
 						FieldName="DateEventDue" 
 						Default="#DateFormat(vDate,'#CLIENT.DateFormatShow#')#"
 						AllowBlank="False"
-						Class="regularxl">
+						Class="regularxxl">
 						
 				</td>
 				  
 			</tr>		
 			
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			
 			<td valign="top" style="padding-left:3px;padding-top:4px" width="20%"><cf_tl id="Remarks">:</td>
-		    <td class="labelmedium" colspan="5" style="padding-left:0px;height:20px">	
+		    <td class="labelmedium2" colspan="5" style="padding-left:0px;height:20px">	
 					<textarea type="text" name="Remarks" totlength="400" onkeyup="return ismaxlength(this)" style="width:100%;height:50px;font-size:14px;padding:3px" class="regular">#qEvent.Remarks#</textarea> 
 		    </td>
 		    
@@ -551,10 +550,10 @@
 				</td></tr>			
 							
 			</cfif>
-			
-			
+				
+			<tr><td colspan="2" style="padding-left:20px;padding-right:20px;" id="myinstruction"></td></tr>						
 			<tr><td colspan="2" class="line"></td></tr>			
-			<tr><td></td></tr>		
+			
 
 			<tr>				
 				

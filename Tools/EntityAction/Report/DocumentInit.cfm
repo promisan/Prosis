@@ -73,6 +73,8 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 		</cfquery>
 		
 		<cfset priorsign = "">
+		<cfset priorlanguage = "">
+		<cfset priorformat = "">
 						
 		<cfif check.recordcount eq "0" or (check.recordcount eq "1" and Check.documentContent eq "")>
 				
@@ -90,9 +92,11 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 				ORDER BY Created DESC				
 			</cfquery>		
 			
-			<cfset priorsign = last.SignatureBlock>
+			<cfset priorsign     = last.SignatureBlock>
+			<cfset priorlanguage = last.DocumentLanguageCode>
+			<cfset priorformat   = last.DocumentFormat>
 			
-			 <cfquery name="Signature" 
+			<cfquery name="Signature" 
 			 datasource="appsOrganization" 
 			 username="#SESSION.login#" 
 			 password="#SESSION.dbpw#">
@@ -128,18 +132,38 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 					 <cfset vLanguagecode = "">
 				<cfelse>   
 					 <cfset vLanguagecode  = "xl#DocumentLanguageCode#_">
-				</cfif>				
-			
-				<cfsavecontent variable="text">
-				    <cfset url.WParam = DocumentStringList>
-					<cftry>
-						<cfinclude template="../../../#DocumentTemplate#">
-					<cfcatch>
-						Error in Template #DocumentTemplate#?WParam=#url.wparam#
-						#cfcatch.message#
-					</cfcatch>		
-					</cftry>		
-				</cfsavecontent>								
+				</cfif>
+								
+				<cfif priorformat neq "">				
+										
+					<cfset url.format            = priorformat>
+					<cfset url.signature         = "">
+					<cfset url.description       = "">
+					<cfset URL.DocumentFramework = "#DocumentFramework#">
+					<cfset URL.DocumentTemplate  = "#DocumentTemplate#">
+					<cfset url.language          = priorlanguage>
+				    <cfset url.WParam            = DocumentStringList>
+				    <cfset URL.actionId          = "#URL.ID#">
+										
+					<cfinclude template          = "../Report/DocumentFramework.cfm"> 						
+									
+				<cfelse>
+				
+					<cfsavecontent variable="text">
+					
+					    <cfset url.WParam = DocumentStringList>
+						<cftry>
+							<cfinclude template="../../../#DocumentTemplate#">
+						<cfcatch>
+							Error in Template #DocumentTemplate#?WParam=#url.wparam#
+							#cfcatch.message#
+						</cfcatch>		
+						</cftry>	
+							
+					</cfsavecontent>							
+				
+				</cfif>					
+													
 		
 			<cfelseif DocumentMode eq "AsIs" and DocumentLayout eq "PDF">			
 			
@@ -220,8 +244,10 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 				</cfif>		
 				
 			</cfif>
+			
+			<cfparam name="text" default="">
 	
-			<cfif DocumentMode neq "Blank">
+			<cfif DocumentMode neq "Blank" and text neq "">
 			
 				<!--- new feature to apply a signature block content to the document on the spot where it is intended --->								
 																						
@@ -262,6 +288,8 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 								  <cfif DocumentLayout eq "PDF">
 									 DocumentPath,
 								  </cfif>
+								  DocumentFormat,
+								  DocumentLanguageCode,
 								  SignatureBlock,
 								  OfficerUserId, 
 								  OfficerLastName,
@@ -271,7 +299,9 @@ action, add a record by a generating (ASIS) or copying (EDIT) --->
 								  '#text#',
 								  <cfif DocumentLayout eq "PDF">
 									  '\WFObjectReport\#URL.ActionID#\#DocumentCode#.pdf',
-								  </cfif>	  
+								  </cfif>	
+								  '#priorformat#',
+								  '#priorlanguage#',  
 								  '#priorsign#',
 								  '#SESSION.acc#',
 								  '#SESSION.last#',

@@ -316,8 +316,7 @@ password="#SESSION.dbpw#">
 		
 			<cf_layoutarea  position="center" name="box">											
 			     
-				     <cfset url.header = "No"> 
-					 <cfoutput>------#url.header#-----</cfoutput>
+				     <cfset url.header = "No"> 					
 				     <cfinclude template="POViewGeneral.cfm">					
 				 		
 			</cf_layoutarea>	

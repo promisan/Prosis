@@ -1089,6 +1089,7 @@
 			I.Category,
 			IU.ItemBarCode,
 			--U.Description AS UoM,
+			IU.UoMDescription,
 			IU.UoM AS UoM,
 			T.TransactionQuantity * -1 as TransactionQuantity,
 			ROUND((S.SalesAmount * S.TaxPercentage),7) + S.SalesAmount AS SalesAmountExemption,
@@ -1431,14 +1432,14 @@
 					</dte:Frases>
 				<dte:Items>
 				<cfloop query="GetInvoice">
-					<cfif SalesPrice gt 0>
+					<cfif SalesPrice gt 0 and TransactionQuantity gte 0 and SalesTotal gte 0>
 						<cfset v_TipoItem = "B">
 						<cfif GetInvoice.isServiceItem eq "1">
 							<cfset v_TipoItem = "S">
 						</cfif>
 							<dte:Item BienOServicio="#v_TipoItem#" NumeroLinea="#vreccount#">
 						<dte:Cantidad>#TransactionQuantity#</dte:Cantidad>
-						<dte:UnidadMedida>#vUoM#</dte:UnidadMedida>
+						<dte:UnidadMedida><cfif UoMDescription neq "">#Left(UoMDescription,3)#<cfelse>#vUoM#</cfif></dte:UnidadMedida>
 							<cfset v_ItemDescription = ItemDescription>
 							<cfset v_ItemDescription = replace(v_ItemDescription,"&","&amp;","all")>
 							<cfset v_ItemDescription = replace(v_ItemDescription,"'","&apos;","all")>
@@ -1480,13 +1481,14 @@
 						<dte:Total>#trim(numberformat(ABS(SalesTotal),"__._______"))#</dte:Total>
 						</dte:Item>
 						<cfset vreccount = vreccount + 1>
-					</cfif>
-					<cfif TaxExemption eq "1">
-						<cfset vInvoiceTotalAmount = vInvoiceTotalAmount + SalesAmountExemption>
-						<cfset vInvoiceTotalTax = vInvoiceTotalTax + SalesTaxExemption>
-					<cfelse>
-						<cfset vInvoiceTotalAmount = vInvoiceTotalAmount + SalesTotal>
-						<cfset vInvoiceTotalTax = vInvoiceTotalTax + SalesTax>
+
+						<cfif TaxExemption eq "1">
+							<cfset vInvoiceTotalAmount = vInvoiceTotalAmount + SalesAmountExemption>
+							<cfset vInvoiceTotalTax = vInvoiceTotalTax + SalesTaxExemption>
+						<cfelse>
+							<cfset vInvoiceTotalAmount = vInvoiceTotalAmount + SalesTotal>
+							<cfset vInvoiceTotalTax = vInvoiceTotalTax + SalesTax>
+						</cfif>
 					</cfif>
 				</cfloop>
 				</dte:Items>
@@ -3039,6 +3041,7 @@ AND T.TransactionId not in (
 
 
 					<cfloop query="GetInvoice">
+						<cfif TransactionQuantity gte 0>
 							<detalleDte>
 							<cantidad>#TransactionQuantity#</cantidad>
 						<unidadMedida>#vUoM#</unidadMedida>
@@ -3077,6 +3080,8 @@ AND T.TransactionId not in (
 								<cfset vInvoiceTotalTax = vInvoiceTotalTax + SalesTax>
 							</cfif>
 							</detalleDte>
+
+						</cfif>
 					</cfloop>
 
 

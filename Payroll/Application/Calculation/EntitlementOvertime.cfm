@@ -276,8 +276,8 @@ password="#SESSION.dbpw#">
 	AND    (OvtD.OvertimeHours > 0 or  OvtD.OvertimeMinutes > 0)
 	
 	<!--- which has been if needed adjusted by the workflow field --->
-	AND    OvertimeDate    <=  #CALCEND#				
-	
+	AND    OvertimeDate    <=  #CALCEND#	
+		
 </cfquery>
 
 <cfquery name="Base" 

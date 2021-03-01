@@ -107,7 +107,7 @@
 					
 				<cfsavecontent variable="myquery">		
 				    
-					SELECT	*
+					SELECT	*, ObservationDate
 					FROM	UserQuery.dbo.#vTempTableName#
 					
 				</cfsavecontent>	
@@ -174,6 +174,7 @@
 <cfset fields[itm] = {label       = "Owner",                  
 					field         = "OwnerDescription",
 					searchfield   = "Description",
+					column        = "Common",
 					filtermode    = "2",
 					displayfilter = "Yes",
 					search        = "text"}>						
@@ -237,7 +238,7 @@
 <cfset fields[itm] = {label       = "Observed",  					
 					  field       = "ObservationDate",
 					  search      = "date",
-
+					  column      = "month",
 					  formatted   = "dateformat(ObservationDate,'#CLIENT.DateFormatShow#')"}>		
 					  
 <cfset itm = itm+1>							

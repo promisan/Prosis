@@ -56,6 +56,7 @@ password="#SESSION.dbpw#">
 	           T.Location, 
 			   R.DeliveryDate, 
 			   T.TransactionDate, 
+			   T.ItemPrecision,
 			   R.ReceiptNo, 
 			   T.ItemDescription, 
 			   U.UoMDescription, 
@@ -172,8 +173,9 @@ password="#SESSION.dbpw#">
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "TransactionQuantity",	
 						align       = "right",				
-						alias       = "",					
-						formatted   = "numberformat(TransactionQuantity,'__,__')",														
+						alias       = "",											
+						formatted   = "numberformat(TransactionQuantity,'[precision]')",							
+						precision   = "ItemPrecision",													
 						search      = ""}>								
 	
 	<!--- define access --->

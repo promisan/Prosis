@@ -68,7 +68,7 @@
 <select name="triggercode"
         id="triggercode" 
 		style="width:95%" 
-		class="regularxl" 
+		class="regularxxl" 
 		onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getEvent.cfm?personno=<cfoutput>#url.personno#</cfoutput>&triggercode='+this.value+'&eventid=&mission='+document.getElementById('mission').value+'&portal=<cfoutput>#url.portal#&pevent=#url.pevent#&preason=#url.preason#</cfoutput>','dEvent');">		
 		<cfif qTriggers.recordcount gt "1">
 			<option value="">Please select...</option>

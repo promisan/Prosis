@@ -6,96 +6,40 @@
 
 <tr class="labelmedium"><td align="center">
 
-
 <cfoutput>
 
-	 <cfif FileExists("#SESSION.rootDocumentPath#\User\Signature\#account#.png")>		
-	 		 
-	       <cftry>
-		   
-		   	   <cfif url.mode neq "PDF">
-			  		   
-		       <cfimage 
-				  action="RESIZE" 
-				  source="#SESSION.rootDocumentPath#\User\Signature\#account#.png" 
-				  name="showimage" 
-				  height="#imageheight#" 
-				  width="#imagewidth#">
-				 				  
-				  <cfimage action="WRITETOBROWSER" source="#showimage#">
-				  
-				<cfelse>
-								
+
+	 <cfif FileExists("#SESSION.rootDocumentPath#\User\Signature\#account#.png")>	
+	 
+	 		<cffile action="COPY" 
+					source="#SESSION.rootDocumentPath#\User\Signature\#account#.png" 
+  			    	destination="#SESSION.rootPath#\CFRStage\Signature\#account#.png" nameconflict="OVERWRITE">
+				 
 				  <cf_assignid> 
 									 		
-				  <img src="#SESSION.rootDocument#\User\Signature\#account#.png?id=#rowguid#"
+				  <img src="#SESSION.root#\CFRStage\Signature\#account#.png?id=#rowguid#"
 					     alt="Signature of #account#"
 					     border="0"
 					     align="absmiddle"
 	                     height="#imageheight#" 
-					     width="#imagewidth#">				 
-				 
-				</cfif> 
-				  
-			<cfcatch>
-									
-			  <cf_assignid> 
-									 		
-			  <img src="#SESSION.rootDocument#\User\Signature\#account#.png?id=#rowguid#"
-				     alt="Signature of #account#"
-				     border="0"
-				     align="absmiddle"
-                     height="#imageheight#" 
-				     width="#imagewidth#">
-			  			  
-			</cfcatch>	  
-			
-			</cftry>
+					     width="#imagewidth#">		 		 
+	     
 			
 	 <cfelseif FileExists("#SESSION.rootDocumentPath#\User\Signature\#account#.jpg")>
-	 
-	 	 	 	 	 
-		 	<cftry>
-									
-		    	<cfif url.mode neq "PDF">
-		   
-			       <cfimage 
-					  action="RESIZE" 
-					  source="#SESSION.rootDocumentPath#\User\Signature\#account#.jpg" 
-					  name="showimage" 
-					  height="#imageheight#" 
-					  width="#imagewidth#">
-				  
-				  <cfimage action="WRITETOBROWSER" source="#showimage#">
-				  
-				 <cfelse>
+	 	 
+				<cffile action="COPY" 
+					source="#SESSION.rootDocumentPath#\User\Signature\#account#.jpg" 
+  			    	destination="#SESSION.rootPath#\CFRStage\Signature\#account#.jpg" nameconflict="OVERWRITE">
 				 
 				  <cf_assignid> 
 									 		
-				  <img src="#SESSION.rootDocument#\User\Signature\#account#.jpg?id=#rowguid#"
+				  <img src="#SESSION.root#\CFRStage\Signature\#account#.jpg?id=#rowguid#"
 					     alt="Signature of #account#"
 					     border="0"
 					     align="absmiddle"
 	                     height="#imageheight#" 
 					     width="#imagewidth#">
-				 
-				 
-				 </cfif>
-				  
-			<cfcatch>
-			
-			  <cf_assignid> 
-									 		
-			  <img src="#SESSION.rootDocument#\User\Signature\#account#.jpg?id=#rowguid#"
-				     alt="Signature of #account#"
-				     border="0"
-				     align="absmiddle"
-                     height="#imageheight#" 
-				     width="#imagewidth#">
-			  			  
-			</cfcatch>	  
-			
-			</cftry>	
+				
 		 
   	 <cfelse>		
 	 

@@ -21,13 +21,15 @@
 	 ORDER BY TopicOrder, Parent
 </cfquery>	
 
-<table width="100%"><tr><td width="100%">
+<table width="98%" align="center">
+<tr>
+<td width="100%">
 
 <cfform method="POST" name="mytopic" onsubmit="return false">
 
 	<table width="100%" class="navigation_table">
 				
-	    <TR class="labelmedium line" height="18">
+	    <TR class="labelmedium2 line" height="18">
 		    <td width="1%" style="padding-right:4px"></td>		   
 		   <td width="10%"><cf_tl id="Profile element"></td>
 		   <td width="50%"><cf_tl id="Question"></td>
@@ -39,21 +41,20 @@
 		   <cfoutput>
 		   	<td width="30" style="padding-left:4px">
 			<a href="javascript:ptoken.navigate('#session.root#/Roster/RosterSpecial/Bucket/BucketQuestion/RecordListingDetail.cfm?idfunction=#url.idfunction#&topicid=new','listing')">
-			[add]
-			</a>
+			[<cf_tl id="Add">]</a>
 			</td>			  	  
 		   </cfoutput>
 	    </TR>	
 						
 		<cfif URL.topicid eq "new">
 						
-			<TR class="line labelmedium">
+			<TR class="line labelmedium2">
 			
 			<td rowspan="5"></td>
 			
 			<td><cf_tl id="Parent"></td>						
 			<td height="25" colspan="7"  style="padding-left:1px">			
-				<select name="Parent" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
+				<select name="Parent" class="regularxxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
 					<cfoutput query="ParentList">
 						<option value="#Parent#">#Description#</option>
 					</cfoutput>		
@@ -71,7 +72,7 @@
 						 required="Yes" 						 
 						 size="50" 						 
 						 maxlength="50" 
-						 class="regularxl">
+						 class="regularxxl">
 			
 			</td>			
 			</tr>
@@ -99,7 +100,7 @@
 							 style="text-align:center;border:0px;border-left:1px solid silver;border-right:1px solid silver"		
 							 size="1" 						 
 							 maxlength="2" 
-							 class="regularxl">
+							 class="regularxxl">
 							 
 							 <td style="padding-left:7px"><cf_tl id="Score scale"></td>
 							 <td style="padding-left:3px"><cfinput validate="integer" value="10" style="text-align:center" size="3" maxlength="3" type="text" name="TopicRatingScale"></td>
@@ -121,7 +122,7 @@
 			<td colspan="7" style="height:30px;padding-left:1px">
 			
 				<cfoutput>
-				<input type="submit" value="Save" onclick="quesave('#url.idfunction#','new')" class="button10g">
+				<input type="submit" value="Save" onclick="quesave('#url.idfunction#','new')" style="border:0px" class="button10g">
 				</cfoutput>
 			
 			</td>	
@@ -229,8 +230,8 @@
 			<cfelse>
 											
 				<TR class="navigation_row labelmedium line">							
-				   <td align="center" width="20" height="24" style="padding-top:3px;padding-right:7px">				  
-					  <cf_img icon="edit" onClick="ptoken.navigate('#session.root#/Roster/RosterSpecial/Bucket/BucketQuestion/RecordListingDetail.cfm?idfunction=#url.idfunction#&topicid=#topicid#','listing')">
+				   <td align="center" width="20" height="24" style="padding-top:1px;padding-right:7px">				  
+					  <cf_img icon="open" onClick="ptoken.navigate('#session.root#/Roster/RosterSpecial/Bucket/BucketQuestion/RecordListingDetail.cfm?idfunction=#url.idfunction#&topicid=#topicid#','listing')">
 				   </td>							   
 				   <td height="17">#Parent#</td>
 				   <td>#TopicPhrase#</td>
@@ -254,6 +255,8 @@
 
 </cfform>		
 
-</td></tr></table>
+</td>
+</tr>
+</table>
 
 <cfset ajaxonload("doHighlight")>

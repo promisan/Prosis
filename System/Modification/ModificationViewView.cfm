@@ -48,9 +48,11 @@
 
 </cfif>
 
-<table width="99%" height="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="99%" height="100%" align="center">
 	
 	<cfset page = "">
+	<cfset add = "0">
+	<cfset menu = "0">
 	
 	<cfif url.idmenu neq "">
 	<tr><td height="30">	

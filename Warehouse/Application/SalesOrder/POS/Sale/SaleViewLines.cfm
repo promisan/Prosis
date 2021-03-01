@@ -301,9 +301,16 @@ password="#SESSION.dbpw#">
 				</td>						
 				
 				<td align="right" style="min-width:100px;padding-top:0px;" valign="top">
+				
+								
+					<cfif SalesPrice eq "0">
+						<cfset cl = "FF8080">
+					<cfelse>
+						<cfset cl = "ffffff">
+					</cfif>
 					
 					<input type="text" 
-					 style = "background-color:fff;width:85px;text-align:right;border:1px solid silver;border-top:0px;" 
+					 style = "background-color:#cl#;width:85px;text-align:right;padding-right:2px;border:1px solid silver;border-top:0px;" 
 					 id    = "SalesPrice_#currentrow#"
 					 class = "regularxxl enterastab SalesPrice_#transactionid#"
 					 <cfif vLast eq currentrow>
@@ -320,11 +327,17 @@ password="#SESSION.dbpw#">
 						#numberformat(SchedulePrice,'.__')#
 					</div>
 
-				</td>				
-	
+				</td>	
+					
 				<td valign="top" align="right" style="min-width:100px;padding-top:7px 0;padding-right:4px; width:10%;">
+				
+					<cfif SalesPrice eq "0">
+						<cfset cl = "FF8080">
+					<cfelse>
+						<cfset cl = "transparent">
+					</cfif>
 					 
-					<div style="padding-top:2px;height:27px;" id="total_#currentrow#" class="labelmedium total_#transactionid#">					
+					<div style="background-color:#cl#;padding-top:2px;height:26px;padding-right:2px" id="total_#currentrow#" class="labelmedium total_#transactionid#">					
 						#numberformat(SalesTotal,',.__')#
 					</div>
 					<div class="clsNoPrint clsDetailLineCell">

@@ -1,10 +1,12 @@
 
 <cfparam name="attributes.mission"     default="zzzz">
-<cfparam name="attributes.account"     default="zzzz">
+<cfparam name="attributes.sigaction"   default="">
+<cfparam name="attributes.account"     default="">
 <cfparam name="attributes.title"       default="auto">
 <cfparam name="attributes.unit"        default="auto">
-<cfparam name="attributes.memo"        default="memo">
+<cfparam name="attributes.memo"        default="">
 <cfparam name="attributes.date"        default="auto">
+<cfparam name="attributes.id"          default="">
 <cfparam name="attributes.imageheight" default="80">
 <cfparam name="attributes.imagewidth"  default="200">
 
@@ -19,6 +21,7 @@
 		 WHERE    Account = '#attributes.Account#'
 	</cfquery>	
 	
+	<cfset action = attributes.sigAction>
 	<cfset first  = user.FirstName>
 	<cfset last   = user.LastName>
 	<cfset unit   = attributes.Unit>
@@ -73,8 +76,7 @@
 				  <cfset unit = "#OnBoard.OrgUnitName# / #Onboard.OrgUnitNameShort#">				 
 				<cfelse>
 				  <cfset unit = "#OnBoard.OrgUnitName#">	
-				</cfif> 
-				 
+				</cfif> 				 
 						 
 			 </cfif>				
 		
@@ -128,17 +130,9 @@
 	
 	 </td></tr>
 	 
-	 <tr class="labelit"><td align="center">#first# #last#</td></tr>
-	 
-	 <tr class="labelit"><td align="center">
-	 <cfif attributes.date eq "auto" or attributes.date eq "yes">
-	 #dateformat(now(),client.dateformatshow)# #timeformat(now(),"HH:MM")#
-	 <cfelse>
-	 #dateformat(attributes.date,client.dateformatshow)# #timeformat(attributes.date,"HH:MM")#
-	 </cfif>
-	 </td></tr>
-	 
-	  <cfif memo neq "">
+	 <tr class="labelit"><td align="center"><cfif action neq "">#action# </cfif>#first# #last#</td></tr>
+	 	 	 
+	 <cfif memo neq "">
 	 <tr class="labelit"><td align="center">#memo#</td></tr>
 	 </cfif>
 	 
@@ -149,6 +143,15 @@
 	 <cfif unit neq "">
 	 <tr class="labelit"><td align="center">#unit#</td></tr>
 	 </cfif>
+	 
+	 <tr class="labelit"><td align="center"><cf_tl id="Signed on">
+	 <cfif attributes.date eq "auto" or attributes.date eq "yes">
+	 #dateformat(now(),client.dateformatshow)# <cf_tl id="at"> #timeformat(now(),"kk:mm tt")#
+	 <cfelse>
+	 #dateformat(attributes.date,client.dateformatshow)# <cf_tl id="at"> #timeformat(attributes.date,"kk:mm tt")#
+	 </cfif>
+	 <cfif attributes.id neq ""><br><font size="1">ID: #attributes.id#</font></cfif>
+	 </td></tr>
 	 
 
 	</table>	

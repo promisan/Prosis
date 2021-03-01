@@ -356,7 +356,7 @@
 	}
 		
 	function decision(box,doc,per,act,sta,fnl) {		
-		ProsisUI.createWindow('decisionbox', 'Overall assessment and decision','',{x:100,y:100,width:document.body.offsetWidth-130,height:document.body.offsetHeight-130,modal:true,center:true})
+		ProsisUI.createWindow('decisionbox', 'Overall assessment and decision','',{x:100,y:100,width:document.body.offsetWidth-90,height:document.body.offsetHeight-90,modal:true,center:true})
 		ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Recommendation/CandidateRecommendation.cfm?wparam=#url.wparam#&DocumentNo='+doc+'&PersonNo='+per+'&ActionCode='+act+'&wfinal='+fnl+'&status='+sta,'decisionbox');
 	}
 	

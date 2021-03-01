@@ -74,6 +74,7 @@
    	    <cfparam name="Form.mission_#currentrow#"     			default="0">
 		<cfparam name="Form.orgunit_#currentrow#"     			default="0">
 		<cfparam name="Form.disableDistribution_#currentrow#"   default="0">
+		<cfparam name="Form.DistributionMode_#currentrow#"      default="0">
 		<cfparam name="Form.journal_#currentrow#"     			default="">
 		<cfparam name="Form.PostingMode_#currentrow#" 			default="Schedule">
 	
@@ -84,6 +85,7 @@
 		<cfset mde = evaluate("form.PostingMode_#currentrow#")>
 		<cfset org = evaluate("form.orgunit_#currentrow#")>
 		<cfset dist = evaluate("form.disableDistribution_#currentrow#")>
+		<cfset db  = evaluate("form.DistributionMode_#currentrow#")>
 		
 		<cfif mis eq "0">
 		
@@ -118,40 +120,35 @@
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 					INSERT INTO SalaryScheduleMission
-					(SalarySchedule,Mission,Journal,GLAccount,DisableDistribution,OrgUnit,PostingMode,DateEffective,OfficerUserId,OfficerLastName,OfficerFirstName)
+					(SalarySchedule,Mission,Journal,GLAccount,DisableDistribution,DistributionMode,OrgUnit,PostingMode,DateEffective,OfficerUserId,OfficerLastName,OfficerFirstName)
 					VALUES
-					('#url.id1#','#mission#','#jou#','#gla#','#dist#','#org#','#mde#',#dte#,'#SESSION.acc#','#SESSION.last#','#SESSION.first#')
+					('#url.id1#',
+					 '#mission#',
+					 '#jou#',
+					 '#gla#',
+					 '#dist#',
+					 '#db#',
+					 '#org#',
+					 '#mde#',
+					 #dte#,'#SESSION.acc#','#SESSION.last#','#SESSION.first#')
 				</cfquery>	
 			
 			<cfelse>	
-
-				<cfoutput>
-					<cf_logpoint mode="append">
-						UPDATE SalaryScheduleMission
-					SET   DateEffective = #dte#, 
-					      GLAccount     = <cfif gla eq "">null<cfelse>'#gla#'</cfif>, 
-						  Journal       = '#jou#',
-						  OrgUnit       = '#org#',
-						  PostingMode   = '#mde#',
-						  DisableDistribution = '#dist#'
-					WHERE Mission = '#mission#' 
-					and SalarySchedule = '#url.id1#' 
-					</cf_logpoint>
-				</cfoutput>
 			
 				<cfquery name="MissionSelect" 
 				datasource="AppsPayroll" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 					UPDATE SalaryScheduleMission
-					SET   DateEffective = #dte#, 
-					      GLAccount     = <cfif gla eq "">null<cfelse>'#gla#'</cfif>, 
-						  Journal       = '#jou#',
-						  OrgUnit       = '#org#',
-						  PostingMode   = '#mde#',
-						  DisableDistribution = '#dist#'
-					WHERE Mission = '#mission#' 
-					and SalarySchedule = '#url.id1#' 
+					SET    DateEffective       = #dte#, 
+					       GLAccount           = <cfif gla eq "">null<cfelse>'#gla#'</cfif>, 
+						   Journal             = '#jou#',
+						   OrgUnit             = '#org#',
+						   PostingMode         = '#mde#',
+						   DisableDistribution = '#dist#',
+						   DistributionMode    = '#db#'
+					WHERE  Mission             = '#mission#' 
+					AND    SalarySchedule      = '#url.id1#' 
 				</cfquery>				
 			
 			</cfif>

@@ -364,7 +364,7 @@ This is not how it intended, solution prevent check box if this was inherited by
    	
     <tr class="labelmedium line">
 	
-      <td colspan="9" style="font-weight:289">
+      <td colspan="9">
 	  
 		  <cfif type eq "1. Manual">
 		  
@@ -407,9 +407,9 @@ This is not how it intended, solution prevent check box if this was inherited by
 				
 				<cfif AccountType eq "Group">
 				
-				<tr bgcolor="ffffff" class="navigation_row labelmedium line" style="height:22px">		
+				<tr bgcolor="ffffff" class="navigation_row labelmedium2 line" style="height:22px">		
 				  <td width="30" align="center" style="padding-top:1px">		 
-				 	 <cf_img icon="edit" navigation="Yes" onclick="process('#URLEncodedFormat(Account)#')">			    
+				 	 <cf_img icon="open" navigation="Yes" onclick="process('#URLEncodedFormat(Account)#')">			    
 				   </td>			  	   
 				   <td style="width:20px"></td>
 				   
@@ -428,10 +428,10 @@ This is not how it intended, solution prevent check box if this was inherited by
 				<tr bgcolor="ECF5FF" class="navigation_row labelmedium line" style="height:22px">
 				
 				 <td align="center" style="width:30px;padding-top:1px">	 
-				     <cf_img icon="edit" navigation="Yes" onclick="process('#URLEncodedFormat(Account)#')">			   
+				     <cf_img icon="open" navigation="Yes" onclick="process('#URLEncodedFormat(Account)#')">			   
 				 </td>	
 				 
-				 <td style="width:30px;padding-top:3px">		
+				 <td style="width:30px;padding-top:8px">		
 					 <cf_img icon="expand" toggle="Yes" onclick="drilldown('#account#','#box#_#account#','tree','#url.mission#','','#url.id4#','#orgunit#')">	      
 				 </td>
 					   
@@ -439,14 +439,14 @@ This is not how it intended, solution prevent check box if this was inherited by
 				
 					<!--- inherited from entity --->  
 				
-					 <tr bgcolor="ffffdf" class="navigation_row labelmedium line" style="height:22px">
+					 <tr bgcolor="ffffdf" class="navigation_row labelmedium2 line" style="height:22px">
 				
 					 <td width="30" align="center"></td>	
 					 <td></td>	
 				   
 				<cfelse>
 				
-					<tr class="navigation_row labelmedium line" style="height:22px">
+					<tr class="navigation_row labelmedium2 line">
 					
 					<td width="30" align="center" style="padding-top:1px">
 					
@@ -555,9 +555,9 @@ This is not how it intended, solution prevent check box if this was inherited by
 					<tr>
 					<td></td>
 					<td colspan="7">
-					<table width="100%" cellspacing="0" cellpadding="0">
+					<table width="100%">
 						<cfloop query="Denied">
-						<tr class="labelit">
+						<tr class="labelmedium2">
 						<td><a href="javascript:reinstate('#url.id4#','#url.id5#','#accessid#')">Reinstate</a></td>
 						<td>#ClassParameter#</td>
 						<td>#GroupParameter#</td>
@@ -574,7 +574,6 @@ This is not how it intended, solution prevent check box if this was inherited by
 				
 				</cfif>
 				
-			
 			</cfif>
 		
 		</cfoutput>
@@ -591,21 +590,21 @@ This is not how it intended, solution prevent check box if this was inherited by
 	  
 	  <cfoutput>
 	  
-	  <input  type    = "button" 
-	          name    = "Broadcast" 
-			  id      = "Broadcast" 
-			  value   = "Broadcast" 
-			  class   = "button10g" 
-			  style   = "width:130;height:24" 
-			  onClick = "broadcast('#URL.ID4#','#URL.Mission#')">
-			
-	  <input  type    = "submit" 
-		      name    = "Purge" 
-			  id      = "Purge" 
-			  value   = "Revoke" 
-			  class   = "button10g" 
-			  style   = "width:130;height:24" 
-			  onClick = "return Process('remove')">
+		  <input  type    = "button" 
+		          name    = "Broadcast" 
+				  id      = "Broadcast" 
+				  value   = "Broadcast" 
+				  class   = "button10g" 
+				  style   = "width:130;height:24" 
+				  onClick = "broadcast('#URL.ID4#','#URL.Mission#')">
+				
+		  <input  type    = "submit" 
+			      name    = "Purge" 
+				  id      = "Purge" 
+				  value   = "Revoke" 
+				  class   = "button10g" 
+				  style   = "width:130;height:24" 
+				  onClick = "return Process('remove')">
 		  
 	  </cfoutput>
 	  

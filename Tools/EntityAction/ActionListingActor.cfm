@@ -527,8 +527,7 @@
 						 <cfif url.mode eq "Insert">						 	
 						   <cf_img icon="delete"							  
 						   onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessDelete.cfm?box=#url.box#&Mode=#url.Mode#&ObjectId=#url.ObjectId#&OrgUnit=#url.OrgUnit#&Role=#url.Role#&ActionPublishNo=#url.actionPublishNo#&ActionCode=#url.ActionCode#&Group=#url.group#&account=#Account#&assist=#url.assist#','#url.box#')">
-						  </cfif> 
-						   
+						  </cfif> 					   
 						   
 						 </td>
 						 
@@ -550,27 +549,31 @@
 																		 
 							 <cfif checkfavorite.recordcount eq "0">
 							   					   
-								   <img src="#SESSION.root#/Images/favoriteadd.png" 
-								   title="Remember delegation for #LastName#, #FirstName#" 
-								   width="14" 
-								   height="14" 
-								   border="0" 
+								  <img src="#SESSION.root#/Images/favoriteadd.png" 
+								   title="Remember delegation for #LastName#, #FirstName# for future objects of the same entity" 
+								   width="16" height="16" 								 
 								   style="cursor: pointer;" 
 								   onClick="ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessFavorite.cfm?ObjectId=#url.ObjectId#&ActionCode=#url.ActionCode#&action=grant&account=#Account#&accesslevel=#accesslevel#','b#account#_favorite')">
 								   
 							  <cfelse>
 							  
-								   <img src="#SESSION.root#/Images/favorite.png" 
+								  <img src="#SESSION.root#/Images/favorite.png" 
 								   title="Account was delegated for future actions for the same entity (#LastName#, #FirstName#), press to remove" 
-								   width="14" 
-								   height="14" 
-								   border="0" 
+								   width="14" height="14"  
 								   style="cursor: pointer;" 
 								   onClick="ptoken.navigate('#SESSION.root#/tools/entityAction/ProcessActionAccessFavorite.cfm?ObjectId=#url.ObjectId#&ActionCode=#url.ActionCode#&action=reset&account=#Account#&accesslevel=#accesslevel#','b#account#_favorite')">
 													  
 							  </cfif> 
 						  
 						   </td>
+						   
+						   <td>
+						   						   
+							<cf_securediv id="session_#url.ActionCode#_#account#"  bind="url:#session.root#/tools/entityaction/session/setsession.cfm?actionid=#url.actionid#&entityreference=#url.ActionCode#&useraccount=#account#">														   
+						  
+						   </td>
+						   
+						   
 						   </tr>
 						   </table>
 							

@@ -113,6 +113,7 @@
 			           I.ItemDescription,
 					   I.ItemNoExternal,
 				       I.ParentItemNo,
+					   I.ItemPrecision,
 				       (SELECT ItemDescription FROM Item IP WHERE IP.ItemNo = I.ParentItemNo) as ParentItemName,					   
 
 					   P.WarehouseName,
@@ -237,6 +238,7 @@
 			 		   C.Description as CategoryDescription,
 			           T.ItemNo,	
 					   I.ItemNoExternal,
+					   I.ItemPrecision,
 				       I.ParentItemNo,
 				       (SELECT ItemDescription FROM Item IP WHERE IP.ItemNo = I.ParentItemNo) as ParentItemName,			           
 			 		   T.TransactionLot,          
@@ -334,6 +336,7 @@
 				   I.CategoryItem,
 			       T.ItemNo,	
 				   I.ItemNoExternal,
+				   I.ItemPrecision,
 			 	   T.TransactionLot,          
 			       I.ItemDescription,
 				   P.WarehouseName,

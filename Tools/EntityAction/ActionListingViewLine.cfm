@@ -739,7 +739,7 @@
 				   <button name="accessgrantedbutton" id="accessgrantedbutton"
 				       class="button3" 
 					   type="button" 
-					   onClick="accessgrantedwf('u','#ObjectId#_#objectcnt#_#actioncode#_#CurrentRow#','show','#ActionCode#&objectId=#ObjectId#&i=i#CurrentRow#','#Attributes.OrgUnit#','#Entity.Role#','#actionPublishNo#')">
+					   onClick="accessgrantedwf('u','#ObjectId#_#objectcnt#_#actioncode#_#CurrentRow#','show','#ActionCode#&objectId=#ObjectId#&actionId=#actionid#&i=i#CurrentRow#','#Attributes.OrgUnit#','#Entity.Role#','#actionPublishNo#')">
 					
 					   <img  src    = "#SESSION.root#/Images/Authorization.png"
 					     	 alt    = "Collaboration Info"

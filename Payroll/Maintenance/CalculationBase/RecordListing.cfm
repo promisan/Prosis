@@ -41,7 +41,7 @@ password="#SESSION.dbpw#">
 
 	<table width="97%" align="center" class="navigation_table">
 		
-		<tr class="labelmedium line" style="height:20px;">
+		<tr class="labelmedium2 line" style="height:20px;">
 		    <td align="left"></td>
 			<td colspan="2" align="left"><cf_tl id="Name"></td>	
 			<td align="left" style="padding-left:20px"><cf_tl id="Base"></td>	  
@@ -50,8 +50,8 @@ password="#SESSION.dbpw#">
 		<cfloop query="SearchResult">
 			
 			<cfoutput>
-			<tr><td height="10"></td></tr>
-			<tr class="labelmedium navigation_row line"> 
+			
+			<tr class="labelmedium2 navigation_row line"> 
 			    
 				<td width="6%" align="center" style="padding-top:1px;">
 				    <cf_img icon="open" onclick="recordedit('#Code#')" navigation="Yes">
@@ -100,12 +100,12 @@ password="#SESSION.dbpw#">
 			
 			<cfoutput query="detail" group="SalarySchedule">
 			
-			    <tr>
+			    <tr class="labelmedium2">
 					<td></td>						
-					<td class="labelit" style="border-top:1px solid silver;padding-left:60px">#SalarySchedule#</td>
+					<td style="border-top:1px solid silver;padding-left:60px">#SalarySchedule#</td>
 					<td bgcolor="f4f4f4" class="labelit" colspan="2" style="border-top:1px solid silver;padding-left:30px;">	
 					
-						<table><tr>
+						<table><tr class="labelmedium2">
 						<cfoutput>
 						
 						<cfquery name="get"

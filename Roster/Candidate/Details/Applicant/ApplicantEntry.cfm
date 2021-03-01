@@ -461,8 +461,8 @@ password="#SESSION.dbpw#">
 			
 			<cfelse>
 			
-				<cf_securediv id="Nationality_id" bind="url:getNationality.cfm?mission=#url.mission#&orgunit={OrgUnit}" bindOnLoad="Yes">
-
+				<cf_securediv id="Nationality_id" bind="url:getNationality.cfm?setting=1&mission=#url.mission#&orgunit={OrgUnit}" bindOnLoad="Yes">
+			
 			</cfif>
 			
 	    </TD>

@@ -6,7 +6,7 @@
 <table width="99%" align="center"  class="formpadding">
 
  <tr><td height="15px"></td></tr> 		
-    <tr><td class="labelmedium">Define one or more optional questions the applicant will have to answer as part of his application</td></tr>
+    <tr><td class="labelmedium2">Define one or more optional questions the applicant will have to answer as part of his application</td></tr>
 	<tr><td height="6"></td></tr> 		
 	<tr>
 	

@@ -1,9 +1,9 @@
 
-<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" scroll="Yes" label="Maintain Journal Batch" html="yes" layout="webapp">
+<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('mydialog',true)" scroll="Yes" label="Maintain Journal Batch" html="no" layout="webapp">
 
 <cfajaximport tags="cfform">
 
-<table width="95%" height="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" height="100%" align="center" class="formpadding">
 
 <tr><td height="4"></td></tr>
 <tr><td valign="top">

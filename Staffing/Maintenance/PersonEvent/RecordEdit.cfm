@@ -58,26 +58,26 @@ password="#SESSION.dbpw#">
 
 <cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="92%" align="center" class="formpadding formspacing">
 
     <cfoutput>
 	<tr><td></td></tr>
-    <TR class="labelmedium">
-    <TD>Code:</TD>
+    <TR class="labelmedium22">
+    <TD><cf_tl id="Code">:</TD>
     <TD>
   	   <input type="text" name="Code" value="#get.Code#" size="20" maxlength="20" class="regularxl">
 	   <input type="hidden" name="CodeOld" value="#get.Code#" size="20" maxlength="20" readonly>
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Name / Label:</TD>
     <TD>
-  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="30" maxlength="50"class="regularxl">
+  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="30" maxlength="50"class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD valign="top" style="padding-top:5px">Additional information:</TD>
     <TD>
   	   <textarea name="ActionInstruction" style="font-size:14px;padding:3px;width:100%;height:70px">#get.ActionInstruction#</textarea>
@@ -85,21 +85,21 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Order:</TD>
     <TD>
-  	   <cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter an order" style="text-align:center" required="Yes" size="2" maxlength="4" class="regularxl">
+  	   <cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter an order" style="text-align:center" required="Yes" size="2" maxlength="4" class="regularxxl">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Record Position:</TD>
     <TD>
   		<input type="checkbox" class="radiol" name="ActionPosition" value="1" <cfif get.ActionPosition eq 1>checked</cfif>>
     </TD>
 	</TR>
 
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Enable Portal:</TD>
     <TD>
   		<input type="checkbox" class="radiol" name="EnablePortal" value="1" <cfif get.EnablePortal eq 1>checked</cfif>>
@@ -107,11 +107,11 @@ password="#SESSION.dbpw#">
 	</TR>
 
 
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Record Period:</TD>
     <TD>
 	    <table>
-		<tr class="labelmedium">
+		<tr class="labelmedium2">
 		<td style="padding-left:0px"><input type="radio" class="radiol" name="ActionPeriod" value="0" <cfif get.ActionPeriod eq 0>checked</cfif>></td>
 		<td style="padding-left:2px">No</td>
   		<td style="padding-left:4px"><input type="radio" class="radiol" name="ActionPeriod" value="1" <cfif get.ActionPeriod eq 1>checked</cfif>></td>
@@ -123,7 +123,7 @@ password="#SESSION.dbpw#">
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Workflow:</TD>
     <TD>
 	
@@ -136,7 +136,7 @@ password="#SESSION.dbpw#">
 				WHERE 	EntityCode = 'PersonEvent'
 				</cfquery>
 				
-			<select name="entityClass" id="entityClass" class="regularxl">
+			<select name="entityClass" id="entityClass" class="regularxxl">
 				<option value="">None</option>
 				<cfloop query="getWF">
 				  <option value="#entityClass#" <cfif get.entityClass eq entityClass>selected</cfif>>#entityClass# - #entityClassName#</option>
@@ -148,7 +148,7 @@ password="#SESSION.dbpw#">
 	
 	</cfoutput>
 
-	<TR class="labelmedium"><td colspan="2"><cf_tl id="Entity">:</td></tr>
+	<TR class="labelmedium2"><td colspan="2"><cf_tl id="Entity">:</td></tr>
 	<TR>
 	<td width="100%" colspan="2">
 		<table>
@@ -164,7 +164,7 @@ password="#SESSION.dbpw#">
 			<cfset row = row+1>
 			
 			<cfif row eq "1">
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			</cfif>		
 			
 			<cfquery name="MissionCheck" 

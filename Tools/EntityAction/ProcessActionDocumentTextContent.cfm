@@ -202,7 +202,10 @@
 					
 					<tr>
 					
+						<!--- this option is disabled 
+					
 						<cfif url.textmode neq "read">
+						
 						 	<td style="height:30px" class="labelit">Header Margin:&nbsp;
 							
 							<select name="margintop" id="margintop" class="regularxl"
@@ -216,6 +219,7 @@
 					     	</td>		   
 							
 							<td width="10">&nbsp;</td>
+							
 						</cfif>
 				   
 					   	<td align="right" style="width:20;height:30px"> 
@@ -226,6 +230,7 @@
 							 	 <img src="#SESSION.root#/Images/mail_new.gif" align="absmiddle" alt="Send eMail" border="0">
 							  </button>
 						</td>
+						
 						<td align="right"  style="width:20;height:30px">				 			 
 							  <button type="button" 
 							     name="PDF"  id="PDF"	
@@ -234,6 +239,9 @@
 								 <img src="#SESSION.root#/Images/pdf_small.gif" align="absmiddle" alt="PDF" border="0">
 							  </button>					
 						</td>	
+						
+						--->
+						
 						<td align="right"  style="width:20;height:30px">				 			 
 							  <button type="button" 
 							     name="Print" id="Print" 	

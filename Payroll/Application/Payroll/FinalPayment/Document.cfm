@@ -419,10 +419,10 @@ password="#SESSION.dbpw#">
 						FROM     EmployeeSalary AS S 
 						         INNER JOIN EmployeeSalaryLine AS SL 
 								           ON  S.SalarySchedule = SL.SalarySchedule 
-										   AND S.PayrollStart = SL.PayrollStart 
-										   AND S.PersonNo = SL.PersonNo 
-										   AND S.Mission = SL.Mission 
-										   AND S.PayrollCalcNo = SL.PayrollCalcNo 
+										   AND S.PayrollStart   = SL.PayrollStart 
+										   AND S.PersonNo       = SL.PersonNo 
+										   AND S.Mission        = SL.Mission 
+										   AND S.PayrollCalcNo  = SL.PayrollCalcNo 
 								 INNER JOIN Ref_PayrollItem ON SL.PayrollItem = Ref_PayrollItem.PayrollItem AND Ref_PayrollItem.Settlement = 1								 
 						WHERE    S.PersonNo   = '#get.PersonNo#' 
 						AND      S.PayrollEnd = '#get.PaymentDate#'

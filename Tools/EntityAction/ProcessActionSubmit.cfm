@@ -452,9 +452,10 @@
 		<cfset URL.Signature         = "#signature.blockline1#<br>#signature.blockline2#<br>#signature.blockline3#<br>#signature.blockline4#<br>#signature.blockline5#">
 		<cfset URL.Description       = "">
 		<cfset URL.DocumentFramework = "#DocumentFramework#">
+		<cfset URL.DocumentTemplate  = "#DocumentTemplate#">
 		<cfset URL.Language          = "#DocumentLanguageCode#">
 		<cfset URL.Format            = "#DocumentFormat#">
-			
+					
 		<cfsavecontent variable="text">
 		
 		    <cfset url.WParam = DocumentStringList>
@@ -486,9 +487,9 @@
 																			
 			</cfif>									
 					
-		</cfif>				
-
-		<cfif documents.DocumentStringList neq "norefresh">   
+		</cfif>		
+		
+		<cfif documents.DocumentStringList neq "norefresh" and len(text) gte "10">   
 					
 			<cfquery name="UpdateMemo" 
 			 	datasource="AppsOrganization"
@@ -497,11 +498,11 @@
 			 	UPDATE OrganizationObjectActionReport 		
 			 	SET    DocumentContent = '#text#' 
 			 	WHERE  ActionId        = '#URL.ID#' 
-			 	AND    DocumentId      = '#DocumentId#'
+			 	AND    DocumentId      = '#DocumentId#' 
 			</cfquery>
-			
+						
 		</cfif>	
-			
+					
 	</cfloop>	
 			
 	<cfset ObjectId = "#Object.ObjectId#">

@@ -270,7 +270,8 @@ password="#SESSION.dbpw#">
 	  
 	  --->	
 	  
-	  <cfif settlementstatus eq "Final">						 						 							 
+	  <cfif settlementstatus eq "Final">	
+	  			 						 							 
 	  
 	  AND    H.PayrollStart <= #SALSTR#   <!--- #compUntilDate# #SALSTR# --->	
 	  
@@ -309,12 +310,9 @@ password="#SESSION.dbpw#">
 	         I.AllowSplit, 
 		     H.PaymentCurrency,
 		     I.settlement,
-		     I.SettlementMonth  
-		
-			 
-			 			 		 
+		     I.SettlementMonth  	
+						 			 		 
 </cfquery>
-
 
 
 <!--- ----------------------------------------------------------------------------------------- --->
@@ -421,8 +419,6 @@ password="#SESSION.dbpw#">
 	   AND   PersonNo NOT IN (#preservesingleQuotes(selper)#)
     </cfif>		 
 	
-	
-	
 	<!--- -------------------------------------------------------------------------------------- --->
 	<!--- 24/5/2018 we ONLY compare for the period since this person started his continuous work --->
 	
@@ -493,8 +489,8 @@ password="#SESSION.dbpw#">
      		    	                              AND E.PayrollItem     = P.PayrollItem 
 												  AND E.Source          = P.Source 
 		    	    					          AND E.PaymentCurrency = P.Currency	
+												  
 </cfquery>
-
 
 
 <CF_DropTable dbName="AppsQuery" tblName="sal#SESSION.thisprocess#SettleEntitlement">	
@@ -516,8 +512,6 @@ password="#SESSION.dbpw#">
 	SET      DiffCalc = round(CalculatedAmount - Calculation,2),
 	         DiffPay  = round(PaymentAmount - Payment,2)
 </cfquery>
-
-
 
 <!--- now record new settlements for IN-cycle processing 
       only if person is INDEED assigned in the period of the designated settlement date --->

@@ -58,7 +58,7 @@
 				  <td style="background-color:##e4e4e4;font-size:17px;padding-left:8px;width:160px;"><span style="font-size:12px;">Post##</span>&nbsp;
 				  
 				  <cfif getAdministrator("#mission#") eq "1">
-				  <a href="javascript:EditPosition('#mission#','#MandateNo#','#PositionNo#')"><cfif sourcePostNumber eq "">#PositionParentid#<cfelse>#SourcePostNumber#</cfif></a>
+				  <a href="javascript:EditPosition('#mission#','#MandateNo#','#PositionNo#')" title="Inspect position information"><cfif sourcePostNumber eq "">#PositionParentid#<cfelse>#SourcePostNumber#</cfif></a>
 				  <cfelse>
 				  <cfif sourcePostNumber eq "">#PositionParentid#<cfelse>#SourcePostNumber#</cfif>
 				  </cfif>
@@ -159,7 +159,7 @@
 				  
 				  <cfif wfStatus eq "Closed">					  
 					   
-					   <a href="javascript:AddClassification('#positionparentid#','#url.ajaxid#')">
+					   <a title="Click to initiate a new classification request for this position" href="javascript:AddClassification('#positionparentid#','#url.ajaxid#')">
 					   <cf_tl id="Request new Classification">
 					   </a>
 					   
@@ -261,9 +261,7 @@
 										<td style="min-width:25px;height:21px" align="center">
 										
 										<cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#IndexNo#.jpg") and indexNo gt "0">                           		
-													<cfset pict = IndexNo>  						
-											  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#ind#.jpg")>                           						  
-													<cfset pict = ind>     				   									    						
+													<cfset pict = IndexNo>  																	    				   									    						
 											  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Personno#.jpg")>   
 													<cfset pict = Personno>	   																	
 											  <cfelse>				  

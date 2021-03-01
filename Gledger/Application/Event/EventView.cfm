@@ -24,6 +24,7 @@
 <cfajaximport tags="cfdiv,cfform">
 <cf_ActionListingScript>
 <cf_FileLibraryScript>
+<cf_DialogLedger>
 <cf_PresentationScript>
 
 <cfquery name="Object" 

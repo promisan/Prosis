@@ -148,7 +148,8 @@
 					</cfif>
 				    <td height="20" align="center">#currentrow#</td>
 					<cfif BroadCast.systemFunctionId neq "">
-					<td><img src="#SESSION.root#/Images/locate3.gif" height="12" WIDTH="12" alt="" style="cursor: pointer;" border="0" onclick="preview('#url.id#','#Recipient.recipientId#')"></td>
+					<td><img src="#SESSION.root#/Images/locate3.gif" height="12" WIDTH="12" alt="" style="cursor: pointer;" border="0" 
+					     onclick="preview('#url.id#','#Recipient.recipientId#')"></td>
 					<cfelse>
 					<td></td>		 
 				    </cfif>

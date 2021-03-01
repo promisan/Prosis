@@ -110,6 +110,7 @@
 				<cfif personNo neq "">
 				AND 	  D.PersonNo 		  = '#personno#'
 				</cfif>
+				
 			
 		</cfquery>
 		
@@ -439,11 +440,11 @@
 													PaymentDate, 
 													PaymentStatus,
 													SettlementPhase, 
-													-- AccountId, 
+													<!--- AccountId, --->
 													SalaryScheduleDistribution,
 													SalaryScheduleCurrency, 
 													SalaryScheduleGLAccount,
-													-- PayThroughBankName,
+													<!--- PayThroughBankName, --->
 													PayThroughGLAccount,
 													PaymentExchangeRate, PaymentMode, PaymentCurrency, PaymentAmount, PaymentControlAmount,
 													OfficerUserId, OfficerLastName, OfficerFirstName)
@@ -454,11 +455,11 @@
 													#DTE#,
 													'#PaymentStatus#',
 													'#SettlementPhase#',
-													-- '#AccountId#',
+													<!--- '#AccountId#', --->
 													'#SalarySchedule#',
 													'#Currency#',
 													'#Period.GLAccount#',
-													-- '#getPayThrough.BankName#',
+													<!--- '#getPayThrough.BankName#', --->
 													'#Period.GLAccountDistribution#',									
 													'#exc#',
 													'#PaymentMode#',

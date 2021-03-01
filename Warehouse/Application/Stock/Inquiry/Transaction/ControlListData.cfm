@@ -188,6 +188,7 @@
 
   
 <cfif action eq "refresh">
+
 	
 	<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#_ItemTransaction"> 		
 	
@@ -207,6 +208,7 @@
 							
 				B.TransactionDate, 
 				B.ItemNo, 
+				B.ItemPrecision,
 				B.ItemDescription, 
 				B.ItemCategory, 
 				C.Description as ItemCategoryDescription,
@@ -309,7 +311,8 @@
 	</cftransaction>    
 			
 </cfif>	
- 
+
+
 <!--- retrieve for extended analysis ---> 
 	
 <table width="100%" align="center" height="100%" class="formpadding">

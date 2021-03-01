@@ -40,21 +40,21 @@ password="#SESSION.dbpw#">
 			  <cfset url.id2 = "new">
 			</cfif>  
 				
-		    <TR class="linedotted">
-			   <td width="30" class="labelit">No</td>
-			   <td width="50" class="labelit">Class</td>
-			   <td width="60%" class="labelit">Description</td>
+		    <TR class="line labelmedium2">
+			   <td width="30">No</td>
+			   <td width="50">Class</td>
+			   <td width="60%">Description</td>
 			   <!---
 			   <td width="50">Def.</td>
 			   --->
-			   <td width="30" class="labelit" align="center">Active</td>
-			   <td colspan="2" align="right" class="labelit">
+			   <td width="30" align="center">Active</td>
+			   <td colspan="2" align="right">
 		       <cfoutput>
 				 <cfif URL.ID2 neq "new">
 				     <A href="javascript:ColdFusion.navigate('BatchPeriodList.cfm?alias=#alias#&Journal=#URL.Journal#&ID2=new','list')">
-					 <font color="0080FF">[add]</font></a>
+					 [add]</a>
 				 </cfif>
-				 </cfoutput>&nbsp;
+				 </cfoutput>
 			   </td>		  
 		    </TR>
 						
@@ -81,7 +81,7 @@ password="#SESSION.dbpw#">
 					   	<cfinput type="Text"
 						       name="JournalBatchNo"
 						       value="#ls#"
-							   class="regularxl"
+							   class="regularxxl"
 						       validate="integer"
 						       required="Yes"
 							   message="Please enter a numeric value" 
@@ -101,7 +101,7 @@ password="#SESSION.dbpw#">
 							size="20" 
 							style="width:95%"
 							maxlength="20" 
-							class="regularxl">
+							class="regularxxl">
 					   
 					   </td>
 					   <td style="padding-left:2px">
@@ -114,7 +114,7 @@ password="#SESSION.dbpw#">
 							size="60" 
 							style="width:95%"
 							maxlength="80" 
-							class="regularxl">
+							class="regularxxl">
 					  
 			           </td>				  
 					 
@@ -126,24 +126,24 @@ password="#SESSION.dbpw#">
 					      <input type="submit" 
 					        value="Save" 
 							class="button10g" 
-							style="width:50;height:25">
+							style="width:50px;height:25px">
 						</td>
 				    </TR>	
 																				
 				<cfelse>					
 							
-					<TR class="linedotted navigation_row">
+					<TR class="line labelmedium2 navigation_row">
 					
-					   <td class="labelit">#ls#.</td>
-					   <td class="labelit">#nm#</td>
-					   <td class="labelit">#de#</td>				   
+					   <td>#ls#.</td>
+					   <td>#nm#</td>
+					   <td>#de#</td>				   
 					   <!---
 					   <td><cfif def eq "1">Yes</cfif></td>	
 					   --->
-					   <td class="labelit" align="center"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
+					   <td align="center"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
 					   <td align="right">
 					   
-					   	<cf_img icon="edit" onclick="javascript:ColdFusion.navigate('BatchPeriodList.cfm?alias=#alias#&Journal=#URL.Journal#&ID2=#ls#','list')">
+					   	<cf_img icon="edit" onclick="javascript:ptoken.navigate('BatchPeriodList.cfm?alias=#alias#&Journal=#URL.Journal#&ID2=#ls#','list')">
 							
 					   </td>
 				   			   
@@ -161,7 +161,7 @@ password="#SESSION.dbpw#">
 					   
 					     <cfif check.recordcount eq "0">
 						 
-						       <cf_img icon="delete" onclick="ColdFusion.navigate('BatchPeriodPurge.cfm?alias=#alias#&journal=#URL.journal#&ID2=#ls#','list')">
+						       <cf_img icon="delete" onclick="ptoken.navigate('BatchPeriodPurge.cfm?alias=#alias#&journal=#URL.journal#&ID2=#ls#','list')">
 							   
 						 </cfif>	   
 						  
@@ -189,7 +189,7 @@ password="#SESSION.dbpw#">
 						  style="text-align:center;width:30"
 						  value="#lst#"
 						  validate="integer"
-						  class="regularxl"
+						  class="regularxxl"
 						  maxlength="2">
 						  
 					</td>
@@ -204,7 +204,7 @@ password="#SESSION.dbpw#">
 							 size="10" 
 							 style="width:95%"
 							 maxlength="20" 
-							 class="regularxl">
+							 class="regularxxl">
 			        </td>	
 					
 					<td style="padding-left:2px">
@@ -216,7 +216,7 @@ password="#SESSION.dbpw#">
 							 size="60" 
 							 style="width:95%"
 							 maxlength="80" 
-							 class="regularxl">
+							 class="regularxxl">
 					</td>		
 									
 					<td align="center" style="padding-left:2px">

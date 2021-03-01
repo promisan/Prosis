@@ -5,6 +5,7 @@
 			  layout="webapp" 
 			  banner="blue" 
 			  bannerforce="blue"
+			  jquery="Yes"
 			  label="Salary Base" 
 			  menuAccess="Yes" 
 			  systemfunctionid="#url.idmenu#">
@@ -55,7 +56,7 @@ function ask() {
 
 <!--- edit form --->
 
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="96%" align="center" class="formpadding formspacing">
 
 	 <cfoutput>
 
@@ -64,17 +65,17 @@ function ask() {
 		
 	<table>
     <TR>
-    <TD style="padding-left:5px" class="labelmedium"><cf_tl id="Name">:</TD>
+    <TD style="padding-left:5px" class="labelmedium2"><cf_tl id="Name">:</TD>
     <TD>
 	  <table><tr><td>
-  	   <cfinput type="text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+  	   <cfinput type="text" name="Code" value="#get.Code#" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
        <input type="hidden" name="Codeold" value="#get.Code#" class="regular">
 	   
 	    </td>
 		
 		<td style="padding-left:3px">
     
-	  	   <cfinput type="Text" name="Description" value="#get.Description#" message="please enter a description" required="Yes" visible="Yes" enabled="Yes" showautosuggestloadingicon="True" typeahead="No" size="30" maxlength="40" requerided="yes" class="regularxl">
+	  	   <cfinput type="Text" name="Description" value="#get.Description#" message="please enter a description" required="Yes" visible="Yes" enabled="Yes" showautosuggestloadingicon="True" size="30" maxlength="40" requerided="yes" class="regularxxl">
 		  
 		  </td></tr>
 		  </table>
@@ -83,17 +84,17 @@ function ask() {
 	
 	<tr>
 	
-    <TD style="padding-left:5px;min-width:90" class="labelmedium"><cf_tl id="Calculate">:</TD>
+    <TD style="padding-left:5px;min-width:90" class="labelmedium2"><cf_tl id="Calculate">:</TD>
     <td width="100%" colspan="2" class="labelit" style="padding-top:3px;border:0px solid silver">
-	    <table><tr class="labelmedium">
+	    <table><tr class="labelmedium2">
 		<td style="padding-left:4px"><input type="radio" class="radiol" name="BaseAmount" value="0" <cfif get.baseamount eq 0 or get.baseamount eq "">checked</cfif>></td>
-		<td style="padding-left:3px;">Payable amount</td>
+		<td style="width:120px;padding-left:3px;">Payable&nbsp;amount</td>
 		<td style="padding-left:9px"><input type="radio" class="radiol" name="BaseAmount" value="2" <cfif get.baseamount eq 2>checked</cfif>></td>
-		<td style="padding-left:3px;">Contract -/- LWOP amount</td>
+		<td style="width:220px;padding-left:3px;">Contract -/- LWOP</td>
 		<td style="padding-left:9px"><input type="radio" class="radiol" name="BaseAmount" value="3" <cfif get.baseamount eq 3>checked</cfif>></td>
-		<td style="padding-left:3px;">Contract amount</td>
+		<td style="width:120px;padding-left:3px;">Contract&nbsp;amount</td>
 		<td style="padding-left:9px"><input type="radio" class="radiol" name="BaseAmount" value="1" <cfif get.baseamount eq 1>checked</cfif>></td>
-		<td style="padding-left:3px;">Full entitlement</td></tr>
+		<td style="width:120px;padding-left:3px;">Full&nbsp;entitlement</td></tr>
 		</table>
     </td>
 	</TR>
@@ -114,7 +115,7 @@ function ask() {
 	
 	<table width="100%" cellspacing="0" cellpadding="0" border="0">
 	
-	<tr class="line"><td bgcolor="E6E6E6" class="labelmedium" style="padding:5px">#Description#</td></tr>
+	<tr class="line"><td bgcolor="E6E6E6" class="labelmedium2" style="padding:5px">#Description#</td></tr>
 	<tr>
 				
 		<cfquery name="Item"
@@ -148,11 +149,17 @@ function ask() {
 		</cfquery>
 				    
 	    <TD>
-			
-		<cfselect name="PayrollItem_#SalarySchedule#" multiple size="7" class="regularxl" selected="#valueList(Selected.PayrollItem)#"
-		style="width:99%;border:0px;height:210" 
-		  value="PayrollItem" 
-		  group="Period" query="Item" display="PayrollItemName" visible="Yes" enabled="Yes"></cfselect>
+						
+ 			<cf_UIselect name="PayrollItem_#SalarySchedule#"
+			  multiple 			  
+			  class="regularxl" 
+			  selected="#valueList(Selected.PayrollItem)#"			  
+		      value="PayrollItem" 
+		      group="Period" 
+			  query="#Item#" 
+			  display="PayrollItemName" 
+			  visible="Yes"/>
+		  
 					
 	    </TD>
 	</TR>

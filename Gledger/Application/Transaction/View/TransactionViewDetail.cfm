@@ -10,7 +10,7 @@
 	  
 	    <cfoutput>
 	 
-		<table cellspacing="0" cellpadding="0" width="100%" class="formpadding">
+		<table width="100%" class="formpadding">
 				
 			<tr>				
 			    <td>
@@ -304,9 +304,9 @@
   
    <td width="100%" colspan="2" height="36">
      <table border="0" cellpadding="0" width="100%">
-      <tr class="labelmedium22">
-        <td style="min-width:120px;padding-left:3px" bgcolor="fafafa"><cf_tl id="Transaction date">:</td>
-		<td style="min-width:120px;padding-left:3px" bgcolor="fafafa"><cf_tl id="Period">:</td>
+      <tr class="labelmedium2">
+        <td style="min-width:160px;padding-left:3px" bgcolor="fafafa"><cf_tl id="Transaction date">:</td>
+		<td style="min-width:140px;padding-left:3px" bgcolor="fafafa"><cf_tl id="Period">:</td>
         <td width="50%" colspan="2" style="padding-left:3px" bgcolor="fafafa">
 			<cfif operational eq "1" and Transaction.Reference eq "Invoice">
 			<cf_tl id="InvoiceNo and Memo"> :
@@ -318,14 +318,14 @@
 		<td colspan="3" bgcolor="fafafa">
 					
 			<table width="100%" height="100%" cellspacing="0" cellpadding="0">
-			<tr>
-		        <td style="padding-left:3px;min-width:60px" class="labelmedium2"><cf_tl id="Fiscal">:</td>
-	    	    <td style="padding-left:3px;min-width:100px" class="labelmedium2"><cf_tl id="Amount">:</td>
+			<tr class="labelmedium2">
+		        <td style="padding-left:3px;min-width:60px"><cf_tl id="Fiscal">:</td>
+	    	    <td style="padding-left:3px;min-width:100px"><cf_tl id="Amount">:</td>
 				<cfif JournalList.TransactionCategory is "Payables" or 
 			     	  JournalList.TransactionCategory is "DirectPayment" or 
 				  	  JournalList.TransactionCategory is "Receivables" or				   
 				  	  JournalList.TransactionCategory is "Advances">
-		    	<td colspan="2" style="padding-left:3px;min-width:100px" class="labelmedium2"><cf_tl id="Outstanding">:</td>
+		    	<td colspan="2" style="padding-left:3px;min-width:100px"><cf_tl id="Outstanding">:</td>
 				</cfif>
 			</tr>
 			</table>       
@@ -336,7 +336,7 @@
 	  	  
 	  <CFOUTPUT query="Transaction">
 	  	  
-      <tr class="labelmedium22">
+      <tr class="labelmedium2">
 	 
         <td height="20" align="center" style="background-color:D3E9F8;" class="cellborder">#DateFormat(TransactionDate, CLIENT.DateFormatShow)#</td>
 		<td height="20" align="center" style="background-color:D3E9F8;" class="cellborder">#TransactionPeriod#</td>
@@ -401,20 +401,20 @@
 		<td class="cellborder" style="height:100%" colspan="3">
 		
 			<table width="100%" height="100%">
-			<tr>
-		        <td width="24%" align="center" bgcolor="D3E9F8" class="labelmedium22" style="height:30px;padding-left:5px">#AccountPeriod#</td>
-	    	    <td width="38%" class="labelmedium22" align="right" style="height:100%;padding-right:3px">#Currency# #NumberFormat(Amount,',.__')#</td>
+			<tr class="labelmedium2">
+		        <td width="24%" align="center" bgcolor="D3E9F8" style="height:30px;padding-left:5px">#AccountPeriod#</td>
+	    	    <td width="38%" align="right" style="height:100%;padding-right:3px">#Currency# #NumberFormat(Amount,',.__')#</td>
 				<cfif JournalList.TransactionCategory is "Payables" or 
 			      JournalList.TransactionCategory is "DirectPayment" or 
 				  JournalList.TransactionCategory is "Receivables" or
 				  JournalList.TransactionCategory is "Advances"> 
 			  
 			    		<cfif amountOutstanding neq "0">
-						<td width="38%" align="right" bgcolor="FEE3DE" class="labelmedium22" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">						
+						<td width="38%" align="right" bgcolor="FEE3DE" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">						
 						<font color="FF0000">#NumberFormat(AmountOutstanding,',.__')#
 						</td>
 						<cfelse>
-						<td width="38%" align="right" style="padding-left:7px;padding-right:4px;border-left:1px solid silver" class="labelmedium22">						
+						<td width="38%" align="right" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">						
 						<font color="00BB00"><cf_tl id="nihil">
 						</td>
 						</cfif>		
@@ -579,7 +579,7 @@
 		datasource="AppsLedger" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT   TOP 2 R.Code, 
+			SELECT   TOP 3 R.Code, 
 			         R.Description, 
 					 T.ActionId,
 					 T.ActionMode,
@@ -599,58 +599,10 @@
  
   <cfif action.recordcount gte "1">
  
-  <tr><td colspan="2" height="20" bgcolor="f4f4f4">
-  
-	 <table width="100%" class="formpadding" style="border-left:1px solid silver;border-right:1px solid silver">
-   
-	 <cfoutput query="Action" group="Code">
-  	  
-	 <cfoutput>	 
-	
-	 <tr class="labelmedium2 linedotted">	   
-	    <!--- <td style="border:0px solid silver;padding-left:4px" width="20%">#Description#:<cf_space spaces="30"></td> --->
-		<td align="center" width="90" style="background-color:ffffcfpadding-left:3px;padding-right:3px">#dateformat(ActionDate,CLIENT.DateFormatShow)#</td>
-		<td align="center" style="background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px" width="20">#ActionStatus#</td>
-		<td align="center" style="background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px" width="20">#ActionMode#</td>
-		<td align="center" style="background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px" width="25%">#ActionReference1#</td>
-		<td align="center" style="background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px" width="15%">#ActionReference2#</td>
-		<td align="center" style="background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px" width="15%">#ActionReference3#</td>
-		<td align="center" style="background-color:ffffcf;border-left:1px solid silver;padding-left:3px;padding-right:3px" width="15%">#ActionReference4#</td>
-	  </tr>
-	  
-		  <cf_filelibraryCheck
-				DocumentPath="LedgerAction"
-				SubDirectory="#Journal#\#JournalSerialNo#" 
-				Filter="#code#_#actionid#">	
-						
-		  <cfif files gte "1">
-				
-			  <tr>	
-			    <td></td>
-				<td colspan="7" width="80%">
-						 			 
-						<cf_filelibraryN
-								DocumentPath="LedgerAction"
-								SubDirectory="#Journal#\#JournalSerialNo#" 
-								Filter="#code#_#ActionId#"
-								Insert="no"
-								color="ffffef"
-								Remove="no"
-								reload="true">		 				 
-				
-				</td>
-			 
-			 </tr>
-		 
-		 </cfif>
-		 		 
-	 </cfoutput>
-	 
-	 </cfoutput>
-	 
-	 </table>	 
-	 
-	 </td></tr>	 
+  <tr><td colspan="2" height="20" bgcolor="f4f4f4" id="invoiceactionbox">  
+      <cfinclude template="getTransactionAction.cfm">	 
+	 </td>
+  </tr>	 
 	 
   </cfif>
         	            
@@ -930,7 +882,112 @@
 				  
 				 </cfif>		 
 				  
-		  </cfif>	 					
+		  </cfif>	
+		  
+	  <cfelseif TransactionSource is "EventSeries"> 	
+	  
+	  <tr>
+		    <td width="100%" colspan="2" height="39">
+						
+		    <table border="0" style="border:0px dotted silver" bordercolor="e4e4e4" width="100%">
+		      <tr>
+		        <td width="50%" height="20" class="labelmedium2" bgcolor="fafafa" colspan="2" style="border-bottom:1px dotted silver;padding-left:5px">				
+				<cf_tl id="Event">				
+				</td>
+		        <td width="50%" class="labelmedium2" align="center" colspan="2" style="padding-left:2px;border-bottom:1px dotted silver" bgcolor="fafafa"><cf_tl id="Event validation"></td>
+		      </tr>
+			  
+		      <tr>
+		        <td height="20" bgcolor="fafafa" width="25%" style="padding-left:15px;" class="labelmedium2"><cf_tl id="Unit">:</td>
+		        <td width="25%" class="cellborder labelmedium2" style="padding-left:5px">							
+					  <A HREF ="javascript:viewOrgUnit('#ReferenceOrgUnit#')">#ReferenceName#</a>				
+				</td>
+				
+												
+		        <td colspan="2" bgcolor="f1f1f1" style="padding-left:15px" align="center" class="labelmedium2">
+				
+				 <cfquery name="Validation" 
+					  datasource="AppsLedger" 
+					  username="#SESSION.login#" 
+					  password="#SESSION.dbpw#">
+						SELECT * 
+						FROM   EventValidation
+						WHERE  EventId = '#TransactionSourceId#'				
+				 </cfquery>	
+				
+				<cfloop query="validation">
+				
+				      <cfquery name="Validate"
+						datasource="AppsLedger"
+						username="#SESSION.login#"
+						password="#SESSION.dbpw#">
+						(#preserveSingleQuotes(ValidationQuery)#)
+					   </cfquery>
+					   
+					   <cfif validationvalue neq Validate.amount>					   
+					       <font color="FF0000">
+						   <cf_tl id="Alert event is not in balance with transaction">
+						   </font>
+					   </cfif>					
+					   
+				</cfloop>			
+				
+				</td> 		
+		  				
+		      </tr>
+		      <tr>
+		        <td height="20" bgcolor="fafafa" width="25%" style="padding-left:15px" class="labelmedium2"><cf_tl id="Reference">:</td>
+				<td width="25%" class="cellborder labelmedium2" style="padding-left:5px">
+				<A HREF ="javascript:viewEvent('#TransactionSourceId#')">#ReferenceNo#</a></td>
+				<!---
+				<td width="25%" bgcolor="fafafa" style="padding-left:15px" class="labelmedium2"><cf_tl id="Discount date">:</td>
+		 		<td width="25%" class="cellborder labelmedium2" style="padding-left:5px">#DateFormat(ActionDiscountDate, CLIENT.DateFormatShow)#</font></td> 		
+				--->
+		      </tr>
+			  <!---
+		      <tr>
+		        <td height="20" bgcolor="fafafa" width="25%" style="padding-left:15px" class="labelmedium2"><cf_tl id="Due date">:</td>
+		        <td width="25%" class="cellborder labelmedium2" style="padding-left:5px">#DateFormat(ActionBefore, CLIENT.DateFormatShow)#</b></td>		
+		        <td width="25%" bgcolor="fafafa" style="padding-left:15px" class="labelmedium2"><cf_tl id="Discount"> %:</td>
+		        <td width="25%" class="cellborder labelmedium2" style="padding-left:5px"><cfif ActionDiscount gt 0>#NumberFormat(ActionDiscount*100,'__._')#%</cfif></b>
+				</td>
+		      </tr>
+			  --->
+			  
+			    <cf_customField 
+				     mode="view" 
+				     TopicClass="header"
+				     journal="#URL.Journal#" 
+					 journalserialno="#URL.JournalSerialNo#">
+
+		        <cf_filelibraryCheck
+						DocumentPath="GlTransaction"
+						SubDirectory="#TransactionId#" 
+						Filter="">	
+						
+				<cfif files gte "1">
+			  
+				    <tr class="line">
+				        <td colspan="2" style="padding-left:3px" height="19" class="labelmedium2"><cf_tl id="Attachment">:</td>		
+				    </tr>
+					
+					<tr><td colspan="2">
+					 
+					<cf_filelibraryN
+							DocumentPath="GlTransaction"
+							SubDirectory="#TransactionId#" 
+							Filter=""
+							Insert="no"
+							Remove="no"
+							reload="true">	
+					  
+					  </td></tr>		 
+				  
+				 </cfif>	
+			  
+			  </table>
+		    </td>
+		  </tr>	     
 				    
 	  <cfelseif TransactionSource is "PurchaseSeries" 	        
 	       or TransactionCategory is "Payables" 
@@ -1013,7 +1070,7 @@
 		      <tr>
 		        <td height="20" bgcolor="fafafa" width="25%" style="padding-left:15px" class="labelmedium2"><cf_tl id="Invoice">:</td>
 				<td width="25%" class="cellborder labelmedium2" style="padding-left:5px">#ReferenceNo#</b></td>
-				<td width="25%" bgcolor="fafafa" style="padding-left:15px" class="labelmedium2">Discount date:</td>
+				<td width="25%" bgcolor="fafafa" style="padding-left:15px" class="labelmedium2"><cf_tl id="Discount date">:</td>
 		 		<td width="25%" class="cellborder labelmedium2" style="padding-left:5px">#DateFormat(ActionDiscountDate, CLIENT.DateFormatShow)#</font></td> 		
 		      </tr>
 		      <tr>

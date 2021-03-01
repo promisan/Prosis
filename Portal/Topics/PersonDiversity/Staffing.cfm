@@ -415,9 +415,3 @@
 <cfset ajaxOnLoad("function(){  resetMap_1('0', '#getMax.maxValue#', '<span style=\'font-size:14px;\'><b>[[title]]</b>: [[value]]/#getTotal.Total# #vLblEmployee#</span>', [#vDataList#]); }")>
 
 <cfset ajaxOnLoad("doHighlight")>
-
-
-
-
-
-

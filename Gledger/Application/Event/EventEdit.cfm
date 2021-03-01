@@ -14,6 +14,16 @@
 		AND   EventId = '#URL.id#'
 </cfquery>
 
+
+<cfquery name="Post" 
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+    	SELECT *
+	    FROM   TransactionHeader
+		WHERE  TransactionSourceId = '#url.id#'		
+</cfquery>
+
 <cfoutput>
 
 <table width="97%" align="center" class="formpadding">
@@ -38,6 +48,14 @@
 	<td class="labellarge"><b>#dateformat(get.EventDate,client.dateformatshow)#</td>
 	
 </tr>	
+<cfif post.recordcount eq "1">
+<tr class="linedotted">
+	<td class="labelmedium"><cf_tl id="Ledger">:</td>
+	<td class="labellarge"><a href="javascript:ShowTransaction('#Post.Journal#','#Post.JournalSerialNo#','','tab')">#Post.Journal# #Post.JournalSerialNo#</a></td>
+	<td class="labelmedium"><cf_tl id="Officer">:</td>
+	<td class="labellarge">#Post.officerLastName#</td>	
+</tr>	
+</cfif>
 <tr><td></td></tr>
 <tr>
 	<td class="labelmedium"><cf_tl id="Officer">:</td>

@@ -74,7 +74,7 @@
 																															
 				<cf_divscroll id="_divContentFields" overflowx="auto" height="#vContentHeight#">
 				
-					<div id="_divSubContent">
+					<div id="_divSubContent" class="clsListingContent">
 					
 										
 					<cfoutput>

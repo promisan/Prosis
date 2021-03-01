@@ -92,9 +92,9 @@
 	
 	}
 	
-	function workflowsession(id,refid) {		    
+	function workflowsession(id,refid,acc) {		    
 		ProsisUI.createWindow('wfusersession', 'Workflow user session', '',{x:10,y:10,height:490,width:660,resizable:false,modal:true,center:true});
-		ptoken.navigate('#SESSION.root#/Tools/EntityAction/Session/SessionView.cfm?actionid='+id+'&referenceid='+refid,'wfusersession')					
+		ptoken.navigate('#SESSION.root#/Tools/EntityAction/Session/SessionView.cfm?actionid='+id+'&referenceid='+refid+'&useraccount='+acc,'wfusersession')					
 	}
 	
 	function workflowchat(id) {
@@ -103,12 +103,11 @@
 		ptoken.navigate('#SESSION.root#/Tools/EntityAction/Details/Comment/CommentListing.cfm?ajax=Yes&objectId='+id,'wfuserchat')		
 	}
 	
-	function workflowsessionsave(id,refid) {		
-	
-			document.sessionform.onsubmit() 
-			if( _CF_error_messages.length == 0 ) {
-				ptoken.navigate('#SESSION.root#/Tools/EntityAction/Session/SessionSubmit.cfm?actionid='+id+'&referenceid='+refid,'wfusersession','','','POST','sessionform')					
-	       	 }   
+	function workflowsessionsave(id,refid,acc) {	
+		document.sessionform.onsubmit() 
+		if( _CF_error_messages.length == 0 ) {
+			ptoken.navigate('#SESSION.root#/Tools/EntityAction/Session/SessionSubmit.cfm?actionid='+id+'&referenceid='+refid+'&useraccount='+acc,'wfusersession','','','POST','sessionform')					
+       	}   
 	}	 	
 	
 	function object(id) {

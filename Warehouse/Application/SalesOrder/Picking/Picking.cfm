@@ -514,6 +514,7 @@
 	                B.OfficerFirstName,
 	                B.OfficerLastName,
 	                B.Created,
+					C.CustomerSerialNo,
 	                C.CustomerName,
 	                C.Reference as CustomerReference,
                     RA.AddressId,
@@ -594,6 +595,7 @@
 	                     B.Created,
 	                     C.CustomerName,
 	                     C.Reference,
+						 C.CustomerSerialNo,
                          RA.AddressId,
                          RA.Address,
                          RA.Address2,
@@ -714,11 +716,11 @@
 
     <div style="margin-left:160px; padding:10px; padding-left:2%; padding-right:2%;">
 
-        <div class="row clsMainContainerBatch">
+        <div class="row clsMainContainerBatch fixrow hide">
             <div style="padding-left:10px; border-bottom:1px solid #C0C0C0;">
                 <h2 class="text-info titletext" style="font-size:140%; text-transform:capitalize">
                     <table width="90%">
-                        <tr class="fixrow">
+                        <tr>
                             <td width="5%" style="min-width:50px;"></td>
                             <td width="38%" style="padding-right:10px; font-size:70%;">
                                 <cf_tl id="Sale">
@@ -762,7 +764,7 @@
                     <cfset vCustomerViewIcon = vIconOn>
                 </cfif>
 
-                <cfset vIconSizeStyle = "font-size:120%; font-weight:400;">
+                <cfset vIconSizeStyle = "font-size:120%">
 
                 <div class="row clsMainContainerBatch clsMainContainer#BatchNo#" onclick="toggleBatch('#batchNo#');" style="cursor:pointer;">
                     <div style="padding-left:10px; border-bottom:1px solid ##C0C0C0;">
@@ -773,11 +775,11 @@
                                         <span style="display:none;" id="submit#batchno#"></span>
                                         <i class="fas fa-print" style="padding-left:10px; color:##C83702; #vIconSizeStyle#" onclick="doTicketPrint(event, '#batchNo#');"></i>
                                     </td>
-                                    <td width="38%" style="padding-right:10px; text-transform:capitalize; font-weight:400; line-height:18px;">
-                                        #numberformat(BatchNo, ',')# - #lcase(CustomerName)# <cfif BatchReference neq ""> <span style="font-size:70%;">(#ucase(BatchReference)#)</span></cfif>
-                                        <cfif AddressId neq ""> 
+                                    <td width="38%" style="padding-right:10px; text-transform:capitalize; line-height:18px;">
+                                        #BatchNo# - #lcase(CustomerName)# <span style="font-size:70%;">#CustomerSerialNo#</span> <cfif BatchReference neq ""> <span style="font-size:70%;">(#ucase(BatchReference)#)</span></cfif>
+                                        <cfif AddressId neq ""> 										
                                             <br>
-                                            <span style="font-size:13px; line-height:13px; color:##808080; font-weight:normal; padding-top:5px; text-transform:capitalize;">
+                                            <span style="font-size:13px; line-height:13px; color:##808080; font-weight:normal; padding-top:5px; text-transform:capitalize;">											
                                                 <cfif Address neq "">#lcase(Address)#. </cfif> <cfif Address2 neq "">#lcase(Address2)#. </cfif> <cfif AddressCity neq "">#lcase(AddressCity)#. </cfif> 
                                                 <cfif AddressRoom neq ""><cf_tl id="Room">: #lcase(AddressRoom)#. </cfif> <cfif AddressPostalCode neq "">#lcase(AddressPostalCode)#. </cfif> 
                                                 <cfif AddressState neq "">#lcase(AddressState)#. </cfif> <cfif AddressCountry neq "">#lcase(AddressCountryDescription)#. </cfif>
@@ -787,12 +789,12 @@
                                     <td width="5%" align="center" style="min-width:20px;">
                                         <i class="#vCustomerViewIcon#" style="#vCustomerViewStyle# #vIconSizeStyle#" id="customerView#batchno#" onclick="showInCustomerView(event, '#batchNo#')"></i>
                                     </td>
-                                    <td width="12%" style="font-size:70%; font-weight:500; text-transform:capitalize;">   
+                                    <td width="12%" style="font-size:70%; text-transform:capitalize;">   
                                         #lcase(OfficerFirstName)# #ucase(OfficerLastName)#
                                         <br><span style="font-size:75%; color:##808080; font-weight:normal;">#dateFormat(created, client.dateformatshow)# - #timeFormat(created, "hh:mm tt")#</span>
                                     </td>
                                 
-                                    <td width="12%" style="font-size:70%;font-weight:500;" align="center">
+                                    <td width="12%" style="font-size:70%" align="center">
                                         #numberformat(TotalQuantity*-1, ',')#
                                     </td>
                                     <td width="2%" align="center" style="min-width:20px;">
@@ -801,10 +803,10 @@
                                             #numberformat(boxes,",")#
                                         </div>
                                     </td>
-                                    <td width="12%" style="font-size:70%;" align="center" id="initiated#batchno#">
-                                        <cfif AnyAction eq ""><span style="color:###vColorOnHold#;"><cf_tl id="On hold"><cfelse><span style="font-weight:bold; color:###vColorOn#;"><cf_tl id="Initiated"></cfif></span>
+                                    <td width="12%" style="font-size:80%;" align="center" id="initiated#batchno#">
+                                        <cfif AnyAction eq ""><span style="color:###vColorOnHold#;font-weight:bold;"><cf_tl id="On hold"><cfelse><span style="font-weight:bold; color:###vColorOn#;"><cf_tl id="Initiated"></cfif></span>
                                     </td>
-                                    <td width="12%" style="font-size:70%;" align="center">
+                                    <td width="12%" style="font-size:80%;" align="center">
                                         <span class="clsSelected#BatchNo# font-bold" id="progress#BatchNo#">#CountTransactionsCleared#</span> / #CountTransactions#
                                         <button id="content_#batchno#_refresh" class="btnRefresh" onclick="doRefreshStatus(event, '#batchno#');" style="display:none;"></button>
                                         <span id="refresh#BatchNo#" style="display:none;"></span>

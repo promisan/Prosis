@@ -59,7 +59,7 @@ password="#SESSION.dbpw#">
 	
 	<table width="100%" align="center">
 	
-		<tr><td height="30" align="center" class="labelmedium">No assignment has been found for this Person</font></td></tr>
+		<tr><td height="30" align="center" class="labelmedium2">No assignment has been found for this Person</font></td></tr>
 				
 		<tr><td colspan="2" align="center" height="30">
 		
@@ -122,13 +122,13 @@ password="#SESSION.dbpw#">
 		<cfif mission eq "">
 		
 			<TR class="line">
-		    <TD style="width:200px" class="labelmedium"><cf_tl id="Entity">:</TD>
+		    <TD style="width:200px" class="labelmedium2"><cf_tl id="Entity">:</TD>
 		    <td>
 			
 				<table>
 				<tr>
 				<td>				
-				<select name="mission" id="mission" class="regularxl" onchange="javascript:selectiondate()">
+				<select name="mission" id="mission" class="regularxxl" onchange="javascript:selectiondate()">
 				    <cfloop query="MissionList">
 					<option value="#Mission#">#Mission#</option>
 					</cfloop>
@@ -136,13 +136,13 @@ password="#SESSION.dbpw#">
 				
 				</td>
 				
-				<TD style="padding-left:10px;min-width:100px" class="labelmedium"><cf_tl id="Date">:</TD>
+				<TD style="padding-left:10px;min-width:100px" class="labelmedium2"><cf_tl id="Date">:</TD>
 				
 			    <TD>				
 					
 						  <cf_intelliCalendarDate9
 							FieldName="OvertimePeriodEnd" 						
-							class="regularxl"
+							class="regularxxl"
 							Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
 							DateValidStart="#dateformat(now()-360,'YYYYMMDD')#"
 							DateValidEnd="#dateformat(now()+4,'YYYYMMDD')#"
@@ -161,10 +161,10 @@ password="#SESSION.dbpw#">
 		<cfelse>
 		
 		    <TR class="line">
-		    <TD class="labelmedium" height="22"><cf_tl id="Entity">:</TD>
-		    <td class="labelmedium">
+		    <TD class="labelmedium2" height="22"><cf_tl id="Entity">:</TD>
+		    <td class="labelmedium2">
 			  <table>
-				  <tr class="labelmedium">
+				  <tr class="labelmedium2">
 					  <td style="font-size:20px">
 					   #Mission#
 					   <INPUT type="hidden" name="mission" id="mission" value="#mission#">			   
@@ -176,7 +176,7 @@ password="#SESSION.dbpw#">
 							
 							  <cf_intelliCalendarDate9
 								FieldName="OvertimePeriodEnd" 						
-								class="regularxl"
+								class="regularxxl"
 								Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
 								DateValidStart="#dateformat(now()-360,'YYYYMMDD')#"
 								DateValidEnd="#dateformat(now()+4,'YYYYMMDD')#"
@@ -199,19 +199,19 @@ password="#SESSION.dbpw#">
 								
 		<TR>
 		    <td valign="top" style="padding-top:5px" class="labelmedium" style="height:30px"><cf_tl id="Schedule">:</td>
-		    <td colspan="1" class="labelmedium" id="schedule">		
+		    <td colspan="1" class="labelmedium2" id="schedule">		
 				<cf_securediv id="divMode" bind="url:getDateSchedule.cfm?personno=#url.id#&mission={mission}&seldate={OvertimePeriodEnd}&overtimeid=#rowguid#">					
 			</td>
 		</TR>
 				
 		<TR>
-	    <TD class="labelmedium"><cf_tl id="Reference">:</TD>
+	    <TD class="labelmedium2"><cf_tl id="Reference">:</TD>
 	    <TD colspan="1">
-		<INPUT type="text" class="regularxl" name="DocumentReference" class="regularxl" maxLength="30" size="30">		
+		<INPUT type="text" class="regularxl" name="DocumentReference" class="regularxxl" maxLength="30" size="30">		
 		</TD>
 		</TR>
 						
-		<tr><td class="labelmedium"><cf_tl id="Review by">:<font color="FF0000">*</font></td>			  
+		<tr><td class="labelmedium2"><cf_tl id="Review by">:<font color="FF0000">*</font></td>			  
 		    <td colspan="1">		
 			  
 		   	  <cf_securediv bind="url:#session.root#/Payroll/Application/Overtime/getReviewer.cfm?FieldName=FirstReviewerUserId&Id=#URL.ID#&mission={mission}" id="FirstReviewerUserId">
@@ -225,7 +225,7 @@ password="#SESSION.dbpw#">
   	    </tr>	
 							   
 		<TR>
-	        <td class="labelmedium" width="140" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
+	        <td class="labelmedium2" width="140" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
 	        <TD colspan="1" style="padding-right:0px"><textarea style="padding:3px;font-size:14px;width:100%" cols="50" class="regular" rows="3" name="Remarks" totlength="300" onkeyup="return ismaxlength(this)"></textarea> </TD>
 		</TR>
 		

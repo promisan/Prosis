@@ -25,7 +25,7 @@ password="#SESSION.dbpw#">
 	
 <cfelse>
 
-	<cf_screentop height="100%" scroll="Yes" html="No">
+	<cf_screentop height="100%" jquery="Yes" scroll="Yes" html="No">
 	
 	<table height="100%" width="96%" align="center" class="formpadding">
 	

@@ -191,6 +191,7 @@ password="#SESSION.dbpw#">
 				#Entit.PayrollItemName#
 			    <input type="hidden" name="entitlement" value="#Entitlement.PayrollItem#" class="disabled" size="30" maxlength="30" readonly>
 		    <cfelse>
+						
 				<cfquery name="qEntitlements" 
 				datasource="AppsPayroll"
 				username="#SESSION.login#" 

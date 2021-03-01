@@ -70,7 +70,7 @@
     
 	<cfoutput>
 			
-		<select name="conditioncode" id="conditioncode" class="regularxl" style="width:95%">
+		<select name="conditioncode" id="conditioncode" class="regularxxl" style="width:95%">
 			<cfloop query="qReasons">
 				<option value="#GroupListCode#" <cfif qCurrentEvent.Contractno eq GroupListCode OR GroupListCode eq URL.preason>selected</cfif>>#Description#</option>
 			</cfloop>

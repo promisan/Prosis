@@ -111,7 +111,7 @@
 					
 				<cfsavecontent variable="myquery">		
 				    
-					SELECT	*
+					SELECT	*,ObservationDate
 					FROM	UserQuery.dbo.#vTempTableName#
 					
 				</cfsavecontent>	
@@ -169,6 +169,7 @@
 <cfset fields[itm] = {label       = "Application",                  
 					  field         = "EntityGroup",
 					  filtermode    = "2",
+					  column        = "Common",
 					  displayfilter = "Yes",
 					  search        = "text"}>		
 					  
@@ -182,6 +183,7 @@
 <cfset fields[itm] = {label       = "Module",                  
 					  field         = "Description",
 					  filtermode    = "2",
+					  column        = "Common",
 					  searchfield   = "Description",
 					  displayfilter = "Yes",
 					  search        = "text"}>							  					
@@ -217,13 +219,11 @@
 <cfset fields[itm] = {label       = "Pr", 		
                       LabelFilter = "Priority",				
 					  field       = "RequestPriority",					
-					  filtermode  = "3",    
+					  filtermode  = "3",    					  
 					  search      = "text",
 					  align       = "center",
 					  formatted   = "Rating",
-					  ratinglist  = "High=Red,Medium=FF8000,Low=Yellow"}>	
-					  
-					  
+					  ratinglist  = "High=Red,Medium=FF8000,Low=Yellow"}>		  
 					
 <cfset itm = itm+1>						
 <cfset fields[itm] = {label       = "Fr", 	
@@ -255,6 +255,7 @@
 <cfset fields[itm] = {label         = "Observed",  					
 					  field         = "ObservationDate",
 					  search        = "date",
+					  column        = "month",
 					  formatted     = "dateformat(ObservationDate,'#CLIENT.DateFormatShow#')"}>	
 
 <cfset itm = itm+1>							

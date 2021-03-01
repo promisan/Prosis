@@ -66,7 +66,7 @@ password="#SESSION.dbpw#">
 			 SELECT  *
 			 FROM    Organization.dbo.OrganizationObject				
 			 WHERE   ObjectKeyValue1 = '#Parent.PositionParentId#'
-			 AND     Operational = 1							 
+			 AND     Operational = 1				 				 
 	</cfquery>
 	
 	<cfparam name="Form.EntityClass" default="#Object.EntityClass#">
@@ -88,3 +88,9 @@ password="#SESSION.dbpw#">
 		HideCurrent       = "No">
 	
 </cfif>	
+
+<script>
+   try {
+	ProsisUI.closeWindow('classify')
+	} catch(e) {}
+</script>

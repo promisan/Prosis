@@ -893,7 +893,7 @@ password="#SESSION.dbpw#">
 			
 			<tr id="setdate" class="<cfoutput>#cl#</cfoutput>">	
 			
-				<td class="labelmedium2"><cf_tl id="Posting Date">:<cf_space spaces="40"></td>	        
+				<td class="labelmedium2"><cf_tl id="Posting Date">:</td>	        
 				<td align="left">					
 												
 				<cfif url.transactiondate eq "">
@@ -902,8 +902,7 @@ password="#SESSION.dbpw#">
 					 manual="false"
 			      FieldName="transactiondateline" 			 
 				  class="regularxxl enterastab"		
-				  DateValidStart="#Dateformat(Period.PeriodDateStart, 'YYYYMMDD')#"				  	  
-				  
+				  DateValidStart="#Dateformat(Period.PeriodDateStart, 'YYYYMMDD')#"						  
 			      Default="#dateformat(now(),client.dateformatshow)#">
 				  
 				  <!--- DateValidEnd="#Dateformat(Period.PeriodDateEnd, 'YYYYMMDD')#"		 --->

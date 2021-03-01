@@ -653,7 +653,13 @@ password="#SESSION.dbpw#">
 		   #year(TransactionDate)#<cfif month(transactiondate) lt 10>0</cfif>#month(TransactionDate)#
 		   </cfif>
 		   </td>
-		   <td style="min-width:100px"><cfif accountLabel neq "">#AccountLabel#<cfelse>#GLAccount#</cfif></td>
+		   <cfif accountLabel neq "">
+		   <cfset sl = accountLabel>
+		   <cfelse>
+		   <cfset sl = glaccount>
+		   </cfif>
+		   
+		   <td style="min-width:#len(sl)*10#">#sl#</td>
 		   <td style="width:50%">#Description#</td>
 		   <td style="border-right: 1px solid Silver;WIDTH:50%;min-width:100px">
 		       <cfif TraCat is "Payment">

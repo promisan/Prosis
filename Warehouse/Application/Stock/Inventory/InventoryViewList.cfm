@@ -152,8 +152,10 @@ password="#SESSION.dbpw#">
 			<td colspan="10"><table>
 				<tr class="labelmedium">
 					<td style="font-size:15px;padding-left:40px;min-width:70px;"><a href="javascript:locationitem('#itemLocationId#')" class="ccontent">#ItemNo#</a></td>
-					<td class="ccontent" style="height:26;font-size:15px">#ItemDescription# <cfif ItemNoExternal neq "">/ #itemNoExternal#</cfif></td>
+					<td style="height:26;font-size:15px">#ItemDescription# <cfif ItemNoExternal neq "">/ #itemNoExternal#</cfif></td>
 					<td style="display:none;" class="ccontent">#ItemBarCode#</td>
+					<td style="display:none;" class="ccontent">#ItemDescription#</td>
+					<td style="display:none;" class="ccontent">#itemNoExternal#</td>
 				</tr>
 				</table>
 			</td></tr>

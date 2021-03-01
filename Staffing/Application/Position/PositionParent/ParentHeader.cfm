@@ -8,7 +8,7 @@
 
 <cf_filelibraryscript>
 
-<cfajaximport tags="cfwindow,cfform,cfinput-datefield">
+<cfajaximport tags="cfform">
 
 <cfif url.mode eq "direct">
 	
@@ -55,7 +55,7 @@ password="#SESSION.dbpw#">
 
 <table width="100%"><tr><td style="padding:10px">
 
-<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="99%" align="center" class="formpadding">
 
    <tr><td height="5"></td></tr>
    <tr class="noprint">
@@ -63,8 +63,8 @@ password="#SESSION.dbpw#">
     <td height="24" style="padding-right:4px">
 	
 		<cfoutput>	
-		<table cellspacing="0" cellpadding="0" class="formpadding">
-		<tr class="labelmedium">
+		<table class="formpadding">
+		<tr class="labelmedium2">
 		    <td style="padding-left:5px"><cf_tl id="Current PostNumber">:</td>
 			<td style="padding-left:5px"><b>#PositionChild.SourcePostNumber#</font></b></td>
 			<td style="padding-left:10px"><cf_tl id="Mandate">:</td>
@@ -92,7 +92,8 @@ password="#SESSION.dbpw#">
 	  role="'HRLoaner'"
 	  posttype="#PositionParent.PostType#"
 	  returnvariable="accessLoaner">
-	
+	  
+		
 	<cfif AccessPosition eq "EDIT" or AccessPosition eq "ALL">
 	
 	        <table cellspacing="0" cellpadding="0">
@@ -128,7 +129,7 @@ password="#SESSION.dbpw#">
   
   <cfoutput>
     <input type="hidden" id="refresh_positionparent" 
-       onclick="ColdFusion.navigate('#session.root#/Staffing/Application/Position/PositionParent/getPositionParent.cfm?ID2=#url.id2#','positionparentbox')">     
+       onclick="ptoken.navigate('#session.root#/Staffing/Application/Position/PositionParent/getPositionParent.cfm?ID2=#url.id2#','positionparentbox')">     
   </cfoutput> 	
  
   <tr>
@@ -224,10 +225,13 @@ password="#SESSION.dbpw#">
 		
 			<tr>		
 			<td colspan="4" id="#url.ajaxid#">
+			
+			
 																		 
 			   <cfif wfStatus eq "Open" or wfExist eq "1">				  
 				   <cfinclude template="ParentClassificationWorkflow.cfm"> 
 			   </cfif>
+			
 				
 			</td>
 			</tr>

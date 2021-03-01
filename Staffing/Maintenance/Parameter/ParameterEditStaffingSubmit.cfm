@@ -1,7 +1,7 @@
 
 <cfparam name="Form.EnableSourcePost" default="0">
 <cfparam name="Form.AssignmentClear" default="0">
-<cfparam name="Form.EnfoceGrade" default="0">
+<cfparam name="Form.EnforceGrade" default="0">
 
 <cfquery name="Update" 
 datasource="AppsEmployee" 
