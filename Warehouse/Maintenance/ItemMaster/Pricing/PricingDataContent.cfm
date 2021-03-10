@@ -57,7 +57,14 @@
 				
 				<tr class="labelmedium line" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''">
 					
-					<td></td>
+					<td align="center">
+						<cf_tl id="Show price history" var="1">
+						<img 
+							src="#session.root#/images/history2.png" 
+							style="cursor:pointer; height:14px;" 
+							title="#lt_text#"
+							onclick="showPricingHistory('#url.id#', '#Measure#', '#Code#', '#w#', '#url.mission#');">
+					</td>
 					<td valign="top" style="font-size:15px;padding-top:4px;">#Description#</td>
 					
 																					
@@ -108,7 +115,7 @@
 							<cf_intelliCalendarDate9
 							    class="regularxl"
 								FieldName="#w#_#measure#_#Schedule.code#_#currency#_DateEffective" 
-								Default="#dateformat("01/01/2008",CLIENT.DateFormatShow)#"
+								Default="#dateformat(now(),CLIENT.DateFormatShow)#"
 								message="Enter a valid price"								
 								Tooltip="Effective Date"
 								Style="border:0px;border-left:1px solid silver;border-right:1px solid silver;text-align:center"
@@ -116,15 +123,27 @@
 							
 						<cfelse>
 						
-							<cf_intelliCalendarDate9
-								FieldName="#w#_#measure#_#Schedule.code#_#currency#_DateEffective" 
-								Default="#dateformat(line.dateeffective,CLIENT.DateFormatShow)#"
-								message="Enter a valid price"
-								class="regularxl"
-								DateValidStart="#Dateformat(line.dateeffective, 'YYYYMMDD')#"
-								Tooltip="Effective Date"
-								Style="border:0px;border-left:1px solid silver;border-right:1px solid silver;text-align:center"
-								AllowBlank="False">	
+							<cfif line.dateEffective lt now()>
+								<cf_intelliCalendarDate9
+									FieldName="#w#_#measure#_#Schedule.code#_#currency#_DateEffective" 
+									Default="#dateformat(now(),CLIENT.DateFormatShow)#"
+									message="Enter a valid price"
+									class="regularxl"
+									DateValidStart="#Dateformat(line.dateeffective, 'YYYYMMDD')#"
+									Tooltip="Effective Date"
+									Style="border:0px;border-left:1px solid silver;border-right:1px solid silver;text-align:center"
+									AllowBlank="False">	
+							<cfelse>
+								<cf_intelliCalendarDate9
+									FieldName="#w#_#measure#_#Schedule.code#_#currency#_DateEffective" 
+									Default="#dateformat(line.dateEffective,CLIENT.DateFormatShow)#"
+									message="Enter a valid price"
+									class="regularxl"
+									DateValidStart="#Dateformat(line.dateeffective, 'YYYYMMDD')#"
+									Tooltip="Effective Date"
+									Style="border:0px;border-left:1px solid silver;border-right:1px solid silver;text-align:center"
+									AllowBlank="False">	
+							</cfif>
 						
 						</cfif>	
 													
@@ -269,7 +288,7 @@
 							   
 						</td>
 												
-						<td style="padding-left:3px;height:28">
+						<td style="padding-left:3px;height:28px;" align="right">
 						
 							<select class="regularxl" name="#w#_#measure#_#Schedule.code#_#currency#_taxcode" id="#w#_#measure#_#Schedule.code#_#currency#_taxcode"
 							   size="1" style="text-align: right;border:0px;border-left:1px solid silver;border-right:1px solid silver">
@@ -282,7 +301,7 @@
 						
 						</td>
 						
-						<td align="right" style="width:80">
+						<td align="right" style="width:80px;">
 							<cfif rowcnt eq 1>
 							<table>
 								<tr>
@@ -308,6 +327,10 @@
 							</cfif>
 						</td>
 						
+						</tr>
+
+						<tr>
+							<td colspan="13" id="detail_#url.id#_#measure#_#Schedule.code#_#w#_#url.mission#"></td>
 						</tr>
 								
 					</cfloop>				

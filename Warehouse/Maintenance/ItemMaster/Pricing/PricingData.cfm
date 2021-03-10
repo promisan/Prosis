@@ -3,55 +3,73 @@
 
 <cfif url.drillid neq "">
 
-	<cf_screentop html="Yes" height="100%" label="Sales Pricing" layout="webapp" scroll="Yes" banner="gray">
+	<cf_screentop html="Yes" height="100%" label="Sales Pricing" layout="webapp" scroll="Yes" banner="gray" jquery="yes">
 	
 <cfelse>
 
-	<cf_screentop html="No" layout="webapp" height="100%" label="Sales Pricing" scroll="Yes">
+	<cf_screentop html="No" layout="webapp" height="100%" label="Sales Pricing" scroll="Yes" jquery="yes">
 
 </cfif>
 
 <cf_calendarscript>
 
-<script>
-	function copyValues(w,m,s,c,type) {
-		var message = '';
-		var searchPrice = '';
-		var searchTax = '';
-		var searchDate = '';
-		
-		if (type == 1) {
-			message = 'This action will replace all sale prices and taxes of the same price schedule and currency with the values of this line.';
-			searchPrice = '_'+s+'_'+c+'_SalesPrice';
-			searchTax = '_'+s+'_'+c+'_taxcode';
-			searchDate = '_'+s+'_'+c+'_DateEffective';
-		}
-		
-		if (type == 2) {
-			message = 'This action will replace all sale prices and taxes of the same unit of measure, price schedule and currency with the values of this line.';
-			searchPrice = '_'+m+'_'+s+'_'+c+'_SalesPrice';
-			searchTax = '_'+m+'_'+s+'_'+c+'_taxcode';
-			searchDate = '_'+m+'_'+s+'_'+c+'_DateEffective';
+<cfoutput>
+
+	<script>
+		_cf_loadingtexthtml="";
+
+		function copyValues(w, m, s, c, type) {
+			var message = '';
+			var searchPrice = '';
+			var searchTax = '';
+			var searchDate = '';
+			
+			if (type == 1) {
+				message = 'This action will replace all sale prices and taxes of the same price schedule and currency with the values of this line.';
+				searchPrice = '_'+s+'_'+c+'_SalesPrice';
+				searchTax = '_'+s+'_'+c+'_taxcode';
+				searchDate = '_'+s+'_'+c+'_DateEffective';
+			}
+			
+			if (type == 2) {
+				message = 'This action will replace all sale prices and taxes of the same unit of measure, price schedule and currency with the values of this line.';
+				searchPrice = '_'+m+'_'+s+'_'+c+'_SalesPrice';
+				searchTax = '_'+m+'_'+s+'_'+c+'_taxcode';
+				searchDate = '_'+m+'_'+s+'_'+c+'_DateEffective';
+			}
+
+			if (confirm(message+'\n\nDo you want to continue ?')) {
+				var str = '';
+				var elem = document.getElementById('inputform').elements;
+				for(var i = 0; i < elem.length; i++)
+				{
+					if (elem[i].type == 'text' && elem[i].name.indexOf(searchDate) != -1) {
+						elem[i].value = document.getElementById(w+'_'+m+'_'+s+'_'+c+'_DateEffective').value;
+					}
+					if (elem[i].type == 'text' && elem[i].name.indexOf(searchPrice) != -1) {
+						elem[i].value = document.getElementById(w+'_'+m+'_'+s+'_'+c+'_SalesPrice').value;
+					}
+					if (elem[i].type == 'select-one' && elem[i].name.indexOf(searchTax) != -1) {
+						elem[i].value = document.getElementById(w+'_'+m+'_'+s+'_'+c+'_taxcode').value;
+					}
+				}
+			}
 		}
 
-		if (confirm(message+'\n\nDo you want to continue ?')) {
-			var str = '';
-	        var elem = document.getElementById('inputform').elements;
-	        for(var i = 0; i < elem.length; i++)
-	        {
-				if (elem[i].type == 'text' && elem[i].name.indexOf(searchDate) != -1) {
-					elem[i].value = document.getElementById(w+'_'+m+'_'+s+'_'+c+'_DateEffective').value;
-				}
-				if (elem[i].type == 'text' && elem[i].name.indexOf(searchPrice) != -1) {
-					elem[i].value = document.getElementById(w+'_'+m+'_'+s+'_'+c+'_SalesPrice').value;
-				}
-				if (elem[i].type == 'select-one' && elem[i].name.indexOf(searchTax) != -1) {
-					elem[i].value = document.getElementById(w+'_'+m+'_'+s+'_'+c+'_taxcode').value;
-				}
-	        }
+		function showPricingHistory(item, uom, priceschedule, warehouse, mission) {
+			var vElement = 'detail_'+item+'_'+uom+'_'+priceschedule+'_'+warehouse+'_'+mission;
+			var vURL = '#session.root#/warehouse/maintenance/itemmaster/pricing/pricingDetail.cfm';
+			var vParams = '?itemno='+item+'&uom='+uom+'&priceschedule='+priceschedule+'&warehouse='+warehouse+'&mission='+mission;
+
+			if ($('##'+vElement).html() != '') {
+				$('##'+vElement).html('');
+			} else {
+				ColdFusion.navigate(vURL+vParams, vElement);
+			}
 		}
-	}
-</script>
+	</script>
+
+</cfoutput>
 
 <cfparam name="URL.Mission" default="">
 

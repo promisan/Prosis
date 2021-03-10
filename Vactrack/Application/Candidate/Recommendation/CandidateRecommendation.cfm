@@ -47,9 +47,27 @@
 		
 		<tr class="labelmedium line">
 		<td style="height:40px;font-size:18px"><cf_tl id="Candidate">:</td>
-		<td style="width:80%;;font-size:18px"><cfoutput>#get.FirstName# #get.LastName#</cfoutput></td>
+		<td style="width:80%;font-size:18px">
+		    <cfoutput>
+			<table>
+			    <tr class="labelmedium2">
+				<td style="padding-top:2px;padding-left:14px;font-size:18px">#get.FirstName# #get.LastName#</td>
+				<td style="padding-top:2px;padding-left:14px;font-size:18px"><cf_tl id="Recommended">:</td>
+				<td style="padding-left:4px">
+				<input class = "Radiol" 
+				       style = "height:21px;width:21px" 
+					   type  = "checkbox" 
+					   name  = "ReviewStatus" id="ReviewStatus" 
+					   value = "#url.wFinal#" <cfif get.Status gte url.wFinal>checked</cfif> style="cursor:pointer">					
+	    		</td>
+				
+			    </tr>
+			</table>
+			</cfoutput>
 		</tr>
 		
+		<tr><td style="height:2px"></td></tr>			
+				
 		<cfquery name="subAction" 
 		datasource="AppsOrganization" 
 		username="#SESSION.login#" 
@@ -63,28 +81,14 @@
 			ORDER BY     D.DocumentOrder		
 		</cfquery>
 		
-		<cfloop query="subaction">
-		
+		<cfloop query="subaction">		
 		<tr class="labelmedium"><td colspan="2">
 		<cfinclude template="../../../../#DocumentTemplate#">
-		</td></tr>
-		
+		</td></tr>		
 		</cfloop>
-		
-		<tr class="labelmedium line">
-		<td style="height:40px;font-size:18px"><cf_tl id="Select for Job">:</td>
-		<td style="width:80%">
-			<input class = "Radiol" 
-			       style = "height:21px;width:21px" 
-				   type  = "checkbox" 
-				   name  = "ReviewStatus" id="ReviewStatus" 
-				   value = "#url.wFinal#" <cfif get.Status gte url.wFinal>checked</cfif> style="cursor:pointer">					
-		</td>
-		</tr>
-		
+						
 		<!--- make listing for this person by excluding existing selections if not '9' --->
-		
-		
+				
 		<cfif fun.recordcount eq "1">
 		
 			 <cfset url.id       = get.PersonNo>
@@ -155,8 +159,7 @@
 			
 				<tr class="labelmedium line">
 				<td style="height:40px;font-size:18px"><cf_tl id="Roster candidate"></td>
-				<td style="width:80%">
-				 
+				<td style="width:80%">				 
 				
 				 <cfinclude template = "CandidateRecommendationBucket.cfm">			
 				
@@ -166,17 +169,18 @@
 			</cfif>
 		
 		</cfif>
-			
-		<tr><td style="height:2px"></td></tr>
 		
 		<tr class="labelmedium">
 		<td colspan="2" style="min-width:260px;padding-top:4px;height:40px;font-size:18px;padding-right:10px" colspan="1"><cf_tl id="Reason for recommendation">:
-		<span style="font-size:12px;color:gray">Please explain why the recommended candidate is considered to be the most suitable for the position based on her/his acquired experience versus the requirements of the job (don’t type out the PHP but provide a brief assessment on what the candidate brings to the job)</span>
+		<span style="font-size:12px;color:gray">Please briefly explain the selection process and why the recommended candidate is considered to be the most suitable
+		for the position based on <cfif get.Gender eq "F">her<cfelse>his</cfif> acquired experience versus the requirements of the job <b>(don't type out the PHP
+		but provide a brief assessment on what the candidate brings to the job)</b>. Please describe efforts made to attract a wide pool of female candidates with
+		the qualifications and experience for the job.</span>
 	    </td>
 		</tr>
 		
 		<tr class="labelmedium">
-		<td colspan="2" valign="top" align="center" style="padding-top:4px;height:80%">
+		<td colspan="2" valign="top" align="center" style="padding-top:10px;padding-bottom:10px;height:80%">
 		
 		 <cfquery name="Check" 
 		 datasource="AppsVacancy" 
@@ -189,11 +193,11 @@
 			AND   ActionCode = '#url.ActionCode#'  
 		 </cfquery>	
 		 
-		 <textarea style="border:1px solid silver;background-color:f1f1f1;height:100px;width:99%;font-size:13px;padding:4px" class="regular"  name="ReviewMemo">#Check.ReviewMemo#</textarea>
+		 <textarea style="padding:5px;border:1px solid silver;background-color:f1f1f1;height:100px;width:98%;font-size:13px;" class="regular"  name="ReviewMemo">#Check.ReviewMemo#</textarea>
 		
 		</td>
 		</tr>
-			
+		
 		</table>
 	
 	</cf_divscroll>
@@ -212,7 +216,6 @@
 	</td></tr>
 	
 	</table>
-	
 
 </form>
 

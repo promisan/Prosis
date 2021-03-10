@@ -30,25 +30,27 @@
 
 	 calculation of payroll days 
 		
-	1. if a person starts later than the first of the month, he is paid for the days he work to a maximum of 21.75
-	2. if a person ends before the last of the month, he is paid balance - days. --->
+	1. if a person starts later than the first of the month, he is paid for the days he work to a maximum of 30 days
+	2. if a person ends before the last day of the month, he is paid the days --->
 	
-	<!--- A. update people that start on the firstday BUT end during the month --->
-	
-	<cfquery name="Select" 
+	<!--- we get the legs that need to be inspected --->
+		
+	<cfquery name="SelectList" 
 		datasource="AppsQuery" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT *
-		FROM  userTransaction.dbo.sal#SESSION.thisprocess#Payroll
-		WHERE (DateEffective > #SALSTR# OR DateExpiration < #SALEND#)
+		SELECT   *
+		FROM     userTransaction.dbo.sal#SESSION.thisprocess#Payroll
+		WHERE    DateEffective > #SALSTR# OR DateExpiration < #SALEND#
 		ORDER BY PersonNo,DateEffective
 	</cfquery>	
 	
 	<!--- only records that have something irregular with start or end --->
 	
-	<cfloop query="select">
+	<cfoutput query="selectlist" group="personno">
 	
+	<cfoutput>
+		
 		<cfif DateEffective eq SALSTR>
 		
 		    <!--- person starts at the beginning but leaves earlier --->
@@ -61,16 +63,18 @@
 				<cfset t = total>
 			</cfif>			
 			
-		<cfelseif DateExpiration lte SALEND>		
-													
+		<cfelseif DateExpiration lte SALEND>			
+												
 			<cfquery name="Prior" 
 			datasource="AppsQuery" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				SELECT SUM(PayrollDays) as total
 				FROM   userTransaction.dbo.sal#SESSION.thisprocess#Payroll
-				WHERE  PersonNo = '#SELECT.PersonNo#'
+				WHERE  PersonNo = '#PersonNo#'
 			</cfquery>	
+			
+			<!--- we do this logic now at the end of the person grouping
 			
 			<cfif prior.total gte "1">
 		
@@ -87,6 +91,8 @@
 				  				
 			<cfelse>
 			
+			--->
+			
 					<cfset total = DATEDIFF('d',DateEffective,DateExpiration)+1>
 													
 					<cfif total gte Form.SalaryDays>
@@ -95,7 +101,9 @@
 						<cfset t = total>
 					</cfif>							
 			
+			<!---
 			</cfif>	
+			--->
 						
 		</cfif>	
 		
@@ -110,5 +118,51 @@
 			AND    DateEffective = '#DateEffective#' 
 		</cfquery>					
 		
-	</cfloop>		
+	</cfoutput>
+	
+	<!--- check the total on the level of the person only relevant in case of a contining inirtial appointment --->
+	
+	<cfquery name="getTotal" 
+		datasource="AppsQuery" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT MIN(DateEffective)  as DateEffective, 
+		       MAX(DateExpiration) as DateExpiration,
+			   SUM(PayrollDays)    as Days
+		FROM   userTransaction.dbo.sal#SESSION.thisprocess#Payroll		
+		WHERE  PersonNo      = '#PersonNo#'				
+	</cfquery>	
+	
+	<cfif getTotal.days gt Form.SalaryDays or 
+	     (getTotal.DateEffective eq "#SALSTR#" and getTotal.DateExpiration eq "#SALEND#")>
+		 
+		 <!--- 7/3/2021 : we prefer to correct a leg that does not have LWOP (leave record) recorded --->
+		 
+		 <cfquery name="getLeg" 
+			datasource="AppsQuery" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT * 
+			FROM   userTransaction.dbo.sal#SESSION.thisprocess#Payroll					
+			WHERE  PersonNo      = '#PersonNo#'						
+			ORDER BY LeaveId ASC	
+		</cfquery>			
+		 
+	
+		<cfset diff = getTotal.days - Form.SalaryDays> 
+	
+		<cfquery name="getTotal" 
+			datasource="AppsQuery" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			UPDATE userTransaction.dbo.sal#SESSION.thisprocess#Payroll		
+			SET    PayrollDays   = PayrollDays - #diff#
+			WHERE  PersonNo      = '#PersonNo#'						
+			AND    Line = '#getLeg.Line#'		
+		</cfquery>				
+			
+	</cfif>			
+		
+	
+</cfoutput>			
 		

@@ -567,12 +567,15 @@
 						  
 						   </td>
 						   
-						   <td>
-						   						   
-							<cf_securediv id="session_#url.ActionCode#_#account#"  bind="url:#session.root#/tools/entityaction/session/setsession.cfm?actionid=#url.actionid#&entityreference=#url.ActionCode#&useraccount=#account#">														   
-						  
-						   </td>
+						   <cfparam name="url.actionid" default="">
 						   
+						   <cfif url.actionid neq "">
+						   
+							   <td>						   						   
+								<cf_securediv id="session_#url.ActionCode#_#account#"  bind="url:#session.root#/tools/entityaction/session/setsession.cfm?actionid=#url.actionid#&entityreference=#url.ActionCode#&useraccount=#account#">														   						  
+							   </td>
+						   
+						   </cfif>
 						   
 						   </tr>
 						   </table>

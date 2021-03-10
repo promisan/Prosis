@@ -1,4 +1,5 @@
 <cf_tl id="reset" var="lblReset">
+
     
 <cfquery name="getWarehouse" 
 datasource="AppsMaterials" 
@@ -203,6 +204,7 @@ password="#SESSION.dbpw#">
                     WL.LocationClass,
                     WL.Description,
                     U.ItemBarCode
+				
 </cfquery>
 
 <cfif getData.recordCount eq 0>

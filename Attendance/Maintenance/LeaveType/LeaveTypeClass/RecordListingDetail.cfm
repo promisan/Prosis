@@ -16,7 +16,7 @@ password="#SESSION.dbpw#">
  
 <table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" class="navigation_table formpadding">
 			
-    <TR height="18" class="labelmedium2 line">
+    <TR height="18" class="labelmedium2 line fixrow">
   	    <TD width="8"></TD>
 	    <TD width="18"><cf_tl id="C."></TD>	
 		<TD><cf_tl id="Description"></TD>
@@ -34,7 +34,7 @@ password="#SESSION.dbpw#">
   	    <TD width="4%" style="padding-left:5px">
 			<cfoutput>
 				<cfif url.code neq 'new'>
-					<a title="Add new class" href="javascript:addClass()">[New]</font></a>
+					<a title="Add new class" href="javascript:addClass()">[New]</a>
 				</cfif>
 			</cfoutput>
 		</TD>
@@ -58,7 +58,7 @@ password="#SESSION.dbpw#">
 			<!--- Field: Leave Maximum --->				   
 			<td>
 				<cf_tl id = "Please enter a value for leave maximum" var = "1">
-				<cfinput class="regularxl" type="Text" name="LeaveMax" value="" message="#lt_text#" required="Yes" size="2" maxlength="3">
+				<cfinput class="regularxl" style="text-align:center;" type="Text" name="LeaveMax" value="" message="#lt_text#" required="Yes" size="2" maxlength="3">
 			</td>
 			
 			<!--- Field: Pointer Leave --->				   
@@ -176,7 +176,7 @@ password="#SESSION.dbpw#">
 					<!--- Field: Leave Maximum --->				   
 					<td style="padding-left:1px">
 						<cf_tl id = "Please enter a value for leave maximum" var = "1">
-						<cfinput class="regularxl" type="Text" name="LeaveMax" value="#LeaveMaximum#" message="#lt_text#"  range = "0," required="Yes" size="2" maxlength="3">
+						<cfinput class="regularxl" type="Text" style="text-align:center;" name="LeaveMax" value="#LeaveMaximum#" message="#lt_text#"  range = "0," required="Yes" size="2" maxlength="3">
 					</td>
 					
 					<!--- Field: Pointer Leave --->				   

@@ -554,7 +554,11 @@ password="#SESSION.dbpw#">
 		datasource="AppsQuery" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT SUM(workday) as total
+		    <cfif Schedule.SalaryBasePeriodDays eq "21.75">
+			  SELECT  SUM(workday) as total
+			<cfelse>
+			  SELECT  Count(CalendarDate) as total
+			</cfif>			
 			FROM   userTransaction.dbo.sal#SESSION.thisprocess#Dates
 			WHERE  CalendarDate <= '#DateExpiration#'
 			<!--- base for calculation which is the leg --->

@@ -1223,6 +1223,28 @@
 			WHERE Mission = '#mission#'
 		</cfquery>
 
+		<cfquery name="GetPrevious"
+				datasource="#datasource#"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+			SELECT A.*
+			FROM   Accounting.dbo.TransactionHeader H
+			INNER JOIN Accounting.dbo.TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo=A.JournalSerialNo
+			WHERE  TransactionSourceId = '#batchId#'
+			AND    A.ActionCode      = 'Invoice'
+			AND    A.ActionReference1 IS NOT NULL
+			AND    A.ActionReference2 IS NOT NULL
+			AND    A.ActionReference3 IS NOT NULL
+			ORDER BY A.Created DESC
+		</cfquery>
+
+		<cfset vUniqueId = GetBatch.BatchNo>
+		<cfif GetPrevious.ActionStatus eq 9>
+			<!--- It is a re-attempt --->
+			<cfset vUniqueId = "#GetBatch.BatchNo#-#LEFT(GetPrevious.ActionId,3)#">
+		</cfif>
+
+
 <!--- Get Warehouse information --->
 		<cfquery name="GetWarehouse"
 				datasource="#datasource#"
@@ -1528,7 +1550,7 @@
 		<cfset stToSign =
 		{ "llave": "#GetWarehouseSeries.PrivateKey#",
 			"archivo": "#Base64DTE#",
-			"codigo": "#GetBatch.BatchNo#",
+			"codigo": "#vUniqueId#",
 			"alias": "#GetWarehouseSeries.Alias#",
 			"es_anulacion": "N"
 		}
@@ -1570,13 +1592,12 @@
 				}>
 
 				<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_To_Certify_#RetryNo#.txt" output="#serializeJSON(stToCertify)#">
-				<cfset vSerialNo = GetBatch.BatchNo>
 
 
 				<cfhttp url="https://certificador.feel.com.gt/fel/certificacion/v2/dte/" method="post" result="httpResponse" timeout="60">
 					<cfhttpparam type="header" name="usuario" value="#GetWarehouseSeries.UserName#" />
 					<cfhttpparam type="header" name="llave" value="#GetWarehouseSeries.UserKey#" />
-					<cfhttpparam type="header" name="identificador" value="#vSerialNo#" />
+					<cfhttpparam type="header" name="identificador" value="#vUniqueId#" />
 					<cfhttpparam type="header" name="Content-Type" value="application/json" />
 					<cfhttpparam type="body" value="#serializeJSON(stToCertify)#">
 				</cfhttp>
@@ -2787,6 +2808,12 @@ AND T.TransactionId not in (
 			WHERE BatchId = '#batchid#'
 		</cfquery>
 
+		<cfif terminal eq "TransactionView">
+			<cfset vJoin = "LEFT OUTER JOIN">
+		<cfelse>
+			<cfset vJoin = "INNER JOIN">
+		</cfif>
+
 		<cfquery name="GetInvoice"
 				datasource="#datasource#"
 				username="#SESSION.login#"
@@ -2811,7 +2838,6 @@ AND T.TransactionId not in (
 			I.ItemDescription,
 			I.Category,
 			IU.ItemBarCode,
-			--U.Description AS UoM,
 			IU.UoM AS UoM,
 			T.TransactionQuantity * -1 as TransactionQuantity,
 			ROUND((S.SalesAmount * S.TaxPercentage),2) + S.SalesAmount AS SalesAmountExemption,
@@ -2850,21 +2876,19 @@ AND T.TransactionId not in (
 
 
 			FROM Materials.dbo.WarehouseBatch WB
-			INNER JOIN Materials.dbo.ItemTransactionDeny T ON T.TransactionBatchNo = WB.BatchNo
-			INNER JOIN Materials.dbo.ItemTransactionShippingDeny S ON T.TransactionId = S.TransactionId
-			INNER JOIN Materials.dbo.Customer C ON
+			#vJoin# Materials.dbo.ItemTransactionDeny T ON T.TransactionBatchNo = WB.BatchNo
+			#vJoin# Materials.dbo.ItemTransactionShippingDeny S ON T.TransactionId = S.TransactionId
+			#vJoin# Materials.dbo.Customer C ON
 			<cfif getBatch.CustomerIdInvoice neq "">
 				C.CustomerId = WB.CustomerIdInvoice
 			<cfelse>
 				C.CustomerId = WB.CustomerId
 			</cfif>
-			INNER JOIN Materials.dbo.Item I ON I.ItemNo = T.ItemNo
-			INNER JOIN Materials.dbo.ItemUoM IU ON IU.ItemNo = I.ItemNo AND IU.UoM = T.TransactionUoM
-			--INNER JOIN Materials.dbo.Ref_UoM U ON U.Code = T.TransactionUoM
+			#vJoin# Materials.dbo.Item I ON I.ItemNo = T.ItemNo
+			#vJoin# Materials.dbo.ItemUoM IU ON IU.ItemNo = I.ItemNo AND IU.UoM = T.TransactionUoM
 			LEFT OUTER JOIN Materials.dbo.Ref_UoM U ON U.Code = IU.UoMCode
 			INNER JOIN Materials.dbo.Warehouse W ON W.Warehouse = WB.Warehouse
 			WHERE WB.BatchId='#batchid#'
-
 		</cfquery>
 
 <!--- Get Mission Information --->
@@ -2885,8 +2909,10 @@ AND T.TransactionId not in (
 			SELECT *
 			FROM   Materials.dbo.WarehouseTerminal
 			WHERE  Warehouse = '#GetInvoice.Warehouse#'
-		AND    TerminalName = '#terminal#'
-		AND    Operational=1
+			<cfif terminal neq "TransactionView">
+				AND    TerminalName = '#terminal#'
+			</cfif>
+			AND Operational=1
 		</cfquery>
 
 <!--- Get Warehouse and Series Information --->
@@ -2937,6 +2963,7 @@ AND T.TransactionId not in (
 		AND    T.SeriesType = 'Invoice'
 
 		</cfquery>
+
 
 		<cfquery name		="getEDIConfig"
 				datasource	="#datasource#"

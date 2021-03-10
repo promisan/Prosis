@@ -132,9 +132,10 @@ function list(page) {
 							<table width="100%" align="center" align="center" class="formpadding">
 											
 								 <tr class="line">
-								  
-								    <cfif url.mission neq "">					
+								 								  
+								    <cfif url.mission neq "">														
 									<td style="font-weight:200;height:50px;padding-left:10px;padding-top:8px;font-size:25px" class="labelmedium2">#url.mission# <cf_tl id="Patients"></td>						
+									 <input type="hidden" name="Class" value="#url.class#">
 									<cfelse>
 								    <td style="font-weight:200;padding-left:10px;padding-top:6px;font-size:30px">
 									
@@ -145,10 +146,12 @@ function list(page) {
 										SELECT   * 
 										FROM     Ref_ApplicantClass
 										WHERE    ApplicantClassId = '#url.class#'					
-									</cfquery>										
+									</cfquery>			
+														
 																				
 									<cfif url.class neq "">:&nbsp;<b>#Class.Description#</b>
-										<cf_tl id="Natural Person Repository">			    	
+									
+									   <cf_tl id="Natural Person Repository">			    	
 									   <input type="hidden" name="Class" value="#url.class#">
 									   					
 									<cfelse>
@@ -164,15 +167,17 @@ function list(page) {
 										</cfquery>
 																			
 									    <table>
-										<tr class="labelmedium2" style="height:30px">
-										<td style="font-weight:200;padding-left:10px;font-size:30px"><cf_tl id="Natural Person Repository"></td>
-										<td style="padding-left:5px;padding-bottom:5px" valign="bottom"><input type="radio" name="Class" value="" checked></td>
-										<td valign="bottom" style="padding-bottom:5px;font-size:16px;padding-left:3px"><cf_tl id="Any"></td>
-										<cfloop query="Class">
-										  <td valign="bottom" style="padding-bottom:5px;padding-left:5px"><input type="radio" class="radiol" name="Class" value="#ApplicantClassId#"></td>
-										  <td valign="bottom" style="padding-bottom:5px;font-size:16px;padding-left:3px"><cf_tl id="#Description#"></td>
-										</cfloop>		
-										</tr>
+										
+											<tr class="labelmedium2" style="height:30px">
+												<td style="font-weight:200;padding-left:10px;font-size:30px"><cf_tl id="Natural Person Repository"></td>
+												<td style="padding-left:5px;padding-bottom:5px" valign="bottom"><input type="radio" name="Class" value="" checked></td>
+												<td valign="bottom" style="padding-bottom:5px;font-size:16px;padding-left:3px"><cf_tl id="Any"></td>
+												<cfloop query="Class">
+												  <td valign="bottom" style="padding-bottom:5px;padding-left:5px"><input type="radio" class="radiol" name="Class" value="#ApplicantClassId#"></td>
+												  <td valign="bottom" style="padding-bottom:5px;font-size:16px;padding-left:3px"><cf_tl id="#Description#"></td>
+												</cfloop>		
+											</tr>
+											
 										</table>
 								   				   					
 									</cfif>
@@ -325,6 +330,7 @@ function list(page) {
 						<cfelse>
 						
 							<TD style="padding-left:10px"><cf_tl id="Assessment">:</TD>
+							
 							<TD>
 							
 							<select name="Assessment" class="regularxxl">

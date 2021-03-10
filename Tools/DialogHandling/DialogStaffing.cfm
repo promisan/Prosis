@@ -188,7 +188,7 @@ function ShowCandidate(app) {
 }
 
 function addCandidate(edition,source) {
-        w = 900;
+        w = 1100;
         h = #CLIENT.height# - 120;
 		ptoken.open(root + "/Roster/Candidate/Details/Applicant/ApplicantEntry.cfm?submissionedition="+edition+"&source="+source+"&mode=Manual", "_blank", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
 }

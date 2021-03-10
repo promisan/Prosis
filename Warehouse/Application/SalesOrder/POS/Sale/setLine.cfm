@@ -49,120 +49,125 @@ password="#SESSION.dbpw#">
 		</cfcase>
 		
 		<cfcase value="quantity">
-		
-			<cfif not isNumeric(url.value)>
-			
-			  <script>
-			  	  <cf_tl id="invalid quantity" var="1" class="message">
-				  alert("#lt_text#")
-			  </script>
+																			
+			<cfif url.value lte "0" or not isNumeric(url.value)>
+						 
+		      <cf_tl id="invalid quantity" var="1" class="message">
 			  
+			  <cfset qty = 1>
+			 			 		 			
+			  <script>			      	  	  
+				  alert("#lt_text#")
+				  $('.TransactionQuantity_#url.id#').val('1')	
+			  </script>
+			  			  			  
 			<cfelse>  
-			
-				<cfset qty   = url.value>
-				<cfset price = get.SalesPrice>
-			    <cfset tax   = get.TaxPercentage>
+						  						
+			  <cfset qty   = url.value>
+										
+			</cfif>			
+											
+			<cfset price = get.SalesPrice>
+			<cfset tax   = get.TaxPercentage>
 					
-				<cfif get.TaxIncluded eq "0">
+			<cfif get.TaxIncluded eq "0">
 									   
-					<cfset amountsle  = price * qty>
-					<cfset amounttax  = (tax * price) * qty>	
+				<cfset amountsle  = price * qty>
+				<cfset amounttax  = (tax * price) * qty>	
 					
-				<cfelse>				
+			<cfelse>				
 						
 					<cfset amounttax  = ((tax/(1+tax))*price)*qty>	
 					<!--- <cfset amountsle = ((1/(1+tax))*price)*qty> --->
 					<!--- changed way of calculating amountsle as otherwise sometimes we have .01 data loss ---->
 					<cfset amountsle  = (price * qty) - amounttax>	
 					
-				</cfif>
+			</cfif>
 				
-				<cfif get.taxExemption eq "1">
-					<cfset amounttax = 0>
-				</cfif>
+			<cfif get.taxExemption eq "1">
+				<cfset amounttax = 0>
+			</cfif>
 							
-				<!--- rounding --->
-				<cfset amountsle  = round(amountsle*100)/100>
-				<cfset amounttax  = round(amounttax*100)/100>	
+			<!--- rounding --->
+			<cfset amountsle  = round(amountsle*100)/100>
+			<cfset amounttax  = round(amounttax*100)/100>	
 				
-				<cfif qty neq "0">
+			<cfif qty neq "0">
 					<cfset unitprice = amountsle / qty>			
-				<cfelse>
+			<cfelse>
 				    <cfset unitprice = 0>	
-				</cfif>	
+			</cfif>	
 							
-			    <cfquery name="setLine"
+			<cfquery name="setLine"
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 						UPDATE CustomerRequestLine 
-						SET    TransactionQuantity = '#url.value#',
+						SET    TransactionQuantity = '#qty#',
 						       SalesUnitPrice      = '#unitprice#',
 						       SalesAmount         = '#amountsle#',
 							   SalesTax            = '#amounttax#'
 						WHERE  TransactionId       = '#url.id#'								
-				</cfquery>						  
+			</cfquery>						  
 												
-				<cfquery name="get"
+			<cfquery name="get"
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 					SELECT * 
 					FROM   CustomerRequestLine
 					WHERE  TransactionId = '#url.id#'		
-				</cfquery>
+			</cfquery>
 				
-				<!--- apply quantity promotions --->
-									
-				<cfinvoke component = "Service.Process.Materials.POS"  
-				      method        = "applyPromotion" 
-				      warehouse     = "#url.warehouse#" 
-					  requestNo     = "#get.RequestNo#"
-				      customerid    = "#url.customerid#"
-					  returnvariable="hasPromotion">	
-					  
-				<cfif hasPromotion eq "1">	  	
+			<!--- apply quantity promotions --->
 								
-					<cfquery name="linelist"
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						SELECT * 
-						FROM   CustomerRequestLine
-						WHERE  Requestno = '#get.RequestNo#'						
-					</cfquery>	
-				
-				<cfelse>
-								
-					<cfquery name="linelist"
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						SELECT * 
-						FROM   CustomerRequestLine
-						WHERE  TransactionId       = '#url.id#'							
-					</cfquery>	
-								
-				</cfif>
-				
-				<script language="JavaScript">	
-				
-					<cfloop query="LineList">																			
-						$('.SalesPrice_#TransactionId#').val('#numberformat(SalesPrice,',.__')#')						
-						$('.total_#TransactionId#').html('#numberformat(SalesTotal,',.__')#')						
-					</cfloop>										
-				  					
-					_cf_loadingtexthtml='';	
-					ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Sale/getOnHand.cfm?action=#url.action#&line=#url.line#&warehouse=#url.warehouse#&id=#get.TransactionId#','onhand_#url.line#');
-						
-					<cfif qWarehouse.Beneficiary eq 1 and get.ItemClass eq "Service">
-						ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Sale/getBeneficiary.cfm?crow=#url.line#&warehouse=#url.warehouse#&id=#get.TransactionId#&clines=#url.value#','Beneficiary_#url.line#');
-					</cfif>
-					
-				</script>
-						
+			<cfinvoke component  = "Service.Process.Materials.POS"  
+			      method         = "applyPromotion" 
+			      warehouse      = "#url.warehouse#" 
+				  requestNo      = "#get.RequestNo#"
+			      customerid     = "#url.customerid#"
+				  returnvariable = "hasPromotion">	
+				  
+			<cfif hasPromotion eq "1">	  	
+							
+				<cfquery name="linelist"
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT * 
+					FROM   CustomerRequestLine
+					WHERE  Requestno = '#get.RequestNo#'						
+				</cfquery>	
+			
+			<cfelse>
+							
+				<cfquery name="linelist"
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT * 
+					FROM   CustomerRequestLine
+					WHERE  TransactionId       = '#url.id#'							
+				</cfquery>	
+							
 			</cfif>
 				
+			<script language="JavaScript">	
+			
+				<cfloop query="LineList">																			
+					$('.SalesPrice_#TransactionId#').val('#numberformat(SalesPrice,',.__')#')						
+					$('.total_#TransactionId#').html('#numberformat(SalesTotal,',.__')#')						
+				</cfloop>										
+			  					
+				_cf_loadingtexthtml='';	
+				ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Sale/getOnHand.cfm?action=#url.action#&line=#url.line#&warehouse=#url.warehouse#&id=#get.TransactionId#','onhand_#url.line#');
+					
+				<cfif qWarehouse.Beneficiary eq 1 and get.ItemClass eq "Service">
+					ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Sale/getBeneficiary.cfm?crow=#url.line#&warehouse=#url.warehouse#&id=#get.TransactionId#&clines=#qty#','Beneficiary_#url.line#');
+				</cfif>
+				
+			</script>
+							
 		</cfcase>
 		
 		<cfcase value="time">

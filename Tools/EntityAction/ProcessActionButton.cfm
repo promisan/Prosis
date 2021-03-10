@@ -14,18 +14,19 @@
 	
 	<cfoutput>	
 	
-	  <cf_tl id="Submit" var="1">
+	  <cf_tl id="Confirm" var="doit">
 	  &nbsp;&nbsp;&nbsp;
-		      
+		   
 	  <!--- ------------------------------------------------------------- --->
 	  <!--- process step and process custom fields and/or dialogs as well --->
 	  <!--- ------------------------------------------------------------- --->
+	  
 			  
 	  <input type = "button" 
 	      name    = "saveaction" 
 		  id      = "saveaction"
 	      onclick = "updateTextArea();Prosis.busy('yes');saveforms('#url.wfmode#')" 
-		  value   = "#lt_text#" 
+		  value   = "#doit#" 
 		  style   = "width:120px;height:25;font-size:14px;border-radius:5px;border:none;background:##033F5D;color:##FFFFFF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Raleway',sans-serif !important;"
 		  class   = "button10g">
 		  

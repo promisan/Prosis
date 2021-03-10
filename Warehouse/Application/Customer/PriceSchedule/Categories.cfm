@@ -2,48 +2,80 @@
 <cf_dateConvert value="#url.dateeffective#">
 <cfset vDateEffective = dateValue>
 
-<cfquery name="categories" 
-	datasource="AppsMaterials" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT DISTINCT
-				R.TabOrder,
-				R.Category, 
-				R.Description,
-				(
-					SELECT 	PriceSchedule
-					FROM	CustomerSchedule
-					WHERE	CustomerId = '#url.CustomerId#'
-					AND		Category = R.Category
-					AND		DateEffective = #vDateEffective#
-				) AS Selected
-		FROM    Customer C 
-				INNER JOIN Warehouse W 
-					ON C.Mission = W.Mission 
-				INNER JOIN WarehouseCategory WC 
-					ON W.Warehouse = WC.Warehouse 
-				INNER JOIN Ref_Category R 
-					ON WC.Category = R.Category
-		WHERE	C.CustomerId = '#url.customerId#'
-		AND		R.Operational = 1
-		ORDER BY R.TabOrder
-</cfquery>
+<cfquery name="customer" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT * 
+			FROM	Customer
+			WHERE	CustomerId = '#url.CustomerId#'			
+	</cfquery>
+	
+	<cfquery name="getmission" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT DISTINCT Mission
+			FROM   WarehouseBatch
+			WHERE CustomerId = '#url.CustomerId#'			
+	</cfquery>
+	
+	<cfquery name="customer" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT * 
+			FROM	Customer
+			WHERE	CustomerId = '#url.CustomerId#'			
+	</cfquery>
+	
+	<cfquery name="getmission" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT DISTINCT Mission
+			FROM   WarehouseBatch
+			WHERE CustomerId = '#url.CustomerId#'			
+	</cfquery>
+	
+	<cfquery name="categories" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT R.TabOrder,
+					R.Category, 
+					R.Description,
+					(	SELECT 	PriceSchedule
+						FROM	CustomerSchedule
+						WHERE	CustomerId    = '#url.CustomerId#'
+						AND		Category      = R.Category
+						AND		DateEffective = #vDateEffective#
+					) AS Selected
+			FROM   Ref_Category R
+			WHERE  R.Category IN (SELECT WC.Category
+			                      FROM   Warehouse W INNER JOIN WarehouseCategory WC ON W.Warehouse = WC.Warehouse
+								  WHERE  W.Mission IN ('#customer.Mission#'<cfif getMission.recordcount gte "1">,#quotedValueList(getMission.Mission)#</cfif>)
+								)
+			AND	   R.Operational = 1
+			AND    R.FinishedProduct = 1				   			
+			ORDER BY R.TabOrder			
+	</cfquery>
 
-<cfquery name="priceSchedule" 
+	<cfquery name="priceSchedule" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT 	*
 		FROM	Ref_PriceSchedule
 		ORDER BY ListingOrder
-</cfquery>
+	</cfquery>
 
 <cf_tl id="Please, select a valid price schedule" var="errorMessage">
-<cf_tl id="Select a Price Schedule" var="selectMessage">
+<cf_tl id="Select Schedule" var="selectMessage">
 
 <!-- <cfform name="dummy"> -->
 	<table width="100%" class="navigation_table">
-		<tr>
+		<tr class="line">
 			<td class="labelmedium" width="25%">
 				<cf_tl id="Category">
 			</td>
@@ -57,37 +89,47 @@
 				<cf_tl id="Price Schedule">
 			</td>
 		</tr>
-		
-		<tr><td height="5"></td></tr>
-		<tr><td colspan="2" class="linedotted"></td></tr>
-		<tr><td height="5"></td></tr>
-		
+				
 		<cfset row = "0">
 		
 		<cfoutput query="categories">
 		
 			<cfset row = row + 1>
 			<cfif row eq "1">
-			<tr class="navigation_row">
+			<tr class="navigation_row labelmedium2">
 			</cfif>
+			
+			<cfquery name="mission" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT   DISTINCT W.Mission
+					FROM     WarehouseCategory AS WC INNER JOIN
+	                         Warehouse AS W ON WC.Warehouse = W.Warehouse
+					WHERE    WC.Category = '#category#'
+				</cfquery>	
 						
-				<td class="labelmedium">#Description#</td>
-				<td class="labelmedium" style="padding:2px;">
+				<td style="padding-left:7px"><b>#Description#</b>
+				<br><font size="1">(<cfloop query="mission">#mission#<cfif currentrow neq recordcount>,</cfif></cfloop>)</font>
+				</td>
+				<td style="padding:2px;padding-right:5px">
 					<cfselect 
 						name="PriceSchedule_#trim(Category)#" 
 						id="PriceSchedule_#trim(Category)#" 
 						query="priceSchedule" 
 						display="Description" 
 						value="Code" 
-						class="regularxl selPriceSchedule" 
+						style="width:100%"
+						class="regularxxl selPriceSchedule" 
 						required="Yes" 
 						selected="#Selected#" 
 						message="#errorMessage#" 
 						queryposition="below">
 						<option value="">-- #selectMessage# --
 					</cfselect>
+					<br>
 					<cfif currentrow eq 1 AND recordCount gt 1>
-						<a style="color:##369CF5; padding-left:15px;" href="javascript:$('.selPriceSchedule').val($('##PriceSchedule_#trim(Category)#').val());">[ <cf_tl id="Same for all"> ]</a>
+						<font size="1"><a style="color:##369CF5; padding-left:15px;min-width:50px" href="javascript:$('.selPriceSchedule').val($('##PriceSchedule_#trim(Category)#').val());"><cf_tl id="Same for all"></a>
 					</cfif>
 				</td>
 			<cfif row eq "2">	

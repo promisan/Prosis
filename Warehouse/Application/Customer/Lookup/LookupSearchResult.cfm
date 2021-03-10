@@ -104,23 +104,25 @@
 	   <td align="right"></td>
 	</tr>
 
-	<TR class="line labelmedium">
+	<TR class="line labelmedium2">
 	    <td height="20"></td>
 		<TD><cf_tl id="Id"></TD>        
 	    <TD><cf_tl id="Name"></TD>
 		<TD><cf_tl id="PersonId"></TD>
+		<TD><cf_tl id="Mission"></TD>
 		<TD><cf_tl id="Last"></TD>
 		<TD><cf_tl id="Reference"></TD>
 	</TR>
 
 	<CFOUTPUT query="SearchResult">
 
-		<TR class="navigation_row line labelmedium" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f1f1f1'))#">
+		<TR class="navigation_row line labelmedium2" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f1f1f1'))#">
 			<TD width="30" align="center" class="navigation_action" style="padding-left:7px;padding-top:3px"
 			   onclick="selected('#customerid#','#customername#')"><cf_img icon="select"></TD>
             <TD><a href="javascript:editCustomer('#customerid#')">#CustomerSerialNo#</a></TD>
 			<TD>#CustomerName#</TD>
 			<TD>#PersonNo#</TD>
+			<td>#Mission#</td>
 			<td>#dateformat(LastDate,client.dateformatshow)#</td>
 			<TD>#Reference#</TD>
 		</TR>

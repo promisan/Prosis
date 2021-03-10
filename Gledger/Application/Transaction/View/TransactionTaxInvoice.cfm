@@ -61,9 +61,10 @@ AND    TransactionSource = 'SalesSeries'
     AND    ActionReference1 IS NOT NULL
     AND    ActionReference2 IS NOT NULL
     AND    ActionReference3 IS NOT NULL
+      ORDER BY Created
     </cfquery>
 
-    <cfif qCheck.recordcount eq 0>
+    <cfif qCheck.recordcount eq 0 OR qCheck.ActionStatus eq 9>
 
             <cfinvoke  component = "Service.Process.Materials.POS"
                     method             = "initiateInvoice"

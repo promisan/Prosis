@@ -104,8 +104,10 @@
 
 </cfif>
 
-<select name="eventcode" id="eventcode" class="regularxxl" style="width:95%" 
-    onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getReason.cfm?mission=#url.mission#&triggercode='+document.getElementById('triggercode').value+'&eventcode='+this.value+'&eventid='+'&preason=#url.preason#','dReason')">
+<cfoutput>
+	<select name="eventcode" id="eventcode" class="regularxxl" style="width:95%"
+    	onchange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?mission=#url.mission#&triggercode='+document.getElementById('triggercode').value+'&eventcode='+this.value+'&eventid='+'&preason=#url.preason#','dReason')">
+</cfoutput>
 	<cfif qEvent.recordcount eq "0" and qEvents.recordcount gt "1">
 	<option value=""><cf_tl id="Please select">...</option>
 	</cfif>

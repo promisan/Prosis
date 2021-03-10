@@ -117,7 +117,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 </cfquery>
 
-<cf_pagecountN show="15" 
+<cf_pagecountN show="20" 
                count="#Total.Total#">
 			   
 <cfset counted  = total.total>	
@@ -137,10 +137,10 @@ password="#SESSION.dbpw#">
 
 	<cfsavecontent variable="mycustomer">
 	
-		SELECT  CustomerId,Reference,PersonNo,CustomerName,PhoneNumber,eMailAddress,OrgUnit,CustomerSerialNo
+		SELECT  CustomerId,Reference,PersonNo,CustomerName,PhoneNumber,eMailAddress,OrgUnit,CustomerSerialNo, Mission
 		FROM    Customer		
 		UNION
-		SELECT  CustomerId,Reference,PersonNo,CustomerName,PhoneNumber,eMailAddress, OrgUnit,CustomerSerialNo
+		SELECT  CustomerId,Reference,PersonNo,CustomerName,PhoneNumber,eMailAddress, OrgUnit,CustomerSerialNo, Mission
 		FROM    WorkOrder.dbo.Customer
 		
 				
@@ -178,17 +178,18 @@ password="#SESSION.dbpw#">
 
 	<table width="100%" class="navigation_table">
 	
-		<tr><td height="14" colspan="6">						 
+		<tr><td height="14" colspan="7">						 
 			 <cfinclude template="CustomerNavigation.cfm">	 				 
 		</td></tr>
 		
-		<tr class="line fixrow labelmedium">	  
+		<tr class="line fixrow labelmedium2">	  
 			    <td height="18" width="35" style="padding-left:5px;padding-top:4px;padding-right:6px" class="navigation_action" onclick="_cf_loadingtexthtml='';ptoken.navigate('#link#&action=insert&#url.des1#=#customerid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  								
 				</td>
 				<td style="min-width:90px"><cf_tl id="No"></td>
 				<td style="min-width:90px"><cf_tl id="Reference"></td>
 				<td style="min-width:70px"><cf_tl id="Person"></td>
 				<TD width="70%"><cf_tl id="Name"></TD>
+				<TD style="min-width:70px"><cf_tl id="Mission"></TD>
 				<TD style="min-width:90px"><cf_tl id="Phone"></TD>
 				<!---
 				<TD style="min-width:100px;padding-right:3px"><cf_tl id="eMail"></TD>
@@ -207,6 +208,7 @@ password="#SESSION.dbpw#">
 				<td style="min-width:90px">#Reference#</td>
 				<td style="min-width:70px">#PersonNo#</td>
 				<TD style="width:70%">#CustomerName#</TD>
+				<TD>#Mission#</TD>
 				<TD style="min-width:90px">#PhoneNumber#</TD>
 				<!---
 				<TD style="min-width:100px;padding-right:3px">#eMailAddress#</TD>
@@ -217,7 +219,7 @@ password="#SESSION.dbpw#">
 				     
 		</CFOUTPUT>
 		
-		<tr><td height="14" colspan="6">						 
+		<tr><td height="14" colspan="7">						 
 			 <cfinclude template="CustomerNavigation.cfm">	 				 
 		</td></tr>
 	

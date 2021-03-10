@@ -1425,7 +1425,11 @@ password="#SESSION.dbpw#">
 						   datasource="AppsTransaction" 
 						   username="#SESSION.login#" 
 						   password="#SESSION.dbpw#">
+						      <cfif Schedule.SalaryBasePeriodDays eq "21.75">
 							  SELECT  SUM(workday) as total
+							  <cfelse>
+							  SELECT  Count(CalendarDate) as total
+							  </cfif>
 							  FROM    userTransaction.dbo.sal#SESSION.thisprocess#Dates
 							  WHERE   CalendarDate >= '#dateformat(st,client.dateSQL)#'
 							  AND     CalendarDate <= '#dateformat(ed,client.dateSQL)#' 
@@ -1440,23 +1444,7 @@ password="#SESSION.dbpw#">
 							  </cfif>				   						    						  
 							  
 						 </cfquery>	
-						 
-						 <cfoutput>
-						  SELECT  SUM(workday) as total
-							  FROM    userTransaction.dbo.sal#SESSION.thisprocess#Dates
-							  WHERE   CalendarDate >= '#dateformat(st,client.dateSQL)#'
-							  AND     CalendarDate <= '#dateformat(ed,client.dateSQL)#' 
-							  
-							  <cfif itm eq "SICKLEAVE">
-							  <!--- we take only days that are also tagged as leave --->
-							  AND     CalendarDate IN (SELECT CalendarDate
-							                           FROM   Employee.dbo.PersonLeaveDeduct
-													   WHERE  Leaveid = '#thisleaveid#'
-													   AND    Deduction > 0)	
-													   
-							  </cfif>				   						   											 	
-						 </cfoutput>
-						 					
+						 						 					
 						<cfif days.total gte "1">	
 															  			   
 						   <cfset calcdays = calcdays + days.total>
@@ -1522,6 +1510,8 @@ password="#SESSION.dbpw#">
 							datasource="AppsTransaction" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
+							
+							
 								UPDATE   dbo.sal#SESSION.thisprocess#Payroll 
 								
 								<cfif itm eq "LWOP">

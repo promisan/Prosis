@@ -14,31 +14,45 @@
 			AND		DateEffective = #vDateEffective#
 	</cfquery>
 	
+	<cfquery name="customer" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT * 
+			FROM	Customer
+			WHERE	CustomerId = '#url.CustomerId#'			
+	</cfquery>
+	
+	<cfquery name="getmission" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT DISTINCT Mission
+			FROM   WarehouseBatch
+			WHERE CustomerId = '#url.CustomerId#'			
+	</cfquery>
+	
 	<cfquery name="categories" 
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT DISTINCT
-					R.TabOrder,
+		    SELECT R.TabOrder,
 					R.Category, 
 					R.Description,
-					(
-						SELECT 	PriceSchedule
+					(	SELECT 	PriceSchedule
 						FROM	CustomerSchedule
 						WHERE	CustomerId = '#url.CustomerId#'
 						AND		Category = R.Category
 						AND		DateEffective = #vDateEffective#
 					) AS Selected
-			FROM    Customer C 
-					INNER JOIN Warehouse W 
-						ON C.Mission = W.Mission 
-					INNER JOIN WarehouseCategory WC 
-						ON W.Warehouse = WC.Warehouse 
-					INNER JOIN Ref_Category R 
-						ON WC.Category = R.Category
-			WHERE	C.CustomerId = '#url.customerId#'
-			AND		R.Operational = 1
-			ORDER BY R.TabOrder
+			FROM   Ref_Category R
+			WHERE  R.Category IN (SELECT WC.Category
+			                      FROM   Warehouse W INNER JOIN WarehouseCategory WC ON W.Warehouse = WC.Warehouse
+								  WHERE  W.Mission IN ('#customer.Mission#'<cfif getMission.recordcount gte "1">,#quotedValueList(getMission.Mission)#</cfif>)
+								)
+			AND	   R.Operational = 1
+			AND    R.FinishedProduct = 1				   			
+			ORDER BY R.TabOrder			
 	</cfquery>
 	
 	<cfloop query="categories">

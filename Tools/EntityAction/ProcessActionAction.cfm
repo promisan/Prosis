@@ -65,7 +65,7 @@
 				   alt="Pending" border="0" 
 				   align="absmiddle">       
     </td>
-           <td id="d0" class="labelmedium2" onclick="document.getElementById('r0').click()" style="padding-right:10px" title="#vLblTTPending#"><cf_tl id="Do not forward"></td>
+           <td id="d0" class="labelmedium2" onclick="document.getElementById('r0').click()" style="padding-right:10px" title="#vLblTTPending#"><cf_tl id="Save"></td>
     
       	  
    <cfif action.ActionGoTo gte "1">

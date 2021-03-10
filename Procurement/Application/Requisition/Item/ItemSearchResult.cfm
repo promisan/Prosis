@@ -84,7 +84,7 @@ password="#SESSION.dbpw#">
 	
 <table width="98%" class="navigation_table">
 
-  <tr class="fixrow labelmedium">
+  <tr class="fixrow labelmedium2 line">
 	  <td></td>
 	  <td></td>
 	  <td><cf_tl id="Description"></td>
@@ -102,12 +102,12 @@ password="#SESSION.dbpw#">
 	<cfset des = ReplaceNoCase(ItemDescription,"'",'','ALL')>
 	<cfset des = ReplaceNoCase(des,'"','','ALL')>
 	
-	<TR class="navigation_row line labelmedium" style="height:23px">
-		<td style="padding-left:3px;padding-top:2px;padding-right:3px">		
+	<TR class="navigation_row line labelmedium2">
+		<td style="width:20px;padding-left:3px;padding-top:2px;padding-right:3px">		
 			<cf_img icon="select" navigation="Yes" onClick="selected('#ItemUoMId#')">				        			
 		</td>
 		<td style="padding-left:4px"></td>
-		<TD style="padding-right:3px"><A HREF ="javascript:item('#ItemNo#','#URL.Mission#','')">#ItemDescription#</A></TD>
+		<TD style="padding-right:3px"><A HREF ="javascript:item('#ItemNo#','','#URL.Mission#')">#ItemDescription#</A></TD>
 		<TD style="padding-right:3px">#ItemBarCode#</TD>		
 		<TD style="padding-right:3px">#Category#</TD>
 		<!---

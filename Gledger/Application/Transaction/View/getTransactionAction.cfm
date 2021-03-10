@@ -7,8 +7,57 @@
  <cfif url.action eq "delete">
  
   <!--- you have the actionId to do the stuff here --->
-  
- </cfif>
+<!--- post the tax action --->
+	<cfquery name="getAction"
+			datasource="AppsMaterials"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+			SELECT H.*
+			FROM   Accounting.dbo.TransactionHeader H
+				INNER JOIN Accounting.dbo.TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo=A.JournalSerialNo
+				WHERE  A.ActionId = '#URL.actionId#'
+					AND A.ActionReference1 IS NOT NULL
+					AND A.ActionStatus = '1'
+	</cfquery>
+
+
+	<cfif getAction.recordcount neq 0>
+
+				<cfquery name="getBatch"
+						datasource="AppsMaterials"
+						username="#SESSION.login#"
+						password="#SESSION.dbpw#">
+					SELECT *
+					FROM    WarehouseBatch
+					WHERE   BatchId = '#getAction.TransactionSourceId#'
+				</cfquery>
+
+				<cfif getBatch.recordcount neq 0>
+					<cfinvoke component = "Service.Process.EDI.Manager"
+							method           = "SaleVoid"
+							Datasource       = "AppsMaterials"
+							Mission          = "#getBatch.Mission#"
+							Terminal		 = "TransactionView"
+							BatchId			 = "#getAction.TransactionSourceId#"
+							returnvariable	 = "stResponse">
+
+
+					<cfif stResponse.Status eq "OK">
+						<cfquery name="updateAction"
+								datasource="AppsMaterials"
+								username="#SESSION.login#"
+								password="#SESSION.dbpw#">
+								UPDATE Accounting.dbo.TransactionHeaderAction
+								SET ActionStatus = '9'
+								WHERE ActionId  = '#URL.ActionId#'
+						</cfquery>
+					<cfelse>
+						Error. Try again.
+					</cfif>
+				</cfif>
+	</cfif>
+
+</cfif>
 
 <cfquery name="Action" 
 		datasource="AppsLedger" 

@@ -1,6 +1,6 @@
 <cfparam name="url.threshold"   default="0">
 <cfparam name="url.ordering"    default="DESC">
-<cfparam name="url.showDays"    default="1">
+<cfparam name="url.showDays"    default="">
 
 <cfoutput>
     <div style="height:101%;">

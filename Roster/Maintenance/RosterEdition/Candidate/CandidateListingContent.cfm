@@ -2,11 +2,12 @@
 <cfparam name="url.owner"             default="">
 <cfparam name="url.exerciseclass"     default="">
 
-
-
 <cfoutput>
 
 	<cfsavecontent variable="myquery">		
+	
+	   SELECT *
+	   FROM (
 	
 		SELECT A.PersonNo, 
 		       A.LastName, 
@@ -17,6 +18,7 @@
 			   A.MobileNumber,
 			   A.Nationality AS NationalityCode, 
 			   N.Name AS Nationality, 
+			   N.Name, 
 			   N.Continent,
 		  	   COUNT(*) AS Applications
 			   
@@ -24,8 +26,10 @@
 		
 		INNER JOIN System.dbo.Ref_Nation N 
 			ON A.Nationality = N.Code
+			
 		INNER JOIN ApplicantSubmission S
 			ON A.PersonNo = S.PersonNo 
+			
 		INNER JOIN ApplicantFunction AF
 			ON S.ApplicantNo = AF.ApplicantNo 
 			
@@ -35,17 +39,17 @@
 					SELECT FunctionId
 					FROM   FunctionOrganization
 					WHERE  SubmissionEdition = '#url.submissionedition#' 
-			)
+					)
 			
 			<cfelse>
 			
 				AND AF.FunctionId IN (
-					SELECT FunctionId
-					FROM   FunctionOrganization FO, Ref_SubmissionEdition S
-					WHERE  FO.SubmissionEdition = S.SubmissionEdition
-					AND    S.Owner = '#url.Owner#'
-					AND    S.ExerciseClass = '#url.ExerciseClass#'				 
-			)
+						SELECT FunctionId
+						FROM   FunctionOrganization FO, Ref_SubmissionEdition S
+						WHERE  FO.SubmissionEdition = S.SubmissionEdition
+						AND    S.Owner         = '#url.Owner#'
+						AND    S.ExerciseClass = '#url.ExerciseClass#'				 
+				)
 			
 			</cfif>
 			
@@ -59,6 +63,12 @@
 				 A.Nationality, 
 				 N.Name, 
 				 N.Continent
+				 
+			) as D
+			
+		WHERE 1=1		
+					 
+		--condition
 		
 	</cfsavecontent>
 	
@@ -84,16 +94,16 @@
 <cfset itm = itm + 1>
 <cfset fields[itm] = {label="LastName", 
                       field="LastName", 
-					  alias="A", 
+					  alias="D", 
 					  searchfield="LastName", 
-                      filtermode="2",
+                      filtermode="3",
 					  displayfilter="Yes", 
 					  search="text"}>
 
 <cfset itm = itm + 1>
 <cfset fields[itm] = {label="FirstName", 
                       field="FirstName", 
-					  alias="A", 
+					  alias="D", 
 					  searchfield="FirstName", 
                       filtermode="2",
 					  displayfilter="Yes", 
@@ -103,7 +113,7 @@
 <cfset fields[itm] = {label="DOB", 
                       field="DOB", 
 					  formatted="DateFormat(DOB,client.dateformatshow)", 
-                      alias="A",
+                      alias="D",
 					  searchfield="DOB", 
 					  filtermode="0", 
 					  displayfilter="Yes", 
@@ -112,7 +122,7 @@
 <cfset itm = itm + 1>
 <cfset fields[itm] = {label="Gender", 
                       field="Gender", 
-					  alias="A", 
+					  alias="D", 
 					  searchfield="Gender", 
 					  column="common",
                       filtermode="3",
@@ -122,7 +132,7 @@
 <cfset itm = itm + 1>
 <cfset fields[itm] = {label="Continent", 
                       field="Continent", 
-					  alias="N", 
+					  alias="D", 
 					  searchfield="Continent", 
 					  column="common",
                       filtermode="2",
@@ -133,7 +143,7 @@
 <cfset itm = itm + 1>
 <cfset fields[itm] = {label="eMail", 
                       field="eMailAddress", 
-					  alias="A", 					 					 
+					  alias="D", 					 					 
 					  displayfilter="Yes", 
 					  search="text"}>					  
 
@@ -141,11 +151,11 @@
 <cfset itm = itm + 1>
 <cfset fields[itm] = {label="Nationality", 
                       field="Nationality", 
-					  alias="N", 
+					  alias="D", 
 					  searchfield="Name", 
                       lookupgroup="Continent", 
 					  lookupscript="#continentScript#", 
-					  filtermode="2", 
+					  filtermode="3", 
 					  displayfilter="Yes", 
 					  search="text"}>
 
@@ -173,7 +183,7 @@
 			listquery="#myquery#"
             listorder="LastName" 
 			listorderfield="LastName" 
-			listorderalias="A" 
+			listorderalias="D" 
 			listorderdir="ASC"
             listgroup="Nationality" 
 			listgroupdir="ASC" 

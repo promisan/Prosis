@@ -3271,8 +3271,7 @@
 								 	<cfset crd = 0>
 								 </cfif>							 
 							 
-							 <cfelseif Credit.Calculation eq "day">			
-								 			 
+							 <cfelseif Credit.Calculation eq "day">									 			 
 							 	 					 
 							 	 <cfset mul = ((END - START + 1) - corr)/(daysInMonth(END))>
 							     <cfset crd = mul * credit.CreditFull>
@@ -3369,6 +3368,36 @@
 								 --->					 
 																											
 								 <cfif ST EQ BT>	
+								 
+								 	<cfif crd lt 0.24>
+									           <cfset crd = 0>		
+									 <cfelseif crd lt 0.75>
+									           <cfset crd = 0.5>		   				  
+									 <cfelseif crd lt 1.25>
+									           <cfset crd = 1>		
+									 <cfelseif crd lt 1.50>
+									           <cfset crd = 1.25>				   						   
+									 <cfelseif crd lt 1.75>
+									           <cfset crd = 1.50>	
+									 <cfelseif crd lt 2.00>
+									           <cfset crd = 1.75>				   	   
+									 <cfelseif crd lt 2.25>
+									           <cfset crd = 2.00>
+									 <cfelseif crd lt 2.50>
+									           <cfset crd = 2.25> 		   
+									 <cfelseif crd lt 2.75>
+									           <cfset crd = 2.50>
+									 <cfelseif crd lt 3.25>
+									           <cfset crd = 3>
+									 <cfelseif crd lt 3.75>
+									           <cfset crd = 3.50>
+									 <cfelseif crd lt 4.25>
+									           <cfset crd = 4.0>
+									 <cfelse>
+									      <cfset crd = round(crd)>	  
+									 </cfif>
+									 
+									 <!---
 														
 									 <cfif crd lt 0.24>
 									           <cfset crd = 0>		
@@ -3392,8 +3421,39 @@
 									      <cfset crd = round(crd)>	  
 									 </cfif>
 									 
+									 --->
+									 
 								<cfelse>
-																												
+								
+									<cfif crd lt 0.24>
+									           <cfset crd = 0>		
+									 <cfelseif crd lt 0.75>
+									           <cfset crd = 0.5>		   				  
+									 <cfelseif crd lt 1.25>
+									           <cfset crd = 1>		
+									 <cfelseif crd lt 1.50>
+									           <cfset crd = 1.25>				   						   
+									 <cfelseif crd lt 1.75>
+									           <cfset crd = 1.50>	
+									 <cfelseif crd lt 2.00>
+									           <cfset crd = 1.75>				   	   
+									 <cfelseif crd lt 2.25>
+									           <cfset crd = 2.00>
+									 <cfelseif crd lt 2.50>
+									           <cfset crd = 2.25> 		   
+									 <cfelseif crd lt 2.75>
+									           <cfset crd = 2.50>
+									 <cfelseif crd lt 3.25>
+									           <cfset crd = 3>
+									 <cfelseif crd lt 3.75>
+									           <cfset crd = 3.50>
+									 <cfelseif crd lt 4.25>
+									           <cfset crd = 4.0>
+									 <cfelse>
+									      <cfset crd = round(crd)>	  
+									 </cfif>
+									
+									 <!---																			
 									  <cfif crd lt 0.24>
 									           <cfset crd = 0>		
 									 <cfelseif crd lt 0.75>
@@ -3414,7 +3474,9 @@
 									           <cfset crd = 4.0>
 									 <cfelse>
 									      <cfset crd = round(crd)>	  
-									 </cfif>						 	
+									 </cfif>	
+									 
+									 --->					 	
 								
 								</cfif>	 
 														 					 

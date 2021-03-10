@@ -466,9 +466,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 		</cfloop>	
 		
 		<!--- added function to clean invalid subscriptions based on the pass format --->
-		
-		
-				
+						
 		<cfparam name="form.GroupDir" default="ASC">			
 		<cfset url.listgroupdir   = form.groupdir>
 		
@@ -478,9 +476,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 			<cfset url.listgrouptotal        = "0">
 		<cfelse>
 			<cfset url.listgrouptotal        = "#form.grouptotal#">	
-		</cfif>	
-		
-		
+		</cfif>			
 		
 		<!--- enable columns --->
 		<cfset url.listcolumn1           = "#form.colfield1#">          <!--- i.e transactiondate                   --->
@@ -505,11 +501,8 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 		script ---> 	
 				
 	<cf_ListingUserGet systemfunctionid="#url.systemfunctionid#" listlayout="#attributes.listlayout#" modefield="Group">	
-	
 							
 </cfif>
-
-
 
 <cfparam name="URL.listorderformat"        default="">
 <cfparam name="URL.listgroupformat"        default="">
@@ -904,8 +897,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 						<cf_setUserFilter systemfunctionid="#url.systemfunctionid#" 
 						        field="#current.field#_to" 
 								value="#val#">
-					</cfif>	
-				
+					</cfif>				
 				
 				</cfcase>
 				

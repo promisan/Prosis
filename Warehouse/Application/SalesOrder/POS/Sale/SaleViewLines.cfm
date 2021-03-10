@@ -61,11 +61,12 @@ password="#SESSION.dbpw#">
 				 T.*, 
 				 M.ItemNoExternal,
 				 <!--- this field needs some thoughts --->
-				 (SELECT TransactionUoM 
-				  FROM   Materials.dbo.ItemUoMMission IUM
-				  WHERE  IUM.ItemNo = T.ItemNo 
-				  AND    IUM.UoM = I.UoM 
-				  AND    IUM.Mission = W.Mission) as SalesUoM,
+				 (   SELECT TransactionUoM 
+				     FROM   Materials.dbo.ItemUoMMission IUM
+				     WHERE  IUM.ItemNo = T.ItemNo 
+				     AND    IUM.UoM = I.UoM 
+				     AND    IUM.Mission = W.Mission) as SalesUoM,
+				  
 		         I.UoMDescription, 
 				 I.ItemBarCode,
 				 C.CommissionMode,				 
@@ -79,7 +80,8 @@ password="#SESSION.dbpw#">
 				 (
 				 	SELECT    ISNULL(SUM(TransactionQuantity),0) as OnHand
     			 	FROM      Materials.dbo.ItemTransaction
-			     	WHERE     ItemNo          = I.ItemNo
+			     	WHERE     Mission         = W.Mission
+					AND       ItemNo          = I.ItemNo
 			     	AND       TransactionUoM  = I.UoM   							   		      
 				 ) as OnHandAll								 				
 				 				 
@@ -280,6 +282,7 @@ password="#SESSION.dbpw#">
 				    <input type="text" 
 					 style = "background-color:fff;width:45px;text-align:center;border:1px solid silver;border-top:0px;border-radius:0px;" 
 					 id    = "TransactionQuantity_#currentrow#"
+					 class = "regularxxl enterastab TransactionQuantity_#transactionid#"
 					 <cfif vLast eq currentrow>
 					 	tabindex = "#tcounter#"
 					 	<cfset tcounter = tcounter + 1>

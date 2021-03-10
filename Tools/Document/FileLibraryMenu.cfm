@@ -1,4 +1,5 @@
 <cfoutput>
+
 <CFParam name="Attributes.Label" default="Attach">
 <cfsavecontent variable="selectme">
         style="height:20;cursor: pointer;border: 1px solid d4d4d4"
@@ -6,11 +7,11 @@
 		onMouseOut="this.className='regular'"
 </cfsavecontent>
 
-	<table border="0" cellspacing="0" cellpadding="0">
+	<table>
 	
 			<tr>	
-			
-			<cfif list eq "regular" and DocumentServer eq "No" and showsize eq "1">
+									
+			<cfif list eq "regular" and DocumentServer eq "No" and showsize eq "1" and mode neq "Portal">
 			
 			    <cfif mode neq "Report">
 			

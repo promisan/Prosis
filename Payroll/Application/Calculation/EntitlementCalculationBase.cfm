@@ -7,7 +7,8 @@
 	datasource="AppsPayroll" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-				
+	
+					
 		SELECT   PersonNo, 
 		         PayrollCalcNo, 
 				 ROUND(SUM(AmountCalculationFull),3) AS AmountCalculationFull,
@@ -99,6 +100,7 @@
 				) as Derrived
 		
 		GROUP BY PersonNo, PayrollCalcNo
+		
 		
 										
 	</cfquery>

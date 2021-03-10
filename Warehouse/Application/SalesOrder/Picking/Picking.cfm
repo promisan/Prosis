@@ -1,6 +1,6 @@
 <cfparam name="url.threshold"   default="0">
-<cfparam name="url.ordering"    default="ASC">
-<cfparam name="url.showDays"    default="1">
+<cfparam name="url.ordering"    default="DESC">
+<cfparam name="url.showDays"    default="">
 	
 <cf_mobile appId="picking" toastr="yes">
 
@@ -360,15 +360,15 @@
             }
 
             function editBox(cid, b) {
-                ColdFusion.navigate('#session.root#/warehouse/application/salesorder/picking/box/BoxEdit.cfm?mode=edit&batchno='+b+'&collectionid='+cid, 'modalBody');
+                ptoken.navigate('#session.root#/warehouse/application/salesorder/picking/box/BoxEdit.cfm?mode=edit&batchno='+b+'&collectionid='+cid, 'modalBody');
             }
 
             function saveBox(cid, b, c, n) {
-                ColdFusion.navigate('#session.root#/warehouse/application/salesorder/picking/box/BoxSubmit.cfm?batchno='+b+'&code='+c+'&name='+n+'&collectionid='+cid, 'boxEditSubmit');
+                ptoken.navigate('#session.root#/warehouse/application/salesorder/picking/box/BoxSubmit.cfm?batchno='+b+'&code='+c+'&name='+n+'&collectionid='+cid, 'boxEditSubmit');
             }
 
             function removeBox(cid, b) {
-                ColdFusion.navigate('#session.root#/warehouse/application/salesorder/picking/box/BoxDelete.cfm?batchno='+b+'&collectionid='+cid, 'boxEditSubmit');
+                ptoken.navigate('#session.root#/warehouse/application/salesorder/picking/box/BoxDelete.cfm?batchno='+b+'&collectionid='+cid, 'boxEditSubmit');
             }
 
             function fillBoxes(sid, tid, b) {
@@ -378,10 +378,10 @@
             function addQuickBox(sid, tid, b, n) {
                 if (n > 10) {
                     if (confirm('#labelBoxQuickAdd1# ' + n + ' #labelBoxQuickAdd2#')) {
-                        ColdFusion.navigate('#session.root#/warehouse/application/salesorder/picking/box/BoxQuickAdd.cfm?batchno='+b+'&submitid='+sid+'&transactionid='+tid+'&number='+n, 'boxFillSubmit');
+                        ptoken.navigate('#session.root#/warehouse/application/salesorder/picking/box/BoxQuickAdd.cfm?batchno='+b+'&submitid='+sid+'&transactionid='+tid+'&number='+n, 'boxFillSubmit');
                     }
                 } else {
-                    ColdFusion.navigate('#session.root#/warehouse/application/salesorder/picking/box/BoxQuickAdd.cfm?batchno='+b+'&submitid='+sid+'&transactionid='+tid+'&number='+n, 'boxFillSubmit');
+                    ptoken.navigate('#session.root#/warehouse/application/salesorder/picking/box/BoxQuickAdd.cfm?batchno='+b+'&submitid='+sid+'&transactionid='+tid+'&number='+n, 'boxFillSubmit');
                 }                
             }
 
@@ -498,7 +498,7 @@
             AND		L.LocationClass IN (#preserveSingleQuotes(vAuthLC)#)
             ORDER BY U.FirstName, U.LastName
     </cfquery>
-    
+	    
     <cfquery name="getData" 
         datasource="AppsMaterials" 
         username="#SESSION.login#" 
@@ -613,9 +613,7 @@
                 AND CollectionDate < '#dateformat(now()+url.showDays,client.datesql)#'
             </cfif>
 
-            <cfif url.threshold eq "0">
-                AND ABS(TotalQuantity) >= '#getWarehouse.PickingThreshold#'
-            <cfelse>
+            <cfif url.threshold eq "1">
                 AND ABS(TotalQuantity) < '#getWarehouse.PickingThreshold#'
             </cfif>
 			 
