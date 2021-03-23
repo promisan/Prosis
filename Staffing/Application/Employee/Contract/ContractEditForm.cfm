@@ -206,16 +206,16 @@ otherwise no action
     <td style="<cfif url.action neq "1">padding-left:50px</cfif>">
 		
 	<cfset color = "ffffff">
-	<cfset pclr  = "f1f1f1">
-	
+	<cfset pclr  = "EDFDB5">
+		
 	<cfif mode eq "view">
 	
-	<table style="width:98%" border="0" cellspacing="0" cellpadding="0">	
-	
+	<table style="width:960px" class="formpadding">	
+		
 	<cfelse>
 	
-    <table style="width:800px" border="0" cellspacing="0" cellpadding="0">	
-	
+    <table style="width:800px" class="formpadding">	
+		
 	</cfif>
 	
 	<cfif url.action eq "0">
@@ -317,9 +317,9 @@ otherwise no action
 					  <input type="text" 
 					       name="PersonnelActionNo" 
 						   value="#ContractSel.PersonnelActionNo#" 
-						   class="regularxlbl" 
+						   class="regularxxl" 
 						   size="10"
-						   style="border-right:1px solid silver" 
+						   style="border:0px;border-right:1px solid silver" 
 						   maxlength="20">
 		
 				<cfelse>
@@ -368,7 +368,7 @@ otherwise no action
 						AND    ActionSourceId   = '#ContractSel.ContractId#' 								
 					</cfquery>
 						
-				  <TD class="labelmedium2 ccell" style="height:28px;border-bottom:1px solid silver" bgcolor="#pclr#">#pAction.Description#	 
+				  <TD class="labelmedium2 ccell" style="padding-left:5px;height:28px;border-bottom:1px solid silver" bgcolor="#pclr#">#pAction.Description#	 
 				  <cfif getAction.ActionDate neq "">				 
 				  <font size="1">#dateformat(getAction.ActionDate,CLIENT.DateFormatShow)#</font>
 				  </cfif>
@@ -428,7 +428,7 @@ otherwise no action
 							AND   (Operational = 1 OR ActionCode = '#ContractSel.ActionCode#')
 						</cfquery>
 																						
-						<select name="ActionCode" class="regularxlbl">					    
+						<select name="ActionCode" class="regularxxl" style="border:0px;>					    
 							<cfloop query="ActionSel">
 								<option value="#ActionCode#" <cfif ContractSel.ActionCode eq ActionCode>selected</cfif>>#Description#</option>
 							</cfloop>		
@@ -495,7 +495,7 @@ otherwise no action
 						
 						<cfelse>
 											  
-							<select name="actioncode" class="regularxl" style="width:99%;border:0px"							
+							<select name="actioncode" class="regularxxl" style="width:99%;border:0px"							
 							onchange="actionprocess(this.value,'#contractsel.contractid#')">
 							    <!--- <option value="">-- select action --</option> --->
 								<cfloop query="pAction">
@@ -531,7 +531,7 @@ otherwise no action
 						<cfif last eq "0">		
 												
 							<cfset selact = ContractSel.ActionCode>
-							<select name="actioncode" class="regularxl" style="border:0px;width:99%"							
+							<select name="actioncode" class="regularxxl" style="border:0px;width:99%"							
 							onchange="actionprocess(this.value,'#contractsel.contractid#')">
 							    <!--- <option value="">-- select action --</option> --->
 								<cfloop query="pAction">
@@ -542,7 +542,7 @@ otherwise no action
 						<cfelse>
 												
 							<cfset selact = pAction.ActionCode>
-							<select name="actioncode" class="regularxl" style="border:0px;width:99%"	onchange="actionprocess(this.value,'#contractsel.contractid#')">
+							<select name="actioncode" class="regularxxl" style="border:0px;width:99%"	onchange="actionprocess(this.value,'#contractsel.contractid#')">
 							   <!--- <option value="">-- select action --</option> --->
 								<cfloop query="pAction">
 									<option value="#ActionCode#">#Description#</option>
@@ -565,7 +565,7 @@ otherwise no action
 		   
 		   	<cfif mode eq "view">
 			
-			    <td bgcolor="#pclr#" class="labelmedium2 ccell"> 
+			    <td bgcolor="#pclr#" class="labelmedium2 ccell" style="padding-left:5px;"> 
 																				
 					<cfquery name="GroupList" 
 						datasource="AppsEmployee" 
@@ -608,7 +608,7 @@ otherwise no action
 		    <td style="padding-left:5px" class="labelmedium2 bcell"><cf_tl id="Final Payment"> 	<cf_tl id="at expiration"></TD>
 		   
 		   	<cfif mode eq "view">
-			    <td bgcolor="#pclr#" class="labelmedium2 ccell"> 									
+			    <td bgcolor="#pclr#" class="labelmedium2 ccell" style="padding-left:5px;"> 									
 					<cfif ContractSel.EnforceFinalPay eq "1"><cf_tl id="Enforce"><cfelse><cf_tl id="No"></cfif>					
 				</td>					
 			</cfif>	
@@ -646,9 +646,9 @@ otherwise no action
 										
 				<cfif mode eq "view">
 					<cfif mode eq "edit" or last eq "1">
-						<td class="labelmedium2 ccell" bgcolor="#pclr#"><cf_space spaces="60">
+						<td class="labelmedium2 ccell" bgcolor="#pclr#" style="padding-left:5px;"><cf_space spaces="60">
 					<cfelse>
-					    <td class="labelmedium2 ccell" bgcolor="#pclr#"><cf_space spaces="60">
+					    <td class="labelmedium2 ccell" bgcolor="#pclr#" style="padding-left:5px;"><cf_space spaces="60">
 					</cfif>
 					#Dateformat(ContractSel.RecordEffective, CLIENT.DateFormatShow)#<cf_space spaces="60"></td> 
 				</cfif>	 
@@ -675,22 +675,22 @@ otherwise no action
 		
 	
 		<TR>
-		    <TD style="padding-left:5px;height:28px" class="labelmedium2 bcell"><cf_tl id="Entity">:<cf_space spaces="60"></TD>
+		    <TD style="padding-left:5px;height:32px" class="labelmedium2 bcell"><cf_tl id="Entity">:<cf_space spaces="60"></TD>
 			
 			<cfif contractsel.mission neq "">
 							
 				<cfif mode eq "view">
 					<cfif mode eq "edit" or last eq "1">
-						<td class="labelmedium2 ccell" bgcolor="#pclr#"><cf_space spaces="60">
+						<td class="labelmedium2 ccell" bgcolor="#pclr#" style="padding-left:5px;"><cf_space spaces="60">
 					<cfelse>
-					    <td class="labelmedium2 ccell" bgcolor="#pclr#"><cf_space spaces="60">
+					    <td class="labelmedium2 ccell" bgcolor="#pclr#" style="padding-left:5px;"><cf_space spaces="60">
 					</cfif>
 					#ContractSel.Mission#<cf_space spaces="60"></td> 
 				</cfif>	 
 				
 				<cfif mode eq "edit" or last eq "1"> 
 				
-					<td class="labelmedium2 ccell" style="padding-left:7px" width="100%" bgcolor="#color#">&nbsp;#ContractSel.Mission#<cf_space spaces="80"></td>				
+					<td class="labelmedium2 ccell" style="background-color:f1f1f1;padding-left:7px" width="100%" bgcolor="#color#">&nbsp;#ContractSel.Mission#<cf_space spaces="80"></td>				
 					<input type="hidden" id="mission" name="mission" value="#ContractSel.Mission#">
 					
 				</cfif>			
@@ -734,7 +734,7 @@ otherwise no action
 		    			
 					<cfif mode eq "view">
 					
-						<TD bgcolor="#pclr#" class="labelmedium2 ccell" style="border-right:1px solid silver">												
+						<TD bgcolor="#pclr#" class="labelmedium2 ccell" style="border-right:1px solid silver;padding-left:5px">												
 						#Location.Description#						
 						</td>
 							
@@ -782,7 +782,7 @@ otherwise no action
 							</cfquery>	
 						
 							 <select name="ServiceLocation" 
-							   class="regularxl" 
+							   class="regularxxl" 
 							   style="border:0px;width:99%">
 							
 							    <option value="">-- select --</option>
@@ -800,7 +800,7 @@ otherwise no action
 				
 					<cfif mode eq "view">
 					
-						<TD bgcolor="#pclr#" class="labelmedium2 ccell" style="border-right:1px solid silver">
+						<TD bgcolor="#pclr#" class="labelmedium2 ccell" style="border-right:1px solid silver;padding-left:5px">
 												
 						 <cfquery name="Location" 
 							datasource="AppsEmployee" 
@@ -839,7 +839,7 @@ otherwise no action
 							</cfquery>	
 						
 							 <select name="ServiceLocation" 
-							   class="regularxl" 
+							   class="regularxxl" 
 							   style="border:0px;width:99%">
 							
 							    <option value="">-- select --</option>
@@ -866,7 +866,7 @@ otherwise no action
 		    			
 				<cfif mode eq "view">
 				
-					<TD bgcolor="#pclr#" class="labelmedium2 ccell">
+					<TD bgcolor="#pclr#" class="labelmedium2 ccell" style="padding-left:5px;">
 							
 					<cfquery name="Type" 
 						datasource="AppsEmployee" 
@@ -942,7 +942,7 @@ otherwise no action
 						
 					  	<select name="ContractType" id="contracttype"						     
 						    size="1" style="width:99%;border:0px"
-							class="regularxl" 
+							class="regularxxl" 
 							onchange="_cf_loadingtexthtml='';ptoken.navigate('ContractEditFormPayroll.cfm?mode=#mode#&last=#last#&id=#url.id#&id1=#url.id1#&contracttype='+this.value+'&salaryschedule='+document.getElementById('salaryschedule').value,'boxeditentitlement')">
 							<cfloop query="Type">
 								<option value="#Type.ContractType#" <cfif ContractType eq ContractSel.ContractType>selected</cfif>>#Description#</option>
@@ -974,7 +974,7 @@ otherwise no action
 	   			
 			<cfif mode eq "view">
 			
-				<td bgcolor="#pclr#" class="labelmedium2 ccell">
+				<td bgcolor="#pclr#" class="labelmedium2 ccell" style="padding-left:5px;">
 			
 				<cfquery name="Type" 
 					datasource="AppsEmployee" 
@@ -1018,7 +1018,7 @@ otherwise no action
 		
 			<cfif mode eq "view">
 				
-					<td bgcolor="#pclr#" class="labelmedium2 ccell">
+					<td bgcolor="#pclr#" class="labelmedium2 ccell" style="padding-left:5px;">
 				
 					#ContractSel.ContractFunctionDescription#
 					
@@ -1031,8 +1031,8 @@ otherwise no action
 				<td bgcolor="#color#" id="editfield" name="editfield" class="ccell">
 				 	
 		   		<table style="width:100%">
-				<tr><td class="hide"><input type="text" id="ContractFunctionNo" name="ContractFunctionNo" value="#ContractSel.ContractFunctionNo#" style="background-color: f4f4f4;" class="regularxl" size="20" maxlength="20" readonly></td>
-				<td><input type="text" id="ContractFunctionDescription" style="border:0px;padding-left:6px" name="ContractFunctionDescription" value="#ContractSel.ContractFunctionDescription#" style="background-color: f4f4f4;" class="regularxl" size="50" maxlength="100"></td>
+				<tr><td class="hide"><input type="text" id="ContractFunctionNo" name="ContractFunctionNo" value="#ContractSel.ContractFunctionNo#" style="background-color: f4f4f4;" class="regularxxl" size="20" maxlength="20" readonly></td>
+				<td><input type="text" id="ContractFunctionDescription" style="border:0px;padding-left:6px" name="ContractFunctionDescription" value="#ContractSel.ContractFunctionDescription#" style="background-color: f4f4f4;" class="regularxxl" size="50" maxlength="100"></td>
 				<td align="right" style="padding-left:1px;padding-right:3px">
 				<cfset link = "#SESSION.root#/Staffing/Application/Employee/Contract/getFunction.cfm?contract=1">
 							
@@ -1148,7 +1148,7 @@ otherwise no action
 										 <cf_intelliCalendarDate9
 										FieldName="DateEffective"	
 										Manual="True"		
-										Class="regularxl"																					
+										Class="regularxxl"																					
 										style="border:0px"
 										ToolTip="Effective Date" 				
 										Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
@@ -1161,7 +1161,7 @@ otherwise no action
 								  	  <cf_intelliCalendarDate9
 										FieldName="DateEffective"	
 										Manual="True"		
-										Class="regularxl"																					
+										Class="regularxxl"																					
 										style="border:0px"
 										ToolTip="Effective Date" 				
 										Default="#Dateformat(ContractLast.DateEffective, CLIENT.DateFormatShow)#"
@@ -1177,7 +1177,7 @@ otherwise no action
 									  <cf_intelliCalendarDate9
 										FieldName="DateEffective"
 										Manual="True"	
-										Class="regularxl"																
+										Class="regularxxl"																
 										style="border:0px"
 										ToolTip="Effective Date" 				
 										Default="#Dateformat(ContractLast.DateEffective, CLIENT.DateFormatShow)#"
@@ -1263,7 +1263,7 @@ otherwise no action
 			<TD style="padding-left:5px" class="labelmedium2 bcell"><cf_tl id="Expiration">:</TD>
 			    				
 			<cfif mode eq "view">
-				 <td class="labelmedium2 ccell" style="width:120px;height:28px" bgcolor="#pclr#">		
+				 <td class="labelmedium2 ccell" style="padding-left:5px;width:120px;height:28px" bgcolor="#pclr#">		
 				 <cfif ContractSel.dateexpiration eq "">
 				 end of mandate
 				 <cfelse>	
@@ -1279,7 +1279,7 @@ otherwise no action
 				
 				<table width="100%" cellspacing="0" ccellpadding="0">
 				
-				<tr><td style="height:28;min-width:330px;" class="labelmedium2">
+				<tr><td style="padding-left:5px;height:28;min-width:330px;" class="labelmedium2">
 				
 				<cfif mdte eq "view">
 				
@@ -1294,8 +1294,8 @@ otherwise no action
 					  <cf_intelliCalendarDate9
 						FieldName="DateExpiration" 
 						ToolTip="Expiration Date"
-						Class="regularxl"	
-						style="border;0px"				
+						Class="regularxxl"	
+						style="border:0px"				
 						Manual="True"										
 						Default="#Dateformat(ContractSel.DateExpiration, CLIENT.DateFormatShow)#"
 						scriptdate="expiration_selectdate"
@@ -1316,8 +1316,8 @@ otherwise no action
 						  <cf_intelliCalendarDate9
 							FieldName="DateExpiration" 
 							ToolTip="Expiration Date"
-							style="border;0px"
-							Class="regularxl"
+							style="border:0px"
+							Class="regularxxl"
 							DateValidStart="#Dateformat(ContractLast.DateEffective, 'YYYYMMDD')#"
 							Default="#Dateformat(ContractSel.DateExpiration, CLIENT.DateFormatShow)#"
 							Manual="True"	
@@ -1331,7 +1331,7 @@ otherwise no action
 							FieldName="DateExpiration" 
 							ToolTip="Expiration Date"
 							style="border:0px"
-							Class="regularxl"
+							Class="regularxxl"
 							Default="#Dateformat(ContractSel.DateExpiration, CLIENT.DateFormatShow)#"
 							Manual="True"	
 							scriptdate="expiration_selectdate"
@@ -1362,11 +1362,11 @@ otherwise no action
 		</tr>	
 		
 		<TR id="editfield" name="editfield">
-	    <TD style="padding-left:5px;height:28px" class="labelmedium2 bcell"><cf_tl id="Regularised">:</TD>
+	    <TD style="padding-left:5px;height:31px" class="labelmedium2 bcell"><cf_tl id="Regularised">:</TD>
 	   		
 			<cfif mode eq "view">
 			  
-			    <td class="labelmedium2 ccell" bgcolor="#pclr#"><cfif ContractSel.ContractStatus eq "1"><cf_tl id="Yes"><cfelse><cf_tl id="Yes"></cfif></td>
+			    <td class="labelmedium2 ccell" style="padding-left:5px;" bgcolor="#pclr#"><cfif ContractSel.ContractStatus eq "1"><cf_tl id="Yes"><cfelse><cf_tl id="Yes"></cfif></td>
 				
 			</cfif>
 			
@@ -1377,9 +1377,9 @@ otherwise no action
 				
 				<table>
 				   <tr class="labelmedium2">
-				   <td style="padding-left:2px"><INPUT type="radio" name="ContractStatus" value="1" <cfif ContractSel.ContractStatus eq "1">checked</cfif>></td>
+				   <td style="padding-left:2px"><INPUT class="radiol" type="radio" name="ContractStatus" value="1" <cfif ContractSel.ContractStatus eq "1">checked</cfif>></td>
 				   <td style="padding-left:4px"><cf_tl id="Yes"></td>
-				   <td style="padding-left:8px"><INPUT type="radio" name="ContractStatus" value="0" <cfif ContractSel.ContractStatus neq "1">checked</cfif>></td>
+				   <td style="padding-left:8px"><INPUT class="radiol" type="radio" name="ContractStatus" value="0" <cfif ContractSel.ContractStatus neq "1">checked</cfif>></td>
 				   <td style="padding-left:4px"><cf_tl id="No"></td>	
 				</tr>
 				</table>	
@@ -1391,11 +1391,11 @@ otherwise no action
 		</TR>
 						
 		<TR id="editfield" name="editfield">
-	    <TD style="padding-left:5px;height:28px" class="labelmedium2 bcell"><cf_tl id="Recruitment Review Panel">:</TD>
+	    <TD style="padding-left:5px;height:31px" class="labelmedium2 bcell"><cf_tl id="Recruitment Review Panel">:</TD>
 	   		
 			<cfif mode eq "view">
 			
-				<td class="labelmedium2 ccell" bgcolor="#pclr#"><cfif ContractSel.ReviewPanel eq "1">Yes<cfelse>No</cfif></td>
+				<td class="labelmedium2 ccell" style="padding-left:5px;" bgcolor="#pclr#"><cfif ContractSel.ReviewPanel eq "1">Yes<cfelse>No</cfif></td>
 				
 			</cfif>
 			
@@ -1405,9 +1405,9 @@ otherwise no action
 				<table>
 				   <tr class="labelmedium2">
 				   <td style="padding-left:2px">
-					<INPUT type="radio" name="ReviewPanel" value="1" <cfif ContractSel.ReviewPanel eq "1">checked</cfif>><td>
+					<INPUT type="radio" class="radiol" name="ReviewPanel" value="1" <cfif ContractSel.ReviewPanel eq "1">checked</cfif>><td>
 					<td style="padding-left:4px"><cf_tl id="Yes"></td>
-					<td style="padding-left:8px"><INPUT type="radio" name="ReviewPanel" value="0" <cfif ContractSel.ReviewPanel neq "1">checked</cfif>></td>
+					<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="ReviewPanel" value="0" <cfif ContractSel.ReviewPanel neq "1">checked</cfif>></td>
 					<td style="padding-left:4px"><cf_tl id="No"></td>	
 				</tr>
 				</table>			
@@ -1425,11 +1425,11 @@ otherwise no action
 		<cfelse>
 				
 			<TR id="editfield" name="editfield">
-			    <TD style="padding-left:5px;height:28px" class="labelmedium2 bcell"><cf_tl id="Part-time">:</TD>
+			    <TD style="padding-left:5px;height:31px" class="labelmedium2 bcell"><cf_tl id="Part-time">%:</TD>
 			   		
 					<cfif mode eq "view">
 		
-						<td class="labelmedium2 ccell" bgcolor="#pclr#">#ContractSel.ContractTime# %</td>				
+						<td class="labelmedium2 ccell" style="padding-left:5px;" bgcolor="#pclr#">#ContractSel.ContractTime# %</td>				
 						
 					</cfif>
 					
@@ -1437,30 +1437,30 @@ otherwise no action
 					
 						<td style="padding-left:4px;" class="labelmedium2 ccell" bgcolor="#color#" id="editfield" name="editfield">
 						<table>
-						   <tr class="labelmedium">
+						   <tr class="labelmedium2">
 						   <td style="padding-left:2px">
-								<INPUT type="radio" name="ContractTime" value="100" <cfif ContractSel.ContractTime eq "100" or ContractSel.ContractTime eq "">checked</cfif>>
-								</td><td style="padding-left:2px">No&nbsp;-100%</td>
+								<INPUT type="radio" class="radiol" name="ContractTime" value="100" <cfif ContractSel.ContractTime eq "100" or ContractSel.ContractTime eq "">checked</cfif>>
+								</td><td style="padding-left:2px">No&nbsp;-100</td>
 							 <td style="padding-left:5px">	
-								<INPUT type="radio" name="ContractTime" value="90" <cfif ContractSel.ContractTime eq "90">checked</cfif>>
-								</td><td style="padding-left:1px">90%</td>		
+								<INPUT type="radio" class="radiol" name="ContractTime" value="90" <cfif ContractSel.ContractTime eq "90">checked</cfif>>
+								</td><td style="padding-left:1px">90</td>		
 							 <td style="padding-left:5px">	
-								<INPUT type="radio" name="ContractTime" value="80" <cfif ContractSel.ContractTime eq "80">checked</cfif>>
-								</td><td style="padding-left:1px">80%</td>	
+								<INPUT type="radio" class="radiol" name="ContractTime" value="80" <cfif ContractSel.ContractTime eq "80">checked</cfif>>
+								</td><td style="padding-left:1px">80</td>	
 							 <td style="padding-left:5px">	
-								<INPUT type="radio" name="ContractTime" value="70" <cfif ContractSel.ContractTime eq "70">checked</cfif>>
-								</td><td style="padding-left:1px">70%</td>	
+								<INPUT type="radio" class="radiol" name="ContractTime" value="70" <cfif ContractSel.ContractTime eq "70">checked</cfif>>
+								</td><td style="padding-left:1px">70</td>	
 							 <td style="padding-left:5px">	
-								<INPUT type="radio" name="ContractTime" value="60" <cfif ContractSel.ContractTime eq "60">checked</cfif>>
-								</td><td style="padding-left:1px">60%</td>			
+								<INPUT type="radio" class="radiol" name="ContractTime" value="60" <cfif ContractSel.ContractTime eq "60">checked</cfif>>
+								</td><td style="padding-left:1px">60</td>			
 							<td style="padding-left:5px">							
-								<INPUT type="radio" name="ContractTime" value="50" <cfif ContractSel.ContractTime eq "50">checked</cfif>>
-								</td><td style="padding-left:1px">50%</td>
+								<INPUT type="radio" class="radiol" name="ContractTime" value="50" <cfif ContractSel.ContractTime eq "50">checked</cfif>>
+								</td><td style="padding-left:1px">50</td>
 							<td style="padding-left:5px">							
-								<INPUT type="radio" name="ContractTime" value="40" <cfif ContractSel.ContractTime eq "40">checked</cfif>>
-								</td><td style="padding-left:1px">40%</td>
+								<INPUT type="radio" class="radiol" name="ContractTime" value="40" <cfif ContractSel.ContractTime eq "40">checked</cfif>>
+								</td><td style="padding-left:1px">40</td>
 							<td style="padding-left:5px">							
-								<INPUT type="radio" name="ContractTime" value="20" <cfif ContractSel.ContractTime eq "20">checked</cfif>>
+								<INPUT type="radio" class="radiol" name="ContractTime" value="20" <cfif ContractSel.ContractTime eq "20">checked</cfif>>
 								</td><td style="padding-left:1px;paddingh-right:5px">20%</td>		
 							</tr>
 						</table>
@@ -1482,7 +1482,7 @@ otherwise no action
 		    <TD style="padding-left:5px;height:28px" class="labelmedium2 bcell"><cf_tl id="Work hours">:</TD>
 		    
 			<cfif mode eq "view">
-				<td class="labelmedium2 ccell" bgcolor="#pclr#">#ContractSel.SalaryBasePeriod#</td>
+				<td class="labelmedium2 ccell" style="padding-left:5px;" bgcolor="#pclr#">#ContractSel.SalaryBasePeriod#</td>
 			</cfif>
 			<cfif mode eq "edit" or last eq "1"> 
 				<td class="labelmedium2 ccell" bgcolor="#color#" id="editfield" name="editfield">	
@@ -1627,7 +1627,7 @@ otherwise no action
 			  	<TD style="padding-left:5px" class="labelmedium2 bcell"><cf_tl id="Grade"> / <cf_tl id="Step">:</TD>
 				
 				<cfif mode eq "view">
-					<td class="labelmedium2 ccell" bgcolor="#pclr#">#ContractSel.ContractLevel# / #ContractSel.ContractStep#</td>
+					<td class="labelmedium2 ccell" style="padding-left:5px;" bgcolor="#pclr#">#ContractSel.ContractLevel# / #ContractSel.ContractStep#</td>
 				</cfif>
 
 				<cfif mode eq "edit" or last eq "1"> 
@@ -1705,7 +1705,8 @@ otherwise no action
 			<tr id="nextincrement" name="editfield"><td style="padding-left:5px;padding-right:5px;height:35px" class="labelmedium2 bcell"><cf_tl id="Next Increment">:</TD>
 									
 					<cfif mode eq "view">
-						<td bgcolor="#pclr#" class="labelmedium2 ccell">
+						<td bgcolor="#pclr#" style="padding-left:5px;" class="labelmedium2 ccell">
+						
 						<cfif ContractSel.StepIncreaseDate eq "">
 					 		--
 						<cfelse>
@@ -1802,10 +1803,10 @@ otherwise no action
 	</cfif>
 		
 	<TR>
-        <td class="labelmedium2 bcell" valign="top" style="padding-left:5px;padding-top:4px"><cf_tl id="Remarks">:</td>
+        <td class="labelmedium2" valign="top" style="padding-left:5px;padding-top:4px"><cf_tl id="Remarks">:</td>
        
 			<cfif mode eq "view">
-				<TD bgcolor="#pclr#" class="labelmedium2 ccell" width="20%" valign="top" style="padding:4px">
+				<TD bgcolor="#pclr#" style="padding-left:5px" class="labelmedium2 ccell" width="20%" valign="top">
 			    <cfif ContractSel.remarks eq "">
 				 ---
 				<cfelse>
@@ -1815,12 +1816,12 @@ otherwise no action
 			 </cfif>
 					
 			 <cfif mode eq "edit" or last eq "1">  
-				 <td bgcolor="#color#" valign="top" class="labelmedium2 ccell" style="height:120px;border-right:1px solid silver;padding-right:1px">
+				 <td valign="top" class="labelmedium2 ccell" style="height:120px;background-color:ffffff;">
 				
 				<textarea class="regular"
 				    name="Remarks" 
 					id="Remarks" 
-					style="background-color:ffffef;width:100%;min-height:120px;font-size:13px;padding:3px;height:99%;border:0px;resize:vertical; " 
+					style="background-color:ffffff;width:99%;min-height:120px;font-size:16px;padding:5px;height:99%;border:0px;resize:vertical;" 
 					totlength="800" 
 					onkeyup="return ismaxlength(this)" >#ContractSel.Remarks#</textarea> 
 				</TD>
@@ -1888,6 +1889,8 @@ otherwise no action
 						</td>
 							
 				<cfelseif last eq "1">
+				
+						<td></td>
 										
 						<td align="right" style="padding-left:2px">
 						<table>
@@ -1896,12 +1899,12 @@ otherwise no action
 								<!--- only for the administrator --->
 								<cfif getAdministrator(ContractSel.mission) eq "1" and del eq "0">					   
 								   <cf_tl id="Delete" var="1">
-								   <input class="button10g"  style="width:150" onmouseover="this.focus()" type="submit" onClick="return ask()" name="Delete" value="<cfoutput>#lt_text#</cfoutput> (Admin only)">						
+								   <input class="button10g"  style="width:150px" onmouseover="this.focus()" type="submit" onClick="return ask()" name="Delete" value="<cfoutput>#lt_text#</cfoutput> (Admin only)">						
 								</td>								
 							    </cfif>
 								<td style="padding-left:2px">					
 								<cf_tl id="Submit Amendment" var="1">
-							    <input class="button10g"  style="width:160" onmouseover="this.focus()" type="submit" name="Update" value="<cfoutput>#lt_text#</cfoutput>">   
+							    <input class="button10g"  style="width:260px" onmouseover="this.focus()" type="submit" name="Update" value="<cfoutput>#lt_text#</cfoutput>">   
 								</td>						
 							</tr>
 						</table>

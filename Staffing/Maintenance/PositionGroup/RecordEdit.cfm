@@ -42,6 +42,8 @@ function hl(act){
 
 </script>
 
+<cf_divscroll>
+
 <cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
 <table width="93%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
@@ -167,3 +169,5 @@ function hl(act){
 </TABLE>
 
 </CFFORM>
+
+</cf_divscroll>

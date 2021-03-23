@@ -1485,6 +1485,23 @@ function stockonhand(s,modid) {
 	 
 }
 
+function stockdiversity(s,modid) {
+				
+	document.getElementById("optionselect").value = "stockonhand('','"+modid+"')"	
+	whs  = document.getElementById("warehouse").value	
+	mis  = document.getElementById("mission").value	
+		
+	url = "../Inquiry/Diversity/ListingData.cfm?"+
+				"&height="+document.body.offsetHeight+
+				"&systemfunctionid="+modid+
+	            "&warehouse="+whs+
+				"&mission="+mis+
+				"&SystemFunctionid"+modid
+								
+	ptoken.navigate(url,'main')			
+	 
+}
+
 function stockOnHandItem(fld, fsys, fmis) {
 	item(fld,fsys,fmis);
 }

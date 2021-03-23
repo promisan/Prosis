@@ -85,42 +85,79 @@
 <cfif ParameterExists(Form.Update)>
 
 <CF_RegisterAction 
-SystemFunctionId="0999" 
-ActionClass="Person Event" 
-ActionType="Update" 
-ActionReference="#Form.CodeOld#" 
-ActionScript="">   
+	SystemFunctionId="0999" 
+	ActionClass="Person Event" 
+	ActionType="Update" 
+	ActionReference="#Form.CodeOld#" 
+	ActionScript="">   
 
-<cfquery name="Update" 
-datasource="AppsEmployee" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	UPDATE Ref_PersonEvent
-	SET   Code              = '#Form.Code#',
-	      Description       = '#Form.Description#',
-		  ActionInstruction = '#Form.ActionInstruction#',
-	      EntityClass	    = '#Form.entityClass#',
-	      EnablePortal      = '#Form.EnablePortal#',
-	      ActionPosition    = '#Form.ActionPosition#',
-	      ActionPeriod      = '#Form.ActionPeriod#'
-	WHERE Code  = '#Form.CodeOld#'
-</cfquery>	
+	<cfquery name="Update" 
+	datasource="AppsEmployee" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		UPDATE Ref_PersonEvent
+		SET   Code              = '#Form.Code#',
+		      Description       = '#Form.Description#',
+			  ActionInstruction = '#Form.ActionInstruction#',
+		      EntityClass	    = '#Form.entityClass#',
+		      EnablePortal      = '#Form.EnablePortal#',
+		      ActionPosition    = '#Form.ActionPosition#',
+		      ActionPeriod      = '#Form.ActionPeriod#'
+		WHERE Code  = '#Form.CodeOld#'
+	</cfquery>	
+	
+	<!--- we remove any records no longer selected --->
+	
+	<cfset mis = "">
+	
+	<cfloop list="#Form.Missions#" index="itm">
+	    <cfif mis eq "">
+			<cfset mis = "'#itm#'">
+		<cfelse>
+			<cfset mis = "#mis#,'#itm#'">
+		</cfif>	
+	</cfloop>
 
 	<cfquery name="MissionCheck" 
 	datasource="appsEmployee" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	    DELETE  Ref_PersonEventMission
-		WHERE PersonEvent = '#Form.CodeOld#'
+		WHERE   PersonEvent = '#Form.CodeOld#'
+		<cfif mis neq "">
+		AND     Mission NOT IN (#preserveSingleQuotes(mis)#)
+		</cfif>
 	</cfquery>	
 		
-	<cfloop list="#Form.Missions#"  index="Element">
+	<cfloop list="#Form.Missions#" index="itm">
+	
+		<cfquery name="get" 
+		datasource="appsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT   *
+			FROM     Ref_PersonEventMission
+			WHERE    PersonEvent = '#Form.CodeOld#'
+			AND      Mission = '#itm#'			
+		</cfquery>		
 		
-		<cfquery name="qInsert" datasource = "AppsEmployee">
-			INSERT INTO Ref_PersonEventMission
-			(PersonEvent, Mission, OfficerLastName, OfficerFirstName, OfficerUserId)
-			VALUES ('#Form.CodeOld#','#Element#','#SESSION.last#','#SESSION.first#','#SESSION.acc#')
-		</cfquery>	
+		<cfif get.recordcount eq "0">
+				
+			<cfquery name="qInsert" datasource = "AppsEmployee">
+				INSERT INTO Ref_PersonEventMission
+				       ( PersonEvent, 
+					     Mission, 
+						 OfficerLastName, 
+						 OfficerFirstName, 
+						 OfficerUserId )
+				VALUES ( '#Form.CodeOld#',
+				         '#itm#',
+						 '#SESSION.last#',
+						 '#SESSION.first#',
+						 '#SESSION.acc#' )
+			</cfquery>	
+		
+		</cfif>
 	
 	</cfloop>	
 	

@@ -6,8 +6,7 @@
 	<cfquery name="baseamount" 
 	datasource="AppsPayroll" 
 	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	
+	password="#SESSION.dbpw#">	
 					
 		SELECT   PersonNo, 
 		         PayrollCalcNo, 
@@ -33,7 +32,7 @@
 							AmountCalculationFull AS AmountCalculation
 						 <cfelseif BaseAmount eq "3">
 						  	AmountCalculationDays AS AmountCalculation
-						 <cfelseif BaseAmount eq "2">	
+						 <cfelseif BaseAmount eq "2">							 
 							AmountCalculationBase AS AmountCalculation 
 						 <cfelseif BaseAmount eq "0">							 
 							AmountCalculationWork AS AmountCalculation 						
@@ -60,7 +59,9 @@
 				
 									SELECT DISTINCT SalarySchedule
 									FROM            userTransaction.dbo.sal#SESSION.thisprocess#EntitlementRatePercentage
-									WHERE           PersonNo =  L.PersonNo )			
+									WHERE           PersonNo =  L.PersonNo )	
+									
+									
 				</cfif>
 								
 				<!--- we include calculations already made for percentage based items, 

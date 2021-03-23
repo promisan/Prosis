@@ -1,5 +1,5 @@
 
-<cfajaximport tags="cfform,cfdiv,cfwindow">
+<cfajaximport tags="cfform,cfdiv">
 
 <cfset cnt = 0>
 <cfset documententrystatus = "1">

@@ -88,6 +88,8 @@
    <cfset URL.Template = "#SESSION.root#/Staffing/Application/Employee/Invoices/Ledger.cfm">     
 <cfelseif URL.Template eq "Payroll">
    <cfset URL.Template = "#SESSION.root#/Payroll/Application/Payroll/EmployeePayroll.cfm">
+<cfelseif URL.Template eq "Advance">
+   <cfset URL.Template = "#SESSION.root#/Staffing/Application/Employee/Advance/AdvanceView.cfm">   
 <cfelseif URL.Template eq "PersonEvent">  	
    <cfset URL.Template = "#SESSION.root#/Staffing/Application/Employee/Events/EventsView.cfm"> 
 <cfelseif URL.Template eq "Leave">  	

@@ -35,7 +35,7 @@
 					  style="background-color:#color#;height:46px;width:100%;color:black;;border-top-right-radius:5px;padding-left:14px;padding-right:14px">
 					  
 					  <table style="width:100%">
-					  <tr><td colspan="2" align="center" style="color:white;font-size:14px">#FunctionDescription#</td></tr>
+					  <tr><td colspan="2" align="right" style="color:white;font-size:18px;padding-right:5px">#ucase(FunctionDescription)#</td></tr>
 					  <tr>	
 					    
 					    <cfif OrgUnitOperational neq OwnerOrgUnit>									

@@ -333,7 +333,9 @@ password="#SESSION.dbpw#">
 		   ROUND(PaymentAmount, #roundsettle#), 
 		   'Cost',
 	       CostId, 
-		   (CASE WHEN Source = 'SUN' THEN 'Offset' ELSE 'Internal' END) as Source,
+		   (CASE 
+		       WHEN Source = 'SUN'    THEN 'Offset' 
+			   WHEN Source = 'Ledger' THEN 'Offset' ELSE 'Internal' END) as Source,
 		   'Miscellaneous',
 		   '#SESSION.acc#', 
 		   '#SESSION.last#', 

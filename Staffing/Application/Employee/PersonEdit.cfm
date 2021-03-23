@@ -644,7 +644,8 @@ password="#SESSION.dbpw#">
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 				  SELECT  *
-				     FROM  Ref_AreaGLedger		
+				     FROM  Ref_AreaGLedger	
+					 WHERE Operational = 1  <!--- advance has been disabled --->	
 				</cfquery>		
 				
 				<script>
@@ -662,9 +663,9 @@ password="#SESSION.dbpw#">
 					  SELECT    P.*, A.Description
 					  FROM      PersonGLedger P, 
 					            Accounting.dbo.Ref_Account A
-					  WHERE     PersonNo = '#Person.PersonNo#'
-					    AND     Area     = '#Area#'
-						AND     P.GLAccount = A.GLAccount
+					  WHERE     PersonNo    = '#Person.PersonNo#'
+					  AND       Area        = '#Area#'
+					  AND       P.GLAccount = A.GLAccount
 					</cfquery>	
 							
 					<tr>

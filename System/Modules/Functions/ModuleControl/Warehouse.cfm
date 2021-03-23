@@ -227,7 +227,18 @@
    MainMenuItem    = "0"
    FunctionMemo    = "Stock on hand"
    ScriptName      = "stockonhand"
-   AccessUserGroup = "0">    
+   AccessUserGroup = "0">   
+   
+<cf_ModuleInsertSubmit
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Inquiry"
+   FunctionName    = "Stock Diversity" 
+   MenuClass       = "General"
+   MenuOrder       = "7"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Items that are used within a warehouse"
+   ScriptName      = "stockdiversity"
+   AccessUserGroup = "0">     
        
 <cf_ModuleInsertSubmit
    SystemModule    = "Warehouse" 
@@ -807,69 +818,67 @@
    AccessUserGroup   = "0">     
 
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Maintain"
-   FunctionName = "Item Category" 
-   MenuClass = "System"
-   MenuOrder = "2"
-   MainMenuItem = "1"
-   FunctionMemo = "Item master Category and Ledger definition"
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Maintain"
+   FunctionName      = "Item Category" 
+   MenuClass         = "System"
+   MenuOrder         = "2"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Item master Category and Ledger definition"
    FunctionDirectory = "Warehouse/Maintenance"
-   FunctionPath = "Category/RecordListing.cfm"   
-   AccessUserGroup = "0">     
+   FunctionPath      = "Category/RecordListing.cfm"   
+   AccessUserGroup   = "0">     
    
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Maintain"
-   FunctionName = "Item master" 
-   MenuClass = "System"
-   MenuOrder = "2"
-   MainMenuItem = "1"
-   FunctionMemo = "Item Definition and UOM definition"
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Maintain"
+   FunctionName      = "Item master" 
+   MenuClass         = "System"
+   MenuOrder         = "2"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Item Definition and UOM definition"
    FunctionDirectory = "Warehouse/Maintenance"
-   FunctionPath = "Item/ItemSearch.cfm"   
-   AccessUserGroup = "0">  
+   FunctionPath      = "Item/ItemSearch.cfm"   
+   AccessUserGroup   = "0">  
  
    
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Maintain"
-   FunctionName = "Business Rules" 
-   MenuClass = "System"
-   MenuOrder = "3"
-   MainMenuItem = "1"
-   FunctionMemo = "Business rules definition"
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Maintain"
+   FunctionName      = "Business Rules" 
+   MenuClass         = "System"
+   MenuOrder         = "3"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Business rules definition"
    FunctionDirectory = "Warehouse/Maintenance"
-   FunctionPath = "BusinessRule/RecordListing.cfm"   
-   AccessUserGroup = "0"> 
-      
-   
+   FunctionPath      = "BusinessRule/RecordListing.cfm"   
+   AccessUserGroup   = "0"> 
+         
 <!--- stock --->    
    
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Maintain"
-   FunctionName = "Warehouse" 
-   MenuClass = "Stock"
-   MenuOrder = "1"
-   MainMenuItem = "1"
-   FunctionMemo = "Warehouse Definition"
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Maintain"
+   FunctionName      = "Warehouse" 
+   MenuClass         = "Stock"
+   MenuOrder         = "1"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Warehouse Definition"
    FunctionDirectory = "Warehouse/Maintenance"
-   FunctionPath = "Warehouse/RecordListing.cfm"   
-   AccessUserGroup = "0">    
-   
-  
+   FunctionPath      = "Warehouse/RecordListing.cfm"   
+   AccessUserGroup   = "0">    
+     
 <cf_ModuleInsertSubmit
-   SystemModule="Warehouse" 
-   FunctionClass = "Maintain"
-   FunctionName = "Commodity codes" 
-   MenuClass = "Stock"
-   MenuOrder = "2"
-   MainMenuItem = "1"
-   FunctionMemo = "Item Commodity Codes"
+   SystemModule      = "Warehouse" 
+   FunctionClass     = "Maintain"
+   FunctionName      = "Commodity codes" 
+   MenuClass         = "Stock"
+   MenuOrder         = "2"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Item Commodity Codes"
    FunctionDirectory = "Warehouse/Maintenance"
-   FunctionPath = "Commodity/RecordListing.cfm"   
-   AccessUserGroup = "0">        
+   FunctionPath      = "Commodity/RecordListing.cfm"   
+   AccessUserGroup   = "0">        
      
 <cf_ModuleInsertSubmit
    SystemModule="Warehouse" 

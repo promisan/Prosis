@@ -81,7 +81,7 @@
 			</tr>
 		</table>
 	<cfelse>
-		<select name="PostingJournal" id="PostingJournal" class="enterastab regularxl">	
+		<select name="PostingJournal" id="PostingJournal" class="enterastab regularxxl">	
 			<cfoutput query="PostJournals">
 	    	  <option value="#Journal#" <cfif URL.InvoiceJournal eq PostJournals.Journal>selected</cfif>>#Journal# - #Description#</option>				
 			</cfoutput>  		
@@ -143,7 +143,7 @@
 				</tr>
 			</table>
 		<cfelse>
-			<select name="PostingJournal" id="PostingJournal" class="enterastab regularxl">
+			<select name="PostingJournal" id="PostingJournal" class="enterastab regularxxl">
 				<cfoutput query="PostJournals">		
 		    	  <option value="#Journal#"	<cfif PostJournals.Journal eq Journal.Journal>selected</cfif>>#Journal# - #Description#</option> 			
 				</cfoutput>  

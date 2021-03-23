@@ -96,11 +96,11 @@
 		ProsisUI.createWindow('wfusersession', 'Workflow user session', '',{x:10,y:10,height:490,width:660,resizable:false,modal:true,center:true});
 		ptoken.navigate('#SESSION.root#/Tools/EntityAction/Session/SessionView.cfm?actionid='+id+'&referenceid='+refid+'&useraccount='+acc,'wfusersession')					
 	}
-	
+
 	function workflowchat(id) {
-	    try { ProsisUI.closeWindow('wfuserchat') } catch(e) {}
-	    ProsisUI.createWindow('wfuserchat', 'Messenger', '',{x:25,y:25,height:document.body.clientHeight-89,width:510,resizable:false,center:true,modal:false});
-		ptoken.navigate('#SESSION.root#/Tools/EntityAction/Details/Comment/CommentListing.cfm?ajax=Yes&objectId='+id,'wfuserchat')		
+		try { ProsisUI.closeWindow('wfuserchat'); } catch(e) {}
+		ProsisUI.createWindow('wfuserchat', 'Messenger', '', { height:document.body.clientHeight-89,width:510,resizable:false,center:false,modal:false, position:{top:40, left:document.body.clientWidth-525}, animation:{ open: { effects: "slideIn:up" }, close: { effects: "slideIn:up", reverse: true} }});
+		ptoken.navigate('#SESSION.root#/Tools/EntityAction/Details/Comment/CommentListing.cfm?ajax=Yes&objectId='+id,'wfuserchat');
 	}
 	
 	function workflowsessionsave(id,refid,acc) {	

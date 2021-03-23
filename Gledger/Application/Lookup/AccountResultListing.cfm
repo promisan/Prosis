@@ -149,13 +149,13 @@
 		<cfelseif url.class eq "Credit">
 			AND    T.AmountCredit > 0
 		</cfif>
-		
-		<cfif url.owner neq "All">
+				
+		<cfif url.owner neq "All" and url.owner neq "" and url.owner neq "undefined" and curPeriod.AdministrationLevel neq "Tree">
 		AND	   J.OrgUnitOwner IN ('#URL.owner#')			
 		</cfif>
-		
+				
 		<!---RFUENTES 21/5/2015 adding: CC for the accounts that are Result Class  ---->
-		<cfif url.costcenter neq "All">
+		<cfif url.costcenter neq "All" and url.costcenter neq "" and url.costcenter neq "undefined">
 			AND	   T.OrgUnit IN ('#URL.costcenter#')			
 		</cfif>
 		
@@ -217,7 +217,7 @@
 		</cfquery>	
 		
 	</cfif>
-	
+		
 	<!--- we take the current exchange rate --->
 			
 		    <!---
@@ -262,7 +262,7 @@
 			    <TR class="line labelmedium2 fixrow" style="background-color:e4e4e4;height:25px">	
 			    
 			  	<td colspan="7" style="width:100%;padding-left:5px">
-				
+								
 				  <table>
 				  <tr>
 										 					
@@ -322,6 +322,10 @@
 			
 			</cfif>
 			
+			<!--- 2 - 3 main detail content --->
+																
+			<tr class="labelmedium2 line <cfif opening.recordcount gte "1">fixrow2<cfelse>fixrow</cfif>">
+			
 			<cfquery name="Opening" dbtype="query" >
 				SELECT SUM(Debit)                as Debit, 
 				       SUM(Credit)               as Credit,		
@@ -335,10 +339,7 @@
 				WHERE  Journal NOT IN (#quotedvalueList(OpeningJournal.Journal)#)
 				</cfif>
 			</cfquery>
-	
-			<!--- 2 - 3 main detail content --->
-				
-			<tr class="labelmedium2 line<cfif opening.recordcount gte "1">fixrow2<cfelse>fixrow1</cfif>">
+			
 			    <td style="min-width:40px"></td>
 				<TD style="min-width:100px"><cf_tl id="Journal"></TD>
 			    <TD style="min-width:130px;width:20%"><cf_tl id="TraNo"></TD>
@@ -515,13 +516,15 @@
 						<TD class="navigation_action" style="cursor: pointer;padding-left:4px">
 						
 						    <cfif url.aggregate eq "0">
-							
-								<cfif url.mde eq "JournalTransactionNo">							
+																					
+								<cfif url.mde eq "JournalTransactionNo" or url.mde eq "Transaction">							
 								#JournalTransactionNo#							
-								<cfelse>							
+								<cfelse>	
+								    					
 								    <a href="javascript:ShowTransaction('#Journal#','#JournalSerialNo#')">							 			  
 								    <cfif TransactionReference neq "">#TransactionReference#<cfelse>#JournalTransactionNo#</cfif>
-									</a> 							 
+									</a> 
+																 
 								</cfif>
 							
 							<cfelse>
@@ -765,10 +768,9 @@
 	<cfoutput>
 	
 	<cfif ytd.recordcount gte "1">		
-		
-		  <tr><td style="height:3px"></td></tr>								
+			 						
 				  
-		  <TR class="line labelmedium" style="background-color:e4e4e4;height:29px;border-top:1px solid silver">	
+		  <TR class="labelmedium2" style="background-color:e1e1e1;height:29px;border:1px solid silver">	
 		    
 		  	<td style="width:100%;padding-left:5px">
 			
@@ -799,7 +801,7 @@
 									
 			</tr></table>			
 			</td>		 
-			<td align="right" style="min-width:200px;padding-right:5px"><cf_tl id="Closing">#url.pap#</td>		   													
+			<td align="right" style="background-color:f1f1f1;min-width:200px;padding-right:5px"><cf_tl id="Closing">#url.pap#</td>		   													
 			<td style="min-width:100px;border-bottom:1px solid silver;border-left:1px solid silver;padding-right:2px" bgcolor="yellow" align="right">
 			#NumberFormat(ytd.DebitBase/exch,',.__')#
 			</td>	
@@ -807,7 +809,9 @@
 			#NumberFormat(ytd.CreditBase/exch,',.__')#
 			</td>	
 			
+			<!---			
 			<cfif URL.mde neq "Transaction"> 
+			--->
 												
 			<td align="right" bgcolor="80FF80" style="min-width:100px;padding-right:4px">
 								
@@ -826,14 +830,17 @@
 				</font>
 				</cfif>
 			</td>	
+			
+			<!---
 			<cfelse>
 			<td></td>
 			</cfif>
+			--->
 			
 			<cfif URL.mde eq "Posting"  and Account.BankId neq "">
-			<td style="min-width:35px"></td>
+			<td style="min-width:29px"></td>
 			<cfelse>
-			<td style="min-width:21px"></td>
+			<td style="min-width:16px"></td>
 			</cfif>
 			
 		  </TR>	  

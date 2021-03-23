@@ -145,7 +145,7 @@ password="#SESSION.dbpw#">
 	
 	<TR class="navigation_row labelmedium2">
 	
-	    <cfif workflow neq "" and source eq "Manual">
+	    <cfif workflow neq "" and (source eq "Manual" or source eq "Ledger")>
 	 
 			 <td height="20"
 				    align="center" 
@@ -199,6 +199,8 @@ password="#SESSION.dbpw#">
 					</td>
 				
 		<cfelse>
+		
+				<cfset wfStatus = "">
 			
 			    <td height="20" style="width:2%" align="center"></td>	
 			  
@@ -296,7 +298,7 @@ password="#SESSION.dbpw#">
 	
 	</cfif>	
 	
-	<cfif source eq "Manual">
+	<cfif source eq "Manual" or source eq "Ledger">
 	
 		<cfif workflow neq "">
 			
@@ -313,6 +315,8 @@ password="#SESSION.dbpw#">
 				<tr id="box_#workflow#">
 						<td></td>		   				 
 					    <td colspan="11" id="#workflow#" style="padding-left:20px">
+						
+						
 						
 						<cfif wfStatus eq "Open" and DateDiff("D",dateEffective,now()) gte -14>
 						

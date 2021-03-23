@@ -25,6 +25,9 @@
     15. replace "nb" for "mb"
     16. replace "nv" for "mb"
     17. replace "rr" for "r"
+    18. replace "ka" for "ca"
+    19. replace "ko" for "co"
+    20. replace "ku" for "cu"
 --->
 
 <cfset vField = attributes.field>
@@ -37,6 +40,9 @@
     <cfif TRIM(LCASE(attributes.language)) eq "ESP">
         <cfoutput>
             <cfsavecontent variable="vTemp">
+                REPLACE(
+                REPLACE(
+                REPLACE(
                 REPLACE(
                 REPLACE(
                 REPLACE(
@@ -71,7 +77,10 @@
                 'np', 'mp'),
                 'nb', 'mb'),
                 'nv', 'mb'),
-                'rr', 'r')
+                'rr', 'r'),
+                'ka', 'ca'),
+                'ko', 'co'),
+                'ku', 'cu')
             </cfsavecontent>
         </cfoutput>
 
@@ -106,6 +115,9 @@
         <cfset vField = REPLACE(vField, "nb", "mb", "ALL")>
         <cfset vField = REPLACE(vField, "nv", "mb", "ALL")>
         <cfset vField = REPLACE(vField, "rr", "r", "ALL")>
+        <cfset vField = REPLACE(vField, "ka", "ca", "ALL")>
+        <cfset vField = REPLACE(vField, "ko", "co", "ALL")>
+        <cfset vField = REPLACE(vField, "ku", "cu", "ALL")>
     </cfif>
     <cfset vReturn = vField>
 	

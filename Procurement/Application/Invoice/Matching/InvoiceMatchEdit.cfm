@@ -4,12 +4,12 @@
 
 <tr><td style="padding-top:4px;padding-left:10px;padding-right:10px;min-width:920"></td>
 
-		<table width="96%" align="center">
+		<table width="98%" align="center">
 						  
 		  <tr>
 		   <td colspan="5">
 		   		  
-		     <table width="100%" cellspacing="0" cellpadding="0">
+		     <table width="100%">
 			 
 			 <tr class="labelmedium2 line" style="height:20px">
 		  

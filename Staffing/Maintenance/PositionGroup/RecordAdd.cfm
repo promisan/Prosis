@@ -25,6 +25,8 @@
 	  
 </script>
 
+<cf_divscroll>
+
 <cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
 <!--- Entry form --->
@@ -82,13 +84,12 @@
 					ORDER BY Owner
 				</cfquery>				
 				
-				<table width="100%" class="formpadding">
+				<table width="100%">
 
 				<cfoutput query="Mission" group="owner">
 					
-					<tr><td colspan="3" class="labellarge"><cfif owner eq "">Undefined<cfelse>#owner#</cfif></b></td></tr>
-					<tr><td class="line" colspan="3"></td></tr>
-					
+					<tr class="line"><td colspan="3" class="labellarge"><cfif owner eq "">Undefined<cfelse>#owner#</cfif></b></td></tr>
+										
 					<cfset cnt = 0>
 					
 					<cfoutput>
@@ -126,3 +127,5 @@
 	</table>
 
 </CFFORM>
+
+</cf_divscroll>

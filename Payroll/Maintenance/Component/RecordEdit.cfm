@@ -326,25 +326,25 @@ password="#SESSION.dbpw#">
     <TD class="labelmedium">
 	    <table cellspacing="0" cellpadding="0" class="formpadding">
 			<tr class="labelmedium">
-				<td style="padding-left:0px"><INPUT class="radiol" type="radio" name="SalaryDays" value="0" <cfif "0" eq get.SalaryDays>checked</cfif>></td>
-				<td style="padding-left:4px">(0) Entitlement days -/- LWOP</td>
-			</tr>
-			<tr class="labelmedium">
 				<td style="padding-left:0px"><INPUT class="radiol" type="radio" name="SalaryDays" value="1" <cfif "1" eq get.SalaryDays or get.SalaryDays eq "">checked</cfif>></td>
-				<td style="padding-left:4px">(1) Entitlement days</td>
-			</tr>		
+				<td style="padding-left:4px">(1) Contractual days</td>
+			</tr>	
 			<tr class="labelmedium">
-				<td style="padding-left:0px"><INPUT class="radiol" type="radio" name="SalaryDays" value="2" <cfif "2" eq get.SalaryDays>checked</cfif>></td>
-				<td style="padding-left:4px">(2) Apply full rate, regardless of days (like Medical insurance)</td>
-			</tr>		
+				<td style="padding-left:0px"><INPUT class="radiol" type="radio" name="SalaryDays" value="0" <cfif "0" eq get.SalaryDays>checked</cfif>></td>
+				<td style="padding-left:4px">(0) Contractual days -/- LWOP</td>
+			</tr>								
 			<tr class="labelmedium">
 				<td style="padding-left:0px"><INPUT class="radiol" type="radio" name="SalaryDays" value="3" <cfif "3" eq get.SalaryDays>checked</cfif>></td>
-				<td style="padding-left:4px">(3) Entitlement days -/- (LWOP + Suspended)</td>
+				<td style="padding-left:4px">(3) Contractual days -/- (LWOP + Suspended)</td>
 			</tr>
 			<tr class="labelmedium">
 				<td style="padding-left:0px"><INPUT class="radiol" type="radio" name="SalaryDays" value="4" <cfif "4" eq get.SalaryDays>checked</cfif>></td>
-				<td style="padding-left:4px">(4) Entitlement days, regardless of part-time</td>
+				<td style="padding-left:4px">(4) Contractual days, regardless of part-time</td>
 			</tr>
+			<tr class="labelmedium">
+				<td style="padding-left:0px"><INPUT class="radiol" type="radio" name="SalaryDays" value="2" <cfif "2" eq get.SalaryDays>checked</cfif>></td>
+				<td style="padding-left:4px">(2) Apply full rate, regardless of days (like Medical insurance)</td>
+			</tr>	
 						
 				
 		</table>

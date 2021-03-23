@@ -26,7 +26,7 @@
 			AND     LocationDefault = 1
 	</cfquery>		
 	
-	<select name="ServiceLocation" class="regularxl">
+	<select name="ServiceLocation" class="regularxxl">
 	
 	    <option value="">-- select --</option>
 		<cfoutput query="Location">
@@ -46,7 +46,7 @@
 			WHERE    Mission = '#url.mission#'		
 		</cfquery>	
 		
-		<select name="ServiceLocation" class="regularxl">
+		<select name="ServiceLocation" class="regularxxl">
 		
 		    <option value="">-- select --</option>
 			<cfoutput query="Location">

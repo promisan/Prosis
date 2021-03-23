@@ -216,6 +216,7 @@
 						INNER JOIN ItemUoM IU ON IU.ItemNo = MP.ItemNo AND IU.UoM = MP.UoM
 					WHERE Mission = '#arguments.mission#'
 						AND Currency = '#arguments.currency#'
+						AND IU.EnablePortal = '1'
 					GROUP BY Mission, 
 							Currency, 
 							MP.ItemNo, 
@@ -295,11 +296,14 @@
 				AND CI.CategoryItem = I.CategoryItem
 			INNER JOIN ItemImage II
 				ON II.ItemNo = I.ItemNo
+			INNER JOIN ItemUoM IU 
+				ON IU.ItemNo = I.ItemNo 
 			INNER JOIN ItemUoMMission MI
 				ON MI.ItemNo = I.ItemNo
 			WHERE 1 = 1
 			AND MI.Mission = '#arguments.Mission#'
 			AND II.ImageClass = '001'
+			AND IU.EnablePortal = '1'
 			
 			<cfif trim(arguments.itemno) neq "">
 				AND I.ItemNo = '#arguments.itemno#'
@@ -620,9 +624,10 @@ AND S.FieldDefault='1'
 							ON II.ItemNo = I.ItemNo
 						INNER JOIN ItemUoM M
 							ON M.ItemNo = I.ItemNo
-				WHERE  II.ImageClass = '001'
+				WHERE  	II.ImageClass = '001'
+				AND  	C.FinishedProduct = '1'
 			) as XL 
-			WHERE  OnHand > 0  
+			WHERE  	OnHand > 0  
 			<cfif trim(Category) neq "">
 				AND Category = '#Category#'
 			</cfif>

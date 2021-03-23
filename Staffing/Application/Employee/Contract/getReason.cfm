@@ -35,7 +35,7 @@
 	
 	<input type="hidden" id="GroupCode" name="GroupCode" value="#getList.GroupCode#">
 	
-	<select id="GroupListCode" name="GroupListCode" class="regularxl enterastab" style="width:99%;<cfif url.scope neq 'add'>border:0px</cfif>">	
+	<select id="GroupListCode" name="GroupListCode" class="regularxxl enterastab" style="width:99%;<cfif url.scope neq 'add'>border:0px</cfif>">	
 		<cfloop query="getlist">
 			<option value="#grouplistcode#" <cfif client.contractreason eq grouplistcode>selected</cfif>>#Description#</option>
 		</cfloop>

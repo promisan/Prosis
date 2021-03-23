@@ -36,9 +36,9 @@ function detail(cls,mis,dte) {
 }	
 
 
-// function treeview(mis,man,tree) {
-//	ptoken.open('#SESSION.root#/system/organization/Tree/OrgTree.cfm?link=#link#&mission='+mis+'&mandateno='+man+'&tree='+tree,'tree'+mis);
-// }
+ function treeview(mis,man,tree) {
+	ptoken.open('#SESSION.root#/system/organization/Tree/OrgTree.cfm?link=#link#&mission='+mis+'&mandateno='+man+'&tree='+tree,'tree'+mis);
+ }
 
 function positionview(mis,man,tree) {
 	ptoken.open('#SESSION.root#/Staffing/Portal/Staffing/StaffingPosition.cfm?header=1&mission='+mis+'&mandateno='+man,'tree'+mis);

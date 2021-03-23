@@ -1,6 +1,7 @@
   
 <cfparam name="Attributes.Language"    default="">
 <cfparam name="Attributes.Context"     default="">
+<cfparam name="attributes.datasource"     default="appsOrganization">
 <cfparam name="Attributes.Id"          default="">
 <cfparam name="Attributes.Disclaimer"  default="Yes">
 
@@ -10,10 +11,12 @@
 
 <cfoutput>
 
-	<cfquery name="user" 
-		datasource="appsSystem">
+	<cfquery name="user" 		
+		datasource="#attributes.datasource#"
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
 			SELECT   *
-		    FROM     UserNames
+		    FROM     System.dbo.UserNames
 			WHERE    Account = '#session.acc#' 
 	</cfquery>
 	
@@ -22,12 +25,12 @@
 	<cfif user.PersonNo neq "">
 	
 		<cfquery name="Function" 
-		datasource="AppsEmployee" 
+		datasource="#attributes.datasource#" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			SELECT      P.FunctionDescription, O.OrgUnitName, O.Mission, M.MissionName
-			FROM        PersonAssignment AS PA INNER JOIN
-		                Position AS P ON PA.PositionNo = P.PositionNo INNER JOIN
+			FROM        Employee.dbo.PersonAssignment AS PA INNER JOIN
+		                Employee.dbo.Position AS P ON PA.PositionNo = P.PositionNo INNER JOIN
 		                Organization.dbo.Organization AS O ON PA.OrgUnit = O.OrgUnit inner join
 						Organization.dbo.Ref_Mission M ON O.Mission = M.Mission
 			WHERE       PA.PersonNo = '#user.PersonNo#' 
@@ -39,11 +42,11 @@
 		<cfif Function.Mission neq "">
 		
 			<cfquery name="Mission" 
-			datasource="AppsOrganization" 
+			datasource="#attributes.datasource#" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				SELECT *
-				FROM   Ref_Mission
+				FROM   Organization.dbo.Ref_Mission
 				WHERE  Mission = '#Function.Mission#'
 			</cfquery>
 			

@@ -128,11 +128,11 @@ password="#SESSION.dbpw#">
 		        </cfif>
 							
 				<!---RFUENTES 21/5/2015 adding: CC for the accounts that are Result Class  ---->
-				<cfif url.costcenter neq "All">
+				<cfif url.costcenter neq "All" and url.costcenter neq "" and url.costcenter neq "undefined">
 				AND	   T.OrgUnit IN ('#URL.costcenter#')			
 				</cfif>
 	
-				<cfif url.owner neq "All">
+				<cfif url.owner neq "All" and url.owner neq "" and url.owner neq "undefined" and curPeriod.AdministrationLevel neq "Tree">
 				AND	   J.OrgUnitOwner IN ('#URL.owner#')			
 				</cfif>
 				

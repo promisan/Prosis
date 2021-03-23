@@ -211,7 +211,7 @@
 		        <tr height="40px"><td></td></tr>
 			</table>
 								    					
-			<cf_MailDefaultFooter disclaimer="HideSignature" context="workflow" id="#qObject.ObjectId#" displaylogo="0">
+			<cf_MailDefaultFooter disclaimer="HideSignature" datasource="appsOrganization" context="workflow" id="#qObject.ObjectId#" displaylogo="0">
 			
 						
 		</body>

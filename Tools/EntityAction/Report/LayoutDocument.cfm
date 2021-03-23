@@ -38,8 +38,7 @@
 	<body>
 
 		<table width="99%" id="tmain">
-		
-				
+						
 		<cfif Attributes.TitleLine1 neq "" or
 		  Attributes.Logo neq "" or
 		  Attributes.TitleLine2 neq "" or 
@@ -50,10 +49,11 @@
 		  <tr align="center" valign="top">
 				<td colspan="3" height="60" width="100%" style="padding-top:20px">
 				
-					<table width="100%" cellspacing="0" cellpadding="0">
+					<table width="100%">
 
 						<tr>
 						    <cfif Attributes.TitleLine1 neq "">
+							
 							<td valign="bottom" align="right" width="45%" class="serif">
 								<cfoutput>#Attributes.TitleLine1#</cfoutput>
 							</td>
@@ -64,19 +64,30 @@
 								<cfoutput>#Attributes.TitleLine2#</cfoutput>
 							
 							</td>
-							<cfelse>							
+							
+							<cfelse>	
+													
 							<td align="center" width="25%">
 								<cfoutput>#Attributes.Logo#</cfoutput>
 							</td>
-							<td valign="bottom" align="left" width="75%" class="serif">
-								<cfoutput>#Attributes.TitleLine2#</cfoutput>
 							
+							<td valign="bottom" align="left" width="75%">
+							 
+							    <table>
+								<tr><td class="serif"><cfoutput>#Attributes.TitleLine2#</cfoutput></td></tr>
+								<cfif attributes.TitleLine3 neq "">
+								<tr><td style="font-size:16px"><cfoutput>#Attributes.TitleLine3#</cfoutput></td></tr>
+								</cfif>
+								</table>							   
+														
 							</td>
+							
 							</cfif>
 							
 						</tr>
 						
 						<cfswitch expression="#Attributes.Class#">
+						
 						<cfcase value="Memo">
 							<tr>
 							    <cfif Attributes.TitleLine3 neq "">
@@ -92,6 +103,7 @@
 						</cfcase>
 						
 						<cfcase value="Letter">
+						
 							<cfif Attributes.TitleLine3 neq "">
 							<tr>
 								<td colspan="3" align="center" class="serif_small">
@@ -114,6 +126,7 @@
 							</tr>
 							</cfif>														
 						</cfcase>
+						
 						<cfcase value="Note">
 							<tr>
 								<td colspan="3" align="center">
@@ -132,7 +145,8 @@
 								</td>
 							</tr>
 							</cfif>														
-						</cfcase>														
+						</cfcase>		
+																		
 						</cfswitch>						
 
 					</table>

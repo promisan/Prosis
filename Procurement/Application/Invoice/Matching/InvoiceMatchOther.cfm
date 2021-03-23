@@ -26,10 +26,9 @@ password="#SESSION.dbpw#">
 <!--- show related invoice instances --->
 <!--- ------------------------------ --->
 			
-<cfif Other.recordcount gt "1">
-			
+<cfif Other.recordcount gt "1">			
 	
-	     <table width="100%" cellspacing="0" cellpadding="0" align="center">
+	     <table width="100%" align="center" class="formspacing">
 								 
 	     <cfoutput query="Other">
 		 
@@ -67,7 +66,7 @@ password="#SESSION.dbpw#">
 			 						  
 		</td>
 		 				 
-		 <td width="20">#InvoiceSerialNo#.</td>
+		 <td style="padding-left:4px;background-color:e6e6e6" width="20">#InvoiceSerialNo#.</td>
 		 <td>
 		 	<cfif files gte "1">
 			 <a title="recorded" href="javascript:moreattachments('#InvoiceId#','#currentrow#','#mission#')">

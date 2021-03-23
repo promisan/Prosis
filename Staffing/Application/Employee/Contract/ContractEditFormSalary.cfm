@@ -3,45 +3,48 @@
   											
 	<tr id="editfield" name="editfield">		
 	
-	  	<TD style="padding-left:5px" class="labelmedium bcell">
+	  	<TD style="padding-left:5px" class="labelmedium2 bcell">
 		<cfif mode eq "edit" or last eq "1">
-			<a href="javascript:selectscale('#url.id#','#contractsel.contractType#','#url.id1#')"><u><cf_tl id="Grade"> / <cf_tl id="Step"></font></a>:		
+			<a href="javascript:selectscale('#url.id#','#contractsel.contractType#','#url.id1#')"><u><cf_tl id="Grade"> / <cf_tl id="Step"></a>:		
 		<cfelse>
 			<cf_tl id="Grade"> / <cf_tl id="Step">
 		</cfif>
 		</TD>
-		    
+		
+				    
 			<cfif mode eq "view">
-				<td class="labelmedium ccell" style="height:28px" bgcolor="#pclr#">#ContractSel.ContractLevel# / #ContractSel.ContractStep#</td>						
+				<td class="labelmedium2 ccell" style="padding-left:5px;height:28px" bgcolor="#pclr#">#ContractSel.ContractLevel# / #ContractSel.ContractStep#</td>						
 			</cfif>
 			
 			<cfif mode eq "edit" or last eq "1"> 
 			
-			   <td class="ccell" height="28" bgcolor="#color#" id="editfield" name="editfield" style="border-right:1px solid silver">	
+			   <td class="ccell" height="28" bgcolor="#color#" id="editfield" name="editfield" style="background-color:BFECFB;">	
 			   
 			   	  <table>
-				  <tr><td>
+				  <tr><td style="padding-right:3px">
 			
 			   		<input type="text" 
 					    id="contractlevel"
 						name="contractlevel"  
 						value="#ContractSel.ContractLevel#" 
 						size="10" 						
-						class="regularxl"
+						class="regularxxl"
 						maxlength="20" 
-						style="padding-left:6px;text-align:left;width:50;background-color:ffffff;border:0px;border-right:1px solid silver"
+						style="padding-left:6px;text-align:left;width:50;background-color:transparent;border:0px;"
 						readonly>
 						
 					</td>
+					
+					<td>-</td>
 					
 					<td style="padding-left:3px" id="boxcontractstep">	
 										
 						<input type="text" 		
 						    id="contractstep"				
 							name="contractstep" 
-							class="regularxl"
+							class="regularxxl"
 							value="#ContractSel.ContractStep#" 
-							style="width:30;text-align:left;background-color:fffffff;border:0px;border-right:1px solid silver" 
+							style="width:30;text-align:left;background-color:transparent;border:0px;border-right:1px solid silver" 
 							maxlength="4" 
 							readonly>
 						
@@ -75,17 +78,17 @@
 			</cfif>
 			<cfif mode eq "edit" or last eq "1"> 	
 			
-			   <td bgcolor="#color#" id="editfield" name="editfield" class="ccell"><table>
+			   <td bgcolor="#color#" id="editfield" style="background-color:BFECFB" name="editfield" class="ccell"><table>
 			   <tr>
-			   <td height="28" style="padding-left:2px">
+			   <td height="28" style="padding-left:2px;padding-right:3px">
 			   		   
 				<input type="text" 
 				    id="servicelocation" 
 				   	name="servicelocation"
-					class="regularxl"
+					class="regularxxl"
 					value="#ContractSel.ServiceLocation#" 
 					size="3" 
-					style="background-color:ffffff;border:0px"
+					style="background-color:transparent;border:0px"
 					maxlength="4" 
 					readonly>
 					
@@ -100,15 +103,15 @@
 						WHERE    LocationCode = '#ContractSel.ServiceLocation#'
 					</cfquery>		
 				
-					<td style="padding-left:2px">
+					<td style="padding-left:2px;padding-right:3px">
 					
 					<input type="text" 
 					    id="servicelocationname" 
 					   	name="servicelocationname"
-						class="regularxl"
+						class="regularxxl"
 						value="#loc.description#" 
 						size="40" 
-						style="background-color:ffffff;border:0px"
+						style="background-color:transparent;border:0px"
 						maxlength="4" 
 						readonly>
 					
@@ -139,7 +142,7 @@
 				</td>
 			</cfif>
 			<cfif mode eq "edit" or last eq "1"> 
-				<td class="ccell" style="padding-left:7px" height="28" bgcolor="#color#" id="editfield" name="editfield">
+				<td class="ccell" style="padding-left:7px;background-color:BFECFB" height="28" bgcolor="#color#" id="editfield" name="editfield">
 				
 					<cfquery name="schedule" 
 					datasource="AppsPayroll" 
@@ -153,8 +156,8 @@
 					<input type   = "text" 
 					    id        = "salaryschedulename"					    
 						name      = "salaryschedulename" 
-						class     = "regularxl"
-						style     = "border:0px"
+						class     = "regularxxl"
+						style     = "border:0px;background-color:transparent"
 						value     = "#Schedule.Description#" 
 						size      = "40" 
 						maxlength = "40"
@@ -181,7 +184,7 @@
 		    					
 			<cfif mode eq "view">
 			
-				<td class="labelmedium ccell" bgcolor="#pclr#">
+				<td class="labelmedium ccell" style="padding-left:5px;" bgcolor="#pclr#">
 				<cfif ContractSel.StepIncreaseDate eq "">
 			 		--
 				<cfelse>
@@ -231,10 +234,10 @@
 			  
 				    <td class="ccell" height="28" bgcolor="#color#" id="editfield" name="editfield">
 					<table><tr><td style="padding-right:4px;border-right:1px solid silver;padding-left:1px">	
-				   	<input type="text" class="regularxlbl" size="2" maxlength="4" value="#Schedule.PaymentCurrency#" id="currency" name="currency"> 		   
+				   	<input type="text" class="regularxxlbl" size="2" maxlength="4" value="#Schedule.PaymentCurrency#" id="currency" name="currency"> 		   
 					</td>
 					<td style="padding-left:4px;padding-right:4px;border-right:1px solid silver">
-					<cfinput type="Text" class="regularxlbl" style="text-align:right" id="ContractSalaryAmount" name="ContractSalaryAmount" value="#ContractSel.ContractSalaryAmount#" message="Please enter a valid number" validate="float" required="No" size="10" maxlength="10">
+					<cfinput type="Text" class="regularxxlbl" style="text-align:right" id="ContractSalaryAmount" name="ContractSalaryAmount" value="#ContractSel.ContractSalaryAmount#" message="Please enter a valid number" validate="float" required="No" size="10" maxlength="10">
 					</td></tr></table>
 					</td>				
 				
@@ -254,10 +257,10 @@
 		   					  
 			    <td class="ccell" height="28" bgcolor="#color#" id="editfield" name="editfield">
 				<table><tr><td style="padding-right:4px;border-right:1px solid silver;padding-left:1px">	
-			   	<input type="text" class="regularxlbl" size="2" maxlength="4" value="#Schedule.PaymentCurrency#" id="currency" name="currency"> 		   
+			   	<input type="text" class="regularxxlbl" size="2" maxlength="4" value="#Schedule.PaymentCurrency#" id="currency" name="currency"> 		   
 				</td>
 				<td style="padding-left:4px;padding-right:4px;border-right:1px solid silver">
-				<cfinput type="Text" class="regularxlbl" style="text-align:right" id="ContractSalaryAmount" name="ContractSalaryAmount" value="#ContractSel.ContractSalaryAmount#" message="Please enter a valid number" validate="float" required="No" size="10" maxlength="10">
+				<cfinput type="Text" class="regularxxlbl" style="text-align:right" id="ContractSalaryAmount" name="ContractSalaryAmount" value="#ContractSel.ContractSalaryAmount#" message="Please enter a valid number" validate="float" required="No" size="10" maxlength="10">
 				</td></tr></table>
 				</td>
 							 	 		

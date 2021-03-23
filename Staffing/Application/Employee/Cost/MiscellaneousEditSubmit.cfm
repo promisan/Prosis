@@ -66,23 +66,28 @@ AND    CostId   = '#Form.CostId#'
 		
 		<cfif check.recordcount eq "1">
 		
-		 <cfquery name="EditEntitlement" 
-		   datasource="AppsPayroll" 
-		   username="#SESSION.login#" 
-		   password="#SESSION.dbpw#">
-			   UPDATE PersonMiscellaneous
-			   SET    DateEffective      = #STR#,
-					  DocumentDate       = #END#,
-					  PayrollStart       = #PAY#,
-					  PayrollItem        = '#Form.Entitlement#',
-					  DocumentReference  = '#Form.DocumentReference#',
-					  EntitlementClass   = '#Form.EntitlementClass#',
-					  Currency           = '#Form.Currency#',
-					  Amount             = '#Form.Amount#',
-					  Remarks            = '#Remarks#'
-			   WHERE  PersonNo           = '#Form.PersonNo#' 
-			   AND    CostId             = '#Form.CostId#' 
-		   </cfquery>
+			 <cfquery name="EditEntitlement" 
+			   datasource="AppsPayroll" 
+			   username="#SESSION.login#" 
+			   password="#SESSION.dbpw#">
+				   UPDATE PersonMiscellaneous
+				   SET    DateEffective      = #STR#,
+						  DocumentDate       = #END#,
+						  PayrollStart       = #PAY#,
+						  PayrollItem        = '#Form.Entitlement#',
+						  DocumentReference  = '#Form.DocumentReference#',
+						  EntitlementClass   = '#Form.EntitlementClass#',
+						  <cfif form.EntitlementClass neq "Deduction">
+						  <!--- the user removed the option to process as deduction --->
+						  Source             = 'Manual',
+						  SourceId           = NULL,					  
+						  </cfif>
+						  Currency           = '#Form.Currency#',
+						  Amount             = '#Form.Amount#',
+						  Remarks            = '#Remarks#'
+				   WHERE  PersonNo           = '#Form.PersonNo#' 
+				   AND    CostId             = '#Form.CostId#' 
+			   </cfquery>
 		   
 		  </cfif> 
 	  

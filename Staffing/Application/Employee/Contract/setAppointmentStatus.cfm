@@ -74,7 +74,7 @@
 
 <cfset selected = list.code>
 
-<select name="appointmentstatus" id="appointmentstatus" size="1" class="regularxl" style="width:99%;border:0px" 
+<select name="appointmentstatus" id="appointmentstatus" size="1" class="regularxxl" style="width:99%;border:0px" 
  onchange="ptoken.navigate('#SESSION.root#/staffing/Application/Employee/Contract/getAppointmentStatus.cfm?contractid=#url.Contractid#&appointmentstatus='+this.value,'appointmentmemo')">
 	<cfloop query="List">	
 	<option value="#Code#" <cfif Code eq url.appointment>selected</cfif>>

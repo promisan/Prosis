@@ -155,7 +155,7 @@ password="#SESSION.dbpw#">
 
 </cfoutput>
 
-<cfajaximport tags="cfwindow,cfdiv">
+<cfajaximport tags="cfdiv">
 <cfinclude template="InvoiceEntryMatchRequisitionScript.cfm">
 
 <cf_calendarscript>
@@ -230,7 +230,7 @@ password="#SESSION.dbpw#">
 
 <cfif Line.recordcount eq "0">
 
-	<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="99%" align="center" class="formpadding">
 		<tr>
 			<td height="50" align="center"><font face="Calibri" size="2"><i><cf_tl id="No Purchase Order selected. Action can not be completed">.</i></font></td>
 		</tr>
@@ -339,10 +339,12 @@ password="#SESSION.dbpw#">
 
 </cfoutput>
 
+<cf_divscroll>
+
 <cfform action="InvoiceEntrySubmit.cfm?invoiceclass=#cls#&warehouse=#url.warehouse#&html=#html#&Mode=new&Guid=#GUID#&Period=#URL.Period#&PurchaseNo=#URL.PurchaseNo#" 
 		method="POST" target="result" name="forminvoice">
 				        
-<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="formspacing formpadding">
+<table width="99%" align="center" class="formspacing formpadding">
  		
 <tr class="hide"><td><iframe name="result" id="result" width="100%" height="100"></iframe></td></tr>
 			
@@ -403,7 +405,7 @@ password="#SESSION.dbpw#">
         
 	<td> 
 					
-	  <table width="100%" align="center" class="formpadding">
+	  <table width="100%" align="center" class="formspacing">
 	  
 	    <tr class="line"><td colspan="2" style="font-size:27px;font-weight:200;height:45px;padding-left:18px" class="labelmedium"><cf_tl id="Invoice Registration"></td></tr>
 				  			  			
@@ -476,7 +478,7 @@ password="#SESSION.dbpw#">
 			 
 			 </cfif>
 			
-			  <select name="orgunitowner" id="orgunitowner" class="enterastab regularxl">
+			  <select name="orgunitowner" id="orgunitowner" class="enterastab regularxxl">
 			    <cfoutput query="Owner">
      		     	  <option value="#OrgUnit#" <cfif PO.OrgUnit eq OrgUnit>selected</cfif>>#OrgUnitName#</option>
          	    </cfoutput>  
@@ -510,7 +512,7 @@ password="#SESSION.dbpw#">
 					  ORDER BY HierarchyCode
 				 </cfquery>
 				 
-			    <select name="OrgUnitCenter" id="OrgUnitCenter" class="enterastab regularxl">
+			    <select name="OrgUnitCenter" id="OrgUnitCenter" class="enterastab regularxxl">
 			    <cfoutput query="Center">
      		     	  <option value="#OrgUnit#" <cfif PO.OrgUnit eq OrgUnit>selected</cfif>>#orgunit# - #OrgUnitName#</option>
          	    </cfoutput>  
@@ -547,7 +549,7 @@ password="#SESSION.dbpw#">
 					AND    Period IN (SELECT Period FROM Program.dbo.Ref_Period WHERE DateEffective >= '#Period.DateEffective#')					
 				</cfquery>
 	    	 
-			    <select name="Period" id="Period" size="1" class="regularxl enterastab">
+			    <select name="Period" id="Period" size="1" class="regularxxl enterastab">
 				    <option value="" selected><cf_tl id="All"></option>
 				    <cfoutput query="tPeriod">
 						<option value="#Period#" <cfif PO.Period eq Period>selected</cfif> >#Period#</option>
@@ -563,7 +565,7 @@ password="#SESSION.dbpw#">
            <td colspan="1" width="70%">	 
      	   
 	    	   <cf_intelliCalendarDate9
-			      Class="regularxl enterastab"
+			      Class="regularxxl enterastab"
     		      FieldName="documentdatereceived" 
 				  Manual="True"				
 				  DateValidEnd="#Dateformat(now()+1, 'YYYYMMDD')#"
@@ -652,7 +654,7 @@ password="#SESSION.dbpw#">
 				</TD>
 				
 			    <TD>    		
-					<select name="OrderType" id="OrderType" class="regularxl enterastab">
+					<select name="OrderType" id="OrderType" class="regularxxl enterastab">
 					    <cfoutput query="OrderType">
 							<option value="#Code#" <cfif PO.OrderType eq "#code#">selected</cfif>>#Description#</option>
 						</cfoutput>
@@ -669,12 +671,12 @@ password="#SESSION.dbpw#">
 			   
 				   <tr>
 				   <td>			   
-				   <cfinput type="Text" style="width:100px;padding-left:5px" class="regularxl enterastab" name="invoiceseries" value="" required="No" size="10" maxlength="10"> 
+				   <cfinput type="Text" style="width:100px;padding-left:5px" class="regularxxl enterastab" name="invoiceseries" value="" required="No" size="10" maxlength="10"> 
 				   </td>
 				   
 				   <td style="padding-left:3px">				   
 				   <cf_tl id="Record an invoice no" var="inv">		   
-				   <cfinput type="Text" class="regularxl enterastab" name="invoiceno" value="" message="#inv#" required="Yes" size="25" maxlength="30"> 
+				   <cfinput type="Text" class="regularxxl enterastab" name="invoiceno" value="" message="#inv#" required="Yes" size="25" maxlength="30"> 
 				   </td>
 				   </tr>
 			   
@@ -688,14 +690,14 @@ password="#SESSION.dbpw#">
 			  <tr>		  
 			   <td class="labelmedium" style="padding-left:23px"><cf_tl id="Issued by">:</TD>
 	           <td colspan="1">			   	   
-				  <cfinput type="Text" class="regularxl enterastab" name="InvoiceIssued" value="" required="No" size="40" maxlength="60"> 			
+				  <cfinput type="Text" class="regularxxl enterastab" name="InvoiceIssued" value="" required="No" size="40" maxlength="60"> 			
 			   </td>						  
 			  </tr>
 			 
 			  <tr>		  
 			   <td class="labelmedium" style="padding-left:23px"><cf_tl id="Issue Reference">:</TD>
 	           <td colspan="1">			   	   
-				  <cfinput type="Text" class="regularxl enterastab" name="InvoiceReference" value="" required="No" size="20" maxlength="20"> 			
+				  <cfinput type="Text" class="regularxxl enterastab" name="InvoiceReference" value="" required="No" size="20" maxlength="20"> 			
 			   </td>						  
 			  </tr>
 		 
@@ -704,7 +706,7 @@ password="#SESSION.dbpw#">
 			<tr>		  
 			   <td class="labelmedium" style="padding-left:23px"><cf_tl id="Reference">:</TD>
 	           <td colspan="1">			   	   
-				  <cfinput type="Text" class="regularxl enterastab" name="InvoiceReference" value="" required="No" size="40" maxlength="40"> 			
+				  <cfinput type="Text" class="regularxxl enterastab" name="InvoiceReference" value="" required="No" size="40" maxlength="40"> 			
 			   </td>						  
 			  </tr>
 			  
@@ -722,7 +724,7 @@ password="#SESSION.dbpw#">
            <td colspan="1">	 
      	   
 	    	   <cf_intelliCalendarDate9
-			      Class="regularxl enterastab"
+			      Class="regularxxl enterastab"
 				  Manual="False"
     		      FieldName="documentdate" 
 				  scriptdate="terms"
@@ -778,7 +780,7 @@ password="#SESSION.dbpw#">
 				     <td>
 					 
 					 <table><tr><td>
-						  <select name="actionterms" id="actionterms" onChange="terms(this.value)" class="regularxl enterastab">
+						  <select name="actionterms" id="actionterms" onChange="terms(this.value)" class="regularxxl enterastab">
 							
 				   		      <option value=""><cf_tl id="None"></option>  
 							  <cfoutput query="Terms">
@@ -795,14 +797,14 @@ password="#SESSION.dbpw#">
 			   
 		</tr>
 		
-		<tr class="line">		
+		<tr>		
 					  
 		  	  <td class="labelmedium" style="padding-left:23px;padding-right:10px"><cf_tl id="Due date">:</td>
 			  
 			  <td>
    	  
 			   <cf_intelliCalendarDate9
-			      Class="Regularxl enterastab"
+			      Class="regularxxl enterastab"
 			   	  FieldName="actionbefore" 
 				  Manual="False"
 				  DateValidStart="#Dateformat(now()-380, 'YYYYMMDD')#"
@@ -812,14 +814,14 @@ password="#SESSION.dbpw#">
 						  
 		</tr>				  
 		
-		<tr id="discount" class="line">	   
+		<tr id="discount">	   
 	    
 		      <td class="labelmedium" style="padding-left:23px;padding-right:10px"><cf_tl id="Discount date">:</td>		   
 
 			   <td>
 			    							  
 		  		 <cf_intelliCalendarDate9
-				      Class="Regularxl enterastab"
+				      Class="regularxxl enterastab"
 				   	  FieldName="actiondiscountdate" 
 					  Manual="True"
 					  DateValidStart="#Dateformat(now()-380, 'YYYYMMDD')#"
@@ -843,7 +845,7 @@ password="#SESSION.dbpw#">
 				</cfif>
 		  </cfquery>	
 		 			  
-		  <TR class="line"> 
+		  <TR> 
 		 
               <TD style="padding-left:23px" class="labelmedium">
 			  
@@ -858,7 +860,7 @@ password="#SESSION.dbpw#">
 			  				
               <td colspan="1">	
 			  
-			  	<table cellspacing="0" cellpadding="0" class="formpadding">
+			  	<table class="formpadding">
 				 
 				  <tr>	
 				  
@@ -966,7 +968,7 @@ password="#SESSION.dbpw#">
 					
 						<td>		  
 							  
-				  	   <select name="currency" id="currency" onChange="tagging (); checkJournal('<cfoutput>#PO.PurchaseNo#</cfoutput>');" class="regularxl enterastab">
+				  	   <select name="currency" id="currency" onChange="tagging (); checkJournal('<cfoutput>#PO.PurchaseNo#</cfoutput>');" class="regularxxl enterastab">
 					    <cfoutput query="CurrencySelect">
 		     		   	  <option value="#Currency#" <cfif Currency eq curr>selected</cfif>>#Currency#</option>
 		         	    </cfoutput>  
@@ -984,7 +986,7 @@ password="#SESSION.dbpw#">
 						       enabled="Yes"
 						       size="10"
 							   value="#numberformat(total,",.__")#"
-							   class="regularxl enterastab"
+							   class="regularxxl enterastab"
 						       maxlength="15"
 						       style="text-align: right;"
 							   onchange="#tag#;_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoicePayable.cfm?documentamount='+this.value+'&tax=0&tag=no','payable')">						    
@@ -1000,7 +1002,7 @@ password="#SESSION.dbpw#">
 							   value     = "#numberformat(total,",.__")#"							  
 						       enabled   = "Yes"
 						       size      = "10"
-							   class     = "regularxl enterastab"
+							   class     = "regularxxl enterastab"
 							   style     = "text-align: right;"
 						       maxlength = "15"
 							   onchange  = "ColdFusion.navigate('#SESSION.root#/procurement/application/invoice/InvoiceEntry/InvoiceExemption.cfm?tag=#tag#&documentamount='+this.value+'&tax='+tax.value,'exemption')">
@@ -1050,7 +1052,7 @@ password="#SESSION.dbpw#">
 										message="Enter a valid percentage" 
 										validate="float" 
 										required="Yes" 
-										class="regularxl enterastab"										
+										class="regularxxl enterastab"										
 										style="text-align: center;width:25" 
 										onChange="ptoken.navigate('InvoiceExemption.cfm?tag=#tag#&documentamount='+documentamount.value+'&tax='+this.value,'exemption')">
 										
@@ -1068,7 +1070,7 @@ password="#SESSION.dbpw#">
 											   readonly											   
 											   value="0.00"				      
 										       size="15"
-											   class="regularxl enterastab"
+											   class="regularxxl enterastab"
 										       maxlength="15"										      
 											   style="border:0px;font-size:14px;height:19;text-align: left;padding-right:2px" >
 											   
@@ -1099,7 +1101,7 @@ password="#SESSION.dbpw#">
 			 </cfif>
 			 
 							
-			 <TR class="line"> 
+			 <TR> 
 				 	 
         	  <TD style="cursor: pointer;padding-left:23px" class="labelmedium"><font color="006688"> 
 			    <cf_UIToolTip tooltip="Adjusted Invoice Amount after the Tax exemption correction"><cf_tl id="Amount Charge">:</cf_UIToolTip></TD>
@@ -1128,10 +1130,10 @@ password="#SESSION.dbpw#">
 					       readonly
 						   value   =  "#numberformat(total,',.__')#"	
 		    		       visible =  "Yes"
-						   class   =  "regularxl enterastab"
+						   class   =  "regularxxl enterastab"
 					       enabled =  "Yes"				       
 					       maxlength= "15"
-					       style    = "width:160px;background-color:f4f4f4;border:1px solid silver;font-size:17px;height:26;text-align:right;padding-right:2px">					   					
+					       style    = "width:160px;background-color:f4f4f4;border:1px solid silver;font-size:17px;text-align:right;padding-right:2px">					   					
 					   
 					   </cfoutput>
 						   
@@ -1180,7 +1182,7 @@ password="#SESSION.dbpw#">
 			</cfif>		  			
 					
 					
-			<tr class="line"><td colspan="2" style="height:50px;font-size:27px;font-weight:200;padding-left:18px" class="labelmedium line"><cf_tl id="Invoice Payable Funding"></b></td></tr>
+			<tr><td colspan="2" style="height:50px;font-size:27px;font-weight:200;padding-left:18px" class="labelmedium line"><cf_tl id="Invoice Payable Funding"></b></td></tr>
 						
 			<!--- ---------------------------------------- --->	
 			<!--- for matching invoice against requisition --->
@@ -1301,11 +1303,12 @@ password="#SESSION.dbpw#">
 			  </cfif>
 			  			 		 
 	 </table>
+	 
+	 </td>
+	 </tr>
+	 </table>
 	 	 
 	  </cfform>  
 	 	 
- </td></tr>
-	 
-</table>
+</cf_divscroll>
 	
-<cf_screenbottom layout="innerbox">

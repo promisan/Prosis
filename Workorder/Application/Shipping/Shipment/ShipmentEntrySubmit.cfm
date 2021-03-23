@@ -472,7 +472,7 @@ password="#SESSION.dbpw#">
 	<cfoutput>
 	
 	<input type="submit" name="Submit" value="Submit" style="width:200" class="button10G" 
-		  onclick="ColdFusion.navigate('ShipmentEntrySubmit.cfm?systemfunctionid=#url.systemfunctionid#&workorderid=#url.workorderid#','submitbox','','','POST','shipmentform')">
+		  onclick="ptoken.navigate('ShipmentEntrySubmit.cfm?systemfunctionid=#url.systemfunctionid#&workorderid=#url.workorderid#','submitbox','','','POST','shipmentform')">
 		  
 	</cfoutput>	  
 	

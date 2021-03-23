@@ -184,7 +184,15 @@
 	
 </cfloop>	
 
-<cfset link   = new>	
+<cfset link   = new>
+
+<cfif findNoCase('Android', cgi.http_user_agent,1) OR
+	findNoCase('iPhone', cgi.http_user_agent,1) OR
+	findNoCase('iPad', cgi.http_user_agent,1)>
+	<cfset vLimit = 2>
+<cfelse>
+	<cfset vLimit = 5>
+</cfif>
 
 <table cellpadding="0" cellspacing="0">
 
@@ -281,7 +289,7 @@
 
 			<td style="width:3px"></td>
 		
-		<cfif cnt eq 5>
+		<cfif cnt eq vLimit>
         </tr>		
 		<tr><td height="4"></td></tr>		
 		<cfset cnt= 0>		

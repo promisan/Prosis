@@ -61,7 +61,11 @@ password="#SESSION.dbpw#">
 					   (SELECT   TOP 1 ExchangeRate
 					    FROM     CurrencyExchange
 					    WHERE    Currency       = '#curr#'
+						<cfif GLaccount.accountclass eq "Result">
 						AND      EffectiveDate <= T.TransactionDate
+						<cfelse>
+						AND      EffectiveDate <= J.TransactionDate
+						</cfif>
 						ORDER BY EffectiveDate DESC) as DateExchangeRate
 						
 						<cfelse>
@@ -120,13 +124,16 @@ password="#SESSION.dbpw#">
 				AND  J.Mission = '#URL.Mission#'
 				
 				<!---RFUENTES 21/5/2015 adding: CC for the accounts that are Result Class  ---->
-				<cfif url.costcenter neq "All">
-				AND	   T.OrgUnit IN ('#URL.costcenter#')			
+				<cfif url.costcenter neq "All" and url.costcenter neq "" and url.costcenter neq "undefined">
+				AND	   T.OrgUnit IN ('#URL.costcenter#')							
 				</cfif>
-	
-				<cfif url.owner neq "All">
-				AND	   J.OrgUnitOwner IN ('#URL.owner#')			
+				
+								
+				<cfif url.owner neq "All" and url.owner neq "" and url.owner neq "undefined" and curPeriod.AdministrationLevel neq "Tree">
+				AND	   J.OrgUnitOwner IN ('#URL.owner#')					
 				</cfif>
+							
+				
 				
 				<!--- RFUENTES 12/10/2015 added: to filter only valid transactions ----->
 				AND J.RecordStatus    != '9'
@@ -145,9 +152,10 @@ password="#SESSION.dbpw#">
 						 J.Description, 
 						 J.JournalTransactionNo, 
 						 J.DocumentDate, 
-						 T.Currency				
-										
+						 T.Currency		
+																						
 			</cfquery>
+		
 			
 </cfif>			
 					

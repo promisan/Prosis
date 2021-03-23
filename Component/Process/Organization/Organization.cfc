@@ -55,6 +55,73 @@
 		
 		<cfreturn scope>	
 						
+	</cffunction>	
+	
+	<cffunction name="getUnit"
+        access="remote"
+        returntype="any" 
+		returnformat="plain" 
+		output="No"
+        displayname="Obtain from an orgunit specific information">	
+		
+		<cfargument name="OrgUnit" type="string" required="true">
+		<cfargument name="Action"  type="string"  default="getrecord" required="yes">
+		<cfargument name="Level"   type="string" required="true" default="2">
+		
+		<cfswitch expression="Action">
+		
+			<cfcase value="getrecord">
+			
+				<cfquery name="get" 
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					    SELECT   *
+						FROM     Organization 				
+						WHERE    OrgUnit = '#OrgUnit#'				
+					</cfquery>	
+				
+				<cfset lvl = "1">
+				
+				<cfloop index="itm" list="#get.HierarchyCode#" delimiters=".">		
+					<cfset lvl = lvl + 1>		
+				</cfloop>
+				
+				<cfif lvl lte level>
+				
+					<cfset orgresult = get>
+					
+				<cfelse>
+				
+					<cfset up = lvl - level>
+									
+					<cfloop index="itm" from="1" to="#up#">
+					
+						<cfset par = get.parentOrgUnit>
+						
+						<cfquery name="get" 
+						datasource="AppsOrganization" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						    SELECT   *
+							FROM     Organization 				
+							WHERE    Mission     = '#get.Mission#'				
+							AND      MandateNo   = '#get.MandateNo#'
+							AND      OrgUnitCode = '#par#'
+						</cfquery>					
+					
+					</cfloop>
+					
+					<cfset orgresult = get>						
+				
+				</cfif>		
+					
+			</cfcase>
+				
+		</cfswitch>
+		 		
+		<cfreturn result>	
+		
 	</cffunction>				
 		
 </cfcomponent>	

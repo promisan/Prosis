@@ -36,7 +36,8 @@ password="#SESSION.dbpw#">
 			                 FROM   WarehouseCategoryPriceSchedule
 					         WHERE  Warehouse IN (SELECT Warehouse FROM Warehouse WHERE Mission = '#url.mission#')
 					         AND    Category   = '#Item.Category#'
-							 AND    Operational = 1)		
+							 AND    Operational = 1)	
+							
 		</cfquery>
 
 		<cfloop query="schedule">		
@@ -54,6 +55,7 @@ password="#SESSION.dbpw#">
 								         AND    Category      = '#Item.Category#'
 										 AND    Operational   = 1
 										 AND    PriceSchedule = '#code#')
+										 
 				</cfquery>
 						
 			<cfloop query="Currency">
@@ -86,7 +88,8 @@ password="#SESSION.dbpw#">
 						AND        PriceSchedule = '#schedule.code#' 						
 						AND        Warehouse     is NULL
 						AND        Currency      = '#currency#'		
-						AND        DateEffective = #eff#							
+						AND        DateEffective = #eff#	
+										
 					</cfquery>
 					
 					<cfif check.recordcount eq "1">

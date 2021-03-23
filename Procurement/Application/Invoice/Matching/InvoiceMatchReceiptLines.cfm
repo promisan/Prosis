@@ -1,8 +1,7 @@
 
  <!--- show receipt mapping screen --->
 
-<tr><td colspan="7" style="padding-top:5px;padding-left:13px">
-
+<tr><td colspan="7" style="padding-top:5px;padding-left:13px;padding-right:10px">
 	 
 <table width="100%" align="center">
 
@@ -50,27 +49,23 @@
 						
 		</tr>
 		
-		<tr bgcolor="E6E6E6" class="labelmedium" class="line">
-				
-			   <td height="21" width="10"></td>
-			   <td><!--- Purchase ---></td>
-			   <td colspan="2" style="border-left:1px solid silver;padding-left:4px"><cf_tl id="Delivery"></td>
-			   <td width="30%" colspan="2" style="padding-left:4px;border-left:1px solid silver;border-bottom:1px dotted silver"><cf_tl id="Product"></td>						  
-			   <td style="padding-left:4px;border-left:1px solid silver"><cf_tl id="Qty"></td>
-			   <td align="center" style="padding-left:4px;border-left:1px solid silver"><cf_tl id="Curr">.</td>
-			   <td colspan="2" align="left" style="padding-left:4px;border-left:1px solid silver;padding-right:2px;border-bottom:1px dotted silver"><cf_tl id="Receipt"></td>
+		<tr bgcolor="E6E6E6" class="labelmedium2" class="line">
+							  
+			   <td colspan="4" style="border-left:0px solid silver;padding-left:4px"><cf_tl id="Delivery"></td>
+			   <td width="30%" colspan="2" style="padding-left:4px;border-left:0px solid silver;border-bottom:0px dotted silver"><cf_tl id="Product"></td>						  
+			   <td style="padding-left:4px;border-left:0px solid silver"><cf_tl id="Qty"></td>
+			   <td align="center" style="padding-left:4px;border-left:0px solid silver"><cf_tl id="Curr">.</td>
+			   <td colspan="2" align="left" style="padding-left:4px;border-left:0px solid silver;padding-right:2px;border-bottom:0px dotted silver"><cf_tl id="Receipt"></td>
 			   <cfif Parameter1.InvoiceMatchPriceActual neq "0">
-			   <td colspan="3" align="left" style="padding-left:4px;border-left:1px solid silver;padding-right:2px;border-bottom:1px dotted silver"><cf_tl id="On Invoice"></td>						   						  
+			   <td colspan="3" align="left" style="padding-left:4px;border-left:0px solid silver;padding-right:2px;border-bottom:0px dotted silver"><cf_tl id="On Invoice"></td>						   						  
 			   </cfif>
-			   <td width="1%" style="border:1px solid silver"></td>
+			   <td width="1%" style="border:0px solid silver"></td>
 				  
 		</tr>	
 			
-		<tr bgcolor="ffffaf" class="labelmedium">
-		
-			   <td style="width:2%"></td>
-			   <td style="width:2%"><!--- No ---></td>
-			   <td style="width:20%;padding-left:4px;border:1px solid silver"><cf_tl id="Date"> / <cf_tl id="Order"></td>
+		<tr bgcolor="ffffcf" class="labelmedium2">
+					   
+			   <td colspan="3" style="width:20%;padding-left:34px;border-right:1px solid silver"><cf_tl id="Date"> / <cf_tl id="Order"></td>
 			   <td style="width:8%;padding-left:4px;border:1px solid silver"><cf_tl id="Recipient"></td>
 			   <td style="padding-left:4px;border:1px solid silver"><cf_tl id="Name"></td>
 			   <td style="width:50px;padding-left:4px;border:1px solid silver"><cf_tl id="Item"></td>
@@ -83,7 +78,7 @@
 			   <td align="right" style="width:90px;border:1px solid silver;padding-right:2px"><cf_tl id="Tax"></td>
 			   <td align="right" style="width:90px;border:1px solid silver;padding-right:2px"><cf_tl id="Amount"></td>
 			   </cfif>
-			   <td width="2%" style="border:1px solid silver"></td>
+			   <td width="2%"></td>
 				  
 		</tr>
 		
@@ -290,7 +285,7 @@
 						<tr class="line labelmedium" style="height:20px">
 						</cfif>
 				    	<td height="18"></td>
-						<td>#currentrow#.</td>
+						<td style="padding-left:4px;min-width:30px">#currentrow#.</td>
 						<td style="padding-left:4px;border-left:1px solid silver">
 						   #DateFormat(DeliveryDate,CLIENT.DateFormatShow)# / #PurchaseNo# <cfif PackingSlipNo eq "">/ <a href="javascript:receipt('#ReceiptNo#','view')">#ReceiptNo#</a><cfelse>/ #PackingslipNo#</cfif>
 						</td>
@@ -395,7 +390,7 @@
 													
 						<cfif invoice.actionStatus eq "0">								
 							
-							<cfif actionstatus eq "0">
+							<cfif actionstatus eq "zzzz">
 							
 							<td  align="center" style="background-color:d3d3d3;border:1px solid silver;padding-left:2px;padding-right:2px"></td>
 							
@@ -403,7 +398,7 @@
 							
 							<td align="center" style="border:1px solid silver;padding-left:2px;padding-right:2px">
 														
-							   <input type="checkbox" class="enterastab myselect" value="'#ReceiptId#'" name="linesselect"
+							   <input type="checkbox" style="height:16px;width:16px" class="enterastab myselect" value="'#ReceiptId#'" name="linesselect"
 								 onClick="hl(this, this.checked)"
 						        <cfif (CheckLedger.ReceiptId eq ReceiptId 
 								    and CheckLedger.InvoiceId neq "")>checked</cfif>>
@@ -454,7 +449,7 @@
 	<!--- -store receipts from a deeper iframe level-- --->
     <input type="hidden" name="receipt" id="receipt">
 			
-	<tr><td height="4" colspan="2" id="match">
+	<tr><td height="4" colspan="2" id="match" style="padding-right:10px;">
 
 		<!--- -store receipts from a deeper iframe level-- --->
 	    <input type="hidden" name="receipt" id="receipt">

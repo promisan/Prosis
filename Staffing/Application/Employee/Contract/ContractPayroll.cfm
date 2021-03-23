@@ -54,6 +54,12 @@
 			<cfparam name="Form.#SalaryTrigger#" default="0">
 			<cfset val = evaluate("Form.#SalaryTrigger#")>
 			
+			<cfparam name="Form.#SalaryTrigger#_amount" default="">
+			<cfset amt = evaluate("Form.#SalaryTrigger#_amount")>
+			
+			<cfparam name="Form.#SalaryTrigger#_payrollitem" default="">
+			<cfset itm = evaluate("Form.#SalaryTrigger#_payrollitem")>		
+			
 			 <cfquery name="ClearPrior" 
 			     datasource="AppsEmployee" 
 			     username="#SESSION.login#" 
@@ -105,9 +111,66 @@
 							 )
 							 
 				  </cfquery>
-								  
-		</cfif>
-			
+				  
+			 <cfelseif amt neq "0" and LSIsNumeric(amt) and itm neq "">
+			 
+			 	<cfparam name="Form.#SalaryTrigger#_period" default="MONTH">
+				<cfset per = evaluate("Form.#SalaryTrigger#_period")>
+				
+				<cfparam name="Form.#SalaryTrigger#_currency" default="#application.basecurrency#">
+				<cfset cur = evaluate("Form.#SalaryTrigger#_currency")>		
+						 
+			 	<cfquery name="Insert" 
+					 datasource="AppsEmployee" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
+					 INSERT INTO Payroll.dbo.PersonEntitlement 
+					 
+				             (PersonNo,
+							  DateEffective,
+							  DateExpiration,
+							  <cfif form.salaryschedule neq "">
+							  SalarySchedule,
+							  </cfif>
+							  EntitlementClass,
+							  SalaryTrigger,
+							  PayrollItem,
+							  Period,
+							  Currency,
+							  Amount,
+							  Status,
+							  Remarks,
+							  ContractId,
+							  OfficerUserId,
+							  OfficerLastName,
+							  OfficerFirstName)
+							  
+					      VALUES
+						  
+						  	 ('#Form.PersonNo#',
+						      #STR#,
+							  #END#,
+							 <cfif form.salaryschedule neq "">
+							 '#Form.SalarySchedule#',
+							 </cfif>
+							 '#entitlementclass#',
+							 '#SalaryTrigger#',
+							 '#itm#',
+							 '#per#',
+							 '#cur#',
+							 '#amt#',
+							 '2', <!--- #status#', cleared by default as it is contract related --->
+							 'Generated from contract',
+							 '#ctid#',
+							 '#SESSION.acc#',
+						     '#SESSION.last#',		  
+							 '#SESSION.first#'
+							 )
+							 
+				</cfquery> 
+					 
+			 </cfif>
+						
 	</cfloop>		  
 	  	   
  </cfif>

@@ -299,7 +299,11 @@
 						 
 						 <cfif Exchange.recordcount eq "1">
 							 	<cfif amt neq "">
-								 	<cfset exp = exp+(amt*Exchange.Exchange)>
+									<cfif Exchange.Exchange neq "">
+										<cfset exp = exp+(amt*Exchange.Exchange)>
+									<cfelse>
+										<cfset exp = 1>
+									</cfif>
 								<cfelse>
 									<cfset exp = 1>
 								</cfif>

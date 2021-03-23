@@ -36,8 +36,8 @@
 					   FROM   Accounting.dbo.TransactionLine as TL INNER JOIN Accounting.dbo.TransactionHeader as TH  ON TL.Journal = TH.Journal
 					   		  AND TL.JournalSerialNo = TH.JournalSerialNo
 							  AND TH.TransactionSourceId = B.BatchId
-							  AND TH.Reference = 'Receivables'
-					   WHERE  TL.TransactionSErialNo ='0'
+							  AND TH.TransactionCategory = 'Receivables'
+					   WHERE  TL.TransactionSerialNo = '0'
 					),0) as AmountSALE,
 					
 					ISNULL((
@@ -45,7 +45,7 @@
 					   FROM   Accounting.dbo.TransactionLine as TL INNER JOIN Accounting.dbo.TransactionHeader as TH ON TL.Journal = TH.Journal
 							   AND TL.JournalSerialNo = TH.JournalSerialNo
 							   AND TH.TransactionSourceId = B.BatchId
-							   AND TH.Reference = 'Receivables'
+							   AND TH.TransactionCategory = 'Receivables'
 					   WHERE   TL.Reference = 'Sales Tax'
 					),0) as AmountTAX,
 					

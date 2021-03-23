@@ -70,7 +70,7 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-<select id="transactionperiod" name="TransactionPeriod" class="regularxl" style="border:0px" onchange="reloadForm()">
+<select id="transactionperiod" name="TransactionPeriod" class="regularxl" style="background-color:e6e6e6;border:0px" onchange="reloadForm()">
 
     <option value="" selected>All</option>
 	<cfoutput query="Period">

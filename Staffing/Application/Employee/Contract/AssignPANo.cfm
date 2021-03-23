@@ -14,7 +14,7 @@
       Parameter.PersonActionNo eq "" or 
 	  Parameter.PersonActionPrefix eq "">
 
-	<input type="text" name="PersonnelActionNo" class="regularxl"  size="12" maxlength="20">
+	<input type="text" name="PersonnelActionNo" class="regularxxl"  size="12" maxlength="20">
 
 <cfelse>
 

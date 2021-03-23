@@ -110,15 +110,15 @@ password="#SESSION.dbpw#">
 <cfif url.prepare neq "quick">
 	
 	<cfif url.mde eq "Transaction">
-		
+			
 		<cfinclude template="AccountResultListingCompress.cfm">
 			
 	<cfelseif url.mde eq "JournalTransactionNo">	
-			
+				
 		<cfinclude template="AccountResultListingAggregate.cfm">		
 						
 	<cfelse>
-			
+					
 		<cfinclude template="AccountResultListingStandard.cfm">
 					
 	</cfif>
@@ -133,8 +133,7 @@ password="#SESSION.dbpw#">
 	 layout="webapp" 
 	 height="100%" 
 	 busy="busy10.gif"
-	 label="#Group.Description#: #GLAccount.Description#" 
-	 option="Review account transactions" 
+	 label="Review #GLAccount.Description#" 	
 	 bannerheight="40" 
 	 scroll="yes">
 	 
@@ -148,74 +147,80 @@ password="#SESSION.dbpw#">
   
 		<table width="100%" height="100%">
 		
-		<tr><td colspan="2" height="40" class="noprint">
+		<tr><td colspan="2" class="noprint">
 						
 		   <cf_dialogLedger>
 		   <cf_annotationscript>
 		
-			<table width="100%">
-			<tr>
-			<td class="labelmedium" style="height:35px;font-size:20px;padding-left:15px;padding-right:10px" id="printTitle">
-			<cfoutput query="GLAccount"><b>#AccountClass#:&nbsp;</b>#Group.Description#&nbsp;#GLAccount#: #Description#</cfoutput>
+		
+		
+		    <cfoutput query="GLAccount">
+			<table width="100%" align="center" style="height:30px">
+			<tr style="labelmedium2;height:30px" class="line">
+			<td style="width:160px;text-align:center;font-size:15px;padding-left:5px;background-color:yellow;padding-right:10px;border-right:1px solid gray">#AccountClass# : #AccountType#</td>
+			<td align="center" style="font-size:14px;padding-left:5px;padding-right:10px;border-right:1px solid gray">#Group.Description#</td>
+			<td align="center" style="color:white;background-color:747474;font-weight:normal;font-size:15px;padding-left:15px;padding-right:10px;border-right:1px solid gray" id="printTitle">
+			#GLAccount# : #Description#
 			</td>
+			</cfoutput>
 					
 			<td align="right" style="padding-left:10px;padding-right:10px">
 			
-			<table>
-
-				<tr>
-				
-				<!--- capture the screen result to allow for identical excel export --->  				  
-								
-				<td style="padding-left:4px"></td>
-				
-				<cfsavecontent variable="selectme">
-				        style="cursor: pointer;padding:2px"
-						onMouseOver="this.className='labelit highlight1'"
-						onMouseOut="this.className='labelit'"
-				</cfsavecontent>
-				
-				<cfoutput>
-				
-				<td style="padding-left:1px;padding-right:4px">|</td>
-				<td height="20" class="labelit" style="cursor:pointer; padding-top:4px;" valign="top">
-				
-					<cf_tl id="Print" var="1">
-					<cf_button2 
-						mode		= "icon"
-						type		= "Print"
-						title       = "#lt_text#" 
-						id          = "Print"					
-						height		= "20px"
-						width		= "20px"
-						imageheight = "15px"
-						printTitle	= "##printTitle"
-						printContent = "##resultlist"
-						printCallback="$('.clsCFDIVSCROLL_MainContainer').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','height:100%;');">
-				</td>
-				
-				</cfoutput>
-				
-				</tr>
-		
-			</table>
+				<table>
+	
+					<tr>
+					
+					<!--- capture the screen result to allow for identical excel export --->  				  
+									
+					<td style="padding-left:4px"></td>
+					
+					<cfsavecontent variable="selectme">
+					        style="cursor: pointer;padding:2px"
+							onMouseOver="this.className='labelit highlight1'"
+							onMouseOut="this.className='labelit'"
+					</cfsavecontent>
+					
+					<cfoutput>
+					
+					<td style="padding-left:1px;padding-right:4px">|</td>
+					<td height="20" class="labelit" style="cursor:pointer; padding-top:4px;" valign="top">
+					
+						<cf_tl id="Print" var="1">
+						<cf_button2 
+							mode		= "icon"
+							type		= "Print"
+							title       = "#lt_text#" 
+							id          = "Print"					
+							height		= "20px"
+							width		= "20px"
+							imageheight = "15px"
+							printTitle	= "##printTitle"
+							printContent = "##resultlist"
+							printCallback="$('.clsCFDIVSCROLL_MainContainer').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','height:100%;');">
+					</td>
+					
+					</cfoutput>
+					
+					</tr>
+			
+				</table>
 			</td></tr>
 									
-			<tr>
-			<TD height="40" colspan="2" style="padding-left:20px;padding-right:10px">
+			<tr class="line">
+			<TD height="40" colspan="5" style="padding-left:10px;padding-right:11px">
 			
-			<table width="100%" >
+			<table width="100%">
 			
-			<tr>
+			<tr class="line">
 			
-			<TD style="width:10%;border:1px solid silver">
+			<TD style="width:10%">
 			
 			  <table width="100%" cellspacing="0" cellpadding="0">
 			  <tr>
-			  <td class="labelit" style="padding-left:3px;padding-right:3px"><cf_tl id="Fiscal"></td>
+			  <td class="labelmedium2" style="padding-left:3px;padding-right:3px"><cf_tl id="Fiscal"></td>
 			  <td align="right">	
 			  					
-			    <select name="period" id="period" size"1" class="regularxl" style="border:0px" 
+			    <select name="period" id="period" size"1" class="regularxl" style="border:0px;background-color:e6e6e6" 
 				    onChange="reloadForm();ptoken.navigate('getTransactionPeriod.cfm?glcategory=<cfoutput>#url.glcategory#&account=#url.account#&mission=#url.mission#</cfoutput>&period='+this.value,'boxtransactionperiod')">			
 					
 			   		<option value="All" <cfif "all" is URL.Period>selected</cfif>>All
@@ -233,10 +238,10 @@ password="#SESSION.dbpw#">
 							
 			</TD>
 			
-			<td style="border:1px solid silver">
+			<td>
 			  <table width="100%" cellspacing="0" cellpadding="0">
 			  <tr>
-			  <td class="labelit" style="padding-left:3px;padding-right:3px"><cf_tl id="Period"></td>
+			  <td class="labelmedium2" style="padding-left:3px;padding-right:3px"><cf_tl id="Period"></td>
 			  <td id="boxtransactionperiod" align="right">			   
 			  
 				  <cfinclude template="getTransactionPeriod.cfm">
@@ -248,9 +253,9 @@ password="#SESSION.dbpw#">
 			
 			</td>			
 			
-			<td class="labelit" style="padding-left:5px;border:1px solid silver;;border-right:0px"><cf_tl id="Expressed"></td>
+			<td class="labelmedium2" style="padding-left:5px;border-right:0px"><cf_tl id="Expressed"></td>
 			
-			<td style="border:1px solid silver;;border-left:0px" align="right">
+			<td style="border:0px solid silver;;border-left:0px" align="right">
 						
 			<cfquery name="Currency"
 			datasource="AppsLedger" 
@@ -265,7 +270,7 @@ password="#SESSION.dbpw#">
 				AND    H.JournalSerialNo = L.JournalSerialNo
 			</cfquery>			
 			
-			<select name="currency" id="currency" size"1" class="regularxl" style="border:0px" onChange="reloadForm()">
+			<select name="currency" id="currency" size"1" class="regularxl" style="border:0px;background-color:e6e6e6;" onChange="reloadForm()">
 			
 			    <option value="" <cfif "" is URL.currency>selected</cfif>>Default
 				<cfoutput query="Currency">
@@ -276,10 +281,10 @@ password="#SESSION.dbpw#">
 			
 			</td>
 			
-			<td class="labelit" style="border:1px solid silver;padding-left:4px;;border-right:0px"><cf_tl id="Type"></td>
-			<td style="border:1px solid silver;;border-left:0px" align="right">
+			<td class="labelmedium2" style="padding-left:4px;;border-right:0px"><cf_tl id="Type"></td>
+			<td style="border:0px solid silver;;border-left:0px" align="right">
 						
-			<select name="class" id="class" size"1" class="regularxl" style="border:0px" onChange="reloadForm()">
+			<select name="class" id="class" size"1" class="regularxl" style="border:0px;background-color:e6e6e6;" onChange="reloadForm()">
 			
 			    <option value="" <cfif "" is URL.class>selected</cfif>><cf_tl id="All">
 			    <option value="Debit"  <cfif "Debit" is URL.Class>selected</cfif>><cf_tl id="Debit">
@@ -291,9 +296,9 @@ password="#SESSION.dbpw#">
 			  <!---- RFUENTES 5/21/2015, set this filter only for the Result accounts --->
 			  
 			 <cfif GLACcount.AccountClass eq "Result">
-			 	<td class="labelit" style="border:1px solid silver;padding-left:3px;;border-right:0px"><cf_tl id="Warehouse"></td>
-				<td style="border:1px solid silver;border-left:0px" align="right">	
-					<select style="width:200px;border:0px" name="warehouse" id="warehouse" class="regularxl" size="1" onChange="javascript:reloadForm()">
+			 	<td class="labelmedium2" style="padding-left:3px;;border-right:0px"><cf_tl id="Warehouse"></td>
+				<td style="border:0px solid silver;border-left:0px" align="right">	
+					<select style="width:200px;border:0px;background-color:e6e6e6;" name="warehouse" id="warehouse" class="regularxl" size="1" onChange="javascript:reloadForm()">
 						<option value="All"><cf_tl id="All">
 				    	<cfoutput query="warehouses">
 							<option value="#orgUnit#" <cfif URl.costcenter eq orgUnit>selected</cfif>>				
@@ -306,17 +311,19 @@ password="#SESSION.dbpw#">
 			 
 			 <cfif curPeriod.AdministrationLevel eq "Tree">
 			 
-			 <td colspan="2"  style="background-color:f1f1f1;border:1px solid silver;padding-left:3px;border-right:0px">			 
+			 <cfset url.owner = "all">
+			 
+			 <td colspan="2"  style="background-color:f1f1f1;padding-left:3px;border-right:0px">			 
 			 <input type="hidden" name="owner" id="owner" value="">
 			 </td>
 			 
 			 <cfelse>
 			 
-			 <td class="labelit" style="border:1px solid silver;padding-left:3px;border-right:0px"><cf_tl id="Owner"></td>
-			 <td style="border:1px solid silver;border-left:0px;padding-right:5px" align="right">	
+			 <td class="labelmedium2" style="padding-left:3px;border-right:0px"><cf_tl id="Owner"></td>
+			 <td style="border:0px solid silver;border-left:0px;padding-right:5px" align="right">	
 			 
-					<select style="width:250px;border:0px" name="owner" id="owner" class="regularxl" size="1" onChange="javascript:reloadForm()">
-						<option value="All">All </option>
+					<select style="width:250px;border:0px;background-color:e6e6e6;" name="owner" id="owner" class="regularxl" size="1" onChange="javascript:reloadForm()">
+						<option value="All">All</option>
 				    	<cfoutput query="getowners">
 							<option value="#orgUnitowner#" <cfif URl.orgunitowner eq orgUnitOwner>selected</cfif>>#OrgUnitName#</option>
 						</cfoutput>
@@ -325,9 +332,9 @@ password="#SESSION.dbpw#">
 			 
 			 </cfif>
 			 
-			<td style="width:50px;border:1px solid silver;padding-left:3px" width="100" align="right">
+			<td style="width:50px;padding-left:3px" width="100" align="right">
 			
-			<select name="rows" id="rows" size"1" class="regularxl" style="border:0px" onChange="reloadForm('quick')">
+			<select name="rows" id="rows" size"1" class="regularxl" style="border:0px;background-color:e6e6e6;" onChange="reloadForm('quick')">
 			
 			    <option value="100">100</option>
 			    <option value="250" <cfif "250" is URL.row>selected</cfif>>250
@@ -340,36 +347,37 @@ password="#SESSION.dbpw#">
 			
 			</td>
 			 
-			<td id="pagebox" style="width:150px;border:1px solid silver;padding-left:3px" width="100" align="right"></td>
+			<td id="pagebox" style="width:150px;border:0px solid silver;padding-left:3px" width="100" align="right"></td>
 								
 			</tr>
 						
 			<TR>
 			
-			<td class="labelit" style="padding-left:3px;border:1px solid silver" colspan="1"><cf_tl id="Find"></td>
+			<td class="labelmedium2" style="padding-left:3px;border:0px solid silver" colspan="1"><cf_tl id="Find"></td>
 			 		  
-			  <td colspan="3" style="border:1px solid silver">
+			  <td colspan="3">
+			
 			
 				<cfoutput>
 					<input type="text"
 					     name="find" 
 						 id="find" 
 						 value="#url.find#" 
-						 style="width:100%;border:0px;background-color:ffffcf" 
+						 style="width:100%;border:0px;border-left:1px solid gray;border-right:1px solid gray;background-color:BFECFB" 
 						 class="regularxl" 
 						 onChange="reloadForm()">
 				</cfoutput>
 				
 			</td>			
 						
-			<td class="labelit" style="padding-left:3px;border:1px solid silver" colspan="2">
+			<td class="labelit" style="padding-left:3px;border:0px solid silver" colspan="2">
 			
 			<table width="100%">
 			  <tr>
-			  <td class="labelit" style="background-color:f1f1f1;padding-left:3px;padding-right:3px"><cf_tl id="Mode"></td>
+			  <td class="labelmedium2" style="padding-left:3px;padding-right:3px"><cf_tl id="Mode"></td>
 			  <td align="right" style="border-left:1px solid silver;">		
 						
-				<select name="modality" id="modality" style="border:0px;width:100%" class="regularxl" size="1" onChange="javascript:reloadForm()">
+				<select name="modality" id="modality" style="border:0px;width:100%;background-color:e6e6e6;" class="regularxl" size="1" onChange="javascript:reloadForm()">
 										 
 				     <OPTION value="JournalTransactionNo" <cfif URL.Mde eq "JournalTransactionNo">selected</cfif>><cf_tl id="Transaction (aggregated)">						 					 
 					  <OPTION value="Posting" <cfif URL.Mde eq "Posting">selected</cfif>><cf_tl id="Posting detail">
@@ -386,15 +394,15 @@ password="#SESSION.dbpw#">
 			 		 	 
 			 </td> 
 			 
-			 <td class="labelit" style="padding-left:3px;border:1px solid silver" colspan="2">
+			 <td class="labelit" style="padding-left:3px;border:0px solid silver" colspan="2">
 			 
 				<table width="100%" cellspacing="0" cellpadding="0">
 				  <tr>
 				  
-				  <td class="labelit" style="background-color:f1f1f1;padding-left:3px;padding-right:3px"><cf_tl id="Grouping"></td>
+				  <td class="labelmedium2" style="padding-left:3px;padding-right:3px"><cf_tl id="Grouping"></td>
 				  <td align="right" style="border-left:1px solid silver;">	
 						
-					<select name="group" id="group" class="regularxl" style="border:0px;width:100%" size="1" onChange="javascript:reloadForm()">
+					<select name="group" id="group" class="regularxl" style="border:0px;width:100%;background-color:e6e6e6;" size="1" onChange="javascript:reloadForm()">
 					
 						 <OPTION value="TransactionPeriod" <cfif URL.ID eq "TransactionPeriod">selected</cfif>><cf_tl id="Transaction Period">	
 						 <OPTION value="TransactionDate"   <cfif URL.ID eq "TransactionDate">selected</cfif>><cf_tl id="Transaction Date">	
@@ -414,10 +422,10 @@ password="#SESSION.dbpw#">
 				
 				 </td>	
 				 
-				  <td class="labelit" style="background-color:f1f1f1;border-left:1px solid silver;padding-left:8px;padding-right:3px"><cf_tl id="Aggregate"></td>
-				  <td align="right" style="border-left:1px solid silver;padding-left:8px;padding-right:3px">	
+				  <td class="labelmedium2" style="border-left:1px solid silver;padding-left:8px;padding-right:3px"><cf_tl id="Aggregate"></td>
+				  <td align="right" style="border-left:1px solid silver;padding-left:8px;padding-right:3px;">	
 				  
-				  <select name="aggregate" id="aggregate" class="regularxl" style="border:0px;width:100%" size="1" onChange="javascript:reloadForm()">
+				  <select name="aggregate" id="aggregate" class="regularxl" style="border:0px;width:100%;background-color:e6e6e6;" size="1" onChange="javascript:reloadForm()">
 					
 						 <OPTION value="0" <cfif URL.aggregate eq "0">selected</cfif>><cf_tl id="No">	
 						 <OPTION value="1" <cfif URL.aggregate eq "1">selected</cfif>><cf_tl id="Yes">	
@@ -432,8 +440,8 @@ password="#SESSION.dbpw#">
 				
 			 </td>		
 			
-			<td style="padding:1px;border:1px solid silver" colspan="2">				   
-			   	<input type="button" name="Reload" value="Reload" class="button10s" style="width:100%;height:25px" onclick="reloadForm()">																
+			<td style="padding:1px;border:0px solid silver" colspan="2">				   
+			   	<input type="button" name="Reload" value="Reload" class="button10g" style="border:1px solid silver;width:100%;height:100%" onclick="reloadForm()">																
 			</td>
 			
 			</tr>

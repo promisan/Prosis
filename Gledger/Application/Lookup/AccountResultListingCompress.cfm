@@ -32,6 +32,11 @@ password="#SESSION.dbpw#">
 				 L.TransactionLineId,
 		         L.GLAccount, 
 		         L.Currency         AS Currency, 
+				 
+				 <!--- get the valid exchange rate on the transaction date --->
+					   
+				
+				 
 		         L.AmountDebit      AS AmountDebit, 
 		         L.AmountCredit     AS AmountCredit, 
 		         L.AmountBaseDebit  AS AmountBaseDebit, 
@@ -79,11 +84,11 @@ password="#SESSION.dbpw#">
 		AND    L.ParentJournal IS NULL		 
 		
 		<!---RFUENTES 21/5/2015 adding: CC for the accounts that are Result Class  ---->
-		<cfif url.costcenter neq "All">
+		<cfif url.costcenter neq "All" and url.costcenter neq "" and url.costcenter neq "undefined">
 		AND	   L.OrgUnit IN ('#URL.costcenter#')
 		</cfif>
 
-		<cfif url.owner neq "All">
+		<cfif url.owner neq "All" and url.owner neq "" and url.owner neq "undefined" and curPeriod.AdministrationLevel neq "Tree">
 		AND	   H.OrgUnitOwner IN ('#URL.owner#')			
 		</cfif>
 
@@ -156,6 +161,21 @@ password="#SESSION.dbpw#">
 				   A.Description, 
 				   A.JournalTransactionNo,
 				   L.Currency, 
+				   
+				      <cfif application.BaseCurrency neq curr>
+				   
+				   (SELECT   TOP 1 ExchangeRate
+				    FROM     CurrencyExchange
+				    WHERE    Currency       = '#curr#'
+					AND      EffectiveDate <= A.TransactionDate
+					ORDER BY EffectiveDate DESC) as DateExchangeRate,
+					
+					<cfelse>
+					
+					1 as DateExchangeRate,
+					
+					</cfif>
+				   
 				   L.GLAccount AS GLAccount, 
 				   SUM(L.AmountDebit)      AS AmountDebit, 
 				   SUM(L.AmountCredit)     AS AmountCredit, 

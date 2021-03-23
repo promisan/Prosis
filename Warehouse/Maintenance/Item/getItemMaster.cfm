@@ -21,7 +21,7 @@
 		</cfquery>
 		
 		<cfset url.itemMaster = qCategoryItem.ItemMaster>
-
+				
 	<cfelseif URL.CategoryItemOld neq "">
 	
 		<cfquery name="qCategoryItem" 
@@ -41,23 +41,23 @@
 		</cfquery>
 		
 		<cfset url.itemMaster = qCategoryItem.ItemMaster>
-
+		
 	</cfif>
 	
 </cfif>
 
 <cfif url.itemmaster eq "">
+	
+	<cfquery name="Master" 
+	datasource="AppsPurchase" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	   SELECT * 
+	   FROM   ItemMasterMission
+	   WHERE  Mission = '#URL.Mission#'	   
+	</cfquery>
 
-<cfquery name="Master" 
-datasource="AppsPurchase" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-   SELECT * 
-   FROM   ItemMasterMission
-   WHERE  Mission = '#URL.Mission#'	   
-</cfquery>
-
-<cfset url.itemmaster = Master.ItemMaster>
+	<!--- <cfset url.itemmaster = Master.ItemMaster> --->
 
 </cfif>
 

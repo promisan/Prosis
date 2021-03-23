@@ -148,8 +148,9 @@
 
 
 		//console.log(params);
-		params.animation = { open: { effects: getEffects() }, close: { effects: getEffects(), reverse: true} };
-
+		if (!params["animation"]) {
+			params.animation = { open: { effects: getEffects() }, close: { effects: getEffects(), reverse: true} };
+		}
 
 		if (!$('##'+f).length){
 			$("##_ProsisUI").append("<div id='"+f+"' name='"+f+"' style='display:none'></div>");

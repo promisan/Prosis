@@ -22,6 +22,8 @@
 <cfoutput>
 
 <script>
+
+	_cf_loadingtexthtml='';	
 	
 	function verify(myvalue) { 
 	
@@ -83,6 +85,8 @@
 
 </cfoutput>
 
+<cf_divscroll>
+
 <cfform action="#SESSION.root#/staffing/Application/Employee/Contract/ContractEditSubmit.cfm" 
         method="POST" 
 		name="ContractEntry" 
@@ -101,12 +105,12 @@
 	<input type="hidden" name="dayhour"         id="dayhour">	
 </cfoutput>
 
-<table width="97%" align="center" class="formpadding">
+<table width="97%" align="center" class="formpadding formspacing">
 
   <cfif url.wf eq "0">	
 
      <tr>
-		<td height="10" style="padding-left:7px">	
+		<td height="10">	
 		  <cfset ctr      = "0">		
 		  <cfset openmode = "close"> 
 		  <cfinclude template="../PersonViewHeaderToggle.cfm">		  
@@ -114,7 +118,7 @@
      </tr>	
 	  
 	 <tr class="line">
-	    <td width="100%" style="padding-left:15px;height:45;font-size:21px;font-weight:200" align="left" valign="middle" class="labelmedium">
+	    <td width="100%" style="padding-left:15px;font-size:21px;font-weight:270" align="left" class="labelmedium">
 		<cfoutput>
 			<cf_tl id="Initial Appointment"> / <cf_tl id="Re-appointment">
 		</cfoutput>
@@ -126,13 +130,12 @@
   	<tr><td height="5"></td></tr>	  
   
   </cfif>
-  
-  
+    
   <tr class="hide"><td id="process"></td></tr>
   
   <tr>
     <td width="100%" class="header">
-    <table border="0" width="97%" align="center" class="formpadding formspacing">
+    <table border="0" width="97%" align="center" class="formpadding">
 			
 	<cfquery name="Last" 
 	datasource="AppsEmployee" 
@@ -205,7 +208,7 @@
 		<td class="labelmedium" width="200"><cf_tl id="Entity">:</td>
 			<td>
 							
-			 <select name="mission" id="mission" class="regularxl">
+			 <select name="mission" id="mission" class="regularxxl">
 			
 				<cfoutput query="MissionList">
 				 <option value="#Mission#" <cfif mission eq Last.mission>selected</cfif>>#Mission#
@@ -311,19 +314,18 @@
 			
 			<td>
 										
-				<select name="ActionCode" class="regularxl" style="width:99%" onchange="ptoken.navigate('getReason.cfm?actioncode='+this.value,'groupfield')">					    
+				<select name="ActionCode" class="regularxxl" style="width:99%" onchange="ptoken.navigate('getReason.cfm?actioncode='+this.value,'groupfield')">					    
 					<cfoutput query="Action">
 						<option value="#ActionCode#">#Description#</option>
 					</cfoutput>		
 				</select>		
 								
-			</td>	
-				
+			</td>					
 	</tr>	
 	
 	<tr>
 		 
-	    <td class="labelmedium" height="20"><cf_tl id="Reason">:</TD>
+	    <td class="labelmedium" style="height:31px"><cf_tl id="Reason">:</TD>
 								
 		<td id="groupfield" name="groupfield">	
 			 <cfset url.actioncode = Action.ActionCode>
@@ -363,7 +365,7 @@
 				AllowBlank="False"				
 				Manual="false"			<!--- do not allow to overlap and create amendments --->
 				script="expiration_selectdate"	
-				class="regularxl">					
+				class="regularxxl">					
 						
 			<cfset url.eff = Dateformat(lastContract.dateExpiration+1, CLIENT.DateFormatShow)>
 		
@@ -374,7 +376,7 @@
 				Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
 				AllowBlank="False"
 				script="expiration_selectdate"	
-				class="regularxl">	
+				class="regularxxl">	
 			
 			<cfset url.eff = Dateformat(now(), CLIENT.DateFormatShow)>
 		
@@ -394,7 +396,7 @@
 			Default="#Dateformat(lastContract.dateExpiration+1, CLIENT.DateFormatShow)#"
 			AllowBlank="True"
 			script="expiration_selectdate"	
-			class="regularxl">	
+			class="regularxxl">	
 		
 		<cfelse>
 
@@ -403,7 +405,7 @@
 			Default=""
 			script="expiration_selectdate"	
 			AllowBlank="True"
-			class="regularxl">	
+			class="regularxxl">	
 		
 		</cfif>		
 		
@@ -421,8 +423,8 @@
 		<td>
 			<table width="80%">
 				<tr> 
-				<td class="hide"><input type="text" id="PositionNo" name="PositionNo" style="background-color: f4f4f4;" class="regularxl" size="20" maxlength="20" readonly></td>
-				<td style="width:10px"><input type="text" id="Position" name="Position" style="background-color: f1f1f1;" class="regularxl" size="50" maxlength="100" readonly></td>
+				<td class="hide"><input type="text" id="PositionNo" name="PositionNo" style="background-color: f4f4f4;" class="regularxxl" size="20" maxlength="20" readonly></td>
+				<td style="width:10px"><input type="text" id="Position" name="Position" style="background-color: f1f1f1;" class="regularxxl" size="50" maxlength="100" readonly></td>
 				<td style="padding-left:1px">
 															  
 					  		<cfset link = "#SESSION.root#/Staffing/Application/Employee/Contract/getPosition.cfm?contract=1">
@@ -460,8 +462,8 @@
 		<td>
 			<table width="80%">
 				<tr> 
-				<td class="hide"><input type="text" id="PositionNo" value="<cfoutput>#trackpositionno#</cfoutput>" name="PositionNo" style="background-color: f4f4f4;" class="regularxl" size="20" maxlength="20" readonly></td>
-				<td style="width:10px"><input type="text" id="Position" value="<cfoutput>#trackpositionname#</cfoutput>" name="Position" style="background-color: f1f1f1;" class="regularxl" size="50" maxlength="100" readonly></td>
+				<td class="hide"><input type="text" id="PositionNo" value="<cfoutput>#trackpositionno#</cfoutput>" name="PositionNo" style="background-color: f4f4f4;" class="regularxxl" size="20" maxlength="20" readonly></td>
+				<td style="width:10px"><input type="text" id="Position" value="<cfoutput>#trackpositionname#</cfoutput>" name="Position" style="background-color: f1f1f1;" class="regularxxl" size="50" maxlength="100" readonly></td>
 				<td style="padding-left:1px">
 															  
 					  		<cfset link = "#SESSION.root#/Staffing/Application/Employee/Contract/getPosition.cfm?contract=1">
@@ -613,11 +615,11 @@
 		<cfoutput>				
 		<tr>			
 	  	<TD class="labelmedium"><a id="contractselect" href="javascript:selectscale('#url.id#','#lastcontract.contractType#','#url.id1#')"><cf_tl id="Grade">:</TD>
-		    <TD><input type="text" name="contractlevel" id="contractlevel" value="#lastcontract.contractlevel#" size="20" maxlength="20" readonly class="regularxl" style="background-color: f4f4f4;"></TD> 
+		    <TD><input type="text" name="contractlevel" id="contractlevel" value="#lastcontract.contractlevel#" size="20" maxlength="20" readonly class="regularxxl" style="background-color: f4f4f4;"></TD> 
 		</tr>
 		<tr>
 		<TD class="labelmedium"><a href="javascript:selectscale('#url.id#','#lastcontract.contractType#','#url.id1#')"><cf_tl id="Step">:</a></TD>
-			<TD><input type="text" id="contractstep" name="contractstep" value="#lastcontract.contractstep#" style="background-color: f4f4f4;" class="regularxl" size="4" maxlength="4" readonly></TD> 							
+			<TD><input type="text" id="contractstep" name="contractstep" value="#lastcontract.contractstep#" style="background-color: f4f4f4;" class="regularxxl" size="4" maxlength="4" readonly></TD> 							
 		</tr>
 		</cfoutput>
 					
@@ -643,12 +645,12 @@
 				
 		<tr><TD class="labelmedium"><cf_tl id="Location">:</TD>
 		    <TD>
-			<input type="text" id="servicelocation"     name="servicelocation"     value="#lastcontract.servicelocation#" style="background-color: f4f4f4;" class="regularxl" size="4"  maxlength="4"  readonly>
-			<input type="text" id="servicelocationname" name="servicelocationname" value="#getlocation.Description#"      style="background-color: f4f4f4;" class="regularxl" size="20" maxlength="20" readonly>
+			<input type="text" id="servicelocation"     name="servicelocation"     value="#lastcontract.servicelocation#" style="background-color: f4f4f4;" class="regularxxl" size="4"  maxlength="4"  readonly>
+			<input type="text" id="servicelocationname" name="servicelocationname" value="#getlocation.Description#"      style="background-color: f4f4f4;" class="regularxxl" size="20" maxlength="20" readonly>
 			</TD> 
 		</tr>
 		<tr><TD class="labelmedium"><cf_tl id="Schedule">:</TD>
-		    <TD><input type="text" id="salaryschedule" name="salaryschedule" value="#lastcontract.salaryschedule#" style="background-color: f4f4f4;" class="regularxl" size="20" maxlength="20" readonly></TD> 
+		    <TD><input type="text" id="salaryschedule" name="salaryschedule" value="#lastcontract.salaryschedule#" style="background-color: f4f4f4;" class="regularxxl" size="20" maxlength="20" readonly></TD> 
 		</tr>
 		
 		</cfoutput>
@@ -656,8 +658,10 @@
 		<!--- manual salary : ajax ensure the currency is based on the Payroll schedule --->
 		<tr class="<cfif url.wf eq '1'>hide</cfif>">
 		<TD class="labelmedium" style="padding-right:7px">
-		<table><tr><td class="labelmedium"><cf_tl id="Negotiated Salary"></td>
-		<td><input type="text" readonly style="padding-left:3px; border:0px;" size="2" maxlength="4" value="<cfoutput>#application.basecurrency#</cfoutput>" style="background-color: f4f4f4;" class="regularxl" id="currency" name="currency"> :</TD>
+		<table>
+		<tr>
+		<td class="labelmedium2"><cf_tl id="Negotiated Salary"><cfoutput>#application.basecurrency#</cfoutput></td>
+		<td><input type="hidden" readonly style="padding-left:3px; border:0px;" size="2" maxlength="4" value="<cfoutput>#application.basecurrency#</cfoutput>" style="background-color: f4f4f4;" class="regularxxl" id="currency" name="currency"> :</TD>
 		</tr></table>
 		</td>
 	    <TD> 			   
@@ -700,7 +704,7 @@
     <TD class="labelmedium">
 	  
 	    <table>
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			<td><INPUT type="radio" class="radiol" onclick="applyhours(this.value)" name="ContractTime" value="100" checked></td><td style="padding-left:4px"><cf_tl id="Fulltime"></td>
 			<td style="padding-left:6px"><INPUT type="radio" onclick="applyhours(this.value)" class="radiol" name="ContractTime" value="90" <cfif LastContract.ContractTime eq 90>checked</cfif>></td><td style="padding-left:4px">90%</td>
 			<td style="padding-left:6px"><INPUT type="radio" onclick="applyhours(this.value)" class="radiol" name="ContractTime" value="80" <cfif LastContract.ContractTime eq 80>checked</cfif>></td><td style="padding-left:4px">80%</td>
@@ -856,4 +860,6 @@
 </table>
 
 </CFFORM>
+
+</cf_divscroll>
 

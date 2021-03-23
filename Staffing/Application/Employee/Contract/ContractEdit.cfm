@@ -9,9 +9,9 @@
   .ccell {
     padding-left:5px;
 	height:30px;
-	border-left:1px solid silver;
+	border-left:0px solid silver;
 	border-bottom:1px solid silver;
-	border-right:1px solid silver;
+	border-right:0px solid silver;
 	 }		
 	
    TD {
@@ -26,10 +26,6 @@
 <cfelse>
 	<cf_screentop title="Contract" height="100%" jquery="Yes" scroll="yes" html="No" menuaccess="context">
 </cfif> 
-
-<!---
-<cfajaximport tags="cfwindow">
---->
 
 <cfparam name="url.action" default="0">
 

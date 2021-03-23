@@ -155,7 +155,7 @@
 			
 						<td>		
 						<cf_tl id="Workforce maintenance" var="1">
-						<input type="button" onclick="maintain()" name="maintain" value="#lt_text#" class="button10g" style="height:28px;width:210px;font-size:14px">							
+						<input type="button" onclick="maintain()" name="maintain" value="#lt_text#" class="button10g" style="height:31px;width:210px;font-size:14px">							
 						</td>
 					
 					</cfif>
@@ -207,17 +207,16 @@
 						
 						<td style="padding-left:2px">
 							<cf_tl id="Position Centric View" var="1">															
-							<input type="button" onclick="positionview('#URL.Mission#','#url.mandate#','#url.tree#')" name="tree" value="#lt_text#" class="button10g" style="height:28px;width:200px;font-size:14px">																		
+							<input type="button" onclick="positionview('#URL.Mission#','#url.mandate#','#url.tree#')" name="tree" value="#lt_text#" class="button10g" style="height:31px;width:200px;font-size:14px">																		
 						</td>
 						
-						<!---
-												
+																		
 						<td style="padding-left:2px">
 							<cf_tl id="Org Chart" var="1">															
-							<input type="button" onclick="treeview('#URL.Mission#','#url.mandate#','#url.tree#')" name="tree" value="#lt_text#" class="button10g" style="height:28px;width:200px;font-size:14px">																		
+							<input type="button" onclick="treeview('#URL.Mission#','#url.mandate#','#url.tree#')" name="tree" value="#lt_text#" class="button10g" style="height:31px;width:200px;font-size:14px">																		
 						</td>
 						
-						--->
+						
 					
 					</cfif>	
 					

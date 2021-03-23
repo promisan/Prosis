@@ -267,7 +267,7 @@ password="#SESSION.dbpw#">
 			       visible="Yes"
 			       enabled="Yes"
 				   class="regularxl"
-			       size="2"
+			       size="10"
 			       maxlength="10">
 				   
 				   (0 = <cf_tl id="monthly">; |1|7| = <cf_tl id="jan/july"> )

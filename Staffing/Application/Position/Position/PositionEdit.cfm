@@ -495,6 +495,8 @@ password="#SESSION.dbpw#">
 
 <cf_screentop scroll="yes" title="Position Edit" html="No" ValidateSession="no" jquery="yes">
 
+<cf_divscroll>
+
 <cfform action="PositionEditSubmit.cfm?id=#url.id#&id1=#url.id1#&id2=#url.id2#&Box=#URL.Box#" 
 		   method="POST" 
 		   target="saveposition"
@@ -522,7 +524,7 @@ password="#SESSION.dbpw#">
   <tr style="border-top:1px solid silver">
     <td width="100%" colspan="2">
 	
-    <table width="99%" class="formpadding formspacing" align="center">
+    <table width="99%" class="formpadding" align="center">
 		   
 	<cfif PositionParent.DateEffective neq Mandate.DateEffective or 
 	      PositionParent.DateExpiration neq Mandate.DateExpiration>
@@ -558,20 +560,23 @@ password="#SESSION.dbpw#">
 	</cfquery>	
 	
 	<cfif url.action neq "view">
+	
+	  <cfif URL.Action eq "Edit">		
+	  
+	  <cfelse>	
 
 	  <tr> 
-	    <td colspan="2" class="labelit" style="padding-left:5px;height:35px;font-size:23px;font-weight:200;">
-		    <font color="black">	   		
-		    <cfif URL.Action eq "Edit">		
-			    <cf_tl id="#URL.ActionText#">
-			<cfelse>	
+	    <td colspan="2" class="labelit" style="padding-left:5px;height:35px;font-size:23px;font-weight:200;">		  
+		  
 			   <font color="red">
 				<cf_tl id="#URL.ActionText#">	
-			</cfif>		
+				
 	    </td>	
 	  </tr>
 	  
 	  </cfif>
+	  
+	</cfif>
 	
 	<cfif URL.Action eq "Edit">
 		     
@@ -683,9 +688,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 	</cfoutput>
-							
-	<tr><td height="10"></td></tr>
-			
+					
 	<cfif URL.Action eq "Edit">
 	
 	      <cfset eff = "#Position.DateEffective#">
@@ -2182,3 +2185,5 @@ password="#SESSION.dbpw#">
 </TABLE>  
 
 </CFFORM> 
+
+</cf_divscroll>

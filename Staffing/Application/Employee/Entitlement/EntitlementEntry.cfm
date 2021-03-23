@@ -312,16 +312,16 @@ password="#SESSION.dbpw#">
     <TD style="padding-left:20"><cf_tl id="Rate application">:</TD>
     <TD>
 	
-	    <table>
-			<tr class="labelmedium2">
-			<td><INPUT type="radio" class="radiol" name="Period" value="DAY"></td><td style="padding-left:4px;font-size:16px;">Daily</td>
-			<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="Period" value="WORKDAY"></td><td style="font-size:16px;padding-left:4px">Daily: workdays only)</td>
-			<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="Period" value="MONTHF" checked></td><td style="font-size:16px;padding-left:4px">Monthly</td>
-			<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="Period" value="MONTH"></td><td style="font-size:16px;padding-left:4px">Monthly: contractual days)</td>
-			<td style="padding-left:8px"><INPUT type="radio" class="radiol" name="Period" value="MONTHW"></td><td style="font-size:16px;padding-left:4px">Monthly: contractual-lwop days</td>
-			</tr>
-		</table>
-		
+		<select name="Period" class="regularxxl">
+			 <option value="DAY"><cf_tl id="Daily"></option>
+			 <option value="WORKDAY"><cf_tl id="Daily (workdays only)"></option>
+			 <option value="MONTHF" selected><cf_tl id="Monthly">: fixed</option>
+			 <option value="MONTH"><cf_tl id="Monthly">: Prorate Contract days</option>
+			 <option value="MONTHN"><cf_tl id="Monthly">: Prorate Contract days -/- slwop</option>
+			 <option value="MONTHW"><cf_tl id="Monthly">: Prorate Contract days -/- (slwop + suspend)</option>			 
+		</select>
+				
+			
 	</TD>
 	</TR>
 		

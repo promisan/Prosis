@@ -50,8 +50,7 @@ function editEntitlement(persno, no) {
  <cfloop index="itm" from="1" to="12">	
 	  
 	 <cfset dte = evaluate("Form.DateEffective_#itm#")>
-	 <cfset pay = evaluate("Form.PayrollStart_#itm#")>
-	 <cfset cur = evaluate("Form.Currency_#itm#")>
+	 <cfset pay = evaluate("Form.PayrollStart_#itm#")>	 
 	 <cfset amt = evaluate("Form.Amount_#itm#")>
 	 <cfset ecl = evaluate("Form.EntityClass_#itm#")>
 			 
@@ -107,13 +106,15 @@ function editEntitlement(persno, no) {
 			<cfelse>	 
 			
 				 <cf_assignid>	
-	  	 	
+				 
+				 <cfparam name="Form.Ledger" default="">
+				
 			     <cfquery name="InsertEntitlement" 
 				     datasource="AppsPayroll" 
 				     username="#SESSION.login#" 
 				     password="#SESSION.dbpw#">		 
-				     INSERT INTO PersonMiscellaneous 
-				         
+				     INSERT INTO PersonMiscellaneous 		
+					 		         
 							 (PersonNo,
 							  CostId,
 							  Mission,				  
@@ -127,13 +128,15 @@ function editEntitlement(persno, no) {
 							  Amount,
 							  Status,
 							  Remarks,
+							  <cfif form.Ledger neq "">
+							  	  Source,
+								  SourceId,
+							  </cfif>
 							  OfficerUserId,
 							  OfficerLastName,
-							  OfficerFirstName)
-						 
-				      VALUES 
-					  
-						     ('#Form.PersonNo#',
+							  OfficerFirstName)		
+							  				 
+				      VALUES ('#Form.PersonNo#',
 						      '#rowguid#',
 							  '#Form.Mission#',							  			      
 							  '#Form.DocumentReference#',				  
@@ -142,7 +145,7 @@ function editEntitlement(persno, no) {
 							  '#Form.Entitlement#',
 							  #STR#,
 							  #PAY#,
-							  '#Cur#',
+							  '#Form.Currency#',
 							  '#amt#',
 							  <cfif ecl neq "">
 							  '0',
@@ -150,6 +153,10 @@ function editEntitlement(persno, no) {
 							  '2',
 							  </cfif> 				  
 							  '#Remarks#',
+							  <cfif form.Ledger neq "">
+								  'Ledger',
+								  '#Form.Ledger#',
+							  </cfif>
 							  '#SESSION.acc#',
 					    	  '#SESSION.last#',		  
 						  	  '#SESSION.first#')

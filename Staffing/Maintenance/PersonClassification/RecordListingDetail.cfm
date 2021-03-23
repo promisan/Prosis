@@ -45,6 +45,7 @@ password="#SESSION.dbpw#">
     </tr>	
 
 	<cfif URL.ID2 eq "new">
+	
 		<TR><TD colspan="10" style="height:35px">	
 		
 		<cfform method="POST" name="mytopic" onsubmit="return false">
@@ -62,7 +63,7 @@ password="#SESSION.dbpw#">
 					 size="2" 
 					 maxlength="20" 
 					 style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
-					 class="regularxl">
+					 class="regularxxl">
         </td>	
 							   
 		<td>
@@ -73,11 +74,11 @@ password="#SESSION.dbpw#">
 					 size="50" 						 
 					 maxlength="60" 
 					 style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
-					 class="regularxl">
+					 class="regularxxl">
 		</td>
 		
 		<td>
-			<select name="ActionCode" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
+			<select name="ActionCode" class="regularxxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
 			    <option value="">N/A</option>
 				<cfoutput query="Action">
 					<option value="#ActionCode#">#ActionCode# #Description#</option>
@@ -87,20 +88,18 @@ password="#SESSION.dbpw#">
 				
 		<td>
 		
-		 <select name="Context" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">							
-							<cfloop query="ContextList">
-								<option value="#context#">#Context#</option>
-							</cfloop>		
-						</select>		
+		 <select name="Context" class="regularxxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">							
+					<cfoutput query="ContextList">
+						<option value="#context#">#Context#</option>
+					</cfoutput>		
+		</select>		
 		   
 		</td>
 		
 		<td></td>
 		
 		<td>
-		      <input type="Checkbox" 
-		       name="Operational" class="radiol"
-		       value="1" checked>   
+		      <input type="Checkbox" name="Operational" class="radiol" value="1" checked>   
 		</td>
 										   
 		<td colspan="2" align="center">
@@ -148,12 +147,12 @@ password="#SESSION.dbpw#">
 						size         = "30" 
 						maxlength    = "60" 
 						style="border:0px;border-left:1px solid silver;border-right:1px solid silver"
-						class        = "regularxl">			  
+						class        = "regularxxl">			  
 		           </td>
 							   
 				   <td width="20%">
 			
-						<select name="ActionCode" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
+						<select name="ActionCode" class="regularxxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">
 							<option value="">N/A</option>
 							<cfloop query="Action">
 								<option value="#ActionCode#" <cfif listing.actioncode eq actioncode>selected</cfif>>#ActionCode# #Description#</option>
@@ -165,7 +164,7 @@ password="#SESSION.dbpw#">
 				   
 				   <td width="20%" class="labelit">
 				   
-				   	   <select name="Context" class="regularxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">							
+				   	   <select name="Context" class="regularxxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver">							
 							<cfloop query="ContextList">
 								<option value="#context#" <cfif listing.context eq context>selected</cfif>>#Context#</option>
 							</cfloop>		

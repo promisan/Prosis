@@ -22,7 +22,7 @@ password="#SESSION.dbpw#">
  
 <!--- refresh button to be discussed with armin 5/9/2014 --->
 <tr class="hide"><td>   
-	<input type="button" id="refresh_uomlist" onclick="ptoken.navigate('UoM/ItemUoMList.cfm?id=#url.id#&uomselected=#url.uomselected#','uomlist');">	
+	<input type="button" id="refresh_uomlist" onclick="ptoken.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/ItemUoMList.cfm?id=#url.id#&uomselected=#url.uomselected#','uomlist');">	
     </td>
 </tr>
 

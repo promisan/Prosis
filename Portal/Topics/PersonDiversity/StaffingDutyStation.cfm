@@ -83,7 +83,7 @@
 						
 		</td>
 	
-		<td style="width:350px; min-width:350px; overflow:auto; padding-top:5px; border:1px solid silver;" valign="top">
+		<td style="width:300px; min-width:300px; max-width:300px; overflow:auto; padding-top:5px; border:1px solid silver;" valign="top">
 							 		 						 
 	    	 <table style="width:95%">
 			 

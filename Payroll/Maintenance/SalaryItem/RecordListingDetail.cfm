@@ -59,7 +59,7 @@ password="#SESSION.dbpw#">
 						</td>
 						<td width="3"></td>
 						<td>
-							<cf_img icon="edit" navigation="Yes" onclick="recordedit('#PayrollItem#')">
+							<cf_img icon="open" navigation="Yes" onclick="recordedit('#PayrollItem#')">
 						</td>
 						<td width="10"></td>
 					</tr>
@@ -77,7 +77,7 @@ password="#SESSION.dbpw#">
 			   <cfset ht = "42">
 			</cfif>
 				
-			<TD style="min-width:300px;height:#ht#px;background-color:f1f1f1">	
+			<TD style="min-width:300px;height:#ht#px;background-color:##f1f1f180">	
 			
 			<cfquery name="Component"
 				datasource="AppsPayroll" 

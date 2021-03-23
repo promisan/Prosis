@@ -161,6 +161,7 @@
 							  username="#SESSION.login#" password="#SESSION.dbpw#">
 								#preservesingleQuotes(lookup)#
 							</cfquery>	
+							
 						
 						<cfelse>	
 																		
@@ -348,9 +349,9 @@
 									   <cfset reset =  "#reset#;document.getElementById('filter#current.field#').value=''">	 
 									  
 								<cfelseif current.filtermode eq "2">	
-																											
+																																			
 										<cfif lookupdata.recordcount lte "200">
-																						
+																																
 											<cfif current.LookupGroup eq "">
 
 												<cfif LookupData.recordcount gt 10>
@@ -429,16 +430,15 @@
 																						
 											<cfset reset =  "#reset#;document.getElementById('filter#current.field#').selectedIndex='None'">		
 										
-										<cfelse>									
-										
+										<cfelse>		
+											
 										   <cfinput type   = "text" 
 										       name        = "filter#current.field#" 
 											   value       = "#val#" 
 											   class       = "regularxxl" 
 											   message     = "Please select a #Current.LabelFilter#"
 											   required    = "#oblig#" 
-											   style       = "width:180;"						 
-											   maxlength   = "20">											
+											   style       = "width:90%">											
 										   
 										   <cfset reset =  "#reset#;document.getElementById('filter#current.field#').value=''">	 
 									  									

@@ -20,7 +20,7 @@
          FROM      Organization.dbo.Ref_EntityDocument AS R INNER JOIN
                    Organization.dbo.OrganizationObjectInformation AS I ON R.DocumentId = I.DocumentId AND I.Objectid = '#Object.ObjectId#'
          WHERE     (R.EntityCode = '#Object.EntityCode#') 
-		 AND       (R.DocumentType = 'field')
+		 AND       (R.DocumentType = 'field') 
 	</cfquery>	       
 	
 	<cfloop query="fields">

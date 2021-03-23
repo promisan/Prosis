@@ -10,7 +10,7 @@
 		    SELECT *
 			FROM   ItemWarehouse
 			<cfif w neq "">
-			WHERE  Warehouse = '#W#'
+			WHERE  Warehouse = '#W#'			
 			<cfelse>
 			WHERE  1=1
 			</cfif>
@@ -20,8 +20,8 @@
 		</cfquery>	
 						
 		<cfif whs.recordcount gte "1">
-										
-			<tr class="labelmedium line fixrow">
+												
+			<tr class="labelmedium2 line fixrow">
 				<td height="25" style="padding-left:3px">UoM:</td>
 				<td style="background-color:ffffaf">#UoMDescription# [#ItemBarCode#]</td>
 				<td style="padding-left:4px"><cf_tl id="Effective"></td>
@@ -47,11 +47,19 @@
 								 <cfif w neq "">
 						         WHERE  Warehouse  = '#Warehouse.Warehouse#'
 								 <cfelse>
-								 WHERE  1=1
+								 WHERE  Warehouse IN (SELECT Warehouse FROM Warehouse WHERE Mission = '#url.mission#')
 								 </cfif>
 						         AND    Category   = '#Item.Category#'
-								 AND    Operational = 1)			
+								 AND    Operational = 1)									 	
 			</cfquery>
+			
+			<cfif Schedule.recordcount eq "0">
+			
+			<tr class="labelmedium2 line" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''">
+			   <td colspan="11" align="center" style="height:40px;font-size:18px">This item category : #Item.Category# is not declared for any warehouse in #url.mission#</td>
+			</tr>   
+			
+			</cfif>
 					
 			<cfloop query="Schedule">			
 				
@@ -87,7 +95,8 @@
 											 AND    Operational = 1)
 					</cfquery>
 																														
-					<cfloop query="Currency">				
+					<cfloop query="Currency">	
+						
 																		
 						<cfquery name="line"
 						datasource="AppsMaterials" 
@@ -111,7 +120,7 @@
 						<td style="min-width:100px">
 													
 						<cfif line.dateeffective eq "">
-														
+																				
 							<cf_intelliCalendarDate9
 							    class="regularxl"
 								FieldName="#w#_#measure#_#Schedule.code#_#currency#_DateEffective" 
@@ -124,6 +133,7 @@
 						<cfelse>
 						
 							<cfif line.dateEffective lt now()>
+							
 								<cf_intelliCalendarDate9
 									FieldName="#w#_#measure#_#Schedule.code#_#currency#_DateEffective" 
 									Default="#dateformat(now(),CLIENT.DateFormatShow)#"

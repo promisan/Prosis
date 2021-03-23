@@ -8,40 +8,76 @@
 
 <cf_ListingScript>
 
-<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#_Advance">	
-
 <cf_dialogstaffing>
+
+<!--- we adjusted this to no longer rely on a GLAccount per person, but use the PersonNo instead 
+
+<CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#_Advance">	
 
 <cfquery name="DataSet" 
 datasource="AppsLedger" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT     P.PersonNo, 
-	           P.IndexNo, 
-			   P.LastName, 
-			   P.FirstName, 
-			   PL.GLAccount, 
-			   P.Gender, 
-			   P.Nationality, 
-			   L.Currency, 
-			   ROUND(SUM(L.AmountDebit), 2) AS Debit, 
-               ROUND(SUM(L.AmountCredit), 2) AS Credit, 
-			   ROUND(SUM(L.AmountDebit) - SUM(L.AmountCredit), 2) AS Balance
-	INTO       userQuery.dbo.#SESSION.acc#_Advance		   
-	FROM       TransactionHeader as H INNER JOIN TransactionLine AS L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo 
-	           INNER JOIN Employee.dbo.PersonGLedger AS PL ON L.GLAccount = PL.GLAccount 
-			   INNER JOIN Employee.dbo.Person AS P ON PL.PersonNo = P.PersonNo
+	SELECT    P.PersonNo, 
+	          P.IndexNo, 
+			  P.LastName, 
+			  P.FirstName, 
+			  PL.GLAccount, 
+			  P.Gender, 
+			  P.Nationality, 
+			  L.Currency, 
+			  ROUND(SUM(L.AmountDebit), 2) AS Debit, 
+              ROUND(SUM(L.AmountCredit), 2) AS Credit, 
+			  ROUND(SUM(L.AmountDebit) - SUM(L.AmountCredit), 2) AS Balance
+	INTO      userQuery.dbo.#SESSION.acc#_Advance		   
+	FROM      TransactionHeader as H INNER JOIN TransactionLine AS L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo 
+	          INNER JOIN Employee.dbo.PersonGLedger AS PL ON L.GLAccount = PL.GLAccount 
+			  INNER JOIN Employee.dbo.Person AS P ON PL.PersonNo = P.PersonNo
 	WHERE     (L.Currency = '#url.currency#') AND (PL.Area = '#url.area#') 
-	AND        H.Mission = '#URL.Mission#'
-	AND        H.Journal NOT IN (SELECT Journal FROM Journal WHERE SystemJournal = 'Opening')
-    GROUP BY   P.PersonNo, 
-	           P.IndexNo, 
-			   P.LastName, 
-			   P.FirstName, 
-			   PL.GLAccount, 
-			   P.Gender, 
-			   P.Nationality, 
-			   L.Currency		
+	AND       H.Mission = '#URL.Mission#'
+	AND       H.Journal NOT IN (SELECT Journal FROM Journal WHERE SystemJournal = 'Opening')
+    GROUP BY  P.PersonNo, 
+	          P.IndexNo, 
+			  P.LastName, 
+			  P.FirstName, 
+			  PL.GLAccount, 
+			  P.Gender, 
+			  P.Nationality, 
+			  L.Currency		
 </cfquery>
+
+
+SELECT     P.PersonNo, 
+	       P.IndexNo, 
+		   P.LastName, 
+		   P.FirstName, 
+		   P.Gender, 
+		   P.Nationality, 
+		   L.Currency, 
+		   ROUND(SUM(L.AmountDebit), 2) AS Debit, 
+           ROUND(SUM(L.AmountCredit), 2) AS Credit, 
+		   ROUND(SUM(L.AmountDebit) - SUM(L.AmountCredit), 2) AS Balance
+
+FROM       TransactionHeader AS H 
+           INNER JOIN TransactionLine AS L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo
+		   INNER JOIN Employee.dbo.Person AS P ON H.ReferencePersonNo = P.PersonNo			 
+WHERE      H.ReferencePersonNo IN (SELECT     PersonNo
+                                   FROM       Employee.dbo.Person) 
+AND        H.Journal IN           (SELECT  Journal
+                                   FROM    Journal
+                                   WHERE   SystemJournal = 'Advance') 
+AND        H.Mission = '#URL.Mission#' 
+AND        H.RecordStatus <> '9' 
+AND        H.ActionStatus <> '9'
+AND        L.Currency = '#url.currency#'
+ GROUP BY  P.PersonNo, 
+	          P.IndexNo, 
+			  P.LastName, 
+			  P.FirstName, 			 
+			  P.Gender, 
+			  P.Nationality, 
+			  L.Currency		
+			  
+--->			  
 	
 <cfinclude template="ListingEmployeeContent.cfm">

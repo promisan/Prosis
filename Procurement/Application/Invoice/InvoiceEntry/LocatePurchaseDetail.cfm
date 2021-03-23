@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" html="No" scroll="Yes" jQuery="Yes">
+<cf_screentop height="100%" html="No" scroll="No" jQuery="Yes">
 
 <cfoutput>
 	
@@ -363,7 +363,7 @@ password="#SESSION.dbpw#">
 
 <table style="width:98.5%" class="navigation_table">
 
-<tr class="line fixrow labelmedium">
+<tr class="line fixrow labelmedium2">
 	<td width="5%"></td>
 	<td><cf_tl id="Vendor"></td>
 	<td><cf_tl id="Purchase No"></td>
@@ -388,7 +388,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="ResultSet" group="PurchaseNo">
 		
-	<tr id="#currentrow#" class="navigation_row line" style="height:24px">
+	<tr id="#currentrow#" class="navigation_row line labelmedium2" style="height:24px">
 		
 	<td style="height:16" width="5%" align="center">
 		    	
@@ -403,28 +403,28 @@ password="#SESSION.dbpw#">
 				onClick="more('#purchaseNo#','hide')">
 				
 	</td>
-	<td class="cellcontent">#OrgUnitName#</td>
-	<td class="cellcontent">
+	<td>#OrgUnitName#</td>
+	<td>
 	
 		<a href="javascript:ProcPOEdit('#Purchaseno#','','tab')">	
-		<font color="0080C0">	
+		
 		<cfif Parameter.PurchaseCustomField neq "">
 			<cfif evaluate("ResultSet.Userdefined#Parameter.PurchaseCustomField#") neq "">#evaluate("ResultSet.Userdefined#Parameter.PurchaseCustomField#")#<cfelse>#PurchaseNo#</cfif>	
 		<cfelse>
    		#PurchaseNo#
 		</cfif>	
-		</font>
+		
 		</a>
 		
 	</td>
 	
-	<td class="cellcontent">#OrderClassDescription#</td>
-	<td class="cellcontent">#OrderTypeDescription#</td>
-	<td class="cellcontent">#ActionDescription#&nbsp;<cfif ActionStatus eq "3">&nbsp;[<u>#DateFormat(OrderDate, CLIENT.DateFormatShow)#</u>]</cfif></td>
+	<td>#OrderClassDescription#</td>
+	<td>#OrderTypeDescription#</td>
+	<td>#ActionDescription#&nbsp;<cfif ActionStatus eq "3">&nbsp;[<u>#DateFormat(OrderDate, CLIENT.DateFormatShow)#</u>]</cfif></td>
 	<td></td>	
-	<td class="cellcontent" width="50">#currency#</td>
-	<td class="cellcontent" width="100" align="right">#NumberFormat(TotalOrderAmount,",__.__")#</td>
-	<td width="30" align="center">
+	<td width="50">#currency#</td>
+	<td width="100" align="right">#NumberFormat(TotalOrderAmount,",__.__")#</td>
+	<td style="min-width:60px" align="center">
 	
 	     <cf_img icon="add" navigation="yes" onClick="invoiceentry('#orgunitvendor#','#PurchaseNo#','#PersonNo#')">
 		 			

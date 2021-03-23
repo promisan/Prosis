@@ -308,59 +308,63 @@ password="#SESSION.dbpw#">
 		
 		<tr>
 
-		    <td height="18">
+		    <td>
 	
 			<table>
 			<tr>		
 			
-			    <td style="height:60px;padding-left:13px;min-width:120px">				
+			    <td colspan="6" style="height:40px;padding-left:13px;min-width:120px">				
 				<table><tr class="labelmedium">
-				<td><img src="#client.root#/images/contract.png" height="49" alt="" border="0"></td>
-				<td style="height:50px;padding-top:18px;padding-left:18px;font-size:40px">
-				<cf_tl id="Appointments"></td><td style="height:50px;padding-top:30px;padding-left:5px;font-size:19px;"><cf_tl id="and"><cf_tl id="Amendments"></td></tr>
+					<td><img src="#client.root#/images/contract.png" height="43" alt="" border="0"></td>
+					<td style="height:43px;padding-top:10px;padding-left:18px;font-size:38px">
+					<cf_tl id="Appointments"></td><td style="height:40px;padding-top:24px;padding-left:5px;font-size:19px;"><cf_tl id="and"><cf_tl id="Amendments"></td></tr>
 				</table>			
 				</td>
-				<td style="padding-left:30px"></td>
-					 
-			 <cfif url.status eq "valid">
-			 
-			     <td class="labelmedium2" align="right" valign="bottom" style="min-width:80px">
-				 <a href="javascript:contractshow('#url.id#','all','#URL.Order#')">
-				 <cf_tl id="AUDIT view">
-				 </a>
-				 </td>
-			 
-			 <cfelse>
-			 
-			 	<td class="labelmedium2" align="center" valign="bottom">
-				 <a href="javascript:contractshow('#url.id#','valid','#URL.Order#')">
-				 <cf_tl id="ACTIVE">
-				 </a>
-			    </td>
-				 
-			 </cfif>
-			 
-			 <td valign="bottom" style="padding-left:5px;padding-right:5px">|</td> 
-			 						
-			 <cfif url.order eq "ASC">
-			 	<td class="labelmedium2" align="center" style="min-width:105px" valign="bottom">
-					 <a href="javascript:contractshow('#url.id#','#URL.status#','DESC')">
-					 <cf_tl id="NEWEST on top">
-					 </a>
-				 </td>
-			<cfelse>	
-				<td class="labelmedium2" align="center" style="min-width:105px" valign="bottom">
-					 <a href="javascript:contractshow('#url.id#','#URL.status#','ASC')">
-					 <cf_tl id="OLDEST on top">
-					 </a>		 
-				 </td>	 
-			 </cfif>
-
-			 <td class="labelmedium2" align="center" valign="bottom" style="min-width:90px;color:0080C0;">
-			 	<input type="checkbox" id="btnToggleDetails" onclick="$('.clsDetailComments').toggle()"> <label for="btnToggleDetails"><cf_tl id="Details"></label>
-			 </td>	
-			 			
+				
 			</tr>
+			
+			<tr class="labelmedium2">	
+									 
+				 <cfif url.status eq "valid">
+				 
+				     <td align="right" valign="bottom" style="padding-left:20px;height:20px;min-width:80px">
+					 <a href="javascript:contractshow('#url.id#','all','#URL.Order#')">
+					 <cf_tl id="AUDIT view">
+					 </a>
+					 </td>
+				 
+				 <cfelse>
+				 
+				 	<td align="center" valign="bottom" style="padding-left:20px">
+					 <a href="javascript:contractshow('#url.id#','valid','#URL.Order#')">
+					 <cf_tl id="ACTIVE">
+					 </a>
+				    </td>
+					 
+				 </cfif>
+				 
+				 <td valign="bottom" style="padding-left:5px;padding-right:5px">|</td> 
+				 						
+				 <cfif url.order eq "ASC">
+				 	<td align="center" style="min-width:105px" valign="bottom">
+						 <a href="javascript:contractshow('#url.id#','#URL.status#','DESC')">
+						 <cf_tl id="NEWEST on top">
+						 </a>
+					 </td>
+				<cfelse>	
+					<td align="center" style="min-width:105px" valign="bottom">
+						 <a href="javascript:contractshow('#url.id#','#URL.status#','ASC')">
+						 <cf_tl id="OLDEST on top">
+						 </a>		 
+					 </td>	 
+				 </cfif>
+	
+				 <td class="labelmedium2" align="center" valign="bottom" style="min-width:90px;color:0080C0;">
+				 	<input type="checkbox" id="btnToggleDetails" onclick="$('.clsDetailComments').toggle()"> <label for="btnToggleDetails"><cf_tl id="Details"></label>
+				 </td>	
+				 			
+				</tr>
+				
 			</table>
 	
 		  </td>
@@ -380,17 +384,17 @@ password="#SESSION.dbpw#">
 				AND      ActionStatus = '0'	   	
 			</cfquery>
 			
-			<table><tr>
+			<table><tr class="labelmedium2">
 											
 				<cfif access eq "ALL" or access eq "EDIT">							 
 					    <cfset jvlink = "ProsisUI.createWindow('dialoggrade', 'Grade', '',{x:100,y:100,height:400,width:510,resizable:false,modal:true,center:true});ptoken.navigate('PersonGrade.cfm?id=#url.id#','dialoggrade')">									    
-						<td class="labelmedium" valign="bottom" style="font-size:14px;padding-left:4px;padding-right:4px"><cf_tl id="View"></td>												
+						<td valign="bottom" style="font-size:14px;padding-left:4px;padding-right:4px"><cf_tl id="View"></td>												
 						<cf_tl id="Grade" var="1">								
-						<td class="labelmedium" valign="bottom" style="font-size:14px;padding-left:4px;padding-right:4px"><a href="javascript:#preservesinglequotes(jvlink)#"><cfoutput>#lt_text#</cfoutput></a></td>						
+						<td valign="bottom" style="font-size:14px;padding-left:4px;padding-right:4px"><a href="javascript:#preservesinglequotes(jvlink)#"><cfoutput>#lt_text#</cfoutput></a></td>						
 						<td valign="bottom" style="padding-left:5px;padding-right:5px">|</td>   
 						<cfset jvlink = "ProsisUI.createWindow('dialogappointment', 'Appointment', '',{x:100,y:100,height:480,width:810,resizable:true,modal:true,center:true});ptoken.navigate('PersonAppointment.cfm?id=#url.id#','dialogappointment')">									    
 						<cf_tl id="Appointment" var="1">								
-						<td class="labelmedium" valign="bottom" style="font-size:14px;padding-left:4px;padding-right:4px"><a href="javascript:#preservesinglequotes(jvlink)#"><cfoutput>#lt_text#</font></cfoutput></a></td>						
+						<td valign="bottom" style="font-size:14px;padding-left:4px;padding-right:4px"><a href="javascript:#preservesinglequotes(jvlink)#"><cfoutput>#lt_text#</font></cfoutput></a></td>						
 						  				    			
 				</cfif>
 					 	
@@ -428,7 +432,7 @@ password="#SESSION.dbpw#">
   
   	  <cf_divscroll>
  
-	  <table style="width:99%;border:1px solid silver;padding:2px">
+	  <table style="width:99%;border-bottom:1px solid silver;padding:2px">
 			
 		<TR class="labelmedium line fixrow">
 		    <td width="3%" height="18" align="center"></td>

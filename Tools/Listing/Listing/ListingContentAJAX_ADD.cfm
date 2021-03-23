@@ -29,7 +29,7 @@
 						
 			  <cfinclude template="ListingContentHTMLGroupShow.cfm">	  
 			  					   					
-			  <cfset pre1     = "<td colspan='#headercols#' style='font-size:16px;padding-left:5px;height:30px'>#groupname# (#counted#)</td>">			  
+			  <cfset pre1     = "<td colspan='#headercols#' style='font-weight:bold;font-size:16px;padding-left:42px;height:30px'>#groupname# (#counted#)</td>">			  
 			  <cfset data1     = "">
 			  
 			   <cfloop index="itm" from="#headercols-pre+1#" to="#cols-pre#">

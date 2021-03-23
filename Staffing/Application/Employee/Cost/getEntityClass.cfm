@@ -52,14 +52,14 @@ password="#SESSION.dbpw#">
 	
 	<cfif Item.entityclass neq "">	
 		
-		<select name="entityClass_#url.itm#" class="enterastab regularxl" style="width:97%;border:0px" 
+		<select name="entityClass_#url.itm#" class="enterastab regularxxl" style="width:97%;border:0px" 
 		  onchange="_cf_loadingtexthtml='';ptoken.navigate('getActors.cfm?personno=#url.personno#','actor','','','POST','MiscellaneousEntry')">	
 				<option value="#Item.EntityClass#">#Item.EntityClass#</option>	
 		</select>
 	
 	<cfelse>
 		
-		<select name="entityClass_#url.itm#" class="enterastab regularxl" style="width:97%;border:0px" 
+		<select name="entityClass_#url.itm#" class="enterastab regularxxl" style="width:97%;border:0px" 
 		  onchange="_cf_loadingtexthtml='';ptoken.navigate('getActors.cfm?personno=#url.personno#','actor','','','POST','MiscellaneousEntry')">
 		
 			<cfif entity.workflowenforce neq "1">

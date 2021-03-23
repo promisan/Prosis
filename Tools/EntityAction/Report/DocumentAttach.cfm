@@ -96,7 +96,7 @@ password="#SESSION.dbpw#">
 
 <cfif External.recordcount gte "1">
 
-<tr class="labelmedium line"><td colspan="2" style="padding-left:10px;height:45px;font-size:21px" colspan"2"><cf_tl id="Specific attachments to be added"></td></tr>
+<tr class="labelmedium line"><td colspan="2" style="padding-left:10px;height:45px;font-size:21px" colspan"2"><cf_tl id="Attachments"></td></tr>
 	
 <tr><td colspan="2">
 

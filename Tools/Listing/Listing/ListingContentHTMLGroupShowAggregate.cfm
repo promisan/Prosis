@@ -59,8 +59,7 @@
 	 <!--- pass this into the correct cell value for the group to be shown --->
 	 <!--- -ATTENTION ADJUST FOR FORMULA ----------------------------- --- --->	 
 	 <!--- --------------------------------------------------------------- --->
-	 
-			 	 	 		  
+	 			 	 	 		  
      <cfloop array="#attributes.listlayout#" index="fields">
 	 
 		 <cfif fields.display eq "Yes" and fields.field neq url.listgroupfield>

@@ -38,17 +38,6 @@ password="#SESSION.dbpw#">
 
 <cfset dim = daysInMonth(SALSTR)>
 
-<cfquery name="MonthWork" 
-datasource="AppsPayroll" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	UPDATE userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual   
-	SET    Amount            = ((EntitlementDays-EntitlementLWOP-EntitlementSuspend)/#Form.SalaryDays#)*Amount,
-		   PaymentAmount     = ((EntitlementDays-EntitlementLWOP-EntitlementSuspend)/#Form.SalaryDays#)*PaymentAmount,
-		   EntitlementAmount = ((EntitlementDays-EntitlementLWOP-EntitlementSuspend)/#Form.SalaryDays#)*EntitlementAmount
-	WHERE  Period = 'MONTHW' 
-</cfquery>
-
 <cfquery name="MonthContract" 
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
@@ -58,6 +47,28 @@ password="#SESSION.dbpw#">
      	   PaymentAmount     = (EntitlementDays/#Form.SalaryDays#)*PaymentAmount,
 		   EntitlementAmount = (EntitlementDays/#Form.SalaryDays#)*EntitlementAmount 
 	WHERE  Period = 'MONTH' 
+</cfquery>
+
+<cfquery name="MonthBase" 
+datasource="AppsPayroll" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	UPDATE userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual   
+	SET    Amount            = ((EntitlementDays-EntitlementLWOP)/#Form.SalaryDays#)*Amount,
+		   PaymentAmount     = ((EntitlementDays-EntitlementLWOP)/#Form.SalaryDays#)*PaymentAmount,
+		   EntitlementAmount = ((EntitlementDays-EntitlementLWOP)/#Form.SalaryDays#)*EntitlementAmount
+	WHERE  Period = 'MONTHN' 
+</cfquery>
+
+<cfquery name="MonthWork" 
+datasource="AppsPayroll" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	UPDATE userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual   
+	SET    Amount            = ((EntitlementDays-EntitlementLWOP-EntitlementSuspend)/#Form.SalaryDays#)*Amount,
+		   PaymentAmount     = ((EntitlementDays-EntitlementLWOP-EntitlementSuspend)/#Form.SalaryDays#)*PaymentAmount,
+		   EntitlementAmount = ((EntitlementDays-EntitlementLWOP-EntitlementSuspend)/#Form.SalaryDays#)*EntitlementAmount
+	WHERE  Period = 'MONTHW' 
 </cfquery>
 
 <cfquery name="MonthFixed" 
@@ -125,6 +136,7 @@ password="#SESSION.dbpw#">
 			 AmountCalculationFull, 
 			 AmountCalculationDays,
 			 AmountCalculationBase, 
+			 AmountCalculationWork, 
 			 AmountCalculation, 
 			 AmountPayroll, 
 			 PaymentCurrency, 
@@ -146,11 +158,12 @@ password="#SESSION.dbpw#">
 			 EntitlementDays-EntitlementLWOP,
 			 Period,
 			 Currency,
-			 Amount,
-			 Amount,
-			 Amount,
-			 Amount, 
-			 Amount, 
+			 ROUND(Amount,6),
+			 ROUND(Amount,6),
+			 ROUND(Amount,6),			 
+			 ROUND(Amount,6),
+			 ROUND(Amount,6), 
+			 ROUND(Amount,6), 
 			 '#Form.Currency#', 
 			 ROUND(EntitlementAmount, #roundsettle#), 
 			 ROUND(PaymentAmount, #roundsettle#), 

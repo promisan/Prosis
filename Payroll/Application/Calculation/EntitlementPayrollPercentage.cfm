@@ -429,6 +429,7 @@ have percentages in the result --->
 			
 		<!--- update the base amount in the temp calculation base set --->
 		
+					
 		<cfquery name="SetAmountBase" 
 		datasource="AppsPayroll" 
 		username="#SESSION.login#" 
@@ -450,7 +451,9 @@ have percentages in the result --->
 			AND     S.PayrollCalcNo       = T.Line	
 			AND     T.CalculationBase     = '#code#' 
 			AND     T.SalarySchedule      = '#myschedule#'					
-		</cfquery>						
+		</cfquery>			
+		
+					
 	
 		<!--- -------------------------------------------------------------------------------------------------------- --->
 		<!--- update percentage (if needed based on a subtable) based on the base value and correct for the full month --->
@@ -515,7 +518,7 @@ have percentages in the result --->
 			WHERE   EntitlementDaysCorrectionPointer = 1 
 			<!--- 18-12-2018 added by Hanno, to be clarified as to why we needed this code --->			
 		</cfquery>
-									
+											
 		<cfloop index="itm" list="0,1,2,3" delimiters=",">
 		
 			<cfquery name="CalculatePayrollAmountPercentage" 
@@ -550,11 +553,13 @@ have percentages in the result --->
 						
 				<cfelseif itm eq "3">
 				<!--- (3) Entitlement days -/- (LWOP + Suspended) --->
+				
 																	
 				SET   	EntitlementAmountFull = ((Percentage/100)*AmountCalculationFull)*SalaryMultiplier, 
 						EntitlementAmountDays = ((Percentage/100)*AmountCalculationDays)*SalaryMultiplier, 
 					    EntitlementAmountBase = ((Percentage/100)*AmountCalculationBase)*SalaryMultiplier, 
 						EntitlementAmountWork = ((Percentage/100)*AmountCalculationWork)*SalaryMultiplier,
+												
 						EntitlementAmount     =
 						
 						<!---
@@ -577,8 +582,8 @@ have percentages in the result --->
 						
 						CASE  WHEN CalculationBaseMode =  '1'    THEN ((Percentage/100)*AmountCalculationFull)*SalaryMultiplier*((EntitlementDays-EntitlementLWOP-EntitlementSUSPEND)/#Form.SalaryDays#)
 							  ELSE ((Percentage/100)*AmountBase)*SalaryMultiplier*((EntitlementDays-EntitlementLWOP-EntitlementSUSPEND)/EntitlementDaysBase)					    			    
-						END										
-						
+						END			
+												
 				<cfelseif itm eq "2">
 										
 				SET   	EntitlementAmountFull = ((Percentage/100)*AmountCalculationFull)*SalaryMultiplier,  <!--- correction in case this generated amount is used another percentage --->						
@@ -596,12 +601,29 @@ have percentages in the result --->
 		    </cfquery>	
 				
 		</cfloop>
-						
+							
 	</cfloop>
 	
 </cfloop>	
 
-<!--- correction of Medical insurance charge will always be based on the full period of being entitled, this does not apply for PF --->
+<!--- apply some rounding 10/3/2021 --->
+
+<cfquery name="Rounding" 
+	datasource="AppsPayroll" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	UPDATE  userTransaction.dbo.sal#SESSION.thisprocess#EntitlementRatePercentage
+	SET   	EntitlementAmountFull = round(EntitlementAmountFull,6),
+			EntitlementAmountDays = round(EntitlementAmountDays,6),
+			EntitlementAmountBase = round(EntitlementAmountBase,6),
+			EntitlementAmountWork = round(EntitlementAmountWork,6),
+			EntitlementAmount     = round(EntitlementAmount,6),
+			PaymentAmount         = round(PaymentAmount,6)	
+	WHERE   SalarySchedule        = '#myschedule#'			
+</cfquery>	
+	
+<!--- STL adjustment 
+    correction of Medical insurance charge will always be based on the full period of being entitled, this does not apply for PF --->
 
 <cfquery name="MIPBasedOnFulltime" 
 	datasource="AppsPayroll" 
@@ -615,7 +637,6 @@ have percentages in the result --->
 		AND     Source            = 'Deduction'
 		
 </cfquery>		
-
 
 <!--- -------------------------------------------------------------------- --->
 <!--- -----------19/8 medical insurance premium handling------------------ --->
@@ -645,6 +666,7 @@ have percentages in the result --->
 	SET     EntitlementAmountFull = EntitlementAmountFull - S.AmountFull, 	
 			EntitlementAmountDays = EntitlementAmountDays - S.AmountDays,
 			EntitlementAmountBase = EntitlementAmountBase - S.AmountBase, 
+			EntitlementAmountWork = EntitlementAmountWork - S.AmountWork,
 			EntitlementAmount     = EntitlementAmount - S.Amount, 
 			PaymentAmount         = EntitlementAmount - S.Amount		
 							  
@@ -654,7 +676,8 @@ have percentages in the result --->
 											ParentComponent, 
 											EntitlementAmountFull as AmountFull,
 											EntitlementAmountDays as AmountDays,											
-											EntitlementAmountBase as AmountBase,											
+											EntitlementAmountBase as AmountBase,	
+											EntitlementAmountWork as AmountWork,											
 											EntitlementAmount as Amount
                                FROM         userTransaction.dbo.sal#SESSION.thisprocess#EntitlementRatePercentage
                                WHERE        Source = 'Contribution'   <!--- subsidy --->
@@ -713,6 +736,7 @@ password="#SESSION.dbpw#">
 			 AmountCalculationFull,
 			 AmountCalculationDays,
 			 AmountCalculationBase,
+			 AmountCalculationWork,
 			 AmountCalculation, 
 			 
 			 AmountPayroll, 
@@ -746,6 +770,7 @@ password="#SESSION.dbpw#">
 			 ROUND(EntitlementAmountFull,6),
 			 ROUND(EntitlementAmountDays,6),
 			 ROUND(EntitlementAmountBase,6),
+			 ROUND(EntitlementAmountWork,6),
 			 ROUND(EntitlementAmount,6), 
 			 
 			 ROUND(PaymentAmount,6), 

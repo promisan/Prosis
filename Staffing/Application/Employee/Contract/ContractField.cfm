@@ -79,7 +79,7 @@
 		<table>
 		<tr><td>
 		<cfoutput>
-	  	<select name="AppointmentStatus" size="1"  class="regularxl">
+	  	<select name="AppointmentStatus" size="1"  class="regularxxl">
 		<cfloop query="list">
 			<option value="#Code#" <cfif Code eq url.default>selected</cfif>>
 	    		#Description#
@@ -89,7 +89,7 @@
 		
 		</td>
 		
-		<td style="padding-left:4px"><input type="text" name="AppointmentStatusMemo" maxlength="100" class="regularxl" style="min-width:240px"></td>
+		<td style="padding-left:4px"><input type="text" name="AppointmentStatusMemo" maxlength="100" class="regularxxl" style="min-width:240px"></td>
 		
 		</td></tr></table>
 		</cfoutput>
@@ -124,7 +124,7 @@
 		<cfoutput>
 	  	<select name="ContractType" id="ContractType"
 		     size="1" 
-			 class="regularxl" 
+			 class="regularxxl" 
 			 onchange="_cf_loadingtexthtml='';ptoken.navigate('getFinancialEntitlement.cfm?id=#url.id#&contracttype='+this.value+'&salaryschedule='+document.getElementById('salaryschedule').value,'boxentitlement');ptoken.navigate('#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=apptstatus&mission=#url.mission#&default=&contracttype='+this.value,'fldappstatus')">
 				<cfloop query="ContractType">
 					<option value="#ContractType#" <cfif ContractType eq url.default>selected</cfif>>
@@ -179,7 +179,7 @@
 		
 		</cfif>
 		
-		<select name="contractlevel" size="1" class="regularxl" 
+		<select name="contractlevel" size="1" class="regularxxl" 
 		    onchange="ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/staffing/Application/Employee/Contract/ContractField.cfm?field=contractstep&grade='+this.value,'fldcontractstep')">
 			<cfoutput query="PostGrade">
 			<option value="#PostGrade#" <cfif PostGrade eq url.default>selected</cfif>>
@@ -225,7 +225,7 @@
 		
 		<cfelse>
 		
-			<select name="contractstep" class="regularxl">
+			<select name="contractstep" class="regularxxl">
 					
 				<cfloop index="st" from="1" to="#PostGrade.PostGradeSteps#">
 						<option value="#st#" <cfif url.default eq st>selected</cfif>>#st#</option>

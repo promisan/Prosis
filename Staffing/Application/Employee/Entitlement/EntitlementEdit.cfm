@@ -381,11 +381,16 @@ password="#SESSION.dbpw#">
 	    <TD>
 		
 		    <cfif accessmode eq "edit">
-			<INPUT type="radio" class="radiol" name="Period" value="DAY"     <cfif Entitlement.Period eq "DAY">checked</cfif>> <cf_tl id="Daily">&nbsp;
-			<INPUT type="radio" class="radiol" name="Period" value="WORKDAY" <cfif Entitlement.Period eq "WORKDAY">checked</cfif>> <cf_tl id="Daily (workdays only)">&nbsp;
-			<INPUT type="radio" class="radiol" name="Period" value="MONTHF"  <cfif Entitlement.Period eq "MONTHF">checked</cfif>> <cf_tl id="Monthly"> 
-			<INPUT type="radio" class="radiol" name="Period" value="MONTH"   <cfif Entitlement.Period eq "MONTH">checked</cfif>> <cf_tl id="Monthly"> (contractual days)
-			<INPUT type="radio" class="radiol" name="Period" value="MONTHW"  <cfif Entitlement.Period eq "MONTHW">checked</cfif>> <cf_tl id="Monthly"> (contractual-lwop days)
+			
+			<select name="Period" class="regularxxl">
+			 <option value="DAY" <cfif Entitlement.Period eq "DAY">selected</cfif>><cf_tl id="Daily"></option>
+			 <option value="WORKDAY" <cfif Entitlement.Period eq "WORKDAY">selected</cfif>><cf_tl id="Daily (workdays only)"></option>
+			 <option value="MONTHF" <cfif Entitlement.Period eq "MONTHF">selected</cfif>><cf_tl id="Monthly">: fixed</option>
+			 <option value="MONTH"  <cfif Entitlement.Period eq "MONTH">selected</cfif>><cf_tl id="Monthly">: Prorate Contract days</option>
+			 <option value="MONTHN" <cfif Entitlement.Period eq "MONTHN">selected</cfif>><cf_tl id="Monthly">: Prorate Contract days -/- slwop</option>
+			 <option value="MONTHW" <cfif Entitlement.Period eq "MONTHW">selected</cfif>><cf_tl id="Monthly">: Prorate Contract days -/- (slwop + suspend)</option>
+			 
+			</select>
 			<cfelse>
 			#Entitlement.Period#
 			</cfif>

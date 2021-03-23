@@ -2081,7 +2081,7 @@
 				   
 				       UPDATE Accounting.dbo.TransactionLine	
 					   					   				   
-					   <cfif diff lte "0">
+					   <cfif diff gte "0">
 					   SET    TransactionAmount    =  '#diff#',
 					   		  ExchangeRate         =  '#journalexc#',
 							  AmountCredit         =  '0',

@@ -84,13 +84,13 @@ function ask() {
 	
 	<tr>
 	
-    <TD style="padding-left:5px;min-width:90" class="labelmedium2"><cf_tl id="Calculate">:</TD>
-    <td width="100%" colspan="2" class="labelit" style="padding-top:3px;border:0px solid silver">
+    <TD style="padding-left:5px;min-width:90;padding-top:3px" class="labelmedium2"><cf_tl id="Calculate">:</TD>
+    <td width="100%" colspan="2" style="padding-top:3px;border:0px solid silver">
 	    <table><tr class="labelmedium2">
 		<td style="padding-left:4px"><input type="radio" class="radiol" name="BaseAmount" value="0" <cfif get.baseamount eq 0 or get.baseamount eq "">checked</cfif>></td>
-		<td style="width:120px;padding-left:3px;">Payable&nbsp;amount</td>
+		<td style="width:250px;padding-left:3px;">Contract -/- (LWOP + Suspend)</td>
 		<td style="padding-left:9px"><input type="radio" class="radiol" name="BaseAmount" value="2" <cfif get.baseamount eq 2>checked</cfif>></td>
-		<td style="width:220px;padding-left:3px;">Contract -/- LWOP</td>
+		<td style="width:170px;padding-left:3px;">Contract -/- LWOP</td>
 		<td style="padding-left:9px"><input type="radio" class="radiol" name="BaseAmount" value="3" <cfif get.baseamount eq 3>checked</cfif>></td>
 		<td style="width:120px;padding-left:3px;">Contract&nbsp;amount</td>
 		<td style="padding-left:9px"><input type="radio" class="radiol" name="BaseAmount" value="1" <cfif get.baseamount eq 1>checked</cfif>></td>
@@ -115,7 +115,7 @@ function ask() {
 	
 	<table width="100%" cellspacing="0" cellpadding="0" border="0">
 	
-	<tr class="line"><td bgcolor="E6E6E6" class="labelmedium2" style="padding:5px">#Description#</td></tr>
+	<tr><td class="labelmedium2" align="center" style="font-size:20px;height:40px">#Description#</td></tr>
 	<tr>
 				
 		<cfquery name="Item"

@@ -5,7 +5,6 @@
 <cf_dialogProcurement>
 <cf_dialogLedger>
 <cf_calendarScript>
-<cfajaximport tags="cfwindow">
 
 <script>
 function applyprogram(prg,scope) {
@@ -96,23 +95,23 @@ password="#SESSION.dbpw#">
 <!--- Search form --->
 <cfform action="LocatePurchaseDetail.cfm?Mission=#URL.Mission#&Period=#URL.Period#" method="POST" target="detail"  name="locate">
 	
-<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="97%" align="center" class="formpadding">
 
 <tr><td id="locatebox" class="regular">
 
 <table width="97%" cellspacing="0" align="center" class="formpadding">
 	
 	<TR>
-	<TD class="labelmedium"><cf_tl id="Purchase">:</TD>
+	<TD class="labelmedium2"><cf_tl id="Purchase">:</TD>
 	<td colspan="1">	
 	<table cellspacing="0" cellpadding="0">
 	<tr>
-	<td><input type="text" class="regularxl" name="purchaseno" id="purchaseno" value="" size="8"></td>
+	<td><input type="text" class="regularxxl" name="purchaseno" id="purchaseno" value="" size="8"></td>
 	<td width="6"></td>
-	<TD class="labelmedium"><cf_tl id="Type">:</TD>
+	<TD class="labelmedium2"><cf_tl id="Type">:</TD>
 	<td width="6"></td>			
 	<td align="left" valign="top">
-	<select name="ordertype" id="ordertype" size="1" class="regularxl">
+	<select name="ordertype" id="ordertype" size="1" class="regularxxl">
 	    <option value="" selected>All</option>
 	    <cfoutput query="ordertype">
 		<option value="#Ordertype#">#Ordertype#</option>
@@ -135,11 +134,11 @@ password="#SESSION.dbpw#">
 	</tr>
 	</table>
 	</td>
-	<TD class="labelmedium"><cf_tl id="Issued after">:</TD>
+	<TD class="labelmedium2"><cf_tl id="Issued after">:</TD>
 	<TD>	
 	 <cf_intelliCalendarDate9
 		FieldName="orderdate" 
-		class="regularxl"
+		class="regularxxl"
 		Default=""		
 		AllowBlank="True">	
 	</TD>
@@ -148,16 +147,16 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<TR>
-	<TD class="labelmedium"><cf_tl id="Requisition">:</TD>
+	<TD class="labelmedium2"><cf_tl id="Requisition">:</TD>
 	<TD>	
-	<input type="text" name="requisitionno" id="requisitionno" class="regularxl" value="" size="20">
+	<input type="text" name="requisitionno" id="requisitionno" class="regularxxl" value="" size="20">
 	</TD>
 	
-	<TD class="labelmedium"><cf_tl id="Period">:</TD>
+	<TD class="labelmedium2"><cf_tl id="Period">:</TD>
 	
 	<td align="left" valign="top">
 	
-	<select name="Period" id="Period" size="1" class="regularxl">
+	<select name="Period" id="Period" size="1" class="regularxxl">
 	    <option value="" selected><cf_tl id="All"></option>
 	    <cfoutput query="tPeriod">
 		<option value="#Period#" <cfif URL.Period eq Period>selected</cfif> >#Period#</option>
@@ -169,13 +168,13 @@ password="#SESSION.dbpw#">
 	</tr>
 		
 	<TR>
-	<td class="labelmedium"><cf_tl id="Program">/<cf_tl id="Project"></td>
+	<td class="labelmedium2"><cf_tl id="Program">/<cf_tl id="Project"></td>
 	<td>
 	  
 	  <cfoutput>
 	  <table border="0" cellspacing="0" cellpadding="0">			  
 	  <td>
-	  <input type="text" name="programdescription" id="programdescription" class="regularxl" value="" size="40" maxlength="80" readonly 
+	  <input type="text" name="programdescription" id="programdescription" class="regularxxl" value="" size="40" maxlength="80" readonly 
 	  onclick="this.value='';programcode.value=''">
 	  <input type="hidden" name="programcode" id="programcode" value="" size="20" maxlength="20" readonly>
 	  </td>
@@ -205,10 +204,10 @@ password="#SESSION.dbpw#">
 	  	
 	</td>
 		
-	<TD class="labelmedium"><cf_tl id="Order Class">:</TD>
+	<TD class="labelmedium2"><cf_tl id="Order Class">:</TD>
 			
 	<td align="left" valign="top">
-	<select name="orderclass" id="orderclass" size="1" class="regularxl">
+	<select name="orderclass" id="orderclass" size="1" class="regularxxl">
 	    <option value="" selected><cf_tl id="All"></option>
 	    <cfoutput query="class">
 		<option value="#OrderClass#">#Description#</option>
@@ -221,16 +220,16 @@ password="#SESSION.dbpw#">
 	
 	
 	<TR>
-	<TD class="labelmedium"><cf_tl id="Vendor Code">:</TD>
+	<TD class="labelmedium2"><cf_tl id="Vendor Code">:</TD>
 			
 	<td align="left"> 
-		<cfinput type="Text" class="regularxl" tooltip="Vendor Code" name="orgunit" validate="integer" required="No" size="10">	
+		<cfinput type="Text" class="regularxxl" tooltip="Vendor Code" name="orgunit" validate="integer" required="No" size="10">	
 	</td>	
 				
-	<td align="left" class="labelmedium"><cf_tl id="Vendor Name">:</td>	
+	<td align="left" class="labelmedium2"><cf_tl id="Vendor Name">:</td>	
 	<td>
 	
-	  <select name="orgunitvendor" id="orgunitvendor" style="width:160px" size="1" class="regularxl">
+	  <select name="orgunitvendor" id="orgunitvendor" style="width:160px" size="1" class="regularxxl">
 		<option value="" selected><cf_tl id="All"></option>
 	    <cfoutput query="Vendor">
 			<option value="#OrgUnit#">#OrgUnitName#</option>
@@ -255,15 +254,15 @@ password="#SESSION.dbpw#">
 	<cfif employee.recordcount gte "1">
 	
 		<TR>
-		<TD class="labelmedium"><cf_tl id="IndexNo">:</TD>
+		<TD class="labelmedium2"><cf_tl id="IndexNo">:</TD>
 				
 		<td align="left"> 
-		<cfinput type="Text" class="regularxl" tooltip="IndexNo" name="indexNo" required="No" size="10">	
+		<cfinput type="Text" class="regularxxl" tooltip="IndexNo" name="indexNo" required="No" size="10">	
 		</td>	
 						
-		<td align="left" class="labelmedium"><cf_tl id="Employee">:</td>	
+		<td align="left" class="labelmedium2"><cf_tl id="Employee">:</td>	
 		<td>
-		  <select name="personno" id="personno" style="width:200px" size="1" class="regularxl">
+		  <select name="personno" id="personno" style="width:200px" size="1" class="regularxxl">
 			<option value="" selected><cf_tl id="All"></option>
 		    <cfoutput query="Employee">
 				<option value="#PersonNo#">#FirstName# #LastName#</option>
@@ -276,19 +275,19 @@ password="#SESSION.dbpw#">
 	</cfif>
 			
 	<TR>
-	<TD class="labelmedium"><cf_tl id="Order amount">:</TD>
-	<TD><SELECT name="amountoperator" id="amountoperator" class="regularxl">
+	<TD class="labelmedium2"><cf_tl id="Order amount">:</TD>
+	<TD><SELECT name="amountoperator" id="amountoperator" class="regularxxl">
 			<OPTION value="="><cf_tl id="is">
 			<option value=">=" selected><cf_tl id="greater than">
 			<OPTION value="<="><cf_tl id="smaller than">
 		</SELECT>
-		<input type="text" name="amount" id="amount" class="regularxl" value="0" size="10" style="text-align: right;">
+		<input type="text" name="amount" id="amount" class="regularxxl" value="0" size="10" style="text-align: right;">
 		<cfoutput>#APPLICATION.BaseCurrency#</cfoutput>
 	</TD>
 	
-	<TD class="labelmedium"><cf_tl id="Descriptive">:</TD>
+	<TD class="labelmedium2"><cf_tl id="Descriptive">:</TD>
 	<TD>	
-	<input type="text" name="orderitem" id="orderitem" value="" size="30" class="regularxl">
+	<input type="text" name="orderitem" id="orderitem" value="" size="30" class="regularxxl">
 	<cfoutput>
 	  <img src="#SESSION.root#/Images/delete5.gif" align="absmiddle" alt="" border="0" onclick="document.getElementById('orderitem').value=''">
 	</cfoutput> 
@@ -298,17 +297,17 @@ password="#SESSION.dbpw#">
 	</TR>
 		
 	<TR>
-	<TD class="labelmedium"><cf_tl id="Obligation Status">:</TD>
-	<td align="left" valign="top" class="labelmedium">
+	<TD class="labelmedium2"><cf_tl id="Obligation Status">:</TD>
+	<td align="left" valign="top" class="labelmedium2">
 	    <cfif Parameter.InvoicePriorIssue eq "1">
-	    <select name="actionstatus" id="actionstatus" size="1" class="regularxl">
+	    <select name="actionstatus" id="actionstatus" size="1" class="regularxxl">
 		<option value="">All</option>
 	    <cfoutput query="OrderStatus">
 			<option value="#ActionStatus#" <cfif ActionStatus eq "3">selected</cfif>>#Description#</option>
 		</cfoutput>
 	    </select>
 		<cfelse>
-		<select name="actionstatus" id="actionstatus" size="1" class="regularxl">
+		<select name="actionstatus" id="actionstatus" size="1" class="regularxxl">
 		<cfoutput query="OrderStatus">
 			<cfif ActionStatus gte "3">
 			<option value="#ActionStatus#" <cfif ActionStatus eq "3">selected</cfif>>#Description#</option>
@@ -318,8 +317,8 @@ password="#SESSION.dbpw#">
 		</cfif>
 		<font size="2" color="808080">---> <cf_tl id="Closed Obligations may not be selected"></font>
 	</td>	
-	<TD class="labelmedium"><cf_tl id="Delivery Status">:</TD>
-	<TD><SELECT name="deliverystatus" id="deliverystatus" class="regularxl">
+	<TD class="labelmedium2"><cf_tl id="Delivery Status">:</TD>
+	<TD><SELECT name="deliverystatus" id="deliverystatus" class="regularxxl">
 	       <OPTION value="" selected><cf_tl id="All"> 
 	       <OPTION value="0"><cf_tl id="Outstanding">
 		   <OPTION value="3"><cf_tl id="Completed"> 
@@ -337,9 +336,9 @@ password="#SESSION.dbpw#">
 <tr id="locatebox"><td align="center">
    <cfoutput>
    <cf_tl id="Reset" var="rlabel">
-	<input type="reset"  class="button10g" style="font-size:12px;width:130px;height:25" value="#rlabel#">
+	<input type="reset"  class="button10g" style="font-size:14px;width:180px;height:30" value="#rlabel#">
 	<cf_tl id="Find" var="slabel">
-	<input type="submit" name="search" id="search" style="font-size:12px;width:130px;height:25" value="#slabel#" class="button10g">
+	<input type="submit" name="search" id="search" style="font-size:14px;width:180px;height:30" value="#slabel#" class="button10g">
 	</cfoutput>
 </td></tr>
 

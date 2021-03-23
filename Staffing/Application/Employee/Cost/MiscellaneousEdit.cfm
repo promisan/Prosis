@@ -7,6 +7,7 @@
 </cfif>
 
 <cf_dialogPosition>
+<cf_dialogLedger>
 <cf_ActionListingScript>
 
 <cfquery name="Currency" 
@@ -211,7 +212,28 @@ password="#SESSION.dbpw#">
 		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Payment" <cfif Entitlement.EntitlementClass eq "Payment">checked</cfif>></td>
 		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Payment</td>
 		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Deduction" <cfif Entitlement.EntitlementClass eq "Deduction">checked</cfif>></td>
-		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Deduction</td>		
+		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Deduction
+				
+		<cfif Entitlement.Source eq "Ledger" and entitlement.SourceId neq "">
+		
+			<cfquery name="Advance" 
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">		
+				SELECT    *
+				FROM      TransactionHeader AS H
+				WHERE     Transactionid = '#Entitlement.SourceId#' 			           
+			</cfquery>
+			
+			<cfif advance.recordcount eq "1">
+			
+			:&nbsp;<a href="javascript:ShowTransaction('#Advance.journal#','#Advance.journalserialNo#','','tab','')">#Advance.Journal#-#Advance.journalSerialNo#</a>
+			
+			</cfif>
+		
+		</cfif>
+		
+		</td>		
 		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Contribution" <cfif Entitlement.EntitlementClass eq "Contribution">checked</cfif>></td>
 		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Contribution</td>
 		</tr>

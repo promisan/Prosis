@@ -161,13 +161,14 @@
 				  <b>:</b>
 			   </td>
 				      
-			   <td class="#r#" id="d1b" title="#vLblTTGoTo#">   
-				   <select style="width:250px" class="regularxxl"				   
+			   <td class="#r#" id="d1b" title="#vLblTTGoTo#">  
+			       :  
+				   <select style="width:240px;border:0px;background-color:f1f1f1" class="regularxxl"				   
 				     name="ActionCodeOnHold" id="ActionCodeOnHold"
 					 style="background: ffffff;" 
 					 onchange="_cf_loadingtexthtml='';updateTextArea();ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=revert&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode='+this.value,'stepflyaccess');">					 
 					<cfloop query="Revert">
-					   <option value="#ActionCode#">TO: #ActionDescription# | #ActionReference# [#ActionCode#]</option>
+					   <option value="#ActionCode#">: #ActionDescription# | #ActionReference# [#ActionCode#]</option>
 					</cfloop>
 					</select>					
 				</td>

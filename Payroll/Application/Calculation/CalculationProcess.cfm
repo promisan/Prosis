@@ -672,7 +672,12 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 		<cf_progress name="Base Salary">		
 										
 			<!--- salary calculation ---> 
-				<cfinclude template="EntitlementContract.cfm"> 			 
+				<cfinclude template="EntitlementContract.cfm"> 		
+				
+		<cf_progress name="Overtime">		 
+		
+			<!--- overtime calculation --->
+			<cfinclude template="EntitlementOvertime.cfm"> 					 
 						
 		<cf_progress name="Entitlement">
 									
@@ -690,19 +695,15 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 					ProcessBatchId = "#calculationid#"			
 					Description    = "Entitlements, calculated on current period"> 
 			
-					<cfinclude template="EntitlementPayrollRate.cfm">					
-					<cfinclude template="EntitlementPayrollPercentage.cfm">
+				<cfinclude template="EntitlementPayrollRate.cfm">					
+				<cfinclude template="EntitlementPayrollPercentage.cfm">
 					
 		<cf_progress name="Incidental Cost">		 
 									
 		<!--- miscellaneous costs --->
 				<cfinclude template="EntitlementMiscellaneous.cfm"> 				
+				
 					
-		<cf_progress name="Overtime">		 
-		
-			<!--- overtime calculation --->
-			<cfinclude template="EntitlementOvertime.cfm"> 			
-			
 			<!--- special calculation for running entitlement like annual bonus / vakantie geld --->
 			<!--- ATTENTION this has to be adjusted to the SalaryScaleComponent table to be more independent --->
 			

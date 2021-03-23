@@ -4,10 +4,7 @@
 <cf_screentop height="100%" scroll="Yes" jquery="Yes" html="No" MenuAccess="Yes" SystemFunctionId="#url.idmenu#">
 
 <cf_ProcessScript>
-<cf_listingscript>
 <cf_dialogstaffing>
-
-
 <cfoutput>
 
 <script>
@@ -711,13 +708,13 @@ password="#SESSION.dbpw#">
 												
 												</td>
 												
-												 <td align="center" style="width:4%;padding-left:10px;padding-right:5px">
-							       <cfif DateEffectivePosting lte PayrollEnd>
-								      <input type="checkbox" class="radiol" name="calculate" value="'#CalculationId#'">	
-								   </cfif>
+												 <td align="center" style="min-width:30px;;padding-left:10px;padding-right:5px">
+													       <cfif DateEffectivePosting lte PayrollEnd>
+														      <input type="checkbox" class="radiol" name="calculate" value="'#CalculationId#'">	
+														   </cfif>
 							   </td>
 												 
-											   <td style="width:30px;padding-left:4px">
+											   <td style="min-width:30px;padding-left:4px">
 											   											  
 												   	<cfif transactioncount gt "0">
 												
@@ -741,7 +738,7 @@ password="#SESSION.dbpw#">
 											            <cf_img icon="delete" onClick="del('#CalculationId#')">								  							
 													</td>	
 												  <cfelse>
-												   <td style="width:30px"/>	
+												   <td style="width:30px"><td></td>	
 												  																																			
 											   </cfif>		
 											   
@@ -931,14 +928,10 @@ password="#SESSION.dbpw#">
 												   </cfif>
 												   
 												   <td></td>
-												   <td></td>
-												   
-												  
+												   <td></td>											  
 													
 											</tr>		
 											
-											
-					
 											<tr class="hide" id="final#CalculationId#">			   										  
 											   <td id="final_details#CalculationId#" colspan="8" align="right" style="padding:3px;border:0px solid silver;"></td>
 										    </tr>

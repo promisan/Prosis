@@ -1,5 +1,4 @@
 
-<cf_dialogStaffing>
 <cf_dialogProcurement>
 <cf_menuscript>
 
@@ -15,7 +14,7 @@
 		h = #CLIENT.height# - 120
 			
 		function recap(id) {
-		    window.open("../../Inquiry/Entitlement/ControlView.cfm?id2="+id  , "_blank");	 
+		    ptoken.open("../../Inquiry/Entitlement/ControlView.cfm?id2="+id  , "_blank");	 
 		}
 			
 		function more(sch) {
@@ -24,10 +23,10 @@
 			count=0
 			
 			while (se[count]) {		  
-			   if (se[count].className == "hide") {
-				   se[count].className = "regular navigation_row line"
+			   if (se[count].className == "hide navigation_row") {
+				   se[count].className = "regular navigation_row"
 			  } else {	   
-			     se[count].className = "hide"
+			     se[count].className = "hide navigation_row"
 			  }		   
 			   count++
 			   }

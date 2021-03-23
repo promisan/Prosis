@@ -238,20 +238,20 @@ password="#SESSION.dbpw#">
 	<tr>
 	
 	<td style="padding-left:20px" colspan="3">	
-	    <table style="width:570">
+	    <table style="border:1px solid silver">
 		<tr class="labelmedium">		
 		<td style="padding-left:4px"><INPUT type="radio" name="Status" class="radiol" value="1" onClick="reloadForm('1')" <cfif URL.Status eq "1">checked</cfif>></td>
 		<td style="padding-left:3px" onClick="reloadForm('1')"><cfif URL.Status eq "1"></cfif><cf_tl id="Valid">: #dateformat(now(),client.dateformatshow)#</td>
 		<td style="padding-left:10px"><INPUT type="radio" name="Status" class="radiol" value="2" onClick="reloadForm('2')" <cfif URL.Status eq "2">checked</cfif>></td>
-		<td style="padding-left:3px" onClick="reloadForm('2')"><cfif URL.Status eq "2"></cfif><cf_tl id="Valid but expired"></td>
+		<td style="padding-left:3px" onClick="reloadForm('2')"><cfif URL.Status eq "2"></cfif><cf_tl id="Valid expired"></td>
 		<td style="padding-left:10px"><input type="radio" name="Status" class="radiol" value="0" onClick="reloadForm('0')" <cfif URL.Status eq "0">checked</cfif>></td>
-		<td style="padding-left:3px" onClick="reloadForm('0')"><cfif URL.Status eq "0"></cfif><cf_tl id="All valid"></td>		
+		<td style="padding-left:3px" onClick="reloadForm('0')"><cfif URL.Status eq "0"></cfif><cf_tl id="Valid all"></td>		
 		<td style="padding-left:10px">|</td>
 		<td style="padding-left:10px"><INPUT type="radio" name="Status" class="radiol" value="9" onClick="reloadForm('9')" <cfif URL.Status eq "9">checked</cfif>></td>
 		<td style="padding-left:3px" onClick="reloadForm('9')"><font color="FF0000"><cfif URL.Status eq "2"></cfif><cf_tl id="Cancelled"></td>
 		<td style="padding-left:10px">|</td>
 		<td style="padding-left:10px"><INPUT type="radio" name="Status" class="radiol" value="5" onClick="reloadForm('5')" <cfif URL.Status eq "5">checked</cfif>></td>
-		<td style="padding-left:3px" onClick="reloadForm('5')"><cfif URL.Status eq "2"></cfif><cf_tl id="All"></td>
+		<td style="padding-left:3px;padding-right:5px" onClick="reloadForm('5')"><cfif URL.Status eq "2"></cfif><cf_tl id="All"></td>
 		</tr>
 		</table>
 	</td>
@@ -266,8 +266,8 @@ password="#SESSION.dbpw#">
 		
 		<table>
 		<tr>
-			<td><input type="button" value="#vGeneric#"  style="width:180px;height:26px;font-size:15px" class="button10g" onClick="entitlementtrigger('#URL.ID#','#URL.ID1#')"></td>
-			<td style="padding-left:4px;padding-right:9px"><input type="button" style="width:180px;height:26px;font-size:15px" value="#vIndividual#" class="button10g" onClick="entitlement('#URL.ID#','#URL.ID1#')"></td>
+			<td><input type="button" value="#vGeneric#"  style="width:220px;height:26px;font-size:15px" class="button10g" onClick="entitlementtrigger('#URL.ID#','#URL.ID1#')"></td>
+			<td style="padding-left:4px;padding-right:9px"><input type="button" style="width:230px;height:26px;font-size:15px" value="#vIndividual#" class="button10g" onClick="entitlement('#URL.ID#','#URL.ID1#')"></td>
 		</tr>
 		</table>
 	
@@ -282,7 +282,7 @@ password="#SESSION.dbpw#">
   
   <table width="100%">
     	
-	<TR height="18" class="line labelmedium fixrow">
+	<TR height="18" class="line labelmedium2 fixrow">
     	<td width="1%" align="center"></td>
 		<td width="1%" align="center"></td>
 		<TD width="30%"><cf_tl id="Entitlement"></TD>
@@ -334,12 +334,12 @@ password="#SESSION.dbpw#">
 </cfif>
 
 
-<TR style="height:22px" class="cellcontent line navigation_row" bgcolor="#cl#">
+<TR style="height:22px" class="labelmedium2 line navigation_row" bgcolor="#cl#">
 
 	<cfif workflow neq "">
  
 	 <td  align="center" 
-			style="height:25px;cursor:pointer;padding-left:4px" 
+			style="cursor:pointer;padding-left:4px" 
 			onclick="workflowdrill('#workflow#','box_#workflow#')" >
 			
 		<cf_wfActive entitycode="EntEntitlement" objectkeyvalue4="#entitlementid#">	
@@ -420,9 +420,9 @@ password="#SESSION.dbpw#">
 						<td STYLE="padding-left:5px;WIDTH:15PX;padding-top:2px">
 							<cfif ContractId eq "">	
 								<cfif EntitlementClass eq "Amount">				
-								   <cf_img icon="edit" onClick="editamount('#EntitlementId#','#mde#')">				
+								   <cf_img icon="open" onClick="editamount('#EntitlementId#','#mde#')">				
 								<cfelse>				
-								   <cf_img icon="edit" onClick="edittrigger('#EntitlementId#','#mde#')">						 
+								   <cf_img icon="open" onClick="edittrigger('#EntitlementId#','#mde#')">						 
 								</cfif>			
 							</cfif>
 						</td>
@@ -580,12 +580,12 @@ password="#SESSION.dbpw#">
 	<cfif EntitlementClass eq "Amount">
 	<TD align="left"><cf_tl id="#Period#"></TD>
 	<TD align="right" style="padding-right:4px;min-width:160px">
-	<table style="width:100%"><tr><td style="padding-left:5px">#Currency#</td><td align="right">#NumberFormat(Amount, ".__")#</td></tr></table>
+	<table style="width:100%"><tr><td style="padding-left:5px">#Currency#</td><td align="right">#NumberFormat(Amount, ",.__")#</td></tr></table>
 	</TD>
 	<cfelseif EnableAmount eq "1">
 	<TD align="right"></TD>
 	<TD align="right" style="padding-right:4px;min-width:160px">
-	<table style="width:100%"><tr><td style="padding-left:5px">#Currency#</td><td align="right">#NumberFormat(Amount, ".__")#</td></tr></table>
+	<table style="width:100%"><tr><td style="padding-left:5px">#Currency#</td><td align="right">#NumberFormat(Amount, ",.__")#</td></tr></table>
 	</TD>
 	<cfelseif ContractId neq "">
 	<TD colspan="2" style="min-width:150px"><font color="800080">#vCD#</TD>

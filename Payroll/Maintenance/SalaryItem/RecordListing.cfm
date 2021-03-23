@@ -73,11 +73,11 @@ password="#SESSION.dbpw#">
 	<script>
 	
 	function recordadd(grp) {
-	        window.open("RecordEditTab.cfm?idmenu=#url.idmenu#&ID1=", "Add");
+	        ptoken.open("RecordEditTab.cfm?idmenu=#url.idmenu#&ID1=", "Add");
 	}
 	
 	function recordedit(id1) {
-	        window.open("RecordEditTab.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit");
+	        ptoken.open("RecordEditTab.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit");
 	}
 	
 	function recordpurge(id) {

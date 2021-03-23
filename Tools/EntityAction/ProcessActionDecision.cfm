@@ -77,7 +77,7 @@
 				 datasource="AppsOrganization"
 				 username="#SESSION.login#" 
 				 password="#SESSION.dbpw#">
-				 SELECT DISTINCT P.ActionCode, P.ActionDescription, P.ActionCompleted, P.ActionDenied, P.ActionProcess, P.ActionOrder
+				 SELECT DISTINCT P.ActionCode, P.ActionDescription, p.ActionReference, P.ActionCompleted, P.ActionDenied, P.ActionProcess, P.ActionOrder
 				 FROM   #CLIENT.LanPrefix#Ref_EntityActionPublish P	 		
 				 WHERE  P.ActionPublishNo = '#Object.ActionPublishNo#'
 				 AND    P.ActionCode != '#ActionCode#' 
@@ -112,7 +112,7 @@
 										   AND    ProcessClass = 'GoTo')
 				 </cfif>
 				 						
-				 GROUP BY P.ActionCode, P.ActionDescription, P.ActionCompleted, P.ActionDenied, P.ActionProcess, P.ActionOrder
+				 GROUP BY P.ActionCode, P.ActionDescription, P.ActionCompleted, P.ActionReference,P.ActionDenied, P.ActionProcess, P.ActionOrder
 				 ORDER BY P.ActionOrder 
 				 
 			   </cfquery>
@@ -125,11 +125,9 @@
 				   onClick="selectoption('d1','2N');updateTextArea();ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Revert','processnow')">
 				   </td>
 				    	
-				   <td class="labelmedium" style="padding:0 10px 0 0;cursor: pointer;" id="d1" onclick="document.getElementById('r1').click()">
+				   <td class="labelmedium" style="padding-top:4px;cursor: pointer;padding-right:5px" id="d1" onclick="document.getElementById('r1').click()">
 				   
-				         <img src="#SESSION.root#/Images/Send.png" width="32" height="32"
-					   alt="Go back to previous step" border="0" 
-					   align="absmiddle">
+				      <img src="#SESSION.root#/Images/Send.png" width="32" height="32" alt="Go back to previous step" border="0" align="absmiddle">
 					  					   					   					   
                       <cf_tl id="#ActionGoToLabel#">
 					   
@@ -141,11 +139,11 @@
 				       
 					 <span class="#r#" id="d1a"></span>
 					      
-					 <span class="#r#" id="d1b" style="padding-left:4px;padding-right:8px">
-					 
-					   <select style="width:240px;" name="ActionCodeOnHold" id="ActionCodeOnHold" class="regularxxl">
+					 <span class="#r#" id="d1b" style="padding-left:1px;padding-right:8px">
+					    :
+					   <select style="max-width:280px;border:0px;background-color:f1f1f1" name="ActionCodeOnHold" id="ActionCodeOnHold" class="regularxxl">
 						<cfloop query="Revert">
-						  <option value="#Revert.ActionCode#" style="font-size:12px;"><cfif ActionCompleted neq "">#ActionCompleted#<cfelse>#ActionCode# #ActionDescription#</cfif></option>
+						  <option value="#Revert.ActionCode#" style="font-size:12px;">#ActionDescription# | #ActionReference# [#ActionCode#]</option>
 						</cfloop>
 					   </select>
 					   

@@ -1116,7 +1116,7 @@ password="#SESSION.dbpw#">
 					
 						<cfif Period.DisableDistribution eq "0">
 						
-							   <!--- only if distribution is not enabled --->
+							   <!--- only if distribution is not disabled --->
 						
 						      <cfquery name="OffsetScheduleAccount" 
 										datasource="appsOrganization" 
@@ -1177,10 +1177,10 @@ password="#SESSION.dbpw#">
 								password="#SESSION.dbpw#">
 								SELECT TOP 1 * 
 								FROM   Accounting.dbo.Journal 
-								WHERE  TransactionCategory = 'Payables' 
+								WHERE  TransactionCategory IN ('Payables','DirectPayment')
 								AND    Mission             = '#SchedulePeriod.Mission#'
 								AND    Currency            = '#Schedule.PaymentCurrency#'
-								AND    SystemJournal       = 'Settlement'
+								AND    SystemJournal       = 'Settlement' 
 							</cfquery>
 							
 							<cfif thisJournal.recordcount eq "0">
@@ -1191,13 +1191,13 @@ password="#SESSION.dbpw#">
 									password="#SESSION.dbpw#">
 									SELECT TOP 1 * 
 									FROM   Accounting.dbo.Journal 
-									WHERE  TransactionCategory = 'Payables' 
-									AND    Mission             = '#SchedulePeriod.Mission#'
-									AND    Currency            = '#Schedule.PaymentCurrency#'										
+									WHERE  TransactionCategory IN ('Payables','DirectPayment')
+									AND    Mission             = '#SchedulePeriod.Mission#' 
+									AND    Currency            = '#Schedule.PaymentCurrency#'									
 								</cfquery>
 							
 							</cfif>
-							
+														
 							<!--- this records offsets the payroll for an AP transaction to actually pay the person : check or transfer 
 							but for that we need to know the correct bank account to be set in the transaction itself : Ana --->
 							

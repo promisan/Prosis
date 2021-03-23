@@ -1076,7 +1076,8 @@
 				    </cfquery>		
 										
 					<!--- base currency compare --->
-				    <cfset cst = ReceiptAmountBaseCost/ReceiptWarehouse>									   
+				    <cfset cst = ReceiptAmountBaseCost/ReceiptWarehouse>		
+									   
 																								
 					<cfif getTransaction.Quantity         			 neq ReceiptWarehouse 					   
 						   or getTransaction.TransactionLot          neq TransactionLot
@@ -1135,7 +1136,10 @@
 									   receiptCostPrice    = "#cost#"								   								  
 									   receiptCurrency     = "#curr#"									   
 									   receiptPrice        = "#price#"
-									   GLCurrency          = "#Line.PurchaseCurrency#">									
+									   GLCurrency          = "#Line.PurchaseCurrency#">		
+									   
+									   pppppppp		
+									   <cfabort>					
 								   
 							<cfelseif (abs(getTransaction.TransactionCostPrice-stockcostprice) gte 0.00 
 							        and getTransaction.Quantity lt ReceiptWarehouse 
@@ -1149,6 +1153,9 @@
 									   receiptCurrency     = "#curr#"									   
 									   receiptPrice        = "#price#"
 									   GLCurrency          = "#Line.PurchaseCurrency#">											 
+									   
+									   0000000
+									   <cfabort>
 								   
 							 <cfelse>							 
 								  

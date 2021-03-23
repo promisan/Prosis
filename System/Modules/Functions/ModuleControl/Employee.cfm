@@ -213,105 +213,118 @@
    FunctionIcon = "Maintain">    
     
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Employee"
-   FunctionName = "Services" 
-   MenuClass = "Resource"
-   MenuOrder = "2"
-   MainMenuItem = "0"
-   FunctionMemo = "Services"
-   ScriptName = "workorder"
-   FunctionIcon = "Maintain">   
+   SystemModule    = "Staffing" 
+   FunctionClass   = "Employee"
+   FunctionName    = "Services" 
+   MenuClass       = "Resource"
+   MenuOrder       = "2"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Services"
+   ScriptName      = "workorder"
+   FunctionIcon    = "Maintain">   
    
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Employee"
-   FunctionName = "Case Files" 
-   MenuClass = "Resource"
-   MenuOrder = "3"
-   MainMenuItem = "0"
-   FunctionMemo = "Case File"
-   ScriptName = "casefile"
-   FunctionIcon = "Maintain">       
+   SystemModule    = "Staffing" 
+   FunctionClass   = "Employee"
+   FunctionName    = "Case Files" 
+   MenuClass       = "Resource"
+   MenuOrder       = "3"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Case File"
+   ScriptName      = "casefile"
+   FunctionIcon    = "Maintain">       
    
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Employee"
-   FunctionName = "Payments" 
-   MenuClass = "Resource"
-   MenuOrder = "4"
-   MainMenuItem = "0"
-   FunctionMemo = "ledger"
-   AccessRole = "ContractManager"
-   ScriptName = "ledger"
-   FunctionIcon = "Maintain">           
+   SystemModule    = "Staffing" 
+   FunctionClass   = "Employee"
+   FunctionName    = "Payments" 
+   MenuClass       =  "Resource"
+   MenuOrder       = "4"
+   MainMenuItem    = "0"
+   FunctionMemo    = "ledger"
+   AccessRole      = "ContractManager"
+   ScriptName      = "ledger"
+   FunctionIcon    = "Maintain">     
+         
    
 <!--- ------------ --->   
 <!--- Miscellaneos --->
 <!--- ------------ --->
       
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Employee"
-   FunctionName = "Status and Actions" 
-   MenuClass = "Miscellaneous"
-   MenuOrder = "0"
-   MainMenuItem = "0"
-   FunctionMemo = "Status and Actions"
-   ScriptName = "personevent"
-   FunctionIcon = "Maintain">       
+   SystemModule    = "Staffing" 
+   FunctionClass   = "Employee"
+   FunctionName    = "Status and Actions" 
+   MenuClass       = "Miscellaneous"
+   MenuOrder       = "0"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Status and Actions"
+   ScriptName      = "personevent"
+   FunctionIcon    = "Maintain">       
    
 <!---     
       
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Employee"
-   FunctionName = "Appointment" 
-   MenuClass = "Miscellaneous"
-   MenuOrder = "1"
-   MainMenuItem = "0"
-   FunctionMemo = "Appointment"
-   AccessRole = "ContractManager"
-   ScriptName = "appointment"
-   FunctionIcon = "Maintain">  
+   SystemModule    = "Staffing" 
+   FunctionClass   = "Employee"
+   FunctionName    = "Appointment" 
+   MenuClass       = "Miscellaneous"
+   MenuOrder       = "1"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Appointment"
+   AccessRole      = "ContractManager"
+   ScriptName      = "appointment"
+   FunctionIcon    = "Maintain">  
    
    --->
      
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Employee"
-   FunctionName = "Dependents" 
-   MenuClass = "Miscellaneous"
-   MenuOrder = "1"
-   MainMenuItem = "0"
-   FunctionMemo = "Dependents"
-   AccessRole = "ContractManager"
-   ScriptName = "dependent"
-   FunctionIcon = "Maintain"> 
+   SystemModule    = "Staffing" 
+   FunctionClass   = "Employee"
+   FunctionName    = "Dependents" 
+   MenuClass       = "Miscellaneous"
+   MenuOrder       = "1"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Dependents"
+   AccessRole      = "ContractManager"
+   ScriptName      = "dependent"
+   FunctionIcon    = "Maintain"> 
    
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Employee"
-   FunctionName = "Performance Appraisal" 
-   MenuClass = "Miscellaneous"
-   MenuOrder = "1"
-   MainMenuItem = "0"
-   FunctionMemo = "PAS"
-   AccessRole = "ContractManager"
-   ScriptName = "pas"
-   FunctionIcon = "Maintain">    
+   SystemModule    = "Staffing" 
+   FunctionClass   = "Employee"
+   FunctionName    = "Performance Appraisal" 
+   MenuClass       = "Miscellaneous"
+   MenuOrder       = "1"
+   MainMenuItem    = "0"
+   FunctionMemo    = "PAS"
+   AccessRole      = "ContractManager"
+   ScriptName      = "pas"
+   FunctionIcon    = "Maintain">    
    
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Employee"
-   FunctionName = "Document" 
-   MenuClass = "Miscellaneous"
-   MenuOrder = "1"
-   MainMenuItem = "0"
-   FunctionMemo = "Document"
-   AccessRole = "ContractManager"
-   ScriptName = "issueddocument"
-   FunctionIcon = "Maintain">   
+   SystemModule    = "Staffing" 
+   FunctionClass   = "Employee"
+   FunctionName    = "Document" 
+   MenuClass       = "Miscellaneous"
+   MenuOrder       = "1"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Document"
+   AccessRole      = "ContractManager"
+   ScriptName      = "issueddocument"
+   FunctionIcon    = "Maintain">   
+   
+<cf_ModuleInsertSubmit
+   SystemModule    = "Staffing" 
+   FunctionClass   = "Employee"
+   FunctionName    = "Advances" 
+   MenuClass       = "Miscellaneous"
+   MenuOrder       = "5"
+   MainMenuItem    = "0"
+   FunctionMemo    = "ledger"
+   AccessRole      = "ContractManager"
+   ScriptName      = "advance"
+   FunctionIcon    = "Maintain">      
  
       
 <cf_ModuleInsertSubmit

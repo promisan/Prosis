@@ -2,6 +2,7 @@
 <cf_assignid>
 
 <cfparam name="attributes.displayLogo"    default="1">
+<cfparam name="attributes.datasource"     default="appsOrganization">
 <cfparam name="attributes.disclaimer"     default="Yes">
 <cfparam name="attributes.context"        default="">
 <cfparam name="attributes.id"             default="#rowguid#">
@@ -10,7 +11,7 @@
 
     <cfif attributes.disclaimer neq "No">
 	
-	     <cf_MailDisclaimer disclaimer="#attributes.disclaimer#" context="#attributes.context#" id="#attributes.id#">		 
+	     <cf_MailDisclaimer disclaimer="#attributes.disclaimer#" datasource="#attributes.datasource#" context="#attributes.context#" id="#attributes.id#">		 
 		
 	</cfif>
 	

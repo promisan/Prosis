@@ -259,15 +259,16 @@ password="#SESSION.dbpw#">
 	AND    R.SalarySchedule    = Pay.ContractScheduleSPA 
 	AND    (R.ServiceLocation  = Pay.ContractLocationSPA OR R.ServiceLocation = 'All')
 	
-	<!--- we look at the overtime date to determine what to select --->
-	
-		
+	<!--- we look at the overtime date to determine what to select STL provision
+			
 	AND    CASE WHEN ovt.OvertimeDate < '2018-02-01' THEN
 	         Ovt.OvertimeDate ELSE Ovt.OvertimePeriodEnd
 			END >= Pay.DateEffective
 	AND    CASE WHEN ovt.OvertimeDate < '2018-02-01' THEN
 	         Ovt.OvertimeDate  ELSE Ovt.OvertimePeriodEnd
-		   END <= Pay.DateExpiration			   
+		   END <= Pay.DateExpiration		
+		   
+	--->	   	   
 		
 	<!--- has been cleared and not processed yet in a prior month = not paid --->
 	AND    Ovt.Status          = '3' 
@@ -277,6 +278,7 @@ password="#SESSION.dbpw#">
 	
 	<!--- which has been if needed adjusted by the workflow field --->
 	AND    OvertimeDate    <=  #CALCEND#	
+	
 		
 </cfquery>
 

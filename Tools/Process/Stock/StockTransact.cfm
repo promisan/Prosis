@@ -889,10 +889,10 @@
                      currencyFrom  = "#attributes.ReceiptCurrency#"
                      currencyTo    = "#attributes.TransactionCurrency#">
 					
-	<!--- the value of the stock --->				 
+	<!--- the purchase value of the stock --->				 
 	<cfset totCredit = round(totCredit*1000/exc)/1000>		
 
-	<!--- GL exchange rate difference booking of stock and receipt; which will usually be very small --->
+	<!--- GL exchange rate difference booking of purchases and stock; which will usually be very small --->
 	<cfset priceDiff   = totCredit - totGL>	
 	<cfset pricediff = round(pricediff*1000)/1000>
 
@@ -934,6 +934,7 @@
    SELECT * 
    FROM   Materials.dbo.ItemTransaction 
    WHERE  TransactionId = '#attributes.transactionid#'
+   
 </cfquery>
 
 <cfif get.recordcount eq "0">
@@ -1552,11 +1553,11 @@
 						<cfset cls3 = "Debit">  <!--- Price difference --->									
 					
 					    <!--- only relevant if goods are recorded not as fifo / lifo --->
-						<cfif priceDiff lt "0">
+						<cfif priceDiff lt 0>
 							<cfset cls3 = "Credit">
-							<cfset priceDiff = abs(priceDiff)>										
+							<cfset priceDiff = priceDiff*-1>										
 						</cfif>	
-																							
+																													
 					<cfelse>
 					
 						<!--- all other transaction type like issue/transfer/variance --->
@@ -1641,7 +1642,7 @@
 								Class1                = "#cls1#"
 								Reference1            = "Warehouse"       
 								ReferenceName1        = "#left(Item.Itemdescription,100)#"
-								Description1          = "#Type.Description#"
+								Description1          = "#Type.Description# Stock"
 								GLAccount1            = "#Attributes.GLAccountDebit#"
 								Costcenter1           = "#costcenter#"
 								WorkOrderLineId1      = "#workorderlineid#"
@@ -1680,7 +1681,7 @@
 								Class1                = "#cls1#"
 								Reference1            = "Warehouse"       
 								ReferenceName1        = "#left(Item.Itemdescription,100)#"
-								Description1          = "#Type.Description#"
+								Description1          = "#Type.Description# Stock"
 								GLAccount1            = "#Attributes.GLAccountDebit#"
 								Costcenter1           = "#costcenter#"
 								WorkOrderLineId1      = "#workorderlineid#"
@@ -1693,7 +1694,7 @@
 								Class2                = "#cls2#"
 								Reference2            = "Warehouse"       
 								ReferenceName2        = "#left(Item.Itemdescription,100)#"
-								Description2          = "#Type.Description#"
+								Description2          = "#Type.Description# Purchases"
 								GLAccount2            = "#Attributes.GLAccountCredit#"
 								Costcenter2           = "#costcenter#"
 								WorkOrderLineId2      = "#workorderlineid#"
