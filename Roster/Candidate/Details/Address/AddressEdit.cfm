@@ -105,7 +105,7 @@ password="#SESSION.dbpw#">
 	    <TD class="labelmedium" style="min-width:130px"><cf_tl id="Address type">:</TD>
 	  
 	    <TD>
-		   	<cfselect name="AddressType" class="regularxl enterastab">
+		   	<cfselect name="AddressType" class="regularxxl enterastab">
 		    	<cfloop query="AddressType">
 					<option value="#AddressType#" <cfif Address.AddressType eq AddressType>selected</cfif>>
 					#Description#
@@ -135,7 +135,7 @@ password="#SESSION.dbpw#">
 	<TR>
     <TD class="labelmedium"><cf_tl id="Country">:</TD>
     <TD>
-	   	<cfselect name="country" id="country" class="regularxl enterastab" onchange="#maplink#">
+	   	<cfselect name="country" id="country" class="regularxxl enterastab" onchange="#maplink#">
 		    <cfloop query="Nation" >
 				<option value="#Code#" <cfif Address.Country eq Code>selected</cfif>>#Name#</option>
 			</cfloop>    
@@ -145,12 +145,12 @@ password="#SESSION.dbpw#">
 		
     <TR>
 	    <TD class="labelmedium"><cf_tl id="State"></TD>
-    	<TD><cfinput class="regularxl enterastab" type="Text" name="State" value="#Address.State#" size="10" maxlength="20"></TD>
+    	<TD><cfinput class="regularxxl enterastab" type="Text" name="State" value="#Address.State#" size="10" maxlength="20"></TD>
 	</TR>
 			
 	<TR>
 	    <TD class="labelmedium"><cf_tl id="City">: <font color="FF0000">*</font></TD>
-    	<TD><cfinput class="regularxl enterastab" type="Text" 
+    	<TD><cfinput class="regularxxl enterastab" type="Text" 
     		onchange="#maplink#" 
     		id="addresscity" 
     		name="addresscity" 
@@ -171,7 +171,7 @@ password="#SESSION.dbpw#">
 				  form      = "addressentry"
 				  type      = "ZIP"
 				  mode      = "regular"
-				  class     = "regularxl"
+				  class     = "regularxxl"
 				  name      = "addresspostalcode"
 			      value     = "#Address.AddressPostalCode#"
 		          required  = "1"
@@ -182,7 +182,7 @@ password="#SESSION.dbpw#">
 				  style     = "text-align: center;">
 			<cfelse>
 			   	<cfinput 
-			   		class="regularxl enterastab" 
+			   		class="regularxxl enterastab" 
 			   		type="Text" 
 			   		name="addresspostalcode" 
 			   		id="addresspostalcode" 
@@ -198,7 +198,7 @@ password="#SESSION.dbpw#">
 		
 	<TR>
 	    <TD class="labelmedium"><cf_tl id="Address">: <font color="FF0000">*</font></TD>
-    	<TD><cfinput class="regularxl enterastab" 
+    	<TD><cfinput class="regularxxl enterastab" 
     			onchange="#maplink#" 
     			type="Text" 
     			id="address" 
@@ -213,7 +213,7 @@ password="#SESSION.dbpw#">
 		
     <TR>
 	    <TD class="labelmedium"><cf_tl id="Address">2:</TD>
-    	<TD><cfinput class="regularxl enterastab" type="Text" name="Address2" value="#Address.Address2#" message="Please enter an address" required="No" size="40" maxlength="100"></TD>
+    	<TD><cfinput class="regularxxl enterastab" type="Text" name="Address2" value="#Address.Address2#" message="Please enter an address" required="No" size="40" maxlength="100"></TD>
 	</TR>
 	
 	<!---	
@@ -231,12 +231,12 @@ password="#SESSION.dbpw#">
 			<tr>
 			<td class="labelmedium">Lat:</td>
 			<td>&nbsp;</td>
-			<td><cfinput class="regularxl enterastab" validate="float" value="#lat#" type="Text" id="cLatitude" name="cLatitude" size="15" maxlength="20"></td>
+			<td><cfinput class="regularxxl enterastab" validate="float" value="#lat#" type="Text" id="cLatitude" name="cLatitude" size="15" maxlength="20"></td>
 			<td>&nbsp;</td>
 			<td class="labelmedium">Lng:</td>
 			<td>&nbsp;</td>
 			<td>
-			<cfinput class="regularxl enterastab" validate="float" value="#lng#" type="Text" id="cLongitude" name="cLongitude" size="15" maxlength="20">	
+			<cfinput class="regularxxl enterastab" validate="float" value="#lng#" type="Text" id="cLongitude" name="cLongitude" size="15" maxlength="20">	
 			</td>
 			</tr>
 		</table>
@@ -244,22 +244,22 @@ password="#SESSION.dbpw#">
 	</TR>		
 	
 	<TR><TD class="labelmedium"><cf_tl id="Telephone">:</TD>
-    	<TD><input type="Text" name="TelephoneNo" value="#Address.TelephoneNo#" size="20" maxlength="20" class="regularxl enterastab"></TD>
+    	<TD><input type="Text" name="TelephoneNo" value="#Address.TelephoneNo#" size="20" maxlength="20" class="regularxxl enterastab"></TD>
 	</TR>
 	
 	<TR class="hide">
     	<TD class="labelmedium"><cf_tl id="Fax">:</TD>
-	    <TD><input type="Text" name="FaxNo" value="#Address.Faxno#" size="20" maxlength="20" class="regularxl enterastab"></TD>
+	    <TD><input type="Text" name="FaxNo" value="#Address.Faxno#" size="20" maxlength="20" class="regularxxl enterastab"></TD>
 	</TR>	
 		
 	<TR><TD class="labelmedium"><cf_tl id="Cellular">:</TD>
-    	<TD><input type="Text" name="Cellular" value="#Address.Cellular#" size="20" maxlength="20" class="regularxl enterastab"></TD>
+    	<TD><input type="Text" name="Cellular" value="#Address.Cellular#" size="20" maxlength="20" class="regularxxl enterastab"></TD>
 	</TR>
 	
 			
 	<TR>
     <TD class="labelmedium"><cf_tl id="eMail"></TD>
-    <TD><cfinput type="Text" validate="email" name="emailaddress" value="#Address.emailaddress#" message="Please enter a valid eMail address" required="No" size="30" maxlength="40" class="regularxl enterastab"></TD>
+    <TD><cfinput type="Text" validate="email" name="emailaddress" value="#Address.emailaddress#" message="Please enter a valid eMail address" required="No" size="30" maxlength="40" class="regularxxl enterastab"></TD>
 	</TR>
 		
 	<TR>
@@ -268,7 +268,7 @@ password="#SESSION.dbpw#">
 	   <table cellspacing="0" cellpadding="0">
 	   <tr>
 		   <td>
-		   <cfselect name="ContactRelationShip" class="regularxl enterastab">
+		   <cfselect name="ContactRelationShip" class="regularxxl enterastab">
 			<option value="" selected></option>
 			<cfloop query="Relationship">
 				<option value="#Relationship#" <cfif Address.ContactRelationship eq Relationship>selected</cfif>><cf_tl id="#Description#"></option>
@@ -276,7 +276,7 @@ password="#SESSION.dbpw#">
 	 		</cfselect>
 	   	   </td>
 		   <td style="padding-left:4px">
-		   	<input type="Text" name="Contact" value="#Address.Contact#" size="30" maxlength="40" class="regularxl enterastab">		
+		   	<input type="Text" name="Contact" value="#Address.Contact#" size="30" maxlength="40" class="regularxxl enterastab">		
 		   </td>
 	   </tr>
 	   </table>	
@@ -285,7 +285,7 @@ password="#SESSION.dbpw#">
 			   
 	<TR>
         <td valign="top" style="padding-top:5px" class="labelmedium"><cf_tl id="Remarks">:</td>
-        <td><textarea class="regular" style="border-radius:5px;width:100%;font-size:13px;padding:4px" cols="70" rows="3" name="Remarks" maxlength="300">#Address.Remarks#</textarea> </td>
+        <td><textarea class="regular" style="width:100%;font-size:14px;padding:4px" cols="70" rows="3" name="Remarks">#Address.Remarks#</textarea> </td>
 	</TR>
 	
 	</table>

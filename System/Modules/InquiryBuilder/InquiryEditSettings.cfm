@@ -1,7 +1,7 @@
 
 <cfoutput>
 
-<table width="99%" class="formpadding" align="center" style="height:190px">
+<table width="99%" class="formpadding" align="center">
 <tr><td valign="top">
 
 <table class="formpadding" align="center" style="width:100%">
@@ -92,7 +92,9 @@
 			
 	</tr>	
 	
-	<tr class="labelmedium"><td style="font-size:26px"><cf_tl id="Details"></td></tr>	
+	<!---	
+	<tr class="labelmedium line"><td colspan="2" style="font-size:16px"><cf_tl id="Details"></td></tr>	
+	--->
 		
 	<tr>
 		  <td  height="24" class="labelmedium">Drilldown mode:</td>

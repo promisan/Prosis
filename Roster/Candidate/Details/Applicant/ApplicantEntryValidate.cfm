@@ -5,7 +5,6 @@
 <CF_DateConvert Value="#Form.DOB#" SQLLimit="Yes">
 <cfset DOBdate = dateValue>
 
-
 <cfparam name="Form.Nationality" default="">
 
 <cfif form.dob eq "" or form.lastname eq "" or form.firstname eq "" or form.nationality eq "">
@@ -28,89 +27,84 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
  		
-<cfif Candidate.recordcount gt 1>
-
-<!--- we should take action --->
-<cf_message message="This candidate is duplicated in the database. Please check with your assigned focal point.">
-
-<cfelseif Candidate.recordcount eq 1>
+<cfif Candidate.recordcount gte 1>
 																
-			<cfquery name="Source" 
-			datasource="AppsSelection" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT Source, Description
-				FROM   Ref_Source
-				WHERE  Operational = 1 AND AllowEdit = 1 
-				AND    Source NOT IN 
-					(
-						SELECT Source
-						FROM   ApplicantSubmission S
-						WHERE  S.PersonNo  = '#Candidate.PersonNo#'						
-					)
-			</cfquery>		
-			
-			<cfif source.recordcount eq "0">
-			
-				<table width="100%" cellspacing="0" cellpadding="0">
-				<tr><td align="center" class="labelmedium">
-					<font color="FF0000">
-						<cf_tl id="Profile exists">
-					</font>
-				</td></tr></table>
-			
-			<cfelse>							
+		<cfquery name="Source" 
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT *,  (SELECT count(*)
+					    FROM   ApplicantSubmission S
+						WHERE  S.PersonNo  = '#Candidate.PersonNo#'
+					    AND    S.Source = R.Source) as Exist				
+			FROM   Ref_Source R
+			WHERE  Operational = 1 				
+		</cfquery>		
 								
-				<cfquery name="Submission" 
-				datasource="AppsSelection" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT *
-				    FROM   ApplicantSubmission
-				    WHERE  PersonNo = '#Candidate.PersonNo#' 
-				</cfquery>
+		<cfif source.recordcount eq "0">
+		
+			<table width="100%">
+			<tr><td align="center" class="labelmedium2">
+				<font color="000080">
+					<cf_tl id="Attention"> : <cf_tl id="Not sources found, please contact your administrator">
+				</font>
+			</td></tr></table>
+		
+		<cfelse>		
 				
-				<cfquery name="SubmissionEdition" 
-				datasource="AppsSelection" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT *
-				    FROM   Ref_SubmissionEdition
-				    WHERE  SubmissionEdition = '#Submission.SubmissionEdition#' 
-				</cfquery>
+			<cfquery name="SourceCheck" dbtype="query">
+			    SELECT  *
+			    FROM    Source
+			    WHERE   Exist > 0
+			</cfquery>
 
-				<table width="98%" align="center" class="formpadding">
-				
-					<tr>
-					<td class="labellarge" style="height:50px;padding-left:4px">
-						<font color="6688aa"><cf_tl id="Person has existing profiles, select one"></font>
-					</td>
-					</tr>
-						
-				    <tr><td style="padding-left:20px">
-							 
-							 <table width="100%">
+			<table width="98%" align="center" class="formpadding">
+			
+				<cfquery name="SourceReUse" dbtype="query">
+				    SELECT  *
+				    FROM    Source
+				    WHERE   Exist > 0 and AllowEdit = 1
+				</cfquery>						
+			
+				<cfif sourceReUse.recordcount gte "1">
 							
-							  <TR class="labelmedium line">
-							      <td style="width:30px"></td>
-								  <td height="19"><cf_tl id="Date submission"></td>
-								  <TD><cf_tl id="Application No"></TD>
-								  <TD><cf_tl id="Source"></TD>
-							      <TD><cf_tl id="Edition"></TD>
-								  <TD><cf_tl id="Origin"></TD>
-								  <TD><cf_tl id="Status"></TD>
-							  	  <TD><cf_tl id="eMail"></TD>
-								  <TD><cf_tl id="Officer"></TD>
-								  <TD><cf_tl id="Entered"></TD>
-						      </TR>								  
-							  
-							  <cfloop query="Submission">
-							  
-							  						  
+				<tr>
+				<td class="labellarge" style="height:33px;padding-left:20px;font-size:18px;color:0080FF">
+				    <cfif sourceCheck.recordcount eq '1'>
+					<cf_tl id="We found #sourceReuse.recordcount# profile which may be used to work with for this submission">:
+					<cfelse>
+					<cf_tl id="We found #sourceCheck.recordcount# profiles of which #sourceReuse.recordcount# may be used to work with for this submission">:
+					</cfif>
+				</td>
+				</tr>
+				
+				</cfif>
+					
+			    <tr><td style="padding-left:20px">
+						 
+						 <table width="100%" class="navigation_table">
+						
+						  <TR class="labelmedium2 line">
+						      <td style="width:30px"></td>
+							  <td height="19"><cf_tl id="Date submission"></td>
+							  <TD><cf_tl id="Application No"></TD>
+							  <TD><cf_tl id="Source"></TD>
+						      <TD><cf_tl id="Edition"></TD>
+							  <TD><cf_tl id="PHP"></TD>
+							  <!---
+							  <TD><cf_tl id="Status"></TD>
+							  --->
+						  	  <TD><cf_tl id="eMail"></TD>
+							  <TD><cf_tl id="Officer"></TD>
+							  <TD><cf_tl id="Entered"></TD>
+					      </TR>								  
+						  
+						  <cfloop query="SourceCheck">							  
+						  						  
 							  <cfswitch expression="#URL.Next#"> 
 							  
 								  <cfcase value="Default">								  
-								     <cfset link = "ptoken.location('#session.root#/Roster/Candidate/Details/Applicant/ApplicantEntryBucket.cfm?id=#PersonNo#&source=#source#&submissionedition=#url.submissionedition#')">							  
+								     <cfset link = "ptoken.location('#session.root#/Roster/Candidate/Details/Applicant/ApplicantEntryBucket.cfm?id=#Candidate.PersonNo#&source=#source#&submissionedition=#url.submissionedition#')">							  
 								  </cfcase>
 								 										
 								  <cfcase value="Patient">	
@@ -130,7 +124,7 @@ password="#SESSION.dbpw#">
 											 </cfquery>
 											 
 											 <cfif get.recordcount eq "1">
-
+	
 											   <cfset customerid = get.CustomerId>
 											   
 											 <cfelse>
@@ -188,85 +182,131 @@ password="#SESSION.dbpw#">
 								
 								 <cfdefaultcase>
 								  
-								      <cfset link = "ptoken.location('#session.root#/Roster/Candidate/Details/Applicant/ApplicantEntryBucket.cfm?id=#PersonNo#&source=#source#&submissionedition=#url.submissionedition#')">
+								      <cfset link = "ptoken.location('#session.root#/Roster/Candidate/Details/Applicant/ApplicantEntryBucket.cfm?id=#Candidate.PersonNo#&source=#source#&submissionedition=#url.submissionedition#')">
 							  
 								 </cfdefaultcase>
 							  
 							  </cfswitch>
-							  								  
-								  <tr class="labelmedium line">
-								      <td style="padding-top:1px"><cf_img icon="select" onclick="#link#"></td>
-									  <TD>#DateFormat(SubmissionDate, CLIENT.DateFormatShow)#</TD>
-									  <TD>#ApplicantNo#</TD>
-									  <TD>#Source#</TD>
-									  <TD>#SubmissionEdition#</TD>
-									  <TD>#SourceOrigin#</TD>
-									  <TD>#ActionStatus#</TD>
-									  <TD>#eMailAddress#</TD>
-									  <TD>#OfficerFirstName# #OfficerLastName#</TD>
-								  	  <TD>#DateFormat(Created, CLIENT.DateFormatShow)#</TD>
-								  </tr>												 
-									  
-									  <cfquery name="Own" 
-										datasource="AppsOrganization" 
-										username="#SESSION.login#" 
-										password="#SESSION.dbpw#">
-											SELECT    *
-											FROM      OrganizationAuthorization
-											WHERE     UserAccount = '#SESSION.acc#' 
-											AND       Role IN ('AdminRoster', 'RosterClear')
-											AND       ClassParameter = '#SubmissionEdition.Owner#'													 
-										</cfquery>				  
-									  
-									  	<cfif session.isAdministrator eq "Yes" or findNoCase(SubmissionEdition.Owner,SESSION.isOwnerAdministrator) or  Own.recordcount gte "1"> 
-										
-										 <TR>
+							  
+							  <cfquery name="Submission" 
+								datasource="AppsSelection" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">		
+									SELECT *, (SELECT count(*) 
+									           FROM ApplicantbackGround 
+											   WHERE applicantNo = S.ApplicantNo
+											   AND   Status != '9') as hasProfile
+								    FROM   ApplicantSubmission S
+								    WHERE  PersonNo = '#Candidate.PersonNo#' 
+									AND    Source = '#source#' 
+								</cfquery>
+								
+								<cfquery name="SubmissionEdition" 
+								datasource="AppsSelection" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+									SELECT  *
+								    FROM    Ref_SubmissionEdition
+								    WHERE   SubmissionEdition = '#Submission.SubmissionEdition#' 
+								</cfquery>																				  								  
+							  
+							    <cfif allowEdit eq "1">
+								  <tr class="labelmedium2 line navigation_row" style="background-color:white">
+							      <td style="padding-top:1px"><cf_img icon="open" onclick="#link#"></td>
+								<cfelse>
+								  <tr class="labelmedium2 line navigation_row" style="background-color:f1f1f1">
+								  <td></td>
+								</cfif>
+								  <TD>#DateFormat(Submission.SubmissionDate, CLIENT.DateFormatShow)#</TD>
+								  <TD>#Submission.ApplicantNo#</TD>
+								  <TD>#Submission.Source#</TD>
+								  <TD>#Submission.SubmissionEdition#</TD>
+								  <TD><cfif submission.hasProfile gte "1">Yes</cfif></TD>
+								  <!---
+								  <TD>#Submission.ActionStatus#</TD>
+								  --->
+								  <TD>#Submission.eMailAddress#</TD>
+								  <TD>#Submission.OfficerFirstName# #Submission.OfficerLastName#</TD>
+							  	  <TD>#DateFormat(Submission.Created, CLIENT.DateFormatShow)#</TD>
+							    </tr>												 
+								  
+								  <cfquery name="Own" 
+									datasource="AppsOrganization" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+										SELECT    *
+										FROM      OrganizationAuthorization
+										WHERE     UserAccount = '#SESSION.acc#' 
+										AND       Role IN ('AdminRoster', 'RosterClear')
+										AND       ClassParameter = '#SubmissionEdition.Owner#'													 
+									</cfquery>	
+			  								  
+								  	<cfif (session.isAdministrator eq "Yes" 
+									     or  findNoCase(SubmissionEdition.Owner,SESSION.isOwnerAdministrator) 
+										 or  Own.recordcount gte "1") and allowEdit eq "1"> 
+									
+									   <TR>
+								 
+									   <td colspan="8" style="padding-top:1px;padding-left:20px;padding-bottom:7px">		
 									 
-										 <td colspan="8" style="padding-top:1px;padding-left:20px;padding-bottom:1px">		
-										 
 										 <cf_filelibraryN
 											DocumentPath="Submission"
-											SubDirectory="#submissionid#" 	
+											SubDirectory="#Submission.submissionid#" 	
 											Filter=""		
 											Insert="yes"
 											loadscript="No"
-											Box="attach_#ApplicantNo#"
+											Box="attach_#submission.ApplicantNo#"
 											Remove="yes"
 											ShowSize="yes">	
-											
-											 </td>		
-						 
-								 		  </TR>
-											
-										<cfelse>
 										
-										 <TR>
-									 
-										  <td colspan="8" style="padding-top:1px;padding-left:20px;padding-bottom:1px">
+										 </td>		
+					 
+							 		   </TR>
 										
-										 <cf_filelibraryN
+									<cfelse>
+									
+										<cf_fileexist
 											DocumentPath="Submission"
-											SubDirectory="#submissionid#"
-											Filter=""	 			
-											Insert="no"
-											Box="attach_#ApplicantNo#"
-											Remove="no"
-											loadscript="No"
-											ShowSize="yes">	
+											SubDirectory="#Submission.submissionid#"
+											Filter="">	
+											
+										<cfif files gte "1">	
+										
+										   <TR>
+									 
+										    <td colspan="8" style="padding-top:1px;padding-left:20px;padding-bottom:7px">
+										
+											 <cf_filelibraryN
+												DocumentPath="Submission"
+												SubDirectory="#Submission.submissionid#"
+												Filter=""	 			
+												Insert="no"
+												Box="attach_#ApplicantNo#"
+												Remove="no"
+												loadscript="No"
+												ShowSize="yes">	
 											
 											 </td>		
 						 
-								 		  </TR>
-										
-										</cfif>	
-															 
-							  </cfloop>
-							 
-							 </table>
-					</td></tr>
-						 	      	   
-						
-					
+								 		   </TR>
+									   
+									   </cfif>
+									
+									</cfif>	
+														 
+						  </cfloop>
+						 
+						 </table>
+				</td></tr>
+				
+				<cfquery name="Source" dbtype="query">
+				    SELECT  *
+				    FROM    Source
+				    WHERE   Exist > 1 and AllowEdit = 1
+				</cfquery>
+								
+				<cfif source.recordcount gte "1">
+				
 					<tr>
 					<td class="labellarge" style="padding-top:4px;padding-left:8px">
 						<font color="gray"><u><b>OR</b></u> <cf_tl id="create a new profile"></font>
@@ -278,12 +318,14 @@ password="#SESSION.dbpw#">
 						<cfinclude template="ApplicantEntrySubmission.cfm">							
 					</td>
 					</tr>
-					
-					<tr><td class="line"></td></tr>							
-							
-				</table>
-			
-			</cfif>
+				
+				</cfif>
+								
+				<tr><td class="line"></td></tr>							
+						
+			</table>
+		
+		</cfif>
 						
 <cfelseif Candidate.recordcount eq 0>	
 
@@ -291,7 +333,7 @@ password="#SESSION.dbpw#">
 			datasource="AppsSelection" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-				SELECT DISTINCT Source, Description
+				SELECT *
 				FROM   Ref_Source
 				WHERE  Operational = 1 
 				AND    AllowEdit   = 1 				
@@ -312,4 +354,7 @@ password="#SESSION.dbpw#">
 </cfif>
 
 </cfoutput>
+
+
+<cfset ajaxonload("doHighlight")>
 

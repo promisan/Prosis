@@ -17,6 +17,9 @@
 <cfoutput>
 
 <cfsavecontent variable="myquery">
+
+	SELECT *, TransactionDate
+	FROM (
 	
      SELECT     Journal, 
 	            JournalSerialNo, 
@@ -38,19 +41,21 @@
 	AND         TransactionCategory = 'Receivables' 
 	AND         Created >= GETDATE() - 360 	
 	AND         Mission = '#url.mission#' 
-    AND         (
-					ReferenceId IN (SELECT WorkOrderId FROM WorkOrder.dbo.WorkOrder WHERE Mission = H.Mission)
-					OR EXISTS
-					(
-					    SELECT  'X'
-					    FROM	  TransactionLine
-					    WHERE	  Journal = H.Journal
-					    AND	  JournalSerialNo = H.JournalSerialNo
-					    AND	  ReferenceId IN (SELECT WorkOrderId FROM WorkOrder.dbo.WorkOrder WHERE Mission = H.Mission)	
-					)
+    AND         (	ReferenceId IN (SELECT WorkOrderId FROM WorkOrder.dbo.WorkOrder WHERE Mission = H.Mission)
+					OR EXISTS (
+						    SELECT  'X'
+						    FROM	  TransactionLine
+						    WHERE	  Journal = H.Journal
+						    AND	  JournalSerialNo = H.JournalSerialNo
+						    AND	  ReferenceId IN (SELECT WorkOrderId FROM WorkOrder.dbo.WorkOrder WHERE Mission = H.Mission)	
+					      )
 				)
 	AND         ActionStatus != '9' 
-	AND         RecordStatus != '9'				  
+	AND         RecordStatus != '9'	
+	
+	) as D
+	WHERE 1=1
+	--condition			  
 
 	
 </cfsavecontent>
@@ -67,18 +72,14 @@
 
 <cf_tl id="Journal" var="vJournal">
 <cfset fields[itm] = {label      = "#vJournal#",                    
-    				field        = "Journal",																
-					alias        = "H",
+    				field        = "Journal",																					
 					filtermode   = "2",								
 					search       = "text"}>		
 					
 <cfset itm = itm+1>		
 <cf_tl id="SerialNo" var="vSerialNo">
 <cfset fields[itm] = {label      = "#vSerialNo#",                    
-    				field        = "JournalSerialNo",																
-					alias        = "H"}>			
-					
-			
+    				field        = "JournalSerialNo"}>				
 				
 <cfset itm = itm+1>		
 <cf_tl id="Status" var="vStatus">										
@@ -94,16 +95,13 @@
 <cfset itm = itm+1>				
 <cf_tl id="InvoiceNo" var="vJournalTransactionNo">
 <cfset fields[itm] = {label     = "#vJournalTransactionNo#",                    
-    				field       = "JournalTransactionNo",																
-					alias        = "H",	
-					search       = "text"}>		
-				
+    				field       = "JournalTransactionNo",																					
+					search       = "text"}>						
 									
 <cfset itm = itm+1>					
 <cf_tl id="Issued" var="vDate">
 <cfset fields[itm] = {label     = "#vDate#",
-					field       = "TransactionDate", 	
-					alias        = "H",						
+					field       = "TransactionDate", 										
 					formatted   = "dateformat(TransactionDate,CLIENT.DateFormatShow)",		
 					align       = "center",		
 					search      = "date"}>		
@@ -117,38 +115,32 @@
 					search        = "text",
 					align         = "center",
 					formatted     = "Rating",
-					ratinglist    = "0=Yellow,1=gray"}>	
-																		
+					ratinglist    = "0=Yellow,1=gray"}>			
 						
-					
 <cfset itm = itm+1>				
 <cf_tl id="Customer" var="vCustomer">
 <cfset fields[itm] = {label      = "#vCustomer#",                    
-    				field        = "ReferenceName",																
-					alias        = "H",						
+    				field        = "ReferenceName",																											
 					filtermode   = "2",					
 					search       = "text"}>		
 					
 <cfset itm = itm+1>				
 <cf_tl id="Currency" var="vCurrency">
 <cfset fields[itm] = {label      = "#vCurrency#",                    
-    				field        = "Currency",																									
-					alias        = "H"}>																		
+    				field        = "Currency"}>																		
 					
 <cfset itm = itm+1>				
 <cf_tl id="Amount" var="vAmount">
 <cfset fields[itm] = {label      = "#vAmount#",                    
     				field        = "Amount",		
 					align        = "right",		
-					formatted    = "numberformat(Amount,'__.__')",																			
-					alias        = "H"}>		
+					formatted    = "numberformat(Amount,',.__')"}>		
 							
 <!--- hidden key field --->
 <cfset itm = itm+1>				
 <cf_tl id="TranssactionId" var="vId">
 <cfset fields[itm] = {label     = "#vId#",                    
-    				field       = "TransactionId",																
-					alias       = "H",	
+    				field       = "TransactionId",																					
 					display     = "No",
 					align       = "center"}>						
 
@@ -188,16 +180,13 @@
 	    header            = "billing"
 	    box               = "lineshipment"
 		link              = "#SESSION.root#/WorkOrder/Application/Shipping/BillingView/BillingListingContent.cfm?systemfunctionid=#url.systemfunctionid#&Status=#url.status#&Mission=#URL.Mission#"
-	    html              = "No"		
-		classheader       = "labelit"
-		classline         = "label"
+	    html              = "No"				
 		tableheight       = "99%"
 		tablewidth        = "99%"
 		datasource        = "AppsLedger"		
 		listquery         = "#myquery#"		
 		listgroup         = "ReferenceName"
-		listorderfield    = "TransactionDate"
-		listorderalias    = "H"		
+		listorderfield    = "TransactionDate"		
 		listorderdir      = "ASC"
 		headercolor       = "ffffff"
 		show              = "35"				

@@ -159,27 +159,28 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
+<table width="100%" bgcolor="ffffff" style="height:100%">
+
+<tr><td valign="top" style="padding:5px;height:100%">
+
 <cf_divscroll>
-<table width="100%" bgcolor="ffffff">
 
-<tr><td valign="top" style="padding:5px">
+<cfform name="inquiryform" id="inquiryform" style="height:100%">
 
-<cfform name="inquiryform" id="inquiryform">
+<table width="97%" align="center">
 
-<table width="97%" align="center" class="formpadding">
-
+    <!---
 	<tr class="labelmedium"><td style="font-size:26px"><cf_tl id="Query"></td></tr>
+	--->
 	
 	<tr><td colspan="2">			
 		<cfinclude template="InquiryEditQuery.cfm">		
 	</td></tr>  	
-	
-	<tr class="labelmedium"><td style="font-size:26px"><cf_tl id="Grid"></td></tr>	
-	
+			
 	<tr id="detailfunction" name="detailfunction" class="#cl#">
 	
-	   <td colspan="2">
-	   
+	   <td colspan="2" style="height:240px;border:1px solid silver;border-top:0px;padding:4px">
+	    	
 	   	<cfif URL.SystemFunctionId eq "">
 		
 			<cfdiv id="fields"/>	
@@ -190,15 +191,14 @@ password="#SESSION.dbpw#">
 			bind="url:#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFields.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#">	
 		
 		</cfif>
-	
+			
 	   </td>
 	</tr>
-	
-	
+		
 	<tr><td colspan="2" style="padding-top:5px">
 	
 		<table width="100%" cellspacing="0" class="formpadding">			
-			<tr class="line"><td>
+			<tr><td>
 			<cfinclude template="InquiryEditSettings.cfm">	
 			</td></tr>				
 		</table>
@@ -206,22 +206,24 @@ password="#SESSION.dbpw#">
 	</td>
 	</tr>
 	
-	<tr><td colspan="2" height="1" id="deploy"></td></tr>
-	
-	<tr><td colspan="1" align="center">	
-	   <cf_securediv id="bottom" 
-	       bind="url:#SESSION.root#/System/Modules/InquiryBuilder/SubBottom.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#&datasource={querydatasource}">	
-	</td>
-	<td class="regular" id="result" align="right"></td>
-	</tr>		
-
 </table>
 
 </cfform>
 
-</td></tr></table>
-
 </cf_divscroll>
+
+</td></tr>
+
+<tr style="border-top:1px solid silver"><td colspan="2" height="1" id="deploy"></td></tr>
+	
+	<tr><td colspan="1" align="center" style="padding-top:5px;padding-bottom:4px">	
+	   <cf_securediv id="bottom" 
+	       bind="url:#SESSION.root#/System/Modules/InquiryBuilder/SubBottom.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#&datasource={querydatasource}">	
+	</td>
+	<td class="hide" id="result" align="right"></td>
+	</tr>		
+
+</table>
 
 <cfif URL.SystemFunctionId neq "">
 

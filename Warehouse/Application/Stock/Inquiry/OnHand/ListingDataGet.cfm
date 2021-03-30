@@ -128,7 +128,15 @@
 					   
 						(SELECT Count(1)
 					    FROM   ItemImage 
-						WHERE  ItemNo = S.ItemNo) as Pictures,					   
+						WHERE  ItemNo = S.ItemNo) as Pictures,		
+						
+						(SELECT ISNULL(MinimumStock,1)
+	    			    FROM ItemWarehouse IW 
+		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = S.Warehouse) as MinimumStock,		
+						
+						(SELECT ISNULL(MaximumStock,1)
+	    			    FROM ItemWarehouse IW 
+		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = S.Warehouse) as MaximumStock,						   
 					   					   
 					   #preservesinglequotes(onhand)# AS OnHand, 
 		               #preservesinglequotes(onhandpending)# AS OnHandPending,  
@@ -255,7 +263,15 @@
 						
 						(SELECT Count(1)
 					    FROM   ItemImage 
-						WHERE  ItemNo = T.ItemNo) as Pictures,						
+						WHERE  ItemNo = T.ItemNo) as Pictures,			
+						
+						(SELECT ISNULL(MinimumStock,1)
+	    			    FROM ItemWarehouse IW 
+		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = W.Warehouse) as MinimumStock,		
+						
+						(SELECT ISNULL(MaximumStock,1)
+	    			    FROM ItemWarehouse IW 
+		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = W.Warehouse) as MaximumStock,						
 					   
 					   SUM(TransactionQuantity) as OnHand,
 					   SUM(TransactionValue)    as OnHandValue						  

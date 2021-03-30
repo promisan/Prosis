@@ -40,6 +40,16 @@
 
 </cfif>
 
+<cfquery name="Person" 
+	datasource="AppsSelection" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT  *
+	    FROM    Applicant
+		WHERE   PersonNo = '#URL.ID1#'		
+</cfquery>
+
+
 <cfif url.id eq "">
 	
 	<cf_param name="url.applicantno"		 default="0" type="String">	
@@ -79,7 +89,7 @@
 		AND      F.ApplicantNo = S.ApplicantNo
 		ORDER BY ExperienceStart DESC
 	</cfquery>
-	
+		
 <cfelse>
 
 	<cfquery name="Background" 
@@ -121,7 +131,7 @@
 	<cf_param name="URL.Source"           default="#Background.Source#" type="String">	
 	<cf_param name="URL.Owner"            default="SysAdmin" type="String">	
 	<cf_param name="Form.ExperienceType"  default="#url.id2#" type="String">	
-
+	
 </cfif>
 
 <cfquery name="Nation" 
@@ -346,12 +356,13 @@
   <tr><td class="linedotted" height="1"></td></tr>
 	  
   <tr> 
+  
       
   <td style="width:100%;height:100%;padding-left:10px;padding-right:10px">
   
   	<cf_divscroll>
 
-		  <table width="99%" border="0" cellspacing="0" cellpadding="0" class="formpadding;formspacing">
+		  <table width="99%" class="formpadding;formspacing">
 		  <tr><td height="8"></td></tr>
 		  <tr>  
 		  <td>
@@ -364,9 +375,9 @@
 			      <cfif accessmode eq "edit">
 				  
 			      <cfif url.id eq "">
-				      <cfinput type="Text" class="regularxl enterastab" name="OrganizationName" message="#pls# #org#" required="Yes" size="60" maxlength="100">			
+				      <cfinput type="Text" class="regularxxl enterastab" name="OrganizationName" message="#pls# #org#" required="Yes" size="60" maxlength="100">			
 				  <cfelse>
-				      <cfinput type="Text" value="#BackGround.OrganizationName#" class="regularxl enterastab" name="OrganizationName" message="Please enter the Organization name" required="Yes" size="60" maxlength="100">			
+				      <cfinput type="Text" value="#BackGround.OrganizationName#" class="regularxxl enterastab" name="OrganizationName" message="Please enter the Organization name" required="Yes" size="60" maxlength="100">			
 				  </cfif>
 				  
 				  <cfelse>
@@ -389,16 +400,29 @@
 			   
 				   <tr>
 				   <TD class="labelmedium"><cf_tl id="Type of organization">: <cf_space spaces="50"></TD>
-				   <TD><cfselect name="OrganizationClass" message="#pls# type" class="regularxl enterastab">
-						<option value="" selected></option>
-					    <cfoutput query="Lookup">
-						<cfif Parent eq "Organization">
-							<option value="#ExperienceFieldId#" <cfif BackGround.OrganizationClass eq Description>selected</cfif>>
-							#Description#
-							</option>
-						</cfif>
-						</cfoutput>
-					    </cfselect>	     
+				   <TD>
+				   
+				   <cfquery name="ThisLookup" dbtype="query">
+					    SELECT    *
+					    FROM      Lookup
+						WHERE     Parent = 'Organization'
+					</cfquery>
+				   
+				   <cf_uiselect name = "OrganizationClass"
+							selected       = "#BackGround.OrganizationClass#"
+							size           = "1"
+							class          = "regularXL"
+							id             = "OrganizationClass"							
+							required       = "yes"		
+							message        = "#pls# type"
+							style          = "width:400px"	
+							filter         = "contains"																																
+							query          = "#ThisLookup#"							
+							value          = "ExperienceFieldId"
+							display        = "Description"/>	 
+				   
+				   
+				   
 				   </TD> 
 				   </tr>
 				   
@@ -407,18 +431,34 @@
 			   <input type="hidden" name="OrganizationClass" value="">
 			   
 			   </cfif> 
+			   
+		
 			      
 			   <tr>
 			   <TD class="labelmedium"><cf_tl id="Country">:  <cfif accessmode eq "edit"><font color="#FF0000">*</font></cfif></TD>
 			   <TD class="labelmedium">
 			   
-				    <cfif accessmode eq "edit">
-					
-				        <cfselect name="OrganizationCountry" required="Yes" message="#pls# country"  class="regularxl enterastab">
-						    <cfoutput query="Nation">
-							<option value="#Code#" <cfif BackGround.OrganizationCountry eq Code>selected</cfif>>#Name#</option>
-							</cfoutput>
-					    </cfselect>	  
+				    <cfif accessmode eq "edit">					
+												
+					    <cfif BackGround.OrganizationCountry neq "" and url.id neq "">
+							<cfset cou = BackGround.OrganizationCountry>
+						<cfelse>
+							<cfset cou = Person.Nationality>						
+						</cfif>
+						
+						<cf_uiselect name = "OrganizationCountry"
+							selected       = "#cou#"
+							size           = "1"
+							class          = "regularXL"
+							id             = "OrganizationCountry"							
+							required       = "yes"		
+							message        = "#pls# country"
+							style          = "width:400px"	
+							filter         = "contains"																																
+							query          = "#Nation#"							
+							value          = "Code"
+							display        = "Name"/>										
+				      
 						   
 					<cfelse>										
 										
@@ -449,9 +489,9 @@
 			   <TD>
 			   
 			   		<cfif url.id eq "">
-					<cfinput type="Text" class="regularxl enterastab" name="OrganizationCity" message="#lt_text#" required="no" size="40" maxlength="60"> 
+					<cfinput type="Text" class="regularxxl enterastab" name="OrganizationCity" message="#lt_text#" required="no" size="40" maxlength="60"> 
 					<cfelse>
-				   	<cfinput type="Text" value="#Background.OrganizationCity#" class="regularxl enterastab" name="OrganizationCity" message="#lt_text#" required="no" size="40" maxlength="60">
+				   	<cfinput type="Text" value="#Background.OrganizationCity#" class="regularxxl enterastab" name="OrganizationCity" message="#lt_text#" required="no" size="40" maxlength="60">
 					</cfif>
 				
 			   </TD> 
@@ -460,9 +500,9 @@
 			   <tr>
 			   <TD class="labelmedium"><cf_tl id="Address">: </TD>
 			   <TD><cfif url.id eq "">
-					<cfinput type="Text" class="regularxl enterastab" name="OrganizationAddress" message="#lt_text#" required="no" size="60" maxlength="150"> 
+					<cfinput type="Text" class="regularxxl enterastab" name="OrganizationAddress" message="#lt_text#" required="no" size="60" maxlength="150"> 
 					<cfelse>
-				   	<cfinput type="Text" value="#Background.OrganizationAddress#" class="regularxl enterastab" name="OrganizationAddress" message="#lt_text#" required="no" size="60" maxlength="150">
+				   	<cfinput type="Text" value="#Background.OrganizationAddress#" class="regularxxl enterastab" name="OrganizationAddress" message="#lt_text#" required="no" size="60" maxlength="150">
 					</cfif> 
 			   </TD> 
 			   </tr>
@@ -481,7 +521,7 @@
 					   
 					   <cf_intelliCalendarDate9
 							FieldName="ExperienceStart" 
-							Class="regularxl enterastab"
+							Class="regularxxl enterastab"
 							Default="#DateFormat(Background.ExperienceStart, CLIENT.DateFormatShow)#"
 							AllowBlank="False">	 
 							
@@ -493,14 +533,14 @@
 							
 								   <cf_intelliCalendarDate9
 										FieldName="experienceend" 
-										Class="regularxl enterastab"
+										Class="regularxxl enterastab"
 										Default=""
 										AllowBlank="True">	 		
 							<cfelse>
 							
 								 <cf_intelliCalendarDate9
 										FieldName="experienceend" 
-										Class="regularxl enterastab"
+										Class="regularxxl enterastab"
 										Default="#DateFormat(Background.ExperienceEnd, CLIENT.DateFormatShow)#"
 										AllowBlank="True">	 						
 							</cfif>
@@ -538,10 +578,10 @@
 					
 					<cfif accessmode eq "edit">
 						<cfif url.id eq "">
-							<cfinput type="Text" class="regularxl enterastab" name="ExperienceDescription" message="#lt_text#" required="Yes" size="60" maxlength="100"> 
+							<cfinput type="Text" class="regularxxl enterastab" name="ExperienceDescription" message="#lt_text#" required="Yes" size="60" maxlength="100"> 
 						<cfelse>
 							<cfoutput>
-							   	<cfinput type="Text" value="#Background.ExperienceDescription#" class="regularxl enterastab" name="ExperienceDescription" message="#lt_text#" required="Yes" size="60" maxlength="100">
+							   	<cfinput type="Text" value="#Background.ExperienceDescription#" class="regularxxl enterastab" name="ExperienceDescription" message="#lt_text#" required="Yes" size="60" maxlength="100">
 							</cfoutput>
 						</cfif>
 					<cfelse>					
@@ -558,21 +598,26 @@
 				    <td class="labelmedium"><cfoutput>#LevelT#</cfoutput> <!--- <font color="#FF0000">*</font> ---></td>
 				    <TD>
 					
-							<!--- 	 <cfselect name="LevelId" size="1" required="Yes" class="regularxl enterastab" message="Select a #LevelT#"> --->
+						<!--- 	 <cfselect name="LevelId" size="1" required="Yes" class="regularxl enterastab" message="Select a #LevelT#"> --->
+						
+						<cfquery name="ThisLookup" dbtype="query">
+						    SELECT    *
+						    FROM      Lookup
+							WHERE     Parent = '#Level#'
+						</cfquery>
 							
-						    <cfselect name="LevelId" size="1" class="regularxl enterastab" message="Select a #LevelT#">
+						   <cf_uiselect name = "LevelId"
+							selected       = ""
+							size           = "1"
+							class          = "regularXL"
+							id             = "OrgUnit"							
+							required       = "yes"		
+							style          = "width:400px"	
+							filter         = "contains"																																
+							query          = "#thislookup#"							
+							value          = "ExperienceFieldId"
+							display        = "Description"/>												
 							
-							    <option value="" selected>[<cf_tl id="select">]</option>
-									    
-								<cfoutput query="Lookup">
-									<cfif Parent eq Level>
-										<option value="#ExperienceFieldId#" <cfif Currently neq "">selected</cfif>>
-										#Description#
-										</option>
-									</cfif>	
-								</cfoutput>
-								
-							</cfselect>
 									
 					</TD>	
 					</tr>
@@ -583,9 +628,9 @@
 				   <TD class="labelmedium"><cf_tl id="Name of Supervisor">:</TD>
 				   <TD>
 				   <cfif url.id eq "">
-				       <cfinput type="Text" name="Supervisor" required="No" size="40" maxlength="100" class="regularxl enterastab">
+				       <cfinput type="Text" name="Supervisor" required="No" size="40" maxlength="100" class="regularxxl enterastab">
 				   <cfelse> 
-					   <cfinput type="Text" name="Supervisor" value="#Background.SupervisorName#" required="No" size="40" maxlength="100" class="regularxl enterastab">
+					   <cfinput type="Text" name="Supervisor" value="#Background.SupervisorName#" required="No" size="40" maxlength="100" class="regularxxl enterastab">
 				   </cfif>
 				   				   
 				   </TD> 
@@ -593,7 +638,7 @@
 				  
 				   <tr>
 					   <TD class="labelmedium"><cf_tl id="eMail of Supervisor">:</TD>
-					   <TD><cfinput type="Text" name="Email" value="#Background.OrganizationEmail#" required="No" size="40" maxlength="100" class="regularxl enterastab"></TD> 
+					   <TD><cfinput type="Text" name="Email" value="#Background.OrganizationEmail#" required="No" size="40" maxlength="100" class="regularxxl enterastab"></TD> 
 				   </tr>
 				   
 				   <input type="hidden" name="StaffSupervised"   value="<cfoutput>#Background.staffSupervised#</cfoutput>">
@@ -601,9 +646,9 @@
 				   <tr>
 				      
 					  <td colspan="2">
-					  <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+					  <table width="100%" style="background-color:f1f1f1" cellspacing="0" cellpadding="0" class="formpadding">
 					  <tr class="labelmedium">
-					    <td style="padding-left:25px;width:180"><cf_tl id="Reference"></td>
+					    <td style="padding-left:25px;width:200"><cf_tl id="Reference"></td>
 					  	<td style="width:60%"><cf_tl id="Name"></td>
 						<td><cf_tl id="eMail"></td>
 					  </tr>
@@ -629,19 +674,21 @@
 						</cfquery>
 					  
 					  <tr>
-					     <td style="padding-left:25px;width:180">
-						 <select class="regularxl" name="ContactClass_#itm#" style="width:100">
+					     <td style="padding-left:25px;width:200px">
+						 <select class="regularxl" name="ContactClass_#itm#" style="background-color:transparent;width:100">
 							 <option value="Supervisor" <cfif getContact.ContactClass eq "supervisor">selected</cfif>>Supervisor</option>
 							 <option value="Co-worker" <cfif getContact.ContactClass eq "co-worker">selected</cfif>>Co-worker</option>
 							 <option value="Other" <cfif getContact.ContactClass eq "other">selected</cfif>>Other</option>
 						 </select>
 						 
 						 </td>
-						 <td style="padding-left:2px"><cfinput type="Text" name="ContactReference_#itm#" value="#getContact.ContactReference#" required="No" style="width:100%" maxlength="100" class="regularxl enterastab"></td>
-						 <td style="padding-left:2px;padding-right:30px"><cfinput type="Text" message="Incorrect eMail format" name="ContactCallsign_#itm#"  value="#getContact.ContactCallsign#" required="No" size="25" validate="eMail" maxlength="100" class="regularxl enterastab"></td>						
+						 <td style="padding-left:12px"><cfinput type="Text" name="ContactReference_#itm#" value="#getContact.ContactReference#" required="No" style="background-color:fafafa;width:100%" maxlength="100" class="regularxl enterastab"></td>
+						 <td style="padding-left:2px;padding-right:30px"><cfinput type="Text" message="Incorrect eMail format" name="ContactCallsign_#itm#"  value="#getContact.ContactCallsign#" style="background-color:fafafa;" required="No" size="25" validate="eMail" maxlength="100" class="regularxl enterastab"></td>						
 					  </tr>		  					  
 					  
 					  </cfloop>
+					  
+					  <tr><td style="height:10px"></td></tr>
 					  
 					  </cfoutput>
 					  

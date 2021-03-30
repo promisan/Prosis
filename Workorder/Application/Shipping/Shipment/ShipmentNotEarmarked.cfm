@@ -2,7 +2,7 @@
 <!--- based on the WorkOrderItemId determine the items and also associated items as they might have been grouped under the same
 workorderlineid for stop to be reallocated --->
 
-<cf_screentop banner="Yellow" layout="webapp" scroll="Yes" label="Earmark stock">
+<cf_screentop banner="Yellow" layout="webapp" html="No" scroll="Yes" label="Earmark stock">
 
 <cfquery name="get" 
 	datasource="AppsWorkOrder" 

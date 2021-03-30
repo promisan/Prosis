@@ -33,6 +33,14 @@
 	<cftry>
 	
 	    <cfset sc = replace(QueryScript, "SELECT",  "SELECT TOP 1")> 
+		
+		<cfoutput>
+		<cfsavecontent variable="sc">	
+			SELECT *
+			FROM (#preservesinglequotes(sc)#) as D
+			WHERE 1=0		
+		</cfsavecontent>		
+		</cfoutput>
 
 		<!--- -------------------------- --->
 		<!--- preparation of the listing --->
@@ -75,10 +83,10 @@
 						
 		</script>
 		
-		<table cellspacing="0" cellpadding="0" class="formpadding">
+		<table class="formpadding">
 		
 		<tr>		
-		<td class="labelmedium" style="padding:3px"><font color="008000">Query validated and saved.</td></tr>		
+		<td class="labelmedium2" style="padding-left:4px"><font color="008000">Query validated and saved #timeformat(now(),"HH:MM")#.</td></tr>		
 		<script>		
 			document.getElementById('testing').className = "button10g"
 		</script>					

@@ -18,11 +18,11 @@
 		<cfset per = URL.Page*50-50>
 		<cfset perT = "">
 
-    <table width="99%" class="navigation_table" >	
+    <table width="98.5%" class="navigation_table" >	
 					
 	<tr class="fixrow"><td colspan="14" colspan="#col#"><cfinclude template="Navigation.cfm"></td></tr>
 	
-	<TR class="labelmedium2 fixrow2 line" style="height:25px">
+	<TR class="labelmedium2 fixrow2 line">
 	    <td colspan="4"></td>	   		
 		<TD><cf_tl id="Name"></TD>
 		<TD><cfoutput>#client.IndexNoName#</cfoutput></TD>
@@ -211,9 +211,9 @@
 							</td>							
 							--->
 													
-							<td align="center" style="border-right:1px solid silver;border-left:1px solid silver">					
+							<td align="center" style="background-color:f4f4f4;padding-left:4px;padding-top:3px;border-right:0px solid silver;border-left:1px solid silver">					
 							
-								<i class="fas fa-user-edit" style="color: ##c83702;font-size: 15px;position: relative;top:-1px;"
+								<i class="fas fa-user-edit" style="color: ##c83702;font-size: 14px;position: relative;top:-1px;"
                                    onclick="ShowFunction('#ApplicantNo#','#FunctionId#','#URL.tab#','#url.box#','#url.owner#','#url.process#','#day#','#status#','#url.level#','#url.processmeaning#','#meaning#','#url.total#','#url.page#','php')">
                                 </i>
 								   
@@ -245,18 +245,18 @@
 							
 							--->	
 							
-							<td align="center" style="border-right:1px solid silver;">							
+							<td align="center" style="background-color:f4f4f4;padding-left:4px;padding-top:3px;border-right:0px solid silver;">							
 								<cfif eMailAddress is not ''>
-								    <i class="fas fa-envelope" style="color: ##c83702;font-size: 18px;" onClick="email('#eMailAddress#','','','','Applicant','#PersonNo#')"></i>								 
+								    <i class="fas fa-envelope" style="color: ##c83702;font-size: 14px;" onClick="email('#eMailAddress#','','','','Applicant','#PersonNo#')"></i>								 
 								</cfif>							
 							</td>		
 							
-							<td align="center" style="border-right:1px solid silver">
+							<td align="center" style="background-color:f4f4f4;padding-left:6px;padding-right:6px;padding-top:3px;border-right:0px solid silver">
 							
 							    <cfif url.print eq "0">
 												
 									<cfif Access1 eq "EDIT" or Access2 eq "EDIT">										
-									    <i class="fas fa-comment-alt-lines" style="color: ##c83702;font-size: 17px;position: relative;top: 1px;" onClick="memoshow('memo#url.tab##CurrentRow#','show','#ApplicantNo#','#FunctionId#','#url.filter##CurrentRow#')">
+									    <i class="fas fa-comment-alt-lines" style="color: ##c83702;font-size: 14px;position: relative;top: 1px;" onClick="memoshow('memo#url.tab##CurrentRow#','show','#ApplicantNo#','#FunctionId#','#url.filter##CurrentRow#')">
                                         </i>
 									</cfif>	
 								
@@ -266,8 +266,9 @@
 							
 							<!--- background-color:<cfif (currentRow MOD 2 EQ 0)>e9e9e9<cfelse>ffffff</cfif> --->
 							<td style="padding-left:4px;">
-							<a href="javascript:ShowFunction('#ApplicantNo#','#FunctionId#','#URL.tab#','#url.box#','#url.owner#','#url.process#','#day#','#status#','#url.level#','#url.processmeaning#','#meaning#','#url.total#','#url.page#','process')">
-							#LastName#, #FirstName#</a></td>
+								<a href="javascript:ShowFunction('#ApplicantNo#','#FunctionId#','#URL.tab#','#url.box#','#url.owner#','#url.process#','#day#','#status#','#url.level#','#url.processmeaning#','#meaning#','#url.total#','#url.page#','process')">
+								#LastName#, #FirstName#</a>
+							</td>
 							
 							<td><A href="javascript:ShowCandidate('#PersonNo#')"><cfif IndexNo neq "">#IndexNo#<cfelse><font color="FF5E5E"></cfif></A></TD>
 													
@@ -278,7 +279,7 @@
 										<strong><font color="##006699">#PersonStatusDescription#</font></strong>
 									</cfif>
 								<cfelse>
-							</cfif>
+								</cfif>
 							</td>
 														
 						    <TD><cfif ContractLevel neq "">#ContractLevel#/#ContractStep# <!--- [#DateFormat(DateExpiration, CLIENT.DateFormatShow)#] ---></cfif></TD>	
@@ -345,8 +346,10 @@
 							 <!--- check if candidate was selected recently --->
 							 <!--- ---------------------------------------- --->
 							 
-							 <tr class="line"><td></td><td style="border-left:1px solid silver;border-right:1px solid silver" colspan="15">
-								 <table width="100%" cellspacing="0" cellpadding="0" align="center">								 					
+							 <tr class="line">
+							     <td></td>
+								 <td style="border-left:1px solid silver;border-right:1px solid silver" colspan="15">
+								 <table width="100%" align="center">								 					
 								     <cfinclude template="../../Candidate/Details/Functions/ApplicantFunctionSelection.cfm">
 								 </table>
 							 </td>

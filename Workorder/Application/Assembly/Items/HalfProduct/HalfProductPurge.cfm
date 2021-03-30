@@ -93,6 +93,6 @@
 <cfoutput>
 	<script>
 	    _cf_loadingtexthtml='';	
-		ColdFusion.navigate('#session.root#/workorder/application/Assembly/Items/HalfProduct/HalfProductListing.cfm?workorderid=#url.workOrderId#&workorderline=#url.workOrderLine#','topSection');
+		ptoken.navigate('#session.root#/workorder/application/Assembly/Items/HalfProduct/HalfProductListing.cfm?workorderid=#url.workOrderId#&workorderline=#url.workOrderLine#','topSection');
 	</script>
 </cfoutput>	

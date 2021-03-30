@@ -5,6 +5,7 @@
 <cfparam name="URL.source"          default="Manual">  
 <cfparam name="URL.Topic"           default="Employment"> 
 <cfparam name="url.section" 	    default="">
+<cfparam name="url.sourceinherit"   default="">
 <cfparam name="url.applicantno"     default="">
 <cfparam name="url.owner"           default="">
 <cfparam name="client.ApplicantNo"  default="">
@@ -26,8 +27,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 	SELECT   *
 	FROM     Ref_Source
-	WHERE    Source = '#url.source#'
-	
+	WHERE    Source = '#url.source#'	
 </cfquery>
 
 <cfif url.entryScope eq "Backoffice">
@@ -36,6 +36,101 @@ password="#SESSION.dbpw#">
  	method="roster" 
  	returnvariable="AccessRoster"
  	role="'AdminRoster','CandidateProfile'">
+		
+	<cfif url.sourceInherit neq "">
+	
+		<cfif url.applicantNo eq "">
+				
+			<cfquery name="get" 
+			datasource="appsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT   *
+				FROM     ApplicantSubmission
+				WHERE    PersonNo = '#URL.Id#'
+				AND      Source  = '#URL.source#' 
+				ORDER BY Created DESC
+			</cfquery>
+			
+			<cfset appNo = get.ApplicantNo>
+			
+		<cfelse>
+		
+			<cfset appNo = url.applicantNo>	
+				
+		</cfif>
+	
+		<cfquery name="Inherit" 
+			datasource="appsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+		
+			INSERT INTO  ApplicantBackground
+		
+			         (ApplicantNo, 
+					  -- ExperienceId, 
+					  ExperienceCategory, 
+					  ExperienceDescription, 
+					  ExperienceStart, 
+					  ExperienceEnd, 
+					  OrganizationName, 
+					  OrganizationClass, 
+					  OrganizationAddress, 
+					  OrganizationZIP, 
+			          OrganizationCity, 
+					  OrganizationCountry, 
+					  OrganizationTelephone, 
+					  OrganizationEMail, 
+					  OrganizationRelated, 
+					  OrganizationCivil, 
+					  SupervisorName, 
+					  StaffSupervised, 
+					  SalaryCurrency, 
+					  SalaryStart, 
+					  SalaryEnd, 
+					  Status, 
+			          OfficerUserId, OfficerLastName, OfficerFirstName, Updated, Remarks, Created, RecordUpdated, RecordMemo, RecordMemoDate)
+		
+		
+			SELECT       '#appno#', 
+			             -- ExperienceId, 
+						 ExperienceCategory, 
+						 ExperienceDescription, 
+						 ExperienceStart, 
+						 ExperienceEnd, 
+						 OrganizationName, 
+						 OrganizationClass, 
+						 OrganizationAddress, 
+						 OrganizationZIP, 
+			             OrganizationCity, 
+						 OrganizationCountry, 
+						 OrganizationTelephone, 
+						 OrganizationEMail, 
+						 OrganizationRelated, 
+						 OrganizationCivil, 
+						 SupervisorName, 
+						 StaffSupervised, 
+						 SalaryCurrency, 
+						 SalaryStart, 
+						 SalaryEnd, 
+						 '0', 
+			             '#session.acc#', 
+						 '#session.last#', 
+						 '#session.first#', 
+						 Updated, 
+						 Remarks, 
+						 getDate(), 
+						 RecordUpdated, 
+						 'Inherit #url.sourceinherit#', 
+						 getdate()
+			FROM         ApplicantBackground
+			WHERE        ApplicantNo IN (SELECT ApplicantNo FROM ApplicantSubmission WHERE PersonNo = '#url.id#' and Source = '#url.sourceinherit#') 
+			AND          ExperienceCategory = '#url.id2#'
+			AND          Status != '9'
+		
+		</cfquery>
+	
+	</cfif>
  	
 <cfelse>
 
@@ -152,19 +247,23 @@ password="#SESSION.dbpw#">
 <cfif mode eq "edit" or client.applicantno eq applicantno>
 	
 	<cfoutput>
-	
+		
 	  <script language="JavaScript">
+		
+		function bginherit(per,cls,inherit) {
+		   ptoken.location("#SESSION.root#/Roster/Candidate/Details/General.cfm?id="+per+"&source=#url.source#&ID2="+cls+"&section=#url.section#&Topic=#URL.Topic#&sourceinherit="+inherit)
+      	}
 		  
-		function bgadd(appno,cls) {		
-		  ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno="+appno+"&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=&ID1=#URL.ID#&ID2="+cls)
+		function bgadd(appno,cls) {				
+		   ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno="+appno+"&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=&ID1=#URL.ID#&ID2="+cls)
 		}  
 		
 		function bgedit(appno,expno,cls,src) {
-		  ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno="+appno+"&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=" + expno + "&ID1=#URL.ID#&ID2="+cls+"&mode=1")
+		   ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno="+appno+"&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=" + expno + "&ID1=#URL.ID#&ID2="+cls+"&mode=1")
 		}
 		
 		function bgedit2(appno,expno,cls,src) {
-		  ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno="+appno+"&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=" + expno + "&ID1=#URL.ID#&ID2="+cls+"&mode=2")
+		   ptoken.location("#SESSION.root#/Roster/Candidate/Details/Background/BackgroundEntry.cfm?owner=#url.owner#&applicantno="+appno+"&section=#url.section#&entryScope=#url.entryScope#&Source=#url.source#&Topic=#URL.Topic#&ID=" + expno + "&ID1=#URL.ID#&ID2="+cls+"&mode=2")
 		}
 		
 		function bgpurge(appno,expno,src) {
@@ -245,9 +344,45 @@ password="#SESSION.dbpw#">
 
 <cfif detail.recordcount eq "0">
 	
-	<tr>
-		<td colspan="8" style="height:30" class="labelmedium" align="center"><cf_tl id="No records found"></td>
+	<tr style="border-top:1px solid silver" class="line">
+		<td colspan="8" style="height:40;font-size:16px" class="labelmedium2" align="center"><cf_tl id="There are no records founds to show in this view"></td>
 	</TR>
+	
+	<cfif url.entryScope eq "Backoffice">
+	
+		<cfquery name="Other" 
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT     S.ApplicantNo, S.Source, COUNT(*) AS Records
+			FROM       ApplicantBackground AS A INNER JOIN
+			           ApplicantSubmission AS S ON A.ApplicantNo = S.ApplicantNo
+			WHERE      A.Status <> '9' 
+			AND        S.PersonNo = '#URL.ID#' 
+			AND        A.ExperienceCategory = '#url.id2#'
+			GROUP BY   S.ApplicantNo, S.Source
+		</cfquery>
+			
+		<cfif other.recordcount gte "1">
+		
+			<tr style="border-top:1px solid silver">
+				<td colspan="8" style="height:40;font-size:16px" class="labelmedium2" align="center">There are background records found in the database for the following other sources. Please select one to inherit:</td>
+			</TR>
+			
+			<tr class="line"><td colspan="8" align="center">
+			<table>
+			<tr style="height:40" class="labelmedium2" style="font-size:20px">
+			<cfoutput query="Other"><td>
+			<a style="font-size:20px" href="javascript:bginherit('#url.id#','#url.id2#','#source#')">#source# (#records# records found)</a></td>
+			</cfoutput>
+			</tr>
+			</table>
+			</td></tr>
+		
+		</cfif>
+		
+	</cfif>	
+		
 
 </cfif>
 
@@ -383,7 +518,7 @@ password="#SESSION.dbpw#">
 		<a href="javascript:email('#OrganizationEMail#','#Candidate.FirstName# #Candidate.LastName#','','','','')">#OrganizationEMail#</a>
 		<cfif OrganizationTelephone neq "">&nbsp;<cf_tl id="Tel">:&nbsp;#OrganizationTelephone# </b></cfif>
 		<cfelse> N/A</cfif></b></td>
-		<td colspan="3" align="right" style="padding-right:10px;height:21px;"><cfif StaffSupervised neq "0"><font size="1"><cf_tl id="Supervised">:</font> <cfif StaffSupervised eq "">n/a<cfelse>#StaffSupervised#</cfif></cfif></td>
+		<td colspan="3" align="right" style="padding-right:10px;height:21px;"><cfif StaffSupervised neq "0"><cf_tl id="Supervised">:<cfif StaffSupervised eq "">n/a<cfelse>#StaffSupervised#</cfif></cfif></td>
 	</tr>
 	
 	<!--- ------------------------------------------------------- --->
@@ -620,12 +755,9 @@ password="#SESSION.dbpw#">
 			</cfif>				
 						
 		</cfoutput>
-		
-		
-		<tr><td style="height:10px"></td></tr>
-		<tr class="line navigation_row_child"><td colspan="7"></td></tr>
-		<tr><td style="height:10px"></td></tr>
-				
+					
+		<tr class="line navigation_row_child"><td style="height:10px" colspan="8"></td></tr>		
+						
 </cfoutput>
 
 </table>

@@ -60,7 +60,7 @@ but associated to several workorders, so on 5/9/2016 I adjusted this to look at 
 <cfoutput>  
 
  <table cellspacing="0" cellpadding="0">	
-	 <tr><td align="right" style="height:20px" class="labelmedium">#Billed.currency# #numberformat(Billed.Total,",__.__")#</td></tr>	
+	 <tr><td align="right" style="height:20px" class="labelmedium">#Billed.currency# #numberformat(Billed.Total,",.__")#</td></tr>	
 	 <cfif abs(Shipped.billed-BillingRecorded.Amount) gt "1">
 	 <tr><td align="right" style="height:20px" class="labelit"><font color="red">	 
 	 <cf_tl id="not billed">: #numberformat(BillingRecorded.Amount-Shipped.billed,",.__")#</font></td></tr>	

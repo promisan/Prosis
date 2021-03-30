@@ -24,22 +24,38 @@
 	
 <cfajaximport tags="cfdiv,cfchart,cfform">
 
-<script>
+<cfoutput>
 
-	function clearMessage(){
-		ptoken.navigate('UserPortalSubmit.cfm?id=&value=&account=','divUserPortalSubmit');
-	}
+	<script>
 	
-	function submitChange(account, id, value){
-		ptoken.navigate('UserPortalSubmit.cfm?id='+id+'&value='+value+'&account='+account,'divUserPortalSubmit');
-		setTimeout("clearMessage()", 3000);
-	}
-	
-	function submitInitUserPortal(account, id, value){
-		ptoken.navigate('UserPortalSubmit.cfm?id='+id+'&value='+value+'&account='+account,'tdInitUserPortalSubmit');
-	}
-	
-</script>
+		function showusergroup(chk,id,row,acc) {
+		
+			if (chk == false) {			  			 
+			   document.getElementById('detail'+row).innerHTML = ""
+			  
+			} else {			  
+  			   _cf_loadingtexthtml='';	
+			   ptoken.navigate('#session.root#/system/access/entity/getAccountGroup.cfm?profileid='+id+'&useraccount='+acc,'detail'+row)
+			}		
+					
+		}	
+		
+		function clearMessage(){
+			ptoken.navigate('UserPortalSubmit.cfm?id=&value=&account=','divUserPortalSubmit');
+		}
+		
+		function submitChange(account, id, value){
+			ptoken.navigate('UserPortalSubmit.cfm?id='+id+'&value='+value+'&account='+account,'divUserPortalSubmit');
+			setTimeout("clearMessage()", 3000);
+		}
+		
+		function submitInitUserPortal(account, id, value){
+			ptoken.navigate('UserPortalSubmit.cfm?id='+id+'&value='+value+'&account='+account,'tdInitUserPortalSubmit');
+		}
+		
+	</script>
+
+</cfoutput>
 
 <cf_menuScript>
 <cf_layoutScript>

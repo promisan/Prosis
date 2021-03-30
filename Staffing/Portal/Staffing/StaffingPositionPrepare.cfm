@@ -1,5 +1,7 @@
 
 <cfparam name="url.unit" default="">
+
+<cfset session.portalOrgUnit = url.unit>
 	
 <cfquery name="Position" 
 	datasource="AppsEmployee" 
@@ -95,17 +97,15 @@ we also add positions to it which they loaned to another unit --->
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">		
 		SELECT     MissionOperational, 
-		           PersonNo, IndexNo, FullName, LastName, MiddleName, FirstName, Nationality, Gender, BirthDate, 
-				   eMailAddress, ParentOffice, ParentOfficeLocation, PersonReference, Operational, 
+		           PersonNo, IndexNo, FullName, LastName, MiddleName, FirstName, Gender, BirthDate, 
+				   eMailAddress, 
 				   OrgUnit, OrgUnitName, OrgUnitNameShort, OrgUnitHierarchyCode, OrgUnitClass, 
 				   ParentOrgUnit, OrgUnitClassOrder, OrgUnitClassName, DateEffective, DateExpiration, 
 				   FunctionDescriptionActual, FunctionNo, FunctionDescription, PositionNo, 
 				   PositionParentId, OrgUnitOperational, OrgUnitAdministrative, OrgUnitFunctional, 
-				   PostType, PostClass, LocationCode, VacancyActionClass, PostGrade, PostOrder, 
-				   SourcePostNumber, PostOrderBudget, PostGradeBudget, PostGradeParent, 
+				   PostType, PostClass, LocationCode, VacancyActionClass, PostGrade, PostOrder, 				    
 				   OccGroup, OccGroupName, OccGroupOrder, PostGradeParentDescription, ViewOrder, 
-				   ContractId, AssignmentNo, AssignmentStatus, AssignmentClass, AssignmentType, Incumbency, 
-				   Remarks, AssignmentLocation,
+				   ContractId, AssignmentNo, AssignmentStatus, AssignmentClass, AssignmentType, Incumbency,
 				   (SELECT Name FROM System.dbo.Ref_Nation WHERE Code = A.Nationality) as NationalityName
 		FROM       vwAssignment A
 		WHERE      Mission = '#URL.Mission#' 

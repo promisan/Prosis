@@ -186,7 +186,7 @@ WHERE Account = '#SESSION.acc#'
 					</cfoutput>
 					
 					</td>
-					<td style="padding-left:2px">
+					<td style="padding-left:2px" id="verify">
 					
 					<cf_tl id="Validate Access" var="vValidate">
 					
@@ -198,17 +198,16 @@ WHERE Account = '#SESSION.acc#'
 						value="<cfoutput>#vValidate#</cfoutput>" 						
 						onclick="ptoken.navigate('UserMailVerify.cfm?mailbox='+document.getElementById('mailserveraccount').value+'&mailpassword='+document.getElementById('mailserverpassword').value,'verifymail')">
 						
-					</td></tr>
+					</td>
+					
+					<td id="verifymail" class="labelmedium2" style="padding-left:6px" colspan="1"></td>
+					</tr>
 					
 					</table>
 					
 				</TD>
 			</TR>
-						
-			<tr><td id="verifymail" colspan="2">
-				</td>	
 			
-			</tr>
 		
 		</cfif>
 		

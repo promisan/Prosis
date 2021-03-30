@@ -935,9 +935,7 @@ input[type=file]::-ms-browse {
 	color: #45617d;
 	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif,"Raleway",sans-serif!important;
 	font-size: 25px;
-	left: 80px;
-	position: absolute;
-	top: 25px;
+	left: 80px;	
 	z-index: 3;
     font-weight: 400;
 }
@@ -950,6 +948,7 @@ input[type=file]::-ms-browse {
   top: 53px;
   z-index: 4;
 }
+
 .SubMenuLeft-wrap{
     background: #eeeeee none repeat scroll 0 0;
     margin-bottom: 1px;

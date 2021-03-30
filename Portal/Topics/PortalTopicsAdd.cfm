@@ -16,19 +16,14 @@ function hl(itm,fld,vis){
      }else{
           while (itm.tagName!="TR")
           {itm=itm.parentNode;}
-     }
-	 
-	 vis2 = document.getElementsByName(vis)
-	 	 		 	
-	 if (fld != false){
-		
-	 itm.className = "highlight line";	
-	 vis2[0].className = "regularxl";	
-	 
-	 }else{
-		
-     itm.className = "regular line";		
-	 vis2[0].className = "hide";
+     }	 
+	 vis2 = document.getElementsByName(vis)	 	 		 	
+	 if (fld != false){		
+    	 itm.className = "highlight line";	
+	     vis2[0].className = "regularxl";		 
+	 }else{		
+         itm.className = "regular line";		
+	     vis2[0].className = "hide";
 	 }
   }
     
@@ -59,12 +54,11 @@ password="#SESSION.dbpw#">
 	
 	<tr><td height="16"></td></tr>
 	<tr>
-	<td align="left" class="labellarge" style="font-size:28px"><img src="<cfoutput>#SESSION.root#</cfoutput>/Images/blue_home.png" title="home" border="0" align="left" style="height:75px;float:left;padding-20px;">
+	<td align="left" class="labellarge" style="font-size:28px;width:60px">
+	<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/blue_home.png" title="home" border="0" align="left" style="height:75px;float:left;padding-20px;">
 	</td>
-	<td class="Main-Title" align="right" style="padding-left:42px;" rowspan="2">
-	    <b><cf_tl id="Customize your home page">
-	</td>
-	<td class="Main-Sub-Title" style="padding-left:42px;top:60px;">
+	<td class="Main-Title"><cf_tl id="Customize your home page"></td>
+	<td class="Main-Sub-Title" style="padding-left:42px;top:67px;">
 	   You may select and define the content once added that you need displayed on your Home Page. 
 	</td>
 	</tr>
@@ -93,11 +87,13 @@ password="#SESSION.dbpw#">
 			   
 			   <cfoutput group="MenuClass" query="get">
 			   
+			   <!---
 			   <tr><td style="height:40px;padding-top:5px;padding-left:20px;padding-bottom:5px;font-size:30px" colspan="5" class="labellarge"><cfif MenuClass eq "Topic"><cf_tl id="Resource Summaries"><cfelse>Widget</cfif></td></tr>
+			   --->
 			   
 			   <cfoutput group="FunctionClass">
 			   
-			   <tr><td style="height:40px;padding-top:5px;padding-left:20px;padding-bottom:5px;font-size:30px" colspan="5" class="labellarge">
+			   <tr><td style="height:40px;padding-top:5px;padding-left:20px;padding-bottom:5px;font-size:20px" colspan="5">
 			   
 			   <cfswitch expression="#FunctionClass#">
 			      <cfcase value="HR"><cf_tl id="Human Resources"></cfcase>
@@ -111,10 +107,10 @@ password="#SESSION.dbpw#">
 			          
 			   <cfoutput>
 			      
-			     <tr class="navigation_row">
+			     <tr class="navigation_row labelmedium <cfif account neq "" and Status neq "">line</cfif>">
 				 
-			    	 <TD class="labelit" style="height:18px;padding-left:46px;padding:3px"></TD>	
-					 <TD class="labelit" style="padding-left:20px">
+			    	 <TD style="height:18px;padding-left:46px;padding:3px"></TD>	
+					 <TD style="padding-left:20px">
 					    <input type="hidden" name="controlno_#get.currentrow#" value="#SystemFunctionId#" size="2" maxlength="2" class="<cfif #Account# eq "">hide<cfelse>regular</cfif>" style="text-align: center;">
 					    
 						<input type="checkbox" 
@@ -125,14 +121,16 @@ password="#SESSION.dbpw#">
 				     	 <cfif account neq "" and Status neq "">checked</cfif>>
 						 
 			          </TD>
-			         <TD class="labelmedium" style="padding-top:2px">
+			         <TD style="padding-top:2px">
 					 <table>
-					    <tr><td class="labelit" style="height:29px;color: black; font-size: 14px;">#FunctionName#:&nbsp;<font size="2" color="6688AA">#FunctionMemo#</font></b></td></tr>				 
+					    <tr class="labelmedium"><td style="color: black; font-size: 14px;">#FunctionName#:&nbsp;<font size="2" color="45617d">#FunctionMemo#</font></b></td></tr>				 
 					 </table>	
-					  <TD class="labelit" style="padding:0px">
-					    <input type="text" name="listingorder_#get.currentrow#" value="#OrderListing#" size="2" maxlength="2" class="<cfif #Account# neq "" and Status eq "1">regularxl<cfelse>hide</cfif>" style="text-align: center;">
+					  <TD style="padding:0px">
+					    <input type="text" name="listingorder_#get.currentrow#" value="#OrderListing#" size="2" maxlength="2" 
+						 class="<cfif Account neq "" and Status neq "">regularxl<cfelse>hide</cfif>" 
+						 style="text-align: center;border:0px;border-left:1px solid silver;border-right:1px solid silver">
 					 </TD>	
-					 <TD class="labelit" style="padding:0px">#dateformat(LastModified,client.dateformatshow)#</TD>
+					 <TD style="padding:0px">#dateformat(LastModified,client.dateformatshow)#</TD>
 					
 			        
 			     </TR>

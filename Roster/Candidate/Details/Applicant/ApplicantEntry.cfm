@@ -60,7 +60,7 @@
 <cf_calendarscript>
 <cf_dialogStaffing>
 <cf_dialogPosition>
-<cfajaximport tags="cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 
 <cfset tree = "">
 
@@ -241,30 +241,49 @@ password="#SESSION.dbpw#">
 	  <tr>
 	    <td width="100%">
 				
-	    <table border="0" cellpadding="0" class="formpadding" width="100%">
+	    <table border="0" class="formpadding" width="100%">
 		
 		<!--- capture the organizational source of the candidate, like for secondment --->
 						
 		<cfif tree neq "">
 							
-			<cfquery name="Org" 
+			<cfquery name="myOrg" 
 			datasource="AppsSelection" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			    SELECT * 
-			    FROM Organization.dbo.Organization
-				WHERE Mission = '#tree#'
-				ORDER By HierarchyCode
+			    SELECT   * 
+			    FROM     Organization.dbo.Organization
+				WHERE    Mission = '#tree#'
+				AND      OrgUnitClass = 'substantive'
+				ORDER BY HierarchyCode
 			</cfquery>
 			
+			<cfquery name="Prior" 
+			datasource="AppsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT TOP 1 * 
+			    FROM   ApplicantSubmission
+				WHERE OfficerUserId = '#session.acc#'	
+				ORDER BY Created DESC
+			</cfquery>
+						
 			<TR>
 		    <TD class="labelmedium"><cf_tl id="Organization">:</TD>
 		    <TD colspan="3">
 			
-		     	<cfselect name="OrgUnit" required="Yes" class="regularxl enterastab">
-			      <cfoutput query="Org"><option value="#OrgUnit#">#OrgUnitName#</option></cfoutput>
-			    </cfselect>	
-				
+	          <cf_uiselect name = "OrgUnit"
+					selected       = "#prior.orgunit#"
+					size           = "1"
+					class          = "regularXL"
+					id             = "OrgUnit"							
+					required       = "yes"		
+					style          = "width:500px"	
+					filter         = "contains"																																
+					query          = "#myOrg#"							
+					value          = "OrgUnit"
+					display        = "OrgUnitName"/>							
+		     
 		    </TD>		
 		
 		<cfelse>
@@ -351,9 +370,9 @@ password="#SESSION.dbpw#">
 			
 		</TD>
 		</TR>	
-		 </cfoutput>
+		</cfoutput>
 		 
-		   <!--- Field: Applicant.FirstName --->
+		<!--- Field: Applicant.FirstName --->
 	    <TR>
 	    <TD class="labelmedium"><cf_tl id="First name">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD>		
@@ -366,9 +385,7 @@ password="#SESSION.dbpw#">
 			<INPUT type="text" class="regularxl enterastab" name="middlename" id="middlename" maxLength="30" size="30">			
 		</TD>
 		</TR>
-					
-	   		
-	  
+		
 	    <TR>
 	    <TD class="labelmedium"><cf_tl id="Last name">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD><cf_tl id="Please enter lastname" var="1" class="message">
@@ -379,7 +396,6 @@ password="#SESSION.dbpw#">
 			<cfinput type="Text" class="regularxl enterastab" id="lastname2" name="lastname2" message="#lt_text#" required="No" size="40" maxlength="40" >			
 		</TD>
 		</TR>	
-		
 		
 		 <!--- Field: Applicant.Mainden Name --->
 	    <TR>

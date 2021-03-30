@@ -132,23 +132,20 @@
 	
 	
 	function editHalfProduct(woid,woline,woitmid) {	
-		ColdFusion.Window.create('mydialog', 'Finished Product', '',{x:100,y:100,height:600,width:660,modal:false,center:true})    
-		ColdFusion.Window.show('mydialog') 				
+		ProsisUI.createWindow('mydialog', 'Finished Product', '',{x:100,y:100,height:600,width:660,modal:true,center:true})    						
 		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/HalfProduct/HalfProductView.cfm?accessmode=edit&workorderid='+woid+'&workorderline='+woline+'&workorderitemid='+woitmid,'mydialog') 					
 	}
 	
 	function editFinalProduct(woid,woline,woitmid) {	
-		ColdFusion.Window.create('mydialog', 'Finished Product', '',{x:100,y:100,height:600,width:660,modal:false,center:true})    
-		ColdFusion.Window.show('mydialog') 				
+		ProsisUI.createWindow('mydialog', 'Finished Product', '',{x:100,y:100,height:600,width:660,modal:true,center:true})    		 				
 		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/FinalProduct/FinalProductView.cfm?accessmode=edit&workorderid='+woid+'&workorderline='+woline+'&workorderitemid='+woitmid,'mydialog') 					
 	}
 	
 	// perspective of workorder line 
 	
 	function editResourceService(woid,woline,resid) {
-		
-		try { ColdFusion.Window.destroy('myservice',true) } catch(e) {}		
-		ColdFusion.Window.create('myservice', 'Service', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    					
+				
+		ProsisUI.createWindow('myservice', 'Service', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    					
 		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/BOM/ResourceEdit.cfm?scope=service&WorkOrderId='+woid+'&WorkOrderLine='+woline+'&ResourceId='+resid,'myservice') 			
 	}	
 	
@@ -161,9 +158,8 @@
 	// perspective of the workorder line FP item 
 	
 	function editResourceSupply(wid,wol,woid,widres,itemno,uom) {
-		  
-		try { ColdFusion.Window.destroy('mysupply',true) } catch(e) {}		
-		ColdFusion.Window.create('mysupply', 'Supply', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    							    
+				
+		ProsisUI.createWindow('mysupply', 'Supply', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    							    
 		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/BOM/ResourceEdit.cfm?scope=supply&WorkOrderItemId='+woid+'&workorderitemidresource='+widres+'&itemNo='+itemno+'&uom='+uom,'mysupply') 			
 				
 	}		

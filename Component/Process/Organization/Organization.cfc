@@ -66,9 +66,9 @@
 		
 		<cfargument name="OrgUnit" type="string" required="true">
 		<cfargument name="Action"  type="string"  default="getrecord" required="yes">
-		<cfargument name="Level"   type="string" required="true" default="2">
-		
-		<cfswitch expression="Action">
+		<cfargument name="Level"   type="string" required="true" default="2">						
+				
+		<cfswitch expression="#Action#">
 		
 			<cfcase value="getrecord">
 			
@@ -120,7 +120,7 @@
 				
 		</cfswitch>
 		 		
-		<cfreturn result>	
+		<cfreturn orgresult>	
 		
 	</cffunction>				
 		

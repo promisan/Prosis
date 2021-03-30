@@ -283,7 +283,7 @@ password="#SESSION.dbpw#">
 		<tr height="45" style="border-top:1px solid silver">
 		    <td colspan="3"></td>
 			<td colspan="2" align="left" style="padding-right:20px" class="labellarge"><cf_tl id="Receipt"></td>
-			<td align="right" class="labellarge" style="border-top:1px solid gray;font-size:30px; color:gray">#NumberFormat((vTotal - vDiscount), ',__.__')# </td>
+			<td align="right" class="labellarge" style="border-top:1px solid gray;font-size:30px; color:gray">#NumberFormat((vTotal - vDiscount), ',.__')# </td>
 			<td></td>
 		</tr>
 		
@@ -292,7 +292,7 @@ password="#SESSION.dbpw#">
 			<tr height="45">
 				<td colspan="3"></td>
 				<td colspan="2" style="padding-right:20px" class="labellarge"><cf_tl id="Discounted"></td>
-				<td align="right" class="labellarge" style="border-top:1px solid gray;width:400px;font-size:30px; color:red">#NumberFormat(vDiscount, ',__.__')# </td>
+				<td align="right" class="labellarge" style="border-top:1px solid gray;width:400px;font-size:30px; color:red">#NumberFormat(vDiscount, ',.__')# </td>
 				<td></td>
 			</tr>
 			
@@ -315,7 +315,7 @@ password="#SESSION.dbpw#">
 		<tr height="45">
 		    <td colspan="3"></td>
 			<td colspan="2" style="padding-left:10px;padding-right:20px" class="labelmedium"><cf_tl id="Total Due"><cf_space spaces="40"></td>
-			<td align="right" class="labellarge" style="border-top:1px solid gray;width:400px;font-size:21px;color:gray">#NumberFormat(getSale.sTotal, ',__.__')# </td>
+			<td align="right" class="labellarge" style="border-top:1px solid gray;width:400px;font-size:21px;color:gray">#NumberFormat(getSale.sTotal, ',.__')# </td>
 			<td></td>
 		</tr>
 		
@@ -399,7 +399,7 @@ password="#SESSION.dbpw#">
 				<tr><td colspan="7" class="line"></td></tr>	
 				<tr height="50">
 					<td colspan="5" align="left" style="padding-left:20px" class="labellarge"><cf_tl id="Cash back"><cf_space spaces="50"></td>
-					<td align="right" style="font-size:34px"><font color="0080C0">#NumberFormat(vRemaining, '_,____.__')#</td>
+					<td align="right" style="font-size:34px"><font color="0080C0">#NumberFormat(vRemaining, ',.__')#</td>
 					<td></td>
 				</tr>	
 			

@@ -136,7 +136,7 @@
 		   password="#SESSION.dbpw#">
 	    	  UPDATE Payroll.dbo.PersonEntitlement
 		      SET    Status = '9'
-		      WHERE  ContractId  = '#Form.ContractCurrent#'  
+		      WHERE  ContractId  = '#Form.ContractCurrent#'  xxxx
 	</cfquery>			
 	
 	<!--- rescind contract --->

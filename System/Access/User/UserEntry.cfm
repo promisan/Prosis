@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
 	<cf_ScreenTop height="100%" html="no" jquery="Yes" band="no" layout="webapp" 
 	label="Register User Account" scroll="Yes">
 <cfelse>
-	<cf_ScreenTop height="100%" html="no" jquery="Yes" band="No" layout="webapp" banner="blue"  label="Register User Group" scroll="No">
+	<cf_ScreenTop height="100%" html="yes" jquery="Yes" band="No" layout="webapp" banner="blue"  label="Register User Group" scroll="No">
 </cfif>
 
 <cf_dialogStaffing>
@@ -119,21 +119,19 @@ password="#SESSION.dbpw#">
 
 <cfform action="UserEntrySubmit.cfm?mode=#URL.Mode#" style="height:97%" method="POST" target="result" name="userenter">
 
-<table width="96%" border="0" height="100%"
-       cellspacing="0"
-       cellpadding="0"
+<table width="96%" border="0" height="100%"      
 	   class="formpadding"
        align="center">
 	 
 <cf_menuscript>
 
+<cfif URL.ID eq "Individual">	
+
 <tr><td height="30">	
 
 		<table width="100%" 
 	      border="0"
-		  height="100%"
-		  cellspacing="0" 
-		  cellpadding="0" 
+		  height="100%"		  
 		  align="center" 
 	      bordercolor="d4d4d4">	  
 		  <tr>
@@ -147,17 +145,14 @@ password="#SESSION.dbpw#">
 								class      = "highlight1"
 								iconheight = "#ht#" 
 								name       = "Account Settings">			
-					
-					<cfif URL.ID eq "Individual">				
-					
-						<cf_menutab item       = "2" 
-						            iconsrc    = "Logos/User/UserGroup.png" 
-									iconwidth  = "#wd#" 
-									iconheight = "#ht#" 
-									name       = "Set Group Membership">
-								
-					</cfif>		
-					
+									
+					<cf_menutab item       = "2" 
+					            iconsrc    = "Logos/User/UserGroup.png" 
+								iconwidth  = "#wd#" 
+								iconheight = "#ht#" 
+								name       = "Set Group Membership">
+							
+									
 					<td width="20%"></td>
 					
 		</tr>
@@ -166,6 +161,8 @@ password="#SESSION.dbpw#">
 	</td>					
 								
 </tr>
+
+</cfif>
 
 <tr><td height="1" colspan="1" class="line"></td></tr>		
 

@@ -55,15 +55,11 @@
 	<cfif Get.ActionType eq "Decision">	
 				
 		<TR>
-	    <TD valign="top" style="padding-left:10px;padding-top:3px" height="25" class="labelmedium">Descriptive in Box:</b></TD>
+	    <TD valign="top" style="padding-left:10px;padding-top:3px" height="25" class="labelmedium">Descriptive decisions:</b></TD>
 	    <TD>
-		</td>
-		</tr>
-		<tr>
-		<td colspan="2">
-		
-		<table width="90%" cellspacing="0" cellpadding="0" align="right">
-		<tr><td>
+						
+		<table>
+		<tr><td style="padding;4px">
 					
 		<cfif URL.PublishNo eq "">	
 				
@@ -78,19 +74,19 @@
 						  onclick="stepedit(ActionGoToYes.value)"
 					      align="absmiddle">
 					</td>
-					<td style="padding-left:6px">Label:</td>
+					<td style="height:35px;padding-left:6px">Label:</td>
 					<td style="padding-left:6px">
 					      <input type="text" 
 					       name="ActionGoToYesLabel" 
 						   id="ActionGoToYesLabel"
 						   value="#Get.ActionGoToYesLabel#" 
 	     				   size="25" 
-						   class="regularxl"
+						   class="regularxxl"
 						   maxlength="40">
 				    </td>
 					<td style="padding-left:6px"><font face="Calibri" size="2">Action:</td>
 					<td style="padding-left:6px;padding-right:4px">
-					<select style="width:270px" name="ActionGoToYes" id="ActionGoToYes" class="regularxl">
+					<select style="width:270px" name="ActionGoToYes" id="ActionGoToYes" class="regularxxl">
 					<option value="" selected>Undefined</option>
 					<cfloop query="GoTo">
 				    	<option value="#GoTo.ActionCode#"
@@ -107,7 +103,7 @@
 						   alt="No, denied" border="0" align="absmiddle">
 						   
 					</td>
-					<td style="padding-left:6px" class="labelmedium">Label:</td>
+					<td style="height:35px;padding-left:6px" class="labelmedium">Label:</td>
 					<td style="padding-left:6px">
 					
 					      <input type="text"				       
@@ -115,14 +111,14 @@
 						   id="ActionGoToNoLabel"
 						   value="#Get.ActionGoToNoLabel#" 
 	     				   size="25" 
-						   class="regularxl"
+						   class="regularxxl"
 						   maxlength="40">
 						  					  
 						   
 				    </td>
 					<td style="padding-left:6px" class="labelmedium">Action:</td>
 					<td style="padding-left:6px;padding-right:4px">
-					<select style="width:270px"  name="ActionGoToNo" id="ActionGoToNo" class="regularxl">
+					<select style="width:270px"  name="ActionGoToNo" id="ActionGoToNo" class="regularxxl">
 					<option value="" selected>Undefined</option>
 					<cfloop query="GoTo">
 				    	<option value="#ActionCode#" <cfif ActionCode eq Get.ActionGoToNo> selected </cfif>>
@@ -134,7 +130,7 @@
 				</td></tr>
 			</table>
 			
-		<cfelse>			
+			<cfelse>			
 		
 			<table cellspacing="0" cellpadding="0">
 				
@@ -143,14 +139,14 @@
 						<tr><td height="1"></td></tr>
 						<tr bgcolor="CEFFCE">
 						
-						<td width="40%" class="labelmedium" style="padding-left:6px">Track A</td>
+						<td width="40%" class="labelmedium" style="height:35px;padding-left:6px">Track A</td>
 						<td height="24" class="labelit" style="padding-left:6px">Label:</td>
 						<td style="padding-left:8px"><input type="text" 
 						       name="ActionGoToYesLabel" 
 							   id="ActionGoToYesLabel"
 							   value="#Get.ActionGoToYesLabel#" 
 		     				   size="30" 
-							   width="90%"  class="regularh"
+							   width="90%"  class="regularxl"
 							   maxlength="40">
 							   
 							   <input type="hidden" name="ActionGoToYes" value="#Get.ActionGoToYes#">
@@ -167,13 +163,13 @@
 						</tr>
 						<tr><td height="1"></td></tr>
 						<tr bgcolor="FDDFDB">
-						<td height="24" class="labelmedium" style="padding-left:6px">Track B</td>
+						<td height="24" class="labelmedium" style="height:35px;padding-left:6px">Track B</td>
 						<td <td style="padding-left:6px" class="labelit">Label:</td>
 						<td style="padding-left:8px"><input type="text" 
 						       name="ActionGoToNoLabel" 
 							   id="ActionGoToNoLabel"
 							   value="#Get.ActionGoToNoLabel#" 
-		     				   size="30"  class="regularh"
+		     				   size="30"  class="regularxl"
 							   maxlength="40">
 							   
 							    <input type="hidden" name="ActionGoToNo" value="#Get.ActionGoToNo#">
@@ -194,13 +190,9 @@
 							
 		</cfif>
 		
-			</td>
-			</tr>
-			</table>
-									
-		</TD>
-		</TR>
-		
+		</td>
+		</tr>
+					
 	<cfelse>
 		
 		<TR>
@@ -208,7 +200,7 @@
 		    <TD>
 			<table width="100%" cellspacing="0" cellpadding="0">
 			<tr><td>
-			<cfinput type="Text" value="#Get.ActionGoToYesLabel#"  name="ActionGoToYesLabel" class="regularxl" required="No" size="40" maxlength="40">
+			<cfinput type="Text" value="#Get.ActionGoToYesLabel#"  name="ActionGoToYesLabel" class="regularxxl" required="No" size="40" maxlength="40">
 			</td>
 			</tr>
 			</table>
@@ -216,6 +208,9 @@
 		
 	</cfif>
 	
+	</table>
+	</td>
+	</tr>
 	
 	<!--- check if workflow itself is not already an embedded workflow. No recursive embedding --->
 		
@@ -504,7 +499,7 @@
 	<tr><td style="font-size:20px;height:40px" class="labellarge">Ticklers/Notification</font></td></tr>
 	
 	<tr>				
-   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer"><cf_uitooltip tooltip="Once this action is due, the action will be presented for the actor under the [My Clearances] function">Pending for Action / My Clearances</cf_uitooltip></td>
+   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer"><cf_uitooltip tooltip="Once this action is due, the action will be presented for the actor under the [My Clearances] function">My Clearances</cf_uitooltip></td>
 	 <TD>
 	   <INPUT type="checkbox" class="radiol" name="EnableMyClearances" id="EnableMyClearances" value="1" <cfif Get.EnableMyClearances eq "1">checked</cfif>> 
 	 </td>			
@@ -517,12 +512,11 @@
 	</cfif> 
 	
 	<tr>				
-   	 <td height="30" class="labelmedium" style="padding-top:5px;padding-left:10px;cursor:pointer" valign="top">
+   	 <td class="labelmedium" style="padding-top:4px;padding-left:10px;cursor:pointer" valign="top">
 	  <cf_uitooltip tooltip="Actor Mail. Mail or Exchange Task Action will not be sent once the user disabled mail and/or exchange notification in his/her preferences">
-	  Mail</cf_uitooltip>	
+	  Mail / Exchange Task</cf_uitooltip>	
 	 </td>
-	 
-	 
+	 	 
 	 <td valign="top">
 	    <table cellspacing="0" cellpadding="0">
 		<tr>
@@ -533,7 +527,7 @@
 		
 			<tr>	
 					
-					<td colspan="8" width="100%">
+					<td colspan="2" width="100%">
 						<table cellspacing="0" cellpadding="0">
 							<tr>
 								<!--- <td class="labelmedium" style="min-width:70px;padding-top:2px;padding-left:9px" valign="top"></td> --->
@@ -546,21 +540,24 @@
 					</td>	
 			</tr>
 			
-			<tr height="30">
-	 			<td class="labelmedium" style="padding-left:3px;;min-width:140px">Apply to step jump:</TD>
-				<td width="5%" style="padding-left:6px;"><input type="checkbox" class="radiol" name="notificationondue" id="notificationondue" value="1" <cfif Get.NotificationDueOnJump eq "1">checked</cfif>></td>	 
+			<tr>
+	 			<td class="labelmedium" style="padding-left:8px;;min-width:140px">Apply Step jump:</TD>
+				<td style="padding-left:6px;"><input type="checkbox" class="radiol" name="notificationondue" id="notificationondue" value="1" <cfif Get.NotificationDueOnJump eq "1">checked</cfif>></td>	 
 			</tr>	
 			
 			<tr>
-	 			<td class="labelmedium" style="padding-left:3px;min-width:140px">Show explicit dialog:</TD>
-				<td width="5%" style="padding-left:6px;"><input type="checkbox" class="radiol" <cfif Get.enableQuickProcess eq "1">disabled</cfif> name="notificationmanual" id="notificationmanual" value="1" <cfif Get.NotificationManual eq "1">checked</cfif>></td>	 
+	 			<td class="labelmedium" style="padding-left:8px;min-width:140px">Show explicit dialog:</TD>
+				<td style="padding-left:6px;"><input type="checkbox" class="radiol" <cfif Get.enableQuickProcess eq "1">disabled</cfif> name="notificationmanual" id="notificationmanual" value="1" <cfif Get.NotificationManual eq "1">checked</cfif>></td>	 
 			</tr>
 			
 			<tr>
-				<td class="labelmedium" style="padding-left:3px;" width="10%"><cf_tl id="Message content"></td>
+				<td class="labelmedium" style="padding-left:3px;" width="10%"><cf_tl id="Content"></td>
 				<td width="200" style="padding-left:6px">
 				
-						<select name="DueMailCode" id="DueMailCode" style="width:200px" class="regularxl">
+					<table cellspacing="0" cellpadding="0">
+						<tr>
+				        <td>
+						<select name="DueMailCode" id="DueMailCode" style="width:100px" class="regularxxl">
 			     			<option value="">Default</option>
 						 	<cfloop query="Mail">
 						 		<option value="#DocumentCode#"
@@ -569,13 +566,24 @@
 								</option>
 				 			</cfloop>
 						</select>				
+						</td>
+						<td class="labelmedium" style="padding-left:5px;min-width:80px"><cf_tl id="Open step"></td>
+							
+						<td style="padding-left:4px">
+						  <input type="checkbox" class="radiol" name="NotificationTarget" id="NotificationTarget" value="1" <cfif Get.NotificationTarget eq "1">checked</cfif>> </td>								
+						</td>
+						
+						<cfif entity.DocumentPathName neq "">
+							<td width="10%" class="labelmedium" style="padding-left:13px"><cf_uitooltip tooltip="Include source object attachments"><cf_tl id="Attachments">:</cf_uitooltip></td>
+							<td width="5%"><input type="checkbox" class="radiol" name="NotificationAttachment" id="NotificationAttachment" value="1" <cfif Get.NotificationAttachment eq "1">checked</cfif>> </td>		
+						</cfif>
+						
+						</tr>
+					  </table>	
 						
 				</td>		
 	
-				<cfif entity.DocumentPathName neq "">
-					<td width="10%" class="labelmedium" style="padding-left:13px"><cf_uitooltip tooltip="Include source object attachments"><font face="Calibri" size="2"><i>Attachments:</cf_uitooltip></td>
-					<td width="5%"><input type="checkbox" class="radiol" name="NotificationAttachment" id="NotificationAttachment" value="1" <cfif Get.NotificationAttachment eq "1">checked</cfif>> </td>		
-				</cfif>
+				
 			</tr>		
 			
 			</tr>	
@@ -589,7 +597,7 @@
 	 		
 	</tr>
 		
-	<tr><td height="1" class="linedotted" colspan="2"></td></tr>
+	<tr><td height="1" class="line" colspan="2"></td></tr>
 		
 	<tr><td align="center" colspan="2">
 	

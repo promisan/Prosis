@@ -2,7 +2,7 @@
 <cfoutput>
 
 <table width="100%">
-	<tr class="line labelmedium">
+	<tr class="line labelmedium2">
 		<td style="height:25px;padding:2px;padding-left:4px">
 		<cf_tl id="Record"> #First# to <cfif Last gt Counted>#Counted#<cfelse>#Last#</cfif> of #Counted# records</b>
 		</td>

@@ -154,22 +154,22 @@ if this item is carried by the warehouse select WarehouseItem --->
 					
 				<cfoutput>				
 															
-				<tr class="navigation_row_child clsWarehouseRow">
+				<tr class="navigation_row_child clsWarehouseRow line">
 					<td colspan="1"></td>
 					<td></td>
-					<td width="40%" colspan="1" style="padding-left:5px" class="labelit line"></td>
-					<td width="20%" colspan="2" style="padding-left:5px" class="ccontent labelit line">#LocationName#</td>
-					<td width="32%" colspan="1" style="padding-left:5px" class="ccontent labelit line">
+					<td width="40%" colspan="1" style="padding-left:5px" class="labelit"></td>
+					<td width="20%" colspan="2" style="padding-left:5px" class="ccontent labelit">#LocationName#</td>
+					<td width="32%" colspan="1" style="padding-left:5px" class="ccontent labelit">
 						<cfif transactionlot eq "0">
 							<cf_tl id="no lot">
 						<cfelse>
 							#TransactionLot# [#dateformat(TransactionLotDate,client.dateformatshow)#]
 						</cfif>
 					</td>									
-					<td width="9%" class="labelit line" align="right" style="padding-right:10">					
+					<td width="9%" class="labelit" align="right" style="padding-right:10px">					
 					#numberformat(earmarked,pformat)#									
 					</td>
-					<td width="9%" align="right" class="line" style="height:20;padding-right:3px">
+					<td width="9%" align="right" style="height:20;padding-right:3px">
 					
 					
 					<cfif StockControlMode eq "Stock">
@@ -182,9 +182,9 @@ if this item is carried by the warehouse select WarehouseItem --->
 							    name     = "ship_#id#_#location#_#TransactionlotSerialNo#" 
 								id       = "ship_#id#_#location#_#TransactionlotSerialNo#"
 							    value    = "" 
-								onchange = "_cf_loadingtexthtml='';ColdFusion.navigate('setTotal.cfm?mode=stock&workorderid=#get.workorderid#&warehouse=#url.warehouse#','totals','','','POST','shipmentform')"
-								class    = "regularh enterastab" 
-								style    = "height:20px;width:60px;text-align:right">
+								onchange = "_cf_loadingtexthtml='';ptoken.navigate('setTotal.cfm?mode=stock&workorderid=#get.workorderid#&warehouse=#url.warehouse#','totals','','','POST','shipmentform')"
+								class    = "regularxl enterastab" 
+								style    = "height:20px;border:0px;border-left:1px solid silver;border-right:1px solid silver;width:60px;text-align:right">
 							
 						<cfelse>
 												
@@ -192,7 +192,7 @@ if this item is carried by the warehouse select WarehouseItem --->
 							    name     = "ship_#id#_#location#_#TransactionlotSerialNo#" 
 								id       = "ship_#id#_#location#_#TransactionlotSerialNo#"
 							    value    = "" 
-								onchange = "_cf_loadingtexthtml='';ColdFusion.navigate('setTotal.cfm?mode=overdraw&workorderid=#get.workorderid#&warehouse=#url.warehouse#','totals','','','POST','shipmentform')"
+								onchange = "_cf_loadingtexthtml='';ptoken.navigate('setTotal.cfm?mode=overdraw&workorderid=#get.workorderid#&warehouse=#url.warehouse#','totals','','','POST','shipmentform')"
 								class    = "regularh enterastab" 
 								style    = "height:20px;width:60px;text-align:right">
 												
@@ -263,20 +263,20 @@ if this item is carried by the warehouse select WarehouseItem --->
 													
 							<cfif val neq "">
 						
-							<tr bgcolor="f5f5f5" class="navigation_row_child clsWarehouseRow">
+							<tr bgcolor="f5f5f5" class="navigation_row_child clsWarehouseRow line">
 								<td bgcolor="efefef" colspan="4">
 								<div class="hide ccontent">#stock.LocationName# #stock.TransactionLot#</div>
 								</td>							
-								<td width="9%" class="labelit line" align="right" style="padding-right:10">#TransactionReference#</td>
-								<td width="9%" align="right" class="labelit line" style="padding-right:3px">#numberformat(val,"#pformat#")#</td>							
-								<td width="9%" align="right" class="line">
+								<td width="9%" class="labelit" align="right" style="padding-right:10">#TransactionReference#</td>
+								<td width="9%" align="right" class="labelit" style="padding-right:3px">#numberformat(val,"#pformat#")#</td>							
+								<td width="9%" align="right">
 																								
 									<cfset id = replace(transactionid,"-","","ALL")>
 																																										
 									<input type="checkbox" 
 									 name="ship_#id#" 
 									 value="#numberformat(val,pformat)#" 		
-									 onclick="_cf_loadingtexthtml='';ColdFusion.navigate('setTotal.cfm?mode=individual&workorderid=#get.workorderid#&warehouse=#url.warehouse#','totals','','','POST','shipmentform')"						
+									 onclick="_cf_loadingtexthtml='';ptoken.navigate('setTotal.cfm?mode=individual&workorderid=#get.workorderid#&warehouse=#url.warehouse#','totals','','','POST','shipmentform')"						
 									 style="width:60px;text-align:right">								  
 								 										
 								</td>		

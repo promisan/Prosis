@@ -41,8 +41,7 @@
 <cfset currrow = 0>
 
 <cfif url.observationclass eq "Inquiry">
-	
-	
+		
 	<cf_wfpending entityCode="SysTicket"  
       table="#SESSION.acc#wfSysTicket" mailfields="No" includecompleted="No">		
 

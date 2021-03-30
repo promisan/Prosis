@@ -289,26 +289,30 @@
 				   
 						   		<cfsavecontent variable="taskmessage">
 								
-								  Action      : #NextCheck.ActionDescription#					  
-								  <p></p>		
-								  Reference   : #Object.ObjectReference2#					  
-								  <p></p>						  
-								  <b>Instruction</b> : Paste the below URL link into your browser  (Internet Explorer 7 or above) to process it.					  
-								  <P></P>					  
-								  #SESSION.root#/#Object.ObjectURL#&wcls=workflow
-								
+								  <table>
+								   <tr><td bgcolor="C0C0C0">Action</td>
+								       <td>#NextCheck.ActionDescription#</td>
+								   </tr>
+								   <tr><td bgcolor="C0C0C0">Reference</td>
+								       <td>#Object.ObjectReference2#</td>
+								   </tr>
+								   <tr><td bgcolor="C0C0C0">Link</td>
+								       <td><a href="#SESSION.root#/#Object.ObjectURL#&wcls=workflow">Click here to process it</a></td>
+								   </tr> 
+								  </table>					 		  
+								 								
 								</cfsavecontent>
 							
 								<cfscript>
 									    stask=StructNew();		
-									    stask.Subject      = "#NextCheck.ActionDescription# - #Object.ObjectReference#";
-										stask.Message      = "#taskmessage#";
-										stask.Priority     = "high";   
-										stask.StartDate    = "#timeformat(now(),'HH:MM:SS')# #dateformat(now(),Client.dateSQL)#";
-										stask.DueDate      = "#timeformat(now(),'HH:MM:SS')# #dateformat(now(),Client.dateSQL)#";
-										stask.ReminderDate = "#dateformat(now()+3,Client.dateSQL)#";
-										stask.Status       = "In_progress";
-									    stask.PercentCompleted=0;							
+									    stask.Subject          = "#NextCheck.ActionDescription# - #Object.ObjectReference#";
+										stask.Message          = "#taskmessage#";
+										stask.Priority         = "high";   
+										stask.StartDate        = "#timeformat(now(),'HH:MM:SS')# #dateformat(now(),Client.dateSQL)#";
+										stask.DueDate          = "#timeformat(now(),'HH:MM:SS')# #dateformat(now(),Client.dateSQL)#";
+										stask.ReminderDate     = "#dateformat(now()+3,Client.dateSQL)#";
+										stask.Status           = "In_progress";
+									    stask.PercentCompleted = 0;							
 								</cfscript> 
 									
 							</cfoutput>	
@@ -320,7 +324,7 @@
 								account     = "#UserAccount#"
 								mailboxname = "#MailServerAccount#"
 								password    = "#MailServerPassword#"
-								task        =  "#stask#"
+								task        = "#stask#"
 								action      = "create"
 								result      = "exchangeid">  							
 							
@@ -330,9 +334,9 @@
 							datasource="AppsOrganization"
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
-								UPDATE  OrganizationObjectMail
-								SET 	ExchangeId   = '#exchangeID#'
-								WHERE   ObjectMailId = '#rowguid#' 
+								UPDATE   OrganizationObjectMail
+								SET 	 ExchangeId   = '#exchangeID#'
+								WHERE    ObjectMailId = '#rowguid#' 
 							</cfquery>								
 																   		   
 				   </cfif>				   	 			

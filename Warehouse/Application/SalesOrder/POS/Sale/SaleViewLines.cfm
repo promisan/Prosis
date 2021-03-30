@@ -32,7 +32,7 @@
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT    SaleLinesOrder, Mission, SingleLine
+	SELECT    SaleLinesOrder, Mission, SingleLine, SupplyWarehouse
 	FROM      Warehouse  
 	WHERE     Warehouse = '#url.Warehouse#' 
 </cfquery>	
@@ -183,22 +183,29 @@ password="#SESSION.dbpw#">
 								<cfelse>
 									#numberformat(vStockAll,'_')# 
 								</cfif>		
+																
+								<!--- reorder quantity of the parent warehouse --->
 								
-								<cfquery name="qOffer"
+								<cfquery name="qReorder"
 									datasource="AppsMaterials" 
 									username="#SESSION.login#" 
-									password="#SESSION.dbpw#">						
-										SELECT IVO.OfferMinimumQuantity 
-										FROM ItemVendor IV INNER JOIN 
-											ItemVendorOffer IVO ON IV.ItemNo = IVO.ItemNo
-										WHERE IV.ItemNo  = '#ItemNo#'
-										AND IV.Preferred = '1'
-										ORDER BY DateEffective DESC
-									</cfquery>
+									password="#SESSION.dbpw#">	
 									
-									<cfif qOffer.recordcount neq 0>
-										<font size="2" color="800040">min:&nbsp;#qOffer.OfferMinimumQuantity#</font>
-									</cfif>	
+									SELECT      MinReorderQuantity
+									FROM        ItemWarehouse
+									WHERE       ItemNo    = '#itemNo#' 
+									AND         UoM       = '#TransactionUoM#'
+									<cfif wparameter.supplywarehouse eq "">
+									    AND         Warehouse = '#url.warehouse#'
+									<cfelse>
+									    AND         Warehouse = '#wparameter.supplywarehouse#'
+									</cfif>
+																		
+								  </cfquery>	
+																		
+								  <cfif qReorder.recordcount neq 0>
+										<font size="2" color="800040">min:&nbsp;#qReorder.MinReorderQuantity#</font>
+								  </cfif>	
 							
 							</cfif>
 						</span>

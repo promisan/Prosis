@@ -132,7 +132,7 @@
 			<tr>
 	  	    <cfoutput query="get">			
 				<td>
-					<cfinput class="regularxl" type="Text" tooltip="Database server license</b> Contact : info@promisan.com to acquire one" name="DatabaseServerLicenseId" value="#DatabaseServerLicenseId#" required="Yes" size="48" maxlength="40">				
+					<cfinput class="regularxl" type="Text" tooltip="Database server license</b> Contact : info@promisan.com to acquire one" name="DatabaseServerLicenseId" value="#DatabaseServerLicenseId#" required="Yes" size="58" maxlength="60">				
 				</td>
 				<td style="padding-left:6px">
 					<cf_licensecheck mode="server">

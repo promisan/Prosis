@@ -20,6 +20,9 @@
 <cfoutput>
 
 <cfsavecontent variable="myquery">
+
+	SELECT *, TransactionDate
+	FROM (
 	
 	SELECT     	C.CustomerName, 
 	            W.Reference, 
@@ -52,6 +55,10 @@
 	<cfelseif url.id1 eq "week">
 	AND         T.TransactionDate > getDate()-30
 	</cfif>
+	
+	) D
+	WHERE 1=1
+	--condition
 
 </cfsavecontent>
 
@@ -65,16 +72,14 @@
 
 <cf_tl id="DocumentNo" var="vShipmentNo">
 <cfset fields[itm] = {label      = "#vShipmentNo#",                    
-    				field        = "TransactionBatchNo",																
-					alias        = "T",
+    				field        = "TransactionBatchNo",																					
 					filtermode   = "2",								
 					search       = "text"}>		
 
 <cfset itm = itm+1>				
 <cf_tl id="Customer" var="vCustomer">
 <cfset fields[itm] = {label     = "#vCustomer#",                    
-    				field       = "CustomerName",																
-					alias        = "C",																						
+    				field       = "CustomerName",																																								
 					searchfield  = "CustomerName",
 					filtermode   = "2",		
 					search       = "text"}>		
@@ -84,9 +89,7 @@
 <cfset itm = itm+1>					
 <cf_tl id="Date" var="vDate">
 <cfset fields[itm] = {label     = "#vDate#",
-					field       = "TransactionDate", 	
-					alias        = "B",	
-					searchalias  = "B",	
+					field       = "TransactionDate", 						
 					formatted   = "dateformat(TransactionDate,CLIENT.DateFormatShow)",		
 					align       = "center"}>						
 					
@@ -98,9 +101,7 @@
 <cfset itm = itm+1>					
 <cf_tl id="Date" var="vDate">
 <cfset fields[itm] = {label     = "#vDate#",
-					field       = "TransactionDate", 	
-					alias        = "B",	
-					searchalias  = "B",	
+					field       = "TransactionDate", 						
 					formatted   = "dateformat(TransactionDate,CLIENT.DateFormatShow)",		
 					align       = "center",		
 					search      = "date"}>			
@@ -112,58 +113,49 @@
 <cfset itm = itm+1>				
 <cf_tl id="Code" var="vCode">
 <cfset fields[itm] = {label      = "#vCode#",                    
-    				field        = "Classification",																
-					alias        = "I",	
-					searchalias  = "I",
+    				field        = "Classification",																								
 					filtermode   = "2",					
 					search       = "text"}>		
 					
 <cfset itm = itm+1>				
 <cf_tl id="Product" var="vProduct">
 <cfset fields[itm] = {label      = "#vProduct#",                    
-    				field        = "ItemDescription",																
-					alias        = "I",	
-					searchalias  = "I",
+    				field        = "ItemDescription",																					
 					filtermode   = "2",					
 					search       = "text"}>		
 					
 <cfset itm = itm+1>				
 <cf_tl id="Quantity" var="vQuantity">
 <cfset fields[itm] = {label      = "#vQuantity#",                    
-    				field        = "TransactionQuantity",																
-					alias        = "T",	
+    				field        = "TransactionQuantity",																					
 					align        = "center",					
 					search       = "number"}>	
 					
 <cfset itm = itm+1>				
 <cf_tl id="Currency" var="vCurrency">
 <cfset fields[itm] = {label      = "#vCurrency#",                    
-    				field        = "SalesCurrency",																									
-					alias        = "TS"}>																		
+    				field        = "SalesCurrency"}>																		
 					
 <cfset itm = itm+1>				
 <cf_tl id="Price" var="vPrice">
 <cfset fields[itm] = {label      = "#vPrice#",                    
     				field        = "SalesPrice",		
 					align        = "right",		
-					formatted    = "numberformat(SalesPrice,'.__')",																			
-					alias        = "TS"}>		
+					formatted    = "numberformat(SalesPrice,'.__')"}>		
 					
 <cfset itm = itm+1>				
 <cf_tl id="Tax" var="vTax">
 <cfset fields[itm] = {label      = "#vTax#",                    
     				field        = "SalesTax",	
 					align        = "right",		
-					formatted    = "numberformat(SalesTax,'.__')",																				
-					alias        = "TS"}>							
+					formatted    = "numberformat(SalesTax,'.__')"}>							
 										
 <cfset itm = itm+1>				
 <cf_tl id="Total" var="vTotal">
 <cfset fields[itm] = {label      = "#vTotal#",                    
     				field        = "SalesTotal",	
 					align        = "right",		
-					formatted    = "numberformat(SalesTotal,'.__')",																				
-					alias        = "TS"}>					
+					formatted    = "numberformat(SalesTotal,'.__')"}>					
 					
 <!--- hidden key field --->
 <cfset itm = itm+1>				
@@ -210,16 +202,13 @@
 	    header            = "shipment"
 	    box               = "lineshipment"
 		link              = "#SESSION.root#/WorkOrder/Application/Shipping/ShipmentView/ShipmentListingContent.cfm?id1=#url.id1#&systemfunctionid=#url.systemfunctionid#&Status=#url.status#&Mission=#URL.Mission#"
-	    html              = "No"		
-		classheader       = "labelit"
-		classline         = "label"
+	    html              = "No"				
 		tableheight       = "99%"
 		tablewidth        = "99%"
 		datasource        = "AppsMaterials"		
 		listquery         = "#myquery#"		
 		listgroup         = "CustomerName"
-		listorderfield    = "TransactionDate"
-		listorderalias    = "B"		
+		listorderfield    = "TransactionDate"		
 		listorderdir      = "ASC"
 		headercolor       = "ffffff"
 		show              = "35"				
@@ -227,7 +216,7 @@
 		excelshow         = "Yes" 	
 		screentop         = "No"	
 		listlayout        = "#fields#"
-		drillmode         = "window" 
+		drillmode         = "tab" 
 		drillargument     = "920;1250;true;true"	
 		drilltemplate     = "Warehouse/Application/Stock/Batch/BatchView.cfm?systemfunctionid=#url.systemfunctionid#&header=1&mode=process&batchno="
 		drillkey          = "TransactionBatchNo"

@@ -1,23 +1,19 @@
  
 <cfoutput>
 
-<cf_tl id="Shipments" var="vReceipt">
-
 <cf_UItree
 	id="root"
-	title="<span style='font-size:16px;color:gray;padding-bottom:3px'>#vReceipt# #attributes.mission#</span>"	
+	title="<span style='font-size:16px;color:gray;padding-bottom:3px'>#attributes.mission#</span>"	
 	expand="Yes">
-
-   <cf_tl id="Other Tasks" var="vTasks">
+	
+   <cf_tl id="Shipment" var="vShip">
    	   
-   <cf_UItreeitem value="Tasks"
-		        display="<span style='font-size:17px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelit'>#vTasks#</span>"
+         <cf_UItreeitem value="Tasks"
+		        display="<span style='font-size:17px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelit'>#vShip#</span>"
 				parent="root"								
-		        expand="Yes">	   
-   			
-		 <!--- get the functions and determine access --->
-		 
-		   <cfinvoke component = "Service.Access.Menu"  
+		        expand="Yes">	
+				
+			 <cfinvoke component = "Service.Access.Menu"  
 		     method             = "MenuList"  			 
 			 mission            = "#Attributes.mission#"			 
 			 Module             = "'WorkOrder'" 
@@ -27,14 +23,71 @@
 			 
 		 <cfloop query="FunctionList">		
 		 
-		 	 <cf_UItreeitem value="Pending"
+		 	 <cf_UItreeitem value="Return#currentrow#"
 		        display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
 				parent="Tasks"			
 				href="#FunctionPath#?ID1=Pending&systemfunctionid=#systemfunctionid#&Mission=#Attributes.Mission#&#FunctionCondition#"							
 				target="right"
 		        expand="No">		 
 		 			 
-		 </cfloop> 	 
+		 </cfloop> 	
+			
+
+   <cf_tl id="Return" var="vReturn">
+   	   
+          <cf_UItreeitem value="Return"
+		        display="<span style='font-size:17px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelit'>#vReturn#</span>"
+				parent="root"								
+		        expand="Yes">	   
+   			
+		 <!--- get the functions and determine access --->
+		 
+		   <cfinvoke component = "Service.Access.Menu"  
+		     method             = "MenuList"  			 
+			 mission            = "#Attributes.mission#"			 
+			 Module             = "'WorkOrder'" 
+			 Selection          = "'Return'"
+			 MenuClass          = "'Shipment'"
+			 returnvariable     = "functionlist">	 		 
+			 
+		 <cfloop query="FunctionList">		
+		 
+		 	 <cf_UItreeitem value="Return#currentrow#"
+		        display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
+				parent="Return"			
+				href="#FunctionPath#?ID1=Pending&systemfunctionid=#systemfunctionid#&Mission=#Attributes.Mission#&#FunctionCondition#"							
+				target="right"
+		        expand="No">		 
+		 			 
+		 </cfloop> 
+		 
+   <cf_tl id="Billing" var="vBilling">	 	
+   
+   	      <cf_UItreeitem value="Billing"
+		        display="<span style='font-size:17px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelit'>#vBilling#</span>"
+				parent="root"								
+		        expand="Yes">	   
+   			
+		 <!--- get the functions and determine access --->
+		 
+		   <cfinvoke component = "Service.Access.Menu"  
+		     method             = "MenuList"  			 
+			 mission            = "#Attributes.mission#"			 
+			 Module             = "'WorkOrder'" 
+			 Selection          = "'Billing'"
+			 MenuClass          = "'Shipment'"
+			 returnvariable     = "functionlist">	 		 
+			 
+		 <cfloop query="FunctionList">		
+		 
+		 	 <cf_UItreeitem value="Billing#currentrow#"
+		        display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
+				parent="Billing"			
+				href="#FunctionPath#?ID1=Pending&systemfunctionid=#systemfunctionid#&Mission=#Attributes.Mission#&#FunctionCondition#"							
+				target="right"
+		        expand="No">		 
+		 			 
+		 </cfloop>  
 	 		
    
    <cf_tl id="Inquiry" var="pInquiry">	

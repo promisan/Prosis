@@ -450,6 +450,8 @@
 	<!--- ------------------------------------------ --->
 	<!--- WE CHECK IF WE CAN TAKE THE CACHED VERSION --->
 	<!--- ------------------------------------------ --->
+			
+	
 	
 	<cfset applycache = "0">
 	<cfparam name="ann"       default="">
@@ -714,7 +716,7 @@
 				</cfif>
 			
 				<cfoutput>		
-				<table width="80%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+				<table width="80%" align="center" class="formpadding">
 					<tr><td height="10"></td></tr>
 					<tr><td>Error:</td></tr>
 					<tr><td bgcolor="ffffaf">
@@ -787,9 +789,10 @@
 		<!--- ---------------------------------------------------------------------- --->
 		
 		<cflock timeout="20" throwontimeout="No" name="mysession" type="EXCLUSIVE">
-			
+					
 			<cfset session.listingdata[box]['timestamp']        = now()>		
-			<cfset session.listingdata[box]['listlayout']       = attributes.listlayout>  								
+			<cfset session.listingdata[box]['listlayout']       = attributes.listlayout>  		
+			<cfset session.listingdata[box]['sqlorig']          = attributes.listquery>  						
 			<cfset session.listingdata[box]['sql']              = sc>                        <!--- the generated query --->		
 			<cfset session.listingdata[box]['sqlcondition']     = conditioncheck>	
 			<cfset session.listingdata[box]['sqlsorting']       = listsorting>				

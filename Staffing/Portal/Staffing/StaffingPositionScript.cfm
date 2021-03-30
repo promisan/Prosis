@@ -13,7 +13,8 @@
 <script language="JavaScript">
 
 	function doFilter() {
-		var vUnits = $('.clsFilterUnit:checked').map(function() {return this.value;}).get().join(',');
+		var vUnits = $('.clsFilterUnit:checked').map(function() {return this.value;}).get().join(',');		
+		// Prosis.busyRegion('yes','main');		
 		ptoken.navigate('StaffingPositionListing.cfm?mission=#url.mission#&selection=#url.selection#&unit='+vUnits, 'main');
 	}
 	
@@ -33,17 +34,17 @@
 	}
 	
 	function Selected(no,description) {									
-			document.getElementById('functionno').value = no
-			document.getElementById('FunctionDescription').value = description					 
-			ProsisUI.closeWindow('myfunction')
-		 }		
+		document.getElementById('functionno').value = no
+		document.getElementById('FunctionDescription').value = description					 
+		ProsisUI.closeWindow('myfunction')
+	}		
 	
 	function rostersearch(action,actionid,ajaxid) {    
 	    ptoken.open("#SESSION.root#/Roster/RosterGeneric/RosterSearch/Search1ShortList.cfm?mode=vacancy&wActionId="+actionid, "search"+ajaxid, "left=35, top=35, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes")	
     }
 		
 	function AddEvent(per,pos,box,trg,cde) {    		   		   
-		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:100,y:100,height:500,width:680,modal:true,resizable:false,center:true})    					
+		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:100,y:100,height:540,width:690,modal:true,resizable:false,center:true})    					
 	   	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?box='+box+'&portal=1&personNo='+per+'&positionno='+pos+'&trigger='+trg+'&code='+cde,'evdialog')		 	
 	}
 	
@@ -99,7 +100,7 @@
 		} else if (eff.value == '')  {
 			Ext.Msg.alert('Effective date', 'Please specify Action effective Date.');	
 		} else if (exp.value == '' && ebx.className!= 'hide') {
-			Ext.Msg.alert('Effective date', 'Please specify Action effective Date.');		
+			Ext.Msg.alert('Effective date', 'Please specify Action expiration Date.');		
 		} 
 		else{
 		

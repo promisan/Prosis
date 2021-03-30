@@ -500,7 +500,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 <script>
- ColdFusion.Window.destroy('myearmark',true)
- earmarkrefresh('#url.warehouse#','#url.workorderitemid#')
+  earmarkrefresh('#url.warehouse#','#url.workorderitemid#')
+  ProsisUI.closeWindow('myearmark',true)
 </script>
 </cfoutput>

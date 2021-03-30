@@ -120,7 +120,7 @@
    AccessUserGroup   = "1">                
    
 <!--- --------------- --->   
-<!--- medical tasks-- --->
+<!--- medical/ tasks-- --->
 <!--- --------------- --->  
       
 <cf_ModuleInsertSubmit
@@ -187,13 +187,27 @@
 <!--- --------------- --->   
 <!--- shipping tasks- --->
 <!--- --------------- --->   
+
+<cf_ModuleInsertSubmit
+   SystemModule      = "WorkOrder" 
+   FunctionClass     = "Shipping"
+   FunctionName      = "Process shipments" 
+   MenuClass         = "Shipment"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   BrowserSupport    = "2"
+   FunctionMemo      = "Clear transaction"
+   FunctionDirectory = "WorkOrder/Application/Shipping"
+   FunctionPath      = "Shipment/WorkorderListing.cfm"
+   FunctionCondition = "Status=Pending"
+   FunctionIcon      = "Maintain"> 
          
 <cf_ModuleInsertSubmit
    SystemModule      = "WorkOrder" 
    FunctionClass     = "Shipping"
    FunctionName      = "Clear Transactions" 
    MenuClass         = "Shipment"
-   MenuOrder         = "1"
+   MenuOrder         = "2"
    MainMenuItem      = "0"
    BrowserSupport    = "2"
    FunctionMemo      = "Clear transaction"
@@ -204,7 +218,7 @@
            
 <cf_ModuleInsertSubmit
    SystemModule      = "WorkOrder" 
-   FunctionClass     = "Shipping"
+   FunctionClass     = "Return"
    FunctionName      = "Shipment return" 
    MenuClass         = "Shipment"
    MenuOrder         = "2"
@@ -218,7 +232,7 @@
    
 <cf_ModuleInsertSubmit
    SystemModule      = "WorkOrder" 
-   FunctionClass     = "Shipping"
+   FunctionClass     = "Return"
    FunctionName      = "Customer return" 
    MenuClass         = "Shipment"
    MenuOrder         = "3"
@@ -232,7 +246,7 @@
           
 <cf_ModuleInsertSubmit
    SystemModule      = "WorkOrder" 
-   FunctionClass     = "Shipping"
+   FunctionClass     = "Billing"
    FunctionName      = "Issue Invoice" 
    MenuClass         = "Shipment"
    MenuOrder         = "4"
@@ -246,7 +260,7 @@
    
 <cf_ModuleInsertSubmit
    SystemModule      = "WorkOrder" 
-   FunctionClass     = "Shipping"
+   FunctionClass     = "Billing"
    FunctionName      = "Issue Credit Note" 
    MenuClass         = "Shipment"
    MenuOrder         = "5"
@@ -263,16 +277,16 @@
 <!--- ---------------- --->      
 
 <cf_ModuleInsertSubmit
-   SystemModule="WorkOrder" 
-   FunctionClass = "Dataset"
-   FunctionName = "Sales Workorder Inquiry" 
-   MenuClass    = "Main"
-   MenuOrder    = "4"
-   MainMenuItem = "1"
-   FunctionMemo = "Sales Workorder Inquiry Dataset"
+   SystemModule      = "WorkOrder" 
+   FunctionClass     = "Dataset"
+   FunctionName      = "Sales Workorder Inquiry" 
+   MenuClass         = "Main"
+   MenuOrder         = "4"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Sales Workorder Inquiry Dataset"
    FunctionDirectory = "WorkOrder/Inquiry/"
-   FunctionPath = "WorkOrderItem/Dataset.cfm"
-   FunctionIcon = "Dataset">                
+   FunctionPath      = "WorkOrderItem/Dataset.cfm"
+   FunctionIcon      = "Dataset">                
              
 <!--- ------------- --->   
 <!--- system tables --->

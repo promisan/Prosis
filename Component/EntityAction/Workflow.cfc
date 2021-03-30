@@ -83,4 +83,78 @@
 	
 	</cffunction>
 	
+	<cffunction name="wfAuthorization"
+         access="remote"
+         returntype="struct"
+         displayname="Check if a user has access to process the active step in the flow">
+		
+			<cfargument name="UserAccount" type="string" default="#session.acc#" required="yes">
+		    <cfargument name="ObjectId"     type="string" required="true" default="">
+			<cfargument name="ActionCode"   type="string" required="true" default="">
+			
+			<cfquery name="Pending"
+				datasource="AppsOrganization"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+				SELECT    OA.ActionId, 
+				          OA.ObjectId, 
+						  OO.Mission,
+						  OO.OrgUnit, 
+						  OO.ActionPublishNo, 
+						  OA.ActionCode, 
+						  OA.ActionConcurrent, 
+						  OO.EntityGroup
+				FROM      OrganizationObjectAction OA INNER JOIN OrganizationObject OO ON OA.Objectid = OO.Objectid
+				WHERE     OO.ObjectId = '#ObjectId#'
+				AND       OA.ActionStatus = '0'
+				ORDER BY  ActionFlowOrder DESC
+			</cfquery>
+			
+			<cfif ActionCode neq "">
+			
+				<cfif Pending.ActionCode neq "" and ActionCode eq Pending.ActionCode>
+				
+					<cfset result.ActionId = Pending.ActionId>
+					<cfset result.status = "1">
+					
+				<cfelse>
+				
+					<cfset result.status = "9">	
+						
+				</cfif>	
+				
+			<cfelseif Pending.ActionId neq "">
+			
+				<cfset result.ActionId = Pending.ActionId>
+				<cfset result.status = "1">
+				
+			<cfelse>
+			
+				<cfset result.status = "9">		
+			
+			</cfif>
+			
+			<cfif result.status eq "1">
+			
+				 <cfinvoke component = "Service.Access"  	
+					method         =   "AccessEntity" 
+					objectid       =   "#ObjectId#"
+					actioncode     =   "#Pending.ActionCode#" 
+					mission        =   "#Pending.mission#"
+					orgunit        =   "#Pending.OrgUnit#" 
+					entitygroup    =   "#Pending.EntityGroup#" 
+					returnvariable =   "entityaccess">	
+					
+					<cfif EntityAccess eq "NONE">					
+						<cfset result.status = "9">						
+					</cfif>
+			
+				<!--- we now check if the user has indeed access to this step --->
+						
+			</cfif>
+			
+			<cfreturn result>	
+			
+</cffunction>					
+	
 </cfcomponent>	

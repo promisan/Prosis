@@ -87,7 +87,7 @@ password="#SESSION.dbpw#">
     </cfif>		
 		
 	<script language="JavaScript">        
-    	 parent.opener.applyfilter('1','','content')
+    	 parent.opener.applyfilter('5','','content')
 	     parent.window.close()	      
 	</script>  
 	           
@@ -175,7 +175,7 @@ password="#SESSION.dbpw#">
 
 <cfif ParameterExists(Form.Delete)> 
 
-<cfquery name="CountRec" 
+    <cfquery name="CountRec" 
       datasource="AppsOrganization" 
       username="#SESSION.login#" 
       password="#SESSION.dbpw#">
@@ -186,21 +186,19 @@ password="#SESSION.dbpw#">
 
     <cfif CountRec.recordCount gt 0>
 		 
-     <script language="JavaScript">
-    
-	   alert("Document Type is in use. Operation aborted.")
-     
+     <script language="JavaScript">    
+	   alert("Document Type is in use. Operation aborted.")     
      </script>  
 	 
     <cfelse>
 			
-	<cfquery name="Delete" 
-	datasource="AppsOrganization" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	DELETE FROM Ref_AuthorizationRole
-	WHERE Role = '#Form.RoleOld#'
-    </cfquery>
+		<cfquery name="Delete" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			DELETE FROM Ref_AuthorizationRole
+			WHERE Role = '#Form.RoleOld#'
+	    </cfquery>
 	
 	</cfif>
 	

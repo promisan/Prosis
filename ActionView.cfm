@@ -1,6 +1,8 @@
 
 <!--- launch document from the my clearances listing --->
 
+<cfparam name="url.target" default="0">
+
 <cftry>
 
 	<cfparam name="url.myclentity" default="">
@@ -35,9 +37,7 @@
 			 WHERE  EntityCode = '#Object.EntityCode#'	 
 		</cfquery>
 		
-		<!---
-		<cfif Entity.ProcessMode eq "0">
-		--->
+		<cfif url.target eq "0">
 		
 			    <cfset client.refer = "workflow">
 																					
@@ -51,88 +51,13 @@
 				<cfelse>			
 					<cflocation url="#SESSION.root#/#Object.ObjectURL#&mycl=1&myclentity=#mycl#&refer=workflow&#hashvalue#" addtoken="No"> 
 				</cfif>	
-		
-		<!---	
+				
 		<cfelse>
 		
-		      <!--- not operational
+		        <cflocation  url="#session.root#/portal/selfservice/public.cfm?id=actionprocess&objectid=#object.objectid#&actioncode=#url.actionCode#">
 		
-				<cfinvoke component="Service.Process.System.Security" method="passtru" returnvariable="hashvalue"/>
-							
-				<!--- show a list of pending actions --->
+		</cfif>			
 		
-				<cf_screentop height="100%" scroll="no" html="No" jQuery="Yes" title="Process workflow action">
-				<cf_layoutscript>			
-				
-				<cfset attrib = {type="Border",name="container",fitToWindow="Yes"}>	
-
-				<cf_layout attributeCollection="#attrib#">	
-					
-					<cf_layoutarea 
-					   position="left"
-					   name="search"						    	       
-					   overflow="hidden"
-					   size="220" 
-					   title="Menu bar"  	
-					   collapsible="true"        
-					   maxsize="400"
-					   splitter="true">
-					   
-					   <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-									<tr><td height="30" align="center">
-									
-									<cfoutput>
-									
-									    <input type="button" 
-									        name="Close" 
-				   						    value="Close and Return"
-										    class="button10s" 
-										    style="width:190px"
-										    onclick="opener.ColdFusion.navigate('MyClearancesEntity.cfm?entitycode=#object.entitycode#','c#object.entitycode#');window.close()">
-										
-									</cfoutput>	
-									 			 
-									</td></tr>
-												
-									<tr><td height="98%" valign="top" align="center">
-									[Select from list]
-									</td></tr>
-									</table>		
-					   
-				   </cf_layoutarea>	
-	
-				   <cf_layoutarea  
-					    position="center" 														
-						name="maincontainer">
-							
-						<table width="100%" height="100%" cellspacing="0" cellpadding="0">
-								<tr>								
-								
-								  <td bgcolor="e3e3e3">
-									
-									<cfoutput>
-									
-										 <iframe src="#SESSION.root#/#Object.ObjectURL#&mycl=1&myclentity=#object.entitycode#&refer=workflow&#hashvalue#"
-									         width="100%"
-									         height="100%"
-									         frameborder="0"
-									         style="background-color: D6d6d6;"></iframe> 
-											 
-									 </cfoutput>				 
-									 				 
-									</td>
-								</tr>
-								</table>
-															
-					</cf_layoutarea>				
-					
-				</cf_layout>	
-				
-				--->	
-				
-			</cfif>		
-			
-			--->
 		
 	<cfelse>
 		

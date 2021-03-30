@@ -1,7 +1,6 @@
 
 <cfparam name="url.code" default="">	
 
-
 <cf_screentop html="no" jQuery="Yes">
 
 <table width="98%" align="center" height="100%">
@@ -9,6 +8,7 @@
 <cfset Page         = "0">
 <cfset add          = "0">
 <cfset save         = "0"> 
+<cfset back         = "0"> 
 <tr style="height:10px"><td><cfinclude template="../HeaderParameter.cfm"> 	</td></tr>
 
 
@@ -41,7 +41,7 @@ password="#SESSION.dbpw#">
 
 <cf_PresentationScript>
 
-<tr><td style="height:40">
+<tr><td style="height:40;padding-left:30px">
 
 <cfinvoke component = "Service.Presentation.TableFilter"  
 			   method           = "tablefilterfield" 

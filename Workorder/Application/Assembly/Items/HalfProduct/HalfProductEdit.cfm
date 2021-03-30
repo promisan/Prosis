@@ -6,10 +6,9 @@
 <cf_screentop height="100%" 
 			scroll="Yes" 
 			layout="webapp" 
-			bannerheight="75"
+			html="No"
 			label="#lblFinal#" 
-			user="No"
-			option="<br>#lt_text#" 
+			user="No"			
 			banner="green"
 			JQuery="yes">	
 
@@ -342,7 +341,7 @@ password="#SESSION.dbpw#">
 			<tr>
 				<td colspan="2" align="center">
 				    <cf_tl id="Close" var="1">
-				    <input class="button10g" style="height:25px;width:150px" type="button" name="btnSbmt" id="btnSbmt" value="#lt_text#" onclick="parent.ColdFusion.Window.hide('mydialog')">
+				    <input class="button10g" style="height:25px;width:150px" type="button" name="btnSbmt" id="btnSbmt" value="#lt_text#" onclick="parent.ProsisUI.closeWindow('mydialog')">
 					
 					<cf_tl id="Save" var="1">
 					<input class="button10g" style="height:25px;width:150px" type="submit" name="btnSbmt" id="btnSbmt" value="#lt_text#">

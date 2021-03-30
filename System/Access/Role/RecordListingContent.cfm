@@ -69,7 +69,15 @@
 					field         = "RoleClass",
 					filtermode    = "2",
 					column        = "common",
-					search        = "text"}>			
+					search        = "text"}>	
+					
+<cfset itm = 10>						
+<cf_tl id="Created" var="1">
+<cfset fields[itm] = {label      = "#lt_text#",    					
+					field        = "Created",		
+					fieldentry   = "1",					
+					labelfilter  = "#lt_text#",						
+					formatted    = "dateformat(Created,CLIENT.DateFormatShow)"}>									
 					
 
 <cfinvoke component = "Service.Access"  

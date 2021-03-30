@@ -4,9 +4,11 @@
 <cfajaximport tags="cfform">
 
 <cfset Page         = "0">
+<cfset back         = "0">
 <cfset add          = "0">
 <cfset save         = "0"> 
 <cfset menu         = "1"> 
+
 <cfinclude template = "../HeaderMaintain.cfm"> 
 
 <p align="center"></p>
@@ -42,7 +44,9 @@
 <cf_tl id="beginsWith" var="1">
 <cfset vBeginsWith=#lt_text#>
 
-<table width="80%" align="center"><tr><td align="center" width="70%">
+<table width="80%" align="center">
+<tr>
+<td align="center" width="70%">
 
 <CFFORM action="UserSearchCriteria.cfm?idmenu=#url.idmenu#&Form=#URL.Form#&ID=#URL.Id#&ID1=#URL.ID1#&ID4=#URL.Form#" method="post">
 

@@ -2,9 +2,9 @@
 <!--- close a workflow step to be be combined with wfExtenral --->
 
 <cfparam name="Attributes.Datasource"   default="appsOrganization">
-<cfparam name="Attributes.Action"   default="skip">
-<cfparam name="Attributes.ActionId" default="">
-<cfparam name="Attributes.Memo" default="">
+<cfparam name="Attributes.Action"       default="skip">
+<cfparam name="Attributes.ActionId"     default="">
+<cfparam name="Attributes.Memo"         default="">
 
 <cfif attributes.actionId neq "">
 	

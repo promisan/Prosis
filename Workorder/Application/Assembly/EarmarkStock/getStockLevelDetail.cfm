@@ -123,7 +123,7 @@
 					
 				<cfoutput>				
 							
-				<tr class="labelit navigation_row_child clsWarehouseRow">
+				<tr class="labelmediumn2 navigation_row_child clsWarehouseRow">
 					<td colspan="1"></td>
 					<td></td>
 					<td width="3%" colspan="1" style="padding-left:5px" class="line"></td>
@@ -144,13 +144,13 @@
 					  
 					  	<cfset uomid = replace(ItemUoMId,"-","","ALL")>
 						<cfset itmid = replace(url.workorderitemid,"-","","ALL")>
-																																
+																														
 						<input type  = "text" 
 						    name     = "transfer_#uomid#_#location#_#TransactionLotSerialNo#_#itmid#" 
 							value    = "" 
-							onchange = "_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/setTotal.cfm?warehouse=#url.warehouse#','totals','','','POST','stockform')"
-							class    = "regularh enterastab" 
-							style    = "width:60px;text-align:right">
+							onchange = "_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/setTotal.cfm?warehouse=#url.warehouse#','totals','','','POST','stockform')"
+							class    = "regularxl enterastab" 
+							style    = "width:60px;text-align:right;border:0px;border-left:1px solid silver;border-right:1px solid silver">
 							
 					</cfif> 		
 							
@@ -225,7 +225,7 @@
 													
 							<cfif val neq "">
 						
-							<tr bgcolor="f5f5f5" class="labelit navigation_row_child clsWarehouseRow">
+							<tr bgcolor="f5f5f5" class="labelmedium2 navigation_row_child clsWarehouseRow">
 								<td bgcolor="efefef" colspan="4">
 								<div class="hide ccontent">#stock.LocationName# #stock.TransactionLot#</div>
 								</td>							
@@ -238,7 +238,7 @@
 									<input type     = "checkbox" 
 										 name       = "transfer_#id#" 
 										 value      = "#numberformat(val,pformat)#" 		
-										 onclick    = "_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/setTotal.cfm?warehouse=#url.warehouse#','totals','','','POST','stockform')"						
+										 onclick    = "_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/setTotal.cfm?warehouse=#url.warehouse#','totals','','','POST','stockform')"						
 										 style      = "width:60px;text-align:right">
 								  											
 								</td>		

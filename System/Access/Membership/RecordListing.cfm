@@ -16,6 +16,7 @@
 <cfoutput>
 
 <cfparam name="URL.Search" default="">
+<cfparam name="URL.Application" default="">
 
 <script language="JavaScript">
 	
@@ -55,9 +56,12 @@
 		}
 	}	
 	
-	function reload(search,mis) {	
-	     _cf_loadingtexthtml='';	 	     	        
-	     ptoken.navigate('RecordListingResult.cfm?idmenu=#url.idmenu#&search=' + search + '&mission=' + mis,'result'); 
+	function reload(search) {	
+	      _cf_loadingtexthtml='';	
+		  Prosis.busy('yes')
+		  app = document.getElementById('Application').value 
+		  mis = document.getElementById('mission').value	     	        
+	      ptoken.navigate('RecordListingResult.cfm?idmenu=#url.idmenu#&search=' + search + '&mission=' + mis + '&application=' + app,'result'); 
 		}
 	
 	function more(bx,row,enf) {	  	
@@ -84,11 +88,11 @@
 	h = #CLIENT.height# - 250;
 	
 	function showroleG(role) {
-		ptoken.open("#SESSION.root#/System/Access/Global/OrganizationRolesView.cfm?Class=" + role, "_blank", "left=40, top=40, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=no")
+		ptoken.open("#SESSION.root#/System/Access/Global/OrganizationRolesView.cfm?Class=" + role, role)
 	}
 	
 	function showrole(role,mission) {
-		ptoken.open("#SESSION.root#/System/Organization/Access/OrganizationRolesView.cfm?Mission=" + mission + "&Class=" + role, "_blank", "left=40, top=40, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes")
+		ptoken.open("#SESSION.root#/System/Organization/Access/OrganizationRolesView.cfm?Mission=" + mission + "&Class=" + role, role)
 	}
 	
 	function sync(grp,row) {
@@ -133,10 +137,23 @@ to this group. If a group is no roles, no membership is allowed --->
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT DISTINCT AccountMission
-		FROM   UserNames			
-		WHERE  AccountType = 'Group'	
-	</cfquery>
+	    SELECT *
+		FROM  Organization.dbo.Ref_Mission
+		WHERE Mission IN (SELECT AccountMission
+						  FROM   UserNames			
+						  WHERE  AccountType = 'Group')
+		AND   Operational = 1						  
+</cfquery>
+
+<cfquery name="ApplicationList" 
+	datasource="AppsSystem" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT   *
+		FROM     Ref_Application	
+		WHERE    Usage = 'System'	
+		ORDER BY ListingOrder  
+</cfquery>
 	
 <cfoutput>
 
@@ -154,14 +171,25 @@ to this group. If a group is no roles, no membership is allowed --->
 			 		
 				<td class="labelmedium" style="padding-left:10px;padding-right:6px;border-left:1px solid silver;border-top:1px solid silver;border-bottom:1px solid silver">
 				
-				<select name="Mission" id="mission" style="height:32px;border:0px;" class="regularxl" onChange="reload(document.getElementById('find').value,this.value)">
+				<select name="Mission" id="mission" style="height:32px;border:0px;" class="regularxxl" onChange="reload(document.getElementById('find').value)">
 				    <option value=""><cf_tl id="All"></option>
 					<cfloop query="MissionList">
-						<option value="#AccountMission#">#AccountMission#</option>
+						<option value="#Mission#">#Mission#</option>
 					</cfloop>
 				</select>
 				
-				</td>						 
+				</td>	
+				
+				<td class="labelmedium" style="padding-left:10px;padding-right:6px;border-left:1px solid silver;border-top:1px solid silver;border-bottom:1px solid silver">
+				
+				<select name="Application" id="Application" style="height:32px;border:0px;" class="regularxxl" onChange="reload(document.getElementById('find').value)">
+				    <option value=""><cf_tl id="All"></option>
+					<cfloop query="ApplicationList">
+						<option value="#Code#">#Description#</option>
+					</cfloop>
+				</select>
+				
+				</td>							 
 			 	
 			    <td style="border-left:1px solid silver;border-top:1px solid silver;border-bottom:1px solid silver">
 			
@@ -180,7 +208,7 @@ to this group. If a group is no roles, no membership is allowed --->
 				</td>				   
 				
 				<td class="hide">				  				   
-				    <input type="button" id="searchbutton" onclick= "reload(document.getElementById('find').value,document.getElementById('mission').value)">					
+				    <input type="button" id="searchbutton" onclick= "reload(document.getElementById('find').value)">					
 				</td>	
 				   
 				<td align="center" style="padding-right:1px;border-right:1px solid silver;border-top:1px solid silver;border-bottom:1px solid silver;padding-right:0px">

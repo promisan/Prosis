@@ -12,7 +12,7 @@
 <cf_layoutscript>
 <cf_MenuScript>
 
-<cfajaximport tags="cfform,cfwindow,cftree,cfdiv">
+<cfajaximport tags="cfform,cfdiv">
 
 <cfset attrib = {type="Border",name="container",fitToWindow="Yes"}>
 

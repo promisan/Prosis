@@ -404,12 +404,14 @@ password="#SESSION.dbpw#">
 				FROM     ApplicantBackgroundField
 				WHERE    ApplicantNo       = '#AppNo#'
 				AND      ExperienceId      = '#ExperienceUID#'
-				AND      ExperienceFieldId = '#Item#'
+				AND      ExperienceFieldId = '#Left(Item,10)#'
 			</cfquery>
+			
+
 						
 			<cfif Check.recordCount eq "0">
-					
-				<cfquery name="InsertExperience" 
+				<cftry>
+					<cfquery name="InsertExperience" 
 					datasource="AppsSelection" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
@@ -424,12 +426,23 @@ password="#SESSION.dbpw#">
 							 OfficerFirstName)
 					  VALUES ('#AppNo#', 
 					          '#ExperienceUID#', 
-					      	  '#Item#',
+					      	  '#Left(Item,10)#',
 							  '1',
 							  '#SESSION.acc#',
 							  '#SESSION.last#',
 							  '#SESSION.first#')
 				</cfquery>
+					<cfcatch>
+						<cfoutput>
+						<cf_logpoint>
+							#Item#
+
+						</cf_logpoint>
+						</cfoutput>
+						
+					</cfcatch>
+					
+				</cftry>
 					  
 			<cfelse>
 			

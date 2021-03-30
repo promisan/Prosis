@@ -8,6 +8,9 @@
 
 <cfsavecontent variable="myquery">
 
+SELECT * 
+FROM (
+
 SELECT     W.WorkOrderId,
            C.CustomerName,
            C.City, 
@@ -73,6 +76,10 @@ AND         WorkOrderId IN
 						        WHERE   TL.ReferenceId = TS.InvoiceId)			  
 
             )
+			
+) as D
+WHERE 1=1
+--condition			
 
 </cfsavecontent>
 
@@ -86,8 +93,7 @@ AND         WorkOrderId IN
 
 <cf_tl id="Reference" var="vReference">
 <cfset fields[itm] = {label     = "#vReference#",                    
-    				field       = "Reference",																
-					alias        = "W",	
+    				field       = "Reference",	
 					fieldsort    = "Reference",																		
 					searchfield  = "Reference",
 					searchalias  = "W",
@@ -96,8 +102,7 @@ AND         WorkOrderId IN
 <cfset itm = itm+1>				
 <cf_tl id="Description" var="vDescription">
 <cfset fields[itm] = {label     = "#vDescription#",                    
-    				field       = "Description",																
-					alias        = "S",	
+    				field       = "Description",	
 					fieldsort    = "Description",																		
 					searchfield  = "Description",
 					search       = "text"}>			
@@ -107,24 +112,21 @@ AND         WorkOrderId IN
 <cfset itm = itm+1>				
 <cf_tl id="Customer" var="vCustomer">
 <cfset fields[itm] = {label      = "#vCustomer#",                    
-    				field        = "CustomerName",																
-					alias        = "C",	
+    				field        = "CustomerName",	
 					filtermode   = "2",					
 					search       = "text"}>		
 					
 <cfset itm = itm+1>				
 <cf_tl id="City" var="vCity">
 <cfset fields[itm] = {label      = "#vCity#",                    
-    				field        = "City",																
-					alias        = "C",	
+    				field        = "City",		
 					filtermode   = "2",					
 					search       = "text"}>		
 					
 <cfset itm = itm+1>				
 <cf_tl id="Status" var="vStatus">
 <cfset fields[itm] = {label      = "#vStatus#",                    
-    				field        = "ActionStatus",																
-					alias        = "W",	
+    				field        = "ActionStatus",	
 					filtermode   = "2",					
 					search       = "text"}>									
 					
@@ -147,8 +149,7 @@ AND         WorkOrderId IN
 <cfset itm = itm+1>				
 <cf_tl id="WorkOrderId" var="vId">
 <cfset fields[itm] = {label     = "#vId#",                    
-    				field       = "WorkOrderId",																
-					alias       = "W",	
+    				field       = "WorkOrderId",	
 					display     = "No",
 					align       = "center"}>	
 					
@@ -181,17 +182,12 @@ AND         WorkOrderId IN
 <cfset menu = "">
 	
 <!--- embed|window|dialogajax|dialog|standard --->
-
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
-<tr><td valign="top">
 							
 <cf_listing
-	    header            = "purchase"
-	    box               = "linepurchase"
+	    header            = "return"
+	    box               = "#url.mission#_return"
 		link              = "#SESSION.root#/WorkOrder/Application/Shipping/Return/WorkOrderListingContent.cfm?systemfunctionid=#url.systemfunctionid#&Status=#url.status#&Mission=#URL.Mission#"
-	    html              = "No"		
-		classheader       = "labelit"
-		classline         = "label"
+	    html              = "No"				
 		tableheight       = "99%"
 		tablewidth        = "99%"
 		datasource        = "AppsWorkorder"		
@@ -206,10 +202,8 @@ AND         WorkOrderId IN
 		excelshow         = "Yes" 	
 		screentop         = "No"	
 		listlayout        = "#fields#"
-		drillmode         = "window" 
+		drillmode         = "tab" 
 		drillargument     = "950;1050;true;true"	
 		drilltemplate     = "WorkOrder/Application/Shipping/Return/ReturnEntry.cfm?systemfunctionid=#url.systemfunctionid#&header=1&mode=listing&workorderid="
 		drillkey          = "WorkorderId"
 		drillbox          = "blank">	
-		
-</td></tr></table>		

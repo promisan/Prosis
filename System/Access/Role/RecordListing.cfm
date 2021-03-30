@@ -2,12 +2,13 @@
 
 <cf_screentop height="100%" jquery="yes" scroll="Yes" html="No">
 
-<table width="100%" 
+<table width="98%" 
        height="100%" 
 	   align="center">
 	   
-<tr><td height="40">
+<tr><td>
 	
+	<cfset back         = "0">
 	<cfset Page         = "0">
 	<cfset url.button   = "1">
 	<cfset add          = "0">
@@ -15,8 +16,6 @@
 	<cfinclude template = "../HeaderMaintain.cfm"> 
 
 </td></tr>
-
-<tr><td class="linedotted"></td></tr>
 
 <tr><td height="100%" valign="top">
 
@@ -27,7 +26,7 @@
 	<script>
 			 
 		function recordadd(grp) {
-		     ptoken.open('RecordAdd.cfm','role','left=80, top=80, width=600, height=580, toolbar=no, status=yes, scrollbars=no, resizable=no')		
+		     ptoken.open('RecordAdd.cfm','role','left=80, top=80, width=700, height=580, toolbar=no, status=yes, scrollbars=no, resizable=no')		
 			 	
 		}
 	

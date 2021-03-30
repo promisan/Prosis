@@ -5,6 +5,7 @@
 
 <cf_screentop height="100%" 
 			scroll="No" 
+			html="No"
 			layout="webapp" 			
 			label="#lblFinal#" 
 			user="No"
@@ -12,8 +13,7 @@
 			banner="green"
 			JQuery="yes">	
 			
-
-<cfajaximport tags="cfwindow,cfdiv,cfform">
+<cfajaximport tags="cfdiv,cfform">
 
 <cfquery name="WorkOrder" 
 	datasource="AppsWorkOrder" 
@@ -134,7 +134,7 @@ password="#SESSION.dbpw#">
 				</cfquery>	
 				
 				<TR>
-			    <TD class="labelmedium" style="padding-left:10px"><cf_tl id="Commodity">:<cf_space spaces="45"></TD>
+			    <TD class="labelmedium" style="padding-left:10px;width:200px;"><cf_tl id="Commodity">:</TD>
 			    <TD class="labelmedium" style="padding:2px;">	
 					<cfselect name="CommodityCode" 
 							class="regularxl"
@@ -179,9 +179,9 @@ password="#SESSION.dbpw#">
 					<cf_tl id="Discount" var="vDiscount">
 					
 					<select id="SaleType" name="SaleType" class="regularxl enterastab">
-					  <option value="Standard" <cfif get.SaleType eq "Standard">selected</cfif>>#vStandard#</option>
+					  <option value="Standard"  <cfif get.SaleType eq "Standard">selected</cfif>>#vStandard#</option>
 					  <option value="Promotion" <cfif get.SaleType eq "Promotion">selected</cfif>>#vPromotion#</option>
-					  <option value="Discount" <cfif get.SaleType eq "Discount">selected</cfif>>#vDiscount#</option>
+					  <option value="Discount"  <cfif get.SaleType eq "Discount">selected</cfif>>#vDiscount#</option>
 					</select>	
 				
 				</td>
@@ -193,7 +193,8 @@ password="#SESSION.dbpw#">
 				</td>
 				<td style="padding:2px;">
 					<cf_tl id="Please, enter a valid numeric quantity greater than 0." var="1">
-					<cfinput type="text" class="regularxl" name="quantity" id="quantity" value="#Get.Quantity#" required="true" message="#lt_text#" validate="float" range="0.00000000001," style="width:80px; text-align:right; padding-right:2px;">
+					<cfinput type="text" class="regularxl" name="quantity" id="quantity" value="#Get.Quantity#" required="true" message="#lt_text#" validate="float" range="0.00000000001," 
+					  style="width:100px; text-align:right; padding-right:2px;">
 				</td>
 			</tr>
 						
@@ -203,8 +204,8 @@ password="#SESSION.dbpw#">
 				</td>
 				<td style="padding:2px;">
 					<cf_tl id="Please, enter a valid numeric price greater than 0." var="1">
-					<cfinput type="text" class="regularxl" name="price" id="price" value="#numberformat(Get.SalePrice,'_.__')#" required="true" 
-					 message="#lt_text#" validate="float" style="width:80px; text-align:right; padding-right:2px;">
+					<cfinput type="text" class="regularxl" name="price" id="price" value="#numberformat(Get.SalePrice,'.__')#" required="true" 
+					 message="#lt_text#" validate="float" style="width:100px; text-align:right; padding-right:2px;">
 				</td>				
 			</tr>
 			
@@ -215,7 +216,7 @@ password="#SESSION.dbpw#">
 				<td style="padding:2px;" id="extended">
 					<table cellspacing="0" cellpadding="0">
 					<tr>
-					<td bgcolor="f4f4f4" style="height:25;width:80">
+					<td bgcolor="f4f4f4" style="height:25;width:100px">
 				    <cfdiv bind="url:setQuotation.cfm?element=extended&price={price}&quantity={quantity}" style="border:1px solid silver;padding-top:2px;text-align:right;padding-right:4px" class="labelmedium">
 					</td></tr>
 					</table>				 
@@ -310,7 +311,7 @@ password="#SESSION.dbpw#">
 			<tr>
 				<td colspan="2" align="center">
 				    <cf_tl id="Close" var="1">
-				    <input class="button10g" style="height:25px;width:150px" type="button" name="btnSbmt" id="btnSbmt" value="#lt_text#" onclick="parent.ColdFusion.Window.hide('mydialog')">
+				    <input class="button10g" style="height:25px;width:150px" type="button" name="btnSbmt" id="btnSbmt" value="#lt_text#" onclick="parent.ProsisUI.closeWindow('mydialog')">
 					
 					<cf_tl id="Save" var="1">
 					<input class="button10g" style="height:25px;width:150px" type="submit" name="btnSbmt" id="btnSbmt" value="#lt_text#">

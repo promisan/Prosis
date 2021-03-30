@@ -56,7 +56,7 @@ earmarked stock is either stock received or stock transferred to this workorder 
 	
 <cfelse>
 
-    <tr class="labelit line">
+    <tr class="labelmedium2 line">
 	   	<td width="100"><cf_tl id="warehouse"></td>
 		<td width="50"><cf_tl id="Batch"></td>
 		<td width="100"><cf_tl id="Date"></td>	
@@ -75,7 +75,7 @@ earmarked stock is either stock received or stock transferred to this workorder 
            
 	<cfoutput query="Details">
 	
-		<tr class="navigation_table labelit line">
+		<tr class="navigation_table labelmedium2 line">
 		
 			<td>#WarehouseName#</td>
 			<td><a href="javascript:batch('#transactionbatchno#','#mission#')"><font color="0080C0">#TransactionBatchNo#</a></td>

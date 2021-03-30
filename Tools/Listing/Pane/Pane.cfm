@@ -1,14 +1,13 @@
 <cfparam name="attributes.id"				default="1">
 <cfparam name="attributes.label"			default="">
 <cfparam name="attributes.labelClass"		default="labellarge">
-<cfparam name="attributes.labelStyle"		default="font-size:30px; color:##808080;">
+<cfparam name="attributes.labelStyle"		default="font-size:20px; color:##808080;">
 <cfparam name="attributes.labelSeparator"	default="Yes">
 <cfparam name="attributes.height"			default="auto">
 <cfparam name="attributes.search"			default="Yes">
 <cfparam name="attributes.delayFilter"		default="500">
 <cfparam name="attributes.paneItemMinSize"	default="">
 <cfparam name="attributes.paneItemOffset"	default="35">
-
 <cfif thisTag.ExecutionMode is "start">
 
 	<cfoutput>
@@ -17,11 +16,11 @@
 			
 			<div style="width:100%;height:auto;">
 			
-				<table width="100%" height="auto" cellspacing="0" cellpadding="0">
-				
+				<table width="100%" height="auto">
+								
 					<cfif trim(attributes.label) neq "">
 						<tr>
-							<td class="#attributes.labelClass#" style="#attributes.labelStyle#">#attributes.label#</td>
+							<td class="#attributes.labelClass#" style="#attributes.labelStyle#">#attributes.label# </td>
 						</tr>
 					</cfif>
 					

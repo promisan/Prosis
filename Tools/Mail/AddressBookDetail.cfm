@@ -34,7 +34,7 @@
 	          server      = "#System.ExchangeServer#"
 		      username    = "#User.MailServerAccount#"
 	          password    = "#User.MailServerPassword#"
-			  serverversion="2010"
+			  serverversion="2016"
 	          protocol    = "https">
 
 		<cfexchangecontact action="get"

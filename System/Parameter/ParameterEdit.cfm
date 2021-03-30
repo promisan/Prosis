@@ -77,6 +77,7 @@ datasource="AppsInit">
 
 <cfset Page         = "0">
 <cfset add          = "0"> 
+<cfset back         = "0"> 
 <cfset option       = "">
 <cfinclude template="HeaderParameter.cfm">
 

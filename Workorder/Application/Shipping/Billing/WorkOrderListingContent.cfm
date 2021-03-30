@@ -234,16 +234,11 @@ Hanno 23/3/2014 : technically we sould also filter to take only WorkOrderLine th
 	
 <!--- embed|window|dialogajax|dialog|standard --->
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
-<tr><td valign="top">
-							
 <cf_listing
 	    header            = "purchase"
-	    box               = "linepurchase"
+	    box               = "#url.mission#billing"
 		link              = "#SESSION.root#/WorkOrder/Application/Shipping/Billing/WorkOrderListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&Status=#url.status#&id=#url.id#"
-	    html              = "No"		
-		classheader       = "labelit"
-		classline         = "label"
+	    html              = "No"				
 		tableheight       = "99%"
 		tablewidth        = "99%"
 		datasource        = "AppsWorkorder"		
@@ -258,10 +253,9 @@ Hanno 23/3/2014 : technically we sould also filter to take only WorkOrderLine th
 		excelshow         = "Yes" 	
 		screentop         = "No"	
 		listlayout        = "#fields#"
-		drillmode         = "window" 
+		drillmode         = "tab" 
 		drillargument     = "960;1200;true;true"	
 		drilltemplate     = "WorkOrder/Application/Shipping/Billing/BillingView.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&header=1&mode=listing&id=#url.id#&workorderid="
 		drillkey          = "WorkorderId"
 		drillbox          = "blank">	
 		
-</td></tr></table>		

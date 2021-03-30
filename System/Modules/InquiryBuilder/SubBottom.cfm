@@ -15,6 +15,14 @@ password="#SESSION.dbpw#">
 	
 	    <cfset sc = replace(Check.QueryScript, "SELECT",  "SELECT TOP 1")> 
 		
+		<cfoutput>
+		<cfsavecontent variable="sc">	
+			SELECT *
+			FROM (#preservesinglequotes(sc)#) as D
+			WHERE 1=0		
+		</cfsavecontent>		
+		</cfoutput>
+		
 		<cfset fileNo = "#Check.DetailSerialNo#">		
 		<cfinclude template="QueryPreparationVars.cfm">		
 		<cfinclude template="QueryValidateReserved.cfm">
@@ -60,7 +68,7 @@ password="#SESSION.dbpw#">
 				<td>
 				<button type="button"
 					class="button10g"
-					style="width:145;height:25"
+					style="width:245;height:27"
 					onclick="ptoken.navigate('#SESSION.root#/tools/process/entityaction/FunctionDeploy.cfm?controlid=#URL.SystemFunctionId#','deploy')">
 					<img src="#SESSION.root#/Images/deploy.gif" height="12" align="absmiddle" alt="" border="0"> Deploy
 				</button>
@@ -83,8 +91,8 @@ password="#SESSION.dbpw#">
 						
 			<td onMouseOver="document.getElementById('save').focus()">
 			
-			<button name="save" id="save" class="button10g" style="width:145;height:25" type="button"
-				onclick="ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditSubmit.cfm?systemfunctionid=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#','result','','','POST','inquiryform');document.getElementById('testing').className='button10g'">
+			<button name="save" id="save" class="button10g" style="border:1px solid gray;width:245;height:27" type="button"
+				onclick="Prosis.busy('yes');ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditSubmit.cfm?systemfunctionid=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#','result','','','POST','inquiryform');document.getElementById('testing').className='button10g'">
 				 Save
 			</button>
 			
@@ -98,7 +106,7 @@ password="#SESSION.dbpw#">
 		
 		<cfcatch>
 			
-			<input class="button10g" style="height:25px" type="button" name="Cancel" id="Cancel" value="Close" onclick="window.close();returnvalue=9">
+			<input class="button10g" style="height:27px" type="button" name="Cancel" id="Cancel" value="Close" onclick="window.close();returnvalue=9">
 				
 		</cfcatch>
 	

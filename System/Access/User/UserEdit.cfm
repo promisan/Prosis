@@ -114,15 +114,17 @@ password="#SESSION.dbpw#">
 <cf_dialogPosition>
 <cf_textAreaScript>
 
+<cf_divscroll>
+
 	<table width="100%" height="100%">
 			
 	<tr><td valign="top" height="100%">
 						
 		<cfform action="UserEditSubmit.cfm?script=#url.script#" method="POST" target="myresult" name="useredit">
 	
-		<table width="92%" align="center" cellspacing="0" class="formpadding" cellpadding="0">
+		<table width="92%" align="center" class="formpadding">
 		
-			<tr class="hide"><td>
+			<tr class="hide"><td colspan="2">
 		   <iframe name="myresult" height="100" width="100%" id="myresult" scrolling="yes" frameborder="0"></iframe>
 		   </td>
 			</tr>
@@ -391,21 +393,54 @@ password="#SESSION.dbpw#">
 		    <TD class="labelmedium">Managing entity:</TD>
 		    <TD class="labelmedium">
 			
-			  <cfselect name="AccountMission"
-		         group    = "MissionOwner"
-				 queryposition="below"
-		         query    = "Mission"
-				 class="regularxl"
-			     selected = "#get.AccountMission#"
-		         value    = "Mission"
-		         display  = "Mission">		
-					 <cfif accessUserAdmin neq "NONE">
-				     <option value="Global" selected>Global</option>
-					 </cfif>
-			   </cfselect>
+			  <cfif Get.AccountType neq "Individual">	
+			
+				  <cfselect name   = "AccountMission"
+			         group         = "MissionOwner"
+					 queryposition = "below"
+			         query         = "Mission"
+					 class         = "regularxl"
+					 onchange      = "_cf_loadingtexthtml='';ptoken.navigate('getFunction.cfm?usergroup=#url.id#&mission='+this.value,'functions')"
+				     selected      = "#get.AccountMission#"
+			         value         = "Mission"
+			         display       = "Mission"/>	
+				   
+			   <cfelse>
+			   
+				    <cfselect name   = "AccountMission"
+			         group         = "MissionOwner"
+					 queryposition = "below"
+			         query         = "Mission"
+					 class         = "regularxl"					 
+				     selected      = "#get.AccountMission#"
+			         value         = "Mission"
+			         display       = "Mission">		
+						 <cfif accessUserAdmin neq "NONE">
+					     <option value="Global" selected>Global</option>
+						 </cfif>
+				   </cfselect>
+			   			   
+			   </cfif>
 			   			
 			</TD>
 			</TR>
+			
+			<cfif Get.AccountType neq "Individual">
+			
+				<tr>
+				
+					<td style="padding-top:3px" valign="top" class="labelmedium"><cf_tl id="Functions">:</td>
+					<td id="functions">
+					
+					<cfset url.usergroup = url.id>
+					<cfset url.mission   = get.accountMission>
+					<cfinclude template = "getFunction.cfm">
+					
+					</td>
+				
+				</tr>
+			
+			</cfif>
 			
 			  <!--- Field: Mail Server Account --->
 		    <TR>
@@ -465,7 +500,7 @@ password="#SESSION.dbpw#">
 				
 		    <!--- Field: eMail --->
 		    <TR>
-		    <TD class="labelmedium"><cf_tl id="eMail"> (primary):</TD>
+		    <TD class="labelmedium"><cf_tl id="eMail"> 1:</TD>
 		    <TD>
 		    	<cfoutput query="get">
 				<cfinput type="Text"
@@ -484,10 +519,12 @@ password="#SESSION.dbpw#">
 			    </cfoutput>	
 			</TD>
 			</TR>
+			
+			<cfif Get.AccountType eq "Individual">
 				
 			 <!--- Field: eMailExternal --->
 		    <TR>
-		    <TD class="labelmedium"><cf_tl id="eMail"> (secundary):</TD>
+		    <TD class="labelmedium"><cf_tl id="eMail"> 2:</TD>
 		    <TD>
 		    	<cfoutput query="get">
 				<cfinput type="Text"  class="regularxl" validate="email" name="eMailAddressExternal" value="#eMailAddressExternal#" required="No" size="50" maxlength="60">
@@ -495,87 +532,7 @@ password="#SESSION.dbpw#">
 			</TD>
 			</TR>
 			
-			
-		    <TR>
-			<td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Session settings">:&nbsp;</td>
-			<TD>
-			<table width="99%" align="left">
-			<tr>
-			    <td class="labelit" title="Password will not longer expire based on the general system settings">Disable Password expiration after <cfoutput>#System.PasswordExpiration#</cfoutput> weeks </td>
-				<TD>
-		    		<cfoutput query="get">
-					<input type="checkbox" class="radiol"  name="PasswordExpiration" id="PasswordExpiration" value="1" <cfif PasswordExpiration eq "1">checked</cfif>>
-					</cfoutput>	
-				</TD>
-				<TD class="labelit"><cf_tl id="Allow Concurrent">:</TD>
-			    <TD title="Account can be logged on on multiple instances.">
-		    	<cfoutput query="get">
-				<input type="checkbox" class="radiol"  name="AllowMultipleLogon" id="AllowMultipleLogon" value="1" <cfif AllowMultipleLogon eq "1">checked</cfif>>
-				</cfoutput>	
-				
-				</TD>
-			</tr>
-			<tr>
-			
-			    <td class="labelit"><cfoutput>Disable Session timeout after #System.SessionExpiration# min :</cfoutput></td>
-				<TD>
-		    	<cfoutput query="get">
-				<input type="checkbox" class="radiol"  name="DisableTimeout" id="DisableTimeout" value="1" <cfif DisableTimeOut eq "1">checked</cfif>>
-				</cfoutput>	
-				</TD>
-				
-				<TD class="labelit" title="Applies to system messages (password change etc.)">Disable e-Mail notification:</TD>
-			    <TD>
-		    	<cfoutput query="get">
-				<input type="checkbox" class="radiol"  name="DisableNotification" id="DisableNotification" value="1" <cfif DisableNotification eq "1">checked</cfif>>
-				</cfoutput>	
-				</TD>
-				
-			</tr>
-			<tr>
-			    
-				<td class="labelit"><cf_tl id="Disable IP routing">:</td>
-				<TD>
-		    	<cfoutput query="get">
-				<input type="checkbox" class="radiol"  name="DisableIPRouting" id="DisableIPRouting" value="1" <cfif DisableIPRouting eq "1">checked</cfif>>
-				</cfoutput>	
-				</TD>
-				
-				<td class="labelit">Disable Friendly Error Message :</td>
-				<TD>
-		    	<cfoutput query="get">
-				<input type="checkbox" class="radiol"  name="DisableFriendlyError" id="DisableFriendlyError" value="1" <cfif DisableFriendlyError eq "1">checked</cfif>>
-				</cfoutput>	
-				</TD>
-				
-			</tr>
-			
-			<tr>
-			    
-				<td class="labelit" title="User is granted access onto the pre-production server">Enable as Pre-production user:</td>
-				<TD>
-		    	<cfoutput query="get">
-				<input type="checkbox" class="radiol"  name="EnablePreProduction" id="EnablePreProduction" value="1" <cfif EnablePreProduction eq "1">checked</cfif>>
-				</cfoutput>	
-				</TD>
-				
-				<cfif System.LogonMode eq "Mixed">
-					<td class="labelit" title="User is granted access onto the pre-production server"><cf_tl id="Enforce LDAP">:</td>
-					<TD>
-			    	<cfoutput query="get">
-					<input type="checkbox" class="radiol" name="EnforceLDAP" id="EnforceLDAP" value="1" <cfif EnforceLDAP eq "1">checked</cfif>>
-					</cfoutput>	
-					</TD>
-				<cfelse>
-					<input type="hidden" name="EnforceLDAP" value="<cfoutput>#Get.EnforceLDAP#</cfoutput>">
-				</cfif>
-							
-			</tr>
-			
-			</table>
-			
-			</td>
-			</tr>
+			</cfif>
 			
 			<tr>		
 				
@@ -586,6 +543,89 @@ password="#SESSION.dbpw#">
 			 </cfoutput>
 			</TD>
 			</TR>
+			
+		    <TR>
+			<td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Session settings">:&nbsp;</td>
+			<TD style="background-color:f1f1f1;padding-left:8px;padding-right:4px">
+				<table width="100%" align="center">
+				<tr>
+				    <td class="labelit" title="Password will not longer expire based on the general system settings">Disable Password expiration after <cfoutput>#System.PasswordExpiration#</cfoutput> weeks </td>
+					<TD>
+			    		<cfoutput query="get">
+						<input type="checkbox" class="radiol"  name="PasswordExpiration" id="PasswordExpiration" value="1" <cfif PasswordExpiration eq "1">checked</cfif>>
+						</cfoutput>	
+					</TD>
+					<TD class="labelit"><cf_tl id="Allow Concurrent">:</TD>
+				    <TD title="Account can be logged on on multiple instances.">
+			    	<cfoutput query="get">
+					<input type="checkbox" class="radiol"  name="AllowMultipleLogon" id="AllowMultipleLogon" value="1" <cfif AllowMultipleLogon eq "1">checked</cfif>>
+					</cfoutput>	
+					
+					</TD>
+				</tr>
+				<tr>
+				
+				    <td class="labelit"><cfoutput>Disable Session timeout after #System.SessionExpiration# min :</cfoutput></td>
+					<TD>
+			    	<cfoutput query="get">
+					<input type="checkbox" class="radiol"  name="DisableTimeout" id="DisableTimeout" value="1" <cfif DisableTimeOut eq "1">checked</cfif>>
+					</cfoutput>	
+					</TD>
+					
+					<TD class="labelit" title="Applies to system messages (password change etc.)">Disable e-Mail notification:</TD>
+				    <TD>
+			    	<cfoutput query="get">
+					<input type="checkbox" class="radiol"  name="DisableNotification" id="DisableNotification" value="1" <cfif DisableNotification eq "1">checked</cfif>>
+					</cfoutput>	
+					</TD>
+					
+				</tr>
+				<tr>
+				    
+					<td class="labelit"><cf_tl id="Disable IP routing">:</td>
+					<TD>
+			    	<cfoutput query="get">
+					<input type="checkbox" class="radiol"  name="DisableIPRouting" id="DisableIPRouting" value="1" <cfif DisableIPRouting eq "1">checked</cfif>>
+					</cfoutput>	
+					</TD>
+					
+					<td class="labelit">Disable Friendly Error Message :</td>
+					<TD>
+			    	<cfoutput query="get">
+					<input type="checkbox" class="radiol"  name="DisableFriendlyError" id="DisableFriendlyError" value="1" <cfif DisableFriendlyError eq "1">checked</cfif>>
+					</cfoutput>	
+					</TD>
+					
+				</tr>
+				
+				<tr>
+				    
+					<td class="labelit" title="User is granted access onto the pre-production server">Enable as Pre-production user:</td>
+					<TD>
+			    	<cfoutput query="get">
+					<input type="checkbox" class="radiol"  name="EnablePreProduction" id="EnablePreProduction" value="1" <cfif EnablePreProduction eq "1">checked</cfif>>
+					</cfoutput>	
+					</TD>
+					
+					<cfif System.LogonMode eq "Mixed">
+						<td class="labelit" title="User is granted access onto the pre-production server"><cf_tl id="Enforce LDAP">:</td>
+						<TD>
+				    	<cfoutput query="get">
+						<input type="checkbox" class="radiol" name="EnforceLDAP" id="EnforceLDAP" value="1" <cfif EnforceLDAP eq "1">checked</cfif>>
+						</cfoutput>	
+						</TD>
+					<cfelse>
+						<input type="hidden" name="EnforceLDAP" value="<cfoutput>#Get.EnforceLDAP#</cfoutput>">
+					</cfif>
+								
+				</tr>
+				
+				</table>
+			
+			</td>
+			</tr>
+			
+			
 			
 			<tr class="line">		
 				
@@ -655,3 +695,5 @@ password="#SESSION.dbpw#">
 	</tr>
 	
 	</table>
+	
+</cf_divscroll>	

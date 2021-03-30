@@ -152,7 +152,7 @@
 						</table>
 					</td>
 				</tr>
-		                    <tr height="10"><td></td></tr>
+		        <tr height="10"><td></td></tr>
 		 		<tr>
 					<td valign="top" style="padding-top:8px">						
 						<table width="96%"  cellspacing="0" cellpadding="0" align="center">
@@ -173,7 +173,7 @@
 							<tr><td height="20" align="right"><b><cf_tl id="Action">: </b></td><td height="20" align="left">&nbsp; #ucase(Action.ActionDescription)#</td></tr>
 							<tr><td height="20" align="right"><b><cf_tl id="Reference">: </b></td><td height="20" align="left">&nbsp; #qObject.ObjectReference#</td></tr>
 							<tr><td height="20" align="right"><b><cf_tl id="Subject">: </b></td><td height="20" align="left">&nbsp; #qObject.ObjectReference2#</td></tr>
-		                    <tr height="40px"><td></td></tr>
+		                    <tr style="height:40px"><td></td></tr>
 							
 							<!---
 							<cfset FileNo = round(Rand()*100)>		
@@ -183,7 +183,7 @@
 							
 							<tr>
 								<td align="center" colspan="2">
-									<a style="box-shadow: inset 0 -4px 0 0 rgba(0, 0, 0, 0.2);background: ##3b97d3;	color: ##fafafa;height: 50px;padding: 20px 28px 18px;border-radius: 5px;font-size: 18px;font-weight: 600; text-transform: uppercase; line-height: 46px;text-decoration: none;" href="#SESSION.root#/ActionView.cfm?id=#qObject.Objectid#">
+									<a style="box-shadow: inset 0 -4px 0 0 rgba(0, 0, 0, 0.2);background: ##3b97d3;	color: ##fafafa;height: 50px;padding: 20px 28px 18px;border-radius: 5px;font-size: 18px;font-weight: 600; text-transform: uppercase; line-height: 46px;text-decoration: none;" href="#SESSION.root#/ActionView.cfm?id=#qObject.Objectid#&actioncode=#Action.ActionCode#&target=#Action.NotificationTarget#">
 									<cfif client.languageid eq "ENG">
 										Process &raquo;
 									<cfelseif client.languageid eq "ESP">
@@ -194,9 +194,10 @@
 							</tr>
 		                    <tr height="40px"><td></td></tr>
 							
-							<cfelse>					
+							<cfelse>	
+											
 							<tr>
-								<td height="20" align="center" colspan="2"><cf_tl id="Link">: <br />&nbsp;<a href="#SESSION.root#/ActionView.cfm?id=#qObject.Objectid#"><font color="0080FF">Press here to view</a></td>
+								<td style="font-size:16px" height="20" align="center" colspan="2"><cf_tl id="Link">: <br />&nbsp;<a href="#SESSION.root#/ActionView.cfm?id=#qObject.Objectid#&actioncode=#Action.ActionCode#&target=#Action.NotificationTarget#">Press here to process</a></td>
 							</tr>
 		                    <tr height="40px"><td></td></tr>
 							
@@ -206,7 +207,7 @@
 					</td>
 				</tr>		
 				<tr style="border-top:1px solid silver;height:30px">
-					<td colspan="2" align="center"><font size="1" color="silver"><cf_tl id="Paste link">: <br /> #SESSION.root#/ActionView.cfm?id=#qObject.Objectid#</td>
+					<td colspan="2" align="center"><font size="1" color="silver"><cf_tl id="Paste link">: <br /> #SESSION.root#/ActionView.cfm?id=#qObject.Objectid#&actioncode=#Action.ActionCode#&target=#Action.NotificationTarget#</td>
 				</tr>
 		        <tr height="40px"><td></td></tr>
 			</table>
@@ -218,13 +219,11 @@
 		</html>
 		
 		<cfmailparam file="#SESSION.rootpath#\Images\SVG\alarm.png" contentid="alarm" disposition="inline"/>
-<!---
+
+		<!---
     	<cfmailparam file="#SESSION.root#/Images/SVG/alarm.png"        contentid="alarm"     disposition="inline"/>		    
 		--->
 												
 	</cfmail>
 		
 </cfoutput>
-
-
-	

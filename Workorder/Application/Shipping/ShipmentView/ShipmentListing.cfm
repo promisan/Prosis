@@ -5,7 +5,7 @@
 
 <cf_listingscript>
 
-<table width="100%" cellspacing="0" cellpadding="0" height="100%">
+<table width="100%" height="100%">
 
 <tr>
 	<td style="padding-left:8px" class="labellarge">

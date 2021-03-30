@@ -12,7 +12,7 @@
 <table width="93%" cellspacing="0" cellpadding="0" align="center" class="navigation_table"
     style="padding-left:34px;padding-right:34px;border-top:0px dotted silver">
 
-	<tr class="line labelmedium">
+	<tr class="line labelmedium2 fixrow">
 	    <td width="2%" rowspan="2"></td>
 		<td width="7%"  rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="Class"></td>
 		<td width="23%" rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="Item"></td>
@@ -179,10 +179,10 @@
 		
 			<cf_precision number="#ItemPrecision#">
 			
-			<tr class="labelit line navigation_row">
+			<tr class="labelmedium2 line navigation_row">
 			
 			    <td style="padding-left:4px;padding-right:5px;padding-top:2px;height:25px">
-				<cf_img icon="select" navigation="Yes" onclick="item('#itemno#','#workorder.mission#','#url.systemfunctionid#')" >
+				<cf_img icon="open" navigation="Yes" onclick="item('#itemno#','#workorder.mission#','#url.systemfunctionid#')" >
 				</td>
 				<td>#ItemClass#</td>
 			    <td>#ItemNo# #ItemDescription#</td>
@@ -206,7 +206,7 @@
 							<tr>
 							<td class="cellcontent" id="#workorderitemid#_onhand">#numberformat(otheronhand,pformat)#</td>
 							<td style="padding-left:4px;padding-right:2px;cursor:pointer" onclick="earmarkstock('#url.warehouse#','#workorderitemid#','0')">
-							<img src="#session.root#/images/earmark.gif" alt="" border="0" width="12" height="12">
+							<img src="#session.root#/images/earmark.gif" alt="" border="0" width="14" height="14">
 							</td>
 							</tr>
 						</table>
@@ -231,7 +231,7 @@
 							<tr>
 							<td class="cellcontent" id="#workorderitemid#_other">#numberformat(otherearmarked,pformat)#</td>
 							<td style="padding-left:4px;padding-right:2px;cursor:pointer" onclick="earmarkstock('#url.warehouse#','#workorderitemid#','1')">
-							<img src="#session.root#/images/earmark.gif" alt="" width="12" height="12" border="0">
+							<img src="#session.root#/images/earmark.gif" alt="" width="14" height="14" border="0">
 							</td>
 							</tr>
 						</table>

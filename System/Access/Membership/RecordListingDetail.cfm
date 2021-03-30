@@ -159,7 +159,7 @@ ORDER BY   M.SystemModule
 			<TD align="center" style="padding-left:4px;padding-right:4px">
 			<cfif Disabled eq "1"><font color="FF0000">No</font><cfelse></cfif>
 			</TD>
-			<TD  align="center">
+			<TD align="center">
 			<cfif URL.Mode eq "Full">
 				 <cf_img icon="delete" onclick="purgemember('#URL.Mod#','#account#','#url.row#')">
 			</cfif>
@@ -211,7 +211,7 @@ ORDER BY   M.SystemModule
 			<tr class="line labelmedium">
 			<td width="3%" align="center">#CurrentRow#.</td>
 			<td align="center" style="padding-top:2px" onClick="<cfif #OrgUnitLevel# eq 'Global'>showroleG('#Role#')<cfelse>showrole('#Role#','#Mission#')</cfif>">
-				<cf_img icon="edit">
+				<cf_img icon="open">
 			</td>
 			<td width="15%">#SystemModule#</td>
 			<td width="25%">#Description#</td>

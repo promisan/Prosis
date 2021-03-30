@@ -4,8 +4,8 @@
 <cfparam name="attributes.height"		        default="250px">
 <cfparam name="attributes.width"		        default="300px">
 <cfparam name="attributes.style"		        default="">
-<cfparam name="attributes.headerStyle"	        default="height:30px; font-weight:normal;">
-<cfparam name="attributes.headerPadding"	    default="6px">
+<cfparam name="attributes.headerStyle"	        default="height:20px; font-weight:normal;">
+<cfparam name="attributes.headerPadding"	    default="2px">
 <cfparam name="attributes.iconSet"		        default="red">
 <cfparam name="attributes.iconHeight"		    default="32px">
 <cfparam name="attributes.iconStyle"		    default="">
@@ -59,10 +59,10 @@
 
 	<div class="pane_clsSummaryPanelItem pane_clsSummaryPanelItem_#parentId#" style="border:0px;height:#attributes.height#; width:#attributes.width#; #attributes.style#" onclick="#attributes.onClick#">
 	
-	     <table cellspacing="0" cellpadding="0" style="width:100%">
+	     <table border="0" style="width:100%">
 		 
 		 <tr>
-		 	<td class="labellarge" style="font-size:25px;padding:#attributes.headerPadding#; #attributes.headerStyle#" id="paneTitle_#parentId#_#attributes.id#">			
+		 	<td class="labellarge" style="font-size:20px;padding:#attributes.headerPadding#; #attributes.headerStyle#" id="paneTitle_#parentId#_#attributes.id#">						
 		 		 #Attributes.Label#
 				 <div style="display:none;" class="pane_clsPaneFilterContent pane_clsPaneFilterContent_#parentId#">#attributes.filterValue#</div>
 			</td>
@@ -142,7 +142,7 @@
 						</cfif>
 					</tr>
 				</table>
-				 		
+				
 			</td>
 		 </tr>		
 		 
@@ -156,17 +156,17 @@
 		 			
 		 <cfif attributes.mission neq "">
 		 
-		 <tr><td colspan="2" style="padding:2px">
-		 
-			 <table style="width:100%">
-			 <tr class="line" style="height:35px">	
-			 
+		 <tr><td colspan="2">
+		 		 
+			 <table style="width:100%;">
+			 <tr style="background-color:fbfbfb">	
+			 			 			 
 			 		<cfset linksave = "#session.root#/Tools/Listing/Pane/setSelection.cfm?systemfunctionid=#attributes.systemfunctionid#&conditionfield=mission&conditionvalue=#attributes.mission#">
 			 					<!--- select mission branch --->
 														 			
 					<cfif attributes.option eq "Parent">
 							 					
-						<td class="labelmedium" style="padding-left:7px;width:400px">
+						<td style="padding-left:7px;width:400px;padding;2px">
 																						 
 						 	<cfquery name="Mandate" 
 						     datasource="AppsOrganization" 
@@ -246,8 +246,7 @@
 											 WHERE     Mission   = '#attributes.mission#'
 											 AND       MandateNo = '#Mandate.MandateNo#'								 																	 																				 
 											 ORDER BY  HierarchyCode 								 
-									 </cfquery>									 
-																		 									 				 
+									 </cfquery>									 																		 									 				 
 								 
 								 </cfif>
 								 
@@ -262,7 +261,7 @@
 											value          = "OrgUnit"
 											display        = "OrgUnitName">
 											
-										</cf_UISelect>	
+									</cf_UISelect>	
 							 
 							 </cfif>
 						 				 
@@ -270,7 +269,7 @@
 						 
 					<cfelseif attributes.option eq "unit">
 					
-						<td class="labelmedium" style="padding-left:7px;">
+						<td style="padding-left:7px;padding:2px">
 																						 
 						 	<cfquery name="Mandate" 
 						     datasource="AppsOrganization" 

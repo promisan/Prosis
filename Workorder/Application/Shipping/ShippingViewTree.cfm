@@ -32,13 +32,17 @@
 		 	 <tr><td align="center" class="labelit" height="90"><font color="FF0000">No workorders recorded<br>Function is not operational</font></td></tr>
 		  
 		  <cfelse>
-	   	 	 
+	   	 
+		  <!---
+		  	 
 		  <cfoutput>
 		  		
 			<tr>
 		     <td height="20" style="padding-top:7px;padding-left:4px" class="labelmedium">
 			 <a href="Shipment/WorkOrderListing.cfm?mode=shipment&systemfunctionid=#url.idmenu#&Status=Pending&Mission=#URL.Mission#" target="right">
-			 <font color="0080C0"><cf_tl id="Enter Shipment"></a></td>
+			 <cf_tl id="Enter Shipment">
+			 </a>
+			 </td>
 		    </tr>		
 			 	  
 		  <tr><td height="2"></td></tr>
@@ -46,6 +50,8 @@
 		  <tr><td class="line"></td></tr>
 			
 		  </cfoutput>
+		  
+		  --->
 		  			
 		  <tr><td valign="top" style="padding-top:10px">
 		   

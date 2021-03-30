@@ -5,8 +5,8 @@
 
 <cfparam name="form.gender" default="">
 
-<cfif Len(Form.Remarks) gt 100>
-   <cfset remarks = Left(Form.Remarks, 100)>
+<cfif Len(Form.Remarks) gt 400>
+   <cfset remarks = Left(Form.Remarks, 400)>
 <cfelse>
    <cfset remarks = Form.Remarks> 
 </cfif>

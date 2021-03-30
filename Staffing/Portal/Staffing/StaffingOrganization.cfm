@@ -5,6 +5,8 @@
  <cfcatch></cfcatch>
 </cftry> 
 
+<cfparam name="session.portalorgunit" default="">
+
 <table style="height:100%;width:100%">
 
 <!---
@@ -38,7 +40,7 @@
 				ORDER BY O.HierarchyCode
 				
 		</cfquery>
-	
+			
 	<cfelse>
 		
 		<cfquery name="Units" 
@@ -86,7 +88,8 @@
 			</cfif>
 				
 			<td valign="top" style="padding-left:3px">
-				<input style="height:17px; width:17px; cursor:pointer;" type="checkbox" name="unit" id="unit_#orgunit#" class="clsFilterUnit" value="'#OrgUnit#'" <cfif currentrow eq 1>checked</cfif>>
+				<input style="height:17px; width:17px; cursor:pointer;" 
+				   type="checkbox" name="unit" id="unit_#orgunit#" class="clsFilterUnit" value="'#OrgUnit#'" <cfif find(orgunit,session.portalorgunit)>checked</cfif>>
 			</td>
 		</tr>
 	

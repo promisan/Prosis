@@ -1,6 +1,7 @@
 
 <cf_screenTopMaintenance>
 
+<cfparam name="back"        default="1">
 <cfparam name="page"        default="1">
 <cfparam name="add"         default="1">
 <cfparam name="save"        default="0">
@@ -19,6 +20,7 @@
 <script language="JavaScript">
 
 function menu() {
+  
 	ptoken.location("#SESSION.root#/System/parameter/Menu.cfm")
 }	
 
@@ -51,15 +53,15 @@ function menu() {
 
 </cftry>
 
-<cfif url.button eq "1">
+<cfif url.button eq "1" and back eq "1">
 	
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 	<tr><td height="1" class="linedotted"></td></tr>
 	<tr><td height="28" align="center">
-		<cfoutput>
-		  <input type="button" value="Back" class="button10g"  onclick="javascript:menu()">	
+		<cfoutput>		
+		  <input type="button" value="Back" class="button10g"  onclick="menu()">	
 		  <cfif add eq "1">
-	      <input type="button" value="Add" class="button10g"  onclick="javascript:recordadd('')">
+	      <input type="button" value="Add" class="button10g"  onclick="recordadd('')">
 		  </cfif>
 		  <cfif option neq "">
 		  #option#

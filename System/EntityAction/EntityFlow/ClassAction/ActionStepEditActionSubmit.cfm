@@ -28,6 +28,7 @@
 <cfparam name="Form.NotificationAttachment"    default="0">
 <cfparam name="Form.NotificationGlobal"        default="0">
 <cfparam name="Form.NotificationManual"        default="0">
+<cfparam name="Form.NotificationTarget"        default="0">
 <cfparam name="Form.EnableMyClearances"        default="0">
 <cfparam name="Form.ActionReferenceShow"       default="0">
 <cfparam name="Form.ActionReferenceEntry"      default="0">
@@ -218,6 +219,7 @@
 				 NotificationFly          = '#Form.NotificationFly#',
 				 NotificationDueOnJump    = '#Form.NotificationOnDue#',
 				 NotificationManual       = '#Form.NotificationManual#',
+				 NotificationTarget       = '#Form.NotificationTarget#', 
 				 EnableMyClearances       = '#Form.EnableMyClearances#',
 				 EnableAttachment         = '#Form.EnableAttachment#',
 				 EnableTextArea           = '#Form.EnableTextArea#',

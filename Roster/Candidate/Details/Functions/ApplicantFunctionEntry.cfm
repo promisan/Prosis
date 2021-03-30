@@ -245,6 +245,7 @@ password="#SESSION.dbpw#">
 			WHERE  PersonNo          = '#URL.ID#'
 			AND    SubmissionEdition = '#URL.ID1#'
 			AND    Source            = '#URL.Source#'
+			ORDER BY Created DESC
 		</cfquery>
 		
 		<cfif Submission.recordcount eq 1>
@@ -417,9 +418,21 @@ password="#SESSION.dbpw#">
 			
 				<input type="hidden" name="Source" value="#url.source#">
 			
-				<td><input type="submit" style="width:160;height:25;" name="Submit" value="Submit Candidacy" onclick="return validate();" class="button10g"></td>							
-				<td><input class="button10g" style="width:150;height:25;" type="button"  name="remove" value="Remove Candidate" onclick="purgecandidate('#url.id#')"></td>
-				<td><input class="button10g" style="width:150;height:25;" type="button"  name="remove" value="New Candidate" onclick="newcandidate('#url.id#')"></td>
+				<td><input type="submit" style="width:160px;height:25px;" name="Submit" value="Submit Candidacy" onclick="return validate();" class="button10g"></td>	
+				
+				<cfquery name="Submission" 
+				   datasource="AppsSelection" 
+				   username="#SESSION.login#" 
+				   password="#SESSION.dbpw#">
+					SELECT * 
+					FROM ApplicantSubmission
+					WHERE PersonNo = '#url.id#'		
+				</cfquery>
+				
+				<cfif submission.created gte now()-1>			
+					<td><input class="button10g" style="width:150px;height:25px;" type="button"  name="remove" value="Remove Candidate" onclick="purgecandidate('#url.id#')"></td>
+				</cfif>
+				<td><input class="button10g" style="width:150px;height:25px;" type="button"  name="remove" value="New Candidate" onclick="newcandidate('#url.id#')"></td>
 			
 										
 			<cfelse>

@@ -44,7 +44,8 @@
 <cf_tl id = "UoM"            var ="vUoM">
 <cf_tl id = "Lowest"         var ="vLowest">
 <cf_tl id = "Issue"          var ="vAvgIssue">
-<cf_tl id = "Min"            var ="vMinStock">
+<cf_tl id = "Min"            var ="vMin">
+<cf_tl id = "Max"            var ="vMax">
 <cf_tl id = "Confirm"        var ="vPending">
 <cf_tl id = "Reorder"        var ="vReorder">
 <cf_tl id = "On Hand"        var ="vOnHand">
@@ -184,12 +185,27 @@
 						column           = "month",																	
 						formatted        = "dateformat(LastTransaction,client.dateformatshow)",						
 						search           = "date"}>		
-						
+
+	<cfset itm = itm+1>		
+	<cfset fields[itm] = {label           = "#vMin#",                    
+	     				field             = "MinimumStock",							
+						align       	  = "right",
+						width             = "14",
+						search			  = "number"}>		
+												
 	<cfset itm = itm+1>		
 	<cfset fields[itm] = {label           = "#vReorder#",                    
 	     				field             = "ReorderQuantity",							
 						align       	  = "right",
-						search			  = "number"}>																	
+						width             = "14",
+						search			  = "number"}>		
+						
+	<cfset itm = itm+1>		
+	<cfset fields[itm] = {label           = "#vMax#",                    
+	     				field             = "MaximumStock",							
+						align       	  = "right",
+						width             = "14",
+						search			  = "number"}>																						
 					
 	<cfset itm = itm+1>	
 	<cfset fields[itm] = {label     = "#vOnHand#",                    

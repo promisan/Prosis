@@ -18,18 +18,6 @@ password="#SESSION.dbpw#">
 	AND    UoM     = '#get.TransactionUoM#'
 </cfquery>
 
-<cfquery name="qOffer"
-datasource="AppsMaterials" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">						
-	SELECT   IVO.OfferMinimumQuantity 
-	FROM     ItemVendor IV INNER JOIN 
-		     ItemVendorOffer IVO ON IV.ItemNo = IVO.ItemNo
-	WHERE    IV.ItemNo    = '#Get.ItemNo#'
-	AND      IV.UoM       = '#Get.TransactionUoM#'
-	AND      IV.Preferred = '1'
-	ORDER BY DateEffective DESC
-</cfquery>
 
 <cfquery name="ItemList" 
 	datasource="appsMaterials" 
@@ -49,14 +37,20 @@ password="#SESSION.dbpw#">
 					 I.ValuationCode,
 					 U.UoMDescription,	
 					 U.UoMMultiplier,		 
-					 U.ItemBarCode,					 
-					 (	SELECT ROUND(SUM(TransactionQuantity),5)
-						FROM   ItemTransaction 
-						WHERE  Warehouse       = IW.Warehouse
-						AND    Location        = IW.Location
-						AND    ItemNo          = U.ItemNo
-						AND	   TransactionUoM  = U.UoM								
-					 ) as OnHand 						
+					 U.ItemBarCode,		
+					 
+					 ( SELECT  MinReorderQuantity
+					   FROM    ItemWarehouse
+               	       WHERE   ItemNo    = U.ItemNo 
+                	   AND     UoM       = U.UoM
+	                   AND     Warehouse = IW.Warehouse) as ReorderQuantity,			
+					 			 
+					 ( SELECT ROUND(SUM(TransactionQuantity),5)
+					   FROM   ItemTransaction 
+					   WHERE  Warehouse       = IW.Warehouse
+					   AND    Location        = IW.Location
+					   AND    ItemNo          = U.ItemNo
+					   AND	   TransactionUoM  = U.UoM ) as OnHand 						
 			FROM     ItemWarehouseLocation IW 
 					 INNER JOIN Warehouse W ON IW.Warehouse = W.Warehouse 
 					 INNER JOIN WarehouseLocation WL ON IW.Warehouse = WL.Warehouse AND IW.Location = WL.Location
@@ -94,22 +88,19 @@ password="#SESSION.dbpw#">
 			<td align="right" style="font-size:16px">#numberformat(get.TransactionQuantity,",__")#</td>			
 		</tr>
 
+		<!--- 
 		<tr class="labelmedium line">
 			
 			<td colspan="3" style="font-size:16px">
 				<cf_tl id="Minimum Quantity">
 			</td>
 			<td align="right" style="font-size:16px">
-				<cfif qOffer.recordcount neq 0>#qOffer.OfferMinimumQuantity#</cfif>		
+				<cfif qReorder.recordcount neq 0>#qReorder.MinReorderQuantity#</cfif>		
 			</td>						
 		</tr>
+		--->
 				
 		<cfset remaining  = get.TransactionQuantity>
-		<cfset minimumQty = qOffer.OfferMinimumQuantity>	
-		
-		<cfif minimumQty eq "">
-			<cfset minimumQty = "1">
-		</cfif>
 		<cfset toTransfer = 0>
 		
 		<cfif whs eq "">
@@ -143,6 +134,13 @@ password="#SESSION.dbpw#">
 					</tr>
 				
 				<cfoutput>
+				
+					
+					<cfset minimumQty = ReorderQuantity>	
+		
+					<cfif minimumQty eq "">
+						<cfset minimumQty = "1">
+					</cfif>
 							
 					<tr class="labelmedium">
 						

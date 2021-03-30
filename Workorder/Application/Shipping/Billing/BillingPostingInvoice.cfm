@@ -21,7 +21,7 @@
 	 			 
 	 <cf_intelliCalendarDate9
 		FieldName="TransactionDate" 
-		Class="regularxl"
+		Class="regularxxl"
 		Default="#dateformat(now(),client.dateformatshow)#"
 		AllowBlank="False">	
 	  
@@ -33,7 +33,7 @@
  	<td width="60" class="labelmedium"><cf_tl id="Journal">:</td>
  	<td style="padding-left:4px">							
 	
-	<select name="Journal" class="regularxl" style="width:200px">
+	<select name="Journal" class="regularxxl" style="width:200px">
 		 <cfloop query="journal">
 		 <option value="#Journal#">#Journal# - #Description#</option>
 		 </cfloop>
@@ -91,7 +91,7 @@
 	 
 	<td class="labelmedium" style="padding-left:3px">
 	 			 
-	  <select name="OrgUnitOwner" id="OrgUnitOwner" class="regularxl" style="width: 200px;">				     
+	  <select name="OrgUnitOwner" id="OrgUnitOwner" class="regularxxl" style="width: 200px;">				     
 	    <cfloop query="Owner">
    		   	  <option value="#OrgUnit#">#OrgUnitName#</option>
        	    </cfloop>  
@@ -103,8 +103,8 @@
 	
 	<tr>
 	
-	<td width="60" style="min-width:100px" class="labelmedium"><cf_tl id="Account Period">:</td>
-	<td width="60" class="labelmedium" style="padding-left:3px">
+	<td width="60" style="min-width:100px" class="labelmedium2"><cf_tl id="Account Period">:</td>
+	<td width="60" class="labelmedium2" style="padding-left:3px">
 											
 	<cfquery name="PeriodList" 
 		datasource="AppsLedger" 
@@ -118,7 +118,7 @@
 			AND      ActionStatus = '0'		
 	</cfquery>  						
 	
-	<select name="AccountPeriod" class="regularxl">
+	<select name="AccountPeriod" class="regularxxl">
 		 <cfloop query="PeriodList">
 		 	<option value="#AccountPeriod#" <cfif param.currentaccountperiod eq Accountperiod>selected</cfif>>#AccountPeriod#</option>
 		 </cfloop>
@@ -128,7 +128,7 @@
 							
 	<td width="60" class="labelmedium"><cf_tl id="Memo">:</td>
 	<td colspan="3" style="padding-left:3px">
-	<input type="text" name="Memo" value="" class="regularxl" style="width:100%" maxlength="100">
+	<input type="text" name="Memo" value="" class="regularxxl" style="width:100%" maxlength="100">
 	</td>
 	
      </tr>

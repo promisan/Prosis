@@ -30,7 +30,7 @@ password="#SESSION.dbpw#">
 
 <tr><td height="3"></td></tr>
 
-<tr class="xhide"><td colspan="5" height="300">
+<tr class="hide"><td colspan="5" height="300">
 	<iframe name="myresult" id="myresult" width="100%" height="500" scrolling="no" frameborder="0"></iframe>
 </td></tr>
 
@@ -47,13 +47,12 @@ password="#SESSION.dbpw#">
 		
 <tr><td valign="top" height="90%" width="100%">
 	
-	<cfset ht = "64">
-	<cfset wd = "64">
+	<cfset ht = "54">
+	<cfset wd = "54">
 	
 	<table height="98%">
 	
-	<tr>
-				
+	<tr>				
 
 			<cfif url.action eq 1><cfset vclass="highlight1"><cfelse><cfset vclass="normal"></cfif>													
 			<cf_menutab item       = "1" 

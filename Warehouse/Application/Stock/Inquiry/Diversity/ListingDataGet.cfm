@@ -115,6 +115,14 @@
 					(SELECT ISNULL(MinReorderQuantity,1)
 	    			    FROM ItemWarehouse IW 
 		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = '#url.warehouse#') as ReorderQuantity,		
+						
+					(SELECT ISNULL(MinimumStock,1)
+	    			    FROM ItemWarehouse IW 
+		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = '#url.warehouse#') as MinimumStock,		
+						
+					(SELECT ISNULL(MaximumStock,1)
+	    			    FROM ItemWarehouse IW 
+		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = '#url.warehouse#') as MaximumStock,			
 								           
 		 		   T.TransactionLot,          
 		           I.ItemDescription,

@@ -52,11 +52,11 @@
 <cf_tl id = "UoM"         var ="vUoM">
 <cf_tl id = "Lowest"      var ="vLowest">
 <cf_tl id = "Issue"       var ="vAvgIssue">
-<cf_tl id = "Min"         var ="vMinStock">
+<cf_tl id = "Min"         var ="vMin">
 <cf_tl id = "Confirm"     var ="vPending">
 <cf_tl id = "On Hand"     var ="vOnHand">
 <cf_tl id = "Value"       var ="vStockValue">
-<cf_tl id = "Max"         var ="vMaxStock">
+<cf_tl id = "Max"         var ="vMax">
 <cf_tl id = "ItemNoExternal" var ="vItemNoExternal">
 
 <cfquery name="Param" 
@@ -214,7 +214,22 @@
 							precision   = "ItemPrecision",
 							search      = "number"}>	
 						
-	</cfif>										
+	</cfif>		
+	
+	<cfset itm = itm+1>		
+	<cfset fields[itm] = {label           = "#vMin#",                    
+	     				field             = "MinimumStock",							
+						align       	  = "right",
+						width             = "14",
+						search			  = "number"}>		
+											
+							
+	<cfset itm = itm+1>		
+	<cfset fields[itm] = {label           = "#vMax#",                    
+	     				field             = "MaximumStock",							
+						align       	  = "right",
+						width             = "14",
+						search			  = "number"}>								
 					
 	<cfset itm = itm+1>
 	

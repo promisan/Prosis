@@ -144,28 +144,26 @@
 					alias        = "C",	
 					filtermode   = "2",					
 					search       = "text"}>		
-
-			
 										
 <cfset itm = itm+1>
 
 <cfif status.recordcount gte "1">
-			
-<cf_tl id="Status" var="vStatus">
-<cfset fields[itm] = {label      = "#vStatus#",                    
-    				field        = "StatusDescription",																
-					alias        = "E",	
-					filtermode   = "2",					
-					search       = "text"}>		
+				
+	<cf_tl id="Status" var="vStatus">
+	<cfset fields[itm] = {label      = "#vStatus#",                    
+	    				field        = "StatusDescription",																
+						alias        = "E",	
+						filtermode   = "2",					
+						search       = "text"}>		
 
 <cfelse>					
-				
-<cf_tl id="Status" var="vStatus">
-<cfset fields[itm] = {label      = "#vStatus#",                    
-    				field        = "ActionStatus",																
-					alias        = "W",	
-					filtermode   = "2",					
-					search       = "text"}>			
+					
+	<cf_tl id="Status" var="vStatus">
+	<cfset fields[itm] = {label      = "#vStatus#",                    
+	    				field        = "ActionStatus",																
+						alias        = "W",	
+						filtermode   = "2",					
+						search       = "text"}>			
 </cfif>					
 		
 <!---					
@@ -243,9 +241,7 @@
 	    header            = "purchase"
 	    box               = "linepurchase"
 		link              = "#SESSION.root#/WorkOrder/Application/Shipping/Shipment/WorkOrderListingContent.cfm?systemfunctionid=#url.systemfunctionid#&Status=#url.status#&Mission=#URL.Mission#"
-	    html              = "No"		
-		classheader       = "labelit"
-		classline         = "label"
+	    html              = "No"				
 		tableheight       = "99%"
 		tablewidth        = "99%"
 		datasource        = "AppsWorkorder"		

@@ -1,81 +1,77 @@
-<cfparam name="Attributes.DataSource"          default="appsMaterials">
-<cfparam name="Attributes.Mission"             default="">
-<cfparam name="Attributes.Journal"             default="">
-<cfparam name="Attributes.JournalTransactionNo" default="">
-<cfparam name="Attributes.GLTransactionNo"     default="">
-<cfparam name="Attributes.SalesCurrency"       default="#APPLICATION.BaseCurrency#">
-<cfparam name="Attributes.GLAccountCredit"     default="">
-<cfparam name="Attributes.GLAccountDebit"      default="">
-<cfparam name="Attributes.TaxCode"             default="">
-<cfparam name="Attributes.ReferenceId"         default="">
-<cfparam name="Attributes.ItemNo"              default="">
-<cfparam name="Attributes.TransactionDate"     default="">
-<cfparam name="Attributes.TransactionQuantity" default="">
 
-#totGl#  = value of line + 12%
-#totCredit# = value line
-#tax$ = 12%
+<cfparam name="Attributes.DataSource"            default="appsLedger">
+<cfparam name="Attributes.Mission"               default="">
+<cfparam name="Attributes.Journal"               default="">
+<cfparam name="Attributes.JournalTransactionNo"  default="">
+<cfparam name="Attributes.GLTransactionNo"       default="">
+<cfparam name="Attributes.SalesCurrency"         default="#APPLICATION.BaseCurrency#">
+<cfparam name="Attributes.GLAccountCredit"       default="">
+<cfparam name="Attributes.GLAccountDebit"        default="">
+<cfparam name="Attributes.TaxCode"               default="">
+<cfparam name="Attributes.ReferenceId"           default="">
+<cfparam name="Attributes.ItemNo"                default="">
+<cfparam name="Attributes.TransactionDate"       default="">
+<cfparam name="Attributes.TransactionQuantity"   default="">
+<cfparam name="Attributes.TransactionValue"      default="">
+<cfparam name="Attributes.TransactionType"       default="">
+<cfparam name="Attributes.Period"                default="">
+<cfparam name="Attributes.OfficerUserId"         default="">
+<cfparam name="Attributes.OfficerFirstName"      default="">
+<cfparam name="Attributes.OfficerLastName"       default="">
 
-
-<cfquery name="Parameter"
-        datasource="#Attributes.DataSource#"
-        username="#SESSION.login#"
-        password="#SESSION.dbpw#">
-    SELECT    *
-    FROM      Accounting.dbo.Ref_ParameterMission
-    WHERE     Mission = '#Attributes.Mission#'
-</cfquery>
-
-<cfset taxCOGS = Attributes.TransactionQuantity*0.12>
-<cfset totGL = Attributes.TransactionQuantity+taxCOGS>
+<cfset taxCOGS   = Attributes.TransactionValue*0.12>
+<cfset totGL     = Attributes.TransactionValue+taxCOGS>
+<cfset totCredit = Attributes.TransactionValue>
 
 <cfquery name="Tax"
-        datasource="#Attributes.DataSource#"
-        username="#SESSION.login#"
-        password="#SESSION.dbpw#">
+    datasource="#Attributes.DataSource#"
+    username="#SESSION.login#"
+    password="#SESSION.dbpw#">
     SELECT    *
     FROM      Accounting.dbo.Ref_Tax
     WHERE     TaxCode = '#attributes.TaxCode#'
 </cfquery>
 
 <cfif attributes.TransactionQuantity lte "0">
+
     <cfset tax = Tax.GLAccountReceived>
-    <cfset acc1 = "#Attributes.GLAccountDebit#">
-    <cfset acc2 = "#Attributes.GLAccountCredit#">
-    <cfset act1 = "Debit">
-    <cfset act2 = "Credit">
-    <cfset ref1 = "IO">
-    <cfset ref2 = "Stock">
-<cfelse>
-    <cfset tax = Tax.GLAccountPaid>
     <cfset acc2 = "#Attributes.GLAccountDebit#">
     <cfset acc1 = "#Attributes.GLAccountCredit#">
-    <cfset act2 = "Debit">
     <cfset act1 = "Credit">
-    <cfset ref1 = "IO">
+    <cfset act2 = "Debit">
+    <cfset ref1 = "IO IN">
     <cfset ref2 = "Stock">
-</cfif>
+	
+<cfelse>
 
+    <cfset tax = Tax.GLAccountPaid>
+    <cfset acc1 = "#Attributes.GLAccountDebit#">
+    <cfset acc2 = "#Attributes.GLAccountCredit#">
+	<cfset act1 = "Debit">
+    <cfset act2 = "Credit">   
+    <cfset ref1 = "IO OUT">
+    <cfset ref2 = "Stock">
+	
+</cfif>
 
 <cfset costcenter = "0">
 
-
 <cfquery name="Type"
-        datasource="#Attributes.DataSource#"
-        username="#SESSION.login#"
-        password="#SESSION.dbpw#">
-    SELECT    *
-    FROM      Materials.dbo.Ref_TransactionType
-    WHERE     TransactionType = '7'
+    datasource = "#Attributes.DataSource#"
+    username   = "#SESSION.login#"
+    password   = "#SESSION.dbpw#">
+     SELECT    *
+     FROM      Materials.dbo.Ref_TransactionType
+     WHERE     TransactionType = '#Attributes.TransactionType#'
 </cfquery>
 
 <cfquery name="Item"
         datasource="#Attributes.DataSource#"
         username="#SESSION.login#"
         password="#SESSION.dbpw#">
-    SELECT *
-    FROM   Materials.dbo.Item
-    WHERE  ItemNo = '#Attributes.ItemNo#'
+	    SELECT *
+	    FROM   Materials.dbo.Item
+	    WHERE  ItemNo = '#Attributes.ItemNo#'
 </cfquery>
 
 <cf_GledgerEntryLine
@@ -85,7 +81,7 @@
         Journal               = "#Attributes.Journal#"
         JournalNo             = "#Attributes.JournalTransactionNo#"
         JournalTransactionNo  = "#Attributes.JournalTransactionNo#"
-        AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
+        AccountPeriod         = "#Attributes.Period#"
         Currency              = "#Attributes.SalesCurrency#"
         LogTransaction		  = "Yes"
 
@@ -124,9 +120,23 @@
         Description3          = "#Type.Description#"
         GLAccount3            = "#tax#"
         Costcenter3           = "#costcenter#"
+        TransactionTaxCode3   = "#attributes.TaxCode#"
         WorkOrderLineId3      = ""
         ReferenceNo3          = "#Attributes.ItemNo#"
         ReferenceId3          = "#Attributes.ReferenceId#"
         TransactionType3      = "Standard"
         Amount3               = "#taxCOGS#">
+
+
+<cfquery name="qUpdate"
+        datasource="#Attributes.DataSource#"
+        username="#SESSION.login#"
+        password="#SESSION.dbpw#">
+    UPDATE Accounting.dbo.TransactionLine
+        SET OfficerUserId = '#Attributes.OfficerUserId#',
+        OfficerFirstName ='#Attributes.OfficerFirstName#',
+        OfficerLastName ='#Attributes.OfficerLastName#'
+    WHERE  Journal ='#Attributes.Journal#'
+    AND JournalSerialNo = '#Attributes.JournalTransactionNo#'
+</cfquery>
 

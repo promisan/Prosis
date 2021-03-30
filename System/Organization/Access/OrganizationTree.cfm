@@ -44,18 +44,18 @@ password="#SESSION.dbpw#">
 	   
 	    <cfform>
 		
-		<tr><td valign="top" class="labelmedium" style="padding-top:10px;height:35;padding-left:4px;font-size:25px">
+		<tr><td valign="top" class="labelmedium" style="padding-top:10px;height:45px;padding-left:4px;font-size:22px">
 					   
 	   	    <cfoutput>
 				
 				<img src="#SESSION.root#/Images/Logos/System/Tree.png" height="27" width="27" alt="" align="absmiddle" border="0" onclick="mission()">
 				&nbsp;&nbsp;
-				<a href="javascript:mission()" title="Select in order to grant access for this tree globally">Global #Mission# access</a></b>			
+				<a href="javascript:mission()" title="Select in order to grant access for this tree globally">Global access</a>	
 		   </cfoutput>
 		
 		</td></tr>
 		
-		<tr><td height="1" class="linedotted"></td></tr>
+		<tr><td height="1" class="line"></td></tr>
 	   
 		 <cfquery name="Mandate" 
 				  datasource="AppsOrganization" 
@@ -71,9 +71,9 @@ password="#SESSION.dbpw#">
 					   	  
 					<tr><td align="center" height="100%">
 							<table width="98%" align="center" height="100%">
-							<tr><td height="100%" valign="top">
+							<tr><td height="100%" valign="top" style="padding-top:10px">
 													
-							<cf_UItree name="idorg" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
+							<cf_UItree name="idorg" fontsize="11" bold="No" format="html" required="No">
 							     <cf_UItreeitem
 								  bind="cfc:Service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#URL.Mission#','#Mandate.Mandateno#','OrganizationListing.cfm','FIN','#URL.Mission#','#URL.Mission#','#Mandate.Mandateno#','#URl.ID4#','parent')">
 							    </cf_UItree>
@@ -89,7 +89,7 @@ password="#SESSION.dbpw#">
 					<tr><td align="center" height="100%">
 									
 							<table width="98%" align="center" height="100%">
-							<tr><td height="100%" valign="top">
+							<tr><td height="100%" valign="top" style="padding-top:10px">
 													
 							<cf_UItree name="tree#mandateNo#" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
 							     <cf_UItreeitem
@@ -115,7 +115,7 @@ password="#SESSION.dbpw#">
 				
 				<tr><td height="3"></td></tr>
 										
-				<tr><td class="labelmedium" style="height:35">
+				<tr><td class="labelmedium" style="height:40px">
 							
 				<cfoutput>		
 				
@@ -125,7 +125,7 @@ password="#SESSION.dbpw#">
 					   <img src="#SESSION.root#/Images/Logos/System/Tree.png" height="29" width="29"  alt="" style="cursor:pointer" onclick="mission()" align="absmiddle" border="0">
 					 </td>
 					 <td class="labelmedium" style="font-size:21px;padding-left:6px">
-						<a href="javascript:mission()">Global #Mission# access</a>
+						<a href="javascript:mission()">Global access</a>
 					 </td>
 					</tr>
 					</table>
@@ -148,34 +148,42 @@ password="#SESSION.dbpw#">
 				<cfif Mandate.RecordCount eq 1>  
 					   	  
 					<tr><td height="100%" align="center">
+					
 							<table width="98%" height="100%" align="center">
-							<tr><td height="100%" valign="top">
-													
-							<cf_UItree name="idorg" bold="No" format="html" required="No">
-							     <cf_UItreeitem
-								  bind="cfc:Service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#URL.Mission#','#Mandate.Mandateno#','OrganizationListing.cfm','FIN','#URL.Mission#','#URL.Mission#','#Mandate.Mandateno#','#URl.ID4#')">
+							
+								<tr><td height="100%" valign="top" style="padding-top:10px">
+														
+								<cf_UItree name="idorg" bold="No" format="html" required="No">
+								
+								     <cf_UItreeitem
+									  bind="cfc:Service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#URL.Mission#','#Mandate.Mandateno#','OrganizationListing.cfm','FIN','#URL.Mission#','#URL.Mission#','#Mandate.Mandateno#','#URl.ID4#')">
+									  
 							    </cf_UItree>
-															
-							</td></tr>
+																
+								</td></tr>
+							
 							</table>
+							
 					</td></tr> 	
 				
 				<cfelse>
 					
 					<cfloop query="Mandate">
 					   	  
-					<tr class="line"><td align="center" height="100%">
-							<table height="100%" width="98%" align="center">
-							<tr><td height="100%" valign="top">
-													
-							<cf_UItree name="tree#mandateNo#" fontsize="11" bold="No" format="html" required="No">
-							     <cf_UItreeitem
-								  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#URL.Mission#','#Mandateno#','OrganizationListing.cfm','MAN','#URL.Mission#','#URL.Mission#','#Mandate.Mandateno#','#URl.ID4#')">
+						<tr class="line"><td align="center" height="100%">
+								<table height="100%" width="98%" align="center">
+								<tr><td height="100%" valign="top" style="padding-top:10px">
+														
+								<cf_UItree name="tree#mandateNo#" fontsize="11" bold="No" format="html" required="No">
+								
+								     <cf_UItreeitem
+									  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#URL.Mission#','#Mandateno#','OrganizationListing.cfm','MAN','#URL.Mission#','#URL.Mission#','#Mandate.Mandateno#','#URl.ID4#')">
+									  
 							    </cf_UItree>
-															
-							</td></tr>
-							</table>
-					</td></tr> 	
+																
+								</td></tr>
+								</table>
+						</td></tr> 	
 					 
 					 </cfloop>
 				

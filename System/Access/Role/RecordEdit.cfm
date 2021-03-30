@@ -35,8 +35,8 @@ password="#SESSION.dbpw#">
 		<tr class="hide"><td><iframe name="process" id="process"></iframe></td></tr>
 	    <cfoutput>
 	    <TR>
-	    <TD class="labelmedium">Code:</TD>
-	    <TD class="labelmedium" height="25"><cfif get.RoleClass eq "Manual">
+	    <TD class="labelmedium2">Code:</TD>
+	    <TD class="labelmedium2" height="25"><cfif get.RoleClass eq "Manual">
 	  	   <input type="text"   name="Role" id="Role"    value="#get.Role#" size="20" maxlength="20" class="regularh">	  
 		   <cfelse>
 		   #get.Role#
@@ -46,21 +46,21 @@ password="#SESSION.dbpw#">
 		</TR>
 		
 		<TR>
-	    <TD class="labelmedium">Area:</TD>
+	    <TD class="labelmedium2">Area:</TD>
 	    <TD>
-	  	   <cfinput type="Text" name="Area" value="#get.Area#" message="Please enter an area" required="Yes" size="20" maxlength="20"class="regularxl">
+	  	   <cfinput type="Text" name="Area" value="#get.Area#" message="Please enter an area" required="Yes" size="20" maxlength="20"class="regularxxl">
 	    </TD>
 		</TR>
 		<TR>
-	    <TD class="labelmedium">Description:</TD>
+	    <TD class="labelmedium2">Description:</TD>
 	    <TD>
-	  	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a Description" required="Yes" size="50" maxlength="50"class="regularxl">
+	  	   <cfinput type="Text" name="Description" value="#get.Description#" message="Please enter a Description" required="Yes" size="50" maxlength="50"class="regularxxl">
 	    </TD>
 		</TR>	
 		<TR>
-	    <TD class="labelmedium">Module:</TD>
-	    <TD height="25" class="labelmedium"><cfif get.RoleClass eq "Manual">
-			<select name="SystemModule" ID="SystemModule" size="1" class="regularxl">
+	    <TD class="labelmedium2">Module:</TD>
+	    <TD height="25" class="labelmedium2"><cfif get.RoleClass eq "Manual">
+			<select name="SystemModule" ID="SystemModule" size="1" class="regularxxl">
 			<cfloop query="Modules">
 			     <OPTION value="#Modules.SystemModule#" <cfif Get.SystemModule eq Modules.SystemModule>selected</cfif>>#Modules.Description#
 			</cfloop>
@@ -71,18 +71,18 @@ password="#SESSION.dbpw#">
 	    </TD>
 		</TR>	
 		<TR>
-	    <TD class="labelmedium">Function:</TD>
-	    <TD><cfinput type="Text" name="SystemFunction" value="#get.SystemFunction#" message="Please enter a Function" required="Yes" size="30" maxlength="30"class="regularxl">
+	    <TD class="labelmedium2">Function:</TD>
+	    <TD><cfinput type="Text" name="SystemFunction" value="#get.SystemFunction#" message="Please enter a Function" required="Yes" size="30" maxlength="30"class="regularxxl">
 	    </TD>
 		</TR>	
 		<TR>
-		    <TD class="labelmedium">Task:</TD>
-		    <TD><cfinput type="Text" name="RoleTask" value="#get.RoleTask#" message="Please enter a Task" required="False" size="50" maxlength="80" class="regularxl"></TD>
+		    <TD class="labelmedium2">Task:</TD>
+		    <TD><cfinput type="Text" name="RoleTask" value="#get.RoleTask#" message="Please enter a Task" required="False" size="50" maxlength="80" class="regularxxl"></TD>
 		</TR>	
 		<TR>
-	    <TD class="labelmedium">Owner:</TD>
+	    <TD class="labelmedium2">Owner:</TD>
 	    <TD>
-			<select name="RoleOwner" id="RoleOwner" size="1" class="regularxl">
+			<select name="RoleOwner" id="RoleOwner" size="1" class="regularxxl">
 			<OPTION value="" <cfif Get.RoleOwner eq "">selected</cfif>>All
 			<cfloop query="Owner">
 			     <OPTION value="#Owner.Code#" <cfif Get.RoleOwner eq Owner.Code>selected</cfif>>#Owner.Code#
@@ -92,8 +92,8 @@ password="#SESSION.dbpw#">
 		</TR>	
 		
 		<TR>
-	    <td class="labelmedium">Access Levels:</b></td>
-	    <TD height="25" class="labelmedium">  
+	    <td class="labelmedium2">Access Levels:</b></td>
+	    <TD height="25" class="labelmedium2">  
 		  <cfif get.RoleClass eq "Manual">
 		  <input type="radio" name="AccessLevels" id="AccessLevels" <cfif Get.AccessLevels eq "3">checked</cfif> value="3">3
 	      <input type="radio" name="AccessLevels" id="AccessLevels" <cfif Get.AccessLevels eq "4">checked</cfif> value="4">4
@@ -105,18 +105,18 @@ password="#SESSION.dbpw#">
 	    </tr>
 		
 		<TR>
-	    <td class="labelmedium">Level Label List:</b></td>
+	    <td class="labelmedium2">Level Label List:</b></td>
 	    <TD>  
-		  <input type="text" name="AccessLevelLabelList" id="AccessLevelLabelList" class="regularxl" value="#Get.AccessLevelLabelList#" size="50" maxlength="80">
+		  <input type="text" name="AccessLevelLabelList" id="AccessLevelLabelList" class="regularxxl" value="#Get.AccessLevelLabelList#" size="50" maxlength="80">
 	    </td>
 	    </tr>	
 	
 		<TR>
-	    <td class="labelmedium">Authorization Scope:</b></td>
+	    <td class="labelmedium2">Authorization Scope:</b></td>
 	    <TD>  
-		  <table cellspacing="0" cellpadding="0"><tr><td class="labelmedium">
+		  <table cellspacing="0" cellpadding="0"><tr><td class="labelmedium2">
 		  
-		  <select name="OrgUnitLevel" id="OrgUnitLevel" class="regularxl"
+		  <select name="OrgUnitLevel" id="OrgUnitLevel" class="regularxxl"
 		          onchange="ColdFusion.navigate('ScopeCheck.cfm?role=#url.drillid#&orgunitlevel='+this.value,'check')">
 	
 			  <option value="Global" <cfif Get.OrgUnitLevel eq "Global">selected</cfif>>Global</option>
@@ -134,7 +134,7 @@ password="#SESSION.dbpw#">
 	    </tr>	
 		
 		<tr>
-		<td class="labelmedium"><cf_UIToolTip  tooltip="Additional parameter value to be defined when granting access to this user.">Parameter:</cf_UIToolTip></td>
+		<td class="labelmedium2"><cf_UIToolTip  tooltip="Additional parameter value to be defined when granting access to this user.">Parameter:</cf_UIToolTip></td>
 		<td>
 		
 		<table cellspacing="0" cellpadding="0">
@@ -161,7 +161,7 @@ password="#SESSION.dbpw#">
 		
 				<TR>
 			   
-			    <TD height="20" class="labelmedium">  
+			    <TD height="20" class="labelmedium2">  
 				  <cfif get.RoleClass eq "Manual">	
 					  <input type="radio" class="radiol" name="Parameter" id="Parameter" onclick="other('x')" <cfif Get.Parameter eq "" and Get.ParameterTable eq "">checked</cfif> value="">N/A
 					  <input type="radio" class="radiol" name="Parameter" id="Parameter" onclick="other('')"  <cfif Get.ParameterTable neq "">checked</cfif> value="">Custom
@@ -183,7 +183,7 @@ password="#SESSION.dbpw#">
 		
 				<TR name="others" class="#cl#">
 				
-			    <td class="labelmedium" height="28">DSN:&nbsp;</td>
+			    <td class="labelmedium2" height="28">DSN:&nbsp;</td>
 			    <TD> 
 										
 					<cfset ds = "#Get.ParameterDataSource#">
@@ -204,7 +204,7 @@ password="#SESSION.dbpw#">
 					<cfset dsNames = dsService.getNames()>
 					<cfset ArraySort(dsnames, "textnocase")> 
 							
-					<select name="parameterdatasource" id="parameterdatasource" class="regularxl">
+					<select name="parameterdatasource" id="parameterdatasource" class="regularxxl">
 						<option value="" selected >--- select ---</option>
 						<CFLOOP INDEX="i"
 						FROM="1"
@@ -223,7 +223,7 @@ password="#SESSION.dbpw#">
 						
 				<TR name="others" class="#cl#">
 				
-					<td class="labelmedium">Table:&nbsp;</td>		    	
+					<td class="labelmedium2">Table:&nbsp;</td>		    	
 					<td>
 						    <cfinput type="Text"
 						       name="parametertable"
@@ -237,13 +237,13 @@ password="#SESSION.dbpw#">
 						       enabled="Yes"      
 						       size="40"
 						       maxlength="50"
-						       class="regularxl">
+						       class="regularxxl">
 											   
 					</TD>
 					
 				</TR>
 			
-				<TR class="labelmedium #cl#" name="others">
+				<TR class="labelmedium2 #cl#" name="others">
 		
 					<td></td>
 					<td>
@@ -257,22 +257,22 @@ password="#SESSION.dbpw#">
 		</tr>		
 				
 		<TR>
-	    <TD class="labelmedium">Class:</TD>
-	    <TD height="25" class="labelmedium">#get.RoleClass# (#get.OfficerLastName# added on: #dateformat(get.created,CLIENT.DateFormatShow)#)
+	    <TD class="labelmedium2">Class:</TD>
+	    <TD height="25" class="labelmedium2">#get.RoleClass# (#get.OfficerLastName# added on: #dateformat(get.created,CLIENT.DateFormatShow)#)
 			   <input type="hidden" name="RoleClass" id="RoleClass" value="Manual" >
 		</TD>
 		</TR>
 		
 		<TR>
-	    <TD class="labelmedium">Order:</TD>
+	    <TD class="labelmedium2">Order:</TD>
 	    <TD>
-	  	   <cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter an Order" required="Yes" size="2" maxlength="2"class="regularxl">
+	  	   <cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" message="Please enter an Order" required="Yes" size="2" maxlength="2"class="regularxxl">
 	    </TD>
 		</TR>		
 		
 		
 		<TR>
-	    <TD valign="top" style="padding-top:5px" class="labelmedium">Memo:</TD>
+	    <TD valign="top" style="padding-top:5px" class="labelmedium2">Memo:</TD>
 	    <TD>
 		   <cf_textarea name="RoleMemo" class="regular" style="padding:3px;font-size:12px;width:95%;height:50">#Get.RoleMemo#</cf_textarea> 
 	    </TD>

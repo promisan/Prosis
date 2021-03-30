@@ -32,7 +32,7 @@
 					  value="Filter"
 					  class="button10g" 
 					  style="width:90px;height:25px" 
-					  onclick="ColdFusion.navigate('WorkOrderListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&transactionlot='+document.getElementById('transactionlot').value,'mymasterlist')">
+					  onclick="ptoken.navigate('WorkOrderListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&transactionlot='+document.getElementById('transactionlot').value,'mymasterlist')">
 		   </td>
 		   </tr>
 		</table>
@@ -43,7 +43,7 @@
 
 <tr>
    <td colspan="2" height="100%" valign="top" style="padding-left:7px;padding-right:7px" id="mymasterlist">
-	<cfdiv style="height:100%" bind="url:WorkOrderListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#">
+	<cf_securediv style="height:100%" bind="url:WorkOrderListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#">
    </td>
 </tr>
 

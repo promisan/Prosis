@@ -71,7 +71,7 @@
 							 
 								  <input type="button" 
 									  class="button10g" 
-									  style="font-size:13px;width:280px;height:32" 
+									  style="border:1px solid silver;font-size:13px;width:380px;height:32" 
 									  onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BillingEntrySubmit.cfm?workorderid=#url.workorderid#&systemfunctionid=#url.systemfunctionid#&id=#url.id#','processbox','','','POST','billingform')"
 									  name="Submit" 
 									  value="#lt_text#">
@@ -93,12 +93,12 @@
 				
 				<table width="100%" class="formspacing">				
 																				
-					<tr>
-					   <td style="padding-left:20px" class="labelmedium"><cf_tl id="Goods and services"> #workorder.currency#:</td>			   
-					   <td colspan="1" align="right" class="labelmedium" style="padding-right:15px">
+					<tr class="labelmedium2">
+					   <td style="padding-left:20px"><cf_tl id="Goods and services"> #workorder.currency#:</td>			   
+					   <td colspan="1" align="right" style="padding-right:15px">
 				          <table><tr>
 						  <td id="totalbox">
-						   <input type="text" value="#numberformat(0,",__.__")#" readonly id="saleamount" name="saleamount" class="regularxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: AFEEEE;">				
+						   <input type="text" value="#numberformat(0,",.__")#" readonly id="saleamount" name="saleamount" class="regularxxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: AFEEEE;">				
 						   </td>
 						   <td id="sale"></td>
 				           </tr>
@@ -119,34 +119,34 @@
 					</cfquery>
 							 
 					<cfloop query="Entry">
-					     <tr>
-						 <td style="padding-left:25px" class="labelit"><cf_tl id="#Description#"></td>
-						 <td colspan="1" align="right" id="xchargebox" class="labelit" style="padding-right:15px">						 
-							 <input type="text" name="Amount_#Area#" value="#numberformat(0,",__.__")#" 
-							 onchange="ColdFusion.navigate('#session.root#/WorkOrder/Application/Shipping/Billing/setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform')"
-							 class="regularh enterastab" style="padding-right:4px;width:100px;text-align:right">
+					     <tr class="labelmedium2">
+						 <td style="padding-left:25px"><cf_tl id="#Description#"></td>
+						 <td colspan="1" align="right" id="xchargebox" style="padding-right:15px">						 
+							 <input type="text" name="Amount_#Area#" value="#numberformat(0,",.__")#" 
+							 onchange="ptoken.navigate('#session.root#/WorkOrder/Application/Shipping/Billing/setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform')"
+							 class="regularxxl enterastab" style="padding-right:4px;width:100px;text-align:right">
 						 </td>						
 						 </tr>
 					</cfloop> 
 					
-					<tr class="labelmedium">					   
+					<tr class="labelmedium2">					   
 						<td style="padding-left:20px" colspan="1"><cf_tl id="Total">:</td>
 						<td align="right" style="padding-right:15px">
-						<input type="text" value="#numberformat(0,",__.__")#" readonly id="totalamount" name="totalamount" class="regularxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: AFEEEE;">				
+						<input type="text" value="#numberformat(0,",.__")#" readonly id="totalamount" name="totalamount" class="regularxxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: AFEEEE;">				
 						</td>
 					</tr>
 								
-					<tr class="labelit">					    
+					<tr class="labelmedium2">					    
 						<td style="padding-left:20px" colspan="1"><cf_tl id="Tax">:</td>
 						<td align="right" style="padding-right:15px">
-						<input type="text" value="#numberformat(0,",__.__")#" readonly id="taxamount" name="taxamount" class="regularh enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: f1f1f1;">				
+						<input type="text" value="#numberformat(0,",.__")#" readonly id="taxamount" name="taxamount" class="regularxxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: f1f1f1;">				
 						</td>
 					</tr>
 					
-					<tr class="labelmedium">
+					<tr class="labelmedium2">
 					    <td style="padding-left:20px" colspan="1"><cf_tl id="Payable">:</td>
 						<td align="right" id="overall" style="padding-right:15px">
-						<input type="text" value="#numberformat(0,",__.__")#" readonly id="payableamount" name="payableamount" class="regularxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: ffffaf;">				
+						<input type="text" value="#numberformat(0,",.__")#" readonly id="payableamount" name="payableamount" class="regularxxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: ffffaf;">				
 				        </td>
 					</tr>
 					

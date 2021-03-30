@@ -4,6 +4,7 @@
 <cfparam name="URL.Search" default="">
 <cfparam name="client.box" default="">
 
+<cfset back         = "0">
 <cfset Page         = "0">
 <cfset add          = "0">
 <cfset save         = "0"> 
@@ -74,9 +75,9 @@ function reloadform(mis) {
 </script>
 </cfoutput>
 
-<table width="99%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="99%" height="100%" align="center">
 
-<tr class="line"><td><cfinclude template="../../Access/HeaderMaintain.cfm"></td></tr>
+<tr><td><cfinclude template="../../Access/HeaderMaintain.cfm"></td></tr>
 
 <!---
 <tr><td style="height:20px;">

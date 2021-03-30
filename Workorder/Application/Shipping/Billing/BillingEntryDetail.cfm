@@ -106,13 +106,9 @@
 						
 		<table width="99%">
 			
-		<tr class="labelmedium line">
+		<tr class="labelmedium2 line">
 			<td width="30" align="left" style="padding-left:6px">
-				<input 
-					type="Checkbox" 
-					id="selectAll" 
-					name="selectAll" 
-					onclick="selectAllCB(this,'.clsCheckbox')">
+				<input type="Checkbox" id="selectAll" class="radiol" name="selectAll" onclick="selectAllCB(this,'.clsCheckbox')">
 			</td>
 			<td><cf_tl id="Code"></td>
 			<td><cf_tl id="Description"></td>
@@ -127,18 +123,17 @@
 			<td align="right"><cf_tl id="Tax"></td>
 			<td align="right"><cf_tl id="Payable"></td>
 		</tr>
-		
-				
+						
 		<cfif lines.recordcount eq "0">
 			
-		<tr><td colspan="13" style="height:30px" align="center" class="labelmedium"><font color="008000"><b>No more shipments found that are pending for billing.</td></tr>
-		<tr><td colspan="13" class="line"></td></tr>
+			<tr><td colspan="13" style="height:30px" align="center" class="labelmedium2"><font color="008000"><b>No more shipments found that are pending for billing.</td></tr>
+			<tr><td colspan="13" class="line"></td></tr>
 			
 		<cfelse>
 						
 			<cfoutput query="Lines" group="Warehouse">
 			
-				<tr class="labelmedium">
+				<tr class="labelmedium2">
 				<td style="height:30" colspan="12"><cf_tl id="Shipped from">:&nbsp;<b>#WarehouseName#</td>
 				<td align="right">
 				
@@ -146,7 +141,7 @@
 				   alt="" 
 				   style="cursor:pointer"
 				   border="0" 
-				   onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ColdFusion.navigate('BillingEntryDetail.cfm?systemfunctionid=#url.systemfunctionid#','mycontent','','','POST','billingform');"></td>
+				   onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BillingEntryDetail.cfm?systemfunctionid=#url.systemfunctionid#','mycontent','','','POST','billingform');"></td>
 				
 				</tr>
 				
@@ -157,12 +152,12 @@
 				<cfoutput group="WorkOrderId">
 				
 					<cfif len(form.workselected) gt 40>
-					<tr class="labelmedium"><td style="padding-left:4px" height="5">#Reference#</td></tr>
+					<tr class="labelmedium2"><td style="padding-left:4px" height="5">#Reference#</td></tr>
 					</cfif>
 			
 					<cfoutput>
 									
-					<tr class="labelmedium navigation_row line clsWarehouseRow" style="height:20px">
+					<tr class="labelmedium2 navigation_row line clsWarehouseRow">
 										
 						<td width="45" style="padding-left:4px">
 						
@@ -173,13 +168,15 @@
 								<table cellspacing="0" cellpadding="0">
 									<tr>
 										<td style="padding-left:1px">
-										<input type="checkbox" 
-										  onclick="_cf_loadingtexthtml='';ColdFusion.navigate('setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform')" 
-										  style  = "width:15px;height:13px" 
-										  class  = "radiol clsCheckbox" 
-										  name   = "selected" 
-										  id     = "selected"
-										  value  = "'#TransactionId#'">							
+										
+											<input type="checkbox" 
+											  onclick="_cf_loadingtexthtml='';ptoken.navigate('setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform')" 
+											  style  = "width:15px;height:13px" 
+											  class  = "radiol clsCheckbox" 
+											  name   = "selected" 
+											  id     = "selected"
+											  value  = "'#TransactionId#'">							
+											  
 										</td>
 										<td style="padding-left:3px"><cf_img icon="edit" onclick="recordedit('#transactionid#')"></td>				
 									</tr>

@@ -121,9 +121,9 @@
 		<tr>
 			<td style="padding:3px;" height="100%">
 			
-				<table width="100%" cellspacing="0" cellpadding="0">			
+				<table width="100%">			
 				
-					<tr class="labelit line">
+					<tr class="labelmedium2 line">
 					
 						<td width="5%"></td>
 						<td style="width:30"></td>
@@ -133,13 +133,13 @@
 						<td><cf_tl id="UoM"></td>					
 						<td align="right"><cf_tl id="Ordered"></td>													
 						<td align="right"><cf_tl id="InStock"></td>		
-						<td align="right"><cf_tl id="Reserved"><cf_space spaces="15"></td>																		
+						<td align="right" style="min-width:100px"><cf_tl id="Reserved"></td>																		
 						<cfif line.pointerSale eq "1">
-							<td align="right"><cf_tl id="Shipped"><cf_space spaces="15"></td>
+							<td align="right" style="min-width:100px"><cf_tl id="Shipped"></td>
 						<cfelse>
-							<td align="right"><cf_tl id="Freed"><cf_space spaces="15"></td>
+							<td align="right" style="min-width:100px"><cf_tl id="Freed"></td>
 						</cfif>
-						<td align="right"><cf_tl id="Pending"><cf_space spaces="15"></td>
+						<td align="right" style="min-width:100px"><cf_tl id="Pending"></td>
 						
 					</tr>					
 																					
@@ -147,18 +147,18 @@
 					
 						<cfset bal = quantity-shipped>
 													
-						<tr class="navigation_row line cellcontent">
+						<tr class="navigation_row line labelmedium2">
 						
-							<td align="center" style="height:22">							    
+							<td align="center">							    
 								
 								<cfif mode eq "edit">
 								
 									<cfif bal gt 0 
 									    and instock gte "1" 
 										and Reserved lt Quantity>	
-										<input type="checkbox" checked name="selectline" value="'#workorderitemid#'">
+										<input type="checkbox" class="radiol" checked name="selectline" value="'#workorderitemid#'">
 									<cfelse>
-										<input type="checkbox" name="selectline" value="'#workorderitemid#'">									
+										<input type="checkbox" class="radiol" name="selectline" value="'#workorderitemid#'">									
 									</cfif>
 																		
 								</cfif>	
@@ -204,13 +204,10 @@
 								<td align="right" bgcolor="e1e1e1" style="padding-right:3px">#Shipped#</td>
 																
 								<cfif bal gt 0>
-								<td bgcolor="ffffaf" style="padding-right:3px" align="right">#bal#</b></td>
+								<td bgcolor="ffffaf" style="padding-right:3px" align="right">#bal#</td>
 								<cfelse>
 								<td bgcolor="white" align="right">
-									<img src="#session.root#/images/check_icon.gif" 
-									   width="18" 
-									   height="18" 
-									   alt="Completed" 
+									<img src="#session.root#/images/check_icon.gif" width="18" height="18" alt="Completed" 
 									   border="0">
 								</td>
 								</cfif>
@@ -235,7 +232,7 @@
 						     style   = "width:260px;height:28px" 
 							 value   = "#apply#" 
 							 name    = "Submit" 
-							 onclick = "_cf_loadingtexthtml='';Prosis.busy('yes');ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Reserve/ReserveSubmit.cfm?mission=#get.mission#&warehouse=#url.warehouse#&workorderid=#url.workorderid#&workorderline=#url.workorderline#','orderbox','','','POST','reserveform')">
+							 onclick = "_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Reserve/ReserveSubmit.cfm?mission=#get.mission#&warehouse=#url.warehouse#&workorderid=#url.workorderid#&workorderline=#url.workorderline#','orderbox','','','POST','reserveform')">
 					
 					</td></tr>
 														

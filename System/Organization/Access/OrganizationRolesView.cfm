@@ -22,16 +22,17 @@ password="#SESSION.dbpw#">
 	}
 	
 	function orgunit() {
-	    ColdFusion.navigate('../Application/OrganizationTree.cfm?class=#url.class#&mission=#url.mission#','treebox')  
-		parent.right.location = "../Application/OrganizationViewHeader.cfm";
+	    ptoken.navigate('../Application/OrganizationTree.cfm?class=#url.class#&mission=#url.mission#','treebox')  
+		ptoken.location('../Application/OrganizationViewHeader.cfm', 'parent.right');		
 	}
 	
 	function orgaccess() {
-	    window.open("../Access/OrganizationView.cfm","_top")   
+	    ptoken.open("../Access/OrganizationView.cfm","_top")   
 	}
 	
 	function mission() {
-	    parent.right.location = "OrganizationListing.cfm?Mission=#Mission#&ID4=#URL.class#"
+	    ptoken.location('OrganizationListing.cfm?Mission=#Mission#&ID4=#URL.class#', 'parent.right');
+	   // parent.right.ptoken.location('OrganizationListing.cfm?Mission=#Mission#&ID4=#URL.class#')
 	}	
 
 </script>
@@ -66,7 +67,7 @@ password="#SESSION.dbpw#">
 		  
 </cf_layoutarea>		  
 
-<cf_layoutarea  position="left" name="tree" size="300" collapsible="true" splitter="true" maxsize="400">
+<cf_layoutarea  position="left" name="tree" size="350" collapsible="true" splitter="true" maxsize="400">
      		
 		<cfinclude template="OrganizationTree.cfm">
 					

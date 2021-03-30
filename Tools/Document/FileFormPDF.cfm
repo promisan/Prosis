@@ -81,7 +81,7 @@
 				<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/pdf_small.gif" alt="" border="0" align="absmiddle">
 				</td>
 				<td>&nbsp;</td>
-				<td class="labelit"><cf_tl id="Keep original format after conversion">:</td>
+				<td class="labelit"><cf_tl id="Keep format after conversion">:</td>
 				<td class="labelit">
 					<table>
 					<tr>

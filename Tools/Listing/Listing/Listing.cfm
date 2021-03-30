@@ -262,6 +262,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 		script ---> 	
 		
     <cf_ListingUserGet systemfunctionid="#url.systemfunctionid#" listlayout="#attributes.listlayout#" modefield="Sorting">	
+		
 				
 </cfif>	
 
@@ -305,32 +306,10 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cfparam name="form.useCache" default="">  <!--- requested --->
 
 <cftry>
-	<cfset session.listingdata[box]['timestamp']        = now()>	
+	<cfset session.listingdata[box]['timestamp']        = now()>		
+	<cfparam name="session.listingdata['#box#']['sqlorig']" default="999">			
 <cfcatch></cfcatch>	
 </cftry>
-
-<cfif url.contentmode eq "5">
-
-	<!--- we force refresh as we want to see new records --->
-	<cfset attributes.refresh = "1">	
-
-<cfelse>
-	
-	<cfif datediff("d",now(),session.listingdata[box]['timestamp']) gte 1> 
-		<!--- listing has expired 24 hours so we refresh per definition --->  	
-		<cfset attributes.refresh = "1">				
-	<cfelseif attributes.refresh eq "1" and form.useCache eq "">
-		<!--- this is the default value upon opening --->
-	<cfelse>
-	    <!--- interface enforces the refresh --->
-		<cfif form.useCache eq "0">
-			<cfset attributes.refresh = "1">			
-		<cfelse>
-			<cfset attributes.refresh = "0">			
-		</cfif>
-	</cfif>	
-	
-</cfif>	
 
 <cfif url.systemfunctionid neq "">
 
@@ -503,6 +482,8 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 	<cf_ListingUserGet systemfunctionid="#url.systemfunctionid#" listlayout="#attributes.listlayout#" modefield="Group">	
 							
 </cfif>
+
+
 
 <cfparam name="URL.listorderformat"        default="">
 <cfparam name="URL.listgroupformat"        default="">
@@ -1062,6 +1043,34 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cfif url.datacell1 eq "total">
 	<cfset url.datacell1formula = "SUM">
 </cfif>
+
+
+
+<cfif url.contentmode eq "5">
+	
+		<!--- we force refresh as we want to see new records --->
+		<cfset attributes.refresh = "1">	
+	
+	<cfelse>
+		
+		<cfif datediff("d",now(),session.listingdata[box]['timestamp']) gte 1> 
+			<!--- listing has expired 24 hours so we refresh per definition --->  	
+			<cfset attributes.refresh = "1">			
+		<cfelseif session.listingdata[box]['sqlorig'] neq attributes.listQuery>		
+		    <!--- the query has changed --->
+			<cfset attributes.refresh = "1">							
+		<cfelseif attributes.refresh eq "1" and form.useCache eq "">
+			<!--- this is the default value upon opening --->
+		<cfelse>
+		    <!--- interface enforces the refresh --->
+			<cfif form.useCache eq "0">
+				<cfset attributes.refresh = "1">			
+			<cfelse>
+				<cfset attributes.refresh = "0">			
+			</cfif>
+		</cfif>	
+		
+	</cfif>	
 
 <cfinclude template="ListingData.cfm">
 

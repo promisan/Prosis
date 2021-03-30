@@ -65,23 +65,22 @@ password="#SESSION.dbpw#">
 <cfoutput query="List">
 
 <cfif ConditionValue is ''>
-   <tr class="regular" class="navigation_row">
+   <tr class="regular" class="navigation_row line">
 <cfelse>
-   <tr class="highLight2" class="navigation_row">
+   <tr class="highLight2" class="navigation_row line">
 </cfif>   
    
     <td width="10%" align="center">
 	<cfif ConditionValue is ''>
-	<input type="checkbox" name="Value_#List.currentrow#" value="#Mission#">
+	<input type="checkbox" class="radiol" name="Value_#List.currentrow#" value="#Mission#">
 	<cfelse>
-	<input type="checkbox" name="Value_#List.currentrow#" value="#Mission#" checked>
+	<input type="checkbox" class="radiol" name="Value_#List.currentrow#" value="#Mission#" checked>
 	</cfif>
     </td>
-    <td width="20%" class="labelit">#Mission#</td>
-	<TD class="labelit">#MissionName#</TD>
+    <td width="20%" class="labelmedium2">#Mission#</td>
+	<TD class="labelmedium2">#MissionName#</TD>
  
 </TR>
-<tr><td colspan="3" class="linedotted"></td></tr> 
 
 </CFOUTPUT>
 

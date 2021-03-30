@@ -487,7 +487,7 @@ password="#SESSION.dbpw#">
 		<script>
 		
 		 function getincumbency(cls) {
-			 ColdFusion.navigate('getIncumbency.cfm?assignmentclass='+cls,'getclass')
+			 ptoken.navigate('getIncumbency.cfm?assignmentclass='+cls,'getclass')
 		 }	 
 		
 		</script>

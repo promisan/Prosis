@@ -189,8 +189,8 @@
 		UPDATE PersonEntitlement
 		SET    RecordStatus = '9'
 		WHERE  PersonNo IN (SELECT PersonNo
-		                      FROM   Employee.dbo.PersonContract
-							  WHERE  Mission = '#Form.mission#')
+		                    FROM   Employee.dbo.PersonContract
+							WHERE  Mission = '#Form.mission#')
 		AND    Status != '2'		
 </cfquery>
 
@@ -203,19 +203,19 @@
 		UPDATE PersonEntitlement
 		SET    RecordStatus = <cfif itm eq '1'>'9'<cfelse>'1'</cfif>
 		WHERE  EntitlementId IN ( 	SELECT       ActionSourceId
-										FROM         Employee.dbo.EmployeeActionSource
-										WHERE        ActionDocumentNo IN  <!--- obtain PENDING contract records with the new status and then
+										FROM     Employee.dbo.EmployeeActionSource
+										WHERE    ActionDocumentNo IN  <!--- obtain PENDING contract records with the new status and then
 		                                   identify the employee action --->
 			            	        		         (SELECT      EAS.ActionDocumentNo
 			                	            		   FROM       PersonEntitlement AS PC INNER JOIN
 					                    	                      Employee.dbo.EmployeeActionSource AS EAS ON PC.EntitlementId = EAS.ActionSourceId INNER JOIN
 															      Employee.dbo.EmployeeAction AS EA ON PC.EntitlementId = EA.ActionSourceId
 			        		        	        	   WHERE      PC.PersonNo IN (SELECT PersonNo
-														                            FROM   Employee.dbo.PersonContract
-																			        WHERE  Mission = '#Form.mission#')
+														                          FROM   Employee.dbo.PersonContract
+																			      WHERE  Mission = '#Form.mission#')
 													   AND        PC.Status = '0' 
 													   AND        EAS.ActionStatus = '1')
-										AND          ActionStatus = <cfif itm eq '1'>'1'<cfelse>'9'</cfif> )							   
+										AND      ActionStatus = <cfif itm eq '1'>'1'<cfelse>'9'</cfif> )							   
 
 	</cfquery>
 		

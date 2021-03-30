@@ -10,10 +10,8 @@
 
 <script language="JavaScript">
 	
-	function earmarkstock(whs,woid,sale) {
-		
-		try { ColdFusion.Window.destroy('myearmark',true) } catch(e) {}
-		ColdFusion.Window.create('myearmark', 'Earmark', '',{x:100,y:100,height:document.body.clientHeight-70,width:document.body.clientWidth-70,modal:true,resizable:false,center:true})    						
+	function earmarkstock(whs,woid,sale) {				
+		ProsisUI.createWindow('myearmark', 'Earmark', '',{x:100,y:100,height:document.body.clientHeight-70,width:document.body.clientWidth-70,modal:true,resizable:false,center:true})    						
 		ptoken.navigate("ShipmentNotEarmarked.cfm?PointerSale="+sale+"&Warehouse="+whs+"&WorkOrderItemId="+woid,'myearmark') 		
     }
 	

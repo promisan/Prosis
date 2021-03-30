@@ -83,7 +83,7 @@
 	  
 		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="formpadding navigation_table">
 				
-		<TR class="line labelmedium">		   
+		<TR class="line labelmedium2">		   
 		    <td width="1%"></td>
 			<TD width="40%"><cf_tl id="Address"></TD>	
 			<TD width="10%"><cf_tl id="ZIP"></TD>		
@@ -103,7 +103,7 @@
 			
 				<cfoutput>
 				
-				<TR class="navigation_row labelmedium">
+				<TR class="navigation_row labelmedium2">
 										
 					<td align="right" style="padding-left:20px;padding-top:3px;padding-right:5px">
 					    
@@ -123,7 +123,7 @@
 					
 				</TR>
 				
-				<TR class="navigation_row_child labelmedium line" style="height:0px">
+				<TR class="navigation_row_child labelmedium2 line" style="height:0px">
 						
 					<td></td>				
 					<td colspan="4" align="left">

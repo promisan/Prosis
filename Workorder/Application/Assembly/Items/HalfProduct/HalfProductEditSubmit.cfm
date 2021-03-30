@@ -59,7 +59,7 @@
 	<script>
 	   parent.parent.Prosis.busy('yes')
 	   parent.parent._cf_loadingtexthtml='';	
-	   parent.parent.ColdFusion.Window.hide('mydialog')			 
+	   parent.parent.ProsisUI.closeWindow('mydialog')			 
 	   parent.parent.document.getElementById('menu2').click()	 
 	   
 	</script>	

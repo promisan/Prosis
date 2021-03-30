@@ -17,7 +17,7 @@
 		}	
 			
 		function drillboxopen() {
-			ColdFusion.Window.create('adddetail','Workorder #timeformat(now(),'HH:MM:SS')#','',{x:100,y:100,height:700,width:700,resizable:true,modal:true,center:true})
+		    ProsisUI.createWindow('adddetail','Workorder #timeformat(now(),'HH:MM:SS')#','',{x:100,y:100,height:700,width:700,resizable:true,modal:true,center:true})
 		}
 					
 		function showcustomer(id,mode,dsn,mis) {		
@@ -26,12 +26,12 @@
 						
 		function customeredit(id) {
 			_cf_loadingtexthtml="";						
-			ColdFusion.navigate('CustomerData.cfm?systemfunctionid='+document.getElementById('systemfunctionid').value+'&dsn=#url.dsn#&customerid='+id+'&mode=view','customerbox',mycallBack,myerrorhandler)		
+			ptoken.navigate('CustomerData.cfm?systemfunctionid='+document.getElementById('systemfunctionid').value+'&dsn=#url.dsn#&customerid='+id+'&mode=view','customerbox',mycallBack,myerrorhandler)		
 		}
 		
 		function customeradd(id) {
-			ColdFusion.navigate('CustomerEdit.cfm?systemfunctionid='+document.getElementById('systemfunctionid').value+'&dsn=#url.dsn#&customerid='+id+'&mode=view','detail',mycallBack,myerrorhandler)			
-			ColdFusion.navigate('CustomerResultNew.cfm?systemfunctionid='+document.getElementById('systemfunctionid').value+'&dsn=#url.dsn#&customerid='+id+'&mode=view','newentry',mycallBack,myerrorhandler)	   		 
+			ptoken.navigate('CustomerEdit.cfm?systemfunctionid='+document.getElementById('systemfunctionid').value+'&dsn=#url.dsn#&customerid='+id+'&mode=view','detail',mycallBack,myerrorhandler)			
+			ptoken.navigate('CustomerResultNew.cfm?systemfunctionid='+document.getElementById('systemfunctionid').value+'&dsn=#url.dsn#&customerid='+id+'&mode=view','newentry',mycallBack,myerrorhandler)	   		 
 		}			
 		
 		function find(mission,domain,val,mode,dsn,mid) {		    	    	
@@ -45,11 +45,11 @@
 		function showdomain(mis,domain,ref,mode,dsn,filter) {		
 		    _cf_loadingtexthtml='';	
 			Prosis.busy('yes')
-			ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/WorkOrder/ServiceDetails/ServiceLineListingContent.cfm?systemfunctionid='+document.getElementById('systemfunctionid').value+'&filter='+filter+'&mission='+mis+'&domain='+domain+'&ref='+ref+'&dsn='+dsn+'&mode='+mode,'detail',mycallBack,myerrorhandler)
+			ptoken.navigate('#SESSION.root#/WorkOrder/Application/WorkOrder/ServiceDetails/ServiceLineListingContent.cfm?systemfunctionid='+document.getElementById('systemfunctionid').value+'&filter='+filter+'&mission='+mis+'&domain='+domain+'&ref='+ref+'&dsn='+dsn+'&mode='+mode,'detail',mycallBack,myerrorhandler)
 		}
 		
 		function showrequest(mis,domain,status,tpe) {
-			ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Request/Listing/RequestListing.cfm?mission='+mis+'&domain='+domain+'&status='+status+'&requesttype='+tpe,'detail',mycallBack,myerrorhandler)
+			ptoken.navigate('#SESSION.root#/WorkOrder/Application/Request/Listing/RequestListing.cfm?mission='+mis+'&domain='+domain+'&status='+status+'&requesttype='+tpe,'detail',mycallBack,myerrorhandler)
 		}
 			
 		function mycallBack(text) { }

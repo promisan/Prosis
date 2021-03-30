@@ -11,11 +11,12 @@
 		AND		Operational		= 1
 </cfquery>
 
-<cfset vLogIn_ValidationMethod = "none"> <!--- none, confirm, alert --->
+<cfset vLogIn_ValidationMethod = "none"> <!--- none, confirm, alert, redirect --->
 <cfset vLogIn_AfterAlertAction = "login"> <!--- login, logout --->
 <cfset vLogIn_CallbackTrue = ""> <!--- callback when true --->
 <cfset vLogIn_CallbackFalse = ""> <!--- callback when false --->
 <cfset vLogIn_Message = "">
+<cfset vLogIn_RedirectURL = "default.cfm?ts=#getTickCount()#">
 
 <cfif qOnLogin.recordCount gt 0>
 	<cfif trim(qOnLogin.FunctionPath) neq "">
@@ -29,6 +30,14 @@
 <cfoutput>
 	<script>
 		switch('#vLogIn_ValidationMethod#') {
+			case 'redirect':
+				var vURL = window.location.href.split("?");	
+				var vParams = "";
+				if (vURL.length == 2) {
+					vParams = "&" + vURL[1];
+				}
+				parent.window.location =  "#vLogIn_RedirectURL#&mid=#mid#"+vParams;
+				break;
 			case 'none':				
 				parent.window.location = "default.cfm?id=#url.id#&mid=#mid#";
 				break;

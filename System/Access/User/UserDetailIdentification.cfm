@@ -11,7 +11,7 @@
 			
 		} 
 	
-		function UserEdit(account,script) {		
+		function UserEdit(account,script) {				     
 			  ProsisUI.createWindow('mydialog', 'User', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,center:true})    			 				
 			  ptoken.navigate('#SESSION.root#/System/Access/User/UserView.cfm?ID=' + account+'&script='+script,'mydialog') 				
 		}		

@@ -70,9 +70,8 @@ password="#SESSION.dbpw#">
 <!--- create entry --->
 <cfinclude template="../Functions/ModuleControl/ModuleLanguage.cfm">
 
-<cf_compression>
-
 <script>
+	Prosis.busy('no');
     try {
 		opener.document.getElementById('listing_refresh').click() } catch(e) {}	  
 </script>

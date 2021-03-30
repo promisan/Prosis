@@ -4,7 +4,7 @@
 
 <cfoutput>
 
-<table width="98%" height="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="98%" height="100%" align="center">
 
 <tr><td>
 

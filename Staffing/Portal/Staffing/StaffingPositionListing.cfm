@@ -122,3 +122,7 @@
     </cf_mobileRow>
 
 </cfoutput>	
+
+<script>
+try { Prosis.busyRegion('no','main') } catch(e) {}
+</script>

@@ -118,236 +118,240 @@
 		AND      ServiceType = 'Service'
 	</cfquery>
 
-	<cfquery name="Detail" 
-	datasource="AppsWorkOrder" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
+		<cfoutput>  
+		<cfsavecontent variable="myquery">
 		
-		SELECT TOP 1300 WO.WorkOrderId,
-		       W.Reference as WorkOrderReference,
-		       WO.WorkOrderLine,
-			   WO.WorkOrderLineId,
-			   C.CustomerName,
-			   left(WL.Description,50) as ReferenceName,
-			   WO.Reference,
-		       WO.DateEffective,
-			   ISNULL(WO.DateExpiration,'9999-12-31') as DateExpiration,
-			   
-			   (SELECT TOP 1 Description
-			    FROM   Ref_ServiceItemDomainClass 
-				WHERE  ServiceDomain = WO.ServiceDomain
-				AND    Code          = WO.ServiceDomainClass) as ServiceDomainClass,		  
-				
-			   SI.Description,
-			   
-			   (SELECT   TOP 1 T.Description
-				FROM     RequestWorkOrder AS RW INNER JOIN
-	                     Request AS R ON RW.RequestId = R.RequestId INNER JOIN
-	                     Ref_Request AS T ON R.RequestType = T.Code
-				WHERE    RW.WorkOrderId   = WO.WorkorderId
-				AND      RW.WorkOrderLine = WO.WorkorderLine 
-				ORDER BY R.Created DESC) as RequestType,		 
-						   
-			   	<cfif url.domain eq "Person">
-				
-				<cfelse>
-			  
-			      	<cfif serviceitem.enablePerson eq "1">
-						(SELECT PersonNo               FROM Employee.dbo.Person WHERE PersonNo = WO.PersonNo) as PersonNo,
-						(SELECT IndexNo                FROM Employee.dbo.Person WHERE PersonNo = WO.PersonNo) as IndexNo,
-						(SELECT FirstName+' '+LastName FROM Employee.dbo.Person WHERE PersonNo = WO.PersonNo) as Name,
+		   SELECT *, DateEffective
+		   FROM (
+			
+			SELECT WO.WorkOrderId,
+			       W.Reference as WorkOrderReference,
+			       WO.WorkOrderLine,
+				   WO.WorkOrderLineId,
+				   C.CustomerName,
+				   left(WL.Description,50) as ReferenceName,
+				   WO.Reference,
+			       WO.DateEffective,
+				   ISNULL(WO.DateExpiration,'9999-12-31') as DateExpiration,
+				   
+				   (SELECT TOP 1 Description
+				    FROM   Ref_ServiceItemDomainClass 
+					WHERE  ServiceDomain = WO.ServiceDomain
+					AND    Code          = WO.ServiceDomainClass) as ServiceDomainClass,		  
+					
+				   SI.Description,
+				   
+				   (SELECT   TOP 1 T.Description
+					FROM     RequestWorkOrder AS RW INNER JOIN
+		                     Request AS R ON RW.RequestId = R.RequestId INNER JOIN
+		                     Ref_Request AS T ON R.RequestType = T.Code
+					WHERE    RW.WorkOrderId   = WO.WorkorderId
+					AND      RW.WorkOrderLine = WO.WorkorderLine 
+					ORDER BY R.Created DESC) as RequestType,		 
+							   
+				   	<cfif url.domain eq "Person">
+					
+					<cfelse>
+				  
+				      	<cfif serviceitem.enablePerson eq "1">
+							(SELECT PersonNo               FROM Employee.dbo.Person WHERE PersonNo = WO.PersonNo) as PersonNo,
+							(SELECT IndexNo                FROM Employee.dbo.Person WHERE PersonNo = WO.PersonNo) as IndexNo,
+							(SELECT FirstName+' '+LastName FROM Employee.dbo.Person WHERE PersonNo = WO.PersonNo) as Name,
+						</cfif>
+						
+						<cfif serviceitem.enableOrgUnit eq "1">
+							(SELECT TOP 1 OrgUnitName FROM Organization.dbo.Organization WHERE OrgUnit = WO.OrgUnit) as OrgUnitName,
+						</cfif>
+									
+						<cfloop query="TopicList">			
+						  <cfset fld = replace(description," ","","ALL")>
+						  <cfset fld = replace(fld,".","","ALL")>
+						  <cfset fld = replace(fld,",","","ALL")>
+							(SELECT TOP 1 TopicValue 
+							 FROM WorkOrderLineTopic 
+							 WHERE WorkOrderId = WO.WorkOrderId AND WorkOrderLine = WO.WorkOrderLine AND Operational = 1 AND Topic = '#code#') as #fld#,						
+						</cfloop>
+					
 					</cfif>
 					
-					<cfif serviceitem.enableOrgUnit eq "1">
-						(SELECT TOP 1 OrgUnitName FROM Organization.dbo.Organization WHERE OrgUnit = WO.OrgUnit) as OrgUnitName,
-					</cfif>
+					( SELECT MIN(BillingEffective) 
+					  FROM   WorkOrderLineBilling 
+					  WHERE  WorkOrderId   = WO.WorkOrderId 
+					  AND    WorkOrderLine = WO.WorkOrderLine			
+					) as BillingEffective,	
+					
+					( SELECT TOP 1 ISNULL(BillingExpiration,'9999-12-31')
+					  FROM   WorkOrderLineBilling 
+					  WHERE  WorkOrderId   = WO.WorkOrderId 
+					  AND    WorkOrderLine = WO.WorkOrderLine	
+					  ORDER BY BillingEffective DESC		
+					) as BillingExpiration,	
+					
+					<!--- 3/1/2016 this code is likely very specific for services added a different mode in case we
+					know this is a workorder listing --->
 								
-					<cfloop query="TopicList">			
-					  <cfset fld = replace(description," ","","ALL")>
-					  <cfset fld = replace(fld,".","","ALL")>
-					  <cfset fld = replace(fld,",","","ALL")>
-						(SELECT TOP 1 TopicValue 
-						 FROM WorkOrderLineTopic 
-						 WHERE WorkOrderId = WO.WorkOrderId AND WorkOrderLine = WO.WorkOrderLine AND Operational = 1 AND Topic = '#code#') as #fld#,						
-					</cfloop>
-				
-				</cfif>
-				
-				( SELECT MIN(BillingEffective) 
-				  FROM   WorkOrderLineBilling 
-				  WHERE  WorkOrderId   = WO.WorkOrderId 
-				  AND    WorkOrderLine = WO.WorkOrderLine			
-				) as BillingEffective,	
-				
-				( SELECT TOP 1 ISNULL(BillingExpiration,'9999-12-31')
-				  FROM   WorkOrderLineBilling 
-				  WHERE  WorkOrderId   = WO.WorkOrderId 
-				  AND    WorkOrderLine = WO.WorkOrderLine	
-				  ORDER BY BillingEffective DESC		
-				) as BillingExpiration,	
-				
-				<!--- 3/1/2016 this code is likely very specific for services added a different mode in case we
-				know this is a workorder listing --->
-							
-				( SELECT TOP 1 DateTimePlanning
-				  FROM   WorkorderLineAction
-				  WHERE  WorkOrderId   = WO.WorkorderId
-				  AND    WorkOrderLine = WO.WorkorderLine
-				  AND    ActionClass    = SI.UsageActionClose
-				  ORDER BY DateTimePlanning DESC
-				 ) as LastClosed, 				
-				
-				<cfif qService.recordcount gte "1">
-							
-					( SELECT SUM(Amount) 
-					  FROM   skWorkOrderCharges 
+					( SELECT TOP 1 DateTimePlanning
+					  FROM   WorkorderLineAction
 					  WHERE  WorkOrderId   = WO.WorkorderId
 					  AND    WorkOrderLine = WO.WorkorderLine
-					  AND    SelectionDate >= '01/01/#year(now())#' 
-					  AND    SelectionDate <= '12/31/#year(now())#'
-					) as Amount,			
-				
-				<cfelse>
-				
-				    ( SELECT   SUM(SaleAmountIncome)
-					  FROM     WorkOrderLineItem
-					  WHERE    WorkOrderId   = WO.WorkorderId
-					  AND      WorkOrderLine = WO.WorkorderLine
+					  AND    ActionClass    = SI.UsageActionClose
+					  ORDER BY DateTimePlanning DESC
+					 ) as LastClosed, 				
 					
-					) as Amount,					
-				
-				</cfif>
-							
-				WO.Operational,
-			    WO.Created		
-				
-		INTO    userquery.dbo.tmp#SESSION.acc#WorkOrder_#fileno#							
-							
-	    FROM    Workorder W ,
-		        WorkOrderLine WO , 
-				WorkOrderService WL ,
-				ServiceItem SI , 
-				Customer C		
-				
-	    WHERE   W.WorkOrderId      = WO.WorkorderId
-		AND     WO.ServiceDomain   = WL.ServiceDomain
-		AND     WO.Reference       = WL.Reference
-		AND     W.ServiceItem      = SI.Code
-		AND     SI.Operational     = 1
-		AND     W.CustomerId       = C.CustomerId
-		AND     W.Mission          = '#url.mission#'
-			
-		<cfset today = dateformat(now(),client.dateSQL)>	
-		
-		<cfif url.orgunit neq "">
-		
-		    AND    WO.OrgUnit = '#url.orgunit#'
-			
-		<cfelseif url.workorderid neq "">
-		
-			AND     WO.WorkOrderId = '#url.workorderid#'	
-			
-			<cfif url.unit neq "">	
-			
-			AND     WO.WorkorderLine IN (	
+					<cfif qService.recordcount gte "1">
+								
+						( SELECT SUM(Amount) 
+						  FROM   skWorkOrderCharges 
+						  WHERE  WorkOrderId   = WO.WorkorderId
+						  AND    WorkOrderLine = WO.WorkorderLine
+						  AND    SelectionDate >= '01/01/#year(now())#' 
+						  AND    SelectionDate <= '12/31/#year(now())#'
+						) as Amount,			
 					
-								    SELECT   WB.WorkOrderLine 
-									FROM     WorkOrderLineBilling WB INNER JOIN
-									         WorkOrderLineBillingDetail WBD ON WB.WorkOrderId = WBD.WorkOrderId AND WB.WorkOrderLine = WBD.WorkOrderLine AND 
-									         WB.BillingEffective = WBD.BillingEffective INNER JOIN
-									         WorkOrderLine W ON WB.WorkOrderId = W.WorkOrderId AND WB.WorkOrderLine = W.WorkOrderLine
-									WHERE    WB.WorkOrderId = '#url.workorderid#'
-									AND      WBD.Operational = 1 
-									AND      W.DateEffective < '#today#' 
-									AND      (W.DateExpiration IS NULL OR W.DateExpiration >= '#today#') 
-								    AND      WB.BillingEffective < '#today#'  
-								    AND      (WB.BillingExpiration IS NULL OR WB.BillingExpiration >= '#today#')
-									AND      WBD.ServiceItemUnit = '#url.unit#'
+					<cfelse>
+					
+					    ( SELECT   SUM(SaleAmountIncome)
+						  FROM     WorkOrderLineItem
+						  WHERE    WorkOrderId   = WO.WorkorderId
+						  AND      WorkOrderLine = WO.WorkorderLine
+						
+						) as Amount,					
+					
+					</cfif>
+								
+					WO.Operational,
+				    WO.Created		
 									
-									)
-																	
-		   </cfif>		 
-		
-		<cfelseif url.domain neq "Person">
-		
-			AND     WO.Reference    = '#url.ref#'
-			AND     W.ServiceItem IN (
-			                           SELECT Code
-			                           FROM   ServiceItem
-									   WHERE  ServiceDomain = '#url.domain#'
-									   )	
-								   
+								
+		    FROM    Workorder W ,
+			        WorkOrderLine WO , 
+					WorkOrderService WL ,
+					ServiceItem SI , 
+					Customer C		
+					
+		    WHERE   W.WorkOrderId      = WO.WorkorderId
+			AND     WO.ServiceDomain   = WL.ServiceDomain
+			AND     WO.Reference       = WL.Reference
+			AND     W.ServiceItem      = SI.Code
+			AND     SI.Operational     = 1
+			AND     W.CustomerId       = C.CustomerId
+			AND     W.Mission          = '#url.mission#'
+				
+			<cfset today = dateformat(now(),client.dateSQL)>	
 			
-		<cfelse>
-		
-			<!--- filter on the person but show only if access --->
-		
-			AND WO.PersonNo = '#url.ref#'
-		
-		    <cfif getAdministrator(url.mission) eq "1">
-		
-				<!--- no filtering --->
-							
-			<cfelse>
+			<cfif url.orgunit neq "">
+			
+			    AND    WO.OrgUnit = '#url.orgunit#'
+				
+			<cfelseif url.workorderid neq "">
+			
+				AND     WO.WorkOrderId = '#url.workorderid#'	
+				
+				<cfif url.unit neq "">	
+				
+				AND     WO.WorkorderLine IN (	
+						
+									    SELECT   WB.WorkOrderLine 
+										FROM     WorkOrderLineBilling WB INNER JOIN
+										         WorkOrderLineBillingDetail WBD ON WB.WorkOrderId = WBD.WorkOrderId AND WB.WorkOrderLine = WBD.WorkOrderLine AND 
+										         WB.BillingEffective = WBD.BillingEffective INNER JOIN
+										         WorkOrderLine W ON WB.WorkOrderId = W.WorkOrderId AND WB.WorkOrderLine = W.WorkOrderLine
+										WHERE    WB.WorkOrderId = '#url.workorderid#'
+										AND      WBD.Operational = 1 
+										AND      W.DateEffective < '#today#' 
+										AND      (W.DateExpiration IS NULL OR W.DateExpiration >= '#today#') 
+									    AND      WB.BillingEffective < '#today#'  
+									    AND      (WB.BillingExpiration IS NULL OR WB.BillingExpiration >= '#today#')
+										AND      WBD.ServiceItemUnit = '#url.unit#'
 										
-					AND (
-							W.ServiceItem IN (
-							                SELECT ClassParameter
-							                FROM   Organization.dbo.OrganizationAuthorization
-										    WHERE  UserAccount = '#SESSION.acc#'
-										    AND    Role = 'WorkOrderProcessor'
+										)
+																		
+			   </cfif>		 
+			
+			<cfelseif url.domain neq "Person">
+			
+				AND     WO.Reference    = '#url.ref#'
+				AND     W.ServiceItem IN (
+				                           SELECT Code
+				                           FROM   ServiceItem
+										   WHERE  ServiceDomain = '#url.domain#'
 										   )	
-										   
-							OR 		
-							
-							 <!--- is a requester for this service item --->
+									   
+				
+			<cfelse>
+			
+				<!--- filter on the person but show only if access --->
+			
+				AND WO.PersonNo = '#url.ref#'
+			
+			    <cfif getAdministrator(url.mission) eq "1">
+			
+					<!--- no filtering --->
 								
-							 W.ServiceItem IN (
-							                SELECT ClassParameter
-							                FROM   Organization.dbo.OrganizationAuthorization
-										    WHERE  UserAccount = '#SESSION.acc#'
-											AND    Mission = '#param.treecustomer#'
-										    AND    Role IN ('ServiceRequester','WorkOrderFunder')
-										   )		   
-						 )				    
+				<cfelse>
+											
+						AND (
+								W.ServiceItem IN (
+								                SELECT ClassParameter
+								                FROM   Organization.dbo.OrganizationAuthorization
+											    WHERE  UserAccount = '#SESSION.acc#'
+											    AND    Role = 'WorkOrderProcessor'
+											   )	
+											   
+								OR 		
 								
-			</cfif>
-		
-		</cfif>			
-		
-		<cfif url.filter eq "any">
+								 <!--- is a requester for this service item --->
+									
+								 W.ServiceItem IN (
+								                SELECT ClassParameter
+								                FROM   Organization.dbo.OrganizationAuthorization
+											    WHERE  UserAccount = '#SESSION.acc#'
+												AND    Mission = '#param.treecustomer#'
+											    AND    Role IN ('ServiceRequester','WorkOrderFunder')
+											   )		   
+							 )				    
+									
+				</cfif>
 			
-			<!--- nada --->
+			</cfif>			
 			
-		<cfelseif url.filter eq "enabled">
+			<cfif url.filter eq "any">
 				
-		    AND     WO.Operational = 1	
+				<!--- nada --->
+				
+			<cfelseif url.filter eq "enabled">
+					
+			    AND     WO.Operational = 1	
+				
+			<cfelseif url.filter eq "disabled">
+					
+			    AND     WO.Operational = 0	
 			
-		<cfelseif url.filter eq "disabled">
-				
-		    AND     WO.Operational = 0	
+			<cfelseif url.filter eq "active">
+			
+			    AND     WO.Operational = 1	
+			 
+				 <cfif allowconcurrent eq "0">
+				 AND    (WO.DateExpiration >= '#today#' or WO.DateExpiration is NULL) 
+				 AND     WO.DateEffective  <= '#today#'
+				 </cfif>
+			
+			<cfelse>
+			
+			    AND     WO.Operational = 1		
+		  	    <cfif allowconcurrent eq "0">
+			    AND     (WO.DateExpiration < '#today#' OR  WO.DateEffective > '#today#')
+			    </cfif>
+			 
+			</cfif> 
+			
+			) as D
+			WHERE 1=1
+			--condition
+											
+		</cfsavecontent>
 		
-		<cfelseif url.filter eq "active">
-		
-		    AND     WO.Operational = 1	
-		 
-			 <cfif allowconcurrent eq "0">
-			 AND    (WO.DateExpiration >= '#today#' or WO.DateExpiration is NULL) 
-			 AND     WO.DateEffective  <= '#today#'
-			 </cfif>
-		
-		<cfelse>
-		
-		    AND     WO.Operational = 1	
-	
-	  	    <cfif allowconcurrent eq "0">
-		    AND     (WO.DateExpiration < '#today#' OR  WO.DateEffective > '#today#')
-		    </cfif>
-		 
-		</cfif> 
-				
-				
-	</cfquery>
+		</cfoutput>
 
 	<cfcatch>
 			
@@ -363,15 +367,6 @@
 	</cfcatch>
 
 </cftry>
-
-<cfoutput>
-	
-	<cfsavecontent variable="myquery">
-		SELECT * 
-		FROM   tmp#SESSION.acc#WorkOrder_#fileno#
-	</cfsavecontent>
-
-</cfoutput>
 
 <cfset itm = 0>
 
@@ -392,11 +387,14 @@
 	<cfset itm = itm+1>
 
 	<cf_tl id="WorkOrder" var="vWorkOrder">
-	<cfset fields[itm] = {label    = "#vWorkOrder#",                    
-     				field          = "WorkOrderReference",		
-					functionscript       = "workorderview",
-				    functionfield  = "workorderid",																				
-					search         = "text"}>		
+	<cfset fields[itm] = {label      = "#vWorkOrder#",                    
+     				field            = "WorkOrderReference",																										
+					search           = "text"}>		
+					
+					<!---
+					functionscript   = "workorderview",
+				    functionfield    = "workorderid",	
+					--->
 					
 </cfif>					
 
@@ -420,33 +418,36 @@
 	
 	<cf_tl id="Action Center" var="vDescription">
 	
-	<cfset fields[itm] = {label     = "#vDescription#",                    
-     		field         = "ReferenceName",																
-			alias         = "WL",	
-			functionscript      = "workorderview",
-			functionfield = "workorderid",	
-			fieldsort     = "Description",																		
-			searchfield   = "Description",
-			search        = "text"}>									
+	<cfset fields[itm] =
+	                 {label            = "#vDescription#",                    
+			     	  field            = "ReferenceName",																			
+					  functionscript   = "workorderview",
+					  functionfield    = "workorderid",	
+					  fieldsort        = "Description",	
+					  filtermode       = "2",																	
+					  searchfield      = "Description",
+					  search           = "text"}>									
 					
 </cfif>				
 
 <cfset itm = itm+1>	
 <cf_tl id="Service" var="vServiceClass">
-<cfset fields[itm] = {label     = "#vServiceClass#",                    
-     				field       = "ServiceDomainClass",											
-					alias       = "",			
-					filtermode  = "2",																
-					search      = "text"}>		
+<cfset fields[itm]   = 
+                     {label            = "#vServiceClass#",                    
+     				  field            = "ServiceDomainClass",											
+					  alias            = "",			
+					  filtermode       = "2",																
+					  search           = "text"}>		
 									
 <cfif serviceitem.enableOrgUnit eq "1">
 		
 	<cfset itm = itm+1>				
 	<cf_tl id="OrgUnit" var="vOrgUnit">
-	<cfset fields[itm] = {label  = "#vOrgUnit#",
-				field       = "OrgUnitName", 	
-				filtermode  = "2",																					
-				search      = "text"}>	
+	<cfset fields[itm] = 
+	                 {label            = "#vOrgUnit#",
+					  field            = "OrgUnitName", 	
+					  filtermode       = "2",																					
+					  search           = "text"}>	
 				
 <cfelse>
 
@@ -466,11 +467,11 @@
      				field       = "WorkOrderLine",
 					display     = "false"}>			
 					
-				
 <cfset itm = itm+1>					
 <cf_tl id="Effective" var="vEffective">
 <cfset fields[itm] = {label     = "#vEffective#",
 					field       = "DateEffective", 		
+					column      = "month",
 					formatted   = "dateformat(dateeffective,CLIENT.DateFormatShow)",		
 					align       = "left",		
 					search      = "date"}>						
@@ -581,12 +582,10 @@
 	    header            = "servicedetails"
 	    box               = "linedetail#url.filter#"
 		link              = "#SESSION.root#/WorkOrder/Application/Workorder/ServiceDetails/ServiceLineListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=#url.filter#&workorderid=#url.workorderid#&ref=#url.ref#&domain=#url.domain#"
-	    html              = "No"		
-		classheader       = "labelit"
-		classline         = "label"
+	    html              = "No"				
 		tableheight       = "99%"
 		tablewidth        = "99%"
-		datasource        = "AppsQuery"		
+		datasource        = "AppsWorkOrder"		
 		listquery         = "#myquery#"		
 		listgroup         = "Description"
 		listorderfield    = "Reference"
@@ -599,7 +598,7 @@
 		excelshow         = "Yes" 	
 		screentop         = "No"	
 		listlayout        = "#fields#"
-		drillmode         = "window" 
+		drillmode         = "tab" 
 		drillargument     = "920;1220;true;true"	
 		drilltemplate     = "WorkOrder/Application/WorkOrder/ServiceDetails/ServiceLineView.cfm?drillid="
 		drillkey          = "WorkOrderLineId"

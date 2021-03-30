@@ -99,7 +99,7 @@ password="#SESSION.dbpw#">
 	<TR>
     <TD class="labelmedium" style="min-width:120px"><cf_tl id="Address type">: <font color="FF0000">*</font></TD>
     <TD>	
-	   	<cfselect name="AddressType" id="AddressType" class="regularxl enterastab">
+	   	<cfselect name="AddressType" id="AddressType" class="regularxxl enterastab">
 		    <cfoutput query="AddressType">
 				<option value="#AddressType#">#Description#</option>
 			</cfoutput>	    
@@ -128,7 +128,7 @@ password="#SESSION.dbpw#">
 			<cfset nat= PHPParameter.PHPNationality>
 		</cfif>
 			
-	   	<cfselect name="country" id="country" class="regularxl enterastab" onchange="#maplink#">
+	   	<cfselect name="country" id="country" class="regularxxl enterastab" onchange="#maplink#">
 		    <cfoutput query="Nation">
 				<option value="#Code#" <cfif Code IS nat>selected</cfif>>#Name#</option>
 			</cfoutput>
@@ -140,7 +140,7 @@ password="#SESSION.dbpw#">
 	<TR>
     <TD class="labelmedium"><cf_tl id="State"></TD>
     <TD>
-	   	<cfinput class="regularxl enterastab" value="#prior.state#" type="Text" name="State" id="State" size="10" maxlength="20">	   
+	   	<cfinput class="regularxxl enterastab" value="#prior.state#" type="Text" name="State" id="State" size="10" maxlength="20">	   
 	</TD>
 	</TR>
 				
@@ -148,7 +148,7 @@ password="#SESSION.dbpw#">
     <TD class="labelmedium"><cf_tl id="City">: <font color="FF0000">*</font></TD>
     <TD>
 	   	<cfinput 
-	   		class="regularxl enterastab" 
+	   		class="regularxxl enterastab" 
 	   		type="Text" 
 	   		onchange="#maplink#" 
 			value="#prior.city#"
@@ -172,7 +172,7 @@ password="#SESSION.dbpw#">
 				  form      = "addressentry"
 				  type      = "ZIP"
 				  mode      = "regularxl"
-				  class     = "regularxl"
+				  class     = "regularxxl"
 				  name      = "addresspostalcode"
 				  id		= "addresspostalcode"
 			      value     = "#prior.addresspostalcode#"
@@ -186,7 +186,7 @@ password="#SESSION.dbpw#">
 		<cfelse>
 		
 		   	<cfinput 
-		   		class     = "regularxl enterastab" 
+		   		class     = "regularxxl enterastab" 
 		   		type      = "Text" 
 		   		name      = "addresspostalcode" 
 		   		id        = "addresspostalcode" 
@@ -205,7 +205,7 @@ password="#SESSION.dbpw#">
     <TD class="labelmedium"><cf_tl id="Address">: <font color="FF0000">*</font></TD>
     <TD class="regular">
 	   	<cfinput 
-	   		class="regularxl enterastab" 
+	   		class="regularxxl enterastab" 
 	   		type="Text" 
 	   		onchange="#maplink#" 
 	   		name="address" 
@@ -221,7 +221,7 @@ password="#SESSION.dbpw#">
 	<TR>
     <TD class="labelmedium"><cf_tl id="Address">2:</TD>
     <TD class="regular">
-	   	<cfinput class="regularxl enterastab" type="Text" name="address2" id="address2" message="Please enter an address" required="No" size="50" maxlength="100">
+	   	<cfinput class="regularxxl enterastab" type="Text" name="address2" id="address2" message="Please enter an address" required="No" size="50" maxlength="100">
 	</TD>
 	</TR>
 		
@@ -233,13 +233,13 @@ password="#SESSION.dbpw#">
 		<td class="labelmedium">Lat:</td>
 		<td>&nbsp;</td>
 		<td>
-		<cfinput class="regularxl enterastab" validate="float" type="Text" name="cLatitude" id="cLatitude" size="15" maxlength="20">	
+		<cfinput class="regularxxl enterastab" validate="float" type="Text" name="cLatitude" id="cLatitude" size="15" maxlength="20">	
 		</td>
 		<td>&nbsp;</td>
 		<td class="labelmedium">Lng:</td>
 		<td>&nbsp;</td>
 		<td>
-		<cfinput class="regularxl enterastab" validate="float" type="Text" name="cLongitude" id="cLongitude"  size="15" maxlength="20">	
+		<cfinput class="regularxxl enterastab" validate="float" type="Text" name="cLongitude" id="cLongitude"  size="15" maxlength="20">	
 		</td>
 		</tr>
 	</table>
@@ -249,28 +249,28 @@ password="#SESSION.dbpw#">
 	<TR>
     <TD class="labelmedium"><cf_tl id="Telephone">:</TD>
     <TD>
-	   	<input type="Text" name="TelephoneNo" id="TelephoneNo" size="20" maxlength="20" class="regularxl enterastab">
+	   	<input type="Text" name="TelephoneNo" id="TelephoneNo" size="20" maxlength="20" class="regularxxl enterastab">
  	</TD>
 	</TR>
 		
 	<TR class="hide">
     <TD class="labelmedium"><cf_tl id="Fax">:</TD>
     <TD>
-	   	<input type="Text" name="FaxNo" id="FaxNo" size="20" maxlength="20" class="regularxl enterastab">
+	   	<input type="Text" name="FaxNo" id="FaxNo" size="20" maxlength="20" class="regularxxl enterastab">
     </TD>
 	</TR>
 		
 	<TR>
     <TD class="labelmedium"><cf_tl id="eMail">:</TD>
     <TD>
-	   	<cfinput type="Text" name="emailaddress"  id="emailaddress" required="no" message="Please enter a valid eMail address" validate="email" size="30" maxlength="40" class="regularxl enterastab">
+	   	<cfinput type="Text" name="emailaddress"  id="emailaddress" required="no" message="Please enter a valid eMail address" validate="email" size="30" maxlength="40" class="regularxxl enterastab">
 	</TD>
 	</TR>
 		
 	<TR>
     <TD class="labelmedium"><cf_tl id="Cellular:"></TD>
     <TD>
-	   	<input type="Text" name="Cellular" id="Cellular" size="20" maxlength="20" class="regularxl enterastab">
+	   	<input type="Text" name="Cellular" id="Cellular" size="20" maxlength="20" class="regularxxl enterastab">
  
 	</TD>
 	</TR>
@@ -282,7 +282,7 @@ password="#SESSION.dbpw#">
 	  <tr>
 	  <td>
 	  
-	  <cfselect name="ContactRelationShip" id="ContactRelationShip" class="regularxl enterastab">
+	  <cfselect name="ContactRelationShip" id="ContactRelationShip" class="regularxxl enterastab">
 		   <option value="" selected></option>
 		    <cfoutput query="Relationship">
 			<option value="#Relationship#">
@@ -292,7 +292,7 @@ password="#SESSION.dbpw#">
  	  </cfselect>
 	  
 	  </td>
-	  <td style="padding-left:4px"><input type="Text" name="Contact" id="Contact" size="30" maxlength="40" class="regularxl enterastab"></td>
+	  <td style="padding-left:4px"><input type="Text" name="Contact" id="Contact" size="30" maxlength="40" class="regularxxl enterastab"></td>
 	  </tr>
 	 </table>  	
 	</TD>
@@ -306,7 +306,7 @@ password="#SESSION.dbpw#">
 			</table>
 		</td>
         <TD colspan="1">
-		<textarea class="regular" style="width:100%;font-size:13px;padding:4px" rows="7" name="Remarks" id="Remarks" ></textarea> 
+		<textarea class="regular" style="width:100%;font-size:14px;padding:4px" rows="7" name="Remarks" id="Remarks" ></textarea> 
 		</TD>
 	</TR>
 	

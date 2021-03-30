@@ -63,10 +63,22 @@
 				       Ref_AccountGroup R ON R.AccountGroup = U.AccountGroup
 					   
 				WHERE  U.AccountType = 'Group'
-				
-				
+								
 				<cfif url.mission neq "">		
 				AND    U.AccountMission = '#url.mission#'
+				</cfif>
+				
+				<cfif url.application neq "">
+				
+				AND    EXISTS  (SELECT 'X'
+	    					    FROM   Organization.dbo.OrganizationAuthorization AS OA INNER JOIN
+				                       Organization.dbo.Ref_AuthorizationRole AS R ON OA.Role = R.Role
+								WHERE  OA.UserAccount = U.Account 
+								AND    R.SystemModule IN (SELECT  SystemModule
+									                      FROM    System.dbo.Ref_ApplicationModule
+									                      WHERE   Code = '#url.application#')    
+								)						  
+										
 				</cfif>
 				
 				<cfif SESSION.isAdministrator eq "No"> 
@@ -189,7 +201,7 @@
 					<td align="center" style="padding-right:8px">#Members#</td>
 					<TD style="font-size:13px">#OfficerLastName#</TD>
 					<TD style="font-size:13px">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
-					<TD style="padding-top:7px;padding-left:3px">	
+					<TD style="padding-top:2px;padding-left:3px">	
 						<cf_img icon="delete" onclick="purgegroup('#account#')">		   			
 					</TD>
 				    </TR>	

@@ -68,10 +68,11 @@
 					
 						<table width="97%" align="center">
 							
-							<tr><td class="labelmedium"><cf_tl id="Customer">:</td>
-							    <td class="labelmedium"><a href="javascript:viewOrgUnit('#workorder.orgunit#')">#workorder.customername#</a></td>
-								<td class="labelmedium"><cf_tl id="Terms">:</td>
-								<td align="right" style="padding-right:1px" class="labelmedium">
+							<tr class="labelmedium">
+							    <td><cf_tl id="Customer">:</td>
+							    <td><a href="javascript:viewOrgUnit('#workorder.orgunit#')">#workorder.customername#</a></td>
+								<td><cf_tl id="Terms">:</td>
+								<td align="right" style="padding-right:1px">
 								
 								  	<cfquery name="Terms" 
 											datasource="AppsWorkOrder"
@@ -81,7 +82,7 @@
 											FROM       Ref_Terms							
 									</cfquery> 	
 								   			  
-									<select name="terms" id="terms" class="regularxl">
+									<select name="terms" id="terms" class="regularxxl">
 											<cfloop query="Terms">
 												<option value="#Code#" <cfif WorkOrder.Terms eq Code>selected</cfif>>#Description#</option>
 											</cfloop>
@@ -115,10 +116,7 @@
 												
 					</td></tr>
 						
-				    <tr><td	 style="padding-left:14px;padding-right:14px;padding-top:5px">	
-								 
-											
-					</td></tr>	
+				    <tr><td	 style="padding-left:14px;padding-right:14px;padding-top:5px"><td></tr>	
 								
 					</table>
 

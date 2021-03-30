@@ -26,6 +26,14 @@
 
     <cfset sc = replace(Header.QueryScript, "SELECT",  "SELECT TOP 1")> 
 	
+	<cfoutput>
+		<cfsavecontent variable="sc">	
+			SELECT *
+			FROM (#preservesinglequotes(sc)#) as D
+			WHERE 1=0		
+		</cfsavecontent>		
+		</cfoutput>
+	
 	<!--- -------------------------- --->
 	<!--- preparation of the listing --->
 	<!--- -------------------------- --->

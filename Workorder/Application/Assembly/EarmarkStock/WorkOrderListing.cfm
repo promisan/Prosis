@@ -100,7 +100,7 @@
 			
 				<table width="100%" cellspacing="0" cellpadding="0">			
 				
-					<tr class="labelit line">
+					<tr class="labelmedium2 line">
 					
 						<td width="5%" style="padding-left:3px"></td>
 						<td style="width:30"></td>
@@ -123,7 +123,7 @@
 					
 						<cfset bal = quantity-shipped>
 													
-						<tr class="navigation_row line cellcontent">
+						<tr class="navigation_row line labelmedium2">
 						
 							<td align="center" style="height:21">							    
 								

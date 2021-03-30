@@ -263,7 +263,7 @@
 	
 					<table width="99%" cellspacing="0" cellpadding="0">			
 					
-						<tr class="line labelmedium">
+						<tr class="line labelmedium2">
 						
 							<td width="5%" style="padding-left:3px">
 							   <cfif mode eq "edit">
@@ -312,7 +312,7 @@
 																						
 						<cfloop query="ItemFinished">
 						
-							<tr class="navigation_row line labelmedium" style="height:15px">
+							<tr class="navigation_row line labelmedium2" style="height:25px">
 							
 								<td align="center" style="height:15">
 								

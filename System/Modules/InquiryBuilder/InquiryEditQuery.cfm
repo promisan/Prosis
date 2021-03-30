@@ -35,7 +35,7 @@
 	
 		<table cellspacing="0" width="100%">
 						
-			<tr style="background-color:eaeaea" class="line">
+			<tr style="background-color:fafafa" class="line">
 			
 				<td style="padding-top:3px" valign="bottom">
 				
@@ -66,7 +66,7 @@
 					<cfset dsNames = dsService.getNames()>
 					<cfset ArraySort(dsnames, "textnocase")> 
 					
-					<select name="querydatasource" id="querydatasource" class="regularxl" style="font:10px">
+					<select name="querydatasource" id="querydatasource" class="regularxxl">
 						<option value="" selected>--- select ---</option>
 						<CFLOOP INDEX="i"
 						FROM="1"
@@ -81,23 +81,23 @@
 					</td>
 					
 					<td>
-					<input type="button" value="Test Query" style="width:130;height:24" class="button10g" 
+					<input type="button" value="Test Query" style="width:130;border:1px solid gray" class="button10g" 
 					 onclick="ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/QueryValidate.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','testresult','','','POST','inquiryform')"/>
 					</td>						
 					
 					<td>	
-					<input type="button" name="testing" id="testing" class="button10g" style="width:120;height:24" Value="Preview"
+					<input type="button" name="testing" id="testing" class="button10g" style="width:120;border:1px solid gray" Value="Preview"
 					  onclick="preview('#URL.SystemFunctionId#')">			
 				    </td>			   
 				    
 					<td>	
-						<input type="button" name="testing" id="testing" class="button10g" style="width:120;height:24" Value="Copy Listing"
+						<input type="button" name="testing" id="testing" class="button10g" style="width:120;border:1px solid gray" Value="Copy Listing"
 						  onclick="copy('#URL.SystemFunctionId#')">
 				    </td>
 					
 					 <td align="right" style="padding-left:40px;padding-right:10px">Preparation SQL script:</td>		
 					<td width="20" align="right" style="padding-left:4px">
-					<input value="Query" class="button10g" style="width:100;font-size:12px" type="button" onclick="editpreparation('#url.systemfunctionid#','#url.functionserialno#')"/>		
+					<input value="Query" class="button10g" style="width:100;font-size:12px;border:1px solid gray" type="button" onclick="editpreparation('#url.systemfunctionid#','#url.functionserialno#')"/>		
 						</td>
 					
 			   

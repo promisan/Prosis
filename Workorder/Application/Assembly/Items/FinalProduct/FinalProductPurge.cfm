@@ -91,6 +91,6 @@
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('#session.root#/Workorder/Application/Assembly/Items/FinalProduct/FinalProductListing.cfm?workorderid=#url.workOrderId#&workorderline=#url.workOrderLine#','topSection');
+		ptoken.navigate('#session.root#/Workorder/Application/Assembly/Items/FinalProduct/FinalProductListing.cfm?workorderid=#url.workOrderId#&workorderline=#url.workOrderLine#','topSection');
 	</script>
 </cfoutput>	

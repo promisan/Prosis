@@ -24,7 +24,7 @@ password="#SESSION.dbpw#">
 	<tr><td height="5"></td></tr>
 	<tr class="hide"><td colspan="2"><iframe name="result" id="result"></iframe></td></tr>
 
-	 <cfif getAdministrator(url.mission) eq "1">
+	<cfif getAdministrator(url.mission) eq "1">
 	 	 
 	 	<cfquery name="Mis" 
 			datasource="AppsPurchase" 

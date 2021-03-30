@@ -40,9 +40,17 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <cftry>
-
-    <cfset sc = replaceNocase(myscript, "SELECT",  "SELECT TOP 1")> 
-		
+	
+    <cfset sc = replaceNocase(myscript, "SELECT",  "SELECT TOP 1 PERCENT")> 
+	
+	<cfoutput>
+	<cfsavecontent variable="sc">	
+		SELECT *
+		FROM (#preservesinglequotes(sc)#) as D
+		WHERE 1=0		
+	</cfsavecontent>		
+	</cfoutput>
+				
 	<!--- -------------------------- --->
 	<!--- preparation of the listing --->
 	<!--- -------------------------- --->
@@ -58,10 +66,10 @@ password="#SESSION.dbpw#">
 	<cfquery name="SelectQuery" 
 	datasource="#Form.querydatasource#" 
 	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
+	password="#SESSION.dbpw#">	
 	   #preservesinglequotes(sc)#	   
 	</cfquery>
-						
+							
 	<cfcatch>
 			
 		<cfif len(sc) gte 10>
@@ -140,7 +148,7 @@ password="#SESSION.dbpw#">
 	
 <cfset submitlink = "#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFieldsSubmit.cfm?Datasource=#Form.querydatasource#&SystemFunctionId=#URL.SystemFunctionId#&functionSerialNo=#url.functionSerialNo#">
 
-<table width="100%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%">
 
 <tr><td>
 			
@@ -187,7 +195,7 @@ password="#SESSION.dbpw#">
 		   <td style="text-align:center;border:1px solid silver;"><cf_tl id="Filter"></td>
 		   <td style="text-align:center;cursor:pointer;border:1px solid silver;"><cf_UIToolTip tooltip="Filter selection mode">Select mode</cf_UIToolTip></td>
 		   <td style="text-align:center;border:1px solid silver;"><cf_UIToolTip tooltip="Show option in the tree">Tree</cf_UIToolTip></td>
-		   <td></td>
+		   <td style="text-align:center;border:1px solid silver;"></td>
 		   
 	    </TR>	
 			
@@ -408,7 +416,7 @@ password="#SESSION.dbpw#">
 														
 				<TR class="navigation_row labelmedium line" bgcolor="#color#" style="height:18px" onDblClick="#edit#">
 				
-				  <td align="right" style="padding-right:4px;padding-top:3px;border-left:1px solid silver;">		
+				  <td align="right" style="padding-right:4px;padding-top:3px;border-left:0px solid silver;">		
 				   
 					   <table>
 						   <tr>		

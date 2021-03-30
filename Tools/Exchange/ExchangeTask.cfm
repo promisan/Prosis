@@ -32,12 +32,12 @@
 			
 <cfelse>
 
+	<cfset account = attributes.mailboxname>	
 	<cfset name    = attributes.mailboxname>
 	<cfset pass    = attributes.Password>		
-	<cfset account = attributes.mailboxname>		
+		
 	
 </cfif>
-
 
 <!--- check if account exists --->
 
@@ -51,8 +51,8 @@
 	           username      = "#Account#"
 	           mailboxname   = "#Name#"
 	           password      = "#Pass#"
-	           protocol      = "http"
-			   serverversion = "2010">
+	           protocol      = "https"
+			   serverversion = "#System.ExchangeServerVersion#">
 	 
 	  <cfif attributes.action eq "create">
 	    

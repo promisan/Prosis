@@ -206,7 +206,7 @@
 		filtershow          = "Yes"
 		excelshow           = "Yes" 					
 		listlayout          = "#fields#"
-		drillmode           = "window" 
+		drillmode           = "tab" 
 		drilltemplate       = "WorkOrder/Application/WorkOrder/ServiceDetails/ServiceLineView.cfm?drillid="		
 		drillkey            = "WorkOrderLineId"
 		drillargument       = "#client.height-90#;#client.width-90#;false;false">

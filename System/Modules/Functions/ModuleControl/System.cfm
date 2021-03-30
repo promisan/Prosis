@@ -210,7 +210,19 @@
    ScriptName         = "portal"
    AccessUserGroup    = "0">   
    
-	<!--- context menu for user admin --->   
+	<!--- context menu for user admin --->  
+	
+	<cf_ModuleInsertSubmit
+	   SystemModule       = "System" 
+	   FunctionClass      = "UserMaintain"
+	   FunctionName       = "Grant Access" 
+	   MenuClass          = "Access"
+	   MenuOrder          = "1"
+	   MainMenuItem       = "0"
+	   FunctionMemo       = "Function access"
+	   FunctionPath       = ""
+	   ScriptName         = "functionaccess"
+	   AccessUserGroup    = "1">	 
 			
 	<cf_ModuleInsertSubmit
 	   SystemModule       = "System" 

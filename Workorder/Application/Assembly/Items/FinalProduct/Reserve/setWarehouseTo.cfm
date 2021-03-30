@@ -32,8 +32,8 @@
 					<cfoutput>	
 											
 						<select name="warehouseto" id="warehouseto"
-						    class="regularh" style="font-size:18px;height:25px;width:250"
-							onchange="ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/setWarehouseLocationTo.cfm?itemno=#url.itemno#&warehouse=#url.warehouse#&warehouseto='+this.value,'boxlocationto')">
+						    class="regularxxl" style="width:250px"
+							onchange="ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/setWarehouseLocationTo.cfm?itemno=#url.itemno#&warehouse=#url.warehouse#&warehouseto='+this.value,'boxlocationto')">
 							<cfloop query="Warehouse">
 								<option value="#Warehouse#" <cfif url.warehouse eq warehouse>selected</cfif>>#WarehouseName#</option>
 							</cfloop>

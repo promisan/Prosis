@@ -10,21 +10,23 @@ password="#SESSION.dbpw#">
 <cfoutput>
  
 <cftry>
-
-	<!----- Guat3mala09 ---->
+	
 	<cfexchangeconnection action="OPEN"
           connection   = "mycon"
           server       = "#get.ExchangeServer#"
           username     = "#url.mailbox#"
           mailboxname  = "#url.mailbox#"
-          password     = "#url.mailpassword#"
-          port         = "636"
+          password     = "#url.mailpassword#"         
           protocol     = "https"
-		  serverversion= "2013">
+		  serverversion= "#get.ExchangeServerVersion#">
 		  
 		<cf_tl id="Valid Mail box" var="1">		 		  
 	    <img style="cursor:pointer" src="#SESSION.root#/Images/check_mark2.gif" align="absmiddle" alt="#lt_text#" border="0">
 	   	&nbsp;Success !
+		
+		<script>
+		document.getElementById('verify').className = "hide"
+		</script>
 			
 	<cfcatch>
 		

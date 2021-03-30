@@ -35,6 +35,10 @@ function group(acc) {
     ptoken.navigate('#SESSION.root#/System/Access/Membership/UserMember.cfm?ID=#URL.ID#','contentbox');  
 }
 
+function functionaccess() {
+    ptoken.navigate('#SESSION.root#/System/Access/Entity/UserFunction.cfm?ID=#URL.ID#','contentbox');         
+}
+
 function variant() {
     ptoken.navigate('../Variant/ReportVariant.cfm?ID=#URL.ID#','contentbox');         
 }
