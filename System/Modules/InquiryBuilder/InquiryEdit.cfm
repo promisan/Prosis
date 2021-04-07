@@ -165,7 +165,7 @@ password="#SESSION.dbpw#">
 
 <cf_divscroll>
 
-<cfform name="inquiryform" id="inquiryform" style="height:100%">
+<cfform name="inquiryform" id="inquiryform" style="height:98.5%">
 
 <table width="97%" align="center">
 

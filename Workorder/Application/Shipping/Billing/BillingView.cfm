@@ -67,15 +67,15 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 <script language="JavaScript">
 
 	function recordedit(id) {   
-	     ColdFusion.Window.create('executetask', 'Edit Shipment', '',{x:100,y:100,height:580,width:560,closable:true,modal:true,center:true})	
-		 ColdFusion.navigate('editShipment.cfm?transactionid='+id,'executetask')
+	     ProsisUI.createWindow('executetask', 'Edit Shipment', '',{x:100,y:100,height:580,width:560,closable:true,modal:true,center:true})	
+		 ptoken.navigate('editShipment.cfm?transactionid='+id,'executetask')
 	}
 	
 	
 	function validate(id) {	
 		document.shippingeditform.onsubmit() 
 		if( _CF_error_messages.length == 0 ) {         
-			ColdFusion.navigate('editShipmentSubmit.cfm?systemfunctionid=#url.systemfunctionid#&transactionid='+id,'executetask','','','POST','shippingeditform')
+			ptoken.navigate('editShipmentSubmit.cfm?systemfunctionid=#url.systemfunctionid#&transactionid='+id,'executetask','','','POST','shippingeditform')
 		 }   	 
 	}	 
 
@@ -86,7 +86,7 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 			$(selector).prop('checked', false);
 		}
 		_cf_loadingtexthtml='';
-		ColdFusion.navigate('setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform');
+		ptoken.navigate('setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform');
 	}
 	
 	function applyWorkorder() {
@@ -94,15 +94,15 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 	   _cf_loadingtexthtml='';
 	   Prosis.busy('yes')	   
 	   // refresh workorder box
-	   ColdFusion.navigate('BillingEntryWorkOrder.cfm?systemfunctionid=#url.systemfunctionid#','workorder','','','POST','billingform')	 	   
+	   ptoken.navigate('BillingEntryWorkOrder.cfm?systemfunctionid=#url.systemfunctionid#','workorder','','','POST','billingform')	 	   
 	   // refresh contentbox
-	   ColdFusion.navigate('BillingEntryDetail.cfm?systemfunctionid=#url.systemfunctionid#','mycontent','','','POST','billingform')
+	   ptoken.navigate('BillingEntryDetail.cfm?systemfunctionid=#url.systemfunctionid#','mycontent','','','POST','billingform')
 		
 	}
 	
 	function doTotal() {
 		_cf_loadingtexthtml='';
-		ColdFusion.navigate('setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform')
+		ptoken.navigate('setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform')
 	}
 
 </script>
@@ -154,9 +154,9 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 	<cf_layoutarea position="bottom" name="bottom" collapsible="false" size="180" minsize="180">
 		<table width="100%" bgcolor="EfEfEf" height="100%">			
 		<tr><td valign="top" style="border-top:1px solid silver;padding-top:3px">
-		<cf_divscroll style="height:100%">
-		<cfinclude template="BillingPosting.cfm">	
-		</cf_divscroll>
+			<cf_divscroll style="height:100%">
+			<cfinclude template="BillingPosting.cfm">	
+			</cf_divscroll>
 		</td></tr>
 		</table>	
 		

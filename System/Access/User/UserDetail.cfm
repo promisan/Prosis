@@ -27,6 +27,13 @@
 <cfoutput>
 
 	<script>
+		
+		function formvalidate(id) {
+			document.userfunction.onsubmit() 
+			if( _CF_error_messages.length == 0 ) {       
+				ptoken.navigate('#session.root#/system/access/entity/UserFunctionSubmit.cfm?id='+id,'process','','','POST','userfunction')
+			 }   
+		}	 
 	
 		function showusergroup(chk,id,row,acc) {
 		

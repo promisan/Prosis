@@ -458,7 +458,7 @@
 		
 			ShowTransaction('#AdvanceJournal.journal#','#JournalTransactionNo#','0');			
 			_cf_loadingtexthtml='';	
-			ColdFusion.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Prebilling/PreBillingView.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&systemfunctionid=#url.systemfunctionid#','content');					
+			ptoken.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Prebilling/PreBillingView.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&systemfunctionid=#url.systemfunctionid#','content');					
 			Prosis.busy("no");	
 			
 		</script>

@@ -154,13 +154,16 @@
 						   <td align="right" style="border-left:1px solid silver;font-size:14px;padding:1px">
 						   <table style="height:99%;width:100%">
 						     <tr><td align="right" 
-								  style="padding-left:10px;width:90%;background-color:##ffffaf80;font-size:16px;padding-right:3px;border:1px solid silver">								  
+								  style="padding-left:10px;width:90%;background-color:##ffffaf80;font-size:16px;padding-right:3px;border:1px solid silver">	
+								  #grp[itm]#
+								  <!--- 							  
 								  <cftry>
 								  #numberformat(grp[itm],',.__')#
 								  <cfcatch>
 								  #grp[itm]#
 								  </cfcatch>
-								  </cftry></td></tr>
+								  </cftry>--->
+								  </td></tr>
 						   </table>					   
 						   </td>	
 					   </cfif>

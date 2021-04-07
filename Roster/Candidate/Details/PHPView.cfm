@@ -48,9 +48,8 @@ password="#SESSION.dbpw#">
 		
 	    function merge() {
 		
-		    
-			try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-			parent.ColdFusion.Window.create('mydialog', 'Merge', '',{x:100,y:100,height:700,width:700,modal:true,resizable:false,center:true})    					
+		    			
+			parent.ProsisUI,createWindow('mydialog', 'Merge', '',{x:100,y:100,height:700,width:700,modal:true,resizable:false,center:true})    					
 			parent.ptoken.navigate('#SESSION.root#/Roster/Candidate/Tools/Person2Times.cfm?personno=#url.id#','mydialog') 		
 
 		
@@ -262,7 +261,7 @@ password="#SESSION.dbpw#">
 								
 								<tr>				 							
 								<td align="center">							
-									<button style="border-radius:2px;width:140;height:39px" type="button" class="button10g" 
+									<button style="border-radius:2px;width:96%;height:39px" type="button" class="button10g" 
 									  onClick="merge('#Candidate.PersonNo#')"><cf_tl id="Merge this candidate"></button>								
 								</td>	
 								</tr>

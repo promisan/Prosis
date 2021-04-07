@@ -54,11 +54,13 @@
 		
 	    var wfmode = 8
 						
-	    if (emb) { 				  
+	    if (emb) { 		
+		  _cf_loadingtexthtml='';		  
 		  ptoken.navigate('ProcessActionSubmit.cfm?myentity=#url.myentity#&windowmode=#url.windowmode#&submitaction=embedsave&wfmode='+wfmode+'&ajaxid=#URL.ajaxid#&process=#url.process#&ID=#URL.ID#','actionprocessbox','','','POST','formembed') 
 		}
 														
-		if (fld && ap) {			  		  
+		if (fld && ap) {			
+		  _cf_loadingtexthtml='';  		  
 		  ptoken.navigate('ProcessActionSubmitCustom.cfm?closemode='+mode+'&windowmode=#url.windowmode#&wfmode='+wfmode+'&process=#URL.Process#&ID=#URL.ID#&ajaxId=#url.ajaxid#','actionprocessbox',mycallBack(),'','POST','formcustomfield')  
 		}		
 	}

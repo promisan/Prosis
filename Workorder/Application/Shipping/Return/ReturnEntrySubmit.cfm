@@ -614,7 +614,7 @@ password="#SESSION.dbpw#">
 	<script>
 	    batch('#batchno#','#get.mission#','process','#url.systemfunctionid#','workorder')	    		
 		_cf_loadingtexthtml='';	
-		ColdFusion.navigate('ReturnEntryDetail.cfm?workorderid=#url.workorderid#&systemfunctionid=#url.systemfunctionid#','content');
+		ptoken.navigate('ReturnEntryDetail.cfm?workorderid=#url.workorderid#&systemfunctionid=#url.systemfunctionid#','content');
 		Prosis.busy("no");	
 	</script>
 	

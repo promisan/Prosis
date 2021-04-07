@@ -63,9 +63,7 @@
 				
 				AND (
 				
-				     C.OrgUnit is NULL OR C.OrgUnit = '' 
-
-				     OR		
+				     -- C.OrgUnit is NULL OR C.OrgUnit = ''  OR		
 					 
 					 <!--- processor --->			 
 					
@@ -118,17 +116,20 @@
 			
 			</cfif>
 					
-			AND   ( CustomerName LIKE '%#url.val#%' or Reference LIKE '%#url.val#%' or eMailAddress LIKE '%#url.val#%')		
+			AND   ( CustomerName LIKE '%#url.val#%' 
+			          or Reference LIKE '%#url.val#%' 
+					  or eMailAddress LIKE '%#url.val#%')		
+			
+			<!--- added the condition to show only institutional customers with orgunit here --->		  
+			-- AND   C.OrgUnit > 0		  
 			
 			ORDER BY CustomerName			
 			
 	</cfquery>
 	
-		
-
 	<cfoutput>
 	
-	<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
+	<table width="100%" class="navigation_table">
 	
 	<!--- access for a workorder processor with access = ALL --->
 		
@@ -139,13 +140,12 @@
 	
 	<cfif access eq "ALL">
 	
-		<tr>
-			<td class="labelmedium" style="height:30;padding-left:10px">
+		<tr class="line">
+			<td class="labelmedium2" style="height:30;padding-left:10px">
 			<a href="javascript:showcustomer('','edit','#url.dsn#','#url.mission#')"><cf_tl id="Add Customer"></a>
 		    </td>
 		</tr>
-		
-		<tr><td class="linedotted"></td></tr>		
+				
 		<tr><td colspan="2" style="padding-left:10px" height="1" width="100%" id="newentry"></td></tr>	
 			
 	</cfif>
@@ -161,7 +161,7 @@
 		<tr class="navigation_row">
 		
 			<td class="navigation_action"
-			   style="padding-left:10px"   width="100%" id="box#customerid#" onclick="_cf_loadingtexthtml='';Prosis.busy('yes');ColdFusion.navigate('CustomerEdit.cfm?systemfunctionid=#url.systemfunctionid#&customerid=#CustomerId#&dsn=#url.dsn#','detail')">
+			   style="padding-left:10px"   width="100%" id="box#customerid#" onclick="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('CustomerEdit.cfm?systemfunctionid=#url.systemfunctionid#&customerid=#CustomerId#&dsn=#url.dsn#','detail')">
 		
 			<table border="0" width="100%" cellspacing="0" cellpadding="0">
 				<tr class="cellcontent">

@@ -465,16 +465,16 @@
 											
 											<!--- we add to the end of the list another comma to prevent accidental matches --->																																	
 											<cfset val = "#val#|">
-											
+																						
 											<input type="hidden" name="filter#current.field#_checkbox" value="Yes">							
 																				
 											<cfloop query="lookupdata">
 											   <cfif pk neq "">												  
 											  	 <td><input class="radiol" type="checkbox" 
 													  id="filter#current.field#_#currentrow#" 
-													  name="filter#current.field#" 
-													  value="#PK#" <cfif findNoCase("#pk#,",val)>checked</cfif>></td>
-												 <td style="padding-top:2px;padding-left:3px;padding-right:10px" class="labelmedium">#DISPLAY#</td>
+													  name="filter#current.field#" onclick="applyfilter('','1','content')"
+													  value="#PK#|" <cfif findNoCase("#pk#|",val)>checked</cfif>></td>
+												 <td style="padding-top:2px;padding-left:3px;padding-right:10px" class="labelmedium2">#DISPLAY#</td>
 											   </cfif>
 											    <cfset reset =  "#reset#;document.getElementById('filter#current.field#_#currentrow#').checked=false">	 								  
 											</cfloop>
@@ -716,15 +716,17 @@
 				
 					<table class="formspacing">
 					<tr>
+					<!--- needs rework
 					<td>		
 						 <cf_tl id="Reset" var="1">
 					     <input type="button" name="reset" id="reset" value="#lt_text#" class="button10g" 
-						   style="border-radius:3px;font-size:12px;height:25px;width:120px" onClick= "#reset#">    						 
+						   style="border-radius:3px;font-size:12px;border:1px solid gray;height:25px;width:120px" onClick= "#reset#">    						 
 					</td>			
+					--->
 					<td style="padding-left:2px">
 						 <cf_tl id="Apply" var="1">
 						 <input type="button" name="apply" id="apply" value="#lt_text#" class="button10g" 
-						  style="font-size:12px;height:25px;border-radius:3px;width:120px" onClick= "applyfilter('',1,'content')">  														
+						  style="font-size:12px;height:25px;border:1px solid gray;border-radius:3px;width:120px" onClick= "applyfilter('',1,'content')">  														
 					</td>
 					
 					<td style="padding-left:8px"><input type="radio" checked class="radiol" name="useCache" id="useCache" value="1"></td>					

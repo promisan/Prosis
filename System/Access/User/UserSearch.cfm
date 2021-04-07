@@ -9,58 +9,63 @@
 <cfset save         = "0"> 
 <cfset menu         = "1"> 
 
-<cfinclude template = "../HeaderMaintain.cfm"> 
+<table width="98%" height="100%" align="center">
 
-<p align="center"></p>
+	<tr>
+	<td align="center" width="100%" style="height:10px">
+	<cfinclude template = "../HeaderMaintain.cfm"> 
+	</td>
+	</tr>
+			
+	<script>
+	  function user() {
+	   document.getElementById('MissionAccess').disabled = false
+	   document.getElementById('HostAccess').disabled    = false
+	   document.getElementById('fmission').className     = "regular"
+	   document.getElementById('fhost').className        = "regular"
+	   document.getElementById('fdate').className        = "regular"
+	  }
+	  
+	  function usergroup() {
+	   document.getElementById('MissionAccess').disabled = true
+	   document.getElementById('HostAccess').disabled    = true
+	   document.getElementById('fmission').className     = "hide"
+	   document.getElementById('fhost').className        = "hide"
+	   document.getElementById('fdate').className        = "hide"
+	  }
+	</script>
+	
+	<!--- Search form --->
+	
+	<cfparam name="URL.Form" default="">
+	<cfparam name="URL.ID"   default="">
+	<cfparam name="URL.ID1"  default="">
+	<cfparam name="URL.ID4"  default="default">
+	
+	<cf_tl id="Contains" var="1">
+	<cfset vContains=#lt_text#>
+	
+	<cf_tl id="beginsWith" var="1">
+	<cfset vBeginsWith=#lt_text#>
 
-<script>
-  function user() {
-   document.getElementById('MissionAccess').disabled = false
-   document.getElementById('HostAccess').disabled    = false
-   document.getElementById('fmission').className     = "regular"
-   document.getElementById('fhost').className        = "regular"
-   document.getElementById('fdate').className        = "regular"
-  }
-  
-  function usergroup() {
-   document.getElementById('MissionAccess').disabled = true
-   document.getElementById('HostAccess').disabled    = true
-   document.getElementById('fmission').className     = "hide"
-   document.getElementById('fhost').className        = "hide"
-   document.getElementById('fdate').className        = "hide"
-  }
-</script>
-
-<!--- Search form --->
-
-<cfparam name="URL.Form" default="">
-<cfparam name="URL.ID"   default="">
-<cfparam name="URL.ID1"  default="">
-<cfparam name="URL.ID4"  default="default">
-
-<cf_tl id="Contains" var="1">
-<cfset vContains=#lt_text#>
-
-<cf_tl id="beginsWith" var="1">
-<cfset vBeginsWith=#lt_text#>
-
-<table width="80%" align="center">
-<tr>
-<td align="center" width="70%">
-
-<CFFORM action="UserSearchCriteria.cfm?idmenu=#url.idmenu#&Form=#URL.Form#&ID=#URL.Id#&ID1=#URL.ID1#&ID4=#URL.Form#" method="post">
-
+	<tr>
+	<td style="height:100%">
+	
+	<cf_divscroll>
+		
+	<CFFORM action="UserSearchCriteria.cfm?idmenu=#url.idmenu#&Form=#URL.Form#&ID=#URL.Id#&ID1=#URL.ID1#&ID4=#URL.Form#" method="post">
+	
 		<cfoutput>
 				
 		<table width="630" align="center" align="center">
 		<tr>
-		  <td style="padding-top:7px;font-size:32px;padding-left:40px;font-weight:200" class="labelmedium">
-		  User (-group) search criteria</td>
+		  <td style="padding-top:7px;font-size:32px;padding-left:40px;font-weight:300" class="labelmedium">
+		  Search criteria</td>
 		</tr>
 			
 		<tr><td width="90%" style="padding-left:10px">
 			
-		<table width="90%" align="center" class="formpadding formspacing">
+		<table width="90%" align="center" class="formpadding">
 		
 			<tr class="line"><td colspan="2"></td></tr>
 			
@@ -513,17 +518,13 @@
 							
 			</TD>
 			</TR>	
-				
-									
+													
 			<tr class="line"><td colspan="2" height="6"></td></tr>
 			
-			<tr><td height="10"></td></tr>
-			<tr><td colspan="2" align="center" height="35">
-			<input type="submit" value="Find" class="button10g" style="font-size:14px;height:29;width:160px">
+			<tr><td colspan="2" align="center">
+			<input type="submit" value="Find" class="button10g" style="font-size:14px;height:29px;width:160px">
 			</td></tr>
-			
-			<tr><td height="5"></td></tr>
-		
+					
 		</TABLE>
 			
 		</td>
@@ -532,9 +533,12 @@
 		</table>
 			
 		</cfoutput>
-
-</cfform>
-
-</tr>
-
-</table>
+	
+	</cfform>
+		
+	</cf_divscroll>
+	
+	</td>
+	</tr>
+	
+	</table>

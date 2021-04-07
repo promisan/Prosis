@@ -111,8 +111,7 @@
 				
 	</cfquery>
 	
-<table width="97%" border="0" cellspacing="0" cellpadding="0" align="left" class="navigation_table">
-
+<table width="97%" align="left" class="navigation_table">
 
 	<tr class="labellarge line fixrow">
 	    <td width="5%"></td>

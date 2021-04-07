@@ -13,6 +13,8 @@
 	 FROM     Organization
 	 WHERE    OrgUnit = '#Object.OrgUnit#'  
 </cfquery>
+
+
    
 <cfif object.MailRecipient neq "">
  
@@ -32,6 +34,7 @@
 	 	 
 	 <cfinclude template="ProcessMailAction.cfm">
 	 
+	 	 
 <cfelse>	    
   
  	<cfquery name="Potential" 
@@ -274,14 +277,17 @@
 					 username="#SESSION.login#" 
 					 password="#SESSION.dbpw#">
 					 	SELECT   *
-						FROM     System.dbo.Parameter				
+						FROM     System.dbo.Parameter			
 				    </cfquery>
-								  
-					<!--- ------------------------------------------ --->			  
-				    <!--- check if user has a MS exchange 10 mailbox --->
-					<!--- ------------------------------------------ --->							
+					
+													  
+					<!--- -------------------------------------------- --->			  
+				    <!--- check if user has a MS exchange 2016 mailbox --->
+					<!--- -------------------------------------------- --->							
 																									
-				   <cfif MailServerAccount neq ""  and Notify.EnableExchangeTask eq "1" and System.ExchangeServer neq "">
+				   <cfif MailServerAccount neq ""  
+				         and Notify.EnableExchangeTask eq "1" 
+						 and System.ExchangeServer neq "">
 				   				   				   				  			   
 					    	<cfoutput>
 							
@@ -289,16 +295,27 @@
 				   
 						   		<cfsavecontent variable="taskmessage">
 								
-								  <table>
-								   <tr><td bgcolor="C0C0C0">Action</td>
-								       <td>#NextCheck.ActionDescription#</td>
+								  <table cellspacing="1" cellpadding="1">
+								   <tr style="border-bottom:1px solid silver">
+								      <td colspan="2" align="center" style="height:40px;color:white;padding-left:4px;width:530px;padding-right:4px;background-color:gray">#session.welcome# <cf_tl id="Action"></td>								      
 								   </tr>
-								   <tr><td bgcolor="C0C0C0">Reference</td>
-								       <td>#Object.ObjectReference2#</td>
+								   <tr style="border-bottom:1px solid silver"><td style="color:white;padding-left:4px;width:150px;padding-right:4px;background-color:1E90FF"><cf_tl id="Requested"></td>
+								       <td style="padding-left:4px">#session.first# #session.last#</td>
+								   </tr>								  
+								   <tr style="border-bottom:1px solid silver"><td style="color:white;padding-left:4px;width:150px;padding-right:4px;background-color:1E90FF"><cf_tl id="Reference"></td>
+								       <td style="padding-left:4px">#Object.ObjectReference2#</td>
 								   </tr>
-								   <tr><td bgcolor="C0C0C0">Link</td>
-								       <td><a href="#SESSION.root#/#Object.ObjectURL#&wcls=workflow">Click here to process it</a></td>
-								   </tr> 
+								    <tr style="border-bottom:1px solid silver"><td style="color:white;padding-left:4px;width:150px;padding-right:4px;background-color:1E90FF"><cf_tl id="Action"></td>
+								       <td style="padding-left:4px">#NextCheck.ActionDescription#</td>
+								   </tr>
+								   <tr style="border-bottom:1px solid silver"><td style="color:white;padding-left:4px;width:150px;padding-right:4px;background-color:1E90FF"><cf_tl id="Link"></td>
+								       <td style="padding-left:4px">
+									   <a href="#SESSION.root#/ActionView.cfm?id=#Object.Objectid#&actioncode=#NextCheck.ActionCode#&target=#NextCheck.NotificationTarget#" style="color: ##1E90FF;"><cf_tl id="Click here to process action"></a>
+									   </td>
+								   </tr>
+								   <tr style="border-bottom:1px solid silver">
+								      <td colspan="2" align="right" style="border-top:1px solid silver;height:15px;font-size:11px;padding-right:4px;color:black;padding-right:4px">Prosis for Exchange (C) 2021</td>								      
+								   </tr>
 								  </table>					 		  
 								 								
 								</cfsavecontent>
@@ -307,7 +324,8 @@
 									    stask=StructNew();		
 									    stask.Subject          = "#NextCheck.ActionDescription# - #Object.ObjectReference#";
 										stask.Message          = "#taskmessage#";
-										stask.Priority         = "high";   
+										stask.Priority         = "high"; 										
+										sTask.Companies        = "#Object.Mission#";
 										stask.StartDate        = "#timeformat(now(),'HH:MM:SS')# #dateformat(now(),Client.dateSQL)#";
 										stask.DueDate          = "#timeformat(now(),'HH:MM:SS')# #dateformat(now(),Client.dateSQL)#";
 										stask.ReminderDate     = "#dateformat(now()+3,Client.dateSQL)#";
@@ -318,7 +336,7 @@
 							</cfoutput>	
 							
 							<!--- write the task also in exchange for this user ---> 
-														
+																												
 							<cf_ExchangeTask
 								alias	  	= "AppsOrganization"
 								account     = "#UserAccount#"

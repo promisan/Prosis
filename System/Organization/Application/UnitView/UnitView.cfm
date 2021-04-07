@@ -1,5 +1,7 @@
 
 <cfoutput>
+
+	<cfparam name="url.mid" default="">
 	
 	<cfquery name="Org" 
 		datasource="appsOrganization"
@@ -42,7 +44,7 @@
 		</cf_layoutarea>
 		
 		<cf_layoutarea  position="center" name="right" overflow="auto">		
-			<iframe src="UnitViewOpen.cfm?ID=#URL.ID#&id1=address" name="right" id="right" width="100%" height="99%" scrolling="no" frameborder="0"></iframe>			
+			<iframe src="UnitViewOpen.cfm?ID=#URL.ID#&id1=address&mid=#url.mid#" name="right" id="right" width="100%" height="99%" scrolling="no" frameborder="0"></iframe>			
 		</cf_layoutarea>
 		
 	</cf_layout>		

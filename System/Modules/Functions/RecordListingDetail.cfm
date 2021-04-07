@@ -181,14 +181,14 @@ password="#SESSION.dbpw#">
 		  </td>
 		  </tr>
 		   
-		  <cfelseif FunctionClass eq "Inquiry" or FunctionClass eq "Application">
+		  <cfelseif FunctionClass eq "Reporting" or FunctionClass eq "Inquiry" or FunctionClass eq "Application">
 		      
 		   <tr>
 		   <td colspan="7" align="left" height="20">
-				<table cellspacing="0" cellpadding="0" class="formpadding">
+				<table class="formpadding">
 				  <tr><td height="4"></td></tr>
 				  <tr>				 
-				  	<td class="labellarge" style="font-size:20px">		  				  	  
+				  	<td class="labellarge" style="padding-left:3px;font-size:25px">		  				  	  
 					  <a href="javascript:add('#url.Module#','#url.main#','#url.functionClass#','#url.find#')"><cf_tl id="Add a custom Listing"></a>
 					  </td>
 				  </tr>				 

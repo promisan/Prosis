@@ -17,14 +17,14 @@
 				     username="#SESSION.login#" 
 				     password="#SESSION.dbpw#">
 				     SELECT *
-					 FROM UserNamesGroup
-					 WHERE Account    = '#URL.ACC#'
-					 AND AccountGroup = '#group#'
+					 FROM   UserNamesGroup
+					 WHERE  Account      = '#URL.ACC#'
+					 AND    AccountGroup = '#group#'
 			</cfquery>
 			
 			<cfif Check.recordCount eq "1">
 			    <script>
-				   alert("You have identified a user which is already part of this group. Operation not allowed.")
+				   alert("You have selected a user who is already part of this group. Operation not allowed.")
 				</script>
 				
 			<cfelse>	
@@ -53,10 +53,10 @@
 				     username="#SESSION.login#" 
 				     password="#SESSION.dbpw#">
 					 SELECT *
-					 FROM UserNamesGroupLog 
-					 WHERE Account       = '#url.acc#'
-					 AND   AccountGroup  = '#group#' 
-					 AND   DateEffective = '#dateformat(now(),client.dateSQL)#'
+					 FROM   UserNamesGroupLog 
+					 WHERE  Account       = '#url.acc#'
+					 AND    AccountGroup  = '#group#' 
+					 AND    DateEffective = '#dateformat(now(),client.dateSQL)#'
 				</cfquery>
 				
 				<cfif check.recordcount eq "0">
@@ -93,8 +93,7 @@
 				<!--- inherit all access of the group --->
 				
 				<!--- 2. inherit access for this user as granted to the group --->		
-				
-										
+														
 				<cfinvoke component= "Service.Access.AccessLog"  
 					  method       = "SyncGroup"
 					  UserGroup    = "#group#"

@@ -71,11 +71,11 @@ password="#SESSION.dbpw#">
 					
 		<cfoutput query="groupNew" group="AccountOwner">
 		
-			<tr class="line"><td colspan="7" class="labellarge" style="font-size:25px;height:30px;padding-left:3px">#AccountOwner#</td></tr>
+			<tr class="fixrow labelmedium2"><td colspan="7" style="font-size:18px;height:25px;padding-left:3px">#AccountOwner#</td></tr>
 		
 			<cfoutput group="AccountMission">
 			
-				<tr class="line labelmedium">
+				<tr class="line labelmedium fixrow2">
 				
 					<td>
 														 
@@ -91,7 +91,7 @@ password="#SESSION.dbpw#">
 					<td height="24" colspan="6" style="padding-left:3px;font-size:20px;width:100%;height:21">
 							
 						<a href="javascript:document.getElementById('#currentrow#_exp').className='hide';ptoken.navigate('#SESSION.root#/system/access/membership/MemberSelectDetail.cfm?owner=#accountowner#&mission=#AccountMission#&grp=#grp#','#AccountOwner#_#AccountMission#')">
-						<cfif AccountMission eq "">&nbsp;Global<cfelse>&nbsp;#AccountMission#</cfif>
+						<cfif AccountMission eq "">&nbsp;<cf_tl id="Global"><cfelse>&nbsp;#AccountMission#</cfif>
 						</a>
 						
 					</td>

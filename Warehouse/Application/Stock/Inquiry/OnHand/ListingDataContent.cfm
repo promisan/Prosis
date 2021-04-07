@@ -216,6 +216,7 @@
 						
 	</cfif>		
 	
+	
 	<cfset itm = itm+1>		
 	<cfset fields[itm] = {label           = "#vMin#",                    
 	     				field             = "MinimumStock",							
@@ -223,13 +224,14 @@
 						width             = "14",
 						search			  = "number"}>		
 											
-							
+	<!---						
 	<cfset itm = itm+1>		
 	<cfset fields[itm] = {label           = "#vMax#",                    
 	     				field             = "MaximumStock",							
 						align       	  = "right",
 						width             = "14",
 						search			  = "number"}>								
+	--->					
 					
 	<cfset itm = itm+1>
 	

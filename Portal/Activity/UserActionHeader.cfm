@@ -247,7 +247,7 @@
 			fontsize="12"     
            	seriesplacement="default"
            	labelformat="percent"
-		   	show3d="yes"
+		   	show3d="no"
 		   	url="javascript:_cf_loadingtexthtml='';ptoken.navigate('UserActionContent.cfm?systemfunctionid=#url.systemfunctionid#&mode='+document.getElementById('mode').value+'&filter=$ITEMLABEL$','content')"       
            	tipstyle="mouseOver"
            	showmarkers="No">	

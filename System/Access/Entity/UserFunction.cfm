@@ -13,6 +13,16 @@ all access
 
 --->
 
+
+<script>
+function formvalidate() {
+	document.userfunction.onsubmit() 
+	if( _CF_error_messages.length == 0 ) {       
+		ptoken.navigate('UserFunctionSubmit.cfm?id=#url.id#','process','','','POST','userfunction')
+	 }   
+}	 
+</script>
+
 <cfquery name="get" 
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
@@ -40,6 +50,8 @@ all access
 <cfelse>
 	
 	<cfoutput>
+	
+	<form name="userfunction" id="userfunction" onsubmit="return false">
 	
 	<table style="width:96%" align="center">
 	
@@ -81,14 +93,22 @@ all access
 		
 		<table>
 		 <tr class="labelmedium">
-		     <td><cf_tl id="Usergroup only"></td>
-			 <td style="padding-left:10px"><input type="checkbox" class="Radiol" name="grouponly" value="1" checked></td>
-			 <td style="padding-left:10px"><input class="button10g" style="width:300px" type="button" name="apply" value="Reset and Apply"></td></tr>
+		     <td><cf_tl id="Reset usergroup only"></td>
+			 <td style="padding-left:10px">
+			 <input type="checkbox" class="radiol" name="grouponly" value="1" checked>
+			 </td>
+			 <cf_tl id="Reset and apply" var="1">
+			 <td style="padding-left:10px" id="process">
+			 <input class="button10g" style="width:300px" type="button" name="apply" value="#lt_text#" onclick="formvalidate('#url.id#')">
+			 </td>
+		 </tr>
 		</table>
 		
 		</td></tr>
 		 
 	 </table>
+	 
+	 </form>
 	 
 	 <!--- remove from usergroups of this entity [ all entities ]) optionally remove other manual access 
 	     add to usergroup, sync usergroup --->

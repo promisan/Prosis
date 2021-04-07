@@ -407,9 +407,23 @@
 					    FROM      Lookup
 						WHERE     Parent = 'Organization'
 					</cfquery>
+
+				   <cfquery name="qValue"
+						   datasource="AppsSelection"
+						   username="#SESSION.login#"
+						   password="#SESSION.dbpw#">
+						   SELECT   F.*,
+						   P.Parent AS Parent,
+						   S.ExperienceFieldId AS Currently
+						   FROM     Ref_ExperienceClass P INNER JOIN
+						   Ref_Experience F ON P.ExperienceClass = F.ExperienceClass INNER JOIN
+						   ApplicantBackgroundField S ON F.ExperienceFieldId = S.ExperienceFieldId AND S.ExperienceId = '#Background.ExperienceId#' AND F.Description ='#Background.OrganizationClass#'
+					   WHERE    F.Status = 1
+					   AND P.Parent = 'Organization'
+				   </cfquery>
 				   
 				   <cf_uiselect name = "OrganizationClass"
-							selected       = "#BackGround.OrganizationClass#"
+							selected       = "#qValue.ExperienceFieldId#"
 							size           = "1"
 							class          = "regularXL"
 							id             = "OrganizationClass"							

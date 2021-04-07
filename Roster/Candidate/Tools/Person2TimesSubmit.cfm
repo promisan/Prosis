@@ -177,7 +177,6 @@ but only for documentNo that do not have already an occurance with the base (A).
 	WHERE  ApplicantNo IN (SELECT ApplicantNo FROM ApplicantSubmission WHERE Personno = '#Form.Wrong#') 
 	</cfquery>		
 	
-	
 	<!---
 	5.  change PersonNo in ApplicantMail
 	--->
@@ -273,22 +272,26 @@ but only for documentNo that do not have already an occurance with the base (A).
 	<cfif qCheckCustomer.recordcount neq 0>
 
 		<cfquery name="qCheckCustomerWrong"
-				datasource="appsSelection" username="#SESSION.login#" password="#SESSION.dbpw#">
-			SELECT * FROM Workorder.dbo.Customer
-			WHERE PersonNo ='#FORM.Wrong#'
+				datasource="appsSelection" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT * 
+					FROM   Workorder.dbo.Customer
+					WHERE  PersonNo ='#FORM.Wrong#'
 		</cfquery>
 
 		<cfif qCheckCustomerWrong.recordcount neq 0>
-			<cfquery name="Step9"
-					datasource="appsSelection" username="#SESSION.login#" password="#SESSION.dbpw#">
-				UPDATE WorkOrder.dbo.WorkOrder
-				SET CustomerId ='#qCheckCustomer.CustomerId#'
-			WHERE
-			CustomerId ='#qCheckCustomerWrong.CustomerId#'
+			
+			 <cfquery name="Step9"
+				  datasource="appsSelection" 
+				  username="#SESSION.login#" 
+				  password="#SESSION.dbpw#">
+					  UPDATE WorkOrder.dbo.WorkOrder
+					  SET    CustomerId ='#qCheckCustomer.CustomerId#'
+					  WHERE CustomerId ='#qCheckCustomerWrong.CustomerId#'
 			</cfquery>
 		</cfif>
 	</cfif>
-
 	
 </cftransaction>
 
@@ -303,11 +306,11 @@ so we make sure that tomorrow when we wake up PHP data is there for the new acco
 	datasource="appsSelection" 
 	username="hanno" 
 	password="hanno">
-	UPDATE    [NYVM1618].Galaxy.dbo.CONVERSION
-	SET       PersonNo = '#Form.Correct#',
-	          ApplicantNo = '#Step41.applicantNo#',
-			  Preferred   = 0
-	WHERE     PersonNo = '#Form.Wrong#' 
+		UPDATE    [nova-p-db-007].InspiraJO.dbo.CONVERSION
+		SET       PersonNo    = '#Form.Correct#',
+		          ApplicantNo = '#Step41.applicantNo#',
+				  Preferred   = 0
+		WHERE     PersonNo    = '#Form.Wrong#' 
 	</cfquery>	
 	
 	<cfcatch></cfcatch>	
@@ -316,11 +319,9 @@ so we make sure that tomorrow when we wake up PHP data is there for the new acco
 
 <cfoutput>
 	
-	<script>
-			   
-	   parent.window.location = "#SESSION.root#/Roster/Candidate/Details/PHPView.cfm?ID=#url.correct#&mode=Manual"
-	   parent.ColdFusion.Window.destroy('mydialog',true)  
-	 
+	<script>			   
+	   ptoken.location('#SESSION.root#/Roster/Candidate/Details/PHPView.cfm?ID=#url.correct#&mode=Manual','parent')
+	   parent.ProsisUI.closeWindow('mydialog',true)  	 
 	</script>
 
 </cfoutput>

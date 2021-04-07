@@ -145,25 +145,23 @@ password="#SESSION.dbpw#">
 	
 	<td colspan="2" style="padding-left:10px">
 	
-	<table width="760" cellspacing="0" cellpadding="0">
-		<tr>
+	<table width="760">
+		<tr class="line">
 		<td>
-			<table width="350" cellspacing="0" cellpadding="0">
-			<tr>
-			<td style="padding: 0px;" width="6">&nbsp;&nbsp;</td>
-			<td width="320" class="labelit">Document</td>
-			<td align="right" style="cursor:pointer" class="labelit"><cf_space spaces="10"><cf_UItooltip tooltip="Enable mail Notification">Mail</cf_UItooltip></td>
-			<td style="cursor:pointer;padding-left:2px" class="labelit"><cf_space spaces="10"><cf_UItooltip tooltip="Show action in MS-Exchange task List">Task</cf_UItooltip></td>
+			<table>
+			<tr class="labelmedium">			
+			<td style="padding-left:10px;min-width:280px">Document</td>
+			<td align="right" style="cursor:pointer"><cf_space spaces="10"><cf_UItooltip tooltip="Enable mail Notification">Mail</cf_UItooltip></td>
+			<td style="cursor:pointer;padding-left:2px"><cf_space spaces="10"><cf_UItooltip tooltip="Show action in MS-Exchange task List">Task</cf_UItooltip></td>
 			</tr>
 			</table>
 		</td>
 		<td>
-		<table width="350" cellspacing="0" cellpadding="0">
-			<tr>
-			<td style="padding: 0px;" width="6">&nbsp;&nbsp;</td>
-			<td width="320" class="labelit">Document</td>
-			<td align="right" style="cursor:pointer" class="labelit"><cf_space spaces="10"><cf_UItooltip tooltip="Enable mail Notification">Mail</cf_UItooltip></td>
-			<td style="cursor:pointer;padding-left:2px" class="labelit"><cf_space spaces="10"><cf_UItooltip tooltip="Show action in Exchange task List">Task</cf_UItooltip></td>
+		<table>
+			<tr class="labelmedium">			
+			<td style="padding-left:10px;min-width:280px">Document</td>
+			<td align="right" style="cursor:pointer"><cf_space spaces="10"><cf_UItooltip tooltip="Enable mail Notification">Mail</cf_UItooltip></td>
+			<td style="cursor:pointer;padding-left:2px"><cf_space spaces="10"><cf_UItooltip tooltip="Show action in Exchange task List">Task</cf_UItooltip></td>
 			</tr>
 			</table>
 		</td>	
@@ -173,7 +171,7 @@ password="#SESSION.dbpw#">
 	    
 		<cfoutput query="Get" group="SystemModule">
 		
-			<tr><td colspan="2" style="height:35" valign="bottom" class="labelmediumcl">#ModuleDescription#</td></tr>
+			<tr class="line"><td colspan="2" style="height:35" class="labelmedium2">#ModuleDescription#</td></tr>
 			
 			<tr><td class="linedotted" colspan="2"></td></tr>
 			

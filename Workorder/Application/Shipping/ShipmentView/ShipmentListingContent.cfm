@@ -49,7 +49,9 @@
 	WHERE       T.WorkOrderId IS NOT NULL 
 	AND         T.Mission         = '#url.mission#' 
 	AND         T.TransactionType IN ('2','3') 
-	<!--- AND         B.ActionStatus    = '0'  ---> 
+	
+	<!--- pending transactions only --->
+	AND         B.ActionStatus    = '0'   
 	<cfif url.id1 eq "today">
 	AND         T.TransactionDate > getDate()-1
 	<cfelseif url.id1 eq "week">
@@ -195,23 +197,19 @@
 	
 <!--- embed|window|dialogajax|dialog|standard --->
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
-<tr><td valign="top" height="700">
 							
 <cf_listing
 	    header            = "shipment"
 	    box               = "lineshipment"
 		link              = "#SESSION.root#/WorkOrder/Application/Shipping/ShipmentView/ShipmentListingContent.cfm?id1=#url.id1#&systemfunctionid=#url.systemfunctionid#&Status=#url.status#&Mission=#URL.Mission#"
-	    html              = "No"				
-		tableheight       = "99%"
-		tablewidth        = "99%"
+	    html              = "No"						
 		datasource        = "AppsMaterials"		
 		listquery         = "#myquery#"		
 		listgroup         = "CustomerName"
 		listorderfield    = "TransactionDate"		
 		listorderdir      = "ASC"
 		headercolor       = "ffffff"
-		show              = "35"				
+		show              = "60"				
 		filtershow        = "#filter#"
 		excelshow         = "Yes" 	
 		screentop         = "No"	
@@ -222,4 +220,3 @@
 		drillkey          = "TransactionBatchNo"
 		drillbox          = "blank">	
 		
-</td></tr></table>	

@@ -11,7 +11,7 @@
 		WHERE    ItemNo = '#url.ItemNo#'		
 </cfquery>
 
-<cfset lnk = "ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/getStockLevel.cfm?mission=#url.mission#&workorderidselect=#url.workorderid#&warehouse='+document.getElementById('warehouse').value+'&itemno=#url.ItemNo#&uom='+this.value+'&workorderid='+document.getElementById('workorderid').value+'&workorderline='+document.getElementById('workorderline').value,'stockbox')">
+<cfset lnk = "ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/getStockLevel.cfm?mission=#url.mission#&workorderidselect=#url.workorderid#&warehouse='+document.getElementById('warehouse').value+'&itemno=#url.ItemNo#&uom='+this.value+'&workorderid='+document.getElementById('workorderid').value+'&workorderline='+document.getElementById('workorderline').value,'stockbox')">
 
 <cfif get.recordcount gte "4">
 		
@@ -42,13 +42,11 @@ onchange="#lnk#">
 	</table>
 
 </cfif>
-
 	
 <script language="JavaScript">
    document.getElementById('boxwarehouse').className = "regular"
-	ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/getWarehouse.cfm?mission=#url.mission#&workorderid=#url.workorderid#&itemno=#url.ItemNo#&uom=#get.uom#','boxwarehouse')		
+   ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/getWarehouse.cfm?mission=#url.mission#&workorderid=#url.workorderid#&itemno=#url.ItemNo#&uom=#get.uom#','boxwarehouse')		
 </script>
-
 
 </cfoutput>		
 

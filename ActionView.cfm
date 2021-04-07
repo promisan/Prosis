@@ -47,9 +47,9 @@
 				     <!--- prevent duplication --->
 					<cflocation url="#SESSION.root#/#Object.ObjectURL#?mid=#hashvalue#" addtoken="No"> 
 				<cfelseif find("refer=",Object.ObjectURL)>							
-					<cflocation url="#SESSION.root#/#Object.ObjectURL#&mycl=1&myclentity=#mycl#&#hashvalue#" addtoken="No"> 			
+					<cflocation url="#SESSION.root#/#Object.ObjectURL#&mycl=1&myclentity=#mycl#&mid=#hashvalue#" addtoken="No"> 			
 				<cfelse>			
-					<cflocation url="#SESSION.root#/#Object.ObjectURL#&mycl=1&myclentity=#mycl#&refer=workflow&#hashvalue#" addtoken="No"> 
+					<cflocation url="#SESSION.root#/#Object.ObjectURL#&mycl=1&myclentity=#mycl#&refer=workflow&mid=#hashvalue#" addtoken="No"> 
 				</cfif>	
 				
 		<cfelse>

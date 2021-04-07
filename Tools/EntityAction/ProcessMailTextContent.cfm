@@ -127,8 +127,8 @@
 		
 		<body style="background:##f1f1f1;">
 		
-		    <table><tr><td height="40"></td></tr></table>
-			<table width="700" align="center" border="0" cellspacing="0" cellpadding="0" style="margin:auto;background: ##ffffff;font-family:Helvetica,sans-serif;color:##555555;font-size:15px;">	  
+		    <table><tr><td height="20"></td></tr></table>
+			<table width="500" align="center" border="0" cellspacing="0" cellpadding="0" style="margin:auto;background: ##ffffff;font-family:Helvetica,sans-serif;color:##555555;font-size:15px;">	  
 				<tr>
 					<td colspan="2" style="padding-top:8px">
 						<table width="100%" height="50px" style="border-bottom:1px solid ##cccccc;padding:10px 20px 20px;">								
@@ -141,12 +141,12 @@
                                         <cfelse>
                                         #SESSION.welcome# <cf_tl id="Notification"><br>
                                         </cfif>
-                                        <h2 style="margin:5px 0 0;font-size:16px;"><cf_tl id="Activity for your action has been posted."></h2>
+                                        <h2 style="margin:15px 0 0;font-size:16px;"><cf_tl id="An action is pending your review."></h2>
                                     </h1>
 		
 								</td>
 		                        <td style="height:70px;height:70px">						
-									<img src="cid:alarm" width="60" height="60" border="0" align="absmiddle" style="display:block">
+									<img src="cid:alarm" width="50" height="50" border="0" align="absmiddle" style="display:block">
 								</td>
 							</tr>
 						</table>
@@ -206,14 +206,16 @@
 						</table>
 					</td>
 				</tr>		
+				
+				<!---
 				<tr style="border-top:1px solid silver;height:30px">
 					<td colspan="2" align="center"><font size="1" color="silver"><cf_tl id="Paste link">: <br /> #SESSION.root#/ActionView.cfm?id=#qObject.Objectid#&actioncode=#Action.ActionCode#&target=#Action.NotificationTarget#</td>
 				</tr>
 		        <tr height="40px"><td></td></tr>
+				--->
 			</table>
 								    					
-			<cf_MailDefaultFooter disclaimer="HideSignature" datasource="appsOrganization" context="workflow" id="#qObject.ObjectId#" displaylogo="0">
-			
+			<cf_MailDefaultFooter disclaimer="HideSignature" datasource="appsOrganization" context="workflow" id="#qObject.ObjectId#" displaylogo="0">			
 						
 		</body>
 		</html>

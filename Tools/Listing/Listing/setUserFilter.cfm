@@ -14,7 +14,7 @@
 			AND    ConditionClass   = 'Filter'
 			AND    ConditionField   = '#attributes.field#'		
 			<cfif attributes.mode eq "multi">
-			AND    ConditionValue   = '#attributes.value#'
+			AND    ConditionValue   = '#attributes.value#' 
 			</cfif>			
 	</cfquery>	
 	

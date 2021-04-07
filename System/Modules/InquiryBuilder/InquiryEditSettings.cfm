@@ -1,16 +1,21 @@
 
 <cfoutput>
 
+<cfset row = 0>
+	
+<cfloop index="itm" list="#List.DrillArgument#" delimiters=";">
+   <cfset row = row+1>
+   <cfset val[row] = itm>	
+</cfloop>
+
 <table width="99%" class="formpadding" align="center">
 <tr><td valign="top">
 
 <table class="formpadding" align="center" style="width:100%">
 			
-	<tr id="detailfunction" class="#cl#">
-				
-		<td class="labelmedium" style="width:210px" height="24">Grid features:</td>
-						
-		<td class="labelmedium">
+	<tr id="detailfunction" class="#cl#">			
+								
+		<td class="labelmedium2" colspan="2" style="height:40px;padding-left:10px;background-color:f1f1f1">
 		
 			<table>
 			
@@ -34,7 +39,7 @@
 				<table>
 					
 					<tr class="labelmedium2">
-					  <td style="padding-left:15px"><cf_UIToolTip tooltip="requires Key field">Delete on:</cf_UIToolTip></td>
+					  <td style="padding-left:15px"><cf_UIToolTip tooltip="requires Key field">Delete:</cf_UIToolTip></td>
 					  <td style="padding-left:10px">
 				
 					   	  <cf_securediv id="table" 
@@ -42,7 +47,7 @@
 						   
 					   </td>
 					   
-					   <td style="padding-left:20px;">Annotation / workflow:</td>
+					   <td style="padding-left:20px;">Annotation:</td>
 					   <td style="padding-left:10px">
 					   
 						   <cf_securediv id="annotation" 
@@ -50,7 +55,7 @@
 							   
 					   </td>		   		   
 				     		   
-					   <td style="padding-left:10px;">Excel Export:</td>
+					   <td style="padding-left:10px;">Excel:</td>
 					   
 					   <td style="padding-left:10px">
 					   	
@@ -213,12 +218,7 @@
 	
 	</tr>		
 	
-	<cfset row = 0>
 	
-	<cfloop index="itm" list="#List.DrillArgument#" delimiters=";">
-	   <cfset row = row+1>
-	   <cfset val[row] = itm>	
-	</cfloop>
 	
 	<tr name="template" id="template" class="#cls#">
 		<td width="180" height="24" style="padding-left:10px" class="labelmedium">Dialog Arguments:</td>

@@ -33,7 +33,7 @@
 		   style="border:0px;font-size:20px"
 		   readonly
 		   value="#url.personNo#"
-		   onChange="ColdFusion.navigate('Person2TimesSelect.cfm?sel=wrong&correct='+correct.value+'&wrong='+this.value,'incorrectbox')">
+		   onChange="ptoken.navigate('Person2TimesSelect.cfm?sel=wrong&correct='+correct.value+'&wrong='+this.value,'incorrectbox')">
 	</td>
 	</table>	   
 	</td>
@@ -111,7 +111,7 @@
 		ORDER BY FirstName
 		</cfquery>
 				
-		<select name="correct" class="regularxl" onChange="ColdFusion.navigate('Person2TimesSelect.cfm?sel=correct&correct='+this.value+'&wrong='+document.getElementById('wrong').value,'correctbox')">
+		<select name="correct" class="regularxl" onChange="ptoken.navigate('Person2TimesSelect.cfm?sel=correct&correct='+this.value+'&wrong='+document.getElementById('wrong').value,'correctbox')">
 		<option value="">select</option>
 		<cfloop query="correct">
 		<option value="#PersonNo#">

@@ -104,8 +104,10 @@
 						</cfif>
 						
 						<!--- ------------------------------------------------------------------------------------------ --->
-						<!--- also has potential values of stock to prevent too many records to be passed for now reason --->
-						<!--- ------------------------------------------------------------------------------------------ --->
+						<!--- also has potential values of stock to prevent too many records to be passed for no reason- --->
+						<!--- ------------------------------------------------------------------------------------------ 
+						
+						removed as this slowed down the query a lot 5/4/2021
 						
 						AND   WorkOrderItemId IN (
 											
@@ -113,11 +115,13 @@
 									FROM       Materials.dbo.ItemTransaction
 									WHERE      RequirementId = WOLI.WorkOrderItemId
 									GROUP BY   RequirementId, 
-											ItemNo, 
-											TransactionUoM
+											   ItemNo, 
+											   TransactionUoM
 									HAVING     SUM(TransactionQuantity) > 0
 						
-							)						
+							)	
+							
+							--->					
 					</cfsavecontent>
 				</cfoutput>
 			

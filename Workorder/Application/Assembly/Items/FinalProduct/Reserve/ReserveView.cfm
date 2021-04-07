@@ -66,8 +66,8 @@
 					<td style="padding-left:3px;padding-right:10px" id="boxwarehouse">																
 																			
 							<select name="warehouse" id="warehouse"
-							    class="regularxl" style="font-size:20px;height:30px;width:100%"
-								onchange="_cf_loadingtexthtml='';Prosis.busy('yes');ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Reserve/WorkOrderListing.cfm?mission=#workorder.mission#&warehouse='+this.value+'&workorderid=#url.workorderid#&workorderline=#url.workorderline#','orderbox')">
+							    class="regularxl" style="background-color:f1f1f1;border:0px;font-size:20px;height:35px;width:100%"
+								onchange="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Reserve/WorkOrderListing.cfm?mission=#workorder.mission#&warehouse='+this.value+'&workorderid=#url.workorderid#&workorderline=#url.workorderline#','orderbox')">
 								<cfloop query="Warehouse">
 									<option value="#Warehouse#">#WarehouseName#</option>
 								</cfloop>
@@ -80,10 +80,8 @@
 				</cfoutput>				
 									
 				<tr>
-					<td colspan="1" id="stockbox" style="height:100%;padding-left:4;padding-top:4px" valign="top">															
-						   <cf_divscroll style="height:100%" id="orderbox">
-						   		 <cfinclude template="WorkOrderListing.cfm">
-						   </cf_divscroll>				
+					<td colspan="1" id="stockbox" style="height:100%;padding-left:4;padding-top:4px" valign="top" id="orderbox">															
+						 		 <cfinclude template="WorkOrderListing.cfm">						   		
 					</td>				
 				</tr>
 				

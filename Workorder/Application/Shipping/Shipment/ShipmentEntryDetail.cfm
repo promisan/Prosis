@@ -182,7 +182,7 @@
 			<tr class="labelmedium2 line navigation_row">
 			
 			    <td style="padding-left:4px;padding-right:5px;padding-top:2px;height:25px">
-				<cf_img icon="open" navigation="Yes" onclick="item('#itemno#','#workorder.mission#','#url.systemfunctionid#')" >
+				<cf_img icon="open" navigation="Yes" onclick="item('#itemno#','#url.systemfunctionid#','#workorder.mission#')" >
 				</td>
 				<td>#ItemClass#</td>
 			    <td>#ItemNo# #ItemDescription#</td>
@@ -196,15 +196,15 @@
 					
 						<table cellspacing="0" cellpadding="0">
 							<tr>
-							<td class="labelit" id="#workorderitemid#_onhand"></td>					
+							<td class="labelmediumn2" id="#workorderitemid#_onhand"></td>					
 							</tr>
 						</table>
 									
 					<cfelse>
 					
-						<table cellspacing="0" cellpadding="0">
+						<table>
 							<tr>
-							<td class="cellcontent" id="#workorderitemid#_onhand">#numberformat(otheronhand,pformat)#</td>
+							<td class="labelmediumn2" id="#workorderitemid#_onhand">#numberformat(otheronhand,pformat)#</td>
 							<td style="padding-left:4px;padding-right:2px;cursor:pointer" onclick="earmarkstock('#url.warehouse#','#workorderitemid#','0')">
 							<img src="#session.root#/images/earmark.gif" alt="" border="0" width="14" height="14">
 							</td>
@@ -221,15 +221,15 @@
 					
 						<table cellspacing="0" cellpadding="0">
 							<tr>
-							<td class="cellcontent" id="#workorderitemid#_other"></td>					
+							<td class="labelmediumn2" id="#workorderitemid#_other"></td>					
 							</tr>
 						</table>
 									
 					<cfelse>
 					
-						<table cellspacing="0" cellpadding="0">
+						<table>
 							<tr>
-							<td class="cellcontent" id="#workorderitemid#_other">#numberformat(otherearmarked,pformat)#</td>
+							<td class="labelmediumn2" id="#workorderitemid#_other">#numberformat(otherearmarked,pformat)#</td>
 							<td style="padding-left:4px;padding-right:2px;cursor:pointer" onclick="earmarkstock('#url.warehouse#','#workorderitemid#','1')">
 							<img src="#session.root#/images/earmark.gif" alt="" width="14" height="14" border="0">
 							</td>
@@ -258,10 +258,11 @@
 					     <cf_getMId>							 						 				 				 
 					     <cfdiv id="#workorderitemid#" 
 							  bind="url:ShipmentEntryDetailEarmarked.cfm?warehouse=#url.warehouse#&workorderitemid=#workorderitemid#&mid=#mid#">					   				  
-					 <cfelse>	
-					 	 		 
+							  
+					 <cfelse>			 
 					
 						  <cfdiv id="#workorderitemid#">					  
+						  
 					 </cfif> 
 					 
 				</td>

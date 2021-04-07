@@ -56,18 +56,16 @@
 		password="#SESSION.dbpw#">				
 		   #preservesinglequotes(sc)# 
 		</cfquery>			
-		
-		<cfset client.listingquery = preservesinglequotes(QueryScript)>
-			
+							
 		<cfquery name="Save" 
 			datasource="AppsSystem" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-		    UPDATE Ref_ModuleControlDetail
-			SET    QueryScript      = '#QueryScript#', 
-			       QueryDataSource  = '#Form.QueryDatasource#'
-			WHERE  SystemFunctionId = '#URL.SystemFunctionId#'
-			AND    FunctionSerialNo = #url.FunctionSerialNo#	
+		    UPDATE  Ref_ModuleControlDetail
+			SET     QueryScript      = '#QueryScript#', 
+			        QueryDataSource  = '#Form.QueryDatasource#'
+			WHERE   SystemFunctionId = '#URL.SystemFunctionId#'
+			AND     FunctionSerialNo = #url.FunctionSerialNo#	
 		</cfquery>
 		
 		<cfoutput>		

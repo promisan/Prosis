@@ -20,7 +20,15 @@
 					OperationalOrgUnitNameShort as OrgunitNameShort, 
 					OperationalHierarchyCode    as HierarchyCode, 
 					OperationalOrgUnitCode      as OrgUnitCode, 
-					
+
+					(SELECT   count(*)
+					 FROM     Vacancy.dbo.Document AS D INNER JOIN Vacancy.dbo.DocumentPost AS DP ON D.DocumentNo = DP.DocumentNo
+					 WHERE    D.Status = '0' <!--- at the end of the track the status is set as 1 in the workflow --->
+					 AND      DP.PositionNo IN ( SELECT PositionNo
+											     FROM   Position	P 
+											     WHERE  PositionParentId = vw.Positionparentid )
+					) as hasTrack,							 
+								
 					PositionNo, 
 					FunctionNo, FunctionDescription, OccGroupOrder, OccGroupAcronym, OccupationalGroup, OccGroupDescription, 
 					PostType, PostClass, PostClassGroup, 
@@ -31,7 +39,7 @@
 					ApprovalPostGrade, ApprovalReference, 
 					LocationCode
 					 					
-		FROM        vwPosition
+		FROM        vwPosition vw
 		WHERE       Mission = '#URL.Mission#' 
 		AND         DateEffective  < '#url.selection#' 
 		AND         DateExpiration > '#url.selection#'
@@ -43,8 +51,7 @@
 		<cfelse>
 			AND  	1=0
 		</cfif>
-		
-				
+						
 		UNION 
 		
 		SELECT      Mission, MandateNo, MissionOwner, 'Loaned' as PositionGroup,
@@ -60,6 +67,14 @@
 					HierarchyCode    as HierarchyCode, 
 					OrgUnitCode      as OrgUnitCode, 
 					
+					(SELECT   count(*)
+					 FROM     Vacancy.dbo.Document AS D INNER JOIN Vacancy.dbo.DocumentPost AS DP ON D.DocumentNo = DP.DocumentNo
+					 WHERE    D.Status = '0' <!--- at the end of the track the status is set as 1 in the workflow --->
+					 AND      DP.PositionNo IN ( SELECT PositionNo
+											     FROM   Position	P 
+											     WHERE  PositionParentId = vw.Positionparentid )
+					) as hasTrack,		
+					
 					PositionNo, 
 					FunctionNo, FunctionDescription, OccGroupOrder, OccGroupAcronym, OccupationalGroup, OccGroupDescription, 
 					PostType, PostClass, PostClassGroup, 
@@ -70,7 +85,7 @@
 					ApprovalPostGrade, ApprovalReference, 
 					LocationCode
 					 					
-		FROM        vwPosition
+		FROM        vwPosition vw
 		WHERE       Mission = '#URL.Mission#' 
 		AND         DateEffective  < '#url.selection#' 
 		AND         DateExpiration > '#url.selection#'
@@ -86,7 +101,11 @@
 				
 		ORDER BY    HierarchyCode, PostOrder
 				
-</cfquery>		
+</cfquery>	
+
+<!---
+<cfoutput>#cfquery.executiontime#</cfoutput>	
+--->
 
 <!--- add to the result also the positions that are borrowed to a another unit which means for each unit that is shown in the above
 we also add positions to it which they loaned to another unit --->
@@ -114,3 +133,7 @@ we also add positions to it which they loaned to another unit --->
 		AND        AssignmentStatus IN ('0','1') 	
 		
 </cfquery>
+
+<!---
+<cfoutput>#cfquery.executiontime#</cfoutput>	
+--->

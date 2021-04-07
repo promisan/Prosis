@@ -21,7 +21,9 @@
 		ORDER BY  CommodityCode
 </cfquery>	
 
+<!---
 <cf_screentop layout="webapp" banner="gray" scroll="Yes" label="Edit shipment line" user="no">
+--->
 
 <cfoutput>
 
@@ -32,7 +34,7 @@
 	<tr><td height="10"></td></tr>
 	
 	<tr>
-		<td width="20%" class="labelmedium">Commodity:</td>
+		<td width="20%" class="labelmedium"><cf_tl id="Commodity">:</td>
 		<td>
 		
 		<cfselect name="CommodityCode" 

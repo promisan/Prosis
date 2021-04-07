@@ -15,6 +15,10 @@
 			    <span class="input-group-addon">
 			        <i class="fa fa-search"></i>
 			    </span>
+				<cf_tl id="compress/expand all positions" var="1">
+				<span class="input-group-addon" title="#lt_text#" style="cursor:pointer;" onclick="doCompressExpand('');">
+			        <i class="fas fa-compress clsCompressIcon"></i>
+			    </span>
 			</div>
 		</cfoutput>
 	</cf_mobileRow>
@@ -82,7 +86,7 @@
 			  ORDER BY HierarchyCode DESC
 	   </cfquery>
 
-        <div class="clsUnit clsSearchable">
+        <div class="clsUnit">
 		<cfset spaces = "">
 		<cfloop query="Org">
 			
@@ -112,7 +116,7 @@
                 <cfset vLeftBorder = "border-left: 1px solid ##EDEDED;">
             </cfif>
 
-            <cf_MobileCell style="#vLeftBorder#" class="clsPosition clsSearchable toggleScroll-y col-xs-12 col-md-6 col-lg-#INT(12/vCols)#">
+            <cf_MobileCell style="#vLeftBorder#" class="clsPosition clsPosition#PositionNo# clsSearchable toggleScroll-y col-xs-12 col-md-6 col-lg-#INT(12/vCols)#">
                 <cfinclude template="StaffingPositionContainer.cfm">	
             </cf_MobileCell>
 
@@ -126,3 +130,5 @@
 <script>
 try { Prosis.busyRegion('no','main') } catch(e) {}
 </script>
+
+<cfset ajaxOnLoad("function() { if (sessionStorage.getItem('staffPositionMode') == '1') { doCompressExpand(''); } }")>

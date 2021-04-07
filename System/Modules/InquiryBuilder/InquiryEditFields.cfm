@@ -313,12 +313,14 @@ password="#SESSION.dbpw#">
 					 
 					 <select name="fieldoutputformat" id="fieldoutputformat" style="width:100%;border:0px;background-color:transparent" class="regularxl">
 											 
-					 	  <option value=""  <cfif fieldoutputformat eq "">selected</cfif>>Default</option> 
-					 	  <option value="Date"  <cfif fieldoutputformat eq "Date">selected</cfif>>Date</option> 
+					 	  <option value=""          <cfif fieldoutputformat eq "">selected</cfif>>Default</option> 
+					 	  <option value="Date"      <cfif fieldoutputformat eq "Date">selected</cfif>>Date</option> 
 						  <option value="DateTime"  <cfif fieldoutputformat eq "DateTime">selected</cfif>>Date/Time</option> 
-					   	  <option value="Time"  <cfif fieldoutputformat eq "Time">selected</cfif>>Time</option> 
-					   	  <option value="Amount" <cfif fieldoutputformat eq "Amount">selected</cfif>>Amount</option> 
-						  <option value="eMail" <cfif fieldoutputformat eq "eMail">selected</cfif>>eMail</option> 											
+					   	  <option value="Time"      <cfif fieldoutputformat eq "Time">selected</cfif>>Time</option> 
+						  <option value="Number"    <cfif fieldoutputformat eq "Number">selected</cfif>>Number</option> 
+					   	  <option value="Amount"    <cfif fieldoutputformat eq "Amount">selected</cfif>>Amount (2)</option> 
+						  <option value="Amount0"   <cfif fieldoutputformat eq "Amount0">selected</cfif>>Amount (0)</option> 
+						  <option value="eMail"     <cfif fieldoutputformat eq "eMail">selected</cfif>>eMail</option> 											
 					 </select>
 					 
 					 </td>
@@ -590,10 +592,12 @@ password="#SESSION.dbpw#">
 					 	  <option value="Date">Date</option> 
 						  <option value="DateTime">DateTime</option> 
 					   	  <option value="Time">Time</option> 
-					   	  <option value="Amount">Amount</option> 
+						  <option value="Number">Number</option> 
+					   	  <option value="Amount">Amount(2)</option> 
+						   <option value="Amount0">Amount(0)</option> 
 						  <option value="eMail">eMail</option> 																	
 					 </select>
-				 
+									 
 				</td>
 				
 				<td align="center" style="max-width:40px;border-left:1px solid silver;padding-left:2px;padding-right:2px">

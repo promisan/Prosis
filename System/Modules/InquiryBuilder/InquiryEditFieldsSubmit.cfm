@@ -4,8 +4,11 @@
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT * FROM Ref_ModuleControlDetailField
-	WHERE FieldId = '#URL.FieldId#'
+	SELECT * 
+	FROM   Ref_ModuleControlDetailField
+	WHERE  SystemFunctionId  = '#URL.SystemFunctionId#'		
+	AND    FunctionSerialNo  = '#URL.FunctionSerialNo#'
+	AND    FieldId = '#URL.FieldId#'
 </cfquery>
 	
 <cfif url.fieldsort eq "1">
@@ -22,7 +25,6 @@
 	</cfquery>
 
 </cfif>	
-
 
 <cfif url.fieldsort eq "2">
 
@@ -46,9 +48,9 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	    UPDATE Ref_ModuleControlDetailField
-		SET FieldIsKey         = '0'
-		WHERE SystemFunctionId = '#URL.SystemFunctionId#'		
-		AND   FunctionSerialNo = '#URL.FunctionSerialNo#'
+		SET    FieldIsKey         = '0'
+		WHERE  SystemFunctionId = '#URL.SystemFunctionId#'		
+		AND    FunctionSerialNo = '#URL.FunctionSerialNo#'
 	</cfquery>
 
 </cfif>	
@@ -60,37 +62,37 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	    INSERT INTO Ref_ModuleControlDetailField
-		(SystemFunctionId, 
-		 FunctionSerialNo, 
-		 ListingOrder, 
-		 FieldIsKey,
-		 FieldInGrid,
-		 FieldAlignment,
-		 FieldAliasQuery, 
-		 FieldName, 
-		 FieldHeaderLabel, 
-		 FieldWidth, 
-		 FieldSort,
-		 FieldOutputFormat, 
-		 FieldTree,
-		 FieldFilterClass, 
-	     FieldFilterClassMode)
+			(SystemFunctionId, 
+			 FunctionSerialNo, 
+			 ListingOrder, 
+			 FieldIsKey,
+			 FieldInGrid,
+			 FieldAlignment,
+			 FieldAliasQuery, 
+			 FieldName, 
+			 FieldHeaderLabel, 
+			 FieldWidth, 
+			 FieldSort,
+			 FieldOutputFormat, 
+			 FieldTree,
+			 FieldFilterClass, 
+		     FieldFilterClassMode)
 		VALUES
-		('#URL.SystemFunctionId#', 
-		'#URL.FunctionSerialNo#', 
-		'#URL.ListingOrder#', 
-		'#URL.FieldIsKey#',
-		'#URL.FieldInGrid#',
-		'#URL.FieldAlignment#',
-		'#URL.FieldQueryAlias#',
-		'#URL.FieldName#', 
-		'#URL.FieldHeaderLabel#', 
-		'#URL.FieldWidth#', 
-		'#url.fieldSort#',
-		'#URL.FieldOutputFormat#', 
-		'#Url.fieldTree#',
-		'#URL.FieldFilterClass#', 
-	    '#URL.FieldFilterClassMode#')
+			('#URL.SystemFunctionId#', 
+			'#URL.FunctionSerialNo#', 
+			'#URL.ListingOrder#', 
+			'#URL.FieldIsKey#',
+			'#URL.FieldInGrid#',
+			'#URL.FieldAlignment#',
+			'#URL.FieldQueryAlias#',
+			'#URL.FieldName#', 
+			'#URL.FieldHeaderLabel#', 
+			'#URL.FieldWidth#', 
+			'#url.fieldSort#',
+			'#URL.FieldOutputFormat#', 
+			'#Url.fieldTree#',
+			'#URL.FieldFilterClass#', 
+		    '#URL.FieldFilterClassMode#')
 	</cfquery>
 
 <cfelse>
@@ -100,20 +102,22 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	    UPDATE Ref_ModuleControlDetailField
-		SET ListingOrder         = '#URL.ListingOrder#', 
-		    FieldInGrid          = '#URL.FieldInGrid#',
-			FieldAliasQuery      = '#URL.FieldQueryAlias#', 
-			FieldName            = '#URL.FieldName#', 
-			FieldHeaderLabel     = '#URL.FieldHeaderLabel#', 
-			FieldAlignment       = '#URL.FieldAlignment#',
-			FieldWidth           = '#URL.FieldWidth#', 
-			FieldSort            = '#URL.FieldSort#', 
-			FieldisKey           = '#URL.FieldisKey#',
-			FieldOutputFormat    = '#URL.FieldOutputFormat#', 
-			FieldFilterClass     = '#URL.FieldFilterClass#', 
-			FieldTree            = '#URL.FieldTree#',
-	        FieldFilterClassMode = '#URL.FieldFilterClassMode#' 
-		WHERE FieldId = '#URL.FieldId#'
+		SET    ListingOrder         = '#URL.ListingOrder#', 
+		       FieldInGrid          = '#URL.FieldInGrid#',
+			   FieldAliasQuery      = '#URL.FieldQueryAlias#', 
+		 	   FieldName            = '#URL.FieldName#', 
+			   FieldHeaderLabel     = '#URL.FieldHeaderLabel#', 
+			   FieldAlignment       = '#URL.FieldAlignment#',
+			   FieldWidth           = '#URL.FieldWidth#', 
+			   FieldSort            = '#URL.FieldSort#', 
+			   FieldisKey           = '#URL.FieldisKey#',
+			   FieldOutputFormat    = '#URL.FieldOutputFormat#', 
+			   FieldFilterClass     = '#URL.FieldFilterClass#', 
+			   FieldTree            = '#URL.FieldTree#',
+	           FieldFilterClassMode = '#URL.FieldFilterClassMode#' 
+		WHERE  SystemFunctionId = '#URL.SystemFunctionId#'		
+		AND    FunctionSerialNo = '#URL.FunctionSerialNo#'	
+		AND    FieldId = '#URL.FieldId#'
 		
 	</cfquery>
 

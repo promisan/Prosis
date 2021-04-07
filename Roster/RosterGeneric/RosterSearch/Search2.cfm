@@ -85,13 +85,14 @@ password="#SESSION.dbpw#">
      FROM    dbo.FunctionTitle F INNER JOIN
              dbo.FunctionOrganization F1 ON F.FunctionNo = F1.FunctionNo INNER JOIN
              dbo.Ref_Organization R ON F1.OrganizationCode = R.OrganizationCode INNER JOIN
-             dbo.OccGroup O ON F.OccupationalGroup = O.OccupationalGroup
+             dbo.OccGroup O ON F.OccupationalGroup = O.OccupationalGroup INNER JOIN
+			 dbo.Ref_SubmissionEdition E ON F1.SubmissionEdition = E.SubmissionEdition
      WHERE   F1.SubmissionEdition IN (SELECT SelectId
                                 	 FROM    RosterSearchLine
                                 	 WHERE   SearchId = #URL.ID#
                                  	 AND     SearchClass = 'Edition')
 									 
-	 AND    (F.FunctionRoster = '1' OR F1.ReferenceNo IN ('Direct','direct') OR F1.PostSpecific = 0)									 
+	 AND    (F.FunctionRoster = '1' OR F1.ReferenceNo IN ('Direct','direct') OR F1.PostSpecific = 0 OR E.EnableAsRoster = 1)									 
 	 	 
 	 <cfif occ neq "">
 	 
@@ -114,7 +115,6 @@ password="#SESSION.dbpw#">
 
 <cfif OccGroup.recordcount eq "0">
 
-	<cf_waitEnd>
 	<cf_message message="Problem, you have no access to retrieve rostered candidates">
 	<cfabort>
 
@@ -164,7 +164,7 @@ password="#SESSION.dbpw#">
  
 <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" onLoad="javascript: try {document.forms.functionselect.occupationalgroup.focus()} catch(e) {};">
 
-<cf_screentop html="No" label="Roster Bucket Select" height="100%" scroll="Yes">
+<cf_screentop html="No" label="Roster Bucket Select" jquery="Yes" height="100%" scroll="Yes">
 
 <cfform action="Search2Submit.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&mode=#URL.Mode#&status=#url.status#" method="POST" name="functionselect" style="height:97%">
 
@@ -179,7 +179,7 @@ password="#SESSION.dbpw#">
 				
 			<cfif occgroup.recordcount gte "2">
 			
-		    	<select id="occupationalgroup" name="occupationalgroup" size="1" class="regularxxl">
+		    	<select id="occupationalgroup" name="occupationalgroup" size="1" style="height:35px;font-size:20px;border:0px;background-color:f1f1f1;" class="regularxxl">
 				<!--- <option value="" selected>All groups</option> --->
 			    <cfoutput query="OccGroup">
 				<option value="#OccupationalGroup#" <cfif initocc eq OccupationalGroup>selected</cfif>>
@@ -212,7 +212,7 @@ password="#SESSION.dbpw#">
 	   
 	<tr><td colspan="2" height="97%" valign="top">
 	
-		<cf_divscroll style="height:99%">
+		<cf_divscroll style="width:96%;height:99%">
 		   <cf_securediv id="base" bind="url:Search2Detail.cfm?id=#url.id#&owner=#url.owner#&mode=#url.mode#&occ={occupationalgroup}">
 		</cf_divscroll>
 	

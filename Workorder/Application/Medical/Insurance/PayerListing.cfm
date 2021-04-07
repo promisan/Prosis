@@ -92,32 +92,32 @@
 	
 	function newInsurance(own,id) {			    
 		_cf_loadingtexthtml='';	
-		ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Medical/Insurance/PayerEntry.cfm?mission=#URL.mission#&owner=' + own + '&id=' + id,'dPayerListing') 		
+		ptoken.navigate('#SESSION.root#/WorkOrder/Application/Medical/Insurance/PayerEntry.cfm?mission=#URL.mission#&owner=' + own + '&id=' + id,'dPayerListing') 		
 	}	
 
 	function editInsurance(payerid,own,id) {		   
         _cf_loadingtexthtml='';		
-		ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Medical/Insurance/PayerEntry.cfm?mission=#URL.mission#&payerId='+payerid+'&owner='+own+ '&id=' + id,'dPayerListing') 		
+		ptoken.navigate('#SESSION.root#/WorkOrder/Application/Medical/Insurance/PayerEntry.cfm?mission=#URL.mission#&payerId='+payerid+'&owner='+own+ '&id=' + id,'dPayerListing') 		
 	}
 		
 	function closeInsurance(own,id) {
 	    Prosis.busy('yes')
-		ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Medical/Insurance/PayerListingDetail.cfm?mission=#URL.mission#&owner='+own+'&id='+id,'dPayerListing') 
+		ptoken.navigate('#SESSION.root#/WorkOrder/Application/Medical/Insurance/PayerListingDetail.cfm?mission=#URL.mission#&owner='+own+'&id='+id,'dPayerListing') 
 	}
 	
 	function addInsurance(own,id) {
 	    Prosis.busy('yes')
-		ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Medical/Insurance/PayerEntrySubmit.cfm?mission=#URL.mission#&owner=' + own + '&id=' + id,'process','','','POST','formpayer'); 
+		ptoken.navigate('#SESSION.root#/WorkOrder/Application/Medical/Insurance/PayerEntrySubmit.cfm?mission=#URL.mission#&owner=' + own + '&id=' + id,'process','','','POST','formpayer'); 
 	}
 
 	function updateInsurance(payerid,own,id) {
 	    Prosis.busy('yes')
-		ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Medical/Insurance/PayerEntrySubmit.cfm?mission=#URL.mission#&payerid=' + payerid+'&owner=' + own + '&id=' + id,'process','','','POST','formpayer'); 
+		ptoken.navigate('#SESSION.root#/WorkOrder/Application/Medical/Insurance/PayerEntrySubmit.cfm?mission=#URL.mission#&payerid=' + payerid+'&owner=' + own + '&id=' + id,'process','','','POST','formpayer'); 
 	}
 
 	function deleteInsurance(payerid,own,id) {
 		if (confirm('#deleteQuestion#')) {
-			ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Medical/Insurance/PayerDelete.cfm?mission=#URL.mission#&payerid=' + payerid+'&owner=' + own + '&id=' + id,'dPayerListing'); 
+			ptoken.navigate('#SESSION.root#/WorkOrder/Application/Medical/Insurance/PayerDelete.cfm?mission=#URL.mission#&payerid=' + payerid+'&owner=' + own + '&id=' + id,'dPayerListing'); 
 		}
 	}
 		

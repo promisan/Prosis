@@ -3,15 +3,17 @@
 
 <cfoutput>
 
+<cfset hasWorkflow = "0">
+
 <cfif PositionGroup eq "Loaned">
 	<cfset color = "##B0B0B0">
 <cfelse>
-	<cfset color = "##1E53A2">
+	<cfset color = "##2C3E50">
 </cfif>
 
 <table style="width:100%;height:100%">
 
-<tr><td style="height:100px" valign="top">
+<tr><td valign="top">
 
 	<table style="width:100%" border="0">
 		
@@ -28,18 +30,25 @@
 			  
 				  <table style="width:100%">
 				  
-				  <td align="center" colspan="1" 
-				 	 style="background-color:##2C3E50;height:46px;min-width:80px;font-size:18px;font-weight:normal;color:##FFFFFF;border-top-left-radius:5px">#PostGrade#</td>
-				  
+				  <cf_tl id="compress/expand this position" var="1">
 				  <td align="center" 
+				  		colspan="1" 
+						class="clsPostHeader clsPostHeaderText" 
+						title="#lt_text#"
+				 	 	style="background-color:##1E53A2; cursor:pointer; height:46px; min-width:80px; font-size:18px; font-weight:normal; color:##FFFFFF; border-top-left-radius:5px;"
+						onclick="doCompressExpand('#PositionNo#')">
+						  #PostGrade#
+				  </td>
+				  
+				  <td align="center" class="clsPostHeader"
 					  style="background-color:#color#;height:46px;width:100%;color:black;;border-top-right-radius:5px;padding-left:14px;padding-right:14px">
 					  
 					  <table style="width:100%">
-					  <tr><td colspan="2" align="right" style="color:white;font-size:18px;padding-right:5px">#ucase(FunctionDescription)#</td></tr>
+					  <tr><td colspan="2" align="right" style="color:white;font-size:18px;padding-right:5px" class="clsPostHeaderText">#ucase(FunctionDescription)#</td></tr>
 					  <tr>	
 					    
 					    <cfif OrgUnitOperational neq OwnerOrgUnit>									
-						<td colspan="1" align="center" style="border-radius:5px;padding-left:4px;height:17px;font-size:12px;background-color:FF8000">	
+						<td colspan="1" align="center" style="border-radius:5px;padding-left:4px;height:17px;font-size:12px;background-color:##FF8000">	
 						<cf_tl id="Owner">: #OwnerOrgUnitName#						
 						</cfif>											  
 					  
@@ -112,7 +121,7 @@
 		
 		<!--- position classification --->
 		
-		<tr class="line labelmedium2">				   
+		<tr class="line labelmedium2 clsBig">				   
 			  
 			  <cfif ApprovalPostGrade neq "" or ApprovalPostGrade neq "">		
 			    <td align="center" onclick="ViewPosition('#PositionParentId#')"
@@ -153,8 +162,9 @@
 				   id="workflowcondition_#url.ajaxid#" 		   
 				   value="?positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#">	
 			  
-			  <td id="#url.ajaxid#" style="height:100%;width:100%;padding:3px">			   	  
-				 				  
+			  <td id="#url.ajaxid#" style="height:100%;width:100%;padding:3px">		
+			  	
+										 	  			 				  
 				  <cf_wfActive entityCode="PostClassification" objectkeyvalue1="#PositionParentId#">
 				  
 				  <cfif wfStatus eq "Closed">					  
@@ -163,15 +173,18 @@
 					   <cf_tl id="Request new Classification">
 					   </a>
 					   
-				  <cfelseif wfStatus eq "Open">									  						  						  						  			 
+				  <cfelseif wfStatus eq "Open">		
+				  
+				  		<cfset hasworkflow = 1>							  						  						  						  			 
 				        <cfinclude template="StaffingPositionWorkflowClassification.cfm">										   
-				  </cfif> 
 					
+				  </cfif> 
+				  				  					
 			   </td>  
 			    
 		</tr>		  											
 		
-		<tr class="labelmedium2 line">
+		<tr class="labelmedium2 line clsBig">
 				
 		<cfquery name="VacancyClass" 
 			datasource="AppsEmployee" 
@@ -198,8 +211,10 @@
 				   id="workflowcondition_#url.ajaxid#" 		   
 				   value="?positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#">	
 		
-			<td align="center" style="padding:3px;width:100%;height:100%"  id="#url.ajaxid#">		
-				<cfinclude template="StaffingPositionWorkflowRecruit.cfm">			
+			<td align="center" style="padding:3px;width:100%;height:100%"  id="#url.ajaxid#">	
+					
+				<cfinclude template="StaffingPositionWorkflowRecruit.cfm">						
+			
 			</td>
 			
 		</tr>
@@ -214,12 +229,32 @@
 		
 		<cfif AssignDetail.recordcount eq "0">
 		
-			<tr><td colspan="2" style="height:200px;width:100%">
+			<tr class="clsBig">
+				<td colspan="2" style="height:200px;width:100%">
 			     <table style="width:100%;height:100%">
 					 <tr>					
-					 <td valign="top" style="padding-top:4px;text-align:center;background-color:##FFB0FF50;width:100%"><cf_tl id="Vacant"></td>		  								 
+					 <td valign="top" style="padding-top:4px;text-align:center;background-color:##FFB0FF50;width:100%">
+					 	<cf_tl id="Vacant">
+					 </td>		  								 
 					 </tr>
 				 </table>
+				 </td>
+			</tr>	
+
+			<tr class="clsSmall">
+				<td colspan="2" style="height:30px;width:100%">
+			     <table style="width:100%;height:100%">
+					 <tr>					
+					 <td valign="top" style="padding-top:4px;text-align:center;background-color:##FFB0FF50;width:100%">
+					 	<cf_tl id="Vacant">
+						 <cfif hasworkflow eq "1">
+							<cf_tl id="Pending elements to be processed" var="1">
+							<i class="fa fa-exclamation-triangle clsSmall" style="color:##fcba03; padding-left:10px; font-size:110%;" title="#lt_text#"></i>
+						</cfif>
+					 </td>		  								 
+					 </tr>
+				 </table>
+				 </td>
 			</tr>	
 		
 		</cfif>	
@@ -231,13 +266,13 @@
 			ORDER BY   Incumbency DESC		
 	    </cfquery>		
 				
-		<tr><td style="height:4px"></td></tr>	
+		<tr class="clsBig"><td style="height:4px"></td></tr>	
 				 	
 		<cfif AssignDetail.recordcount neq "0">
 		
 			<cfif AssignDetail.recordcount gt "1">
 			
-				<tr><td colspan="2" style="width:100%;height:25px;padding-left:5px">
+				<tr class="clsBig"><td colspan="2" style="width:100%;height:25px;padding-left:5px">
 				
 					<table>
 					<tr>
@@ -303,7 +338,7 @@
 				
 			<cfelse>
 			 
-				<tr><td style="height:10px"></td></tr>					
+				<tr class="clsBig"><td style="height:10px"></td></tr>					
 			
 			</cfif>
 			
@@ -371,21 +406,60 @@
 			  	<cfset vDisplay = "display:none;">	
 			</cfif>
 			
-			<tr>
+			<tr class="clsBig">
 				<td colspan="2" class="clsAssignment_#PositionNo# clsAssignment_#AssignmentNo#" valign="top" 
-				  style="height:100%;width:100%;padding-right:13px; #vDisplay#" id="ass#AssignmentNo#">						  		     
+				  style="height:100%;width:100%;padding-right:13px; #vDisplay#" id="ass#AssignmentNo#">		
+				  		  		     
 					<cfinclude template="StaffingPositionIncumbent.cfm">							 
+					
+				</td>					 
+			</tr>
+
+			<cfset vSmallStyleBG = "">
+			<cfset vSmallStyleText = "">
+			<cfif hasWorkflow eq "1">
+				<cfset vSmallStyleBG = "background-color:##1A8CFF;">
+				<cfset vSmallStyleText = "color:##FFFFFF;">
+			</cfif>
+
+			<tr class="clsSmall line">
+				<td colspan="2" class="clsAssignment_#PositionNo# clsAssignment_#AssignmentNo#" valign="top" 
+				  style="height:100%;width:100%;padding-right:13px; padding:6px; #vSmallStyleBG# #vDisplay#" id="ass#AssignmentNo#">		
+				  	<cfquery name="getCompressPerson" 
+						datasource="AppsEmployee" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						SELECT     *
+						FROM       Person AS P
+						WHERE      PersonNo = '#PersonNo#' 					
+					</cfquery>				  		     
+					<table width="100%">
+						<tr>
+							<td style="font-weight:bold; #vSmallStyleText#">
+								#getCompressPerson.FullName#
+								<cfif hasworkflow eq "1">
+									<cf_tl id="Pending elements to be processed" var="1">
+									<i class="fa fa-exclamation-triangle clsSmall" style="color:##fcba03; padding-left:10px; font-size:110%;" title="#lt_text#"></i>
+								</cfif>
+							</td>
+							<td align="right" style="font-weight:bold; #vSmallStyleText#">
+								<cf_tl id="IndexNo"> ## <a style="#vSmallStyleText#" href="javascript:EditPerson('#getCompressPerson.PersonNo#')">#getCompressPerson.IndexNo#</a>
+							</td>
+						</tr>
+					</table>						 
 				</td>					 
 			</tr>			
 				
 		</cfloop>
 	
 	</cfif>	
-		
+	
 	</table>
+	
 	</cf_divscroll>
+		
 	</td></tr>	
-				
+			
 	
 </table>
 
@@ -396,6 +470,10 @@
 	#functionDescription# 
 	#SourcePostNumber#
 	#AssignDetail.NationalityName#
+	#PostType#
+	#PostClass#
+	<cfif hasworkflow eq "1">Pending</cfif>
+	<cfloop query="getGroup">#PositionGroup# </cfloop>	
 </div>
 
 </cfoutput>

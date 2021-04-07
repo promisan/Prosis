@@ -62,8 +62,8 @@
 		FROM       ItemTransaction T 
 		           INNER JOIN ItemTransactionShipping TS ON T.TransactionId = TS.TransactionId
 				   INNER JOIN Warehouse W ON T.Warehouse = W.Warehouse
-				   INNER JOIN Item I ON I.ItemNo = T.ItemNo
-				   INNER JOIN ItemUoM U ON U.ItemNo = T.ItemNo AND U.UoM = T.TransactionUoM
+				   INNER JOIN Item I      ON I.ItemNo = T.ItemNo
+				   INNER JOIN ItemUoM U   ON U.ItemNo = T.ItemNo AND U.UoM = T.TransactionUoM
 		
 		WHERE      T.Mission = '#workorder.mission#' 
 		
@@ -77,13 +77,25 @@
 		AND        T.TransactionType = '2' 
 			
 		<cfif url.shipmode eq "Pending">
+		
 		<!--- line is not yet billed or AR billing was NOT voided --->
 		AND        (
-		              TS.InvoiceId IS NULL OR TS.InvoiceId NOT IN (SELECT  TransactionId
-								                                   FROM    Accounting.dbo.TransactionHeader
-		                        						           WHERE   TransactionId = TS.InvoiceId
-																   AND     RecordStatus != '9')
+		              TS.InvoiceId IS NULL OR NOT EXISTS (SELECT 'X'
+					                                      FROM    Accounting.dbo.TransactionHeader
+		                        					      WHERE   TransactionId = TS.InvoiceId
+													      AND     RecordStatus != '9')
 			 	 )
+				 
+		<cfelse>
+		
+		AND        (
+		             EXISTS (SELECT  'X'
+							 FROM    Accounting.dbo.TransactionHeader
+		                     WHERE   TransactionId = TS.InvoiceId
+							 AND     RecordStatus != '9')
+			 	 )
+		
+				 
 		</cfif>																	 
 			
 	
@@ -94,17 +106,15 @@
 	ORDER BY Warehouse, TransactionLot, TransactionDate		
 	
 	<!--- show only issuance lines that have not been fully returned yet --->
-	
-	
 		
 </cfquery>	
+
+
+<table width="100%">
 	
-<table width="99%" cellspacing="0" cellpadding="0">
-	
-	<tr class="labelit">
+	<tr class="labelmedium2 fixrow line">
 		<td width="30" align="center">
-			<input 
-				type="Checkbox" 
+			<input type="Checkbox" 
 				id="selectAll" 
 				name="selectAll" 
 				onclick="selectAllCB(this,'.clsCheckbox')">
@@ -137,11 +147,11 @@
 					
 		<cfoutput query="Lines" group="Warehouse">
 		
-			<tr><td style="height:40" colspan="11" class="labelmedium"><cf_tl id="from"><b>#WarehouseName#</td></tr>
+			<tr><td style="height:40" colspan="11" class="labelmedium2"><cf_tl id="from"><b>#WarehouseName#</td></tr>
 		
 			<cfoutput>
 							
-			<tr class="labelit navigation_row line clsWarehouseRow">
+			<tr class="labelmedium2 navigation_row line clsWarehouseRow">
 				<td style="display:none;" class="ccontent">#ItemBarCode# #ItemDescription# #TransactionBatchNo# #TransactionLot#</td>
 				<td width="40" style="height:20" align="center">
 				
@@ -152,7 +162,7 @@
 				--->
 				
 				<input type  = "checkbox" 
-					onchange = "_cf_loadingtexthtml='';ColdFusion.navigate('setTotal.cfm','totalbox','','','POST','billingform')" 
+					onchange = "_cf_loadingtexthtml='';ptoken.navigate('setTotal.cfm','totalbox','','','POST','billingform')" 
 				  	style    = "width:15px;height:13px" 
 				  	class    = "radiol clsCheckbox" 
 				  	name     = "selected" 
@@ -170,28 +180,14 @@
 				<td style="padding-right:2px">#TransactionLot#</td>
 				<td style="padding-right:2px"><a href="javascript:batch('#transactionbatchno#','#workorder.mission#','process','#url.systemfunctionid#')">
 				     <font color="0080C0">#TransactionBatchNo#</font></a></td>
-				<td>#dateformat(TransactionDate,client.dateformatshow)#</td>
-				
+				<td>#dateformat(TransactionDate,client.dateformatshow)#</td>				
+				<td style="padding-right:2px" align="right">#TransactionQuantity#</td>						
+				<td style="padding-right:2px" align="right">#ReturnedQuantity#</td>										
 				<td style="padding-right:2px" align="right">
-				#TransactionQuantity#				
-				</td>		
-				
-				<td style="padding-right:2px" align="right">
-				#ReturnedQuantity#				
-				</td>		
-								
-				<td style="padding-right:2px" align="right">
-				<cfif ReturnedQuantity neq "">
-				
-					<cfset q = TransactionQuantity-ReturnedQuantity>
-					#q#
-				
-				<cfelse>
-				#TransactionQuantity#
-				</cfif>
-				</td>				
-												
-				<td style="padding-right:2px" align="right">#numberformat(SalesPrice,"_,__.__")#</td>
+				<cfif ReturnedQuantity neq ""><cfset q = TransactionQuantity-ReturnedQuantity>#q#				
+				<cfelse>#TransactionQuantity#</cfif>
+				</td>																
+				<td style="padding-right:2px" align="right">#numberformat(SalesPrice,",.__")#</td>
 				
 				<!---				
 				<td style="padding-right:2px" align="right">#numberformat(SalesAmount,"_,__.__")#</td>
@@ -203,8 +199,8 @@
 					<table>
 						<tr>
 						<td id="box_#TransactionSerialNo#" name="returnbox" class="hide">
-						<input onchange="_cf_loadingtexthtml='';ColdFusion.navigate('setTotal.cfm','totalbox','','','POST','billingform')" 
-						 type="text" id="Quantity_#TransactionSerialNo#" name="Quantity_#TransactionSerialNo#" class="regularh" style="padding-top:0px;height:19px;font-size:12px;text-align:right;width:50px" value="#TransactionQuantity#">				
+						<input onchange="_cf_loadingtexthtml='';ptoken.navigate('setTotal.cfm','totalbox','','','POST','billingform')" 
+						 type="text" id="Quantity_#TransactionSerialNo#" name="Quantity_#TransactionSerialNo#" class="regularxxl" style="border:0px;border-left:1px solid silver;border-right:1px solid silver;height:23px;text-align:right;width:70px" value="#TransactionQuantity#">				
 						</td>
 						</tr>
 					</table>

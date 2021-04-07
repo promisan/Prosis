@@ -156,7 +156,9 @@ password="#SESSION.dbpw#">
 				FROM     FunctionOrganization F1 
 				         INNER JOIN FunctionTitle F ON F1.FunctionNo = F.FunctionNo 
 						 INNER JOIN Ref_Organization R ON F1.OrganizationCode = R.OrganizationCode 
-						 INNER JOIN Ref_GradeDeployment G ON F1.GradeDeployment = G.GradeDeployment 
+						 INNER JOIN Ref_GradeDeployment G ON F1.GradeDeployment = G.GradeDeployment
+						 INNER JOIN Ref_SubmissionEdition E ON F1.SubmissionEdition = E.SubmissionEdition 
+						 
 					     <cfloop query="steps">
 					     LEFT OUTER JOIN userQuery.dbo.#SESSION.acc#Roster#Status#_#fileno# S#Status# 
 						      ON S#Status#.FunctionNo = F1.FunctionNo AND S#Status#.OrganizationCode = F1.OrganizationCode AND S#Status#.GradeDeployment = F1.GradeDeployment 
@@ -168,10 +170,7 @@ password="#SESSION.dbpw#">
 		                    	            	 WHERE SearchId = #URL.ID#
 		                        	         	 AND SearchClass = 'Edition')
 												 
-			 AND        (F.FunctionRoster = '1' OR F1.ReferenceNo IN ('Direct','direct') OR F1.PostSpecific = 0)									 
-			 <!---								 
-			 AND     	F.FunctionRoster = '1'		
-			 --->
+			 AND        (F.FunctionRoster = '1' OR F1.ReferenceNo IN ('Direct','direct') OR F1.PostSpecific = 0 OR E.EnableAsRoster = 1)									 
 			 
 			 
 			 <!--- this setting can be adjustment when a roster bucket is to be showned or not --->
@@ -201,7 +200,7 @@ password="#SESSION.dbpw#">
 	
 	</cftry>
 	
-	<table width="100%">
+	<table style="width:98.5%" class="navigation_table">
 	
 	<TR height="23" class="labelmedium2 fixrow line">
 	    <TD style="padding-left:4px"><cf_tl id="Grade">/<cf_tl id="Functional title"></TD>
@@ -235,7 +234,7 @@ password="#SESSION.dbpw#">
 	
 	<cfset g = "0">
 	
-	<tr class="labelmedium2 line"><td height="40" style="padding-top:5px;font-size:22px" colspan="#col#">#GradeDescription# [#GradeDeployment#]</td></tr>
+	<tr class="labelmedium2"><td height="40" style="padding-top:5px;font-size:23px" colspan="#col#">#GradeDescription# [#GradeDeployment#]</td></tr>
 		
 	<cfoutput>
 		
@@ -264,8 +263,8 @@ password="#SESSION.dbpw#">
 			
 			</cfif>  		  
 				
-		<TR class="labelmedium2 line" bgcolor="<cfif selected eq '1' or pre eq "1">ffffcf</cfif>">
-		    <TD style="padding-left:10px"><a href="javascript:gjp('#FunctionNo#','#GradeDeployment#')" title="Review description">#FunctionDescription#</a></TD>
+		<TR class="labelmedium2 line navigation_row" bgcolor="<cfif selected eq '1' or pre eq "1">ffffcf</cfif>">
+		    <TD style="font-size:15px;padding-left:10px"><a href="javascript:gjp('#FunctionNo#','#GradeDeployment#')" title="Review description">#FunctionDescription#</a></TD>
 		    <TD>#OrganizationDescription#</TD>
 			<cfloop index="status" list="#st#" delimiters=",">
 			<td align="right" style="padding-right:3px;border-left: 1px solid silver; border-right: 1px solid silver;">
@@ -316,3 +315,5 @@ password="#SESSION.dbpw#">
 		   value="<cfoutput>#FunctionAll.recordcount#</cfoutput>">
 	
 	</table>
+	
+	<cfset ajaxonload("doHighlight")>

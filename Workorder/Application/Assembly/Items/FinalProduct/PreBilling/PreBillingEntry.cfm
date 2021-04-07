@@ -237,7 +237,7 @@
 					    class="radiol" 
 						checked
 						name="Selected" 
-						onclick="ColdFusion.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Prebilling/setTotal.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#','sale','','','POST','billingform')"
+						onclick="ptoken.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Prebilling/setTotal.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#','sale','','','POST','billingform')"
 						value="'#workorderitemid#'">
 					</td>
 					<td width="38%">#ItemDescription#</td>
@@ -286,7 +286,7 @@
 				 <td colspan="2" class="labelmedium" style="padding-left:10px;padding-right:4px"><cf_tl id="#Description#">:</td>
 				 <td colspan="1" align="right" id="xxxxchargebox" class="labelmedium" style="padding-left:10px;padding-right:4px">
 					 <input type="text" name="Amount_#Area#" value="#numberformat(0,",.__")#"
-					 onchange="ColdFusion.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Prebilling/setTotal.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#','sale','','','POST','billingform')"
+					 onchange="ptoken.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Prebilling/setTotal.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#','sale','','','POST','billingform')"
 					 class="regularxl enterastab" style="padding-right:4px;width:100px;text-align:right">
 				 </td>						
 				 </tr>
@@ -297,7 +297,7 @@
 			    <td colspan="5" id="Total"></td>
 				<td colspan="2"><cf_tl id="Total">:</td>
 				<td align="right" style="padding-right:4px">
-				<input type="text" value="#numberformat(sal,",__.__")#" readonly id="totalamount" name="totalamount" class="regularxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: AFEEEE;">				
+				<input type="text" value="#numberformat(sal,",.__")#" readonly id="totalamount" name="totalamount" class="regularxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: AFEEEE;">				
 				</td>
 			</tr>
 						
@@ -305,7 +305,7 @@
 			    <td colspan="5" id="tax"></td>
 				<td colspan="2"><cf_tl id="Tax">:</td>
 				<td align="right" style="padding-right:4px">
-				<input type="text" value="#numberformat(tax,",__.__")#" readonly id="taxamount" name="taxamount" class="regularxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: f1f1f1;">				
+				<input type="text" value="#numberformat(tax,",.__")#" readonly id="taxamount" name="taxamount" class="regularxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: f1f1f1;">				
 				</td>
 			</tr>
 					
@@ -414,7 +414,7 @@
 		 <input type="button" 
 			  class="button10g" 
 			  style="font-size:13px;width:280px;height:32" 
-			  onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ColdFusion.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Prebilling/PreBillingSubmit.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&systemfunctionid=#url.systemfunctionid#','processbox','','','POST','billingform')"
+			  onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Prebilling/PreBillingSubmit.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&systemfunctionid=#url.systemfunctionid#','processbox','','','POST','billingform')"
 			  name="Submit" 
 			  value="#lt_text#">
 			  

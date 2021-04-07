@@ -10,17 +10,17 @@
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT     *
-		FROM       WarehouseLocation
-		WHERE      Warehouse = '#url.warehouse#'
-		AND        Operational = '1'
-		ORDER BY   ListingOrder
+			SELECT     *
+			FROM       WarehouseLocation
+			WHERE      Warehouse = '#url.warehouse#'
+			AND        Operational = '1'
+			ORDER BY   ListingOrder
 </cfquery>
 
 <cfoutput>		
 						
 	<select name="location" id="location"
-	    class="regularh" style="font-size:18px;height:25px;width:250">		
+	    class="regularxxl" style="width:250px">		
 		<cfloop query="Location">
 			<option value="#Location#">#Description#</option>
 		</cfloop>

@@ -58,10 +58,10 @@ password="#SESSION.dbpw#">
 		
 		<table width="100%" class="formpadding">
 		
-				<TR class="labelmedium">		   				  
+				<TR class="labelmedium2">		   				  
 							
-					<td style="border:1px solid silver;padding-left:4px" width="20%" height="18"><cf_tl id="Provider"></td>	
-			        <td style="border:1px solid silver;padding-left:4px" colspan="2" width="20%"> <cf_tl id="Class"> </td>	
+					<td style="border:1px solid silver;padding-left:4px" height="18"><cf_tl id="Provider"></td>	
+			        <td style="min-width:200px;border:1px solid silver;padding-left:4px" colspan="2"> <cf_tl id="Class"> </td>	
 							
 							
 							<cfif item.enablePerson eq 1>
@@ -133,13 +133,13 @@ password="#SESSION.dbpw#">
 							 WHERE   WO.workorderid  = '#Parent.workorderid#'			 
 						</cfquery>
 										
-					    <TR bgcolor="e4e4e4" class="labelmedium">		   				  
+					    <TR bgcolor="e4e4e4" class="labelmedium2">		   				  
 							
 							<td style="border:1px solid silver;padding-left:4px">
 								<a href="javascript:editworkorderline('#workorderlineid#')">#CustomerName#</a>							
 							</td>													
 													
-							<td width="15%" colspan="2" style="min-width:300px;border:1px solid silver;padding-left:4px">
+							<td colspan="2" style="min-width:300px;border:1px solid silver;padding-left:4px">
 							<cfif domainclass.recordcount eq "1">
 							#DomainClass.Description# [#DomainClass.PointerSale#|#DomainClass.PointerStock#]
 							<cfelse>
@@ -151,7 +151,7 @@ password="#SESSION.dbpw#">
 							<cfif item.enablePerson eq 1>																			
 								<td width="20%" colspan="2" style="padding-left:4px">
 								<table><tr><td class="labelit">
-								<a href="javascript:EditPerson('#PersonNo#')"><font color="0080C0">#FirstName# #LastName#</font></a>
+								<a href="javascript:EditPerson('#PersonNo#')">#FirstName# #LastName#</a>
 								</td></tr>
 								</table>
 								</td>
@@ -193,17 +193,17 @@ password="#SESSION.dbpw#">
 					    <td width="15%" style="min-width:300px;border:1px solid silver;padding-left:4px;background-color:ffffaf">					
 						
 							<table>
-							<tr class="labelmedium"> 							
-							<td  style="padding-left:1px;font-size:15px">
+							<tr class="labelmedium2"> 							
+							<td  style="min-width:200px;padding-left:1px;font-size:15px">
 							<cfif domainclass.recordcount eq "1">
-							#DomainClass.Description# [#DomainClass.PointerSale#|#DomainClass.PointerStock#]
+							#DomainClass.Description#&nbsp;[#DomainClass.PointerSale#|#DomainClass.PointerStock#]
 							<cfelse>
 							#Domain.Description#
 							</cfif>
 							</td>										
-							<td style="padding-left:4px;font-size:15px">
+							<td style="min-width:200px;padding-left:4px;font-size:15px">
 							<cf_stringtoformat value="#reference#" format="#domain.DisplayFormat#">	
-							<font color="black">: #val# #Description#												
+							<font color="black">:&nbsp;#val#</font>												
 							</td>
 							</tr>							
 							</table>

@@ -70,6 +70,18 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 	WHERE     WorkOrderId = '#url.workorderid#'	
 </cfquery>  
 
+<cfquery name="WorkorderReceivable" 
+	datasource="AppsWorkOrder" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT    *
+	FROM      WorkOrderGLedger
+	WHERE     WorkOrderId = '#url.workorderid#'	
+	AND       Area        = 'Receivable'
+	AND       GLAccount IN (SELECT GLAccount 
+	                        FROM   Accounting.dbo.Ref_Account)
+</cfquery>  
+
 <cfif url.id eq "STA">
 
 	<cfquery name="WorkorderLedger" 
@@ -80,7 +92,8 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 		FROM      WorkOrderGLedger
 		WHERE     WorkOrderId = '#url.workorderid#'	
 		AND       Area        = 'Income'
-		AND       GLAccount IN (SELECT GLAccount FROM Accounting.dbo.Ref_Account)
+		AND       GLAccount IN (SELECT GLAccount 
+		                        FROM   Accounting.dbo.Ref_Account)
 	</cfquery>  
 
 <cfelse>
@@ -89,11 +102,11 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 		datasource="AppsWorkOrder" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT    *
-		FROM      WorkOrderGLedger
-		WHERE     WorkOrderId = '#url.workorderid#'	
-		AND       Area        = 'Return'
-		AND       GLAccount IN (SELECT GLAccount FROM Accounting.dbo.Ref_Account)
+			SELECT    *
+			FROM      WorkOrderGLedger
+			WHERE     WorkOrderId = '#url.workorderid#'	
+			AND       Area        = 'Return'
+			AND       GLAccount IN (SELECT GLAccount FROM Accounting.dbo.Ref_Account)
 	</cfquery>  
 
 	<cfif WorkOrderLedger.recordcount eq "0">
@@ -113,11 +126,10 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 
 </cfif>
 
-
 <cfif WorkorderLedger.recordcount eq "0">
 
 	<cfoutput>
-		<cf_tl id="No income ledger account set for workorder">
+		<cf_tl id="No income gender ledger account set for workorder">
 		<script>
 			 alert("#lt_text#")
 			 Prosis.busy("no")
@@ -256,20 +268,20 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 	    datasource="AppsLedger" 
 	    username="#SESSION.login#" 
 	    password="#SESSION.dbpw#">
-		SELECT     *
-		FROM       Journal
-		WHERE      Journal = '#form.journal#' 
+			SELECT     *
+			FROM       Journal
+			WHERE      Journal = '#form.journal#' 
 	</cfquery>
 	
 	<cfquery name="JournalAccount" 
 	    datasource="AppsLedger" 
 	    username="#SESSION.login#" 
 	    password="#SESSION.dbpw#">
-		SELECT      TOP 1 *
-		FROM        JournalAccount
-		WHERE       Journal = '#form.journal#' 
-		AND         Mode    = 'Contra'		    
-		ORDER BY    ListDefault DESC
+			SELECT      TOP 1 *
+			FROM        JournalAccount
+			WHERE       Journal = '#form.journal#' 
+			AND         Mode    = 'Contra'		    
+			ORDER BY    ListDefault DESC
 	</cfquery>
 	
 	<cfquery name="Terms" 
@@ -376,11 +388,16 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 			ActionCode            = "Invoice"
 			ActionReference1      = "#form.ActionReference1#"
 			ActionReference2      = "#form.ActionReference2#">
-			
-			
+						
 	<!--- Lines - invoice itself --->
 		 
 	<cfset row = 0>
+	
+	<cfif WorkorderReceivable.glaccount neq "">
+			<cfset recv = WorkorderReceivable.glaccount> 
+	<cfelse>
+			<cfset recv = JournalAccount.GLAccount>
+	</cfif>
 		
 	<cf_GledgerEntryLine
 		Lines                    = "1"
@@ -395,7 +412,7 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 		Reference1               = "Receivable"       
 		ReferenceName1           = "#customer.customername#"  <!--- customer name --->
 		Description1             = ""
-		GLAccount1               = "#JournalAccount.GLAccount#"
+		GLAccount1               = "#recv#"
 		Costcenter1              = ""
 		ProgramCode1             = ""
 		ProgramPeriod1           = ""
@@ -413,8 +430,8 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 			           WL.OrgUnitImplementer,
 					   W.Reference,
 					   S.TaxCode,	
-			           ROUND(SUM(S.SalesTotal), 2) AS Total, 
-			           ROUND(SUM(S.SalesTax), 2) AS Tax, 
+			           ROUND(SUM(S.SalesTotal), 2)  AS Total, 
+			           ROUND(SUM(S.SalesTax), 2)    AS Tax, 
 					   ROUND(SUM(S.SalesAmount), 2) AS Sale
 			FROM       Materials.dbo.ItemTransactionShipping S INNER JOIN
 	                   Materials.dbo.ItemTransaction T ON S.TransactionId = T.TransactionId INNER JOIN
@@ -567,8 +584,8 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 			ShowTransaction('#Journal.journal#','#JournalTransactionNo#','0');
 			
 			_cf_loadingtexthtml='';	
-			ColdFusion.navigate('BillingEntryDetail.cfm?workorderid=#url.workorderid#&systemfunctionid=#url.systemfunctionid#','mycontent');
-			ColdFusion.navigate('BillingEntryWorkOrder.cfm?workorderid=#url.workorderid#','workorder');				
+			ptoken.navigate('BillingEntryDetail.cfm?workorderid=#url.workorderid#&systemfunctionid=#url.systemfunctionid#','mycontent');
+			ptoken.navigate('BillingEntryWorkOrder.cfm?workorderid=#url.workorderid#','workorder');				
 			Prosis.busy("no");	
 			
 		</script>

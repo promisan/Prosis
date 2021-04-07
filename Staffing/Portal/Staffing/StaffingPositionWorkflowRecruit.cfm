@@ -1,6 +1,6 @@
 
 <!--- obtain the active recruitment track for this position, but we also consider prior positions under this
-parent to be taken --->
+parent to be taken 
 
 <cfquery name="Active" 
 datasource="AppsEmployee" 
@@ -16,34 +16,41 @@ password="#SESSION.dbpw#">
 				   
 </cfquery>
 
+--->
+
 <cfoutput>
 <table style="width:100%">
 	<tr style="height:20px">
 	
-	<cfif Active.recordcount eq "0">
+	<cfif hasTrack eq "0">
 			
 		<td style="width:100%"> 
 		    <a title="Click to initiate a recruitment process for this position" href="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')"><cf_tl id="Initiate recruitment"></a> 	
 		</td>		
 	
 	<cfelse>
-			
+	
 		<cfquery name="Doc" 
-		datasource="appsVacancy" 
+		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		    SELECT *
-		    FROM  Document
-			WHERE DocumentNo = '#Active.DocumentNo#'
+			SELECT   D.*, DP.PositionNo
+			FROM     Vacancy.dbo.Document AS D INNER JOIN Vacancy.dbo.DocumentPost AS DP ON D.DocumentNo = DP.DocumentNo
+			WHERE    D.Status = '0' <!--- at the end of the track the status is set as 1 in the workflow --->
+			AND      DP.PositionNo IN ( SELECT PositionNo
+									    FROM   Position	P 
+									    WHERE  PositionParentId = '#positionparentid#' )
+			ORDER BY DocumentNo DESC		
+						   
 		</cfquery>
-			
+					
 		<cfquery name="Position" 
 		datasource="appsEmployee" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		    SELECT *
-		    FROM  Position
-			WHERE PositionNo = '#Active.PositionNo#'
+		    FROM   Position
+			WHERE  PositionNo = '#Doc.PositionNo#'
 		</cfquery>
 		
 		<cfquery name="Candidate" 
@@ -54,15 +61,17 @@ password="#SESSION.dbpw#">
 			SELECT  A.IndexNo, DC.LastName, DC.FirstName, A.DOB, A.PersonNo, A.EmployeeNo
 			FROM    DocumentCandidate AS DC LEFT OUTER JOIN
 		            Applicant.dbo.Applicant AS A ON DC.PersonNo = A.PersonNo
-			WHERE   DocumentNo = '#Active.DocumentNo#'
+			WHERE   DocumentNo = '#Doc.DocumentNo#'
 			AND     Status = '2s'
 			
 		</cfquery>
 		
-		<cf_wfActive entitycode="VacDocument" objectkeyvalue1="#Active.DocumentNo#">		
-		<cfset link = "Vactrack/Application/Document/DocumentEdit.cfm?ID=#Active.DocumentNo#&IDCandlist=ZoomIn&ActionId=undefined">
+		<cf_wfActive entitycode="VacDocument" objectkeyvalue1="#doc.DocumentNo#">		
+		<cfset link = "Vactrack/Application/Document/DocumentEdit.cfm?ID=#doc.DocumentNo#&IDCandlist=ZoomIn&ActionId=undefined">
 			 
-		<cfif wfstatus neq "closed">		
+		<cfif wfstatus neq "closed">	
+		
+			<cfset hasworkflow = 1>				
 			
 			<td style="width:100%">	
 							

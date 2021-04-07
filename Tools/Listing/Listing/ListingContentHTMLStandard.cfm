@@ -21,7 +21,6 @@
 	<cfset headercols = "4">
 </cfif>
 
-
 <cfloop query="SearchResult" startrow="1" endrow="#last#">
 			
 	<cfset currrow = currrow + 1>		
@@ -85,11 +84,11 @@
 		<!--- was part of tr  keyvalue="#s#" --->		
 																						   
 		<cfif rowspan eq "1">											   
-		   <tr class="#attributes.classheader# navigation_row line" name="#box#_#dkey#" id="r#row#" 
-		     style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('efefef'))#">					
+		   <tr class="#attributes.classheader# navigation_row linedotted" name="#box#_#dkey#" id="r#row#" 
+		     style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('f4f4f4'))#">					
 		<cfelse>
 		   <tr class="#attributes.classheader# navigation_row" name="#box#_#dkey#" id="r#row#"
-		     style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('efefef'))#"> 
+		     style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('f4f4f4'))#"> 
 		</cfif>				
 							
 		<td align="right" style="padding-right:4px;height:21px" id="#s#" onclick="var r = $('##r#row#').position();">#currentrow#.

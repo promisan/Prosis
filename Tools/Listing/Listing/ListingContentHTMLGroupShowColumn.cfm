@@ -94,7 +94,7 @@
 							  WHERE  #url.listcolumn1# = '#myval[currentrow][1]#'			 		  										
 						</cfquery>	
 										
-					    <cfif getTotal.total neq "">			
+					    <cfif getTotal.total gt "0">			
 							<cfset val = numberformat((myval[currentrow][cnt]*100/getTotal.total),'._')>							
 							<cfif val gt "0">
 								<cfset myval[currentrow][cnt] = "#val# %">								
@@ -150,14 +150,18 @@
 				 	
 		    <cfif itm eq "SUM"> 				
 			   <cfset myTot[cnt] = numberformat(myTot[cnt],",")>					   							   											
-			<cfelseif itm eq "PER">			
-			   <cfset val = myTot[cnt]*100/SearchOverall.Total>				     		   
-			   <cfif val gt "0">
-			        <cfset val = numberformat(val,"._")>
-					<cfset myTot[cnt] = "#val# %">								
-			   <cfelse>				   
-				    <cfset myTot[cnt] = "0">	
-			   </cfif>			   
+			<cfelseif itm eq "PER">	
+			   <cfif SearchOverall.Total gt "0">
+				   <cfset val = myTot[cnt]*100/SearchOverall.Total>				     		   
+				   <cfif val gt "0">
+				        <cfset val = numberformat(val,"._")>
+						<cfset myTot[cnt] = "#val# %">								
+				   <cfelse>				   
+					    <cfset myTot[cnt] = "0">	
+				   </cfif>			   
+			   <cfelse>
+			      <cfset myTot[cnt] = "0">	
+			   </cfif>	   
 			<cfelseif itm eq "MIN">			
 				<cfset myTot[cnt] = numberformat(myTot[cnt],",")>				
 			<cfelseif itm eq "MAX"> 			

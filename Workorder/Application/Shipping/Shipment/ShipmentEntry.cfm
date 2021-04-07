@@ -53,8 +53,8 @@
 		 
 		 	<tr class="line">
 				<td style="height:35px;padding-left:16px" class="labellarge" colspan="2">
-				<cfif workorder.orgunit neq "">
-				<a href="javascript:viewOrgUnit('#workorder.OrgUnit#')"><font color="0080C0"><u>#workorder.customername#</font></a>
+				<cfif workorder.orgunit gt "0">
+				<a href="javascript:viewOrgUnit('#workorder.OrgUnit#')">#workorder.customername#</a>
 				<cfelse>
 				#workorder.customername#
 				</cfif>

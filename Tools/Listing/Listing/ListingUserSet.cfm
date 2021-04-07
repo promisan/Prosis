@@ -28,13 +28,11 @@
 			<cfset att2 = "">
 		<cfelseif itm eq "listcolumn1">
 			<cfset att1 = evaluate("URL.#itm#_type")>
-			<cfset att2 = evaluate("URL.#itm#_typemode")>	
-								
+			<cfset att2 = evaluate("URL.#itm#_typemode")>									
 		<cfelse>
 			<cfset att1 = "">	
 			<cfset att2 = "">
-		</cfif>
-		
+		</cfif>		
 			
 		<cfif check.recordcount eq "0">		
 		

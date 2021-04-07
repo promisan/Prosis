@@ -22,8 +22,11 @@
 		#PreserveSingleQuotes(Client.Payables)# 			
 		AND ReferenceName LIKE '#url.value#%'
 						
-	<cfelse>					
-			
+	<cfelse>			
+	
+		#PreserveSingleQuotes(Client.Payables)# 
+		
+					
 		<cfif findNoCase("WHERE",Client.Payables) lte 0>			
 			WHERE 1=1
 		</cfif>	
@@ -45,7 +48,7 @@
 		<cfif url.value eq "Over 180d">
 			AND		Days > 180.0
 		</cfif>		
-		#PreserveSingleQuotes(Client.Payables)# 		
+		 		
 	
 	</cfif>
 		
@@ -88,6 +91,15 @@
 					field         = "TransactionReference",
 					search        = "text"}>	
 					
+<cfset itm = itm+1>	
+<cf_tl id="Journal" var="vJournal">			
+<cfset fields[itm] = {label       = "#vJournal#", 					
+					field         = "Journal",					
+					search        = "text",
+					column        = "common",
+					display       = "no",
+					filtermode    = "2"}>		
+										
 <cfset itm = itm+1>	
 <cf_tl id="Account" var="vAccount">			
 <cfset fields[itm] = {label       = "#vAccount#", 					

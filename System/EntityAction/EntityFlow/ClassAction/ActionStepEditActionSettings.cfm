@@ -132,60 +132,67 @@
 			
 			<cfelse>			
 		
-			<table cellspacing="0" cellpadding="0">
+			<table>
 				
 				<tr id="yesno" class="regular"><td></td>
-				    <td><table>
+				    <td>
+					
+					<table>
+					
 						<tr><td height="1"></td></tr>
 						<tr bgcolor="CEFFCE">
+							
+							<td width="40%" class="labelmedium" style="height:35px;padding-left:6px">Track A</td>
+							<td height="24" class="labelit" style="padding-left:6px">Label:</td>
+							<td style="padding-left:8px"><input type="text" 
+							       name="ActionGoToYesLabel" 
+								   id="ActionGoToYesLabel"
+								   value="#Get.ActionGoToYesLabel#" 
+			     				   size="30" 
+								   width="90%"  class="regularxl"
+								   maxlength="40">
+								   
+								   <input type="hidden" name="ActionGoToYes" value="#Get.ActionGoToYes#">
+						    </td>
+							<td style="padding-left:4px">
+							<cfif Get.ActionGoToYes eq "">
+							<cfelse>
+							<img src="#SESSION.root#/images/status_ok1.gif" onclick="stepedit('#Get.ActionGoToYes#')"
+								   alt="Go To" border="0" style="cursor: pointer;" align="absmiddle">
+							</cfif>
+							</td>
+						</tr>
 						
-						<td width="40%" class="labelmedium" style="height:35px;padding-left:6px">Track A</td>
-						<td height="24" class="labelit" style="padding-left:6px">Label:</td>
-						<td style="padding-left:8px"><input type="text" 
-						       name="ActionGoToYesLabel" 
-							   id="ActionGoToYesLabel"
-							   value="#Get.ActionGoToYesLabel#" 
-		     				   size="30" 
-							   width="90%"  class="regularxl"
-							   maxlength="40">
-							   
-							   <input type="hidden" name="ActionGoToYes" value="#Get.ActionGoToYes#">
-					    </td>
-						<td style="padding-left:4px">
-						<cfif Get.ActionGoToYes eq "">
-						<cfelse>
-						<img src="#SESSION.root#/images/status_ok1.gif" 
-						   onclick="stepedit('#Get.ActionGoToYes#')"
-							   alt="Go To" border="0" style="cursor: pointer;"
-						   align="absmiddle">
-						</cfif>
-						</td>
-						</tr>
-						<tr><td height="1"></td></tr>
+						<tr><td height="1"></td></tr>						
 						<tr bgcolor="FDDFDB">
-						<td height="24" class="labelmedium" style="height:35px;padding-left:6px">Track B</td>
-						<td <td style="padding-left:6px" class="labelit">Label:</td>
-						<td style="padding-left:8px"><input type="text" 
-						       name="ActionGoToNoLabel" 
-							   id="ActionGoToNoLabel"
-							   value="#Get.ActionGoToNoLabel#" 
-		     				   size="30"  class="regularxl"
-							   maxlength="40">
-							   
-							    <input type="hidden" name="ActionGoToNo" value="#Get.ActionGoToNo#">
-					    </td>
-						<td style="padding-left:4px">
-						<cfif Get.ActionGoToNo eq "">
-						<cfelse>
-						<img src="#SESSION.root#/images/status_alert1.gif" 
-						   style="cursor: pointer;"
-						   onclick="stepedit('#Get.ActionGoToNo#')"
-						   alt="Go To" border="0" align="absmiddle">
-						</cfif>
-						</td>
+							<td height="24" class="labelmedium" style="height:35px;padding-left:6px">Track B</td>
+							<td style="padding-left:6px" class="labelit">Label:</td>
+							<td style="padding-left:8px">
+							
+							      <input type="text" 
+							       name="ActionGoToNoLabel" 
+								   id="ActionGoToNoLabel"
+								   value="#Get.ActionGoToNoLabel#" 
+			     				   size="30"  class="regularxl"
+								   maxlength="40">
+								   
+								    <input type="hidden" name="ActionGoToNo" value="#Get.ActionGoToNo#">
+						    </td>
+							<td style="padding-left:4px">
+							<cfif Get.ActionGoToNo eq "">
+							<cfelse>
+							<img src="#SESSION.root#/images/status_alert1.gif" 
+							   style="cursor: pointer;"
+							   onclick="stepedit('#Get.ActionGoToNo#')"
+							   alt="Go To" border="0" align="absmiddle">
+							</cfif>
+							</td>
 						</tr>
+						
 				        </table>
+						
 					</td></tr>
+					
 			</table>
 							
 		</cfif>
@@ -292,8 +299,7 @@
 			</tr>
 		</table>
 		</td>
-	</TR>	
-		
+	</TR>			
 	
 	<cfif Get.ActionType eq "Action" or Get.ActionType eq "Decision">
 	
@@ -303,7 +309,9 @@
 	[TAB] Custom Dialog:
 	</cf_uitooltip>			
 	</TD>
-    <td><table cellspacing="0" cellpadding="0"><tr><td>
+    <td>
+	     <table>
+		 <tr><td>
 		    
 			<select name="ActionDialog" id="ActionDialog" class="regularxl" style="width:180px" onChange="standard(this.value)">
 						
@@ -330,7 +338,7 @@
 			<!--- select a parameter value to be passed to the dialog EO/Account --->
 			
 			<!--- krw: 04/03/08 added bind to initialize value --->
-			<cfdiv id="parameter" tagname="td" 
+			<cf_securediv id="parameter" tagname="td" 
 				bind="url:ActionStepEditActionParam.cfm?EntityCode=#URL.EntityCode#&Dialog=#Get.ActionDialog#&dialogparameter=#get.actionDialogParameter#">
 																				
 			</td>
@@ -347,8 +355,9 @@
 			       name="disablestandarddialog" id="disablestandarddialog"
 				   value="1" <cfif Get.disableStandardDialog eq "1">checked</cfif>>
 			
-			</td>
-			</table>
+		</td>
+		</tr>
+		</table>
 							
 	</td>
 	</TR>
@@ -362,9 +371,8 @@
 		<table width="450" style="border:0px dotted silver" cellspacing="0" cellpadding="0" class="formpadding">
 		
 		<TR>
-			<TD width="30%" style="padding-left:4px;padding-right:10px" style="cursor:pointer" title="Allow Processor to record a reference date and referenceNo" class="labelit">
-			Reference/Date:
-			</TD>
+			<TD width="30%" style="padding-left:4px;padding-right:10px" style="cursor:pointer"
+			 title="Allow Processor to record a reference date and referenceNo" class="labelit">Reference/Date:</TD>
 			<TD>
 			<table cellspacing="0" cellpadding="0">
 			<tr>
@@ -593,6 +601,7 @@
 		
 		</td></tr>
 		</table>
+		
   	 </td>
 	 		
 	</tr>

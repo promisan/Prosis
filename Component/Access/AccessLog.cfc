@@ -19,16 +19,16 @@
 		returntype  = "string" 
 		displayname = "Delete Access">
 		
-		<cfargument name="Logging"          type="string" required="false" default="0">				
-		<cfargument name="ActionId"         type="string" required="true">
-		<cfargument name="ActionStatus"     type="string" required="true">
-		<cfargument name="ActionStep"       type="string" required="true">
-		<cfargument name="userAccount"      type="string" required="true">
-		<cfargument name="Condition"        type="string" required="true">
-		<cfargument name="ConditionGroup"   type="string" required="false" default="">
-		<cfargument name="DeleteCondition"  type="string" required="false" default="">
-		<cfargument name="AddDeny"          type="string" default="0"      required="yes">
-		<cfargument name="AddDenyCondition" type="string" required="no"    default="">
+		<cfargument name="Logging"          type="string"  required="false" default="0">				
+		<cfargument name="ActionId"         type="string"  required="true">
+		<cfargument name="ActionStatus"     type="string"  required="true">
+		<cfargument name="ActionStep"       type="string"  required="true">
+		<cfargument name="userAccount"      type="string"  required="true">
+		<cfargument name="Condition"        type="string"  required="true">
+		<cfargument name="ConditionGroup"   type="string"  required="false" default="">
+		<cfargument name="DeleteCondition"  type="string"  required="false" default="">
+		<cfargument name="AddDeny"          type="string"  default="0"      required="yes">
+		<cfargument name="AddDenyCondition" type="string"  required="no"    default="">
 						
 		<!--- this only applies for group inherited access in order to revert this --->
 		
@@ -139,6 +139,7 @@
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 						INSERT INTO OrganizationAuthorizationDeny
+						
 						SELECT * 
 						FROM   OrganizationAuthorization O
 						WHERE  #preserveSingleQuotes(condition)#
@@ -395,8 +396,7 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			
-				DELETE
-				FROM
+				DELETE FROM
 				UserAuthorizationAction
 				WHERE RequestId = '#requestId#'
 			
@@ -414,7 +414,7 @@
             name        = "DeleteAccessId"
 			output      = "false" 
 			returntype  = "string" 
-			displayname = "Delete All">
+			displayname = "Delete single">
 						
 		<cfargument name="accessid" type="GUID" required="yes">	
 		
@@ -447,22 +447,22 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		INSERT INTO UserAuthorizationActionLog
-		        (ProfileActionId, 
-				 ActionStatus, 
-				 AccessId, 
-				 Mission, 
-				 OrgUnit, 
-				 UserAccount, 
-				 Role, 
-				 ClassParameter, 
-				 GroupParameter, 
-				 ClassisAction, 
-				 AccessLevel, 
-				 Source, 
-		         OfficerUserId, 
-				 OfficerLastName, 
-				 OfficerFirstName, 
-				 Created)
+			        (ProfileActionId, 
+					 ActionStatus, 
+					 AccessId, 
+					 Mission, 
+					 OrgUnit, 
+					 UserAccount, 
+					 Role, 
+					 ClassParameter, 
+					 GroupParameter, 
+					 ClassisAction, 
+					 AccessLevel, 
+					 Source, 
+			         OfficerUserId, 
+					 OfficerLastName, 
+					 OfficerFirstName, 
+					 Created)
 		SELECT   '#rowguid#',
 		         '9',
 		         AccessId,
@@ -1149,8 +1149,7 @@ is an SOP action as it is not new for other access as well --->
 	  <cfargument name="userAccount" type="string" required="true">		
 	  <cfargument name="Role"        type="string" default=""         required="no">	
 	  <cfargument name="Mode"        type="string" default="Standard" required="no">
-	  
-	  	 
+	  	  	 
 	  <!--- remove any group access of people that have no membership (anymore) : provision --->
 	  
 	  <cfif userAccount eq "">
@@ -1268,8 +1267,8 @@ is an SOP action as it is not new for other access as well --->
 			datasource="AppsOrganization" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			DELETE FROM OrganizationAuthorization 
-			WHERE Source      = '#usergroup#'						
+				DELETE FROM OrganizationAuthorization 
+				WHERE Source      = '#usergroup#'						
 			</cfquery>					
 				
 		</cfif>

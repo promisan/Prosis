@@ -302,7 +302,7 @@ password="#SESSION.dbpw#">
 				<cfquery name="Source" dbtype="query">
 				    SELECT  *
 				    FROM    Source
-				    WHERE   Exist > 1 and AllowEdit = 1
+				    WHERE   AllowEdit = 1
 				</cfquery>
 								
 				<cfif source.recordcount gte "1">

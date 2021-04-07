@@ -29,22 +29,23 @@
 	 <cfabort>
 </cfif> 
 
-<cfquery name="Log" 
+<cfquery name="AuditLog" 
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		INSERT INTO Ref_ModuleControlDetailLog
-		(SystemFunctionId,
-		 FunctionSerialNo,
-		 QueryScript,
-		 OfficerUserId,
-		 OfficerLastName,OfficerFirstName)
+			(SystemFunctionId,
+			 FunctionSerialNo,
+			 QueryScript,
+			 OfficerUserId,
+			 OfficerLastName,OfficerFirstName)
 		VALUES
 			('#url.systemfunctionid#',
 			 '#url.functionserialno#',
 			 '#Form.QueryScript#',
 			 '#SESSION.acc#',
-			 '#SESSION.last#','#SESSION.first#')		
+			 '#SESSION.last#',
+			 '#SESSION.first#')		
 </cfquery> 
 
 <cfset argument = "#form.DrillArgumentHeight#;#form.DrillArgumentWidth#;#form.DrillArgumentModal#;#Form.DrillArgumentCenter#;#Form.ExcelExport#">
@@ -62,7 +63,7 @@ password="#SESSION.dbpw#">
 			  DrillMode        = '#Form.DrillMode#',			 
 			  DrillTemplate    = '#Form.DrillTemplate#',
 			  DrillArgument    = '#argument#',
-			  EntityCode       = '#Form.EntityCode#'
+			  EntityCode       = '#Form.EntityCode#'			          
 	WHERE     SystemFunctionId = '#url.systemfunctionid#' 
 	AND       FunctionSerialNo = '#url.functionserialno#'   
 </cfquery>  

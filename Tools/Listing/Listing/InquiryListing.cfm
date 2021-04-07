@@ -25,7 +25,7 @@ password="#SESSION.dbpw#">
 	SELECT *
 	FROM   Ref_ModuleControlDetail
 	WHERE  SystemFunctionId = '#URL.SystemFunctionId#'
-	AND    FunctionSerialNo = 1
+	AND    FunctionSerialNo = '#url.FunctionSerialNo#'
 </cfquery>
 
 <cfset fields=ArrayNew(1)>
@@ -37,8 +37,9 @@ password="#SESSION.dbpw#">
 	SELECT   *
 	FROM     Ref_ModuleControlDetailField
 	WHERE    SystemFunctionId = '#URL.SystemFunctionId#'
-	AND      FunctionSerialNo = 1
-	ORDER BY FieldRow,ListingOrder
+	AND      FunctionSerialNo = '#url.FunctionSerialNo#'
+	ORDER BY FieldRow,
+	         ListingOrder
 </cfquery>
 
 <cfoutput query="MyFields">
@@ -51,16 +52,24 @@ password="#SESSION.dbpw#">
 			<cfset formatted = "dateformat(#fieldname#,CLIENT.DateFormatShow)">	
 		</cfcase>
 		
-		<cfcase value="DateTime">	
-			<cfset formatted = "datetimeformat(#fieldname#,'#CLIENT.DateFormatShow# HH:NN')">	
-		</cfcase>
-		
 		<cfcase value="Time">	
 			<cfset formatted = "timeformat(#fieldname#,'HH:MM')">	
 		</cfcase>
 		
+		<cfcase value="DateTime">	
+			<cfset formatted = "datetimeformat(#fieldname#,'#CLIENT.DateFormatShow# HH:NN')">	
+		</cfcase>
+						
 		<cfcase value="Amount">	
 			<cfset formatted = "numberformat(#fieldname#,',.__')">	
+		</cfcase>
+		
+		<cfcase value="Amount0">	
+			<cfset formatted = "numberformat(#fieldname#,',')">	
+		</cfcase>
+		
+		<cfcase value="Number">	
+			<cfset formatted = "numberformat(#fieldname#,',')">	
 		</cfcase>
 	
 	</cfswitch>
@@ -104,6 +113,7 @@ password="#SESSION.dbpw#">
 		    labelfilter     = "#lblfilter#",
             width           = "#fieldWidth#", 
 			field           = "#fieldName#",
+			fieldsort       = "#fieldNameSort#",
 			formatted       = "#formatted#",
 			column          = "#fieldcolumn#",
 			display         = "#grid#",		
@@ -151,7 +161,7 @@ password="#SESSION.dbpw#">
 	SELECT   *
 	FROM     Ref_ModuleControlDetailField
 	WHERE    SystemFunctionId = '#URL.SystemFunctionId#'
-	AND      FunctionSerialNo = 1	
+	AND      FunctionSerialNo = '#url.FunctionSerialNo#'	
 	AND      FieldSort = '1'	
 </cfquery>
 
@@ -162,7 +172,7 @@ password="#SESSION.dbpw#">
 	SELECT   *
 	FROM     Ref_ModuleControlDetailField
 	WHERE    SystemFunctionId = '#URL.SystemFunctionId#'
-	AND      FunctionSerialNo = 1	
+	AND      FunctionSerialNo = '#url.FunctionSerialNo#'	
 	AND      FieldSort = '2'		
 </cfquery>
 

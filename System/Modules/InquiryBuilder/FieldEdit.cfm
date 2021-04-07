@@ -15,6 +15,16 @@
 	
 </script>
 
+<cfquery name="get" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">		 
+	SELECT *
+	FROM   Ref_ModuleControlDetail
+	WHERE  SystemFunctionId = '#url.SystemFunctionId#'
+	AND    FunctionSerialNo = '#url.FunctionSerialNo#'		
+</cfquery>
+
 <cfquery name="Field" 
 datasource="AppsSystem" 
 username="#SESSION.login#" 
@@ -26,6 +36,16 @@ password="#SESSION.dbpw#">
 	AND    FieldId = '#URL.FieldId#'	
 </cfquery>
 
+<cfquery name="Fields" 
+datasource="AppsSystem" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">		 
+	SELECT *
+	FROM   Ref_ModuleControlDetailField
+	WHERE  SystemFunctionId = '#url.SystemFunctionId#'
+	AND    FunctionSerialNo = '#url.FunctionSerialNo#'		
+</cfquery>
+
 <cfquery name="List" 
 datasource="AppsSystem" 
 username="#SESSION.login#" 
@@ -35,26 +55,6 @@ password="#SESSION.dbpw#">
 	WHERE  SystemFunctionId = '#Field.SystemFunctionId#'
 	AND    FunctionSerialNo = '#Field.FunctionSerialNo#'	
 </cfquery>
-
-<!---
-<cfset script = List.QueryScript>
-
-<cfset script = replaceNoCase(script, "FROM"," FROM","ALL")>
-<cfset script = replaceNoCase(script, "WHERE"," WHERE","ALL")>
-<cfset script = replace(script, "ON"," ON","ALL")>   <!--- otherwise AddressZone would be incorrectly split --->
-<cfset script = replaceNoCase(script, "INNER JOIN"," INNER JOIN","ALL")>
-<cfset script = replaceNoCase(script, "LEFT OUTER JOIN"," LEFT OUTER JOIN","ALL")>
-
-<cfset s = FindNoCase("FROM", script)>
- 
-<cfif Find("WHERE", script)>
-   <cfset e = FindNoCase("WHERE", script)>
-<cfelse>
-   <cfset e = len(script)>
-</cfif>
-
-<cfset fr = mid(script,s+4,e-(s+3))>
---->
 
 <table class="hide"><tr><td><iframe id="iframeSubmit" name="iframeSubmit"></iframe></td></tr></table>
 
@@ -161,29 +161,91 @@ password="#SESSION.dbpw#">
 							</tr>
 							
 							<tr>
+								<td class="labelmedium2">Field sort by:</td>
+								<td colspan="3">
+								
+								<cfset sc = replace(get.QueryScript, "SELECT",  "SELECT TOP 1")> 
+		
+								<cfoutput>
+								<cfsavecontent variable="sc">	
+									SELECT *
+									FROM (#preservesinglequotes(sc)#) as D
+									WHERE 1=0		
+								</cfsavecontent>		
+								</cfoutput>
+						
+								<!--- -------------------------- --->
+								<!--- preparation of the listing --->
+								<!--- -------------------------- --->
+									
+								<cfset fileNo = "#get.DetailSerialNo#">					
+								<cfinclude template="QueryPreparation.cfm">				
+								<cfinclude template="QueryValidateReserved.cfm">
+																										
+								<cfquery name="SelectQuery" 
+								datasource="#get.QueryDatasource#" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">				
+								   #preservesinglequotes(sc)# 
+								</cfquery>									
+																	
+								<cfset col = SelectQuery.columnList>
+								<cfset colfields = "">
+								
+								<cfloop index="fld" list="#col#">
+								
+									<cfif not findNoCase(fld,valueList(Fields.fieldName))>
+									
+									     <cfif colfields eq "">
+										    <cfset colfields = "#fld#">
+										 <cfelse>
+										    <cfif findNoCase(fld,colfields)>
+											  <!--- nada --->
+											<cfelse>
+										    <cfset colfields = "#colfields#,#fld#">	
+											</cfif>
+										 </cfif> 
+									
+									</cfif> 
+								
+								</cfloop>
+																
+								 <select name="fieldnamesort" id="fieldnamesort" class="regularxxl">		
+								     <option value=""><cf_tl id="same"></option>						 
+								     <cfloop index="col" list="#colfields#" delimiters=",">							      
+								  	     <option value="#col#" <cfif fieldnamesort eq col>selected</cfif>>#col#</option> 
+								     </cfloop>								
+								  </select>
+								
+								</td>
+											
+							</tr>
+							
+							<tr>
 
 								<td class="labelmedium2">Content Format:</td>
 								<td>
 									<select name="FieldOutputFormat" id="FieldOutputFormat" class="regularxxl">						 
-									 	  <option value=""  <cfif fieldoutputformat eq "">selected</cfif>>As in table</option> 
-									 	  <option value="Date"  <cfif fieldoutputformat eq "Date">selected</cfif>>Date formatted</option> 
-									   	  <option value="Time"  <cfif fieldoutputformat eq "Time">selected</cfif>>Time formatted</option> 
-									   	  <option value="Amount" <cfif fieldoutputformat eq "Amount">selected</cfif>>Amount formatted</option> 
-										  <option value="eMail" <cfif fieldoutputformat eq "eMail">selected</cfif>>eMail (recognize mail)</option> 											
+									 	  <option value=""         <cfif fieldoutputformat eq "">selected</cfif>>As in table</option> 
+									 	  <option value="Date"     <cfif fieldoutputformat eq "Date">selected</cfif>>D: #CLIENT.DateFormatShow#</option> 
+										  <option value="DateTime" <cfif fieldoutputformat eq "Date">selected</cfif>>D: #CLIENT.DateFormatShow# hh:mm</option> 
+									   	  <option value="Time"     <cfif fieldoutputformat eq "Time">selected</cfif>>T: hh:mm</option> 
+										  <option value="Number"   <cfif fieldoutputformat eq "Number">selected</cfif>>F:Number</option> 
+									   	  <option value="Amount"   <cfif fieldoutputformat eq "Amount">selected</cfif>>F:Amount [0.00]</option> 
+										  <option value="Amount0"  <cfif fieldoutputformat eq "Amount0">selected</cfif>>F:Amount [0]</option> 
+										  <option value="eMail"    <cfif fieldoutputformat eq "eMail">selected</cfif>>Mail [nn@dd.cc]</option> 											
 									 </select>
 								</td>
 								
 								<td class="labelmedium2">Y-ax / Sorting modality:</td>
 								<td>
-									  <select name="FieldSort" id="FieldSort" class="regularxxl" style="width:100px">													
-										  	 <option value="1" <cfif fieldsort eq "1">selected</cfif>>Sort</option> 
-											 <option value="2" <cfif fieldsort eq "2">selected</cfif>>Grouping</option> 
-											 <option value="3" <cfif fieldsort eq "3">selected</cfif>>SUM</option> 
+									  <select name="FieldSort" id="FieldSort" class="regularxxl" style="width:200px">													
+										  	 <option value="1" <cfif fieldsort eq "1">selected</cfif>>Initial Listing SORT</option> 
+											 <option value="2" <cfif fieldsort eq "2">selected</cfif>>Initial Listing GROUP</option> 
+											 <option value="3" <cfif fieldsort eq "3">selected</cfif>>Aggregation CELL field</option> 
 											 <option value="0" <cfif fieldsort eq "0">selected</cfif>>None</option> 																			
 								      </select>
-								</td>
-								
-								
+								</td>				
 								
 							</tr>
 						
@@ -266,13 +328,13 @@ password="#SESSION.dbpw#">
 									  	<option value="0"  <cfif FieldFilterClassMode eq "0">selected</cfif>>Free filter</option> 
 										<option value="4"  <cfif FieldFilterClassMode eq "4">selected</cfif>>Like</option> 	
 										<option value="1"  <cfif FieldFilterClassMode eq "1">selected</cfif>>Combo</option> 
-										<option value="2"  <cfif FieldFilterClassMode eq "2">selected</cfif>>Select (single)</option> 										
-										<option value="3"  <cfif FieldFilterClassMode eq "3">selected</cfif>>Multiple (Checkbox or Multiple select)</option> 	
+										<option value="2"  <cfif FieldFilterClassMode eq "2">selected</cfif>>Select [single]</option> 										
+										<option value="3"  <cfif FieldFilterClassMode eq "3">selected</cfif>>Multiple [Checkbox|Select]</option> 	
 														  
 									</select>
 								</td>
 								
-								<td class="labelmedium2" style="padding-left:6px">Enforce use of Filter:</td>
+								<td class="labelmedium2" style="padding-left:6px">Enforce Filter:</td>
 								<td style="padding-left:3px">
 									  <select name="FieldFilterForce" id="FieldFilterForce" class="regularxxl">
 													

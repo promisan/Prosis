@@ -64,8 +64,31 @@ password="#SESSION.dbpw#">
 	AND    R.RosterSearchMode != '0'
 	AND   ((R.DateExpiration >= getDate() 
 	          OR R.DateExpiration is NULL 
-			  OR R.DateExpiration = ''))  			  
+			  OR R.DateExpiration = ''))  				  	  
 </cfquery>
+
+<cfif ShowEdition.recordcount eq "0">
+	
+	<cfquery name="ShowEdition" 
+	datasource="AppsSelection" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT R.*, (SELECT count(*) 
+		             FROM FunctionOrganization 
+					 WHERE SubmissionEdition = R.SubmissionEdition) as Buckets
+	    FROM   Ref_SubmissionEdition R, 
+		       Ref_ExerciseClass C
+		WHERE  C.ExcerciseClass   = R.ExerciseClass
+		AND    C.Roster           = 1 
+		AND    R.Owner            = '#URL.Owner#' 
+		<cfif param neq "">
+		AND   (R.PostType = '#param#' or R.PostType is NULL)
+		</cfif>
+		AND    R.Operational      = 1
+		AND    R.RosterSearchMode != '0'		  	  
+	</cfquery>
+
+</cfif>
 
 <cfset ed = "">
 <cfloop query="showedition">

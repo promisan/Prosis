@@ -50,6 +50,7 @@
 				 AND       ItemCategory IN (SELECT Category 
 				                            FROM   Materials.dbo.Ref_Category 
 											WHERE  StockControlMode = 'Stock')
+				
 				 <!--- not earmarked stock --->
 				 AND       (
 				          RequirementId IS NULL 	
@@ -61,8 +62,7 @@
 						  )
 						 				 
 				 AND       ActionStatus IN ('0','1')
-				) as InStock,
-						
+				 ) as InStock,						
 																
 				( 
 				 SELECT    ISNULL(SUM(TransactionQuantity), 0) 
@@ -86,13 +86,20 @@
 				WOL.SaleAmountTax, 
 				WOL.SalePayable, 
 				WOL.Created
+				
 		FROM    WorkOrderLineItem WOL INNER JOIN Materials.dbo.Item I    ON WOL.ItemNo = I.ItemNo 
 									  INNER JOIN Materials.dbo.ItemUoM U ON WOL.ItemNo = U.ItemNo AND WOL.UoM = U.UoM
 						 			  INNER JOIN WorkOrder WO ON WOL.WorkOrderId = WO.WorkOrderId
 		WHERE	WOL.WorkOrderId   = '#url.workorderid#' 
 		AND     WOL.WorkOrderLine = '#url.workorderline#'
-	    ORDER BY I.Classification, I.ItemDescription, U.UoMDescription
+	    ORDER BY I.Classification,
+		         I.ItemDescription, 
+				 U.UoMDescription
 </cfquery>
+
+<!---
+<cfoutput>#cfquery.executiontime#</cfoutput>
+--->
 
 <cfif get.ActionStatus eq "1" or get.ActionStatus eq "0">
 	<cfset mode = "edit">
@@ -102,11 +109,11 @@
 
 <cfoutput>
 
-<table width="100%" class="formpadding">
+<table width="100%" height="100%" class="formpadding">
 
   <tr><td height="5"></td></tr>	
     
-  <tr><td id="boxtransferto">
+  <tr><td id="boxtransferto" style="height:10px">
   
   	  <cfset url.mission = get.Mission>
 	  <cfinclude template="setWarehouseTo.cfm">
@@ -114,16 +121,18 @@
 	  </td>
   </tr>
     			  
-  <tr><td>
+  <tr><td height="100%">
+  
+    <cf_divscroll style="height:100%" id="orderbox">
 			
 	<table width="100%" class="navigation_table">		
 		
 		<tr>
-			<td style="padding:3px;" height="100%">
+			<td height="100%">
 			
 				<table width="100%">			
 				
-					<tr class="labelmedium2 line">
+					<tr class="labelmedium2 line fixrow">
 					
 						<td width="5%"></td>
 						<td style="width:30"></td>
@@ -157,8 +166,7 @@
 									    and instock gte "1" 
 										and Reserved lt Quantity>	
 										<input type="checkbox" class="radiol" checked name="selectline" value="'#workorderitemid#'">
-									<cfelse>
-										<input type="checkbox" class="radiol" name="selectline" value="'#workorderitemid#'">									
+																	
 									</cfif>
 																		
 								</cfif>	
@@ -175,11 +183,11 @@
 							
 							<td style="padding-right:3px" align="right" bgcolor="ffffcf">
 							
-								<table width="100%" cellspacing="0" cellpadding="0">
+								<table width="100%">
 									
-										<tr>										
+										<tr class="labelmedium">										
 																			
-										<td width="20" style="padding-left:5px">	
+										<td width="20" style="padding-top:8px;padding-left:5px">	
 										
 										<cf_img icon="expand" 
 												   id="ear_#WorkOrderItemId#" 
@@ -206,10 +214,7 @@
 								<cfif bal gt 0>
 								<td bgcolor="ffffaf" style="padding-right:3px" align="right">#bal#</td>
 								<cfelse>
-								<td bgcolor="white" align="right">
-									<img src="#session.root#/images/check_icon.gif" width="18" height="18" alt="Completed" 
-									   border="0">
-								</td>
+								<td align="center" bgcolor="00FF40"><cf_tl id="Completed"></td>
 								</cfif>
 								
 							</cfif>
@@ -242,6 +247,8 @@
 		</tr>
 						
 	</table>
+	
+	</cf_divscroll>
 	
 	</td>
 	</tr>

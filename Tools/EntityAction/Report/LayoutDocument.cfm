@@ -67,11 +67,11 @@
 							
 							<cfelse>	
 													
-							<td align="center" width="25%">
+							<td align="center" style="padding-left:30px;width:80px">
 								<cfoutput>#Attributes.Logo#</cfoutput>
 							</td>
 							
-							<td valign="bottom" align="left" width="75%">
+							<td valign="bottom" align="left" style="padding-left:10px;width:95%">
 							 
 							    <table>
 								<tr><td class="serif"><cfoutput>#Attributes.TitleLine2#</cfoutput></td></tr>

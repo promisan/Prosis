@@ -61,27 +61,23 @@
 				WOL.Quantity, 
 				WOL.SaleType,
 				
-				(
-				 SELECT count(*) 
+				(SELECT count(*) 
 				 FROM   WorkOrderLineItemResource
 				 WHERE  WorkOrderItemId = WOL.WorkOrderItemId 
 				) as Resources,
 				
-				(
-				 SELECT SUM(Amount) 
+				(SELECT SUM(Amount) 
 				 FROM   WorkOrderLineItemResource
 				 WHERE  WorkOrderItemId = WOL.WorkOrderItemId 
 				) as Cost,		
 				
 				<cfif line.ServiceType eq "WorkOrder">		
 				
-				(
-				 SELECT ISNULL(SUM(RequestQuantity),0) 
-				 FROM   Purchase.dbo.RequisitionLine
-				 WHERE  Mission       = '#get.Mission#'						 
-				 AND    RequirementId = WOL.WorkOrderItemId 
-				 AND    ActionStatus >= '1' and ActionStatus < '9'
-				) as Outsourced,
+					(SELECT ISNULL(SUM(RequestQuantity),0) 
+					 FROM   Purchase.dbo.RequisitionLine
+					 WHERE  Mission       = '#get.Mission#'						 
+					 AND    RequirementId = WOL.WorkOrderItemId 
+					 AND    ActionStatus >= '1' and ActionStatus < '9' ) as Outsourced,
 				
 				<cfelse>							
 								
@@ -91,28 +87,23 @@
 				   mode             = "view"
 				   returnvariable   = "NotEarmarked">	
 				
-				(
-				 SELECT    ISNULL(SUM(TransactionQuantity), 0) 
-				 FROM      Materials.dbo.ItemTransaction
-				 WHERE     Mission         = '#get.Mission#'				 
-				 AND       ItemNo            = WOL.ItemNo
-				 AND       TransactionUoM    = WOL.UoM		
-				 
-				 <!--- individual mode issuing from the roll (Hicosa) is not supported for
-				 reservation yet --->
-				 
-				 AND       ItemCategory IN (SELECT Category 
-				                            FROM   Materials.dbo.Ref_Category 
-											WHERE  StockControlMode = 'Stock')
-				 <!--- not earmarked stock --->
-				 AND       (
-				         (RequirementId IS NULL) 	
-						  OR 
-						  RequirementId IN (#preservesingleQuotes(notearmarked)#)
-						  )
-						 				 
-				 AND       ActionStatus IN ('0','1')
-				) as InStock,
+					(SELECT    ISNULL(SUM(TransactionQuantity), 0) 
+					 FROM      Materials.dbo.ItemTransaction
+					 WHERE     Mission           = '#get.Mission#'				 
+					 AND       ItemNo            = WOL.ItemNo
+					 AND       TransactionUoM    = WOL.UoM		
+					 
+					 <!--- individual mode issuing from the roll (Hicosa) is not supported for reservation yet --->
+					 
+					 AND       ItemCategory IN ( SELECT Category FROM Materials.dbo.Ref_Category WHERE StockControlMode = 'Stock' )
+	
+					 <!--- Hanno, rethink this embedded query as it is slow 5/4/2021 --->
+					 
+					 AND       ( RequirementId IS NULL OR RequirementId IN (#preservesingleQuotes(notearmarked)#) )
+							 				 
+					 AND       ActionStatus IN ('0','1')
+					 
+					) as InStock,
 				
 				</cfif>
 				
@@ -171,13 +162,19 @@
 				WOL.SaleAmountTax, 
 				WOL.SalePayable, 
 				WOL.Created
+				
 		FROM    WorkOrderLineItem WOL INNER JOIN Materials.dbo.Item I    ON WOL.ItemNo = I.ItemNo 
 									  INNER JOIN Materials.dbo.ItemUoM U ON WOL.ItemNo = U.ItemNo AND WOL.UoM = U.UoM
 						 			  INNER JOIN WorkOrder WO ON WOL.WorkOrderId = WO.WorkOrderId
 		WHERE	WOL.WorkOrderId   = '#url.workorderid#' 
 		AND     WOL.WorkOrderLine = '#url.workorderline#'
 	    ORDER BY I.Classification, I.ItemDescription, U.UoMDescription
+		
 </cfquery>
+
+<!---
+<cfoutput>#cfquery.executiontime# : #preservesingleQuotes(notearmarked)#</cfoutput>
+--->
 
 <cfif get.ActionStatus eq "1" or get.ActionStatus eq "0">
 	<cfset mode = "edit">
@@ -211,7 +208,7 @@
 								<td style="height:30px"></td>															
 								<td style="padding-left:6px;padding-top:28px" class="labelmedium">
 								  <a href="##" onclick="getBOM('#url.workorderid#','#url.workorderline#','finalproduct')">
-								  <font color="0080C0">[<cf_tl id="Generate Bill of Materials for order">]</font>								  
+								  [<cf_tl id="Generate Bill of Materials for order">]								  
 								  </a>
 								</td>
 							</cfif>
@@ -233,7 +230,7 @@
 						FROM     Currency
 						</cfquery>
 						
-						<select name="Currency" class="regularxl" onchange="ptoken.navigate('#session.root#/workorder/application/Assembly/Items/FinalProduct/setCurrency.cfm?workorderid=#url.workorderid#&currency='+this.value,'cur')">
+						<select name="Currency" class="regularxxl" onchange="ptoken.navigate('#session.root#/workorder/application/Assembly/Items/FinalProduct/setCurrency.cfm?workorderid=#url.workorderid#&currency='+this.value,'cur')">
 						<cfloop query="CurrencyList">
 							<option value="#Currency#" <cfif currency eq get.Currency>selected</cfif>>#Currency#</option>
 						</cfloop>
@@ -314,14 +311,14 @@
 						
 							<tr class="navigation_row line labelmedium2" style="height:25px">
 							
-								<td align="center" style="height:15">
+								<td style="height:15">
 								
 									<cfif mode eq "edit">
 									
 										<table width="40">
 											<tr>
 												<td style="padding-top:2px" onclick="editFinalProduct('#url.WorkOrderId#','#url.WorkOrderLine#','#workorderitemid#');">												
-													<cf_img icon="edit" onclick="editFinalProduct('#url.WorkOrderId#','#url.WorkOrderLine#','#workorderitemid#');" navigation="yes">													
+													<cf_img icon="open" onclick="editFinalProduct('#url.WorkOrderId#','#url.WorkOrderLine#','#workorderitemid#');" navigation="yes">													
 												</td>
 												<td style="padding-top:2px">
 												
@@ -361,8 +358,8 @@
 								
 									<table width="100%">
 										
-										<tr class="labelit">
-											<td width="20" style="padding-left:5px;padding-top:3px">			
+										<tr class="labelmedium2">
+											<td width="20" style="padding-left:5px;padding-top:9px">			
 										
 											<cf_img icon="expand" 
 											   id="exp_#WorkOrderItemId#" 
@@ -390,9 +387,9 @@
 									
 										<table width="100%" cellspacing="0" cellpadding="0">
 										
-											<tr class="labelmedium">									
+											<tr class="labelmedium2">									
 											
-												<td width="15" style="padding-top:3px">			
+												<td width="15" style="padding-top:9px">			
 																				
 												<cf_img icon="expand" 
 												   id="req_#WorkOrderItemId#" 
@@ -402,7 +399,7 @@
 												   
 												</td>
 												
-												<td width="20"  style="padding-top:3px">											
+												<td width="20"  style="padding-top:7px">											
 												 <cfif mode eq "edit">
 													<cf_tl id="add requisition" var="1">
 													<cf_img icon="add" tooltip="Add Requisition" onclick="requisitionadd('#get.Mission#','#url.WorkOrderId#','#url.WorkOrderLine#','#workOrderItemId#','#workOrderItemId#');">
@@ -428,9 +425,9 @@
 								
 								<table width="100%" cellspacing="0" cellpadding="0">
 									
-										<tr class="labelit">									
+										<tr class="labelmedium2">									
 										
-										<td width="20" style="padding-top:3px;padding-left:1px">	
+										<td width="20" style="padding-top:9px;padding-left:1px">	
 										
 										
 										<cf_img icon="expand" 
@@ -453,8 +450,8 @@
 								
 									<table width="100%" cellspacing="0" cellpadding="0">
 										
-											<tr class="labelit">												
-											<td width="20" style="padding-top:3px;padding-left:1px">	
+											<tr class="labelmedium2">												
+											<td width="20" style="padding-top:9px;padding-left:1px">	
 											
 												<cf_img icon="expand" 
 														   id="ear_#WorkOrderItemId#" 
@@ -484,11 +481,9 @@
 																	
 									<cfset bal = quantity-shipped>
 									<cfif bal gt 0>
-									<td bgcolor="ffffaf" style="background-color:##ffffaf80;padding-right:3px;border-left:1px solid gray;padding-left:5px" align="right">#bal#</b></td>
+									<td style="background-color:##ffffaf80;padding-right:3px;border-left:1px solid gray;padding-left:5px" align="right">#bal#</b></td>
 									<cfelse>
-									<td bgcolor="white" align="right" style="padding-right:10px">
-									<img src="#session.root#/images/check_icon.gif" alt="Completed" border="0">
-									</td>
+									<td align="center" style="font-size:10px;background-color:green;color:white;border-left:1px solid gray"><cf_tl id="complete"></td>
 									</cfif>
 									
 								</cfif>
@@ -510,7 +505,7 @@
 							       class="hide"
 							       id="process_#workorderitemid#" 
 								   value="process_#workorderitemid#" 
-								   onclick="ColdFusion.navigate('../../Assembly/Items/FinalProduct/FinalProductRequisition.cfm?WorkOrderId=#URL.WorkOrderId#&workorderitemid=#workorderitemid#','request_#workorderitemid#')">
+								   onclick="ptoken.navigate('../../Assembly/Items/FinalProduct/FinalProductRequisition.cfm?WorkOrderId=#URL.WorkOrderId#&workorderitemid=#workorderitemid#','request_#workorderitemid#')">
 																				
 							<tr id="requestbox_#workorderitemid#" class="hide">
 							    <td></td>

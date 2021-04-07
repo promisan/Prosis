@@ -30,7 +30,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 	 <td style="width:200px">#LastName# : #Remarks#</td>
 	 <td style="padding-left:20px;padding-right:20px">
-	 <input type="checkbox" class="radiol" name="AccountGroup" <cfif Member gte "1">checked</cfif> value="#UserAccount#"></td>
+	     <input type="checkbox" class="radiol" name="AccountGroup" <cfif Member gte "1">checked</cfif> value="#UserAccount#"></td>
 	 <cfif cnt eq "1">
 	 <cfset cnt = 0>
 	</tr>

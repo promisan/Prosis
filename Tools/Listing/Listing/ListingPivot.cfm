@@ -1,9 +1,7 @@
 
 <cfoutput>
 
-
 <cfif url.systemfunctionid neq "" and group eq "Yes">
-
 		
 	<table>
 	<tr>	

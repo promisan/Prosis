@@ -126,10 +126,11 @@ password="#SESSION.dbpw#">
 			 
 		</cfquery>
 		
-		
+			
 			
 		<TR bgcolor="ffffff">
-	    <TD colspan="2">			
+	    <TD colspan="2">		
+					
 		    <cf_tlhelp SystemModule = "Staffing" Class = "Position" HelpId = "poscls" LabelId = "Instructions">			 			
 		</TD>
 		

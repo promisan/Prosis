@@ -299,18 +299,24 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 	
 </cfif>	
 
-<!--- -------------------------------------------------------------------------------- ---> 
-<!--- we check if we have something in memory that we can use for this box  and person --->
-<!--- -------------------------------------------------------------------------------- ---> 
+<!--- ------------------------------------------------------------------------------- ---> 
+<!--- we check if we have something in memory that we can use for this box and person --->
+<!--- ------------------------------------------------------------------------------- ---> 
 
 <cfparam name="form.useCache" default="">  <!--- requested --->
 
 <cftry>
-	<cfset session.listingdata[box]['timestamp']        = now()>		
-	<cfparam name="session.listingdata['#box#']['sqlorig']" default="999">			
-<cfcatch></cfcatch>	
+
+	<cfset ts = SESSION.listingdata[box]['timestamp']>
+    <cfcatch>
+    	<cfset SESSION.listingdata[box]['timestamp'] = "#now()#">			
+	    <cfparam name="SESSION.listingdata['#box#']['sqlorig']"   default="999">	
+    </cfcatch>
+	 
 </cftry>
 
+
+	
 <cfif url.systemfunctionid neq "">
 
 	<!--- inspect declaration fields --->
@@ -355,8 +361,17 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 	   password="#SESSION.dbpw#">
 			DELETE FROM UserModuleCondition
 			WHERE       SystemFunctionId = '#url.systemfunctionid#' 
-			AND         ConditionField IN ('listorderfield', 'listorder', 'listgroupsort', 'listgroupfield', 'listgroup','listcolumn1') 
+			AND         ConditionField IN ('listorderfield',
+			                               'listorder', 
+										   'listgroupsort', 
+										   'listgroupfield', 
+										   'listgroup',
+										   'listcolumn1',
+										   'listcolumn2',
+										   'datacell1',
+										   'datacell2') 
 			AND         ConditionValue NOT IN (#preserveSingleQuotes(declaredfields)#) 
+			AND         ConditionValue <> 'Total'
 	</cfquery>
 
 	<cfparam name="form.groupfield"           default="">					
@@ -782,14 +797,12 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 																																
 						<cfset thiscondition = "">
 						
-						<!--- idealyy we know here if this is a checkbox or kendo multi-select 
-						
-						<cfif evaluate("form.filter#current.field#_checkbox") eq "Yes">
-							<cfset del = ",">
-						<cfelse>
-						    <cfset del = "|">
+						<!--- we know if a checkbox is used as a checkbox has comma delimited --->						
+												
+						<cfparam name="form.filter#current.field#_checkbox" default="">
+						<cfif evaluate("form.filter#current.field#_checkbox") eq "Yes">						
+							<cfset val = replaceNoCase(val,",","","ALL")>
 						</cfif>		
-						---> 			
 																																			
 						<cfloop index="itm" list="#val#" delimiters="|">
 						
@@ -821,7 +834,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 								    field = "#current.field#" 
 									mode  = "multi"
 									value = "#itm#">
-																												 
+																																				 
 							</cfif>	
 											
 						</cfloop>		
@@ -1044,8 +1057,6 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 	<cfset url.datacell1formula = "SUM">
 </cfif>
 
-
-
 <cfif url.contentmode eq "5">
 	
 		<!--- we force refresh as we want to see new records --->
@@ -1061,17 +1072,69 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 			<cfset attributes.refresh = "1">							
 		<cfelseif attributes.refresh eq "1" and form.useCache eq "">
 			<!--- this is the default value upon opening --->
+						
+			 <cfif url.systemfunctionid neq "">
+			 			
+				<cfquery name="getListLog" 
+					datasource="AppsSystem" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT   TOP 1 *
+						FROM     Ref_ModuleControlDetailLog
+						WHERE    SystemFunctionId = '#url.SystemFunctionId#'
+						AND      FunctionSerialNo = '1'
+						ORDER BY LogSerialNo DESC 						
+				</cfquery>		
+				
+				<cfif getListLog.LogStamp gt session.listingdata[attributes.box]['timestamp']>			
+					 <cfset session.listingdata[box]['recordsinit']   = 0> 	
+					  <cfset attributes.refresh = "1">				  							  	
+				</cfif>			
+				
+			 </cfif>	
+			
 		<cfelse>
+		
 		    <!--- interface enforces the refresh --->
 			<cfif form.useCache eq "0">
 				<cfset attributes.refresh = "1">			
-			<cfelse>
-				<cfset attributes.refresh = "0">			
+			<cfelse>	
+						
+				<cfif url.systemfunctionid neq "">
+			
+				<cfquery name="getListLog" 
+					datasource="AppsSystem" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT   TOP 1 *
+						FROM     Ref_ModuleControlDetailLog
+						WHERE    SystemFunctionId = '#url.SystemFunctionId#'
+						AND      FunctionSerialNo = '1'
+						ORDER BY LogSerialNo DESC 
+						
+					</cfquery>		
+					
+									
+					<cfif getListLog.LogStamp gt session.listingdata[attributes.box]['timestamp']>		
+					   <cfset session.listingdata[box]['recordsinit']   = 0> 		
+					   <cfset attributes.refresh = "1">		
+					<cfelse>				
+				       <cfset attributes.refresh = "0"> 	 		  							  	
+					</cfif>			
+					
+				<cfelse>	
+				
+					<cfset attributes.refresh = "0">
+				
+			    </cfif>	
+							
+							
 			</cfif>
 		</cfif>	
 		
 	</cfif>	
-
+	
+		
 <cfinclude template="ListingData.cfm">
 
 <!--- ---------------------- --->
@@ -1081,6 +1144,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cfset box = attributes.box>  <!--- set by hanno 12/9/19 as box was blank --->
 
 <cfif url.ajaxid eq "content">
+
   
 	<cfif attributes.showlist eq "Yes">				
 		<!--- shows the listing as HTML and header --->			

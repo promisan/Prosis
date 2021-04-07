@@ -101,8 +101,7 @@
 					 --->
 					 Pref_WorkflowMailAccount = '#Form.Pref_WorkflowMailAccount#',
 			         Pref_BCC                 = '#Form.Pref_BCC#',
-					 Pref_SMS                 = '#Form.Pref_SMS#',
-					 Pref_LoadDashboard       = '#Form.Pref_LoadDashboard#'			
+					 Pref_SMS                 = '#Form.Pref_SMS#'	
 			WHERE Account = '#SESSION.acc#'
 	</cfquery>
 	

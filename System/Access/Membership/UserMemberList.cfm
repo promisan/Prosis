@@ -2,7 +2,7 @@
 
 <cfform style="height:100%" action="#SESSION.root#/system/access/Membership/UserMemberSubmit.cfm?Mode=regular&Acc=#URL.ID#" method="post">
 
-		<table width="98%" style="height:100%" align="center">
+		<table width="99%" style="height:100%" align="center">
 		
 		<cfquery name="Group" 
 		datasource="AppsSystem" 
@@ -45,7 +45,7 @@
 		
 			<cfset grp = "#grp#,#AccountGroup#">
 									
-			<tr class="labelmedium line" bgcolor="E8F5FD">
+			<tr class="labelmedium2 line" bgcolor="E8F5FD">
 			   <td style="height:20px;padding-left:4px"><a href="javascript:ShowUser('#AccountGroup#')">#LastName#</a></td>
 			   <td>#AccountGroup#</td>
 			   <td>#AccountMission#</td>

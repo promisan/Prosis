@@ -176,7 +176,7 @@ password="#SESSION.dbpw#">
 		
 	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
 			
-	    <TR class="line labelmedium  fixrow">
+	    <TR class="line labelmedium2 fixrow">
 		   
 		   <td></td>
 		   <td style="padding-left:2px;min-width:70px" height="20"><cf_tl id="Code"></td>		  
@@ -325,10 +325,10 @@ password="#SESSION.dbpw#">
 		
 		    <input type="hidden" name="ActionCode" id="ActionCode" value="<cfoutput>#par#</cfoutput>">
 												
-			<tr class="line" style="padding:0px;height:30px">				  
+			<tr class="line" class="labelmedium2" style="padding:0px;height:30px">				  
 			   
 			   <td width="2"></td>
-			   <td class="labelit" height="26" style="padding-left:2px">#nm#</td>			  
+			   <td height="26" style="padding-left:2px">#nm#</td>			  
 			   <td style="padding-left:3px;border-left:1px solid silver">
 			   
 			   	<cf_LanguageInput
@@ -374,7 +374,7 @@ password="#SESSION.dbpw#">
 			   <td align="center" style="padding-left:3px;border-left:1px solid silver">
 			   	<input type="checkbox" class="radiol" name="EnableAccessFly" id="EnableAccessFly" value="1" <cfif "1" eq EnableAccessFly>checked</cfif>>
 			   </td>
-			   <td class="regular" align="center" style="padding-left:3px;border-left:1px solid silver">
+			   <td align="center" style="padding-left:3px;border-left:1px solid silver">
 			      <input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif "1" eq op>checked</cfif>>
 				</td>
 			   <td colspan="4" align="right" style="padding-left:3px;border-left:1px solid silver">
@@ -399,19 +399,19 @@ password="#SESSION.dbpw#">
 								
 		<cfelse>		
 					
-			<TR class="navigation_row line labelmedium" style="height:22px;padding:0px" bgcolor="<cfif ActionType eq 'Create'>ffffdf</cfif>">		   
+			<TR class="navigation_row line labelmedium2" style="height:22px;padding:0px" bgcolor="<cfif ActionType eq 'Create'>ffffdf</cfif>">		   
 			   
 			   <td width="2"></td>
 			   <td style="padding-left:5px">#nm#</td>			  
 			   <td style="padding-left:3px">#de#</td>
 			   <td>#ListingOrder#</td>
-			   <td><cfif ActionType eq "Create"><b><font color="6688aa"></cfif>#ActionType#</td>
+			   <td><cfif ActionType eq "Create"><font color="6688aa"></cfif>#ActionType#</td>
 			   <td style="min-width:140px">
 				<cfif "0" eq ProcessMode>Window
 				<cfelseif ProcessMode eq "2">Tabbed&nbsp;Window
 				<cfelseif ProcessMode eq "3">Browser&nbsp;tab
 				<cfelseif ProcessMode eq "4">Browser&nbsp;panel&nbsp;tab
-				<cfelse>Tabbed&nbsp;Modal (Kendo)
+				<cfelse>Modal&nbsp;(Kendo)
 				</cfif>
 			   </td>
 			   <td align="center"><cfif EnableAccessFly eq "0"><b>N</b><cfelse>Y</cfif></td>

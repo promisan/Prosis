@@ -395,7 +395,7 @@
 						</tr>	
 																
 						</cfif>		
-												
+																		
 						<tr>
 						
 							<td bgcolor="#attributes.headercolor#" colspan="2">

@@ -110,13 +110,15 @@ password="#SESSION.dbpw#">
 
 <cfelse>
 
+	<cfset hasWorkflow = "1">
+
 	<cfset link = "Staffing/Application/Employee/Events/EventDialog.cfm?id=#Active.EventId#">
 	
 	<cfquery name="Event" 
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT PE.*, P.FullName, RPE.EntityClass
+		SELECT PE.*, P.FullName, RPE.EntityClass, RPE.Description
 		FROM   PersonEvent PE
 			   INNER JOIN Person P ON PE.PersonNo = P.PersonNo
 			   LEFT OUTER JOIN Ref_PersonEvent RPE ON RPE.Code = PE.EventCode
@@ -137,7 +139,7 @@ password="#SESSION.dbpw#">
 			OrgUnit          = "#Event.OrgUnit#" 
 			PersonNo         = "#Event.PersonNo#" 
 			ObjectReference  = "#Event.FullName#"
-			ObjectReference2 = "#Event.Remarks#"			   
+			ObjectReference2 = "#Event.Description#"			   
 			ObjectKey4       = "#Active.eventid#"
 			Ajaxid           = "#url.ajaxid#"			
 			Show             = "Mini"

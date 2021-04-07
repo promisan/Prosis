@@ -20,23 +20,23 @@
 					<!--- column --->
 									
 					<cfset perc = round(100/(getRange.recordcount+1))>	
-					<cfset perc = 0>	
-														
+																			
 					<tr class="labelmedium">
-																				
+																									
 						<cfloop query="getRange">											
 								  				 							
 							<cfif cnt eq "2">						     
-							     <td style="height:100%;text-align:center;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:4px;<cfif currentrow eq recordcount>border-right:1px solid green</cfif>">#col#</td>							 
+							     <td style="height:100%;text-align:center;min-width:#cwd#px;width:#perc#%;max-width:#perc#%;border-left:1px solid silver;">
+								 #col#
+								 </td>							 
 								 <cfset cell = cell+1>
 							<cfelse>	
-							 	 <td style="width:#perc*(cnt-1)#%">
+							 	 <td style="width:#perc#%;max-width:#perc#%">								 
 								 <table style="width:100%;height:100%">
-								 <tr class="line"><td colspan="#cnt-1#" style="text-align:center;border-left:1px solid silver;<cfif currentrow eq recordcount>border-right:1px solid green</cfif>">#col#</td></tr>
+								 <tr class="line"><td colspan="#cnt-1#" style="text-align:center;border-left:1px solid silver;">#col#</td></tr>
 								 <tr>
-							     <cfloop index="itm" list="#URL.datacell1formula#">		
-								 				 
-								 <td style="text-align:center;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:4px">#itm#</td>
+							     <cfloop index="itm" list="#URL.datacell1formula#">										 						 				 
+								 <td style="text-align:center;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;">#itm#</td>
 								 <cfset cell = cell+1>
 								 </cfloop>	
 								 </tr>
@@ -47,7 +47,7 @@
 						</cfloop>
 											
 						<cfif cnt eq "2">						     
-						     <td style="background-color:e6e6e6;text-align:center;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:4px"><cf_tl id="Total"></td>							 
+						     <td style="background-color:e6e6e6;text-align:center;min-width:#cwd#px;width:#perc+1#%;max-width:#perc#%;border-left:1px solid silver;padding-right:4px"><cf_tl id="Total"></td>							 
 							 <cfset cell = cell+1>
 						<cfelse>	
 						 	 <td style="width:#perc*(cnt-1)#%">
@@ -57,7 +57,7 @@
 									 </tr>
 									 <tr>
 								     <cfloop index="itm" list="#URL.datacell1formula#">						 
-									 <td style="background-color:e6e6e6;text-align:center;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:4px">#itm#</td>
+									 <td style="background-color:e6e6e6;text-align:center;min-width:#cwd#px;width:#perc+1#%;max-width:#perc#%;;border-left:1px solid silver;padding-right:4px">#itm#</td>
 									 <cfset cell = cell+1>
 									 </cfloop>	
 									 </tr>
@@ -75,8 +75,7 @@
 							
 					<cfset perc = round(100/(getRange.recordcount+1))>
 					
-					<cfset perc = perc/(cnt-1)>
-					
+					<cfset perc = perc/(cnt-1)>					
 											
 					<tr class="labelmedium2" style="<cfif gridcontent eq 'total'>background-color:e6e6e6</cfif>">
 						
@@ -96,9 +95,9 @@ v											});
 								 								 
 								 <cfloop index="itm" from="2" to="#cnt#">	
 								 
-									 <td style="text-align:right;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:6px;<cfif currentrow eq recordcount>;border-right:1px solid green</cfif>"
+									 <td style="text-align:right;min-width:#cwd#px;width:#perc#%;max-width:#perc#%;border-left:1px solid silver;padding-right:3px;"
 									 onclick="<cfif gridcontent eq 'row'>listgroupshow('#SearchGroup.GroupKeyValue#','#rowdata#','#drillfield#','#filter#')</cfif>">
-									 <cfset val = subSet[1][itm]>#val#
+									 <cfset val = subSet[1][itm]>#val#								 
 									 </td>
 								 								 
 								 </cfloop>
@@ -106,7 +105,7 @@ v											});
 							<cfelse>
 							
 								 <cfloop index="itm" from="2" to="#cnt#">	
-							     <td style="background-color:##eaeaea80;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:6px;<cfif currentrow eq recordcount>;border-right:1px solid green</cfif>"></td>
+							     <td style="background-color:##eaeaea80;min-width:#cwd#px;width:#perc#%;max-width:#perc#%;border-left:1px solid silver;padding-right:3px;"></td>
 								 </cfloop>															 
 								 
 							</cfif>	 
@@ -116,14 +115,14 @@ v											});
 						<!--- total column --->
 						
 						<cfif cnt eq "2">						     
-						     <td style="text-align:right;background-color:##d6d6d680;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:6px">
+						     <td style="text-align:right;background-color:##d6d6d680;min-width:#cwd#px;width:#perc+1#%;border-left:1px solid silver;padding-right:3px">
 							 <cfparam name="myTot[#cnt#]" default="">
 							 <cfset val = myTot[cnt]>#val#
 								 </td>				 						
 						<cfelse>	
 						 	  <cfloop index="itm" from="2" to="#cnt#">	
 							  <cfparam name="myTot[#cnt#]" default="">
-						     <td style="text-align:right;background-color:##d6d6d680;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:6px">#myTot[itm]#</td>
+						     <td style="text-align:right;background-color:##d6d6d680;min-width:#cwd#px;width:#perc+1#%;max-width:#perc#%;border-left:1px solid silver;padding-right:3px">#myTot[itm]#</td>
 							 </cfloop>						 										 							 
 						</cfif>					
 									

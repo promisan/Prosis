@@ -537,8 +537,7 @@ password="#SESSION.dbpw#">
 									</cfif>																									
 								
 								</cfloop>		
-								
-								<cftransaction isolation="READ_UNCOMMITTED">													
+																		
 													
 									<cfquery name="Capital"
 									datasource="AppsLedger" 
@@ -556,9 +555,7 @@ password="#SESSION.dbpw#">
 										AND    H.Currency          = '#Currency#'
 										
 									</cfquery>		
-								
-								</cftransaction>
-										
+																		
 								<!--- capital transaction --->
 								
 								<cfif Capital.Capital neq "0">

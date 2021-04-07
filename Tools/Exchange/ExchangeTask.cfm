@@ -41,10 +41,11 @@
 
 <!--- check if account exists --->
 
+
 <cfif System.ExchangeServer neq "" and name neq ""> 
 
-  <cftry>
-	 	 
+<cftry>
+  	 	 
 	  <cfexchangeconnection action="OPEN"
 	           connection    = "ConExch"
 	           server        = "#System.ExchangeServer#"
@@ -73,23 +74,22 @@
 	          uid="#attributes.uid#"> 	
 			  
 			   <cfcatch></cfcatch>  		   
+			   
 		   </cftry>	     
 	        
 	  <cfelse>
 	  
-	      <cftry>
-	  
-	   		<cfexchangetask action="delete" connection="ConExch" uid="#attributes.uid#"> 
-	    
-		    <cfcatch></cfcatch> 	   
-	   </cftry>	  
+	        <cftry>	  
+	   		<cfexchangetask action="delete" connection="ConExch" uid="#attributes.uid#"> 	    
+		    <cfcatch></cfcatch> 	   			
+		    </cftry>	  
 	     
 	  </cfif> 
 	  
 	  <cfexchangeconnection action="close" connection="ConExch">    
 	  
  <cfcatch>
-	 
+ 	 
      <CFSET Caller.exchangeid = "">
 		 
  </cfcatch>

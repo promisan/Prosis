@@ -3,8 +3,9 @@
 
 <cfset jrn = replace(form.journal," ", "","All")> 
 
-<cfparam name="FORM.BankId" default="">
+<cfparam name="FORM.BankId"         default="">
 <cfparam name="FORM.JournalBatchNo" default="">
+<cfparam name="FORM.DebitCredit"     default="">
 
 <cfif URL.mode eq "Insert"> 
 	
@@ -164,9 +165,9 @@
 		</cftransaction>  	
 		 
 		 <script language="JavaScript">
-	   
-		     window.close()
+	   		     
 			 opener.applyfilter('5','','content')
+			 window.close()
 	        
 		</script> 
    

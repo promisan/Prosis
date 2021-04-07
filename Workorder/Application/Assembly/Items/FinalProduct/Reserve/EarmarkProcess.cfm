@@ -16,7 +16,7 @@
 		<cfoutput>
 			<input type="button" 
 			  class="button10g" 
-			  onclick="Prosis.busy('yes');ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/EarmarkSubmit.cfm','totals','','','POST','stockform')"
+			  onclick="Prosis.busy('yes');ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/EarmarkSubmit.cfm','totals','','','POST','stockform')"
 			  style="font-size:12px;width:190;height:25px" 
 			  name="Submit" 
 			  value="#Transfer#">

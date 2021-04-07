@@ -6,7 +6,33 @@
 	title="<span style='font-size:16px;color:gray;padding-bottom:3px'>#attributes.mission#</span>"	
 	expand="Yes">
 	
-   <cf_tl id="Shipment" var="vShip">
+   <cf_tl id="Preparation" var="vPrepare">
+   	   
+         <cf_UItreeitem value="Prepare"
+		        display="<span style='font-size:17px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelit'>#vPrepare#</span>"
+				parent="root"								
+		        expand="Yes">	
+				
+			 <cfinvoke component = "Service.Access.Menu"  
+		     method             = "MenuList"  			 
+			 mission            = "#Attributes.mission#"			 
+			 Module             = "'WorkOrder'" 
+			 Selection          = "'Prepare'"
+			 MenuClass          = "'Shipment'"
+			 returnvariable     = "functionlist">	 		 
+			 
+		 <cfloop query="FunctionList">		
+		 
+		 	 <cf_UItreeitem value="Prepare#currentrow#"
+		        display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
+				parent="Prepare"			
+				href="#FunctionPath#?ID1=Pending&systemfunctionid=#systemfunctionid#&Mission=#Attributes.Mission#&#FunctionCondition#"							
+				target="right"
+		        expand="No">		 
+		 			 
+		 </cfloop> 	
+	
+   <cf_tl id="Shipping" var="vShip">
    	   
          <cf_UItreeitem value="Tasks"
 		        display="<span style='font-size:17px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelit'>#vShip#</span>"
@@ -23,7 +49,7 @@
 			 
 		 <cfloop query="FunctionList">		
 		 
-		 	 <cf_UItreeitem value="Return#currentrow#"
+		 	 <cf_UItreeitem value="Task#currentrow#"
 		        display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
 				parent="Tasks"			
 				href="#FunctionPath#?ID1=Pending&systemfunctionid=#systemfunctionid#&Mission=#Attributes.Mission#&#FunctionCondition#"							
@@ -33,7 +59,7 @@
 		 </cfloop> 	
 			
 
-   <cf_tl id="Return" var="vReturn">
+   <cf_tl id="Return handling" var="vReturn">
    	   
           <cf_UItreeitem value="Return"
 		        display="<span style='font-size:17px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelit'>#vReturn#</span>"
@@ -97,14 +123,14 @@
 				parent="root"								
 		        expand="Yes">	  
 			
-	<cf_tl id="Open WorkOrders" var="pWorkOrder">		
+	<cf_tl id="WorkOrders" var="pWorkOrder">		
 		
 	<!--- pending embedding in the menu framework --->
 	
 	 	 <cf_UItreeitem value="WorkOrder"
 		        display="<span style='font-size:14px' class='labelit'>#pWorkOrder#</span>"
 				parent="Listing"			
-				href="WorkOrderView/WorkOrderListing.cfm?systemfunctionid=#attributes.systemfunctionid#&ID1=OPEN&ID=STA&Mission=#Attributes.Mission#"							
+				href="WorkOrderView/WorkOrderListing.cfm?systemfunctionid=#attributes.systemfunctionid#&ID=STA&Mission=#Attributes.Mission#"							
 				target="right"
 		        expand="No">		 
 					

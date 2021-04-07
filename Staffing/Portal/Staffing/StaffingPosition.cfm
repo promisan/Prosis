@@ -60,6 +60,36 @@
 				});
 			}
 		}
+
+		function doCompressExpand(pos) {
+			if ($('.clsPosition' + pos + ':visible .clsBig').first().is(':visible')) {
+				//Small
+				$('.clsPosition' + pos + ' .clsBig').hide();
+				$('.clsPosition' + pos + ' .clsSmall').show();
+				$('.clsPosition' + pos).css('height','110px');
+				$('.clsPosition' + pos + ' .clsPostHeader').css('height','35px');
+				$('.clsPosition' + pos + ' .clsPostHeaderText').css('font-size','13px');
+				//$('.clsPosition').removeClass('col-lg-4').removeClass('col-md-6').addClass('col-lg-3');
+
+				if (pos == '') {
+					$('.clsCompressIcon').removeClass('fa-compress').addClass('fa-expand');
+					sessionStorage.setItem('staffPositionMode','1');
+				}
+			} else {
+				//Big
+				$('.clsPosition' + pos + ' .clsBig').show();
+				$('.clsPosition' + pos + ' .clsSmall').hide();
+				$('.clsPosition' + pos).css('height','400px');
+				$('.clsPosition' + pos + ' .clsPostHeader').css('height','46px');
+				$('.clsPosition' + pos + ' .clsPostHeaderText').css('font-size','18px');
+				//$('.clsPosition').removeClass('col-lg-3').addClass('col-lg-4').addClass('col-md-6');
+
+				if (pos == '') {
+					$('.clsCompressIcon').removeClass('fa-expand').addClass('fa-compress');
+					sessionStorage.setItem('staffPositionMode','0');
+				}
+			}
+		}
 		
 	</script>
 	
@@ -109,7 +139,7 @@
 			padding-top:5px;
 			padding-bottom:5px;
 			overflow:auto;
-			height:97%;
+			height:98%;
 		}
 
 		.clsPosition {
@@ -156,21 +186,20 @@
 		.clsSearchCriteria {
 			display:none;
 		}
+
+		.clsSmall  {
+			display:none;
+		}
 		
 	</style>
-
+	
 	<cf_mobileRow class="clsMainContainer toggleScroll-y">
-
 		<cf_mobileRow>
-
 			<cf_MobileCell id="filter" class="clsFilterContainer toggleScroll-y hidden-xs col-sm-4 col-md-3 col-lg-2">
 				<cfinclude template="StaffingOrganization.cfm">
 			</cf_MobileCell>
-
-			<cf_MobileCell id="main" class="clsMain col-sm-8 col-md-9 col-lg-10"></cf_MobileCell>
-			
+			<cf_MobileCell id="main" class="clsMain col-sm-8 col-md-9 col-lg-10"></cf_MobileCell>			
 		</cf_mobileRow>
-
 	</cf_mobileRow>
 
 	<script>

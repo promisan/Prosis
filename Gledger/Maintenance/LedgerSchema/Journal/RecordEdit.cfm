@@ -19,8 +19,7 @@ password="#SESSION.dbpw#">
 		if( _CF_error_messages.length == 0 ) {        
 			ptoken.navigate('RecordSubmit.cfm?action=save','contentbox1','','','POST','editform')
 		 }   
-	}	 
-	
+	}	 	
 	
 	function validatereq() {
 		document.reqform.onsubmit() 

@@ -117,7 +117,7 @@ password="#SESSION.dbpw#">
 	<!--- Prosis.busy('yes'); --->
 					
 	<select class = "regularxl" 
-			onchange  = "ColdFusion.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/FinalProductRecordItem.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&itemno=#url.itemno#&uom=#url.UoM#','finalproduct','','','POST','selectionform')"
+			onchange  = "ptoken.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/FinalProductRecordItem.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&itemno=#url.itemno#&uom=#url.UoM#','finalproduct','','','POST','selectionform')"
 			style     = "border:0px;height:200px;width:160px"
 			multiple 
 			name      = "Topic_#Code#" 

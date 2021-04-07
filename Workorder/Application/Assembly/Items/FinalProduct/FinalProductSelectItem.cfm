@@ -114,7 +114,7 @@
 					
 						<tr><td style="padding:4px" bgcolor="f4f4f4">
 							<input type="text" 
-							onkeyup="_cf_loadingtexthtml='';ColdFusion.navigate('getTopic.cfm?ip=#ip#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&code=#code#&itemno=#url.itemno#&uom=#url.UoM#&find='+this.value,'box_#GetTopics.Code#')"
+							onkeyup="_cf_loadingtexthtml='';ptoken.navigate('getTopic.cfm?ip=#ip#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&code=#code#&itemno=#url.itemno#&uom=#url.UoM#&find='+this.value,'box_#GetTopics.Code#')"
 							class="regularxl" 
 							style="padding-left:3px;border:1px solid silver;width:100%" name="Filter_#GetTopics.Code#">
 						</td></tr>

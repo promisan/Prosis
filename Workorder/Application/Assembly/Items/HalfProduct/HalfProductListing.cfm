@@ -188,9 +188,9 @@
 	
 					<table width="99%" cellspacing="0" cellpadding="0">			
 					
-						<tr class="line labelit">
+						<tr class="line labelmedium2">
 						
-							<td width="5%" class="labelit" style="font-size:15px;padding-left:3px">
+							<td width="5%" style="font-size:15px;padding-left:3px">
 							   <cfif mode eq "edit">
 								<a href="javascript:addHalfProduct('#url.WorkOrderId#','#url.WorkOrderLine#','','');" style="color:gray;">
 								[<cf_tl id="Add">]
@@ -198,7 +198,7 @@
 							   </cfif>
 							</td>
 							
-							<td class="labelsmall" style="width:30"></td>
+							<td style="width:30"></td>
 							<td><cf_tl id="Code"></td>
 							<td><cf_tl id="Description"></td>		
 							<td><cf_tl id="BarCode"></td>							
@@ -237,7 +237,7 @@
 									
 										<table width="40">
 											<tr>
-												<td onclick="editFinalProduct('#url.WorkOrderId#','#url.WorkOrderLine#','#workorderitemid#');">												
+												<td>												
 													<cf_img icon="edit" onclick="editHalfProduct('#url.WorkOrderId#','#url.WorkOrderLine#','#workorderitemid#');" navigation="yes">													
 												</td>
 												<td style="padding-left:2px;">

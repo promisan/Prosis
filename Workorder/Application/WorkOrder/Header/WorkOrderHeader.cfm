@@ -18,16 +18,16 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	SELECT   Wo.*, 	
-	         SI.Description AS ServiceItemDescription, 		
+	         SI.Description   AS ServiceItemDescription, 		
 			 SI.ServiceMode,	
 			 C.OrgUnit,
-			 C.CustomerName AS CustomerName, 
-             C.Reference AS CustomerReference, 
-			 C.PhoneNumber AS CustomerPhoneNo,
+			 C.CustomerName   AS CustomerName, 
+             C.Reference      AS CustomerReference, 
+			 C.PhoneNumber    AS CustomerPhoneNo,
 			 SI.EnableOrgUnitWorkOrder
-    FROM     WorkOrder Wo INNER JOIN
-             ServiceItem SI ON Wo.ServiceItem = SI.Code INNER JOIN
-             Customer C ON Wo.CustomerId = C.CustomerId	
+    FROM     WorkOrder Wo 
+	         INNER JOIN ServiceItem SI ON Wo.ServiceItem = SI.Code 
+			 INNER JOIN Customer C ON Wo.CustomerId = C.CustomerId	
 	WHERE    Wo.WorkOrderId = '#URL.workorderid#' 
 </cfquery>	
 		
@@ -35,12 +35,12 @@
 
 <cfset tmp = "WorkOrder/Application/WorkOrder/Invoice/WorkOrderInvoiceData.cfm"> 	
 
-<cfform method="POST" name="workorderform">   	  
+<cfform method="POST" name="workorderform" style="height:100%;width:100%">   	  
 
 <cfif init eq "1">
-<table width="95%" border="0" align="center" cellspacing="1" cellpadding="0">
+<table width="95%" border="0" align="center">
 <cfelse>
-<table width="95%" border="0" align="center" cellspacing="1" cellpadding="0">
+<table width="95%" border="0" align="center">
 
 </cfif>
 
@@ -51,15 +51,14 @@
    mission          = "#get.mission#" 
    serviceitem      = "#get.serviceitem#"
    returnvariable   = "access">	
-   
-	  
+   	  
 <cfif (get.recordcount eq "0") and (Access eq "EDIT" or Access eq "ALL")>
 	
 	<!--- entry mode is pending --->
 			
 <cfelse>	
 
-	<tr><td colspan="2">
+	<tr><td colspan="2" style="padding-top:10px">
 	<table width="100%" border="0" align="center">
 	
 	<!---				
@@ -69,9 +68,17 @@
 	--->	
 	
 	<input type="hidden" name="workorderid" id="workorderid" value="#url.workorderid#">
+	
+	<tr class="labelmedium2">
+		<td width="180"  style="padding-left:8px"><cf_tl id="Customer">:</td>
+		<td>
+		#get.CustomerName# #get.CustomerReference#
+		</td>
+	</tr>	
+
 		
-	<tr>
-		<td width="180" height="22" class="labelmedium" style="border:0px dotted c4c4c4;padding-left:8px"><cf_tl id="Order">:</td>
+	<tr class="labelmedium2">
+		<td width="180" height="22" style="padding-left:8px"><cf_tl id="Order">:</td>
 
 		<td>
 			
@@ -123,8 +130,7 @@
 		    <td class="labelmedium" valign="top" style="padding-top:3px;padding-left:8px"><cf_tl id="Progress">:</td>
 			--->
 		    <td style="padding:0px;" colspan="1"></td>
-			<td style="padding-right:20px">
-			
+			<td style="padding-right:20px">			
 			<cf_workorderlines workorderid="#get.workorderid#">			
 			</td>
 		</tr>

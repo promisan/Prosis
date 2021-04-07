@@ -1,10 +1,14 @@
 <cfparam name="URL.Mission" default="HSA">
+<cfparam name="URL.ID1"     default="">
 
 <cfsavecontent variable="myquery">
 
 	<cfoutput>	
 	
-	    SELECT *
+	SELECT *, AmountPending
+	FROM (
+	
+	    SELECT *, (AmountSale - AmountBilled) as AmountPending
 		FROM (  	
 		SELECT        W.WorkOrderId,
 		              WL.WorkOrderLine, 
@@ -35,34 +39,15 @@
                                  Materials.dbo.ItemTransaction AS T ON TS.TransactionId = T.TransactionId
                        WHERE     T.WorkOrderId   = WL.WorkOrderId 
 					   AND       T.WorkOrderLine = WL.WorkOrderLine 
-					   AND       TS.InvoiceId IN (
-					                      SELECT      TransactionId
-                                          FROM        Accounting.dbo.TransactionHeader
-                                          WHERE       TransactionId = TS.InvoiceId 
-										  AND         RecordStatus <> '9' 
-										  AND         ActionStatus <> '9')
+					   AND       T.TransactionType = '2'
+					   AND       EXISTS (     SELECT      'X'
+	                                          FROM        Accounting.dbo.TransactionHeader
+	                                          WHERE       TransactionId = TS.InvoiceId 
+											  AND         RecordStatus <> '9' 
+											  AND         ActionStatus <> '9')
 										  
-					   AND       T.TransactionType = '2') AS AmountBilled,
-					   
-					   
-					  ( SELECT    ISNULL(ROUND(SUM(SaleAmountIncome), 2), 0) 
-                        FROM      WorkOrderLineItem
-                        WHERE     WorkOrderId   = WL.WorkOrderId 
-					    AND       WorkOrderLine = WL.WorkOrderLine) - 
-					   
-                      ( SELECT    ISNULL(ROUND(SUM(TS.SalesAmount), 2), 0) 
-                        FROM      Materials.dbo.ItemTransactionShipping AS TS INNER JOIN
-                                  Materials.dbo.ItemTransaction AS T ON TS.TransactionId = T.TransactionId
-                        WHERE     T.WorkOrderId   = WL.WorkOrderId 
-					    AND       T.WorkOrderLine = WL.WorkOrderLine 
-					    AND       TS.InvoiceId IN (
-                                          SELECT      TransactionId
-                                          FROM        Accounting.dbo.TransactionHeader
-                                          WHERE       TransactionId = TS.InvoiceId 
-										  AND         RecordStatus <> '9' 
-										  AND         ActionStatus <> '9'
-										  )										  
-					   AND       T.TransactionType = '2') AS AmountPending					   
+					   ) AS AmountBilled
+					   									   		   
 					  						 
 		FROM        WorkOrderLine AS WL INNER JOIN
 		            WorkOrder AS W ON WL.WorkOrderId = W.WorkOrderId INNER JOIN
@@ -75,7 +60,15 @@
 		AND         WL.Operational = 1 
 		AND         R.PointerSale = 1		
 		) as tab
+		
+		<cfif find("Pending",  url.id1)>
+		WHERE AmountSale <> 0
+		</cfif>
+				
+		) as D
+		
 		WHERE 1=1 
+		--condition
 	</cfoutput>	
 	
 </cfsavecontent>
@@ -142,7 +135,7 @@
 	     				align         = "right",						
 						width         = "20",																		
 						search        = "number",
-						formatted     = "numberformat(AmountSale,'__,__')"}>
+						formatted     = "numberformat(AmountSale,',__')"}>
 													
 
 	<cfset itm = itm+1>
@@ -152,7 +145,7 @@
 	     				align         = "right",						
 						width         = "20",																		
 						search        = "number",
-						formatted     = "numberformat(AmountShipped,'__,__')"}>
+						formatted     = "numberformat(AmountShipped,',__')"}>
 
 	<cfset itm = itm+1>
 	<cf_tl id="Billed" var = "1">		
@@ -161,7 +154,7 @@
 	     				align         = "right",						
 						width         = "20",																		
 						search        = "number",
-						formatted     = "numberformat(AmountBilled,'__,__')"}>
+						formatted     = "numberformat(AmountBilled,',__')"}>
 																		
 	<cfset itm = itm+1>
 	<cf_tl id="Pending" var = "1">		
@@ -171,8 +164,7 @@
 						aggregate     = "sum",					
 						width         = "20",																		
 						search        = "number",
-						formatted     = "numberformat(AmountPending,'__,__')"}>
-
+						formatted     = "numberformat(AmountPending,',__')"}>
 
 	<cfset itm = itm+1>		
 	<cf_tl id="Status" var = "1">		
@@ -181,9 +173,7 @@
 						field       = "ActionStatus",  
 						width       = "4",    											
 						formatted   = "Rating",
-						ratinglist  = "9=Red,0=white,1=Green,3=Green"}>				
-						
-
+						ratinglist  = "9=Red,0=white,1=Green,3=Green"}>		
 																
 <cfset menu=ArrayNew(1)>	
 
@@ -200,8 +190,7 @@
 		listgroup           = "Currency"	
 		listorderfield      = "OrderDate"
 		listorder           = "OrderDate"
-		listorderdir        = "ASC"		
-		headercolor         = "ffffff"		
+		listorderdir        = "ASC"				
 		menu                = "#menu#"
 		filtershow          = "Yes"
 		excelshow           = "Yes" 					

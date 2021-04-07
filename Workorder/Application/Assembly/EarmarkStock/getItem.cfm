@@ -17,7 +17,7 @@
 	<script language="JavaScript">
 			
 		try { document.getElementById('itemno').value  = "#get.Itemno#"	} catch(e) {}
-		ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/getUoM.cfm?mission=#url.mission#&workorderid=#url.workorderid#&itemno=#url.ItemNo#','uombox')		
+		ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/getUoM.cfm?mission=#url.mission#&workorderid=#url.workorderid#&itemno=#url.ItemNo#','uombox')		
 					
 	</script>	
 		

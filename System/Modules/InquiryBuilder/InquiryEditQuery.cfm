@@ -1,23 +1,25 @@
 
 <cfoutput>
 
-<table width="100%" style="border:1px solid silver">
+<table width="100%" style="border:0px solid silver">
 
    <cfif new eq "1">
 			
 		<tr>
-			<td class="labellarge" style="font-size:24px;font-weight:200">Inquiry Function Label:<font color="FF0000">*</font></td>
-			<td>
+			
+			<td colspan="2">
 			<cf_space spaces="60">
-			<table cellspacing="0" cellpadding="0">
-			<tr><td>
-			<input type="text" 
-			  onchange="ptoken.navigate('InquiryEditValidate.cfm?systemfunctionid=#url.systemfunctionid#&name='+this.value,'verifylabel')" 
-			  name="FunctionHeaderLabel" id="FunctionHeaderLabel" 
-			  value="#header.FunctionName#" 
-			  size="40" 
-			  class="regularxl"
-			  maxlength="40">
+			<table>
+			<tr>
+			<td class="labellarge" style="padding-left:10px;font-size:18px;font-weight:300">Inquiry Function Name:<font color="FF0000">*</font></td>
+			<td>
+				<input type="text" 
+				  onchange="ptoken.navigate('InquiryEditValidate.cfm?systemfunctionid=#url.systemfunctionid#&name='+this.value,'verifylabel')" 
+				  name="FunctionHeaderLabel" id="FunctionHeaderLabel" 
+				  value="#header.FunctionName#" 
+				  size="40" style="background-color:ffffaf" 
+				  class="regularxxl"
+				  maxlength="50">
 			</td>
 			<td width="3"></td>
 			<td id="verifylabel"></td>
@@ -43,7 +45,7 @@
 				
 				<tr>
 				
-				<TD style="padding-left:8px" class="labelmedium">Data source:</TD>
+				<TD style="padding-left:8px" class="labelmedium"><cf_tl id="Data source">:</TD>
 				<td>				
 	
 					<cfset ds = "#List.QueryDataSource#">
@@ -121,17 +123,18 @@
 			 
 			<tr style="border-top:1px solid silver">			 
 			 <td colspan="2" style="min-width:700px">
-				<table width="100%" style="padding:3px;background-color:eaeaea">					
-					<tr class="labelmedium2">
+				<table width="100%" style="padding:1px;background-color:fafafa">					
+					<tr class="labelmedium">
 					<td style="min-width:200px" id="testresult"></td>
-					<td align="right"><table><tr>
-					<td style="padding-left:4px">@mission</td><td width="2">=</td><td style="padding-right:4px">Mission&nbsp;</td>
-					<td style="padding-left:4px">@user</td><td width="2">=</td><td style="padding-right:4px">User&nbsp;</td>
-					<td style="padding-left:4px">@now</td><td width="2">=</td><td style="padding-right:4px">Timestamp&nbsp;</td>
-					<td style="padding-left:4px">@today</td><td width="2">=</td><td style="padding-right:4px">Today&nbsp;</td>
-					<td style="padding-left:4px">@today-N</td><td width="2">=</td><td style="padding-right:4px">Rel.&nbsp;date&nbsp;</td>
-					<td style="padding-left:4px">@answerN</td><td width="2">=</td><td style="padding-right:4px">Preset table</td>
-					</tr>
+					<td align="right">
+					<table><tr>
+						<td style="padding-left:4px">@mission</td><td width="2">=</td><td style="padding-right:4px">Mission</td>
+						<td style="padding-left:4px">@user</td><td width="2">=</td><td style="padding-right:4px">User</td>
+						<td style="padding-left:4px">@now</td><td width="2">=</td><td style="padding-right:4px">Timestamp</td>
+						<td style="padding-left:4px">@today</td><td width="2">=</td><td style="padding-right:4px">Today</td>
+						<td style="padding-left:4px">@today-N</td><td width="2">=</td><td style="padding-right:4px">Rel.&nbsp;date</td>
+						<td style="padding-left:4px">@answerN</td><td width="2">=</td><td style="padding-right:4px">Table</td>
+						</tr>
 					</table></td>
 					</tr>
 				</table>

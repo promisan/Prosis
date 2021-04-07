@@ -112,21 +112,27 @@
 		
 		<cftry>
 						
-		<cfquery name="searchResult" dbtype="query">
-			SELECT * 
-			FROM   Searchresult
-			<cfif getGroup1.FilterValue neq "">
-			WHERE  #url.listgroupfield# = '#getGroup1.FilterValue#'
-			<cfelse>
-			WHERE  #url.listgroupfield# is NULL							
-			</cfif>				
-			<cfif url.col1 neq "">
-			AND    #url.col1#           = '#url.col1value#'			
-			</cfif>
-			<cfif url.listorderfield neq "">
-			ORDER BY #url.listorderfield# #url.listorderdir#
-			</cfif>
-		</cfquery>	
+			<cfquery name="searchResult" dbtype="query">
+				SELECT * 
+				FROM   Searchresult
+				<cfif getGroup1.FilterValue neq "">
+				WHERE  #url.listgroupfield# = '#getGroup1.FilterValue#'
+				<cfelse>
+				WHERE  #url.listgroupfield# is NULL							
+				</cfif>				
+				<cfif url.col1 neq "">
+				AND    #url.col1#           = '#url.col1value#'			
+				</cfif>
+				<cfif url.listorderfield neq "" or url.listgroupsort neq "">
+					ORDER BY 
+					<cfif url.listgroupsort neq "">
+					#url.listgroupsort#	<cfif url.listorderfield neq "">,</cfif>				
+					</cfif>				
+					<cfif url.listorderfield neq "">
+					#url.listorderfield# #url.listorderdir#
+					</cfif>
+				</cfif>	
+			</cfquery>	
 										
 			<cfcatch>	
 										
@@ -141,8 +147,14 @@
 					<cfif url.col1 neq "">
 					AND    #url.col1#           = '#url.col1value#'
 					</cfif>
+					<cfif url.listorderfield neq "" or url.listgroupsort neq "">
+					ORDER BY 
+					<cfif url.listgroupsort neq "">
+					#url.listgroupsort#	<cfif url.listorderfield neq "">,</cfif>				
+					</cfif>				
 					<cfif url.listorderfield neq "">
-					ORDER BY #url.listorderfield# #url.listorderdir#				
+					#url.listorderfield# #url.listorderdir#
+					</cfif>
 					</cfif>
 				</cfquery>	
 														
@@ -168,24 +180,45 @@
 		<cfloop array="#attributes.listlayout#" index="fields">
 						
 			<cfparam name="fields.column" default="">
-		
+					
 			<cfif fields.column eq "month">
-			
+												
 			    <cfif fields.alias neq "">
-		            <cfset fo = findNoCase("#fields.alias#.#fields.field#", listquery)>	
+				
+					<cfif findNoCase("--,#fields.alias#.#fields.field#", listquery)>
+						<cfset pre = "--,">
+					<cfelse>
+						<cfset pre = "">	
+					</cfif>
+				
+		            <cfset fo = findNoCase("#pre##fields.alias#.#fields.field#", listquery)>	
+					
 				<cfelse>
-				    <cfset fo = findNoCase("#fields.field#", listquery)>	
+				
+					<cfif findNoCase("--,#fields.field#", listquery)>
+						<cfset pre = "--,">
+					<cfelse>
+						<cfset pre = "">	
+					</cfif>
+					
+				    <cfset fo = findNoCase("#pre##fields.field#", listquery)>	
 				</cfif>
 				
-				<cfif fo gt "1">
+				<!---								
+				<cfif session.acc eq "esdnyrs3">				
+				<cfoutput>--#fo#-----#fields.alias#.#fields.field# : #listquery#--</cfoutput>
+				</cfif>
+				--->
 				
+				<cfif fo gt "1">
+								
 					<cfset qry1 = left(listquery, fo-1)>
 					<cfif fields.alias neq "">
-						<cfset start  = fo+len("#fields.alias#.#fields.field#")>									
+						<cfset start  = fo+len("#pre##fields.alias#.#fields.field#")>									
 					<cfelse>
-						<cfset start  = fo+len(fields.field)>
+						<cfset start  = fo+len("#pre##fields.field#")>
 					</cfif>
-					<cfset qry2 = mid(listquery,start,len(listquery)-start)>
+					<cfset qry2 = mid(listquery,start,len(listquery)+1-start)>
 					
 					<cfif fields.alias neq "">
 						<cfset fld = "#fields.alias#.#fields.field#">
@@ -194,6 +227,7 @@
 					</cfif>		
 					
 					<cfsavecontent variable="datedimension">
+					     <cfif pre neq "">,</cfif>
 						 CONVERT(varchar,DATEPART(yy,#fld#))                                 AS #fields.field#_YR,
 						 CONVERT(varchar, DATEPART(yy, #fld#)) + '-' + (CASE 
 						        WHEN MONTH(#fld#) >= 1   AND  MONTH(#fld#) <= 3  THEN 'Q1' 
@@ -213,6 +247,12 @@
 					</cfif>
 						
 				</cfif>
+				
+				<!---
+				<cfif session.acc eq "esdnyrs3">
+				<cfoutput>#listquery#</cfoutput>				
+				</cfif>
+				--->
 					
 			</cfif>			
 		
@@ -449,9 +489,7 @@
 	
 	<!--- ------------------------------------------ --->
 	<!--- WE CHECK IF WE CAN TAKE THE CACHED VERSION --->
-	<!--- ------------------------------------------ --->
-			
-	
+	<!--- ------------------------------------------ --->			
 	
 	<cfset applycache = "0">
 	<cfparam name="ann"       default="">
@@ -459,20 +497,14 @@
 	
 	<cfset conditioncheck = "#condition# #ann#">
 	
+	<!--- check listing --->
+				
 	<cfparam name="session.listingdata['#box#']['sqlcondition']" default="x">
-	
+		
 	<cfif attributes.refresh eq "0" 
 	      and url.ajaxid eq "content" 
 		  and conditioncheck eq session.listingdata[attributes.box]['sqlcondition']>		
-		  
-		  <!---
-		  <cfoutput>
-		 #conditioncheck#
-		 </cfoutput>
-		 <cfabort>	   
-		 
-		 --->
-				
+		 				
 		<!-- obtain the cache --->
 		
 		<cflock timeout="20" throwontimeout="No" name="mysession" type="EXCLUSIVE">
@@ -481,8 +513,8 @@
 			<cfset searchresult = session.listingdata[attributes.box]['dataset']>	
 			<cfset session.listingdata[box]['dataprep']  = "-1">  <!--- cached --->
 		</cflock>
-		<cfset applycache = "1">			
-															
+		<cfset applycache = "1">	
+																	
 		<!--- only to apply if indeed the sorting had changed this will gain a bit --->
 										
 		<cfif not findNoCase("#listsorting#",session.listingdata[attributes.box]['sqlsorting'])>
@@ -536,7 +568,7 @@
 			WHERE  SystemFunctionId = '#URL.SystemFunctionId#'
 			AND    FunctionSerialNo = '1'
 		</cfquery>
-										
+														
 		<cfif attributes.refresh eq "1" or url.content eq "0">
 		
 			<cfset fileNo = "#Header.DetailSerialNo#">	
@@ -546,7 +578,7 @@
 			
 			<cfset sc = querylist>
 			
-			<!--- make some conversion r --->
+			<!--- make some conversion on specific words --->
 			<cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">				
 						
 			<cftry>
@@ -778,6 +810,14 @@
 	
 	</cfif>		
 	
+	--->
+	
+	<!---
+	
+	<cftry>
+		<cfoutput>#sc#</cfoutput>
+		<cfcatch>zz</cfcatch>
+	</cftry>	
 	--->
 			
 	<cfif applycache eq "0">	

@@ -2,7 +2,7 @@
 
 <cfoutput>
 
-		<table width="91%" border="0" cellspacing="0" align="center" id="tab0" class="formpadding">
+		<table width="91%" align="center" id="tab0" class="formpadding">
 						
 			<tr><td height="5"></td></tr> 
 			

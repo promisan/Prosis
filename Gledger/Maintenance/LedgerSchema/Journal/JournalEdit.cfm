@@ -103,8 +103,7 @@ function askjournal() {
 	return false	
 }	
 
-function batchperiod() {
-    
+function batchperiod() {    
 	ProsisUI.createWindow('mydialog', 'Subperiod', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    		
 	ptoken.navigate('#session.root#/Gledger/Maintenance/LedgerSchema/Journal/BatchView.cfm?Journal=#url.id1#','mydialog') 	
 
@@ -120,7 +119,7 @@ function batchrefresh(id) {
 
 <cf_dialogLedger>
 
-<cfform action="RecordSubmit.cfm?action=update" method="POST" name="f_journal_edit">
+<cfform  method="POST" name="f_journal_edit">
 
 <table width="93%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
    

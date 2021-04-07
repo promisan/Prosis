@@ -170,7 +170,7 @@
 	
 	<script language="JavaScript">
 	     if (document.getElementById('selectfields')) {
-		  ColdFusion.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/FinalProductSelectItem.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&itemno=#vitemno#&uom=#uom#&itemmaster=#GetItemDef.ItemMaster#&mission=#workorder.mission#','selectfields')
+		  ptoken.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/FinalProductSelectItem.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&itemno=#vitemno#&uom=#uom#&itemmaster=#GetItemDef.ItemMaster#&mission=#workorder.mission#','selectfields')
 		 }
 	</script>	
 

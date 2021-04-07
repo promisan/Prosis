@@ -60,6 +60,7 @@ password="#SESSION.dbpw#">
 	  SET 
       ListingOrder 		   = '#FORM.ListingOrder#',
       FieldIsKey 		   = '#FORM.FieldIsKey#',
+	  FieldNameSort        = '#FORM.FieldNameSort#',
       FieldIsAccess 	   = '#FORM.FieldIsAccess#',
       FieldInGrid 		   =  #displayInGrid#,
       FieldHeaderLabel     = '#FORM.FieldHeaderLabel#',

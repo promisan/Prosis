@@ -32,11 +32,11 @@
 	   id="workflowlink_#action.orgunitactionid#" 	   
 	   value="OrganizationWorkflow.cfm">	
    
-	   <tr style="height:10px">
+	   <tr>
 	  										  											
-	   	   <td style="height:26px;padding-left:41px;padding-right:20px;min-width:300px;padding-top:1px" valign="top">
+	   	   <td style="height:26px;padding-left:25px;padding-right:20px;min-width:300px;padding-top:1px" valign="top">
 	
-			   <table width="100%">
+			   <table width="100%" style="height:25px;border-top:1px solid silver;background-color:f1f1f1">
 			
 			        <!---
 				   <tr class="line labelmedium">										      
@@ -49,11 +49,11 @@
 				   --->
 				   														     
 				   <cfloop query="Action">
-					   <tr class="labelmedium">
+					   <tr class="labelmedium2">
 					     
 						 <td>
 							 <table>
-								 <tr class="labelmedium">
+								 <tr style="height:30px" class="labelmedium2">
 								 <td>
 								 <cfif actionstatus eq "0">
 								 <input type="radio" class="radiol" name="content" checked value="1" onclick="Prosis.busy('yes');timesheet('#dateformat(dateob,client.datesql)#','unit','#URL.ID0#','0','false','function(personNo, pType) { scheduleCopy(personNo, pType); }', 'function(personNo) { scheduleRemove(personNo); }');">

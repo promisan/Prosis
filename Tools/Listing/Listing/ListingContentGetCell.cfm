@@ -373,8 +373,16 @@
 					--->
 					<cfset cellstyle  = "">
 				
-					<cfset fontcolor = "">			
+					<cfset fontcolor = "">	
+					
+					<cftry>	
 					<cfset inner = evaluate(contentformat)>		
+					<cfcatch>
+					    <cfset inner = "check format">
+					</cfcatch>
+					</cftry>
+					
+					
 																 
 					<cfif inner neq "" and current.functionscript neq "" and (url.ajaxid eq "content" or url.ajaxid eq "append")> <!--- somehow the inner would not work for a refresh --->
 						
@@ -383,7 +391,8 @@
 						 <cfif current.functionfield neq "">							 		
 						        <cfif evaluate(current.functionfield) neq "">					   
 									<cfset cellclick = "#current.functionscript#('#evaluate(current.functionfield)#','#url.systemfunctionid#','#current.functioncondition#')">																				
-									<cfset cellstyle = "text-decoration: underline;color:6688aa">								
+									<cfset cellstyle = "text-decoration: underline;color:6688aa">													
+									
 								<cfelse>
 									<cfset cellclick = "">																				
 									<cfset cellstyle = "">																

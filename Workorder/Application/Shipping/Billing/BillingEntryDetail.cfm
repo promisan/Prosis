@@ -32,6 +32,7 @@
 				   T.ItemNo, 
 				   T.ActionStatus,
 				   I.Classification,
+				   I.ItemNoExternal,
 				   T.TransactionLot,
 				   T.WorkOrderId,
 				   M.Reference,
@@ -106,7 +107,7 @@
 						
 		<table width="99%">
 			
-		<tr class="labelmedium2 line">
+		<tr class="labelmedium2 line fixrow">
 			<td width="30" align="left" style="padding-left:6px">
 				<input type="Checkbox" id="selectAll" class="radiol" name="selectAll" onclick="selectAllCB(this,'.clsCheckbox')">
 			</td>
@@ -170,21 +171,20 @@
 										<td style="padding-left:1px">
 										
 											<input type="checkbox" 
-											  onclick="_cf_loadingtexthtml='';ptoken.navigate('setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform')" 
-											  style  = "width:15px;height:13px" 
+											  onclick="_cf_loadingtexthtml='';ptoken.navigate('setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform')" 											  
 											  class  = "radiol clsCheckbox" 
 											  name   = "selected" 
 											  id     = "selected"
 											  value  = "'#TransactionId#'">							
 											  
 										</td>
-										<td style="padding-left:3px"><cf_img icon="edit" onclick="recordedit('#transactionid#')"></td>				
+										<td style="padding-top:0px"><cf_img icon="open" onclick="recordedit('#transactionid#')"></td>				
 									</tr>
 								</table>
 							</cfif>	
 						</td>
 						
-						<td><cfif Classification neq "">#Classification#<cfelse>#ItemBarCode#</cfif></td>
+						<td><cfif ItemNoExternal neq "">#ItemNoExternal#<cfelse>#ItemBarCode#</cfif></td>
 						<td class="ccontent">#ItemDescription#</td>
 						<td class="ccontent">#UoMDescription#</td>
 						<td>#CommodityCode#</td>

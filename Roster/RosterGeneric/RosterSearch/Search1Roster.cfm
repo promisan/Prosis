@@ -4,7 +4,7 @@
 	
 	<cfif url.mode eq "vacancy" or url.mode eq "ssa">
 	
-		<cf_screenTop height="100%" layout="webapp" banner="red" label="Short list" scroll="Yes" html="no">	
+		<cf_screenTop height="100%" jquery="Yes" layout="webapp" banner="red" label="Short list" scroll="Yes" html="no">	
 				
 		<cfset occ = "">
 		<cfset param = "">
@@ -60,15 +60,41 @@
 			AND    R.RosterSearchMode != '0'
 			AND   ((R.DateExpiration >= getDate() 
 			          OR R.DateExpiration is NULL 
-					  OR R.DateExpiration = ''))  			  
+					  OR R.DateExpiration = '')) 
+			ORDER BY Created DESC		   			  
 		</cfquery>
+				
+				
+		<cfif ShowEdition.recordcount eq "0">
+			
+			<cfquery name="ShowEdition" 
+			datasource="AppsSelection" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT R.*, (SELECT count(*) 
+				             FROM FunctionOrganization 
+							 WHERE SubmissionEdition = R.SubmissionEdition) as Buckets
+			    FROM   Ref_SubmissionEdition R, 
+				       Ref_ExerciseClass C
+				WHERE  C.ExcerciseClass   = R.ExerciseClass
+				AND    C.Roster           = 1 
+				AND    R.Owner            = '#URL.Owner#' 
+				<cfif param neq "">
+				AND   (R.PostType = '#param#' or R.PostType is NULL)
+				</cfif>
+				AND    R.Operational      = 1
+				AND    R.RosterSearchMode != '0'	
+				ORDER BY Created DESC	  	  
+			</cfquery>
+		
+		</cfif>
 		
 		<cfset ed = "">
 		<cfloop query="showedition">
 			<cfif ed eq "">
 			   <cfset ed = "'#SubmissionEdition#'">
 			<cfelse>
-			   <cfset ed = "#ed#,'#SubmissionEdition#'">   
+			   <cfset ed = "#ed#, '#SubmissionEdition#'">   
 			</cfif>
 		</cfloop>
 	
@@ -79,7 +105,7 @@
 				target="_self" 
 				name="search1">
 	
-	<table width="99%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="99%" height="100%" align="center">
 		   		
 	    <TR style="height:95%" class="line">
 						
@@ -101,6 +127,7 @@
 					         INNER JOIN dbo.FunctionOrganization F1 ON F.FunctionNo = F1.FunctionNo 
 							 INNER JOIN dbo.Ref_Organization R ON F1.OrganizationCode = R.OrganizationCode 
 							 INNER JOIN dbo.OccGroup O ON F.OccupationalGroup = O.OccupationalGroup
+							 INNER JOIN dbo.Ref_SubmissionEdition E ON F1.SubmissionEdition = E.SubmissionEdition
 				     WHERE   1=1 
 					 <cfif occ neq "">
 					 
@@ -123,7 +150,7 @@
 					 <!--- ability to limit presentation using function and setting of PostSpecific = 0, Post specific is only a track for recruitment but not to 
 					       set rostering of a person which is supported differently --->
 					 
-					 AND    (F.FunctionRoster = '1' OR F1.ReferenceNo IN ('Direct','direct') OR F1.PostSpecific = 0)		
+					 AND    (F.FunctionRoster = '1' OR F1.ReferenceNo IN ('Direct','direct') OR F1.PostSpecific = 0 OR E.EnableAsRoster = 1)		
 					 
 				     ORDER BY Description
 					 
@@ -150,18 +177,20 @@
 				
 				</td></tr></table>
 					
-			<cfelse>		
-								
+			<cfelse>	
+			
+				<cf_divscroll>									
 					
 				<table width="100%" align="center">
-			
-				<tr><td height="8"></td></tr>	
-											
+						
+																		
 				<cfset cls = "regular">	
-								
-				<tr><td height="30" style="font-size:18px" class="labellarge"><cf_tl id="In the following available editions" class="Message">:</td></tr>	
+				
+				<!---				
+				<tr class="fixrow labellarge"><td height="30" style="font-size:18px"><cf_tl id="In the following available editions" class="Message">:</td></tr>	
 				
 				<tr><td height="7"></td></tr>
+				--->
 								
 				<tr class="<cfoutput>#cls#</cfoutput>">
 				
@@ -173,8 +202,8 @@
 					
 					<cfelse>
 						
-					<table width="96%" align="center" class="formpadding navigation_table">
-					  <tr class="labelmedium line">
+					<table width="96%" align="center" class="formpadding navigation_table fixrow">
+					  <tr class="labelmedium2 line">
 					  <td>&nbsp;</td>
 					  <td colspan="2"><cf_tl id="Roster edition"></td>
 					  <td><cf_tl id="Buckets"></td>
@@ -188,7 +217,7 @@
 					    <cfset cl = ExerciseClass>
 					  
 						<cfoutput> 
-					    	<TR class="navigation_row line labelmedium">
+					    	<TR class="navigation_row line labelmedium2">
 							     <td>&nbsp;</td>
 					   			 <td colspan="2" align="left"><cfif cl eq "#ExerciseClass#">#ExerciseClass#/</cfif>#EditionDescription#</td>
 					      		 <td>#Buckets#</td>
@@ -227,6 +256,8 @@
 					</cfif>
 												
 				</table>
+				
+				</cf_divscroll>
 										
 		    </td>
 		</tr>
@@ -235,7 +266,7 @@
 			
 			<td height="40" colspan="1" align="center">
 				  <button type="submit" name="Next" 
-				  value="Select Buckets" class="button10g" style="width:330;height:32;font-size:13px">
+				  value="Select Buckets" class="button10g" style="width:330;height:32px;font-size:13px">
 				  Continue Selecting Roster Buckets <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/next.gif" border="0" align="absmiddle"> 
 				  </button>
 			</td>

@@ -63,7 +63,6 @@
 	
 <!--- create batch --->
 
-<cfset date = dateformat(now(),CLIENT.DateFormatShow)>
 <CF_DateConvert>
 <cfset dte = dateValue>		
 
@@ -105,6 +104,8 @@
 	<cftransaction>
 		
 		<!--- record the batch --->
+		
+		<cfset stat = "0">
 						
 		<cfquery name="Insert" 
 		datasource="AppsMaterials" 
@@ -135,7 +136,7 @@
 					'Reserve stock',										
 					#dte#,
 					'8',		<!--- transfer --->			
-					'1',
+					'#stat#',
 					'#SESSION.acc#',
 					'#SESSION.last#',
 					'#SESSION.first#')
@@ -301,10 +302,11 @@
 							TransactionQuantity   = "#-qty#"
 							TransactionUoM        = "#TransactionUoM#"						
 							TransactionLocalTime  = "Yes"
-							TransactionDate       = "#dateformat(date,CLIENT.DateFormatShow)#"
-							TransactionTime       = "#timeformat(date,'HH:MM')#"
+							TransactionDate       = "#dateformat(now(),CLIENT.DateFormatShow)#"
+							TransactionTime       = "#timeformat(now(),'HH:MM')#"
 							TransactionBatchNo    = "#batchno#"												
 							GLTransactionNo       = "#batchNo#"
+							ActionStatus          = "#stat#"
 							WorkOrderId           = "#workorderid#"
 							WorkOrderLine         = "#workorderline#"	
 							RequirementId         = "#requirementid#"																
@@ -340,11 +342,12 @@
 							TransactionQuantity   = "#qty#"
 							TransactionUoM        = "#TransactionUoM#"						
 							TransactionLocalTime  = "Yes"
-							TransactionDate       = "#dateformat(date,CLIENT.DateFormatShow)#"
-							TransactionTime       = "#timeformat(date,'HH:MM')#"
+							TransactionDate       = "#dateformat(now(),CLIENT.DateFormatShow)#"
+							TransactionTime       = "#timeformat(now(),'HH:MM')#"
 							TransactionBatchNo    = "#batchno#"												
 							GLTransactionNo       = "#batchNo#"
 							ParentTransactionId   = "#parid#"
+							ActionStatus          = "#stat#"
 							WorkOrderId           = "#targetworkorderid#"
 							WorkOrderLine         = "#targetworkorderline#"	
 							RequirementId         = "#targetrequirementId#"   <!--- important to keep the same --->					
@@ -368,7 +371,7 @@
 		<script>		
 			_cf_loadingtexthtml='';	
 			// refresh the to box 
-			ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Reserve/WorkOrderListing.cfm?mission=#workorder.mission#&warehouse=#form.warehouseto#&workorderid=#url.workorderid#&workorderline=#url.workorderline#','orderbox')
+			ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Reserve/WorkOrderListing.cfm?mission=#workorder.mission#&warehouse=#form.warehouseto#&workorderid=#url.workorderid#&workorderline=#url.workorderline#','orderbox')
 			Prosis.busy('no')		
 			ptoken.open('#session.root#/Warehouse/Application/Stock/Batch/BatchView.cfm?mode=process&trigger=workorder&mission=#workorder.mission#&batchno=#batchno#&systemfunctionid='+document.getElementById('systemfunctionid').value,'_blank','left=30, top=30, width=' + w + ', height= ' + h + ', toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes')
 	
@@ -384,7 +387,7 @@
 		<script>		
 			_cf_loadingtexthtml='';	
 			// refresh the to box 
-			ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Reserve/WorkOrderListing.cfm?mission=#workorder.mission#&warehouse=#form.warehouseto#&workorderid=#url.workorderid#&workorderline=#url.workorderline#','orderbox')
+			ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Reserve/WorkOrderListing.cfm?mission=#workorder.mission#&warehouse=#form.warehouseto#&workorderid=#url.workorderid#&workorderline=#url.workorderline#','orderbox')
 			Prosis.busy('no')		
 		</script>
 	   

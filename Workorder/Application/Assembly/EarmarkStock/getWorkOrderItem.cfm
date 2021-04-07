@@ -126,7 +126,7 @@
 			<script>
 			 document.getElementById('uomlabel').className     = "hide"
 			 document.getElementById('boxwarehouse').className = "hide"
-			 ColdFusion.navigate('#SESSION.root#/Workorder/Application/Assembly/EarmarkStock/blank.cfm','stockbox')
+			 ptoken.navigate('#SESSION.root#/Workorder/Application/Assembly/EarmarkStock/blank.cfm','stockbox')
 			</script>		
 		
 		<cfelse>

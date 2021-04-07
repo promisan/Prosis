@@ -39,7 +39,7 @@
 
 	<script>
 	    _cf_loadingtexthtml='';		
-		ColdFusion.navigate('#SESSION.Root#/WorkOrder/Application/Assembly/Items/FinalProduct/FinalProductBOM.cfm?WorkOrderItemId=#URL.WorkOrderItemId#','resource_#URL.WorkOrderItemId#');
+		ptoken.navigate('#SESSION.Root#/WorkOrder/Application/Assembly/Items/FinalProduct/FinalProductBOM.cfm?WorkOrderItemId=#URL.WorkOrderItemId#','resource_#URL.WorkOrderItemId#');
 	</script>
 	
 </cfoutput>

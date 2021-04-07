@@ -45,22 +45,51 @@
 				
 	<cfif closetasks.recordcount gt "0">
 		
-		<cfoutput>
-		
-		   		<cfsavecontent variable="taskmessage">			
-					  Action      : #Object.EntityDescription# #ThisAction.ActionDescription#					  
-					  <p>
-					  Reference   : #Object.ObjectReference2#					  
-					  <p>
-					  <cfif Form.actionStatus eq "2N">
-					  Denied by : #SESSION.first# #SESSION.last# 
-					  @ : #dateformat(now(),CLIENT.DateFormatShow)# #timeformat(now(),'HH:MM:SS')#
-					  <cfelse>
-					  Completed by : #SESSION.first# #SESSION.last# 
-					  @ : #dateformat(now(),CLIENT.DateFormatShow)# #timeformat(now(),'HH:MM:SS')#
-					  </cfif>		 				
+		<cfoutput>		
+		   					
+				<cfsavecontent variable="taskmessage">
+								
+					  <table cellspacing="1">
+					   <tr style="border-bottom:1px solid silver;height:30px">
+					      <td colspan="2" align="center" style="height:40px;font-size:17px;color:white;padding-left:4px;width:530px;padding-right:4px;background-color:gray">#session.welcome# <cf_tl id="Action"></td>								      
+					   </tr>
+					   <tr style="border-bottom:1px solid silver"><td style="height:30px;color:white;padding-left:4px;width:150px;padding-right:4px;background-color:1E90FF"><cf_tl id="Requested"></td>
+					       <td style="padding-left:4px">#session.first# #session.last#</td>
+					   </tr>								  
+					   <tr style="border-bottom:1px solid silver"><td style="height:30px;color:white;padding-left:4px;width:150px;padding-right:4px;background-color:1E90FF"><cf_tl id="Reference"></td>
+					       <td style="padding-left:4px">#Object.ObjectReference2#</td>
+					   </tr>
+					    <tr style="border-bottom:1px solid silver"><td style="height:30px;color:white;padding-left:4px;width:150px;padding-right:4px;background-color:1E90FF"><cf_tl id="Action"></td>
+					       <td style="padding-left:4px">#ThisAction.ActionDescription#	</td>
+					   </tr>					   
+					    <cfif Form.actionStatus eq "2N">
+					    <tr style="border-bottom:1px solid silver"><td style="height:30px;color:white;padding-left:4px;width:150px;padding-right:4px;background-color:red"><cf_tl id="Denied"></td>
+					       <td style="padding-left:4px">
+						   						   
+							  <a href="#SESSION.root#/ActionView.cfm?id=#Object.Objectid#&actioncode=#ThisAction.ActionCode#&target=#ThisAction.NotificationTarget#" style="color: black">
+							  #SESSION.first# #SESSION.last# : #dateformat(now(),CLIENT.DateFormatShow)# #timeformat(now(),'HH:MM:SS')#
+							  </a>
+						   </td>
+						</tr>
+						<cfelse>
+						  <tr style="border-bottom:1px solid silver"><td style="height:30px;color:white;padding-left:4px;width:150px;padding-right:4px;background-color:green"><cf_tl id="Completed"></td>
+					       <td style="padding-left:4px">
+						   
+							  <a href="#SESSION.root#/ActionView.cfm?id=#Object.Objectid#&actioncode=#ThisAction.ActionCode#&target=#ThisAction.NotificationTarget#" style="color: black">
+							  #SESSION.first# #SESSION.last# : #dateformat(now(),CLIENT.DateFormatShow)# #timeformat(now(),'HH:MM:SS')#
+							  </a>
+							 							
+						   </td>
+					      </tr> 
+					   </cfif>
+					   <tr style="border-bottom:1px solid silver">
+					      <td colspan="2" align="right" style="border-top:1px solid silver;height:15px;font-size:11px;padding-right:4px;color:black;padding-right:4px">Prosis for Exchange (C) 2021</td>								      
+					   </tr>
+					   					   
+					  </table>					 		  
+								 								
 				</cfsavecontent>
-				
+								
 				<cfscript>
 				    stask=StructNew();		
 				  	stask.Message          = "#taskmessage#";									
@@ -78,7 +107,8 @@
 					
 				<cf_ExchangeTask
 					account     = "#Account#"					
-					action      = "delete"
+					action      = "modify"
+					task        = "#stask#"
 					uid         = "#exchangeid#">  	
 														
 		</cfloop>	
@@ -90,11 +120,11 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				UPDATE OrganizationObjectMail
-				SET    ActionStatus = 1
-				WHERE  ObjectId     = '#ObjectId#'
+				SET    ActionStatus   = 1
+				WHERE  ObjectId       = '#ObjectId#'
 				AND    ExchangeId is not NULL
-				AND    ActionCode   = '#Action.ActionCode#'
-				AND    ActionStatus = 0
+				AND    ActionCode    = '#Action.ActionCode#'
+				AND    ActionStatus  = 0
 		</cfquery>	
 		
 	</cfif>

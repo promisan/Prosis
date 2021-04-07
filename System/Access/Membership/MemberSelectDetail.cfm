@@ -82,20 +82,11 @@ password="#SESSION.dbpw#">
 
 </cfquery>
 
-<table width="100%" class="navigation_table">
-
-	<tr>
-	  <td height="0" width="1%"></td>
-	  <td width="50%"></td>	  
-	  <td width="10%"></td>
-	  <td width="20%"></td>
-	  <td width="10%"></td>
-	  <td width="5%"></td>
-	</tr>
+<table width="98.5%" class="navigation_table">
 
 <cfoutput query="select">
 	
-	<tr class="labelmedium line navigation_row" style="height:20px" id="#AccountOwner#_#AccountMission#_#currentrow#">
+	<tr class="labelmedium2 line navigation_row" id="#AccountOwner#_#AccountMission#_#currentrow#">
   	   <td style="padding-left:4px" align="center"><input type="checkbox" style="height:14px;width:14px" name="Member" id="Member" value="#Account#" onClick="mhl(this,this.checked,'#AccountOwner#_#AccountMission#_#currentrow#')"></td>
 	   <!---
 	   <td style="padding-top:2px" align="center"><cf_img icon="select" onClick="javascript:ShowUser('#Account#')"></td>

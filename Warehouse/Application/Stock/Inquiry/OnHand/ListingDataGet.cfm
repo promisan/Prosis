@@ -117,7 +117,7 @@
 				       (SELECT ItemDescription FROM Item IP WHERE IP.ItemNo = I.ParentItemNo) as ParentItemName,					   
 
 					   P.WarehouseName,
-					   W.Description + ' - '+W.StorageCode AS Description, 	
+					   (CASE WHEN W.Description != W.StorageCode THEN W.Description + ' - '+W.StorageCode ELSE W.Description END) AS Description, 	
 					   U.ItemBarCode,		   
 					   U.UoMDescription,
 					   
@@ -143,13 +143,13 @@
 					  				
 					   (SELECT   SUM(TransactionValue)
 		                FROM     ItemTransaction 
-						WHERE    Mission        = '#getWarehouse.mission#'
-		                AND      Warehouse      = S.Warehouse 
-					    AND      Location       = S.Location 
-					    AND      ItemNo         = S.ItemNo 
-					    AND      TransactionUoM = S.UoM				
+						WHERE    Mission         = '#getWarehouse.mission#'
+		                AND      Warehouse       = S.Warehouse 
+					    AND      Location        = S.Location 
+					    AND      ItemNo          = S.ItemNo 
+					    AND      TransactionUoM  = S.UoM				
 						<cfif Form.TransactionLot neq "">
-						AND     TransactionLot = '#Form.TransactionLot#'
+						AND      TransactionLot  = '#Form.TransactionLot#'
 						</cfif>	
 						) AS OnHandValue,					 
 							 
@@ -159,11 +159,11 @@
 			         		   
 			    
 			 FROM      ItemWarehouseLocation S   
-			           INNER JOIN Item I ON S.ItemNo = I.ItemNo 
-					   INNER JOIN ItemUoM U ON I.ItemNo = U.ItemNo AND S.UoM = U.UoM 
+			           INNER JOIN Item I              ON S.ItemNo = I.ItemNo 
+					   INNER JOIN ItemUoM U           ON I.ItemNo = U.ItemNo AND S.UoM = U.UoM 
 					   INNER JOIN WarehouseLocation W ON S.Warehouse = W.Warehouse AND S.Location = W.Location 
-					   INNER JOIN Warehouse P ON P.Warehouse = S.Warehouse
-					   INNER JOIN Ref_Category C ON C.Category = I.Category					  
+					   INNER JOIN Warehouse P         ON P.Warehouse = S.Warehouse
+					   INNER JOIN Ref_Category C      ON C.Category = I.Category					  
 					   	
 			 WHERE     P.Mission = '#url.mission#'
 			 
@@ -239,6 +239,10 @@
 			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#"> 
+			
+			SELECT *
+			INTO 	   userQuery.dbo.#SESSION.acc#_OnHand	
+			FROM (
 					
 		
 			 SELECT    newid() as ListingKey,
@@ -252,7 +256,7 @@
 			 		   T.TransactionLot,          
 			           I.ItemDescription,
 					   P.WarehouseName,
-					   W.Description + ' - '+W.StorageCode AS Description, 	
+					   (CASE WHEN W.Description != W.StorageCode THEN W.Description + ' - '+W.StorageCode ELSE W.Description END) AS Description, 						  
 					   U.ItemBarCode,		   
 					   U.UoMDescription,
 					   
@@ -274,15 +278,14 @@
 		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = W.Warehouse) as MaximumStock,						
 					   
 					   SUM(TransactionQuantity) as OnHand,
-					   SUM(TransactionValue)    as OnHandValue						  
-					   					 			          		   
-			 INTO 	   userQuery.dbo.#SESSION.acc#_OnHand			   
+					   SUM(TransactionValue)    as OnHandValue						  		 			          		   
+			
 			 
 			 FROM      ItemTransaction T 	 	         
-			           INNER JOIN Item I ON T.ItemNo = I.ItemNo 
-					   INNER JOIN ItemUoM U ON I.ItemNo = U.ItemNo AND T.TransactionUoM = U.UoM 
+			           INNER JOIN Item I         ON T.ItemNo = I.ItemNo 
+					   INNER JOIN ItemUoM U      ON I.ItemNo = U.ItemNo AND T.TransactionUoM = U.UoM 
 					   INNER JOIN WarehouseLocation W ON T.Warehouse = W.Warehouse AND T.Location = W.Location 
-					   INNER JOIN Warehouse P ON P.Warehouse = T.Warehouse
+					   INNER JOIN Warehouse P    ON P.Warehouse = T.Warehouse
 					   INNER JOIN Ref_Category C ON C.Category = I.Category 
 			
 			 WHERE     T.Mission = '#url.mission#'
@@ -295,8 +298,6 @@
 			 
 						 	 
 			 <cfif url.filterwarehouse eq "1">
-			 
-			 
 			 			 
 			 AND       P.Warehouse = '#url.warehouse#'	 
 			 
@@ -356,17 +357,19 @@
 			 	   T.TransactionLot,          
 			       I.ItemDescription,
 				   P.WarehouseName,
+				   W.Warehouse,
 				   W.Description,
 				   W.StorageCode,  	
-				   U.ItemBarCode,		   
+				   U.ItemBarCode,		
+				   T.TransactionUoM,   
 				   U.UoMDescription,
 				   I.ParentItemNo
+				   
+			) as B	   
 				   			
 			 <!---	removed in order to show --->
-			 HAVING SUM(TransactionQuantity) > 0	
-			
-			 ORDER BY P.WarehouseName, W.Description, I.Category, T.ItemNo, I.ParentItemNo 
-			 			
+			 WHERE Onhand <> 0	
+						 			
 		</cfquery>
 			
 	</cfif>	

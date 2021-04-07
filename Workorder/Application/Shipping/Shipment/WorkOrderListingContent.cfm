@@ -41,10 +41,10 @@
 				
 			   (SELECT    CASE WHEN (Count(*) = 0) THEN 'N' ELSE 'Y' END
 	            FROM      Materials.dbo.ItemTransaction IT
-				WHERE     WorkOrderId = W.WorkOrderId
+				WHERE     WorkOrderId     = W.WorkOrderId
 				AND       TransactionType = '2'
 				AND       TransactionId IN (SELECT TransactionId
-				                            FROM    Materials.dbo.ItemTransactionShipping 
+				                            FROM   Materials.dbo.ItemTransactionShipping 
 											WHERE  TransactionId = IT.TransactionId)
 				) AS Shipped, 
 				
@@ -65,11 +65,12 @@
 	</cfif>	
 	
 	<cfif url.transactionlot neq "">
+	
 	AND        W.WorkorderId IN 
 	                        (SELECT WorkOrderId 
 							 FROM   Materials.dbo.Itemtransaction 
-							 WHERE  WorkOrderId = W.WorkOrderId 
-					         AND    Mission = '#url.mission#' 
+							 WHERE  WorkOrderId   = W.WorkOrderId 
+					         AND    Mission       = '#url.mission#' 
 							 AND    TransactionLot LIKE ('%#url.transactionlot#%'))
 	
 	</cfif>
@@ -80,19 +81,18 @@
 	
 	AND    W.WorkOrderId IN (
 	
-		    SELECT DISTINCT WOLI.WorkOrderId
+		    SELECT WOLI.WorkOrderId
 			FROM   WorkOrderLineItem WOLI INNER JOIN
 		           WorkOrderLine WL ON WOLI.WorkOrderId = WL.WorkOrderId AND WOLI.WorkOrderLine = WL.WorkOrderLine INNER JOIN
-		           Ref_ServiceItemDomainClass R ON WL.ServiceDomain = R.ServiceDomain AND WL.ServiceDomainClass = R.Code INNER JOIN
-		           WorkOrder W ON WL.WorkOrderId = W.WorkOrderId
+		           Ref_ServiceItemDomainClass R ON WL.ServiceDomain = R.ServiceDomain AND WL.ServiceDomainClass = R.Code 
 			<!--- only workorders that are meant for sale --->	   
 			WHERE  R.PointerSale = '1' 
 			<!--- not completed or cancelled workorder lines --->
 			AND    WL.ActionStatus NOT IN ('3','9')
 			AND    WL.Operational = 1
-			AND    W.Mission = '#url.mission#'
 			
-			)	 		
+			)	
+				 		
 
 </cfsavecontent>
 
@@ -233,9 +233,6 @@
 <cfset menu = "">
 	
 <!--- embed|window|dialogajax|dialog|standard --->
-
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
-<tr><td valign="top">
 							
 <cf_listing
 	    header            = "purchase"
@@ -261,5 +258,4 @@
 		drilltemplate     = "WorkOrder/Application/Shipping/Shipment/ShipmentEntry.cfm?systemfunctionid=#url.systemfunctionid#&header=1&mode=listing&workorderid="
 		drillkey          = "WorkorderId"
 		drillbox          = "blank">	
-		
-</td></tr></table>		
+	

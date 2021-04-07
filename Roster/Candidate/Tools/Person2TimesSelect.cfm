@@ -24,17 +24,17 @@ datasource="appsSelection">
 	
 	<table width="100%">
 	<cfif url.sel eq "Correct">
-		<tr class="labelit"><td width="100" style="padding-right:40px"><cf_space spaces="35">First Name:</td><td width="100%">#Correct.FirstName#</td></tr>
-		<tr class="labelit"><td>Last Name:</td><td>#Correct.LastName#</td></tr>
-		<tr class="labelit"><td>DOB:</td><td>#dateformat(Correct.DOB,CLIENT.DateFormatShow)#</td></tr>
-		<tr class="labelit"><td>Nationality:</td><td>#Correct.Nationality#</td></tr>		
-		<tr class="labelit"><td>CandidateNo:</td><td>#Correct.PersonNo#</td></tr>	
+		<tr class="labelmedium2"><td width="100" style="padding-right:40px"><cf_space spaces="35">First Name:</td><td width="100%">#Correct.FirstName#</td></tr>
+		<tr class="labelmedium2"><td>Last Name:</td><td>#Correct.LastName#</td></tr>
+		<tr class="labelmedium2"><td>DOB:</td><td>#dateformat(Correct.DOB,CLIENT.DateFormatShow)#</td></tr>
+		<tr class="labelmedium2"><td>Nationality:</td><td>#Correct.Nationality#</td></tr>		
+		<tr class="labelmedium2"><td>CandidateNo:</td><td>#Correct.PersonNo#</td></tr>	
 	<CFELSE>
-		<tr class="labelit"><td width="100" style="padding-right:40px"><cf_space spaces="35">First Name:</td><td width="100%">#InCorrect.FirstName#</td></tr>
-		<tr class="labelit"><td>Last Name:</td><td>#InCorrect.LastName#</td></tr>
-		<tr class="labelit"><td>DOB:</td><td>#dateformat(InCorrect.DOB,CLIENT.DateFormatShow)#</td></tr>
-		<tr class="labelit"><td>Nationality:</td><td>#InCorrect.Nationality#</td></tr>	
-		<tr class="labelit"><td>CandidateNo:</td><td>#InCorrect.PersonNo#</td></tr>	
+		<tr class="labelmedium2"><td width="100" style="padding-right:40px"><cf_space spaces="35">First Name:</td><td width="100%">#InCorrect.FirstName#</td></tr>
+		<tr class="labelmedium2"><td>Last Name:</td><td>#InCorrect.LastName#</td></tr>
+		<tr class="labelmedium2"><td>DOB:</td><td>#dateformat(InCorrect.DOB,CLIENT.DateFormatShow)#</td></tr>
+		<tr class="labelmedium2"><td>Nationality:</td><td>#InCorrect.Nationality#</td></tr>	
+		<tr class="labelmedium2"><td>CandidateNo:</td><td>#InCorrect.PersonNo#</td></tr>	
 	</cfif>
 	
 	<cfif url.sel eq "Correct">
@@ -61,7 +61,7 @@ datasource="appsSelection">
 		<cfelse>
 				<tr><td colspan="2" align="center" height="35" id="actionbox">
 				<input type="button" 
-					onclick="ColdFusion.navigate('Person2TimesSubmit.cfm?correct=#url.correct#&wrong=#url.wrong#','correctbox')"
+					onclick="ptoken.navigate('Person2TimesSubmit.cfm?correct=#url.correct#&wrong=#url.wrong#','correctbox')"
 					class="button10g" style="border-radius:7px" class="button10g" name="Merge" value="Merge">
 				</td>
 				</tr>

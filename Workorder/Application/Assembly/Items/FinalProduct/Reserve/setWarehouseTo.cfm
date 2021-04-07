@@ -18,9 +18,11 @@
 						WHERE    Mission = '#url.mission#'
 						AND      Operational = 1			
 						AND     ( Warehouse IN (SELECT Warehouse
-						                       FROM   WarehouseCategory
-											   WHERE  Operational = 1
-											   AND    Category IN (SELECT Category FROM Item WHERE ItemNo = '#url.itemno#'))            	
+						                        FROM   WarehouseCategory
+											    WHERE  Operational = 1
+											    AND    Category IN (SELECT Category 
+												                    FROM Item 
+																	WHERE ItemNo = '#url.itemno#'))            	
 								OR    					   
 								
 								Warehouse = '#url.warehouse#'

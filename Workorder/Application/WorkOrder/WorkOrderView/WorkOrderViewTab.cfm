@@ -31,12 +31,6 @@
        border="0"
        cellspacing="0"
        cellpadding="0">
-	   <tr><td style="padding:3px">
-
-<table width="100%"
-       border="0"
-       cellspacing="0"
-       cellpadding="0">
 	   
 		<!--- determine overall access --->
 	
@@ -159,7 +153,4 @@
 	</cfif>
 
 </table>
-		
-</td></tr>
-
-</table>	
+	

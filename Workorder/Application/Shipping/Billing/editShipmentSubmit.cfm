@@ -1,24 +1,25 @@
-			 
+
+<cfparam name="form.commoditycode" default="">			 
+
 <cfquery name="get" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT    *
-	FROM      ItemTransaction
-	WHERE     TransactionId = '#url.TransactionId#'	
+		SELECT    *
+		FROM      ItemTransaction
+		WHERE     TransactionId = '#url.TransactionId#'	
 </cfquery>  
 			 
 <cfquery name="getship" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT    *
-	FROM      ItemTransactionshipping
-	WHERE     TransactionId = '#url.TransactionId#'	
+		SELECT    *
+		FROM      ItemTransactionshipping
+		WHERE     TransactionId = '#url.TransactionId#'	
 </cfquery>  
 
 <cfset prc  = Form.SalesPrice>
-
 <cfset amt  = prc * get.TransactionQuantity * -1>
 
 <cfif getShip.TaxExemption eq "1">
@@ -33,7 +34,6 @@
 		<cfset tax = amt/(1+getShip.TaxPercentage) * getShip.TaxPercentage>
 		<cfset amt = amt - tax>
 	</cfif>
-
 	    
 </cfif>
 
@@ -50,7 +50,7 @@
 	
 	UPDATE    ItemTransactionShipping
 	
-	SET       CommodityCode   = '#form.CommodityCode#',
+	SET   <cfif form.commoditycode neq ""> CommodityCode   = '#form.CommodityCode#',</cfif>
 			  SalesPrice      = '#prc#',
 			  SalesAmount     = '#amt#',
 			  SalesTax        = '#tax#',
@@ -64,8 +64,8 @@
 <cfoutput>
 
 	<script>
-	try { ColdFusion.Window.destroy('executetask',true)} catch(e){}	
-	ColdFusion.navigate('BillingEntryDetail.cfm?workorderid=#get.WorkOrderId#&systemfunctionid=#url.systemfunctionid#','mycontent')		
+		try { ProsisUI.closeWindow('executetask',true)} catch(e){}	
+		ptoken.navigate('BillingEntryDetail.cfm?workorderid=#get.WorkOrderId#&systemfunctionid=#url.systemfunctionid#','mycontent')		
 	</script>
 
 </cfoutput>

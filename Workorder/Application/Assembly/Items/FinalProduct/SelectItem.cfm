@@ -312,7 +312,7 @@
 		
 		<td style="padding-top:1px;padding-right:1px" id="copy_#workorderitemid#">		
 		<img src="#session.root#/images/copy.png" title="Inherit from selected line"
-			onclick="ColdFusion.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=copy&value=#workorderitemid#','process');" style="cursor:pointer" alt="Copy" border="0">		
+			onclick="ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=copy&value=#workorderitemid#','process');" style="cursor:pointer" alt="Copy" border="0">		
 		</td>
 			
 		</tr>

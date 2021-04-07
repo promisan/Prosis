@@ -49,8 +49,7 @@
 		  Condition            = "#condition#"
 		  DeleteCondition      = ""
 		  AddDeny              = "0"
-		  AddDenyCondition     = "">	 
-		  
+		  AddDenyCondition     = "">			  
 		  			
 	</cftransaction>
 	

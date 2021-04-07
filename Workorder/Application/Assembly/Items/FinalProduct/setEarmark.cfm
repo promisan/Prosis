@@ -10,7 +10,7 @@
 		WHERE  TransactionId = '#url.transactionid#'		
 </cfquery>  
 
-<cfset date = dateformat(now(),CLIENT.DateFormatShow)>
+<!--- default conversion of the now() date --->
 <CF_DateConvert>
 <cfset dte = dateValue>		
 
@@ -52,6 +52,8 @@
 
 <cf_assignid>
 
+<cfset stat = "0">
+
 <cftransaction>
 	
 	<!--- record the batch --->
@@ -67,6 +69,7 @@
 			 	 BatchNo, 	
 				 BatchId,
 				 BatchClass,
+				 BatchReference,
 				 BatchDescription,						
 				 TransactionDate,
 				 TransactionType, 					
@@ -79,11 +82,12 @@
 				'#get.warehouse#',									
 				'#batchNo#',	
 				'#rowguid#',
-				'WOEarmark',			 
+				'WOEarmark',		
+				'Unearmark',	 
 				'Unearmark stock for workorder',										
 				#dte#,
 				'8',		<!--- transfer --->			
-				'1',
+				'#stat#',
 				'#SESSION.acc#',
 				'#SESSION.last#',
 				'#SESSION.first#')
@@ -124,8 +128,8 @@
 		<cfif AccountCOGS.recordcount eq "0" or AccountStock.recordcount eq "0">
 		   
 		   <table align="center">
-		      	<tr>
-				   <td class="labelit" align="center">
+		      	<tr class="labelmedium">
+				   <td align="center">
 				   	<font color="FF0000">Attention: GL Account for stock and/or COGS production has not been defined</font>
 				   </td>
 				</tr>
@@ -138,6 +142,8 @@
 		   <cfabort>
 		
 		</cfif>
+		
+		
 		
 		<cfif Category.StockControlMode eq "stock">
 												
@@ -169,9 +175,9 @@
 							TransactionQuantity   = "#-qty#"
 							TransactionUoM        = "#TransactionUoM#"						
 							TransactionLocalTime  = "Yes"
-							ActionStatus          = "1"
-							TransactionDate       = "#dateformat(date,CLIENT.DateFormatShow)#"
-							TransactionTime       = "#timeformat(date,'HH:MM')#"
+							ActionStatus          = "#stat#"
+							TransactionDate       = "#dateformat(now(),CLIENT.DateFormatShow)#"
+							TransactionTime       = "#timeformat(now(),'HH:MM')#"
 							TransactionBatchNo    = "#batchno#"												
 							GLTransactionNo       = "#batchNo#"
 							WorkOrderId           = "#workorderid#"
@@ -202,9 +208,9 @@
 							TransactionQuantity   = "#qty#"
 							TransactionUoM        = "#TransactionUoM#"						
 							TransactionLocalTime  = "Yes"
-							ActionStatus          = "1"
-							TransactionDate       = "#dateformat(date,CLIENT.DateFormatShow)#"
-							TransactionTime       = "#timeformat(date,'HH:MM')#"
+							ActionStatus          = "#stat#"
+							TransactionDate       = "#dateformat(now(),CLIENT.DateFormatShow)#"
+							TransactionTime       = "#timeformat(now(),'HH:MM')#"
 							TransactionBatchNo    = "#batchno#"												
 							GLTransactionNo       = "#batchNo#"
 							ParentTransactionId   = "#parid#"
@@ -253,9 +259,9 @@
 							TransactionQuantity   = "#-qty#"
 							TransactionUoM        = "#TransactionUoM#"						
 							TransactionLocalTime  = "Yes"
-							ActionStatus          = "1"
-							TransactionDate       = "#dateformat(date,CLIENT.DateFormatShow)#"
-							TransactionTime       = "#timeformat(date,'HH:MM')#"
+							ActionStatus          = "#stat#"
+							TransactionDate       = "#dateformat(now(),CLIENT.DateFormatShow)#"
+							TransactionTime       = "#timeformat(now(),'HH:MM')#"
 							TransactionBatchNo    = "#batchno#"												
 							GLTransactionNo       = "#batchNo#"																				
 							WorkOrderId           = "#workorderid#"
@@ -284,9 +290,9 @@
 							TransactionQuantity   = "#qty#"
 							TransactionUoM        = "#TransactionUoM#"						
 							TransactionLocalTime  = "Yes"
-							ActionStatus          = "1"
-							TransactionDate       = "#dateformat(date,CLIENT.DateFormatShow)#"
-							TransactionTime       = "#timeformat(date,'HH:MM')#"
+							ActionStatus          = "#stat#"
+							TransactionDate       = "#dateformat(now(),CLIENT.DateFormatShow)#"
+							TransactionTime       = "#timeformat(now(),'HH:MM')#"
 							TransactionBatchNo    = "#batchno#"												
 							GLTransactionNo       = "#batchNo#"
 							ParentTransactionId   = "#parid#"

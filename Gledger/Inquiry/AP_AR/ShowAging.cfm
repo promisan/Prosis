@@ -25,7 +25,13 @@ password="#SESSION.dbpw#">
 	GROUP BY Days		
 </cfquery>
 
-<table width="100%" cellspacing="0" cellpadding="0" align="center">
+<cfquery name="total" dbtype="query">
+   SELECT   SUM(AmountOutstanding)/1.5 as Amount
+	FROM getAging
+</cfquery>
+		
+
+<table width="100%"align="center">
 
 <tr><td height="20" class="labelmedium" style="padding-left:4px"><cf_tl id="Aging Analysis">in 000s</td></tr>
 
@@ -36,21 +42,18 @@ password="#SESSION.dbpw#">
 <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 
 <cfchart style = "#chartStyleFile#" format="png"
-           chartheight="170"
-           chartwidth="450"
+           chartheight="160"
+           chartwidth="480"
            showxgridlines="yes"
            showygridlines="yes"			   
-		   scaleTo="1400"		   
-		   xOffset=".5"
-		   yOffset=".5"
+		   scaleTo="#total.amount#"		   		   
 		   font="Calibri" fontsize="14" 
            seriesplacement="default" 		                
            labelmask="##"     
-		   zoom="5"               
-           show3d="yes"   		                 
+		   zoom="5"                         	                 
            url="javascript:Prosis.busy('yes');ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=aging&value=$ITEMLABEL$','listbox')">
   
-	   <cfchartseries type="cylinder" seriescolor="000000" datalabelstyle="value" colorlist="##000000,##5DE8D8,##CCCA6A,##FFFF00,##FF8040,##FF0000">  
+	   <cfchartseries type="bar" seriescolor="000000" datalabelstyle="value" colorlist="##000000,##5DE8D8,##CCCA6A,##FFFF00,##FF8040,##FF0000">  
    
      <!--- near future --->
 	  

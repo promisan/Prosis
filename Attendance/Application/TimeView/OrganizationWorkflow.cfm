@@ -131,7 +131,7 @@ password="#SESSION.dbpw#">
 								AND        WD.CalendarDate >= '#get.CalendarDateStart#' 
 								AND        WD.CalendarDate <= '#get.CalendarDateEnd#' 
 								AND        WD.TransactionType = '1'
-								<cfif getPerson.recordcount gte "1">
+								<cfif getPersons.recordcount gte "1">
 								AND        WD.PersonNo IN (#quotedvalueList(getPersons.PersonNo)#)
 								<cfelse>
 								AND        1=0
@@ -151,7 +151,7 @@ password="#SESSION.dbpw#">
 											 								 
 						</cfquery>						
 						
-						<tr class="labelmedium line">
+						<tr class="labelmedium2 line">
 						
 						<td style="padding-left:3px"><cf_tl id="Compensation"></td>
 						<td style="padding-left:1px"><cf_tl id="Through"></td>
@@ -164,7 +164,7 @@ password="#SESSION.dbpw#">
 						
 					   <cfloop query="Overtime">
 					   
-					   	<tr class="line labelmedium navigation_row">
+					   	<tr class="line labelmedium2 navigation_row">
 							
 							<td style="padding-left:4px">
 							
@@ -244,7 +244,7 @@ password="#SESSION.dbpw#">
 						
 						<cfloop query="Night">
 						
-						   	<tr class="line labelmedium navigation_row">
+						   	<tr class="line labelmedium2 navigation_row">
 								
 								<td style="padding-left:4px">
 								<cfquery name="Item" 

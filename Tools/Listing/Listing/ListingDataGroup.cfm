@@ -17,7 +17,7 @@
 	
 	<!--- need to rework this a bit so we can have several different column dimension --->
 				
-	<cfif fields.display eq "Yes" and fields.field neq url.listgroupfield>  <!--- fields to be shown and is not grouping field itself --->
+	<cfif fields.field neq url.listgroupfield>  <!--- fields to be shown and is not grouping field itself --->
 	
 	    <cfset col = col + 1> 				
 		<!--- SUM metric --->						
@@ -49,13 +49,14 @@ we should not apply this is if the grouping has not changed, this will then save
 <cfif url.listcolumn1_type eq "">
 	<cfset url.listcolumn1_type = "period">
 </cfif>
-
+		
 
 <cfif url.listcolumn1 neq "" and url.listcolumn1 neq "summary">
 
 	<cfswitch expression="#url.listcolumn1_type#">
 	
 		<cfcase value="period">
+		
 	
 	        <!--- we determine the column detail for  presentation : mth, yer, qtr --->
 		 		 
@@ -166,6 +167,7 @@ we should not apply this is if the grouping has not changed, this will then save
 		</cfcase>	
 		
 		<cfcase value="common">
+			
 		
 			<cfset columnperiod = "#url.listcolumn1#">
 			
@@ -188,7 +190,7 @@ we should not apply this is if the grouping has not changed, this will then save
 </cfif>
 
 <!--- we read the pivot data into memory --->
-		
+
 <cfoutput>		
 			
 	<cfsavecontent variable="groupsql">		
@@ -223,6 +225,10 @@ we should not apply this is if the grouping has not changed, this will then save
 </cfoutput>		
 	
 <!--- allow to sort the aggregated result on highest and lowest --->
+
+<!---
+<cfdump var="#SearchResult#">
+--->
 	
 <cfif groupsql neq session.listingdata[box]['sqlgroup']>	
 
@@ -239,12 +245,17 @@ we should not apply this is if the grouping has not changed, this will then save
 		</cflock>
 	
 	<cfcatch>
-	
+		
 		<!---
 		<cfdump var="#SearchResult#">
 		--->
+			
+		<script>
+			Prosis.busy('no')
+			Prosis.busyRegion('no','_divSubContent')		
+		</script>
 	
-		ERROR<cfoutput>#preservesinglequotes(groupsql)#</cfoutput>	 
+		ERROR: <cfoutput>#preservesinglequotes(groupsql)#</cfoutput>	 
 		
 		<cfabort>
 		

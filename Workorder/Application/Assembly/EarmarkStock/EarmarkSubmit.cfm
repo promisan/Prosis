@@ -513,9 +513,9 @@
 	<script>		
 		_cf_loadingtexthtml='';	
 		// reflect the from box
-		ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/getStockLevel.cfm?workorderidselect=#getstock.workorderid#&mission=#workorder.mission#&warehouse='+document.getElementById('warehouse').value+'&itemno='+document.getElementById('itemno').value+'&uom='+document.getElementById('uom').value+'&workorderid='+document.getElementById('workorderid').value+'&workorderline='+document.getElementById('workorderline').value,'stockbox')
+		ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/getStockLevel.cfm?workorderidselect=#getstock.workorderid#&mission=#workorder.mission#&warehouse='+document.getElementById('warehouse').value+'&itemno='+document.getElementById('itemno').value+'&uom='+document.getElementById('uom').value+'&workorderid='+document.getElementById('workorderid').value+'&workorderline='+document.getElementById('workorderline').value,'stockbox')
 		// refresh the to box 
-		ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/WorkOrderListing.cfm?mission=#workorder.mission#&warehouse=#form.warehouseto#&workorderid='+document.getElementById('workorderid').value+'&workorderline='+document.getElementById('workorderline').value,'orderbox')
+		ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/WorkOrderListing.cfm?mission=#workorder.mission#&warehouse=#form.warehouseto#&workorderid='+document.getElementById('workorderid').value+'&workorderline='+document.getElementById('workorderline').value,'orderbox')
 		Prosis.busy('no')
 		ptoken.open('#session.root#/Warehouse/Application/Stock/Batch/BatchView.cfm?mode=process&trigger=workorder&mission=#workorder.mission#&batchno=#batchno#&systemfunctionid='+document.getElementById('systemfunctionid').value,'_blank','left=30, top=30, width=' + w + ', height= ' + h + ', toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes')
 

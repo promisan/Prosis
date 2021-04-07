@@ -13,7 +13,7 @@
 	</td>
 </tr>
 
-<tr><td height="100%" valign="top" style="padding:5px">
+<tr><td height="100%" valign="top">
 	<cfinclude template="ShipmentListingContent.cfm">
 </td></tr>
 

@@ -60,7 +60,7 @@
 <cf_ModuleInsertSubmit
    SystemModule      = "WorkOrder" 
    FunctionClass     = "Application"
-   FunctionName      = "Workorder Shipment" 
+   FunctionName      = "Shipping and Billing" 
    MenuClass         = "Mission"
    MenuOrder         = "3"
    MainMenuItem      = "1"
@@ -187,6 +187,34 @@
 <!--- --------------- --->   
 <!--- shipping tasks- --->
 <!--- --------------- --->   
+
+<cf_ModuleInsertSubmit
+   SystemModule      = "WorkOrder" 
+   FunctionClass     = "Prepare"
+   FunctionName      = "Pending Orders" 
+   MenuClass         = "Shipment"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   BrowserSupport    = "2"
+   FunctionMemo      = "Review and process orders"
+   FunctionDirectory = "WorkOrder/Application/Shipping"
+   FunctionPath      = "WorkOrderView/WorkOrderListing.cfm"
+   FunctionCondition = "ID1=OPEN&ID=STA"
+   FunctionIcon      = "Maintain">
+
+<cf_ModuleInsertSubmit
+   SystemModule      = "WorkOrder" 
+   FunctionClass     = "Shipping"
+   FunctionName      = "Process shipments" 
+   MenuClass         = "Shipment"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   BrowserSupport    = "2"
+   FunctionMemo      = "Clear transaction"
+   FunctionDirectory = "WorkOrder/Application/Shipping"
+   FunctionPath      = "Shipment/WorkorderListing.cfm"
+   FunctionCondition = "Status=Pending"
+   FunctionIcon      = "Maintain"> 
 
 <cf_ModuleInsertSubmit
    SystemModule      = "WorkOrder" 

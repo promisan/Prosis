@@ -21,7 +21,7 @@
 			$(selector).prop('checked', false);
 		}
 		_cf_loadingtexthtml='';
-		ColdFusion.navigate('setTotal.cfm','totalbox','','','POST','billingform');
+		ptoken.navigate('setTotal.cfm','totalbox','','','POST','billingform');
 	}
 </script>
 
@@ -115,33 +115,32 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 
 </cfif>
 
-
 <table height="100%" width="100%">
 
 	<tr><td style="padding:16px" valign="top">
 	
 	<form name="billingform" id="billingform" style="height:100%">
 	
-		<table width="97%" align="center" height="100%" cellspacing="0" cellpadding="0" class="navigation_table">
+		<table width="97%" align="center" height="100%" class="navigation_table">
 		
 		<cfoutput>
 			
-		<tr><td colspan="2">
+		<tr class="line"><td colspan="2" style="background-color:f1f1f1;padding:3px">
 		
 			<table width="100%">
-				<tr class="labelmedium"><td style="width:15%"><cf_tl id="Workorder">:</td>
+				<tr class="labelmedium2"><td style="width:15%"><cf_tl id="Workorder">:</td>
 				    <td><a href="javascript:workorderview('#url.workorderid#')"><font color="0080C0">#workorder.Reference#</td>
 					<td><cf_tl id="Date">:</td>
 					<td>#dateformat(workorder.OrderDate,client.dateformatshow)#</td>
 				</tr>
 	
-				<tr class="labelmedium"><td><cf_tl id="Customer"></td>
+				<tr class="labelmedium2"><td><cf_tl id="Customer"></td>
 				    <td><a href="javascript:viewOrgUnit('#workorder.orgunit#')"><font color="0080C0">#workorder.customername#</a></td>
 					<td><cf_tl id="Terms">:</td>
 					<td>#workorder.Terms#</td>
 				</tr>
 				
-				<tr class="labelmedium">
+				<tr class="labelmedium2">
 				<td height="32px" valign="top" style="padding-top:4px"><cf_tl id="Bill to">:</td>	
 				<td colspan="3">
 				
@@ -157,8 +156,8 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 				</td>
 				</tr>			
 	
-				<tr class="labelmedium"><td style="height:28px"><cf_tl id="Sale Order Amount">:</td>
-				     <td>#workorder.currency# #numberformat(Sale.Total,",__.__")#</td>
+				<tr class="labelmedium2"><td style="height:28px"><cf_tl id="Sale Order Amount">:</td>
+				     <td>#workorder.currency# #numberformat(Sale.Total,",.__")#</td>
 					 <td><cf_tl id="Billed">:</td>
 					 <td id="billingbox">				 
 						 <cfinclude template="setBilled.cfm">				
@@ -170,7 +169,7 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 				<tr>				
 					<td height="32" class="labelmedium"><cf_tl id="Reference">:</td>
 					<td>			
-					<input type="text" name="BatchReference" size="15" maxlength="20" class="regularxl">			
+					<input type="text" name="BatchReference" size="15" maxlength="20" class="regularxxl">			
 					</td>			
 				
 				 <td height="32" class="labelmedium"><cf_tl id="Date">:</td>
@@ -185,15 +184,12 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 						  
 					</td>		
 					
-				</tr>			
-				
+				</tr>							
 				
 			</table>
 			
 		</td></tr>
-				
-		<tr><td colspan="2" class="line"></td></tr>
-		
+			
 		<tr><td colspan="2">
 		
 			<table>
@@ -201,13 +197,13 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 				<tr>
 				
 					<td style="padding-left:4px">			
-					<input type="radio" name="mode" onclick="ColdFusion.navigate('ReturnEntryDetail.cfm?systemfunctionid=#url.systemfunctionid#&workorderid=#url.workorderid#&shipmode=pending','content')" class="radiol" value="Pending" checked>					
+					<input type="radio" name="mode" onclick="ptoken.navigate('ReturnEntryDetail.cfm?systemfunctionid=#url.systemfunctionid#&workorderid=#url.workorderid#&shipmode=pending','content')" class="radiol" value="Pending" checked>					
 					</td>			
-					<td style="padding-left:4px" class="labelmedium"><cf_tl id="No billed"></td>			
+					<td style="padding-left:4px" class="labelmedium2"><cf_tl id="No billed"></td>			
 					<td style="padding-left:8px">			
-					<input type="radio" name="mode" class="radiol" value="Pending" onclick="ColdFusion.navigate('ReturnEntryDetail.cfm?systemfunctionid=#url.systemfunctionid#&workorderid=#url.workorderid#&shipmode=billed','content')">					
+					<input type="radio" name="mode" class="radiol" value="Pending" onclick="ptoken.navigate('ReturnEntryDetail.cfm?systemfunctionid=#url.systemfunctionid#&workorderid=#url.workorderid#&shipmode=billed','content')">					
 					</td>			
-					<td style="padding-left:4px;padding-right:10px" class="labelmedium"><cf_tl id="Billed"></td>		
+					<td style="padding-left:4px;padding-right:10px" class="labelmedium2"><cf_tl id="Billed"></td>		
 					
 					<td style="padding-left:4px;padding-right:10px">
 						
@@ -215,7 +211,7 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 							   method           = "tablefilterfield" 
 							   filtermode       = "enter"
 							   name             = "filtersearch"
-							   style            = "font:13px;height:21;width:120"
+							   style            = "font:14px;height:25px;width:120px"
 							   rowclass         = "clsWarehouseRow"
 							   rowfields        = "ccontent">
 					</td>			
@@ -226,11 +222,10 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 		</td></tr>
 		
 		</cfoutput>
-		
-		
-	    <tr><td	height="100%" style="padding-left:10px;padding-right:10px;min-width:900">	
+				
+	    <tr><td style="height:100%;padding-left:3px;padding-right:3px;min-width:900px">	
 			<cf_divscroll id="content" style="height:100%">
-			     <cfinclude template="ReturnEntryDetail.cfm">	
+			    <cfinclude template="ReturnEntryDetail.cfm">
 			</cf_divscroll>
 		</td></tr>	
 						
@@ -249,7 +244,7 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 				
 				<!--- initial value --->
 										
-				<tr >
+				<tr>
 				   <td style="padding-left:8px" class="labelmedium">Total <cfoutput>#workorder.currency#:</cfoutput></td>
 				   <td colspan="1" align="right" id="totalbox" class="labelmedium" style="padding-right:3px">0.00</td>
 				</tr>
@@ -258,8 +253,8 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 				
 				<tr><td colspan="2" height="40" align="center">
 				
-					 <table width="97%" cellspacing="0" cellpadding="0" class="formpadding" align="center">
-					 <tr>
+					 <table width="97%" class="formpadding" align="center">
+					 <tr class="labelmedium2">
 					 
 					 	<cfquery name="warehouse" 
 						datasource="AppsMaterials" 
@@ -272,12 +267,12 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 							ORDER BY  WarehouseDefault DESC				 
 					    </cfquery>  
 					 
-					 	<td width="60" class="labelit"><cf_tl id="Warehouse">:</td>
+					 	<td width="60"><cf_tl id="Warehouse">:</td>
 					 	<td style="padding-left:4px">		
 						
 						<select name="warehouse" id="warehouse"
-						    class="regularxl" style="width:100%"
-							onchange="_cf_loadingtexthtml='';ColdFusion.navigate('setLocation.cfm?warehouse='+this.value,'locationbox')">
+						    class="regularxxl" style="width:100%"
+							onchange="_cf_loadingtexthtml='';ptoken.navigate('setLocation.cfm?warehouse='+this.value,'locationbox')">
 							<cfoutput query="Warehouse">
 								<option value="#Warehouse#">#WarehouseName#</option>
 							</cfoutput>
@@ -285,7 +280,7 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 									
 				        </td>
 						
-						<td class="labelit" style="padding-left:10px"><cf_tl id="Location">:</td>
+						<td style="padding-left:10px"><cf_tl id="Location">:</td>
 						
 						<td id="locationbox">
 						
@@ -296,14 +291,12 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 						
 						</tr>
 						
-						<tr>
-											
+						<tr class="labelmedium2">											
 											 
-						 <td class="labelit"><cf_tl id="Destination">:</td>
-						 
-						 <td class="labelit" style="padding-left:3px">
+						 <td><cf_tl id="Destination">:</td>						 
+						 <td style="padding-left:3px">
 						 			 
-						  <select name="ReturnMode" id="ReturnMode" class="regularxl" style="width: 200px;">				     					   
+						  <select name="ReturnMode" id="ReturnMode" class="regularxxl" style="width: 200px;">				     					   
 			     		   	  <option value="unearmarked"><cf_tl id="Unearmarked"></option>
 							  						  
 							   <cfinvoke component = "Service.Access"  
@@ -338,8 +331,7 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 					</td></tr>
 					
 					<tr><td colspan="2" class="line"></td></tr>
-					
-					
+										
 					<tr>
 						<td colspan="2" align="center" style="padding:6px">
 						

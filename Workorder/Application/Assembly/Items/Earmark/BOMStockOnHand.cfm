@@ -353,7 +353,7 @@ password="#SESSION.dbpw#">
 						 
 						  <input type="button" 
 							  style="width:240;height:28;font-size:12" 
-							  onclick= "try { ColdFusion.Window.destroy('dialogdestination',true)} catch(e){};ColdFusion.Window.create('dialogdestination', '#vDestination#', '',{x:200,y:100,height:280,width:450,resizable:false,modal:true,center:false});ColdFusion.navigate('#SESSION.root#/Workorder/Application/Assembly/Items/Earmark/dialogBOMDestination.cfm?mode=#url.mode#&action=8&workorderid=#url.workorderid#&workorderline=#workorderline#&warehouse=#url.warehouse#&category=#url.category#&pointersale=#url.pointersale#','dialogdestination')"					  
+							  onclick= "try { ColdFusion.Window.destroy('dialogdestination',true)} catch(e){};ColdFusion.Window.create('dialogdestination', '#vDestination#', '',{x:200,y:100,height:280,width:450,resizable:false,modal:true,center:false});ptoken.navigate('#SESSION.root#/Workorder/Application/Assembly/Items/Earmark/dialogBOMDestination.cfm?mode=#url.mode#&action=8&workorderid=#url.workorderid#&workorderline=#workorderline#&warehouse=#url.warehouse#&category=#url.category#&pointersale=#url.pointersale#','dialogdestination')"					  
 							  value=" #tEarmark# / #tTransferWorkOrder#" 		  
 							  class="button10g">
 									  

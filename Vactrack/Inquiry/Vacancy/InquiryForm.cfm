@@ -9,12 +9,10 @@
 	function Selected(no,description) {	
 	    document.getElementById('functionaltitle').value = description
 		document.getElementById('functionno').value = no	
-		try { ColdFusion.Window.destroy('myfunction',true) } catch(e) {}				
+		try { ProsisUI.closeWindow('myfunction',true) } catch(e) {}				
 	}
 
 </script>
-
-<cfajaximport tags="cfwindow">
 
 <cfquery name="CandidateStatus"
 datasource="AppsVacancy" 
@@ -39,6 +37,8 @@ password="#SESSION.dbpw#">
 													  WHERE  DocumentNo = B.DocumentNo
 													  AND    Operational = 1)
 							   )
+	AND    Operational = 1						   
+	ORDER BY Created DESC						   
 </cfquery>
 
 <cfquery name="mission" 

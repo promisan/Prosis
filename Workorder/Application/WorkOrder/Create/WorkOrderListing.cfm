@@ -61,12 +61,12 @@
 			   			
 				<cfif Mode.ServiceMode eq "WorkOrder">
 				
-					(SELECT count(*) 
+				   (SELECT count(*) 
 				    FROM   WorkOrderLine 
 					WHERE  WorkOrderId = W.WorkorderId								
 					AND    Operational = 1) as Lines,
 					
-					(SELECT sum(SaleAmountIncome) 
+				   (SELECT ISNULL(sum(SaleAmountIncome),0) 
 			    	FROM   WorkOrderLineItem 
 					WHERE  WorkOrderId = W.WorkorderId	
 					AND    ActionStatus != '9'				

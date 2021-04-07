@@ -72,12 +72,19 @@ password="#SESSION.dbpw#">
 <script>
 
 function reloadForm(cat) {
-     window.location="RecordAdd.cfm?ID=" + cat; 
+  ptoken.location('RecordAdd.cfm?ID=' + cat); 
 }
 
 function applyaccount(acc) {
    ptoken.navigate('setAccount.cfm?account='+acc,'process')
 }  
+
+function formvalidate() {
+	document.dialog.onsubmit() 
+	if( _CF_error_messages.length == 0 ) {    	    
+		ptoken.navigate('RecordSubmit.cfm?mode=insert','process','','','POST','dialog')
+	 }   
+}	 	
 
 </script>
 
@@ -85,11 +92,12 @@ function applyaccount(acc) {
 
 <!--- Entry form --->
 
-<cfform action="RecordSubmit.cfm?mode=insert" method="POST" name="dialog">
+<cfform onsubmit="return false" method="POST" name="dialog">
 
 <table width="92%" align="center" class="formpadding">
+
 	
-	<tr class="hide"><td id="process"></td></tr>
+	<tr class="xxxhide"><td id="process"></td></tr>
 	<tr><td height="10"></td></tr>	
 	
 	<TR class="labelmedium2">
@@ -382,7 +390,7 @@ function applyaccount(acc) {
 	<tr><td colspan="2" class="line"></td></tr>
 	<tr><td colspan="2" align="center" height="35">	
 		<input class="button10g" type="button" name="Cancel" value="Cancel" onClick="window.close()">
-		<input class="button10g" type="submit" name="Insert" value="Save">	
+		<input class="button10g" type="button" name="Insert" value="Save" onclick="formvalidate()">	
 	</td>
 	</tr>
 				

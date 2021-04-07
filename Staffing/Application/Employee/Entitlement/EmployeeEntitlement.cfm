@@ -238,7 +238,7 @@ password="#SESSION.dbpw#">
 	<tr>
 	
 	<td style="padding-left:20px" colspan="3">	
-	    <table style="border:1px solid silver">
+	    <table style="border:0px solid silver; background-color:f1f1f1">
 		<tr class="labelmedium">		
 		<td style="padding-left:4px"><INPUT type="radio" name="Status" class="radiol" value="1" onClick="reloadForm('1')" <cfif URL.Status eq "1">checked</cfif>></td>
 		<td style="padding-left:3px" onClick="reloadForm('1')"><cfif URL.Status eq "1"></cfif><cf_tl id="Valid">: #dateformat(now(),client.dateformatshow)#</td>

@@ -106,7 +106,7 @@
 	
 	function linepurge(row,wid,lid) {
 		if (confirm("Do you want to deactivate this line ?"))	{
-			ColdFusion.navigate('../ServiceDetails/ServiceLinePurge.cfm?row='+row+'&workorderid='+wid+'&ID2='+lid,'servicedelete'+row)
+			ptoken.navigate('../ServiceDetails/ServiceLinePurge.cfm?row='+row+'&workorderid='+wid+'&ID2='+lid,'servicedelete'+row)
 		} 
 		return false
 	}
@@ -116,7 +116,7 @@
 	    se = document.getElementById('detail'+row)
 		if (se.className == "hide") {
 		  se.className = "regular"
-		  ColdFusion.navigate('../Funding/Billingline.cfm?tabno='+tab+'&row='+row+'&WorkOrderId='+wid+'&workorderline='+lid,'detail'+row)
+		  ptoken.navigate('../Funding/Billingline.cfm?tabno='+tab+'&row='+row+'&WorkOrderId='+wid+'&workorderline='+lid,'detail'+row)
 		} else { se.className = "hide" }
 		
 	}
@@ -125,20 +125,19 @@
 	
 		try { ColdFusion.Window.destroy('implementer') } catch(e) {}
 		ColdFusion.Window.create('implementer', 'Implementer', '', {height:400,width:500,modal:false,closable:true,center:true,minheight:200,minwidth:200 });
-	    ColdFusion.navigate('#SESSION.root#/Workorder/Application/WorkOrder/Implementer/ImplementerAdd.cfm?workorderid='+woid+'&mission='+mission+'&mandateNo='+mandateno,'implementer')
+	    ptoken.navigate('#SESSION.root#/Workorder/Application/WorkOrder/Implementer/ImplementerAdd.cfm?workorderid='+woid+'&mission='+mission+'&mandateNo='+mandateno,'implementer')
 	 		
 	}
 
-	function present(mode,tmp) {
-			     	
-		window.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?templatepath="+tmp+"&id="+mode+"&id1=#URL.WorkOrderId#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")		 
+	function present(mode,tmp) {			     	
+		ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?templatepath="+tmp+"&id="+mode+"&id1=#URL.WorkOrderId#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")		 
 	} 
 	
 	function addPublication(wo) {
 		try { ColdFusion.Window.destroy('mydialog'); } catch(er){ }
 		ColdFusion.Window.create('mydialog', 'Publication', '',{x:30,y:30,height:400,width:500,modal:true,center:true});    
 		ColdFusion.Window.show('mydialog'); 				
-		ColdFusion.navigate('#SESSION.root#/Workorder/Application/Activity/Publication/PublicationEdit.cfm?workorderid='+wo+'&publicationId=&ts='+new Date().getTime(),'mydialog');
+		ptoken.navigate('#SESSION.root#/Workorder/Application/Activity/Publication/PublicationEdit.cfm?workorderid='+wo+'&publicationId=&ts='+new Date().getTime(),'mydialog');
 	}				
 		
 	function selectImplementer(mission,mandate) {				
@@ -147,7 +146,7 @@
 	
 	function deleteImplementerOrgUnit(mission, mandateno, woid, orgunit){	    
 		_cf_loadingtexthtml='';	
-		ColdFusion.navigate('#session.root#/workorder/Application/WorkOrder/Implementer/ImplementerListPurge.cfm?workOrderId='+woid+'&mission='+mission+'&mandateno='+mandateno+'&orgunit='+orgunit,'divImplementerList');
+		ptoken.navigate('#session.root#/workorder/Application/WorkOrder/Implementer/ImplementerListPurge.cfm?workOrderId='+woid+'&mission='+mission+'&mandateno='+mandateno+'&orgunit='+orgunit,'divImplementerList');
 	}
 	
 	function applyunit(org) {		
@@ -155,25 +154,25 @@
 		_cf_loadingtexthtml='';			
 		var rollover = $('##rollover').is(':checked');		
 		woid = document.getElementById('workorderid').value		
-		ColdFusion.navigate('#session.root#/workorder/Application/WorkOrder/Implementer/ImplementerListContent.cfm?orgUnitImplementer='+org+'&WorkOrderId='+woid+'&rollover='+rollover,'divImplementerTree');
+		ptoken.navigate('#session.root#/workorder/Application/WorkOrder/Implementer/ImplementerListContent.cfm?orgUnitImplementer='+org+'&WorkOrderId='+woid+'&rollover='+rollover,'divImplementerTree');
 	}
 	
 	function submitPublishForm(wo,pub) {
 		document.frmPublish.onsubmit();
 		if( _CF_error_messages.length == 0 ) {
-			ColdFusion.navigate('#session.root#/workOrder/Application/Activity/Publication/PublicationSubmit.cfm?workOrderId='+wo+'&publicationId='+pub+'&systemfunctionid=#url.systemfunctionid#','processPublication','','','POST','frmPublish');
+			ptoken.navigate('#session.root#/workOrder/Application/Activity/Publication/PublicationSubmit.cfm?workOrderId='+wo+'&publicationId='+pub+'&systemfunctionid=#url.systemfunctionid#','processPublication','','','POST','frmPublish');
 		}   
 	}
 	
 	function applyaccount(acc,sc) {
-		ColdFusion.navigate('#session.root#/workorder/application/workorder/gledger/applyAccount.cfm?account='+acc+'&area='+sc, 'divProcess');
+		ptoken.navigate('#session.root#/workorder/application/workorder/gledger/applyAccount.cfm?account='+acc+'&area='+sc, 'divProcess');
 	}
 
 	</script>
 
 </cfoutput>
 
-<cfajaximport tags="cfform,cfmenu,cfdiv,cfinput-datefield,cfinput-autosuggest,cfwindow">
+<cfajaximport tags="cfform,cfdiv,cfinput-autosuggest,cfwindow">
 
 <cfif CLIENT.googlemapid neq "">
      <cfajaximport tags="cfmap" params="#{googlemapkey='#client.googlemapid#'}#">
@@ -259,9 +258,10 @@
 <cf_listingscript>
 <cf_MenuScript>
 	
-<table width="100%" height="100%" border="0" align="center" cellspacing="0" cellpadding="0">						
+<table width="100%" height="100%" border="1">						
 							
-	<tr><td valign="top" colspan="2">				
+	<tr class="line">
+	<td style="height:10px" valign="top" colspan="2">					
 	    <cfset url.mission = vmission>
 		<cfinclude template="WorkorderViewTab.cfm">		 			
 	</td></tr>		
@@ -269,14 +269,11 @@
 	<!--- --------- --->
 	<!--- container --->
 	<!--- --------- --->
-	
-	<tr><td colspan="2" height="1" class="line"></td></tr>
-	
-	<tr><td colspan="2" height="100%" style="padding:10px">		
+		
+	<tr><td colspan="2" valign="top" style="height:100%;padding-left:10px;padding-right:10px">		
 	  			
 		<table width="100%" height="100%">
-		<tr>
-		
+				
 		<cfoutput>
 		<cfloop index="itm" from="1" to="#menu#">		
 			<cfif itm eq "1">
@@ -287,7 +284,6 @@
 		</cfloop>
 		</cfoutput>
 		
-		</tr>
 		</table>
 				
 	</td></tr>
