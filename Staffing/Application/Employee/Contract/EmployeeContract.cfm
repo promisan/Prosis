@@ -230,6 +230,8 @@ password="#SESSION.dbpw#">
 	<cfelse>
 	ORDER BY L.DateEffective #URL.Order#, L.Created #URL.Order#, L.ActionStatus DESC <!--- make sure the expired contract show first --->
 	</cfif>
+	
+
 		
 </cfquery>
 

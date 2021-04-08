@@ -113,19 +113,21 @@
 
   <tr><td height="5"></td></tr>	
     
-  <tr><td id="boxtransferto" style="height:10px">
   
-  	  <cfset url.mission = get.Mission>
-	  <cfinclude template="setWarehouseTo.cfm">
-	  
-	  </td>
-  </tr>
     			  
   <tr><td height="100%">
   
     <cf_divscroll style="height:100%" id="orderbox">
 			
-	<table width="100%" class="navigation_table">		
+	<table width="100%" class="navigation_table">	
+	
+	<tr><td id="boxtransferto" style="height:10px">
+  
+  	  <cfset url.mission = get.Mission>
+	  <cfinclude template="setWarehouseTo.cfm">
+	  
+	  </td>
+  </tr>	
 		
 		<tr>
 			<td height="100%">

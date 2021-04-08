@@ -64,7 +64,7 @@ password="#SESSION.dbpw#">
 		
 		<td style="height:100px;border:1px solid silver;border-radius:8px">
 		
-		    <table style="width:96%" align="center">
+		    <table style="width:96%;height:100%" align="center">
 				    		  		   
 		    <!--- new form to capture the results of the selected report(s) to be generated --->		   	  
 					
@@ -76,7 +76,7 @@ password="#SESSION.dbpw#">
 		    <cfset cls = "">	
 				      
 			<cfif CurrentDocument eq "">
-			     <TR  class="highlight1">
+			     <TR class="highlight1">
 		    <cfelse>
 			     <TR class="highlight1">
 		    </cfif> 
@@ -313,7 +313,7 @@ password="#SESSION.dbpw#">
 				   
 				   </cfif>		
 						  
-				   <tr><td id="docaction#documentid#"></td></tr>			   	   						
+				   <tr><td colspan="2" id="docaction#documentid#"></td></tr>			   	   						
 							 		 
 			 </table>	
 		 

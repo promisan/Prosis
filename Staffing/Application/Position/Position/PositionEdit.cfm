@@ -495,22 +495,19 @@ password="#SESSION.dbpw#">
 
 <cf_screentop scroll="yes" title="Position Edit" html="No" ValidateSession="no" jquery="yes">
 
-<cf_divscroll>
-
 <cfform action="PositionEditSubmit.cfm?id=#url.id#&id1=#url.id1#&id2=#url.id2#&Box=#URL.Box#" 
 		   method="POST" 
+		   style="height:98.5%"
 		   target="saveposition"
 		   name="positionedit">
 		      
-<table width="96%" align="center">
+<table width="96%" align="center" style="height:100%">
 
   <tr class="hide"><td id="process" height="5"></td></tr>
   <tr class="hide"><td height="60" colspan="2"><iframe name="saveposition" id="saveposition" width="100%" frameborder="0"></iframe></td></tr>
 
   <cfoutput>
-      
-  <tr><td height="4"></td></tr>	  
-   	       
+    	       
   <input type="hidden" name="missionselect"    id="missionselect"    value="#Position.Mission#">	
   <input type="hidden" name="PositionNo"       id="PositionNo"       value="#URL.ID2#">	
   <input type="hidden" name="PositionParentId" id="PositionParentId" value="#Position.PositionParentId#">	
@@ -518,11 +515,17 @@ password="#SESSION.dbpw#">
   <input type="hidden" name="missionParent"    id="missionParent"    value="#PositionParent.Mission#">
   <input type="hidden" name="mandateno"        id="mandateno"        value="#Position.MandateNo#">
   <input type="hidden" name="action"           id="action"           value="#URL.Action#">
+  
+  </cfoutput>
 	  
   <cfset c = "ffffff">
   
   <tr style="border-top:1px solid silver">
-    <td width="100%" colspan="2">
+    <td width="100%" colspan="2" style="height:100%">
+	
+	<cf_divscroll>
+	
+	<cfoutput>
 	
     <table width="99%" class="formpadding" align="center">
 		   
@@ -657,9 +660,9 @@ password="#SESSION.dbpw#">
 						   
 							<cfif LaterPosition.recordcount eq "0">
 							
-								<u><cf_tl id="Loan this position" var="1">
+								<cf_tl id="Loan this position" var="1">
 								
-								<a href="javascript:owner('loan','Loan this Position')"><font color="0080C0">#lt_text#</font></a>
+								<a style="font-size:16px" href="javascript:owner('loan','Loan this Position')">#lt_text#</a>
 															   
 							<cfelse>
 							    
@@ -829,7 +832,7 @@ password="#SESSION.dbpw#">
 				<table>
 				<tr class="labelmedium2">
 				<td>	
-								
+												
 					<cf_intelliCalendarDate9
 						FieldName      = "dateeffective" 
 						class          = "regularxxl"
@@ -846,35 +849,37 @@ password="#SESSION.dbpw#">
 	                             <input type="checkbox" name="forceamend" value="1" checked>
 	                             </td>
 	                             <td style="padding-left:4px"><cf_UItooltip tooltip="Use this option to amend both position AND parent position"><cf_tl id="Amend"></cf_UItooltip></td>
-		                    <cfelse>	                              
+		                    <cfelse>															                              
 	                              <input class="hide" type="checkbox" name="forceamend" value="0">	                            
 		                    </cfif>
 							
 						<cfelse>
-						
+												
 						<input class="hide" type="checkbox" name="forceamend" value="0">	
 						
 						</cfif>					
 					
 				</tr>
 				</table>	
-					
-					
+									
 			<cfelse>
 			
+			
 				<cfoutput>
+				<input class="hide" type="checkbox" name="forceamend" value="0">
 				#DateFormat(Position.DateEffective,CLIENT.DateFormatShow)#
 				<input type="hidden" name="dateeffective" value="#Dateformat(eff, CLIENT.DateFormatShow)#">
 				</cfoutput>
 				
 			</cfif>
-		
+					
 		<cfoutput>
 		<input type="hidden" name="DateEffectiveOld" value="#Dateformat(Position.DateEffective, CLIENT.DateFormatShow)#">
 	    </cfoutput>
 		</td>		
 		<td style="padding-left:6px">-</td>
 		<td style="padding-left:6px" class="labelmedium2">
+			
 		
 			<cfif (AccessPosition eq "ALL" or url.action eq "Loan") and url.Action neq "Owner">
 																		
@@ -898,8 +903,7 @@ password="#SESSION.dbpw#">
 		<cfoutput>
 		
 			<input type="hidden" name="DateExpirationOld" value="#Dateformat(Position.DateExpiration, CLIENT.DateFormatShow)#">
-	    
-		
+	    		
 			<cfif PositionParent.DateEffective gt Position.DateEffective or 
 		      PositionParent.DateExpiration lt Position.DateExpiration>
 			  
@@ -1514,7 +1518,7 @@ password="#SESSION.dbpw#">
 								<cfoutput>			
 									<script language="JavaScript">					
 									 function processfunction(funno) {
-									     ColdFusion.navigate('PositionGradeSelect.cfm?field=postgrade&presel=#Position.PostGrade#&posttype='+document.getElementById('posttype').value+'&mission=#url.id#&functionno='+funno,'gradeselect')
+									     ptoken.navigate('PositionGradeSelect.cfm?field=postgrade&presel=#Position.PostGrade#&posttype='+document.getElementById('posttype').value+'&mission=#url.id#&functionno='+funno,'gradeselect')
 									 }					 
 									</script>	
 								</cfoutput>		
@@ -2093,9 +2097,19 @@ password="#SESSION.dbpw#">
 		
    </script>
    
+   </cfoutput>
+   
    <tr><td></td></tr>
+   
+   </table>
+   
+   </cf_divscroll>
+   
+   </td></tr>
+   
+   <cfoutput>
           
-   <tr><td align="center" style="height:30" colspan="2" class="labelmedium2">
+   <tr><td align="center" style="height:40px" colspan="2" class="labelmedium2">
   		
    <cfif url.mode neq "read">
       
@@ -2179,11 +2193,5 @@ password="#SESSION.dbpw#">
       
 </TABLE>  
 
-</td>
-</tr>  
-         
-</TABLE>  
-
 </CFFORM> 
 
-</cf_divscroll>

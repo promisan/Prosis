@@ -53,6 +53,7 @@
 			
 			)														
 	</cfquery>
+	
 				
 	<cfquery name="LastContract" 
 	datasource="AppsPayroll" 

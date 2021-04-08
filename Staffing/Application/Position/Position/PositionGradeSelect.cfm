@@ -103,8 +103,7 @@ password="#SESSION.dbpw#">
 		   
 </cfquery>
 
-
-<select name="<cfoutput>#url.field#</cfoutput>" id="<cfoutput>#url.field#</cfoutput>" size="1" class="regularxl" style="width:130px">
+<select name="<cfoutput>#url.field#</cfoutput>" id="<cfoutput>#url.field#</cfoutput>" size="1" class="regularxxl" style="width:130px">
 	<cfoutput query="PostGradeList">
 		<option value="#PostGrade#" <cfif PostGrade eq URL.presel>selected</cfif>>#PostGrade#</option>
 	</cfoutput>

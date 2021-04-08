@@ -292,7 +292,7 @@
 		<tr>
 		<td class="labelmedium" width="200"><cf_tl id="Payroll Location">:</b></td>
 			<td>			
-			<cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractEntryLocation.cfm?mission={mission}" id="loc">			
+			<cf_securediv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractEntryLocation.cfm?mission={mission}" id="loc">			
 			</td>
 		</tr>
 	
@@ -337,7 +337,7 @@
 	<TR>
     <TD class="labelmedium"><cf_tl id="Contract No">:</TD>   	
     <TD id="pano" style="height:30px" class="labelmedium">
-    	  <cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/assignPANo.cfm?wf=#url.wf#&mission={mission}">	 
+    	  <cf_securediv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/assignPANo.cfm?wf=#url.wf#&mission={mission}">	 
 	</TD>	
 	</TR>
 	
@@ -498,7 +498,7 @@
     <TD class="labelmedium"><cf_tl id="Contract type">:</TD>   	
     <TD>
 		
-	    <cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?id=#url.id#&field=contracttype&mission={mission}&default=#LastContract.contracttype#" 
+	    <cf_securediv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?id=#url.id#&field=contracttype&mission={mission}&default=#LastContract.contracttype#" 
 		 id="fldcontracttype">
 		 			
 	</TD>	
@@ -507,7 +507,7 @@
 	<TR>
     <TD class="labelmedium"><cf_tl id="Appointment Status">:</TD>   	
     <TD>
-		<cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=apptstatus&mission={mission}&default=#LastContract.AppointmentStatus#&contracttype=#LastContract.contracttype#" id="fldappstatus"></TD>	
+		<cf_securediv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=apptstatus&mission={mission}&default=#LastContract.AppointmentStatus#&contracttype=#LastContract.contracttype#" id="fldappstatus"></TD>	
 	</TR>
 	
 	<TR>
@@ -590,12 +590,12 @@
 			<td>
 				<table>
 				<tr class="labelmedium">
-				<td><cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=contractlevel&mission={mission}&default=#LastContract.contractlevel#" 
+				<td><cf_securediv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=contractlevel&mission={mission}&default=#LastContract.contractlevel#" 
 	        		 id="fldcontractlevel">				
 				</td> 
 				<td style="padding-left:5px" class="labelmedium"><cf_tl id="Step">:</TD>
 			    <td id="fldcontractstep" style="padding-left:5px">			
-					<cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=contractstep&grade=#LastContract.contractlevel#&default=#LastContract.contractstep#">										 					
+					<cf_securediv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=contractstep&grade=#LastContract.contractlevel#&default=#LastContract.contractstep#">										 					
 				</td>
 				</tr>
 				</table>
@@ -816,7 +816,7 @@
 	<tr><td height="3"></td></tr>
 	<tr><td valign="top" style="padding-top:4px" class="labelmedium"><cf_tl id="Financial Entitlements"></td>	
 		<td>		
-		<cfdiv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/getFinancialEntitlement.cfm?id=#url.id#&contracttype=#LastContract.contracttype#&salarySchedule=#lastcontract.SalarySchedule#" id="boxentitlement">			
+		<cf_securediv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/getFinancialEntitlement.cfm?id=#url.id#&contracttype=#LastContract.contracttype#&salarySchedule=#lastcontract.SalarySchedule#" id="boxentitlement">			
 		</td>	
 	</tr>
 	
