@@ -119,7 +119,7 @@
 				
 			 } else { selected = sel }
 			
-			 <cfif getAdministrator("*") eq "1">	
+			 <cfif getAdministrator("*") eq "1">				 
 			 ptoken.open('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission=#URL.mission#&persono='+personno+'&enforce='+enforce+'&selectedid='+selected,'_blank')			
 			 <cfelse>
 			 ptoken.navigate('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission=#URL.mission#&persono='+personno+'&enforce='+enforce+'&selectedid='+selected,'runbox') 		 										

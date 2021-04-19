@@ -1,10 +1,10 @@
 
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
    
  <tr>
      <td align="left" width="100%">
 
-	 	<table  width="100%" height="100%" cellspacing="0" cellpadding="0"><tr>
+	 	<table  width="100%" height="100%"><tr>
 						   	  	    	 	   
 	   		<cfset wd = "32">
 			<cfset ht = "32">	
@@ -48,9 +48,7 @@
 				FROM      WorkOrder W INNER JOIN
                 	      ServiceItem S ON W.ServiceItem = S.Code INNER JOIN
 	                      Ref_ServiceItemDomain D ON S.ServiceDomain = D.Code
-				WHERE    WorkOrderId    = '#url.workorderid#'					
-				   
-							
+				WHERE    WorkOrderId    = '#url.workorderid#'							
 			</cfquery>	  
 			
 			<cfif getSchedules.recordcount gte "1">

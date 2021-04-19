@@ -172,8 +172,6 @@ if (re.test("#mailto#")) {
 			
 </cfloop>	
 
-<cfajaximport tags="cfwindow">
-
 <cfif URL.Mode eq "cfwindow">
 	<cf_alert message = "Your eMail message was delivered to the mail server.">	
 	<script>

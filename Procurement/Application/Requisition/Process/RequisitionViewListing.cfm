@@ -32,7 +32,7 @@ function hl(itm,fld,reqno){
   }
   
 function mail2(mode,id) {
-	  window.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id="+mode+"&ID1="+id+"&ID0=#Parameter.RequisitionTemplate#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+	  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id="+mode+"&ID1="+id+"&ID0=#Parameter.RequisitionTemplate#","_blank", "left=30, top=30, width=900, height=800, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
 }	  
 
 </script>
@@ -43,7 +43,7 @@ function mail2(mode,id) {
 	    
 	  <tr>
 	    <td width="100%" >
-	    <table width="100%" class="formpadding">
+	    <table width="100%" class="formpadding navigation_table">
 			
 	    <TR class="labelmedium2 line">
 		   <td width="1%" height="19"></td>
@@ -91,19 +91,19 @@ function mail2(mode,id) {
 				<tr><td height="4"></td></tr>
 				
 				<TR bgcolor="white">
-				   <td height="20" colspan="7" class="labelmedium" style="font-size:20px;padding-left:10px">#Reference#</font>
+				   <td height="20" colspan="7" class="labelmedium" style="font-size:22px;padding-left:10px">#Reference#
 				   
 				   <img src="#SESSION.root#/Images/print_small4.gif" 
-				    align="absmiddle" 
-					style="cursor: pointer;"
-					alt="Print Requisition" 
-					border="0" 
-					onclick="mail2('print','#Reference#')">
+					    align   = "absmiddle" 
+						style   = "cursor: pointer;height:17px"
+						alt     = "Print Requisition" 
+						border  = "0" 					
+						onclick = "mail2('print','#Reference#')">
 					
 				   </td>			 
-				   <td align="right" class="labelmediumcl"><b>(#Sum.Counted#)&nbsp;&nbsp;
+				   <td align="right" colspan="2" style="font-size:20px;padding-right:10px" class="labelmediumcl">(#Sum.Counted#)
 				   <b>#NumberFormat(Sum.Total,",.__")#</td>
-				   <td bgcolor="white"></td>
+				   
 		 	    </TR>
 						
 			</cfif>		
@@ -112,7 +112,7 @@ function mail2(mode,id) {
 		
 		<tr><td height="7"></td></tr>
 		<tr><td height="24" colspan="9" class="labellarge" style="padding-left:20px;border-top:1px dotted silver">
-		<b>#ActionDescription#</b></td></tr>							
+		#ActionDescription#</b></td></tr>							
 		<cfoutput>		
 		<tr><td height="1" colspan="9" class="line"></td></tr>
 
@@ -140,7 +140,7 @@ function mail2(mode,id) {
 			 <cfset color = "transparent"> 
 		</cfif>
 												
-		<tr class="labelmedium2 line" bgcolor="#color#">
+		<tr class="labelmedium2 line navigation_row" bgcolor="#color#">
 		
 		   <td rowspan="2" align="left"></td>
     	   <td style="width:6px"></td>		  
@@ -151,11 +151,11 @@ function mail2(mode,id) {
 		   <td align="right">#NumberFormat(RequestCostprice,",.__")#</td>
 		   <td align="right" style="padding-right:4px">#NumberFormat(RequestAmountBase,",.__")#</td>		   
 		   <td align="center" style="padding-left:5px;padding-right:5px;padding-top:1px">		   
-		         <cf_img icon="edit" onClick="javascript:ProcReqEdit('#requisitionno#','dialog');">		 								   
+		         <cf_img icon="open" onClick="javascript:ProcReqEdit('#requisitionno#','dialog');">		 								   
 		   </td>
 		</tr>
 		
-		<tr class="labelmedium2" id="#requisitionno#_2" bgcolor="#color#">
+		<tr class="labelmedium2 navigation_row_child" id="#requisitionno#_2" bgcolor="#color#">
 		
 		<td></td>
 		<td><b>#Description#</b></td>
@@ -358,3 +358,5 @@ function mail2(mode,id) {
 		</tr>
 		
 	</table>	
+	
+	<cfset ajaxonload("doHighlight")>

@@ -1,3 +1,4 @@
+<cfparam name="URL.mid"         default="">
 <cfparam name="URL.orientation" default="portrait">
 
 <cfoutput>
@@ -13,7 +14,7 @@
 	  
 	  window.moveTo(20,20)
 	  window.resizeTo(w,h)
-	  window.location = "MailPrepare.cfm?Id=#URL.ID#&ID1=#URL.ID1#&ID0=#ID0#&orientation=#URL.orientation#"
+	  window.location = "MailPrepare.cfm?Id=#URL.ID#&ID1=#URL.ID1#&ID0=#ID0#&orientation=#URL.orientation#&mid=#url.mid#"
 	 	  
 	 </script> 
   		
@@ -21,7 +22,7 @@
 
 	<script language="JavaScript">
 		
-	  window.location = "MailPrepare.cfm?Id=#URL.ID#&ID1=#URL.ID1#&ID0=#ID0#&orientation=#URL.orientation#"
+	  window.location = "MailPrepare.cfm?Id=#URL.ID#&ID1=#URL.ID1#&ID0=#ID0#&orientation=#URL.orientation#&mid=#url.mid#"
 
 	</script>
 

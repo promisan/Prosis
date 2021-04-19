@@ -30,7 +30,7 @@
 					<td>										
 					  <button type="button" 
 					     name="Save#No#" id="Save#No#"
-					     style="width:127;height:26"
+					     style="width:227;height:26"
 					     class="button10g" 
 						 onclick="updateTextArea();saveoutput('save','#url.MemoActionid#','#url.documentId#','document#no#',document.getElementById('element#no#').value);">
 					 	 <cf_tl id="Save Content"></button>							 

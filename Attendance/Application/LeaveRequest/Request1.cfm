@@ -93,7 +93,7 @@
 		
 		function setexpirationdate(fld,val,mde) {		   
 		   fldval = document.getElementById(fld).value				      	  
-		   ColdFusion.navigate('#session.root#/Attendance/Application/LeaveRequest/setExpirationDate.cfm?source=#url.src#&id=#url.id#&mde='+mde+'&fld='+fld+'&val='+fldval+'&selected='+val,fld+'_trigger')		  		  		  		  
+		   ptoken.navigate('#session.root#/Attendance/Application/LeaveRequest/setExpirationDate.cfm?source=#url.src#&id=#url.id#&mde='+mde+'&fld='+fld+'&val='+fldval+'&selected='+val,fld+'_trigger')		  		  		  		  
 		}
 								
 		function setmydate(fld,val) {			    	 
@@ -218,7 +218,7 @@
      
  	<cfform method="POST" name="leaveform" id="leaveform" style="background-color:white">   	   
 	
-	   <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
+	   <table width="98%" align="center">
 	   	      
 	   <tr colspan="2" class="xxhide"><td id="result"></td></td></tr> 	
 	   
@@ -319,11 +319,11 @@
 		 		     
 		 	 <tr><td id="log">  
 			  
-				<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+				<table width="100%" height="100%">
 					
 					<tr><td height="20" valign="top">
 					
-						<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">		
+						<table width="100%" align="center" class="formpadding">		
 						
 						<tr><td colspan="3">
 						
@@ -350,11 +350,9 @@
 						   mode            = "picker"
 						   cellheight      = "25">
 						
-						
 						</td>
 						
-						</tr>
-						
+						</tr>						
 												
 						<tr><td colspan="3" style="padding-left:23px;padding-right:23px">
 						
@@ -464,7 +462,7 @@
 					<tr><td style="padding-left:20px" colspan="4">
 					<table style="width:100%;border:0px solid silver;margin-bottom: 5px">	
 						<cf_menucontainer item="1" class="regular">
-							  <cfdiv bind="url:#session.root#/attendance/application/leaveRequest/RequestRecords.cfm?id=#url.id#">
+							  <cf_securediv bind="url:#session.root#/attendance/application/leaveRequest/RequestRecords.cfm?id=#url.id#">
 						</cf_menucontainer>
 						<cf_menucontainer item="2" class="hide"/>
 					</table>					

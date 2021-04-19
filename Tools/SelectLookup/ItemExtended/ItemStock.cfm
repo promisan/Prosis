@@ -172,19 +172,19 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 			
 			<cfif inSale.recordcount gte "1">
 			
-			<tr class="line">
+			<tr>
 	           	<td style="padding-left:20px;padding-right:20px">
 					<table cellpadding="0" cellspacing="0" width="100%">
-					<tr class="labelmedium line">
+					<tr class="labelmedium2 line">
 					<td><cf_tl id="Customer"></td>
 					<td><cf_tl id="UoM"></td>
-					<td><cf_tl id="Quantity"></td>
+					<td align="right"><cf_tl id="Quantity"></td>
 					</tr>
 					<cfloop query="InSale">
-					<tr class="line">
+					<tr class="labelmedium2 line">
 					    <td>#CustomerName#</td>
 						<td>#UoMDescription#</td>
-						<td>#TransactionQuantity#</td>
+						<td align="right">#TransactionQuantity#</td>
 					</tr>
 					</cfloop>
 					</table>
@@ -369,23 +369,34 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 											<cfelse>
 											
 												<tr><td class="labelit">
-												<cfif stock.reserved neq "">
-													<cfset pos = stock.onhand - stock.reserved>
-												<cfelse>
-													<cfset pos = stock.onhand>
-												</cfif>
 												
+												<cfset pos = stock.onhand>
+												
+												<cfif pos gt "0">
+																																				
+													<cfif stock.reserved neq "">
+													    <!-- reduce --->
+														<cfset pos = pos - stock.reserved>
+													</cfif>
+													
+													<cfif stock.earmarked neq "">
+														<!--- reduce --->
+														<cfset pos = pos - stock.earmarked>
+													</cfif>
+												
+												</cfif>
+																								
 												<cfquery name="Location" 
-												       datasource="AppsMaterials" 
-												       username="#SESSION.login#" 
-												       password="#SESSION.dbpw#">
-												         SELECT    Location
-												         FROM      ItemWarehouseLocation
-														 WHERE     ItemNo    = '#itemno#'		
-														 AND       UoM       = '#UoM#'
-														 AND       Warehouse = '#url.filter1value#'
-														 AND       Operational = 1 				 
-														 ORDER BY PickingOrder
+											       datasource="AppsMaterials" 
+											       username="#SESSION.login#" 
+											       password="#SESSION.dbpw#">
+											         SELECT    Location
+											         FROM      ItemWarehouseLocation
+													 WHERE     ItemNo    = '#itemno#'		
+													 AND       UoM       = '#UoM#'
+													 AND       Warehouse = '#url.filter1value#'
+													 AND       Operational = 1 				 
+													 ORDER BY  PickingOrder
 												</cfquery>																																													
 												
 												<cfif pos gte "1">
@@ -393,8 +404,12 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 													<table>
 													<tr class="labelmedium" style="height:15px">
 														<td><cf_tl id="In Store"></td><td style="padding-left:6px"><font color="008000">#pos#</font></td>
-													</tr>
-													
+													</tr>	
+													<cfif stock.earmarked neq "">	
+													<tr class="labelmedium" style="height:15px">
+														<td><cf_tl id="Earmarked"></td><td style="padding-left:6px"><font color="008000">#stock.earmarked#</font></td>
+													</tr>							
+													</cfif>					
 												
 													<cfif location.recordcount gt "1">
 													
@@ -409,13 +424,26 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 															   UoM              = "#getitems.uom#"							  
 															   returnvariable   = "stock">		
 															   
-															   <cfif stock.reserved neq "">
-																<cfset lpos = stock.onhand - stock.reserved>
-																<cfelse>
-																<cfset lpos = stock.onhand>
-																</cfif>
-																
+															   <cfset lpos = stock.onhand>
+												
 																<cfif lpos gt "0">
+																																								
+																	<cfif stock.reserved neq "">
+																	    <!-- reduce --->
+																		<cfset lpos = lpos - stock.reserved>
+																	</cfif>
+																	
+																	<cfif stock.earmarked neq "">
+																		<!--- reduce --->
+																		<cfset lpos = lpos - stock.earmarked>
+																	</cfif>
+																
+																</cfif>
+															 
+																<cfif lpos gt "0">
+																
+																	<!--- Attention : 
+																	if the earmark is on a different location it might not show in the below --->
 																
 																	<tr class="labelit" style="height:15px">
 																	<td style="padding-left:5px">#location#</td><td style="padding-left:6px"><font color="008000">#lpos#</font></td>
@@ -529,14 +557,23 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 				 I.ValuationCode,
 				 U.UoMDescription,			 
 				 U.ItemBarCode,
-				 (
-					SELECT ROUND(SUM(TransactionQuantity),5)
+				 (  SELECT ROUND(SUM(TransactionQuantity),5)
 					FROM   ItemTransaction 
 					WHERE  ItemNo         = I.ItemNo
 					AND	   TransactionUoM = U.UoM
 					AND    Mission        = W.Mission
 					AND	   Warehouse      = W.Warehouse
-				 ) as OnHand 
+					AND    WorkOrderid IS NULL
+				 ) as OnHand,
+				 
+				 (  SELECT ROUND(SUM(TransactionQuantity),5)
+					FROM   ItemTransaction 
+					WHERE  ItemNo         = I.ItemNo
+					AND	   TransactionUoM = U.UoM
+					AND    Mission        = W.Mission
+					AND	   Warehouse      = W.Warehouse
+					AND    WorkOrderid IS NOT NULL
+				 ) as Earmarked
 				 
 				
 		FROM     ItemWarehouse IW 
@@ -572,12 +609,13 @@ and a select/uom/quantity mode if this is for supplies or other classes --->
 			</cfif>
 			<cfif whs neq ItemList.warehouseName>
 				<tr class="labelmedium" style="height:15px">					
-					<td colspan="2" style="font-weight:bold">#WarehouseName#</td>					
+					<td colspan="3" style="font-weight:bold">#WarehouseName#</td>					
 				</tr>
 				<cfset whs = ItemList.warehouseName>
-			</cfif>	
+			</cfif>				
 			<tr class="labelmedium navigation_row" style="height:15px">				
-				<td style="padding-left:10px">#UoMDescription#</td>				
+				<td style="padding-left:10px">#UoMDescription#</td>	
+				<td width="10%" style="color:0080FF" align="right"><cfif earmarked gt "0">#numberformat(Earmarked,",__")#</cfif></td>			
 				<td width="10%" align="right">#numberformat(OnHand,",__")#</td>				
 			</tr>			
 	</cfloop>

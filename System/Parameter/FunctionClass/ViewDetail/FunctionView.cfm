@@ -1,7 +1,7 @@
 <cf_textareascript>
 <cfajaximport tags="cfform, cfdiv, cflayout-tab">
 
-<cf_screenTop height="100%" label="Function editor" band="No" layout="webapp" banner="gray" scroll="no" flush="Yes">
+<cf_screenTop height="100%" label="Function editor" jquery="Yes" band="No" layout="webapp" banner="gray" scroll="no">
 
 <cfwindow 
           name        = "attributedialog"
@@ -16,7 +16,6 @@
 		  modal       = "True"/>	
 
 <cfoutput>
-
 
 <script language="JavaScript">
 
@@ -41,43 +40,43 @@ function showbelow(line,data,id) {
     box  = document.getElementById(line+id);
 	if (box.className=="hide") {
 			 box.className  = "regular";	
-			ColdFusion.navigate(data+'.cfm?ID='+id,data+id)			  
+			ptoken.navigate(data+'.cfm?ID='+id,data+id)			  
     } else {
 	 box.className  = "hide";
     }					
 }		 
 
 function editRole(line,data,id,role) {
-	  ColdFusion.navigate('FunctionRoles.cfm?Edit=Yes&ID='+id+'&Role='+role,'role')								
+	  ptoken.navigate('FunctionRoles.cfm?Edit=Yes&ID='+id+'&Role='+role,'role')								
 }	  
 
 function saveRole(line,data,type,id,old,role) {
-	  ColdFusion.navigate('FunctionRoles.cfm?Type='+type+'&Save=Yes&Edit=No&ID='+id+'&old='+old+'&Role='+role,'role')			  					
+	  ptoken.navigate('FunctionRoles.cfm?Type='+type+'&Save=Yes&Edit=No&ID='+id+'&old='+old+'&Role='+role,'role')			  					
 }
 
 function Browse() {
       w = 500;
       h = 400;
-  	  window.open("#SESSION.root#/System/Parameter/FunctionClass/FileManager.cfm", "FM", "left=40, top=40, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=no");
+  	  ptoken.open("#SESSION.root#/System/Parameter/FunctionClass/FileManager.cfm", "FM", "left=40, top=40, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=no");
 }	
  
 function detail(id,compare) {
 	  w = #CLIENT.width# - 30;
 	  h = #CLIENT.height# - 100;
-	  window.open("#SESSION.root#/system/template/TemplateDetail.cfm?id="+id+"&compare="+compare,"_blank","left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes")
+	  ptoken.open("#SESSION.root#/system/template/TemplateDetail.cfm?id="+id+"&compare="+compare,"_blank","left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes")
 	} 
 	
 function addattribute(id,atr) {	    
 	  ColdFusion.Window.show('attributedialog')					
-	  ColdFusion.navigate('#SESSION.root#/system/parameter/functionClass/ViewDetail/Attribute.cfm?id='+id+'&AttrName='+atr,'attributedialog') 			
+	  ptoken.navigate('#SESSION.root#/system/parameter/functionClass/ViewDetail/Attribute.cfm?id='+id+'&AttrName='+atr,'attributedialog') 			
 }	 		
 
 function save_general(id) {
-	  ColdFusion.navigate('#SESSION.root#/system/parameter/functionClass/ViewDetail/GeneralSubmit.cfm?id='+id,'d_save_box','','','POST','header');
+	  ptoken.navigate('#SESSION.root#/system/parameter/functionClass/ViewDetail/GeneralSubmit.cfm?id='+id,'d_save_box','','','POST','header');
 }
 
 function save_text(id,el,f) {
-	  ColdFusion.navigate('#SESSION.root#/system/parameter/functionClass/ViewDetail/SaveText.cfm?id='+id+'&elementcode='+el,'d_save_box','','','POST',f);
+	  ptoken.navigate('#SESSION.root#/system/parameter/functionClass/ViewDetail/SaveText.cfm?id='+id+'&elementcode='+el,'d_save_box','','','POST',f);
 }
  
 </script>  

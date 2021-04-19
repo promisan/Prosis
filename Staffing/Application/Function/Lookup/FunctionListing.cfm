@@ -12,6 +12,7 @@
 <cfparam name="URL.fldfunctionno"          default="functionno">
 <cfparam name="URL.fldfunctiondescription" default="functiondescription">
 
+
 <input type="hidden" name="mission" value="<cfoutput>#URL.Mission#</cfoutput>">
 
  <cfquery name="Mandate" 
@@ -67,7 +68,7 @@ password="#SESSION.dbpw#">
 
 <table width="100%" class="navigation_table">
 
-<TR class="line labelmedium fixrow">
+<TR class="line labelmedium2 fixrow">
     <td height="20" ></td>
     <TD></TD>
     <TD><cf_tl id="Id"></TD>
@@ -81,12 +82,12 @@ password="#SESSION.dbpw#">
 
 <CFSET des = Replace("#FunctionDescription#", "'", "", "ALL" )> 
 
-<TR class="navigation_row line labelmedium">
+<TR class="navigation_row line labelmedium2">
 	
 	<td colspan="2" style="padding-top:3px;padding-left:7px">
 	    <cf_img icon="select" onclick="Selected('#FunctionNo#','#des#','#url.fldfunctionno#','#url.fldfunctiondescription#')" navigation="Yes">	
 	</TD>
-	<TD style="height:18" class="labelit"><a href="javascript:Selected('#FunctionNo#','#FunctionDescription#','#url.fldfunctionno#','#url.fldfunctiondescription#')">#FunctionNo#</a></font></TD>
+	<TD style="height:18"><a href="javascript:Selected('#FunctionNo#','#FunctionDescription#','#url.fldfunctionno#','#url.fldfunctiondescription#')">#FunctionNo#</a></TD>
 	<TD>#FunctionDescription#</TD>
 	<TD>#FunctionClass#</TD>
 	<td align="center"><cfif Child neq "">*</cfif>&nbsp;</td>
@@ -94,66 +95,66 @@ password="#SESSION.dbpw#">
 
    <cfif Child neq "">
 
-   <cfquery name="Level02" 
-    datasource="AppsSelection" 
-    username="#SESSION.login#" 
-    password="#SESSION.dbpw#">
-	    SELECT DISTINCT 
-		       FunctionTitle.FunctionNo, 
-			   FunctionTitle.FunctionClass, 
-			   FunctionTitle.FunctionDescription, 
-			   FunctionOrganization.FunctionId AS Roster
-	    FROM   FunctionTitle LEFT OUTER JOIN
-	           FunctionOrganization ON FunctionTitle.FunctionNo = FunctionOrganization.FunctionNo
-		WHERE  ParentFunctionNo = '#Level01.FunctionNo#'		
-		AND    FunctionOperational = '1' 
-   </cfquery>
+	   <cfquery name="Level02" 
+	    datasource="AppsSelection" 
+	    username="#SESSION.login#" 
+	    password="#SESSION.dbpw#">
+		    SELECT DISTINCT 
+			       FunctionTitle.FunctionNo, 
+				   FunctionTitle.FunctionClass, 
+				   FunctionTitle.FunctionDescription, 
+				   FunctionOrganization.FunctionId AS Roster
+		    FROM   FunctionTitle LEFT OUTER JOIN
+		           FunctionOrganization ON FunctionTitle.FunctionNo = FunctionOrganization.FunctionNo
+			WHERE  ParentFunctionNo = '#Level01.FunctionNo#'		
+			AND    FunctionOperational = '1' 
+	   </cfquery>
 	   
-    <cfloop query="Level02">
-		
-	<CFSET des = Replace("#FunctionDescription#", "'", "", "ALL" )> 
-   
-    <TR bgcolor="white"  class="navigation_row line labelmedium">
- 	 <td colspan="2" style="padding-top:3px;padding-left:17px">	
-	   <cf_img icon="open" navigation="Yes" onclick="Selected('#FunctionNo#','#des#','#url.fldfunctionno#','#url.fldfunctiondescription#')">		
-	</td>
-	<TD>#FunctionNo#</font></TD>
-	<TD>#FunctionDescription#</font></TD>
-	<TD>#FunctionClass#</TD>
-	<td align="center" style="padding-right:4px"><cfif Roster neq "">*</cfif></td>
-	</TR>
-		
-	<cfquery name="Level03" 
-    datasource="AppsSelection" 
-    username="#SESSION.login#" 
-    password="#SESSION.dbpw#">
-	    SELECT DISTINCT FunctionTitle.FunctionNo, FunctionTitle.FunctionClass, FunctionTitle.FunctionDescription, FunctionOrganization.FunctionId AS Roster
-	    FROM   FunctionTitle LEFT OUTER JOIN
-	           FunctionOrganization ON FunctionTitle.FunctionNo = FunctionOrganization.FunctionNo
-		WHERE  ParentFunctionNo = '#Level02.FunctionNo#'		
-		AND   FunctionOperational = '1'
-    </cfquery>
-
-    <cfloop query="Level03">
-      
-    <CFSET des = Replace("#FunctionDescription#", "'", "", "ALL" )> 
-	
-    <tr bgcolor="white"  class="navigation_row line labelmedium">
-	
-		<td colspan="2" class="regular" style="padding-top:3px;padding-left:25px">	
-			<cf_img icon="open" navigation="Yes" onclick="Selected('#FunctionNo#','#des#')">		
+	    <cfloop query="Level02">
+			
+		<CFSET des = Replace("#FunctionDescription#", "'", "", "ALL" )> 
+	   
+	    <TR bgcolor="white"  class="navigation_row line labelmedium2">
+	 	 <td colspan="2" style="padding-top:3px;padding-left:17px">	
+		   <cf_img icon="open" navigation="Yes" onclick="Selected('#FunctionNo#','#des#','#url.fldfunctionno#','#url.fldfunctiondescription#')">		
 		</td>
+		<TD>#FunctionNo#</font></TD>
+		<TD>#FunctionDescription#</font></TD>
+		<TD>#FunctionClass#</TD>
+		<td align="center" style="padding-right:4px"><cfif Roster neq "">*</cfif></td>
+		</TR>
+			
+		<cfquery name="Level03" 
+	    datasource="AppsSelection" 
+	    username="#SESSION.login#" 
+	    password="#SESSION.dbpw#">
+		    SELECT DISTINCT FunctionTitle.FunctionNo, FunctionTitle.FunctionClass, FunctionTitle.FunctionDescription, FunctionOrganization.FunctionId AS Roster
+		    FROM   FunctionTitle LEFT OUTER JOIN
+		           FunctionOrganization ON FunctionTitle.FunctionNo = FunctionOrganization.FunctionNo
+			WHERE  ParentFunctionNo = '#Level02.FunctionNo#'		
+			AND    FunctionOperational = '1'
+	    </cfquery>
 	
-	<TD>#FunctionNo#</font></TD>
-	<TD>#FunctionDescription#</TD>
-	<TD>#FunctionClass#</TD>
-	<td align="right" style="padding-right:4px"><cfif Roster neq "">Yes</cfif></td>
-
-    </TR>
-		   
-    </cfloop>
-	     
-    </cfloop> 
+		    <cfloop query="Level03">
+		      
+			    <CFSET des = Replace("#FunctionDescription#", "'", "", "ALL" )> 
+				
+			    <tr bgcolor="white"  class="navigation_row line labelmedium2">
+				
+					<td colspan="2" class="regular" style="padding-top:3px;padding-left:25px">	
+						<cf_img icon="open" navigation="Yes" onclick="Selected('#FunctionNo#','#des#')">		
+					</td>
+				
+					<TD>#FunctionNo#</font></TD>
+					<TD>#FunctionDescription#</TD>
+					<TD>#FunctionClass#</TD>
+					<td align="right" style="padding-right:4px"><cfif Roster neq "">Yes</cfif></td>
+			
+			    </TR>
+				   
+		    </cfloop>
+		     
+	    </cfloop> 
 	
 	</cfif>     
 	

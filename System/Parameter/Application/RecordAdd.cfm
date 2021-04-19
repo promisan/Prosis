@@ -1,6 +1,4 @@
 
-<cfajaximport tags="cfwindow">
-
 <cfform action="" method="POST" name="applicationform" onsubmit="return false;">
 
 <!--- Entry form --->

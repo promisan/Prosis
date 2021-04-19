@@ -78,19 +78,19 @@
      datasource="AppsSelection" 
      username="#SESSION.login#" 
      password="#SESSION.dbpw#">
-     UPDATE RosterSearchLine
-	 SET SelectDescription = S.Description
-	 FROM RosterSearchLine INNER JOIN Ref_Experience S ON RosterSearchLine.SelectId =  S.ExperienceFieldId 
-	 WHERE RosterSearchLine.SearchId = '#URL.ID#'
-	 AND   RosterSearchLine.SearchClass = '#Parent#'
+	     UPDATE RosterSearchLine
+		 SET    SelectDescription = S.Description
+		 FROM   RosterSearchLine INNER JOIN Ref_Experience S ON RosterSearchLine.SelectId =  S.ExperienceFieldId 
+		 WHERE  RosterSearchLine.SearchId = '#URL.ID#'
+		 AND    RosterSearchLine.SearchClass = '#Parent#'
     </cfquery>
 		
 </cfloop>	
 
 <cfoutput>
 <script>    
-	ColdFusion.navigate('Search4Detail.cfm?id=#url.id#','profile')
-	ColdFusion.Window.hide('keyworddialog')	
+	ptoken.navigate('Search4Detail.cfm?id=#url.id#','profile')
+	ProsisUI.closeWindow('keyworddialog')	
 </script>
 </cfoutput>
 

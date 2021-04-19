@@ -20,7 +20,7 @@
 		 AND    SalarySchedule = '#schedule.SalarySchedule#'
 		 AND    PayrollEnd     = '#dateformat(Schedule.PayrollEnd,Client.dateSQL)#'	
 	</cfquery>
-	
+			
 	<!--- reset the settlement status --->
 	
 	<cfquery name="CleanMiscellaneous" 
@@ -64,6 +64,17 @@
 		AND    PaymentFinal   = '0' <!--- prevent workflows to be removed ---> 
 		--->
 	</cfquery>	
+	
+	<cfquery name="CleanEntitlement" 
+	datasource="AppsPayroll" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		 DELETE FROM EmployeeSettlementAudit
+		 WHERE  Mission        = '#schedule.Mission#'
+		 AND    SalarySchedule = '#schedule.SalarySchedule#'
+		 AND    PayrollEnd     = '#dateformat(Schedule.PayrollEnd,Client.dateSQL)#'	
+		 AND    PaymentStatus  = '0'
+	</cfquery>
 	
 	<cfquery name="CleanLog" 
 	datasource="AppsPayroll" 

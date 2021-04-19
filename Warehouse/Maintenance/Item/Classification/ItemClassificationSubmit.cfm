@@ -74,17 +74,18 @@
 		
 		<cfset tbcl = "ItemClassification">
 		
+						
 		<cfquery name="Classification" 
 			datasource="appsMaterials" 
 			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
+			password="#SESSION.dbpw#">			
 				SELECT 	*
 				FROM 	ItemClassification C
 				WHERE 	ItemNo = '#URL.ID#'
 		</cfquery>
-		
+				
 	</cfif>	
-	
+		
 	<cfif isDefined("Form.Topic_#getTopics.Code#")>
 	
 		<cfset vValue = Evaluate("Form.Topic_#getTopics.Code#")>
@@ -102,8 +103,9 @@
 			AND 	ListCode = '#vValue#'
 		</cfquery>
 		
-		<cfif trim(vValue) eq "">
 		
+		<cfif trim(vValue) eq "">
+				
 			<cfquery name="Delete" 
 				datasource="appsMaterials" 
 				username="#SESSION.login#" 
@@ -115,11 +117,11 @@
 			</cfquery>
 		
 		<cfelse>
-			
-			
+						
 			<cfif qItemClassification.recordCount eq 0>
 			
-				<cfif TopicClass eq "Details">	
+												
+				<cfif TopicClass eq "Details">					
 				
 					<cftry>			
 									
@@ -129,13 +131,21 @@
 						password="#SESSION.dbpw#">
 							INSERT INTO ItemTopic (
 									ItemNo,
-									Topic,								
+									Topic,	
+									<cfif valueClass eq "List">
+									ListCode,
+									</cfif>
+									TopicValue,							
 									OfficerUserId,
 									OfficerLastName,
 									OfficerFirstName
 								) VALUES (
 									'#url.id#',
-									'#getTopics.code#',								
+									'#getTopics.code#',		
+									<cfif valueClass eq "List">
+									'#vValue#',
+									</cfif>
+									'#vValue#',						
 									'#SESSION.acc#',
 									'#SESSION.last#',
 									'#SESSION.first#'
@@ -152,18 +162,23 @@
 					datasource="appsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
+					
 						INSERT INTO #tbcl# (
 								ItemNo,
-								Topic,			
+								Topic,	
+								<cfif valueClass eq "List">		
 								ListCode,					
+								</cfif>
 								TopicValue,
 								OfficerUserId,
 								OfficerLastName,
 								OfficerFirstName
 							) VALUES (
 								'#url.id#',
-								'#code#',		
-								'',						
+								'#code#',	
+								<cfif valueClass eq "List">	
+								'#vValue#',					
+								</cfif>	
 								'#vValue#',
 								'#SESSION.acc#',
 								'#SESSION.last#',
@@ -179,6 +194,8 @@
 					password="#SESSION.dbpw#">
 						UPDATE #tbcl#
 						SET	   TopicValue = '#vValue#'
+						       <cfif valueClass eq "List">
+							   , ListCode = '#vValue#'</cfif>
 						WHERE  ItemNo     = '#url.id#'
 						AND    Topic      = '#getTopics.code#'
 				</cfquery>
@@ -193,6 +210,7 @@
 
 <cfoutput>
 	<script>
+	    _cf_loadingtexthtml='';	
 		ptoken.navigate('Classification/ItemClassification.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#','contentbox2');
 	</script>
 </cfoutput>

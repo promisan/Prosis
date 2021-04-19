@@ -1,7 +1,7 @@
 
 <cf_screentop height="100%" title="Release" scroll="No" html="No">
 
-<cfajaximport tags="cfmenu,cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 
 <cf_actionListingScript>
 <cf_FileLibraryScript>

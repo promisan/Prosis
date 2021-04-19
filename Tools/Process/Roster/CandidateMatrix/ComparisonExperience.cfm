@@ -86,10 +86,8 @@ password="#SESSION.dbpw#">
 		         S.SubmissionId  
 	</cfquery>
 	
-
-
-
 <cfelse>
+
 	<cfquery name="Detail" 
 	datasource="AppsSelection" 
 	username="#SESSION.login#" 
@@ -127,7 +125,6 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-	
 <table width="100%" align="center" class="formpadding">
 
 <cfset yr = 0>
@@ -183,7 +180,8 @@ password="#SESSION.dbpw#">
 	</td>
 </tr>
 
-<cfif attributes.hideExperience eq "No">			 
+<cfif attributes.hideExperience eq "No">	
+		 
 <cfoutput query="Detail" group="ExperienceId">
 	
 	  <cfif ExperienceEnd neq "">
@@ -205,7 +203,7 @@ password="#SESSION.dbpw#">
 	<tr><td height="5" colspan="8" class="linedotted"></td></tr>
 
 	<cfif Status neq "9">
-	    <tr bgcolor="ffffff">
+	    <tr bgcolor="ffffff" class="navigation_row">
 	<cfelse>	
 	    <tr bgcolor="red">
 	</cfif>
@@ -214,9 +212,8 @@ password="#SESSION.dbpw#">
 	<td colspan="8">
 		<table width="100%">
 			<tr>
-			<td colspan="1" class="labelsmall" style="width:25;padding-left:5px">#Row#.			
-			<td colspan="7" height="23" class="labelit" style="padding-left:5px">	
-			#OrganizationClass# #ExperienceDescription#	 
+			<td colspan="1" class="labelsmall" style="width:25;padding-left:5px">#Row#.</td>			
+			<td colspan="7" height="23" class="labelit" style="padding-left:5px">#OrganizationClass# #ExperienceDescription#</td>	 
 			</tr>
 		</table>		
 	</td>
@@ -249,7 +246,7 @@ password="#SESSION.dbpw#">
 			
 			<cfif checking.recordcount gte "1">
 				
-				<tr class="#vClass# labelit">
+				<tr class="#vClass# labelit navigation_row_child">
 								
 					    <td colspan="3"><cf_tl id="Description"></td>
 						<td><cf_tl id="Owner"></td>
@@ -259,13 +256,11 @@ password="#SESSION.dbpw#">
 						<td><cf_tl id="Status"></td>
 						<td colspan="2"><cf_tl id="Initiated by"></td>
 						<td ><cf_tl id="Date"></td>
-				</tr>
-				
-				<tr #vClass#><td class="linedotted" colspan="8"></td></tr>
+				</tr>								
 	
 				<cfloop query="checking">
 					
-					<tr class="#vClass# labelit linedotted" bgcolor="ffffcf">
+					<tr class="#vClass# labelmedium2 linedotted navigation_row_child" bgcolor="ffffcf">
 						<td style="padding-left:4px" colspan="3">#Description#</td>
 						<td>#Owner#</td>
 						<!---
@@ -288,19 +283,19 @@ password="#SESSION.dbpw#">
 	
 	</cfif>
 		
-	<tr class="labelit">
+	<tr class="labelmedium2 navigation_row_child">
 				
-		<td colspan="4" style="padding-left:15px" class="labelit"><b>#OrganizationName# <cfif OrganizationCity neq "">- #OrganizationCity#</cfif> #OrganizationCountry#</b></td>
-		<td colspan="4" width="40%" align="right">
-		#DateFormat(ExperienceStart,CLIENT.DateFormatShow)# -		 
-		<cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020" >todate<cfelse>#DateFormat(ExperienceEnd,CLIENT.DateFormatShow)#</cfif></b>&nbsp;
+		<td colspan="4" style="padding-left:15px"><b>#OrganizationName# <cfif OrganizationCity neq "">- #OrganizationCity#</cfif> #OrganizationCountry#</b></td>
+		<td colspan="4" width="40%" align="right" style="padding-right:5px">
+		#DateFormat(ExperienceStart,"YYYY/MM")# -		 
+		<cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020" >todate<cfelse>#DateFormat(ExperienceEnd,"YYYY/MM")#</cfif></b>
 		</td>
 				
 	</tr>
 				
 	<cfif SalaryCurrency neq "">
 	
-			<tr class="#vClass#">			
+			<tr class="#vClass# navigation_row_child">			
 			<td colspan="8" style="padding-left:15px" class="labelit">		
 			    #SalaryCurrency# &nbsp;#NumberFormat(SalaryStart,'_,_')# - &nbsp;#NumberFormat(SalaryEnd,'_,_')#&nbsp;&nbsp;</b>			
 			</td>
@@ -310,7 +305,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif Remarks neq "">
 		
-		<tr class="#vClass#">				
+		<tr class="#vClass# navigation_row_child">				
 			<td colspan="8" style="padding-left:15px" class="labelit">#Remarks#</td>
 		</tr>
 			
@@ -318,7 +313,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif OrganizationAddress neq "">
 		
-		<tr class="#vClass#">				
+		<tr class="#vClass# navigation_row_child">				
 			<td colspan="8" style="padding-left:15px" class="labelit">#OrganizationAddress#</td>
 		</tr>
 			
@@ -326,7 +321,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif len(OrganizationEMail) gte "4" or StaffSupervised neq "0">
 			
-		<tr class="#vClass#">		
+		<tr class="#vClass# navigation_row_child">		
 				
 			<td style="padding-left:15px" colspan="8" class="labelit">
 			

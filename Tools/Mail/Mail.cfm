@@ -432,11 +432,11 @@
 				<tr><td height="4" colspan="2"></td></tr>
 				<tr><td height="1" colspan="2" class="line"></td></tr>
 			   
-			    <TR>
-			    <TD class="labelmedium" style="height:30px;padding-left:16px"><cf_tl id="Associated Report">:</font></TD>
+			    <TR class="labelmedium2">
+			    <TD class="labelmedium" style="height:30px;padding-left:16px"><cf_tl id="Associated Report">:</TD>
 				<TD>
-				    <table cellspacing="0" cellpadding="0">
-					<tr>
+				    <table>
+					<tr class="labelmedium2">
 					<cfset row = "0">
 					<cfloop index="att" list="#URL.ID2#" delimiters=","> 
 					    <cfset row = row+1>
@@ -444,10 +444,10 @@
 						<td style="padding-left:4px">|</td>
 						</cfif>
 					    <td>
-						   <input type="checkbox" name="Attachment" id="Attachment" value="#Att#" checked>
+						   <input type="checkbox" class="radiol" name="Attachment" id="Attachment" value="#Att#" checked>
 						</td>
-						<td style="padding-left:6px" class="labelit">
-						<a href="javascript:openreport('#att#')"><font color="0080C0">#att#</font></a>
+						<td style="padding-left:6px" class="labelmedium2">
+						<a href="javascript:openreport('#att#')">#att#</a>
 						</td>
 						
 					</cfloop>
@@ -460,6 +460,7 @@
 			    <TD height="25" class="labelmedium" valign="top" style="padding-top:4px;padding-left:16px"><cf_tl id="Other Attachments">:</TD>
 				<TD height="40" valign="top">
 				
+				
 					<cf_filelibraryN
 							DocumentPath  = "Mail"
 							SubDirectory  = "#SESSION.acc#" 
@@ -471,7 +472,7 @@
 							List          = "mail"
 							Insert        = "yes"
 							Remove        = "yes">	
-					
+												
 				</TD>
 				</TR>	
 				<tr><td height="1" colspan="2" class="line"></td></tr>

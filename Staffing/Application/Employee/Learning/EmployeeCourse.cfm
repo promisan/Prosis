@@ -6,7 +6,7 @@
 
 <cf_FileLibraryScript>
 
-<cfajaximport tags="cfform,cfinput-datefield">
+<cfajaximport tags="cfform">
 
 <cfwindow name="dialog" title="Record Course Attendance" height="400" width="550" bodystyle="overflow: hidden;" center="True"></cfwindow>
 

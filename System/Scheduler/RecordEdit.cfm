@@ -92,8 +92,7 @@ function template(file) {
  	ptoken.open("TemplateDialog.cfm?file="+file, "Template", "left=40, top=40, width=860, height= 732, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
-function schedulelog(id,id1,act) {
- 
+function schedulelog(id,id1,act) { 
     
 	icM  = document.getElementById(id+"Min")
     icE  = document.getElementById(id+"Exp")
@@ -118,14 +117,12 @@ function schedulelog(id,id1,act) {
 
 </cfoutput>
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 
 <cfif URL.Id eq "">
 
 	<tr><td align="center" valign="top">
-
-	<cfparam name="Status" default="1">
-	
+	<cfparam name="Status" default="1">	
 	<cfinclude template="RecordEditForm.cfm">
 
 <cfelse>
@@ -143,26 +140,26 @@ function schedulelog(id,id1,act) {
 					
 			<tr>					
 						
-					<cf_menutab item       = "1" 
-					            iconsrc    = "Scheduled-Requests.png" 
-								iconwidth  = "#wd#" 
-								iconheight = "#ht#" 
-								class      = "highlight1"
-								name       = "Schedule">			
-									
-					<cf_menutab item       = "2" 
-					            iconsrc    = "Script.png" 
-								iconwidth  = "#wd#" 
-								iconheight = "#ht#" 
-								name       = "Script file"
-								source     = "TemplateDialog.cfm?id=#URL.ID#&mode=embed">
+				<cf_menutab item       = "1" 
+				            iconsrc    = "Scheduled-Requests.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#" 
+							class      = "highlight1"
+							name       = "Schedule">			
 								
-					<cf_menutab item       = "3" 
-					            iconsrc    = "Logos/System/Log.png" 
-								iconwidth  = "#wd#" 
-								iconheight = "#ht#" 
-								name       = "Execution History"
-								source     = "ScheduleLogView.cfm?id=#URL.ID#&mode=embed">			
+				<cf_menutab item       = "2" 
+				            iconsrc    = "Script.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#" 
+							name       = "Script file"
+							source     = "TemplateDialog.cfm?id=#URL.ID#&mode=embed">
+							
+				<cf_menutab item       = "3" 
+				            iconsrc    = "Logos/System/Log.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#" 
+							name       = "Execution History"
+							source     = "ScheduleLogView.cfm?id=#URL.ID#&mode=embed">			
 				
 				</tr>
 		</table>
@@ -184,7 +181,7 @@ function schedulelog(id,id1,act) {
 			<cf_menucontainer item="2" class="hide">						
 			<cf_menucontainer item="3" class="hide">
 			
-		</table>	
+		    </table>	
 			
 		</cf_divscroll>
 			

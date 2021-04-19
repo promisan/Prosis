@@ -89,8 +89,10 @@ password="#SESSION.dbpw#">
 	 AND     EnableUsageEntry = 1
 </cfquery>
 
+<cf_divscroll>
+
 <table bgcolor="white" 
-   width="98%" align="center" height="100%" cellspacing="0" cellpadding="0">
+   width="98%" align="center" height="100%">
 
 <tr><td>
 
@@ -136,8 +138,7 @@ password="#SESSION.dbpw#">
 		
 		</cfif>
 			
-	</cfoutput>
-	
+	</cfoutput>	
 	
 	<!--- check if the are any pending workflows for this item --->
 	
@@ -162,9 +163,7 @@ password="#SESSION.dbpw#">
 		</cfif>
 			
 	</cfloop>	
-			
-	<tr><td height="1" colspan="2" class="line"></td></tr>	
-			
+					
 <cfquery name="Line" 
 datasource="AppsWorkOrder" 
 username="#SESSION.login#" 
@@ -208,47 +207,36 @@ password="#SESSION.dbpw#">
 		 AND     WO.ParentWorkorderLine = '#url.workorderline#'					
  
 	</cfquery>
-				
-	<tr><td height="40" style="padding:4px;min-width:1200">
 	
-		<table width="100%" cellspacing="0" cellpadding="0">
+	<tr><td id="custom" height="40" style="padding-top:3px;padding-bottom:3px">		
+	   <cfinclude template="ServiceLineHeader.cfm">		
+	</tr>
+				
+	<tr class="line"><td height="40" style="min-width:1200">
+	
+		<table width="100%" cellspacing="0" align="center" cellpadding="0">
 		<tr>
 		
-			<cfset wd = "58">
-			<cfset ht = "58">	
-			
+			<cfset wd = "50">
+			<cfset ht = "50">				
 												
-		   <cfif DomainClass.ServiceType eq "" or DomainClass.ServiceType eq "Service">
-		
-				<cfinclude template="ServiceLineMenuService.cfm">
-				
-		   <cfelseif DomainClass.ServiceType eq "Activity">
-		   
-		   	    <cfinclude template="ServiceLineMenuActivity.cfm">
-			
-		   <cfelseif DomainClass.ServiceType eq "Produce">
-		   		   
-		   	   <cfinclude template="ServiceLineMenuProduce.cfm">
-			   
-		   <cfelseif DomainClass.ServiceType eq "Sale">
-		   		   
-		   	   <cfinclude template="ServiceLineMenuSale.cfm">	   
-		   
-		   <cfelse>
-		   
-		   	   <cfinclude template="ServiceLineMenuWorkOrder.cfm">
-		   
+		   <cfif DomainClass.ServiceType eq "" or DomainClass.ServiceType eq "Service">		
+				<cfinclude template="ServiceLineMenuService.cfm">				
+		   <cfelseif DomainClass.ServiceType eq "Activity">		   
+		   	    <cfinclude template="ServiceLineMenuActivity.cfm">			
+		   <cfelseif DomainClass.ServiceType eq "Produce">		   		   
+		   	   <cfinclude template="ServiceLineMenuProduce.cfm">			   
+		   <cfelseif DomainClass.ServiceType eq "Sale">		   		   
+		   	   <cfinclude template="ServiceLineMenuSale.cfm">	   		   
+		   <cfelse>		   
+		   	   <cfinclude template="ServiceLineMenuWorkOrder.cfm">		   
 		   </cfif>
 				
 		</tr>						
 		</table>	
 	</td>
 	</tr>
-	
-	<tr><td id="custom" height="40">		
-	   <cfinclude template="ServiceLineHeader.cfm">		
-	</tr>
-									
+										
 	<tr><td colspan="2" height="100%" valign="top" style="padding:3px">
 			
 		<table width="100%" height="100%">
@@ -279,4 +267,4 @@ password="#SESSION.dbpw#">
 
 </table>
 
-<cf_screenbottom layout="webapp">
+</cf_divscroll>

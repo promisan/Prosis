@@ -20,8 +20,7 @@ password="#SESSION.dbpw#">
 
 <cf_screentop height="98%" label="Questionaire - #getHeader.entityDescription#" jquery="Yes" html="No"
    option="Questions Maintenance - [#getHeader.documentCode#] #getHeader.documentDescription#" user="No" scroll="Yes" layout="webapp" banner="gray">
-   
-<cfajaximport tags="cfwindow">
+  
 
 <cfquery name="SearchResult"
 datasource="AppsOrganization" 
@@ -42,13 +41,13 @@ password="#SESSION.dbpw#">
 <script>
 
 function questionpurge(id1, id2) {
-	ColdFusion.navigate('objectElementQuestionPurge.cfm?entityCode=#URL.entityCode#&code=#URL.code#&type=#URL.type#&ID1=' + id1 + '&ID2=' + id2,'questionListing') 
+	ptoken.navigate('objectElementQuestionPurge.cfm?entityCode=#URL.entityCode#&code=#URL.code#&type=#URL.type#&ID1=' + id1 + '&ID2=' + id2,'questionListing') 
 }
 
 function questionedit(id1, id2) { 
    	
 	ProsisUI.createWindow('myeditquestion', 'Question', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    				
-	ColdFusion.navigate('ObjectElementQuestionEditView.cfm?ID1=' + id1 + '&ID2=' + id2,'myeditquestion') 		
+	ptoken.navigate('ObjectElementQuestionEditView.cfm?ID1=' + id1 + '&ID2=' + id2,'myeditquestion') 		
 
 }
 

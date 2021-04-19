@@ -1,4 +1,4 @@
-<cfajaximport tags="cfwindow,cfdiv,cfform,cfinput-datefield">
+<cfajaximport tags="cfdiv,cfform">
 
 <cfparam name="url.scope" default="Backoffice">
 

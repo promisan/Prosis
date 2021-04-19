@@ -1,14 +1,12 @@
 
 <cfoutput>
 
-<cfajaximport tags="cfwindow">
-
 <script>
 
 var root = "#SESSION.root#";
 
 function showledger(mis,own,per,acc,pap,cc) {     
-	ptoken.open(root +  "/Gledger/Application/Lookup/AccountResult.cfm?mission=" + mis + "&orgunitowner=" + own + "&period=" + per + "&account=" + acc + "&pap=" + pap+"&costcenter="+cc, "LedgerDialog");
+	ptoken.open(root +  "/Gledger/Application/Lookup/AccountResult.cfm?mission=" + mis + "&orgunitowner=" + own + "&period=" + per + "&account=" + acc + "&pap=" + pap+"&costcenter="+cc, "LedgerDialog"+mis+acc);
 }
 
 function Statement(mis, ser, per) {
@@ -127,8 +125,8 @@ function selectprogram(mis,per,script,scope)	{
 }
 	
 function selectdonor(mis,fun,prg,jou,ser,sel,script,scope) {
-    try { ColdFusion.Window.destroy('mydonor',true) } catch(e) {}
-	ColdFusion.Window.create('mydonor', 'Donor Selection', '',{x:100,y:100,height:document.body.clientHeight-80,width:750,modal:true,center:true})    					
+      
+	ProsisUI.createWindow('mydonor', 'Donor Selection', '',{x:100,y:100,height:document.body.clientHeight-80,width:750,modal:true,center:true})    					
 	ptoken.navigate(root + '/Gledger/Application/Lookup/DonorView.cfm?script='+script+'&scope='+scope+'&mission='+mis+'&fund='+fun+'&programcode='+prg+'&journal='+jou+'&journalserialno='+ser+'&selected='+sel,'mydonor')  
 }	
 

@@ -1,4 +1,92 @@
 
+<cfparam name="url.warehouse" default="">
+<cfparam name="url.mission"   default="">
+<cfparam name="url.itemNo"    default="">
+<cfparam name="url.UoM"       default="">
+
+<cfquery name="Warehouse"
+datasource="AppsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT    * 
+	FROM      Warehouse
+	WHERE     Warehouse  = '#url.warehouse#'			
+</cfquery>
+
+<cfquery name="WarehouseItem"
+datasource="AppsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT    * 
+	FROM      ItemWarehouse
+	WHERE     Warehouse  = '#url.warehouse#'			
+	AND       ItemNo     = '#url.itemno#'
+	AND       UoM        = '#url.uom#'
+</cfquery>
+
+
+<cfquery name="get"
+datasource="AppsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT   * 
+	FROM     ItemUoM 
+	WHERE    ItemNo  = '#url.itemno#'		
+	AND      UoM     = '#url.uom#'
+</cfquery>
+
+<cfquery name="Item"
+datasource="AppsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT    * 
+	FROM      Item
+	WHERE     ItemNo  = '#url.itemno#'			
+</cfquery>
+
+<cfset url.mission = warehouse.mission>
+
+<table style="width:100%">
+
+	<cfoutput>
+
+	<tr class="labelmedium">
+		<td align="left" colspan="3" style="font-size:16px">
+		
+		<a href="javascript:item('#url.itemno#','','#url.mission#')">#get.ItemBarcode# #item.ItemDescription# #item.ItemNo#</a></td>			
+		<td align="right" style="font-size:16px">
+		
+		</td>			
+	</tr>
+
+	<tr class="labelmedium line">
+			
+			<td colspan="3" style="font-size:16px">
+				<cf_tl id="Minimum Quantity">
+			</td>
+			<td align="right" style="font-size:16px;padding-right:10px">
+				<cfif WarehouseItem.recordcount neq 0>#WarehouseItem.MinReorderQuantity#</cfif>		
+			</td>						
+	</tr>
+	
+	</cfoutput>
+
+	<tr>
+	<td align="center" colspan="4" style="padding:20px">
+	 <cfinclude template="ItemStock.cfm">
+	</td>
+	</tr>
+	
+	<tr><td colspan="4" align="center">
+	
+	<input type="button" name="Close" value="Close" class="button10g" onclick="ProsisUI.closeWindow('stockinquiry')" style="width:200px;height:30px">
+	
+	</td></tr>
+
+</table>
+
+<!--- superseded by the above presentation 
+
 <cfquery name="get"
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
@@ -132,3 +220,5 @@ password="#SESSION.dbpw#">
 	</td></tr>
 	
 </table>	
+
+--->

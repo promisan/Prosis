@@ -262,7 +262,7 @@ password="#SESSION.dbpw#">
 		  <tr>
 		    <td>
 			
-		    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+		    <table width="100%">
 			
 		      <td width="40%" align="left" valign="top">
 		     	
@@ -270,7 +270,7 @@ password="#SESSION.dbpw#">
 				
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 								
-				<tr><td align="left" style="#label#;font-size:18;height:36px"><cf_tl id="#PrintGroup#"></b></td>
+				<tr><td align="left" style="#label#;font-size:18;height:36px"><cf_tl id="#PrintGroup#"></td>
 				<td style="height:30px"></td>
 				<td style="height:30px"></td>
 				<td style="height:30px"></td>
@@ -311,7 +311,7 @@ password="#SESSION.dbpw#">
 			      <td width="20%" align="center">
 				 
 				  	<cfoutput query="#qry#" group="PrintGroupOrder">
-					<table width="99%" border="0" cellspacing="0" cellpadding="0">					
+					<table width="99%">					
 					<tr><td height="30"></td></tr>							
 					<cfoutput group="Source">	
 					<cfoutput>
@@ -335,9 +335,7 @@ password="#SESSION.dbpw#">
 		    
 		  <cfif url.mode eq "Full">
 		  
-		  <tr><td colspan="1" 
-		          height="30" 
-				  align="center">
+		  <tr><td height="30" align="center">
 				  <input type="button" name="Back" value="Back" class="button10g" onclick="history.back()">
 			  </td>
 		  </tr>

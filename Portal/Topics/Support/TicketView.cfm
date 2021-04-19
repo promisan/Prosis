@@ -54,11 +54,11 @@
 		WHERE	 R.EntityCode       = 'SysTicket'
 	---	AND		 O.ObservationClass = 'Inquiry'
 		AND		 (O.ActionStatus     != '3' OR (ObservationId IN (SELECT OO.ObjectId 
-		                                                        FROM   Organization.dbo.OrganizationObject OO, 
-																       Organization.dbo.OrganizationObjectAction OOA
-																WHERE  OO.ObjectKeyValue4 = O.ObservationId		
-																AND    OO.ObjectId = OOA.ObjectId
-																AND    OfficerDate > getDate() - 3) AND O.ActionStatus = '3'))
+		                                                          FROM   Organization.dbo.OrganizationObject OO, 
+																         Organization.dbo.OrganizationObjectAction OOA
+																  WHERE  OO.ObjectKeyValue4 = O.ObservationId		
+																  AND    OO.ObjectId = OOA.ObjectId
+																  AND    OfficerDate > getDate() - 3) AND O.ActionStatus = '3'))
 																
 		AND		 O.Requester        = '#session.acc#' 
 		ORDER BY O.ActionStatus, O.Created DESC

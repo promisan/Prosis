@@ -33,9 +33,9 @@ function workflowdrill(key,box,mode) {
 		if (se.className == "hide") {		
 		   se.className = "regular" 		   
 		   co.className = "regular"
-		   ex.className = "hide"	
-		   
+		   ex.className = "hide"			   
 		   ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Cost/MiscellaneousWorkflow.cfm?ajaxid='+key,key)		   		 
+		   
 		} else {  se.className = "hide"
 		          ex.className = "regular"
 		   	      co.className = "hide" 
@@ -117,16 +117,16 @@ password="#SESSION.dbpw#">
 		
 	<TR class="line labelmedium2 fixrow">
 	    <td colspan="2" style="width:60px" align="center"></td>
-	    <td width="10%"><cf_tl id="Date"></td>
-		<TD width="10%"><cf_tl id="Status"></TD>
-		<TD width="20%"><cf_tl id="Reference"></TD>
-		<TD width="15%"><cf_tl id="Officer"></TD>
-		<TD width="10%"><cf_tl id="Source"></TD>
-		<TD width="10%"><cf_tl id="Category"></TD>
-		<TD width="10%"><cf_tl id="Due"></TD>
-		<TD width="5%"><cf_tl id="Qty"></TD>
-		<TD width="5%"><cf_tl id="Curr."></TD>
-		<TD width="10%" align="right" style="padding-right:4px"><cf_tl id="Amount"></TD>
+	    <td><cf_tl id="Date"></td>
+		<TD><cf_tl id="Status"></TD>
+		<TD><cf_tl id="Reference"></TD>
+		<TD><cf_tl id="Officer"></TD>
+		<TD><cf_tl id="Source"></TD>
+		<TD><cf_tl id="Category"></TD>
+		<TD><cf_tl id="Due"></TD>
+		<TD><cf_tl id="Qty"></TD>
+		<TD><cf_tl id="Curr."></TD>
+		<TD width="10%" align="right" style="min-width:130px;padding-right:4px"><cf_tl id="Amount"></TD>
 	</TR>	
 	<cfset last = '1'>
 	
@@ -137,8 +137,8 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput query="SearchResult" group="PayrollItem">
 	
-	<TR class="line">
-        <td colspan="12" class="labelmedium" style="font-weight:200;padding-left:6px;font-size:21px;height:40px">#PayrollItem# #PayrollItemName#
+	<TR>
+        <td colspan="12" class="labelmedium" style="font-weight:bold;padding-left:6px;font-size:21px;height:35px">#PayrollItem# #PayrollItemName#
 	</td></tr>
 			
 	<cfoutput>
@@ -147,52 +147,38 @@ password="#SESSION.dbpw#">
 	
 	    <cfif workflow neq "" and (source eq "Manual" or source eq "Ledger")>
 	 
-			 <td height="20"
-				    align="center" 
-					style="width:2%;cursor:pointer;padding-left:4px" 
+			 <td height="20" align="center" style="width:2%;cursor:pointer;padding-left:4px" 
 					onclick="workflowdrill('#workflow#','box_#workflow#')" >
 					
 				<cf_wfActive entitycode="EntCost" objectkeyvalue4="#costid#">	
 				 
 					<cfif wfStatus eq "Open" and DateDiff("D",dateEffective,now()) gte -14>
 					
-						  <img id="exp#Workflow#" 
+						<cfset cl = "regular">
+					
+						<img id="exp#Workflow#" 
 					     class="hide" 
 						 src="#SESSION.root#/Images/arrowright.gif" 
-						 align="absmiddle" 
-						 alt="Expand" 
-						 height="9"
-						 width="7"			
-						 border="0"> 	
+						 align="absmiddle" alt="Expand" height="9" width="7" border="0"> 	
 										 
 					   <img id="col#Workflow#" 
 					     class="regular" 
 						 src="#SESSION.root#/Images/arrowdown.gif" 
-						 align="absmiddle" 
-						 height="10"
-						 width="9"
-						 alt="Hide" 			
-						 border="0"> 
+						 align="absmiddle" height="10" width="9" alt="Hide" border="0"> 
 					
 					<cfelse>
 					
-						   <img id="exp#Workflow#" 
+						<cfset cl = "hide">
+					
+					   <img id="exp#Workflow#" 
 					     class="regular" 
 						 src="#SESSION.root#/Images/arrowright.gif" 
-						 align="absmiddle" 
-						 alt="Expand" 
-						 height="9"
-						 width="7"			
-						 border="0"> 	
+						 align="absmiddle" alt="Expand" height="9" width="7" border="0"> 	
 										 
 					   <img id="col#Workflow#" 
 					     class="hide" 
 						 src="#SESSION.root#/Images/arrowdown.gif" 
-						 align="absmiddle" 
-						 height="10"
-						 width="9"
-						 alt="Hide" 			
-						 border="0"> 
+						 align="absmiddle" height="10" width="9" alt="Hide" border="0"> 
 					
 					</cfif>
 					
@@ -304,19 +290,15 @@ password="#SESSION.dbpw#">
 			
 				<input type="hidden" 
 			       name="workflowlink_#workflow#" id="workflowlink_#workflow#" 		   
-			       value="MiscellaneousWorkflow.cfm">			   
-			  
+			       value="MiscellaneousWorkflow.cfm">			   			  
 			   
 				<input type="hidden" 
 				   name="workflowlinkprocess_#workflow#" id="workflowlinkprocess_#workflow#" 
 				   onclick="_cf_loadingtexthtml='';ptoken.navigate('getMiscellaneousStatus.cfm?ajaxid=#workflow#','status_#workflow#')">		    
-				
-				   
-				<tr id="box_#workflow#">
+								   
+				<tr id="box_#workflow#" class="#cl#">
 						<td></td>		   				 
-					    <td colspan="11" id="#workflow#" style="padding-left:20px">
-						
-						
+					    <td colspan="11" id="#workflow#" style="padding-left:20px">						
 						
 						<cfif wfStatus eq "Open" and DateDiff("D",dateEffective,now()) gte -14>
 						

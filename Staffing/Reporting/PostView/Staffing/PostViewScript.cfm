@@ -1,13 +1,10 @@
 
 <cfoutput>
 
-<cfajaximport tags="cfwindow">
-
 <cf_listingscript>
 <cf_actionlistingscript>
 <cf_menuscript>
 <cf_calendarviewscript>
-
 
 <cfinclude template="../../../Application/WorkSchedule/Planning/PlanningViewScript.cfm">
 

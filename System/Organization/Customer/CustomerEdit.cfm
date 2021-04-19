@@ -108,6 +108,8 @@
 									
 									<cf_tl id="Status of Orders" var="vStatus">
 									
+									----<cfoutput>#url.systemfunctionid#</cfoutput>-----
+									
 									<cf_menutab item   = "1" 
 									        base       = "sub"
 											target     = "subbox"
@@ -119,7 +121,7 @@
 											iconwidth  = "#wd#" 									
 											iconheight = "#ht#" 
 											name       = "#vStatus#"
-											source     = "#SESSION.root#/Workorder/Application/WorkOrder/Create/WorkorderListing.cfm?sytemfunctionid=#url.systemfunctionid#&mission=#get.mission#&customerid=#url.customerid#&portal=0">										
+											source     = "#SESSION.root#/Workorder/Application/WorkOrder/Create/WorkorderListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#get.mission#&customerid=#url.customerid#&portal=0">										
 											
 									<cf_tl id="Actions" var="vAction">
 									
@@ -133,7 +135,7 @@
 											iconwidth  = "#wd#" 									
 											iconheight = "#ht#" 
 											name       = "#vAction#"
-											source     = "#SESSION.root#/System/Organization/Customer/Action/CustomerActionListing.cfm?sytemfunctionid=#url.systemfunctionid#&mission=#get.mission#&customerid=#url.customerid#&portal=0">										
+											source     = "#SESSION.root#/System/Organization/Customer/Action/CustomerActionListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#get.mission#&customerid=#url.customerid#&portal=0">										
 								
 											
 									<cf_tl id="Invoices Issued" var="vInvoice">
@@ -177,7 +179,7 @@
 												iconwidth  = "#wd#" 
 												iconheight = "#ht#" 
 												name       = "#vBilling#"
-												source     = "../../../Workorder/Application/WorkOrder/ServiceDetails/Charges/ChargesCustomer.cfm?sytemfunctionid=#url.systemfunctionid#&mission=#get.mission#&customerid=#url.customerid#">				
+												source     = "../../../Workorder/Application/WorkOrder/ServiceDetails/Charges/ChargesCustomer.cfm?systemfunctionid=#url.systemfunctionid#&mission=#get.mission#&customerid=#url.customerid#">				
 												
 									  </cfif>		
 									 								 								

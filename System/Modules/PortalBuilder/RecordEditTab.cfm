@@ -1,5 +1,5 @@
 
-<cfajaximport tags="cfform,cfdiv,cfwindow">
+<cfajaximport tags="cfform,cfdiv">
 
 <cf_menuscript>
 
@@ -104,7 +104,7 @@
 			<!--- <tr class="hide"><td valign="top" height="100" id="result" name="result"></td></tr> --->
 			
 			<cf_menucontainer item="1" class="regular">
-				<cfdiv bind="url:RecordEditLines.cfm?id=#url.id#&name=#url.name#&class=#url.class#&systemmodule=#url.systemmodule#&functionclass=#url.functionclass#" style="height:100%;">
+				<cf_securediv bind="url:RecordEditLines.cfm?id=#url.id#&name=#url.name#&class=#url.class#&systemmodule=#url.systemmodule#&functionclass=#url.functionclass#" style="height:100%;">
 			</cf_menucontainer>							
 			
 			<cf_menucontainer item="2" class="hide">			

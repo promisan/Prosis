@@ -73,8 +73,7 @@
 												
 					  		  <cfset vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg">						
 						  					  
-						  <cfelse>		
-										
+						  <cfelse>												
 						  						  			  					  
 							  <cfif Person.Gender eq "Female">
 								  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-female.png">

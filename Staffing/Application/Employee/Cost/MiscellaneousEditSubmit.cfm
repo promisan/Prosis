@@ -94,12 +94,9 @@ AND    CostId   = '#Form.CostId#'
 	  </cfif>
 	  
 <cfoutput>
-
-<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
-<cfset mid = oSecurity.gethash()/>  
 	
  <script>
-	 ptoken.location("EmployeeMiscellaneous.cfm?ID=#Form.PersonNo#&Status=#URL.Status#&mid=#mid#");
+	 ptoken.location("EmployeeMiscellaneous.cfm?ID=#Form.PersonNo#&Status=#URL.Status#");
  </script>	
  
 </cfoutput>	   

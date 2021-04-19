@@ -1,12 +1,11 @@
-  	 
-  
+ 
 	 <cfquery name="Select" 
      datasource="AppsSelection" 
      username="#SESSION.login#" 
      password="#SESSION.dbpw#">
-     SELECT *
-	 FROM   RosterSearch 
-	 WHERE  SearchId = '#URL.ID1#' 
+	     SELECT *
+		 FROM   RosterSearch 
+		 WHERE  SearchId = '#URL.ID1#' 
      </cfquery>
 
      <cfquery name="Update" 
@@ -96,10 +95,7 @@
 			 <cfset cnt = cnt+1>
 			 			 	 
 		 </cfloop>
-		 
-		
-		 
-		
+			
 		 <cfif Form.select eq "">
 		 		 
 			  <script language="javascript">		     
@@ -148,8 +144,8 @@
 			    <cfif cnt neq "0">
 		
 				 	<script language="javascript">
-					    alert("Recruitment track : <cfoutput>#cnt#</cfoutput> candidate<cfif #cnt# eq '1'> has<cfelse>s have</cfif> been listed.")
-																								 					 
+					
+					    alert("Recruitment track : <cfoutput>#cnt#</cfoutput> candidate<cfif #cnt# eq '1'> has<cfelse>s have</cfif> been listed.")																								 					 
 						se = parent.parent.window																						 																
 						try {
 						se.opener.document.getElementById('workflowbutton_#docno#').click()						
@@ -158,9 +154,16 @@
 							se = parent.parent.parent.window	
 							se.document.getElementById('workflowbutton_#docno#').click()															
 						    // se.opener.document.getElementById('workflowbutton_#docno#').click() : hanno							
-							} catch(e) {}
-						}
-												
+							} catch(e) { 
+							
+							try { 
+							se = parent.parent.parent.parent.window	
+							se.document.getElementById('workflowbutton_#docno#').click()															
+						    // se.opener.document.getElementById('workflowbutton_#docno#').click() : hanno							
+							} catch(e) { }
+														
+							}
+						}												
 						
 				  	</script>	
 					

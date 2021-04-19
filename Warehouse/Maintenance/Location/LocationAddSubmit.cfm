@@ -47,35 +47,37 @@ password="#SESSION.dbpw#">
 <cfelse>
 
 		<cfswitch expression="#Form.Level#">
-				<cfcase value="Root">
-				   <cfset Parent = "NULL">
-				</cfcase>
-				<cfcase value="Same">
-				   <cfif FORM.ParentParentLocation eq "">
-				       <cfset Parent = "NULL">
-				   <cfelse>
-				       <cfset Parent = "'#FORM.ParentParentLocation#'">
-				   </cfif>
-				</cfcase>
-				<cfcase value="Child">
-				   <cfif FORM.ParentLocation eq "">
-				       <cfset Parent = "NULL">
-				   <cfelse>
-				       <cfset Parent = "'#FORM.ParentLocation#'">
-				   </cfif>
-				</cfcase>
+		
+			<cfcase value="Root">
+			   <cfset Parent = "NULL">
+			</cfcase>
+			<cfcase value="Same">
+			   <cfif FORM.ParentParentLocation eq "">
+			       <cfset Parent = "NULL">
+			   <cfelse>
+			       <cfset Parent = "'#FORM.ParentParentLocation#'">
+			   </cfif>
+			</cfcase>
+			<cfcase value="Child">
+			   <cfif FORM.ParentLocation eq "">
+			       <cfset Parent = "NULL">
+			   <cfelse>
+			       <cfset Parent = "'#FORM.ParentLocation#'">
+			   </cfif>
+			</cfcase>
+				
 		</cfswitch>	
 		
 		<cfif Form.OrgUnit neq "">
 		
-				<cfquery name="Org" 
-				datasource="AppsOrganization" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT MissionOrgUnitId
-					FROM   Organization
-					WHERE  OrgUnit = '#FORM.OrgUnit#'
-				</cfquery>
+			<cfquery name="Org" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT MissionOrgUnitId
+				FROM   Organization
+				WHERE  OrgUnit = '#FORM.OrgUnit#'
+			</cfquery>
 		
 		</cfif>
 				
@@ -106,8 +108,7 @@ password="#SESSION.dbpw#">
 					  OfficerUserId,
 					  OfficerLastName,
 					  OfficerFirstName,	
-					  Remarks,
-					  Created)
+					  Remarks)
 		      VALUES 
 				     ('#Form.Location#',
 				      '#Form.Mission#',
@@ -131,8 +132,7 @@ password="#SESSION.dbpw#">
 					  '#SESSION.acc#',
 			    	  '#SESSION.last#',		  
 				  	  '#SESSION.first#',
-					  '#Form.Remarks#', 
-					  getDate() )
+					  '#Form.Remarks#')
 		</cfquery>
 					   
 	<cfswitch expression="#Form.Level#">
@@ -154,8 +154,8 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput>
         <script language="JavaScript">
-	    	parent.ColdFusion.navigate('LocationTree.cfm?id2=#Form.mission#','tree')
-			window.location = "#link#"
+	    	parent.ptoken.navigate('LocationTree.cfm?id2=#Form.mission#','tree')
+			ptoken.location('#link#')
 	    </script>	
 	</cfoutput> 
 				

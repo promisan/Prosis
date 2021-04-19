@@ -37,27 +37,28 @@
 
 <cfset itm = 0>
 
-<cf_tl id = "Facility"    var ="vFacility">
-<cf_tl id = "Location"    var ="vLocation">
-<cf_tl id = "Code"        var ="vCode">
-<cf_tl id = "Item"        var ="vItem">
-<cf_tl id = "ParentItemNo" var ="vParentItemNo">
+<cf_tl id = "Facility"       var ="vFacility">
+<cf_tl id = "Location"       var ="vLocation">
+<cf_tl id = "Code"           var ="vCode">
+<cf_tl id = "Item"           var ="vItem">
+<cf_tl id = "ParentItemNo"   var ="vParentItemNo">
 <cf_tl id = "ParentItemName" var ="vParentItemName">
-<cf_tl id = "Category"    var ="vCategory">
-<cf_tl id = "Subcategory" var ="vSubCategory">
-<cf_tl id = "Lot"         var ="vLot">
-<cf_tl id = "Location"    var ="vLocation">
-<cf_tl id = "Product"     var ="vItemName">
-<cf_tl id = "BarCode"     var ="vBarCode">
-<cf_tl id = "UoM"         var ="vUoM">
-<cf_tl id = "Lowest"      var ="vLowest">
-<cf_tl id = "Issue"       var ="vAvgIssue">
-<cf_tl id = "Min"         var ="vMin">
-<cf_tl id = "Confirm"     var ="vPending">
-<cf_tl id = "On Hand"     var ="vOnHand">
-<cf_tl id = "Value"       var ="vStockValue">
-<cf_tl id = "Max"         var ="vMax">
-<cf_tl id = "ItemNoExternal" var ="vItemNoExternal">
+<cf_tl id = "Category"       var ="vCategory">
+<cf_tl id = "Subcategory"    var ="vSubCategory">
+<cf_tl id = "Lot"            var ="vLot">
+<cf_tl id = "Location"       var ="vLocation">
+<cf_tl id = "Product"        var ="vItemName">
+<cf_tl id = "BarCode"        var ="vBarCode">
+<cf_tl id = "UoM"            var ="vUoM">
+<cf_tl id = "Lowest"         var ="vLowest">
+<cf_tl id = "Issue"          var ="vAvgIssue">
+<cf_tl id = "Min"            var ="vMin">
+<cf_tl id = "Confirm"        var ="vPending">
+<cf_tl id = "Reserved"       var ="vReserve">
+<cf_tl id = "On Hand"        var ="vOnHand">
+<cf_tl id = "Value"          var ="vStockValue">
+<cf_tl id = "Max"            var ="vMax">
+<cf_tl id = "Item Code"      var ="vItemNoExternal">
 
 <cfquery name="Param" 
 	datasource="AppsMaterials" 
@@ -72,13 +73,15 @@
 
     <cfif checkLocation.recordcount gt "1">
 
+	    <!--- 
 		<cfset itm = itm+1>	
 		<cfset fields[itm] = {label     = "#vFacility#",                    
 		     				field       = "WarehouseName",																							
 							search      = "text",
 							filtermode  = "2"}>		
 							
-	
+	     --->
+		 
 		<cfset itm = itm+1>		
 		<cfset fields[itm] = {label     = "#vLocation#",                    
 		     				field       = "Description",																							
@@ -147,13 +150,11 @@
 						align       	  = "left",
 						search			  = "text"}>
 
-
 	<cfset itm = itm+1>		
 	<cfset fields[itm] = {label           = "#vItemNoExternal#",                    
 	     				field             = "ItemNoExternal",							
 						align       	  = "left",
-						search			  = "text"}>	
-	
+						search			  = "text"}>		
 	
 	<cfset itm = itm+1>		
 	<cfset fields[itm] = {label           = "#vItemName#",                    
@@ -169,95 +170,77 @@
 	     				field             = "ItemNo",
 						functionscript    = "stockOnHandItem",	
 						functioncondition = "#url.mission#",																																																			
-						search            = "text"}>							
-		
+						search            = "text"}>									
 						
 	<cfset itm = itm+1>			
-	<cfset fields[itm] = {label     = "#vUoM#",                    
-	     				field       = "UoMDescription",																						
-						search      = "text",
-						filtermode  = "2"}>		
+	<cfset fields[itm] = {label           = "#vUoM#",                    
+	     				field             = "UoMDescription",																						
+						search            = "text",
+						filtermode        = "2"}>		
 						
 	<cfif mode eq "stock" and Param.LotManagement eq "1">
 	
 		<cfset itm = itm+1>		
-		<cfset fields[itm] = {label     = "#vLot#",                    
-		     				field       = "TransactionLot",																							
-							search      = "text",	
-							filtermode  = "4"}>					
+		<cfset fields[itm] = {label       = "#vLot#",                    
+		     				field         = "TransactionLot",																							
+							search        = "text",	
+							filtermode    = "4"}>					
 	
 	</cfif>							
 										
-	<!--- Hardcoded temporarily as per Hanno's advise, until we discuss about the Lot barcode. 
-	
-	<cfif url.Mission eq "BCN"> 
-	
-		<cfset itm = itm+1>
-		
-		<cfset fields[itm] = {label     = "#vBarCode#",                    
-		     				field       = "ItemBarCode",					
-							alias       = "",																			
-							search      = "text"}>				
-		
-	</cfif>
-	
-	--->
+	<!--- remove this
 
 	<cfif mode eq "Item">
 	
 		<cfset itm = itm+1>
 		
-		<cfset fields[itm] = {label     = "#vPending#",                    
-		     				field       = "OnHandPending",							
-							align       = "right",																			
-							formatted   = "numberformat(OnHandPending,'[precision]')",							
-							precision   = "ItemPrecision",
-							search      = "number"}>	
+		<cfset fields[itm] = {label       = "#vPending#",                    
+		     				field         = "OnHandPending",							
+							align         = "right",																			
+							formatted     = "numberformat(OnHandPending,'[precision]')",							
+							precision     = "ItemPrecision",
+							search        = "number"}>	
 						
-	</cfif>		
-	
+	</cfif>			
 	
 	<cfset itm = itm+1>		
 	<cfset fields[itm] = {label           = "#vMin#",                    
 	     				field             = "MinimumStock",							
 						align       	  = "right",
 						width             = "14",
-						search			  = "number"}>		
-											
-	<!---						
+						search			  = "number"}>													
+							
 	<cfset itm = itm+1>		
 	<cfset fields[itm] = {label           = "#vMax#",                    
 	     				field             = "MaximumStock",							
 						align       	  = "right",
 						width             = "14",
-						search			  = "number"}>								
-	--->					
+						search			  = "number"}>		
+												
+	--->			
+		
+	<cfset itm = itm+1>	
+	<cfset fields[itm] = {label           = "#vReserve#",                    
+	     				field             = "Reserved",		
+						aggregate         = "SUM",						
+						align             = "right",	
+						width             = "25",            																		
+						formatted         = "numberformat(Reserved,'[precision]')",
+						precision         = "ItemPrecision",
+						search            = "number"}>			
 					
-	<cfset itm = itm+1>
-	
-	<cfset fields[itm] = {label     = "#vOnHand#",                    
-	     				field       = "OnHand",		
-						aggregate   = "SUM",						
-						align       = "right",																			
-						formatted   = "numberformat(OnHand,'[precision]')",
-						precision   = "ItemPrecision",
-						search      = "number"}>		
+	<cfset itm = itm+1>	
+	<cfset fields[itm] = {label           = "#vOnHand#",                    
+	     				field             = "OnHand",		
+						aggregate         = "SUM",						
+						align             = "right",	
+						width             = "25", 																		
+						formatted         = "numberformat(OnHand,'[precision]')",
+						precision         = "ItemPrecision",
+						search            = "number"}>		
 	
 	<!--- Hardcoded temporarily as per Hanno's advise, until we discuss about the Lot barcode. --->	
-	
-	<cfif url.Mission eq "BCN"> 
-		
-		<cfset itm = itm+1>
-		
-		<cfset fields[itm] = {label     = "#vStockValue#",                    
-		     				field       = "OnHandValue",	
-							aggregate   = "SUM",				
-							alias       = "",	
-							align       = "right",																							
-							formatted   = "numberformat(OnHandValue,',.__')"}>															
-						
-	</cfif>
-			
+					
 	<cfif mode eq "Item">				
 	
 		<cfset itm = itm+1>					
@@ -280,38 +263,18 @@
 		     				field       = "LowestStock",					
 							alias       = "",	
 							align       = "right",																		
-							formatted   = "numberformat(loweststock,'__,__')",
+							formatted   = "numberformat(loweststock,',__')",
 							search      = "number"}>	
 							
-							--->
+		--->
 								
-		<cfset itm = itm+1>		
-		
+		<cfset itm = itm+1>				
 		<cfset fields[itm] = {label     = "#vAvgIssue#",                    
 		     				field       = "DistributionAverage",					
 							alias       = "",	
 							align       = "right",																		
 							formatted   = "numberformat(DistributionAverage,',__')"}>						
-							
-		<cfset itm = itm+1>
-		
-		<cfset fields[itm] = {label     = "#vMinStock#",                    
-		     				field       = "MinimumStock",					
-							labelfilter = "Minimum stock",	
-							alias       = "",		
-							align       = "right",																	
-							formatted   = "numberformat(minimumstock,',__')",
-							search      = "number"}>					
-							
-		<cfset itm = itm+1>
-		
-		<cfset fields[itm] = {label     = "#vMaxStock#",                    
-		     				field       = "MaximumStock",	
-							labelfilter = "Maximum stock",				
-							alias       = "",	
-							align       = "right",																			
-							formatted   = "numberformat(Maximumstock,',__')",
-							search      = "number"}>	
+						
 														
 		<cfset itm = itm+1>
 			
@@ -338,7 +301,6 @@
 	</cfoutput>
 
 </cfsavecontent>
-
 
 <cfset menu=ArrayNew(1)>	
 
@@ -417,7 +379,7 @@
 		
 <cfelse>
 
-	<!--- embed|window|dialogajax|dialog|standard --->		
+	<!--- embed|window|dialogajax|dialog|standard --->	
 	
 
 	<cf_listing

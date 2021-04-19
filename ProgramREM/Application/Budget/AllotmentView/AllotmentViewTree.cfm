@@ -410,7 +410,7 @@
 					
 				<CFIF GlobalAccess neq "NONE" OR ManagerAccess eq "ALL">
 								
-					<cf_UItree name="idtree" font="calibri"  fontsize="12" bold="No" format="html" required="No">
+					<cf_UItree name="idtree" font="calibri" fontsize="12" bold="No" format="html" required="No">
 					     <cf_UITreeitem
 						  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#man#','AllotmentViewOpen.cfm','PRG','Responsible Unit','#url.mission#','#man#','','Full')">
 				    </cf_UItree>

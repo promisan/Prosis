@@ -15,19 +15,37 @@
 <cfparam name="Form.TransactionLot"   default="">		
 <cfparam name="Form.Location"         default="#url.location#">		
 <cfparam name="Form.Category"         default="">	
+
 <cfparam name="url.mode"              default="item">		
 	
 <cfoutput>	
-	
-	<cfsavecontent variable="onhand">
+
+	<cfsavecontent variable="reserved">
 	     (
-	   SELECT   SUM(TransactionQuantity)
+	   SELECT   ISNULL(SUM(TransactionQuantity),0)
 	   FROM     ItemTransaction
 	   WHERE    Mission         = '#getWarehouse.mission#'
 	    AND     Warehouse       = S.Warehouse 
 	    AND     Location        = S.Location 
 	    AND     ItemNo          = S.ItemNo 
 	    AND     TransactionUoM  = S.UoM		
+		AND     WorkOrderid is not NULL
+		<cfif Form.TransactionLot neq "">
+		AND     TransactionLot  = '#Form.TransactionLot#'
+		</cfif>			
+	 	  )
+	</cfsavecontent>
+	
+	<cfsavecontent variable="onhand">
+	     (
+	   SELECT   ISNULL(SUM(TransactionQuantity),0)
+	   FROM     ItemTransaction
+	   WHERE    Mission         = '#getWarehouse.mission#'
+	    AND     Warehouse       = S.Warehouse 
+	    AND     Location        = S.Location 
+	    AND     ItemNo          = S.ItemNo 
+	    AND     TransactionUoM  = S.UoM		
+		AND     WorkOrderid is NULL
 		<cfif Form.TransactionLot neq "">
 		AND     TransactionLot  = '#Form.TransactionLot#'
 		</cfif>	
@@ -36,7 +54,7 @@
 	
 	<cfsavecontent variable="onhandpending">
 	     (
-	   SELECT   SUM(TransactionQuantity)
+	   SELECT   ISNULL(SUM(TransactionQuantity),0)
 	   FROM     ItemTransaction
 	   WHERE    Mission         = '#getWarehouse.mission#'
 	    AND     Warehouse       = S.Warehouse 
@@ -93,21 +111,28 @@
 
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#_OnHand"> 
 
+
 <cftransaction isolation="read_uncommitted">
 
+    <!---
 	<cfif url.mode eq "item">
-		    
+	--->
+				    
 		<cfquery name="getDataInMemory" 
 			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#"> 		
 			
 			SELECT *
+			
+			
 			INTO userQuery.dbo.#SESSION.acc#_OnHand	
+			
 			
 			FROM (	
 					
-			 SELECT    C.Category,
+			 SELECT    newid() as ListingKey,
+			           C.Category,
 			 		   C.Description as CategoryDescription,
 			           S.*,	           
 			           I.ItemDescription,
@@ -130,16 +155,25 @@
 					    FROM   ItemImage 
 						WHERE  ItemNo = S.ItemNo) as Pictures,		
 						
+						<!---
 						(SELECT ISNULL(MinimumStock,1)
 	    			    FROM ItemWarehouse IW 
 		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = S.Warehouse) as MinimumStock,		
 						
+						
 						(SELECT ISNULL(MaximumStock,1)
 	    			    FROM ItemWarehouse IW 
-		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = S.Warehouse) as MaximumStock,						   
+		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = S.Warehouse) as MaximumStock,	
+						
+						--->					   
+					   
+					   #preservesinglequotes(reserved)# AS Reserved, 
 					   					   
-					   #preservesinglequotes(onhand)# AS OnHand, 
+					   #preservesinglequotes(onhand)#   AS OnHand, 
+					   
+					   <!---
 		               #preservesinglequotes(onhandpending)# AS OnHandPending,  
+					   --->
 					  				
 					   (SELECT   SUM(TransactionValue)
 		                FROM     ItemTransaction 
@@ -147,7 +181,8 @@
 		                AND      Warehouse       = S.Warehouse 
 					    AND      Location        = S.Location 
 					    AND      ItemNo          = S.ItemNo 
-					    AND      TransactionUoM  = S.UoM				
+					    AND      TransactionUoM  = S.UoM		
+						AND      WorkOrderid is NULL  <!--- pure onhand stock --->		
 						<cfif Form.TransactionLot neq "">
 						AND      TransactionLot  = '#Form.TransactionLot#'
 						</cfif>	
@@ -155,15 +190,14 @@
 							 
 						(CASE  WHEN MinimumStock > #preservesinglequotes(onhand)#  THEN 'Replenish'
 		                       WHEN MinimumStock = #preservesinglequotes(onhand)#  THEN 'Alert'
-						  ELSE 'Good' END) as Status				  
-			         		   
+						  ELSE 'Good' END) as Status				         		   
 			    
 			 FROM      ItemWarehouseLocation S   
-			           INNER JOIN Item I              ON S.ItemNo = I.ItemNo 
-					   INNER JOIN ItemUoM U           ON I.ItemNo = U.ItemNo AND S.UoM = U.UoM 
+			           INNER JOIN Item I              ON S.ItemNo    = I.ItemNo 
+					   INNER JOIN ItemUoM U           ON I.ItemNo    = U.ItemNo AND S.UoM = U.UoM 
 					   INNER JOIN WarehouseLocation W ON S.Warehouse = W.Warehouse AND S.Location = W.Location 
 					   INNER JOIN Warehouse P         ON P.Warehouse = S.Warehouse
-					   INNER JOIN Ref_Category C      ON C.Category = I.Category					  
+					   INNER JOIN Ref_Category C      ON C.Category  = I.Category					  
 					   	
 			 WHERE     P.Mission = '#url.mission#'
 			 
@@ -173,22 +207,15 @@
 			 AND       C.StockControlMode = 'Stock'
 			 --->
 						 	 
-			 <cfif url.filterwarehouse eq "1">
-			 
-			 AND       P.Warehouse = '#url.warehouse#'	 
-			 			 
+			 <cfif url.filterwarehouse eq "1">			 
+			 AND       P.Warehouse = '#url.warehouse#'	 			 			 
 			 <cfelse>
 			 		   
-				<cfif globalmission neq "granted">
-				
-				 AND       P.MissionOrgUnitId IN
-						
-						           (					   
+				<cfif globalmission neq "granted">				
+				 AND       P.MissionOrgUnitId IN (					   
 					                  SELECT DISTINCT MissionOrgUnitId 
 					                  FROM   Organization.dbo.Organization 
-									  WHERE  OrgUnit IN (#quotedvalueList(accesslist.orgunit)#) 						 																			  
-								   )	
-					
+									  WHERE  OrgUnit IN (#quotedvalueList(accesslist.orgunit)#) )						
 				</cfif>
 				
 			</cfif>
@@ -210,31 +237,28 @@
 			<cfif form.Transactionlot neq "">	
 			 
 			 <!--- only items that have this lot somehow --->
-			 AND      EXISTS  (
-			 				   SELECT  'X'
+			 AND      EXISTS  (SELECT  'X'
 			                   FROM    ItemTransaction
 							   WHERE   Warehouse      = S.Warehouse 
 						       AND     Location       = S.Location 
 						       AND     ItemNo         = S.ItemNo 
 						       AND     TransactionUoM = S.UoM
-							   AND     TransactionLot = '#Form.TransactionLot#'					   
-							   )
+							   AND     TransactionLot = '#Form.TransactionLot#'	)
 			 
 			 </cfif>
 			 
-			 ) as B
-			 		 
+			 ) as B			 		 
 			 			 
 			 WHERE OnHand > 0	
 			 
-			 --condition
-									 
+			 --condition									 
 		
 		</cfquery>	
-	
+				
+	 <!--- change by query above as that one is more flexible  
 				
 	<cfelse>	
-				
+					
 			<cfquery name="getDataInMemory" 
 			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
@@ -242,8 +266,7 @@
 			
 			SELECT *
 			INTO 	   userQuery.dbo.#SESSION.acc#_OnHand	
-			FROM (
-					
+			FROM (					
 		
 			 SELECT    newid() as ListingKey,
 			           I.Category,
@@ -278,8 +301,7 @@
 		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = W.Warehouse) as MaximumStock,						
 					   
 					   SUM(TransactionQuantity) as OnHand,
-					   SUM(TransactionValue)    as OnHandValue						  		 			          		   
-			
+					   SUM(TransactionValue)    as OnHandValue	 
 			 
 			 FROM      ItemTransaction T 	 	         
 			           INNER JOIN Item I         ON T.ItemNo = I.ItemNo 
@@ -294,8 +316,7 @@
 			 AND       C.StockControlMode = 'Stock'
 			 --->
 			 
-			 AND       I.ItemClass = 'Supply'		
-			 
+			 AND       I.ItemClass = 'Supply'				 
 						 	 
 			 <cfif url.filterwarehouse eq "1">
 			 			 
@@ -373,7 +394,9 @@
 		</cfquery>
 			
 	</cfif>	
-
+	
+	--->	
+		
 </cftransaction>
 
 <cfinclude template="ListingDataContent.cfm">					

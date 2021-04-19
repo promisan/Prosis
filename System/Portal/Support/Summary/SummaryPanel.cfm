@@ -7,7 +7,7 @@
 <cf_layoutScript>
 <cf_calendarScript>
 
-<cfajaximport tags="cfform,cfinput-datefield,cfwindow">
+<cfajaximport tags="cfform">
 
 <cfset vItemSize = 425>
 <cfset vItemOffset = 42>
@@ -27,7 +27,7 @@
 		}
 		
 		function summaryPanelApplyFilter(dte){
-			ColdFusion.navigate('#session.root#/System/Portal/Support/Summary/SummaryPanelDetail.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&itemSize=#vItemSize#&itemOffset=#vItemOffset#&accFilter='+$('##filterAcc').val()+'&statusFilter='+$('##filterStatus').val()+'&sortingFilter='+$('##filterSorting').val()+'&dateFilter='+$('input[name=filterDate_date').val()+'&classFilter='+$('##filterClass').val()+'&mode='+$('input[name=Mode]:checked').val(),'divSummaryPanel');
+			ptoken.navigate('#session.root#/System/Portal/Support/Summary/SummaryPanelDetail.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&itemSize=#vItemSize#&itemOffset=#vItemOffset#&accFilter='+$('##filterAcc').val()+'&statusFilter='+$('##filterStatus').val()+'&sortingFilter='+$('##filterSorting').val()+'&dateFilter='+$('input[name=filterDate_date').val()+'&classFilter='+$('##filterClass').val()+'&mode='+$('input[name=Mode]:checked').val(),'divSummaryPanel');
 		}
 		
 		function addNewChart(sel){
@@ -40,7 +40,7 @@
 			
 			var newDiv = '<div id="supportChart_'+globalChartCount+'" name="supportChart_'+globalChartCount+'" class="clsChartContainer"></div>';
 			$(newDiv).prependTo(sel);			
-			ColdFusion.navigate('#session.root#/System/Portal/Support/Summary/Statistics/setGraph.cfm?id='+globalChartCount+'&by='+paramBy+'&type='+paramType+'&init='+paramInitDate+'&end='+paramEndDate,'supportChart_'+globalChartCount);
+			ptoken.navigate('#session.root#/System/Portal/Support/Summary/Statistics/setGraph.cfm?id='+globalChartCount+'&by='+paramBy+'&type='+paramType+'&init='+paramInitDate+'&end='+paramEndDate,'supportChart_'+globalChartCount);
 		}
 		
 		function removeChart(id) {
@@ -52,7 +52,7 @@
 			var paramInitDate = $('##supportChartEffective').val();
 			var paramEndDate = $('##supportChartExpiration').val();
 			
-			ColdFusion.navigate('#session.root#/System/Portal/Support/Summary/Statistics/drillDetail.cfm?val='+val+'&item='+item+'&series='+series+'&by='+paramBy+'&init='+paramInitDate+'&end='+paramEndDate+'&id='+id,'bottom');
+			ptoken.navigate('#session.root#/System/Portal/Support/Summary/Statistics/drillDetail.cfm?val='+val+'&item='+item+'&series='+series+'&by='+paramBy+'&init='+paramInitDate+'&end='+paramEndDate+'&id='+id,'bottom');
 			expandArea('ticketSummaryPanelLayout', 'bottom');
 		}
 		

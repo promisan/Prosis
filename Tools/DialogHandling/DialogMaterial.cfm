@@ -11,27 +11,23 @@
 	
 	function item(itm,mid,mis) {	
 	  
-	   var mission = mis
-	      
+	   var mission = mis	      
 	   if (!mid || mid=='undefined'){
-	   		mid = ''; 
-	   }
+	   		mid = ''; }
 	  	   	   	   
-	   if (mission) {
-	 
-	   } else {
-	 	 	  	  	   
+	   if (mission) {	 
+	   } else {	 	 	  	  	   
 		   try {
 		   	  mission = document.getElementById('mission').value			 
 			  } catch(e) {
 			  mission = ''			  
 			  }				  
-		}  
-		
+		}  		
 				
 	    w = #CLIENT.width# - 80;
 	    h = #CLIENT.height# - 145;
 		ptoken.open(root + "/Warehouse/Maintenance/ItemMaster/ItemView.cfm?idmenu="+mid+"&mission="+mission+"&ID=" + itm, "dlg_"+itm);	
+		
 	}
 	
 	function EditAsset(assetid,template) {
@@ -63,6 +59,11 @@
     	h = #CLIENT.height# - 140;	
 		ptoken.open(root + "/Procurement/Application/Receipt/ReceiptEntry/ReceiptEdit.cfm?id=" + id + "&mode=" + dialog, "RequestLine");
 	}
+	
+	function stockinquiry(itm,whs,uom,mde) {
+		ProsisUI.createWindow('stockinquiry', 'Inquiry', '',{x:100,y:100,width:800,height:420,resizable:true,modal:true,center:true})
+		ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/ItemMaster/Stock/StockView.cfm?warehouse='+whs+'&itemNo='+itm+'&uom='+uom,'stockinquiry')							
+	}
 		
 	function StockOrderEdit(id) {
     	w = 935
@@ -70,11 +71,9 @@
 		ptoken.open(root + "/Warehouse/Application/StockOrder/Task/Shipment/TaskView.cfm?actionstatus=1&scope=regular&stockorderid="+id,"_blank", "left=60, top=30, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=yes");
 	}
     
-	function selectcustomer(formname,fldcustomerid,fldcustomername,customerid) {
-       
+	function selectcustomer(formname,fldcustomerid,fldcustomername,customerid) {       
 	    ProsisUI.createWindow('customer', 'Customer', '',{x:100,y:100,height:document.body.clientHeight-90,width:790,modal:true,center:true})
-		ptoken.navigate(root + "/Warehouse/Application/Customer/Lookup/LookupSearch.cfm?FormName=" + formname + "&fldcustomerid=" + fldcustomerid + "&fldcustomername=" + fldcustomername+"&customerid="+customerid, "customer");
-		
+		ptoken.navigate(root + "/Warehouse/Application/Customer/Lookup/LookupSearch.cfm?FormName=" + formname + "&fldcustomerid=" + fldcustomerid + "&fldcustomername=" + fldcustomername+"&customerid="+customerid, "customer");		
 	}
 
 	function selectwarehouseitem(mis,cls,mas,applyscript,scope) {	
@@ -123,13 +122,10 @@
 	    h = #CLIENT.height# - 100;
 		ptoken.open(root +  "/Procurement/Vendor/VendorMenu.cfm?ID=" + Id + "&ID1=" + ST, "VendorDialog", "left=15, top=15, width=" + w + ", height= " + h + ", status=yes, scrollbars=yes, resizable=no");
 	}
-	
-	
-	function selectitm(mission,itemmaster,field,script,scope,access) {
-				
-		ProsisUI.createWindow('mystock', 'Stock Item', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,resizable:false,center:true})    				
-		ptoken.navigate(root + '/Procurement/Application/Requisition/Item/ItemSearchView.cfm?access='+access+'&mission=' + mission + '&itemmaster=' + itemmaster + '&field=' + field + '&script=' + script + '&scope=' + scope,'mystock') 		
 		
+	function selectitm(mission,itemmaster,field,script,scope,access) {				
+		ProsisUI.createWindow('mystock', 'Stock Item', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,resizable:false,center:true})    				
+		ptoken.navigate(root + '/Procurement/Application/Requisition/Item/ItemSearchView.cfm?access='+access+'&mission=' + mission + '&itemmaster=' + itemmaster + '&field=' + field + '&script=' + script + '&scope=' + scope,'mystock') 				
 	  }	
 	
 	function ShowWorkRequest(REQ) {

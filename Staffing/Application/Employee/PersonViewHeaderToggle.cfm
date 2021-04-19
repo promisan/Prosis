@@ -6,34 +6,25 @@
 
 <cfif client.stafftoggle eq "">
 	
-	<cfif openmode eq "close">
-	
+	<cfif openmode eq "close">	
 		<cfset cl  = "hide">
-		<cfset cla = "regular">
-		
-	<cfelse>
-	
+		<cfset cla = "regular">		
+	<cfelse>	
 		<cfset cl  = "regular">
-		<cfset cla = "hide">
-	
+		<cfset cla = "hide">	
 	</cfif>
 	
 <cfelse>
 
 	<cfset openmode = client.stafftoggle>
 	
-	<cfif openmode eq "close">
-	
+	<cfif openmode eq "close">	
 		<cfset cl  = "hide">
-		<cfset cla = "regular">
-		
-	<cfelse>
-	
+		<cfset cla = "regular">		
+	<cfelse>	
 		<cfset cl  = "regular">
-		<cfset cla = "hide">
-	
+		<cfset cla = "hide">	
 	</cfif>
-
 
 </cfif>	
 
@@ -77,6 +68,7 @@
 			align="absmiddle"
 			style="cursor: pointer;padding: 4px;float: right;margin: 0 5px 3px;"
             class="#cla#">
+			
 		</td>
 	</tr>	
 	

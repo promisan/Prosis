@@ -7,7 +7,7 @@
 </cfsilent>
 <!--- End Prosis template framework --->
 
-<cf_screentop height="100%" html="No" line="no" jQuery="yes" scroll="yes" bannerheight="4" title="Result">
+<cf_screentop height="100%" html="No" line="no" jQuery="yes" scroll="no" title="Result">
 
 <cfajaximport tags="CFFORM">
 
@@ -137,17 +137,17 @@ password="#SESSION.dbpw#">
 	}
 	
 	function search() {
-		window.location = "LookupSearchSelect.cfm?#Form.link#"
+		ptoken.location('LookupSearchSelect.cfm?#Form.link#')
 	}
 		
 	function addrecord() {
-	    ColdFusion.navigate('#session.root#/Staffing/Application/Employee/PersonEntryForm.cfm?mode=#url.mode#','tablecontent')	
+	    ptoken.navigate('#session.root#/Staffing/Application/Employee/PersonEntryForm.cfm?mode=#url.mode#','tablecontent')	
 	}		
 				
 	function validate() {
 		document.formperson.onsubmit() 
 		if( _CF_error_messages.length == 0 ) {
-           	ColdFusion.navigate('#session.root#/Staffing/Application/Employee/PersonEntrySubmit.cfm?personno=#url.personNo#&mode=#url.mode#','result','','','POST','formperson')
+           	ptoken.navigate('#session.root#/Staffing/Application/Employee/PersonEntrySubmit.cfm?personno=#url.personNo#&mode=#url.mode#','result','','','POST','formperson')
 	    }   
     }
 	
@@ -158,37 +158,39 @@ password="#SESSION.dbpw#">
 
 <cf_dialogStaffing>
 
-<table width="98%" height="94%" border="0" cellspacing="0" cellpadding="0" align="center"> 
+<table style="width:98%;height:98%" align="center"> 
 
 <tr><td colspan="2" align="center" height="30">
-	<input type="button" class="button10s" style="width:140;height:25" name="Search" value="Search" onClick="search()">
+	<input type="button" class="button10g" style="width:140px;height:28px" name="Search" value="Search" onClick="search()">
 	</td>
 </tr>
  
 <tr><td height="1" colspan="7" class="line"></td></tr>
-  
-<tr><td colspan="2" valign="top" id="tablecontent">
 
-	<table border="0" cellpadding="0" cellspacing="0" class="navigation_table" width="100%">
+<tr>
+   <td height="28" class="labelmedium" colspan="7">
+	   <table width="100%">
+		   <tr>
+			   <td class="labelmedium" style="padding-left:20px"><cfoutput>#SearchResult.recordcount#</cfoutput> <cf_tl id="employees listed"></td>
+			   <cfif form.showadd eq "1">
+				   <td>|</td>
+				   <td class="labelmedium2" align="right">
+				      <a href="javascript:addrecord()"><cf_tl id="Register a new person"></a>
+				   </td>
+			   </cfif>
+		   </tr>
+	   </table>
+   </td>
+   <td align="right"></td>
+</tr> 	
+  
+<tr><td colspan="2" valign="top" style="height:100%" id="tablecontent">
+
+`	<cf_divscroll>
+
+	<table class="navigation_table" style="width:98%">
 			
-	<tr>
-	   <td height="28" class="labelmedium" colspan="7">
-		   <table width="100%">
-			   <tr>
-				   <td class="labelmedium" style="padding-left:20px"><cfoutput>#SearchResult.recordcount#</cfoutput> <cf_tl id="employees listed"></td>
-				   <cfif form.showadd eq "1">
-					   <td>|</td>
-					   <td class="labelmedium" align="right">
-					      <a href="javascript:addrecord()"><cf_tl id="Register a new person"></a>
-					   </td>
-				   </cfif>
-			   </tr>
-		   </table>
-	   </td>
-	   <td align="right"></td>
-	</tr> 	
-	
-	<TR class="line labelmedium">
+	<TR class="line labelmedium fixrow">
 	    <td height="20"></td>
 	    <TD><cf_tl id="Name"></TD>
 		<TD><cf_tl id="IndexNo"></TD>
@@ -229,8 +231,9 @@ password="#SESSION.dbpw#">
 	</CFOUTPUT>
 	
 	</TABLE>
+	
+	</cf_divscroll>
 
 </tr></td>
 </table>
 
-<cf_screenbottom>

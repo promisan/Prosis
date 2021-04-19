@@ -86,7 +86,7 @@
 			   <tr>
 			    <td style="padding-left:1px" class="labelmedium">#get.Mission# / #get.serviceitem# / #get.ServiceItemDescription#</b></td>
 				<td class="labelmedium" style="padding-left:4px;padding-right:4px"><!--- <cf_tl id="under reference">:--->/</td>
-				<td> <input type="text" name="Reference" value="#get.Reference#" size="13" maxlength="20" class="regularxl"  onchange="ColdFusion.navigate('../Header/WorkorderHeaderSubmit.cfm?workorderid=#url.workorderid#','process','','','POST','workorderform')" >
+				<td> <input type="text" name="Reference" value="#get.Reference#" size="13" maxlength="20" class="regularxxl"  onchange="ptoken.navigate('../Header/WorkorderHeaderSubmit.cfm?workorderid=#url.workorderid#','process','','','POST','workorderform')" >
 				</td>
 			   	<td align="right">
 				

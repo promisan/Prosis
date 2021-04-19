@@ -47,6 +47,9 @@ function cleanText(inputText){
 				
 	<cfelse>
 	
+		<cfparam name="form.MarginTop"    default="2">
+		<cfparam name="form.MarginBottom" default="2">
+	
 		<cfparam name="Form.hdrField#url.frm#" default="">
 		<cfset header = evaluate("Form.hdrField#url.frm#")>
 		<cfparam name="Form.ftrField#url.frm#" default="">

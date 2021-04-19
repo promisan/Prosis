@@ -40,13 +40,18 @@ password="#SESSION.dbpw#">
 
 <cfif format.recordcount gte "1">
 
-
-<tr class="line"><td style="height:46px;padding-left:10px;padding-top:5px;font-size:21px" colspan="2" class="labellarge"><cfoutput><cf_tl id="Generate"></cfoutput>:</td></tr>
+<tr class="line">
+<td style="height:46px;padding-left:10px;padding-top:5px;font-size:21px" colspan="2" class="labellarge">
+	<cfoutput><cf_tl id="Generate"></cfoutput>:
+</td>
+</tr>
 	   
 <tr><td colspan="2" style="width:800px">
 
 	<cfform action="ProcessActionSubmit.cfm?reload=1&wfmode=8&process=#url.process#&ID=#URL.ID#&ajaxId=#url.ajaxid#" 
-       method="post" name="processaction"  id="processaction">
+	    method="post" 
+		name="processaction"
+		id="processaction">
 
 	<table class="navigation_table formspacing">
 						
@@ -79,14 +84,22 @@ password="#SESSION.dbpw#">
 			     <TR class="highlight1">
 		    <cfelse>
 			     <TR class="highlight1">
-		    </cfif> 
-			   
-			<td style="padding:10px">
+		    </cfif> 			  
+			 
+			<td style="padding:6px">
 			   			   						  						   
-				<table style="width:280px" class="formpadding">
+				<table style="width:280px;background-color:ffffff" class="formpadding">
 						
-					<tr class="labelmedium2">
-					<td style="border-radius:7px;text-align:center;background-color:ffffff;font-weight:normal;font-size:20px" colspan="2">#DocumentDescription# <font size="1">#DocumentCode#</td></tr>
+					<tr class="labelmedium2 line">
+					<td style="border-radius:7px;text-align:center;background-color:ffffff;font-weight:normal;font-size:20px" colspan="2">
+					<table>
+					<tr>
+					<td style="padding-left:5px;padding-right:8px"><img src="#session.root#/images/documentedit.png" style="height:40px;width:40px" alt="" border="0"></td>
+					<td style="padding-top:7px;font-weight:normal;font-size:20px">#DocumentDescription#</td>
+					</tr>
+					</table>					
+					</td>					
+					</tr>
 						
 					<tr class="labelmedium2" style="height:35px;">
 											
@@ -150,11 +163,11 @@ password="#SESSION.dbpw#">
 				   		   
 				   <cfif language.recordcount gte "2">
 				   
-				       <tr class="line">	
+				       <tr>	
 				   
-				   	   <td><cf_tl id="Language">:</td>
+				   	   <td style="padding-left:20px"><cf_tl id="Language">:</td>
 					   
-					   <td align="right">
+					   <td style="padding-right:20px" align="right">
 					   
 					      <select name="languagecode#documentcode#" id="languagecode#documentcode#" size="1" class="regularxxl" style="border-left:1px solid silver;border-right:1px solid silver">
 							  <cfloop query="Language">
@@ -174,11 +187,11 @@ password="#SESSION.dbpw#">
 				   
 				   <cfif DocumentFramework eq "1">
 				   
-				       <tr class="line">	
+				       <tr>	
 				   
-				   	   <td><cf_tl id="Layout">:</td> 					   
+				   	   <td style="padding-left:20px"><cf_tl id="Layout">:</td> 					   
 					
-					   <td align="right">
+					   <td style="padding-right:20px" align="right">
 	
 	   						<!--- Getting data of the template ---> 
 							<cfset l = len(Format.DocumentTemplate)>		
@@ -294,11 +307,12 @@ password="#SESSION.dbpw#">
 				   	
 					<cfif signature.recordcount gte "1">
 					
-					    <tr class="labelmedium2 line">
-						<td><cf_tl id="Signature">:</td>
+					    <tr class="labelmedium2">
+						<td style="padding-left:20px"><cf_tl id="Signature">:</td>
 				   
-				        <td align="right">
-				   		<select name="signatureblock#documentcode#" id="signatureblock#documentcode#" style="border-left:1px solid silver;border-right:1px solid silver" size="1" class="regularxxl">
+				        <td style="padding-right:20px" align="right">
+				   		<select name="signatureblock#documentcode#" id="signatureblock#documentcode#" 
+						   style="border-left:1px solid silver;border-right:1px solid silver" size="1" class="regularxxl">
 						<cfloop query="Signature">
 						    <option value="#code#" <cfif Format.SignatureBlock eq "#Code#">selected</cfif>>#Code# #BlockLine1#</option>
 						</cfloop>
@@ -326,13 +340,18 @@ password="#SESSION.dbpw#">
 			  
 			 </table> 
 		 
-		  </CFOUTPUT>			      
+		  </CFOUTPUT>		
+		  
+		 </td>
+		 
+		 </tr>
+		 
+		 </table> 	      
 
 		</cfform>
 		
-		</td>
-		
-	</tr>	
+		</td>		
+	
 					
 </cfif>					
 

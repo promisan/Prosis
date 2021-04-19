@@ -68,16 +68,17 @@ password="#SESSION.dbpw#">
 				 C.SalaryTrigger, 
 				 T.EnableAmount,
 				 T.Description
-	    FROM     Ref_PayrollTrigger T, Ref_PayrollComponent C, SalaryScheduleComponent S
+	    FROM     Ref_PayrollTrigger T 
+		         INNER jOIN Ref_PayrollComponent C    ON C.SalaryTrigger  = T.SalaryTrigger
+				 INNER JOIN SalaryScheduleComponent S ON C.Code           = S.ComponentName
 		WHERE    (
 		           (T.TriggerGroup  IN ('Entitlement','Insurance') AND TriggerCondition = 'NONE')
 		            OR 	
 		           T.TriggerGroup IN ('Housing')
-				 )  
-		AND      C.SalaryTrigger  = T.SalaryTrigger
-		AND      C.Code           = S.ComponentName
+				 )  		
 		AND      T.EnableContract = 0
 		ORDER BY C.SalaryTrigger, S.ListingOrder		
+		
 </cfquery>
 
 <!--- only show schedules that are relevant for this person ---> 
@@ -118,6 +119,7 @@ password="#SESSION.dbpw#">
 	
 </table>
 
+
 <cfquery name="schedule" dbtype="query">
 		SELECT   DISTINCT SalarySchedule, ScheduleName
 		FROM     Trigger
@@ -125,10 +127,19 @@ password="#SESSION.dbpw#">
 		WHERE    SalarySchedule IN (#quotedValueList(schedules.SalarySchedule)#)
 		<cfelse>
 		WHERE  1= 0
-		</cfif>
+		</cfif>		
 </cfquery>
 
-<cfif schedule.recordcount eq "0">
+<cfif trigger.recordcount eq "0">
+
+		<table width="100%">
+				<tr>
+					<td class="labellarge" style="font-weight:200;color:red; padding-top:25px; font-size:23px;" align="center">[ <cf_tl id="No recordable entitlements available for this person"> ]</td>
+				</tr>
+		</table>
+
+
+<cfelseif schedule.recordcount eq "0">
 
 		<table width="100%">
 				<tr>

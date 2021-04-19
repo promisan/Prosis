@@ -34,6 +34,7 @@
 			layout="webapp" 
 			label="#lblFinal#" 			
 			banner="red"
+			html="No"
 			close="parent.ColdFusion.Window.destroy('myservice',true)"
 			JQuery="yes">
 	
@@ -46,6 +47,7 @@
 			layout="webapp" 
 			label="#lblFinal#" 
 			option="#lt_text#" 
+			html="No"
 			banner="red"
 			close="parent.ColdFusion.Window.destroy('myservice',true)"
 			JQuery="yes">

@@ -2,6 +2,7 @@
 <!--- we obtain the summary fields to be shown on the row level for the group --->
 	  				
 <cfset agg = session.listingdata[box]['aggregate']>	
+
 	
 <cfif agg neq "">
 
@@ -20,7 +21,7 @@
 		 WHERE  #url.listgroupfield# = '#val#'			 	 
 		 </cfif>
 	  </cfquery>	
-	  	    	  
+	   	  
 	  <cfif subtotal.recordcount eq "0"> 	
 	  
 	  	  <!--- sometimes the query-on-query needs a wider match to return data like NOEMI AGUILAR --->		  		  
@@ -30,13 +31,13 @@
 			 FROM   SearchGroup
 			 WHERE  #url.listgroupfield# LIKE '%#val#%'			 
 		  </cfquery>			  
-	  
+		
 	   </cfif>	     	  	 	
 	  
 	  <!--- query of query does not mix integer and strings --->	
 		
-	  <cfcatch>		 
-	  	  
+	  <cfcatch>		
+	    	  	  
 	  	 <cfif val eq "">
 			 <cfset val = 0>
 		 </cfif>
@@ -61,16 +62,16 @@
 	 <!--- --------------------------------------------------------------- --->
 	 			 	 	 		  
      <cfloop array="#attributes.listlayout#" index="fields">
-	 
+	 	 
 		 <cfif fields.display eq "Yes" and fields.field neq url.listgroupfield>
-		 
+		 		 
 		    <cfparam name="fields.aggregate" default=""> 
 			<cfparam name="fields.precision" default="">
 	
 		    <cfset col = col + 1> 	
 													
 			<cfif fields.aggregate eq "SUM">	
-						
+									
 			    <cfif session.listingdata[box]['firstsummary'] eq "0">								
 					<cfset session.listingdata[box]['firstsummary'] = col>  <!--- which column needs the first summary --->
 				</cfif>  
@@ -79,25 +80,23 @@
 				
 				<cfif findNoCase("[precision]",aggregateformat)>
 				
-					<cfif fields.precision neq "">				
-														
+					<cfif fields.precision neq "">																		
 						<cf_precision number="1">					
-						<cfset aggregateformat = replaceNoCase("#aggregateformat#","[precision]","#pformat#")>
-										
-					<cfelse>
-					
-						<cfset aggregateformat = replaceNoCase("#aggregateformat#","[precision]",",")>
-						
+						<cfset aggregateformat = replaceNoCase("#aggregateformat#","[precision]","#pformat#")>										
+					<cfelse>					
+						<cfset aggregateformat = replaceNoCase("#aggregateformat#","[precision]",",")>						
 					</cfif>
 														
 				</cfif>
-							    	
+												
 				<cfset aggregateformat = replaceNoCase(aggregateformat,fields.field,"subtotal.#fields.field#")>
-				<cfset grp[col] = "#evaluate(aggregateformat)#">			
+								
+				<cfset grp[col] = "#evaluate(aggregateformat)#">	
 				 
 			<cfelse>			
 			
-				<cfset grp[col] = "">		 				 
+				<cfset grp[col] = "">		
+						 
 				 
 			</cfif>	
 			

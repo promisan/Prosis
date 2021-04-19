@@ -203,11 +203,11 @@
 <cfif Searchresult.recordcount gt "0">
 
 	<cfif Module neq "'Portal'" and not find("Mission",class)>	
-		<table width="94%"  align="center" border="0" bgcolor="white">
+		<table width="94%"   align="center" border="0" bgcolor="white">
 	<cfelseif find("Mission",class) or find("Detail",class)>	
 		<table width="100%"  align="center" border="0" bgcolor="white">
 	<cfelse>
-		<table width="96%"  align="center" border="0" bgcolor="white">
+		<table width="96%"   align="center" border="0" bgcolor="white">
 	</cfif>
 
 <tr class="hide"><td id="modulelog"></td></tr>
@@ -249,8 +249,7 @@
 </cfif>
 
 
-	<cfoutput query="searchresult" group="#grp#">
-	
+	<cfoutput query="searchresult" group="#grp#">	
 				
 		<cfif grp eq "ModuleOrder">		
 			
@@ -313,13 +312,12 @@
 			  <td colspan="6" style="padding-top:14px">
 			 			 			  	
 				  <table width="100%">						
-					  <tr>
-					  
+					  <tr>					  
 					    <cfif getAdministrator("#Heading#") eq "1">
 						 <td style="font-size:28px;font-weight:340" class="labelmedium tSearch"><a href="javascript:editentity('#heading#')">#Heading#</a> <font size="2" color="808080"><cfif MissionHeader.MissionName neq Heading>#MissionHeader.MissionName#</cfif></td>
-						 <cfelse>
+						<cfelse>
 						 <td style="font-size:28px;font-weight:340" class="labelmedium tSearch">#Heading# <cfif MissionHeader.MissionName neq Heading><font size="2" color="808080">#MissionHeader.MissionName#</cfif></td>
-						  </cfif>
+						</cfif>
 					  </tr>						  
 				  </table>
 									  
@@ -425,8 +423,6 @@
 					} 
 		
 				</script>	
-				
-						
 						
 				<cfif ((FunctionClass neq "Application") and FunctionClass neq "Roster" and FunctionClass neq "Inquiry") or 
 					  MenuClass eq "Special" OR
@@ -485,22 +481,21 @@
 														 		
 							     <table width="98%" align="center" class="regularZ formpadding" 
 								     onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
-									 								  																						 
+																	  																						 
 							     <cfset go = "modulelog('#systemfunctionid#','#selmission#');loadformI('#FunctionPath#','#condition#','#FunctionTarget#','#FunctionDirectory#','#systemFunctionId#','#Heading#','#EnforceReload#','#FunctionVirtualDir#','#FunctionHost#')">
-				 								  
-							
+				 				
 							  <cfelse>
 							  							  							  	 
 								 <table width="98%" align="center" class="regularZ formpadding" onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
-									 																		 									 					  					  
+																										 									 					  					  
 									  <cfif conditionRevised eq "" or conditionRevised eq "undefined">				  	  
+									  
 									     <cfset go = "modulelog('#systemfunctionid#','#selmission#');#ScriptName#('#mode#','#systemFunctionId#','#Heading#','#EnforceReload#','#functiontarget#')">																 
-									  <cfelse>		 				    
+									  <cfelse>		 				    									  
 										 <cfset go = "modulelog('#systemfunctionid#','#selmission#');#ScriptName#('#condition#','#systemFunctionId#','','','#functiontarget#')">															 
 									  </cfif>					
 												  	  
 							  </cfif>	
-							 
 							 						  
 						<cfelse>
 												  
@@ -761,13 +756,14 @@
 																												
 								<table cellspacing="0" cellpadding="0">
 																
-								<tr><td class="labelmedium" style="font-weight:340;height:20px;font-size:19px">		
-																			
+								<tr><td class="labelmedium" style="font-weight:340;height:20px;font-size:19px">	
+																																		
 									<cfif functionsupport eq "1">
 										<cfif owner neq "">#Owner# </cfif><a>#FunctionName#</a>
 									<cfelse>						
 										<cfif owner neq "">#Owner# </cfif>#FunctionName# <font color="FF0000">: [#client.browser# not supported]</font>
 									</cfif>									
+									
 									</td>
 								</tr>	
 																		
@@ -801,7 +797,7 @@
 							</td>   
 							
 							<td align="right" width="5%" style="padding-right:9px">
-									 
+																 
 							 	<table border="0" align="right" class="formpadding">
 									<tr>
 																	
@@ -831,8 +827,7 @@
 													SELECT TOP 1 *
 													FROM   UserActionModule 
 													WHERE  SystemFunctionId = '#systemFunctionId#'					
-											</cfquery>	
-											
+											</cfquery>												
 																						
 											<cfif CheckLogging.recordCount gt 0>
 												<button type="button" class="button3" onClick="logging('#systemFunctionId#','')">    						 

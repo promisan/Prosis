@@ -2,7 +2,7 @@
 <!--- Create Criteria string for query from data entered thru search form --->
  
 <cf_textareascript>
-<cfajaximport tags="CFFORM,cfwindow,cfdiv,cfinput-autosuggest">
+<cfajaximport tags="CFFORM,cfdiv">
 <cf_calendarscript>
 <cf_entityScript>
 

@@ -44,7 +44,9 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				UPDATE userTransaction.dbo.FinalProduct_#session.acc#
-				SET Quantity = '#getDefault.quantity#', Price = '#getDefault.Price#', Memo = '#getDefault.Memo#'			
+				SET    Quantity   = '#getDefault.quantity#', 
+				       Price      = '#getDefault.Price#', 
+					   Memo       = '#getDefault.Memo#'			
 				WHERE  WorkOrderItemid   = '#url.workorderItemId#'			
 		</cfquery>	
 		

@@ -33,8 +33,6 @@
 
 <cf_screentop html="no" jquery="Yes" layout="webapp" label="Request for user access">
 
-<cfajaximport tags="cfwindow">
-
 <cfset showRoleSection  = 1>
 <cfset showGroupSection = 1>
 <cfset showPortalSection= 1>
@@ -158,7 +156,7 @@
 		
 			<tr>
 				<td height="1" align="center">
-					<cfdiv id="status" bind="url:getActionStatus.cfm?ajaxid=#url.drillid#">
+					<cf_securediv id="status" bind="url:getActionStatus.cfm?ajaxid=#url.drillid#">
 				</td>
 			</tr>
 			<tr><td height="1" class="linedotted"></td></tr>
@@ -546,7 +544,7 @@
 											
 										<cfelse>										
 																				
-											<cfdiv bind="url:AccessRequestGroup.cfm?mode=view&requestid=#requestid#&mission=#request.Mission#&application=#request.Application#" id="igroup">
+											<cf_securediv bind="url:AccessRequestGroup.cfm?mode=view&requestid=#requestid#&mission=#request.Mission#&application=#request.Application#" id="igroup">
 											
 										</cfif>
 
@@ -589,7 +587,7 @@
 								<tr id="rowPortal" class="show">									
 									<td colspan="5" style="padding-left:20px;padding-right:20px">
 										<cfoutput>
-										    <cfdiv bind="url:AccessRequestPortal.cfm?mode=#url.mode#&requestid=#RequestId#" id="iportal">
+										    <cf_securediv bind="url:AccessRequestPortal.cfm?mode=#url.mode#&requestid=#RequestId#" id="iportal">
 										</cfoutput>
 									</td>									
 								</tr>
@@ -645,7 +643,7 @@
 										<cfif url.mode neq "view">
 											<cfdiv id="irole">
 										<cfelse>
-											<cfdiv bind="url:AccessRequestRole.cfm?mode=view&requestid=#requestid#&application=#request.application#" id="irole">
+											<cf_securediv bind="url:AccessRequestRole.cfm?mode=view&requestid=#requestid#&application=#request.application#" id="irole">
 										</cfif>
 									</td>									
 								</tr>

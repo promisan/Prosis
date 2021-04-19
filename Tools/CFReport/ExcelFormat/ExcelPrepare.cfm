@@ -1,4 +1,4 @@
-<cf_screentop html="no">
+<cf_screentop jquery="Yes" html="no">
 
 <!----- JM: Added on 02/02/2010 for Evelyn's purpose ------>
 <cfsetting requesttimeout="1000">
@@ -235,7 +235,6 @@
 	
 </cfif>
 
-
 <!--- ----------------------- --->
 <!--- generate the excel file --->
 <!--- ----------------------- --->
@@ -276,7 +275,6 @@
 	   returnvariable   = "excel">	
 
 
-
 <cfelse>
 
 	<cfset batch = 1>
@@ -314,9 +312,9 @@
 			// document.getElementById('menu2').click()			  
 			<!--- open the excel file --->
 			<cfif batch eq 0>
-				window.open("#SESSION.root#/cfrstage/user/#URL.acc#/#FileName#_Preview.xls?ts=#ts#","_blank") 
+				ptoken.open("#SESSION.root#/cfrstage/user/#URL.acc#/#FileName#_Preview.xls?ts=#ts#","_blank") 
 			<cfelse>
-				window.open("#SESSION.root#/cfrstage/user/#URL.acc#/#FileName#.xls?ts=#ts#","_blank") 
+				ptoken.open("#SESSION.root#/cfrstage/user/#URL.acc#/#FileName#.xls?ts=#ts#","_blank") 
 			</cfif>
 			
 			<!--- show menu --->
@@ -330,7 +328,7 @@
 		<cfoutput>
 		<script language="JavaScript">			
 			ProsisUI.createWindow('maildialog', 'Mail Excel', '',{x:100,y:100,height:665,width:890,resizable:false,modal:true,center:true});
-			ColdFusion.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.xls&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
+			ptoken.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.xls&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
 	    	//	window.open("#SESSION.root#/Tools/Mail/Mail.cfm?ID1=Extracts&ID2=#FileName#.xls&Source=ReportExcel&Sourceid=#URL.ID#&Mode=Full&GUI=HTML","excelframe")
 		</script>	
 		</cfoutput>		
@@ -340,7 +338,7 @@
 		<cfoutput>
 		<script language="JavaScript">		   
 		   ProsisUI.createWindow('maildialog', 'Mail Excel', '',{x:100,y:100,height:665,width:890,resizable:false,modal:true,center:true});
-		   ColdFusion.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.xls&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
+		   ptoken.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.xls&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
 			// window.open("#SESSION.root#/Tools/Mail/Mail.cfm?ID1=Extracts&ID2=#FileName#.xls&Source=ReportExcel&Sourceid=#URL.ID#&Mode=Dialog&GUI=HTML","excelframe")
 		</script>	
 		</cfoutput>	
@@ -348,7 +346,5 @@
 	</cfif>
 
 </cfif>
-				
-</body>
-</html>
+	
 

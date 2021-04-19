@@ -1,6 +1,6 @@
 
 
-<cfajaximport tags="cfwindow,cfdiv,cfform,cfinput-datefield">
+<cfajaximport tags="cfdiv,cfform">
 <cf_calendarscript>
 
 <script>

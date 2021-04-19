@@ -1,8 +1,6 @@
 
 <cfparam name="client.height" default="900">
 
-<cfajaximport tags="cfwindow">
-
 <cfoutput>
 
 	<script>
@@ -90,19 +88,19 @@
 	
 	// to be disabled 2/10/2015
 				
-	function selectorgsinglemission(formname, fldorgunit, fldorgunitcode,fldmission,fldorgunitname,fldorgunitclass,role,mission,orgtype)	{
-		ret = window.showModalDialog(root + "/System/Organization/Application/OrganizationSearch.cfm?singleMission=1&Mission=" + mission + "&OrgType=" + orgtype + "&FormName=" + formname + "&fldorgunit= " + fldorgunit + "&fldorgunitcode=" + fldorgunitcode + "&fldmission=" + fldmission + "&fldorgunitname=" + fldorgunitname + "&fldorgunitclass=" + fldorgunitclass + "&role=" + role + "&ts="+new Date().getTime(), window, "unadorned:yes; edge:raised; status:yes; dialogHeight:600px; dialogWidth:600px; help:no; scroll:no; center:yes; resizable:no");
-		if (ret) {
-			if (ret != 1) {
-				val = String(ret).split(";");
-				document.getElementById(fldorgunit).value      = val[0];
-				document.getElementById(fldorgunitcode).value  = val[1];
-				document.getElementById(fldmission).value      = val[2];		
-				document.getElementById(fldorgunitname).value  = val[3];
-				document.getElementById(fldorgunitclass).value = val[4];													
-			}
-		}	
-	}
+	// function selectorgsinglemission(formname, fldorgunit, fldorgunitcode,fldmission,fldorgunitname,fldorgunitclass,role,mission,orgtype)	{
+	//	ret = window.showModalDialog(root + "/System/Organization/Application/OrganizationSearch.cfm?singleMission=1&Mission=" + mission + "&OrgType=" + orgtype + "&FormName=" + formname + "&fldorgunit= " + fldorgunit + "&fldorgunitcode=" + fldorgunitcode + "&fldmission=" + fldmission + "&fldorgunitname=" + fldorgunitname + "&fldorgunitclass=" + fldorgunitclass + "&role=" + role + "&ts="+new Date().getTime(), window, "unadorned:yes; edge:raised; status:yes; dialogHeight:600px; dialogWidth:600px; help:no; scroll:no; center:yes; resizable:no");
+	//	if (ret) {
+	//		if (ret != 1) {
+	//			val = String(ret).split(";");
+	//			document.getElementById(fldorgunit).value      = val[0];
+	//			document.getElementById(fldorgunitcode).value  = val[1];
+	//			document.getElementById(fldmission).value      = val[2];		
+	//			document.getElementById(fldorgunitname).value  = val[3];
+	//			document.getElementById(fldorgunitclass).value = val[4];													
+	//		}
+	//	}	
+	// }
 			
 	function selectorgmis(formname,fldorgunit,fldorgunitcode,fldmission,fldorgunitname,fldorgunitclass,mission,mandate,effective) {
 	
@@ -124,10 +122,9 @@
 		
 	}	
 			
-	function selectlocation(formname, fldlocationcode, fldlocationname, mission,id) {
-			         
-		try { ColdFusion.Window.destroy('mylocation',true) } catch(e) {}
-		ColdFusion.Window.create('mylocation', 'Location', '',{x:100,y:100,height:document.body.clientHeight-80,width:900,modal:false,resizable:false,center:true})    						
+	function selectlocation(formname, fldlocationcode, fldlocationname, mission,id) {	        
+		
+		ProsisUI.createWindow('mylocation', 'Location', '',{x:100,y:100,height:document.body.clientHeight-80,width:900,modal:false,resizable:false,center:true})    						
 		ptoken.navigate(root + '/Staffing/Application/Location/Lookup/LocationView.cfm?id='+ id + '&FormName=' + formname + '&fldlocationcode=' + fldlocationcode + '&fldlocationname=' + fldlocationname + '&mission=' + mission,'mylocation') 		
 		
 	}

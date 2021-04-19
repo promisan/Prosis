@@ -9,7 +9,7 @@
 
 <cfinclude template="../Dependents/EmployeeDependentScript.cfm">
 
-<cfajaximport tags="cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 
 <cfparam name="client.entitlementstatus" default="1">
 <cfparam name="URL.Status" default="#client.entitlementstatus#">
@@ -237,8 +237,8 @@ password="#SESSION.dbpw#">
 	
 	<tr>
 	
-	<td style="padding-left:20px" colspan="3">	
-	    <table style="border:0px solid silver; background-color:f1f1f1">
+	<td style="padding-left:10px" colspan="3">	
+	    <table style="height:50px;padding:5px;border:1px solid silver; background-color:BFECFB">
 		<tr class="labelmedium">		
 		<td style="padding-left:4px"><INPUT type="radio" name="Status" class="radiol" value="1" onClick="reloadForm('1')" <cfif URL.Status eq "1">checked</cfif>></td>
 		<td style="padding-left:3px" onClick="reloadForm('1')"><cfif URL.Status eq "1"></cfif><cf_tl id="Valid">: #dateformat(now(),client.dateformatshow)#</td>
@@ -251,7 +251,7 @@ password="#SESSION.dbpw#">
 		<td style="padding-left:3px" onClick="reloadForm('9')"><font color="FF0000"><cfif URL.Status eq "2"></cfif><cf_tl id="Cancelled"></td>
 		<td style="padding-left:10px">|</td>
 		<td style="padding-left:10px"><INPUT type="radio" name="Status" class="radiol" value="5" onClick="reloadForm('5')" <cfif URL.Status eq "5">checked</cfif>></td>
-		<td style="padding-left:3px;padding-right:5px" onClick="reloadForm('5')"><cfif URL.Status eq "2"></cfif><cf_tl id="All"></td>
+		<td style="padding-left:3px;padding-right:15px" onClick="reloadForm('5')"><cfif URL.Status eq "2"></cfif><cf_tl id="All"></td>
 		</tr>
 		</table>
 	</td>
@@ -266,8 +266,8 @@ password="#SESSION.dbpw#">
 		
 		<table>
 		<tr>
-			<td><input type="button" value="#vGeneric#"  style="width:220px;height:26px;font-size:15px" class="button10g" onClick="entitlementtrigger('#URL.ID#','#URL.ID1#')"></td>
-			<td style="padding-left:4px;padding-right:9px"><input type="button" style="width:230px;height:26px;font-size:15px" value="#vIndividual#" class="button10g" onClick="entitlement('#URL.ID#','#URL.ID1#')"></td>
+			<td><input type="button" value="#vGeneric#"  style="width:230px;border:1px solid gray;height:29px;font-size:15px" class="button10g" onClick="entitlementtrigger('#URL.ID#','#URL.ID1#')"></td>
+			<td style="padding-left:4px;padding-right:9px"><input type="button" style="width:230px;;border:1px solid gray;height:29px;font-size:15px" value="#vIndividual#" class="button10g" onClick="entitlement('#URL.ID#','#URL.ID1#')"></td>
 		</tr>
 		</table>
 	
@@ -312,7 +312,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Search" group="EntitlementClass">
 
-<tr class="line fixrow">
+<tr class="line fixrow2">
 <td colspan="13" class="labelmedium" style="background-color:white;height:47px;padding-left:0px;font-size:21px">
 	<cfif EntitlementClass eq "Rate"><cf_tl id="Rate based">
 	<cfelseif EntitlementClass eq "Percentage"><cf_tl id="Percentage based">

@@ -62,19 +62,23 @@
 													
 				 <cfelse>	
 				 
+				    <!--- was too slow
 				 	<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg")>
 					<cfimage source="#myImage#" width="114" height="#url.pictureheight#" action="writeToBrowser">
-				 
-				 <!---
-			  	    <img src="#SESSION.rootDocument#\EmployeePhoto\#pict#.jpg?id=#rowguid#" 
-						 title="Picture" name="EmployeePhoto"  
-						 id="EmployeePhoto" 
-						 width="130" 
-						 height="#url.PictureHeight#" 
-						 align="absmiddle">
-						 
-						 --->
-
+					--->
+					
+					 
+				    <cffile action="COPY" 
+					    source="#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg" 
+		  		    	destination="#SESSION.rootPath#\CFRStage\EmployeePhoto\#pict#.jpg" nameconflict="OVERWRITE">
+					
+				     <img src="#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg?id=#rowguid#" 
+						 title  = "Picture" 
+						 name   = "EmployeePhoto"  
+						 id     = "EmployeePhoto" 
+						 width  = "114" 
+						 height = "#url.PictureHeight#" 
+						 align  = "absmiddle">						
 						 
 				 </cfif>
 		 

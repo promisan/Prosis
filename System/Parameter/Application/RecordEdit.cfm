@@ -1,7 +1,4 @@
 
-<cfajaximport tags="cfwindow">
-
-
 
 <!--- Entry form --->
 	

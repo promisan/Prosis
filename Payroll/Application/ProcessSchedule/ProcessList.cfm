@@ -247,7 +247,8 @@ password="#SESSION.dbpw#">
 				
 		<tr class="labelmedium2 fixrow2">
 					
-		     <td style="background-color:ffffff;padding-top:5px;height:40px;font-size:25px;padding-left:4px;font-weight:bold" valign="top" class="labelmedium" colspan="2">
+		     <td style="background-color:ffffff;padding-top:5px;height:40px;font-size:25px;padding-left:4px;font-weight:bold" 
+			   valign="top" class="labelmedium" colspan="2">
 			   <a href="javascript:scheduleedit('#SalarySchedule#')"><font color="black">#Description# 
 			   <cfif dateExpiration neq ""><font size="2" color="FF0000"><cf_tl id="Expiry">: #dateFormat(DateExpiration,client.dateformatShow)#</font></cfif>
 			   </a>
@@ -261,7 +262,7 @@ password="#SESSION.dbpw#">
 			 
 			 <cfif Last.FirstAction neq "" and PayrollStart gt Last.FirstAction>
 			 
-			  <td align="right" valign="bottom" colspan="2" style="padding-bottom:3px;cursor:pointer" onclick="$('###SalarySchedule#_recalculation').toggle()">
+			  <td align="right" colspan="2" style="padding-bottom:3px;cursor:pointer" onclick="$('###SalarySchedule#_recalculation').toggle()">
 				 	<cf_tl id="Recommended recalculation">:<font color="FF0000"> <b>#dateFormat(Pending.FirstAction,'MMMM YYYY')#</b>						
 			 </td>
 			 
@@ -363,7 +364,7 @@ password="#SESSION.dbpw#">
 														
 						<TR id="#SalarySchedule#" name="#name#" class="#show# navigation_row" style="height:20px;border-bottom:1px solid silver;"> 
 																			   							  
-							   <TD class="labelmedium2" style="font-size:15px;padding-left:6px;width:100%;min-width:200px">
+							   <TD class="labelmedium2" style="font-size:15px;padding-left:26px;width:100%;min-width:200px">
 							   
 								   <cfif CalculationStatus gte "1"><font color="black"><cfelse><font color="red"></cfif>#dateformat(PayrollStart, "MMMM")#
 								   #dateformat(PayrollStart, "YYYY")#</font>
@@ -759,13 +760,14 @@ password="#SESSION.dbpw#">
 										
 									<cfset show = "hide">		
 																		
-									<tr>
+									<tr id="detail#CalculationId#" name="detail#CalculationId#" 
+											  style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;" 
+											  class="#show#" bgcolor="<cfif calculationstatus eq "3">e4e4e4<cfelse>eaeaea</cfif>">
 										<td colspan="6">									
 																		
 										<table width="100%">		
 																 
-											<TR id="detail#CalculationId#" name="detail#CalculationId#" style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;" 
-											class="#show#" bgcolor="<cfif calculationstatus eq "3">e4e4e4<cfelse>eaeaea</cfif>"> 
+											<TR> 
 											   
 											   <td colspan="2" style="border:0px solid silver;padding:2px"></td>			    
 											   <td class="labelmedium2" style="padding:2px">
@@ -948,8 +950,7 @@ password="#SESSION.dbpw#">
 										
 									</table>
 																	
-									</td>
-									
+									</td>								
 									
 								</tr>
 																				

@@ -20,7 +20,6 @@
 </cfquery>
 
 
-
 <cf_tl id= "Apply financial discount #get.TransactionCategory#" var="label">
 
 <cf_screentop height="100%" layout="webapp" scroll="Yes" label="#label#" jquery="Yes">
@@ -72,38 +71,38 @@
 		
 		<cfoutput>
 		
-		<tr class="labelmedium">
+		<tr class="labelmedium2">
 		    <td style="width:20%;padding-left:10px"><cf_tl id="Transaction No">:</td>
 			<td>#url.journal# - #url.journalserialNo#</td>	
 		</tr>
 		
-		<tr class="labelmedium">
-		    <td style="padding-left:10px"><cf_tl id="Customer">:</td>
+		<tr class="labelmedium2">
+		    <td style="padding-left:10px"><cf_tl id="Relation">:</td>
 			<td>#get.ReferenceName#</td>	
 		</tr>
 		
-		<tr class="labelmedium">
+		<tr class="labelmedium2">
 		    <td style="padding-left:10px"><cf_tl id="Date">:</td>
 			<td>#dateformat(get.DocumentDate,client.dateformatshow)#</td>	
 		</tr>
 		
 		<cfif get.documentAmount neq get.amount>
 		
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			    <td style="padding-left:10px"><cf_tl id="Document">:</td>
 				<td>#get.DocumentCurrency# #numberformat(get.DocumentAmount,'.,__')#</td>	
 			</tr>
 		
 		</cfif>
 		
-		<tr class="labelmedium">
+		<tr class="labelmedium2">
 		    <td style="padding-left:10px"><cf_tl id="Amount">:</td>
 			<td>#get.Currency# #numberformat(get.Amount,'.,__')#</td>	
 		</tr>
 		
-		<tr class="labelmedium">
+		<tr class="labelmedium2">
 		    <td style="padding-left:10px"><cf_tl id="Outstanding">:</td>
-			<td><b>#get.Currency# #numberformat(get.AmountOutstanding,'.,__')#</td>	
+			<td style="font-size:20px;color:red"><b>#get.Currency# #numberformat(get.AmountOutstanding,'.,__')#</td>	
 		</tr>
 		
 		</cfoutput>
@@ -148,9 +147,9 @@
 		    <td style="padding-left:10px"><cf_tl id="Journal">:</td>
 			<td>
 			
-			     <select name="journal" id="journal" class="regularxl enterastab">		     		      
+			     <select name="journal" id="journal" class="regularxxl enterastab">		     		      
 			            <cfoutput query="Journal">
-			        	<option value="#Journal#">
+			        	<option value="#Journal#" <cfif journal eq url.journal>selected</cfif>>
 			           		#Journal# #Description#
 						</option>
 			         	</cfoutput>			
@@ -177,7 +176,7 @@
 			<td>
 			
 			   <cfoutput>
-			    <input type="text" name="Reference" class="regularxl enterastab" value="#get.Reference#" style="width:160" maxlength="20">	
+			    <input type="text" name="Reference" class="regularxxl enterastab" value="#get.Reference#" style="width:160" maxlength="20">	
 			   </cfoutput>	
 			   
 			</td>	
@@ -198,7 +197,7 @@
 			<TD style="padding-left:10px" class="labelmedium"><cf_tl id="Fiscal Period">:</TD>			 	 	  			  
 		    <td colspan="1">
 						  					  		  
-			    <select name="accountperiod" id="accountperiod" class="regularxl enterastab">
+			    <select name="accountperiod" id="accountperiod" class="regularxxl enterastab">
 					 
 		            <cfoutput query="Period">
 		        	   <option value="#AccountPeriod#" <cfif AccountPeriod is get.AccountPeriod>selected</cfif>>
@@ -221,7 +220,7 @@
 			
 			    <cf_intelliCalendarDate9
 						      FieldName="TransactionDate" 			 
-							  class="regularxl enterastab"			  
+							  class="regularxxl enterastab"			  
 						      Default="#Dateformat(now(), CLIENT.DateFormatShow)#">
 			
 			</td>	
@@ -245,8 +244,8 @@
 				   id="discountamount"
 			       value="<cfoutput>#amt#</cfoutput>"
 			       size="10"
-			       class="regularxl enterastab"
-				   style="width:120;padding-top:1px;text-align: right;padding-right:4px;height:35px;font-size:25px">
+			       class="regularxxl enterastab"
+				   style="width:120;padding-top:1px;text-align: right;padding-right:4px;height:30px;font-size:20px">
 				   
 				  </td>
 				  <td style="padding-left:4px"><cfoutput>#get.Currency#</cfoutput></td>
@@ -260,8 +259,8 @@
 			<td>
 			
 			  <cfoutput>
-			    <input type="text" name="ActionReference1" class="regularxl enterastab" style="width:40"  maxlength="5">	
-			    <input type="text" name="ActionReference2" class="regularxl enterastab" style="width:100" maxlength="20">	
+			    <input type="text" name="ActionReference1" class="regularxxl enterastab" style="width:40"  maxlength="5">	
+			    <input type="text" name="ActionReference2" class="regularxxl enterastab" style="width:100" maxlength="20">	
 			   </cfoutput>	
 			
 			</td>	
@@ -272,7 +271,7 @@
 			<td>
 			
 			  <cfoutput>
-			    <input type="text" name="Description" class="regularxl enterastab" style="width:90%" maxlength="200">	
+			    <input type="text" name="Description" class="regularxxl enterastab" style="width:90%" maxlength="200">	
 			   </cfoutput>	
 			
 			</td>	
@@ -288,7 +287,7 @@
 			  
 	   		   <cf_tl id="Apply discount" var="1">
 			   
-		       <input type="button" id="submit" style="width:260;font-size:13px" value="#lt_text#" 
+		       <input type="button" id="submit" style="width:260px;font-size:13px" value="#lt_text#" 
 			       class="button10g" 
 				   onClick="Prosis.busy('yes');apply()">			   
 			  				   

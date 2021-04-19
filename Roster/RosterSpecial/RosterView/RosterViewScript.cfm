@@ -28,14 +28,13 @@ function reloadPosition(pos, edition){
 }
 
 function editeditionposition(pos,edition,idmenu) {
-	
-	try { ColdFusion.Window.destroy('EditEditionPosition',true) } catch(e) {}
-	ColdFusion.Window.create('EditEditionPosition', 'Edit title', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true,resizable:false});	    						
+		
+	ProsisUI.createWindow('EditEditionPosition', 'Edit title', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true,resizable:false});	    						
 	ptoken.navigate("#SESSION.root#/Roster/Maintenance/RosterEdition/Position/PositionEditionView.cfm?idmenu="+idmenu+"&positionno="+pos+"&submissionedition="+edition,"EditEditionPosition")	
 }
 
 function referenceapply(edition,mission,grade) {
-	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Position/setReference.cfm?op=update&id='+edition+'&mission='+mission+'&grade='+grade,'dresult','', '','POST','fReferences'); 	
+	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Position/setReference.cfm?op=update&id='+edition+'&mission='+mission+'&grade='+grade,'dresult','', '','POST','fReferences'); 	
 }	
 
 function broadcast(edition,mode) {
@@ -44,7 +43,7 @@ function broadcast(edition,mode) {
 
 function processfunction(functionno,edition,position) {
    _cf_loadingtexthtml="";	
-   ColdFusion.navigate('#session.root#/Roster/Maintenance/RosterEdition/Position/setFunction.cfm?functionno='+functionno+'&submissionedition='+edition+'&positionno='+position,'title'+position)  
+   ptoken.navigate('#session.root#/Roster/Maintenance/RosterEdition/Position/setFunction.cfm?functionno='+functionno+'&submissionedition='+edition+'&positionno='+position,'title'+position)  
    _cf_loadingtexthtml="<div><img src='#SESSION.root#/images/busy11.gif'/>";					
 }
 
@@ -83,18 +82,18 @@ function doVerify() {
            wait:true,
            waitConfig: {interval:300}
        });		
-  	ColdFusion.navigate('#SESSION.root#/Tools/Mail/Broadcast/BroadCastEditionVerification.cfm?submissionedition='+ID+'&sourcepath='+P,'dresult',doPublish);
+  	ptoken.navigate('#SESSION.root#/Tools/Mail/Broadcast/BroadCastEditionVerification.cfm?submissionedition='+ID+'&sourcepath='+P,'dresult',doPublish);
 }
 
 function referencereset(id) {
 	var r=confirm("Do you want to remove all assigned Job references in order to assign these again ?");
 	if (r==true) {
-	 	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Position/setReference.cfm?op=remove&id='+id, 'dresult');
+	 	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Position/setReference.cfm?op=remove&id='+id, 'dresult');
 	}
 }
 
 function recipient(op,id,org) {
- 	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetailSet.cfm?op='+op+'&id='+id+'&org='+org, 'recipientprocess');
+ 	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetailSet.cfm?op='+op+'&id='+id+'&org='+org, 'recipientprocess');
 }
 
 function togglePublishMode(edition,positionNo){
@@ -111,7 +110,7 @@ function togglePublishMode(edition,positionNo){
 		img.src = '#client.root#/images/light_green1.gif';
 		img.title = 'Disable';
 	}	
-	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Position/setPublishMode.cfm?submissionedition='+edition+'&positionno='+positionNo+'&publishmode='+mode.value, 'dresult');
+	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Position/setPublishMode.cfm?submissionedition='+edition+'&positionno='+positionNo+'&publishmode='+mode.value, 'dresult');
 	
 }
 
@@ -120,7 +119,7 @@ function recipientremoveall(id) {
 		var id = $(this).attr('id');
 		$(this).attr('checked',false); }
 	);			
- 	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetailSet.cfm?op=removeall&id='+id, 'recipients');		
+ 	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetailSet.cfm?op=removeall&id='+id, 'recipients');		
 	$('##lrecipients').html('<b>Recipients (0)</b>');
 }
 
@@ -129,11 +128,11 @@ function recipientselectall(id) {
 		var id = $(this).attr('id');
 		$(this).attr('checked',true); }
 	);			
- 	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetailSet.cfm?op=selectall&id='+id, 'recipients');	
+ 	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetailSet.cfm?op=selectall&id='+id, 'recipients');	
 }
 
 function recipienttype(op,id,at) {
- 	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientAddressTypeSet.cfm?op='+op+'&id='+id+'&at='+at, 'types');
+ 	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientAddressTypeSet.cfm?op='+op+'&id='+id+'&at='+at, 'types');
 }
 
 function reloadAddressDetail(edition){
@@ -181,7 +180,7 @@ function search(tpe) {
 	else
 		{op ="0"}
 	srt  = document.getElementById("sorting");	
-	ColdFusion.navigate('RosterViewDetail.cfm?edition=#URL.Edition#&inquiry=#URL.Inquiry#&owner=#URL.Owner#&Status=#URL.Status#&occ=more&search=1&fld=' + fld.value + '&opt=' + op + '&tpe=' + tpe + '&sort=' + srt, 'imore')
+	ptoken.navigate('RosterViewDetail.cfm?edition=#URL.Edition#&inquiry=#URL.Inquiry#&owner=#URL.Owner#&Status=#URL.Status#&occ=more&search=1&fld=' + fld.value + '&opt=' + op + '&tpe=' + tpe + '&sort=' + srt, 'imore')
 	}
 	
  }
@@ -213,7 +212,7 @@ function listing(occ,act,mode,filter,level,line,cell,ecl) {
 		 icM.className = "regular";
 	     icE.className = "hide"; } catch(e) {}
     	 se.className  = "regular";
-		 ColdFusion.navigate('RosterViewDetail.cfm?edition=#URL.Edition#&inquiry=#URL.Inquiry#&owner=#URL.Owner#&status=#URL.Status#&ExerciseClass=' + ecl + '&occ=' + occ + '&mode=' + mode + '&filter=' + filter + '&level=' + level + '&line=' + line , 'i'+occ)
+		 ptoken.navigate('RosterViewDetail.cfm?edition=#URL.Edition#&inquiry=#URL.Inquiry#&owner=#URL.Owner#&status=#URL.Status#&ExerciseClass=' + ecl + '&occ=' + occ + '&mode=' + mode + '&filter=' + filter + '&level=' + level + '&line=' + line , 'i'+occ)
 		
 	 } else {	 	
 		 try {	    
@@ -340,14 +339,12 @@ function retire(id,no,occ,mode,filter,level,line) {
 		}
 	}
 	
-function recordadd(occ,act,mode,filter,level,line,cell,edit,edition) {
- 		
+function recordadd(occ,act,mode,filter,level,line,cell,edit,edition) { 		
 	ProsisUI.createWindow('myfunction', 'Bucket', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    
 	ptoken.navigate('#SESSION.root#/Staffing/Application/Function/Lookup/FunctionView.cfm?edition='+edition+'&occ='+occ+'&owner=#URL.Owner#&mode=Bucket','myfunction') 	   
 }	
 
-function Selected(no,description) {				
-		
+function Selected(no,description) {			
     ptoken.navigate('#SESSION.root#/roster/RosterSpecial/Bucket/BucketAddView.cfm?FunctionNo='+no+'&owner=#url.owner#&edition=','rightme')						
 	
 }

@@ -24,8 +24,6 @@ password="#SESSION.dbpw#">
  <cfset lbl = Line.Functionname>
 </cfif>
 
-<cfajaximport tags="cfwindow">
-
 <cf_screenTop height="100%" 
 			  label="#lbl#" 
 			  band="No" 
@@ -56,7 +54,6 @@ password="#SESSION.dbpw#">
 <cf_menuscript>
 
 <cfparam name="Status" default="1">
-
 
 <cfif master eq "1">
 	

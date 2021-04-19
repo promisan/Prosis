@@ -104,9 +104,7 @@ password="#SESSION.dbpw#">
 	     				field       = "Description",																	
 						alias       = "WL",																			
 						search      = "text",
-						filtermode  = "2"}>				
-	
-	
+						filtermode  = "2"}>		
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Delivery" var = "1">				
@@ -198,7 +196,7 @@ password="#SESSION.dbpw#">
 		     				field       = "ReceiptAmount",					
 							align       = "right",
 							alias       = "",					
-							formatted   = "numberformat(ReceiptAmount,'__,__.__')",														
+							formatted   = "numberformat(ReceiptAmount,',.__')",														
 							search      = ""}>	
 						
 	</cfif>																																		

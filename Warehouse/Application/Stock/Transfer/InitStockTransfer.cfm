@@ -132,13 +132,15 @@
 					  '0' as Detail
 					  
 			FROM      ItemTransaction T 
-					  INNER JOIN Item I ON T.ItemNo = I.ItemNo 
-					  INNER JOIN ItemUoM U ON T.ItemNo = U.ItemNo and T.TransactionUoM = U.UoM
+					  INNER JOIN Item I               ON T.ItemNo = I.ItemNo 
+					  INNER JOIN ItemUoM U            ON T.ItemNo = U.ItemNo and T.TransactionUoM = U.UoM
 					  INNER JOIN WarehouseLocation WL ON WL.Warehouse = T.Warehouse and WL.Location = T.Location
-					  INNER JOIN Ref_Category C ON I.Category = C.Category 
+					  INNER JOIN Ref_Category C       ON I.Category = C.Category 
 		    
 			WHERE     T.Mission      = '#URL.Mission#' 	
 			AND       T.Warehouse    = '#URL.Warehouse#'
+			<!--- free stock only --->
+			AND       T.workorderid is NULL
 			AND       WL.Operational = 1
 			AND       T.ActionStatus !='9'
 			
@@ -160,7 +162,7 @@
 			                     SELECT    R.ItemNo
 								 FROM      RequestTask TA INNER JOIN Request R ON TA.RequestId = R.RequestId
 								 WHERE     TA.StockOrderId = '#url.stockorderid#'
-								 AND       R.UoM = T.TransactionUoM
+								 AND       R.UoM           = T.TransactionUoM
 								 )
 					
 			</cfif>
@@ -222,19 +224,18 @@
 					  '0' as Detail
 					  
 			FROM      ItemTransaction T 
-					  INNER JOIN Item I ON T.ItemNo = I.ItemNo 
-					  INNER JOIN ItemUoM U ON T.ItemNo = U.ItemNo and T.TransactionUoM = U.UoM
+					  INNER JOIN Item I               ON T.ItemNo     = I.ItemNo 
+					  INNER JOIN ItemUoM U            ON T.ItemNo     = U.ItemNo and T.TransactionUoM = U.UoM
 					  INNER JOIN WarehouseLocation WL ON WL.Warehouse = T.Warehouse and WL.Location = T.Location
-					  INNER JOIN Ref_Category C ON I.Category = C.Category 
+					  INNER JOIN Ref_Category C       ON I.Category   = C.Category 
 		    
-			WHERE     T.Mission      = '#URL.Mission#' 	
-			AND       T.Warehouse    = '#URL.Warehouse#'
-			AND       WL.Operational = 1
-			AND       T.ActionStatus !='9'
+			WHERE     T.Mission       = '#URL.Mission#' 	
+			AND       T.Warehouse     = '#URL.Warehouse#'
+			AND       WL.Operational  = 1
+			AND       T.ActionStatus != '9'
 			
 			<!--- exclude in case the mode is not stock for individual items --->
-			AND       C.StockControlMode = 'Individual'
-			
+			AND       C.StockControlMode = 'Individual'			
 									
 			<cfif url.loc neq "" and url.stockorderid eq "">
 				
@@ -258,6 +259,10 @@
 				
 			<!--- added condition for receipt --->	
 			AND      I.ItemClass = 'Supply'	
+			
+			<!--- free stock only 14/4/2021 --->
+			AND      T.workorderid is NULL
+			
 			
 			AND      T.TransactionIdOrigin is NULL		
 									  
@@ -396,8 +401,7 @@
 				 
 			FROM  ( #preservesinglequotes(getSourceIndividual)# ) S
 					  
-		</cfquery>
-		
+		</cfquery>		
 			
 	<!--- grouping records --->
 	
@@ -413,20 +417,20 @@
 		password="#SESSION.dbpw#">
 		
 			INSERT INTO userTransaction.dbo.Transfer#URL.Warehouse#_#SESSION.acc#
-			          (Location,Detail)
+			         (Location,Detail)
+					 
 			SELECT   DISTINCT T.Location,'1'
 			FROM     ItemTransaction T INNER JOIN Item I ON T.ItemNo = I.ItemNo
 		    WHERE    T.Mission     = '#URL.Mission#' 
 			AND      T.Warehouse   = '#URL.Warehouse#'
 			
 			<cfif URL.Loc neq "" and url.stockorderid eq "">
-			AND   T.Location = '#URL.Loc#'
+			AND      T.Location = '#URL.Loc#'
 			<cfelseif url.stockorderid neq "">
-			AND   T.Location <> (SELECT Location FROM TaskOrder WHERE StockOrderId = '#url.stockorderid#')
+			AND      T.Location <> (SELECT Location FROM TaskOrder WHERE StockOrderId = '#url.stockorderid#')
 			</cfif>
 			
-		</cfquery>
-			
+		</cfquery>			
 			
 	 </cfcase>	
 					
@@ -434,7 +438,7 @@
 	
 <cfelse>
 		
-	<!--- update the list with the current values --->
+	<!--- update the list with the current values of the free stock --->
 		
 	<cfquery name="updateStock"
 		datasource="AppsMaterials" 
@@ -453,8 +457,9 @@
 		 AND    T.ItemNo           = S.ItemNo
 		 AND    T.UnitOfMeasure    = S.TransactionUoM
 		 AND    T.TransactionLot   = S.TransactionLot
-		 
-		 AND    S.StockControlMode = 'Stock'		 
+				 
+		 AND    S.StockControlMode = 'Stock'	
+		 	 
 	</cfquery>		
 	
 	<!---
@@ -473,7 +478,7 @@
 		        ( #preservesinglequotes(getSourceIndividual)# ) as S
 				
 		 WHERE  T.TransactionIdOrigin = S.TransactionIdOrigin
-		 
+		 		 		 
 		 AND    S.StockControlMode = 'Individual'			
 	</cfquery>		
 	
@@ -489,13 +494,13 @@
 		password="#SESSION.dbpw#">
 		 DELETE userTransaction.dbo.Transfer#URL.Warehouse#_#SESSION.acc#
 		 WHERE  TransactionId NOT IN (SELECT T.TransactionId
-		 							  FROM  userTransaction.dbo.Transfer#URL.Warehouse#_#SESSION.acc# T,
-							         ( #preservesinglequotes(getSourceStock)# ) as S
-									  WHERE T.Warehouse      = S.Warehouse
-									  AND   T.Location       = S.Location
-									  AND   T.ItemNo         = S.ItemNo
-									  AND   T.UnitOfMeasure  = S.TransactionUoM
-									  AND   T.TransactionLot = S.TransactionLot
+		 							  FROM  userTransaction.dbo.Transfer#URL.Warehouse#_#SESSION.acc# T 
+									  INNER JOIN ( #preservesinglequotes(getSourceStock)# ) as S 
+									  ON    T.Warehouse      = S.Warehouse		
+									     AND   T.Location       = S.Location
+									     AND   T.ItemNo         = S.ItemNo
+									     AND   T.UnitOfMeasure  = S.TransactionUoM
+									     AND   T.TransactionLot = S.TransactionLot
 									 	)
 		 AND   StockControlMode = 'Stock'								
 	</cfquery>	
@@ -511,13 +516,10 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		 DELETE userTransaction.dbo.Transfer#URL.Warehouse#_#SESSION.acc#
-		 WHERE  TransactionId NOT IN (
-		                              SELECT T.TransactionId
+		 WHERE  TransactionId NOT IN (SELECT T.TransactionId
 		 							  FROM   userTransaction.dbo.Transfer#URL.Warehouse#_#SESSION.acc# T,
 									         ( #preservesinglequotes(getSourceIndividual)# ) as S
-									  WHERE  T.TransactionIdOrigin  = S.TransactionIdOrigin
-									  
-									  )
+									  WHERE  T.TransactionIdOrigin  = S.TransactionIdOrigin  )
 		 AND    StockControlMode = 'Individual'								  
 	</cfquery>	
 	

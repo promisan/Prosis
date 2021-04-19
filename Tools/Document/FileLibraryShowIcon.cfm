@@ -3,7 +3,8 @@
 <cfparam name="DocumentServerIsOp" default="0">
 
 <cfoutput>
-					
+
+				
 <cfif FindNoCase(".pdf", "#NameShow#")> 			
 	  <img src="#SESSION.root#/Images/document/pdf.png" height="32" align="absmiddle" alt="Open attachment" border="0" align="center">			  
 

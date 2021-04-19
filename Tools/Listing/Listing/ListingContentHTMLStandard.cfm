@@ -10,10 +10,10 @@
 <cfset agg = session.listingdata[box]['aggregate']>	
 
 <!--- GROUP / PIVOT PRESENTATION --->
-	
+
 <cfif session.listingdata[box]['firstsummary'] gte "3">			   
-   <cfset headercols = pre+session.listingdata[box]['firstsummary']-1>	
-<cfelse>		
+   <cfset headercols = pre+session.listingdata[box]['firstsummary']-3>	   
+<cfelse>  		
    <cfset headercols = cols>		   			   	   		   		
 </cfif>	
 
@@ -27,7 +27,7 @@
 									
 	<cfif currrow gte first and currrow lte last>
 		
-	    <cfif evaluate(url.listgroupfield) neq lst>					
+	    <cfif evaluate(url.listgroupfield) neq lst>						
 		  <cfinclude template="ListingContentHTMLGroupShow.cfm">	
 		  <cfset lst = evaluate(url.listgroupfield)>  						
 		</cfif>

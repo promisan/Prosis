@@ -107,7 +107,8 @@ password="#SESSION.dbpw#">
 					  ItemColor,	   
 					  Reference1,
 					  Reference2,
-					  Reference3,      
+					  Reference3, 
+					  Reference4,     
 			          CommodityCode, 
 			          Operational,
 					  OfficerUserId,
@@ -141,6 +142,7 @@ password="#SESSION.dbpw#">
 					  N'#Form.Reference1#',
 					  N'#Form.Reference2#',
 					  N'#Form.Reference3#',
+					  N'#Form.Reference4#',
 					  <cfif Form.CommodityCode neq "">					        
 			          '#Form.CommodityCode#', 
 					  <cfelse>
@@ -379,7 +381,7 @@ password="#SESSION.dbpw#">
 			   try {
 		    		console.log(document.getElementById('divDetail'));
 		   			if (document.getElementById('divDetail')) {
-						opener.ColdFusion.navigate('ItemSearchResultDetail.cfm?idmenu=#url.idmenu#&fmission=#url.fmission#','divDetail');
+						opener.ptoken.navigate('ItemSearchResultDetail.cfm?idmenu=#url.idmenu#&fmission=#url.fmission#','divDetail');
 					}						
 				} catch(e) {}				
 				
@@ -439,6 +441,7 @@ password="#SESSION.dbpw#">
 			   Reference1			   = N'#Form.Reference1#',
 			   Reference2			   = N'#Form.Reference2#',
 			   Reference3			   = N'#Form.Reference3#',
+			   Reference4			   = N'#Form.Reference4#',
 			   <cfif Form.CommodityCode neq "">		   
 			   CommodityCode           = '#Form.CommodityCode#', 
 			   <cfelse>
@@ -589,7 +592,7 @@ password="#SESSION.dbpw#">
 	    		console.log(document.getElementById('divDetail'));
 	   			if (document.getElementById('divDetail'))
 	   			{
-					opener.ColdFusion.navigate('#SESSION.root#/Warehouse/Maintenance/Item/ItemSearchResultDetail.cfm?idmenu=#url.idmenu#&fmission=#url.fmission#','divDetail');
+					opener.ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/Item/ItemSearchResultDetail.cfm?idmenu=#url.idmenu#&fmission=#url.fmission#','divDetail');
 				}						
 			} catch(e) {}
 		</script>
@@ -650,7 +653,7 @@ password="#SESSION.dbpw#">
 		    try {
 		    	console.log(document.getElementById('divDetail'));
 	    		if (document.getElementById('divDetail')) {
-	    			parent.opener.ColdFusion.navigate('#SESSION.root#/Warehouse/Maintenance/Item/ItemSearchResultDetail.cfm?idmenu=#url.idmenu#&fmission=#url.fmission#','divDetail');
+	    			parent.opener.ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/Item/ItemSearchResultDetail.cfm?idmenu=#url.idmenu#&fmission=#url.fmission#','divDetail');
 	    		}	
 			} catch(e) {}
 		</script> 

@@ -22,7 +22,7 @@
 	<cfset url.mandate = getMandate.mandateNo>
 	
 	<cf_calendarviewscript>
-	<cfajaximport tags="cfwindow,cfform,cfinput-datefield">
+	<cfajaximport tags="cfform">
 	<cfinclude template="PlanningViewScript.cfm">
 	
 	<cfinclude template="PlanningView.cfm">

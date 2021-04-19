@@ -8,16 +8,16 @@ it has replica directories in exactly the directories pointed out in the control
 --->
 
 <!--- general menu--->
-<cfset heading = "System Support Object Library">
-<cfset module = "'AdminConfig'">
-<cfset selection = "'Library'">
-<cfset class = "'Main'">
-<cfinclude template="../../Tools/Submenu.cfm">
+<cfset heading      = "System Support Object Library">
+<cfset module       = "'AdminConfig'">
+<cfset selection    = "'Library'">
+<cfset class        = "'Main'">
+<cfinclude template = "../../Tools/Submenu.cfm">
 
 <!--- general menu--->
-<cfset heading = "System Documentation utilities">
-<cfset module = "'AdminConfig'">
-<cfset selection = "'Documentation'">
-<cfset class = "'Main'">
-<cfinclude template="../../Tools/Submenu.cfm">
+<cfset heading      = "System Documentation utilities">
+<cfset module       = "'AdminConfig'">
+<cfset selection    = "'Documentation'">
+<cfset class        = "'Main'">
+<cfinclude template = "../../Tools/Submenu.cfm">
 

@@ -33,8 +33,6 @@
  <!--- tab for instructions --->			
 <cfinclude template="ProcessActionInstructions.cfm">	
 
-
-
  <!--- tab for embedded document --->           	  
 <cfif Embed.DocumentTemplate neq "">
    	   	  
@@ -118,7 +116,6 @@
 </cfif> 	
 
 <!--- tab for questionaire --->	   
-
 
 <cfquery name="Action" 
 	 datasource="AppsOrganization"
@@ -289,16 +286,16 @@
 	   </cfif>	   
 	   
 	   <cfif Action.labelDocument neq "">
-	   	<cf_tl id = "#Action.LabelDocument#" var="1">	   
+	   	   <cf_tl id = "#Action.LabelDocument#" var="1">	   
 	   <cfelse>
-	   	<cf_tl id = "Embedded Documents" var="1">
+	   	   <cf_tl id = "Embedded Documents" var="1">
 	   </cfif>
 	  	   
 	   <cfset boxno = boxno+1>	   
 	  	  	     
 	   <cfif menumode eq "menu">	
 	  	   	     	   
-	   	    <cfinclude template="Report/DocumentInit.cfm">  
+	   	   <cfinclude template="Report/DocumentInit.cfm">  
 						   
 		   <cf_menutab item   = "#boxno#" 
 			   	   iconsrc    = "Documents.png" 
@@ -314,30 +311,29 @@
 	     <cfoutput> 
 		 <input type="hidden" id="documentmenu"      value="menu#boxno#">
 	     <input type="hidden" id="documentcontainer" value="contentbox#boxno#">
-		 </cfoutput>		
-	   
-	     <cf_menucontainer item="#boxno#">						  		  
-		 	   <cfinclude template="ProcessAction8TabsDocument.cfm">			
+		 </cfoutput>	
+		 		 	  	  
+	     <cf_menucontainer class="regular" item="#boxno#">			 		
+			   <cfinclude template="ProcessAction8TabsDocument.cfm">					
 		 </cf_menucontainer>	  
 	      
 	   </cfif> 	
 	        
    </cfif>   
-   
+  
+    
    <cfif boxno eq "1">
    
 	   <!--- we hide the menu, to make the screen look more simply --->
 	   <script>
-	   try { document.getElementById('menutabs').className = 'hide' }
-	   catch(e) { }	
+		   try { document.getElementById('menutabs').className = 'hide' } catch(e) { }	
 	    </script>
-	   
-     
+	        
    <cfelseif menumode eq "content" and boxno gte "2">
       	 	  
 	   <script>  	   	          
-		   try { document.getElementById('menu1').click() } 
-		   catch(e) { }		  
+		   try { document.getElementById('menu1').click() } catch(e) { }		  
 	   </script>
    
    </cfif>
+   

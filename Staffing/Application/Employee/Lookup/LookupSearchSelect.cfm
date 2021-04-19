@@ -53,34 +53,34 @@ password="#SESSION.dbpw#">
 	
 </cfoutput>
 
-<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="97%" border="0" align="center" align="center">
 
 <tr><td>
   
-<table width="94%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="94%" border="0" align="center" class="formpadding formspacing">
     	
-	<TR>
-	<td style="min-width:130px" height="20" align="left" class="labelmedium"><cf_tl id="Entity">:</td>
-	<TD>
+	<TR class="labelmedium2">
+	<td style="min-width:130px"><cf_tl id="Entity">:</td>
+	<TD style="width:70%">
 	   <cfif Unit.Mission eq "">
 		   <cfif url.mission neq "" and url.mission neq "undefined">
-		       <INPUT type="text" name="Mission" id="Mission" value="<cfoutput>#url.Mission#</cfoutput>" size="30" class="regularxl">	
+		       <INPUT type="text" name="Mission" id="Mission" value="<cfoutput>#url.Mission#</cfoutput>" size="30" class="regularxxl">	
 		   <cfelse>
-			   <INPUT type="text" name="Mission" id="Mission" size="30" class="regularxl">	
+			   <INPUT type="text" name="Mission" id="Mission" size="30" class="regularxxl">	
 		   </cfif>
 	   <cfelse>
-	   <input type="text" name="Mission" id="Mission" size="30" value="<cfoutput>#Unit.Mission#</cfoutput>" readonly class="regularxl">	
+	   <input type="text" name="Mission" id="Mission" size="30" value="<cfoutput>#Unit.Mission#</cfoutput>" readonly class="regularxxl">	
 	   </cfif>
 	</TD>
 	</TR>
 	 
-	<TR>
+	<TR class="labelmedium2">
 	<td height="20" align="left" class="labelmedium"><cf_tl id="Unit class">:</td>
 	<TD>
 	   <cfif Unit.Mission eq "">
-	   	<INPUT type="text" name="OrgUnitClass" id="OrgUnitClass" size="30" class="regularxl">	
+	   	<INPUT type="text" name="OrgUnitClass" id="OrgUnitClass" size="30" class="regularxxl">	
 	   <cfelse>
-	    <input type="text" name="OrgUnitClass" id="OrgUnitClass" value="<cfoutput>#Unit.OrgUnitClass#</cfoutput>" size="30" readonly class="regularxl">	
+	    <input type="text" name="OrgUnitClass" id="OrgUnitClass" value="<cfoutput>#Unit.OrgUnitClass#</cfoutput>" size="30" readonly class="regularxxl">	
 	   </cfif>
 	  
 	</TD>
@@ -89,11 +89,11 @@ password="#SESSION.dbpw#">
 	<!--- Field: Staff.LastName=CHAR;40;FALSE --->
 	<INPUT type="hidden" name="Crit2_FieldName" id="Crit2_FieldName" value="FullName">
 	<INPUT type="hidden" name="Crit2_FieldType" id="Crit2_FieldType" value="CHAR">
-	<TR>
-	<td class="labelmedium" align="left"><cf_tl id="Full Name">:<input type="hidden" name="Crit2_Operator" id="Crit2_Operator" value="CONTAINS"></td>
+	<TR class="labelmedium2">
+	<td align="left"><cf_tl id="Full Name">:<input type="hidden" name="Crit2_Operator" id="Crit2_Operator" value="CONTAINS"></td>
 	<TD>
 		
-	<INPUT type="text" name="Crit2_Value" id="Crit2_Value" size="30" class="regularxl">
+	<INPUT type="text" name="Crit2_Value" id="Crit2_Value" size="30" class="regularxxl">
    	
 	</TD>
 	</TR>
@@ -101,16 +101,16 @@ password="#SESSION.dbpw#">
 	<INPUT type="hidden" name="Crit1_FieldName" id="Crit1_FieldName" value="IndexNo">
 	<INPUT type="hidden" name="Crit1_FieldType" id="Crit1_FieldType" value="CHAR">
 	<TR>
-	<TD align="left"  class="labelmedium"><cfoutput>#client.IndexNoName#</cfoutput>:<input type="hidden" name="Crit1_Operator" id="Crit1_Operator" value="CONTAINS"></TD>
+	<TD align="left"><cfoutput>#client.IndexNoName#</cfoutput>:<input type="hidden" name="Crit1_Operator" id="Crit1_Operator" value="CONTAINS"></TD>
 	<TD>					
-	<INPUT type="text" name="Crit1_Value" id="Crit1_Value" class="regularxl" size="30">    	
+	<INPUT type="text" name="Crit1_Value" id="Crit1_Value" class="regularxxl" size="30">    	
 	</TD>
 	</TR>	
 	
-	<tr>	
+	<tr class="labelmedium2">	
 		<TD align="left"  class="labelmedium"><cf_tl id="Assignment">: </TD>
 		<td>
-		<select name="OnBoard" id="OnBoard" class="regularxl">
+		<select name="OnBoard" id="OnBoard" style="width:250px" class="regularxxl">
 		<option value="1"><cf_tl id="On board"></option>
 		<option value="0"><cf_tl id="History"></option>
 		<option value="" selected><cf_tl id="All"></option>
@@ -129,7 +129,7 @@ password="#SESSION.dbpw#">
 	
 	<TD>
 	
-		<select name="Crit4_Value" id="Crit4_Value"  class="regularxl">
+		<select name="Crit4_Value" id="Crit4_Value" style="width:250px" class="regularxxl">
 			<option value="M"><cf_tl id="Male"></option>
 			<option value="F"><cf_tl id="Female"></option>
 			<option value="" selected><cf_tl id="All"></option>
@@ -138,11 +138,11 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 	   
-	<TR>
-	<TD align="left"  class="labelmedium"><cf_tl id="Nationality">:</TD>
+	<TR class="labelmedium2">
+	<TD align="left"><cf_tl id="Nationality">:</TD>
 	
 	<TD>
-    	<select name="Nationality"  id="Nationality" size="1" class="regularxl">
+    	<select name="Nationality"  id="Nationality" size="1" style="width:250px" class="regularxxl">
 			<option value="" selected>[<cf_tl id="All">]</option>
 		    <cfoutput query="Nation">
 				<option value="'#Code#'">#Name#</option>
@@ -158,9 +158,9 @@ password="#SESSION.dbpw#">
 
 <tr><td height="1" class="line"></td></tr>
 
-<tr><td colspan="2" align="center">
+<tr><td colspan="2" style="padding-left:10px">
 		<cf_tl id="Search" var="1">
-		<input type="submit" value="<cfoutput>#lt_text#</cfoutput>" style="width:200;height:25" class="button10g">
+		<input type="submit" value="<cfoutput>#lt_text#</cfoutput>" style="width:200px;height:27px" class="button10g">
 	</td></tr>
 
 </table>

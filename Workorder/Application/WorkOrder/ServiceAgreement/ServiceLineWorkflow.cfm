@@ -4,17 +4,17 @@ datasource="appsWorkorder"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-    FROM  WorkOrderBaseLine
-	WHERE TransactionId = '#URL.ajaxId#'
+    FROM   WorkOrderBaseLine
+	WHERE  TransactionId = '#URL.ajaxId#'
 </cfquery>
 
 <cfquery name="GetObject" 
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-  SELECT *
-  FROM   OrganizationObject
-  WHERE  ObjectKeyValue4 = '#get.TransactionId#'
+    SELECT  *
+    FROM   OrganizationObject
+    WHERE  ObjectKeyValue4 = '#get.TransactionId#'
 </cfquery>
 
 <cfquery name="workorder" 

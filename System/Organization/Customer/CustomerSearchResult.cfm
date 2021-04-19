@@ -121,7 +121,9 @@
 					  or eMailAddress LIKE '%#url.val#%')		
 			
 			<!--- added the condition to show only institutional customers with orgunit here --->		  
-			-- AND   C.OrgUnit > 0		  
+			-- AND   C.OrgUnit > 0		
+			
+			AND Operational = 1  
 			
 			ORDER BY CustomerName			
 			
@@ -163,19 +165,24 @@
 			<td class="navigation_action"
 			   style="padding-left:10px"   width="100%" id="box#customerid#" onclick="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('CustomerEdit.cfm?systemfunctionid=#url.systemfunctionid#&customerid=#CustomerId#&dsn=#url.dsn#','detail')">
 		
-			<table border="0" width="100%" cellspacing="0" cellpadding="0">
-				<tr class="cellcontent">
+			<table border="0" style="width:94%" align="left">
+				<tr class="cellcontent line labelmedium2">
 				<td rowspan="2" width="20"><img src="#SESSION.root#/images/pointer.gif" height="9" alt="" border="0"></td>
-				<td style="cursor:pointer" class="cellcontent">
+				
 				<cfif hasWorkOrder gte 1>		
-				<font color="0080C0">
+				
 				<!--- standard --->	
-				#CustomerName# <cfif OrgUnit neq "">[*]</cfif>[#hasWorkOrder#]
+				<td style="cursor:pointer" class="cellcontent">
+				<font color="0080C0">
+				#CustomerName# <cfif OrgUnit neq "">[*]</cfif>
+				</td>
+				<td align="right" class="cellcontent">[#hasWorkOrder#]</td>
 				<cfelse>
-				<font color="gray">#CustomerName# <cfif OrgUnit neq "">[*]</cfif></font>			
-				</cfif>
+				<td style="cursor:pointer" class="cellcontent">
+				<font color="gray">#CustomerName# <cfif OrgUnit neq "">[*]</cfif></font>	
 				</td>
-				</td>
+				<td></td>		
+				</cfif>				
 				</tr>			
 			</table>
 			

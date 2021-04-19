@@ -29,8 +29,6 @@ password="#SESSION.dbpw#">
 	WHERE   S.SubmissionEdition = '#url.submissionedition#' 
 </cfquery>
 
-
-
 <cfquery name="getPosition"
 datasource="AppsSelection" 
 username="#SESSION.login#" 
@@ -111,7 +109,7 @@ password="#SESSION.dbpw#">
 	
 		
 		<tr><td></td></tr>
-		<tr><td class="labelmedium"><b>Functional&nbsp;title</td></tr>
+		<tr><td style="font-size:20px" class="labelmedium2"><cf_tl id="Jobopening title"></td></tr>
 		
 		<tr><td></td>
 			
@@ -129,7 +127,7 @@ password="#SESSION.dbpw#">
 						Required        = "Yes"
 						Message         = "Please enter a functional title"
 						MaxLength       = "80"
-						Size            = "60"
+						Size            = "80"
 						Class           = "regularxl">	
 					  
 		   	</TD>
@@ -138,12 +136,11 @@ password="#SESSION.dbpw#">
 		
 		<tr><td></td></tr>
 	   
-		<tr><td valign="top" style="padding-top:4px" class="labelmedium"><b>Competencies</td>
+		<tr><td valign="top" style="padding-top:4px;font-size:20px" class="labelmedium2">Applicable competencies</td>
 	
-		<tr><td colspan="2" style="padding-left:20px">
-		
-							
-			<table width="99%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+		<tr><td colspan="2">
+									
+			<table width="99%" align="center" class="formpadding">
 					 
 				 <cfquery name="GetCompetencies" 
 					 datasource="AppsSelection" 
@@ -167,23 +164,19 @@ password="#SESSION.dbpw#">
 				<tr>
 					<td>
 								
-						<table width="95%" align="center">
+						<table width="100%" align="center">
 				
 						<cfoutput query="GetCompetencies" group="Category">
 						 
 						 	<cfset cont   = 0>
 						 
-							 <tr>
-							 	<td class="labelmedium" colspan="#columns#">
-									<i>#Category#</i>
-								</td>
+							 <tr class="line">
+							 	<td style="height:30px;font-size:16px" class="labelmedium2" colspan="#columns*2#"><i>#Category#</i></td>
 							 </tr>
-							 
-							 <tr><td class="linedotted" colspan="#columns#"></td></tr>
-			
+										
 							 <cfoutput>
 							 	
-								<cfif cont eq 0> <tr> </cfif>
+								<cfif cont eq 0> <tr class="labelmedium2"> </cfif>
 								
 								<cfif PositionNo neq "">
 								   <cfset cl = "ffffcf">
@@ -191,23 +184,20 @@ password="#SESSION.dbpw#">
 								   <cfset cl = "ffffff">
 								</cfif>
 								
-						 		<td style="background-color:###cl#" onclick="document.getElementById('#CompetenceId#').click()" style="cursor:pointer" class="labelmedium">
+						 		<td style="background-color:###cl#" onclick="document.getElementById('#CompetenceId#').click()" style="max-width:30px;cursor:pointer">
 									<input type="checkbox" class="radiol" value="#CompetenceId#" name="CompetenceId" id="CompetenceId_#CompetenceId#" <cfif PositionNo neq "">checked</cfif> <cfif mode eq "view">disabled</cfif>>
 									</td>
-									<td  style="background-color:###cl#" class="labelmedium" style="height:20px;padding-left;4px">#Description#</td>
+									<td  style="background-color:###cl#;width:33%;height:20px;padding-left:4px">#Description#</td>
 									<cfset cont = cont + 1>
 								</td>
 								<cfif cont eq columns> </tr> <cfset cont = 0> </cfif>
 								
 					 		  </cfoutput>
-							  
-							  <tr><td colspan="#columns#" height="10px"></td></tr>
-						
+							 						 						
 						</cfoutput>
 						
 						</table>
-						
-			
+								
 					</td>
 				</tr>	
 				
@@ -217,21 +207,24 @@ password="#SESSION.dbpw#">
 		
 		</td></tr>
 	
-		<tr><td class="linedotted" height="1" colspan="2"></td></tr>	
+		<tr><td class="line" height="1" colspan="2"></td></tr>	
 		
 		<cfif mode eq "edit">	
-		<tr><td height="2" colspan="2"></td></tr>
-				  		
-		<tr><td colspan="2" height="30" align="center">	
-		   <table style="formspacing">
-		   <tr>
-		   <cfoutput>			
-		    <td><input class="button10s" style="width:130;height:24" type="button" name="UpdateC" value="Remove" onclick="if (confirm('Do you want to remove this position ?')) {ColdFusion.navigate('PositionEditionTitleSubmit.cfm?action=delete&submissionedition=#url.submissionedition#&positionno=#url.positionno#','result')}"></td>									 
-			<td><input class="button10s" style="width:130;height:24" type="button" name="UpdateC" value="Save"   onclick="ColdFusion.navigate('PositionEditionTitleSubmit.cfm?action=update&submissionedition=#url.submissionedition#&positionno=#url.positionno#','result','','','POST','formentry')"></td>
-		   </cfoutput>			   
-		   </tr>
-		   </table>
-		</td></tr>
+						  		
+			<tr>
+			<td colspan="2" height="30" align="center">	
+			   <table class="formpadding formspacing">
+			   <tr>
+			   <cfoutput>		
+				   <cf_tl id="Remove" var="1">	
+				   <td><input class="button10g" style="width:160px" type="button" name="UpdateC" value="#lt_text#" onclick="if (confirm('Do you want to remove this position ?')) {ColdFusion.navigate('PositionEditionTitleSubmit.cfm?action=delete&submissionedition=#url.submissionedition#&positionno=#url.positionno#','result')}"></td>									 
+				   <cf_tl id="Save" var="1">	
+				   <td><input class="button10g" style="width:160px" type="button" name="UpdateC" value="#lt_text#" onclick="ptoken.navigate('PositionEditionTitleSubmit.cfm?action=update&submissionedition=#url.submissionedition#&positionno=#url.positionno#','result','','','POST','formentry')"></td>
+			   </cfoutput>			   
+			   </tr>
+			   </table>
+			</td>
+			</tr>
 		
 		</cfif>
 		

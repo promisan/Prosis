@@ -1352,7 +1352,7 @@
 							<tr>
 							<td colspan="3">
 							
-							<cfajaximport tags="cfmenu,cfdiv,cfwindow">
+							<cfajaximport tags="cfdiv">
 						    <cf_ActionListingScript>
 						    <cf_FileLibraryScript>
 						   
@@ -1405,7 +1405,7 @@
 						<tr>
 						<td colspan="3">
 						
-						<cfajaximport tags="cfmenu,cfdiv,cfwindow">
+						<cfajaximport tags="cfdiv">
 					    <cf_ActionListingScript>
 					    <cf_FileLibraryScript>
 					   
@@ -1451,7 +1451,7 @@
 						<tr>
 						<td colspan="3" style="padding-right:15px">
 						
-						<cfajaximport tags="cfmenu,cfdiv,cfwindow">
+						<cfajaximport tags="cfdiv">
 						
 					    <cf_ActionListingScript>
 					    <cf_FileLibraryScript>
@@ -1496,7 +1496,7 @@
 						<tr>
 						<td colspan="3" style="padding-right:15px">
 												
-							<cfajaximport tags="cfmenu,cfdiv,cfwindow">
+							<cfajaximport tags="cfdiv">
 							
 						    <cf_ActionListingScript>
 						    <cf_FileLibraryScript>

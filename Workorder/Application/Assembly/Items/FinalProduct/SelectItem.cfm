@@ -10,6 +10,17 @@
 		WHERE   WorkorderId = '#url.WorkOrderId#'		
 </cfquery>	 
 
+<cfquery name="Line" 
+	datasource="AppsWorkOrder" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">	
+    	SELECT  R.ServiceType
+        FROM    WorkOrderLine WL INNER JOIN
+                Ref_ServiceItemDomainClass R ON WL.ServiceDomain = R.ServiceDomain AND WL.ServiceDomainClass = R.Code		
+		WHERE   WorkOrderId   = '#url.WorkOrderId#'			
+		AND		WorkOrderLine = '#url.WorkOrderLine#'
+</cfquery>
+
 <cfquery name="getItem" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
@@ -26,14 +37,13 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT   *, (SELECT   ISNULL(SUM(T.TransactionQuantity), 0) AS Quantity
-					FROM     ItemTransaction T 
-					WHERE    T.ItemNo         = U.ItemNo 
-					AND      T.TransactionUoM = U.UoM
-					AND      T.Mission        = '#WorkOrder.Mission#') as OnHand
-		FROM     ItemUoM U, ItemUoMMission M
-		WHERE    U.ItemNo = M.ItemNo
-		AND      U.UoM    = M.Uom
-		AND      M.Mission = '#workorder.mission#'
+					 FROM     ItemTransaction T 
+					 WHERE    T.Mission        = '#WorkOrder.Mission#'
+					 AND      T.ItemNo         = U.ItemNo 
+					 AND      T.TransactionUoM = U.UoM
+					 AND      T.WorkOrderId is NULL <!--- not earmarked --->) as OnHand
+		FROM     ItemUoM U INNER JOIN ItemUoMMission M ON U.ItemNo = M.ItemNo AND U.UoM = M.Uom
+		WHERE    M.Mission = '#workorder.mission#'
 		AND      U.Operational = 1	
 		AND      M.Operational = 1
 		AND      U.ItemNo = '#url.ItemNo#'		
@@ -43,10 +53,10 @@
 	datasource="AppsLedger" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT  *
-	FROM    Currency
-	WHERE	EnableProcurement = 1
-	AND		Operational = 1
+	SELECT   *
+	FROM     Currency
+	WHERE	 EnableProcurement = 1
+	AND		 Operational = 1
 </cfquery>
 
 <cfform name="frmFinalProduct" method="post" 
@@ -57,16 +67,19 @@
 
 	<tr><td height="6"></td></tr>
 
-	<tr class="line labelmedium">
+	<tr class="line labelmedium2">
 	  	  
 	   <td><cf_tl id="UoM"></td>
-	   <td><cf_tl id="BarCode"></td>
-	   <td align="center"><cf_tl id="On Hand"><cf_space spaces="23"></td>
+	   <td><cf_tl id="BarCode"></td>	   
+	   <td align="right"><cf_tl id="On Hand">(<cf_tl id="Free">)</td>
 	   <td align="center"><cf_tl id="Sale"></td>	   
 	   <td align="center"><cf_tl id="Quantity"></td>  
-	   <td align="center"><cf_tl id="Price"><cfoutput>#workorder.Currency#</cfoutput></td>		  
+	   <td align="center"><cf_tl id="Price"><cfoutput>#workorder.Currency#</cfoutput></td>		
+	   
+	   <cfif Line.ServiceType neq "Sale">  
 	   <td></td>
 	   <td></td>	   
+	   </cfif>
 	</tr>
 		
 	<cfoutput query="items">
@@ -95,8 +108,7 @@
 				password="#SESSION.dbpw#">
 				    INSERT INTO userTransaction.dbo.FinalProduct_#session.acc#
 					(WorkOrderId, WorkOrderLine,Category,ItemNo,UoM,WorkOrderItemId)					
-					VALUES					
-					(
+					VALUES	(
 					 '#url.workorderid#',
 					 '#url.workorderline#',		
 					 '#GetItem.Category#',
@@ -184,14 +196,10 @@
 						ORDER BY W.Created DESC
 					</cfquery>	
 					
-					<cfif getLastPrice.recordcount eq "0">
-					
-							<cfset price = "0.00">
-							
-					<cfelse>
-					
-							<cfset price = getLastPrice.SalePrice>
-					
+					<cfif getLastPrice.recordcount eq "0">					
+							<cfset price = "0.00">							
+					<cfelse>					
+							<cfset price = getLastPrice.SalePrice>					
 					</cfif>				
 			
 				<cfelse>												
@@ -214,36 +222,27 @@
 		</cfif>			
 		
 		<cfquery name="setPrice" 
-				datasource="AppsMaterials" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					UPDATE userTransaction.dbo.FinalProduct_#session.acc#
-					SET    Price                 = '#price#', 
-					       Class1ListValue       = '#UoMDescription#',
-						   ItemUoMIdFinalProduct = '#ItemUoMId#'
-					WHERE  WorkOrderItemId = '#workorderitemid#'			
-				</cfquery>				
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				UPDATE userTransaction.dbo.FinalProduct_#session.acc#
+				SET    Price                 = '#price#', 
+				       Class1ListValue       = '#UoMDescription#',
+					   ItemUoMIdFinalProduct = '#ItemUoMId#'
+				WHERE  WorkOrderItemId = '#workorderitemid#'			
+		</cfquery>				
 		
 	
-		<tr>
+		<tr class="labelmedium2 line" style="height:32px">
 		
-		<td class="labelmedium" style="padding-right:4px">#UoMDescription#</td>
+		<td style="padding-right:4px">#UoMDescription#</td>		
+		<td style="padding-right:4px"><cfif getItem.ItemNoExternal neq "">#getItem.ItemNoExternal#<cfelse>#ItemBarCode#</cfif></td>
 		
-		<td class="labelmedium" style="padding-right:4px">#ItemBarCode#</td>
-		
-		<td>
-		
-		<cfif onhand lt "0">
-		
-		<table height="23" width="100%"><tr><td style="padding-right:4px" align="right" bgcolor="red"><font color="FFFFFF">#OnHand#</td></tr></table>
-		
+		<cfif onhand lte "0">
+		<td style="padding-right:4px;background-color:red:color:white" align="right">#OnHand#</td>		
 		<cfelse>
-		
-		<table width="100%"><tr><td style="padding-right:4px" align="right">#OnHand#</td></tr></table>
-		
+		<td style="padding-right:4px" align="right">#OnHand#</td>		
 		</cfif>
-		
-		</td>		
 			
 		<td width="120" align="right">
 		
@@ -251,7 +250,7 @@
 		<cf_tl id="Promotion" var="vPromotion">
 		<cf_tl id="Discount" var="vDiscount">
 		
-		<select id="Memo_#workorderitemid#" name="Memo_#workorderitemid#" class="regularxl enterastab"  
+		<select id="Memo_#workorderitemid#" name="Memo_#workorderitemid#" class="regularxxl enterastab"  
 		onchange="_cf_loadingtexthtml='';ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=memo&value='+this.value,'process')">
 		  <option value="Standard" selected>#vStandard#</option>
 		  <option value="Promotion">#vPromotion#</option>
@@ -264,7 +263,7 @@
 		
 		  <cf_tl id="Please, enter a valid numeric quantity greater than 0." var="1">
 		  
-		  <cfinput type="text" class="regularxl enterastab" 
+		  <cfinput type="text" class="regularxxl enterastab" 
 		           name="quantity" 
 				   id="quantity_#workorderitemid#" 
 				   onchange="_cf_loadingtexthtml='';ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=quantity&value='+this.value,'process')" 
@@ -286,7 +285,7 @@
 					
 					<cfinput type  = "text" 
 						onchange   = "_cf_loadingtexthtml='';ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=price&value='+this.value,'process')" 				 
-						class      = "regularxl enterastab" 
+						class      = "regularxxl enterastab" 
 						name       = "price" 
 						id         = "price_#workorderitemid#" 
 						value      = "#numberformat(price,",.__")#" 
@@ -302,9 +301,11 @@
 
 		</td>
 		
+		<cfif Line.ServiceType neq "Sale">
+		
 		<td style="padding-left:3px;padding-top:0px;padding-right:4px">
 				
-		<input type="radio" class="radioL" name="selected" 
+		<input type="radio" class="radiol" name="selected" 
 		   value="#workorderitemid#" 
 		   onchange= "_cf_loadingtexthtml='';ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=asDefault&value='+this.value,'process')">		
 		   		   
@@ -314,6 +315,8 @@
 		<img src="#session.root#/images/copy.png" title="Inherit from selected line"
 			onclick="ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=copy&value=#workorderitemid#','process');" style="cursor:pointer" alt="Copy" border="0">		
 		</td>
+		
+		</cfif>
 			
 		</tr>
 		

@@ -1,12 +1,10 @@
 
 <cfparam name="url.find" default="">
 
-
 <cfquery name="Line" 
 	datasource="AppsWorkOrder" 
 	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	
+	password="#SESSION.dbpw#">	
     	SELECT  R.ServiceType
         FROM    WorkOrderLine WL INNER JOIN
                 Ref_ServiceItemDomainClass R ON WL.ServiceDomain = R.ServiceDomain AND WL.ServiceDomainClass = R.Code		
@@ -18,9 +16,10 @@
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT     IM.Description AS ItemMaster, 
+		SELECT     TOP 100 IM.Description AS ItemMaster, 
 		           C.Description, 
 				   I.ItemNo, 
+				   I.ItemNoExternal,
 				   I.ItemDescription, 
 				   I.Classification, 
 				   I.Classification+' '+I.ItemDescription as ItemName, 
@@ -30,7 +29,7 @@
 		<cfif Line.ServiceType eq "Sale">
 		WHERE      (I.ItemClass = 'Supply' and C.FinishedProduct = 1) 
 		<cfelse>
-		WHERE      I.ItemClass = 'Service' <!--- to generate items : Hicosa mode --->
+		WHERE      I.ItemClass = 'Service' <!--- to generate final items items : Hicosa mode --->
 		</cfif>
 		AND        I.ItemNo IN
 		                   (SELECT  ItemNo
@@ -40,8 +39,8 @@
 					 
 		AND        (I.Classification LIKE '%#url.find#%' 
 		                   OR I.ItemDescription LIKE '%#url.find#%'
-						   OR I.ItemNo IN (SELECT ItemNo FROM ItemUoM WHERE ItemNo = I.ItemNo AND ItemBarCode LIKE '%#url.find#%')
-						   
+						   OR I.ItemNoExternal  LIKE '%#url.find#%'
+						   OR I.ItemNo IN (SELECT ItemNo FROM ItemUoM WHERE ItemNo = I.ItemNo AND ItemBarCode LIKE '%#url.find#%')						   
 						   
 						   )					 
 		ORDER BY   C.Description, I.ItemMaster, I.ItemNo, I.ItemDescription
@@ -49,14 +48,13 @@
 
 <table width="100%" class="navigation_table">
 	<cfif Item.recordcount eq "0">
-		<tr><td class="labelmedium" align="center" height="70"><font color="#808080"><cf_tl id="No items found"></font></td></tr>	
+		<tr class="labelmedium2"><td align="center" height="70"><font color="#808080"><cf_tl id="No items found"></font></td></tr>	
 	</cfif>
 	<cfoutput query="Item" group="Description">
-		<tr><td colspan="2" class="labellarge" style="height:40px">#Description#</td></tr>
+		<tr class="line"><td class="labellarge" style="font-weight:bold;height:40px">#Description#</td></tr>
 		<cfoutput>
-		<tr class="navigation_row">
-		<td style="min-width:60;padding-left:5px" class="navigation_action labelit" onclick="selectitem('#itemno#')">#Classification#</td>
-		<td style="min-width:99%;padding-left:2px;padding-right:4px" onclick="selectitem('#itemno#')">#ItemDescription#</td>
+		<tr class="navigation_row labelmedium2 linedotted">
+		<td class="navigation_action" style="min-width:99%;padding-left:2px;padding-right:4px" onclick="selectitem('#itemno#')"><font style="font-weight:bold" color="000080"><cfif ItemNoExternal neq "">#ItemNoExternal#<cfelse>#Classification#</cfif></font> #ItemDescription#</td>
 		</tr>
 		</cfoutput>				
 	</cfoutput>									

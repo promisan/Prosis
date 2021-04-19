@@ -75,14 +75,18 @@ password="#SESSION.dbpw#">
     			 	FROM      Materials.dbo.ItemTransaction
 			     	WHERE     Warehouse       = T.Warehouse
 			     	AND       ItemNo          = I.ItemNo
-			     	AND       TransactionUoM  = I.UoM   							   		      
+			     	AND       TransactionUoM  = I.UoM
+					<!--- added 12/4/2021 --->   	
+					AND       WorkorderId is not NULL						   		      
 				 ) as OnHand,
 				 (
 				 	SELECT    ISNULL(SUM(TransactionQuantity),0) as OnHand
     			 	FROM      Materials.dbo.ItemTransaction
 			     	WHERE     Mission         = W.Mission
 					AND       ItemNo          = I.ItemNo
-			     	AND       TransactionUoM  = I.UoM   							   		      
+			     	AND       TransactionUoM  = I.UoM   
+					<!--- added 12/4/2021 --->   		
+					AND       WorkorderId is not NULL							   		      
 				 ) as OnHandAll								 				
 				 				 
 		FROM     vwCustomerRequest T
@@ -372,19 +376,19 @@ password="#SESSION.dbpw#">
 			</tr>
 			
 			<cfquery name="qOverlap" 
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						SELECT   T.CustomerId,COUNT(1)
-						FROM     vwCustomerRequest T
-						WHERE    T.Warehouse      = '#url.warehouse#'
-						AND      T.ItemNo         = '#ItemNo#'
-						AND      T.TransactionUoM = '#TransactionUoM#'
-						AND      T.CustomerId != '#URL.CustomerId#'
-						AND      T.ActionStatus  != '9'
-						AND      T.BatchNo IS NULL <!--- not converted into a sale transaction --->
-					    AND      T.ItemClass      = 'Supply'						
-						GROUP BY T.CustomerId
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT   T.CustomerId,COUNT(1)
+					FROM     vwCustomerRequest T
+					WHERE    T.Warehouse      = '#url.warehouse#'
+					AND      T.ItemNo         = '#ItemNo#'
+					AND      T.TransactionUoM = '#TransactionUoM#'
+					AND      T.CustomerId    != '#URL.CustomerId#'
+					AND      T.ActionStatus  != '9'
+					AND      T.BatchNo IS NULL <!--- not converted into a sale transaction --->
+				    AND      T.ItemClass      = 'Supply'						
+					GROUP BY T.CustomerId
 			</cfquery>
 			
 			<cfif qOverlap.recordcount neq 0 and WParameter.SingleLine eq 0>
@@ -422,19 +426,23 @@ password="#SESSION.dbpw#">
 										</cfif>		
 											
 									</td>
-									<td align="right" style="padding-right:5px;">
+									<td align="right" style="padding-right:5px;min-width:140px">
+									
 										<cfif MParameter.EarmarkManagement eq "0">
+										
 											<cf_setCalendarDate
-											name         = "TransactionTime_#currentrow#" 
-											id           = "TransactionTime_#currentrow#"       					      
-											font         = "14"		
-											key1         = "#transactionId#"
-											key2         = "#url.warehouse#"
-											pfunction    = "setsaletime"	  
-											valuecontent = "datetime"
-											value        = "#TransactionDate#"						 		
-											mode         = "time"> 
+												name         = "TransactionTime_#currentrow#" 
+												id           = "TransactionTime_#currentrow#"       					      
+												font         = "14"		
+												key1         = "#transactionId#"
+												key2         = "#url.warehouse#"
+												pfunction    = "setsaletime"	  
+												valuecontent = "datetime"
+												value        = "#TransactionDate#"						 		
+												mode         = "time"> 
+												
 										</cfif>	
+										
 									</td>
 								</tr>
 							</table>

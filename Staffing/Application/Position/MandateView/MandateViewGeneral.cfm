@@ -47,7 +47,7 @@
 	<cfparam name="url.vacant"            default = "">
 	<cfparam name="url.name"              default = "">
 			
-	<cfajaximport tags="cfdiv,cfwindow,cfform">
+	<cfajaximport tags="cfdiv,cfform">
 	
 	<cf_dialogPosition>
 	<cf_dialogOrganization>

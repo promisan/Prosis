@@ -17,10 +17,10 @@ password="#SESSION.dbpw#">
 		
 	<cfsavecontent variable="myquery">  
 		
-	   SELECT *
+	   SELECT * --,PayrollEnd
 	   FROM (
 
-		SELECT  
+		SELECT newid() as Id, 
 			   S.Mission,	
 			   S.PayrollEnd,
 			   S.SalarySchedule,
@@ -87,75 +87,63 @@ password="#SESSION.dbpw#">
 		WHERE 1=1
 		-- condition		
 	</cfsavecontent>	
-	
-	
-		  
+			  
 </cfoutput>
-
 
 <cfset fields=ArrayNew(1)>
 
 <cfset itm = "0">						
 					
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label      = "Date",                  			
-					field        = "PayrollEnd",		
-					formatted    = "dateformat(PayrollEnd,CLIENT.DateFormatShow)",
-					search       = "date"}>		
+<cfset fields[itm] = {label        = "Date",                  			
+					field          = "PayrollEnd",	
+					column         = "month", 		
+					formatted      = "dateformat(PayrollEnd,CLIENT.DateFormatShow)",
+					search         = "date"}>		
 					
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label      = "Schedule",                   				
-					field        = "SalaryScheduleDescription",
-					filtermode   = "2",  
-					search       = "text"}>	
-									
+<cfset fields[itm] = {label        = "Schedule",                   				
+					field          = "SalaryScheduleDescription",
+					filtermode     = "2",  
+					search         = "text"}>										
 
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label      = "Beneficiary",                   				
-					field        = "FullName",
-					functionscript  = "EditPerson",
-					functionfield = "PersonNo",
-					filtermode   = "2",  
-					search       = "text"}>											
+<cfset fields[itm] = {label        = "Beneficiary",                   				
+					field          = "FullName",
+					functionscript = "EditPerson",
+					functionfield  = "PersonNo",
+					filtermode     = "2",  
+					search         = "text"}>											
 					
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label      = "Net Days",                    			
-					field        = "SalaryDays",					
-					searchalias  = "S"}>	
+<cfset fields[itm] = {label        = "Net Days",                    			
+					field          = "SalaryDays"}>	
 					
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label      = "SLWOP",                    			
-					field        = "SalarySLWOP",					
-					searchalias  = "S"}>		
+<cfset fields[itm] = {label        = "SLWOP",                    			
+					field          = "SalarySLWOP"}>		
 					
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label      = "Suspend",                    			
-					field        = "SalarySuspend",					
-					searchalias  = "S"}>																																
+<cfset fields[itm] = {label        = "Suspend",                    			
+					field          = "SalarySuspend"}>																																
 
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label      = "Currency",                    			
-					field        = "PaymentCurrency",					
-					searchalias  = "S"}>
+<cfset fields[itm] = {label        = "Currency",                    			
+					field          = "PaymentCurrency"}>
 							
 <cfset itm = itm+1>														
-<cfset fields[itm] = {label      = "Amount",    					
-					field        = "PaymentAmount",
-					align        = "right",
-					aggregate    = "sum",					
-					formatted    = "numberformat(PaymentAmount,',__.__')"}>		
-							
-	
-<table width="100%" height="100%" align="center">
-<tr>
-<td valign="top" style="padding-left:10px;padding-right;10px;padding-bottom:10px">
-									
+<cfset fields[itm] = {label        = "Amount",    					
+					field          = "PaymentAmount",
+					align          = "right",
+					aggregate      = "sum",					
+					formatted      = "numberformat(PaymentAmount,',.__')"}>									
+								
 <cf_listing
     header        = "ls2Payroll"
-    box           = "ls2Payroll"
+    box           = "ls2Payroll_#url.positionNo#"
 	link          = "#SESSION.root#/Staffing/Application/Position/Funding/PositionPayrollEntitlement.cfm?systemfunctionid=#url.systemfunctionid#&positionno=#url.positionno#"	
     html          = "No"
-	show          = "30"
+	show          = "100"
 	datasource    = "AppsPayroll"
 	listquery     = "#myquery#"	
 	listorder     = "PayrollEnd"	
@@ -163,9 +151,7 @@ password="#SESSION.dbpw#">
 	headercolor   = "ffffff"
 	listlayout    = "#fields#"
 	filterShow    = "Yes"
-	excelShow     = "Yes">
+	excelShow     = "Yes"
+	drillkey      = "Id">
 
-</td>
-</tr>
-</table>
 

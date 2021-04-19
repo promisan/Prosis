@@ -8,6 +8,8 @@
 <cfparam name="form.servicedomainclass"    default="">
 <cfset newrecord = "0">
 
+<cf_systemscript>
+
 <!--- ----------------------- --->
 <!--- process the save action --->
 <!--- ----------------------- --->
@@ -294,12 +296,13 @@
 				   		<!--- open the edit screen --->
 				   
 					    <script>	
-						   
-							try {			
-						    opener.applyfilter('1','','content') } 
-							catch(e) { }	
-												
-							ColdFusion.navigate('ServiceLineFormEdit.cfm?workorderid=#URL.workorderId#&workorderline=#url.workorderline#','contentbox')
+						 			   
+							try {										
+							parent.applyfilter('5','','content')							
+						    } catch(e) { }																																	
+							parent.ptoken.open('#session.root#/workorder/application/workorder/servicedetails/ServiceLineView.cfm?workorderid=#URL.workorderId#&workorderline=#no#','_blank')							
+							parent.ProsisUI.closeWindow('myline')
+							
 						</script>	
 						
 					</cfoutput>		
@@ -505,7 +508,7 @@
 					    } 
 						catch(e) { }					
 						</cfif>	
-						ColdFusion.navigate('ServiceLineHeader.cfm?workorderid=#URL.workorderId#&workorderline=#url.workorderline#','custom')
+						parent.ptoken.navigate('#session.root#/workorder/application/workorder/servicedetails/ServiceLineHeader.cfm?workorderid=#URL.workorderId#&workorderline=#url.workorderline#','custom')
 						</script>	
 					
 				</cfoutput>	
@@ -579,7 +582,6 @@
 	 <cfset url.mode = "edit">
 </cfif>
 
-
 <cfquery name="Customer" 
 	datasource="AppsWorkOrder" 
 	username="#SESSION.login#" 
@@ -609,7 +611,7 @@ password="#SESSION.dbpw#">
 
 <cfparam name="url.tabno" default="">
 
-<table width="100%" border="0" class="formpadding" cellspacing="0" align="center">
+<table width="100%" class="formpadding" align="center">
 
 <!--- check if we have active requests --->
 		
@@ -652,7 +654,7 @@ password="#SESSION.dbpw#">
 								   Value   = "#vEdit#"
 								   class   = "button10g" 
 								   style   = "width:130;height:25"
-								   onclick = "ColdFusion.navigate('ServiceLineForm.cfm?openmode=#url.openmode#&tabno=#url.tabno#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&mode=edit','contentbox#url.tabno#')")>
+								   onclick = "ptoken.navigate('#session.root#/workorder/application/workorder/servicedetails/ServiceLineForm.cfm?openmode=#url.openmode#&tabno=#url.tabno#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&mode=edit','contentbox#url.tabno#')")>
 
 							<cfquery name="TransferEnabled" 
 							datasource="AppsWorkOrder" 
@@ -664,9 +666,6 @@ password="#SESSION.dbpw#">
 								AND       CustomForm = 'RequestTransfer.cfm'								   
 							</cfquery>
 							
-							
-							
-						
 						    <cfif TransferEnabled.recordcount gte "0">  
 							
 								<!--- manual mode --->							
@@ -679,7 +678,7 @@ password="#SESSION.dbpw#">
 									   Value   = "#vTransfer#"
 									   class   = "button10g" 
 									   style   = "width:120;height:25"
-									   onclick = "ColdFusion.navigate('ServiceLineTransfer.cfm?openmode=#url.openmode#&tabno=#url.tabno#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&mode=transfer','contentbox#url.tabno#')")>
+									   onclick = "ptoken.navigate('#session.root#/workorder/application/workorder/servicedetails/ServiceLineTransfer.cfm?openmode=#url.openmode#&tabno=#url.tabno#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&mode=transfer','contentbox#url.tabno#')")>
 									   
 							</cfif>
 						   
@@ -759,7 +758,7 @@ password="#SESSION.dbpw#">
 				   Value   = "#tSave#"
 				   class   = "button10g" 
 				   style   = "width:130;height:25"
-				   onclick = "updateTextArea();ptoken.navigate('ServiceLineForm.cfm?openmode=#url.openmode#&tabno=#url.tabno#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&mode=save','contentbox#url.tabno#','','','POST','customform')")>
+				   onclick = "updateTextArea();ptoken.navigate('#session.root#/workorder/application/workorder/servicedetails/ServiceLineForm.cfm?openmode=#url.openmode#&tabno=#url.tabno#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&mode=save','contentbox#url.tabno#','','','POST','customform')")>
 		
 		</td></tr>
 		
@@ -767,7 +766,7 @@ password="#SESSION.dbpw#">
 	
 	  <tr><td>
 	  
-		  <cfdiv id="memobox" 
+		  <cf_securediv id="memobox" 
 		     bind="url:../Memo/WorkorderLineMemo.cfm?tabno=contentbox2&workorderid=#URL.workorderId#&workorderline=#url.workorderline#&tabno=memobox">
 											
 	  </td></tr>		

@@ -24,28 +24,9 @@
  	 
  </cfif>	 
 
-<table width="200" cellspacing="0" cellpadding="0" class="formpadding">
+<table style="width:100%" class="formpadding">
 
-	<tr>	
-		<td class="labelmedium"><b>#LastName# #FirstName# [#Age#]</b></td>
-	</tr>
-	
-	<tr>	
-	
-	  <td class="labelit" style="padding-left:5px">
-	  
-		  <table>
-		  <tr>
-		  	  <td class="labelit">#dateformat(DOB,client.dateformatshow)#</td>			
-		  </tr>
-		  </table>
-	  
-	  </td>
-	</tr>
-	
-	<tr>
-		<td class="labelit" style="padding-left:5px"><cfif gender eq "M">Male<cfelse>Female</cfif></td>		
-	</tr>
+	<tr><td class="labelmedium"><b>#LastName# #FirstName# [#Age#]</b></td></tr>
 	
 	<cfquery name="Nation" 
      datasource="AppsSystem" 
@@ -57,8 +38,20 @@
 	</cfquery>	
 	
 	<tr>	
-		<td class="labelit" style="padding-left:5px">#Nation.Name#</td>
+	
+	  <td style="padding-left:5px">
+	  
+		  <table style="width:100%">
+		  <tr class="labelmedium2">
+		  	  <td>#dateformat(DOB,client.dateformatshow)#</td>		
+			  <td style="padding-left:5px"><cfif gender eq "M">Male<cfelse>Female</cfif></td>	
+			  <td align="right" style="padding-right:2px">#Nation.Name#</td>		
+		  </tr>
+		  </table>
+	  
+	  </td>
 	</tr>
+	
 </table>
 
 </cfoutput>	

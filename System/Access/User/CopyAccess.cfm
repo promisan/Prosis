@@ -62,12 +62,10 @@ password="#SESSION.dbpw#">
 	    SELECT * 
 	    FROM Ref_Mission M 
 		WHERE Operational = 1
-		AND NOT EXISTS
-		(
+		AND NOT EXISTS (
 			SELECT 'x'
-			FROM System.dbo.UserNames
-			WHERE Account=M.Mission+'#vDefault#'
-		
+			FROM   System.dbo.UserNames
+			WHERE  Account=M.Mission+'#vDefault#'		
 		)
 		
 	</cfquery>
@@ -86,11 +84,10 @@ password="#SESSION.dbpw#">
 						  WHERE UserAccount = '#SESSION.acc#'
 						  AND Role = 'OrgUnitManager')
 		AND Operational = 1			 
-		AND NOT EXISTS
-		(
+		AND NOT EXISTS (
 			SELECT 'x'
-			FROM System.dbo.UserNames
-			WHERE Account=M.Mission+'#vDefault#'
+			FROM   System.dbo.UserNames
+			WHERE  Account = M.Mission+'#vDefault#'
 		
 		)
 	</cfquery>
@@ -98,10 +95,8 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <cfelse>
-	<cf_message message = "The current Account is not associated to a mission"
-	  return = "no">
+	<cf_message message = "The current Account is not associated to a mission" return = "no">
 	<cfabort>
-
 </cfif>
    
 <cfform action="CopyAccessSubmit.cfm?Group=#URL.Group#" target="result" method="POST"  name="cloning">
@@ -114,10 +109,8 @@ password="#SESSION.dbpw#">
 
 <tr>
 	
-	<td width="20%" colspan="2" class="labelmedium">
-		<cf_tl id="Entity">:</b>
-	</td>
-	<td width="70%" class="labelmedium">
+	<td width="20%" colspan="2" class="labelmedium2"><cf_tl id="Entity">:</td>
+	<td width="70%" class="labelmedium2">
 		<cfoutput>
 		#GetMission.AccountMission# #URL.Group#
 		</cfoutput>
@@ -126,7 +119,8 @@ password="#SESSION.dbpw#">
 
 <tr><td height="1" colspan="4"></td></tr>
 
-<tr><td colspan="3" class="labelmedium">Generate for entity:</b></td></tr>
+<tr><td colspan="3" class="labelmedium2">Generate for entity:</td></tr>
+
 <tr>
 	<td width="5%"></td>
 	
@@ -134,73 +128,63 @@ password="#SESSION.dbpw#">
 		<table>
 				
 		<tr>
-			<td>
-			
-			<table cellspacing="0" border="0" cellpadding="0">
+			<td>			
+			<table border="0">
 								
-			<cfset row = 0>
-		  
-			<cfoutput query="Mission">
-			
-			<cfset row = row+1>
-			
-			<cfif row eq "1">
-			<tr>
-			</cfif>
-						
-			<td style="border-left: 1px solid Silver;">&nbsp;</td>
-			
-			<td width="100" class="labelmedium">&nbsp;#Mission#:</td>					
-			
-			<td align="center" width="35"> 
-			
-			 <table width="100%" cellspacing="0" cellpadding="0">
-			    <tr>
-				<td align="center">			 
-				 <input type="checkbox" 
-				  name="Missions" 
-				  id="Missions"
-				  value="#Mission#" 
-				  onClick="savedet(this,this.checked)">
-				  </td></tr></table>
-			 
-			 </TD>
-						 
-			 <cfif row eq "4">
-			 	</tr>
 				<cfset row = 0>
-			 </cfif>
+			  
+				<cfoutput query="Mission">
+				
+					<cfset row = row+1>
+					
+					<cfif row eq "1">
+					<tr>
+					</cfif>
+								
+					<td style="border-left: 1px solid Silver;">&nbsp;</td>				
+					<td width="100" class="labelmedium">&nbsp;#Mission#:</td>									
+					<td align="center" width="35"> 
+					
+						 <table width="100%">
+						    <tr>
+							<td align="center">						 
+							 <input type="checkbox" name="Missions" id="Missions" value="#Mission#" onClick="savedet(this,this.checked)">
+							</td>
+							</tr>
+						 </table>
+					 
+					 </TD>
+								 
+					 <cfif row eq "4">
+					 	</tr>
+						<cfset row = 0>
+					 </cfif>
+				
+				</cfoutput>
 			
-			</cfoutput>
-			
-			</table>
-		
+			</table>		
 			</td>	
 			
 		</tr>
 		</table>
-
 		
 	</td>	
 
 </tr>	
 
 <tr><td height="4" colspan="4"></td></tr>
-
 <tr><td height="1" class="line" colspan="4"></td></tr>
-
 <tr><td height="4" colspan="4"></td></tr>
 
 <tr>
 	<td colspan="3" align="center">
 	<cfoutput>
-	<input type="hidden" name="oAccount" ID="oAccount" value="#URL.Group#">
-	<input type="hidden" name="iAccount" id="iAccount" value="#vDefault#">
+		<input type="hidden" name="oAccount" ID="oAccount" value="#URL.Group#">
+		<input type="hidden" name="iAccount" id="iAccount" value="#vDefault#">
 	</cfoutput>
 	<input class="button10g" type="button" value="Close" onClick="parent.ProsisUI.closeWindow('mydialog')">
 	<input class="button10g" type="submit" value="Save">
-	</td>
-	
+	</td>	
 </tr>
 
 <tr class="hide" height="200">

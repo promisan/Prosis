@@ -117,16 +117,17 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cf_screentop label  = "Service Agreement" 
-              title   = "Service Level Agreement"              
-			  banner = "gray" 	
-			  jquery="Yes"
-			  scroll="Yes"
-			  close="parent.ColdFusion.Window.destroy('mydialog',true)"		  
+              title  = "Service Level Agreement"              
+			  html   = "No"
+			  banner = "gray" 			  	
+			  jquery = "Yes"
+			  scroll = "Yes"
+			  close  = "parent.ColdFusion.Window.destroy('mydialog',true)"		  
 			  layout = "webapp">
 
 <cfform action="ServiceEditSubmit.cfm?workorderid=#url.workorderid#&tabno=#url.tabno#" name="agreementform" method="POST" target="process">
 
-<table width="700" class="formpadding formspacing" cellspacing="0" cellpadding="0" align="center">
+<table width="700" class="formpadding formspacing" align="center">
 
     <tr class="hide">
 	   <td colspan="2"><iframe name="process" id="process" width="100%" height="100"></iframe></td>
@@ -334,14 +335,13 @@ password="#SESSION.dbpw#">
 	  <cfoutput>
 	 
 		  <tr><td class="labelmedium" colspan="3" align="right"></td>
-		      <td class="labelmedium" height="24" align="right" id="total" style="border-top:1px solid silver">#numberformat(totaL,"__,__.__")#</td>	  
+		      <td class="labelmedium" height="24" align="right" id="total" style="border-top:1px solid silver">#numberformat(totaL,",.__")#</td>	  
 		  </tr>
 	  
 	  </cfoutput>
 	
 	 </table>
 	 
-	  
 	  </td>
 	  </tr>
 	  	  

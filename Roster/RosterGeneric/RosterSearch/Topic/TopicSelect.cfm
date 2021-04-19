@@ -1,6 +1,4 @@
 
-<cf_screentop layout="webapp" banner="gray" label="Self assessment" user="yes" close="ColdFusion.Window.hide('topicdialog')">	
-
 <cfquery name="Search" 
    datasource="AppsSelection" 
    username="#SESSION.login#" 

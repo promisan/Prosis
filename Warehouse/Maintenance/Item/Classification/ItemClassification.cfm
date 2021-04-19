@@ -19,8 +19,6 @@
 		WHERE 	Code = '#Item.ItemMaster#'
 </cfquery>
 
-
-
 <cfquery name="getTopics" 
 	datasource="AppsMaterials"
 	username="#SESSION.login#" 
@@ -54,36 +52,34 @@ password="#SESSION.dbpw#">
  
 <cfform name="frmTopics" onsubmit="return false" id="frmTopics">
  
-<table cellspacing="0" cellpadding="0" width="95%" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
  	<tr><td height="5"></td></tr>
 	
 	<cfoutput>
 	
-	<TR class="labelmedium">
-    <td height="20" width="140"><cf_tl id="Class">:</b></td>
+	<TR class="labelmedium2">
+    <td height="20" width="140"><cf_tl id="Class">:</td>
     <TD width="80%">#Cls.Description#
     </td>
     </tr>
 	
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD height="20"><cf_tl id="Code">:</TD>
     <TD>#item.Classification#</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD height="20"><cf_tl id="Description">:</TD>
     <TD>#item.ItemDescription#</TD>
 	</TR>	
 	
 	<tr><td class="line" colspan="2" height="1"></td></tr>
 	
-	<tr class="labelmedium">
-	<td colspan="2" height="40" align="center">
-	<i>
+	<tr class="labelmedium2">
+	<td colspan="2" height="40" style="color:gray">
 	<cf_tl id="Only change if you are absolutely certain on the effect this might have" class="message">
-	<cf_tl id="for item price and stock management" class="message">
-	</i>	
+	<cf_tl id="for item price and stock management" class="message">		
 	</td></tr>
 	
 	<tr><td class="line" colspan="2"></td></tr>
@@ -102,7 +98,7 @@ password="#SESSION.dbpw#">
 	<cfoutput query="getTopics">
 
 		<tr>
-			<td width="80" height="23" class="labelmedium">#TopicLabel#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
+			<td width="80" height="23" class="labelmedium2">#TopicLabel#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
 			<td>
 			
 			    <cfif TopicClass eq "Details">
@@ -126,7 +122,7 @@ password="#SESSION.dbpw#">
 							ORDER BY T.ListOrder ASC
 					</cfquery>
 					
-					<select class="regularxl" name="Topic_#Code#" ID="Topic_#Code#">
+					<select class="regularxxl" name="Topic_#Code#" ID="Topic_#Code#">
 						<cfif ValueObligatory eq "0">
 							<option value=""></option>
 						</cfif>
@@ -156,7 +152,7 @@ password="#SESSION.dbpw#">
 					
 					</cfquery>
 						
-					<select class="regularxl" name="Topic_#Code#" ID="Topic_#Code#">
+					<select class="regularxxl" name="Topic_#Code#" ID="Topic_#Code#">
 						<cfif ValueObligatory eq "0">
 							<option value=""></option>
 						</cfif>
@@ -182,7 +178,7 @@ password="#SESSION.dbpw#">
 					       name="Topic_#Code#"
 					       required="#ValueObligatory#"					     
 					       size="#valueLength#"
-						   class="regularxl enterastab"
+						   class="regularxxl enterastab"
 						   message="Please enter a #Description#"
 						   value="#GetValue.TopicValue#"
 					       maxlength="#ValueLength#">   		
@@ -196,12 +192,10 @@ password="#SESSION.dbpw#">
 		
 		<tr><td height="5"></td></tr>
 		<tr><td colspan="2" class="line"></td></tr>
-		<tr><td height="5"></td></tr>
-				
 		<tr>
-			<td colspan="2" align="center">
+			<td colspan="2" style="padding-left:10px">
 				<cf_tl id="Save" var="vSave">
-				<input type="button" onclick="classificationvalidate()" value="<cfoutput>#vSave#</cfoutput>" id="save" class="button10g">
+				<input type="button" style="width:200px;height:29px" onclick="classificationvalidate()" value="<cfoutput>#vSave#</cfoutput>" id="save" class="button10g">
 			</td>
 		</tr>
 

@@ -9,8 +9,7 @@
 </cfquery>
 
 <cfoutput>
-	<script>
-	 
-		ColdFusion.navigate('#SESSION.root#/Workorder/Application/WorkOrder/Implementer/ImplementerList.cfm?workOrderId=#url.workOrderId#&mission=#url.mission#&mandateno=#url.mandateno#','divImplementerList');
+	<script>	 
+		ptoken.navigate('#SESSION.root#/Workorder/Application/WorkOrder/Implementer/ImplementerList.cfm?workOrderId=#url.workOrderId#&mission=#url.mission#&mandateno=#url.mandateno#','divImplementerList');
 	</script>
 </cfoutput>

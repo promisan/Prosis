@@ -120,16 +120,13 @@
 		ptoken.navigate('Schedule/GetPerson.cfm?workorderId='+$('#fAssignResponsibleworkorderId').val()+'&workorderline='+$('#fAssignResponsibleworkorderline').val()+'&ActionClass='+$('#fAssignResponsibleActionClass').val()+'&WorkSchedule='+$('#fAssignResponsibleWorkSchedule').val()+'&selectedDate='+$('#'+control).val()+'&boxName=divEmployeeResponsible','divAssignResponsiblePerson');
 	}
 	
-	function addHalfProduct(woid,woline,itemno,uom) {	
-		var vHeight = 900;		
-		ptoken.open("<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/HalfProduct/HalfProductAdd.cfm?workorderid="+woid+"&workorderline="+woline+"&itemNo="+itemno+"&uom="+uom,"add item", "left=60, top=60, width=1100, height=900, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes");		
+	function addHalfProduct(woid,woline,itemno,uom) {				
+		ptoken.open("<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/HalfProduct/HalfProductAdd.cfm?workorderid="+woid+"&workorderline="+woline+"&itemNo="+itemno+"&uom="+uom,"add half");		
 	}
 	
-	function addFinalProduct(woid,woline,itemno,uom) {	
-		var vHeight = 900;		
-		ptoken.open("<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/FinalProduct/FinalProductAdd.cfm?workorderid="+woid+"&workorderline="+woline+"&itemNo="+itemno+"&uom="+uom,"add item", "left=60, top=60, width=1100, height=900, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes");		
-	}
-	
+	function addFinalProduct(woid,woline,itemno,uom) {						
+		ptoken.open("<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/FinalProduct/FinalProductAdd.cfm?workorderid="+woid+"&workorderline="+woline+"&itemNo="+itemno+"&uom="+uom,"add item");		
+	}	
 	
 	function editHalfProduct(woid,woline,woitmid) {	
 		ProsisUI.createWindow('mydialog', 'Finished Product', '',{x:100,y:100,height:600,width:660,modal:true,center:true})    						

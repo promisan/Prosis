@@ -65,7 +65,7 @@
 		
 <cfoutput>
 <script>    
-	ColdFusion.navigate('Topic/Topic.cfm?ID=#URL.ID#&owner=#url.owner#','topic')
-	ColdFusion.Window.hide('topicdialog')	
+	ptoken.navigate('Topic/Topic.cfm?ID=#URL.ID#&owner=#url.owner#','topic')
+	ProsisUI.closeWindow('topicdialog')	
 </script>
 </cfoutput>

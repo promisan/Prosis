@@ -466,7 +466,7 @@ password="#SESSION.dbpw#">
 						  
 		    <!--- Field: Mail Server Account --->
 		    <TR>
-		    <TD class="labelmedium"><cf_tl id="LDAP Domain Name">:</TD>
+		    <TD class="labelmedium"><cf_tl id="LDAP Domain">:</TD>
 		    <TD class="labelmedium">
 		    	<cfoutput query="get">
 				
@@ -662,7 +662,7 @@ password="#SESSION.dbpw#">
 									
 					</cfoutput>	
 								 
-			    <td style="padding-left:20px" class="labelmedium"><cf_tl id="Password Status">:</td>
+			    <td style="padding-left:20px" class="labelmedium"><cf_tl id="Password">:</td>
 				<td class="labelmedium" style="padding-left:10px">
 				<cfif len(get.Password) lte 10>
 					<font color="FF0000"><cf_tl id="Unsecure password"></font>

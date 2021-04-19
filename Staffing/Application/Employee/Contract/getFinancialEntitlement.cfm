@@ -139,7 +139,7 @@
 							</td>
 							<td style="padding-left:4px">
 							
-								<select name="Period" class="regularxl" style="width:99%;">
+								<select name="#SalaryTrigger#_Period" class="regularxl" style="width:99%;">
 									 <option value="DAY"     <cfif CheckPrior.Period eq "DAY">selected</cfif>><cf_tl id="Daily"></option>
 									 <option value="WORKDAY" <cfif CheckPrior.Period eq "WORKDAY">selected</cfif>><cf_tl id="Workdays"></option>
 									 <option value="MONTHF"  <cfif CheckPrior.Period eq "MONTHF">selected</cfif>><cf_tl id="Month">: fixed</option>

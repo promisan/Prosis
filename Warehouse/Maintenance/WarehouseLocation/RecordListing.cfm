@@ -127,13 +127,12 @@
 					   <tr>
 					   <td></td>
 					   <td colspan="6" style="height:100%" id="f#warehouse#_list">	
-					        <cfdiv id="f#warehouse#_list" 
+					        <cf_securediv id="f#warehouse#_list" 
 							 bind="url:#session.root#/Warehouse/Maintenance/WarehouseLocation/LocationContent.cfm?mission=#warehouse.mission#&warehouse=#warehouse.warehouse#&systemfunctionid=#url.systemfunctionid#">						      													   						   								  	
 					   </td>
 					   </tr>	 			 			 					
 										
-				</cfoutput>		
-													
+				</cfoutput>													
 							
 			</table>						
 		

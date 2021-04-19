@@ -9,9 +9,7 @@
 	AND     SearchEnable = '1'
 	ORDER BY SearchOrder
    </cfquery>
-   
-<cf_screentop height="100%" scroll="No" label="Select Search Criteria" layout="webapp" user="no">   
-
+  
 <cf_divscroll style="height:100%">
  
 	<cfform action="#SESSION.root#/roster/RosterGeneric/RosterSearch/Structured/Search4StructuredSubmit.cfm?ID=#URL.ID#&Area=#URL.Area#" method="post">

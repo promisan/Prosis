@@ -61,7 +61,7 @@
 
 <cfoutput>
 
-<cfajaximport tags="cfwindow,cfchart">
+<cfajaximport tags="cfchart">
 
 <cfquery name="System" 
 datasource="AppsSystem">

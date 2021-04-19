@@ -4,7 +4,7 @@
 
 <cf_dialogPosition>
 
-<cfajaximport tags="cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 
 <cfquery name="SearchOccGroup"
 datasource="AppsSelection" 

@@ -116,7 +116,7 @@ password="#SESSION.dbpw#">
 	<script language="JavaScript">
 	
 		function pickticket(bat) {					
-			window.open("#session.root#/Warehouse/Application/Stock/Pickticket/PickticketPrint.cfm?batchNo="+bat+"&ts="+new Date().getTime(), "_blank", "left=30, top=30, width=850, height=850, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")			
+			ptoken.open("#session.root#/Warehouse/Application/Stock/Pickticket/PickticketPrint.cfm?batchNo="+bat+"&ts="+new Date().getTime(), "_blank", "left=30, top=30, width=850, height=850, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")			
 		}	  
 		
 		function printbatch(batchno, template) {
@@ -331,12 +331,12 @@ password="#SESSION.dbpw#">
 						                    ItemTransactionValuation AS V ON I.TransactionId = V.TransactionId
 									WHERE   I.TransactionBatchNo = '#URL.BatchNo#'
 									AND     V.TransactionId <> V.DistributionTransactionId
-								</cfquery>									
-																		
+								</cfquery>	
+																										
 								<!--- added 5/12/2015 to prevent deletion if transaction is already sourced --->
 								
 								<cfif Check.recordcount eq "0">
-																
+																																
 									<cfif fullaccess eq "GRANTED" or editAccess eq "GRANTED">
 																										
 										<cfdiv id="icancel">

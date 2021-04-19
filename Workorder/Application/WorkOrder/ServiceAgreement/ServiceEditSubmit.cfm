@@ -271,6 +271,6 @@ password="#SESSION.dbpw#">
 <cfoutput>
 <script>
   parent.parent.agreementrefresh('#url.tabno#','#url.workorderid#')
-  parent.parent.ColdFusion.Window.destroy('mydialog',true)  
+  parent.parent.ProsisUI.closeWindow('mydialog')  
 </script>
 </cfoutput>

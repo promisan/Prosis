@@ -1457,6 +1457,7 @@
 				  				  
 				    <table cellspacing="0" cellpadding="0">
 					<tr>		
+									
 
 				  	<cfif Transaction.TransactionSource eq "SalesSeries">
 
@@ -1469,44 +1470,47 @@
 				                      Warehouse AS w ON wb.Warehouse = w.Warehouse
 							WHERE     wb.BatchId = '#Transaction.TransactionSourceId#'
 						</cfquery>
+						
+						
 				  		<!--- Cash and carry with receivable mode --->
 						
 						<cfif getMode.salemode eq "3">
 				  		
-						<cfoutput>
-						
-						<cfif dateformat(now(),client.dateSQL) gt dateformat(transaction.created,client.dateSQL)> 
-						
-						<td class="labelmedium2">				  				  		
-				   			<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Banking','#CurPeriod.CurrentAccountPeriod#','#Transaction.Journal#','#Transaction.JournalSerialNo#')">
-					    	<cf_tl id="Record a settlement">
-							</a>
-				   		</td>
-						
-						<cfelse>
-						
-				  		<td class="labelmedium2">				  		
-				   			<a href="javascript:PosSettlement('#url.id#')">
-					    	<cf_tl id="Record a settlement">
-							</a>				   		
-						</td>
-						
-						</cfif>
-						
-						<td style="padding-left:10px;padding-right:10px">|</td>
-				  		<td class="labelmedium2">				  		
-				   			<a href="javascript:PrintReceivable('#url.id#')">
-					    	<cf_tl id="Invoice">
-							</a>				   		
-						</td>
-						<td style="padding-left:10px;padding-right:10px">|</td>
-						<td class="labelmedium2">
-								<a href="javascript:PrintTaxReceivable('#url.id#')">
-								<cf_tl id="Electronic Invoice">
-								</a>
-						</td>
-						<td style="padding-left:10px;padding-right:10px">|</td>						
-						</cfoutput>		
+							<cfoutput>
+							
+								<cfif dateformat(now(),client.dateSQL) gt dateformat(transaction.created,client.dateSQL)> 
+								
+								<td class="labelmedium2">				  				  		
+						   			<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Banking','#CurPeriod.CurrentAccountPeriod#','#Transaction.Journal#','#Transaction.JournalSerialNo#')">
+							    	<cf_tl id="Record a settlement">
+									</a>
+						   		</td>
+								
+								<cfelse>
+								
+						  		<td class="labelmedium2">				  		
+						   			<a href="javascript:PosSettlement('#url.id#')">
+							    	<cf_tl id="Record a settlement">
+									</a>				   		
+								</td>
+								
+								</cfif>
+							
+								<td style="padding-left:10px;padding-right:10px">|</td>
+						  		<td class="labelmedium2">				  		
+						   			<a href="javascript:PrintReceivable('#url.id#')">
+							    	<cf_tl id="Invoice">
+									</a>				   		
+								</td>
+								<td style="padding-left:10px;padding-right:10px">|</td>
+								<td class="labelmedium2">
+										<a href="javascript:PrintTaxReceivable('#url.id#')">
+										<cf_tl id="Electronic Invoice">
+										</a>
+								</td>
+								<td style="padding-left:10px;padding-right:10px">|</td>		
+											
+							</cfoutput>		
 						
 						<cfelse>
 						
@@ -1523,6 +1527,20 @@
 						</cfif>					
 
 					<cfelse>
+					
+						<td style="padding-left:10px;padding-right:10px">|</td>
+				  		<td class="labelmedium2">				  		
+				   			<a href="javascript:PrintReceivable('#url.id#')">
+					    	<cf_tl id="Invoice">
+							</a>				   		
+						</td>
+						<td style="padding-left:10px;padding-right:10px">|</td>
+						<td class="labelmedium2">
+								<a href="javascript:PrintTaxReceivable('#url.id#')">
+								<cf_tl id="Electronic Invoice">
+								</a>
+						</td>
+						<td style="padding-left:10px;padding-right:10px">|</td>		
 					
 						<td class="labelmedium2">				  
 				  		<cfoutput>

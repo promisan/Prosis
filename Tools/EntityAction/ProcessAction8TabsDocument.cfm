@@ -5,22 +5,22 @@
 		datasource="appsOrganization" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT TOP 15 * 
-			FROM   OrganizationObjectActionReport A,
-			       Ref_EntityDocument D 
-			WHERE  A.ActionId   = '#url.id#' 
-			AND    A.DocumentId = D.DocumentId			
+			SELECT   TOP 15 * 
+			FROM     OrganizationObjectActionReport A,
+			         Ref_EntityDocument D 
+			WHERE    A.ActionId   = '#url.id#' 
+			AND      A.DocumentId = D.DocumentId			
 			<!--- Added by Jorge Armin Mazariegos as an enhancement 
-			September 2010
-			to shown only operational reports for that entity ---->
-			AND    D.Operational = '1'
-			ORDER BY D.DocumentOrder, A.Created
+			September 2010 to shown only operational reports for that entity ---->
+			AND      D.Operational = '1'
+			ORDER BY D.DocumentOrder, A.Created			
 </cfquery>
-	   
+
+   
 <cfparam name="url.docid" default="#Document.Documentid#">
 <cfparam name="sel" default="1">	
-		
- <table border="0" width="100%" height="100%">
+	
+ <table width="100%" height="100%">
  
  	   <tr>	
  
@@ -51,7 +51,7 @@
 						<cfset sel = currentrow>					
 						<cfset class = "highlight3">
 					<cfelse>
-						<cfset	class = "regular">
+						<cfset class = "regular">
 					</cfif>		
 												 
 					<cf_menutab base       = "docsel"
@@ -60,9 +60,9 @@
 					            targetitem = "1"
 								padding    = "8"
 					            iconsrc    = "DocumentEdit.png" 
-								iconwidth  = "44" 
+								iconwidth  = "53" 
 								class      = "#class#"
-								iconheight = "54" 
+								iconheight = "60" 
 								name       = "#DocumentDescription#"
 								source     = "ProcessActionDocumentTextContent.cfm?no=#currentrow#&textmode=EDIT&memoactionid=#url.id#&documentid=#documentid#">	
 								
@@ -75,7 +75,7 @@
 			 </td>
 			 					
 		</cfif>		
-		
+				
 		<cfif document.recordcount gte "1">		
 
 			<script>	    
@@ -88,24 +88,24 @@
 			
 		</cfif>	
 					
-		   <td valign="top" height="100%">
+		<td valign="top" height="100%">
 							
 				<table width="100%" height="100%">				
-																												 
-				 <cf_menucontainer name="doc" item="1" class="regular">		
-				 								
-					 <cfif document.recordcount gte "1" and sel neq "" and url.action neq "delete">
+																																 
+					 <cf_menucontainer name="doc" item="1" class="regular">		
+					 								
+						 <cfif document.recordcount gte "1" and sel neq "" and url.action neq "delete">
+						 
+							   <cfset url.no = sel>
+							   <cfset url.textmode     = "EDIT">
+							   <cfset url.memoactionid = url.id>
+							   <cfset url.documentid   = url.docid>		
+							  						   
+							   <cfinclude template     = "ProcessActionDocumentTextContent.cfm">			   
+							 						   					   				   
+						 </cfif>
 					 
-						   <cfset url.no = sel>
-						   <cfset url.textmode     = "EDIT">
-						   <cfset url.memoactionid = url.id>
-						   <cfset url.documentid   = url.docid>		
-						  						   
-						   <cfinclude template     = "ProcessActionDocumentTextContent.cfm">			   
-						 						   					   				   
-					 </cfif>
-				 
-				</cf_menucontainer>
+					</cf_menucontainer>
 										
 			   </table>  
 		   

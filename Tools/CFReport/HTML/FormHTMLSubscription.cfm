@@ -170,9 +170,7 @@
 								
 					</td>
 					</tr> 	
-					
-					<cfajaximport tags="cfwindow">
-					
+															
 					<tr>
 					    <td width="100%" colspan="2">						
 							<cf_securediv bind="url:#link#" id="box#reportid#"/>						

@@ -1,38 +1,40 @@
 <!--- Create Criteria string for query from data entered thru search form --->
 
 <cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
-<cfparam name="url.mission" default="">
 
-<cf_divscroll>
+<cfparam name="url.mission" default="">
 
 <cfset Page         = "0">
 <cfset add          = "1">
 
-<cfinclude template = "../HeaderMaintain.cfm"> 		
+<table height="98%" width="100%" align="center">
+
+<tr><td height="10">
+	<cfinclude template = "../HeaderMaintain.cfm"> 		
+	</td>
+</tr>
 
 <cfoutput>
 
 <script language = "JavaScript">
-
-function recordadd(grp) {
-    ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddLocation", "left=80, top=80, width=560, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
-}
-
-function recordedit(id1) {
-    ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditLocation", "left=80, top=80, width=560, height=400, toolbar=no, status=yes, scrollbars=no, resizable=no");
-}
-
-function reload(mis) {    
-     ptoken.location('RecordListing.cfm?idmenu=#url.idmenu#&mission=' + mis)
-}
+	
+	function recordadd(grp) {
+	    ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "AddLocation", "left=80, top=80, width=560, height=500, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	}
+	
+	function recordedit(id1) {
+	    ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "EditLocation", "left=80, top=80, width=560, height=500, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	}
+	
+	function reload(mis) {    
+	    ptoken.location('RecordListing.cfm?idmenu=#url.idmenu#&mission=' + mis)
+	}
 
 </script>	
 	
 </cfoutput>
 
-<table width="97%" align="center" class="navigation_table">
-
-<tr><td colspan="5" height="20" style="padding-top:4px;padding-bottom:5px">
+<tr><td style="height:30px;padding-left:14px">
 
 		<cfquery name="MissionList"
 		datasource="AppsEmployee" 
@@ -50,12 +52,12 @@ function reload(mis) {
 								  WHERE  AccessLevel > '0' AND UserAccount = '#session.acc#'
 								  AND   Role IN ('HRPosition','OrgUnitManager'))
 			</cfif>
+			AND    Operational = 1
 			
 			ORDER BY MissionOwner,R.Mission
 		</cfquery>	
 		
-		<cfif MissionList.recordcount eq "0">
-		
+		<cfif MissionList.recordcount eq "0">		
 		<table align="center">
 			<tr><td style="height:40" align="center" class="labelmedium">No access has been granted to maintain this lookup table</td></tr>
 		</table>
@@ -69,7 +71,7 @@ function reload(mis) {
 		          group    = "missionowner" 
 				  query    = "missionlist" 
 				  value    = "mission" 
-				  class="regularxl"
+				  class    = "regularxxl"
 				  display  = "mission" 				 
 				  selected = "#url.mission#" 
 		          visible  = "Yes" 
@@ -84,7 +86,7 @@ function reload(mis) {
 	  </td>
 </tr>	
 
-<tr><td height="1" colspan="9" class="linedotted"></td></tr>
+<tr><td class="line" style="height:100%">
 
 <cfquery name="SearchResult"
 datasource="AppsEmployee" 
@@ -110,8 +112,12 @@ password="#SESSION.dbpw#">
 			</cfif>
 	ORDER BY Mission, ListingOrder, LocationName 
 </cfquery>   
+
+<cf_divscroll>
+
+<table width="97%" align="center" class="navigation_table">
 	  
-<tr class="labelmedium line">
+<tr class="labelmedium2 line fixrow">
     <td></td>
     <td>Code</td>
 	<td>Location name</td>
@@ -126,11 +132,11 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="SearchResult" group="Mission">
 
-<tr height="30"><td colspan="9" class="labellarge">#Mission#</b></td></tr>
+<tr height="30"><td colspan="9" class="labellarge">#Mission#</td></tr>
 	
 	<cfoutput>
 	  	
-	    <tr style="height:22px" class="cellcontent navigation_row line"> 
+	    <tr style="height:22px" class="labelmedium2 navigation_row line"> 
 		<td width="5%" align="center">
 		   <cf_img icon="open" navigation="Yes" onclick="recordedit('#LocationCode#')">
 		</td>		
@@ -151,3 +157,7 @@ password="#SESSION.dbpw#">
 </table>
 
 </cf_divscroll>
+
+</td>
+</tr>
+</table>

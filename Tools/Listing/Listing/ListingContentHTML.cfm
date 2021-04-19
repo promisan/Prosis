@@ -58,16 +58,16 @@
 				<cfset orderset = 0>
 				<cfset col      = 0>
 				<cfset total    = 0>
-				<cfset showrows = 1>				
-	
+				<cfset showrows = 1>		
+									
 				<cfif url.listgroupfield eq "" 
 				      or url.listgrouptotal eq "0" <!--- no summary requested --->
 					  or drillkey eq "">	
-					  
+					  					  
 					  <cfset presentation = "list">
 					  
 				<cfelse>
-				
+								
 					  <cfset presentation = "group">
 					  
 				</cfif>								
@@ -80,8 +80,7 @@
 					<cfoutput>
 																			   		   
 						<table style="width:98%" class="navigation_table" id="#box#_table">
-						  
-																								
+																														
 							<cfinclude template="ListingHeader.cfm">							
 																			
 							<cfset cols = session.listingdata[box]['columns']>									
@@ -93,17 +92,17 @@
 							<cfelse>	
 																													
 								<!--- generate data on the level of the group --->
-																																																																	
+																																																																									
 								<cfsavecontent variable="mygridcontent">				
 								   								  
 									<cfif presentation eq "list">
-											  																								
+																				  																								
 										<cfset navmode = attributes.navigation>		
 										<!--- show records optionally with group information --->																																													
 										<cfinclude template="ListingContentHTMLStandard.cfm">	
 																									
 									<cfelse>	
-																																							
+																																																
 										<cfset navmode = "manual">																				
 										<!--- shows GROUPED data ONLY with or without column --->																		
 										<cfinclude template="ListingContentHTMLGroup.cfm">																																

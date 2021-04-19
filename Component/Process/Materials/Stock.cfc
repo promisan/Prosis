@@ -38,9 +38,9 @@
 		<cfargument name="ExcludeBatchNo"   type="string"  required="true"   default="">
 				
 		<cfset stock.onhand       = "0">
+		<cfset stock.earmarked    = "0">	
 		<cfset stock.reserved     = "0">
-		<cfset stock.onorder      = "0">			
-		
+						
 		<!--- Check if UoM is managed in a particuarl transactionUoM --->
 		<cfquery name="getUoMMission" 
 			datasource="AppsMaterials" 
@@ -52,11 +52,13 @@
 		</cfquery>
 		
 		<!---
+		
 			If UoM is managed in a different UoM (the TransactionUoM), then the stock to be displayed for this UoM depends on the available stock of the TransactionUoM/multiplier.
 			This is based on the fact that UoM managed in different UoM(the TransactionUoM) are not used in any warehouse transactions; because all its transactions will be expressed in the TransactionUoM.
 			i.e. UoM = Bottle
 				 UoM = Box, Multiplier = 12, TransactionUoM = Bottle
 		--->
+		
 		<cfif  getUoMMission.recordcount gt 0 and getUoMMission.TransactionUoM neq "">
 		
 			<!--- Get stock of the TransactionUoM --->
@@ -66,8 +68,7 @@
 			   ItemNo           = "#ItemNo#"
 			   UoM              = "#getUoMMission.TransactionUoM#"		
 			   TransactionLot   = "#TransactionLot#"					  
-			   returnvariable   = "stockTransactionUoM">		
-			   
+			   returnvariable   = "stockTransactionUoM">					   
 			   
 			<!--- Get Multiplier --->
 			<cfquery name="getUoM" 
@@ -81,7 +82,7 @@
 
 			<cfif getUoM.UoMMultiplier gt 0>
 			
-				<cfset stock.onhand = stockTransactionUoM.onhand / getUoM.UoMMultiplier>
+				<cfset stock.onhand   = stockTransactionUoM.onhand / getUoM.UoMMultiplier>
 				<cfset stock.reserved = stockTransactionUoM.reserved / getUoM.UoMMultiplier>
 			
 			</cfif>
@@ -107,6 +108,9 @@
 				<cfif TransactionLot neq "">
 				AND       TransactionLot = '#transactionlot#'
 				</cfif>
+				<!--- not earmarked --->
+				AND       WorkOrderId is NULL
+				
 				AND       ItemNo         = '#itemNo#' 
 				AND       TransactionUoM = '#UoM#'		
 				
@@ -115,8 +119,7 @@
 						and the actionstatus of the transaction to be included 
 						receipt likely best to be status = '1'
 						issuance / transfer/ variation like best to be 0 and 1
-				--->		
-						
+				--->						
 				
 				<cfif excludeBatchNo neq "">
 				AND     (TransactionBatchNo != '#excludeBatchNo#' OR TransactionBatchNo IS NULL)
@@ -127,10 +130,41 @@
 			    <cfset stock.onhand  = "#getOnHand.total#">
 			</cfif>
 			
-			<!--- sales order reservation : Customer request --->
+			<!--- sales order reservation : workorder module commitment --->
 			
+			<cfquery name="getEarmarked" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT    SUM(TransactionQuantity) AS Total
+				FROM      ItemTransaction
+				WHERE     1=1
+				<cfif Mission neq "">
+				AND       Mission        = '#mission#' 
+				</cfif>
+				<cfif Warehouse neq "">
+				AND       Warehouse      = '#warehouse#'
+				</cfif>
+				<cfif Location neq "">
+				AND       Location       = '#location#'
+				</cfif>
+				<cfif TransactionLot neq "">
+				AND       TransactionLot = '#transactionlot#'
+				</cfif>
+				<!--- not earmarked --->
+				AND       WorkOrderId is NOT NULL
+				
+				AND       ItemNo         = '#itemNo#' 
+				AND       TransactionUoM = '#UoM#'		
+									
+				
+				<cfif excludeBatchNo neq "">
+				AND     (TransactionBatchNo != '#excludeBatchNo#' OR TransactionBatchNo IS NULL)
+				</cfif>	
+				
+			</cfquery>	
 			
-			
+			<cfset stock.earmarked = getEarmarked.total>			
 						
 			<!--- stock internal request : Request --->
 			
@@ -169,8 +203,7 @@
 		
 		<cfreturn stock>	
 		
-	</cffunction>	
-	
+	</cffunction>		
 
 	
 	<!--- --------------------------------- --->

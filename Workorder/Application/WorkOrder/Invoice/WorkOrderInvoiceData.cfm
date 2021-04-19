@@ -103,140 +103,97 @@
 
 <cfset table0 = "border:0px solid b0b0b0">
 <cfset table1 = "border:1px solid b0b0b0" >
-<cfset td01 = "border-right:1px solid b0b0b0; border-bottom:1px solid b0b0b0">
-<cfset td02 = "border-bottom:1px solid b0b0b0">
-<cfset td03 = "border-right:1px solid b0b0b0">
-<cfset td04 = "border-top:1px solid b0b0b0">
-<cfset td05 = "border-top:1px solid b0b0b0; border-left:1px solid b0b0b0; border-bottom:1px solid b0b0b0">
-<cfset td06 = "border-top:1px solid b0b0b0; border-right:1px solid b0b0b0; border-bottom:1px solid b0b0b0">
-<cfset td07 = "border-top:1px solid b0b0b0; border-bottom:1px solid b0b0b0">
-<cfset td08 = "border-left:1px solid b0b0b0">
-<cfset td09 = "border-left:1px solid b0b0b0; border-top:1px solid b0b0b0">
-<cfset td10 = "border-right:1px solid b0b0b0; border-top:1px solid b0b0b0">
+<cfset td01   = "border-right:1px solid b0b0b0; border-bottom:1px solid b0b0b0">
+<cfset td02   = "border-bottom:1px solid b0b0b0">
+<cfset td04   = "border-top:1px solid b0b0b0">
+<cfset td05   = "border-top:1px solid b0b0b0; border-left:1px solid b0b0b0; border-bottom:1px solid b0b0b0">
+<cfset td06   = "border-top:1px solid b0b0b0; border-right:1px solid b0b0b0; border-bottom:1px solid b0b0b0">
+<cfset td08   = "border-left:1px solid b0b0b0">
+<cfset td09   = "border-left:1px solid b0b0b0; border-top:1px solid b0b0b0">
 
-<cfset data10 = "font-family:Verdana;font-size:10pt;font-weight:Bold">
-<cfset data08 = "font-family:Verdana;font-size:8pt">
+<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
-<cfdocumentitem type="header"> 
+<cfdocumentitem type="header" evalAtPrint="true"> 
 
 	<cfoutput> 
-	<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" bordercolor="gray" rules="cols">
+		
+		<table width="98%" align="center">
+	 		<tr class="labelmedium">
+				<td style="width:100px"><cf_ReportLogo></td>
+		 		<td align="right" style="font-size:75px;font-weight:bold"><hl>Work Order Quotation</h1></td>			 		
+	 		</tr>		
+			<tr class="labelmedium">
+				<td style="width:100px"></td>
+		 		<td align="right" style="font-size:55px;font-weight:bold"><hl>#GetMissionName.MissionName#</td>			 		
+	 		</tr>			
+		</table>	
 
-	<tr>
-	 	<td width="30%">
-		<!---
-			<table width="100%" border="0" cellspacing="2" cellpadding="2" align="center">
-		 		<tr>
-			 		<td align="left" width="25%"><font face="Verdana" size="+3"><b>#GetHeader.CustomerName# </b></font></td>			 		
-		 		</tr>
-		 		<tr>
-			 		<td align="left" width="25%"><font face="Verdana" size="+1">#GetHeader.CustomerAddress#,#GetHeader.CustomerCity#,#GetHeader.CustomerPostalCode#</font></td>			 		
-		 		</tr>
-		 		<tr>
-			 		<td align="left" width="25%"><font face="Verdana" size="+1">#GetHeader.CustomerPhoneNumber#</font></td>			 		
-		 		</tr>
-
-			</table>	
-		--->	
-			<table width="100%" border="0" cellspacing="2" cellpadding="2" align="center">
-		 		<tr>
-					<td><cf_ReportLogo></td>
-			 		<td align="left" width="75%"><font face="Verdana" size="+3"><b>#GetMissionName.MissionName# </b></font></td>			 		
-		 		</tr>
-				
-			</table>	
-
-		</td>
-	 	<!---
-		<td width="40%" align="center"><cf_ReportLogo>
-
-		</td>
-		--->		
-	 	<td width="30%">
-			<table width="100%" border="0" cellspacing="2" cellpadding="2" align="center">
-		 		<tr>
-			 		<td align="right" width="75%"><font face="Verdana" size="+1"><b>#GetMissionAddress.Address#, #GetMissionAddress.AddressCity#, #GetMissionAddress.Country# </b></font></td>
-		 		</tr>
-		 		<tr>
-			 		<td align="right" width="75%"><font face="Verdana" size="+1"><b>Phone: #GetMissionAddress.TelephoneNo#</b></font></td>
-		 		</tr>
-		 	</table>
-
-		</td>		
-	</tr>
-
-
-
-	<tr>
-	 	<td align="center" colspan="2"><br><font face="Verdana" size="+3" color="0D4e75"><b>Work Order Quotation</b></font></td>
-	</tr>
-	</table>
 	</cfoutput>
 
  </cfdocumentitem> 
  
- <cfdocumentSection marginTop="2" marginBottom="2">
+<cfdocumentSection marginTop="2" marginBottom="2">
  
- <cfdocumentitem type="footer" evalAtPrint="true">
+<cfdocumentitem type="footer" evalAtPrint="true">
 
 <cfoutput> 
 
-	<table width="100%" border="0" cellspacing="2" cellpadding="2" align="center">
+	<table width="100%" align="center">
  		<tr>
-	 		<td align="center" width="100%" style="#td04#"><font face="Verdana" >#GetHeader.MissionName#. #GetMissionAddress.Address#, #GetMissionAddress.AddressCity#, #GetMissionAddress.Country#. Phone: #GetMissionAddress.TelephoneNo#</font></td>			 		
+	 		<td align="center" width="100%">#GetHeader.MissionName#. #GetMissionAddress.Address#, #GetMissionAddress.AddressCity#, #GetMissionAddress.Country#. Phone: #GetMissionAddress.TelephoneNo#</font></td>			 		
  		</tr>
  		<tr>
-	 		<td align="center" width="100%"><font face="Verdana" >#cgi.http_host# - #GetMissionAddress.eMailAddress#</font></td>			 		
+	 		<td align="center" width="100%">#cgi.http_host# - #GetMissionAddress.eMailAddress#</td>			 		
  		</tr>
 
 	</table>	
 	
 </cfoutput>
 
- </cfdocumentitem> 
-
+</cfdocumentitem> 
 
 <cfoutput>
-	<table width="98%" style="#table1#" cellspacing="0" cellpadding="0" align="center">
+
+	<table width="98%" style="border:1px solid b0b0b0" align="center">
 	 <tr>  
 		<td height="50" colspan="2" valign="top">
 		
 	    <table width="100%" border="0" cellspacing="0" cellpadding="1" align="center">
 	
 		    <TR >
-				<td height="20" width="50%" align="left" style="#td01#"><font face="verdana" size="-1"><b>Quote No.:</b></font></td>
-			    <TD align="left" width="50%" style="#td02#"><font face="verdana" size="-1">#DateFormat(now(),"dddd dd MMMM yyyy")#</font></TD>
+				<td height="20" width="50%" align="left">Quote No.:</td>
+			    <TD align="left" width="50%">#DateFormat(now(),"dddd dd MMMM yyyy")#</TD>
 			</TR>
 		    <TR >
-				<td height="20" width="50%" align="left" style="#td01#"><font face="verdana" size="-1"><b>Customer:</b>&nbsp;&nbsp;&nbsp;#GetHeader.CustomerName#</font></td>
-			    <TD align="left" width="50%" style="#td02#"><font face="verdana" size="-1"><b>Contact:</b>&nbsp;&nbsp;&nbsp;#GetHeader.Contact#</font></TD>
+				<td height="20" width="50%" align="left" style="#td01#">Customer:&nbsp;&nbsp;&nbsp;#GetHeader.CustomerName#</font></td>
+			    <TD align="left" width="50%">Contact:&nbsp;&nbsp;&nbsp;#GetHeader.Contact#</TD>
 			</TR>
 		    <TR >
-				<td height="20" width="50%" align="left" style="#td03#"><font face="verdana" size="-1"><b>Address:</b>&nbsp;&nbsp;&nbsp;#GetHeader.CustomerAddress#,#GetHeader.CustomerCity#</font></td>
-			    <TD align="left" width="50%"><font face="verdana" size="-1"><b>Phone No.:</b>&nbsp;&nbsp;&nbsp;#GetHeader.CustomerPhoneNumber#</font></TD>
+				<td height="20" width="50%" align="left">Address:&nbsp;&nbsp;&nbsp;#GetHeader.CustomerAddress#,#GetHeader.CustomerCity#</font></td>
+			    <TD align="left" width="50%">Phone No.:&nbsp;&nbsp;&nbsp;#GetHeader.CustomerPhoneNumber#</TD>
 			</TR>
 
 		</table>
 	</tr>
 	</table>
-	
-	<br><br>
-	
+		
 	<table width="98%" cellspacing="0" cellpadding="0" align="center"  >
 	 <tr>  
 		<td height="50" colspan="2" valign="top">
 		
-	    <table width="100%" border="0" cellspacing="0" cellpadding="1" align="center">
+	    <table width="100%" align="center">
 	
 	    <TR bgcolor="f4f4f4">
-			<td height="20" width="10%" align="center" style="#td05#" style="#td03#"><font face="verdana">Code</font></td>
-		    <TD align="center" width="30%" style="#td07#" style="#td03#"><font face="verdana">Description</font></TD>
-		    <TD align="right" width="10%" style="#td07#" style="#td03#"><font face="verdana">Quantity</font></TD>
-		    <TD align="center" width="8%" style="#td07#" style="#td03#"><font face="verdana">UoM</font></TD>	
-		    <TD align="right" width="14%" style="#td07#" style="#td03#"><font face="verdana">Price</font></TD>
-		    <TD align="right" width="14%" style="#td07#" style="#td03#"><font face="verdana">Tax</font></TD>
-		    <TD align="right" width="14%" style="#td06#" ><font face="verdana">Total</font></TD>
+			<td height="20" width="10%"   align="center">Code</td>
+		    <TD align="center" width="50%">Description</TD>
+		    <TD align="right"  width="10%">Quantity</TD>
+		    <TD align="center" width="8%">UoM</TD>	
+		    <TD align="right"  width="10%">Price</TD>
+		    <TD align="right"  width="10%">Tax</TD>
+		    <TD align="right"  width="10%">Total</TD>
 		</TR>
+		
+		<tr><td class="line" colspan="7"></td></tr>
 		
 		<cfset TTotal = 0>
 		<cfset TTax = 0>
@@ -249,49 +206,41 @@
 
 			<tr>
 						
-				<td height="17"  align="left"  style="#td08#" style="#td03#"><font face="verdana">#Classification#</font></td>
-				<td align="left" style="#td03#"><font face="verdana">#ItemDescription#</font></td>
-				<td align="right" style="#td03#"><font face="verdana">#NumberFormat(Quantity,",")#</font></td>
-		    	<TD align="center" style="#td03#"><font face="verdana">#UoM#</font></TD>					
-				<td align="right" style="#td03#"><font face="verdana">#NumberFormat(SaleAmountIncome,",__.__")#</font></td>
-				<td align="right" style="#td03#"><font face="verdana">#NumberFormat(SaleAmountTax,",__.__")#</font></td>
-				<td align="right"  style="#td03#"><font face="verdana">#NumberFormat(SaleAmountIncome + SaleAmountTax,",__.__")#</font></td>
+				<td height="17"  align="left">#Classification#</td>
+				<td align="left">#ItemDescription#</td>
+				<td align="right">#NumberFormat(Quantity,",")#</td>
+		    	<TD align="center">#UoM#</TD>					
+				<td align="right">#NumberFormat(SaleAmountIncome,",.__")#</td>
+				<td align="right">#NumberFormat(SaleAmountTax,",.__")#</td>
+				<td align="right">#NumberFormat(SaleAmountIncome + SaleAmountTax,",.__")#</td>
 
            	</tr>		
+			
 		</cfloop>
+					
 			<tr>
-				<td style="#td08#" style="#td03#"></td>
-				<td style="#td03#"></td>
-				<td style="#td03#"></td>
-		    	<TD style="#td03#"></TD>					
-				<td style="#td03#"></td>
-				<td style="#td03#"></td>
-				<td style="#td03#"></td>			
-			</tr>
-			<tr bgcolor="f4f4f4">
 						
-				<td height="17" width="50" align="right" colspan="6" style="#td09#"  style="#td03#"><font face="verdana"><b>Total</b></font></td>
+				<td height="17" width="50" align="right" colspan="5"><b>Total</b></td>
 <!----
 				<td align="right" ><font face="verdana">#NumberFormat(TQuantity,",")#</font></td>
 		    	<TD align="center" ></TD>					
 				<td align="right" ></td>
 				<td align="right" ><font face="verdana">#NumberFormat(TTax,",__.__")#</font></td>
 --->				
-				<td align="right" style="#td10#"  style="#td03#"><font face="verdana">#NumberFormat(TTotal,",__.__")#</font></td>
+				<td align="right" colspan="2">#NumberFormat(TTotal,",.__")#</td>
 
            	</tr>	
-			<tr bgcolor="f4f4f4">						
-				<td height="17" width="50" align="right" colspan="6"  style="#td09#"  style="#td03#"><font face="verdana"><b>Shipping</b></font></td>
-				<td align="right"  style="#td10#"  style="#td03#"><font face="verdana">#NumberFormat(0,",__.__")#</font></td>
+			<tr>						
+				<td height="17" width="50" align="right" colspan="5"><b>Shipping</td>
+				<td align="right" colspan="2">#NumberFormat(0,",.__")#</td>
            	</tr>	
 
-			<tr bgcolor="f4f4f4">						
-				<td height="17" width="50" align="right" colspan="6"  style="#td05#"  style="#td03#"><font face="verdana"><b>Total</b></font></td>
-				<td align="right"  style="#td06#"  style="#td03#"><font face="verdana">#NumberFormat(TTotal,",__.__")#</font></td>
+			<tr>						
+				<td height="17" width="50" align="right" colspan="5"><b>Total</b></td>
+				<td align="right" colspan="2">#NumberFormat(TTotal,",.__")#</td>
            	</tr>	
 			
 	</table> 	
-
 		
 </cfoutput>
 

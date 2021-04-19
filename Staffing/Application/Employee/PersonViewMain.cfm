@@ -4,7 +4,7 @@
 
 <cfset dependentshow = "0">
 
-<cfajaximport tags="cfwindow,cfdiv">
+<cfajaximport tags="cfdiv">
 <cf_FileLibraryScript>
 
 <cf_screentop height="100%" scroll="Yes" html="No" menuAccess="context" jquery="Yes">

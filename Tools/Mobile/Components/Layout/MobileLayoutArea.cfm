@@ -3,6 +3,7 @@
 <cfparam name="attributes.id"					default="mainContainer">
 <cfparam name="attributes.prosisMenu"			default="yes">
 <cfparam name="attributes.showRightLink"		default="no">
+<cfparam name="attributes.showPrint"			default="no">
 <cfparam name="attributes.showAppLogo"			default="yes">
 <cfparam name="attributes.showBrandLogo"		default="yes">
 <cfparam name="attributes.showUserInfo"			default="yes">
@@ -85,6 +86,16 @@
                     </cfoutput>
 			        <div class="navbar-right">
 			            <ul class="nav navbar-nav no-borders">
+							<cfif trim(lcase(attributes.showPrint)) eq "1" or trim(lcase(attributes.showPrint)) eq "yes">
+				                <li>
+									<cf_tl id="Print" var="1">
+									<cfoutput>
+										<a href="##" id="printButton" title="#lt_text#" onclick="___prosisMobileWebPrint('##mainContainer', true, '', function(){})">
+											<i class="pe-7s-print"></i>
+										</a>
+									</cfoutput>
+				                </li>
+							</cfif>
 							<cfif trim(lcase(attributes.showRightLink)) eq "1" or trim(lcase(attributes.showRightLink)) eq "yes">
 				                <li>
 				                    <a href="#" id="sidebar" class="right-sidebar-toggle">
@@ -105,6 +116,7 @@
 			                </cfif>
 			            </ul>
 			        </div>
+					<h2 id="___prosisMobileSubTitle" style="float:right; padding-right:15px;"></h2>
 			    </nav>
 			</div>
 	        

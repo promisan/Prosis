@@ -103,16 +103,16 @@ password="#SESSION.dbpw#">
 	<cfset sReference = Get.EventReference>
 </cfif>
 
-
 <cf_screentop label  = "Workorder Event" 
               title   = "Workorder Event"              
 			  banner = "gray" 		
+			  html="no"
 			  close  = "parent.ColdFusion.Window.destroy('mydialog',true)"	
 			  layout = "webapp">
 
 <cfform action="ServiceEditSubmit.cfm?workorderid=#url.workorderid#&tabno=#url.tabno#" name="eventform" method="POST" target="process">
 
-<table width="700" class="formpadding" cellspacing="0" cellpadding="0" align="center">
+<table width="700" class="formpadding" align="center">
 
     <tr class="hide">
 	   <td colspan="2"><iframe name="process" id="process" width="100%" height="100"></iframe></td>
@@ -144,7 +144,7 @@ password="#SESSION.dbpw#">
 	  		 <cfinput type="text" 
 	         name="EventReference" 
 			 size="1" 							 								
-			 class="regularxl" 
+			 class="regularxxl" 
 			 style="width:150" 
 			 maxLength="20"
 			 visible="Yes" 
@@ -164,7 +164,7 @@ password="#SESSION.dbpw#">
 		    <cf_intelliCalendarDate9
 			FieldName="DateEffective" 					
 			Default="#Dateformat(get.EventDate, CLIENT.DateFormatShow)#"	
-			class="regularxl"	
+			class="regularxxl"	
 			AllowBlank="False">	
 				
 	   </td>
@@ -179,7 +179,7 @@ password="#SESSION.dbpw#">
 	  	  	  
 		<cfif WrkClass.recordcount gte "1">
 		
-		    <select name="EntityClass" id="EntityClass" class="regularxl">
+		    <select name="EntityClass" id="EntityClass" class="regularxxl">
 			    <cfoutput query="WrkClass">
 					<option value="#EntityClass#" <cfif getObject.EntityClass eq EntityClass>selected</cfif>>#EntityClassName#</option>
 				</cfoutput>
@@ -199,8 +199,7 @@ password="#SESSION.dbpw#">
 		
 	 <tr><td colspan="2" align="center" height="30">
 	 	  <cfoutput>
-		  	 <cf_tl id="Save" var="vSave">
-			 
+		  	 <cf_tl id="Save" var="vSave">			 
 		     <input type="submit" id="save" name="save" value="#vSave#" class="button10s" style="height:23;width:120px">
 		 </cfoutput>
 		 </td>

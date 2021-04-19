@@ -667,7 +667,7 @@
    
 </cffunction>
 
-	<cffunction name="getNodesV2" access="remote"  returnType="void">
+<cffunction name="getNodesV2" access="remote"  returnType="void">
 
 		<cfargument name="path"       type="String" required="false" default=""/>
 		<cfargument name="value"      type="String" required="true" default=""/>
@@ -1336,7 +1336,5 @@
 		</cfscript>
 
 	</cffunction>
-
-
 
 </cfcomponent>

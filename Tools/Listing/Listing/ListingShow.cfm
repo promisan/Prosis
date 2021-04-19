@@ -171,7 +171,8 @@
 							
 						</cfif>  
 						
-						<tr class="xxhide">
+						
+						<tr class="hide">
 						   	<td style="height:1px" id="#attributes.box#_ajax"></td>
 						</tr>		
 																
@@ -437,7 +438,7 @@
 						</td>
 					</tr>	
 					
-					<tr class="xhide"><td style="height:1px" id="#attributes.box#_ajax"></td></tr>	  		   
+					<tr class="xxxhide"><td style="height:1px" id="#attributes.box#_ajax"></td></tr>	  		   
 									
 			 </table>
 		 

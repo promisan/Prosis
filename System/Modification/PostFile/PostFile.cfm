@@ -1,5 +1,6 @@
 
 <cf_screentop height="100%" title="Application Code Inquiry" scroll="no" html="No" jQuery="Yes">
+
 <cf_layoutscript>
 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	
@@ -8,10 +9,7 @@
 
 	<cf_layoutarea 
           position="top"
-          name="controltop"
-          minsize="50"
-          maxsize="50"  
-		  size="50"        
+          name="controltop"         
 		  overflow="hidden"
           splitter="true">	
 		  
@@ -22,19 +20,24 @@
 	<cf_layoutarea 
 	    position="left" name="tree" maxsize="400" size="260" collapsible="true" splitter="true">
 	
-		<table width="100%" height="100%" cellspacing="0" cellpadding="0" class="tree formpadding">
-		<tr><td valign="top">
-		<cfform>
-	
-				<cftree name="idfolder" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
+			<table width="100%" height="100%" class="tree formpadding">
+			<tr><td valign="top">
+			
+			    <!--- Hanno - Armin
+				<cf_UItree name="idfolder" font="calibri"  fontsize="12" bold="No" format="html" required="No">
+				     <cf_UITreeitem
+							  bind="cfc:service.Tree.FolderTree.getNodes({cftreeitempath},{cftreeitemvalue},'#SESSION.rootpath#')">
+			    </cf_UItree>
+				--->
 				
-				     <cftreeitem bind="cfc:service.Tree.FolderTree.getNodes({cftreeitempath},{cftreeitemvalue},'#SESSION.rootpath#')">  		 
-					 
-			    </cftree>	
-	
-		</cfform>
-		</td></tr>
-		</table>
+				<cfform>
+				<cftree name="idfolder" font="tahoma" fontsize="11" bold="No" format="html" required="No">				
+				     <cftreeitem bind="cfc:service.Tree.FolderTree.getNodes({cftreeitempath},{cftreeitemvalue},'#SESSION.rootpath#')">  		 					 
+			    </cftree>		
+				</cfform>
+						
+			</td></tr>
+			</table>
 		
 	</cf_layoutarea>	
 	

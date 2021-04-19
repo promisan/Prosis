@@ -20,7 +20,7 @@ SELECT *
 ORDER BY HierarchyCode
 </cfquery>
 
-<table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+<table width="100%" class="navigation_table">
 
 	<cfoutput query="SearchResult">
 	
@@ -57,7 +57,7 @@ ORDER BY HierarchyCode
 		  
 		  <td  
 			width="30" 
-			onclick="javascript:ptoken.navigate('#link#&action=insert&#url.des1#=#orgunit#','#url.box#');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">&nbsp;
+			onclick="javascript:ptoken.navigate('#link#&action=insert&#url.des1#=#orgunit#','#url.box#');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">&nbsp;
 				 				   
 			   <img src="#SESSION.root#/Images/bullet.png" alt="Select"
 			     name="img98_#orgunit#" 

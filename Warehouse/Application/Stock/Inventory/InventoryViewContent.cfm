@@ -39,7 +39,7 @@ password="#SESSION.dbpw#">
 	WHERE  Mission = '#get.Mission#'	
 </cfquery>
 
-<table width="98%" border="0" align="center" class="navigation_table">
+<table width="98%" border="0" align="left" class="navigation_table">
 
 <cftransaction isolation="read_uncommitted">
 	
@@ -165,7 +165,7 @@ password="#SESSION.dbpw#">
 		
 			<cfoutput group="Location">
 							 		
-				  <tr bgcolor="DAF9FC" class="line fixrow clsFilterRow" style="height:25px">					   										
+				  <tr bgcolor="DAF9FC" class="fixrow clsFilterRow" style="height:25px">					   										
 					  <td colspan="2" class="labelmedium" style="font-size:16px;padding-left:8px">#Location#</td>						 		 		 					 
 					  <td colspan="1" width="93%" style="padding-left:4px">					  
 						  <table width="100%" cellpadding="0">
@@ -192,9 +192,9 @@ password="#SESSION.dbpw#">
 					  
 					 <cfset apply = "locshow('#location#','#category#','#categoryitem#','box#currentrow#','#url.systemfunctionid#','','',document.getElementById('hidezero').checked,'#parentItemNo#',document.getElementById('ebox#currentrow#').checked,'1')">
 					  
-					  <tr class="navigation_row line fixrow2 clsFilterRow">
+					  <tr class="navigation_row fixrow2 clsFilterRow">
 					  
-					     <td class="navigation_action clsCategoryLine" data-value="#currentrow#" align="left" style="fix:40px;min-width:40px;padding-top:3px;padding-left:5px"  onClick="#apply#">
+					     <td class="navigation_action clsCategoryLine" data-value="#currentrow#" align="left" style="max-width:40px;min-width:40px;padding-top:3px;padding-left:5px"  onClick="#apply#">
 						 						  						   
 						   <cfif recorded eq "0">
 						
@@ -220,11 +220,12 @@ password="#SESSION.dbpw#">
 						 
 						 </td>
 						 
-					 	 <td width="100%" colspan="2" style="height:100%;fix:40px;">
+					 	 <td colspan="2" style="width:100%;height:100%">
 						 
 							 <table width="100%" style="height:100%">
+							 
 							 <tr class="clsFilterRow">
-								 <td onclick="#apply#" style="fix:40px;font-size:15px;height:23px;padding-top:3px;padding-left:4px">#CategoryItem# #CategoryItemName#</td>
+								 <td onclick="#apply#" style="font-size:15px;height:23px;padding-top:3px;padding-left:4px">#CategoryItem# #CategoryItemName#</td>
 								 
 								 <!--- filter box --->
 								 
@@ -232,23 +233,24 @@ password="#SESSION.dbpw#">
 								 
 									  <table style="height:100%">									  
 									  <tr>									  
-									  <td class="labelit" style="fix:40px;font-size:14px;height:26px;"><cf_tl id="Earmarked">:</td>
-									  <td style="fix:40px;padding-left:4px;padding-right:10px">
+									  <td class="labelit" style="font-size:14px;height:26px;"><cf_tl id="Earmarked">:</td>
+									  <td style="padding-left:4px;padding-right:10px">
 									   <input class="radiol" type="checkbox" id="ebox#currentrow#" value="1">
 									  </td>
 									  								  								   							 
-									  <td class="labelit" style="fix:40px;font-size:14px;height:26px;"><cf_tl id="Filter">:</td>
-									  <td style="fix:40px;padding-left:4px">
+									  <td class="labelit" style="font-size:14px;height:26px;"><cf_tl id="Filter">:</td>
+									  <td style="padding-left:4px">
 										
-									  <input type="text" id="fbox#currentrow#"  class="regularxl enterastab" style="height:100%;width:140;border:0px;border-left:1px solid silver;border-right:1px solid silver" value=""></td>
+									  <input type="text" id="fbox#currentrow#"  class="regularxl enterastab" 
+									   style="height:100%;width:140;border-left:1px solid silver;border-right:1px solid silver" value=""></td>
 										   
-									  <td style="fix:40px;padding-left:3px;padding-right:4px">
+									  <td style="padding-left:3px;padding-right:4px">
 											
 										<input type="button" 
 										    name="Find" 
 											value="Find" 
 											class="button10g"
-											style="width:50;height:23;" 
+											style="width:50px;height:26px;" 
 											onclick="locshow('#location#','#category#','#categoryitem#','box#currentrow#','#url.systemfunctionid#','1',document.getElementById('fbox#currentrow#').value,document.getElementById('hidezero').checked,'#parentitemno#',document.getElementById('ebox#currentrow#').checked,'0')">
 										
 									   </td>										
@@ -265,7 +267,7 @@ password="#SESSION.dbpw#">
 					  					  					 									 									  
 					  <tr id="box#currentrow#" class="#cl#">
 					  							 							     
-						  <td colspan="3" id="cbox#currentrow#" style="height:100%">
+						  <td colspan="3" id="cbox#currentrow#" style="width:98%;height:100%">
 						  
 						      <cfparam name="url.zero" default="false">
 							  											  									 										 								 									

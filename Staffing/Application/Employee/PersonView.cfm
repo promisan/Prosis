@@ -132,7 +132,7 @@
 	  functionName="Employee Dialog"
 	  label="s:#Employee.LastName# [#Employee.PersonNo#]">
 	  
-<cfajaximport tags="cfwindow">	  		  
+  		  
 <cf_layoutScript>
 
 

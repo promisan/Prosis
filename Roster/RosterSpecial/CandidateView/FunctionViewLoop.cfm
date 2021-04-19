@@ -307,7 +307,7 @@
 <cf_LayoutScript>
 
 <cf_dialogStaffing>
-<cfajaximport tags="cfdiv,cfwindow,cfform">
+<cfajaximport tags="cfdiv,cfform">
    		 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>
 

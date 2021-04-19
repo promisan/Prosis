@@ -87,17 +87,17 @@
 	}
 	
 	function clearMessage(level){
-		ColdFusion.navigate('ParameterEditOwnerAccessSubmit.cfm?checked=','divLevel'+level);
+		ptoken.navigate('ParameterEditOwnerAccessSubmit.cfm?checked=','divLevel'+level);
 	}
 	
 	function submitChange(control, level, from, to, owner){
-		ColdFusion.navigate('ParameterEditOwnerAccessSubmit.cfm?level='+level+'&from='+from+'&to='+to+'&checked='+control.checked+'&owner='+owner,'divLevel'+level);
+		ptoken.navigate('ParameterEditOwnerAccessSubmit.cfm?level='+level+'&from='+from+'&to='+to+'&checked='+control.checked+'&owner='+owner,'divLevel'+level);
 		setTimeout("clearMessage('"+level+"')", 3000);
 	}
 	
 	function showRuleIcon(control, level, from, to, owner){
 		if (control.checked)
-			ColdFusion.navigate('Rule.cfm?level='+level+'&from='+from+'&to='+to+'&owner='+owner,'rule_'+level+'_'+from+'_'+to);
+			ptoken.navigate('Rule.cfm?level='+level+'&from='+from+'&to='+to+'&owner='+owner,'rule_'+level+'_'+from+'_'+to);
 		else{
 			c = document.getElementById('rule_'+level+'_'+from+'_'+to);
 			c.innerHTML = '';
@@ -106,7 +106,7 @@
 	
 
 	function template(file) {  
- 		window.open("RuleTemplateDialog.cfm?path="+file, "Template", "left=40, top=40, width=860, height= 732, toolbar=no, status=yes, scrollbars=yes, resizable=yes");
+ 		ptoken.open("RuleTemplateDialog.cfm?path="+file, "Template", "left=40, top=40, width=860, height= 732, toolbar=no, status=yes, scrollbars=yes, resizable=yes");
 	}
 
 	function submitRule(owner, rule, level, from, to){
@@ -121,15 +121,14 @@
 		ptoken.navigate('RuleSubmit.cfm?level='+level+'&from='+from+'&to='+to+'&rule='+rule+'&owner='+owner,'divLevel'+level);
 		setTimeout("clearMessage('"+level+"')", 3000);
 		
-		ColdFusion.Window.hide('RuleWindow'); 	
+		ProsisUI.closeWindow('RuleWindow'); 	
 	}
 
 	
 	function selectRule(owner, rule, level, from, to){
 		
-		ColdFusion.Window.create('RuleWindow', 'Select rule', '',{x:100,y:100,height:270,width:500,modal:true,center:true});    
-		ColdFusion.Window.show('RuleWindow'); 					
-		ColdFusion.navigate('RuleSelection.cfm?level='+level+'&from='+from+'&to='+to+'&rule='+rule+'&owner='+owner,"RuleWindow")
+		ProsisUI.createWindow('RuleWindow', 'Select rule', '',{x:100,y:100,height:270,width:500,modal:true,center:true});    						
+		ptoken.navigate('RuleSelection.cfm?level='+level+'&from='+from+'&to='+to+'&rule='+rule+'&owner='+owner,"RuleWindow")
 
 	}
 	

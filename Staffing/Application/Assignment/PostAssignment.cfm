@@ -40,7 +40,7 @@
 
 <cfparam name="url.caller" default="regular">
     
-<table width="94%" border="0" cellspacing="0" cellpadding="0" align="center"> 
+<table width="94%" align="center"> 
 
   <tr>
   <td colspan="2">
@@ -64,7 +64,7 @@
   <cfif url.caller eq "regular" or url.caller eq "postdialog"> 
   
   <tr class="line">
-    <td width="100%" style="font-size:18px;height:40px;padding-left:2px" class="labelmedium"><cf_tl id="Incumbency"></i></td>
+    <td width="100%" style="font-size:18px;height:40px;padding-left:2px" class="labelmedium2"><cf_tl id="Incumbency"></td>
 	<cfoutput>
     <td align="right" style="padding-right:6px">
 	   	<input type="hidden" id="refresh_position" onClick="window.open('#session.root#/Staffing/Application/Assignment/PostAssignment.cfm?caller=postdialog&id=#url.id#','assignments')"> 
@@ -84,7 +84,7 @@
   
 	  <table border="0" class="formpadding" width="100%" class="navigation_table">
 		
-	    <TR class="line labelmedium">
+	    <TR class="line labelmedium2">
 	       <td width="3%" align="center"></td>
 	       <td width="7%" align="left"><cf_tl id="IndexNo"></td>
 	       <TD width="20%"><cf_tl id="Name"></TD>
@@ -103,16 +103,16 @@
 	    <cfset last = "1">
 		
 		<cfif Assignment.recordcount eq "0">		
-		<tr><td colspan="12" align="center" class="labelmedium" style="padding-top:10px"><font color="808080">No assignments recorded for this position</td></tr>
+		<tr><td colspan="12" align="center" class="labelmedium2" style="padding-top:10px"><font color="808080">No assignments recorded for this position</td></tr>
 		</cfif>
 	
 		<cfoutput query="Assignment">
 		   
-			<TR class="navigation_row line labelmedium">
-		   	   <td class="labelit" align="center" style="padding-left:4px">	   			  
+			<TR class="navigation_row line labelmedium2">
+		   	   <td align="center" style="padding-left:4px">	   			  
 			     <cf_img icon="edit" navigation="Yes" onclick="EditAssignment('#PersonNo#','#AssignmentNo#','','position')">	 
 			   </td>	
-		       <td><A HREF="javascript:EditPerson('#PersonNo#','#IndexNo#')"><font color="6688aa">#IndexNo#</A></td>
+		       <td><A HREF="javascript:EditPerson('#PersonNo#','#IndexNo#')">#IndexNo#</A></td>
 		       <td>#LastName#, #FirstName#</TD>
 		   	   <td>#FunctionDescription#</TD>
 			   <td>#LocationName#</td>
@@ -129,7 +129,7 @@
 			<cfif OrgUnit neq OrgUnitOperational>
 		     <TR class="navigation_row_child">
 		     	<td colspan="2"></td>
-				<td colspan="9" align="left" class="labelit">#Mission# #OrgUnitName#</b></td>
+				<td colspan="9" align="left" class="labelit">#Mission# #OrgUnitName#</td>
 			 </tr>
 		    </cfif>
 			<cfif Remarks neq "">

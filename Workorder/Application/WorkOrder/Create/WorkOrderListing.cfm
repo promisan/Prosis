@@ -49,6 +49,9 @@
 
 <cfsavecontent variable="myquery">
 
+    SELECT * --,OrderDate
+	FROM (
+
 	SELECT     W.WorkOrderId,
 	           W.Reference, 
 			   C.Description as ClassDescription,
@@ -171,7 +174,12 @@
 	AND        R.ServiceClass = '#url.serviceclass#'			
 	</cfif>
 	
-	ORDER BY ListingOrder, W.Created
+	) as W
+	
+	WHERE 1=1 
+	--condition
+	
+	ORDER BY W.ListingOrder, W.Created
 	
 </cfsavecontent>
 
@@ -207,18 +215,24 @@
 
 <cfset fields[1] = {label       = "Class",                   		
 					field       = "ClassDescription",
-					alias       = "",
-					searchfield = "Description",
-					searchalias = "C",					
-					search      = "text"}>					
-				
-<cfset itm = itm+1>					
-		
+					column      = "Common",					
+					searchfield = "Description",									
+					search      = "text"}>									
+
+<cfset itm = itm+1>						
+<cf_tl id="Created" var="1">
+<cfset fields[itm] = {label      = "#lt_text#",    					
+					field        = "Created",		
+					fieldentry   = "1",							
+					align        = "center",			
+					labelfilter  = "#lt_text#",						
+					formatted    = "dateformat(Created,CLIENT.DateFormatShow)"}>	
+
+<cfset itm = itm+1>			
 <cf_tl id="Reference" var="vReference">					
 <cfset fields[itm] = {label       = "#vReference#",                    
 					field       = "Reference", 	
-					searchfield = "Reference",						
-					searchalias = "W",
+					searchfield = "Reference",											
 					search      = "text"}>	
 
 <cfset itm = itm+1>	
@@ -226,17 +240,20 @@
 <cfset fields[itm] = {label     = "#vOrderDate#",                    
      				field       = "OrderDate",											
 					alias       = "",	
+					column      = "month",
 					width       = "20",
+					align       = "center",	
 					formatted   = "dateformat(OrderDate,client.dateformatshow)",																					
 					search      = "date"}>				
 										
 <cfset itm = itm+1>		
-<cf_tl id="Description" var="vDescription">					
+<cf_tl id="Description" var="vDescription">		
+			
 <cfset fields[itm] = {label       = "#vDescription#",                    
-					field       = "ServiceDescription", 	
-					searchfield = "Description",						
-					searchalias = "R",
-					search      = "text"}>	
+			field       = "ServiceDescription", 	
+			filtermode  = "2",	
+			searchfield = "Description",									
+			search      = "text"}>	
 
 <cfif Mode.ServiceMode eq "WorkOrder">	
 
@@ -255,6 +272,7 @@
 		<cfset fields[itm] = {label     = "#vStatus#",                    
 		     				field       = "StatusDescription",											
 							alias       = "",	
+							column      = "common",
 							filtermode  = "2",																									
 							search      = "text"}>		
 							
@@ -265,7 +283,7 @@
 							field      = "Amount",					
 							align      = "right",
 							aggregate  = "sum",
-							formatted  = "numberformat(amount,'__,__.__')",
+							formatted  = "numberformat(amount,',.__')",
 							alias      = ""}>														
 
 <cfelse>
@@ -281,7 +299,8 @@
 	<cfset fields[itm] = {label      = "#vSLA#", 					
 					  field      = "AgreementAmount",					
 					  align      = "right",
-					  formatted  = "numberformat(AgreementAmount,'__,__')",
+					  aggregate  = "sum",
+					  formatted  = "numberformat(AgreementAmount,',__')",
 					  alias      = ""}>		
 	
 	<cfset itm = itm+1>								
@@ -298,6 +317,7 @@
 		<cf_tl id="Status" var="vStatus">
 		<cfset fields[itm] = {label     = "#vStatus#",                    
 		     				field       = "StatusDescription",											
+							fieldorder  = "Status",
 							alias       = "",	
 							filtermode  = "2",																									
 							search      = "text"}>		
@@ -313,7 +333,6 @@
 							alias      = ""}>				
 	
 	</cfif>		
-
 
 </cfif>
 
@@ -349,28 +368,28 @@
 <!--- embed|window|dialogajax|dialog|standard --->
 							
 <cf_listing
-    header        = "workorderorderlist"
-	screentop     = "no"
-    box           = "orderdetail"
-	link          = "#SESSION.root#/WorkOrder/Application/Workorder/Create/WorkOrderListing.cfm?portal=#url.portal#&height=#url.height#&mission=#url.mission#&customerid=#url.customerid#"
-    html          = "No"		
-	tableheight   = "100%"
-	tablewidth    = "100%"
-	datasource    = "AppsWorkOrder"
-	listquery     = "#myquery#"	
-	listgroup     = "ClassDescription"		
-	listorder     = "Created"		
-	listorderdir  = "DESC"
+    header         = "workorderorderlist"
+	screentop      = "no"
+    box            = "orderdetail#url.customerid#"
+	link           = "#SESSION.root#/WorkOrder/Application/Workorder/Create/WorkOrderListing.cfm?portal=#url.portal#&height=#url.height#&mission=#url.mission#&customerid=#url.customerid#&systemfunctionid=#url.systemfunctionid#"
+    html           = "No"		
+	tableheight    = "100%"
+	tablewidth     = "100%"
+	datasource     = "AppsWorkOrder"
+	listquery      = "#myquery#"	
+	listgroup      = "ClassDescription"		
+	listorder      = "Created"		
+	listorderdir   = "DESC"
 	listorderalias = "W"
-	headercolor   = "ffffff"
-	show          = "#sh#"		
-	menu          = "#menu#"
-	filtershow    = "Hide"	
-	allowgrouping = "enforce"	
-	excelshow     = "Yes" 		
-	listlayout    = "#fields#"
-	drillmode     = "tab" 
-	drillargument = "#client.height-80#;#client.widthfull-70#;true;true"	
-	drilltemplate = "WorkOrder/Application/WorkOrder/WorkOrderView/WorkOrderView.cfm?workorderid="
-	drillkey      = "WorkOrderId"
-	drillbox      = "addworkorder">	
+	headercolor    = "ffffff"
+	show           = "#sh#"		
+	menu           = "#menu#"
+	filtershow     = "Hide"	
+	allowgrouping  = "enforce"	
+	excelshow      = "Yes" 		
+	listlayout     = "#fields#"
+	drillmode      = "tab" 
+	drillargument  = "#client.height-80#;#client.widthfull-70#;true;true"	
+	drilltemplate  = "WorkOrder/Application/WorkOrder/WorkOrderView/WorkOrderView.cfm?workorderid="
+	drillkey       = "WorkOrderId"
+	drillbox       = "addworkorder">	

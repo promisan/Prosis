@@ -59,7 +59,7 @@ function expand(itm,icon){
 
 </script>
 
-<cfajaximport tags="cfwindow">
+<cfajaximport>
 
 <cfset count = 0>
 

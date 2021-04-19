@@ -37,7 +37,17 @@
 	    mis = document.getElementById('mission').value		
 	 	document.getElementById("filter").className = "hide";
 		document.getElementById('optionselect').value = sid		
-		url = "Vendors/vendorListing.cfm?id=#URL.ID#&mission="+mis;
+		url = "Vendors/vendorListing.cfm?id=#URL.ID#&mission="+mis+"&systemfunctionid="+sid
+		_cf_loadingtexthtml='';	
+		ptoken.navigate(url,'detail');
+	}		
+	
+	 function itmonorder(s,sid) {	    
+	 
+	    mis = document.getElementById('mission').value		
+	 	document.getElementById("filter").className = "hide";
+		document.getElementById('optionselect').value = sid		
+		url = "Requisition/RequisitionListing.cfm?itemno=#URL.ID#&mission="+mis+"&systemfunctionid="+sid
 		_cf_loadingtexthtml='';	
 		ptoken.navigate(url,'detail');
 	}		
@@ -56,7 +66,7 @@
 	    document.getElementById("filter").className = "hide"	
 		mis = document.getElementById('mission').value		
 		document.getElementById('optionselect').value = sid		
-		url = "Pricing/Pricing.cfm?id=#URL.ID#&mission="+mis
+		url = "Pricing/Pricing.cfm?id=#URL.ID#&mission="+mis+"&systemfunctionid="+sid;
 		_cf_loadingtexthtml='';	
 		ptoken.navigate(url,'detail')		 
 	}
@@ -188,7 +198,7 @@
 	    document.getElementById("filter").className = "hide"; 		
 		mis = document.getElementById('mission').value		
 		document.getElementById('optionselect').value = sid
-		ptoken.navigate('Receipt/ReceiptListing.cfm?mission='+mis+'&itemno=#url.id#','detail')		
+		ptoken.navigate('Receipt/ReceiptListing.cfm?mission='+mis+'&itemno=#url.id#&systemfunctionid='+sid,'detail')		
 	}
 	
 	// item transactions 

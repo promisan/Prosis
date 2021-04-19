@@ -3,8 +3,6 @@
 <cfparam name="url.idmenu" default="">
 <cfparam name="url.systemfunctionid" default="#url.idmenu#">
 
-
-
 <cf_calendarScript>
 
 <cfoutput>
@@ -12,7 +10,7 @@
 	<script>
 	
 	function deleteorder(id) {
-	  ColdFusion.navigate('WorkOrderPurge.cfm?workorderid='+id,'action')
+	  ptoken.navigate('WorkOrderPurge.cfm?workorderid='+id,'action')
 	}
 	
 	function billingsearch() {
@@ -26,9 +24,8 @@
 	   ptoken.navigate('../Funding/BillingLine.cfm?tabno='+tabno+'&workorderid='+id+'&search='+val,'contentbox'+tabno)	
 	}		
 	
-	function agreement(tabno,workorderid,transactionid) {	  	   	   
-	   try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-	   ColdFusion.Window.create('mydialog', 'Agreement', '',{x:100,y:100,height:document.body.clientHeight-80,width:800,modal:true,resizable:false,center:true})    
+	function agreement(tabno,workorderid,transactionid) {	  	   	   	   
+	   ProsisUI.createWindow('mydialog', 'Agreement', '',{x:100,y:100,height:document.body.clientHeight-80,width:800,modal:true,resizable:false,center:true})    
 	   ptoken.navigate('#SESSION.root#/Workorder/Application/WorkOrder/ServiceAgreement/Service.cfm?tabno='+tabno+'&workorderid='+workorderid+'&transactionid='+transactionid,'mydialog') 		   	  
 	}
 	
@@ -36,9 +33,8 @@
 	   ptoken.navigate('#SESSION.root#/workorder/Application/WorkOrder/ServiceAgreement/ServiceLine.cfm?tabno='+tabno+'&workorderid='+workorderid,'contentbox'+tabno)	 
 	}  	
 	
-	function workflowevents(tabno,workorderid,workordereventid) {	 
-   	   try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-	   ColdFusion.Window.create('mydialog', 'Agreement', '',{x:100,y:100,height:document.body.clientHeight-80,width:800,modal:true,resizable:false,center:true})    
+	function workflowevents(tabno,workorderid,workordereventid) {	    	  
+	   ProsisUI.createWindow('mydialog', 'Agreement', '',{x:100,y:100,height:document.body.clientHeight-80,width:800,modal:true,resizable:false,center:true})    
 	   ptoken.navigate('#SESSION.root#/Workorder/Application/WorkOrder/ServiceReview/Service.cfm?tabno='+tabno+'&workorderid='+workorderid+'&workordereventid='+workordereventid,'mydialog') 		   	  	  
 	}		
 	
@@ -60,7 +56,7 @@
 			   se.className = "regular" 		   
 			   co.className = "regular"
 			   ex.className = "hide"			
-			   ColdFusion.navigate('../serviceagreement/servicelineWorkflow.cfm?ajaxid='+key,key)	
+			   ptoken.navigate('../Serviceagreement/servicelineWorkflow.cfm?ajaxid='+key,key)	
 	   		 
 			} else {  se.className = "hide"
 			          ex.className = "regular"
@@ -78,7 +74,7 @@
 			   se.className = "regular" 		   
 			   co.className = "regular"
 			   ex.className = "hide"			
-			   ColdFusion.navigate('../servicereview/servicelineWorkflow.cfm?ajaxid='+key,key)	
+			   ptoken.navigate('../servicereview/servicelineWorkflow.cfm?ajaxid='+key,key)	
 	   		 
 			} else {  se.className = "hide"
 			          ex.className = "regular"
@@ -89,27 +85,21 @@
 	
 	function agreementpurge(row,wid,lid) {
 		if (confirm("Do you want to deactivate this baseline ?"))	{
-			ColdFusion.navigate('../ServiceAgreement/ServiceLinePurge.cfm?row='+row+'&workorderid='+wid+'&ID2='+lid,'agreementdelete'+row)
+			ptoken.navigate('../ServiceAgreement/ServiceLinePurge.cfm?row='+row+'&workorderid='+wid+'&ID2='+lid,'agreementdelete'+row)
 		} 		
 	}
 	
 	function eventpurge(row,wid,lid) {
 		if (confirm("Do you want to deactivate this event ?"))	{
-			ColdFusion.navigate('../ServiceReview/ServiceLinePurge.cfm?row='+row+'&workorderid='+wid+'&ID2='+lid,'eventdelete'+row)
+			ptoken.navigate('../ServiceReview/ServiceLinePurge.cfm?row='+row+'&workorderid='+wid+'&ID2='+lid,'eventdelete'+row)
 		} 	
 	}	
 	
 	function lineadd(wid,lid) {
-		 ptoken.open("../ServiceDetails/ServiceLineView.cfm?mode=edit&workorderid=#url.workorderid#&ts="+new Date().getTime(),"_blank","left=20, top=20, status=yes, height=920, width=1130, help:no, scrollbar=no, center=true, resizable=yes");			
-		 // if (ret) {	applyfilter('1','','content') }				
+	     ProsisUI.createWindow('myline','Service Line','',{x:100,y:100,height:document.body.clientHeight-80,width:900,modal:true,resizable:false,center:true})    			 
+		 ptoken.navigate('../ServiceDetails/ServiceLine.cfm?mode=edit&workorderid=#url.workorderid#','myline','left=20, top=20, status=yes, height=920, width=1130, help:no, scrollbar=no, center=true, resizable=yes');					 		
 	}	
-	
-	function linepurge(row,wid,lid) {
-		if (confirm("Do you want to deactivate this line ?"))	{
-			ptoken.navigate('../ServiceDetails/ServiceLinePurge.cfm?row='+row+'&workorderid='+wid+'&ID2='+lid,'servicedelete'+row)
-		} 
-		return false
-	}
+		
 	
 	function linefundingold(tab,row,wid,lid) {
 	      
@@ -121,22 +111,17 @@
 		
 	}
 	
-	function addImplementerOrgUnit(mission, mandateno, woid) {
-	
-		try { ColdFusion.Window.destroy('implementer') } catch(e) {}
-		ColdFusion.Window.create('implementer', 'Implementer', '', {height:400,width:500,modal:false,closable:true,center:true,minheight:200,minwidth:200 });
-	    ptoken.navigate('#SESSION.root#/Workorder/Application/WorkOrder/Implementer/ImplementerAdd.cfm?workorderid='+woid+'&mission='+mission+'&mandateNo='+mandateno,'implementer')
-	 		
+	function addImplementerOrgUnit(mission, mandateno, woid) {			
+		ptoken.createWindow('implementer', 'Implementer', '', {height:400,width:500,modal:false,closable:true,center:true,minheight:200,minwidth:200 });
+	    ptoken.navigate('#SESSION.root#/Workorder/Application/WorkOrder/Implementer/ImplementerAdd.cfm?workorderid='+woid+'&mission='+mission+'&mandateNo='+mandateno,'implementer')	 		
 	}
 
 	function present(mode,tmp) {			     	
 		ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?templatepath="+tmp+"&id="+mode+"&id1=#URL.WorkOrderId#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")		 
 	} 
 	
-	function addPublication(wo) {
-		try { ColdFusion.Window.destroy('mydialog'); } catch(er){ }
-		ColdFusion.Window.create('mydialog', 'Publication', '',{x:30,y:30,height:400,width:500,modal:true,center:true});    
-		ColdFusion.Window.show('mydialog'); 				
+	function addPublication(wo) {		
+		ptoken.createWindow('mydialog', 'Publication', '',{x:30,y:30,height:400,width:500,modal:true,center:true});    					
 		ptoken.navigate('#SESSION.root#/Workorder/Application/Activity/Publication/PublicationEdit.cfm?workorderid='+wo+'&publicationId=&ts='+new Date().getTime(),'mydialog');
 	}				
 		
@@ -149,8 +134,7 @@
 		ptoken.navigate('#session.root#/workorder/Application/WorkOrder/Implementer/ImplementerListPurge.cfm?workOrderId='+woid+'&mission='+mission+'&mandateno='+mandateno+'&orgunit='+orgunit,'divImplementerList');
 	}
 	
-	function applyunit(org) {		
-	   		
+	function applyunit(org) {	   		
 		_cf_loadingtexthtml='';			
 		var rollover = $('##rollover').is(':checked');		
 		woid = document.getElementById('workorderid').value		
@@ -172,7 +156,7 @@
 
 </cfoutput>
 
-<cfajaximport tags="cfform,cfdiv,cfinput-autosuggest,cfwindow">
+<cfajaximport tags="cfform,cfdiv,cfinput-autosuggest">
 
 <cfif CLIENT.googlemapid neq "">
      <cfajaximport tags="cfmap" params="#{googlemapkey='#client.googlemapid#'}#">

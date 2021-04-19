@@ -33,8 +33,7 @@ password="#SESSION.dbpw#">
 				   EventDate      = #Eff#
 			 WHERE WorkOrderEventId  = '#form.WorkOrderEventId#'
 	    </cfquery>	
-		
-			
+					
 		</cftransaction>	
 		
 		<!--- workflow --->
@@ -75,78 +74,73 @@ password="#SESSION.dbpw#">
 					
 <cfelse>
 
-		<!--- remove baselines that are not completed --->
-				
-		<cfquery name="Insert" 
-		     datasource="AppsWorkOrder" 
-		     username="#SESSION.login#" 
-		     password="#SESSION.dbpw#">
-		     INSERT INTO WorkOrderEvent
-		         (WorkOrderId,
-				 WorkOrderEventId,
-				 EventReference,	
-				 EventDate,		
-				 OfficerUserId,
-				 OfficerLastname,
-				 OfficerFirstName)
-		      VALUES
-			     ('#URL.WorkOrderId#',
-			      '#Form.WorkOrderEventId#',
-				  '#Form.EventReference#',				 
-				  #eff#,										 
-		      	  '#SESSION.acc#',
-				  '#SESSION.last#',
-				  '#SESSION.first#')
-			</cfquery>
+	<!--- remove baselines that are not completed --->
 			
-			<!--- workflow --->
-								
-			<cfquery name="workorder" 
-			datasource="appsWorkorder" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			    SELECT *
-			    FROM  WorkOrder
-				WHERE WorkOrderId = '#URL.WorkOrderId#'
-			</cfquery>		
+	<cfquery name="Insert" 
+	     datasource="AppsWorkOrder" 
+	     username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+	     INSERT INTO WorkOrderEvent
+	         (WorkOrderId,
+			 WorkOrderEventId,
+			 EventReference,	
+			 EventDate,		
+			 OfficerUserId,
+			 OfficerLastname,
+			 OfficerFirstName)
+	      VALUES
+		     ('#URL.WorkOrderId#',
+		      '#Form.WorkOrderEventId#',
+			  '#Form.EventReference#',				 
+			  #eff#,										 
+	      	  '#SESSION.acc#',
+			  '#SESSION.last#',
+			  '#SESSION.first#')
+		</cfquery>
+		
+		<!--- workflow --->
+							
+		<cfquery name="workorder" 
+		datasource="appsWorkorder" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT *
+		    FROM  WorkOrder
+			WHERE WorkOrderId = '#URL.WorkOrderId#'
+		</cfquery>		
+		
+		<cfquery name="serviceitem" 
+		datasource="appsWorkorder" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT *
+		    FROM  ServiceItem
+			WHERE Code = '#workorder.serviceitem#'
+		</cfquery>
 			
-			<cfquery name="serviceitem" 
-			datasource="appsWorkorder" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			    SELECT *
-			    FROM  ServiceItem
-				WHERE Code = '#workorder.serviceitem#'
-			</cfquery>
+		<cfset link = "WorkOrder/Application/WorkOrder/WorkOrderView/WorkOrderView.cfm?workorderid=#workorder.WorkOrderId#&selected=servicelevel">			
 				
-			<cfset link = "WorkOrder/Application/WorkOrder/WorkOrderView/WorkOrderView.cfm?workorderid=#workorder.WorkOrderId#&selected=servicelevel">			
-					
-			<cf_ActionListing 
-				    EntityCode       = "WrkEvent"
-					EntityClass      = "#Form.EntityClass#"
-					EntityGroup      = ""
-					EntityStatus     = ""
-					Mission          = "#workorder.mission#"				
-					ObjectReference  = "#Form.EventReference#"
-					ObjectReference2 = "#serviceitem.description#" 			    
-					ObjectKey4       = "#form.WorkOrderEventId#"
-					AjaxId           = "#form.WorkOrderEventId#"
-					ObjectURL        = "#link#"
-					Reset            = "Limited"
-					Show             = "No">	
-						
+		<cf_ActionListing 
+			    EntityCode       = "WrkEvent"
+				EntityClass      = "#Form.EntityClass#"
+				EntityGroup      = ""
+				EntityStatus     = ""
+				Mission          = "#workorder.mission#"				
+				ObjectReference  = "#Form.EventReference#"
+				ObjectReference2 = "#serviceitem.description#" 			    
+				ObjectKey4       = "#form.WorkOrderEventId#"
+				AjaxId           = "#form.WorkOrderEventId#"
+				ObjectURL        = "#link#"
+				Reset            = "Limited"
+				Show             = "No">							
 				   	
 </cfif>
 
-
 <cfoutput>
-<script>
-  parent.parent.agreementrefresh('#url.tabno#','#url.workorderid#')
-  parent.parent.ColdFusion.Window.destroy('mydialog',true)  
-</script>
-</cfoutput>
+	
+	<script>
+	  parent.parent.agreementrefresh('#url.tabno#','#url.workorderid#')
+	  parent.parent.ProsisUI.closeWindow('mydialog',true)  
+	</script>
 
-<script>
-  returnValue = 2
-  window.close()
-</script>
+</cfoutput>

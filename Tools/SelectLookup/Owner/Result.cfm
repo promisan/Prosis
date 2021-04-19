@@ -60,38 +60,32 @@ SELECT TOP #last# *
 	</cfif>
 </cfquery>
 
-<table height="100%" border="0" cellpadding="0" cellspacing="0" width="97%" align="center" class="navigation_table">
+<table height="100%" width="97%" align="center" class="navigation_table">
 
-<tr><td height="14" colspan="3">
-						 
-	 <cfinclude template="Navigation.cfm">
-	 				 
+<tr><td height="14" colspan="3">						 
+	 <cfinclude template="Navigation.cfm">	 				 
 </td></tr>
 
 <cfoutput query="SearchResult">
-
-<cfif currentrow gte first>
-
-    <tr height="100%">
-	<td height="100%" valign="top">
 	
-	<table>
-
-	<tr class="navigation_row">
-	  
-	    <td height="18" width="30" style="padding-right:5px" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#code#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">
-			  	
-			<cf_img icon="select">					   
+	<cfif currentrow gte first>
+	
+	    <tr height="100%">
+		<td height="100%" valign="top">
 		
-		</td>
-		<td width="20%" class="labelit">#Code#</td>
-		<TD width="80%" class="labelit">#Description#</TD>
-	</tr>
+		<table>
 	
-	</table>
-	</td></tr>
-	
-</cfif>	
+		<tr class="navigation_row labelmedium line">	  
+		    <td height="18" width="30" style="padding-right:5px" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#code#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  	
+				<cf_img icon="select">					   		
+			</td>
+			<td width="20%">#Code#</td>
+			<TD width="80%">#Description#</TD>
+		</tr>	
+		</table>
+		</td></tr>
+		
+	</cfif>	
 		     
 </CFOUTPUT>
 

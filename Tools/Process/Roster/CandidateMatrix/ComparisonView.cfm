@@ -141,9 +141,9 @@
 
 	<!--- Hanno we need to define at the minium the source for the edition/languahe --->
 		
-	<table style="width:100%;height:<cfoutput>#attributes.height#</cfoutput>">
+	<table style="width:100%;height:100%">
 	
-		<tr><td style="padding:6px" align="center">
+		<tr><td style="height:100%;padding:6px" align="center">
 			
 			<table width="100%" height="100%">			
 						

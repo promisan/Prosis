@@ -23,8 +23,6 @@
 		
 	</cftry>
 	
-	
-	
 	<cfif url.rollover eq "true">
 	
 		<cfquery name="get" 
@@ -163,6 +161,6 @@
 <cfoutput>
 	<script>
 	    _cf_loadingtexthtml='';	
-		ColdFusion.navigate('#SESSION.root#/Workorder/Application/WorkOrder/Implementer/Implementer.cfm?workOrderId=#url.workOrderId#','divImplementers');
+		ptoken.navigate('#SESSION.root#/Workorder/Application/WorkOrder/Implementer/Implementer.cfm?workOrderId=#url.workOrderId#','divImplementers');
 	</script>
 </cfoutput>	

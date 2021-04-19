@@ -271,8 +271,8 @@
 
 	<script>
 	
-	   opener.applyfilter('','','content')		  
-	   window.open('#session.root#/WorkOrder/Application/WorkOrder/WorkOrderView/WorkOrderView.cfm?workorderid=#id#&idmenu=#url.idmenu#','_self')
+	   opener.applyfilter('5','','content')		  
+	   ptoken.open('#session.root#/WorkOrder/Application/WorkOrder/WorkOrderView/WorkOrderView.cfm?workorderid=#id#&idmenu=#url.idmenu#','_self')
 	  		
 	</script>
 	

@@ -65,8 +65,7 @@
 					     datasource="AppsSystem" 
 					     username="#SESSION.login#" 
 					     password="#SESSION.dbpw#">
-						     INSERT INTO UserNamesGroupLog 
-							 
+						     INSERT INTO UserNamesGroupLog 						 
 						         (   Account,
 									 AccountGroup,
 									 DateEffective,
@@ -74,11 +73,7 @@
 									 OfficerUserId,
 									 OfficerLastName,
 									 OfficerFirstName
-								 )
-								 
-						      VALUES 
-							  
-							     ('#URL.acc#',
+								 ) VALUES ('#URL.acc#',
 						      	  '#group#',
 								  '#dateformat(now(),client.dateSQL)#',
 								  '1',
@@ -87,8 +82,7 @@
 							  	  '#SESSION.first#')
 					</cfquery>		
 				
-				</cfif>	
-								
+				</cfif>								
 				
 				<!--- inherit all access of the group --->
 				

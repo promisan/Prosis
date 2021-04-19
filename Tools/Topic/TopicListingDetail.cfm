@@ -129,7 +129,7 @@
 					</cfif>  
 					
 					 <td style="padding-left:2px;padding-top:1px;padding-right:0px;">
-					    <cf_img icon="edit" navigation="yes" onclick="recordedit('#code#')">
+					    <cf_img icon="open" navigation="yes" onclick="recordedit('#code#')">
 					  </td>		
 					 
 					 </tr>
@@ -196,7 +196,7 @@
 			   		   
 		   </tr>	
 		  
-		 <tr class="line"><td colspan="12" id="detail_#code#" class="hide" align="center"></td></tr> 
+		 <tr class="line"><td style="padding:3px" colspan="13" id="detail_#code#" class="hide" align="center"></td></tr> 
 					
 	</cfoutput>
 	

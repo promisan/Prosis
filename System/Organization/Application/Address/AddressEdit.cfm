@@ -15,7 +15,7 @@
 <cf_dialogStaffing>
 
 <cf_mapscript scope="embed">
-<cfajaximport tags="cfwindow,cfmap,cfinput-datefield,cfform" params="#{googlemapkey='#client.googlemapid#'}#">
+<cfajaximport tags="cfmap,cfform" params="#{googlemapkey='#client.googlemapid#'}#">
 
 <cfquery name="Type"
 datasource="AppsOrganization" 
@@ -147,7 +147,8 @@ password="#SESSION.dbpw#">
     <TD>
 	
 	  <table cellspacing="0" cellpadding="0"><tr><td>
-	  <img src="#SESSION.root#/Images/contract.gif" alt="Select employee" name="img0" 
+	  
+	           <img src="#SESSION.root#/Images/contract.gif" alt="Select employee" name="img0" 
 					  onMouseOver="document.img0.src='#SESSION.root#/Images/button.jpg'" 
 					  onMouseOut="document.img0.src='#SESSION.root#/Images/contract.gif'"
 					  style="cursor: pointer;" alt="" width="24" height="25" border="0" align="absmiddle" 
@@ -155,10 +156,11 @@ password="#SESSION.dbpw#">
 				
 	     </td>
 		 <td style="padding-left:2px">
-	   	<input type="Text" name="indexno"  id="indexno" value="#Person.IndexNo#" size="20" maxlength="20" class="regularxl enterastab">	
-		<input type="hidden" name="personno" id="personno" value="#Person.PersonNo#" size="20" maxlength="20" class="regularxl">	
-		<input type="hidden" name="lastname" id="lastname" size="10" maxlength="20" readonly>
-		<input type="hidden" name="firstname" id="firstname" size="10" maxlength="20" readonly>
+		 
+	   	<input type="Text"    name="indexno"   id="indexno"   value="#Person.IndexNo#" size="20" maxlength="20" class="regularxl enterastab">	
+		<input type="hidden"  name="personno"  id="personno"  value="#Person.PersonNo#" size="20" maxlength="20" class="regularxl">	
+		<input type="hidden"  name="lastname"  id="lastname"  size="10" maxlength="20" readonly>
+		<input type="hidden"  name="firstname" id="firstname" size="10" maxlength="20" readonly>
 		
 		</td></tr>
 		</table>

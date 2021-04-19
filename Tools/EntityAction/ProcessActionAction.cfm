@@ -140,13 +140,11 @@
 		  		  		    		
                 <td class="labelmedium2" id="d1" style="cursor: pointer;" onclick="document.getElementById('r1').click()" title="#vLblTTGoTo#">
                     <table cellspacing="0" cellpadding="0">
-                        <tr>
+                        <tr class="labelmedium2">
                             <td style="padding-left:3px;padding-right:3px">
                                 <img src="#SESSION.root#/Images/workflow_previous.png" width="18" height="18" alt="Go back to previous step" border="0" align="absmiddle">
                             </td>
-                            <td style="padding-right:3px" class="labelmedium2">
-                                <cf_tl id="#ActionGoToLabel#">
-                            </td>
+                            <td style="padding-left:4px;padding-right:3px"><cf_tl id="#ActionGoToLabel#"></td>
                         </tr>
                     </table>
                 </td>
@@ -157,12 +155,9 @@
 			     <cfset r = "hide">
 			   </cfif>
 		       
-			   <td class="#r#" id="d1a" style="padding-left:8px;padding-right:4px" title="#vLblTTGoTo#">   
-				  <b>:</b>
-			   </td>
+			   <td class="#r#" id="d1a" style="padding-left:8px;padding-right:4px" title="#vLblTTGoTo#"></td>
 				      
-			   <td class="#r#" id="d1b" title="#vLblTTGoTo#">  
-			       :  
+			   <td class="#r#" id="d1b" title="#vLblTTGoTo#">  			        
 				   <select style="width:240px;border:0px;background-color:f1f1f1" class="regularxxl"				   
 				     name="ActionCodeOnHold" id="ActionCodeOnHold"
 					 style="background: ffffff;" 

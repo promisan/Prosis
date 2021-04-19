@@ -130,8 +130,7 @@
 					
 					</cftry>
 											
-			<cfelseif Attributes.mode neq "save">
-			
+			<cfelseif Attributes.mode neq "save">			
 						
 					<cfquery name="TextLanguage" 
 					datasource="#ds#" 
@@ -315,8 +314,6 @@
 			<cfelse>
 			
 			    <!--- SAVE --->
-				
-				
 				
 				
 				<cfloop index="ln" from="1" to="#Attributes.Lines#">

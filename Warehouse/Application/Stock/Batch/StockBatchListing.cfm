@@ -160,7 +160,7 @@
 					  
 <cf_listing
     header         = "BatchListing"
-    box            = "batch"
+    box            = "batch_#url.status#_#url.warehouse#"
 	link           = "#session.root#/warehouse/application/stock/batch/stockbatchlisting.cfm?status=#url.status#&warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#"
     html           = "Yes"
 	show           = "40"

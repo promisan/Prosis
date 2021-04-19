@@ -2,6 +2,7 @@
 <cfparam name="url.id"       default="">   
 <cfparam name="url.drillid"  default="#url.id#">
 <cfparam name="url.openmode" default="dialog">
+<cfparam name="url.workorderline" default="0">
 
 <cfif url.drillid neq "">
 	
@@ -38,7 +39,9 @@
 	password="#SESSION.dbpw#">
 		 SELECT  *	
 	     FROM    WorkOrderLine
-		 WHERE   1 = 0 	
+		 WHERE   WorkOrderId     = '#url.workorderid#'	
+		 AND     WorkOrderLine   = '#url.workorderline#'	
+		  
 	</cfquery>
 		
 </cfif>		
@@ -86,6 +89,7 @@ password="#SESSION.dbpw#">
 <cf_screentop label="#Customer.CustomerName# / #Item.Description#" 
    height        = "100%" 
    scroll        = "Yes" 
+   html          = "No"
    systemmodule  = "WorkOrder"
    functionclass = "Window"
    functionName  = "WorkOrder Line"
@@ -97,7 +101,7 @@ password="#SESSION.dbpw#">
    jQuery        = "yes">
  
 <cf_listingScript gadgets="Yes">
- 
+  
 <cfif domain.description neq "">
 	<cfset option = "#Domain.description#">
 <cfelse>
@@ -105,20 +109,13 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <cfset option = "#option#">
-      	    	
-	<cf_divscroll>
-				
-	<cfif Line.recordcount eq "1">
-				
-		<cfinclude template="ServiceLineFormEdit.cfm">
-		
-	<cfelse>	
+    			
+<cfif Line.recordcount eq "1">				
+	<cfinclude template="ServiceLineFormEdit.cfm">		
+<cfelse>		
+    <!--- no longer relevant, redirect to service line form entry --->		
+	<cfinclude template="ServiceLineFormEntry.cfm">				
+</cfif>	
 	
-	    <!--- no longer relevant, redirect to service line form entry --->		
-		<cfinclude template="ServiceLineFormEntry.cfm">	
-			
-	</cfif>	
 	
-	</cf_divscroll>
 	
-<cf_screenbottom layout="webapp">	

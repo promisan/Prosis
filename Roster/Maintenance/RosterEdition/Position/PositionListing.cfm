@@ -201,9 +201,9 @@ password="#SESSION.dbpw#">
 					   	<table cellspacing="0" cellpadding="0">
 						<tr style="height:20px" class="labelmedium">					
 						
-						<td width="20" style="padding-top:3px">
+						<td width="20" style="padding-top:1px">
 						
-						<cf_img icon="edit" onClick="selectfunction('webdialog','','','#qExercise.owner#','#submissionedition#','#positionno#')">
+						<cf_img icon="open" onClick="selectfunction('webdialog','','','#qExercise.owner#','#submissionedition#','#positionno#')">
 																									
 						</td>
 										
@@ -218,8 +218,8 @@ password="#SESSION.dbpw#">
 					
 				   <cfelse>
 				   
-			   		  <font color="0080C0" id="#positionno#_title"><cfif FunctionDescription eq "">#PositionDescription#<cfelse>#FunctionDescription#</cfif>
-					
+			   		  <font color="0080C0" id="#positionno#_title">
+						 <cfif FunctionDescription eq "">#PositionDescription#<cfelse>#FunctionDescription#</cfif>
 				   </cfif>	
 					
 				   </td>
@@ -281,7 +281,7 @@ password="#SESSION.dbpw#">
 					   
 					   <tr class="labelmedium" style="height:20px">
 					   <td id="reference_#positionno#" align="right" style="padding-right:10px">				  
-					   					   
+					   		
 					   <cfif reference eq "" and qExercise.actionStatus eq "0">
 					  
 						  	<input type="checkbox" name="groupreference" value="#positionno#">

@@ -25,15 +25,12 @@
 		   name="content#attributes.name##attributes.item#">
 		 		   
 	<cfelse>	
-		
-	<tr class="#attributes.class#"
-	    id="#attributes.name##attributes.item#" 
-		name="#attributes.name##attributes.item#">
+			
+	<tr class="#attributes.class#" id="#attributes.name##attributes.item#" name="#attributes.name##attributes.item#">
 										
-	   <td height="90%" width="90%" valign="top" style="overflow:hidden"
-	       id="content#attributes.name##attributes.item#" 
-		   name="content#attributes.name##attributes.item#">
-		   					   		   		   
+	   <td height="90%" width="90%" valign="top" style="overflow:hidden;border:1px solid silver #attributes.name##attributes.item#"
+	       id="content#attributes.name##attributes.item#" name="content#attributes.name##attributes.item#">
+		   		   					   		   		   
 	</cfif>	   
 					   		   											
 		   <cfif attributes.iframe neq "">
@@ -58,14 +55,10 @@
 	   
 <cfelse>
 
-	<cfif attributes.container eq "div">
-	
-		</div></div>
-		
-	<cfelse>
-	
-	   </td></tr>
-	
+	<cfif attributes.container eq "div">	
+		</div></div>		
+	<cfelse>	
+	   </td></tr>	
 	</cfif>	
 		   
 </cfif>

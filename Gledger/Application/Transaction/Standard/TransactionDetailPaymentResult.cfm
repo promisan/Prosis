@@ -26,6 +26,8 @@ password="#SESSION.dbpw#">
 <!--- Select pending payables --->
 <!--- ----------------------- --->
 
+
+
 <cfquery name="SearchResult"
 	datasource="AppsLedger" 
 	username="#SESSION.login#" 
@@ -33,25 +35,21 @@ password="#SESSION.dbpw#">
 
 	 SELECT    P.*, 
 	 		   CASE WHEN ActionBefore < getDate() THEN ActionDiscount ELSE 0 END as ApplyDiscount,					
-	           JA.GLAccount, 
+	           L.GLAccount, 
 			   J.AccountType, 
 			   J.Description as JournalName  			        
 			    
-	 FROM      TransactionHeader P, 
-	           Journal J, 
-			   JournalAccount JA,
-	 		   Ref_Account A
+	 FROM      TransactionHeader P 
+	           INNER JOIN TransactionLine L ON P.Journal = L.Journal AND P.JournalSerialNo = L.JournalSerialNo AND TransactionSerialNo = 0 
+			   INNER JOIN Ref_Account A ON L.GlAccount  = A.GlAccount
+	           INNER JOIN Journal J     ON P.Journal    = J.Journal 			  
 			   
-	 WHERE     P.Journal = J.Journal
-	 AND       J.Journal = JA.Journal 
-	 AND 	   JA.GlAccount = A.GlAccount
-	 AND       JA.ListDefault = 1
-	 AND       P.Mission  = '#HeaderSelect.Mission#'		
+	 WHERE     P.Mission       = '#HeaderSelect.Mission#'		
 	 
 	 <!--- there is a balance for this payment invoice --->
 	 AND       P.AmountOutstanding   > 0.01 
 	 AND       P.RecordStatus        = '1'
-	 AND       P.TransactionCategory IN ('Payables')
+	 AND       P.TransactionCategory = 'Payables'
 	 AND       J.Currency            = '#Journal.Currency#' <!--- you can make a payment order in the same currency --->
 	 
 	 <!--- already selected transactions for payment in memory of this entry transaction  --->
@@ -61,6 +59,7 @@ password="#SESSION.dbpw#">
 									  
 	 AND       P.ActionStatus = '1'		
 	 AND 	   A.AccountClass = 'Balance'
+	 
 	 <cfif url.search neq "">
 	 AND      (
 	 		   P.ReferenceName           LIKE '%#url.search#%' 
@@ -98,7 +97,7 @@ password="#SESSION.dbpw#">
 	
 	<td colspan="3">
 			
-		<table width="100%" align="center" class="navigation_table">
+		<table width="100%" align="center" border="0" class="navigation_table">
 						
 		<tr class="line labelmedium2 fixrow">
 		    <TD style="min-width:30px"></TD>
@@ -214,19 +213,19 @@ password="#SESSION.dbpw#">
 					   		  
 					   <cfswitch expression = "#URL.ID1#">
 					     <cfcase value = "Journal">
-					     	<td colspan="6" style="padding-left:5px">#SearchResult.Journal# #SearchResult.JournalName#</td>							
+					     	<td colspan="7" style="padding-left:5px">#SearchResult.Journal# #SearchResult.JournalName#</td>							
 					     </cfcase>
 					     <cfcase value = "ReferenceName">
 					     	<td colspan="6" style="padding-left:5px">#SearchResult.ReferenceName#</td>									
 					     </cfcase>	 
 					     <cfcase value = "TransactionDate">
-					     	<td colspan="6" style="padding-left:5px">#Dateformat(SearchResult.TransactionDate, "#CLIENT.DateFormatShow#")#</td>							
+					     	<td colspan="7" style="padding-left:5px">#Dateformat(SearchResult.TransactionDate, "#CLIENT.DateFormatShow#")#</td>							
 					     </cfcase>
 					     <cfcase value = "ActionBefore">
-					     	<td colspan="6" style="padding-left:5px">#Dateformat(SearchResult.ActionBefore, "#CLIENT.DateFormatShow#")#</td>							
+					     	<td colspan="7" style="padding-left:5px">#Dateformat(SearchResult.ActionBefore, "#CLIENT.DateFormatShow#")#</td>							
 					     </cfcase>
 					     <cfdefaultcase>
-					     	<td colspan="6" style="padding-left:5px">#SearchResult.Journal# #SearchResult.JournalName#</td>
+					     	<td colspan="7" style="padding-left:5px">#SearchResult.Journal# #SearchResult.JournalName#</td>
 					     </cfdefaultcase>
 					   </cfswitch>		
 									
@@ -279,18 +278,17 @@ password="#SESSION.dbpw#">
 					<cfelse>
 					
 					  <cfif currentrow neq "1">
-					   	   <td colspan="6"></td>
+					   	   <td colspan="7"></td>
 					   </cfif>
 							
 				   </cfif>		
 				   
 				   <cfif color neq "red">  
 				 		     											
-						 <td style="padding-right:5px" align="right">#NumberFormat(Total.Amount,',.__')#</b></td>	
-						 <td align="right" style="padding-right:5px">#NumberFormat(Total.AmountDiscounted,',.__')#</b></td>					   
+						 <td style="padding-right:5px" align="right">#NumberFormat(Total.Amount,',.__')#</td>	
+						 <td align="right" style="padding-right:5px">#NumberFormat(Total.AmountDiscounted,',.__')#</td>					   
 				 
-				   <cfelse>
-				 
+				   <cfelse>				 
 						 	 						 
 						 <td style="background-color:red;color:white;padding-right:5px" align="right">#NumberFormat(Total.Amount,',.__')#</b></td>	
 						 <td style="background-color:red;color:white;padding-right:5px" align="right">#NumberFormat(Total.AmountDiscounted,',.__')#</b></td>		
@@ -316,7 +314,7 @@ password="#SESSION.dbpw#">
 					<TD><a class="navigation_action" href="javascript:ShowTransaction('#Journal#','#JournalSerialNo#')">#JournalTransactionNo#</a></TD>
 					<TD>#TransactionReference#</TD>
 					<cfif url.id1 neq "ReferenceName">
-					    <TD>#ReferenceName#</TD>
+					    <TD style="min-width:240px;padding-right:3px;">#ReferenceName#</TD>
 					<cfelse>
 						<td>#Dateformat(ActionBefore, "#CLIENT.DateFormatShow#")#</td>	
 					</cfif>
@@ -328,7 +326,7 @@ password="#SESSION.dbpw#">
 					<cfset AmtOut =  AmountOutstanding-(AmountOutstanding*ActionDiscount)>		
 						
 					<input type="text" class="regularxxl" id="off_#fld#" onchange="settotal('PO')"
-					    style="display:none;font-size:16px;background-color:D5E9FF;height:25px;border:0px;border-left:1px solid silver;border-right:1px solid silver;text-align:right" 
+					    style="display:none;font-size:16px;background-color:ffffff;height:25px;padding-right:4px;border:0px;border-left:1px solid gray;border-right:1px solid gray;text-align:right" 
 						value="#NumberFormat(AmtOut,',.__')#" name="off_#fld#">
 					</td>	
 					

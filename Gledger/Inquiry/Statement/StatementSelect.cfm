@@ -140,14 +140,10 @@ WHERE   Mission = '#URL.Mission#'
 			  Prosis.busy('yes')					 
 			  try { 
 				    document.getElementById("fileno").value 
-					ptoken.navigate(rep+'/'+rep+'View.cfm?ts=#getTickCount()#&fileno='+document.getElementById("fileno").value+'&mission='+mis+'&period='+per,'mainbox','','','POST','criteria'); 
-					
-				} catch(e) {
-				
-					ptoken.navigate(rep+'/'+rep+'Query.cfm?ts=#getTickCount()#&mode='+mode+'&mission='+mis+'&period='+per,'mainbox','','','POST','criteria');
-					
-				}  				 		 
-		 	  
+					ptoken.navigate(rep+'/'+rep+'View.cfm?ts=#getTickCount()#&fileno='+document.getElementById("fileno").value+'&mission='+mis+'&period='+per,'mainbox','','','POST','criteria'); 					
+				} catch(e) {				
+					ptoken.navigate(rep+'/'+rep+'Query.cfm?ts=#getTickCount()#&mode='+mode+'&mission='+mis+'&period='+per,'mainbox','','','POST','criteria');					
+				}  		 	  
 			  
 			}	
 										   	  			
@@ -212,16 +208,16 @@ WHERE   Mission = '#URL.Mission#'
 			
 			<tr><td height="40" align="center" style="padding-left:10px">
 			
-					<table width="99%" class="formpadding" align="center">
+					<table width="99%" class="formspacing" align="center">
 						
-						<tr class="line">
+						<tr>
 						
 						<TD>
 							
 							<select name="mission" 
-							    style="width:200px;font-size:18px;height:30px;border:0px" 
+							    style="width:200px;font-size:18px;height:30px;border:0px;background-color:f1f1f1" 
 								id="mission" 
-								class="regularh" 
+								class="regularxxl" 
 								onChange="setaccountperiod(this.value)">
 															
 							    <cfloop query="MissionSelect">
@@ -246,7 +242,7 @@ WHERE   Mission = '#URL.Mission#'
 						</tr>
 									
 						
-						<tr class="line">
+						<tr>
 						
 						<td id="periodselectbox">			
 								   
@@ -260,7 +256,7 @@ WHERE   Mission = '#URL.Mission#'
 								
 						<td>		
 													
-							<select name="report" id="report" style="border:0px;width:200px;font-size:18px;height:30px" class="regularh" size="1" onChange="transactionperiod()">
+							<select name="report" id="report" style="background-color:f1f1f1;border:0px;width:200px;font-size:18px;height:30px" class="regularxxl" size="1" onChange="transactionperiod()">
 							    
 								<OPTION value="pl"      <cfif URL.report is "pl">selected</cfif>> <cf_tl id="Income Statement">
 								<OPTION value="balance" <cfif URL.report is "balance">selected</cfif>> <cf_tl id="Balance Sheet">
@@ -278,7 +274,7 @@ WHERE   Mission = '#URL.Mission#'
 						
 			<tr><td height="100%" style="padding-left:14px">
 			
-			<cf_divscroll style="border:1px solid silver;text-align: center;height:100%" id="boxtransactionperiod">				   
+			<cf_divscroll style="text-align: center;height:100%" id="boxtransactionperiod">				   
 					<cfinclude template="getTransactionPeriod.cfm">				
 			</cf_divscroll>	
 			

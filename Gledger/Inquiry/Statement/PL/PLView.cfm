@@ -94,45 +94,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 </cfloop>
 
-<cfquery name="Check"
-	datasource="AppsLedger" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	SELECT       TOP 100 PERCENT Line.Journal, 
-	             Line.JournalSerialNo, 
-				 ROUND(SUM(Line.AmountBaseDebit), 2) AS Debit, 
-				 ROUND(SUM(Line.AmountBaseCredit), 2) AS Credit, 
-	             HDR.Mission, HDR.Description, HDR.TransactionSource, HDR.Reference, HDR.ReferenceName, HDR.AccountPeriod, HDR.TransactionDate, HDR.JournalBatchDate, 
-	             HDR.DocumentDate, HDR.ReferenceNo, HDR.ReferenceId, HDR.Created, HDR.DocumentCurrency, HDR.DocumentAmount
-				 
-	FROM         TransactionLine Line INNER JOIN
-	             TransactionHeader HDR ON Line.Journal = HDR.Journal AND Line.JournalSerialNo = HDR.JournalSerialNo
-	WHERE        HDR.Mission       = '#url.mission#'
-	AND          HDR.AccountPeriod = '#url.period#'
-			   
-	GROUP BY     Line.Journal, 
-	             Line.JournalSerialNo, 
-			     HDR.Mission, 
-			     HDR.Description, 
-				 HDR.AccountPeriod, 
-				 HDR.JournalBatchDate, 
-				 HDR.DocumentDate, 
-				 HDR.ReferenceNo, 
-		         HDR.ReferenceId, 
-				 HDR.Created, 
-				 HDR.TransactionDate, 
-				 HDR.TransactionSource, 
-				 HDR.Reference, 
-				 HDR.ReferenceName, 
-				 HDR.DocumentCurrency, 
-		         HDR.DocumentAmount
-				 
-	HAVING       (ABS(ROUND(SUM(Line.AmountBaseDebit) - SUM(Line.AmountBaseCredit), 2)) > 0.5)
-	
-	ORDER BY HDR.TransactionDate DESC, HDR.Created DESC
-</cfquery>
-
-<table width="96%" align="center" border="0" cellspacing="0" cellpadding="0" class="formspacing">
+<table width="96%" align="center" class="formspacing">
 
 <tr class="line"> 
 	<td>
@@ -189,6 +151,46 @@ password="#SESSION.dbpw#">
 	</cfoutput>
 
 </cfif>
+
+
+<cfquery name="Check"
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT       TOP 100 PERCENT Line.Journal, 
+	             Line.JournalSerialNo, 
+				 ROUND(SUM(Line.AmountBaseDebit), 2) AS Debit, 
+				 ROUND(SUM(Line.AmountBaseCredit), 2) AS Credit, 
+	             HDR.Mission, HDR.Description, HDR.TransactionSource, HDR.Reference, HDR.ReferenceName, HDR.AccountPeriod, HDR.TransactionDate, HDR.JournalBatchDate, 
+	             HDR.DocumentDate, HDR.ReferenceNo, HDR.ReferenceId, HDR.Created, HDR.DocumentCurrency, HDR.DocumentAmount
+				 
+	FROM         TransactionLine Line INNER JOIN
+	             TransactionHeader HDR ON Line.Journal = HDR.Journal AND Line.JournalSerialNo = HDR.JournalSerialNo
+	WHERE        HDR.Mission       = '#url.mission#'
+	AND          HDR.AccountPeriod = '#url.period#'
+			   
+	GROUP BY     Line.Journal, 
+	             Line.JournalSerialNo, 
+			     HDR.Mission, 
+			     HDR.Description, 
+				 HDR.AccountPeriod, 
+				 HDR.JournalBatchDate, 
+				 HDR.DocumentDate, 
+				 HDR.ReferenceNo, 
+		         HDR.ReferenceId, 
+				 HDR.Created, 
+				 HDR.TransactionDate, 
+				 HDR.TransactionSource, 
+				 HDR.Reference, 
+				 HDR.ReferenceName, 
+				 HDR.DocumentCurrency, 
+		         HDR.DocumentAmount
+				 
+	HAVING       (ABS(ROUND(SUM(Line.AmountBaseDebit) - SUM(Line.AmountBaseCredit), 2)) > 0.5)
+	
+	ORDER BY HDR.TransactionDate DESC, HDR.Created DESC
+</cfquery>
+
 
 <cfif check.recordcount gte "3">
 	<tr>

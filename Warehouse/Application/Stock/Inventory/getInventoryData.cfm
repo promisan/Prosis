@@ -154,7 +154,7 @@ password="#SESSION.dbpw#">
 		AND       C.StockControlMode = 'Stock' 	
 							
 		</cfquery>
-		
+				
 <cfelse>
 
 		

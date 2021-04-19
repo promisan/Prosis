@@ -6,6 +6,8 @@
 	<cf_screentop height="100%" scroll="No" html="No" jquery="Yes" title="Miscellaneous entry" menuaccess="context">
 </cfif>
 
+
+
 <cf_dialogPosition>
 <cf_dialogLedger>
 <cf_ActionListingScript>
@@ -45,15 +47,19 @@ password="#SESSION.dbpw#">
 	  
 </cfif>	
 
+
+
 <cfquery name="PayrollItem" 
    datasource="AppsPayroll" 
    username="#SESSION.login#" 
    password="#SESSION.dbpw#">
- 	SELECT * 
-	FROM   Ref_PayrollItem
-	WHERE  Source IN ('Miscellaneous','Deduction')
+ 	SELECT   * 
+	FROM     Ref_PayrollItem
+	WHERE    Source IN ('Miscellaneous','Deduction')
 	ORDER BY Source DESC
 </cfquery>
+
+
 
 <cf_divscroll>
 
@@ -67,6 +73,7 @@ password="#SESSION.dbpw#">
 </cfoutput>
 
 <table width="98%" align="center">
+
 
 <tr><td><cfinclude template="../PersonViewHeaderToggle.cfm"></td></tr>
 
@@ -97,12 +104,12 @@ password="#SESSION.dbpw#">
 		<cfif edit eq "1">
 	
 		  <cf_intelliCalendarDate9
-		FormName="MiscellaneousEdit"
-		FieldName="DocumentDate" 
-		class="regularxl"
-		DateFormat="#APPLICATION.DateFormat#"
-		Default="#Dateformat(Entitlement.DocumentDate, CLIENT.DateFormatShow)#"
-		AllowBlank="False">	
+			FormName="MiscellaneousEdit"
+			FieldName="DocumentDate" 
+			class="regularxl"
+			DateFormat="#APPLICATION.DateFormat#"
+			Default="#Dateformat(Entitlement.DocumentDate, CLIENT.DateFormatShow)#"
+			AllowBlank="False">	
 		
 		<cfelse>
 		
@@ -177,6 +184,8 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>	
 	
+	
+	
 	<TR>
     <TD class="labelmedium"><cf_tl id="Payroll date">:</TD>
     <TD>
@@ -208,11 +217,13 @@ password="#SESSION.dbpw#">
 	<cfif edit eq "1">
 
 		<table>
-		<tr class="labelmedium">
-		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Payment" <cfif Entitlement.EntitlementClass eq "Payment">checked</cfif>></td>
-		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Payment</td>
-		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Deduction" <cfif Entitlement.EntitlementClass eq "Deduction">checked</cfif>></td>
-		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Deduction
+		<tr class="labelmedium2">
+		<td><INPUT type="radio" class="radiol" onclick="ptoken.navigate('showAdvance.cfm?transactionid=#Entitlement.SourceId#&class=payment&personno=#url.id#','ledger')"		
+		name="EntitlementClass" value="Payment" <cfif Entitlement.EntitlementClass eq "Payment">checked</cfif>></td>
+		<td style="padding-left:5px;padding-right:10px"><cf_tl id="Payment"></td>
+		<td><INPUT type="radio" class="radiol" onclick="ptoken.navigate('showAdvance.cfm?transactionid=#Entitlement.SourceId#&class=deduction&personno=#url.id#','ledger')"
+		name="EntitlementClass" value="Deduction" <cfif Entitlement.EntitlementClass eq "Deduction">checked</cfif>></td>
+		<td style="padding-left:5px;padding-right:10px"><cf_tl id="Deduction">
 				
 		<cfif Entitlement.Source eq "Ledger" and entitlement.SourceId neq "">
 		
@@ -234,8 +245,9 @@ password="#SESSION.dbpw#">
 		</cfif>
 		
 		</td>		
-		<td><INPUT type="radio" class="radiol" name="EntitlementClass" value="Contribution" <cfif Entitlement.EntitlementClass eq "Contribution">checked</cfif>></td>
-		<td class="labelmedium" style="padding-left:5px;padding-right:10px">Contribution</td>
+		<td><INPUT type="radio" class="radiol" onclick="ptoken.navigate('showAdvance.cfm?transactionid=#Entitlement.SourceId#&class=contribution&personno=#url.id#','ledger')"
+		name="EntitlementClass" value="Contribution" <cfif Entitlement.EntitlementClass eq "Contribution">checked</cfif>></td>
+		<td style="padding-left:5px;padding-right:10px"><cf_tl id="Contribution"></td>
 		</tr>
 		</table>
 		
@@ -247,6 +259,19 @@ password="#SESSION.dbpw#">
 		
 	</TD>
 	</TR>
+	
+	<cfif edit eq "1">
+	<tr>			   	  
+	   <td colspan="2" id="ledger" style="padding-left:10px;padding-right:10px">
+	   <cfif Entitlement.EntitlementClass eq "Deduction">
+	  
+	       <cfset url.class = Entitlement.EntitlementClass>
+		   <cfset url.transactionid = Entitlement.SourceId>
+		   <cfinclude template="showAdvance.cfm">	   
+	   </cfif>
+	   </td>
+	</tr>
+	</cfif>
 	
 	</cfoutput>
 	
@@ -297,6 +322,24 @@ password="#SESSION.dbpw#">
 	</TR>	
 	
 	<TR class="labelmedium">
+        <td valign="top" style="padding-top:7px"><cf_tl id="Remarks">:</td>
+        <TD>
+		
+		<cfif edit eq "1">
+		
+		<textarea style="width:99%;padding:3px;font-size:14px" class="regular" rows="2" name="Remarks"><cfoutput>#Entitlement.Remarks#</cfoutput></textarea> 
+		
+		<cfelse>
+		
+		<cfoutput>#Entitlement.Remarks#</cfoutput>
+		
+		</cfif>
+		
+		</TD>
+				
+	</TR>
+	
+	<TR class="labelmedium">
     <TD><cf_tl id="Attachment">:</TD>
     <TD>		
 	
@@ -327,23 +370,7 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>	
 	   
-	<TR class="labelmedium">
-        <td valign="top" style="padding-top:7px"><cf_tl id="Remarks">:</td>
-        <TD>
-		
-		<cfif edit eq "1">
-		
-		<textarea style="width:99%;padding:3px;font-size:14px" class="regular" rows="2" name="Remarks"><cfoutput>#Entitlement.Remarks#</cfoutput></textarea> 
-		
-		<cfelse>
-		
-		<cfoutput>#Entitlement.Remarks#</cfoutput>
-		
-		</cfif>
-		
-		</TD>
-				
-	</TR>
+	
 	
 	<cfif edit eq "1">
 	

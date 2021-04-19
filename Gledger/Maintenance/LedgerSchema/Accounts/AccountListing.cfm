@@ -36,28 +36,58 @@ password="#SESSION.dbpw#">
    </cfif>
 </cfoutput>
 
+
+<cfquery name="Last"
+datasource="AppsLedger" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT   TOP 1 *
+	FROM     TransactionHeader WITH(NOLOCK)
+	WHERE    Mission = '#url.mission#'
+	AND      Journal IN (SELECT Journal FROM Journal WITH(NOLOCK) WHERE SystemJournal = 'Opening')
+	ORDER BY AccountPeriod DESC
+</cfquery>
+
+<cfif Last.AccountPeriod eq "">
+	
+	<cfquery name="Last"
+	datasource="AppsLedger" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT TOP 1 *
+		FROM   Period WITH(NOLOCK)
+		WHERE   ActionStatus = '0'
+		ORDER BY PeriodDateEnd 
+	</cfquery>
+	
+</cfif>
+
 <cfquery name="SearchResult"
 datasource="AppsLedger" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT   A.*, 
-	         	(SELECT count(*) 
-					FROM  TransactionLine L, TransactionHeader H
-					WHERE L.Journal = H.Journal 
-					AND   L.JournalSerialNo = H.JournalSerialNo
-					AND   H.Mission = '#url.mission#'
-					AND   L.GLAccount = A.GLAccount
-					AND   H.RecordStatus != '9'
+	         	(SELECT  count(*) 
+				 FROM    TransactionLine L 
+				         INNER JOIN TransactionHeader H ON L.Journal = H.Journal AND L.JournalSerialNo = H.JournalSerialNo
+				 WHERE   H.Mission         = '#url.mission#'
+				 AND     H.AccountPeriod  = '#last.AccountPeriod#'	
+				 AND     L.GLAccount       = A.GLAccount
+				 <!--- makes it slow AND     H.RecordStatus   != '9' --->
 				) as Used,
-	         G.AccountGroup as AccountGroup1,
-	         G.Description as GroupDescription, 
-			 P.AccountParent, P.Description as Parentdescription
-	FROM     Ref_AccountParent P INNER JOIN
-             Ref_AccountGroup G ON P.AccountParent = G.AccountParent LEFT OUTER JOIN
-             Ref_Account A ON G.AccountGroup = A.AccountGroup 
+	          G.AccountGroup as AccountGroup1,
+	          G.Description as GroupDescription, 
+			  P.AccountParent, P.Description as Parentdescription
+	FROM      Ref_AccountParent P INNER JOIN
+              Ref_AccountGroup G ON P.AccountParent = G.AccountParent LEFT OUTER JOIN
+              Ref_Account A ON G.AccountGroup = A.AccountGroup 
 	WHERE 1=1 #PreserveSingleQuotes(cond)# 		 		 
 	ORDER BY P.AccountParent, G.AccountGroup, A.GLAccount 
 </cfquery>
+
+<!---
+<cfoutput>#cfquery.executiontime#</cfoutput>
+--->
 
 <cf_ajaxRequest>
 
@@ -125,27 +155,21 @@ function accounttoggle(mis,acc,act) {
 
 <cfset curr = 0>
 
-<body leftmargin="0" topmargin="0" rightmargin="0">
-
-<table width="96%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0">
-
+<table width="97%" height="100%" align="center">
 <tr>
-<td class="labellarge" style="font-size:45px;padding-top:9px;padding-left:7px;height:43px"><cfoutput>#url.Mission#</cfoutput><b></td>
+<td class="labellarge" style="font-weight:200;font-size:45px;padding-top:9px;padding-left:7px;height:43px"><cfoutput>#url.Mission#</cfoutput><b></td>
 <td align="right" style="width:40%">
 	<cfoutput>
 		<table>
 			<tr>
-				<td class="labelmedium" align="right" style="width:300px;padding-right:6px">
+				<td class="labelmedium2" align="right" style="width:300px;padding-right:6px">
 					<cfif url.op eq "1">
-					<a href="javascript:reloadForm('#url.mission#',filter.value,'false')">
-					<font color="0080C0">
+					<a href="javascript:reloadForm('#url.mission#',filter.value,'false')">					
 					<cf_tl id="Show All available GL accounts">
 					<cfelse>
-					<a href="javascript:reloadForm('#url.mission#',filter.value,'true')">
-					<font color="0080C0">
+					<a href="javascript:reloadForm('#url.mission#',filter.value,'true')">					
 					<cf_tl id="Show the enabled GL accounts only">
-					</cfif>
-					</font>
+					</cfif>					
 					</a>
 				</td>
 				<td>:
@@ -178,7 +202,7 @@ function accounttoggle(mis,acc,act) {
 	<table><tr>
 	
 	<td style="padding-left:4px">
-	 <select name="filter" id="filter" class="regularxl" size"1" onChange="reloadForm('<cfoutput>#url.mission#</cfoutput>',this.value,'<cfoutput>#url.op#</cfoutput>')">
+	 <select name="filter" id="filter" class="regularxxl" size"1" onChange="reloadForm('<cfoutput>#url.mission#</cfoutput>',this.value,'<cfoutput>#url.op#</cfoutput>')">
 	 	    <option value="All" <cfif "All" is URL.Parent>selected</cfif>><cf_tl id="All"></option>
 		    <cfoutput query="Parent">
 			<option value="#AccountParent#" <cfif AccountParent is URL.Parent>selected</cfif>>
@@ -217,7 +241,7 @@ function accounttoggle(mis,acc,act) {
 
 	<table width="99%" class="navigation_table">
 		
-		<tr class="labelmedium line fixrow">
+		<tr class="labelmedium2 line fixrow">
 		    <td height="18" width="40"></td>
 			<td width="60"></td>
 		    <td style="min-width:120px"><cf_tl id="Code"></td>
@@ -232,32 +256,32 @@ function accounttoggle(mis,acc,act) {
 			<td style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Enforce Program Entry"><cf_tl id="Prg"></cf_UItooltip></td>
 			<td style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Tax Account"><cf_tl id="T"></cf_UItooltip></td>
 			<td style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Stock"><cf_tl id="I"></cf_UItooltip></td>
-			<td align="right" style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Used"><cf_tl id="U"></cf_UItooltip></td>						
+			<td align="right" style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Used"><cfoutput>#last.AccountPeriod#</cfoutput></cf_UItooltip></td>						
 			<td style="width:50px"></td>
 		</tr>	
 	
 	<cfoutput query="SearchResult" group="AccountParent">
 	
-	     <tr class="line clsSearchrow fixrow2">
+	     <tr class="line2 clsSearchrow fixrow2">
 		 	 <td style="display:none;" class="ccontent"><b>#AccountParent# #Parentdescription#</td>
-			 <td height="25" style="padding-left:4px;padding-top:2px" align="absmiddle">
+			 <td style="padding-left:4px;padding-top:2px" align="absmiddle">
 			 	<table>
 			 		<tr>
 			 			<td>
 			 				<cf_img buttonClass="clsNoPrint" icon="add" onClick="grpadd('#AccountParent#')">
 			 			</td>
 			 			<td style="padding-left:5px; padding-right:5px;">		
-			    			<cf_img buttonClass="clsNoPrint" icon="edit" onclick="parentEdit('#AccountParent#');">
+			    			<cf_img buttonClass="clsNoPrint" icon="open" onclick="parentEdit('#AccountParent#');">
 						 </td>
 			 		</tr>
 			 	</table>
 			 </td>
-		     <td colspan="15" class="labellarge" style="cursor: pointer;" onclick="reloadForm('#url.mission#','#AccountParent#','#url.op#')">#AccountParent# #Parentdescription#</td>	 	 
+		     <td colspan="15" class="labellarge" style="font-size:24px;height:40px;cursor: pointer;" onclick="reloadForm('#url.mission#','#AccountParent#','#url.op#')">#AccountParent# #Parentdescription#</td>	 	 
 		 </tr>	
 					 	
 	<cfoutput group="AccountGroup1">
 	   
-	     <tr class="line navigation_row clsSearchrow labelmedium fixrow3">
+	     <tr class="line navigation_row clsSearchrow labelmedium2">
 		 <td style="display:none;" class="ccontent">#AccountGroup1# #GroupDescription#</td>
 	     <td></td>	
 	     <td colspan="1">
@@ -266,13 +290,13 @@ function accounttoggle(mis,acc,act) {
 		  	  	  <cf_img buttonClass="clsNoPrint" icon="add" onClick="add('#AccountGroup1#')"> 			
 				  </td>
 				  <td style="padding-left:4px;padding-top:2px;">		
-				  <cf_img buttonClass="clsNoPrint" icon="edit" onclick="grpedit('#AccountGroup1#');">
+				  <cf_img buttonClass="clsNoPrint" icon="open" onclick="grpedit('#AccountGroup1#');">
 				  </td>
 			   </tr>
 		     </table>
 		 </td>
 		 <td style="padding-left:6px">#AccountGroup1#</td>
-		 <td colspan="12" style="padding-left:4px"><a href="javascript:grpedit('#AccountGroup1#')">#GroupDescription#</a></td>
+		 <td colspan="12" style="padding-left:4px;font-size:18px;height:30px"><a href="javascript:grpedit('#AccountGroup1#')">#GroupDescription#</a></td>
 		 <td></td>
 		 </tr>
 		   
@@ -319,23 +343,23 @@ function accounttoggle(mis,acc,act) {
 				
 				</cfif>
 			
-			    <tr class="line cellcontent navigation_row clsSearchrow" bgcolor="#cl#">
+			    <tr class="line labelmedium2 cellcontent navigation_row clsSearchrow" bgcolor="#cl#">
 				<td style="display:none;" class="ccontent">#AccountParent# #Parentdescription# #AccountGroup1# #GroupDescription# #GlAccount# #Description# #Mission.SystemAccount# #AccountType# #AccountClass# #TaxCode# #vBankAccountNo#</td>
 				<td></td>
 				<td></td>
 			    <td style="padding-left:1px"><a class="navigation_action" onClick="javascript:edit('#GLAccount#','#AccountParent#')">#GlAccount#</td>
 				<td style="padding-left:1px">#Description#</td>
 				<td align="center" style="border-left:1px solid silver">#Mission.SystemAccount#</td>
-				<td align="center" style="padding-left:2px;border-left:1px solid silver">#Left(AccountType,1)#</td>
-				<td align="center" style="padding-left:2px;border-left:1px solid silver">#Left(AccountClass,1)#</td>
-				<td align="center" style="padding-left:2px;border-left:1px solid silver">#Left(AccountCategory,3)#</td>
-				<td align="center" style="padding-left:2px;border-left:1px solid silver">#TaxCode#</td>
-			    <td align="center" style="padding-left:2px;border-left:1px solid silver">#vBankAccountNo#</td>
-				<td align="center" style="padding-left:2px;border-left:1px solid silver"><cfif MonetaryAccount eq "1" and ForceCurrency eq "">Yes<cfelseif MonetaryAccount eq "1" and ForceCurrency neq "">#ForceCurrency#<cfelse></cfif></td>
-				<td align="center" style="padding-left:2px;border-left:1px solid silver"><cfif forceProgram eq "1">Yes</cfif></td>
-			    <td align="center" style="padding-left:2px;border-left:1px solid silver"><cfif TaxAccount eq "1">Yes</cfif></td>
-				<td align="center" style="padding-left:2px;border-left:1px solid silver"><cfif StockAccount eq "1">Yes</cfif></td>
-				<td align="right" style="padding-right:2px;border-left:1px solid silver">#used#</td>
+				<td align="center" style="padding-left:2px">#Left(AccountType,1)#</td>
+				<td align="center" style="padding-left:2px">#Left(AccountClass,1)#</td>
+				<td align="center" style="padding-left:2px">#Left(AccountCategory,3)#</td>
+				<td align="center" style="padding-left:2px">#TaxCode#</td>
+			    <td align="center" style="padding-left:2px">#vBankAccountNo#</td>
+				<td align="center" style="padding-left:2px"><cfif MonetaryAccount eq "1" and ForceCurrency eq "">Yes<cfelseif MonetaryAccount eq "1" and ForceCurrency neq "">#ForceCurrency#<cfelse></cfif></td>
+				<td align="center" style="padding-left:2px"><cfif forceProgram eq "1">Yes</cfif></td>
+			    <td align="center" style="padding-left:2px"><cfif TaxAccount eq "1">Yes</cfif></td>
+				<td align="center" style="padding-left:2px"><cfif StockAccount eq "1">Yes</cfif></td>
+				<td align="right" style="padding-right:2px">#used#</td>
 				<td align="center" style="min-width:30px;padding-left:2px;border-left:1px solid silver" id="i#glaccount#">
 				
 				<cfif mission.recordcount eq "1">
@@ -380,14 +404,12 @@ function accounttoggle(mis,acc,act) {
 
 </td>
 
-</table>
+</tr>
 
-</td>
+<tr style="border-top:1px solid silver"><td style="height:25px"></td></tr>
 
 </table>
 
 <script>
 	parent.Prosis.busy('no')
 </script>
-
-</BODY></HTML>

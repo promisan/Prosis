@@ -131,20 +131,20 @@ FROM      PurchaseLine L INNER JOIN
 WHERE     L.PurchaseNo = '#URL.ID1#'
 </cfquery>
 
-<cfset table0 = "border:0px solid b0b0b0">
-<cfset table1 = "border:1px solid b0b0b0" >
-<cfset td01 = "border-right:1px solid b0b0b0; border-bottom:1px solid b0b0b0">
-<cfset td02 = "border-bottom:1px solid b0b0b0">
-<cfset td03 = "border-right:1px solid b0b0b0">
-<cfset data10 = "font-family:Verdana;font-size:10pt;font-weight:Bold">
-<cfset data08 = "font-family:Verdana;font-size:8pt">
+<cfset table0   = "border:0px solid b0b0b0">
+<cfset table1   = "border:1px solid b0b0b0" >
+<cfset td01     = "border-right:1px solid b0b0b0; border-bottom:1px solid b0b0b0">
+<cfset td02     = "border-bottom:1px solid b0b0b0">
+<cfset td03     = "border-right:1px solid b0b0b0">
+<cfset data10   = "font-family:Verdana;font-size:10pt;font-weight:Bold">
+<cfset data08   = "font-family:Verdana;font-size:8pt">
 
 <cfdocumentitem type="header"> 
 
 	 <cfoutput> 
-	 <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" rules="cols">
+	 <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
 	 <tr><td>
-		 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+		 <table width="100%" align="center" class="formpadding">
 		 <tr>
 			 <td align="center"><cf_reportlogo></td>
 		 </tr>

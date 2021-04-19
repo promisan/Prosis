@@ -1,5 +1,5 @@
 
-<table width="100%" cellspacing="2" cellpadding="0">
+<table width="100%" class="formpadding formspacing">
 
 <cfquery name="get" 
 	datasource="AppsWorkOrder" 
@@ -55,14 +55,14 @@
 				
 			<cfif url.mode eq "View">
 			
-				<tr><td width="20%" class="labelmedium"><cfif domain.description neq "">#Domain.description#<cfelse><cf_tl id="Id"></cfif>: <font color="FF0000">*</font></td>
-				    <td class="labelmedium">#line.reference# <cfif line.description eq ""><font color="808080">[n/a]</font><cfelse>#line.Description#</cfif></td>
+				<tr><td width="20%" class="labelmedium2"><cfif domain.description neq "">#Domain.description#<cfelse><cf_tl id="Id"></cfif>: <font color="FF0000">*</font></td>
+				    <td class="labelmedium2">#line.reference# <cfif line.description eq ""><font color="808080">[n/a]</font><cfelse>#line.Description#</cfif></td>
 				</tr>						
 			
 			<cfelse>
 			
 				<tr>
-				<td valign="top" style="padding-top:4px" width="20%" class="labelmedium"><cfif domain.description neq "">#Domain.description#<cfelse><cf_tl id="Id"></cfif>: <font color="FF0000">*</font></td>
+				<td valign="top" style="padding-top:4px" width="20%" class="labelmedium2"><cfif domain.description neq "">#Domain.description#<cfelse><cf_tl id="Id"></cfif>: <font color="FF0000">*</font></td>
 												
 				<cfquery name="domainreference" 
 			     datasource="AppsWorkOrder" 
@@ -78,7 +78,7 @@
 								 
 					 <table cellspacing="0" cellpadding="0" class="navigation_table formspacing formpadding">
 						 <cfloop query="domainreference">
-						 	<tr class="labelmedium" class="navigation_row">
+						 	<tr class="labelmedium2" class="navigation_row">
 							 <td><input type="radio" class="radiol enterastab" name="Reference" value="#Reference#" <cfif Line.reference eq "" and currentrow eq "1">checked<cfelseif Line.Reference eq Reference>checked</cfif>><td>
 							 <td style="padding-left:4px">#Reference#</td>
 							 <td style="padding-left:4px">#Description#</td>
@@ -90,8 +90,7 @@
 				 </tr>
 				 
 				 <tr>
-				  <td valign="top" style="padding-top:4px" width="20%" class="labelmedium"><cf_tl id="Status">:</td>
-				
+				  <td valign="top" style="padding-top:4px" width="20%" class="labelmedium"><cf_tl id="Status">:</td>				
 				  <td class="labelmedium" style="padding:2px;">		
 					   
 					    <cfif url.mode eq "View">
@@ -147,7 +146,7 @@
 						       enabled   = "Yes"				     
 						       size      = "1"
 						       maxlength = "20"
-						       class     = "regularxl"
+						       class     = "regularxxl"
 						       style     = "width:100">
 							   
 						  <cfelse>
@@ -193,9 +192,9 @@
 					   
 			</tr>
 		
-			<tr><td class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Descriptive">:</td>
+			<tr><td class="labelmedium2" valign="top" style="padding-top:3px"><cf_tl id="Descriptive">:</td>
 			
-				<td class="labelmedium" style="padding:2px;">	
+				<td class="labelmedium2" style="padding:2px;">	
 				
 				<cfif url.mode eq "View">
 						
@@ -203,7 +202,7 @@
 					
 				<cfelse>
 				
-					<textarea name="Description" style="width:90%;height:40;font-size:14px;padding:3px" totlength="100" class="regular" onkeyup="return ismaxlength(this)">#line.Description#</textarea>		
+					<textarea name="Description" style="width:90%;height:40px;font-size:14px;padding:4px" totlength="100" class="regular" onkeyup="return ismaxlength(this)">#line.Description#</textarea>		
 				
 				</cfif>
 				
@@ -229,7 +228,7 @@
 					
 			<cfif CustomerOrgunit.recordcount eq "1">
 				
-			<tr><td class="labelmedium"><cf_tl id="Serviced in">:</td>
+			<tr><td class="labelmedium2"><cf_tl id="Serviced in">:</td>
 			
 				<td class="labelmedium" style="padding:2px;">	
 				
@@ -250,8 +249,11 @@
 							
 					<cfset link = "ServiceLineNode.cfm?workorderline=#url.workorderline#&workorderid=#URL.workorderid#">	
 						
-						<table cellspacing="0" cellpadding="0" width="96%">
+						<table cellspacing="0" cellpadding="0">
 							<tr>
+																
+							<td><cf_securediv bind="url:#link#" id="organization"></td>
+							<td style="width:5px"></td>		
 							<td width="20">
 															
 							   <cf_selectlookup
@@ -270,8 +272,7 @@
 								des1          = "OrgUnit">
 									
 							</td>	
-							<td width="2"></td>				
-							<td width="99%"><cfdiv bind="url:#link#" id="organization"/></td>
+							
 							</tr>
 						</table>	
 						
@@ -330,7 +331,7 @@
 							ORDER BY ListingOrder
 						</cfquery>			
 													
-						<select name="ServiceDomainClass" id="ServiceDomainClass" class="regularxl enterastab">
+						<select name="ServiceDomainClass" id="ServiceDomainClass" class="regularxxl enterastab">
 						<cfloop query="DomainClass">
 						   <option value="#Code#" <cfif line.servicedomainclass eq Code>selected</cfif>>#Description#</option>
 						</cfloop>					
@@ -456,11 +457,11 @@
 										
 						<cfif prior.personNo neq "" and prior.serviceMode eq "WorkOrder">				
 										
-							<td><cfdiv bind="url:#link#&personno=#prior.personno#" id="employee"/></td>
+							<td><cf_securediv bind="url:#link#&personno=#prior.personno#" id="employee"></td>
 						
 						<cfelse>
 						
-							<td><cfdiv bind="url:#link#" id="employee"/></td>
+							<td><cf_securediv bind="url:#link#" id="employee"></td>
 						
 						</cfif>
 						
@@ -508,7 +509,7 @@
 			       enabled="Yes"				     
 			       size="1"
 			       maxlength="10"
-			       class="regularxl enterastab"
+			       class="regularxxl enterastab"
 			       style="text-align:left;width:100">
 				   
 			</cfif>	   
@@ -533,7 +534,7 @@
 					<td>										 
 						  <cf_intelliCalendarDate9
 							FieldName="dateeffective" 
-							class="regularxl"										
+							class="regularxxl"										
 							Default="#Dateformat(Line.DateEffective, CLIENT.DateFormatShow)#"		
 							AllowBlank="False">								
 					</td>					
@@ -542,7 +543,7 @@
 			        <td style="padding-left:10px">						
 						  <cf_intelliCalendarDate9
 							FieldName="dateexpiration" 					
-							class="regularxl"	
+							class="regularxxl"	
 							Default="#Dateformat(Line.DateExpiration, CLIENT.DateFormatShow)#"		
 							AllowBlank="True">							
 			        </td>

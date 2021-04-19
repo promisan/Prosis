@@ -1,6 +1,5 @@
 
 <!--- this is causing a complete library to load --->
-<cfajaximport tags="cfwindow">
 
 <cfoutput>
 
@@ -104,8 +103,7 @@
 			 } catch(e) { size = 'small' }
 		 
 		 }		
-		 
-				 				 
+		 				 				 
 		 ptoken.navigate('#session.root#/tools/Calendar/CalendarView/applyCalendarDate.cfm?dte='+dte,'calendarprocess')							 
 		 target        = document.getElementById('celltarget').value;		
 		 condition     = document.getElementById('cellcondition').value;	
@@ -155,9 +153,9 @@
 	function calendarJumpTo() {
 		var vlink = '#session.root#/Tools/Calendar/CalendarView/CalendarViewJumpTo.cfm';
 		try {
-			ColdFusion.Window.destroy('__prosis_calendarJumpTo');
+			ProsisUI.closeWindow('__prosis_calendarJumpTo');
 		}catch(e){}		
-		ColdFusion.Window.create('__prosis_calendarJumpTo','Jump To',vlink,{height:335,width:295,modal:true,resizable:false,closable:true,center:true});
+		ProsisUI.createWindow('__prosis_calendarJumpTo','Jump To',vlink,{height:335,width:295,modal:true,resizable:false,closable:true,center:true});
 	}
 	
 	function calendarToday() {
@@ -168,7 +166,7 @@
 		if (document.getElementById('divGotoPriorMonths')) { ptoken.navigate('#SESSION.root#/tools/calendar/CalendarView/CalendarViewGoMonth.cfm?name=gotoPriorMonths&date='+date+'&type=prior', 'divGotoPriorMonths'); }
 	    if (document.getElementById('divGotoNextMonths')) { ptoken.navigate('#SESSION.root#/tools/calendar/CalendarView/CalendarViewGoMonth.cfm?name=gotoNextMonths&date='+date+'&type=next', 'divGotoNextMonths'); }
 		calendarmonth(date,'jump','standard','seldate');		
-		try { ColdFusion.Window.destroy('__prosis_calendarJumpTo'); }catch(e){}
+		try { ProsisUI.closeWindow('__prosis_calendarJumpTo'); }catch(e){}
 	}
 
 </script>

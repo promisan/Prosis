@@ -245,9 +245,9 @@
 					<td>
 					<table><tr>								
 				</cfif>
-								
+												
 				<cfloop query="GetFiles">
-				
+								
 					<cfif DocumentServerIsOp eq "0">
 					
 						<cfset docpath = documentpath>
@@ -322,9 +322,9 @@
 						</cfif>						
 							
 						<!--- show only files not directories --->
-										
+																
 						<cfif type is "FILE">
-																				
+																										
 							<CFSET SeparatorPos = Find( '.', Reverse(#Name#) )>
 							<cfset x = len(name)>
 							<cfset y = find('_', name)>
@@ -357,7 +357,7 @@
 									</cfquery>							
 								
 								<cfelse>	
-																																	
+																																									
 									<cfif attachment.filestatus eq "9">									
 										
 										<td colspan="2" class="labelheader">#NameShow#</td>						
@@ -372,8 +372,11 @@
 										
 										</td>
 										
-									<cfelseif (FindNoCase(".jpg", "#NameShow#") or FindNoCase(".png", "#NameShow#") or FindNoCase(".flv", "#NameShow#") or FindNoCase(".gif", "#NameShow#")) and embedgraphic eq "yes">  
-									  									  
+									<cfelseif (FindNoCase(".jpg", "#NameShow#") 
+									      or FindNoCase(".png", "#NameShow#") or FindNoCase(".flv", "#NameShow#") 
+										  or FindNoCase(".gif", "#NameShow#")) and embedgraphic eq "yes">  
+									  	
+																  
 									    <cfif list eq "regular">	
 																					
 						                    <td width="10%" style="padding-left:1px" valign="top"
@@ -381,11 +384,11 @@
 											  								  		
 												<cfif FindNoCase(".flv", "#NameShow#") or DocumentServerIsOp eq "1">						
 	
-											    	<img src="#SESSION.root#/Images/file_image.jpg" style="cursor:pointer;border:1px solid silver" align="absmiddle" alt="Open Image" height="40" width="60" border="0" align="center">
+											    	<img src="#SESSION.root#/Images/file_image.jpg" style="cursor:pointer;border:1px solid silver" 
+													align="absmiddle" alt="Open Image" height="40" width="60" border="0" align="center">
 	
-												<cfelse>		
-												
-																								
+												<cfelse>	
+																																																
 													<cfset vServerPathDoc = "">
 													<cfset vReplaceDashes = 0>
 													<cfif attachment.server eq "documentserver" or attachment.server eq "document">
@@ -411,15 +414,14 @@
 														<cftry>	
 	
 														<cfif findNoCase(",",vServerPathDocFull) or findNoCase(" ",vServerPathDocFull)>
-														
+																												
 														<img src="#SESSION.root#/Images/file_image.jpg" 
 															    style="width:35px;height:35px;cursor:pointer;border:0px solid silver;" 
 																align="absmiddle" 
 																alt="Open Image" border="0" align="center">	
 																												
-														<cfelse>		
-																							
-														   																																								
+														<cfelse>																									
+																												   																																								
 															<cffile action="COPY" 
 																source="#vServerPathDocFull#" 
 											    		    	destination="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\tn_#trim(name)#" 
@@ -458,6 +460,7 @@
 										   </td>    	               
 										
 										<cfelse>
+																				
 										
 											<td height="22" style="padding-left:4px" 
 											 onclick="embedfile('#contextmode#','#attachment.attachmentid#','show','#attachment.attachmentid#')">		
@@ -467,8 +470,10 @@
 	
 											    	<img src="#SESSION.root#/Images/file_image.jpg" style="cursor:pointer;border:1px solid silver" align="absmiddle" alt="Open Image" height="40" width="60" border="0" align="center">
 	
-												<cfelse>		
-																																							
+												<cfelse>	
+												
+												    <!--- needs some correction if the server operate from a different box --->
+																																																																										
 													<img src="#session.rootdocument#/#DocPath#/#name#" 
 													    style="cursor:pointer;border:1px solid gray" 
 														align="absmiddle" 
@@ -482,7 +487,7 @@
 										</cfif>	
 									
 									<cfelse>	
-									
+																		
 									    <!--- ---------------------------------------- --->
 									    <!--- provision to open files in the edit mode --->
 										<!--- ---------------------------------------- --->

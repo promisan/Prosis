@@ -163,7 +163,8 @@
 						password="#SESSION.dbpw#">		
 						
 						SELECT     I.ItemDescription, 
-						           U.UoMDescription, SUM(T.TransactionQuantity) AS OnHand  <!--- crosses UoM --->
+						           U.UoMDescription, 
+								   SUM(T.TransactionQuantity) AS OnHand  <!--- crosses UoM --->
 						
 						FROM       ItemTransaction AS T 
 						           INNER JOIN Item I ON T.ItemNo = I.ItemNo 
@@ -313,11 +314,11 @@
 				  
 				  <tr class="line">
 				  
-				  	<td style="height:25px;background-color:f1f1f1"">
+				  	<td style="height:25px;">
 									  
 				  	  <table width="100%">
 					 							  
-				      <td style="padding-left:20px;font-size:14px;"><cf_tl id="Destination"></td>
+				      <td style="background-color:ffffaf;width:100px;padding-left:20px;font-size:16px;"><cf_tl id="Destination"></td>
 								
 					  <td>
 								
@@ -350,8 +351,8 @@
 											
 						  <select name  = "warehouseto"
 						    id         = "warehouseto" 
-							class      = "regularxl"
-							style      = "width:300px;border:0px;font-size:14px;background-color:transparent"
+							class      = "regularxxl"
+							style      = "width:300px;border-left;1px solid silver;border:0px;font-size:16px;background-color:f1f1f1"
 						    onchange   = "_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/warehouse/application/stock/Transfer/setLocation.cfm?systemfunctionid=#url.systemfunctionid#&whs=#url.warehouse#&warehouseto='+this.value,'locationbox')">
 							
 							<option value=""><cf_tl id="Select"></option>
@@ -372,7 +373,7 @@
 						 <!--- <cf_tl id="Location">: --->
 						 </td>
 						 							 
-						 <td id="locationbox" style="padding-left:4px;width:200px">							 							 		
+						 <td id="locationbox" style="padding-left:4px;width:200px;border-left:1px solid silver;background-color:f1f1f1">							 							 		
 								<input type="hidden" name="locationto" id="locationto" value="">																		
 						 </td>									 
 																			 
@@ -549,7 +550,7 @@
 								
 								<td align="right" style="width:100px">
 										
-										<cfdiv id="pagebox" 
+										<cf_securediv id="pagebox" 
 										   bind="url:#session.root#/Warehouse/Application/Stock/Transfer/setPage.cfm?mde=#url.mde#&systemfunctionid=#url.systemfunctionid#&height=#url.height#&total=#SearchResult.recordCount#">
 										
 										</td>
@@ -564,7 +565,7 @@
 								
 					        </TR>
 											
-							<tr><td style="height:100%">
+							<tr><td style="height:100%;padding:5px">
 						
 						   <cf_divscroll id="content" overflowy="scroll">								
 							   <cfinclude template="TransferViewContent.cfm">		  					

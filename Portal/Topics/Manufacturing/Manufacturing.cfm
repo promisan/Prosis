@@ -285,28 +285,28 @@
 				
 			<table width="100%">		
 			<cfoutput>
-			<tr><td colspan="3" style="height:35px" class="labellarge"><b>
-			<a href="javascript:ptoken.open('#session.root#/Gledger/Inquiry/AP_AR/InquiryView.cfm?mode=AR&mission=#url.mission#&SystemFunctionId=#System.SystemFunctionId#','ar_#url.mission#','left=30, top=30, width=#client.width-40#, height=#client.height-70#, status=yes, toolbar=no, scrollbars=no, resizable=yes')">
-			<font color="0080C0"><cf_tl id="Accounts Receivable"><font size="2">[<cf_tl id="Running Balance">]</font></a>
+			<tr><td colspan="3" style="font-weight:24px;height:35px" class="labellarge">
+			<a href="javascript:ptoken.open('#session.root#/Gledger/Inquiry/AP_AR/InquiryView.cfm?mode=AR&mission=#url.mission#&SystemFunctionId=#System.SystemFunctionId#','ar_#url.mission#')">
+			<cf_tl id="Accounts Receivable">[<cf_tl id="Running Balance">]</a>
 			</td></tr>
 			</cfoutput>
 			
 			<tr><td style="padding-left:10px">
 			
 				<table width="100%">
-				<tr>				
-				<td style="border:1px solid silver;padding-left:5px" class="labelit">Running balance</td>
+				<tr  class="labelmedium2">				
+				<td style="border:1px solid silver;padding-left:5px">Running balance</td>
 				<cfoutput query="PeriodList">
-					<td style="border:1px solid silver;padding:2px" class="labelit" align="center" width="70">#TransactionPeriod#</td>		
+					<td style="border:1px solid silver;padding:2px" align="center" width="70">#TransactionPeriod#</td>		
 				</cfoutput>		
 				</tr>		
 					
 				<cfoutput query="AccountList">
-				<tr class="labelit">
-					<td style="border:1px solid silver;padding-left:5px" class="labelmedium">#GLAccount# #Description#</td>		
+				<tr class="labelmedium2">
+					<td style="border:1px solid silver;padding-left:5px">#GLAccount# #Description#</td>		
 					<cfset acc = glaccount>							
 					<cfloop query="PeriodList">						
-					<td style="border:1px solid silver;padding-right:4px" align="right" class="labelit">			
+					<td style="border:1px solid silver;padding-right:4px" align="right">			
 						<cfquery name="Amount"
 				         dbtype="query">
 							 SELECT    SUM(AmountBase) as AmountBase

@@ -121,9 +121,13 @@ password="#SESSION.dbpw#">
 					         Ref_Account Acc ON Line.GLAccount = Acc.GLAccount INNER JOIN
 					         TransactionHeader Hdr ON Line.Journal = Hdr.Journal AND Line.JournalSerialNo = Hdr.JournalSerialNo
 					WHERE    Acc.AccountClass   = 'Balance'
-					AND      Line.AccountPeriod = '#prior#' 
+					
+					<!--- Hanno this is a bit tricky usually this has to be the same for balance was before line. --->				
+					AND      Hdr.AccountPeriod = '#prior#' 
+					
+					
 					AND      Hdr.Mission        = '#Mission#'
-					AND      Hdr.RecordStatus    IN('0','1')
+					AND      Hdr.RecordStatus = '1'
 					AND      Hdr.ActionStatus IN ('0','1')				
 					AND      Hdr.Journal IN (SELECT Journal 
 				                             FROM   Journal 
@@ -545,10 +549,9 @@ password="#SESSION.dbpw#">
 									password="#SESSION.dbpw#">								    
 										SELECT round(ISNULL(sum(AmountDebit)     - sum(AmountCredit),0),2)     as Capital,
 											   round(ISNULL(sum(AmountBaseDebit) - sum(AmountBaseCredit),0),2) as CapitalBase
-									    FROM   TransactionHeader H, TransactionLine L
-										WHERE  H.Journal           = L.Journal
-										AND    H.JournalSerialNo   = L.JournalSerialNo 
-										AND    H.Mission           = '#mission#'
+									    FROM   TransactionHeader H INNER JOIN TransactionLine L 
+													ON  H.Journal = L.Journal AND H.JournalSerialNo   = L.JournalSerialNo 
+										WHERE  H.Mission           = '#mission#'
 										AND    H.OrgUnitOwner      = '#OrgUnitOwner#' 
 										AND    H.AccountPeriod     = '#new#'
 										AND    H.TransactionSource = 'Opening'									

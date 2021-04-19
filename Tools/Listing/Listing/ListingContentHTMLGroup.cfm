@@ -41,7 +41,7 @@
 			<cfif url.listcolumn1_type eq "period">
 			
 			        <!--- to keep this from moving --->
-				    <div style="height:28px;position:relative;">
+				    <div style="height:24px;position:relative;">
 		              <div style="height:100%;width:100%;position:absolute;left:0;top:0;" class="sticky">
 									
 						<table align="center" style="width:100%;"><tr>
@@ -50,7 +50,7 @@
 								<cfloop index="itm" list="Year,Quarter,Month,Week">					
 									<cfset sc = "document.getElementById('listcolumn1_typemode').value='#itm#';applyfilter('','','content')">				
 									<cfif url.listcolumn1_typemode neq "#itm#">
-										<td><input onclick="#sc#" type="button" name="selectperiod" value="#itm#" class="button10g" style="width:85px;border:1px solid e6e6e6;<cfif itm neq 'year'>border-left:0px</cfif>"></td>
+										<td style="padding:1px"><input onclick="#sc#" type="button" name="selectperiod" value="#itm#" class="button10g" style="height:25px;border-radius:5px;width:85px;border:1px solid gray"></td>
 									<cfelse>
 									     <td align="center" style="width:80px;border:0x;font-weight:bold">#itm#</td>
 									</cfif>						

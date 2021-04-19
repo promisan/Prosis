@@ -23,7 +23,6 @@
 <cfparam name="Form.RestockingSelect"  default="">
 <cfparam name="Form.RefreshContent"    default="0">
 
-
 <cfquery name="get" 
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
@@ -407,7 +406,6 @@
 							
 	</cfquery>
 		
-			
 
 <!--- capture for next time --->
 
@@ -428,7 +426,6 @@
 
 <cfif get.recordcount gt "0" and url.mode neq "filter">
 
-
 <!--- ON HAND GLOBAL --->
 
 <cfquery name="OnHand" 
@@ -442,7 +439,8 @@ password="#SESSION.dbpw#">
 	FROM      ItemTransaction
 	WHERE     Mission = '#URL.Mission#' 
 	AND       ItemNo IN (SELECT ItemNo FROM #dest#)
-	GROUP BY  ItemNo, TransactionUoM
+	GROUP BY  ItemNo,
+	          TransactionUoM
 </cfquery>
 
 <!---
@@ -541,6 +539,8 @@ password="#SESSION.dbpw#">
 						 
 </cfquery>
 
+<!--- internal replenishment request --->
+
 <cfquery name="OrderToMainWarehouse" 
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
@@ -553,10 +553,10 @@ password="#SESSION.dbpw#">
 			 (
 			
 			  SELECT  ItemNo, 
-					UoM, 
-					ShipToWarehouse, 
-					SUM(RequestedQuantity) as Ordered,
-					SUM(Fullfilled) as Fullfilled
+					  UoM, 
+					  ShipToWarehouse, 
+					  SUM(RequestedQuantity) as Ordered,
+					  SUM(Fullfilled) as Fullfilled
 					
 			  FROM    (
 	
@@ -607,9 +607,9 @@ password="#SESSION.dbpw#">
 						  Warehouse, 
 						  SUM(RequestQuantity) AS Total	
 				FROM      Purchase.dbo.RequisitionLine
-				WHERE     Mission         = '#URL.Mission#'
+				WHERE     Mission         = '#url.Mission#'
 				AND       Warehouse       = '#url.warehouse#'				
-				AND       ActionStatus >= '1' AND  ActionStatus < '3'
+				AND       ActionStatus >= '1' AND ActionStatus < '3' <!--- clear but not turned into a purchase yet --->
 				GROUP BY  WarehouseItemNo, WarehouseUoM, Warehouse  ) as R	
 	
 	WHERE     I.ItemNo    = R.ItemNo
@@ -634,7 +634,7 @@ password="#SESSION.dbpw#">
 			 SELECT  ItemNo, 
 			         UoM, 
 				 	 Warehouse, 
-					 SUM(OnOrder) AS OnOrder,
+					 SUM(OnOrder)        AS OnOrder,
 					 SUM(OnOrderReceipt) as OnOrderReceipt
 					 
 			 FROM	(
@@ -642,7 +642,7 @@ password="#SESSION.dbpw#">
 					 SELECT   R.WarehouseItemNo as ItemNo, 
 					          R.WarehouseUoM as UoM, 
 							  R.Warehouse, 					  
-							  OrderQuantity*OrderMultiplier AS OnOrder,
+							  OrderQuantity*OrderMultiplier as OnOrder,
 							  
 							  (SELECT ISNULL(SUM(ReceiptQuantity*ReceiptMultiplier),0) 
 							   FROM   Purchase.dbo.PurchaseLineReceipt PLR
@@ -651,6 +651,7 @@ password="#SESSION.dbpw#">
 						
 					FROM      Purchase.dbo.RequisitionLine R, 
 					          Purchase.dbo.PurchaseLine P
+							  
 					WHERE     R.Mission         = '#URL.Mission#'
 					AND       R.Warehouse       = '#url.warehouse#'
 					AND       R.RequisitionNo   = P.RequisitionNo					
@@ -738,9 +739,37 @@ password="#SESSION.dbpw#">
 <!--- 3.2. earmarked from workorder 
 
 Deduct stock on hand for an item with has been earmarked to a workorder/line and thus is no longer
-free stock
+free stock adjusted 12/4/2021 --->
 
---->
+<cfquery name="Earkmarked" 
+datasource="AppsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+
+    UPDATE  #dest#
+	SET     Earmarked = R.Earmarked
+			
+	FROM    #dest# I, 
+	
+	        (
+			
+				SELECT   ItemNo, 
+						 TransactionUoM, 
+						 Warehouse, 
+						 ISNULL(SUM(TransactionQuantity),0) as Earmarked					
+						
+				FROM     ItemTransaction
+				WHERE    Warehouse = '#url.warehouse#'
+				AND      WorkOrderId is not NULL						 
+				GROUP BY ItemNo, TransactionUoM, Warehouse			 
+			 
+			 ) as R
+			 		 
+	WHERE    I.ItemNo    = R.ItemNo
+	AND      I.UoM       = R.TransactionUoM
+	AND      I.Warehouse = R.Warehouse	 
+	 
+</cfquery>
 
 
 <!--- 3.3 To be consumed based on forecasted workorder requirements 

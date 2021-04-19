@@ -216,7 +216,7 @@ password="#SESSION.dbpw#">
 <cfparam name="URL.Mode" default="0">
 <cfparam name="URL.Print" default="0">
 
-<cfajaximport tags="cftree,cfform,cfdiv,cfwindow">
+<cfajaximport tags="cfform,cfdiv">
 
 <cf_ActionListingScript>
 <cf_FileLibraryScript>	

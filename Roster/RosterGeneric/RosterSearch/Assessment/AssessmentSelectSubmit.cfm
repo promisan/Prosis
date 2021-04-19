@@ -113,7 +113,7 @@
 
 <cfoutput>
 <script>    
-	ColdFusion.navigate('Assessment/Assessment.cfm?ID=#URL.ID#','skill')
-	ColdFusion.Window.hide('assessmentdialog')	
+	ptoken.navigate('Assessment/Assessment.cfm?ID=#URL.ID#','skill')
+	ProsisUI.closeWindow('assessmentdialog')	
 </script>
 </cfoutput>

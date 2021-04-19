@@ -429,11 +429,9 @@ datasource="AppsOrganization"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT DISTINCT R.*
-	FROM  Ref_EntityClass R, 
-	      Ref_EntityClassPublish P
-	WHERE R.Operational  = '1'
-	AND   R.EntityCode   = P.EntityCode 
-	AND   R.EntityClass  = P.EntityClass
+	FROM  Ref_EntityClass R INNER JOIN  
+	      Ref_EntityClassPublish P ON R.EntityCode   = P.EntityCode AND   R.EntityClass  = P.EntityClass
+	WHERE R.Operational  = '1'	
 	AND   R.EntityCode   = 'VacCandidate'	
 	AND   R.EmbeddedFlow = 0
 	AND     	     
@@ -812,7 +810,7 @@ password="#SESSION.dbpw#">
 					<tr>
 					<td>						
 					<cfif reviewid neq "">
-							<cf_securediv id="session_#reviewid#"  bind="url:#session.root#/tools/entityaction/session/setsession.cfm?actionid=#url.id#&entityreference=#reviewid#">							
+						<cf_securediv id="session_#reviewid#"  bind="url:#session.root#/tools/entityaction/session/setsession.cfm?actionid=#url.id#&entityreference=#reviewid#">							
 					</cfif>					
 					</td>				
 					</tr>
@@ -838,9 +836,9 @@ password="#SESSION.dbpw#">
 		<td style="padding-top:2px;padding-left:3px;border-right:1px solid silver">
 			<!--- track for candidate already exists --->
 			<cfif (Status eq "2s" and CandidateClass neq "" and wfinal neq "Track")>				
-					<img src="#SESSION.root#/Images/contract.gif" onClick="showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')" alt="Open candidate track" width="13" height="14">				
+				  <img src="#SESSION.root#/Images/contract.gif" onClick="showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')" alt="Open candidate track" width="13" height="14">				
 			<cfelse>
-			 <cf_img icon="open" onclick="personprofile('#doc.documentno#','#PersonNo#')">	
+			      <cf_img icon="open" onclick="personprofile('#doc.documentno#','#PersonNo#')">	
 			</cfif>		
 		</td>
 		<td id="status#PersonNo#" style="padding-left:3px;border-right:1px solid silver" class="<cfif Status gte wfinal>highlight</cfif>">#DescriptionStatus#</td>	
@@ -855,14 +853,14 @@ password="#SESSION.dbpw#">
 				
 			<cfif dialog eq "Score">
 					
-				<input type="text" 
-					name="ReviewScore_#currentrow#" 
-					id="Score#personno#" 
-					value="#ReviewScore#" 
-					maxlength="3" 
-					size="3" 
-					class="regularxl"
-					style="height:100%;font-size:15px;background-color:ffffcf;text-align:right;border:0px;border-left:1px solid silver;border-right:1px solid silver;">
+				<input type   = "text" 
+					name      = "ReviewScore_#currentrow#" 
+					id        = "Score#personno#" 
+					value     = "#ReviewScore#" 
+					maxlength = "3" 
+					size      = "3" 
+					class     = "regularxl"
+					style     = "height:100%;font-size:15px;background-color:ffffcf;text-align:right;border:0px;border-left:1px solid silver;border-right:1px solid silver;">
 					
 			<cfelseif dialog eq "Interview">	
 			

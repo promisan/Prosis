@@ -160,6 +160,7 @@
 					field        = "Amount",
 					align        = "right",
 					aggregate    = "sum",
+					width       = "20",
 					formatted    = "numberformat(Amount,',.__')",
 					search       = "number"}>	
 									
@@ -169,6 +170,7 @@
 					field       = "AmountOutstanding",
 					align       = "right",
 					aggregate   = "sum", 
+					width       = "20",
 					formatted   = "numberformat(AmountOutstanding,',.__')",
 					search      = "number"}>	
 					

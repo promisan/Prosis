@@ -53,60 +53,77 @@ function formvalidate() {
 	
 	<form name="userfunction" id="userfunction" onsubmit="return false">
 	
-	<table style="width:96%" align="center">
+	    <input type="hidden" name="Mission" value="#get.Mission#">
 	
-	   <tr class="labelmedium2 line">
-		   <td colspan="2" style="font-size:18px;padding-top:20px">This user is currently assigned to #get.Mission# in unit <b>#get.OrgUnitName#</b> for the function of <b>#get.FunctionDescription#</b> </td>
-	   </tr>
-		 
-	    <!--- show relevant user function profiles --->
+		<table style="width:96%" align="center">
 		
-		<tr><td colspan="2" style="height:25px;">The following user profiles have been set for this entity, please select one or more to set access</td></tr>
-							
-			<cfquery name="Functions" 
-				datasource="AppsOrganization" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">			  		
-					SELECT    *
-				    FROM      MissionProfile M
-				    WHERE     M.Mission = '#get.Mission#'
-					AND       Operational = 1
-					ORDER BY ListingOrder				   
-			</cfquery>  
-		
-		<cfloop query="Functions">
-		<tr class="labelmedium">
-		<td style="width:40px">
-		<input type="checkbox" 
-		   class="radiol" 
-		   id="profileid" 
-		   name="profileid" 
-		   value="#Profileid#" 
-		   onclick="showusergroup(this.checked,this.value,'#currentrow#','#url.id#')"></td>
-		<td style="height:30px;cursor:pointer;font-size:18px;font-weight:bold">#FunctionName#</td></tr>
-		<tr class="line"><td style="padding-left:40px" colspan="2" id="detail#currentrow#"></td></tr>
-		</cfloop>
-		
-		<tr><td colspan="2">
-		
-		<!--- show the current access pattern, usersgroups, manual, other entities --->
-		
-		<table>
-		 <tr class="labelmedium">
-		     <td><cf_tl id="Reset usergroup only"></td>
-			 <td style="padding-left:10px">
-			 <input type="checkbox" class="radiol" name="grouponly" value="1" checked>
-			 </td>
-			 <cf_tl id="Reset and apply" var="1">
-			 <td style="padding-left:10px" id="process">
-			 <input class="button10g" style="width:300px" type="button" name="apply" value="#lt_text#" onclick="formvalidate('#url.id#')">
-			 </td>
-		 </tr>
-		</table>
-		
-		</td></tr>
-		 
-	 </table>
+		   <tr class="labelmedium2 line">
+			   <td colspan="2" style="font-size:18px;padding-top:20px">This user is currently assigned to #get.Mission# in unit <b>#get.OrgUnitName#</b> for the function of <b>#get.FunctionDescription#</b> </td>
+		   </tr>
+			 
+		    <!--- show relevant user function profiles --->
+			
+			<tr><td colspan="2" style="height:25px;">The following user profiles have been set for this entity, please select one or more to set access</td></tr>
+								
+				<cfquery name="Functions" 
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">			  		
+						SELECT   *, (SELECT count(*) 
+						             FROM   MissionProfileUser 
+									 WHERE  ProfileId = M.ProfileId 
+									 AND    UserAccount = '#url.id#') as Counted
+					    FROM     MissionProfile M
+					    WHERE    M.Mission   = '#get.Mission#'
+						AND      Operational = 1
+						ORDER BY ListingOrder				   
+				</cfquery>  
+			
+			<cfloop query="Functions">
+			<tr class="labelmedium">
+				<td style="width:40px">
+				<input type="checkbox" class="radiol" id="profileid" name="profileid" <cfif counted gte "1">checked</cfif> value="#Profileid#" 
+				   onclick="showusergroup(this.checked,this.value,'#currentrow#','#url.id#')"></td>
+				<td style="height:30px;cursor:pointer;font-size:18px;font-weight:bold">#FunctionName#</td>
+			</tr>
+			<tr class="line"><td style="padding-left:40px" colspan="2" id="detail#currentrow#"></td></tr>
+			</cfloop>
+			
+			<tr><td colspan="2">
+			
+			<!--- show the current access pattern, usersgroups, manual, other entities --->
+			
+			<table>
+			 <tr class="labelmedium">
+			 
+			 	 <td><cf_tl id="Revoke other access"></td>
+				 <td style="padding-left:10px">
+				 <input type="checkbox" class="radiol" name="clean" value="1" checked>
+				 </td>				 
+				 
+				 <!--- will be hidden after you select clean y/n --->
+			     <td style="padding-left:10px" id="usergroup">
+
+					 <table>
+					 <tr class="labelmedium">
+						 <td><cf_tl id="Only usergroup"></td>
+						 <td style="padding-left:10px"><input type="checkbox" class="radiol" name="grouponly" value="1" checked> </td>
+					 </tr>
+					 </table>
+				 
+				 </td>
+				 
+				 <cf_tl id="Reset and apply" var="1">
+				 <td style="padding-left:10px" id="process">
+				 <input class="button10g" style="width:300px" type="button" name="apply" value="#lt_text#" onclick="formvalidate('#url.id#')">
+				 </td>
+				 
+			 </tr>
+			</table>
+			
+			</td></tr>
+			 
+		 </table>
 	 
 	 </form>
 	 

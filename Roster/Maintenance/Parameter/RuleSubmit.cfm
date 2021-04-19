@@ -28,7 +28,7 @@
 	
 	<cfoutput>
 	<script>
-		ColdFusion.navigate('Rule.cfm?level=#url.level#&from=#url.from#&to=#url.to#&owner=#url.owner#&rule=#url.rule#','rule_#url.level#_#url.from#_#url.to#');
+		ptoken.navigate('Rule.cfm?level=#url.level#&from=#url.from#&to=#url.to#&owner=#url.owner#&rule=#url.rule#','rule_#url.level#_#url.from#_#url.to#');
 	</script>
 	</cfoutput>
 	
@@ -40,4 +40,3 @@
 	
 </cftry>
 
-<cf_compression>

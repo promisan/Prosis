@@ -39,7 +39,7 @@ password="#SESSION.dbpw#">
 			<tr>
 				<td colspan="2" align="center">
 					<input class="button10g" type="button" name="Select" value=" Select " onClick="submitRule('#url.owner#','#url.rule#','#url.level#','#url.from#','#url.to#');">
-					<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="ColdFusion.Window.hide('RuleWindow');">
+					<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="ProsisUI.closeWindow('RuleWindow');">
 				</td>
 			</tr>
 		</table>
@@ -62,7 +62,7 @@ password="#SESSION.dbpw#">
 				<td align="center">
 					<cfoutput>
 					<input class="button10g" type="button" name="Select" value=" Select " onClick="submitRule('#url.owner#','#url.rule#','#url.level#','#url.from#','#url.to#');">
-					<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="ColdFusion.Window.hide('RuleWindow');">
+					<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="ProsisUI.closeWindow('RuleWindow');">
 					</cfoutput>
 				</td>
 			</tr>

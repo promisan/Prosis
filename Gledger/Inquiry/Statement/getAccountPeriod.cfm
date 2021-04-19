@@ -23,7 +23,7 @@
 			<td style="pading-left:4px">			
 			 <cfoutput>
 			 				
-				 <select name="period" class="regularh" id="period" style="border:0px;width:200px;font-size:18px;height:30px"
+				 <select name="period" class="regularxxl" id="period" style="background-color:f1f1f1;border:0px;width:200px;font-size:18px;height:30px"
 				    onChange="transactionperiod()">
 					
 					<cfloop query="PeriodSelect">

@@ -57,10 +57,10 @@ password="#SESSION.dbpw#">
 
 <cfset client.stmenu = "stockinventory()">
 
-	<table width="99%" height="100%" align="center">
+	<table width="100%" height="100%" align="center">
 	
 		<tr class="line">
-		<td colspan="2" style="padding-left:4px;height:40px;font-size:23px;min-width:400px">
+		<td colspan="2" style="padding:4px;;height:40px;font-size:23px;min-width:400px">
 					
 			<cf_LanguageInput
 				TableCode       = "Ref_ModuleControl" 
@@ -127,7 +127,7 @@ password="#SESSION.dbpw#">
 			
 			</cf_UItooltip>
 			</cfoutput>
-			
+						
 			<cf_securediv id="divLocationList" 
 			    style="height:97%; padding-top:5px;min-width:200px" 
 				bind="url:../Inventory/LocationList.cfm?warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&item=&filteroperator=">
@@ -203,10 +203,7 @@ password="#SESSION.dbpw#">
 											</td>
 										</tr>
 									 </table>
-									 
-									 
-
-
+									
 									</td> 
 									  
 									 <td style="padding-left:3px;" class="labelmedium"><cf_tl id="Suppress 0 (ZERO) stock">:</td>
@@ -228,7 +225,8 @@ password="#SESSION.dbpw#">
 								
 			<tr class="hide"><td height="4" id="logging"></td></tr>		
 														
-			<tr><td colspan="2" style="height:99%" valign="top">					
+			<tr><td colspan="2" style="padding:5px;height:99%" valign="top">	
+							
 				<cf_divscroll id="content">							
 					 <cfinclude template="InventoryViewContent.cfm">					 
 				</cf_divscroll>	 													  

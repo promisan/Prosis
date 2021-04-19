@@ -108,16 +108,14 @@
 				datasource="AppsSelection" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-					INSERT INTO Ref_SubmissionEditionPosition_Language(
-							SubmissionEdition, 
-							PositionNo,
-							FunctionDescription,			
-							LanguageCode,
-							OfficerUserId,
-							Created
-							)
-					VALUES (
-						'#FORM.EditionSelect#',
+				INSERT INTO Ref_SubmissionEditionPosition_Language(
+						SubmissionEdition, 
+						PositionNo,
+						FunctionDescription,			
+						LanguageCode,
+						OfficerUserId,
+						Created )
+				VALUES ('#FORM.EditionSelect#',
 						'#FORM.Key1#',
 						'#FunctionDescription#',	
 						'#Code#',		
@@ -127,7 +125,52 @@
 			</cfquery>
 		
 		</cfloop>
+				
+		<!--- --------------------------------------------------- --->	
+		<!--- populate where needed the parent position profile - --->
+		<!--- --------------------------------------------------- --->
+		
+		<cfquery name="getProfile" 
+			datasource="AppsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT *
+			FROM   PositionParentProfile
+			WHERE  PositionParentId = '#Position.PositionParentId#'			
+		</cfquery>
+		
+		<cfif getProfile.recordcount eq "0">
+		
+		    <!--- obtain this from the chain --->
+		
+			<cfquery name="Insert" 
+				datasource="AppsEmployee" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				INSERT INTO PositionParentProfile
+				       (PositionParentId, LanguageCode, TextAreaCode, JobNotes, OfficerUserId, OfficerLastName, OfficerFirstName, Created)
 			
+				SELECT  '#Position.PositionParentId#',
+				        LanguageCode, 
+						TextAreaCode, 
+						JobNotes, 
+						OfficerUserId, 
+						OfficerLastName, 
+						OfficerFirstName, 
+						getdate()
+				FROM    PositionParentProfile
+				WHERE   PositionParentId IN
+	                             (SELECT     PositionParentId
+	                               FROM      Position
+	                               WHERE     PositionNo IN (SELECT   SourcePositionNo
+	                                                        FROM     Position
+	                                                        WHERE    PositionNo = '#Position.PositionNo#')
+								 )
+			
+			</cfquery>
+		
+		</cfif>
+					
 		<!--- -------------------- --->	
 		<!--- populate competence- --->
 		<!--- -------------------- --->

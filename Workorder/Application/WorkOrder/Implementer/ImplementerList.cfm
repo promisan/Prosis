@@ -48,7 +48,7 @@
 		
 		<tr>
 			<td>
-				<cfdiv id="divImplementerTree" bind="url:#session.root#/workorder/Application/WorkOrder/Implementer/ImplementerListContent.cfm?orgUnitImplementer=&WorkOrderId=#url.WorkOrderId#&mission=#url.mission#&mandateNo=#url.mandateNo#&rollover=">
+				<cf_securediv id="divImplementerTree" bind="url:#session.root#/workorder/Application/WorkOrder/Implementer/ImplementerListContent.cfm?orgUnitImplementer=&WorkOrderId=#url.WorkOrderId#&mission=#url.mission#&mandateNo=#url.mandateNo#&rollover=">
 			</td>
 		</tr>
 		

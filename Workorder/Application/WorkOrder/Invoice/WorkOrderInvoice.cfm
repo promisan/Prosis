@@ -8,7 +8,6 @@
 
 <cfoutput>	
 
-
 <table border="0" align="center" cellpadding="0"  cellspacing="0" width="100%" >
 		<td>
 	<input type="button" 
@@ -16,8 +15,7 @@
 		 class="button10g"
 		 style="width:100px"
 		 value="print"
-		 onclick="ColdFusion.navigate('../../../../Tools/Mail/MailPrepare.cfm?templatepath=#tmp#&id=pdf&id1=#URL.WorkOrderId#','bshow')">
-
+		 onclick="ptoken.navigate('../../../../Tools/Mail/MailPrepare.cfm?templatepath=#tmp#&id=pdf&id1=#URL.WorkOrderId#','bshow')">
 
 		</td>
 	</tr>

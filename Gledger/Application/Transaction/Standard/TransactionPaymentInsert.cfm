@@ -83,15 +83,15 @@ password="#SESSION.dbpw#">
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		 	SELECT  P.*, 
-			        JA.GLAccount, 
+			        L.GLAccount, 
 					J.AccountType, 
 					J.Currency, 
 					C.ExchangeRate
 			 FROM   TransactionHeader P 
-			        INNER JOIN Journal J         ON P.Journal      = J.Journal
-					INNER JOIN JournalAccount JA ON J.Journal      = JA.Journal AND JA.ListDefault = 1
-					INNER JOIN Currency C        ON J.Currency     = C.Currency
-					INNER JOIN Ref_Account A     ON JA.GlAccount   = A.GlAccount 
+	                INNER JOIN TransactionLine L ON P.Journal = L.Journal AND P.JournalSerialNo = L.JournalSerialNo AND TransactionSerialNo = 0 
+			        INNER JOIN Ref_Account A ON L.GlAccount  = A.GlAccount
+	                INNER JOIN Journal J     ON P.Journal    = J.Journal 	
+			        INNER JOIN Currency C        ON J.Currency     = C.Currency							
 			 WHERE 	P.AmountOutstanding > 0
 			 AND    A.AccountClass     = 'Balance' 
 			 AND    P.TransactionId    = '#preserveSingleQuotes(itm)#' 				   	   
@@ -122,13 +122,13 @@ password="#SESSION.dbpw#">
 				         AmountDebit * TL.ExchangeRate AS Advance
 				FROM     TransactionHeader AS TH INNER JOIN
                          TransactionLine AS TL ON TH.Journal = TL.Journal AND TH.JournalSerialNo = TL.JournalSerialNo
-				WHERE    TH.ReferenceNo = '#ReferenceNo#' 
+				WHERE    TH.ReferenceNo = '#ReferenceNo#' <!--- linking PIN from Invoice to the advance --->
 				AND      TH.Journal IN (SELECT   Journal
                                         FROM     Journal
                                         WHERE    SystemJournal = 'Advance' 
 										AND      Mission = '#mission#') 
 				AND      TL.TransactionSerialNo != '0'
-				AND      TH.Journal != '#SearchResult.Journal#'
+				AND      TH.Journal != '#Journal#'
 				AND      ParentLineId is NULL		
 								
 				<cfif referenceId neq "">
@@ -152,11 +152,10 @@ password="#SESSION.dbpw#">
 				AND      ParentLineId is NULL		
 												
 				</cfif>	
-				
-				
+								
 			</cfquery>
 			
-			<!--- we sum if there are several advances --->
+			<!--- we sum if there are several advances for this Reference or PO --->
 			
 			<cfquery name="Advance" dbtype="query">
 						
@@ -167,9 +166,8 @@ password="#SESSION.dbpw#">
 			</cfquery>
 			
 			<cfif Advance.recordcount gte "1">
-			
-										
-			    <!--- determine how much was already offsetted for the found advances  --->
+													
+			    <!--- determine how much was already consumed for the found advance for the object (ReferenceNo) --->
 						
 				<cfquery name="Offsetted" 
 					    datasource="AppsLedger" 
@@ -183,9 +181,9 @@ password="#SESSION.dbpw#">
                                            FROM     Journal
                                            WHERE    Mission      = '#mission#') 				
 						AND    ParentJournal         is not NULL
-						AND    ParentJournalSerialNo is not NULL	
-																								
+						AND    ParentJournalSerialNo is not NULL																									
 						<!--- this is the transaction base --->
+						
 				</cfquery>   
 												
 				<cfset val = 0>
@@ -194,8 +192,7 @@ password="#SESSION.dbpw#">
 				  <cfset val = val+Offsetted.Total>
 				</cfif>
 				
-				 <!--- ALSO determine how much is in offset as it is selected 
-				           in this run-time transaction --->
+				<!--- ALSO determine how much is in process of offset as it is selected in this run-time transaction --->
 				
 				<cfquery name="OffsettedSelected" 
 					    datasource="AppsQuery" 
@@ -216,7 +213,10 @@ password="#SESSION.dbpw#">
 													
 				<cfset offset    = 0>
 				<cfset payment   = amountOutstanding>
-																
+				
+				<!--- we assume here the advance and offset
+				    found is of the same calculated currency --->
+				 												
 				<cfset diff = abs(Advance.Advance-val)>
 										
 				<cfif diff gte 0.05>
@@ -316,7 +316,7 @@ password="#SESSION.dbpw#">
 						   JournalSerialNo,
 						   TransactionSerialNo, 
 						   TransactionLineId,						   
-						   ParentLineId,		  						   
+						   ParentLineId,	<!--- maybe we can point this to the advance --->	  						   
 						   TransactionDate,
 						   GLAccount,
 						   ReconciliationPointer,

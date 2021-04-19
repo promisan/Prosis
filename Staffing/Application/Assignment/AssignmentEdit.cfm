@@ -23,8 +23,7 @@
 	menuaccess="context"
 	option="#sublabel#">  
 		
-<cfajaximport tags="cfwindow">	
-	
+
 <cf_FileLibraryScript>
 
 <!--- Prosis template framework --->

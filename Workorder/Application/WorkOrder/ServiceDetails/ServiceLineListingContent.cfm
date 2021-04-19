@@ -127,7 +127,7 @@
 			SELECT WO.WorkOrderId,
 			       W.Reference as WorkOrderReference,
 			       WO.WorkOrderLine,
-				   WO.WorkOrderLineId,
+				   WO.WorkOrderLineId,				  
 				   C.CustomerName,
 				   left(WL.Description,50) as ReferenceName,
 				   WO.Reference,
@@ -536,6 +536,7 @@
 	<cfset fields[itm] = {label    = "#vYTD#",	
 						field      = "Amount",					
 						align      = "right",
+						aggregate  = "sum",
 						formatted  = "numberformat(amount,',.__')",
 						alias      = ""}>		
 						
@@ -546,10 +547,19 @@
 	<cfset fields[itm] = {label    = "#Amount#",	
 						field      = "Amount",					
 						align      = "right",
+						aggregate  = "sum",
 						formatted  = "numberformat(amount,',.__')",
 						alias      = ""}>		
 
-</cfif>									
+</cfif>		
+
+<cfset itm = itm+1>		
+<cfset fields[itm] = {label     = "#vExpiration#", 					
+					field       = "Created",	
+					fieldentry  = "1",		
+					display     = "No",					
+					align       = "left",		
+					formatted   = "dateformat(dateexpiration,CLIENT.DateFormatShow)"}>								
 
 <cfset menu=ArrayNew(1)>	
 
@@ -582,9 +592,7 @@
 	    header            = "servicedetails"
 	    box               = "linedetail#url.filter#"
 		link              = "#SESSION.root#/WorkOrder/Application/Workorder/ServiceDetails/ServiceLineListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=#url.filter#&workorderid=#url.workorderid#&ref=#url.ref#&domain=#url.domain#"
-	    html              = "No"				
-		tableheight       = "99%"
-		tablewidth        = "99%"
+	    html              = "No"						
 		datasource        = "AppsWorkOrder"		
 		listquery         = "#myquery#"		
 		listgroup         = "Description"
@@ -592,7 +600,7 @@
 		listorderalias    = "WO"		
 		listorderdir      = "ASC"
 		headercolor       = "ffffff"
-		show              = "35"		
+		show              = "50"		
 		menu              = "#menu#"
 		filtershow        = "Hide"
 		excelshow         = "Yes" 	

@@ -5,7 +5,7 @@
 	
 <cf_screentop height="100%" scroll="Yes" html="No" label="Exchange Attachments" layout="innerbox">
 
-<cfajaximport tags="cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 
 <table width="97%" height="100%" align="center">
 <tr><td style="padding-top:20px" valign="top">

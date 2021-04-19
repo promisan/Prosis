@@ -237,8 +237,9 @@
 								</td>	
 								
 								<td style="padding-left:3px">
+								
 								 <input class="button10g" type="button" value="Inquiry" style="width:80px"
-								 onclick="ProsisUI.createWindow('inquiry', 'Inquiry', '',{x:100,y:100,width:600,height:470,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Warehouse/Application/Stock/Transfer/TransferInquiry.cfm?warehouse='+document.getElementById('transferwarehouse#url.id#').value+'&itemNo=#Transaction.ItemNo#&UoM=#Transaction.UnitOfMeasure#','inquiry');">
+								 onclick="stockinquiry('#Transaction.ItemNo#',document.getElementById('transferwarehouse#url.id#').value,'#Transaction.UnitOfMeasure#','');">
 								 							 
 								 </td>							
 							

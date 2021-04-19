@@ -20,15 +20,27 @@ password="#SESSION.dbpw#">
 				AND	   UoM            = U.UoM
 				AND    Mission        = W.Mission				
 			 ) as StandardCost,
-			 (
-				SELECT ROUND(SUM(TransactionQuantity),5)
+			 
+			  (
+				SELECT ISNULL(ROUND(SUM(TransactionQuantity),5),0)
 				FROM   ItemTransaction 
 				WHERE  ItemNo         = I.ItemNo
 				AND	   TransactionUoM = U.UoM
 				AND    Mission        = W.Mission
 				AND	   Warehouse      = W.Warehouse
+				AND    WorkOrderId is not NULL 
+			 ) as Reserved,
+			 			 
+			 (
+				SELECT ISNULL(ROUND(SUM(TransactionQuantity),5),0)
+				FROM   ItemTransaction 
+				WHERE  ItemNo         = I.ItemNo
+				AND	   TransactionUoM = U.UoM
+				AND    Mission        = W.Mission
+				AND	   Warehouse      = W.Warehouse
+				AND    WorkOrderId is NULL 
 			 ) as OnHand,
-			 
+			 			 
 			 (
 				SELECT count(*) 
 				FROM   ItemTransaction 
@@ -76,6 +88,8 @@ password="#SESSION.dbpw#">
 				AND	   TransactionUoM = U.UoM
 				AND    Mission        = W.Mission
 				AND	   Warehouse      = W.Warehouse
+				<!--- only real stock --->
+				AND    WorkOrderId is NULL 
 			 ) as Amount
 			
 	FROM     ItemWarehouse IW 
@@ -175,7 +189,7 @@ password="#SESSION.dbpw#">
 			
 			</cfif>
 			
-			<tr class="labelmedium line">
+			<tr class="labelmedium2 line">
 			<td width="10"></td>
 			<td><cf_tl id="Warehouse"></td>
 			<td><cf_tl id="UoM"></td>			
@@ -184,18 +198,19 @@ password="#SESSION.dbpw#">
 			<td align="center"><cf_tl id="Receipts"></td>
 			<td align="center"><cf_tl id="Value"></td>
 			<td align="center"><cf_tl id="Movements"></td>
-			<td width="8%" align="center"><cf_tl id="Minimum"></td>
-			<td width="8%" align="center"><cf_tl id="Maximum"></td>
-			<td width="8%" align="center"><cf_tl id="On Hand"></td>
-			<td width="8%" align="center"><cf_tl id="Cost"></td>
-			<td width="8%" align="center"><cf_tl id="Value">#application.basecurrency#</td>
+			<td width="6%" align="center"><cf_tl id="Minimum"></td>
+			<td width="6%" align="center"><cf_tl id="Maximum"></td>
+			<td width="7%" align="center"><cf_tl id="Reserved"></td>
+			<td width="7%" align="center"><cf_tl id="On Hand"></td>
+			<td width="7%" align="center"><cf_tl id="Cost"></td>
+			<td width="7%" align="center"><cf_tl id="Value">#application.basecurrency#</td>
 	    	</tr>		
 			
 			<cfoutput group="Warehouse">
 			
-				<tr class="labelmedium line">
+				<tr class="labelmedium2 line">
 					<td></td>
-					<td colspan="11">#WarehouseName# (#warehouse#)</td>				
+					<td colspan="12">#WarehouseName# (#warehouse#)</td>				
 					
 					<td align="right">
 					
@@ -215,7 +230,7 @@ password="#SESSION.dbpw#">
 				</tr>
 				
 			<cfoutput>
-				<tr class="labelmedium line navigation_row">
+				<tr class="labelmedium2 line navigation_row">
 					<td></td>
 					<td></td>
 					<td>#UoMDescription# (#uom#)</td>					
@@ -233,6 +248,25 @@ password="#SESSION.dbpw#">
 					</td>					
 					<td align="right" style="border-left:1px solid gray; padding-right:3px">#MinimumStock#</td>
 					<td align="right" style="border-left:1px solid gray; padding-right:3px">#MaximumStock#</td>
+					
+					<cfif Reserved neq "0">
+					
+						<cfset color="ffffaf">						
+						<cfif Reserved lt 0>						
+							<cfset color = "ff8080">
+						</cfif>
+						
+						<td align="right" bgcolor="#color#" style="padding-right:5px;border-left:1px solid gray; padding-right:3px">
+							<cf_precision number="#ItemPrecision#">																														
+							#lsNumberFormat(Reserved,pformat)#
+						</td>
+						
+					<cfelse>
+					
+					<td align="right" style=";border-left:1px solid gray; padding-right:3px">-</td>
+					
+					</cfif>
+					
 					<cfif OnHand neq "0" and Amount neq 0>
 					
 						<cfset color="DAF9FC">

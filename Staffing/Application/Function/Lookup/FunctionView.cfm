@@ -3,7 +3,9 @@
 
 <cfparam name="URL.Mode"    default="Lookup">
 <cfparam name="URL.occ"     default="">		
-<cfparam name="url.edition" default="">
+<cfparam name="url.param1"  default="">
+<cfparam name="url.edition" default="#url.param1#">
+
 
 <!--- helper to reload the buckets --->
 

@@ -283,9 +283,9 @@
 					SELECT '#itm#' as Panel,
 					       H.AccountPeriod,
 						   
-						   <cfif Mode eq "economic">
+						   <cfif Mode eq "economic">						  
 						        T.TransactionPeriod, 	
-						   <cfelse>
+						   <cfelse>						  
 						        H.TransactionPeriod, 	
 						   </cfif>	  	 
 						  
@@ -427,7 +427,8 @@
 							 AccountGroupOrder,
 							 AccountGroupType,
 							 AccountParent,
-							 AccountParentDescription			 
+							 AccountParentDescription	
+							 
 								
 				</cfquery>				
 				

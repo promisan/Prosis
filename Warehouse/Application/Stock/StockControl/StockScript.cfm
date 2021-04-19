@@ -815,9 +815,8 @@ function stockbatch(s,modid,mde,whs) {
 			fnd  = ""		
 		}
 		
-		_cf_loadingtexthtml="";	
-		ptoken.navigate('../Batch/StockBatch'+mde+'.cfm?systemfunctionid='+modid+'&warehouse='+whs+'&mission='+mis+'&status='+sta,'batchmain')
-		_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";
+		_cf_loadingtexthtml='';	
+		ptoken.navigate('../Batch/StockBatch'+mde+'.cfm?systemfunctionid='+modid+'&warehouse='+whs+'&mission='+mis+'&status='+sta,'batchmain')		
 		
 	}	
 	

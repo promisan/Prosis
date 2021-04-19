@@ -79,7 +79,7 @@ password="#SESSION.dbpw#">
 				    <table width="100%">
 					
 					<tr>		
-					<td class="labellarge" style="background-color:white;min-width:80px;font-size:15px;padding-right:10px">
+					<td class="labellarge" style="background-color:white;min-width:80px;font-size:18px;padding-right:10px">
 					<a href="javascript:ptoken.navigate('#session.root#/payroll/application/Payroll/EmployeeEntitlementEOD.cfm?id=#url.id#','contentbox1')"><cf_tl id="Show all years"> [#dateformat(EOD,client.dateformatshow)#]</a></td>		
 					<td>|</td>
 					<td align="right" style="background-color:white;padding-right:4px">
@@ -112,11 +112,11 @@ password="#SESSION.dbpw#">
 		
 		<tr class="line labelmedium2 fixrow2">
 		 <td style="top:33px"></td>
-		 <td style="min-width:90%;top:33px" colspan="2"><cf_tl id="Item"></td>
+		 <td style="width:80%;top:33px" colspan="2"><cf_tl id="Item"></td>
 		 <td style="top:33px"></td>
 		 <td style="top:33px" width="50"></td>
-		 <td style="top:33px" align="right" width="100"><cf_tl id="Entitlement"></td>
-		 <td style="top:33px" align="right" width="140"><cf_tl id="Settled">#EntitlementYear#<cf_space spaces="40"></td>
+		 <td style="top:33px;min-width:140px" align="right"><cf_tl id="Entitlement"></td>
+		 <td style="top:33px;min-width:140px;" align="right"><cf_tl id="Settled">#EntitlementYear#</td>
 		</tr>
 		
 		<cfquery name="Item" 
@@ -214,7 +214,7 @@ password="#SESSION.dbpw#">
 		<cfloop query="Item">
 		
 			<cfif Source neq prior>	
-				<tr class="line labelmedium2" style="background-color:ffffaf"><td style="padding-left:5px;height:30px;font-size:16px" colspan="7">#Source#</td></tr>	
+				<tr class="line labelmedium2"><td style="font-weight:bold;padding-left:5px;height:30px;font-size:16px" colspan="7">#Source#</td></tr>	
 			</cfif>
 		
 			<cfset prior = source>
@@ -260,17 +260,17 @@ password="#SESSION.dbpw#">
 				
 				<tr style="height:18px" class="line labelmedium2 navigation_row">
 				
-					<td align="center" width="40">
+					<td align="center" style="padding-left:4px;width:40px;padding-right:10px">
 				
 						<img src="#SESSION.root#/Images/icon_expand.gif" alt="View History" 
-							id="#yr#_#row#_#currentrow#Exp" border="0" class="show" 
+							id="#mis#_#yr#_#row#_#currentrow#Exp" border="0" class="show" 
 							align="absmiddle" style="cursor: pointer;" height="12"
-							onClick="drill('year','#mis#','#yr#_#row#_#currentrow#','#yr#','#itm#','#paymentCurrency#')">
+							onClick="drill('year','#mis#','#mis#_#yr#_#row#_#currentrow#','#yr#','#itm#','#paymentCurrency#')">
 							
 							<img src="#SESSION.root#/Images/icon_collapse.gif" 
-							id="#yr#_#row#_#currentrow#Min" alt="Hide History" border="0" 
+							id="#mis#_#yr#_#row#_#currentrow#Min" alt="Hide History" border="0" 
 							align="absmiddle" class="hide" style="cursor: pointer;" height="12"
-							onClick="drill('year','#mis#','#yr#_#row#_#currentrow#','#yr#','#itm#','#paymentCurrency#')">				
+							onClick="drill('year','#mis#','#mis#_#yr#_#row#_#currentrow#','#yr#','#itm#','#paymentCurrency#')">				
 					
 					</td>
 					
@@ -292,9 +292,9 @@ password="#SESSION.dbpw#">
 					</td>
 			</tr>	
 			
-			<tr class="hide" id="d#yr#_#row#_#currentrow#">
+			<tr class="hide" id="d#mis#_#yr#_#row#_#currentrow#">
 			   <td colspan="3"></td>
-			   <td id="i#yr#_#row#_#currentrow#" style="padding-right:5px" colspan="4"></td>
+			   <td id="i#mis#_#yr#_#row#_#currentrow#" style="padding-right:5px" colspan="4"></td>
 		    </tr>		
 			
 			</cfif>

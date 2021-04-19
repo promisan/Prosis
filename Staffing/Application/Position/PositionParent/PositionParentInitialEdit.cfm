@@ -1,7 +1,7 @@
 
 <cf_screentop height="100%" jquery="Yes" layout="webapp" banner="gray" user="yes" scroll="no" label="Position Parent - Edit Form">
 
-<cfajaximport tags="cfform,cfwindow">
+<cfajaximport tags="cfform">
 <cf_calendarScript>
 <cf_dialogPosition>
 <cf_dialogOrganization>

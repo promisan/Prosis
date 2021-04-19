@@ -55,7 +55,7 @@ function toggleParam(code,val,entCode,entClass,actCode,pubNo,isTextBox) {
 	 
 </script>	
 
-<cfajaximport tags="cfform,cfwindow">
+<cfajaximport tags="cfform">
 	 
 <cfset attrib = {type="Border",name="wfcontainer",fitToWindow="Yes"}>
 

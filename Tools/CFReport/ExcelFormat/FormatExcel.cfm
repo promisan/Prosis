@@ -40,7 +40,7 @@
 
 <script language="JavaScript">
 
- 	    function reload(cur,id,tbl)	{
+ 	 function reload(cur,id,tbl)	{
 	
 		 count = 1
 		 $('##mainmenu').addClass('hide');
@@ -54,38 +54,37 @@
 	  	
 	   	 se = document.getElementById("r"+cur)
 	   	 se.bgColor = "f4f4f4"
-		  _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";
-	     ColdFusion.navigate('#SESSION.root#/Tools/Cfreport/ExcelFormat/FormatExcelDetail.cfm?mode=#url.mode#&reportid=#url.reportid#&ID='+id+'&Table='+tbl,'contentbox1')
+		 Prosis.busy('yes')		
+	     ptoken.navigate('#SESSION.root#/Tools/Cfreport/ExcelFormat/FormatExcelDetail.cfm?mode=#url.mode#&reportid=#url.reportid#&ID='+id+'&Table='+tbl,'contentbox1')
 	
 	     }
 								  		
 		 function fieldadd(name,cls,id,tbl,format) {
-		     _cf_loadingtexthtml="";								 
-			 ColdFusion.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelAddField.cfm?mode=#url.mode#&name='+name+'&class='+cls+'&reportid=#url.reportid#&id='+id+'&table='+tbl+'&format='+format,'contentbox1')			 
-			 _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";
+		     _cf_loadingtexthtml='';									 
+			 ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelAddField.cfm?mode=#url.mode#&name='+name+'&class='+cls+'&reportid=#url.reportid#&id='+id+'&table='+tbl+'&format='+format,'contentbox1')			 			 
 		 }
 		 
 		 function pointeradd(val,cls,id,tbl) {
-		     _cf_loadingtexthtml="";	
-			 ColdFusion.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelPointer.cfm?mode=#url.mode#&value='+val+'&class='+cls+'&reportid=#url.reportid#&id='+id+'&table='+tbl,'aggregate')
+		     _cf_loadingtexthtml='';	
+			 ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelPointer.cfm?mode=#url.mode#&value='+val+'&class='+cls+'&reportid=#url.reportid#&id='+id+'&table='+tbl,'aggregate')
 			 _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";
 		 }
 		 
 		 function update(mode,name,action,id,box,tbl,ds) {
-		     _cf_loadingtexthtml="";	
-		 	 ColdFusion.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelUpdateField.cfm?ds='+ds+'&table='+tbl+'&mode='+mode+'&name='+name+'&action='+action+'&id='+id+'&box='+box,box)
+		     _cf_loadingtexthtml='';	
+		 	 ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelUpdateField.cfm?ds='+ds+'&table='+tbl+'&mode='+mode+'&name='+name+'&action='+action+'&id='+id+'&box='+box,box)
 			
 		 }
 		 
 		 function fielddelete(name,id,tbl) {
-		     _cf_loadingtexthtml="";	
-		 	 ColdFusion.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelDeleteField.cfm?mode=#url.mode#&name='+name+'&reportid=#url.reportid#&id='+id+'&table='+tbl,'contentbox1')
+		     _cf_loadingtexthtml='';				 
+		 	 ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelDeleteField.cfm?mode=#url.mode#&name='+name+'&reportid=#url.reportid#&id='+id+'&table='+tbl,'contentbox1')
 			 _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";
 		 }
 		 
 		 function savefilter(id,tbl) {
-		     _cf_loadingtexthtml="";				
-		     ColdFusion.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelSaveFilter.cfm?mode=#url.mode#&id='+id,'filterbox','','','POST','filterform')
+		     _cf_loadingtexthtml='';			
+		     ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelSaveFilter.cfm?mode=#url.mode#&id='+id,'filterbox','','','POST','filterform')
 			  
 			 _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";
 		 } 
@@ -93,10 +92,10 @@
 		 function openexcel(mode,id,tbl) {
 		 
 		 	if (mode == "open") {
-			    window.open("#SESSION.root#/cfrstage/user/#SESSION.acc#/"+tbl+".xls?ts="+new Date().getTime(),"_blank")
+			    ptoken.open("#SESSION.root#/cfrstage/user/#SESSION.acc#/"+tbl+".xls?ts="+new Date().getTime(),"_blank")
 			} else {			  
 				ProsisUI.createWindow('maildialog', 'Mail Excel', '',{x:100,y:100,height:625,width:860,resizable:false,modal:true,center:true});
-				ColdFusion.navigate('FormatExcelMail.cfm?ID1=Extracts&ID2='+tbl+'.xls&Source=ReportExcel&Sourceid='+id+'&Mode=cfwindow&GUI=HTML','maildialog')		
+				ptoken.navigate('FormatExcelMail.cfm?ID1=Extracts&ID2='+tbl+'.xls&Source=ReportExcel&Sourceid='+id+'&Mode=cfwindow&GUI=HTML','maildialog')		
 			}
 		 
 		 }
@@ -167,7 +166,7 @@
 </cfif>
 
 <cf_divscroll height="100%" id="divExcelExportContainer">
-	<cfinclude template="FormatExcelSelect.cfm">	
+	<cfinclude template="FormatExcelSelect.cfm">			
 </cf_divscroll>	
 
 <cfif url.reportId eq "" and url.mode eq "regular">

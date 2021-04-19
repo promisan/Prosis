@@ -1,5 +1,5 @@
 
-<cfajaximport tags="cfform,cfwindow">
+<cfajaximport tags="cfform">
 
 <cf_calendarScript>
 
@@ -270,7 +270,7 @@
 		vOp = 1;
 	}
 	_cf_loadingtexthtml='';	
-	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/FunctionalTitles/FunctionBuilder/setRequirementLineOperational.cfm?reqId='+id+'&line='+line+'&value='+vOp,'op_'+id+'_'+line);
+	ptoken.navigate('#SESSION.root#/Roster/Maintenance/FunctionalTitles/FunctionBuilder/setRequirementLineOperational.cfm?reqId='+id+'&line='+line+'&value='+vOp,'op_'+id+'_'+line);
 	}
 	
 	function reload() {
@@ -292,8 +292,8 @@
  <tr>
 	    <td height="40" style="padding-left:15px;padding-right:15px">	
 	
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-		<tr><td class="labellarge" style="font-size:25px;font-weight:200">
+		<table width="100%" align="center">
+		<tr><td class="labellarge" style="font-size:25px;font-weight:300">
 		  <cfoutput>#Search.Owner#: <font size="4" color="808080"><cf_tl id="Select one or more criteria to filter on Candidates"></cfoutput>		
 		</td>
 		<td align="right" height="25">
@@ -393,9 +393,9 @@
 	<tr><td>
 	
 	<table width="100%" align="center">	
-	<TR style="height:30px">  
-	   <td colspan="1" class="labellarge" style="height:20px;font-weight:bold"><cf_tl id="Bucket assessment"></b><font color="FF0000">*)</font></td>
-	   <td colspan="1" class="labellarge" style="height:20px;font-weight:bold"><cf_tl id="Candidate profile"></td>   
+	<TR class="line" style="height:30px">  
+	   <td colspan="1" class="labellarge" style="height:20px;font-weight:360"><cf_tl id="Bucket assessment"></b><font color="FF0000">*)</font></td>
+	   <td colspan="1" class="labellarge" style="height:20px;font-weight:360"><cf_tl id="Profile"></td>   
 	</TR>
 	
 	<tr>
@@ -449,7 +449,7 @@
 				<td width="60%" align="left" class="<cfif check.SelectId eq #status#>highlight1<cfelse>regular</cfif>" id="status_#currentrow#" name="status_#currentrow#">	
 				
 				   <table width="100%" cellspacing="0" cellpadding="0">
-				   <tr>
+				   <tr class="labelmedium2">
 				      
 				   	   <td style="width:20px;padding-left:9px">		
 					   
@@ -463,7 +463,7 @@
 						   
 					   </td>
 	
-					   <td width="37%" class="labelit" style="font-size:16px;height:20px;padding-left:8px">#Meaning#</td>
+					   <td width="37%" style="font-size:14px;height:20px;padding-left:8px">#Meaning#</td>
 					  
 					   <td align="right">
 					   
@@ -477,7 +477,7 @@
 						   
 							   <cfif EnableStatusDate eq "1">
 							   
-							   		<table width="100%" cellspacing="0" cellpadding="0">
+							   		<table width="100%">
 									<tr>
 										<td align="right" style="z-index:#101-currentrow#; position:relative">
 										
@@ -551,7 +551,7 @@
 			 WHERE R.Operational = 1		
 		</cfquery>
 		
-		<table border="0" cellspacing="0" cellpadding="0">
+		<table border="0">
 				
 		<cfoutput query="check">
 		
@@ -568,9 +568,9 @@
 			</cfquery>
 			
 			
-			<tr class="linedotted">
+			<tr class="linedotted labelmedium2">
 			
-				<td style="padding-right:13px;height:20px;" class="labelit">#Description#:</td>
+				<td style="padding-right:13px;height:20px;">#Description#:</td>
 			
 				<td id="Rev_#code#_1" style="padding-left:8px;padding-right:5px" class = "<cfif #Reference.SelectId# eq "">highlight1</cfif> labelit">
 				   <table><tr><td>
@@ -669,19 +669,18 @@
 	</table>
 	
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-	
-	<tr  class="line"><td height="1" colspan="3"></td></tr> 
+		
 	<tr><td height="4"></td></tr>
-	<tr>
-	   <td height="27" class="labelmedium" style="height:20px;font-weight:bold"><cf_tl id="Application Received">:</td>
-	   <td colspan="1" class="labelmedium" style="height:20px;font-weight:bold"><cf_tl id="Limit result to VA"></td> 
-	   <td colspan="1" class="labelmedium" style="height:20px;font-weight:bold"><cf_tl id="Specific Candidate"></td> 
+	<tr class="line">
+	   <td style="height:20px;font-weight:360"><cf_tl id="Application Received">:</td>
+	   <td colspan="1" style="height:20px;font-weight:360"><cf_tl id="Limit result to VA"></td> 
+	   <td colspan="1" style="height:20px;font-weight:360"><cf_tl id="Specific Candidate"></td> 
 	</tr>
 	
 	<TR>  
 	   <td>
 	   
-	    <table border="0" cellspacing="0" cellpadding="0">
+	    <table>
 		<tr>
 		<td style="padding-left:20px">
 		
@@ -735,7 +734,7 @@
 	       
 	   <td>
 		
-		<table cellspacing="0" cellpadding="0" class="formpadding">
+		<table class="formpadding">
 		
 			<tr><td>
 			
@@ -867,7 +866,7 @@
 	
 	</table>
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 	
 		<!--- Field: Staff.OnBoard=CHAR;20;TRUE --->
 	
@@ -1112,19 +1111,18 @@
 		 
 		function profiledel(searchid,cls,id) {	  
 		   _cf_loadingtexthtml='';	
-		   ColdFusion.navigate('setSearch4DetailDelete.cfm?id='+searchid+'&class='+cls+'&SelectId='+id,'profile');
+		   ptoken.navigate('setSearch4DetailDelete.cfm?id='+searchid+'&class='+cls+'&SelectId='+id,'profile');
 		}
 		
 		function profileupdate(searchid,cls,id,param) {	  
 		   _cf_loadingtexthtml='';	
-		   ColdFusion.navigate('setSearch4DetailUpdate.cfm?Id=#URL.ID#&Class='+cls+'&SelectId='+id+'&parametervalue='+param,'processing');
+		   ptoken.navigate('setSearch4DetailUpdate.cfm?Id=#URL.ID#&Class='+cls+'&SelectId='+id+'&parametervalue='+param,'processing');
 		}
 		
 		function keyword(area){
 				  		   
-		   ColdFusion.Window.create('keyworddialog', 'Keywords', '',{x:100,y:100,height:document.body.clientHeight-50,width:document.body.clientWidth-50,modal:true,center:true})    
-		   ColdFusion.Window.show('keyworddialog')					
-		   ColdFusion.navigate('Structured/Search4Structured.cfm?ID=#URL.ID#&Area='+area,'keyworddialog') 			
+		   ProsisUI.createWindow('keyworddialog', 'Keywords', '',{x:100,y:100,height:document.body.clientHeight-30,width:document.body.clientWidth-30,modal:false,center:true})    		   					
+		   ptoken.navigate('Structured/Search4Structured.cfm?ID=#URL.ID#&Area='+area,'keyworddialog') 			
 		   
 		}   
 				  
@@ -1139,7 +1137,7 @@
 			 se.className = "regular";
 			 icM.className = "regular";
 			 icE.className = "hide";
-			 ColdFusion.navigate('#SESSION.root#/roster/RosterGeneric/RosterSearch/Structured/Search4KeywordDetail.cfm?ID=#URL.ID#&AR='+itm+'&row='+curr,'i'+itm)		
+			 ptoken.navigate('#SESSION.root#/roster/RosterGeneric/RosterSearch/Structured/Search4KeywordDetail.cfm?ID=#URL.ID#&AR='+itm+'&row='+curr,'i'+itm)		
 			 } else {
 			  se.className = "hide";
 			 icM.className = "hide";
@@ -1183,7 +1181,7 @@
 		<!--- ------------------------------------------------- --->
 	
 		<TR>  
-		   <td colspan="6" class="labelmedium" style="font-size:16px;font-weight:200;height:34px;font-weight:bold"><cf_tl id="Minimum profile requirements"></td>
+		   <td colspan="6" class="labelmedium" style="font-size:16px;font-weight:300;height:34px;font-weight:bold"><cf_tl id="Minimum profile requirements"></td>
 		</TR> 
 			
 		<cfquery name="Function" 
@@ -1250,16 +1248,15 @@
 			 
 			function topicdel(cls,id) {
 			   _cf_loadingtexthtml='';
-			   ColdFusion.navigate('Topic/TopicCancel.cfm?Owner=#search.Owner#&id=#URL.ID#&Class='+cls+'&SelectId='+id,'topic');
+			   ptoken.navigate('Topic/TopicCancel.cfm?Owner=#search.Owner#&id=#URL.ID#&Class='+cls+'&SelectId='+id,'topic');
 			}
 		
 			function topic(){
 			   w = #CLIENT.width# - 80;
 			   h = #CLIENT.height# - 140;
-			   ColdFusion.Window.create('topicdialog', 'Profile', '',{x:30,y:30,height:document.body.clientHeight-50,width:document.body.clientWidth-50,modal:true,center:true})    
-			   ColdFusion.Window.show('topicdialog')			   
+			   ProsisUI.createWindow('topicdialog', 'Profile', '',{x:30,y:30,height:document.body.clientHeight-30,width:document.body.clientWidth-30,modal:false,center:true})    			   
 			   _cf_loadingtexthtml='';					
-			   ColdFusion.navigate('Topic/TopicSelect.cfm?Owner=#search.Owner#&ID=#URL.ID#','topicdialog') 			
+			   ptoken.navigate('Topic/TopicSelect.cfm?Owner=#search.Owner#&ID=#URL.ID#','topicdialog') 			
 			   
 			}   
 		 
@@ -1285,18 +1282,16 @@
 			function skilldel(src,id) {
 			
 			     _cf_loadingtexthtml='';		
-			     ColdFusion.navigate('Assessment/AssessmentCancel.cfm?Id=#URL.ID#&source='+src+'&SelectId='+id,'skill');
+			     ptoken.navigate('Assessment/AssessmentCancel.cfm?Id=#URL.ID#&source='+src+'&SelectId='+id,'skill');
 			}
 		
 			function skill(src){
 			  
 			     w = #CLIENT.width# - 80;
 			     h = #CLIENT.height# - 140;
-			     ColdFusion.Window.create('assessmentdialog', 'Assessment', '',{x:30,y:30,height:document.body.clientHeight-50,width:document.body.clientWidth-50,modal:true,center:true,minheight:200,minwidth:50 })    
-			     ColdFusion.Window.show('assessmentdialog')			   
+			     ProsisUI.createWindow('assessmentdialog', 'Assessment', '',{x:30,y:30,height:document.body.clientHeight-50,width:document.body.clientWidth-50,modal:true,center:true,minheight:300,minwidth:50 })    			        
 			     _cf_loadingtexthtml='';					
-			     ColdFusion.navigate('Assessment/AssessmentSelect.cfm?Source='+src+'&ID=#URL.ID#','assessmentdialog') 			
-				 
+			     ptoken.navigate('Assessment/AssessmentSelect.cfm?Source='+src+'&ID=#URL.ID#','assessmentdialog') 							 
 			}   
 		 
 		</script>

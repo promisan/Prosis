@@ -27,7 +27,7 @@ password="#SESSION.dbpw#">
 					   WHERE  Operational = 1)					   
 </cfquery>
 
-<cfajaximport tags="cfform,cfwindow,cfdiv">
+<cfajaximport tags="cfform,cfdiv">
 <cfinclude template="../../../System/EntityAction/EntityFlow/EntityAction/EntityScript.cfm">
 <cfinclude template="InsertActionData.cfm">
 <cfparam name="URL.Mission" default="#MissionList.Mission#">

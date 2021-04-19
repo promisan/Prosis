@@ -1,8 +1,6 @@
 
 <cfoutput>
 
-<cfajaximport tags="cfwindow">
-
 <script language="JavaScript1.1">
 
 var root = "#SESSION.root#";
@@ -103,8 +101,8 @@ function contributionreallocate(tra,cli,sid,cid) {
     	cnt++
 	}
 		
-	try { ColdFusion.Window.destroy('mycontribution',true) } catch(e) {}
-	ColdFusion.Window.create('mycontribution', 'Reallocation', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    
+	try { ProsisUI.closeWindow('mycontribution',true) } catch(e) {}
+	ProsisUI.createWindow('mycontribution', 'Reallocation', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    
     ptoken.navigate(root + '/ProgramREM/Application/Budget/Contribution/Reallocation.cfm?contributionlineid='+cli+'&systemfunctionid='+sid+'&transactionids='+traids,'mycontribution') 
 			   	
 }

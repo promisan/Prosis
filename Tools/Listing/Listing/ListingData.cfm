@@ -66,7 +66,9 @@
 	
 	</cfsavecontent>				
 
-</cfoutput>			
+</cfoutput>		
+
+
 
 <cfif url.ajaxid eq "append">
 
@@ -547,8 +549,8 @@
 			</cfoutput> 		
 			
 			<cflock timeout="20" throwontimeout="No" name="mysession" type="EXCLUSIVE">					
-				<cfset session.listingdata[box]['sqlsorting']     = listsorting>		
-				<cfset session.listingdata[box]['dataprepsort']   = "#cfquery.executiontime#">		
+				<cfset session.listingdata[box]['sqlsorting']   = listsorting>		
+				<cfset session.listingdata[box]['dataprepsort'] = "#cfquery.executiontime#">		
 			</cflock>
 					
 		</cfif>
@@ -774,7 +776,7 @@
 		</cftry>
 		
 	</cfif>		
-		
+			
 	<!---
 		
 	<cfif url.listorder neq "">
@@ -812,18 +814,16 @@
 	
 	--->
 	
-	<!---
-	
-	<cftry>
-		<cfoutput>#sc#</cfoutput>
-		<cfcatch>zz</cfcatch>
-	</cftry>	
+	<!---		
+	<cfset xxx = session.listingdata[box]['recordsinit']>
+	<cfoutput>#xxx#</cfoutput>
 	--->
+				
 			
 	<cfif applycache eq "0">	
 					
-		<cfparam name="session.listingdata['#box#']['recordsinit']" default="0">  	
-				
+		<cfparam name="session.listingdata['#box#']['recordsinit']" default="-1">  	
+						
 		<!--- ---------------------------------------------------------------------- --->
 		<!--- obtain relevant data of the query for adding on-the-fly is enabled     --->
 		<!--- ---------------------------------------------------------------------- --->
@@ -835,9 +835,8 @@
 			<cfset session.listingdata[box]['sqlorig']          = attributes.listquery>  						
 			<cfset session.listingdata[box]['sql']              = sc>                        <!--- the generated query --->		
 			<cfset session.listingdata[box]['sqlcondition']     = conditioncheck>	
-			<cfset session.listingdata[box]['sqlsorting']       = listsorting>				
-					
-			<cfif condition eq "" or session.listingdata[box]['recordsinit'] eq "0">								
+			<cfset session.listingdata[box]['sqlsorting']       = listsorting>							
+			<cfif condition eq "" or session.listingdata[box]['recordsinit'] eq "-1">										
 			    <cfset session.listingdata[box]['recordsinit']   = searchresult.recordcount> 
 				<cfset session.listingdata[box]['datasetinit']   = searchresult>			     <!--- the generate data itself --->	
 			</cfif>	
@@ -868,9 +867,45 @@
 	<cfdirectory action="LIST"
           directory = "#attributes.listpath#\#attributes.listquery#"
           name      = "SearchResult"
-          sort      = "#url.listorder# #url.listorderdir# "
+          sort      = "#url.listorder# #url.listorderdir#"
           type      = "all"
           listinfo  = "all">
+		  
+		  <!--- testing what is needed on the below --->
+		  
+	<cflock timeout="20" throwontimeout="No" name="mysession" type="EXCLUSIVE">
+					
+			<cfset session.listingdata[box]['timestamp']        = now()>		
+			<cfset session.listingdata[box]['listlayout']       = attributes.listlayout>  		
+			<cfset session.listingdata[box]['sqlorig']          = attributes.listquery>  				
+				
+			<cfset session.listingdata[box]['sql']              = "">                        <!--- the generated query --->		
+			<cfset session.listingdata[box]['sqlcondition']     = "">	
+			<cfset session.listingdata[box]['sqlsorting']       = "">							
+			
+			<cfif condition eq "" or session.listingdata[box]['recordsinit'] eq "-1">										
+			    <cfset session.listingdata[box]['recordsinit']   = searchresult.recordcount> 
+				<cfset session.listingdata[box]['datasetinit']   = searchresult>			     <!--- the generate data itself --->	
+			</cfif>	
+			<cfset session.listingdata[box]['dataprep']         = ts>      
+			<cfset session.listingdata[box]['dataprepsort']     = 0>		    
+			<cfset session.listingdata[box]['records']          = searchresult.recordcount>  <!--- page count 1 of 20 from 300 3: --->
+			
+			<cfset session.listingdata[box]['dataset']          = searchresult>			     <!--- the generate data itself --->			
+			
+			<cfset session.listingdata[box]['datasetgroup']     = "">                        <!--- the partially clustered data for grouping/ column to improve performance ---> 	 
+			
+			<cfset session.listingdata[box]['pagecnt']          = attributes.show>	         <!--- page count 1 of 20 from 300 1: --->
+			<cfset session.listingdata[box]['recshow']          = attributes.show>	         <!--- page count 1 of 20 from 300 2: --->
+			
+			<cfset session.listingdata[box]['columns']          = "">                        <!--- the total columns in the grid --->
+			<cfset session.listingdata[box]['colprefix']        = "">                        <!--- the total columns show before the first data column --->	
+			<cfset session.listingdata[box]['firstsummary']     = "0">                       <!--- the column on which the first cell summary appears --->
+			<cfset session.listingdata[box]['sqlgroup']         = ""> 
+			<cfset session.listingdata[box]['aggregate']        = "">	                     <!--- the aggregate (SUM, count) formula to be applied on the grouping --->
+			<cfset session.listingdata[box]['aggrfield']        = "">                        <!--- the fields that are to be aggregated --->  	
+			
+	</cflock>	
 
 </cfif>
 

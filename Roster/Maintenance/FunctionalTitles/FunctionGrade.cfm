@@ -15,7 +15,7 @@ password="#SESSION.dbpw#">
 	AND   	Operational = 1
 </cfquery>
 
-<cfajaximport tags="cfdiv,cfform,cfwindow">
+<cfajaximport tags="cfdiv,cfform">
 <cf_textareascript>
 <cf_menuscript>
 

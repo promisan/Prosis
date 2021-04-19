@@ -32,8 +32,8 @@ password="#SESSION.dbpw#">
 	  
 </cfquery>
 
-
 <cfif attributes.IDFunction neq "" and qCheck.recordcount neq 0>
+
 	<cfquery name="Detail" 
 	datasource="AppsSelection" 
 	username="#SESSION.login#" 
@@ -61,7 +61,6 @@ password="#SESSION.dbpw#">
 			AND   S.FunctionId = '#Attributes.IDFunction#'
 			ORDER BY ExperienceCategory, ExperienceStart DESC
 	</cfquery>
-
 	
 <cfelse>
 
@@ -98,8 +97,7 @@ password="#SESSION.dbpw#">
 
 </cfif>
   
-<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0">
-
+<table width="99%" align="center">
 	
 	<cfif detail.recordcount eq "0">
 		<tr>	
@@ -108,18 +106,17 @@ password="#SESSION.dbpw#">
 	</cfif>
 	  
 	<cfoutput query="Detail" group="ExperienceId">
-	
-	<tr><td height="3" colspan="8"></td></tr>
-	
-	<tr>
-	<td class="labelsmall" width="5%">#currentrow#.</td>	
-	<td class="labelit" colspan="7"><b>#OrganizationName#</b></td>		
+		
+	<tr class="labelmedium2 navigation_row">
+	<td width="5%">#currentrow#.</td>	
+	<td colspan="7"><b>#OrganizationName#</b></td>		
 	</tr>
 
 	<cfif OrganizationCity neq "">
-		<tr>
+		
+		<tr class="navigation_row_child">
 		<td></td>				
-				
+						
 		<cfquery name="Nation" 
 		datasource="AppsSystem" 
 		username="#SESSION.login#" 
@@ -129,42 +126,42 @@ password="#SESSION.dbpw#">
 			WHERE Code = '#OrganizationCountry#'
 		</cfquery>
 		
-		<td class="labelit" colspan="7">#OrganizationCity# #Nation.Name#</td>
-		</tr>
-	</cfif>
-	
-	<tr>
+		<td class="labelit" colspan="7">
+		<table style="width:100%"><tr><td>#OrganizationCity# #Nation.Name#</td>
+		<td align="right">#DateFormat(ExperienceStart,"MM/YYYY")#
+		- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020">Todate<cfelse>#DateFormat(ExperienceEnd,"MM/YYYY")#</cfif>
+		</td>
+		</tr></table>
 		
-	<td colspan="8" align="right" class="labelit">#DateFormat(ExperienceStart,"MM/YYYY")#
-	- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020">Todate<cfelse>#DateFormat(ExperienceEnd,"MM/YYYY")#</cfif></b>
-	</td>
-	
-	</tr>
-	
+		</td>
+		</tr>
+		
+	</cfif>
+		
 	<cfif Remarks neq "" and ExperienceDescription neq remarks>
-		<tr>
+		<tr class="labelmedium2 navigation_row_child">
 		<td></td>
-		<td class="labelit" colspan="7">#Remarks#</td>
+		<td colspan="7">#Remarks#</td>
 		</tr>
 	</cfif>
 	
 	<cfif OrganizationAddress neq "">
-		<tr>
+		<tr class="labelmedium2 navigation_row)_child">
 		<td></td>
-		<td class="labelit" colspan="7">#OrganizationAddress#</td>
+		<td colspan="7">#OrganizationAddress#</td>
 		</tr>
 	</cfif>
 	
 	<cfif OrganizationTelephone neq "">
-		<tr>
+		<tr class="labelmedium2 navigation_row_child">
 		<td></td>
-		<td class="labelit" colspan="7"><cf_tl id="Tel">:#OrganizationTelephone#</td>
+		<td colspan="7"><cf_tl id="Tel">:#OrganizationTelephone#</td>
 		</tr>
 	</cfif>
 	
 	<cfif Status neq "9">
 	
-	    <tr>
+	    <tr class="navigation_row_child">
 		
 	<cfelse>	
 	
@@ -176,11 +173,9 @@ password="#SESSION.dbpw#">
 		<td colspan="7" class="labelit">
 		
 			<table cellspacing="0" cellpadding="0">
-			 <tr>
-			
-			 
-			 <cfif OrganizationClass neq ""><td class="labelit">#OrganizationClass#</b></td></cfif>
-			 <cfif ExperienceDescription neq ""><td class="labelit">#ExperienceDescription#</b></td></cfif>
+			 <tr class="labelmedium2">		 
+			 <cfif OrganizationClass neq ""><td>#OrganizationClass#</b></td></cfif>
+			 <cfif ExperienceDescription neq ""><td>#ExperienceDescription#</b></td></cfif>
 			 </tr>
 			</table>	
 			
@@ -192,10 +187,10 @@ password="#SESSION.dbpw#">
 	
 	    <cfif TopicStatus eq "1">
 	
-			<tr bgcolor="ffffcf">
+			<tr bgcolor="ffffcf" class="labelmedium2 navigation_row">
 			<td bgcolor="white"></td>			  
-			<td colspan="6" class="labelit" style="padding-left:4px">#Description#</td>			
-			<TD class="labelit" width="10%" align="right" style="padding-right:4px">
+			<td colspan="6" style="padding-left:4px">#Description#</td>			
+			<TD width="10%" align="right" style="padding-right:4px">
 			
 				<cfif CLIENT.submission neq "Skill">
 					<cfif StatusDomain is "0"><cf_tl id="Pending"></cfif>

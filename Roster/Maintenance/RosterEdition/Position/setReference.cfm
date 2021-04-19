@@ -76,7 +76,7 @@
 						</cfquery>
 						
 						<script>
-						   ColdFusion.navigate('#session.root#/Roster/Maintenance/RosterEdition/Position/getReference.cfm?id=#url.id#&positionno=#positionno#','reference_#positionno#')		   	
+						   ptoken.navigate('#session.root#/Roster/Maintenance/RosterEdition/Position/getReference.cfm?id=#url.id#&positionno=#positionno#','reference_#positionno#')		   	
 						</script>
 										
 					</cfoutput>
@@ -147,7 +147,7 @@
 				
 		<script>
 		   // efresh our contentbox which is set to [contentbox3]		  
-		   ColdFusion.navigate('#session.root#/Roster/Maintenance/RosterEdition/Position/PositionListing.cfm?submissionedition=#url.id#','contentbox3')		   
+		   ptoken.navigate('#session.root#/Roster/Maintenance/RosterEdition/Position/PositionListing.cfm?submissionedition=#url.id#','contentbox3')		   
 		</script>
 		
 		</cfoutput>

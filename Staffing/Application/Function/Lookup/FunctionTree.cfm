@@ -17,12 +17,12 @@
 		<cfif URL.Mode eq "Lookup">		
 		{			
 		parent._cf_loadingtexthtml='';			
-		parent.ColdFusion.navigate('#session.root#/staffing/application/Function/Lookup/FunctionListingFlat.cfm?edition=#url.edition#&Mode=#URL.Mode#&Owner=#URL.Owner#&ID1=' + condition + '&FormName=#URL.formname#&fldfunctionno=#URL.fldfunctionno#&fldfunctiondescription=#URL.fldfunctiondescription#','rightme')
+		parent.ptoken.navigate('#session.root#/staffing/application/Function/Lookup/FunctionListingFlat.cfm?edition=#url.edition#&Mode=#URL.Mode#&Owner=#URL.Owner#&ID1=' + condition + '&FormName=#URL.formname#&fldfunctionno=#URL.fldfunctionno#&fldfunctiondescription=#URL.fldfunctiondescription#','rightme')
 		}		
 		<cfelse>		
 		{		
 		parent._cf_loadingtexthtml='';	
-		parent.ColdFusion.navigate('#session.root#/staffing/application/Function/Lookup/FunctionListingFlat.cfm?edition=#url.edition#&Mode=#URL.Mode#&Owner=#URL.Owner#&ID1=' + condition,'rightme')
+		parent.ptoken.navigate('#session.root#/staffing/application/Function/Lookup/FunctionListingFlat.cfm?edition=#url.edition#&Mode=#URL.Mode#&Owner=#URL.Owner#&ID1=' + condition,'rightme')
 		}
 		
 		</cfif>
@@ -124,7 +124,7 @@
 	</td></tr>		
 	
 	<tr><td width="100%" height="100%"  valign="top">		 		
-		   <cfdiv id="functionclass" style="height:100%"
+		   <cf_securediv id="functionclass" style="height:100%"
 		   bind="url:#session.root#/staffing/application/Function/Lookup/setOccupationGroup.cfm?formname=#url.formname#&fldfunctionno=#URL.fldfunctionno#&fldfunctiondescription=#URL.fldfunctiondescription#&edition=#url.edition#&owner=#url.owner#&occ=#url.occ#&mode=#url.mode#&functionclass=#class.functionclass#">						
 	</td></tr>
 		

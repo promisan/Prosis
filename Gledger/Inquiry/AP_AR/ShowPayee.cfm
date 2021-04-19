@@ -29,8 +29,7 @@
     <!---	
 	<cfoutput>#cfquery.executiontime#</cfoutput>
 	--->
-	
-	
+		
 	<table width="97%" align="center" class="navigation_table">
 		
 	<cfif findNoCase("ReferenceName","#CLIENT.Payables#")> 
@@ -56,7 +55,7 @@
 	</tr>
 	
 	<cfoutput query="Payee">
-	<tr class="navigation_row linedotted labelmedium2" style="height:20px" onclick="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=customer&value=#referencename#','listbox')">
+	<tr class="navigation_row linedotted labelmedium2" onclick="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=customer&value=#referencename#','listbox')">
 	    <td align="center">#Currentrow#</td>
 	    <td style="height:19px;padding-left:4px">#left(ReferenceName,42)#</td>		
 		<td style="min-width:40px;padding-right:3px" align="center">#Currency#</td>

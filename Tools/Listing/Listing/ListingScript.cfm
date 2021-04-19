@@ -443,7 +443,7 @@ function listingshow(itm) {
 }
 
 function showtemplate(path,key) {
-    ptoken.open("#SESSION.root#/System/Modification/PostFile/TemplateDetail.cfm?path="+path+"&file="+key+"&ts="+new Date().getTime(), "dialog", "unadorned:yes; edge:raised; status:no; dialogHeight:#client.height-100#px; dialogWidth:#client.width-140#px; help:no; scroll:no; center:yes; resizable:yes");	
+    ptoken.open("#SESSION.root#/System/Modification/PostFile/TemplateDetail.cfm?path="+path+"&file="+key,"doc"+key);	
 }	
 
 function toggledrill(mode,box,template,key,arg,drillbox,str) {

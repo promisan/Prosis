@@ -8,14 +8,11 @@
 		WHERE    A.SearchId = '#URL.ID#' 	
     </cfquery>	
 	
-<cf_screentop layout="webapp" banner="gray" label="Assessment" user="yes"
-     close="ColdFusion.Window.hide('assessmentdialog')">	
-
 <table width="100%" height="100%"><tr><td bgcolor="white" valign="top">	
 
 <cfform action="Assessment/AssessmentSelectSubmit.cfm?source=#url.source#&id=#url.id#" method="post">
 
-<table width="95%" align="center" cellspacing="0" cellpadding="0">
+<table width="95%" align="center">
 
 <cfoutput>
 <tr><td height="10"></td></tr>
@@ -79,8 +76,6 @@ password="#SESSION.dbpw#">
 			<td width="100%">
 			
 			<table width="98%"
-		       cellspacing="0"
-		       cellpadding="0"
 			   class="formpadding"
 		       align="left">
 			
@@ -141,10 +136,9 @@ password="#SESSION.dbpw#">
 	</td></tr>	
 	
 </cfloop>		
+
 <tr><td class="linedotted"></td></tr>
-<tr><td height="40" align="center">
-<INPUT class="button10g" type="submit" value="Save"></td>
-</tr>	
+<tr><td height="40" align="center"><INPUT class="button10g" type="submit" value="Save"></td></tr>	
 	
 </table>
 

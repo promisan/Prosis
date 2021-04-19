@@ -497,7 +497,7 @@ password="#SESSION.dbpw#">
 
 <cfform action="PositionEditSubmit.cfm?id=#url.id#&id1=#url.id1#&id2=#url.id2#&Box=#URL.Box#" 
 		   method="POST" 
-		   style="height:98.5%"
+		   style="height:98%"
 		   target="saveposition"
 		   name="positionedit">
 		      

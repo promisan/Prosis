@@ -11,7 +11,7 @@
 				
 </cfif>				
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table align="right">
 	
 	<cfquery name="Entitlement" 
 	datasource="AppsPayroll" 
@@ -160,7 +160,7 @@
 			<td align="right" style="max-width:45px;min-width:45px"></td>	
 			<td align="right" style="max-width:45px;min-width:45px"></td>
 			<td align="right" style="max-width:40px;min-width:40px"></td>												
-			<td align="right" style="width:20%;padding-right:20px!important">
+			<td align="right" style="min-width:140px;padding-right:20px!important">
 			<cfset am = round(EntitlementAmount*100)/100>					
 			#numberFormat(am,",.__")#</td>
 							
@@ -182,9 +182,9 @@
 				</cfif>	
 				
 			<cfif abs(entitlementAmount-p) gte 0.01>
-			<td align="right" style="width:20%;color:red;padding-right:8px!important">
+			<td align="right" style="min-width:140px;color:red;padding-right:8px!important">
 			<cfelse>
-			<td align="right" style="width:20%;padding-right:8px!important">
+			<td align="right" style="min-width:140px;padding-right:8px!important">
 			</cfif>
 			#Numberformat(pay.payment, ",.__" )#											
 			</td>

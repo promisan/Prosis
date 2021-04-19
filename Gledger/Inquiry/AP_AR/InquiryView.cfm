@@ -21,6 +21,7 @@
 
 <cf_listingscript>
 <cf_layoutscript>
+<cf_dialogledger>
 
 <cfoutput>
 	

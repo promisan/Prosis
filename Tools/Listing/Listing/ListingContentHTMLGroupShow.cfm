@@ -99,7 +99,7 @@
 			   <cfelse>
 			       <td style="height:20px" colspan="#headercols#">				  
 			   </cfif>		
-			   
+			   		   
 			        <!--- to keep this from moving --->
 				    <div style="height:28px;position:relative;">
 		              <div style="height:100%;width:100%;position:absolute;left:0;top:0;" class="sticky">
@@ -130,13 +130,15 @@
 			        </div> 	
 			   			   
 			   </td>	
+			   			   
 			  
 		       <cfif url.listcolumn1 neq "" and url.listcolumn1 neq "summary" and navmode eq "manual">
-					
+			   					
 				   <!--- we show columns --->	
 				   					   			     		   
-			   	   <td colspan="#cols-headercols#" style="border-right: 1px solid silver">							    				   		   
-				    <cfset attributes.mode = "Line">																														 
+			   	   <td colspan="#cols-headercols#" style="border-right: 1px solid silver">	
+				   					    				   		   
+				    <cfset attributes.mode = "Line">																													 
 				    <cfinclude template="ListingContentHTMLGroupShowColumn.cfm">										
 				   </td>
 			   
@@ -152,6 +154,7 @@
 					       <td colspan="1"></td>	
 					   <cfelse>
 						   <td align="right" style="border-left:1px solid silver;font-size:14px;padding:1px">
+						  
 						   <table style="height:99%;width:100%">
 						     <tr><td align="right" 
 								  style="padding-left:10px;width:90%;background-color:##ffffaf80;font-size:16px;padding-right:3px;border:1px solid silver">	

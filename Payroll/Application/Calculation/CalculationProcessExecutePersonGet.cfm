@@ -4,8 +4,7 @@
 	    PersonNo        = "#url.id#"
 		Mission         = "#url.mission#"
 		Type            = "last"
-	    ReturnVariable  = "EOD">	
-				
+	    ReturnVariable  = "EOD">					
 				
 <cfswitch expression="#url.action#">
 	
@@ -46,7 +45,7 @@
 			 
 			 <cfset start = "0">	
 			
-			<select name="dateEffective" id="dateEffective" class="regularxl" style="width:100%;border:0px">
+			<select name="dateEffective" id="dateEffective" class="regularxxl" style="width:100%;border:0px">
 			
 				<cfif getEOD.recordcount eq "0">
 										
@@ -92,21 +91,21 @@
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT   SalarySchedule, MAX(DateExpiration) as DateLast
-		FROM     PersonContract
-		WHERE    PersonNo     = '#url.id#'	
-		AND      Mission      = '#url.mission#'					
-		AND      RecordStatus = '1'		
-		GROUP BY SalarySchedule
-		ORDER BY MAX(DateExpiration) DESC
+			SELECT   SalarySchedule, MAX(DateExpiration) as DateLast
+			FROM     PersonContract
+			WHERE    PersonNo     = '#url.id#'	
+			AND      Mission      = '#url.mission#'					
+			AND      RecordStatus = '1'		
+			GROUP BY SalarySchedule
+			ORDER BY MAX(DateExpiration) DESC
    </cfquery>		
    	
 	<table>
 	<cfoutput query="schedulelist">
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 	
 	<td style="font-size:16px">#SalarySchedule#</td>	
-	<td style="padding-top:3px;padding-left:4px;font-size:13px">last expiry : #dateformat(DateLast,client.dateformatshow)#</td>
+	<td style="padding-top:3px;padding-left:4px;font-size:16px">last expiry : #dateformat(DateLast,client.dateformatshow)#</td>
 			
 	</tr>		
 	</cfoutput>
@@ -142,11 +141,11 @@
 		</cfquery>
 		
 		<cfinvoke component = "Service.Process.Employee.PersonnelAction"
-	    Method          = "getEOD"
-	    PersonNo        = "#url.id#"
-		Mission         = "#url.mission#"
-		Type            = "first"
-	    ReturnVariable  = "firstEOD">	
+		    Method          = "getEOD"
+		    PersonNo        = "#url.id#"
+			Mission         = "#url.mission#"
+			Type            = "first"
+		    ReturnVariable  = "firstEOD">	
    
 		<cfquery name="getPeriod" 
 			datasource="AppsPayroll" 
@@ -167,7 +166,7 @@
 		
 		<cfoutput>
 		 <select name="customPeriodStart" id="customPeriodStart" 
-		     class="regularxl" style="border:0px;width:100px" onchange="ptoken.navigate('#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGo.cfm?id=#url.id#','progressbox')">
+		     class="regularxxl" style="border:0px;width:100px" onchange="ptoken.navigate('#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGo.cfm?id=#url.id#','progressbox')">
 		 	<cfloop query="getPeriod">
 		 		<OPTION style="<cfif payrollstart gt schedulelist.datelast>background-color:d8d8d8</cfif>" value="01/#selMonth#/#SelYear#" <cfif currentrow eq "1">selected</cfif>>#selMonth#-#SelYear#</OPTION>
 		 	</cfloop>
@@ -230,7 +229,7 @@
 		<cfoutput>
 		
 		 <select name="customPeriodEnd" id="customPeriodEnd" 
-		     class="regularxl" style="height:100%;width:100px;border:0px" onchange="ptoken.navigate('#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGo.cfm?id=#url.id#','progressbox')">
+		     class="regularxxl" style="height:100%;width:100px;border:0px" onchange="ptoken.navigate('#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGo.cfm?id=#url.id#','progressbox')">
 			 <option value=""><cf_tl id="End"></option>
 		 	<cfloop query="getPeriod">
 		 		<OPTION style="<cfif payrollstart gt schedulelist.datelast>background-color:d8d8d8</cfif>" value="01/#selMonth#/#SelYear#">#selMonth#-#SelYear#</OPTION>

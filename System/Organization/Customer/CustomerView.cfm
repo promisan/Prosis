@@ -159,7 +159,11 @@
 	Key1Value       = "#url.idmenu#"
 	Key2Value       = "#url.mission#"				
 	Label           = "Yes">
-		
+
+	<cfif lt_content eq "">
+	    <cfset lt_content = "Prosis function">
+	</cfif>
+				
 <cf_screentop height="100%" 
 	html="No" 
 	line="No" 

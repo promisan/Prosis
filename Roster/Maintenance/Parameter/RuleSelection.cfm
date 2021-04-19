@@ -11,21 +11,21 @@ password="#SESSION.dbpw#">
 	ORDER  BY Owner, TriggerGroup
 </cfquery>
 
-
 <cf_screentop height="100%"
 			  title="Select Business Rule" 
 			  scroll="Yes" 
+			  html="No"
+			  jquery="Yes"
 			  layout="webapp" 
 			  close = "ColdFusion.Window.hide('RuleWindow');"
 			  banner="gray"
-			  label="Select Business Rule" >
-
+			  label="Select Business Rule">
 
 <table width="100%">
 	<tr>
 		<td width="100%" style="padding-top:8px" align="center" class="labellarge">
 			Rule:&nbsp;&nbsp;
-			<select name="rule" id="rule" class="regularxl" onchachange="ColdFusion.navigate(,'ruleDetail')">
+			<select name="rule" id="rule" class="regularxl" onchachange="ptoken.navigate(,'ruleDetail')">
 				<option value=""></option>
 				<cfoutput query="Rules">
 					<option value="#Code#" <cfif Rules.Code eq url.rule>selected</cfif> ><cfif Description neq "">#Description#<cfelse>#Code#</cfif></option>
@@ -35,10 +35,8 @@ password="#SESSION.dbpw#">
 		</td>
 	</tr>
 	<tr>
-		<td id="ruleDetail">
-			
-			<cf_securediv bind="url:RuleDetail.cfm?rule={rule}&owner=#url.owner#&level=#url.level#&from=#url.from#&to=#url.to#" bindOnLoad="Yes">
-			
+		<td id="ruleDetail">			
+			<cf_securediv bind="url:RuleDetail.cfm?owner=#url.owner#&level=#url.level#&rule={rule}&from=#url.from#&to=#url.to#" bindOnLoad="Yes">			
 		</td>
 	</tr>
 </table>

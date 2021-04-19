@@ -1,5 +1,5 @@
 <cf_textareascript>
-<cfajaximport tags="cfform,cfwindow">
+<cfajaximport tags="cfform">
 
 <cfoutput>
 	
@@ -14,7 +14,7 @@
 		} else {  
 		   se.className = "regular"; 
 		   url = "#SESSION.root#/vactrack/Application/Announcement/Announcement.cfm?id="+id+"&apply=1"		   
-		   ColdFusion.navigate(url,'v'+box)		  
+		   ptoken.navigate(url,'v'+box)		  
 		}
 		}
 		
@@ -27,7 +27,7 @@
 			} else {  
     		  se.className = "regular"; 
 		      url = "#SESSION.root#/Roster/PHP/Apply/Withdraw.cfm?id="+id+"&apply=1"
-		      ColdFusion.navigate(url,'c'+box)
+		      ptoken.navigate(url,'c'+box)
 		 	}
 		}
 		
@@ -40,7 +40,7 @@
 		} else {  
 		   se.className = "regular"; 
 		   url = "#SESSION.root#/Roster/PHP/Apply/Apply.cfm?id="+id+"&apply=1"		   
-		   ColdFusion.navigate(url,'a'+id)		  
+		   ptoken.navigate(url,'a'+id)		  
 		}
 		}
 					

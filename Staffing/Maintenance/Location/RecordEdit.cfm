@@ -36,29 +36,29 @@ password="#SESSION.dbpw#">
     <tr><td height="8"></td></tr>
     <cfoutput>
     <TR>
-    <TD class="labelit">Code:&nbsp;</TD>
+    <TD class="labelmedium2">Code:</TD>
     <TD>
-  	   <input style="background-color:f4f4f4" type="text" name="LocationCode" value="#get.LocationCode#" size="10" maxlength="10" class="regularxl" readonly>
+  	   <input style="background-color:f4f4f4" type="text" name="LocationCode" value="#get.LocationCode#" size="10" maxlength="10" class="regularxxl" readonly>
 	   <input type="hidden" name="LocationCodeOld" value="#get.LocationCode#" size="10" maxlength="10" readonly>
     </TD>
 	</TR>
 		
 	<TR>
-    <TD class="labelit">Listing order:</TD>
+    <TD class="labelmedium2">Listing order:</TD>
     <TD>
-  	   <cfinput type="Text" name="ListingOrder" value="#Get.ListingOrder#" message="Please enter a valid integer" validate="integer" required="Yes" visible="Yes" enabled="Yes" size="1" maxlength="3" class="regularxl">
+  	   <cfinput type="Text" name="ListingOrder" value="#Get.ListingOrder#" message="Please enter a valid integer" validate="integer" required="Yes" visible="Yes" size="1" maxlength="3" class="regularxxl">
     </TD>
 	</TR>
 		
 	<TR>
-    <TD class="labelit">Name:</TD>
+    <TD class="labelmedium2">Name:</TD>
     <TD>
-  	   <cfinput type="Text" name="LocationName" value="#get.LocationName#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxl">
+  	   <cfinput type="Text" name="LocationName" value="#get.LocationName#" message="Please enter a description" required="Yes" size="30" maxlength="50" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelit">Country:</TD>
+    <TD class="labelmedium2">Country:</TD>
     <TD>
 	
 	<cfquery name="Nation" 
@@ -69,7 +69,7 @@ password="#SESSION.dbpw#">
 	    FROM   Ref_Nation
 	</cfquery>
 	
-	  	<select name="country" class="enterastab regularxl" required="No">		
+	  	<select name="country" style="width:200px" class="enterastab regularxxl" required="No">		
 		<option value="">--select--</option>	
 			    <cfloop query="Nation">
 					<option value="#Code#" <cfif Code eq get.Country>selected</cfif>>#Name#</option>
@@ -82,11 +82,11 @@ password="#SESSION.dbpw#">
 	<cf_calendarscript>
 	
 	<tr>
-	<td class="labelit">Effective:</td>
+	<td class="labelmedium2">Effective:</td>
 	<td style="z-index:25; position:relative; padding-top:3px;">			
 		<cf_intelliCalendarDate9
 			FieldName="DateEffective"
-			class="regularxl"
+			class="regularxxl"
 			Message="Select a valid Effective Date"
 			Default="#dateformat(get.DateEffective, CLIENT.DateFormatShow)#"
 			AllowBlank="True">
@@ -94,11 +94,11 @@ password="#SESSION.dbpw#">
 	</tr>
 	
 	<tr>
-	<td class="labelit">Expiration:</td>
+	<td class="labelmedium2">Expiration:</td>
 	<td style="z-index:20; position:relative; padding-top:3px;">
 		<cf_intelliCalendarDate9
 			FieldName="DateExpiration"
-			class="regularxl"
+			class="regularxxl"
 			Message="Select a valid Expiration Date"
 			Default="#dateformat(get.DateExpiration, CLIENT.DateFormatShow)#"
 			AllowBlank="True">
@@ -122,10 +122,10 @@ password="#SESSION.dbpw#">
 	</cfquery>
 			
 	<TR>
-    <TD class="labelit">Entity:</TD>
+    <TD class="labelmedium2">Entity:</TD>
     <TD>
 	
-	 <select name="Mission" class="regularxl" onchange="javascript: ColdFusion.navigate('ServiceLocation.cfm?mission='+this.value+'&serviceLocation=','divServiceLocation');">
+	 <select name="Mission" class="regularxxl" onchange="javascript: ColdFusion.navigate('ServiceLocation.cfm?mission='+this.value+'&serviceLocation=','divServiceLocation');">
 	   <cfloop query="Mission">
 	   <option value="#Mission.Mission#" <cfif #Mission.Mission# eq "#get.Mission#">selected</cfif>>#Mission.Mission#</option>
 	   </cfloop>
@@ -135,9 +135,9 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<TR>
-    <TD class="labelit">Service Location:</TD>
+    <TD class="labelmedium2">Service Location:</TD>
     <TD>
-		<cfdiv id="divServiceLocation" 
+		<cf_securediv id="divServiceLocation" 
 		    style="height:100%; min-height:100%;" 
 			bind="url:ServiceLocation.cfm?mission=#get.mission#&serviceLocation=#get.ServiceLocation#">
     </TD>

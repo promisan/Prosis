@@ -197,26 +197,25 @@
 		
 		<cfloop query="Totals">
 												
-			<tr class="line">
+			<tr>
 				<td align="right">
 				<table width="100%">
-					<tr>
-						<td width="40%" class="labelmedium" align="left" style="padding:2px">
+					<tr class="labelmedium2" style="border-top:1px solid silver;background-color:ffffff;height:26px;border-bottom:1px solid silver;">
+						<td width="40%" align="left" style="padding:2px">
 							<table cellspacing="0" cellpadding="0">
-							<tr>
+							<tr class="labelmedium2">
 							<cfif mode eq "edit">
 								<td style="height:30px"></td>															
-								<td style="padding-left:6px;padding-top:28px" class="labelmedium">
-								  <a href="##" onclick="getBOM('#url.workorderid#','#url.workorderline#','finalproduct')">
-								  [<cf_tl id="Generate Bill of Materials for order">]								  
-								  </a>
+								<td style="padding-left:6px;font-size:16px;">
+								  <cf_tl id="Generate Bill of Materials for order" var="1">
+								  <input type="button" style="width:370px;border:1px solid silver" class="button10g" value="#lt_text#" onclick="getBOM('#url.workorderid#','#url.workorderline#','finalproduct')">								 				  								 
 								</td>
 							</cfif>
 							</tr>
 							</table>
 						</td>
-						<td valign="bottom" style="padding-left:5px" class="labelmedium">#Lines#</td>
-						<td valign="bottom" style="padding-left:5px" class="labelmedium">
+						<td style="padding-left:5px">#Lines#</td>
+						<td style="padding-left:5px">
 						
 						<cfif totals.Earmarked gte "1" or get.actionStatus gte "3">						
 						#get.Currency#
@@ -226,11 +225,11 @@
 						datasource="AppsLedger"
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">						
-						SELECT   Currency
-						FROM     Currency
+							SELECT   Currency
+							FROM     Currency
 						</cfquery>
 						
-						<select name="Currency" class="regularxxl" onchange="ptoken.navigate('#session.root#/workorder/application/Assembly/Items/FinalProduct/setCurrency.cfm?workorderid=#url.workorderid#&currency='+this.value,'cur')">
+						<select name="Currency" class="regularxl" onchange="ptoken.navigate('#session.root#/workorder/application/Assembly/Items/FinalProduct/setCurrency.cfm?workorderid=#url.workorderid#&currency='+this.value,'cur')">
 						<cfloop query="CurrencyList">
 							<option value="#Currency#" <cfif currency eq get.Currency>selected</cfif>>#Currency#</option>
 						</cfloop>
@@ -240,33 +239,31 @@
 						
 						</td>
 						<td id="cur"></td>
-						<td valign="bottom" style="padding-right:13px;padding-left:5px" class="labelmedium"  align="right"><cf_tl id="Sale">:</td>
-						<td valign="bottom" style="padding-right:13px;padding-left:5px" class="labelmedium">#numberformat(AmountIncome,',.__')#</td>
-						<td valign="bottom" style="padding-right:13px;padding-left:5px" class="labelmedium"  align="right"><cf_tl id="Tax">:</td>
-						<td valign="bottom" style="padding-right:13px;padding-left:5px" class="labelmedium">#numberformat(AmountTax,',.__')#</td>		
-						<td valign="bottom" style="padding-right:13px;padding-left:5px" class="labellarge"  align="right">#numberformat(AmountIncome+AmountTax,',.__')#</td>
+						<td style="border-left:1px solid silver;padding-right:13px;padding-left:5px" align="right"><cf_tl id="Sale">:</td>
+						<td style="border-left:1px solid silver;font-size:16px;padding-right:13px;padding-left:5px">#numberformat(AmountIncome,',.__')#</td>
+						<td style="border-left:1px solid silver;padding-right:13px;padding-left:5px" align="right"><cf_tl id="Tax">:</td>
+						<td style="border-left:1px solid silver;font-size:16px;padding-right:13px;padding-left:5px">#numberformat(AmountTax,',.__')#</td>		
+						<td style="border-left:1px solid silver;font-size:16px;padding-right:13px;padding-left:5px" align="right">#numberformat(AmountIncome+AmountTax,',.__')#</td>
 					</tr>				
 				</table>			
 				</td>
-			</tr>				
-								
+			</tr>								
 									
 		</cfloop>
 						
 		<tr>
-			<td style="padding:1px;" height="100%">
+			<td height="100%">
 			
 				<cf_divscroll>
 	
-					<table width="99%" cellspacing="0" cellpadding="0">			
+					<table width="100%">			
 					
-						<tr class="line labelmedium2">
+						<tr class="line labelmedium2 fixrow">
 						
-							<td width="5%" style="padding-left:3px">
+							<td style="min-width:70px;height:40px;font-size:16px;padding-left:6px">
 							   <cfif mode eq "edit">
-								<a href="javascript:addFinalProduct('#url.WorkOrderId#','#url.WorkOrderLine#','','');">
-								<cf_tl id="Add">
-								</a>
+							      <cf_tl id="Add" var="1">
+							      <input type="button" onclick="javascript:addFinalProduct('#url.WorkOrderId#','#url.WorkOrderLine#','','');" style="width:65px;border:1px solid silver" class="button10g" value="#lt_text#">																
 							   </cfif>
 							</td>
 							
@@ -311,7 +308,7 @@
 						
 							<tr class="navigation_row line labelmedium2" style="height:25px">
 							
-								<td style="height:15">
+								<td style="height:15px">
 								
 									<cfif mode eq "edit">
 									
@@ -488,7 +485,7 @@
 									
 								</cfif>
 								
-								<td align="right" bgcolor="E3E8C6" style="background-color:##E3E8C680;padding-right:3px;border-left:1px solid gray;padding-left:5px">
+								<td align="right" bgcolor="E3E8C6" style="background-color:##E3E8C680;padding-right:3px;border-left:1px solid gray;padding-left:5px;border-right:1px solid silver;">
 								#returns#
 								</td>
 								

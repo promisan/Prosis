@@ -1,9 +1,9 @@
 
 <cfoutput>
 
-	<table width="94%" style="padding-left:10px;" border="0" align="right" class="formpadding">
+	<table width="97%" align="center" class="formpadding">
 		
-	<tr><td colspan="2" style="font-size:20px;height:35px" class="labellarge">Workflow Action <u>Listing</u></td></tr>
+	<tr><td colspan="2" style="padding-top:5px;font-size:20px;height:35px" class="labellarge">Workflow Action <u>Listing</u></td></tr>
 			
 	<input type="hidden" name="ActionType" id="ActionType" value="#Get.ActionType#">
 							
@@ -54,171 +54,170 @@
 		
 	<cfif Get.ActionType eq "Decision">	
 				
-		<TR>
-	    <TD valign="top" style="padding-left:10px;padding-top:3px" height="25" class="labelmedium">Descriptive decisions:</b></TD>
-	    <TD>
+			<TR>
+		    <TD valign="top" style="padding-left:10px;padding-top:3px" height="25" class="labelmedium">Descriptive decisions:</b></TD>
+		    <TD>
 						
-		<table>
-		<tr><td style="padding;4px">
-					
-		<cfif URL.PublishNo eq "">	
-				
-	    	<table cellspacing="0" cellpadding="0">
-			
-			<tr id="yesno" class="regular"><td></td>
-			    <td><table>
-					<tr><td height="1"></td></tr>
-					<tr bgcolor="CEFFCE"><td width="40%"  height="28" style="padding-left:6px">
-						<img src="#SESSION.root#/images/status_ok1.gif" 
-					      alt="Yes, approved" border="0" 
-						  onclick="stepedit(ActionGoToYes.value)"
-					      align="absmiddle">
-					</td>
-					<td style="height:35px;padding-left:6px">Label:</td>
-					<td style="padding-left:6px">
-					      <input type="text" 
-					       name="ActionGoToYesLabel" 
-						   id="ActionGoToYesLabel"
-						   value="#Get.ActionGoToYesLabel#" 
-	     				   size="25" 
-						   class="regularxxl"
-						   maxlength="40">
-				    </td>
-					<td style="padding-left:6px"><font face="Calibri" size="2">Action:</td>
-					<td style="padding-left:6px;padding-right:4px">
-					<select style="width:270px" name="ActionGoToYes" id="ActionGoToYes" class="regularxxl">
-					<option value="" selected>Undefined</option>
-					<cfloop query="GoTo">
-				    	<option value="#GoTo.ActionCode#"
-						 <cfif ActionCode eq Get.ActionGoToYes>selected</cfif>>
-						 <cfif ActionType eq "Action">A<cfelse>D</cfif>: #ActionCode# #ActionDescription#</option>
-					</cfloop>
-					</select>
-					</td></tr>
-					<tr><td height="1"></td></tr>
-					<tr bgcolor="FDDFDB"><td  height="28" style="padding-left:6px">
-					
-						<img src="#SESSION.root#/images/status_alert1.gif"
-						   onclick="stepedit(ActionGoToNo.value)" 
-						   alt="No, denied" border="0" align="absmiddle">
-						   
-					</td>
-					<td style="height:35px;padding-left:6px" class="labelmedium">Label:</td>
-					<td style="padding-left:6px">
-					
-					      <input type="text"				       
-					       name="ActionGoToNoLabel" 
-						   id="ActionGoToNoLabel"
-						   value="#Get.ActionGoToNoLabel#" 
-	     				   size="25" 
-						   class="regularxxl"
-						   maxlength="40">
-						  					  
-						   
-				    </td>
-					<td style="padding-left:6px" class="labelmedium">Action:</td>
-					<td style="padding-left:6px;padding-right:4px">
-					<select style="width:270px"  name="ActionGoToNo" id="ActionGoToNo" class="regularxxl">
-					<option value="" selected>Undefined</option>
-					<cfloop query="GoTo">
-				    	<option value="#ActionCode#" <cfif ActionCode eq Get.ActionGoToNo> selected </cfif>>
-						<cfif ActionType eq "Action">A<cfelse>D</cfif>: #ActionCode# #ActionDescription#</option>
-		   			</cfloop>
-					</select>
-					</td></tr>
-			        </table>
-				</td></tr>
-			</table>
-			
-			<cfelse>			
-		
 			<table>
-				
-				<tr id="yesno" class="regular"><td></td>
-				    <td>
+			
+			<tr><td style="padding:4px">
+						
+				<cfif URL.PublishNo eq "">	
+						
+			    	<table cellspacing="0" cellpadding="0">
 					
-					<table>
-					
-						<tr><td height="1"></td></tr>
-						<tr bgcolor="CEFFCE">
-							
-							<td width="40%" class="labelmedium" style="height:35px;padding-left:6px">Track A</td>
-							<td height="24" class="labelit" style="padding-left:6px">Label:</td>
-							<td style="padding-left:8px"><input type="text" 
+					<tr id="yesno" class="regular"><td></td>
+					    <td><table>
+							<tr><td height="1"></td></tr>
+							<tr bgcolor="CEFFCE"><td width="40%"  height="28" style="padding-left:6px">
+								<img src="#SESSION.root#/images/status_ok1.gif" 
+							      alt="Yes, approved" border="0" 
+								  onclick="stepedit(ActionGoToYes.value)"
+							      align="absmiddle">
+							</td>
+							<td style="height:35px;padding-left:6px">Label:</td>
+							<td style="padding-left:6px">
+							      <input type="text" 
 							       name="ActionGoToYesLabel" 
 								   id="ActionGoToYesLabel"
 								   value="#Get.ActionGoToYesLabel#" 
-			     				   size="30" 
-								   width="90%"  class="regularxl"
+			     				   size="25" 
+								   class="regularxxl"
 								   maxlength="40">
-								   
-								   <input type="hidden" name="ActionGoToYes" value="#Get.ActionGoToYes#">
 						    </td>
-							<td style="padding-left:4px">
-							<cfif Get.ActionGoToYes eq "">
-							<cfelse>
-							<img src="#SESSION.root#/images/status_ok1.gif" onclick="stepedit('#Get.ActionGoToYes#')"
-								   alt="Go To" border="0" style="cursor: pointer;" align="absmiddle">
-							</cfif>
-							</td>
-						</tr>
-						
-						<tr><td height="1"></td></tr>						
-						<tr bgcolor="FDDFDB">
-							<td height="24" class="labelmedium" style="height:35px;padding-left:6px">Track B</td>
-							<td style="padding-left:6px" class="labelit">Label:</td>
-							<td style="padding-left:8px">
+							<td style="padding-left:6px"><font face="Calibri" size="2">Action:</td>
+							<td style="padding-left:6px;padding-right:4px">
+							<select style="width:270px" name="ActionGoToYes" id="ActionGoToYes" class="regularxxl">
+							<option value="" selected>Undefined</option>
+							<cfloop query="GoTo">
+						    	<option value="#GoTo.ActionCode#"
+								 <cfif ActionCode eq Get.ActionGoToYes>selected</cfif>>
+								 <cfif ActionType eq "Action">A<cfelse>D</cfif>: #ActionCode# #ActionDescription#</option>
+							</cfloop>
+							</select>
+							</td></tr>
+							<tr><td height="1"></td></tr>
+							<tr bgcolor="FDDFDB"><td  height="28" style="padding-left:6px">
 							
-							      <input type="text" 
+								<img src="#SESSION.root#/images/status_alert1.gif"
+								   onclick="stepedit(ActionGoToNo.value)" 
+								   alt="No, denied" border="0" align="absmiddle">
+								   
+							</td>
+							<td style="height:35px;padding-left:6px" class="labelmedium">Label:</td>
+							<td style="padding-left:6px">
+							
+							      <input type="text"				       
 							       name="ActionGoToNoLabel" 
 								   id="ActionGoToNoLabel"
 								   value="#Get.ActionGoToNoLabel#" 
-			     				   size="30"  class="regularxl"
+			     				   size="25" 
+								   class="regularxxl"
 								   maxlength="40">
+								  					  
 								   
-								    <input type="hidden" name="ActionGoToNo" value="#Get.ActionGoToNo#">
 						    </td>
-							<td style="padding-left:4px">
-							<cfif Get.ActionGoToNo eq "">
-							<cfelse>
-							<img src="#SESSION.root#/images/status_alert1.gif" 
-							   style="cursor: pointer;"
-							   onclick="stepedit('#Get.ActionGoToNo#')"
-							   alt="Go To" border="0" align="absmiddle">
-							</cfif>
-							</td>
-						</tr>
-						
-				        </table>
-						
-					</td></tr>
+							<td style="padding-left:6px" class="labelmedium">Action:</td>
+							<td style="padding-left:6px;padding-right:4px">
+							<select style="width:270px"  name="ActionGoToNo" id="ActionGoToNo" class="regularxxl">
+							<option value="" selected>Undefined</option>
+							<cfloop query="GoTo">
+						    	<option value="#ActionCode#" <cfif ActionCode eq Get.ActionGoToNo> selected </cfif>>
+								<cfif ActionType eq "Action">A<cfelse>D</cfif>: #ActionCode# #ActionDescription#</option>
+				   			</cfloop>
+							</select>
+							</td></tr>
+					        </table>
+						</td></tr>
+					</table>
 					
-			</table>
+					<cfelse>			
+				
+					<table>
+						
+						<tr id="yesno" class="regular"><td></td>
+						    <td>
 							
-		</cfif>
-		
-		</td>
-		</tr>
-					
-	<cfelse>
-		
-		<TR>
-		    <TD width="180" style="padding-left:10px;cursor:pointer" class="labelmedium"><a href="##" title="Label for the forward action">Action Submit Label:</TD>
-		    <TD>
-			<table width="100%" cellspacing="0" cellpadding="0">
-			<tr><td>
-			<cfinput type="Text" value="#Get.ActionGoToYesLabel#"  name="ActionGoToYesLabel" class="regularxxl" required="No" size="40" maxlength="40">
+							<table>
+							
+								<tr><td height="1"></td></tr>
+								<tr bgcolor="CEFFCE">
+									
+									<td width="40%" class="labelmedium" style="height:35px;padding-left:6px">Track A</td>
+									<td height="24" class="labelit" style="padding-left:6px">Label:</td>
+									<td style="padding-left:8px"><input type="text" 
+									       name="ActionGoToYesLabel" 
+										   id="ActionGoToYesLabel"
+										   value="#Get.ActionGoToYesLabel#" 
+					     				   size="30" 
+										   width="90%"  class="regularxl"
+										   maxlength="40">
+										   
+										   <input type="hidden" name="ActionGoToYes" value="#Get.ActionGoToYes#">
+								    </td>
+									<td style="padding-left:4px">
+									<cfif Get.ActionGoToYes eq "">
+									<cfelse>
+									<img src="#SESSION.root#/images/status_ok1.gif" onclick="stepedit('#Get.ActionGoToYes#')"
+										   alt="Go To" border="0" style="cursor: pointer;" align="absmiddle">
+									</cfif>
+									</td>
+								</tr>
+								
+								<tr><td height="1"></td></tr>						
+								<tr bgcolor="FDDFDB">
+									<td height="24" class="labelmedium" style="height:35px;padding-left:6px">Track B</td>
+									<td style="padding-left:6px" class="labelit">Label:</td>
+									<td style="padding-left:8px">
+									
+									      <input type="text" 
+									       name="ActionGoToNoLabel" 
+										   id="ActionGoToNoLabel"
+										   value="#Get.ActionGoToNoLabel#" 
+					     				   size="30"  class="regularxl"
+										   maxlength="40">
+										   
+										    <input type="hidden" name="ActionGoToNo" value="#Get.ActionGoToNo#">
+								    </td>
+									<td style="padding-left:4px">
+									<cfif Get.ActionGoToNo eq "">
+									<cfelse>
+									<img src="#SESSION.root#/images/status_alert1.gif" 
+									   style="cursor: pointer;"
+									   onclick="stepedit('#Get.ActionGoToNo#')"
+									   alt="Go To" border="0" align="absmiddle">
+									</cfif>
+									</td>
+								</tr>
+								
+						        </table>
+								
+							</td></tr>
+							
+					</table>
+									
+				</cfif>
+				
+				</table>
 			</td>
 			</tr>
-			</table>
-		</TR>	
-		
-	</cfif>
-	
-	</table>
-	</td>
-	</tr>
-	
+									
+		<cfelse>						
+			
+			<TR>
+			    <TD width="180" style="padding-left:10px;cursor:pointer" class="labelmedium"><a href="##" title="Label for the forward action">Action Submit Label:</TD>
+			    <TD>
+				<table width="100%" cellspacing="0" cellpadding="0">
+				<tr><td>
+				<cfinput type="Text" value="#Get.ActionGoToYesLabel#"  name="ActionGoToYesLabel" class="regularxxl" required="No" size="40" maxlength="40">
+				</td>
+				</tr>
+				</table>
+			</TR>	
+			
+			
+		</cfif>
+			
 	<!--- check if workflow itself is not already an embedded workflow. No recursive embedding --->
 		
 	<cfquery name="Check" 

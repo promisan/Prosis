@@ -74,7 +74,7 @@
 
 		<table width="100%" align="center" class="formpadding navigation_table"">
 					
-		<TR class="line labelmedium fixrow">
+		<TR class="line labelmedium2 fixrow">
 			<td></td>
 			<td></td>
   		    <td><cf_tl id="Entity"></td>
@@ -133,8 +133,7 @@
 							    FROM   Position
 							    WHERE  PositionNo = Pe.PositionNo					   
 						   ) as PositionParentId,	
-						   PE.DocumentNo,
-						   Pe.ContractNo,				  
+						   PE.DocumentNo,								  
 						   PE.OfficerFirstName, 
 						   PE.OfficerLastName, 
 						   PE.ActionStatus,		
@@ -169,7 +168,7 @@
 					 		 		
 					<cfloop query="EventsAll">
 					
-					<TR class="labelmedium navigation_row">		   
+					<TR class="labelmedium2 navigation_row">		   
 										
 						   <td style="padding-top:0px;padding-left:2px">
 						   		<cfif ActionStatus eq "0" or ActionStatus eq "1">
@@ -257,7 +256,7 @@
 					</TR>		
 				
 				    <cfif ActionDateEffective neq "" or ActionDateExpiration neq "" or remarks neq "">			
-						<tr class="labelmedium line" style="height:20px"><td colspan="2"></td>
+						<tr class="labelmedium2 line" style="height:20px"><td colspan="2"></td>
 							<td colspan="3">#remarks#</font></td>					
 							<td style="padding-left:4px" valign="top">
 								#dateformat(ActionDateEffective,client.dateformatshow)#	

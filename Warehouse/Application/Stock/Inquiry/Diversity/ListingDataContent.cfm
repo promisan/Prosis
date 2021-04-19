@@ -275,7 +275,7 @@
 	listorderalias      = "I"
 	listorderdir        = "ASC"
 	headercolor         = "ffffff"
-	show                = "35"		
+	show                = "200"		
 	menu                = "#menu#"
 	filtershow          = "Yes"
 	excelshow           = "Yes" 	

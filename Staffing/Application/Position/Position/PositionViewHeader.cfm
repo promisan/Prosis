@@ -7,7 +7,7 @@ function reload() {
 }
 
 function ShowPicture(itm) {
-	window.open("ItemPicture_FileForm.cfm?ID=" + itm, "PhotoWindow", "width=550, height=300, scrollbars=no, resizable=no");
+	ptoken.open("ItemPicture_FileForm.cfm?ID=" + itm, "PhotoWindow", "width=550, height=300, scrollbars=no, resizable=no");
 }
 
 </script>
@@ -40,7 +40,7 @@ SELECT *
   
     <cfoutput>
 	
-    <td height="26" width="70%" class="labelmedium">			
+    <td height="26" width="70%" class="labelmedium2">			
 		#Position.SourcePostNumber# #Position.FunctionDescription# #Position.PostGrade# (#Position.PositionNo#)			
     </td>
 	
@@ -97,9 +97,8 @@ SELECT *
   <tr>
     <td width="100%" colspan="2" bgcolor="ffffff" style="padding:5px;border-left:3px solid gray">
 	
-    <table border="0" align="center" cellpadding="0" cellspacing="0" width="98%">
-		
-		  
+    <table border="0" align="center" width="98%">
+				  
 	  <tr>
         <td style="height:20px;padding-top:5px" valign="top" height="18" class="labelit"><cf_tl id="Organization">:</td>
 		
@@ -194,17 +193,17 @@ SELECT *
 	   
 	   <cfoutput> 
     
-      <tr>
-        <td style="height:20px" height="18" class="labelit" width="17%"><cf_tl id="Function">:</td>
-        <td style="height:20px" colspan="3">
+      <tr class="labelmedium2">
+        <td width="17%"><cf_tl id="Function">:</td>
+        <td colspan="3">
 		
 		    <table>
-			<tr>			
-			<td class="labelmedium"><a href="javascript:EditPosition('#Position.Mission#','#Position.MandateNo#','#Position.PositionNo#')">
+			<tr class="labelmedium2">			
+			<td><a href="javascript:EditPosition('#Position.Mission#','#Position.MandateNo#','#Position.PositionNo#')">
 			    #Position.PostGrade# #Position.FunctionDescription#</a>
 			</td>			
-			<td style="padding-left:10px;height:20px" height="18" class="labelit"><cf_tl id="Post type">:</td>			
-	        <td style="padding-left:5px;height:20px" colspan="3" class="labelmedium">#Position.PostType#</td>
+			<td style="padding-left:10px;height:20px"><cf_tl id="Post type">:</td>			
+	        <td style="padding-left:5px;height:20px" colspan="3">#Position.PostType#</td>
 	
 			<cfif Position.SourcePostNumber neq "">
 			
@@ -216,7 +215,7 @@ SELECT *
 					
 					<td style="padding-left:10px" class="labelmedium">
 				
-					<font color="0080FF">#Position.Source#</font>&nbsp;
+					#Position.Source#&nbsp;
 				
 					<cf_customLink
 					   FunctionClass = "Staffing"
@@ -241,9 +240,9 @@ SELECT *
 	   
 	  <cfoutput> 
 	  
-	  <tr>
-	    <td style="height:20px" height="18" class="labelit"><cf_tl id="Location">:</td>
-        <td style="height:20px" colspan="2" align="left" class="labelmedium">
+	  <tr class="labelmedium2">
+	    <td><cf_tl id="Location">:</td>
+        <td colspan="2" align="left">
 		<cfif Position.LocationCode eq ""><cf_tl id="not defined"><cfelse>
 		
 			<cfquery name="Location" 
@@ -259,14 +258,14 @@ SELECT *
 	  </td>
 	  </tr>
 	   
-	  <tr>
-        <td style="height:20px" height="18" class="labelit"><cf_tl id="Class">:</td>
-        <td style="height:20px" colspan="2" class="labelmedium">#Position.PostClass#</td>
+	  <tr class="labelmedium2">
+        <td><cf_tl id="Class">:</td>
+        <td colspan="2">#Position.PostClass#</td>
 	 </tr>
 	 	 	  	  	  
-	  <tr>
-        <td style="height:20px" height="18" class="labelit"><cf_tl id="Effective">:</td>
-        <td style="height:20px" colspan="2" class="labelmedium">#Dateformat(Position.DateEffective, CLIENT.DateFormatShow)#
+	  <tr class="labelmedium2">
+        <td><cf_tl id="Effective">:</td>
+        <td colspan="2">#Dateformat(Position.DateEffective, CLIENT.DateFormatShow)#
 		- #Dateformat(Position.DateExpiration, CLIENT.DateFormatShow)#
 		</td>
       </tr>

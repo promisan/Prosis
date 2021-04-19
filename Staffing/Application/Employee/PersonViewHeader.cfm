@@ -60,7 +60,7 @@
 	WHERE    R.SystemFunction in ('Staffing' ,'Attendance')
 	AND      A.UserAccount = '#SESSION.acc#'
 </cfquery> 
- 
+
 <cfif Officer eq "READ" or Officer eq "EDIT" or Officer eq "ALL" or Manager eq "ALL" 
 	 or Access.Recordcount eq "1"
 	 or CLIENT.PersonNo eq TRIM(URL.ID)
@@ -101,8 +101,8 @@
 	
          </cfif>         
          
-      </cfif>      
-      	
+      </cfif>     
+	        	
       <cfquery name="LastGrade" 
 	     datasource="AppsEmployee" 		
 		 username="#SESSION.login#" 
@@ -200,7 +200,7 @@
                               <td class="labelit" style="padding-top:1px"><font color="808080"><cf_tl id="Gender">:</td>   
                               <td class="labelmedium" style="height:20px"><cfif Employee.Gender eq "M"><cf_tl id="Male"><cfelse><cf_tl id="Female"></cfif></td>   
                            </tr>   
-                          
+						                             
                            <cfif access100 eq "EDIT" or access100 eq "ALL" or access000 eq "EDIT" or access000 eq "ALL" or url.mode eq "workflow">                              
         	                                            
                            <tr>   
@@ -239,7 +239,7 @@
 							  </td>
 							  
                            </tr>   
-						   
+						   						   
 						   <cfquery name="Recruitment" 
 						      datasource="AppsSystem" 
 							  maxrows="1" 
@@ -266,6 +266,7 @@
                            </tr>  
 						   </cfif>
 						   
+						   						   
 						   <cfif url.header eq "1">
 						   
 						   <tr>
@@ -333,6 +334,8 @@
 									</table>	                            
 																 
 								</cfif>  
+								
+								<cfoutput>5.#now()#</cfoutput>
                             
                            </td>   
 						   
@@ -367,7 +370,7 @@
 							      </cfquery>		                            
                                  													   
 						   </cfif>	
-						   
+						   						   
 						   <cfif user.recordcount eq "0">
 						   
 						       --
@@ -436,7 +439,8 @@
 						   
 						   </cfif>
 						   
-						   </cfoutput>						   
+						   </cfoutput>	
+						 	   
 						                                     	  
                      </table>   
    	  
@@ -453,8 +457,7 @@
 					 	 <cfif employee.eMailaddress eq "">
 					 	 <tr>   
            
-                              <td class="labelit"><font color="808080"><cf_tl id="Corporate mail">:</td>   
-           
+                              <td class="labelit"><font color="808080"><cf_tl id="Corporate mail">:</td>              
                               <td class="labelmedium" style="height:20px;font-size:14px">
                                  <cfoutput query="Employee">#eMailAddress#</cfoutput>
                              </td>   
@@ -516,8 +519,7 @@
 							  
 							  </tr>
 							  </table>
-							  </td>
-								
+							  </td>								
    	   
                            </tr>                             	  	                    
 						     	       		
@@ -556,7 +558,7 @@
 										 </cfif>	  
 								                              			
                            </cfquery>
-                             			
+						   						                                			
                            <cfoutput query="group" maxrows=7>
                             			    
                               <tr>   
@@ -576,14 +578,14 @@
 									  maxrows="1" 
 									  username="#SESSION.login#" 
 									  password="#SESSION.dbpw#">
-									    SELECT     EAS.ActionFieldValue, EA.ActionDate
-										FROM       EmployeeActionSource AS EAS INNER JOIN
-										           EmployeeAction AS EA ON EAS.ActionDocumentNo = EA.ActionDocumentNo
-										WHERE      EAS.PersonNo = '#Employee.PersonNo#' 
-										AND        EAS.ActionStatus = '9' 
-										AND        EA.ActionCode = '#ActionCode#'
-										ORDER BY   EAS.ActionDocumentNo DESC							  
-									  </cfquery>
+										    SELECT     EAS.ActionFieldValue, EA.ActionDate
+											FROM       EmployeeActionSource AS EAS INNER JOIN
+											           EmployeeAction AS EA ON EAS.ActionDocumentNo = EA.ActionDocumentNo
+											WHERE      EAS.PersonNo = '#Employee.PersonNo#' 
+											AND        EAS.ActionStatus = '9' 
+											AND        EA.ActionCode = '#ActionCode#'
+											ORDER BY   EAS.ActionDocumentNo DESC							  
+									 </cfquery>
 								  
 								   <cfif Prior.recordcount gte "1">							  
 									  <td style="padding-left:4px">(#Prior.ActionFieldValue# <i><cf_tl id="until">:</i> #dateformat(Prior.ActionDate,client.dateformatshow)#)</td>							  
@@ -607,6 +609,8 @@
 				  
 				  <!--- Contact cell --->
 				  
+				  
+				  
 				  <td valign="top" style="padding:4px;padding-right:10px">
 				  				  
 					<cfquery name="Address" 
@@ -619,7 +623,7 @@
 						AND      AddressType = '#Param.AddressType#' 
 						ORDER BY DateExpiration DESC
 					</cfquery>
-					
+										
 					<cfoutput query="Address">
 					
 					 <table width="100%" cellspacing="0" cellpadding="0"  border="0"> 
@@ -700,10 +704,10 @@
 				 				  
 				  <!--- ------------ --->
 				  <!--- picture cell --->
-				 
+				  		 
 				    	                       	  		
                   <td height="112" align="center" style="border:0;width:140px;padding:8px" valign="top" id="Pic"
-				  onclick="$('##picturedialog').slideDown(300);ColdFusion.navigate('#session.root#/Portal/Photo/PhotoUpload.cfm?mode=staffing&fileName=#nme#','picturedialog')">   
+				  onclick="$('##picturedialog').slideDown(300);ptoken.navigate('#session.root#/Portal/Photo/PhotoUpload.cfm?mode=staffing&fileName=#nme#','picturedialog')">   
 				  				
 				   <cfset url.PictureHeight = Param.PictureHeight>
 				   <cfset url.PictureWidth  = Param.PictureWidth>
@@ -713,9 +717,9 @@
 				   <cfset url.personNo      = PersonNo>
 				   <cfset url.reference     = Reference>
 				   <cfset url.indexNo       = IndexNo>
-				   
-   			       	<cfinclude template="PersonPicture/PersonViewPicture.cfm">		           											        
-                   
+				   				   
+   			       <cfinclude template="PersonPicture/PersonViewPicture.cfm">		           											        
+				                     
 				   <!---     <cfdiv id="divPictureCell" style="height:100%;min-height:100%" 
 						bind="url:#session.root#/Staffing/Application/Employee/PersonPicture/PersonViewPicture.cfm?PersonNo=#PersonNo#&mode=staffing&indexNo=#indexNo#&reference=#reference#&PictureHeight=#Param.PictureHeight#&PictureWidth=#Param.PictureWidth#&scope=#url.scope#">  		                       
 						--->
@@ -724,8 +728,8 @@
     	 
                   </cfoutput>
                	  
-      </tr> 
-	 	  
+      </tr> 	  
+	  	 	  
 	 <cfif url.header eq "1" >
 	  		
 		 <cfif url.scope eq "BackOffice">
@@ -736,7 +740,7 @@
 		 </cfif> 
 	 
 	 </cfif>
-		  		  
+	 		  		  
    </table> 	
    
 <cfelse>

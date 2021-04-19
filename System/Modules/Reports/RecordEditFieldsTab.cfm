@@ -60,7 +60,7 @@
 		       		and workflow.recordcount neq "0" 
 					   and master eq "1">
 					   
-					      <cfajaximport tags="cfmenu,cfdiv,cfwindow">
+					      <cfajaximport tags="cfdiv">
 				          <cf_ActionListingScript>
 						  
 						  <cfset wflnk = "RecordEditFieldsWorkflow.cfm">

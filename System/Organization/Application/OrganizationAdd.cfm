@@ -6,7 +6,7 @@
 <cfparam name="URL.Source" default="">
 
 <cf_dialoglookup>
-<cfajaximport tags="cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 <cf_calendarscript>
 
 <script>
@@ -208,7 +208,7 @@ password="#SESSION.dbpw#">
 			 message="#vOrgUnitMessage#" 
 			 required="Yes" 
 			 size="20" 
-			 onchange="ColdFusion.navigate('OrganizationCheck.cfm?mission=#url.id1#&orgunitcode='+this.value,'check')"
+			 onchange="ptoken.navigate('OrganizationCheck.cfm?mission=#url.id1#&orgunitcode='+this.value,'check')"
 			 maxlength="20" 
 			 class="regularxl enterasclass">
 	</td>

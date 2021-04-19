@@ -11,8 +11,10 @@
 	banner="gray" 
 	bannerforce="Yes">
 	
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" class="formpadding">
-<tr><td width="100%" height="100%" style="overflow:hidden">
+<table width="100%" height="100%" class="formpadding">
+
+<tr>
+<td width="100%" height="100%" style="overflow:hidden">
 
 <cfoutput>
 
@@ -29,8 +31,7 @@
 <cfparam name="url.fnselected"      default="">
 <cfparam name="url.showadd"         default="1">
 
-<iframe name="result" id="result"
-      src="LookupSearchSelect.cfm?FormName=#URL.FormName#&fldpersonno=#URL.fldpersonno#&fldindexno=#URL.fldindexno#&fldlastname=#URL.fldlastname#&fldfirstname=#URL.fldfirstname#&fldfull=#URL.fldfull#&flddob=#URL.flddob#&fldnationality=#URL.fldnationality#&OrgUnit=#URL.OrgUnit#&Mission=#url.mission#&fnselected=#url.fnselected#&showadd=#url.showadd#&mid=#mid#" width="100%" height="100%" frameborder="0"></iframe>
+<iframe src="LookupSearchSelect.cfm?FormName=#URL.FormName#&fldpersonno=#URL.fldpersonno#&fldindexno=#URL.fldindexno#&fldlastname=#URL.fldlastname#&fldfirstname=#URL.fldfirstname#&fldfull=#URL.fldfull#&flddob=#URL.flddob#&fldnationality=#URL.fldnationality#&OrgUnit=#URL.OrgUnit#&Mission=#url.mission#&fnselected=#url.fnselected#&showadd=#url.showadd#&mid=#mid#" name="result" id="result" width="100%" height="98.5%" scrolling="no" frameborder="0"></iframe>
 
 </cfoutput>	  
 </td></tr>

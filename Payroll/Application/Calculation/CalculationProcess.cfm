@@ -320,11 +320,9 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 		AND      M.SalarySchedule = S.SalarySchedule
 		
 		ORDER BY P.PayrollStart,P.SalarySchedule	
-		
-		
-											
+												
 	</cfif>	
-						
+							
 </cfquery>	
 
 <cfif Calculation.recordcount eq 0>
@@ -358,7 +356,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 		 password="#SESSION.dbpw#">
 			    UPDATE CalculationLog 
 				SET    ActionStatus = '9',
-				       ActionMemo   = 'There is nothing calculate for this person'
+				       ActionMemo   = 'Nothing to calculate for person in entity #url.mission#'
 				WHERE  ProcessNo    = '#url.processno#'				
 		</cfquery>
 				
@@ -677,9 +675,9 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 		<cf_progress name="Overtime">		 
 		
 			<!--- overtime calculation --->
-			<cfinclude template="EntitlementOvertime.cfm"> 					 
-						
-		<cf_progress name="Entitlement">
+			<cfinclude template="EntitlementOvertime.cfm"> 	
+								
+		<cf_progress name="Entitlement Personal">
 									
 				<!--- rate and percentage based entitlements --->
 				<cfinclude template="EntitlementPayroll.cfm"> 	
@@ -687,7 +685,14 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 				<!--- PENDING : Day correction/SLWOP is period neq contract --->
 				
 				<cfinclude template="EntitlementPayrollIndividual.cfm">	
-								
+				
+		<cf_progress name="Incidental Cost">	
+					 									
+				<!--- miscellaneous costs --->
+				<cfinclude template="EntitlementMiscellaneous.cfm"> 			
+
+		<cf_progress name="Entitlement">								
+		
 				<cfset settle="Current">	
 		
 				<cf_CalculationProcessProgressInsert
@@ -695,49 +700,46 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 					ProcessBatchId = "#calculationid#"			
 					Description    = "Entitlements, calculated on current period"> 
 			
+			    <!--- rates ---> 
 				<cfinclude template="EntitlementPayrollRate.cfm">					
-				<cfinclude template="EntitlementPayrollPercentage.cfm">
-					
-		<cf_progress name="Incidental Cost">		 
-									
-		<!--- miscellaneous costs --->
-				<cfinclude template="EntitlementMiscellaneous.cfm"> 				
 				
-					
-			<!--- special calculation for running entitlement like annual bonus / vakantie geld --->
-			<!--- ATTENTION this has to be adjusted to the SalaryScaleComponent table to be more independent --->
+				<!--- percentages --->				
+				<cfinclude template="EntitlementPayrollPercentage.cfm">
+							
+				<!--- special calculation for running entitlement like annual bonus / vakantie geld --->
+				<!--- ATTENTION this has to be adjusted to the SalaryScaleComponent table to be more independent --->
 			
-			<cfquery name="Special" 
-				datasource="AppsPayroll" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT DISTINCT SalaryTrigger 
-					FROM   SalaryScheduleComponent C, Ref_PayrollComponent R
-					WHERE  SalarySchedule = '#Form.Schedule#' 
-					AND    EntitlementRecurrent = 0	
-					AND    C.ComponentName = R.Code			
-			</cfquery>
+				<cfquery name="Special" 
+					datasource="AppsPayroll" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT DISTINCT SalaryTrigger 
+						FROM   SalaryScheduleComponent C, Ref_PayrollComponent R
+						WHERE  SalarySchedule = '#Form.Schedule#' 
+						AND    EntitlementRecurrent = 0	
+						AND    C.ComponentName = R.Code			
+				</cfquery>
 			
-			<cfloop query="Special">
+				<cfloop query="Special">
 			
 				<cfset nme = replace(SalaryTrigger,  " ",  "" , "ALL")> 
 				<!---
 				<cftry> 
 				--->
 				
-				<cf_CalculationProcessProgressInsert
-				ProcessNo      = "#url.processno#"
-				ProcessBatchId = "#calcid#"					   		
-				Description    = "#SalaryTrigger#"> 
+					<cf_CalculationProcessProgressInsert
+					ProcessNo      = "#url.processno#"
+					ProcessBatchId = "#calcid#"					   		
+					Description    = "#SalaryTrigger#"> 
 				
-				<cfinclude template="Special/#nme#.cfm">
+					<cfinclude template="Special/#nme#.cfm">
 				
 				<!---
 				<cfcatch><table><td><font color="FF0000">#ComponentName#</font> skipped</td></table></cfcatch>
 				</cftry>
 				--->			
 				
-			</cfloop>		
+				</cfloop>		
 			
 			<!--- add function to correct for sickleave with deduction in payment 
 			which is for UN purpose only for now --->

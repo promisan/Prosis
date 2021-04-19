@@ -1,11 +1,13 @@
 
 <cf_listingscript>
 
-<cf_screentop height="100%" scroll="Yes" html="No">
+<cf_screentop height="100%" scroll="Yes" html="No" jquery="Yes">
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 	<tr><td valign="top" height="100%" style="padding-top:4px">
-		<cfdiv style="height:100%" bind="url:FolderListDetail.cfm?dir=#url.dir#&CFTREEITEMKEY=#url.CFTREEITEMKEY#" id="mylisting">
+		<cf_securediv style="height:100%" 
+		     bind="url:FolderListDetail.cfm?dir=#url.dir#&CFTREEITEMKEY=#url.CFTREEITEMKEY#&systemfunctionid=#url.systemfunctionid#" 
+			 id="mylisting">
 	</td></tr>
 	
 	<tr><td height="1" class="linedotted"></td></tr>

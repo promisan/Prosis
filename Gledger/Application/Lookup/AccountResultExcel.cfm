@@ -15,7 +15,7 @@
 					   L.Currency, 
 					   A.TransactionDate, 
 					   A.AccountPeriod,
-					   A.Created
+					   A.Created,
 					   L.GLAccount AS GLAccount, 					   
 					   SUM(L.AmountDebit) AS AmountDebit, 
 					   SUM(L.AmountCredit) AS AmountCredit, 

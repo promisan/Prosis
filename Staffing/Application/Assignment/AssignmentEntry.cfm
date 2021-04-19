@@ -189,8 +189,7 @@ password="#SESSION.dbpw#">
 		</cfquery>
 			
 		<cfif URL.PersonNo eq "" and Check.PersonNo eq "">
-			
-		    <cfajaximport tags="cfWindow">
+					   
 		
 			<cfset link = "#SESSION.root#/staffing/application/Assignment/getEmployee.cfm?PositionNo=#url.id#&insert=yes">	
 		

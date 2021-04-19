@@ -47,7 +47,7 @@
 				</table>
 			</td>
 			<td valign="top" height="100%">
-				<cfdiv 
+				<cf_securediv 
 					id="divPositionPayrollListing"
 					style="height:100%;" 
 					bind="url:#session.root#/Staffing/Application/Position/Funding/PositionPayrollSettlement.cfm?systemfunctionid=#url.systemfunctionid#&positionno=#url.positionno#">

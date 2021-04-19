@@ -12,7 +12,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cf_textareascript>
-<cfajaximport tags="cfform,cfdiv,cfwindow">
+<cfajaximport tags="cfform,cfdiv">
 <cf_dialogorganization>
 <cf_dialoglookup>
 
@@ -40,10 +40,7 @@ password="#SESSION.dbpw#">
 	
 	<cf_menuscript>
 			
-			<table width="97%"
-		       border="0"
-		       cellspacing="0"
-		       cellpadding="0"
+			<table width="97%"		      
 		       align="center"><tr>
 			   
 			    <cfset wd = "64">
@@ -168,12 +165,6 @@ password="#SESSION.dbpw#">
 </cf_divscroll>	
 	
 <cf_screenbottom layout="webapp">	
-
-<!--- incompatible/old approach
-<script>
-	document.getElementById("menu1").click()
-</script>
---->
 
 
   	

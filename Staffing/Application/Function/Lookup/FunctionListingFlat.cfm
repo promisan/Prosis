@@ -4,6 +4,8 @@
 <cfparam name="URL.Mission" default="#URL.ID2#">
 <cfparam name="URL.Mandate" default="#URL.ID3#">
 <cfparam name="URL.FormName" default="">
+<cfparam name="URL.fldfunctionno"          default="functionno">
+<cfparam name="URL.fldfunctiondescription" default="functiondescription">
 
 <cf_screentop html="No" jquery="Yes">
 
@@ -94,9 +96,10 @@ password="#SESSION.dbpw#">
 	ORDER BY F.FunctionDescription
 </cfquery>
 
+
 	<table align="center" style="width:97%" class="navigation_table formpadding">
 	
-	<TR class="labelmedium line fixrow">
+	<TR class="labelmedium2 line fixrow">
 	    <td width="30" height="20"></td>
 	    <TD><cf_tl id="Id"></TD>
 		<TD><cf_tl id="Description">"</TD>
@@ -108,7 +111,7 @@ password="#SESSION.dbpw#">
 		
 		<CFSET des = Replace("#FunctionDescription#", "'", "", "ALL" )> 
 		
-		<TR class="navigation_row line labelmedium">
+		<TR class="navigation_row line labelmedium2">
 			<td align="center" style="padding-top:3px">
 				<cf_img icon="select" navigation="Yes" onclick="javascript:Selected('#FunctionNo#','#des#','#url.fldfunctionno#','#url.fldfunctiondescription#')">
 			</td>

@@ -24,6 +24,7 @@ password="#SESSION.dbpw#">
 		WHERE	1 = 0
 </cfquery>
 
+<cf_divscroll>
 
 <table width="100%" height="100%">
 
@@ -52,8 +53,8 @@ password="#SESSION.dbpw#">
 			           id      = "Save"
 					   Value   = "Save"
 					   class   = "button10g" 
-					   style   = "width:150;height:26"
-					   onclick = "ColdFusion.navigate('ServiceLineForm.cfm?openmode=dialog&tabno=#url.tabno#&systemfunctionid=#url.systemfunctionid#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&mode=save','submitbox','','','POST','customform')")>
+					   style   = "width:180;height:28"
+					   onclick = "ptoken.navigate('ServiceLineForm.cfm?openmode=dialog&tabno=#url.tabno#&systemfunctionid=#url.systemfunctionid#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&mode=save','submitbox','','','POST','customform')")>
 					
 				</td>
 			</tr>
@@ -71,4 +72,6 @@ password="#SESSION.dbpw#">
 </td>
 </tr>
 </table>	
+
+</cf_divscroll>
 

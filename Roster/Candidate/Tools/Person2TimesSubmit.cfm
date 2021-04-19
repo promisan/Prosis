@@ -253,8 +253,17 @@ but only for documentNo that do not have already an occurance with the base (A).
 			AND    A.IndexNo NOT IN (SELECT IndexNo FROM Employee.dbo.Person WHERE IndexNo = A.IndexNo)	
 		</cfquery>	
 	
-	</cfif>	
-	
+	</cfif>
+
+	<cfquery name="qUpdateAction"
+			datasource="appsSelection" username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+		UPDATE ApplicantAction
+		SET PersonNo= '#Form.Correct#'
+		WHERE  PersonNo = '#Form.Wrong#'
+	</cfquery>
+
+
 	<cfquery name="Step8" 
 	datasource="appsSelection" username="#SESSION.login#" 
 		password="#SESSION.dbpw#">

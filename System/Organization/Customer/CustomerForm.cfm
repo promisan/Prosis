@@ -26,7 +26,7 @@
 	
 </cfoutput>
 
-<cfajaximport tags="cfform,cfwindow,cfdiv,cfinput-datefield">
+<cfajaximport tags="cfform,cfdiv">
 
 <cfquery name="Get" 
 	datasource="#url.dsn#"

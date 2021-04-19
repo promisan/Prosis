@@ -22,6 +22,8 @@ password="#SESSION.dbpw#">
 <table style="width:100%">
 	<tr style="height:20px">
 	
+	<cfparam name="hasTrack" default="1"> 
+	
 	<cfif hasTrack eq "0">
 			
 		<td style="width:100%"> 

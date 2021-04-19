@@ -165,9 +165,9 @@
 	}	
 	
 	function gettimesheet(po) {
-   	    try { ColdFusion.Window.destroy('timesheet',true); } catch(e){};			
+   	    	
 		w = document.body.clientWidth-50										
-		ColdFusion.Window.create('timesheet', 'Timesheet', '#session.root#/Procurement/Application/PurchaseOrder/Timesheet/TimeSheet.cfm?purchaseno='+po,{x:30,y:30,height:document.body.clientHeight-50,width:w,resizable:false,modal:true,center:true});	
+		ProsisUI.createWindow('timesheet', 'Timesheet', '#session.root#/Procurement/Application/PurchaseOrder/Timesheet/TimeSheet.cfm?purchaseno='+po,{x:30,y:30,height:document.body.clientHeight-50,width:w,resizable:false,modal:true,center:true});	
 	}
 			
 	function more(bx,act,bx2) {
@@ -202,16 +202,16 @@
 		 
 		function present(mode) {
 			     		  		  
-			  w = #CLIENT.width# - 100;
-			  h = #CLIENT.height# - 140;
+			 w = #CLIENT.width# - 100;
+			 h = #CLIENT.height# - 140;
 			  
-			  docid = document.getElementById("printdocumentid").value
+			 docid = document.getElementById("printdocumentid").value
 			  		  
-			  if (docid != "") {			   
+			 if (docid != "") {			   
 				  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
-			  } else {
+			 } else {
 			      ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?templatepath=#tmp#&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")		 
-			  }	  
+			 }	  
 	  	} 			
 		
 			

@@ -68,6 +68,7 @@
 <cf_calendarscript>
 <cf_dialogOrganization>
 <cf_PresenterScript>
+<cf_filelibraryscript>
 	
 <cfoutput>
 
@@ -95,8 +96,9 @@
    
    function classificationvalidate() {
    
+       _cf_loadingtexthtml='';	
 	   document.frmTopics.onsubmit() 
-	   if( _CF_error_messages.length == 0 ) {
+	   if( _CF_error_messages.length == 0 ) {	       
            ptoken.navigate('Classification/ItemClassificationSubmit.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#','contentbox2','','','POST','frmTopics')
 	   }   
    
@@ -347,6 +349,17 @@
 							name       = "#lt_text#"
 							source     = "Classification/ItemClassification.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#">
 			</cfif>
+			
+			 <cfset itm = itm+1>
+				<cf_tl id = "Other document" var = "1">
+				<cf_menutab item       = "#itm#" 
+				            iconsrc    = "Logos/System/Attachment.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#"
+							targetitem = "2" 
+							padding    = "0"
+							name       = "#lt_text#"
+							source     = "Attachment/ItemAttachment.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#">
 			
 			<!---
 			<cfset itm = itm+1>

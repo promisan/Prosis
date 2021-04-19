@@ -11,7 +11,7 @@
 			  label="Edit title" 
 			  banner="gray" 
 			  bannerforce="Yes" 
-			  html="Yes"
+			  html="No"
 			  close = "parent.ColdFusion.Window.hide('EditEditionPosition'); parent.reloadPosition('#url.PositionNo#','#url.submissionEdition#')" 
 			  scroll="Yes">
 
@@ -64,13 +64,13 @@ password="#SESSION.dbpw#">
 </cfif>
  
 	
-	<table width="95%" height="100%" align="center" class="formpadding">
+	<table width="95%" height="100%" align="center">
 	
-		<tr><td height="40">
+		<tr><td>
 					
-			<table width="97%" height="100%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">		  		
+			<table width="97%" height="100%" border="0" align="center">		  		
 							
-				<cfset ht = "30">
+				<cfset ht = "40">
 				<cfset wd = "40">
 						
 				<tr>							
@@ -80,7 +80,7 @@ password="#SESSION.dbpw#">
 									iconwidth  = "#wd#" 
 									iconheight = "#ht#" 
 									class      = "highlight1"
-									name       = "Edition position"
+									name       = "Position title"
 									source     = "PositionEditionTitle.cfm?positionno=#url.positionno#&submissionedition=#url.submissionedition#">	
 						
 						<cfset itm = 1>
@@ -112,13 +112,9 @@ password="#SESSION.dbpw#">
 			
 			<cf_divscroll style="height:100%">
 						
-			<table width="96%" 
-			      border="0"
-				  height="100%"
-				  cellspacing="0" 
-				  cellpadding="0" 
-				  align="center" 
-			      bordercolor="d4d4d4">	  	 		
+			<table width="96%" 			     
+				  height="100%"				  
+				  align="center">	  	 		
 								
 					<cf_menucontainer item="1" class="regular">								
 											

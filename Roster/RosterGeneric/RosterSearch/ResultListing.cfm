@@ -404,7 +404,7 @@
 				 
 				 </td>		
 				 
-			     <TD height="24">
+			     <TD height="24" style="padding-left:6px">
 				 
 					 <a href="javascript:ShowCandidate('#PersonNo#')" title="View candidate profile" class="navigation_action">					
 					 <cfif PersonStatus neq 0>
@@ -774,18 +774,18 @@
 							
 							</cfoutput>
 						
-						    <input type="submit" 
-								name="ExportExcel"
-								class="button10g"		 
-								style="width:140;height:25" 
-								value="<cfoutput>#tExport#</cfoutput>">
+						    <input type = "submit" 
+								name    = "ExportExcel"
+								class   = "button10g"		 
+								style   = "width:140;height:25" 
+								value   = "<cfoutput>#tExport#</cfoutput>">
 											
-							<input type="button" 
-							     name="Broadcast Mail" 
-								 onclick="broadcast('#url.docno#')" 
-								 class="button10g"		
-								 style="width:140;height:25"
-								 value="Broadcast Mail">
+							<input type  = "button" 
+							     name    = "Broadcast Mail" 
+								 onclick = "broadcast('#url.docno#')" 
+								 class   = "button10g"		
+								 style   = "width:140;height:25"
+								 value   = "Broadcast Mail">
 											   
 						</cfif> 
 						

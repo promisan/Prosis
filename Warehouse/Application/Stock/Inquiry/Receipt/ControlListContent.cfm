@@ -50,6 +50,11 @@ password="#SESSION.dbpw#">
 <cfsavecontent variable="myquery">
 
 	<cfoutput>	   
+	
+	SELECT * 
+	  --,DeliveryDate
+	  --,TransactionDate
+	FROM (
 		
 	SELECT     WL.Description, 
 	           W.WarehouseName,
@@ -85,7 +90,15 @@ password="#SESSION.dbpw#">
 		
 	</cfif>
 	
+	WHERE   T.Warehouse = '#url.warehouse#'
+	
+	) as D
+	WHERE 1=1
+	--condition
+	
+	<!---
 	WHERE   T.Mission = '#url.mission#'
+	--->
 			
 	</cfoutput>	
 	
@@ -95,6 +108,7 @@ password="#SESSION.dbpw#">
 
 <cfset fields=ArrayNew(1)>
 
+    <!---
 	<cfset itm = itm+1>		
 	<cf_tl id="Facility" var = "1">		
 	<cfset fields[itm] = {label     = "#lt_text#",                    
@@ -102,6 +116,8 @@ password="#SESSION.dbpw#">
 						alias       = "",																			
 						search      = "text",
 						filtermode  = "2"}>	
+						
+	--->					
 
 	<cfset itm = itm+1>	
 	<cf_tl id="Location" var = "1">		
@@ -112,15 +128,16 @@ password="#SESSION.dbpw#">
 						filtermode  = "2"}>				
 	
 	
-						
+	<!---					
 	<cfset itm = itm+1>
 	<cf_tl id="Delivery" var = "1">				
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "DeliveryDate",					
-						alias       = "",		
+						column      = "month",	
 						align       = "center",		
 						formatted   = "dateformat(DeliveryDate,CLIENT.DateFormatShow)",																	
-						search      = "date"}>							
+						search      = "date"}>		
+						--->					
 						
 	<cfset itm = itm+1>
 	<cf_tl id="ReceiptNo" var = "1">			
@@ -130,10 +147,10 @@ password="#SESSION.dbpw#">
 						search      = "text"}>		
 						
 	<cfset itm = itm+1>
-	<cf_tl id="Stock Date" var = "1">				
+	<cf_tl id="Date" var = "1">				
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "TransactionDate",					
-						alias       = "",		
+						column      = "month",	
 						align       = "center",		
 						formatted   = "dateformat(TransactionDate,CLIENT.DateFormatShow)",																	
 						search      = "date"}>	
@@ -172,8 +189,7 @@ password="#SESSION.dbpw#">
 	<cf_tl id="Quantity" var = "1">							
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "TransactionQuantity",	
-						align       = "right",				
-						alias       = "",											
+						align       = "right",																			
 						formatted   = "numberformat(TransactionQuantity,'[precision]')",							
 						precision   = "ItemPrecision",													
 						search      = ""}>								
@@ -203,11 +219,11 @@ password="#SESSION.dbpw#">
 		<cfset fields[itm] = {label     = "#lt_text#",                    
 		     				field       = "ReceiptAmount",					
 							align       = "right",
-							alias       = "",					
+							aggregate   = "sum",											
 							formatted   = "numberformat(ReceiptAmount,',.__')",														
 							search      = ""}>	
 						
-	</cfif>																																		
+	</cfif>																													
 																											
 		
 <cfset menu=ArrayNew(1)>	
@@ -230,7 +246,7 @@ password="#SESSION.dbpw#">
 		filtershow          = "Yes"
 		excelshow           = "Yes" 					
 		listlayout          = "#fields#"
-		drillmode           = "window" 
+		drillmode           = "tab" 
 		drillargument       = "#client.height-90#;#client.width-90#;false;false"	
 		drilltemplate       = "Procurement/Application/Receipt/ReceiptEntry/ReceiptEdit.cfm?mode=receipt&id="
 		drillkey            = "ReceiptNo"

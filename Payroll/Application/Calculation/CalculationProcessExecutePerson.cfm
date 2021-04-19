@@ -31,7 +31,7 @@
 				AND      RecordStatus = '1'		
 			   </cfquery>	
 			 								
-				<select name="mission" id="mission" style="border:0px;width:100%" class="regularxl" 
+				<select name="mission" id="mission" style="border:0px;width:100%" class="regularxxl" 
 				     onchange="ptoken.navigate('#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGo.cfm?id=#url.id#','progressbox')">
 				 	<cfloop query="missionList">
 				 		<OPTION value="#mission#" <cfif currentrow eq "1">selected</cfif>>#Mission#</OPTION>
@@ -41,30 +41,30 @@
 			   </td>
 	    </tr>	
 		
-		<tr class="labelmedium line" style="height:35px">
+		<tr class="labelmedium2 line" style="height:35px">
 		    <td style="font-size:16px">Calculated Entitlements as of (EOD):</td>
 			<td id="startdate" colspan="1" style="border-left:1px solid silver;border-right:1px solid silver">					  
-			  <cfdiv bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=eod&id=#url.id#&mission={mission}">			 	
+			  <cf_securediv id="start" bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=eod&id=#url.id#&mission={mission}">			 	
 			</td>
 	    </tr>	
 		
-		<tr class="labelmedium line" style="height:35px">
+		<tr class="labelmedium2 line" style="height:35px">
 		    <td style="font-size:16px">Applicable Schedules:</td>
 			<td colspan="1"  style="padding-left:5px;border-left:1px solid silver;border-right:1px solid silver">				  
-			  <cfdiv bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=schedule&id=#url.id#&mission={mission}">			 				
+			  <cf_securediv id="schedule" bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=schedule&id=#url.id#&mission={mission}">			 				
 		    </td>
 	    </tr>	
 		
-		<tr class="labelmedium line" style="height:35px">
+		<tr class="labelmedium2 line" style="height:35px">
 		    <td style="font-size:16px">Recalculate the entitlements starting month:</td>
 			<td  style="border-left:1px solid silver;border-right:1px solid silver">							  
 			<table style="height:100%">
 			<tr><td style="border-right:1px solid silver">
-			   <cfdiv bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=period&id=#url.id#&mission={mission}">		 	
+			   <cf_securediv id="recalc" bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=period&id=#url.id#&mission={mission}">		 	
 		    </td>
 			<td style="font-size:16px;padding-left:5px;padding-right:5px">until:</td>
 			<td style="border-left:1px solid silver;border-right:1px solid silver">							  
-			   <cfdiv bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=periodend&id=#url.id#&mission={mission}">		 	
+			   <cf_securediv id="until" bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=periodend&id=#url.id#&mission={mission}">		 	
 		    </td>
 			</tr>
 			</table>
@@ -74,21 +74,18 @@
 		
 		<!--- if the person is not under contract for the current month --->
 		
-		<tr class="labelmedium" id="enforce" style="height:35px">
+		<tr class="labelmedium2" id="enforce" style="height:35px">
 	      <td style="font-size:16px" height="10">Settle if not under contract :</td>
 		  <td  style="border-left:1px solid silver;border-right:1px solid silver">
-		     <cfdiv bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=enforce&id=#url.id#&mission={mission}">		 	
-			 
+		     <cf_securediv id="settle" bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGet.cfm?action=enforce&id=#url.id#&mission={mission}">		 				 
 			 <input type="hidden" id="forcesettlement" value="0">		 
 		  </td>
 	    </tr>
 
 		<tr><td colspan="2" class="line"></td></tr>
 		<tr><td colspan="2" class="hide" id="runbox" class="labelit"></td></tr>
-		<tr><td colspan="2" height="100%" id="progressbox" valign="top">
-		
-			<cf_securediv bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGo.cfm?id=#url.id#">
-			
+		<tr><td colspan="2" height="100%" id="progressbox" valign="top">		
+			<cf_securediv id="go" bind="url:#session.root#/payroll/application/calculation/CalculationProcessExecutePersonGo.cfm?id=#url.id#">			
 		</td></tr>
 			
 	</table>

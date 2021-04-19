@@ -39,9 +39,7 @@ password="#SESSION.dbpw#">
 				AND     H.AccountPeriod = '#url.accountperiod#'
 			</cfquery>
 				
-			
-			<tr><td colspan="2" class="linedotted"></td></tr>
-			
+						
 			<tr><td colspan="2"><table width="100%">
 			
 			<cfoutput query="UnitOwner">
@@ -151,7 +149,7 @@ password="#SESSION.dbpw#">
 			
 		</cfquery>
 		
-			<tr><td colspan="2" style="padding-top:2px;height:25px" class="line labelmedium"><cf_tl id="Cost center">:</td></tr>
+			<tr><td colspan="2" style="padding-top:2px;height:25px" class="labelmedium"><cf_tl id="Cost center">:</td></tr>
 						
 			<tr><td colspan="2" style="padding-left:2px;padding-top:2px">
 						  
@@ -219,7 +217,7 @@ password="#SESSION.dbpw#">
 		
 	<cfif url.report eq "pl" or url.report eq "fund">
 	
-		<tr class="linedotted">														
+		<tr>														
 		<td class="labelmedium"><cf_tl id=" Currency">:<cf_space spaces="20"></td>
 		<td class="labelmedium" style="padding-left:5px;height:40px">
 		
@@ -232,7 +230,7 @@ password="#SESSION.dbpw#">
 						WHERE     Mission       = '#url.mission#' 
 					</cfquery>
 														
-				<select name="Currency" class="regularxl"  onchange="reloadalert();">					   			 		 
+				<select name="Currency" style="border:0px;background-color:f1f1f1" class="regularxl"  onchange="reloadalert();">					   			 		 
 					<cfoutput query="Currency">													
 						<option <cfif currency eq application.basecurrency>selected</cfif> value="#currency#">#currency#</option>																
 				    </cfoutput>					
@@ -371,7 +369,7 @@ password="#SESSION.dbpw#">
 											WHERE     Mission       = '#url.mission#' 
 										</cfquery>
 																			
-									<select name="Currency" class="regularxl"  onchange="reload('1');">					   			 		 
+									<select name="Currency" style="border:0px;background-color:f1f1f1" class="regularxl"  onchange="reload('1');">					   			 		 
 										<cfoutput query="Currency">													
 											<option <cfif currency eq application.basecurrency>selected</cfif> value="#currency#">#currency#</option>																
 									    </cfoutput>					
@@ -427,7 +425,7 @@ password="#SESSION.dbpw#">
 		
 			<tr><td style="padding-top:4px">
 			
-			<select name="aggregation" id="filter" class="regularxl" size="1" onChange="reload('0')">
+			<select name="aggregation" style="border:0px;background-color:f1f1f1" id="filter" class="regularxl" size="1" onChange="reload('0')">
 			     <OPTION value="total"  <cfif URL.aggregation is "total">selected</cfif>> <cf_tl id="Parent totals"> 
 				 <OPTION value="group"  <cfif URL.aggregation is "group">selected</cfif>> <cf_tl id="Group totals"> 
 				 <OPTION value="detail" <cfif URL.aggregation is "detail">selected</cfif>> <cf_tl id="Account Details"> 
@@ -437,7 +435,7 @@ password="#SESSION.dbpw#">
 		
 		<cfelse>
 		
-			<tr><td colspan="2" style="height:33px" class="line labelmedium"><b><cf_tl id="Layout"></td></tr>
+			<tr><td colspan="2" style="height:33px" class="labelmedium"><b><cf_tl id="Layout"></td></tr>
 				
 			<tr><td>
 			
@@ -520,9 +518,9 @@ password="#SESSION.dbpw#">
 			
 		<tr>				
 		<td style="padding-left:7px" class="labelmedium"><cf_tl id="Valuation">:<cf_space spaces="20"></td>
-		<td class="labelmedium" align="right" style="padding-left:5px;height:29px;padding-right:7px">
+		<td class="labelmedium" align="right" style="padding-left:5px;height:29px;padding-right:13px">
 																
-				<select id="mode" name="mode" class="regularxl"  onchange="reloadalert('1');">					   			 		 
+				<select id="mode" style="border:0px;background-color:f1f1f1" name="mode" class="regularxl"  onchange="reloadalert('1');">					   			 		 
 																
 					<option <cfif url.mode eq "economic">selected</cfif> value="economic"><cf_tl id="Economic"></option>																
 					<option <cfif url.mode eq "fiscal">selected</cfif> value="fiscal"><cf_tl id="Fiscal"></option>																
@@ -532,9 +530,7 @@ password="#SESSION.dbpw#">
 				
 		</td>
 		</tr>	
-		
-		<tr><td style="height:4px"></td></tr>
-				
+					
 		
 		</cfif>
 		
@@ -624,16 +620,17 @@ password="#SESSION.dbpw#">
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				SELECT    DISTINCT L.TransactionPeriod
-				FROM      TransactionHeader H,TransactionLine L
+				FROM      TransactionHeader H 
+				          INNER JOIN TransactionLine L ON H.Journal         = L.Journal
+												AND       H.JournalSerialNo = L.JournalSerialNo
 				WHERE     H.Mission       = '#url.mission#' 
-				AND       H.AccountPeriod = '#url.accountperiod#'	
-				AND       H.Journal         = L.Journal
-				AND       H.JournalSerialNo = L.JournalSerialNo
+				AND       H.AccountPeriod = '#url.accountperiod#'					
 				AND       H.RecordStatus    = '1'
-				AND       H.ActionStatus IN ('0','1')				
-				ORDER BY  L.TransactionPeriod
+				AND       H.ActionStatus IN ('0','1')	
+				AND       L.GLAccount IN (SELECT GLAccount FROM Ref_Account WHERE AccountClass = 'Result')
+				ORDER BY  L.TransactionPeriod				
 			</cfquery>
-			
+									
 		<cfelse>		
 		
 			<cfquery name="Period"
@@ -648,9 +645,10 @@ password="#SESSION.dbpw#">
 				AND       ActionStatus IN ('0','1')
 				ORDER BY  TransactionPeriod
 			</cfquery>
-		
+			
 		
 		</cfif>
+		
 		
 		<!--- posting period --->
 	

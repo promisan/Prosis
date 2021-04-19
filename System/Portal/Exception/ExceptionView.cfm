@@ -2,7 +2,7 @@
 <cfparam name="url.errorid"  default="">
 <cfparam name="url.drillid"  default="#url.errorid#">
 
-<cfajaximport tags="cfmenu,cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 <cf_ActionListingScript>
 <cf_FileLibraryScript>
 
@@ -15,7 +15,7 @@
 	WHERE  ErrorId = '#url.errorid#'		
 </cfquery>		
 
-<cf_screentop height="100%" scroll="no" layout="webapp" label="Exception Log : #get.ErrorNo#" band="No" bannerheight="50" banner="gray">
+<cf_screentop height="100%" scroll="no" layout="webapp" label="Exception Log : #get.ErrorNo#" band="No" jquery="Yes" bannerheight="50" banner="gray">
 <cf_divscroll>
 
 <table width="100%" border="0" cellpadding="0" align="center" bordercolor="silver">
@@ -132,7 +132,7 @@
 		  id="workflowlink_#get.errorid#"
           value="#wflnk#"> 
  
-    <cfdiv id="#get.errorid#" 
+    <cf_securediv id="#get.errorid#" 
 	       bind="url:#wflnk#?ajaxid=#get.errorid#"/>
 		   
 	</cfoutput>	   

@@ -21,7 +21,7 @@
 			
 	<tr>
 	<td height="100%" valign="top">		
-		<cfdiv style="height:100%" bind="url:#SESSION.root#/System/Access/Membership/UserMemberList.cfm?id=#URL.id#" id="member"/>	
+		<cf_securediv style="height:100%" bind="url:#SESSION.root#/System/Access/Membership/UserMemberList.cfm?id=#URL.id#" id="member">	
 	</td>
 	</tr>
 

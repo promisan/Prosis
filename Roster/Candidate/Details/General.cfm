@@ -151,7 +151,7 @@ function workflowdrill(key) {
 	 <cf_mapscript width="360" height="300" scope="embed">
 </cfif>
 
-<cfajaximport tags="cfform,cfwindow"> 
+<cfajaximport tags="cfform"> 
 	
 <cf_dialogStaffing>
 <cf_mapscript width="360" height="300" scope="embed">

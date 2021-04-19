@@ -26,8 +26,7 @@
 						
             <cfset arrayAppend(result,s)/>
 			
-	  <cfelse>		
-	  
+	  <cfelse>			  
 	  	 	  
 	  	<cfset l = len(value)>
         <cfset val = mid(value,5,l-4)>
@@ -74,6 +73,93 @@
 	   </cfif>
 		      
    <cfreturn result/>
+   
+</cffunction>
+
+<cffunction name="getNodesV2" access="remote"  returnType="void">
+
+	 <cfargument name="path"       type="String" required="false" default=""/>
+     <cfargument name="value"      type="String" required="true" default=""/>
+     <cfargument name="directory"  type="String" required="true" default=""/>
+    
+    <!--- set up return array --->
+      
+      <cfset var result= arrayNew(1)/>
+      <cfset var s =""/>	  			  
+	  
+	  <cfif value eq "">
+	  	  	   		
+		    <cfset s = structNew()/>
+            <cfset s.value     = "tree">
+			<cfset s.img       = ""> 
+			<cfset s.parent    = "tree"> 
+									
+			<!--- static tree --->
+			<cfset s.display   = "<b><u>#directory#</b>">	
+			<cfset s.expand    = "true">					
+						
+            <cfset arrayAppend(result,s)/>
+			
+	  <cfelse>			  
+	  	 	  
+	  	<cfset l = len(value)>
+        <cfset val = mid(value,5,l-4)>
+		
+		<cfif value eq "tree">
+			 <cfset value = "">
+		</cfif>
+		
+		<cfdirectory
+		   action="LIST" 
+		   directory="#directory#\#value#" 
+		   name="list" 
+		   type="dir" 
+		   listinfo="name">
+						   			           
+	       <cfoutput query="list">
+		   
+				   	<cfdirectory
+					   action    = "LIST" 
+					   directory = "#directory#\#value#\#name#" 
+					   name      = "check" 
+					   type      = "dir" 
+					   listinfo  = "name">
+													 			           
+	            <cfset s = structNew()/>
+	            <cfset s.value     = "#value#\#name#">						
+				<cfset s.img       = "#SESSION.root#/images/folder_close.gif">
+				<cfset s.imgopen   = "#SESSION.root#/images/folder_open.gif">			
+				<cfset s.parent    = "#value#"> 
+				
+				<cfif check.recordcount eq "0"> 
+					<cfset s.leafnode=true/>
+				</cfif>
+				
+				<cfset s.display   = "#Name#">			
+				<cfset s.href      = "FolderList.cfm?dir=#directory#">
+				<cfset s.target    = "right">	
+				<cfset s.title     = "aaaaa">
+				<cfset s.expand    = "false">					
+	            <cfset arrayAppend(result,s)/>	
+						
+	       </cfoutput>
+	   	   	   
+	   </cfif>
+	   
+	   <cfscript>
+			threadName = "ws_msg_" & createUUID();
+			treenodes = result;
+
+			msg = SerializeJSON(treenodes);
+
+			cfthread(action:"run",name:threadName,message:msg){
+				WsPublish("prosis","tree node ");
+			}
+				writeOutput(msg);
+		</cfscript>
+		      
+   <cfreturn result/>
+
 </cffunction>
 
 <cffunction name="hasModifiedFilesSince" access="remote">
@@ -108,9 +194,6 @@
 	<cfreturn returnValue >
 	
 </cffunction>
-
-
-
 
 
 <cffunction name="getRecursiveNodes" access="remote" returntype="array" output="yes">

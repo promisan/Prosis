@@ -33,7 +33,7 @@ password="#SESSION.dbpw#">
 			 AND    Mode = 'Correction'	)			
 </cfquery>				
 					
-<select name="glaccount" id="glaccount" class="regularxl enterastab">
+<select name="glaccount" id="glaccount" class="regularxxl enterastab">
 		 
    <cfoutput query="getAccount">
   	   <option value="#glaccount#" <cfif glaccount is acc>selected</cfif>>

@@ -43,7 +43,7 @@
 
 	<tr><td>
 	 
-	<table width="100%" align="center" class="formspacing">
+	<table width="100%" align="center" class="formspacing formpadding">
 			
 	    <cfoutput>	
 		
@@ -87,8 +87,8 @@
 		
 		<cfif check.recordcount eq 0>
 			 
-		 <TR>
-			 <TD class="labelmedium" style="padding-left:5px" width="150"><cf_tl id="Managed by"> :<font color="FF0000">*</font></TD>  
+		 <TR class="labelmedium2">
+			 <TD style="padding-left:5px" width="150"><cf_tl id="Managed by"> :<font color="FF0000">*</font></TD>  
 			 <TD>
 			 	<select name="mission" id="mission" class="regularxl">		
 					<cfloop query="Mis">
@@ -101,8 +101,8 @@
 		 </cfif>
 						
 		 
-		 <TR>
-			 <TD class="labelmedium" style="padding-left:5px" width="150"><cf_tl id="Last Project"> :<font color="FF0000">*</font></TD>  
+		 <TR class="labelmedium2">
+			 <TD style="padding-left:5px" width="150"><cf_tl id="Last Project"> :<font color="FF0000">*</font></TD>  
 			 <TD>		 
 			 <cf_securediv id="bProgram" bind="url:getProgram.cfm?mission={mission}&itemNo=#URL.Id#">		 	
 			 </TD>
@@ -110,9 +110,9 @@
 		 
 		 <cfif check.recordcount eq "1">
 		
-			<tr>
-		    <td class="labelmedium" style="padding-left:5px" height="21" width="140"><cf_tl id="Class"> / <cf_tl id="Originated"> :</td>
-		    <td class="labelmedium">#Item.ItemClass# / #Item.mission#
+			<tr class="labelmedium2">
+		    <td style="padding-left:5px" height="21" width="140"><cf_tl id="Class"> / <cf_tl id="Originated"> :</td>
+		    <td>#Item.ItemClass# / #Item.mission#
 				<input type="hidden" name="mission" id="mission" value="#Item.mission#">
 				<input type="hidden" name="itemclass" id="itemclass" value="#Item.ItemClass#">
 				&nbsp;&nbsp;&nbsp;<font size="2" color="808080"><cfoutput>#item.OfficerFirstName# #Item.OfficerLastName# [#dateformat(item.created,CLIENT.DateFormatShow)#]</cfoutput></font>
@@ -130,8 +130,8 @@
 				ORDER BY   ListingOrder 
 			</cfquery>
 			
-	        <tr>
-		    <td class="labelmedium" style="padding-left:5px" width="140"><cf_tl id="Class"> / <cf_tl id="Originated"> :</td>
+	        <tr class="labelmedium2">
+		    <td style="padding-left:5px" width="140"><cf_tl id="Class"> / <cf_tl id="Originated"> :</td>
 		    <td>
 				<select name="itemclass" id="itemclass" class="regularxl">		
 				<cfloop query="Cls">
@@ -230,8 +230,8 @@
 		
 		</cfif>
 		
-		<tr>
-	    <td class="labelmedium" style="padding-left:5px"><cf_tl id="Stock Category">: <font color="FF0000">*</font></b></td>
+		<tr class="labelmedium2">
+	    <td style="padding-left:5px"><cf_tl id="Stock Category">: <font color="FF0000">*</font></b></td>
 	    <td>
 		
 			<table>	
@@ -263,7 +263,7 @@
 					
 			</td>
 			
-			<td class="labelmedium" style="padding-left:10px" align="right"><cf_tl id="Sub Category">:<font color="FF0000">*</font></td>
+			<td  style="padding-left:10px" align="right"><cf_tl id="Sub Category">:<font color="FF0000">*</font></td>
 			
 		    <td style="padding-left:10px">			
 				<cf_securediv id="divCategoryItem" bind="url:#SESSION.root#/Warehouse/Maintenance/Item/getCategoryItem.cfm?ItemNo=#Item.ItemNo#&CategoryItem=#Item.CategoryItem#&Category={category}">
@@ -275,8 +275,8 @@
 	    </td>
 	    </tr>
 		
-		<TR>
-	    <td class="labelmedium" style="padding-left:5px"><cf_tl id="Procurement Master">: <font color="FF0000">*</font></b></td>   
+		<TR class="labelmedium2">
+	    <td style="padding-left:5px"><cf_tl id="Procurement Master">: <font color="FF0000">*</font></b></td>   
 		    <td>
 				<cf_securediv id="bItemMaster" bind="url:getItemMaster.cfm?itemmaster=#Item.ItemMaster#&mission={mission}">
 		    </td>
@@ -284,8 +284,8 @@
 		
 		<cfif URL.ID eq "">
 		
-			<tr id="warehouseenable">
-				<td colspan="1" valign="top" class="labelmedium" style="padding-top:3px;padding-left:5px"><cf_tl id="Enable for">:
+			<tr id="warehouseenable" class="labelmedium2">
+				<td colspan="1" valign="top" style="padding-top:3px;padding-left:5px"><cf_tl id="Enable for">:
 					<a href="javascript:" onclick="$('##warehouselist').toggle()"><cf_tl id="More">...</a>
 				</td>
 				<td id="warehouselist" class="hide" >
@@ -295,37 +295,49 @@
 		
 		</cfif>
 				
-	    <tr>
-		    <td class="labelmedium" style="padding-left:5px"><cf_tl id="Item Code">: <font color="FF0000">*</font></td>
-		    <td>
-			
-			<table><tr><td>
-			<input type="text" name="Classification" id="Classification" 
-			value="#item.Classification#" size="10" maxlength="20"class="regularxl" onchange="syncItemCode(this)" onkeyup="suggest(this)">
-			<div id="suggestion"></div>
-			</td>
-			
-			
+	    <tr class="labelmedium2">
+		
 			<cfif URL.ID neq "">
 			
-			<td class="labelmedium" style="padding-left:5px"><cf_tl id="Operational">:</b></td>
-		    <TD class="labelmedium" style="padding-left:5px">
+			<td style="padding-left:5px"><cf_tl id="Operational">:</b></td>
+		    <TD style="padding-left:5px">
 			
-			
-				<input type="radio" class="radiol" name="Operational" id="Operational" <cfif Item.Operational eq "1" or url.id eq "">checked</cfif> value="1"><cf_tl id="Active">
-				<input type="radio" class="radiol" name="Operational" id="Operational" <cfif Item.Operational eq "0">checked</cfif> value="0"><cf_tl id="Disabled">
+			    <table><tr class="labelmedium2">
+				<td><input type="radio" class="radiol" name="Operational" id="Operational" <cfif Item.Operational eq "1" or url.id eq "">checked</cfif> value="1"></td>
+				<td><cf_tl id="Active"></td>
+				<td style="padding-left:5px"><input type="radio" class="radiol" name="Operational" id="Operational" <cfif Item.Operational eq "0">checked</cfif> value="0"></td>
+				<td><cf_tl id="Disabled"></td>
+				</tr>
+				</table>
 		    </td>
 		    		
 			</cfif>
+		
+		    <!---
+		    <td style="padding-left:5px"><cf_tl id="Item Code">: <font color="FF0000">*</font></td>
+		    <td>
 			
+			<table>
+			<tr>
+			<td>
+			<input type="text" name="Classification" id="Classification" 
+			value="#item.Classification#" size="10" maxlength="20"class="regularxl" onchange="syncItemCode(this)" onkeyup="suggest(this)">
+			<div id="suggestion"></div>
+			</td>					
 			</tr>
 			</table>
 			</td>
+			--->
+			
+			<input type="hidden" name="Classification" id="Classification" 
+			value="#item.Classification#" size="10" maxlength="20"class="regularxl" onchange="syncItemCode(this)" onkeyup="suggest(this)">
+			
+			
 		</tr>
 		
-		<TR>
-		    <TD valign="top" class="labelmedium" style="padding-top:4px;padding-left:5px"><cf_tl id="Description">:<font color="FF0000">*</font></TD>
-		    <TD class="labelmedium" style="padding-left:0px">
+		<TR class="labelmedium2">
+		    <TD valign="top" style="padding-top:4px;padding-left:5px"><cf_tl id="Description">:<font color="FF0000">*</font></TD>
+		    <TD style="padding-left:0px">
 			
 			<cf_LanguageInput
 					TableCode       = "Item" 
@@ -343,8 +355,8 @@
 		    </TD>
 		</TR>	
 			
-		<tr id="custombox">
-		<td width="140" height="21" valign="top" class="labelmedium" style="padding-top:3px;padding-left:5px"><cf_tl id="Information Element">:</td>
+		<tr id="custombox" class="labelmedium2">
+		<td width="140" height="21" valign="top" style="padding-top:3px;padding-left:5px"><cf_tl id="Information Element">:</td>
 		<td>
 		   <cf_securediv bind="url:RecordEditCustom.cfm?id=#url.id#&class={itemclass}" id="custom">
 		</td>
@@ -376,8 +388,8 @@
 		
 		<cfif URL.ID eq "">
 		
-		<TR>
-	      <TD class="labelmedium" style="padding-left:5px"><cf_tl id="Base UoM Code">:<font color="FF0000">*</font></TD>
+		<TR class="labelmedium2">
+	      <TD style="padding-left:5px"><cf_tl id="Base UoM Code">:<font color="FF0000">*</font></TD>
 		  <TD>
 		  
 				  <cfif ItemUoM.recordcount gte "1">
@@ -402,8 +414,8 @@
 		   </TD>
 		</TR>
 		
-		<TR>
-	      <TD class="labelmedium" style="padding-left:5px"><cf_tl id="UoM Name">:<font color="FF0000">*</font></TD>
+		<TR class="labelmedium2">
+	      <TD style="padding-left:5px"><cf_tl id="UoM Name">:<font color="FF0000">*</font></TD>
 		  <TD>
 		  
 				  <cfif ItemUoM.recordcount gte "1">
@@ -426,8 +438,8 @@
 		   </TD>
 		</TR>
 			
-		<TR>
-	    <TD class="labelmedium" style="padding-left:5px"><cf_tl id="Estimated Standard Cost"> #application.basecurrency# :<font color="FF0000">*</font></TD>
+		<TR class="labelmedium2">
+	    <TD style="padding-left:5px"><cf_tl id="Estimated Standard Cost"> #application.basecurrency# :<font color="FF0000">*</font></TD>
 	    <TD>
 		
 		  	   <cfinput type="Text"
@@ -457,8 +469,8 @@
 		
 		<tr><td colspan="2" class="labellarge" style="height:45px;font-size:22px;padding-left:3px"><cf_tl id="Provider"></td></tr>	
 					
-		<TR>
-	    <TD class="labelmedium" style="padding-left:5px"><cf_tl id="Name">:</TD>
+		<TR class="labelmedium2">
+	    <TD style="padding-left:5px"><cf_tl id="Name">:</TD>
 	    <TD>
 		
 		  <table>
@@ -491,9 +503,9 @@
 		</td>
 		</TR>
 		
-		<tr>
-			<td class="labelmedium" style="padding-left:5px" ><cf_tl id="Price Location">:</td>
-			<td class="labelmedium">
+		<tr class="labelmedium2">
+			<td style="padding-left:5px" ><cf_tl id="Price Location">:</td>
+			<td>
 			
 				<cfquery name="getLocations" 
 					datasource="AppsMaterials" 
@@ -518,11 +530,11 @@
 			</td>
 		</tr>
 		
-		<TR>
-	    <TD class="labelmedium" style="padding-left:5px"><cf_tl id="Offered Price"></TD>
+		<TR class="labelmedium2">
+	    <TD style="padding-left:5px"><cf_tl id="Offered Price"></TD>
 	    <TD>
 			<table>
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			<td>
 			
 				<cfquery name="getLookup" 
@@ -560,8 +572,8 @@
 		</td>
 		</TR>
 		
-		<TR>
-	    <TD class="labelmedium" style="padding-left:5px"><cf_tl id="Minimum Quantity"></TD>
+		<TR class="labelmedium2">
+	    <TD style="padding-left:5px"><cf_tl id="Minimum Quantity"></TD>
 	    <TD>
 		   <cfinput type="Text"
 			       name="OfferMinimumQuantity"
@@ -577,15 +589,15 @@
 		</td>
 		</TR>
 		
-		<tr><td colspan="2" class="labellarge" style="height:45px;font-size:22px;padding-left:3px"><cf_tl id="Codification"></td></tr>	
+		<tr class="labelmedium2"><td colspan="2" class="labellarge" style="height:45px;font-size:22px;padding-left:3px"><cf_tl id="Codification"></td></tr>	
 		
 		
-		<TR>
-	    <TD class="labelmedium" style="padding-left:5px"><cf_tl id="International Coding">:<cf_space spaces="50"></TD>
+		<TR class="labelmedium2">
+	    <TD style="padding-left:5px;min-width:200px"><cf_tl id="International Coding">:</TD>
 	    <TD>
 			<table border="0" cellspacing="0" cellpadding="0">
 				
-					<tr>
+					<tr class="labelmedium2">
 					   <!---
 						<td class="labelit" style="width:50px"><cf_tl id="Code">:</td>
 						--->
@@ -599,7 +611,7 @@
 							    maxlength = "20" 
 								class     = "regularxl">
 						</td>
-						<td class="labelit" style="width:100;padding-left:5px"><cf_tl id="Name">:</td>
+						<td style="width:100;padding-left:5px"><cf_tl id="Name">:</td>
 						<td style="padding-left:2px;">
 							
 							<cfif item.ItemDescriptionExternal eq "">
@@ -623,12 +635,12 @@
 	    </TD>
 		</TR>
 		
-		<TR>
-	    <TD class="labelmedium" style="padding-left:5px"><cf_tl id="Manufacturing">:</TD>
+		<TR class="labelmedium2">
+	    <TD style="padding-left:5px"><cf_tl id="Manufacturing">:</TD>
 	    <TD>
 			<table border="0" cellspacing="0" cellpadding="0">
 				
-					<tr>
+					<tr class="labelmedium2">
 					    <!---
 						<td class="labelit" style="width:50px"><cf_tl id="Make">:</i></td>
 						--->
@@ -640,7 +652,7 @@
 								</cfloop>
 							</select>
 						</td>
-						<td class="labelit" style="width:100;padding-left:5px"><cf_tl id="Model">:</td>
+						<td style="width:100;padding-left:5px"><cf_tl id="Model">:</td>
 						<td style="padding-left:2px;">
 							
 							<cfif Item.Model eq "">
@@ -655,8 +667,8 @@
 	    </TD>
 		</TR>
 		
-		<TR id="boxbarcode" class="#cl#">
-	    <TD class="labelmedium" style="padding-left:5px"><cf_tl id="Barcode">:</TD>
+		<TR id="boxbarcode" class="#cl#" class="labelmedium2">
+	    <TD style="padding-left:5px"><cf_tl id="Barcode">:</TD>
 	    <TD>
 	  	   <input type="text" 
 			    name="ItemBarcode" 			
@@ -670,12 +682,12 @@
 			
 		<cfelse>
 		
-			<TR>
-		    <TD class="labelmedium" style="padding-left:5px"><cf_tl id="International Coding">:<cf_space spaces="50"></TD>
+			<TR class="labelmedium2">
+		    <TD style="padding-left:5px"><cf_tl id="International Coding">:<cf_space spaces="50"></TD>
 		    <TD>
 				<table border="0" cellspacing="0" cellpadding="0">
 					
-						<tr>
+						<tr class="labelmedium2">
 						   <!---
 							<td class="labelit" style="width:50px"><cf_tl id="Code">:</td>
 							--->
@@ -689,7 +701,7 @@
 								    maxlength = "20" 
 									class     = "regularxl">
 							</td>
-							<td class="labelit" style="width:100;padding-left:5px"><cf_tl id="Name">:</td>
+							<td style="width:100;padding-left:5px"><cf_tl id="Name">:</td>
 							<td style="padding-left:2px;">
 								
 								<cfif item.ItemDescriptionExternal eq "">
@@ -713,12 +725,12 @@
 		    </TD>
 			</TR>
 		
-			<TR>
-		    <TD class="labelmedium" style="padding-left:5px"><cf_tl id="Manufacturing">:</TD>
+			<TR class="labelmedium2">
+		    <TD style="padding-left:5px"><cf_tl id="Manufacturing">:</TD>
 		    <TD>
-				<table border="0" cellspacing="0" cellpadding="0">
+				<table>
 					
-						<tr>
+						<tr class="labelmedium2">
 						    <!---
 							<td class="labelit" style="width:50px"><cf_tl id="Make">:</i></td>
 							--->
@@ -730,7 +742,7 @@
 									</cfloop>
 								</select>
 							</td>
-							<td class="labelit" style="width:100;padding-left:5px"><cf_tl id="Model">:</td>
+							<td style="width:100;padding-left:5px"><cf_tl id="Model">:</td>
 							<td style="padding-left:2px;">
 								
 								<cfif Item.Model eq "">
@@ -749,8 +761,8 @@
 				
 		</cfif>		
 		
-		<tr>
-	    	<td class="labelmedium" style="padding-left:5px"><cf_tl id="Color">:</td>
+		<tr class="labelmedium2">
+	    	<td style="padding-left:5px"><cf_tl id="Color">:</td>
 	    	<td>
 	    		<cfif Mis.PortalInterfaceMode eq "Internal">
 					<cf_color name="color" 
@@ -767,62 +779,119 @@
 	   		</td>
 	    </tr>
 		
+		<cfquery name="getReference" 
+	    datasource="AppsPurchase" 
+	    username="#SESSION.login#" 
+	    password="#SESSION.dbpw#">
+			SELECT 	*
+			FROM 	Ref_CustomFields 			
+		</cfquery>
 		
 		
-		<tr>
-	    	<td class="labelmedium" style="padding-left:5px"><cf_tl id="Reference1">:</td>
+		<cfif getReference.ItemReference1 neq "">
+		
+		<tr class="labelmedium2">
+	    	<td style="padding-left:5px"><cf_tl id="#getReference.ItemReference1#">:</td>
 	    	<td>
 	    		
-					<cfif item.reference1 eq "">
-						<cfset vReference1 = LastItem.reference1>
-					<cfelse>
-						<cfset vReference1 = item.reference1>
-					</cfif>	   		
-	    		
-	  	   			<input type="text" 
-			    		name="reference1" 			
-						value="#vReference1#"
-						size="50" 
-			    		maxlength = "50" 
-						class= "regularxl">				
+				<cfif item.reference1 eq "">
+					<cfset vReference1 = LastItem.reference1>
+				<cfelse>
+					<cfset vReference1 = item.reference1>
+				</cfif>	   		
+    		
+  	   			<input type   = "text" 
+		    		name      = "reference1" 			
+					value     = "#vReference1#"
+					size      = "50" 
+		    		maxlength = "50" 
+					class     = "regularxl">				
 	   		</td>
 	    </tr>	
+		
+		<cfelse>
+		
+			<input type="hidden" name="reference1" value="#item.reference1#">	
+		
+		</cfif>
+		
+		<cfif getReference.ItemReference2 neq "">
 	    
-		<tr>
-	    	<td class="labelmedium" style="padding-left:5px"><cf_tl id="Reference2">:</td>
-	    	<td>
+			<tr class="labelmedium2">
+		    	<td style="padding-left:5px"><cf_tl id="#getReference.ItemReference2#">:</td>
+		    	<td>
 					<cfif item.reference2 eq "">
 						<cfset vReference2 = LastItem.reference2>
 					<cfelse>
 						<cfset vReference2 = item.reference2>
 					</cfif>	   		
 	    		
-	  	   			<input type="text" 
-			    		name="reference2" 			
-						value="#vReference2#"
-						size="50" 
+	  	   			<input type   = "text" 
+			    		name      = "reference2" 			
+						value     = "#vReference2#"
+						size      = "50" 
 			    		maxlength = "50" 
-						class= "regularxl">				
-	   		</td>
-	    </tr>	    
+						class     = "regularxl">				
+		   		</td>
+		    </tr>			
 		
-		<tr>
-	    	<td class="labelmedium" style="padding-left:5px"><cf_tl id="Reference3">:</td>
-	    	<td>
+		<cfelse>
+		
+			<input type="hidden" name="reference2" value="#item.reference2#">	
+		
+		</cfif>
+		    
+		<cfif getReference.ItemReference3 neq "">
+		
+			<tr class="labelmedium2">
+		    	<td style="padding-left:5px"><cf_tl id="#getReference.ItemReference3#">:</td>
+		    	<td>
 					<cfif item.reference3 eq "">
 						<cfset vReference3 = LastItem.reference3>
 					<cfelse>
 						<cfset vReference3 = item.reference3>
 					</cfif>	   		
 	    		
-	  	   			<input type="text" 
-			    		name="reference3" 			
-						value="#vReference3#"
-						size="50" 
+	  	   			<input type   = "text" 
+			    		name      = "reference3" 			
+						value     = "#vReference3#"
+						size      = "50" 
 			    		maxlength = "50" 
-						class= "regularxl">				
-	   		</td>
-	    </tr>		
+						class     = "regularxl">				
+		   		</td>
+		    </tr>	
+			
+		<cfelse>
+		
+			<input type="hidden" name="reference3" value="#item.reference3#">	
+		
+		</cfif>		
+		
+		<cfif getReference.ItemReference4 neq "">
+		
+			<tr class="labelmedium2">
+		    	<td style="padding-left:5px"><cf_tl id="#getReference.ItemReference4#">:</td>
+		    	<td>
+					<cfif item.reference4 eq "">
+						<cfset vReference4 = LastItem.reference4>
+					<cfelse>
+						<cfset vReference4 = item.reference4>
+					</cfif>	   		
+	    		
+	  	   			<input type   = "text" 
+			    		name      = "reference4" 			
+						value     = "#vReference4#"
+						size      = "50" 
+			    		maxlength = "50" 
+						class     = "regularxl">				
+		   		</td>
+		    </tr>	
+			
+		<cfelse>
+		
+			<input type="hidden" name="reference4" value="#item.reference4#">	
+		
+		</cfif>		
 		
 		<cfquery name="CommodityList" 
 		datasource="AppsMaterials" 
@@ -836,8 +905,8 @@
 		
 		<cfif CommodityList.recordcount neq 0>
 		
-		<TR>
-	    <TD class="labelmedium" style="padding-left:5px"><cf_tl id="Commodity Code">:</TD>
+		<TR class="labelmedium2">
+	    <TD style="padding-left:5px"><cf_tl id="Commodity Code">:</TD>
 	    <TD>	
 			<cfselect name="CommodityCode" 
 					class="regularxl"
@@ -856,13 +925,12 @@
 						value="">				
 		
 		</cfif>	
-			
 				
 		<tr><td colspan="2" class="labellarge" style="height:45px;font-size:22px;padding-left:3px"><cf_tl id="Miscellaneous">& <cf_tl id="Workflow Settings"></td></tr>	
 		
-		<TR>
-			    <td class="labelmedium" style="padding-left:5px"><cf_tl id="Destination">:</td>
-			    <TD class="labelmedium">
+		<TR class="labelmedium2">
+			    <td style="padding-left:5px"><cf_tl id="Destination">:</td>
+			    <TD>
 				
 				<table>
 				<tr><td>
@@ -885,8 +953,8 @@
 				
 					<table>
 					
-					<TR class="labelmedium">
-					    <td class="labelmedium" style="padding-left:15px"><cf_tl id="Request Clearance">:</td>
+					<TR class="labelmedium2">
+					    <td style="padding-left:15px"><cf_tl id="Request Clearance">:</td>
 					    <TD>
 						<input type="radio" class="radiol" name="InitialApproval" id="InitialApproval" <cfif Item.InitialApproval neq "1">checked</cfif> value="0">
 						<td>
@@ -896,8 +964,8 @@
 						</td>
 						<td><cf_tl id="Yes"></td>
 						
-						<td class="labelmedium" style="padding-left:15px"><cf_tl id="Process Mode">:</td>
-						<td class="labelmedium">
+						<td style="padding-left:15px"><cf_tl id="Process Mode">:</td>
+						<td>
 						<select name="ItemProcessMode" id="ItemProcessMode" class="regularxl">
 						<option value="TaskOrder" <cfif lcase(Item.ItemProcessMode) eq "TaskOrder">selected</cfif>><cf_tl id="Task Order">
 						<option value="PickTicket" <cfif lcase(Item.ItemProcessMode) eq "PickTicket" or url.id eq "">selected</cfif>><cf_tl id="Pick Ticket">
@@ -917,17 +985,15 @@
 	    </tr>
 		
 		
-		<tr>
-			<td class="labelmedium" style="padding-left:5px"><cf_tl id="Item Shipment Mode">: <font color="FF0000">*</font></td>
-			<td class="labelmedium">
+		<tr class="labelmedium2">
+			<td style="padding-left:5px"><cf_tl id="Item Shipment Mode">: <font color="FF0000">*</font></td>
+			<td>
 				<select name="ItemShipmentMode" id="ItemShipmentMode" class="regularxl">
 					<option value="Standard" <cfif Item.ItemShipmentMode eq "Standard" or url.id eq "">selected</cfif>><cf_tl id="Standard">
 					<option value="Fuel" <cfif Item.ItemShipmentMode eq "Fuel">selected</cfif>><cf_tl id="Fuel">
 				</select>
 			</td>
 		</tr>		
-				
-		
 					
 		<cfquery name="Val" 
 		datasource="AppsMaterials" 
@@ -999,9 +1065,9 @@
 		</cfif>
 		
 		<TR id="boxprecision" class="#cl#">
-		    <td class="labelmedium" style="padding-left:5px"><cf_tl id="Stock Precision">:</td>
-		    <TD class="labelmedium">
-			<table><tr>
+		    <td class="labelmedium2" style="padding-left:5px"><cf_tl id="Stock Precision">:</td>
+		    <TD>
+			<table><tr class="labelmedium2">
 			<td><input type="radio" class="radiol" name="ItemPrecision" id="ItemPrecision" <cfif Item.ItemPrecision eq "0" or Item.ItemPrecision eq "">checked</cfif> value="0"></td>
 			<td style="padding-left:4px">0</td>
 			<td style="padding-left:8px"><input type="radio" class="radiol" name="ItemPrecision" id="ItemPrecision" <cfif Item.ItemPrecision eq "1">checked</cfif> value="1"></td>
@@ -1022,8 +1088,8 @@
 			FROM       Ref_Scale
 		</cfquery>
 		
-		<TR id="boxdepreciation">
-	    <td class="labelmedium" style="padding-left:5px"><cf_tl id="Depreciation scale">:</b></td>
+		<TR id="boxdepreciation" class="labelmedium2">
+	    <td style="padding-left:5px"><cf_tl id="Depreciation scale">:</b></td>
 	    <TD>
 			<select name="DepreciationScale" id="DepreciationScale" class="regularxl">
 			<cfloop query="Dep">
@@ -1039,7 +1105,7 @@
 		
 		<tr><td colspan="2" align="center" id="processbutton">
 		
-			<table width="100%" cellspacing="0" cellpadding="0">	
+			<table width="100%">	
 			
 			<cfoutput>
 			
@@ -1050,9 +1116,9 @@
 				
 				<td align="center">
 					<cfif check.recordcount eq "0">
-				    <input class="button10g"  style="width:160;height:25" type="button" name="Delete" id="Delete" value="#vDelete#" onclick="return ask()">
+				    <input class="button10g"  style="width:160px;height:28px" type="button" name="Delete" id="Delete" value="#vDelete#" onclick="return ask()">
 					</cfif>
-				    <input class="button10g"  style="width:160;height:25" type="button" name="Update" id="Update" value="#vUpdate#" onclick="validate()">
+				    <input class="button10g"  style="width:160px;height:28px" type="button" name="Update" id="Update" value="#vUpdate#" onclick="validate()">
 				</td>	
 				
 			<cfelse>
@@ -1061,8 +1127,8 @@
 				<cf_tl id="Save" var="vSave">
 			
 				<td align="center">
-					<input class="button10g"  style="width:130;height:25" type="button" name="Cancel" id="Cancel" value="#vCancel#" onClick="window.close()">
-				    <input class="button10g"  style="width:130;height:25" type="button" name="Insert" id="Insert" value="#vSave#" onclick="validate()">
+					<input class="button10g"  style="width:160px;height:28px" type="button" name="Cancel" id="Cancel" value="#vCancel#" onClick="window.close()">
+				    <input class="button10g"  style="width:160px;height:28px" type="button" name="Insert" id="Insert" value="#vSave#" onclick="validate()">
 				</td>	
 				
 			</cfif>	

@@ -65,19 +65,19 @@ password="#SESSION.dbpw#">
 	  }
 	  
 	function showdocument(vacno) {
-	    window.open("#SESSION.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=" + vacno, "_blank", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=yes, resizable=yes");
+	    ptoken.open("#SESSION.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=" + vacno, "_blank", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=yes, resizable=yes");
 	}  
 	
 	function reloadForm(occ) {
-		window.location = "Search2.cfm?ID=#URL.ID#&ID1=" + occ
+		ptoken.location('Search2.cfm?ID=#URL.ID#&ID1=' + occ)
 	}
 	
 	function fullsearch(owner) {    
-	    ColdFusion.navigate('Search1.cfm?scope=embed&wparam=full&docno=#URL.DocNo#&functionno=#URL.functionno#&mode=#url.mode#&owner='+owner+'&Status=1','content') 	
+	    ptoken.navigate('Search1.cfm?scope=embed&wparam=full&docno=#URL.DocNo#&functionno=#URL.functionno#&mode=#url.mode#&owner='+owner+'&Status=1','content') 	
 	}		 
 		 
 	function first() {
-	    window.location = "Search1.cfm?ID=#URL.ID#"
+	    ptoken.location('Search1.cfm?ID=#URL.ID#')
 	}
  
 </script> 
@@ -100,18 +100,16 @@ password="#SESSION.dbpw#">
 	    FROM Ref_ParameterOwner D
 		WHERE D.Owner = '#Doc.Owner#'  
 </cfquery>
-
-
-		
+	
 <cf_screenTop height="100%" layout="webapp" banner="red" label="Short list" scroll="Yes" html="no">	
 
-<table width="100%">
+<table width="100%" border="0" style="height:100%">
 
-	<tr><td id="content">
+	<tr style="height:100%"><td id="content" valign="top">
 
-		<table width="100%" cellspacing="0" cellpadding="0" style="padding:10px" class="formpadding">
+		<table width="100%" style="height:100%;padding:10px" class="formpadding">
 				
-		<tr><td colspan="2">
+		<tr><td colspan="2" style="height:100%" valign="top">
 		   
 		<!--- identify matching functions --->
 		
@@ -126,18 +124,18 @@ password="#SESSION.dbpw#">
 				WHERE    ID    = 'FUN'
 				AND      Owner = '#Owner.Owner#' 
 				AND      ShowRosterSearch = '1' 
-		</cfquery>   
+		</cfquery>  
 		
+				
 		 <cfquery name="getAssociatedBucket" 
 		        datasource="AppsSelection" 
 		        username="#SESSION.login#" 
 		        password="#SESSION.dbpw#">
 		        SELECT   *
-				FROM     FunctionOrganization FO, Ref_SubmissionEdition R
-				WHERE    FO.Submissionedition = R.SubmissionEdition
-				AND      DocumentNo = '#URL.DocNo#' 		
+				FROM     FunctionOrganization FO INNER JOIN Ref_SubmissionEdition R ON FO.Submissionedition = R.SubmissionEdition
+				WHERE    DocumentNo = '#URL.DocNo#' 		
 		</cfquery>   
-			
+							
 		<cfquery name="FunctionAll" 
 			 datasource="AppsSelection" 
 			 username="#SESSION.login#" 
@@ -187,6 +185,7 @@ password="#SESSION.dbpw#">
 				AND      1=0 <!--- this will not likely happen --->
 				<cfelseif getAssociatedBucket.RosterSearchMode eq "1">
 				AND      F1.DocumentNo = '#Doc.DocumentNo#' 
+				
 				<cfelse>		
 				AND      F1.GradeDeployment  IN ('#Doc.PostGrade#','#Doc.GradeDeployment#') 
 				<!---
@@ -197,12 +196,12 @@ password="#SESSION.dbpw#">
 				</cfif>
 			</cfquery>		
 			 
-			<cfform action="Search2Submit.cfm?docno=#url.docno#&ID=#URL.ID#&owner=#Owner.Owner#&mode=vacancy&status=1" method="POST" name="functionselect">
+			<cfform style="height:100%" action="Search2Submit.cfm?docno=#url.docno#&ID=#URL.ID#&owner=#Owner.Owner#&mode=vacancy&status=1" method="POST" name="functionselect">
 			
-			<table width="97%" border="0" align="center">
+			<table width="97%" style="height:100%" border="0" align="center">
 			
 			 <tr class="labelmedium">
-			    <td height="40" style="font-size:20px;padding-left:4px">Select one of more roster buckets for your search
+			    <td style="height:40px;font-size:20px;padding-left:4px">Select one of more roster buckets for your search
 				
 				  <input type="hidden" id="OccupationalGroup" name="OccupationalGroup" value="<cfoutput>#Doc.OccupationalGroup#</cfoutput>">
 				  
@@ -224,13 +223,13 @@ password="#SESSION.dbpw#">
 				</td>
 			 </tr> 	
 			   
-			<tr><td colspan="2">
+			<tr><td colspan="2" style="padding-left:5px;padding-right:5px;height:100%">
 			
-			<table width="100%" class="formpadding">
+			<cf_divscroll style="height:100%">
 			
-			<tr><td height="1" colspan="7" class="line"></td></tr>
-			
-			<TR class="labelmedium line">
+			<table width="98.5%" class="formpadding">
+						
+			<TR style="padding-left:6px" class="labelmedium2 line fixrow">
 			    <td height="23"><cf_tl id="Area"></td>
 			    <TD><cf_tl id="Function"></TD>
 			    <TD><cf_tl id="Level"></TD>
@@ -243,14 +242,14 @@ password="#SESSION.dbpw#">
 				
 			<cfloop query="FunctionAll"> 
 			
-			<cfset rowClass="labelmedium line">
+			<cfset rowClass="labelmedium2 line">
 			<cfif url.docno neq "">
 				<cfset rowClass= rowClass & " highLight2">
 			</cfif>
 			
 			<TR class="#rowClass# line" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#">
 			
-			    <TD style="padding-left:3px">#OrganizationDescription#</TD>
+			    <TD style="padding-left:6px">#OrganizationDescription#</TD>
 			    <TD>#FunctionDescription#</TD>
 			    <TD>#GradeDescription#</TD>
 				<td><A href="javascript:showdocument('#DocumentNo#')">#DocumentNo#</a></td>
@@ -279,6 +278,8 @@ password="#SESSION.dbpw#">
 			</cfloop>
 				
 			</table>
+			
+			</cf_divscroll>
 			
 			</td></tr>
 						

@@ -155,7 +155,7 @@
 					
 					</td>
 					
-					<td id="rowaction" style="padding-left:4px">			
+					<td id="rowaction" style="padding-left:4px;background-color:f1f1f1">			
 			
 					<cfdiv id="typeclass">
 						<cfset url.leavetype = type.leavetype>
@@ -424,14 +424,14 @@
 		  <tr class="labelmedium" id="reviewerselect1">
 		      <td style="min-width:150px;padding-right:14px" align="right"><cf_tl id="FirstLeaveReviewer">:</td>
 			  <td style="padding-right:8px">				  
-			   <cfdiv bind="url:#session.root#/attendance/application/leaveRequest/getReviewer.cfm?LeaveType={leavetype}&FieldName=FirstReviewerUserId&PersonNo=#URL.ID#&OrgUnit=#getAssignment.OrgUnit#&HierarchyRootUnit=#getAssignment.HierarchyRootUnit#&Mission=#getAssignment.Mission#&MandateNo=#getAssignment.MandateNo#&PostOrder=#getAssignment.PostOrder#" id="FirstReviewerUserIdBox"/>				 
+			   <cf_securediv bind="url:#session.root#/attendance/application/leaveRequest/getReviewer.cfm?FieldName=FirstReviewerUserId&LeaveType={leavetype}&PersonNo=#URL.ID#&OrgUnit=#getAssignment.OrgUnit#&HierarchyRootUnit=#getAssignment.HierarchyRootUnit#&Mission=#getAssignment.Mission#&MandateNo=#getAssignment.MandateNo#&PostOrder=#getAssignment.PostOrder#" id="FirstReviewerUserIdBox"/>				 
 			  </td>
 		  </tr>
 				  
 		  <tr class="labelmedium" id="reviewerselect2">
 			  <td style="padding-right:14px" align="right"><cf_tl id="SecondLeaveReviewer">:</td>
 			  <td>				   
-			   <cfdiv bind="url:#session.root#/attendance/application/leaveRequest/getReviewer.cfm?LeaveType={leavetype}&FieldName=SecondReviewerUserId&PersonNo=#URL.ID#&OrgUnit=#getAssignment.OrgUnit#&HierarchyRootUnit=#getAssignment.HierarchyRootUnit#&Mission=#getAssignment.Mission#&MandateNo=#getAssignment.MandateNo#&PostOrder=#getAssignment.PostOrder#" id="SecondReviewerUserIdBox"/>									  
+			   <cf_securediv bind="url:#session.root#/attendance/application/leaveRequest/getReviewer.cfm?FieldName=SecondReviewerUserId&LeaveType={leavetype}&PersonNo=#URL.ID#&OrgUnit=#getAssignment.OrgUnit#&HierarchyRootUnit=#getAssignment.HierarchyRootUnit#&Mission=#getAssignment.Mission#&MandateNo=#getAssignment.MandateNo#&PostOrder=#getAssignment.PostOrder#" id="SecondReviewerUserIdBox"/>									  
 			  </td>
 		  </tr>
 	 
@@ -460,7 +460,7 @@
 				   name="HandoverNote" 
 				   value="" 
 				   totlength="400"
-				   style="padding:3px;width:100%;height:50;font-size:14px;"
+				   style="padding:3px;width:98%;height:50;font-size:14px;"
 				   onkeyup="return ismaxlength(this)"></textarea>
 				   
 			</td>
@@ -484,7 +484,7 @@
 		  <tr class="labelmedium">
 		    <td width="100" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
 		    <td width="70%" colspan="2">
-			<textarea type="text" class="regular" name="Memo" totlength="1000" value="" onkeyup="return ismaxlength(this)" style="padding:3px;font-size:14px;width:100%;height:70"></textarea>
+			<textarea type="text" class="regular" name="Memo" totlength="1000" value="" onkeyup="return ismaxlength(this)" style="padding:3px;font-size:14px;width:98%;height:70"></textarea>
 			</td>
 		  </tr>		  
 		  

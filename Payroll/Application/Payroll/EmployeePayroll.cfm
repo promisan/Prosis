@@ -27,7 +27,7 @@
 		<script language="JavaScript">
 		
 		function reloadForm(view) {
-			window.location = "EmployeePayroll.cfm?id=#URL.ID#&view="+view
+			ptoken.location('EmployeePayroll.cfm?id=#URL.ID#&view='+view)
 		}
 					
 		function detail(box,id,cur,phase) {					
@@ -53,7 +53,7 @@
 		
 		function showprogresscalculate(processno) {
 		   if (document.getElementById('progressbox')) {
-		      ColdFusion.navigate('../Calculation/CalculationProcessProgress.cfm?processno='+processno,'progressbox')
+		      ptoken.navigate('../Calculation/CalculationProcessProgress.cfm?processno='+processno,'progressbox')
 		   } else {
 		   stopprogress()
 		  }
@@ -66,8 +66,6 @@
 		function stopprogress() {
 		   clearInterval ( prg );
 		}	
-		
-		
 				
 		function payrollprocess(processno,personno,enforce,mission,mde) {
 	
@@ -76,7 +74,7 @@
 			var startEnd  = document.getElementById("customPeriodEnd").value;	
 		    
 		    <cfif getAdministrator("*") eq "1">	
-			  window.open('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission='+mission+'&personno='+personno+'&enforce='+enforce+'&dateEff='+dateEff+'&customStart='+startFrom+'&customEnd='+startEnd,'_blank') 
+			    ptoken.open('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission='+mission+'&personno='+personno+'&enforce='+enforce+'&dateEff='+dateEff+'&customStart='+startFrom+'&customEnd='+startEnd,'_blank') 
 			<cfelse>
 			    ptoken.navigate('../Calculation/CalculationProcess.cfm?mode='+mde+'&processno='+processno+'&mission='+mission+'&personno='+personno+'&enforce='+enforce+'&dateEff='+dateEff+'&customStart='+startFrom+'&customEnd='+startEnd,'runbox') 	 										
 			 </cfif>
@@ -84,7 +82,7 @@
 		} 
 			
 		function print(id,phase,docCur) {
-		   window.open("SalarySlipView.cfm?settlementphase="+phase+"&settlementid="+id+"&documentCurrency="+docCur,"_blank","left=40, top=10, width=840, height=960, status=yes, menubar=no, toolbar=no, scrollbars=yes, resizable=yes")	
+		   ptoken.open("SalarySlipView.cfm?settlementphase="+phase+"&settlementid="+id+"&documentCurrency="+docCur,"_blank","left=40, top=10, width=840, height=960, status=yes, menubar=no, toolbar=no, scrollbars=yes, resizable=yes")	
 		}
 		
 		function month(yr) {

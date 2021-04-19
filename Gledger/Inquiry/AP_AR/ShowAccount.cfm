@@ -75,17 +75,23 @@ password="#SESSION.dbpw#">
 	AND        H.ActionStatus IN ('0','1')
 	AND        H.RecordStatus != '9'		
 	AND        J.GLCategory    = 'Actuals'	
+	
 	AND        H.AccountPeriod = '#last.AccountPeriod#'	
+	
+	   <!--- ignore opening balances 
+				   AND       H.Journal NOT IN (SELECT Journal
+				                               FROM   Journal WHERE  Mission = '#url.mission#' AND SystemJournal = 'Opening')
+		--->
+	
 	AND        R.GLAccount IN (#quotedvalueList(getAccounts.glaccount)#)  <!--- better performance to separate --->								   		
 	GROUP BY   L.GLAccount,R.Description, R.AccountType				   
 	ORDER BY   L.GLAccount,R.Description		
-					 		   
+							 		   
 </cfquery>		
 
 <!---
 <cfoutput>#cfquery.executiontime#</cfoutput>
 --->
-
 
 <table width="97%" cellspacing="0" cellpadding="0" align="center" bgcolor="fafafa" class="navigation_table formpadding">
 
@@ -100,11 +106,11 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Accounts">
 	
-	<tr class="navigation_row navigation_action line labelmedium" onclick="gldetail('#glaccount#')">
-	    <td style="padding-left:4px;padding-top:4px">
-		 <cf_img icon="select">
+	<tr class="navigation_row navigation_action line labelmedium">
+	    <td style="padding-left:4px;padding-top:4px" onclick="gldetail('#glaccount#')">
+		 <cf_img icon="open">
 		</td>
-	    <td width="25%" style="padding-left:4px">#GLAccount# [#left(accounttype,1)#]</td>
+	    <td width="25%" style="padding-left:4px"><a href="javascript:showledger('#url.mission#','0','#last.accountperiod#','#glaccount#')">#GLAccount# [#left(accounttype,1)#]</a></td>
 		<td width="45%" style="padding-left:4px">#Description#</td>		
 		<!---	
 		<td class="labelit" style="border:1px solid silver;padding-right:4px" align="right">#Currency# <cfif amountbase lt 0><font color="blue">(#numberformat(amount*-1,'__,__')#)</font><cfelse>#numberformat(amount,'__,__')#</cfif></td>			

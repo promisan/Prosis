@@ -148,8 +148,8 @@
 				<TD height="20" align="right" class="labelmedium">	
 				
 					<table>
-					
-					<cfset link = "Prosis.busy('yes');stockbatch('x','#url.systemfunctionid#',document.getElementById('batchmode').value,document.getElementById('warehouseselected').value)">
+										
+					<cfset link = "_cf_loadingtexthtml='';Prosis.busy('yes');stockbatch('x','#url.systemfunctionid#',document.getElementById('batchmode').value,document.getElementById('warehouseselected').value)">
 					
 					<tr class="labelmedium">
 					<input type="hidden" class="radiol" name="status" id="status" value="#URL.Status#">

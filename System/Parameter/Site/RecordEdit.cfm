@@ -13,7 +13,7 @@
 			  banner="gray"
 			  systemfunctionid="#url.idmenu#">
 
- <cfajaximport tags="cfwindow,cfform">
+ <cfajaximport tags="cfform">
  
 <script>
 	

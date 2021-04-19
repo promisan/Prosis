@@ -182,8 +182,8 @@
 <cfelse>
 
 					
-<tr class="fixrow labelmedium line">
-    <td width="1%" height="17"></td>							
+<tr class="fixrow labelmedium2 line">
+    <td width="1%"></td>							
 	<td width="1%"></td>	
 	<cfif url.mode eq "standard">
 	<TD width="1%" align="right"></TD>						
@@ -258,7 +258,7 @@
 			 <!--- embedded mode --->
 			
 			 <tr bgcolor="#IIf(CurrentRow Mod 2, DE('f4f4f4'), DE('Ffffff'))#"
-			    class="navigation_row labelmedium2 line" style="cursor : pointer;height:20px;padding:0px">
+			    class="navigation_row labelmedium2 line" style="cursor:pointer;height:20px;padding:0px">
 				
 			</cfif>
 				
@@ -301,12 +301,12 @@
 						password="#SESSION.dbpw#">
 						  SELECT    *
 						  FROM      ItemWarehouseLocationTransaction WITH (NOLOCK)
-						  WHERE     Warehouse = '#url.Warehouse#' 
-						  AND       Location  = '#location#' 
-						  AND       ItemNo    = '#ItemNo#' 
-						  AND       UoM       = '#UnitOfMeasure#' 						 
+						  WHERE     Warehouse      = '#url.Warehouse#' 
+						  AND       Location       = '#location#' 
+						  AND       ItemNo         = '#ItemNo#' 
+						  AND       UoM            = '#UnitOfMeasure#' 						 
 						  AND       TransactionType IN ('6','8') 
-						  AND       Operational = '1'
+						  AND       Operational    = '1'
 					  </cfquery>
 					  
 					<cfif CheckEnabled.recordcount gte "1" or isInitialised.recordcount eq "0">
@@ -324,7 +324,14 @@
 								
 			<TD style="padding-left:5px;padding-right:3px">#Category#</TD>												
 			<TD style="padding-right:3px"><cfif prior neq itemno>#ItemNo#<cfelse>&nbsp;</cfif></TD>			
-			<td style="padding-right:5px;">#ItemNoExternal#</td>
+			<td style="padding-right:5px;">
+			<table style="width:100%">
+				<tr class="labelmedium2">
+					<td style="min-width:110px">#ItemNoExternal#</td>
+					<td style="padding-left:4px" align="right"><cf_img onclick="stockinquiry('#itemno#','#url.warehouse#','#unitofmeasure#')" icon="open"></td>
+				</tr>
+			</table>
+			</td>
 			
 			<cfif url.stockorderid eq "">					
 			
@@ -335,7 +342,7 @@
 	
 			<cfelse>
 			
-				<TD><cfif prior neq itemno>#ItemDescription#<cfelse>&nbsp;</cfif></TD>					
+				<TD style="min-width:30px"><cfif prior neq itemno>#ItemDescription#<cfelse></cfif></TD>					
 				
 			</cfif>
 			
@@ -345,22 +352,19 @@
 			
 			<td align="right">
 			
-				<cfquery name="qOffer"
+				<cfquery name="qMin"
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">						
-						SELECT   IVO.OfferMinimumQuantity 
-						FROM     ItemVendor IV WITH (NOLOCK) INNER JOIN 
-							     ItemVendorOffer IVO WITH (NOLOCK) ON IV.ItemNo = IVO.ItemNo
-						WHERE    IV.ItemNo  = '#ItemNo#'
-						AND      IV.Preferred = '1'
-						ORDER BY DateEffective DESC
+						SELECT   MinReorderQuantity
+						FROM     ItemWarehouse 
+						WHERE    Warehouse = '#url.warehouse#'
+						AND      ItemNo    = '#ItemNo#'
+						AND      UoM       = '#UnitOfMeasure#'						
 				</cfquery>
-					
-				<cfif qOffer.recordcount neq 0>
-					#qOffer.OfferMinimumQuantity#
-				</cfif>	
-						
+							
+				#qMin.MinReorderQuantity#					
+										
 			</td>		
 			
 			<td align="right"><cfif param.LotManagement is "1" and TransactionLot neq "0">#TransactionLot#</cfif></td>	
@@ -377,9 +381,7 @@
 			<cfelse>
 				<td></td>	
 			</cfif>		
-			
-			
-					
+								
 			</tr>		
 			
 			<cfif url.mode eq "Standard">		
@@ -396,7 +398,7 @@
 						
 				<tr class="hide" id="transfer#TransactionId#row">
 					<td colspan="#cols+1#" style="background-color:ffffff">																									
-						<cfdiv id="transfer#TransactionId#" 
+						<cf_securediv id="transfer#TransactionId#" 
 						   bind="url:#SESSION.root#/Warehouse/Application/Stock/Transfer/StockTransfer.cfm?whs=#url.warehouse#&loc=#url.loc#&mode=insert&id=#TransactionId#&systemfunctionid=#url.systemfunctionid#&stockorderid=#url.stockorderid#">																		
 					</td>
 				</tr>	

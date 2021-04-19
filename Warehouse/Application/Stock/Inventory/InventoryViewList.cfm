@@ -336,7 +336,10 @@ password="#SESSION.dbpw#">
 					<cfif getAdministrator(warehouse.mission) eq "1">				
 					
 						<td style="padding-left:1px;height:40px">
-							<button type="button" name="Submit" id="Submit" value="Submit" style="font-size:13px;height:24;width:140px" class="button10g" onclick="invsubmit('#url.location#','#url.category#','#url.categoryitem#','#url.systemfunctionid#','#url.box#','#url.parentItemNo#')"><cf_tl id="Submit"></button>
+							<button type="button" name="Submit" id="Submit" value="Submit" style="font-size:13px;height:24;width:140px" 
+							   class="button10g" 
+							   onclick="invsubmit('#url.location#','#url.category#','#url.categoryitem#','#url.systemfunctionid#','#url.box#','#url.parentItemNo#')">
+							   <cf_tl id="Submit"></button>
 						</td>							
 					
 					<cfelse>

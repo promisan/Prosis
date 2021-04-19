@@ -52,11 +52,11 @@ password="#SESSION.dbpw#">
 
 <cfset prior = "">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%">
 			
-		<tr><td colspan="2" style="padding:6px">
+		<tr><td colspan="2" style="padding:1px">
 		
-		<table width="100%" class="formpadding">
+		<table width="100%" class="formpadding" style="background-color:f1f1f1">
 		
 				<TR class="labelmedium2">		   				  
 							

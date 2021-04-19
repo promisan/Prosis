@@ -180,14 +180,13 @@ password="#SESSION.dbpw#">
 			</TD>
 			</TR>
 			
-			<tr>
-			   <td></td>
-			   <td id="ledger"></td>
+			<tr>			   
+			   <td colspan="2" id="ledger"></td>
 			</tr>
 			
 		    <TR class="labelmedium">
-		    <TD valign="top" style="padding-top:5px"></TD>
-		    <TD>	
+		    
+		    <TD colspan="2">	
 			
 			    <table style="min-width:610px;width:100%">
 				   <tr class="line labelmedium2">
@@ -222,14 +221,14 @@ password="#SESSION.dbpw#">
 						   
 						   		<cfif itm eq "1">
 						   
-						   		<cf_intelliCalendarDate9
-									FormName="MiscellaneousEntry"
-									FieldName="DateEffective_#itm#"
-									style="border:0px"
-									class="regularxxl enterastab" 
-									DateFormat="#APPLICATION.DateFormat#"
-									Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
-									AllowBlank="False">	
+							   		<cf_intelliCalendarDate9
+										FormName="MiscellaneousEntry"
+										FieldName="DateEffective_#itm#"
+										style="border:0px"
+										class="regularxxl enterastab" 
+										DateFormat="#APPLICATION.DateFormat#"
+										Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
+										AllowBlank="False">	
 									
 								<cfelse>
 								
@@ -259,13 +258,13 @@ password="#SESSION.dbpw#">
 						   		<cfif itm eq "1">
 						   
 						   		<cf_intelliCalendarDate9
-									FormName="MiscellaneousEntry"
-									FieldName="PayrollStart_#itm#"
-									style="border:0px"
-									class="regularxxl enterastab" 
-									DateFormat="#APPLICATION.DateFormat#"
-									Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
-									AllowBlank="False">	
+										FormName="MiscellaneousEntry"
+										FieldName="PayrollStart_#itm#"
+										style="border:0px"
+										class="regularxxl enterastab" 
+										DateFormat="#APPLICATION.DateFormat#"
+										Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
+										AllowBlank="False">	
 									
 								<cfelse>
 								
@@ -375,8 +374,7 @@ password="#SESSION.dbpw#">
 		   <input class="button10g" type="reset"  name="Reset" value=" #lt_text# ">
 		   --->
 		   <cf_tl id="Save" var="1">   
-		   <input class="button10g" type="submit" name="Submit" value=" #lt_text# ">
-		
+		   <input class="button10g" type="submit" name="Submit" value="#lt_text#">		
 		   
 		   </cfoutput>
 		   </td>

@@ -8,12 +8,11 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		UPDATE Ref_SubmissionEditionPosition
-		SET    RecordStatus = '9',
+		SET    RecordStatus        = '9',
 			   RecordStatusOfficer = '#session.acc#',
-			   RecordStatusDate    = getDate()	
-		
-		WHERE  SubmissionEdition = '#URL.SubmissionEdition#'
-		AND    PositionNo = '#URL.PositionNo#' 		
+			   RecordStatusDate    = getDate()			
+		WHERE  SubmissionEdition   = '#URL.SubmissionEdition#'
+		AND    PositionNo          = '#URL.PositionNo#' 		
 	</cfquery>
 		
 <cfelseif url.action eq "update">
@@ -46,7 +45,7 @@
 		 	UPDATE Ref_SubmissionEditionPositionCompetence
 			SET    Operational = 0
 			WHERE  SubmissionEdition = '#URL.SubmissionEdition#'
-			AND    PositionNo = '#URL.PositionNo#' 
+			AND    PositionNo        = '#URL.PositionNo#' 
 			
 	</cfquery>
 	
@@ -59,8 +58,8 @@
 		 	SELECT *
 			FROM   Ref_SubmissionEditionPositionCompetence		
 			WHERE  SubmissionEdition = '#URL.SubmissionEdition#'
-			AND    PositionNo = '#URL.PositionNo#' 
-			AND    CompetenceId = '#itm#'
+			AND    PositionNo        = '#URL.PositionNo#' 
+			AND    CompetenceId      = '#itm#'
 		</cfquery>
 		
 		<cfif check.recordcount eq "1">
@@ -70,10 +69,10 @@
 				 username="#SESSION.Login#" 
 				 password="#SESSION.dbpw#">	 
 				 UPDATE Ref_SubmissionEditionPositionCompetence
-				 SET    Operational = 1
+				 SET    Operational       = 1
 				 WHERE  SubmissionEdition = '#URL.SubmissionEdition#'
-				 AND    PositionNo = '#URL.PositionNo#' 
-				 AND    CompetenceId = '#itm#'
+				 AND    PositionNo        = '#URL.PositionNo#' 
+				 AND    CompetenceId      = '#itm#'
 			</cfquery>
 				
 		<cfelse>
@@ -84,14 +83,13 @@
 				 password="#SESSION.dbpw#">	 
 				 
 				 	INSERT INTO Ref_SubmissionEditionPositionCompetence
-					(SubmissionEdition,PositionNo,CompetenceId,OfficerUserId,OfficerLastName,OfficerFirstName,Created)
+					(SubmissionEdition,PositionNo,CompetenceId,OfficerUserId,OfficerLastName,OfficerFirstName)
 					VALUES ('#URL.SubmissionEdition#',
 							'#URL.PositionNo#',
 							'#itm#',
 							'#SESSION.Acc#',
 							'#SESSION.First#',
-							'#SESSION.Last#',
-							getdate())
+							'#SESSION.Last#')
 				 
 			 </cfquery>
 		 
@@ -102,8 +100,8 @@
 </cfif>	
 
 <cfoutput>
-<script>
-    parent.ColdFusion.Window.hide('EditEditionPosition');
+<script>    
     parent.reloadPosition('#url.PositionNo#','#url.submissionEdition#')
+	parent.ProsisUI.closeWindow('EditEditionPosition');
 </script>
 </cfoutput>

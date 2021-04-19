@@ -1,10 +1,11 @@
 
-<table width="95%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0" bordercolor="e4e4e4" >
+<table width="100%" height="100%" align="center">
 
-<tr><td colspan="2" height="30">
+<tr><td colspan="2" height="30px" valign="top">
 
-   <table width="100%" border="0" class="formpadding navigation_table" cellspacing="0" cellpadding="0">
+   <table width="100%" border="0" class="formpadding navigation_table">
 		
+		<!---
 		<tr class="line labelmedium">
 		<td height="23" width="50"></td>
 		<td><cf_tl id="Name"></td>
@@ -12,6 +13,7 @@
 		<td align="right"><cf_tl id="Fields"></td>
 		<td align="right" style="padding-right:3px"><cf_tl id="Records"></td>		
 		</tr>
+		--->
 			
 	   <cfset tblinit = "">
 	   	     	   
@@ -73,11 +75,11 @@
 							AND      S.name = '#tbl#'	
 							</cfquery>
 						   						   
-						   <tr id="r#currentRow#" style="cursor:pointer;" class="labelmedium navigation_row line"
+						   <tr id="r#currentRow#" style="cursor:pointer;" class="labelmedium2 navigation_row line"
 						    onclick="reload('#CurrentRow#','#OutputId#','#tbl#')"
 						    bgcolor="<cfif #CurrentRow# eq "1">ffffff</cfif>">
 							
-						    <td width="50" style="padding-left:3px">
+						    <td width="50" style="padding-left:13px">
 							
 							<cf_tl id="Open" var="1">
 							
@@ -96,7 +98,7 @@
 						    <td width="30%" style="padding-left:10px">#OutputName#</td>
 							<td width="30%">#datasource#:#tbl#</td>
 							<td align="right">#numberFormat(FieldNo.total, ",")#</td>
-							<td align="right" style="padding-right:4px">#numberFormat(NoRecords.total, ",")#</td>
+							<td align="right" style="padding-right:14px">#numberFormat(NoRecords.total, ",")#</td>
 						   </tr>		
 						  
 						   <cfif tblinit eq "">
@@ -160,13 +162,18 @@
 
 --->
 
+<tr><td colspan="2" style="height:100%">
+<table style="height:100%;width:100%">
+
 <cf_menucontainer item="1" class="regular">
 <cf_menucontainer item="2" class="hide" iframe="excelframe">
+</table>
+</td></tr>
 
 <cfif tblinit neq "">
 
  	<script>
-	   ColdFusion.navigate('#SESSION.root#/Tools/Cfreport/ExcelFormat/FormatExcelDetail.cfm?mode=#url.mode#&reportid=#url.reportid#&ID=#idinit#&Table=#tblinit#','contentbox1')
+	   ptoken.navigate('#SESSION.root#/Tools/Cfreport/ExcelFormat/FormatExcelDetail.cfm?mode=#url.mode#&reportid=#url.reportid#&ID=#idinit#&Table=#tblinit#','contentbox1')
  	</script>
 	
 <cfelse>

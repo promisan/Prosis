@@ -1,6 +1,4 @@
 
-<cfajaximport tags="cfwindow">
-
 <cfoutput>
 
 	<table height="100%" width="98%" align="center" border="0" cellspacing="0" cellpadding="0">
@@ -20,7 +18,7 @@
 		</td>
 						
 	    <td height="100%" valign="top" width="100%" style="padding-left:4px">		
-			<cfdiv bind="url:#link#" id="user"/>		
+			<cf_securediv bind="url:#link#" id="user">		
 		</td>
 		
 		</tr>  		

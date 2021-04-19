@@ -2,6 +2,7 @@
 <cfparam name="url.systemfunctionid" default="">
 <cfparam name="url.missionorgunitid"  default="">
 <cfparam name="url.mission"          default="">
+<cfparam name="url.warehouse"         default="">
 
 
 <!--- define access --->
@@ -146,11 +147,11 @@
 			<table cellspacing="0" cellpadding="0">
 				<tr class="labelmedium">
 				<cfoutput>
-					<td style="padding-left:0px"><input type="radio" onclick="ColdFusion.navigate('#linksave#&conditionvalueattribute1=#application.basecurrency#&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val(),'salecontent_#condition#')" class="radiol" name="currency_#condition#" id="currency_#condition#" value="#application.basecurrency#" <cfif getCondition.ConditionValueAttribute1 eq application.basecurrency>checked</cfif>></td>
+					<td style="padding-left:0px"><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1=#application.basecurrency#&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val(),'salecontent_#condition#')" class="radiol" name="currency_#condition#" id="currency_#condition#" value="#application.basecurrency#" <cfif getCondition.ConditionValueAttribute1 eq application.basecurrency>checked</cfif>></td>
 					<td class="labelmedium" style="padding-left:7px">#application.basecurrency#</td>		
 				</cfoutput>
 				<cfoutput query="Currency">
-					<td style="padding-left:9px"><input type="radio" onclick="ColdFusion.navigate('#linksave#&conditionvalueattribute1=#currency#&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val(),'salecontent_#condition#')" class="radiol" name="currency_#condition#"  id="currency_#condition#" value="#currency#" <cfif getCondition.ConditionValueAttribute1 eq currency>checked</cfif>></td>
+					<td style="padding-left:9px"><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1=#currency#&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val(),'salecontent_#condition#')" class="radiol" name="currency_#condition#"  id="currency_#condition#" value="#currency#" <cfif getCondition.ConditionValueAttribute1 eq currency>checked</cfif>></td>
 					<td class="labelmedium" style="padding-left:7px">#currency# [#exchangerate#]</td>																
 				</cfoutput>
 				</tr>

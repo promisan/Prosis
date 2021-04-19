@@ -1,5 +1,5 @@
 <cf_textareascript>
-<cfajaximport tags="cfform,cfdiv,cfinput-datefield,cfwindow">
+<cfajaximport tags="cfform,cfdiv">
 
 <cfquery name="GetFunction" 
 datasource="AppsSystem" 
@@ -21,4 +21,4 @@ password="#SESSION.dbpw#">
 
 <cf_screentop label="Grant Function/Role to Mission" option="[#GetFunction.SystemModule#  [#GetRole.Role# - #GetRole.Description#]" jquery="yes" height="100%" banner="yellow" scroll="Yes" layout="webapp" user="no">
 
-<cfdiv id="irolen" bind="url:RecordMissionListingDetail.cfm?functionId=#URL.ID#&role=#url.Role#&allType=#url.allType#">
+<cf_securediv id="irolen" bind="url:RecordMissionListingDetail.cfm?functionId=#URL.ID#&role=#url.Role#&allType=#url.allType#">

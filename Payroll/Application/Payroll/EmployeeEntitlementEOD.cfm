@@ -66,7 +66,7 @@ password="#SESSION.dbpw#">
 			
 		</cfquery>
 	
-		<tr class="line labelmedium2">
+		<tr class="line labelmedium2 fixrow">
 		<td style="width:90%;height:35px;font-size:25px;font-weight:200;padding-left:2px" colspan="5" align="left">		
 			<b>#Mission# <font size="2">(<cf_tl id="until">#dateformat(Last.PayrollStart,"YYYY MMMM")# )</font></b>	
 		</td>
@@ -102,13 +102,13 @@ password="#SESSION.dbpw#">
 		</td>
 		</tr>	
 		
-		<tr class="line labelmedium2">
+		<tr class="line labelmedium2 fixrow2">
 		 <td></td>
 		 <td style="min-width:90%" colspan="2"><cf_tl id="Item"></td>
 		 <td colspan="1"></td>
 		 <td colspan="1" width="50"></td>
-		 <td colspan="1" align="right" style="width:140px"><cf_tl id="Entitlement"></td>
-		 <td colspan="1" align="right" style="width:140px"><cf_tl id="Settled"></td>
+		 <td colspan="1" align="right" style="min-width:190px"><cf_tl id="Entitlement"></td>
+		 <td colspan="1" align="right" style="min-width:190px"><cf_tl id="Settled"></td>
 		</tr>
 		
 		<cfquery name="Item" 
@@ -203,7 +203,7 @@ password="#SESSION.dbpw#">
 		<cfloop query="Item">
 		
 			<cfif Source neq prior>	
-				<tr class="line labelmedium2" style="background-color:ffffaf"><td style="padding-left:5px;height:30px;font-size:16px" colspan="7">#Source#</td></tr>	
+				<tr class="line labelmedium2"><td style="padding-left:5px;height:30px;font-size:16px" colspan="7">#Source#</td></tr>	
 			</cfif>
 		
 			<cfset prior = source>
@@ -247,7 +247,7 @@ password="#SESSION.dbpw#">
 				
 				<cfif entitle neq "0" or paym neq "0" or pay.recordcount gt "0">
 				
-				<tr style="height:18px" class="line labelmedium navigation_row">
+				<tr style="height:18px" class="line labelmedium2 navigation_row">
 					<td align="center" width="40">
 				
 						<img src="#SESSION.root#/Images/icon_expand.gif" alt="View History" 

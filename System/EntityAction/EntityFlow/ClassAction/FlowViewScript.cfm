@@ -8,8 +8,6 @@
 <cf_ajaxRequest>
 <cf_systemScript>
 
-<cfajaximport tags="cfwindow">
-
 <script language="JavaScript">
 
 function openflow(connector) {
@@ -103,16 +101,13 @@ function localdrag() {
 	
 		
 	while (document.getElementById("d"+count) && !found) { 
-
 			
 		bx = document.getElementById("bd"+count)
 		se = document.getElementById("d"+count)	
 		dh = se.offsetHeight;
 		dw = se.offsetWidth;
 		dx = se.offsetLeft;
-		dy = se.offsetTop;
-
-		
+		dy = se.offsetTop;		
 						
 		while (se.offsetParent) {
 			se = se.offsetParent
@@ -263,14 +258,12 @@ function remove(pub) {
 	}
 
 
-function showStep(id,pub)
-{
+function showStep(id,pub){
 	if (window.dialogArguments) {			     
 			mywin = dialogArguments.window.open("ActionStepContainer.cfm?ts="+new Date().getTime()+"&EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode="+id+"&PublishNo="+pub, "stepedit", "left=10, top=10, width=950, height=870, toolbar=no, status=yes, scrollbars=no, resizable=yes");									
 	   } else  {					    	 
 	   		mywin = window.open("ActionStepContainer.cfm?ts="+new Date().getTime()+"&EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode="+id+"&PublishNo="+pub, "stepedit", "left=10, top=10, width=990, height=910, toolbar=no, status=yes, scrollbars=no, resizable=no");
 	   }
-
 }
 		
 function stepedit(id,pub) {
@@ -280,9 +273,7 @@ function stepedit(id,pub) {
 			if (mywin.name=="stepedit"){
 				mywin.focus()
 			 	mywin.addtab(id,pub)
-			}
-			else
-			{
+			} else {
 				showStep(id,pub);			
 			}
 		 } catch(e) { 
@@ -333,8 +324,7 @@ function stepinspect(id,pub) {
 					
 		ProsisUI.createWindow('actorshow', 'Actors', '',{x:100,y:100,height:350,width:700,resizable:false,modal:true,center:true});		
 		url = "#SESSION.root#/tools/EntityAction/ActionListingActor.cfm?Objectid=#url.objectid#&OrgUnit=#Obj.OrgUnit#&Role=#Obj.Role#&ActionPublishNo="+pub+"&ActionCode="+id+"&box=actorshow"				
-		ptoken.navigate(url,'actorshow')	
-				 
+		ptoken.navigate(url,'actorshow')					 
  	  		
 	<cfelse>
 	
@@ -347,7 +337,7 @@ function stepinspect(id,pub) {
 		</cfif>	
 				
 		parent._cf_loadingtexthtml='';					 
-	    parent.ColdFusion.navigate('WorkflowInspect.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode='+id+'&PublishNo='+pub,'inspect')
+	    parent.ptoken.navigate('WorkflowInspect.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode='+id+'&PublishNo='+pub,'inspect')
 	 			  
 		 }
 		  
@@ -358,7 +348,7 @@ function stepadd() {
      
 	try { parent.ProsisUI.closeWindow('mystep',true) } catch(e) {}
 	parent.ProsisUI.createWindow('mystep', 'Workflow steps', '',{x:100,y:100,height:parent.document.body.clientHeight-140,width:parent.document.body.clientWidth-140,modal:true,resizable:false,center:true})    
-	parent.ColdFusion.navigate('#session.root#/System/EntityAction/EntityFlow/ClassAction/ActionStepAdd.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#','mystep') 	
+	parent.ptoken.navigate('#session.root#/System/EntityAction/EntityFlow/ClassAction/ActionStepAdd.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#','mystep') 	
 
 }
 

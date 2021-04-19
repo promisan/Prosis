@@ -29,7 +29,7 @@ password="#SESSION.dbpw#">
 
 <cfform name="personaddressform" onsubmit="return false">
 
-<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" align="center" class="formpadding">
 
   <tr><td id="addressprocess"></td></tr>
   <tr><td style="border:0px dotted silver;padding:2px">
@@ -195,7 +195,7 @@ password="#SESSION.dbpw#">
 	
 	<td style="padding-left:1px">
 	   		
-		<table>
+		<table class="formpadding">
 		
 		<cfset row = 0>
 		

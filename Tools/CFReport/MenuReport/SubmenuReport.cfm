@@ -13,7 +13,7 @@ datasource="AppsSystem">
 <cfif uniqueheader eq "">
 
 	<cf_screentop height="100%" scroll="Yes" html="No" jquery="yes">
-	<cfajaximport tags="cfform,cfwindow,cfdiv">
+	<cfajaximport tags="cfform,cfdiv">
 </cfif>
 
 <style>

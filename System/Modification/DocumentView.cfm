@@ -66,7 +66,7 @@
 	}
 	
 	function convert(id) {
-	   ColdFusion.Window.create('amendment', 'Conversion', '',{x:15,y:90,height:260,width:480,closable:true,draggable:false,resizable:false,modal:true,center:true})
+	   ProsisUI.createWindow('amendment', 'Conversion', '',{x:15,y:90,height:260,width:480,closable:true,draggable:false,resizable:false,modal:true,center:true})
 	   ptoken.navigate('DocumentConvert.cfm?id='+id+'&observationclass=amendment','amendment') 	 	  
 	}
 	
@@ -78,7 +78,7 @@
 
 <cf_dialogstaffing>	
 <cf_textareascript>
-<cfajaximport tags="cfmenu,cfdiv,cfform,cfwindow">
+<cfajaximport tags="cfdiv,cfform">
 <cf_ActionListingScript>
 <cf_FileLibraryScript>
 <cf_LayoutScript>

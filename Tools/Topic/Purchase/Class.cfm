@@ -76,15 +76,15 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
-<table width="100%" cellspacing="0" cellpadding="0">
+<table width="100%">
 			
 	<cfloop query="Select">
 	
-		<cfif cont eq 0> <tr style="height:20px;" class="linedotted labelmedium"> </cfif>
+		<cfif cont eq 0> <tr style="height:20px;" class="line labelmedium2"> </cfif>
 		<cfset cont = cont + 1>
 		
-		<td bgcolor="<cfif selected neq "">ffffbf</cfif>">
-		 	<input type="checkbox" value="#code#" <cfif Selected neq "">checked="yes"</cfif> onClick="javascript:ColdFusion.navigate('#SESSION.root#/Tools/Topic/Purchase/Class.cfm?scopetable=#url.scopetable#&Topic=#URL.Topic#&class=#code#&checked='+this.checked,'#url.topic#_class')">
+		<td style="width:20px" bgcolor="<cfif selected neq "">ffffbf</cfif>">
+		 	<input type="checkbox" class="radiol" value="#code#" <cfif Selected neq "">checked="yes"</cfif> onClick="javascript:ColdFusion.navigate('#SESSION.root#/Tools/Topic/Purchase/Class.cfm?scopetable=#url.scopetable#&Topic=#URL.Topic#&class=#code#&checked='+this.checked,'#url.topic#_class')">
 		</td>
 		<td bgcolor="<cfif selected neq "">ffffbf</cfif>"  style="padding-left:5px;padding:1px;">#Description#</td>		
 		<td bgcolor="<cfif selected neq "">ffffbf</cfif>"  style="padding:1px; font-size:8pt;">

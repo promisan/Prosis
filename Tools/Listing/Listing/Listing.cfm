@@ -307,15 +307,14 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 
 <cftry>
 
+    <cfparam name="SESSION.listingdata['#box#']['aggregate']"   default="">	
 	<cfset ts = SESSION.listingdata[box]['timestamp']>
     <cfcatch>
     	<cfset SESSION.listingdata[box]['timestamp'] = "#now()#">			
 	    <cfparam name="SESSION.listingdata['#box#']['sqlorig']"   default="999">	
     </cfcatch>
-	 
+		 
 </cftry>
-
-
 	
 <cfif url.systemfunctionid neq "">
 
@@ -354,7 +353,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 		</cfif>				
 									
 	</cfloop>
-	
+		
 	<cfquery name="clean" 
 	   datasource="AppsSystem" 
 	   username="#SESSION.login#" 
@@ -806,13 +805,23 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 																																			
 						<cfloop index="itm" list="#val#" delimiters="|">
 						
-							<!--- 30/12/2021 likely we can remove the like as well --->
+							<!--- 06/04/2021 adjusted --->
+							
+							<cfif thiscondition eq "">							
+								<cfset thiscondition   = "#fld# = ('#itm#') #CLIENT.Collation#">												
+							<cfelse>									                                                         
+								<cfset thiscondition   = "#thiscondition# OR #fld# = ('#itm#') #CLIENT.Collation#">					
+							</cfif> 
+							
+							<!--- 30/12/2021 likely we can remove the like as well 
 						
 							<cfif thiscondition eq "">							
 								<cfset thiscondition   = "#fld# LIKE ('%#itm#%') #CLIENT.Collation#">												
 							<cfelse>									                                                         
 								<cfset thiscondition   = "#thiscondition# OR #fld# LIKE ('%#itm#%') #CLIENT.Collation#">					
 							</cfif> 
+							
+							--->
 							
 							<!--- 30/12/2020 : we tuned the filtering using | so this seems to be no longer needed 
 						
@@ -1087,7 +1096,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 				</cfquery>		
 				
 				<cfif getListLog.LogStamp gt session.listingdata[attributes.box]['timestamp']>			
-					 <cfset session.listingdata[box]['recordsinit']   = 0> 	
+					 <cfset session.listingdata[box]['recordsinit']   = -1> 	
 					  <cfset attributes.refresh = "1">				  							  	
 				</cfif>			
 				
@@ -1134,7 +1143,6 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 		
 	</cfif>	
 	
-		
 <cfinclude template="ListingData.cfm">
 
 <!--- ---------------------- --->
@@ -1144,7 +1152,6 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cfset box = attributes.box>  <!--- set by hanno 12/9/19 as box was blank --->
 
 <cfif url.ajaxid eq "content">
-
   
 	<cfif attributes.showlist eq "Yes">				
 		<!--- shows the listing as HTML and header --->			
@@ -1171,9 +1178,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 
 </cfif>	
 
-
 <cfset session.listingdata[box]['listingpreparation'] = round((now()- listingtimestart)*100000000)/1000>
-
 
 <cfsavecontent variable="myscript">
  	_cf_loadingtexthtml='';				

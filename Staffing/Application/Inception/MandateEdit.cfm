@@ -1,7 +1,7 @@
 
 <cf_calendarscript>
 <cf_dialogPosition>
-<cfajaximport tags="cfwindow">
+<cfajaximport>
 
 <cfquery name="Current" 
 datasource="AppsOrganization" 

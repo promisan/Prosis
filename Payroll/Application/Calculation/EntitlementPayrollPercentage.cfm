@@ -453,8 +453,6 @@ have percentages in the result --->
 			AND     T.SalarySchedule      = '#myschedule#'					
 		</cfquery>			
 		
-					
-	
 		<!--- -------------------------------------------------------------------------------------------------------- --->
 		<!--- update percentage (if needed based on a subtable) based on the base value and correct for the full month --->
 		<!--- -------------------------------------------------------------------------------------------------------- --->
@@ -466,13 +464,12 @@ have percentages in the result --->
 			UPDATE  userTransaction.dbo.sal#SESSION.thisprocess#EntitlementRatePercentage
 			SET   	Percentage = D.Percentage	
 				       
-			FROM    userTransaction.dbo.sal#SESSION.thisprocess#EntitlementRatePercentage T,	
-					SalaryScalePercentageDetail D
+			FROM    userTransaction.dbo.sal#SESSION.thisprocess#EntitlementRatePercentage T 
+			        INNER JOIN SalaryScalePercentageDetail D ON T.ScaleNo            = D.ScaleNo
+									AND     T.ComponentName      = D.ComponentName
+									AND     T.EntitlementPointer = D.EntitlementPointer
 					
-			WHERE   T.ScaleNo            = D.ScaleNo
-			AND     T.ComponentName      = D.ComponentName
-			AND     T.EntitlementPointer = D.EntitlementPointer
-			AND     T.SalarySchedule      = '#myschedule#'	
+			WHERE   T.SalarySchedule      = '#myschedule#'	
 			AND     T.DetailMode         = 'Amount'
 			AND     D.DetailValue =
 									(

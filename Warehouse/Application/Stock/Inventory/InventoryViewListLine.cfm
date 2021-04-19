@@ -89,7 +89,14 @@
 			
 		</td>		
 		
-		<td style="padding-left:1px;min-width:100">#UoMDescription#</td>
+		<td style="padding-left:1px;min-width:100">
+		
+		<table><tr>
+		<td><cf_img onclick="stockinquiry('#itemno#','#url.warehouse#','#uom#')" icon="open"></td>
+		<td class="labelit">#UoMDescription#</td></tr></table>
+				
+		
+		</td>
 		
 		<td align="right" style="padding-right:2px;min-width:100">
 		   <cf_precision number="#itemprecision#">#NumberFormat(onhand,'#pformat#')#

@@ -9,7 +9,7 @@
 
 <cfoutput>
 
-<cfajaximport tags="cfform,cfdiv,cfmenu,cfwindow">
+<cfajaximport tags="cfform,cfdiv">
 
 <cf_dialogStaffing>		
 <cf_dialogPosition>	

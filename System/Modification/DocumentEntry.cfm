@@ -2,7 +2,7 @@
 <cf_textareascript>
 <cf_fileLibraryScript>
 <cf_listingscript>
-<cfajaximport tags="cfwindow">	
+
 
 <cfparam name="url.systemmodule"       default="">
 <cfparam name="url.mission"            default="">

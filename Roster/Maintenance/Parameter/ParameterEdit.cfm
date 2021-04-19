@@ -11,7 +11,7 @@
 
 <cfoutput>
 
-<cfajaximport tags="cfwindow,cfform,cfdiv">
+<cfajaximport tags="cfform,cfdiv">
 	
 <cfinclude template="ParameterInsert.cfm">
 

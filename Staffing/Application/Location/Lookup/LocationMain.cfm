@@ -1,10 +1,11 @@
 
 <cfparam name="URL.Mode" default="Lookup">
+<cfparam name="URL.mid"  default="">
 
 <cfif URL.Mode eq "Lookup">
-  <cfset link = "LocationTree.cfm?FormName=#URL.formname#&fldlocationcode=#URL.fldlocationcode#&fldlocationname=#URL.fldlocationname#&Mission=#URL.Mission#&Mode=#URL.Mode#">
+  <cfset link = "LocationTree.cfm?FormName=#URL.formname#&fldlocationcode=#URL.fldlocationcode#&fldlocationname=#URL.fldlocationname#&Mission=#URL.Mission#&Mode=#URL.Mode#&mid=#url.mid#">
 <cfelse>
-  <cfset link = "LocationTree.cfm?Mission=#URL.Mission#&Mode=#URL.Mode#">
+  <cfset link = "LocationTree.cfm?Mission=#URL.Mission#&Mode=#URL.Mode#&mid=#url.mid#">
 </cfif>
 	   
 <cfoutput>
@@ -18,7 +19,7 @@
 		   		parent.document.getElementById('#URL.fldlocationcode#').value = val						
 		   	    parent.document.getElementById('#URL.fldlocationname#').value = des			
 				try { parent.processloc(val,'#URL.id#') } catch(e) {}     	
-				parent.ColdFusion.Window.hide('mylocation',true)		   
+				parent.ProsisUI.closeWindow('mylocation',true)		   
 				
 		<cfelseif #URL.Mode# eq "Bucket">
 					
@@ -34,7 +35,7 @@
 </cfoutput>
 
 <cf_screentop height="100%" 
-	  html="Yes" 
+	  html="No" 
 	  scroll="No"		 
 	  layout="webapp"
 	  jQuery="Yes"

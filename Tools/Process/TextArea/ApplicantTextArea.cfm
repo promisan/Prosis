@@ -85,7 +85,7 @@
 	
 	<cfif Attributes.mode neq "save">
 	
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+			<table width="100%">
 			
 			<cfoutput query="Notes">
 			
@@ -93,22 +93,23 @@
 				<cfset ht =  NoRows*15>				
 			<cfelse>
 				<cfset ht =  attributes.height>
-			</cfif>			
-						
-			<tr><td height="1"></td></tr>
+			</cfif>	
+			
+			<tr><td style="height:4px"></td></tr>		
+				
 			<tr>
 			   
 				<td colspan="2">
 
-				    <table width="100%" cellspacing="0" cellpadding="0">
+				    <table width="100%">
 					<tr>					
-						<td align="left" style="padding-top:10px">  
+						<td align="left" style="<cfif attributes.mode eq 'edit'>border:1px solid silver;border-bottom:0px</cfif>;background-color:f1f1f1;height:40px;padding-left:4px">  
 							<table>
 								<tr>
 									<cfif attributes.mode eq "View" and attributes.toggle eq "Yes">
 										<td> <cf_img icon="expand" toggle="yes" onclick="toggleTextArea('div_#Code#')"> </td>
 									</cfif>
-									<td style="font-size:18px" class="<cfif attributes.mode eq 'View'>labelmedium<cfelse>labelmedium</cfif>">
+									<td style="font-size:20px" class="<cfif attributes.mode eq 'View'>labelmedium<cfelse>labelmedium</cfif>">
 										#Description#
 									</td>
 								</tr>
@@ -123,7 +124,7 @@
 					<cfif attributes.mode eq "View">
 											
 						<tr class="linedotted">
-						<td align="left" class="labelit" colspan="2" style="padding-top:2px;padding-left:7px; <cfif attributes.toggle eq 'Yes'>display:none;</cfif>" id="div_#Code#">
+						<td align="left" class="labelmedium2" colspan="2" style="padding-left:5px;padding-top:2px; <cfif attributes.toggle eq 'Yes'>display:none;</cfif>" id="div_#Code#">
 						     <!---
 							 <cf_paragraph>
 							 --->
@@ -157,7 +158,7 @@
 						 			   
 					<cfelse>
 					
-					   <td colspan="3" align="center" style="border: 0px solid Silver;"> 
+					   <td colspan="3" align="center" style="border: 0px solid Silver;padding-right:2px"> 
 					   		  <cfif Evaluate(attributes.fieldoutput) eq "" and attributes.PathDefault neq "">							  			  
 							  	<cfset url.languagecode = Attributes.languagecode>
 								<cfinclude template="../../../Custom#attributes.PathDefault##CODE#.cfm">

@@ -1,4 +1,4 @@
-<cf_screentop height="100%" jquery="Yes" scroll="Yes" html="no" label="Add Bucket" layout="webapp">
+<cf_screentop height="100%" jquery="Yes" scroll="Yes" html="no" label="Record a roster bucket" layout="webapp">
 
 <!--- select only function is the class of the owner and that are enabled as roster function --->
 
@@ -44,6 +44,7 @@ password="#SESSION.dbpw#">
   FROM   Ref_Mission M, Ref_MissionModule R
   WHERE  M.Mission      = R.Mission
   AND    R.SystemModule = 'Vacancy'  
+  AND    M.Operational = 1
   			
   <cfif SESSION.isAdministrator eq "No">	
   			
@@ -80,6 +81,7 @@ SELECT *
 FROM  Ref_Mission M, Ref_MissionModule R
 WHERE M.Mission = R.Mission
   AND R.SystemModule = 'Vacancy'
+  AND M.Operational = 1
    <!---
   AND M.Mission IN (SELECT Mission 
                     FROM   Ref_Mandate 
@@ -116,7 +118,7 @@ password="#SESSION.dbpw#">
 	AND     Owner          = '#URL.Owner#'
 	AND     EnableAsRoster = 1 
 	AND     (ActionStatus  != '9' or SubmissionEdition = '#url.edition#')
-	ORDER BY ListingOrder, ExerciseClass DESC
+	ORDER BY DateEffective DESC, ListingOrder, ExerciseClass DESC
 </cfquery>
 
 <cfif Edition.recordcount eq "0">
@@ -231,7 +233,7 @@ password="#SESSION.dbpw#">
     <TD class="labelmedium"><cf_tl id="Edition">:</TD>
     <TD>  
 	    <cfset st = 0>
-		
+				
 		<cfif url.edition neq "" and url.edition neq "undefined">
 		
 		    <cfset default = url.edition>

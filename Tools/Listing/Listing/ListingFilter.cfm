@@ -60,13 +60,19 @@
 			but then without the filtering applied so we have all possible dropdown 
 			values to select --->
 			
-			<cftry>			
-			<cfset filterselect = session.listingdata[box]['datasetinit']>			
-			<cfcatch>
-			<cfset filterselect = searchresult>			
+			<cfset ini = session.listingdata[box]['recordsinit']>
+			<cfset fil = session.listingdata[attributes.box]['records']>			
+			<cftry>						
+				<cfif fil gt ini>								
+			      <cfset filterselect = searchresult>
+				<cfelse>								
+				  <cfset filterselect = session.listingdata[attributes.box]['datasetinit']>	
+				</cfif>	  		
+			<cfcatch>			
+				<cfset filterselect = searchresult>			
 			</cfcatch>
 			</cftry>	
-							
+									
 			
 			<!---
 									

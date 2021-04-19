@@ -52,7 +52,7 @@
 			
 		<cf_divscroll style="height:98%">
 		
-				<table width="100%" bgcolor="FFFFFF">
+				<table width="100%" bgcolor="FFFFFF" style="padding:10px">
 					
 					<tr><td id="adddetail" height="0px"></td></tr>
 					
@@ -195,12 +195,12 @@
 						<cfset go = "0">	
 													
 						<tr class="<cfoutput>#cl#</cfoutput>">		   
-						   <td colspan="2" class="labelmedium" style="font-size:20px;height:45px">
+						   <td colspan="2" class="labelmedium" style="padding-left:20px;font-size:20px;height:45px">
 						   
 						   <select name="serviceitemselect" 
 						           id="serviceitemselect" 
 								   style="font-size:22px;height:35px" 
-								   class="regularxl">   
+								   class="regularxxl">   
 						   	  
 							   <cfoutput query="ServiceitemList">
 
@@ -258,7 +258,7 @@
 								<table width="100%" class="formpadding">
 													
 									<tr>
-									   <td colspan="2">
+									   <td colspan="2" style="padding:20px">
 									       <!--- embedded form for this order --->
 										   						  					   
 										   <cf_getMID>						  
@@ -299,24 +299,24 @@
 												
 												<td>	
 															
-													<input type="button" 
-														   name="Close" 
-														   style="width:170;height:27;font-size:12px"
-														   class="button10g"
-								                           id="Close"
-														   value="#vCancel#" 						   
-														   onclick="returnValue=1;window.close()">								   
+													<input type    = "button" 
+														   name    = "Close" 
+														   style   = "width:170;height:27;font-size:12px"
+														   class   = "button10g"
+								                           id      = "Close"
+														   value   = "#vCancel#" 						   
+														   onclick = "returnValue=1;window.close()">								   
 												</td>		
 												
 												<td> 	
 											
-											    	<input type="button" 
-													       style="width:170;height:27;font-size:12px"
-														   class="button10g"
-														   name="Save" 
-								                           id="Save"
-														   value="#vSave#" 						   
-														   onclick="validate()">	
+											    	<input type    = "button" 
+													       style   = "width:170;height:27;font-size:12px"
+														   class   = "button10g"
+														   name    = "Save" 
+								                           id      = "Save"
+														   value   = "#vSave#" 						   
+														   onclick = "validate()">	
 														   
 												</td>	
 											</tr>
@@ -331,13 +331,13 @@
 																													
 													<td style="padding-left:20px"> 	
 												
-												    	<input type="button" 
-														       style="width:335;height:31;font-size:13px"
-															   class="button10g"
-															   name="Save" 
-									                           id="Save"
-															   value="#vSave#" 						   
-															   onclick="validate()">	
+												    	<input type    = "button" 
+														       style   = "width:335;height:31;font-size:13px"
+															   class   = "button10g"
+															   name    = "Save" 
+									                           id      = "Save"
+															   value   = "#vSave#" 						   
+															   onclick = "validate()">	
 															   										   
 													</td>	
 												</tr>

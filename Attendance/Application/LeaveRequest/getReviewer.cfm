@@ -275,7 +275,7 @@
 				try { document.getElementById('reviewerselect2').className = "regular"} catch(e) {}
 			</script>
 			
-			<table cellspacing="0" cellpadding="0">
+			<table>
 				<tr>
 						
 					<cfset link = "#session.root#/Attendance/Application/LeaveRequest/getPerson.cfm?personno=#url.personno#&leaveid=&field=#FieldName#">						
@@ -294,7 +294,7 @@
 							icon       = "lookup.png"
 							iconheight = "26"
 							iconwidth  = "26"
-							style      = "border:1px solid silver"
+							style      = "border:1px solid silver;border-left:0px"
 							filter2    = "onboard"							
 							class      = "user"
 							des1       = "Account">

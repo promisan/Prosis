@@ -18,7 +18,6 @@ password="#SESSION.dbpw#">
 	AND    UoM     = '#get.TransactionUoM#'
 </cfquery>
 
-
 <cfquery name="ItemList" 
 	datasource="appsMaterials" 
 	username="#SESSION.login#" 
@@ -44,18 +43,23 @@ password="#SESSION.dbpw#">
                	       WHERE   ItemNo    = U.ItemNo 
                 	   AND     UoM       = U.UoM
 	                   AND     Warehouse = IW.Warehouse) as ReorderQuantity,			
+					 
+					 <!--- minus earmarked --->
 					 			 
 					 ( SELECT ROUND(SUM(TransactionQuantity),5)
 					   FROM   ItemTransaction 
 					   WHERE  Warehouse       = IW.Warehouse
 					   AND    Location        = IW.Location
 					   AND    ItemNo          = U.ItemNo
-					   AND	   TransactionUoM  = U.UoM ) as OnHand 						
+					   AND	  TransactionUoM  = U.UoM 
+					   AND    WorkOrderId is NULL) as OnHand 						
+					   
 			FROM     ItemWarehouseLocation IW 
 					 INNER JOIN Warehouse W ON IW.Warehouse = W.Warehouse 
 					 INNER JOIN WarehouseLocation WL ON IW.Warehouse = WL.Warehouse AND IW.Location = WL.Location
 					 INNER JOIN ItemUoM U ON IW.ItemNo = U.ItemNo AND IW.UoM = U.UoM
 					 INNER JOIN Item I ON IW.ItemNo = I.ItemNo
+					 
 			WHERE    W.Mission = '#Get.mission#'
 			AND      IW.ItemNo = '#Get.Itemno#'
 			AND      IW.UoM    = '#Get.TransactionUoM#'
@@ -133,8 +137,7 @@ password="#SESSION.dbpw#">
 						<td colspan="4" style="font-size:16px;padding-left:24px">#Location# #LocationName#</td>					
 					</tr>
 				
-				<cfoutput>
-				
+				<cfoutput>			
 					
 					<cfset minimumQty = ReorderQuantity>	
 		

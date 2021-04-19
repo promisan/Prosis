@@ -90,7 +90,7 @@
 
 --->
  
-<cfajaximport tags="cfwindow,cfform,cfdiv,cfmenu,cfinput-datefield">
+<cfajaximport tags="cfform,cfdiv">
 
 <cf_searchScript>
 <cf_filelibraryscript>

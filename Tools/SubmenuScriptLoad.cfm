@@ -59,8 +59,13 @@ function reporter(mission,systemfunctionid,header,enforce,target) {
 	}
 }
 
-function appcode() {
- 	ptoken.open("#SESSION.root#/System/Modification/PostFile/PostFile.cfm?mode=full&ts="+new Date().getTime(), "ddictionary", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes");
+function appcode(mission,systemfunctionid,header,enforce,target) {
+     if (target == "_new") {
+ 	ptoken.open("#SESSION.root#/System/Modification/PostFile/PostFile.cfm?mode=full&ts="+new Date().getTime()+ "&systemfunctionid=" + systemfunctionid, "appcode");
+	} else {
+	ptoken.open("#SESSION.root#/System/Modification/PostFile/PostFile.cfm?mode=full&ts="+new Date().getTime()+ "&systemfunctionid=" + systemfunctionid, "appcode", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes");	
+	}
+	
 }
 
 function dictionary(mission,systemfunctionid,header,enforce,target) {

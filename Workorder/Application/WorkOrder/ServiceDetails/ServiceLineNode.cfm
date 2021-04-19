@@ -39,13 +39,12 @@
 	
 	<cfoutput query="OrgUnit">
 		<input type="hidden" name="OrgUnit" id="OrgUnit" value="#OrgUnit.OrgUnit#">
-		<input type="hidden" name="Name" id="Name" value="#OrgUnit.OrgUnitName#" class="regular3">				
-		
+		<input type="hidden" name="Name" id="Name" value="#OrgUnit.OrgUnitName#" class="regular3">			
 	</cfoutput>
 	
 	</td>
 
-	<td class="labelmedium" style="padding-left:3px;padding-top:1px;padding-bottom:1px;height:24px;border-right: 1px solid Silver;border-top: 1px solid Silver;border-bottom: 1px solid Silver;">
+	<td class="labelmedium" style="padding-left:3px;padding-top:1px;padding-bottom:1px;height:25px;border: 1px solid Silver">
 	<cfoutput query="OrgUnit">
 		#OrgUnitName#
 	</cfoutput>

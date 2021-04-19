@@ -64,7 +64,7 @@
 			
 	<cfset initclass = "">
 		
-		<select name="leavetypeclass" id="leavetypeclass" style="min-width:220px;min-width:101%;border:0px" class="regularxxl" 
+		<select name="leavetypeclass" id="leavetypeclass" style="border-left:1px solid silver;background-color:f1f1f1;min-width:220px;min-width:101%;border:0px" class="regularxxl" 
 		    onchange="getreason('#url.id#','#url.leavetype#',this.value);">
 			
 			<!--- we look through the classes --->					

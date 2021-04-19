@@ -78,13 +78,13 @@
 <tr class="hide"><td id="process"></td></tr>	
 
 <tr>
-	<td  height="34" class="labelmedium" width="15%"><cf_tl id="Owner">:</td>
-	<td class="labelmedium">
+	<td  height="34" class="labelmedium2" width="15%"><cf_tl id="Owner">:</td>
+	<td class="labelmedium2">
 	
 	 		<table>
 				 <tr><td>
 				       
-					 <cfinput type="text" name="orgunitname1" id="orgunitname1" value="#OrgUnitOwnerName#" message="No unit selected" required="No" class="regularxl" size="40" maxlength="80" readonly>					  
+					 <cfinput type="text" name="orgunitname1" id="orgunitname1" value="#OrgUnitOwnerName#" message="No unit selected" required="No" class="regularxxl" size="40" maxlength="80" readonly>					  
 					 
 					 </td>
 					 
@@ -113,15 +113,15 @@
 </tr>
 
 <tr>
-	<td  height="34" class="labelmedium" width="15%"><cf_tl id="Date">:</td>
-	<td class="labelmedium">
+	<td  height="34" class="labelmedium2" width="15%"><cf_tl id="Date">:</td>
+	<td class="labelmedium2">
 		
 			<cfset st = Dateformat(now(), CLIENT.DateFormatShow)>
 		
 		     <cf_intelliCalendarDate9
 				FieldName="DateEffective" 
 				Manual="True"		
-				class="regularxl"								
+				class="regularxxl"								
 				Default="#st#"
 				AllowBlank="False">		
 		
@@ -129,7 +129,7 @@
 </tr>	
 
 <tr>
-	<td  height="34" class="labelmedium" width="15%"><cf_tl id="Currency">:</td>
+	<td  height="34" class="labelmedium2" width="15%"><cf_tl id="Currency">:</td>
 	<td>
 			
 		<cfquery name="Currency" 
@@ -141,7 +141,7 @@
 			 WHERE      Operational = 1			
 		</cfquery>
 				
-		<select name="Currency" class="regularxl">
+		<select name="Currency" class="regularxxl">
 		<cfoutput query="Currency">
 		    <option value="#currency#" <cfif application.basecurrency eq currency>selected</cfif>>#Currency#</option>
 		</cfoutput>
@@ -152,9 +152,9 @@
 </tr>
 
 <tr>
-	<td  height="34" class="labelmedium" width="15%"><cf_tl id="Memo">:</td>
+	<td  height="34" class="labelmedium2" width="15%"><cf_tl id="Memo">:</td>
 	<td>
-	<input type="text" class="regularxl" name="OrderMemo" id="OrderMemo" style="width:80%">
+	<input type="text" class="regularxxl" name="OrderMemo" id="OrderMemo" style="width:80%">
 	</td>
 </tr>
 </table>

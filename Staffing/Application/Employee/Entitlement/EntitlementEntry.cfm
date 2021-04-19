@@ -98,37 +98,46 @@ password="#SESSION.dbpw#">
 datasource="AppsPayroll"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
+
     SELECT *
     FROM  Ref_PayrollItem
-	WHERE PayrollItem IN (SELECT   C.PayrollItem 
-	                       FROM    Ref_PayrollComponent C, 
-								   Ref_PayrollTrigger E
-						   WHERE   C.SalaryTrigger  = E.SalaryTrigger 
-							  AND  E.TriggerGroup IN ('Personal'))
-								
-	AND   PayrollItem NOT IN (SELECT PayrollItem 
-	                          FROM SalaryScheduleComponent) 
-							  
+	WHERE PayrollItem IN ( SELECT  C.PayrollItem 
+	                       FROM    Ref_PayrollComponent C INNER JOIN Ref_PayrollTrigger E ON C.SalaryTrigger  = E.SalaryTrigger 
+						   AND     E.TriggerGroup IN ('Personal')
+						 )
+							
+	AND   PayrollItem NOT IN (SELECT SSC.PayrollItem 
+	                          FROM   SalaryScheduleComponent AS SSC 
+		                          INNER JOIN Ref_PayrollComponent AS PC ON SSC.ComponentName = PC.Code 
+								  INNER JOIN Ref_PayrollTrigger AS TR ON PC.SalaryTrigger = TR.SalaryTrigger
+							  WHERE  TR.TriggerGroup <> 'Personal')
+							  								  
 	AND   PayrollItem NOT IN (SELECT PayrollItem FROM Ref_PayrollGroupItem WHERE Code = 'Final')						  
 	
 	AND Source != 'Miscellaneous'							
-	
-	
+		
 	UNION		
 										   
 	SELECT *
     FROM  Ref_PayrollItem
-	WHERE PayrollItem NOT IN (SELECT S.PayrollItem FROM SalaryScheduleComponent S) 
 	
-	AND   PayrollItem IN (SELECT PayrollItem
+	WHERE PayrollItem IN (SELECT PayrollItem
 	                      FROM 	 SalarySchedulePayrollItem
-						  WHERE  Operational = 1 AND SalarySchedule IN (SELECT SalarySchedule 
-											                           FROM   Employee.dbo.PersonContract
-																	   WHERE  PersonNo = '#URL.ID#'))	
-	AND Source != 'Miscellaneous'												   											   
-	
+						  WHERE  Operational = 1 
+						  AND    SalarySchedule IN (SELECT SalarySchedule 
+											        FROM   Employee.dbo.PersonContract
+												    WHERE  PersonNo = '#URL.ID#'))	
+		
+	AND   PayrollItem NOT IN (SELECT SSC.PayrollItem 
+	                          FROM   SalaryScheduleComponent AS SSC 
+		                          INNER JOIN Ref_PayrollComponent AS PC ON SSC.ComponentName = PC.Code 
+								  INNER JOIN Ref_PayrollTrigger AS TR ON PC.SalaryTrigger = TR.SalaryTrigger
+							  WHERE  TR.TriggerGroup <> 'Personal')
+		
 	AND   PayrollItem NOT IN (SELECT PayrollItem FROM Ref_PayrollGroupItem WHERE Code = 'Final')
-													   					
+	
+	AND Source != 'Miscellaneous'												   											   
+														   					
 </cfquery>
 
 <cfquery name="Currency" 
@@ -263,7 +272,7 @@ password="#SESSION.dbpw#">
           onChange="javascript:prior(this.value)">
 			<option value=""><cf_tl id="select"></option>
 			<cfoutput query="Entitlement">
-				<option value="#PayrollItem#">#PayrollItemName#</option>
+				<option value="#PayrollItem#">#PayrollItem# #PayrollItemName#</option>
 			</cfoutput>
 	    </cfselect>
 	</TD>

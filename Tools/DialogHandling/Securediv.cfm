@@ -5,8 +5,8 @@
 <cfparam name="Attributes.Style"  default="">
 <cfparam name="Attributes.bindOnLoad"  default="true">
 
-<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
-<cfset mid = oSecurity.gethash()/>   
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")>
+<cfset mid = oSecurity.gethash()>   
 
 <cfif findNoCase("?",attributes.bind)>
 

@@ -51,7 +51,7 @@
 				uni = document.getElementById("orgunitname")
 				url = "OrganizationSearchResult.cfm?field=#fldorgunit#&mode=#url.mode#&mis="+mis.value+"&cls="+cls.value+"&uni="+uni.value;						 
 				_cf_loadingtexthtml='';	
-				ColdFusion.navigate(url,'result')		
+				ptoken.navigate(url,'result')		
 		}
 				   
 	</script>
@@ -107,9 +107,9 @@ password="#SESSION.dbpw#">
 <!--- Search form --->
 
 <cfif url.singleMission eq "1">
-	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('orgunitwindow',true)" html="No" user="yes" jQuery="Yes" scroll="No" layout="webapp" label="Find Organization" line="no" banner="gray">
+	<cf_screentop height="100%" close="parent.ProsisUI.closeWindow('orgunitwindow',true)" html="No" user="yes" jQuery="Yes" scroll="No" layout="webapp" label="Find Organization" line="no" banner="gray">
 <cfelse>
-	<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('orgunitwindow',true)" html="No" user="yes" jQuery="Yes" scroll="No" layout="webapp" label="Find Unit" line="no" title="Find Unit" bannerheight="55" banner="gray">
+	<cf_screentop height="100%" close="parent.ProsisUI.closeWindow('orgunitwindow',true)" html="No" user="yes" jQuery="Yes" scroll="No" layout="webapp" label="Find Unit" line="no" title="Find Unit" bannerheight="55" banner="gray">
 </cfif>
 
 <cfform style="height:100%" name="organizationsearch" id="organizationsearch" onsubmit="return false">
@@ -118,7 +118,7 @@ password="#SESSION.dbpw#">
 	 
 	<tr><td colspan="2" valign="top">
 	
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" height="100%" align="center">
 	
 		<tr style="height:37px" class="line">
 	   	 
@@ -134,7 +134,7 @@ password="#SESSION.dbpw#">
 					
 				<TD style="padding-left:17px">
 					<cfselect name="missionselect" size="1" group="MissionType" query="Mission" value="Mission" 
-					display="MissionName" style="width:180px" selected="#url.mission#" id="missionselect" class="regularxl"></cfselect>					
+					display="MissionName" style="width:180px" selected="#url.mission#" id="missionselect" class="regularxxl"></cfselect>					
 				</TD>
 					
 			</cfif>
@@ -149,7 +149,7 @@ password="#SESSION.dbpw#">
 		
 		<TD style="padding-left:10px" class="labelmedium" align="left"><cf_tl id="Class">:</TD>
 		<TD>			
-	    	<select name="class" id="class" size="1" class="regularxl">
+	    	<select name="class" id="class" size="1" class="regularxxl">
 				<option value="all"></option>
 			    <cfoutput query="Class">
 					<option value="'#OrgUnitClass#'">
@@ -160,8 +160,7 @@ password="#SESSION.dbpw#">
 		</TD>
 		
 		<TD align="left" class="labelmedium"><cf_tl id="Name">:</TD>
-		<TD><input type="text" name="orgunitname" id="orgunitname" class="regularxl" size="20" maxlength="40" onKeyUp="search()"></TD>
-			
+		<TD><input type="text" name="orgunitname" id="orgunitname" class="regularxxl" size="20" maxlength="40" onKeyUp="search()"></TD>			
 			
 		</TR>	
 		
@@ -169,13 +168,13 @@ password="#SESSION.dbpw#">
 		<tr>  
 		  <td colspan="6" style="height:30px;padding-left:15px" width="100%">
 		   <button class="button10g" type="button" name"Submit" id="Submit" value="Search" style="height:25;width:120px" onclick="search()">
-		    Search
+		    <cf_tl id="Search">
 		   </button>	
 		  </td>
 		</tr> 	
 					
 		<tr><td valign="top" colspan="6" style="padding:6px" height="100%">		
-		   <cf_divscroll style="height:100%" id="result">			
+		   <cf_divscroll style="height:100%" id="result"/>			
 		</td></tr>
 			
 	     </TABLE>

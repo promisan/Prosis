@@ -11,6 +11,7 @@
      scroll="No" 
 	 label="Procurement Request" 
 	 layout="webapp" 
+	 jquery="Yes"
 	 banner="red">
 
 <cfoutput>
@@ -93,67 +94,61 @@ password="#SESSION.dbpw#">
 
 <tr><td>
 
-<table width="94%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<cfform action="RequisitionView.cfm?Mission=#url.mission#&period=#Requisition.period#&RequisitionRef=#URL.RequisitionRef#&action=save" method="POST">
+
+<table width="94%" align="center" class="formpadding">
 
 <tr><td height="6"></td></tr>
 
 <tr class="labelmedium2">
-   <td width="8%"><cf_tl id="Reference">:</b></td>
+   <td width="8%"><cf_tl id="Reference">:</td>
    <td>#Requisition.Reference#</td>
-</tr>
-
-<tr class="labelmedium2">
-   <td width="8%"><cf_tl id="Period">:</b></td>
+   <td width="8%"><cf_tl id="Period">:</td>
    <td>#Requisition.Period#</td>
 </tr>
 
 <tr class="labelmedium2">
-   <td><cf_tl id="Issued">:</b></td>
+   <td><cf_tl id="Issued">:</td>
    <td>#Requisition.OfficerFirstName# #Requisition.OfficerLastName#</td>
-</tr>
-
-<tr class="labelmedium2">
-   <td><cf_tl id="Submitted">:</b></td>
+   <td><cf_tl id="Submitted">:</td>
    <td>#dateformat(Requisition.Created,CLIENT.DateFormatShow)#</td>
 </tr>
 
-<cfform action="RequisitionView.cfm?action=save&Mission=#url.mission#&RequisitionRef=#URL.RequisitionRef#" method="POST">
 <tr class="labelmedium2">
-   <td valign="top" style="padding-top:4px"><cf_tl id="Justification">:</b></td>
-   <td width="90%">
-         <textarea style="width:100%;height:90;font-size:13px;padding:4px" name="RequisitionPurpose" class="regular">#Header.RequisitionPurpose#</textarea>
+   <td valign="top" style="padding-top:5px"><cf_tl id="Justification">:</b></td>
+   <td width="90%" colspan="3">
+         <textarea style="width:100%;height:60px;font-size:16px;padding:4px" name="RequisitionPurpose" class="regular">#Header.RequisitionPurpose#</textarea>
    </td>
 </tr>
 
 <tr><td height="2"></td></tr>
-<tr><td height="1" colspan="2" class="line"></td></tr>
 
 <CFIF requisition.recordcount gt "0">
 
 	<tr>
-		<td colspan="2" align="center">	 
-		   <input type="submit" name="Submit" id="Submit" value="Save Justification" class="button10g" style="width:150;height:25">
+		<td colspan="4" align="center">	 
+		<cf_tl id="Save" var="1">
+		   <input type="submit" name="Submit" id="Submit" value="#lt_text#" class="button10g" style="width:190;height:28">
 		</td>
 	</tr>
 	
 </CFIF>
 
-<tr><td height="1" colspan="2" class="line"></td></tr>
+<tr><td height="1" colspan="4" class="line"></td></tr>
 <tr><td height="2"></td></tr>
 
-<tr><td colspan="2">
+<tr><td colspan="4">
 
 	<cfset fun = "funding">
 	<cfinclude template="RequisitionViewListing.cfm">
 
 </td></tr>
 
-
 <tr><td height="4"></td></tr>
 
-</cfform>
-
 </table>
+
+</cfform>
 
 </td></tr>
 

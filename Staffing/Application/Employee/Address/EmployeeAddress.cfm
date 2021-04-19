@@ -8,7 +8,7 @@
 
 <!--- Create Criteria string for query from data entered thru search form --->
 
-<cf_screentop label="" jquery="Yes" height="100%" scroll="yes" html="No" menuaccess="context" actionobject="Person"
+<cf_screentop jquery="Yes" height="100%" scroll="yes" html="No" menuaccess="context" actionobject="Person"
 		actionobjectkeyvalue1="#url.id#">
 
 <!--- scripts --->

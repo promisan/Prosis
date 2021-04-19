@@ -2,7 +2,7 @@
 
 <cfform style="height:100%" action="#SESSION.root#/system/access/Membership/UserMemberSubmit.cfm?Mode=regular&Acc=#URL.ID#" method="post">
 
-		<table width="99%" style="height:100%" align="center">
+		<table width="98%" style="height:100%" align="center">
 		
 		<cfquery name="Group" 
 		datasource="AppsSystem" 
@@ -38,7 +38,7 @@
 		<cfif group.recordcount eq "0">	
 		<tr><td colspan="6" height="30" class="labelit"><font color="gray">There has been NO membership defined for this user</td></tr>		
 		<cfelse>		
-		<tr><td colspan="5" class="labellarge">Assigned Usergroup</td></tr>	
+		<tr class="labelmedium2"><td colspan="5" style="height:40px;font-weight:bold;font-size:22px">Assigned groups</td></tr>	
 		</cfif>
 		
 		<cfoutput query="group">
@@ -72,15 +72,13 @@
 		
 		</cfoutput> 				
 		
-		<tr><td height="1" colspan="6" class="linedotted"></td></tr>			
-		
 		<tr>
 		<td colspan="6" style="height:100%" valign="top">
 		
 		<table style="height:100%" width="100%" class="formpadding">
 		
 		<tr>
-		<td style="height:40px" class="labellarge"><cf_tl id="New Membership">:</td>
+		<td style="height:40px;font-weight:bold;font-size:22px"><cf_tl id="New Membership">:</td>
 						
 			<td align="right" width="150" style="padding-right:5px">
 				<table><tr><td style="border: 1px solid Silver;">   		 

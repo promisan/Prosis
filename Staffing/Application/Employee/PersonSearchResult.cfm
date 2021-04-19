@@ -38,7 +38,7 @@
 				$('##line'+personno).html('');
 				$('##row'+personno).hide();
 			} else {
-				ColdFusion.navigate('PersonSearchAction.cfm?personno='+personno+'&mission='+mission,'line'+personno, function(){
+				ptoken.navigate('PersonSearchAction.cfm?personno='+personno+'&mission='+mission,'line'+personno, function(){
 					$('##row'+personno).show();
 				});
 			}
@@ -153,14 +153,14 @@ password="#SESSION.dbpw#">
 	 <table class="formspacing">
 	 <tr>
 	 <td>
-	 <select name="layout" id="layout" size="1" class="regularxl" onChange="Prosis.busy('yes');list(page.value)">
+	 <select name="layout" id="layout" size="1" style="border:0px;background-color:f1f1f1" class="regularxxl" onChange="Prosis.busy('yes');list(page.value)">
 	     <OPTION value="Listing"  <cfif URL.Lay eq "Listing">selected</cfif>><cf_tl id="Listing">
 		 <option value="Contract" <cfif URL.Lay eq "Contract">selected</cfif>><cf_tl id="Contract">
      </SELECT>
 	 </td>
 	 
 	 <td>	
-	 <select name="sort" id="sort" size="1" class="regularxl" onChange="Prosis.busy('yes');list(page.value)">
+	 <select name="sort" id="sort" size="1" class="regularxxl" style="border:0px;background-color:f1f1f1" onChange="Prosis.busy('yes');list(page.value)">
 	     <OPTION value="LastName" <cfif URL.Sort eq "LastName">selected</cfif>><cf_tl id="Sort by Lastname">
 		 <option value="Firstname" <cfif URL.Sort eq "FirstName">selected</cfif>><cf_tl id="Group by Firstname">
 	     <OPTION value="IndexNo" <cfif URL.Sort eq "IndexNo">selected</cfif>><cf_tl id="Group by IndexNo">
@@ -171,7 +171,7 @@ password="#SESSION.dbpw#">
 	 <td>
 	 <cfif pages gte "2">
 	 	 
-	 <select name="page" id="page" class="regularxl" size="1" onChange="Prosis.busy('yes');list(this.value)">
+	 <select name="page" id="page" class="regularxxl" size="1" style="border:0px;background-color:f1f1f1" onChange="Prosis.busy('yes');list(this.value)">
 	     <cfloop index="Item" from="1" to="#pages#" step="1">
 	        <cfoutput><option value="#Item#"<cfif cpage eq "#Item#">selected</cfif>><cf_tl id="Page"> #Item# <cf_tl id="of"> #pages#</option></cfoutput>
 	     </cfloop>	 

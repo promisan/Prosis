@@ -139,11 +139,10 @@
 				       
 					 <span class="#r#" id="d1a"></span>
 					      
-					 <span class="#r#" id="d1b" style="padding-left:1px;padding-right:8px">
-					    :
+					 <span class="#r#" id="d1b" style="padding-left:1px;padding-right:8px">					  
 					   <select style="max-width:280px;border:0px;background-color:f1f1f1" name="ActionCodeOnHold" id="ActionCodeOnHold" class="regularxxl">
 						<cfloop query="Revert">
-						  <option value="#Revert.ActionCode#" style="font-size:12px;">#ActionDescription# | #ActionReference# [#ActionCode#]</option>
+						  <option value="#Revert.ActionCode#" style="font-size:12px;">: #ActionDescription# | #ActionReference# [#ActionCode#]</option>
 						</cfloop>
 					   </select>
 					   
