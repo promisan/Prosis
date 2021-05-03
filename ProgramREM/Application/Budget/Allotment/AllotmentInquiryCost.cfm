@@ -1,8 +1,9 @@
 
-<table width="98%"       
-	  style="padding-right:4px"
-	  align="center">	
-	  
+
+<cf_divscroll>
+
+<table width="99%" style="padding-left:4px;padding-right:4px" align="center">	
+	 	  
 	 <cfquery name="check" 
 		datasource="AppsProgram"			
 		username="#SESSION.login#" 
@@ -28,7 +29,8 @@
 	 <tr><td class="labelmedium" align="center" style="font-weight:400;padding-left:5px;font-size:20px"><font color="FF0000">Budget preparation is not enabled for this program/component</td></tr>
 	 
 	 <cfelse>
-	 	  
+	 	 
+	 	 	  
 		  <cfoutput>	  
 			
 			  <tr class="line">
@@ -706,7 +708,7 @@
 			  <td width="50%">
 				  <table cellpadding="0" cellspacing="0" border="0"><tr><td>&nbsp;&nbsp;</td>
 				  
-				  <td width="335" class="labelmedium" height="27" style="font-weight:200;font-size:21px;padding-left:10px"><b>
+				  <td width="335" class="labelmedium" height="27" style="font-size:21px;padding-left:5px;font-weight:bold">
 				  
 				  <cfif Program.ReferenceBudget1 neq "">
 				  
@@ -798,7 +800,7 @@
 			<tr>
 				<td width="4"></td>
 				<!--- background-image:url('#SESSION.root#/Images/gradient.jpg') --->
-				<td height="25" width="350" style="font-size:20px;padding-left:12px;font-weight:210" class="labelmedium">#Category#</td>	
+				<td height="25" width="350" style="font-size:20px;padding-left:12px;height:40px;;font-weight:bold" class="labelmedium">#Category#</td>	
 			</td>
 			</tr>
 			</table>
@@ -977,7 +979,7 @@
 	<tr bgcolor="#rcl#">
 	
 			 <cfloop index="Edition" list="#EditionList#" delimiters="',">
-			 
+									 
 			 	<cfset planPeriod = evaluate("e#edition#planperiod")>
 			 
 			 	<td width="20"  bgcolor="white"></td>
@@ -985,10 +987,10 @@
 				<td align="center" style="padding-right:1px;border-left: 1px dotted Silver;border-top: 1px dotted silver;border-bottom: 1px dotted Silver;" 
 				    bgcolor="B0D3EE" class="#evaluate('cl#resource#_#edition#')#" id="b#edition#_#resource#"> 
 					 
-					 <table width="100%" cellspacing="0" cellpadding="0">
+					 <table width="100%">
 						 <tr>
-					     <td align="right" id="#Edition#_#resource#_cell" style="padding-right:1px;" class="labelit">	
-						 			 				 
+					     <td align="right" id="#Edition#_#resource#_cell" style="padding-right:1px;" class="labelmedium2">	
+						 	 				 
 						      <cfset par = 1>
 							  <cfset scp = "Category">
 							  <cfif find(Edition,exec)>
@@ -1009,8 +1011,8 @@
 			
 			    <td align="right" 			 
 				  style="padding-right:1px;border-right:1px solid silver;border-left: 1px solid Silver;border-top: 1px solid Silver;border-bottom: 1px solid Silver;" 
-				  bgcolor="#cltotals#" id="#Resource#_tot" class="labelit">
-				  
+				  bgcolor="#cltotals#" id="#Resource#_tot" class="labelmedium2">
+				  				  
 			   		  <cfset par = 1>
 						
 					  <cfquery name="Subtotal" dbtype="query">
@@ -1330,13 +1332,15 @@
 		</cfoutput>
 	
 	</cfoutput>
-	
+			
 	</cfoutput>
-
+	
 </cfif>
 
-	<cfparam name="itm" default="0">
+<cfparam name="itm" default="0">
 
 </table>
+
+</cf_divscroll>
 
 

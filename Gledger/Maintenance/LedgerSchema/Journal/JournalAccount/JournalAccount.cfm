@@ -45,6 +45,7 @@
 			<td align="center">#Mode#</td>
 		</tr>
 	</cfoutput>
+	<tr><td id="myprocess"></td></tr>
 </table>
 
 <cfset AjaxOnLoad("doHighlight")>

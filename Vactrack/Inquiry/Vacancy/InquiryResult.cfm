@@ -81,7 +81,7 @@ password="#SESSION.dbpw#">
    </td>
    <td align="right" style="padding-top:40px;;padding-right:5px">
       
-	   <select name="group" size="1" class="regularxl" onChange="javascript:reloadForm(this.value,page.value)">
+	   <select name="group" size="1" class="regularxxl" onChange="javascript:reloadForm(this.value,page.value)">
 	    	 <option value="DueDate"    <cfif URL.IDSorting eq "Duedate">selected</cfif>>Group by Due date
 		     <OPTION value="Mission"    <cfif URL.IDSorting eq "Mission">selected</cfif>>Group by Mission
 		     <OPTION value="PostGrade"  <cfif URL.IDSorting eq "PostGrade">selected</cfif>>Group by Post grade
@@ -96,7 +96,7 @@ password="#SESSION.dbpw#">
 		
 		<cfelse>
 		   
-			<select name="page" size="1" class="regularxl" onChange="reloadForm(group.value,this.value)">
+			<select name="page" size="1" class="regularxxl" onChange="reloadForm(group.value,this.value)">
 			    <cfloop index="Item" from="1" to="#pages#" step="1">
 		    	    <cfoutput><option value="#Item#"<cfif URL.page eq Item>selected</cfif>>Page #Item# of #pages#</option></cfoutput>
 			    </cfloop>	 
@@ -113,7 +113,7 @@ password="#SESSION.dbpw#">
 
 	<table style="width:98.5%" class="navigation_table">
 	
-	<tr class="line labelmedium fixrow">
+	<tr class="line labelmedium2 fixrow">
 	    <TD height="23" width="4%" align="center"></TD>
 	    <TD width="4%"></TD>
 	    <TD width="100"><cf_tl id="Track"></TD>
@@ -133,7 +133,7 @@ password="#SESSION.dbpw#">
 	   			   <cfif currrow gte first and currrow lte Last>	
 		    
 			       <tr><td height="4"></td></tr>
-				   <tr class="labelmedium line fixrow2">
+				   <tr class="labelmedium2 line fixrow2">
 				   <cfswitch expression = #URL.IDSorting#>
 				     <cfcase value = "Duedate">
 				     <td height="24" style="height:45px;font-size:23px; padding-left:10px" colspan="8">#Dateformat(Duedate, "#CLIENT.DateFormatShow#")#</b></font></td>
@@ -181,13 +181,12 @@ password="#SESSION.dbpw#">
 						<cfif DocumentStatus eq "1">
 						
 						    <button type="button" class="button3 navigation_action" onClick="showdocument('#DocumentNo#')">
-						     <img src="#client.virtualdir#/Images/validate.gif" 
-	    					 alt="Completed and closed" border="0" align="absmiddle">
+						     <img src="#client.virtualdir#/Images/validate.gif" alt="Completed and closed" border="0" align="absmiddle">
 							</button>
 							
 						<cfelseif DocumentStatus neq "9">					
 						
-						    <cf_img icon="edit" navigation="Yes" onClick="showdocument('#DocumentNo#')">										
+						    <cf_img icon="open" navigation="Yes" onClick="showdocument('#DocumentNo#')">										
 							
 						 </cfif>
 						 
@@ -210,7 +209,7 @@ password="#SESSION.dbpw#">
 								
 								<cfset c = 0>
 								<cfset cnt = 1>
-								<tr style="height:22px" class="labelmedium">
+								<tr style="height:22px" class="labelmedium2">
 								
 								<cfif Posts gt "1">
 								
@@ -228,8 +227,7 @@ password="#SESSION.dbpw#">
 								    </cfquery>		
 														
 								   <td style="padding-top:3px">
-								    <a title="View Position" 
-									 href="javascript:EditPosition('','','#PositionNo#')">											 					
+								    <a title="View Position" href="javascript:EditPosition('','','#PositionNo#')">											 					
 									 <cfif PostNumber neq "">#PostNumber#<cfelse>#PositionNo#</cfif>
 									</a>
 								   </td>
@@ -287,12 +285,11 @@ password="#SESSION.dbpw#">
 												<cfelse>
 												
 													<cfif status eq "2s" or status eq "3">
-														<td bgcolor="ffffcf" style="border: 1px solid gray;padding-right:6px;border-radius:4px">
-															<cf_space spaces="48" class="labelit" label="#cnt#. #Name#" script="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#','0')">										 												
+														<td bgcolor="ffffaf" style="border: 1px solid gray;padding-right:6px;border-radius:4px">
+															<cf_space spaces="52" class="labelmedium" label="#cnt#. #Name#" script="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#','0')">										 												
 													<cfelse>
-														<td bgcolor="f4f4f4" 
-														    style="border: 0px dotted silver;">
-															<cf_space spaces="48" class="labelit" label="#cnt#. #Name#">												
+														<td bgcolor="f4f4f4" style="height:24px;border: 1px solid gray;padding-right:6px;border-radius:4px">																												   
+															<cf_space spaces="52" class="labelmediumn" label="#cnt#. #Name#">												
 														</TD>	
 													</cfif>								
 												 	</td>

@@ -25,15 +25,15 @@
 	AND      (R.Role LIKE '%#URL.Search#%' or R.Description LIKE '%#URL.Search#%')
 	</cfif>
 	AND      A.AccessId NOT IN (SELECT AccessId 
-	                            FROM UserAuthorizationActionLog
-								WHERE UserAccount = '#URL.ID#'
-								AND   ActionStatus IN ('1','9')) 
+	                            FROM   UserAuthorizationActionLog
+								WHERE  UserAccount = '#URL.ID#'
+								AND    ActionStatus IN ('1','9')) 
 	<cfif SESSION.isAdministrator eq "No">
 	AND     R.RoleOwner IN (SELECT ClassParameter 
-	                        FROM OrganizationAuthorization
-							WHERE Role = 'AdminUser'
-							AND  AccessLevel = '2'
-							AND  UserAccount = '#SESSION.acc#') 
+	                        FROM   OrganizationAuthorization
+							WHERE  Role = 'AdminUser'
+							AND    AccessLevel = '2'
+							AND    UserAccount = '#SESSION.acc#') 
 	AND     R.SystemModule != 'System'						
 	</cfif>
 	ORDER BY R.SystemModule, R.Description, A.Mission, Org.OrgUnitName, Org.MandateNo, A.AccessId 
@@ -45,13 +45,12 @@
       <cfset dis = "True">
 </cfif>		
 	
-<form action="UserAccessListingProcess.cfm?search=<cfoutput>#url.search#&id=#URL.ID#</cfoutput>" 
-	  method="post" name="pendinglines" id="pendinglines">
+<form method="post" name="pendinglines">
 		
-	<table width="100%" align="center" cellspacing="0" cellpadding="0" class="navigation_table">
+	<table width="100%" align="center" class="navigation_table">
 		  
 		<tr><td height="6"></td></tr>
-		<tr class="labelit linedotted">
+		<tr class="labelmedium2 line">
 		 <td>&nbsp;</td>
 		 <td>Module</td>
 		 <td>Tree</td>
@@ -65,29 +64,28 @@
 		</tr>
 					
 		<cfif Pending.recordcount eq "0">
-			<tr><td colspan="10" style="padding-top:4px" class="labelmedium" align="center"><font color="gray"><i>There are no more items to show in this view.</td></tr>
+			<tr><td colspan="10" style="padding-top:4px" class="labelmedium" align="center"><font color="gray">There are no more items to show in this view.</td></tr>
 		</cfif>
 				
 			<cfoutput query="Pending" group="SystemModule">
 			
-			<tr>
+			<tr class="labelmedium2 fixrow">
 			 <td>&nbsp;</td>
-			 <td class="labelmedium"><b>#SystemModule#</b></td>
+			 <td><b>#SystemModule#</b></td>
 			 <td colspan="8"></td>
 			</tr> 
 			
 			<cfoutput group="Description">
 			
-			<tr>
+			<tr class="labelmedium2 fixrow2">
 			 <td>&nbsp;</td>
-			 <td class="labelmedium">&nbsp;&nbsp;#Description#</td>
+			 <td>&nbsp;&nbsp;#Description#</td>
 			 <td colspan="8"></td>
 			</tr>
 			
-			<cfoutput>
-			
+			<cfoutput>		
 						
-			<tr class="labelit navigation_row">
+			<tr class="labelmedium2 navigation_row line">
 			 <td>&nbsp;</td>
 			 <td></td>
 			 <td><cfif #Mission# eq "">Global<cfelse>#Mission#</cfif></td>
@@ -103,7 +101,7 @@
 			
 			<cfif ClassParameter neq "">
 			
-				<tr class="labelit navigation_row_child">
+				<tr class="labelmedium navigation_row_child">
 				 <td>&nbsp;</td>
 				 <td></td>
 				 <td></td>
@@ -139,11 +137,20 @@
 			</cfoutput>
 			
 			<cfif pending.recordcount gte "1">
-			<tr><td colspan="10" height="30" align="center">
-				<input type="submit"  value="Submit" class="button10g" name="Submit" id="Submit">
+			<cfoutput>
+			<tr><td colspan="10" height="30" align="center">			
+				<input type="button"  
+				   value="Submit" 
+				   class="button10g" 
+				   name="Submit" 
+				   id="Submit" 
+				 onclick="ptoken.navigate('#SESSION.root#/System/Organization/Access/UserAccessListingProcess.cfm?search=#url.search#&id=#URL.ID#','processlist','','','POST','pendinglines')">
 			</td></tr>
+			</cfoutput>
 			</cfif>
 					
 	</table>
 		
 </form>	
+
+<cfset ajaxonload("doHighlight")>

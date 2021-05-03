@@ -1,16 +1,15 @@
 
-<cfparam name="URL.docid"        default="">
-<cfparam name="URL.id0"          default="">
-<cfparam name="URL.templatepath" default="#url.id0#">
+<cfparam name="URL.docid"          default="">
+<cfparam name="URL.id0"            default="">
+<cfparam name="URL.templatepath"   default="#url.id0#">
 
-<cfparam name="URL.subject"      default="#URL.ID1#">
-<cfparam name="URL.filename"     default="Document">
-<cfparam name="URL.format"       default="PDF">
-<cfparam name="URL.marginTop"    default="2.2">
-<cfparam name="URL.marginBottom" default="0.5">
-<cfparam name="URL.scale"        default="89">
-<cfparam name="URL.orientation"  default="portrait">
-
+<cfparam name="URL.subject"        default="#URL.ID1#">
+<cfparam name="URL.filename"       default="Document">
+<cfparam name="URL.format"         default="PDF">
+<cfparam name="URL.marginTop"      default="2.2">
+<cfparam name="URL.marginBottom"   default="0.5">
+<cfparam name="URL.scale"          default="89">
+<cfparam name="URL.orientation"    default="portrait">
 
 <cfif url.docid neq "">
 
@@ -137,20 +136,20 @@
 	<cfif FindNoCase(".cfm", URL.templatepath)>
 	
 	 	<cfdocument 
-		      format       = "#URL.Format#"
-		      pagetype     = "letter"
-			  overwrite    = "yes"
-			  filename     = "#vPath#"
-			  margintop    = "#URL.marginTop#"
-			  marginbottom = "#URL.marginBottom#"
-		      marginright  = "0"
-		      marginleft   = "0"
-		      orientation  = "#URL.orientation#"
-		      unit         = "cm"
-		      encryption   = "none"
-		      fontembed    = "No"
-		      scale        = "#URL.scale#"
-		      backgroundvisible="Yes">
+		      format            = "#URL.Format#"
+		      pagetype          = "letter"
+			  overwrite         = "yes"
+			  filename          = "#vPath#"
+			  margintop         = "#URL.marginTop#"
+			  marginbottom      = "#URL.marginBottom#"
+		      marginright       = "0"
+		      marginleft        = "0"
+		      orientation       = "#URL.orientation#"
+		      unit              = "cm"
+		      encryption        = "none"
+		      fontembed         = "No"
+		      scale             = "#URL.scale#"
+		      backgroundvisible = "Yes">
 			  
 			  <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 			  

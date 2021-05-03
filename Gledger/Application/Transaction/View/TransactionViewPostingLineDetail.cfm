@@ -6,20 +6,20 @@
 	   
 <cfoutput>
 
-<table width="90%" cellspacing="0" cellpadding="0" class="formspacing">    
+<table width="90%" class="formspacing">    
    	        
 	   <cfif Memo neq "">	   
 	   	         		  	   
 		      <tr class="linedotted">
-			   <td style="padding-left:4px" width="20%" class="labelit"><cf_tl id="Memo">:</b></td>
-			   <td width="80%" height="18">
+			   <td style="padding-left:4px" width="20%" class="labelit"><cf_tl id="Memo">:</td>
+			   <td width="80%">
 			   <cfdiv id="memo#box#">
 			   		<table>
 					   <tr>
 					  	 <td class="labelit">					 
 						  <cfif (access eq "EDIT" and url.print neq 1 and ActionStatus eq "0") or access eq "ALL">
-					      <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#memo#&#link#&fld=memo','memo#box#')">
-						  <font color="0080FF">[<cf_tl id="edit">]</font>
+					      <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#memo#&#link#&fld=memo','memo#box#')">
+						  [<cf_tl id="edit">]
 						  </a>
 						  </cfif>
 						 </td>

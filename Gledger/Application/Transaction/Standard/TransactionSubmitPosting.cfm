@@ -243,9 +243,8 @@
    username="#SESSION.login#" 
    password="#SESSION.dbpw#">
 	   SELECT * 
-	   FROM   Journal J, Currency C
-	   WHERE  Journal = '#URL.Journal#'
-	   AND    J.Currency = C.Currency
+	   FROM   Journal J INNER JOIN Currency C ON  J.Currency = C.Currency
+	   WHERE  Journal = '#URL.Journal#'	  
 	</cfquery>
 
 	<!--- insert TransactionHeader header --->
@@ -256,8 +255,9 @@
 	     <cfset TraNo = "#URL.Journal#"&"-"&"#JourNo#">
 	</cfif>	
 	
-	<cfparam name="Form.JournalBatchNo"   default="0">
-	<cfparam name="Form.JournalBatchDate" default="">
+	<cfparam name="Form.JournalBatchNo"      default="0">
+	<cfparam name="Form.JournalBatchDate"    default="">
+	<cfparam name="Form.TransactionSourceNo" default="">
 	
 	<cfset dateValue = "">
     <CF_DateConvert Value="#Form.JournalBatchDate#">
@@ -265,12 +265,16 @@
 	
 	<cfif HeaderSelect.TransactionSource eq "">
 	    <cfset source   = "AccountSeries">
-		<cfset sourceNo = "">
+		<cfset sourceNo = "#Form.TransactionSourceNo#">
 		<cfset sourceId = "">
 	<cfelse>
 		<cfset source   =  HeaderSelect.TransactionSource>
 		<cfset sourceNo =  HeaderSelect.TransactionSourceNo>
 		<cfset sourceId =  HeaderSelect.TransactionSourceId>
+	</cfif>
+	
+	<cfif sourceNo eq "">
+		<cfset sourceNo = Form.TransactionSourceNo>
 	</cfif>
 		
 	<!--- TransactionPeriod was added 14/3/2015 --->
@@ -322,7 +326,11 @@
 	        <cfset workflowshow = "1">			  
 	 <cfelse>			
 	 	    <cfset workflowshow = "0">			  
-	 </cfif>		
+	 </cfif>	
+	 
+	<cfparam name="Form.PersonNo"       default="">	
+	<cfparam name="FORM.ReferenceName2" default="">	
+	<cfparam name="FORM.ReferenceNo"    default="">	
 				   	  	      
 	<cfquery name="InsertHeader" 
 	datasource="AppsLedger" 
@@ -340,6 +348,7 @@
 		   TransactionId,
 		   Mission,
 		   OrgUnitOwner,
+		   OrgUnitTax,
 		   JournalTransactionNo, 
 		   Description,
 		   TransactionSource,
@@ -388,6 +397,7 @@
 		   '#trid#',
 		   '#Mission#',
 		   '#OrgUnitOwner#',
+		   '#OrgUnitTax#',
 		   '#TraNo#',
 		   '#FORM.Description#',
 		   '#source#',

@@ -223,8 +223,7 @@
 			 AND       M.DocumentType    = 'mail'      
 			 AND       M.EntityCode      = '#Object.EntityCode#'  
 			</cfquery>
-					
-			
+								
 			<cfif CheckMail.recordcount eq "1">
 									
 				<cfparam name = "Form.SendTo"               default="">
@@ -264,7 +263,7 @@
 			</cfif> 
 	
 	    </cfif>		
-						
+								
 		<cfif delaymail eq "0">	
 		
 		
@@ -302,12 +301,14 @@
 																							
 					<cfif CheckMail.recordcount gte "1">
 					
-						<cfparam name = "Form.ActionMailSubject"    default="">
-						<cfparam name = "Form.ActionMailBody"       default="">
-						<cfparam name = "Form.ActionMailAttachment" default="99999">	
+						<cfparam name = "Form.ActionMailFrom"       default="">
 						<cfparam name = "Form.SendTo"               default="">
 						<cfparam name = "Form.SendCc"               default="">
-						<cfparam name = "Form.SendBcc"              default="">
+						<cfparam name = "Form.SendBcc"              default="">					
+						<cfparam name = "Form.ActionMailSubject"    default="">
+						<cfparam name = "Form.ActionMailBody"       default="">						
+						<cfparam name = "Form.ActionMailAttachment" default="99999">	
+						
 						
 						<cf_ProcessMailHolder
 							actionId    = "#ActionId#"

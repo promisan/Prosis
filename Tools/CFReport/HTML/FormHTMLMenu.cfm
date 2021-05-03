@@ -120,7 +120,7 @@
 										<select name="myreport" 
 										    id="myreport"
 											class="regularxl" 
-											style="border-radius:4px;font-size:18px;height:36px;width:400px"
+											style="border:0px;background-color:f1f1f1;font-size:18px;height:36px;width:400px"
 											onChange="Prosis.busy('yes');reload(this.value,'#url.portal#')">	
 
 											<option value=""><cfif Control.ReportLabel neq "">#Control.ReportLabel#<cfelse>#Control.FunctionName#</cfif></option>	

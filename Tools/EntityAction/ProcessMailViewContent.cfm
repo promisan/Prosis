@@ -75,9 +75,9 @@
 	<cfset vTitle="NOTIFY actors by eMail">
 </cfif>
 
-<cf_screentop height="100%" label="Notification" layout="webapp" scroll="no" banner="gray" option="#vTitle#">
+<cf_screentop height="100%" jquery="Yes" label="Notification" html="No" layout="webapp" scroll="no" banner="gray" option="#vTitle#">
 
-<form action="ProcessMailDialogSubmit.cfm" target="submit" method="post" style="height:100%">
+<form action="ProcessMailViewSubmit.cfm" target="submit" method="post" style="height:100%">
 	
 <table width="91%" height="100%" align="center"  class="formpadding">
 	
@@ -134,7 +134,7 @@
 					  System.dbo.UserNames U ON A.UserAccount = U.Account  
 			 WHERE    A.ClassParameter = '#Action.ActionCode#' 
 			 AND      A.GroupParameter = '#Object.EntityGroup#' 
-			 AND      A.AccessLevel IN ('0','1')  <!--- '0' = info --->	 
+			 AND      A.AccessLevel IN ('0','1','2')  <!--- 0 = collaborator, 1 common, 2 special Fatemeh ruy --->	 
 			 AND      U.Disabled = 0
 			 
 			 <cfif Object.OrgUnit eq "0" or Object.OrgUnit eq "">
@@ -247,13 +247,10 @@
 			 </td></tr>
 			 
 		 </cfif>
-		
-		 
 		 
 		 <cfset row = 0>
 		 
-		 <cfloop query="Potential">
-		 
+		 <cfloop query="Potential">		 
 		 
 			 <cfquery name="Notify" 
 				 datasource="AppsSystem"
@@ -280,7 +277,7 @@
 					entitygroup    = "#Object.EntityGroup#" 
 					returnvariable = "entityaccess">					
 								  
-			    <cfif entityaccess eq "EDIT">
+			    <cfif entityaccess eq "EDIT" or entityAccess eq "ALL">
 																
 					<cfquery name="Last" 
 					datasource="AppsSystem" 
@@ -342,16 +339,7 @@
 		 </cfloop>	
 		 
 		 </tr>
-		 		 	 	 
-		 <script language="JavaScript">
-		 
-			 function exit() {
-				   window.close(); 
-				//   opener.history.go();
-			 }  
-		 
-		 </script>
-		  	 	 			   
+				  	 	 			   
 		 </table>
 		 
 		 </cf_divscroll>
@@ -362,7 +350,7 @@
 	 
 	 <tr>
 	 	<td height="45" align="center" colspan="2">
-		 <input type="button" name="Cancel" id="Cancel" value="Close" class="button10g" onClick="javascript:exit()">
+		 <input type="button" name="Cancel" id="Cancel" value="Close" class="button10g" onClick="javascript:parent.ProsisUI.closeWindow('wMailDialog')">
 		 <input type="submit" class="button10g" name="Send" id="Send" value="Send Mail">
 		 </td>
 	 </tr>

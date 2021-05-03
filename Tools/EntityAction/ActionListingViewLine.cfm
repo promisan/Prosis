@@ -160,7 +160,7 @@
 						 <cfelse>
 						 					 
 						 <cfif actionTrigger eq "" and
-						       EntityAccess eq "EDIT" and
+						       (EntityAccess eq "EDIT" or EntityAccess eq "ALL")  and
 	               			   Action eq "1" and object_op is 1>								 				 					 
 						 
 						   <img src="#SESSION.root#/Images/Alert-W.png" width="32" height="32" style=""
@@ -276,7 +276,7 @@
 					
 					</cfif>
 															
-					<cfif Action eq "1" and (EntityAccess eq "EDIT" OR EntityAccess eq "READ")>
+					<cfif Action eq "1" and (EntityAccess eq "EDIT" OR EntityAccess eq "READ" or EntityAccess eq "ALL" )>
 					
 					 <cfset vSquareStyle     = "padding:0px 0 0;border-radius:8px 0 0 8px;max-width:100%">		  
 										
@@ -437,7 +437,7 @@
 											
 				<cfif EnableQuickProcess eq "1" 
 				     and ActionStatus eq "2" 
-					 and (EntityAccess eq "EDIT" or EntityAccess eq "READ")
+					 and (EntityAccess eq "EDIT" or EntityAccess eq "READ" or EntityAccess eq "ALL" )
 					 and Action eq "1">
 					
 				<td colspan="1" style="padding-top:4px;width: auto;min-width: 120px; ">

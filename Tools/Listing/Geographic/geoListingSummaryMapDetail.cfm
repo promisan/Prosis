@@ -12,21 +12,6 @@
 			#preserveSingleQuotes(session.geoListingDetailOrder)#
 </cfquery>
 
-<cfquery name="getNation" datasource="AppsSystem">		
-    SELECT	N.*,
-            ISNULL(N.Name, '[Undef]') as NationalityName
-	FROM    Ref_Nation N
-    WHERE   N.ISOCode2 = '#url.country#'
-</cfquery>
-
-<cfoutput>
-    <cfset vMainSummaryFunction = evaluate("session.geoListingMainTableScriptFunction_#url.viewId#")>
-    <h3 style="padding-bottom:10px;">
-        #ucase(getNation.NationalityName)# 
-        <a style="font-size:50%; padding-left:10px;" href="javascript:#vMainSummaryFunction#('#url.viewId#');">[<cf_tl id="Back to summary">]</a>
-    </h3>
-</cfoutput>
-
 <table class="table tableDetail table-striped table-bordered table-hover detailGeoContent<cfoutput>#url.viewId#</cfoutput>Detail" style="width:100%;">
     <thead>
         <tr>

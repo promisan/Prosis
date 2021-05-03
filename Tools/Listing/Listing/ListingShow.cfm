@@ -23,13 +23,14 @@
 <cfelse>
 
   <cfoutput>  
+  
 
    <cfif listclass eq "Listing">
-   
+         
    	    <!--- menu listing --->
               	   
    	   <cf_layout type="border">
-	   
+	   	   
 	   		<cfquery name="system" 
 				datasource="AppsSystem" 
 				username="#SESSION.login#" 
@@ -55,7 +56,6 @@
 				</cf_layoutArea>
 			
 			</cfif>
-		  						
 		  				
 			<!--- take these fields by selecting another filter to apply --->
 						
@@ -90,10 +90,11 @@
 					<cfdiv id="divListingMenuTree" style="height:100%; width:100%" 
 					   bind="url:#session.root#/tools/listing/listing/ListingTree.cfm?height=#url.height#&box=#attributes.box#_content&systemfunctionid=#url.systemfunctionid#&FunctionSerialNo=1">					
 				</cf_layoutArea>
-			</cfif>
+			</cfif>			
 			
 			<cf_layoutArea position="center" name="content" style="padding:5px; height:70%; min-height:70%;" overflow="hidden">	
-				
+						
+							
 				<cfform name="listfilter" method="POST" onsubmit="return false" style="height:100%"> 
 														
 					<table width="100%" height="100%" onkeyup="listnavigateRow('#box#')">   
@@ -177,7 +178,7 @@
 						</tr>		
 																
 						<tr>
-						   	<td style="padding:3px;height:100%" width="100%" id="#attributes.box#_content">																				   			     						
+						   	<td style="padding:3px;height:100%" width="100%" id="#attributes.box#_content">																										   			     						
 								<cfinclude template="ListingContentHTML.cfm">						  				  																		
 							</td>
 						</tr>					 

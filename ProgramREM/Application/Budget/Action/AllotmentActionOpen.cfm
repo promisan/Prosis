@@ -16,8 +16,7 @@
 	
 	ptoken.location("AllotmentActionListing.cfm?Period=" + parent.document.getElementById("PeriodSelect").value + 
 				"&Edition=" + parent.document.getElementById("edition").value + 
-				"&ProgramGroup=" + parent.document.getElementById("ProgramGroup").value +
-				"&SystemFunctionId=" + parent.document.getElementById("SystemFunctionId").value +
+				"&ProgramGroup=" + parent.document.getElementById("ProgramGroup").value +				
 				"&UNIT=#URL.UNIT#&mode=#URL.mode#&ID1=#URL.ID1#&id2=#URL.ID2#&id3=#URL.ID3#&systemfunctionid=#url.systemfunctionid#&mid=#url.mid#")
 	
 	</script>

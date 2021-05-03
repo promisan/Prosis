@@ -13,6 +13,8 @@
 
 	<cfoutput>	  
 	 
+	  SELECT *
+	  FROM (
 	 
 		SELECT    PAA.Reference,
 		          PAA.ProgramCode, 
@@ -56,6 +58,10 @@
 				
 		AND       P.Mission  = '#URL.ID2#'		
 		
+		) as D
+		
+		WHERE 1=1
+		
 		<!---	removed hanno, we show all until we pass the period correctly 
 		AND       PAA.Period = '#MissionPeriod.Period#'
 		--->
@@ -72,29 +78,22 @@
 	<cfset itm = itm+1>		
 	<cf_tl id="Document" var = "1">		
 	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "Reference",																	
-						alias       = "PAA",		
-						searchfield = "Reference",
-						searchalias = "PAA",																	
+	     				field       = "Reference",								
 						search      = "text"}>		
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Period" var = "1">			
 	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "Period",					
-						alias       = "Pe",	
-						searchalias = "Pe",
+	     				field       = "Period",											
 						filtermode  = "2",																		
 						search      = "text"}>										
 	
 	<cfset itm = itm+1>		
 	<cf_tl id="Code" var = "1">		
 	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "ProgramReference",																	
-						alias       = "Pe",		
+	     				field       = "ProgramReference",																							
 						labelfilter = "Project code",
-						searchfield = "Reference",
-						searchalias = "Pe",																	
+						searchfield = "Reference",																					
 						search      = "text"}>				
 							
 	<cfset itm = itm+1>
@@ -102,8 +101,7 @@
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "ProgramName",	
 						width       = "72",	
-						labelfilter = "Project name",			
-						alias       = "P",																			
+						labelfilter = "Project name",																										
 						search      = "text"}>		
 						
 				
@@ -117,17 +115,14 @@
 	<cfset itm = itm+1>
 	<cf_tl id="Transaction" var = "1">			
 	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "ActionClass",					
-						alias       = "",																			
+	     				field       = "ActionClass",																											
 						search      = "text",
 						filtermode  = "2"}>												
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Officer" var = "1">			
 	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "OfficerLastName",					
-						alias       = "PAA",		
-						searchalias	= "PAA",																
+	     				field       = "OfficerLastName",																									
 						search      = "text",
 						filtermode  = "2"}>			
 						
@@ -135,9 +130,9 @@
 	<cf_tl id="Amount" var = "1">							
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "Amount",	
-						align       = "right",				
-						alias       = "",					
-						formatted   = "numberformat(Amount,'__,__')"}>		
+						align       = "right",	
+						aggregate   = "sum",											
+						formatted   = "numberformat(Amount,',__')"}>		
 						
 	<cfset itm = itm+1>
 	<cf_tl id="St" var = "1">											
@@ -145,8 +140,8 @@
                     LabelFilter   = "Status",	
 					field         = "Description",					
 					filtermode    = "3",    
-					search        = "text",
-					searchalias   = "R",
+					colomn        = "common",
+					search        = "text",					
 					align         = "center",
 					formatted     = "Rating",
 					ratinglist    = "Cancelled=Red,Completed=Green,Pending=white"}>																							
@@ -164,20 +159,19 @@
 	
 <!--- ------- embed|window|dialogajax|dialog|standard------ --->
 <!--- prevent the method to see this as an embedded listing --->
-	
+
+
 <cf_listing
 	    header              = "budgetactionlist"
 	    box                 = "mylisting"
 		link                = "#SESSION.root#/ProgramREM/Application/Budget/Action/AllotmentActionListingContent.cfm?edition=#url.edition#&id2=#url.id2#&id3=#url.id3#&systemfunctionid=#url.systemfunctionid#"
 	    html                = "No"		
 		tableheight         = "100%"
-		tablewidth          = "100%"
-		font                = "Verdana"
+		tablewidth          = "100%"		
 		datasource          = "AppsProgram"
 		listquery           = "#myquery#"		
 		listorderfield      = "Created"
-		listorder           = "Created"
-		listorderalias      = "PAA"
+		listorder           = "Created"		
 		listorderdir        = "DESC"
 		headercolor         = "ffffff"
 		show                = "35"		<!--- better to let is be set in the preferences --->

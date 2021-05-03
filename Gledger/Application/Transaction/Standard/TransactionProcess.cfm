@@ -58,24 +58,24 @@
 	
 	<script language="JavaScript">
 	
-	window.location = "TransactionInit.cfm?"+
-	                    "mission=#process.mission#"+
-						"&orgunitowner=#process.orgunitowner#"+
-	                    "&journal=#journal.journal#"+
-						"&parentjournal=#process.journal#"+
-						"&parentjournalserialNo=#process.journalSerialno#"+
-						"&parentlineid=#ParentLine.TransactionLineId#"+
-						"&referenceid=#process.referenceid#"+
-						"&glaccount=#ParentLine.GLAccount#"+
-						"&fund1=#ParentLine.Fund#"+
-						"&object1=#ParentLine.ObjectCode#"+
-						"&programcode1=#ParentLine.ProgramCode#"+
-						"&programcode2=#ParentLine.ProgramCodeProvider#"+
-						"&orgunit1=#ParentLine.OrgUnit#"+
-						"&contributionlineid=#ParentLine.ContributionLineId#"+
-						"&accounttype=#accounttype#"+
-						"&accountperiod=#Process.AccountPeriod#"+
-						"&amount=#ParentLine.TransactionAmount#"
+	ptoken.location('TransactionInit.cfm?'+
+	                    'mission=#process.mission#'+
+						'&orgunitowner=#process.orgunitowner#'+
+	                    '&journal=#journal.journal#'+
+						'&parentjournal=#process.journal#'+
+						'&parentjournalserialNo=#process.journalSerialno#'+
+						'&parentlineid=#ParentLine.TransactionLineId#'+
+						'&referenceid=#process.referenceid#'+
+						'&glaccount=#ParentLine.GLAccount#'+
+						'&fund1=#ParentLine.Fund#'+
+						'&object1=#ParentLine.ObjectCode#'+
+						'&programcode1=#ParentLine.ProgramCode#'+
+						'&programcode2=#ParentLine.ProgramCodeProvider#'+
+						'&orgunit1=#ParentLine.OrgUnit#'+
+						'&contributionlineid=#ParentLine.ContributionLineId#'+
+						'&accounttype=#accounttype#'+
+						'&accountperiod=#Process.AccountPeriod#'+
+						'&amount=#ParentLine.TransactionAmount#')
 	
 	</script>
 

@@ -905,9 +905,10 @@
 		<cfif windowmode eq "embed">
 		
 		  <cfoutput>
-		  	<script language="JavaScript">		
-				try { parent.workflowreload('#url.ajaxid#','0') } 
-			    catch(e) {}			      
+		  	<script language="JavaScript">	
+			    if (parent.document.getElementById('#url.ajaxid#')) {
+				    parent.workflowreload('#url.ajaxid#','0') 
+				}	 			   	      
 			   	parent.ProsisUI.closeWindow('workflowstep')
 			</script>	
 			 </cfoutput>	

@@ -217,27 +217,25 @@ WHERE   Role = '#URL.ID#'
 	   method="POST" name="formaccess" target="resulting" style="height:100%">
 		
 		<cfoutput>
-		<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+		<table width="100%" height="100%" align="center">
 		
 		<tr class="line">
 		   <td height="10" colspan="4" style="padding-top:4px">
 		  
-		   <table width="100%" cellspacing="0" cellpadding="0" align="center">
+		   <table width="100%" align="center">
 		    <tr>
 			   <td align="center" width="10%">
 				   <img src="#SESSION.root#/Images/user_login.png" alt="Role" border="0" align="absmiddle">
 			   </td>
 			   <td width="40%">
 				   <table cellspacing="0" cellpadding="0">
-					   <tr class="labelmedium" style="height:20px">
-					   <td height="20">#Role.systemModule#</td></tr>					  
-					   <tr class="labelmedium" style="height:20px"><td height="20">#Role.Description# &nbsp;<font size="2">(#Role.Role#)</b></td></tr>
+					   <tr class="labelmedium2" style="height:20px">
+					   <td style="font-size:18px;font-weight:bold">#Role.systemModule#</td></tr>					  
+					   <tr class="labelmedium2" style="height:20px"><td height="20">#Role.Description# &nbsp;<font size="2">(#Role.Role#)</b></td></tr>
 				   </table>
 			   </td>
 			   <cfif Role.RoleMemo neq "">
-			   <td width="50%" align="center" valign="top" class="labelmedium" style="height:20px;padding:4px;">
-			      #Role.RoleMemo#
-			   </td>
+			   <td width="50%" align="center" valign="top" class="labelmedium" style="height:20px;padding:4px;">#Role.RoleMemo#</td>
 			   </cfif>
 		    </tr>
 			
@@ -248,13 +246,13 @@ WHERE   Role = '#URL.ID#'
 		<cfset child = 1>
 		
 		<tr><td height="5"></td></tr>
-		<TR height="10" class="labelmedium">
+		<TR height="10" class="labelmedium2">
 		    <td width="15%" style="padding-left:13px"><cf_tl id="Owner">:</td>
 			<td width="35%"><cfif Role.RoleOwner eq ""><font color="808080">multiple</font><cfelse>#Role.RoleOwner#</cfif></td>
 			
 			<cfif URL.ID1 neq "Object">
 			
-				<td width="15%" height="15" style="padding-left:3px"><cf_tl id="Scope">:</td>
+				<td width="15%" style="padding-left:3px"><cf_tl id="Scope">:</td>
 				<td width="35%">
 				 <table cellspacing="0" cellpadding="0"><tr><td width="30">
 				 <tr><td>
@@ -268,7 +266,7 @@ WHERE   Role = '#URL.ID#'
 					 </cfif>
 				 
 		        </td>
-				<td class="labelmedium">
+				<td class="labelmedium2">
 				<cfif Role.OrgUnitLevel eq "Global">
 				    <b><cf_tl id="Global"></b>
 				<cfelse>
@@ -287,21 +285,21 @@ WHERE   Role = '#URL.ID#'
 				
 			<cfelse>	
 			
-				<td width="15%" style="padding-left:3px" class="labelmedium" height="15"><cf_tl id="Object">:</td>
-				<td width="35%" style="padding-left:3px" class="labelmedium"><cf_tl id="Direct access"></td>
+				<td width="15%" style="padding-left:3px" height="15"><cf_tl id="Object">:</td>
+				<td width="35%" style="padding-left:3px"><cf_tl id="Direct access"></td>
 				
 			</cfif>
 		</tr>	
 			
-		<TR class="labelmedium">
-		    <td height="15" style="padding-left:13px"><cf_tl id="User Name">:</td>
-			<td><a href="javascript:ShowUser('#get.Account#')"><font color="0080C0">#Get.FirstName# #Get.LastName# [#get.account#]</a></td>
-		    <td height="15" style="padding-left:3px"><cf_tl id="IndexNo">:</td>
+		<TR class="labelmedium2">
+		    <td style="padding-left:13px"><cf_tl id="User Name">:</td>
+			<td><a href="javascript:ShowUser('#get.Account#')">#Get.FirstName# #Get.LastName# [#get.account#]</a></td>
+		    <td style="padding-left:3px"><cf_tl id="IndexNo">:</td>
 			<td><cfif get.IndexNo eq ""><font color="C0C0C0"><cf_tl id="not set"><cfelse>#Get.IndexNo#</cfif></td>
 		</tr>
 			
-		<TR class="labelmedium">
-		    <td height="15" style="padding-left:13px;"><cf_tl id="LDAP Name">:</td>
+		<TR class="labelmedium2">
+		    <td style="padding-left:13px;"><cf_tl id="LDAP Name">:</td>
 			<td><cfif get.MailServerAccount eq ""><font color="C0C0C0"><cf_tl id="not set"></font><cfelse>#Get.MailServerAccount#</cfif></td>
 			<cfif Role.Parameter neq "Entity">
 				<td style="min-width:100px;padding-left:3px"><cf_tl id="Batch overwrite">:</td>
@@ -317,23 +315,27 @@ WHERE   Role = '#URL.ID#'
 				   <input type="hidden" name="RecordStatus_old" id="RecordStatus_old" value="0">
 			</cfif>
 		</tr>
-				
-		<cf_dialogMail>
 		
-		<TR class="labelmedium line">
-		    <td height="15" style="padding-left:13px"><cf_tl id="eMail">:</td>
-			<td>
-				<cfif Get.eMailAddress neq "">
-			     <a href="javascript:email('#Get.eMailAddress#','','','','User','#Get.Account#')">				 
-			    </cfif>#Get.eMailAddress#
-			</td>
-			<td height="15" style="padding-left:3px"><cf_tl id="eMail external">:</td>
-			<td>
-				<cfif Get.eMailAddressExternal neq "">
-			    <a href="javascript:email('#Get.eMailAddressExternal#','','','','User','#Get.Account#')">				
-			    </cfif>#Get.eMailAddressExternal#
-			</td>
-		</tr>		
+		<cfif get.AccountType eq "Individual">
+				
+			<cf_dialogMail>
+			
+			<TR class="labelmedium2 line">
+			    <td style="padding-left:13px"><cf_tl id="eMail">:</td>
+				<td>
+					<cfif Get.eMailAddress neq "">
+				     <a href="javascript:email('#Get.eMailAddress#','','','','User','#Get.Account#')">				 
+				    </cfif>#Get.eMailAddress#
+				</td>
+				<td style="padding-left:3px"><cf_tl id="eMail external">:</td>
+				<td>
+					<cfif Get.eMailAddressExternal neq "">
+				    <a href="javascript:email('#Get.eMailAddressExternal#','','','','User','#Get.Account#')">				
+				    </cfif>#Get.eMailAddressExternal#
+				</td>
+			</tr>	
+		
+		</cfif>	
 					
 		</cfoutput>
 			
@@ -341,7 +343,7 @@ WHERE   Role = '#URL.ID#'
 		
 			<cf_divscroll>
 					
-			<table width="97%" class="navigation_table">
+			<table width="97%" align="center" class="navigation_table">
 			
 			<cfif Role.Parameter eq "Entity">
 				<input type="hidden" name="ClassIsAction" id="ClassIsAction" value="1">
@@ -471,23 +473,12 @@ WHERE   Role = '#URL.ID#'
 										
 						 <cfif Role.Parameter neq "Entity">
 						 
-						 	<tr id="#mission#selected"  class="labelmedium navigation_row" style="height:22px">
+						 	<tr id="#mission#selected"  class="labelmedium navigation_row line" style="height:22px">
 						 
 						    <td colspan="2" height="18" style="padding-left:14px">
 												
-							    <table><tr><td>
-							   
-								<img src="#SESSION.root#/Images/tree4.gif" 
-								   alt="Tree" 
-								   onclick="show('s_#mission#')" 
-								   border="0" 
-								   height="15" width="15"
-								   align="absmiddle" 
-								   style="cursor: pointer;">
-								   							   						   
-								   </td>
-								   <td style="padding-left:8px" class="labelmedium">
-								   								   								
+							    <table><tr>
+								   <td style="padding-left:8px" class="labelmedium2">								   								   								
 								    <a href="javascript:show('s_#mission#')" 
 								      title="Click to hide/show options">#Mission#&nbsp;<cfif MissionStatus eq "1"><font color="gray">:static</cfif></a> 
 									  
@@ -501,21 +492,11 @@ WHERE   Role = '#URL.ID#'
 													
 						<cfelse>
 						
-							<tr  id="#mission#selected" class="labelmedium2 navigation_row">
+							<tr id="#mission#selected" class="labelmedium2 navigation_row line">
 						
-							  <td colspan="2" height="20" class="labelmedium" style="padding-left:14px">
+							  <td colspan="2" height="20" class="labelmedium2" style="padding-left:14px">
 							  												
-							    <cf_space spaces="40">
-							   
-								<img src="#SESSION.root#/Images/tree3.gif" 
-								   alt="Tree" 
-								   onclick="show('s_#mission#')" 
-								   border="0" 
-								   height="13" width="13"
-								   align="absmiddle" 
-								   style="cursor: pointer;">
-								   								   
-								&nbsp;<a href="javascript:show('s_#mission#')">#Mission#</a>&nbsp;<cfif MissionStatus eq "1"><font color="gray">:<i>static</i></cfif> 
+							  		<a href="javascript:show('s_#mission#')">#Mission#</a>&nbsp;<cfif MissionStatus eq "1"><font color="gray">:<i>static</i></cfif> 
 								
 							 </td>
 							 <td align="right" colspan="2">#MissionName#</td>		
@@ -847,10 +828,10 @@ WHERE   Role = '#URL.ID#'
 			    <table>
 			    <tr><td>
 			    
-				<cfif URL.ID1 neq "Object">
-				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="parent.parent.ProsisUI.closeWindow('myaccess')">
-				<cfelse>
-				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="parent.parent.ProsisUI.closeWindow('userdialog')">
+				<cfif URL.ID1 neq "Object">				
+				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="try {parent.parent.ProsisUI.closeWindow('myaccess') } catch(e) { parent.ProsisUI.closeWindow('myaccess') }">
+				<cfelse>				
+				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="try {parent.parent.ProsisUI.closeWindow('userdialog') } catch(e) { parent.parent.ProsisUI.closeWindow('userdialog') }">
 				</cfif>
 				
 				</td><td style="padding-left:2px">

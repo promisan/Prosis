@@ -54,21 +54,21 @@ password="#SESSION.dbpw#">
 
 <!--- Entry form --->
 
-<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
-<table width="92%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="92%" align="center" class="formpadding">
 	 
 	<tr><td height="8"></td></tr>
 
     <TR>
-    <TD class="labelmedium">Code:</TD>
+    <TD class="labelmedium"><cf_tl id="Code">:</TD>
     <TD>
   	   <cfinput type="Text" class="regularxl" name="Speedtype" value="#SpeedType#" readonly message="Please enter a code" required="Yes" size="10" maxlength="10">
     </TD>
 	</TR>
 		
 	<TR>
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium"><cf_tl id="Description">:</TD>
     <TD>
   	    <cfinput type="Text"  class="regularxl" name="Description" value="#Description#" message="Please enter a description" required="Yes" size="40" maxlength="50">
     </TD>
@@ -80,24 +80,24 @@ password="#SESSION.dbpw#">
 	
 	
 	<TR>
-    <TD class="labelmedium" style="padding-left:10px">Vendor Tree:</TD>
+    <TD class="labelmedium" style="padding-left:10px"><cf_tl id="Relation">:</TD>
     <TD> 
 		
-	<cfquery name="Mission" 
-	datasource="AppsOrganization" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-    	SELECT *  
-	    FROM   Ref_Mission
-		WHERE  MissionStatus = '1' <!--- not dynamic --->
-	</cfquery>
+		<cfquery name="Mission" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+	    	SELECT *  
+		    FROM   Ref_Mission
+			WHERE  MissionStatus = '1' <!--- not dynamic --->
+		</cfquery>
 		    	
     	<select name="InstitutionTree" class="regularxl" size="1">
-		    <option value=""></option>
+		    <option value="">Any</option>
+			<option value="Staff" <cfif get.InstitutionTree eq "Staff">selected</cfif>>Staff</option>
+			<option value="Customer" <cfif get.InstitutionTree eq "Customer">selected</cfif>>Customer</option>
 		    <cfloop query="Mission">
-				<option value="#Mission#" <cfif get.InstitutionTree eq Mission>selected</cfif>>
-		    		#Mission#
-				</option>
+				<option value="#Mission#" <cfif get.InstitutionTree eq Mission>selected</cfif>>#Mission#</option>
 			</cfloop>
 	    </select>
 	

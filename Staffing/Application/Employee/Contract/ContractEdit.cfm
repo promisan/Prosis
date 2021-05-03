@@ -134,7 +134,7 @@
 		<cf_layoutarea  position="center" name="box">
 			
 		     <cf_divscroll style="height:99%">
-						 
+						
 			 <table style="width:100%;height:99%">
 			   <tr>
 			   <td style="padding-left:5px" valign="top"><cfinclude template="ContractEditContent.cfm">				   
@@ -150,7 +150,7 @@
 <cfelse>
 
 	    <!--- normal mode --->		
-		<cf_divscroll style="height:99%">	
+		<cf_divscroll style="height:99%">			
 		<cfinclude template="ContractEditContent.cfm">
 		</cf_divscroll>	
 			

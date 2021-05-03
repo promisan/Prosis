@@ -213,8 +213,7 @@ function maximize(id) {
 }	
 
 function applycontra(acc) {
-   ptoken.navigate('setContra.cfm?account='+acc,'processmanual')
-   
+   ptoken.navigate('setContra.cfm?account='+acc,'processmanual')   
 }  
 
 function applyaccount(acc) {
@@ -344,8 +343,7 @@ function togglebox(val) {
 				
 			           </select>
 				   
-					   <cfelse>
-					   
+					   <cfelse>					   
 					     
 				    	    <input type="text" 
 						       name="accountperiod" 
@@ -495,15 +493,14 @@ function togglebox(val) {
 						        <table border="0" style="border:1px solid silver;background-color:f1f1f1">
 								    <tr>
 																	   
-									  <td class="labelmedium2" style="min-width:250px;height:27px;padding-left:4px;color:green;font-size:15px;padding-right:9px">#glaccdes#
+									  <td class="labelmedium2" style="min-width:250px;height:27px;padding-left:4px;color:6688aa;font-size:15px;padding-right:9px">#glaccdes#
 							          	 <input type="hidden" name="glaccount"       id="glaccount"     value="#HeaderSelect.ContraGLAccount#" size="12" style="text-align: center;" readonly class="disabled">
 						         		 <input type="hidden" name="gldescription"   id="gldescription" value="#glaccdes#" size="40" style="text-align: center;" readonly class="disabled">
 										 <input type="hidden" name="debitcredit"     id="debitcredit"   value="#HeaderSelect.ContraGLAccountType#" size="8" style="text-align: center;" readonly class="disabled">
 									  </td>		
 									  
-									   <td class="labelmedium2" style="padding-left:5px;padding-right:5px;border-left:1px solid silver;font-size:15px;padding-right:4px">#HeaderSelect.ContraGLAccount#</td>
-									 										  					 
-									  <td align="center" class="labelmedium2" style="border-left:1px solid silver;font-size:15px;padding-left:6px;padding-right:4px">#HeaderSelect.ContraGLAccountType#</td> 
+									  <td class="labelmedium2" align="center" style="padding-left:8px;border-left:1px solid silver;font-size:15px;padding-right:8px">#HeaderSelect.ContraGLAccount#</td>									 										  					 
+									  <td class="labelmedium2" align="center" style="border-left:1px solid silver;font-size:15px;padding-left:8px;padding-right:8px">#HeaderSelect.ContraGLAccountType#</td> 
 									  
 								    </tr>
 								</table>	
@@ -530,7 +527,7 @@ function togglebox(val) {
 								
 								  </td>						  	 
 								  					 
-								  <td align="center" class="labelmedium2" style="background-color:f4f4f4;padding-left:5px;padding-right:5px;border-left:1px solid silver;padding-left:6px;padding:2px;padding-right:4px">#HeaderSelect.ContraGLAccountType#</td> 
+								  <td align="center" class="labelmedium2" style="background-color:f4f4f4;padding-left:8px;border-left:1px solid silver;padding-right:8px">#HeaderSelect.ContraGLAccountType#</td> 
 								  
 							    </tr>
 							</table>	
@@ -714,17 +711,49 @@ function togglebox(val) {
 						or tracat is "Receipt">
 						to support any other user-defined 
 						------>
-				  	<cfif tracat neq "Iventory" or tracat neq "payroll">
+				  <cfif tracat eq "Inventory" or tracat eq "payroll" or tracat eq "payment">
+				  
+				  <cfelse>
 				  
 				  <TD class="labelmedium2" style="padding-right:6px">				  		   
-					 
-					  <select name="Party" id="party" class="regularxxl" 
-					        style="border:0px solid silver;background-color:f1f1f1;padding-left:0px;width:99%" 
-							onchange="togglebox(this.value)">
-						  	<option value="ven" <cfif HeaderSelect.ReferencePersonNo eq "">selected</cfif>><cf_tl id="Organization"></option>
-						  	<option value="emp" <cfif HeaderSelect.ReferencePersonNo neq "">selected</cfif>><cf_tl id="Staff"></option>
-							<option value="cus" <cfif HeaderSelect.ReferenceId neq "">selected</cfif>><cf_tl id="Customer"></option>
-					  </select>
+				  				  				  
+				      <cfswitch expression="#institutiontree#">
+					  
+						  <cfcase value="">
+						  
+						    <select name="Party" id="party" class="regularxxl" 
+						        style="border:0px solid silver;background-color:f4f4f4;padding-left:0px;width:99%" 
+								onchange="togglebox(this.value)">
+							  	<option value="ven" <cfif HeaderSelect.ReferencePersonNo eq "">selected</cfif>><cf_tl id="Organization"></option>
+							  	<option value="emp" <cfif HeaderSelect.ReferencePersonNo neq "">selected</cfif>><cf_tl id="Staff"></option>
+								<option value="cus" <cfif HeaderSelect.ReferenceId neq "">selected</cfif>><cf_tl id="Customer"></option>
+						    </select>
+						  
+						  </cfcase>
+						  
+						  <cfcase value="staff">
+						  
+							  <cf_tl id="Staff">:
+							  <input type="hidden" name="Party" id="party" value="emp">
+						  
+						  </cfcase>
+						  
+						  <cfcase value="customer">
+						  
+						  	 <cf_tl id="Customer">:
+							  <input type="hidden" name="Party" id="party" value="cus">
+						  
+						  </cfcase>
+						  
+						  <cfdefaultcase>
+						  
+						  	 <cf_tl id="Organization">:
+							 <input type="hidden" name="Party" id="party" value="ven">						  
+						  
+						  </cfdefaultcase>
+					 						  
+					  </cfswitch>	
+										  
 				  </TD>
 				  
 		          <td colspan="4" height="22">
@@ -733,49 +762,88 @@ function togglebox(val) {
 				   				   
 				   <table cellspacing="0" cellpadding="0"><tr>
 				   
-					   <cfif HeaderSelect.ReferenceId neq "">
-					   
-						   <cfif HeaderSelect.ReferencePersonNo eq "">
-					   			
-								<cfset ven = "hide">
-					   			<cfset emp = "hide">
-								<cfset per = "hide">
-					   			<cfset cus = "show">	
-															
-							<cfelse>
-							
-							<cfquery name="Person" 
-							datasource="AppsSelection" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
-								  SELECT *
-								  FROM   Applicant
-								  WHERE  PersonNo = '#HeaderSelect.ReferencePersonNo#'	
-							</cfquery>
-							
-							   <cfset ven = "hide">
-							   <cfif Person.recordcount eq "0">
-								   <cfset emp = "regular">							   
-								   <cfset per = "hide">
+				   	   <cfswitch expression="#institutiontree#">
+					  
+						  <cfcase value="">
+				   
+							   <cfif HeaderSelect.ReferenceId neq "">
+							   
+								   <cfif HeaderSelect.ReferencePersonNo eq "">
+							   			
+										<cfset ven = "hide">
+							   			<cfset emp = "hide">
+										<cfset per = "hide">
+							   			<cfset cus = "show">	
+																	
+									<cfelse>
+									
+										<cfquery name="Person" 
+										datasource="AppsSelection" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+											  SELECT *
+											  FROM   Applicant
+											  WHERE  PersonNo = '#HeaderSelect.ReferencePersonNo#'	
+										</cfquery>
+									
+									   <cfset ven = "hide">
+									   <cfif Person.recordcount eq "0">
+										   <cfset emp = "regular">							   
+										   <cfset per = "hide">
+									   <cfelse>
+										   <cfset emp = "regular">							   
+										   <cfset per = "hide">
+									   </cfif>
+									   <cfset cus = "hide">							   
+								    </cfif>		
+														
+		  			   		   <cfelseif HeaderSelect.ReferencePersonNo eq "">
+							   
+									   <cfset ven = "regular">
+									   <cfset emp = "hide">
+									   <cfset per = "hide">
+									   <cfset cus = "hide">		
+									   					   
 							   <cfelse>
-								   <cfset emp = "regular">							   
-								   <cfset per = "hide">
+							   
+								       <cfset emp = "regular">
+									   <cfset ven = "hide">
+									   <cfset per = "hide">
+									   <cfset cus = "hide">						 
+									   
 							   </cfif>
-							   <cfset cus = "hide">							   
-						    </cfif>		
-												
-  			   		   <cfelseif HeaderSelect.ReferencePersonNo eq "">
-							   <cfset ven = "regular">
-							   <cfset emp = "hide">
+							   
+						  </cfcase>
+						  
+						  <cfcase value="staff">
+						  
+							  <cfset emp = "regular">
+							   <cfset ven = "hide">
 							   <cfset per = "hide">
 							   <cfset cus = "hide">		
-							   					   
-					   <cfelse>
-						       <cfset emp = "regular">
+						  
+						  </cfcase>
+						  
+						  <cfcase value="customer">
+						  
+						  	   <cfset emp = "hide">
 							   <cfset ven = "hide">
 							   <cfset per = "hide">
-							   <cfset cus = "hide">						 
-					   </cfif>
+							   <cfset cus = "regular">								  
+						  	
+						  </cfcase>
+						  
+						  <cfdefaultcase>
+						  
+						  	   <cfset emp = "hide">
+							   <cfset ven = "regular">
+							   <cfset per = "hide">
+							   <cfset cus = "hide">		
+						  	  						  
+						  </cfdefaultcase>
+						  
+						</cfswitch>  
+						  	   
 
 					   	<td class="#ven#" id="venbox">
 												
@@ -802,8 +870,7 @@ function togglebox(val) {
 							  <input type="hidden" name="referenceorgunit1" id="referenceorgunit1" value="#HeaderSelect.ReferenceOrgUnit#">
 							 
 							   
-						 </td> 		
-						 
+						 </td> 								 
 						 							
 							<cfquery name="Person" 
 							datasource="AppsSelection" 
@@ -941,10 +1008,24 @@ function togglebox(val) {
 						   	
 				  </td>
 				  
-				   <TD class="labelmedium2"><cf_tl id="Reference No">:</TD>
-		           <td colspan="3">	
-				   <cfinput type="Text" class="regularxl" name="referenceno" value="#HeaderSelect.ReferenceNo#" message="Please enter a reference no" style="width:118" required="No" size="10" maxlength="30"> 
+				  <cfif tracat is "Payables" or Tracat is "DirectPayment" or Tracat is "Receivables">				  
+				       <TD class="labelmedium2"><cf_tl id="Invoice No">:</TD>				   
+				  <cfelse>				   
+				       <TD class="labelmedium2"><cf_tl id="Reference No">:</TD>				   
+				  </cfif>
+		          
+				  <td colspan="3">	
+					   <cfinput type="Text"
+					      class="regularxl" name="referenceno" 
+						  value="#HeaderSelect.ReferenceNo#" 
+						  message="Please enter a reference no" 
+						  style="width:118PX" 
+						  required="No" 
+						  size="10" 
+						  maxlength="30"> 
 				   </td>
+				   
+				   <!---
 						
 		 		  <cfelse>
 				  	   		  
@@ -966,12 +1047,10 @@ function togglebox(val) {
 					       <img src="#SESSION.root#/Images/search.png" alt="Select" name="img1" 
 							  onMouseOver="document.img1.src='#SESSION.root#/Images/contract.gif'" 
 							  onMouseOut="document.img1.src='#SESSION.root#/Images/search.png'"
-							  style="cursor: pointer;border-radius:5px" alt="" width="26" height="25" border="0" align="absmiddle" 
+							  style="cursor: pointer;border-radius:5px" width="26" height="25" border="0" align="absmiddle" 
 							  onClick="selectorgN('#institutiontree#','Administrative','orgunit','applyorgunit','1')">
 					
 							</td>
-							
-							
 							
 						</tr>
 					   </table>
@@ -980,10 +1059,14 @@ function togglebox(val) {
 				  		   	
 				  </td>
 				  
+				 
+				  
 				   <TD class="labelmedium2"><cf_tl id="Voucher No">:</TD>
 		           <td colspan="3">	
 				   <cfinput type="Text" class="regularxxl enterastab" name="referenceno" value="#HeaderSelect.ReferenceNo#" message="Please enter an invoice no" required="No" size="10" maxlength="30"> 
 				   </td>
+				   
+				    --->
 				 
 				  </cfif>	
 				  
@@ -1019,6 +1102,7 @@ function togglebox(val) {
 				<tr>  
 				
 				  <cfoutput>
+				  
 		          <TD class="labelmedium2"><cf_tl id="Description">:</TD>
 		          <td colspan="4" height="22">
 				    <input type="text" name="Description" class="regularxxl enterastab" value="#HeaderSelect.Description#" style="width:90%" maxlength="200">
@@ -1048,19 +1132,18 @@ function togglebox(val) {
 			         
 				 </cfif>  
 		
-				 <cfif (tracat is "Payment" or Tracat is "DirectPayment" or Tracat is "Receivables") and  
-				      bank.recordcount gte "1">
+				 <cfif (tracat is "Payment" or Tracat is "DirectPayment" or Tracat is "Receivables") and bank.recordcount gte "1">
 				 
-					 <cfif tracat neq "Receivables">
-					   <cfset text = "Pay through">
-					 <cfelse>  
-					   <cfset text = "Receive through">
-					 </cfif>
+					  <cfif tracat neq "Receivables">
+					    <cfset text = "Pay through">
+					  <cfelse>  
+					    <cfset text = "Receive through">
+					  </cfif>
 					 				 
 					  <tr>
 					  				 
-				          <td class="labelmedium2"><cfoutput><cf_tl id="#Text#">:</cfoutput></b></TD>
-					      <td height="22">
+				          <td class="labelmedium2"><cfoutput><cf_tl id="#Text#">:</cfoutput></TD>
+					      <td>
 					 	
 				    	  <select name="ActionBankId" class="regularxxl enterastab">
 						  
@@ -1078,7 +1161,7 @@ function togglebox(val) {
 						  <td></td>
 						  <td></td>					 				  		 
 						  <td class="labelmedium2"><cf_tl id="Process date">:</td>		  
-						  <td style="wodth:200">
+						  <td style="width:200px">
 							  
 							    <cf_intelliCalendarDate9
 							      FieldName="journalbatchdate" 			 
@@ -1089,6 +1172,31 @@ function togglebox(val) {
 				       			  
 					  </tr>
 				  
+				 <cfelseif tracat is "Payables">
+				 
+				 <tr>
+				 		<td class="labelmedium2"><cf_tl id="Source">:</TD>
+						<td>
+						    <cfoutput>
+						    <input type="text" name="TransactionSourceNo" class="regularxxl enterastab" value="#HeaderSelect.TransactionSourceno#" style="width:120px" maxlength="20">		  
+							</cfoutput>
+						</td>
+						<td></td>
+						<td></td>
+						<td></td>		
+						
+						<td class="labelmedium2"><cf_tl id="Process date">:</td>		  
+						<td style="wodth:200">
+							  
+							    <cf_intelliCalendarDate9
+							      FieldName="journalbatchdate" 			 
+								  class="regularxxl enterastab"			  
+							      Default="#Dateformat(HeaderSelect.JournalBatchDate, CLIENT.DateFormatShow)#">
+							  
+						</td>	
+						
+						 <input type="hidden" name="ActionBankId">	 	  		
+				 
 				 <cfelse>
 				 
 				   <cfoutput>

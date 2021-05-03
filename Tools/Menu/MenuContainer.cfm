@@ -16,13 +16,10 @@
 	<!--- container for listing and entry --->
 	
 	<div class="#attributes.class#" style="min-width:1000px"
-	    id="#attributes.name##attributes.item#" 
-		name="#attributes.name##attributes.item#">
-		
-	
+	    id="#attributes.name##attributes.item#" name="#attributes.name##attributes.item#">
+			
 		<div height="100%" style="min-width:100%" valign="top" style="overflow:hidden"
-	       id="content#attributes.name##attributes.item#" 
-		   name="content#attributes.name##attributes.item#">
+	       id="content#attributes.name##attributes.item#" name="content#attributes.name##attributes.item#">
 		 		   
 	<cfelse>	
 			

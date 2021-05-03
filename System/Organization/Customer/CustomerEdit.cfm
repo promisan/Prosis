@@ -73,20 +73,13 @@
 		
 	<cfoutput>		
 		
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
-											
+	<table width="100%" height="100%" class="formpadding">											
 									
 		<tr><td height="100%" valign="top">		
 							
-			<table width="98%"   
-				   border="0"  	   
-				   height="100%" 
-			       cellspacing="0"
-			       cellpadding="0"
-			       align="center">		
+			<table width="98%" height="100%" align="center">		
 							   
-				   <tr><td colspan="2" id="customerbox">
-				  
+				   <tr><td colspan="2" id="customerbox">				  
 					   <cfinclude template="CustomerData.cfm">
 				   </td></tr>			
 				   				   
@@ -94,12 +87,12 @@
 					
 				<tr><td height="10" colspan="2">											
 												
-					<table width="100%" align="center" cellspacing="0" border="0" cellpadding="0">
+					<table width="100%" align="center">
 													 						 
 							 	<tr>
 								<td>
 								
-									<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0" class="formspacing">
+									<table width="99%" align="center" class="formspacing formpadding">
 																							
 									<tr>
 																																			
@@ -107,9 +100,7 @@
 									<cfset wd = "64">															
 									
 									<cf_tl id="Status of Orders" var="vStatus">
-									
-									----<cfoutput>#url.systemfunctionid#</cfoutput>-----
-									
+																		
 									<cf_menutab item   = "1" 
 									        base       = "sub"
 											target     = "subbox"
@@ -218,42 +209,36 @@
 							<tr>
 							   <td colspan="2" valign="top" height="100%">	
 							   
-							   <table width="99%" height="100%" cellspacing="0" cellpadding="0" align="center">	   					
+							   <table width="99%" height="100%" align="center">	   					
 															
-								<cfif url.serviceclass eq "">
-																					
-									<cf_menucontainer name="subbox" item="1" class="regular">
+									<cfif url.serviceclass eq "">
+																						
+										<cf_menucontainer name="subbox" item="1" class="regular">										
+										      <cfset url.mission = get.mission>
+											  <cfinclude template="../../../Workorder/Application/WorkOrder/Create/WorkOrderListing.cfm">											 
+										</cf_menucontainer>
+										
+										<cf_menucontainer name="subbox" item="2" class="hide">	
+										 <cfset url.id = get.orgunit>
+											  <cfinclude template="../Application/Address/UnitAddressView.cfm">											  
+										</cf_menucontainer>	  										
+										<cf_menucontainer name="subbox" item="3" class="hide">																		  
+																		
+									<cfelse>
 									
-									      <cfset url.mission = get.mission>
-										  <cfinclude template="../../../Workorder/Application/WorkOrder/Create/WorkOrderListing.cfm">
-										 
-									</cf_menucontainer>
-									
-									<cf_menucontainer name="subbox" item="2" class="hide">	
-									 <cfset url.id = get.orgunit>
-										  <cfinclude template="../Application/Address/UnitAddressView.cfm">
-										  
-									</cf_menucontainer>	  
-									
-									<cf_menucontainer name="subbox" item="3" class="hide">																		  
+										<cf_menucontainer name="subbox" item="1" class="hide">
+											  <cfset url.id = get.orgunit>
+											  <cfinclude template="../Application/Address/UnitAddressView.cfm">
+										</cf_menucontainer>
 																	
-								<cfelse>
-								
-									<cf_menucontainer name="subbox" item="1" class="hide">
-										  <cfset url.id = get.orgunit>
-										  <cfinclude template="../Application/Address/UnitAddressView.cfm">
-									</cf_menucontainer>
-																
-									<cf_menucontainer name="subbox" item="2" class="regular">	
+										<cf_menucontainer name="subbox" item="2" class="regular">											
+										      <cfset mission = get.mission>
+											  <cfinclude template="../../../Workorder/Application/WorkOrder/Create/WorkOrderListing.cfm">										
+										</cf_menucontainer>
+										
+										<cf_menucontainer name="subbox" item="3" class="hide">																		  																
 									
-									      <cfset mission = get.mission>
-										  <cfinclude template="../../../Workorder/Application/WorkOrder/Create/WorkOrderListing.cfm">
-									
-									</cf_menucontainer>
-									
-									<cf_menucontainer name="subbox" item="3" class="hide">																		  																
-								
-								</cfif>								
+									</cfif>								
 								
 							   </table>
 							  							

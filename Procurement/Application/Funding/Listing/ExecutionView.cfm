@@ -28,7 +28,7 @@
 
    <tr>
 
-   <td colspan="1" height="100%" valign="top" style="padding:0px">
+   <td height="100%" valign="top" style="padding-left:15px;padding-right:15px">
 		<cf_securediv id="divListingContainer" style="height:100%" bind="url:#session.root#/Procurement/Application/Funding/Listing/ExecutionViewContent.cfm?SystemFunctionId=#url.systemfunctionid#&mission=#url.mission#&planningperiod=#url.planningperiod#&period=#url.period#">        	
 	</td>	
 	

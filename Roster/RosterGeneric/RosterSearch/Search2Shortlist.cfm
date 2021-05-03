@@ -195,6 +195,7 @@ password="#SESSION.dbpw#">
 				AND      R.Owner = '#Owner.Owner#' 
 				</cfif>
 			</cfquery>		
+						
 			 
 			<cfform style="height:100%" action="Search2Submit.cfm?docno=#url.docno#&ID=#URL.ID#&owner=#Owner.Owner#&mode=vacancy&status=1" method="POST" name="functionselect">
 			

@@ -75,4 +75,5 @@
 <cfset url.mode = "vacancy">
 <cfset url.functionno = Vacancy.FunctionNo>
 <cfinclude template="Search2Shortlist.cfm">
+
 				

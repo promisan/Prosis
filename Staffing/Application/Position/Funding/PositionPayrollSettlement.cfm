@@ -179,9 +179,9 @@ password="#SESSION.dbpw#">
 	filterShow    = "Yes"
 	excelShow     = "Yes"
 	annotation    = "GLTransaction"
-	drillmode     = "window"	
+	drillmode     = "tab"	
 	drillargument = "930;1300;false;false"
-	drilltemplate = "Gledger/Application/Transaction/View/TransactionViewDetail.cfm?id="
+	drilltemplate = "Gledger/Application/Transaction/View/TransactionView.cfm?id="
 	drillkey      = "PaymentId">
 
 

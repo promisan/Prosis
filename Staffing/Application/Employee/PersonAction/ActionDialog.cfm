@@ -80,17 +80,17 @@
 	
 <cfoutput query="Action">
 			 
-	<table width="97%" height="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="97%" height="100%" align="center" class="formpadding">
 	
 	<tr><td height="3"></td></tr>
-	<tr class="line labelmedium">
+	<tr class="line labelmedium2">
 	   <td height="15" width="100"><cf_tl id="Action No">:</td>
 	   <td width="40%">#Action.ActionDocumentNo#</td>
 	   <td height="15"><cf_tl id="Action">:</td>
 	   <td>#Action.Description# <cfif ActionStatus eq "9"><font color="FF0000">:<cf_tl id="Revoked"></font></cfif></td>
 	</tr>
 	
-	<tr class="line labelmedium">
+	<tr class="line labelmedium2">
 	   <td height="15"><cf_tl id="Officer">:</td>
 	   <td>#Action.OfficerFirstName# #Action.OfficerLastName# #dateformat(Action.Created, CLIENT.dateformatshow)# #timeformat(Action.Created, "HH:MM:SS")#</td>
 	   <td height="15"><cf_tl id="Action Effective">:</td>
@@ -98,7 +98,7 @@
 	</tr>
 	
 	<cfif Action.ActionPersonNo eq "">
-	<tr class="line labelmedium">
+	<tr class="line labelmedium2">
 	   <td height="15"><cf_tl id="Mode">:</td>
 	   <td>Mandate Batch Process</td>
 	   
@@ -113,7 +113,7 @@
 	
 		
 	   <cfif Action.ActionDescription neq "">	
-		<tr class="line labelmedium">   
+		<tr class="line labelmedium2">   
 	 	  <td height="15">Memo:</td>
 		   <td>#Action.ActionDescription#</td>
 		</tr>   
@@ -128,14 +128,14 @@
 		 WHERE  PersonNo = '#Action.ActionPersonNo#'
 	  </cfquery> 
 	  
-	  <tr class="line labelmedium" style="border-top:1px solid silver">	
+	  <tr class="line labelmedium2" style="border-top:1px solid silver">	
 	   <td height="15"><cf_tl id="Name">:</td>
 	   <td colspan="1"><a href="javascript:EditPerson('#Person.PersonNo#')">#Person.FirstName# #Person.LastName# (#Person.PersonNo#) #Person.Gender#</a></td>	
 	   <td height="15"><cf_tl id="IndexNo">:</td>
 	   <td colspan="1">#Person.IndexNo# #Person.PersonStatus#</td>
 	   </tr>	
 	   
-	   <tr class="line labelmedium">	
+	   <tr class="line labelmedium2">	
 	   <td height="15"><cf_tl id="DOB">:</td>
 	   <td colspan="1">#dateformat(Person.BirthDate,client.dateformatshow)#</td>	
 	   <td height="15"><cf_tl id="Nationality">:</td>
@@ -166,16 +166,14 @@
 			
 	<tr><td colspan="4" height="100%">
 	
-	<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+	<table width="100%" height="100%">
 				
 	<cfif getAdministrator("*") eq "1" and Action.ActionSource eq "Person">
 	
-		<script language="JavaScript">
-		
-		function revert(doc) {		
-			ptoken.navigate('ActionDialogRevert.cfm?actiondocumentno='+doc,'revert')		
-		}
-		
+		<script language="JavaScript">		
+			function revert(doc) {		
+				ptoken.navigate('ActionDialogRevert.cfm?actiondocumentno='+doc,'revert')		
+			}		
 		</script>
 		
 		<tr>

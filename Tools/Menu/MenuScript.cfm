@@ -8,60 +8,59 @@
 	
 	function set_style() {
 	
-			vdata = $(".dbutton");
-			$(vdata).each(function() {	
-	
-			  var oname = $(this).attr('name');
-			  
-			  oname = oname.substr(1,oname.length);
-			  
-			  var id = $('#id_'+oname).val();  		  
-			  
+		vdata = $(".dbutton");
+		$(vdata).each(function() {	
+
+		  var oname = $(this).attr('name');
+		  
+		  oname = oname.substr(1,oname.length);
+		  
+		  var id = $('#id_'+oname).val();  		  
+		  
+		  $('#'+oname).removeClass('bactive');
+		  $('#'+oname).removeClass('binactive');	
+
+		  if ($('#'+oname).attr('disabled') == 'disabled') {
+				  
 			  $('#'+oname).removeClass('bactive');
-			  $('#'+oname).removeClass('binactive');	
+			  $('#'+oname).addClass('binactive');	
+			  
+			  $('#'+oname+'_text').removeClass('tactive');
+			  $('#'+oname+'_text').addClass('tinactive');
+			  
+			  $('#'+id).removeClass('highlight');
+			  $('#'+id).removeClass('regular');
 
-			  if ($('#'+oname).attr('disabled') == 'disabled') {
-					  
-				  $('#'+oname).removeClass('bactive');
-				  $('#'+oname).addClass('binactive');	
-				  
-				  $('#'+oname+'_text').removeClass('tactive');
-				  $('#'+oname+'_text').addClass('tinactive');
-				  
-				  $('#'+id).removeClass('highlight');
-				  $('#'+id).removeClass('regular');
+			  $('#'+id).unbind('mouseover');
+			  $('#'+id).unbind('mouseout');
+			  
+					  $('#i'+oname).removeClass('iactive');
+					  $('#i'+oname).addClass('iinactive');
+			
+		 } else {
 
-				  $('#'+id).unbind('mouseover');
-				  $('#'+id).unbind('mouseout');
-				  
- 					  $('#i'+oname).removeClass('iactive');
- 					  $('#i'+oname).addClass('iinactive');
-				
-			 } else {
+			  $('#'+oname).removeClass('binactive');
+			  $('#'+oname).addClass('bactive');	
+			  
+			  $('#'+oname+'_text').removeClass('tinactive');
+			  $('#'+oname+'_text').addClass('tactive');				  
 
-				  $('#'+oname).removeClass('binactive');
-				  $('#'+oname).addClass('bactive');	
-				  
-				  $('#'+oname+'_text').removeClass('tinactive');
-				  $('#'+oname+'_text').addClass('tactive');				  
+			  $('#'+id).bind('mouseover',function(){
 
-				  $('#'+id).bind('mouseover',function(){
-
-					$(this).removeClass('regular');
-					$(this).addClass('highlight');					
-						
-					});
-
-				   $('#'+id).bind('mouseout',function() {
-						$(this).removeClass('highlight');
-						$(this).addClass('regular');
-					});		
+				$(this).removeClass('regular');
+				$(this).addClass('highlight');					
 					
- 					  $('#i'+oname).addClass('iactive');
- 					  $('#i'+oname).removeClass('iinactive');
-							 
-			 }
-			});		
+				});
+
+			   $('#'+id).bind('mouseout',function() {
+					$(this).removeClass('highlight');
+					$(this).addClass('regular');
+				});		
+				
+					  $('#i'+oname).addClass('iactive');
+					  $('#i'+oname).removeClass('iinactive');							 
+		 }
+		});		
 	}
 	
 	$(document).ready(function() {

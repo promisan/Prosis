@@ -36,27 +36,24 @@
 </cfif>
 
 <cfoutput>
-
-<script>
-		
-	function requestadvance(po)	{			
-		
-		
-		ProsisUI.createWindow('myadvance', 'Advance', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,resizable:false,center:true})    
-		ptoken.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Purchase/POViewAdvanceView.cfm?id=' + po,'myadvance') 																		
-				
-	}
 	
-	function requestadvancerefresh(po) {
-	    ptoken.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Purchase/POViewAdvance.cfm?id1='+po,'advances')		
-	}
+	<script>
+			
+		function requestadvance(po)	{					
+			ProsisUI.createWindow('myadvance', 'Advance', '',{x:100,y:100,height:document.body.clientHeight-120,width:800,modal:true,resizable:true,center:true})    
+			ptoken.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Purchase/POViewAdvanceView.cfm?id=' + po,'myadvance') 																		
+					
+		}
+		
+		function requestadvancerefresh(po) {
+		    ptoken.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Purchase/POViewAdvance.cfm?id1='+po,'advances')		
+		}	
+		
+	</script>
 	
-	
-</script>
-
-<cfdiv id="advances">
-<cfinclude template="POViewAdvanceDetail.cfm">
-</cfdiv>
+	<cfdiv id="advances">
+		<cfinclude template="POViewAdvanceDetail.cfm">
+	</cfdiv>
 
 </cfoutput>	
 

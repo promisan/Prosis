@@ -1,15 +1,15 @@
 
 <cf_screentop height="100%" 
-    scroll="Yes" html="No" jquery="Yes" close="parent.ColdFusion.Window.destroy('myadvance',true)" layout="webapp" banner="gray" line="no"
+    scroll="Yes" html="No" jquery="Yes" layout="webapp" banner="gray" line="no"
 	label="Purchase Advance" option="record a advance request for this purchase order">
 
 <cf_dialogLedger>
 
 <cfform method="POST" name="entry">
 
-<table width="92%" align="center" class="formpadding">
+<table width="92%" align="center" class="formpadding formspacing">
 
-<cfquery name="PO"
+	<cfquery name="PO"
 	datasource="AppsPurchase" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
@@ -20,28 +20,28 @@
 
 	<cfif PO.OrgUnitVendor neq "">
 
-	<cfquery name="PurchaseHeader"
-	datasource="AppsPurchase" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	    SELECT P.*, O.OrgUnitName as Beneficiary
-		FROM  Purchase P, Organization.dbo.Organization O
-		WHERE P.OrgUnitVendor = O.OrgUnit
-		AND   P.PurchaseNo = '#URL.ID#'				
-	</cfquery>	
+		<cfquery name="PurchaseHeader"
+		datasource="AppsPurchase" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT P.*, O.OrgUnitName as Beneficiary
+			FROM  Purchase P, Organization.dbo.Organization O
+			WHERE P.OrgUnitVendor = O.OrgUnit
+			AND   P.PurchaseNo = '#URL.ID#'				
+		</cfquery>	
 	
 	<cfelse>
 	
-	<cfquery name="PurchaseHeader"
-	datasource="AppsPurchase" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	    SELECT P.*, O.FirstName+ ' '+O.LastName as Beneficiary
-		FROM   Purchase P, 
-		       Employee.dbo.Person O
-		WHERE  P.PersonNo = O.PersonNo
-		AND    P.PurchaseNo = '#URL.ID#'				
-	</cfquery>	
+		<cfquery name="PurchaseHeader"
+		datasource="AppsPurchase" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT P.*, O.FirstName+ ' '+O.LastName as Beneficiary
+			FROM   Purchase P, 
+			       Employee.dbo.Person O
+			WHERE  P.PersonNo = O.PersonNo
+			AND    P.PurchaseNo = '#URL.ID#'				
+		</cfquery>	
 	
 	</cfif>
 
@@ -82,30 +82,39 @@
 <cfoutput>	
 
 <tr><td></td></tr>	
-<tr>
-	<td class="labelmedium" height="23"><cf_tl id="Beneficiary">:</td>
-	<td class="labelmedium">#PurchaseHeader.Beneficiary#</td>
+<tr class="labelmedium2">
+	<td><cf_tl id="Beneficiary">:</td>
+	<td>#PurchaseHeader.Beneficiary#</td>
 </tr>	
 
-<tr>
-	<td class="labelmedium" height="23"><cf_tl id="Reference">:</td>
-	<td class="labelmedium">#PurchaseHeader.PurchaseNo#</td>
+<tr class="labelmedium2">
+	<td><cf_tl id="Source">:</td>
+	<td>#PurchaseHeader.PurchaseNo#</td>
 </tr>	
 
 
-<tr>
-	<td class="labelmedium" height="23"<cf_tl id="Requester">:</td>
-	<td class="labelmedium">#SESSION.first# #SESSION.last#</td>
+<tr class="labelmedium2">
+	<td height="23"<cf_tl id="Requester">:</td>
+	<td>#SESSION.first# #SESSION.last#</td>
 </tr>
 
+<tr class="labelmedium2">
+	<td><cf_tl id="ReferenceNo">:</td>
+	<td><input type="text" class="regularxxl" name="ReferenceNo" id="ReferenceNo" size="20" maxlength="20"></td>
+</tr>
+
+<tr class="labelmedium2">
+	<td><cf_tl id="Description">:</td>
+	<td><input type="text" class="regularxxl" name="ReferenceName" id="ReferenceName" size="60" maxlength="100"></td>
+</tr>		
+
 </cfoutput>
-
 		
-<tr>
-<td class="labelmedium"><cf_tl id="Currency">:</td>
-<td height="20">
+<tr class="labelmedium2">
+<td><cf_tl id="Currency">:</td>
+<td>
 
-	<select name="currency" id="currency" class="regularxl">
+	<select name="currency" id="currency" class="regularxxl">
 	 <cfoutput query="CurrencySelect">
 	    <option value="#Currency#" <cfif Purchase.currency eq currency>selected</cfif>>#Currency#</option>
 	 </cfoutput> 
@@ -115,9 +124,9 @@
 
 </tr>
 
-<tr>
-	<td class="labelmedium" height="20"><cf_tl id="Amount">:</td>
-	<td><input type="text" class="regularxl" name="Amount" id="Amount" style="text-align:right" size="10" maxlength="20"></td>
+<tr class="labelmedium2">
+	<td><cf_tl id="Amount">:</td>
+	<td><input type="text" class="regularxxl" name="Amount" id="Amount" style="text-align:right" size="10" maxlength="20"></td>
 
 </tr>
 
@@ -129,9 +138,9 @@
   
 </script>
 
-<tr>
+<tr class="labelmedium2">
 
- <td class="labelmedium" height="20">Debit Account:</td>
+ <td>Debit Account:</td>
           <td align="left">	
 		  
 		    <cfoutput>	 
@@ -149,8 +158,8 @@
 			<table cellspacing="0" cellpadding="0">
 				<tr>
 					
-					<td ><input type="text" class="regularxl"name="glaccount" id="glaccount" size="6" value="#Acc.GLAccount#"   class="regularxl" readonly style="text-align: center;"></td>
-					<td style="padding-left:3px"><input type="text" name="gldescription" id="gldescription"      value="#Acc.Description#" class="regularxl" size="34" readonly style="text-align: center;"></td>
+					<td ><input type="text" class="regularxxl"name="glaccount" id="glaccount" size="6" value="#Acc.GLAccount#"   class="regularxl" readonly style="text-align: center;"></td>
+					<td style="padding-left:3px"><input type="text" name="gldescription" id="gldescription"      value="#Acc.Description#" class="regularxxl" size="34" readonly style="text-align: center;"></td>
 					<td style="padding-left:3px">
 				    <img src="#SESSION.root#/Images/search.png" alt="Select account" name="img3" 
 						  onMouseOver="document.img3.src='#SESSION.root#/Images/contract.gif'" 
@@ -166,25 +175,23 @@
 		   
 		  </td>	
 		  
-</tr>		  
-
-<tr>
-	<td class="labelmedium" height="20"><cf_tl id="Description">:</td>
-	<td><input type="text" class="regularxl" name="ReferenceName" id="ReferenceName" size="40" maxlength="80"></td>
 </tr>
 
-<tr>
-	<td class="labelmedium" height="20"><cf_tl id="Memo">:</td>
-	<td><input type="text" class="regularxl" name="Memo" id="Memo" size="40" maxlength="80"></td>
+
+
+
+<tr class="labelmedium2">
+	<td><cf_tl id="Memo">:</td>
+	<td><input type="text" class="regularxxl" name="Memo" id="Memo" size="60" maxlength="100"></td>
 </tr>
 
 <tr><td colspan="2" id="result"></td></tr>
 
-<tr><td colspan="2" align="center">
+<tr><td colspan="2" align="center" class="line">
 
   <cfoutput>
-	<input type="button" name="Submit" id="Submit" value="Close" class="button10g" style="width:120;height:24" onclick="parent.ProsisUI.closeWindow('myadvance',true)">
-	<input type="button" name="Submit" id="Submit" value="Submit" class="button10g" style="width:120;height:24"
+	<input type="button" name="Submit" id="Submit" value="Close" class="button10g" style="width:130px" onclick="parent.ProsisUI.closeWindow('myadvance',true)">
+	<input type="button" name="Submit" id="Submit" value="Submit" class="button10g" style="width:130px"
 			 onclick="ptoken.navigate('POViewAdvanceRequestSubmit.cfm?id=#url.id#','result','','','POST','entry')">
   </cfoutput>
   

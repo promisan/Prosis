@@ -40,18 +40,16 @@ password="#SESSION.dbpw#">
 
 <cfif format.recordcount gte "1">
 
-<tr class="line">
-<td style="height:46px;padding-left:10px;padding-top:5px;font-size:21px" colspan="2" class="labellarge">
-	<cfoutput><cf_tl id="Generate"></cfoutput>:
+<tr>
+<td style="height:20px;padding-left:10px;padding-top:5px;font-size:21px" colspan="2" class="labellarge">
+	<!--- <cfoutput><cf_tl id="Generate"></cfoutput>: --->
 </td>
 </tr>
 	   
 <tr><td colspan="2" style="width:800px">
 
 	<cfform action="ProcessActionSubmit.cfm?reload=1&wfmode=8&process=#url.process#&ID=#URL.ID#&ajaxId=#url.ajaxid#" 
-	    method="post" 
-		name="processaction"
-		id="processaction">
+	    method="post" name="processaction" id="processaction">
 
 	<table class="navigation_table formspacing">
 						

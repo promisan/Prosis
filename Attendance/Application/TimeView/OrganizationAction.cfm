@@ -12,13 +12,13 @@
 			(SELECT  TOP 1 ObjectKeyValue4 
 			 FROM    Organization.dbo.OrganizationObject 
 			 WHERE   ObjectKeyValue4 = A.OrgUnitActionId
-			 AND     EntityCode = 'OrgAction' 
-			 AND     Operational = 1) as Workflow		
+			 AND     EntityCode      = 'OrgAction' 
+			 AND     Operational     = 1) as Workflow		
 						
 		FROM 	  Organization.dbo.OrganizationAction A
 		WHERE     OrgUnit           = '#URL.ID0#'
 		AND       CalendarDateStart = #DateOb#
-		AND       WorkAction = 'Attendance'
+		AND       WorkAction        = 'Attendance'
 		ORDER BY  Created
 						
   </cfquery>		
@@ -27,16 +27,13 @@
   					  											   
   <cfif action.recordcount gte "1">
   
-	  <input type="hidden" 
-	   name="workflowlink_#action.orgunitactionid#" 
-	   id="workflowlink_#action.orgunitactionid#" 	   
-	   value="OrganizationWorkflow.cfm">	
+	  <input type="hidden" name="workflowlink_#action.orgunitactionid#" id="workflowlink_#action.orgunitactionid#" value="OrganizationWorkflow.cfm">	
    
 	   <tr>
 	  										  											
 	   	   <td style="height:26px;padding-left:25px;padding-right:20px;min-width:300px;padding-top:1px" valign="top">
 	
-			   <table width="100%" style="height:25px;border-top:1px solid silver;background-color:f1f1f1">
+			   <table width="100%" style="height:25px;border-top:1px solid silver">
 			
 			        <!---
 				   <tr class="line labelmedium">										      
@@ -49,7 +46,8 @@
 				   --->
 				   														     
 				   <cfloop query="Action">
-					   <tr class="labelmedium2">
+				   
+					   <tr class="labelmedium2 line">
 					     
 						 <td>
 							 <table>
@@ -61,10 +59,10 @@
 								 <input type="radio" class="radiol" name="content" checked value="1" onclick="Prosis.busy('yes');timesheet('#dateformat(dateob,client.datesql)#','unit','#URL.ID0#','0','false','','');">								
 								 </cfif>
 								 </td>
-								 <td style="padding-left:4px"><cf_tl id="Detailed schema"></td>
+								 <td style="padding-left:4px;padding-top:3px;"><cf_tl id="Detailed schema"></td>
 								 <cfif now() gte action.CalendarDateStart>
 								 <td style="padding-left:10px"><input type="radio" class="radiol" name="content" value="1" onclick="showworkflow('#orgunitactionid#')"></td>
-								 <td style="padding-left:4px"><cf_tl id="Submission flow"></td>
+								 <td style="padding-left:4px;padding-top:3px;"><cf_tl id="Submission flow"></td>
 								 </cfif>
 								 </tr>
 							 </table>
@@ -74,6 +72,7 @@
 					     <td>#OfficerFirstName# #OfficerLastName#</td>
 					     <td>#DateFormat(Created, CLIENT.DateFormatShow)#</td>
 					   </tr>  
+					   
 				   </cfloop>
 			   
 			   </table>	

@@ -20,12 +20,11 @@
 
 </cfif>	
 
-<cfparam name="Attributes.SourceDirectory" default="#client.sd#">
-<cfparam name="Attributes.SourceFileName"  default="#client.sf#">
+<cfparam name="Attributes.SourceDirectory" default="#session.sd#">
+<cfparam name="Attributes.SourceFileName"  default="#session.sf#">
 		
 <cfset Path = Attributes.SourceDirectory & Attributes.SourceFileName />
-	 		
-	 		  
+	 			 		  
 <cfswitch expression="#LCase(ListLast(Attributes.SourceFileName, "."))#">
 
     <cfcase value="xml">

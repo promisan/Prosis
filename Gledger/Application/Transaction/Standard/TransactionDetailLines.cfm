@@ -897,7 +897,7 @@ password="#SESSION.dbpw#">
 					SELECT DISTINCT GLAccount  
 					FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 				  </cfquery>	
-				  
+				  				  
 				  <cfif abs(total.diff) lt "0.001" and abs(total.diffB) lt "0.01" and (Verify.recordcount gte "2" or getJournal.SystemJournal eq "Distribution")>			  
 				 		  
 				  	<table><tr>			

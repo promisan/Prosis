@@ -446,7 +446,7 @@ password="#SESSION.dbpw#">
 			   	<select name="LocationCode" size="1" class="regularxl">
 				    <cfoutput query="Location">
 						<option value="#LocationCode#" <cfif LocationCode eq URL.ID6>selected</cfif>>
-				    		#LocationCode# #LocationName#
+				    		#LocationName# #LocationCode# 
 						</option>
 					</cfoutput>
 			    </select>

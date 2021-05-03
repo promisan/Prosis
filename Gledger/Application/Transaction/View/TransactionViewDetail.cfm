@@ -53,9 +53,7 @@
 	      				WHERE  EntityCode   = 'GLTransaction'
 						AND    DocumentType = 'document'
 	      			  </cfquery>
-					  
-					 
-			   
+				
 			      <select name="printdocumentid" id="printdocumentid" style="width:200px" class="regularxl enterastab">
 				 	
 				   <option value="">-- <cf_tl id="Select"> --</option>	  
@@ -168,13 +166,20 @@
 		
 		</td>
 		       
-        <td width="25%" rowspan="2" style="padding-left:3px" class="labelmedium2">
+        <td width="25%" rowspan="2" style="padding-left:3px">
 		
 		    <table style="border:1px solid silver;width:100%;height:100%">
 			<tr><td style="font-size:10px;padding-left:2px"><cf_tl id="Source">:</td></tr>
-			<tr>
+			<tr class="labelmedium2">
 			
-			<td width="25%" style="height:35px;font-size:19px;padding-left:3px;border:0px solid gray;border-radius:5px" bgcolor="<cfoutput>e6e6e6</cfoutput>" class="labelmedium22" align="center" ><CFOUTPUT query="Transaction">#TransactionSource# <cfif Reference neq "">(#Reference#)</cfif></font></cfoutput></td>
+			<td width="25%" style="height:35px;font-size:19px;padding-left:3px;border:0px solid gray;border-radius:5px" bgcolor="e6e6e6" 
+			class="labelmedium2" align="center">
+			
+			<cfoutput query="Transaction">#TransactionSource# 			
+			   <cfif systemJournal eq "Advance">: <a href="javascript:SourceView('#transaction.journal#','#transaction.JournalSerialNo#')">#TransactionSourceNo#</a><cfelse>: #TransactionSourceNo#</cfif>			
+			</cfoutput>
+						
+			</td>
 			</tr>
 			</table>
 		</td>	

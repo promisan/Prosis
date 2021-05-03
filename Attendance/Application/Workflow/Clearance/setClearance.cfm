@@ -73,8 +73,8 @@
 <cfoutput query="get">
 
 <table>
-<tr class="labelmedium" style="height:20px">
-	<td>#dateformat(get.created,"MM/DD")# #timeformat(get.created,"HH:MM")# : #get.OfficerLastName#</td>
+<tr class="labelmedium2">
+	<td style="height:20px;padding-left:8px;padding-top:3px">#dateformat(get.created,"MM/DD")# #timeformat(get.created,"HH:MM")# : #get.OfficerLastName#</td>
 	
 	<td align="right" style="padding-right;4px">
 																			

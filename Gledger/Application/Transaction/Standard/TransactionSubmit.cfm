@@ -41,6 +41,7 @@ password="#SESSION.dbpw#">
 
 	<cfset Mission             = Mission>
 	<cfset OrgUnitOwner        = Form.OrgUnitOwner>
+	<cfset OrgUnitTax          = OrgUnitTax>
 	<cfset TraCat              = TransactionCategory>
 	<cfset ContraGLAccount     = FORM.GLAccount>
 	<cfset ContraGLAccountType = FORM.debitcredit>

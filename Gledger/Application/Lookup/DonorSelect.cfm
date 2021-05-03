@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" label="Contribution select" scroll="Yes" close="parent.ColdFusion.Window.destroy('mydonor',true)" line="no" jquery="Yes" banner="gray" layout="webapp">
+<cf_screentop height="100%" label="Contribution select" html="No" scroll="Yes" close="parent.ColdFusion.Window.destroy('mydonor',true)" line="no" jquery="Yes" banner="gray" layout="webapp">
 
 <cfparam name="URL.Crit"            default="">
 <cfparam name="URL.Journal"         default="">
@@ -36,7 +36,7 @@
 				"&selected=#url.selected#"+
 				"&fund=#url.fund#"+
 				"&programcode=#url.programcode#"
-		 ColdFusion.navigate(url,'selection')				 
+		 ptoken.navigate(url,'selection')				 
 	}
 	  
 	function clearno() { document.getElementById("find").value = "" }
@@ -49,8 +49,7 @@
 	    }
 		
 	
-	function setvalue(acc) {
-	    
+	function setvalue(acc) {	    
 		
 	    <cfif url.script neq "">
 			
@@ -60,7 +59,7 @@
 		
 	    </cfif>	
 		
-		parent.ColdFusion.Window.hide('mydonor')
+		parent.ProsisUI.closeWindow('mydonor')
 				
 	}			
 		
@@ -76,7 +75,7 @@
   <tr>
 
   <td height="24">
-	  <table cellspacing="0" cellpadding="0">	  
+	  <table>	  
 	  <tr><td height="4"></td></tr>	  
 	  <tr>
 	  <td style="padding-left:10px"></td>	  

@@ -348,7 +348,7 @@ function batchrefresh(id) {
 		<table cellspacing="0" cellpadding="0"><tr>
 								  
   		   <td><input type="text" name="glaccount"     id="glaccount"      value="#DefaultContraAccount.glaccount#"      size="5"  readonly class="regularxxl" style="text-align: center;"></td>
-    	   <td style="padding-left:1px"><input type="text" name="gldescription" id="gldescription"  value="#DefaultContraAccount.gldescription#"  size="35" readonly class="regularxxl" style="text-align: center;"></td>
+    	   <td style="padding-left:1px"><input type="text" name="gldescription" id="gldescription"  value="#DefaultContraAccount.gldescription#"  size="50" readonly class="regularxxl" style="text-align: center;"></td>
 		   		   
 		   <td style="padding-left:1px">  <img src="#SESSION.root#/Images/search.png" alt="Select account" name="img3" 
 			  onMouseOver="document.img3.src='#SESSION.root#/Images/contract.gif'" 

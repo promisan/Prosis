@@ -1,19 +1,21 @@
-<cfquery name="Approval" datasource="AppsQuery"
-	 username="#SESSION.login#" 
-	 password="#SESSION.dbpw#">
-	SELECT * 
-	FROM Approval_#Session.ACC#_#SESSION.FileNo#
+<cfquery name="Approval" 
+    datasource="AppsQuery"
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	   SELECT * 
+	   FROM Approval_#Session.ACC#_#SESSION.FileNo#
 </cfquery>
+
+<cfparam name="RequisitionNo" default="">
 	
 <cfif Approval.recordcount neq "0">
 
 	<table width="100%" style="border:0px solid silver" class="navigation_table">
-			 <tr><td class="approval linedotted labellarge" colspan="8" style="padding-left:5px">Approved</td></tr>
+			 <tr><td class="approval line labellarge" colspan="8" style="padding-left:5px"><cf_tl id="Approved"></td></tr>
 			    
 			 <cfoutput query="Approval" group="Period">
 			 
-				   <cfquery name="Total"
-					dbtype="query">
+				   <cfquery name="Total" dbtype="query">
 					SELECT    sum(ReservationAmount) as Amount
 					FROM      Approval
 					WHERE     Period = '#Period#'
@@ -34,7 +36,7 @@
 					 	<td width="4%" align="center" height="15" style="padding-top:3px">
 						   <cf_img icon="open"  onClick="ProcReqEdit('#RequisitionNo#','dialog')" tooltip="Open Requisition">					 
 					   </td>
-					   <td width="10%"><a href="javascript:ProcReqEdit('#RequisitionNo#','dialog')"><font color="0080C0">#Reference#</font></a></td>
+					   <td width="10%"><a href="javascript:ProcReqEdit('#RequisitionNo#','dialog')">#Reference#</a></td>
 					   <td width="80">#ObjectCode#</td>
 					   <td colspan="4" width="80%">#ItemMasterDescription# #RequestDescription#</td>					   		 
 					   <td width="10%" align="right" style="padding-right:16px">#NumberFormat(ReservationAmount,",.__")#</b></td>				 					  

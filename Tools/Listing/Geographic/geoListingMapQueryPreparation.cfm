@@ -2,11 +2,14 @@
 
 <!--- Base query --->
 <cfoutput>
+	<cfset vThisQuery = evaluate("session.geoListingBaseQuery_#attributes.viewId#")>
 	<cfsavecontent variable="preparationQueryFilters">
-		#preserveSingleQuotes(session.geoListingBaseQuery)#
+		#preserveSingleQuotes(vThisQuery)#
+
+		WHERE 	1=1
 
 		<cfif isDefined("attributes.url.country") AND trim(attributes.url.country) neq "">
-			AND S.Country = '#attributes.url.country#'
+			AND Country = '#attributes.url.country#'
 		</cfif>
 
 		<cfloop from="1" to="#arraylen(session.geoListingFilterMap)#" index="i">

@@ -236,7 +236,7 @@
 		<tr class="labelmedium2 line" style="height:32px">
 		
 		<td style="padding-right:4px">#UoMDescription#</td>		
-		<td style="padding-right:4px"><cfif getItem.ItemNoExternal neq "">#getItem.ItemNoExternal#<cfelse>#ItemBarCode#</cfif></td>
+		<td style="padding-right:4px"><a href="javascript:item('#getItem.ItemNo#','','#workorder.mission#')"><cfif getItem.ItemNoExternal neq "">#getItem.ItemNoExternal#<cfelse>#ItemBarCode#</cfif></a></td>
 		
 		<cfif onhand lte "0">
 		<td style="padding-right:4px;background-color:red:color:white" align="right">#OnHand#</td>		

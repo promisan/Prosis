@@ -101,10 +101,10 @@
 		   			
 					<cfif (access eq "EDIT" or Access eq "ALL") 
 					     and TransactionSerialNo neq "0" 		
-						 and CheckDis.recordcount eq "0">					 
-						 					 
-						 <cfif url.summary neq "1">
-				     				 				 
+						 and CheckDis.recordcount eq "0">		
+						 
+						  <cfif url.summary neq "1">
+						 				     				 				 
 					  	    <img src="#SESSION.root#/Images/reconcile.gif"
 					    	 alt="Process"
 						     border="0"
@@ -113,8 +113,7 @@
 							 
 						 </cfif>	 
 						 
-					 <cfelseif CheckDis.recordcount gte "1">
-					
+					 <cfelseif CheckDis.recordcount gte "1">					
 					
 					      <cf_UItooltip  tooltip="Amount of this lines has been further distributed or was reconciled">
 						  

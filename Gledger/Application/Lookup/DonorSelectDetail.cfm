@@ -83,20 +83,19 @@
 				
 				<table width="92%" cellspacing="0" cellpadding="0" align="center">
 				
-				<tr class="linedotted">
-					<td class="labelit"><cf_tl id="Donor"></td>
-					<td class="labelit" align="center"><cf_tl id="Effective"></td>
-					<td class="labelit" align="center"><cf_tl id="Expiration"></td>
-					<td class="labelit" align="right" width="60"><cf_tl id="Amount"></td>		
-					<td class="labelit" align="right" width="60" style="padding-right:4px">Used</td>				
+				<tr class="linedotted labelmedium">
+					<td><cf_tl id="Donor"></td>
+					<td align="center"><cf_tl id="Effective"></td>
+					<td align="center"><cf_tl id="Expiration"></td>
+					<td align="right" width="60"><cf_tl id="Amount"></td>		
+					<td align="right" width="60" style="padding-right:4px">Used</td>				
 				</tr>
 							
 				<cfoutput>
 				
 				<tr class="navigation_row linedotted">					   
-				   <td colspan="5" style="height:30" align="center" class="labelmedium">
-				   <a href="javascript:selected('')">
-				   <font color="0080C0"><u>Click here to set as undefined</a></td>
+				   <td colspan="5" style="height:30" align="center" class="labelmedium2">
+				   <a href="javascript:setvalue('undefined')">Click here to set as undefined</a></td>
 				</tr> 
 								
 				</cfoutput>	  
@@ -126,13 +125,12 @@
 								<tr class="labelit navigation_row">
 								</cfif>
 								    <td align="right" style="padding-left:20px;padding-top:3px">
-									<cf_img icon="select" navigation="Yes"
-									   onclick="setvalue('#contributionlineid#')">
+									<cf_img icon="select" navigation="Yes" onclick="setvalue('#contributionlineid#')">
 									</td>
 									<td align="center">#dateformat(DateEffective,CLIENT.DateFormatShow)#</td>
 									<td align="center">#dateformat(DateExpiration,CLIENT.DateFormatShow)#</td>
-									<td align="right">#numberformat(AmountBase,'__,__')#</td>		
-									<td align="right" style="padding-right:4px">#numberformat(AmountUsed,'__,__')#</td>			
+									<td align="right">#numberformat(AmountBase,',')#</td>		
+									<td align="right" style="padding-right:4px">#numberformat(AmountUsed,',')#</td>			
 								</tr>			
 						
 							</cfoutput>

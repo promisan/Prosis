@@ -136,7 +136,7 @@ password="#SESSION.dbpw#">
 
 <!--- Search form --->
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="97%" align="center">
 
 	<cfif url.scope eq "backend">
 

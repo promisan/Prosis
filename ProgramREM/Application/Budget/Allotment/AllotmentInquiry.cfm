@@ -1,6 +1,4 @@
 
-
-
 <head>
 	<cfoutput>
 	<script type="text/javascript">
@@ -10,7 +8,7 @@
 	</cfoutput>
 </head>
 
-<cfajaximport tags="cfchart,cfinput-datefield,cfwindow,cfform">
+<cfajaximport tags="cfchart,cfform">
 <cf_listingscript>
 <cfinclude template="AllotmentInquiryScript.cfm">
 <cf_DialogREMProgram>
@@ -474,15 +472,13 @@ password="#SESSION.dbpw#">
 
 <cf_divscroll>
 
-<table width="99%" 
-      border="0"	 
-	  align="center">	  
+<table width="99%" height="100%" border="0"	 align="center">	  
 
 <tr><td style="height:20px">
 
-<cfset url.attach   = "1">
-<cfset url.titleedit = "1">
-<cfinclude template="../../Program/Header/ViewHeader.cfm">
+	<cfset url.attach   = "1">
+	<cfset url.titleedit = "1">
+	<cfinclude template="../../Program/Header/ViewHeader.cfm">
 
 </td></tr>
 
@@ -507,22 +503,22 @@ password="#SESSION.dbpw#">
 
 <tr class="hide"><td height="200" id="result"></td></tr>
 
-<cf_menucontainer item="1" class="regular" container="div">
+<cf_menucontainer item="1" class="regular">
 		 
 	<cfif Program.Status eq "0" and CheckMission.workflowEnabled eq "1" and Program.ProgramClass neq "Program">
 	
-		<tr><td style="padding-top:10px;border:0px solid silver;height:60" colspan="2" class="labellarge" width="100%" valign="top" align="center">
-		 <font color="FF0000"><cf_tl id="Your new project record has not been cleared. Please contact your administrator"></td></tr>
-	
+		 <font color="FF0000"><cf_tl id="Your new project record has not been cleared. Please contact your administrator">
+					
 	<cfelse>
-			
+		
 	  	<cfinclude template="AllotmentInquiryCost.cfm">  
 		
+				
 	</cfif>
 		
 </cf_menucontainer>
 
-<cf_menucontainer item="2" class="hide">
+<cf_menucontainer item="2" class="hide"/>
 
 </table>
 

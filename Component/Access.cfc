@@ -1367,8 +1367,10 @@
                 <CFSET AccessLevel = "9">
             <cfelse>			
 	            <CFSET AccessLevel = qAccess.AccessLevel>
-				<cfif AccessLevel gte "2">
-					  <cfset AccessLevel = "1">
+				<cfif AccessLevel eq "2">
+					  <cfset AccessLevel = "2">
+				<cfelse>
+					  <cfset AccessLevel = "1">	  
 				</cfif>
 	        </cfif>	  
 					
@@ -1459,12 +1461,9 @@
 								</cfif>							
 							</cfcase>
 						
-						</cfswitch>
-					   
+						</cfswitch>					   
 					   
 					</cfif>
-					
-					
 									
 				</cfif>
 				

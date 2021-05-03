@@ -36,6 +36,8 @@
 	TreeTemplate="Yes"
 	validateSession="Yes">
 	
+<cfajaximport tags="cfform">
+	
 <cfoutput>
 		
 <script language="JavaScript">

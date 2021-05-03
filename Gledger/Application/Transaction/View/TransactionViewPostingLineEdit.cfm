@@ -64,28 +64,25 @@
 	  
 		 <cfif url.mode eq "Edit">
 	 	 	
-			<table><tr><td>   
-			 <input type="text" name="text#box#" value="#url.selected#" class="regular" size="60" maxlength="80">
-			 </td>
-			 <td>
-			 <input type="button" name="Save" value="Save" class="button10s" style="font-size:10px;width:40;height:18" 
-			     onclick="ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+text#box#.value+'&#link#&fld=memo','memo#url.box#')">	
-			</td></tr></table>		 
+			<table>
+			<tr><td><input type="text" id="text#box#" value="#url.selected#" class="regularxxl" size="60" maxlength="80"></td>
+			    <td>
+			 <input type="button" name="Save" value="Save" class="button10g" style="width:40px" 
+			     onclick="ptoken.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+document.getElementById('text#box#').value+'&#link#&fld=memo','memo#url.box#')">	
+			    </td>
+			</tr>
+			</table>		 
 			   
 	     <cfelse>
 	   
 	   		<table>
 			<tr>
 			<td class="labelit">
-       		<a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=memo','memo#url.box#')">
+       		<a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=memo','memo#url.box#')">
 			   [<cf_tl id="edit">]
 			</a>			
-			</td>
-			<td>&nbsp;</td>		
-			<td class="labelit">
-		    #url.selected#			   
-			</td>
-			</td>
+			</td>			
+			<td style="padding-left:10px" class="labelit">#url.selected#</td>
 			</table>
 		 		   
 		 </cfif>   
@@ -151,15 +148,13 @@
 			
 			<cfform>
 			
-			<tr><td>
-					
-				<cfselect style="height:21;font:12px" query="getCode" name="objectcode#box#" group="ObjectUsage" value="Code" display="Description" selected="#url.selected#"></cfselect>			
-				
+			<tr><td>					
+				<cfselect class="regularxxl" query="getCode" id="objectcode#box#" name="objectcode#box#" group="ObjectUsage" value="Code" display="Description" selected="#url.selected#"></cfselect>							
 			</td>
 			
 			<td style="padding-left:2px">
 			
-				<input type="button" name="Save" value="Save" class="button10s" style="width:40;height:21" onclick="ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+objectcode#box#.value+'&#link#&fld=objectcode','objectcode#url.box#')">	
+				<input type="button" name="Save" value="Save" class="button10g" style="width:40" onclick="ptoken.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+objectcode#box#.value+'&#link#&fld=objectcode','objectcode#url.box#')">	
 			
 			</td>
 			</tr>
@@ -182,12 +177,11 @@
 		 	<table>
 				<tr>
 					<td class="labelit">			   
-			   		  <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=objectcode','objectcode#url.box#')">
+			   		  <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=objectcode','objectcode#url.box#')">
 					  	 [<cf_tl id="edit">]
 					  </a>	
-					</td>
-					<td>&nbsp;</td>		
-					<td class="labelit">
+					</td>					
+					<td class="labelit" style="padding-left:10px">
 				    <cfif Obj.recordcount neq "0"> 
 					    #url.selected# #Obj.Description# (#Obj.ObjectUsage#)											   		
 					<cfelse>
@@ -248,13 +242,15 @@
 			<tr>
 			<td class="labelit">
 		     <cf_img icon="open" onClick="selectorgN('#Org.Mission#','Administrative','orgunit','applyorgunit','#box#')">
-			 </td>
-			 <td>
+			</td>
 			
-			  <input type="text" name="orgunitname#box#" id="orgunitname#box#" value="#Org.OrgUnitName#" class="regular" size="40" maxlength="60" readonly >
-			  </td>
-			  <td>
-			  <input type="button" name="Save" value="Save" class="button10g" style="font-size:10px;width:40;height:18" onclick="ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+orgunit#box#.value+'&#link#&fld=unit','unit#url.box#')">	
+			<td>			
+			<input type="text" name="orgunitname#box#" id="orgunitname#box#" value="#Org.OrgUnitName#" class="regularxxl" size="40" maxlength="60" readonly >
+			</td>
+			<td>
+			
+			  <input type="button" name="Save" value="Save" class="button10g" style="width:40px" 
+			     onclick="ptoken.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+document.getElementById('orgunit#box#').value+'&#link#&fld=unit','unit#url.box#')">	
 			  <input type="hidden" name="mission#box#" id="mission#box#">
 			  <input type="hidden" name="orgunit#box#" id="orgunit#box#" value="#Org.OrgUnit#">
 			  </td>
@@ -265,14 +261,12 @@
 		 
 		 	<table>
 			<tr>
-			<td class="labelit">
-	   
-	   		  <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=unit','unit#url.box#')">
+			<td class="labelit">	   
+	   		  <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=unit','unit#url.box#')">
 			  	 [<cf_tl id="edit">]
 			  </a>	
-			</td>
-			<td>&nbsp;</td>		
-			<td class="labelit">
+			</td>				
+			<td class="labelit" style="padding-left:10px">
 		    #Org.OrgUnitCode# #Org.OrgUnitName#	   
 			</td>
 			</tr>
@@ -319,10 +313,10 @@
 			<table>
 			<tr>
 			<td>	
-			  <input type="text" name="fundcode#box#" value="#url.selected#" class="regularh" style="padding-top:2px;width:35" maxlength="4">
+			  <input type="text" id="fundcode#box#" name="fundcode#box#" value="#url.selected#" class="regularxxl" style="padding-top:2px;width:35" maxlength="4">
 			  </td>
 			  <td style="padding-left:2px">
-			  <input type="button" name="Save" value="Save" class="button10s" style="width:40;height:18" onclick="ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+fundcode#box#.value+'&#link#&fld=fund','fund#url.box#')">	
+			  <input type="button" name="Save" value="Save" class="button10s" style="width:40;height:18" onclick="ptoken.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+document.getElementById('fundcode#box#').value+'&#link#&fld=fund','fund#url.box#')">	
 			  </td>
 			 </tr>
 			 </table> 
@@ -333,12 +327,11 @@
 			<tr>
 			<td class="labelit">
 	   
-	   		  <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=fund','fund#url.box#')">
+	   		  <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#url.selected#&#link#&fld=fund','fund#url.box#')">
 			  	 [<cf_tl id="edit">]
 			  </a>	
-			</td>
-			<td>&nbsp;</td>		
-			<td class="labelit">
+			</td>			
+			<td class="labelit" style="padding-left:10px">
 		    #url.selected#	   
 			</td>
 			</td>
@@ -405,17 +398,15 @@
 		  
 		  	   <table cellspacing="0" cellpadding="0">
 			   <tr>
-				   <td>
-				   
+				   <td>				   
 				   <cf_img icon="edit" onClick="selectprogram('#Header.mission#','#Header.AccountPeriod#','applyprogram','#box#')">			
-				  </td>		
-				  
+				  </td>				  
 				    
 				  <td style="padding-left:2px">	 
-				  <input type="text" id="programdescription#box#" name="programdescription#box#" value="#Prg.ProgramName#" class="regularh" size="90" maxlength="80" readonly>
+				  <input type="text" id="programdescription#box#" name="programdescription#box#" value="#Prg.ProgramName#" class="regularxxl" size="90" maxlength="80" readonly>
 				  </td>
 				  <td style="padding-left:3px">
-				  <input type="button" name="Save" value="Save" class="button10s" style="width:40;height:19" onclick="ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+programcode#box#.value+'&#link#&fld=program','program#url.box#')">	
+				  <input type="button" name="Save" value="Save" class="button10g" style="width:40" onclick="ptoken.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+programcode#box#.value+'&#link#&fld=program','program#url.box#')">	
 				  <input type="hidden" id="programcode#box#" name="programcode#box#" value="#URL.selected#" size="20" maxlength="20" readonly>			  
 				  </td>
 			  </tr>
@@ -426,7 +417,7 @@
 			  <table>
 				<tr>
 				<td class="labelit">
-				   <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?selected=#PRG.programcode#&#link#&fld=program','program#box#')">
+				   <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?selected=#PRG.programcode#&#link#&fld=program','program#box#')">
 				   [<cf_tl id="edit">]
 				   </a>
 				</td>   
@@ -572,8 +563,8 @@
 				
 				<tr class="labelit">					   
 				   <td colspan="5" height="20" align="center">
-				   <a href="javascript:ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected=&#link#&fld=contributionlineid','donor#box#')">
-				   <font color="FF0000">-- Undefined --</a></td>
+				   <a href="javascript:ptoken.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected=&#link#&fld=contributionlineid','donor#box#')">
+				   -- Undefined --</a></td>
 				</tr> 
 				
 				</cfoutput>	  
@@ -595,7 +586,7 @@
 							</cfif>
 							    <td style="padding-left:20px;padding-top:3px">
 								<cf_img icon="open" 
-								   onclick="ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected=#contributionlineid#&#link#&fld=contributionlineid','donor#box#')">
+								   onclick="ptoken.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected=#contributionlineid#&#link#&fld=contributionlineid','donor#box#')">
 								</td>
 								<td align="center">#dateformat(DateEffective,CLIENT.DateFormatShow)#</td>
 								<td align="center">#dateformat(DateExpiration,CLIENT.DateFormatShow)#</td>
@@ -723,8 +714,8 @@
 					  style="cursor: pointer;" alt="" width="18" height="18" border="0" align="absmiddle" 
 					  onClick="selectprogram('#Header.mission#','#Header.AccountPeriod#','applyprogram','provider#box#')">
 				 
-			  <input type="text" name="programdescriptionprovider#box#" name="programdescriptionprovider#box#" value="#Prg.ProgramName#" class="regular" size="20" maxlength="60" readonly>
-			  <input type="button" name="Save" value="Save" class="button10s" style="width:40;height:18" onclick="ColdFusion.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+programcodeprovider#box#.value+'&#link#&fld=programprovider','programprovider#url.box#')">	
+			  <input type="text" name="programdescriptionprovider#box#" name="programdescriptionprovider#box#" value="#Prg.ProgramName#" class="regularxl" size="20" maxlength="60" readonly>
+			  <input type="button" name="Save" value="Save" class="button10s" style="width:40;height:18" onclick="ptoken.navigate('TransactionViewPostingLineEdit.cfm?mode=save&selected='+programcodeprovider#box#.value+'&#link#&fld=programprovider','programprovider#url.box#')">	
 			  <input type="hidden" name="programcodeprovider#box#" name="programcodeprovider#box#" value="#URL.selected#" size="20" maxlength="20" readonly>			  
 		   				  
 			<cfelse>

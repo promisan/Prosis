@@ -15,6 +15,8 @@
 
 <cfajaximport tags="cfdiv,cfform">
 
+<cf_dialogMaterial>
+
 <cf_tl id="Are you sure you want to delete this row?" var="alertdelete">
 
 <cf_tl id="Select a valid item and uom" var="msgItemReq">

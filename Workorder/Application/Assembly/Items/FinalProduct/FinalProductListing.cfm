@@ -55,6 +55,7 @@
 				I.ItemColor,
 				U.ItemBarcode,
 				I.Classification,
+				I.ItemNoExternal,
 				I.ItemDescription,
 				U.UoM, 
 				U.UoMDescription, 
@@ -344,9 +345,9 @@
 								<td>#ItemColor#</td>		
 								<cfelse>
 								<cfif itembarcode neq "">								
-								<td>#ItemBarcode#</td>
+								<td style="padding-right:3px"><a href="javascript:item('#itemno#','','#get.mission#')">#ItemBarcode#</a></td>
 								<cfelse>
-								<td>#Classification#</td>
+								<td style="padding-right:3px"><a href="javascript:item('#itemno#','','#get.mission#')">#ItemNoExternal#</a></td>
 								</cfif>
 								</cfif>		
 								<td style="padding-right:2px">#UoMDescription#</td>												
@@ -396,11 +397,15 @@
 												   
 												</td>
 												
-												<td width="20"  style="padding-top:7px">											
-												 <cfif mode eq "edit">
+												<td width="20">	
+												
+												<cfset bal = quantity-shipped>
+																														
+												 <cfif mode eq "edit" and bal gt 0>
 													<cf_tl id="add requisition" var="1">
 													<cf_img icon="add" tooltip="Add Requisition" onclick="requisitionadd('#get.Mission#','#url.WorkOrderId#','#url.WorkOrderLine#','#workOrderItemId#','#workOrderItemId#');">
-												 </cfif>									   
+												 </cfif>	
+												 								   
 												</td>		
 																			
 												<td width="90%" align="right">#numberformat(Outsourced,'__')#</td>	
@@ -425,8 +430,7 @@
 										<tr class="labelmedium2">									
 										
 										<td width="20" style="padding-top:9px;padding-left:1px">	
-										
-										
+																				
 										<cf_img icon="expand" 
 												   id="ear_#WorkOrderItemId#" 
 												   toggle="Yes" 
@@ -443,23 +447,25 @@
 								
 								</td>
 															
-								<td style="padding-right:3px;;border-left:1px solid gray;padding-left:5px;background-color:##f1f1f180" align="right" bgcolor="f1f1f1">
+								<td style="padding-right:3px;;border-left:1px solid gray;padding-left:1px;background-color:##f1f1f180" align="right" bgcolor="f1f1f1">
 								
-									<table width="100%" cellspacing="0" cellpadding="0">
+									<table width="100%">
 										
 											<tr class="labelmedium2">												
 											<td width="20" style="padding-top:9px;padding-left:1px">	
 											
 												<cf_img icon="expand" 
-														   id="ear_#WorkOrderItemId#" 
-														   toggle="Yes" 
-														   onclick="toggleobjectbox('earmarkbox_#WorkOrderItemId#','earmark_#WorkOrderItemId#','../../Assembly/Items/FinalProduct/getDetailLines.cfm?WorkOrderId=#URL.WorkOrderId#&drillid=#WorkOrderItemId#')"
-														   tooltip="See details for this column.">
-											
+												   id="ear_#WorkOrderItemId#" 
+												   toggle="Yes" 
+												   onclick="toggleobjectbox('earmarkbox_#WorkOrderItemId#','earmark_#WorkOrderItemId#','../../Assembly/Items/FinalProduct/getDetailLines.cfm?WorkOrderId=#URL.WorkOrderId#&drillid=#WorkOrderItemId#')"
+												   tooltip="See details for this column.">
+									
 											</td>										
 											<td align="right">
 											<cfif OnHandForOrder gt "0">
 												#numberformat(OnHandForOrder,'__')#
+											<cfelse>
+											    --	
 											</cfif>
 											</td>												
 											</tr>
@@ -486,7 +492,11 @@
 								</cfif>
 								
 								<td align="right" bgcolor="E3E8C6" style="background-color:##E3E8C680;padding-right:3px;border-left:1px solid gray;padding-left:5px;border-right:1px solid silver;">
-								#returns#
+								<cfif Returns gt "0">
+								#numberformat(Returns,'__')#
+								<cfelse>
+								--
+								</cfif>
 								</td>
 								
 							</tr>

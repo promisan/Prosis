@@ -101,7 +101,7 @@
     				field        = "OrderAmountBase",																
 					alias        = "L",	
 					align        = "right",	
-					formatted    = "numberformat(RequestAmountBase,',__.__')",	
+					formatted    = "numberformat(RequestAmountBase,',.__')",	
 					fieldsort    = "RequestAmountBase",																		
 					searchfield  = "RequestAmountBase",
 					search       = "number"}>	
@@ -154,22 +154,17 @@
 		<cfset itm = itm+1>	
 		
 		<cf_tl id="Requisition Management" var="vOpt">				
-		<cfset menu[itm] = {label = "#vOpt#", icon = "insert.gif",	script = "window.open('#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionView.cfm?mission=#mission#&systemfunctionid=#get.systemfunctionid#&workorderId=#url.workorderid#',  'req', 'left=10, top=10, width=' + w + ', height= ' + h + ', toolbar=no, status=yes, scrollbars=no, resizable=yes');"}>				 
+		<cfset menu[itm] = {label = "#vOpt#", icon = "insert.gif",	script = "ptoken.open('#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionView.cfm?mission=#mission#&systemfunctionid=#get.systemfunctionid#&workorderId=#url.workorderid#','#url.workorderid#_req')"}>				 
 	
 </cfif>						
 	
 <!--- embed|window|dialogajax|dialog|standard --->
-
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
-<tr><td valign="top">
 							
 <cf_listing
 	    header            = "purchase"
-	    box               = "linepurchase"
+	    box               = "workrequisition"
 		link              = "#SESSION.root#/WorkOrder/Application/Workorder/ServiceDetails/Requisition/RequisitionListingContent.cfm?systemfunctionid=#url.systemfunctionid#&workorderid=#url.workorderid#&workorderline=#url.workorderline#"
-	    html              = "No"		
-		classheader       = "labelit"
-		classline         = "label"
+	    html              = "No"				
 		tableheight       = "99%"
 		tablewidth        = "99%"
 		datasource        = "AppsPurchase"		
@@ -179,16 +174,16 @@
 		listorderalias    = "L"		
 		listorderdir      = "ASC"
 		headercolor       = "ffffff"
-		show              = "25"		
+		show              = "100"		
 		menu              = "#menu#"		
 		filtershow        = "Hide"
 		excelshow         = "Yes" 	
 		screentop         = "No"	
 		listlayout        = "#fields#"
-		drillmode         = "window" 
-		drillargument     = "880;996;true;true"	
+		drillmode         = "securewindow" 
+		drillargument     = "880;1050;true;true"	
 		drilltemplate     = "Procurement/Application/Requisition/Requisition/RequisitionEdit.cfm?header=1&mode=listing&id="
 		drillkey          = "RequisitionNo"
 		drillbox          = "blank">	
 		
-</td></tr></table>		
+	

@@ -88,32 +88,36 @@ password="#SESSION.dbpw#">
 	</cfsavecontent>	
 	
 	<tr id="log">
+	
 	    <td width="100%" height="100%" valign="top" colspan="7">
 				
-		<table width="98%" height="100%" align="center">	
-		<tr><td height="1" class="line"></td></tr>	
-		<tr><td width="100%" height="28">#client.header#</td></tr>
-		<tr><td height="1" style="border-top:1px solid silver"></td></tr>	
-		<tr><td>
-		<table width="100%" height="100%"><tr>
-		<td width="100%" height="100%" style="padding-bottom:10px">
-
-	   	   <cf_divscroll id="contentbox" style="height:80%;width:100%">			   		  
-			<table width="100%" height="100%">				
-			   <cf_menucontainer item="1" class="regular">  
-			     	<cfinclude template="UserAccessListingGlobal.cfm">		   
-			   </cf_menucontainer>		   
-		    </table>		   		  
-		   </cf_divscroll> 		
-		   
-		   </tr>
-		   </td>  
-		   
-		   </table>
-		   
-		  </td></tr> 	  
-								
-		</table>	
+			<table width="98%" height="100%" align="center">	
+			<tr><td height="1" class="line"></td></tr>	
+			<tr><td width="100%" height="28">#client.header#</td></tr>
+			<tr><td height="1" style="border-top:1px solid silver"></td></tr>	
+			<tr><td>
+				<table width="100%" height="100%">
+				<tr>
+				<td width="100%" height="100%" style="padding-bottom:10px">
+	
+		   	    <cf_divscroll id="contentbox" style="height:80%;width:100%">			   		  
+				<table width="100%" height="100%">				
+				   <cf_menucontainer item="1" class="regular">  
+				     	<cfinclude template="UserAccessListingGlobal.cfm">		   
+				   </cf_menucontainer>		   
+			    </table>		   		  
+			    </cf_divscroll> 		
+				
+				</td>
+			   
+			    </tr>
+			   </td>  
+			   
+			   </table>
+			   
+			  </td></tr> 	  
+									
+			</table>	
 		
 		</td>
 	</tr>

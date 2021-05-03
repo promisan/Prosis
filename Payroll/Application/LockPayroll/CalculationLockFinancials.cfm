@@ -102,11 +102,15 @@ for that journal in JournalBatch this will then match the month of the payroll -
 
 <!--- 
 
-1. Define which calculation periods that have not been financially posted already
+1.  Define which calculation periods that have not been financially posted already
+
 2a. Update OE, ProgramCode and GLAccount code in the settlment line
+
 2b. Summarize per settlement, and then per person and Account, Object (from mapping), and Program (from Position) and Fund (from position)
+
 3. Post settlements per person = header and then per OE lines
-4. generate a PDF, store it in archive AND send it out. --->
+
+4. Payslip -> generate a PDF, store it in archive AND send it out. --->
 
 <!--- 14/6 added a provision to set the journal postings without a referenceNo --->
 
@@ -138,8 +142,8 @@ for that journal in JournalBatch this will then match the month of the payroll -
 						       )
 </cfquery>	
 
-<!--- moved on 3/10/2016 to this spot an not in the calculation
- we are locking any transactions that should not be changed anymore --->
+<!--- moved on 3/10/2016 to this spot and no longer in the calculation 
+            we are locking any transactions that should not be changed anymore --->
  
 <cfif url.actionstatus gte "2">
 	
@@ -170,7 +174,9 @@ for that journal in JournalBatch this will then match the month of the payroll -
 
 </cfif>
 
+<!--- ----------------------------------- --->
 <!--- we set the owner of the transaction --->
+<!--- ----------------------------------- --->
 
 <cfquery name="Owner" 
 	datasource="appsOrganization" 
@@ -208,6 +214,10 @@ password="#SESSION.dbpw#">
 
 <cfloop query="PendingPosting">		
 
+	<!--- ------------------------------------------ --->
+	<!--- we set the account code of the transaction --->
+	<!--- ------------------------------------------ --->
+
 	<cfquery name="LedgerUpdate" 
 	datasource="appsOrganization" 
 	username="#SESSION.login#" 
@@ -238,11 +248,12 @@ password="#SESSION.dbpw#">
 		AND    SL.PaymentDate           = '#PayrollEnd#'	
 		AND    SL.PaymentStatus         = '0'
 		
-	</cfquery>			
+	</cfquery>		
 	
-	<cfif Param.PostingMode eq "1">
-		
-		<!--- if the match is on the postgrade parent we go deeper --->
+	<!--- special provision for STL as we do on grades ----------------- --->
+	<!--- if the match is on the postgrade parent we go one level deeper --->	
+	
+	<cfif Param.PostingMode eq "1">		
 		
 		<cfquery name="LedgerUpdate2" 
 		datasource="appsOrganization" 
@@ -363,6 +374,8 @@ password="#SESSION.dbpw#">
 				
 	</cfif>	
 	
+	<!--- check of we have all relevant account codes --->
+	
 	<cfquery name="MissingObject" 
 	datasource="appsOrganization" 
 	username="#SESSION.login#" 
@@ -396,12 +409,14 @@ password="#SESSION.dbpw#">
 		   	ProcessBatchId = "#url.calculationid#"	
 			ActionStatus   = "9"	
 			StepStatus	   = "9"
-			StepException  = "One or more glaccounts have not been defined like #MissingObject.PayrollItem#. Please update the payroll item administration"	
+			StepException  = "A glaccount has not been set i.e #MissingObject.PayrollItem# - #MissingObject.GLAccount#. Please update the payroll item administration"	
 			Description    = "Initializing">	
 	
 			<cfset stop = "1">
 			
 	</cfif>		
+	
+	
 		
 	<!--- 1 of 3 clean prior distribution entries --->
 	
@@ -427,8 +442,7 @@ password="#SESSION.dbpw#">
 	
 	</cfquery>	
 	
-	<!--- 29/4/2018 the below query might have to be reviewed to make sure once we have several mission periods that are plan periods
-	not so likely --->
+	<!--- 29/4/2018 the below query might have to be reviewed to make sure once we have several mission periods that are plan periods : not so likely --->
 	
 	<cfquery name="planPeriod" 
 	datasource="AppsOrganization" 
@@ -502,6 +516,8 @@ password="#SESSION.dbpw#">
 				    PF.ProgramCode,	
 				    PF.FundClass									
 	</cfquery>	
+	
+	
 	
 	<!--- check if we will post --->	
 	
@@ -692,10 +708,11 @@ password="#SESSION.dbpw#">
 			
 			<cfif total.PostingAmount neq "">	
 			
-				<!--- base payroll booking we have 3 modes
+				<!--- base payroll glaccount posting we have 3 modes of details
 				
-				   Schedule / entity posting per program
-				   Schedule / entity / orgunit booking
+				   Schedule / entity posting per program / object 
+				   Schedule / entity posting per program / object / orgunit booking
+				   
 				   Schedule / entity / person booking : disabled 
 				   
 			     --->
@@ -763,7 +780,8 @@ password="#SESSION.dbpw#">
 								AND       T.PaymentDate        = '#payrollend#' 
 								AND       T.SettlementPhase    = '#refno#'		
 								AND       T.PaymentStatus      = '0'					      
-								GROUP BY  T.SalarySchedule, 							          
+								GROUP BY  T.SalarySchedule, 			
+								         <!--- post on unit level --->				          
 										 <cfif Period.OrgUnit eq "1">
 								          OrgUnit, 									 
 										  </cfif>
@@ -1106,9 +1124,141 @@ password="#SESSION.dbpw#">
 								AND      SL.SettlementPhase    = '#refno#'
 								AND      SL.PaymentStatus      = '0' 
 						</cfquery>		
+											
+						<!--- ------------------------------------------------------------------------------------------------------------------- --->
+						<!--- we now post D/C offset transaction using the journal for offset to correctly offset again the original transaction. --->
+						<!--- ------------------------------------------------------------------------------------------------------------------- --->
+												
+						<cfquery name="Offset" 
+							datasource="appsOrganization" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">		
+							
+							SELECT   SL.PersonNo,
+							         SL.Currency, 
+									 SL.Amount, 
+									 (SELECT GLAccount 
+									 FROM   Accounting.dbo.TransactionLine
+									 WHERE  Journal = H.Journal
+									 AND    JournalSerialNo = H.JournalSerialNo
+									 AND    TransactionSerialNo = '1') as OffsetGLAccount,
+									 SL.GLAccountLiability, 
+							         H.Journal         as OffsetJournal, 
+									 H.JournalSerialNo as OffsetJournalSerialNo, 
+									 H.TransactionId
+							FROM     Payroll.dbo.EmployeeSettlementLine SL 
+							
+									 INNER JOIN 	Payroll.dbo.EmployeeSettlement as ESET
+												ON 	SL.PersonNo 			= ESET.PersonNo
+												AND SL.SalarySchedule 		= ESET.SalarySchedule
+												AND SL.Mission 				= ESET.Mission
+												AND SL.PaymentDate 			= ESET.PaymentDate
+												AND SL.PaymentStatus		= ESET.PaymentStatus
+												AND ESET.ActionStatus = '1' <!--- released --->		
+												
+									INNER JOIN 	Accounting.dbo.TransactionHeader H ON SL.SourceId = H.TransactionId	
+								   
+							WHERE    SL.Mission            = '#Period.Mission#'
+							AND      SL.SalarySchedule     = '#Period.SalarySchedule#'
+							AND      SL.PaymentDate        = '#payrollend#'	
+							AND      SL.SettlementPhase    = '#refno#'
+							AND      SL.PaymentStatus      = '0' 										
+							AND      SL.Source = 'Offset' 					 
+							
+						</cfquery>	
+						
+						<!--- we create one transaction header with offset lines --->
+						
+						<cfquery name="thisJournal" 
+								datasource="appsOrganization" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+								SELECT TOP 1 * 
+								FROM   Accounting.dbo.Journal 
+								WHERE  SystemJournal   = 'Offset'
+								AND    Mission         = '#SchedulePeriod.Mission#'
+								AND    Currency        = '#Schedule.PaymentCurrency#'								
+						</cfquery>
+							
+						<cfif thisJournal.recordcount eq "0">
+							
+								<cfquery name="thisJournal" 
+									datasource="appsOrganization" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+									SELECT TOP 1 * 
+									FROM   Accounting.dbo.Journal 
+									WHERE  Journal = '#get.Journal#'														
+								</cfquery>
+							
+						</cfif>
+						
+						<cfloop query="Offset">
+					
+							<cf_GledgerEntryHeader
+							    Mission               = "#SchedulePeriod.Mission#"
+							    OrgUnitOwner          = "#tOwner#"							
+								Datasource            = "appsOrganization"
+							    Journal               = "#thisJournal.Journal#"
+								AccountPeriod         = "#per#"							
+								JournalTransactionNo  = "#year(PendingPosting.payrollend)#-#month(PendingPosting.payrollend)#"
+								Description           = "Offset advance through Payroll"
+								TransactionSource     = "PayrollSeries"		
+								TransactionSourceId   = "#SchedulePeriod.CalculationId#"			
+								TransactionCategory   = "Memorial"
+								MatchingRequired      = "0"			
+								Workflow              = "No"  		
+								ActionStatus          = "1"		
+								Reference             = "Offset"  																		
+								ReferencePersonNo     = "#PersonNo#"																								
+								TransactionDate       = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
+								DocumentCurrency      = "#Currency#"
+								CurrencyDate          = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
+								DocumentDate          = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"										
+								DocumentAmount        = "#Amount#"
+								OfficerUserId         = "#SESSION.acc#"
+								OfficerLastName       = "#SESSION.last#"
+								OfficerFirstName      = "#SESSION.first#">																							
+									
+								<cf_GledgerEntryLine
+									Lines                    = "2"
+									Datasource               = "appsOrganization"
+								    Journal                  = "#thisJournal.Journal#"
+									JournalNo                = "#JournalSerialNo#"
+									JournalTransactionNo     = "#year(SchedulePeriod.PayrollEnd)#-#month(SchedulePeriod.PayrollEnd)#"		
+									LogTransaction           = "Yes"
+									AccountPeriod            = "#per#"																								 
+									DocumentCurrency         = "#Currency#"
+									AmountCurrency           = "#Currency#"
+									CurrencyDate             = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
+									TransactionDate          = "#DateFormat(SchedulePeriod.PayrollEnd,CLIENT.DateFormatShow)#"
+									ParentJournal            = "#OffsetJournal#"
+								    ParentJournalSerialNo    = "#OffsetJournalSerialNo#"
+																			
+									TransactionSerialNo1     = "1"				
+									Class1                   = "Credit"
+									Reference1               = "Offset Individual"       
+									ReferenceName1           = "Offset #year(PendingPosting.payrollend)#-#month(PendingPosting.payrollend)#"										
+									Description1             = ""
+									GLAccount1               = "#OffsetGLAccount#"											
+									ReferenceId1             = ""
+									TransactionType1         = "Contra-Account"
+									Amount1                  = "#Amount#"
+									
+									TransactionSerialNo2     = "0"				
+									Class2                   = "Debit"
+									Reference2               = "Payroll deduction" 						
+									ReferenceName2           = "Offset: #year(PendingPosting.payrollend)#-#month(PendingPosting.payrollend)#"
+									Description2             = ""																							
+									GLAccount2               = "#GLAccountLiability#"
+									ReferenceId2             = ""
+									TransactionType2         = "Standard"
+									Amount2                  = "#Amount#">						
+					
+						</cfloop>				
 						
 					<!--- if individual posting mode is enabled then we make another booking 
-					    for the amount posted on the account of the	schedule/mission --->
+					    for the amount posted on the account of the	schedule/mission --->					
 																	
 					<cfif Period.PostingMode eq "Schedule">  
 					
@@ -1121,8 +1271,7 @@ password="#SESSION.dbpw#">
 						      <cfquery name="OffsetScheduleAccount" 
 										datasource="appsOrganization" 
 										username="#SESSION.login#" 
-										password="#SESSION.dbpw#">
-										
+										password="#SESSION.dbpw#">										
 										
 										SELECT     ESD.SalaryScheduleGLAccount, 
 										           ESD.PayThroughGLAccount, 

@@ -4,7 +4,7 @@ datasource="AppsQuery"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-	FROM #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
+	FROM   #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 </cfquery>
 
 <cfparam name="url.reference" default="n/a">  
@@ -16,9 +16,9 @@ password="#SESSION.dbpw#">
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	UPDATE #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#
-	SET Reference = '#URL.Reference#'
-	WHERE SerialNo = '#URL.SerialNo#' 
+		UPDATE #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#
+		SET    Reference = '#URL.Reference#'
+		WHERE  SerialNo = '#URL.SerialNo#' 
     </cfquery> 
 
 </cfif>
@@ -29,9 +29,9 @@ password="#SESSION.dbpw#">
 	datasource="AppsQuery" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	UPDATE #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#
-	SET ReferenceNo = '#URL.ReferenceNo#'
-	WHERE SerialNo = '#URL.SerialNo#' 
+		UPDATE #SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction#
+		SET    ReferenceNo = '#URL.ReferenceNo#'
+		WHERE  SerialNo    = '#URL.SerialNo#' 
     </cfquery> 
 
 </cfif>
@@ -68,7 +68,7 @@ password="#SESSION.dbpw#">
 		<input type  = "text" 
 	       size      = "80" 
 		   onchange  = "_cf_loadingtexthtml='';ptoken.navigate('TransactionDetailLinesEdit.cfm?serialno=#get.serialNo#&reference='+this.value,'box_#SerialNo#')"
-		   class     = "regularxl" 
+		   class     = "regularxxl" 
 		   maxlength = "100" 
 		   value     = "#Reference#" 
 		   name      = "reference_#SerialNo#">
@@ -81,12 +81,12 @@ password="#SESSION.dbpw#">
 	<td width="80" class="labelit"><cf_tl id="Reference">:</td>
 	<td colspan="2">
 	
-	<table cellspacing="0" cellpadding="0"><tr><td class="labelit">
+	<table><tr><td class="labelit">
 	
 		<input type="text" 
 	       size="30" 
 		   onchange="_cf_loadingtexthtml='';ptoken.navigate('TransactionDetailLinesEdit.cfm?serialno=#get.serialNo#&referenceno='+this.value,'box_#SerialNo#')"
-		   class="regularxl" 
+		   class="regularxxl" 
 		   maxlength="30" 
 		   value="#ReferenceNo#" 
 		   name="referenceNo_#SerialNo#">

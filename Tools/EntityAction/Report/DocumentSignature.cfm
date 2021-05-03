@@ -1,5 +1,6 @@
 
 <cfparam name="attributes.mission"     default="zzzz">
+<cfparam name="attributes.header"      default="">
 <cfparam name="attributes.sigaction"   default="">
 <cfparam name="attributes.account"     default="">
 <cfparam name="attributes.title"       default="auto">
@@ -21,6 +22,7 @@
 		 WHERE    Account = '#attributes.Account#'
 	</cfquery>	
 	
+	<cfset header = attributes.header>
 	<cfset action = attributes.sigAction>
 	<cfset first  = user.FirstName>
 	<cfset last   = user.LastName>
@@ -130,30 +132,36 @@
 	
 	 </td></tr>
 	 
-	 <tr class="labelit"><td align="center"><cfif action neq "">#action# </cfif>#first# #last#</td></tr>
+	 <cfif header neq "">
+	 <tr class="labelmedium"><td align="center" style="font-size:16px">#header#</td></tr>
+	 </cfif>
+	 
+	 <tr class="labelmedium"><td align="center" style="font-size:16px"><cfif action neq "">#action# </cfif>#first# #last#</td></tr>
 	 	 	 
 	 <cfif memo neq "">
-	 <tr class="labelit"><td align="center">#memo#</td></tr>
+	 <tr class="labelmedium"><td align="center" style="font-size:16px">#memo#</td></tr>
 	 </cfif>
 	 
 	 <cfif title neq "">
-	 <tr class="labelit"><td align="center">#title#</td></tr>
+	 <tr class="labelmedium"><td align="center" style="font-size:16px">#title#</td></tr>
 	 </cfif>
 	 
 	 <cfif unit neq "">
-	 <tr class="labelit"><td align="center">#unit#</td></tr>
+	 <tr class="labelmedium"><td align="center" style="font-size:16px">#unit#</td></tr>
 	 </cfif>
 	 
-	 <tr class="labelit"><td align="center"><cf_tl id="Signed on">
+	 <tr class="labelmedium"><td align="center" style="font-size:16px"><cf_tl id="Signed on">
 	 <cfif attributes.date eq "auto" or attributes.date eq "yes">
 	 #dateformat(now(),client.dateformatshow)# <cf_tl id="at"> #timeformat(now(),"kk:mm tt")#
 	 <cfelse>
 	 #dateformat(attributes.date,client.dateformatshow)# <cf_tl id="at"> #timeformat(attributes.date,"kk:mm tt")#
-	 </cfif>
-	 <cfif attributes.id neq ""><br><font size="1">ID: #attributes.id#</font></cfif>
+	 </cfif>	
 	 </td></tr>
 	 
-
+	<cfif attributes.id neq "">
+	 <tr class="labelmedium"><td align="center"><font size="1" color="0080FF">id: #attributes.id#</font></td></tr>
+	 </cfif>
+	 
 	</table>	
 	 
 </cfoutput>	 	 

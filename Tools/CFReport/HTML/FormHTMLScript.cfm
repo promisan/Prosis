@@ -14,8 +14,8 @@
 		document.getElementById('menu2').className = "hide"
 		_cf_loadingtexthtml='';	
 		Prosis.busy('yes')
-	    ColdFusion.navigate('HTML/FormHTMLMenu.cfm?controlid='+ctr+'&reportid='+rpt,'reportmenu')
-   		ColdFusion.navigate('HTML/FormHTMLVariant.cfm?controlid='+ctr+'&reportid='+rpt,'criteria')
+	    ptoken.navigate('HTML/FormHTMLMenu.cfm?controlid='+ctr+'&reportid='+rpt,'reportmenu')
+   		ptoken.navigate('HTML/FormHTMLVariant.cfm?controlid='+ctr+'&reportid='+rpt,'criteria')
 	}
 	
 	function toggle(box,menu) {
@@ -104,7 +104,7 @@
 	}	
 	 				
 	function mail(to,subj,att,filter,src,srcid) {
-		window.open(root + "/Tools/Mail/Mail.cfm?ID=" + to +"&ID1=" + subj + "&source=" + src + "&sourceid=" + srcid, "MailDialog", "width=800, height=615, status=yes, toolbar=no, scrollbars=no, resizable=no");
+		ptoken.open(root + "/Tools/Mail/Mail.cfm?ID=" + to +"&ID1=" + subj + "&source=" + src + "&sourceid=" + srcid, "MailDialog", "width=800, height=615, status=yes, toolbar=no, scrollbars=no, resizable=no");
 	}
 	
 	var doit = 0
@@ -119,8 +119,7 @@
 		 return false  
 	}
 	
-	function perform(option,rep) {
-	
+	function perform(option,rep) {	
 	
 	      if (option == "preview" || option == "email" || option == "sql")	{ 
 		  		    
@@ -243,7 +242,7 @@
 			try { ProsisUI.closeWindow('combo',true)} catch(e){};
 			ProsisUI.createWindow('combo', 'Selection', '',{x:100,y:100,width:700,height:document.body.offsetHeight-100,resizable:false,modal:true,center:true});			  	  
 			_cf_loadingtexthtml='';		
-		    ColdFusion.navigate('HTML/FormHTMLComboSingle.cfm?shw='+shw+'&controlid=#url.id#&par='+fld+'&cur='+old+'&fly='+parent,'combo');	        																
+		    ptoken.navigate('HTML/FormHTMLComboSingle.cfm?shw='+shw+'&controlid=#url.id#&par='+fld+'&cur='+old+'&fly='+parent,'combo');	        																
 	}
 			
 	function combosearch(pg,par,cur,fly,shw) {		 
@@ -257,29 +256,27 @@
 			{v = 0}
 		
 		 _cf_loadingtexthtml='';			
-		 ColdFusion.navigate('HTML/FormHTMLComboSingleResult.cfm?controlid=#url.id#&par='+par+'&shw='+shw+
+		 ptoken.navigate('HTML/FormHTMLComboSingleResult.cfm?controlid=#url.id#&par='+par+'&shw='+shw+
 			   '&cur='+cur+'&val='+val.value+'&adv='+v+'&page='+pg+'&fly='+fly,'comboresult')	   			  						 
 		 
 	  }  			
 			
 	function comboselect(fld,shw,key,des) {	
 				
-			document.getElementById(fld).value = key;
-			
-			if (shw == "0")	{
-			document.getElementById(fld+"_des").value = des;
-			} else {
-			document.getElementById(fld+"_des").value = key+" - "+des;
-			}
-			if (document.getElementById(fld).value == "blank")
-				    { document.getElementById(fld).value = "" 
-					  document.getElementById(fld+"_des").value = ""	
-					  				  
-					}  else {
-					try { ProsisUI.closeWindow('combo',true)} catch(e){};	
-					}
-							
-												
+		document.getElementById(fld).value = key;
+		
+		if (shw == "0")	{
+		document.getElementById(fld+"_des").value = des;
+		} else {
+		document.getElementById(fld+"_des").value = key+" - "+des;
+		}
+		if (document.getElementById(fld).value == "blank")
+			    { document.getElementById(fld).value = "" 
+				  document.getElementById(fld+"_des").value = ""	
+				  				  
+				}  else {
+				try { ProsisUI.closeWindow('combo',true)} catch(e){};	
+				}				
 		}		
 		
 	// multiple combo	
@@ -288,36 +285,36 @@
 		  
 			try { ProsisUI.closeWindow('combomulti',true)} catch(e){};			
 			ProsisUI.createWindow('combomulti', 'Selection', '',{x:100,y:100,width:700,height:document.body.offsetHeight-200,resizable:false,modal:true,center:true});			  	  
-		    ColdFusion.navigate('HTML/FormHTMLComboMulti.cfm?controlid=#controlid#&CriteriaName='+fld+'&CriteriaDefault='+val+'&fly='+fly,'combomulti');	   
+		    ptoken.navigate('HTML/FormHTMLComboMulti.cfm?controlid=#controlid#&CriteriaName='+fld+'&CriteriaDefault='+val+'&fly='+fly,'combomulti');	   
 								
 	}	
 			
 	function multivalue(act,val,fld,fly,pag) {	    	        
-			ColdFusion.navigate('HTML/FormHTMLComboMultiAction.cfm?action='+act+'&value='+val+'&fld='+fld+'&fly='+fly+'&page='+pag,'selectedvalues','','','POST','multiform')		
+			ptoken.navigate('HTML/FormHTMLComboMultiAction.cfm?action='+act+'&value='+val+'&fld='+fld+'&fly='+fly+'&page='+pag,'selectedvalues','','','POST','multiform')		
 	}
 	
 	function multisearch(fld,fly,pg) {					
 				
-			val = document.getElementById("multifind")		
-			adv = document.getElementById("multivariant")			
-					
-			/*			
-			if (adv.checked) {
-			    v = 1
-			} else {
-				v = 0
-			}	*/
-			
-			//set advanced by default
-			v = 1;
-			
-			_cf_loadingtexthtml='';		
-			ColdFusion.navigate('HTML/FormHTMLComboMultiResult.cfm?controlid=#controlId#&par='+fld+'&val='+val.value+'&adv='+v+'&page='+pg+'&fly='+fly ,'multiresult','','','POST','multiform')			 					 				
+		val = document.getElementById("multifind")		
+		adv = document.getElementById("multivariant")			
+				
+		/*			
+		if (adv.checked) {
+		    v = 1
+		} else {
+			v = 0
+		}	*/
+		
+		//set advanced by default
+		v = 1;
+		
+		_cf_loadingtexthtml='';		
+		ptoken.navigate('HTML/FormHTMLComboMultiResult.cfm?controlid=#controlId#&par='+fld+'&val='+val.value+'&adv='+v+'&page='+pg+'&fly='+fly ,'multiresult','','','POST','multiform')			 					 				
 	}		
 
 	function multiselected(fld,fly,pag) {			
 																						 
-			ColdFusion.navigate('HTML/FormHTMLComboMultiSelected.cfm?fly='+fly+'&controlid=#controlId#&criteriaName='+fld+
+			ptoken.navigate('HTML/FormHTMLComboMultiSelected.cfm?fly='+fly+'&controlid=#controlId#&criteriaName='+fld+
 				             '&mode=edit&page='+pag,'multiselectbox','','','POST','multiform')							 				 					 			 
 			 
 			}				
@@ -327,7 +324,7 @@
 			url = "#SESSION.root#/Tools/CFReport/HTML/FormHTMLComboMultiSelected.cfm?controlid=#controlId#&criteriaName="
 			            +fld+"&mode=view&fly="+fly;
 					
-			ColdFusion.navigate(url,'combo'+fld,'','','POST','multiform')			
+			ptoken.navigate(url,'combo'+fld,'','','POST','multiform')			
 			try { ProsisUI.closeWindow('combomulti',true)} catch(e){};
 					
 		}
@@ -336,7 +333,7 @@
 	// more 	
 		
     function showlayout(nme) {
-     	 ColdFusion.navigate('HTML/FormHTMLLayout.cfm?layoutfilter='+nme+'&reportid=#reportid#&controlid=#controlid#','mylayout')
+     	 ptoken.navigate('HTML/FormHTMLLayout.cfm?layoutfilter='+nme+'&reportid=#reportid#&controlid=#controlid#','mylayout')
 	}		
 								
 	function selcluster(grp,par,cnt,nme,rfrsh) {
@@ -360,13 +357,13 @@
 		h = 740;
 		
 		ProsisUI.createWindow('myextension', 'Select', '',{x:100,y:100,height:h,width:w,modal:true,center:true})    						
-		ColdFusion.navigate('#session.root#/Tools/CFReport/HTML/FormHTMLExtView.cfm?x=2&row='+row+'&controlid=' + id + '&reportid=' + rpt + '&CriteriaName=' + param + '&width=' + width,'myextension') 		
+		ptoken.navigate('#session.root#/Tools/CFReport/HTML/FormHTMLExtView.cfm?x=2&row='+row+'&controlid=' + id + '&reportid=' + rpt + '&CriteriaName=' + param + '&width=' + width,'myextension') 		
 						
 	}
 	
 	function filterdelete(id,rpt,param,width,row,pk) {	
 	    _cf_loadingtexthtml="";		  
-	    ColdFusion.navigate('HTML/FormHTMLExtListPurge.cfm?pk='+pk+'&mult=1&Init=0&row='+row+'&ControlID=' +id + '&ReportId=' + rpt + '&CriteriaName=' + param,'i'+row)					
+	    ptoken.navigate('HTML/FormHTMLExtListPurge.cfm?pk='+pk+'&mult=1&Init=0&row='+row+'&ControlID=' +id + '&ReportId=' + rpt + '&CriteriaName=' + param,'i'+row)					
 		_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";	
 	}
 
@@ -436,12 +433,12 @@
 function reportme(id) {
     w = #CLIENT.width# - 16;
     h = #CLIENT.height# - 127;
-	window.open("#SESSION.root#/Tools/CFReport/ReportLinkOpen.cfm?reportid=" + id, "_blank", "left=0, top=0, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes");
+	ptoken.open("#SESSION.root#/Tools/CFReport/ReportLinkOpen.cfm?reportid=" + id, "_blank", "left=0, top=0, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes");
 }
 
 function purge(del,ctr,rpt) {  
 	if (confirm("Do you want to remove selected report(s) from your archive ?"))	{
-		ColdFusion.navigate('HTML/FormHTMLSubscription.cfm?del='+del+'&controlid='+ctr+'&reportid='+rpt,'subscriptions')
+		ptoken.navigate('HTML/FormHTMLSubscription.cfm?del='+del+'&controlid='+ctr+'&reportid='+rpt,'subscriptions')
 	}
 }
 
@@ -455,7 +452,7 @@ function more(id,act,row) {
 	   	 icM.className = "regular";
 	     icE.className = "hide";
 		 se.className  = "regular";
-		 ColdFusion.navigate('#SESSION.root#/System/Modules/Subscription/Criteria.cfm?id='+id,'s'+row)				 
+		 ptoken.navigate('#SESSION.root#/System/Modules/Subscription/Criteria.cfm?id='+id,'s'+row)				 
 		 } else {
 	   	 icM.className = "hide";
 	     icE.className = "regular";

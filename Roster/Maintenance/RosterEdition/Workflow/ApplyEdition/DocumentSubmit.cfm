@@ -88,8 +88,7 @@
 		<cfquery name="TitleNames" 
 			datasource="AppsSelection" 
 			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			
+			password="#SESSION.dbpw#">			
 				<cfif getLanguage.recordcount eq "1">
 					SELECT FunctionDescription, '#getLanguage.code#' as Code
 					FROM   FunctionTitle
@@ -98,8 +97,7 @@
 				</cfif>
 				SELECT FunctionDescription, LanguageCode as Code
 				FROM   FunctionTitle_Language
-				WHERE  FunctionNo = '#Position.FunctionNo#'
-				
+				WHERE  FunctionNo = '#Position.FunctionNo#'				
 		</cfquery>
 		
 		<cfloop query="TitleNames">
@@ -131,12 +129,12 @@
 		<!--- --------------------------------------------------- --->
 		
 		<cfquery name="getProfile" 
-			datasource="AppsEmployee" 
+			datasource="AppsSelection" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			SELECT *
-			FROM   PositionParentProfile
-			WHERE  PositionParentId = '#Position.PositionParentId#'			
+				SELECT *
+				FROM   Employee.dbo.PositionParentProfile
+				WHERE  PositionParentId = '#Position.PositionParentId#'			
 		</cfquery>
 		
 		<cfif getProfile.recordcount eq "0">
@@ -144,10 +142,10 @@
 		    <!--- obtain this from the chain --->
 		
 			<cfquery name="Insert" 
-				datasource="AppsEmployee" 
+				datasource="AppsSelection" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				INSERT INTO PositionParentProfile
+				INSERT INTO Employee.dbo.PositionParentProfile
 				       (PositionParentId, LanguageCode, TextAreaCode, JobNotes, OfficerUserId, OfficerLastName, OfficerFirstName, Created)
 			
 				SELECT  '#Position.PositionParentId#',
@@ -158,12 +156,12 @@
 						OfficerLastName, 
 						OfficerFirstName, 
 						getdate()
-				FROM    PositionParentProfile
+				FROM    Employee.dbo.PositionParentProfile
 				WHERE   PositionParentId IN
 	                             (SELECT     PositionParentId
-	                               FROM      Position
+	                               FROM      Employee.dbo.Position
 	                               WHERE     PositionNo IN (SELECT   SourcePositionNo
-	                                                        FROM     Position
+	                                                        FROM     Employee.dbo.Position
 	                                                        WHERE    PositionNo = '#Position.PositionNo#')
 								 )
 			
@@ -197,8 +195,7 @@
 						OfficerUserId,
 						OfficerLastName,
 						OfficerFirstName)
-				VALUES (
-						'#FORM.EditionSelect#',
+				VALUES ('#FORM.EditionSelect#',
 						'#FORM.Key1#',
 						'#competenceid#',			
 						'#SESSION.acc#',

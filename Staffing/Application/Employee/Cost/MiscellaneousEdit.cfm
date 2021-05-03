@@ -6,8 +6,6 @@
 	<cf_screentop height="100%" scroll="No" html="No" jquery="Yes" title="Miscellaneous entry" menuaccess="context">
 </cfif>
 
-
-
 <cf_dialogPosition>
 <cf_dialogLedger>
 <cf_ActionListingScript>
@@ -33,7 +31,7 @@ password="#SESSION.dbpw#">
 
 <!--- adjust to check also for the role of contract manager create --->
 
-<cfif getAdministrator("#Entitlement.Mission#") eq "1" 
+<cfif getAdministrator("#Entitlement.Mission#") eq "999" 
       or  Entitlement.Status eq "0" 
 	  or (Status eq "2" and EntityClass eq "")>
 	  
@@ -47,8 +45,6 @@ password="#SESSION.dbpw#">
 	  
 </cfif>	
 
-
-
 <cfquery name="PayrollItem" 
    datasource="AppsPayroll" 
    username="#SESSION.login#" 
@@ -58,8 +54,6 @@ password="#SESSION.dbpw#">
 	WHERE    Source IN ('Miscellaneous','Deduction')
 	ORDER BY Source DESC
 </cfquery>
-
-
 
 <cf_divscroll>
 
@@ -97,7 +91,7 @@ password="#SESSION.dbpw#">
 	
 	<tr><td height="5"></td></tr>
 	  
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD><cf_tl id="Document date">:</TD>
     <TD>
 	
@@ -120,7 +114,7 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD width="140"><cf_tl id="Category">:</TD>
     <TD>
 	
@@ -149,7 +143,7 @@ password="#SESSION.dbpw#">
 	</TR>
 		
 	<cfoutput>
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD><cf_tl id="Reference">:</TD>
     <TD>
 	<cfif edit eq "1">
@@ -187,7 +181,7 @@ password="#SESSION.dbpw#">
 	
 	
 	<TR>
-    <TD class="labelmedium"><cf_tl id="Payroll date">:</TD>
+    <TD class="labelmedium2"><cf_tl id="Payroll date">:</TD>
     <TD>
 	
 		<cfif edit eq "1">
@@ -210,7 +204,7 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>	
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD><cf_tl id="Category">:</TD>
     <TD>
 	
@@ -260,22 +254,21 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 	
-	<cfif edit eq "1">
+	
 	<tr>			   	  
 	   <td colspan="2" id="ledger" style="padding-left:10px;padding-right:10px">
-	   <cfif Entitlement.EntitlementClass eq "Deduction">
-	  
+	   <cfif Entitlement.EntitlementClass eq "Deduction">	  
 	       <cfset url.class = Entitlement.EntitlementClass>
 		   <cfset url.transactionid = Entitlement.SourceId>
 		   <cfinclude template="showAdvance.cfm">	   
 	   </cfif>
 	   </td>
 	</tr>
-	</cfif>
+	
 	
 	</cfoutput>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD><cf_tl id="Amount">:</TD>
     <TD>
 	
@@ -320,16 +313,20 @@ password="#SESSION.dbpw#">
 			
 	</TD>
 	</TR>	
-	
-	<TR class="labelmedium">
+			
+		<cfif edit eq "1">
+		
+		<TR class="labelmedium2">
         <td valign="top" style="padding-top:7px"><cf_tl id="Remarks">:</td>
         <TD>
-		
-		<cfif edit eq "1">
 		
 		<textarea style="width:99%;padding:3px;font-size:14px" class="regular" rows="2" name="Remarks"><cfoutput>#Entitlement.Remarks#</cfoutput></textarea> 
 		
 		<cfelse>
+		
+		<TR class="labelmedium2">
+        <td><cf_tl id="Remarks">:</td>
+        <TD>
 		
 		<cfoutput>#Entitlement.Remarks#</cfoutput>
 		
@@ -369,9 +366,7 @@ password="#SESSION.dbpw#">
 			
 	</TD>
 	</TR>	
-	   
-	
-	
+		
 	<cfif edit eq "1">
 	
 		<tr><td colspan="2" class="line"></td></tr> 

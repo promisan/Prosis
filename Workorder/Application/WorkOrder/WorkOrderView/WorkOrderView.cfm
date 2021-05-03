@@ -112,7 +112,7 @@
 	}
 	
 	function addImplementerOrgUnit(mission, mandateno, woid) {			
-		ptoken.createWindow('implementer', 'Implementer', '', {height:400,width:500,modal:false,closable:true,center:true,minheight:200,minwidth:200 });
+		ProsisUI.createWindow('implementer', 'Implementer', '', {height:400,width:500,modal:false,closable:true,center:true,minheight:200,minwidth:200 });
 	    ptoken.navigate('#SESSION.root#/Workorder/Application/WorkOrder/Implementer/ImplementerAdd.cfm?workorderid='+woid+'&mission='+mission+'&mandateNo='+mandateno,'implementer')	 		
 	}
 
@@ -121,7 +121,7 @@
 	} 
 	
 	function addPublication(wo) {		
-		ptoken.createWindow('mydialog', 'Publication', '',{x:30,y:30,height:400,width:500,modal:true,center:true});    					
+		ProsisUI.createWindow('mydialog', 'Publication', '',{x:30,y:30,height:400,width:500,modal:true,center:true});    					
 		ptoken.navigate('#SESSION.root#/Workorder/Application/Activity/Publication/PublicationEdit.cfm?workorderid='+wo+'&publicationId=&ts='+new Date().getTime(),'mydialog');
 	}				
 		

@@ -19,10 +19,9 @@
 				     <cfset size = "85px">
 				  </cfif>				 
 				 
-				  <cfset ind = rereplace(Indexno,'^0+','','ALL')>		
-				  
-		  
-								  
+				  <cfset ind = rereplace(Indexno,'^0+','','ALL')>	
+				 
+				 				 											  
 				  <cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#IndexNo#.jpg") and indexNo gt "0">                           		
 						<cfset pict = IndexNo>  						
 				  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#ind#.jpg")>                           						  
@@ -30,8 +29,10 @@
 				  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Personno#.jpg")>   
 						<cfset pict = Personno>	   																	
 				  <cfelse>				  
-						 <cfset pict = "">      
-				  </cfif>				 
+						<cfset pict = "">      
+				  </cfif>	
+				  
+				  <!---			 
 				  
 				  <cf_UITooltip
 					id         = "#assignDetail.AssignmentNo#"
@@ -42,20 +43,20 @@
 					ShowOn     = "click"
 					Height     = "200"
 					Duration   = "300">
+					
+					--->
 									  
 				  <cfif pict neq "">
 				  
-				  	  <cfif FileExists("#SESSION.rootpath#\EmployeePhoto\#pict#.jpg")>	
-					  
-					  	<cfset vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg">		
-				  
+				  	  <cfif FileExists("#SESSION.rootpath#\EmployeePhoto\#pict#.jpg")>				  
+					  	   <cfset vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg">						  						   
 				      <cfelse>
 					  
-					  <cffile action="COPY" 
-						source="#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg" 
-  		    			destination="#SESSION.rootPath#\CFRStage\EmployeePhoto\#pict#.jpg" nameconflict="OVERWRITE">
-						
-						<cfset vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg">
+						  <cffile action="COPY" 
+							source="#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg" 
+	  		    			destination="#SESSION.rootPath#\CFRStage\EmployeePhoto\#pict#.jpg" nameconflict="OVERWRITE">
+							
+							<cfset vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg">
 						
 					  </cfif> 	
 									
@@ -78,13 +79,20 @@
 					  					  
 					  <img src="#vPhoto#" class="img-circle clsRoundedPicture" style="cursor:pointer;height:#size#; width:#size#;">		
 					  
-				  </cfif>				  
+				  </cfif>		
 				  
-				  </cf_UItooltip>				  
+				  <!---		  
+				  
+					  </cf_UItooltip>		
+				  
+				  --->
+				 				   
 				  			  
 			      </td>
 				  </tr>
+				  
 			      <tr><td align="center" style="font-size:12px">#NationalityName#</td></tr>				  
+				  
 			  </table>			  			  
 			</td>	
 									  

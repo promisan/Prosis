@@ -1,6 +1,6 @@
 
 <cf_menuscript>
-<cfajaximport tags="cfmenu,cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 
 <cf_tl id="Do you want to remove this account ?" var="vPurgeAccMsg">
 
@@ -23,10 +23,22 @@
 	function glaccount() {
 		ptoken.navigate('JournalAccount/JournalAccount.cfm?ID1=#URL.ID1#','contentbox2');
 	}
-	
+			
 	function editJournalAccount(j,a) {
-		ptoken.open('JournalAccount/JournalAccountEdit.cfm?journal='+j+'&account='+a,'journalaccount','left=250,top=100,width=1000,height=850,toolbar=no,scrollbars=no,resizable=yes');
+		ProsisUI.createWindow('journalaccount', 'Add account', '',{x:60,y:60,height:330,width:660,modal:true,resizable:false,center:true});			
+		ptoken.navigate('JournalAccount/JournalAccountEdit.cfm?journal='+j+'&account='+a,'journalaccount');
 	}
+	
+	function applyaccount(acc) {
+   		ptoken.navigate('#session.root#/Gledger/Maintenance/LedgerSchema/Journal/setAccount.cfm?account='+acc,'process')
+	}  
+	
+	function accountvalidate() {
+		document.frmJournalAccount.onsubmit() 
+		if( _CF_error_messages.length == 0 ) {
+	 		ptoken.navigate('JournalAccount/JournalAccountSubmit.cfm?journal=#URL.ID1#','myprocess','','','POST','frmJournalAccount')
+		 }   
+	}	 
 	
 	function purgeJournalAccount(j,a) {
 		if (confirm('#vPurgeAccMsg#')) {
@@ -36,16 +48,16 @@
 		
 </script>
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 
 <tr><td height="30">
 
 		<!--- top menu --->
 				
-		<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">		  		
+		<table width="100%" border="0" align="center" class="formpadding">		  		
 									
-			<cfset ht = "48">
-			<cfset wd = "48">			
+			<cfset ht = "58">
+			<cfset wd = "58">			
 			
 			<tr>		
 			
@@ -104,11 +116,8 @@
 
 <tr><td valign="top">
 	
-	<table width="100%" 
-	      border="0"
+	<table width="100%" 	    
 		  height="100%"
-		  cellspacing="0" 
-		  cellpadding="0" 
 		  align="center">
 	 		
 			<!--- <tr class="hide"><td valign="top" height="100" id="result" name="result"></td></tr> --->

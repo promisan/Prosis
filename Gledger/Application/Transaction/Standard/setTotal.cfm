@@ -19,7 +19,7 @@
 			<td style="padding-left:3px">			
 				<cfif abs(val) gte "0.001">			
 				 <cf_tl id="Apply" var="1">		
-			     <input class="button10g" style="font-size:14px;height:25;width:100px"  type="button" name="Submit" value="#lt_text#" onClick="addlines()">
+			     <input class="button10g" style="border:1px solid gray;border-radius:10px;font-size:14px;height:25;width:100px"  type="button" name="Submit" value="#lt_text#" onClick="addlines()">
 			     <input type="hidden" id="lastselectedmode" name="lastselectedmode" value="#url.mode#">	
 				</cfif>				
 			</td>

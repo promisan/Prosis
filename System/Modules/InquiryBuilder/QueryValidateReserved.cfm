@@ -12,6 +12,7 @@
 <!--- mission added 29/7/2013 --->		
 <cfset sc = replaceNoCase("#sc#","@mission","#url.mission#","ALL")> 							
 
+
 <!--- today --->
 <cfloop index="itm" from="1" to="30">
     

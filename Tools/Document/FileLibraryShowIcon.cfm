@@ -3,8 +3,7 @@
 <cfparam name="DocumentServerIsOp" default="0">
 
 <cfoutput>
-
-				
+					
 <cfif FindNoCase(".pdf", "#NameShow#")> 			
 	  <img src="#SESSION.root#/Images/document/pdf.png" height="32" align="absmiddle" alt="Open attachment" border="0" align="center">			  
 
@@ -73,7 +72,7 @@
 	   <img src="#SESSION.root#/Images/wordperfect_small.gif" align="absmiddle" alt="Open Word attachment" height="32" border="0" align="center">		  							   
 
 <cfelseif FindNoCase(".xls", "#NameShow#")>
-	  <img src="#SESSION.root#/Images/document/excel.png" height="42" align="absmiddle" alt="Open Excel attachment" height="32" border="0" align="center">
+	  <img src="#SESSION.root#/Images/document/excel.png" align="absmiddle" alt="Open Excel attachment" height="32" border="0" align="center">
 
 <cfelseif FindNoCase(".qpw", "#NameShow#")>
 	  <img src="#SESSION.root#/Images/excel.gif" align="absmiddle" alt="Open Excel attachment" border="0" align="center">		   				   

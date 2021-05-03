@@ -1154,7 +1154,8 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cfif url.ajaxid eq "content">
   
 	<cfif attributes.showlist eq "Yes">				
-		<!--- shows the listing as HTML and header --->			
+		<!--- shows the listing as HTML and header --->		
+		
 		<cfinclude template="ListingShow.cfm">																			
 	</cfif>		
 

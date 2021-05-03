@@ -53,8 +53,9 @@ coming from a different mission which is assignment to this unit !!!! --->
 		AND     A.AssignmentType   = 'Actual'
 		AND     A.DateEffective   <= #EndOFMonth#
 		AND     A.DateExpiration  >= #FirstOFMonth#		
-		
+				
 </cfquery>
+
 
 <cfif UnitList.recordcount gt 0>
 	
@@ -79,45 +80,58 @@ coming from a different mission which is assignment to this unit !!!! --->
 		  </cfif> 	
 				  		  				
 		  <cfinvoke component = "Service.Process.Employee.Attendance"  
-					   method       = "LeaveAttendance" 
-					   PersonNo     = "#PersonNo#" 		
-					   Mission      = "#Mission#"	   					  
-					   StartDate    = "#dateformat(start,client.dateformatshow)#"
-					   EndDate      = "#dateformat(end,client.dateformatshow)#"					   					  
-					   Mode         = "#url.mode#">	
-					   
+			   method       = "LeaveAttendance" 
+			   PersonNo     = "#PersonNo#" 		
+			   Mission      = "#Mission#"	   					  
+			   StartDate    = "#dateformat(start,client.dateformatshow)#"
+			   EndDate      = "#dateformat(end,client.dateformatshow)#"					   					  
+			   Mode         = "#url.mode#">						   
 		 
     </cfloop>
-			
-	<cfquery name="Delete" 
+	
+	<cfquery name="get" 
 	     datasource="AppsOrganization" 
 	     username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">
-	      DELETE FROM OrganizationAction
-	      WHERE       OrgUnit           = #URL.ID0#
-	      AND         CalendarDateStart = #FIRSTOFMONTH#
+	      SELECT *
+		  FROM   OrganizationAction
+	      WHERE  OrgUnit           = #URL.ID0#
+	      AND    CalendarDateStart = #FIRSTOFMONTH#		 
 	</cfquery>
 	
-	<cfquery name="Insert" 
-	    datasource="AppsOrganization" 
-	    username="#SESSION.login#" 
-	    password="#SESSION.dbpw#">	
-	     INSERT INTO OrganizationAction
-		      (OrgUnit,
-			   CalendarDateStart, 
-			   CalendarDateEnd,
-			   WorkAction,
-			   OfficerUserId, 
-			   OfficerLastName, 
-			   OfficerFirstName) 
-	 	   VALUES (#URL.ID0#,
-	           #FIRSTOFMONTH#,
-			   #ENDOFMONTH#,
-			   'Attendance',
-			   '#SESSION.acc#',
-	    	   '#SESSION.last#',
-		       '#SESSION.first#')
-	</cfquery>
+	<cfif get.actionstatus eq "0">
+			
+		<cfquery name="Delete" 
+		     datasource="AppsOrganization" 
+		     username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
+		      DELETE  FROM    OrganizationAction
+		      WHERE   OrgUnit           = #URL.ID0#
+		      AND     CalendarDateStart = #FIRSTOFMONTH#		 
+		</cfquery>
+	
+		<cfquery name="Insert" 
+		    datasource="AppsOrganization" 
+		    username="#SESSION.login#" 
+		    password="#SESSION.dbpw#">	
+		     INSERT INTO OrganizationAction
+				      (OrgUnit,
+					   CalendarDateStart, 
+					   CalendarDateEnd,
+					   WorkAction,
+					   OfficerUserId, 
+					   OfficerLastName, 
+					   OfficerFirstName) 
+		 	   VALUES (#URL.ID0#,
+			           #FIRSTOFMONTH#,
+					   #ENDOFMONTH#,
+					   'Attendance',
+					   '#SESSION.acc#',
+			    	   '#SESSION.last#',
+				       '#SESSION.first#')
+		</cfquery>
+		
+	</cfif>	
 	
 	<cfoutput>
 		

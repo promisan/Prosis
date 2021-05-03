@@ -77,7 +77,7 @@ password="#SESSION.dbpw#">
 			     	AND       ItemNo          = I.ItemNo
 			     	AND       TransactionUoM  = I.UoM
 					<!--- added 12/4/2021 --->   	
-					AND       WorkorderId is not NULL						   		      
+					AND       WorkorderId is NULL						   		      
 				 ) as OnHand,
 				 (
 				 	SELECT    ISNULL(SUM(TransactionQuantity),0) as OnHand
@@ -86,7 +86,7 @@ password="#SESSION.dbpw#">
 					AND       ItemNo          = I.ItemNo
 			     	AND       TransactionUoM  = I.UoM   
 					<!--- added 12/4/2021 --->   		
-					AND       WorkorderId is not NULL							   		      
+					AND       WorkorderId is NULL							   		      
 				 ) as OnHandAll								 				
 				 				 
 		FROM     vwCustomerRequest T

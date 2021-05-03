@@ -49,11 +49,13 @@ datasource="AppsLedger"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT     H.*, 
-	           P.ActionStatus as AccountStatus
-	FROM       TransactionHeader H, Period P
+	           P.ActionStatus as AccountStatus,
+			   J.SystemJournal
+	FROM       TransactionHeader H 
+	           INNER JOIN Period  P ON H.AccountPeriod = P.AccountPeriod
+			   INNER JOIN Journal J ON J.Journal       = H.Journal
 	WHERE      H.Journal         = '#URL.Journal#' 
-	AND        H.JournalSerialNo = '#URL.JournalSerialNo#' 
-	AND        H.AccountPeriod   = P.AccountPeriod
+	AND        H.JournalSerialNo = '#URL.JournalSerialNo#' 	
 	ORDER BY   H.TransactionDate
 </cfquery>
 
@@ -106,6 +108,12 @@ password="#SESSION.dbpw#">
 <cfoutput>
 
 <script language="JavaScript">
+
+	function SourceView(jou,ser) {	
+		 // try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
+	     ProsisUI.createWindow('source', 'Transaction Source', '',{x:100,y:100,width:900,height:690,resizable:false,modal:true,center:true})		
+		 ptoken.navigate('#SESSION.root#/Gledger/Application/Transaction/Source/SourceView.cfm?journal='+jou+'&journalSerialNo='+ser, 'source');		
+	}
 	
 	function PosSettlement() {	
 		 // try { ColdFusion.Window.destroy('wsettle',true)} catch(e){};
@@ -267,7 +275,6 @@ password="#SESSION.dbpw#">
 <!--- recalculated the balance outstanding of a transaction --->
 <!--- ----------------------------------------------------- --->
 
-
 <cfif Transaction.OrgUnitOwner eq "0">
 
   <cfset label  = "GL Transaction #Transaction.Mission#">
@@ -317,13 +324,15 @@ password="#SESSION.dbpw#">
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT     H.*, 
-		           P.ActionStatus as AccountStatus
-		FROM       TransactionHeader H, Period P
+		           P.ActionStatus as AccountStatus,
+				   J.SystemJournal
+		FROM       TransactionHeader H 
+		           INNER JOIN Period  P ON H.AccountPeriod = P.AccountPeriod
+				   INNER JOIN Journal J ON J.Journal       = H.Journal
 		WHERE      H.Journal         = '#URL.Journal#' 
-		AND        H.JournalSerialNo = '#URL.JournalSerialNo#' 
-		AND        H.AccountPeriod   = P.AccountPeriod
+		AND        H.JournalSerialNo = '#URL.JournalSerialNo#' 	
 		ORDER BY   H.TransactionDate
-	</cfquery>	
+	</cfquery>
 								
 </cfif>
 
@@ -400,13 +409,15 @@ password="#SESSION.dbpw#">
 		
 			<cf_layoutarea  position="center" name="box">
 			
-				<table style="height:100%;width:100%"><tr><td style="padding-left:15px">
+				<table style="height:100%;width:100%">
+				<tr><td style="padding-left:15px">
 				
 			     <cf_divscroll style="height:98%">		 
-					     <cfinclude template="TransactionViewDetail.cfm">	
+					 <cfinclude template="TransactionViewDetail.cfm">	
 				 </cf_divscroll>
 				 
-				 </td></tr></table>
+				 </td></tr>
+				 </table>
 		
 			</cf_layoutarea>	
 						

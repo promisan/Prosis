@@ -131,7 +131,7 @@
 	
 	<table width="100%" height="100%" bgcolor="ffffef" align="center" id="shortlist">
 		 <tr>
-		 <td align="center" class="labelmedium" style="width:100%;height:40px;font-size:20px">No candidates were listed for this recruitment track.</td>
+		 <td align="center" class="labelmedium2" style="width:100%;height:40px;font-size:20px">No candidates were listed for this recruitment track.</td>
 		 </tr>
 	</table>		 
 	
@@ -139,10 +139,7 @@
 		
 	<cfif SearchResult.recordCount neq "0">
 				
-	<table width="100%" 	        			
-			 bgcolor="ffffff" 
-			 align="center" 			 
-			 id="shortlist">			 	
+	<table width="100%"	bgcolor="f4f4f4" align="center" id="shortlist">			 	
 					
 		<cfquery name="Validation" 
 			datasource="AppsOrganization" 
@@ -163,21 +160,21 @@
 		
 	<cfif (RosterParameter.SelectionDaysOverwrite eq "1" and accessOverwrite eq "GRANTED") or Validation.recordcount eq "1" or getAdministrator("*") eq "1">
 		
-		<tr class="line"><td>
+		<tr class="labelmedium2" style="height:35px;background-color:e4e4e4"><td>
 		
 			<cfoutput>
-			<table cellspacing="0" cellpadding="0">
+			<table>
 			    				
 				<cfif Validation.Recordcount eq "1">
 			
-				<tr><td height="20" class="labelmedium" style="padding-left:20px">	
+				<tr class="labelmedium2"><td height="20"  style="padding-left:20px">	
 					<font color="gray">Candidate selection validation is overruled by <b>#Validation.OfficerFirstName# #Validation.OfficerLastName#</b> on #dateformat(Validation.created, CLIENT.DateFormatShow)#</font>
 					</td>
 				</tr>	
 					
 				<cfelse>
 					
-				<tr><td height="20" style="height:25px;padding-left:20px" id="selectionvalidation" class="labelmedium">	
+				<tr class="labelmedium2"><td height="20" style="height:25px;padding-left:20px" id="selectionvalidation">	
 					 <a href="javascript:ptoken.navigate('#session.root#/Vactrack/Application/Document/DocumentCandidateValidation.cfm?documentNo=#url.ajaxid#','selectionvalidation')">					 
 					 Press here</a> to overwrite the candidate selection limitation
 					</td>
@@ -203,8 +200,9 @@
 	</cfquery>
 	
 	<cfif Search.Recordcount gte "1">
-		<tr class="line">
-			<td style="padding-left:20px;padding-top:5px;fon-weight:200" class="labelmedium">The below candidates were shortlisted through the following roster searches: <cfoutput query="Search">
+		
+		<tr class="labelmedium2" style="height:35px;background-color:F8B6F2">
+			<td style="padding-left:20px;padding-top:5px;font-weight:400">The below candidates were shortlisted through the following roster searches: <cfoutput query="Search">
 			<a href="javascript:searchview('#url.ajaxid#','#searchid#')">#searchid# (#OfficerlastName#)</a>
 			<cfif currentrow neq recordcount>,</cfif> </cfoutput></td>
 		</tr>
@@ -212,9 +210,9 @@
 		
 	<tr><td style="width:100%;border:0px solid silver">
 	
-	<table width="96%" align="center" class="formpadding navigation_table">
+	<table width="99%" align="center" class="formpadding navigation_table">
 			
-	    <TR class="labelmedium line">
+	    <TR class="labelmedium2 line">
 	   	  <TD></TD>
 		  <td></td>
 	   	  <TD><cf_tl id="Id"></TD>
@@ -240,7 +238,7 @@
 			 	
 		<cfoutput query="SearchResult">
 			
-		<TR class="labelmedium <cfif currentrow neq recordcount>line</cfif> navigation_row" style="height:20px">
+		<TR class="labelmedium2 <cfif currentrow neq recordcount>line</cfif> navigation_row" style="height:20px">
 		
 		<td width="30" align="center" style="padding-top:4px">
 		
@@ -507,7 +505,7 @@
 		</cfif>
 							
 		<cfif ReviewInitiated gte "1">
-			<tr><td></td><td colspan="10">		   			
+			<tr><td></td><td colspan="11">		   			
 				<cf_DocumentCandidateReview 
 						  Owner    = "#Owner#"	
 				          Color    = "transparent" 
@@ -528,10 +526,11 @@
 		<cfif OtherCandidates.recordcount gte 1>
 						
 		<tr bgcolor="transparent">
+		
 		<td></td>
-		<td colspan="9">
+		<td colspan="11">
 				
-		   <table border="0" style="border:1px dotted silver" cellpadding="0" cellspacing="0" width="99%" align="center">
+		   <table border="0" style="border:1px dotted silver" width="99%" align="center">
 			
 			<cfloop query="OtherCandidates">		
 			
@@ -545,6 +544,7 @@
 	
 				<tr bgcolor="#cel#">
 					<td height="17" class="labelit" style="padding-left:5px">
+					
 						<a href="javascript:showdocument('#DocumentNo#')">
 							
 							<cfif cel eq "FF0000">

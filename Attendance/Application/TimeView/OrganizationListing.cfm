@@ -291,7 +291,7 @@
 							<cfif org.WorkSchema eq "1" and url.presentation eq "month">
 							
 							    <tr>
-								<td><cfdiv bind="url:OrganizationAction.cfm?id0=#url.id0#&year=#url.startyear#&month=#url.startmonth#" id="statusbar"></td>
+								<td><cf_securediv bind="url:OrganizationAction.cfm?id0=#url.id0#&year=#url.startyear#&month=#url.startmonth#" id="statusbar"></td>
 								</tr>
 							
 							</cfif>				

@@ -250,7 +250,7 @@ function more(bx) {
 		  		   
 		   <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Entity">
 		  
-			<table width="95%" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+			<table width="98%" align="center" class="navigation_table">
 											
 			<cfset row = 0>
 			
@@ -260,11 +260,11 @@ function more(bx) {
 
 			<cfoutput query="AccessList" group="EntityCode">
 			
-			<tr>			
-				<td colspan="4" height="26" style="padding-top:6px;padding-bottom:3px">
-					<table cellspacing="0" cellpadding="0">
+			<tr class="fixrow">			
+				<td colspan="4" style="padding-top:6px;padding-bottom:3px">
+					<table>
 					<tr>					
-						<td style="padding-left:1px" class="labelit"></td>
+						<td style="padding-left:1px"></td>
 						<td style="padding-left:4px" class="labellarge">#EntityDescription# (#EntityCode#)</td>				
 					</tr>
 					</table>
@@ -321,8 +321,7 @@ function more(bx) {
 			<cfif show eq "1">			
 									
 				<cfif EntityGroup neq "">
-								
-																		
+																							
 					<tr class="line">
 					<td width="60%" colspan="4">
 					

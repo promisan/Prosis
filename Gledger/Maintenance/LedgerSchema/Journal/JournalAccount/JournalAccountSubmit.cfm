@@ -3,7 +3,7 @@
 
 <cftransaction>
 
-	<cfif url.account eq "">
+	<cfif form.origaccount eq "">
 	
 		<cfquery name="validate" 
 			datasource="AppsLedger" 
@@ -11,7 +11,7 @@
 			password="#SESSION.dbpw#">
 				SELECT 	*
 				FROM	JournalAccount
-				WHERE	Journal = '#url.journal#'
+				WHERE	Journal   = '#url.journal#'
 				AND		GLAccount = '#form.glaccount#'
 		</cfquery>
 		
@@ -22,7 +22,7 @@
 				<cfset vListDefault = 1>
 			</cfif>
 			
-			<cfif vListDefault eq 1>
+			<cfif vListDefault eq 1 and form.mode eq "contra">
 			
 				<cfquery name="updateDefault" 
 					datasource="AppsLedger" 
@@ -39,24 +39,25 @@
 				datasource="AppsLedger" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-					INSERT INTO JournalAccount
-						(
+					INSERT INTO JournalAccount (
 							Journal,
 							GLAccount,
+							<cfif form.mode eq "contra">
 							ListDefault,
+							</cfif>
 							ListOrder,
 							Mode,
 							OfficerUserId,
 							OfficerLastName,
 							OfficerFirstName
-						)
-					VALUES
-						(
+						) VALUES (
 							'#url.journal#',
 							'#form.glaccount#',
 							'#vListDefault#',
 							'#form.ListOrder#',
+							<cfif form.mode eq "contra">
 							'#form.mode#',
+							</cfif>
 							'#session.acc#',
 							'#session.last#',
 							'#session.first#'
@@ -93,19 +94,19 @@
 			password="#SESSION.dbpw#">
 				UPDATE	JournalAccount
 				SET		ListDefault = '#vListDefault#',
-						ListOrder = '#form.ListOrder#',
-						Mode = '#form.mode#'
-				WHERE	Journal = '#url.journal#'
-				AND		GLAccount = '#form.glaccount#'
+						ListOrder   = '#form.ListOrder#',
+						Mode        = '#form.mode#'
+				WHERE	Journal     = '#url.journal#'
+				AND		GLAccount   = '#form.glaccount#'
 		</cfquery>
-	
+					
 	</cfif>
 
 </cftransaction>
 
 <cfif vValid eq 1>
 	<script>
-		opener.glaccount();
+		glaccount();
 	</script>
 <cfelse>
 	<cf_tl id="This account is already associated to this journal." var="1">
@@ -116,8 +117,12 @@
 	</cfoutput>
 </cfif>
 
-<script>
-	window.close();
-</script>
+<cfif form.origaccount neq "">
+
+	<script>
+		ProsisUI.closeWindow('journalaccount')
+	</script>
+
+</cfif>	
 
 

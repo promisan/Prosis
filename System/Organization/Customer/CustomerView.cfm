@@ -7,7 +7,7 @@
 
 <cfsavecontent variable="option">
 	
-	<table width="470" height="100%" cellspacing="0" cellpadding="0" border="0">
+	<table width="470" height="100%">
 									
   	<tr>  	   
 	  
@@ -198,11 +198,7 @@
 	<cf_layoutarea  type="Border" position="center" name="box" overflow="hidden" style="height:100%">
 		
 		<table width="100%" 
-		   height="100%" 
-		   border="0" 
-		   align="center"		 
-		   cellspacing="0" 
-		   cellpadding="0">		
+		   height="100%">		
 		   		   		
 			<cf_menucontainer iframe="detail" item="1" class="regular" 
 					template="CustomerViewTabs.cfm?mission=#url.mission#&dsn=#url.dsn#&systemfunctionid=#url.idmenu#">		
@@ -226,8 +222,3 @@
 </cf_layout>	
 
 </cfoutput>
-
-
-
-
-

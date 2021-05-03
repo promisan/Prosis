@@ -555,6 +555,7 @@
 			 SettlementPhase,
 			 PayrollItem,
 			 Source,
+			 SourceId,
 			 Mission,
 			 PositionParentId,			
 			 PostGradeParent,
@@ -587,6 +588,7 @@
 			   '#SettlementStatus#',			   
 			   PayrollItem,
 			   Source,
+			   SourceId,
 			   '#Form.Mission#',
 			   
 			   <!--- assign LAST positionNo to the settlement record which drives the

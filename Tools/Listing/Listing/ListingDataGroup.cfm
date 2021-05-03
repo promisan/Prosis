@@ -48,15 +48,13 @@ we should not apply this is if the grouping has not changed, this will then save
 
 <cfif url.listcolumn1_type eq "">
 	<cfset url.listcolumn1_type = "period">
-</cfif>
-		
+</cfif>		
 
 <cfif url.listcolumn1 neq "" and url.listcolumn1 neq "summary">
 
 	<cfswitch expression="#url.listcolumn1_type#">
 	
-		<cfcase value="period">
-		
+		<cfcase value="period">		
 	
 	        <!--- we determine the column detail for  presentation : mth, yer, qtr --->
 		 		 
@@ -76,6 +74,27 @@ we should not apply this is if the grouping has not changed, this will then save
 				--->
 						
 			</cfloop>
+			
+			<cfif not isValid("date",getRange.colStart)>
+			
+				<!--- clean --->
+				
+				<cfquery name="clean" 
+				   datasource="AppsSystem" 
+				   username="#SESSION.login#" 
+				   password="#SESSION.dbpw#">
+						DELETE FROM UserModuleCondition
+						WHERE       SystemFunctionId = '#url.systemfunctionid#' 
+						AND         Account = '#session.acc#'			
+				</cfquery>
+								
+				<script>
+				opener.history.go()
+				</script>
+				
+				<cfabort>
+			
+			</cfif>
 			
 			<cfparam name="period" default="month">
 				

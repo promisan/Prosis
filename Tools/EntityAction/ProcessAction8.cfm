@@ -1,6 +1,6 @@
 <head>
 	<cf_textareascript>
-	<cfajaximport tags="cfform,cfwindow,cfinput-autosuggest,cfdiv">
+	<cfajaximport tags="cfform,cfdiv">
 	<cf_ActionListingScript>
 	<cf_FileLibraryScript>
 	<cf_DetailsScript>

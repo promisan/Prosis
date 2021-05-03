@@ -48,6 +48,7 @@
 				<cfdiv id="reportmenu">				
 					<cfinclude template="FormHTMLMenu.cfm">							
 				</cfdiv>
+				
 			</td>			
 		</tr>	
 				
@@ -106,6 +107,7 @@
 							</table>	
 						</td>
 					</tr>
+					
 	
 					<!--- ------------------ --->
 					<!--- 3. Report Info---- --->
@@ -150,6 +152,7 @@
 						</tr>		
 						<tr><td height="0"></td></tr>			
 					</cfif>
+					
 	
 					<!--- ------------------ --->
 					<!--- 5. Data source Info --->
@@ -202,7 +205,8 @@
 			</td>	
 			
 			</cfif>		
-		
+					
+								
 			<td valign="top" width="93%" style="border-left:solid 1px c4c4c4;background-color:##FCFCFC;" height="100%">
 			
 				<cfquery name="Parameter" 
@@ -346,7 +350,7 @@
 				</table>	
 				
 			</td>	
-			
+						
 			<cfif url.context eq "embed">
 			
 			<td width="150" style="padding-left:5px" height="100%" align="center" valign="top">	

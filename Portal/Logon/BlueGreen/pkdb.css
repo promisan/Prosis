@@ -709,11 +709,11 @@ TR.highLight {
     background: #FFFFFF;
 }
 TR.highLight1 {
-	background-color:EEE8AA;
+	background-color:d1d1d1;
 	color:#000;
 }
 TR.highLight2 {
-	background-color:2DBBFF;
+	background-color:FFC891;
 	color:#000;
 }
 TR.highLight3 {
@@ -883,7 +883,8 @@ td.highlight {
 }
 td.highlight1, TD.highLight3 {
 	background-color:#e2e9f0;
-	border:0px solid silver;
+	border:0 solid silver;
+	color:#000;
 }
 td.normal {
 	color:0;

@@ -101,6 +101,16 @@ password="#SESSION.dbpw#">
 	WHERE  GLAccount = '#entryglaccount#' 
 </cfquery>		
 
+<cfquery name="JournalAccount"
+datasource="AppsLedger" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *	
+	FROM   JournalAccount JA INNER JOIN Accounting.dbo.Ref_Account R ON JA.GLAccount = R.GLAccount
+	WHERE  Mode    = 'Standard' 
+	AND    Journal = '#url.Journal#'	
+</cfquery>	
+
 <cfparam name="URL.entrygldescription"  default="#Acc.Description#">
 <cfparam name="URL.entryDebitCredit"    default="#Acc.Accounttype#">
 <cfparam name="URL.currency"            default="#journ.Currency#"> 
@@ -151,8 +161,6 @@ password="#SESSION.dbpw#">
 	FROM   Ref_Speedtype
 	WHERE  Speedtype = '#journ.speedtype#'
 </cfquery>	
-
-
 
 <cfif Speedtype.recordcount eq "0">
 
@@ -237,74 +245,76 @@ password="#SESSION.dbpw#">
 			  
 			   
 	        </tr>			
-			
-			
-			
+						
 	        <tr name="glaccountline" id="glaccountline" class="regular">	
 			
-			<td class="labelmedium2">
+			<td class="labelmedium2"><cf_tl id="Account">:</td>						        
 			
-				<table style="width:100%">
-				<tr>
-				  <td class="labelmedium2"><cf_tl id="Account">:</td>				 		
-				</tr>
-				</table>
-						
-			</td>
-	        
-			 <td align="left">	
+			<td align="left">	
 					  
 			   <cfoutput>	
 			   
 			    <cfif presetGLAccount eq "">
 				
-				   <table>
-				   <tr>
-				   
-				    <td align="center" style="padding-right:5px;border:1px solid silver">	
-				 
-				         <cfoutput>				   
-					  				   				   	  
-				  		 <img src="#SESSION.root#/Images/search.png" name="img3" 
-							  onMouseOver="document.img3.src='#SESSION.root#/Images/search1.png'" 
-							  onMouseOut="document.img3.src='#SESSION.root#/Images/search.png'"
-							  style="padding-left:5px;cursor: pointer" width="25" height="25" align="absmiddle" 
-							  onClick="selectaccountgl('#URL.mission#','parent','#accountparentMode#','#url.journal#','applyaccount');">
-			  			
-						</cfoutput>
-								  
-				  </td>		
-				  
-				  <td style="border:1px solid silver">	
-				  
-					    <table>
-						<tr>
-					   												
-						<cfquery name="getGL" 
-							datasource="AppsLedger" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
-							    SELECT *
-								FROM   Ref_Account
-								WHERE  GLAccount = '#entryglaccount#'
-						</cfquery>
-				  		
-						<td><input type="text"   name="entrygldescription" id="entrygldescription" value="#URL.entrygldescription#"  class="regularxxl enterastab" style="border:0px;width:400px;background-color:f1f1f1" readonly ></td>	
-						<td style="padding-left:1px;border-left:1px solid silver">
-							<input type="text"   name="entrygllabel"       id="entrygllabel"       value="#getGL.AccountLabel#"      class="regularxxl enterastab" readonly style="border:0px;text-align: left;background-color:f1f1f1">
-							<input type="hidden" name="entryglaccount"     id="entryglaccount"     value="#entryglaccount#"          class="regularxxl enterastab" readonly>
-						
-						</td>
-						
-						</tr>
-						</table>
+					<cfif JournalAccount.recordcount gt "0">
+										
+						<select name="entryglaccount" style="width:350px" class="regularxxl">
+						<cfloop query="JournalAccount">
+							<option value="#glaccount#">#accountlabel# #description#</option>					
+						</cfloop>					
+						</select>						
 					
-					</td>
-					
-					
-				   </tr>
-				   
-				   </table>
+					<cfelse>				
+				
+					   <table>
+					   
+						   <tr>
+						   
+						    <td align="center" style="padding-right:5px;border:1px solid silver">	
+						 
+						         <cfoutput>				   
+							  				   				   	  
+						  		 <img src="#SESSION.root#/Images/search.png" name="img3" 
+									  onMouseOver="document.img3.src='#SESSION.root#/Images/search1.png'" 
+									  onMouseOut="document.img3.src='#SESSION.root#/Images/search.png'"
+									  style="padding-left:5px;cursor: pointer" width="25" height="25" align="absmiddle" 
+									  onClick="selectaccountgl('#URL.mission#','parent','#accountparentMode#','#url.journal#','applyaccount');">
+					  			
+								</cfoutput>
+										  
+						    </td>		
+						  
+						    <td style="border:1px solid silver">	
+						  
+							    <table>
+								<tr>
+							   												
+								<cfquery name="getGL" 
+									datasource="AppsLedger" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+									    SELECT *
+										FROM   Ref_Account
+										WHERE  GLAccount = '#entryglaccount#'
+								</cfquery>
+						  		
+								<td><input type="text"   name="entrygldescription" id="entrygldescription" value="#URL.entrygldescription#"  class="regularxxl enterastab" style="border:0px;width:400px;background-color:f1f1f1" readonly ></td>	
+								<td style="padding-left:1px;border-left:1px solid silver">
+									<input type="text"   name="entrygllabel"       id="entrygllabel"       value="#getGL.AccountLabel#"      class="regularxxl enterastab" readonly style="border:0px;text-align: left;background-color:f1f1f1">
+									<input type="hidden" name="entryglaccount"     id="entryglaccount"     value="#entryglaccount#"          class="regularxxl enterastab" readonly>
+								
+								</td>
+								
+								</tr>
+								</table>
+							
+							</td>
+												
+						   </tr>
+					   
+					   </table>
+					   
+					</cfif>   
 			   
 			   <cfelse>
 			   

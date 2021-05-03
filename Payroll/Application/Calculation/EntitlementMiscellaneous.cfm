@@ -72,6 +72,7 @@ to be processed earlier (affecting the exchange rate) we clean it
 			   Cost.EntitlementClass, 
 			   Cost.Status, 
 			   Cost.Source,
+			   Cost.SourceId,
 			   Pay.Line,
 			   R.Source as PayrollItemSource, <!--- added by Hanno to handle correctly 3rd party payment corrections --->
 			   R.PayrollItem, 
@@ -133,6 +134,7 @@ to be processed earlier (affecting the exchange rate) we clean it
 				   Cost.EntitlementClass, 
 				   Cost.Status, 
 				   Cost.Source,
+				   Cost.SourceId,
 				   '1' as Line,
 				   R.Source as PayrollItemSource, <!--- added by Hanno to handle correctly 3rd party payment corrections --->
 				   R.PayrollItem, 
@@ -308,6 +310,7 @@ password="#SESSION.dbpw#">
 	       Reference, 
 		   ReferenceId, 
 		   Source,
+		   SourceId,
 		   CalculationSource,
 		   OfficerUserId, 
 		   OfficerLastName, 
@@ -336,6 +339,7 @@ password="#SESSION.dbpw#">
 		   (CASE 
 		       WHEN Source = 'SUN'    THEN 'Offset' 
 			   WHEN Source = 'Ledger' THEN 'Offset' ELSE 'Internal' END) as Source,
+		   SourceId,	   
 		   'Miscellaneous',
 		   '#SESSION.acc#', 
 		   '#SESSION.last#', 
@@ -351,3 +355,25 @@ password="#SESSION.dbpw#">
 				   AND   PayrollStart   = P.DatePayroll )				  
 	
 </cfquery>
+
+<!--- -------------------------------------------------------------------------------------------- --->
+<!--- if this is an offset we ALSO post the personal offset against the transaction of the advance 
+
+hereto we loop through the advance transaction and book a debit offset for the same account as was
+taken for the master transaction account
+
+--->
+<!--- -------------------------------------------------------------------------------------------- 
+
+SELECT        H.Journal, H.JournalSerialNo, L.GLAccount
+FROM            TransactionHeader AS H INNER JOIN
+                         TransactionLine AS L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo
+WHERE        (H.TransactionId = 'f2b96247-a24b-4d97-8fe4-6232828d4a54') AND (L.TransactionSerialNo = '1')
+
+--->
+
+
+
+
+
+

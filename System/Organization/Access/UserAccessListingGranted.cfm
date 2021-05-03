@@ -12,18 +12,18 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
-<tr><td height="20" colspan="4" class="labelmedium"><b>Access granted to this user by the following administrators:</b></td></tr>		
-<tr class="labelit linedotted">
-   <td class="labelheader">Account</td>
-   <td class="labelheader">Name</td>
-   <td class="labelheader">Last Entry</td>
-   <td class="labelheader">No of Entries</td>
+<tr><td height="20" colspan="4" class="labelmedium2" style="height:40px;padding-left:3px;font-size:21px">Access granted to this user by the following administrators:</b></td></tr>		
+<tr class="labelmedium2 line">
+   <td>Account</td>
+   <td>Name</td>
+   <td>Last Entry</td>
+   <td>No of Entries</td>
    <td></td>
 </tr>
 
 <cfoutput query="Granted">
-<tr class="labelmedium linedotted navigation_row">
-   <td>#OfficerUserId#</td>
+<tr class="labelmedium2 linedotted navigation_row">
+   <td style="padding-left:3px">#OfficerUserId#</td>
    <td>#OfficerFirstName# #OfficerLastName#</td>
    <td>#dateformat(last,CLIENT.DateFormatShow)#</td>
    <td>#entries#</td>
@@ -33,4 +33,5 @@ password="#SESSION.dbpw#">
 </cfoutput>	
 </table>
 	
+<cfset ajaxonload("doHighlight")>	
 	

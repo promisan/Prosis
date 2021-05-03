@@ -5,12 +5,12 @@
 	
 <cfsavecontent variable="header">
 	
-	<table cellspacing="0" width="100%" cellpadding="0" class="formpadding">
+	<table cellspacing="0" width="100%">
 	
 	<tr>
 	
-	 	 <cfset ht = "64">
-		 <cfset wd = "64">
+	 	 <cfset ht = "54">
+		 <cfset wd = "54">
   
 		  <cf_menutab item  = "1" 
 		      iconsrc    = "Logos/System/Activity.png" 
@@ -54,13 +54,13 @@
 	
 </cfsavecontent>	
 
-<table width="100%" height="99%" border="0" cellspacing="0" align="center">
+<table width="100%" height="99%" align="center">
 	
 <tr>
 
     <td valign="top" colspan="7">
 	
-		<table width="98%" height="100%" cellspacing="0" cellpadding="0" align="center">		
+		<table width="98%" height="100%" align="center">		
 			<tr><td height="28">#header#</td></tr>
 			<tr><td height="1" class="line"></td></tr>	
 			<tr><td height="100%">

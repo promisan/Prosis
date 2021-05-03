@@ -142,7 +142,7 @@
 									
 					<table style="width:100%;height:100%">
 																						
-					<cfif Action eq "1" and (EntityAccess eq "EDIT" OR EntityAccess eq "READ")>
+					<cfif Action eq "1" and (EntityAccess eq "EDIT" OR EntityAccess eq "READ" OR EntityAccess eq "ALL")>
 					
 					 <cfset vSquareStyle     = "padding:0px 0 0;border-radius:8px 0 0 8px;max-width:100%">		  
 										
@@ -204,7 +204,7 @@
 									
 								 <cfelse>
 								  				
-									 <cfif object_op is 1 and Action eq "1" and (EntityAccess eq "EDIT" or EntityAccess eq "READ")>	 		
+									 <cfif object_op is 1 and Action eq "1" and (EntityAccess eq "EDIT" or EntityAccess eq "READ" OR EntityAccess eq "ALL")>	 		
 									 
 									   <cfif Dialog.DocumentMode eq "Popup" and Object_op eq 1>	
 									   									 						
@@ -220,7 +220,7 @@
 												
 												<cfif attributes.hideprocess eq "0" and actionTrigger eq "" and showaction is 1>		
 												    <cfif Dialog.DocumentMode eq "Popup" and DisableStandardDialog eq "1" >				
-													   <cfif EntityAccess eq "EDIT">
+													   <cfif EntityAccess eq "EDIT" OR EntityAccess eq "ALL">
 														  <a href="javascript:#Dialog.DocumentTemplate#('#ActionCode#','#ActionId#','#url.ajaxid#')"><font color="FFFFFF">#ActionDescription#</a>
 														</cfif>   															
 													<cfelse>				

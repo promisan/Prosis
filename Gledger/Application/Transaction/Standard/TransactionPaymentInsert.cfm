@@ -88,9 +88,11 @@ password="#SESSION.dbpw#">
 					J.Currency, 
 					C.ExchangeRate
 			 FROM   TransactionHeader P 
-	                INNER JOIN TransactionLine L ON P.Journal = L.Journal AND P.JournalSerialNo = L.JournalSerialNo AND TransactionSerialNo = 0 
-			        INNER JOIN Ref_Account A ON L.GlAccount  = A.GlAccount
-	                INNER JOIN Journal J     ON P.Journal    = J.Journal 	
+	                INNER JOIN TransactionLine L ON P.Journal             = L.Journal 
+					                            AND P.JournalSerialNo     = L.JournalSerialNo 
+										        AND L.TransactionSerialNo = 0 
+			        INNER JOIN Ref_Account A     ON L.GlAccount  = A.GlAccount
+	                INNER JOIN Journal J         ON P.Journal    = J.Journal 	
 			        INNER JOIN Currency C        ON J.Currency     = C.Currency							
 			 WHERE 	P.AmountOutstanding > 0
 			 AND    A.AccountClass     = 'Balance' 
@@ -105,49 +107,49 @@ password="#SESSION.dbpw#">
 		<!--- offset advances --->
 		<!--- --------------- --->
 		
-		<cfif ReferenceId neq "" or ReferenceNo neq "">
+		<cfif ReferenceId neq "" or TransactionSourceNo neq "">
 				
-		    <!--- determine if we have an advance recorded for this PO order based on the invoice->PO association  
-			                                or 
-			new : based on the entry in the system journal advance with the same reference --->
+		    <!--- Obtain advances :
+			      check advance based on the entry in the system journal advance with the same reference 
+			                       or
+				  determine if we have an advance recorded for this PO order based on the invoice->PO association  				   
+			 --->
 										
 			<cfquery name="Advance" 
 			datasource="AppsLedger" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			
+						
 				<!--- 1/2 look for advance related to the ReferenceNo of the invoice of the accounting module --->
 			
-				SELECT   TL.TransactionCurrency, TL.Currency, TL.Reference, TH.ReferenceNo, TL.GLAccount, 
+				SELECT   TL.TransactionCurrency, TL.Currency, TL.Reference, TH.TransactionSourceNo, TL.GLAccount, 
 				         AmountDebit * TL.ExchangeRate AS Advance
 				FROM     TransactionHeader AS TH INNER JOIN
                          TransactionLine AS TL ON TH.Journal = TL.Journal AND TH.JournalSerialNo = TL.JournalSerialNo
-				WHERE    TH.ReferenceNo = '#ReferenceNo#' <!--- linking PIN from Invoice to the advance --->
-				AND      TH.Journal IN (SELECT   Journal
-                                        FROM     Journal
-                                        WHERE    SystemJournal = 'Advance' 
-										AND      Mission = '#mission#') 
+				<!--- linking PIN from real Invoice to the advance a source entry--->		 
+				WHERE    TH.TransactionSource   = 'AccountSeries'
+				AND      TH.TransactionSourceNo = '#TransactionSourceNo#' <!--- linking PIN from real Invoice to the advance --->
+				AND      TH.Journal IN (SELECT Journal FROM Journal WHERE SystemJournal = 'Advance' AND Mission = '#mission#') 
 				AND      TL.TransactionSerialNo != '0'
 				AND      TH.Journal != '#Journal#'
 				AND      ParentLineId is NULL		
 								
 				<cfif referenceId neq "">
 				
-				<!--- 2/2 look for advance related to the PO of the invoice PO module --->
+				<!--- 2/2 look for advance related to any of the 1..n POs of the invoice recorded  --->
 				
 				UNION
 				
-				SELECT   TL.TransactionCurrency, TL.Currency,  TL.Reference, TL.ReferenceNo, TL.GLAccount,
+				SELECT   TL.TransactionCurrency, TL.Currency,  TL.Reference, TH.TransactionSourceNo, TL.GLAccount,
 				         AmountDebit * TL.ExchangeRate AS Advance
 				FROM     TransactionHeader AS TH INNER JOIN
                          TransactionLine AS TL ON TH.Journal = TL.Journal AND TH.JournalSerialNo = TL.JournalSerialNo
-				WHERE    TL.ReferenceNo IN ( SELECT    IP.PurchaseNo
-										     FROM      Purchase.dbo.InvoicePurchase IP 
-										     WHERE     IP.InvoiceId = '#ReferenceId#' )	
-				AND      TH.Journal IN (SELECT   Journal
-                                        FROM     Journal
-                                        WHERE    SystemJournal = 'Advance' 
-										AND      Mission      = '#mission#') 						  		 
+				<!--- an invoice can relate to different PO's each with its own advance issue --->		 
+				WHERE    TH.TransactionSource = 'PurchaseSeries'
+				AND      TH.TransactionSourceNo IN ( SELECT    IP.PurchaseNo
+										             FROM      Purchase.dbo.InvoicePurchase IP 
+										             WHERE     IP.InvoiceId = '#ReferenceId#' )	<!--- referenceId refers to the invoice can also be : TransactionSourceId --->
+				AND      TH.Journal IN ( SELECT Journal FROM Journal WHERE SystemJournal = 'Advance' AND Mission = '#mission#' ) 						  		 
 				AND      TransactionSerialNo != '0'						
 				AND      ParentLineId is NULL		
 												
@@ -155,19 +157,19 @@ password="#SESSION.dbpw#">
 								
 			</cfquery>
 			
-			<!--- we sum if there are several advances for this Reference or PO --->
+			<!--- SUM the total of the advances --->
 			
 			<cfquery name="Advance" dbtype="query">
 						
-				SELECT   TransactionCurrency, Currency, Reference, ReferenceNo, GLAccount, SUM(Advance) as Advance
+				SELECT   TransactionCurrency, Currency, Reference, TransactionSourceNo, GLAccount, SUM(Advance) as Advance
 				FROM     Advance
-				GROUP BY TransactionCurrency, Currency, Reference, ReferenceNo, GLAccount
+				GROUP BY TransactionCurrency, Currency, Reference, TransactionSourceNo, GLAccount
 			
 			</cfquery>
 			
 			<cfif Advance.recordcount gte "1">
 													
-			    <!--- determine how much was already consumed for the found advance for the object (ReferenceNo) --->
+			    <!--- determine how much was consumed for the found advance for the object (ReferenceNo) --->
 						
 				<cfquery name="Offsetted" 
 					    datasource="AppsLedger" 
@@ -175,17 +177,18 @@ password="#SESSION.dbpw#">
 					    password="#SESSION.dbpw#">						
 					    SELECT SUM(AmountCredit*ExchangeRate) as Total 
 						FROM   TransactionLine
-						WHERE  ReferenceNo = '#Advance.ReferenceNo#'							
+						WHERE  ReferenceNo = '#Advance.TransactionSourceNo#'							
 						AND    GLAccount   = '#Advance.GLAccount#'		
 						AND    Journal IN (SELECT   Journal
                                            FROM     Journal
                                            WHERE    Mission      = '#mission#') 				
 						AND    ParentJournal         is not NULL
-						AND    ParentJournalSerialNo is not NULL																									
+						AND    ParentJournalSerialNo is not NULL	
+																													
 						<!--- this is the transaction base --->
 						
-				</cfquery>   
-												
+				</cfquery>  
+																								
 				<cfset val = 0>
 				
 				<cfif Offsetted.Total neq "">
@@ -200,7 +203,7 @@ password="#SESSION.dbpw#">
 					    password="#SESSION.dbpw#">						
 					    SELECT SUM(AmountCredit*ExchangeRate) as Total 
 						FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
-						WHERE  ReferenceNo        = '#Advance.ReferenceNo#'	
+						WHERE  ReferenceNo        = '#Advance.TransactionSourceNo#'	
 						AND    GLAccount          = '#Advance.GLAccount#'							
 						AND    ParentJournal         is not NULL
 						AND    ParentJournalSerialNo is not NULL												
@@ -310,7 +313,7 @@ password="#SESSION.dbpw#">
 					datasource="AppsQuery" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-										
+															
 						INSERT INTO dbo.#SESSION.acc#GledgerLine_#client.sessionNo#_#session.mytransaction# 
 						   (Journal,
 						   JournalSerialNo,
@@ -338,7 +341,8 @@ password="#SESSION.dbpw#">
 						   ExchangeRateBase,
 						   AmountBaseDebit,
 						   AmountBaseCredit,
-						   TransactionTaxCode,Created)
+						   TransactionTaxCode,
+						   Created)
 						VALUES 
 						   ('#URL.Journal#',
 						   '#serNo#',
@@ -348,14 +352,14 @@ password="#SESSION.dbpw#">
 						        16/9/2016 reverted by Hanno with issue for CICIG mode --->
 						   '#TransactionId#', 
 						   #tradte#,
-						   '#Advance.GLAccount#',
+						   '#Advance.GLAccount#',            <!--- offset against the same account --->
 						   '0',
 						   'Payment Order',
 						   '#URL.AccountPeriod#', 
 						   'Offset Advance',
-						   '#Advance.reference#',
 						   'Offset Advance',
-						   '#Advance.referenceno#',
+						   'Offset Advance',
+						   '#Advance.TransactionSourceNo#',   <!--- line reference to the source --->
 						   '#Journal#', 
 						   '#JournalSerialNo#',  
 						   '#TransactionId#', 			
@@ -433,8 +437,7 @@ password="#SESSION.dbpw#">
 		   <cfset bexc  = exc>
 		
 		</cfif>		
-		
-						
+								
 		<cfif AccountType eq "Debit">  <!--- this is now a reverse teneinde de correctie te maken !! --->
 		
 			  <cfset debit       = amt>
@@ -452,7 +455,6 @@ password="#SESSION.dbpw#">
 			  <cfset accounttype = "Credit"> 
 			  			 
 		</cfif>		
-		
 												
 		<cfif payment gt "0">	
 							
@@ -500,7 +502,7 @@ password="#SESSION.dbpw#">
 					   'Payment Order',
 					   '#URL.AccountPeriod#',
 					   'Invoice Payment',
-					   '#reference#',
+					   'Invoice Payment',
 					   '#referencename#',
 					   '#referenceno#',
 					   '#Journal#', 

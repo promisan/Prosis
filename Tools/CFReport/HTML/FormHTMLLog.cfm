@@ -25,8 +25,6 @@
 						 			 		
 	</cfsavecontent>
 	
-	
-	
 	<cfset fields=ArrayNew(1)>
 	
 	<cfset fields[1] = {label      = "Date",    					
@@ -65,8 +63,7 @@
 	<cfelse>
 		 <cfset show = 25> 
 	</cfif>		
-									
-												
+													
 	<cf_listing
 	    header        = "lsReport"		
 	    box           = "lsReport"

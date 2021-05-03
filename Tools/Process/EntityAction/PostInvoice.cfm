@@ -511,6 +511,7 @@ refer to line 710
 					JournalTransactionNo  = "#Issued.PurchaseNo#"
 					Description           = "#Invoice.InvoiceNo# #Invoice.Description#"
 					TransactionSource     = "PurchaseSeries"
+					TransactionSourceId   = "#Invoice.InvoiceId#"
 					AccountPeriod         = "#accperiod#"
 					TransactionCategory   = "Payables"
 					MatchingRequired      = "1"

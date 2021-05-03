@@ -1,6 +1,5 @@
 
-<cfform action="ContractEditSubmit.cfm?action=#url.action#" 
-		       method="POST" name="ContractEntry" onSubmit="#onsub#" style="width:100%">
+<cfform action="ContractEditSubmit.cfm?action=#url.action#" method="POST" name="ContractEntry" onSubmit="#onsub#" style="width:100%">
 		
 	<table width="99%" align="center" class="formpadding">
 	
@@ -19,11 +18,10 @@
 	<tr class="hide"><td id="process"></td></tr>
 			
 	<tr><td valign="top">
-	
+		
 		<table width="100%" border="0" align="center">
 				  
-		  <!--- embedded form ---> 
-		 
+		  <!--- embedded form ---> 		 
 		  
 		  <cfinclude template="ContractEditForm.cfm">
 		  
@@ -42,7 +40,7 @@
 					
 		  </script>
 		  </cfoutput>
-		        	
+		  
 		  <cfif contractsel.mission neq "">
 			
 				<cfquery name="Check" 
@@ -52,8 +50,7 @@
 					SELECT *
 					FROM   OrganizationObject
 					WHERE  ObjectId   = '#url.id1#'
-					AND    EntityCode = 'VacCandidate'  
-					
+					AND    EntityCode = 'VacCandidate'  					
 				</cfquery>
 				
 				<cfif check.recordcount eq "1">
@@ -62,9 +59,7 @@
 				<!--- ------workflow comes from A recruitment track ------ --->
 				<!--- ----------THIS IS NOT RELEVANT ANYMORE-------------- --->
 				
-				<tr>
-				<td colspan="2">
-										
+																		
 					<cf_actionListingScript>
 					<cf_FileLibraryScript>
 					
@@ -93,7 +88,7 @@
 							  	   	
 					<tr><td colspan="12" align="center">
 					
-						<cfdiv id="mybox#getcandidate.Personno#" 
+						<cf_securediv id="mybox#getcandidate.Personno#" 
 						    bind="url:#SESSION.root#/Vactrack/Application/Candidate/CandidateWorkflow.cfm?id=#check.objectkeyvalue1#&id1=#check.objectkeyvalue2#&ajaxid=mybox#getcandidate.Personno#"/>   
 								
 					</td></tr> 
@@ -102,23 +97,20 @@
 									
 					<script>
 					
-					function arrival() {		   
-						try { ColdFusion.Window.destroy('myarrival',true) } catch(e) {}
-						ColdFusion.Window.create('myarrival', 'On boarding', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-40,modal:false,resizable:false,center:true})    					
-						ColdFusion.navigate('#SESSION.root#/Staffing/Application/Position/Lookup/PositionTrack.cfm?Source=vac&mission=#check.Mission#&mandateno=0000&applicantno=#check.objectkeyvalue2#&personno=#url.id#&recordid=#check.objectkeyvalue1#&documentno=#check.objectkeyvalue1#','myarrival') 	
+					function arrival() {		   						
+						ProsisUI.createWindow('myarrival', 'On boarding', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-40,modal:false,resizable:false,center:true})    					
+						ptoken.navigate('#SESSION.root#/Staffing/Application/Position/Lookup/PositionTrack.cfm?Source=vac&mission=#check.Mission#&mandateno=0000&applicantno=#check.objectkeyvalue2#&personno=#url.id#&recordid=#check.objectkeyvalue1#&documentno=#check.objectkeyvalue1#','myarrival') 	
 					}
 										
 					function arrivalrefresh() {	
-					    ColdFusion.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateWorkflow.cfm?id=#check.objectkeyvalue1#&id1=#check.objectkeyvalue2#&ajaxid=mybox#getcandidate.Personno#','mybox#getcandidate.Personno#') 	
+					    ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/CandidateWorkflow.cfm?id=#check.objectkeyvalue1#&id1=#check.objectkeyvalue2#&ajaxid=mybox#getcandidate.Personno#','mybox#getcandidate.Personno#') 	
 					}								
 									
 					</script>
 					
 					</cfoutput>
 						
-				</td>
-				</tr>
-				   	
+								   	
 			   <cfelseif check.recordcount eq "0">
 			   	   
 			   	    <!--- verify if regular workflow is enabled --->
@@ -171,10 +163,9 @@
 					      <!--- workflow is disabled for this mission and as such will not be shown --->
 					  
 					  <cfelse>
-					  
+					  					  
 					   <!--- no a loaded contract and 
-						             then only for pending contract the workflow is shown / triggered --->
-									 
+						             then only for pending contract the workflow is shown / triggered --->									 
 												
 				        <cfif ContractSel.HistoricContract eq "0" and 
 						    (ContractSel.actionStatus eq "0" or 
@@ -183,10 +174,7 @@
 							(url.action eq "1" and wfExist eq "1"))>		
 														  
 					  	  <!--- show workflow --->
-							   	
-							<tr>
-							<td colspan="2">
-							
+							 														
 								<cfquery name="Person" 
 								datasource="AppsEmployee" 
 								username="#SESSION.login#" 
@@ -211,17 +199,14 @@
 										
 									<tr>
 									
-										<td colspan="14" style="padding-left:16px;padding-right:35px">										
-											<cfdiv id="#pk#"  bind="url:EmployeeContractWorkflow.cfm?ajaxid=#pk#"/>																						
+										<td colspan="1" style="padding-left:16px;padding-right:35px">																				
+											<cf_securediv id="#pk#"  bind="url:EmployeeContractWorkflow.cfm?ajaxid=#pk#"/>																						
 										</td>
 									
 									</tr>	
 														
 								</cfoutput>							
-									
-							 </td>
-							</tr>
-							
+														
 						</cfif>	
 						
 					</cfif>	

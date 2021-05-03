@@ -12,7 +12,6 @@
 
 --->
 
-
 <cfparam name="url.ser" default="">
 <cfparam name="url.id"  default="">
 
@@ -39,8 +38,6 @@
 		FROM    Ref_Attachment 	
 		WHERE   DocumentPathName = '#Att.DocumentPathName#' 
 </cfquery>
-
-
 
 <cfset o = Render()>	
 
@@ -186,8 +183,8 @@
 							
 							open within the context of the application --->
 							
-							<cfset CLIENT.sd = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\">
-							<cfset CLIENT.sf = "#att.fileName#">
+							<cfset session.sd = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\">
+							<cfset session.sf = "#att.fileName#">
 							
 							<cfif LCase(ListLast(att.fileName, ".")) eq "pdf" or LCase(ListLast(att.fileName, ".")) eq "png">
 							
@@ -209,7 +206,7 @@
 							<cfelse>
 							
 							<tr>
-							<td align="center" colspan="2" valign="middle" class="labelmedium" style="height:100%;font-size:25px">Please find below the file you requested</td>
+							<td align="center" colspan="2" valign="middle" class="labelmedium" style="height:100%;font-size:25px">Please wait for the request file to be loaded and then click <u>[Open file]</u></td>
 							</tr>
 																					
 							<tr><td style="height:80px">	
@@ -242,8 +239,8 @@
 		
 			<tr><td colspan="2" height="100%" valign="middle" align="center" style="padding:2px">	
 			   						
-				<cfset CLIENT.sd = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\">
-				<cfset CLIENT.sf = "#att.fileName#">
+				<cfset session.sd = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\">
+				<cfset session.sf = "#att.fileName#">
 			
 				<iframe src ="FileRender.cfm?mid=#url.mid#"
 						name="ifWorkspace"

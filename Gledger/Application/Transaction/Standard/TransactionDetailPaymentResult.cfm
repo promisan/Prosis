@@ -26,8 +26,6 @@ password="#SESSION.dbpw#">
 <!--- Select pending payables --->
 <!--- ----------------------- --->
 
-
-
 <cfquery name="SearchResult"
 	datasource="AppsLedger" 
 	username="#SESSION.login#" 
@@ -73,11 +71,11 @@ password="#SESSION.dbpw#">
 		 
 </cfquery>
 
-<table width="100%" class="formpadding">
+<table width="100%">
 
 	<tr><td id="lineentry">
 	
-	<table width="100%" align="center" class="formpadding navigation_table">
+	<table width="100%" align="center">
 	
 	<cfif Searchresult.recordcount eq "0">
 	 
@@ -97,7 +95,7 @@ password="#SESSION.dbpw#">
 	
 	<td colspan="3">
 			
-		<table width="100%" align="center" border="0" class="navigation_table">
+		<table width="100%" align="center" class="navigation_table">
 						
 		<tr class="line labelmedium2 fixrow">
 		    <TD style="min-width:30px"></TD>
@@ -113,8 +111,8 @@ password="#SESSION.dbpw#">
 			
 		    <TD style="min-width:40px"><cf_tl id="Curr"></TD>
 			<td style="min-width:100px"><cf_tl id="Payment"></td>
-			<td style="min-width:100px;padding-right:3px" align="right"><cf_tl id="Pending"></td>
-			<td style="min-width:100px;padding-right:3px" align="right"><cf_tl id="Discounted"></td>
+			<td style="min-width:100px;padding-right:4px" align="right"><cf_tl id="Pending"></td>
+			<td style="min-width:100px;padding-right:4px" align="right"><cf_tl id="Discounted"></td>
 		</TR>
 		
 		<cfif searchresult.recordcount eq "0">
@@ -130,13 +128,11 @@ password="#SESSION.dbpw#">
 			<tr class="line fixrow2">
 			<td height="34" colspan="10" align="center">		
 						
-				<table width="100%">
-				
+				<table width="100%">				
 				  <tr style="background-color:e6e6e6">
 				   <td style="padding-left:10px"></td>
 				   <td align="right" id="total" style="padding-right:2px" class="labelmedium2"></td>					   
-				  </tr>
-				   
+				  </tr>				   
 			   </table>
 					   
 			</td>
@@ -174,29 +170,28 @@ password="#SESSION.dbpw#">
 		   
 		    <cfif url.id1 eq "ReferenceName">
 	   
-	   		<cfquery name="Total" dbtype="query">
-				SELECT    ReferenceOrgUnit,
-				          Currency,
-				          SUM(AmountOutstanding) as Amount,
-				          SUM((1-ApplyDiscount)*AmountOutstanding) as AmountDiscounted
-				FROM      SearchResult
-				WHERE     #URL.ID1# = '#val#'
-				GROUP BY  Currency, 
-				          ReferenceOrgUnit
-			</cfquery>
-			
-			<cfelse>
-			
-			<cfquery name="Total" dbtype="query">
-				SELECT    Currency,
-				          SUM(AmountOutstanding) as Amount,
-				          SUM((1-ApplyDiscount)*AmountOutstanding) as AmountDiscounted
-				FROM      SearchResult
-				WHERE     #URL.ID1# = '#val#'
-				GROUP BY  Currency
-			</cfquery>
-			
-			
+		   		<cfquery name="Total" dbtype="query">
+					SELECT    ReferenceOrgUnit,
+					          Currency,
+					          SUM(AmountOutstanding) as Amount,
+					          SUM((1-ApplyDiscount)*AmountOutstanding) as AmountDiscounted
+					FROM      SearchResult
+					WHERE     #URL.ID1# = '#val#'
+					GROUP BY  Currency, 
+					          ReferenceOrgUnit
+				</cfquery>
+				
+				<cfelse>
+				
+				<cfquery name="Total" dbtype="query">
+					SELECT    Currency,
+					          SUM(AmountOutstanding) as Amount,
+					          SUM((1-ApplyDiscount)*AmountOutstanding) as AmountDiscounted
+					FROM      SearchResult
+					WHERE     #URL.ID1# = '#val#'
+					GROUP BY  Currency
+				</cfquery>
+						
 			</cfif>
 				
 			<cfloop query="Total">
@@ -344,9 +339,7 @@ password="#SESSION.dbpw#">
 			<cfset vGroupId = vGroupId + 1>
 				   
 		</CFOUTPUT>
-		  
-		
-		
+				
 		</TABLE>
 	
 	</td>

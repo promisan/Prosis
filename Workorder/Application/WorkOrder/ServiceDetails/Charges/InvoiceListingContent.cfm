@@ -15,6 +15,9 @@
 	<!--- pass the result to the script --->
 	<cfsavecontent variable="myquery">
 	
+	    SELECT * --,TransactionDate
+		FROM (
+	
 		SELECT  TH.Journal, 
 		        TH.JournalSerialNo, 
 				TH.JournalTransactionNo, 
@@ -39,6 +42,7 @@
 				ServiceItem AS S ON W.ServiceItem = S.Code
         WHERE   C.Customerid = '#url.customerid#'
 		AND     TH.DocumentAmount <> 0
+		) as W
 
 	</cfsavecontent>
 
@@ -60,21 +64,17 @@
 <cf_tl id="Order" var="vOrder">
 <cfset itm = itm+1>								
 <cfset fields[itm] = {label      = "#vOrder#",
-					field      = "Reference",
-					alias      = "W",
-					searchalias = "W",
+					field      = "Reference",					
 					search     = "text"}>									
 					
 
 <cf_tl id="Service" var="vService">
 <cfset itm = itm+1>								
-<cfset fields[itm] = {label      = "#vService#",
+<cfset fields[itm] = {label    = "#vService#",
 					field      = "Description",
-					alias      = "S",
-					searchalias = "S",
+					column     = "common",					
 					filtermode = "2",
-					search     = "text"}>							
-	
+					search     = "text"}>		
 
 <cfif getCustomer.ServiceMode eq "Workorder">
 
@@ -94,90 +94,92 @@
 	<cfset fields[itm] = {label      = "#vDate#",  					
 						field        = "DocumentDate",	
 						labelfilter  = "#vDate#",				
-						formatted    = "dateformat(DocumentDate,'MM/YY')",
+						formatted    = "dateformat(DocumentDate,'#client.dateformatshow#')",
 						search       = "date"}>			
 					
 	<cf_tl id="Closing" var="vClosing">
 	<cfset itm = itm+1>					
-	<cfset fields[itm] = {label      = "#vClosing#",  					
+	<cfset fields[itm] = {label    = "#vClosing#",  					
 						field      = "JournalBatchDate",					
-						formatted  = "dateformat(JournalBatchDate,'DD/MM/YY')",
+						formatted  = "dateformat(JournalBatchDate,'#client.dateformatshow#')",
 						search     = "date"}>		
 					
-</cfif>			
-																
+</cfif>																		
 										
 <cf_tl id="Posting" var="vPosting">
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label      = "#vPosting#",  					
-					field      = "TransactionDate",					
-					formatted  = "dateformat(TransactionDate,'DD/MM/YY')",
-					search     = "date"}>		
+<cfset fields[itm] = {label        = "#vPosting#",  					
+					field          = "TransactionDate",		
+					column         = "month",				
+					formatted      = "dateformat(TransactionDate,'#client.dateformatshow#')",
+					search         = "date"}>		
 					
 	
 <cf_tl id="Cur" var="vCur">
 <cfset itm = itm+1>								
-<cfset fields[itm] = {label      = "#vCur#.",
-					field      = "Currency",
-					filtermode = "2",
-					labelfilter = "Currency",
-					search     = "text"}>	
+<cfset fields[itm] = {label        = "#vCur#.",
+					field          = "Currency",
+					filtermode     = "2",
+					labelfilter    = "Currency",
+					search         = "text"}>	
 								
 <cf_tl id="Amount" var="vAmount">
 <cfset itm = itm+1>										
-<cfset fields[itm] = {label      = "#vAmount#",  
-					field      = "Amount",
-					search     = "number",					
-					align      = "right",
-					formatted  = "numberformat(Amount,',.__')"}>	
+<cfset fields[itm] = {label        = "#vAmount#",  
+					field          = "Amount",
+					search         = "number",	
+					aggregate      = "sum",				
+					align          = "right",
+					formatted      = "numberformat(Amount,',.__')"}>	
 					
 <cf_tl id="Balance" var="vOutstanding">
 <cfset itm = itm+1>										
-<cfset fields[itm] = {label      = "#vOutstanding#",  
-					field      = "AmountOutstanding",
-					search     = "number",
-					aggregate  = "sum",
-					align      = "right",
-					formatted  = "numberformat(AmountOutstanding,',.__')"}>						
+<cfset fields[itm] = {label        = "#vOutstanding#",  
+					field          = "AmountOutstanding",
+					search         = "number",
+					aggregate      = "sum",
+					align          = "right",
+					formatted      = "numberformat(AmountOutstanding,',.__')"}>						
 
 <cfset itm = itm+1>	
 <cf_tl id="Status" var="vStatus">					
-<cfset fields[itm] = {label       = "S", 	
-                    LabelFilter   = "Status",				
-					field         = "ActionStatus",					
-					filtermode    = "3",    
-					search        = "text",
-					align         = "center",
-					formatted     = "Rating",
-					ratinglist    = "0=Yellow,1=Green,9=Red"}>						
+<cfset fields[itm] = {label        = "S", 	
+                    LabelFilter    = "Status",				
+					field          = "ActionStatus",					
+					filtermode     = "3", 
+					width          = "5",
+					search         = "text",
+					align          = "center",
+					formatted      = "Rating",
+					ratinglist     = "0=Yellow,1=Green,9=Red"}>						
 
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label     = "key",    					
-					display    = "No",					
-					field      = "TransactionId"}>		
+<cfset fields[itm] = {label        = "key",    					
+					display        = "No",					
+					field          = "TransactionId"}>		
 
 <cftry>
-							
-<cf_listing
-    header        = "lsTransaction"
-    box           = "lsTransaction"
-	link          = "#SESSION.root#/WorkOrder/Application/WorkOrder/ServiceDetails/Charges/InvoiceListingContent.cfm?customerid=#url.customerid#&systemfunctionid=#url.systemfunctionid#"
-    html          = "No"
-	show          = "42"
-	datasource    = "AppsWorkorder"
-	listquery     = "#myquery#"
-	listkey       = "TransactionId"		
-	listorder     = "JournalBatchDate"
-	listorderdir  = "DESC"
-	headercolor   = "ffffff"
-	listlayout    = "#fields#"
-	filterShow    = "Yes"
-	excelShow     = "Yes"
-	annotation    = "GLTransaction"
-	drillmode     = "securewindow"
-	drillargument = "900;1200;false;false"	
-	drilltemplate = "Gledger/Application/Transaction/View/TransactionViewDetail.cfm?id="
-	drillkey      = "TransactionId">
+								
+	<cf_listing
+	    header        = "lsTransaction"
+	    box           = "lsTransaction_#url.customerid#"
+		link          = "#SESSION.root#/WorkOrder/Application/WorkOrder/ServiceDetails/Charges/InvoiceListingContent.cfm?customerid=#url.customerid#&systemfunctionid=#url.systemfunctionid#"
+	    html          = "No"
+		show          = "42"
+		datasource    = "AppsWorkorder"
+		listquery     = "#myquery#"
+		listkey       = "TransactionId"		
+		listorder     = "JournalBatchDate"
+		listorderdir  = "DESC"
+		headercolor   = "ffffff"
+		listlayout    = "#fields#"
+		filterShow    = "Yes"
+		excelShow     = "Yes"
+		annotation    = "GLTransaction"
+		drillmode     = "tab"
+		drillargument = "900;1200;false;false"	
+		drilltemplate = "Gledger/Application/Transaction/View/TransactionView.cfm?id="
+		drillkey      = "TransactionId">
 	
 	<cfcatch>
 	

@@ -54,17 +54,21 @@ password="#SESSION.dbpw#">
 				 WHERE SubmissionEdition = R.SubmissionEdition) as Buckets
     FROM   Ref_SubmissionEdition R, 
 	       Ref_ExerciseClass C
-	WHERE  C.ExcerciseClass   = R.ExerciseClass
-	AND    C.Roster           = 1 
-	AND    R.Owner            = '#URL.Owner#' 
+	WHERE  C.ExcerciseClass      = R.ExerciseClass
+	AND    C.Roster              = 1 
+	AND    R.Owner               = '#URL.Owner#' 
 	<cfif param neq "">
 	AND   (R.PostType = '#param#' or R.PostType is NULL)
 	</cfif>
-	AND    R.Operational      = 1
-	AND    R.RosterSearchMode != '0'
-	AND   ((R.DateExpiration >= getDate() 
-	          OR R.DateExpiration is NULL 
-			  OR R.DateExpiration = ''))  				  	  
+	AND    R.Operational         = 1
+	AND    R.RosterSearchMode   != '0'
+	AND    (
+	        R.DateExpiration >= getDate() OR R.DateExpiration is NULL OR R.DateExpiration = ''
+	        OR 
+			SubmissionEdition IN (SELECT SubmissionEdition 
+			                      FROM   FunctionOrganization 
+								  WHERE  DocumentNo = '#url.docno#') 
+			)  				  	  
 </cfquery>
 
 <cfif ShowEdition.recordcount eq "0">
@@ -85,7 +89,8 @@ password="#SESSION.dbpw#">
 		AND   (R.PostType = '#param#' or R.PostType is NULL)
 		</cfif>
 		AND    R.Operational      = 1
-		AND    R.RosterSearchMode != '0'		  	  
+		AND    R.RosterSearchMode != '0'	
+			  	  
 	</cfquery>
 
 </cfif>
@@ -207,6 +212,7 @@ password="#SESSION.dbpw#">
 	 	<table width="100%" height="100%" border="0" align="center">
 		
 		<tr><td height="20">
+				
 			 <table width="100%" cellspacing="0" cellpadding="0">
 			 <tr>
 					 
@@ -260,13 +266,12 @@ password="#SESSION.dbpw#">
 					    SELECT *
 					    FROM   Document
 						WHERE  DocumentNo = '#URL.DocNo#' 						
-					</cfquery>	
-					
+					</cfquery>					
 										
 					<cfset owner = "">
 	
 					<cfif doc.owner eq "">
-										
+															
 						<cfquery name="Owner" 
 						datasource="AppsSelection" 
 						username="#SESSION.login#" 
@@ -282,6 +287,7 @@ password="#SESSION.dbpw#">
 					
 					<cfelse>
 					
+															
 						<cfquery name="Owner" 
 						datasource="AppsSelection" 
 						username="#SESSION.login#" 
@@ -292,7 +298,7 @@ password="#SESSION.dbpw#">
 						</cfquery>
 					
 					    <cfset own = owner.owner>
-					
+									
 					</cfif>
 					
 					<cfquery name="Shortlist" 
@@ -316,19 +322,47 @@ password="#SESSION.dbpw#">
 																					
 					</cfquery>	
 					
-										
+					<cfif ShortList.recordcount eq "0">
+					
+					
+						<cfquery name="Shortlist" 
+						 datasource="AppsSelection" 
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+							SELECT   F1.*
+							FROM     FunctionTitle F, 
+							         FunctionOrganization F1, 
+									 Ref_SubmissionEdition R,
+									 ApplicantFunction F2
+							WHERE    F1.SubmissionEdition   = R.SubmissionEdition
+							AND      F.FunctionNo           = F1.FunctionNo
+							AND      R.EnableAsRoster       = 1
+							AND      (F1.GradeDeployment    = '#Doc.PostGrade#' OR F1.GradeDeployment = '#Doc.GradeDeployment#')
+							<cfif doc.Occupationalgroup neq "">
+							AND      F.OccupationalGroup    = '#Doc.OccupationalGroup#' 
+							</cfif>
+							AND      F1.SubmissionEdition IN (#preservesingleQuotes(ed)#)
+							<!---
+							AND      F.FunctionClass        = '#Owner.FunctionClassSelect#'  
+							--->
+							AND      F2.FunctionId          = F1.FunctionId		
+																						
+						</cfquery>	
+									
+					</cfif>				
+														
 					<cfif shortList.recordcount gte "1">
 					
-					<cfset tabNo = tabNo + 1>
-					
-					<cf_menutab item       = "#tabNo#" 
-					            iconsrc    = "Logos/Roster/Candidates.png" 
-								iconwidth  = "#wd#" 
-								iconheight = "#ht#" 
-								class      = "#tabClass#"
-								iframe     = "quickadd"
-								source     = "iframe:DirectRosterSearch.cfm?#cgi.query_string#"
-								name       = "Bucket Search">						
+						<cfset tabNo = tabNo + 1>
+						
+						<cf_menutab item       = "#tabNo#" 
+						            iconsrc    = "Logos/Roster/Candidates.png" 
+									iconwidth  = "#wd#" 
+									iconheight = "#ht#" 
+									class      = "#tabClass#"
+									iframe     = "quickadd"
+									source     = "iframe:DirectRosterSearch.cfm?#cgi.query_string#"
+									name       = "Bucket Search">						
 					
 					</cfif>		
 				

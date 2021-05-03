@@ -21,12 +21,14 @@
 		               FROM     Payroll.dbo.PersonMiscellaneous
 		               WHERE    Source = 'Ledger' 
 					   AND      SourceId = H.TransactionId) AS AmountRecovery,
-					   
-		              (SELECT   ISNULL(SUM(Amount), 0) AS Expr1
-		               FROM     Payroll.dbo.PersonMiscellaneous
-		               WHERE    Source = 'Ledger' 
-					   AND      SourceId = H.TransactionId 
-					   AND      H.ActionStatus = '5') AS AmountRecovered, 
+					   					   
+					  (SELECT    SUM(L.AmountCredit - L.AmountDebit) AS Expr1
+						FROM     TransactionLine AS L
+						         INNER JOIN   TransactionHeader AS PH ON L.ParentJournal = PH.Journal AND L.ParentJournalSerialNo = PH.JournalSerialNo AND L.TransactionSerialNo = 1 
+								 INNER JOIN   TransactionHeader AS LH ON L.Journal = LH.Journal AND L.JournalSerialNo = LH.JournalSerialNo
+						WHERE    PH.TransactionId = H.TransactionId 
+						AND      LH.ActionStatus <> '9' 
+						AND      LH.RecordStatus <> '9') AS AmountRecovered, 
 					   
 					   OfficerUserId, 
 					   OfficerLastName, 
@@ -37,11 +39,12 @@
 		AND            RecordStatus = '1'
 		AND            TransactionId = '#url.transactionid#'
 			
+			
 		) as D
 		
 		<!--- still pending recovery --->
 		
-		WHERE Amount > AmountRecovered
+		-- WHERE Amount >= AmountRecovered
 		           
 	</cfquery>
 	

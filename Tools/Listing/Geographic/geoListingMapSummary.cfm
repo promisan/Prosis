@@ -1,16 +1,16 @@
-<cf_geoListingMapQueryPreparation url="#url#">
+<cf_geoListingMapQueryPreparation url="#url#" viewId="#url.viewId#">
 
-<cfquery name="getDataCountryGroup" datasource="srcInspira">		
+<cfquery name="getDataCountryGroup" datasource="#session.geoListingDataSource#">		
     SELECT	CASE
-				WHEN S.CountryGroup = '--' THEN '[Undef]'
-				ELSE S.CountryGroup
+				WHEN CountryGroup = '--' THEN '[Undef]'
+				ELSE CountryGroup
 			END as CountryGroup,
-			COUNT(CASE WHEN S.Gender = 'Female' THEN 1 END) as CountFemale,
-			COUNT(CASE WHEN S.Gender = 'Male' THEN 1 END) as CountMale,
-			COUNT(*) AS Total
+            #preserveSingleQuotes(session.geoListingCountFemale)# as CountFemale,
+			#preserveSingleQuotes(session.geoListingCountMale)# as CountMale,
+			#preserveSingleQuotes(session.geoListingCountTotal)# AS Total
 	#preserveSingleQuotes(preparationQueryFilters)#
 	GROUP BY 
-			S.CountryGroup
+			CountryGroup
 </cfquery>
 
 <cfquery name="getDataCountryGroupLimits" dbtype="query">

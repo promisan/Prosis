@@ -100,13 +100,14 @@ password="#SESSION.dbpw#">
 			  ActionCode,
 			  PayrollItem, 
 			  Source,
+			  SourceId,
 			  CASE WHEN DateCorrectionEnd is NULL 
 			       THEN 100.00
 				   ELSE 100.00 - (DATEDIFF(d, DateCorrectionStart,DateCorrectionEnd)+ 1)*100 / (DATEDIFF(d, SalaryCalculatedStart,SalaryCalculatedEnd)+ 1) END 
 				   
 				   as Percentage				   
 				   
-	INTO    userTransaction.dbo.sal#SESSION.thisprocess#SettleEntitlementCorrection	   		   
+	INTO      userTransaction.dbo.sal#SESSION.thisprocess#SettleEntitlementCorrection	   		   
 	
 	FROM (
 	
@@ -117,6 +118,7 @@ password="#SESSION.dbpw#">
 				  ESL.PayrollTransactionId, 
 				  ESL.PayrollItem, 
 				  ESL.Source,
+				  ESL.SourceId,
 				  ES.SalaryCalculatedStart, 
 		          ES.SalaryCalculatedEnd, 
 				  
@@ -196,8 +198,9 @@ password="#SESSION.dbpw#">
 	SET    Percentage = Percentage/100	
 </cfquery>
 
-<!--- total entitlements for this person starting with the month of the EOD date of that person 
-for the month of the calculation --->
+<!--- -------------------------------------------------------------------------------------------------------------------------- --->
+<!--- total entitlements for this person starting with the month of the EOD date of that person for the month of the calculation --->
+<!--- -------------------------------------------------------------------------------------------------------------------------- --->
 
 <cfquery name="Entitlement" 
 datasource="AppsPayroll" 
@@ -207,6 +210,7 @@ password="#SESSION.dbpw#">
 	SELECT   H.PersonNo, 
 	         L.PayrollItem, 
 			 L.Source,
+			 L.SourceId,
 	         I.AllowSplit,
 			 H.PaymentCurrency, 
 			 I.Settlement,
@@ -270,8 +274,7 @@ password="#SESSION.dbpw#">
 	  
 	  --->	
 	  
-	  <cfif settlementstatus eq "Final">	
-	  			 						 							 
+	  <cfif settlementstatus eq "Final">		  			 						 							 
 	  
 	  AND    H.PayrollStart <= #SALSTR#   <!--- #compUntilDate# #SALSTR# --->	
 	  
@@ -307,6 +310,7 @@ password="#SESSION.dbpw#">
 	GROUP BY H.PersonNo, 
 	         L.PayrollItem,
 			 L.Source,
+			 L.SourceId,
 	         I.AllowSplit, 
 		     H.PaymentCurrency,
 		     I.settlement,
@@ -329,16 +333,20 @@ password="#SESSION.dbpw#">
 	            (PersonNo,
 				 PayrollItem, 
 				 Source, 
+				 SourceId,
 				 AllowSplit, 
 				 PaymentCurrency, 
 				 Settlement, 
 				 SettlementMonth, 
 				 CalculatedAmount,
-				 PaymentAmount,CeilingCalculatedAmount,CeilingPaymentAmount)	
+				 PaymentAmount,
+				 CeilingCalculatedAmount,
+				 CeilingPaymentAmount)	
 	
 	SELECT       S.PersonNo, 
 	             S.PayrollItem, 
 				 S.Source, 
+				 S.SourceId,
 				 R.AllowSplit, 
 				 S.Currency, 
 				 R.Settlement, 
@@ -354,7 +362,8 @@ password="#SESSION.dbpw#">
 	                         FROM     EmployeeSalaryLine AS L
 	                         WHERE    PersonNo    = S.PersonNo 
 							 AND      PayrollItem = S.PayrollItem 
-							 AND      Source      = S.Source)
+							 AND      Source      = S.Source
+							 AND      Mission     = '#Form.Mission#')
 							 
 	AND          S.PersonNo IN (SELECT PersonNo 
 		                        FROM   #staffbase# X 
@@ -362,6 +371,7 @@ password="#SESSION.dbpw#">
 							 
 	GROUP BY     S.PersonNo, 
 	             S.Source, 
+				 S.SourceId,
 				 S.PayrollItem, 
 				 S.Currency, 
 				 R.AllowSplit, 
@@ -372,8 +382,7 @@ password="#SESSION.dbpw#">
 	
 </cfquery>
 
-
-<!--- not sure what it was used for --->
+<!--- not sure what below was used for in reality --->
 
 <cfquery name="qCeiling1" 
 datasource="AppsPayroll" 
@@ -382,18 +391,14 @@ password="#SESSION.dbpw#">
 	UPDATE   userTransaction.dbo.sal#SESSION.thisprocess#SettleEntitlement
 	SET      PaymentAmount = CeilingPaymentAmount
 	WHERE    AllowSplit = '2'
-	AND      ABS(PaymentAmount-CeilingPaymentAmount) <= 0.05
-</cfquery>	
-
-<cfquery name="qCeiling2" 
-datasource="AppsPayroll" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
+	AND      ABS(PaymentAmount-CeilingPaymentAmount) <= 0.05	
+	
 	UPDATE   userTransaction.dbo.sal#SESSION.thisprocess#SettleEntitlement
 	SET      CalculatedAmount = CeilingCalculatedAmount
 	WHERE    AllowSplit = '2'
 	AND      ABS(CalculatedAmount-CeilingCalculatedAmount) <= 0.05
-</cfquery>
+	
+</cfquery>	
 	
 <cfquery name="SettlementPrior" 
 datasource="AppsPayroll" 
@@ -403,6 +408,7 @@ password="#SESSION.dbpw#">
 	SELECT   PersonNo, 
 	         PayrollItem,
 			 Source,
+			 SourceId,
 			 Currency, 
 			 SUM(Amount)        AS Calculation,
 			 SUM(PaymentAmount) AS Payment
@@ -458,11 +464,13 @@ password="#SESSION.dbpw#">
 							   
 	AND      PayrollStart <= #SALSTR#	<!---  <= #compUntilDate# before was <= #SALSTR#	--->		
 	
-	GROUP BY PersonNo, PayrollItem, Source, Currency 	
+	GROUP BY PersonNo, PayrollItem, Source, SourceId, Currency 	
 	
 </cfquery>
 
+<!--- ------------------------------------------------------------------------- --->
 <!--- compare entitlement with already settled to determine additional payments --->
+<!--- ------------------------------------------------------------------------- --->
 
 <cfquery name="CombineCumEntitlement_CumSettlement" 
 datasource="AppsTransaction" 
@@ -471,6 +479,7 @@ password="#SESSION.dbpw#">
 	SELECT  E.PersonNo, 
 	        E.PayrollItem, 
 			E.Source,
+			E.SourceId,
 	     	E.AllowSplit, 
 	     	E.Settlement,
 			E.SettlementMonth,
@@ -488,10 +497,9 @@ password="#SESSION.dbpw#">
 	        dbo.sal#SESSION.thisprocess#Settled P ON E.PersonNo         = P.PersonNo
      		    	                              AND E.PayrollItem     = P.PayrollItem 
 												  AND E.Source          = P.Source 
-		    	    					          AND E.PaymentCurrency = P.Currency	
-												  
+												  AND E.SourceId        = P.SourceId 
+		    	    					          AND E.PaymentCurrency = P.Currency													  
 </cfquery>
-
 
 <CF_DropTable dbName="AppsQuery" tblName="sal#SESSION.thisprocess#SettleEntitlement">	
 <CF_DropTable dbName="AppsQuery" tblName="sal#SESSION.thisprocess#Settled">	
@@ -517,7 +525,6 @@ password="#SESSION.dbpw#">
       only if person is INDEED assigned in the period of the designated settlement date --->
 
 <CF_DropTable dbName="AppsTransaction" tblName="sal#SESSION.thisprocess#Payable">	
-
 
 <cfquery name="Payable" 
 datasource="AppsEmployee" 
@@ -552,17 +559,16 @@ or if we also settle people that  don't have this month entitlement but might ha
 a correction to be settled, like a promotion to other schedule to correct over settlement in the past --->
 
 <cfquery name="CatchUpPayment" 
-datasource="AppsOrganization" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
 
-	SELECT DISTINCT PersonNo 
-	INTO   userTransaction.dbo.sal#SESSION.thisprocess#CatchUp	
-	FROM   Payroll.dbo.EmployeeSalary Sal, Payroll.dbo.SalarySchedule Sch
-    WHERE  Sal.SalarySchedule = Sch.SalarySchedule								   
-	AND    (PayrollStart >= #SALSTR# AND PayrollEnd <= #SALEND#)
-	AND    Sal.SalarySchedule = '#Form.schedule#'
-	AND    Sch.SettleOtherSchedules = 0
+	SELECT  DISTINCT PersonNo 
+	INTO    userTransaction.dbo.sal#SESSION.thisprocess#CatchUp	
+	FROM    Payroll.dbo.EmployeeSalary Sal INNER JOIN Payroll.dbo.SalarySchedule Sch ON Sal.SalarySchedule = Sch.SalarySchedule
+    WHERE   (PayrollStart >= #SALSTR# AND PayrollEnd <= #SALEND#)
+	AND     Sal.SalarySchedule = '#Form.schedule#'
+	AND     Sch.SettleOtherSchedules = 0
 	
 	 <cfif Form.PersonNo neq "">
 	   AND   PersonNo = '#Form.PersonNo#'
@@ -572,17 +578,17 @@ password="#SESSION.dbpw#">
 	 	 
     UNION
 	
-    SELECT DISTINCT PersonNo 
-    FROM   Payroll.dbo.EmployeeSalary Sal, Payroll.dbo.SalarySchedule Sch
-    WHERE  Sal.SalarySchedule = Sch.SalarySchedule								   
-    AND    (PayrollStart >= #SALSTR# AND PayrollEnd <= #SALEND#)
-    AND    Sch.SettleOtherSchedules = 1		
+    SELECT  DISTINCT PersonNo 
+    FROM    Payroll.dbo.EmployeeSalary Sal, Payroll.dbo.SalarySchedule Sch
+    WHERE   Sal.SalarySchedule = Sch.SalarySchedule								   
+    AND     (PayrollStart >= #SALSTR# AND PayrollEnd <= #SALEND#)
+    AND     Sch.SettleOtherSchedules = 1		
 	
-	 <cfif Form.PersonNo neq "">
-	   AND   PersonNo = '#Form.PersonNo#'
-	 <cfelse>
-	   AND   PersonNo NOT IN (#preservesingleQuotes(selper)#)
-     </cfif>		
+	<cfif Form.PersonNo neq "">
+	  AND   PersonNo = '#Form.PersonNo#'
+	<cfelse>
+	  AND   PersonNo NOT IN (#preservesingleQuotes(selper)#)
+    </cfif>		
 						 
  </cfquery> 
   

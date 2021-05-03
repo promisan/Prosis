@@ -1,7 +1,7 @@
 
 <cfoutput>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
 
 <cfquery name="Lines" 
 	datasource="AppsLedger" 
@@ -13,7 +13,9 @@
 		         H.Description, 
 				 H.Reference, 
 				 H.TransactionId,
+				 H.AccountPeriod,
 				 H.TransactionDate, 
+				 H.TransactionPeriod,
 				 TL.Currency, 
 				 TL.AmountDebit, 
 				 TL.AmountCredit, 
@@ -26,7 +28,8 @@
 		FROM     TransactionHeader H INNER JOIN
 		         TransactionLine TL ON H.Journal = TL.Journal AND H.JournalSerialNo = TL.JournalSerialNo
 		WHERE    H.Reference            = 'Advance' 
-		AND      H.ReferenceNo          = '#URL.ID1#' 
+		AND      H.TransactionSource    = 'PurchaseSeries' 
+		AND      H.TransactionSourceNo  = '#URL.ID1#' 
 		AND      TL.TransactionSerialNo != '0'
 		ORDER BY H.TransactionDate
 </cfquery>
@@ -65,116 +68,120 @@
 	
 <tr><td colspan="10">
 
-	<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="100%" class="formpadding navigation_table">
 		
 		<cfif Lines.recordcount gte "1">
 		 
-		    <TR class="labelit line" bgcolor="ffffff">
+		    <TR class="labelmedium2 line">
 			   <td height="18" width="20"></td>
-			   <td width="2%">&nbsp;</td>	   
-			   <td width="30%"><cf_tl id="Description"></td>
+			   <td width="2%">&nbsp;</td>	
 			   <td><cf_tl id="Reference"></td>
-			   <td width="100"><cf_tl id="Transaction Date"></td>
+			   <td style="width:100px"><cf_tl id="Statement"></td>   
+			   <td width="30%"><cf_tl id="Description"></td>				   
+			   <td style="width:120px"><cf_tl id="Transaction Date"></td>
+			   <td style="width:100px"><cf_tl id="Period"></td>
 			   <td width="80"><cf_tl id="Status"></td>
 			   <td width="120"><cf_tl id="Officer"></td>
 			   <td width="80" align="center"><cf_tl id="Currency"></td>
 		       <td width="100" align="right"><cf_tl id="Advance"></td>
 			   <td width="100" align="right"><cf_tl id="Offset"></td>
 			   <td width="20"></td>
-			 </TR> 
-						 	
+			 </TR> 						 	
 		 							
-		 <cfif Lines.recordcount eq "0">
-	
-			 <tr><td height="1" colspan="11" align="center" class="labelmedium"><font color="gray"><cf_tl id="No advances recorded"></td></tr>  
-	 
-		 <cfelse>
-			
-				<cfloop query="Lines">
-												
-					<tr class="line labelit">
-								
-						<td height="20" width="20" align="center">#CurrentRow#</td>
+			 <cfif Lines.recordcount eq "0">
+		
+				 <tr><td colspan="11" align="center" class="labelmedium2"><font color="gray"><cf_tl id="No advances recorded"></td></tr>  
+		 
+			 <cfelse>
+				
+					<cfloop query="Lines">
 													
-					    <td width="3%" align="center" style="padding-top:1px">						
-							<cf_img icon="edit" onClick="javascript:ShowTransaction('#Journal#','#JournalSerialNo#')">							
-						</td>
+						<tr class="line labelmedium2 navigation_row">
+									
+							<td align="center">#CurrentRow#</td>
+														
+						    <td align="center" style="padding-top:2px">						
+								<cf_img icon="open" onClick="javascript:ShowTransaction('#Journal#','#JournalSerialNo#')">							
+							</td>
 							
-						<td width="30%"><a href="javascript:ShowTransaction('#Journal#','#JournalSerialNo#')">#Description#</a></td>
-						<td width="125">#Reference#</a></td>
-						<td>#DateFormat(TransactionDate,CLIENT.DateFormatShow)#</td>
-						<td>
-						<cfif ActionStatus eq "1">Cleared
-						<cfelseif ActionStatus eq "0">Pending
-						</cfif>
-						</td>
-						<td>#OfficerLastName#</td>
-						<td align="center">#Currency#</td>
-						<td align="right">#NumberFormat(AmountDebit,",__.__")#</td>
-						
-						<cfquery name="Offset" 
-						datasource="AppsLedger" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							SELECT SUM(AmountCredit*ExchangeRate) as Total 
-							FROM   TransactionLine
-							WHERE  ReferenceNo = '#URL.ID1#'	
-							AND    ParentJournal         is not NULL
-							AND    ParentJournalSerialNo is not NULL
-							AND    GLAccount = '#GLAccount#'		
-						</cfquery>						
-												
-						<td align="right">
-						
-						<cfif Offset.Total eq "">
-						        <cfset offsetamt = 0>
-						<cfelse>
-								<cfset offsetamt = Offset.total>						
-						</cfif> 
-												
-						<cfif abs(OffsetAmt-AmountDebit) gte 0.05>
-						<font color="FF0000">#NumberFormat(Offset.total,",__.__")#
-						<cfelse>
-						#NumberFormat(Offset.total,",__.__")#
-						<img src="#SESSION.root#/Images/check.gif" align="absmiddle" alt="" border="0">
-						</cfif>
-																		
-						</td>	
-						<td align="center">
-						
-						<!--- if advance is not processed, allow to remove it !! --->
-						
-						<cfquery name="Check" 
+							<td>#ReferenceNo#</td>	
+							<td>#AccountPeriod#</td>	
+							<td>#Description#</td>						
+							<td>#DateFormat(TransactionDate,CLIENT.DateFormatShow)#</td>
+							<td>#TransactionPeriod#</td>
+							<td><cfif ActionStatus eq "1"><cf_tl id="Cleared">
+								<cfelseif ActionStatus eq "0"><cf_tl id="Pending">
+								</cfif>
+							</td>
+							<td>#OfficerLastName#</td>
+							<td align="center">#Currency#</td>
+							<td align="right">#NumberFormat(AmountDebit,",.__")#</td>
+							
+							<cfquery name="Offset" 
 							datasource="AppsLedger" 
 							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">			
-							SELECT  *
-							FROM    TransactionLine
-							WHERE   ParentJournal = '#Journal#' 
-							AND     ParentJournalSerialNo = '#JournalSerialNo#'
-						</cfquery>
-						
-						<cfif Check.recordcount eq "0">
-						
-						<cf_img icon="delete" tooltip="Remove advance request"
-							 onclick="ColdFusion.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Purchase/POViewAdvance.cfm?del=#transactionid#&id1=#url.id1#','advances')">
-							 
-						</cfif>
-						
-						</td>		
-		           	</tr>						
-					
+							password="#SESSION.dbpw#">
+								SELECT  SUM(AmountCredit*ExchangeRate) as Total 
+								FROM    TransactionLine
+								WHERE   ReferenceNo = '#URL.ID1#'	
+								AND     ParentJournal         is not NULL
+								AND     ParentJournalSerialNo is not NULL
+								AND     GLAccount = '#GLAccount#'		
+							</cfquery>						
+													
+							<td align="right">
 							
-			  </cfloop>
-			
-		</cfif>		
+							<cfif Offset.Total eq "">
+							    <cfset offsetamt = 0>
+							<cfelse>
+								<cfset offsetamt = Offset.total>						
+							</cfif> 
+													
+							<cfif abs(OffsetAmt-AmountDebit) gte 0.05>
+								<font color="FF0000">#NumberFormat(Offset.total,",.__")#</font>
+							<cfelse>
+								#NumberFormat(Offset.total,",.__")#
+								<img src="#SESSION.root#/Images/check.gif" align="absmiddle" alt="" border="0">
+							</cfif>
+																			
+							</td>	
+							
+							<td align="center">
+							
+							<!--- if advance is not processed, allow to remove it !! --->
+							
+							<cfquery name="Check" 
+								datasource="AppsLedger" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">			
+								SELECT  *
+								FROM    TransactionLine
+								WHERE   ParentJournal = '#Journal#' 
+								AND     ParentJournalSerialNo = '#JournalSerialNo#'
+							</cfquery>
+							
+							<cfif Check.recordcount eq "0">
+							
+								<cf_img icon="delete" tooltip="Remove advance request"
+									 onclick="ptoken.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Purchase/POViewAdvance.cfm?del=#transactionid#&id1=#url.id1#','advances')">
+									 
+							</cfif>
+							
+							</td>		
+			           	</tr>			
+								
+				  </cfloop>
+				
+			</cfif>		
 		
 		</cfif>
 		
 		</table>
 
-</td></tr>
+	</td></tr>
 		
 </table>
 
 </cfoutput>
+
+<cfset ajaxonload("doHighlight")>

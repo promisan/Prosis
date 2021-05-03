@@ -12,6 +12,10 @@
             showGeoListingDrillDown(viewId, '', 'geoListingMapSummary.cfm');
         }
 
+        function showGeoListingSummaryMapSummary(viewId) {
+            showGeoListingDrillDown(viewId, '', 'geoListingSummaryMapDetail.cfm');
+        }
+
         function showGeoListingCountryDetail(viewId, country) {
             showGeoListingDrillDown(viewId, country, 'geoListingMapDetail.cfm');
         }
@@ -48,6 +52,10 @@
             width: 90%;
             height: 90%;		 
             align: center;
+        }
+
+        .dataTables_length, .dataTables_info, .dataTables_paginate {
+            display:none;
         }
 
         .table > tbody > tr > td {

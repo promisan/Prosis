@@ -65,7 +65,7 @@ password="#SESSION.dbpw#">
 			WHERE  Classification  = '#Form.Classification#' 
    		</cfquery>
    		
-    	<cfif Verify.recordCount gte 1 and Mis.EarmarkManagement eq 1>
+    	<cfif Verify.recordCount gte 1 and Mis.EarmarkManagement eq 1 and form.classification neq "">
 		
       		<script language="JavaScript">	   
 	     		alert("An item with this code was already registered already. Operation aborted !")	     

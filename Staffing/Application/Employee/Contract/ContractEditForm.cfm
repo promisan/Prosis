@@ -50,8 +50,8 @@ otherwise no action
 <cfparam name="url.mycl"   default="0">  <!--- if the screen is opened from the workflow my cleanrances inbox --->
 
 <cfif url.wf eq "1" or url.action eq "1">
- 	<table width="98%" ccellspacing="0" ccellpadding="0" align="center">	
-	<tr class="hide"><td id="process"></td></tr>
+ 	<table width="98%" align="center">	
+	<tr class="hide"><td id="process"></td></tr>	
 </cfif>
 
 <cfquery name="ContractSel" 
@@ -1918,8 +1918,9 @@ otherwise no action
 		
 	</table>
 	</tr>
-			
+				
 	<cfif url.wf eq "1" or url.action eq "1">		
+	
 		</table>		
 	</cfif>	
 		

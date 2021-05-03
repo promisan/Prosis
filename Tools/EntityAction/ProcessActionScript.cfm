@@ -30,10 +30,9 @@
 	}
 	
 	function openmap(field)	{		   	
-		val = document.getElementById(field).value	
-		try { ColdFusion.Window.destroy('mymap',true) } catch(e) {}
-		ColdFusion.Window.create('mymap', 'Google Map', '',{x:100,y:100,height:580,width:440,modal:false,resizable:false,center:true})    							
-		ColdFusion.navigate('#SESSION.root#/Tools/Maps/MapView.cfm?field='+field+'&coordinates='+val,'mymap') 					
+		val = document.getElementById(field).value			
+		ProsisUI.createWindow('mymap', 'Google Map', '',{x:100,y:100,height:580,width:440,modal:false,resizable:false,center:true})    							
+		ptoken.navigate('#SESSION.root#/Tools/Maps/MapView.cfm?field='+field+'&coordinates='+val,'mymap') 					
     }
 	
 	function refreshmap(field,ret) {		      	    
@@ -118,13 +117,10 @@
 						   
 						   // if ((document.getElementById('r0').checked == false) && (custo)) {				  				   
 						   
-						   if (custo) {
-						   	  
+						   if (custo) {						   	 
 							
 						      document.formcustomfield.onsubmit()
-							  
-							  
-							  							  							  
+							 							  							  							  
 							   if( _CF_error_messages.length == 0 ) {
 								
 							     	try { ptoken.navigate('ProcessActionSubmitCustom.cfm?closemode=1&windowmode=#url.windowmode#&wfmode='+mode+'&process=#URL.Process#&ID=#URL.ID#&ajaxId=#url.ajaxid#','actionprocessbox',mycallBack(),'','POST','formcustomfield')  } catch (e) {}
@@ -149,14 +145,14 @@
 		
 	}
 	
-	function maildialog(obt,cde,glob) {			   
-		window.open('#session.root#/Tools/entityaction/ProcessMailDialog.cfm?objectid='+obt+'&actioncode='+cde+'&NotificationGlobal='+glob, 'wMailDialog');								
+	function maildialog(obt,cde,glob) {		
+	    parent.ProsisUI.createWindow('wMailDialog', 'Notification', '',{x:100,y:100,height:600,width:890,modal:true,center:true})    				   
+		parent.ptoken.navigate('#session.root#/Tools/entityaction/ProcessMailView.cfm?objectid='+obt+'&actioncode='+cde+'&NotificationGlobal='+glob,'wMailDialog');								
 	}	
 					
 	function embedtabdoc(actionid,docid,sign,language,format,no,act) {		
 	
-	    if (act == 'refresh') {
-		
+	    if (act == 'refresh') {		
 			if (confirm("This action will overwrite any changes you might have made to this document.\\Do you want to continue ?")) {
 		    	ptoken.navigate('Report/DocumentProcess.cfm?actionid='+actionid+'&docid='+docid+'&sign='+sign+'&language='+language+'&format='+format+'&no='+no+'&action='+act,'docaction'+docid) 	 		   
 		    } 

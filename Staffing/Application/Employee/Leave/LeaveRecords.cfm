@@ -121,16 +121,15 @@ password="#SESSION.dbpw#">
 	</cfquery>		
 					  
 	<tr>
-	  <td align="center" style="height:10px">
-	  		
-											   
+	  <td style="height:10px">
+	  													   
 			       <table>
 				   <tr>	
 				   
-				   <td align="center" height="20" class="labelmedium" style="min-width:140px;;background-color:f5f5f5">		
+				   <td class="labelmedium" style="min-width:140px;">		
 				   	<table class="clsNoPrint">
 				   		<tr>
-				   			<td style="padding-left:4px" style="background-color:f5f5f5">
+				   			<td style="padding-left:4px">
 				   				<span id="printTitle" style="display:none;"><cf_tl id="Leave Records"> - [#getPerson.indexNo#] #getPerson.fullName#</span>
 								<cf_tl id="Print" var="1">
 								<cf_button2 
@@ -143,7 +142,7 @@ password="#SESSION.dbpw#">
 									printTitle	= "##printTitle"
 									printContent = ".clsPrintContent">
 				   			</td>
-				   			<td class="labelmedium" style="font-size:19px;padding-left:5px;padding-right:30px;min-width:110px;background-color:f5f5f5">
+				   			<td class="labelmedium" style="font-size:17px;padding-left:5px;padding-right:30px;min-width:110px">
 				   				<cfif access eq "EDIT" or access eq "ALL" or timekeeper eq "EDIT" or timekeeper eq "ALL">		
 							    	<a href="javascript:leave('#URL.ID#')"><cf_tl id="Add Record"></a>	    	
 								</cfif>
@@ -152,8 +151,8 @@ password="#SESSION.dbpw#">
 				   	</table>
 				   </td>
 				   
-				   <td class="labelmedium" style="min-width:50px;padding-left:10px;border-left:1px solid silver;background-color:f5f5f5"><cf_tl id="Type">:</td>
-				   <td style="padding-left:10px;background-color:f5f5f5">
+				   <td class="labelmedium" style="min-width:50px;padding-left:10px;border-left:1px solid silver"><cf_tl id="Type">:</td>
+				   <td style="padding-left:10px">
 				   
 					   <cfquery name="qLeaveType" dbtype="query">
 						   SELECT DISTINCT LeaveType, Description
@@ -180,7 +179,7 @@ password="#SESSION.dbpw#">
 				   
 				   <cfelse>
 				   
-				   <td class="labelmedium" style="min-width:60px;padding-left:10px;background-color:f5f5f5"><cf_tl id="Status">:</td>
+				   <td class="labelmedium" style="min-width:60px;padding-left:10px"><cf_tl id="Status">:</td>
 				   <td style="padding-left:10px">
 				 
 				   <select name="filterstatus" id="filterstatus" class="regularxl" onchange="records('#url.id#')">
@@ -209,7 +208,7 @@ password="#SESSION.dbpw#">
 					
 					<cfelse>
 										    
-					    <td style="padding-left:10px;background-color:f5f5f5">
+					    <td style="padding-left:10px">
 					   
 					    <cfquery name="qYear" dbtype="query">
 						   SELECT DISTINCT LeaveYear
@@ -252,7 +251,7 @@ password="#SESSION.dbpw#">
 			  
 			  <cfoutput>
 						  
-			  <TR class="labelmedium line fixrow" style="height:27px">
+			  <TR class="labelmedium2 line fixrow">
 			        <TD width="40" style="padding-left:4px"><cf_tl id="Type"></TD>	
 				    <td style="min-width:20px" align="center"></td>
 					<td style="min-width:10px" align="center"></td>
@@ -452,18 +451,18 @@ password="#SESSION.dbpw#">
 									
 									<cfset edt = "0">		
 									
-									<td align="center" style="padding-top:4px;padding-right:3px">
+									<td align="center" style="padding-right:3px">
 																			
 									 	 <cfif access eq "ALL">		
 										 	 									 
-										      <cf_img icon="edit" onclick="leaveedit('#LeaveId#','0')">		
+										      <cf_img icon="open" onclick="leaveedit('#LeaveId#','0')">		
 											  <cfset edt = "1">		
 											  																																							
 									     <cfelseif transactiontype neq "External" and
 										    (access eq "EDIT" or timekeeper eq "EDIT" or timekeeper eq "ALL")>
 																				 
 											 <cfif Status lte "1">									 
-											      <cf_img icon="edit" onclick="leaveedit('#LeaveId#','0')">		
+											      <cf_img icon="open" onclick="leaveedit('#LeaveId#','0')">		
 												  <cfset edt = "1">								  			  
 											 </cfif>   	  	  											 									 					  			  											  
 											 
@@ -562,7 +561,7 @@ password="#SESSION.dbpw#">
 															
 								<tr style="display:#display#;height:15px" name="status_#status#" class="labelmedium navigation_row_child line">
 								    <td></td><td></td>
-									<td colspan="8" style="font-size:12px;padding-right:2px;padding-bottom:1px">#Memo#</td>
+									<td colspan="8" style="font-size:16px;padding-right:2px;padding-bottom:1px">#Memo#</td>
 								</tr>
 															
 							</cfif>

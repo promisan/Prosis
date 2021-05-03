@@ -2,11 +2,11 @@
 <!--- assign the position to a submission edition for publishimng --->
 
 <cfquery name="Get" 
-datasource="AppsSelection" 
+datasource="AppsEmployee" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 SELECT   *
-FROM     Ref_SubmissionEditionPosition
+FROM     Applicant.dbo.Ref_SubmissionEditionPosition
 WHERE    PositionNo = '#Object.ObjectKeyValue1#'
 </cfquery>	
 
@@ -42,99 +42,98 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
-<table width="98%" cellspacing="0" cellpadding="0" border="0" align="center" class="formpadding">
-
-<tr class="linedotted"><td class="labelit" width="100">Unit:</td>
-	<td class="labelmedium" width="80%">#getPost.OrgUnitName#</td>
-</tr>
-<tr class="linedotted"><td class="labelit">Postnumber:</td>
-	<td class="labelmedium">#getPost.SourcePostNumber#</td>
-</tr>
-<tr class="linedotted"><td class="labelit">Title:</td>
-	<td class="labelmedium">#getPost.FunctionDescription#</td>
-</tr>
-<tr class="linedotted"><td class="labelit">Grade:</td>
-	<td class="labelmedium">#getPost.PostGrade#</td>
-</tr>
-<tr class="linedotted"><td class="labelit">Employee:</td>
-	<td class="labelmedium">#getEmployee.FirstName# #getEmployee.LastName#</td>
-</tr>
-<tr class="linedotted"><td class="labelit">Nationality:</td>
-	<td class="labelmedium">#getEmployee.NationalityName#</td>
-</tr>
-<tr class="linedotted"><td class="labelit">Expiration:</td>
-	<td class="labelmedium"><b>#dateformat(getEmployee.DateExpiration,client.dateformatshow)#</b></td>
-</tr>
+<table width="98%" align="center" class="formpadding formspacing">
+	
+	<tr class="labelmedium2 linedotted"><td width="100">Unit:</td>
+		<td width="80%">#getPost.OrgUnitName#</td>
+	</tr>
+	<tr class="labelmedium2 linedotted"><td>Postnumber:</td>
+		<td>#getPost.SourcePostNumber#</td>
+	</tr>
+	<tr class="labelmedium2 linedotted"><td>Title:</td>
+		<td>#getPost.FunctionDescription#</td>
+	</tr>
+	<tr class="labelmedium2 linedotted"><td>Grade:</td>
+		<td>#getPost.PostGrade#</td>
+	</tr>
+	<tr class="labelmedium2 linedotted"><td>Employee:</td>
+		<td>#getEmployee.FirstName# #getEmployee.LastName#</td>
+	</tr>
+	<tr class="labelmedium2 linedotted"><td>Nationality:</td>
+		<td class="labelmedium">#getEmployee.NationalityName#</td>
+	</tr>
+	<tr class="labelmedium2 linedotted"><td>Expiration:</td>
+		<td style="font-weight:bold">#dateformat(getEmployee.DateExpiration,client.dateformatshow)#</td>
+	</tr>
 
 </cfoutput>
 
-<tr>
-<td colspan="2" class="labellarge" style="padding-top:20px" colspan="2">
-Select the campaign to either fill position or determine if position will be filled from the roster:
-<td>
-<td></td>
-</tr>
-
-<tr><td></td></tr>
-
-<tr>
-<td style="padding-left:15px" class="labelit">Edition</td>
-<td class="labelmedium">
+	<tr>
+	<td colspan="2" class="labellarge" style="padding-top:20px" colspan="2">
+	Select the campaign to either fill position or determine if position will be filled from the roster:
+	<td>
+	</tr>
 	
-	<cfquery name="GetEdition" 
-	datasource="AppsSelection" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT    SubmissionEdition, 
-		          EditionDescription
-		FROM      Ref_SubmissionEdition
-		WHERE     Owner = '#Object.Owner#' 
-		AND       Operational  = '1' 
-		AND       ActionStatus = '0'
-	</cfquery>
-
-	<select name="EditionSelect" class="regularxl">
-	<cfoutput query="getEdition">
-   		<option value="#SubmissionEdition#" <cfif Get.SubmissionEdition eq getEdition.SubmissionEdition>selected</cfif>>#getEdition.EditionDescription#</option>
-	</cfoutput>
-	</select>
+	<tr><td></td></tr>
 	
-</td>
-</tr>
-
-<tr><td></td></tr>
-
-<!----
-<tr>
-<td width="10%"></td>
-<td width="10%" class="labellarge">Reference</td>
-<td style="padding-top:10px">
+	<tr class="labelmedium2">
+	<td style="padding-left:15px">Edition</td>
+	<td>
+		
+		<cfquery name="GetEdition" 
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT    SubmissionEdition, 
+			          EditionDescription
+			FROM      Ref_SubmissionEdition
+			WHERE     Owner = '#Object.Owner#' 
+			AND       Operational  = '1' 
+			AND       ActionStatus = '0'
+		</cfquery>
+	
+		<select name="EditionSelect" class="regularxxl">
+		<cfoutput query="getEdition">
+	   		<option value="#SubmissionEdition#" <cfif Get.SubmissionEdition eq getEdition.SubmissionEdition>selected</cfif>>#getEdition.EditionDescription#</option>
+		</cfoutput>
+		</select>
+		
+	</td>
+	</tr>
+	
+	<tr><td></td></tr>
+	
+	<!----
+	<tr>
+	<td width="10%"></td>
+	<td width="10%" class="labellarge">Reference</td>
+	<td style="padding-top:10px">
+		<cfoutput>
+			<input type="text" name="EditionReference" size="20" maxlength="20" class="regular" value="#Get.Reference#">
+		</cfoutput>
+	</td>
+	<td width="10%"></td>
+	</tr>
+	---->
+	
+	<tr class="labelmedium2">
+	<td style="padding-left:15px">Mode</td>
+	<td>
+		<select name="ModeSelect"  class="regularxxl">
+			<option value="1">Published</option>
+			<option value="0">Will NOT be Published</option>		
+		</select>
+	</td>
+	</tr>
+	
+	<tr>	
+	<td>
 	<cfoutput>
-		<input type="text" name="EditionReference" size="20" maxlength="20" class="regular" value="#Get.Reference#">
+	<input name="Key1" type="hidden" value="#Object.ObjectKeyValue1#">
 	</cfoutput>
-</td>
-<td width="10%"></td>
-</tr>
----->
-
-<tr>
-<td style="padding-left:15px" class="labelit">Mode</td>
-<td class="labelmedium">
-	<select name="ModeSelect"  class="regularxl">
-		<option value="1">Published</option>
-		<option value="0">Will NOT be Published</option>		
-	</select>
-</td>
-<tr>
-
-
-<td>
-<cfoutput>
-<input name="Key1" type="hidden" value="#Object.ObjectKeyValue1#">
-</cfoutput>
-
-<input name="savecustom" type="hidden"  value="Roster/Maintenance/RosterEdition/Workflow/ApplyEdition/DocumentSubmit.cfm">
-</td>
-</tr>
+	
+	<input name="savecustom" type="hidden"  value="Roster/Maintenance/RosterEdition/Workflow/ApplyEdition/DocumentSubmit.cfm">
+	</td>
+	</tr>
 
 </table>

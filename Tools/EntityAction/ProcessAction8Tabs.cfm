@@ -40,9 +40,9 @@
 	   	   	  	   
 	   <cfif Embed.DocumentMode eq "Ajax">		
 	   	   	   	   
-		   <!--- disabled as embedding now within a iframe to prevent outbreak of long pages 
-		   
-		   <cfinclude template="../Input/TextAjax/InputRichTextScript.cfm">
+		   <!--- disabled as embedding now within a iframe to prevent outbreak of long pages 		   
+		   <cfinclude template="../Input/TextAjax/InputRichTextScript.cfm">		   
+		   --->
 		   
 		   <cfset l = len(Embed.DocumentTemplate)>		
 	       <cfset path = left(Embed.DocumentTemplate,l-4)>	
@@ -51,9 +51,7 @@
 		 		 
 		   <cfif FileExists("#SESSION.rootPath#\#path#Script.cfm")>			   		  
 			   <cfinclude template="../../#path#Script.cfm"> 
-		   </cfif>	
-		      
-		   --->		
+		   </cfif>			      
 		 		   
 		   <cfset boxno = boxno+1>		
 		   

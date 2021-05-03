@@ -31,7 +31,7 @@
 					 
 				WHERE  H.Journal IN   (SELECT  Journal
                                    	   FROM    Journal
-                                       WHERE   SystemJournal = 'Advance') 
+                                       WHERE   SystemJournal IN ('Advance','Offset')) 
 			
 				AND    H.RecordStatus <> '9' 
 				AND    H.ActionStatus <> '9'

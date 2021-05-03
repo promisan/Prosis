@@ -78,8 +78,9 @@
 		ptoken.open("#SESSION.root#/System/Template/TemplateDetail.cfm?id="+id+"&compare="+compare,"_blank","left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes")
 	}
 	
-	function maildialog(obt,cde,glob) {			   	
-		ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessMailDialog.cfm?objectid="+obt+"&actioncode="+cde+"&NotificationGlobal="+glob, "wMailDialog", "height=700, width=700");				
+	function maildialog(obt,cde,glob) {	
+	    ProsisUI.createWindow('wMailDialog', 'Notification', '',{x:100,y:100,height:600,width:890,modal:true,center:true})    				   
+		ptoken.navigate('#session.root#/Tools/entityaction/ProcessMailView.cfm?objectid='+obt+'&actioncode='+cde+'&NotificationGlobal='+glob,'wMailDialog');								
 	}	
 	
 	function userlocateN(formname,id,id1,id2,id3,id4) {		
@@ -269,10 +270,9 @@
 	}		
 	
 	function openmap(field)	{			
-		val = document.getElementById(field).value	
-		try { ColdFusion.Window.destroy('mymap',true) } catch(e) {}
-		ColdFusion.Window.create('mymap', 'Google Map', '',{x:100,y:100,height:580,width:440,modal:true,resizable:false,center:true})    							
-		ColdFusion.navigate('#SESSION.root#/Tools/Maps/MapView.cfm?field='+field+'&coordinates='+val,'mymap') 					
+		val = document.getElementById(field).value			
+		ProsisUI.createWindow('mymap', 'Google Map', '',{x:100,y:100,height:580,width:440,modal:true,resizable:false,center:true})    							
+		ptoken.navigate('#SESSION.root#/Tools/Maps/MapView.cfm?field='+field+'&coordinates='+val,'mymap') 					
     }
 	
 	function refreshmap(field,ret) {		   
@@ -296,8 +296,12 @@
 		} else {	
 					
 			// ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=window&ajaxid="+ajaxid+"&process="+allow+"&id="+id+"&myentity=#url.myclentity#", "_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes"); 					
-					
+	        
+			if (document.body.clientWidth <= 1250) {							
 			ProsisUI.createWindow('workflowstep', 'Process workflow step', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})    
+			} else {
+			ProsisUI.createWindow('workflowstep', 'Process workflow step', '',{x:100,y:100,height:document.body.clientHeight-90,width:1250,modal:true,center:true})    			
+			}
 			ptoken.navigate('#SESSION.root#/Tools/EntityAction/ProcessActionView.cfm?windowmode=embed&ajaxid='+ajaxid+'&process='+allow+'&id='+id+'&myentity=#url.myclentity#','workflowstep')
 				
 		}					
@@ -340,9 +344,9 @@
   	 
   function remind(obj,code) {    
 	// if (confirm("Do you want to send a reminder ?")) {
-    ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessMailDialog.cfm?Text=REMINDER&ActionCode="+code+"&ObjectId="+obj,"_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
-	// }
- 
+    ProsisUI.createWindow('wMailDialog', 'Reminder', '',{x:100,y:100,height:600,width:800,modal:true,center:true})    			
+    ptoken.navigate('#SESSION.root#/Tools/EntityAction/ProcessMailView.cfm?Text=REMINDER&ActionCode='+code+'&ObjectId='+obj,'wMailDialog')
+	// } 
   }	 	 
   
   <!--- ------------------------------------------------ ---> 
@@ -447,13 +451,15 @@
       // nada
   } 
   	  
-  function toggleaction(id) {    
-		  se = document.getElementById("d"+id)	  
-		  if (se.className == "hide") {
-		  se.className = "button10s"
-		  } else {
-		   se.className = "hide"
-		  }  
+  function toggleaction(id) {  
+    
+	  se = document.getElementById("d"+id)	  
+	  if (se.className == "hide") {
+	  se.className = "button10s"
+	  } else {
+	   se.className = "hide"
+	  }  
+		  
     }
 		
   function submitwfquick(id,ajaxid) {
@@ -493,36 +499,37 @@
 		
 	function accessgrantedwf(topic,row,act,set,org,role,pub) {
 				
-			icE  = document.getElementById(topic+row+"Min");			
-			icM  = document.getElementById(topic+row+"Exp");
-			se   = document.getElementById(topic+row);
-							
-			url = "#SESSION.root#/tools/EntityAction/ActionListingActor.cfm?OrgUnit="+org+"&Role="+role+"&ActionPublishNo="+pub+"&ActionCode="+set+"&box="+topic+row
-							
-			if (icE.className == "regular") {
-			   	 icM.className = "regular";
-			     icE.className = "hide";
-				 se.className  = "regular";
-				 if (set != "") { ptoken.navigate(url,topic+row) }				 
-	 	    } else {
-			   	 icM.className = "hide";
-			     icE.className = "regular";
-			   	 se.className  = "hide";
-			}
+		icE  = document.getElementById(topic+row+"Min");			
+		icM  = document.getElementById(topic+row+"Exp");
+		se   = document.getElementById(topic+row);
+						
+		url = "#SESSION.root#/tools/EntityAction/ActionListingActor.cfm?OrgUnit="+org+"&Role="+role+"&ActionPublishNo="+pub+"&ActionCode="+set+"&box="+topic+row
+						
+		if (icE.className == "regular") {
+		   	 icM.className = "regular";
+		     icE.className = "hide";
+			 se.className  = "regular";
+			 if (set != "") { ptoken.navigate(url,topic+row) }				 
+ 	    } else {
+		   	 icM.className = "hide";
+		     icE.className = "regular";
+		   	 se.className  = "hide";
+		}
 			
 	 }
 	 
 	function questionairewf(topic,row,act,set,obj,role,pub) {
 											
-			se   = document.getElementById(topic+row);							
-			url = "#SESSION.root#/tools/EntityAction/ActionListingViewQuestion.cfm?Object="+obj+"&Role="+role+"&ActionPublishNo="+pub+"&ActionCode="+set+"&box="+topic+row
-							
-			if (se.className != "regular") {			   
-				se.className  = "regular";
-				if (set != "") { ptoken.navigate(url,topic+row) }				 
-	 	    } else {			   	
-			   	se.className  = "hide";
-			}			
+		se   = document.getElementById(topic+row);							
+		url = "#SESSION.root#/tools/EntityAction/ActionListingViewQuestion.cfm?Object="+obj+"&Role="+role+"&ActionPublishNo="+pub+"&ActionCode="+set+"&box="+topic+row
+						
+		if (se.className != "regular") {			   
+			se.className  = "regular";
+			if (set != "") { ptoken.navigate(url,topic+row) }				 
+ 	    } else {			   	
+		   	se.className  = "hide";
+		}		
+			
 	 }
 	 		 
 	function accessedit(id,id1,id2,acc,box,mode,orgunit,actionpublishno,actioncode,group,assist) {				        

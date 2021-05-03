@@ -56,7 +56,7 @@
 
 	<cfsavecontent variable="myquery">
 	
-	SELECT *
+	SELECT * --,DateExpiration
 	FROM (
 	
 	SELECT     PC.PersonNo, 
@@ -209,7 +209,8 @@
                     labelfilter   = "Gender",					
 					field         = "Gender",		
 					width         = "3",			
-					filtermode    = "2",    
+					filtermode    = "2",   
+					column        = "common", 
 					align         = "center",
 					search        = "text"}>		
 
@@ -225,7 +226,8 @@
 <cfset fields[itm] = {label       = "Grade",  					
 					field         = "ContractLevel",
 					displayfilter = "Yes",
-					filtermode    = "2",
+					filtermode    = "3",
+					column        = "common",
 					fieldsort     = "PostOrder",
 					search        = "text"}>
 
@@ -237,12 +239,12 @@
 <cfset fields[itm] = {label      = "Time",  					
 					  field      = "ContractTime",
 					  filtermode = "3",
-					  search     = "text"}>	
-				
+					  search     = "text"}>					
 
 <cfset itm = itm+1>										
 <cfset fields[itm] = {label      = "App.Status", 					
 					field        = "AppointmentStatus",
+					column       = "common",
 					filtermode   = "2",
 					search       = "text"}>	
 					
@@ -250,6 +252,7 @@
 <cfset fields[itm] = {label      = "Contract", 					
 					field        = "ContractType",
 					filtermode   = "2",
+					column       = "common",
 					search       = "text"}>	
 										
 <cfset itm = itm+1>										
@@ -286,13 +289,14 @@
 <cfset fields[itm] = {label    = "Expiration",  					
 					field      = "DateExpiration",
 					align      = "center",
+					column     = "month",
 					formatted  = "dateformat(DateExpiration,'#CLIENT.DateFormatShow#')"}>										
 
 <table width="100%" height="100%"><tr><td style="padding:8px;width:100%;height:100%">	
 	
 	<cf_listing
 		    header         = "Contract"
-		    box            = "contract"
+		    box            = "contract_#url.mission#_#url.id#"
 			link           = "#SESSION.root#/Staffing/Application/Contract/ContractListing.cfm?systemfunctionid=#url.systemfunctionid#&header=#url.header#&mission=#url.mission#&mandateno=#url.mandateno#&id=#url.id#&id1=#url.id1#&year=#url.year#&month=#url.month#&expiration=#url.expiration#"
 		    html           = "No"
 			show           = "40"

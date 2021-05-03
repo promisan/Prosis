@@ -73,7 +73,7 @@
 						entitygroup    =   "#Object.EntityGroup#" 
 						returnvariable =   "stepaccess">	
 						
-			<cfif stepaccess eq "EDIT">		
+			<cfif stepaccess eq "EDIT" or stepaccess eq "ALL">		
 				  <cfset caller.wfformaccess = "EDIT">
 			</cfif>						
 	

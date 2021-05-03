@@ -1,12 +1,12 @@
 
 <cfinvoke component = "Service.Access"  
-	method         =   "AccessEntity" 
-	objectid       =   "#Object.ObjectId#"
-	actioncode     =   "#Action.ActionCode#" 
-	mission        =   "#Object.mission#"
-	orgunit        =   "#Object.OrgUnit#" 
-	entitygroup    =   "#Object.EntityGroup#" 
-	returnvariable =   "entityaccess">	
+	method          =   "AccessEntity" 
+	objectid        =   "#Object.ObjectId#"
+	actioncode      =   "#Action.ActionCode#" 
+	mission         =   "#Object.mission#"
+	orgunit         =   "#Object.OrgUnit#" 
+	entitygroup     =   "#Object.EntityGroup#" 
+	returnvariable  =   "entityaccess">	
 
 <cf_tl id="Select This option to  keep the document at the CURRENT STEP for pending review" var="vLblTTPending">     		
 <cf_tl id="Select this option to GO TO the step in the drop down list" var="vLblTTGoTo">  
@@ -52,8 +52,7 @@
 	       <cfset Status = "0">
 	   <cfelse>
 	       <cfset Status = ActionStatus> 	
-	   </cfif>
-	    
+	   </cfif>	    
 
    <td style="cursor: pointer;" title="#vLblTTPending#">
 
@@ -126,7 +125,7 @@
 		 
 	   </cfquery>
 	  	   	      
-	   <cfif entityaccess eq "EDIT" or entityaccess eq "READ">	   
+	   <cfif entityaccess eq "ALL" or entityaccess eq "EDIT" or entityaccess eq "READ">	   
 	   	           
 		   <cfif Revert.recordcount gte "1" and TriggerActionType neq "Action">
 
@@ -140,11 +139,13 @@
 		  		  		    		
                 <td class="labelmedium2" id="d1" style="cursor: pointer;" onclick="document.getElementById('r1').click()" title="#vLblTTGoTo#">
                     <table cellspacing="0" cellpadding="0">
-                        <tr class="labelmedium2">
+                        <tr>
                             <td style="padding-left:3px;padding-right:3px">
                                 <img src="#SESSION.root#/Images/workflow_previous.png" width="18" height="18" alt="Go back to previous step" border="0" align="absmiddle">
                             </td>
-                            <td style="padding-left:4px;padding-right:3px"><cf_tl id="#ActionGoToLabel#"></td>
+                            <td style="padding-left:5px;padding-right:3px" class="labelmedium2">
+                                <cf_tl id="#ActionGoToLabel#">
+                            </td>
                         </tr>
                     </table>
                 </td>
@@ -157,7 +158,7 @@
 		       
 			   <td class="#r#" id="d1a" style="padding-left:8px;padding-right:4px" title="#vLblTTGoTo#"></td>
 				      
-			   <td class="#r#" id="d1b" title="#vLblTTGoTo#">  			        
+			   <td class="#r#" id="d1b" title="#vLblTTGoTo#">  			      
 				   <select style="width:240px;border:0px;background-color:f1f1f1" class="regularxxl"				   
 				     name="ActionCodeOnHold" id="ActionCodeOnHold"
 					 style="background: ffffff;" 
@@ -179,7 +180,7 @@
    
   <!--- provision for the holder to act --->
     
-  <cfif entityaccess eq "EDIT">
+  <cfif entityaccess eq "EDIT" or entityAccess eq "ALL">
   
   		<cfquery name="MethodEnabled" 
 			 datasource="AppsOrganization"
@@ -206,8 +207,7 @@
 			 AND    (MethodScript != '' or DocumentId is not NULL)	 
 	  </cfquery>
 	        		  	  		   
-	  <cfif MethodEnabled.recordcount eq "1" or Methods.Recordcount eq "0">	   
-	  
+	  <cfif MethodEnabled.recordcount eq "1" or Methods.Recordcount eq "0">	  
 	  	  		 	    	
 		  <td style="cursor: pointer;" id="d2"  onclick="document.getElementById('r2').click()">
 		  		  
@@ -285,13 +285,12 @@
 			id="saveaction"
 			value="#lt_text#" 
 			style="width:120px;height:25;font-size:14px;border-radius:5px;border:none;background:##033F5D;color:##FFFFFF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Raleway',sans-serif !important;"
-			onclick="updateTextArea();;Prosis.busy('yes');saveforms('#wfmode#')" 
+			onclick="updateTextArea();Prosis.busy('yes');saveforms('#wfmode#')" 
 			class="button10g">		
 					
    </td>  
   
-   </tr>
-   
+   </tr>   
  
    </table>
    

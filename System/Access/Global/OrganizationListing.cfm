@@ -31,7 +31,6 @@
 		parent.ColdFusion.Layout.collapseArea('wfcontainer', 'right') } catch(e) {}
 </script>
 
-
 <script language="JavaScript">
 
 function maximize(itm,icon){
@@ -109,7 +108,7 @@ function reloadForm(role,acc,inh) {
   
 function process(acc) {        
 	ProsisUI.createWindow('myaccess', 'Access', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true})    				
-	ColdFusion.navigate(root + '/System/Organization/Access/UserAccessView.cfm?ID1=global&ID=#URL.ID4#&Mission=#URL.Mission#&ACC=' + acc,'myaccess') 		
+	ptoken.navigate(root + '/System/Organization/Access/UserAccessView.cfm?ID1=global&ID=#URL.ID4#&Mission=#URL.Mission#&ACC=' + acc,'myaccess') 		
 }
 	
 function group(bx,row) {
@@ -119,7 +118,7 @@ function group(bx,row) {
 			 		 
 	if (se.className == "hide") {
 	    se.className = "regular"	   
-	    ColdFusion.navigate(url,'i'+row)		
+	    ptoken.navigate(url,'i'+row)		
     } else {	   	 	
     	se.className  = "hide"
 	}
@@ -221,11 +220,7 @@ function group(bx,row) {
    <cfif URL.ID5 neq "">
    AND   UserAccount IN (SELECT Account FROM System.dbo.UserNames
 						 WHERE (UserAccount LIKE '%#URL.ID5#%' or Lastname LIKE '%#URL.ID5#%' OR FirstName LIKE '%#URL.ID5#%')
-						 )
-   <cfelse>
-   	<cfif url.source eq "Manual">
-	   AND   Source = 'Manual'
-   	</cfif>   
+						 )  
    </cfif>  
    GROUP BY  UserAccount, ClassIsAction, <cfif Role.Parameter neq "Entity">ClassParameter,</cfif> AccessLevel, Source 
  
@@ -246,6 +241,8 @@ function group(bx,row) {
 	   FROM     System.dbo.UserNames U INNER JOIN
 	            userQuery.dbo.Access#SESSION.acc#_#fileNo# A ON U.Account = A.UserAccount LEFT OUTER JOIN
 	            System.dbo.skUserLastLogon L ON A.UserAccount = L.Account 
+	   WHERE    U.AccountType != 'Group' OR (U.AccountType = 'Group' 
+	                                         and U.AccountMission IN (SELECT Mission FROM Ref_Mission WHERE Operational = 1))			
 	   <!--- WHERE    U.Disabled = '0'  --->
 	   ORDER BY U.AccountType,    			
 	            U.LastName, 
@@ -431,254 +428,249 @@ function group(bx,row) {
 			   
 		<cfoutput query="SearchResult" group="AccountType">
 	
-		<tr class="line labelmedium2 fixrow2">
-		   <td width="10%" colspan="11" style="padding-left:4px;height:50px">
-		      <table>
-			  <tr>
-			  <td>
-			  <cfif accounttype eq "Group">
-			  <img src="#SESSION.root#/Images/group.png" height="36" alt="" border="0">
-			  <cfelse>
-			  <img src="#SESSION.root#/Images/user3.png" height="36" alt="" border="0">
-			  </cfif>
-			  </td>
-			  <td class="labellarge" style="padding-top:10px;padding-left:6px">#AccountType#</td>
-			  </tr>
-			  </table>
-		</tr>
-		
-		<tr>
-		
-			<cfoutput group="LastName">
-			<cfoutput group="FirstName">
-			<cfoutput group="Account">	
-			<cfoutput group="Source">
-				
-		    <cfif Type eq "Denied">
-				<tr bgcolor="F39E89" id="#account#_1" class="navigation_row labelmedium">
-			<cfelseif AccountType eq "group">
-	    		<tr id="#account#_1" class="navigation_row labelmedium">
-			<cfelse>
-				<tr id="#account#_1" class="navigation_row labelmedium">
-			</cfif> 
-			
-			<td width="2%" height="20" align="center" style="padding-top:3px"> 
-			     <cfif user neq Account>			 
-				    <cf_img icon="open" tooltip="manager authorization" onclick="process('#Account#')" navigation="Yes">					       				
+			<tr class="line labelmedium2 fixrow2">
+			   <td width="10%" colspan="11" style="padding-left:4px;height:50px">
+			      <table>
+				  <tr>
+				  <td>
+				  <cfif accounttype eq "Group">
+				  <img src="#SESSION.root#/Images/group.png" height="36" alt="" border="0">
+				  <cfelse>
+				  <img src="#SESSION.root#/Images/user3.png" height="36" alt="" border="0">
 				  </cfif>
-			</td>	
-			
-			<td width="2%" align="left" style="padding-right:10px;padding-top:9px">
-			
-			 <cfif AccountType eq "Group">	 
-	 		   <cf_img icon="expand" tooltip="members" toggle="yes" onclick="group('#Account#','#currentRow#')">			
-			  </cfif>	
-			  
-	        </td>
-			   			
-						  
-			<td width="30%">
-			
-			     <cfif AccountType eq "Group">
-				 
-				 	 <cfif user neq Account>					 	 
-					 	#LastName#					
-					 </cfif>
-					 
-				 <cfelse>
-				    
-				 	<cfif user neq Account>										 
-					 #LastName#, #FirstName#					
-					 </cfif>
-					 
-				 </cfif>
-			</td>	
-		 
-			<TD width="15%"><cfif user neq Account>#account#</cfif></TD>
-			<TD width="10%"><cfif user neq Account>#accountgroup#</cfif></TD>	 
-			<td width="10%">					
+				  </td>
+				  <td class="labellarge" style="padding-top:10px;padding-left:6px">#AccountType#</td>
+				  </tr>
+				  </table>
+			</tr>
+				
+				<cfoutput group="LastName">
+				<cfoutput group="FirstName">
+				<cfoutput group="Account">	
+				<cfoutput group="Source">
 					
-				<cfif disabled eq "1">				
-			     	 <font color="red">disabled</font>						 
-				<cfelseif user neq Account>								
-					 <cfif DateFormat(LastLogon, CLIENT.DateFormatShow) eq "">			  		    
-						 <font color="FF0000">never</font>						 
-					 <cfelse>					 
-					     #DateFormat(LastLogon, CLIENT.DateFormatShow)#						 
-					 </cfif>				 
-				</cfif>			
-			 
-			</td> 
-			<TD width="10%">			
-			<cfif source neq "manual">
-				<img src="#SESSION.root#/Images/group1.gif" align="absmiddle" alt="Inherited" border="0">&nbsp;#source#&nbsp;
-			<cfelse>Manual</cfif>
-			</TD>				
-			<TD width="40">
-			
-				<cfif Role.AccessLevels eq "2">
-				
-					<cfset lbl = ListToArray(Role.AccessLevelLabelList)>
-					<cftry>
-						    #lbl[accesslevel]#
-					<cfcatch>#accesslevel#</cfcatch>
-					</cftry>
-				
+			    <cfif Type eq "Denied">
+					<tr bgcolor="F39E89" id="#account#_1" class="navigation_row labelmedium">
+				<cfelseif AccountType eq "group">
+		    		<tr id="#account#_1" class="navigation_row labelmedium">
 				<cfelse>
-			
-					<cfset lbl = ListToArray(Role.AccessLevelLabelList)>
-					<cftry>
-						    #lbl[accesslevel+1]#
-					<cfcatch>#accesslevel#</cfcatch>
-					</cftry>
-				</cfif>	
-		 	
-			</TD>
-			<td width="100">
-			
-				<div style="width:150px;height:15;overflow-y: auto;">				
-				<table width="100%" cellspacing="0" cellpadding="0">					 				
+					<tr id="#account#_1" class="navigation_row labelmedium">
+				</cfif> 
 				
-			  	
+				<td width="2%" height="20" align="center" style="padding-top:3px"> 
+				     <cfif user neq Account>			 
+					    <cf_img icon="open" tooltip="manager authorization" onclick="process('#Account#')" navigation="Yes">					       				
+					  </cfif>
+				</td>	
 				
-				    <cfif ClassIsAction neq "1">		
-					  
-					    <cfoutput group="classparameter">
-						<tr class="labelmedium" style="height:15px"><td>#ClassParameter#</td></tr>
-						</cfoutput>
-					<cfelse>					
-					<!--- hide entries, it is too much 23/7/05 
-					
-					 <cfquery name="Entity" 
-				   datasource="AppsOrganization" 
-				   username="#SESSION.login#" 
-				   password="#SESSION.dbpw#">
-				   SELECT *
-				   FROM   Ref_EntityAction
-				   WHERE  ActionCode IN ('dummy'<cfoutput>,'#ClassParameter#'</cfoutput>)
-				   ORDER BY EntityCode, ListingOrder
-				  </cfquery>
+				<td width="2%" align="left" style="padding-right:10px;padding-top:9px">
+				
+				 <cfif AccountType eq "Group">	 
+		 		   <cf_img icon="expand" tooltip="members" toggle="yes" onclick="group('#Account#','#currentRow#')">			
+				  </cfif>	
 				  
-				  	<table width="100%">
-				    <cfloop query="Entity">
-						<tr><td>#ListingOrder#</td>
-						    <td>#ActionCode#</td>
-						    <td>#ActionDescription#</td>
-						</tr>
-					</cfloop>
-					</table>
-					
-					--->
-								   	
-					</cfif>
-												
-				</table>
-				</div>		
-							
-			 </td>
-			 <td width="55" align="center">
-			 
-			  <cfif Mission neq "">
-			  					 
-						<img src="#SESSION.root#/Images/tree3.gif" alt="" height="14" width="12"
-						id="#currentrow#tExp" border="0" class="show" 
-						align="absmiddle" style="cursor: pointer;" 
-						onClick="javascript:detail('#URL.ID4#','#account#','#currentrow#','#source#')">
-						
-					<img src="#SESSION.root#/Images/icon_collapse.gif" 
-						id="#currentrow#tMin" alt="" border="0" 
-						align="absmiddle" class="hide" style="cursor: pointer;" 
-						onClick="javascript:detail('#URL.ID4#','#account#','#currentrow#','#source#')"> 
-					   
-			  </cfif> 
-			  
-			 </td>			 
+		        </td>
+				   			
+							  
+				<td width="30%">
+				
+				     <cfif AccountType eq "Group">
 					 
-			 <td align="center" style="padding-right:5px">
+					 	 <cfif user neq Account>					 	 
+						 	#LastName#					
+						 </cfif>
+						 
+					 <cfelse>
+					    
+					 	<cfif user neq Account>										 
+						 #LastName#, #FirstName#					
+						 </cfif>
+						 
+					 </cfif>
+				</td>	
 			 
-			    <cfif access eq "EDIT" or access eq "ALL">
-				
-				    <cfif user neq Account>
-				     <input type="checkbox" name="Account" id="Account" value="'#Account#'" onClick="hl('#account#',this.checked,'2')">
-					</cfif>
-				
-				</cfif>
-				
-		     </td>
-			
-			 <cfset user = Account>
-			 
-				 <!---
+				<TD width="15%"><cfif user neq Account>#account#</cfif></TD>
+				<TD width="10%"><cfif user neq Account>#accountgroup#</cfif></TD>	 
+				<td width="10%">					
+						
+					<cfif disabled eq "1">				
+				     	 <font color="red">disabled</font>						 
+					<cfelseif user neq Account>								
+						 <cfif DateFormat(LastLogon, CLIENT.DateFormatShow) eq "">			  		    
+							 <font color="FF0000">never</font>						 
+						 <cfelse>					 
+						     #DateFormat(LastLogon, CLIENT.DateFormatShow)#						 
+						 </cfif>				 
+					</cfif>			
 				 
-				 <cfif ClassParameter neq "Default">		 	
-				 
-				 <tr id="#account#_3">
-				 <td colspan="1" bgcolor="white">
-				 <td colspan="8" align="left" bgcolor="E8FFFF">
-				    <cfif ClassIsAction neq "1">
-					    <cfoutput group="classparameter">&nbsp;#ClassParameter#&nbsp;|&nbsp;</cfoutput>
+				</td> 
+				<TD width="10%">			
+				<cfif source neq "manual">
+					<img src="#SESSION.root#/Images/group1.gif" align="absmiddle" alt="Inherited" border="0">&nbsp;#source#&nbsp;
+				<cfelse>Manual</cfif>
+				</TD>				
+				<TD width="40">
+				
+					<cfif Role.AccessLevels eq "2">
+					
+						<cfset lbl = ListToArray(Role.AccessLevelLabelList)>
+						<cftry>
+							    #lbl[accesslevel]#
+						<cfcatch>#accesslevel#</cfcatch>
+						</cftry>
+					
 					<cfelse>
-					
-					<!--- hide entries, it is too much 23/7/05 
-					
-					 <cfquery name="Entity" 
-				   datasource="AppsOrganization" 
-				   username="#SESSION.login#" 
-				   password="#SESSION.dbpw#">
-				   SELECT *
-				   FROM   Ref_EntityAction
-				   WHERE  ActionCode IN ('dummy'<cfoutput>,'#ClassParameter#'</cfoutput>)
-				   ORDER BY EntityCode, ListingOrder
-				  </cfquery>
-				  
-				  	<table width="100%">
-				    <cfloop query="Entity">
-						<tr><td>#ListingOrder#</td>
-						    <td>#ActionCode#</td>
-						    <td>#ActionDescription#</td>
-						</tr>
-					</cfloop>
-					</table>
-					
-					--->
-								   	
-					</cfif>
-										    
-			     </td>
-				 </tr>
-				 </cfif>
-				 
-				 --->
-					  
-			  <cfif Mission neq "">
-					   
-			    <tr class="hide" id="result_#currentrow#">		    
-				 <td></td>
-			     <td bgcolor="ffffcf" colspan="10" id="iresult_#currentrow#"></td>
-				 <td></td>
-				</tr>
-							  		  
-			  </cfif>
-			  
-			  <cfif AccountType eq "Group">
-			  
-			  <tr id="#CurrentRow#" class="hide"><td></td>
-				  <td colspan="8" id="i#CurrentRow#"></td>
-				  <td></td>
-				  <td></td>		  
-			  </tr>
-			  			 
-			  </cfif>	 
-			  				 
-		</CFOUTPUT>	 
 				
-		<tr><td class="line" colspan="11"></td></tr>
-		
-		</cfoutput>  	     
+						<cfset lbl = ListToArray(Role.AccessLevelLabelList)>
+						<cftry>
+							    #lbl[accesslevel+1]#
+						<cfcatch>#accesslevel#</cfcatch>
+						</cftry>
+					</cfif>	
+			 	
+				</TD>
+				<td width="100">
+				
+					<div style="width:150px;height:15;overflow-y: auto;">				
+					<table width="100%" cellspacing="0" cellpadding="0">					 				
+					
+					    <cfif ClassIsAction neq "1">		
+						  
+						    <cfoutput group="classparameter">
+							<tr class="labelmedium" style="height:15px"><td>#ClassParameter#</td></tr>
+							</cfoutput>
+						<cfelse>					
+						<!--- hide entries, it is too much 23/7/05 
+						
+						 <cfquery name="Entity" 
+					   datasource="AppsOrganization" 
+					   username="#SESSION.login#" 
+					   password="#SESSION.dbpw#">
+					   SELECT *
+					   FROM   Ref_EntityAction
+					   WHERE  ActionCode IN ('dummy'<cfoutput>,'#ClassParameter#'</cfoutput>)
+					   ORDER BY EntityCode, ListingOrder
+					  </cfquery>
+					  
+					  	<table width="100%">
+					    <cfloop query="Entity">
+							<tr><td>#ListingOrder#</td>
+							    <td>#ActionCode#</td>
+							    <td>#ActionDescription#</td>
+							</tr>
+						</cfloop>
+						</table>
+						
+						--->
+									   	
+						</cfif>
+													
+					</table>
+					</div>		
+								
+				 </td>
+				 <td width="55" align="center">
+				 
+				  <cfif Mission neq "">
+				  					 
+							<img src="#SESSION.root#/Images/tree3.gif" alt="" height="14" width="12"
+							id="#currentrow#tExp" border="0" class="show" 
+							align="absmiddle" style="cursor: pointer;" 
+							onClick="javascript:detail('#URL.ID4#','#account#','#currentrow#','#source#')">
+							
+						<img src="#SESSION.root#/Images/icon_collapse.gif" 
+							id="#currentrow#tMin" alt="" border="0" 
+							align="absmiddle" class="hide" style="cursor: pointer;" 
+							onClick="javascript:detail('#URL.ID4#','#account#','#currentrow#','#source#')"> 
+						   
+				  </cfif> 
+				  
+				 </td>			 
+						 
+				 <td align="center" style="padding-right:5px">
+				 
+				    <cfif access eq "EDIT" or access eq "ALL">
+					
+					    <cfif user neq Account>
+					     <input type="checkbox" name="Account" id="Account" value="'#Account#'" onClick="hl('#account#',this.checked,'2')">
+						</cfif>
+					
+					</cfif>
+					
+			     </td>
+				
+				 <cfset user = Account>
+				 
+					 <!---
+					 
+					 <cfif ClassParameter neq "Default">		 	
+					 
+					 <tr id="#account#_3">
+					 <td colspan="1" bgcolor="white">
+					 <td colspan="8" align="left" bgcolor="E8FFFF">
+					    <cfif ClassIsAction neq "1">
+						    <cfoutput group="classparameter">&nbsp;#ClassParameter#&nbsp;|&nbsp;</cfoutput>
+						<cfelse>
+						
+						<!--- hide entries, it is too much 23/7/05 
+						
+						 <cfquery name="Entity" 
+					   datasource="AppsOrganization" 
+					   username="#SESSION.login#" 
+					   password="#SESSION.dbpw#">
+					   SELECT *
+					   FROM   Ref_EntityAction
+					   WHERE  ActionCode IN ('dummy'<cfoutput>,'#ClassParameter#'</cfoutput>)
+					   ORDER BY EntityCode, ListingOrder
+					  </cfquery>
+					  
+					  	<table width="100%">
+					    <cfloop query="Entity">
+							<tr><td>#ListingOrder#</td>
+							    <td>#ActionCode#</td>
+							    <td>#ActionDescription#</td>
+							</tr>
+						</cfloop>
+						</table>
+						
+						--->
+									   	
+						</cfif>
+											    
+				     </td>
+					 </tr>
+					 </cfif>
+					 
+					 --->
+						  
+				  <cfif Mission neq "">
+						   
+				    <tr class="hide" id="result_#currentrow#">		    
+					 <td></td>
+				     <td bgcolor="ffffcf" colspan="10" id="iresult_#currentrow#"></td>
+					 <td></td>
+					</tr>
+								  		  
+				  </cfif>
+				  
+				  <cfif AccountType eq "Group">
+				  
+				  <tr id="#CurrentRow#" class="hide"><td></td>
+					  <td colspan="8" id="i#CurrentRow#"></td>
+					  <td></td>
+					  <td></td>		  
+				  </tr>
+				  			 
+				  </cfif>	 
+				  				 
+			</CFOUTPUT>	 
+					
+			<tr><td class="line" colspan="11"></td></tr>
 			
-		</cfoutput>
-			
-		</cfoutput>
+			</cfoutput> 	     
+				
+			</cfoutput>				
+			</cfoutput>
 			
 		</cfoutput>
 			

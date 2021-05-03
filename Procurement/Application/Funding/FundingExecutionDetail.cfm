@@ -56,11 +56,11 @@
 
 <cfset FileNo = round(Rand()*30)>
 <cfset SESSION.FileNo = FileNo>
-<CF_DropTable dbName="AppsQuery" tblName="Pipeline_#SESSION.acc#" range="30">  
-<CF_DropTable dbName="AppsQuery" tblName="Approval_#SESSION.acc#" range="30">  
+<CF_DropTable dbName="AppsQuery" tblName="Pipeline_#SESSION.acc#"    range="30">  
+<CF_DropTable dbName="AppsQuery" tblName="Approval_#SESSION.acc#"    range="30">  
 <CF_DropTable dbName="AppsQuery" tblName="Reservation_#SESSION.acc#" range="30">  
-<CF_DropTable dbName="AppsQuery" tblName="Obligation_#SESSION.acc#" range="30">  
-<CF_DropTable dbName="AppsQuery" tblName="Invoice_#SESSION.acc#" range="30">  
+<CF_DropTable dbName="AppsQuery" tblName="Obligation_#SESSION.acc#"  range="30">  
+<CF_DropTable dbName="AppsQuery" tblName="Invoice_#SESSION.acc#"     range="30">  
 
 <cfif url.period eq "">
 

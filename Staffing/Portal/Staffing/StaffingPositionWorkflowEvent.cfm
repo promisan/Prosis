@@ -89,19 +89,21 @@ password="#SESSION.dbpw#">
 	<cfelse>
 	
 	<table style="width:100%">
-		<tr class="labelmedium" style="height:15px">
-		<td style="padding-left:4px;width:25px;background-color:yellow;padding-right:5px;"></td>
-		<td style="padding-left:14px">	
+		<tr class="labelmedium">
 		<cfoutput>
-		<a style="width:100%;font-size:12px" href="javascript:AddEvent('#PersonNo#','#Parent.PositionNo#','#url.ajaxid#','#url.trigger#','#url.code#')">
-		<cfif mde eq "spa">
-			<cf_tl id="Request SPA">
-		<cfelseif mde eq "ass">
-			<cf_tl id="Extend Assignment">	
-		<cfelse>
-			<cf_tl id="Extend Appointment">
-		</cfif>		
-		</a> 
+		<td style="padding-left:4px;width:25px;padding-right:5px;">
+		<img src="#client.root#/images/finger.png" height="20" width="20" alt="" border="0">
+		</td>
+		<td style="padding-left:14px">			
+			<a style="width:100%;font-size:12px" href="javascript:AddEvent('#PersonNo#','#Parent.PositionNo#','#url.ajaxid#','#url.trigger#','#url.code#')">
+			<cfif mde eq "spa">
+				<cf_tl id="Request SPA">
+			<cfelseif mde eq "ass">
+				<cf_tl id="Extend Assignment">	
+			<cfelse>
+				<cf_tl id="Extend Appointment">
+			</cfif>		
+			</a> 
 		</cfoutput>
 		</tr>
 	</table>

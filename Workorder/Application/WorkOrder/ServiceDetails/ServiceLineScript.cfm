@@ -1,5 +1,5 @@
 
-<cfajaximport tags="cfwindow,cfform,cfinput-datefield,cfdiv">
+<cfajaximport tags="cfwindow,cfform,cfdiv">
 <cf_dialogStaffing>
 <cf_dialogPosition>
 <cf_dialogWorkorder>
@@ -21,6 +21,7 @@
 <cf_tl id="Do you want to remove this product ?" var="msgRemoveFinalProduct">
 <cf_tl id="Post production to storage warehouse. This will remove all previous entries." var="msgPostProduct">
 <cf_tl id="Please, select a valid person." var="vPersonMessage">
+
 		
 <script language="JavaScript">
 
@@ -124,9 +125,11 @@
 		ptoken.open("<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/HalfProduct/HalfProductAdd.cfm?workorderid="+woid+"&workorderline="+woline+"&itemNo="+itemno+"&uom="+uom,"add half");		
 	}
 	
+		
 	function addFinalProduct(woid,woline,itemno,uom) {						
 		ptoken.open("<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/FinalProduct/FinalProductAdd.cfm?workorderid="+woid+"&workorderline="+woline+"&itemNo="+itemno+"&uom="+uom,"add item");		
 	}	
+	
 	
 	function editHalfProduct(woid,woline,woitmid) {	
 		ProsisUI.createWindow('mydialog', 'Finished Product', '',{x:100,y:100,height:600,width:660,modal:true,center:true})    						
@@ -138,6 +141,7 @@
 		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/FinalProduct/FinalProductView.cfm?accessmode=edit&workorderid='+woid+'&workorderline='+woline+'&workorderitemid='+woitmid,'mydialog') 					
 	}
 	
+		
 	// perspective of workorder line 
 	
 	function editResourceService(woid,woline,resid) {
@@ -152,13 +156,13 @@
 		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/BOM/consumeBOMEarmarked.cfm?Category='+cat+'&SystemFunctionid='+sid+'&Mode='+mde+'&WorkOrderId='+woid+'&WorkOrderLine='+woline,'process') 			
 	}	
 	
+	
+	
 	// perspective of the workorder line FP item 
 	
-	function editResourceSupply(wid,wol,woid,widres,itemno,uom) {
-				
+	function editResourceSupply(wid,wol,woid,widres,itemno,uom) {				
 		ProsisUI.createWindow('mysupply', 'Supply', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,resizable:false,center:true})    							    
-		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/BOM/ResourceEdit.cfm?scope=supply&WorkOrderItemId='+woid+'&workorderitemidresource='+widres+'&itemNo='+itemno+'&uom='+uom,'mysupply') 			
-				
+		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/BOM/ResourceEdit.cfm?scope=supply&WorkOrderItemId='+woid+'&workorderitemidresource='+widres+'&itemNo='+itemno+'&uom='+uom,'mysupply') 							
 	}		
 	
 	function editResourceRefresh(mde,woid,wid,wol) {
@@ -168,7 +172,8 @@
 		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/FinalProduct/ItemView.cfm?workorderid='+wid+'&workorderline='+wol,'topSection') 		  	 
 	 } 	
 		
-	}				
+	}		
+	
 	
 	function deleteResourceSupply(woid,widres,itemno,uom) {	     
 	     var conf = confirm("Are you sure to remove this material?");
@@ -189,6 +194,7 @@
 		}	
 			
 	}
+		
 
 	function createBatchRequisitions(fileNo,sid) {	    
 		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/BOM/CreateRequisitions.cfm?fileNo='+fileNo+'&systemfunctionid='+sid,'process','','','POST','fGeneration')		
@@ -204,7 +210,7 @@
 			ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/HalfProduct/HalfProductPurge.cfm?workorderid='+woid+'&workorderline='+woline+'&itemno='+itemno+'&uom='+uom,'topSection');
 		}
 	}
-	
+		
 	function removeFinalProduct(woid,woline,itemno,uom,tpe) {
 		if (confirm('<cfoutput>#msgRemoveFinalProduct#</cfoutput>')) {
 		     _cf_loadingtexthtml="";
@@ -214,19 +220,23 @@
 	
 	function getBOM(woid,woline,mode){
 		if (confirm('Are you sure to refresh BOM information ? \n\nThis will reset all previously modified BOM for items.')) {
-			ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/BOM/generateBOM.cfm?mode='+mode+'&refresh=yes&workorderid=' + woid + '&workorderline=' + woline, 'topSection');	}			
+			ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/BOM/generateBOM.cfm?mode='+mode+'&refresh=yes&workorderid=' + woid + '&workorderline=' + woline, 'topSection');
+			}			
 	}
 	
+	<!--- <cfoutput>#msgPostProduct#</cfoutput> --->			
 	function issueStock(woid,woline,mode) {
-		if (confirm('<cfoutput>#msgPostProduct#</cfoutput>')) {
-			Prosis.busy('yes');ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/BOM/generateStock.cfm?mode='+mode+'&refresh=yes&workorderid=' + woid + '&workorderline=' + woline, 'topSection');	}			
-
-	}
-		
+			if (confirm('<cfoutput></cfoutput>')) {
+			Prosis.busy('yes');
+			ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/BOM/generateStock.cfm?mode='+mode+'&refresh=yes&workorderid=' + woid + '&workorderline=' + woline,'topSection');	
+		}	
+	}	
+	
+				
 	function doInitRequest() {
 		$(".material:first").focus();
 		doHighlight();
-	}		
+	}				
 	
 	function validatePersonField(name) {
 		if ($('#'+name).length > 0) {
@@ -246,6 +256,7 @@
 	function doUpdateResource(id) {
 		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/BOM/ResourceUpdateSubmit.cfm?ResourceId=' + id, 'resulths','','','POST','fResource');			
 	}
+	
 	
 	function doDeleteResource(id) {
 		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/workorder/application/Assembly/Items/BOM/ResourceDelete.cfm?ResourceId=' + id, 'resulths');			
@@ -281,5 +292,7 @@
 		 }
 		 );	
 	}	 
+	
 		
 </script>
+

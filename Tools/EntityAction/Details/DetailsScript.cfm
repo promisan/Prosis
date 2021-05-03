@@ -1,5 +1,5 @@
 
-<cfajaximport tags="cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 
 <cfoutput>
 								  	
@@ -113,7 +113,7 @@
 			
 				w = 820
 				h = 700			
-				window.open("#SESSION.root#/tools/entityaction/Details/Notes/NoteEntry.cfm?box="+box+"&mode="+mode+"&to="+to+"&type="+type+"&objectid="+objectid+"&threadid="+threadid+"&serialno="+ser+"&actioncode="+action+"&sitem="+sid+"&ts="+new Date().getTime(), "amendment", "left=40, top=40, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=no");											
+				ptoken.open("#SESSION.root#/tools/entityaction/Details/Notes/NoteEntry.cfm?box="+box+"&mode="+mode+"&to="+to+"&type="+type+"&objectid="+objectid+"&threadid="+threadid+"&serialno="+ser+"&actioncode="+action+"&sitem="+sid+"&ts="+new Date().getTime(), "amendment", "left=40, top=40, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=no");											
 				} 
 				
 			else {
