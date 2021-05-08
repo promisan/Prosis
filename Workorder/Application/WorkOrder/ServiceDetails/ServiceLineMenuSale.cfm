@@ -40,11 +40,13 @@
 			name       = "#vCosts# "
 			source     = "../../Assembly/Items/BOM/ItemView.cfm?systemfunctionid=#url.systemfunctionid#&workorderid=#URL.workorderId#&workorderline=#url.workorderline#">				
 			
+--->			
+			
 
 <cfset itm = itm+1>		
 <cf_tl id="Under Procurement" var="vProcurement">
 <cf_menutab item       = "#itm#" 
-            iconsrc    = "Logos/Procurement/Invoice.png" 
+            iconsrc    = "Logos/Workorder/Acquired-Product.png" 
 			iconwidth  = "#wd#" 
 			padding    = "3"
 			targetitem = "1"
@@ -52,7 +54,6 @@
 			name       = "#vProcurement#"
 			source     = "Requisition/RequisitionListing.cfm?systemfunctionid=#url.systemfunctionid#&workorderid=#URL.workorderId#&workorderline=#url.workorderline#&systemfunctionid=#url.systemfunctionid#">
 
---->
 			
 <cfif workorder.actionstatus lte "1">
 

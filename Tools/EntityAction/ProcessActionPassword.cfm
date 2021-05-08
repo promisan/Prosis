@@ -3,15 +3,14 @@
 
 <form method="post" name="formpwdvalidate" id="formpwdvalidate">
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0" bgcolor="FFFFFF">
-	
-    <tr><td height="6"></td></tr>
+<table width="100%" height="90%" bgcolor="FFFFFF">
+	   
 	<tr>
 	
 	<td width="15"></td>
-	<td valign="top"><img height="50" width="50" src="#SESSION.root#/images/password.png" alt="" border="0"></td>		
+	<td style="padding-top:15px" valign="top"><img height="50" width="50" src="#SESSION.root#/images/password.png" alt="" border="0"></td>		
 			
-	<td>
+	<td valign="top">
 	
 		<table>
 		
@@ -23,7 +22,7 @@
 			
 			<tr><td>
 				<input type="password" 
-				    style="width:220;height:40;font-size:25px" 
+				    style="width:220;height:40;font-size:30px" 
 					onKeydown="if (window.event.keyCode == '13') {return false}"
 					onKeyup="if (window.event.keyCode == '13') {ptoken.navigate('ProcessActionPasswordValidate.cfm?wfmode=#url.wfmode#','passwordvalidate','','','POST','formpwdvalidate');return false}"
 					name="ProcessPassword" 		
@@ -40,15 +39,13 @@
 	</td>
 	
 	</tr>
-				
-	<tr><td height="4"></td></tr>
-	
+			
 	<tr><td class="linedotted" colspan="3" height="1"></td></tr>
 	
 	<tr>
-			<td height="40" colspan="3">
+			<td height="34" colspan="3">
 			
-			<table cellspacing="0" cellpadding="0" align="center" class="formspacing">
+			<table align="center" class="formspacing">
 			<tr><td>
 			
 			    <cf_tl id="Cancel" var="1">
@@ -59,7 +56,7 @@
 			      onclick = "ProsisUI.closeWindow('boxauth');document.getElementById('r0').click()" 
 				  value   = "#lt_text#" 
 				  class   = "button10g"
-				  style   = "width:120;height:20">
+				  style   = "width:120">
 				  
 				</td>
 				<td>  
@@ -72,14 +69,13 @@
 				      onclick = "ptoken.navigate('ProcessActionPasswordValidate.cfm?wfmode=#url.wfmode#','passwordvalidate','','','POST','formpwdvalidate')" 
 					  value   = "#lt_text#" 
 					  class   = "button10g"
-					  style   = "width:120;height:20">
+					  style   = "width:120">
 				  					
 			</td></tr>
 			
 			</td>
 	</tr>
-	
-	
+		
 </table>
 
 </form>

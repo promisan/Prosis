@@ -3068,12 +3068,14 @@
 				<cfset Invoice.Mode = "1"> <!--- manual --->
 				<cfset Invoice.ErrorDescription = "">
 				<cfset Invoice.ErrorDetail = "">
+				<cfset Invoice.Status = "1">
 				
 			<cfelse>
 			
 			    <cfset Invoice.Mode = "2">
 				<cfset Invoice.ErrorDescription = "">
 				<cfset Invoice.ErrorDetail = "">
+				<cfset Invoice.Status = "1">
 				
 			    <!--- ------------------- --->
 				<!--- jdiaz complementent --->
@@ -3167,7 +3169,10 @@
 	
 	
 								<cfif stResponse.Status neq "OK">									   					
-									<cfset Invoice.Mode = "1"> <!--- manual --->
+									 <!--- manual 5/7/2021 by Armin
+	 									<cfset Invoice.Mode = "1">
+									 --->
+									 <cfset Invoice.Status = "9">
 									<cfset Invoice.ErrorDescription = stResponse.ErrorDescription>
 									<cfif StructKeyExists(stResponse,"ErrorDetail")>
 										<cfset Invoice.ErrorDetail = stResponse.ErrorDetail>
@@ -3182,9 +3187,12 @@
 			
 			</cfif>			
 			
-			<cfif Invoice.Mode eq "2" and stResponse.DocumentNo neq  "">
+			<cfif Invoice.Mode eq "2" and stResponse.DocumentNo neq  "" and Invoice.Status eq "1">
+			
 				<!--- update the current electronic invoice generated --->
+				
 				<cfif Mode eq "2" >
+					<!---- The invoice is previous FEL version 2019 --->
 					<cfset curInvoice = "0">
 					<cfset curInvoice = LSParseNumber(right(stResponse.DocumentNo,10))>
 
@@ -3206,11 +3214,11 @@
 							password="#SESSION.dbpw#">
 						UPDATE  WarehouseBatch
 						SET 	BatchReference = '#stResponse.Dte#'
-					WHERE   BatchId 	= '#BatchId#'
-					AND		BatchReference  IS NULL
+					    WHERE   BatchId 	= '#BatchId#'
+					    AND		BatchReference  IS NULL
 					</cfquery>
 				<cfelse>
-		<!--- update warehousebatch reference with electronic invoice --->
+				<!--- update warehousebatch reference with electronic invoice new mode for FEL 2020 version --->
 						<cfquery name="UpdateReference"
 								datasource="AppsMaterials"
 								username="#SESSION.login#"
@@ -3238,7 +3246,8 @@
 				</cfquery>				
 				
 				<cfif GetSer.InvoiceCurrent gte Getser.InvoiceEnd and Mode eq 2>
-					<!--- Series limit reached.  Disable this series --->
+					<!--- Series limit reached.  Disable this series 
+					This is for previous FEL version 2019--->
 					
 					<cfquery name="DisableSeries"
 					 datasource="AppsOrganization" 
@@ -3322,7 +3331,7 @@
                           JournalSerialNo,
                           ActionCode,     
 					      ActionMode,  
-					      <cfif Invoice.Mode eq "2">
+					      <cfif Invoice.Mode eq "2" and Invoice.Status eq "1">
 						   <!--- more information --->	
 						   ActionReference1,
 						   ActionReference2,
@@ -3345,7 +3354,7 @@
             		      '#get.JournalSerialNo#',
                           'Invoice',		
 						  '#Invoice.Mode#',						
-						  <cfif Invoice.Mode eq "2">
+						  <cfif Invoice.Mode eq "2" and Invoice.Status eq "1">
 								<!--- more information --->	                       
 								'#stResponse.Cae#',
 								'#stResponse.DocumentNo#',
@@ -3357,12 +3366,16 @@
 									NULL,
 								</cfif>
 						  <cfelseif getWarehouseJournal.TransactionMode eq "2">
-						  		'#GetManualSeries.SeriesNo#',
+						  		<cfif Invoice.Status eq "1">
+							  		'#GetManualSeries.SeriesNo#',
+								<cfelse>
+									'ERROR',
+								</cfif>
 						  </cfif> 
 						  '#left(Invoice.ErrorDescription,100)#',
 						  '#Invoice.ErrorDetail#',
 		                  getDate(),                                 
-        		          '1',     <!--- mode process completed --->
+        		          '#Invoice.Status#',     <!--- mode process completed --->
                 	      '#SESSION.acc#',
                           '#SESSION.last#',
 		                  '#SESSION.first#')  

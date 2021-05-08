@@ -572,7 +572,7 @@ password="#SESSION.dbpw#">
 			  <table style="min-width:400px;width:99%;border:1px solid silver">
 			  <tr>
 			  
-			   <td style="padding-left:8px;padding-right:8px;border-right:1px solid silver" align="right">
+			   <td style="padding-left:5px;padding-right:5px;max-width:30px;border-right:1px solid silver">
 		
 				 <img src="#SESSION.root#/Images/search.png" 
 				      alt="Select item master" 
@@ -584,28 +584,30 @@ password="#SESSION.dbpw#">
 					  					  
 				 </TD>
 			  					  
-				 <TD style="padding-left:2px;width:72%;background-color:e8e8e8">
+				 <TD style="padding-left:2px;width:78%;background-color:e8e8e8">
 				 
-				   <input type  = "text" 
-				      name      = "itemmasterdescription" 
-					  id        = "itemmasterdescription" 
-					  value     = "#Master.Description#" 
-					  style     = "width:100%;border:0px;background-color:transparent"  
-					  maxlength = "80"  
-					  class     = "regularxxl" readonly> 
+					   <input type  = "text" 
+					      name      = "itemmasterdescription" 
+						  id        = "itemmasterdescription" 
+						  value     = "#Master.Description#" 
+						  style     = "width:100%;border:0px;background-color:transparent"  
+						  maxlength = "80"  
+						  class     = "regularxxl" readonly> 
 					  
 				 </TD>
 				 
-				 <TD style="border-left:1px solid silver;;background-color:e8e8e8"> 							  
-				   <input type="text" 
-				      name="itemmaster" 
-					  id="itemmaster" 
-					  value="#Master.Code#" 
-					  size="10"  
-					  maxlength="12"  					 
-					  class="regularxxl" 
-					  readonly 
-					  style="text-align: right;min-width:60px;border:0px;background-color:transparent"> 			  
+				 <TD style="border-left:1px solid silver;;background-color:e8e8e8"> 		
+				 					  
+					   <input type  = "text" 
+					      name      = "itemmaster" 
+						  id        = "itemmaster" 
+						  value     = "#Master.Code#" 
+						  size      = "10"  
+						  maxlength = "12"  					 
+						  class     = "regularxxl" 
+						  readonly 
+						  style     = "text-align: right;min-width:60px;border:0px;background-color:transparent"> 			  
+						  
 				 </TD>		 
 				
 								 			  
@@ -614,14 +616,14 @@ password="#SESSION.dbpw#">
 				  <cfquery name="Last" datasource="AppsPurchase" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-			    	    SELECT   TOP 1 I.Code, I.Description, I.EnforceWarehouse,R.CustomDialog 
-				   		FROM     RequisitionLine L INNER JOIN
-		                         ItemMaster I ON L.ItemMaster = I.Code INNER JOIN
-		                         Ref_EntryClass R ON I.EntryClass = R.Code
-					    WHERE    L.Mission = '#url.mission#' 
-						AND      L.OfficerUserId = '#SESSION.acc#'
-						AND      L.ActionStatus != '0'
-						ORDER BY L.Created DESC
+				    	    SELECT   TOP 1 I.Code, I.Description, I.EnforceWarehouse,R.CustomDialog 
+					   		FROM     RequisitionLine L INNER JOIN
+			                         ItemMaster I ON L.ItemMaster = I.Code INNER JOIN
+			                         Ref_EntryClass R ON I.EntryClass = R.Code
+						    WHERE    L.Mission = '#url.mission#' 
+							AND      L.OfficerUserId = '#SESSION.acc#'
+							AND      L.ActionStatus != '0'
+							ORDER BY L.Created DESC
 			  	  </cfquery>
 				  
 				  <cfif last.recordcount eq "1">
@@ -684,12 +686,12 @@ password="#SESSION.dbpw#">
 			 			
 			<cfif Access eq "View" or (Access eq "Limited" and Parameter.EnforceObject eq "1")>
 			
-				<cfdiv id="custom" 
+				<cf_securediv id="custom" 
 				 bind="url:#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEditFormCustom.cfm?mode=view&id=#url.id#&mission=#line.mission#&master=#line.itemmaster#">
 						  	
 			<cfelse>
 						
-				<cfdiv id="custom" 
+				<cf_securediv id="custom" 
 				 bind="url:#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEditFormCustom.cfm?mode=edit&id=#url.id#&mission=#line.mission#&master=#line.itemmaster#">
 					
 			</cfif>	
@@ -735,29 +737,30 @@ password="#SESSION.dbpw#">
 					</cfif>
 					
 					<td id="requesttypereg" class="#cl#">	
-				    <table><tr class="labelmedium"><td>
-					 <input type="radio" 
-				           onclick="reqclass('regular','#access#','#description#',document.getElementById('itemmaster').value); requom('regular','#access#','#line.RequestQuantity#','#line.QuantityUom#','#line.WarehouseUom#')" 
-					       name="requesttype" 
-						    class="radiol"
-						   id="regulartype"
-					       value="Regular" <cfif "Regular" eq Line.RequestType or Line.RequestType eq "">checked</cfif>></td><td style="padding-left:4px"><cf_tl id="REQ018">
-						   
-						 </td></tr>
-					 </table>  
-					   
+				      <table>
+					  <tr class="labelmedium">
+					  <td>
+					  <input type   = "radio" 
+				           onclick = "reqclass('regular','#access#','#description#',document.getElementById('itemmaster').value); requom('regular','#access#','#line.RequestQuantity#','#line.QuantityUom#','#line.WarehouseUom#')" 
+					       name    = "requesttype" 
+						   class   = "radiol"
+						   id      = "regulartype"
+					       value   = "Regular" <cfif "Regular" eq Line.RequestType or Line.RequestType eq "">checked</cfif>></td>
+					  <td style="padding-left:4px"><cf_tl id="REQ018"></td>
+					  </tr>
+					  </table>  					   
 					 </td>
 				
 				<cfif Operational eq "1">
 				
 					<td id="requesttypewhs" style="padding-left:9px" class="labelmedium">
 					 <table><tr class="labelmedium"><td>
-					   <input type="radio" 
-					       name="requesttype" 
-                           id="requesttype"
-						   class="radiol"
-						   onclick="reqclass('warehouse','#access#','#line.WarehouseItemNo#',document.getElementById('itemmaster').value);requom('warehouse','#access#',document.getElementById('requestquantity').value,'#line.QuantityUom#','#line.WarehouseUom#');"
-						   value="Warehouse" 
+					   <input type  = "radio" 
+					       name     = "requesttype" 
+                           id       = "requesttype"
+						   class    = "radiol"
+						   onclick  = "reqclass('warehouse','#access#','#line.WarehouseItemNo#',document.getElementById('itemmaster').value);requom('warehouse','#access#',document.getElementById('requestquantity').value,'#line.QuantityUom#','#line.WarehouseUom#');"
+						   value    = "Warehouse" 
 						   <cfif "Warehouse" eq Line.RequestType>checked</cfif>>
 						  </td><td style="padding-left:4px"> 
 					   <cf_tl id="REQ019">

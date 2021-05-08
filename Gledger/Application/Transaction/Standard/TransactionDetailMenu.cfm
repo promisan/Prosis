@@ -77,13 +77,13 @@
 	}
 		
 	function amountcalc(mode) {				
-	    document.getElementById('entryadd').disabled = true
+	    document.getElementById('entryadd').disabled = true		
         acc    = document.getElementById('entryglaccount').value
         dte    = document.getElementById('transactiondateline').value
 		amt    = document.getElementById("entryamount").value;		
 		cur    = document.getElementById("entrycurrency").value;
 		excj   = document.getElementById("entryexcjrn").value;
-		excb   = document.getElementById("entryexcbase").value;					
+		excb   = document.getElementById("entryexcbase").value;		
 		_cf_loadingtexthtml='';	
 							
 		ptoken.navigate('TransactionDetailEntryCalc.cfm?journal=#url.journal#&glaccount='+acc+'&date='+dte+'&entryamount='+amt+'&mode='+mode+

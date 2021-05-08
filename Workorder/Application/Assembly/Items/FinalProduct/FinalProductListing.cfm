@@ -69,18 +69,13 @@
 				
 				(SELECT SUM(Amount) 
 				 FROM   WorkOrderLineItemResource
-				 WHERE  WorkOrderItemId = WOL.WorkOrderItemId 
-				) as Cost,		
-				
-				<cfif line.ServiceType eq "WorkOrder">		
-				
-					(SELECT ISNULL(SUM(RequestQuantity),0) 
-					 FROM   Purchase.dbo.RequisitionLine
-					 WHERE  Mission       = '#get.Mission#'						 
-					 AND    RequirementId = WOL.WorkOrderItemId 
-					 AND    ActionStatus >= '1' and ActionStatus < '9' ) as Outsourced,
-				
-				<cfelse>							
+				 WHERE  WorkOrderItemId = WOL.WorkOrderItemId ) as Cost,		
+												
+				(SELECT ISNULL(SUM(RequestQuantity),0) 
+				 FROM   Purchase.dbo.RequisitionLine
+				 WHERE  Mission       = '#get.Mission#'						 
+				 AND    RequirementId = WOL.WorkOrderItemId 
+				 AND    ActionStatus >= '1' and ActionStatus < '9' ) as Outsourced,									
 								
 				<cfinvoke component = "Service.Process.WorkOrder.WorkorderLineItem"  
 				   method           = "InternalWorkOrder" 
@@ -88,52 +83,41 @@
 				   mode             = "view"
 				   returnvariable   = "NotEarmarked">	
 				
-					(SELECT    ISNULL(SUM(TransactionQuantity), 0) 
-					 FROM      Materials.dbo.ItemTransaction
-					 WHERE     Mission           = '#get.Mission#'				 
-					 AND       ItemNo            = WOL.ItemNo
-					 AND       TransactionUoM    = WOL.UoM		
+				(SELECT    ISNULL(SUM(TransactionQuantity), 0) 
+				 FROM      Materials.dbo.ItemTransaction
+				 WHERE     Mission           = '#get.Mission#'				 
+				 AND       ItemNo            = WOL.ItemNo
+				 AND       TransactionUoM    = WOL.UoM		
 					 
 					 <!--- individual mode issuing from the roll (Hicosa) is not supported for reservation yet --->
 					 
-					 AND       ItemCategory IN ( SELECT Category FROM Materials.dbo.Ref_Category WHERE StockControlMode = 'Stock' )
+				 AND       ItemCategory IN ( SELECT Category FROM Materials.dbo.Ref_Category WHERE StockControlMode = 'Stock' )
 	
 					 <!--- Hanno, rethink this embedded query as it is slow 5/4/2021 --->
 					 
-					 AND       ( RequirementId IS NULL OR RequirementId IN (#preservesingleQuotes(notearmarked)#) )
+				 AND       ( RequirementId IS NULL OR RequirementId IN (#preservesingleQuotes(notearmarked)#) )
 							 				 
-					 AND       ActionStatus IN ('0','1')
-					 
-					) as InStock,
-				
-				</cfif>
-				
-				(
-				 SELECT ISNULL(SUM(RequestQuantity),0) 
+				 AND       ActionStatus IN ('0','1')            ) as InStock,
+								
+				(SELECT ISNULL(SUM(RequestQuantity),0) 
 				 FROM   Purchase.dbo.RequisitionLine
 				 WHERE  Mission       = '#get.Mission#'						 
 				 AND    RequirementId = WOL.WorkOrderItemId 
-				 AND    ActionStatus != '9'
-				) as Requested,
+				 AND    ActionStatus != '9'                  	) as Requested,
 				
-				(
-				 SELECT ISNULL(SUM(RequestQuantity),0) 
+				(SELECT ISNULL(SUM(RequestQuantity),0) 
 				 FROM   Purchase.dbo.RequisitionLine
 				 WHERE  Mission       = '#get.Mission#'						 
 				 AND    RequirementId = WOL.WorkOrderItemId 
-				 AND    ActionStatus = '3'
-				) as Obligated,
+				 AND    ActionStatus = '3'		             	) as Obligated,
 												
-				( 
-				 SELECT    ISNULL(SUM(TransactionQuantity), 0) 
+				(SELECT    ISNULL(SUM(TransactionQuantity), 0) 
 				 FROM      Materials.dbo.ItemTransaction
 				 WHERE     Mission           = '#get.Mission#'		
 				 AND       TransactionType != '2'
-				 AND       RequirementId = WOL.WorkOrderItemId
-				) as Earmarked,  <!--- quantity received 1, transferred 8 or quantity internally produced 0 for this order --->							
+				 AND       RequirementId = WOL.WorkOrderItemId	) as Earmarked,  <!--- quantity received 1, transferred 8 or quantity internally produced 0 for this order --->							
 												
-				( 
-				 SELECT    ISNULL(SUM(TransactionQuantity), 0) 
+				(SELECT    ISNULL(SUM(TransactionQuantity), 0) 
 				 FROM      Materials.dbo.ItemTransaction
 				 WHERE     Mission           = '#get.Mission#'				 
 				 AND       RequirementId     = WOL.WorkOrderItemId								
@@ -141,16 +125,14 @@
 								
 				<!--- returned quantities which is tratype 5 --->
 				
-				( 
-				 SELECT    ISNULL(SUM(TransactionQuantity*-1), 0) AS Shipped
+				(SELECT    ISNULL(SUM(TransactionQuantity*-1), 0) AS Shipped
 				 FROM      Materials.dbo.ItemTransaction
 				 WHERE     TransactionType IN ('2','3')  <!--- 10/3/2014 removed '8' for the transaction type --->
 				 AND       Mission       = '#get.Mission#'			
 				 AND       RequirementId = WOL.WorkOrderItemId
 				) as Shipped, <!--- quantity shipped to customer --->
 				
-				( 
-				 SELECT    ISNULL(SUM(TransactionQuantity), 0) AS Shipped
+				(SELECT    ISNULL(SUM(TransactionQuantity), 0) AS Shipped
 				 FROM      Materials.dbo.ItemTransaction
 				 WHERE     TransactionType IN ('3')  <!--- 10/3/2014 removed '8' for the transaction type --->
 				 AND       Mission       = '#get.Mission#'			
@@ -284,12 +266,11 @@
 							<td style="min-width:80px;padding-left:2px;padding-right:2px" align="right"><cf_tl id="Price"></td>						
 							<td style="min-width:80px;padding-left:2px;padding-right:2px" align="right"><cf_tl id="Total">#get.Currency#</td>		
 							
-							<cfif line.ServiceType eq "WorkOrder">
-							<td style="min-width:70px;padding-left:2px;padding-right:2px" align="center"><cf_tl id="Outsourced"></td>	
-							<cfelse>
+							<cfif line.ServiceType eq "WorkOrder" or Line.ServiceType eq "Sale">
+							<td style="min-width:70px;padding-left:2px;padding-right:2px" align="center"><cf_tl id="Outsourced"></td>
+							</cfif>							
 							<td style="min-width:70px;padding-left:2px;padding-right:2px" align="center"><cf_tl id="InStock"></td>
-							</cfif>
-							
+						
 							<td style="min-width:70px;;padding-left:2px;padding-right:2px;cursor:pointer" align="right"><cf_UIToolTip  tooltip="Available earmarked stock"><cf_tl id="Earmarked"></cf_UIToolTip><cf_space spaces="15"></td>
 											
 							<td style="min-width:70px;;padding-left:2px;padding-right:2px" align="center"><cf_tl id="To ship"></td>
@@ -379,36 +360,37 @@
 								<td style="border-left:1px solid gray;padding-right:3px" align="right"><cfif BillingMode neq "None">#numberformat(SalePrice,',.__')#</cfif></td>	
 								<td style="border-left:1px solid gray;padding-right:3px" align="right"><cfif BillingMode neq "None">#numberformat(SaleAmountIncome,',')#</cfif></td>
 								
-								<cfif line.ServiceType eq "WorkOrder">
+																
+								<cfif line.ServiceType eq "WorkOrder" or line.serviceType eq "Sale">
 								
 									<td bgcolor="D0FBD6" style="background-color:##D0FBD680;border-left:1px solid gray;padding-right:2px">
 									
-										<table width="100%" cellspacing="0" cellpadding="0">
+										<table width="100%">
 										
-											<tr class="labelmedium2">									
+											<tr>									
 											
-												<td width="15" style="padding-top:9px">			
+												<td style="padding-top:9px">			
 																				
-												<cf_img icon="expand" 
-												   id="req_#WorkOrderItemId#" 
-												   toggle="Yes" 
-												   onclick="toggleobjectbox('requestbox_#WorkOrderItemId#','request_#WorkOrderItemId#','../../Assembly/Items/FinalProduct/FinalProductRequisition.cfm?WorkOrderId=#URL.WorkOrderId#&WorkOrderItemId=#WorkOrderItemId#')"
-												   tooltip="See outsourcing for this quote.">
+												<cf_img icon = "expand" 
+												   id        = "req_#WorkOrderItemId#" 
+												   toggle    = "Yes" 
+												   onclick   = "toggleobjectbox('requestbox_#WorkOrderItemId#','request_#WorkOrderItemId#','../../Assembly/Items/FinalProduct/FinalProductRequisition.cfm?WorkOrderId=#URL.WorkOrderId#&WorkOrderItemId=#WorkOrderItemId#')"
+												   tooltip   = "See outsourcing for this quote.">
 												   
 												</td>
+																												
+												<td style="min-width:40px" id="request_#WorkOrderItemId#" class="labelmedium2" align="right">#numberformat(Outsourced,'__')#</td>	
 												
-												<td width="20">	
+												<td>
 												
 												<cfset bal = quantity-shipped>
 																														
 												 <cfif mode eq "edit" and bal gt 0>
 													<cf_tl id="add requisition" var="1">
-													<cf_img icon="add" tooltip="Add Requisition" onclick="requisitionadd('#get.Mission#','#url.WorkOrderId#','#url.WorkOrderLine#','#workOrderItemId#','#workOrderItemId#');">
+													<cf_img icon="open" tooltip="Add Requisition" onclick="requisitionadd('#get.Mission#','#url.WorkOrderId#','#url.WorkOrderLine#','#workOrderItemId#','#workOrderItemId#');">
 												 </cfif>	
 												 								   
-												</td>		
-																			
-												<td width="90%" align="right">#numberformat(Outsourced,'__')#</td>	
+												</td>																	
 																				
 											</tr>
 											
@@ -416,13 +398,10 @@
 																
 									</td>
 								
-								<cfelse>
+								</cfif>
 																
 								<td bgcolor="D0FBD6" align="right" style="background-color:##D0FBD680;border-left:1px solid gray;padding-right:2px">#instock#</td>								
-								
-								</cfif>
-								
-								
+																
 								<td style="padding-right:3px;border-left:1px solid gray;padding-left:5px'background-color:##ffffaf" align="right" bgcolor="ffffcf">
 								
 								<table width="100%" cellspacing="0" cellpadding="0">
@@ -516,7 +495,7 @@
 																				
 							<tr id="requestbox_#workorderitemid#" class="hide">
 							    <td></td>
-							    <td colspan="14" id="request_#WorkOrderItemId#"></td>													
+							    <td colspan="15" id="request_#WorkOrderItemId#"></td>													
 							</tr>
 							
 							<tr id="earmarkbox_#workorderitemid#" class="hide">

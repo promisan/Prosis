@@ -42,21 +42,22 @@ password="#SESSION.dbpw#">
 	
 	   <table width="100%">
 	   
-   		   <tr id="requestmemo"><td width="100%" style="padding-bottom:6px;height:1px"  class="labelmedium">
+   		   <tr id="requestmemo">
+		   <td width="100%" style="padding-bottom:3px;height:1px"  class="labelmedium">
 		   
 			<cfif url.Access eq "View">
 				
 				#url.des# 
 				  
 			<cfelse>	
-											
+														
 				<textarea class = "regular" 
 				      onkeyup   = "ismaxlength(this);" 
 					  name      = "requestdescription" 
                       id        = "requestdescription" 
 					  onchange  = "verifystatus('#url.reqid#')" 
 					  totlength = "200"
-					  style     = "border:1px solid silver;padding-left:3px;font-size:16px;height:28px;width:99%;min-height:30px">#url.des#</textarea>					
+					  style     = "border:1px solid silver;padding-top:5px;padding-left:3px;font-size:16px;height:30px;width:99%;min-height:30px">#url.des#</textarea>					
 					  
 			</cfif>			
 			

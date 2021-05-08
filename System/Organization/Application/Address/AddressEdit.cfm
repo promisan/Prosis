@@ -52,12 +52,12 @@ password="#SESSION.dbpw#">
 		  <input type="hidden" name="AddressId" id="AddressId" value="#URL.ID1#">
 </cfoutput>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
 
   <tr>
-    <td align="left" valign="middle" style="padding-top:3px;padding-left:20px">
+    <td align="left" valign="middle" style="padding-top:5px;padding-left:20px">
 		   
-   	 	<select name="AddressType" id="AddressType" class="regularxl enterastab">
+   	 	<select name="AddressType" id="AddressType" class="regularxxl enterastab" style="border:0px;background-color:e1e1e1">
 	    <cfoutput query="Type">
 			<option value="#Code#" <cfif Address.AddressType eq Code>selected</cfif>>
 			#Description#
@@ -114,7 +114,11 @@ password="#SESSION.dbpw#">
 	
 	<TR>
 	    <TD class="labelmedium" style="height:34;width:20;padding-left:5px">
-		<cf_space spaces="51">
+		<cfif client.googlemap eq "1">
+		<cf_space spaces="32">
+		<cfelse>
+		<cf_space spaces="50">
+		</cfif>
 		<cf_tl id="Marker">:</TD>
 	    <TD style="width:100%;padding-left:0px">
 			<cf_input name="MarkerIcon" type="iconMap" color="#Address.markerColor#" value="#Address.markerIcon#" >

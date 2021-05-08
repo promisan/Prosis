@@ -34,6 +34,7 @@
 		<cfset cls_secondary="expand">
 	</cfif>	
 <cfelse>
+    <!--- gave a lot of space 5/5/2021 --->
 	<cfset cls_secondary="sprites">
 </cfif>	
 
@@ -67,15 +68,14 @@
 				<a class="#cls_secondary# #cls# #attributes.buttonClass#" id="i_#attributes.icon##vState#" onClick='javascript:#attributes.onclick#;#sFunction#;' tabindex="9999" title="#attributes.tooltip#">
 					<cfif attributes.label neq "">				
 						<div style="width:300px;"><div class="#attributes.class#">&nbsp;&nbsp;&nbsp;&nbsp;#attributes.label#</div></div>
-					</cfif>	
-					
+					</cfif>						
 				</a>
 			</cfif>
 			
 		<cfelse>
 		
 			<cfif attributes.var eq "">
-		
+								
 				<div class="#cls_secondary# #cls# #attributes.buttonClass#" id="i_#attributes.icon##vState#" onClick='#attributes.onclick#;#sFunction#' title="#attributes.tooltip#">
 					<cfif attributes.label neq "">
 						<div style="width:300px;"><div class="#attributes.class#" style="padding-left:30px">#attributes.label#</div></div>
@@ -83,7 +83,7 @@
 				</div>	
 			
 			<cfelse>
-												
+															
 				<cfset tIcon = "<div class='#cls_secondary# #cls# #attributes.buttonClass#' id='i_#attributes.icon##vState#' title='#attributes.tooltip#'></div>">								
 				<cfparam name="Caller.#Attributes.var#" default="#tIcon#">
 			

@@ -50,6 +50,8 @@
 			 document.getElementById("pricebox").className        = "hide"         
 		 </cfif>
 	</script>	
+	
+	<cfset custom = Check.customdialog>	    
 
 <cfelseif Check.CustomForm eq "1">
     <cfset custom = Check.customdialog>	    

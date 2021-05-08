@@ -190,6 +190,8 @@
 					 
 					 Po.FunctionNo,
 					 F.FunctionDescription,
+					 PP.FunctionNo as ParentFunctionNo,
+					 PF.FunctionDescription as ParentFunctionDescription,
 					 Occ.ListingOrder             as OccGroupOrder,
 					 Occ.Acronym                  as OccGroupAcronym,
 					 Occ.OccupationalGroup        as OccupationalGroup,
@@ -230,6 +232,7 @@
                     Applicant.dbo.FunctionTitle F ON Po.FunctionNo = F.FunctionNo              INNER JOIN
                     Organization.dbo.Organization OrgP                                         INNER JOIN
                     dbo.PositionParent PP ON OrgP.OrgUnit = PP.OrgUnitOperational              INNER JOIN
+					Applicant.dbo.FunctionTitle PF ON PP.FunctionNo = PF.FunctionNo            INNER JOIN
                     Organization.dbo.Ref_Mandate M ON OrgP.Mission = M.Mission AND OrgP.MandateNo = M.MandateNo ON 
                     Po.PositionParentId = PP.PositionParentId ON Occ.OccupationalGroup = F.OccupationalGroup INNER JOIN
                     Organization.dbo.Ref_Mission Mis ON M.Mission = Mis.Mission ON PAR.Mission = Org.Mission AND PAR.MandateNo = Org.MandateNo AND 

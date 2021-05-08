@@ -135,7 +135,7 @@
 	<tr><td colspan="11" class="line"></td></tr>
 	</cfif>
 				
-	<tr class="labelmedium line" bgcolor="ffffff" style="height:20px">
+	<tr class="labelmedium2 line" bgcolor="ffffff" style="height:20px">
 	   <td width="10"></td>
 	   <cfif mode eq "match">
 		   <td height="20"><cf_tl id="PurchaseNo"></td>
@@ -424,7 +424,7 @@
 					   <cfset cl = "f1f1f1">
 					 </cfif>
 					 
-					<tr bgcolor="#cl#" class="labelmedium line" style="height:10px">
+					<tr bgcolor="#cl#" class="labelmedium2 line" style="height:10px">
 					   
 					   <cfif mode eq "match">
 					   	   

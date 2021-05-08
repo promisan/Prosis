@@ -26,7 +26,12 @@ password="#SESSION.dbpw#">
 	 <cfabort>
 </cfif> 
 
-<cfif FindNoCase("ORDER BY",myscript)>
+<cfset st = len(myscript)-100>
+<cfset ct = len(myscript)-100>
+
+<cfset subscript = mid(myscript,st,ct)>
+
+<cfif FindNoCase("ORDER BY",subscript)>
 
 	<script>
 	alert("ORDER BY may not be used in the query")
@@ -214,13 +219,23 @@ password="#SESSION.dbpw#">
 																					
 				<TR class="line" style="background-color:f1f1f1">
 				
+					 <span class="hide" id="process">
+				
+					   <input type="button" 
+							   value="Save" 	
+							   id="update"						   
+							   style="width:50px;height:23px"
+					   		   onclick="ptoken.navigate('#submitlink#&mode=process&fieldiskey='+fieldiskey.value+'&fieldingrid='+fieldingrid.value+'&fieldalignment='+fieldalignment.value+'&fieldid=#fieldid#&listingorder='+listingorder.value+'&fieldname='+fieldname.value+'&fieldqueryalias='+fieldqueryalias.value+'&fieldheaderlabel='+fieldheaderlabel.value+'&fieldoutputformat='+fieldoutputformat.value+'&fieldwidth='+fieldwidth.value+'&fieldsort='+fieldsort.value+'&fieldfilterclass='+fieldfilterclass.value+'&fieldtree='+fieldtree.value+'&FieldFilterClassMode='+FieldFilterClassMode.value,'process')">
+					
+					</span>
+				
 				     <td></td>
 				     <td align="center" style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
 					  <input type="Text" 
-							  name="listingorder" 
-	                          id="listingorder"
+							  name="listingorder" id="listingorder"
 							  value="#ListingOrder#" 
+							  onchange="document.getElementById('update').click()"
 							  style="width:23;text-align: center;border:0px;background-color:transparent" 
 							  class="regularxl"
 							  maxlength="2">
@@ -235,8 +250,11 @@ password="#SESSION.dbpw#">
 						
 						<cfelse>			
 												
-						<select name="fieldqueryalias" id="fieldqueryalias" class="regularxl" style="border:0px;width:100%;background-color:transparent">
+						<select name="fieldqueryalias" id="fieldqueryalias" class="regularxl" 
+							onchange="document.getElementById('update').click()"
+						    style="padding-left:3px;border:0px;width:100%;background-color:transparent">
 						
+						    <option value=""></option>
 							<cfloop index="itm" list="#fr#" delimiters=", ">							
 						
 								<cfif len(trim(itm)) lte 3 and trim(itm) neq "=" and trim(itm) neq "ON" and trim(itm) neq "AS" and trim(itm) neq "AND" and trim(itm) neq "BY">
@@ -253,7 +271,9 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					 <select name="fieldname" id="fieldname" class="regularxl" style="border:0px;width:100%;background-color:transparent">
+					 <select name="fieldname" id="fieldname" class="regularxl" 
+						 onchange="document.getElementById('update').click()"
+					 	style="border:0px;width:100%;background-color:transparent">
 									 
 					  <cfloop index="col" list="#colfields#" delimiters=",">
 					  	  <option value="#col#"  <cfif col eq fieldname>selected</cfif>>#col#</option> 
@@ -265,7 +285,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					  <select name="fieldiskey" id="fieldiskey" class="regularxl" style="border:0px;width:100%;background-color:transparent">
+					  <select name="fieldiskey" id="fieldiskey" class="regularxl" onchange="document.getElementById('update').click()" style="border:0px;width:100%;background-color:transparent">
 							
 					  	 <option value="1" <cfif fieldiskey eq "1">selected</cfif>>Yes</option> 
 						 <option value="0" <cfif fieldiskey eq "0">selected</cfif>>No</option> 
@@ -276,7 +296,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					  <select name="fieldingrid" id="fieldingrid" class="regularxl" style="border:0px;width:100%;background-color:transparent">
+					  <select name="fieldingrid" id="fieldingrid" class="regularxl" onchange="document.getElementById('update').click()" style="border:0px;width:100%;background-color:transparent">
 							
 					  	 <option value="1" <cfif fieldingrid eq "1">selected</cfif>>Yes</option> 
 						  <option value="0" <cfif fieldingrid eq "0">selected</cfif>>No</option> 
@@ -287,7 +307,9 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					  <select name="fieldalignment" id="fieldalignment" class="regularxl" style="border:0px;width:100%;background-color:transparent">
+					  <select name="fieldalignment" id="fieldalignment" 
+					  onchange="document.getElementById('update').click()" 
+					  class="regularxl" style="border:0px;width:100%;background-color:transparent">
 							
 					  	 <option value="Left" <cfif fieldalignment eq "Left">selected</cfif>>Left</option> 
 						 <option value="Center" <cfif fieldalignment eq "Center">selected</cfif>>Center</option> 
@@ -302,6 +324,7 @@ password="#SESSION.dbpw#">
 					  <input type="Text" 
 						  name="fieldheaderlabel" 
                           id="fieldheaderlabel"
+						  onchange="document.getElementById('update').click()"
 						  value="#fieldheaderlabel#" 
 						  style="width:100%;border:0px;background-color:transparent" 
 						  class="regularxl"
@@ -311,7 +334,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					 <select name="fieldoutputformat" id="fieldoutputformat" style="width:100%;border:0px;background-color:transparent" class="regularxl">
+					 <select name="fieldoutputformat" id="fieldoutputformat" onchange="document.getElementById('update').click()" style="width:100%;border:0px;background-color:transparent" class="regularxl">
 											 
 					 	  <option value=""          <cfif fieldoutputformat eq "">selected</cfif>>Default</option> 
 					 	  <option value="Date"      <cfif fieldoutputformat eq "Date">selected</cfif>>Date</option> 
@@ -329,9 +352,7 @@ password="#SESSION.dbpw#">
 					<td style="width:40px;border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
 					  <input type="Text" 
-						  name="fieldwidth" 
-                          id="fieldwidth"
-						  value="#fieldwidth#" 
+						  name="fieldwidth" id="fieldwidth" value="#fieldwidth#" onchange="document.getElementById('update').click()" 
 						  class="regularxl"
 						  style="width:100%;padding-top:2px;text-align:center;border:0px;background-color:transparent" 
 						  maxlength="3">
@@ -340,7 +361,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					   <select name="fieldsort" id="fieldsort" class="regularxl" style="width:100%;border:0px;background-color:transparent">
+					   <select name="fieldsort" id="fieldsort" class="regularxl" onchange="document.getElementById('update').click()" style="width:100%;border:0px;background-color:transparent">
 							
 					  	 <option value="1" <cfif fieldsort eq "1">selected</cfif>>Sort</option> 
 						 <option value="2" <cfif fieldsort eq "2">selected</cfif>>Group</option> 
@@ -353,7 +374,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-						 <select name="fieldfilterclass" id="fieldfilterclass" style="width:100%;border:0px;background-color:transparent" class="regularxl" onchange="toggle('FieldFilterClassMode',this.value)">
+						 <select name="fieldfilterclass" id="fieldfilterclass" style="width:100%;border:0px;background-color:transparent" class="regularxl" onchange="toggle('FieldFilterClassMode',this.value);document.getElementById('update').click()">
 								
 							  <option value=""       <cfif FieldFilterClass eq "">selected</cfif>>N/A</option>					 
 						 	  <option value="Text"   <cfif FieldFilterClass eq "Text">selected</cfif>>Text</option> 
@@ -366,7 +387,8 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-						 <select name="FieldFilterClassMode" id="FieldFilterClassMode" style="border:0px;width:100%;background-color:transparent" class="regularxl" <cfif fieldfilterclass eq "">disabled</cfif>>	
+						 <select name="FieldFilterClassMode" id="FieldFilterClassMode" onchange="document.getElementById('update').click()" 
+						 style="border:0px;width:100%;background-color:transparent" class="regularxl" <cfif fieldfilterclass eq "">disabled</cfif>>	
 						 							
 							  <option value="0"  <cfif FieldFilterClassMode eq "0">selected</cfif>>Default</option> 
 						 	  <option value="1"  <cfif FieldFilterClassMode eq "1">selected</cfif>>Combo</option> 
@@ -380,7 +402,7 @@ password="#SESSION.dbpw#">
 					 
 					 <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
 					 
-					  <select name="fieldtree" id="fieldtree" class="regularxl" style="border:0px;width:100%;background-color:transparent">
+					  <select name="fieldtree" id="fieldtree" onchange="document.getElementById('update').click()" class="regularxl" style="border:0px;width:100%;background-color:transparent">
 							
 					  	  <option value="1" <cfif fieldtree eq "1">selected</cfif>>Yes</option> 
 						  <option value="0" <cfif fieldtree eq "0">selected</cfif>>No</option> 
@@ -392,12 +414,11 @@ password="#SESSION.dbpw#">
 					<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">			   
 				   
 						   <input type="button" 
-							   value="Save" 
+							   value="Close" 							   
 							   style="width:50px;height:23px"
 					   		   onclick="ptoken.navigate('#submitlink#&fieldiskey='+fieldiskey.value+'&fieldingrid='+fieldingrid.value+'&fieldalignment='+fieldalignment.value+'&fieldid=#fieldid#&listingorder='+listingorder.value+'&fieldname='+fieldname.value+'&fieldqueryalias='+fieldqueryalias.value+'&fieldheaderlabel='+fieldheaderlabel.value+'&fieldoutputformat='+fieldoutputformat.value+'&fieldwidth='+fieldwidth.value+'&fieldsort='+fieldsort.value+'&fieldfilterclass='+fieldfilterclass.value+'&fieldtree='+fieldtree.value+'&FieldFilterClassMode='+FieldFilterClassMode.value,'fields')">
 							   	
-					</td>
-									
+					</td>									
 				   
 			    </TR>	
 														
@@ -430,7 +451,7 @@ password="#SESSION.dbpw#">
 				  </td>
 				
 				   <td align="center" class="navigation_action" style="border-left:1px solid silver;padding;3px">#ListingOrder#.</td>
-				   <td style="border-left:1px solid silver;padding;3px">
+				   <td style="border-left:1px solid silver;padding-left;3px">
 				    <cfif not find(" #FieldAliasQuery#", fr)>
 					     <font color="FF0000">
 					  </cfif> #FieldAliasQuery#
@@ -511,15 +532,17 @@ password="#SESSION.dbpw#">
 				 </td>
 				 
 				 <td align="center" style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
-												 					
+				 
+																 					
 					<cfif alias eq "0">
 					
 					 <input type="hidden" name="fieldqueryalias" id="fieldqueryalias" value="">
 					
 					<cfelse>
 						
-						<select name="fieldqueryalias" id="fieldqueryalias" class="regularxl" style="border:0px;width:100%">
+						<select name="fieldqueryalias" id="fieldqueryalias" class="regularxl" onchange="" style="padding-left:3px;border:0px;width:100%">
 							
+							<option value=""></option>
 							<cfloop index="itm" list="#fr#" delimiters=", ">
 		
 							<cfif len(trim(itm)) lte 3 and trim(itm) neq "=" and trim(itm) neq "ON" and trim(itm) neq "AS" and trim(itm) neq "AND" and trim(itm) neq "BY">
@@ -661,7 +684,7 @@ password="#SESSION.dbpw#">
 				  <td align="right" style="border-left:1px solid silver;border-right:1px solid silver;padding-left:2px;padding-right:2px">			   
 			   			  
 				   <input type="button" 
-					   value="Add" 
+					   value="Add" 					  
 					   style="width:100%;height:23px"
 			   		   onclick="ptoken.navigate('#submitlink#&fieldiskey='+fieldiskey.value+'&fieldingrid='+fieldingrid.value+'&fieldid=#rowguid#&listingorder='+listingorder.value+'&fieldname='+fieldname.value+'&fieldqueryalias='+fieldqueryalias.value+'&fieldheaderlabel='+fieldheaderlabel.value+'&fieldoutputformat='+fieldoutputformat.value+'&fieldwidth='+fieldwidth.value+'&fieldalignment='+fieldalignment.value+'&fieldsort='+fieldsort.value+'&fieldfilterclass='+fieldfilterclass.value+'&fieldtree='+fieldtree.value+'&FieldFilterClassMode='+FieldFilterClassMode.value,'fields')">
 											   	

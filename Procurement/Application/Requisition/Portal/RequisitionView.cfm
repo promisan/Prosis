@@ -7,6 +7,7 @@
 </cfoutput>
 </head>
 
+
 <cfparam name="url.Mission"        default="">
 <cfparam name="url.Period"         default="">
 <cfparam name="url.context"        default="Manual">
@@ -120,7 +121,7 @@ password="#SESSION.dbpw#">
 
 <tr class="line">
 
-		<td style="border-left:1px solid silver;padding:4px;min-width:110px;border-right:1px solid silver" valign="top">
+		<td style="border-left:1px solid silver;padding:4px;min-width:147px;border-right:1px solid silver" valign="top">
 
 		<!--- top menu --->
 				

@@ -229,7 +229,7 @@
 		
 	<cfoutput>
 		<script>		
-		 	window.open("#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionView.cfm?mission=#workorder.mission#&systemfunctionid=#get.systemfunctionid#&workorderid=#url.workOrderId#",  "req", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
+		 	ptoken.open("#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionView.cfm?mission=#workorder.mission#&systemfunctionid=#get.systemfunctionid#&workorderid=#url.workOrderId#",  "req", "left=10, top=10, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=no, resizable=yes");
 		</script>
 	</cfoutput>
 

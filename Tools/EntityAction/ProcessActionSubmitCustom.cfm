@@ -48,6 +48,24 @@
 	<cfif IsDefined("Form.f_#DocumentCode#")>
 		
 		<cfset val = evaluate("Form.f_#DocumentCode#")>		
+		
+		<cfif fieldSelectMultiple eq "1">
+		
+			<cfset valset = "">
+		
+			<cfloop index="itm" list="#val#">
+			
+				<cfif valset eq "">
+					<cfset valset = "'#itm#'">
+				<cfelse>
+				    <cfset valset = "#valset#,'#itm#'">
+				</cfif>  
+				
+			</cfloop>
+			
+			<cfset val = valset>
+		
+		</cfif>		
 					
 		<cfif fieldtype eq "list" and val neq "">
 			

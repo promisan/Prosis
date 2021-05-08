@@ -190,8 +190,8 @@
 					  I.ItemPrecision, 
 					  I.ValuationCode
 						  
-			HAVING SUM(T.TransactionQuantity) <> 0					
-							
+			HAVING SUM(T.TransactionQuantity) <> 0				
+										
 		</cfsavecontent>
 		
 		<cfsavecontent variable="getSourceIndividual">
@@ -259,11 +259,11 @@
 				
 			<!--- added condition for receipt --->	
 			AND      I.ItemClass = 'Supply'	
-			
-			<!--- free stock only 14/4/2021 --->
+								
+			<!--- free stock does not have to apply here 
 			AND      T.workorderid is NULL
-			
-			
+			--->
+								
 			AND      T.TransactionIdOrigin is NULL		
 									  
 			AND     (T.TransactionQuantity + (SELECT   ISNULL(SUM(TransactionQuantity), 0)
@@ -285,8 +285,8 @@
 							   AND      ST.Mission          = '#url.Mission#'
                                GROUP BY ST.TransactionReference
                                HAVING   ABS(SUM(ST.TransactionQuantity)) < 0.02
-							   )
-							  
+							   )							  
+					
 							   
 			</cfif>				   
 							   

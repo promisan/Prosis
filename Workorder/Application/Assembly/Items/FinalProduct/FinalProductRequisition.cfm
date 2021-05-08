@@ -31,16 +31,16 @@
 		AND      ActionStatus >= '1' and ActionStatus != '9'
 </cfquery>
 
-<table width="100%" cellspacing="0" cellpadding="0">
+<table width="100%" class="navigation_table">
 	
 	<cfoutput query="Procurement">
 	
-	<tr>
-		<td bgcolor="f4f4f4" class="line labelit" style="padding-left:4px" width="20"><cf_img icon="edit" onclick="ProcReqEdit('#requisitionno#','workorder','#workorderitemid#')"></td>
-		<td bgcolor="f4f4f4" class="line labelit">#ItemMasterName#</td>
-		<td bgcolor="f4f4f4" class="line labelit">#Reference#</td>		
-		<td bgcolor="f4f4f4" class="line labelit" align="right">#RequestQuantity#</td>
-		<td bgcolor="f4f4f4" class="line labelit" align="right" style="padding-right:4px">#numberformat(RequestAmountBase,"__,__.__")#</td>
+	<tr class="labelmedium2 line navigation_row">
+		<td style="padding-left:4px" width="20"><cf_img icon="open" onclick="ProcReqEdit('#requisitionno#','workorder','#workorderitemid#')"></td>
+		<td>#ItemMasterName#</td>
+		<td>#Reference#</td>		
+		<td align="right">#RequestQuantity#</td>
+		<td align="right" style="padding-right:4px">#numberformat(RequestAmountBase,",.__")#</td>
 	</tr>	
 	
 	<cfif topics gte "1">
@@ -54,5 +54,7 @@
 	</cfoutput>
 
 </table>
+
+<cfset ajaxOnLoad("doHighlight")>
 
 

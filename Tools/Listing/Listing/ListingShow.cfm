@@ -52,7 +52,7 @@
 				</cfquery>
 			
 				<cf_layoutArea position="header" name="listingheader" maxsize="30" size="30">	
-					<cf_ViewTopMenu label="Listing: #Menu.FunctionName#">
+					<cf_ViewTopMenu label="Listing: #Menu.FunctionName# #url.mission#">
 				</cf_layoutArea>
 			
 			</cfif>

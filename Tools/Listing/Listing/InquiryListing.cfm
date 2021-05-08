@@ -208,8 +208,8 @@ password="#SESSION.dbpw#">
 <cfset boxname = "box_#replaceNoCase(menu.FunctionName,' ','','ALL')#">
 					
 <cf_listing
-    header         = "#menu.FunctionName#"
-    box            = "#boxname#"
+    header         = "#menu.FunctionName# #url.mission#"
+    box            = "#boxname#_#url.mission#"
 	link           = "#SESSION.root#/Tools/Listing/Listing/InquiryListing.cfm?height=#url.height#&systemfunctionid=#url.systemfunctionid#&functionserialNo=#url.functionserialNo#&mission=#url.mission#"
     html           = "No"	
 	showlist       = "#url.showlist#"

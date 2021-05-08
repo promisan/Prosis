@@ -118,10 +118,10 @@ password="#SESSION.dbpw#">
 					targetitem = "1"
 					iconheight = "#ht#" 
 					name       = "Validations"
-					source     = "Validation/FunctionValidation.cfm?id=#URL.ID#">		
+					source     = "Validation/FunctionValidation.cfm?id=#URL.ID#">					
 					
+				<cfset itm = itm + 1>	
 					
-				<cfset itm = itm + 1>		
 				<cf_menutab item  = "#itm#" 
 		            iconsrc    = "Help-Reference.png" 
 					iconwidth  = "#wd#" 
@@ -130,14 +130,15 @@ password="#SESSION.dbpw#">
 					name       = "Help and Reference"
 					source     = "../HelpBuilder/RecordListing.cfm?systemfunctionid=#URL.ID#">		
 			  
-			  <cfset itm = itm + 1>	   
-			  <cf_menutab item  = "#itm#" 
-			      iconsrc    = "Logos/System/Secure.png" 
-				  iconwidth  = "#wd#" 
-				  targetitem = "1"
-				  iconheight = "#ht#" 
-				  name       = "Authorization Codes"
-				  source     = "Authorization/AuthorizationRoles.cfm?id=#URL.ID#">	  
+			    <cfset itm = itm + 1>	
+			     
+			    <cf_menutab item  = "#itm#" 
+			        iconsrc    = "Logos/System/Secure.png" 
+				    iconwidth  = "#wd#" 
+				    targetitem = "1"
+				    iconheight = "#ht#" 
+				    name       = "Authorization Codes"
+				    source     = "Authorization/AuthorizationRoles.cfm?id=#URL.ID#">	  
 			 	 		
 			</tr>
 			</table>
@@ -153,9 +154,9 @@ password="#SESSION.dbpw#">
 		<cf_menucontainer item="1" class="regular">	
 			
 			<cfif Line.functionClass neq "Window">				
-				<cfdiv bind="url:FunctionSetting.cfm?id=#URL.ID#&mission=#url.mission#"></cfdiv>
+				<cf_securediv bind="url:FunctionSetting.cfm?id=#URL.ID#&mission=#url.mission#">
 			<cfelse>
-			    <cfdiv bind="url:FunctionMemo.cfm?id=#URL.ID#?id=#URL.ID#&mission=#url.mission#"></cfdiv>	
+			    <cf_securediv bind="url:FunctionMemo.cfm?id=#URL.ID#?id=#URL.ID#&mission=#url.mission#">	
 			</cfif>	
 			
 		</cf_menucontainer>	

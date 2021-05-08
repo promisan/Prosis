@@ -24,7 +24,7 @@
 		<script language="JavaScript">
 		
 		function address(persno) {
-		    window.location = "AddressEntry.cfm?ID=" + persno;
+		    ptoken.location('AddressEntry.cfm?ID=' + persno)
 		}
 		
 		</script>

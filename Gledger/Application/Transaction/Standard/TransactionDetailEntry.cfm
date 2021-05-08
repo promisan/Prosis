@@ -251,14 +251,14 @@ password="#SESSION.dbpw#">
 			<td class="labelmedium2"><cf_tl id="Account">:</td>						        
 			
 			<td align="left">	
-					  
+						
 			   <cfoutput>	
 			   
 			    <cfif presetGLAccount eq "">
 				
 					<cfif JournalAccount.recordcount gt "0">
 										
-						<select name="entryglaccount" style="width:350px" class="regularxxl">
+						<select id="entryglaccount" name="entryglaccount" style="width:350px" class="regularxxl">
 						<cfloop query="JournalAccount">
 							<option value="#glaccount#">#accountlabel# #description#</option>					
 						</cfloop>					
@@ -1130,20 +1130,20 @@ password="#SESSION.dbpw#">
 			   <cfif url.serialNo eq "">
 	   		   <cf_tl id="Add Line" var="1">
 			   
-		       <input type="button" id="entryadd" style="height:30px;width:160;font-size:13px" value="#lt_text#" 
+		       <input type="button" id="entryadd" style="height:30px;width:160px;border:1px solid silver" value="#lt_text#" 
 			       class="button10g" 
 				   onClick="addline('add')">
 				   
 			   <cfelse>
 			   
 	   		    <cf_tl id="Update Line" var="1">
-			    <input type="button" id="entryedit" style="height:30px;width:160;font-size:13px" value="#lt_text#" 
+			    <input type="button" id="entryedit" style="height:30px;width:160px;border:1px solid silver" value="#lt_text#" 
 			       class="button10g"
 				   onClick="addline('edit')">
 	
 				   
 	   		    <cf_tl id="Add Line" var="1">
-				 <input type="button" id="entryadd" style="height:30px;width:160;font-size:13px" value="#lt_text#" 
+				 <input type="button" id="entryadd" style="height:30px;width:160px;border:1px solid silver" value="#lt_text#" 
 			       class="button10g"  
 				   onClick="addline('add')">  
 				   
@@ -1165,6 +1165,8 @@ password="#SESSION.dbpw#">
 
 </table>
 
+<!--- Hanno 3/5 : throwing a jv error upon opening 
 <cfset ajaxonload("doCalendar")>
+--->
 
 

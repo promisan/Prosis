@@ -19,8 +19,13 @@
 		 </script>
 		 <cfabort>
 	</cfif> 
+		
+	<cfset st = len(queryscript)-100>
+	<cfset ct = len(queryscript)-100>
+
+	<cfset subscript = mid(queryscript,st,ct)>
 	
-	<cfif FindNoCase("ORDER BY", QueryScript)>
+	<cfif FindNoCase("ORDER BY", subscript)>
 	
 		<script>
 		alert("ORDER BY may not be used in the query")

@@ -1188,7 +1188,7 @@ password="#SESSION.dbpw#">
 									password="#SESSION.dbpw#">
 									SELECT TOP 1 * 
 									FROM   Accounting.dbo.Journal 
-									WHERE  Journal = '#get.Journal#'														
+									WHERE  Journal = '#URL.Journal#'														
 								</cfquery>
 							
 						</cfif>

@@ -697,7 +697,7 @@
 				   <cfset text = #text#&"<tr><td class='labelmedium'>&nbsp;- #vItemMaster#</td></tr>">
 				</cfif>
 				
-				<cfif Form.RequestDescription eq "">
+				<cfif Form.RequestDescription eq "" and Form.RequestType neq "Warehouse">
 				   <cfset text = #text#&"<tr><td class='labelmedium'>&nbsp;- #vDescription#</td></tr>">
 				</cfif>
 				

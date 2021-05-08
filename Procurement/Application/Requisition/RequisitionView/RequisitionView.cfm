@@ -3,7 +3,6 @@
 <cfparam name="url.workorderid" default="">
 <cfparam name="url.webapp" default="">
 
-
 <cf_screenTop height="100%"              
 			  html="No" 	
 			  scroll="No"			  
@@ -183,13 +182,16 @@ password="#SESSION.dbpw#">
 				
 		<cfif url.WorkOrderId neq "">	
 		
+			<cfparam name="url.mid" default="">
+			
+					
 			<iframe name="right"
 		        id="right"
 		        width="100%"
 		        height="100%"				
 				scrolling="no"
 		        frameborder="0" 
-				src="#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionViewView.cfm?Mission=#url.mission#&ID=LOC&ID1=Locate&workOrderId=#URL.WorkOrderId#&doFilter=1"></iframe>		
+				src="#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionViewView.cfm?Mission=#url.mission#&ID=LOC&ID1=Locate&workOrderId=#URL.WorkOrderId#&doFilter=1&mid=#url.mid#"></iframe>		
 		
 		<cfelseif url.webapp eq "">	
 		

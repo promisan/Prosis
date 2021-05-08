@@ -241,6 +241,8 @@ password="#SESSION.dbpw#">
 			
 				<cfset FN = Evaluate("FORM.FunctionName_#qCheck.LanguageCode#")>
 				
+				<cftry>
+				
 				<cfquery name="qILanguage" 
 				datasource="appsSystem" 
 				username="#SESSION.login#" 
@@ -265,6 +267,11 @@ password="#SESSION.dbpw#">
 					WHERE   SystemFunctionId  = '#FORM.ID#'
 					AND     LanguageCode      = '#qCheck.LanguageCode#'	
 				</cfquery>
+				
+				<cfcatch></cfcatch>
+				
+				</cftry>
+				
 		</cfloop>
 
 </cftransaction>

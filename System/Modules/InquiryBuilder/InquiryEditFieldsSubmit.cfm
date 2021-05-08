@@ -1,4 +1,5 @@
 
+<cfparam name="url.mode" default="">
 
 <cfquery name="Check" 
 	datasource="AppsSystem" 
@@ -132,4 +133,6 @@
 	</script>
 </cfoutput>
 
-<cfinclude template="InquiryEditFields.cfm">
+<cfif url.mode neq "process">
+	<cfinclude template="InquiryEditFields.cfm">
+</cfif>

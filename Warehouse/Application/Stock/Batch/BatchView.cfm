@@ -243,7 +243,7 @@ password="#SESSION.dbpw#">
 		</cfif>		
 			
 		<tr><td id="actionbox" class="<cfoutput>#cl#</cfoutput>" align="center" style="padding-left:4px;padding-right:4px">
-								
+										
 			<cfif batch.actionStatus eq "0" and url.mode eq "Process">				
 															
 					<form method="post" name="batchform" id="batchform" style="border:0px solid silver; padding-left:5px;padding-right:5px">
@@ -318,7 +318,9 @@ password="#SESSION.dbpw#">
 								
 					    		</td>	
 								
-								<td align="center" style="padding-left:25px">								
+								<td align="center" style="padding-left:25px">		
+								
+												
 																								
 								<!--- validate of the transactions of the batch were already sourced --->
 								
@@ -326,17 +328,17 @@ password="#SESSION.dbpw#">
 									datasource="AppsMaterials" 
 									username="#SESSION.login#" 
 									password="#SESSION.dbpw#">
-									SELECT  TOP 1 * 
+									SELECT  DISTINCT I.TransactionId 
 									FROM    ItemTransaction AS I INNER JOIN
 						                    ItemTransactionValuation AS V ON I.TransactionId = V.TransactionId
 									WHERE   I.TransactionBatchNo = '#URL.BatchNo#'
 									AND     V.TransactionId <> V.DistributionTransactionId
 								</cfquery>	
-																										
+																																		
 								<!--- added 5/12/2015 to prevent deletion if transaction is already sourced --->
 								
 								<cfif Check.recordcount eq "0">
-																																
+																																								
 									<cfif fullaccess eq "GRANTED" or editAccess eq "GRANTED">
 																										
 										<cfdiv id="icancel">
@@ -352,6 +354,10 @@ password="#SESSION.dbpw#">
 										</cfdiv>
 									
 									</cfif>
+									
+								<cfelse>
+								
+								    Has been collected : <cfoutput>#check.recordcount#</cfoutput>	
 									
 								</cfif>	
 								

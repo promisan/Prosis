@@ -111,7 +111,6 @@
 
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#_OnHand"> 
 
-
 <cftransaction isolation="read_uncommitted">
 
     <!---
@@ -122,13 +121,11 @@
 			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#"> 		
-			
+						
 			SELECT *
-			
-			
+						
 			INTO userQuery.dbo.#SESSION.acc#_OnHand	
-			
-			
+						
 			FROM (	
 					
 			 SELECT    newid() as ListingKey,
@@ -249,12 +246,12 @@
 			 
 			 ) as B			 		 
 			 			 
-			 WHERE OnHand > 0	
+			 WHERE OnHand <> 0	
 			 
 			 --condition									 
 		
 		</cfquery>	
-				
+						
 	 <!--- change by query above as that one is more flexible  
 				
 	<cfelse>	

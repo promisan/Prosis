@@ -68,9 +68,9 @@
 	    w = #CLIENT.width# - 100;
 	    h = #CLIENT.height# - 150;
 		if (scope == 'medical') {
-		ptoken.open(root +  "/WorkOrder/Application/Medical/ServiceDetails/WorkOrderLine/WorkOrderLineView.cfm?drillid=" + id, "WorkOrder", "left=40, top=40, width=" + w + ", height= " + h + ",toolbar=no,menubar=no,status=yes,scrollbars=no,resizable=yes");		
+		ptoken.open(root +  "/WorkOrder/Application/Medical/ServiceDetails/WorkOrderLine/WorkOrderLineView.cfm?drillid=" + id, "WorkOrder");		
 		} else {
-		ptoken.open(root +  "/WorkOrder/Application/WorkOrder/WorkOrderView/WorkOrderView.cfm?workorderid=" + id, "WorkOrder", "left=40, top=40, width=" + w + ", height= " + h + ",toolbar=no,menubar=no,status=yes,scrollbars=no,resizable=yes");
+		ptoken.open(root +  "/WorkOrder/Application/WorkOrder/WorkOrderView/WorkOrderView.cfm?workorderid=" + id, "WorkOrder");
 		}
 	}
 	
