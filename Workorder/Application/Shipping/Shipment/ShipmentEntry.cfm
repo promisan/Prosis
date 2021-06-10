@@ -11,7 +11,7 @@
 <script language="JavaScript">
 	
 	function earmarkstock(whs,woid,sale) {				
-		ProsisUI.createWindow('myearmark', 'Earmark', '',{x:100,y:100,height:document.body.clientHeight-70,width:document.body.clientWidth-70,modal:true,resizable:false,center:true})    						
+		ProsisUI.createWindow('myearmark', 'Earmark', '',{x:100,y:100,height:document.body.clientHeight-70,width:document.body.clientWidth-70,modal:true,resizable:true,center:true})    						
 		ptoken.navigate("ShipmentNotEarmarked.cfm?PointerSale="+sale+"&Warehouse="+whs+"&WorkOrderItemId="+woid,'myearmark') 		
     }
 	

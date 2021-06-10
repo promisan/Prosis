@@ -150,19 +150,19 @@
 					<tr>
 						<td width="40%" class="labelmedium" align="left" style="padding:2px">
 							<table cellspacing="0" cellpadding="0">
-							<tr>
+							<tr class="labelmedium2">
 							
 							<cfif mode eq "edit">
 								<td style="height:30px"></td>															
-								<td style="padding-left:6px;padding-top:28px" class="labelmedium">
+								<td style="padding-left:6px;padding-top:28px">
 								  <a href="##" onclick="getBOM('#url.workorderid#','#url.workorderline#','halfproduct')">
-								  <font color="0080C0">[<cf_tl id="Generate Bill of Materials">]</font>								  
+								  [<cf_tl id="Generate Bill of Materials">]								  
 								  </a>
 								</td>
 								<td style="height:30px"></td>															
-								<td style="padding-left:6px;padding-top:28px" class="labelmedium">
+								<td style="padding-left:6px;padding-top:28px">
 								  <a href="##" onclick="issueStock('#url.workorderid#','#url.workorderline#','halfproduct')">
-								  <font color="0080C0">[<cf_tl id="Issue Produced stock">]</font>								  
+								  [<cf_tl id="Issue Produced stock">]								  
 								  </a>
 								</td>
 							</cfif>
@@ -170,14 +170,14 @@
 							</tr>
 							</table>
 						</td>
-						<td style="padding-left:5px" class="labelmedium">#Lines#</td>
-						<td style="padding-left:5px" class="labelmedium">#get.Currency#</td>
-						<td style="padding-right:13px;padding-left:5px" class="labelmedium"  align="right"><b>#numberformat(AmountIncome,',.__')#</b></td>
+						<td style="padding-left:5px">#Lines#</td>
+						<td style="padding-left:5px">#get.Currency#</td>
+						<td style="padding-right:13px;padding-left:5px" align="right"><b>#numberformat(AmountIncome,',.__')#</b></td>
 					</tr>				
 				</table>			
 				</td>
 			</tr>				
-			<tr><td colspan="16" class="line"></td></tr>							
+							
 									
 		</cfloop>
 						
@@ -192,8 +192,8 @@
 						
 							<td width="5%" style="font-size:15px;padding-left:3px">
 							   <cfif mode eq "edit">
-								<a href="javascript:addHalfProduct('#url.WorkOrderId#','#url.WorkOrderLine#','','');" style="color:gray;">
-								[<cf_tl id="Add">]
+								<a href="javascript:addHalfProduct('#url.WorkOrderId#','#url.WorkOrderLine#','','');">
+								<cf_tl id="Add">
 								</a>
 							   </cfif>
 							</td>
@@ -229,7 +229,7 @@
 																						
 						<cfloop query="ItemFinished">
 						
-							<tr class="navigation_row line labelit">
+							<tr class="navigation_row line labelmedium2">
 							
 								<td align="center" style="height:20;padding-top:2px">
 								
@@ -252,7 +252,7 @@
 								
 								</td>		
 								
-								<td class="labelsmall">#currentrow#</td>					
+								<td>#currentrow#</td>					
 								<td>#Classification#</td>
 								<td>#ItemDescription#</td>
 								<td>#ItemBarCode#</td>
@@ -260,7 +260,7 @@
 								
 								<td bgcolor="FFBC9B">	
 								
-									<table width="100%" cellspacing="0" cellpadding="0">
+									<table width="100%">
 										<tr>
 										<td width="20" style="padding-left:5px">			
 									

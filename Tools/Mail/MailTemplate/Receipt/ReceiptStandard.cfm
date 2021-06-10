@@ -90,10 +90,10 @@
 	
 		<cfloop query="Header">
 		
-		<table width="600">
-		<tr><td colspan="2" style="padding-left:10px;font-size:36px;font-family: Calibri;">#MissionName# #WarehouseName#</td></tr>
-		<tr><td colspan="2" style="padding-left:10px;font-size:28px;font-family: Calibri;">#City# #Address#</td></tr>
-		<tr><td colspan="2" style="padding-left:10px;font-size:20px;font-family: Calibri;">#Telephone#</td></tr>
+		<table style="min-width:500px">
+		<tr><td colspan="2" style="padding-left:10px;font-size:30px;font-family: Calibri;">#MissionName# #WarehouseName#</td></tr>
+		<tr><td colspan="2" style="padding-left:10px;font-size:23px;font-family: Calibri;">#City# #Address#</td></tr>
+		<tr><td colspan="2" style="padding-left:10px;font-size:19px;font-family: Calibri;">#Telephone#</td></tr>
 		<tr><td colspan="2" style="height:20"></td></tr>
 		<tr>
 			<td style="padding-left:10px;font-size:20px;font-family: Calibri; font-size: medium;">#CustomerName# #Reference#</td>
@@ -130,7 +130,7 @@
 				    <td style="width:300px;border-bottom:1px solid silver;font-family: Calibri; font-size: medium;">#ItemDescription#</td>
 					<td style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;"><cfif ItemBarCode neq "">#ItemBarCode#<cfelse>#ItemNo#</cfif></td>
 					<td style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;">#TransactionQuantity*-1#</td>
-					<td style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;" align="right">#numberformat(SalesAmount,".__")#</td>
+					<td style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;" align="right">#numberformat(SalesAmount,",.__")#</td>
 				</tr>	
 						
 				</cfloop>
@@ -138,13 +138,13 @@
 				<tr><td style="height:4px"></td></tr>
 								
 				<tr><td colspan="3" align="right" style="height:30px;font-family: Calibri; font-size: medium;"><cf_tl id="Subtotal"></td>
-				    <td align="right" style="font-family: Calibri; font-size: medium;">#numberformat(am,".__")#</td>
+				    <td align="right" style="font-family: Calibri; font-size: medium;">#numberformat(am,",.__")#</td>
 				</tr>
 				<tr><td colspan="3" align="right" style="height:30px;font-family: Calibri; font-size: medium;"><cf_tl id="Taxes"></td>
-				    <td align="right" style="font-family: Calibri; font-size: medium;">#numberformat(tx,".__")#</td>
+				    <td align="right" style="font-family: Calibri; font-size: medium;">#numberformat(tx,",.__")#</td>
 				</tr>
 				<tr><td colspan="3" align="right" style="border-bottom:1px solid silver;height:30px;font-family: Calibri; font-size: medium;"><b><cf_tl id="Total"></td>
-				    <td align="right" style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;">#numberformat(am+tx,".__")#</td>
+				    <td align="right" style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;">#numberformat(am+tx,",.__")#</td>
 				</tr>
 								
 				<cfset se = 0>
@@ -152,21 +152,22 @@
 				<cfloop query="settle">
 				<cfset se = se+SettleAmount>
 				<tr><td colspan="3" align="right" style="height:30px;font-family: Calibri; font-size: medium;">#SettleCode# #BankName#</td>
-				    <td align="right" style="font-family: Calibri; font-size: medium;">#numberformat(SettleAmount,".__")#</td>
+				    <td align="right" style="font-family: Calibri; font-size: medium;">#numberformat(SettleAmount,",.__")#</td>
 				</tr>
 				</cfloop>
 				
 				<tr><td colspan="3" align="right" style="height:30px;font-family: Calibri; font-size: medium;"><b><cf_tl id="Total Paid"></td>
-				    <td align="right" style="font-family: Calibri; font-size: medium;">#numberformat(se,".__")#</td>
+				    <td align="right" style="font-family: Calibri; font-size: medium;">#numberformat(se,",.__")#</td>
 				</tr>
-				<tr><td colspan="4" style="border-bottom:1px solid silver;"></td></tr>
-				
+								
 			</table>
 		
 		</td></tr>
 		
+		<cfif len(Footer.TransactionMemo) gte "5"> 
 		<tr><td colspan="2" style="padding-top:20px;padding-left:10px;font-size:20px;font-family: Calibri; font-size: x-small;" align="center">#Footer.TransactionMemo#</td></tr>		
-		<tr><td colspan="2" align="right" style="padding-top:20px;padding-left:10px;font-size:20px;font-family: Calibri; font-size: small;">Powered by Prosis TM</td></tr>
+		</cfif>
+		<tr><td colspan="2" align="right" style="padding-top:20px;padding-left:10px;font-size:20px;font-family: Calibri; font-size: small;">Prosis ERP</td></tr>
 			
 		</table>
 		

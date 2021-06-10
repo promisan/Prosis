@@ -1,8 +1,10 @@
 
 <!--- based on the WorkOrderItemId determine the items and also associated items as they might have been grouped under the same
-workorderlineid for stop to be reallocated --->
+workorderlineid for stop to be reallocated 
 
 <cf_screentop banner="Yellow" layout="webapp" html="No" scroll="Yes" label="Earmark stock">
+
+--->
 
 <cfquery name="get" 
 	datasource="AppsWorkOrder" 
@@ -137,24 +139,24 @@ workorderlineid for stop to be reallocated --->
 </cfquery> 
 
 <form name="earmarkform" 
-    action="ShipmentNotEarmarkedSubmit.cfm?warehouse=#url.warehouse#&workorderid=#get.workorderid#&workorderitemid=#url.wokrorderitemid#" style="height:100%" method="post">
+    action="ShipmentNotEarmarkedSubmit.cfm?warehouse=#url.warehouse#&workorderid=#get.workorderid#&workorderitemid=#url.wokrorderitemid#" method="post">
 			
-<table width="95%" cellspacing="0" cellpadding="0" align="center">		
+<table width="95%" align="center" class="navigation_table">		
 
 	<tr><td height="3"></td></tr>
 	
-	<tr><td colspan="9" class="labelmedium">Reserve (earmark) stock that is currently not assigned to a workorder to this workorder in order for it to be shipped out.</td></tr>	
+	<tr><td colspan="9" style="font-size:24px;" class="labelmedium2">Reserve (earmark) stock that is currently not assigned to a workorder to this workorder in order for it to be shipped out.</td></tr>	
 	
 	<tr><td height="3"></td></tr>
 	
-	<tr>
-		<td colspan="9" align="center">
+	<tr class="line">
+		<td colspan="9">
 
-			<table width="100%">
+			<table>
 			
 			<tr> 
 			
-			     <td class="labelmedium">Transaction date:</td>
+			     <td class="labelmedium"><cf_tl id="Transaction date">:</td>
 				 <td style="padding-left:16px" class="labelmedium">
 												
 				 <cf_setCalendarDate
@@ -166,9 +168,9 @@ workorderlineid for stop to be reallocated --->
 					  
 				 </td>				  
 				
-				 <td class="labelmedium">Reference:</td>
+				 <td style="padding-left:10px" class="labelmedium"><cf_tl id="Reference">:</td>
 				
-				 <td align="right" style="padding-right:10px">			
+				 <td align="right" style="padding-left:4px;padding-right:10px">			
 					<input type="text" name="BatchReference" size="15" maxlength="20" class="regularxl">			
 				 </td>
 				 
@@ -184,29 +186,29 @@ workorderlineid for stop to be reallocated --->
 	
 		<cf_precision number="#ItemPrecision#">	
 					
-		<tr class="navigation_row_child">
-			<td width="1%" colspan="1"></td>
-			<td width="1%"></td>
-			<td width="30%" colspan="1" style="padding-left:5px" class="labelit line">#ItemDescription# #Classification#</td>
-			<td width="14%" colspan="2" style="padding-left:5px" class="labelit line">#LocationName#</td>
+		<tr class="labelmedium2 navigation_row line">
+			<td colspan="1"></td>
+			<td></td>
+			<td width="30%" colspan="1" style="padding-left:5px">#ItemDescription# #Classification#</td>
+			<td width="14%" colspan="2" style="padding-left:5px">#LocationName#</td>
 			
 			<td width="10%" class="ccontent labelit line">
 						    <cfif workorderreference neq "">
-							<a href="javascript:workorderview('#workorderid#')"><font color="0080C0">#WorkorderReference# [#WorkOrderLine#]</font></a>
+							<a href="javascript:workorderview('#workorderid#')">#WorkorderReference# [#WorkOrderLine#]</a>
 							<cfelse>
 							free
 							</cfif>							
 						</td>			
 			
-			<td width="20%" colspan="1" style="padding-left:5px" class="labelit line">
+			<td width="20%" style="padding-left:5px">
 				<cfif transactionlot eq "0">
 					no lot
 				<cfelse>
 					#TransactionLot# #OrgUnitName# [#dateformat(TransactionLotDate,client.dateformatshow)#]
 				</cfif>
 			</td>									
-			<td width="10%" class="labelit line" align="right" style="padding-right:10">#numberformat(earmarked,pformat)#</td>
-			<td width="6%" align="right" class="line" style="height:25;padding-right:13px">
+			<td width="10%" align="right" style="padding-right:10">#numberformat(earmarked,pformat)#</td>
+			<td width="6%" align="right" style="border-left:1px solid silver;border-right:1px solid silver;;background-color:ffffaf;">
 									
 			<cfif StockControlMode eq "Stock">
 			
@@ -219,8 +221,8 @@ workorderlineid for stop to be reallocated --->
 				<input type= "text" 
 				    name   = "earmark_#uomid#_#location#_#TransactionlotSerialno#_#reqid#" 
 				    value  = "" 
-					class  = "regularh enterastab" 
-					style  = "width:60px;text-align:right">					
+					class  = "regularxl enterastab" 
+					style  = "padding-right:4px;width:97%;border:0px;background-color:ffffaf;text-align:right">					
 			
 			</cfif>
 					
@@ -306,11 +308,11 @@ workorderlineid for stop to be reallocated --->
 	
 	<tr><td colspan="9" class="line"></td></tr>
 	
-	<tr><td colspan="9" align="center" style="height:30" id="submitboxearmark">
+	<tr><td colspan="9" align="center" style="height:40px" id="submitboxearmark">
 	
 		<cfoutput>
-		<input type="button" name="Submit" value="Submit" style="width:240" class="button10g" 
-		  onclick="ColdFusion.navigate('ShipmentNotEarmarkedSubmit.cfm?warehouse=#url.warehouse#&workorderid=#get.workorderid#&workorderitemid=#url.workorderitemid#&pointersale=#url.pointersale#','submitboxearmark','','','POST','earmarkform')">
+		<input type="button" name="Submit" value="Submit" style="heught:35px;width:240px" class="button10g" 
+		  onclick="ptoken.navigate('ShipmentNotEarmarkedSubmit.cfm?warehouse=#url.warehouse#&workorderid=#get.workorderid#&workorderitemid=#url.workorderitemid#&pointersale=#url.pointersale#','submitboxearmark','','','POST','earmarkform')">
 		</cfoutput>  
 	
 		</td>
@@ -319,3 +321,5 @@ workorderlineid for stop to be reallocated --->
 </table>			
 
 </form>
+
+<cfset ajaxonload("doHighlight")>

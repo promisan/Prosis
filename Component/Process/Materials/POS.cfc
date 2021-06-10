@@ -303,24 +303,23 @@
 					 <cfset sale.taxcode       = getPrice.TaxCode>
 					 					 
 				<cfelse>				
-				
-				
+								
 					<!--- finally we take the price from the standard cost -in Base currency --->	
 					
-					 <cfquery name="getPrice" 
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
+					<cfquery name="getPrice" 
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
 
 						SELECT    TOP 1 *
 						FROM      ItemVendorOffer AS ivo INNER JOIN
                                   ItemVendor AS iv ON ivo.OrgUnitVendor = iv.OrgUnitVendor AND ivo.ItemNo = iv.ItemNo
 						WHERE     iv.Preferred = 1 
 						AND       ivo.DateEffective <= GETDATE() 
-						AND       ivo.ItemNo = '#itemno#' 
-						AND       ivo.UoM    = '#uom#'
-						AND       Mission    = '#mission#'
-						AND       Currency   = '#currency#'
+						AND       ivo.ItemNo   = '#itemno#' 
+						AND       ivo.UoM      = '#uom#'
+						AND       Mission      = '#mission#'
+						AND       Currency     = '#currency#'
 						AND       (ivo.DateExpiration IS NULL OR ivo.DateExpiration >= GETDATE())							
 						ORDER BY  DateEffective DESC 	
 					</cfquery>					
@@ -2056,7 +2055,6 @@
 							<cfset vtotal_locqty = 0>	
 							<cfset total = tra>		
 							
-							
 							<!--- reserved is on the item/warehouse level --->
 							
 							<cfinvoke component = "Service.Process.Materials.Stock"  
@@ -2416,27 +2414,30 @@
 								TransactionSerialNo1  = "#ln+1#"
 								Class1                = "Credit"
 								Reference1            = "Sales Income"   									
-								ReferenceName1        = "#left(Itemdescription,80)#"
+								ReferenceName1        = "#left(Itemdescription,100)#"
 								Description1          = "Sale"
 								GLAccount1            = "#getSale.GLAccount#"
 								Costcenter1           = "#Org.OrgUnit#"
-								ReferenceNo1          = "#ItemNo#"							
+								ReferenceNo1          = "#ItemNo#"		
+								ReferenceQuantity1    = "#TransactionQuantity#"						
 								TransactionType1      = "Standard"
+								TransactionTaxCode1    = "#TaxCode#"
 								Amount1               = "#SalesAmount#"	
 								
-								TransactionSerialNo2  = "#ln+2#"
+								TransactionSerialNo2  = "#ln+1#"
 								Class2                = "Credit"
 								Reference2            = "Sales Tax"  									  
-								ReferenceName2        = "#left(Itemdescription,80)#"
+								ReferenceName2        = "#left(Itemdescription,100)#"
 								Description2          = "Sale"
 								GLAccount2            = "#Tax.GLAccountReceived#"
 								Costcenter2           = "#Org.OrgUnit#"
-								ReferenceNo2          = "#ItemNo#"							
+								ReferenceNo2          = "#ItemNo#"		
+								ReferenceQuantity2    = "#TransactionQuantity#"							
 								TransactionType2      = "Standard"
-								TransactionTaxCode    = "#TaxCode#"
+								TransactionTaxCode2   = "#TaxCode#"
 								Amount2               = "#SalesTax#">																		
 			
-							<cfset ln = ln+2>
+							<cfset ln = ln+1>
 							
 						</cfloop>	
 							
@@ -2447,10 +2448,9 @@
 					UPDATE   Materials.dbo.ItemTransactionShipping
 					SET      Journal         = '#getJournal.Journal#', 
 					         JournalSerialNo = '#JournalTransactionNo#'
-					WHERE    TransactionId IN
-		                          (SELECT  TransactionId
-              				       FROM    Materials.dbo.ItemTransaction
-		                           WHERE   TransactionBatchNo = '#batchno#')
+					WHERE    TransactionId IN (SELECT  TransactionId
+			              				       FROM    Materials.dbo.ItemTransaction
+		    			                       WHERE   TransactionBatchNo = '#batchno#')
 				</cfquery>		
 											
 				<cfset parentJournal          = getJournal.Journal>
@@ -2772,6 +2772,7 @@
 				             T.ItemDescription, 
 				             ITS.SalesCurrency, 
 							 ITS.TaxCode,
+							 ITS.SalesQuantity,
 							 ROUND(ITS.SalesAmount, 2)     AS SalesAmount, 
 							 ROUND(ITS.SalesTax, 2)        AS SalesTax, 
 	                         ROUND(ITS.SalesTotal, 2)      AS SalesTotal, 
@@ -2802,32 +2803,24 @@
 			  datasource="AppsMaterials" 
 			  username="#SESSION.login#" 
 			  password="#SESSION.dbpw#">
+			  
 				   SELECT *
 				   FROM   Warehouse
 				   WHERE  Warehouse = '#get.warehouse#'	   							   
+				   
 			  </cfquery>		
 			
 			  <cfquery name="Param" 
 			  datasource="AppsMaterials" 
 			  username="#SESSION.login#" 
 			  password="#SESSION.dbpw#">
+			  
 				   SELECT  *   
 				   FROM    Ref_ParameterMission
 				   WHERE   Mission = '#warehouse.Mission#' 
+				   
 			  </cfquery>	
-			
-			  <!---
-			  <cfquery name="getTerminal" 
-			  datasource="AppsMaterials" 
-			  username="#SESSION.login#" 
-			  password="#SESSION.dbpw#">
-				    SELECT  *
-				    FROM    WarehouseTerminal
-				    WHERE   Warehouse     = '#Warehouse.warehouse#'	   							   
-				    AND     TerminalName  = '#Warehouse.terminal#' 
-			  </cfquery>
-			  --->
-			
+						 			
 			  <!--- we need to updo posting to SAT and visa versa --->
 			
 			  <cfquery name="org" 
@@ -3000,30 +2993,31 @@
 						TransactionSerialNo1  = "#ln+1#"
 						Class1                = "Credit"
 						Reference1            = "Sales Income"   									
-						ReferenceName1        = "#left(Itemdescription,80)#"
+						ReferenceName1        = "#left(Itemdescription,100)#"
 						Description1          = "Sale"
 						GLAccount1            = "#getSale.GLAccount#"
 						Costcenter1           = "#Org.OrgUnit#"
-						ReferenceNo1          = "#ItemNo#"							
+						ReferenceNo1          = "#ItemNo#"		
+						ReferenceQuantity1    = "#SalesQuantity#"					
 						TransactionType1      = "Standard"
 						Amount1               = "#SalesAmount#"	
 						
 						TransactionSerialNo2  = "#ln+2#"
 						Class2                = "Credit"
 						Reference2            = "Sales Tax"  									  
-						ReferenceName2        = "#left(Itemdescription,80)#"
+						ReferenceName2        = "#left(Itemdescription,100)#"
 						Description2          = "Sale"
 						GLAccount2            = "#Tax.GLAccountReceived#"
 						Costcenter2           = "#Org.OrgUnit#"
-						ReferenceNo2          = "#ItemNo#"							
+						ReferenceNo2          = "#ItemNo#"	
+						ReferenceQuantity2    = "#SalesQuantity#"							
 						TransactionType2      = "Standard"
 						TransactionTaxCode    = "#TaxCode#"
 						Amount2               = "#SalesTax#">																		
 		
 						<cfset ln = ln+2>
 						
-					</cfloop>		
-											 			  
+					</cfloop>												 			  
 			  			  
 				</cfif>
 			
@@ -3033,12 +3027,12 @@
 	
 	<cffunction name="initiateInvoice" access="public" returntype="struct" displayname="retrieve a transaction for processing">
 			 			 
-			<cfargument name="Warehouse"          type="string"  required="true"   default="">
-			<cfargument name="BatchId"            type="string"  required="true"   default="">
-			<cfargument name="Customerid"         type="GUID"    required="true"   default="">
-			<cfargument name="CustomeridInvoice"  type="GUID"    required="true"   default="">
-			<cfargument name="Currency"           type="string"  required="true"   default="">							
-			<cfargument name="TransactionDate"    type="string"  required="true"   default="">	
+			<cfargument name="Warehouse"          type="string"  required="true"    default="">
+			<cfargument name="BatchId"            type="string"  required="true"    default="">
+			<cfargument name="Customerid"         type="GUID"    required="true"    default="">
+			<cfargument name="CustomeridInvoice"  type="GUID"    required="true"    default="">
+			<cfargument name="Currency"           type="string"  required="true"    default="">							
+			<cfargument name="TransactionDate"    type="string"  required="true"    default="">	
 			<cfargument name="Terminal"    		  type="string"  required="false"   default="">	
 			<cfargument name="Mode"      		  type="string"  required="false"   default="1">
 			
@@ -3059,54 +3053,62 @@
 			 	SELECT  *
 				FROM    WarehouseJournal
 				WHERE   Warehouse = '#warehouse#'
-				AND		Area = 'SETTLE'
-				AND		Currency = '#currency#'
+				AND		Area      = 'SETTLE'
+				AND		Currency  = '#currency#'
 			</cfquery> 	
 			
-			<cfif getWarehouseJournal.TransactionMode eq "1" or Mode eq "1">
+			 <!--- force manual or contextual manual through the interface --->
 			
-				<cfset Invoice.Mode = "1"> <!--- manual --->
-				<cfset Invoice.ErrorDescription = "">
-				<cfset Invoice.ErrorDetail = "">
-				<cfset Invoice.Status = "1">
+			<cfif getWarehouseJournal.TransactionMode eq "1" or Mode eq "1">
+					
+				<cfset Invoice.Mode              = "1"> <!--- manual --->
+				<cfset Invoice.ErrorDescription  = "">
+				<cfset Invoice.ErrorDetail       = "">
+				<cfset Invoice.Status            = "1">
 				
 			<cfelse>
 			
-			    <cfset Invoice.Mode = "2">
-				<cfset Invoice.ErrorDescription = "">
-				<cfset Invoice.ErrorDetail = "">
-				<cfset Invoice.Status = "1">
+			    <cfset Invoice.Mode              = "2">
+				<cfset Invoice.ErrorDescription  = "">
+				<cfset Invoice.ErrorDetail       = "">
+				<cfset Invoice.Status           = "1">
 				
 			    <!--- ------------------- --->
 				<!--- jdiaz complementent --->
 				<!--- ------------------- --->				
 					
 				<!--- validate series otherwise Invoice.Mode = "1" --->
+				
+				<!--- no longer needed
+				
 				<cfquery name="getSeriesType"
-				 datasource="AppsMaterials" 
-				 username="#SESSION.login#" 
-				 password="#SESSION.dbpw#">
+					 datasource="AppsMaterials" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
 
 				 	SELECT *
 					FROM   WarehouseTerminal
 					WHERE  Warehouse     = '#warehouse#'
 					<cfif Terminal neq "">
-						AND    TerminalName	 = '#Terminal#'
+					AND    TerminalName	 = '#Terminal#'
 					</cfif>
 					<cfif get.OrgUnitTax neq 0>
-						AND    TaxOrgUnitEDI = '#get.OrgUnitTax#'
+					AND    TaxOrgUnitEDI = '#get.OrgUnitTax#'
 					</cfif>
 					AND    TaxOrgUnitEDI IS NOT NULL
+					
 				</cfquery>
 
 				<cfif getSeriesType.RecordCount eq "0">
 				
 					<!--- No valid tree defined for EDI --->
-					<cfset Invoice.Mode = "1"> <!--- manual --->
-					<cfset Invoice.ErrorDescription = "No valid tree defined">
-					<cfset Invoice.ErrorDetail = "">
+					<cfset Invoice.Mode             = "1"> <!--- manual --->
+					<cfset Invoice.ErrorDescription = "No valid terminal set">
+					<cfset Invoice.ErrorDetail      = "">
 
 				<cfelse>
+				
+				--->
 				
 					<cfquery name="getSeries"
 					 datasource="AppsOrganization" 
@@ -3116,7 +3118,7 @@
 						FROM    OrganizationTaxSeries
 						WHERE   1 = 1
 						<cfif get.OrgUnitTax neq 0>
-							AND Orgunit 	= '#get.OrgUnitTax#'
+						AND     Orgunit 	= '#get.OrgUnitTax#'
 						</cfif>
 						AND		Operational = 1
 						AND     SeriesType = 'Invoice'
@@ -3124,19 +3126,24 @@
 					</cfquery> 	
 
 					<cfif getSeries.RecordCount eq "0">
+					
 						<!--- No valid series defined for EDI --->
-						<cfset Invoice.Mode = "1"> <!--- manual --->
+						<cfset Invoice.Mode             = "1"> <!--- manual --->
 						<cfset Invoice.ErrorDescription = "No valid series is defined">
-						<cfset Invoice.ErrorDetail = "">
+						<cfset Invoice.ErrorDetail      = "">
 
 					<cfelse>
-						<cfset Invoice.Mode = "2"> <!--- EDI --->
+					
+							<cfset Invoice.Mode = "2"> <!--- EDI --->
 
+							<!--- disabled 
 							<cfif Terminal eq "">
 								<cfset Terminal = getSeriesType.TerminalName>
-
 							</cfif>
-						<!--- initiate EDI once it fails after 2 attempts Invoice.Mode = "1" --->	
+							--->
+							
+						    <!--- initiate EDI once it fails after 2 attempts Invoice.Mode = "1" --->	
+						
 							<cfinvoke component = "Service.Process.EDI.Manager"
 									   method           = "SaleIssue" 
 									   Datasource       = "AppsOrganization"
@@ -3150,7 +3157,8 @@
 								 
 								<!--- 10 retries--->							
 								
-								<cfloop index="rtNo" from="1" to="10">									
+								<cfloop index="rtNo" from="1" to="10">	
+																
 									<cfinvoke component = "Service.Process.EDI.Manager"  
 											   method           = "SaleIssue" 
 											   Datasource       = "AppsOrganization"
@@ -3165,225 +3173,23 @@
 										<cfbreak>
 									</cfif>
 										
-								</cfloop> 
+								</cfloop> 	
 	
-	
-								<cfif stResponse.Status neq "OK">									   					
-									 <!--- manual 5/7/2021 by Armin
-	 									<cfset Invoice.Mode = "1">
-									 --->
-									 <cfset Invoice.Status = "9">
-									<cfset Invoice.ErrorDescription = stResponse.ErrorDescription>
-									<cfif StructKeyExists(stResponse,"ErrorDetail")>
-										<cfset Invoice.ErrorDetail = stResponse.ErrorDetail>
-									</cfif>
-								</cfif>
+
 								
-							</cfif>	  		
+							</cfif>	 
+							
+							<cfset Invoice.ActionId = stResponse.ActionId> 		
 						
 					</cfif>
-					
+				
+				<!---	
 				</cfif>											
+				--->
 			
-			</cfif>			
+			</cfif>		
 			
-			<cfif Invoice.Mode eq "2" and stResponse.DocumentNo neq  "" and Invoice.Status eq "1">
-			
-				<!--- update the current electronic invoice generated --->
-				
-				<cfif Mode eq "2" >
-					<!---- The invoice is previous FEL version 2019 --->
-					<cfset curInvoice = "0">
-					<cfset curInvoice = LSParseNumber(right(stResponse.DocumentNo,10))>
-
-					<cfquery name="UpdateInvoice"
-					 datasource="AppsOrganization"
-					 username="#SESSION.login#"
-					 password="#SESSION.dbpw#">
-						UPDATE  OrganizationTaxSeries
-						SET 	InvoiceCurrent = #curInvoice#
-						WHERE   Orgunit 	= '#get.OrgUnitTax#'
-						AND		Operational = 1
-						AND		SeriesNo = '#getSeries.SeriesNo#'
-					</cfquery>
-
-					<!--- update warehousebatch reference with electronic invoice --->
-					<cfquery name="UpdateReference"
-							datasource="AppsMaterials"
-							username="#SESSION.login#"
-							password="#SESSION.dbpw#">
-						UPDATE  WarehouseBatch
-						SET 	BatchReference = '#stResponse.Dte#'
-					    WHERE   BatchId 	= '#BatchId#'
-					    AND		BatchReference  IS NULL
-					</cfquery>
-				<cfelse>
-				<!--- update warehousebatch reference with electronic invoice new mode for FEL 2020 version --->
-						<cfquery name="UpdateReference"
-								datasource="AppsMaterials"
-								username="#SESSION.login#"
-								password="#SESSION.dbpw#">
-							UPDATE  WarehouseBatch
-							SET 	BatchReference = '#stResponse.Cae#'
-							WHERE   BatchId 	= '#BatchId#'
-							AND		BatchReference  IS NULL
-						</cfquery>
-
-				</cfif>
-
-
-				
-				<cfquery name="GetSer"
-				 datasource="AppsOrganization" 
-				 username="#SESSION.login#" 
-				 password="#SESSION.dbpw#">
-					SELECT  *
-					FROM    OrganizationTaxSeries
-					WHERE   Orgunit 	= '#get.OrgUnitTax#'
-					AND		Operational = 1
-					AND     SeriesType = 'Invoice'
-					AND		SeriesNo = '#getSeries.SeriesNo#'
-				</cfquery>				
-				
-				<cfif GetSer.InvoiceCurrent gte Getser.InvoiceEnd and Mode eq 2>
-					<!--- Series limit reached.  Disable this series 
-					This is for previous FEL version 2019--->
-					
-					<cfquery name="DisableSeries"
-					 datasource="AppsOrganization" 
-					 username="#SESSION.login#" 
-					 password="#SESSION.dbpw#">
-					 	UPDATE  OrganizationTaxSeries
-						SET 	Operational = 0
-						WHERE   Orgunit 	= '#get.OrgUnitTax#'
-						AND		Operational = 1
-						AND		SeriesNo = '#GetSer.SeriesNo#'						
-						AND     AuthorizationNo = '#GetSer.AuthorizationNo#'
-					</cfquery>
-
-					<cfquery name="GetNewSer"
-					 datasource="AppsOrganization" 
-					 username="#SESSION.login#" 
-					 password="#SESSION.dbpw#">
-						SELECT  *
-						FROM    OrganizationTaxSeries
-						WHERE   Orgunit 	= '#get.OrgUnitTax#'
-						AND		Operational = 0
-						AND     SeriesType = 'Invoice'
-						AND		SeriesNo = '#getSeries.SeriesNo#'
-						AND     AuthorizationNo <> '#GetSer.AuthorizationNo#'
-						AND		((InvoiceCurrent IS NULL) OR (InvoiceCurrent < InvoiceEnd))
-					</cfquery>				
-
-					<cfif GetNewSer.recordcount neq "0">
-						<!--- new series range found. Enable it  --->
-						<cfquery name="DisableSeries"
-						 datasource="AppsOrganization" 
-						 username="#SESSION.login#" 
-						 password="#SESSION.dbpw#">
-						 	UPDATE  OrganizationTaxSeries
-							SET 	Operational = 1
-							WHERE   Orgunit 	= '#get.OrgUnitTax#'
-							AND		Operational = 0
-							AND		SeriesNo = '#GetNewSer.SeriesNo#'						
-							AND     AuthorizationNo = '#GetNewSer.AuthorizationNo#'
-						</cfquery>
-					
-					</cfif>
-					
-					
-				</cfif>
-				
-				 					
-			<cfelseif getWarehouseJournal.TransactionMode eq "2">
-				 <!--- Original Mode was 2 but no connection to the GFACE  --->
-				 
-				<cfquery name="GetManualSeries" 
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">	
-				
-					SELECT *
-					FROM Organization.dbo.OrganizationTaxSeries
-					WHERE Operational = 1
-					AND OrgUnit IN (
-						SELECT TaxOrgUnitManual
-						FROM WarehouseTerminal
-						WHERE Warehouse = '#warehouse#'
-						AND TerminalName = '#Terminal#')	
-			
-				</cfquery>
-			
-			</cfif>			
-			
-			<!--- create TransactionHeaderAction --->
 							
-			<cf_assignId>			
-
-			<cfquery name="AddAction"
-               datasource="AppsLedger"
-               username="#SESSION.login#"
-               password="#SESSION.dbpw#">
-                  INSERT INTO TransactionHeaderAction
-				  
-                         (ActionId,
-					      Journal,
-                          JournalSerialNo,
-                          ActionCode,     
-					      ActionMode,  
-					      <cfif Invoice.Mode eq "2" and Invoice.Status eq "1">
-						   <!--- more information --->	
-						   ActionReference1,
-						   ActionReference2,
-						   ActionReference3,						                       								
-					       ActionReference4,
-						   ActionReference5,
-						  <cfelseif getWarehouseJournal.TransactionMode eq "2">  <!--- Mode was 2 but no connection to the GFACE --->
-						   ActionReference4,
-						  </cfif>
-						  ActionMemo,
-						  ActionContent,
-                          ActionDate,
-		  			      ActionStatus,                                
-                          OfficerUserId,
-                          OfficerLastName,
-                          OfficerFirstName)
-						  
-                  VALUES ('#rowguid#',
-						  '#get.Journal#',
-            		      '#get.JournalSerialNo#',
-                          'Invoice',		
-						  '#Invoice.Mode#',						
-						  <cfif Invoice.Mode eq "2" and Invoice.Status eq "1">
-								<!--- more information --->	                       
-								'#stResponse.Cae#',
-								'#stResponse.DocumentNo#',
-								'#stResponse.Dte#',
-								'#getSeries.SeriesNo#',
-								<cfif StructKeyExists(stResponse,"Series")>
-								'#stResponse.Series#',
-								<cfelse>
-									NULL,
-								</cfif>
-						  <cfelseif getWarehouseJournal.TransactionMode eq "2">
-						  		<cfif Invoice.Status eq "1">
-							  		'#GetManualSeries.SeriesNo#',
-								<cfelse>
-									'ERROR',
-								</cfif>
-						  </cfif> 
-						  '#left(Invoice.ErrorDescription,100)#',
-						  '#Invoice.ErrorDetail#',
-		                  getDate(),                                 
-        		          '#Invoice.Status#',     <!--- mode process completed --->
-                	      '#SESSION.acc#',
-                          '#SESSION.last#',
-		                  '#SESSION.first#')  
-						                 
-            </cfquery>  	
-			
-			
-			<cfset Invoice.ActionId = rowguid>					
 			<cfreturn Invoice>	
 	
 	</cffunction>	
@@ -3714,11 +3520,11 @@
 								       RecordStatusDate     = getDate()
 								WHERE  TransactionSourceId  = '#batchid#'
 								<cfif Journal neq "" AND JournalSNo neq "">
-									AND Journal 			= '#Journal#'
-									AND JournalSerialNo 	= '#JournalSNo#'
+								AND    Journal 			= '#Journal#'
+								AND    JournalSerialNo 	= '#JournalSNo#'
 								</cfif>
 						</cfquery>	
-						
+												
 						<!--- post the tax action --->
 						
 						<cfif triggerEDI eq "Yes">
@@ -3731,10 +3537,11 @@
 									FROM    Accounting.dbo.TransactionHeader H
 											INNER JOIN Accounting.dbo.TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo=A.JournalSerialNo
 									WHERE   TransactionSourceId = '#batchid#'
-									AND     TransactionCategory  = 'Receivables'										
+									AND     TransactionCategory  = 'Receivables'	
+									ORDER BY A.Created DESC									
 							   	</cfquery>		
 							   
-							    <cfif getAction.recordcount gt "0">
+							    <cfif getAction.recordcount gt "0" and getAction.ActionStatus eq "1">
 								
 								   	<cfif getAction.ActionMode eq "2">
 											

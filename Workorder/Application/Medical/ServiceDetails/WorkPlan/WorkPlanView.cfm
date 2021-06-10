@@ -206,8 +206,7 @@
 				</cf_layoutarea>
 			
 				<cf_layoutarea position="right" 
-					name        = "right" 
-				    maxsize     = "33%" 						
+					name        = "right" 						
 					splitter    = "true"
 					collapsible = "true"
 					size        = "33%" 

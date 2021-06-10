@@ -83,10 +83,10 @@
 	  	<cf_tl id="Search">:
 	  </td>
 	  <td>
-	  <input type="text" onKeyUp="check()" name="condition" id="condition" size="15" maxlength="20" class="regularxl">
+	  <input type="text" style="background-color:f1f1f1;border:0px;" onKeyUp="check()" name="condition" id="condition" size="15" maxlength="20" class="regularxl">
 	  </td>
 	  <td>
-	  <button name="search" id="search" class="button10g" style="height:25;width:35" onclick="search( $('##condition').val())">
+	  <button name="search" id="search" class="button10g" style="background-color:f1f1f1;border:0px;height:25;width:35" onclick="search( $('##condition').val())">
 		  <img height="15" width="15" src="../../../../Images/locate3.gif" border="0">
 	  </button>
 	  </td></tr></table>

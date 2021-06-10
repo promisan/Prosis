@@ -59,12 +59,16 @@ password="#SESSION.dbpw#">
 		document.getElementById("servicelocation").value       = '#get.ServiceLocation#'	
 		document.getElementById("servicelocationname").value   = '#loc.Description#'			
 		document.getElementById("salaryschedule").value        = '#get.SalarySchedule#'		
+		
 		try {
 		document.getElementById("salaryschedulename").value    = '#sch.Description#'				
 		} catch(e) {}
+		
+		try {
 		document.getElementById("currency").value              = '#get.Currency#'	
-						
-		if (document.getElementById('boxentitlement'))	{						
+		} catch(e) {}
+					
+		if (document.getElementById('boxentitlement'))	{					
 			ptoken.navigate('#SESSION.root#/staffing/Application/Employee/Contract/getFinancialEntitlement.cfm?id=#url.personno#&contracttype=#url.contracttype#&salaryschedule=#get.SalarySchedule#','boxentitlement')
 		} else {				     		
            ptoken.navigate('#SESSION.root#/staffing/Application/Employee/Contract/ContractEditFormPayroll.cfm?id=#url.personno#&id1=#url.contractid#&mode='+document.getElementById('mode').value+'&last='+document.getElementById('last').value+'&contracttype=#url.contracttype#&salaryschedule=#get.SalarySchedule#','boxeditentitlement')

@@ -30,8 +30,7 @@
 				borderRadius  = "3px",				
                 imageHeight   = "48px",
                 imagepos      = "right"}>
-                
-                
+                                
 			<cfquery name="qImage" 
 	  		datasource="AppsMaterials" 
 	  		username="#SESSION.login#" 
@@ -39,11 +38,9 @@
             	SELECT *                  			
 				FROM Ref_ImageClass
 				WHERE Target = 1
-			</cfquery>	 
-			
+			</cfquery>				
 						
-			<cfset link = "#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/addItemSelect.cfm?warehouse=#url.warehouse#&customerid={customeridselect}&customeridinvoice={customerinvoiceidselect}&discount={Discount}&PriceSchedule={PriceSchedule}&currency={currency}&salespersonno={salespersonno}&date={transaction_date}&hour={Transaction_hour}&minu={Transaction_minute}&addressid={addressidselect}&requestNo={RequestNo}">	
-			                                                 
+			<cfset link = "#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/addItemSelect.cfm?warehouse=#url.warehouse#&customerid={customeridselect}&customeridinvoice={customerinvoiceidselect}&discount={Discount}&PriceSchedule={PriceSchedule}&currency={currency}&salespersonno={salespersonno}&date={transaction_date}&hour={Transaction_hour}&minu={Transaction_minute}&addressid={addressidselect}&requestNo={RequestNo}">				                                                 
                               						
 			<cfif get.SaleMode eq "1"> 	
 					

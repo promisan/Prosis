@@ -12,7 +12,7 @@
 		 <cf_tl id="Required BOM" var="1">
 		<td class="labelmedium" id="item">
 			<input onclick="ptoken.navigate('#session.root#/workorder/Application/Assembly/Items/BOM/ItemListingContent.cfm?mode=#url.mode#&systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&category=#url.category#','process')" 
-			type="button" name="item" value="#lt_text#" style="font-size:13px;height:30px;width:230px;border-top-left-radius:15px;border-bottom-left-radius:15px" class="button10g">
+			type="button" name="item" value="#lt_text#" style="font-size:13px;height:35px;width:230px;border-top-left-radius:15px;border-bottom-left-radius:15px" class="button10g">
 		</td>
 		
 		<cfif url.mode eq "finalproduct">

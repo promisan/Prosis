@@ -789,7 +789,7 @@ password="#SESSION.dbpw#">
 				            
 					      </select>		
 						  </td>
-						  <td><cfdiv id="termsbox" bind="url:setTerms.cfm?id=#term#&date=#dateformat(now(),client.dateformatshow)#"></td>	
+						  <td><cf_securediv id="termsbox" bind="url:setTerms.cfm?id=#term#&date=#dateformat(now(),client.dateformatshow)#"></td>	
 						  </tr></table>								  
 					  </td>		
 						  									  
@@ -1113,7 +1113,7 @@ password="#SESSION.dbpw#">
 												
 				 <td colspan="1" style="padding-top:1px;padding-bottom:1px">	
 				  
-     		      	  <cfdiv bind="url:setJournal.cfm?mission=#url.mission#&purchaseno=#PO.PurchaseNo#&owner={orgunitowner}&currency={currency}" 
+     		      	  <cf_securediv bind="url:setJournal.cfm?mission=#url.mission#&purchaseno=#PO.PurchaseNo#&owner={orgunitowner}&currency={currency}" 
 					    id="postingJournalselect">	  
 					  
 					  
@@ -1182,7 +1182,7 @@ password="#SESSION.dbpw#">
 			</cfif>		  			
 					
 					
-			<tr><td colspan="2" style="height:50px;font-size:27px;font-weight:200;padding-left:18px" class="labelmedium line"><cf_tl id="Invoice Payable Funding"></b></td></tr>
+			<tr><td colspan="2" style="height:50px;font-size:27px;font-weight:200;padding-left:18px" class="labelmedium line"><cf_tl id="Invoice Payable Funding"></td></tr>
 						
 			<!--- ---------------------------------------- --->	
 			<!--- for matching invoice against requisition --->

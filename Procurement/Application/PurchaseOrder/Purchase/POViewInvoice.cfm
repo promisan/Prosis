@@ -155,7 +155,7 @@
 							
 			<cfloop query="Lines">
 										
-			<tr class="labelmedium navigation_row line" style="height:20px">
+			<tr class="labelmedium2 navigation_row line" style="height:20px">
 									
 				<td width="20" align="center">#CurrentRow#</td>
 				
@@ -163,7 +163,7 @@
 								
 			        <td width="3%" align="center">
 					
-						<cf_img icon="edit" onclick="invoiceedit('#invoiceid#')"> 
+						<cf_img icon="open" onclick="invoiceedit('#invoiceid#')"> 
 					
 					</td>
 					
@@ -171,7 +171,7 @@
 				  <td></td>						
 				</cfif> 
 				
-				<td width="180"><a href="javascript:invoiceedit('#invoiceid#')">#InvoiceNo#/#invoiceserialno#</a></td>
+				<td width="180">#InvoiceNo#/#invoiceserialno#</td>
 				<td width="30%">
 				<cfif description eq "">---<cfelse>
 					<cfif len(Description) gte "50">

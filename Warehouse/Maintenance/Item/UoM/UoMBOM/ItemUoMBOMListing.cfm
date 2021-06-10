@@ -53,7 +53,7 @@ password="#SESSION.dbpw#">
 				
 		<cfloop query="UoMMission">
 		
-		<TR height="20"><TD colspan="10" class="labelmedium"><cfoutput>#Mission#</cfoutput></TD></TR>
+		<TR height="20"><TD colspan="10" class="labelmedium2"><cfoutput>#Mission#</cfoutput></TD></TR>
 		<TR><TD colspan="10">
 			    <table>
 				<tr>
@@ -61,17 +61,17 @@ password="#SESSION.dbpw#">
 				<cfoutput>
 				
 					<cf_tl id="Inherit from other item" var=1>
-					<td style="padding-right:10px" class="labelmedium">
-						<a onclick="javascript:BOMInherit('#URL.ID#','#URL.UoM#','#Mission#')" href="##"><font color="6688aa">#lt_text#</font></a>
+					<td style="padding-right:10px" class="labelmedium2">
+						<a onclick="javascript:BOMInherit('#URL.ID#','#URL.UoM#','#Mission#')" href="##">#lt_text#</a>
 					</td>	
 					
 					<td style="border:1px solid silver"></td>				
 					
 					<cf_tl id="New BOM" var=1>			
 					
-					<td style="padding-left:10px;padding-right:10px" class="labelmedium">
+					<td style="padding-left:10px;padding-right:10px" class="labelmedium2">
 					
-						<a onclick="editBOM('#URL.ID#','#URL.UoM#','','#Mission#')" href="##"><font color="6688aa">#lt_text#</font></a>
+						<a onclick="editBOM('#URL.ID#','#URL.UoM#','','#Mission#')" href="##">#lt_text#</a>
 						
 					</td>						
 					
@@ -92,7 +92,7 @@ password="#SESSION.dbpw#">
 					<cfset bomItemList = replace(bomItemList, ",", ", ", "ALL")>
 					
 					<td style="border:1px solid silver"></td>
-					<td style="padding-left:10px" class="labelmedium"><i><font color="gray">#related.recordcount# associated BOM item<cfif related.recordcount gt "1">s</cfif><br>[<span style="font-size:12px;">#bomItemList#</span>]</td>
+					<td style="padding-left:10px" class="labelmedium"><font color="gray">#related.recordcount# associated BOM item<cfif related.recordcount gt "1">s</cfif><br>[<span style="font-size:12px;">#bomItemList#</span>]</td>
 										
 					</cfif>
 										
@@ -150,7 +150,7 @@ password="#SESSION.dbpw#">
 		
 			<cfoutput query="qItems" group="mission">			
 								
-				<tr class="labelit line">
+				<tr class="labelmedium2 line">
 				<td></td>
 				<td></td>
 				<td><cf_tl id="No"></td>
@@ -173,12 +173,12 @@ password="#SESSION.dbpw#">
 					
 						<TR height="24" class="line">
 						 		 
-						  <TD colspan="10" style="cursor:pointer;padding-left:4px" class="labelit" onclick="editBOM('#URL.ID#','#URL.UoM#','#BomId#')">
+						  <TD colspan="9" style="cursor:pointer;padding-left:4px" class="labelit" onclick="editBOM('#URL.ID#','#URL.UoM#','#BomId#')">
 						   Effective: <font size="3" color="0080C0">#dateformat(DateEffective,client.dateformatshow)#</font>
 						  </TD>
 						  
 						   <td style="padding-left:6px;height:20;padding-right:2px;" align="right" width="2%">						
-							<cf_img icon="edit" navigation="Yes" onclick="editBOM('#URL.ID#','#URL.UoM#','#BomId#','#Mission#')">
+							<cf_img icon="open" navigation="Yes" onclick="editBOM('#URL.ID#','#URL.UoM#','#BomId#','#Mission#')">
 						  </td>
 						  
 					    </TR>	
@@ -202,7 +202,7 @@ password="#SESSION.dbpw#">
 					
 						<cfset i = i +1>
 						
-				    	<tr class="navigation_row line labelit">	    	
+				    	<tr class="navigation_row line labelmedium2">	    	
 						  
 							<td width="1%" style="padding-left:8px">#i#.</td>
 												
@@ -216,8 +216,8 @@ password="#SESSION.dbpw#">
 							<td width="10%"><!--- #MaterialReference# ---></td>
 							<td width="14%">#UoMDescription#</td>							
 							<td width="8%" style="padding-right:4px" align="right">#MaterialQuantity#</td>		
-							<td width="8%" style="padding-right:4px" align="right">#numberformat(MaterialCost,'__.___')#</td>	
-							<td width="8%" style="padding-right:4px" align="right">#numberformat(MaterialAmount,'__.___')#</td>		
+							<td width="8%" style="padding-right:4px" align="right">#numberformat(MaterialCost,'.___')#</td>	
+							<td width="8%" style="padding-right:4px" align="right">#numberformat(MaterialAmount,'.___')#</td>		
 																
 						</tr>
 						
@@ -225,7 +225,7 @@ password="#SESSION.dbpw#">
 						
 						<tr>
 						<td></td>
-						<td colspan="8" width="20%" class="labelit">#MaterialMemo#</td>
+						<td colspan="8" width="20%" class="labelmedium">#MaterialMemo#</td>
 						</tr>
 						
 						</cfif>
@@ -353,7 +353,7 @@ password="#SESSION.dbpw#">
 
 <cfelse>
 
-	<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="95%" align="center" class="formpadding">
 		<tr>
 			<td class="labelit">Please define first an entity for this unit of measure</td>
 		</tr>

@@ -2,12 +2,17 @@
 
 <cf_geoListingMapQueryPreparation url="#url#" viewId="#url.viewId#">
 
-<cfquery name="getDataCountry" datasource="#session.geoListingDataSource#">		
+<cfset vThisDatasource = evaluate("session.geoListingDataSource_#url.viewId#")>
+<cfset vThisCountFemale = evaluate("session.geoListingCountFemale_#url.viewId#")>
+<cfset vThisCountMale = evaluate("session.geoListingCountMale_#url.viewId#")>
+<cfset vThisCountTotal = evaluate("session.geoListingCountTotal_#url.viewId#")>
+
+<cfquery name="getDataCountry" datasource="#vThisDatasource#">		
     SELECT	Country as NationalityCode, 
 			NationalityName,
-			#preserveSingleQuotes(session.geoListingCountFemale)# as CountFemale,
-			#preserveSingleQuotes(session.geoListingCountMale)# as CountMale,
-			#preserveSingleQuotes(session.geoListingCountTotal)# AS Total
+			#preserveSingleQuotes(vThisCountFemale)# as CountFemale,
+			#preserveSingleQuotes(vThisCountMale)# as CountMale,
+			#preserveSingleQuotes(vThisCountTotal)# AS Total
 	#preserveSingleQuotes(preparationQueryFilters)#
 	GROUP BY Country, NationalityName
 </cfquery>

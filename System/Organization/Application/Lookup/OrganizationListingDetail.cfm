@@ -3,7 +3,7 @@
 
 	<tr class="labelmedium navigation_row line">
 	
-		<td style="padding-top:5px;padding-left:4px;padding-right:4px;width:50px">
+		<td style="padding-top:4px;padding-left:4px;padding-right:4px;width:50px">
 		
 			<cfswitch expression="#URL.Source#">					
 						
@@ -25,7 +25,7 @@
 				</cfcase>
 				
 				<cfdefaultcase>
-				   
+								   
 				   <cf_img icon="select" navigation="Yes"
 				   onclick="Selected('#OrgUnit#','#OrgUnitCode#','#Mission#','#OrgUnitName#','#OrgUnitClass#')">
 						

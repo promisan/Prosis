@@ -91,7 +91,9 @@
 			
 		<tr><td height="99%" style="cursor:wait">
 		
-			<iframe src="#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?header=no&ID=ORG&ID1=#org.orgunitcode#&ID2=#line.mission#&ID3=#org.mandateno#" 
+			<cfparam name="url.mid" default="">
+			
+			<iframe src="#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewGeneral.cfm?header=no&ID=ORG&ID1=#org.orgunitcode#&ID2=#line.mission#&ID3=#org.mandateno#&mid=#url.mid#" 
 				name="unitinfoframe" 
 				id="unitinfoframe" 
 				width="100%" 

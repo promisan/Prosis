@@ -105,17 +105,17 @@
 		<cfif url.memoid eq memoid and url.MemoContent eq "" and SESSION.acc eq OfficerUserId>
 				
 				<tr>
-				    <td width="20">#currentrow#.</td>
+				    <td valign="top" style="padding-top:2px" width="20">#currentrow#.</td>
 					<td colspan="4" align="center" width="95%">
 					<form name="formmemo" id="formmemo">	
-						<textarea name="MemoContent" class="regular2" style="padding:3px;font-size:12px;width: 100%;height:75">#MemoContent#</textarea>
+						<textarea name="MemoContent" class="regular2" style="border:0px;background-color:f1f1f1;padding:3px;font-size:14px;width: 100%;height:75">#MemoContent#</textarea>
 					</form>
 					</td>
 				</tr>
 				
 				<tr><td colspan="5" align="center">
 					<button name="savem" id="savem" class="button10g" 
-						onclick="ColdFusion.navigate('../memo/DocumentMemo.cfm?owner=#url.owner#&id=#OrgUnit#&memoid=#memoid#','imemo','','','POST','formmemo');">
+						onclick="ptoken.navigate('../memo/DocumentMemo.cfm?owner=#url.owner#&id=#OrgUnit#&memoid=#memoid#','imemo','','','POST','formmemo');">
 					     <cf_tl id="Save">
 					</button>			
 				</td>
@@ -134,11 +134,11 @@
 					    <cfif SESSION.acc eq officeruserid or SESSION.isAdministrator eq "Yes">
 						    <table cellspacing="0" cellpadding="0">
 								<tr>
-								<td style="padding-top:2px">
-								 <cf_img icon="edit" navigation="Yes" onclick="ColdFusion.navigate('../memo/DocumentMemo.cfm?owner=#url.owner#&id=#OrgUnit#&memoid=#memoid#&Action=edit','imemo')">
+								<td style="padding-top:1px">
+								 <cf_img icon="open" navigation="Yes" onclick="ptoken.navigate('../memo/DocumentMemo.cfm?owner=#url.owner#&id=#OrgUnit#&memoid=#memoid#&Action=edit','imemo')">
 								</td>
 								<td style="padding-top:2px;padding-left:2px">
-								  <cf_img icon="delete" onclick="ColdFusion.navigate('../memo/DocumentMemo.cfm?owner=#url.owner#&id=#OrgUnit#&memoid=#memoid#&Action=delete','imemo')">
+								  <cf_img icon="delete" onclick="ptoken.navigate('../memo/DocumentMemo.cfm?owner=#url.owner#&id=#OrgUnit#&memoid=#memoid#&Action=delete','imemo')">
 								</td>
 								</tr>
 							</table>	
@@ -164,10 +164,10 @@
 				<cfset memoid = rowguid>			
 							
 					<tr bgcolor="ffffff">
-						<td width="20" style="padding-left:4px" class="labelit"><cfoutput>#memo.recordcount+1#.</cfoutput></td>
+						<td valign="top" width="20" style="padding-top:2px;padding-left:4px" class="labelit"><cfoutput>#memo.recordcount+1#.</cfoutput></td>
 						<td colspan="4" align="center" width="95%">
 						<form name="formmemo" id="formmemo">
-						<textarea name="MemoContent" class="regular" style="padding:3px;font-size:12px;width:100%;height:75"></textarea>
+						<textarea name="MemoContent" class="regular" style="border:0px;background-color:f1f1f1;padding:3px;font-size:14px;width:100%;height:75"></textarea>
 						</form>
 						</td>
 					</tr>
@@ -176,7 +176,7 @@
 						   
 						    <cfoutput>
 							<button name="savem" id="savem" class="button10g" 
-							onclick="ColdFusion.navigate('../memo/DocumentMemo.cfm?owner=#url.owner#&id=#url.id#&memoid=#memoid#','imemo','','','POST','formmemo');">		
+							onclick="ptoken.navigate('../memo/DocumentMemo.cfm?owner=#url.owner#&id=#url.id#&memoid=#memoid#','imemo','','','POST','formmemo');">		
 								<cf_tl id="Add">
 							</button>
 							</cfoutput>

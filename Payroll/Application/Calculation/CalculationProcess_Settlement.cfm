@@ -89,6 +89,7 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 	
 	SELECT    SalarySchedule, 
+	          Mission,
 	          PayrollStart, 
 			  PersonNo, 
 			  PayrollCalcNo, 
@@ -111,7 +112,8 @@ password="#SESSION.dbpw#">
 	
 	FROM (
 	
-		SELECT    ESL.SalarySchedule, 
+		SELECT    ESL.SalarySchedule,
+		          ESL.Mission,
 		          ESL.PayrollStart, 
 				  ESL.PersonNo, 
 				  ESL.PayrollCalcNo, 
@@ -146,7 +148,8 @@ password="#SESSION.dbpw#">
 		<!--- only actions for people in the data set to be calculated --->
 				  
 		WHERE    ES.SalarySchedule  = '#Form.Schedule#'
-				 
+		
+	   				 
 	    AND      ES.PayrollStart   <= #SALSTR# <!---  <= #compUntilDate# beofre was : #SALSTR# --->
 		
 	    AND      ES.Mission         = '#Form.Mission#'
@@ -210,7 +213,7 @@ password="#SESSION.dbpw#">
 	SELECT   H.PersonNo, 
 	         L.PayrollItem, 
 			 L.Source,
-			 L.SourceId,
+			 (CASE WHEN L.SourceId IS NULL THEN '00000000-0000-0000-0000-000000000000' ELSE L.SourceId END) as SourceId,			 
 	         I.AllowSplit,
 			 H.PaymentCurrency, 
 			 I.Settlement,
@@ -230,18 +233,21 @@ password="#SESSION.dbpw#">
 			 Ref_PayrollItem I
 			 
 	WHERE    H.SalarySchedule       = L.SalarySchedule
+	  and    H.Mission              = L.Mission
 	  AND    H.PersonNo             = L.PersonNo 
 	  AND    H.PayrollStart         = L.PayrollStart 
 	  AND    H.PayrollCalcNo        = L.PayrollCalcNo
 	  
 	  AND    L.SalarySchedule       = C.SalarySchedule
 	  AND    L.PersonNo             = C.PersonNo 
+	  and    L.Mission              = C.Mission
 	  AND    L.PayrollStart         = C.PayrollStart 
 	  AND    L.PayrollCalcNo        = C.PayrollCalcNo
 	  AND    L.PayrollTransactionId = C.PayrollTransactionId
 	  
 	  AND    H.SalarySchedule       = '#Form.Schedule#'
-	  
+	 
+		  
 	  <cfif processmodality eq "PersonalForce" or processmodality eq "WorkflowFinal"> 
 	  		
 		AND     H.PersonNo     = '#Form.PersonNo#'
@@ -257,7 +263,7 @@ password="#SESSION.dbpw#">
 		AND      H.PersonNo IN (SELECT PersonNo 
 		                         FROM   #staffbase# X 
 								 WHERE  X.PersonNo = H.PersonNo)  	  
-								 
+							 
 	  </cfif>			
 	  				 
 								 
@@ -315,6 +321,7 @@ password="#SESSION.dbpw#">
 		     H.PaymentCurrency,
 		     I.settlement,
 		     I.SettlementMonth  	
+						
 						 			 		 
 </cfquery>
 
@@ -346,7 +353,7 @@ password="#SESSION.dbpw#">
 	SELECT       S.PersonNo, 
 	             S.PayrollItem, 
 				 S.Source, 
-				 S.SourceId,
+				 (CASE WHEN S.SourceId IS NULL THEN '00000000-0000-0000-0000-000000000000' ELSE S.SourceId END),
 				 R.AllowSplit, 
 				 S.Currency, 
 				 R.Settlement, 
@@ -408,7 +415,7 @@ password="#SESSION.dbpw#">
 	SELECT   PersonNo, 
 	         PayrollItem,
 			 Source,
-			 SourceId,
+			 (CASE WHEN SourceId IS NULL THEN '00000000-0000-0000-0000-000000000000' ELSE SourceId END) as SourceId,			
 			 Currency, 
 			 SUM(Amount)        AS Calculation,
 			 SUM(PaymentAmount) AS Payment
@@ -498,8 +505,11 @@ password="#SESSION.dbpw#">
      		    	                              AND E.PayrollItem     = P.PayrollItem 
 												  AND E.Source          = P.Source 
 												  AND E.SourceId        = P.SourceId 
-		    	    					          AND E.PaymentCurrency = P.Currency													  
+		    	    					          AND E.PaymentCurrency = P.Currency		
+												  
+												  										  
 </cfquery>
+
 
 <CF_DropTable dbName="AppsQuery" tblName="sal#SESSION.thisprocess#SettleEntitlement">	
 <CF_DropTable dbName="AppsQuery" tblName="sal#SESSION.thisprocess#Settled">	

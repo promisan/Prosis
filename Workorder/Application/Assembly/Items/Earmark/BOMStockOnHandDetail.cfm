@@ -186,11 +186,9 @@ password="#SESSION.dbpw#">
 		         I.ItemDescription,
 		         T.ItemNo,
 				 PL.TransactionLotDate,				 
-				 U.ItemUomId  
-				 				 				 
+				 U.ItemUomId   				 
 				   
-	</cfquery>  
-			
+	</cfquery>  		
 		
 			
 			

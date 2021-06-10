@@ -70,7 +70,7 @@ password="#SESSION.dbpw#">
 			
 		) as XL
 		
-		WHERE OnHand > 0
+		WHERE OnHand > 1
 				
 		ORDER BY  Type, Warehouse, PickingOrder, OnHand		
 </cfquery>
@@ -144,7 +144,7 @@ password="#SESSION.dbpw#">
 					<cfif minimumQty eq "">
 						<cfset minimumQty = "1">
 					</cfif>
-							
+												
 					<tr class="labelmedium">
 						
 						<td colspan="1" style="padding-left:40px" align="left">#UoMDescription# (*#UOMMultiplier#)</td>
@@ -208,7 +208,7 @@ password="#SESSION.dbpw#">
 								--->
 								
 								<cfif OnHand gte minimumQty>
-								
+																
 									<cfloop index="counter" from="1" to="10">
 			    						
 			    						<cfset totalToTransfer = counter*minimumQty>
@@ -221,7 +221,7 @@ password="#SESSION.dbpw#">
 									</cfloop> 
 								
 								<cfelse>
-																							
+																															
 									<cfset totalToTransfer = toTransferForSale>
 								
 								</cfif>

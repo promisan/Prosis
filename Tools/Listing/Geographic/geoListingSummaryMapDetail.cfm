@@ -1,22 +1,31 @@
 <cf_geoListingMapQueryPreparation url="#url#" viewId="#url.viewId#">
 
-<cfquery name="getDataDetail" datasource="#session.geoListingDataSource#">		
-    SELECT	#preserveSingleQuotes(session.geoListingDetailSelect)#,
-			#preserveSingleQuotes(session.geoListingCountFemale)# as CountFemale,
-			#preserveSingleQuotes(session.geoListingCountMale)# as CountMale,
-			#preserveSingleQuotes(session.geoListingCountTotal)# AS Total
+<cfset vThisDatasource = evaluate("session.geoListingDataSource_#url.viewId#")>
+<cfset vThisCountFemale = evaluate("session.geoListingCountFemale_#url.viewId#")>
+<cfset vThisCountMale = evaluate("session.geoListingCountMale_#url.viewId#")>
+<cfset vThisCountTotal = evaluate("session.geoListingCountTotal_#url.viewId#")>
+<cfset vThisDetailSelect = evaluate("session.geoListingDetailSelect_#url.viewId#")>
+<cfset vThisDetailOrder = evaluate("session.geoListingDetailOrder_#url.viewId#")>
+<cfset vThisDetailOrderScript = evaluate("session.geoListingDetailOrderScript_#url.viewId#")>
+<cfset vThisDetailFieldMap = evaluate("session.geoListingDetailFieldMap_#url.viewId#")>
+
+<cfquery name="getDataDetail" datasource="#vThisDatasource#">		
+    SELECT	#preserveSingleQuotes(vThisDetailSelect)#,
+			#preserveSingleQuotes(vThisCountFemale)# as CountFemale,
+			#preserveSingleQuotes(vThisCountMale)# as CountMale,
+			#preserveSingleQuotes(vThisCountTotal)# AS Total
 	#preserveSingleQuotes(preparationQueryFilters)#
 	GROUP BY 
-			#preserveSingleQuotes(session.geoListingDetailSelect)#
+			#preserveSingleQuotes(vThisDetailSelect)#
 	ORDER BY 
-			#preserveSingleQuotes(session.geoListingDetailOrder)#
+			#preserveSingleQuotes(vThisDetailOrder)#
 </cfquery>
 
 <table class="table tableDetail table-striped table-bordered table-hover detailGeoContent<cfoutput>#url.viewId#</cfoutput>Detail" style="width:100%;">
     <thead>
         <tr>
-            <cfloop from="1" to="#ArrayLen(session.geoListingDetailFieldMap)#" index="i">
-                <th><cf_tl id="#session.geoListingDetailFieldMap[i].label#"></th>
+            <cfloop from="1" to="#ArrayLen(vThisDetailFieldMap)#" index="i">
+                <th><cf_tl id="#vThisDetailFieldMap[i].label#"></th>
             </cfloop>
             <th><cf_tl id="Female"></th>
             <th><cf_tl id="Male"></th>
@@ -28,8 +37,8 @@
     <cfset vTotal = 0>
     <cfoutput query="getDataDetail">
         <tr>
-            <cfloop from="1" to="#ArrayLen(session.geoListingDetailFieldMap)#" index="i">
-                <td>#evaluate("#session.geoListingDetailFieldMap[i].queryField#")#</td>
+            <cfloop from="1" to="#ArrayLen(vThisDetailFieldMap)#" index="i">
+                <td>#evaluate("#vThisDetailFieldMap[i].queryField#")#</td>
             </cfloop>
             <td style="text-align:right;">#numberFormat(CountFemale, ",")#</td>
             <td style="text-align:right;">#numberFormat(CountMale, ",")#</td>
@@ -42,7 +51,7 @@
     <tfoot>
         <tr>
             <cfoutput>
-                <th colspan="#ArrayLen(session.geoListingDetailFieldMap)#" style="text-align:right;"><cf_tl id="Total"></th>
+                <th colspan="#ArrayLen(vThisDetailFieldMap)#" style="text-align:right;"><cf_tl id="Total"></th>
                 <th style="text-align:right;">
                     #numberFormat(vTotalF, ",")#
                 </th>
@@ -57,4 +66,4 @@
     </tfoot>
 </table>
 
-<cfset ajaxOnLoad("function(){ $('.detailGeoContent#url.viewId#Detail').DataTable({ 'pageLength':50, 'lengthMenu':[10,25,50,100,200], #preserveSingleQuotes(session.geoListingDetailOrderScript)# }); }")>
+<cfset ajaxOnLoad("function(){ $('.detailGeoContent#url.viewId#Detail').DataTable({ 'pageLength':50, 'lengthMenu':[10,25,50,100,200], #preserveSingleQuotes(vThisDetailOrderScript)# }); }")>

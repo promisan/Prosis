@@ -366,383 +366,397 @@
 	  
 	  </td></tr>
 	  
-	  <tr><td colspan="4" style="padding-left:20px">
+	  <tr class="line">
+	  <td colspan="4" style="padding-left:15px">
 	  
-	  <cfform style="height:80%" action="JobUpdateSubmit.cfm?Role=#URL.Role#&Period=#URL.Period#&ID=#URL.ID#&ID1=#URL.ID1#&Sort=#URL.Sort#" method="post">
+	  <cfform action="JobUpdateSubmit.cfm?Role=#URL.Role#&Period=#URL.Period#&ID=#URL.ID#&ID1=#URL.ID1#&Sort=#URL.Sort#" method="post">
 			  
-	  <cfoutput query="Job" maxrows="1">
-	  
-	  <table width="99%" align="center">
-
-		<tr><td colspan="2">				
-										
-		<table width="100%">
-											
-		<tr>
-		   
-		   <td width="20%" style="height:25px" class="labelMedium">
-		       <cfif URL.Mode eq "view">
-			        #OrderClass# - <cfif JobCategoryDescription eq ""><cf_tl id="not categorised"><cfelse>#JobCategoryDescription#</cfif>
-			   <cfelse>
-			        #OrderClass# - <cfif JobCategoryDescription eq ""><cf_tl id="not categorised"><cfelse>#JobCategoryDescription#</cfif>			       
-			   </cfif>		
-			   </td>
-		   </td>
-		   <td colspan="3" style="height:25px" class="labelMedium">
-		   		   
-	   	       <cfif URL.Mode eq "view">
-			        #Description#
-			   <cfelse>			  
-		       	<input class="regularxl" value="#Description#" style="width:94%" type="text" name="Description" id="Description" size="80" maxlength="80">
-			   </cfif>
-			  
-		   </td>
-		</tr>
-											
-		<tr>
-		   <td class="labelmedium" style="height:25px"><cf_tl id="#Parameter.JobReferenceName#">:</td>
-		   <td width="30%" style="height:20px">
-		   <table class="formpadding">
-		   <tr>
-		   	   <cfif URL.Mode eq "view">
-			       <td style="height:20px" class="labelmedium">#CaseNo# </td>
-			   <cfelse>
-			       <td>
+		  <cfoutput query="Job" maxrows="1">
+		  
+			  <table width="99%" align="center">
+		
+				<tr><td colspan="2" style="padding-left:4px;<cfif URL.Mode eq 'view'>background-color:f1f1f1</cfif>">				
+												
+				<table width="100%" class="<cfif URL.Mode neq 'view'>formspacing</cfif>">
+																	
+				<tr class="labelmedium">
 				   
-			       <input class="regularxl" 
-					   type="text" 
-					   value="#CaseNo#" 
-					   name="CaseNo" 
-	                   id="CaseNo"
-					   size="20" 
-					   onchange="ColdFusion.navigate('JobCaseCheck.cfm?mission=#job.mission#&jobNo=#url.id1#&caseNo='+this.value,'casenocheck')"			
-					   maxlength="20">
-					   
+				   <td width="20%" style="height:25px">
+				       <cfif URL.Mode eq "view">
+					        #OrderClass# - <cfif JobCategoryDescription eq ""><cf_tl id="not categorised"><cfelse>#JobCategoryDescription#</cfif>
+					   <cfelse>
+					        #OrderClass# - <cfif JobCategoryDescription eq ""><cf_tl id="not categorised"><cfelse>#JobCategoryDescription#</cfif>			       
+					   </cfif>		
+					   </td>
 				   </td>
-				   <td style="height:20px;padding-left:4px" class="labelmedium">
-				   
-				   	<cfdiv 
-					   bind="url:JobCaseCheck.cfm?mission=#job.mission#&jobNo=#url.id1#&caseNo=#job.CaseNo#" 
-					   id="casenocheck"/>				   
+				   <td colspan="3" style="height:25px">
+				   		   
+			   	       <cfif URL.Mode eq "view">
+					        #Description#
+					   <cfelse>			  
+				       	<input class="regularxl" value="#Description#" style="width:94%" type="text" name="Description" id="Description" size="80" maxlength="80">
+					   </cfif>
+					  
 				   </td>
-			   </cfif>
-			   </tr>
-		   </table>   
-		   </td>
-		   <td width="130" style="height:20px" class="labelmedium"><cf_tl id="Submission">:</td>
-		   <td width="30%">
-		   	   <table cellspacing="0" cellpadding="0">
-			   <tr><td>
-			   
-		   	   <cfif URL.Mode eq "view">
-			   		
-					<cfif deadline neq "">
-			        <b>#Dateformat(deadline, CLIENT.DateFormatShow)#
-					<cfelse>
-					--
-					</cfif>
-					
-			   <cfelse>
-			   
-				   	<cf_calendarscript>
-			   
-				   <cf_intelliCalendarDate9
-					FieldName="deadline" 					
-					Default="#Dateformat(deadline, CLIENT.DateFormatShow)#"
-					AllowBlank="True"
-					class="regularxl">						
-					
-				</cfif>	
-				</td>
-				<td style="height:20px" class="labelmedium">&nbsp;<cf_tl id="Hour">:&nbsp;</td>
-				<td style="height:20px" class="labelmedium">
-				
-				<cfif URL.Mode eq "view">
-				
-				    <cfif deadline neq "">
-					<cfif len(deadlinehour) eq "1">0</cfif>#deadlinehour#<cfelse>--</cfif>
-				 
-				<cfelse>
-				 
-					<select name="deadlinehour" id="deadlinehour" class="regularxl">
-						<cfloop index="hr" from="1" to="24">
-							<option value="#hr#" <cfif hr eq deadlinehour>selected</cfif>><cfif len(hr) eq 1>0</cfif>#hr#</option>
-						</cfloop>					
-					</select> 
-				
-				</cfif>
-				
-				</td> 
 				</tr>
-				</table>	
+													
+				<tr class="labelmedium">
+				   <td style="height:25px"><cf_tl id="#Parameter.JobReferenceName#">:</td>
+				   <td width="30%" style="height:20px">
+				   <table class="formpadding">
+				   <tr class="labelmedium">
+				   	   <cfif URL.Mode eq "view">
+					       <td style="height:20px">#CaseNo# </td>
+					   <cfelse>
+					       <td>
+						   
+					       <input class="regularxl" 
+							   type="text" 
+							   value="#CaseNo#" 
+							   name="CaseNo" 
+			                   id="CaseNo"
+							   size="20" 
+							   onchange="ptoken.navigate('JobCaseCheck.cfm?mission=#job.mission#&jobNo=#url.id1#&caseNo='+this.value,'casenocheck')"			
+							   maxlength="20">
 							   
-		   </td>
-		</tr>
-		
-		<tr>
-		   <td class="labelmedium" style="height:25px"><cf_tl id="Contact/Delivery">:</td>
-		   <td class="labelmedium" style="height:25px">
-		   	   <cfif URL.Mode eq "view">
-			        <cfif QuotationContact eq "">
-					n/a
-					<cfelse>
-					#QuotationContact#
-					</cfif>
-			   <cfelse>
-			       <input class="regularxl" type="text" value="#QuotationContact#" name="QuotationContact" id="QuotationContact" size="30" maxlength="60">
-			   </cfif>
-		   </td>
-		   <td class="labelmedium" style="height:20px"><cf_tl id="Period">:</td>
-		   <td class="labelmedium" style="height:20px">
-		      
-			 <cfif URL.Mode eq "view"> #Job.Period#
-			 <cfelse> 
+						   </td>
+						   <td style="height:20px;padding-left:4px">						   
+						   	<cf_securediv bind="url:JobCaseCheck.cfm?mission=#job.mission#&jobNo=#url.id1#&caseNo=#job.CaseNo#" id="casenocheck">				   
+						   </td>
+					   </cfif>
+					   </tr>
+				   </table>   
+				   </td>
+				   <td width="130" style="height:20px"><cf_tl id="Submission">:</td>
+				   <td width="30%">
+				   	   <table cellspacing="0" cellpadding="0">
+					   <tr><td>
 					   
-			<cfquery name="PeriodList" 
-				datasource="AppsPurchase" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				SELECT  Period
-				FROM    Program.dbo.Ref_Period
-				WHERE   Period = '#Job.Period#'
-				UNION 
-				SELECT  Period
-				FROM    RequisitionLine
-				WHERE   JobNo = '#Job.Jobno#'	
-			</cfquery> 
-			
-			<select name="Period" class="regularxl">
-				<cfloop query="PeriodList">
-				   <option value="#Period#" <cfif period eq Job.Period>selected</cfif>>#Period#</option>
-				</cfloop>
-			</select>
-			
-			</cfif>
-		   
-		   </td>
-		</tr>  		
-								
-		<tr>
-		   <td class="labelmedium" style="height:25px"><cf_tl id="Reference">:</td>
-		   <td class="labelmedium" style="height:25px">
-		   
-		   	   <cfif URL.Mode eq "view">
-			        
-					<cfif CaseReference eq "">
-						n/a
+				   	   <cfif URL.Mode eq "view">
+					   		
+							<cfif deadline neq "">
+					        <b>#Dateformat(deadline, CLIENT.DateFormatShow)#
+							<cfelse>
+							--
+							</cfif>
+							
+					   <cfelse>
+					   
+						   	<cf_calendarscript>
+					   
+						   <cf_intelliCalendarDate9
+							FieldName="deadline" 					
+							Default="#Dateformat(deadline, CLIENT.DateFormatShow)#"
+							AllowBlank="True"
+							class="regularxl">						
+							
+						</cfif>	
+						</td>
+						<td style="height:20px">&nbsp;<cf_tl id="Hour">:&nbsp;</td>
+						<td style="height:20px">
+						
+						<cfif URL.Mode eq "view">
+						
+						    <cfif deadline neq "">
+							<cfif len(deadlinehour) eq "1">0</cfif>#deadlinehour#<cfelse>--</cfif>
+						 
+						<cfelse>
+						 
+							<select name="deadlinehour" id="deadlinehour" class="regularxl">
+								<cfloop index="hr" from="1" to="24">
+									<option value="#hr#" <cfif hr eq deadlinehour>selected</cfif>><cfif len(hr) eq 1>0</cfif>#hr#</option>
+								</cfloop>					
+							</select> 
+						
+						</cfif>
+						
+						</td> 
+						</tr>
+						</table>	
+									   
+				   </td>
+				</tr>
+				
+				<tr class="labelmedium">
+				   <td style="height:25px"><cf_tl id="Contact/Delivery">:</td>
+				   <td style="height:25px">
+				   	   <cfif URL.Mode eq "view">
+					        <cfif QuotationContact eq "">
+							n/a
+							<cfelse>
+							#QuotationContact#
+							</cfif>
+					   <cfelse>
+					       <input class="regularxl" type="text" value="#QuotationContact#" name="QuotationContact" id="QuotationContact" size="30" maxlength="60">
+					   </cfif>
+				   </td>
+				   <td style="height:20px"><cf_tl id="Period">:</td>
+				   <td style="height:20px">
+				      
+					 <cfif URL.Mode eq "view"> #Job.Period#
+					 <cfelse> 
+							   
+					<cfquery name="PeriodList" 
+						datasource="AppsPurchase" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						SELECT  Period
+						FROM    Program.dbo.Ref_Period
+						WHERE   Period = '#Job.Period#'
+						UNION 
+						SELECT  Period
+						FROM    RequisitionLine
+						WHERE   JobNo = '#Job.Jobno#'	
+					</cfquery> 
+					
+					<select name="Period" class="regularxl">
+						<cfloop query="PeriodList">
+						   <option value="#Period#" <cfif period eq Job.Period>selected</cfif>>#Period#</option>
+						</cfloop>
+					</select>
+					
+					</cfif>
+				   
+				   </td>
+				</tr>  		
+										
+				<tr class="labelmedium">
+				   <td style="height:25px"><cf_tl id="Reference">:</td>
+				   <td style="height:25px">
+				   
+				   	   <cfif URL.Mode eq "view">
+					        
+							<cfif CaseReference eq "">
+								n/a
+							<cfelse>
+								#CaseReference#
+							</cfif>
+							
+					   <cfelse>
+					   
+					       <input class="regularxl" type="text" value="#CaseReference#" name="CaseReference" id="CaseReference" size="20" maxlength="20">
+						   
+					   </cfif>
+					   
+				   </td>
+				   <td><cf_tl id="Status">:</td>
+				   <td id="jobstatus">
+				   
+				    <cfif ActionStatus neq "9">
+					
+					    <cfif URL.Mode eq "edit">
+						
+						    <!--- check if job is active --->
+						
+							<cfif Check.recordcount gte "1" or CheckLinesAtAll.recordcount eq "0">
+							    <a href="javascript:ColdFusion.navigate('JobStatus.cfm?jobno=#jobno#&actionstatus=9','jobstatus')" title="Cancel">[<cf_tl id="Press to cancel">]</a></font>
+							<cfelse>
+							   <font color="6688aa"><cf_tl id="Active"></font>
+							</cfif>	
+							
+						<cfelse>
+									
+						   [#st#]
+						   
+						</cfif>
+					
 					<cfelse>
-						#CaseReference#
+					
+						<cfif URL.Mode eq "edit">
+							<b><a href="javascript:ptoken.navigate('JobStatus.cfm?jobno=#jobno#&actionstatus=1','jobstatus')" title="Reactivate"><cf_tl id="Press to activate"></a>
+						<cfelse>
+							<font color="red"><cf_tl id="Cancelled"></font>
+						</cfif>
+						
 					</cfif>
 					
-			   <cfelse>
-			   
-			       <input class="regularxl" type="text" value="#CaseReference#" name="CaseReference" id="CaseReference" size="20" maxlength="20">
-				   
-			   </cfif>
-			   
-		   </td>
-		   <td  class="labelmedium" style="height:20px"><cf_tl id="Status">:</td>
-		   <td id="jobstatus" class="labelmedium" style="height:25px">
-		   
-		    <cfif ActionStatus neq "9">
-			
-			    <cfif URL.Mode eq "edit">
+				   </td>
+				 
+				</tr>
 				
-				    <!--- check if job is active --->
-				
-					<cfif Check.recordcount gte "1" or CheckLinesAtAll.recordcount eq "0">
-					    <a href="javascript:ColdFusion.navigate('JobStatus.cfm?jobno=#jobno#&actionstatus=9','jobstatus')" title="Cancel"><font color="FF0000">[<cf_tl id="Press to cancel">]</a></font>
-					<cfelse>
-					   <font color="6688aa"><cf_tl id="Active"></font>
-					</cfif>	
+				<cfif QuotationRemarks neq "" and URL.Mode eq "view">
+											
+					<tr class="labelmedium">
+					   <td valign="top" style="padding-top:3px"><cf_tl id="Memo">:</td>
+					   <td colspan="3">			       
+					       <cfif URL.Mode eq "view">
+						        <cfif QuotationRemarks eq "">
+								n/a
+								<cfelse>
+						        #QuotationRemarks#
+								</cfif>
+						   <cfelse>				  
+						       <textarea style="width:100%;height:40" totlength="400" onkeyup="return ismaxlength(this)" class="regular" name="QuotationRemarks">#QuotationRemarks#</textarea>	
+						   </cfif>
+					   </td>
+					</tr>
 					
 				<cfelse>
-							
-				   <font color="blue">#st#</font>
-				   
-				</cfif>
-			
-			<cfelse>
-			
-				<cfif URL.Mode eq "edit">
-					<b><a href="javascript:ColdFusion.navigate('JobStatus.cfm?jobno=#jobno#&actionstatus=1','jobstatus')" title="Reactivate"><font color="blue"><cf_tl id="Press to activate"></a></b></font>
-				<cfelse>
-					<font color="red"><cf_tl id="Cancelled"></font>
-				</cfif>
 				
-			</cfif>
-			
-		   </td>
-		 
-		</tr>
-		
-		<cfif QuotationRemarks neq "" and URL.Mode eq "view">
-									
-			<tr>
-			   <td valign="top" class="labelmedium" style="padding-top:3px;height:20px"><cf_tl id="Memo">:</td>
-			   <td colspan="3" class="labelmedium" style="height:25px">			       
-			       <cfif URL.Mode eq "view">
-				        <cfif QuotationRemarks eq "">
-						n/a
-						<cfelse>
-				        #QuotationRemarks#
-						</cfif>
-				   <cfelse>				  
-				       <textarea style="width:100%;height:40" totlength="400" onkeyup="return ismaxlength(this)" class="regular" name="QuotationRemarks">#QuotationRemarks#</textarea>	
-				   </cfif>
-			   </td>
-			</tr>
-			
-		<cfelse>
-		
-			<tr>
-			   <td valign="top" class="labelmedium" style="padding-top:3px;height:20px" height="20"><cf_tl id="Memo/Justification">:</td>
-			   <td colspan="3" class="labelmedium" style="height:25px">
-			       <cfif URL.Mode eq "view">
-				        <cfif QuotationRemarks eq "">
-						n/a
-						<cfelse>
-				        #QuotationRemarks#
-						</cfif>
-				   <cfelse>
-				       <textarea style="padding:3px;font-size:13px;border-radius:3px;width:100%;height:40" totlength="400" onkeyup="return ismaxlength(this)" class="regular" name="QuotationRemarks">#QuotationRemarks#</textarea>	
-				   </cfif>
-			   </td>
-			</tr>
-				
-		</cfif>
+					<tr class="labelmedium">
+					   <td valign="top" style="padding-top:3px" height="20"><cf_tl id="Memo/Justification">:</td>
+					   <td colspan="3">
+					       <cfif URL.Mode eq "view">
+						        <cfif QuotationRemarks eq "">
+								n/a
+								<cfelse>
+						        #QuotationRemarks#
+								</cfif>
+						   <cfelse>
+						       <textarea style="padding:3px;font-size:13px;border-radius:3px;width:100%;height:40" totlength="400" onkeyup="return ismaxlength(this)" class="regular" name="QuotationRemarks">#QuotationRemarks#</textarea>	
+						   </cfif>
+					   </td>
+					</tr>
 						
-		<cfif QuotationContact neq "">		
-			
-		<tr>
-		   <td class="labelmedium" style="height:20px"><cf_tl id="Contact">:</td>
-		   <td colspan="3" class="labelmedium" style="height:20px">
-			   <cfif URL.Mode eq "view">
-			        <b>#QuotationContact#
-			   <cfelse>
-		       		<input class="regularxl" type="text" value="#QuotationContact#" name="QuotationContact" id="QuotationContact" size="80" maxlength="80">
-			   </cfif>
-		   </td>
-		   <td></td>
-		</tr>
-		
-		</cfif>
-				  			   
-		<cfquery name="Requisition" 
-			datasource="AppsPurchase" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			SELECT    sum(RequestAmountBase) as RequestAmount
-			FROM      RequisitionLine 
-			<!---  WHERE     ActionStatus IN ('2k','3') --->
-			WHERE ActionStatus != '9' and ActionStatus != '0z'			
-			AND       JobNo    = '#URL.ID1#' 
-			<!---
-			AND       Period   = '#URL.Period#' 
-			--->
-		</cfquery>
-		
-		<cfif Requisition.RequestAmount neq "">
-						
-			<tr>
-			   <td style="height:25px;padding-top:4px" valign="top" class="labelmedium"><cf_tl id="Ceiling for Purchase">:</td>
-			   <td style="height:25px;font-size:20px" class="labelmedium">
-			   <cfset tot = Requisition.RequestAmount+Parameter.PurchaseExceed/100*Requisition.RequestAmount>			   
-			   <font color="black"><font size="2">#APPLICATION.BaseCurrency#</font> #NumberFormat(tot, ",__.__")# 			   
-			   <cfif Parameter.TaxExemption eq "0">(<cf_tl id="without tax">)</cfif>	   
-			   </td>
-			</tr>			
-		
-		</cfif>		
-		
-		<tr class="line labelmedium">
-		   <td style="height:20px"><cf_tl id="Attachments">:</td>
-		   <td colspan="3" style="padding-bottom:3px">
-		   		   
-			 <cfif URL.Mode eq "view">
-			 
-			 	<cf_filelibraryN
-					DocumentPath="ProcurementJob"
-					SubDirectory="#URL.ID1#" 
-					Filter="Job"					
-					loadscript="No"
-					Insert="no"
-					Remove="no"
-					reload="true"		
-					width="100%"
-					align="left"
-					border="1">	
+				</cfif>
+								
+				<cfif QuotationContact neq "">		
 					
-			<cfelse>		
+				<tr class="labelmedium">
+				   <td><cf_tl id="Contact">:</td>
+				   <td colspan="3">
+					   <cfif URL.Mode eq "view">
+					        <b>#QuotationContact#
+					   <cfelse>
+				       		<input class="regularxl" type="text" value="#QuotationContact#" name="QuotationContact" id="QuotationContact" size="80" maxlength="80">
+					   </cfif>
+				   </td>
+				   <td></td>
+				</tr>
 				
-				<cf_filelibraryN
+				</cfif>
+						  			   
+				<cfquery name="Requisition" 
+					datasource="AppsPurchase" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					SELECT    sum(RequestAmountBase) as RequestAmount
+					FROM      RequisitionLine 
+					<!---  WHERE     ActionStatus IN ('2k','3') --->
+					WHERE ActionStatus != '9' and ActionStatus != '0z'			
+					AND       JobNo    = '#URL.ID1#' 
+					<!---
+					AND       Period   = '#URL.Period#' 
+					--->
+				</cfquery>
+				
+				<cfif Requisition.RequestAmount neq "">
+								
+					<tr class="labelmedium2">
+					   <td style="height:25px;padding-top:4px" valign="top"><cf_tl id="Ceiling for Purchase">:</td>
+					   <td style="height:25px;font-size:20px">
+					   <cfset tot = Requisition.RequestAmount+Parameter.PurchaseExceed/100*Requisition.RequestAmount>			   
+					   <font color="black"><font size="2">#APPLICATION.BaseCurrency#</font> #NumberFormat(tot, ",.__")# 			   
+					   <cfif Parameter.TaxExemption eq "0">(<cf_tl id="without tax">)</cfif>	   
+					   </td>
+					</tr>			
+				
+				</cfif>		
+				
+				 <cfif URL.Mode eq "view">
+				 
+				 	 <cf_fileExist
 						DocumentPath="ProcurementJob"
 						SubDirectory="#URL.ID1#" 
-						Filter="Job"						
-						Insert="yes"		
-						loadscript="No"	
-						Remove="yes"
-						width="100%"		
-						AttachDialog="yes"
-						align="left"
-						border="1">						
-			</cfif>	
-	   
-		   </td>		
-		
-		</tr>			
+						Filter="Job">	
+						
+					 <cfif files gte "1">	
+				 
+					 <tr class="line labelmedium">
+					   <td style="height:20px"><cf_tl id="Attachments">:</td>
+					   <td colspan="3" style="padding-bottom:3px">
+					 
+						 <cf_filelibraryN
+									DocumentPath="ProcurementJob"
+									SubDirectory="#URL.ID1#" 
+									Filter="Job"					
+									loadscript="No"
+									Insert="no"
+									Remove="no"
+									reload="true"		
+									width="100%"
+									align="left"
+									border="1">						
 								
-		<cfif URL.Mode eq "edit">
-		
-			<cfquery name="Check" 
-			datasource="AppsPurchase" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-				SELECT    *
-				FROM      RequisitionLine 
-	            WHERE     ActionStatus = '3' <!--- procured --->
-				AND       JobNo    = '#URL.ID1#' 			
-			</cfquery>						
-			
-			<tr><td colspan="4" align="center">
-			
-				<cfif check.recordcount eq "0">
+					   </td>		
+					
+					</tr>	
+					
+					</cfif>
+				 
+				 <cfelse>
 				
-				<input class    = "Button10g" 
-					Value       = "Delete"
-					type        = "Submit"		
-					id          = "Delete"	
-					name        = "Delete"				
-					style       = "width:170px">   
-								
-				</cfif>
+					<tr class="line labelmedium">
+					   <td style="height:20px"><cf_tl id="Attachments">:</td>
+					   <td colspan="3" style="padding-bottom:3px">		   		   
+										
+							<cf_filelibraryN
+									DocumentPath="ProcurementJob"
+									SubDirectory="#URL.ID1#" 
+									Filter="Job"						
+									Insert="yes"		
+									loadscript="No"	
+									Remove="yes"
+									width="100%"		
+									AttachDialog="yes"
+									align="left"
+									border="1">						
+						
+					   </td>		
+					
+					</tr>	
 				
-				<input class    = "Button10g" 
-					type        = "Submit"		
-					Value       = "Save"
-					id          = "Save"		
-					name        = "Save"			
-					style       = "width:170px">   
+				</cfif>		
+										
+				<cfif URL.Mode eq "edit">
 				
-				
-				</td>
-			</tr>
-											
-			<tr><td colspan="4">
-			
-				<cfinclude template="BuyerListing.cfm">
-							
-			</td></tr>	
-			
-		</cfif>			
-											
-	  </table>
-	  					  		  
-	  </td></tr> 	
-	  
-	  </table> 
-	  
-    </cfoutput>
+					<cfquery name="Check" 
+					datasource="AppsPurchase" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT    *
+						FROM      RequisitionLine 
+			            WHERE     ActionStatus = '3' <!--- procured --->
+						AND       JobNo    = '#URL.ID1#' 			
+					</cfquery>						
+					
+					<tr><td colspan="4" align="center">
+					
+						<cfif check.recordcount eq "0">
+						
+						<input class    = "Button10g" 
+							Value       = "Delete"
+							type        = "Submit"		
+							id          = "Delete"	
+							name        = "Delete"				
+							style       = "width:170px">   
+										
+						</cfif>
+						
+						<input class    = "Button10g" 
+							type        = "Submit"		
+							Value       = "Save"
+							id          = "Save"		
+							name        = "Save"			
+							style       = "width:170px">   
+						
+						
+						</td>
+					</tr>
+													
+					<tr><td colspan="4">			
+						<cfinclude template="BuyerListing.cfm">							
+					</td></tr>	
+					
+				</cfif>			
+													
+			  </table>
+			  					  		  
+			  </td></tr> 	
+			  
+			  </table> 
+		  
+	    </cfoutput>
 	
 	</cfform>
 	
@@ -764,8 +778,7 @@
 	      SELECT *
 	      FROM   Ref_OrderClass
 		  WHERE  Code = '#Job.OrderClass#' 
-	</cfquery>
-	
+	</cfquery>	
 		
 	<cfif WorkflowEnabled eq "1" and flowdefined.recordcount gte "1" and Job.JobCategory neq "" and Class.PreparationMode neq "Direct">
 	  <cfset trigwf = "1">	  
@@ -840,8 +853,5 @@
 
 </cf_divscroll>
 
-
-
 <cf_screenbottom html="#URL.Header#" layout="webapp">	
-
 

@@ -37,6 +37,8 @@ function editEntitlement(persno, no) {
     <cfset END = "NULL">
 </cfif>	
 
+<cfset amt = replace("#Form.Amount#",",","")>
+
 <cfoutput>
 
 
@@ -198,7 +200,7 @@ password="#SESSION.dbpw#">
 		  'Amount',
 		  '#Form.Entitlement#',
 		  '#Form.Currency#',
-		  '#Form.Amount#',
+		  '#amt#',
 		  '#Form.Period#',
 		  '#Remarks#',
 		  '#SESSION.acc#',
@@ -334,8 +336,8 @@ password="#SESSION.dbpw#">
 	  password="#SESSION.dbpw#">
 		SELECT TOP 1 *
 		FROM      PersonAssignment
-		WHERE     PersonNo = '#Form.PersonNo#' 
-		AND       DateEffective < #STR#
+		WHERE     PersonNo        = '#Form.PersonNo#' 
+		AND       DateEffective   < #STR#
 		AND       DateExpiration >= #STR#
 		AND       AssignmentStatus IN ('0','1') 
 		ORDER BY  DateExpiration DESC
@@ -351,10 +353,10 @@ password="#SESSION.dbpw#">
 		    FROM   PersonContract L, 
 			       Ref_ContractType R,
 				   Ref_AppointmentStatus A
-			WHERE  L.PersonNo = '#Form.PersonNo#'
-			AND    L.ContractType = R.ContractType
+			WHERE  L.PersonNo          = '#Form.PersonNo#'
+			AND    L.ContractType      = R.ContractType
 			AND    L.AppointmentStatus = A.Code
-			AND    L.ActionStatus != '9'
+			AND    L.ActionStatus     != '9'
 			ORDER BY L.DateEffective DESC 
 	</cfquery>		
 		

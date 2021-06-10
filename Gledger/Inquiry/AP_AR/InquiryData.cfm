@@ -117,7 +117,10 @@
 					     P.ActionAccountNo, 
 					     P.ActionAccountName, 
 			             P.ActionStatus,
+						 P.OfficerUserId,
 						 P.OfficerLastName,
+						 P.OfficerFirstName,
+						 P.Created,
 						 <!--- overdue --->
 						 DATEDIFF(dd,CASE WHEN ActionBefore = '' THEN ActionBefore ELSE DocumentDate END,CONVERT(datetime,getDate())) - 0 as Days
 						 

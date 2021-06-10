@@ -10,7 +10,9 @@
 	WHERE  Area = 'SETTLE'
 	AND    Warehouse = ( SELECT Warehouse
 						 FROM WarehouseBatch
-				         WHERE BatchId='#URL.batchid#')
+				         WHERE BatchId='#URL.batchid#')		
+						 
+						 				 
 </cfquery>	
 
 <cfif GetWarehouse.eMailTemplate neq "">
@@ -18,4 +20,8 @@
 <cfelse>
 	<cf_receiptStandard batchId="#url.batchid#">	
 </cfif>
+
+<script>
+	alert('eMail sent')
+</script>
 	

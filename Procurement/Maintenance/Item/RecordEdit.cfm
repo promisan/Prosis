@@ -268,7 +268,7 @@ password="#SESSION.dbpw#">
 	<tr><td height="3"></td></tr>
 	<tr>
 	<td height="100%" valign="top">
-	   <table width="100%" height="100%" cellspacing="0" cellpadding="0">
+	   <table style="min-width:1000px" width="100%" height="100%" cellspacing="0" cellpadding="0">
 		<cf_menucontainer item="1" class="regular">
 			 <cf_securediv bind="url:RecordEditForm.cfm?mission=#url.mission#&id1=#url.id1#&idMenu=#url.idmenu#"> 
 	 	</cf_menucontainer>	

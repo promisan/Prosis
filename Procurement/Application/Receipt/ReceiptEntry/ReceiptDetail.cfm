@@ -347,7 +347,7 @@ password="#SESSION.dbpw#">
 										
 					     <cfif ActionStatus eq "0" or receipt.actionStatus eq "0">
 						 
-						      <cf_img icon="edit" 
+						      <cf_img icon="open" 
 							     onclick="ProcRcptLineEdit('#ReceiptId#','#Receipts.RequisitionNo#','#URL.Mode#','edit','#url.box#','')">
 						
 						 </cfif>
@@ -448,7 +448,7 @@ password="#SESSION.dbpw#">
 		                      WHERE   T.TaskId = '#WarehouseTaskId#'
 					</cfquery>	  
 					
-					<td style="#stl#" style="cursor:pointer" onclick="window.open('#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id=print&ID1=#Ref.Reference#&ID0=#Param.RequisitionTemplate#','_blank', 'left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no')">					
+					<td style="#stl#" style="cursor:pointer" onclick="ptoken.open('#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id=print&ID1=#Ref.Reference#&ID0=#Param.RequisitionTemplate#','_blank', 'left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no')">					
 					 #Whs.WarehouseName# (<font color="6688aa">#Ref.Reference#</font>)					
 					</td>
 			   

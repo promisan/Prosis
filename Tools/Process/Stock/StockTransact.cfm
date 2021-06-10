@@ -612,29 +612,94 @@
    AND    Warehouse = '#Attributes.Warehouse#'
 </cfquery>
 
-<cfif Check.recordCount is 0>
+<cfif Check.recordCount eq "1">
+ 
+  <cfif attributes.receiptId neq "">
+  
+  	<cfquery name="receipt" 
+	   datasource="#Attributes.DataSource#" 
+	   username="#SESSION.login#" 
+	   password="#SESSION.dbpw#">
+	   SELECT * 
+	   FROM   Purchase.dbo.PurchaseLinereceipt
+	   WHERE  ReceiptId = '#attributes.receiptId#'    
+	</cfquery>
+	
+	<cfif Receipt.ReceiptMultiplier gt "1">
+	
+		<!--- we set for this warehouse the receipt --->
+    
+	  	<cfquery name="Update" 
+		   datasource="#Attributes.DataSource#" 
+		   username="#SESSION.login#" 
+		   password="#SESSION.dbpw#">
+		   UPDATE Materials.dbo.ItemWarehouse 
+		   SET    MinReorderQuantity = '#Receipt.ReceiptMultiplier#'
+		   WHERE  ItemNo    = '#Attributes.ItemNo#'
+		   AND    UoM       = '#Attributes.TransactionUoM#'
+		   AND    Warehouse = '#Attributes.Warehouse#'
+		</cfquery>
+	
+	</cfif>
+    
+  </cfif>
+
+<cfelseif Check.recordCount eq "0">
+
+	<cfif attributes.receiptId neq "">
+
+		<cfquery name="receipt" 
+		   datasource="#Attributes.DataSource#" 
+		   username="#SESSION.login#" 
+		   password="#SESSION.dbpw#">
+		   SELECT * 
+		   FROM   Purchase.dbo.PurchaseLinereceipt
+		   WHERE  ReceiptId = '#attributes.receipt#'    
+		</cfquery>
+		
+		<cfif Receipt.ReceiptMultiplier gt "1">
+		
+			<cfset min = Receipt.ReceiptMultiplier>
+			
+		<cfelse>
+		
+			<cfset min = "">	
+		
+		</cfif>	
+	
+   <cfelse>
+   
+   		<cfset min = "">	
+	
+   </cfif>	
 
    <cfquery name="Insert" 
    datasource="#Attributes.DataSource#" 
    username="#SESSION.login#" 
    password="#SESSION.dbpw#">
-	   INSERT INTO    Materials.dbo.ItemWarehouse 
-	          (ItemNo,
-			   UoM,
-			   Warehouse,
-			   Destination,
-			   ReStocking,
-			   OfficerUserId,
-			   OfficerLastName,
-			   OfficerFirstName)
-	   VALUES ('#Attributes.ItemNo#', 
-	           '#Attributes.TransactionUoM#',
-	           '#Attributes.Warehouse#', 
-	           'Distribution', 
-			   'Procurement', 
-			   '#SESSION.acc#', 
-			   '#SESSION.last#', 
-			   '#SESSION.first#')
+	   INSERT INTO  Materials.dbo.ItemWarehouse 
+		          (ItemNo,
+				   UoM,
+				   Warehouse,
+				   Destination,
+				   <cfif min neq "">
+				   MinReorderQuantity
+				   </cfif>			   
+				   ReStocking,
+				   OfficerUserId,
+				   OfficerLastName,
+				   OfficerFirstName)
+		VALUES    ('#Attributes.ItemNo#', 
+		           '#Attributes.TransactionUoM#',
+		           '#Attributes.Warehouse#', 
+		           'Distribution',
+				   <cfif min neq "">
+				   '#min#',
+				   </cfif> 
+				   'Procurement', 
+				   '#SESSION.acc#', 
+				   '#SESSION.last#', 
+				   '#SESSION.first#')
    </cfquery>
 
 </cfif>

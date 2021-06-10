@@ -46,7 +46,7 @@
 					<SELECT type="hidden" name="Crit2_Operator" id="Crit2_Operator" class="regularxl">#SelectOptions#</SELECT>				
 					</td>
 					<td style="padding-left:10px">
-					<INPUT type="text" style="height:21px" name="Crit2_Value" id="Crit2_Value" size="25" class="regularh"> 			
+					<INPUT type="text" style="height:21px" name="Crit2_Value" id="Crit2_Value" size="25" class="regularxl"> 			
 					</TD>
 					</TR>
 							
@@ -61,7 +61,7 @@
 		<!--- check for tree role manager --->
 		
 		  <cfif filter1 eq "Mission">
-		
+		  		  		
 			<cfinvoke component = "Service.Access"  
 			   method           = "RoleAccess" 
 			   role             = "'TreeRoleManager'"
@@ -69,7 +69,7 @@
 			   returnvariable   = "access">	
 			  
 			  <cfif access eq "Granted">	  
-				  <input type="button" style="height:40px;font-size:14px" class="button10g" name="Maintain" value="Maintain" onclick="opentree('#filter1value#')">	  
+				  <input type="button" style="height:40px;font-size:14px" class="button10g" name="Maintain" value="Maintain #filter1value#" onclick="opentree('#filter1value#')">	  
 			  </cfif>
 			  	   
 		  </cfif>	   

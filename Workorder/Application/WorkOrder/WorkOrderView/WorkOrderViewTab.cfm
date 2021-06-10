@@ -116,6 +116,8 @@
 			
 			<cfset menu = 1>			 
 			<cfloop query="mytabs">
+			
+			
 						
 				<!--- ----------------------------------------------------------- --->
 				<!--- define if the tab will be shown based on the value 0, 1, 2- --->

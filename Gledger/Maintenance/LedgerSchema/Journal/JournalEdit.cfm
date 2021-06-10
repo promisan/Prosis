@@ -350,11 +350,14 @@ function batchrefresh(id) {
   		   <td><input type="text" name="glaccount"     id="glaccount"      value="#DefaultContraAccount.glaccount#"      size="5"  readonly class="regularxxl" style="text-align: center;"></td>
     	   <td style="padding-left:1px"><input type="text" name="gldescription" id="gldescription"  value="#DefaultContraAccount.gldescription#"  size="50" readonly class="regularxxl" style="text-align: center;"></td>
 		   		   
-		   <td style="padding-left:1px">  <img src="#SESSION.root#/Images/search.png" alt="Select account" name="img3" 
+		   <td style="padding-left:1px"> 
+		   <!---
+		       <img src="#SESSION.root#/Images/search.png" alt="Select account" name="img3" 
 			  onMouseOver="document.img3.src='#SESSION.root#/Images/contract.gif'" 
 			  onMouseOut="document.img3.src='#SESSION.root#/Images/search.png'"
 			  style="cursor: pointer;border-radius:3px" alt="" width="25" height="25" border="0" align="absmiddle" 
 			  onClick="selectaccountgl('#get.mission#','glaccount','','','applyaccount')"></td>
+			  --->
 			  
 			</tr></table>  
 	</TD>

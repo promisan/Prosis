@@ -77,7 +77,7 @@
 	<tr><td width="100%" height="100%">						
 
 	<cf_listing header  = "Service"
-	    box            = "actiondetail"
+	    box            = "workorder"
 		link           = "#SESSION.root#/Warehouse/Application/Asset/Service/ServiceListContent.cfm?assetid=#url.assetid#"
 	    html           = "No"		
 		datasource     = "AppsWorkorder"
@@ -90,9 +90,9 @@
 		listlayout     = "#fields#"
 		FilterShow     = "Yes"
 		ExcelShow      = "Yes"
-		drillmode      = "window" 
+		drillmode      = "tab" 
 		drillargument  = "800;800"	
-		drilltemplate  = "WorkOrder/Application/WorkOrder/ServiceDetails/ServiceLineDetail.cfm?drillid="
+		drilltemplate  = "WorkOrder/Application/WorkOrder/ServiceDetails/ServiceLineView.cfm?drillid="
 		drillkey       = "WorkOrderLineId">	
 		
 	</td></tr>

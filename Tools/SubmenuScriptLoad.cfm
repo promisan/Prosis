@@ -80,7 +80,6 @@ function template() {
  	ptoken.open("#SESSION.root#/System/Template/TemplateView.cfm?ts="+new Date().getTime(), "template");
 }
 
-
 <!--- UN only --->
 function vacancycontrol(mission,systemfunctionid,header,enforce,target) {    
     if (target == "_new") {		

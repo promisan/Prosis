@@ -15,6 +15,8 @@
 function filter() {
 	document.formlocate.onsubmit() 
 	if( _CF_error_messages.length == 0 ) {
+	     Prosis.busy('yes')
+		_cf_loadingtexthtml='';	
 		ptoken.navigate('LocatePurchaseDetail.cfm?Period=#URL.Period#&Mission=#URL.Mission#','detail','','','POST','formlocate')
 	 }   
 }	 

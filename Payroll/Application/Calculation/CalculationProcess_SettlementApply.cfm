@@ -1,5 +1,4 @@
 
-
 <cftransaction>
   
   <!--- 1 of 3 create a settlement header record --->
@@ -42,7 +41,7 @@
 			FROM    userTransaction.dbo.sal#SESSION.thisprocess#SettledDiff D
 			
 			<!--- it creates only a settlement record if there is something to settle --->
-			WHERE   (abs(DiffCalc) > 0.01 OR abs(DiffPay) > 0.01)	
+			WHERE   1=1 <!--- (abs(DiffCalc) > 0.01 OR abs(DiffPay) > 0.01)	--->
 			
 			 <cfif processmodality eq "InCycleBatch">	
 				    AND     D.PersonNo IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#Catchup)	
@@ -86,11 +85,10 @@
 									   )			
 	
 				
-	</cfquery>		
+	</cfquery>	
 	
 	
-			
-		
+	
 	<!--- We also create a settlement record if the person is onboard and has a final payment instance and somehow it was not created yet.
 	
 	RATIONALE : because a person has not gotten any payment for some reason (SLWOP) over that month so there was no settlement 
@@ -540,10 +538,10 @@
 	<!--- Now we add the settlement detail lines --->
 				
 	<cfquery name="InsertSettlementLine" 
-	datasource="AppsOrganization" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			
 		INSERT INTO Payroll.dbo.EmployeeSettlementLine
 		
 			(PersonNo, 
@@ -591,58 +589,45 @@
 			   SourceId,
 			   '#Form.Mission#',
 			   
-			   <!--- assign LAST positionNo to the settlement record which drives the
-			   gl account in mode = 2 --->
+			   <!--- assign LAST positionNo to the settlement record which drives the gl account in mode = 2 --->
 			   
-			      (				
-				     SELECT   TOP 1 P.PositionParentId			
-					 FROM     Employee.dbo.PersonAssignment PA, 
-				              Employee.dbo.Position P
-				     WHERE    P.Mission     IN (#preservesingleQuotes(assmission)#) 			
-					 AND      PA.PositionNo      = P.PositionNo
+			      (	 SELECT   TOP 1 P.PositionParentId			
+					 FROM     Employee.dbo.PersonAssignment PA INNER JOIN Employee.dbo.Position P ON PA.PositionNo = P.PositionNo
+				     WHERE    PA.PersonNo = D.PersonNo 					 							 
 					 AND      PA.AssignmentStatus IN ('0','1')
 					 AND      PA.DateEffective  <= #CALCEND# 									 
 					 AND      PA.AssignmentType  = 'Actual'
 					 <cfif thisSchedule.IncumbencyZero eq "0">
 					 AND      PA.Incumbency      > '0'	
 					 </cfif>
-					 AND      PA.PersonNo = D.PersonNo
-					 ORDER BY PA.DateEffective DESC, PA.Incumbency DESC 
-				
-				), 
+					 AND      P.Mission = '#Form.Mission#' 	
+					 ORDER BY PA.DateEffective DESC, PA.Incumbency DESC 				
+				  ), 
 												
 			   <!--- assign last last parent grade to the settlement --->
 			   
-			   (
-			   
-				     SELECT    TOP 1 R.PostGradeParent
+			      (	 SELECT    TOP 1 R.PostGradeParent
 				     FROM      Employee.dbo.PersonContract PC INNER JOIN
 	                           Employee.dbo.Ref_PostGrade R ON PC.ContractLevel = R.PostGrade
 				     WHERE     PC.Mission        = '#form.mission#'					
 					 AND       PC.RecordStatus   = '1'				     
 				     AND       PC.DateEffective <= #CALCEND# 
 				     AND       PC.PersonNo       = D.PersonNo
-				     ORDER BY  DateExpiration DESC 
-				 
-				), 
+				     ORDER BY  DateExpiration DESC 				 
+				  ), 
 												
-				(	
-							
-				    SELECT   TOP 1 P.OrgUnitOperational				
-					FROM     Employee.dbo.PersonAssignment PA, 
-				             Employee.dbo.Position P
-				    WHERE    P.Mission      IN (#preservesingleQuotes(assmission)#) 		
-					AND      PA.PositionNo      = P.PositionNo
+				  (	SELECT   TOP 1 P.OrgUnitOperational				
+					FROM     Employee.dbo.PersonAssignment PA INNER JOIN Employee.dbo.Position P ON PA.PositionNo = P.PositionNo
+				    WHERE    PA.PersonNo        = D.PersonNo											
 					AND      PA.AssignmentStatus IN ('0','1')
 					AND      PA.DateEffective  <= #CALCEND# 									
 					AND      PA.AssignmentType  = 'Actual'
 					<cfif thisSchedule.IncumbencyZero eq "0">
 					AND      PA.Incumbency      > '0'	
 					</cfif>
-					AND      PA.PersonNo        = D.PersonNo
-					ORDER BY PA.Incumbency DESC, PA.DateEffective DESC 
-				
-			   ), 			   	  
+					AND      P.Mission = '#Form.Mission#'
+					ORDER BY PA.DateEffective DESC,PA.Incumbency DESC 				
+			      ), 			   	  
 					   
 			   D.PaymentCurrency, 
 			   
@@ -679,7 +664,7 @@
 			   
 		FROM    userTransaction.dbo.sal#SESSION.thisprocess#SettledDiff D
 		
-		WHERE   (abs(DiffCalc) > 0.01 OR abs(DiffPay) > 0.01)	
+		WHERE   1=1 <!--- (abs(DiffCalc) > 0.01 OR abs(DiffPay) > 0.01)	--->
 		
 		<cfif processmodality eq "InCycleBatch">	
 			    AND     D.PersonNo IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#Catchup)	
@@ -736,10 +721,70 @@
 					AND     ES.PaymentDate    = #SALEND# 	
 					AND     ES.SettlementSchedule <> ES.SalarySchedule 
 					AND     SSP.CalculationStatus = '3' )	
+					
+											
+										   						  																	
+	</cfquery>	
+	
+	<!--- if for a reason the positionparentId and orgunit is not found and goes with another entity it is corrected here --->
+	
+	<cfquery name="SettlementLineParent" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">			
+	
+		UPDATE       Payroll.dbo.EmployeeSettlementLine
+	    SET OrgUnit =  (SELECT   TOP 1 P.OrgUnitOperational				
+						FROM     Employee.dbo.PersonAssignment PA INNER JOIN Employee.dbo.Position P ON PA.PositionNo = P.PositionNo
+					    WHERE    P.Mission IN (#preservesingleQuotes(assmission)#) 								
+						AND      PA.AssignmentStatus IN ('0','1')
+						AND      PA.DateEffective  <= #CALCEND# 									
+						AND      PA.AssignmentType  = 'Actual'
+						<cfif thisSchedule.IncumbencyZero eq "0">
+						AND      PA.Incumbency      > '0'	
+						</cfif>
+						AND      PA.PersonNo        = D.PersonNo
+						ORDER BY PA.DateEffective DESC,PA.Incumbency DESC 				
+			           )  
+				  	
+	    FROM         Payroll.dbo.EmployeeSettlementLine D
+	    WHERE        OrgUnit IS NULL	
 		
-								   						  																	
-	</cfquery>			
-			  
+	</cfquery>	
+	
+	<cfquery name="SettlementLineOrgUnit" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">			
+	
+			UPDATE  Payroll.dbo.EmployeeSettlementLine
+		    SET 	PositionParentid = (SELECT   TOP 1 P.PositionParentId			
+										FROM     Employee.dbo.PersonAssignment PA INNER JOIN Employee.dbo.Position P ON PA.PositionNo = P.PositionNo
+									    WHERE    P.Mission IN (#preservesingleQuotes(assmission)#) 												
+										AND      PA.AssignmentStatus IN ('0','1')
+										AND      PA.DateEffective  <= #CALCEND# 									
+										AND      PA.AssignmentType  = 'Actual'
+										<cfif thisSchedule.IncumbencyZero eq "0">
+										AND      PA.Incumbency      > '0'	
+										</cfif>
+										AND      PA.PersonNo        = D.PersonNo
+										ORDER BY PA.DateEffective DESC,PA.Incumbency DESC 				
+							           )  				  	
+		    FROM    Payroll.dbo.EmployeeSettlementLine D
+		    WHERE   OrgUnit IS NULL	
+		
+	</cfquery>		
+	
+	<!--- we clean lines without positionParent and 0 amoutn --->
+	
+	<cfquery name="clean" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		DELETE FROM Payroll.dbo.EmployeeSettlementLine
+		WHERE  PositionParentId IS NULL AND Amount = 0		
+	</cfquery>
+				  
 	<!--- now we populate the log to capture any changes observed in the
 	settlement compared to any values we have logged here --->
 	
@@ -748,8 +793,8 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		DELETE FROM Payroll.dbo.CalculationLogSettlementLine
-		WHERE ProcessNo    = '#url.processno#'
-		AND  ProcessBatchId = '#calculationid#'
+		WHERE  ProcessNo    = '#url.processno#'
+		AND    ProcessBatchId = '#calculationid#'
 	</cfquery>
 	
 	<cfquery name="InsertNewChangedSettlement" 
@@ -848,7 +893,7 @@
 		
 		
 	</cfquery>
-	
+		
 	<!---
 	<cfoutput>#cfquery.executiontime#</cfoutput>
 	--->
@@ -947,5 +992,7 @@
 	<!---
 	<cfoutput>#cfquery.executiontime#</cfoutput>
 	--->
-					
+
+			
 </cftransaction>
+

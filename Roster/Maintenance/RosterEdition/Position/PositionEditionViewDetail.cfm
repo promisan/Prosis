@@ -48,6 +48,7 @@ password="#SESSION.dbpw#">
 	ORDER BY LanguageCode	
 </cfquery>
 
+
 <cfquery name="getPosition"
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
@@ -70,8 +71,8 @@ password="#SESSION.dbpw#">
 					
 			<table width="97%" height="100%" border="0" align="center">		  		
 							
-				<cfset ht = "40">
-				<cfset wd = "40">
+				<cfset ht = "74">
+				<cfset wd = "74">
 						
 				<tr>							
 							
@@ -87,15 +88,15 @@ password="#SESSION.dbpw#">
 									
 						<cfoutput query="language">		
 						
-						<cfset itm = itm+1>	
-									
+												
+						<cfset itm = itm+1>												
 					    <cf_menutab item       = "#itm#" 
-						            iconsrc    = "Flag/#code#.gif" 
+						            iconsrc    = "Flag/#code#.png" 
 									iconwidth  = "#wd#" 								
 									iconheight = "#ht#" 	
 									targetitem = "1"							
 									name       = "Job Description"
-									source     = "#session.root#/Staffing/Application/Assignment/Review/PositionProfile.cfm?accessmode=view&id=#getPosition.PositionParentId#&id1=#url.PositionNo#&languagecode=#languagecode#">
+									source     = "#session.root#/Staffing/Application/Assignment/Review/PositionProfile.cfm?accessmode=view&submissionedition=#url.submissionedition#&id=#getPosition.PositionParentId#&id1=#url.PositionNo#&code=#code#&languagecode=#languagecode#">
 									
 						</cfoutput>					
 						

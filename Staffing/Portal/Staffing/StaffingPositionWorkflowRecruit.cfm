@@ -27,7 +27,13 @@ password="#SESSION.dbpw#">
 	<cfif hasTrack eq "0">
 			
 		<td style="width:100%"> 
+		
+		   <cf_tl id="Initiate recruitment" var="1">
+	      <input title="Click to initiate a recruitment process for this position"
+		  type="button" value="#lt_text#" class="button10g" onclick="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')" style="border-radius:10px;width:100%;border:1px solid silver">			  
+			<!---		
 		    <a title="Click to initiate a recruitment process for this position" href="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')"><cf_tl id="Initiate recruitment"></a> 	
+			--->
 		</td>		
 	
 	<cfelse>

@@ -139,11 +139,8 @@ function reloadAddressDetail(edition){
 	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetail.cfm?submissionedition='+edition, 'recipients');
 }
 
-function getUnitAddress(id, edition) {
-	
-	//ptoken.open('#SESSION.root#/System/Organization/Application/Address/UnitAddress.cfm?systemfunctionid=&ID='+id);
-	ColdFusion.Window.create('UnitWindow', 'Edit unit address', '',{x:100,y:100,height:850,width:1050,modal:true,center:true});    
-	ColdFusion.Window.show('UnitWindow'); 					
+function getUnitAddress(id, edition) {		
+	ProsisUI.createWindow('UnitWindow', 'Edit unit address', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true});    				
 	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewUnit.cfm?systemfunctionid=&ID='+id+'&closeAction=parent.ColdFusion.Window.hide(\'UnitWindow\'); parent.reloadAddressDetail(\''+edition+'\');',"UnitWindow")
 }
 	   

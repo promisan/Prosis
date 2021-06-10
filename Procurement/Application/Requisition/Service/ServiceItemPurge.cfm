@@ -37,7 +37,7 @@
 	} catch(e) {}
 	base2('#url.id#','#Total.Total#','1')	
 	tagging()
-	ColdFusion.navigate('../Service/ServiceItem.cfm?ID=#URL.ID#&ID2=new','iservice') 
+	ptoken.navigate('../Service/ServiceItem.cfm?ID=#URL.ID#&ID2=new','iservice') 
 </script>		
 
 </cfoutput>

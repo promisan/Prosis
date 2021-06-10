@@ -16,11 +16,11 @@
 <script>
 
  function revert(pos) {
- 	ColdFusion.navigate('resetAssignmentReview.cfm?box=#url.box#&positionno='+pos,pos)
+ 	ptoken.navigate('resetAssignmentReview.cfm?box=#url.box#&positionno='+pos,pos)
  }
  
  function docheck() {
-    ColdFusion.navigate('doWorkflowCheck.cfm?positionno=#url.id1#','process')
+    ptoken.navigate('doWorkflowCheck.cfm?positionno=#url.id1#','process')
  }
  
 </script>
@@ -51,8 +51,8 @@ password="#SESSION.dbpw#">
 	<tr class="hide"><td id="process"></td></tr>
 
 	<tr><td height="40" style="padding-left:2px">
-					
-		<table width="97%" height="100%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">		  		
+						
+		<table width="97%" height="100%" border="0" align="center" class="formpadding">		  		
 						
 			<cfset ht = "64">
 			<cfset wd = "64">
@@ -78,7 +78,7 @@ password="#SESSION.dbpw#">
 								iconwidth  = "#wd#" 								
 								iconheight = "#ht#" 							
 								name       = "Job Description"
-								source     = "PositionProfile.cfm?accessmode=view&id=#get.PositionParentId#&id1=#url.id1#&languagecode=#languagecode#">
+								source     = "PositionProfile.cfm?accessmode=view&id=#get.PositionParentId#&id1=#url.id1#&code=#code#&languagecode=#languagecode#">
 								
 					</cfoutput>					
 					

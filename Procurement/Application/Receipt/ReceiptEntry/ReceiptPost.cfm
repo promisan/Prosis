@@ -542,9 +542,12 @@
 					datasource="AppsLedger" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">					
-						SELECT ResourceItemNo,ResourceUoM,Sum(QTYRequired) as QTYRequired, SUM(ReceiptQuantity) as ReceiptQuantity
-						INTO UserTransaction.dbo.BOMItems_#SESSION.acc#_#batchNo#_#vReceiptNo# 
-						FROM UserTransaction.dbo.BOMItemsDetails_#SESSION.acc#_#batchNo#_#vReceiptNo# 
+						SELECT   ResourceItemNo,
+						         ResourceUoM,
+								 SUM(QTYRequired) as QTYRequired, 
+								 SUM(ReceiptQuantity) as ReceiptQuantity
+						INTO     UserTransaction.dbo.BOMItems_#SESSION.acc#_#batchNo#_#vReceiptNo# 
+						FROM     UserTransaction.dbo.BOMItemsDetails_#SESSION.acc#_#batchNo#_#vReceiptNo# 
 						GROUP BY ResourceItemNo,ResourceUoM
 					</cfquery>						
 				
@@ -558,11 +561,11 @@
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 				CREATE TABLE UserTransaction.dbo.Lot_#SESSION.acc#_#batchNo#_#vReceiptNo# (
-					TransactionLot varchar(20),
-				    ResourceItemNo varchar (20) NULL,
-					ResourceUom varchar (10) NULL,
-					Earmarked float NULL,
-					Consumed float NULL) 
+							TransactionLot varchar(20),
+						    ResourceItemNo varchar (20) NULL,
+							ResourceUom varchar (10) NULL,
+							Earmarked float NULL,
+							Consumed float NULL) 
 				</cfquery>			  
 				
 				<cfset vEarmarked = 0>

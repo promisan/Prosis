@@ -34,6 +34,8 @@
 
 <cf_dialogOrganization>
 
+<cf_divscroll>
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
 
 <tr> 
@@ -124,3 +126,5 @@ password="#SESSION.dbpw#">
 </td></tr>
 
 </table>   
+
+</cf_divscroll>

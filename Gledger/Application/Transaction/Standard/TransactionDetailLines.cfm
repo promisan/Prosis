@@ -480,7 +480,7 @@ password="#SESSION.dbpw#">
 
 <table width="100%" style="max-height:170px;background-color:f1f1f1">
 
-<tr><td style="height:30px;font-size:16px;background-color:f4f4f4;color:gray" class="labelmedium2"" align="center"><cf_tl id="No transactions are set"></td></tr></table>
+<tr><td style="height:30px;font-size:16px;background-color:f4f4f4;color:gray" class="labelmedium2" align="center"><cf_tl id="No transactions are set"></td></tr></table>
 
 <cfelseif line.recordcount gte "1" and total.recordcount eq "1">
 
@@ -494,7 +494,7 @@ password="#SESSION.dbpw#">
 
 	<table width="99%" align="center" class="navigation_table">
 	   
-	   <tr bgcolor="ffffff" class="line labelmedium2" fixrow">
+	   <tr class="line labelmedium2 fixrow">
 	   
 	      <TD style="width:20px" height="20"></TD>
 	      <TD style="width:20px"></TD>
@@ -503,8 +503,8 @@ password="#SESSION.dbpw#">
 	      <td><cf_tl id="Name"></td>	
 	      <td style="border-right: 1px solid Silver;"><cf_tl id="Reference"></td>		
 		  <td align="right" style="border-right: 1px solid Silver;padding-right:2px;"><cf_tl id="Debit"></td>
-		  <TD align="right" style=";padding-right:2px;border-right: 1px solid Silver;"><cfoutput>#APPLICATION.BaseCurrency#</cfoutput></TD>
-	      <TD align="right" style=";padding-right:2px;border-right: 1px solid Silver;"><cf_tl id="Credit"></TD>   
+		  <TD align="right" style="padding-right:2px;border-right: 1px solid Silver;"><cfoutput>#APPLICATION.BaseCurrency#</cfoutput></TD>
+	      <TD align="right" style="padding-right:2px;border-right: 1px solid Silver;"><cf_tl id="Credit"></TD>   
 	      <TD align="right" style="padding-right:2px;"><cfoutput>#APPLICATION.BaseCurrency#</cfoutput></TD>    
 		</tr>  	
 	  	
@@ -512,13 +512,11 @@ password="#SESSION.dbpw#">
 	   
 		   <cfset color = "f4f4f4">
 		         
-		   <tr bgcolor="#color#" class="labelmedium2" line navigation_row">
+		   <tr bgcolor="#color#" class="labelmedium2 line navigation_row">
 		      
 			   <td height="20" align="center" valign="middle"></td>	   
 			   <td></td>
-			   <td style="padding-left:2px;padding-right:8px">
-			   	  #year(pap)#<cfif month(pap) lt 10>0</cfif>#month(pap)#		    		   
-			   </td>
+			   <td style="padding-left:2px;padding-right:8px">#year(pap)#<cfif month(pap) lt 10>0</cfif>#month(pap)#</td>
 			   <td width="80"><cfif accountLabel neq "">#AccountLabel#<cfelse>#GLAccount#</cfif></td>
 			   <td width="25%">#Description#</td>
 			   <td style="border-right: 1px solid Silver;"></td>
@@ -710,7 +708,7 @@ password="#SESSION.dbpw#">
 								     </cfquery>
 		
 			                     <table>
-								   <tr class="labelmedium2"">
+								   <tr class="labelmedium2">
 		                           <td>#ParentHeader.ReferenceName# (#ParentHeader.ReferenceNo#)</td>
 		                           <td style="padding-left:3px">
 		                             <a href="javascript:ShowTransaction('#ParentLine.ParentJournal#','#ParentLine.ParentJournalSerialNo#','1')">
@@ -732,7 +730,7 @@ password="#SESSION.dbpw#">
 										AND    JournalSerialNo = '#ParentLine.JournalSerialNo#'						 
 								  </cfquery>
 		
-		                         <table><tr class="labelmedium2"">
+		                         <table><tr class="labelmedium2">
 		                          <td>#ParentHeader.ReferenceName# (#ParentHeader.ReferenceNo#)</td>
 		                          <td style="padding-left:3px">
 				          	      <a href="javascript:ShowTransaction('#ParentLine.Journal#','#ParentLine.JournalSerialNo#','1')">	
@@ -757,12 +755,12 @@ password="#SESSION.dbpw#">
 			            WHERE  TransactionId = '#ParentLineId#'		 
 			   	   </cfquery>				   
 				   
-				     <tr class="labelmedium2""><td colspan="2"></td><td style="padding-left:4px"><cf_tl id="Source">:</td>
+				     <tr class="labelmedium2"><td colspan="2"></td><td style="padding-left:4px"><cf_tl id="Source">:</td>
 					 
 		                 <td colspan="6">					
 						
 	                       <table>
-							 <tr class="labelmedium2"">
+							 <tr class="labelmedium2">
 			                 <td>#ParentLine.ReferenceName# (#ParentLine.ReferenceNo#)</td>
 			                 <td style="padding-left:3px">
 			          	      <a href="javascript:ShowTransaction('#ParentLine.Journal#','#ParentLine.JournalSerialNo#','1')">	
@@ -779,7 +777,7 @@ password="#SESSION.dbpw#">
 		   	   
 		   <cfif OrgunitName neq "">
 			
-			   <tr class="navigation_row_child labelmedium2""><td colspan="3"></td>
+			   <tr class="navigation_row_child labelmedium2"><td colspan="3"></td>
 			       <td colspan="6">#OrgunitName#</td>
 			   </tr>
 			   
@@ -867,7 +865,7 @@ password="#SESSION.dbpw#">
 		
 	    <cfif line.recordcount gte "1">
 			
-		    <tr style="height:25px" class="labelmedium2"">
+		    <tr style="height:25px" class="labelmedium2">
 		    <td align="center" style="width:100%;padding-right:2px;border-right:0px solid Silver;"></td>
 			<cfoutput query="total">
 			<td align="right" style="background-color:f1f1f1;font-size:14px;min-width:100px;padding-right:2px;border-left: 1px solid Silver;"><b>#NumberFormat(db,',.__')#</b></td>	
@@ -878,7 +876,7 @@ password="#SESSION.dbpw#">
 			<td style="min-width:10px"></td>
 	    </TR>	
 		
-		 <tr style="height:35px" class="labelmedium2"">
+		 <tr style="height:35px" class="labelmedium2">
 		    <td colspan="7" align="center" style="width:100%;padding-top:2px;border-top:1px solid Silver;">
 							  		  
 				  <cfquery name="Total" 
@@ -908,7 +906,7 @@ password="#SESSION.dbpw#">
 					</button>			
 					</td></tr></table>
 				   <cfelse>
-				   <table><tr><td align="center" class="labelmedium2"">
+				   <table><tr><td align="center" class="labelmedium2">
 				   <font size="2" color="FF0000"><cf_tl id="Alert">:</font><cf_tl id="Transaction NOT in balance or has a zero value"> -> <cfoutput>#numberformat(abs(round(total.diff*10000)/10000),',.__')#</cfoutput></font>  
 				   </td></tr></table>
 				  </cfif>

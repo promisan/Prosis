@@ -160,19 +160,22 @@
 		<cfoutput group = "HierarchyCode">	
 		
 		 <cfif entities.recordcount lte "10">	
-			<tr style="background-color:white"><td colspan="8" style="height:42px;padding-top:5px;padding-left:25px;font-size:26px;font-weight:350">		   		
-			<cfif orgunitname eq ""><cf_tl id="Multiple"><cfelse>#OrgUnitName#</cfif>		
-			</td></tr>	
+			<tr style="background-color:white">
+				<td colspan="8" style="height:42px;padding-top:5px;padding-left:25px;font-size:26px;font-weight:350">		   		
+				<cfif orgunitname eq ""><cf_tl id="Multiple"><cfelse>#OrgUnitName#</cfif>		
+				</td>
+			</tr>	
 		 </cfif>	
 				
 		<cfoutput group = "AccountGroupName">		
 			
-			<tr class="fixrow2">
+			<tr class="fixrow2 navigation_row labelmedium2">
+			
 			<td colspan="8" style="height:31px;padding-top:5px;padding-left:27px;font-size:16px;">#AccountGroupName#</td></tr>						
 												
 				<cfoutput>
 												
-				 	<TR bgcolor="white" class="navigation_row line labellarge">
+				<TR bgcolor="white" class="navigation_row line labellarge">
 					<td align="center" style="padding-left:40px;padding-top:8px">				
 					    <cf_img icon="expand" toggle="yes" onclick="more('#Account#','#currentRow#')">														
 					</td>
@@ -203,12 +206,13 @@
 					<TD style="padding-top:2px;padding-left:3px">	
 						<cf_img icon="delete" onclick="purgegroup('#account#')">		   			
 					</TD>
-				    </TR>	
+				</TR>	
 					
-					<tr id="#CurrentRow#" class="hide"><td></td>
+				<tr id="#CurrentRow#" class="hide">
+				        <td></td>
 						<td colspan="6"><cfdiv id="s#CurrentRow#"/></td>
 						<td></td>
-					</tr>	
+				</tr>	
 													
 				</cfoutput>						
 				</cfoutput>	
@@ -218,7 +222,9 @@
 	
 	</TABLE>
 	
-	 <script>
-		 Prosis.busy('no')		
-	 </script>
+<cfset ajaxonload("doHighlight")>
+	
+ <script>
+	 Prosis.busy('no')		
+ </script>
 	

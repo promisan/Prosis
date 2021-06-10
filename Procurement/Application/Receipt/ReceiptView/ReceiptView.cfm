@@ -9,16 +9,16 @@
 <script language="JavaScript">
 
 function clearrows(field, fieldNum) {
-	  for (i = 1; i <= fieldNum; i++)	
-	  document.getElementById(field+i).style.fontWeight='normal'
+	for (i = 1; i <= fieldNum; i++)	
+	document.getElementById(field+i).style.fontWeight='normal'
  }
 
 function refreshTree() {
-	 location.reload();
+	location.reload();
 }
 
 function reloadForm(per) { 
-	 ptoken.navigate('ReceiptViewTree.cfm?mission=#URL.Mission#&period='+per,'treebox')
+	ptoken.navigate('ReceiptViewTree.cfm?mission=#URL.Mission#&period='+per,'treebox')
 }
 
 function newreceipt() {	
@@ -26,7 +26,8 @@ function newreceipt() {
 }
 
 function newSearch() {
-	$('##right').attr('src','ReceiptViewOpen.cfm?ID1=Locate&ID=STA&Mission=#URL.Mission#');
+    ptoken.location('ReceiptViewOpen.cfm?ID1=Locate&ID=STA&Mission=#URL.Mission#','right')
+//	$('##right').attr('src','ReceiptViewOpen.cfm?ID1=Locate&ID=STA&Mission=#URL.Mission#');
 }
 
 function updatePeriod(per,mandate) {

@@ -356,19 +356,23 @@
 							<div class="form-group">
 		                        <div class="input-group">
 									<div class="radio radio-info radio-inline">
-										<input type="radio" id="orgunittype1" value="Operational" name="orgunittype" checked>
-										<label for="orgunittype1"> <cf_tl id="Operational"> </label>
+										<input type="radio" id="orgunittype0" value="" name="orgunittype" checked>
+										<label for="orgunittype0" style="font-size:11px;"> <cf_tl id="Assignment"> </label>
+									</div>
+									<div class="radio radio-info radio-inline">
+										<input type="radio" id="orgunittype1" value="Operational" name="orgunittype">
+										<label for="orgunittype1" style="font-size:11px;"> <cf_tl id="Operational"> </label>
 									</div>
 									<div class="radio radio-info radio-inline">
 										<input type="radio" id="orgunittype2" value="Functional" name="orgunittype">
-										<label for="orgunittype2"> <cf_tl id="Functional"> </label>
+										<label for="orgunittype2" style="font-size:11px;"> <cf_tl id="Functional"> </label>
 									</div>
 		                        </div>
 		                    </div>
 							
 						<cfelse>
 						
-							<input type="radio" id="orgunittype1" value="Operational" name="orgunittype" style="display:none;" checked>
+							<input type="radio" id="orgunittype1" value="" name="orgunittype" style="display:none;" checked>
 						
 						</cfif>
 						

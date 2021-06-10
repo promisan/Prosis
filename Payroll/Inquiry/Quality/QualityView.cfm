@@ -2,7 +2,8 @@
 
 <cf_screenTop 
 	  height="100%" 
-	  layout="webapp" 	   
+	  layout="webapp" 
+	  banner="gray" bannerforce="Yes"	   
       label="#url.mission# #lblTitle#"  
 	  jQuery="Yes">
 	  
@@ -228,10 +229,10 @@
 						
 						<tr><td height="5"></td></tr>
 
-						<tr class="line labelmedium2">
+						<tr class="labelmedium2">
 							<td><cf_tl id="Schedule">:</td>
 							<td>
-								<select name="SalarySchedule" id="SalarySchedule" class="regularxxl" style="border:0px;height:30px; width:100%;">
+								<select name="SalarySchedule" id="SalarySchedule" class="regularxxl" style="background-color:f1f1f1;border:0px;height:30px; width:100%;">
 									<option value=""> - <cf_tl id="Select a salary schedule"> -
 									<cfloop query="getSalarySchedules">
 										<option value="#SalarySchedule#"> #Description# (#SalarySchedule#)

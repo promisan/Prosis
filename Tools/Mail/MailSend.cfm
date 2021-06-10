@@ -105,12 +105,11 @@
 	    filter="*.*"
 	    sort="DateLastModified DESC"
 	    type="all"
-	    listinfo="name">	
-		
-		
+	    listinfo="name">			
 						
      <cfif Attributes.Savemail eq "1">
 	 
+	 	 
 		  <cftry>
 			   <cffile action = "delete" 
 			           file = "#SESSION.rootpath#\CFRStage\User\#SESSION.acc#\#SESSION.acc#readme.cfm">  

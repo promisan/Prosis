@@ -20,8 +20,7 @@
 				  </cfif>				 
 				 
 				  <cfset ind = rereplace(Indexno,'^0+','','ALL')>	
-				 
-				 				 											  
+				 				 				 											  
 				  <cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#IndexNo#.jpg") and indexNo gt "0">                           		
 						<cfset pict = IndexNo>  						
 				  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#ind#.jpg")>                           						  
@@ -167,14 +166,14 @@
 				   								   
 				   <cfif getContract.ContractLevel neq "">	
 				   	
-					   <tr class="labelmedium2">							   
+					   <tr class="labelmedium2" style="height:20px">							   
 					   	   <td style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;" colspan="2"><cf_tl id="Type of appointment"></td>
 					       <td align="right" style="padding-right:5px">#getContract.ContractType#</td>
 					   </tr>	
 					   
 					   <tr><td colspan="3" class="line"></td></tr>							   
 					   							   
-					   <tr class="labelmedium2">
+					   <tr class="labelmedium2" style="height:20px">
 						   <td style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;"><cf_tl id="Grade">|<cf_tl id="Step"></td>
 						   <cfif getContractAdjustment.recordcount gte "1">
 						   <td align="right" style="padding-right:5px">SPA #getContractAdjustment.PostAdjustmentLevel# | #getContractAdjustment.PostAdjustmentStep#</td>
@@ -214,7 +213,7 @@
 						 					   
 						<cfif getContract.DateExpiration neq "">							   
 						   
-							   <tr class="labelmedium2">
+							   <tr class="labelmedium2" style="height:20px">
 								   <td style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;" colspan="2"><cf_tl id="Appointment Expiry"></td>
 								   <td align="right" style="padding-right:5px">
 									   <cfif dateDiff("d",now(),getContract.DateExpiration) lte 50>

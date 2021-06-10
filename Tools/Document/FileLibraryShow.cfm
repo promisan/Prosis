@@ -135,8 +135,7 @@
 <cfelse>
 
 	<cftry>
-	
-					
+							
 	  <cfdirectory action="LIST" 
 		directory="#rt##DocPath#\#SubDirectory#" 
 		name="GetFileSource" 
@@ -865,6 +864,8 @@
 
 <tr><td colspan="2">
 
+
+
 	   <cfif insert eq "yes" and maxfiles gt getFiles.recordcount>
 
 	   	<cfif attachdialog neq "No">
@@ -885,7 +886,8 @@
 							onMouseOver="this.className='highlight1'"
 							onMouseOut="this.className='cellcontent'"
 					</cfsavecontent>
-								  			
+					
+													  			
 					<td align="center" width="120" 
 					onclick="addfile('#mode#','#host#','#DocumentPath#','#Subdirectory#','#Filter#','#attbox#','1','No','#attachdialog#','#pdfscript#','#memo#')" #selectme#>	
 					

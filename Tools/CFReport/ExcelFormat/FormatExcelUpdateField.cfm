@@ -27,10 +27,10 @@
 	 datasource="appsSystem">
 	 UPDATE UserReportOutput 
 	 SET    OutputSorting = '#URL.action#'
-	 WHERE  UserAccount = '#SESSION.acc#'
-	 AND    OutputId = '#URL.ID#'
-	 AND    OutputClass = 'Detail'
-	 AND    FieldName = '#URL.Name#' 
+	 WHERE  UserAccount   = '#SESSION.acc#'
+	 AND    OutputId      = '#URL.ID#'
+	 AND    OutputClass   = 'Detail'
+	 AND    FieldName     = '#URL.Name#' 
 	</cfquery>
 	
 	<cfoutput>
@@ -55,104 +55,94 @@
 
 	<cfquery name="Update" 
 	 datasource="appsSystem">
-	 UPDATE UserReportOutput 
-	 SET    OutputHeader = '#URL.action#'
-	 WHERE  UserAccount = '#SESSION.acc#'
-	 AND    OutputId = '#URL.ID#'
-	 AND    OutputClass = 'Detail'
-	 AND    FieldName = '#URL.Name#' 
+		 UPDATE UserReportOutput 
+		 SET    OutputHeader  = '#URL.action#'
+		 WHERE  UserAccount   = '#SESSION.acc#'
+		 AND    OutputId      = '#URL.ID#'
+		 AND    OutputClass   = 'Detail'
+		 AND    FieldName     = '#URL.Name#' 
 	</cfquery>
 	
-<cfelseif url.mode eq "up">
+<cfelseif url.mode eq "up" or url.mode eq "down">
 
+	<!--- reset ordering --->
+	
+	<cfquery name="list" 
+	 datasource="appsSystem">
+		 SELECT *
+		 FROM   UserReportOutput 	 
+		 WHERE  UserAccount = '#SESSION.acc#'
+		 AND    OutputId    = '#URL.ID#'
+		 AND    OutputClass = 'Detail'
+		 AND    OutputShow = 1
+		 ORDER BY FieldNameOrder		
+	</cfquery>
+	
+	<cfloop query="list">
+	
+		<cfquery name="reset" datasource="appsSystem">
+			 UPDATE UserReportOutput 
+			 SET    FieldNameOrder = '#currentrow#'
+			 WHERE  UserAccount    = '#SESSION.acc#'
+			 AND    OutputId       = '#URL.ID#'
+			 AND    OutputClass    = 'Detail'
+			 AND    FieldName      = '#FieldName#' 
+		</cfquery>
+		
+	</cfloop>
+	
 	<cfquery name="Current" 
 	 datasource="appsSystem">
-	 SELECT FieldNameOrder
-	 FROM   UserReportOutput 	 
-	 WHERE  UserAccount = '#SESSION.acc#'
-	 AND    OutputId    = '#URL.ID#'
-	 AND    OutputClass = 'Detail'
-	 AND    FieldName   = '#URL.Name#' 
+		 SELECT FieldNameOrder
+		 FROM   UserReportOutput 	 
+		 WHERE  UserAccount = '#SESSION.acc#'
+		 AND    OutputId    = '#URL.ID#'
+		 AND    OutputClass = 'Detail'
+		 AND    FieldName   = '#URL.Name#' 
 	</cfquery>
 	
 	<cfquery name="Above" 
 	 datasource="appsSystem">
-	 SELECT TOP 1 FieldName
-	 FROM   UserReportOutput 	 
-	 WHERE  UserAccount  = '#SESSION.acc#'
-	 AND    OutputId     = '#URL.ID#'
-	 AND    OutputClass  = 'Detail'
-	 AND    FieldNameOrder < '#Current.FieldNameOrder#' 
-	 ORDER BY FieldNameOrder DESC
+		 SELECT   TOP 1 FieldName
+		 FROM     UserReportOutput 	 
+		 WHERE    UserAccount  = '#SESSION.acc#'
+		 AND      OutputId     = '#URL.ID#'
+		 AND      OutputClass  = 'Detail'
+		 AND      OutputShow = 1
+		 <cfif url.mode eq "up">
+		 AND      FieldNameOrder < '#Current.FieldNameOrder#' 
+		 ORDER BY FieldNameOrder DESC
+		 <cfelseif url.mode eq "down">
+		  AND    FieldNameOrder > '#Current.FieldNameOrder#' 
+		 ORDER BY FieldNameOrder ASC
+		 </cfif>
 	</cfquery>
-	
-	<cfquery name="MoveDownAbove" 
-	 datasource="appsSystem">
-	 UPDATE UserReportOutput 
-	 SET    FieldNameOrder = '#Current.FieldNameOrder#'
-	 WHERE  UserAccount    = '#SESSION.acc#'
-	 AND    OutputId       = '#URL.ID#'
-	 AND    OutputClass    = 'Detail'
-	 AND    FieldName      = '#Above.FieldName#' 
-	</cfquery>
-
-	<cfquery name="MoveUp" 
-	 datasource="appsSystem">
-	 UPDATE UserReportOutput 
-	 SET    FieldNameOrder = FieldNameOrder-1
-	 WHERE  UserAccount    = '#SESSION.acc#'
-	 AND    OutputId       = '#URL.ID#'
-	 AND    OutputClass    = 'Detail'
-	 AND    FieldName      = '#URL.Name#' 
-	</cfquery>
-	
-	<cfinclude template="FormatExcelDetailSelected.cfm">	
-	
-<cfelseif url.mode eq "down">
-
-	<cfquery name="Current" 
-	 datasource="appsSystem">
-	 SELECT FieldNameOrder
-	 FROM   UserReportOutput 	 
-	 WHERE  UserAccount = '#SESSION.acc#'
-	 AND    OutputId = '#URL.ID#'
-	 AND    OutputClass = 'Detail'
-	 AND    FieldName = '#URL.Name#' 
-	</cfquery>
-	
-	<cfquery name="Below" 
-	 datasource="appsSystem">
-	 SELECT TOP 1 FieldName
-	 FROM   UserReportOutput 	 
-	 WHERE  UserAccount = '#SESSION.acc#'
-	 AND    OutputId = '#URL.ID#'
-	 AND    OutputClass = 'Detail'
-	 AND    FieldNameOrder > '#Current.FieldNameOrder#' 
-	 ORDER BY FieldNameOrder ASC
-	</cfquery>
-	
-	<cfquery name="MoveUpBelow" 
-	 datasource="appsSystem">
-	 UPDATE UserReportOutput 
-	 SET    FieldNameOrder = '#Current.FieldNameOrder#'
-	 WHERE  UserAccount    = '#SESSION.acc#'
-	 AND    OutputId       = '#URL.ID#'
-	 AND    OutputClass    = 'Detail'
-	 AND    FieldName      = '#Below.FieldName#' 
-	</cfquery>
-	
-	<cfquery name="MoveDown" 
-	 datasource="appsSystem">
-	 UPDATE UserReportOutput 
-	 SET    FieldNameOrder = FieldNameOrder+1
-	 WHERE  UserAccount    = '#SESSION.acc#'
-	 AND    OutputId       = '#URL.ID#'
-	 AND    OutputClass    = 'Detail'
-	 AND    FieldName      = '#URL.Name#' 
-	</cfquery>
-	
-	<cfinclude template="FormatExcelDetailSelected.cfm">
 		
+	<cfquery name="MoveOther" 
+	 datasource="appsSystem">
+		 UPDATE UserReportOutput 
+		 SET    FieldNameOrder = '#Current.FieldNameOrder#'
+		 WHERE  UserAccount    = '#SESSION.acc#'
+		 AND    OutputId       = '#URL.ID#'
+		 AND    OutputClass    = 'Detail'
+		 AND    FieldName      = '#Above.FieldName#' 
+	</cfquery>
+
+	<cfquery name="MoveUpDown" 
+	 datasource="appsSystem">
+	 UPDATE UserReportOutput 
+	 <cfif url.mode eq "up">
+	 SET    FieldNameOrder = '#Current.FieldNameOrder-1#'
+	 <cfelse>
+	 SET    FieldNameOrder = '#Current.FieldNameOrder+1#'
+	 </cfif>
+	 WHERE  UserAccount    = '#SESSION.acc#'
+	 AND    OutputId       = '#URL.ID#'
+	 AND    OutputClass    = 'Detail'
+	 AND    FieldName      = '#URL.Name#' 
+	</cfquery>
+	
+	<cfinclude template="FormatExcelDetailSelected.cfm">		
 
 </cfif>
 

@@ -132,8 +132,15 @@ function search() {
 		    ptoken.navigate('#SESSION.root#/System/Access/Membership/MemberPurge.cfm?acc=#URL.ID#&ID1='+grp+'&mode=user','member')
 		   	} 
 		}
-
+		
+	function memberadd() {
 			
+		document.memberform.onsubmit() 
+		if( _CF_error_messages.length == 0 ) {
+           	ptoken.navigate('#SESSION.root#/system/access/Membership/UserMemberSubmit.cfm?Mode=regular&Acc=#URL.ID#','member','','','POST','memberform')
+		 }   
+	}	 
+				
 	function searchgroup() {
 				 
 		 if (window.event.keyCode == "13") {	

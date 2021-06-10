@@ -8,12 +8,19 @@
 		 WHERE PositionParentId = '#URL.ID2#'	 
 	</cfquery>
 	
-    <table cellspacing="0" width="97%">
+    <table width="98%" align="center" style="background-color:f1f1f1">
 	<tr><td height="3"></td></tr>
 	
-	<tr class="line"><td height="35" colspan="4" style="font-size:20px" class="labelmedium"><cf_tl id="Budget Position"></td></tr>  	
-		
-	 <cfoutput>      
+	<cfoutput>
+	
+	<tr class="line labelmedium">
+	  <td colspan="4" style="padding-left:4px;height:30px;font-size:20px"><cf_tl id="Budget Position"></td>
+	
+        <td height="20" style="padding-left:6px"><cf_tl id="Effective period">:</td>
+        <td colspan="2"><b>#Dateformat(PositionParent.DateEffective, CLIENT.DateFormatShow)#
+		- #Dateformat(PositionParent.DateExpiration, CLIENT.DateFormatShow)#
+		</td>     	  
+	  </tr>  	    
 	  
 	   <tr class="labelmedium">
         <td height="15" style="width:200px;min-width:200px;max-width:200px;padding-left:6px"><cf_tl id="Title">:</td>
@@ -43,7 +50,7 @@
 	   <tr class="labelmedium">
         <td valign="top" style="PADDING-TOP:5PX;padding-left:6px"><cf_tl id="Operational Structure">:</td>
 		
-		<td colspan="4">
+		<td colspan="5" style="padding-top:4px">
 		
 		<table width="98%">		
 		
@@ -106,18 +113,26 @@
 	   	   <cfif currentrow eq recordcount>
 		   	<cfset cl = "yellow">
 		   <cfelse>
-		   	<cfset cl = "ffffff">	
+		   	<cfset cl = "transparent">	
 		   </cfif>	
-	   	   
-	       <TR class="labelmedium line" style="background-color:#cl#">		   		   	  
+	   	   	      
+		   <cfif currentrow eq recordcount>
+			  
+			  <TR class="labelmedium" style="background-color:#cl#">		   		   	  
 	          <td style="min-width:100px;padding-left:#indent#px">
-			  <cfif currentrow eq recordcount>
-			  <img src="#SESSION.root#/Images/bullet.gif" height="20"  border="0" align="absmiddle">	          
-			  <cfelse>
-			  <img src="#SESSION.root#/Images/bullet.gif" height="15"  border="0" align="absmiddle">		  
-			  </cfif>
-	       </td>
-	       <td width="40%">#Mission# - #OrgUnitName#</td>
+			  <img src="#SESSION.root#/Images/bullet.gif" height="20"  border="0" align="absmiddle">	
+			  </td>          
+			  
+		   <cfelse>
+		   
+			  <TR class="labelit line" style="background-color:#cl#">		   		   	  
+	          <td style="min-width:100px;padding-left:#indent#px">
+			  <img src="#SESSION.root#/Images/bullet.gif" height="15"  border="0" align="absmiddle">	
+			  </td>	  
+			  
+		   </cfif>
+	       
+	       <td width="40%" style="padding-left:7px">#Mission# - #OrgUnitName#</td>
 	       <TD width="10%">#OrgUnitCode#</TD>
 	       <TD width="30%">#OrgUnitClass#</TD>
 		   <TD width="10%">#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>	 
@@ -131,19 +146,7 @@
 	   
 	   </td>
 	   </tr>
-	 		 
-	  <cfoutput> 
-	  	  	  	  
-	  <tr class="labelmedium">
-        <td height="20" style="padding-left:6px"><cf_tl id="Effective period">:</td>
-        <td colspan="2" class="labelmedium"><b>#Dateformat(PositionParent.DateEffective, CLIENT.DateFormatShow)#
-		- #Dateformat(PositionParent.DateExpiration, CLIENT.DateFormatShow)#
-		</td>
-      </tr>
-	 	  
-	  </cfoutput>
-	  
-	  <tr><td class="line" colspan="4" height="7"></td></tr>
-	
+	   
+	   <tr><td height="5"></td></tr>	 	  
 	  
 </table>	  

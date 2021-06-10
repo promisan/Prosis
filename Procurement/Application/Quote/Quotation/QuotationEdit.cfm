@@ -309,9 +309,8 @@ password="#SESSION.dbpw#">
 	 </cfif>	
 	
 	</cfif>
-	
-	
-	<table width="97%" border="0" align="center" class="formpadding formspacing">
+		
+	<table width="97%" border="0" align="center" class="formpadding">
 	
 	<tr><td height="9"></td></tr>	
 	
@@ -367,7 +366,7 @@ password="#SESSION.dbpw#">
 	
 	   <cfif (Req.Actionstatus lte "2k" or Req.Actionstatus lte "2q") and url.mode neq "View">	
 	   
-	       <textarea cols="58" rows="3" name="VendorItemDescription" class="regular enterastab" style="font-size:13px; padding:2px"><cfoutput>#Line.VendorItemDescription#</cfoutput></textarea> 
+	       <textarea name="VendorItemDescription" class="regular enterastab" style="font-size:14px; width:99%; height:40px;padding:3px"><cfoutput>#Line.VendorItemDescription#</cfoutput></textarea> 
 	   
 	   <cfelse>
 	  
@@ -382,7 +381,7 @@ password="#SESSION.dbpw#">
     <TD class="labelmedium"><cf_tl id="Quantity Offered">:</TD>
     <TD class="labelmedium">
 	
-	  <table width="97%" border="0" cellspacing="0" cellpadding="0">
+	  <table width="97%">
 	  <tr><td class="labelmedium">
 	  
 	   <cfif (Req.Actionstatus lte "2k" or Req.Actionstatus lte "2q") and url.mode neq "View">	
@@ -457,7 +456,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<tr><td class="labelmedium"><cf_tl id="Offered for free">:</td>
-	     <td class="labelmedium">
+	     <td class="labelmedium" style="height:25px">
 		
 		<cfif (Req.Actionstatus lte "2k" or Req.Actionstatus lte "2q") and url.mode neq "View">	 
 		
@@ -927,4 +926,4 @@ password="#SESSION.dbpw#">
 		
 </CFFORM>
 
-<cf_divscroll>
+</cf_divscroll>

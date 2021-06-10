@@ -416,7 +416,7 @@
 			  
 			    		<cfif amountOutstanding neq "0">
 						<td width="38%" align="right" bgcolor="FEE3DE" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">						
-						<font color="FF0000">#NumberFormat(AmountOutstanding,',.__')#
+						<font color="FF0000">#NumberFormat(AmountOutstanding,',.__')#</font>
 						</td>
 						<cfelse>
 						<td width="38%" align="right" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">						
@@ -1197,7 +1197,7 @@
 				  </cfoutput>
 				  
 				  </td>				  
-				  
+				  				  
 				  <cfif Transaction.amountOutstanding gt "0">
 					
 						<td style="padding-left:10px;padding-right:10px">|</td>
@@ -1519,41 +1519,37 @@
 						
 						<cfelse>
 						
-						<td class="labelmedium2">				  
-				  		<cfoutput>
-				   			<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Banking','#CurPeriod.CurrentAccountPeriod#','#Transaction.Journal#','#Transaction.JournalSerialNo#')">
-					    	<cf_tl id="Record a settlement">
-							</a>
-				   		</cfoutput>		
-						</td>
-						<td style="padding-left:10px;padding-right:10px">|</td>	
-						
+							<td class="labelmedium2">				  
+					  		<cfoutput>
+					   			<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Banking','#CurPeriod.CurrentAccountPeriod#','#Transaction.Journal#','#Transaction.JournalSerialNo#')">
+						    	<cf_tl id="Record a settlement">
+								</a>
+					   		</cfoutput>		
+							</td>
+							<td style="padding-left:10px;padding-right:10px">|</td>						
 						
 						</cfif>					
 
 					<cfelse>
 					
+						<cfoutput>
+					
 						<td style="padding-left:10px;padding-right:10px">|</td>
 				  		<td class="labelmedium2">				  		
-				   			<a href="javascript:PrintReceivable('#url.id#')">
-					    	<cf_tl id="Invoice">
-							</a>				   		
+				   			<a href="javascript:PrintReceivable('#url.id#')"><cf_tl id="Invoice"></a>				   		
 						</td>
 						<td style="padding-left:10px;padding-right:10px">|</td>
 						<td class="labelmedium2">
-								<a href="javascript:PrintTaxReceivable('#url.id#')">
-								<cf_tl id="Electronic Invoice">
-								</a>
+							<a href="javascript:PrintTaxReceivable('#url.id#')"><cf_tl id="Electronic Invoice"></a>
 						</td>
-						<td style="padding-left:10px;padding-right:10px">|</td>		
-					
-						<td class="labelmedium2">				  
-				  		<cfoutput>
+						<td style="padding-left:10px;padding-right:10px">|</td>							
+						<td class="labelmedium2">				  		
 				   			<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Banking','#CurPeriod.CurrentAccountPeriod#','#Transaction.Journal#','#Transaction.JournalSerialNo#')">
 					    	<cf_tl id="Record a settlement">
 							</a>
+						</td>	
 				   		</cfoutput>		
-						</td>
+						
 						<td style="padding-left:10px;padding-right:10px">|</td>	
 						
 					</cfif>						

@@ -37,8 +37,8 @@
 				
 	<cfif Attributes.DocumentHost eq "">
 	   <cfset attributes.documenthost = "#SESSION.rootDocumentPath#\">	
-	</cfif>			
-		
+	</cfif>		
+			
 	<!--- check if the attachment feature is registered --->
 		
 	<cfif attributes.documentHost neq "report" 
@@ -52,7 +52,7 @@
 			password="#SESSION.dbpw#">
 			SELECT    *
 		    FROM      System.dbo.Ref_Attachment
-			WHERE     DocumentPathName = '#Attributes.DocumentPath#'	
+			WHERE     DocumentPathName = '#Attributes.DocumentPath#'				
 		</cfquery>
 		
 		<cfif Attachment.recordcount eq "0">
@@ -80,14 +80,22 @@
 			
 		<cfelse>	
 			
-			<cfset Attributes.DocumentHost = Attachment.DocumentFileServerRoot>
+			<!--- we only change it if the directory does not exist --->
+			
+			<cfif DirectoryExists(Attributes.DocumentHost)>
+			     <!--- no changed --->
+			<cfelse>
+				<cfset Attributes.DocumentHost = Attachment.DocumentFileServerRoot>
+			</cfif>	
+			
 			<cfif Attachment.AttachMultiple eq "1">
 				<cfset Attributes.Mode = "attachmentmultiple">			
 			</cfif>	
 		
 		</cfif>		
 	
-	</cfif>								
+	</cfif>		
+					
 	
 	<CFParam name="Attributes.insert"          default="no">
 	<CFParam name="Attributes.remove"          default="no">
@@ -160,7 +168,7 @@
 			
 	<cfoutput>		
 		
-	<table width="#boxw#" border="0" cellspacing="0" cellpadding="0" style="#attributes.style#" bgcolor="#attributes.color#">
+	<table width="#boxw#" style="#attributes.style#" bgcolor="#attributes.color#">
 	
 	<tr><td id="#attributes.box#_holder"></td></tr>
 		
@@ -170,7 +178,7 @@
 		<cfelse>
 			<td>			
 		</cfif>
-										
+		
 		<cfinclude template="FileLibraryShow.cfm">					
 						
 		</td>

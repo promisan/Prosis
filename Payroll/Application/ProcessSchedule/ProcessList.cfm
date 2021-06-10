@@ -1,7 +1,7 @@
 
 <cf_dialogLedger>
 
-<cf_screentop height="100%" scroll="Yes" jquery="Yes" html="No" MenuAccess="Yes" SystemFunctionId="#url.idmenu#">
+<cf_screentop height="100%" scroll="Yes" jquery="Yes" html="Yes" banner="gray" bannerforce="Yes" layout="webapp" label="Payroll calculation" MenuAccess="Yes" SystemFunctionId="#url.idmenu#">
 
 <cf_ProcessScript>
 <cf_dialogstaffing>
@@ -122,10 +122,10 @@ password="#SESSION.dbpw#">
 <TR class="hide"><TD id="contentbox1" height="10"></TD></TR>
 
 <tr>
-	<td height="20" colspan="1" align="left" style="padding-top:5px;padding-left:14px">
+	<td height="20" colspan="1" align="center" style="padding-top:5px;padding-left:14px">
 	    <cf_tl id="Calculate Selected In-cycle periods" var="1">
 		<cfoutput>
-		<input type="button" class="button10g" style="width:460px;height:35px;font-size:16px" id="submit" name="submit" value="#url.mission# #lt_text#" onclick="calc()">
+		<input type="button" class="button10g" style="border:1px solid silver;width:460px;height:39px;font-size:17px" id="submit" name="submit" value="#url.mission# #lt_text#" onclick="calc()">
 		</cfoutput>	
 	</td>
 </tr>
@@ -245,9 +245,9 @@ password="#SESSION.dbpw#">
 		<!--- show the schedule --->
 		<!--- ----------------- --->		 			 			   
 				
-		<tr class="labelmedium2 fixrow2">
+		<tr class="labelmedium2 fixrow2 line">
 					
-		     <td style="background-color:ffffff;padding-top:5px;height:40px;font-size:25px;padding-left:4px;font-weight:bold" 
+		     <td style="background-color:ffffff;padding-top:5px;height:40px;font-size:28px;padding-left:4px;" 
 			   valign="top" class="labelmedium" colspan="2">
 			   <a href="javascript:scheduleedit('#SalarySchedule#')"><font color="black">#Description# 
 			   <cfif dateExpiration neq ""><font size="2" color="FF0000"><cf_tl id="Expiry">: #dateFormat(DateExpiration,client.dateformatShow)#</font></cfif>
@@ -262,7 +262,7 @@ password="#SESSION.dbpw#">
 			 
 			 <cfif Last.FirstAction neq "" and PayrollStart gt Last.FirstAction>
 			 
-			  <td align="right" colspan="2" style="padding-bottom:3px;cursor:pointer" onclick="$('###SalarySchedule#_recalculation').toggle()">
+			  <td align="right" colspan="2" style="padding-bottom:3px;cursor:pointer;padding-right:4px" onclick="$('###SalarySchedule#_recalculation').toggle()">
 				 	<cf_tl id="Recommended recalculation">:<font color="FF0000"> <b>#dateFormat(Pending.FirstAction,'MMMM YYYY')#</b>						
 			 </td>
 			 

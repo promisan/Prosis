@@ -355,8 +355,7 @@
 									DetailReference1          = "#getDetail.Reference1#"
 									DetailReference2          = "#getDetail.Reference2#"
 									DetailReadInitial         = "#getDetail.MeterReadingInitial#"
-									DetailReadFinal           = "#getDetail.MeterReadingFinal#"
-																								
+									DetailReadFinal           = "#getDetail.MeterReadingFinal#"																								
 									
 									GLTransactionNo           = "#TransactionBatchNo#"
 									GLTransactionSourceId     = "#Batch.BatchId#"

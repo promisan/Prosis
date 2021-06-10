@@ -302,9 +302,11 @@
 		<cfset  mintraper = "#year(Period.PeriodDateStart)#0#month(Period.PeriodDateStart)#">
 	</cfif>	
 	
+		
 	<cfif TransactionPeriod lt mintraper>	
 		<cfset TransactionPeriod = mintraper>	
 	</cfif>
+	
 				
 	<cfquery name="getWorkflow" 
 	   datasource="AppsLedger" 
@@ -1092,38 +1094,7 @@
 			
 			 <cf_TransactionOutstanding 
 			    journal         = "#ParentJournal#" 
-			    journalserialNo = "#ParentJournalSerialNo#">
-			
-			<!--- this is wrong code 
-			
-			<cfquery name="DefineResult" 
-				datasource="AppsLedger" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				  SELECT SUM(TransactionAmount) as Amount
-				  FROM   TransactionLine
-				  WHERE  ParentJournal         = '#ParentJournal#' 
-				   AND   ParentJournalSerialNo = '#ParentJournalSerialNo#' 
-				   AND   ParentLineId is not NULL 
-			</cfquery>  
-			
-			<cfif DefineResult.amount eq "">
-			    <cfset am = 0>
-			<cfelse>
-			    <cfset am = DefineResult.amount>  
-			</cfif> 
-							      
-		    <cfquery name="Outstanding" 
-		    datasource="AppsLedger" 
-		    username="#SESSION.login#" 
-		    password="#SESSION.dbpw#">
-			    UPDATE TransactionHeader 
-			    SET    AmountOutstanding = ROUND(Amount - '#am#',2)	   
-			    WHERE  Journal = '#ParentJournal#'
-			    AND    JournalSerialNo = '#ParentJournalSerialNo#' 
-			</cfquery>		
-			
-			--->   		
+			    journalserialNo = "#ParentJournalSerialNo#">			
 			
 		</cfif>
 	
@@ -1137,13 +1108,13 @@
 		    datasource="AppsLedger" 
 		    username="#SESSION.login#" 
 		    password="#SESSION.dbpw#">
-		    SELECT  max(GLAccount) as GLAccount,
-			        sum(AmountDebit-AmountCredit) as Total 
+		    SELECT  MAX(GLAccount) as GLAccount,
+			        SUM(AmountDebit-AmountCredit) as Total 
 			FROM    TransactionLine
 			WHERE   Journal          = '#HeaderSelect.Journal#'		    
-			AND     JournalSerialNo  = '#journo#'   
-			AND     TransactionSerialNo = 0 
-			<!--- this is the transaction base --->
+			AND     JournalSerialNo  = '#journo#'  
+			<!--- this is the base transaction ---> 
+			AND     TransactionSerialNo = 0 			
 		</cfquery> 
 		
 		<cfif SelectLines.Total neq "">  
@@ -1152,7 +1123,7 @@
 			    datasource="AppsLedger" 
 			    username="#SESSION.login#" 
 			    password="#SESSION.dbpw#">
-			    SELECT sum((AmountCredit*ExchangeRate)-(AmountDebit*ExchangeRate)) as Total 
+			    SELECT SUM((AmountCredit*ExchangeRate)-(AmountDebit*ExchangeRate)) as Total 
 				FROM   TransactionLine
 				WHERE  ParentJournal          = '#HeaderSelect.Journal#'		    
 				AND    ParentJournalSerialNo  = '#journo#'   

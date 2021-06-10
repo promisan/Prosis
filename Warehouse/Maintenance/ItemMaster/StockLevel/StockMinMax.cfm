@@ -124,7 +124,7 @@ that carry this item and that are enabled --->
 	
 		<td width="20"></td>
 		<td width="100%">
-			<table width="100%" align="center" class="formpadding">
+			<table width="100%" align="center" class="formspacing">
 			
 			<cfloop query="ItemUoM">
 	
@@ -145,7 +145,7 @@ that carry this item and that are enabled --->
 				<tr onMouseOver="this.style.backgroundColor='f1f1f1'" onMouseOut="this.style.backgroundColor=''">
 					<td valign="top" width="15%" style="padding-top:12px;padding-left:6px; padding-right:6px;border-right:1px solid gray;">#UoMDescription# (#UoM#)</td>
 					<td>
-						<table class="formpadding" width="100%"  align="center">
+						<table width="100%"  align="center">
 						
 							<tr><td height="5"></td></tr>
 							<tr class="labelmedium2">
@@ -165,7 +165,7 @@ that carry this item and that are enabled --->
 										value="#whs.MinimumStock#"
 										class="regularxxl"				
 										required="Yes"
-										style="text-align:right;width:50"				
+										style="border:0px;background-color:e1e1e1;text-align:center;width:50"				
 										visible="Yes" enabled="Yes">
 										
 								</td>	
@@ -187,7 +187,7 @@ that carry this item and that are enabled --->
 										value="#whs.MaximumStock#"				
 										required="Yes"
 										class="regularxxl"
-										style="text-align:right;width:50"
+										style="border:0px;background-color:e1e1e1;text-align:center;width:50"
 										visible="Yes" enabled="Yes">
 								</td>
 							</tr>
@@ -198,16 +198,16 @@ that carry this item and that are enabled --->
 								<td colspan="2">
 								
 								<cfselect name="TaxCode_#row#"
-						          query="taxlist"
-						          value="TaxCode"
-						          display="Description"
-						          selected="#whs.TaxCode#"
-						          visible="Yes"
-						          enabled="Yes"
-						          required="Yes"
-						          type="Text"
-								  style="font:10px"
-						          class="regularxxl"/>									
+							          query="taxlist"
+							          value="TaxCode"
+							          display="Description"
+							          selected="#whs.TaxCode#"
+							          visible="Yes"
+							          enabled="Yes"
+							          required="Yes"
+							          type="Text"
+									  style="border:0px;background-color:e1e1e1;font:10px"
+							          class="regularxxl"/>									
 								
 								</td>
 								
@@ -226,17 +226,17 @@ that carry this item and that are enabled --->
 										required = "Yes"
 										message  = "Please enter a numeric value"				
 										class    = "regularxxl"
-										style    = "text-align:right;width:50"
+										style    = "border:0px;background-color:e1e1e1;text-align:center;width:50px"
 										visible  = "Yes" 
 										enabled  = "Yes">
 									
 								</td>
 								
 								<cfif whs.MinReorderQuantity gt whs.MaximumStock>
-								<td style="padding-left:3px">
-								<img src="#SESSION.root#/images/alert.gif" alt="Exceeds maximum" border="0"></td>
+									<td style="padding-left:3px">
+									<img src="#SESSION.root#/images/alert.gif" alt="Exceeds maximum" border="0"></td>
 								<cfelse>
-								<td></td>
+									<td></td>
 								</cfif>
 								
 							</tr>							
@@ -259,8 +259,7 @@ that carry this item and that are enabled --->
 									<td><input type="radio" class="radiol" name="Restocking_#row#" id="Restocking_#row#" value="Procurement" <cfif whs.Restocking neq "Warehouse">checked</cfif>></td>
 									<td style="padding-left:4px"><cf_tl id="Procurement"></td>
 									<td style="padding-left:4px"><input type="radio" class="radiol" name="Restocking_#row#" id="Restocking_#row#" value="Warehouse" <cfif whs.Restocking eq "Warehouse">checked</cfif>></td>
-									<td style="padding-left:4px"><cf_tl id="Parent Warehouse"></td>
-								</td>	
+									<td style="padding-left:4px"><cf_tl id="Parent Warehouse"></td>								
 								</tr>
 								</table>						
 								
@@ -292,7 +291,7 @@ that carry this item and that are enabled --->
 									class="regularxxl" 
 									size="2" 
 									maxlength="2"
-									style="text-align:center;"
+									style="text-align:center;border:0px;background-color:e1e1e1;"
 									visible="Yes" enabled="Yes">
 								</td>
 								<td><cf_tl id="Average">:</td>
@@ -351,9 +350,11 @@ that carry this item and that are enabled --->
 							<tr class="labelmedium2">	
 								<td style="padding-left:5px;"><cf_tl id="Shipping Memo">:</td>
 								<td colspan="5">
-								<input type="text" name="ShippingMemo_#row#" id="ShippingMemo_#row#" value="#whs.ShippingMemo#" style="width:90%;height:25;font-size:14px;padding:3px" class="regular">
+								<input type="text" name="ShippingMemo_#row#" id="ShippingMemo_#row#" value="#whs.ShippingMemo#" style="border:0px;background-color:e1e1e1;f1f1f1;width:90%;height:25;font-size:14px;padding:3px" class="regular">
 								</td>
-							</tr>							
+							</tr>	
+							
+							<tr style="height:6px"><td></td></tr>						
 														
 						</table>
 					</td>

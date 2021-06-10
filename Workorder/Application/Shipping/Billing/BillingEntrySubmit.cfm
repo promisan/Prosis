@@ -301,6 +301,8 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 		    FROM     Purchase.dbo.Ref_ParameterMission
 			WHERE    Mission = '#workorder.Mission#' 
 	</cfquery>
+	
+	
 									
 	<!--- 3. cross reference the lines to the GL transaction header as being covered --->
 	
@@ -350,7 +352,7 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 		<cfset cat = Journal.TransactionCategory>
 		
 	</cfif>
-		
+				
 	<cf_GledgerEntryHeader
 		    Mission               = "#WorkOrder.Mission#"
 			DataSource            = "AppsOrganization"
@@ -421,6 +423,8 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 		TransactionType1         = "Contra-Account"
 		Amount1                  = "#total#">
 		
+		<!--- this now shows information on a more detailed level matching the POS 16/5/2021 --->
+		
 		<cfquery name="getLines" 
 		datasource="AppsOrganization" 
 		username="#SESSION.login#" 
@@ -428,24 +432,25 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 		
 			SELECT     T.WorkOrderId,
 			           WL.OrgUnitImplementer,
+					   T.TransactionId,
 					   W.Reference,
+					   T.ItemNo,
+					   T.ItemDescription,
+					   S.SalesQuantity,
 					   S.TaxCode,	
-			           ROUND(SUM(S.SalesTotal), 2)  AS Total, 
-			           ROUND(SUM(S.SalesTax), 2)    AS Tax, 
-					   ROUND(SUM(S.SalesAmount), 2) AS Sale
-			FROM       Materials.dbo.ItemTransactionShipping S INNER JOIN
-	                   Materials.dbo.ItemTransaction T ON S.TransactionId = T.TransactionId INNER JOIN
-	                   WorkOrder.dbo.WorkOrderLine WL ON T.WorkOrderId = WL.WorkOrderId AND T.WorkOrderLine = WL.WorkOrderLine INNER JOIN
-	                   WorkOrder.dbo.WorkOrder W ON T.WorkOrderId = W.WorkOrderId					   
+			           S.SalesTotal    AS Total, 
+			           S.SalesTax      AS Tax, 
+					   S.SalesAmount   AS Sale
+			FROM       Materials.dbo.ItemTransactionShipping S 
+			           INNER JOIN Materials.dbo.ItemTransaction T ON S.TransactionId = T.TransactionId 
+					   INNER JOIN WorkOrder.dbo.WorkOrderLine  WL ON T.WorkOrderId   = WL.WorkOrderId AND T.WorkOrderLine = WL.WorkOrderLine 
+					   INNER JOIN WorkOrder.dbo.WorkOrder W       ON T.WorkOrderId   = W.WorkOrderId					   
 		    <cfif form.selected neq "">
 			WHERE      S.TransactionId IN (#preservesinglequotes(Form.Selected)#) 	<!--- this could be from different workorders to be combined with the main one !! --->
 			<cfelse>
 			WHERE      1=0
 			</cfif>			
-			GROUP BY   WL.OrgUnitImplementer, 
-			           T.WorkOrderId, 
-					   W.Reference, 
-					   S.TaxCode
+			
 								
 		</cfquery>  
 		
@@ -488,7 +493,7 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 				Currency              = "#WorkOrder.Currency#"				
 				TransactionSerialNo1  = "#row#"
 				Class1                = "Credit"
-				Reference1            = "Tax"       
+				Reference1            = "Sales Tax"       
 				ReferenceName1        = "#customer.customername#"  <!--- customer name --->
 				Description1          = ""
 				GLAccount1            = "#TaxCode.GLAccountReceived#"
@@ -516,15 +521,16 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 				Currency              = "#WorkOrder.Currency#"			
 				TransactionSerialNo1  = "#row#"
 				Class1                = "Credit"
-				Reference1            = "Sale"       
-				ReferenceName1        = "#customer.customername#"  <!--- customer name --->
+				Reference1            = "Sales Income"    
+				ReferenceNo1          = "#ItemNo#"   
+				ReferenceName1        = "#left(Itemdescription,100)#"  <!--- customer name --->
+				ReferenceQuantity1    = "#SalesQuantity#"
+				ReferenceId1          = "#TransactionId#"
 				Description1          = ""
 				GLAccount1            = "#WorkOrderLedger.GLAccount#"
 				CostCenter1           = "#OrgUnitImplementer#"
 				ProgramCode1          = ""
-				ProgramPeriod1        = ""
-				ReferenceId1          = "#workorderid#"
-				ReferenceNo1          = "#reference#"
+				ProgramPeriod1        = ""					
 				TransactionType1      = "Standard"
 				Amount1               = "#Sale#">
 			
@@ -564,14 +570,15 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 				TransactionSerialNo1  = "#row#"
 				Class1                = "Credit"
 				Reference1            = "#charges[1]#"       
-				ReferenceName1        = "#customer.customername#"  <!--- customer name --->
+				ReferenceName1        = "#charges[1]#"  <!--- service cost --->
+				ReferenceNo1          = "#workorder.reference#"
+				ReferenceQuantity1    = "1"
+				ReferenceId1          = "#url.workorderid#"  <!--- charged against the base workorder --->	
 				Description1          = ""
 				GLAccount1            = "#charges[2]#"
 				CostCenter1           = ""
 				ProgramCode1          = ""
-				ProgramPeriod1        = ""
-				ReferenceId1          = "#url.workorderid#"  <!--- charged against the base workorder --->
-				ReferenceNo1          = "#workorder.reference#"
+				ProgramPeriod1        = ""							
 				TransactionType1      = "Standard"
 				Amount1               = "#charges[3]#">	
 			

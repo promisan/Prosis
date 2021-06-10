@@ -8,20 +8,16 @@
 <cf_dialogstaffing>
 
 <cfif url.closeAction eq "">
-
 	<cf_screentop height="100%" scroll="Yes" html="#url.html#" layout="webapp" banner="gray" jquery="Yes" label="Edit Address">
-
 <cfelse>
-
 	<cf_screentop height="100%" scroll="Yes" html="#url.html#" layout="webapp" banner="gray" jquery="Yes" label="Edit Address" close="#url.closeAction#">
-
 </cfif>
 
 <cfif url.header eq "1">
 
-<table width="100%" align="center">
+<table width="96%" height="100%" align="center">
 
-<tr><td>
+<tr><td style="height:10px" colspan="2">
 	
   <cfif URL.scope eq "Portal">
   
@@ -35,9 +31,7 @@
 	
   </cfif>
 		
-	</td></tr>
-	
-</table>
+	</td></tr>	
 	
 	<cfoutput>
 	
@@ -61,20 +55,32 @@
 
 <!--- Query returning search results --->
 
+
+<cfoutput>
+<cfsavecontent variable="address">
+SELECT        S.OrgUnit, S.AddressId, 
+              S.AddressType, S.TelephoneNo, S.MobileNo, S.FaxNo, S.eFaxNo, S.FiscalNo, S.webURL, S.MarkerIcon, S.MarkerColor, S.PersonNo, S.Contact, S.ContactDOB, 
+              S.ContactId, S.Operational, S.OfficerUserId, S.OfficerLastName, S.OfficerFirstName, S.Created, 
+			  A.AddressScope, A.Address AS Address1, A.Address2, A.AddressCity as City, A.AddressRoom, 
+              A.AddressPostalCode as PostalCode, A.State, A.Country, A.Coordinates, A.eMailAddress, A.Source, A.Remarks
+FROM          dbo.OrganizationAddress AS S INNER JOIN
+              System.dbo.Ref_Address AS A ON S.AddressId = A.AddressId
+</cfsavecontent>
+</cfoutput>
+
 <cfquery name="Search" 
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT   A.*, B.Name, R.Description
-	FROM     vwOrganizationAddress A 
+	FROM     (#address#) A 
 	         INNER JOIN Ref_AddressType R ON A.AddressType = R.Code 
-			 LEFT OUTER JOIN System.dbo.Ref_Nation B
-	  ON     A.Country = B.Code
+			 LEFT OUTER JOIN System.dbo.Ref_Nation B ON  A.Country = B.Code
 	WHERE    OrgUnit = '#URL.ID#'
 	<cfif url.scope neq "Backoffice">
 	AND      Selfservice = 1
 	</cfif>
-	ORDER BY R.ListingOrder ASC
+	ORDER BY A.Operational DESC, R.ListingOrder ASC
 </cfquery>
 
 <cfif url.systemfunctionid neq "">
@@ -96,10 +102,9 @@ password="#SESSION.dbpw#">
 	  returnvariable="access">
 	  
 </cfif>	  
-	
-<table width="96%" align="center">
-  <tr>
-    <td valign="middle" colspan="6" style="height:45" class="labellarge"><cf_tl id="Contact"> / <cf_tl id="Address"></td>
+
+  <tr style="height;10px">
+    <td valign="middle" style="height:45" class="labellarge"><cf_tl id="Contact"> / <cf_tl id="Address"></td>
     <td align="right">
 	
 	<cfif url.scope eq "backoffice">
@@ -116,22 +121,23 @@ password="#SESSION.dbpw#">
 	</cfif>	
     </td>
    </tr>
-   <tr>
+ 
+  <tr>
    
-  <td width="100%" colspan="7">
+  <td align="center" colspan="2" style="width:94%;height:100%">
   
-  <table border="0" width="100%" class="navigation_table">
+  <cf_divscroll>
+  
+  <table width="100%" class="navigation_table">
 	
-	  <TR height="25px" class="line labelmedium2 fixrow">
+	  <TR class="line labelmedium2 fixrow">
 	    <td width="3%"></td>
-	    <td width="20%"><cf_tl id="Type"></td>
+	    <td><cf_tl id="Type"></td>
 		<cfif url.scope neq "portal">
-		<td width="40" style="padding-right:10px"><cf_tl id="Color"></td>
+		<td style="padding-right:10px"><cf_tl id="Color"></td>
 		</cfif>
-		<TD width="20%"><cf_tl id="Contact"></TD>
-		<TD width="30%"><cfif URL.scope neq "Portal"><cf_tl id="Address"></cfif></TD>
-		<TD width="15%"><cfif URL.scope neq "Portal"><cf_tl id="City"></cfif></TD>
-		<TD width="15%"><cfif URL.scope neq "Portal"><cf_tl id="Country"></cfif></TD>	
+		<TD><cf_tl id="Contact"></TD>
+		<TD><cfif URL.scope neq "Portal"><cf_tl id="Address"></cfif></TD>		
 		<TD style="width:100px"><cfif URL.scope neq "Portal"><cf_tl id="Created"></cfif></TD>	
 	  </TR>
   	  
@@ -144,8 +150,13 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 		<cfoutput query="Search">
-		
+				
+		<cfif operational eq "0">
+		<TR class="labelmedium2 navigation_row" bgcolor="#IIf(CurrentRow Mod 2, DE('FFBBBB'), DE('FFBBBB'))#">
+		<cfelse>
 		<TR class="labelmedium2 navigation_row" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F4F4F4'))#">
+		</cfif>
+				
 		<td align="center" height="20" width="30" style="padding-left:4px;padding-top:1px;padding-right:4px">
 							
 			<cfif url.scope eq "backoffice" AND (access eq "EDIT" or access eq "ALL")>
@@ -171,70 +182,79 @@ password="#SESSION.dbpw#">
 		#Contact#</a>
 		</TD>
 			
-		<td><cfif URL.scope neq "Portal">#Address1#</cfif></td>
-		<td><cfif URL.scope neq "Portal">#City# [#PostalCode#]</cfif></td>
-		<td><cfif URL.scope neq "Portal">#Name#</cfif></td>
+		<td><cfif URL.scope neq "Portal">#Address1# #City# [#PostalCode#] #Name#</cfif></td>		
 		<td style="padding-right:3px">
 			<cfif URL.scope neq "Portal">
 				<cfif operational eq "0">
 					<font color="FF0000">
 					</cfif>
-					#dateformat(Created,client.dateformatshow)#				
+					#dateformat(Created,client.dateformatshow)#
+				
 			</cfif>
 		</td>
+		</tr>
+		
+		<!---
 		
 		<cfif URL.scope neq "Portal">	
-		
-			</TR>
-		
+				
 			<cfif Address2 neq "">			
 			<TR class="labelmedium2" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F4F4F4'))#">
 			<td colspan="2"></td>
-			<td colspan="6" align="left">#Address2#</td>
+			<td colspan="4" align="left">#Address2#</td>
+			</tr>
 			</cfif>
 			
 		</cfif>
 		
-		<TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F4F4F4'))#" class="navigation_row_child">
+		--->
 		
+		<cfif TelephoneNo is not "" 
+		     or FaxNo is not "" 
+			 or eFaxNo is not "" 
+			 or eMailAddress is not "">
+			 
+		<cfif operational eq "0">
+		<TR class="labelmedium2 navigation_row_child" bgcolor="#IIf(CurrentRow Mod 2, DE('FFBBBB'), DE('FFBBBB'))#">
+		<cfelse>
+		<TR class="labelmedium2 navigation_row_child" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F4F4F4'))#">
+		</cfif> 
+				
 		    <td></td>
-			<td colspan="7" align="left">
+			<td colspan="5" align="left">
 			
 			<table>
 				
-				<cfif TelephoneNo is not "">
-				  <tr class="labelmedium2">
-				  <td width="60"><cf_tl id="Tel">:</td>
-				  <td><font color="6688aa">#TelephoneNo#</font></td>
-				  </tr>
-				</cfif>
-				<cfif FaxNo is not "">
-				  <tr class="labelmedium2">
-				  <td><cf_tl id="Fax">:</td>
-				  <td>#FaxNo#</td>
-				  </tr>		 
-				</cfif>
-				<cfif eFaxNo is not "">
-				  <tr class="labelmedium2">
-				  <td><cf_tl id="eFax">:</td>
-				  <td>#eFaxNo#</td>
-				  </tr>		 
-				</cfif>
+				<tr class="labelmedium2">			  
+				  <cfif TelephoneNo neq "">
+				  <td style="font-size:10px"><cf_tl id="Tel">:</td>
+				  <td style="padding-left:5px;font-weight:bold">#TelephoneNo#</td>		 				
+				  </cfif>
+				  <cfif faxNo neq "">
+				  <td style="font-size:10px;padding-left:10px"><cf_tl id="Fax">:</td>
+				  <td style="padding-left:5px;font-weight:bold">#FaxNo#</td>				
+				  </cfif> 
+				  <cfif efaxNo neq "">				  
+				  <td style="font-size:10px;padding-left:10px"><cf_tl id="eFax">:</td>
+				  <td style="padding-left:5px;font-weight:bold">#eFaxNo#</td>
+				  </cfif>
+				  <td style="font-size:10px;padding-left:10px"><cf_tl id="Mail">:</td>
+				  <td style="padding-left:5px;font-weight:bold"><a href="mailto:#eMailAddress#">#eMailAddress#</a></td>
+				</tr>
 				
-				<cfif eMailAddress is not "">
-				   <tr class="labelmedium2"><td><cf_tl id="Mail">:</td>
-				       <td><a href="mailto:#eMailAddress#">#eMailAddress#</a></td>
-				   </tr>
-				</cfif>		
 			</table>
 			
 			</td>
 			
 		</TR>
+		
+		</cfif>
 			
 		</cfoutput>
 
 	</TABLE>
+	
+	</cf_divscroll>
 
 </td>
 </tr>

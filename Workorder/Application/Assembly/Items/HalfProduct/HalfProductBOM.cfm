@@ -56,13 +56,13 @@
 
 	<tr>
 
-		<td style="width:50;padding-top:3px" valign="top" class="labelit">
+		<td style="width:50px;padding-top:3px" valign="top" class="labelmedium2">
 		    <cfoutput>			
-			<a href="javascript:editResourceSupply('#ItemFinished.workorderid#','#ItemFinished.workorderline#','#URL.WorkOrderItemId#','','','');" style="color:4E79F2;">[<cf_tl id="Add">]</a>			
+			<a href="javascript:editResourceSupply('#ItemFinished.workorderid#','#ItemFinished.workorderline#','#URL.WorkOrderItemId#','','','');"><cf_tl id="Add"></a>			
 			</cfoutput>
 		</td>
 	
-		<td width="90%">
+		<td width="95%">
 		
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table"> 
 			
@@ -89,10 +89,10 @@
 						<cfset cl = "white">
 					</cfif> 				 
 										
-					<tr bgcolor="#cl#" class="navigation_row labelit line">
+					<tr bgcolor="#cl#" class="navigation_row labelmedium line">
 												
-						<td width="15" style="padding-left:4px;padding-top:3px">								
-						    <cf_img icon="edit" onclick="editResourceSupply('#ItemFinished.workorderid#','#ItemFinished.workorderline#','#WorkOrderItemId#','#WorkOrderItemIdResource#','#ItemNo#','#UoM#');" navigation="yes">								
+						<td width="15" style="padding-left:4px;padding-top:1px">								
+						    <cf_img icon="open" onclick="editResourceSupply('#ItemFinished.workorderid#','#ItemFinished.workorderline#','#WorkOrderItemId#','#WorkOrderItemIdResource#','#ItemNo#','#UoM#');" navigation="yes">								
      					</td>						
 						<td style="padding-top:2px">								
 						  <cfif mode eq "Edit">				
@@ -104,10 +104,11 @@
 						<td width="10%">#Classification#</td>						
 						<td width="10%" align="right" style="padding-left:3px">#dateformat(created,client.dateformatshow)#</td>																												
 						<td width="8%" align="right">#Quantity#</td>
-						<td width="10%" align="right">#numberformat(Price,",__.__")#</td>
-						<td width="10%" align="right" style="padding-left:10px">#numberformat(Amount,",__.__")#</td>	
+						<td width="10%" align="right">#numberformat(Price,",.__")#</td>
+						<td width="10%" align="right" style="padding-left:10px">#numberformat(Amount,",.__")#</td>	
 					</tr>	
 					
+					<!---
 					<cfif Reference neq "" or Classification neq "" or Memo neq "">
 					
 					<tr class="navigation_row_child">
@@ -115,9 +116,10 @@
 						<td></td>
 						<td>#Reference# #Classification#</td>
 						<td colspan="5">#Memo#</td>
-					</tr>		
+					</tr>				
 					
 					</cfif>					
+					--->	
 					
 					<cfset total = total + amount>		
 					

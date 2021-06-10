@@ -46,7 +46,7 @@
 
 	<cfif url.boxnumber eq "0">
 		
-		<tr class="labelmedium line">
+		<tr class="labelmedium2 line">
 		   <td></td>
 		   <td><cf_tl id="Item"></td>
 		   <td><cf_tl id="Reference"></td>
@@ -58,7 +58,7 @@
  	
 	</cfif>	
 
-	<tr class="line labelmedium">
+	<tr class="line labelmedium2">
 	
 		<td style="min-width:20px;padding-top:2px;padding-right:6px">
 		<cf_img icon="edit" onclick="editmemo('memo_#url.boxnumber#')" ></td>
@@ -87,7 +87,7 @@
 				 size		= "6" 
 				 maxLength =  "9"
 				 required	= "no"
-				 style		= "border-top:0px;border-bottom:0px;text-align: left;">		
+				 style		= "border:0px;background-color:f1f1f1;padding-right:3px;border-bottom:0px;text-align: left;">		
 					 		
 		</td>			
 		
@@ -117,7 +117,7 @@
 			
 				<select name = "uom#URL.boxnumber#" 
 				    class    = "regularxl enterastab" 
-					style="border-top:0px;border-bottom:0px;"
+					style="border:0px;background-color:f1f1f1;"
 				    onchange = "ptoken.navigate('#session.root#/Warehouse/Maintenance/Item/UoM/UoMBom/getItemUOM.cfm?boxnumber=#url.boxnumber#&MaterialId=#URL.MaterialId#&ItemNo=#getItem.ItemNo#&UoM='+this.value+'&Mission='+document.getElementById('mission').value,'process')">
 					
 					<cfloop query="GetUoM">
@@ -147,7 +147,7 @@
 					 class		="regularxl enterastab"
 					 size		="3" 
 					 required	="yes"
-					 style		="border-top:0px;border-bottom:0px;width:50px;text-align: right;">				
+					 style		="border:0px;background-color:f1f1f1;padding-right:3px;width:50px;text-align: right;">				
 		</td>	
 		
 		<td align="right" style="min-width:70px;padding-left:1px">
@@ -158,16 +158,16 @@
 				<cfset vCost = GetUom.StandardCost>	
 			</cfif>
 			
-			<cfinput type		="text" 
-			         name		="itemcost#URL.boxnumber#" 
-					 id			="itemcost#URL.boxnumber#"
-				     value		="#vCost#" 
-					 validate	="float"
-					 message	="Invalid Cost"
-					 class		="regularxl enterastab"
-					 size		="5" 
-					 required	="yes"
-					 style		="border-top:0px;border-bottom:0px;width:60px;text-align: right;">				
+			<cfinput type		= "text" 
+			         name		= "itemcost#URL.boxnumber#" 
+					 id			= "itemcost#URL.boxnumber#"
+				     value		= "#vCost#" 
+					 validate	= "float"
+					 message	= "Invalid Cost"
+					 class		= "regularxl enterastab"
+					 size		= "5" 
+					 required	= "yes"
+					 style		= "border:0px;background-color:f1f1f1;padding-right:3px;width:60px;text-align: right;">				
 		</td>			
 		
 		<td align="right" width="2%" style="padding-left:3px">
@@ -198,7 +198,7 @@
 					   value     = "#vMemo#" 
 		 			   class     = "regularh" 						
 					   maxlength = "80" 
-		 			   style     = "border:1px solid gray;width:100%;text-align: left;">		
+		 			   style     = "border:0px;background-color:f1f1f1;padding-right:3px;;width:100%;text-align: left;">		
 				
 			</td>
 			</tr>

@@ -57,6 +57,10 @@ password="#SESSION.dbpw#">
   <tr>
     <td align="left" valign="middle" style="padding-top:5px;padding-left:20px">
 		   
+   	   <table>
+		<tr class="labelmedium2">
+		<td>
+		   
    	 	<select name="AddressType" id="AddressType" class="regularxxl enterastab" style="border:0px;background-color:e1e1e1">
 	    <cfoutput query="Type">
 			<option value="#Code#" <cfif Address.AddressType eq Code>selected</cfif>>
@@ -64,7 +68,18 @@ password="#SESSION.dbpw#">
 			</option>
 		</cfoutput>  
    	    </select>	
-			
+		
+		</td>
+		
+		<td style="padding-left:10px"><cf_tl id="Active"></td>
+		<td style="padding-left:10px">
+		
+		<input type="checkbox" name="Operational" id="Operational" value="1" <cfif address.operational eq "1">checked</cfif> class="radiol">
+		
+		</td>
+		</tr>
+		</table>
+		
 	</td>
   </tr> 	
        
@@ -108,7 +123,7 @@ password="#SESSION.dbpw#">
 	
    	<tr>
 		<td colspan="2">
-			<cf_address mode="edit" eMailRequired="No" styleclass="labelmedium" spaces="52" addressid="#url.id1#" addressscope="Organization" >
+			<cf_address mode="edit" eMailRequired="No" styleclass="labelmedium" spaces="52" addressid="#url.id1#" addressscope="Organization">
 		</td>
 	</tr>
 	
@@ -172,59 +187,60 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 			
-    <TR>
-    <TD style="padding-left:5px" class="labelmedium"><cf_tl id="Contact Name">:</TD>
-    <TD class="regular">
+    <TR class="labelmedium">
+    <TD style="padding-left:5px"><cf_tl id="Contact Name">:</TD>
+    <TD>
 	   	<input type="Text" name="contact" id="contact" value="#Address.Contact#" size="40" maxlength="40" class="regularxl enterastab">		
 	</TD>
 	</TR>
 	
-	<TR>
-    <TD style="padding-left:5px" class="labelmedium"><cf_tl id="Fiscal No">:</TD>
+	<TR class="labelmedium">
+    <TD style="padding-left:5px"><cf_tl id="Fiscal No">:</TD>
     <TD>
 	   	<input type="Text" name="FiscalNo" id="FiscalNo" size="20" value="#Address.FiscalNo#" maxlength="20" class="regularxl enterastab"> 
 	</TD>
 	</TR>
 	
-    <TR>
-    <TD style="padding-left:5px" class="labelmedium"><cf_tl id="Telephone">:</TD>
+    <TR class="labelmedium">
+    <TD style="padding-left:5px"><cf_tl id="Telephone">:</TD>
     <TD>
 	   	<input type="Text" name="TelephoneNo" id="TelephoneNo" value="#Address.TelephoneNo#" size="20" maxlength="20" class="regularxl enterastab"> 
 	</TD>
 	</TR>
 
 
-    <TR>
-    <TD style="padding-left:5px" class="labelmedium"><cf_tl id="Mobile">:</TD>
+    <TR class="labelmedium">
+    <TD style="padding-left:5px"><cf_tl id="Mobile">:</TD>
     <TD>
 	   	<input type="Text" name="MobileNo" id="MobileNo" value="#Address.MobileNo#" size="20" maxlength="20" class="regularxl enterastab"> 
 	</TD>
 	</TR>
 		
-	<TR>
-    <TD style="padding-left:5px" class="labelmedium"><cf_tl id="Fax">:</TD>
-    <TD class="regular">
+	<TR class="labelmedium">
+    <TD style="padding-left:5px"><cf_tl id="Fax">:</TD>
+    <TD>
 	   	<input type="Text" name="FaxNo" id="FaxNo" value="#Address.Faxno#" size="20" maxlength="20" class="regularxl enterastab"> 
 	</TD>
 	</TR>
 	   
-	<TR>
-    <TD style="padding-left:5px" style="padding-left:5px" class="labelmedium"><cf_tl id="eFax">:</TD>
-    <TD class="regular">
+	<TR class="labelmedium">
+    <TD style="padding-left:5px"><cf_tl id="eFax">:</TD>
+    <TD>
 	   	<input type="Text" name="eFaxNo" id="eFaxNo" value="#Address.eFaxno#" size="80" maxlength="80" class="regularxl enterastab"> 
 	</TD>
 	</TR>	   
 	
-	<TR><TD colspan="2" height="1" class="linedotted"></TD></TR>	
-	<tr><td colspan="2" align="center" height="30">
+	<TR><TD colspan="2" height="1" class="line"></TD></TR>	
+	<tr>
+	<td colspan="2" align="center" height="30">
    
-   <cf_tl id="Back" var="vBack">
-   <cf_tl id="Delete" var="vDelete">
-   <cf_tl id="Update" var="vUpdate">
+     <cf_tl id="Back" var="vBack">
+     <cf_tl id="Delete" var="vDelete">
+     <cf_tl id="Update" var="vUpdate">
    
-   <input type="button" name="cancel" id="cancel" value="#vBack#" class="button10g" onClick="history.back()">   
-   <input class="button10g" type="submit" name="Delete" id="Delete" value=" #vDelete# ">
-   <input class="button10g" type="submit" name="Update" id="Update" value=" #vUpdate# ">
+     <input type="button" name="cancel" id="cancel" value="#vBack#" class="button10g" onClick="history.back()">   
+     <input class="button10g" type="submit" name="Delete" id="Delete" value=" #vDelete# ">
+     <input class="button10g" type="submit" name="Update" id="Update" value=" #vUpdate# ">
    	
    </td>
    </table>

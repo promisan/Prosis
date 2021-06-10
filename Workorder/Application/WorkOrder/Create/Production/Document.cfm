@@ -65,14 +65,14 @@
 		   
 			_cf_loadingtexthtml='';	
 			<cfif param.WorkorderItemMode eq "1">
-			ColdFusion.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/getItem.cfm?mode=production&itemNo='+itm+'&workorderid=#url.workOrderId#&workorderline=#url.workorderline#','itembox')
+			ptoken.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/getItem.cfm?mode=production&itemNo='+itm+'&workorderid=#url.workOrderId#&workorderline=#url.workorderline#','itembox')
 			<cfelse>			
-			ColdFusion.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/selectitem.cfm?mode=production&itemNo='+itm+'&workorderid=#url.workOrderId#&workorderline=#url.workorderline#','finalproduct')			
+			ptoken.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/selectitem.cfm?mode=production&itemNo='+itm+'&workorderid=#url.workOrderId#&workorderline=#url.workorderline#','finalproduct')			
 			</cfif>
 		}
 
 		function submitTransactions(wo,wl) {				
-			ColdFusion.navigate('FinalProductAddSubmit.cfm?WorkOrderId='+wo+'&WorkOrderLine='+wl,'addFinalProductBox');		    			
+			ptoken.navigate('FinalProductAddSubmit.cfm?WorkOrderId='+wo+'&WorkOrderLine='+wl,'addFinalProductBox');		    			
 		}
 		
 		function deleteSelected(id)	{

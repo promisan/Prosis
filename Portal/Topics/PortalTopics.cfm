@@ -175,18 +175,19 @@ password="#SESSION.dbpw#">
 		
 <cfoutput query="searchresult">
    
-   <tr class="line" style="height:40px"><td colspan="4" style="padding-top:4px;height:20px;padding-left:20px" class="labellarge">
+   <tr class="line fixrow" style="background-color:white">
+           <td colspan="4" style="background-color:white;height:50px;padding-top:4px;height:20px;padding-left:20px" class="labellarge">
    
-	   		<table width="100%" cellspacing="0" cellpadding="0">
+	   		<table width="100%" style="height:42px;">
 				<tr>
-				<td width="20">
+				<td width="20" style="background-color:white;">
 				<cfif Status eq "1">
 				   <img src="#SESSION.root#/Images/portal_min.png" height="20" id="toggle_#currentrow#" alt="Toggle topic" border="0" align="absmiddle" style="cursor: pointer;" onClick="action('#SystemFunctionId#','#currentrow#')">
 				<cfelse>				  
 			   	   <img class="hoverEffect" src="#SESSION.root#/Images/portal_max.png" height="20" id="toggle_#currentrow#" alt="Toggle topic" border="0" align="absmiddle" style="cursor: pointer;" onClick="action('#SystemFunctionId#','#currentrow#')">
 			    </cfif>			
 				</td>
-				<td width="97%" onClick="action('#SystemFunctionId#','#currentrow#')" style="cursor:pointer;color:F24F00;padding-left:10px;font-size:19px" 
+				<td width="97%" onClick="action('#SystemFunctionId#','#currentrow#')" style="background-color:white;cursor:pointer;color:F24F00;padding-left:10px;font-size:19px" 
 				class="labelmedium">#FunctionMemo#</td>
 				</tr>	
 				
@@ -194,7 +195,7 @@ password="#SESSION.dbpw#">
 	   
 	   </td>
    
-       <td colspan="2" align="right" style="padding-left:20px;padding-right:20px">
+       <td colspan="2" align="right" style="background-color:white;padding-left:20px;padding-right:20px">
 	   
 		   <table align="right" width="40" cellspacing="0" cellpadding="0">
 		   

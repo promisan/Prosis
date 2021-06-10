@@ -154,7 +154,7 @@
 	function ProcQuoteEdit(recno,mode) {
 		w = 1000
 	    h = #CLIENT.height# - 145;
-	    ptoken.open(root + "/Procurement/Application/Quote/Quotation/QuotationEditView.cfm?ID=" + recno + "&Mode=" + mode,"quote", "left=60, top=30, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=yes"); 
+	    ptoken.open(root + "/Procurement/Application/Quote/Quotation/QuotationEditView.cfm?ID=" + recno + "&Mode=" + mode,"quote"); 
 	}
 	 
 	function ProcReqEdit(reqno,mode,refer) {    

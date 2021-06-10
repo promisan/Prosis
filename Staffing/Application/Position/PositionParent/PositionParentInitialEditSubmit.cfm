@@ -303,61 +303,67 @@
 		
 		<!--- only the last position will be adjusted here to match the updated parent--->
 		
-		<cfquery name="CheckLast" 
-	     datasource="AppsEmployee" 
-	     username="#SESSION.login#" 
-	     password="#SESSION.dbpw#">
-		   	 SELECT   TOP 1 *
-			 FROM     Position
-	    	 WHERE    PositionParentId = '#Form.PositionParentId#'
-			 ORDER BY DateEffective DESC
-		</cfquery>	
+		<cfparam name="form.child" default="0">
 		
-		 <cfquery name="UpdatePosition1" 
-	         datasource="AppsEmployee" 
-	         username="#SESSION.login#" 
-	         password="#SESSION.dbpw#">
-						
-	    	 UPDATE Position
-	    	 SET    OrgUnitOperational    = '#Form.OrgUnit#',
-			        PostGrade             = '#Form.PostGrade#',				
-			        OrgUnitAdministrative = '#Form.OrgUnit1#',
-	    		
-				    <cfif Mandate.MandateStatus eq "0" or (checkPost.Counted eq "1" and checkAss.recordcount eq "0")>	
-				    DateEffective         = #STR#,
-				    DateExpiration        = #END#,
-				    </cfif>
+		<cfif form.child eq "1" or Mandate.MandateStatus eq "0">
+		
+			<cfquery name="CheckLast" 
+		     datasource="AppsEmployee" 
+		     username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
+			   	 SELECT   TOP 1 *
+				 FROM     Position
+		    	 WHERE    PositionParentId = '#Form.PositionParentId#'
+				 ORDER BY DateEffective DESC
+			</cfquery>	
+			
+			 <cfquery name="UpdatePosition1" 
+		         datasource="AppsEmployee" 
+		         username="#SESSION.login#" 
+		         password="#SESSION.dbpw#">
+							
+		    	 UPDATE Position
+		    	 SET    OrgUnitOperational    = '#Form.OrgUnit#',
+				        PostGrade             = '#Form.PostGrade#',				
+				        OrgUnitAdministrative = '#Form.OrgUnit1#',
+		    		
+					    <cfif Mandate.MandateStatus eq "0" or (checkPost.Counted eq "1" and checkAss.recordcount eq "0")>	
+					    DateEffective         = #STR#,
+					    DateExpiration        = #END#,
+					    </cfif>
+					 
+					    PostType              = '#Form.PostType#'		
+					    <cfif form.sourcePostNumber neq "">
+					    ,SourcePostNumber      = '#Form.SourcePostNumber#'
+					    </cfif>
+					   
+		    	 WHERE  PositionParentId = '#Form.PositionParentId#'
+				 AND    PositionNo       = '#CheckLast.PositionNo#'
+				 <!---  added to prevent reset of interloan mission 10/8/2014 --->
+				 AND    MissionOperational = Mission			
+				 AND    PositionStatus   = '1'
 				 
-				    PostType              = '#Form.PostType#'		
-				    <cfif form.sourcePostNumber neq "">
-				    ,SourcePostNumber      = '#Form.SourcePostNumber#'
-				    </cfif>
-				   
-	    	 WHERE  PositionParentId = '#Form.PositionParentId#'
-			 AND    PositionNo       = '#CheckLast.PositionNo#'
-			 <!---  added to prevent reset of interloan mission 10/8/2014 --->
-			 AND    MissionOperational = Mission			
-			 AND    PositionStatus   = '1'
-			 
-	    </cfquery>		
+		    </cfquery>		
+			
+			<!--- adjust also the assignment record for change in period, orgunit and function during mandate status = 0 --->
+			
+			<cfquery name="UpdateAssignment" 
+		         datasource="AppsEmployee" 
+		         username="#SESSION.login#" 
+		         password="#SESSION.dbpw#">
+		    	 UPDATE PersonAssignment
+		    	 SET    OrgUnit               = '#Form.OrgUnit#',
+				        FunctionNo            = '#Form.FunctionNo#',
+					    FunctionDescription   = '#Form.FunctionDescription#'		    
+					
+		    	 WHERE  PositionNo IN (SELECT PositionNo 
+				                       FROM   Position 
+									   WHERE  PositionParentId = '#Form.PositionParentId#'
+									   AND    PositionStatus = '0')
+							  
+		    </cfquery>	
 		
-		<!--- adjust also the assignment record for change in period, orgunit and function during mandate status = 0 --->
-		
-		<cfquery name="UpdateAssignment" 
-	         datasource="AppsEmployee" 
-	         username="#SESSION.login#" 
-	         password="#SESSION.dbpw#">
-	    	 UPDATE PersonAssignment
-	    	 SET    OrgUnit               = '#Form.OrgUnit#',
-			        FunctionNo            = '#Form.FunctionNo#',
-				    FunctionDescription   = '#Form.FunctionDescription#'		    
-				
-	    	 WHERE  PositionNo IN (SELECT PositionNo 
-			                       FROM   Position 
-								   WHERE  PositionParentId = '#Form.PositionParentId#'
-								   AND    PositionStatus = '0')
-						  
-	    </cfquery>	
+		</cfif>
 		
 		<cfif Mandate.MandateStatus eq "0">	
 			

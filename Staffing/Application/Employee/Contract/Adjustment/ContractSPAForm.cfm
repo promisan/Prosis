@@ -673,7 +673,7 @@
 					<td colspan="2" style="padding-top:7px">	
 							<textarea name="Remarks" class="regular" 
 							onkeyup="return ismaxlength(this)"	totlength="1000" 
-							style="padding:6px;font-size:15px;height:240;width:100%;">#SPA.Remarks#</textarea>
+							style="border:0px;background-color:f1f1f1;padding:6px;font-size:15px;height:240;width:100%;">#SPA.Remarks#</textarea>
 					</td>
 					</tr>
 						

@@ -35,6 +35,10 @@
         FROM         PersonMiscellaneous AS M INNER JOIN
                      Ref_PayrollItem AS R ON M.PayrollItem = R.PayrollItem INNER JOIN
                      Employee.dbo.Person AS P ON M.PersonNo = P.PersonNo	
+					 
+					 <cfif url.id1 neq "">
+					AND M.EntitlementClass = '#url.id1#'
+					 </cfif>
 		
 		) as B
 		
@@ -90,12 +94,16 @@
 					filtermode    = "3",    
 					align         = "center",
 					search        = "text"}>	
-					
+
+ <cfif url.id1 eq "">					
+ 
 <cfset itm = itm+1>							
 <cfset fields[itm] = {label       = "Class",  					
 					field         = "EntitlementClass",
 					filtermode    = "2",					
 					search        = "text"}>	
+					
+</cfif>					
 					
 <cfset itm = itm+1>							
 <cfset fields[itm] = {label       = "Item",  					

@@ -33,10 +33,10 @@
 	datasource="AppsProgram" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT Code
-		FROM Ref_Fund
-	   Where ControlView = 1
-	   Order by ListingOrder
+	  SELECT Code
+	  FROM   Ref_Fund
+	  WHERE  ControlView = 1
+	  ORDER BY ListingOrder
 </cfquery>
 
 <cfset Funds = "'"& '#ValueList(Funds.Code,"','")#'&"'">
@@ -54,8 +54,7 @@
 <cf_OrganizationSelect
        Enforce     = "1"
 	   OrgUnit     = "#URL.Orgunit#">  	 
-	   
-	   
+	   	   
 <cfset FileNo = round(Rand()*100)>
 
 <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#AuthPost#FileNo#">		
@@ -66,22 +65,22 @@
  datasource="AppsEmployee" 
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
+ 
 	 SELECT    P.PositionNo,
 	 		   P.PostAuthorised, 
-	 		   R.PostClassGroup as PostClass,		
-	 		   Case WHEN PP.Fund not in (#PreserveSingleQuotes(Funds)#) THEN 'Other'
-			   	    ELSE PP.Fund
-			   END as Fund,
-			   P.OrgUnitOperational as OrgUnit,
+			   P.SourcePostNumber, 
+			   P.PostGrade,
+			   V.ShowVacancy,
+	 		   R.PostClassGroup      as PostClass,		
+	 		   CASE WHEN PP.Fund not in (#PreserveSingleQuotes(Funds)#) THEN 'Other' ELSE PP.Fund END as Fund,
+			   P.OrgUnitOperational  as OrgUnit,
 			   PP.OrgUnitOperational as ParentOrgUnit,
-			   CASE WHEN P.OrgUnitOperational != PP.OrgUnitOperational THEN 'LOANED'
-			   	    ELSE 'OWNED'
-			   END as Class		
+			   CASE WHEN P.OrgUnitOperational != PP.OrgUnitOperational THEN 'LOANED' ELSE 'OWNED' END as Class		
 	 INTO      userQuery.dbo.#SESSION.acc#AuthPost#FileNo#	   			   
-	 FROM      Position P INNER JOIN
-	           PositionParent PP ON P.PositionParentId = PP.PositionParentId
-			   LEFT JOIN Ref_PostClass R
-			   	ON P.PostClass = R.PostClass
+	 FROM      Position P 
+	           INNER JOIN PositionParent PP ON P.PositionParentId = PP.PositionParentId
+			   INNER JOIN Ref_PostClass R ON P.PostClass = R.PostClass
+			   INNER JOIN Ref_VacancyActionClass V ON P.VacancyActionClass = V.Code
 	 WHERE     PP.Mission   = '#Org.Mission#'
 	 AND       PP.MandateNo = '#Org.MandateNo#' 
 	 AND       PP.OrgUnitOperational IN
@@ -97,19 +96,22 @@
 								</cfif>)
 	AND        P.DateExpiration >= #sel#  
 	AND        P.DateEffective <= #sel# 	
+	
 UNION ALL
+
 	 SELECT    P.PositionNo, 
 	 	       P.PostAuthorised, 
+			   P.SourcePostNumber,
+			   P.PostGrade,
+			   V.ShowVacancy,
 	 		   'Borrowed' as PostClass,		
-	 		   Case WHEN PP.Fund not in (#PreserveSingleQuotes(Funds)#) THEN 'Other'
-			   	    ELSE PP.Fund
-			   END as Fund,
+	 		   Case WHEN PP.Fund not in (#PreserveSingleQuotes(Funds)#) THEN 'Other' ELSE PP.Fund  END as Fund,
 			   P.OrgUnitOperational as OrgUnit,
 			   PP.OrgUnitOperational as ParentOrgUnit,
 			   'BORROWED' as Class
-	 FROM      Position P INNER JOIN PositionParent PP 
-	 				ON P.PositionParentId = PP.PositionParentId AND
-						P.OrgUnitOperational != PP.OrgUnitOperational			   
+	 FROM      Position P 
+	           INNER JOIN PositionParent PP ON P.PositionParentId = PP.PositionParentId AND P.OrgUnitOperational != PP.OrgUnitOperational			   
+			   INNER JOIN Ref_VacancyActionClass V ON P.VacancyActionClass = V.Code
 	 WHERE     P.OrgUnitOperational IN
 	                          (SELECT    OrgUnit
 	                            FROM     Organization.dbo.Organization
@@ -125,26 +127,48 @@ UNION ALL
 	AND        P.DateEffective <= #sel# 				
 </cfquery>
 
+<!--- correction --->
+
+<cfquery name="DeleteOnDemand" 
+		 datasource="AppsEmployee" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+		 DELETE userQuery.dbo.#SESSION.acc#AuthPost#FileNo#
+		 FROM   userQuery.dbo.#SESSION.acc#AuthPost#FileNo# P
+		 WHERE  ShowVacancy = '0'
+		 AND    PositionNo NOT IN
+		 
+			   (SELECT PositionNo
+					    FROM   PersonAssignment 
+						WHERE  PositionNo = P.PositionNo
+						AND    AssignmentStatus IN ('0','1')
+						AND    Incumbency > 0
+						AND    DateEffective <= #sel# 
+						AND    DateExpiration >= #sel#) 
+		</cfquery> 
+
+
 </cftransaction>  
 
 <cfquery name="AllPosts" 
  datasource="AppsEmployee" 
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
- SELECT *  FROM userQuery.dbo.#SESSION.acc#AuthPost#FileNo#
+	 SELECT  *  
+	 FROM    userQuery.dbo.#SESSION.acc#AuthPost#FileNo#
  </cfquery>
-
+ 
 <cfquery name="Post" dbtype="query">
-SELECT PostAuthorised, PostClass, Fund, Count(*) as Total
-FROM AllPosts
-GROUP BY PostAuthorised, PostClass, Fund
-ORDER BY PostAuthorised, PostClass, Fund      
+	SELECT   PostAuthorised, PostClass, Fund, Count(*) as Total
+	FROM     AllPosts
+	GROUP BY PostAuthorised, PostClass, Fund
+	ORDER BY PostAuthorised, PostClass, Fund      
 </cfquery>
 
 <cfquery name="Loaned" dbtype="query">
-	SELECT PostAuthorised, Fund, Count(*) as Total
-	FROM AllPosts
-	WHERE Class = 'LOANED'
+	SELECT   PostAuthorised, Fund, Count(*) as Total
+	FROM     AllPosts
+	WHERE    Class = 'LOANED'
 	GROUP BY PostAuthorised, Fund
 	ORDER BY PostAuthorised, Fund      
 </cfquery>
@@ -165,10 +189,10 @@ ORDER BY PostAuthorised, PostClass, Fund
 </cfquery>
 
 <cfquery name="Incum" dbtype="query">
-SELECT PostAuthorised, PostClass, Fund, Count(*) as Total
-FROM AllIncum
-GROUP BY PostAuthorised, PostClass, Fund
-ORDER BY PostAuthorised, PostClass, Fund      
+	SELECT   PostAuthorised, PostClass, Fund, Count(*) as Total
+	FROM     AllIncum
+	GROUP BY PostAuthorised, PostClass, Fund
+	ORDER BY PostAuthorised, PostClass, Fund      
 </cfquery>
 
 <cfquery name="AllVacant" 
@@ -187,10 +211,10 @@ ORDER BY PostAuthorised, PostClass, Fund
 </cfquery>
 
 <cfquery name="Vacant" dbtype="query">
-Select PostAuthorised, PostClass, Fund, Count(*) as Total
-FROM AllVacant
-GROUP BY PostAuthorised, PostClass, Fund
-ORDER BY PostAuthorised, PostClass, Fund      
+	Select   PostAuthorised, PostClass, Fund, Count(*) as Total
+	FROM     AllVacant
+	GROUP BY PostAuthorised, PostClass, Fund
+	ORDER BY PostAuthorised, PostClass, Fund      
 </cfquery>
 	 
 <cfquery name="FUND" dbtype="query">
@@ -202,20 +226,20 @@ ORDER BY PostAuthorised, PostClass, Fund
 
 <cfoutput>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" class="formpadding">
 
  <tr><td height="4"></td></tr>
  
 <cfset groupLen = ListLen(PostGroups)+1>	<!--- 1 is the total --->
 <cfset span = GroupLen*3+1>				<!--- 3 subgroups (posts, incum, vacant), 1 Loaned posts --->
 
-<tr>
-<td rowspan="2" class="labelit" style="border:1px solid silver;padding:2px;padding-left:5px"><cf_tl id="fund"></td>
+<tr class="labelmedium">
+<td rowspan="2" style="border:1px solid silver;padding:2px;padding-left:5px"><cf_tl id="fund"></td>
 <cfloop index="PostClass" list="#PostGroups#">
-	<td colspan="3" class="labelit" align="center" style="border:1px solid silver;padding:2px">#PostClass#</td>
+	<td colspan="3" align="center" style="border:1px solid silver;padding:2px">#PostClass#</td>
 </cfloop>
-    <td class="labelit" align="center" style="border:1px solid silver;padding:2px"><cf_tl id="Loanded"></td>
-    <td class="labelit" align="center" colspan="3" style="border:1px solid silver;padding:2px"><cf_tl id="Total"></td>
+    <td align="center" style="border:1px solid silver;padding:2px"><cf_tl id="Loaned"></td>
+    <td align="center" colspan="3" style="border:1px solid silver;padding:2px"><cf_tl id="Total"></td>
 </tr>
 
 <tr>
@@ -247,20 +271,20 @@ ORDER BY PostAuthorised, PostClass, Fund
 	
 	<cfif Fund neq "">
 
-	<tr><td width="100" class="labelit" align="right" style="padding:2px;padding-left:5px">#Fund#</td>
+	<tr><td width="100" align="right" style="padding-right:5px;padding-left:5px">#Fund#</td>
 	
 		<cfset fd = Fund>
 	
 		<cfloop index="PostClass" list="#PostGroups#">
 		
-			<td width="100" class="labelit" align="right" style="border:1px solid silver;padding:2px" <!---bgcolor="#PresentationColor#"> ---> >	
+			<td width="100" align="right" style="border:1px solid silver;padding:2px" <!---bgcolor="#PresentationColor#"> ---> >	
 				<cfquery name="Pst" dbtype="query">
 				SELECT sum(Total) as Total
 				FROM  Post
 				WHERE PostAuthorised = '#aut#'
 				AND   PostClass = '#PostClass#'
 				AND   Fund      = '#fd#'
-				</cfquery>	
+				</cfquery>					
 				#Pst.Total#		
 			</td>
 			
@@ -291,7 +315,7 @@ ORDER BY PostAuthorised, PostClass, Fund
 		</cfloop>
 		
 		<!--- loaned --->
-		<td width="100" class="labelit" align="right" style="border:1px solid silver;padding:2px">		    
+		<td width="100" align="right" style="border:1px solid silver;padding:2px">		    
 			<cfquery name="Pst" dbtype="query">
 			SELECT sum(Total) as Total
 			FROM  Loaned
@@ -301,7 +325,7 @@ ORDER BY PostAuthorised, PostClass, Fund
 			#Pst.Total#
 		</td>
 
-		<td width="100" class="labelit" bgcolor="f4f4f4" align="right" style="border:1px solid silver;padding:2px">		   
+		<td width="100" bgcolor="f4f4f4" align="right" style="border:1px solid silver;padding:2px">		   
 			<cfquery name="Pst" dbtype="query">
 			SELECT sum(Total) as Total
 			FROM  Post
@@ -311,7 +335,7 @@ ORDER BY PostAuthorised, PostClass, Fund
 			#Pst.Total#			
 		</td>
 			
-		<td width="100" class="labelit" bgcolor="f4f4f4" align="right" style="border:1px solid silver;padding:2px">			
+		<td width="100" bgcolor="f4f4f4" align="right" style="border:1px solid silver;padding:2px">			
 			<cfquery name="Inc" dbtype="query">
 			SELECT sum(Total) as Total
 			FROM   Incum
@@ -321,7 +345,7 @@ ORDER BY PostAuthorised, PostClass, Fund
 			#Inc.Total#						
 		</td>	
 		
-		<td width="100" class="labelit" bgcolor="f4f4f4" align="right" style="border:1px solid silver;padding:2px">			
+		<td width="100" align="right" style="border:1px solid silver;padding:2px">			
 
 			<cfquery name="Vac" dbtype="query">
 			SELECT sum(Total) as Total
@@ -341,11 +365,11 @@ ORDER BY PostAuthorised, PostClass, Fund
 	
 </cfloop>
 
-	<tr class="labelit" bgcolor="eaeaea"><td width="100" class="labelit">&nbsp;&nbsp;&nbsp;&nbsp;Total</td>
+	<tr class="labelmedium2" bgcolor="eaeaea"><td width="100">&nbsp;&nbsp;&nbsp;&nbsp;Total</td>
 	
 	<cfloop index="PostClass" list="#PostGroups#">
 	
-			<td width="100" class="labelit" align="right" style="border:1px solid silver;padding:2px">		    
+			<td width="100" align="right" style="border:1px solid silver;padding:2px">		    
 				<cfquery name="Pst" dbtype="query">
 				SELECT sum(Total) as Total
 				FROM  Post
@@ -354,7 +378,7 @@ ORDER BY PostAuthorised, PostClass, Fund
 				#Pst.Total#			
 			</td>
 			
-			<td width="100" class="labelit" align="right" style="border:1px solid silver;padding:2px">			
+			<td width="100" align="right" style="border:1px solid silver;padding:2px">			
 				<cfquery name="Inc" dbtype="query">
 				SELECT sum(Total) as Total
 				FROM   Incum
@@ -363,7 +387,7 @@ ORDER BY PostAuthorised, PostClass, Fund
 				#Inc.Total#						
 			</td>
 
-			<td width="100" class="labelit" align="right" style="border:1px solid silver;padding:2px">
+			<td width="100" align="right" style="border:1px solid silver;padding:2px">
 				<cfquery name="Vac" dbtype="query">
 				SELECT sum(Total) as Total
 				FROM   Vacant
@@ -375,7 +399,7 @@ ORDER BY PostAuthorised, PostClass, Fund
 		</cfloop>	
 
 		<!--- loaned	--->	    		
-		<td width="100" class="labelit" align="right" style="border:1px solid silver;padding:2px">
+		<td width="100" align="right" style="border:1px solid silver;padding:2px">
 				<cfquery name="Pst" dbtype="query">
 				SELECT sum(Total) as Total
 				FROM  Loaned
@@ -383,7 +407,7 @@ ORDER BY PostAuthorised, PostClass, Fund
 				#Pst.Total#
 		</td>
 
-		<td width="100" class="labelit" align="right" style="border:1px solid silver;padding:2px">		    
+		<td width="100" align="right" style="border:1px solid silver;padding:2px">		    
 			<cfquery name="Pst" dbtype="query">
 			SELECT sum(Total) as Total
 			FROM  Post			
@@ -391,7 +415,7 @@ ORDER BY PostAuthorised, PostClass, Fund
 			#Pst.Total#			
 		</td>
 			
-		<td width="100" class="labelit" align="right" style="border:1px solid silver;padding:2px">			
+		<td width="100" align="right" style="border:1px solid silver;padding:2px">			
 			<cfquery name="Inc" dbtype="query">
 			SELECT sum(Total) as Total
 			FROM   Incum
@@ -399,7 +423,7 @@ ORDER BY PostAuthorised, PostClass, Fund
 			#Inc.Total#						
 		</td>	
 			
-		<td width="100" class="labelit" align="right" style="border:1px solid silver;padding:2px">
+		<td width="100" align="right" style="border:1px solid silver;padding:2px">
 			<cfquery name="Vac" dbtype="query">
 			SELECT sum(Total) as Total
 			FROM   Vacant
@@ -410,5 +434,6 @@ ORDER BY PostAuthorised, PostClass, Fund
 	 </tr>	
 	 
 	 <tr><td height="4"></td></tr>
+	 
 </table>
 </cfoutput>

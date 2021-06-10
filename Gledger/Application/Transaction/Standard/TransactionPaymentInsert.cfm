@@ -119,26 +119,34 @@ password="#SESSION.dbpw#">
 			datasource="AppsLedger" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-						
-				<!--- 1/2 look for advance related to the ReferenceNo of the invoice of the accounting module --->
 			
-				SELECT   TL.TransactionCurrency, TL.Currency, TL.Reference, TH.TransactionSourceNo, TL.GLAccount, 
-				         AmountDebit * TL.ExchangeRate AS Advance
-				FROM     TransactionHeader AS TH INNER JOIN
-                         TransactionLine AS TL ON TH.Journal = TL.Journal AND TH.JournalSerialNo = TL.JournalSerialNo
-				<!--- linking PIN from real Invoice to the advance a source entry--->		 
-				WHERE    TH.TransactionSource   = 'AccountSeries'
-				AND      TH.TransactionSourceNo = '#TransactionSourceNo#' <!--- linking PIN from real Invoice to the advance --->
-				AND      TH.Journal IN (SELECT Journal FROM Journal WHERE SystemJournal = 'Advance' AND Mission = '#mission#') 
-				AND      TL.TransactionSerialNo != '0'
-				AND      TH.Journal != '#Journal#'
-				AND      ParentLineId is NULL		
-								
+				<cfif TransactionSourceNo neq "">
+						
+					<!--- 1/2 look for advance related to the ReferenceNo of the invoice of the accounting module --->
+				
+					SELECT   TL.TransactionCurrency, TL.Currency, TL.Reference, TH.TransactionSourceNo, TL.GLAccount, 
+					         AmountDebit * TL.ExchangeRate AS Advance
+					FROM     TransactionHeader AS TH INNER JOIN
+	                         TransactionLine AS TL ON TH.Journal = TL.Journal AND TH.JournalSerialNo = TL.JournalSerialNo
+					<!--- linking PIN from real Invoice to the advance a source entry--->		 
+					WHERE    TH.TransactionSource   = 'AccountSeries'
+					AND      TH.TransactionSourceNo = '#TransactionSourceNo#' <!--- linking PIN from real Invoice to the advance --->
+					AND      TH.Journal IN (SELECT Journal FROM Journal WHERE SystemJournal = 'Advance' AND Mission = '#mission#') 
+					AND      TL.TransactionSerialNo != '0'
+					AND      TH.Journal != '#Journal#'
+					AND      ParentLineId is NULL		
+				
+					<cfif ReferenceId neq "">
+				          UNION
+					</cfif>
+				
+				</cfif>
+																
 				<cfif referenceId neq "">
 				
 				<!--- 2/2 look for advance related to any of the 1..n POs of the invoice recorded  --->
 				
-				UNION
+				
 				
 				SELECT   TL.TransactionCurrency, TL.Currency,  TL.Reference, TH.TransactionSourceNo, TL.GLAccount,
 				         AmountDebit * TL.ExchangeRate AS Advance
@@ -154,9 +162,11 @@ password="#SESSION.dbpw#">
 				AND      ParentLineId is NULL		
 												
 				</cfif>	
+				
 								
 			</cfquery>
 			
+						
 			<!--- SUM the total of the advances --->
 			
 			<cfquery name="Advance" dbtype="query">
@@ -423,7 +433,7 @@ password="#SESSION.dbpw#">
 		   <cfset tra  = NumberFormat(payment,'.__')>
 		   	
 		   <cf_exchangeRate CurrencyFrom="#currency#" CurrencyTo="#HeaderSelect.currency#">	
-		   <cfset amt = NumberFormat(payment/exc,'.__')>
+		   <cfset amt  = NumberFormat(payment/exc,'.__')>
 		   <cfset jexc = NumberFormat(payment/amt,'.______')>
 		   
 		   <!---

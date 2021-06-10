@@ -1654,17 +1654,19 @@ password="#SESSION.dbpw#">
 	
 		<table cellspacing="0" cellpadding="0">
 		
-		<tr>
+		<tr class="labelmedium">
 		
 		<cfif (Position.PositionStatus eq "0" AND AccessPosition eq "EDIT")	OR (AccessPosition eq "ALL")>
 		
 			<td class="labelmedium2">
-		    <INPUT type="radio" class="radiol" name="Classified" value="0" <cfif PositionParent.ApprovalPostGrade eq "">checked</cfif>  onclick="measuresource('hide')"> <cf_tl id="Non classified">
+		    <INPUT type="radio" class="radiol" name="Classified" value="0" <cfif PositionParent.ApprovalPostGrade eq "">checked</cfif>  onclick="measuresource('hide')">
 			</td>
+			<td style="padding-left:3px;padding-top:1px"><cf_tl id="Non classified"></td>
 			<td class="labelmedium2" style="padding-left:15px">
-			<INPUT type="radio" class="radiol" name="Classified" value="1" <cfif PositionParent.ApprovalPostGrade neq "">checked</cfif> onclick="measuresource('regular')"> <cf_tl id="Classified">
+			<INPUT type="radio" class="radiol" name="Classified" value="1" <cfif PositionParent.ApprovalPostGrade neq "">checked</cfif> onclick="measuresource('regular')">
 			</td>
-		
+			<td style="padding-left:3px;padding-top:1px"><cf_tl id="Classified"></td>
+					
 			<cfif PositionParent.ApprovalPostGrade neq "">
 		     <cfset cl = "regular">
 			<cfelse>
@@ -2068,7 +2070,7 @@ password="#SESSION.dbpw#">
 		
 		<cfif AccessPosition eq "EDIT" OR AccessPosition eq "ALL">
 		
-		<textarea style="width:99%;height:45;padding:3px;font-size:13px" 
+		<textarea style="width:99%;height:60px;padding:3px;padding-left:5px;font-size:14px;background-color:f1f1f1;border:0px" 
 		    onkeyup="return ismaxlength(this)" 
 			totlength="300"
 			class="regular" 

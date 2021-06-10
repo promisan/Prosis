@@ -7,7 +7,7 @@
 
 <cfset itm = itm+1>	
 <cf_menutab item       = "#itm#" 
-            iconsrc    = "Logos/Workorder/SaleOrder.png" 
+            iconsrc    = "Logos/Workorder/Summary.png" 
 			iconwidth  = "#wd#" 
 			padding    = "2"
 			targetitem = "1"
@@ -32,7 +32,7 @@
 
 <cfset itm = itm+1>						
 <cf_menutab item       = "#itm#" 
-            iconsrc    = "Logos/Warehouse/BOM.png" 
+            iconsrc    = "Logos/WorkOrder/BOM-Cost.png" 
 			iconwidth  = "#wd#" 
 			iconheight = "#ht#"
 			targetitem = "1"
@@ -40,12 +40,11 @@
 			name       = "#vCosts# "
 			source     = "../../Assembly/Items/BOM/ItemView.cfm?mode=halfproduct&systemfunctionid=#url.systemfunctionid#&workorderid=#URL.workorderId#&workorderline=#url.workorderline#">				
 			
-
 		
 <cfset itm = itm+1>		
 <cf_tl id="Ledger Posting" var="vPosting">
 <cf_menutab item       = "#itm#" 
-            iconsrc    = "Financials.png" 
+            iconsrc    = "Logos/WorkOrder/Charge.png" 
 			iconwidth  = "#wd#" 
 			padding    = "3"
 			targetitem = "1"
@@ -77,7 +76,7 @@
 		<cfset itm = itm+1>		
 		<cf_tl id="Edit Line and Notes" var="vEditLines">
 		<cf_menutab item       = "#itm#" 
-		            iconsrc    = "Logos/Workorder/General.png" 
+		            iconsrc    = "Logos/Workorder/Notes.png" 
 					iconwidth  = "#wd#" 
 					iconheight = "#ht#" 
 					targetitem = "1"
@@ -92,7 +91,7 @@
 	<cfset itm = itm+1>		
 	<cf_tl id="Actions" var="vActions">
 	<cf_menutab item       = "#itm#" 
-	            iconsrc    = "Logos/Workorder/Task.png" 
+	            iconsrc    = "Logos/Workorder/Service-Object.png" 
 				iconwidth  = "#wd#" 
 				targetitem = "1"
 				padding    = "2"

@@ -30,6 +30,16 @@
 	FROM     Ref_ParameterMission
 	WHERE    Mission = '#workorder.mission#' 		
 </cfquery>  
+
+<cfquery name="ServiceItem" 
+	datasource="AppsWorkOrder" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+  	SELECT   *
+	FROM     ServiceitemMission
+	WHERE    ServiceItem = '#workorder.serviceitem#'
+	AND      Mission = '#workorder.mission#' 		
+</cfquery>  
 	
 <table width="100%">
 
@@ -123,7 +133,7 @@
 						 <td style="padding-left:25px"><cf_tl id="#Description#"></td>
 						 <td colspan="1" align="right" id="xchargebox" style="padding-right:15px">						 
 							 <input type="text" name="Amount_#Area#" value="#numberformat(0,",.__")#" 
-							 onchange="ptoken.navigate('#session.root#/WorkOrder/Application/Shipping/Billing/setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform')"
+							 onchange="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/WorkOrder/Application/Shipping/Billing/setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform')"
 							 class="regularxxl enterastab" style="padding-right:4px;width:100px;text-align:right">
 						 </td>						
 						 </tr>

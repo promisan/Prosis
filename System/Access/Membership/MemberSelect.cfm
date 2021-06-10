@@ -26,6 +26,7 @@ password="#SESSION.dbpw#">
 		   U.Created
 	FROM  UserNames U
 	WHERE U.AccountType = 'Group'
+	AND   (AccountMission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1) or AccountMission = 'Global')
 	<cfif grp neq "">
 	AND   U.Account NOT IN (#preserveSingleQuotes(filter)#) 
 	</cfif>
@@ -33,25 +34,25 @@ password="#SESSION.dbpw#">
 	<cfif SESSION.isAdministrator eq "No">  
 	AND (
 			 U.AccountOwner IN (SELECT ClassParameter 
-		                       FROM Organization.dbo.OrganizationAuthorization
-	                    	   WHERE Role = 'AdminUser' 
-							   AND AccessLevel IN ('1','2')
-							   AND UserAccount = '#SESSION.acc#'
+		                       FROM    Organization.dbo.OrganizationAuthorization
+	                    	   WHERE   Role = 'AdminUser' 
+							   AND     AccessLevel IN ('1','2')
+							   AND     UserAccount = '#SESSION.acc#'
 							   )
 		     OR 	
 			 				   
 		     U.AccountMission IN (SELECT Mission 
-			             FROM   Organization.dbo.OrganizationAuthorization 
-						 WHERE  UserAccount = '#SESSION.acc#'
-						 AND    Role = 'OrgUnitManager') 
+					             FROM   Organization.dbo.OrganizationAuthorization 
+								 WHERE  UserAccount = '#SESSION.acc#'
+								 AND    Role = 'OrgUnitManager') 
 		   
 		   )
-	</cfif>					   
+	</cfif>		
+				   
 	ORDER BY AccountOwner,AccountMission, LastName					   
 </cfquery>
 
 <cfif GroupNew.recordcount gt "0">
-
 
 	<table height="100" width="100%" align="center">		   
 				
@@ -71,7 +72,9 @@ password="#SESSION.dbpw#">
 					
 		<cfoutput query="groupNew" group="AccountOwner">
 		
-			<tr class="fixrow labelmedium2"><td colspan="7" style="font-size:18px;height:25px;padding-left:3px">#AccountOwner#</td></tr>
+			<tr class="fixrow labelmedium2">
+			<td colspan="7" style="font-size:18px;height:25px;padding-left:3px">#AccountOwner#</td>
+			</tr>
 		
 			<cfoutput group="AccountMission">
 			
@@ -88,7 +91,7 @@ password="#SESSION.dbpw#">
 					     onClick="javascript:document.getElementById('#currentrow#_exp').className='hide';ptoken.navigate('#SESSION.root#/system/access/membership/MemberSelectDetail.cfm?owner=#accountowner#&mission=#AccountMission#&grp=#grp#','#AccountOwner#_#AccountMission#')">
 						
 					</td>
-					<td height="24" colspan="6" style="padding-left:3px;font-size:20px;width:100%;height:21">
+					<td height="24" colspan="6" style="padding-left:3px;font-size:16px;width:100%;height:21">
 							
 						<a href="javascript:document.getElementById('#currentrow#_exp').className='hide';ptoken.navigate('#SESSION.root#/system/access/membership/MemberSelectDetail.cfm?owner=#accountowner#&mission=#AccountMission#&grp=#grp#','#AccountOwner#_#AccountMission#')">
 						<cfif AccountMission eq "">&nbsp;<cf_tl id="Global"><cfelse>&nbsp;#AccountMission#</cfif>

@@ -46,7 +46,7 @@
  
 <!--- script to load workflow object --->
 
-<cfajaximport tags="cfform,cfwindow,cfdiv">
+<cfajaximport tags="cfform,cfdiv">
 <cfinclude template="../../../System/EntityAction/EntityFlow/EntityAction/EntityScript.cfm">
  
 <cfquery name="MissionList" 
@@ -79,7 +79,7 @@ password="#SESSION.dbpw#">
 <script>
 	
 	function reload(mis) {
-		 window.location = "ParameterEdit.cfm?idmenu=<cfoutput>#url.idmenu#</cfoutput>&mission="+mis
+		 ptoken.location('ParameterEdit.cfm?idmenu=<cfoutput>#url.idmenu#</cfoutput>&mission='+mis)
 	 }
 				
 		
@@ -116,15 +116,15 @@ password="#SESSION.dbpw#">
 	}
 	
 	function applyDiffAccount(val, scope, fld) {
-		ColdFusion.navigate('#session.root#/procurement/maintenance/parameter/setGLAccount.cfm?codefld=DifferenceGLAccount&descfld=DifferenceGLDescription&glaccount='+val,'tdSubmit');
+		ptoken.navigate('#session.root#/procurement/maintenance/parameter/setGLAccount.cfm?codefld=DifferenceGLAccount&descfld=DifferenceGLDescription&glaccount='+val,'tdSubmit');
 	}
 	
 	function applyReceiptAccount(val, scope, fld) {
-		ColdFusion.navigate('#session.root#/procurement/maintenance/parameter/setGLAccount.cfm?codefld=ReceiptGLAccount&descfld=ReceiptGLDescription&glaccount='+val,'tdSubmit');
+		ptoken.navigate('#session.root#/procurement/maintenance/parameter/setGLAccount.cfm?codefld=ReceiptGLAccount&descfld=ReceiptGLDescription&glaccount='+val,'tdSubmit');
 	}
 	
 	function applyAdvanceAccount(val, scope, fld) {
-		ColdFusion.navigate('#session.root#/procurement/maintenance/parameter/setGLAccount.cfm?codefld=AdvanceGLAccount&descfld=AdvanceGLDescription&glaccount='+val,'tdSubmit');
+		ptoken.navigate('#session.root#/procurement/maintenance/parameter/setGLAccount.cfm?codefld=AdvanceGLAccount&descfld=AdvanceGLDescription&glaccount='+val,'tdSubmit');
 	}
 		
 </script>
@@ -141,7 +141,7 @@ password="#SESSION.dbpw#">
 
 <!--- Entry form --->
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 
 	<cfsavecontent variable="option">
 	
@@ -154,7 +154,7 @@ password="#SESSION.dbpw#">
 	       <td class="labelmedium" style="padding-left:4px"><cf_tl id="Entity"></td>
 			<td style="padding-left:4px">
 			
-			 <select name="mission" id="mission" class="regularxl" onChange="document.getElementById('menu1').click();ptoken.navigate('ParameterEditGeneral.cfm?mission='+this.value,'generalbox')">
+			 <select name="mission" id="mission" class="regularxxl" onChange="document.getElementById('menu1').click();ptoken.navigate('ParameterEditGeneral.cfm?mission='+this.value,'generalbox')">
 			
 				<cfloop query="MissionList">
 				 <option value="#Mission#" <cfif mission eq URL.mission>selected</cfif>>#Mission#
@@ -275,11 +275,10 @@ password="#SESSION.dbpw#">
 				  cellpadding="0" 
 				  align="center" 
 			      bordercolor="d4d4d4">	  	 		
-								
+				  				  									
 					<cf_menucontainer item="1" class="regular">
-					   <cfdiv bind="url:ParameterEditRequisition.cfm?mission=#missionlist.mission#">
-					     <cfinclude template="ParameterEditRequisition.cfm">
-					   </cfdiv>
+					   <cf_securediv bind="url:ParameterEditRequisition.cfm?mission=#missionlist.mission#">
+					 
 					<cf_menucontainer>
 					
 				<tr>	

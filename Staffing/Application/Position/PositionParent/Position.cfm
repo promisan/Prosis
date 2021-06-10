@@ -31,41 +31,42 @@ password="#SESSION.dbpw#">
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-          SELECT O.*, O2.OrgUnitNameShort as ParentNameShort
-          FROM Organization.dbo.Organization O, Organization.dbo.Organization O2
-          WHERE (O.OrgUnit = '#Position.OrgUnitAdministrative#')
-    AND   Left(O.HierarchyCode,2)=O2.HierarchyCode
-    AND   O.MandateNo=O2.MandateNo
-    AND   O.Mission=O2.Mission   
+    SELECT O.*, O2.OrgUnitNameShort as ParentNameShort
+    FROM   Organization.dbo.Organization O, Organization.dbo.Organization O2
+    WHERE  O.OrgUnit        = '#Position.OrgUnitAdministrative#'
+    AND    Left(O.HierarchyCode,2) = O2.HierarchyCode
+    AND    O.MandateNo             = O2.MandateNo
+    AND    O.Mission               = O2.Mission   
 </cfquery> 
 	
 <cfquery name="Functional" 
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT *
-    FROM Organization
-    WHERE OrgUnit = '#Position.OrgUnitFunctional#'
+	SELECT  *
+    FROM    Organization
+    WHERE   OrgUnit = '#Position.OrgUnitFunctional#'
 </cfquery>	
 	
 <cfquery name="Assignment" 
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT *
-    FROM     PersonAssignment A, Person P
-    WHERE    PositionNo = '#PositionChild.PositionNo#' 
-	AND      A.PersonNo = P.PersonNo
-	AND      A.AssignmentStatus IN ('0','1') 
+    SELECT   O.OrgUnitCode, OrgUnitName, A.*, P.*
+    FROM     PersonAssignment A INNER JOIN
+	         Person P ON A.PersonNo = P.PersonNo INNER JOIN
+			 Organization.dbo.Organization O ON O.OrgUnit = A.OrgUnit
+    WHERE    PositionNo = '#PositionChild.PositionNo#' 	
+	AND      A.AssignmentStatus IN ('0','1') 	
 	ORDER BY DateExpiration DESC, DateEffective DESC
 </cfquery>	
 
-<table border="0" cellspacing="0" cellpadding="0">
+<table border="0">
    
   <tr>
     <td colspan="2">
 	
-    <table border="0" cellspacing="0" cellpadding="0">
+    <table>
 		
 	 <cfoutput> 
 		 
@@ -73,10 +74,8 @@ SELECT *
 	     <cfset fun = "1">
 	 <cfelse>	
      	 <cfset fun = "0"> 
-	 </cfif>
-	 
-	
-    
+	 </cfif> 
+	    
       <tr class="labelmedium" style="height:20px">
         <td height="20" width="200"><cf_tl id="Functional Title">:</td>
 		<cfif fun eq "1">
@@ -102,7 +101,7 @@ SELECT *
 	   </cfquery>
 	  
 	  <tr style="height:20px" class="labelmedium">
-        <td height="16"><cf_tl id="Operational Structure">:</td>
+        <td height="16"><cf_tl id="Used by">:</td>
 				
 	    <cfquery name="Level00" 
 	          datasource="AppsEmployee" 
@@ -128,12 +127,12 @@ SELECT *
 		      <td>
 			    <table>
 				<tr class="labelmedium" style="height:20px">
-				<td class="notify">#Mission#: #ParentNameShort# / #OrgUnitName# (#OrgUnitCode#) / #Location.LocationName#</td>									
+				<td class="notify">#Mission#: #ParentNameShort# / #OrgUnitName# (#OrgUnitCode#) / <font color="808000">#Location.LocationName#</font></td>									
 				</tr>
 				</table>				
 				</td>
 		  <cfelse>
-		      <td>#Mission#:  #ParentNameShort# / #OrgUnitName# (#OrgUnitCode#) / #Location.LocationName#</td>
+		      <td>#Mission#:  #ParentNameShort# / #OrgUnitName# (#OrgUnitCode#) / <font color="808000">#Location.LocationName#</font></td>
 		  </cfif>
 		  
      </TR>	   
@@ -152,7 +151,7 @@ SELECT *
         <td colspan="2">
 		<table>
 			<tr style="height:20px" class="labelmedium">
-			<td><i>#Position.OfficerFirstName# #Position.OfficerLastName# (#dateformat(Position.created,CLIENT.DateFormatShow)#)</td>
+			<td><font color="808080">#Position.OfficerFirstName# #Position.OfficerLastName# (#dateformat(Position.created,CLIENT.DateFormatShow)#)</font></td>
 			<cfif session.acc eq position.OfficerUserid or getAdministrator("*") eq "1">
 				<cfif org eq "1" or fun eq "1">
 					<td style="padding-left:6px">:<cf_tl id="Loan">:</td>

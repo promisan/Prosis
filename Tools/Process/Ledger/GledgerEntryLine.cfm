@@ -42,7 +42,6 @@
 
 </cfif>
 
-
 <cfparam name="Attributes.ParentTransactionId"      default="">
 <cfparam name="Attributes.DocumentCurrency"         default="#attributes.currency#">
 
@@ -279,6 +278,8 @@
 		<cfset ProgramPeriod      =  evaluate("Attributes.ProgramPeriod"&#Ln#)>
 		<cfparam name="Attributes.Reference#Ln#" default="">
 		<cfset reference          =  evaluate("Attributes.Reference"&#Ln#)>
+		<cfparam name="Attributes.ReferenceQuantity#Ln#" default="">
+		<cfset referenceQuantity  =  evaluate("Attributes.ReferenceQuantity"&#Ln#)>
 		<cfparam name="Attributes.ReferenceName#Ln#" default="">
 		<cfset referenceName      =  evaluate("Attributes.ReferenceName"&#Ln#)>
 			
@@ -366,16 +367,13 @@
 				</cfif> 
 			
 			</cfif>		
-			
-				
-											
+									
 				<cfquery name="InsertLine" 
 				    datasource="#Attributes.DataSource#" 
 				    username="#SESSION.login#" 
 				    password="#SESSION.dbpw#">
 								
-				    INSERT INTO  Accounting.dbo.TransactionLine
-				      (
+				    INSERT INTO  Accounting.dbo.TransactionLine (
 					  Journal, 
 				      JournalSerialNo,
 				      TransactionSerialNo, 
@@ -403,6 +401,7 @@
 				      Reference, 
 					  ReferenceName,
 					  ReferenceNo,
+					  ReferenceQuantity,
 					  warehouseItemNo,		
 					  <cfif referenceid neq "">
 					  	ReferenceId,
@@ -426,8 +425,7 @@
 					  </cfif>
 				      OfficerUserId,
 					  OfficerLastName,
-					  OfficerFirstName,
-				      Created )
+					  OfficerFirstName)
 				   VALUES (
 					  '#Attributes.Journal#',
 				      '#Attributes.JournalNo#',
@@ -468,6 +466,11 @@
 				      '#Reference#',
 					  '#rn#',
 					  '#ReferenceNo#',
+					  <cfif ReferenceQuantity neq "">
+					  '#ReferenceQuantity#',
+					  <cfelse>
+					  NULL,
+					  </cfif>
 					  '#warehouseItemNo#',			
 					  <cfif referenceid neq "">
 					  	'#ReferenceId#',
@@ -491,8 +494,7 @@
 					  </cfif>
 				      '#SESSION.acc#',
 					  '#SESSION.last#',
-					  '#SESSION.first#',
-					  getDate())
+					  '#SESSION.first#')
 				   </cfquery>
 			   
 			   <!--- -------------------------------------- --->
@@ -531,7 +533,8 @@
 					  TransactionAmount,
 				      Reference, 
 					  ReferenceName,
-					  ReferenceNo,			
+					  ReferenceNo,		
+					  ReferenceQuantity,	
 					  <cfif referenceid neq "">
 					  	ReferenceId,
 						<cfif referenceidparam neq "">
@@ -547,8 +550,7 @@
 				      AmountBaseCredit,
 				      OfficerUserId,
 					  OfficerLastName,
-					  OfficerFirstName,
-				      Created)
+					  OfficerFirstName)
 					  
 				   VALUES (
 					  'Insert',
@@ -575,7 +577,12 @@
 					  '#transactionamount#',
 				      '#Reference#',
 					  '#rn#',
-					  '#ReferenceNo#',			
+					  '#ReferenceNo#',		
+					   <cfif ReferenceQuantity neq "">
+					  '#ReferenceQuantity#',
+					  <cfelse>
+					  NULL,
+					  </cfif>
 					  <cfif referenceid neq "">
 					  	'#ReferenceId#',
 						<cfif referenceidparam neq "">
@@ -591,8 +598,7 @@
 					  '#AmtCB#',
 				      '#SESSION.acc#',
 					  '#SESSION.last#',
-					  '#SESSION.first#',
-					  getDate())
+					  '#SESSION.first#')
 					  
 				   </cfquery>		   			   
 			   

@@ -262,7 +262,7 @@
 
 <cf_listing
     header              = "diversity#url.warehouse#"
-    box                 = "stockonhand_b"
+    box                 = "diversity#url.warehouse#"
 	link                = "#SESSION.root#/Warehouse/Application/Stock/Inquiry/Diversity/ListingDataContent.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&warehouse=#url.warehouse#&location=#url.location#"
     html                = "No"		
 	tableheight         = "100%"

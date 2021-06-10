@@ -44,15 +44,16 @@ password="#SESSION.dbpw#">
 	
 </cfif>
 
-	<table width="100%" height="100%" class="formpadding">
+	<table width="100%" height="97%" class="formpadding">
 	
 	  <tr><td height="8"></td></tr>	 
 	  
 	  <tr>
 	    <td width="95%" align="center" valign="top" style="padding:14px">
+		
 	    <table width="96%" align="center">
 					
-		    <tr class="labelmedium">
+		    <tr class="labelmedium2">
 			 
 			 <td colspan="2" width="80%"><cf_tl id="Description"> 
 			     <cfoutput>
@@ -122,7 +123,7 @@ password="#SESSION.dbpw#">
 						</cfoutput>
 				</td></tr>
 				
-				<tr>
+				<tr class="line">
 					<td colspan="4" height="34" align="center">
 								
 					  <cfoutput>
@@ -139,9 +140,7 @@ password="#SESSION.dbpw#">
 					
 					</td>
 				</tr>		
-				
-				<tr><td colspan="4" height="1" class="line"></td></tr>	
-			
+							
 			</cfif>	
 						
 			<cfoutput query="Detail">								

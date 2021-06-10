@@ -39,13 +39,9 @@
 						 </cfif>							 						 
 										
 				FROM     EmployeeSalaryLine L
+								
+				WHERE    Mission = '#Form.Mission#'
 				
-				WHERE    PayrollItem IN (SELECT PayrollItem 
-				                         FROM   Ref_CalculationBaseItem 
-										 WHERE  Code           = '#Code#'
-										 AND    SalarySchedule = '#mySchedule#') 
-										  
-				AND      PayrollStart = #SALSTR#
 				<cfif Form.PersonNo neq "">
 			    AND      PersonNo = '#Form.PersonNo#'
 				<cfelse>
@@ -63,6 +59,14 @@
 									
 									
 				</cfif>
+				
+				AND      PayrollStart = #SALSTR#
+				
+				AND      PayrollItem IN (SELECT PayrollItem 
+				                         FROM   Ref_CalculationBaseItem 
+										 WHERE  Code           = '#Code#'
+										 AND    SalarySchedule = '#mySchedule#') 
+										  
 								
 				<!--- we include calculations already made for percentage based items, 
 				which are included in the base --->

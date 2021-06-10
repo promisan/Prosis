@@ -28,6 +28,18 @@
                 }
             }
             ptoken.navigate('#session.root#/Tools/Listing/Geographic/'+template+'?viewId='+viewId+'&country='+parCountry+vFilterValues, viewId+'MapTable');
+            ptoken.navigate('#session.root#/Tools/Listing/Geographic/geoListingMap.cfm?zoomFunction=&viewId='+viewId+'&country='+parCountry+'&region='+vFilterValues, viewId+'MapContainer');
+        }
+
+        function showGeoListingRegionDrillDown(viewId, region) {
+            var vFilterValues = '';
+            for (var i = 1; i <= 100; i++) {
+                if ($('##geoF'+i).length == 1) {
+                    vFilterValues = vFilterValues + "&" + 'geoF' + i + '=' + $('##geoF'+i).val();
+                }
+            }
+            ptoken.navigate('#session.root#/Tools/Listing/Geographic/geoListingMapDetail.cfm?viewId='+viewId+'&country=&region='+region+vFilterValues, viewId+'MapTable');
+            ptoken.navigate('#session.root#/Tools/Listing/Geographic/geoListingMap.cfm?zoomFunction=&viewId='+viewId+'&country=&region='+region+vFilterValues, viewId+'MapContainer');
         }
 
     </script>

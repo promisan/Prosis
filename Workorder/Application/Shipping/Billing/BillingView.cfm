@@ -151,7 +151,7 @@ Submit will generate the payable and bring up the screen as i did for POS mode a
 					
 	</cf_layoutarea>		
 	
-	<cf_layoutarea position="bottom" name="bottom" collapsible="false" size="180" minsize="180">
+	<cf_layoutarea position="bottom" name="bottom" collapsible="false" size="200" minsize="200">
 		<table width="100%" bgcolor="EfEfEf" height="100%">			
 		<tr><td valign="top" style="border-top:1px solid silver;padding-top:3px">
 			<cf_divscroll style="height:100%">

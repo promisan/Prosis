@@ -104,111 +104,115 @@
 <cfset per = URL.Page*20-20>
 <cfset perT = "">
 
-<table width="98%" align="center" cellspacing="0" cellpadding="0" class="navigation_table">
+<cf_divscroll>
 
- <tr class="hide"><td height="6" id="selected"></td></tr>
-
- <tr><td colspan="6"><cfinclude template="BroadCastNavigation.cfm"></td></tr>
- 
- <tr height="20" class="line labelmedium2">
- 	 <cfif Group.RecordCount gt 0>
- 	 <td></td>
-	 </cfif>
-     <td align="center">No.</td>
-	 <td></td>	
-     <td>Name</td>
-	  <cfif Group.RecordCount eq 0>
-	  	<td>Code</td>
-	  </cfif>
-	 <td>Address</td>
-	 <td align="center"><cfif broadcast.BroadcastStatus eq "1">Sent<cfelse>Include</cfif></td>
- </tr>
-  
-	<cfoutput query="recipient" group="RecipientCode">
+	<table width="98%" align="center" cellspacing="0" cellpadding="0" class="navigation_table">
+	
+	 <tr class="hide"><td height="6" id="selected"></td></tr>
+	
+	 <tr><td colspan="6"><cfinclude template="BroadCastNavigation.cfm"></td></tr>
 	 
-	 	<cfset currrow = currrow + 1>
-				
-		<cfif currrow gte first and currrow lte last>
-		
-			<cfif Group.RecordCount gt 0>
-			<tr>
-				<td colspan="6" class="labelmedium" style="padding-left:4px"> #RecipientCode#</b></td>
-			</tr>
-			</cfif>
-		
-			<cfoutput>
-			
-				<cfif check.broadcastStatus eq "0"> 
-				<tr id="r#currentrow#" class="navigation_row navigation_action line labelmedium2">
-				<cfelse>
-				<tr id="r#currentrow#" class="navigation_row line labelmedium2"> 
-				</cfif>
-					<cfif Group.RecordCount gt 0>
-						<td></td>
-					</cfif>
-				    <td height="20" align="center">#currentrow#</td>
-					<cfif BroadCast.systemFunctionId neq "">
-					<td><img src="#SESSION.root#/Images/locate3.gif" height="12" WIDTH="12" alt="" style="cursor: pointer;" border="0" 
-					     onclick="preview('#url.id#','#Recipient.recipientId#')"></td>
-					<cfelse>
-					<td></td>		 
-				    </cfif>
-					<TD><cfif RecipientLastName neq "">#RecipientLastName#, #RecipientFirstName#<cfelse>#RecipientName#</cfif></TD>
-					
-					<cfif Group.RecordCount eq 0>
-	  					<td>#RecipientCode#</td>
-	  				</cfif>
-					
-					<TD>#EMailAddress#</TD>
-					<td align="center">
-					<cfif broadcast.BroadcastStatus eq "0">
-					  <input type="checkbox"
-					       name="select" id="select" class="radiol"
-						   value="#Selected#" onClick="recipienttoggle('#recipientid#',this.checked)" <cfif selected eq "1">checked</cfif>>
-					<cfelse>
-						<cfif selected eq "1">Yes<cfelse><font color="FF0000">No</font></cfif>
-					    
-					</cfif>   	
-					</td>
-				</tr>
-			
-			</cfoutput>
-			
-			<cfif RecipientCode neq "">
-			
-			<cf_fileExist
-				DocumentPath="Broadcast\#URL.ID#\#RecipientCode#"
-				SubDirectory="" 						
-	    		Filter = "">	
-		
-				<cfif files gte "1">
-				
-				<tr><td></td><td></td>
-				  <td colspan="4" id="box#currentrow#">			
-								
-					<cf_filelibraryN    	
-							DocumentPath="Broadcast"
-							SubDirectory="#URL.ID#\#RecipientCode#" 
-							ShowSize="0"
-							Box="box#currentrow#"
-							Filter=""
-							width="250"
-							LoadScript="no"
-							Insert="no"
-							Remove="yes">	
-				
-				</td>
-				</tr>
-			
-					
-				</cfif>	
-					 
-			</cfif>
-		
-		</cfif>
+	 <tr height="20" class="line labelmedium2">
+	 	 <cfif Group.RecordCount gt 0>
+	 	 <td></td>
+		 </cfif>
+	     <td align="center">No.</td>
+		 <td></td>	
+	     <td><cf_tl id="Name"></td>
+		  <cfif Group.RecordCount eq 0>
+		  	<td><cf_tl id="Code"></td>
+		  </cfif>
+		 <td><cf_tl id="Address"></td>
+		 <td align="center"><cfif broadcast.BroadcastStatus eq "1">Sent<cfelse>Include</cfif></td>
+	 </tr>
 	  
-	</cfoutput>
- 
-</table>
+		<cfoutput query="recipient" group="RecipientCode">
+		 
+		 	<cfset currrow = currrow + 1>
+					
+			<cfif currrow gte first and currrow lte last>
+			
+				<cfif Group.RecordCount gt 0>
+				<tr>
+					<td colspan="6" class="labelmedium2" style="font-size:16px;font-weight:bold;padding-left:4px">#RecipientCode# #RecipientName#</td>
+				</tr>
+				</cfif>
+			
+				<cfoutput>
+				
+					<cfif check.broadcastStatus eq "0"> 
+					<tr id="r#currentrow#" class="navigation_row navigation_action line labelmedium2">
+					<cfelse>
+					<tr id="r#currentrow#" class="navigation_row line labelmedium2"> 
+					</cfif>
+						<cfif Group.RecordCount gt 0>
+							<td></td>
+						</cfif>
+					    <td height="20" align="center">#currentrow#</td>
+						<cfif BroadCast.systemFunctionId neq "">
+						<td><img src="#SESSION.root#/Images/locate3.gif" height="12" WIDTH="12" alt="" style="cursor: pointer;" border="0" 
+						     onclick="preview('#url.id#','#Recipient.recipientId#')"></td>
+						<cfelse>
+						<td></td>		 
+					    </cfif>
+						<TD><cfif RecipientLastName neq "">#RecipientLastName#<cfif RecipientFirstName neq "">, #RecipientFirstName#</cfif><cfelse>#RecipientName#</cfif></TD>
+						
+						<cfif Group.RecordCount eq 0>
+		  					<td>#RecipientCode#</td>
+		  				</cfif>
+						
+						<TD>#EMailAddress#</TD>
+						<td align="center">
+						<cfif broadcast.BroadcastStatus eq "0">
+						  <input type="checkbox"
+						       name="select" id="select" class="radiol"
+							   value="#Selected#" onClick="recipienttoggle('#recipientid#',this.checked)" <cfif selected eq "1">checked</cfif>>
+						<cfelse>
+							<cfif selected eq "1">Yes<cfelse><font color="FF0000">No</font></cfif>
+						    
+						</cfif>   	
+						</td>
+					</tr>
+				
+				</cfoutput>
+				
+				<cfif RecipientCode neq "">
+				
+				<cf_fileExist
+					DocumentPath="Broadcast\#URL.ID#\#RecipientCode#"
+					SubDirectory="" 						
+		    		Filter = "">	
+			
+					<cfif files gte "1">
+					
+					<tr><td></td><td></td>
+					  <td colspan="4" id="box#currentrow#">			
+									
+						<cf_filelibraryN    	
+								DocumentPath="Broadcast"
+								SubDirectory="#URL.ID#\#RecipientCode#" 
+								ShowSize="0"
+								Box="box#currentrow#"
+								Filter=""
+								width="250"
+								LoadScript="no"
+								Insert="no"
+								Remove="yes">	
+					
+					</td>
+					</tr>
+				
+						
+					</cfif>	
+						 
+				</cfif>
+			
+			</cfif>
+		  
+		</cfoutput>
+	 
+	</table>
+
+</cf_divscroll>
 	
 <cfset ajaxonload("doHighlight")>

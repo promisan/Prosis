@@ -26,17 +26,21 @@ password="#SESSION.dbpw#">
 	 <cfabort>
 </cfif> 
 
-<cfset st = len(myscript)-100>
-<cfset ct = len(myscript)-100>
-
-<cfset subscript = mid(myscript,st,ct)>
-
-<cfif FindNoCase("ORDER BY",subscript)>
-
-	<script>
-	alert("ORDER BY may not be used in the query")
-	</script>
-	<cfabort>
+<cfif len(myscript) gte 100>
+	
+	<cfset st = len(myscript)-100>
+	<cfset ct = len(myscript)-100>
+	
+	<cfset subscript = mid(myscript,st,ct)>
+	
+	<cfif FindNoCase("ORDER BY",subscript)>
+	
+		<script>
+		alert("ORDER BY may not be used in the query")
+		</script>
+		<cfabort>
+	
+	</cfif>
 
 </cfif>
 

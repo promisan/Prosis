@@ -2,6 +2,7 @@
 <cfparam name="URL.WorkorderId" default="7DE913BF-CB23-4401-ACB7-9D427D989FA7">
 <cfparam name="url.idmenu" default="">
 <cfparam name="url.systemfunctionid" default="#url.idmenu#">
+<cfparam name="url.embed"   default="0">
 
 <cf_calendarScript>
 
@@ -156,7 +157,7 @@
 
 </cfoutput>
 
-<cfajaximport tags="cfform,cfdiv,cfinput-autosuggest">
+<cfajaximport tags="cfform,cfdiv">
 
 <cfif CLIENT.googlemapid neq "">
      <cfajaximport tags="cfmap" params="#{googlemapkey='#client.googlemapid#'}#">
@@ -178,6 +179,7 @@
 	password="#SESSION.dbpw#">
 	SELECT   Wo.*, 
 	         SI.Description AS ServiceItemDescription,
+			 SI.ServiceClass,
 			 C.OrgUnit,
 			 C.CustomerName AS CustomerName, 
              C.Reference AS CustomerReference, 
@@ -219,17 +221,6 @@
 	   
 </cfif>	   
 
-<cf_screentop height="100%" width="100%" 
-	jQuery="Yes" 
-	scroll="yes" 
-	label="#label#" 
-	html="yes" 
-	layout="webapp" 
-	line="no" 
-	busy="busy10.gif"
-	menuaccess="context" 
-	banner="gray">
-	
 <cf_ActionListingScript>
 <cf_FileLibraryScript>
 <cf_dialogStaffing>
@@ -241,38 +232,175 @@
 <cf_dialogPosition>
 <cf_listingscript>
 <cf_MenuScript>
+
+<cfquery name="Object" 
+datasource="AppsOrganization" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT * 
+	FROM   OrganizationObject
+	WHERE  ObjectKeyValue4 = '#workorder.workorderid#'
+	AND    Operational = 1
+</cfquery>
+
+<cfif Object.recordcount eq "0">
+
+	<!--- provision to create the workflow if it does not exist --->
 	
-<table width="100%" height="100%" border="1">						
-							
-	<tr class="line">
-	<td style="height:10px" valign="top" colspan="2">					
-	    <cfset url.mission = vmission>
-		<cfinclude template="WorkorderViewTab.cfm">		 			
-	</td></tr>		
-			
-	<!--- --------- --->
-	<!--- container --->
-	<!--- --------- --->
+	<cfset link = "Workorder/Application/Workorder/WorkorderView/WorkOrderview.cfm?workorderid=#WorkOrder.WorkOrderId#">
+	
+	<cf_ActionListing 
+	    EntityCode       = "WrkStatus"
+		EntityClass      = "#WorkOrder.ServiceClass#"			
+		EntityStatus     = ""	
+		Mission          = "#WorkOrder.Mission#"
+		OrgUnit          = ""		
+		ObjectReference  = "#Workorder.Reference#"	
+		ObjectReference2 = "#WorkOrder.ServiceItemDescription#"	
+		ObjectKey4       = "#WorkOrder.WorkOrderId#"	
+	  	ObjectURL        = "#link#"
+		AjaxId           = "#WorkOrder.WorkOrderId#"
+		Show             = "No"
+		ActionMail       = "Yes"
+		PersonNo         = ""
+		PersonEMail      = ""
+		TableWidth       = "99%"
+		DocumentStatus   = "0">			
+
+</cfif>
+
+<cfif url.embed eq "0" and Object.recordcount gte "1">
+	
+	<cf_screentop height="100%" width="100%" 
+		jQuery="Yes" 
+		scroll="no" 
+		label="#label#" 
+		html="no" 
+		layout="webapp" 
+		line="no" 
+		busy="busy10.gif"
+		menuaccess="context" 
+		banner="gray">
 		
-	<tr><td colspan="2" valign="top" style="height:100%;padding-left:10px;padding-right:10px">		
-	  			
-		<table width="100%" height="100%">
-				
-		<cfoutput>
-		<cfloop index="itm" from="1" to="#menu#">		
-			<cfif itm eq "1">
-				<cf_menucontainer item="#itm#" class="regular" iframe="">
-			<cfelse>
-			    <cf_menucontainer item="#itm#" class="hide" iframe="">
-			</cfif>			
-		</cfloop>
-		</cfoutput>
+		<cf_layoutscript>
+		<cf_textareascript>
 		
-		</table>
-				
-	</td></tr>
+		<cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	  
+
+		<cfparam name="url.summary" default="1">
+		
+		<cf_layout attributeCollection="#attrib#">
+
+			<cf_layoutarea 
+		          position="header"
+				  size="50"
+		          name="controltop">	
+				  
+				<cf_ViewTopMenu label="#label#" menuaccess="context" background="blue">
 						
-</table>
+			</cf_layoutarea>		 
+		
+			<cf_layoutarea  position="center" name="box">
+			
+				<table width="100%" height="100%" style="min-width:1000px">						
+								
+					<tr class="line">
+					<td style="height:10px" valign="top" colspan="2">					
+					    <cfset url.mission = vmission>
+						<cfinclude template="WorkorderViewTab.cfm">		 			
+					</td></tr>		
+							
+					<!--- --------- --->
+					<!--- container --->
+					<!--- --------- --->
+						
+					<tr><td colspan="2" valign="top" style="height:100%;padding-left:10px;padding-right:10px">		
+					  			
+						<table width="100%" height="100%">
+								
+							<cfoutput>
+							<cfloop index="itm" from="1" to="#menu#">		
+								<cfif itm eq "1">
+									<cf_menucontainer item="#itm#" class="regular" iframe="">
+								<cfelse>
+								    <cf_menucontainer item="#itm#" class="hide" iframe="">
+								</cfif>			
+							</cfloop>
+							</cfoutput>
+						
+						</table>
+								
+					</td></tr>
+										
+				</table>
+		
+			</cf_layoutarea>	
+						
+			<cf_layoutarea 
+				    position="right" 
+					name="commentbox" 
+					minsize="370" 
+					maxsize="30%" 
+					size="370" 
+					overflow="yes" 
+					initcollapsed="yes"
+					collapsible="true" 
+					splitter="true">
+				
+					<cf_divscroll style="height:100%">
+						<cf_commentlisting objectid="#Object.ObjectId#"  ajax="No">		
+					</cf_divscroll>
+					
+			</cf_layoutarea>	
+							
+		</cf_layout>	
+			
+<cfelse>
+	
+	<cf_screentop height="100%" width="100%" 
+		jQuery="Yes" 
+		scroll="yes" 
+		label="#label#" 
+		html="yes" 
+		layout="webapp" 
+		line="no" 
+		busy="busy10.gif"
+		menuaccess="context" 
+		banner="gray">	
+	
+	<table width="100%" height="100%">						
+								
+		<tr class="line">
+		<td style="height:10px" valign="top" colspan="2">					
+		    <cfset url.mission = vmission>
+			<cfinclude template="WorkorderViewTab.cfm">		 			
+		</td></tr>		
+				
+		<!--- --------- --->
+		<!--- container --->
+		<!--- --------- --->
+			
+		<tr><td colspan="2" valign="top" style="height:100%;padding-left:10px;padding-right:10px">		
+		  			
+			<table width="100%" height="100%">
+					
+				<cfoutput>
+				<cfloop index="itm" from="1" to="#menu#">		
+					<cfif itm eq "1">
+						<cf_menucontainer item="#itm#" class="regular" iframe="">
+					<cfelse>
+					    <cf_menucontainer item="#itm#" class="hide" iframe="">
+					</cfif>			
+				</cfloop>
+				</cfoutput>
+			
+			</table>
+					
+		</td></tr>
+							
+	</table>
+	
+</cfif>	
 
 <div id="divProcess" style="display:none;">
 

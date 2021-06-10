@@ -108,8 +108,9 @@ CREATE TABLE dbo.#SESSION.acc#PositionSum#FileNo# (
 					 <!--- position does not exist as loan construction from another unit as such we exclude borrowed --->
 					 AND    PositionNo NOT IN (SELECT PositionNo 
 					                           FROM  #SESSION.acc#Post#FileNo# 
-											   WHERE Class   = 'Loaned'
-											   AND   OrgUnit != MainTable.OrgUnit)				 				
+											   WHERE Class  IN ('Loaned','Floated')
+											   AND   OrgUnitOperational != MainTable.OrgUnit
+											   )				 				
 					        #preserveSingleQuotes(vDetailCondition)#
 				),
 				
@@ -119,8 +120,9 @@ CREATE TABLE dbo.#SESSION.acc#PositionSum#FileNo# (
 					 WHERE  P.OrgUnit = MainTable.OrgUnit
 					 AND    PositionNo NOT IN (SELECT PositionNo 
 					                           FROM  #SESSION.acc#Post#FileNo# 
-											   WHERE Class   = 'Loaned'
-											   AND   OrgUnit != MainTable.OrgUnit)
+											   WHERE Class  IN ('Loaned','Floated')
+											   AND   OrgUnitOperational != MainTable.OrgUnit
+											   )
 					         #preserveSingleQuotes(vDetailCondition)#
 				),
 				(
@@ -128,14 +130,14 @@ CREATE TABLE dbo.#SESSION.acc#PositionSum#FileNo# (
 				     FROM    #SESSION.acc#Post#FileNo# P 
 					 WHERE   P.OrgUnit = MainTable.OrgUnit 
 					 AND     P.ParentOrgUnit != P.OrgUnit
-					 AND     P.Class = 'Used' 
+					 AND     P.Class IN ('Used')
 					         #preserveSingleQuotes(vDetailCondition)#
 				),
 				(
 					SELECT  COUNT(DISTINCT PositionParentId) as PositionNo
 				     FROM   #SESSION.acc#Post#FileNo# P
 					 WHERE  P.OrgUnit = MainTable.OrgUnit
-					 AND    Class = 'Loaned' 
+					 AND    Class IN ('Loaned') 
 					        #preserveSingleQuotes(vDetailCondition)#
 				),
 				(
@@ -143,13 +145,15 @@ CREATE TABLE dbo.#SESSION.acc#PositionSum#FileNo# (
 				    FROM   userQuery.dbo.#SESSION.acc#Assignment#FileNo# A 
 					WHERE A.PositionNo IN (SELECT PositionNo
 					     				   FROM   #SESSION.acc#Post#FileNo# P
-										   WHERE  P.OrgUnitOperational = MainTable.OrgUnit
-										   AND    Class = 'Used'
+										   WHERE  P.OrgUnit = MainTable.OrgUnit
+										   AND    Class IN ('Used','Floated')
 											      #preserveSingleQuotes(vDetailCondition)#
 											)
 					AND  A.Incumbency != 0	
 				)
 	FROM      UserQuery.dbo.#SESSION.acc#Post#FileNo#_PreCalc MainTable
+	
 </cfquery>
 
 <!--- </cfif> --->
+

@@ -1,14 +1,28 @@
-	
+
+<cfparam name="url.customerid"  default="">	
+<cfparam name="url.workorderid" default="">
+
 <cfquery name="getCustomer" 
-	datasource="appsWorkOrder"
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT TOP 1 S.ServiceMode
-		FROM   WorkOrder W, ServiceItem S
-		WHERE  W.ServiceItem = S.Code
-		AND    W.CustomerId = '#url.CustomerId#'	
-		ORDER BY W.Created DESC
-</cfquery>
+		datasource="appsWorkOrder"
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT   *
+			FROM     WorkOrder W INNER JOIN ServiceItem S ON W.ServiceItem = S.Code
+			<cfif url.workOrderId neq "">
+			WHERE    W.WorkOrderId = '#url.WorkOrderId#'	
+			<cfelse>
+			WHERE    W.CustomerId = '#url.CustomerId#'	
+			</cfif>
+			ORDER BY W.Created DESC
+</cfquery>	
+
+<cfif url.workorderid neq "">
+    <cfset mode = "order">
+	<cfset url.customerid  = getCustomer.customerid>			
+<cfelse>	
+    <cfset mode = "customer">
+	<cfset url.workorderid = getCustomer.workorderid>	
+</cfif>	
 	
 <cfoutput>
 	
@@ -35,12 +49,19 @@
 				TH.ReferenceNo, 
 				TH.ReferenceName,
 				TH.ActionStatus,
-				TransactionId
+				TransactionId,
+				TH.OfficerUserId,
+				TH.OfficerLastName,
+				TH.OfficerFirstName
         FROM    Accounting.dbo.TransactionHeader AS TH INNER JOIN
                 WorkOrder AS W INNER JOIN
                 Customer AS C ON W.CustomerId = C.CustomerId ON TH.TransactionSourceId = W.WorkOrderId INNER JOIN
 				ServiceItem AS S ON W.ServiceItem = S.Code
-        WHERE   C.Customerid = '#url.customerid#'
+        <cfif url.workOrderId neq "">
+		WHERE    W.WorkOrderId = '#url.WorkOrderId#'	
+		<cfelse>
+		WHERE    W.CustomerId = '#url.CustomerId#'	
+		</cfif>
 		AND     TH.DocumentAmount <> 0
 		) as W
 
@@ -61,11 +82,23 @@
 					field         = "JournalTransactionNo",								
 					search        = "text"}>	
 					
+<cfif mode eq "customer">					
+					
 <cf_tl id="Order" var="vOrder">
 <cfset itm = itm+1>								
 <cfset fields[itm] = {label      = "#vOrder#",
 					field      = "Reference",					
 					search     = "text"}>									
+					
+<cfelse>
+
+<cf_tl id="Officer" var="vOfficer">
+<cfset itm = itm+1>								
+<cfset fields[itm] = {label      = "#vOfficer#",
+					field      = "OfficerLastName",					
+					search     = "text"}>	
+
+</cfif>					
 					
 
 <cf_tl id="Service" var="vService">
@@ -147,7 +180,7 @@
                     LabelFilter    = "Status",				
 					field          = "ActionStatus",					
 					filtermode     = "3", 
-					width          = "5",
+					width          = "8",
 					search         = "text",
 					align          = "center",
 					formatted      = "Rating",
@@ -173,7 +206,7 @@
 		listorderdir  = "DESC"
 		headercolor   = "ffffff"
 		listlayout    = "#fields#"
-		filterShow    = "Yes"
+		filterShow    = "Hide"
 		excelShow     = "Yes"
 		annotation    = "GLTransaction"
 		drillmode     = "tab"

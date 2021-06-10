@@ -189,7 +189,7 @@ password="#SESSION.dbpw#">
  
 <table width="96%"align="center">
   
-  <tr><td colspan="2" class="hide">
+  <tr><td colspan="2" class="xxhide">
 	   <iframe name="result" id="result" width="100%" height="100"></iframe>
 	</td></tr>
 	
@@ -668,16 +668,34 @@ password="#SESSION.dbpw#">
 			  <b>Parent can not be modified once position is loaned or there are several recorded assignments.</b>
 	  
 	   <cfelse>	
-	   	  
-		  <input type="button" name="cancel" value="Cancel" class="button10g" style="height:25;width:100" onClick="window.close()">	    
+	   
+	      <table border="0" class="labelmedium2 formspacing">
+		  <tr>
+		  
+		  <td>	   	  
+		  <input type="button" name="cancel" value="Cancel" class="button10g" style="height:25;width:100" onClick="window.close()">	   		  
+		  </td> 
 		  
 		  <cfif getAdministrator(pos.mission) eq "1" or (AccessPosition eq "ALL" and Mandate.MandateStatus eq "0")>			  
 		  
-			  <input class="button10g" type="submit" name="Delete" value="Delete" style="height:25;width:100" onClick="return ask()">			  
+		  	 <td>
+			   <input class="button10g" type="submit" name="Delete" value="Delete" style="height:25;width:100" onClick="return ask()">			  
+			 </td>  
 			  
 		  </cfif>
+		 		
+		  <cfif Mandate.MandateStatus eq "1">
+		  <td align="right" style="width:100px;padding-left:5px"><cf_tl id="Apply to child"></td>
+		  <td align="center" style="max-width:30px;padding-left:5px">
+		     <input type="checkbox" name="Child" value="1" class="radiol" style="height:18px">	
+		  </td>
+		  </cfif>
 		  
+		   <td>
 		  <input class="button10g" type="submit" name="Submit" value="Save" style="height:25;width:100">	
+		  </td>
+		  </tr>
+		  </table>	 
 		  
 	   </cfif>	 
 	    

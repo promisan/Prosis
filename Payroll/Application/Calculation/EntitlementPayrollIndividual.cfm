@@ -27,12 +27,13 @@ password="#SESSION.dbpw#">
 		   Ent.Amount/Exch.ExchangeRate as PaymentAmount, 
 		   Ent.Period,
 		   '1' as SalaryMultiplier,
-		   #now()# as TimeStamp
+		   getDate() as TimeStamp
 	INTO   userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual   
 	FROM   userTransaction.dbo.sal#SESSION.thisprocess#Entitlements Ent,
 	       userTransaction.dbo.sal#SESSION.thisprocess#Exchange Exch
 	WHERE  Ent.EntitlementClass = 'Amount'
 	AND    Exch.Currency = Ent.Currency  
+		
 </cfquery>
 
 
@@ -42,67 +43,86 @@ password="#SESSION.dbpw#">
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
+
 	UPDATE userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual   
 	SET    Amount            = (EntitlementDays/#Form.SalaryDays#)*Amount,
      	   PaymentAmount     = (EntitlementDays/#Form.SalaryDays#)*PaymentAmount,
 		   EntitlementAmount = (EntitlementDays/#Form.SalaryDays#)*EntitlementAmount 
 	WHERE  Period = 'MONTH' 
+	
 </cfquery>
 
 <cfquery name="MonthBase" 
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
+
 	UPDATE userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual   
 	SET    Amount            = ((EntitlementDays-EntitlementLWOP)/#Form.SalaryDays#)*Amount,
 		   PaymentAmount     = ((EntitlementDays-EntitlementLWOP)/#Form.SalaryDays#)*PaymentAmount,
 		   EntitlementAmount = ((EntitlementDays-EntitlementLWOP)/#Form.SalaryDays#)*EntitlementAmount
 	WHERE  Period = 'MONTHN' 
+	
 </cfquery>
 
 <cfquery name="MonthWork" 
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
+
 	UPDATE userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual   
 	SET    Amount            = ((EntitlementDays-EntitlementLWOP-EntitlementSuspend)/#Form.SalaryDays#)*Amount,
 		   PaymentAmount     = ((EntitlementDays-EntitlementLWOP-EntitlementSuspend)/#Form.SalaryDays#)*PaymentAmount,
 		   EntitlementAmount = ((EntitlementDays-EntitlementLWOP-EntitlementSuspend)/#Form.SalaryDays#)*EntitlementAmount
 	WHERE  Period = 'MONTHW' 
+	
 </cfquery>
 
 <cfquery name="MonthFixed" 
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
+
 	UPDATE userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual   
-	SET    Amount            = 0,
-     	   PaymentAmount     = 0,
-		   EntitlementAmount = 0 
+	
+	SET    Amount            = 0, PaymentAmount = 0, EntitlementAmount = 0 
+	
+	FROM   userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual P	   
+	
 	WHERE  Period = 'MONTHF' 
-	AND    Line > 1  
+	
+	<!--- added to apply the fixed rate only to the last line found for a person --->
+	
+	AND    Line < (SELECT MAX(Line) as Line
+			       FROM   userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual 
+				   WHERE  PersonNo = P.PersonNo)  
+	
 </cfquery>
 
 <cfquery name="DayRates" 
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
+
 	UPDATE  userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual   
 	SET     Amount            = (DateDiff(dd,DateEffective,DateExpiration)+1)*Amount,
 		    PaymentAmount     = (DateDiff(dd,DateEffective,DateExpiration)+1)*PaymentAmount,
 			EntitlementAmount = (DateDiff(dd,DateEffective,DateExpiration)+1)*EntitlementAmount
 	WHERE   Period = 'DAY'
+	
 </cfquery>
 
 <cfquery name="WorkdayRates" 
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
+
 	UPDATE  userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual   
 	SET     Amount            = (EntitlementDays-EntitlementLWOP-EntitlementSuspend)*Amount,
 		    PaymentAmount     = (EntitlementDays-EntitlementLWOP-EntitlementSuspend)*PaymentAmount,
 			EntitlementAmount = (EntitlementDays-EntitlementLWOP-EntitlementSuspend)*EntitlementAmount
 	WHERE   Period = 'WORKDAY'
+	
 </cfquery>
 
 <!--- ------------------------------------ --->
@@ -113,15 +133,18 @@ password="#SESSION.dbpw#">
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
+
 	UPDATE  userTransaction.dbo.sal#SESSION.thisprocess#EntitlementIndividual   
 	SET     PaymentAmount   = -1*PaymentAmount
 	WHERE   PayrollItem IN (SELECT PayrollItem FROM Ref_PayrollItem WHERE PaymentMultiplier = '-1')
+	
 </cfquery>
 
 <cfquery name="InsertLine" 
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
+
 	INSERT INTO EmployeeSalaryLine
 			(SalarySchedule,
 			 PersonNo, 
@@ -180,4 +203,5 @@ password="#SESSION.dbpw#">
 				   AND   PayrollCalcNo  = P.Line
 				   AND   SalarySchedule = '#Form.Schedule#'
 				   AND   PayrollStart   = #SALSTR# )
+				   
 </cfquery>

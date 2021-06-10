@@ -33,7 +33,7 @@
 		}
 		
 		function showVendorInfo(orgunit) {
-			window.open('#SESSION.root#/System/Organization/Application/UnitView/UnitView.cfm?ID='+orgunit,orgunit);
+			ptoken.open('#SESSION.root#/System/Organization/Application/UnitView/UnitView.cfm?ID='+orgunit,orgunit);
 		}
 		
 		function purgevendor(mission,itemno,uom,orgunitvendor) {			

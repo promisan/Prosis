@@ -91,7 +91,7 @@
 			<cfelse>
 			
 				<!--- <cfif row eq "1">	---->
-				 <cfset jvlink = "ColdFusion.Window.create('spa', 'Contract Post Adjustment','',{x:100,y:100,height:630,width:480,resizable:false,modal:true,center:true});ColdFusion.navigate('Adjustment/ContractSPA.cfm?contractid=#contractid#&postadjustmentid=#postadjustmentid#&spabox=#url.spabox#','spa')">						
+				 <cfset jvlink = "ProsisUI.createWindow('spa', 'Contract Post Adjustment','',{x:100,y:100,height:630,width:480,resizable:false,modal:true,center:true});ptoken.navigate('Adjustment/ContractSPA.cfm?contractid=#contractid#&postadjustmentid=#postadjustmentid#&spabox=#url.spabox#','spa')">						
 				 <cfif (access eq "EDIT" or access eq "ALL") and ActionStatus lte "1">				 
 				     <cf_img icon="edit" onClick="#jvlink#">			 							 
 				 </cfif> 				 

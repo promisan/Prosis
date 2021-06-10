@@ -16,7 +16,7 @@
 
 	<form method="POST" name="receipt">
 
-    <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">	
+    <table width="100%" class="formpadding">	
 	
 	 <cfquery name="Period" 
 	      datasource="AppsProgram" 
@@ -81,19 +81,16 @@
                             WHERE     ReceiptId = RCT.ReceiptId)
 		</cfquery>					
 		
-		<cfif receiptCheck.recordcount gte 1>
-			<tr class="line"><td class="labelmedium" style="padding-left:4px"><font color="FF0000">Alter posted but cancelled receipts. <br>Contact your administrator</font></td></tr>			
-		</cfif>
+	  <cfif receiptCheck.recordcount gte 1>
+		<tr class="line"><td class="labelmedium" style="padding-left:4px"><font color="FF0000">Alter posted but cancelled receipts. <br>Contact your administrator</font></td></tr>			
+	  </cfif>
 				
-		<tr>
-	     <td height="20" style="padding-left:4px;font-size:18px" class="labelmedium">
-		 	<a href="javascript:newreceipt();"><cf_tl id="Record new receipts"></a>
-		 </td>
-	    </tr>					  
-	    <tr><td height="20" style="padding-left:4px;font-size:18px" class="labelmedium">			  	  
-		  <a href="javascript:newSearch();"><cf_tl id="Search"></a>	   
-	       </td>
-	   </tr>
+	  <tr>
+	     <td height="20" style="padding-left:4px;font-size:18px" class="labelmedium2"><a href="javascript:newreceipt();"><cf_tl id="Record new receipts"></a></td>
+	  </tr>					  
+	  <tr>
+	     <td height="20" style="padding-left:4px;font-size:18px" class="labelmedium2"><a href="javascript:newSearch();"><cf_tl id="Search"></a></td>
+	  </tr>
 	  
 	  <tr><td height="2"></td></tr>
 	  

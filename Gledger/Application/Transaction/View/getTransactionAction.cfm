@@ -33,6 +33,7 @@
 				</cfquery>
 
 				<cfif getBatch.recordcount neq 0>
+				
 					<cfinvoke component = "Service.Process.EDI.Manager"
 							method           = "SaleVoid"
 							Datasource       = "AppsMaterials"
@@ -75,7 +76,8 @@
 				 T.ActionReference2,
 				 T.ActionReference3,
 				 T.ActionReference4,
-				 T.ActionDate
+				 T.ActionDate,
+				 T.Created
 		FROM     TransactionHeaderAction T, Ref_Action R
 		WHERE    T.ActionCode      = R.Code
 		AND      T.Journal         = '#url.Journal#'
@@ -97,23 +99,31 @@
 		 </cfif>	 
 		
 		 <tr class="labelmedium2 linedotted">	   
-		    <!--- <td style="border:0px solid silver;padding-left:4px" width="20%">#Description#:<cf_space spaces="30"></td> --->
+		 
 			<cfif Transaction.ActionStatus eq "0">
-			<td align="center" style="width:20px;background-color:f4f4f4;border-right:1px solid silver">
-			<cfif actionMode eq "2">
-			<cf_img icon="delete"
-			    tooltip="cancel action" 
-				onclick="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/Gledger/Application/Transaction/View/getTransactionAction.cfm?action=delete&actionid=#actionid#&journal=#journal#&journalserialNo=#journalserialno#','invoiceactionbox')">
-			</cfif>	
-			</td>		
+			
+			     <!--- transaction is open, not cleared yet --->
+			
+				<td align="center" style="width:20px;background-color:f4f4f4;border-right:1px solid silver">
+			
+				<cfif actionMode eq "2">
+					<cf_img icon="delete"
+				    	tooltip="cancel action" 
+						onclick="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/Gledger/Application/Transaction/View/getTransactionAction.cfm?action=delete&actionid=#actionid#&journal=#journal#&journalserialNo=#journalserialno#','invoiceactionbox')">
+				</cfif>	
+			
+				</td>		
+				
 			</cfif>
-			<td align="center" width="90" style="background-color:f4f4f4;padding-left:3px;padding-right:3px">#dateformat(ActionDate,CLIENT.DateFormatShow)#</td>		
-			<td align="center" style="#st#" width="20">#ActionStatus#</td>
-			<td align="center" style="#st#" width="20">#ActionMode#</td>
+			
+			<td align="center" width="90" style="padding-left:3px;padding-right:3px">#dateformat(ActionDate,CLIENT.DateFormatShow)# [#timeformat(Created,"HH:MM")#]</td>		
+			<td align="center" style="#st#;<cfif ActionStatus eq '9'>background-color:FF8080</cfif>" width="20">#ActionStatus# <cfif ActionStatus eq "1">Success<cfelse>Fail</cfif></td>
+			<td align="center" style="#st#;<cfif ActionMode eq '2'>background-color:yellow</cfif>" width="20">#ActionMode# <cfif ActionMode eq "2">Electronic<cfelse>Manual</cfif></td>
 			<td align="center" style="#st#" width="25%">#ActionReference1#</td>
 			<td align="center" style="#st#" width="15%">#ActionReference2#</td>
 			<td align="center" style="#st#" width="15%">#ActionReference3#</td>
 			<td align="center" style="#st#" width="15%">#ActionReference4#</td>
+			
 		  </tr>
 		  
 			  <cf_filelibraryCheck

@@ -3,8 +3,6 @@
 
 <cfparam name="URL.ID2" default="0">
 
-
-
 <script>
 
 ie = document.all?1:0
@@ -107,15 +105,11 @@ function hl(itm,fld){
 						<cfelse>
 						<input type="checkbox" class="radiol" name="positiongroup" value="#GroupCode#" checked onClick="hl(this,this.checked)">
 					    </cfif>							
-						</td>							
-					<cfelse>							
-						<cfif PositionNo neq "">
-						<TD style="height:14px;padding-right:4px">
-						  <img src="#SESSION.root#/Images/check_mark.gif" align="absmiddle" alt="" border="0">						
-						 </td> 
-						</cfif>						   
+						</td>																												   
 					</CFIF>														
-					<TD class="labelit" style="height:14px;padding-right:10px"><cfif PositionNo neq ""><cfelse><font color="808080"></cfif>#Description#&nbsp;&nbsp;|</TD>					
+					<TD class="labelit" style="padding-left:3px;background-color:f1f1f1;height:14px;padding-right:10px">
+					<cfif PositionNo neq ""><cfelse><CFIF AccessPosition eq "EDIT" OR AccessPosition eq "ALL"><cfelse><font color="c8c8c8"></cfif></cfif>#Description#</TD>					
+					<td style="width:4px"></td>
 				</tr>					
 			</table>
 		</td>			

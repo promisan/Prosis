@@ -262,7 +262,10 @@ password="#SESSION.dbpw#">
 						<cfloop query="JournalAccount">
 							<option value="#glaccount#">#accountlabel# #description#</option>					
 						</cfloop>					
-						</select>						
+						</select>		
+						
+						<input type="hidden" name="entrygldescription"     id="entrygldescription"             class="regularxxl enterastab" readonly>
+												
 					
 					<cfelse>				
 				

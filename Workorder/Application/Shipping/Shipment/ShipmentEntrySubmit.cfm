@@ -439,6 +439,7 @@ password="#SESSION.dbpw#">
 								GLAccountCredit       = "#AccountStock.GLAccount#"
 								Shipping              = "Yes"
 								CommodityCode         = "#getWorkOrderLines.CommodityCode#"		
+								SalesQuantity         = "#qty*-1#"
 								SalesCurrency         = "#getWorkOrderLines.currency#"
 								SalesPrice            = "#getWorkOrderLines.SalePrice#"
 								TaxPercentage         = "#getWorkOrderLines.SaleTax#"

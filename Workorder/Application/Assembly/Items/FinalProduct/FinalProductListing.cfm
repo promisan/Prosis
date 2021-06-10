@@ -93,50 +93,53 @@
 					 
 				 AND       ItemCategory IN ( SELECT Category FROM Materials.dbo.Ref_Category WHERE StockControlMode = 'Stock' )
 	
-					 <!--- Hanno, rethink this embedded query as it is slow 5/4/2021 --->
+					 <!--- Hanno, rethink this embedded query as it is a bit slow 5/4/2021 --->
 					 
 				 AND       ( RequirementId IS NULL OR RequirementId IN (#preservesingleQuotes(notearmarked)#) )
 							 				 
-				 AND       ActionStatus IN ('0','1')            ) as InStock,
+				 AND       ActionStatus IN ('0','1')                ) as InStock,
 								
-				(SELECT ISNULL(SUM(RequestQuantity),0) 
-				 FROM   Purchase.dbo.RequisitionLine
-				 WHERE  Mission       = '#get.Mission#'						 
-				 AND    RequirementId = WOL.WorkOrderItemId 
-				 AND    ActionStatus != '9'                  	) as Requested,
+				(SELECT   ISNULL(SUM(RequestQuantity),0) 
+				 FROM      Purchase.dbo.RequisitionLine
+				 WHERE     Mission       = '#get.Mission#'						 
+				 AND       RequirementId = WOL.WorkOrderItemId 
+				 AND       ActionStatus != '9'                  	) as Requested,
 				
-				(SELECT ISNULL(SUM(RequestQuantity),0) 
-				 FROM   Purchase.dbo.RequisitionLine
-				 WHERE  Mission       = '#get.Mission#'						 
-				 AND    RequirementId = WOL.WorkOrderItemId 
-				 AND    ActionStatus = '3'		             	) as Obligated,
+				(SELECT   ISNULL(SUM(RequestQuantity),0) 
+				 FROM      Purchase.dbo.RequisitionLine
+				 WHERE     Mission       = '#get.Mission#'						 
+				 AND       RequirementId = WOL.WorkOrderItemId 
+				 AND       ActionStatus = '3'		             	) as Obligated,
 												
 				(SELECT    ISNULL(SUM(TransactionQuantity), 0) 
 				 FROM      Materials.dbo.ItemTransaction
-				 WHERE     Mission           = '#get.Mission#'		
-				 AND       TransactionType != '2'
-				 AND       RequirementId = WOL.WorkOrderItemId	) as Earmarked,  <!--- quantity received 1, transferred 8 or quantity internally produced 0 for this order --->							
+				 WHERE     WorkOrderId    = WOL.WorkOrderId
+				 AND       WorkOrderLine  = WOL.WorkOrderLine
+				 AND       RequirementId  = WOL.WorkOrderItemId
+				 AND       TransactionType != '2' ) as Earmarked,  <!--- quantity received 1, transferred 8 or quantity internally produced 0 for this order --->							
 												
 				(SELECT    ISNULL(SUM(TransactionQuantity), 0) 
 				 FROM      Materials.dbo.ItemTransaction
-				 WHERE     Mission           = '#get.Mission#'				 
-				 AND       RequirementId     = WOL.WorkOrderItemId								
-				) as OnHandForOrder,  <!--- quantity received  / issued local onhand for this workorder which is TO SHIP --->
+				 WHERE     WorkOrderId    = WOL.WorkOrderId
+				 AND       WorkOrderLine  = WOL.WorkOrderLine
+				 AND       RequirementId  = WOL.WorkOrderItemId) as OnHandForOrder,  <!--- quantity received  / issued local onhand for this workorder which is TO SHIP --->
 								
 				<!--- returned quantities which is tratype 5 --->
 				
-				(SELECT    ISNULL(SUM(TransactionQuantity*-1), 0) AS Shipped
+				(SELECT    ISNULL(SUM(TransactionQuantity*-1), 0) 
 				 FROM      Materials.dbo.ItemTransaction
-				 WHERE     TransactionType IN ('2','3')  <!--- 10/3/2014 removed '8' for the transaction type --->
-				 AND       Mission       = '#get.Mission#'			
-				 AND       RequirementId = WOL.WorkOrderItemId
+				 WHERE     WorkOrderId = WOL.WorkOrderId
+				 AND       WorkOrderLine = WOL.WorkOrderLine
+				 AND       RequirementId  = WOL.WorkOrderItemId
+				 AND       TransactionType IN ('2','3')  <!--- 10/3/2014 removed '8' for the transaction type ---> 
 				) as Shipped, <!--- quantity shipped to customer --->
 				
-				(SELECT    ISNULL(SUM(TransactionQuantity), 0) AS Shipped
+				(SELECT    ISNULL(SUM(TransactionQuantity), 0) 
 				 FROM      Materials.dbo.ItemTransaction
-				 WHERE     TransactionType IN ('3')  <!--- 10/3/2014 removed '8' for the transaction type --->
-				 AND       Mission       = '#get.Mission#'			
-				 AND       RequirementId = WOL.WorkOrderItemId
+				 WHERE     WorkOrderId = WOL.WorkOrderId
+				 AND       WorkOrderLine = WOL.WorkOrderLine
+				 AND       RequirementId  = WOL.WorkOrderItemId
+				  AND      TransactionType IN ('3')  <!--- 10/3/2014 removed '8' for the transaction type --->
 				) as Returns, <!--- quantity returned to customer --->
 							
 				WOL.Currency, 
@@ -152,12 +155,9 @@
 		WHERE	WOL.WorkOrderId   = '#url.workorderid#' 
 		AND     WOL.WorkOrderLine = '#url.workorderline#'
 	    ORDER BY I.Classification, I.ItemDescription, U.UoMDescription
-		
+								
 </cfquery>
 
-<!---
-<cfoutput>#cfquery.executiontime# : #preservesingleQuotes(notearmarked)#</cfoutput>
---->
 
 <cfif get.ActionStatus eq "1" or get.ActionStatus eq "0">
 	<cfset mode = "edit">
@@ -183,7 +183,7 @@
 			<tr>
 				<td align="right">
 				<table width="100%">
-					<tr class="labelmedium2" style="border-top:1px solid silver;background-color:ffffff;height:26px;border-bottom:1px solid silver;">
+					<tr class="labelmedium2" style="background-color:ffffff;height:26px;border-bottom:1px solid silver;">
 						<td width="40%" align="left" style="padding:2px">
 							<table cellspacing="0" cellpadding="0">
 							<tr class="labelmedium2">
@@ -243,20 +243,22 @@
 					
 						<tr class="line labelmedium2 fixrow">
 						
-							<td style="min-width:70px;height:40px;font-size:16px;padding-left:6px">
-							   <cfif mode eq "edit">
+							<td colspan="2" style="height:40px;font-size:16px;padding-left:6px">
+							
+							</td>
+														
+							<td style="width:100%"><cf_tl id="Item">
+							
+							 <cfif mode eq "edit">
 							      <cf_tl id="Add" var="1">
 							      <input type="button" onclick="javascript:addFinalProduct('#url.WorkOrderId#','#url.WorkOrderLine#','','');" style="width:65px;border:1px solid silver" class="button10g" value="#lt_text#">																
 							   </cfif>
-							</td>
 							
-							<td style="width:40"></td>
-							
-							<td style="width:100%"><cf_tl id="Description"></td>								
+							</td>								
 							<cfif line.ServiceType eq "WorkOrder">	
-							<td style="min-width:80px"><cf_tl id="Color"></td>				
+							<td style="min-width:120px"><cf_tl id="Color"></td>				
 							<cfelse>
-							<td style="min-width:80px"><cf_tl id="Code"></td>	
+							<td style="min-width:140px"><cf_tl id="Code"></td>	
 							</cfif>			
 							<td style="min-width:70px"><cf_tl id="UoM"></td>								
 							<td style="min-width:50px"><cf_tl id="BOM"></td>								
@@ -288,7 +290,7 @@
 																						
 						<cfloop query="ItemFinished">
 						
-							<tr class="navigation_row line labelmedium2" style="height:25px">
+							<tr class="navigation_row line labelmedium" style="height:22px">
 							
 								<td style="height:15px">
 								
@@ -317,19 +319,19 @@
 								
 								</td>		
 								
-								<td align="right">#currentrow#.</td>													
-								<td style="padding-left:3px">
+								<td align="right" style="padding-right:4px">#currentrow#.</td>													
+								<td style="padding-left:3px;min-width:300px;">
 								<cfif SaleType eq "Promotion"><font color="800040">P:
 								<cfelseif SaleType eq "Discount"><font color="008000">D:
 								</cfif>#ItemDescription#</td>
 								<cfif line.ServiceType eq "WorkOrder">	
 								<td>#ItemColor#</td>		
 								<cfelse>
-								<cfif itembarcode neq "">								
-								<td style="padding-right:3px"><a href="javascript:item('#itemno#','','#get.mission#')">#ItemBarcode#</a></td>
-								<cfelse>
-								<td style="padding-right:3px"><a href="javascript:item('#itemno#','','#get.mission#')">#ItemNoExternal#</a></td>
-								</cfif>
+									<cfif itembarcode neq "">								
+									<td style="padding-right:3px"><a href="javascript:item('#itemno#','','#get.mission#')">#ItemBarcode#</a></td>
+									<cfelse>
+									<td style="padding-right:3px"><a href="javascript:item('#itemno#','','#get.mission#')">#ItemNoExternal#</a></td>
+									</cfif>
 								</cfif>		
 								<td style="padding-right:2px">#UoMDescription#</td>												
 								
@@ -337,17 +339,15 @@
 								
 									<table width="100%">
 										
-										<tr class="labelmedium2">
-											<td width="20" style="padding-left:5px;padding-top:9px">			
-										
+										<tr class="labelmedium" style="height:20px">
+											<td width="20">													
 											<cf_img icon="expand" 
 											   id="exp_#WorkOrderItemId#" 
 											   toggle="Yes" 
 											   onclick="toggleobjectbox('resourcebox_#WorkOrderItemId#','resource_#WorkOrderItemId#','#SESSION.Root#/WorkOrder/Application/Assembly/Items/FinalProduct/FinalProductBOM.cfm?WorkOrderItemId=#WorkOrderItemId#')"
-											   tooltip="See Bill of materials for this quote.">									      
-											      									   
+											   tooltip="See Bill of materials for this quote.">									      											      									   
 											</td>
-											<td style="padding-right:4px" align="right">#Resources#</td>										
+											<td style="padding-right:4px" align="right">#Resources#</td>																					
 										</tr>
 										
 									</table>	
@@ -357,7 +357,7 @@
 								<td align="right" bgcolor="ffbc9b" style="background-color:##ffbc9b80;border-left:1px solid gray;padding-right:5px">#numberformat(Cost,',.__')#</td>																	
 								<td bgcolor="A8EFF2" style="background-color:##A8EFF280;border-left:1px solid gray;padding-right:5px" align="right">#numberformat(Quantity,'__')#</td>								
 								
-								<td style="border-left:1px solid gray;padding-right:3px" align="right"><cfif BillingMode neq "None">#numberformat(SalePrice,',.__')#</cfif></td>	
+								<td style="border-left:1px solid gray;padding-right:3px" align="right"><cfif BillingMode neq "None">#numberformat(SalePrice,',.___')#</cfif></td>	
 								<td style="border-left:1px solid gray;padding-right:3px" align="right"><cfif BillingMode neq "None">#numberformat(SaleAmountIncome,',')#</cfif></td>
 								
 																
@@ -367,9 +367,9 @@
 									
 										<table width="100%">
 										
-											<tr>									
+											<tr class="labelmedium" style="height:20px">						
 											
-												<td style="padding-top:9px">			
+												<td>			
 																				
 												<cf_img icon = "expand" 
 												   id        = "req_#WorkOrderItemId#" 
@@ -379,7 +379,7 @@
 												   
 												</td>
 																												
-												<td style="min-width:40px" id="request_#WorkOrderItemId#" class="labelmedium2" align="right">#numberformat(Outsourced,'__')#</td>	
+												<td style="min-width:40px" id="request_#WorkOrderItemId#" align="right">#numberformat(Outsourced,'__')#</td>	
 												
 												<td>
 												
@@ -404,25 +404,22 @@
 																
 								<td style="padding-right:3px;border-left:1px solid gray;padding-left:5px'background-color:##ffffaf" align="right" bgcolor="ffffcf">
 								
-								<table width="100%" cellspacing="0" cellpadding="0">
+									<table width="100%" cellspacing="0" cellpadding="0">
+										
+											<tr class="labelmedium" style="height:20px">																				
+											<td width="20">	
+																					
+											<cf_img icon="expand" 
+													   id="ear_#WorkOrderItemId#" 
+													   toggle="Yes" 
+													   onclick="toggleobjectbox('earmarkbox_#WorkOrderItemId#','earmark_#WorkOrderItemId#','../../Assembly/Items/FinalProduct/getDetailLines.cfm?WorkOrderId=#URL.WorkOrderId#&drillid=#WorkOrderItemId#')"
+													   tooltip="See outsourcing for this quote.">
+											
+											</td>											
+											<td align="right">#numberformat(Earmarked,'__')#</td>													
+											</tr>
 									
-										<tr class="labelmedium2">									
-										
-										<td width="20" style="padding-top:9px;padding-left:1px">	
-																				
-										<cf_img icon="expand" 
-												   id="ear_#WorkOrderItemId#" 
-												   toggle="Yes" 
-												   onclick="toggleobjectbox('earmarkbox_#WorkOrderItemId#','earmark_#WorkOrderItemId#','../../Assembly/Items/FinalProduct/getDetailLines.cfm?WorkOrderId=#URL.WorkOrderId#&drillid=#WorkOrderItemId#')"
-												   tooltip="See outsourcing for this quote.">
-										
-										</td>
-										
-										<td align="right">#numberformat(Earmarked,'__')#</td>		
-										
-										</tr>
-								
-								</table>		
+									</table>		
 								
 								</td>
 															
@@ -430,8 +427,8 @@
 								
 									<table width="100%">
 										
-											<tr class="labelmedium2">												
-											<td width="20" style="padding-top:9px;padding-left:1px">	
+											<tr class="labelmedium" style="height:20px">												
+											<td width="20">	
 											
 												<cf_img icon="expand" 
 												   id="ear_#WorkOrderItemId#" 
@@ -441,11 +438,11 @@
 									
 											</td>										
 											<td align="right">
-											<cfif OnHandForOrder gt "0">
-												#numberformat(OnHandForOrder,'__')#
-											<cfelse>
-											    --	
-											</cfif>
+												<cfif OnHandForOrder gt "0">
+													#numberformat(OnHandForOrder,'__')#
+												<cfelse>
+												    --	
+												</cfif>
 											</td>												
 											</tr>
 									
@@ -512,6 +509,8 @@
 			
 			</td>
 		</tr>
+		
+		<tr><td style="height:30px"></td></tr>
 						
 	</table>
 

@@ -98,6 +98,7 @@ Tthe field ParentLineId is populated with
 		[TransactionId] uniqueidentifier NULL ,
 		[Mission] [varchar] (30) NULL ,
 		[OrgUnitOwner] [int] NULL ,
+		[OrgUnitTax] [int] NULL ,
 		[JournalTransactionNo] [varchar] (20) NULL ,
 		[JournalBatchNo] [int] NULL ,
 		[JournalBatchDate] [datetime] NULL ,

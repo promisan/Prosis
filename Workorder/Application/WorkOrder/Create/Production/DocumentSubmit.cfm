@@ -394,7 +394,7 @@
 	
 	   try {
 	   opener.applyfilter('','','content')		  
-	   window.open('#session.root#/WorkOrder/Application/WorkOrder/WorkOrderView/WorkOrderView.cfm?workorderid=#id#&idmenu=#url.idmenu#','_self')
+	   ptoken.open('#session.root#/WorkOrder/Application/WorkOrder/WorkOrderView/WorkOrderView.cfm?workorderid=#id#&idmenu=#url.idmenu#','_self')
 	   } catch(e) {}
 	  		
 	</script>

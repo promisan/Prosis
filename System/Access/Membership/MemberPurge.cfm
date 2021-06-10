@@ -91,12 +91,14 @@
 
 </cftransaction>
 
+<cfparam name="url.mid" default="">
+
 <cfif URL.Mode neq "Dialog">
 
 	<script>
 	    Prosis.busy('no')	
 		_cf_loadingtexthtml='';	
-	  	#ajaxLink('#SESSION.root#/System/Access/Membership/UserMemberList.cfm?id=#URL.acc#')#
+	  	#ajaxLink('#SESSION.root#/System/Access/Membership/UserMemberList.cfm?id=#URL.acc#&mid=#url.mid#')#
 	</script>
 
 <cfelse>
@@ -104,7 +106,7 @@
 	<script>
 		Prosis.busy('no')	
 		_cf_loadingtexthtml='';	
-		#ajaxLink('#SESSION.root#/System/Access/Membership/RecordListingDetail.cfm?row=#url.row#&mod=#URL.id1#')#		
+		#ajaxLink('#SESSION.root#/System/Access/Membership/RecordListingDetail.cfm?row=#url.row#&mod=#URL.id1#&mid=#url.mid#')#		
 	</script>	
 
 </cfif>

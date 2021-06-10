@@ -66,7 +66,7 @@
 	}  
 	    
 	function loadformI(name,cond,target,dir,idmenu,idrefer,reload,vir,host) { 	
-			 
+					 
 	   if (target != "newfull") {	 
 	     w = #CLIENT.width# - 60;
 		 full = "no";
@@ -123,15 +123,18 @@
 			        ptoken.open(loc+"?idmenu="+idmenu+"&ts="+new Date().getTime()+"&idrefer="+idrefer+"&height="+h, "_blank","left=20, top=20, width=" + w + ", height= " + h + ", fullscreen=" + full+ ",status=yes, toolbar=no, scrollbars=yes, resizable=yes") 
 				  }
 		       } else {
+			  
+			 
+			   
 		       ptoken.open(loc+"?idmenu="+idmenu+"&ts="+new Date().getTime()+"&idrefer="+idrefer+"&height="+h, target) 
 			   }
 			   
 		   } else {  
-		  	  	  	  	
+		 		  	  	  	  	
 			   if (target != "portalright" && target != "_new") {		  
 		    	   ptoken.open(loc+"?idmenu="+idmenu+"&"+cond+"&ts="+new Date().getTime()+"&idrefer="+idrefer+"&height="+h, "_blank","left=20, top=20, width=" + w + ", height= " + h + ", fullscreen=" + full+ ", status=yes, toolbar=no, scrollbars=yes, resizable=yes")    
 			   } else {		
-		    	   ptoken.open(loc+"?idmenu="+idmenu+"&"+cond+"&ts="+new Date().getTime()+"&idrefer="+idrefer+"&height="+h, target) 
+		    	   ptoken.open(loc+"?idmenu="+idmenu+"&"+cond+"&idrefer="+idrefer+"&height="+h, idmenu) 
 			   }   
 		   }   
 		   

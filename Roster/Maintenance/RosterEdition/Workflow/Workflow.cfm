@@ -7,7 +7,7 @@
 			   value = "#client.root#/roster/maintenance/rosterEdition/Workflow/WorkflowDetail.cfm">	
 		
 		<tr>
-			<td id="#url.submissionedition#">
+			<td id="#url.submissionedition#" style="padding-left:24px;padding-right:20px">
 		
 			   <cfset url.ajaxid = url.submissionedition>
 			   <cfinclude template="WorkflowDetail.cfm"> 

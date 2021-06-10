@@ -63,9 +63,8 @@ password="#SESSION.dbpw#">
 			(EntitlementClass = 'Amount' AND SalaryTrigger IN (SELECT  RC.SalaryTrigger FROM Ref_PayrollComponent RC ))
 			
 			)	
-			
-					
-																	
+	
+																					
 								
 </cfquery>
 

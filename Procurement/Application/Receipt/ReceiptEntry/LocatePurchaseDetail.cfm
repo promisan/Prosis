@@ -323,5 +323,9 @@ password="#SESSION.dbpw#">
 
 <cfset AjaxOnLoad("doHighlight")>	
 
+<script>
+	Prosis.busy('no')
+</script>
+
 </cf_divscroll>
 

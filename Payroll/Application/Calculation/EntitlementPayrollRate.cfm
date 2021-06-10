@@ -534,7 +534,7 @@ password="#SESSION.dbpw#">
 				    AND   PayrollCalcNo  = P.Line
 				    AND   SalarySchedule = '#Form.Schedule#'
 				    AND   PayrollStart   = #SALSTR# )
-				
+									
 	</cfquery>
 	
 </cfloop>

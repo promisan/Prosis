@@ -2,16 +2,18 @@
 <cfparam name="url.closeAction" default="">
 
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+
 <cf_systemscript>
 
 <cfif ParameterExists(Form.Update)> 
 	
-	<cfif Len(#Form.Remarks#) gt 100>
-	  <cfset remarks = left(#Form.Remarks#,100)>
+	<cfif Len(Form.Remarks) gt 100>
+	  <cfset remarks = left(Form.Remarks,100)>
 	<cfelse>
-	  <cfset remarks = #Form.Remarks#>
+	  <cfset remarks = Form.Remarks>
 	</cfif>
 	
+	<cfparam name="form.Operational" default="0">
 		  
 	<!---
 	
@@ -46,7 +48,8 @@
 			 WebURL              = '#Form.WebURL#',
 			 PersonNo            = '#Form.PersonNo#',
 			 Contact             = '#Form.Contact#',
-			 FiscalNo            = '#Form.FiscalNo#'
+			 FiscalNo            = '#Form.FiscalNo#',
+			 Operational         = '#Form.Operational#'
 	   WHERE AddressId           = '#Form.AddressId#'
 	   </cfquery>
 	   
@@ -67,8 +70,7 @@
 	   </cfquery> 
 
 </cfif>	   
-	   
-	  
+	   	  
 <cfoutput>
 	
  <script>
@@ -78,5 +80,4 @@
 </script>	
 
 </cfoutput>	   
-	
 

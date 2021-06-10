@@ -42,6 +42,7 @@ password="#SESSION.dbpw#">
 			  SP.EntityClass, 
 			  SP.Reference,
 			  G.PostOrder, 
+			  O.Mission as MissionOperational,
 			  O.OrgUnit,
               O.OrgUnitName,
 			  
@@ -112,7 +113,7 @@ password="#SESSION.dbpw#">
 	<tr><td height="15"></td></tr>
 		
 	<cfoutput>
-	<tr class="labelmedium line">
+	<tr class="labelmedium2 line">
 	   <td valign="top" style="width:100px""><cf_tl id="Grade"></td>
 	   <td valign="top"><cf_tl id="Unit"></td>	 
 	   <td valign="top"><cf_tl id="Function"></td>
@@ -135,13 +136,11 @@ password="#SESSION.dbpw#">
 	   
 		   	<table width="100%">
 			    
-				<tr class="labelmedium">
+				<tr class="labelmedium2">
 				<td align="right">JO&nbsp;No</td>
 			    <td align="right" style="padding-right:4px">		
 				    <cfif qExercise.actionStatus eq "0">
-					<a href="javascript:referencereset('#url.submissionedition#')">
-					<font color="0080C0">reset
-					</a>
+					<a href="javascript:referencereset('#url.submissionedition#')">reset</a>
 					</cfif>
 					</td>
 				</tr>
@@ -153,19 +152,18 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput query="getPosition" group="Mission">
 		
-		<tr><td class="labellarge" colspan="5" style="height:40">#Mission#</td></tr>
+		<tr><td class="labellarge" colspan="5" style="padding-left:3px;font-weight:bold;font-size:17px;height:30px">#Mission#</td></tr>
 	
 		<cfoutput group="Postorder">
 		
 			<tr class="line">
-				<td class="labelmedium" colspan="#4+language.recordcount*2#" style="width:100px;padding-left:4px">#PostGrade#</td>
+				<td class="labelmedium" colspan="#4+language.recordcount*2#" style="height:20px;font-size:15px;width:100px;padding-left:4px">#PostGrade#</td>
 				
 				<cfif qExercise.actionStatus eq "0">
 				
 					<cfif pending gte "1">
 					<td class="labelit" align="right" id="apply#PostGrade#">
-						<a href="javascript:referenceapply('#url.submissionedition#','#mission#','#PostGrade#')">
-						<font color="0080C0">apply</font>
+						<a href="javascript:referenceapply('#url.submissionedition#','#mission#','#PostGrade#')">apply
 						</a>
 					</td>
 					</cfif>
@@ -193,7 +191,7 @@ password="#SESSION.dbpw#">
 						</cfif>
 				   </td>
 					
-				   <td>#OrgUnitName#</td>
+				   <td><cfif MissionOperational neq Mission>#missionOperational#/</cfif>#OrgUnitName#</td>
 				   <td style="padding-left:15px;padding-right:7px">
 				   
 				   <cfif qExercise.actionStatus eq "0">

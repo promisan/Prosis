@@ -34,11 +34,11 @@
 		
 </cfif>
 
+<form onsubmit="return false" id="frmMaterial" name="frmMaterial" style="height:95%">
+
 <table width="100%" height="100%">
 
-<tr><td height="100%" width="100%" bgcolor="white" style="padding:4px">
-
-	<cfform onsubmit="return false" id="frmMaterial" name="frmMaterial" style="height:100%">
+<tr><td height="100%" width="100%" bgcolor="white" style="padding:4px">	
 	
 	<TABLE width="99%" height="100%" align="center">
 	
@@ -82,7 +82,7 @@
 				</tr>	
 				</table>
 			</td>   
-						
+									
 			<td height="100%" width="70%" style="padding-left:6px">
 				<table width="100%" height="100%" class="formpadding">
 					<TR>
@@ -110,14 +110,15 @@
 							</cfif>
 							
 							<cf_intelliCalendarDate9
-									FieldName="DateEffective" 
-									Manual="True"					
-									Default="#Dateformat(vDefault, '#CLIENT.DateFormatShow#')#"
-									AllowBlank="False"
-									Class="regularxl"
-									Inline="false">	
+									FieldName  = "DateEffective" 
+									Manual     = "false"					
+									Default    = "#Dateformat(vDefault, '#CLIENT.DateFormatShow#')#"
+									AllowBlank = "False"
+									Class      = "regularxl"
+									Inline     ="false">	
 						</TD>
-					</TR>				
+					</TR>	
+										
 					
 					<tr><td colspan="2" class="line"></td></tr>
 										
@@ -138,12 +139,15 @@
 			</td>					
 		</TR>
 		
+				
 		<tr><td colspan="2" class="line"></td></tr>
 		
 		<TR height="35">
 		
 			<td colspan="2" align="center">
 			<cfoutput>
+			
+			   				 
 				<table cellspacing="0" cellpadding="0" class="formpadding">
 					<tr>
 						<td>
@@ -190,6 +194,7 @@
 								
 						</td>
 						
+												
 						<cfquery name="Related" 
 						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
@@ -211,20 +216,25 @@
 																		
 							<input type="hidden" id="children" value="0">
 						
-						</cfif>								
+						</cfif>		
+								
 						
 					</tr>
 				</table>
+				
 			</cfoutput>										
 			</td>
 		</TR>		
 		
-	</TABLE>
-					
-	</cfform>	
-			
+	</TABLE>			
+		
 	</td>
 	</tr>
 </table>
 
-<cfset ajaxonload("doCalendar")>	
+</form>	
+
+
+
+<cfset ajaxonload("doCalendar")>
+

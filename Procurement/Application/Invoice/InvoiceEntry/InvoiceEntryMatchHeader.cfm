@@ -121,7 +121,7 @@
 
 </cfif>
 
-<table width="100%" border="0" align="center">
+<table width="100%" border="0" align="center" class="navigation_table">
 
 	<cfif mode eq "Match">		
 		
@@ -135,7 +135,7 @@
 	<tr><td colspan="11" class="line"></td></tr>
 	</cfif>
 				
-	<tr class="labelmedium2 line" bgcolor="ffffff" style="height:20px">
+	<tr class="labelmedium2 line fixrow" bgcolor="ffffff" style="height:20px">
 	   <td width="10"></td>
 	   <cfif mode eq "match">
 		   <td height="20"><cf_tl id="PurchaseNo"></td>
@@ -157,7 +157,8 @@
 	   
 	   <cf_tl id="Invoice Posted in GL" var="1">
 	   <td align="right" width="90"><a href="##" title="<cfoutput>#lt_text#</cfoutput>"><cf_tl id="GL Posted"></a></td>	  
-	   <td align="right" width="123"><cf_tl id="Available Balance"></td>	   
+	   <td align="right" width="123"><cf_tl id="Available Balance"></td>	
+	    <td></td>   
 	</tr>
 			
 	<!--- allow association ONLY for PO that are not fully matched/paid --->
@@ -424,13 +425,13 @@
 					   <cfset cl = "f1f1f1">
 					 </cfif>
 					 
-					<tr bgcolor="#cl#" class="labelmedium2 line" style="height:10px">
+					<tr bgcolor="#cl#" class="labelmedium2 line navigation_row" style="height:10px">
 					   
 					   <cfif mode eq "match">
 					   	   
 						   <td width="10" style="height:23px"></td>
 						   <td>						  
-						   <a href="javascript:ProcPOEdit('#PurchaseNo#','view')">
+						   <a href="javascript:ProcPOEdit('#PurchaseNo#','view','tab')">
 						   		<cf_getPurchaseNo purchaseNo="#PurchaseNo#" mode="only">
 						   </a>						   
 						   </td>
@@ -441,7 +442,7 @@
 					   
 						   <td colspan="3" style="border-right; border-right: 1px solid silver;">	
 						  				   
-						   &nbsp;&nbsp;<a href="javascript:ProcPOEdit('#PurchaseNo#','view')">#PurchaseNo#</a>
+						   &nbsp;&nbsp;<a href="javascript:ProcPOEdit('#PurchaseNo#','view','tab')">#PurchaseNo#</a>
 						   &nbsp;<font color="gray"><cf_tl id="Execution status"> : </b>
 						   <cfif ObligationStatus eq "0"><font color="FF0000"><cf_tl id="Closed"></font>
 						   <cfelseif ActionStatus eq "4"><font color="FF0000"><cf_tl id="Disbursed"></font>
@@ -450,13 +451,13 @@
 						   				    
 					   </cfif>
 					   
-					   <td               bgcolor="Ffffcf" style="padding-left:4px">#DateFormat(DeliveryDate, CLIENT.DateFormatShow)#</td>
-					   <td width="50"    bgcolor="Ffffcf">#IssuedPO.currency#</td>
-					   <td align="right" bgcolor="Ffffcf">#NumberFormat(OrderAmount,",.__")#</td>
-					   <td align="right" bgcolor="Ffffcf"><cfif ReceiptEntry neq "9">#NumberFormat(Rct,",.__")#<cfelse>N/A</cfif></td>
-					   <td align="right" bgcolor="Ffffcf">#NumberFormat(Pen,",.__")#</td>
-					   <td align="right" bgcolor="Ffffcf">#NumberFormat(Exp,",.__")#</td>					   
-					   <td align="right" bgcolor="Ffffcf">#NumberFormat(OrderAmount-Exp-Pen,",.__")#</td>
+					   <td               style="background-color:##ffffcf80;padding-left:4px">#DateFormat(DeliveryDate, CLIENT.DateFormatShow)#</td>
+					   <td width="50"    style="background-color:##ffffcf80;">#IssuedPO.currency#</td>
+					   <td align="right" style="background-color:##ffffcf80;">#NumberFormat(OrderAmount,",.__")#</td>
+					   <td align="right" style="background-color:##ffffcf80;"><cfif ReceiptEntry neq "9">#NumberFormat(Rct,",.__")#<cfelse>N/A</cfif></td>
+					   <td align="right" style="background-color:##ffffcf80;">#NumberFormat(Pen,",.__")#</td>
+					   <td align="right" style="background-color:##ffffcf80;">#NumberFormat(Exp,",.__")#</td>					   
+					   <td align="right" style="background-color:##ffffcf80;">#NumberFormat(OrderAmount-Exp-Pen,",.__")#</td>
 					   
 					   <input type="hidden" name="selcurrency" id="selcurrency" value="#IssuedPO.currency#">
 					  					   
@@ -572,3 +573,5 @@
 	</cfoutput>
 								
 </table>
+
+<cfset ajaxonload("doHighlight")>

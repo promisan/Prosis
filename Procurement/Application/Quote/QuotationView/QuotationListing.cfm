@@ -16,31 +16,31 @@
 
     <cfset col = "10">
 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="100%" class="formpadding">
 	    
 	  <tr>
 	    <td width="100%" style="padding:10px;border-top:1px solid silver;border-bottom:1px solid silver">
-	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+		
+	    <table border="0" width="100%" class="navigation_table">
 			
-	    <TR class="labelmedium line">
+	    <TR class="labelmedium2 line">
 		   <td width="4%" height="19">&nbsp;</td>
 		   <td width="4%" height="19">&nbsp;</td>
 		   <td width="40%"><cf_tl id="Description"></td>
 		   <td></td>
 		   <td><cf_tl id="Qty"></td>
 		   <td align="center"><cf_tl id="UoM"></td>
-		   <td align="right"><cf_tl id="Price"><cf_space spaces="25"></td>
-		   <td align="right"><cf_tl id="Amount"><cf_space spaces="25"></td>
-		   <td align="right"><cf_tl id="Tax"><cf_space spaces="20"></td>
-		   <td align="right"><cf_tl id="Purchase"><cf_space spaces="25"></td>		  
+		   <td align="right" style="min-width:100px"><cf_tl id="Price"></td>
+		   <td align="right" style="min-width:100px"><cf_tl id="Amount"></td>
+		   <td align="right" style="min-width:100px"><cf_tl id="Tax"></td>
+		   <td align="right" style="min-width:100px"><cf_tl id="Purchase"></td>		  
 	    </TR>
 		
 		<cfoutput>
 					
 		<cfif Requisition.recordcount eq "0">			
 			<tr><td height="6" colspan="#col#"></td></tr>
-			<tr class="labelmedium"><td colspan="#col#" align="center"><font color="gray"><cf_tl id="REQ068"></td></tr>
-			<tr><td height="5" colspan="#col#"></td></tr>
+			<tr class="labelmedium2"><td colspan="#col#" align="center"><font color="gray"><cf_tl id="REQ068"></td></tr>			
 			<tr><td height="1" colspan="#col#" class="line"></td></tr>
 		</cfif>	
 		</cfoutput>
@@ -52,7 +52,7 @@
 			
 			<cfif RequestType neq "Purchase">
 			
-			<tr><td height="20" colspan="#col#" class="labelmedium">#OrgUnitName#</td></tr>
+			<tr><td colspan="#col#" class="labelmedium2">#OrgUnitName#</td></tr>
 					
 			</cfif>
 		
@@ -77,12 +77,12 @@
 			 <cfset cl = "ffffff"> 
 			</cfif>
 									
-			<tr id="#requisitionno#_1" bgcolor="#cl#" class="line labelmedium">
+			<tr id="#requisitionno#_1" bgcolor="#cl#" class="line labelmedium2">
 			
-			   <td class="labelit" colspan="2" style="padding-left:4px">
+			   <td colspan="2" style="padding-left:4px">
 			   
 				   <table>
-				   <tr class="labelmedium">
+				   <tr class="labelmedium2">
 				   
 				   <td align="center" style="padding-top:4px">
 	
@@ -106,18 +106,19 @@
 				   		 		   
 				   </td>
 				   <td style="padding-left:4px">#currentrow#</td>			   
-				   </tr></table>
+				   </tr>
+				   </table>
 			   
 			   </td>				   
 	    	  	  
-			   <td>#RequestDescription#</td>
+			   <td style="padding-left:3px">#RequestDescription#</td>
 			   
 			   <cfif details eq "0">
 			   
 				   <td align="right"></td>		   
 		    	   <td>#RequestQuantity#</td>
 				   <td align="center">#QuantityUoM#</td>
-				   <td align="right">#NumberFormat(RequestCostprice,",__.__")#</td>
+				   <td align="right">#NumberFormat(RequestCostprice,",.__")#</td>
 				   
 			   <cfelse>
 			   
@@ -125,7 +126,7 @@
 				   
 			   </cfif>	   		   
 			  		   
-			   <td align="right">#NumberFormat(RequestAmountBase,",__.__")#</td>
+			   <td align="right">#NumberFormat(RequestAmountBase,",.__")#</td>
 			   <td></td>		   
 			  		   
 			   <td align="right" valign="middle" style="padding-top:2px">
@@ -156,54 +157,53 @@
 			</tr>
 			</cfif>
 			
-			<tr id="#requisitionno#_2" bgcolor="#cl#">	
+			<tr id="#requisitionno#_2" bgcolor="#cl#" class="line">	
 			
 			<td></td>	
-			
-			<td colspan="4">
-			
-			 <cfif details eq "0">#Description#<cfelse>		
+						
+			 <cfif details eq "0">
+			 
+			 <td colspan="4" style="padding-left:4px">#Description#</td>
+			 
+			 <cfelse>		
 			
 			   <cfquery name="myDetails" 
 				  datasource="AppsPurchase" 
 				  username="#SESSION.login#" 
 				  password="#SESSION.dbpw#">
 				      SELECT *
-				      FROM RequisitionLineService
+				      FROM   RequisitionLineService
 					  WHERE RequisitionNo  = '#requisitionno#' 
 				</cfquery>		
 				
-				<table cellspacing="0" cellpadding="0" class="formpadding">
-					
-					<tr><td colspan="8" class="labelit">#Description#</td></tr>	
+				<td colspan="4" style="padding-left:4px">
 				
-				<cfloop query="myDetails">
-					
-				   	<tr bgcolor="F7EDB9" class="labelmedium">
-					<td>#ServiceDescription#</td>
-					<td>&nbsp;&nbsp;</td>
-					<td width="40">#Quantity#</td>
-					<td>#UoM#</td>
-					<td>&nbsp;&nbsp;</td>
-					<td align="right">#numberformat(uomRate,',__.__')#</td>		
-					<td>&nbsp;&nbsp;</td>
-					<td align="right">#numberformat(Amount,',__.__')#</td>	
-					</tr>	
-					
-				</cfloop>
+				<table class="formpadding" style="width:100%">
+							
+					<cfloop query="myDetails">
+						
+					   	<tr class="labelmedium2 navigation_row">
+						<td>#ServiceDescription#</td>					
+						<td width="40">#Quantity#</td>
+						<td>#UoM#</td>					
+						<td align="right">#numberformat(uomRate,',.__')#</td>							
+						<td align="right">#numberformat(Amount,',.__')#</td>	
+						</tr>	
+						
+					</cfloop>
+								
 				</table>	
 				</td>
-					
-			</cfif>
-			
-			</td>
-			<td><a href="javascript:ProcReqEdit('#requisitionno#','dialog')"><font color="0080C0">#Reference#</font></a>
-			<cf_space spaces="30">
+				
+			</cfif>	
+						
 			</td>
 			
-			<td class="labelmedium">#RequestPriority# <cfif ParentRequisitionNo neq ""><font color="gray">#vSplitted#</font></cfif> 	
+			<td style="padding-left:4px"><a href="javascript:ProcReqEdit('#requisitionno#','dialog')">#Reference#</a></td>
 			
-			<td colspan="1" align="right" style="padding-right:4px" class="labelmedium">	
+			<td class="labelmedium2">#RequestPriority# <cfif ParentRequisitionNo neq ""><font color="gray">#vSplitted#</font></cfif> 	
+			
+			<td align="right" style="padding-right:4px" class="labelmedium">	
 			
 			    <cfif ParentRequisitionNo eq "">
 																		   	
@@ -216,9 +216,9 @@
 						  AND RequestType eq "Regular"> <!--- don't split already processed lines --->
 						  				
 					   <cfif access eq "ALL" and (workflowEnabled eq "0" or flowdefined.recordcount eq "0")>
-						   	 <a href="javascript:ProcReqSplit('#RequisitionNo#');"><font color="0080C0">[#vSplit#]</font></a>
+						   	 <a href="javascript:ProcReqSplit('#RequisitionNo#');">[#vSplit#]</a>
 					   <cfelseif workflow eq "1">				 
-						     <a href="javascript:ProcReqSplit('#RequisitionNo#');"><font color="0080C0">[#vSplit#]</font></a>
+						     <a href="javascript:ProcReqSplit('#RequisitionNo#');">[#vSplit#]</a>
 					   <cfelse>		
 					       <!--- no actionenabled --->							 				 
 					   </cfif>		   		
@@ -226,9 +226,9 @@
 					<cfelseif fun eq "Job" and RequestType eq "Warehouse">
 									
 					   <cfif access eq "ALL" and (workflowEnabled eq "0" or flowdefined.recordcount eq "0")>
-						     <a href="javascript:ColdFusion.navigate('#SESSION.root#/procurement/application/quote/create/AddDummyLine.cfm?id1=#url.id1#&id=#RequisitionNo#','dialog')">[#vSplit#]</a>													 
+						     <a href="javascript:ptoken.navigate('#SESSION.root#/procurement/application/quote/create/AddDummyLine.cfm?id1=#url.id1#&id=#RequisitionNo#','dialog')">[#vSplit#]</a>													 
 					   <cfelseif workflow eq "1">				 
-						     <a href="javascript:ColdFusion.navigate('#SESSION.root#/procurement/application/quote/create/AddDummyLine.cfm?id1=#url.id1#&id=#RequisitionNo#','dialog')">[#vSplit#]</a>													 
+						     <a href="javascript:ptoken.navigate('#SESSION.root#/procurement/application/quote/create/AddDummyLine.cfm?id1=#url.id1#&id=#RequisitionNo#','dialog')">[#vSplit#]</a>													 
 					   <cfelse>		
 					       <!--- no actionenabled --->							 				 
 					   </cfif>			
@@ -256,7 +256,7 @@
 			<cfelse>
 						
 				<cfif RequestType eq "Purchase">
-					<td colspan="1" class="labelmedium" align="center" bgcolor="lime">
+					<td colspan="1" align="center" bgcolor="lime">
 					<cf_tl id="Added by Buyer">
 					</td>
 				<cfelse>
@@ -274,12 +274,10 @@
 				   WHERE     RequisitionNo = '#RequisitionNo#' 			
 				</cfquery>
 				
-				<td align="right" class="labelit">
+				<td align="right">
 				
 				<cfif check.recordcount eq "1">			
-				   <a href="javascript:ProcPOEdit('#Check.PurchaseNo#','view')" title="View Purchase Order">
-					   #Check.PurchaseNo#
-				   </a>			
+				   <a href="javascript:ProcPOEdit('#Check.PurchaseNo#','view')" title="View Purchase Order">#Check.PurchaseNo#</a>			
 		   		</cfif>		
 				</td>
 			
@@ -304,9 +302,7 @@
 				<tr class="regular">
 					<td colspan="10" class="labelit" bgcolor="ffffaf" align="center">
 					<b><cf_tl id="Attention">:</b>&nbsp;<cf_tl id="This requirement has been obligated already under Purchase No">: 
-					   <a href="javascript:ProcPOEdit('#Check.PurchaseNo#','view')" title="View Purchase Order">
-					   <font color="red">#Check.PurchaseNo#</font>
-					   </a>			
+					   <a href="javascript:ProcPOEdit('#Check.PurchaseNo#','view')" title="View Purchase Order"><font color="red">#Check.PurchaseNo#</font></a>			
 					</td>
 				</tr>			
 			
@@ -314,9 +310,7 @@
 			
 				<tr id="blog#requisitionNo#" class="hide">
 					<td></td>
-					<td colspan="10">
-					  <cfdiv id="log#RequisitionNo#">
-					</td>
+					<td colspan="10"><cfdiv id="log#RequisitionNo#"></td>
 				</tr>						
 								
 			<cfswitch expression="#fun#">
@@ -338,8 +332,7 @@
 						AND       Q.OrgUnitVendor = Org.OrgUnit					
 						ORDER BY  Q.QuoteAmountBase 										
 							
-					</cfquery>
-					
+					</cfquery>					
 										
 					<cfset row   = currentrow>
 					<cfset purno = PurchaseNo>				
@@ -348,14 +341,14 @@
 					
 					<cfif QuoteAmountBase lte "0" and QuoteZero eq "0">
 									
-					<tr class="labelit" bgcolor="ffffcf" id="#requisitionno#_4">
+					<tr class="labelmedium2 line navigation_row" bgcolor="ffffcf" id="#requisitionno#_4">
 					
 					<cfelse>
 					
 						<cfif Selected eq "1">
-							<tr class="labelit" bgcolor="ffffaf" id="#requisitionno#_4">
+							<tr class="labelmedium2 line navigation_row" bgcolor="ffffaf" id="#requisitionno#_4">
 						<cfelse>
-							<tr class="labelit" bgcolor="ffffff" id="#requisitionno#_4">
+							<tr class="labelmedium line navigation_row" bgcolor="ffffff" id="#requisitionno#_4">
 						</cfif>
 					
 					</cfif>
@@ -373,22 +366,18 @@
 							        				
 					<cfif access eq "ALL" and (workflowEnabled eq "0" or flowdefined.recordcount eq "0")>
 					
-					 <td align="center" style="padding-top:1px">					
-					    <cf_img icon="edit" onClick="ProcQuoteEdit('#quotationid#');">										 
-					 </td>
-					 <td><a href="javascript:ProcQuoteEdit('#quotationid#');">#OrgUnitName#</a></td>
+					 <td align="center" style="padding-top:1px"><cf_img icon="open" onClick="ProcQuoteEdit('#quotationid#');"></td>
+					 <td>#OrgUnitName#</td>
 						
 				   <cfelseif workflow eq "1">		
 				   
-					    <td align="center">					   
-						  <cf_img icon="select" onClick="javascript:ProcQuoteEdit('#quotationid#');">					   				 
-					    </td>
-						<td><a href="javascript:ProcQuoteEdit('#quotationid#');">#OrgUnitName#</a></td>
+					    <td align="center"><cf_img icon="open" onClick="javascript:ProcQuoteEdit('#quotationid#');"></td>
+						<td>#OrgUnitName#</td>
 					 	 
 				   <cfelse>	
 				   
 					   	<td align="center">				
-							<cf_img icon="select" onClick="javascript:ProcQuoteEdit('#quotationid#','view');">							
+							<cf_img icon="open" onClick="javascript:ProcQuoteEdit('#quotationid#','view');">							
 						</td>					
 						<td><a href="javascript:ProcQuoteEdit('#quotationid#','view');">#OrgUnitName#</a></td>   			
 											 				 					
@@ -399,12 +388,12 @@
 					<cfif QuoteAmountBase lte "0" and QuoteZero eq "0">
 						<td colspan="6" align="right" bgcolor="FFFF80" style="padding-right:4px">Not submitted</td>
 					<cfelse>
-				        <td>#QuotationQuantity#</td>
-				    	<td align="center">#QuotationUoM#</td>
-				        <td align="right">#NumberFormat(QuoteAmountBase/QuotationQuantity,",__.__")#</td>
-						<td align="right">#NumberFormat(QuoteAmountBaseCost,",__.__")#</td>					
-				        <td align="right">#NumberFormat(QuoteAmountBaseTax,",__.__")#</td>
-						<td align="right"><b>#NumberFormat(QuoteAmountBase,",__.__")#</b></td>
+				        <td style="border:1px solid silver;padding-left:3px">#QuotationQuantity#</td>
+				    	<td align="center" style="border:1px solid silver;padding-left:3px">#QuotationUoM#</td>
+				        <td align="right" style="border:1px solid silver;padding-right:3px">#NumberFormat(QuoteAmountBase/QuotationQuantity,",.__")#</td>
+						<td align="right" style="border:1px solid silver;padding-right:3px">#NumberFormat(QuoteAmountBaseCost,",.__")#</td>					
+				        <td align="right" style="border:1px solid silver;padding-right:3px">#NumberFormat(QuoteAmountBaseTax,",.__")#</td>
+						<td align="right" style="border:1px solid silver;padding-right:3px"><b>#NumberFormat(QuoteAmountBase,",.__")#</b></td>
 					    <!--- 
 		     		    <td rowspan="1" align="center">		      		
 					       <input type="checkbox" name="QuotationId" value="#QuotationId#" onClick="javascript:hl(this,this.checked,'#QuotationId#')">							 				   
@@ -451,3 +440,5 @@
 	</tr>
 		
 	</table>		
+
+	<cfset ajaxOnLoad("doHighlight")>

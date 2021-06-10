@@ -127,8 +127,9 @@
 		
 <cfelse>		
 
+		<cfparam name="url.mid" default="">
 		<script>
-			#ajaxLink('#SESSION.root#/system/access/Membership/UserMemberList.cfm?id=#URL.acc#')#
+			#ajaxLink('#SESSION.root#/system/access/Membership/UserMemberList.cfm?id=#URL.acc#&mid=#url.mid#')#
 		</script>
 
 </cfif>	

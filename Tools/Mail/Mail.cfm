@@ -31,8 +31,6 @@
 
 </script>
 
-
-
 <cfquery name="User" 
    datasource="AppsSystem" 
    username="#SESSION.login#" 
@@ -131,7 +129,7 @@
 			target="mailsubmit">	
 				 
 	<table width="99%" align="center" height="100%">
-	
+		
 	<tr class="hide"><td><iframe name="mailsubmit" id="mailsubmit"></iframe></td></tr>
 	
 	<tr class="line">
@@ -145,7 +143,7 @@
 		    <input type="button" name="close" id="close" class="#button#" value="Cancel" onClick="window.close()">
 			--->
 		<cfelseif url.mode eq "cfwindow">	
-			 <input type="hidden" name="close" id="close" class="#button#" value="Close" onClick="parent.ColdFusion.Window.hide('maildialog')">	
+			 <input type="hidden" name="close" id="close" class="#button#" value="Close" onClick="parent.ProsisUI.closeWindow('maildialog')">	
 		    <!--- disabled the full view dialog back
 			<input type="button" name="Back" class="#button#" value="Back" onclick="history.back(-1)">
 			--->
@@ -195,7 +193,7 @@
 			
 			 <!--- Field: SentFROM --->
 		    <tr>
-		    <TD class="labelmedium" valign="top" style="padding-top:4px;padding-left:20px"><b>From:</TD>
+		    <TD class="labelmedium" valign="top" style="padding-top:4px;padding-left:20px"><b><cf_tl id="From">:</TD>
 			<TD>
 			
 				<table cellspacing="0" cellpadding="0"><tr><td class="labelmedium" style="padding-top:3px">
@@ -279,7 +277,7 @@
 			<table width="100%">
 		  	   <!--- Field: SendTO --->
 			<TR>
-		    <td class="labelmedium" width="100" height="22"><a href="javascript:address()">To:</a></td>
+		    <td class="labelmedium" width="100" height="22"><a href="javascript:address()"><cf_tl id="To">:</a></td>
 			<TD width="85%" class="labelmedium" >
 			   <cfoutput>
 			   		   		   
@@ -360,7 +358,7 @@
 			
 		   <!--- Field: SendCC --->
 		    <TR>
-		    <TD height="22" class="labelmedium" ><a href="javascript:address()">Bcc:</a></TD>
+		    <TD height="22" class="labelmedium" ><a href="javascript:address()"><cf_tl id="Bcc">:</a></TD>
 			<TD>
 				<cfinput type="Text"
 			       name="sendBCC"
@@ -434,47 +432,47 @@
 			   
 			    <TR class="labelmedium2">
 			    <TD class="labelmedium" style="height:30px;padding-left:16px"><cf_tl id="Associated Report">:</TD>
-				<TD>
-				    <table>
-					<tr class="labelmedium2">
-					<cfset row = "0">
-					<cfloop index="att" list="#URL.ID2#" delimiters=","> 
-					    <cfset row = row+1>
-					    <cfif row neq "1">
-						<td style="padding-left:4px">|</td>
-						</cfif>
-					    <td>
-						   <input type="checkbox" class="radiol" name="Attachment" id="Attachment" value="#Att#" checked>
-						</td>
-						<td style="padding-left:6px" class="labelmedium2">
-						<a href="javascript:openreport('#att#')">#att#</a>
-						</td>
-						
-					</cfloop>
-					</tr>
-					</table>
-				</TD>
+					<TD>
+					    <table>
+						<tr class="labelmedium2">
+						<cfset row = "0">
+						<cfloop index="att" list="#URL.ID2#" delimiters=","> 
+						    <cfset row = row+1>
+						    <cfif row neq "1">
+							<td style="padding-left:4px">|</td>
+							</cfif>
+						    <td>
+							   <input type="checkbox" class="radiol" name="Attachment" id="Attachment" value="#Att#" checked>
+							</td>
+							<td style="padding-left:6px" class="labelmedium2">
+							<a href="javascript:openreport('#att#')">#att#</a>
+							</td>
+							
+						</cfloop>
+						</tr>
+						</table>
+					</TD>
 				</TR>	
 				
-				<TR>
-			    <TD height="25" class="labelmedium" valign="top" style="padding-top:4px;padding-left:16px"><cf_tl id="Other Attachments">:</TD>
+				<TR class="labelmedium2">
+			    <TD height="25" valign="top" style="padding-top:4px;padding-left:16px"><cf_tl id="Attachments">:</TD>
 				<TD height="40" valign="top">
-				
-				
+																								
 					<cf_filelibraryN
-							DocumentPath  = "Mail"
-							SubDirectory  = "#SESSION.acc#" 
-							Filter        = "#filter#"
-							LoadScript    = "Yes"						
-							AttachDialog  = "Yes"				
-							Width         = "100%"
-							Box           = "a1"
-							List          = "mail"
-							Insert        = "yes"
-							Remove        = "yes">	
+						DocumentPath  = "Mail"
+						SubDirectory  = "#SESSION.acc#" 
+						Filter        = "#filter#"
+						LoadScript    = "Yes"						
+						AttachDialog  = "Yes"				
+						Width         = "100%"
+						Box           = "a1"
+						List          = "mail"
+						Insert        = "yes"
+						Remove        = "yes">	
 												
 				</TD>
 				</TR>	
+				
 				<tr><td height="1" colspan="2" class="line"></td></tr>
 				
 			</cfoutput>

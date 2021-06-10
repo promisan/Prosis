@@ -198,6 +198,8 @@
 							<td class="labelmedium" style="padding-left:8px;#ht#"><cf_tl id="Contact mail">:</td>
 							<td class="labelmedium">
 							
+							<table><tr class="labelmedium">
+							<td>
 							<cfif url.mode eq "view">
 							
 							   <cfif get.EMailAddress eq "">n/a<cfelse>#get.eMailAddress#</cfif>
@@ -218,11 +220,8 @@
 								   
 							</cfif>	   
 						   </td>
-						   </tr>
-						   			 
-						   <tr>
-						   
-							<td class="labelmedium" style="padding-left:8px;#ht#"><cf_tl id="Phone No">:</td>
+						  						   
+							<td class="labelmedium" style="padding-left:8px;#ht#"><cf_tl id="Phone">:</td>
 							<td class="labelmedium">
 							
 								<cfif url.mode eq "view">
@@ -236,16 +235,13 @@
 								       required="No"
 									   class="regularxl enterastab"
 									   value="#get.PhoneNumber#"
-								       size="30"
+								       size="16"
 								       maxlength="50">
 								   
 								</cfif>   
 						   </td>
-						  </tr>		
-						  
-						   <tr>
-						   
-							<td class="labelmedium" style="padding-left:8px;#ht#"><cf_tl id="Mobile No">:</td>
+						  						   
+							<td class="labelmedium" style="padding-left:8px;#ht#"><cf_tl id="Mobile">:</td>
 							<td class="labelmedium">
 							
 								<cfif url.mode eq "view">
@@ -259,12 +255,17 @@
 								       required="No"
 									   class="regularxl enterastab"
 									   value="#get.MobileNumber#"
-								       size="30"
+								       size="16"
 								       maxlength="50">
 								   
 								</cfif>   
 						   </td>
-						  </tr>					   
+						  </tr>	
+						  
+						  </table>
+						 
+					 </td> 				   
+					 </tr>
 					  				   				  				   			  			  			   
 					   <cfif url.dsn eq "AppsWorkorder" and mission.CustomerDetail eq "1">
 					  				   			   
@@ -316,7 +317,7 @@
 								       required="No"
 									   class="regularxl enterastab"
 									   value="#get.PostalCode#"
-								       size="10"
+								       size="8"
 								       maxlength="10">
 								
 								</cfif>	  
@@ -339,6 +340,53 @@
 										   value="#get.City#"
 									       size="34"
 									       maxlength="40">
+									
+									</cfif>	   
+								
+							   </td>
+							   
+							   <td class="labelmedium" style="padding-left:8px;#ht#"><cf_tl id="Country">:<cfif url.mode eq "edit"><font color="FF0000">*</font></cfif></td>
+								<td class="labelmedium" style="padding-left:6px">
+								
+									<cfif url.mode eq "view">
+									
+									<cfquery name="Nation" 
+										datasource="AppsSystem" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+										    SELECT *
+										    FROM   Ref_Nation
+											WHERE  Code = '#get.Country#'
+										</cfquery>
+									
+										<b>#Nation.Name#</b>									
+										   
+									<cfelse>
+									
+									<cfquery name="Nation" 
+									datasource="AppsSystem" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+									    SELECT *
+									    FROM   #CLIENT.LanPrefix#Ref_Nation
+										 ORDER BY Name
+									</cfquery>
+  	
+									
+									<cfif get.recordcount eq "0">
+										   	<select name="country" id="country" style="width:150px" class="enterastab regularxl" required="No">			
+											    <cfloop query="Nation">
+													<option value="#Code#" <cfif Code eq Mission.CountryCode>selected</cfif>>#Name#</option>
+												</cfloop>
+										   	</select>		
+										<cfelse>
+											<select name="country" id="country" style="width:150px" class="enterastab regularxl" required="No">			
+											    <cfloop query="Nation">
+													<option value="#Code#" <cfif get.Country eq Code>selected</cfif>>#Name#</option>
+												</cfloop>
+										   	</select>		
+										</cfif>
+									   
 									
 									</cfif>	   
 								

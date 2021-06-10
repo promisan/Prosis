@@ -43,7 +43,7 @@
 
 	<table width="98%" class="formpadding">
 	
-	<tr class="hide"><td colspan="4" align="center" id="processpreview"></td></tr>
+	<tr class="xhide"><td colspan="4" align="center" id="processpreview"></td></tr>
 	
 	<tr><td height="8"></td></tr>
 	

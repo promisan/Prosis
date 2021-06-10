@@ -92,8 +92,8 @@
 				     id       = "#myid#_date" 
 					 style    = "padding-left:5px;padding-right:5px;padding-top:1px;font-size:#attributes.font#px;height:#attributes.font+12#;width:#width#;text-align:center" 
 					 class    = "#attributes.class# enterastab"
-					 onchange = "ColdFusion.navigate('#SESSION.root#/tools/calendar/DateChange.cfm?key1=#attributes.key1#&key2=#attributes.key2#&key3=#attributes.key3#&key4=#attributes.key4#&datevalidstart=#attributes.datevalidstart#&future=#attributes.future#&function=#attributes.pfunction#&name=#myid#&value='+this.value+'&increment=0','#attributes.name#_datebox')"
-					 onblur   = "ColdFusion.navigate('#session.root#/tools/Calendar/setCalendarDateCheck.cfm?name=#myid#&val='+this.value,'datecheck')" 
+					 onchange = "ptoken.navigate('#SESSION.root#/tools/calendar/DateChange.cfm?key1=#attributes.key1#&key2=#attributes.key2#&key3=#attributes.key3#&key4=#attributes.key4#&datevalidstart=#attributes.datevalidstart#&future=#attributes.future#&function=#attributes.pfunction#&name=#myid#&value='+this.value+'&increment=0','#attributes.name#_datebox')"
+					 onblur   = "ptoken.navigate('#session.root#/tools/Calendar/setCalendarDateCheck.cfm?name=#myid#&val='+this.value,'datecheck')" 
 					 value    = "#val#">								
 					 
 				<cfelse>
@@ -116,7 +116,7 @@
 					<tr class="#vDisplayClassUp#" id="#myid#_date_datenext_tr">
 					
 					<td align="center" style="padding-top:0px;padding-bottom:0px;border-radius:1px;border-bottom:1px solid silver;padding-left:6px;cursor:pointer;padding-right:6px;" 
-					onclick="ColdFusion.navigate('#SESSION.root#/tools/calendar/DateChange.cfm?key1=#attributes.key1#&key2=#attributes.key2#&key3=#attributes.key3#&key4=#attributes.key4#&datevalidstart=#attributes.datevalidstart#&future=#attributes.future#&function=#attributes.pfunction#&name=#myid#&value='+document.getElementById('#myid#_date').value+'&increment=1','#attributes.name#_datebox')">
+					onclick="ptoken.navigate('#SESSION.root#/tools/calendar/DateChange.cfm?key1=#attributes.key1#&key2=#attributes.key2#&key3=#attributes.key3#&key4=#attributes.key4#&datevalidstart=#attributes.datevalidstart#&future=#attributes.future#&function=#attributes.pfunction#&name=#myid#&value='+document.getElementById('#myid#_date').value+'&increment=1','#attributes.name#_datebox')">
 										
 						<img src="#SESSION.root#/images/up6.png" 
 							 id="#myid#_date_datenext" 
@@ -139,7 +139,7 @@
 													
 					<tr class="#vDisplayClassDown#" id="#myid#_date_dateprior_tr">
 					<td align="center" style="padding-left:6px;padding-top:0px;padding-bottom:0px;cursor:pointer;padding-right:6px;"
-					 onclick="ColdFusion.navigate('#SESSION.root#/tools/calendar/DateChange.cfm?key1=#attributes.key1#&key2=#attributes.key2#&key3=#attributes.key3#&key4=#attributes.key4#&datevalidstart=#attributes.datevalidstart#&future=#attributes.future#&function=#attributes.pfunction#&name=#myid#&value='+document.getElementById('#myid#_date').value+'&increment=-1','#attributes.name#_datebox')">
+					 onclick="ptoken.navigate('#SESSION.root#/tools/calendar/DateChange.cfm?key1=#attributes.key1#&key2=#attributes.key2#&key3=#attributes.key3#&key4=#attributes.key4#&datevalidstart=#attributes.datevalidstart#&future=#attributes.future#&function=#attributes.pfunction#&name=#myid#&value='+document.getElementById('#myid#_date').value+'&increment=-1','#attributes.name#_datebox')">
 					 				
 						<img src="#SESSION.root#/images/down6.png" 
 							id="#myid#_date_dateprior" 

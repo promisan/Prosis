@@ -271,7 +271,8 @@ AND        E.SalarySchedule = P.SalarySchedule
 AND        E.RecordStatus = '1'  <!--- Status         = '2' --->
 AND        NOT EXISTS (SELECT   'X'
                        FROM     Employee.dbo.PersonContract
-                       WHERE    ContractId = E.ContractId) 
+                       WHERE    ContractId = E.ContractId
+					   AND      RecordStatus = '1') 
 AND        (E.DateExpiration >= #SALSTR# OR E.DateExpiration IS NULL) 
 AND        E.DateEffective   <= #SALEND#
 AND        EntitlementClass IN ('Rate','Percentage','Amount') 
@@ -393,7 +394,8 @@ AND       E.SalaryTrigger NOT IN (SELECT SalaryTrigger
 <!--- ------------------------------------------------------------------- 		--->
 <!--- in principle any correction should bring -/+ value, but for 0 no poing 	---> 
 AND       ABS(P.WorkDays) >0
-							 
+	
+						 
 </cfquery>
 
 <!--- now we do an effort to define the entitlement days properly based on the period of the leg that triggers them 
@@ -437,7 +439,6 @@ password="#SESSION.dbpw#">
 	WHERE  DateExpiration < DateEffective	
 </cfquery>
 
-
 <!--- ---------------------------------------------------------------------- --->
 <!--- we populate records that clearly map to the leg ---------------------- --->
 <!--- ---------------------------------------------------------------------- --->
@@ -453,9 +454,6 @@ password="#SESSION.dbpw#">
 	WHERE  DateEffective               = ContractEffective
 	AND    DateExpiration              = ContractExpiration			
 </cfquery>	
-
-
-
 
 <!--- Kind of exceptional siation where the entitlement start or end before the end of the defined payroll --->
 	
@@ -524,8 +522,7 @@ password="#SESSION.dbpw#">
 				
 				    )		
 	ORDER BY PersonNo, DependentId, SalaryTrigger, SalarySchedule,  DateEffective DESC 	
-	
-							
+					
 						 	   								
 </cfquery>	
 
@@ -572,7 +569,6 @@ password="#SESSION.dbpw#">
 		</cfif>				
 								
 	<cfelseif DateExpiration lte ContractExpiration>
-	
 		
 		<!--- Define the workdays until the expiration of the entitlements--->
 				
@@ -1015,3 +1011,4 @@ we can overrule salaryday pointer set on the entitlement record ITSELF, to rever
 	 <!--- Hanno 25/3 I noted that for RS the indicator was not set correctly in case of 2 RS records, like for MR West who had 2 entitlements for Rental subsidy  --->
 	 AND     (P.DateEffective            = L.DateEffective  OR P.DateExpiration  = L.DateExpiration)			 
 </cfquery>  
+

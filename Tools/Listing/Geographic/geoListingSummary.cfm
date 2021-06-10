@@ -46,18 +46,18 @@
     </cf_mobileRow>
 </cfif>
 
-<cfset session.geoListingDataSource = attributes.dataSource>
+<cfset "session.geoListingDataSource_#attributes.viewId#" = attributes.dataSource>
 <cfset "session.geoListingBaseQuery_#attributes.viewId#" = preserveSingleQuotes(attributes.baseQuery)>
 <cfset "session.geoListingMainTableScriptFunction_#attributes.viewId#" = "showGeoListingSummaryMapSummary">
-<cfset session.geoListingCountFemale = preserveSingleQuotes(attributes.countFemale)>
-<cfset session.geoListingCountMale = preserveSingleQuotes(attributes.countMale)>
-<cfset session.geoListingCountTotal = preserveSingleQuotes(attributes.countTotal)>
-<cfset session.geoListingFilterMap = attributes.filterMap>
+<cfset "session.geoListingCountFemale_#attributes.viewId#" = preserveSingleQuotes(attributes.countFemale)>
+<cfset "session.geoListingCountMale_#attributes.viewId#" = preserveSingleQuotes(attributes.countMale)>
+<cfset "session.geoListingCountTotal_#attributes.viewId#" = preserveSingleQuotes(attributes.countTotal)>
+<cfset "session.geoListingFilterMap_#attributes.viewId#" = attributes.filterMap>
 
-<cfset session.geoListingDetailSelect = preserveSingleQuotes(attributes.detailSelect)>
-<cfset session.geoListingDetailOrder = preserveSingleQuotes(attributes.detailOrder)>
-<cfset session.geoListingDetailFieldMap = attributes.detailFieldMap>
-<cfset session.geoListingDetailOrderScript = attributes.detailOrderScript>
+<cfset "session.geoListingDetailSelect_#attributes.viewId#" = preserveSingleQuotes(attributes.detailSelect)>
+<cfset "session.geoListingDetailOrder_#attributes.viewId#" = preserveSingleQuotes(attributes.detailOrder)>
+<cfset "session.geoListingDetailFieldMap_#attributes.viewId#" = attributes.detailFieldMap>
+<cfset "session.geoListingDetailOrderScript_#attributes.viewId#" = attributes.detailOrderScript>
 
 <cfset vFilterParams = "">
 <cfloop from="1" to="#ArrayLen(attributes.filterMap)#" index="i">

@@ -83,6 +83,54 @@ password="#SESSION.dbpw#">
 	ORDER BY L.LanguageCode	
 </cfquery>
 
+<!--- Getting Previous Texts for easy maintenance by Armin 5/18/2021 ---->
+<cfloop query="Language">
+
+	<cfquery name="getPrevious"
+			datasource="AppsSelection"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+		SELECT  TOP 1 *
+		FROM Ref_SubmissionEditionProfile
+		WHERE ActionId != '#url.actionid#'
+	AND LanguageCode = '#Language.LanguageCode#'
+	AND ActionStatus = '9'
+	ORDER BY Created DESC
+	</cfquery>
+
+
+	<cfif getPrevious.TextAreaCode neq "" and getPrevious.EditionNotes neq "">
+		<cfquery name="getCurrent"
+				datasource="AppsSelection"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+			SELECT  TOP 1 *
+			FROM Ref_SubmissionEditionProfile
+			WHERE ActionId = '#url.actionid#'
+		AND LanguageCode = '#Language.LanguageCode#'
+		AND TextAreaCode = '#getPrevious.TextAreaCode#'
+		AND ActionStatus = '0'
+		</cfquery>
+
+
+		<cfif getCurrent.recordcount neq 0 AND getCurrent.EditionNotes eq "">
+			<cfquery name="updateCurrent"
+					datasource="AppsSelection"
+					username="#SESSION.login#"
+					password="#SESSION.dbpw#">
+				UPDATE Ref_SubmissionEditionProfile
+				SET EditionNotes = '#getPrevious.EditionNotes#'
+			WHERE ActionId = '#url.actionid#'
+			AND LanguageCode = '#Language.LanguageCode#'
+			AND TextAreaCode = '#getPrevious.TextAreaCode#'
+			AND ActionStatus = '0'
+			</cfquery>
+		</cfif>
+	</cfif>
+</cfloop>
+
+
+
 <table width="96%" cellspacing="0" cellpadding="0" align="center">
 
 <tr>

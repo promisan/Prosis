@@ -41,7 +41,7 @@
 						
 		<cfoutput>
 			<script>
-				ColdFusion.navigate('#SESSION.root#/roster/maintenance/rosteredition/Recipient/RecipientViewDetail.cfm?submissionedition=#url.ID#','recipients');
+				ptoken.navigate('#SESSION.root#/roster/maintenance/rosteredition/Recipient/RecipientViewDetail.cfm?submissionedition=#url.ID#','recipients');
 			</script>
 		</cfoutput>
 		
@@ -60,7 +60,7 @@
 						
 		<cfoutput>
 			<script>
-				ColdFusion.navigate('#SESSION.root#/roster/maintenance/rosteredition/Recipient/RecipientViewDetail.cfm?submissionedition=#url.ID#','recipients');
+				ptoken.navigate('#SESSION.root#/roster/maintenance/rosteredition/Recipient/RecipientViewDetail.cfm?submissionedition=#url.ID#','recipients');
 			</script>
 		</cfoutput>
 		

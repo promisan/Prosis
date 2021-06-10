@@ -28,29 +28,32 @@
   <tr>
 	   <td width="100%" height="100%" valign="top">
 	      
-		   <table cellspacing="1" cellpadding="1" width="100%" height="100%" class="formpadding">
+		   <table width="100%" height="100%" class="formpadding">
 		   				
 				<cfquery name="warehouse" 
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 				  	SELECT    * 
-					FROM      Warehouse
+					FROM      Warehouse W
 					WHERE     Mission = '#workorder.mission#'
-					AND       Operational = 1			
-					<!--- show only warehouse that have items that are part of the workorder --->
-					AND       Warehouse IN (SELECT DISTINCT Warehouse 
-					                        FROM   ItemTransaction
-											WHERE  Mission = '#workorder.mission#'
-											AND    ItemNo IN (
-											                  SELECT ItemNo
-											                  FROM   WorkOrder.dbo.WorkOrderLineItem
-												              WHERE  WorkorderId = '#url.workorderid#'
-															  AND    WorkOrderLine = '#url.workorderline#'
-															  )  
-											)				               	
+							
+					<!--- show only warehouse that have items in stock which we have in the workorder --->
+					AND       EXISTS (SELECT 'X' 
+					                  FROM   ItemTransaction
+								      WHERE  Mission = '#workorder.mission#'
+									  AND    Warehouse = W.Warehouse
+									  AND    Location IN (SELECT Location FROM WarehouseLocation WHERE Warehouse = W.Warehouse and Operational = 1) <!--- speeds up the query as index is now used --->
+								      AND    ItemNo IN (SELECT ItemNo
+										                FROM   WorkOrder.dbo.WorkOrderLineItem
+										                WHERE  WorkorderId   = '#url.workorderid#'
+											    	    AND    WorkOrderLine = '#url.workorderline#' )  
+											)	
+					AND       Operational = 1										               	
 					ORDER BY  WarehouseDefault DESC				 
-				</cfquery>  
+				</cfquery> 
+				
+				<!--- speed up this query --->
 				
 				<!--- default warehouse --->				
 				<cfset url.warehouse = warehouse.warehouse>
@@ -61,12 +64,12 @@
 				<input type="hidden" name="workorderline"    id="workorderline"    value = "#url.workorderline#">			
 				<input type="hidden" name="systemfunctionid" id="systemfunctionid" value = "#url.systemfunctionid#">
 				
-				<tr>						   
+				<tr class="fixrow">						   
 					
 					<td style="padding-left:3px;padding-right:10px" id="boxwarehouse">																
 																			
 							<select name="warehouse" id="warehouse"
-							    class="regularxl" style="background-color:f1f1f1;border:0px;font-size:20px;height:35px;width:100%"
+							    class="regularxxl" style="background-color:f1f1f1;border:0px;font-size:20px;height:35px;width:100%"
 								onchange="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Reserve/WorkOrderListing.cfm?mission=#workorder.mission#&warehouse='+this.value+'&workorderid=#url.workorderid#&workorderline=#url.workorderline#','orderbox')">
 								<cfloop query="Warehouse">
 									<option value="#Warehouse#">#WarehouseName#</option>
@@ -80,11 +83,12 @@
 				</cfoutput>				
 									
 				<tr>
-					<td colspan="1" id="stockbox" style="height:100%;padding-left:4;padding-top:4px" valign="top" id="orderbox">															
-						 		 <cfinclude template="WorkOrderListing.cfm">						   		
+					<td colspan="1" id="stockbox" style="height:100%;padding-left:4;padding-top:4px" valign="top" id="orderbox">	
+																		
+						  <cfinclude template="WorkOrderListing.cfm">						   		
+						 
 					</td>				
-				</tr>
-				
+				</tr>			
 			  
 		   </table>
 		   	   

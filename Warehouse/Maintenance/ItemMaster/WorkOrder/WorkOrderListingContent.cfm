@@ -121,7 +121,7 @@
 							
 <cf_listing
 	    header              = "workorderlist"
-	    box                 = "listing"
+	    box                 = "listingreservation"
 		link                = "#SESSION.root#/Warehouse/Maintenance/ItemMaster/WorkOrder/WorkOrderListingContent.cfm?systemfunctionid=#url.systemfunctionid#"
 	    html                = "No"		
 		tableheight         = "100%"
@@ -139,8 +139,8 @@
 		filtershow          = "Show"
 		excelshow           = "Yes" 		
 		listlayout          = "#fields#"
-		drillmode           = "window" 
+		drillmode           = "tab" 
 		drillargument       = "#client.height-90#;#client.width-90#;false;false"	
-		drilltemplate       = "WorkOrder/Application/WorkOrder/ServiceDetails/ServiceLineDetail.cfm?drillid="
+		drilltemplate       = "WorkOrder/Application/WorkOrder/ServiceDetails/ServiceLineView.cfm?drillid="
 		drillkey            = "WorkorderLineId"
 		drillbox            = "addaddress">	

@@ -80,9 +80,22 @@
 					SELECT 	#sel#
 					#dataquery# 
 			</cfquery>							
-
-		    <cfspreadsheet action="write" filename="#filename#" query="data" sheetname="#sheetName#" overwrite="true">
 			
+			<!---
+			
+			<cfset xlObj = spreadsheetNew("testsheet", true)>
+			<cfset spreadsheetAddRows(xlObj, "#data#")>
+			<cfset spreadsheetwrite(xlObj, "#session.rootpath#//cfrstage//testing.xlsx", "", true, false)>
+			
+			--->
+			
+		    <cfspreadsheet action="write"
+			      autosize="false" 
+				  filename="#filename#" 
+				  query="data" 
+				  sheetname="#sheetName#" 
+				  overwrite="true">
+				 			
 		</cffunction>
 	
 		<cffunction name="ExcelTable" 
@@ -118,89 +131,90 @@
 		<cfset thesheet    = SpreadsheetNew("my extract")>				
 		
 		<!--- Set the speadsheet meta info --->
-		<cfset info = StructNew()> 
-		<cfset info.title="#SESSION.welcome# Excel Engine"> 
-		<cfset info.category="Financials"> 
-		<cfset info.author="#SESSION.welcome# Excel Engine"> 
-		<cfset info.comments="Developed by Hanno van Pelt December 2010"> 
+		<cfset info                 = StructNew()> 
+		<cfset info.title           = "#SESSION.welcome# Excel Engine"> 
+		<cfset info.category        = "Financials"> 
+		<cfset info.author          = "#SESSION.welcome# Excel Engine"> 
+		<cfset info.comments        = "Prepared by Hanno van Pelt December 2010"> 
 		<cfset spreadsheetaddInfo(thesheet,info)> 
 		
 		<!--- set the default formatting content --->
 		
 		<cfset formatCel   = structNew()>
 		
-		<cfset formatCel.font="Arial"> 
-		<cfset formatCel.fontsize="10"> 
-		<cfset formatCel.color="black;"> 
-		<cfset formatCel.italic="false"> 
-		<cfset formatCel.bold="false">    
-		<cfset formatCel.textwrap="true">    
-		<cfset formatCel.bottomborder="thin"> 
-		<cfset formatCel.bottombordercolor="blue_grey"> 
-		<cfset formatCel.topbordercolor="blue_grey"> 
-		<cfset formatCel.topborder="thin"> 
-		<cfset formatCel.leftborder="dotted"> 
-		<cfset formatCel.leftbordercolor="blue_grey"> 
-		<cfset formatCel.rightborder="dotted"> 
-		<cfset formatCel.rightbordercolor="blue_grey"> 		
+		<cfset formatCel.textwrap          = "false"> 
+		<cfset formatCel.alignment         = "left,vertical_top"> 
+		<cfset formatCel.font              = "Calibri"> 
+		<cfset formatCel.fontsize          = "12"> 
+		<cfset formatCel.color             = "black"> 
+		<cfset formatCel.italic            = "false"> 
+		<cfset formatCel.bold              = "false">    
+		<cfset formatCel.textwrap          = "false">    
+		<cfset formatCel.bottomborder      = "thin"> 
+		<cfset formatCel.bottombordercolor = "blue_grey"> 
+		<cfset formatCel.topbordercolor    = "blue_grey"> 
+		<cfset formatCel.topborder         = "thin"> 
+		<cfset formatCel.leftborder        = "dotted"> 
+		<cfset formatCel.leftbordercolor   = "blue_grey"> 
+		<cfset formatCel.rightborder       = "dotted"> 
+		<cfset formatCel.rightbordercolor  = "blue_grey"> 		
 		
 		<!--- ----------------------------------- --->
 		<!--- set the freezing of the header line --->
 		<!--- ----------------------------------- --->
 		
 		<cfset SpreadsheetAddFreezePane(thesheet,1,1)>			
-		<cfset SpreadsheetAddRow(theSheet,"R.,#lbl#",1,1)> 	
+		<cfset SpreadsheetAddRow(theSheet,"No,#lbl#",1,1)> 	
 		
-		<cfset formatCel.font="Verdana"> 
-		<cfset formatCel.fgcolor="pale_blue"> 		
-		<!--- <cfset formatCel.fontsize="9">  --->
-		<cfset formatCel.alignment="left"> 
-		<cfset formatCel.textwrap="false">   
+		<cfset formatCel.font              = "Calibri"> 
+		<cfset formatCel.fgcolor           = "silver"> 		
+		<cfset formatCel.alignment         = "center"> 
+		<cfset formatCel.textwrap          = "true">   
 		
 		<cfset SpreadsheetFormatRow(theSheet,formatCel,1)>
-		<cfset SpreadsheetSetRowHeight(theSheet,1,20)>
+		<cfset SpreadsheetSetRowHeight(theSheet,1,40)>
 		
 		<cftry>
 				
-				<cfquery name="total" 
-					 datasource="#datasource#"
-					 username="#SESSION.login#" 
-					 password="#SESSION.dbpw#"> 
-				     SELECT #sel#
-					 #preservesinglequotes(dataquery)#					     			   
-			    </cfquery> 
+			<cfquery name="total" 
+				 datasource="#datasource#"
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#"> 
+			     SELECT #sel#
+				 #preservesinglequotes(dataquery)#					     			   
+		    </cfquery> 
 		
-		<cfcatch>
-				
-				<cfquery name="total" 
-					 datasource="#datasource#"> 
-				     SELECT #sel#
-					 #preservesinglequotes(dataquery)#					     			   
-			    </cfquery> 
-		
-		</cfcatch>		
+			<cfcatch>
+					
+					<cfquery name="total" 
+						 datasource="#datasource#"> 
+					     SELECT #sel#
+						 #preservesinglequotes(dataquery)#					     			   
+				    </cfquery> 
+			
+			</cfcatch>	
+			
 		</cftry>
 		
 		<!--- ----------------------------------- --->
 		<!--- --------Body of the sheet---------- --->
 		<!--- ----------------------------------- --->			
 		
-		<cfset sumlist = "">	
-		
+		<cfset sumlist = "">		
 						
 		<cfif GroupByOne eq "">  	
 		
 			<cfset session.status = 0.5>
 									
 			<cfinvoke component="Service.Excel.Excel"
-             method="ExcelSection"    
-			  total="#total.recordcount#"
-			  records="#total.recordcount#"           
-			  sectiondata="#total#"	        
-			  thesheet="#thesheet#"
-	          cols="#cols#"
-	          rowstart="2"
-			  returnvariable="sheetend"/>	
+             method          = "ExcelSection"    
+			  total          = "#total.recordcount#"
+			  records        = "#total.recordcount#"           
+			  sectiondata    = "#total#"	        
+			  thesheet       = "#thesheet#"
+	          cols           = "#cols#"
+	          rowstart       = "2"
+			  returnvariable = "sheetend"/>	
 			  
 			 <cfset session.status = 0.5> 
 			  			  
@@ -234,12 +248,12 @@
 
 					<cfcatch>
 					
-							<!--- Note : remove the strings around it as query does not accept this --->					
-						 	<cfquery name="sectiondata" dbtype="query">
-						        SELECT #sel#				    			
-								FROM   Total
-								WHERE  #groupbyone# = #val#						
-						     </cfquery> 		
+						<!--- Note : remove the strings around it as query does not accept this --->					
+					 	<cfquery name="sectiondata" dbtype="query">
+					        SELECT #sel#				    			
+							FROM   Total
+							WHERE  #groupbyone# = #val#						
+					     </cfquery> 		
 					
 					</cfcatch>
 				
@@ -250,16 +264,22 @@
 				
 				<!--- add a group header line --->																	
 					
-				<cfset SpreadsheetAddRow(theSheet,"#sectiondata.recordcount#,#evaluate(groupbyone)#","#rowstart#",1)> 	
+				<cfset SpreadsheetAddRow(theSheet,"#evaluate(groupbyone)# [#sectiondata.recordcount# records]","#rowstart#",1)> 	
 								
-				<cfset formatCel.fgcolor="lemon_chiffon">  
-				<cfset formatCel.alignment="center"> 								
+				<cfset formatCel.fgcolor    = "lemon_chiffon">  
+				<cfset formatCel.alignment  = "center"> 	
+				<cfset formatCel.color      = "black"> 
+				<cfset formatCel.fontsize   = "14"> 
+				<cfset formatCel.topbordercolor    = "blue_grey"> 
+				<cfset formatCel.topborder         = "thin"> 			
+										
+				<cfset SpreadsheetSetRowHeight(theSheet,rowstart,30)>
+																			
+				<cfset SpreadsheetMergeCells(theSheet, rowstart, rowstart, 1, "#ArrayLen(cols)+1#")>	
+								
 				<cfset SpreadsheetFormatRow(theSheet,formatCel,rowstart)> 	
-												
-				<cfset SpreadsheetMergeCells(theSheet, rowstart, rowstart, 2, "#ArrayLen(cols)+1#")>																		
-								
-				<cfset SpreadsheetFormatCell(theSheet,formatCel,rowstart,"1")>
-												
+									
+																				
 				<!--- now check for the second grouping --->
 				
 				<cfif groupbyTwo neq "">
@@ -300,12 +320,18 @@
 						
 						<!--- add a sub group header line --->										
 														
-						<cfset SpreadsheetAddRow(theSheet,"#section2data.recordcount#,#evaluate(groupbytwo)#",rowstart,1)> 	
+						<cfset SpreadsheetAddRow(theSheet,"#evaluate(groupbytwo)# [#section2data.recordcount# records]",rowstart,1)> 	
 												
-						<cfset formatCel.fgcolor="light_turquoise">  
-						<cfset formatCel.alignment="center"> 																			
+						<cfset formatCel.fgcolor    = "light_turquoise"> 
+						<cfset formatCel.color      = "black">  
+						<cfset formatCel.alignment  = "center"> 
+						<cfset formatCel.fontsize   = "14"> 	
+						<cfset formatCel.topbordercolor    = "blue_grey"> 
+						<cfset formatCel.topborder         = "thin"> 		
+						
+						<cfset SpreadsheetSetRowHeight(theSheet,rowstart,28)>																	
 											
-						<cfset SpreadsheetMergeCells(theSheet, rowstart, rowstart, 2, "#ArrayLen(cols)+1#")>	
+						<cfset SpreadsheetMergeCells(theSheet, rowstart, rowstart, 1, "#ArrayLen(cols)+1#")>	
 						
 						<cfset SpreadsheetFormatRow(theSheet,formatCel,rowstart)> 														
 						<!--- <cfset SpreadsheetFormatCell(theSheet,formatCel,rowstart,"1")> --->
@@ -314,15 +340,15 @@
 				
 						<!--- generate the body of the group --->
 			
-						<cfinvoke component="Service.Excel.Excel"
-		            	  method="ExcelSection"  
-						  total="#total.recordcount#"     						  
-						  records="#sectiondata.recordcount#"		        
-						  sectiondata="#section2data#"		         
-						  thesheet="#thesheet#"
-			        	  cols="#cols#"				  
-				          rowstart="#rowstart#"
-						  returnvariable="sheetend"/>	
+						<cfinvoke component   = "Service.Excel.Excel"
+		            	  method              = "ExcelSection"  
+						  total               = "#total.recordcount#"     						  
+						  records             = "#sectiondata.recordcount#"		        
+						  sectiondata         = "#section2data#"		         
+						  thesheet            = "#thesheet#"
+			        	  cols                = "#cols#"				  
+				          rowstart            = "#rowstart#"
+						  returnvariable      = "sheetend"/>	
 						  
 						 <!--- capture the total for final summary ---> 
 				
@@ -340,15 +366,15 @@
 					
 					<!--- create a final line for all the groups on level 2 --->
 					
-					 <cfinvoke component="Service.Excel.Excel"
-	            	  method="ExcelSummary"  
-					  total="#total.recordcount#"             
-					  records="#sectiondata.recordcount#"		         
-					  Sumformula="#grouplist#"
-					  thesheet="#thesheet#"
-					  color="lemon_chiffon" 
-		        	  cols="#cols#"				  
-			          rowstart="#rowstart#"/>		
+					 <cfinvoke component = "Service.Excel.Excel"
+	            	  method             = "ExcelSummary"  
+					  total              = "#total.recordcount#"             
+					  records            = "#sectiondata.recordcount#"		         
+					  Sumformula         = "#grouplist#"
+					  thesheet           = "#thesheet#"
+					  color              = "lemon_chiffon" 
+		        	  cols               = "#cols#"				  
+			          rowstart           = "#rowstart#"/>		
 					  
 					 <cfif sumlist eq "">
 					  	  <cfset sumlist = "#rowstart#">
@@ -364,15 +390,15 @@
 					
 					<!--- generate the body of the group --->
 				
-					<cfinvoke component="Service.Excel.Excel"
-	            	  method="ExcelSection"  
-					  total="#total.recordcount#"
-					  records="#total.recordcount#"		           
-					  sectiondata="#sectiondata#"		         
-					  thesheet="#thesheet#"
-		        	  cols="#cols#"				  
-			          rowstart="#rowstart#"
-					  returnvariable="sheetend"/>	
+					<cfinvoke component = "Service.Excel.Excel"
+	            	  method            = "ExcelSection"  
+					  total             = "#total.recordcount#"
+					  records           = "#total.recordcount#"		           
+					  sectiondata       = "#sectiondata#"		         
+					  thesheet          = "#thesheet#"
+		        	  cols              = "#cols#"				  
+			          rowstart          = "#rowstart#"
+					  returnvariable    = "sheetend"/>	
 					 
 					 <!--- capture the total for final summary ---> 
 					
@@ -394,15 +420,15 @@
 						
 			<!--- create a final line for all the groups on level 1  --->
 			
-			<cfinvoke component="Service.Excel.Excel"
-	            	  method="ExcelSummary"   
-					  total="#total.recordcount#" 					             
-					  records="#total.recordcount#"		         
-					  Sumformula="#sumlist#"
-					  thesheet="#thesheet#"
-					  color="pale_blue" 
-		        	  cols="#cols#"				  
-			          rowstart="#rowstart#"/>	
+			<cfinvoke component    = "Service.Excel.Excel"
+	            	  method       = "ExcelSummary"   
+					  total        = "#total.recordcount#" 					             
+					  records      = "#total.recordcount#"		         
+					  Sumformula   = "#sumlist#"
+					  thesheet     = "#thesheet#"
+					  color        = "pale_blue" 
+		        	  cols         = "#cols#"				  
+			          rowstart     = "#rowstart#"/>	
 		 
 		</cfif>  		
 								
@@ -412,21 +438,23 @@
 		
 		<!--- opening sheet --->
 					
-		<cfspreadsheet action="write" 
-		               filename="#filename#" 
-					   name="theSheet"  
-         		       sheet=1 
-					   sheetname="Data" 
-					   overwrite="true">
+		<cfspreadsheet action    = "write" 
+		               filename  = "#filename#" 
+					   autosize  = "false"
+					   name      = "theSheet"  
+         		       sheet     = 1 
+					   sheetname = "Data" 
+					   overwrite = "true">
 		
 		<!--- preview sheet, to prevent error message in Excel --->
 								   
-		<cfspreadsheet action="write" 
-		               filename="#filenamepreview#" 
-					   name="theSheet"  
-         		       sheet=1 
-					   sheetname="Data" 
-					   overwrite="true">		
+		<cfspreadsheet action    = "write" 
+		               filename  = "#filenamepreview#" 
+					   name      = "theSheet"  
+					   autosize  = "false"
+         		       sheet     = 1 
+					   sheetname = "Data" 
+					   overwrite = "true">		
 					   
 		<cfset session.status = "1.0">			   	   
 					
@@ -446,7 +474,7 @@
 				<cfargument name="cols"          type="array"        required="yes">		
 				<cfargument name="rowstart"      type="numeric"      required="yes">	
 				
-				<cfif total lte 300>
+				<cfif total lte 11000>
 					<cfset format = "1">
 				<cfelse>
 				    <cfset format = "0">
@@ -454,7 +482,7 @@
 				
 				<!--- cell formatting defaults --->
 				
-				<cfset letterList = "B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,AA,AB,AC,AD,AE,AF,AG,AH,AI,AJ,AK,AL,AM,AN,AO,AP,AQ,AR,AS,AT,AU,AV,AW,AX,AY,AZ,BA,BB,BC,BD,BE,BF,BG,BH,BI,BJ,BK,BL,BM,BN,BO,BP,BQ,BR,BS,BT,BU,BV,BW">
+				<cfset letterList = "B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,AA,AB,AC,AD,AE,AF,AG,AH,AI,AJ,AK,AL,AM,AN,AO,AP,AQ,AR,AS,AT,AU,AV,AW,AX,AY,AZ,BA,BB,BC,BD,BE,BF,BG,BH,BI,BJ,BK,BL,BM,BN,BO,BP,BQ,BR,BS,BT,BU,BV,BW,BX,BY,BZ">
 				
 				<cfset letter = ArrayNew(1)>
 
@@ -487,11 +515,12 @@
 				<cfset aWrap = ArrayNew(1)> 								
 				<cfloop query="sectiondata">
 												
-					<cfset SpreadsheetSetCellValue(theSheet, "#currentrow#.", "#row+currentrow#", 1)>	
+					<cfset SpreadsheetSetCellValue(theSheet, "#currentrow#", "#row+currentrow#", 1)>	
 					
 					<!--- content cell --->
 					
 				    <cfloop index="fld" from="1" to="#ArrayLen(cols)#">
+					
 				    		<cfset vError = 0>
 							<cftry>
 									<cfset val = evaluate("sectionData."&cols[fld][1])>
@@ -532,17 +561,14 @@
 									 
 								<cfelse>
 									 <cfset SpreadsheetSetCellValue(theSheet, "#val#", "#row+currentrow#", "#fld+1#")>	 
-								</cfif>	 						 
-								 								
+								</cfif>							 								
 								 
-							<cfelseif cols[fld][2] eq "integer">
-															 
+							<cfelseif cols[fld][2] eq "integer">															 
+								 <cfset SpreadsheetSetCellValue(theSheet, "#val#", "#row+currentrow#", "#fld+1#")>									 
+							<cfelseif cols[fld][2] eq "float">																						 
+								 <cfset SpreadsheetSetCellValue(theSheet, "#val#", "#row+currentrow#", "#fld+1#")>		 								 
+							<cfelseif cols[fld][2] eq "numeric">																																					 
 								 <cfset SpreadsheetSetCellValue(theSheet, "#val#", "#row+currentrow#", "#fld+1#")>	
-								 
-							<cfelseif cols[fld][2] eq "numeric" or cols[fld][2] eq "float">
-															 
-								 <cfset SpreadsheetSetCellValue(theSheet, "#val#", "#row+currentrow#", "#fld+1#")>	
-
 							<cfelse>
 							
 								 <cfset valStr = getCleanHTML(val)>								 
@@ -557,92 +583,99 @@
 							</cfif>
 						
 						</cfif> <!--- end of error --->
+						
 					</cfloop>
 								
 				</cfloop>
+				
+				<!--- apply colun based formatting for this row --->
 								
-				 <cfif format eq "1">					
+				<cfif format eq "1">	
+				 
+				 	<!--- pre-format the columns ---> 				
 				 				 
 				    <cfloop index="fld" from="1" to="#ArrayLen(cols)#">
 
 							<cfset formatCel   = structNew()>
-						    <cfset formatCel.fgcolor="white"> 					
-
+						    <cfset formatCel.fgcolor="white">
 					
 							<cfif cols[fld][2] eq "date" or cols[fld][2] eq "datetime" or findNoCase("date",fld)> 
 
 									<cfif ArrayFind(aWrap, "#fld+1#") neq 0>
-									    <cfset formatCel.textwrap = "true"> 
-										<cfset formatCel.alignment = "left,vertical_top"> 
-										<cfset SpreadSheetSetColumnWidth(theSheet,"#fld+1#",100)> 
+									    <cfset formatCel.textwrap        = "false"> 
+										<cfset formatCel.alignment       = "left,vertical_top"> 
+										<cfset SpreadSheetSetColumnWidth(theSheet,"#fld+1#",16)> 										
 					 			    	<cfset SpreadsheetFormatColumn(theSheet,formatCel,"#fld+1#")>				
 									<cfelse>
-									    <cfset formatCel.alignment="center"> 									 
+									    <cfset formatCel.alignment         = "center"> 									 
 									    <cfset formatCel.verticalalignment = "vertical_top">
+										<cfset SpreadSheetSetColumnWidth(theSheet,"#fld+1#",16)> 		
 							 			<cfset SpreadsheetFormatColumn(theSheet,formatCel,"#fld+1#")>				
 									</cfif>	
 
 							<cfelseif cols[fld][2] eq "integer">
-															 
-								      <cfset formatCel.font="Arial"> 
-								      <cfset formatCel.fontsize="10"> 
-								      <cfset formatCel.alignment="right"> 
+									 
+								      <cfset formatCel.alignment         = "right"> 
 									  <cfset formatCel.verticalalignment = "vertical_top">
-							  	      <cfset formatCel.fgcolor="light_yellow"> 
-								      <cfset formatCel.dataformat = "0"> 	
-						 			  <cfset SpreadsheetFormatColumn(theSheet,formatCel,"#fld+1#")>				
+							  	      <cfset formatCel.fgcolor           = "light_yellow"> 
+								      <cfset formatCel.dataformat        = "0"> 	
+						 			  <cfset SpreadsheetFormatColumn(theSheet,formatCel,"#fld+1#")>	
+									  <cfset SpreadSheetSetColumnWidth(theSheet,"#fld+1#",10)> 			
 				
 								 				
 							<cfelseif cols[fld][2] eq "numeric" or cols[fld][2] eq "float">
-															 
-								 	<cfset formatCel.font="Arial"> 
-								    <cfset formatCel.fontsize="10"> 
-								    <cfset formatCel.alignment="right"> 
-									<cfset formatCel.verticalalignment = "vertical_top">
-							  	    <cfset formatCel.fgcolor="light_yellow"> 
-								    <cfset formatCel.dataformat = "##,####0.00"> 
+																	 	
+								    <cfset formatCel.alignment           = "right"> 									
+									<cfset formatCel.verticalalignment   = "vertical_top">
+							  	    <cfset formatCel.fgcolor             = "light_green"> 									
+								    <cfset formatCel.dataformat          = "##,####0.00"> 
+									<cfset SpreadSheetSetColumnWidth(theSheet,"#fld+1#",18)> 
 					 			    <cfset SpreadsheetFormatColumn(theSheet,formatCel,"#fld+1#")>				
 								
 							<cfelse>
 							
 									<cfif ArrayFind(aWrap, "#fld+1#") neq 0>
-									    <cfset formatCel.textwrap = "true"> 
-										<cfset formatCel.alignment = "left">
+									
+									    <cfset formatCel.textwrap   = "false"> 
+										<cfset formatCel.alignment  = "left">
 										<cfset formatCel.verticalalignment = "vertical_top"> 
-										<cfset SpreadSheetSetColumnWidth(theSheet,"#fld+1#",100)> 
-					 			    	<cfset SpreadsheetFormatColumn(theSheet,formatCel,"#fld+1#")>				
+										<cfset SpreadSheetSetColumnWidth(theSheet,fld+1,25)> 
+					 			    	<cfset SpreadsheetFormatColumn(theSheet,formatCel,"#fld+1#")>	
+													
 									<cfelse>
+									
 										<cfset formatCel.alignment = "left">
+										<cfset formatCel.textwrap   = "false"> 
 										<cfset formatCel.verticalalignment = "vertical_top"> 
-					 			    	<cfset SpreadsheetFormatColumn(theSheet,formatCel,"#fld+1#")>				
+					 			    	<cfset SpreadsheetFormatColumn(theSheet,formatCel,"#fld+1#")>	
+										<cfset SpreadSheetSetColumnWidth(theSheet,"#fld+1#",25)> 			
+										
 									</cfif>	
 								
 							</cfif>
 					</cfloop>
 					
-					<cfif format eq "1">	
+					<!--- format header row (1) --->					
+															
+		  	        <cfset formatCel.fgcolor           = "royal_blue">
+					<cfset formatCel.alignment         = "center">
+					<cfset formatCel.color             = "white"> 
+					<cfset formatCel.italic            = "false"> 
+					<cfset formatCel.bold              = "false">    
+				    <cfset formatCel.fontsize          = "12"> 
+					<cfset formatCel.textwrap          = "false">    
+					<cfset formatCel.bottomborder      = "thin"> 
+					<cfset formatCel.bottombordercolor = "blue_grey"> 
+					<cfset formatCel.topbordercolor    = "blue_grey"> 
+					<cfset formatCel.topborder         = "thin"> 
+					<cfset formatCel.leftborder        = "dotted"> 
+					<cfset formatCel.leftbordercolor   = "blue_grey"> 
+					<cfset formatCel.rightborder       = "dotted"> 
+					<cfset formatCel.rightbordercolor  = "blue_grey"> 		
 										
-			  	        <cfset formatCel.fgcolor="light_yellow"> 
-						<cfset formatCel.color="black;"> 
-						<cfset formatCel.italic="false"> 
-						<cfset formatCel.bold="true">    
-					    <cfset formatCel.fontsize="10"> 
-						<cfset formatCel.textwrap="true">    
-						<cfset formatCel.bottomborder="thin"> 
-						<cfset formatCel.bottombordercolor="blue_grey"> 
-						<cfset formatCel.topbordercolor="blue_grey"> 
-						<cfset formatCel.topborder="thin"> 
-						<cfset formatCel.leftborder="dotted"> 
-						<cfset formatCel.leftbordercolor="blue_grey"> 
-						<cfset formatCel.rightborder="dotted"> 
-						<cfset formatCel.rightbordercolor="blue_grey"> 		
+					<cfset SpreadsheetFormatRow(theSheet,formatCel,1)>					
 					
-					</cfif>				 
-					
-					 <cfset SpreadsheetFormatRow(theSheet,formatCel,1)>					
-					
-				</cfif>
-												
+				</cfif>												
 								
 				<!--- --------------------------- --->
 				<!--- add the section summary row --->
@@ -657,11 +690,14 @@
 				<cfset SpreadsheetAddRow(theSheet,",#f#","#rowend+1#",1)> 
 				
 				<cfif format eq "1">	
-					<cfset formatCel.font="Arial"> 
-					<cfset formatCel.fontsize="10"> 
-					<cfset formatCel.fgcolor="light_turquoise">   
-					<cfset formatCel.bold="true">  	
+				
+					<cfset formatCel.font     = "Calibri"> 
+					<cfset formatCel.color    = "black"> 
+					<cfset formatCel.fontsize = "14"> 
+					<cfset formatCel.fgcolor  = "light_turquoise">   
+					<cfset formatCel.bold     = "false">  	
 					<cfset SpreadsheetFormatRow(theSheet,formatCel,"#rowend+1#")> 
+					
 				</cfif>
 				
 				<cfloop index="x" from="1" to="#ArrayLen(cols)#">
@@ -678,11 +714,11 @@
 						<cfif format eq "1">	
 												
 						  <cfif f eq "integer">
-							<cfset formatCel.dataformat = "0"> 
+							<cfset formatCel.dataformat  = "0"> 
 						  <cfelse>
 							 <cfset formatCel.dataformat = "##,####0.00"> 
 						  </cfif>
-						  <cfset formatCel.alignment="right"> 
+						  <cfset formatCel.alignment     = "right"> 
 						  <cfset SpreadsheetFormatCell(theSheet,formatCel,"#rowend+1#","#x+1#")> 					
 						  
 						</cfif>
@@ -695,11 +731,11 @@
 								
 		</cffunction>		
 				
-		<cffunction name="ExcelSummary" hint="Create a summar line">
+		<cffunction name="ExcelSummary" hint="Create a summary line">
 		
 			<cfargument name="records"     type="string"       required="true"   default="1">		
 			<cfargument name="SumFormula"  type="string"       required="false"   default="">		
-			<cfargument name="thesheet"      required="yes">			
+			<cfargument name="thesheet"    required="yes">			
 			<cfargument name="cols"        type="array"        required="yes">		
 			<cfargument name="rowstart"    type="numeric"      required="yes">	
 			<cfargument name="color"       type="string"       default="pale_blue">
@@ -710,22 +746,23 @@
 			
 			<cfset formatCel   = structNew()>
 		
-			<cfset formatCel.font="Arial"> 		
-			<cfset formatCel.color="black;"> 
-			<cfset formatCel.italic="false"> 
-			<cfset formatCel.bold="true">    
-			<cfset formatCel.textwrap="true">    
-			<cfset formatCel.bottomborder="thin"> 
-			<cfset formatCel.bottombordercolor="blue_grey"> 
-			<cfset formatCel.topbordercolor="blue_grey"> 
-			<cfset formatCel.topborder="thin"> 
-			<cfset formatCel.leftborder="dotted"> 
-			<cfset formatCel.leftbordercolor="blue_grey"> 
-			<cfset formatCel.rightborder="dotted"> 
-			<cfset formatCel.rightbordercolor="blue_grey"> 		
+			<cfset formatCel.font              = "Calibri"> 	
+			<cfset formatCel.fontsize          = "14"> 	
+			<cfset formatCel.color             = "black"> 
+			<cfset formatCel.italic            = "false"> 
+			<cfset formatCel.bold              = "false">    
+			<cfset formatCel.textwrap          = "false">    
+			<cfset formatCel.bottomborder      = "thin"> 
+			<cfset formatCel.bottombordercolor = "blue_grey"> 
+			<cfset formatCel.topbordercolor    = "blue_grey"> 
+			<cfset formatCel.topborder         = "thin"> 
+			<cfset formatCel.leftborder        = "dotted"> 
+			<cfset formatCel.leftbordercolor   = "blue_grey"> 
+			<cfset formatCel.rightborder       = "dotted"> 
+			<cfset formatCel.rightbordercolor  = "blue_grey"> 		
 			
-			<cfset letterList = "B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,AA,AB,AC,AD,AE,AF,AG,AH,AI,AJ,AK,AL,AM,AN,AO,AP,AQ,AR,AS,AT,AU,AV,AW,AX,AY,AZ">
-	
+			<cfset letterList = "B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,AA,AB,AC,AD,AE,AF,AG,AH,AI,AJ,AK,AL,AM,AN,AO,AP,AQ,AR,AS,AT,AU,AV,AW,AX,AY,AZ,BA,BB,BC,BD,BE,BF,BG,BH,BI,BJ,BK,BL,BM,BN,BO,BP,BQ,BR,BS,BT,BU,BV,BW,BX,BY,BZ">
+		
 			<cfset letter = ArrayNew(1)>
 	
 			<cfset no = 0>
@@ -743,7 +780,10 @@
 					
 			<cfset SpreadsheetAddRow(theSheet,",#f#","#rowstart#",1)> 
 			<cfset SpreadsheetSetCellValue(theSheet, "#records#", "#rowstart#", 1)>	
-			<cfset formatCel.alignment="center"> 	
+			
+			<cfset formatCel.alignment= "center">
+			<cfset formatCel.fontsize = "14"> 
+			<cfset formatCel.color    = "black">	
 			<cfset SpreadsheetFormatRow(theSheet,formatCel,"#rowstart#")> 
 							
 			<cfloop index="x" from="1" to="#ArrayLen(cols)#">
@@ -773,7 +813,7 @@
 						<cfset formatCel.dataformat = "##,####0.00"> 
 					</cfif>
 					
-					<cfset formatCel.alignment="right"> 		
+					<cfset formatCel.alignment   = "right"> 		
 					<cfset SpreadsheetSetCellFormula(theSheet,"#for#","#rowstart#","#x+1#")> 														
 					<cfset SpreadsheetFormatCell(theSheet,formatCel,"#rowstart#","#x+1#")> 					
 				

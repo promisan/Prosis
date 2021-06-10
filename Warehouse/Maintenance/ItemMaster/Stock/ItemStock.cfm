@@ -71,10 +71,10 @@
 		     SELECT   Warehouse, 
 			          TransactionUoM, 	
 					  TransactionLot,
-					  ISNULL(CAST(WorkOrderId as VARCHAR),'0') as Earmarked,
+					  ISNULL(WorkOrderId,'00000000-0000-0000-0000-000000000000') as Earmarked,
 					  ActionStatus,					  
 					  SUM(TransactionQuantity) as Quantity
-                FROM     ItemTransaction
+             FROM     ItemTransaction
 			 WHERE    Mission = '#url.mission#' 
 	  	     AND      ItemNo  = '#url.itemNo#'		
 			 <cfif url.uom neq "">

@@ -50,8 +50,8 @@
 	
 </cfif>
 
-
 <cf_PrinterQZTray jquery="No">
+
 <cfoutput>
 
 <script language="JavaScript">
@@ -128,8 +128,8 @@ function do_submit(id,uom,act){
 
 function updateButton(itemno,uom,labels,whs){
 	lot  = $('##sLot').val();	
-	ColdFusion.navigate('UoMBarCode/ButtonPrintEPL.cfm?itemno='+itemno+'&uom='+uom+'&labels='+labels+'&whs='+whs+'&lot='+lot,'buttonPrintEPL');
-	ColdFusion.navigate('UoMBarCode/ButtonPrint.cfm?itemno='+itemno+'&uom='+uom+'&labels='+labels+'&whs='+whs+'&lot='+lot,'buttonPrint');
+	ptoken.navigate('UoMBarCode/ButtonPrintEPL.cfm?itemno='+itemno+'&uom='+uom+'&labels='+labels+'&whs='+whs+'&lot='+lot,'buttonPrintEPL');
+	ptoken.navigate('UoMBarCode/ButtonPrint.cfm?itemno='+itemno+'&uom='+uom+'&labels='+labels+'&whs='+whs+'&lot='+lot,'buttonPrint');
 	ptoken.navigate('UoMBarCode/getBarCode.cfm?id='+itemno+'&uom='+uom+'&whs='+document.getElementById('sWarehouse').value+'&lot='+lot,'dBarcode');
 }
 
@@ -142,8 +142,7 @@ function editBOM(itemno,uom,bomid,mission) {
 	} else {
 		title = 'Amend BOM Item #nme# : '+mission;
 	}			
-    ProsisUI.createWindow('bomform',title,'',{x:100,y:100,width:document.body.offsetWidth-90,height:document.body.offsetHeight-90,resizable:false,modal:true,center:true})			  
-	
+    ProsisUI.createWindow('bomform',title,'',{x:100,y:100,width:document.body.offsetWidth-90,height:document.body.offsetHeight-90,resizable:false,modal:true,center:true})			  	
     ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/Item/UoM/UOMBOM/ItemUoMBOMEdit.cfm?itemno='+itemno+'&uom='+uom+'&bomid='+bomid+'&mission='+mission,'bomform');
 }
 
@@ -164,8 +163,7 @@ function editBOMSubmit(frm,box,target) {
 	}	  
  } 
 
-function BOMInherit(itemno,uom,mission) {	
-    try { ColdFusion.Window.destroy('bomform',true)} catch(e){};
+function BOMInherit(itemno,uom,mission) {	   
     ProsisUI.createWindow('bomform', 'Inherit BOM Item for #nme#:+mission', '',{x:100,y:100,width:document.body.offsetWidth-90,height:document.body.offsetHeight-90,resizable:false,modal:true,center:true})			  
     ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/Item/UoM/UOMBOM/ItemUoMBOMInherit.cfm?itemno='+itemno+'&uom='+uom+'&mission='+mission,'bomform');	
 }
@@ -233,8 +231,8 @@ function printEPL(barcode,itemno,uom,desc) {
 
 	//BX,Y,Rotation,CodeType,Narrow,WideBar,Height,PrintHumanReadable (B=Yes,N=No), data.
 	//122
-	var x = 122;
-	var y = 120;
+	var x = 0;
+	var y = 80;
 	var str =""; 
 		
 	for (i = 0; i < aStr.length; i++) {
@@ -246,12 +244,15 @@ function printEPL(barcode,itemno,uom,desc) {
 	//'B'+x+',10,0,E30,3,N,80,B,"'+barcode+'"\n', -- EAN13
 	//https://www.servopack.de/support/zebra/EPL2_Manual.pdf
 
-    var data = [
-      '\nN\n',
-	  'B'+x+',10,0,E30,3,N,80,B,"'+barcode+'"\n',
-      str,
-      '\nP'+total+',1\n'
-    ];
+	data = [
+		'\nN\n',
+		'q350\n', //  q=width in dots - check printer dpi
+		'Q88,26\n', // Q=height in dots - check printer dpi
+		'B0,26,0,E30,3,7,50,B,"'+barcode+'"\n',
+		str,
+		'\nP1,1\n'
+	];
+
 	console.log(data);
 
 	qz.print(config, data).catch(function(e) { console.error(e); });

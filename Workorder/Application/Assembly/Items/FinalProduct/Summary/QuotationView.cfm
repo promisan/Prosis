@@ -38,8 +38,8 @@
 	    <td align="right">
 		<table>
 		<tr>
-		<td class="labelit" align="right" style="padding-right:6px">(#numberformat(tax,",__.__")#)</td>
-	    <td class="labelmedium" align="right">#numberformat(tot,",__.__")#</td>
+		<td class="labelit" align="right" style="min-width:100px;padding-right:6px">(#numberformat(tax,",.__")#)</td>
+	    <td class="labelmedium" align="right">#numberformat(tot,",.__")#</td>
 		</tr>
 		</table>
 		</td>
@@ -65,7 +65,7 @@
 	
 	<tr>
 		<td class="labelit" style="padding-left:20px">#CategoryItemName#</td>
-		<td class="labelit" align="right" style="padding-right:10px">#numberformat(tot,",__.__")#</td>
+		<td class="labelit" align="right" style="padding-right:10px">#numberformat(tot,",.__")#</td>
 	</tr>
 	
 	</cfloop>
@@ -92,7 +92,7 @@
 	
 	<tr>
 	    <td style="padding-left:10px" class="labelmedium"> <cf_tl id="Received Customer materials"></td>
-		<td class="labelmedium" align="right"><font color="6688aa">#numberformat(cus,",__.__")#</td>
+		<td class="labelmedium" align="right"><font color="6688aa">#numberformat(cus,",.__")#</td>
 	</tr>
 	
 	<tr>
@@ -103,7 +103,7 @@
 	<cfset net = tot - cus>
 		
 	<tr><td style="padding-left:10px" class="labelmedium"> <cf_tl id="Sale value"></td>
-	    <td class="labelmedium" align="right"><b>#numberformat(net,",__.__")#</td>
+	    <td class="labelmedium" align="right"><b>#numberformat(net,",.__")#</td>
 	</tr>
 	
 	</cfif>
@@ -158,12 +158,12 @@
 	</cfif>	
 		
 	<tr><td style="padding-left:10px" class="labelmedium"> <cf_tl id="BOM Supplies"> </td>
-	     <td class="labelmedium" align="right" style="padding-right:0px">#numberformat(bom,",__.__")#</td>
+	     <td class="labelmedium" align="right" style="padding-right:0px">#numberformat(bom,",.__")#</td>
 	</tr>
 	
 	<cfloop query="supply">
 	<tr><td style="padding-left:20px" class="labelit">#Description#</td>
-	     <td class="labelit" align="right" style="padding-right:10px"><font color="808080">#numberformat(amount,",__.__")#</td>
+	     <td class="labelit" align="right" style="padding-right:10px"><font color="808080">#numberformat(amount,",.__")#</td>
 	</tr>
 	</cfloop>	
 	
@@ -199,14 +199,14 @@
 	</cfif>	
 	
 	<tr><td style="padding-left:10px" class="labelmedium"> <cf_tl id="Labor and services"></td>
-	     <td class="labelmedium" align="right" style="padding-right:0px">#numberformat(svc,",__.__")#</td>
+	     <td class="labelmedium" align="right" style="padding-right:0px">#numberformat(svc,",.__")#</td>
 	</tr>
 	
 	<cfif services.recordcount gte "2">
 	
 	<cfloop query="services">
 	<tr><td style="padding-left:20px" class="labelit">#Description#</td>
-	     <td class="labelit" align="right" style="padding-right:10px"><font color="808080">#numberformat(amount,",__.__")#</td>
+	     <td class="labelit" align="right" style="padding-right:10px"><font color="808080">#numberformat(amount,",.__")#</td>
 	</tr>
 	</cfloop>	
 	
@@ -221,19 +221,16 @@
 		 WHERE   WorkOrderId   = '#url.workorderid#'	
 		 AND     WorkOrderLine = '#url.workorderline#'		 
 		 AND     ResourceMode  != 'Receipt'
-	</cfquery>
-	
+	</cfquery>	
 	
 	<cfset oth = total.amount-svc-bom>
 	
 	<cfif abs(oth) gte 0.01>
 	
 		<tr><td style="padding-left:10px" class="labelmedium"> <cf_tl id="BOM Corrections"></td>
-		    <td class="labelmedium" align="right" style="padding-right:10px">#numberformat(oth,",__.__")#</td>
+		    <td class="labelmedium" align="right" style="padding-right:10px">#numberformat(oth,",.__")#</td>
 		</tr>
 		
-		
-	
 	</cfif>
 	
 	<tr>
@@ -242,7 +239,7 @@
 		</tr>
 		
 	<tr><td style="padding-left:10px" class="labelmedium"><cf_tl id="Estimated Direct Costs"></td>
-	    <td class="labelmedium" align="right"><b>#numberformat(total.amount,",__.__")#</td>
+	    <td class="labelmedium" align="right"><b>#numberformat(total.amount,",.__")#</td>
 	</tr>		
 	
 	<tr><td height="15"></td></tr>
@@ -251,10 +248,10 @@
 	    <td class="labelmedium" align="right">
 		<cfif net-total.amount gt 0>
 		<font color="6688aa">
-		#numberformat(net-total.amount,",__.__")#
+		#numberformat(net-total.amount,",.__")#
 		<cfelse>
 		<font color="FF0000">
-		(#numberformat(net-total.amount,",__.__")#)
+		(#numberformat(net-total.amount,",.__")#)
 		</cfif>
 		</td>
 	</tr>

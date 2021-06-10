@@ -145,30 +145,36 @@
 			datasource="AppsLedger" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
+			
 				SELECT Journal,JournalSerialNo,DocumentAmount +ISNULL(ABS(AmountOutstanding),0) as Total 
 				FROM   TransactionHeader H
 				WHERE  TransactionSourceId = '#vBatchId#'	
 				AND    TransactionCategory = 'Receivables'			
+				
 		</cfquery>
 		
 		<cfquery name="getPriorTotal"
 			datasource="AppsLedger" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
+			
 				SELECT SUM(DocumentAmount+ISNULL(ABS(AmountOutstanding),0)) as Total 
 				FROM   TransactionHeader H
 				WHERE  TransactionSourceId = '#getParent.BatchId#'	
 				AND    TransactionCategory = 'Receipt'				
+				
 		</cfquery>	
 		
 		<cfquery name="getNewSaleTotal"
 			datasource="AppsLedger" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
+			
 				SELECT SUM(DocumentAmount +ISNULL(ABS(AmountOutstanding),0)) as Total 
 				FROM   TransactionHeader H
 				WHERE  TransactionSourceId = '#vBatchId#'	
 				AND    TransactionCategory = 'Receivables'			
+				
 		</cfquery>				
 				
 		<!---- Checking  only total values might cause an issue for changing items of the same price as the old one (affecting stock transactions)
@@ -179,12 +185,14 @@
 		<!---<cfif getPrior.total eq getNewSale.Total>--->
 <!---- Here we need a better way to indicate we operate in new e-invoice mode, Armin 10/6/2020---->
 		<cfquery name="getSeries"
-				datasource="AppsOrganization"
-				username="#SESSION.login#"
-				password="#SESSION.dbpw#">
-			SELECT  *
-			FROM    OrganizationTaxSeries
-			WHERE   SeriesType = 'Invoice'
+			datasource="AppsOrganization"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+			
+				SELECT  *
+				FROM    OrganizationTaxSeries
+				WHERE   SeriesType = 'Invoice'
+				
 		</cfquery>
 
 		<cfif getSeries.UserKey eq "">
@@ -192,12 +200,12 @@
 			<cfif getPriorTotal.total eq getNewSaleTotal.Total>
 
 				<cfquery name="setNew"
-						datasource="AppsMaterials"
-						username="#SESSION.login#"
-						password="#SESSION.dbpw#">
-					UPDATE WarehouseBatch
-					SET    BatchReference = '#getParent.BatchReference#'
-				WHERE  BatchId = '#vBatchId#'
+					datasource="AppsMaterials"
+					username="#SESSION.login#"
+					password="#SESSION.dbpw#">
+						UPDATE WarehouseBatch
+						SET    BatchReference = '#getParent.BatchReference#'
+						WHERE  BatchId = '#vBatchId#'
 				</cfquery>
 
 				<cfset issueinv = "0">
@@ -384,7 +392,7 @@
 	
 	<cfelse>
 	
-		<cfinvoke  component = "Service.Process.Materials.POS"  
+		<cfinvoke  component      = "Service.Process.Materials.POS"  
 			   method             = "initiateInvoice" 
 			   batchid            = "#vBatchId#"
 			   warehouse          = "#url.warehouse#" 

@@ -406,6 +406,26 @@ function openreference(id) {
 					
 					</cfif>
 			</td>	
+			
+			<td width="40" style="border-left:0px dotted silver;padding-left:5px"><font color="808080"><cf_tl id="Last entry">:</td>
+			<td id="usage" style="font-size:16px;border:1px solid silver;padding:4px">   								   
+					
+					<cfquery name="getTra"
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT   TOP 1 *
+						FROM     ItemTransaction 
+						WHERE    TransactionBatchNo = '#Batch.BatchNo#'
+						ORDER BY Created
+					</cfquery>
+																				
+						#dateformat(getTra.Created,client.dateformatshow)#
+						#timeformat(getTra.Created,"HH:MM")#
+						#getTra.officerLastName#
+					
+					
+			</td>	
 		
 		</tr>	
 		

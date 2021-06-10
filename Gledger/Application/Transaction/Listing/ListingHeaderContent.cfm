@@ -95,8 +95,15 @@ password="#SESSION.dbpw#">
 <cfset fields=ArrayNew(1)>
 
 <cfset itm = itm+1>
+<cfset fields[itm] = {label      = "Ser",                   
+					field      = "JournalSerialNo",					
+					align      = "center",
+					search     = "text"}>	
+
+<cfset itm = itm+1>
 <cfset fields[itm] = {label      = "No",                   
-					field      = "JournalTransactionNo",					
+					field      = "JournalTransactionNo",	
+					align      = "center",				
 					search     = "text"}>	
 					
 <cfset itm = itm+1>

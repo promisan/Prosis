@@ -18,7 +18,7 @@
 							
 		<tr>
 			<td style="padding-top:4px">		
-				<cfdiv bind="url:../memo/DocumentMemo.cfm?owner=#url.owner#&id=#url.id#" id="imemo"/>		
+				<cf_securediv bind="url:../memo/DocumentMemo.cfm?owner=#url.owner#&id=#url.id#" id="imemo">		
 			</td>
 		</tr>
 	
@@ -31,7 +31,7 @@
 	<cfif url.memo eq "1">
 				
 		<tr>
-			<td><cfdiv bind="url:../memo/DocumentMemo.cfm?owner=#url.owner#&id=#url.id#" id="imemo"/></td>
+			<td><cf_securediv bind="url:../memo/DocumentMemo.cfm?owner=#url.owner#&id=#url.id#" id="imemo"></td>
 		</tr>
 	
 	</cfif>
@@ -46,7 +46,7 @@
 	</cfquery>
 				
 	<tr>	
-	<td style="padding-left:10px">
+	<td style="padding-left:20px; padding-right:20px">
 	
 	<cf_filelibraryN
 		DocumentPath="Organization"

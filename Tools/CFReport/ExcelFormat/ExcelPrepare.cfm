@@ -9,7 +9,7 @@
 <cfparam name="URL.Status"       default="1">
 <cfparam name="client.PvtRecord" default="8000">
 <cfset attach = "">
-<cfset vMaxRowsAllowed = 100000>
+<cfset vMaxRowsAllowed = 65535>
 
 <cfquery name="Output" 
 	datasource="appsSystem">
@@ -71,7 +71,6 @@
 	ORDER BY FieldNameOrder
 </cfquery>
 
-
 <cfset fld = "">
 <cfset col = ArrayNew(2)>
 
@@ -111,9 +110,9 @@
 <cfset fileName = replace("#fileName#","\","","ALL")>
 <cfset fileName = replace("#fileName#","/","","ALL")>
 <cfif attach neq "">
-  <cfset attach = "#attach#,#FileName#.xls">
+  <cfset attach = "#attach#,#FileName#.xlsx">
 <cfelse>
-  <cfset attach = "#FileName#.xls">  
+  <cfset attach = "#FileName#.xlsx">  
 </cfif>
 
 <cfquery name="Filter" 
@@ -170,6 +169,7 @@
 	</cfsavecontent>
 
 </cfif>
+
 
 <!--- to be done --->
 
@@ -257,10 +257,11 @@
 	<cfabort>
 </cfif>
 
-<cfif qValidateRecordCount.recordCount lte 2500>
+<cfif qValidateRecordCount.recordCount lte 15000>
 
 	<cfset batch = 0>
-
+	
+	
 	<cfinvoke component = "Service.Excel.Excel"  
 	   method           = "ExcelTable" 
 	   datasource       = "#Output.DataSource#"
@@ -274,7 +275,6 @@
 	   rowstart         = "2"
 	   returnvariable   = "excel">	
 
-
 <cfelse>
 
 	<cfset batch = 1>
@@ -284,9 +284,9 @@
 			FROM   #URL.Tbl#	
 		</cfoutput>	
 	</cfsavecontent>
-
-	<cfset filename = "#filename#_#createUUID()#">
-
+		
+	<cfset filename = "#filename#_#left(createUUID(),5)#">
+	
 	<cfinvoke component = "Service.Excel.Excel"  
 	   method           = "DumpExcelTable" 
 	   datasource       = "#Output.DataSource#"
@@ -298,6 +298,7 @@
 
 </cfif>
         
+
 	
 <cfif status neq "9">
 
@@ -311,6 +312,7 @@
 			// document.getElementById('mainmenu').className = "regular"		
 			// document.getElementById('menu2').click()			  
 			<!--- open the excel file --->
+			
 			<cfif batch eq 0>
 				ptoken.open("#SESSION.root#/cfrstage/user/#URL.acc#/#FileName#_Preview.xls?ts=#ts#","_blank") 
 			<cfelse>
@@ -329,8 +331,7 @@
 		<script language="JavaScript">			
 			ProsisUI.createWindow('maildialog', 'Mail Excel', '',{x:100,y:100,height:665,width:890,resizable:false,modal:true,center:true});
 			ptoken.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.xls&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
-	    	//	window.open("#SESSION.root#/Tools/Mail/Mail.cfm?ID1=Extracts&ID2=#FileName#.xls&Source=ReportExcel&Sourceid=#URL.ID#&Mode=Full&GUI=HTML","excelframe")
-		</script>	
+	</script>	
 		</cfoutput>		
 		
 	<cfelse>
@@ -339,7 +340,6 @@
 		<script language="JavaScript">		   
 		   ProsisUI.createWindow('maildialog', 'Mail Excel', '',{x:100,y:100,height:665,width:890,resizable:false,modal:true,center:true});
 		   ptoken.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.xls&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
-			// window.open("#SESSION.root#/Tools/Mail/Mail.cfm?ID1=Extracts&ID2=#FileName#.xls&Source=ReportExcel&Sourceid=#URL.ID#&Mode=Dialog&GUI=HTML","excelframe")
 		</script>	
 		</cfoutput>	
 	

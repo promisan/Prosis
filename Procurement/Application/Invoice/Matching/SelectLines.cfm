@@ -121,7 +121,7 @@ ORDER By PurchaseNo
 
 <TITLE>Extended result</TITLE>
   
-<table width="100%" border="1" cellspacing="0" cellpadding="0" bordercolor="silver" class="formpadding">
+<table width="100%" class="formpadding">
    
 <tr bgcolor="#DCDCB8">
     <td width="75" align="center" ><cf_tl id="ReceiptNo"></td> 
@@ -139,7 +139,7 @@ ORDER By PurchaseNo
 
 <cfoutput query="Lines" group="PurchaseNo">
 	<tr>
-	    <td colspan="10" align="left" bgcolor="CECEA2">&nbsp;<b><a href="javascript:ProcPOEdit('#Purchaseno#','view')">#PurchaseNo#</a></b></td> 
+	    <td colspan="10" align="left" bgcolor="CECEA2">&nbsp;<b><a href="javascript:ProcPOEdit('#Purchaseno#','view','tab')">#PurchaseNo#</a></b></td> 
 	</tr>
 	<cfset cnt = cnt + 20>
 <cfoutput>

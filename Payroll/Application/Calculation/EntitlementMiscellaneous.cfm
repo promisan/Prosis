@@ -339,7 +339,7 @@ password="#SESSION.dbpw#">
 		   (CASE 
 		       WHEN Source = 'SUN'    THEN 'Offset' 
 			   WHEN Source = 'Ledger' THEN 'Offset' ELSE 'Internal' END) as Source,
-		   SourceId,	   
+		   (CASE WHEN P.SourceId IS NULL THEN '00000000-0000-0000-0000-000000000000' ELSE P.SourceId END) as SourceId,		   		      
 		   'Miscellaneous',
 		   '#SESSION.acc#', 
 		   '#SESSION.last#', 

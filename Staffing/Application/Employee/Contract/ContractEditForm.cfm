@@ -12,6 +12,8 @@ otherwise no action
 
 <cfoutput>
 
+<cfparam name="LastContract.contracttype" default="">
+
 <cf_tl id="Do you want to completely remove this contract leg" var="1">
 
 <script>
@@ -32,7 +34,7 @@ otherwise no action
 		}
 		
 	function applyscale(scaleno,grd,lvl,cur,contractid) {	   
-	    ptoken.navigate('#session.root#/Staffing/Application/Employee/Contract/setScale.cfm?scaleno='+scaleno+'&grade='+grd+'&step='+lvl+'&currency='+cur+'&personno=#url.id#&contractid='+contractid+'&contracttype=','process')	  
+	    ptoken.navigate('#session.root#/Staffing/Application/Employee/Contract/setScale.cfm?scaleno='+scaleno+'&grade='+grd+'&step='+lvl+'&currency='+cur+'&personno=#url.id#&contractid='+contractid+'&contracttype=#LastContract.contracttype#','process')	  
 	}	
 	
 	function ask() {

@@ -23,7 +23,7 @@
 		     	 icM.className = "regular";
 			     icE.className = "hide";
 		    	 se.className  = "regular";
-				 ColdFusion.navigate('../ReceiptEntry/ReceiptDetail.cfm?box=i'+id+'&rctid='+id+'&mode='+mode+'&id1=#URL.ID1#','i'+id)
+				 ptoken.navigate('../ReceiptEntry/ReceiptDetail.cfm?box=i'+id+'&rctid='+id+'&mode='+mode+'&id1=#URL.ID1#','i'+id)
 			 } else {
 			   	 icM.className = "hide";
 			     icE.className = "regular";
@@ -33,7 +33,7 @@
 		  }
 		  
 		function reloadForm(page) { 
-		      window.location = "ReceiptViewListing.cfm?mission=#URL.Mission#&warehouse=#url.warehouse#&period=#url.period#&id=#url.id#&id1=#url.id1#&page="+page	
+		      ptoken.location('ReceiptViewListing.cfm?mission=#URL.Mission#&warehouse=#url.warehouse#&period=#url.period#&id=#url.id#&id1=#url.id1#&page='+page)	
 		}  
 		
 		</script>

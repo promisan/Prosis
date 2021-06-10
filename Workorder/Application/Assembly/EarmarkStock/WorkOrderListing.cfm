@@ -35,20 +35,21 @@
 				U.UoMDescription, 
 				WOL.Quantity, 
 																
-				( 
-				 SELECT    ISNULL(SUM(TransactionQuantity), 0) 
-				 FROM      Materials.dbo.ItemTransaction
-				 WHERE     Mission           = '#get.Mission#'		
-				 AND       TransactionType != '2'
-				 AND       RequirementId = WOL.WorkOrderItemId
+				(SELECT   ISNULL(SUM(TransactionQuantity), 0) 
+				 FROM     Materials.dbo.ItemTransaction
+				 WHERE    WorkOrderId    = WOL.WorkOrderId
+				 AND      WorkOrderLine  = WOL.WorkOrderLine					 
+				 AND      RequirementId  = WOL.WorkOrderItemId
+				 AND      TransactionType != '2'
 				) as Earmarked,  <!--- quantity received or quantity internally produced for this workorder --->
 				
 				( 
-				 SELECT    ISNULL(SUM(TransactionQuantity*-1), 0) AS Shipped
-				 FROM      Materials.dbo.ItemTransaction
-				 WHERE     TransactionType IN ('2','3')  <!--- 10/3/2013 removed the '8' from the transaction type --->
-				 AND       Mission       = '#get.Mission#'			
-				 AND       RequirementId = WOL.WorkOrderItemId
+				 SELECT   ISNULL(SUM(TransactionQuantity*-1), 0) 
+				 FROM     Materials.dbo.ItemTransaction
+				 WHERE    WorkOrderId    = WOL.WorkOrderId
+				 AND      WorkOrderLine  = WOL.WorkOrderLine	
+				 AND      RequirementId  = WOL.WorkOrderItemId	 
+				 AND	  TransactionType IN ('2','3')  <!--- 10/3/2013 removed the '8' from the transaction type --->				
 				) as Shipped, <!--- quantity shipped to customer --->
 								
 				WOL.Currency, 
@@ -57,11 +58,14 @@
 				WOL.SaleAmountTax, 
 				WOL.SalePayable, 
 				WOL.Created
+				
 		FROM    WorkOrderLineItem WOL INNER JOIN Materials.dbo.Item I    ON WOL.ItemNo = I.ItemNo 
 									  INNER JOIN Materials.dbo.ItemUoM U ON WOL.ItemNo = U.ItemNo AND WOL.UoM = U.UoM
 						 			  INNER JOIN WorkOrder WO ON WOL.WorkOrderId = WO.WorkOrderId
+		
 		WHERE	WOL.WorkOrderId   = '#url.workorderid#' 
 		AND     WOL.WorkOrderLine = '#url.workorderline#'
+		
 	    ORDER BY I.Classification, I.ItemDescription, U.UoMDescription
 </cfquery>
 
@@ -81,16 +85,14 @@
   
   <tr><td height="5"></td></tr>
     
-  <tr><td id="boxtransferto">
+  <tr class="fixrow"><td id="boxtransferto">
   
   	  <cfset url.mission = get.Mission>
 	  <cfinclude template="setWarehouseTo.cfm">
 	  
 	  </td>
   </tr>
-  
-  
-    			  
+      			  
   <tr><td>
 			
 	<table width="100%" class="navigation_table">		
@@ -123,9 +125,9 @@
 					
 						<cfset bal = quantity-shipped>
 													
-						<tr class="navigation_row line labelmedium2">
+						<tr class="navigation_row line labelmedium" style="height:22px">
 						
-							<td align="center" style="height:21">							    
+							<td align="center">							    
 								
 								<cfif mode eq "edit">
 								
@@ -145,26 +147,20 @@
 							<td bgcolor="A8EFF2" style="padding-right:5px" align="right">#numberformat(Quantity,'__')#</td>																
 							<td style="padding-right:3px" align="right" bgcolor="ffffcf">
 							
-							<table width="100%" cellspacing="0" cellpadding="0">
+								<table width="100%">
+									
+										<tr>																		
+										<td width="20" style="padding-left:5px">										
+										<cf_img icon="expand" 
+												   id="ear_#WorkOrderItemId#" 
+												   toggle="Yes" 
+												   onclick="toggleobjectbox('earmarkbox_#WorkOrderItemId#','earmark_#WorkOrderItemId#','Items/FinalProduct/getDetailLines.cfm?WorkOrderId=#URL.WorkOrderId#&drillid=#WorkOrderItemId#')"
+												   tooltip="See outsourcing for this quote.">										
+										</td>																			
+										<td align="right" class="labelit">#numberformat(Earmarked,'__')#</td>												
+										</tr>
 								
-									<tr>									
-									
-																		
-									<td width="20" style="padding-left:5px">	
-									
-									<cf_img icon="expand" 
-											   id="ear_#WorkOrderItemId#" 
-											   toggle="Yes" 
-											   onclick="toggleobjectbox('earmarkbox_#WorkOrderItemId#','earmark_#WorkOrderItemId#','Items/FinalProduct/getDetailLines.cfm?WorkOrderId=#URL.WorkOrderId#&drillid=#WorkOrderItemId#')"
-											   tooltip="See outsourcing for this quote.">
-									
-									</td>
-																		
-									<td align="right" class="labelit">#numberformat(Earmarked,'__')#</td>		
-									
-									</tr>
-							
-							</table>		
+								</table>		
 							
 							</td>
 														
@@ -173,10 +169,9 @@
 								<td align="right" colspan="2" style="padding-right:3px"></td>
 								
 							<cfelse>
-								<td align="right" bgcolor="e1e1e1" style="padding-right:3px">#Shipped#</td>
-																
+								<td align="right" bgcolor="e1e1e1" style="padding-right:3px">#Shipped#</td>																
 								<cfif bal gt 0>
-								<td bgcolor="ffffaf" style="padding-right:3px" align="right">#bal#</b></td>
+								<td bgcolor="ffffaf" style="padding-right:3px" align="right">#bal#</td>
 								<cfelse>
 								<td bgcolor="white" align="right">
 								<img src="#session.root#/images/check_icon.gif" width="18" height="18" alt="Completed" border="0">
@@ -185,26 +180,18 @@
 								
 							</cfif>
 							
-						</tr>
-																					
+						</tr>																					
 						
 						<tr id="earmarkbox_#workorderitemid#" class="hide">
 						    <td></td>
 						    <td colspan="9" id="earmark_#WorkOrderItemId#"></td>													
-						</tr>
-										
+						</tr>										
 																						
 					</cfloop>
 					
-					<tr class="line">
-					
-					<td align="center" style="height:26">
-					   <input type="radio" class="radiol" name="selectline" value="" checked>
-					</td>
-					
-					<td colspan="9" class="labelmedium">
-						  <cf_tl id="Do not change earmark">
-					</td>					
+					<tr class="line">					
+					<td align="center" style="height:26"><input type="radio" class="radiol" name="selectline" value="" checked></td>					
+					<td colspan="9" class="labelmedium"><cf_tl id="Do not change earmark"></td>										
 					</tr>					
 									
 				</table>

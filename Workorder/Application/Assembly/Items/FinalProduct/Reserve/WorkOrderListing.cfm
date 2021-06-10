@@ -23,6 +23,7 @@
 	   method           = "InternalWorkOrder" 
 	   mission          = "#get.Mission#"
 	   returnvariable   = "NotEarmarked">	
+  
 
 <cfquery name="ItemFinished" 
 	datasource="AppsWorkOrder"
@@ -66,8 +67,9 @@
 																
 				( 
 				 SELECT    ISNULL(SUM(TransactionQuantity), 0) 
-				 FROM      Materials.dbo.ItemTransaction
-				 WHERE     Mission           = '#get.Mission#'		
+				 FROM      Materials.dbo.ItemTransaction				
+				 WHERE     WorkOrderId    = WOL.WorkOrderId
+				 AND       WorkOrderLine  = WOL.WorkOrderLine		
 				 AND       TransactionType != '2'
 				 AND       RequirementId = WOL.WorkOrderItemId
 				) as Reserved,  <!--- quantity received or quantity internally produced for this workorder --->
@@ -75,8 +77,9 @@
 				( 
 				 SELECT    ISNULL(SUM(TransactionQuantity*-1), 0) AS Shipped
 				 FROM      Materials.dbo.ItemTransaction
-				 WHERE     TransactionType IN ('2','3')  <!--- 10/3/2013 removed the '8' from the transaction type --->
-				 AND       Mission       = '#get.Mission#'			
+				 WHERE     TransactionType IN ('2','3')  <!--- 10/3/2013 removed the '8' from the transaction type --->				 
+				 AND       WorkOrderId    = WOL.WorkOrderId
+				 AND       WorkOrderLine  = WOL.WorkOrderLine			
 				 AND       RequirementId = WOL.WorkOrderItemId
 				) as Shipped, <!--- quantity shipped to customer --->
 								
@@ -97,9 +100,6 @@
 				 U.UoMDescription
 </cfquery>
 
-<!---
-<cfoutput>#cfquery.executiontime#</cfoutput>
---->
 
 <cfif get.ActionStatus eq "1" or get.ActionStatus eq "0">
 	<cfset mode = "edit">
@@ -109,19 +109,15 @@
 
 <cfoutput>
 
-<table width="100%" height="100%" class="formpadding">
-
-  <tr><td height="5"></td></tr>	
-    
-  
-    			  
+<table width="100%" height="100%">
+   		  
   <tr><td height="100%">
   
     <cf_divscroll style="height:100%" id="orderbox">
 			
-	<table width="100%" class="navigation_table">	
+	<table width="98%" class="navigation_table">	
 	
-	<tr><td id="boxtransferto" style="height:10px">
+	<tr class="fixrow"><td id="boxtransferto" style="height:40px">
   
   	  <cfset url.mission = get.Mission>
 	  <cfinclude template="setWarehouseTo.cfm">
@@ -134,7 +130,7 @@
 			
 				<table width="100%">			
 				
-					<tr class="labelmedium2 line fixrow">
+					<tr class="labelmedium2 line fixrow240">
 					
 						<td width="5%"></td>
 						<td style="width:30"></td>
@@ -187,20 +183,15 @@
 							
 								<table width="100%">
 									
-										<tr class="labelmedium">										
-																			
-										<td width="20" style="padding-top:8px;padding-left:5px">	
-										
-										<cf_img icon="expand" 
-												   id="ear_#WorkOrderItemId#" 
-												   toggle="Yes" 
-												   onclick="toggleobjectbox('earmarkbox_#WorkOrderItemId#','earmark_#WorkOrderItemId#','#session.root#/Workorder/Application/Assembly/Items/FinalProduct/getDetailLines.cfm?WorkOrderId=#URL.WorkOrderId#&drillid=#WorkOrderItemId#')">
-										
-										</td>
-																			
-										<td align="right" class="labelit">#numberformat(Reserved,'__')#</td>		
-										
-										</tr>
+									<tr class="labelmedium">																				
+									<td width="20" style="padding-top:8px;padding-left:5px">											
+									<cf_img icon="expand" 
+											   id="ear_#WorkOrderItemId#" 
+											   toggle="Yes" 
+											   onclick="toggleobjectbox('earmarkbox_#WorkOrderItemId#','earmark_#WorkOrderItemId#','#session.root#/Workorder/Application/Assembly/Items/FinalProduct/getDetailLines.cfm?WorkOrderId=#URL.WorkOrderId#&drillid=#WorkOrderItemId#')">										
+									</td>																			
+									<td align="right">#numberformat(Reserved,'__')#</td>												
+									</tr>
 								
 								</table>		
 							
@@ -234,12 +225,12 @@
 
 						<cf_tl id="Apply Reservation" var="apply">
 						
-						<input type  = "button" 
-						     class   = "button10g" 
-						     style   = "width:260px;height:28px" 
-							 value   = "#apply#" 
-							 name    = "Submit" 
-							 onclick = "_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Reserve/ReserveSubmit.cfm?mission=#get.mission#&warehouse=#url.warehouse#&workorderid=#url.workorderid#&workorderline=#url.workorderline#','orderbox','','','POST','reserveform')">
+						<input type   = "button" 
+						     class    = "button10g" 
+						     style    = "width:260px;height:28px" 
+							 value    = "#apply#" 
+							 name     = "Submit" 
+							 onclick  = "_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Reserve/ReserveSubmit.cfm?mission=#get.mission#&warehouse=#url.warehouse#&workorderid=#url.workorderid#&workorderline=#url.workorderline#','orderbox','','','POST','reserveform')">
 					
 					</td></tr>
 														

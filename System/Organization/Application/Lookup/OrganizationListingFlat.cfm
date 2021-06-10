@@ -18,27 +18,32 @@
 </cfquery>
            
 <cfoutput>
-	
-	<script language="JavaScript">
-	 
-	function Selected(orgunit,orgunitcode, mission,orgunitname,orgunitclass)  {
-	
-	   if (parent.document.getElementById('mode').value == "webdialog") {  	    
-	       parent.parent.applyunit(orgunit)
-		   parent.parent.ColdFusion.Window.destroy('orgunitselectwindow',true)
-	    } else {
-		   parent.window.returnValue = orgunit+';'+orgunitcode+';'+mission+';'+orgunitname+';'+orgunitclass
-		   parent.window.close()	
-		}
-	}
 		
-	</script>
+	<script language="JavaScript">
+		
+		function Selected(orgunit,orgunitcode, mission,orgunitname,orgunitclass)  {					  
+		     
+		    if (parent.parent.applyunit) {	
+				parent.parent.applyunit(orgunit)
+				///parent.parent.applyOrgUnit(orgunit,orgunitcode,mission,orgunitname,orgunitclass);
+				parent.parent.ProsisUI.closeWindow('orgunitselectwindow',true);
+			} else {
+				parent.opener.applyunit(orgunit);
+				parent.opener.ProsisUI.closeWindow('orgunitselectwindow',true);
+			}
+		
+		}				
+				
+	</script> 
+	
 
 </cfoutput>
 
 <cf_dialogOrganization>
 
-<table width="100%" border="0" frame="hsides" cellspacing="0" cellpadding="0" align="right" class="formpadding">
+<cf_divscroll>
+
+<table width="100%" align="right" class="formpadding">
    
   <tr>  
   <td width="100%" colspan="2">
@@ -60,7 +65,7 @@
 	    ORDER BY O.HierarchyCode 
 	</cfquery>
 	
-	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<table cellspacing="0" width="100%">
 		
 		<cfoutput query="SearchResult">
 			
@@ -76,4 +81,6 @@
   </tr>
 
 </table>
+
+</cf_divscroll>
    

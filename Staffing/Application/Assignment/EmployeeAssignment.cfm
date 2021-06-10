@@ -14,29 +14,31 @@
 
 	<script>
 	
-	function workflowdrill(key,box,mode) {
-			
-		    se = document.getElementById(box)
-			ex = document.getElementById("exp"+key)
-			co = document.getElementById("col"+key)
+		function workflowdrill(key,box,mode) {
 				
-			if (se.className == "hide") {		
-			   se.className = "regular" 		   
-			   co.className = "regular"
-			   ex.className = "hide"	
-			   
-			   ptoken.navigate('#SESSION.root#/Staffing/Application/Assignment/AssignmentWorkflow.cfm?ajaxid='+key,key)		   		 
-			} else {  se.className = "hide"
-			          ex.className = "regular"
-			   	      co.className = "hide" 
-		    } 		
+			    se = document.getElementById(box)
+				ex = document.getElementById("exp"+key)
+				co = document.getElementById("col"+key)
+					
+				if (se.className == "hide") {		
+				   se.className = "regular" 		   
+				   co.className = "regular"
+				   ex.className = "hide"	
+				   
+				   ptoken.navigate('#SESSION.root#/Staffing/Application/Assignment/AssignmentWorkflow.cfm?ajaxid='+key,key)		
+				      		 
+				} else {  se.className = "hide"
+				          ex.className = "regular"
+				   	      co.className = "hide" 
+			    } 		
+			}	
+			
+		function setpas(ass) {
+		    ptoken.navigate('#SESSION.root#/Staffing/Application/Assignment/AssignmentPAS.cfm?assignmentno='+ass,'process')
 		}	
 		
-	function setpas(ass) {
-	    ptoken.navigate('#SESSION.root#/Staffing/Application/Assignment/AssignmentPAS.cfm?assignmentno='+ass,'process')
-	}	
-		
 	</script>
+	
 </cfoutput>
 
 <cfset standardCSS = "standard.css">
@@ -86,7 +88,6 @@
 			
 		</table>
 		
-
 <cfelse>
 
 	<cf_screentop html="No" jquery="Yes">
@@ -213,7 +214,7 @@
 		  
 		  <cfif PersonAssignment.recordcount neq "0">
 		  						  
-			   <TR class="line labelmedium fixrow" height="18">
+			   <TR class="line labelmedium2 fixrow" height="18">
 				    <td width="2%" align="center"></td>
 					<td width="2%" align="center"></td>
 					<TD style="min-width:140px"><cf_tl id="Function"> </TD>
@@ -681,25 +682,37 @@
 						
 			
 			<tr><td style="padding-top:10px"></td></tr>
-			<tr class="labelmedium"><td style="padding-left:5px;font-size:20px"><cf_tl id="Work assignment summary"></td></tr>
-			<tr><td style="padding-left:30px;padding-top:6px">
-			<table style="width:300px">
-			<cfoutput query="Experience">
-			<tr class="line">
-			<td>#Mission#</td>
-			<td>#PostGrade#</td>
-			<cfset years = int(Months/12)>
-			<cfif years gt "0">
-				<cfset mnths = months - (years*12)>
-			<cfelse>
-				<cfset mnths = months> 	
-			</cfif>
-			<td style="width:140px">#years# year<cfif years gt "1">s</cfif> <cfif mnths gt"0">#mnths# month<cfif mnths gt "1">s</cfif></cfif></td>			
-			
-			</td>
+			<tr class="labelmedium">
+			     <td style="padding-left:5px;font-size:20px"><cf_tl id="Work assignment summary"></td>
 			</tr>
-			</cfoutput>
-			</table>
+			
+			<tr><td style="padding-left:30px;padding-top:6px;background-color:f1f1f1">
+			
+				<table class="formpadding formpacing"> 	
+					
+				<cfset pr = "">	
+					
+				<cfoutput query="Experience">
+				
+				     <cfif mission neq pr>
+						<tr class="line labelmedium2">	
+						<td style="padding-right:9px">#Mission#</td>
+						<cfset pr = mission>	
+					</cfif>
+						
+						<td style="padding-right:9px">#PostGrade#&nbsp;:</td>
+						<cfset years = int(Months/12)>
+						<cfif years gt "0">
+							<cfset mnths = months - (years*12)>
+						<cfelse>
+							<cfset mnths = months> 	
+						</cfif>
+						<td style="width:140px"><cfif years neq "0">#years# yr<cfif years gt "1">s</cfif></cfif> <cfif mnths gt"0">#mnths# mth<cfif mnths gt "1">s</cfif></cfif></td>											
+									
+				</cfoutput>				
+				
+				</table>
+				
 			</td></tr>
 				
 			</cfif>

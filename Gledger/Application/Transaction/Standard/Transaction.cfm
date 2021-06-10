@@ -711,7 +711,7 @@ function togglebox(val) {
 						or tracat is "Receipt">
 						to support any other user-defined 
 						------>
-				  <cfif tracat eq "Inventory" or tracat eq "payroll" or tracat eq "payment">
+				  <cfif tracat eq "Inventory" or tracat eq "payroll">
 				  
 				  <cfelse>
 				  

@@ -1065,7 +1065,11 @@ refer to line 710
 										
 								   </cfif>		
 								   									   
-								   <cfset prdiff = (amtc+amtt) - (regc+regt)>		
+								   <cfset prdiff = (amtC+amtT) - (regC+regT)>		
+								   <cfif prdiff neq "0">
+								       <!--- reduce amount C ---> 
+									   <cfset amtC   = amtC+prdiff>
+								   </cfif>	   
 								 							
 							
 							</cfif>																			
@@ -1469,6 +1473,7 @@ refer to line 710
 							  WHERE     Journal         = '#Journal.Journal#'
 							  AND       JournalSerialNo = '#JournalTransactionNo#'
 							  AND       AmountDebit > 0
+							  ORDER BY  TransactionSerialNo
 							</cfquery>
 							
 							<cfif Line.recordcount neq "0">

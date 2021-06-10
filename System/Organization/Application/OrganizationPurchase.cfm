@@ -13,13 +13,13 @@
 <script>
 
 function reloadForm(page,sort,view) {
-   ColdFusion.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/PurchaseView/PurchaseViewListing.cfm?view='+view+'&sort='+sort+'&Period=#URL.Period#&Mission=#URL.Mission#&ID=VED&ID1=#URL.ID#&Page=' + page,'detail');
+   ptoken.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/PurchaseView/PurchaseViewListing.cfm?view='+view+'&sort='+sort+'&Period=#URL.Period#&Mission=#URL.Mission#&ID=VED&ID1=#URL.ID#&Page=' + page,'detail');
 }
 
 function print(po) {
 	  w = #CLIENT.width# - 100;
 	  h = #CLIENT.height# - 140;
-	  window.open("<cfoutput>#SESSION.root#</cfoutput>/Tools/Mail/MailPrepare.cfm?Id=Print&ID1="+po+"&ID0=Procurement/Application/Purchaseorder/Purchase/POViewPrint.cfm","_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+	  ptoken.open("<cfoutput>#SESSION.root#</cfoutput>/Tools/Mail/MailPrepare.cfm?Id=Print&ID1="+po+"&ID0=Procurement/Application/Purchaseorder/Purchase/POViewPrint.cfm","_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
 }
 
 </script>
@@ -31,6 +31,8 @@ function print(po) {
 	    <cfinclude template="UnitView/UnitViewHeader.cfm">		
 	</td></tr>
 	<tr><td height="90%" style="padding-left:5px;padding-right:5px" valign="top">
-		<cfdiv style="height:100%" bind="url:#SESSION.root#/Procurement/Application/PurchaseOrder/PurchaseView/PurchaseViewListing.cfm?systemfunctionid=#url.systemfunctionid#&id=VED&id1=#URL.ID#" id="detail"/>
+		<cf_securediv style="height:100%" 
+		   bind="url:#SESSION.root#/Procurement/Application/PurchaseOrder/PurchaseView/PurchaseViewListing.cfm?systemfunctionid=#url.systemfunctionid#&id=VED&id1=#URL.ID#" 
+		   id="detail">
 	</td></tr>	
 </table>

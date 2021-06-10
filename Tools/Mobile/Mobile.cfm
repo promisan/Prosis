@@ -13,6 +13,7 @@
 <cfparam name="attributes.printWindowSize"			default="10">
 <cfparam name="attributes.printWindowSizeChrome"	default="800">
 <cfparam name="attributes.allowLogout"				default="true">
+<cfparam name="attributes.loading"					default="<div class='text-center'><i class='fa fa-cog fa-spin fa-3x text-success'></i></div>">
 
 <cfquery name="getApplication" 
 	datasource="AppsSystem">		 
@@ -126,7 +127,7 @@
 			<cf_validateBrowser>
 			<cfset _prosisWebPrintWindowWidth = "#attributes.printWindowSize#">
 			<cfset _prosisWebPrintWindowHeight = "#attributes.printWindowSize#">
-			<cfif clientbrowser.name eq "Chrome">
+			<cfif clientbrowser.name eq "Chrome" OR clientbrowser.name eq "Edge">
 				<cfset _prosisWebPrintWindowWidth = "#attributes.printWindowSizeChrome#">
 				<cfset _prosisWebPrintWindowHeight = "#attributes.printWindowSizeChrome#">
 			</cfif>
@@ -270,9 +271,11 @@
 	
 	<!--- Used only to load basic CF scripts --->
 	<cfdiv id="dummy" style="display:none;">
-	<script>
-		_cf_loadingtexthtml='<div class="text-center"><i class="fa fa-cog fa-spin fa-3x text-success"></i></div>';
-	</script>
+	<cfoutput>
+		<script>
+			_cf_loadingtexthtml="#Attributes.loading#";
+		</script>
+	</cfoutput>
 
 
 <cfelse>

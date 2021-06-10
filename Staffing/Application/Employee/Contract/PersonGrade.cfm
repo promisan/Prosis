@@ -45,10 +45,10 @@
 	<cfif url.entry eq "view">
 	
 		<cfoutput>		
-		<tr>
-		  <td colspan="5" class="labelmedium" style="font-size:16px;padding-top:5px;padding-left:0px">
-		  <a href="javascript:_cf_loadingtexthtml='';ColdFusion.navigate('PersonGrade.cfm?&ts='+new Date().getTime()+'&entry=add&id=#url.id#','dialoggrade')">
-		  <font color="0080C0"><u><cf_tl id="Manual entry"></font></a></td>
+		<tr  class="labelmedium2">
+		  <td colspan="5" style="font-size:16px;padding-top:5px;padding-left:0px">
+		  <a href="javascript:_cf_loadingtexthtml='';ptoken.navigate('PersonGrade.cfm?&ts='+new Date().getTime()+'&entry=add&id=#url.id#','dialoggrade')"><cf_tl id="Manual entry"></a>
+		  </td>
 		</tr>
 		</cfoutput>
 		
@@ -58,7 +58,7 @@
 		
 	</cfif>	
 	
-	<tr class="labelmedium line">
+	<tr class="labelmedium2 line">
 	  <td><cf_tl id="Effective"></td>
 	  <td height="30"><cf_tl id="Grade"></td>
 	  <td><cf_tl id="Step"></td>	 
@@ -141,7 +141,7 @@
 		  <cfoutput>
 			  <input type="button" 
 			    value="Save" 
-				onclick="_cf_loadingtexthtml='';ColdFusion.navigate('PersonGradeSave.cfm?id=#url.id#','dialoggradesave','','','POST','gradeform')" name="SaveGrade" class="button10s" style="height:25;width:90">
+				onclick="_cf_loadingtexthtml='';ptoken.navigate('PersonGradeSave.cfm?id=#url.id#','dialoggradesave','','','POST','gradeform')" name="SaveGrade" class="button10s" style="height:25;width:90">
 			  </cfoutput>
 		  
 		  </td>
@@ -161,7 +161,7 @@
 	   <td>#OfficerFirstName# #OfficerLastName#</td>
 	   <td style="padding-top:2px">
 	   <cfif source eq "Manual">
-	   <cf_img icon="delete" onclick="_cf_loadingtexthtml='';ColdFusion.navigate('PersonGrade.cfm?entry=delete&id=#url.id#&eff=#dateformat(dateeffective,client.datesql)#','dialoggrade')">
+	   <cf_img icon="delete" onclick="_cf_loadingtexthtml='';ptoken.navigate('PersonGrade.cfm?entry=delete&id=#url.id#&eff=#dateformat(dateeffective,client.datesql)#','dialoggrade')">
 	   </cfif>
 	   </td>
 	</tr>		

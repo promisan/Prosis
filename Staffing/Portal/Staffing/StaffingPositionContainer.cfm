@@ -44,7 +44,12 @@
 					  style="background-color:#color#;height:46px;width:100%;color:black;;border-top-right-radius:5px;padding-left:14px;padding-right:14px">
 					  
 					  <table style="width:100%">
-					  <tr><td colspan="2" align="right" style="color:white;font-size:18px;padding-right:5px" class="clsPostHeaderText">#ucase(FunctionDescription)#</td></tr>
+					  <tr><td colspan="2" align="right" style="color:white;font-size:18px;padding-right:5px" class="clsPostHeaderText">
+					  <cfif PositionGroup eq "Loaned">
+					  <font color="000000">#ucase(ParentFunctionDescription)#<br><font size="1">[#ucase(FunctionDescription)#]</font></font>
+					  <cfelse>
+					  #ucase(FunctionDescription)#
+					  </cfif></td></tr>
 					  <tr>	
 					    
 					    <cfif OrgUnitOperational neq OwnerOrgUnit>									
@@ -167,11 +172,17 @@
 										 	  			 				  
 				  <cf_wfActive entityCode="PostClassification" objectkeyvalue1="#PositionParentId#">
 				  
-				  <cfif wfStatus eq "Closed">					  
-					   
+				  <cfif wfStatus eq "Closed">		
+				  
+				      <cf_tl id="Request new Classification" var="1">
+				      <input title="Click to initiate a new classification request for this position"
+					  type="button" value="#lt_text#" class="button10g" onclick="javascript:AddClassification('#positionparentid#','#url.ajaxid#')" style="border-radius:10px;width:100%;border:1px solid silver">			  
+					  
+					  <!--- 
 					   <a title="Click to initiate a new classification request for this position" href="javascript:AddClassification('#positionparentid#','#url.ajaxid#')">
 					   <cf_tl id="Request new Classification">
 					   </a>
+					   --->
 					   
 				  <cfelseif wfStatus eq "Open">		
 				  
@@ -223,17 +234,18 @@
 			SELECT     *
 			FROM       Assignment
 			WHERE      PositionNo = '#PositionNo#' 
+			AND        OrgUnit = '#orgUnitOperational#'
 			<!--- AND        Incumbency != '0' --->
 			ORDER BY   Incumbency DESC		
 	    </cfquery>	
-		
+				
 		<cfif AssignDetail.recordcount eq "0">
 		
 			<tr class="clsBig">
-				<td colspan="2" style="height:200px;width:100%">
+				<td colspan="2" style="height:100px;width:100%">
 			     <table style="width:100%;height:100%">
 					 <tr>					
-					 <td valign="top" style="padding-top:4px;text-align:center;background-color:##FFB0FF50;width:100%">
+					 <td style="font-size:18px;font-weight:bold;padding-top:4px;text-align:center;background-color:##80FFFF;width:100%">
 					 	<cf_tl id="Vacant">
 					 </td>		  								 
 					 </tr>
@@ -262,7 +274,8 @@
 		<cfquery name="AssignDetail" dbtype="query">
 			SELECT     *
 			FROM       Assignment
-			WHERE      PositionNo = '#PositionNo#' 		
+			WHERE      PositionNo = '#PositionNo#' 
+			AND        OrgUnit = '#orgUnitOperational#'		
 			ORDER BY   Incumbency DESC		
 	    </cfquery>		
 				
@@ -353,8 +366,7 @@
 	<tr><td style="height:100%">	
 	
 	<cf_divscroll>
-	<table width="100%">
-	
+	<table width="100%">	
 		
 	<cfif AssignDetail.recordcount neq "0">
 		
@@ -424,7 +436,7 @@
 
 			<tr class="clsSmall line">
 				<td colspan="2" class="clsAssignment_#PositionNo# clsAssignment_#AssignmentNo#" valign="top" 
-				  style="height:100%;width:100%;padding-right:13px; padding:6px; #vSmallStyleBG# #vDisplay#" id="ass#AssignmentNo#">		
+				  style="height:100%;width:100%;padding-right:10px; padding:6px; #vSmallStyleBG# #vDisplay#" id="ass#AssignmentNo#">		
 				  	<cfquery name="getCompressPerson" 
 						datasource="AppsEmployee" 
 						username="#SESSION.login#" 
@@ -435,15 +447,21 @@
 					</cfquery>				  		     
 					<table width="100%">
 						<tr>
-							<td style="font-weight:bold; #vSmallStyleText#">
-								#getCompressPerson.FullName#
+							<td style="#vSmallStyleText#">							
 								<cfif hasworkflow eq "1">
 									<cf_tl id="Pending elements to be processed" var="1">
-									<i class="fa fa-exclamation-triangle clsSmall" style="color:##fcba03; padding-left:10px; font-size:110%;" title="#lt_text#"></i>
+									<i class="fa fa-exclamation-triangle clsSmall" onclick="doCompressExpand('#PositionNo#')" style="color:##fcba03; padding-left:10px; font-size:110%;" title="#lt_text#"></i>
 								</cfif>
+								#getCompressPerson.FullName#
+								
 							</td>
-							<td align="right" style="font-weight:bold; #vSmallStyleText#">
-								<cf_tl id="IndexNo"> ## <a style="#vSmallStyleText#" href="javascript:EditPerson('#getCompressPerson.PersonNo#')">#getCompressPerson.IndexNo#</a>
+							<td align="right" style="#vSmallStyleText#">
+								## 
+								<cfif getAdministrator("#mission#") eq "1">
+								<a style="#vSmallStyleText#" href="javascript:EditPerson('#getCompressPerson.PersonNo#')">#getCompressPerson.IndexNo#</a>
+								<cfelse>
+								#getCompressPerson.IndexNo#
+								</cfif>
 							</td>
 						</tr>
 					</table>						 

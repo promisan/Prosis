@@ -45,11 +45,11 @@
 										
 				<td>
 					<table>
-					<tr>					
-					<td style="width:80px;padding-left:10px" class="labelit ccontent#row#">#ItemBarCode#</td>
-					<td style="width:120px;padding-left:6px" class="ccontent#row# labelit">#UoMDescription#</td>
+					<tr class="labelmedium2">					
+					<td style="width:80px;padding-left:10px" class="ccontent#row#">#ItemBarCode#</td>
+					<td style="width:120px;padding-left:6px" class="ccontent#row#">#UoMDescription#</td>
 					<td class="labelit" style="width:80px;padding-left:8px">		
-					 <input type="text" class="regularh enterastab" 
+					 <input type="text" class="regularxxl enterastab" 
 					    onchange="document.getElementById('item#row#_#left(itemuomid,8)#').value='#itemuomid#'" 
 					    style="width:40;text-align:right"
 						name="value#row#_#left(itemuomid,8)#" value="">
@@ -70,8 +70,6 @@
 			</cfif>
 			
 		</cfoutput>	
-		
-		
 	
 	</cfoutput>
 		

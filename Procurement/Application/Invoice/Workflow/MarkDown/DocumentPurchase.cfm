@@ -33,7 +33,7 @@ password="#SESSION.dbpw#">
 			</cfif>     
 	
 			<tr class="labelmedium">
-					<td bgcolor="ffffff" style="border-bottom:1px solid d1d1d1;padding-left:10px"><a href="javascript:ProcPOEdit('#PurchaseNo#','view')"><font color="0080C0">#PurchaseNo# <cfif ref neq "">(#ref#)</cfif> <cf_space spaces="40"></a></td>
+					<td bgcolor="ffffff" style="border-bottom:1px solid d1d1d1;padding-left:10px"><a href="javascript:ProcPOEdit('#PurchaseNo#','view','tab')">#PurchaseNo# <cfif ref neq "">(#ref#)</cfif> <cf_space spaces="40"></a></td>
 					<td bgcolor="ffffff" style="width:150px;border-bottom:1px solid d1d1d1;padding-left:20px;padding-right:5px" align="right">#numberformat(documentamountmatched,',.__')#</td>
 					<td style="width:150px;border:1px solid silver;padding-left:10px;padding-right:5px" align="right">
 					
@@ -44,7 +44,7 @@ password="#SESSION.dbpw#">
 						 value    = "#NumberFormat(documentamountmatched,".__")#" 
 						 message  = "Enter a valid amount" 
 						 validate = "float" 
-						 onchange = "ColdFusion.navigate('#session.root#/procurement/application/Invoice/WorkFlow/Markdown/setTotal.cfm','invoicetotal','','','POST','forminvoice')	"
+						 onchange = "ptoken.navigate('#session.root#/procurement/application/Invoice/WorkFlow/Markdown/setTotal.cfm','invoicetotal','','','POST','forminvoice')	"
 						 required = "Yes" 
 						 size     = "10" 
 						 style    = "font-size:16px;border:0px solid silver;text-align: right;">								

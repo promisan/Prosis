@@ -237,12 +237,12 @@
 			--->
 			  			  
 			<td style="padding-left:10px">
-
+			
 				<input type      = "text" 
 						id       = "eMailAddress" 
 					    value    = "#Header.eMailAddress#"
 						class    = "regular" 
-						style    = "width:216;height:28px;font-size:15px" 
+						style    = "width:266px;height:28px;font-size:15px" 
 						onChange = "ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/setEMailAddress.cfm?email='+this.value+'&customeridInvoice=#Header.CustomerIdInvoice#&batchid=#url.batchid#','mailbox')">
 				
 			</td> 					

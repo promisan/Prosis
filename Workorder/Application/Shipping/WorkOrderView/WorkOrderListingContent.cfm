@@ -5,7 +5,7 @@
 
 	<cfoutput>	
 	
-	SELECT *, AmountPending
+	SELECT *
 	FROM (
 	
 	    SELECT *, (AmountSale - AmountBilled) as AmountPending
@@ -56,7 +56,7 @@
 		            Ref_ServiceItemDomainClass AS R ON WL.ServiceDomain = R.ServiceDomain AND WL.ServiceDomainClass = R.Code
 					
 		WHERE       W.Mission = '#URL.Mission#' 
-		AND         W.ActionStatus <= '3' 
+		AND         W.ActionStatus IN ('0','1','2','3') 
 		AND         WL.Operational = 1 
 		AND         R.PointerSale = 1		
 		) as tab

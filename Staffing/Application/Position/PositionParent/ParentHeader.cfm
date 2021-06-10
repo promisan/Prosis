@@ -60,16 +60,16 @@ password="#SESSION.dbpw#">
    <tr><td height="5"></td></tr>
    <tr class="noprint">
    
-    <td height="24" style="padding-right:4px">
+    <td height="24" style="padding-left:6px;padding-right:4px">
 	
 		<cfoutput>	
 		<table class="formpadding">
 		<tr class="labelmedium2">
-		    <td style="padding-left:5px"><cf_tl id="Current PostNumber">:</td>
-			<td style="padding-left:5px"><b>#PositionChild.SourcePostNumber#</font></b></td>
+		    <td style="padding-left:5px"><cf_tl id="PostNumber">:</td>
+			<td style="padding-left:5px;font-size:15px"><b>#PositionChild.SourcePostNumber#</b></td>
 			<td style="padding-left:10px"><cf_tl id="Mandate">:</td>
 			<td><b>#Current.Description#</b></td>
-			<td style="padding-left:10px"><cf_tl id="Period">Period:</td>
+			<td style="padding-left:10px"><cf_tl id="Period">:</td>
 			<td style="padding-left:5px"><b>#DateFormat(Current.DateEffective, CLIENT.DateFormatShow)# - #DateFormat(Current.DateExpiration, CLIENT.DateFormatShow)#</b></td>
 		</tr>
 		</table>	
@@ -92,8 +92,7 @@ password="#SESSION.dbpw#">
 	  role="'HRLoaner'"
 	  posttype="#PositionParent.PostType#"
 	  returnvariable="accessLoaner">
-	  
-		
+	  		
 	<cfif AccessPosition eq "EDIT" or AccessPosition eq "ALL">
 	
 	        <table cellspacing="0" cellpadding="0">
@@ -103,15 +102,14 @@ password="#SESSION.dbpw#">
 				<cfoutput>
 			
 				<td>
-				<cf_img icon="edit" onclick="EditParentPosition('#PositionParent.Mission#','#PositionParent.MandateNo#','#PositionParent.PositionParentId#')">
+				<cf_img icon="open" onclick="EditParentPosition('#PositionParent.Mission#','#PositionParent.MandateNo#','#PositionParent.PositionParentId#')">
 				</td>
 											
 				<td style="padding-left:7px;padding-right:10px" class="labelmedium">	
 										
 				<cf_tl id="Parent Position" var="1">  
 				<a href="javascript:EditParentPosition('#PositionParent.Mission#','#PositionParent.MandateNo#','#PositionParent.PositionParentId#')">
-				<font color="6688AA">#lt_text#</font></u></b>
-				</a>
+				#lt_text#</a>
 				</td>
 				
 				</cfoutput>
@@ -125,30 +123,20 @@ password="#SESSION.dbpw#">
 	</td>
   </tr> 	
      
-  <tr><td colspan="2" class="line"></td></tr>
-  
   <cfoutput>
     <input type="hidden" id="refresh_positionparent" 
        onclick="ptoken.navigate('#session.root#/Staffing/Application/Position/PositionParent/getPositionParent.cfm?ID2=#url.id2#','positionparentbox')">     
   </cfoutput> 	
  
-  <tr>
-  
-    <td width="100%" align="center" colspan="2" id="positionparentbox">	
-		<cfinclude template="getPositionParent.cfm">
-	</td>	
-	
+  <tr>  
+    <td width="100%" align="center" colspan="2" id="positionparentbox"><cfinclude template="getPositionParent.cfm"></td>		
   </tr>
-  
-  <!---
-  <tr><td height="35" colspan="4" style="padding-left:33px;font-weight:200" class="labelmedium"><cf_tl id="Budget details"></td></tr>  		
-  --->
-	 	  
+  	 	  
   <tr>
        <td height="5" colspan="2" style="padding-left:35px;padding-right:9px">
-	   <cfset url.id = url.id2>
-		<cfinclude template="../Funding/PositionEdition.cfm">		
-		</td>       
+	     <cfset url.id = url.id2>
+		 <cfinclude template="../Funding/PositionEdition.cfm">		
+	   </td>       
   </tr>
 	  	  
 	<!--- check if workflow is defined --->
@@ -157,28 +145,27 @@ password="#SESSION.dbpw#">
 	 datasource="AppsOrganization" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-		SELECT  *
-		FROM    Ref_EntityClassPublish
-		WHERE   EntityCode = 'PostClassification' 
-		AND     EntityClass = 'Standard'
+		 SELECT  *
+		 FROM    Ref_EntityClassPublish
+		 WHERE   EntityCode = 'PostClassification' 
+		 AND     EntityClass = 'Standard'
 	</cfquery>		
-	
-	
+		
 	<cfquery name="CheckMission" 
 	 datasource="AppsOrganization"
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-	 SELECT   *
-	 FROM     Ref_EntityMission 
-	 WHERE    EntityCode     = 'PostClassification'  
-	 AND      Mission        = '#PositionParent.Mission#' 
+		 SELECT   *
+		 FROM     Ref_EntityMission 
+		 WHERE    EntityCode     = 'PostClassification'  
+		 AND      Mission        = '#PositionParent.Mission#' 
 	</cfquery>	
 		
 	<cfif FlowDefined.recordcount neq "0" 
 	   and CheckMission.WorkflowEnabled eq "1" 
 	   and CheckMission.recordcount eq "1">	
 		  
-	<tr class="line labelmedium"><td colspan="1" style="font-size:17px;padding-left:18px;height:30px">
+	<tr class="labelmedium"><td colspan="1" style="font-size:17px;padding-left:18px;height:30px">
 	
 		<cf_tl id="Classification">
 	
@@ -188,7 +175,7 @@ password="#SESSION.dbpw#">
 		
 	    <cf_wfActive entityCode="PostClassification" objectkeyvalue1="#url.id2#">		
 		
-			 <cfinvoke component = "Service.Access"  
+			 <cfinvoke component    = "Service.Access"  
 				   method           = "createwfobject" 
 				   entitycode       = "PostClassification"
 				   mission          = "#PositionParent.Mission#"
@@ -201,7 +188,7 @@ password="#SESSION.dbpw#">
 				   <td colspan="3" valign="bottom" align="right" style="padding-right:7px"> 
 				   <cfif wfStatus eq "Closed">			   
 				   <a id="classificationadd" href="javascript:	ProsisUI.createWindow('classify', 'Record Classification', '',{x:100,y:100,height:500,width:840,modal:true,center:true});ptoken.navigate('#SESSION.root#/Staffing/Application/Position/PositionParent/ParentClassification.cfm?class=init&positionparentid=#url.id2#&ajaxid=#url.ajaxid#','classify')">
-				   <cf_tl id="Initiate post classification workflow">
+				   <cf_tl id="Initiate post classification">
 				   </a>	 			   
 				   </cfif>
 				   <cfif wfStatus eq "Open">
@@ -224,15 +211,12 @@ password="#SESSION.dbpw#">
 			   value="ParentClassificationWorkflow.cfm">	
 		
 			<tr>		
-			<td colspan="4" id="#url.ajaxid#">
-			
-			
+			<td colspan="4" id="#url.ajaxid#">				
 																		 
 			   <cfif wfStatus eq "Open" or wfExist eq "1">				  
 				   <cfinclude template="ParentClassificationWorkflow.cfm"> 
 			   </cfif>
-			
-				
+							
 			</td>
 			</tr>
 				
@@ -240,14 +224,14 @@ password="#SESSION.dbpw#">
 	
 	</cfif>
 				
-	<tr class="line"><td colspan="4" class="labellarge line" style="font-weight:200;font-size:23px;padding-left:18px;height:48px"><cf_tl id="Position and Loan history"></td></tr> 	
+	<tr><td colspan="4" class="labellarge line" style="font-size:23px;padding-left:18px;height:40px"><cf_tl id="Position, Loan and usage history"></td></tr> 	
 	     
 	<tr> 
 	
 	<td width="100%" colspan="4" style="padding-left:10px">
-    <table border="0" cellpadding="0" cellspacing="0" width="98%" align="center">
+    <table width="98%" align="center">
 	
-	<tr class="labelmedium" style="height:20px">
+	<tr class="labelmedium2 fixrow" style="height:20px">
 	<td width="5%"></td>
 	<td width="50"><cf_tl id="Effective"></td>
 	<td width="50"><cf_tl id="Expiration"></td>
@@ -294,8 +278,7 @@ password="#SESSION.dbpw#">
 		<tr class="labelmedium">
 		  <td width="5%" valign="top" style="padding-top:3px;padding-left:10px">
 		   <cf_img icon="open" onclick="javascript:EditPosition('#PositionChild.Mission#','#PositionChild.MandateNo#','#PositionChild.PositionNo#')">		   
-		  </td>
-	    
+		  </td>	    
 		  <td width="100" style="padding-top:2px" valign="top">#DateFormat(PositionChild.DateEffective, CLIENT.DateFormatShow)#</td>
 		  <td width="100" style="padding-top:2px" valign="top">#DateFormat(PositionChild.DateExpiration, CLIENT.DateFormatShow)#</td>
 		  <td rowspan="2" valign="top"><cfinclude template="Position.cfm"></td>
@@ -350,7 +333,31 @@ password="#SESSION.dbpw#">
 					   <td width="10%">#dateFormat(Assignment.DateExpiration,CLIENT.DateFormatShow)#</td>
 					   <td width="15%">#Assignment.OfficerLastName# (#dateFormat(Assignment.Created,CLIENT.DateFormatShow)#)</td>
 					  </tr>
-					 		 		  
+					  
+					  <cfif Assignment.OrgUnit neq PositionChild.OrgUnitOperational>
+					 
+					 
+					  <tr class="labelit navigation_row_child">
+					      
+						  <td align="right" style="padding-right:4px"><cf_tl id="Work"></td>
+					      <td colspan="8" style="color:FF0000">#OrgUnitCode# #OrgUnitName#</td>
+						  
+					  </tr>
+					  
+					  </cfif>
+					  
+					  <cfif Assignment.FunctionNo neq PositionChild.FunctionNo>
+					 					 
+					  <tr class="labelit navigation_row_child">
+					      
+						  <td align="right" style="padding-right:4px"><cf_tl id="Function"></td>
+					      <td colspan="8" style="color:FF0000">#FunctionDescription#</td>
+						  
+					  </tr>
+					  
+					  </cfif>
+					 
+					 					 		 		  
 					  <cfquery name="Error" 
 							datasource="AppsEmployee" 
 							username="#SESSION.login#" 

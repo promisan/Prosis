@@ -58,14 +58,6 @@
 
 <cfset itm = 0>
 
-<cfset itm = itm+1>						
-<cfset fields[itm] = {label         = "Journal",    					             
-					  field         = "JournalName",						  
-					  filtermode    = "2",
-					  column        = "common",	
-					  displayfilter = "Yes",				
-					  search        = "text"}>	  
-
 <cfset itm = itm+1>		
 <cfset fields[itm] = {label         = "Entity",                  
 					  field         = "Mission",
@@ -73,10 +65,18 @@
 					  column        = "common",		
 					  filtermode    = "2",
 					  displayfilter = "Yes",
-					  search        = "text"}>				
+					  search        = "text"}>	
+
+<cfset itm = itm+1>						
+<cfset fields[itm] = {label         = "Journal",    					             
+					  field         = "JournalName",						  
+					  filtermode    = "2",
+					  column        = "common",	
+					  displayfilter = "Yes",				
+					  search        = "text"}>	 
 						  
 <cfset itm = itm+1>						
-<cfset fields[itm] = {label         = "Document",    					             
+<cfset fields[itm] = {label         = "Object",    					             
 					  field         = "ObjectDescription",						  
 					  filtermode    = "2",
 					  displayfilter = "Yes",				
@@ -125,8 +125,8 @@
 	
 	<cf_listing
 	    header          = "Advance"
-	    box             = "AdvanceList"
-		link            = "#SESSION.root#/Staffing/Application/Employee/Invoices/LedgerListing.cfm?id=#url.id#&systemfunctionid=#url.systemfunctionid#"	   
+	    box             = "AdvanceList_#url.id#"
+		link            = "#SESSION.root#/Staffing/Application/Employee/Advance/LedgerListing.cfm?id=#url.id#&systemfunctionid=#url.systemfunctionid#"	   
 		datasource      = "AppsLedger"
 		listquery       = "#myquery#"					
 		listgroup       = "Currency"		

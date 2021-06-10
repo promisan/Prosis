@@ -14,7 +14,7 @@
 <script language="JavaScript">
 
 function recipient(op,id,org) {    
- 	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetailSet.cfm?op='+op+'&id='+id+'&org='+org, 'recipientprocess');
+ 	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetailSet.cfm?op='+op+'&id='+id+'&org='+org, 'recipientprocess');
 }
 
 function recipientremoveall(id) {
@@ -22,7 +22,7 @@ function recipientremoveall(id) {
 		var id = $(this).attr('id');
 		$(this).attr('checked',false); }
 	);			
- 	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetailSet.cfm?op=removeall&id='+id, 'recipients');		
+ 	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetailSet.cfm?op=removeall&id='+id, 'recipients');		
 	// set selected 
 	$('##lrecipients').html('<b>Recipients (0)</b>');
 }
@@ -32,12 +32,12 @@ function recipientselectall(id) {
 		var id = $(this).attr('id');
 		$(this).attr('checked',true); }
 	);			
- 	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetailSet.cfm?op=selectall&id='+id, 'recipients');	
+ 	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewDetailSet.cfm?op=selectall&id='+id, 'recipients');	
 }
 
 function recipienttype(op,id,at) {
 	_cf_loadingtexthtml="";		
- 	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientAddressTypeSet.cfm?op='+op+'&id='+id+'&at='+at, 'types');
+ 	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientAddressTypeSet.cfm?op='+op+'&id='+id+'&at='+at, 'types');
 	_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";	
 }
 
@@ -46,8 +46,7 @@ function reloadAddressDetail(edition){
 }
 
 function getUnitAddress(id, edition){
-	ColdFusion.Window.create('UnitWindow', 'Edit unit address', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true});    
-	ColdFusion.Window.show('UnitWindow'); 					
+	ProsisUI.createWindow('UnitWindow', 'Edit unit address', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true});    				
 	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewUnit.cfm?systemfunctionid=&ID='+id+'&closeAction=parent.ColdFusion.Window.hide(\'UnitWindow\'); parent.reloadAddressDetail(\''+edition+'\');',"UnitWindow")
 }
 
@@ -57,12 +56,12 @@ function doSend(edition,actionid) {
 		_cf_loadingtexthtml="";
 		document.getElementById('Send').style.display='none';
 		ColdFusion.ProgressBar.start('pBar');
-		ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/prepareBroadcast.cfm?submissionedition='+edition+'&actionid='+actionid+'&readonly=yes&sourcepath='+sp,'preparation')
+		ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/prepareBroadcast.cfm?submissionedition='+edition+'&actionid='+actionid+'&readonly=yes&sourcepath='+sp,'preparation')
 	}
 }
 
 function broadcast(edition,mode) {
-     window.open("#SESSION.root#/Tools/Mail/Broadcast/BroadCastEdition.cfm?mode="+mode+"&submissionedition="+edition, "broadcast", "status=yes, height=850px, width=920px, scrollbars=no, toolbar=no, resizable=no");
+     ptoken.open("#SESSION.root#/Tools/Mail/Broadcast/BroadCastEdition.cfm?mode="+mode+"&submissionedition="+edition, "broadcast", "status=yes, height=850px, width=920px, scrollbars=no, toolbar=no, resizable=no");
 }
 
 </script>

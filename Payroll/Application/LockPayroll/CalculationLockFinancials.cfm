@@ -1163,7 +1163,8 @@ password="#SESSION.dbpw#">
 							AND      SL.PaymentDate        = '#payrollend#'	
 							AND      SL.SettlementPhase    = '#refno#'
 							AND      SL.PaymentStatus      = '0' 										
-							AND      SL.Source = 'Offset' 					 
+							AND      SL.Source = 'Offset' 	
+								 
 							
 						</cfquery>	
 						
@@ -1194,7 +1195,7 @@ password="#SESSION.dbpw#">
 						</cfif>
 						
 						<cfloop query="Offset">
-					
+											
 							<cf_GledgerEntryHeader
 							    Mission               = "#SchedulePeriod.Mission#"
 							    OrgUnitOwner          = "#tOwner#"							

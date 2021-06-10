@@ -508,8 +508,6 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			
-			
-				
 				SELECT   O.Mission              as MissionUsed, 
 				         O.MandateNo            as MandateNoUsed,
 						 O.OrgUnit, 
@@ -676,10 +674,101 @@
 				
 				<cfif url.postclass neq "">	  
 				AND      P.PostClass = '#URL.PostClass#'	  
+				</cfif>	 
+				
+								
+				UNION ALL    <!--- add positions that are actually used in another unit --->
+				
+				SELECT   PP.Mission    as MissionUsed,
+				         PP.MandateNo  as MandateNoUsed,
+						 O.OrgUnit, 
+		                 O.OrgUnitName, 
+						 O.OrgUnitCode, 
+						 O.HierarchyCode, 
+						 O.DateExpiration as OrgExpiration,
+				         P.*,  
+				         PP.OrgUnitOperational   as ParentOrgUnit,
+						 PP.FunctionDescription  as ParentFunctionDescription,						 
+						 <cfif CheckVacancy.recordcount eq "0">						 
+						 	    0 as RecruitmentTrack,							 					 
+						 <cfelse>						
+						 					 												  
+								(
+								
+								SELECT  TOP 1 DocumentNo 
+								
+								FROM															
+										(
+										
+										SELECT    D.DocumentNo						
+										FROM      Vacancy.dbo.DocumentPost as Track INNER JOIN
+					      			              Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
+							                      Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
+							                      Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo
+										WHERE     SP.PositionNo = P.PositionNo 
+										AND       D.EntityClass IS NOT NULL 
+										AND       D.Status = '0'
+																								
+										UNION 
+																						
+										<!--- also we get a first position in the next mandate --->			
+										
+										SELECT     D.DocumentNo 
+										
+										FROM       Vacancy.dbo.DocumentPost as Track INNER JOIN
+							                       Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
+								                   Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
+								                   Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
+							                       Position PN ON SP.PositionNo = PN.SourcePositionNo
+												   
+										WHERE      PN.PositionNo = P.PositionNo
+										AND        D.EntityClass IS NOT NULL 
+										AND        D.Status = '0' 
+										
+										) as DerrivedTable 
+														
+								) AS  RecruitmentTrack,  
+						  
+						   </cfif>				
+						
+						 <!--- position parent operational unit determines the loan --->  	
+						  
+						 'Floated' AS Class
+						 
+				FROM     Position P, 
+				         PositionParent PP, 
+						 PersonAssignment PA,
+						 Organization.dbo.Organization O
+						 
+				WHERE    P.PositionParentId    = PP.PositionParentId 
+				AND      PA.OrgUnit           != PP.OrgUnitOperational
+				AND      P.PositionNo          = PA.PositionNo
+				AND      PA.OrgUnit            = O.OrgUnit
+				
+				AND      PP.Mission            = '#URL.Mission#'
+				AND      PP.MandateNo          = '#URL.Mandate#'
+				 
+				AND      P.DateExpiration     >= #sel#  
+				AND      P.DateEffective      <= #selend#  
+				
+				AND      PA.DateExpiration    >= #sel#  
+				AND      PA.DateEffective     <= #selend#  
+				AND      PA.AssignmentStatus  IN ('0','1')
+				
+				AND      O.HierarchyCode      >= '#HStart#' 
+		        AND      O.HierarchyCode      < '#HEnd#'  							
+				
+				<cfif url.header eq "requisition"> 	 
+				
+				AND      PP.PostType IN (SELECT PostType FROM   Ref_PostType WHERE  Procurement = 1)	  
+				</cfif>
+				
+				<cfif url.postclass neq "">	  
+				AND      P.PostClass = '#URL.PostClass#'	  
 				</cfif>	  
 				
-				ORDER BY PositionNo 
-				
+															
+				ORDER BY PositionNo 						
 							
 			</cfquery>		
 							
@@ -695,6 +784,9 @@
 			password="#SESSION.dbpw#">
 			
 			  SELECT Post.*, 
+			         O.OrgUnit          as OrgUnitOwner,
+					 O.OrgUnitName      as OrgUnitOwnerName,
+			         O.OrgUnitNameShort as OrgUnitOwnerNameShort,
 			         G.PostGradeParent, 
 					 P.ViewOrder, 
 					 V.ShowVacancy,
@@ -715,12 +807,16 @@
 			  FROM   userQuery.dbo.#SESSION.acc#Position#FileNo# Post, 
 			         Applicant.dbo.Occgroup Occ, 
 			         Applicant.dbo.FunctionTitle F, 
+					 PositionParent PP,
+					 Organization.dbo.Organization O,
 					 Ref_PostGrade G,  
 					 Ref_PostGradeParent P,
 					 Ref_VacancyActionClass V
 			  WHERE  Occ.OccupationalGroup = F.OccupationalGroup 		   
 			    AND  G.PostGrade           = Post.PostGrade
-				AND  P.Code                = G.PostGradeParent			
+				AND  P.Code                = G.PostGradeParent		
+				AND  Post.PositionParentId = PP.PositionParentId
+				AND  PP.OrgunitOperational = O.OrgUnit	
 			    AND  F.FunctionNo          = Post.FunctionNo 
 				AND  Post.VacancyActionClass  = V.Code 
 						
@@ -1042,7 +1138,7 @@
 			   
 			  <td colspan="2" style="padding-left:7px;padding-right:7px">
 			  
-			  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="clsNoPrint">
+			  <table width="100%" class="clsNoPrint">
 			    
 			  <tr>
 			  <td style="padding:1px">
@@ -1436,10 +1532,10 @@
 								<cfif accessStaffing eq "NONE" or accessStaffing eq "READ">
 								  
 									  <cfinvoke component="Service.Access"  
-							          method         = "recruit" 
-									  orgunit        = "#Postshow.OrgUnit#" 
-									  posttype       = "#PostType#"
-									  returnvariable = "accessRecruit"> 						  
+								          method         = "recruit" 
+										  orgunit        = "#Postshow.OrgUnit#" 
+										  posttype       = "#PostType#"
+										  returnvariable = "accessRecruit"> 						  
 									 
 								<cfelse>
 								  

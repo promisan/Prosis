@@ -12,6 +12,8 @@
 
 <cfparam name="Attributes.Warning" default = "No">
 
+<cftry>
+
 <cfquery name="SystemModule" 
 	datasource="#Attributes.DataSource#" 
 	username="#SESSION.login#" 
@@ -72,5 +74,14 @@
   
 </cfif>  
 
-</cfoutput>   
+</cfoutput>  
+
+<cfcatch>
+	 <cfset Caller.Operational = 0> 
+	  <cfset Caller.ModuleEnabled = 0>  
+</cfcatch>
+
+</cftry>
+
+ 
  

@@ -282,6 +282,8 @@
 			  </cfif>
 			  FunctionNo,
 			  FunctionDescription,
+			  ParentFunctionNo,
+			  ParentFunctionDescription,
 			  OccGroupOrder,
 			  OccupationalGroup,
 			  PostType,
@@ -325,6 +327,8 @@
 			        HierarchyCode,
 			  </cfif>
 			  '',
+			  '',
+			  '',			  
 			  '',
 			  '',
 			  '',
@@ -435,6 +439,8 @@
 						  PostGrade, 
 						  PostOrder,
 						  FunctionDescription,
+						  ParentFunctionNo,
+						  ParentFunctionDescription,
 						  PostGradeParent,
 						  OccGroupDescription,
 						  PostClass,

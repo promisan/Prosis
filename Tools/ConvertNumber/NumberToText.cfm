@@ -28,7 +28,7 @@
 	<cfset ESPTeens    = "diez,once,doce,trece,catorce,quince,dieciseis,diecisiete,dieciocho,diecinueve"> 
 	<cfset ESPTens     = "dummy,veinte,treinta,cuarenta,cincuenta,sesenta,setenta,ochenta,noventa"> 
 	<cfset ESPHundreds = "ciento, doscientos, trescientos, cuatrocientos, quinientos, seiscientos, setecientos, ochocientos, novecientos">
-	<cfset ESPSuffix   = "mil,milliones,billiones,trilliones">
+	<cfset ESPSuffix   = "mil,millon,billon,trillon">
 	<cfset ESPHundred  = "cientos">
 	<cfset ESPHundredSingular = "cien">
 	<cfset ESPUnitAdd  = "y ">

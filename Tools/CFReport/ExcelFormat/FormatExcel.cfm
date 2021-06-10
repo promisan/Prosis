@@ -66,8 +66,7 @@
 		 
 		 function pointeradd(val,cls,id,tbl) {
 		     _cf_loadingtexthtml='';	
-			 ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelPointer.cfm?mode=#url.mode#&value='+val+'&class='+cls+'&reportid=#url.reportid#&id='+id+'&table='+tbl,'aggregate')
-			 _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";
+			 ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelPointer.cfm?mode=#url.mode#&value='+val+'&class='+cls+'&reportid=#url.reportid#&id='+id+'&table='+tbl,'aggregate')			
 		 }
 		 
 		 function update(mode,name,action,id,box,tbl,ds) {
@@ -78,15 +77,12 @@
 		 
 		 function fielddelete(name,id,tbl) {
 		     _cf_loadingtexthtml='';				 
-		 	 ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelDeleteField.cfm?mode=#url.mode#&name='+name+'&reportid=#url.reportid#&id='+id+'&table='+tbl,'contentbox1')
-			 _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";
+		 	 ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelDeleteField.cfm?mode=#url.mode#&name='+name+'&reportid=#url.reportid#&id='+id+'&table='+tbl,'contentbox1')			 
 		 }
 		 
 		 function savefilter(id,tbl) {
 		     _cf_loadingtexthtml='';			
-		     ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelSaveFilter.cfm?mode=#url.mode#&id='+id,'filterbox','','','POST','filterform')
-			  
-			 _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";
+		     ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelSaveFilter.cfm?mode=#url.mode#&id='+id,'filterbox','','','POST','filterform')			  
 		 } 
 		 
 		 function openexcel(mode,id,tbl) {

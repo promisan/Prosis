@@ -1,6 +1,4 @@
 
-
-
 	<cfquery name="Parameter" 
 	 datasource="AppsEmployee" 
 	 username="#SESSION.login#" 
@@ -52,6 +50,10 @@
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
 		    SELECT DISTINCT 
+			
+			 	   O.OrgUnit            as OrgUnitOwner,
+				   O.OrgUnitName        as OrgUnitOwnerName,
+			       O.OrgUnitNameShort   as OrgUnitOwnerNameShort,
 			       A.DateEffective       as DateEffectiveAssignment, 
 			       A.DateExpiration      as DateExpirationAssignment, 
 				   A.FunctionDescription as FunctionDescriptionActual,
@@ -124,11 +126,11 @@
 				   Po.PositionParentId,
 				   Po.PostAuthorised,
 				   Po.FunctionDescription, 
+				   PO.OrgUnitOperational,
 				   PP.OrgUnitOperational as ParentOrgUnit,
 				   Po.PostGrade, 
 				   Po.SourcePostNumber, 
-				   Po.PostClass,
-				   Po.OrgunitOperational,
+				   Po.PostClass,				  
 						   (SELECT ActionStatus 
 						    FROM  PersonExtension 
 							WHERE Mission   = '#Position.Mission#'
@@ -143,13 +145,13 @@
 				   PositionParent PP,
 			       Organization.dbo.Organization O,				 
      			   Ref_PostClass R
-			WHERE  Po.PositionNo       = A.PositionNo
-			AND    A.PersonNo          = P.PersonNo
-			AND    Po.PositionNo       = '#URL.PositionNo#'
-			AND    Po.PositionParentId = PP.PositionParentId						
-			AND    A.OrgUnit           = O.OrgUnit
-			AND    R.PostClass         = Po.PostClass
-			AND    A.AssignmentStatus < '#Parameter.AssignmentShow#'			
+			WHERE  Po.PositionNo         = A.PositionNo
+			AND    A.PersonNo            = P.PersonNo
+			AND    Po.PositionNo         = '#URL.PositionNo#'
+			AND    Po.PositionParentId   = PP.PositionParentId						
+			AND    PP.OrgUnitOperational = O.OrgUnit
+			AND    R.PostClass           = Po.PostClass
+			AND    A.AssignmentStatus   < '#Parameter.AssignmentShow#'			
 			<cfif URL.Lay neq "Advanced">			
 			    AND  A.DateEffective  <= #incumdate#
 				AND  A.DateExpiration >= #Incumdate#
@@ -165,6 +167,9 @@
 			 username="#SESSION.login#" 
 			 password="#SESSION.dbpw#">
 			    SELECT DISTINCT 
+				       O.OrgUnit            as OrgUnitOwner,
+				       O.OrgUnitName        as OrgUnitOwnerName,
+			           O.OrgUnitNameShort   as OrgUnitOwnerNameShort,
 				       ''     as DateEffectiveAssignment, 
 				       ''     as DateExpirationAssignment, 
 					   ''     as FunctionDescriptionActual,
@@ -182,14 +187,14 @@
 					   ''     as ContractTime,
 					   ''     as PostAdjustmentLevel,
 					   ''     as PostAdjustmentStep,
-					   O.OrgUnitName, 
-					   O.OrgUnit, 
+					   
 					   Po.PositionNo, 
 					   '' as AssignmentNo,
 					   Po.Mission,
 					   Po.MissionOperational,
 					   Po.MandateNo,
 					   Po.FunctionNo,
+					   PO.OrgUnitOperational,
 					   Po.OrgUnitAdministrative,
 					   Po.PostType,
 					   Po.LocationCode,
@@ -199,19 +204,18 @@
 					   PP.OrgUnitOperational as ParentOrgUnit,
 					   Po.PostGrade, 
 					   Po.SourcePostNumber, 
-					   Po.PostClass,
-					   Po.OrgunitOperational,
+					   Po.PostClass,					   
 					   '' as Extension,
 					   (SELECT LocationName FROM Location WHERE LocationCode = Po.LocationCode) as LocationName,
 					   R.PresentationColor
-				FROM Position Po, 
-					 PositionParent PP,
-				     Organization.dbo.Organization O,					
-	     			 Ref_PostClass R
-				WHERE Po.PositionNo          = '#URL.PositionNo#'
-				AND   Po.PositionParentId    = PP.PositionParentId							
-				AND   PO.OrgUnitOperational  = O.OrgUnit
-				AND   R.PostClass = Po.PostClass				
+				FROM   Position Po, 
+					   PositionParent PP,
+				       Organization.dbo.Organization O,					
+	     			   Ref_PostClass R
+				WHERE  Po.PositionNo          = '#URL.PositionNo#'
+				AND    Po.PositionParentId    = PP.PositionParentId							
+				AND    PP.OrgUnitOperational  = O.OrgUnit
+				AND    R.PostClass = Po.PostClass				
 			</cfquery>	
 					
 		</cfif>

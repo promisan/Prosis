@@ -200,7 +200,7 @@
 					
 					<cfif qService.recordcount gte "1">
 								
-						( SELECT SUM(Amount) 
+						( SELECT ISNULL(SUM(Amount),0) 
 						  FROM   skWorkOrderCharges 
 						  WHERE  WorkOrderId   = WO.WorkorderId
 						  AND    WorkOrderLine = WO.WorkorderLine
@@ -210,7 +210,7 @@
 					
 					<cfelse>
 					
-					    ( SELECT   SUM(SaleAmountIncome)
+					    ( SELECT   ISNULL(SUM(SaleAmountIncome),0)
 						  FROM     WorkOrderLineItem
 						  WHERE    WorkOrderId   = WO.WorkorderId
 						  AND      WorkOrderLine = WO.WorkorderLine

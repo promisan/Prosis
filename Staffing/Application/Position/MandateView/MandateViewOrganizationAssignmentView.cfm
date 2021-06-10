@@ -33,7 +33,7 @@
 	
 		<cfif prior eq PositionNo>
 		
-		<td colspan="5" style="min-width:617px"></td>
+		<td colspan="5" style="min-width:610px"></td>
 		
 		<cfelse>
 					
@@ -86,15 +86,27 @@
 	   </td>
 	  
 	  <td style="min-width:90px;padding-left:2px">   
-		  
-		  
+		  		  
 		   <table>
 			<tr>			
 				<cfif Occurence gte "2">			   
 			   		<td style="height:15px;min-width:8;background-color:yellow;border:1px solid black"></td>									   
-			    </cfif>  			
-				<td style="padding-left:5px">							       
-				   <a title="Edit Position" href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#','i#PositionNo#')">    				   				   
+			    </cfif>  	
+				
+				<cfif class eq "Used">
+					<cfset cla = "transparent">
+				<cfelseif class eq "Loaned">
+					<cfset cla = "e1e1e1">
+				<cfelse>		
+				    <cfset cla = "yellow">			
+				</cfif>		
+				
+				<td style="padding-left:5px;background-color:#cla#">		
+											       
+				   <a title="#class# : #OrgUnitOwnerNameShort#" 
+				   href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#','i#PositionNo#')"> 
+				   
+				      				   				   
 			   	   <cfif SourcePostNumber neq "">
 				    #SourcePostNumber#
 				   <cfelse>

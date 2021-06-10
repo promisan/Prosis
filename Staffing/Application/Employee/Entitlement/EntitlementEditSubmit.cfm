@@ -21,6 +21,8 @@
     <cfset END = 'NULL'>
 </cfif>	
 
+<cfset amt = replace("#Form.Amount#",",","")>
+
 <!--- verify if record exist --->
 
 <cfquery name="Entitlement" 
@@ -91,7 +93,7 @@ password="#SESSION.dbpw#">
 					 DependentId      = NULL,
 					 </cfif>
 					 Currency         = '#Form.Currency#',
-					 Amount           = '#Form.Amount#',
+					 Amount           = '#amt#',
 					 Period           = '#Form.Period#',
 					 Remarks          = '#Remarks#'
 			   WHERE PersonNo         = '#Form.PersonNo#' 
@@ -118,7 +120,7 @@ password="#SESSION.dbpw#">
 	
 		<cfif Form.DateExpiration neq DateFormat(Entitlement.DateExpiration,CLIENT.DateFormatShow)
 		    or Form.DateEffective neq DateFormat(Entitlement.DateEffective,CLIENT.DateFormatShow)
-		    or Form.Amount neq Entitlement.Amount>
+		    or amt neq Entitlement.Amount>
 			
 			<!--- additional check if the period overlaps the old period 
 			
@@ -207,7 +209,7 @@ password="#SESSION.dbpw#">
 						  'Amount',
 						  '#Form.Entitlement#',
 						  '#Form.Currency#',
-						  '#Form.Amount#',
+						  '#amt#',
 						  '#Form.Period#',
 						  '#Remarks#',						 
 						  '#SESSION.acc#',
@@ -229,10 +231,10 @@ password="#SESSION.dbpw#">
 			  datasource="AppsPayroll" 
 			  username="#SESSION.login#" 
 			  password="#SESSION.dbpw#">
-				SELECT TOP 1 *
+				SELECT    TOP 1 *
 				FROM      Employee.dbo.PersonAssignment
-				WHERE     PersonNo = '#Form.PersonNo#' 
-				AND       DateEffective < #STR#
+				WHERE     PersonNo        = '#Form.PersonNo#' 
+				AND       DateEffective  < #STR#
 				AND       DateExpiration >= #STR#
 				AND       AssignmentStatus IN ('0','1') 
 				ORDER BY  DateExpiration DESC
@@ -248,10 +250,10 @@ password="#SESSION.dbpw#">
 			    FROM   Employee.dbo.PersonContract L, 
 				       Employee.dbo.Ref_ContractType R,
 					   Employee.dbo.Ref_AppointmentStatus A
-				WHERE  L.PersonNo = '#Form.PersonNo#'
-				AND    L.ContractType = R.ContractType
+				WHERE  L.PersonNo          = '#Form.PersonNo#'
+				AND    L.ContractType      = R.ContractType
 				AND    L.AppointmentStatus = A.Code
-				AND    L.ActionStatus != '9'
+				AND    L.ActionStatus     != '9'
 				ORDER BY L.DateEffective DESC 
 			</cfquery>		
 			

@@ -33,6 +33,35 @@
 		        expand="No">	
 			
 			</cfloop>	
+			
+		 <cf_tl id="Delayed settlements" var="vDelayed">	
+		 
+		 <cf_UItreeitem value="Delayed"
+		        display="<span class='labelit' style='font-weight:bold;font-size:18px;padding-bottom:3px;padding-top:3px'>#vDelayed#</span>"
+				parent="root"	
+				target="right"						
+				href="EntitlementViewOpen.cfm?ID1=&ID=DEL&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
+		        expand="No">	
+				
+			<cfquery name="Item" 
+			    datasource="AppsPayroll" 
+			    username="#SESSION.login#" 
+			    password="#SESSION.dbpw#">	
+				SELECT    *
+				FROM      Ref_PayrollItem
+				WHERE     SettlementMonth <> '0'	
+			</cfquery>	
+				
+			<cfloop query="Item">
+				
+					<cf_UItreeitem value="Del_Delayed"
+			        display="<span class='labelit' style='font-size:14px'>#PayrollItemName#</span>"
+					parent="Delayed"					
+					target="right"						
+					href="EntitlementViewOpen.cfm?ID1=#PayrollItem#&ID=Delayed&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"	
+			        expand="No">	
+				
+			</cfloop>			
 				
 			  									
 		<cfquery name="TriggerList" 
@@ -97,11 +126,32 @@
 		 <cf_tl id="Cost recovery" var="vCost">	
 		 
 		 <cf_UItreeitem value="Recovery"
-		        display="<span class='labelit' style='font-size:18px;padding-bottom:3px;padding-top:3px'>#vCost#</span>"
+		        display="<span class='labelit' style='font-weight:bold;font-size:18px;padding-bottom:3px;padding-top:3px'>#vCost#</span>"
 				parent="root"	
 				target="right"						
 				href="EntitlementViewOpen.cfm?ID1=&ID=PCR&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
-		        expand="No">				
+		        expand="No">	
+				
+			<cf_UItreeitem value="Recovery_earning"
+		        display="<span class='labelit' style='font-size:13px;'>Earning</span>"
+				parent="Recovery"	
+				target="right"						
+				href="EntitlementViewOpen.cfm?ID1=Payment&ID=PCR&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
+		        expand="#exp#">		
+				
+			<cf_UItreeitem value="Recovery_deduction"
+		        display="<span class='labelit' style='font-size:15px'>Deduction</span>"
+				parent="Recovery"	
+				target="right"						
+				href="EntitlementViewOpen.cfm?ID1=Deduction&ID=PCR&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
+		        expand="#exp#">		
+				
+			<cf_UItreeitem value="Recovery_contribution"
+		        display="<span class='labelit' style='font-size:15px'>Contribution</span>"
+				parent="Recovery"	
+				target="right"						
+				href="EntitlementViewOpen.cfm?ID1=Contribution&ID=PCR&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
+		        expand="#exp#">	
 			
 </cf_UItree>
 		

@@ -140,15 +140,14 @@
 <cf_tl id="remove" var="1">
 <cfset vRemove=lt_text>
 
-
 <cf_tl id="award all items" var="1">
 <cfset vAward=lt_text>
 	  		  		  
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <table width="100%">
   
 	<tr><td style="padding:6px">
 	
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<table width="100%">
 		
 		<cfset attach = "0">
 		
@@ -194,12 +193,11 @@
 						filter1      = "Mission"
 						filter1Value = "#Parameter.TreeVendor#"
 						filter2      = "Substantive"
-						filter2Value = "">
-						
+						filter2Value = "">						
 											
 					</td>
 					
-					<td class="labelmedium" style="padding-left:5px"><font color="0080C0">#vRecord#</td>
+					<td class="labelmedium2" style="padding-left:5px">#vRecord#</td>
 					
 					</tr></table>
 								
@@ -211,7 +209,7 @@
 				 
 				 </td>
 				 				 
-				 <td align="right" class="labelmedium">
+				 <td align="right" class="labelmedium2">
 				
 					<cfoutput>
 						<cf_tl id="Costs" var="vCosts">
@@ -224,8 +222,7 @@
 					</cfoutput>
 												
 				</td></tr>
-				
-				<tr><td height="1" class="line" colspan="6"></td></tr>
+								
 				
 			</cfif>
 					
@@ -249,26 +246,21 @@
 					
 		<cfoutput query="Vendor">
 				
-		<tr>
+		<tr class="labelmedium2 line" style="background-color:f1f1f1">
 		   
-		   <td>
+		   <td style="border:1px solid gray">
 		   
 		   	   <table cellspacing="0" cellpadding="0" class="formpadding">
-				   <tr>
-				   <td align="center" style="padding-left:10px">
-				   				   
-				   <cf_img icon="select" onClick="viewOrgUnit('#OrgUnit#');">
-			   				 					   
+				   <tr class="labelmedium2">
+				   <td align="center" style="padding-top:1px;padding-left:10px">				   				   
+				   <cf_img icon="select" onClick="viewOrgUnit('#OrgUnit#');">			   				 					   
 				   </td>
-				   <td height="17" class="labelmedium">			   
-				   		<a href="javascript:viewOrgUnit('#OrgUnit#')">#OrgUnitName#</a>			   		   
-				   </td>
+				   <td height="17" class="labelmedium"><a href="javascript:viewOrgUnit('#OrgUnit#')">#OrgUnitName#</a></td>
 				   </tr>
 			   </table>
 			   
 		   </td>
-		   
-		   <td align="left" class="labelit">
+		  
 		   
 		   <cfquery name="Check" dbtype="query">
 				   SELECT * 
@@ -277,13 +269,16 @@
 		   </cfquery>
 		   
 		   <cfif LowestBid.LowestTotal eq Check.Total and Check.recordcount eq "1">
-		       <img src="#SESSION.root#/Images/validate.gif" align="absmiddle" alt="" border="0"> 
-			   <font color="008040"><cf_tl id="Lowest bidder"></font>
-	  		   </cfif>
-		   </td>
+		       <td align="center" style="color:ffffff;background-color:green;border:1px solid gray;padding-left:4px;font-size:14px">		      
+			   <cf_tl id="Lowest bidder">
+			   </td>
+		   <cfelse>
+			   <td style="border:1px solid silver;padding-left:4px;"></td>
+	  	   </cfif>
+		  
 		   
-		   <td class="labelit" style="padding-left:4px">#OrgUnitCode#</td>
-		   <td align="right" class="labelmedium">
+		   <td style="padding-left:4px;border:1px solid gray">#OrgUnitCode#</td>
+		   <td align="right" style="border:1px solid silver;padding-right:4px">
 		   		   
 		   <cfif check.Total eq "">
 			 
@@ -293,7 +288,7 @@
 		   </cfif>
 		   </td>
 		   
-		   <td class="labelit" style="padding-left:5px;padding-right:5px">
+		   <td class="labelmedium2" align="center" style="padding-left:5px;padding-right:5px;border:1px solid gray">
 		   		   		  
 		   <cfif job.actionStatus eq "1">
 						
@@ -302,9 +297,9 @@
 					 and JobOpen.recordcount gte "1">
 										 					 
 					<cfif access eq "ALL" and (WorkflowEnabled eq "0" or flowdefined.recordcount eq "0")>				
-					 	<a href="javascript: markvendor('#OrgUnit#','#Job.Mission#','#workflow#','#url.period#','#url.id1#','#url.sort#')"><font color="6688aa">[#vAward#]</b></a></td>							
+					 	<a href="javascript: markvendor('#OrgUnit#','#Job.Mission#','#workflow#','#url.period#','#url.id1#','#url.sort#')">#vAward#</a></td>							
 					<cfelseif workflow eq "1">				 
-					 	<a href="javascript: markvendor('#OrgUnit#','#Job.Mission#','#workflow#','#url.period#','#url.id1#','#url.sort#')"><font color="6688aa">[#vAward#]</b></a></td>										
+					 	<a href="javascript: markvendor('#OrgUnit#','#Job.Mission#','#workflow#','#url.period#','#url.id1#','#url.sort#')">#vAward#</a></td>										
 					<cfelse>				
 						<!--- no actionenabled --->							 				 
 					</cfif>			
@@ -318,9 +313,9 @@
 					 and JobOpen.recordcount gte "1" and (WorkflowEnabled eq "0" or flowdefined.recordcount eq "0")>
 					 
 					<cfif access eq "ALL" and (WorkflowEnabled eq "0" or flowdefined.recordcount eq "0")>							
-					 	<a href="javascript: markvendor('#OrgUnit#','#Job.Mission#','#workflow#','#url.period#','#url.id1#','#url.sort#')"><font color="6688aa">[#vAward#]</b></a></td>							
+					 	<a href="javascript: markvendor('#OrgUnit#','#Job.Mission#','#workflow#','#url.period#','#url.id1#','#url.sort#')">#vAward#</a></td>							
 					<cfelseif workflow eq "1">				 
-					 	<a href="javascript: markvendor('#OrgUnit#','#Job.Mission#','#workflow#','#url.period#','#url.id1#','#url.sort#')"><font color="6688aa">[#vAward#]</b></a></td>										
+					 	<a href="javascript: markvendor('#OrgUnit#','#Job.Mission#','#workflow#','#url.period#','#url.id1#','#url.sort#')">#vAward#</a></td>										
 					<cfelse>				
 						<!--- no actionenabled --->							 				 
 					</cfif>			
@@ -330,7 +325,7 @@
 		  </cfif>
 		   
 		   </td>
-		   <td align="right" style="padding-top:2px">
+		   <td align="right" style="padding-top:2px;border:1px solid gray">
 		   
 		   <cfquery name="VendorRemove" 
 	         datasource="AppsPurchase" 
@@ -429,7 +424,7 @@
 	<tr><td height="4"></td></tr>				
 	<tr>
 	  <td>
-	      <table width="100%" cellspacing="0" cellpadding="0">
+	      <table width="100%" >
 		  <tr>
 		  
 	      <td class="labelmedium" style="height:35;padding-left:12px;font-size:23px">		  
@@ -440,10 +435,10 @@
 	  		
 			<cfoutput>  
 				
-				<td align="right" style="padding-right:8px" class="labelit">				 
+				<td align="right" style="padding-right:8px" class="labelmedium2">				 
 								  
-				 <cfif URL.Sort neq "Line"><cfelse><a href="javascript:Prosis.busy('yes');reloadvendorform('#URL.Mode#','#workflow#','#url.period#','#url.id1#','Vendor')"></cfif>[<cf_tl id="Sort by Vendor">]</b></font></a>		   	 
-				 <cfif URL.Sort eq "Line"><cfelse><a href="javascript:Prosis.busy('yes');reloadvendorform('#URL.Mode#','#workflow#','#url.period#','#url.id1#','Line')"></cfif>[<cf_tl id="Sort by Request">]</b></font></a>
+				 <cfif URL.Sort neq "Line"><cfelse><a href="javascript:Prosis.busy('yes');reloadvendorform('#URL.Mode#','#workflow#','#url.period#','#url.id1#','Vendor')"></cfif>[<cf_tl id="Sort by Vendor">]</a>		   	 
+				 <cfif URL.Sort eq "Line"><cfelse><a href="javascript:Prosis.busy('yes');reloadvendorform('#URL.Mode#','#workflow#','#url.period#','#url.id1#','Line')"></cfif>[<cf_tl id="Sort by Request">]</a>
 				  		  
 				</td>
 				

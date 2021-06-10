@@ -61,13 +61,13 @@ password="#SESSION.dbpw#">
 
 	<TR>
 		<TD colspan="3" style="padding:5px;padding-left:5px" id="preparation">
-			<input class="button10g" type="button" id="Send" name="Send" value="Ad hoc Broadcast" style="height:26;width:210" onclick="broadcast('#url.submissionedition#','prior')">				
+			<input class="button10g" type="button" id="Send" name="Send" value="Ad hoc Broadcast" style="height:26;width:210" 
+			onclick="broadcast('#url.submissionedition#','prior')">				
 		</TD>		
 	</TR>
 	
 	<tr><td colspan="3" class="linedotted"></tr>
-	
-	
+		
 </cfif>
 
 <TR>
@@ -75,10 +75,10 @@ password="#SESSION.dbpw#">
 	<TD height="30">
 		<table>
 			<tr>				
-				<td class="labelmedium" id="ltypesrecipients">Addressee Selection</b></td>
+				<td class="labelmedium" id="ltypesrecipients"><cf_tl id="Addressee Selection"></td>
 				<cfset link = "#SESSION.root#/roster/maintenance/rosteredition/Recipient/RecipientAddressType.cfm?submissionedition=#url.submissionedition#">			
 				<TD  class="labelmedium" style="padding-right:40px" id="dTypesRecipients">
-				<cf_securediv bind="url:#link#" id="types"/>
+				<cf_securediv bind="url:#link#" id="types">
 				</TD>
 			</tr>
 		</table>
@@ -95,9 +95,9 @@ password="#SESSION.dbpw#">
 	<TD height="25">
 		<table>
 			<tr>				
-				<td class="labelmedium"  class="labelit" id="lrecipients"><cf_tl id="Recipients"></td>
-				<td style="padding-left:7px" class="labelmedium"><a href="javascript:recipientselectall('#url.submissionedition#')"><font color="0080C0">[Select all]</font></a></td>
-				<td style="padding-left:5px" class="labelmedium"><a href="javascript:recipientremoveall('#url.submissionedition#')"><font color="0080C0">[Remove all]</font></a></td>
+				<td class="labelmedium" id="lrecipients"><cf_tl id="Recipients"></td>
+				<td style="padding-left:7px" class="labelmedium"><a href="javascript:recipientselectall('#url.submissionedition#')">[Select all]</a></td>
+				<td style="padding-left:5px" class="labelmedium"><a href="javascript:recipientremoveall('#url.submissionedition#')">[Remove all]</a></td>
 			</tr>
 		</table>
 	</TD>
@@ -108,7 +108,7 @@ password="#SESSION.dbpw#">
 	
 <TR>
 	<TD></TD>
-	<TD colspan="2" style="border:1px dotted silver" id="dRecipients"><cf_securediv bind="url:#link#" id="recipients"/></TD>
+	<TD colspan="2" style="border:1px dotted silver" id="dRecipients"><cf_securediv bind="url:#link#" id="recipients"></TD>
 </TR>
 
 </TABLE>

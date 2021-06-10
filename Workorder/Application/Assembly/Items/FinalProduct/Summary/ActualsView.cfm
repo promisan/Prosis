@@ -65,8 +65,8 @@
 		<table cellspacing="0" cellpadding="0">
 		<cfoutput>
 		<tr>	
-		<td class="labelit" style="padding-right:10px">(#numberformat(total.tax,",__.__")#)</td>	
-		<td class="labelmedium">#numberformat(total.amount,",__.__")#</td>
+		<td class="labelit" style="min-width:100px;padding-right:10px">(#numberformat(total.tax,",.__")#)</td>	
+		<td class="labelmedium">#numberformat(total.amount,",.__")#</td>
 		</tr>
 		</cfoutput>
 		</table>

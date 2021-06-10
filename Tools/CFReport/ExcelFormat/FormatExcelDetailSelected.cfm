@@ -100,23 +100,53 @@
 		<td align="center">#CurrentRow#</td>
 		
 		<td onmouseout="this.className='regular'" 
-			onmouseover="this.className='highlight1'" style="font-size:12px;padding-left:4px">
-			<a href="javascript:fielddelete('#Fieldname#','#url.id#','#url.table#')" style="color:black">#FieldName#</a>
+			onmouseover="this.className='highlight1'" style="font-size:12px;padding-left:4px">#FieldName#
 		</td>
 			
-		<td align="center">
+		<td align="right">
 			
-			<cfif currentrow neq 1>
-				<img src="#SESSION.root#/images/up1.gif" 
-				  width="9" 
-				  height="10" 
-				  alt="Move up" 
-				  style="cursor:pointer" 
-				  border="0" 
-				  onclick="update('up','#fieldName#','','#url.id#','selectedfields','#url.table#','#url.ds#')">	
+			<table><tr>
+			<td align="center" style="width:20px">
+			<cfif currentrow neq 1>			
+			
+				
+			    <button type="button" style="height:20px;width:20px" class="button10g" onclick="update('up','#fieldName#','','#url.id#','selectedfields','#url.table#','#url.ds#')">
+				
+				<img src="#SESSION.root#/images/up6.png" 							 
+							 width="8" 
+							 height="10" 
+							 alt="" 
+							 border="0">
+			
+				</button>
+								
 			</cfif>
-			</td>		
-					
+			
+			</td>
+
+		    <td align="center" style="width:20px">
+												
+			<cfif currentrow neq recordcount>				
+			
+				 <button type="button" style="height:20px;width:20px" class="button10g" onclick="update('down','#fieldName#','','#url.id#','selectedfields','#url.table#','#url.ds#')">
+				 
+				 <img src="#SESSION.root#/images/down6.png" 							 
+							 width="8" 
+							 height="10" 
+							 alt="" 
+							 border="0">
+			
+				</button>
+								
+			</cfif>
+			
+			</td>
+			
+			</tr>
+			</table>
+		</td>
+		
+									
 		<td width="300" style="padding:0px">
 			<input type="text" 
 			   name="label" 
@@ -127,19 +157,9 @@
 			   onchange="update('label','#fieldName#',this.value,'#url.id#','label','#url.table#')">		
 		</td>	
 		
-		<td width="20" align="center">
-			<cfif currentrow neq recordcount>
-				<img src="#SESSION.root#/images/down1.gif" 
-				   width="9" 
-				   height="10" 
-				   alt="Move down" 
-				   style="cursor:pointer" 
-				   border="0" 
-				   onclick="update('down','#fieldName#','','#url.id#','selectedfields','#url.table#','#url.ds#')">	
-			</cfif>
-		</td>
+		
 			
-		<td id="sorting#currentrow#">
+		<td id="sorting#currentrow#" style="padding-left:5px">
 		
 			<cfif OutputSorting eq "">
 				   <a href="javascript:update('sorting','#fieldName#','ASC','#url.id#','sorting#currentrow#','#url.table#')">ASC</a>&nbsp;|

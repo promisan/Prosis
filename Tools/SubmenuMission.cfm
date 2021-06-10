@@ -92,7 +92,7 @@
 	  }
 	  
 	function loadform(name,target) {	
-					
+						
 		<cfif #Target# eq "mission" or #target# eq "_top">
 		  // 	ptoken.open(name,  target, "left=18, top=18, width=" + f + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
 			ptoken.open(name,  target);
@@ -103,7 +103,7 @@
 	}
 	
 	function home(url) {
-		window.open(url)
+		ptoken.open(url)
 	}
 	
 	function minimize(itm,icon){

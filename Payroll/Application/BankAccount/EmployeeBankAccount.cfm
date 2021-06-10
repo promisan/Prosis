@@ -8,16 +8,16 @@
 <cfoutput>
 	<script language="JavaScript">
 		function account(persno) {
-		    ptoken.location ("AccountEntry.cfm?ID=" + persno);
+		    ptoken.location("AccountEntry.cfm?ID=" + persno);
 		}
 
 		function accountedit(persno,id) {
-		    ptoken.location ("AccountEdit.cfm?ID=" + persno + "&ID1=" + id);
+		    ptoken.location("AccountEdit.cfm?ID=" + persno + "&ID1=" + id);
 		}
 
 		function accountdelete(persno,id) {
 			if (confirm('#vDeleteAsk#')) {
-		    	ptoken.location ("AccountPurge.cfm?ID=" + persno + "&ID1=" + id);
+		    	ptoken.location("AccountPurge.cfm?ID=" + persno + "&ID1=" + id);
 			}
 		}
 	</script>
@@ -91,7 +91,7 @@ password="#SESSION.dbpw#">
   
 	  <table width="100%" class="navigation_table">
 			
-		<TR class="line labelmedium">
+		<TR class="line labelmedium2">
 		    <td width="5%" align="center"></td>
 		    <td width="20%"><cf_tl id="Bank"></td>
 			<td width="30%"><cf_tl id="Address"></td>
@@ -122,14 +122,14 @@ password="#SESSION.dbpw#">
 			<cfset cl = "FFC1C180">		
 		</cfif>
 		
-		<TR bgcolor="FFFFFF" class="labelmedium line navigation_row">
+		<TR bgcolor="FFFFFF" class="labelmedium2 line navigation_row">
 		<td align="center" height="20" style="background-color:###cl#">		
 		     
 		     <cfif access eq "EDIT" or access eq "ALL">
 			 	<table>
 			 		<tr>
-			 			<td style="padding-top:3px">
-			 				<cf_img icon="edit" navigation="Yes" onclick="accountedit('#url.id#','#accountid#')">
+			 			<td style="padding-top:2px">
+			 				<cf_img icon="open" navigation="Yes" onclick="accountedit('#url.id#','#accountid#')">
 			 			</td>
 
 			 			<cfquery name="validateDelete" 
@@ -147,7 +147,7 @@ password="#SESSION.dbpw#">
 							AND      AccountId = '#accountid#'
 						</cfquery>
 
-						<td style="padding-left:5px;padding-top:4px">
+						<td style="padding-left:2px;padding-top:3px">
 							<cfif validateDelete.recordCount eq 0>
 				 				<cf_img icon="delete" navigation="Yes" onclick="accountdelete('#url.id#','#accountid#')">
 				 			<cfelse>
@@ -190,7 +190,7 @@ password="#SESSION.dbpw#">
 		
 		 <!--- we check if the actionstatus and if the parent still has an distribution --->
 		
-			<tr class="labelmedium line" bgcolor="f1f1f1" id="#accountid#">			
+			<tr class="labelmedium2 line" bgcolor="f1f1f1" id="#accountid#">			
 				<td align="left"></td>			
 				<td colspan="8"><cf_tl id="Method of Payment">:<font color="0080C0"><cf_tl id="not used"></td>
 			</tr>
@@ -199,7 +199,7 @@ password="#SESSION.dbpw#">
 		
 			<cfloop query = "Distribution">
 				
-				<tr bgcolor="D0FDC4" class="labelmedium line">
+				<tr bgcolor="D0FDC4" class="labelmedium2 line">
 				
 				<td align="left"></td>
 				<td colspan="8">
@@ -236,7 +236,7 @@ password="#SESSION.dbpw#">
 			
 			<cfloop query="Parent">
 			
-				<tr bgcolor="e4e4e4" class="labelmedium line" style="height:14px">
+				<tr bgcolor="e4e4e4" class="labelmedium2 line" style="height:14px">
 				<td align="right" style="border-right:1px solid silver">		
 												     
 				     <cfif access eq "EDIT" or access eq "ALL">
@@ -312,7 +312,7 @@ password="#SESSION.dbpw#">
 				
 					<cfloop query = "Distribution">
 						
-						<tr class="labelmedium line" bgcolor="#cl#">
+						<tr class="labelmedium2 line" bgcolor="#cl#">
 												
 						<td align="left"></td>
 						<td colspan="8">

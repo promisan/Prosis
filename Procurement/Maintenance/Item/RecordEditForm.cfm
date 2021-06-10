@@ -321,21 +321,21 @@ password="#SESSION.dbpw#">
 	       <cfset lbl[row] = itm>
 		</cfloop>
 		
-		<table cellspacing="0" cellpadding="0">
+		<table style="min-width:800px" cellspacing="0" cellpadding="0">
 		<tr>
 			<td class="labelsmall"><cf_tl id="Item">:</td>
 			<cfparam name="lbl[1]" default="">
 			<td style="padding-left:4px"><input type="text" name="ReqLabel" value="#lbl[1]#" size="10" class="regularxl" maxlength="20"></td>
-			<td style="padding-left:4px" class="labelsmall"><cf_tl id="Qty-1">:</td>
+			<td style="padding-left:4px" class="labelsmall"><cf_tl id="Qty-1"></td>
 			<cfparam name="lbl[2]" default="">
 			<td style="padding-left:4px"><input type="text" name="ReqLabel" value="#lbl[2]#" size="10" class="regularxl" maxlength="20"></td>
-			<td style="padding-left:4px" class="labelsmall"><cf_tl id="Memo">:</td>
+			<td style="padding-left:4px" class="labelsmall"><cf_tl id="Memo"></td>
 			<cfparam name="lbl[3]" default="">
 			<td style="padding-left:4px"><input type="text" name="ReqLabel" value="#lbl[3]#" size="10" class="regularxl" maxlength="20"></td>
-			<td style="padding-left:4px" class="labelsmall"><cf_tl id="Qty-2">:</td>
+			<td style="padding-left:4px" class="labelsmall"><cf_tl id="Qty-2"></td>
 			<cfparam name="lbl[4]" default="">
 			<td style="padding-left:4px"><input type="text" name="ReqLabel" value="#lbl[4]#" size="10" class="regularxl" maxlength="20"></td>			
-			<td style="padding-left:4px" class="labelsmall"><cf_tl id="Memo-2">:</td>
+			<td style="padding-left:4px" class="labelsmall"><cf_tl id="Memo-2"></td>
 			<cfparam name="lbl[5]" default="">
 			<td style="padding-left:4px"><input type="text" name="ReqLabel" value="#lbl[5]#" size="10" class="regularxl" maxlength="20"></td>		
 		

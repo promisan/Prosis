@@ -95,20 +95,13 @@ password="#SESSION.dbpw#">
 		<cfif url.memoid eq memoid and form.WorkOrderMemo eq "" and SESSION.acc eq OfficerUserId>
 		<tr>
 			<td colspan="5" style="border:0px solid silver">
-				<table cellpadding="0" cellspacing="0" width="100%" border="0">
+				<table width="100%">
 				
+										
 					<tr>
-						<td width="60px"></td>
-						<td height="35px" colspan="4" valign="middle" class="labelmedium" style="padding-top:5px"><b>
-							<img src="#SESSION.root#/Images/pencil_write.png" alt="Enter a memo" border="0" width="22px" height="22px" align="absmiddle">
-							&nbsp;<cf_tl id="Please enter your Memo">
-						</td>
-					</tr>
-					
-					<tr>
-					    <td>&nbsp;&nbsp;#currentrow#.<cf_space spaces="14"></td>
-						<td colspan="4" align="left" height="110px">
-							<textarea name="WorkOrderMemo" class="regular" style="font-size:13px;padding:4px;border-radius:4px;background-color:ffffef;width: 99%;height:100">#WorkOrderMemo#</textarea>
+					    <td style="padding-left:5px;width:30px">#currentrow#.</td>
+						<td colspan="4" align="left" style="width:100%">
+							<textarea name="WorkOrderMemo" class="regular" style="border:0px;background-color:f1f1f1;font-size:14px;padding:4px;width: 99%;height:100">#WorkOrderMemo#</textarea>
 						</td>
 					</tr>
 					
@@ -135,7 +128,7 @@ password="#SESSION.dbpw#">
 					</tr>
 										
 					<tr><td colspan="5" align="center">
-					<input type="button" name="Save" id="Save" value="Save" class="button10s" style="width:100px" onclick="ColdFusion.navigate('../Memo/WorkOrderMemo.cfm?tabno=#url.tabno#&workorderid=#url.workorderid#&memoid=#memoid#&mission=#url.mission#','contentbox#url.tabno#','','','POST','memoform')">
+					<input type="button" name="Save" id="Save" value="Save" class="button10g" style="width:220px" onclick="ptoken.navigate('../Memo/WorkOrderMemo.cfm?tabno=#url.tabno#&workorderid=#url.workorderid#&memoid=#memoid#&mission=#url.mission#','contentbox#url.tabno#','','','POST','memoform')">
 					</td></tr>
 					<tr><td height="6" colspan="5"></td></tr>
 				</table>
@@ -144,14 +137,14 @@ password="#SESSION.dbpw#">
 		
 		<cfelse>
 				   			
-			    <tr class="navigation_row">
-			    <td class="labelit" height="23">&nbsp;&nbsp;#currentrow#.<cf_space spaces="14"></td>
-				<td class="labelit" width="70%">#paragraphformat(WorkOrderMemo)#</td>
-				<td class="labelit">#OfficerFirstName# #OfficerLastName#</td>
-				<td class="labelit">#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>
+			    <tr class="navigation_row labelmedium2">
+			    <td height="23" style="padding-left:4px;padding-right:10px">#currentrow#.</td>
+				<td width="70%">#paragraphformat(WorkOrderMemo)#</td>
+				<td>#OfficerFirstName# #OfficerLastName#</td>
+				<td>#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>
 				<cfif SESSION.acc eq OfficerUserId>
 				 <td align="center" style="padding-right:3px">
-				   <cf_img icon="edit" navigation="Yes"  onclick="ColdFusion.navigate('#SESSION.root#/workorder/application/workorder/Memo/WorkOrderMemo.cfm?tabno=#url.tabno#&WorkOrderId=#url.WorkOrderId#&memoid=#memoid#&mission=#url.mission#','contentbox#url.tabno#')" border="0">				  
+				   <cf_img icon="open" navigation="Yes"  onclick="ptoken.navigate('#SESSION.root#/workorder/application/workorder/Memo/WorkOrderMemo.cfm?tabno=#url.tabno#&WorkOrderId=#url.WorkOrderId#&memoid=#memoid#&mission=#url.mission#','contentbox#url.tabno#')" border="0">				  
 			     </td>
 			    <cfelse>
 			     <td></td>
@@ -204,19 +197,11 @@ password="#SESSION.dbpw#">
 		<tr>
 			<td colspan="5" style="border:0px solid silver">
 				<table cellpadding="0" cellspacing="0" width="100%" border="0">
-				
-					<tr style="font-family: Calibri; font-size: 14px;">
-						<td width="60px"></td>
-						<td height="35px" colspan="4" valign="middle" style="padding-top:5px" class="labelmedium"><b>
-							<img src="#SESSION.root#/Images/pencil_write.png" alt="Enter a memo" border="0" width="22px" height="22px" align="absmiddle">
-							&nbsp;&nbsp;<cf_tl id="Please enter your Memo">
-						</td>
-					</tr>
-						
+															
 					<tr>
 						<td> <cf_space spaces="6"><cfoutput>&nbsp;&nbsp;#memo.recordcount+1#.</cfoutput></td>
-						<td colspan="4" align="left" height="110px">
-							<textarea name="WorkOrderMemo" class="regular" style="font-size:13px;padding:4px;border-radius:4px;background-color:ffffef;width: 99%;height:100"></textarea>
+						<td colspan="4" align="left" style="width:100%">
+							<textarea name="WorkOrderMemo" class="regular" style="background-color:f1f1f1;border:0px;font-size:14px;padding:4px;width: 99%;height:100"></textarea>
 						</td>
 					</tr>
 			
@@ -246,9 +231,9 @@ password="#SESSION.dbpw#">
 							  name    = "Save" 
                               id      = "Save"
 							  value   = "#vSave#" 
-							  style   = "width:120px; height:23" 
-							  class   = "button10s" 
-							  onclick = "ColdFusion.navigate('../Memo/WorkOrderMemo.cfm?tabno=#url.tabno#&WorkOrderId=#url.WorkOrderId#&memoid=#memoid#&mission=#url.mission#','contentbox#url.tabno#','','','POST','memoform')">
+							  style   = "width:220px; height:23" 
+							  class   = "button10g" 
+							  onclick = "ptoken.navigate('../Memo/WorkOrderMemo.cfm?tabno=#url.tabno#&WorkOrderId=#url.WorkOrderId#&memoid=#memoid#&mission=#url.mission#','contentbox#url.tabno#','','','POST','memoform')">
 						</cfoutput>
 					</td></tr>
 					

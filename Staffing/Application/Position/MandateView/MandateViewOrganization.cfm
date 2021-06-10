@@ -88,8 +88,7 @@
 		AND     P.MandateNo = '#URL.Mandate#'				
 	 ORDER BY   P.HierarchyCode, P.ViewOrder, P.PostOrder, P.PositionNo 
 	 	 
-	</cfquery>
-	
+	</cfquery>	
 	
 </cfif>
 
@@ -125,11 +124,11 @@
    <cfset cond = CondA>
 </cfif>
 
-<table width="100%" cellspacing="0" cellpadding="0" align="center"> 
+<table width="99.5%"> 
 
 <cfif PostShow.recordcount eq "0">
 
-	<tr><td colspan="7" style="padding-top:5px" height="46" align="center" class="labelmedium">There are no records to show in this view</td></tr>
+	<tr><td colspan="7" style="padding-top:5px" height="46" align="center" class="labelmedium2">There are no records to show in this view</td></tr>
 
 </cfif>
 
@@ -169,7 +168,7 @@
 		   
 		   	</cfif>  
 	    	   
-		    <tr class="line labelmedium fixrow2">			 
+		    <tr class="labelmedium2">			 
 			   <td width="2%">&nbsp;</td>
 		       <td colspan="2" style="width:100%"></td>
 			   <td style="min-width:90px" align="center"><cf_tl id="Authorised"></td>
@@ -183,12 +182,12 @@
 			       datasource="AppsQuery" 
 			       username="#SESSION.login#" 
 			       password="#SESSION.dbpw#">
-			       SELECT ISNULL(SUM(PostBorrowed),0) as PostBorrowed, 
-						  ISNULL(SUM(PostLoaned),0)   as PostLoaned,
-						  ISNULL(SUM(Authorised),0)   as Authorised,
-				          ISNULL(SUM(Post),0)         as Post,
-				          ISNULL(SUM(Staff),0)        as Staff
-	  		       FROM   #SESSION.acc#PositionSum#FileNo# P
+			       SELECT  ISNULL(SUM(PostBorrowed),0) as PostBorrowed, 
+						   ISNULL(SUM(PostLoaned),0)   as PostLoaned,
+						   ISNULL(SUM(Authorised),0)   as Authorised,
+				           ISNULL(SUM(Post),0)         as Post,
+				           ISNULL(SUM(Staff),0)        as Staff
+	  		       FROM    #SESSION.acc#PositionSum#FileNo# P
 			   </cfquery>			  
 			  			   		   		   
 			   <tr class="labelmedium">
@@ -201,7 +200,7 @@
 					   
 					   <cfelse>
 				   
-					       <table width="100%" border="0" class="formpadding">
+					       <table width="98%" border="0" class="formpadding">
 						   <tr>
 						   					   
 						   <!--- moved from the bottom --->
@@ -226,7 +225,7 @@
 														
 									  <td width="20" colspan="1" height="20">  		
 									  <cf_tl id="Extend Assignment" var="vBatch">			  
-									  <input type="button" name="Extend" id="Extend" style="height:25;width:200" value="#vBatch#" class="button10g clsNoPrint" onClick="extend('#URL.Mission#','#URL.Mandate#')">
+									  <input type="button" name="Extend" id="Extend" style="border:1px solid silver;width:200" value="#vBatch#" class="button10g clsNoPrint" onClick="extend('#URL.Mission#','#URL.Mandate#')">
 									  </td>
 									  
 									</cfif>  												
@@ -241,7 +240,7 @@
 													  value="Move Selected Positions" 
 													  onclick="movePositions('#URL.Mission#','#URL.Mandate#')" 
 													  class="button10g clsNoPrint" 
-													  style="height:25;width:180px">	
+													  style="border:1px solid silver;width:180px">	
 												  
 											</td>
 											
@@ -261,12 +260,12 @@
 												
 								</cfif>	
 								
-								<td align="right" class="labelmedium">
+								<td align="right" class="labelmedium2">
 								
 								 <cfif hunit neq "">
 						   		   
 									    <cfif URL.PDF eq 0>
-									   		<a href="javascript:sumpos('#hunit#','p#hunit#','all')"><font color="0080C0"><cf_tl id="Total">: #DateFormat(IncumDate, CLIENT.DateFormatShow)#</font></a>
+									   		<a href="javascript:sumpos('#hunit#','p#hunit#','all')" style="color:black"><cf_tl id="Total">: #DateFormat(IncumDate, CLIENT.DateFormatShow)#</font></a>
 										<cfelse>
 									   		<font size="4"><cf_tl id="Total">:</font> #DateFormat(IncumDate, CLIENT.DateFormatShow)#
 										</cfif>		
@@ -283,11 +282,11 @@
 				   			   
 				   </td>
 			   
-		   	       <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">			   
+		   	       <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;height:20px;padding-right:6px" align="right">			   
 				   		#total.authorised#			  
 				   </td>
 			   
-				   <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">
+				   <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;height:20px;padding-right:6px" align="right">
 				   <cfif total.postloaned eq "">
 				   		#total.post#
 				   <cfelse>
@@ -295,9 +294,9 @@
 				   </cfif>
 				   
 				   </td> 
-				   <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">#total.postloaned#</td>
-				   <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">#total.postborrowed#</td>
-				   <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-top:0px;height:20px;padding-right:3px" align="right">#total.staff#</td>
+				   <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;height:20px;padding-right:6px" align="right">#total.postloaned#</td>
+				   <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;height:20px;padding-right:6px" align="right">#total.postborrowed#</td>
+				   <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;height:20px;padding-right:6px" align="right">#total.staff#</td>
 				
 		   </tr>
 		  	  
@@ -397,13 +396,14 @@
 				<cfset unit = OrgUnitName>
 				  
 				  <td><table style="width:100%"><tr>
-				  <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-right:0px;height:20px;padding-right:3px" align="right">				   
+				  <td class="cell" style="padding-top:2px;font-size:14px;background-color:f1f1f1;border:1px solid silver;border-right:0px;height:20px;padding-right:6px" align="right">				   
 				   #check.authorised#				  
 				  </td>
 				  </tr></table></td>
 				  
-				  <td><table style="width:100%"><tr>
-				  <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-right:0px;height:20px;padding-right:3px" align="right">
+				  <td>
+				  <table style="width:100%"><tr>
+				  <td class="cell" style="padding-top:2px;font-size:14px;background-color:f1f1f1;border:1px solid silver;border-right:0px;height:20px;padding-right:6px" align="right">
 				  
 				    <cfif check.postloaned eq "">
 				   		#check.post#
@@ -415,15 +415,15 @@
 				  </tr></table></td>
 				  
 				  <td><table style="width:100%"><tr>
-				  <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-right:0px;height:20px;padding-right:3px" align="right">#check.postloaned#</td>
+				  <td class="cell" style="padding-top:2px;font-size:14px;background-color:f1f1f1;border:1px solid silver;border-right:0px;height:20px;padding-right:6px" align="right">#check.postloaned#</td>
 				  </tr></table></td>
 				  
 				  <td><table style="width:100%"><tr>
-				  <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;border-right:0px;height:20px;padding-right:3px" align="right">#check.postborrowed#</b></td>
+				  <td class="cell" style="padding-top:2px;font-size:14px;background-color:f1f1f1;border:1px solid silver;border-right:0px;height:20px;padding-right:6px" align="right">#check.postborrowed#</b></td>
 				  </tr></table></td>
 				  
 				  <td><table style="width:100%"><tr>
-				  <td class="cell" style="font-size:16px;background-color:eaeaea;border:1px solid silver;height:20px;padding-right:3px" align="right">#check.staff#</td>				
+				  <td class="cell" style="padding-top:2px;font-size:14px;background-color:f1f1f1;border:1px solid silver;height:20px;padding-right:6px" align="right">#check.staff#</td>				
 				  </tr></table></td>
 				</tr>
 												

@@ -63,6 +63,8 @@ password="#SESSION.dbpw#">
 	<cfset Session.Message = "Parsing document for " & qOrganization.OrgUnitName>
 	<cfset Session.status = Session.status + step>
 	
+	
+
 	<cfloop query="qDocuments">
 		
 		<cfloop query="language">		
@@ -106,5 +108,6 @@ password="#SESSION.dbpw#">
 	</cfloop>
 
 </cfloop>		
+
 
 <cfset Session.status = 0.9>

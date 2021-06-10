@@ -44,6 +44,7 @@ password="#SESSION.dbpw#">
 		     FROM   Organization.dbo.OrganizationAddress O, System.dbo.Ref_Address A
 			 WHERE  O.AddressId = A.AddressId			 
 		     AND    OrgUnit = SEO.OrgUnit
+			 AND    O.Operational = 1
 			 AND    A.eMailAddress <> '' and A.eMailAddress is not NULL) as Valid,
 			
             (SELECT count(DISTINCT eMailAddress) 
@@ -64,13 +65,13 @@ password="#SESSION.dbpw#">
 
 <cfset TotalActive = 0>
 
-<table width="100%" border="0">
+<table width="100%">
 
 <tr valign="top">
 	
-	<td style="padding:5px">
+	<td>
 	
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" valign="top">
+		<table width="100%" valign="top">
 		
 			<cfset vTotal = 4>
 			<cfset row    = 0>
@@ -95,7 +96,7 @@ password="#SESSION.dbpw#">
 					<cfset TotalActive = TotalActive + 1>
 				<cfelse>
 					<cfset class="f4f4f4">					
-					<cfset display="<i>#vOrgName#</i>">					
+					<cfset display="#vOrgName#">					
 				</cfif>
 				
 				<td width="1%" bgcolor="#class#" style="padding-left:5px;border-left:1px dotted silver">

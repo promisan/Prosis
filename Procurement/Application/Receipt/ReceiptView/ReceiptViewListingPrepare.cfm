@@ -139,3 +139,7 @@
 </cfif>
 
 <cfinclude template="ReceiptViewListing.cfm">
+
+<script>
+	Prosis.busy('no')
+</script>

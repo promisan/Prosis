@@ -76,7 +76,7 @@
 	
 </cfif>
 
-<cfajaximport tags="cfdiv,cfwindow,cfform">
+<cfajaximport tags="cfdiv,cfform">
 
 <cf_tl id="Select a valid item and uom" var="msgItemReq">
 
@@ -127,21 +127,21 @@
 
 <cfoutput>
 		
-	<table width="100%" height="100%" cellspacing="1" cellpadding="1">
+	<table width="100%" height="100%">
 	
 	<tr>
-	
+		
 		<cfif url.mode eq "Edit">
 	
 	    <td style="width:300" valign="top">	
 		
-		<table width="95%" height="100%" class="formpadding" cellspacing="0" cellpadding="0" align="center">
+		<table width="95%" height="100%" class="formpadding" align="center">
 									
 			<tr>
 				
 				<td height="100%" style="padding:2px;">
 										
-					<table width="100%" height="100%" cellspacing="0" cellpadding="0" style="border:0px dotted silver">
+					<table width="100%" height="100%">
 					
 					    <tr><td style="padding-top:5px">
 						<cfoutput>

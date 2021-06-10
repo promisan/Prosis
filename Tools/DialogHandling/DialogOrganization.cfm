@@ -6,7 +6,7 @@
 	<script>
 	
 	function opentree(mis) {	  
-	    ptoken.open(root + "/System/Organization/Application/OrganizationView.cfm?mode=embed&mission=" + mis, "orgtree", "width=980, height=660, status=yes, toolbar=no, scrollbars=yes, resizable=no");		
+	    ptoken.open(root + "/System/Organization/Application/OrganizationView.cfm?mode=embed&mission=" + mis, "orgtree");		
 	}
 		
 	var root = "#SESSION.root#";

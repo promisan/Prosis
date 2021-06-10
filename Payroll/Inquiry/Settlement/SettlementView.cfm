@@ -1,7 +1,7 @@
 
 <cf_tl id="Advanced Inquiry" var="tInquiry">
 
-<cf_screentop height="100%" scroll="no" layout="webapp" label="#tInquiry#" jquery="Yes" html="Yes" MenuAccess="Yes" SystemFunctionId="#url.idmenu#">
+<cf_screentop height="100%" scroll="no" layout="webapp" banner="gray" bannerforce="Yes" label="#tInquiry#" jquery="Yes" html="Yes" MenuAccess="Yes" SystemFunctionId="#url.idmenu#">
 
 <cf_listingscript mode="Regular">
 <cf_dialogstaffing> 

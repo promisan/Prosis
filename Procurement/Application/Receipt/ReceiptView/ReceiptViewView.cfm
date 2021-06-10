@@ -47,7 +47,9 @@
 		function filter() {
 			document.formlocate.onsubmit() 
 			if( _CF_error_messages.length == 0 ) {
-				ColdFusion.navigate('ReceiptViewListingPrepare.cfm?Period=#URL.Period#&ID=#URL.ID#&ID1=#URL.ID1#&Mission=#URL.Mission#','detail','','','POST','formlocate')
+			    Prosis.busy('yes')
+				_cf_loadingtexthtml='';	
+				ptoken.navigate('ReceiptViewListingPrepare.cfm?Period=#URL.Period#&ID=#URL.ID#&ID1=#URL.ID1#&Mission=#URL.Mission#','detail','','','POST','formlocate')
 			 }   
 		}	 
 	

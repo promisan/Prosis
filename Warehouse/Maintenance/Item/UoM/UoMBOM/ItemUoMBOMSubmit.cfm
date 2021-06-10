@@ -176,9 +176,9 @@
 		</cftransaction>
 				
 		<cfoutput>
-			<script>
-				try { ProsisUI.closeWindow('bomform',true)} catch(e){};
-				ptoken.navigate('UoMBOM/ItemUoMBOM.cfm?ID=#URL.ID#&UoM=#URL.UoM#&Selected=#FORM.mission#','itemUoMBOM');
+			<script>				
+				ptoken.navigate('UoMBOM/ItemUoMBOM.cfm?ID=#URL.ID#&UoM=#URL.UoM#&Selected=#FORM.mission#','itemUoMBOM');				
+				try { ProsisUI.closeWindow('bomform')} catch(e){  };
 			</script>
 		</cfoutput>
 	
@@ -356,9 +356,9 @@
 		</cftransaction>
 
 		<cfoutput>
-			<script>
-				try { ProsisUI.closeWindow('bomform',true)} catch(e){};
+			<script>				
 				ptoken.navigate('UoMBOM/ItemUoMBOM.cfm?ID=#URL.ID#&UoM=#URL.UoM#&Selected=#FORM.mission#','itemUoMBOM');
+				try { parent.ProsisUI.closeWindow('bomform',true)} catch(e){ };
 			</script>
 		</cfoutput>
 		
