@@ -474,13 +474,13 @@
 			history.go()
 		}
 			
-		function setting() {	
+//		function setting() {	
 		
-		    ColdFusion.Window.create('setting', 'Settings', '',{x:100,y:100,height:500,width:600,resizable:false,modal:true,center:true})		
-			ColdFusion.Window.show('setting')		
-			ColdFusion.navigate('DashBoardSetting.cfm','setting',mycallBack,myerrorhandler)					
+//		    ColdFusion.Window.create('setting', 'Settings', '',{x:100,y:100,height:500,width:600,resizable:false,modal:true,center:true})		
+//			ColdFusion.Window.show('setting')		
+//			ColdFusion.navigate('DashBoardSetting.cfm','setting',mycallBack,myerrorhandler)					
 			
-		}
+//		}
 		
 		function toggle(opt) {
 			
@@ -520,43 +520,47 @@
 		}
 		
 		function notification() {
-			$("##portalright").attr({src : "#SESSION.root#/Tools/Notification/NotificationView.cfm?ts="+new Date().getTime()});
+		   ptoken.open("#SESSION.root#/Tools/Notification/NotificationView.cfm","portalright") 
+	//		$("##portalright").attr({src : "#SESSION.root#/Tools/Notification/NotificationView.cfm?ts="+new Date().getTime()});
 		}
 		
 		function supporttickets() {
-			$("##portalright").attr({src : "#SESSION.root#/Portal/Topics/Support/TicketOpen.cfm?mode=menu&ts="+new Date().getTime()});
+		    ptoken.open("#SESSION.root#/Portal/Topics/Support/TicketOpen.cfm?mode=menu","portalright") 
+	//		$("##portalright").attr({src : "#SESSION.root#/Portal/Topics/Support/TicketOpen.cfm?mode=menu&ts="+new Date().getTime()});
 		}
 		
 		function broadcast(fun,status) {
-			$("##portalright").attr({src : "#SESSION.root#/Tools/Mail/Broadcast/BroadCastView.cfm?mode=menu&ts="+new Date().getTime()});
+		     ptoken.open("#SESSION.root#/Tools/Mail/Broadcast/BroadCastView.cfm?mode=menu","portalright") 
+	//		$("##portalright").attr({src : "#SESSION.root#/Tools/Mail/Broadcast/BroadCastView.cfm?mode=menu&ts="+new Date().getTime()});
 		}
 		
 		function leaveRequest() {
-			$("##portalright").attr({src : "#SESSION.root#/Attendance/Application/LeaveRequest/EmployeeRequest.cfm?id=#client.personno#&ts="+new Date().getTime()});
+		    ptoken.open("#SESSION.root#/Attendance/Application/LeaveRequest/EmployeeRequest.cfm?id=#client.personno#","portalright") 
+	//		$("##portalright").attr({src : "#SESSION.root#/Attendance/Application/LeaveRequest/EmployeeRequest.cfm?id=#client.personno#&ts="+new Date().getTime()});
 		}
 		
 		function setpassword() {
-			$("##portalright").attr({src : "#SESSION.root#/System/UserPassword.cfm"});
+		    ptoken.open("#SESSION.root#/System/UserPassword.cfm","portalright") 
 		}
 		
 		function html5portals(header) {
-			$('##portalright').attr({src : '#SESSION.root#/Portal/PortalListing.cfm?header='+header+'&ts='+new Date().getTime()});		   	
+		    ptoken.open("#SESSION.root#/Portal/PortalListing.cfm?header="+header,"portalright") 
 		}
 		
 		function favorite() {
-			$('##portalright').attr({src : '#SESSION.root#/System/Modules/Favorite/RecordListing.cfm?ts='+new Date().getTime()});		   	
+			ptoken.open("#SESSION.root#/System/Modules/Favorite/RecordListing.cfm","portalright") 
 		}
 		
 		function favoritereport() {
-			$('##portalright').attr({src : '#SESSION.root#/Portal/Dashboard/DashboardFavorite.cfm?ts='+new Date().getTime()});		   	
+		    ptoken.open("#SESSION.root#/Portal/Dashboard/DashboardFavorite.cfm","portalright") 
 		}
 		
 		function report() {
-			$("##portalright").attr({src : "#SESSION.root#/System/Modules/Subscription/RecordListing.cfm?ts="+new Date().getTime()});
+		    ptoken.open("#SESSION.root#/System/Modules/Subscription/RecordListing.cfm","portalright") 
 		}
 		
 		function clearance() {
-			$("##portalright").attr({src : "#SESSION.root#/System/EntityAction/EntityView/MyClearances.cfm?time=#now()#"});
+		    ptoken.open("#SESSION.root#/System/EntityAction/EntityView/MyClearances.cfm","portalright")
 		}
 				
 	function languageswitch(lan) {    
