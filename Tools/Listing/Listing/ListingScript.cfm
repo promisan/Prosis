@@ -170,6 +170,7 @@ function mail(id,ser) {
 	  ptoken.open("#SESSION.root#/Tools/Mail/Broadcast/BroadCastListing.cfm?systemfunctionid="+id+"&functionserialno="+ser, "broadcast", "status=no, height=715px, width=920px, scrollbars=no, toolbar=no, resizable=no");
 }
 
+<!--- function to apply the selected value on the fly --->
 function gofilter(e) {
 	   keynum = e.keyCode ? e.keyCode : e.charCode;
 	   if (keynum == 13) {
@@ -177,6 +178,12 @@ function gofilter(e) {
 	      applyfilter('','1','content')
 	   }
   }
+  
+function resetfilter(id,ser,box) {
+    Prosis.busyRegion('yes','_divSubContent');  
+    ptoken.navigate('#SESSION.root#/tools/listing/listing/initListing.cfm?box='+box+'&systemfunctionid='+id+'&functionserialno='+ser,'locate'+box)	
+	
+} 
 
 <!--- this option is used to refresh the content based on the selection or to refresh a value or to add records to the grid --->
 
@@ -247,9 +254,6 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 	  	   if (!pg)
 		   
 		   pg=0
-		   
-		  
-	
 		   lk=""
 		   
 		   if (document.getElementById('mylink'))							

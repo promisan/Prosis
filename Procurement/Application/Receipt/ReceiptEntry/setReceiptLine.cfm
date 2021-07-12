@@ -82,8 +82,7 @@
 	
 	<cfelse>
 	
-		<cfparam name="UoMStock.UOMMultiplier" default="#get.OrderMultiplier * UoMRequest.UOMMultiplier#">
-		
+		<cfparam name="UoMStock.UOMMultiplier" default="#get.OrderMultiplier * UoMRequest.UOMMultiplier#">		
 			
 	</cfif>
 	
@@ -97,14 +96,15 @@
 		if for example the PO is in bundles and you decide to receive
 		in each, then the multiplier for the PO receipt = 0.5 --->	
 		<cfset receiptmultiplier = (get.OrderMultiplier * UoMRequest.UOMMultiplier) / UoMReceipt.UOMMultiplier>
-			
+		
+					
 	</cfif>	
 			
 	<input type     = "hidden"
-	       name      = "ReceiptOrderMultiplier_#url.box#"
-	       id        = "ReceiptOrderMultiplier_#url.box#"											   
-	       value     = "#receiptmultiplier#"
-		   class     = "regularxl">		 	 	    
+	       name     = "ReceiptOrderMultiplier_#url.box#"
+	       id       = "ReceiptOrderMultiplier_#url.box#"											   
+	       value    = "#receiptmultiplier#"
+		   class    = "regularxl">		 	 	    
 	 
 	<cfset receiptonorder = round(url.quantity/receiptmultiplier*100000)/100000>
 	
@@ -152,12 +152,12 @@
 	  	 	   
 	   <script language="JavaScript">
 	   	   	   
-		   	<cfif url.mode eq "quantity">
-						
-				  document.getElementById('boxwarehousemultiplier_#url.box#').innerHTML  = "#StockMultiplier#"						  	  
-				  document.getElementById('boxordermultiplier_#url.box#').innerHTML      = "#receiptonorder#"	
+		   	<cfif url.mode eq "quantity">					
+				  	
+				  document.getElementById('boxwarehousemultiplier_#url.box#').innerHTML  = "#StockMultiplier#"					 					  	  
+				  document.getElementById('boxordermultiplier_#url.box#').innerHTML      = "#receiptonorder#"					 
 				  document.getElementById('boxwarehousequantity_#url.box#').innerHTML    = "#numberformat(receiptinstock,"__._")#"	
-				  				  
+				
 				  <cfif url.quantity neq "" and url.quantity neq "0">
 				  document.getElementById('ReceiptQuantity_#url.box#').style.backgroundColor = "80FF00"
 				  <cfelse>
@@ -168,6 +168,12 @@
 				  document.getElementById('ReceiptVolume_#url.box#').value               = "#volume#"		 				  
 				  document.getElementById('WarehousePrice_#url.box#').value              = "#sp#"		 
 				  document.getElementById('boxwarehousevalue_#url.box#').innerHTML       = "#numberformat(receiptinstock*(ordercostvalue/stockmultiplier),".__")#"		 
+				  
+			<cfelseif url.mode eq "quantityline">		
+				 						
+				  document.getElementById('warehousequantity').value                     = "#round(url.quantity*StockMultiplier/receiptmultiplier*100)/100#"		
+				  document.getElementById('warehousetotal').value                        = "#round(url.quantity*StockMultiplier/receiptmultiplier*url.price*100)/100#"								  	  
+				
 			
 			<cfelseif url.mode eq "currency">
 											

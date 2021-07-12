@@ -115,9 +115,9 @@
 			<cfparam name="setting[5]" default="yes">
 			
 			<cfif setting[5] eq "Yes">
-							 
+										 
 			<td #selectme# height="25" class="labelmedium" style="cursor:pointer;padding-left:5px;padding:2px;border:1px transparent Solid;">
-					 					  					  
+								 					  					  
 					 <cfquery name="ModuleControl" 
 						datasource="AppsSystem" 
 						username="#SESSION.login#" 
@@ -156,6 +156,7 @@
 			 </cfif>
 			 
 			 <!--- *** LISTING PRINT FUNCTION **** --->
+			 
 			 <cfinclude template="ListingPrint.cfm">
 					 
 			 <cfquery name="Mail" 
@@ -174,7 +175,7 @@
 			   <td width="1" style="padding:2px">|</td>	
 			   <td class="labelmedium" style="padding:2px" onclick="mail('#url.systemfunctionid#','#url.functionserialNo#')" #selectme#>	 
 			   <img src="#SESSION.root#/Images//mail3.gif" alt="" border="0">
-			    Broadcast Mail
+			    <cf_tl id="Broadcast mail">
 			   </td>
 			  <td width="1" style="padding:2px">|</td>	
 			 						 

@@ -76,6 +76,6 @@
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('PriceSchedule/ItemPriceScheduleDetailForm.cfm?itemNo=#url.itemno#&mission=#url.mission#','divItemPriceSchedule');
+		ptoken.navigate('PriceSchedule/ItemPriceScheduleDetailForm.cfm?itemNo=#url.itemno#&mission=#url.mission#','divItemPriceSchedule');
 	</script>
 </cfoutput>

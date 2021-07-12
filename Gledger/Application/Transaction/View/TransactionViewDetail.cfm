@@ -598,10 +598,12 @@
 			WHERE    T.ActionCode      = R.Code
 			AND      T.Journal         = '#Journal#'
 			AND      T.JournalSerialNo = '#JournalSerialNo#'
+			AND      T.ActionMode IN ('1','2')
 			AND      R.Code = 'Invoice'
 			ORDER BY R.Code, ActionDate DESC
+			
  </cfquery>
- 
+   
   <cfif action.recordcount gte "1">
  
   <tr><td colspan="2" height="20" bgcolor="f4f4f4" id="invoiceactionbox">  

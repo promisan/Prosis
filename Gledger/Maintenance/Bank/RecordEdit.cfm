@@ -10,8 +10,7 @@
 			  jquery="Yes"
 			  systemfunctionid="#url.idmenu#">
 			  
-<cfajaximport tags="cfwindow">			  
-  
+    
 <cfquery name="Get" 
 datasource="AppsLedger" 
 username="#SESSION.login#" 
@@ -124,7 +123,7 @@ function applyaccount(acc) {
 	
 	<TR>
     <TD class="labelmedium">Account No:</TD>
-    <TD><cfinput type="Text"  class="regularxl" name="AccountNo" value="#get.accountNo#" message="Please enter the number of your account" required="Yes" size="20" maxlength="20">
+    <TD><cfinput type="Text"  class="regularxl" name="AccountNo" value="#get.accountNo#" message="Please enter the number of your account" required="Yes" size="30" maxlength="30">
     </TD>
 	</TR>
 	
@@ -159,8 +158,7 @@ function applyaccount(acc) {
 				  onMouseOut="document.img3.src='#SESSION.root#/Images/search.png'"
 				  style="cursor: pointer;" alt="" width="20" height="20" border="0" align="absmiddle" 
 				  onClick="selectaccountgl('','','','','applyaccount')">
-		
-			
+					
 		 </cfoutput>	
 	</TD>
 	</TR>	

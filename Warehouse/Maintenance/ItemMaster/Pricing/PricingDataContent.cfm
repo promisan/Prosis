@@ -300,10 +300,25 @@
 												
 						<td style="padding-left:3px;height:28px;" align="right">
 						
+							<cfquery name="Tax"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT     *
+								FROM       WarehouseCategory
+								WHERE      Warehouse = '#w#'								
+							</cfquery>	
+							
+							<cfif Line.TaxCode eq "">
+								<cfset defaulttax = Tax.TaxCode>
+							<cfelse>	
+							    <cfset defaulttax = Line.TaxCode>
+							</cfif>
+						
 							<select class="regularxl" name="#w#_#measure#_#Schedule.code#_#currency#_taxcode" id="#w#_#measure#_#Schedule.code#_#currency#_taxcode"
 							   size="1" style="text-align: right;border:0px;border-left:1px solid silver;border-right:1px solid silver">
 							    <cfloop query="taxes">
-									<option value="#TaxCode#" <cfif TaxCode eq Line.TaxCode>selected</cfif>>
+									<option value="#TaxCode#" <cfif TaxCode eq defaulttax>selected</cfif>>
 							    		#Description#
 									</option>
 								</cfloop>

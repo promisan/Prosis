@@ -92,6 +92,8 @@
 					FROM   Organization.dbo.Ref_Mission
 					WHERE  Mission = '#Mission#'	    							   
 			</cfquery>
+			
+			<!--- there is an EDI --->
 
 			<cfif qmission.EDIMethod neq "">			
 
@@ -121,85 +123,112 @@
 							journalSerialNo  = "#journalserialNo#"							
 							RetryNo		     = "#RetryNo#"
 							returnvariable   = "EDIResult">
-							
-						<cfif EDIResult.Log eq "1">			
-			
-			
-							<!--- create the log also with the NIT and document --->
-									
-							<cf_assignId>			
-
-							<cfquery name="AddAction"
-				               datasource="AppsLedger"
-				               username="#SESSION.login#"
-				               password="#SESSION.dbpw#">
-				                  INSERT INTO TransactionHeaderAction
-								  
-				                         (ActionId,
-									      Journal,
-				                          JournalSerialNo,
-				                          ActionCode,     
-									      ActionMode,  
-									      <cfif Invoice.Mode eq "2" and Invoice.Status eq "1">
-										   <!--- more information --->	
-										   ActionReference1,
-										   ActionReference2,
-										   ActionReference3,						                       								
-									       ActionReference4,
-										   ActionReference5,
-										  <cfelseif getWarehouseJournal.TransactionMode eq "2">  <!--- Mode was 2 but no connection to the GFACE --->
-										   ActionReference4,
-										  </cfif>
-										  ActionMemo,
-										  ActionContent,
-				                          ActionDate,
-						  			      ActionStatus,                                
-				                          OfficerUserId,
-				                          OfficerLastName,
-				                          OfficerFirstName)
-										  
-				                  VALUES ('#rowguid#',
-										  '#Journal#',
-				            		      '#JournalSerialNo#',
-				                          'Invoice',		
-										  '2',						
-										  <cfif Invoice.Mode eq "2" and Invoice.Status eq "1">												                     
-												'#stResponse.Cae#',
-												'#stResponse.DocumentNo#',
-												'#stResponse.Dte#',
-												'#getSeries.SeriesNo#',
-												<cfif StructKeyExists(stResponse,"Series")>
-												'#stResponse.Series#',
-												<cfelse>
-													NULL,
-												</cfif>
-										  <cfelseif getWarehouseJournal.TransactionMode eq "2">
-										  		<cfif Invoice.Status eq "1">
-											  		'#GetManualSeries.SeriesNo#',
-												<cfelse>
-													'ERROR',
-												</cfif>
-										  </cfif> 
-										  '#left(Invoice.ErrorDescription,100)#',
-										  '#Invoice.ErrorDetail#',
-						                  getDate(),                                 
-				        		          '#Invoice.Status#',     <!--- mode process completed --->
-				                	      '#SESSION.acc#',
-				                          '#SESSION.last#',
-						                  '#SESSION.first#')  
-										                 
-				            </cfquery>  				
-			
-						</cfif>							
-							
+														
 				</cfif>
-								
-				<cfset EDIResult.ActionId = rowguid>
 				
+				<cfif EDIResult.Log eq "1">				
+			
+					<!--- create the log also with the NIT and document --->
+							
+					<cf_assignId>			
+
+					<cfquery name="AddAction"
+		               datasource="AppsLedger"
+		               username="#SESSION.login#"
+		               password="#SESSION.dbpw#">
+		                  INSERT INTO TransactionHeaderAction
+						  
+		                         (ActionId,
+							      Journal,
+		                          JournalSerialNo,
+		                          ActionCode,     
+							      ActionMode,  
+								  
+								  ActionSource1,
+								  ActionSource2,
+								  
+								  <!---
+							      <cfif Invoice.Mode eq "2" and Invoice.Status eq "1">
+								  --->
+								  
+								   <!--- more information --->	
+								   ActionReference1,
+								   ActionReference2,
+								   ActionReference3,						                       								
+							       ActionReference4,
+								   ActionReference5,
+								   
+								  <!--- 
+								  <cfelseif getWarehouseJournal.TransactionMode eq "2">  <!--- Mode was 2 but no connection to the GFACE --->
+								   ActionReference4,
+								  </cfif>
+								  --->
+								  
+								  ActionMemo,
+								  ActionContent,
+		                          ActionDate,
+				  			      ActionStatus,                                
+		                          OfficerUserId,
+		                          OfficerLastName,
+		                          OfficerFirstName)
+								  
+		                  VALUES ('#rowguid#',
+								  '#Journal#',
+		            		      '#JournalSerialNo#',
+		                          'Invoice',		
+								  '2',		<!--- electronic --->	
+								  '#EDIResult.Source1#',
+								  '#EDIResult.Source2#',								  
+								  	
+								  <!---			
+								  <cfif Invoice.Mode eq "2" and Invoice.Status eq "1">												                     
+								  --->
+										'#EDIResult.Cae#',
+										'#EDIResult.DocumentNo#',
+										'#EDIResult.Dte#',
+										<cfif StructKeyExists(EDIResult,"SeriesNo")>
+										'#EDIResult.SeriesNo#',
+										<cfelse>
+											NULL,
+										</cfif>
+										
+										<cfif StructKeyExists(EDIResult,"Series")>
+										'#EDIResult.Series#',
+										<cfelse>
+											NULL,
+										</cfif>
+										
+								  <!--- 		
+								  <cfelseif getWarehouseJournal.TransactionMode eq "2">
+								  		<cfif Invoice.Status eq "1">
+									  		'#GetManualSeries.SeriesNo#',
+										<cfelse>
+											'ERROR',
+										</cfif>
+								  </cfif> 	
+								  --->							  
+								  
+								  '#left(EDIResult.ErrorDescription,100)#',
+								  '#EDIResult.ErrorDetail#',
+				                  getDate(), 
+								                                  
+		        		          '#EDIResult.Status#',     <!--- process completed 1 or 9 --->
+								  
+		                	      '#SESSION.acc#',
+		                          '#SESSION.last#',
+				                  '#SESSION.first#')  
+								                 
+		            </cfquery>  				
+	
+				</cfif>		
+				
+				<cfset EDIResult.Status   = "OK">
+												
+				<cfset EDIResult.ActionId = rowguid>				
 
 			<cfelse>
 			
-				<cfset EDIResult.Status = "OK">
+				<cfset EDIResult.Status   = "OK">
 				<cfset EDIResult.ActionId = "">
 			
 			</cfif>
@@ -259,6 +288,8 @@
 				  Journal             = "#journal#"
 				  journalSerialNo     = "#journalserialNo#"						  
 			      returnvariable      = "EDIResult">
+				  
+				  <cfparam name="EDIResult.log" default="0">
 				  
 				  <cfif EDIResult.Log eq "1">
 				  

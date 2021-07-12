@@ -386,7 +386,7 @@ password="#SESSION.dbpw#">
    
    </cfif>
       		
-	<cfif Entitlement.entityClass neq "" and Entitlement.source eq "Manual">
+	<cfif Entitlement.entityClass neq "" and Entitlement.source neq "SUN">
 		
 			<tr><td height="1" colspan="2" class="line">
 						

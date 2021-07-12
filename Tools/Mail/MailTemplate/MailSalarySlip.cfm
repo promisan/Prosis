@@ -1,3 +1,4 @@
+
 <cfparam name="attributes.settlementId"    default="">
 <cfparam name="attributes.SettlementPhase" default="">
 <cfparam name="attributes.Serial"          default="">
@@ -62,8 +63,7 @@
 		FROM     SalaryScheduleMission
 		WHERE    SalarySchedule = '#get.SalarySchedule#'   	
 		AND      Mission        = '#get.Mission#'
-	</cfquery>
-	
+	</cfquery>	
 	
 	<cfquery name="Param" 
 	    datasource="AppsPayroll" 
@@ -91,7 +91,7 @@
 		<cfset path = "#get.Mission#_#get.SalarySchedule#\#per#_#Header.referenceNo#">		
 	<cfelse>	
 		<cfset path = "#get.Mission#_#get.SalarySchedule#\#per#">	
-	</cfif>
+	</cfif>	
 	
 	<cfoutput query="Settlement">
 	
@@ -103,9 +103,9 @@
 	
 		<cfset filename = "#SESSION.rootDocumentPath#\Payslip\#path#\#PersonNo#_#attributes.serial#.pdf">
 	
-	</cfif>	
+	</cfif>		
 	
-	<cfif isValid("email", "#eMailAddress#")>	
+	<cfif isValid("email", "#eMailAddress#") or eMailAddress eq "">	
 						
 		<cfif MissionSchedule.DisableMailPayslip eq "0"> 
 		 
@@ -120,7 +120,7 @@
 				   
 				   <cfoutput>				   		   			  
 				   
-				   <table width="94%" align="center">
+				   <table width="98%" align="center">
 				   
 					    <tr><td>#PersonNo# #FirstName# #LastName# (#eMailAddress#)</td></tr>		
 					    <tr><td height="1" class="line"></td></tr>										
@@ -146,12 +146,18 @@
 			 <cf_tl id="Payslip" var="pay">
 			 
 			 <cfif Param.PayslipEMail neq "">
-			   <cfset mailfrom  = Param.PayslipEMail>
+			   <cfset mailfrom  = Param.PayslipEMail>			   
 			 <cfelse>
 			   <cfset mailfrom =  client.eMail>			 
 			 </cfif>
-										 				
-			 <cfmail to    = "#eMailAddress#"	<!----- rfuentes@promisan.com -------->
+			 
+			 <cfif Param.PayslipDestination neq "" or eMailAddress eq "">
+			   <cfset address  = Param.PayslipDestination>			   
+			 <cfelse>
+			   <cfset address =  eMailAddress>			 
+			 </cfif>			
+													 				
+			 <cfmail to    = "#Address#"	
 		        from       = "#mailfrom#"
 				FailTo     = "#client.eMail#" 
 				replyto    = "#mailfrom#"
@@ -172,17 +178,17 @@
 				    username="#SESSION.login#" 
 				    password="#SESSION.dbpw#">
 					INSERT INTO EmployeeSettlementAction
-							(PersonNo, 
-							 SalarySchedule, 
-							 Mission, 
-							 PaymentDate, 
-							 ActionCode, 
-							 ActionDate, 
-							 ActionContent, 
-							 DocumentPath, 
-							 OfficerUserId, 
-							 OfficerLastName, 
-							 OfficerFirstName)
+								(PersonNo, 
+								 SalarySchedule, 
+								 Mission, 
+								 PaymentDate, 
+								 ActionCode, 
+								 ActionDate, 
+								 ActionContent, 
+								 DocumentPath, 
+								 OfficerUserId, 
+								 OfficerLastName, 
+								 OfficerFirstName)
 					 VALUES	 ('#PersonNo#',
 							  '#SalarySchedule#',
 							  '#Mission#',
@@ -209,3 +215,4 @@
 	</cfoutput>
 	
 </cfif>
+

@@ -50,11 +50,11 @@ password="#SESSION.dbpw#">
 		
 			<tr class="labelmedium2 fixrow">
 			    <td></td>
-			    <td>Bank</td>
-				<td>Currency</td>				
-				<td>AccountNo</td>
-				<td>Bank Address</td>
-			    <td>GL Account</td>
+			    <td><cf_tl id="Bank"></td>
+				<td><cf_tl id="Curr"></td>				
+				<td><cf_tl id="AccountNo"></td>
+				<td><cf_tl id="Bank Address"></td>
+			    <td><cf_tl id="GL Account"></td>
 			</tr>			
 			
 				<cfoutput query="SearchResult">

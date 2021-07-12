@@ -72,6 +72,8 @@
 		
 </cfif>
 
+
+
 <cfif trim(url.InvoiceJournal) neq "">
 
 	<cfif PostJournals.recordCount lte 0>

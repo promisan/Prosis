@@ -521,7 +521,7 @@
 							DocumentPath="PersonEvent"
 							SubDirectory="#PersonNo#" 
 							Filter="#left(eventid,8)#"
-							attachdialog = "cfwindow"
+							attachdialog   = "cfwindow"
 							DocumentServer = "Anonymous"	
 							Insert="yes"
 							Remove="yes"

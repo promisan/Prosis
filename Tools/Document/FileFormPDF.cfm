@@ -14,7 +14,7 @@
 	 password="#SESSION.dbpw#">
      SELECT    *
 	 FROM      Ref_Attachment
-	 WHERE     DocumentPathName = '#url.dir#' 	 
+	 WHERE     DocumentPathName = '#url.dir#' 	
 </cfquery>
 
 <cfif getFilter.AttachExtensionFilter neq "NONE" and getFilter.AttachExtensionFilter neq "">
@@ -90,6 +90,9 @@
 					</tr>
 					</table>
 				</td>	
+				</tr>
+				<tr class="labelit">				  
+				   <td colspan="5"><font color="808080">PDF conversion might not be enabled for this site. Please check with your administrator.</td>
 				</tr>
 			
 			</table>	

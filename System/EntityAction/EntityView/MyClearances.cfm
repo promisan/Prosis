@@ -1,5 +1,5 @@
 
-<cfparam name="scope" 				default="default">
+<cfparam name="url.scope" 			default="default">
 <cfparam name="URL.EntityGroup" 	default="">
 <cfparam name="URL.Mission" 		default="">
 <cfparam name="URL.Owner" 			default="">

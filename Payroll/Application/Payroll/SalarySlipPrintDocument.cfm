@@ -14,15 +14,15 @@
 
 <cfquery name="Contract" 
 	datasource="AppsEmployee">
-	 SELECT  TOP 1 C.*, T.Description as ContractDescription
-     FROM    PersonContract C, Ref_ContractType T
-	 WHERE   T.ContractType  = C.ContractType
-	 AND     PersonNo        = '#Settle.PersonNo#'
-	 AND     SalarySchedule  = '#Settle.SalarySchedule#'
-	 AND     ActionStatus   != '9'
-	 AND     Mission         = '#Settle.Mission#'
-	 AND     DateEffective  <= '#settle.PaymentDate#'
-	 AND     DateExpiration >= '#settle.PaymentDate#' 
+	 SELECT   TOP 1 C.*, T.Description as ContractDescription
+     FROM     PersonContract C, Ref_ContractType T
+	 WHERE    T.ContractType  = C.ContractType
+	 AND      PersonNo        = '#Settle.PersonNo#'
+	 AND      SalarySchedule  = '#Settle.SalarySchedule#'
+	 AND      ActionStatus   != '9'
+	 AND      Mission         = '#Settle.Mission#'
+	 AND      DateEffective  <= '#settle.PaymentDate#'
+	 AND      DateExpiration >= '#settle.PaymentDate#' 
 	 ORDER BY DateEffective		 
 </cfquery>
 
@@ -30,14 +30,14 @@
 	
 	<cfquery name="Contract" 
 		datasource="AppsEmployee">
-		 SELECT  TOP 1 C.*, T.Description as ContractDescription
-	     FROM    PersonContract C, Ref_ContractType T
-		 WHERE   T.ContractType  = C.ContractType
-		 AND     PersonNo        = '#Settle.PersonNo#'
-		 AND     SalarySchedule  = '#Settle.SalarySchedule#'
-		 AND     ActionStatus   != '9'
-		 AND     Mission         = '#Settle.Mission#'
-		 AND     DateEffective  <= '#settle.PaymentDate#'	
+		 SELECT   TOP 1 C.*, T.Description as ContractDescription
+	     FROM     PersonContract C, Ref_ContractType T
+		 WHERE    T.ContractType  = C.ContractType
+		 AND      PersonNo        = '#Settle.PersonNo#'
+		 AND      SalarySchedule  = '#Settle.SalarySchedule#'
+		 AND      ActionStatus   != '9'
+		 AND      Mission         = '#Settle.Mission#'
+		 AND      DateEffective  <= '#settle.PaymentDate#'	
 		 ORDER BY DateEffective		 
 	</cfquery>
 
@@ -75,7 +75,10 @@
 </cfif>
 
 <cfif url.password eq "Yes">
+    <!---
 	<cfset pwd = Settle.eMailAddress>
+	--->
+	<cfset pwd = "#Settle.PersonNo#">
 <cfelse>
     <cfset pwd = "">
 </cfif>
@@ -134,11 +137,13 @@
 <cfif url.sendemail eq 1>
 
 	<cfif getScheduleMission.DisableMailPayslip eq "0">
+						
 		<cf_MailSalarySlip
 			SettlementId    = "#url.settlementId#"
 			SettlementPhase = "#url.settlementPhase#"
 			Serial          = "#url.Serial#"
-			TransactionId   = "#url.TransactionId#"> 
+			TransactionId   = "#url.TransactionId#"> 			
+			
 	</cfif> 
 	
 <cfelse>

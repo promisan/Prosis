@@ -1,5 +1,4 @@
 
-
 <cfquery name="Get" 
 	datasource="appsMaterials" 
 	username="#SESSION.login#" 
@@ -16,14 +15,14 @@
 
 <cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#&id1=#url.id1#&fmission=#url.fmission#" method="POST" name="frmPromotion">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding formspacing">
 
 	<tr><td height="10"></td></tr>
 
     <cfoutput>
 	
-	<TR class="labelmedium">
-    <TD height="28"><cf_tl id="Entity">:</TD>
+	<TR class="labelmedium2" style="height:28px">
+    <TD><cf_tl id="Entity">:</TD>
     <TD>
 		<cfif url.id1 neq "">
 			<b>#get.Mission#</b>
@@ -40,15 +39,15 @@
 					  				WHERE SystemModule = 'Warehouse')
 			</cfquery>
 	  	   
-		    <cfselect name="Mission" class="regularxl" query="Mis" value="Mission" display="Mission" selected="#get.Mission#" required="Yes" message="Please, select a valid entity.">
+		    <cfselect name="Mission" class="regularxxl" query="Mis" value="Mission" display="Mission" selected="#get.Mission#" required="Yes" message="Please, select a valid entity.">
 			</cfselect>
 		</cfif>
     </TD>
 	</TR>
 	
 	<cfif url.id1 neq "">
-		<TR class="labelmedium">
-	    <TD height="28"><cf_tl id="Code">:</TD>
+		<TR class="labelmedium2" style="height:28px">
+	    <TD><cf_tl id="Code">:</TD>
 	    <TD><b>#get.promotionNo#</b>
 	    </TD>
 		</TR>
@@ -80,7 +79,7 @@
 			   required="no" 
 			   size="50" 
 		       maxlength="100" 
-			   class="regularxl">
+			   class="regularxxl">
 	    </TD>
 	</TR>
 	
@@ -142,7 +141,7 @@
 						<cf_intelliCalendarDate9
 							FieldName="DateEffective"
 							Message="Select a valid Effective Date"
-							class="regularxl"
+							class="regularxxl"
 							Default="#dateformat(vDateEffective, CLIENT.DateFormatShow)#"
 							AllowBlank="False">
 					</td>
@@ -186,7 +185,7 @@
 						<cf_intelliCalendarDate9
 							FieldName="DateExpiration"
 							Message="Select a valid Expiration Date"
-							class="regularxl"
+							class="regularxxl"
 							Default="#dateformat(get.DateExpiration, CLIENT.DateFormatShow)#"
 							AllowBlank="True">
 					</td>
@@ -235,6 +234,16 @@
 		</td>
 	</tr>
 	
+	<!--- attachments --->
+	
+	<TR class="labelmedium">
+        <td valign="top" style="padding-top:5px;height:30px"><cf_tl id="Attachments">:</td>
+		<TD style="padding-right:20px">
+		     <cfinclude template="RecordAttachment.cfm">
+		</TD>
+	</TR>
+	
+	
 	<cfif url.id1 neq "">
 	<tr class="labelmedium">
 		<td height="23"><cf_tl id="Created">:</td>
@@ -246,8 +255,7 @@
 	
 	<tr><td height="3"></td></tr>	
 	<tr><td colspan="2" class="line"></td></tr>	
-	<tr><td height="3"></td></tr>	
-			
+				
 	<tr>
 		
 	<td align="center" colspan="2">
@@ -262,6 +270,5 @@
 
 </cfform>
 	
-<cf_screenbottom layout="innerbox">
 
 <cfset ajaxonload("doCalendar")>

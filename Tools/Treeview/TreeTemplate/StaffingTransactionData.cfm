@@ -87,14 +87,7 @@
 	   </cfif>
 	  
 	   <cfset ActionCode = Action.ActionCode>
-	   
-	    <cf_UItreeitem value="#MandateNo#_dur_act_#prior#_#ActionCode#"
-		        display="<span style='font-size:13px' class='labelit'>#ActionCode# #Description#</span>"										
-				target="right"		
-				href="TransactionViewGeneral.cfm?ID=CDE&ID1=#ActionCode#&Mission=#Mission#&ID3=#MandateNo#&ID4=0"
-				parent="#MandateNo#_dur_act_#prior#"
-				expand="Yes">		
-	  	  		    
+		  	  		    
 		  <cfquery name="ActionStatus" 
 		  datasource="AppsEmployee" 
 		  username="#SESSION.login#" 
@@ -116,7 +109,14 @@
 			  </cfif>			
 			  ORDER BY R.Status
 			  
-		  </cfquery>		  		  
+		  </cfquery>	
+		  
+		    <cf_UItreeitem value="#MandateNo#_dur_act_#prior#_#ActionCode#"
+		        display="<span style='font-size:13px' class='labelit'>#ActionCode# #Description# [#actionStatus.counted#]</span>"										
+				target="right"		
+				href="TransactionViewGeneral.cfm?ID=CDE&ID1=#ActionCode#&Mission=#Mission#&ID3=#MandateNo#&ID4=0"
+				parent="#MandateNo#_dur_act_#prior#"
+				expand="No">			  		  
 	
 		  <cfloop query="actionstatus">
 		  

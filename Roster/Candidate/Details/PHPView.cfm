@@ -46,12 +46,10 @@ password="#SESSION.dbpw#">
 			 } 
 		} 
 		
-	    function merge() {
-		
+	    function merge() {		
 		    			
-			parent.ProsisUI,createWindow('mydialog', 'Merge', '',{x:100,y:100,height:700,width:700,modal:true,resizable:false,center:true})    					
+			parent.ProsisUI.createWindow('mydialog', 'Merge', '',{x:100,y:100,height:700,width:700,modal:true,resizable:false,center:true})    					
 			parent.ptoken.navigate('#SESSION.root#/Roster/Candidate/Tools/Person2Times.cfm?personno=#url.id#','mydialog') 		
-
 		
 		}
 		
@@ -243,7 +241,7 @@ password="#SESSION.dbpw#">
 							<cfif AccessRoster eq "EDIT" or AccessRoster eq "ALL">	
 							
 								<tr style="height:20px"><td align="center">																
-										<button style="border-radius:3px;width:140;height:39px" type="button" class="button10g" onClick="deleterecord('#Candidate.PersonNo#')"><cf_tl id="Purge record"></button>																															
+										<button style="border-radius:3px;width:96%;height:39px" type="button" class="button10g" onClick="deleterecord('#Candidate.PersonNo#')"><cf_tl id="Purge record"></button>																															
 									</td>	
 								</tr>									
 																			

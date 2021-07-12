@@ -96,7 +96,8 @@ password="#SESSION.dbpw#">
 			        INNER JOIN Currency C        ON J.Currency     = C.Currency							
 			 WHERE 	P.AmountOutstanding > 0
 			 AND    A.AccountClass     = 'Balance' 
-			 AND    P.TransactionId    = '#preserveSingleQuotes(itm)#' 				   	   
+			 AND    P.TransactionId    = '#preserveSingleQuotes(itm)#' 	
+					   	   
 	</cfquery>
 			
 	<!--- Add TransactionHeader in a loop to the temp table --->
@@ -124,7 +125,7 @@ password="#SESSION.dbpw#">
 						
 					<!--- 1/2 look for advance related to the ReferenceNo of the invoice of the accounting module --->
 				
-					SELECT   TL.TransactionCurrency, TL.Currency, TL.Reference, TH.TransactionSourceNo, TL.GLAccount, 
+					SELECT   TL.TransactionCurrency, TL.Currency, '' as Reference, TH.TransactionSourceNo, TL.GLAccount, 
 					         AmountDebit * TL.ExchangeRate AS Advance
 					FROM     TransactionHeader AS TH INNER JOIN
 	                         TransactionLine AS TL ON TH.Journal = TL.Journal AND TH.JournalSerialNo = TL.JournalSerialNo
@@ -135,7 +136,7 @@ password="#SESSION.dbpw#">
 					AND      TL.TransactionSerialNo != '0'
 					AND      TH.Journal != '#Journal#'
 					AND      ParentLineId is NULL		
-				
+									
 					<cfif ReferenceId neq "">
 				          UNION
 					</cfif>
@@ -162,9 +163,10 @@ password="#SESSION.dbpw#">
 				AND      ParentLineId is NULL		
 												
 				</cfif>	
-				
-								
+												
 			</cfquery>
+			
+			
 			
 						
 			<!--- SUM the total of the advances --->
@@ -176,6 +178,8 @@ password="#SESSION.dbpw#">
 				GROUP BY TransactionCurrency, Currency, Reference, TransactionSourceNo, GLAccount
 			
 			</cfquery>
+			
+		
 			
 			<cfif Advance.recordcount gte "1">
 													
@@ -193,10 +197,9 @@ password="#SESSION.dbpw#">
                                            FROM     Journal
                                            WHERE    Mission      = '#mission#') 				
 						AND    ParentJournal         is not NULL
-						AND    ParentJournalSerialNo is not NULL	
-																													
+						AND    ParentJournalSerialNo is not NULL																														
 						<!--- this is the transaction base --->
-						
+										
 				</cfquery>  
 																								
 				<cfset val = 0>
@@ -243,6 +246,9 @@ password="#SESSION.dbpw#">
 						<cfelse>												
 							<cfset offset = payment>						
 						</cfif>		
+						
+						
+						
 					
 					<cfelse>
 					

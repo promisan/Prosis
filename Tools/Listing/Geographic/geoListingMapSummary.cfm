@@ -4,7 +4,11 @@
 <cfset vThisCountFemale = evaluate("session.geoListingCountFemale_#url.viewId#")>
 <cfset vThisCountMale = evaluate("session.geoListingCountMale_#url.viewId#")>
 <cfset vThisCountTotal = evaluate("session.geoListingCountTotal_#url.viewId#")>
+<cfset vThisFilterMap = evaluate("session.geoListingFilterMap_#url.viewId#")>
 <cfset vThisSummaryType = evaluate("session.geoListingSummaryType_#url.viewId#")>
+<cfset vThisSummaryComplement = evaluate("session.geoListingSummaryComplement_#url.viewId#")>
+<cfset vThisSummaryComplement2 = evaluate("session.geoListingSummaryComplement2_#url.viewId#")>
+<cfset vThisSummaryComplement3 = evaluate("session.geoListingSummaryComplement3_#url.viewId#")>
 
 <cfset vDisplayHeader = "">
 <cfset vDrilldownFunction = "">
@@ -49,11 +53,59 @@
 </cfif>
 
 <cfquery name="getDataSummaryLimits" dbtype="query">
-    SELECT  MIN(Total) as MinTotal, MAX(Total) as MaxTotal
+    SELECT  MIN(Total) as MinTotal, MAX(Total) as MaxTotal, SUM(Total) as Total,
+            MIN(CountFemale) as MinCountFemale, MAX(CountFemale) as MaxCountFemale, SUM(CountFemale) as TotalCountFemale,
+            MIN(CountMale) as MinCountMale, MAX(CountMale) as MaxCountMale, SUM(CountMale) as TotalCountMale
     FROM    getDataSummary
 </cfquery>
 
-<table class="table tableDetail tablePaginate table-striped table-bordered table-hover detailGeoContent<cfoutput>#url.viewId#</cfoutput>" style="width:100%;">
+<cfif vThisSummaryType eq "Region">
+
+    <cfif trim(vThisSummaryComplement) neq "">
+        <cfset vComplementFilterParams = "">
+        <cfloop from="1" to="#ArrayLen(vThisFilterMap)#" index="i">
+            <cfset vComplementFilterParams = vComplementFilterParams & "&geoF#i#=#evaluate('url.geoF#i#')#">
+        </cfloop>
+        <cfdiv 
+            id="divSummaryComplement#trim(vThisSummaryComplement)#" 
+            bind="url:#session.root#/tools/listing/geographic/geoListingMapSummaryComplement#vThisSummaryComplement#.cfm?viewId=#url.viewId#&zoomFunction=&country=#vComplementFilterParams#">
+
+    </cfif>
+
+    <cfif trim(vThisSummaryComplement2) neq "">
+        <cfset vComplementFilterParams = "">
+        <cfloop from="1" to="#ArrayLen(vThisFilterMap)#" index="i">
+            <cfset vComplementFilterParams = vComplementFilterParams & "&geoF#i#=#evaluate('url.geoF#i#')#">
+        </cfloop>
+        <cfdiv 
+            id="divSummaryComplement2#trim(vThisSummaryComplement2)#" 
+            bind="url:#session.root#/tools/listing/geographic/geoListingMapSummaryComplement#vThisSummaryComplement2#.cfm?viewId=#url.viewId#&zoomFunction=&country=#vComplementFilterParams#">
+
+    </cfif>
+
+</cfif>
+
+<cf_tl id="Export to Excel" var="lblExportToExcel">
+
+<cfif vThisSummaryType eq "Country">
+    <cfoutput>
+        <h3 style="padding-bottom:10px;">
+            <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="35" height="35" onclick="Prosis.exportToExcel('detailGeoContent#url.viewId#');" title="#lblExportToExcel#">
+            BY COUNTRY
+        </h3>
+    </cfoutput>
+</cfif>
+
+<cfif vThisSummaryType eq "Region">
+    <cfoutput>
+        <h3 style="padding-bottom:10px;">
+            <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="35" height="35" onclick="Prosis.exportToExcel('detailGeoContent#url.viewId#');" title="#lblExportToExcel#">
+            BY REGIONAL GROUP
+        </h3>
+    </cfoutput>
+</cfif>
+
+<table class="table tableDetail tablePaginate table-striped table-bordered table-hover detailGeoContent<cfoutput>#url.viewId#</cfoutput>" id="detailGeoContent<cfoutput>#url.viewId#</cfoutput>" style="width:100%;">
     <thead>
         <tr>
             <cfif vThisSummaryType eq "Country">
@@ -83,9 +135,42 @@
             <td onclick="#vDrilldownFunction#" style="#vDrilldownStyle#" title="#lblDetail#">
                 #SummaryFieldDisplay#
             </td>
-            <td style="text-align:right;">#numberFormat(CountFemale, ",")#</td>
-            <td style="text-align:right;">#numberFormat(CountMale, ",")#</td>
-            <td style="text-align:right;">#numberFormat(Total, ",")#</td>
+            <td style="text-align:right;" data-order="#CountFemale#">
+                <table width="100%">
+                    <tr>
+                        <td style="font-size:60%;">
+                            <cfif getDataSummaryLimits.TotalCountFemale neq 0>
+                                #numberFormat(CountFemale*100/getDataSummaryLimits.TotalCountFemale, ",._")# %
+                            </cfif>
+                        </td>
+                        <td style="text-align:right;">#numberFormat(CountFemale, ",")#</td>
+                    </tr>
+                </table>
+            </td>
+            <td style="text-align:right;" data-order="#CountMale#">
+                <table width="100%">
+                    <tr>
+                        <td style="font-size:60%;">
+                            <cfif getDataSummaryLimits.TotalCountMale neq 0>
+                                #numberFormat(CountMale*100/getDataSummaryLimits.TotalCountMale, ",._")# %
+                            </cfif>
+                        </td>
+                        <td style="text-align:right;"> #numberFormat(CountMale, ",")# </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="text-align:right;" data-order="#Total#">
+                <table width="100%">
+                    <tr>
+                        <td style="font-size:60%;">
+                            <cfif getDataSummaryLimits.Total neq 0>
+                                #numberFormat(Total*100/getDataSummaryLimits.Total, ",._")# %
+                            </cfif>
+                        </td>
+                        <td style="text-align:right;">#numberFormat(Total, ",")#</td>
+                    </tr>
+                </table>
+            </td>
         </tr>
         <cfset vTotalF = vTotalF + CountFemale>
         <cfset vTotalM = vTotalM + CountMale>
@@ -93,7 +178,10 @@
     </cfoutput>
     <tfoot>
         <tr>
-            <th style="text-align:right;"><cf_tl id="Total"></th>
+            <cfif vThisSummaryType eq "Country">
+                <th></th>
+            </cfif>
+            <th><cf_tl id="Total"></th>
             <cfoutput>
                 <th style="text-align:right;">
                     #numberFormat(vTotalF, ",")#
@@ -123,39 +211,60 @@
 
 <cfif vThisSummaryType eq "Region">
 
-    <!--- Pie chart --->
-    <cfset "doChart_summaryMapChart" = "">
+    <cfif getDataSummaryLimits.Total neq 0>
 
-    <cfset vSeriesArray = ArrayNew(1)>
-    <cfset vSeries = StructNew()>
-    <cfset vSeries.query = "#getDataSummary#">
-    <cfset vSeries.label = "SummaryField">
-    <cfset vSeries.value = "Total">
-    <cfset vSeries.color = "orange">
-    <cfset vSeries.transparency = 0.9>
-    <cfset vSeriesArray[1] = vSeries>
+        <!--- Pie chart --->
+        <cfset "doChart_summaryMapChart" = "">
 
-    <cf_mobileGraph
-        id = "summaryMapChart"
-        type = "Pie"
-        series = "#vSeriesArray#"
-        responsive = "yes"
-        scaleStep = "5"
-        height = "200px"
-        legend = "true"
-        legendPosition = "right"
-        maxScale = "#getDataSummaryLimits.MaxTotal#"
-        scaleLabel = "<%= numberAddCommas(value) %>"
-        tooltipLabel = "<%if (label){%><%=label%>: <%}%><%= numberAddCommas(value) %>">
-    </cf_mobileGraph>
+        <cfset vSeriesArray = ArrayNew(1)>
+        <cfset vSeries = StructNew()>
+        <cfset vSeries.query = "#getDataSummary#">
+        <cfset vSeries.label = "SummaryField">
+        <cfset vSeries.value = "Total">
+        <cfset vSeries.color = "orange">
+        <cfset vSeries.transparency = 0.9>
+        <cfset vSeriesArray[1] = vSeries>
 
-    <cfset ajaxOnLoad("function(){ #doChart_summaryMapChart# }")>
+        <cf_mobileGraph
+            id = "summaryMapChart"
+            type = "Pie"
+            series = "#vSeriesArray#"
+            responsive = "yes"
+            scaleStep = "5"
+            height = "200px"
+            dataPoints = "yes"
+            dataPointsPercentage = "yes"
+            legend = "true"
+            legendPosition = "right"
+            maxScale = "#getDataSummaryLimits.MaxTotal#"
+            scaleLabel = "<%= numberAddCommas(value) %>"
+            tooltipLabel = "<%if (label){%><%=label%>: <%}%><%= numberAddCommas(value) %>">
+        </cf_mobileGraph>
+
+        <cfset ajaxOnLoad("function(){ #doChart_summaryMapChart# }")>
+
+    </cfif>
 
     <style>
         .dataTables_length, .dataTables_info, .dataTables_paginate {
             display:none;
         }
     </style>
+
+</cfif>
+
+<cfif vThisSummaryType eq "Region">
+
+    <cfif trim(vThisSummaryComplement3) neq "">
+        <cfset vComplementFilterParams = "">
+        <cfloop from="1" to="#ArrayLen(vThisFilterMap)#" index="i">
+            <cfset vComplementFilterParams = vComplementFilterParams & "&geoF#i#=#evaluate('url.geoF#i#')#">
+        </cfloop>
+        <cfdiv 
+            id="divSummaryComplement3#trim(vThisSummaryComplement3)#" 
+            bind="url:#session.root#/tools/listing/geographic/geoListingMapSummaryComplement#vThisSummaryComplement3#.cfm?viewId=#url.viewId#&zoomFunction=&country=#vComplementFilterParams#">
+
+    </cfif>
 
 </cfif>
 

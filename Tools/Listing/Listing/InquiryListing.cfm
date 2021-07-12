@@ -212,7 +212,7 @@ password="#SESSION.dbpw#">
     box            = "#boxname#_#url.mission#"
 	link           = "#SESSION.root#/Tools/Listing/Listing/InquiryListing.cfm?height=#url.height#&systemfunctionid=#url.systemfunctionid#&functionserialNo=#url.functionserialNo#&mission=#url.mission#"
     html           = "No"	
-	showlist       = "#url.showlist#"
+	showlist       = "#url.showlist#"	
 	datasource     = "#main.querydatasource#"
 	listquery      = "#main.queryscript#"
 	refresh        = "0" <!--- system will determine if cache needs to be used at loading --->

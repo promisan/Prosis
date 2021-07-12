@@ -364,9 +364,10 @@
 	  	password="#SESSION.dbpw#">				
 			SELECT * 
 			FROM   Accounting.dbo.TransactionHeaderAction
-			WHERE  Journal	    ='#getAction.Journal#'
-			AND    JournalSerialNo ='#getAction.JournalSerialNo#'
-			AND    ActionCode      = 'Invoice'			
+			WHERE  Journal	       = '#getAction.Journal#'
+			AND    JournalSerialNo = '#getAction.JournalSerialNo#'
+			AND    ActionCode      = 'Invoice'	
+			ORDER BY Created DESC		
 		</cfquery>		
 		
 		<cfif qCheck.recordcount eq 0>
@@ -408,11 +409,11 @@
 	</cfif>	
 			
 	<cfif url.scope eq "settlement" or url.scope eq "standard" >
-		<script>
-			ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#vBatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#"+"&ts="+new Date().getTime(), 'wsettle');		
-			ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#",'customerbox')	
-			try { opener.applyfilter('1','','#url.customerid#') } catch(e) {}
-		</script>
+			<script>
+				ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#vBatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#"+"&ts="+new Date().getTime(), 'wsettle');		
+				ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#",'customerbox')	
+				try { opener.applyfilter('1','','#url.customerid#') } catch(e) {}
+			</script>
 	<cfelseif url.scope eq "standalone">
 		<cfif qCheck.recordcount eq 0>
 			<script>

@@ -238,7 +238,7 @@ password="#SESSION.dbpw#">
 	  
 	     <cf_divscroll>
 	
-			<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+			<table style="width:98.5%" align="left" class="navigation_table">
 			
 			<cfparam name="URL.detail" default="#Searchresult.ActionDocumentNo#">
 			
@@ -246,14 +246,14 @@ password="#SESSION.dbpw#">
 			
 			<input type="hidden" id="detail" name="detail" value="<cfoutput>#URL.Detail#</cfoutput>">
 			     
-			<TR class="line labelmedium">
+			<TR class="line labelmedium2 fixrow">
 			    <TD></TD>
-			    <TD class="labelit">Employee</TD>
-				<TD class="labelit"><cfoutput>#client.IndexNoName#</cfoutput></TD>
-				<TD class="labelit">Action</TD>
-				<TD class="labelit">Action date</TD>
-			    <TD class="labelit">Requested by</TD>
-				<TD class="labelit">Reference</TD>
+			    <TD>Employee</TD>
+				<TD><cfoutput>#client.IndexNoName#</cfoutput></TD>
+				<TD>Action</TD>
+				<TD>Action date</TD>
+			    <TD>Requested by</TD>
+				<TD>Reference</TD>
 				<TD></TD>
 			</TR>
 				
@@ -285,9 +285,9 @@ password="#SESSION.dbpw#">
 				   <cfif currentrow lt max>
 				     
 				   <cfif ActionStatus gte "8">  
-				   <tr bgcolor="FFD9D9" class="navigation_row labelmedium line">
+				   <tr bgcolor="FFD9D9" class="navigation_row labelmedium2 line">
 				   <cfelse>
-				   <tr bgcolor="ffffff" class="navigation_row labelmedium line">
+				   <tr bgcolor="ffffff" class="navigation_row labelmedium2 line">
 				   </cfif>	
 				   <TD width="30" align="center">
 				  
@@ -317,7 +317,7 @@ password="#SESSION.dbpw#">
 				   <TD>#OfficerFirstName# #OfficerLastName#</TD>
 				   <!---  <TD class="labelit"><A HREF ="javascript:EditAction('#actiondocumentno#')"><font color="0080C0">#actiondocumentno#</A></TD> --->
 				   <TD>#actiondocumentno#</TD>	  	
-				   <TD><cf_img icon="edit" navigation="Yes" onclick="EditPerson('#PersonNo#')"></td>	
+				   <TD><cf_img icon="open" navigation="Yes" onclick="EditPerson('#PersonNo#')"></td>	
 				 
 				   </TR>
 				         

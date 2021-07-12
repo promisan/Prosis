@@ -175,7 +175,7 @@
 				  <cfif wfStatus eq "Closed">		
 				  
 				      <cf_tl id="Request new Classification" var="1">
-				      <input title="Click to initiate a new classification request for this position"
+				      <input title="Click to initiate a new classification request for this position" disabled
 					  type="button" value="#lt_text#" class="button10g" onclick="javascript:AddClassification('#positionparentid#','#url.ajaxid#')" style="border-radius:10px;width:100%;border:1px solid silver">			  
 					  
 					  <!--- 

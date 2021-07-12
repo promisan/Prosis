@@ -21,7 +21,23 @@
 			#preserveSingleQuotes(vThisDetailOrder)#
 </cfquery>
 
-<table class="table tableDetail table-striped table-bordered table-hover detailGeoContent<cfoutput>#url.viewId#</cfoutput>Detail" style="width:100%;">
+<cfquery name="getDataSummaryLimits" dbtype="query">
+    SELECT  MIN(Total) as MinTotal, MAX(Total) as MaxTotal, SUM(Total) as Total,
+            MIN(CountFemale) as MinCountFemale, MAX(CountFemale) as MaxCountFemale, SUM(CountFemale) as TotalCountFemale,
+            MIN(CountMale) as MinCountMale, MAX(CountMale) as MaxCountMale, SUM(CountMale) as TotalCountMale
+    FROM    getDataDetail
+</cfquery>
+
+<cf_tl id="Export to Excel" var="lblExportToExcel">
+
+<cfoutput>
+<h3 style="padding-bottom:10px;">
+    <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="35" height="35" onclick="Prosis.exportToExcel('detailGeoContent#url.viewId#Detail');" title="#lblExportToExcel#">
+    SUMMARY
+</h3>
+</cfoutput>
+
+<table class="table tableDetail table-striped table-bordered table-hover detailGeoContent<cfoutput>#url.viewId#</cfoutput>Detail" id="detailGeoContent<cfoutput>#url.viewId#</cfoutput>Detail" style="width:100%;">
     <thead>
         <tr>
             <cfloop from="1" to="#ArrayLen(vThisDetailFieldMap)#" index="i">
@@ -40,9 +56,42 @@
             <cfloop from="1" to="#ArrayLen(vThisDetailFieldMap)#" index="i">
                 <td>#evaluate("#vThisDetailFieldMap[i].queryField#")#</td>
             </cfloop>
-            <td style="text-align:right;">#numberFormat(CountFemale, ",")#</td>
-            <td style="text-align:right;">#numberFormat(CountMale, ",")#</td>
-            <td style="text-align:right;">#numberFormat(Total, ",")#</td>
+            <td style="text-align:right;" data-order="#CountFemale#">
+                <table width="100%">
+                    <tr>
+                        <td style="font-size:60%;">
+                            <cfif getDataSummaryLimits.TotalCountFemale neq 0>
+                                #numberFormat(CountFemale*100/getDataSummaryLimits.TotalCountFemale, ",._")# %
+                            </cfif>
+                        </td>
+                        <td style="text-align:right;">#numberFormat(CountFemale, ",")#</td>
+                    </tr>
+                </table>
+            </td>
+            <td style="text-align:right;" data-order="#CountMale#">
+                <table width="100%">
+                    <tr>
+                        <td style="font-size:60%;">
+                            <cfif getDataSummaryLimits.TotalCountMale neq 0>
+                                #numberFormat(CountMale*100/getDataSummaryLimits.TotalCountMale, ",._")# %
+                            </cfif>
+                        </td>
+                        <td style="text-align:right;">#numberFormat(CountMale, ",")# </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="text-align:right;" data-order="#Total#">
+                <table width="100%">
+                    <tr>
+                        <td style="font-size:60%;">
+                            <cfif getDataSummaryLimits.Total neq 0>
+                                #numberFormat(Total*100/getDataSummaryLimits.Total, ",._")# %
+                            </cfif>
+                        </td>
+                        <td style="text-align:right;">#numberFormat(Total, ",")#</td>
+                    </tr>
+                </table>
+            </td>
         </tr>
         <cfset vTotalF = vTotalF + CountFemale>
         <cfset vTotalM = vTotalM + CountMale>
@@ -51,7 +100,7 @@
     <tfoot>
         <tr>
             <cfoutput>
-                <th colspan="#ArrayLen(vThisDetailFieldMap)#" style="text-align:right;"><cf_tl id="Total"></th>
+                <th colspan="#ArrayLen(vThisDetailFieldMap)#"><cf_tl id="Total"></th>
                 <th style="text-align:right;">
                     #numberFormat(vTotalF, ",")#
                 </th>

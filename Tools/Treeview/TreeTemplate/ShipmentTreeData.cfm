@@ -47,16 +47,16 @@
 			 MenuClass          = "'Shipment'"
 			 returnvariable     = "functionlist">	 		 
 			 
-		 <cfloop query="FunctionList">		
-		 
-		 	 <cf_UItreeitem value="Task#currentrow#"
-		        display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
-				parent="Tasks"			
-				href="#FunctionPath#?ID1=Pending&systemfunctionid=#systemfunctionid#&Mission=#Attributes.Mission#&#FunctionCondition#"							
-				target="right"
-		        expand="No">		 
-		 			 
-		 </cfloop> 	
+			 <cfloop query="FunctionList">		
+			 
+			 	 <cf_UItreeitem value="Task#currentrow#"
+			        display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
+					parent="Tasks"			
+					href="#FunctionPath#?ID1=Pending&systemfunctionid=#systemfunctionid#&Mission=#Attributes.Mission#&#FunctionCondition#"							
+					target="right"
+			        expand="No">		 
+			 			 
+			 </cfloop> 	
 			
 
    <cf_tl id="Return handling" var="vReturn">
@@ -150,12 +150,28 @@
 				parent="Listing"			
 				href="#attributes.destination#?systemfunctionid=#attributes.systemfunctionid#&ID1=WEEK&ID=STA&Mission=#Attributes.Mission#"							
 				target="right"
-		        expand="No">						
+		        expand="No">	
+				
+		 <cf_UItreeitem value="Month6"
+		        display="<span style='font-size:14px' class='labelit'>#pShipped# in #dateformat(now(), 'YYYY')#</span>"
+				parent="Listing"			
+				href="#attributes.destination#?systemfunctionid=#attributes.systemfunctionid#&ID1=YEAR&ID=STA&Mission=#Attributes.Mission#"							
+				target="right"
+		        expand="No">	
+				
+		<cfset last = year(now())-1>
+				
+		 <cf_UItreeitem value="Month12"
+		        display="<span style='font-size:14px' class='labelit'>#pShipped# in #last# </span>"
+				parent="Listing"			
+				href="#attributes.destination#?systemfunctionid=#attributes.systemfunctionid#&ID1=LASTYEAR&ID=STA&Mission=#Attributes.Mission#"							
+				target="right"
+		        expand="No">													
 		
 		 <cf_tl id="Billed" var="pBilled">
 	
 		 <cf_UItreeitem value="Billed"
-			        display="<span style='font-size:14px' class='labelit'>#pBilled# #pLast# #dateformat(now()-36, CLIENT.DateFormatShow)#</span>"
+			        display="<span style='font-size:14px' class='labelit'>#pBilled# in #dateformat(now(), 'YYYY')#</span>"
 					parent="Listing"			
 					href="BillingView/BillingListing.cfm?systemfunctionid=#attributes.systemfunctionid#&ID1=Billing&ID=STA&Mission=#Attributes.Mission#"							
 					target="right"

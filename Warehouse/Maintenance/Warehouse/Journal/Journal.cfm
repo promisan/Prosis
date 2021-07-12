@@ -120,13 +120,13 @@
 										<tr><td height="6"></td></tr>
 										<tr class="clsDetails_#area#_#currency#">
 										<td width="2%" style="padding:3px;"></td>
-										<td style="height:25px;padding-left:40px" class="labelmedium"><cf_tl id="Invoice No">:</td>
+										<td style="height:25px;padding-left:40px" class="labelmedium"><cf_tl id="Invoice TAX declaration">:</td>
 										<td>
 											<table>
 											<tr>
-											   <td class="labelmedium" style="padding-left:3px">Manual</td>
+											   <td class="labelmedium" style="padding-left:3px"><cf_tl id="Manual"></td>
 											   <td class="labelmedium" style="padding-left:4px"><input type="radio" class="radiol" value="1" <cfif qWJ.TransactionMode neq "2">checked</cfif> name="Mode_#area#_#currency#" id="Mode_#area#_#currency#"></td>
-											   <td class="labelmedium" style="padding-left:8px">Derrived</td>
+											   <td class="labelmedium" style="padding-left:8px"><cf_tl id="EDI"></td>
 											   <td class="labelmedium" style="padding-left:4px"><input type="radio" class="radiol" value="2" <cfif qWJ.TransactionMode eq "2">checked</cfif> name="Mode_#area#_#currency#" id="Mode_#area#_#currency#"></td>											
 											</tr>
 											</table>

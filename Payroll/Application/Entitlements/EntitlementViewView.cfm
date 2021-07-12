@@ -42,6 +42,7 @@
 	</td></tr>
 	--->
 	<cfelse>
+	
 	<tr><td height="100%" valign="top" style="padding-top:5px">
 	    <cfdiv id="detail" style="height:100%">		
 		 <cfif URL.ID eq "ACT">
@@ -50,6 +51,9 @@
 		 <cfelseif URL.ID eq "PCR">
 		    <cfset url.mode = "miscellaneous">
 		 	<cfinclude template="MiscellaneousViewListing.cfm">	
+		 <cfelseif URL.ID eq "DEL">
+		    <cfset url.mode = "delayed settlements">
+		 	<cfinclude template="EntitlementBalanceListing.cfm">		
 		 <cfelse>
 		  	<cfinclude template="EntitlementViewListing.cfm">
 		 </cfif> 

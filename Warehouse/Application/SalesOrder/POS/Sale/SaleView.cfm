@@ -259,18 +259,30 @@ password="#SESSION.dbpw#">
 								   			<cf_tl id="Quote" var="1">
 											<span id="printTitle" style="display:none;">#ucase("#get.mission# #lt_text#")#</span>
 											<cf_tl id="Print" var="1">
-											<cf_button2 
-												mode		= "icon"
-												type		= "Print"
-												title       = "#lt_text#" 
-												id          = "Print"					
-												height		= "36px"
-												width		= "36px"
-												printTitle	= "##printTitle"
-	                                            printIcon   = "Print-blue.png"
-	                                            imageHeight = "32px"
-												printContent = ".clsPrintContent"
-												printCallback="$('.clsCFDIVSCROLL_MainContainer').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','height:100%;'); $('##saleform').attr('style','height:auto'); $('##customer_box').attr('style','height:auto')">
+											<cfif MParameter.RequestTemplate eq "">
+												<cf_button2
+														mode		= "icon"
+														type		= "Print"
+														title       = "#lt_text#"
+														id          = "Print"
+														height		= "36px"
+														width		= "36px"
+														printTitle	= "##printTitle"
+														printIcon   = "Print-blue.png"
+														imageHeight = "32px"
+														printContent = ".clsPrintContent"
+														printCallback="$('.clsCFDIVSCROLL_MainContainer').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','width:100%;'); $('.clsCFDIVSCROLL_MainContainer').parent('div').attr('style','height:100%;'); $('##saleform').attr('style','height:auto'); $('##customer_box').attr('style','height:auto')">
+											<cfelse>
+												<cf_button2
+														mode		= "icon"
+														type		= "button"
+														id          = "Print"
+														height		= "36px"
+														width		= "36px"
+														imageHeight = "32px"
+														image 		= "Print.png"
+														onclick 	= "printquote('#MParameter.RequestTemplate#')">
+											</cfif>
 										</cfoutput>
 								   </td>
 								   	                              

@@ -16,6 +16,16 @@
 	WHERE    WorkOrderId   = '#url.workorderid#'	
 </cfquery>	
 
+
+<cfquery name="customer" 
+	datasource="AppsWorkOrder" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT    *
+	FROM      Customer
+	WHERE     CustomerId = '#workorder.customerid#'	
+</cfquery> 
+
 <cfquery name="getTotalTransaction" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
@@ -47,12 +57,20 @@
 <cfif form.selected neq "">
 	
 	<cfset sale    = getTotal.SaleIncome>
-	<cfset tax     = getTotal.SaleTax>
-	<cfif sale neq "0" and sale neq "">
-	<cfset taxrate = round(tax*1000 / sale)/1000>  <!--- line 0.12 --->
-	<cfelse>
-	<cfset taxrate = 0>
+	
+	<cfif sale neq "0" and sale neq "" and customer.taxexemption eq "0">
+		<cfset sale    = getTotal.SaleIncome>		
+		<cfset tax     = getTotal.SaleTax>		
+	    <cfset taxrate = round(tax*1000 / sale)/1000>  <!--- line 0.12 --->
+	<cfelseif customer.taxexemption eq "1">		
+	    <cfset sale    = sale + getTotal.SaleTax>	
+		<cfset tax     = 0>		
+	    <cfset taxrate = 0>		   
+	<cfelse>   
+		<cfset tax     = 0>		
+	    <cfset taxrate = 0>
 	</cfif>
+		
 	<cfset total   = sale + tax>	
 	
 	<cfquery name="Entry" 
@@ -88,15 +106,15 @@
 			 <cfset val   = replace(val,",","","ALL")>
 			 
 			 <cfif val neq "" and LSIsNumeric(val) and val neq "">
-			 								  
+						 								  
 					<cfset row = row+1>
 												  
 				  	<cfset sale = sale + val>		
 					
-					<cfif applyTax eq "1">
+					<cfif applyTax eq "1" and customer.taxexemption eq "0">
 					
-					    <cfset tax = tax + (val * taxrate)>
-						
+					    <cfset tax = tax + (val * taxrate)>					
+																																	
 					</cfif>
 					
 					<cfset total = sale + tax>				
@@ -107,8 +125,8 @@
 	
 	<cfoutput>	
 	
-	  <script>  
-		  document.getElementById('saleamount').value      = '#numberformat(getTotal.SaleIncome,",__.__")#'	
+	  <script>  	 
+		  document.getElementById('saleamount').value      = '#numberformat(getTotal.SaleIncome + getTotal.SaleTax,",__.__")#'	
 		  document.getElementById('totalamount').value     = '#numberformat(sale,",__.__")#'	
 		  document.getElementById('taxamount').value       = '#numberformat(tax,",__.__")#'
 		  document.getElementById('payableamount').value   = '#numberformat(total,",__.__")#'

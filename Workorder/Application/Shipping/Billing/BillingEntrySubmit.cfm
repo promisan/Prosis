@@ -52,6 +52,7 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 
 --->
 
+
 <cfquery name="workorder" 
 	datasource="AppsWorkOrder" 
 	username="#SESSION.login#" 
@@ -60,6 +61,16 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 	FROM      WorkOrder
 	WHERE     WorkOrderId = '#url.workorderid#'	
 </cfquery>  
+
+
+<cfquery name="customer" 
+	datasource="AppsWorkOrder" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT    *
+	FROM      Customer
+	WHERE     CustomerId = '#workorder.customerid#'	
+</cfquery> 
 
 <cfquery name="workorderline" 
 	datasource="AppsWorkOrder" 
@@ -174,8 +185,20 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 	</cfif>
 	
 	<cfset sale    = getTotal.SaleIncome>
-	<cfset tax     = getTotal.SaleTax>
-	<cfset taxrate = round(tax*1000 / sale)/1000>  <!--- line 0.12 --->
+	
+	<cfif sale neq "0" and sale neq "" and customer.taxexemption eq "0">
+		<cfset sale    = getTotal.SaleIncome>		
+		<cfset tax     = getTotal.SaleTax>		
+	    <cfset taxrate = round(tax*1000 / sale)/1000>  <!--- line 0.12 --->
+	<cfelseif customer.taxexemption eq "1">		
+	    <cfset sale    = sale + getTotal.SaleTax>	
+		<cfset tax     = 0>		
+	    <cfset taxrate = 0>		   
+	<cfelse>   
+		<cfset tax     = 0>		
+	    <cfset taxrate = 0>
+	</cfif>
+		
 	<cfset total   = sale + tax>	
 	
 	<cfquery name="Entry" 
@@ -228,13 +251,12 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 			 </cfquery>
 			
 			 <cfif check.recordcount eq "1">
-			 
-							 								  
+			 			 								  
 					<cfset row = row+1>
 												  
 				  	<cfset sale = sale + val>		
 					
-					<cfif applyTax eq "1">
+					<cfif applyTax eq "1" and customer.taxexemption eq "0">
 					
 					    <cfset tax = tax + (val * taxrate)>
 						
@@ -301,9 +323,7 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 		    FROM     Purchase.dbo.Ref_ParameterMission
 			WHERE    Mission = '#workorder.Mission#' 
 	</cfquery>
-	
-	
-									
+										
 	<!--- 3. cross reference the lines to the GL transaction header as being covered --->
 	
 	<cftransaction>
@@ -438,9 +458,15 @@ WHERE     (Mission = 'HSA') AND (TransactionCategory = 'Receivables') AND (Curre
 					   T.ItemDescription,
 					   S.SalesQuantity,
 					   S.TaxCode,	
+					   <cfif customer.taxexemption eq "0">					   
 			           S.SalesTotal    AS Total, 
 			           S.SalesTax      AS Tax, 
 					   S.SalesAmount   AS Sale
+					   <cfelse>
+					   S.SalesTotal    AS Total, 
+			           '0'             AS Tax, 
+					   S.SalesAmount+S.SalesTax AS Sale
+					   </cfif>
 			FROM       Materials.dbo.ItemTransactionShipping S 
 			           INNER JOIN Materials.dbo.ItemTransaction T ON S.TransactionId = T.TransactionId 
 					   INNER JOIN WorkOrder.dbo.WorkOrderLine  WL ON T.WorkOrderId   = WL.WorkOrderId AND T.WorkOrderLine = WL.WorkOrderLine 

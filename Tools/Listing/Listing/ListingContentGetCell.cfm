@@ -381,8 +381,6 @@
 					    <cfset inner = "check format">
 					</cfcatch>
 					</cftry>
-					
-					
 																 
 					<cfif inner neq "" and current.functionscript neq "" and (url.ajaxid eq "content" or url.ajaxid eq "append")> <!--- somehow the inner would not work for a refresh --->
 						

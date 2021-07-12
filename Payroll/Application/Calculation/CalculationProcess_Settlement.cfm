@@ -439,7 +439,10 @@ password="#SESSION.dbpw#">
 		
 	AND     (
 	
-			 PaymentDate >= #DEFF#							   			   
+			 (PaymentDate >= #DEFF#  AND PaymentStatus = '0' )
+			 OR 	
+			 <!--- 9/7/2021 : in case of off cycle payment we look at entitlement and if that falls into the period --->			 
+			 (PayrollStart >= #DEFF# AND PaymentStatus = '1' )					   			   
 							   
 			)	
 	

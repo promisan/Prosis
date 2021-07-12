@@ -257,10 +257,9 @@
 	<cfabort>
 </cfif>
 
-<cfif qValidateRecordCount.recordCount lte 15000>
+<cfif qValidateRecordCount.recordCount lte 45000>
 
-	<cfset batch = 0>
-	
+	<cfset batch = 0>	
 	
 	<cfinvoke component = "Service.Excel.Excel"  
 	   method           = "ExcelTable" 

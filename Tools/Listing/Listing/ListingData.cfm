@@ -82,8 +82,8 @@
 	
 		<cfset start = session.listingdata[attributes.box]['recshow']+1>			
 		<cfset end   = session.listingdata[attributes.box]['recshow']+session.listingdata[attributes.box]['pagecnt']>		
-		<cfset rowdatatarget = "r">		
-			
+		<cfset rowdatatarget = "r">	
+					
 	<cfelse>
 	
 		<!--- we apply a filter for the result to be shown --->
@@ -161,9 +161,9 @@
 				</cfquery>	
 														
 			</cfcatch>
-				
+										
 	    </cftry>
-						
+										
 		<cfset start = "1">			
 		<cfset end   = searchresult.recordcount>
 		<!--- here is the name of the class to which we will add --->
@@ -505,8 +505,8 @@
 		
 	<cfif attributes.refresh eq "0" 
 	      and url.ajaxid eq "content" 
-		  and conditioncheck eq session.listingdata[attributes.box]['sqlcondition']>		
-		 				
+		  and conditioncheck eq session.listingdata[attributes.box]['sqlcondition']>	
+		 		 				
 		<!-- obtain the cache --->
 		
 		<cflock timeout="20" throwontimeout="No" name="mysession" type="EXCLUSIVE">
@@ -550,7 +550,8 @@
 			
 			<cflock timeout="20" throwontimeout="No" name="mysession" type="EXCLUSIVE">					
 				<cfset session.listingdata[box]['sqlsorting']   = listsorting>		
-				<cfset session.listingdata[box]['dataprepsort'] = "#cfquery.executiontime#">		
+				<cfset session.listingdata[box]['dataprepsort'] = "#cfquery.executiontime#">	
+				<cfset session.listingdata[box]['dataset']      = searchresult>			
 			</cflock>
 					
 		</cfif>
@@ -558,7 +559,7 @@
 	<!--- preparation of a standard recorded listing --->	
 			
 	<cfelseif listclass eq "Listing">
-			
+				
 		<!--- outputting --->
 						
 		<cfquery name="Header" 
@@ -818,10 +819,13 @@
 	<cfset xxx = session.listingdata[box]['recordsinit']>
 	<cfoutput>#xxx#</cfoutput>
 	--->
-				
-			
-	<cfif applycache eq "0">	
+	
+	<cfparam name="session.listingdata['#box#']['sqlsorting']" default="">
+	
+	<cfparam name="sc" default="">
 					
+	<cfif applycache eq "0" or (session.listingdata[box]['sqlsorting'] neq listsorting and sc neq "")>			
+							
 		<cfparam name="session.listingdata['#box#']['recordsinit']" default="-1">  	
 						
 		<!--- ---------------------------------------------------------------------- --->
@@ -831,8 +835,11 @@
 		<cflock timeout="20" throwontimeout="No" name="mysession" type="EXCLUSIVE">
 					
 			<cfset session.listingdata[box]['timestamp']        = now()>		
-			<cfset session.listingdata[box]['listlayout']       = attributes.listlayout>  		
-			<cfset session.listingdata[box]['sqlorig']          = attributes.listquery>  						
+			<cfset session.listingdata[box]['datasource']       = attributes.datasource>  
+			<cfset session.listingdata[box]['annotation']       = attributes.annotation>		
+			<cfset session.listingdata[box]['listlayout']       = attributes.listlayout>
+			<cfset session.listingdata[box]['sqlorig']          = attributes.listquery>  	
+								
 			<cfset session.listingdata[box]['sql']              = sc>                        <!--- the generated query --->		
 			<cfset session.listingdata[box]['sqlcondition']     = conditioncheck>	
 			<cfset session.listingdata[box]['sqlsorting']       = listsorting>							
@@ -860,6 +867,10 @@
 			
 		</cflock>	
 		
+	<cfelse>
+	
+		
+		
 	</cfif>	
 	
 <cfelse>
@@ -875,7 +886,9 @@
 		  
 	<cflock timeout="20" throwontimeout="No" name="mysession" type="EXCLUSIVE">
 					
-			<cfset session.listingdata[box]['timestamp']        = now()>		
+			<cfset session.listingdata[box]['timestamp']        = now()>	
+			<cfset session.listingdata[box]['datasource']       = attributes.datasource>	
+			<cfset session.listingdata[box]['annotation']       = attributes.annotation>	
 			<cfset session.listingdata[box]['listlayout']       = attributes.listlayout>  		
 			<cfset session.listingdata[box]['sqlorig']          = attributes.listquery>  				
 				

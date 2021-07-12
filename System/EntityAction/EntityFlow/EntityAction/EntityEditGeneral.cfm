@@ -1,8 +1,8 @@
- <table border="0" width="95%" align="center" cellpadding="0" cellspacing="0"  class="formpadding">
+ <table border="0" width="95%" align="center" class="formpadding">
 		
 		<tr><td height="10"></td></tr>
 				
-		<tr class="line"><td colspan="2" style="font-size:28px;font-weight:200">Identification</td></tr>
+		<tr class="line"><td colspan="2" style="font-size:28px;font-weight:200"><cf_tl id="Identification"></td></tr>
 		<tr>
 					
 		<TR>
@@ -21,52 +21,59 @@
 				WHERE  Role = '#Entity.Role#'
 		</cfquery>	
 			
-		<TR>
-	    <td class="labelmedium" width="160">Authorization Role:</td>
-		<td class="labelmedium" height="20"><cfoutput>#Entity.Description# / #Role.SystemModule#</cfoutput></td>
+		<TR class="labelmedium2">
+	    <td width="160"><cf_tl id="Authorization Role">:</td>
+		<td height="20"><cfoutput>#Entity.Description# / #Role.SystemModule#</cfoutput></td>
 		</TR>			
 			
-		<TR>
-	    <td class="labelmedium">Acronym:</td>
-		<td class="labelmedium" height="20"><cfoutput>#Entity.EntityAcronym#</cfoutput></td>
+		<TR class="labelmedium2">
+	    <td><cf_tl id="Acronym">:</td>
+		<td height="20"><cfoutput>#Entity.EntityAcronym#</cfoutput></td>
 		</TR>	
 		
-		<tr>	
-		<td class="labelmedium">Operational: </td>		    
-		<td class="labelmedium">	
-			<input type="radio" class="radiol" name="Operational" id="Operational" onclick="validate()" value="1" <cfif "1" eq Entity.Operational>checked</cfif>>Yes
-			<input type="radio" class="radiol" name="Operational" id="Operational" onclick="validate()" value="0" <cfif "0" eq Entity.Operational>checked</cfif>>No
+		<tr class="labelmedium2">	
+		<td><cf_tl id="Operational">:</td>		    
+		<td><table>
+		    <tr class="labelmedium2">
+			<td><input type="radio" class="radiol" name="Operational" id="Operational" onclick="validate()" value="1" <cfif "1" eq Entity.Operational>checked</cfif>></td>
+			<td style="padding-left:4px">Yes</td>
+			<td><input type="radio" class="radiol" name="Operational" id="Operational" onclick="validate()" value="0" <cfif "0" eq Entity.Operational>checked</cfif>></td>
+			<td style="padding-left:4px">No</td>
+			</tr>
+			</table>	
 	    </td>
 		</TR>
 				
-		<tr class="line"><td colspan="2" style="font-size:28px;font-weight:200">Features</td></tr>		
+		<tr class="line"><td colspan="2" style="font-size:28px;font-weight:200"><cf_tl id="Features"></td></tr>		
 				
-		<tr class="labelmedium" style="height:20px;">		
+		<tr class="labelmedium2" style="height:20px;">		
 		<td style="min-width:200"><cf_UIToolTip tooltip="Option to measure workflow performance for this document">Performance Management:</cf_UIToolTip></td>
 		<td width="80%">
 		    <input type="checkbox" class="radiol" name="EnablePerformance" id="EnablePerformance" onclick="validate()" value="1" <cfif "1" eq Entity.EnablePerformance>checked</cfif>>&nbsp;
 		  </td>
 		</TR>	
+		
+		
 				
-		<tr class="labelmedium" style="height:20px">		
+		<tr class="labelmedium2" style="height:20px">		
 		<td style="cursor:pointer"><cf_UIToolTip tooltip="Option to define a program or project to be assicuated with the workflow">Associate Program/Project:</cf_UIToolTip></td>
 		<td>
 		    <input type="checkbox" class="radiol" name="EnableProgram" id="EnableProgram" onclick="validate()" value="1" <cfif "1" eq Entity.EnableProgram>checked</cfif>>&nbsp;
 		  </td>
 		</TR>	
 				
-		<tr class="labelmedium" style="height:20px">		
-		<td style="cursor:pointer"><cf_UIToolTip tooltip="Option to define, set (due method) workflow object status">Object status:</cf_UIToolTip></td>
+		<tr class="labelmedium2" style="height:20px">		
+		<td style="cursor:pointer"><cf_UIToolTip tooltip="Option to define, set (due method) workflow object status"><cf_tl id="Object status">:</cf_UIToolTip></td>
 		<td>
 		    <input type="checkbox" class="radiol" name="EnableStatus" id="EnableStatus" onclick="validate()" value="1" <cfif "1" eq Entity.EnableStatus>checked</cfif>>&nbsp;
 		  </td>
 		</TR>	
 				
-		<tr class="labelmedium" style="height:20px">		
+		<tr class="labelmedium2" style="height:20px">		
 		<td style="cursor:pointer"><cf_UIToolTip tooltip="Option to define my clearances settings">My Clearances:</cf_UIToolTip></td>
 		<td>
 		<table>
-			<tr class="labelmedium">
+			<tr class="labelmedium2">
 			<td><input type="radio" class="radiol" name="ProcessMode" id="ProcessMode" onclick="validate()" value="0" <cfif "0" eq Entity.ProcessMode>checked</cfif>></td>
 			<td style="padding-left:5px">Standard</td>
 			<td style="padding-left:10px"><input type="radio" class="radiol" name="ProcessMode" id="ProcessMode" onclick="validate()" value="1" <cfif "1" eq Entity.ProcessMode>checked</cfif>></td>
@@ -77,9 +84,16 @@
 			</table>
 		  </td>
 		</TR>	
+		
+		<tr class="labelmedium2" style="height:20px;">		
+		<td style="min-width:200"><cf_UIToolTip tooltip="Option to measure workflow performance for this document"><cf_tl id="Visible in PORTAL">:</cf_UIToolTip></td>
+		<td width="80%">
+		    <input type="checkbox" class="radiol" name="EnablePortal" id="EnablePortal" onclick="validate()" value="1" <cfif "1" eq Entity.EnablePortal>checked</cfif>>&nbsp;
+		  </td>
+		</TR>	
 				
 		<tr><td height="8"></td></tr>
-		<tr class="line"><td colspan="2" style="font-size:28px;font-weight:200">Usage</td></tr>
+		<tr class="line"><td colspan="2" style="font-size:28px;font-weight:200"><cf_tl id="Usage"></td></tr>
 												
 		<!--- currently limited to procurement only --->	
 		
@@ -132,7 +146,9 @@
 									  
 				<cfoutput query="Mission" group="MissionType">
 				
-				<tr class="labelmedium line"><td colspan="12">#MissionType#</td></tr>
+				<!---
+				<tr class="labelmedium"><td colspan="12">#MissionType#</td></tr>
+				--->
 				
 				<cfset row = 0>
 				
@@ -188,12 +204,10 @@
 					
 				</cfoutput>	
 				
-				</table>
-			
-				</td>	
-				
+				</table>			
+				</td>					
 			</tr>
+			
 		</cfif>	
-		
 					
 		</table>		  

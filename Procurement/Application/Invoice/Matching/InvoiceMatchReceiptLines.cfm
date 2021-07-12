@@ -82,8 +82,9 @@
 				  
 		</tr>
 		
-		<cfif Invoice.ActionStatus eq "1">
-				
+		<cfif Invoice.ActionStatus eq "1">	
+		
+								
 			<cfquery name="Lines" 
 				datasource="AppsPurchase" 
 				username="#SESSION.login#" 
@@ -99,9 +100,9 @@
 				AND      R.ReceiptNo = PR.ReceiptNo
 				AND      PR.InvoiceIdMatched  = '#URL.ID#' 
 				ORDER BY PL.PurchaseNo 
-								
+												
 			</cfquery>
-		
+					
 		<cfelse>		
 		
 			<!--- update the invoice prices for data entry --->
@@ -154,14 +155,15 @@
 				<!--- show not matched receipts here --->
 				AND     (
 				          PR.InvoiceIdMatched is NULL 
-				          OR PR.InvoiceIdMatched NOT IN (
-						                                 SELECT InvoiceId 
+				          OR PR.InvoiceIdMatched NOT IN (SELECT InvoiceId 
 						                                 FROM   Invoice 
 														 WHERE  InvoiceId = PR.InvoiceIdMatched
 														 AND    Invoiceid != '#URL.ID#'
 														 ) 
 						)
 				ORDER BY PL.PurchaseNo 
+				
+
 			</cfquery>	
 							
 		</cfif>				
@@ -185,11 +187,11 @@
 		<cfoutput query="Lines">
 						
 			<cfif operational eq "1">
-								
+														
 				<!--- check if the invoice was posted with the receipt lines in GL if the invoice has indeed the status = 1 : posted --->
 				
 				<cfif Invoice.ActionStatus eq "1">					
-						
+												
 					<cfquery name="CheckLedger" 
 						datasource="AppsLedger" 
 						username="#SESSION.login#" 

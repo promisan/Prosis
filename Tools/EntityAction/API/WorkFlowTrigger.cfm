@@ -5,6 +5,11 @@
 <!--- set status of the workflow object --->
 
 <cftransaction>
+
+
+<!--- initiates workflows for various entities 
+status = 1 completed, status 0 there is a pending action step --->
+
 <cfquery name="SetStatus1" 
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
@@ -22,7 +27,7 @@
 	SET ObjectStatus = 0
 	WHERE ObjectId IN (SELECT    ObjectId
 					   FROM      OrganizationObjectAction OA
-					   WHERE     ActionStatus = '0')
+					   WHERE     ActionStatus = '0')					   
 </cfquery>	
 </cftransaction>	
 
@@ -51,7 +56,7 @@
                             FROM     Organization.dbo.Ref_EntityClass
                             WHERE    EntityCode = 'EntProjectEvent')		
 			 <!--- is indeed due for action --->				
-			 AND     DateEvent <= getDate()	
+			 AND     DateEvent <= getDate()+7	
 			 
 			 <!--- is not recorded already as an action for workflow --->
 			 AND     Pe.ProgramCode NOT IN (
@@ -138,11 +143,11 @@
 		     username="#SESSION.login#" 
 		     password="#SESSION.dbpw#">
 		     SELECT *
-			 FROM Invoice
-			 WHERE InvoiceId NOT IN (SELECT ObjectKeyValue4 
-			                         FROM Organization.dbo.OrganizationObject
-									 WHERE EntityCode = 'ProcInvoice')
-			 AND   WorkflowDate >= getDate() 						 
+			 FROM   Invoice
+			 WHERE  InvoiceId NOT IN (SELECT ObjectKeyValue4 
+			                          FROM   Organization.dbo.OrganizationObject
+									  WHERE  EntityCode = 'ProcInvoice')
+			 AND    WorkflowDate <= getDate()+7 						 
 	</cfquery>
 	
 	<cfloop query="Invoice">
@@ -175,3 +180,74 @@
 	</cfloop>
 
 </cfif>
+
+<!--- cost actions that lie in the future --->
+
+<cf_verifyOperational 
+         module    = "Payroll" 
+		 Warning   = "No">		 
+		 
+<cfif operational eq "1">
+
+	<cfquery name="Cost" 
+		datasource="AppsPayroll" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			 
+			SELECT  *
+			FROM    PersonMiscellaneous
+			WHERE   Status <> '9' 
+			AND     EntityClass is not NULL <!--- needs a workflow --->
+			AND     CostId NOT IN ( SELECT  ObjectKeyValue4
+                                    FROM    Organization.dbo.OrganizationObject
+									WHERE   EntityCode = 'EntCost' )
+            AND     DateEffective <= GETDATE() + 30 
+						
+	</cfquery>
+	
+	<cfloop query="Cost">
+	
+		 <cfquery name="Person" 
+			datasource="AppsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT *
+				FROM   Person
+				WHERE  PersonNo = '#PersonNo#' 
+		  </cfquery>
+		  
+		  <cfset link = "Staffing/Application/Employee/Cost/MiscellaneousView.cfm?id=#personno#&id1=#costid#">
+							
+			<cf_ActionListing 
+			    EntityCode       = "EntCost"
+				EntityClass      = "#EntityClass#"
+				EntityGroup      = ""
+				EntityStatus     = ""
+				Mission 		 = "#Mission#"
+				PersonNo         = "#PersonNo#"
+				ObjectReference  = "#PayrollItem#"
+				ObjectReference2 = "#Person.FirstName# #Person.LastName#" 
+				ObjectKey1       = "#PersonNo#"
+				ObjectKey4       = "#costid#"
+				ObjectURL        = "#link#"										
+				Show             = "No"
+				CompleteFirst    = "No">
+				
+				<!---
+				
+				FlyActor         = "#Pactor[1]#"
+				FlyActorAction   = "#Paction[1]#"
+				FlyActor2        = "#Pactor[2]#"
+				FlyActor2Action  = "#Paction[2]#"	
+				FlyActor3        = "#Pactor[3]#"
+				FlyActor3Action  = "#Paction[3]#"			
+				
+				--->
+	
+		
+	
+	</cfloop>
+
+</cfif>
+
+		 

@@ -8,7 +8,7 @@
 <cfset Page         = "0">
 <cfset add          = "1">
 
-<table width="98%" align="center" cellspacing="0" cellpadding="0" >
+<table width="98%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
 
 <tr><td>
 <cfinclude template = "../HeaderMaintain.cfm"> 	
@@ -20,21 +20,21 @@
 	<script>
 	
 		function recordadd(grp) {
-			window.open("RecordEdit.cfm?idmenu=#url.idmenu#&fmission="+document.getElementById("fmis").value+"&ID1=", "AddPromotion", "left=80, top=80, width=960, height= 800, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+			ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&fmission="+document.getElementById("fmis").value+"&ID1=", "AddPromotion", "left=80, top=80, width=960, height= 800, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 		}
 		
 		function recordedit(id1) {
-			window.open("RecordEdit.cfm?idmenu=#url.idmenu#&fmission="+document.getElementById("fmis").value+"&ID1=" + id1, "EditPromotion", "left=80, top=80, width=990, height= 800, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+			ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&fmission="+document.getElementById("fmis").value+"&ID1=" + id1, "EditPromotion");
 		}
 		
 		function recordpurge(id1,mis) {
 			if (confirm('Do you want to remove this promotion and all of its details ?')) {
-				ColdFusion.navigate('RecordPurge.cfm?idmenu=#url.idmenu#&id1='+id1+'&fmission='+mis,'divListing');
+				ptoken.navigate('RecordPurge.cfm?idmenu=#url.idmenu#&id1='+id1+'&fmission='+mis,'divListing');
 			}
 		}
 		
 		function applyfilter(f,reset) {
-			ColdFusion.navigate('RecordListingDetail.cfm?idmenu=#url.idmenu#&fmission='+document.getElementById('fmis').value+'&filter='+f,'divListing');	
+			ptoken.navigate('RecordListingDetail.cfm?idmenu=#url.idmenu#&fmission='+document.getElementById('fmis').value+'&filter='+f,'divListing');	
 			if (reset == 1) filters.filter[1].checked = true;
 		}
 	
@@ -79,7 +79,7 @@ password="#SESSION.dbpw#">
 <tr>
 	<td>
 
-		<cfdiv id="divListing" bind="url:RecordListingDetail.cfm?idmenu=#url.idmenu#&fmission=&filter=active">
+		<cf_securediv id="divListing" bind="url:RecordListingDetail.cfm?idmenu=#url.idmenu#&fmission=&filter=active">
 
 	</td>
 </tr>

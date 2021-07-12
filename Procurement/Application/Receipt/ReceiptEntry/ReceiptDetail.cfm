@@ -494,6 +494,7 @@ password="#SESSION.dbpw#">
 	   <!--- ------------------------------- ---> 
 	   <!--- portal access we show different --->	  
 	   <!--- ------------------------------- --->   
+	   
 	   <td align="right" style="background-color:##e6e6e6B3;#stl#;padding-right:3px">#NumberFormat(ReceiptOrder,",._")#</td>
 	   <td align="right" style="background-color:##ffffafB3;#stl#;padding-right:3px"><cfif ReceiptVolume neq "">#NumberFormat(ReceiptVolume,",.__")#</cfif> </td>
 	   	   
@@ -501,8 +502,8 @@ password="#SESSION.dbpw#">
 		   
 		    <cfif WarehouseItemNo neq "">	    			 
 				  
-				  <td align="right" style="background-color:##DAF9FCB3;#stl#;wmin-width:80px;width:80px;padding-left:4px;padding-right:3px">#NumberFormat(ReceiptWarehouse,",._")#</td>				  
-				  <td align="right" style="background-color:##DAF9FCB3;#stl#;padding-left:3px;padding-right:3px">#left(UoMDescription,10)# <!--- <cfif uom.ItemBarcode neq "">(#UoM.ItemBarCode#)</cfif> ---></td>
+				<td align="right" style="background-color:##DAF9FCB3;#stl#;wmin-width:80px;width:80px;padding-left:4px;padding-right:3px">#NumberFormat(ReceiptWarehouse,",._")#</td>				  
+				<td align="right" style="background-color:##DAF9FCB3;#stl#;padding-left:3px;padding-right:3px">#left(UoMDescription,10)# <!--- <cfif uom.ItemBarcode neq "">(#UoM.ItemBarCode#)</cfif> ---></td>
 				  
 		   <cfelse>		  
 		   
@@ -598,19 +599,16 @@ password="#SESSION.dbpw#">
 	 
 	 	 <cf_getRequisitionTopic RequisitionNo="#Receipts.RequisitionNo#" show="No">
 	 	 
-	 	 <cfif requisition gte "1"> 
-	 
-		 <tr style="height:0px">
-		    <td style="height:0px"></td>
-			<td style="height:0px" colspan="12">
-		      <cf_getRequisitionTopic RequisitionNo="#Receipts.RequisitionNo#" TopicsPerRow="5">
-		    </td>
-	     </tr>
-	 
+	 	 <cfif requisition gte "1"> 	 
+			 <tr style="height:0px">
+			    <td style="height:0px"></td>
+				<td style="height:0px" colspan="12">
+			      <cf_getRequisitionTopic RequisitionNo="#Receipts.RequisitionNo#" TopicsPerRow="5">
+			    </td>
+		     </tr>	 
 		 </cfif>
 	 
-	 </cfif>
-	 	
+	 </cfif>	 	
 		 
 	 <cfif WarehouseItemNo neq "" and ReceiptId neq "00000000-0000-0000-0000-000000000000">
 	 
@@ -652,18 +650,19 @@ password="#SESSION.dbpw#">
 					 
 				 	<cfloop query="Asset">
 					
-				 	<tr bgcolor="ffffcf" class="labelit navigation_row linedotted">
-					     <td style="padding-left:7px" class="labelit linedotted">#currentrow#.</td>
-						 <td align="center"><cf_img icon="open" navigation="Yes" onclick="AssetDialog('#AssetId#')"></td>
-						 <td>#Make#</td>
-						 <td>#MakeNo#</td>
-						 <td>#Model#</td>
-						 <td>#OfficerFirstName# #OfficerLastName#</td>
-						 <td>#DateFormat(receiptDate,CLIENT.DateFormatShow)#</td>
-						 <td>#DateFormat(InspectionDate,CLIENT.DateFormatShow)#</td>
-						 <td style="padding-left:4px" align="right">#numberformat(DepreciationBase,"__,__.__")#</td>
-						 <td></td>
-					 </tr>					
+					 	<tr bgcolor="ffffcf" class="labelit navigation_row linedotted">
+						     <td style="padding-left:7px" class="labelit linedotted">#currentrow#.</td>
+							 <td align="center"><cf_img icon="open" navigation="Yes" onclick="AssetDialog('#AssetId#')"></td>
+							 <td>#Make#</td>
+							 <td>#MakeNo#</td>
+							 <td>#Model#</td>
+							 <td>#OfficerFirstName# #OfficerLastName#</td>
+							 <td>#DateFormat(receiptDate,CLIENT.DateFormatShow)#</td>
+							 <td>#DateFormat(InspectionDate,CLIENT.DateFormatShow)#</td>
+							 <td style="padding-left:4px" align="right">#numberformat(DepreciationBase,",.__")#</td>
+							 <td></td>
+						 </tr>		
+					 			
 					 </cfloop>
 				 </table>		 
 			 
@@ -714,21 +713,28 @@ password="#SESSION.dbpw#">
 						   <td style="width:30%">#OrgUnitName#</td>
 						   <td style="width:100px">#Location#</td>
 						   <td style="width:15%">#UOMDescription#</td>
-						    <td style="width:100px" align="right">
-						   <cfif ReceiptCostPrice gte 0.1>
-						   #numberformat(ReceiptCostPrice,",.____")#
-						   <cfelse>
-						   #numberformat(ReceiptCostPrice,",._____")#
-						   </cfif>						   
+						   <td style="width:100px" align="right">
+							   <cfif ReceiptCostPrice gte 0.1>
+							   #numberformat(ReceiptCostPrice,",.____")#
+							   <cfelse>
+							   #numberformat(ReceiptCostPrice,",._____")#
+							   </cfif>						   
 						   </td>
 						   <td style="width:100px" align="right">
-						   <cfif ReceiptPrice gte 0.1>
-						   #numberformat(ReceiptPrice,",.____")#
-						   <cfelse>
-						   #numberformat(ReceiptPrice,",._____")#
-						   </cfif>						   
+							   <cfif ReceiptPrice gte 0.1>
+							   #numberformat(ReceiptPrice,",.____")#
+							   <cfelse>
+							   #numberformat(ReceiptPrice,",._____")#
+							   </cfif>						   
 						   </td>
-						   <td style="width:100px" align="right">#TransactionQuantity# <cfif transactionQuantityBase neq TransactionQuantity><font size="1">(#TransactionQuantityBase#)</cfif> </td>
+						   <td style="width:100px" align="right">
+						 
+						   
+						   	   <cf_precision number="#ItemPrecision#">							   
+							   #numberformat("#TransactionQuantity#","#pformat#")#							   
+							   <cfif transactionQuantityBase neq TransactionQuantity><font size="1">(#TransactionQuantityBase#)</cfif>
+						   
+					       </td>
 						   <td style="width:100px" align="right">
 						   <cfif TransactionCostPrice gte 0.1>
 						   #numberformat(TransactionCostPrice,",.____")#

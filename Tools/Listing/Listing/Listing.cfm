@@ -34,7 +34,7 @@
 <cfparam name="attributes.banner"             default="">      <!--- show text in the top of the listing --->
 <cfparam name="attributes.filtershow"         default="No">    <!--- allow to filter the dataset --->
 <cfparam name="attributes.headershow"         default="Yes">   <!---  show the listing header and options to sort etc. should be yes --->
-<cfparam name="attributes.navigation"         default="auto">  <!--- auto | paging if we have 2/3 rows or we have annotation it is reset -> paging --->
+  <!--- auto | paging if we have 2/3 rows or we have annotation it is reset -> paging --->
 <cfparam name="attributes.excelshow"          default="No">
 <cfparam name="attributes.printshow"          default="Yes">
 <cfparam name="attributes.printshowrows"      default="500">
@@ -114,7 +114,7 @@
 
 <!--- drillmode and edit mode --->
 <cfparam name="attributes.drillmode"          default="">
-<cfparam name="attributes.drillargument"      default="940;940;false;false;true">  <!--- height, width, modal, centered, excel drill --->
+<cfparam name="attributes.drillargument"      default="1040;1040;false;false;true;paging">  <!--- height, width, modal, centered, excel drill --->
 <cfparam name="attributes.drilltemplate"      default="">
 <cfparam name="attributes.drillstring"        default="">
 <cfparam name="attributes.drillkeyalias"      default="">
@@ -168,6 +168,10 @@
    <cfset setting[row] = itm>	
 </cfloop>
 
+<cfparam name="setting[6]"                 default="paging">
+<cfparam name="attributes.navigation"      default="#setting[6]#">
+
+
 <!--- those variables come from the interface when selecting sorting and tree on the fly and
 we keep them in form field for easy pickup and are in listingshow.cfm --->
 
@@ -192,6 +196,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cfparam name="URL.listorderalias"         default="#form.listorderalias#">
 <cfparam name="URL.listorderdir"           default="#form.listorderdir#">
 
+<!--- provision to enforce pageing --->
 <cfif attributes.annotation neq "">
 	<cfset attributes.navigation = "paging">
 </cfif>
@@ -496,7 +501,6 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 	<cf_ListingUserGet systemfunctionid="#url.systemfunctionid#" listlayout="#attributes.listlayout#" modefield="Group">	
 							
 </cfif>
-
 
 
 <cfparam name="URL.listorderformat"        default="">
@@ -1141,8 +1145,12 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 			</cfif>
 		</cfif>	
 		
-	</cfif>	
-	
+</cfif>	
+
+<!--- ---------------------- --->
+<!--- obtaining data listing --->	
+<!--- ---------------------- --->
+
 <cfinclude template="ListingData.cfm">
 
 <!--- ---------------------- --->
@@ -1154,8 +1162,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cfif url.ajaxid eq "content">
   
 	<cfif attributes.showlist eq "Yes">				
-		<!--- shows the listing as HTML and header --->		
-		
+		<!--- shows the listing as HTML and header --->			
 		<cfinclude template="ListingShow.cfm">																			
 	</cfif>		
 

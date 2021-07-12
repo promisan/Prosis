@@ -22,16 +22,16 @@ password="#SESSION.dbpw#">
 
 <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
 
-<tr class="line">
+<tr class="line labelmedium2">
     
-    <TD style="padding-left:14px" align="left" class="labelmedium">Code</TD>
-	<TD align="left" class="labelmedium">Promotion Name</TD>
-	<TD align="left" class="labelmedium">Effective</TD>
-	<TD align="left" class="labelmedium">Expiration</TD>
-	<TD align="left" class="labelmedium">Priority</TD>
-	<TD align="center" class="labelmedium">Enabled</TD>
-	<TD align="right" class="labelmedium">Created</TD>
-	<TD align="left" class="labelmedium"></TD>
+    <TD style="padding-left:14px" align="left">Code</TD>
+	<TD align="left">Promotion Name</TD>
+	<TD align="left">Effective</TD>
+	<TD align="left">Expiration</TD>
+	<TD align="left">Priority</TD>
+	<TD align="center">Enabled</TD>
+	<TD align="right">Created</TD>
+	<TD align="left"></TD>
 </TR>
 
 <cfset vCols = 8>
@@ -45,19 +45,17 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="SearchResult" group="Mission">
 
-	<tr class="line"><td colspan="#vCols#" style="padding-bottom:3px;face:Calibri;font-size:17px;">#Mission#</td></tr>
+	<tr class="line"><td colspan="#vCols#" style="height:26px;padding-bottom:3px;face:Calibri;font-size:21px;">#Mission#</td></tr>
 			
 		<cfoutput>
 			    
-		    <TR class="labelmedium line navigation_row" style="<cfif operational eq 0>font-style:italic; color:808080;</cfif>"> 
+		    <TR class="labelmedium2 line navigation_row" style="<cfif operational eq 0>font-style:italic; color:808080;</cfif>"> 
 				
 				<TD style="padding-left:14px" align="left">#PromotionNo#</TD>
 				<TD>#Description#</TD>
 				<TD>#Dateformat(DateEffective, "#CLIENT.DateFormatShow#")# - #Timeformat(DateEffective, "HH:mm")#</TD>
 				<cfif DateExpiration neq "">
-					<TD>
-						#Dateformat(DateExpiration, "#CLIENT.DateFormatShow#")# - #Timeformat(DateExpiration, "HH:mm")#
-					</TD>
+					<TD>#dateformat(DateExpiration, "#CLIENT.DateFormatShow#")# - #Timeformat(DateExpiration, "HH:mm")#</TD>
 				<cfelse>
 					<TD style="color:808080;">[Not defined]</TD>
 				</cfif>	
@@ -74,7 +72,7 @@ password="#SESSION.dbpw#">
 				<td align="center" style="padding-top:3px">
 					<table cellspacing="0" cellpadding="0">
 						<tr>
-						    <td style="padding-right:5px"><cf_img icon="edit" navigation="Yes" onclick="recordedit('#PromotionId#');"></td>
+						    <td style="padding-right:5px"><cf_img icon="open" navigation="Yes" onclick="recordedit('#PromotionId#');"></td>
 							<td><cf_img icon="delete" onclick="recordpurge('#PromotionId#','#url.fmission#');"></td>								
 						</tr>
 					</table>

@@ -88,7 +88,7 @@ FROM (
 	            Customer C ON W.CustomerId = C.CustomerId INNER JOIN
 	            ServiceItem S ON W.ServiceItem = S.Code
 	WHERE       W.Mission = '#URL.Mission#'
-	AND         W.ActionStatus IN ('0','1','3')
+	AND         W.ActionStatus IN ('0','1')  <!--- exclude closed workorders --->
 	
 	<!--- Condition added by Armin on 3/31/2014 --->
 	<cfif url.transactionlot neq "">

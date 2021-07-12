@@ -83,17 +83,17 @@
 					</td>
 					
 					<td>
-					<input type="button" value="Test Query" style="width:130;border:1px solid gray" class="button10g" 
+					<input type="button" value="Test Query" style="width:170;border:1px solid gray" class="button10g" 
 					 onclick="ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/QueryValidate.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','testresult','','','POST','inquiryform')"/>
 					</td>						
 					
 					<td>	
-					<input type="button" name="testing" id="testing" class="button10g" style="width:120;border:1px solid gray" Value="Preview"
+					<input type="button" name="testing" id="testing" class="button10g" style="width:170;border:1px solid gray" Value="Preview"
 					  onclick="preview('#URL.SystemFunctionId#')">			
 				    </td>			   
 				    
 					<td>	
-						<input type="button" name="testing" id="testing" class="button10g" style="width:120;border:1px solid gray" Value="Copy Listing"
+						<input type="button" name="testing" id="testing" class="button10g" style="width:170;border:1px solid gray" Value="Copy Listing"
 						  onclick="copy('#URL.SystemFunctionId#')">
 				    </td>
 					

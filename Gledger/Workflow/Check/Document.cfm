@@ -25,6 +25,22 @@ password="#SESSION.dbpw#">
 	
 	<cfset dte = now()>
 	<cfset pay = get.ReferenceName>
+	
+	<cfif get.ReferencePersonNo neq "" and pay eq "">
+	
+		<cfquery name="Person" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT  *
+			FROM    Person
+			WHERE   PersonNo = '#get.ReferencePersonNo#'
+		</cfquery>
+		
+		<cfset pay = Person.FullName>			
+	
+	</cfif>
+	
 	<cfset amt = get.AmountOutstanding>
 	<cfset cur = get.Currency>
 	<cfset cno = "">
@@ -103,13 +119,13 @@ password="#SESSION.dbpw#">
 
 <cfform method="POST" id="checkform">
 
-<table cellspacing="6" cellpadding="6" align="center" class="formpadding">
+<table align="center" class="formpadding formspacing">
 
 	   <tr><td height="10"></td></tr>
 	   	   
-	   <tr><td width="650" bgcolor="FFFFCF" style="border: 4px double gray;">
+	   <tr><td width="750" bgcolor="FFFFAF" style="border: 4px double gray;">
 	  
-	   <table width="97%" align="center" cellpadding="0" class="formpadding">
+	   <table width="97%" align="center" class="formpadding">
 	   
 	    <tr><td style="height:15px"></td></tr>
 	   
@@ -119,7 +135,7 @@ password="#SESSION.dbpw#">
 			   <tr class="labelmedium">
 			      <td width="70%">
 				  
-				    <select name="ActionBankId" class="regularxl enterastab">
+				    <select name="ActionBankId" id="ActionBankId" class="regularxl enterastab">
 						  
 						   <cfif Jrn.BankId eq "">
 							   <option value=""><cf_tl id="Undefined"></option>  
@@ -132,7 +148,7 @@ password="#SESSION.dbpw#">
 					   	  </select>
 				  
 				  </td>
-				  <td width="30%">
+				  <td width="30%" style="padding-left:10px">
 				  <table width="100%">
 				  <tr class="labelmedium">
 				    <td style="min-width:80px"><cf_tl id="Date">:</td>
@@ -203,34 +219,31 @@ password="#SESSION.dbpw#">
 		<tr><td height="20"></td></tr>
 		
 		<tr><td>
-			<table width="100%">
-			   
+			<table width="100%">			   
 			   <tr>
 			      <td width="50%">
-				  <table width="100%">
-				     <tr class="labelmedium">
-					  <td width="90"><cf_tl id="Memo"></td>
-					  <td><input type="text" value="#mem#" class="regularxl" name="CheckMemo" style="width:99%" maxlength="50"></td>
-			         </tr>
-					 <tr colspan="2">
-						<td>
-							<table>
-								<tr class="labelmedium">
-									<td><input type="checkbox" class="regularxl" name="CheckNoNegotiable" id="CheckNoNegotiable"></td>
-									<td style="padding-left:10px;"><label for="CheckNoNegotiable"><cf_tl id="No negotiable"></label></td>
-								</tr>
-							</table>
-						</td>
-			   		 </tr>
-				  </table>
-				 
+					  <table width="100%">
+					     <tr class="labelmedium">
+						  <td width="90"><cf_tl id="Memo"></td>
+						  <td><input type="text" value="#mem#" class="regularxl" name="CheckMemo" style="width:99%" maxlength="50"></td>
+				         </tr>
+						 <tr colspan="2">
+							<td>
+								<table>
+									<tr class="labelmedium">
+										<td><input type="checkbox" class="regularxl" name="CheckNoNegotiable" id="CheckNoNegotiable"></td>
+										<td style="min-width:100px;padding-left:10px;"><label for="CheckNoNegotiable"><cf_tl id="No negotiable"></label></td>
+									</tr>
+								</table>
+							</td>
+				   		 </tr>
+					  </table>				 
 				  </td>
 				  <td width="50%" align="center">[<cf_tl id="Signature Image">]:</td>
-			   </tr>
-			      
+			   </tr>			      
 			</table>
-		</td></tr>
-		
+		    </td>
+		</tr>		
 		<tr><td height="20"></td></tr>
 		
 	</table>
@@ -238,17 +251,19 @@ password="#SESSION.dbpw#">
    
    <tr><td align="right">
    
-   <table>
-   <tr class="labelmedium">
-		<cfif vShowPrint>
-	   		<td><a href="javascript:saveCheck(); #doPrintScript#"><cf_tl id="Print check"></a></td>
-	   		<td style="padding-left:4px;padding-right:4px">|</td>
-		</cfif>
-	   	<td><a href="javascript:saveCheck();"><cf_tl id="Save check"></a></td>
-	   	<td id="checksave"></td>
+	   <table>
+	   <tr class="labelmedium2">
+			<cfif vShowPrint>
+		   		<td><a href="javascript:saveCheck(); #doPrintScript#"><cf_tl id="Print check"></a></td>
+		   		<td style="padding-left:4px;padding-right:4px">|</td>
+			</cfif>
+		   	<td><a href="javascript:saveCheck();"><cf_tl id="Save check"></a></td>
+		   	<td id="checksave"></td>
+	   </tr>
+	   </table>	
+	   
+	   </td>
    </tr>
-   </table>	
-   </td></tr>
 
 </table>
 

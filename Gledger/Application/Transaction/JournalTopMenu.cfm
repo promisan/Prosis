@@ -12,8 +12,7 @@
 									
 				<span style="display:none;" id="printTitle"><cf_tl id="Journal"> #Journal.Journal# #Journal.Description#</span>
 				
-				</td>
-								
+				</td>							
 			  					   
 				<td height="40"> 	
 				

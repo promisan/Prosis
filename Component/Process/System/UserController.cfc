@@ -397,7 +397,8 @@
 				 </cfif>
 				 AND    ActionTemplate     = '#tmp#'
 				 AND    ActionQueryString  = '#str#'  
-				 AND    Operational        = '1'   						 	
+				 AND    Operational        = '1'   		
+				 		 	
 			</cfquery>	
 																							
 			<cfif checkAccess.RecordCount eq "0">

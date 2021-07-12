@@ -19,25 +19,62 @@
 	
 <cfoutput>
 
+<cfquery name="Topic" 
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT    Code
+	FROM      Ref_Topic
+	WHERE     Operational = 1 
+	AND       Code <> 'UOM'
+</cfquery>	
+
 <cfsavecontent variable="myquery">
 
-	SELECT *, TransactionDate
+	SELECT * --, TransactionDate
 	FROM (
 	
 	SELECT     	C.CustomerName, 
 	            W.Reference, 
 				T.TransactionBatchNo, 
 				B.TransactionDate, 
+				B.ActionStatus,
 				T.ItemNo, 
 				T.ItemDescription, 
 				I.Classification, 
+				
+				<!--- item classification details included --->
+				
+				<cfloop query="Topic">
+				
+				 (SELECT    (SELECT  ListValue
+                             FROM    Purchase.dbo.Ref_TopicList AS p
+                             WHERE   Code     = ic.Topic 
+							 AND     ListCode = ic.ListCode) 
+                  FROM       ItemClassification AS ic
+                  WHERE      Topic = '#code#' 
+				  AND        ItemNo = T.ItemNo) AS Classification#Code#,
+								
+				</cfloop>			
+										
+				
 	            T.TransactionQuantity * - 1 AS TransactionQuantity, 
-				T.TransactionCostPrice, 
+				T.TransactionCostPrice, 				
+				T.TransactionLot,
+				T.TransactionReference,
+				TS.Journal,
+				TS.JournalSerialNo,
+				(SELECT JournalTransactionNo
+				 FROM   Accounting.dbo.TransactionHeader H
+				 WHERE  Journal = TS.Journal
+				 AND    JournalSerialNo = TS.JournalSerialNo) as JournalTransactionNummer,
 				TS.SalesCurrency, 
+				
 				TS.SalesPrice, 
 				TS.SalesAmount, 
 				TS.SalesTax, 
 				TS.SalesTotal
+				
 					
 	FROM        ItemTransaction T 
 				INNER JOIN ItemTransactionShipping TS ON T.TransactionId = TS.TransactionId 
@@ -51,11 +88,15 @@
 	AND         T.TransactionType IN ('2','3') 
 	
 	<!--- pending transactions only --->
-	AND         B.ActionStatus    = '0'   
+	-- AND         B.ActionStatus    = '0'   
 	<cfif url.id1 eq "today">
 	AND         T.TransactionDate > getDate()-1
 	<cfelseif url.id1 eq "week">
 	AND         T.TransactionDate > getDate()-30
+	<cfelseif url.id1 eq "year">
+	AND         YEAR(T.TransactionDate) = #year(now())#	
+	<cfelseif url.id1 eq "lastyear">
+	AND         YEAR(T.TransactionDate) = #year(now())-1#	
 	</cfif>
 	
 	) D
@@ -110,7 +151,19 @@
 
 <cfset 	filter = "Yes">	
 
-</cfif>							
+</cfif>		
+
+				
+<cfset itm = itm+1>						
+<cfset fields[itm] = {label       = "S", 	
+                    LabelFilter   = "Status",				
+					field         = "ActionStatus",					
+					filtermode    = "3",    
+					search        = "text",
+					align         = "center",
+					formatted     = "Rating",
+					ratinglist    = "0=Yellow,1=Green,9=Red"}>		
+											
 						
 <cfset itm = itm+1>				
 <cf_tl id="Code" var="vCode">

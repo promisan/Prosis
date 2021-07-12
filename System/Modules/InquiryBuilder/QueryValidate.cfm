@@ -12,28 +12,47 @@
 <cfset queryscript = urldecode(form.QueryScript)>
 
 <cfif len(QueryScript) gte 10>
+			
+	<cfif findNoCase("UPDATE",Form.QueryScript) or findNoCase("DELETE",Form.QueryScript) and getAdministrator("*") eq "1">
+		
+		<cfquery name="Header" 
+			datasource="#Form.QueryDatasource#" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+		    #preservesinglequotes(queryscript)#
+		</cfquery>
+				
+		 <script>
+		 alert("Applied")
+		 </script>	
+		 <cfabort>
 	
-	<cfif findNoCase("UPDATE",Form.QueryScript) or findNoCase("DELETE",Form.QueryScript)>
+	<cfelseif findNoCase("UPDATE",Form.QueryScript) or findNoCase("DELETE",Form.QueryScript)>
+	
 		 <script>
 		 alert("Problem, you may not process an UPDATE/DELETE query")
-		 </script>
+		 </script>	
 		 <cfabort>
-	</cfif> 
-		
-	<cfset st = len(queryscript)-100>
-	<cfset ct = len(queryscript)-100>
+		 
+	</cfif>		
+			
+	<cfset st = len(queryscript)-50>
+	<cfif st gt 0>
+	
+	     <cfset ct = 50>
 
-	<cfset subscript = mid(queryscript,st,ct)>
+		<cfset subscript = mid(queryscript,st,ct)>
+		
+		<cfif FindNoCase("ORDER BY", subscript)>
+		
+			<script>
+			alert("ORDER BY may not be used in the query")
+			</script>
+			<cfabort>
+		
+		</cfif>		
 	
-	<cfif FindNoCase("ORDER BY", subscript)>
-	
-		<script>
-		alert("ORDER BY may not be used in the query")
-		</script>
-		<cfabort>
-	
-	</cfif>	
-	
+	</cfif>		
 	
 	<cftry>
 	
@@ -123,8 +142,7 @@
 					document.getElementById('testing').className = "hide"
 				</script>
 				
-			<cfabort>
-			
+			<cfabort>			
 			
 		</cfcatch>
 	

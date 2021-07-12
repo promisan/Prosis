@@ -272,7 +272,7 @@ password="#SESSION.dbpw#">
 												
 				<cfloop index="itm" list="height,width,length">
 				
-					<td style="padding-left:7px"><cf_tl id="#itm#">:</td>
+					<td style="padding-left:7px"><cf_tl id="#itm#"></td>
 					<td style="padding-left:4px">
 					<cfoutput>
 					<input type="text" onchange="ptoken.navigate('setPurchaseLineVolume.cfm','setvolume','','','POST','entry')" 
@@ -585,7 +585,7 @@ password="#SESSION.dbpw#">
 				   cnt++
 				 }		   		   						  		 		 	 			 
 				 url = "POViewClassSave.cfm?mode=edit&id=<cfoutput>#URL.ID#</cfoutput>&amount="+val;					 
-				 ColdFusion.navigate(url,'total')							  		  
+				 ptoken.navigate(url,'total')							  		  
 				
 				}    
 		  		
@@ -629,14 +629,14 @@ password="#SESSION.dbpw#">
 			<td class="labelmedium">Tax:&nbsp;</td>
 			<td>
 			<cfoutput>
-			        <input type="text" class="regularxl" name="taxprice" id="taxprice" value="#numberFormat(tax,"__.__")#" size="14" readonly style="text-align: right;">
+			  <input type="text" class="regularxl" name="taxprice" id="taxprice" value="#numberFormat(tax,"__.__")#" size="14" readonly style="text-align: right;">
 			</cfoutput>
 			</td>
 			<TD style="padding-left:20px"></td>
 			<TD class="labelmedium"><cfoutput>Tax #APPLICATION.BaseCurrency#:</cfoutput></TD>
 		    <TD style="padding-left:20px">
 			<cfoutput>
-			        <input type="text" class="regularxl" name="taxpriceb" id="taxpriceb" value="#numberFormat(taxb,"__.__")#" size="14" readonly style="text-align: right;">
+			  <input type="text" class="regularxl" name="taxpriceb" id="taxpriceb" value="#numberFormat(taxb,"__.__")#" size="14" readonly style="text-align: right;">
 			</cfoutput>
 			</TD>
 			</tr>
@@ -645,14 +645,14 @@ password="#SESSION.dbpw#">
 			<TD class="labelmedium"><cf_tl id="Payable">:&nbsp;</td>
 			<td>
 			<cfoutput>
-			        <input type="text" class="regularxl" name="pay" id="pay" value="#numberFormat(pay,"__.__")#" size="14" readonly style="text-align: right;">
+			  <input type="text" class="regularxl" name="pay" id="pay" value="#numberFormat(pay,"__.__")#" size="14" readonly style="text-align: right;">
 			</cfoutput>
 			</td>
 			<TD style="padding-left:20px"></td>
 			<TD class="labelmedium"><cf_tl id="Payable"><cfoutput>#APPLICATION.BaseCurrency#</cfoutput>:</TD>
 		    <TD style="padding-left:20px">
 			<cfoutput>
-			        <input type="text" class="regularxl" name="payB" id="payB" value="#numberFormat(payb,"__.__")#" size="14" readonly style="text-align: right;">
+			  <input type="text" class="regularxl" name="payB" id="payB" value="#numberFormat(payb,"__.__")#" size="14" readonly style="text-align: right;">
 			</cfoutput>
 			</TD>
 			</tr>
@@ -714,9 +714,7 @@ password="#SESSION.dbpw#">
 				
 			   </cfif>
 		   </cfif>
-		   
-		   
-	   
+		  
 	   </cfoutput>
 	   
 	   </td>	

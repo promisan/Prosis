@@ -87,7 +87,7 @@
 			<cfargument name="catProd"		      type="string"  required="false"  default="PRD">
 			<cfargument name="AddrType"		      type="string"  required="false"  default="Home">
 			
-			<cfset FEL.TaxPercentage = "0.12">
+			<cfset FEL.TaxPercentage = 0.12000>
 		
 			<cfquery name="GetTransaction"
 				datasource="#datasource#"
@@ -99,27 +99,27 @@
 					AND    JournalSerialNo = '#JournalSerialNo#'
 			</cfquery>
 			
-			<cfif GetTransaction.OrgUnitTax eq "">
+			<cfif GetTransaction.OrgUnitTax eq "0">
 			
 			    <!--- we look into the journal --->
 			
-				<cfquery name="Journal"
+				<cfquery name="getJournal"
 					datasource="#datasource#"
 					username="#SESSION.login#"
 					password="#SESSION.dbpw#">
 						SELECT *
-						FROM   Journal
-						WHERE  Journal         = '#getTransaction.journal#'					
+						FROM   Accounting.dbo.Journal
+						WHERE  Journal = '#getTransaction.journal#'					
 				</cfquery>
 				
-				<cfset FEL.OrgUnitTax = Journal.OrgUnitTax>		
+				<cfset FEL.OrgUnitTax = getJournal.OrgUnitTax>		
 				
 			<cfelse>
-			
+						
 				<cfset FEL.OrgUnitTax = getTransaction.OrgUnitTax>	
 			
 			</cfif>
-			
+					
 			<cfset FEL.JournalTransactionNo = "#getTransaction.JournalTransactionNo#">
 			
 			<!--- Get entity Information --->
@@ -141,7 +141,7 @@
 						INNER JOIN Organization.dbo.Organization O ON T.OrgUnit = O.OrgUnit
 				WHERE  T.OrgUnit = '#FEL.OrgUnitTax#'
 				AND    T.SeriesType  = 'Invoice'
-				AND    T.Operational = 1
+				AND    T.Operational = 1			
 		    </cfquery>
 			
 			<cfquery name="GetMissionConfig"
@@ -249,7 +249,7 @@
 			
 				<!--- fall back --->
 				<cfset FEL.VendoreMail      = "#GetVendorAddress.eMailAddress#"> 
-				<cfset FEL.VendorAddress    = "">
+				<cfset FEL.VendorAddress    = "CUIDAD">
 				<cfset FEL.VendorPostalCode = "01001">	
 				<cfset FEL.VendorCity       = "GUATEMALA">
 				<cfset FEL.VendorState      = "GUATEMALA">
@@ -330,8 +330,9 @@
 					<cfset FEL.CustomerName       = "#Replace(Customer.CustomerName,"&","")#">  <!--- #Replace(GetInvoice.CustomerName,"&","")# --->
 					
 					<cfset vNIT = Customer.Reference>
-					<cfif vNIT eq "CF" OR vNIT eq "C-F" or vNIT eq "">
-						<cfset vNIT = "C/F">
+					<cfset vNit = Replace(vNIT," ","","ALL")>
+					<cfif vNIT eq "C/F" OR vNIT eq "C-F" or vNIT eq "">
+						<cfset vNIT = "CF">
 					</cfif>		
 					<cfset vNit = Replace(vNIT,"-","","ALL")>
 					
@@ -379,8 +380,9 @@
 					<cfset FEL.CustomerName       = "#Replace(Customer.CustomerName,"&","")#">
 					
 					<cfset vNIT = Customer.Reference>
-					<cfif vNIT eq "CF" OR vNIT eq "C-F" or vNIT eq "">
-						<cfset vNIT = "C/F">
+					<cfset vNit = Replace(vNIT," ","","ALL")>
+					<cfif vNIT eq "C/F" OR vNIT eq "C-F" or vNIT eq "">
+						<cfset vNIT = "CF">
 					</cfif>			
 					<cfset vNit = Replace(vNIT,"-","","ALL")>
 					
@@ -443,19 +445,20 @@
 						username="#SESSION.login#"
 						password="#SESSION.dbpw#">
 							SELECT   *
-							FROM     WorkOrder.dbo.Organization							
+							FROM     Organization.dbo.Organization							
 							WHERE    OrgUnit  = '#getTransaction.ReferenceOrgUnit#'								
 					</cfquery>
 					
 					<cfset FEL.CustomerName       = "#OrgUnit.OrgUnitName#">
 					
 					<cfset vNIT = OrgUnit.SourceCode>
-					<cfif vNIT eq "CF" OR vNIT eq "C-F" or vNIT eq "">
-						<cfset vNIT = "C/F">
+					<cfset vNit = Replace(vNIT," ","","ALL")>
+					<cfif vNIT eq "C/F" OR vNIT eq "C-F" or vNIT eq "">
+						<cfset vNIT = "CF">
 					</cfif>
 					<cfset vNit = Replace(vNIT,"-","","ALL")>
 					
-					<cfset FEL.CustomerNIT        = "#OrgUnit.SourceCode#">
+					<cfset FEL.CustomerNIT        = "#vNit#">
 					
 					<cfquery name="Address"
 						datasource="#datasource#"
@@ -479,7 +482,8 @@
 							AND    T.SeriesType  = 'Invoice'
 							AND    T.Operational = 1
 					</cfquery>			
-									
+					
+					<cfset FEL.CustomereMail      = "#Address.eMailAddress#">				
 					<cfset FEL.CustomerAddress    = "#Address.Address#">
 					<cfset FEL.CustomerPostalCode = "#Address.AddressPostalCode#">
 					<cfset FEL.CustomerCity       = "#Address.AddressCity#">					
@@ -498,14 +502,14 @@
 			</cfswitch>	
 			
 			<cfif FEL.CustomerAddress eq "" or FEL.CustomerPostalCode eq "">
-									
+						
+					<cfset FEL.CustomerAddress    = "Cuidad">				
 					<cfset FEL.CustomerPostalCode = "01001">
-					<cfset FEL.CustomerCity       = "Guatemala">
+					<cfset FEL.CustomerCity       = "Cuidad">
 					<cfset FEL.CustomerState      = "Guatemala"> 
 					<cfset FEL.CustomerCountry    = "GT">
 						
-			</cfif>			
-												
+			</cfif>													
 			
 			<!--- ------------------------- --->
 			<!--- --------3 of 4 Lines----- --->		
@@ -517,6 +521,7 @@
 					datasource="#datasource#"
 					username="#SESSION.login#"
 					password="#SESSION.dbpw#">
+					
 					
 					SELECT   TH.Mission, 
 					         TL.OrgUnit, 
@@ -586,13 +591,12 @@
 					AND      TL.GLAccount  IN  (SELECT   GLAccount
 				                                FROM     Accounting.dbo.Ref_Account
                  					            WHERE    TaxAccount = 1) <!--- we exclude lines that reflect tax --->
-					AND      TL.AmountCredit < 0    <!--- only positive amounts to be reflected --->					
+					AND      TL.AmountCredit < 0    <!--- negative amounts to be reflected to be equally divided --->					
 				</cfquery>		
 			
 			<!--- Overall total --->
 			
-			<cfset FEL.Discount   = GetDiscount.Amount>		
-			
+			<cfset FEL.Discount   = GetDiscount.Amount>					
 						
 			<!--- to be used for the lines --->
 			<cfif FEL.Discount neq "">
@@ -605,13 +609,10 @@
 														
 			<cfset FEL.Tax        = FEL.Taxable * FEL.TaxPercentage>						
 			<cfset FEL.Amount     = FEL.Taxable + FEL.Tax>	
-			
 									
-			<!---
-						
+			<!---						
 			v_TipoItem : default B, for now overruled only if ReferenceNo = item and has the itemclass = service
-			like we can add some indicator on the transactionline : transactiontype
-						
+			like we can add some indicator on the transactionline : transactiontype						
 			--->			
 						
 			<!--- ------- --->
@@ -660,6 +661,9 @@
 								
 							<dte:Items>
 							
+								<!--- 28/6/2021 : in principle we add to the line the standard tax for Guatemala 
+								                             as this is posted in another line --->
+							
 								<cfloop query="GetLines">
 								
 										<cfif salequantity lt 0>
@@ -679,16 +683,21 @@
 												
 											<dte:Descripcion>#ItemNo#|#v_ItemDescription#</dte:Descripcion>																											
 																																				
-												<cfset vSalesPrice = AmountSale/Quantity>
+											<cfset vSalesPrice = AmountSale*(1+FEL.TaxPercentage)/Quantity>
+											<cfset vSales      = vSalesPrice * Quantity>
 												
 											<dte:PrecioUnitario><cfif SaleQuantity neq 0>#trim(numberformat(ABS(vSalesPrice),"__._______"))#<cfelse>0</cfif></dte:PrecioUnitario>
-											<dte:Precio>#trim(numberformat(AmountSale,"__._______"))#</dte:Precio>				
+											<dte:Precio>#trim(numberformat(vSales,"__._______"))#</dte:Precio>				
 											
-											<cfset discount = FEL.Ratio * AmountSale>												
+											<cfset discount = FEL.Ratio * AmountSale>	
+																						
 											<dte:Descuento>#trim(numberformat(discount,"__._______"))#</dte:Descuento>
 											
 											<cfset taxable  = amountsale - discount>
-											<cfset tax      = taxable * FEL.TaxPercentage>												
+											<!--- we are not reading the tax line in the sale but we assume it by default
+												to prevent issues  --->
+											<cfset tax      = taxable * FEL.TaxPercentage>
+																							
 											<dte:Impuestos>
 												<dte:Impuesto>
 													<dte:NombreCorto>IVA</dte:NombreCorto>
@@ -742,15 +751,15 @@
 							
 		<cfset StringDTE = toString(XmlDTE)>
 		
-		<cfquery name		="getEDIConfig"
-			datasource	="#datasource#"
-			username  	="#SESSION.login#"
-			password  	="#SESSION.dbpw#">
+		<cfquery name	= "getEDIConfig"
+			datasource	= "#datasource#"
+			username  	= "#SESSION.login#"
+			password  	= "#SESSION.dbpw#">
 			SELECT 		*
 			FROM 		System.dbo.Parameter
 		</cfquery>
 
-		<cfset vEDIDirectory = getEDIConfig.EDIDirectory>
+		<cfset vEDIDirectory  = getEDIConfig.EDIDirectory>
 		<cfset vLogsDirectory = vEDIDirectory & "Logs\#GetMission.Mission#\Infile">
 
 		<cfif not directoryExists(vLogsDirectory)>
@@ -758,7 +767,6 @@
 		</cfif>
 
 		<cffile action="WRITE" file="#vLogsDirectory#\FEL_#vUniqueId#_#RetryNo#.txt" output="#StringDTE#">
-		
 			
 		<cfset Base64DTE = ToBase64(StringDTE) />
 
@@ -774,7 +782,7 @@
 
 		<cfhttp url="https://signer-emisores.feel.com.gt/sign_solicitud_firmas/firma_xml" method="post" result="httpResponse" timeout="60">
 			<cfhttpparam type="header" name="Content-Type" value="application/json" />
-			<cfhttpparam type="body" value="#serializeJSON(stToSign)#">
+			<cfhttpparam type="body"   value="#serializeJSON(stToSign)#">
 		</cfhttp>
 
 		<cffile action="WRITE" file="#vLogsDirectory#\FEL_#vUniqueId#_Response_Signature_#RetryNo#.txt" output="#httpResponse.fileContent#">
@@ -787,7 +795,7 @@
 			</cfcatch>
 		</cftry>
 		
-		<cfset EFACEResponse.log           = 1>
+		<cfset EFACEResponse.log = 1>
 
 		<cfif vError eq 0>
 
@@ -801,13 +809,12 @@
 				<cfset Base64SignedXML = ToBase64(toString(SignedXml)) />
 
 				<cfset stToCertify =
-				{ "nit_emisor":"#vNitEFACE#",
+				{ "nit_emisor":"#FEL.VendorNIT#",
 					"correo_copia":"#GetTaxSeries.UserEmail#",
 					"xml_dte":"#Base64SignedXml#"
 				}>
 
 				<cffile action="WRITE" file="#vLogsDirectory#\FEL_#vUniqueId#_To_Certify_#RetryNo#.txt" output="#serializeJSON(stToCertify)#">
-				
 				
 				<cfhttp url="https://certificador.feel.com.gt/fel/certificacion/v2/dte/" method="post" result="httpResponse" timeout="60">
 					<cfhttpparam type="header"  name="usuario"       value = "#GetTaxSeries.UserName#" />
@@ -829,13 +836,13 @@
 
 				<cfif findNoCase("Connection Failure",httpResponse.fileContent)>
 				
-					<cfset vError = 1>
-					<cfset EFACEResponse.Status = "false">
-					<cfset EFACEResponse.Cae = "">
-					<cfset EFACEResponse.DocumentNo = "">
-					<cfset EFACEResponse.Dte = "">
+					<cfset vError                         = 1>
+					<cfset EFACEResponse.Status           = "false">
+					<cfset EFACEResponse.Cae              = "">
+					<cfset EFACEResponse.DocumentNo       = "">
+					<cfset EFACEResponse.Dte              = "">
 					<cfset EFACEResponse.ErrorDescription = "Connection Failure">
-					<cfset EFACEResponse.ErrorDetail = "Connection Failure">
+					<cfset EFACEResponse.ErrorDetail      = "Connection Failure">
 
 				</cfif>
 				
@@ -844,12 +851,13 @@
 
 					<Cfif jSonCertification.resultado neq "NO">
 					
-						<cfset EFACEResponse.Status       = "OK">
-						<cfset EFACEResponse.Cae          = jSonCertification.uuid>
-						<cfset EFACEResponse.Series       = jSonCertification.serie>
-						<cfset EFACEResponse.DocumentNo   = jSonCertification.numero>
-						<cfset EFACEResponse.Dte          = jSonCertification.fecha>
+						<cfset EFACEResponse.Status          = "OK">
+						<cfset EFACEResponse.Cae             = jSonCertification.uuid>
+						<cfset EFACEResponse.Series          = jSonCertification.serie>
+						<cfset EFACEResponse.DocumentNo      = jSonCertification.numero>
+						<cfset EFACEResponse.Dte             = jSonCertification.fecha>
 						<cfset EFACEResponse.ErrorDescription = "">
+						<cfset EFACEResponse.ErrorDetail      = "">
 						
 					<cfelse>
 
@@ -871,53 +879,57 @@
 							</cfif>
 						</cfloop>
 
-						<cfset EFACEResponse.Status           = "false">
-						<cfset EFACEResponse.Cae              = "">
-						<cfset EFACEResponse.DocumentNo       = "">
-						<cfset EFACEResponse.Dte              = "">
-						<cfset EFACEResponse.ErrorDescription = "#vCategory#">
-						<cfset EFACEResponse.ErrorDetail      = "#vError#">
+						<cfset EFACEResponse.Status            = "false">
+						<cfset EFACEResponse.Cae               = "">
+						<cfset EFACEResponse.DocumentNo        = "">
+						<cfset EFACEResponse.Dte               = "">
+						<cfset EFACEResponse.ErrorDescription  = "#vCategory#">
+						<cfset EFACEResponse.ErrorDetail       = "#vError#">
 
 					</cfif>
 					
 				<cfelse>
 				
-					<cfset EFACEResponse.Status               = "false">
-					<cfset EFACEResponse.Cae                  = "">
-					<cfset EFACEResponse.DocumentNo           = "">
-					<cfset EFACEResponse.Dte                  = "">
-					<cfset EFACEResponse.ErrorDescription     = "Error en conexion 101">
+					<cfset EFACEResponse.Status                = "false">
+					<cfset EFACEResponse.Cae                   = "">
+					<cfset EFACEResponse.DocumentNo            = "">
+					<cfset EFACEResponse.Dte                   = "">
+					<cfset EFACEResponse.ErrorDescription      = "Error en conexion 101">
+					<cfset EFACEResponse.ErrorDetail           = "">
 					
 				</cfif>
 
 			<cfelse>
 			
-				<cfset EFACEResponse.Status                   = "false">
-				<cfset EFACEResponse.Cae                      = "">
-				<cfset EFACEResponse.DocumentNo               = "">
-				<cfset EFACEResponse.Dte                      = "">
-				<cfset EFACEResponse.ErrorDescription         = "Error en conexion 102">
+				<cfset EFACEResponse.Status                    = "false">
+				<cfset EFACEResponse.Cae                       = "">
+				<cfset EFACEResponse.DocumentNo                = "">
+				<cfset EFACEResponse.Dte                       = "">
+				<cfset EFACEResponse.ErrorDescription          = "Error en conexion 102">
+				<cfset EFACEResponse.ErrorDetail               = "">
 				
 			</cfif>
 
 		<cfelse>
 		
-			<cfset EFACEResponse.Status                       = "false">
-			<cfset EFACEResponse.Cae                          = "">
-			<cfset EFACEResponse.DocumentNo                   = "">
-			<cfset EFACEResponse.Dte                          = "">
-			<cfset EFACEResponse.ErrorDescription             = "Error en conexion 103">
+			<cfset EFACEResponse.Status                        = "false">
+			<cfset EFACEResponse.Cae                           = "">
+			<cfset EFACEResponse.DocumentNo                    = "">
+			<cfset EFACEResponse.Dte                           = "">
+			<cfset EFACEResponse.ErrorDescription              = "Error en conexion 103">
+			<cfset EFACEResponse.ErrorDetail                   = "">
 			
 		</cfif>
 		
 		<cfset EFACEResponse.Source1 = "#vUniqueId#">
 		<cfset EFACEResponse.Source2 = "#FEL.customerNIT#">
 		
-		<cfif EFACEResponse.Status neq "OK">	
-			 <cfset EFACEResponse.Status = "9">
+		<cfif EFACEResponse.Status eq "OK">
+			 <cfset EFACEResponse.Status = "1">			
+		<cfelse>
+			 <cfset EFACEResponse.Status = "9">			 
 		</cfif>
-		
-		
+				
 		<cfreturn EFACEResponse>							
 
 	</cffunction>
@@ -1699,7 +1711,7 @@
 					INNER JOIN Organization.dbo.OrganizationTaxSeries T ON T.OrgUnit = '#FEL.OrgUnitTax#' AND T.SeriesNo = A.ActionReference4
 			WHERE   H.Journal         = '#journal#'
 			AND     H.JournalSerialNo = '#journalserialNo#'
-			ORDER BY Created DESC
+			ORDER BY A.Created DESC
 						
 		</cfquery>
 
@@ -1874,7 +1886,6 @@
 					
 				</cfif>
 	
-
 				<cfif EFACEResponse.log eq 1>
 	
 					<!--- Create new action for the original invoice describing the credit note : MOVED TO MANAGER.CFC 
@@ -1933,7 +1944,7 @@
 					</cfquery>
 					
 					--->
-	
+						
 				<cfelse>
 	
 					<cfset EFACEResponse.Status     = "false">

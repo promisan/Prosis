@@ -29,27 +29,25 @@ function applyaccount(acc) {
 
 </script>
 
-<cfajaximport tags="cfwindow">	
-
-<cfform action="RecordSubmit.cfm" method="POST" enablecab="Yes" name="dialog">
+<cfform action="RecordSubmit.cfm" method="POST" name="dialog">
 
 <!--- Entry form --->
 
-<table width="91%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="91%" align="center" class="formpadding formspacing">
 
 	<tr class="hide" ><td id="process"></td></tr>
 	
 	<tr><td height="10"></td></tr>
 	  
     <TR>
-    <TD class="labelmedium" width="20%">Institution:</TD>
+    <TD class="labelmedium" width="20%"><cf_tl id="Institution">:</TD>
     <TD>
   	   <cfinput type="Text" class="regularxl" name="Bank" value="" message="Please enter the bank acronym" required="Yes" size="20" maxlength="20">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD style="padding-top:3px" valign="top" class="labelmedium">Address:</TD>
+    <TD style="padding-top:3px" valign="top" class="labelmedium"><cf_tl id="Address">:</TD>
     <TD>
 		<table width="100%" cellspacing="0">
 			<cfloop index = "i" from = "1" to = 5> 
@@ -73,14 +71,14 @@ function applyaccount(acc) {
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Name:</TD>
+    <TD class="labelmedium"><cf_tl id="Name">:</TD>
     <TD>
   	    <cfinput type="Text" class="regularxl" name="AccountName" value="" message="Please enter the name of your account" required="Yes" size="40" maxlength="40">
     </TD>
 	</TR>
 			
 	<TR>
-    <TD class="labelmedium">Currency:</TD>
+    <TD class="labelmedium"><cf_tl id="Currency">:</TD>
      <TD>
   	    <select name="currency" class="regularxl">
      	   <cfoutput query="currency">
@@ -92,21 +90,21 @@ function applyaccount(acc) {
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Account No:</TD>
+    <TD class="labelmedium"><cf_tl id="Account No">:</TD>
     <TD>
-  	    <cfinput type="Text" class="regularxl" name="AccountNo" value="" message="Please enter the number of your account" required="Yes" size="20" maxlength="20">
+  	    <cfinput type="Text" class="regularxl" name="AccountNo" value="" message="Please enter the number of your account" required="Yes" size="30" maxlength="30">
     </TD>
 	</TR>
 		
 	<TR>
-    <TD class="labelmedium">Account ABA:</TD>
+    <TD class="labelmedium"><cf_tl id="Account ABA">:</TD>
     <TD>
   	    <cfinput type="Text" class="regularxl" name="AccountABA" value="" message="Please enter the ABA No of your account" required="No" size="20" maxlength="20">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD style="padding-top:3px" align="top" class="labelmedium">Address:</TD>
+    <TD style="padding-top:3px" align="top" class="labelmedium"><cf_tl id="Address">:</TD>
     <TD>
   	    <cf_textarea 
 			color   = "ffffff"
@@ -118,7 +116,7 @@ function applyaccount(acc) {
 	</TR>
 			
 	<TR>
-    <TD class="labelmedium">GL account:</TD>
+    <TD class="labelmedium"><cf_tl id="GL account">:</TD>
     <TD>
 	   <cfoutput>	
 	   
@@ -163,8 +161,7 @@ function applyaccount(acc) {
 		<input class="button10g" type="button" name="Cancel" value=" Cancel " onClick="window.close()">
 		<input class="button10g" type="submit" name="Insert" value=" Save "   onclick="return updateTextArea()">
 	</td></tr>
-	
-	
+		
 </TABLE>
 	
 </CFFORM>

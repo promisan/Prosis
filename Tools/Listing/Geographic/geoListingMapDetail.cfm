@@ -12,6 +12,9 @@
 <cfset vThisDetailFieldMap = evaluate("session.geoListingDetailFieldMap_#url.viewId#")>
 
 <cfquery name="getDataDetail" datasource="#vThisDatasource#">		
+
+
+
     SELECT  
             <cfif trim(url.region) neq "">
                 CountryGroup,
@@ -59,75 +62,124 @@
 			
 </cfquery>
 
-<cfquery name="getNation" datasource="AppsSystem">		
+<cfquery name="getNation" datasource="MartStaffing">		
     SELECT	N.*,
             ISNULL(N.Name, '[Undef]') as NationalityName
-	FROM    Ref_Nation N
+	FROM    NOVA.dbo.Ref_Nation N
     WHERE   N.ISOCode2 = '#url.country#'
 </cfquery>
 
-<cfoutput>
-    <cfset vMainSummaryFunction = evaluate("session.geoListingMainTableScriptFunction_#url.viewId#")>
-    <h3 style="padding-bottom:10px;">
-        <cfif trim(url.country) neq "">
-            #ucase(getNation.NationalityName)# 
-        </cfif>
-        <cfif trim(url.region) neq "">
-            #ucase(url.region)# 
-        </cfif>
-        <a style="font-size:50%; padding-left:10px;" href="javascript:#vMainSummaryFunction#('#url.viewId#');">[<cf_tl id="Back to summary">]</a>
-    </h3>
-</cfoutput>
+<cfquery name="getDataSummaryLimits" dbtype="query">
+    SELECT  MIN(Total) as MinTotal, MAX(Total) as MaxTotal, SUM(Total) as Total,
+            MIN(CountFemale) as MinCountFemale, MAX(CountFemale) as MaxCountFemale, SUM(CountFemale) as TotalCountFemale,
+            MIN(CountMale) as MinCountMale, MAX(CountMale) as MaxCountMale, SUM(CountMale) as TotalCountMale
+    FROM    getDataDetail
+</cfquery>
 
-<table class="table tableDetail table-striped table-bordered table-hover detailGeoContent<cfoutput>#url.viewId#</cfoutput>Detail" style="width:100%;">
-    <thead>
-        <tr>
-            <cfloop from="1" to="#ArrayLen(vThisDetailFieldMap)#" index="i">
-                <th><cf_tl id="#vThisDetailFieldMap[i].label#"></th>
-            </cfloop>
-            <th><cf_tl id="Female"></th>
-            <th><cf_tl id="Male"></th>
-            <th><cf_tl id="Total"></th>
-        </tr>
-    </thead>
-    <cfset vTotalF = 0>
-    <cfset vTotalM = 0>
-    <cfset vTotal = 0>
-    <cfoutput query="getDataDetail">
-        <tr>
-            <cfloop from="1" to="#ArrayLen(vThisDetailFieldMap)#" index="i">
-                <td>#evaluate("#vThisDetailFieldMap[i].queryField#")#</td>
-            </cfloop>
-            <td style="text-align:right;">#numberFormat(CountFemale, ",")#</td>
-            <td style="text-align:right;">#numberFormat(CountMale, ",")#</td>
-            <td style="text-align:right;">#numberFormat(Total, ",")#</td>
-        </tr>
-        <cfset vTotalF = vTotalF + CountFemale>
-        <cfset vTotalM = vTotalM + CountMale>
-        <cfset vTotal = vTotal + Total>
+<cfset vMainSummaryFunction = evaluate("session.geoListingMainTableScriptFunction_#url.viewId#")>
+<cf_tl id="Export to Excel" var="lblExportToExcel">
+
+<cfif (trim(url.region) neq "" OR trim(url.country) neq "") AND trim(url.representation) eq "">
+
+    <cfoutput>
+        <h3 style="padding-bottom:10px;">
+            <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="35" height="35" onclick="Prosis.exportToExcel('detailGeoContent#url.viewId#Detail');" title="#lblExportToExcel#">
+            
+            <cfif trim(url.country) neq "">
+                #ucase(getNation.NationalityName)# 
+            </cfif>
+            <cfif trim(url.region) neq "">
+                #ucase(url.region)# 
+            </cfif>
+
+            <a style="font-size:80%; padding-left:10px;" href="javascript:#vMainSummaryFunction#('#url.viewId#');">[<cf_tl id="Back">]</a>
+        </h3>
     </cfoutput>
-    <tfoot>
-        <tr>
-            <cfoutput>
-                <th colspan="#ArrayLen(vThisDetailFieldMap)#" style="text-align:right;"><cf_tl id="Total"></th>
-                <th style="text-align:right;">
-                    #numberFormat(vTotalF, ",")#
-                </th>
-                <th style="text-align:right;">
-                    #numberFormat(vTotalM, ",")#
-                </th>
-                <th style="text-align:right;">
-                    #numberFormat(vTotal, ",")#
-                </th>
-            </cfoutput>
-        </tr>
-    </tfoot>
-</table>
 
-<cfset ajaxOnLoad("function(){ $('.detailGeoContent#url.viewId#Detail').DataTable({ 'pageLength':50, 'lengthMenu':[10,25,50,100,200], #preserveSingleQuotes(vThisDetailOrderScript)# }); }")>
+    <table class="table tableDetail table-striped table-bordered table-hover detailGeoContent<cfoutput>#url.viewId#</cfoutput>Detail" id="detailGeoContent<cfoutput>#url.viewId#</cfoutput>Detail" style="width:100%;">
+        <thead>
+            <tr>
+                <cfloop from="1" to="#ArrayLen(vThisDetailFieldMap)#" index="i">
+                    <th><cf_tl id="#vThisDetailFieldMap[i].label#"></th>
+                </cfloop>
+                <th><cf_tl id="Female"></th>
+                <th><cf_tl id="Male"></th>
+                <th><cf_tl id="Total"></th>
+            </tr>
+        </thead>
+        <cfset vTotalF = 0>
+        <cfset vTotalM = 0>
+        <cfset vTotal = 0>
+        <cfoutput query="getDataDetail">
+            <tr>
+                <cfloop from="1" to="#ArrayLen(vThisDetailFieldMap)#" index="i">
+                    <td>#evaluate("#vThisDetailFieldMap[i].queryField#")#</td>
+                </cfloop>
+                <td style="text-align:right;" data-order="#CountFemale#">
+                    <table width="100%">
+                        <tr>
+                            <td style="font-size:60%;">
+                                <cfif getDataSummaryLimits.TotalCountFemale neq 0>
+                                    #numberFormat(CountFemale*100/getDataSummaryLimits.TotalCountFemale, ",._")# %
+                                </cfif>
+                            </td>
+                            <td style="text-align:right;">#numberFormat(CountFemale, ",")#</td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="text-align:right;" data-order="#CountMale#">
+                    <table width="100%">
+                        <tr>
+                            <td style="font-size:60%;">
+                                <cfif getDataSummaryLimits.TotalCountMale neq 0>
+                                    #numberFormat(CountMale*100/getDataSummaryLimits.TotalCountMale, ",._")# %
+                                </cfif>
+                            </td>
+                            <td style="text-align:right;"> #numberFormat(CountMale, ",")# </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="text-align:right;" data-order="#Total#">
+                    <table width="100%">
+                        <tr>
+                            <td style="font-size:60%;">
+                                <cfif getDataSummaryLimits.Total neq 0>
+                                    #numberFormat(Total*100/getDataSummaryLimits.Total, ",._")# %
+                                </cfif>
+                            </td>
+                            <td style="text-align:right;">#numberFormat(Total, ",")#</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <cfset vTotalF = vTotalF + CountFemale>
+            <cfset vTotalM = vTotalM + CountMale>
+            <cfset vTotal = vTotal + Total>
+        </cfoutput>
+        <tfoot>
+            <tr>
+                <cfoutput>
+                    <th colspan="#ArrayLen(vThisDetailFieldMap)#"><cf_tl id="Total"></th>
+                    <th style="text-align:right;">
+                        #numberFormat(vTotalF, ",")#
+                    </th>
+                    <th style="text-align:right;">
+                        #numberFormat(vTotalM, ",")#
+                    </th>
+                    <th style="text-align:right;">
+                        #numberFormat(vTotal, ",")#
+                    </th>
+                </cfoutput>
+            </tr>
+        </tfoot>
+    </table>
+
+    <cfset ajaxOnLoad("function(){ $('.detailGeoContent#url.viewId#Detail').DataTable({ 'pageLength':50, 'lengthMenu':[10,25,50,100,200], #preserveSingleQuotes(vThisDetailOrderScript)# }); }")>
+
+</cfif>
 
 
-<cfif trim(url.region) neq "" AND trim(url.country) eq "">
+<cfif (trim(url.region) neq "" OR trim(url.representation) neq "") AND trim(url.country) eq "">
 
     <cfquery name="getDataRegionDetail" datasource="#vThisDatasource#">		
         SELECT  Country,
@@ -147,14 +199,23 @@
     </cfquery>
 
     <h3 style="padding-bottom:10px; padding-top:20px;">
-        <cf_tl id="Region Country Detail" var="lblCountryDetail">
         <cfoutput>
-            #UCASE(lblCountryDetail)#
-            <a style="font-size:50%; padding-left:10px;" href="javascript:#vMainSummaryFunction#('#url.viewId#');">[<cf_tl id="Back to summary">]</a>
+            <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="35" height="35" onclick="Prosis.exportToExcel('detailGeoRegionContent#url.viewId#Detail');" title="#lblExportToExcel#">
+            
+            <cfif trim(url.region) neq "">
+                <cf_tl id="Region Country Detail" var="lblCountryDetail">
+                #UCASE(lblCountryDetail)#
+            </cfif>
+
+            <cfif trim(url.representation) neq "">
+                #UCASE(url.representation)#
+            </cfif>
+            
+            <a style="font-size:80%; padding-left:10px;" href="javascript:#vMainSummaryFunction#('#url.viewId#');">[<cf_tl id="Back">]</a>
         </cfoutput>
     </h3>
 
-    <table class="table tableDetail table-striped table-bordered table-hover detailGeoRegionContent<cfoutput>#url.viewId#</cfoutput>Detail" style="width:100%;">
+    <table class="table tableDetail table-striped table-bordered table-hover detailGeoRegionContent<cfoutput>#url.viewId#</cfoutput>Detail" id="detailGeoRegionContent<cfoutput>#url.viewId#</cfoutput>Detail" style="width:100%;">
         <thead>
             <tr>
                 <th><cf_tl id="Country"></th>
@@ -169,9 +230,42 @@
         <cfoutput query="getDataRegionDetail">
             <tr>
                 <td>#NationalityName#</td>
-                <td style="text-align:right;">#numberFormat(CountFemale, ",")#</td>
-                <td style="text-align:right;">#numberFormat(CountMale, ",")#</td>
-                <td style="text-align:right;">#numberFormat(Total, ",")#</td>
+                <td style="text-align:right;" data-order="#CountFemale#">
+                    <table width="100%">
+                        <tr>
+                            <td style="font-size:60%;">
+                                <cfif getDataSummaryLimits.TotalCountFemale neq 0>
+                                    #numberFormat(CountFemale*100/getDataSummaryLimits.TotalCountFemale, ",._")# %
+                                </cfif>
+                            </td>
+                            <td style="text-align:right;">#numberFormat(CountFemale, ",")#</td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="text-align:right;" data-order="#CountMale#">
+                    <table width="100%">
+                        <tr>
+                            <td style="font-size:60%;">
+                                <cfif getDataSummaryLimits.TotalCountMale neq 0>
+                                    #numberFormat(CountMale*100/getDataSummaryLimits.TotalCountMale, ",._")# %
+                                </cfif>
+                            </td>
+                            <td style="text-align:right;"> #numberFormat(CountMale, ",")# </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="text-align:right;" data-order="#Total#">
+                    <table width="100%">
+                        <tr>
+                            <td style="font-size:60%;">
+                                <cfif getDataSummaryLimits.Total neq 0>
+                                    #numberFormat(Total*100/getDataSummaryLimits.Total, ",._")# %
+                                </cfif>
+                            </td>
+                            <td style="text-align:right;">#numberFormat(Total, ",")#</td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
             <cfset vTotalF = vTotalF + CountFemale>
             <cfset vTotalM = vTotalM + CountMale>
@@ -180,7 +274,7 @@
         <tfoot>
             <tr>
                 <cfoutput>
-                    <th style="text-align:right;"><cf_tl id="Total"></th>
+                    <th><cf_tl id="Total"></th>
                     <th style="text-align:right;">
                         #numberFormat(vTotalF, ",")#
                     </th>

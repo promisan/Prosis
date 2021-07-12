@@ -5,16 +5,13 @@
 
 <script language="JavaScript" >
 	
-	function selectaccount(fund,object) {
-		
+	function selectaccount(fund,object) {		
 		ColdFusion.Window.create('mydialog', 'Maintain', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true})    
 		ColdFusion.Window.show('mydialog') 				
-		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/Gledger/Maintenance/Parameter/DefaultLedgerSelect.cfm?ID=Budget&ID1=' + fund + '&ID2='+object,'mydialog') 	
-		
+		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/Gledger/Maintenance/Parameter/DefaultLedgerSelect.cfm?ID=Budget&ID1=' + fund + '&ID2='+object,'mydialog') 			
 	}
 	
-	function refreshaccount(fund,object) {
-	
+	function refreshaccount(fund,object) {	
 	}
 	
 	function listing(fd) {
@@ -129,7 +126,7 @@ password="#SESSION.dbpw#">
 
 <td colspan="2">
 
-<table width="97%" align="center" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="97%" align="center" align="center" class="navigation_table">
 
 <tr class="labelmedium line">
     <td width="20"></td>

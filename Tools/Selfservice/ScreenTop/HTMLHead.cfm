@@ -77,10 +77,7 @@
 			<script type="text/javascript" src="#SESSION.root#/Scripts/jQuery/jquery.prosis.js"></script>
 			<cfinclude template="ScreenTopProsisAlert.cfm">
 			<cfinclude template="ScreenTopWebPrint.cfm">
-			<!--- removed hanno 5/2/2016
-			<cfajaximport tags="cfwindow">
-			--->
-
+			
 			<cfif attributes.bootstrap eq "Yes">
 				<link rel="stylesheet" href="#session.root#/scripts/mobile/resources/vendor/bootstrap/dist/css/bootstrap.css" />
 				<script src="#session.root#/scripts/mobile/resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>

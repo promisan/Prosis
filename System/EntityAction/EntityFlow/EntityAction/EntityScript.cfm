@@ -25,6 +25,7 @@ function validate() {
     
    	document.entityform.onsubmit() 	
 	if( _CF_error_messages.length == 0 ) {
+	    _cf_loadingtexthtml='';	
        	ptoken.navigate('#SESSION.root#/system/entityAction/EntityFlow/EntityAction/EntitySubmit.cfm','result','','','POST','entityform')
 	 }   
 	 	 

@@ -5,42 +5,41 @@
    datasource="AppsPayroll" 
    username="#SESSION.login#" 
    password="#SESSION.dbpw#">
-   SELECT *
-   FROM   Ref_ParameterMission 
-   WHERE  Mission = '#url.mission#'
+	   SELECT *
+	   FROM   Ref_ParameterMission 
+	   WHERE  Mission = '#url.mission#'
 </cfquery>
 
 <cfoutput> 
 
-<!--- body --->
-
+	<!--- body --->
 
 	<cfsavecontent variable="sqlbody">
 	
 	    SELECT * 
 		FROM (
 	
-		SELECT       M.Mission, 
-		             P.IndexNo, P.LastName, P.FirstName, P.Gender, M.PersonNo, 
-					 P.LastName+','+P.FirstName as Name,	
-					 M.CostId, M.DateEffective, M.DateExpiration, 
-					 M.DocumentDate, M.DocumentReference, 
-					 M.PayrollItem, R.PayrollItemName, 
-					 M.EntitlementClass, M.Quantity, 
-					 M.Currency, M.Rate, M.Amount, 
-					 M.Status, M.Remarks, 
-					 M.Source, M.SourceId, 
-					 M.OfficerUserId, M.OfficerLastName, M.OfficerFirstName, M.Created
-						 
-        FROM         PersonMiscellaneous AS M INNER JOIN
-                     Ref_PayrollItem AS R ON M.PayrollItem = R.PayrollItem INNER JOIN
-                     Employee.dbo.Person AS P ON M.PersonNo = P.PersonNo	
-					 
-					 <cfif url.id1 neq "">
-					AND M.EntitlementClass = '#url.id1#'
-					 </cfif>
-		
-		) as B
+				SELECT       M.Mission, 
+				             P.IndexNo, P.LastName, P.FirstName, P.Gender, M.PersonNo, 
+							 P.LastName+','+P.FirstName as Name,	
+							 M.CostId, M.DateEffective, M.DateExpiration, 
+							 M.DocumentDate, M.DocumentReference, 
+							 M.PayrollItem, R.PayrollItemName, 
+							 M.EntitlementClass, M.Quantity, 
+							 M.Currency, M.Rate, M.Amount, 
+							 M.Status, M.Remarks, 
+							 M.Source, M.SourceId, 
+							 M.OfficerUserId, M.OfficerLastName, M.OfficerFirstName, M.Created
+								 
+		        FROM         PersonMiscellaneous AS M INNER JOIN
+		                     Ref_PayrollItem AS R ON M.PayrollItem = R.PayrollItem INNER JOIN
+		                     Employee.dbo.Person AS P ON M.PersonNo = P.PersonNo	
+							 
+							 <cfif url.id1 neq "">
+							AND M.EntitlementClass = '#url.id1#'
+							 </cfif>
+				
+				) as B
 		
 		WHERE        Mission = '#url.mission#'	
 	   
@@ -69,7 +68,6 @@
 
 <!--- show person, status processing color and filter on raise by me --->
 
-
 <cfset fields=ArrayNew(1)>
 
 <cfset itm = 0>
@@ -95,13 +93,13 @@
 					align         = "center",
 					search        = "text"}>	
 
- <cfif url.id1 eq "">					
- 
-<cfset itm = itm+1>							
-<cfset fields[itm] = {label       = "Class",  					
-					field         = "EntitlementClass",
-					filtermode    = "2",					
-					search        = "text"}>	
+<cfif url.id1 eq "">					
+	 
+	<cfset itm = itm+1>							
+	<cfset fields[itm] = {label       = "Class",  					
+						field         = "EntitlementClass",
+						filtermode    = "2",					
+						search        = "text"}>	
 					
 </cfif>					
 					
@@ -151,25 +149,19 @@
 					align         = "right",
 					search        = "amount"}>								
 					
-
-<!---
-					
+				
 <cfset itm = itm+1>							
-<cfset fields[itm] = {label    = "Expiration",  					
-					field      = "DateEffective",
-					align      = "center",					
-					search        = "date",
-					formatted  = "dateformat(DateExpiration,'#CLIENT.DateFormatShow#')"}>	
-	
---->
-						
+<cfset fields[itm] = {label    = "Remarks",  					
+					field      = "Remarks",
+					rowLevel   = "2",
+					colspan    = "10",
+					align      = "center"}>						
 
-<table width="100%" height="100%"><tr><td style="padding:8px;width:100%;height:100%">	
-	
+
 	<cf_listing
 		    header         = "PAS"
 		    box            = "PAS"
-			link           = "#SESSION.root#/Payroll/Application/Entitlements/MiscellaneousViewListing.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
+			link           = "#SESSION.root#/Payroll/Application/Entitlements/MiscellaneousViewListing.cfm?id1=#url.id1#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
 		    html           = "No"
 			show           = "40"
 			datasource     = "appsPayroll"
@@ -181,8 +173,8 @@
 			filterShow     = "Yes"
 			excelShow      = "Yes"
 			drillmode      = "tab"
+			rowshow        = "2"
 			drillargument  = "940;1190;false;false"	
 			drilltemplate  = "Staffing/Application/Employee/PersonView.cfm?id="
 			drillkey       = "PersonNo">
 	
-</td></tr></table>		

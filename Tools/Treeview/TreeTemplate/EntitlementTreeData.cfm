@@ -58,7 +58,7 @@
 			        display="<span class='labelit' style='font-size:14px'>#PayrollItemName#</span>"
 					parent="Delayed"					
 					target="right"						
-					href="EntitlementViewOpen.cfm?ID1=#PayrollItem#&ID=Delayed&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"	
+					href="EntitlementViewOpen.cfm?ID1=#PayrollItem#&ID=DEL&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"	
 			        expand="No">	
 				
 			</cfloop>			

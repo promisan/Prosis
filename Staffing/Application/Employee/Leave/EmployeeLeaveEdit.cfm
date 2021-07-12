@@ -116,7 +116,7 @@
 			exp = document.getElementById('dateexpiration').value						
 			exm = document.getElementById('dateexpirationfull').value							
 			_cf_loadingtexthtml='';			
-			ColdFusion.navigate('#session.root#/attendance/application/leaveRequest/getBalance.cfm?leaveid=#url.id1#&id='+per+'&leavetype='+tpe+'&leavetypeclass='+cls+'&grouplistcode='+lst+'&effective='+eff+'&effectivefull='+efm+'&expiration='+exp+'&expirationfull='+exm,'balance')		
+			ptoken.navigate('#session.root#/attendance/application/leaveRequest/getBalance.cfm?leaveid=#url.id1#&id='+per+'&leavetype='+tpe+'&leavetypeclass='+cls+'&grouplistcode='+lst+'&effective='+eff+'&effectivefull='+efm+'&expiration='+exp+'&expirationfull='+exm,'balance')		
 	}
 	
 	$(function() {
@@ -242,7 +242,6 @@
 					   <font color="green">
 					   :<cf_tl id="Completed">
 					   </font>
-					 
 					
 					</cfif>					
 			    </td>
@@ -399,7 +398,8 @@
 								<td style="padding-left:3px">
 											
 									<select class="regularxl" name="leavetypeclass" id="leavetypeclass"
-									   style="font:10px;color:black;border:0px" onchange="<cfoutput>getreason('#url.id#','#getPL.leavetype#',this.value,'#getPL.grouplistcode#')</cfoutput>">
+									   style="font:10px;color:black;border:0px" 
+									   onchange="<cfoutput>getreason('#url.id#','#getPL.leavetype#',this.value,'#getPL.grouplistcode#')</cfoutput>">
 										<cfoutput query="List">
 									        <option value="#Code#" <cfif GetPL.LeaveTypeClass eq Code>selected</cfif>>#Description#</option>				
 										</cfoutput>	
@@ -777,8 +777,10 @@
 						                          FROM   Organization.dbo.Ref_EntityClassPublish 
 												  WHERE  EntityCode = 'EntLve')
 					</cfquery> 
+					
 				
 					<cfif workflow.recordcount gte "1">												
+					
 											
 							<cfquery name="getAssignment" 
 								 datasource="AppsEmployee"
@@ -802,13 +804,13 @@
 							</cfquery>	
 					
 							<cfif mode eq "edit">
-											  
+																		  
 							  <!--- I involved the Position and Ref_PostGrade
 							   as we need these tables to show the right order 
 							   Jorge Mazariegos Jan 27th 2010 --->
 							  
 							  <cfif LeaveType.LeaveReviewer eq "Staffing">
-							  
+							  							  
 								  <cfquery name="FirstReviewer" 
 									datasource="AppsEmployee" 
 									username="#SESSION.login#" 
@@ -902,10 +904,10 @@
 										
 								  </cfquery>	
 								  
-								  <cfset secondreviewer = firstreviewer>		
-								 
+								  <cfset secondreviewer = firstreviewer>	
+								  								 
 								 							  
-							  <cfelseif  LeaveType.Leavereviewer eq "Role">
+							  <cfelseif  LeaveType.Leavereviewer eq "Role" or LeaveType.Leavereviewer eq "User">
 							  
 							  	 	<cfquery name="FirstReviewer" 
 										  datasource="AppsEmployee" 
@@ -948,9 +950,10 @@
 									
 												ORDER BY PostOrder	
 									</cfquery>
-										
+									
 							  </cfif>
-								
+							 					
+													
 							 <cfif Type.ReviewerActionCodeOne neq "">			  
 							 
 							   <tr class="labelmedium <cfif getPL.TransactionType eq 'external'>hide</cfif>">
@@ -1006,7 +1009,7 @@
 											<!-----rfuentes to show approbals without editting ---->
 											<cfif GetPL.Status eq "1" or GetPL.Status eq "0">
 												<td width="50%">								    
-												<cfdiv bind="url:#link#&Account=" id="super1"/>						
+												<cf_securediv bind="url:#link#&Account=" id="super1">						
 												</td>
 											<cfelse>
 												<td width="50%" colspan="3">
@@ -1154,7 +1157,7 @@
 										</td>	
 																
 										<td width="50%">					
-											<cfdiv bind="url:#link#&Account=" id="backupselect"/>						
+											<cf_securediv bind="url:#link#&Account=" id="backupselect">						
 										</td>
 									
 									<cfelse>

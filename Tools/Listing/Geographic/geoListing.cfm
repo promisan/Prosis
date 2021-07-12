@@ -1,18 +1,24 @@
-<cfparam name="attributes.viewId"               default="">
-<cfparam name="attributes.viewLabel"            default="">
-<cfparam name="attributes.dataSource"           default="">
-<cfparam name="attributes.baseQuery"            default="">
-<cfparam name="attributes.countFemale"          default="">
-<cfparam name="attributes.countMale"            default="">
-<cfparam name="attributes.countTotal"           default="">
-<cfparam name="attributes.filterHTML"           default="">
-<cfparam name="attributes.filterMap"            default="">
-<cfparam name="attributes.detailSelect"         default="">
-<cfparam name="attributes.detailOrder"          default="">
-<cfparam name="attributes.detailFieldMap"       default="">
-<cfparam name="attributes.detailOrderScript"    default="">
-<cfparam name="attributes.zoomFunction"         default="">
-<cfparam name="attributes.summaryType"          default="Region">
+<cfparam name="attributes.viewId"                                   default="">
+<cfparam name="attributes.viewLabel"                                default="">
+<cfparam name="attributes.dataSource"                               default="">
+<cfparam name="attributes.baseQuery"                                default="">
+<cfparam name="attributes.countFemale"                              default="">
+<cfparam name="attributes.countMale"                                default="">
+<cfparam name="attributes.countTotal"                               default="">
+<cfparam name="attributes.filterHTML"                               default="">
+<cfparam name="attributes.filterMap"                                default="">
+<cfparam name="attributes.detailSelect"                             default="">
+<cfparam name="attributes.detailOrder"                              default="">
+<cfparam name="attributes.detailFieldMap"                           default="">
+<cfparam name="attributes.detailOrderScript"                        default="">
+<cfparam name="attributes.zoomFunction"                             default="">
+<cfparam name="attributes.summaryType"                              default="Region">
+<cfparam name="attributes.summaryComplement"                        default="">
+<cfparam name="attributes.summaryComplement2"                       default="">
+<cfparam name="attributes.summaryComplement3"                       default="">
+<cfparam name="attributes.summaryComplement3"                       default="">
+<cfparam name="attributes.summaryComplementRegionGeographical"      default="1">
+<cfparam name="attributes.summaryComplementRegionGrades"            default="1">
 
 <cfoutput>
     <script>
@@ -60,6 +66,12 @@
 <cfset "session.geoListingDetailFieldMap_#attributes.viewId#" = attributes.detailFieldMap>
 <cfset "session.geoListingDetailOrderScript_#attributes.viewId#" = attributes.detailOrderScript>
 <cfset "session.geoListingSummaryType_#attributes.viewId#" = attributes.summaryType>
+<cfset "session.geoListingSummaryComplement_#attributes.viewId#" = attributes.summaryComplement>
+<cfset "session.geoListingSummaryComplement2_#attributes.viewId#" = attributes.summaryComplement2>
+<cfset "session.geoListingSummaryComplement3_#attributes.viewId#" = attributes.summaryComplement3>
+<cfset "session.summaryComplementRegionGeographical_#attributes.viewId#" = attributes.summaryComplementRegionGeographical>
+<cfset "session.summaryComplementRegionGrades_#attributes.viewId#" = attributes.summaryComplementRegionGrades>
+
 
 <cfset vFilterParams = "">
 <cfloop from="1" to="#ArrayLen(attributes.filterMap)#" index="i">

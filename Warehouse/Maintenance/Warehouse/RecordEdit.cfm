@@ -43,7 +43,7 @@ password="#SESSION.dbpw#">
 
 <!--- Entry form --->
 
-<table width="93%" align="center" class="formpadding" cellpadding="0">
+<table width="93%" border="0" align="center" class="formpadding">
 
    <tr><td height="10"></td></tr>
 	
@@ -61,7 +61,7 @@ password="#SESSION.dbpw#">
 	<cfif check.recordcount eq "0">
 	
     <TR>
-    <td style="width:130px" class="labelmedium"><cf_tl id="Code">:</td>
+    <td style="max-width:120px" class="labelmedium"><cf_tl id="Code">:</td>
     <TD colspan="3" class="labelmedium">
 		      	
 			<cfinput class = "regularxl" 
@@ -94,8 +94,8 @@ password="#SESSION.dbpw#">
 	
 	<!--- Field: Description --->
     <TR>
-    <TD class="labelmedium"><cf_tl id="Name">:</TD>
-    <TD>
+    <TD style="max-width:120px" class="labelmedium"><cf_tl id="Name">:</TD>
+    <TD style="width:200px">
 		<cfinput class="regularxl" 
 		     type="Text" 
 			 style="padding-left:3px"
@@ -261,7 +261,7 @@ password="#SESSION.dbpw#">
 	<tr><td class="labellarge" colspan="4" height="20" style="border-bottom:1px dotted silver"><cf_tl id="Address">/<cf_tl id="Contact"></td></tr>
 		
 	<TR>
-    <TD class="labelmedium" height="20" style="padding-left:8px"><cf_tl id="Country">:</TD>
+    <TD class="labelmedium" height="20" style="padding-left:0px"><cf_tl id="Country">:</TD>
     <TD>
 	 
 	   	<select name="country" id="country" onchange="<cfoutput>#maplink#</cfoutput>" required="No" class="regularxl">
@@ -274,7 +274,7 @@ password="#SESSION.dbpw#">
 		
 	</TD>
 	
-    	<TD class="labelmedium" height="20"  style="padding-left:8px"><cf_tl id="Region">: <font color="FF0000">*</font></TD>
+    	<TD class="labelmedium" height="20"  style="padding-left:0px"><cf_tl id="Region">: <font color="FF0000">*</font></TD>
 	    <TD>	
 				
 		<cfquery name="getRegions" 
@@ -297,7 +297,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<TR>
-    	<TD class="labelmedium" height="20"  style="padding-left:8px"><cf_tl id="Address">: <font color="FF0000">*</font></TD>
+    	<TD class="labelmedium" height="20"  style="padding-left:0px"><cf_tl id="Address">: <font color="FF0000">*</font></TD>
 	    <TD>	
 		<cfinput class="regularxl" style="padding-left:3px" onchange="#maplink#" type="Text" name="address" value="#get.Address#" message="Please enter an address" required="Yes" size="50" maxlength="100">	   	
 		</TD>
@@ -352,7 +352,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<tr>
-		<td class="labelmedium" style="padding-left:8px"><cf_tl id="Coordinates">:</td>		
+		<td class="labelmedium" style="padding-left:0px"><cf_tl id="Coordinates">:</td>		
 		<td>
 		<table cellspacing="0" cellpadding="0">
 		<tr>
@@ -374,7 +374,7 @@ password="#SESSION.dbpw#">
 	</tr>
 	
 	<TR>
-    	<TD class="labelmedium" height="20"  style="padding-left:8px"><cf_tl id="Contact">: </TD>
+    	<TD class="labelmedium" height="20"  style="padding-left:0px"><cf_tl id="Contact">: </TD>
 	    <TD>	
 		<cfinput class="regularxl" style="padding-left:3px" type="Text" name="contact" value="#get.Contact#" size="50" maxlength="80">	   	
 		</TD>
@@ -382,7 +382,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<TR>
-    	<TD class="labelmedium" height="20"  style="padding-left:8px"><cf_tl id="eMail">: </TD>
+    	<TD class="labelmedium" height="20"  style="padding-left:0px"><cf_tl id="eMail">: </TD>
 	    <TD>	
 		<cfinput class="regularxl" style="padding-left:3px" type="Text"  validate="email" message="Invalid eMail address" name="emailaddress" value="#get.eMailAddress#" size="50" maxlength="80">	   	
 		</TD>
@@ -391,7 +391,7 @@ password="#SESSION.dbpw#">
 		
     <!--- Field: Phone--->
     <TR>
-    <TD class="labelmedium" style="padding-left:8px"><cf_tl id="Phone">:</TD>
+    <TD class="labelmedium" style="padding-left:0px"><cf_tl id="Phone">:</TD>
     <TD><cfoutput>
 		<input class="regularxl" style="padding-left:3px" type="Text" name="Telephone" id="Telephone" value="#Get.Telephone#" size="25" maxlength="25">
 		</cfoutput>
@@ -400,7 +400,7 @@ password="#SESSION.dbpw#">
 	
     <!--- Field: Fax--->
     <TR class="hide">
-    <TD class="labelmedium" style="padding-left:8px"><cf_tl id="Fax">:</TD>
+    <TD class="labelmedium" style="padding-left:0px"><cf_tl id="Fax">:</TD>
     <TD><cfoutput>
 		<input class="regularxl" style="padding-left:3px" type="Text" name="Fax" id="Fax" value="#Get.Fax#" size="15" maxlength="15">
 		</cfoutput>
@@ -477,42 +477,26 @@ password="#SESSION.dbpw#">
 	   	
 		</table>
 	</TD>
-	</TR>	
-		
-		
-</table>	
-
-</td>
-
-
-</tr>
-
-<tr><td colspan="1" style="padding-left:17px">
-<table width="100%" class="formpadding">
-
-<tr><td colspan="2" height="20" style="border-bottom:1px dotted silver">
+</TR>		
 	
-		<table width="100%" cellspacing="0" cellpadding="0">
-		<tr><td class="labellarge" style="padding-left:33px;height:40px;font-size:27px">
+<tr><td class="labellarge" colspan="1" style="height:34px;font-size:20px">
 		<cf_tl id="Settings for Operations">
 		</td>
+		
 		<td align="right" style="padding-right:30px">
 			<table><tr>
 			
-		    <TD class="labelmedium" style="padding-left:8px"><cf_UIToolTip tooltip="Preferred warehouse for transactional processing"><cf_tl id="Default Warehouse">:</cf_UIToolTip></TD>
+		    <TD class="labelmedium" style="padding-left:0px"><cf_UIToolTip tooltip="Preferred warehouse for transactional processing"><cf_tl id="Default Warehouse">:</cf_UIToolTip></TD>
 		    <TD style="padding-left:10px"><input type="checkbox" class="radiol" name="WarehouseDefault" id="WarehouseDefault" value="1" <cfif "1" eq get.WarehouseDefault>checked</cfif>></TD>	
-			<td class="labelmedium" height="20" style="padding-left:8px"><cf_tl id="Operational">:</td>
+			<td class="labelmedium" height="20" style="padding-left:0px"><cf_tl id="Operational">:</td>
 			<td style="padding-left:10px"><input class="radiol" type="checkbox" name="Operational" id="Operational" value="1" <cfif "1" eq get.Operational>checked</cfif>></td>
 			</tr>	
 			</table>
-		</td>
-		</tr>	
-		</table>
-	
-	</td></tr>
+		</td>		
+</tr>
 						  
-	<tr>
-	<td class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="This storage location can be used in a request direction process"><cf_tl id="Stock Distributor">:</cf_UIToolTip></td>
+<tr>
+	<td class="labelmedium"><cf_UIToolTip tooltip="This storage location can be used in a request direction process"><cf_tl id="Stock Distributor">:</cf_UIToolTip></td>
 	<td>   
 	   <table cellspacing="0" cellpadding="0"><tr><td>	
 	   <input type="checkbox" class="radiol" name="Distribution" id="Distribution" value="1" <cfif "1" eq get.Distribution>checked</cfif>>					
@@ -526,7 +510,7 @@ password="#SESSION.dbpw#">
 	</tr>	
 	
     <TR>
-    <TD class="labelmedium" style="padding-left:33px"><cf_tl id="Parent Facility">:</TD>
+    <TD class="labelmedium"><cf_tl id="Parent Facility">:</TD>
 	
     <TD id="supply">
 	
@@ -589,7 +573,7 @@ password="#SESSION.dbpw#">
 		
 			
 	<tr>
-	<td class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="Taskorder Sourcing"><cf_tl id="Tasking Mode"></cf_UIToolTip>:</td>
+	<td class="labelmedium"><cf_UIToolTip tooltip="Taskorder Sourcing"><cf_tl id="Tasking Mode"></cf_UIToolTip>:</td>
 	<td>   
 	   <table cellspacing="0" cellpadding="0">
 	   <tr><td>
@@ -603,7 +587,7 @@ password="#SESSION.dbpw#">
 	</tr>				
 			
 	<tr>
-	<td height="20" class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="Mode under which items to be transferred are transferred are accepted in this warehouse"><cf_tl id="Receipt Mode"></cf_UIToolTip>:</td>
+	<td height="20" class="labelmedium"><cf_UIToolTip tooltip="Mode under which items to be transferred are transferred are accepted in this warehouse"><cf_tl id="Receipt Mode"></cf_UIToolTip>:</td>
 	<td>   
 	   <table cellspacing="0" cellpadding="0">
 	   <tr><td>
@@ -620,7 +604,7 @@ password="#SESSION.dbpw#">
 	</tr>	
 	
 	<TR>
-	    <TD class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="Quotation settings"><cf_tl id="Quotations">:</cf_UIToolTip></TD>
+	    <TD class="labelmedium"><cf_UIToolTip tooltip="Quotation settings"><cf_tl id="Quotations">:</cf_UIToolTip></TD>
 	    <td>
 			
 			<select name="QuotationMode" id="QuotationMode" class="regularxl">
@@ -636,7 +620,7 @@ password="#SESSION.dbpw#">
    </tr>
 	
 	<TR>
-	    <TD class="labelmedium" style="padding-left:33px"><cf_UIToolTip tooltip="Default Sale Currency"><cf_tl id="POS Sale Mode">:</cf_UIToolTip></TD>
+	    <TD class="labelmedium"><cf_UIToolTip tooltip="Default Sale Currency"><cf_tl id="POS Sale Mode">:</cf_UIToolTip></TD>
 	    <TD>
 		
 			<table cellspacing="0" cellpadding="0">
@@ -655,8 +639,8 @@ password="#SESSION.dbpw#">
 			
 			</td>
 			
-			<TD style="padding-left:8px"><cf_tl id="Maximum POS discount">:</TD>
-			<td style="padding-left:8px">
+			<TD style="padding-left:0px"><cf_tl id="Maximum POS discount">:</TD>
+			<td style="padding-left:0px">
 				<cfinput class="regularxl" style="padding-left:3px;text-align:right" type="Text" name="SaleDiscount" id="SaleDiscount" value="#Get.SaleDiscount#" size="3" maxlength="3">%
 		    </td>
 			
@@ -680,8 +664,9 @@ password="#SESSION.dbpw#">
 			
 			</td>
 			
-			<TD class="hide labelmedium" style="padding-left:8px"><cf_tl id="Sales Background">:</TD>
-	    	<TD class="hide"><cfoutput>
+			<TD class="hide labelmedium" style="padding-left:0px"><cf_tl id="Sales Background">:</TD>
+	    	<TD class="hide">
+			<cfoutput>
 			<cfinput class="regularxl" style="padding-left:3px" type="Text" name="SaleBackground" id="SaleBackground" value="#Get.SaleBackground#" size="50" maxlength="80">
 			</cfoutput>
 			</TD>
@@ -694,8 +679,10 @@ password="#SESSION.dbpw#">
 	</TR>	
 	
 	 <TR>
-    <TD valign="top" class="labelmedium" style="padding-top:4px;padding-left:33px"><cf_tl id="Stock Managed">:</TD>
-    <TD style="width:500">
+    <TD valign="top" class="labelmedium" style="padding-top:4px"><cf_tl id="Stock Managed">:</TD>
+	</tr>
+	<tr>
+    <TD colspan="4">
 		<cf_securediv id="#url.id1#_list" bind="url:Category/CategoryListing.cfm?ID1=#url.id1#">
 	</TD>
 	</TR>	
@@ -706,12 +693,12 @@ password="#SESSION.dbpw#">
 
 <tr><td height="4"></td></tr>
 		
-<tr><td colspan="2" align="center" id="submitbox" class="line">
+<tr><td colspan="2" align="center" id="submitbox">
 
 	 <cfoutput>
 	 
 	 
-	 	<table class="formspacing" height="30" cellspacing="0" cellpadding="0">
+	 	<table class="formspacing" style="height:40px">
 		
 		<tr><td height="4"></td></tr>
 		

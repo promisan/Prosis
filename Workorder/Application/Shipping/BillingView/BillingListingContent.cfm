@@ -18,7 +18,7 @@
 
 <cfsavecontent variable="myquery">
 
-	SELECT *, TransactionDate
+	SELECT * --,TransactionDate
 	FROM (
 	
      SELECT     Journal, 
@@ -37,10 +37,15 @@
 				OfficerLastName, 
 				OfficerFirstName
 	FROM        TransactionHeader H
-	WHERE       TransactionSource   = 'WorkOrderSeries' 
+	WHERE       Mission = '#url.mission#' 
+	AND         TransactionSource   = 'WorkOrderSeries' 
 	AND         TransactionCategory = 'Receivables' 
-	AND         Created >= GETDATE() - 360 	
-	AND         Mission = '#url.mission#' 
+	<cfif url.id1 eq "Billing">
+	AND         YEAR(Created) = #year(now())# 	
+	<cfelseif url.id1 eq "Pending">
+	AND         ActionStatus = '0' 
+	</cfif>
+	
     AND         (	ReferenceId IN (SELECT WorkOrderId FROM WorkOrder.dbo.WorkOrder WHERE Mission = H.Mission)
 					OR EXISTS (
 						    SELECT  'X'
@@ -179,7 +184,7 @@
 <cf_listing
 	    header            = "billing"
 	    box               = "lineshipment"
-		link              = "#SESSION.root#/WorkOrder/Application/Shipping/BillingView/BillingListingContent.cfm?systemfunctionid=#url.systemfunctionid#&Status=#url.status#&Mission=#URL.Mission#"
+		link              = "#SESSION.root#/WorkOrder/Application/Shipping/BillingView/BillingListingContent.cfm?systemfunctionid=#url.systemfunctionid#&id1=#url.id1#&Status=#url.status#&Mission=#URL.Mission#"
 	    html              = "No"				
 		tableheight       = "99%"
 		tablewidth        = "99%"
@@ -194,7 +199,7 @@
 		excelshow         = "Yes" 	
 		screentop         = "No"	
 		listlayout        = "#fields#"
-		drillmode         = "window" 
+		drillmode         = "tab" 
 		drillargument     = "950;1150;true;true"	
 		drilltemplate     = "/Gledger/Application/Transaction/View/TransactionView.cfm?id="
 		drillkey          = "TransactionId"

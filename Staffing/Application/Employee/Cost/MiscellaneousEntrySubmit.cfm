@@ -117,7 +117,8 @@ function editEntitlement(persno, no) {
 					 		         
 							 (PersonNo,
 							  CostId,
-							  Mission,				  
+							  Mission,		
+							  EntityClass,		  
 							  DocumentReference,
 							  DocumentDate,
 							  EntitlementClass,
@@ -138,7 +139,12 @@ function editEntitlement(persno, no) {
 							  				 
 				      VALUES ('#Form.PersonNo#',
 						      '#rowguid#',
-							  '#Form.Mission#',							  			      
+							  '#Form.Mission#',		
+							  <cfif ecl neq "">
+							  '#ecl#',
+							  <cfelse>
+							  NULL,
+							  </cfif>							  					  			      
 							  '#Form.DocumentReference#',				  
 							  #END#,
 							  '#Form.EntitlementClass#',
@@ -153,7 +159,7 @@ function editEntitlement(persno, no) {
 							  '2',
 							  </cfif> 				  
 							  '#Remarks#',
-							  <cfif form.Ledger neq "">
+							  <cfif Form.Ledger neq "">
 								  'Ledger',
 								  '#Form.Ledger#',
 							  </cfif>
@@ -194,9 +200,9 @@ function editEntitlement(persno, no) {
 									datasource="AppsOrganization" 
 									username="#SESSION.login#" 
 									password="#SESSION.dbpw#">
-										SELECT TOP 3 *
-										FROM   Ref_EntityAction
-										WHERE  ActionCode IN (#preserveSingleQuotes(form.actions)#) 
+										SELECT   TOP 3 *
+										FROM     Ref_EntityAction
+										WHERE    ActionCode IN (#preserveSingleQuotes(form.actions)#) 
 										ORDER BY ListingOrder
 								  </cfquery>
 							  

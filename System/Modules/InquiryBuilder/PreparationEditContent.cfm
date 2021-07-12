@@ -39,7 +39,7 @@
    
 </cfif>
 
-<table height="100%" width="100%" cellspacing="0" cellpadding="0">
+<table height="100%" width="100%">
 
 <cfform action="PreparationEditContent.cfm?SystemFunctionId=#url.systemfunctionid#&FunctionSerialNo=#url.functionserialNo#" method="post">
 
@@ -56,15 +56,15 @@
 
 <tr><td height="1" class="line"></td></tr>
 
-<tr class="line"><td align="center" height="35">
+<tr><td align="center" height="35">
 
-	<input type="button" name="Cancel" id="Cancel" style="width:100" value="Cancel" class="button10g" onclick="parent.ColdFusion.Window.destroy('myscript',true)">
-	<input type="submit" name="Save" id="Save" style="width:100" value="Save" class="button10g">
+	<input type="button" name="Cancel" id="Cancel" style="width:170" value="Close" class="button10g" onclick="parent.ProsisUI.closeWindow('myscript')">
+	<input type="submit" name="Save" id="Save" style="width:170" value="Save" class="button10g">
 		
 	<cfif ParameterExists(Form.Format)>
-	<input type="submit" name="Edit" id="Edit" style="width:100" value="Edit" class="button10g">	
+	<input type="submit" name="Edit" id="Edit" style="width:170" value="Edit" class="button10g">	
 	<cfelse>
-	<input type="submit" name="Format" id="Format" style="width:100" value="Formatted" class="button10g">	
+	<input type="submit" name="Format" id="Format" style="width:170" value="Formatted" class="button10g">	
 	</cfif>
 	
 </td></tr>
@@ -124,6 +124,7 @@
 
 <cfelse> 
 
+
 	<cfquery name="Module" 
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 
@@ -133,10 +134,11 @@
 		AND       FunctionSerialNo = '#url.functionserialno#'   
 	</cfquery>   
 		
-	<table width="100%" height="100%" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="100%" height="100%" class="formpadding">
 	<tr><td>
 		
 	<cfset content = replace(Module.preparationscript, "''","''''", "ALL")> 
+		
 	<cfif content eq "">
 	
 <cfsavecontent variable="init">
@@ -146,12 +148,13 @@ SELECT *
 INTO userQuery.dbo.#answer1#
 
 [/cfquery>		  
+
 </cfsavecontent>
 			
 	<textarea name="SQL"
 	          class="regular0"
 	          style="font-size:15px;padding:7px;width: 100%; height: 100%; word-break: break-all;"><cfoutput>#replace(init, "[","<", "ALL")#</cfoutput> 
-  </textarea>
+    </textarea>
 	
 	<cfelse>
 	

@@ -173,6 +173,10 @@ June 2007
 
      <cftransaction>
 	 
+	  <cfif Trigger.EnableAmount eq "1">	  
+		  <cfset amt  = replace("#Form.Amount#",",","","ALL")>	  
+	  </cfif>
+	 
       <cfquery name="InsertEntitlement" 
 	     datasource="AppsPayroll" 
 	     username="#SESSION.login#" 
@@ -208,7 +212,7 @@ June 2007
 				  '#Form.DocumentReference#',
 				   <cfif Trigger.EnableAmount eq "1">
 				   '#Form.Currency#',
-				   '#Form.Amount#',
+				   '#amt#',
 				   </cfif>
 				  '#Remarks#',
 				  '#SESSION.acc#',

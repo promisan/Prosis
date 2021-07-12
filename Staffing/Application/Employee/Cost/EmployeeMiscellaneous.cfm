@@ -67,7 +67,10 @@ password="#SESSION.dbpw#">
 	WHERE  L.PersonNo = '#URL.ID#' 
 	AND    L.PayrollItem = I.PayrollItem
 	#preserveSingleQuotes(condition)#
-	ORDER BY L.PayrollItem, L.DateEffective DESC
+	ORDER BY L.PayrollItem, 
+	         L.DocumentDate, 
+			 L.DocumentReference, 
+			 L.DateEffective 
 </cfquery>
 
 
@@ -137,12 +140,15 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput query="SearchResult" group="PayrollItem">
 	
-	<TR>
-        <td colspan="12" class="labelmedium" style="font-weight:bold;padding-left:6px;font-size:21px;height:35px">#PayrollItem# #PayrollItemName#
+	<TR class="line labelmedium2 fixrow2">
+        <td colspan="12" style="font-weight:bold;padding-left:6px;font-size:21px;height:35px">#PayrollItem# #PayrollItemName#
 	</td></tr>
-			
-	<cfoutput>
 	
+	<cfset docdte = "">
+	<cfset docref = "">
+				
+	<cfoutput>
+		
 	<TR class="navigation_row labelmedium2">
 	
 	    <cfif workflow neq "" and (source eq "Manual" or source eq "Ledger")>
@@ -227,9 +233,9 @@ password="#SESSION.dbpw#">
 	
 		</td>	
 		
-		<td>#Dateformat(DocumentDate, CLIENT.DateFormatShow)#</td>
+		<td><cfif documentdate neq docdte>#Dateformat(DocumentDate, CLIENT.DateFormatShow)#</cfif></td>
 		<td id="status_#workflow#"><cfif Status eq "2"><font color="008000"><cf_tl id="Cleared"><cfelseif Status eq "3"><font color="008000"><cf_tl id="Cleared"><cfelseif Status eq "5"><font color="008000">In Payroll</font><cfelse>Pending</cfif></td>
-		<td>#DocumentReference#</TD>
+		<td><cfif documentreference neq docref>#DocumentReference#</cfif></TD>
 		<td>#OfficerLastName#</TD>
 		<td>#Source#</TD>
 		<TD>#EntitlementClass#</TD>
@@ -315,9 +321,13 @@ password="#SESSION.dbpw#">
 	
 	</cfif>
 	
+	<cfset docdte = documentDate>
+	<cfset docref = documentReference>
+	
 	<tr class="line" style="padding:0px"><td colspan="12"></td></tr>
 	
 	</cfoutput>
+	
 	
 	</cfoutput>
 	

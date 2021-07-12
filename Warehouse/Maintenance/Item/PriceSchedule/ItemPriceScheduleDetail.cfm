@@ -31,7 +31,8 @@
 	<tr><td height="5"></td></tr>
 	<tr>
 		<td colspan="2">
-			<cfdiv id="divItemPriceSchedule" bind="url:#SESSION.root#/Warehouse/Maintenance/Warehouse/Category/PriceSchedule/PriceScheduleForm.cfm?warehouse={lwarehouse}&category=#thisItem.Category#&isReadOnly=1">
+			<cf_securediv id="divItemPriceSchedule" 
+			 bind="url:#SESSION.root#/Warehouse/Maintenance/Warehouse/Category/PriceSchedule/PriceScheduleForm.cfm?warehouse={lwarehouse}&category=#thisItem.Category#&isReadOnly=1">
 		</td>
 	</tr>
 </table>

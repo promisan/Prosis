@@ -15,7 +15,7 @@
 <script>
 	
 	function doRefresh(eg,miss,owner,me,mode) {	
-		ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/MyClearancesDetail.cfm?refresh='+mode+'&EntityGroup='+eg+'&Mission='+miss+'&Owner='+owner+'&me='+me,'listing');					
+		ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/MyClearancesDetail.cfm?scope=#url.scope#&refresh='+mode+'&EntityGroup='+eg+'&Mission='+miss+'&Owner='+owner+'&me='+me,'listing');					
 	}	
 		
 	function process(id) {

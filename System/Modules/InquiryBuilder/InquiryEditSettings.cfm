@@ -75,9 +75,10 @@
 					   	
 						   <table cellspacing="0" cellpadding="0">
 						   <tr class="labelmedium2">
-						   <cfparam name="val[6]" default="paging">
-						   <td style="padding-left:4px"><input type="radio" name="Scrolling" id="Scrolling" value="true" <cfif val[6] eq "paging">checked</cfif>></td><td style="padding-left:4px">Paging</td>
-						   <td style="padding-left:4px"><input type="radio" name="Scrolling" id="Scrolling" value="false" <cfif val[6] neq "paging">checked</cfif>></td><td style="padding-left:4px">Continuous</td>
+						   
+						   <cfparam name="val[6]" default="paging">						  
+						   <td style="padding-left:4px"><input type="radio" name="Scrolling" id="Scrolling" value="paging" <cfif val[6] eq "paging">checked</cfif>></td><td style="padding-left:4px">Paging</td>
+						   <td style="padding-left:4px"><input type="radio" name="Scrolling" id="Scrolling" value="auto" <cfif val[6] neq "paging">checked</cfif>></td><td style="padding-left:4px">Continuous</td>
 						   </tr>
 						   </table>
 					   

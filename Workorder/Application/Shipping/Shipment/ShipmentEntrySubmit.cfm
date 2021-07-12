@@ -247,7 +247,6 @@ password="#SESSION.dbpw#">
 							   )
 					            	
 				</cfif>
-
 				
 				GROUP BY   T.Mission,
 				           T.Warehouse,

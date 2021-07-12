@@ -1401,9 +1401,9 @@ password="#SESSION.dbpw#">
 										ParentJournal            = "#URL.Journal#"
 									    ParentJournalSerialNo    = "#parentJournalSerialNo#"
 																				
-										TransactionSerialNo1     = "1"				
+										TransactionSerialNo1     = "0"				
 										Class1                   = "Credit"
-										Reference1               = "Bank Charge"       
+										Reference1               = "Settlement"       
 										ReferenceName1           = "#PayThroughBankName#: #year(PendingPosting.payrollend)#-#month(PendingPosting.payrollend)#"										
 										Description1             = "#PayThroughBankName#"
 										GLAccount1               = "#DebitGLAccount#"											
@@ -1411,9 +1411,9 @@ password="#SESSION.dbpw#">
 										TransactionType1         = "Contra-Account"
 										Amount1                  = "#PaymentAmount#"
 										
-										TransactionSerialNo2     = "0"				
+										TransactionSerialNo2     = "1"				
 										Class2                   = "Debit"
-										Reference2               = "Offset" 						
+										Reference2               = "Offset payroll" 						
 										ReferenceName2           = "#SchedulePeriod.SalarySchedule#: #year(PendingPosting.payrollend)#-#month(PendingPosting.payrollend)#"
 										Description2             = "#PayThroughBankName#"																							
 										GLAccount2               = "#SalaryScheduleGLAccount#"

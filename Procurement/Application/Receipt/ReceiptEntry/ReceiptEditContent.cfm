@@ -189,11 +189,11 @@
   	} 
 	
 	function newreceipt(id) {	
-	   ptoken.open('../ReceiptEntry/LocatePurchaseView.cfm?mission=#receipt.mission#&receiptno='+id,'_self')
+	    ptoken.open('../ReceiptEntry/LocatePurchaseView.cfm?mission=#receipt.mission#&receiptno='+id,'_self')
     }
 	
 	function receiptcost() {
-	  ptoken.navigate('setReceiptTotal.cfm?mission=#receipt.mission#&receiptno=#URL.ID#','settotal')
+	    ptoken.navigate('setReceiptTotal.cfm?mission=#receipt.mission#&receiptno=#URL.ID#','settotal')
 	}
 	
 	function updateheader() {
@@ -431,8 +431,8 @@
 				</cfif>
 				
 				</td>
-				<td width="150" style="padding-left:4px;"><cf_tl id="Order Type">:</td>
-				<td width="250" style="">#PO.OrderTypeDescription#</td>
+				<td style="padding-left:4px;"><cf_tl id="Order Type">:</td>
+				<td style="width:30%">#PO.OrderTypeDescription#</td>
 			  </tr>	
 			  
 			  <tr class="labelmedium2">
@@ -650,7 +650,7 @@
 			  </cfquery>
 			  
 			  <tr>	
-				<td class="labelmedium2" style="padding-left:4px;"><cf_tl id="Associated costs">:</td>
+				<td class="labelmedium2" style="min-width:150px;padding-left:4px;"><cf_tl id="Associated costs">:</td>
 				<td colspan="3" class="labelmedium2">
 					<table>
 					<tr class="labelmedium2">
@@ -748,7 +748,7 @@
 			<cfif url.presentation neq "9" and workflowenabled eq "0" or Receipt.EntityClass eq "" or wfstatus eq "open">		
 				 	 
 				 <tr>	 	 
-				 <td style="padding-left:15px;padding-right:15px" colspan="2">		
+				 <td style="padding-left:15px;padding-right:15px" colspan="4">		
 				     <cfdiv bind="url:ReceiptEditCosting.cfm?#cgi.query_string#&editmode=#editmode#" id="receiptcosts">			 	 							 
 				 </td>	
 				 </tr>  
@@ -767,7 +767,7 @@
 				 		 
 			<cfif workflowenabled eq "1" and Receipt.EntityClass neq "">	
 						 		 		 
-				 <tr><td colspan="2" style="padding-left:10px;padding-right:10px">
+				 <tr><td colspan="4" style="padding-left:10px;padding-right:10px">
 				 
 				  <cfoutput>
 				 
@@ -828,8 +828,8 @@
 		
 							 <cfif wfstatus eq "open">						 
 							 
-				    		 <cfdiv id="#Receipt.ReceiptNo#"  
-							        bind="url:#wflnk#?ajaxid=#Receipt.ReceiptNo#"/>		 
+				    		 <cf_securediv id="#Receipt.ReceiptNo#"  
+							        bind="url:#wflnk#?ajaxid=#Receipt.ReceiptNo#">		 
 									
 							 <cfelse>
 							 
@@ -873,7 +873,7 @@
 			 	 
 				 	<cfif editmode eq "edit">
 					
-					 <tr><td colspan="2" align="center" style="height:40px;padding-left:10px;padding-top:5px;padding-right:10px">
+					 <tr><td colspan="4" align="center" style="height:40px;padding-left:10px;padding-top:5px;padding-right:10px">
 					 
 					     <cfoutput>
 					  

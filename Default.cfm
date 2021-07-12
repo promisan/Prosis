@@ -16,7 +16,7 @@
 <cfparam name="SESSION.last"              default="">
 <cfparam name="SESSION.first"             default="">
 
-<cf_setRelease version="8.96.00823" release="20210525">
+<cf_setRelease version="8.98.00948" release="20210710">
 
 <cfquery name="Get" 
 datasource="AppsSystem">
@@ -275,11 +275,12 @@ datasource="AppsSystem">
 								
 								<cfset client.googleMAPId = Parameter.GoogleMAPId>								
 																	
-								<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+								<table width="100%" height="100%">
 								
 								   <tr>
+								   								   
 								   <cfif Parameter.ApplicationTheme eq "Standard" or found eq "No">
-								   								   								   
+								   								   								   								   
 									    <cfset custom = 0> 
 									    <td width="331" height="100%" bgcolor="FF8000">
 										    <cfinclude template="Portal/Provider.cfm">
@@ -289,20 +290,20 @@ datasource="AppsSystem">
 										</td>	 
 										
 								   <cfelseif Parameter.ApplicationTheme eq "Cloud" and found eq "Yes">
-								   							   
+								   								   							   
 									    <cfset custom = 0> 
 									   	<td height="100%" width="330" bgcolor="f9601c">
 											<cfinclude template="Portal/Provider.cfm">
 										</td>
-										<td id="logonbox" height="100%">
+										<td id="logonbox" height="100%">										
 										    <cfinclude template="Custom/Logon/#Parameter.ApplicationServer#/Index.cfm">																				
 										</td>	
 									
-								   <cfelseif Parameter.ApplicationTheme eq "Extended" and found eq "Yes">
+								   <cfelseif Parameter.ApplicationTheme eq "Extended" and found eq "Yes">								   
 								   
 								   		<td id="logonbox" height="100%">
-											<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">											
-												<tr><td valign="top" height="100%"><cfinclude template="Custom/Logon/#Parameter.ApplicationServer#/Index.cfm">												
+											<table width="100%" height="100%">																					
+												<tr><td valign="top" height="100%"><cfinclude template="Custom/Logon/#Parameter.ApplicationServer#/Index.cfm">																								
 												</td></tr>
 											</table>
 										</td>

@@ -3057,9 +3057,10 @@
 				AND		Currency  = '#currency#'
 			</cfquery> 	
 			
-			 <!--- force manual or contextual manual through the interface --->
+			 <!--- force manual or contextual manual through the interface selected button --->
 			
-			<cfif getWarehouseJournal.TransactionMode eq "1" or Mode eq "1">
+			<cfif getWarehouseJournal.TransactionMode eq "1" 
+			     or Mode eq "1">
 					
 				<cfset Invoice.Mode              = "1"> <!--- manual --->
 				<cfset Invoice.ErrorDescription  = "">
@@ -3071,45 +3072,10 @@
 			    <cfset Invoice.Mode              = "2">
 				<cfset Invoice.ErrorDescription  = "">
 				<cfset Invoice.ErrorDetail       = "">
-				<cfset Invoice.Status           = "1">
-				
-			    <!--- ------------------- --->
-				<!--- jdiaz complementent --->
-				<!--- ------------------- --->				
+				<cfset Invoice.Status           = "1">							   	
 					
-				<!--- validate series otherwise Invoice.Mode = "1" --->
-				
-				<!--- no longer needed
-				
-				<cfquery name="getSeriesType"
-					 datasource="AppsMaterials" 
-					 username="#SESSION.login#" 
-					 password="#SESSION.dbpw#">
-
-				 	SELECT *
-					FROM   WarehouseTerminal
-					WHERE  Warehouse     = '#warehouse#'
-					<cfif Terminal neq "">
-					AND    TerminalName	 = '#Terminal#'
-					</cfif>
-					<cfif get.OrgUnitTax neq 0>
-					AND    TaxOrgUnitEDI = '#get.OrgUnitTax#'
-					</cfif>
-					AND    TaxOrgUnitEDI IS NOT NULL
-					
-				</cfquery>
-
-				<cfif getSeriesType.RecordCount eq "0">
-				
-					<!--- No valid tree defined for EDI --->
-					<cfset Invoice.Mode             = "1"> <!--- manual --->
-					<cfset Invoice.ErrorDescription = "No valid terminal set">
-					<cfset Invoice.ErrorDetail      = "">
-
-				<cfelse>
-				
-				--->
-				
+				<!--- validate series otherwise Invoice.Mode = "1" : Manual which was removed by Hanno 13 June 2021 --->
+												
 					<cfquery name="getSeries"
 					 datasource="AppsOrganization" 
 					 username="#SESSION.login#" 
@@ -3120,21 +3086,26 @@
 						<cfif get.OrgUnitTax neq 0>
 						AND     Orgunit 	= '#get.OrgUnitTax#'
 						</cfif>
-						AND		Operational = 1
-						AND     SeriesType = 'Invoice'
-						AND		((InvoiceCurrent < InvoiceEnd) <cfif Mode eq "3" > OR (UserKey IS NOT NULL)</cfif>)
+						AND		Operational  = 1
+						AND     SeriesType   = 'Invoice'
+						AND     UserKey is NOT NULL
+						<!--- AND	((InvoiceCurrent < InvoiceEnd) <cfif Mode eq "3" > OR (UserKey IS NOT NULL)</cfif>) --->
 					</cfquery> 	
 
-					<cfif getSeries.RecordCount eq "0">
+					<cfif getSeries.recordCount eq "0">
 					
-						<!--- No valid series defined for EDI --->
-						<cfset Invoice.Mode             = "1"> <!--- manual --->
-						<cfset Invoice.ErrorDescription = "No valid series is defined">
-						<cfset Invoice.ErrorDetail      = "">
+							<!--- No valid series defined for EDI --->
+							<cfset Invoice.Mode             = "1"> <!--- manual --->
+							<cfset Invoice.ErrorDescription = "No tax series set">
+							<cfset Invoice.ErrorDetail      = "">
+							
+							<!--- Hanno 6/13/2021 here we need to add the logging TransactionHeaderAction 
+							                               for the manual mode  --->
+							
 
 					<cfelse>
 					
-							<cfset Invoice.Mode = "2"> <!--- EDI --->
+							<!--- EDI --->
 
 							<!--- disabled 
 							<cfif Terminal eq "">
@@ -3174,9 +3145,7 @@
 									</cfif>
 										
 								</cfloop> 	
-	
-
-								
+									
 							</cfif>	 
 							
 							<cfset Invoice.ActionId = stResponse.ActionId> 		
@@ -3187,8 +3156,7 @@
 				</cfif>											
 				--->
 			
-			</cfif>		
-			
+			</cfif>					
 							
 			<cfreturn Invoice>	
 	

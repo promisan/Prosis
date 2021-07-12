@@ -157,8 +157,8 @@
 		       required="Yes"
 		       visible="Yes"
 		       enabled="Yes"
-		       size="40"
-		       maxlength="40"
+		       size="60"
+		       maxlength="60"
 		       class="regularxxl">
 		</TD>
 		</TR>

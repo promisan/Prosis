@@ -10,9 +10,11 @@ password="#SESSION.dbpw#">
 	WHERE  SystemFunctionId = '#URL.ID#'
 </cfquery>
 
-<cfform action="RecordSubmit.cfm?ID=#URL.ID#&mission=#url.mission#" method="POST" target="saveform" name="entry">
+<!--- action="RecordSubmit.cfm?ID=#URL.ID#&mission=#url.mission#" --->
 
-<table width="94%" cellpadding="0" cellspacing="0" align="center" class="formpadding">
+<cfform method="POST" target="saveform" name="entry">
+
+<table width="94%" align="center" class="formpadding">
 
 <tr><td style="height:3"></td></tr>
 			
@@ -97,7 +99,7 @@ password="#SESSION.dbpw#">
 		       name="FunctionBackground"
 			   id="FunctionBackground"
 		       value="#Line.FunctionBackground#"
-		       size="60"
+		       size="80"
 		       maxlength="80"
 		       class="regularxl"
 		       visible="Yes"
@@ -161,7 +163,7 @@ password="#SESSION.dbpw#">
 		<td>
 		
 			<cfoutput>
-		 		<input type="hidden" name="FunctionName" id="FunctionName" value="#Line.FunctionName#" size="40" maxlength="40" class="disabled">
+		 		<input type="hidden" name="FunctionName" id="FunctionName" value="#Line.FunctionName#" size="50" maxlength="50" class="disabled">
 	    	</cfoutput>
 		
 			<table cellspacing="0" cellpadding="0">
@@ -175,8 +177,8 @@ password="#SESSION.dbpw#">
 				Type            = "Input"
 				Required        = "No"
 				Message         = ""
-				MaxLength       = "50"
-				Size            = "40"
+				MaxLength       = "80"
+				Size            = "80"
 				Class           = "regularxl"
 				Operational     = "1"
 				Label           = "Yes">
@@ -192,7 +194,7 @@ password="#SESSION.dbpw#">
         <TD>
 		
 			<cfoutput>
-		 		<input type="hidden" name="FunctionMemo" id="FunctionMemo" value="#Line.FunctionMemo#" size="40" maxlength="40" class="disabled">
+		 		<input type="hidden" name="FunctionMemo" id="FunctionMemo" value="#Line.FunctionMemo#" size="80" maxlength="80" class="disabled">
 	    	</cfoutput>
 		
 			<table cellspacing="0" cellpadding="0">
@@ -207,7 +209,7 @@ password="#SESSION.dbpw#">
 				Required        = "No"
 				Message         = ""
 				MaxLength       = "100"
-				Size            = "70"
+				Size            = "90"
 				Class           = "regularxl"
 				Operational     = "1"
 				Label           = "Yes">
@@ -408,7 +410,7 @@ password="#SESSION.dbpw#">
 			        <td style="padding:1px;padding-right:10px">Directory:</td>
 			        <TD style="padding:1px">
 					<cfoutput>					
-						<input type="text" #read# style="height:25px" name="FunctionDirectory" id="FunctionDirectory" value="#Line.FunctionDirectory#" size="50" maxlength="70" class="#cl#"></TD>
+						<input type="text" #read# style="height:25px" name="FunctionDirectory" id="FunctionDirectory" value="#Line.FunctionDirectory#" size="80" maxlength="80" class="#cl#"></TD>
 					</cfoutput>
 				</TR>
 									  
@@ -416,7 +418,7 @@ password="#SESSION.dbpw#">
 			        <td style="padding:1px">Path:</td>
 			        <TD style="padding:1px">
 					<cfoutput>					
-						<input type="text" #read# style="height:25px" name="FunctionPath" id="FunctionPath" value="#Line.FunctionPath#" size="50" maxlength="70" class="#cl#"></TD>
+						<input type="text" #read# style="height:25px" name="FunctionPath" id="FunctionPath" value="#Line.FunctionPath#" size="80" maxlength="80" class="#cl#"></TD>
 					</cfoutput>
 				</TR>
 								
@@ -424,7 +426,7 @@ password="#SESSION.dbpw#">
 			        <td style="padding:1px">Condition:</td>
 			        <TD style="padding:1px">
 					<cfoutput>
-						<input type="text" style="height:25px" name="FunctionCondition" id="FunctionCondition" value="#Line.FunctionCondition#" size="50" maxlength="70" class="regularxl"></TD>
+						<input type="text" style="height:25px" name="FunctionCondition" id="FunctionCondition" value="#Line.FunctionCondition#" size="80" maxlength="80" class="regularxl"></TD>
 					</cfoutput>
 				</TR>
 				
@@ -464,29 +466,28 @@ password="#SESSION.dbpw#">
 		
 		<cfif Line.MainmenuItem eq "1">
 		
-		<TR class="labelmedium2">
-		        <td style="height:24px">Target:</td>
-		        <TD>
-					<table cellspacing="0" cellpadding="0">					
-					<tr><td>
-					<input type="radio" class="radiol" class="radiol" name="FunctionTarget" id="FunctionTarget" value="new" <cfif Line.FunctionTarget eq "new">checked</cfif>></td><td style="padding-left:5px" class="labelmedium">New Window</td>	
-					</td>									
-					<td class="labelmedium" style="padding-left:5px">
-					<input type="radio" class="radiol" class="radiol" name="FunctionTarget" id="FunctionTarget" value="_new" <cfif Line.FunctionTarget eq "_new">checked</cfif>></td><td style="padding-left:5px" class="labelmedium">New Browser tab</td>		
-					</td>
-					<td style="padding-left:6px" class="labelmedium">
-					<input type="radio" class="radiol" name="FunctionTarget" id="FunctionTarget" value="newfull" <cfif Line.FunctionTarget eq "newfull">checked</cfif>></td><td class="labelmedium" style="padding-left:4px;padding:1px">New Window (full size)</td>
-					</td>
-					
-					<!---
-					<td style="padding-left:6px" class="labelmedium">
-					<input type="radio" class="radiol" name="FunctionTarget" id="FunctionTarget" value="_new" <cfif Line.FunctionTarget eq "_new">checked</cfif>></td><td class="labelmedium" style="padding-left:4px;padding:1px">New Tab</td>		
-					</td>
-					--->
-					</tr>
-					</table>	
-				</td>		
-		</TR>
+			<TR class="labelmedium2">
+			        <td style="height:24px">Target:</td>
+			        <TD>
+						<table cellspacing="0" cellpadding="0">					
+						<tr><td>
+						<input type="radio" class="radiol" class="radiol" name="FunctionTarget" id="FunctionTarget" value="new" <cfif Line.FunctionTarget eq "new">checked</cfif>></td><td style="padding-left:5px" class="labelmedium">New Window</td>	
+						</td>									
+						<td class="labelmedium" style="padding-left:5px">
+						<input type="radio" class="radiol" class="radiol" name="FunctionTarget" id="FunctionTarget" value="_new" <cfif Line.FunctionTarget eq "_new">checked</cfif>></td><td style="padding-left:5px" class="labelmedium">New Browser tab</td>		
+						</td>
+						<td style="padding-left:6px" class="labelmedium">
+						<input type="radio" class="radiol" name="FunctionTarget" id="FunctionTarget" value="newfull" <cfif Line.FunctionTarget eq "newfull">checked</cfif>></td><td class="labelmedium" style="padding-left:4px;padding:1px">New Window (full size)</td>
+						</td>				
+						<!---
+						<td style="padding-left:6px" class="labelmedium">
+						<input type="radio" class="radiol" name="FunctionTarget" id="FunctionTarget" value="_new" <cfif Line.FunctionTarget eq "_new">checked</cfif>></td><td class="labelmedium" style="padding-left:4px;padding:1px">New Tab</td>		
+						</td>
+						--->
+						</tr>
+						</table>	
+					</td>		
+			</TR>
 		
 		<cfelse>
 		
@@ -593,8 +594,10 @@ password="#SESSION.dbpw#">
 		
 		</td>
 	</tr>	
-		
+	
+	<!---	
 	<tr class="hide"><td id="myresult"><iframe name="saveform" id="saveform" scrolling="yes"></iframe></td></tr>
+	--->
 	
 	<tr><td colspan="2" height="1" class="line"></td></tr>	
 	<tr><td colspan="2" valign="bottom">
@@ -624,10 +627,12 @@ password="#SESSION.dbpw#">
 					  value="Delete" 
 					  onclick="ptoken.navigate('FunctionDelete.cfm?id=#Line.SystemFunctionId#','myresult')">
 			  </cfif>
-			  
-		  </cfoutput>   
+			  	     
 		  		  	 
-		  <input class="button10g" style="width:140px;height:25" type="submit" name="update" id="update" value ="Apply">
+		  <input class="button10g" style="width:140px;height:25" type="button" name="update" id="update" value ="Apply"
+		  onclick="ptoken.navigate('RecordSubmit.cfm?ID=#URL.ID#&mission=#url.mission#','contentbox1','','','POST','entry')">
+		  
+		  </cfoutput>
 		 
   	   </td>
       </table>

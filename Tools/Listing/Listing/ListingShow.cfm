@@ -16,15 +16,15 @@
 <cfif url.content eq "1">
 
     <!--- -------------------------------------------------- --->
-	<!--- only content because apply/refresh/sort is pressed --->
-				
+	<!--- only content because apply/refresh/sort is pressed --->				
 	<cfinclude template="ListingContentHTML.cfm">	
 	
 <cfelse>
 
-  <cfoutput>  
+  <cfoutput>   
   
-
+   <span id="main_#url.systemfunctionid#">
+  	
    <cfif listclass eq "Listing">
          
    	    <!--- menu listing --->
@@ -114,8 +114,13 @@
 									<table width="100%" align="right">    
 										<cf_tl id="Filter" var="tlFilter">    
 										<tr>
-											<td height="28" style="padding-left:10px" class="labelmedium">#tlFilter#</td>
 											
+											<td style="padding-left:10px">								  
+											  <cf_tl id="Reset filter" var="1">									  
+											  <input type="button" style="width:220px;border:1px solid silver" onclick="resetfilter('#url.systemfunctionid#','#url.functionserialno#','#attributes.box#')" value="#lt_text#" class="button10g">
+								  
+								  			</td>
+								  
 											<td style="min-width:300px">
 											
 											<cfinclude template="ListingMenu.cfm">		
@@ -157,7 +162,8 @@
 						                </tr> 														
 										<cfset getMissingFilter = "1">									
 						                <tr>									  					
-											<td class="#cl#" id="locate#attributes.box#" name="locate#attributes.box#" colspan="2" width="100%">
+											<td class="#cl#" id="locate#attributes.box#" colspan="2" width="100%">											
+																						
 												<!--- show filter options --->																										
 												<cfinclude template="ListingFilter.cfm">																															
 											</td>    										
@@ -170,8 +176,7 @@
 								</td>
 							</tr>   
 							
-						</cfif>  
-						
+						</cfif>  						
 						
 						<tr class="hide">
 						   	<td style="height:1px" id="#attributes.box#_ajax"></td>
@@ -192,8 +197,7 @@
 			<cf_tl id="Fields" var="tlFields">
 			<cf_layoutArea position="right" name="filtering" collapsible="true" title="#tlFields#" size="150px" minsize="100px" maxsize="350px" initcollapsed="true" style="padding:5px;">
 				<cfinclude template="ListingFields.cfm">
-			</cf_layoutArea>
-						
+			</cf_layoutArea>						
 		
 		</cf_layout>
 			   	   
@@ -223,8 +227,7 @@
 						<input type="hidden" name="mylinkform" id="mylinkform" value="#url.linkform#">
 				   
 				   		<input type="hidden" name="gridbox"    id="gridbox"    value="#attributes.box#_content">							   
-						<input type="hidden" name="ajaxbox"    id="ajaxbox"	   value="#attributes.box#_ajax">	   	   
-								      
+						<input type="hidden" name="ajaxbox"    id="ajaxbox"	   value="#attributes.box#_ajax">							      
 				   
 				   		</td>
 					</tr>	
@@ -297,7 +300,7 @@
 									  method      = "ShowInquiry"		
 									  buttonclass = "button10g"						 				  						 
 									  buttonText  = "#excel#"		
-									  buttonstyle = "width:180px"				 
+									  buttonstyle = "width:180px;border:1px solid silver"				 
 									  reportPath  = "Tools\Listing\Listing\"
 									  queryString = "box=#attributes.box#&systemfunctionid=#url.systemfunctionid#"
 									  SQLtemplate = "ListingExcel.cfm"						 
@@ -314,8 +317,18 @@
 							   </td>
 							  
 							  </cfif>
+							  
+							  <cfif url.systemfunctionid neq "">
+							  
+								  <td>								  
+								  <cf_tl id="Reset filter" var="1">									  
+								  <input type="button" style="width:120px;border:1px solid silver" onclick="resetfilter('#url.systemfunctionid#','#url.functionserialno#','#attributes.box#')" value="#lt_text#" class="button10g">
+								  
+								  </td>
+							  
+							  </cfif>
 							 
-							   <cfif isArray(attributes.menu)>	 	
+							  <cfif isArray(attributes.menu)>	 	
 							  
 								  <cfloop array="#attributes.menu#" index="option">
 								  
@@ -344,7 +357,7 @@
 									
 								  </cfloop>		
 							  
-							  </cfif>	
+							   </cfif>	
 							  
 							  <!--- deprecated as flash no longer is supported 						  	 	
 							  						  
@@ -404,7 +417,7 @@
 												
 								<table width="100%" align="right">							
 									<tr>																	
-									<td id="locate#attributes.box#" width="100%" class="#cl#">																				
+									<td id="locate#attributes.box#" width="100%" class="#cl#">																											
 									 	<cfinclude template="ListingFilter.cfm"> 															
 									</td>		
 																		
@@ -432,13 +445,13 @@
 					</cfif>		
 												
 				    <tr>
-					    <td height="100%" id="#attributes.box#_content" colspan="2" valign="top">	
-																								
-							<cfinclude template="ListingContentHTML.cfm">	   																	
+					    <td height="100%" id="#attributes.box#_content" colspan="2" valign="top">																									
+							<cfinclude template="ListingContentHTML.cfm">	   																
 						
 						</td>
 					</tr>	
 					
+					<!--- databox to have content itself being shown --->
 					<tr class="xxxhide"><td style="height:1px" id="#attributes.box#_ajax"></td></tr>	  		   
 									
 			 </table>
@@ -446,6 +459,8 @@
 		 </cfform>
 		 	
 	</cfif>   
+	
+	</span> 
         
    </cfoutput>
     

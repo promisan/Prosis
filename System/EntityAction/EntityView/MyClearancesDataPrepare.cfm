@@ -53,7 +53,9 @@
 			 WHERE      P.EnableMyClearances = 1 
 			  AND       O.ObjectStatus       = 0
 			  AND       O.Operational        = 1  
-			  
+			  <cfif url.scope eq "portal">
+			  AND       E.EnablePortal = 1
+			  </cfif>			  
 			  AND       E.ProcessMode       != '9'		
 			  <!--- hide concurrent actions that were completed --->
 			  AND       OA.ActionStatus     != '2'			 

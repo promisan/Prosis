@@ -29,7 +29,7 @@ password="#SESSION.dbpw#">
 		<td style="width:100%"> 
 		
 		   <cf_tl id="Initiate recruitment" var="1">
-	      <input title="Click to initiate a recruitment process for this position"
+	      <input title="Click to initiate a recruitment process for this position" disabled
 		  type="button" value="#lt_text#" class="button10g" onclick="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')" style="border-radius:10px;width:100%;border:1px solid silver">			  
 			<!---		
 		    <a title="Click to initiate a recruitment process for this position" href="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')"><cf_tl id="Initiate recruitment"></a> 	
@@ -112,10 +112,10 @@ password="#SESSION.dbpw#">
 		
 		<cfif Candidate.recordcount neq "0">
 		
-			<cfloop query="candidate">
-		
-			<tr class="line" style="padding-top:2px"><td align="center">#Candidate.FirstName# #Candidate.LastName# (<cfif IndexNo eq "">No indexNo<cfelse></cfif>#IndexNo#)</td></tr>
-			
+			<cfloop query="candidate">		
+			<tr class="line" style="padding-top:2px">
+			     <td align="center">#Candidate.FirstName# #Candidate.LastName# (<cfif IndexNo eq "">No indexNo<cfelse></cfif>#IndexNo#)</td>
+		    </tr>			
 			</cfloop>
 		
 		</cfif>	

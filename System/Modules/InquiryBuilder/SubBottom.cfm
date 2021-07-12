@@ -41,8 +41,7 @@ password="#SESSION.dbpw#">
 		--->
 		
 		<cfoutput>			
-				
-				
+								
 			<script>
 				try {show('regular')} catch(e) {}
 			</script>
@@ -91,9 +90,11 @@ password="#SESSION.dbpw#">
 						
 			<td onMouseOver="document.getElementById('save').focus()">
 			
+			 <cf_tl id="Save" var="1">
+			
 			<button name="save" id="save" class="button10g" style="border:1px solid gray;width:245;height:27" type="button"
 				onclick="Prosis.busy('yes');ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditSubmit.cfm?systemfunctionid=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#','result','','','POST','inquiryform');document.getElementById('testing').className='button10g'">
-				 Save
+				 #lt_text#
 			</button>
 			
 			</td>

@@ -300,6 +300,20 @@
    FunctionCondition = "ID1=Billing&ID=CRE"
    FunctionIcon      = "Maintain">   
    
+<cf_ModuleInsertSubmit
+   SystemModule      = "WorkOrder" 
+   FunctionClass     = "Billing"
+   FunctionName      = "Pending Invoices" 
+   MenuClass         = "Shipment"
+   MenuOrder         = "9"
+   MainMenuItem      = "0"
+   BrowserSupport    = "2"
+   FunctionMemo      = "Review pending invoices"
+   FunctionDirectory = "WorkOrder/Application/Shipping"
+   FunctionPath      = "BillingView/BillingListing.cfm"   
+   FunctionCondition = "ID1=Pending&ID=CRE"
+   FunctionIcon      = "Maintain">     
+   
 <!--- ----------------- --->   
 <!--- Inquiry functions --->
 <!--- ---------------- --->      

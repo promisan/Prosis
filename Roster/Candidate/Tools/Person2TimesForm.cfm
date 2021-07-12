@@ -1,7 +1,7 @@
 
 <cfoutput>
 
-<cf_screentop label="Merge Applicant Profiles" bannerheight="55" line="no" height="100%" layout="webapp" scroll="Yes" banner="gray">
+<cf_screentop label="Merge Applicant Profiles" html="No" bannerheight="55" line="no" height="100%" layout="webapp" scroll="Yes" banner="gray">
 
 <table width="92%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
 
@@ -17,8 +17,8 @@
 	
 	<tr>
 	<td width="300" valign="top">
-	<table><tr>
-	<td width="180" class="labelit">
+	<table><tr class="labelmedium2">
+	<td style="width:300px">
 	<cf_UIToolTip
 	tooltip="This profile will be removed from the system and applications will be linked to the above profile">
 	Account with <font color="FF0000">INCORRECT</font> Profile:
@@ -28,7 +28,7 @@
 	<input type="text" 
 	       name="wrong" 
 	       id="wrong"
-		   class="regularxl regular3"
+		   class="regularxxl regular3"
 		   size="10" 
 		   style="border:0px;font-size:20px"
 		   readonly
@@ -39,17 +39,17 @@
 	</td>
 	</tr>
 	<tr>
-	<td colspan="2">
+	<td colspan="2" style="padding-left:4px;background-color:f1f1f1">
 		<cf_securediv bind="url:Person2TimesSelect.cfm?sel=wrong&correct='+this.value+'&wrong=#url.personno#" id="incorrectbox"/>
 	</td>
 	</tr>
 	
-	<tr><td colspan="2" class="linedotted"></td></tr>
+	<tr><td colspan="2" class="line"></td></tr>
 	
 	<tr>
 	<td width="300" valign="top">
-		<table><tr>
-		<td width="200" class="labelit">
+		<table><tr class="labelmedium2">
+		<td style="width:300px">
 		<cf_UIToolTip  tooltip="This profile will be retained">
 		<font color="408080">Selected <b>CORRECT</b></font> PHP Profile:
 		</cf_UIToolTip>
@@ -111,7 +111,7 @@
 		ORDER BY FirstName
 		</cfquery>
 				
-		<select name="correct" class="regularxl" onChange="ptoken.navigate('Person2TimesSelect.cfm?sel=correct&correct='+this.value+'&wrong='+document.getElementById('wrong').value,'correctbox')">
+		<select name="correct" class="regularxxl" onChange="ptoken.navigate('Person2TimesSelect.cfm?sel=correct&correct='+this.value+'&wrong='+document.getElementById('wrong').value,'correctbox')">
 		<option value="">select</option>
 		<cfloop query="correct">
 		<option value="#PersonNo#">

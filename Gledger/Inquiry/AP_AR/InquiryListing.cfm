@@ -186,7 +186,8 @@
 	</cfoutput>
 </cfif>
 
-<tr><td valign="top">	
+<tr>
+<td valign="top">	
 	
 	<cfif url.filter eq "customer">	
 		<cfset cl = "hide">		
@@ -201,7 +202,6 @@
 		systemfunctionid = "#url.systemfunctionid#"
 	    html             = "No"	
 		datasource       = "AppsQuery"
-		calendar         = "9"
 		tablewidth       = "100%"	
 		filtershow       = "#cl#"
 		excelshow        = "Yes"	
@@ -219,7 +219,9 @@
 		drilltemplate    = "Gledger/Application/Transaction/View/TransactionView.cfm?id="
 		drillkey         = "TransactionId">
 		
-</td></tr></table>		
+</td>
+</tr>
+</table>		
 	
 <script>
 	Prosis.busy('no')	

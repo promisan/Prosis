@@ -110,11 +110,11 @@
 <table width="90%" align="center">
 	
 	<tr>
-		<td><cfdiv id="divElementEditHead" bind="url:ElementEditForm.cfm?idmenu=#url.idmenu#&promotionid=#url.promotionid#&serial=#url.serial#"></td>
+		<td><cf_securediv id="divElementEditHead" bind="url:ElementEditForm.cfm?idmenu=#url.idmenu#&promotionid=#url.promotionid#&serial=#url.serial#"></td>
 	</tr>
 	
 	<tr>
-		<td><cfdiv id="divElementEditDetail" bind="url:ElementCategoryItem/ElementCategoryItem.cfm?idmenu=#url.idmenu#&promotionid=#url.promotionid#&serial=#url.serial#"></td>
+		<td><cf_securediv id="divElementEditDetail" bind="url:ElementCategoryItem/ElementCategoryItem.cfm?idmenu=#url.idmenu#&promotionid=#url.promotionid#&serial=#url.serial#"></td>
 	</tr>
 	
 </table>

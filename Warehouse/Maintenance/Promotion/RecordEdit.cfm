@@ -10,14 +10,15 @@
 <cf_screentop height="100%" 
               scroll="Yes" 
 			  layout="webapp" 
-			  label="#vAction# Promotion" 
+			  label="#vAction# Promotions or Hot topics" 
 			  banner="#vBanner#"
 			  menuAccess="Yes" 
 			  jquery="Yes"			  
 			  systemfunctionid="#url.idmenu#">
 
-<cfajaximport tags="cfform,cfdiv,cfwindow">
+<cfajaximport tags="cfform,cfdiv">
 <cf_calendarScript>
+<cf_filelibraryscript>
 
 <cf_tl id = "The expiration date and time must be greater than the effective date and time." var = "vDateError">
 <cf_tl id = "Please, enter a valid effective date." var = "effReqError">
@@ -87,16 +88,16 @@
 		    
 			try { ProsisUI.closeWindow('mypromo',true) } catch(e) {}
 			ProsisUI.createWindow('mypromo', 'Promotion Element', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    							
-			ColdFusion.navigate('#session.root#/Warehouse/Maintenance/Promotion/Element/ElementView.cfm?idmenu=#url.idmenu#&promotionid=' + promotionid + '&serial=' + serial,'mypromo') 		
+			ptoken.navigate('#session.root#/Warehouse/Maintenance/Promotion/Element/ElementView.cfm?idmenu=#url.idmenu#&promotionid=' + promotionid + '&serial=' + serial,'mypromo') 		
 		}
 		
 		function elementrefresh(promotionid) {
-		    ColdFusion.navigate('Element/ElementListing.cfm?idmenu=#url.idmenu#&id1=' + promotionid, 'divElementListing');
+		    ptoken.navigate('Element/ElementListing.cfm?idmenu=#url.idmenu#&id1=' + promotionid, 'divElementListing');
 		}
 		
 		function elementPurge(promotionid,serial) {
 			if (confirm('Do you want to remove this element and all of its details ?')) {
-				ColdFusion.navigate('Element/ElementPurge.cfm?idmenu=#url.idmenu#&promotionid=' + promotionid + '&serial=' + serial, 'divElementListing');
+				ptoken.navigate('Element/ElementPurge.cfm?idmenu=#url.idmenu#&promotionid=' + promotionid + '&serial=' + serial, 'divElementListing');
 			}
 		}
 
@@ -106,15 +107,14 @@
 <table width="98%" align="center">
 	<tr>
 		<td>
-			<cfdiv id="divHeader" bind="url:RecordEditDetail.cfm?idmenu=#url.idmenu#&id1=#url.id1#&fmission=#url.fmission#">
+			<cf_securediv id="divHeader" bind="url:RecordEditDetail.cfm?idmenu=#url.idmenu#&id1=#url.id1#&fmission=#url.fmission#">
 		</td>
 	</tr>
 	<tr><td height="5"></td></tr>
 	<tr>
 		<td>
-			<cfdiv id="divDetail" bind="url:Element/Element.cfm?idmenu=#url.idmenu#&id1=#url.id1#&fmission=#url.fmission#">
+			<cf_securediv id="divDetail" bind="url:Element/Element.cfm?idmenu=#url.idmenu#&id1=#url.id1#&fmission=#url.fmission#">
 		</td>
 	</tr>
 </table>
 	
-<cf_screenbottom layout="innerbox">

@@ -200,7 +200,7 @@
 							<cfset url.box      = "i#Receipt.ReceiptNo#">																		
 							<cfset url.reqno    = "#checkLines.requisitionno#">
 							<cfset url.rctid    = "#checkLines.receiptid#">
-							<cfinclude template = "../ReceiptEntry/ReceiptDetail.cfm">	
+							<cfinclude template = "../ReceiptEntry/ReceiptDetail.cfm">
 							
 												
 					 </td></tr>
@@ -229,8 +229,7 @@
 		 <cfif getJournal.recordcount gte "1">	 		 
 			 		 		 
 		 <tr><td colspan="7" style="background-color:f1f1f1;padding-left:21px;padding-right:30px;height:20px">
-
-		 			 		 		 		 
+		 		 		 		 
 			  	<cf_LedgerTransaction
 				 mission              = "#receipt.mission#"
 				 journal              = "#valueList(getJournal.Journal)#" 

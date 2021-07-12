@@ -393,7 +393,7 @@
 					<cfset link = "#session.root#/attendance/application/leaveRequest/getPerson.cfm?PersonNo=#URL.ID#&leaveid=&field=HandoverUserId">						
 															
 					<td width="50%" style="padding-left:1px">					
-						<cfdiv bind="url:#link#&Account=" id="backupselect"/>						
+						<cf_securediv bind="url:#link#&Account=" id="backupselect">						
 					</td>
 					
 					<td style="padding-right:1px">

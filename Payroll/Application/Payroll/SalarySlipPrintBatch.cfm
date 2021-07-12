@@ -64,8 +64,7 @@
 		FROM     SalaryScheduleMission
 		WHERE    SalarySchedule = '#SalarySchedule#'   	
 		AND      Mission        = '#Mission#'
-	</cfquery>	
-	
+	</cfquery>		
 						  
 	<cfquery name="Settlement" 
 	    datasource="AppsPayroll" 
@@ -83,6 +82,16 @@
 		WHERE    Mission        = '#Mission#'
 		AND      SalarySchedule = '#SalarySchedule#'
 		AND      PaymentDate    = '#PayrollEnd#'	
+		
+		AND      EXISTS (SELECT 'X'
+					     FROM   EmployeeSettlementLine 
+						 WHERE  Mission        = '#Mission#'
+						 AND    SalarySchedule = '#SalarySchedule#'
+						 AND    PaymentDate    = '#PayrollEnd#'	
+						 AND    PersonNo       = S.PersonNo
+						 AND    SettlementPhase = '#settlementPhase#' 
+						 AND    PaymentAmount <> 0  <!--- only if we have indeed amounts to be settled --->
+						 )	
 		
 		AND      NOT EXISTS (SELECT 'X'
 							 FROM   EmployeeSettlementAction 
@@ -102,8 +111,7 @@
 			<cfset serial = "0">
 					
 			<cfloop condition="#result# eq 0">	
-					
-				<cftry>
+				
 														
 					<cfquery name="getSettlement" 
 						datasource="AppsPayroll">
@@ -120,15 +128,7 @@
 					<cfinclude template="SalarySlipPrintDocument.cfm">				
 										
 					<cfset result = "1">
-				 				 
-				 <cfcatch>
-				 				 
-				 	 <cfset result = "1">				
-					 <cfset serial = serial+1>
-				 
-				 </cfcatch>
-				 
-				 </cftry>
+				
 				
 				 				 	
 			</cfloop> 

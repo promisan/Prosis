@@ -2601,7 +2601,15 @@
 			  DocumentCode="S009"
 			  DocumentDescription="Obtain Tax invoiceNo"
 			  DocumentTemplate="Gledger/Workflow/Tax/ObtainInvoiceNo.cfm"
-			  DocumentMode="Embed">		  
+			  DocumentMode="Embed">					  
+			  
+	<cf_insertEntityDocument
+	          Code="GLTransaction"   
+			  DocumentType="dialog" 
+			  DocumentCode="PS1"
+			  DocumentDescription="Generate and Send Payslip"
+			  DocumentTemplate="Payroll/Application/Payroll/SalarySlipPreparation.cfm"
+			  DocumentMode="Embed">			  		    
 
 </cfif>
 

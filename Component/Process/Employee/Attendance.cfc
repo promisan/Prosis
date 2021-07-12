@@ -1272,7 +1272,7 @@
 						   <cfloop query="getPersonSchedule">
 						  									
 							   <cfset hourSlotMinutes = 60/HourSlots>
-
+							
 							   <cfquery name="getWork" 
 				               datasource="AppsEmployee" 
 				               username="#SESSION.login#" 
@@ -1280,8 +1280,9 @@
 								    SELECT  *
 									FROM    Ref_WorkAction
 									WHERE   ActionParent = '#Leave.LeaveParent#'
-								</cfquery>						
-							
+								</cfquery>		
+								
+																				
 							     <cfquery name="InsertMain" 
 					               datasource="AppsEmployee" 
 					               username="#SESSION.login#" 
@@ -1299,18 +1300,20 @@
 							    			   OfficerUserId, 
 							    			   OfficerLastName, 
 							    			   OfficerFirstName) 
-					        	   VALUES  ('#PersonNo#',		            
-											 #DateSel#,
-											 '#CalendarDateHour#',
-											 '#CalendarDateSlot#',
-											 '#hourSlots#',
-											 '#hourSlotMinutes#',
-											 '#getWork.ActionClass#',			
-											 '#Leave.LeaveId#',				
-										     '#SESSION.acc#',
-										     '#SESSION.last#',
-										     '#SESSION.first#')
+						        	   VALUES  ('#PersonNo#',		            
+												 #DateSel#,
+												 '#CalendarDateHour#',
+												 '#CalendarDateSlot#',
+												 '#hourSlots#',
+												 '#hourSlotMinutes#',
+												 '#getWork.ActionClass#',			
+												 '#Leave.LeaveId#',				
+											     '#SESSION.acc#',
+											     '#SESSION.last#',
+											     '#SESSION.first#')
 					      		  </cfquery>	
+								  
+								 
 													  
 						  </cfloop>		
 						  
@@ -3271,32 +3274,41 @@
 								 	<cfset crd = 0>
 								 </cfif>							 
 							 
-							 <cfelseif Credit.Calculation eq "day">									 			 
+							 <cfelseif Credit.Calculation eq "day">		
+														 			 
 							 	 					 
 							 	 <cfset mul = ((END - START + 1) - corr)/(daysInMonth(END))>
 							     <cfset crd = mul * credit.CreditFull>
-															 						 
+								 
 								 <cfif crd lt 0.24>
-								           <cfset crd = 0>						  
+								           <cfset crd = 0>		
 								 <cfelseif crd lt 0.75>
-								           <cfset crd = 0.5>
+								           <cfset crd = 0.5>		   				  
 								 <cfelseif crd lt 1.25>
-								           <cfset crd = 1.0>	 
+								           <cfset crd = 1>		
+								 <cfelseif crd lt 1.50>
+								           <cfset crd = 1.25>				   						   
 								 <cfelseif crd lt 1.75>
-						    		       <cfset crd = 1.5>
-							     <cfelseif crd lt 2.25>
-						    		       <cfset crd = 2.0>		  
+								           <cfset crd = 1.50>	
+								 <cfelseif crd lt 2.00>
+								           <cfset crd = 1.75>				   	   
+								 <cfelseif crd lt 2.25>
+								           <cfset crd = 2.00>
+								 <cfelseif crd lt 2.50>
+								           <cfset crd = 2.25> 		   
 								 <cfelseif crd lt 2.75>
-								           <cfset crd = 2.5>
-								  <cfelseif crd lt 3.25>
-								           <cfset crd = 3.0>	  
+								           <cfset crd = 2.50>
+								 <cfelseif crd lt 3.25>
+								           <cfset crd = 3>
 								 <cfelseif crd lt 3.75>
-									       <cfset crd = 3.5>						
-							     <cfelseif crd lt 4.25>
-									       <cfset crd = 4.0>			   	  	  
+								           <cfset crd = 3.50>
+								 <cfelseif crd lt 4.25>
+								           <cfset crd = 4.0>
 								 <cfelse>
 								      <cfset crd = round(crd)>	  
 								 </cfif>
+														 						 
+								
 								 
 							 <cfelse>
 							 				
@@ -3368,22 +3380,22 @@
 								 --->					 
 																											
 								 <cfif ST EQ BT>	
-								 
+																 
 								 	<cfif crd lt 0.24>
 									           <cfset crd = 0>		
 									 <cfelseif crd lt 0.75>
 									           <cfset crd = 0.5>		   				  
-									 <cfelseif crd lt 1.25>
+									 <cfelseif crd lt 1.20>
 									           <cfset crd = 1>		
-									 <cfelseif crd lt 1.50>
+									 <cfelseif crd lt 1.45>
 									           <cfset crd = 1.25>				   						   
-									 <cfelseif crd lt 1.75>
+									 <cfelseif crd lt 1.70>
 									           <cfset crd = 1.50>	
-									 <cfelseif crd lt 2.00>
+									 <cfelseif crd lt 1.95>
 									           <cfset crd = 1.75>				   	   
-									 <cfelseif crd lt 2.25>
+									 <cfelseif crd lt 2.20>
 									           <cfset crd = 2.00>
-									 <cfelseif crd lt 2.50>
+									 <cfelseif crd lt 2.45>
 									           <cfset crd = 2.25> 		   
 									 <cfelseif crd lt 2.75>
 									           <cfset crd = 2.50>
@@ -3427,21 +3439,21 @@
 								
 									<cfif crd lt 0.24>
 									           <cfset crd = 0>		
-									 <cfelseif crd lt 0.75>
+									 <cfelseif crd lt 0.70>
 									           <cfset crd = 0.5>		   				  
-									 <cfelseif crd lt 1.25>
+									 <cfelseif crd lt 1.20>
 									           <cfset crd = 1>		
-									 <cfelseif crd lt 1.50>
+									 <cfelseif crd lt 1.45>
 									           <cfset crd = 1.25>				   						   
-									 <cfelseif crd lt 1.75>
+									 <cfelseif crd lt 1.70>
 									           <cfset crd = 1.50>	
-									 <cfelseif crd lt 2.00>
+									 <cfelseif crd lt 1.95>
 									           <cfset crd = 1.75>				   	   
-									 <cfelseif crd lt 2.25>
+									 <cfelseif crd lt 2.20>
 									           <cfset crd = 2.00>
-									 <cfelseif crd lt 2.50>
+									 <cfelseif crd lt 2.45>
 									           <cfset crd = 2.25> 		   
-									 <cfelseif crd lt 2.75>
+									 <cfelseif crd lt 2.70>
 									           <cfset crd = 2.50>
 									 <cfelseif crd lt 3.25>
 									           <cfset crd = 3>

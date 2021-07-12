@@ -3,7 +3,6 @@
 
 <cfparam name="url.systemfunctionid" default="">
 
-
 <cfoutput>
 
 <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>

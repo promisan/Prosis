@@ -12,7 +12,7 @@
     <cfif URL.Owner neq "">
         AND Owner = '#URL.Owner#'
     </cfif>	
-    ORDER BY  ListingOrder, SystemModule, EntityOrder, EntityCode 	
+    ORDER BY  ListingOrder, SystemModule, EntityOrder, EntityCode 		
 </cfquery>
 
 <cf_verifyOperational 
@@ -68,15 +68,17 @@
 
 <cfoutput>
 
-    <cf_mobilepanel bodystyle="border:0px; padding-top:10px; padding-bottom:10px;">      
+    <cf_mobilepanel bodystyle="border:0px; padding-top:1px; padding-bottom:1px;">      
 		
-        <cf_mobilerow style="padding-bottom:10px;">
-		    <table style="background-color:eaeaea;width:100%;border:0px solid silver">
+        <cf_mobilerow style="padding-bottom:4px;">
+		    <table style="width:100%;border:0px solid silver">
 			<tr class="labelmedium">
+			<!---
 			<td valign="middle" style="background-color:e1e1e1;border-right:1px solid silver;font-size:14px;padding-left:6px;min-width:100px;">
                 <cf_tl id="Summary">:
             </td>
-			<td style="height:45px;font-weight:280;font-size:23px;padding:9px;width:100%" id="summary">
+			--->
+			<td style="height:35px;font-weight:280;font-size:24px;width:100%" id="summary">
             <cfif ResultListing.recordcount eq "0">
                 <cfset cl = "##59C25B">
             <cfelse>
@@ -84,25 +86,39 @@
             </cfif>
             <cfif ResultListing.recordcount eq "0"><cf_tl id="No"><cfelse><span style="color:#cl#">#ResultListing.recordcount#</span></cfif>
             <cfif ResultListing.recordcount eq "1">
-                    <cf_tl id="action">
+                    <cf_tl id="pending"> <cf_tl id="action">
             <cfelse>
-                    <cf_tl id="actions">
+                    <cf_tl id="pending"> <cf_tl id="actions">
             </cfif>
     
+	        <!---
             <cf_tl id="and"> <span id="batch"></span>
+			--->
+			
+			<span id="batch" class="hide"></span>
+			
 			</td></tr>			
 			</table>
 		</cf_mobilerow>
         
         <cf_mobilerow>
-            <cf_mobilecell class="#vColClass#">
-                <select id="sMission" name="sMission" class="form-control" onchange="doRefresh(document.getElementById('sEntityGroup').value,this.value,document.getElementById('sOwner').value,document.getElementById('sUser').checked,'1')">
-                    <option value="" <cfif url.EntityGroup eq "">selected</cfif>><cf_tl id="All Entities"></option>
-                    <cfloop query="qMission">
-                        <option value="#qMission.Mission#" <cfif url.Mission eq qMission.Mission>selected</cfif>>#qMission.Mission#</option>
-                    </cfloop>
-                </select>
-            </cf_mobilecell>
+		
+		    <cfif qMission.recordcount gt "1">
+           
+			    <cf_mobilecell class="#vColClass#">
+	                <select id="sMission" name="sMission" class="form-control" onchange="doRefresh(document.getElementById('sEntityGroup').value,this.value,document.getElementById('sOwner').value,document.getElementById('sUser').checked,'1')">
+	                    <option value="" <cfif url.EntityGroup eq "">selected</cfif>><cf_tl id="All Entities"></option>
+	                    <cfloop query="qMission">
+	                        <option value="#qMission.Mission#" <cfif url.Mission eq qMission.Mission>selected</cfif>>#qMission.Mission#</option>
+	                    </cfloop>
+	                </select>
+	            </cf_mobilecell>
+			
+			<cfelse>
+			
+				<input type="hidden" id="sMission" name="sMission" value="#qMission.Mission#">
+				
+			</cfif>
 
             
             <cfif qEntityGroup.recordcount gt 1>
@@ -130,27 +146,29 @@
             <cfelse>
                 <input type="hidden" id="sOwner" name="sOwner" value="">					
             </cfif>	
-
-            <cf_mobilecell class="#vColClass#" style="align:right;min-width:260px;padding-top:2px">
-			
-				<table>
-				<tr class="labelmedium"><td>
-			    <input type="radio" id="sUser" name="sUser" class="radiol" value="false" checked onclick="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,'false','1')">
-				</td>
-				<td style="padding-left:4px"><cf_tl id="Role"></td>
-				<td style="padding-left:8px">
-				<input type="radio" id="sUser" name="sUser" class="radiol" value="true" onclick="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,'true','1')">
-				</td>
-				<td style="padding-left:4px"><cf_tl id="Explicitly assigned"></td>
-               </tr>
-			   </table>
-			   <!---
-                <select id="sUser" name="sUser" class="form-control" onchange="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,this.value,'1')">
-                    <option value="false" <cfif url.me eq "false">selected</cfif>><cf_tl id="All Users"></option>
-                    <option value="true" <cfif url.me eq "true">selected</cfif>><cf_tl id="Only me"></option>
-                </select>	
-				--->
-            </cf_mobilecell>
+						
+	        <cf_mobilecell class="#vColClass#" style="align:right;min-width:260px;padding-top:2px">
+				
+					<table>
+					<tr class="labelmedium2">
+					<td>
+				    <input type="radio" id="sUser" name="sUser" class="radiol" value="false" checked onclick="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,'false','1')">
+					</td>
+					<td style="padding-left:4px"><cf_tl id="Role"></td>
+					<td style="padding-left:8px">
+					<input type="radio" id="sUser" name="sUser" class="radiol" value="true" onclick="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,'true','1')">
+					</td>
+					<td style="padding-left:4px"><cf_tl id="Explicitly assigned"></td>
+	               </tr>
+				   </table>
+				   <!---
+	                <select id="sUser" name="sUser" class="form-control" onchange="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,this.value,'1')">
+	                    <option value="false" <cfif url.me eq "false">selected</cfif>><cf_tl id="All Users"></option>
+	                    <option value="true" <cfif url.me eq "true">selected</cfif>><cf_tl id="Only me"></option>
+	                </select>	
+					--->
+	        </cf_mobilecell>
+					
 
 			<!---
             <cfif getAdministrator("*") eq "1">

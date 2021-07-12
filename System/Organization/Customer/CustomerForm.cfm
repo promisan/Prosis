@@ -108,6 +108,7 @@
 	   scroll="no">
 		
 </cfif>
+
 		
 <cfoutput>	
 
@@ -125,10 +126,7 @@
 
 	<cfform name="customerform" style="height:100%" onsubmit="return false">   
 						
-			<table width="94%"   
-			   border="0"  	   			  
-		       cellspacing="0"
-		       cellpadding="0"
+			<table width="94%"   			
 			   class="formspacing formpadding"
 		       align="center">
 			   
@@ -367,16 +365,26 @@
 									datasource="AppsSystem" 
 									username="#SESSION.login#" 
 									password="#SESSION.dbpw#">
-									    SELECT *
-									    FROM   #CLIENT.LanPrefix#Ref_Nation
-										 ORDER BY Name
+									    SELECT   *
+									    FROM     #CLIENT.LanPrefix#Ref_Nation
+										ORDER BY Name
 									</cfquery>
   	
 									
-									<cfif get.recordcount eq "0">
+									<cfif get.recordcount eq "0">			
+																				
+											<cfquery name="default" 
+												datasource="appsOrganization"
+												username="#SESSION.login#" 
+												password="#SESSION.dbpw#">
+													SELECT *
+													FROM   Ref_Mission		
+													WHERE  Mission = '#url.mission#'	
+											</cfquery>
+									
 										   	<select name="country" id="country" style="width:150px" class="enterastab regularxl" required="No">			
 											    <cfloop query="Nation">
-													<option value="#Code#" <cfif Code eq Mission.CountryCode>selected</cfif>>#Name#</option>
+													<option value="#Code#" <cfif Code eq default.CountryCode>selected</cfif>>#Name#</option>
 												</cfloop>
 										   	</select>		
 										<cfelse>

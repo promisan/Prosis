@@ -30,6 +30,7 @@
 		AND    JournalserialNo = '#attributes.JournalSerialNo#'	  
 </cfquery>
 
+
 <cfquery name="SelectLines" 
     datasource="AppsLedger" 
     username="#SESSION.login#" 
@@ -79,7 +80,7 @@
 							AND   th.ActionStatus 		IN ('0','1')			
 		WHERE  TL.ParentJournal          = '#attributes.Journal#'		    
 		AND    TL.ParentJournalSerialNo  = '#attributes.JournalSerialNo#'   
-		AND    TL.GLAccount              = '#SelectLines.GLAccount#'		
+		AND    TL.GLAccount              = '#SelectLines.GLAccount#'	
 		
 	</cfquery>   	
 		

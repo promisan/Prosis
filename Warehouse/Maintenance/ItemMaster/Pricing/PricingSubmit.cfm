@@ -1,7 +1,5 @@
 
 <cf_screentop html="No">
-
-
 <cfparam name="URL.Mission" default="">
 
 <cfquery name="Item" 
@@ -311,7 +309,7 @@ password="#SESSION.dbpw#">
 <cfoutput>
 
 <script>
-    window.location = "#SESSION.root#/Warehouse/Maintenance/ItemMaster/Pricing/PricingData.cfm?drillid=#url.drillid#&mission=#url.mission#&id=#url.id#"
+    ptoken.location('#SESSION.root#/Warehouse/Maintenance/ItemMaster/Pricing/PricingData.cfm?drillid=#url.drillid#&mission=#url.mission#&id=#url.id#')
 	try {	
 	opener.applyfilter('1','','#url.drillid#')		
 	} catch(e) {}

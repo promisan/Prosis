@@ -61,7 +61,7 @@
 			values to select --->
 			
 			<cfset ini = session.listingdata[box]['recordsinit']>
-			<cfset fil = session.listingdata[attributes.box]['records']>			
+			<cfset fil = session.listingdata[box]['records']>			
 			<cftry>						
 				<cfif fil gt ini>								
 			      <cfset filterselect = searchresult>
@@ -72,7 +72,6 @@
 				<cfset filterselect = searchresult>			
 			</cfcatch>
 			</cftry>	
-									
 			
 			<!---
 									
@@ -253,14 +252,8 @@
 						<td height="12" style="min-width:140px<cfif cnt neq '1'>;padding-left:10px</cfif>" class="labelmedium">#Current.LabelFilter#: <cfif current.filtermode eq "4"></cfif>
 						<cfif current.filterforce eq "1"><font color="FF0000">*)</font></cfif>
 						</td>
-						
-						<cfif client.browser eq "explorer">
-							<cfset p = 1>
-						<cfelse>
-							<cfset p = 2>	
-						</cfif>
-								
-						<td style="width:40%;padding:#p#px;z-index:#40-row#; position:relative;">	
+																				
+						<td style="width:40%;padding:2px;z-index:#40-row#; position:relative;">	
 																									
 						<cfset val = evaluate("form.filter#current.field#")>
 						
@@ -328,7 +321,7 @@
 											  typeahead="#current.searchtypeahead#"
 											  showautosuggestloadingicon="No"
 											  autosuggestminlength="2" 
-											  autosuggest = "cfc:component.reporting.presentation.getlistingsuggest('#attributes.datasource#','#qry#','#fld#','#url.systemfunctionid#','#url.functionserialno#',{cfautosuggestvalue},'10','combo','listing')"				      
+											  autosuggest = "cfc:component.reporting.presentation.getlistingsuggest('#datasource#','#qry#','#fld#','#url.systemfunctionid#','#url.functionserialno#',{cfautosuggestvalue},'10','combo','listing')"				      
 											  maxlength="20">
 											 										  
 									  <cfelse>
@@ -347,7 +340,7 @@
 											  typeahead="#current.searchtypeahead#"
 											  showautosuggestloadingicon="No"
 											  autosuggestminlength="2" 
-											  autosuggest = "cfc:#getInit.VirtualDirectory#.component.reporting.presentation.getlistingsuggest('#attributes.datasource#','#qry#','#fld#','#url.systemfunctionid#','#url.functionserialno#',{cfautosuggestvalue},'10','combo','listing')"				      
+											  autosuggest = "cfc:#getInit.VirtualDirectory#.component.reporting.presentation.getlistingsuggest('#datasource#','#qry#','#fld#','#url.systemfunctionid#','#url.functionserialno#',{cfautosuggestvalue},'10','combo','listing')"				      
 											  maxlength="20">
 											  									  								  
 									  </cfif>	 
@@ -665,13 +658,16 @@
 							  <tr><td style="min-width:140px">
 							  						 
 							  <cfparam name="form.filter#current.field#_from" default="">	
-							  <cfset val = evaluate("form.filter#current.field#_from")>
+							  <cfset val = evaluate("form.filter#current.field#_from")>		
+							  
+							  <!--- was true but gave issue in the refresh --->					
 							 							  
 							     <cf_intelliCalendarDate9
 									FieldName="filter#current.field#_from" 
 									Default="#val#"
 									class="regularxxl"
-									AllowBlank="#blank#">	
+									manual="false"
+									AllowBlank="#blank#">									
 																		
 							   <cfset reset =  "#reset#;document.getElementById('filter#current.field#_from').value=''">	 
 																						
@@ -682,12 +678,15 @@
 							   															
 								  <cfparam name="form.filter#current.field#_to" default="">	
 								  <cfset val = evaluate("form.filter#current.field#_to")>	
-									
+								  
+								  <!--- was true but gave issue in the refresh --->
+								  
 								   <cf_intelliCalendarDate9 
 								     FieldName="filter#current.field#_to" 
 									 Default="#val#"
 									 class="regularxxl"
-									 AllowBlank="#blank#">		
+									 manual="false"									 
+									 AllowBlank="#blank#">									
 									 
 								   <cfset reset =  "#reset#;document.getElementById('filter#current.field#_to').value=''">	 									  	 								 							
 														
@@ -707,14 +706,14 @@
 				</cfif>
 					
 			</cfloop>	
-															 			
+																		 			
 			<cfif annotation neq "">
 						  
 				<tr><td class="labelmedium"><cf_tl id="Flagged">:</td>
 				<td colspan="3" style="padding-left:0px"><cf_annotationfilter></td></tr>
 			
 			</cfif>
-			
+						
 			<cfif show eq "1">
 						
 				<tr>
@@ -762,5 +761,3 @@
 	</cfif>
 	
 </cfoutput>	
-
-	

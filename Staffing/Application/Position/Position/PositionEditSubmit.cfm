@@ -842,7 +842,7 @@
 								  #AEND#,
 								  '#Form.OrgUnit#', 
 								  '#loc#', 
-								  functionNo, 
+								  FunctionNo, 
 								  FunctionDescription,
 								  <!---
 								  '#Form.FunctionNo#',

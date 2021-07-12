@@ -512,6 +512,7 @@
 				datasource="#Attributes.DataSource#" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
+				
 					INSERT INTO  Accounting.dbo.TransactionHeaderAction  
 						    ( Journal, 
 							  JournalSerialNo,		

@@ -13,6 +13,8 @@
 					   P.Gender, 
 					   P.Nationality, 
 					   L.Currency, 
+					   L.GLAccount,
+					   G.Description,    
 					   ROUND(SUM(L.AmountDebit), 2) AS Debit, 
 			           ROUND(SUM(L.AmountCredit), 2) AS Credit, 
 					   ROUND(SUM(L.AmountDebit) - SUM(L.AmountCredit), 2) AS Balance
@@ -20,23 +22,29 @@
 			FROM       TransactionHeader AS H 
 			           INNER JOIN TransactionLine AS L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo
 					   INNER JOIN Employee.dbo.Person AS P ON H.ReferencePersonNo = P.PersonNo
+					   INNER JOIN Ref_Account G ON G.GLAccount = L.GLAccount 
 					   			 
 			WHERE      H.Mission = '#URL.Mission#' 
-			AND        H.Journal IN           (SELECT  Journal
-			                                   FROM    Journal
-			                                   WHERE   SystemJournal = 'Advance') 
 			
+			AND        L.GLAccount IN (SELECT GLAccount
+				                       FROM   Ref_AccountMission
+                                  	   WHERE  Mission = H.Mission
+                                       AND    SystemAccount = 'StaffAdvance') 			
+						
 			AND        H.RecordStatus <> '9' 
 			AND        H.ActionStatus <> '9'
+			
+			<!---
 			AND        H.ReferencePersonNo IN (SELECT     PersonNo
 			                                   FROM       Employee.dbo.Person) 		
+											   --->
 		
 			AND        L.Currency = '#url.currency#'
+			
 			AND        L.GLAccount IN (SELECT  GLAccount 
 			                           FROM    Ref_Account 
-									   WHERE   AccountClass = 'Balance')
-			AND        L.TransactionSerialNo = '0'
-									   
+									   WHERE   AccountClass = 'Balance')									   
+												   
 			GROUP BY   P.PersonNo, 
 			           P.IndexNo, 
 					   P.FullName,
@@ -44,9 +52,14 @@
 					   P.FirstName, 			 
 					   P.Gender, 
 					   P.Nationality, 
-					   L.Currency		
+					   L.Currency,
+					   L.GLAccount,
+					   G.Description
+					   		
 			) as D
+			
 		WHERE 1=1	
+		
 		--condition
 		
 	
@@ -61,94 +74,93 @@
 <cfset fields=ArrayNew(1)>
 
 <cfset itm = itm+1>
-
-<cfset fields[itm] = {label    = "IndexNo",                    
-					field      = "IndexNo",
-					functionscript  = "EditPerson",
-					functionfield   = "personno",
-					search     = "text"}>
-
-<cfset itm = itm+1>
-					
-<cfset fields[itm] = {label     = "Last name",                    
-					field      = "FullName",
-					width      = "90%", 
-					filtermode = "1",
-					search     = "text"}>					
-
+				
+<cfset fields[itm] = {label        = "Account",    	
+				    width          = "34", 				
+					field          = "GLAccount",									
+					search         = "text",
+					filtermode     = "3"}>	
 
 <cfset itm = itm+1>
-						
-<cfset fields[itm] = {label    = "S", 					
-					field      = "Gender",	
-					column     = "common",				
-					filtermode = "2",    
-					search     = "text"}>		
-
-<cfset itm = itm+1>
+<cfset fields[itm] = {label        = "IndexNo",                    
+					field          = "IndexNo",
+					functionscript = "EditPerson",
+					functionfield  = "personno",
+					search         = "text"}>
 					
-<cfset fields[itm] = {label      = "Nat.",    					
-					field        = "Nationality",
-					filtermode   = "2",					
-					search       = "text"}>		
-
-<!---					
-<cfset fields[6] = {label      = "Account",    
-					width      = "8%", 
-					field      = "GLAccount",									
-					search     = "text",
-					filtermode = "2"}>						
-					
---->		
-
-			
-
 <cfset itm = itm+1>						
-<cfset fields[itm] = {label      = "Issued",    
-					width      = "160", 
-					field      = "Debit",
-					align      = "right",
-					formatted  = "numberformat(Debit,',.__')"}>
-					
-<cfset itm = itm+1>					
-<cfset fields[itm] = {label      = "Offset",    
-					width      = "160", 
-					field      = "Credit",		
-					align      = "right",			
-					formatted  = "numberformat(Credit,',.__')"}>						
-		
+<cfset fields[itm] = {label        = "G", 					
+                    labelfilter    = "Gender",
+					field          = "Gender",	
+					column         = "common",				
+					filtermode     = "3",    
+					search         = "text"}>		
 
 <cfset itm = itm+1>					
-<cfset fields[itm] = {label      = "Balance",    
-					width      = "160", 
-					field      = "Balance",
-					align      = "right",
-					search     = "number",
-					formatted  = "numberformat(Balance,',.__')"}>											
+<cfset fields[itm] = {label    	   = "Nat.",    					
+					field          = "Nationality",
+					width          = "14",
+					align          = "center",
+					column         = "common",		
+					filtermode     = "2",					
+					search         = "text"}>							
+
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label        = "Name",                    
+					field          = "FullName",
+					width          = "200", 
+					filtermode     = "2",
+					search         = "text"}>	
+					
+<cfset itm = itm+1>						
+<cfset fields[itm] = {label        = "Issued",    
+					width          = "40", 
+					field          = "Debit",
+					align          = "right",
+					aggregate      = "sum",
+					formatted      = "numberformat(Debit,',.__')"}>
+					
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label        = "Offset",    
+					width          = "40", 
+					field          = "Credit",		
+					align          = "right",		
+					aggregate      = "sum",	
+					formatted      = "numberformat(Credit,',.__')"}>						
+		
+<cfset itm = itm+1>					
+<cfset fields[itm] = {label        = "Balance",    
+					width          = "40", 
+					field          = "Balance",
+					align          = "right",
+					search         = "number",
+					aggregate      = "sum",
+					formatted      = "numberformat(Balance,',.__')"}>											
 
 <cfset itm = itm+1>			
-<cfset fields[itm] = {label      = "PersonNo",    
-					width      = "1%", 
-					Display    = "No",
-					field      = "PersonNo"}>				
+<cfset fields[itm] = {label        = "PersonNo",    
+					width          = "1%", 
+					Display        = "No",
+					key            = "yes",
+					field          = "PersonNo"}>				
 									
 <cf_listing
-    header         = "Finance"
-    box            = "transaction"
-	link           = "#SESSION.root#/GLedger/Inquiry/Advance/ListingEmployeeContent.cfm?mission=#url.mission#&currency=#url.currency#&area=#url.area#"
-    html           = "No"
-	show           = "40"
-	datasource     = "AppsLedger"
-	listquery      = "#myquery#"
-	listkey        = "personNo"
-	listorder      = "LastName"
-	listorderdir   = "ASC"
-	headercolor    = "ffffff"
-	listlayout     = "#fields#"
-	filterShow     = "Yes"
-	excelShow      = "Yes"
-	drillmode      = "tab"
-	drillargument  = "940;1000;false;false"	
-	drilltemplate  = "Gledger/Application/lookup/AccountResult.cfm?mission=#url.mission#&currency=#url.currency#&account="
-	drillkey       = "PersonNo">
+    header          = "Finance"
+    box             = "transaction"
+	link            = "#SESSION.root#/GLedger/Inquiry/Advance/ListingEmployeeContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&currency=#url.currency#&area=#url.area#"
+    html            = "No"
+	show            = "40"
+	datasource      = "AppsLedger"
+	listquery       = "#myquery#"
+	listkey         = "PersonNo"
+	listorder       = "LastName"
+	listorderdir    = "ASC"
+	listgroup       = "GLAccount"	
+	listlayout      = "#fields#"
+	filterShow      = "Yes"
+	excelShow       = "Yes"
+	drillmode       = "tab"
+	drillargument   = "940;1000;false;false"	
+	drilltemplate   = "Gledger/Application/lookup/AccountResult.cfm?mission=#url.mission#&currency=#url.currency#&account="
+	drillkey        = "GLAccount">
 	

@@ -1,6 +1,7 @@
 
 <cfoutput>
 
+
 <!--- we obtain grouped data upfront to speed up the process --->
 <cfif url.listgroupfield neq "">
 	<cfinclude template="ListingDataGroup.cfm">

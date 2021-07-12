@@ -449,7 +449,7 @@ password="#SESSION.dbpw#">
 		</cfloop>
 			
 		<tr>
-			<td colspan="2" class="labelmedium" valign="top" style="border:1px solid silver;background: ##E6E6E6;padding:5px 2px 11px 2px;">
+			<td colspan="2" class="labelmedium" valign="top" style="border:0px solid silver;background: ##E9E9E9;padding:5px 2px 11px 2px;">
 						
 			<table width="98%" align="center" class="formpadding">
 						
@@ -1366,7 +1366,7 @@ password="#SESSION.dbpw#">
 	
 	 
 	<TR>
-	    <TD class="labelmedium" valign="top" width="120" style="padding-top:5px;padding-left:10px"><cf_tl id="Product Code">:</TD>
+	    <TD class="labelmedium" valign="top" style="min-width:120px;padding-top:5px;padding-left:10px"><cf_tl id="Product Code">:</TD>
 		
 		<!--- ---------------------------------------- --->
 		<!--- ---------------regular mode------------- --->
@@ -1376,7 +1376,7 @@ password="#SESSION.dbpw#">
 								
 			 <table cellspacing="0" cellpadding="0">
 			 <tr><td>								
-		     <input type="Text" class="regularxl enterastab" name="receiptitemno" id="receiptitemno"  value="#no#" size="20" maxlength="20">				 
+		     <input type="Text" class="regularxl enterastab" name="receiptitemno" id="receiptitemno"  value="#no#" size="25" maxlength="25">				 
 			 </td>		 					 
 			 </tr>
 			 </table>			 			    
@@ -1411,7 +1411,7 @@ password="#SESSION.dbpw#">
 							<cfif requestHasWarehouseItem eq "Yes" or requisition.EnforceWarehouse gte "1">
 																															
 								<table cellspacing="0" cellpadding="0">
-								<tr><td>
+								<tr><td>								
 								<input type="text"   name="itemno"  id="itemno"                   value="#Requisition.WarehouseItemNo#"     class="regularxl" size="6"   readonly>
 								</td>
 								<td style="padding-left:3px">
@@ -1456,7 +1456,7 @@ password="#SESSION.dbpw#">
 																							
 									<input type="text"   name="uomname" id="uomname"                  value="#Requisition.QuantityUoM#"         class="regularxl" size="10"  readonly 
 									     style="background-color:eaeaea;padding-left:2px;text-align: left;">
-										 
+										 										 
 									<input type="hidden" name="itemuom" id="itemuom"                  value="#Requisition.WarehouseUoM#">	
 																	
 								</cfif>
@@ -1470,8 +1470,10 @@ password="#SESSION.dbpw#">
 							    <input type="text"   name="itemdescription" id="itemdescription" value=""  class="regularxl" style="background-color:eaeaea;padding-left:2px;text-align: left;" size="40"  readonly>
 								<input type="hidden" name="itemuom" id="itemuom"                 value="">						
 								<input type="text"   name="uomname" id="uomname"                 value=""  class="regularxl" size="10"  readonly style="padding-left:2px;text-align: left;">
+								
 														
-							</cfif>							
+							</cfif>		
+								
 																			
 						<cfelse>
 																		
@@ -1547,7 +1549,8 @@ password="#SESSION.dbpw#">
 						<table>
 						<tr>
 						<td>
-					    <input type="text"   name="itembarcode"      id="itembarcode"     value="#ItemUoM.ItemBarCode#"    size="10"  class="regularxl" readonly style="text-align: center;">
+						
+					    <input type="text"   name="itembarcode"      id="itembarcode"     value="#ItemUoM.ItemBarCode#"    size="15"  class="regularxl" readonly style="text-align: center;">
 						</td>						
 						<td style="padding-left:3px">
 					    <input type="text"   name="itemdescription"  id="itemdescription" value="#Line.ReceiptItem#"       size="50"  class="regularxl" readonly style="text-align: left;">
@@ -1555,7 +1558,9 @@ password="#SESSION.dbpw#">
 						<td style="padding-left:3px">		
 						<input type="text"   name="itemno"           id="itemno"          value="#Line.WarehouseItemNo#"   size="6"   class="regularxl" readonly style="text-align: left;">
 						</td>
-						<td class="labelmedium" style="padding-left:14px;padding-right:4px"><cf_tl id="Stock as">:</td>
+						<!---
+						<td class="labelmedium" style="padding-left:14px;padding-right:4px"><cf_tl id="Stock"></td>
+						--->
 						<td style="padding-left:3px">
 						<input type="text"   name="uomname"          id="uomname"         value="#ItemUoM.UoMDescription#" size="10"  class="regularxl" readonly style="background-color:eaeaea;padding-left:2px;text-align: left;">
 						</td>
@@ -1581,11 +1586,19 @@ password="#SESSION.dbpw#">
 						onchange="setstockline('1','#Line.RequisitionNo#',document.getElementById('WarehouseReceiptUoM').value,document.getElementById('receiptquantity').value,this.value,'editprice','#itemUoM.UoM#',document.getElementById('warehousecurrency').value)">
 						</td>
 						 
-						 
-						<cfset wto = vWarehousePrice*Line.ReceiptQuantity*Line.ReceiptMultiplier>
+						<cfset wto = vWarehousePrice*Line.ReceiptWarehouse>
+						
+												
+						<td style="padding-left:3px" class="labelmedium2">##</td>
+						
+						<td style="padding-left:3px" class="labelmedium2">
+							<input type="text"   name="warehousequantity"   readonly   id="warehousequantity"   value="#Line.ReceiptWarehouse#" size="7"  class="regularxl" style="background-color:f1f1f1;text-align: right;">						
+						</td>
+						
+						<td style="padding-left:3px;padding-right:4px" class="labelmedium2"><cf_tl id="$"></td>
 						
 						<td style="padding-left:3px">
-						<input type="text"   name="warehousetotal"   readonly   id="warehousetotal"         value="#numberformat(wto,",.__")#" size="10"  class="regularxl" style="text-align: right;">
+						<input type="text"   name="warehousetotal"   readonly   id="warehousetotal"         value="#numberformat(wto,",.__")#" size="10"  class="regularxl" style="background-color:f1f1f1;text-align: right;">
 						</td>
 						
 						<td id="boxordermultiplier_1"></td>					
@@ -1594,7 +1607,8 @@ password="#SESSION.dbpw#">
 						</table>
 						<input type="hidden" name="itemuom"          id="itemuom"         value="#Line.WarehouseUoM#">
 						
-						<cfelse>		
+						<cfelse>	
+							
 						<cfset vWarehousePrice = 0>			
 								
 						<table cellspacing="0" cellpadding="0">
@@ -1623,11 +1637,13 @@ password="#SESSION.dbpw#">
 						<input type="text"   name="warehouseprice"          id="warehouseprice"         value="#vWarehousePrice#" size="10"  class="regularxl" style="text-align: right;">
 						</td>
 						
-						<cfset wto = vWarehousePrice*Line.ReceiptQuantity*Line.ReceiptMultiplier>
+						<cfset wto = vWarehousePrice*Line.ReceiptWarehouse>
 						
 						<td style="padding-left:3px">
+						
 						<input type="text"   name="warehousetotal"          id="warehousetotal"         value="#numberformat(wto,",.__")#" size="10"  class="regularxl" style="text-align: right;">
 						</td>
+						
 						
 						</tr></table>
 						
@@ -1636,6 +1652,8 @@ password="#SESSION.dbpw#">
 					</cfif>
 					
 				</td>
+				
+				
 				
 				 <!--- we allow for selection of the warehouse item  ---> 
 								
@@ -1774,17 +1792,19 @@ password="#SESSION.dbpw#">
 	
 	 <cfif rows gte "1">
 	 
-	 	  <input type="Text" 
-			  name="receiptquantity" 
-			  id="receiptquantity"
-			  value="#qty#" 		  
-			  validate="float" 
-			  class="regularxxl enterastab"		  
-			  size="12" 
-			  style="background-color:silver;text-align: right;padding-right:4px" 
+	 	  <input type  = "Text" 
+			  name     = "receiptquantity" 
+			  id       = "receiptquantity"
+			  value    = "#qty#" 		  
+			  validate = "float" 
+			  class    = "regularxxl enterastab"		  
+			  size     = "16" 
+			  style    = "background-color:silver;text-align: right;padding-right:4px" 
 			  readonly>
 	 
 	 <cfelse>
+	 
+	 	<cfset chg = "setstockline('1','#Line.RequisitionNo#',document.getElementById('WarehouseReceiptUoM').value,this.value,document.getElementById('warehouseprice').value,'quantityline','#itemUoM.UoM#',document.getElementById('warehousecurrency').value)">
 	
    	 	 <cfinput type="Text" 
 			  name="receiptquantity" 
@@ -1794,10 +1814,10 @@ password="#SESSION.dbpw#">
 			  validate="float" 
 			  class="regularxxl enterastab"
 			  required="Yes" 
-			  size="8" 
+			  size="12" 
 			  style="background-color:ffffaf;font-size:24px;text-align: right;padding-right:4px" 
 			  range="1,10000000"
-			  onChange="calc(this.value,document.getElementById('receiptprice').value,document.getElementById('receiptdiscount').value,document.getElementById('receipttax').value,document.getElementById('taxincl').value,document.getElementById('exchangerate').value,document.getElementById('taxexemption').value,document.getElementById('taxexemption').value)">
+			  onChange="#chg#;calc(this.value,document.getElementById('receiptprice').value,document.getElementById('receiptdiscount').value,document.getElementById('receipttax').value,document.getElementById('taxincl').value,document.getElementById('exchangerate').value,document.getElementById('taxexemption').value,document.getElementById('taxexemption').value)">
 		  
 	 </cfif>	
 	 	 

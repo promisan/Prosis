@@ -11,19 +11,19 @@
 
 <cfoutput>
 	
-		<tr style="height:30px">	
+		<tr style="height:24px" class="navigation_row_child">	
 		
 		<td></td>	
 		
-		<td colspan="13">
+		<td colspan="14">
 		
-			<table width="100%" height="100%" border="0" class="navigation_table">
+			<table width="100%" height="100%" class="navigation_table">
 			     
 	 			<cfloop query="ReceiptList">
 				
-		  		 	 <tr class="labelmedium navigation_row <cfif currentrow neq recordcount>line</cfif>" style="height:15px">
+		  		 	 <tr class="labelmedium <cfif currentrow neq recordcount>line</cfif>" style="height:15px">
 					 
-					   <td width="3%" bgcolor="ffffff" align="center">
+					   <td width="3%"  align="center">
 					   
 						   <cfif currentrow eq recordcount>
 						   <img src="#SESSION.root#/Images/join.gif" alt="" border="0">
@@ -92,7 +92,7 @@
 			  		   <td style="width:10%;padding-left:2px">#TransactionLot# </td>		
 					   
 					   <td width="80" align="right" style="padding-right:5px">
-					   
+					   					   
 					   <cfif WarehouseItemNo neq "" and WarehouseUoM neq "">
 					   
 					  	    <cfquery name="getItem" 

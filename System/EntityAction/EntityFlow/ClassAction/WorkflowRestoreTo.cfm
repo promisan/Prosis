@@ -8,9 +8,10 @@
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	DELETE FROM Ref_EntityClassAction
-		WHERE EntityCode = '#URL.EntityCode#' 
-		AND EntityClass = '#URL.TargetEntityClass#'
+	DELETE 
+	FROM    Ref_EntityClassAction
+	WHERE   EntityCode  = '#URL.EntityCode#' 
+	AND     EntityClass = '#URL.TargetEntityClass#'
 	</cfquery>
 
 <cftransaction>
@@ -37,6 +38,7 @@
 				ActionTrigger,
 				ActionOrder,
 				ActionGoTo,
+				ActionGoToLabel,
 				ActionGoToYes,
 				ActionGoToYESLabel,
 				ActionGoToNo,
@@ -70,6 +72,7 @@
 				EnableNotification,
 				NotificationAttachment,
 				NotificationFly,
+				NotificationTarget,
 				NotificationDueOnJump,
 				NotificationGlobal,
 				NotificationManual,	
@@ -102,6 +105,7 @@
 				ActionTrigger,
 				ActionOrder,
 				ActionGoTo,
+				ActionGoToLabel,
 				ActionGoToYes,
 				ActionGoToYESLabel,
 				ActionGoToNo,
@@ -135,6 +139,7 @@
 				EnableNotification,
 				NotificationAttachment,
 				NotificationFly,
+				NotificationTarget,
 				NotificationDueOnJump,
 				NotificationGlobal,
 				NotificationManual,	
@@ -192,48 +197,48 @@
 		
 		INSERT INTO Ref_EntityClassActionProcess
 				 
-				   (EntityCode, 
-				    EntityClass,
-					ActionCode, 
-					ProcessClass, 
-					ProcessActionCode,
-					ProcessDefault,
-					DocumentId,
-					ConditionMemo,
-					ConditionMemoSize,
-					ConditionField,
-					ConditionValue,
-					ConditionScript,
-					ConditionMessage,
-					ConditionDataSource,
-					MailCode,
-					Operational,
-					OfficerUserID,
-					OfficerLastName,
-					OfficerFirstName)
+				(EntityCode, 
+				 EntityClass,
+				 ActionCode, 
+				 ProcessClass, 
+				 ProcessActionCode,
+				 ProcessDefault,
+				 DocumentId,
+				 ConditionMemo,
+				 ConditionMemoSize,
+				 ConditionField,
+				 ConditionValue,
+				 ConditionScript,
+				 ConditionMessage,
+				 ConditionDataSource,
+				 MailCode,
+				 Operational,
+				 OfficerUserID,
+				 OfficerLastName,
+				 OfficerFirstName)
 					
-		SELECT      '#URL.EntityCode#',
-			        '#URL.TargetEntityClass#',
-				 	ActionCode, 
-					ProcessClass, 
-					ProcessActionCode,
-					ProcessDefault,
-					DocumentId,
-					ConditionMemo,
-					ConditionMemoSize,
-					ConditionField,
-					ConditionValue,
-					ConditionScript,
-					ConditionMessage,
-					ConditionDataSource,
-					MailCode,
-					Operational,
-					'#SESSION.acc#',
-					'#SESSION.last#',
-					'#SESSION.first#' 
+		SELECT    '#URL.EntityCode#',
+			      '#URL.TargetEntityClass#',
+				  ActionCode, 
+				  ProcessClass, 
+				  ProcessActionCode,
+				  ProcessDefault,
+				  DocumentId,
+				  ConditionMemo,
+				  ConditionMemoSize,
+				  ConditionField,
+				  ConditionValue,
+				  ConditionScript,
+				  ConditionMessage,
+				  ConditionDataSource,
+				  MailCode,
+				  Operational,
+				  '#SESSION.acc#',
+				  '#SESSION.last#',
+				  '#SESSION.first#' 
 					
-		FROM   Ref_EntityActionPublishProcess	
-		WHERE  ActionPublishNo = '#Url.PublishNo#'
+		FROM      Ref_EntityActionPublishProcess	
+		WHERE     ActionPublishNo = '#Url.PublishNo#'
 		
 	</cfquery>
 		
@@ -242,33 +247,33 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		
-		INSERT INTO Ref_EntityClassActionScript
-			   (EntityCode, 
-			    EntityClass,
-	            ActionCode, 
-				Method, 
-				MethodDataSource, 
-				MethodEnabled,
-				ActorAuthenticate,
-				MethodScript,
-				DocumentId,
-				OfficerUserID,
-				OfficerLastName,
-				OfficerFirstName)
-		SELECT  '#URL.EntityCode#', 
-		        '#URL.TargetEntityClass#',
-	             ActionCode, 
-			 	 Method, 
-				 MethodDataSource, 
-				 MethodEnabled,
-				 ActorAuthenticate,
-				 MethodScript,
-				 DocumentId,
-				 '#SESSION.acc#',
-				 '#SESSION.last#',
-				 '#SESSION.first#'	
-		FROM     Ref_EntityActionPublishScript
-		WHERE    ActionPublishNo = '#Url.PublishNo#'
+			INSERT INTO Ref_EntityClassActionScript
+				   (EntityCode, 
+				    EntityClass,
+		            ActionCode, 
+					Method, 
+					MethodDataSource, 
+					MethodEnabled,
+					ActorAuthenticate,
+					MethodScript,
+					DocumentId,
+					OfficerUserID,
+					OfficerLastName,
+					OfficerFirstName)
+			SELECT  '#URL.EntityCode#', 
+			        '#URL.TargetEntityClass#',
+		             ActionCode, 
+				 	 Method, 
+					 MethodDataSource, 
+					 MethodEnabled,
+					 ActorAuthenticate,
+					 MethodScript,
+					 DocumentId,
+					 '#SESSION.acc#',
+					 '#SESSION.last#',
+					 '#SESSION.first#'	
+			FROM     Ref_EntityActionPublishScript
+			WHERE    ActionPublishNo = '#Url.PublishNo#'
 		
 		</cfquery>
 		

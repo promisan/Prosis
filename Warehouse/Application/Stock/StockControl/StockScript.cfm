@@ -519,6 +519,11 @@ function stockquotedialog(id) {
 	  ptoken.navigate('../../salesorder/Quote/QuoteDialog.cfm?requestNo='+id,'salerequest');
  }
 
+function printquote(t) {
+	req   = document.getElementById("RequestNo").value
+	window.open("#session.root#/Tools/Mail/MailPrepareOpen.cfm?id="+req+"&ID1="+req+"&ID0="+t,"_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+}
+
 function saledispatch(s,modid) {		
 
 	document.getElementById("optionselect").value = "saledispatch('','"+modid+"')"

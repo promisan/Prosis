@@ -64,6 +64,7 @@ password="#SESSION.dbpw#">
 <cf_insertDefaultAccount   Area="ExchangeDifference"  Description="Monetary Account Revaluation Result" Operational="1">
 <cf_insertDefaultAccount   Area="InvoiceTax"          Description="Default Invoice Tax Account"         Operational="1">
 <cf_insertDefaultAccount   Area="Correction"          Description="Asset/Materials Correction Account"  Operational="1">
+<cf_insertDefaultAccount   Area="StaffAdvance"        Description="Staff advance account"               Operational="1">
 
 <!--- disabled 25/12/2009 --->
 <cf_insertDefaultAccount   Area="Distribution"        Description=""    Operational="0">

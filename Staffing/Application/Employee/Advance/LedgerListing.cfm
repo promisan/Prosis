@@ -28,25 +28,25 @@
 					   INNER JOIN Ref_AccountGroup S ON S.AccountGroup       = G.AccountGroup
 					   INNER JOIN Journal J ON J.Journal = H.Journal
 											 
-					 
-				WHERE  H.Journal IN   (SELECT  Journal
-                                   	   FROM    Journal
-                                       WHERE   SystemJournal IN ('Advance','Offset')) 
-			
-				AND    H.RecordStatus <> '9' 
-				AND    H.ActionStatus <> '9'
+				<!--- take account that are used to reflect advances --->	 
+				WHERE  H.ReferencePersonNo  = '#url.id#' 
+				
 								
 			    AND    L.GLAccount IN (SELECT  GLAccount 
 			                           FROM    Ref_Account 
 							    	   WHERE   AccountClass = 'Balance')
-									   
-				AND    L.TransactionSerialNo = '0'
-												
-				AND    H.ReferencePersonNo  = '#url.id#'  
-								
+				
+				AND    L.GLAccount IN (SELECT GLAccount
+				                       FROM   Ref_AccountMission
+                                  	   WHERE  Mission = H.Mission
+                                       AND    SystemAccount = 'StaffAdvance') 
+				
+				AND    H.RecordStatus <> '9' 
+				AND    H.ActionStatus <> '9'
+																				
 			) AS Data	
 			
-			WHERE 1=1
+			WHERE abs(PostingAmount) > 0
 				
 	</cfsavecontent>
 
@@ -74,19 +74,19 @@
 					  column        = "common",	
 					  displayfilter = "Yes",				
 					  search        = "text"}>	 
-						  
-<cfset itm = itm+1>						
-<cfset fields[itm] = {label         = "Object",    					             
-					  field         = "ObjectDescription",						  
-					  filtermode    = "2",
-					  displayfilter = "Yes",				
-					  search        = "text"}>	
 					  
 <cfset itm = itm+1>						
 <cfset fields[itm] = {label         = "Document",    					             
 					  field         = "DocumentReference",						  							
-					  search        = "text"}>	 					  
-					    					  
+					  search        = "text"}>	 						  
+						  
+<cfset itm = itm+1>						
+<cfset fields[itm] = {label         = "Account",    					             
+					  field         = "GLAccountName",						  
+					  filtermode    = "2",
+					  displayfilter = "Yes",				
+					  search        = "text"}>	
+							    					  
 <cfset itm = itm+1>						
 <cfset fields[itm] = {label         = "Reference",    					             
 					  field         = "Description",						  							
@@ -133,7 +133,7 @@
 		listgroupdir    = "ASC"			
 		listorder       = "TransactionDate"
 		listorderfield  = "TransactionDate"		
-		listorderdir    = "DESC"		
+		listorderdir    = "ASC"		
 		headercolor     = "ffffff"
 		listlayout      = "#fields#"
 		filterShow      = "Hide"

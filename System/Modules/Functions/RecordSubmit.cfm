@@ -1,27 +1,27 @@
 
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"> 
 
-<cfif Len(Form.FunctionName) gt 40>
+<cfif Len(Form.FunctionName) gt 80>
 	 <cf_message message = "You entered a name that exceeded the allowed size of 40 characters."
 	  return = "back">
 	  <cfabort>
 </cfif>
 
-<cfif Len(Form.FunctionMemo) gt 100>
-	 <cf_message message = "You entered a memo that exceeded the allowed size of 100 characters."
+<cfif Len(Form.FunctionMemo) gt 200>
+	 <cf_message message = "You entered a memo that exceeded the allowed size of 200 characters."
 	  return = "back">
 	  <cfabort>
 </cfif>
 
-<cfparam name="Form.ScriptName" default="">
-<cfparam name="Form.FunctionDirectory" default="">
-<cfparam name="Form.ScreenWidth" default="">
+<cfparam name="Form.ScriptName"         default="">
+<cfparam name="Form.FunctionDirectory"  default="">
+<cfparam name="Form.ScreenWidth"        default="">
 <cfparam name="Form.FunctionBackground" default="">
-<cfparam name="Form.FunctionHost" default="">
-<cfparam name="Form.EnableAnonymous" default="0">
-<cfparam name="Form.AccessUserGroup" default="0">
-<cfparam name="Form.MainMenuItem" default="0">
-<cfparam name="Form.FunctionTarget" default="right">
+<cfparam name="Form.FunctionHost"       default="">
+<cfparam name="Form.EnableAnonymous"    default="0">
+<cfparam name="Form.AccessUserGroup"    default="0">
+<cfparam name="Form.MainMenuItem"       default="0">
+<cfparam name="Form.FunctionTarget"     default="right">
 
 <!--- check roles/groups --->
  
@@ -29,13 +29,13 @@
 datasource="AppsSystem" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT SystemFunctionId 
-	FROM Ref_ModuleControlRole
-	WHERE SystemFunctionId = '#URL.ID#'
+	SELECT  SystemFunctionId 
+	FROM    Ref_ModuleControlRole
+	WHERE   SystemFunctionId = '#URL.ID#'
 	UNION ALL
-	SELECT SystemFunctionId 
-	FROM Ref_ModuleControlUserGroup
-	WHERE SystemFunctionId = '#URL.ID#'
+	SELECT  SystemFunctionId 
+	FROM    Ref_ModuleControlUserGroup
+	WHERE    SystemFunctionId = '#URL.ID#'
 </cfquery>
 
 <cfif Check.recordcount gte "1">
@@ -114,8 +114,9 @@ WHERE    SystemFunctionId = '#URL.ID#'
 datasource="AppsSystem" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT * FROM Ref_ModuleControl
-WHERE   SystemFunctionId = '#URL.ID#'
+    SELECT  * 
+    FROM    Ref_ModuleControl
+    WHERE   SystemFunctionId = '#URL.ID#'
 </cfquery>	
 
 <cfparam name="Form.Sync" default="0">
@@ -139,29 +140,29 @@ WHERE   SystemFunctionId = '#URL.ID#'
 		datasource="AppsSystem" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		DELETE   Ref_ModuleControlRole
-		WHERE    SystemFunctionId = '#SystemFunctionId#'
+			DELETE   Ref_ModuleControlRole
+			WHERE    SystemFunctionId = '#SystemFunctionId#'
 		</cfquery>
 		
 		<cfquery name="Insert" 
 		datasource="AppsSystem" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		INSERT INTO Ref_ModuleControlRole
-		          (SystemFunctionId, 
-				   Role, 
-				   Operational, 
-				   OfficerUserId, 
-				   OfficerLastName, 
-				   Created)
-		SELECT   '#SystemFunctionId#', 
-		         Role, 
-			     Operational,
-			     OfficerUserId, 
-			     OfficerLastName, 
-			     Created
-		FROM     Ref_ModuleControlRole 
-		WHERE    SystemFunctionId = '#URL.ID#'
+			INSERT INTO Ref_ModuleControlRole
+			          (SystemFunctionId, 
+					   Role, 
+					   Operational, 
+					   OfficerUserId, 
+					   OfficerLastName, 
+					   Created)
+			SELECT  '#SystemFunctionId#', 
+			         Role, 
+				     Operational,
+				     OfficerUserId, 
+				     OfficerLastName, 
+				     Created
+			FROM     Ref_ModuleControlRole 
+			WHERE    SystemFunctionId = '#URL.ID#'
 		</cfquery>
 		
 		<cfquery name="Insert" 
@@ -181,11 +182,11 @@ WHERE   SystemFunctionId = '#URL.ID#'
 
 </cfif>
 
- <cfoutput>	
+<cfoutput>	
+ 
+<cfinclude template="FunctionSetting.cfm">
 
-<script>
-	
-	 #ajaxLink('FunctionSetting.cfm?ID=#URL.ID#&mission=#url.mission#')#
+<script>	    
 	 try {
 	 opener.history.go() } catch(e) {}	 
 </script>		

@@ -13,6 +13,7 @@
 	
 	<cfset grp = session.listingdata[url.box]['dataprepgroup']>
 	<cfset srt = session.listingdata[url.box]['dataprepsort']>
+	<cfset dte = session.listingdata[url.box]['timestamp']>
 	
 	<cfif bse neq "-1">
 	    <cfset dbtime = bse + grp + srt>
@@ -24,8 +25,10 @@
 	<table>
 		<tr class="labelmedium">
 		<td><cf_tl id="time for preparation">:</td>
-		<td style="padding-left:4px">#htm#s</td>
-		<td style="padding-left:4px">(db: #numberformat(dbtime/1000,'.___')#s <cfif bse eq "-1"><b><font color="0A72AF">cached</b></cfif>)</td>
+		<td style="padding-left:4px">#htm#s		
+		</td>
+				
+		<td style="padding-left:4px">(db: #numberformat(dbtime/1000,'.___')#s <cfif bse eq "-1">[<font color="0A72AF">cached data: #dateformat(dte,client.dateformatshow)# #timeformat(dte,"HH:MM")#]</cfif></td>
 		</tr>
 	</table>
 	</cfoutput>

@@ -327,7 +327,7 @@
 			</div>
 			
 			<div class="clsMainMenuOverlayItemContainer clsMainMenuOverlayItemContainerFull" style="height:95%;">
-				<cfset vClearancesURL = URLEncodedFormat("#session.root#/System/EntityAction/EntityView/MyClearances.cfm?height=90&ts=#getTickCount()#")>
+				<cfset vClearancesURL = URLEncodedFormat("#session.root#/System/EntityAction/EntityView/MyClearances.cfm?scope=portal&ts=#getTickCount()#")>
 				<div class="clsMainMenuURL" id="PortalViewSrc_Clearances" style="display:none;"><cfoutput>#vClearancesURL#</cfoutput></div>
 				<!--- Clearances Item --->
 				<div class="clsMainMenuOverlayClearances">

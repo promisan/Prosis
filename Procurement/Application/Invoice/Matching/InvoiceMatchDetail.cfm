@@ -504,12 +504,10 @@ password="#SESSION.dbpw#">
 	  <cfif GLCheck.recordcount eq "1">
 	
 	     <TD class="labelmedium2"><cf_tl id="Posted Amount">:</TD>
-	     <td style="padding-left:4px;background-color:e6e6e6" class="labelmedium2">	
+	     <td style="padding-left:4px;background-color:e6e6e6;padding-right:4px" class="labelmedium2">	
 		 <cfoutput>
-		      <a href="javascript:ShowTransaction('#GLCheck.Journal#','#GLCheck.JournalSerialNo#','1','tab','z','z')">
-			  <font color="2894FF">
-		 	  #GLCheck.DocumentCurrency# #NumberFormat(GLCheck.DocumentAmount,",.__")#&nbsp;
-			  </font>
+		      <a href="javascript:ShowTransaction('#GLCheck.Journal#','#GLCheck.JournalSerialNo#','1','tab','z','z')">			  
+		 	  #GLCheck.DocumentCurrency# #NumberFormat(GLCheck.DocumentAmount,",.__")#		  
 			  </a>
 		  </cfoutput>	  
 		  </td>	  

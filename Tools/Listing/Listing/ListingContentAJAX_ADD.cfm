@@ -18,7 +18,7 @@
 	<cfset headercols = pre+3>				   
 			
 	<cfset lst = "">
-						
+								
 	<cfloop query="SearchResult" startrow="#start#" endrow="#end#">	
 		
 	     <!--- group presenting only supported if full listing is done and the listing mode not longitudinal --->

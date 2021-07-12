@@ -1,8 +1,6 @@
 
 <cfoutput>
 
-<cfajaximport tags="cfwindow">
-
 	<cfset root = SESSION.root>
 
 	<script>
@@ -105,9 +103,9 @@
 	}
 	
 	function editRequestRefresh(requestid) {   	  
-		ColdFusion.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/ExecutionRequest/ViewListingRefresh.cfm?requestid='+requestid+'&col=des','des_'+requestid)
-		ColdFusion.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/ExecutionRequest/ViewListingRefresh.cfm?requestid='+requestid+'&col=ref','ref_'+requestid)
-		ColdFusion.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/ExecutionRequest/ViewListingRefresh.cfm?requestid='+requestid+'&col=amt','amt_'+requestid)										
+		ptoken.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/ExecutionRequest/ViewListingRefresh.cfm?requestid='+requestid+'&col=des','des_'+requestid)
+		ptoken.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/ExecutionRequest/ViewListingRefresh.cfm?requestid='+requestid+'&col=ref','ref_'+requestid)
+		ptoken.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/ExecutionRequest/ViewListingRefresh.cfm?requestid='+requestid+'&col=amt','amt_'+requestid)										
 	}		
 	
 	function potrack(po) {
@@ -323,6 +321,8 @@
 			ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/RequisitionView/RequisitionViewTreeRefresh.cfm?mission='+mis+'&period='+per+'&role='+role,'drefresh');					
 		}	
 	}
+	
+	// not sure where the below is used use, is old tree 
 	
 	function reload(oTree, nme) {
 	

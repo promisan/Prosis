@@ -6,6 +6,7 @@
 <cfparam name="Form.EnableProgram"     default="0">
 <cfparam name="Form.EnableFirstStep"   default="0">
 <cfparam name="Form.EnableReopen"      default="0">
+<cfparam name="Form.EnablePortal"      default="0">
 <cfparam name="Form.EnableActionOwner" default="0">
 <cfparam name="Form.EnableTopMenu"     default="0">
 <cfparam name="Form.EnableRefresh"     default="0">
@@ -57,6 +58,7 @@ SET   EntityDescription    = '#Form.EntityDescription#',
 	  EnableEMailLogon     = '#Form.EnableEMailLogon#',	
 	  ShowHistory          = '#Form.ShowHistory#',
 	  EnableProgram        = '#Form.EnableProgram#',
+	  EnablePortal         = '#Form.EnablePortal#',
 	  EnableStatus         = '#Form.EnableStatus#',
 	  DefaultFormat        = '#Form.DefaultFormat#',
 	  EnableIntegrityCheck = '#Form.EnableIntegrityCheck#',

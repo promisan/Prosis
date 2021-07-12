@@ -1,10 +1,13 @@
 
-<cf_param name="url.mode"      default="regular" type="string">
-<cf_param name="url.source"    default="backoffice" type="string">
-<cf_param name="session.acc"   default="" type="string">
+<cfparam name="url.mode"      default="regular" type="string">
+<cfparam name="url.source"    default="backoffice" type="string">
+<cfparam name="session.acc"   default="" type="string">
+<cfparam name="client.dateformatshow"   default="DD/MM/YYYY" type="string">
+
 <cfset logon = session.acc>
 
 <cf_tl id="Password Reset" var="1">
+
 <cf_screentop height="100%" jquery="Yes" html="yes" banner="bluedark" layout="webapp" bannerheight="50" scroll="No" label="#lt_text# - #SESSION.welcome#" user="No" validateSession="No">
 
 <cf_tl id="Please enter a user account" var="lblErrorAccount">
@@ -22,8 +25,6 @@
 
 	</script>
 </cfoutput>
-
-<cfajaximport>
 
 <!--- obtain the mode --->
 <style>
@@ -58,7 +59,6 @@
     }
 </style>
 
-<body>
 <form name="assist" id="assist" method="post">
     
 <table width="80%" height="80%" align="center" class="formpadding" style="max-width: 650px;">
@@ -135,28 +135,24 @@
 				<tr>
 					<td>				
 					 	
-                                <p style="font-size:18px;text-align: center;"><cf_tl id="Account">: <input name="account" 
-										 id ="account"
-									     class="regularxl" 
-										 style="font-size:24px;height:40px;width:200px;" 
-										 type="text" 
-										 value="#logon#" 
-										 size="15"  
-										 maxlength="20" 
-										 required="yes" 
-										 message="Please enter your account">
-                                </p><br>
+                            <p style="font-size:18px;text-align: center;"><cf_tl id="Account">: <input name="account" 
+						 id ="account"
+					     class="regularxl" 
+						 style="font-size:24px;height:40px;width:200px;" 
+						 type="text" 
+						 value="#logon#" 
+						 size="15"  
+						 maxlength="20" 
+						 required="yes" 
+						 message="Please enter your account">
+                            </p><br>
 
 					</td>
 				</tr>
 				
-	
-
 				<tr>
 					<td style="text-align: center;" id="process"></td>
 				</tr>
-						
-
 				
 				<tr>
 					<td id="action">
@@ -190,5 +186,5 @@
 	</tr>
 </table>
 </form>
-</body>
+
 

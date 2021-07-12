@@ -857,27 +857,41 @@ password="#SESSION.dbpw#">
 			 Warning   = "No">
 		 
 		<cfif ModuleEnabled eq "1" and HistoricContract eq "0">
-			
-			<cfquery name="Check" 
+		
+			<cfquery name="Schedule" 
 			datasource="AppsPayroll" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				SELECT     TOP 1 *
-				FROM       SalaryScale S INNER JOIN
-			               SalaryScaleLine SL ON S.ScaleNo = SL.ScaleNo
-				WHERE      S.SalarySchedule   = '#SalarySchedule#' 
-				AND        S.ServiceLocation  = '#ServiceLocation#' 
-				AND        SL.ServiceLevel    = '#ContractLevel#' 
-				AND        SL.ServiceStep     = '#ContractStep#'
-				AND        SL.Operational      = 1
-				
+				FROM       SalarySchedule
+				WHERE      SalarySchedule      = '#SalarySchedule#' 								
 			</cfquery>	
 			
-			<cfif Check.recordcount eq '0'>
-				<tr>				
-					<td colspan="15" align="center" class="labelit" bgcolor="red"><font color="white"><cf_tl id="Problem">: <cf_tl id="Payroll contract level/step no longer exists for this schedule/location." class="Message"></td>
-				</tr>
-			</cfif>
+			<cfif schedule.operational eq "1">
+			
+				<!--- validate of the step and location has an occurence --->
+			
+				<cfquery name="Check" 
+				datasource="AppsPayroll" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT     TOP 1 *
+					FROM       SalaryScale S INNER JOIN
+				               SalaryScaleLine SL ON S.ScaleNo = SL.ScaleNo
+					WHERE      S.SalarySchedule    = '#SalarySchedule#' 				
+					AND        S.ServiceLocation   = '#ServiceLocation#' 
+					AND        SL.ServiceLevel     = '#ContractLevel#' 
+					AND        SL.ServiceStep      = '#ContractStep#'
+					AND        SL.Operational      = 1				
+				</cfquery>	
+				
+				<cfif Check.recordcount eq "0">
+					<tr>				
+						<td colspan="15" align="center" class="labelmedium2" bgcolor="red"><font color="white"><cf_tl id="Problem">: <cf_tl id="Payroll contract level/step no longer exists for this schedule/location." class="Message"></td>
+					</tr>
+				</cfif>
+				
+			</cfif>	
 		
 		</cfif> 		
 			
@@ -886,7 +900,7 @@ password="#SESSION.dbpw#">
 		<cfelseif historiccontract eq "1">	
 			  
 		<cfelseif dateeffective lte now() and (dateExpiration is "" or dateExpiration gte now())>
-			<tr class="labelmedium clsDetailComments clsDetailComments_#contractid#" style="border-top:1px solid d0d0d0;background-color:F0FFFF; display:none;">
+			<tr class="labelmedium2 clsDetailComments clsDetailComments_#contractid#" style="border-top:1px solid d0d0d0;background-color:F0FFFF; display:none;">
 			<td bgcolor="ffffff"></td>
 			<td bgcolor="FFFFFF"></td>
 			<td colspan="3" align="left" style="background-color:f1f1f1;font-size:12px;height:20px;padding-left:5px;border:1px solid silver;border-bottom:0px solid silver;padding-right:10px;border-top:1px solid d0d0d0">#Officerlastname#: #dateformat(created,client.dateformatshow)#&nbsp;#timeformat(created,"HH:MM")#</td>
@@ -895,7 +909,7 @@ password="#SESSION.dbpw#">
 			</tr>			
 			
 		<cfelseif remarks neq "" or actionreason neq "">
-			<tr class="labelmedium clsDetailComments clsDetailComments_#contractid#" style="border-top:1px solid d0d0d0;background-color:F0FFFF; display:none;">
+			<tr class="labelmedium2 clsDetailComments clsDetailComments_#contractid#" style="border-top:1px solid d0d0d0;background-color:F0FFFF; display:none;">
 			<td bgcolor="FFFFFF"></td>
 			<td bgcolor="FFFFFF"></td>
 			<td colspan="3" align="left" style="background-color:f1f1f1;font-size:12px;height:20px;padding-left:5px;border:1px solid silver;border-bottom:0px solid silver;padding-right:10px;border-top:1px solid d0d0d0">#Officerlastname#: #dateformat(created,client.dateformatshow)#&nbsp;#timeformat(created,"HH:MM")#</td>

@@ -997,7 +997,6 @@ AND S.FieldDefault='1'
 
 	</cffunction>
 
-
 	<cffunction name="getQuotes"
 			access="remote"
 			hint="send a websocket message"
@@ -1050,7 +1049,6 @@ AND S.FieldDefault='1'
 		</cfscript>
 
 	</cffunction>
-
 
 	<cffunction name="postOrder"
 			access="remote"

@@ -37,7 +37,7 @@
 
 --->
 	
-<table width="94%" cellspacing="0" cellpadding="0" align="center">
+<table width="94%" align="center">
 	
 	<tr>
 		<td style="padding-top:25px">&nbsp;</td>
@@ -47,9 +47,7 @@
 	
 	<cfif processed eq 0>
 	
-		<cfset emailValidation = 0>
-		
-		
+		<cfset emailValidation = 0>		
 		
 		<cfloop query="getCalculationPeriod">
 			
@@ -98,8 +96,7 @@
 		
 		<TR>
 			<TD height="30" style="width:95%;height:40px;padding:5px;padding-left:5px;border:1px solid silver;border-radius:5px;" align="center" id="setdocument">	
-			
-			
+						
 				<cfquery name="MissionSchedule" 
 				    datasource="AppsPayroll" 
 				    username="#SESSION.login#" 
@@ -110,20 +107,18 @@
 					AND      Mission        = '#getCalculationPeriod.Mission#'
 				</cfquery>				
 			
-			
 				<cfif MissionSchedule.DisableMailPayslip eq 0>
 			  		<cf_tl id= "Generate and Send Payslip" var="buttonValue">
 			  	<cfelse>
 			  		<cf_tl id= "Generate Payslip" var="buttonValue">
-			  	</cfif>		
-			  			
+			  	</cfif>				  			
 				
 				<input type="button" 
 				       id="Send" 
 					   name="Send" 
 					   value="#buttonValue#" 
 					   class="button10g"
-				       style="height:28;width:260" 
+				       style="height:28;width:260;border:1px solid silver" 
 					   onclick="doPrepare('#Object.ObjectKeyValue4#')">			
 	
 				<cfset Session.Status = 0>
@@ -141,12 +136,12 @@
 				</cfquery>	
 				
 				<cfprogressbar name="pBar" 
-				    style="height:40px;bgcolor:silver;progresscolor:black;border:0px" 					
-					height="20" 
-					bind="cfc:service.Authorization.AuthorizationBatch.getstatus()"				
-					interval="#staff.recordcount/2#" 
-					autoDisplay="false" 
-					width="506"/> 
+					    style="height:40px;bgcolor:silver;progresscolor:black;border:0px" 					
+						height="20" 
+						bind="cfc:service.Authorization.AuthorizationBatch.getstatus()"				
+						interval="#staff.recordcount/2#" 
+						autoDisplay="false" 
+						width="506"/> 
 					   
 			</TD>		
 		</TR>

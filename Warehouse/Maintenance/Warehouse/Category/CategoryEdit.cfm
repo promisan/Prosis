@@ -66,13 +66,11 @@ password="#SESSION.dbpw#">
 		</cfif>
 		<input type="hidden" name="CategoryOld" id="CategoryOld" value="<cfoutput>#Get.Category#</cfoutput>">
 		<input type="hidden" name="Warehouse" ID="Warehouse" value="<cfoutput>#url.id1#</cfoutput>">
-			
-		
 		
 		<!--- Field: Oversale --->
-	    <TR>
-	    <TD class="labelmedium2"><cf_tl id="Allow Oversale">:</TD>
-	    <TD class="labelmedium2" style="height:25px">		
+	    <TR class="labelmedium2">
+	    <TD ><cf_tl id="Allow Oversale">:</TD>
+	    <TD style="height:25px">		
 		
 		    <table>
 			<tr class="labelmedium2">
@@ -86,9 +84,9 @@ password="#SESSION.dbpw#">
 		</TD>
 		</TR>	
 		
-		<tr>
-			<td class="labelmedium2"><cf_tl id="Discount Threshold"> :</td>
-			<td style="height:25px" class="labelmedium2">
+		<tr class="labelmedium2">
+			<td><cf_tl id="Discount Threshold"> :</td>
+			<td style="height:25px">
 			   <table><tr><td>
 				<cfinput type="Text"
 			       name="ThresholdDiscount"
@@ -109,9 +107,9 @@ password="#SESSION.dbpw#">
 		</tr>
 			
 		<!--- Field: Selfservice --->
-	    <TR>
-	    <TD class="labelmedium2"><cf_tl id="Self-service">:</TD>
-	    <TD class="labelmedium2" style="height:25px">	
+	    <TR class="labelmedium2">
+	    <TD><cf_tl id="Self-service">:</TD>
+	    <TD style="height:25px">	
 		
 		 <table>
 			<tr class="labelmedium2">
@@ -126,18 +124,18 @@ password="#SESSION.dbpw#">
 		</TR>		
 		
 		<!--- Field: Request Mode --->
-	    <TR>
-	    <TD class="labelmedium2"><cf_tl id="POL Request Mode">:</TD>
-	    <TD class="labelmedium2" style="height:25px">		
+	    <TR class="labelmedium2">
+	    <TD><cf_tl id="POL Request Mode">:</TD>
+	    <TD style="height:25px">		
 			<input type="radio" class="radiol" name="RequestMode" id="RequestMode" <cfif Get.RequestMode eq "1" or url.id2 eq "">checked</cfif> value="1"><cf_tl id="Consolidated">
 			<input type="radio" class="radiol" name="RequestMode" id="RequestMode" <cfif Get.RequestMode eq "0">checked</cfif> value="0"><cf_tl id="Not Consolidated">
 		</TD>
 		</TR>	
 		
 		<!--- Field: TaxCode --->
-	    <TR>
-	    <TD class="labelmedium2"><cf_tl id="Tax Code">:</TD>
-	    <TD class="labelmedium2" style="height:25px">		
+	    <TR class="labelmedium2">
+	    <TD><cf_tl id="Tax Code">:</TD>
+	    <TD style="height:25px">		
 			
 			<select name="TaxCode" id="TaxCode" class="regularxxl">
 					<cfloop query="TaxCodes">
@@ -149,9 +147,9 @@ password="#SESSION.dbpw#">
 		</TR>	 
 		
 		<!--- Field: Operational --->
-	    <TR>
-	    <TD class="labelmedium2"><cf_tl id="Enabled">:</TD>
-	    <TD class="labelmedium2" style="height:25px">		
+	    <TR class="labelmedium2">
+	    <TD><cf_tl id="Enabled">:</TD>
+	    <TD style="height:25px">		
 		
 		    <table>
 			<tr class="labelmedium2">

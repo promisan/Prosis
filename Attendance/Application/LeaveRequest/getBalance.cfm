@@ -211,13 +211,13 @@ in which the leave ends --->
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		    SELECT 	O.OrgUnit, O.OrgUnitName, O.Mission
-		   	FROM 	PersonAssignment P, Organization.dbo.Organization O
+		   	FROM 	PersonAssignment P INNER JOIN Organization.dbo.Organization O ON P.OrgUnit         = O.OrgUnit
 			WHERE	P.DateEffective   <= #STR# 
 			AND     P.DateExpiration  >= #STR#
 			AND     P.AssignmentStatus < '8' <!--- planned and approved --->
-		    AND     P.AssignmentType  = 'Actual'
-		   	AND     P.OrgUnit         = O.OrgUnit
+		    AND     P.AssignmentType  = 'Actual'		   
 			AND     P.PersonNo        = '#url.id#' 
+			AND     P.Incumbency > 0
 		</cfquery>
 		
 		<cfquery name="contract" 

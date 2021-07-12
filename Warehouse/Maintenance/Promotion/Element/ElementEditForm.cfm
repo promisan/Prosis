@@ -107,7 +107,7 @@
 					</td>
 					
 					<td style="padding-left:3px" class="labelmedium">
-						<cfdiv id="divDiscount" bind="url:Discount.cfm?idmenu=#url.idmenu#&promotionid=#url.promotionid#&code={DiscountType}&discount=#get.Discount#">
+						<cf_securediv id="divDiscount" bind="url:Discount.cfm?idmenu=#url.idmenu#&promotionid=#url.promotionid#&code={DiscountType}&discount=#get.Discount#">
 					</td>
 					
 				</tr>

@@ -38,16 +38,16 @@ password="#SESSION.dbpw#">
     </tr>
 	---> 
 		
-	<tr>
+	<tr class="line">
 	  <td colspan="4" valign="top">
 	
 			<table width="98%" align="center">
 			
 			<cfoutput query="Entity">
 		
-				<TR>	   
-				    <TD height="23" class="labelmedium2"><b>#EntityDescription# [#EntityCode#]</TD>				    
-					<TD class="labelmedium2"><i>Role:</i>&nbsp;#Description#</TD>
+				<TR class="labelmedium2">	   
+				    <TD height="23"><b>#EntityDescription# [#EntityCode#]</TD>				    
+					<TD><i><cf_tl id="Role">:</i>&nbsp;#Description#</TD>
 				    <TD align="right" style="padding-right:4px" class="labelmedium2">#DateFormat(Created, "#CLIENT.DateFormatShow#")#</td>
 					<cfif url.mode neq "Dialog">
 					<td width="120" id="result" align="right"></td> 			
@@ -59,8 +59,7 @@ password="#SESSION.dbpw#">
 			</table>
 	 </td>
 	</tr> 	
-		
-	<tr><td colspan="4" class="linedotted"></td></tr>				
+			
 
 </cfif>
 
@@ -122,8 +121,6 @@ password="#SESSION.dbpw#">
 
 </td></tr>
 
-<tr><td colspan="4" class="linedotted"></td></tr>	
-
 <tr><td height="100%" colspan="4">
 
 	 <table width="100%" height="100%" align="center">
@@ -142,36 +139,36 @@ password="#SESSION.dbpw#">
 	 
 	 <cf_menucontainer name="entitytg" item="3" class="hide">	
 	 
-		 <table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">  
+		 <table width="95%" align="center" class="formpadding">  
 			
 			<tr><td height="7"></td></tr>	
 			<tr><td colspan="2" class="labelmedium"><font color="0080C0">Please do not change this section unless instructed by Vendor</td></tr>
 			<tr><td height="5"></td></tr>	
 			<TR>
-		    <td class="labelmedium">Source table:  </td>
+		    <td class="labelmedium">Source table:</td>
 			<td><cfinput type="Text" name="EntityTableName" value="#Entity.EntityTableName#" size="50" maxlength="50" class="regularxxl">
 			</td>
 			</TR>	
 				
 			<TR>
-		    <td class="labelmedium">Key field 1:  </td>
+		    <td class="labelmedium">Key field 1:</td>
 			<td><cfinput type="Text" name="EntityKeyField1" value="#Entity.EntityKeyField1#" size="30" maxlength="30" class="regularxxl">
 			</td>
 			</TR>	
 					
 			<TR>
-		    <td class="labelmedium">Key field 2:  </td>
+		    <td class="labelmedium">Key field 2:</td>
 			<td><cfinput type="Text" name="EntityKeyField2" value="#Entity.EntityKeyField2#" size="30" maxlength="30" class="regularxxl">
 			</td>
 			</TR>	
 				
 			<TR>
-		    <td class="labelmedium">Key field 3:  </td>
+		    <td class="labelmedium">Key field 3:</td>
 			<td><cfinput type="Text" name="EntityKeyField3" value="#Entity.EntityKeyField3#" size="30" maxlength="30" class="regularxxl">
 			</td>
 			</TR>		
 			<TR>
-		    <td class="labelmedium">Key field 4:  </td>
+		    <td class="labelmedium">Key field 4:</td>
 			<td><cfinput type="Text" name="EntityKeyField4" value="#Entity.EntityKeyField4#" size="30" maxlength="30" class="regularxxl">
 			</td>
 			</TR>	
@@ -182,8 +179,8 @@ password="#SESSION.dbpw#">
 			</cf_UIToolTip>
 			    
 			<td class="regular">	
-				<input type="radio" class="radiol" name="EnableIntegrityCheck" id="EnableIntegrityCheck" value="1" <cfif "1" eq #Entity.EnableIntegrityCheck#>checked</cfif>>Yes
-				<input type="radio" class="radiol" name="EnableIntegrityCheck" id="EnableIntegrityCheck" value="0" <cfif "0" eq #Entity.EnableIntegrityCheck#>checked</cfif>>No
+				<input type="radio" class="radiol" name="EnableIntegrityCheck" id="EnableIntegrityCheck" value="1" <cfif "1" eq Entity.EnableIntegrityCheck>checked</cfif>>Yes
+				<input type="radio" class="radiol" name="EnableIntegrityCheck" id="EnableIntegrityCheck" value="0" <cfif "0" eq Entity.EnableIntegrityCheck>checked</cfif>>No
 		    </td>
 			</TR>	
 			
@@ -192,7 +189,7 @@ password="#SESSION.dbpw#">
 			<tr><td height="5"></td></tr>
 			
 			<tr><td align="center" colspan="2">
-			<input type="button" name="save" id="save" value="Apply" class="button10g" onclick="validate()"> 
+			  <input type="button" name="save" id="save" value="Apply" class="button10g" onclick="validate()"> 
 			</td></tr>		
 			
 		</table>		
@@ -201,7 +198,7 @@ password="#SESSION.dbpw#">
 	  
 	 <cf_menucontainer item="4" name="entitytg" class="hide">	
 	   
-		    <table width="98%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+		    <table width="98%" align="center" class="formpadding">
 			  <tr><td height="9"></td></tr>
 			  <tr>
 			  	<td colspan="2" class="labels">
@@ -234,7 +231,7 @@ password="#SESSION.dbpw#">
 			  <td height="20" class="labelmedium">
 			    <a href="javascript:ptoken.navigate('EntityVerifyScript.cfm','verify','','','POST','entityform')">Verify script</a>
 			  </td>
-			      <td align="right" id="verify" class="labelmedium"></td>
+			  <td align="right" id="verify" class="labelmedium"></td>
 			  </tr>
 			  <tr><td colspan="2" class="line"></td></tr>
 			  </table>

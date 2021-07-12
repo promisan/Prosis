@@ -21,7 +21,7 @@
 	   method           = "getBrowser"
 	   browserstring    = "#CGI.HTTP_USER_AGENT#"	  
 	   returnvariable   = "thisbrowser"
-	   minIE            = "7">	      
+	   minIE            = "11">	      
 	
 	<cfif thisbrowser.pass eq "0">	
 	
@@ -72,48 +72,56 @@
 					<td colspan="5" align="right" style="padding-left:70px; padding-top:6px">		
 						<table cellspacing="0" cellpadding="0" align="right">
 							<tr>
+							
 								<cfif Parameter.SystemSupportPortalId neq "" and ShowSupport eq 1>
-									<td>
-										<cfquery name="Link" 
+								
+									<cfquery name="Link" 
 											datasource="AppsSystem">
 											SELECT    *
 											FROM      PortalLinks
 											WHERE     PortalId = '#Parameter.SystemSupportPortalId#'
 										</cfquery>		
-										<cfoutput>		 
-											<a href="support.cfm?id=#Parameter.SystemSupportPortalId#" style="color:<cfoutput>#color#</cfoutput>" target="_new">
-												#Link.Description#
-											</a>
-										</cfoutput>		
-									</td>
+								
+								    <cfif link.operational eq "1">
 									
-									<cfif showRequest eq 1>
+										<td>
+												
+											<cfoutput>		 
+												<a href="support.cfm?id=#Parameter.SystemSupportPortalId#" style="color:<cfoutput>#color#</cfoutput>" target="_new">
+													#Link.Description#
+												</a>
+											</cfoutput>		
+											
+										</td>
+									
+										<cfif showRequest eq 1>
+										
+											<td style="color:<cfoutput>#color#</cfoutput>">
+												&nbsp;&nbsp;|&nbsp;&nbsp;
+											</td>
+											
+											<td>		
+												<cfoutput>		 
+													<a href="#session.root#/Portal/SelfService/Extended/Account/AccountRequestForm.cfm?showClose=0&id=support" style="color:<cfoutput>#color#</cfoutput>" target="_new">
+														<cf_tl id="Request Access">
+													</a>
+												</cfoutput>		
+											</td>
+											
+										</cfif>
+																	
 										<td style="color:<cfoutput>#color#</cfoutput>">
 											&nbsp;&nbsp;|&nbsp;&nbsp;
 										</td>
 										
-										<td>		
-											<cfoutput>		 
-												<a href="#session.root#/Portal/SelfService/Extended/Account/AccountRequestForm.cfm?showClose=0&id=support" style="color:<cfoutput>#color#</cfoutput>" target="_new">
-													<cf_tl id="Request Access">
-												</a>
-											</cfoutput>		
+										<td>
+											<a href="PasswordAssist.cfm" target="_top" style="color:<cfoutput>#color#</cfoutput>">Forgot password</a>
 										</td>
-									</cfif>
-									
+										
+									 </cfif>	
 								
-								<td style="color:<cfoutput>#color#</cfoutput>">
-									&nbsp;&nbsp;|&nbsp;&nbsp;
-								</td>
+								</cfif>								
 								
-								</cfif>
-								
-								
-								<td>
-									<a href="PasswordAssist.cfm" target="_top" style="color:<cfoutput>#color#</cfoutput>">
-										Forgot password
-									</a>
-								</td>
 							</tr>
 						</table>		
 					</td>
@@ -214,10 +222,19 @@
 					<td colspan="2" align="#linksAlign#">		
 						<table cellspacing="0" cellpadding="0" align="center">
 							<tr>
-								<cfif Parameter.SystemSupportPortalId neq "">
+							
+								<cfif Parameter.SystemSupportPortalId neq "" and showsupport eq 1>
+								
+									<cfquery name="Link" 
+										datasource="AppsSystem">
+										SELECT    *
+										FROM      PortalLinks
+										WHERE     PortalId = '#Parameter.SystemSupportPortalId#'
+										AND       Operational = 1
+									</cfquery>	
 									
-									<cfif showSupport eq 1>
-											
+									<cfif link.operational eq "1">	
+																				
 										<td>
 													
 												<cfquery name="Link" 
@@ -236,33 +253,35 @@
 										<td style="color:<cfoutput>#color#</cfoutput>">
 											&nbsp;&nbsp;|&nbsp;&nbsp;
 										</td>
-									</cfif>
-									
-									<cfif showRequest eq 1>
+																		
+										<cfif showRequest eq 1>
+											
+											<td style="cursor:pointer" onclick="requestacc()">		
+												<cfoutput>		 
+													<a style="color:<cfoutput>#color#</cfoutput>">
+														<cf_tl id="Request Access">
+													</a>
+												</cfoutput>		
+											</td>
+											
+											<td style="color:<cfoutput>#color#</cfoutput>">
+												&nbsp;&nbsp;|&nbsp;&nbsp;
+											</td>
+											
+										</cfif>
 										
-										<td style="cursor:pointer" onclick="requestacc()">		
-											<cfoutput>		 
-												<a style="color:<cfoutput>#color#</cfoutput>">
-													<cf_tl id="Request Access">
+										<cfif showForgot eq 1>
+											<td>
+												<a href="PasswordAssist.cfm" target="_top" style="color:<cfoutput>#color#</cfoutput>">
+												<cf_tl id="Forgot Password">
 												</a>
-											</cfoutput>		
-										</td>
+											</td>
+										</cfif>
 										
-										<td style="color:<cfoutput>#color#</cfoutput>">
-											&nbsp;&nbsp;|&nbsp;&nbsp;
-										</td>
-										
-									</cfif>
+									</cfif>	
 									
 								</cfif>
-
-								<cfif showForgot eq 1>
-								<td>
-									<a href="PasswordAssist.cfm" target="_top" style="color:<cfoutput>#color#</cfoutput>">
-										<cf_tl id="Forgot Password">
-									</a>
-								</td>
-								</cfif>
+								
 							</tr>
 						</table>		
 					</td>

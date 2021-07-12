@@ -62,9 +62,9 @@
 
 <cfoutput>
 
-<table width="100%" align="center" class="navigation_table">
+<table width="100%" style="min-width:1100px" align="center" class="navigation_table">
   
-    <TR bgcolor="white" class="labelmedium fixrow240">
+    <TR bgcolor="white" class="labelmedium2 fixrow240">
 	   <td height="19" width="24" style="width:20px;"></td>
 	   <cfif URL.Mode eq "Edit" and PO.ActionStatus eq "0">
 	   <td colspan="2" style="width:20px;"></td>
@@ -77,10 +77,11 @@
 	   <td align="right"><cf_tl id="Qty"></td>
        <td align="center"><cf_tl id="UoM"></td>
 	   <td align="center"><cf_tl id="Volume"></td>
+	   
 	   <td align="center"><font size="1">#Lines.Currency#</font><cf_tl id="UoM"></td>
-	   <td align="center"><font size="1">#Lines.Currency#</font><cf_tl id="Unit"></td>
-       
+	   <td align="center"><font size="1">#Lines.Currency#</font><cf_tl id="Unit"></td>       
 	   <td align="right"><font size="1">#Lines.Currency#</font><cf_tl id="Ext Price"></td>
+	   
 	   <td align="right"><cf_tl id="Tax"></td>
 	   <td align="right"><cf_tl id="Payable"></td>
 	   <cfif APPLICATION.BaseCurrency neq lines.currency>
@@ -103,25 +104,27 @@
 			
 			<cfif OrderAmountBase lte "0">
 							
-			<tr bgcolor="gray" id="#requisitionno#_1" style="height:20px;<cfif actionstatus eq '9'>background-color:##FEC5B880</cfif>" class="labelmedium line navigation_row">
+			<tr bgcolor="gray" id="#requisitionno#_1" style="height:20px;<cfif actionstatus eq '9'>background-color:##FEC5B880</cfif>" 
+			    class="labelmedium line navigation_row">
 			
 			<cfelse>
 									
 			<cfif deliverystatus eq "3">
-				<cfset cls = "FFFFaF">							
+				<cfset cls = "##FFFFaF80">							
 			<cfelseif deliveryStatus eq "2">
-				<cfset cls = "FFFFAF">				
+				<cfset cls = "##FFFFAF80">				
 			<cfelse>
 				<cfset cls = "FFFFFF">		
 			</cfif>
 			
-			<tr bgcolor="#cls#" id="#requisitionno#_1" style="height:20px;border-top:1px solid silver;<cfif actionstatus eq '9'>background-color:##FEC5B880</cfif>" class="labelmedium line navigation_row">
+			<tr id="#requisitionno#_1" 
+			   style="border-bottom:1px dotted silver;height:20px;border-top:1px solid silver;background-color:<cfif actionstatus eq '9'>##FEC5B880<cfelse>#cls#</cfif>" 
+			   class="labelmedium2 navigation_row">
 			
 			</cfif>			
 						
 			<td style="height:23px" width="10" align="center">#CurrentRow#.</td>
-			
-						
+									
 			<cfif (URL.Mode eq "Edit" AND PO.ActionStatus eq "0") 
 			      or
 				  (Parameter.EditPurchaseAfterIssue eq "1" AND PO.ActionStatus eq "3" and DeliveryStatus eq "0" and URL.Mode eq "Edit")>
@@ -188,10 +191,11 @@
 			<cfif lineReference neq ""><cfif CaseNo neq "">/</cfif>#LineReference#</cfif>
 			</td>
 			
-   		    <td style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver" align="right">#OrderQuantity#</td>
+   		    <td style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver" align="right">
+			#numberformat(OrderQuantity,',.___')#</td>
 		    <td  style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver;padding-left:4px">#OrderUoM#</td>
-			<td  style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver;padding-left:5px">
-			<cfif OrderUoMVolume neq "">#OrderUoMVolume*OrderQuantity# <!---(#OrderUoMVolume#)---></cfif></td>
+			<td  style="text-align:right;border-left:1px solid gray;padding-right:4px;border-right:1px solid silver;padding-left:5px">
+			<cfif OrderUoMVolume neq "0">#OrderUoMVolume*OrderQuantity#<cfelse>-- <!---(#OrderUoMVolume#)---></cfif></td>
 			 <td  style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver" align="right">
 			<cfif Lines.OrderQuantity lte 0>
 				<cfset Lines.OrderQuantity = 1>
@@ -253,7 +257,7 @@
 			   	  AND      ActionStatus != '9'	
 				  ORDER BY ReceiptNo
 			  	</cfquery>
-				
+								
 				<cfinclude template="POViewLines_Receipt.cfm">	
 			
 			</cfif>								

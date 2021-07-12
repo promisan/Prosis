@@ -424,8 +424,8 @@ function togglebox(val) {
 					   <cfif ContraAccount.recordcount eq "0" and HeaderSelect.contraGLAccount eq "">
 					   					   					   
 					        <TD class="labelmedium2"><cf_tl id="Contra-Account">:</TD>			   
-		    			    <td colspan="6">	 
-					  					   
+		    			    <td colspan="4">	
+															   
 					   		<table cellspacing="0" cellpadding="0"><tr>
 								  
 								  <td style="padding-right:2px">
@@ -464,7 +464,8 @@ function togglebox(val) {
 							
 							<TD class="labelmedium2"><cf_tl id="Contra-Account">:</TD>	
 					   														       	   
-		    			    <td colspan="6">	    		
+		    			    <td colspan="4">	
+							
 										   
 						        <table style="border:1px solid silver;;background-color:f1f1f1">
 								    <tr>
@@ -488,7 +489,7 @@ function togglebox(val) {
 					   <cfelseif ContraAccount.recordcount eq "1" and HeaderSelect.ContraGLAccount neq "">		
 					   		
 							<TD class="labelmedium2"><cf_tl id="Contra-Account">:</TD>													       	   
-		    			    <td colspan="6">	 		   		
+		    			    <td colspan="4">	 		   		
 										   
 						        <table border="0" style="border:1px solid silver;background-color:f1f1f1">
 								    <tr>
@@ -510,7 +511,7 @@ function togglebox(val) {
 					   <cfelseif ContraAccount.recordcount gt "1">		
 					      						   
 					        <TD class="labelmedium2"><cf_tl id="Contra-Account">:</TD>			   
-		    			    <td colspan="6">	 
+		    			    <td colspan="4">	 
 			   	    	  	
 						    <table border="0" style="border:1px solid silver">
 							    <tr>
@@ -546,7 +547,8 @@ function togglebox(val) {
 				   <cfif HeaderSelect.ContraGLAccount is "">			   
 				   	  
 					   <TD class="labelmedium2"><cf_tl id="Type">:</TD>
-			           <td colspan="3">	 
+			           <td colspan="2">	 
+					   
 					     <select name="debitcredit" style="" class="regularxxl enterastab">
 			               <option value="Debit" selected><cf_tl id="Debit"></option>
 			               <option value="Credit"><cf_tl id="Credit"></option>
@@ -556,7 +558,7 @@ function togglebox(val) {
 				  
 				   <cfelse>
 				  
-				  	 <TD colspan="4"></TD>
+				  	 <TD colspan="2"></TD>
 				   
 				   </cfif>	   
 				   		  	   

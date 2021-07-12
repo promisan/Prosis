@@ -11,6 +11,7 @@
 <cfparam name="attributes.legendFont"			default="12">
 <cfparam name="attributes.legendPosition"		default="bottom">
 <cfparam name="attributes.dataPoints"			default="no">
+<cfparam name="attributes.dataPointsPercentage"	default="no">
 <cfparam name="attributes.labelDecimals"		default="1">
 <cfparam name="attributes.labelThousands"		default="no">
 <cfparam name="attributes.labelPrepend"			default="">
@@ -93,6 +94,63 @@
 			</cfif>
 			
 			<cfsavecontent variable="doChart_#attributes.id#">
+				
+				var afterDataSetDrawPlugin = {};
+
+				<cfif trim(attributes.dataPoints) eq "true" or trim(attributes.dataPoints) eq "yes" or trim(attributes.dataPoints) eq "1">
+					// Define a plugin to provide data labels
+					afterDataSetDrawPlugin = {
+						afterDatasetsDraw: function(chart) {
+							var ctx = chart.ctx;
+							var vSum = 0.0;
+
+							chart.data.datasets.forEach(function(dataset, i) {
+								var meta = chart.getDatasetMeta(i);
+								if (!meta.hidden) {
+									meta.data.forEach(function(element, index) {
+										// Draw the text in black, with the specified font
+										ctx.fillStyle = 'rgb(70,99,99)';
+
+										var fontSize = #attributes.legendFont*0.8#;
+										var fontStyle = 'normal';
+										var fontFamily = 'Verdana';
+										ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+										// Just natively convert to string for now
+										var dataString = formatLabels(dataset.data[index], #attributes.labelDecimals#, #vThousands#, '#attributes.labelPrepend#', '#attributes.labelAppend#').toString();
+
+										<cfif trim(attributes.dataPointsPercentage) eq "true" or trim(attributes.dataPointsPercentage) eq "yes" or trim(attributes.dataPointsPercentage) eq "1">
+											vSum = 0.0;
+											dataset.data.map(data => {
+												vSum += parseFloat(data);
+											});
+											dataString = String((parseFloat(dataset.data[index])*100 / vSum).toFixed(1)) + '%';
+										</cfif>
+
+										// Make sure alignment settings are correct
+										ctx.textAlign = 'left';
+										ctx.textBaseline = 'left';
+
+										var padding = -5;
+										var position = element.tooltipPosition();
+
+										var xPosition = position.x;
+										if (element._chart.controller.config.type == 'horizontalBar') {
+											xPosition = position.x - 30;
+											if (xPosition < 55) { xPosition = position.x + 5; }
+										}
+										if (element._chart.controller.config.type == 'pie') {
+											xPosition = position.x - 10;
+										}
+										
+										ctx.fillText(dataString, xPosition, position.y - (fontSize / 2) - padding);
+									});
+								}
+							});
+						}
+					};
+
+				</cfif>
 				
 				var chartData_#attributes.id# = {
 					labels: [
@@ -265,7 +323,8 @@
 						type : '#attributes.type#',
 					</cfif>
 					data : chartData_#attributes.id#,
-					options : chartOptions_#attributes.id#
+					options : chartOptions_#attributes.id#,
+					plugins: [afterDataSetDrawPlugin]
 				});
 
 
@@ -286,49 +345,6 @@
 
 				    	(#trim(attributes.onclick)#)(__mobile_elements);
 					};    
-
-				</cfif>
-
-				<cfif trim(attributes.dataPoints) eq "true" or trim(attributes.dataPoints) eq "yes" or trim(attributes.dataPoints) eq "1">
-					// Define a plugin to provide data labels
-					Chart.plugins.register({
-						afterDatasetsDraw: function(chart) {
-							var ctx = chart.ctx;
-
-							chart.data.datasets.forEach(function(dataset, i) {
-								var meta = chart.getDatasetMeta(i);
-								if (!meta.hidden) {
-									meta.data.forEach(function(element, index) {
-										// Draw the text in black, with the specified font
-										ctx.fillStyle = 'rgb(70,99,99)';
-
-										var fontSize = #attributes.legendFont*0.9#;
-										var fontStyle = 'normal';
-										var fontFamily = 'Verdana';
-										ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
-
-										// Just naively convert to string for now
-										var dataString = formatLabels(dataset.data[index], #attributes.labelDecimals#, #vThousands#, '#attributes.labelPrepend#', '#attributes.labelAppend#').toString();
-
-										// Make sure alignment settings are correct
-										ctx.textAlign = 'left';
-										ctx.textBaseline = 'left';
-
-										var padding = -5;
-										var position = element.tooltipPosition();
-
-										var xPosition = position.x;
-										if (element._chart.controller.config.type == 'horizontalBar') {
-											xPosition = position.x - 30;
-											if (xPosition < 55) { xPosition = position.x + 5; }
-										}
-										
-										ctx.fillText(dataString, xPosition, position.y - (fontSize / 2) - padding);
-									});
-								}
-							});
-						}
-					});
 
 				</cfif>
 			 

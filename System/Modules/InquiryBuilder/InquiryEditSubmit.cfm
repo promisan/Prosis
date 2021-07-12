@@ -48,7 +48,7 @@
 			 '#SESSION.first#')		
 </cfquery> 
 
-<cfset argument = "#form.DrillArgumentHeight#;#form.DrillArgumentWidth#;#form.DrillArgumentModal#;#Form.DrillArgumentCenter#;#Form.ExcelExport#">
+<cfset argument = "#form.DrillArgumentHeight#;#form.DrillArgumentWidth#;#form.DrillArgumentModal#;#Form.DrillArgumentCenter#;#Form.ExcelExport#;#Form.Scrolling#">
 
 <cfquery name="Module" 
 datasource="AppsSystem" 
