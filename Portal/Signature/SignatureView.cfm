@@ -1,5 +1,5 @@
 
-<table width="250" height="90">
+<table style="width:100%" height="90">
 
 <cfparam name="imageheight" default="80">
 <cfparam name="imagewidth"  default="200">
@@ -7,7 +7,6 @@
 <tr class="labelmedium"><td align="center">
 
 <cfoutput>
-
 
 	 <cfif FileExists("#SESSION.rootDocumentPath#\User\Signature\#account#.png")>	
 	 

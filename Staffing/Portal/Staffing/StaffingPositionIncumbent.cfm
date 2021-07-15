@@ -157,7 +157,11 @@
 
 						<tr class="labelmedium2">					      						   
 					   	   <td colspan="2" style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;">#Track.entityclassName#</td>
-				   	   	   <td align="right" style="padding-right:5px;color:green"><cfif fo.recordcount eq "1">#FO.ReferenceNo#<cfelse>#docno#</cfif></td>				
+						   
+						   <td align="right" style="padding-right:5px;color:green">						   					   
+						   <cfif fo.recordcount eq "1"><A href="javascript:va('#FO.FunctionId#');">#FO.ReferenceNo#</a><cfelse>#docno#</cfif>
+						   </td>	
+						   				   	   	   		
 						</tr>	
 						
 						<tr><td colspan="3" class="line"></td></tr>

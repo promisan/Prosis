@@ -91,7 +91,7 @@
     <cfoutput>
         <h3 style="padding-bottom:10px;">
             <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="35" height="35" onclick="Prosis.exportToExcel('detailGeoContent#url.viewId#');" title="#lblExportToExcel#">
-            BY COUNTRY
+            BY MEMBERSTATE
         </h3>
     </cfoutput>
 </cfif>

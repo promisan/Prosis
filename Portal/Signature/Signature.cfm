@@ -30,18 +30,19 @@
 			<input type="file" name="uploadedfile" size="40" accept="image/x-png" class="button10g" style="width:300px;height:24px;font-size:15px;">
 			</td>
 									
-			<td style="padding-left:2px"><input type="submit" name="Load" value="Load..." class="button10g" style="font-size:15px;height:25px; width:89px; background-color: ButtonFace; color: Black;">
+			<td style="padding-left:2px">
 			
-			<cfif FileExists("#SESSION.rootDocumentPath#/User/Signature/#account#.png")>
-						
-			<td style="padding-left:3px;padding-bottom:1px">
-			
-				<input 				
-				style="height: 25; width: 155; border: 1px solid silver;font-size:15px;background-color: ButtonFace; color: Black;"
-				type="submit" 
-				name="Delete" 
-				value="Remove Image">		
-			</td>		
+				<input type="submit" name="Load" value="Load..." class="button10g" style="font-size:15px;height:25px; width:89px; background-color: ButtonFace; color: Black;">
+				
+				<cfif FileExists("#SESSION.rootDocumentPath#/User/Signature/#account#.png") or FileExists("#SESSION.rootDocumentPath#/User/Signature/#account#.jpg")>
+							
+				<td style="padding-left:3px;padding-bottom:1px">
+				
+					<input style="height: 25; width: 155; border: 1px solid silver;font-size:15px;background-color: ButtonFace; color: Black;"
+					type="submit" 
+					name="Delete" 
+					value="Remove Image">		
+				</td>		
 			
 			</cfif>
 			
@@ -67,7 +68,7 @@
 		
 	</td></tr>
 	
-	<tr><td colspan="2"><font color="808080"><cf_tl id="Images should be in PNG format in the size of width 200 * height 80"></font></td></tr>
+	<tr><td colspan="2"><font color="808080"><cf_tl id="Images should be in PNG or JPG format in the size of width 200 * height 80"></font></td></tr>
 	
 	<tr><td colspan="2">
 		<cfdiv id="signatureshow" style="width:450px;border:1px solid silver">

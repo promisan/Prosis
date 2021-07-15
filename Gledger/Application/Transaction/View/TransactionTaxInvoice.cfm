@@ -1,8 +1,8 @@
 <cfset url.scope 	= "standalone">
 
-<cfparam name="url.currency"          default="QTZ">
-<cfparam name="url.mode"              default="3">  <!--- revised FEL, can be disabled --->
-<cfparam name="url.terminal"          default="">
+<cfparam name="url.currency"     default="QTZ">
+<cfparam name="url.mode"         default="3">  <!--- new mode FEL by Hanno which handles discounts and enforces 12% --->
+<cfparam name="url.terminal"     default="">
 
 <cfquery name="qHeader"
     datasource="AppsMaterials"
@@ -22,7 +22,7 @@
 
 	<cfcase value="SalesSeries">
 	
-		<!--- Hanno : make use of the component we use for the POS --->
+		<!--- Hanno : this one makes still use of the V2 component also used for POS Cash and Carry --->
 	
 	    <cfquery name="qBatch"
 	        datasource="AppsMaterials"
@@ -60,7 +60,7 @@
 	            password="#SESSION.dbpw#">
 			        SELECT   TOP 1 *
 			        FROM     Accounting.dbo.TransactionHeaderAction
-			        WHERE    Journal	       = '#URL.Journal#'
+			        WHERE    Journal	     = '#URL.Journal#'
 				    AND      JournalSerialNo = '#URL.JournalSerialNo#'
 				    AND      ActionCode      = 'Invoice'
 				    AND      ActionReference1 IS NOT NULL
@@ -73,6 +73,8 @@
 					
 	            <cfinvoke  component = "Service.Process.Materials.POS"
 	                   method             = "initiateInvoice"
+					   Journal            = "#url.journal#"
+					   JournalSerialNo    = "#url.journalSerialNo#"		
 	                   batchid            = "#url.batchId#"
 	                   warehouse          = "#url.warehouse#"
 	                   terminal           = "#url.terminal#"
@@ -92,8 +94,10 @@
 	
 	    <cfoutput>
 		
+		    <!--- points to the same template as we do in the POS settlement --->
+			
 	        <script>
-		        ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#URL.BatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#", 'wsettle');
+		        ptoken.navigate("#SESSION.root#/GLedger/Application/Transaction/Invoice/SaleViewInvoice.cfm?actionid=#vActionId#&journal=#URL.journal#&journalserialNo=#url.journalserialno#&currency=#url.currency#&terminal=#url.terminal#", 'wsettle');
 		        try { window.opener.location.reload(); } catch(e) {}
 	       </script>	
 		   
@@ -103,7 +107,7 @@
 				
 	<cfdefaultcase>
 		
-		<!--- reflect the code as POS to trigger differently --->
+		    <!--- reflect the code as POS to trigger differently --->
 				
 			<cfinvoke component = "Service.Process.EDI.Manager"
 					   method           = "SaleIssue" 
@@ -151,6 +155,17 @@
 				
 			</cfif>	  	
 			
+			<cfoutput>
+			
+			  <!--- points to a different template --->
+		
+	          <script>
+		        ptoken.navigate("#SESSION.root#/GLedger/Application/Transaction/Invoice/SaleViewInvoice.cfm?actionid=#vActionId#&journal=#URL.journal#&journalserialNo=#url.journalserialno#&currency=#url.currency#&terminal=#url.terminal#", 'wsettle');
+		        try { window.opener.location.reload(); } catch(e) {}
+	          </script>	
+		   
+		    </cfoutput>   	 
+			
 			<!--- Armin : do record action and other stuff --->	
 	
 	</cfdefaultcase>
@@ -159,6 +174,8 @@
 
 <cfelse>
 
-<table style="width:100%"><tr class="labelmedium2"><td align="center"><cf_tl id="Action not supported"></td></tr></table>
+<table style="width:100%"><tr class="labelmedium2">
+    <td align="center"><cf_tl id="Action not supported"></td></tr>
+</table>
 
 </cfif>

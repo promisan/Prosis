@@ -235,9 +235,9 @@
 			<cfelseif url.instock eq "9">
 			AND     Stock = -1								
 			</cfif>
-											  
-			ORDER BY  CategoryItemName, CategoryItemOrder, ItemDescription, UoM
-									
+			
+			--condition
+				
 	</cfoutput>	
 	
 </cfsavecontent>

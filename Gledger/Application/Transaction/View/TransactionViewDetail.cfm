@@ -1047,12 +1047,12 @@
 					<cfif ReferencePersonNo neq ""> 
 					
 					  <cfquery name="getPerson" 
-					  datasource="AppsEmployee" 
-					  username="#SESSION.login#" 
-					  password="#SESSION.dbpw#">
-						SELECT * 
-						FROM   Person
-						WHERE  PersonNo = '#ReferencePersonNo#'				
+						  datasource="AppsEmployee" 
+						  username="#SESSION.login#" 
+						  password="#SESSION.dbpw#">
+							SELECT * 
+							FROM   Person
+							WHERE  PersonNo = '#ReferencePersonNo#'				
 					  </cfquery>	
 									
 					  <A HREF ="javascript:EditPerson('#ReferencePersonNo#')"><font color="0080C0">#getPerson.FirstName# #getPerson.LastName# (#getPerson.Nationality#)</a>
@@ -1223,13 +1223,13 @@
 										  TransactionDate,currency,ABS(Amount) Amount, ABS(AmountOutstanding) as AmountOutstanding
 
 								FROM      TransactionHeader H
-								WHERE     Mission             = '#Transaction.Mission#'
+								WHERE     Mission              = '#Transaction.Mission#'
 								AND       (ReferenceOrgUnit    = '#Transaction.ReferenceOrgUnit#')
-								AND       TransactionCategory = 'Advances'
-								--AND     Currency            = '#Transaction.Currency#' 
+								AND       TransactionCategory  = 'Advances'
+								--AND     Currency             = '#Transaction.Currency#' 
 								AND       ABS(AmountOutstanding) > 0.05
-								AND  	  ActionStatus != '9'
-								AND  	  RecordStatus != '9'
+								AND  	  ActionStatus        != '9'
+								AND  	  RecordStatus        != '9'
 						
 						<!--- only of journals to which the user has edit/all access --->
 						
@@ -1249,7 +1249,7 @@
 									 WHERE  Journal             = H.Journal
 									 AND    JournalSerialNo     = H.JournalSerialNo
 									 AND    TransactionSerialNo = '0'
-									 AND    AmountDebit        > 0
+									 AND    AmountDebit > 0
 									 )
 										 
 							ORDER BY TransactionDate
@@ -1259,13 +1259,12 @@
 							<td style="padding-left:10px;padding-right:10px">|</td>
 							<td class="labelmedium2">
 							<a href="javascript:toggleobjectbox('offset')">
-								<cf_tl id="Offset against advance">
-								
+								<cf_tl id="Offset against advance">								
 							</a>
 							</td>			
 						</cfif>	
 						
-						<!----functionality for offsetting against advance ---->
+						<!--- functionality for offsetting against advance --->
 						
 					</cfif>
 					
@@ -1511,9 +1510,9 @@
 								</td>
 								<td style="padding-left:10px;padding-right:10px">|</td>
 								<td class="labelmedium2">
-										<a href="javascript:PrintTaxReceivable('#url.id#')">
-										<cf_tl id="Electronic Invoice">
-										</a>
+									<a href="javascript:PrintTaxReceivable('#url.id#')">
+									<cf_tl id="Electronic Invoice">
+									</a>
 								</td>
 								<td style="padding-left:10px;padding-right:10px">|</td>		
 											

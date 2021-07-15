@@ -1,8 +1,12 @@
-<cfparam name="url.batchid"           default="">
+
+<cfparam name="url.journal"           default="">
+<cfparam name="url.journalserialno"   default="">
 <cfparam name="url.warehouse"         default="">
 <cfparam name="url.currency"          default="">
 <cfparam name="url.scope"          	  default="settlement">
+<cfparam name="url.actionid"          default="">
 
+<cfif url.actionid neq "">
 <cf_tl id="Print Invoice" var="1">
 
 <script>
@@ -30,18 +34,15 @@
 <!--- ---------------- --->
 <!--- GET THE TEMPLATE --->
 <!--- ---------------- --->
-		
-<cfquery name="getWarehouseJournal"
-	 datasource="AppsMaterials" 
+
+<cfquery name="getJournal"
+	 datasource="AppsLedger" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 	 	SELECT  *
-		FROM    WarehouseJournal
-		WHERE   Warehouse = '#url.warehouse#'
-		AND		Area      = 'SETTLE'
-		AND		Currency  = '#url.currency#'
+		FROM    Journal
+		WHERE   Journal   = '#url.journal#'		
 </cfquery>
-
 
 <table width="100%" height="100%">
 
@@ -55,19 +56,25 @@
 
 <cfif getAction.ActionMode eq "2">
 
-	<!--- all relevant data in in TransactionHeaderAction --->
+	<!--- all relevant data is in TransactionHeaderAction --->
 
 	<tr><td></td></tr>
 	
 	<tr><td height="100%" style="padding:15px;">	
 	  	
-		<cfif getWarehouseJournal.recordCount eq 1 and trim(getWarehouseJournal.TransactionTemplateMode2) neq "">
-			<iframe src="#SESSION.root#/#getWarehouseJournal.TransactionTemplateMode2#?actionid=#url.actionid#&batchid=#url.batchid#&terminal=#url.terminal#&layout=pos" 
-			  name="print" id="print" width="100%" height="100%" scrolling="yes" frameborder="0" style="border:1px dashed silver"></iframe>
+		<!--- show the invoice information from the custom template --->
+		<cfif getJournal.recordCount eq 1 and trim(getJournal.TransactionTemplate2) neq "">
+			<iframe src="#SESSION.root#/#getJournal.TransactionTemplate2#?actionid=#url.actionid#&journal=#url.journal#&journalserialno=#url.journalserialno#&terminal=#url.terminal#" 
+			  name="print" 
+			  id="print" 
+			  width="100%" 
+			  height="100%" 
+			  scrolling="yes" 
+			  frameborder="0"></iframe>
 		<cfelse>
 			<table width="100%">
 				<tr>
-					<td class="labellarge" align="center" style="color:red;"><cf_tl id="The invoice printout is not properly configured !"></td>
+					<td class="labellarge" align="center" style="color:red;"><cf_tl id="The invoice printout is not configured !"></td>
 				</tr>
 			</table>
 		</cfif>
@@ -89,62 +96,35 @@
 				 <input type="button" 
 				      class="button10g" 
 				      onclick="alert('print again')" 
-				      style="height:28;width:150;font-size:13px" 
-					  class="regular" 
+				      style="height:28;width:150;font-size:13px" 					  
 					  name="save" 
 					  id="save"
 					  value="#lt_text#">
 					  
-		    </td>			
-					
-			<cfquery name="Header" 
-				   datasource="AppsMaterials" 
-				   username="#SESSION.login#" 
-				   password="#SESSION.dbpw#">
-					SELECT   WB.Mission, 
-					         W.Warehouse, 
-							 W.WarehouseName, 
-							 W.City, 
-							 W.Address, 
-							 W.Telephone, 
-							 M.MissionName, 
-							 WB.BatchNo, 
-							 C.eMailAddress, 
-							 C.CustomerName, 
-							 CustomerIdInvoice,
-							 WB.TransactionDate, 
-			                 C.Reference
-				    FROM     WarehouseBatch WB INNER JOIN
-			                 Warehouse W ON WB.BatchWarehouse = W.Warehouse INNER JOIN
-			                 Organization.dbo.Ref_Mission M ON WB.Mission = M.Mission INNER JOIN
-			                 Customer C ON WB.CustomerIdInvoice = C.CustomerId
-					WHERE    WB.BatchId = '#url.batchId#'       
-			</cfquery>
-		
-		    <!---
-		    <td class="labelmedium" style="padding-top:5px;padding-left:10px;padding-right:4px"><i><cf_tl id="EMail">:</td>  
-			--->
+		    </td>				
 
 			<td>
-						
+					
 				<input type      = "text" 
 						id       = "eMailAddress" 
-					    value    = "#Header.eMailAddress#"
+					    value    = "#getAction.eMailAddress#"
 						class    = "regular" 
 						style    = "width:200;height:28px;font-size:15px" 
-						onChange = "ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/setEMailAddress.cfm?email='+this.value+'&customeridInvoice=#Header.CustomerIdInvoice#&batchid=#url.batchid#','mailbox')">
+						onChange = "ptoken.navigate('#session.root#/GLedger/Application/Transaction/Invoice/setEMailAddress.cfm?email='+this.value+'&actionid=#url.actionid#','mailbox')">
+						
 				
 			</td> 					
 			
 			<td align="center" id="mailbox" width="100%">
 				
-				<cfif isValid("email","#Header.eMailAddress#")>		
+								
+				<cfif isValid("email","#getAction.eMailAddress#")>		
 					
 					<cf_tl id="eMail" var="1">
 						
 					 <input type="button" 
 					      class="button10g" 
-					      onclick="ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/doInvoiceMail.cfm?batchid=#url.batchid#','mailbox')" 
+					      onclick="ptoken.navigate('#session.root#/GLedger/Application/Transaction/Invoice/doInvoiceMail.cfm?actionid=#url.actionid#','mailbox')" 
 					      style="height:28;width:120;font-size:13px" 
 						  class="regular" 
 						  name="save" 
@@ -152,6 +132,7 @@
 						  value="#lt_text#">
 						  
 				</cfif>
+				
 						  
 		    </td>
 										  					
@@ -294,3 +275,5 @@
 </table>
 
 </cfoutput>
+
+</cfif>

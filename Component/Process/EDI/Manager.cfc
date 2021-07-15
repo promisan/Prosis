@@ -90,7 +90,8 @@
 			  password="#SESSION.dbpw#">
 				    SELECT *
 					FROM   Organization.dbo.Ref_Mission
-					WHERE  Mission = '#Mission#'	    							   
+					WHERE  Mission = '#Mission#'	 
+											   
 			</cfquery>
 			
 			<!--- there is an EDI --->

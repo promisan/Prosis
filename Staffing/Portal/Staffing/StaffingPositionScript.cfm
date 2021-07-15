@@ -39,6 +39,10 @@
 		ProsisUI.closeWindow('myfunction')
 	}		
 	
+	function va(fun) {
+		ptoken.open('#SESSION.root#/Vactrack/Application/Announcement/Announcement.cfm?header=yes&ID='+fun, fun);
+	}
+	
 	function rostersearch(action,actionid,ajaxid) {    
 	    ptoken.open("#SESSION.root#/Roster/RosterGeneric/RosterSearch/Search1ShortList.cfm?mode=vacancy&wActionId="+actionid, "search"+ajaxid, "left=35, top=35, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes")	
     }

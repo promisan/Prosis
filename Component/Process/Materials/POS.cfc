@@ -60,21 +60,21 @@
 			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			SELECT  MAX(DateEffective) AS Date
-			FROM    ItemUoMPrice
-			WHERE   ItemNo  = '#ItemNo#' 
-			AND     UoM     = '#UoM#'
-			AND     Mission = '#Mission#'
-			
-			<cfif getWarehouse.recordcount eq "1">
-				AND 	Warehouse = '#getWarehouse.Warehouse#'
-			</cfif> 
-			<cfif PriceSchedule neq "">
-			AND     PriceSchedule = '#PriceSchedule#'
-			<cfelse>
-			AND 	PriceSchedule = (SELECT top 1 CODE FROM Materials.dbo.Ref_PriceSchedule WHERE FieldDefault = 1)
-			</cfif>
-		</cfquery>		
+				SELECT  MAX(DateEffective) AS Date
+				FROM    ItemUoMPrice
+				WHERE   ItemNo      = '#ItemNo#' 
+				AND     UoM         = '#UoM#'
+				AND     Mission     = '#Mission#'			
+				<cfif getWarehouse.recordcount eq "1">
+				AND 	Warehouse   = '#getWarehouse.Warehouse#'
+				</cfif> 
+				<cfif PriceSchedule neq "">
+				AND     PriceSchedule = '#PriceSchedule#'
+				<cfelse>
+				AND 	PriceSchedule = (SELECT top 1 CODE FROM Materials.dbo.Ref_PriceSchedule WHERE FieldDefault = 1)
+				</cfif>
+		</cfquery>	
+				
 		
 		<cfif Mode eq "Last" and getDate.Date neq "">
 		
@@ -86,6 +86,22 @@
 			<cfset lowest = "">
 		
 		</cfif>
+		
+		<!--- loand relevant price data into memory --->
+		
+		<cfquery name="getPriceData" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT   *
+				FROM     ItemUoMPrice
+				WHERE    ItemNo      = '#ItemNo#' 
+				AND      UoM         = '#UoM#'
+				AND      DateEffective <= GETDATE() 
+				<cfif lowest neq "">
+				AND       DateEffective >= #lowest#
+				</cfif>				
+		</cfquery>		
 				
 		<cfset sale.mission = getWarehouse.Mission>	
 		
@@ -103,7 +119,7 @@
 		</cfquery>		
 		
 		<cfif CustomerIdTax eq "">
-				<cfset CustomerIdTax = CustomerId>
+			 <cfset CustomerIdTax = CustomerId>			 
 		</cfif>	
 		
 		<cfquery name="getCustomerTax" 
@@ -157,7 +173,7 @@
 				ORDER BY  DateEffective DESC
 			</cfquery>			
 			
-			<!---- Nery: Temp Solution as SanBenito store is having too many issues with pricing (not taking regular) --->
+			<!--- Nery: Temp Solution as SanBenito store is having too many issues with pricing (not taking regular) --->
 			
 			<cfif getSchedule.RecordCount eq 0>
 			
@@ -180,36 +196,18 @@
 		
 		</cfif>	
 							
-		<!--- ------------------------------------------------------------------- --->
-		<!--- get the right price in case of no schedule will likely need tunings --->
-		<!--- ------------------------------------------------------------------- --->
-			   
-		<cfquery name="getPrice" 
-			datasource="AppsMaterials" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			
-			    SELECT    TOP 1 *
-			    FROM      ItemUoMPrice
-			    WHERE     ItemNo       = '#itemno#' 
-				AND       UoM          = '#uom#' 
-				AND       Warehouse    = '#warehouse#'
-				AND       Currency     = '#Currency#' 
-				AND       DateEffective <= GETDATE() 
-				<cfif lowest neq "">
-				AND       DateEffective >= #lowest#
-				</cfif>
-								
-				<cfif PriceSchedule neq "">
-					<!--- price schedule found, take last schedule --->
-					AND       PriceSchedule = '#PriceSchedule#'		
-					ORDER BY  DateEffective DESC
-				<cfelse>
-					<!--- no schedule take highest price found in rates for this currency --->
-					ORDER BY  SalesPrice DESC		
-				</cfif>			
-		</cfquery>
-				
+		<!--- get the price for this store / warehouse --->
+		
+		<cfquery name="getPrice" maxrows=1 dbtype="query">
+			SELECT    *
+			FROM      getPriceData			   
+			WHERE     Warehouse    = '#warehouse#'
+			AND       Currency     = '#Currency#' 									
+			<!--- price schedule found, take last schedule --->
+			AND       PriceSchedule = '#PriceSchedule#'		
+			ORDER BY  DateEffective DESC
+		</cfquery>	
+						
 		<cfif getPrice.recordcount eq "1">
 		
 			<cfset sale.priceschedule = getPrice.PriceSchedule>
@@ -223,30 +221,15 @@
 		
 		<cfelse>
 		
-			<cfquery name="getPrice" 
-				datasource="AppsMaterials" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">							
-								
-				    SELECT    TOP 1 *
-				    FROM      ItemUoMPrice
-				    WHERE     ItemNo       = '#itemno#' 
-					AND       UoM          = '#uom#' 
-					AND       Warehouse    = '#warehouse#'					
-					AND       DateEffective <= GETDATE() 
-					<cfif lowest neq "">
-					AND       DateEffective >= #lowest#
-					</cfif>
-					<cfif PriceSchedule neq "">
-						<!--- price schedule found, take last schedule --->
-						AND       PriceSchedule = '#PriceSchedule#'		
-						ORDER BY  DateEffective DESC
-					<cfelse>
-						<!--- no schedule take highest price found in rates for this currency --->
-						ORDER BY  SalesPrice DESC		
-					</cfif>
-			</cfquery>						
-			
+			<cfquery name="getPrice" maxrows=1 dbtype="query">
+				SELECT    *
+				FROM      getPriceData			   
+				WHERE     Warehouse    = '#warehouse#'															
+				<!--- price schedule found, take last schedule --->
+				AND       PriceSchedule = '#PriceSchedule#'		
+				ORDER BY  DateEffective DESC
+		    </cfquery>		
+						
 			<cfif getPrice.recordcount eq "1">
 						
 				<cf_exchangeRate datasource="AppsMaterials" 
@@ -260,131 +243,138 @@
 					 					 
 			<cfelse>	
 			
-			   <!--- get from any warehouse in the same mission --->
-			
-			   <cfquery name="getPrice" 
-				datasource="AppsMaterials" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				
-				    SELECT    TOP 1 *
-				    FROM      ItemUoMPrice
-				    WHERE     ItemNo        = '#itemno#' 
-					AND       UoM           = '#uom#' 		
-					AND       Currency      = '#Currency#' 					
-					AND       Mission       = '#Mission#'															
-					AND       DateEffective <= GETDATE() 
-					
-					<cfif lowest neq "">
-					    AND       DateEffective >= #lowest#
-				    </cfif>
-					
-					<cfif PriceSchedule neq "">
-						AND       PriceSchedule = '#PriceSchedule#'		
-						ORDER BY Warehouse,DateEffective DESC 
-					<cfelse>
-						<!--- highest price --->
-						ORDER BY  Warehouse, SalesPrice DESC		
-					</cfif>		
-					
-					 <!--- we take the blank warehouse first --->
-																
-				</cfquery>		
-												
+			    <!--- get from any warehouse in the same mission --->
+			   
+			    <cfquery name="getPrice" maxrows=1 dbtype="query">
+					SELECT    *
+					FROM      getPriceData			   
+					WHERE     Mission       = '#mission#'															
+					AND       Currency      = '#Currency#' 	
+					<!--- price schedule found, take last schedule --->
+					AND       PriceSchedule = '#PriceSchedule#'		
+					ORDER BY  DateEffective DESC
+		        </cfquery>
+			   												
 				<cfif getPrice.recordcount eq "1">
-				
-					<cf_exchangeRate datasource="AppsMaterials" 
-				     currencyFrom="#getPrice.Currency#" 
-				     currencyTo="#Currency#">				
-				
+									
 					 <cfset sale.priceschedule = getPrice.PriceSchedule>
 					 <cfset sale.scheduleprice = getPrice.SalesPrice>
-					 <cfset sale.price         = getPrice.SalesPrice/exc>
-					 <cfset sale.taxcode       = getPrice.TaxCode>
+					 <cfset sale.price         = getPrice.SalesPrice>
+					 <cfset sale.taxcode       = getPrice.TaxCode>				 
 					 					 
-				<cfelse>				
-								
-					<!--- finally we take the price from the standard cost -in Base currency --->	
-					
-					<cfquery name="getPrice" 
+				<cfelse>		
+				
+					<cfquery name="getDefault" 
 						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-
-						SELECT    TOP 1 *
-						FROM      ItemVendorOffer AS ivo INNER JOIN
-                                  ItemVendor AS iv ON ivo.OrgUnitVendor = iv.OrgUnitVendor AND ivo.ItemNo = iv.ItemNo
-						WHERE     iv.Preferred = 1 
-						AND       ivo.DateEffective <= GETDATE() 
-						AND       ivo.ItemNo   = '#itemno#' 
-						AND       ivo.UoM      = '#uom#'
-						AND       Mission      = '#mission#'
-						AND       Currency     = '#currency#'
-						AND       (ivo.DateExpiration IS NULL OR ivo.DateExpiration >= GETDATE())							
-						ORDER BY  DateEffective DESC 	
-					</cfquery>					
+							SELECT    *   
+							FROM      Ref_PriceSchedule
+							WHERE     FieldDefault = 1 			
+					</cfquery>		
+					
+					<cfquery name="getPrice" maxrows=1 dbtype="query">
+						SELECT    *
+						FROM      getPriceData			   
+						WHERE     Mission       = '#mission#'															
+						AND       Currency      = '#Currency#' 	
+						<!--- price schedule found, take last schedule --->
+						AND       PriceSchedule = '#getDetault.Code#'		
+						ORDER BY  DateEffective DESC
+		           </cfquery>	
+				   				   					
+					<cfif getPrice.recordcount eq "1">
+					
+						 <cfset sale.priceschedule = getPrice.PriceSchedule>
+						 <cfset sale.scheduleprice = getPrice.SalesPrice>
+						 <cfset sale.price         = getPrice.SalesPrice>
+						 <cfset sale.taxcode       = getPrice.TaxCode>							
+					
+					<cfelse>					    
+								
+						<!--- finally we take the price from the standard cost -in Base currency --->	
 							
-					<cfif getPrice.recordcount eq "1">									
-									 
-					 <cfset sale.price         = getPrice.ItemPrice>
-					 <cfset sale.scheduleprice = getPrice.ItemPrice>
-					 
-					 <cfquery name="getWarehouse" 
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						    SELECT    *
-						    FROM      ItemWarehouse
-						    WHERE     ItemNo        = '#itemno#' 
-							AND       UoM           = '#uom#' 		
-							AND       Warehouse     = '#getWarehouse.Warehouse#'					
-						</cfquery>	
-						
-						<cfset sale.taxcode  = getWarehouse.TaxCode>	
-					
-					<cfelse>
-								
 						<cfquery name="getPrice" 
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						    SELECT    *
-						    FROM      ItemUoMMission
-						    WHERE     ItemNo        = '#itemno#' 
-							AND       UoM           = '#uom#' 		
-							AND       Mission       = '#Mission#'					
-						</cfquery>		
-						
-						<cfquery name="getWarehouse" 
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						    SELECT    *
-						    FROM      ItemWarehouse
-						    WHERE     ItemNo        = '#itemno#' 
-							AND       UoM           = '#uom#' 		
-							AND       Warehouse     = '#getWarehouse.Warehouse#'					
-						</cfquery>	
-						
-						<cfset sale.taxcode  = getWarehouse.TaxCode>	
-												
-						<cfif getPrice.recordcount eq "1">		
-					
-						<cf_exchangeRate datasource="AppsMaterials" 
-					     	currencyFrom="#APPLICATION.BaseCurrency#" 
-						    currencyTo="#Currency#">
-						 					 					 
-						   <cfset sale.price         = getPrice.StandardCost/exc>
-						   <cfset sale.scheduleprice = sale.price>
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+		
+								SELECT    TOP 1 *
+								FROM      ItemVendorOffer AS ivo INNER JOIN
+		                                  ItemVendor AS iv ON ivo.OrgUnitVendor = iv.OrgUnitVendor AND ivo.ItemNo = iv.ItemNo
+								WHERE     iv.Preferred = 1 
+								AND       ivo.DateEffective <= GETDATE() 
+								AND       ivo.ItemNo   = '#itemno#' 
+								AND       ivo.UoM      = '#uom#'
+								AND       Mission      = '#mission#'
+								AND       Currency     = '#currency#'
+								AND       (ivo.DateExpiration IS NULL OR ivo.DateExpiration >= GETDATE())							
+								ORDER BY  DateEffective DESC 	
+							</cfquery>					
+									
+						<cfif getPrice.recordcount eq "1">									
+										 
+						 <cfset sale.price         = getPrice.ItemPrice>
+						 <cfset sale.scheduleprice = getPrice.ItemPrice>
 						 
-						<cfelse>
-											
-						   <cfset sale.price         = "0.00">		
-						   <cfset sale.scheduleprice = sale.price>			
+						 <cfquery name="getWarehouse" 
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							    SELECT    *
+							    FROM      ItemWarehouse
+							    WHERE     ItemNo        = '#itemno#' 
+								AND       UoM           = '#uom#' 		
+								AND       Warehouse     = '#getWarehouse.Warehouse#'					
+							</cfquery>	
+							
+							<cfset sale.taxcode  = getWarehouse.TaxCode>	
 						
-						</cfif> 
-					
-					</cfif>
+						<cfelse>
+									
+							<cfquery name="getPrice" 
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							    SELECT    *
+							    FROM      ItemUoMMission
+							    WHERE     ItemNo        = '#itemno#' 
+								AND       UoM           = '#uom#' 		
+								AND       Mission       = '#Mission#'					
+							</cfquery>		
+							
+							<cfquery name="getWarehouse" 
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							    SELECT    *
+							    FROM      ItemWarehouse
+							    WHERE     ItemNo        = '#itemno#' 
+								AND       UoM           = '#uom#' 		
+								AND       Warehouse     = '#getWarehouse.Warehouse#'					
+							</cfquery>	
+							
+							<cfset sale.taxcode  = getWarehouse.TaxCode>	
+													
+							<cfif getPrice.recordcount eq "1">		
+						
+							<cf_exchangeRate datasource="AppsMaterials" 
+						     	currencyFrom="#APPLICATION.BaseCurrency#" 
+							    currencyTo="#Currency#">
+							 					 					 
+							   <cfset sale.price         = getPrice.StandardCost/exc>
+							   <cfset sale.scheduleprice = sale.price>
+							 
+							<cfelse>
+												
+							   <cfset sale.price         = "0.00">		
+							   <cfset sale.scheduleprice = sale.price>			
+							
+							</cfif> 
+						
+						</cfif>
+						
+					</cfif>	
 									
 					<!--- we take another action price ---> 				
 								

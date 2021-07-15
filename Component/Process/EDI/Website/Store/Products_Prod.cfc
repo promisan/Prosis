@@ -57,14 +57,12 @@
 	</cffunction>
 
 	<cffunction name="getAll" access="remote" hint="send a websocket message" returnType="void">
-		
-		<cfargument name="mission" 				Required=false default="BAMBINO">
 		<cfargument name="categoryItem" 		Required=false default="">
 		<cfargument name="category" 			Required=false default="">
 		<cfargument name="searchText" 			Required=false default="">
 		<cfargument name="orderBy" 				Required=false default="">
 		<cfargument name="PriceSchedule" 		Required=false default="">
-		
+		<cfargument name="mission" 				Required=false default="BAMBINO">
 		<cfargument name="currency" 			Required=false default="QTZ">
 		<cfargument name="selectTopNDiscount" 	Required=false default="">
 		<cfargument name="selectTopN" 			Required=false default="">
@@ -119,15 +117,15 @@
 							GROUP BY ItemNo, 
 									UoM, 
 									PriceSchedule
-						) AS L ON L.ItemNo           = LP.ItemNo
-								AND L.UoM            = LP.UoM
-								AND L.PriceSchedule  = LP.PriceSchedule
-								AND L.LastDate       = LP.DateEffective
-								AND LP.ItemNo        = MP.ItemNo
-								AND LP.UoM           = MP.UoM
+						) AS L ON L.ItemNo = LP.ItemNo
+								AND L.UoM = LP.UoM
+								AND L.PriceSchedule = LP.PriceSchedule
+								AND L.LastDate = LP.DateEffective
+								AND LP.ItemNo = MP.ItemNo
+								AND LP.UoM = MP.UoM
 								AND LP.PriceSchedule = MP.PriceSchedule
-								AND LP.Mission       = MP.Mission
-								AND LP.Currency      = MP.Currency
+								AND LP.Mission = MP.Mission
+								AND LP.Currency = MP.Currency
 					) AS SalesPrice, 
 					(
 						SELECT TOP (1) LP.DateEffective AS Expr1
@@ -145,15 +143,15 @@
 							GROUP BY ItemNo, 
 									UoM, 
 									PriceSchedule
-						) AS L_1 ON L_1.ItemNo            = LP.ItemNo
-									AND L_1.UoM           = LP.UoM
+						) AS L_1 ON L_1.ItemNo = LP.ItemNo
+									AND L_1.UoM = LP.UoM
 									AND L_1.PriceSchedule = LP.PriceSchedule
-									AND L_1.LastDate      = LP.DateEffective
-									AND LP.ItemNo         = MP.ItemNo
-									AND LP.UoM            = MP.UoM
-									AND LP.PriceSchedule  = MP.PriceSchedule
-									AND LP.Mission        = MP.Mission
-									AND LP.Currency       = MP.Currency
+									AND L_1.LastDate = LP.DateEffective
+									AND LP.ItemNo = MP.ItemNo
+									AND LP.UoM = MP.UoM
+									AND LP.PriceSchedule = MP.PriceSchedule
+									AND LP.Mission = MP.Mission
+									AND LP.Currency = MP.Currency
 						ORDER BY DateEffective DESC
 					) AS PriceDate, 
 					(
@@ -203,22 +201,21 @@
 									AND L_1.UoM = LP.UoM
 									AND L_1.PriceSchedule = LP.PriceSchedule
 									AND L_1.LastDate > LP.DateEffective
-									AND LP.ItemNo         = MP.ItemNo
-									AND LP.UoM            = MP.UoM
-									AND LP.PriceSchedule  = MP.PriceSchedule
-									AND LP.Mission        = MP.Mission
-									AND LP.Currency       = MP.Currency
+									AND LP.ItemNo = MP.ItemNo
+									AND LP.UoM = MP.UoM
+									AND LP.PriceSchedule = MP.PriceSchedule
+									AND LP.Mission = MP.Mission
+									AND LP.Currency = MP.Currency
 						ORDER BY DateEffective DESC
 					) AS PriorDate, 
 						S.Description AS PriceScheduleDescription, 
 						S.FieldDefault,
 						S.ListingOrder
-					FROM  ItemUoMPrice AS MP
-						  INNER JOIN Ref_PriceSchedule S ON MP.PriceSchedule = S.Code
-						  INNER JOIN ItemUoM IU ON IU.ItemNo = MP.ItemNo AND IU.UoM = MP.UoM
+					FROM ItemUoMPrice AS MP
+						INNER JOIN Ref_PriceSchedule S ON MP.PriceSchedule = S.Code
+						INNER JOIN ItemUoM IU ON IU.ItemNo = MP.ItemNo AND IU.UoM = MP.UoM
 					WHERE Mission = '#arguments.mission#'
-					AND   Currency = '#arguments.currency#'
-					AND   IU.EnablePortal = '1'
+						AND Currency = '#arguments.currency#'
 					GROUP BY Mission, 
 							Currency, 
 							MP.ItemNo, 
@@ -233,20 +230,26 @@
 		</cfoutput>
 
 		<cfif categoryItem eq "">
-		
 			<cfquery name="qCategoryItem" datasource="AppsMaterials">
-				SELECT  TOP 1 CategoryItem
-				FROM 	Ref_CategoryItem CI
-				WHERE   EXISTS (SELECT 'X'
-								FROM   Item I	
-								       INNER JOIN ItemImage II	    ON II.ItemNo = I.ItemNo
-						 			   INNER JOIN ItemUoM M	        ON M.ItemNo = I.ItemNo
-									   INNER JOIN ItemUoMMission MI ON MI.ItemNo = I.ItemNo
-								WHERE  I.CategoryItem = CI.CategoryItem
-								--AND II.Created>='2019-09-02'
-								AND    MI.Mission = '#arguments.Mission#'
-								AND    II.ImageClass = '001' )
-				ORDER BY NEWID()
+				SELECT TOP 1 CategoryItem
+				FROM Ref_CategoryItem CI
+				WHERE EXISTS
+				(
+				SELECT 'X'
+				FROM Item I
+				INNER JOIN ItemImage II
+				ON II.ItemNo = I.ItemNo
+				INNER JOIN ItemUoM M
+				ON M.ItemNo = I.ItemNo
+				INNER JOIN ItemUoMMission MI
+				ON MI.ItemNo = I.ItemNo
+				WHERE I.CategoryItem = CI.CategoryItem
+				--AND II.Created>='2019-09-02'
+				AND MI.Mission = '#arguments.Mission#'
+				AND II.ImageClass = '001'
+				AND M.EnablePortal = '1'
+			)
+			ORDER BY NEWID()
 			</cfquery>
 
 			<cfset categoryItem=qCategoryItem.CategoryItem>
@@ -268,33 +271,43 @@
 			I.ItemPrecision,
 			I.ItemNoExternal,
 			II.ImagePath,
-			(   SELECT ROUND(SUM(TransactionQuantity),5)
-			    FROM   ItemTransaction
-				WHERE  ItemNo         = I.ItemNo
-				AND    Mission        = MI.Mission
-				AND    WorkorderId is NULL
-				AND    TransactionId NOT IN	(SELECT      I.TransactionId
-											 FROM         Warehouse AS W INNER JOIN ItemTransaction AS I ON W.Warehouse = I.Warehouse AND W.LocationReceipt = I.Location
-											 WHERE        I.TransactionType = '1' 
-											 AND          I.TransactionId NOT IN (SELECT TransactionId FROM ItemTransactionValuation) )
+			(
+			SELECT ROUND(SUM(TransactionQuantity),5)
+			FROM   ItemTransaction
+			WHERE  ItemNo         = I.ItemNo
+			AND    Mission        = MI.Mission
+			AND    (TransactionId NOT IN
+						(SELECT        I.TransactionId
+						FROM            Warehouse AS W INNER JOIN ItemTransaction AS I ON W.Warehouse = I.Warehouse AND W.LocationReceipt = I.Location
+						WHERE        (I.TransactionType = '1') AND (I.TransactionId NOT IN
+						(SELECT        TransactionId
+						FROM            ItemTransactionValuation))
+						))
+
 			) as OnHand
 
-			FROM   Item I
-				   INNER JOIN Ref_Category C      ON I.Category = C.Category
-				   INNER JOIN Ref_CategoryItem CI ON CI.Category = I.Category AND CI.CategoryItem = I.CategoryItem
-				   INNER JOIN ItemImage II	       ON II.ItemNo = I.ItemNo
-				   INNER JOIN ItemUoM IU 	 	   ON IU.ItemNo = I.ItemNo 
-				   INNER JOIN ItemUoMMission MI   ON MI.ItemNo = I.ItemNo
-			WHERE  MI.Mission = '#arguments.Mission#'
-			AND    II.ImageClass = '001'
-			AND    IU.EnablePortal = '1'
+
+			FROM
+			Item I
+			INNER JOIN Ref_Category C
+				ON I.Category = C.Category
+			INNER JOIN Ref_CategoryItem CI
+				ON CI.Category = I.Category
+				AND CI.CategoryItem = I.CategoryItem
+			INNER JOIN ItemImage II
+				ON II.ItemNo = I.ItemNo
+			INNER JOIN ItemUoM M
+				ON M.ItemNo = I.ItemNo
+			INNER JOIN ItemUoMMission MI
+				ON MI.ItemNo = I.ItemNo
+			WHERE 1 = 1
+			AND MI.Mission = '#arguments.Mission#'
+			AND M.EnablePortal = '1'
+			AND II.ImageClass = '001'
 			
 			<cfif trim(arguments.itemno) neq "">
-			
-			AND    I.ItemNo = '#arguments.itemno#'
-			
+				AND I.ItemNo = '#arguments.itemno#'
 			<cfelse>
-			
 				<cfif vSearchText neq "">
 					AND 
 					(
@@ -318,16 +331,19 @@
 					</cfif>
 				</cfif>
 
+
 				<cfif trim(selectTopNDiscount) neq "">
 					AND I.ItemNo IN (
 						SELECT TOP #trim(selectTopNDiscount)# Px.ItemNo
 						FROM (
 							#preserveSingleQuotes(priceQuery)#
 						) as Px
-						INNER JOIN ItemUoMPrice UPx ON UPx.ItemNo = Px.ItemNo
+						INNER JOIN ItemUoMPrice UPx
+							ON UPx.ItemNo = Px.ItemNo
 							AND UPx.UoM = Px.UoMCode
 							AND UPx.PriceSchedule = <cfif arguments.PriceSchedule eq "">
-														(   SELECT	Code
+														(
+															SELECT	Code
 															FROM	Ref_PriceSchedule
 															WHERE	FieldDefault = '1'	 
 														)
@@ -335,9 +351,9 @@
 														'#arguments.PriceSchedule#'
 													</cfif>
 							AND UPx.DateEffective = Px.PriceDate
-							AND UPx.Mission       = '#arguments.Mission#'
-							AND UPX.Currency      = '#arguments.currency#'
-							AND UPx.Promotion     = '1'
+							AND UPx.Mission = '#arguments.Mission#'
+							AND UPX.Currency = '#arguments.currency#'
+							AND UPx.Promotion = '1'
 						WHERE 	Px.PriceOff < 0
 						AND 	Px.PriceSchedule = <cfif arguments.PriceSchedule eq "">
 														(
@@ -357,43 +373,44 @@
 
 			WHERE  OnHand > 0
 
-			ORDER BY <cfif OrderBy neq "">
-						<cfswitch expression="#OrderBy#">
-							<cfcase value="stockASC">
-								OnHand DESC
-							</cfcase>
-							<cfcase value="stockDESC">
-								OnHand ASC
-							</cfcase>
-							<cfcase value="descASC">
-								ItemDescription ASC
-							</cfcase>
-							<cfcase value="descDESC">
-								ItemDescription DESC
-							</cfcase>
-							<cfcase value="catASC">
-								CategoryDescription ASC
-							</cfcase>
-							<cfcase value="catDESC">
-								CategoryDescription DESC
-							</cfcase>
-							<cfcase value="priceASC">
-								CategoryDescription ASC
-							</cfcase>
-							<cfcase value="priceDESC">
-								CategoryDescription DESC
-							</cfcase>
-							<cfcase value="discountASC">
-								CategoryDescription ASC
-							</cfcase>
-							<cfcase value="discountDESC">
-								CategoryDescription DESC
-							</cfcase>
-			
-						</cfswitch>
-				<cfelse>
-					ItemNo
-				</cfif>
+			ORDER BY <Cfif OrderBy neq "">
+			<cfswitch expression="#OrderBy#">
+				<cfcase value="stockASC">
+					OnHand DESC
+				</cfcase>
+				<cfcase value="stockDESC">
+					OnHand ASC
+				</cfcase>
+				<cfcase value="descASC">
+					ItemDescription ASC
+				</cfcase>
+				<cfcase value="descDESC">
+					ItemDescription DESC
+				</cfcase>
+				<cfcase value="catASC">
+					CategoryDescription ASC
+				</cfcase>
+				<cfcase value="catDESC">
+					CategoryDescription DESC
+				</cfcase>
+				<cfcase value="priceASC">
+					CategoryDescription ASC
+				</cfcase>
+				<cfcase value="priceDESC">
+					CategoryDescription DESC
+				</cfcase>
+				<cfcase value="discountASC">
+					CategoryDescription ASC
+				</cfcase>
+				<cfcase value="discountDESC">
+					CategoryDescription DESC
+				</cfcase>
+
+			</cfswitch>
+
+		<cfelse>
+			ItemNo
+		</Cfif>
 		</cfquery>
 
 		<cfset qCandidates = QueryNew("Category,CategoryItem,CategoryDescription,CategoryItemName,ItemDescription,ItemNo,CurrencyFormat,CurrencyId,ItemDescription, ValuationCode,UoMDescription,ItemNoExternal,OnHand,Picture,itemuom", "Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar")>
@@ -408,20 +425,17 @@
 			</cfif>
 
 			<cfquery name="qItemCheck" dbtype="query">
-				SELECT  *
-				FROM    qCandidates
-				WHERE   ItemNo = '#qItems.ItemNo#'
+				SELECT *
+				FROM qCandidates
+				WHERE ItemNo = '#qItems.ItemNo#'
 			</cfquery>
 
-			<!--- kherrera(2021-07-12): to validate vFile
-			<cfif vFile neq "" and qItemCheck.recordcount eq 0> --->
-			
-			<cfif qItemCheck.recordcount eq 0>
+			<cfif vFile neq "" and qItemCheck.recordcount eq 0>
 
 				<cfquery name="qUoM" datasource="AppsMaterials">
 					SELECT TOP 1 *
-					FROM   ItemUoM
-					WHERE  ItemNo = '#qItems.ItemNo#'
+					FROM ItemUoM
+					WHERE ItemNo = '#qItems.ItemNo#'
 				</cfquery>
 
 				<cfif qUoM.recordcount eq 1>
@@ -438,21 +452,22 @@
 					<cfset Temp = QuerySetCell(qCandidates, "Picture", vFile)>
 					<cfset Temp = QuerySetCell(qCandidates, "itemuom", qUoM.UoM)>
 				</cfif>
-				
 			</cfif>
-			
 		</cfloop>
 
 		<cfset result = QueryToArray(qCandidates)>
 
+
 		<cfloop array="#result#" item="itm">
-		
 			<cfquery name="qPrices" datasource="AppsMaterials">
-				SELECT 	 *
-				FROM     ( #preserveSingleQuotes(priceQuery)# ) as PriceData
-				WHERE 	 ItemNo = '#itm.itemNo#'
+				SELECT 	*
+				FROM (
+					#preserveSingleQuotes(priceQuery)#
+				) as PriceData
+				WHERE 	ItemNo = '#itm.itemNo#'
 				ORDER BY ListingOrder DESC
 			</cfquery>
+
 <!---
 AND S.FieldDefault='1'
 --->
@@ -463,9 +478,10 @@ AND S.FieldDefault='1'
 				datasource="AppsMaterials">
 				SELECT 	IVO.OrgUnitVendor,IVO.OfferMinimumQuantity
 				FROM 	ItemVendor IV 
-						INNER JOIN ItemVendorOffer IVO ON IV.ItemNo = IVO.ItemNo
-				WHERE 	IV.ItemNo     = '#itm.itemNo#'
-				AND 	IV.Preferred  = '1'
+						INNER JOIN ItemVendorOffer IVO 
+							ON IV.ItemNo = IVO.ItemNo
+				WHERE 	IV.ItemNo  = '#itm.itemNo#'
+				AND 	IV.Preferred = '1'
 				ORDER BY DateEffective DESC
 			</cfquery>
 
@@ -559,121 +575,144 @@ AND S.FieldDefault='1'
 
 		</cfif>
 
+
 		<cfscript>
 			threadName = "ws_msg_" & createUUID();
+
 			products = structnew("ordered");
 			products.products = result;
+
 			msg = SerializeJSON(products);
+
 			cfthread(action:"run",name:threadName,message:msg) {
 				WsPublish("prosis",attributes.message);
 			}
+
 			writeOutput(msg);
 		</cfscript>
 	</cffunction>
 
   	<cffunction name="getCategories" access="remote" hint="send a websocket message" returnType="void">
-	
-	    <cfargument name="Mission"    Required="false" default="Bambino">
-		<cfargument name="SearchText" Required="false" default="">
-		<cfargument name="Category"   Required="false" default="">
-		<cfargument name="OrderBy"    Required="false" default="">
-		<cfargument name="account"    Required="false" default="">
+		<cfargument name="SearchText" Required=false default="">
+		<cfargument name="Category" Required=false default="">
+		<cfargument name="OrderBy" Required=false default="">
+		<cfargument name="account" Required=false default="">
 
-		<!--- tracking user ---> 
-		<cfset trackUser(arguments.account,'tienda','','','#category#','#searchText#','#mission#')>
+		<cfset trackUser(arguments.account,'tienda','','','#category#','#searchText#','BAMBINO')>
 
 		<cfheader name="Access-Control-Allow-Origin" value="*">
 
 		<cfquery name="qCategories" datasource="AppsMaterials">
 			SELECT DISTINCT Category, CategoryDescription, CategoryImage
-			
-			FROM (	SELECT 	I.Category,
-							C.Description as CategoryDescription,
-							C.Image as CategoryImage,
-							(	SELECT ROUND(SUM(TransactionQuantity),5)
-								FROM   ItemTransaction 
-								WHERE  ItemNo         = I.ItemNo
-								AND	   TransactionUoM = U.UoM ) as OnHand 
-					FROM    Item I
-							INNER JOIN Ref_Category C   ON I.Category = C.Category
-							INNER JOIN ItemUoM U   	    ON I.ItemNo   = U.ItemNo		
-							INNER JOIN ItemImage II   	ON II.ItemNo  = I.ItemNo
-							INNER JOIN ItemUoM M		ON M.ItemNo   = I.ItemNo
-					WHERE  	II.ImageClass = '001' AND C.FinishedProduct = '1' ) as XL 
-			WHERE  	OnHand > 0  
-			
+			FROM (
+				SELECT 	 I.Category,
+						C.Description as CategoryDescription,
+						C.Image as CategoryImage,
+						(
+							SELECT ROUND(SUM(TransactionQuantity),5)
+							FROM   ItemTransaction 
+							WHERE  ItemNo         = I.ItemNo
+							AND	   TransactionUoM = U.UoM
+						) as OnHand 
+				FROM      
+						Item I
+						INNER JOIN Ref_Category C
+							ON I.Category = C.Category
+						INNER JOIN ItemUoM U
+							ON I.ItemNo = U.ItemNo		
+						INNER JOIN ItemImage II
+							ON II.ItemNo = I.ItemNo
+						INNER JOIN ItemUoM M
+							ON M.ItemNo = I.ItemNo
+				WHERE  II.ImageClass = '001'
+			) as XL 
+			WHERE  OnHand > 0  
 			<cfif trim(Category) neq "">
-			AND     Category = '#Category#'
+				AND Category = '#Category#'
 			</cfif>
-			
 			<cfif trim(SearchText) neq "">
-			AND    <cf_softlike left="CategoryDescription" right="#trim(SearchText)#" language="ESP">
+				AND <cf_softlike left="CategoryDescription" right="#trim(SearchText)#" language="ESP">
 			</cfif>
-			
-			ORDER BY 	<cfswitch expression="#OrderBy#">
-							<cfcase value="asc">
-								CategoryDescription ASC
-							</cfcase>
-							<cfcase value="desc">
-								CategoryDescription DESC
-							</cfcase>
-							<cfdefaultcase>
-								CategoryDescription ASC
-							</cfdefaultcase>
-						</cfswitch>
+			ORDER BY 
+				<cfswitch expression="#OrderBy#">
+					<cfcase value="asc">
+						CategoryDescription ASC
+					</cfcase>
+					<cfcase value="desc">
+						CategoryDescription DESC
+					</cfcase>
+					<cfdefaultcase>
+						CategoryDescription ASC
+					</cfdefaultcase>
+				</cfswitch>
 		</cfquery>
 		
+
 		<cfset result = QueryToArray(qCategories)>
 		
 		<cfloop array="#result#" item="itm">
-		
 			<cfquery name="qSubCategories" datasource="AppsMaterials">
-			
-				SELECT CategoryItem, 
-				       CategoryItemName,
-					   SUM(OnHand)
-				FROM ( SELECT 	CI.CategoryItem, 
+				SELECT CategoryItem, CategoryItemName,SUM(OnHand)
+				FROM (
+						SELECT 	 CI.CategoryItem, 
 								CI.CategoryItemName,
-								(	SELECT ROUND(SUM(TransactionQuantity),5)
+								(
+									SELECT ROUND(SUM(TransactionQuantity),5)
 									FROM   ItemTransaction 
 									WHERE  ItemNo         = I.ItemNo
 								) as OnHand 
-						FROM    Item I
-								INNER JOIN Ref_Category C        ON I.Category = C.Category
-								INNER JOIN Ref_CategoryItem CI 	 ON CI.Category = C.Category AND I.CategoryItem = CI.CategoryItem
-								INNER JOIN ItemImage II			 ON II.ItemNo = I.ItemNo
-								INNER JOIN ItemUoM M			 ON M.ItemNo = I.ItemNo									
-						WHERE 	C.Category  = '#itm.Category#'
-						AND     II.ImageClass = '001'					
+						FROM      
+								Item I
+								INNER JOIN Ref_Category C
+									ON I.Category = C.Category
+								INNER JOIN Ref_CategoryItem CI
+									ON CI.Category = C.Category
+									AND I.CategoryItem = CI.CategoryItem
+								INNER JOIN ItemImage II
+									ON II.ItemNo = I.ItemNo
+								INNER JOIN ItemUoM M
+									ON M.ItemNo = I.ItemNo
+									
+						WHERE 	
+							C.Category  = '#itm.Category#'
+							AND II.ImageClass = '001'
+					
 					) as XL 
 					
-					GROUP BY  CategoryItem,CategoryItemName
-					HAVING    SUM(OnHand) > 0	
-					ORDER BY  CategoryItemName
+					GROUP BY CategoryItem,CategoryItemName
+					HAVING SUM(OnHand) > 0	
+					ORDER BY CategoryItemName
 			</cfquery>
-						
+			
+			
+			
 			<cfset itm.subcategories = arrayNew(1)>
 			<cfloop query="#qSubcategories#">
 				<cfset itm.subcategories[CurrentRow]["categoryitem"]=qSubcategories.categoryitem>
 				<cfset itm.subcategories[CurrentRow]["categoryitemname"]=qSubcategories.categoryitemname>
-			</cfloop>							
+			</cfloop>	
+						
 			
 		</cfloop>
 		
+
 		<cfscript>
-		
-			threadName = "ws_msg_" & createUUID();			
+			threadName = "ws_msg_" & createUUID();
+			
 			categories = structnew("ordered");
-			categories.categories = result;			
+			categories.categories = result;
+			
 			msg = SerializeJSON(categories);
+
 			cfthread(action:"run",name:threadName,message:msg){
 				WsPublish("prosis",attributes.message);
 			}
+
 			writeOutput(msg);
-			
 		</cfscript>
-		
   	</cffunction>
+
+
 
  	<cffunction name="QueryToArray" access="private" hint="transpose query object to something more serializable">
 		<!--- ray camden first wrote one of these functions, props to him --->
@@ -700,32 +739,32 @@ AND S.FieldDefault='1'
 		<cfargument name="email" 	type="string" required="true" default="">
 		<cfheader name="Access-Control-Allow-Origin" value="*">
 
-		<cfset SESSION.login             = "sa">
-		<cfset SESSION.dbpw              = "621*/4106">
-		<cfset client.PersonNo           = "000">
-		<cfset session.acc               = "admin">
-		<cfset session.last              = "admin">
-		<cfset session.first             = "admin">
-		<cfset session.authent           = "1">
-		<cfset APPLICATION.DateFormat    = "dd/mm/YYYY">
+		<cfset SESSION.login = "sa">
+		<cfset SESSION.dbpw = "621*/4106">
+		<cfset client.PersonNo = "000">
+		<cfset session.acc = "admin">
+		<cfset session.last = "admin">
+		<cfset session.first = "admin">
+		<cfset session.authent = "1">
+		<cfset APPLICATION.DateFormat = "dd/mm/YYYY">
 		<Cfset APPLICATION.DateFormatSQL = "YYYY-mm-dd">
-		<cfset APPLICATION.BaseCurrency  = "QTZ">
-		<cfset client.dateformatshow     = "dd/mm/YYYY">
+		<cfset APPLICATION.BaseCurrency = "QTZ">
+		<cfset client.dateformatshow = "dd/mm/YYYY">
 
 		<cfinvoke component="Service.Access.MobileAccess"
 			Method            = "PasswordReset"
 			Email             = "#trim(arguments.email)#"
 			Welcome           = "Charlie Internacional"
 			Root              = "https://tienda.charlieinternacional.com/"
-			returnvariable    = "functionResult">
+			returnvariable     = "functionResult">
 
-		<cfset SESSION.login    = "">
-		<cfset SESSION.dbpw     = "">
-		<cfset client.PersonNo  = "000">
-		<cfset session.acc      = "admin">
-		<cfset session.last     = "admin">
-		<cfset session.first    = "admin">
-		<cfset session.authent  = "0">
+		<cfset SESSION.login = "">
+		<cfset SESSION.dbpw = "">
+		<cfset client.PersonNo = "000">
+		<cfset session.acc = "admin">
+		<cfset session.last = "admin">
+		<cfset session.first = "admin">
+		<cfset session.authent = "0">
 
 		<!---
 		0 : Error - Email does not exist
@@ -739,15 +778,20 @@ AND S.FieldDefault='1'
 
 		<cfset result = QueryToArray(qResponse)>
 
+
 		<cfscript>
 			threadName = "ws_msg_" & createUUID();
+
 			credentials = structnew("ordered");
 			credentials = result;
+
 			msg = SerializeJSON(credentials);
+
 			cfthread(action:"run",name:threadName,message:msg){
 				WsPublish("prosis",attributes.message);
-     		}
-			writeOutput(msg);
+		}
+
+				writeOutput(msg);
 		</cfscript>
 
 	</cffunction>
@@ -758,44 +802,43 @@ AND S.FieldDefault='1'
 			returnformat="json"
 			returnType="any">
 
-			<cfargument name="user" 	    type="string" required="true" default="">
-			<cfargument name="OldPwd" 		type="string" required="true" default="">
-			<cfargument name="Pwd1" 		type="string" required="true" default="">
-			<cfargument name="Pwd2" 		type="string" required="true" default="">
-			
-			<cfheader name="Access-Control-Allow-Origin" value="*">
-	
-			<cfset SESSION.login = "sa">
-			<cfset SESSION.dbpw = "621*/4106">
-			<cfset client.PersonNo = "000">
-			<cfset session.acc = "admin">
-			<cfset session.last = "admin">
-			<cfset session.first = "admin">
-			<cfset session.authent = "1">
-			<cfset APPLICATION.DateFormat = "dd/mm/YYYY">
-			<Cfset APPLICATION.DateFormatSQL = "YYYY-mm-dd">
-			<cfset APPLICATION.BaseCurrency = "QTZ">
-			<cfset client.dateformatshow = "dd/mm/YYYY">
-	
-			<cfinvoke component="Service.Access.MobileAccess"
-					Method             = "PasswordChange"
-					Account            = "#user#"
-					OldPwd             = "#OldPwd#"
-					Pwd1               = "#Pwd1#"
-					Pwd2               = "#Pwd2#"
-					MinLength          = "8"
-					SendMail           = "yes"
-					Welcome            = "Charlie Internacional"
-					Root               = "https://tienda.charlieinternacional.com/"
-					returnvariable     = "functionResult">
+		<cfargument name="user" 	type="string" required="true" default="">
+		<cfargument name="OldPwd" 		type="string" required="true" default="">
+		<cfargument name="Pwd1" 		type="string" required="true" default="">
+		<cfargument name="Pwd2" 		type="string" required="true" default="">
+		<cfheader name="Access-Control-Allow-Origin" value="*">
 
-			<cfset SESSION.login = "">
-			<cfset SESSION.dbpw = "">
-			<cfset client.PersonNo = "000">
-			<cfset session.acc = "admin">
-			<cfset session.last = "admin">
-			<cfset session.first = "admin">
-			<cfset session.authent = "0">
+		<cfset SESSION.login = "sa">
+		<cfset SESSION.dbpw = "621*/4106">
+		<cfset client.PersonNo = "000">
+		<cfset session.acc = "admin">
+		<cfset session.last = "admin">
+		<cfset session.first = "admin">
+		<cfset session.authent = "1">
+		<cfset APPLICATION.DateFormat = "dd/mm/YYYY">
+		<Cfset APPLICATION.DateFormatSQL = "YYYY-mm-dd">
+		<cfset APPLICATION.BaseCurrency = "QTZ">
+		<cfset client.dateformatshow = "dd/mm/YYYY">
+
+		<cfinvoke component="Service.Access.MobileAccess"
+				Method            = "PasswordChange"
+				Account           = "#user#"
+				OldPwd            = "#OldPwd#"
+				Pwd1              = "#Pwd1#"
+				Pwd2              = "#Pwd2#"
+				MinLength         = "8"
+				SendMail          = "yes"
+				Welcome           = "Charlie Internacional"
+				Root              = "https://tienda.charlieinternacional.com/"
+				returnvariable     = "functionResult">
+
+		<cfset SESSION.login = "">
+		<cfset SESSION.dbpw = "">
+		<cfset client.PersonNo = "000">
+		<cfset session.acc = "admin">
+		<cfset session.last = "admin">
+		<cfset session.first = "admin">
+		<cfset session.authent = "0">
 
 		<!---
 		1 : OK
@@ -814,30 +857,32 @@ AND S.FieldDefault='1'
 
 		<cfscript>
 			threadName = "ws_msg_" & createUUID();
+
 			credentials = structnew("ordered");
 			credentials = result;
+
 			msg = SerializeJSON(credentials);
+
 			cfthread(action:"run",name:threadName,message:msg){
 				WsPublish("prosis",attributes.message);
-			}
-			writeOutput(msg);
+		}
+
+				writeOutput(msg);
 		</cfscript>
 
 	</cffunction>
-	
 
 	<cffunction name="mobileLogin"
-			access="remote"
-			hint="send a websocket message"
-			returnformat="json"
-			returnType="any">
+				access="remote"
+				hint="send a websocket message"
+				returnformat="json"
+				returnType="any">
 
-			<cfargument name="mission"  type="string" required="false" default="BAMBINO">		
-			<cfargument name="callback" type="string" required="false">
-			<cfargument name="user" 	type="string" required="true" default="">
-			<cfargument name="pwd" 		type="string" required="true" default="">
-			<cfargument name="deviceId" type="string" required="true" default="">
-			<cfheader name="Access-Control-Allow-Origin" value="*">
+		<cfargument name="callback" type="string" required="false">
+		<cfargument name="user" 	type="string" required="true" default="">
+		<cfargument name="pwd" 		type="string" required="true" default="">
+		<cfargument name="deviceId" type="string" required="true" default="">
+		<cfheader name="Access-Control-Allow-Origin" value="*">
 
 			<cfinvoke component="Service.Access.MobileAccess"
 					Method       		= "Authenticate"
@@ -848,31 +893,34 @@ AND S.FieldDefault='1'
 
 			<cfset record = deserializeJSON(functionResult)>
 
-					<cfquery name="qUserMission" datasource="AppsSystem">
-					SELECT       C.CustomerId, U.Account,U.firstName+' '+U.lastName AS NAME, C.OrgUnit
-					FROM         UserNames AS U 
-					             INNER JOIN	Applicant.dbo.Applicant AS A ON U.PersonNo = A.PersonNo 
-								 INNER JOIN Materials.dbo.Customer AS C ON A.PersonNo = C.PersonNo
-					WHERE        C.Mission = '#mission#'
-					AND          U.Account = '#record.Data.Account[1]#' 
-					AND          C.Operational = 1 
-					AND          U.Disabled = 0 
-					AND          A.CandidateStatus = '1'
+
+					<cfquery name="qUserMission"
+				datasource="AppsSystem">
+					SELECT        C.CustomerId, U.Account,U.firstName+' '+U.lastName AS NAME, C.OrgUnit
+					FROM            UserNames AS U INNER JOIN
+					Applicant.dbo.Applicant AS A ON U.PersonNo = A.PersonNo INNER JOIN
+					Materials.dbo.Customer AS C ON A.PersonNo = C.PersonNo
+					WHERE        (C.Mission = 'BAMBINO')AND (U.Account = '#record.Data.Account[1]#') AND (C.Operational = 1) AND (U.Disabled = 0) AND (A.CandidateStatus = '1')
 				</cfquery>
 
-			<cfif qUserMission.recordcount neq 0>
 
-			</cfif>
-				
+				<cfif qUserMission.recordcount neq 0>
+
+
+				</cfif>
+
+
+
 			<cfset result = QueryToArray(qUserMission)>
 
 			<cfloop array="#result#" item="itm">
 
-				<cfquery name="qAddress" datasource="AppsMaterials">
-					SELECT  CA.AddressType, A.*
-					FROM    CustomerAddress CA 
-					        INNER JOIN System.dbo.Ref_Address A	ON CA.AddressId = A.AddressId
-					WHERE   CA.CustomerId = '#qUserMission.CustomerId#'
+				<cfquery name="qAddress"
+						datasource="AppsMaterials">
+					SELECT CA.AddressType, A.*
+					FROM CustomerAddress CA INNER JOIN System.dbo.Ref_Address A
+					ON CA.AddressId = A.AddressId
+					WHERE CA.CustomerId = '#qUserMission.CustomerId#'
 				</cfquery>
 
 				<cfset itm.address = arrayNew(1)>
@@ -885,37 +933,47 @@ AND S.FieldDefault='1'
 					<cfset itm.address[CurrentRow]["Country"]=qAddress.Country>
 				</cfloop>
 
-				<cfquery name="qSchedule" datasource="AppsMaterials">
-					SELECT     TOP (1) PriceSchedule
-					FROM       CustomerSchedule AS T
-					WHERE      CustomerId = '#qUserMission.CustomerId#'
-					AND        DateEffective IN (SELECT     MAX(DateEffective) AS Expr1
-								    		     FROM       CustomerSchedule
-									  	         WHERE      CustomerId = T.CustomerId)
+				<cfquery name="qSchedule"
+						datasource="AppsMaterials">
+					SELECT        TOP (1) PriceSchedule
+					FROM            CustomerSchedule AS T
+					WHERE        (CustomerId = '#qUserMission.CustomerId#')
+					AND (DateEffective IN
+						(SELECT        MAX(DateEffective) AS Expr1
+							FROM            CustomerSchedule
+							WHERE        (CustomerId = T.CustomerId)))
 				</cfquery>
 
 				<cfset itm.PriceSchedule = qSchedule.PriceSchedule>
 
 			</cfloop>
 
+
+
 			<cfscript>
 				threadName = "ws_msg_" & createUUID();
+
 				credentials = structnew("ordered");
 				credentials = result;
+
 				msg = SerializeJSON(credentials);
+
 				cfthread(action:"run",name:threadName,message:msg){
 					WsPublish("prosis",attributes.message);
-			    }
-			    writeOutput(msg);
+			}
+
+			writeOutput(msg);
 			</cfscript>
+
 
 	</cffunction>
 
-	<cffunction name     = "setAnonymous"
-			access       = "remote"
-			hint         = "send a websocket message"
-			returnformat = "json"
-			returnType   = "any">
+
+	<cffunction name="setAnonymous"
+			access="remote"
+			hint="send a websocket message"
+			returnformat="json"
+			returnType="any">
 
 		<cfargument name="deviceId" 	type="string" required="true" default="">
 		<cfargument name="warehouse" 	type="string" required="true" default="">
@@ -928,52 +986,62 @@ AND S.FieldDefault='1'
 
 		<cfquery name="qCategoryItem" datasource="AppsMaterials">
 			SELECT TOP 1 CategoryItem
-			FROM   Ref_CategoryItem CI
-			WHERE EXISTS ( SELECT 'X'
-						   FROM Item I 
-						   INNER JOIN ItemImage II ON II.ItemNo = I.ItemNo						   
-						   INNER JOIN ItemUoM M    ON M.ItemNo = I.ItemNo
-						   WHERE I.CategoryItem = CI.CategoryItem
-						   AND   II.Created >= '2019-09-01'	)
+			FROM Ref_CategoryItem CI
+			WHERE EXISTS
+			(
+			SELECT 'X'
+			FROM Item I
+			INNER JOIN ItemImage II
+			ON II.ItemNo = I.ItemNo
+			INNER JOIN ItemUoM M
+			ON M.ItemNo = I.ItemNo
+			WHERE I.CategoryItem = CI.CategoryItem
+			AND II.Created>='2019-09-01'
+			)
 			ORDER BY NEWID()
 		</cfquery>
 
 		<cfset categoryItem=qCategoryItem.CategoryItem>
 
+
 		<cfquery name="qScheduleDefault"
 				datasource="AppsMaterials">
 			SELECT Code as DefaultPriceSchedule, W.Country, W.Address, W.City, W.Telephone, W.Fax, W.Contact, '#categoryItem#' as CategoryItem
-			FROM   Ref_PriceSchedule S, Warehouse W
-			WHERE  S.FieldDefault = '1'
-			AND    W.Warehouse    = '#arguments.warehouse#'
+			FROM Ref_PriceSchedule S,
+					Warehouse W
+			WHERE S.FieldDefault='1'
+			AND W.Warehouse = '#arguments.warehouse#'
 		</cfquery>
 
 		<cfset result = QueryToArray(qScheduleDefault)>
 
 		<cfscript>
 			threadName = "ws_msg_" & createUUID();
+
 			credentials = structnew("ordered");
 			credentials = result;
+
 			msg = SerializeJSON(credentials);
+
 			cfthread(action:"run",name:threadName,message:msg){
 				WsPublish("prosis",attributes.message);
 			}
+
 			writeOutput(msg);
 		</cfscript>
 
 	</cffunction>
-		
 
-	<cffunction name     = "getQuotes"
-			access       = "remote"
-			hint         = "send a websocket message"
-			returnformat = "json"
-			returnType   = "any">
 
-	    <cfargument name="mission" 		type="string" required="false" default="BAMBINO">	
-		<cfargument name="warehouse" 	type="string" required="true" default="">	 
+	<cffunction name="getQuotes"
+			access="remote"
+			hint="send a websocket message"
+			returnformat="json"
+			returnType="any">
+
 		<cfargument name="customerId" 	type="string" required="true" default="">
-			
+		<cfargument name="warehouse" 	type="string" required="true" default="">
+		<cfargument name="mission" 		type="string" required=false default="BAMBINO">
 		<cfheader name="Access-Control-Allow-Origin" value="*">
 
 		<cfquery name="qQuotes" datasource="AppsMaterials">
@@ -982,10 +1050,15 @@ AND S.FieldDefault='1'
 					I.ItemNoExternal,
 					C.Description as CategoryDescription
 			FROM 	CustomerRequest R
-					INNER JOIN CustomerRequestLine L   ON R.RequestNo = L.RequestNo 
-					INNER JOIN ItemUoM U 			   ON U.ItemNo = L.ItemNo AND U.UoM = L.TransactionUoM 
-					INNER JOIN Item I 				   ON I.ItemNo = U.ItemNo
-					INNER JOIN Ref_Category C   	   ON I.Category = C.Category
+					INNER JOIN CustomerRequestLine L
+						ON R.RequestNo = L.RequestNo 
+					INNER JOIN ItemUoM U 
+						ON U.ItemNo = L.ItemNo 
+						AND U.UoM = L.TransactionUoM 
+					INNER JOIN Item I 
+						ON I.ItemNo = U.ItemNo
+					INNER JOIN Ref_Category C
+						ON I.Category = C.Category
 			WHERE 	R.CustomerId = '#arguments.customerId#'
 			AND 	R.BatchNo IS NULL
 			AND 	R.ActionStatus != '9'
@@ -998,16 +1071,21 @@ AND S.FieldDefault='1'
 
 		<cfscript>
 			threadName = "ws_msg_" & createUUID();
+
 			credentials = structnew("ordered");
 			credentials = result;
+
 			msg = SerializeJSON(credentials);
+
 			cfthread(action:"run",name:threadName,message:msg){
 				WsPublish("prosis",attributes.message);
-			}
-			writeOutput(msg);
+		}
+
+				writeOutput(msg);
 		</cfscript>
 
 	</cffunction>
+
 
 	<cffunction name="postOrder"
 			access="remote"

@@ -79,7 +79,7 @@
 			<cfelse>		
 				<tr class="labelmedium linedotted navigation_row">	
 				<td style="padding-left:1px;font-weight:bold;font-size:13px;height:100%;padding-right:4px">				
-				<cfloop index="itm" from="1" to="#cnt#"><span style="border:0.5px solid white;border-right:0px;min-width:8px;height:100%;background-color:6688aa">&nbsp;&nbsp;</span></cfloop>
+				<cfloop index="itm" from="1" to="#cnt#"><span style="border:0.5px solid white;border-right:0px;min-width:8px;height:100%;background-color:1A8CFF">&nbsp;&nbsp;</span></cfloop>
 			    </td>
 				<td style="font-size:12px;padding-top:2px;padding-right:3px">#OrgUnitName#</td>
 			</cfif>

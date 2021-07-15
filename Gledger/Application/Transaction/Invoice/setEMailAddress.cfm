@@ -4,12 +4,12 @@
 <cfif isValid("email","#url.email#")>		
 	
 	<cfquery name="Customer" 
-		   datasource="AppsMaterials" 
+		   datasource="AppsLedger" 
 		   username="#SESSION.login#" 
 		   password="#SESSION.dbpw#">
-			UPDATE   Customer
+			UPDATE   TransactionHeaderAction
 			SET      EMailAddress = '#email#'
-			WHERE    CustomerId = '#url.customeridinvoice#'       
+			WHERE    ActionId = '#url.actionid#'       
 	</cfquery>
 	
 	<cfoutput>
@@ -18,7 +18,7 @@
 							
 		<input type="button" 
 		     class="button10g" 
-		     onclick="ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/doInvoiceMail.cfm?batchid=#url.batchid#','mailbox')" 
+		     onclick="ptoken.navigate('#session.root#/GLedger/Application/Transaction/View/Invoice/doInvoiceMail.cfm?actionid=#url.actionid#','mailbox')" 
 		     style="height:28;width:150;font-size:13px" class="regular" name="save" id="save" value="#lt_text#">
 			 
 	</cfoutput>
