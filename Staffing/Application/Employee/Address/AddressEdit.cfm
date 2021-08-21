@@ -348,7 +348,7 @@ password="#SESSION.dbpw#">
 				     name     = "cancel" 
 				     value    = "#lt_text#" 
 				     class    = "button10g" 
-				     onClick  = "ColdFusion.navigate('#SESSION.root#/Staffing/Application/Employee/Address/EmployeeAddressDetail.cfm?webapp=#url.webapp#&mode=edit&id=#url.id#','addressdetail')">
+				     onClick  = "ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Address/EmployeeAddressDetail.cfm?webapp=#url.webapp#&mode=edit&id=#url.id#','addressdetail')">
 			 						 
 			 <cf_tl id="Delete" var="1">			 
 		     <input class="button10g"  type="button" name="Delete" value="#lt_text#" onclick="personaddresseditvalidate('#url.webapp#','delete')">

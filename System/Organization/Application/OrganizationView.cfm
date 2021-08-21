@@ -64,7 +64,7 @@
 	}
 	
 	function orgaccess() {
-	    window.open("../Access/OrganizationView.cfm","_top")   
+	    ptoken.open("../Access/OrganizationView.cfm","_top")   
 	}
 
 </script>

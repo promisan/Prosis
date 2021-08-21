@@ -42,11 +42,11 @@
 	<script>
 	
 	<cfif get.DateExpiration lt EXP>		
-	  ColdFusion.navigate('setMandateEditPosition.cfm?show=1','positionexpirationadjust')	
-	  ColdFusion.navigate('setMandateEditAssignment.cfm?show=1','assignmentexpirationadjust')
+	  ptoken.navigate('setMandateEditPosition.cfm?show=1','positionexpirationadjust')	
+	  ptoken.navigate('setMandateEditAssignment.cfm?show=1','assignmentexpirationadjust')
 	<cfelse>	
-	  ColdFusion.navigate('setMandateEditPosition.cfm?show=0','positionexpirationadjust')	
-	  ColdFusion.navigate('setMandateEditAssignment.cfm?show=0','assignmentexpirationadjust')
+	  ptoken.navigate('setMandateEditPosition.cfm?show=0','positionexpirationadjust')	
+	  ptoken.navigate('setMandateEditAssignment.cfm?show=0','assignmentexpirationadjust')
 	</cfif>
 	</script>
 	

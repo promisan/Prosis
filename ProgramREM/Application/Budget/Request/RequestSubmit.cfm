@@ -1624,10 +1624,8 @@ password="#SESSION.dbpw#">
 	
 	<script language="JavaScript">
 	   
-	  
-	   
 	   		Prosis.busy('no')
-			ColdFusion.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestDialogForm.cfm?mode=add&requirementid=&programcode=#form.programCode#&period=#form.period#&editionid=#form.EditionId#&objectcode=#form.ObjectCode#&activityid=#url.activityid#&cell=#url.cell#&itemmaster=#Form.ItemMaster#','entrydialog')		
+			ptoken.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestDialogForm.cfm?mode=add&requirementid=&programcode=#form.programCode#&period=#form.period#&editionid=#form.EditionId#&objectcode=#form.ObjectCode#&activityid=#url.activityid#&cell=#url.cell#&itemmaster=#Form.ItemMaster#','entrydialog')		
 			md = document.getElementById('summaryselectmode').value
 			ptoken.navigate('#SESSION.root#/programrem/application/budget/request/RequestSummary.cfm?summarymode='+md+'&programcode=#form.programcode#&period=#form.period#&activityid=#url.activityid#&editionid=#form.editionid#','summary')
 			 
@@ -1641,7 +1639,6 @@ password="#SESSION.dbpw#">
 			try {			 	 			  
 			   parent.opener.menuoption('gantt','1','0')			  
 			 } catch(e) { } 
-			
 									
 	</script>
 

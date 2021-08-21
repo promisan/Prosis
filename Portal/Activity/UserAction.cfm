@@ -61,23 +61,20 @@ datasource="AppsSystem">
 	WHERE   ActionTimeStamp < #day#
 </cfquery>
 
-
 <cf_listingscript>
-
-
 
 <cfset diff = DateAdd("n", "-#CLIENT.Timeout#", "#now()#")>
 
-<table width="98%" align="center" style="height:100%" class="formpadding formspacing">
+<table width="98%" align="center" style="height:100%">
 
-<tr class="linedotted">
-    <td valign="top" style="height:10px">   
+<tr>
+    <td valign="top" style="height:5px">   
 	<cfinclude template="UserActionHeader.cfm">	
     </td>
 </tr>
 	
 <tr>	
-	<td style="height:100%;min-height:100%" valign="top">	
+	<td style="padding-left:15px;height:100%;min-height:100%" valign="top">	
 		<cf_securediv id="content" style="height:100%" bind="url:UserActionContent.cfm?systemfunctionid=#url.systemfunctionid#&mode=current&filter=">        	
 	</td>	
 </tr>	

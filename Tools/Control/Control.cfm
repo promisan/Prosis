@@ -340,18 +340,19 @@
 <!--- Enable error management --->
 
 <cfif Attributes.ErrorHandling eq "1" AND System.ExceptionControl eq "1">
-		 
+	
 	<cfquery name="System" 
 		datasource="AppsSystem">
 			SELECT * 
 			FROM   Parameter
-	</cfquery>		 
-			 
+	</cfquery>	
+				 
 	<cfif Parameter.EnableError neq "0">
 						      
 		<cferror type = "exception"
 		  template = "/#System.VirtualDirectory#/Error.cfm"
-		  exception = "any"> 			   			   
+		  exception = "any"> 	
+		    			   
 		  				
 	<cfelse>
 	

@@ -16,7 +16,7 @@
 		   row.className = "regular"
 		   pmax.className = "hide"
 		   pmin.className = "regular"
-		   ColdFusion.navigate('#SESSION.root#/ProgramREM/Application/Activity/Listing/ActivityListingOutput.cfm?activityid='+id,'box'+id)
+		   ptoken.navigate('#SESSION.root#/ProgramREM/Application/Activity/Listing/ActivityListingOutput.cfm?activityid='+id,'box'+id)
 		} else {
 		   row.className = "hide"
 		   pmin.className = "hide"
@@ -53,7 +53,7 @@
 	     if (opt == "list") {	
 		    Prosis.busy('yes')	 
 			_cf_loadingtexthtml='';	
-		 	ColdFusion.navigate('#SESSION.root#/ProgramREM/Application/Activity/Listing/ActivityListing.cfm?mission=#url.mission#&programcode=#url.programcode#&period=#url.period#&periodfilter='+per+'&option='+show,'detail')
+		 	ptoken.navigate('#SESSION.root#/ProgramREM/Application/Activity/Listing/ActivityListing.cfm?mission=#url.mission#&programcode=#url.programcode#&period=#url.period#&periodfilter='+per+'&option='+show,'detail')
 		 }			 
 	 }	
 	 

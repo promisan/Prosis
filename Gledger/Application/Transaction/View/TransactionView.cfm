@@ -122,12 +122,12 @@ password="#SESSION.dbpw#">
 	}
 	
 	function PrintReceivable() {			
-	     ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:870,height:670,resizable:false,modal:true,center:true})		
+	     ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:860,height:670,resizable:false,modal:true,center:true})		
 		 ptoken.navigate("TransactionInvoice.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");		
 	}
 	
 	function PrintTaxReceivable() {		
-		ProsisUI.createWindow('wsettle', 'Invoice', '',{x:100,y:100,width:870,height:670,resizable:false,modal:true,center:true})
+		ProsisUI.createWindow('wsettle', 'Invoice', '',{x:100,y:100,width:860,height:document.body.clientHeight-75,resizable:false,modal:true,center:true})
 		ptoken.navigate("TransactionTaxInvoice.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");
 	}
 	

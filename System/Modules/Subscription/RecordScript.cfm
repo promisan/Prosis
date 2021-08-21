@@ -39,13 +39,11 @@ function schedule(id) {
 }
 
 function popular(st,id) {
-
     <cfif url.portal eq "0">
     ptoken.location('#SESSION.root#/System/Modules/Subscription/RecordPopular.cfm?portal=0&view=#URL.view#&st='+st+'&id='+id)
 	<cfelse>
 	ptoken.navigate('#SESSION.root#/System/Modules/Subscription/RecordPopular.cfm?portal=1&view=#URL.view#&st='+st+'&id='+id,'mylist')	
-	</cfif>
-	
+	</cfif>	
 }
 
 function purge() {
@@ -62,11 +60,10 @@ function mail(id,path,sql) {
 
 function reloadForm(view) {
    <cfif url.portal eq "0">
-    window.location = "RecordListing.cfm?systemfunctionid=#url.systemfunctionid#&portal=0&time=#now()#&view="+view;
+    ptoken.location('RecordListing.cfm?systemfunctionid=#url.systemfunctionid#&portal=0&view='+view);
 	<cfelse>
-	ColdFusion.navigate('#SESSION.root#/System/Modules/Subscription/RecordListing.cfm?systemfunctionid=#url.systemfunctionid#&portal=1&view='+view,'mylist');
-	</cfif>
-  
+	ptoken.navigate('#SESSION.root#/System/Modules/Subscription/RecordListing.cfm?systemfunctionid=#url.systemfunctionid#&portal=1&view='+view,'mylist');
+	</cfif>  
 }  
   
 function more(id,act,row,content) {

@@ -4,7 +4,7 @@
 	<script language="JavaScript">
 	
 		function reload(src) {
-			  ColdFusion.navigate('#SESSION.root#/System/Organization/Access/UserAccessListingTreeDetail.cfm?search='+src+'&id=#URL.ID#','treedet')  
+			  ptoken.navigate('#SESSION.root#/System/Organization/Access/UserAccessListingTreeDetail.cfm?search='+src+'&id=#URL.ID#','treedet')  
 		}
 			
 		function del(access,id,con,mis,man,mod,box,src) {		     
@@ -13,7 +13,7 @@
 		}		
 		
 		function sync(grp,id,con,mis,man,mod,box,src) {
-		      ColdFusion.navigate('#SESSION.root#/System/Organization/Access/UserAccessListingSyncGroup.cfm?box='+box+'&id='+id+'&id1='+con+'&mis='+mis+'&man='+man+'&mod='+mod+'&search='+src+'&group='+grp,box)  
+		      ptoken.navigate('#SESSION.root#/System/Organization/Access/UserAccessListingSyncGroup.cfm?box='+box+'&id='+id+'&id1='+con+'&mis='+mis+'&man='+man+'&mod='+mod+'&search='+src+'&group='+grp,box)  
 		}		
 		
 		function clearno() { 
@@ -36,7 +36,7 @@
 			     icM.className = "regular";
 				 icE.className = "hide";
 				 box.className = "regular"
-				 ColdFusion.navigate('#SESSION.root#/System/Organization/Access/UserAccessListingDetail.cfm?box=i'+con+bx+'&id=#URL.ID#&id1='+con+'&mis=' + mis + '&man=' + man + '&mod=' + mod + '&search='+src,'i'+con+bx)  
+				 ptoken.navigate('#SESSION.root#/System/Organization/Access/UserAccessListingDetail.cfm?box=i'+con+bx+'&id=#URL.ID#&id1='+con+'&mis=' + mis + '&man=' + man + '&mod=' + mod + '&search='+src,'i'+con+bx)  
 		    } else {
 			     icM.className = "hide";
 				 icE.className = "regular"; 
@@ -45,13 +45,13 @@
 		    }	
 	
 	    function restore(accessid,id,id1,search,mod,mis,man,box) {
-		    ColdFusion.navigate('#SESSION.root#/System/Organization/Access/UserAccessGroupReinstate.cfm?accessid='+accessid+"&id="+id+"&id1="+id1+"&search="+search+"&mod="+mod+"&mis="+mis+"&man="+man+"&box="+box,box)
+		    ptoken.navigate('#SESSION.root#/System/Organization/Access/UserAccessGroupReinstate.cfm?accessid='+accessid+"&id="+id+"&id1="+id1+"&search="+search+"&mod="+mod+"&mis="+mis+"&man="+man+"&box="+box,box)
 		}
 		
 	    function showrole(role) {
 			w = #CLIENT.width# - 200;
 			h = #CLIENT.height# - 250;
-			window.open("#SESSION.root#/System/Access/Global/OrganizationRolesView.cfm?Class=" + role, "_blank", "left=40, top=40, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=no")
+			ptoken.open("#SESSION.root#/System/Access/Global/OrganizationRolesView.cfm?Class=" + role, "_blank", "left=40, top=40, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=no")
 		}
 		
 		var tmis = ""
@@ -77,7 +77,7 @@
 		}  
 		
 		function refreshaccess() {			   		   
- 		   ColdFusion.navigate('#SESSION.root#/System/Organization/Access/UserAccessListingDetail.cfm?box='+tbox+'&id=#URL.ID#&id1='+tcon+'&mis=' + tmis + '&man=' + tman + '&mod=' + tmod + '&search='+tsrc,tbox)  
+ 		   ptoken.navigate('#SESSION.root#/System/Organization/Access/UserAccessListingDetail.cfm?box='+tbox+'&id=#URL.ID#&id1='+tcon+'&mis=' + tmis + '&man=' + tman + '&mod=' + tmod + '&search='+tsrc,tbox)  
     	}
 		
 				  

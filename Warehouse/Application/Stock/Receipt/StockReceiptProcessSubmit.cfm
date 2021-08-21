@@ -347,7 +347,7 @@ will be put into different batches as they could have different process flows as
         alert('#vMessage1#. #vMessage2#.');
 		document.getElementById('menu2').className = 'regular';
 		document.getElementById('menu1').className = 'highlight';
-		ColdFusion.navigate('#SESSION.root#/warehouse/application/stock/receipt/StockReceiptViewPending.cfm?mission=#url.mission#&warehouse=#url.warehouse#','contentbox1');
+		ptoken.navigate('#SESSION.root#/warehouse/application/stock/receipt/StockReceiptViewPending.cfm?mission=#url.mission#&warehouse=#url.warehouse#','contentbox1');
 	</script>	
 		
 </cfoutput>

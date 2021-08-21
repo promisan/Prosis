@@ -339,7 +339,7 @@
 				  
 				<input type="hidden" 
 				   name="workflowlinkprocess_#workflow#" 
-				   onclick="ColdFusion.navigate('#SESSION.root#/staffing/application/employee/HRAction/HRActionStatus.cfm?id=#personactionid#','status_#workflow#')">		    
+				   onclick="ptoken.navigate('#SESSION.root#/staffing/application/employee/HRAction/HRActionStatus.cfm?id=#personactionid#','status_#workflow#')">		    
 				   
 				<!---  only for pending contract the workflow is shown / triggered --->   
 						

@@ -6,7 +6,7 @@
 <cfif url.header eq "Yes">
 	<cf_screentop html="yes" banner="bluedark" bannerheight="60" label="Address Maintenance" layout="webdialog" jQuery="Yes">
 <cfelse>
-	<cf_screentop html="no" banner="bluedark" bannerheight="60" label="Address Maintenance" layout="webdialog" jQuery="Yes">
+	<cf_screentop html="no"  banner="bluedark" bannerheight="60" label="Address Maintenance" layout="webdialog" jQuery="Yes">
 </cfif>
 
 <cf_divscroll overflowx="auto">
@@ -14,8 +14,17 @@
 <cf_dialogPosition>
 <cf_dialogStaffing>
 
-<cf_mapscript scope="embed">
-<cfajaximport tags="cfmap,cfform" params="#{googlemapkey='#client.googlemapid#'}#">
+
+<cfif client.googlemap eq "1">
+
+	<cf_mapscript scope="embed">
+	<cfajaximport tags="cfmap,cfform" params="#{googlemapkey='#client.googlemapid#'}#">
+	
+<cfelse>
+
+	<cfajaximport tags="cfform">
+
+</cfif>	
 
 <cfquery name="Type"
 datasource="AppsOrganization" 
@@ -86,7 +95,7 @@ password="#SESSION.dbpw#">
   <tr>
     <td width="100%" colspan="2">
 	
-    <table border="0" cellpadding="0" cellspacing="0" width="97%" align="center" class="formspacing formpadding">
+    <table width="97%" align="center" class="formspacing formpadding">
 	
 	<cfoutput>
 	

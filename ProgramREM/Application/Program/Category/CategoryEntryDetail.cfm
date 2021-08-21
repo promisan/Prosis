@@ -139,11 +139,8 @@
 		  AND    (ProgramClass is NULL or ProgramClass = '#ProgramClass#')				  
 		 
 		  ORDER BY Area, HierarchyCode
-	
-	
 		  		  		  
 	</cfquery>	
-		
 							
 	<tr><td style="padding-left:10px">
 		   	
@@ -162,8 +159,7 @@
 			   AreaCode        =  "#areacode#"
 			   returnvariable  =  "control">				   		
 					
-	    <cfoutput>
-		
+	    <cfoutput>		
 							
         <cfset ar  = Area>
 		<cfset arc = AreaCode>
@@ -186,9 +182,7 @@
 									  				   
 							      <img src="#SESSION.root#/Images/portal_min.png" 
 							          id="#arc#Min" alt="Hide" border="0" height="18" width="18"
-									  align="absmiddle" class="<cfif Used neq "">regular<cfelse>hide</cfif>">	
-									 
-												  
+									  align="absmiddle" class="<cfif Used neq "">regular<cfelse>hide</cfif>">											  
 								
 								</td>
 								
@@ -401,7 +395,7 @@
 													<td style="padding-left:58px;width:100%" colspan="3">																																												
 													<cfset url.code = code>
 													<cfset url.mode = mode>
-													<cfdiv id="textboxcontent#code#" bind="url:#SESSION.root#/ProgramREM/Application/Program/Category/getTextArea.cfm?programcode=#url.programcode#&code=#code#&mode=#mode#&period=#url.period#">																																																			
+													<cf_securediv id="textboxcontent#code#" bind="url:#SESSION.root#/ProgramREM/Application/Program/Category/getTextArea.cfm?programcode=#url.programcode#&code=#code#&mode=#mode#&period=#url.period#">																																																			
 													</td>
 												</tr>
 											 

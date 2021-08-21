@@ -54,6 +54,6 @@
 		SET   DocumentAmount    = '#abs(Total.Amount)#',
 		      Amount            = '#abs(Total.Amount)#',
 			  AmountOutstanding = '#abs(Total.Amount)#'		    
-	  	WHERE     (Journal = '#Attributes.Journal#') 
-		AND       (JournalSerialNo = '#Attributes.JournalSerialNo#')		
+	  	WHERE     Journal = '#Attributes.Journal#' 
+		AND       JournalSerialNo = '#Attributes.JournalSerialNo#'		
 </cfquery>	

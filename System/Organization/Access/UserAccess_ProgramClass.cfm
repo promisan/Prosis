@@ -15,7 +15,7 @@
 		<cfif Role.GrantAllTrees eq "0">
 		AND     A.Mission = '#URL.Mission#'	
 		</cfif>
-		ORDER BY R.PostType	
+		ORDER BY R.Code, R.Description
 		</cfquery>
 	
 	<cfelse>

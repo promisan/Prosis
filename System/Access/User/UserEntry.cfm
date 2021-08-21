@@ -129,32 +129,30 @@ password="#SESSION.dbpw#">
 
 <tr><td height="30">	
 
-		<table width="100%" 
-	      border="0"
+		<table width="100%" 	     
 		  height="100%"		  
 		  align="center" 
 	      bordercolor="d4d4d4">	  
 		  <tr>
 
-				<cfset wd = "44">
-				<cfset ht = "44">		
-						
-					<cf_menutab item       = "1" 
-					            iconsrc    = "Logos/User/Settings.png" 
-								iconwidth  = "#wd#" 
-								class      = "highlight1"
-								iconheight = "#ht#" 
-								name       = "Account Settings">			
-									
-					<cf_menutab item       = "2" 
-					            iconsrc    = "Logos/User/UserGroup.png" 
-								iconwidth  = "#wd#" 
-								iconheight = "#ht#" 
-								name       = "Set Group Membership">
-							
-									
-					<td width="20%"></td>
+			<cfset wd = "44">
+			<cfset ht = "44">		
 					
+				<cf_menutab item       = "1" 
+				            iconsrc    = "Logos/User/Settings.png" 
+							iconwidth  = "#wd#" 
+							class      = "highlight1"
+							iconheight = "#ht#" 
+							name       = "Account Settings">			
+								
+				<cf_menutab item       = "2" 
+				            iconsrc    = "Logos/User/UserGroup.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#" 
+							name       = "Set Group Membership">							
+								
+				<td width="20%"></td>
+										
 		</tr>
 		
 		</table>

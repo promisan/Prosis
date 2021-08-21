@@ -15,13 +15,13 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
   SELECT DISTINCT M.Mission, 
                   M.MissionOwner
-  FROM Ref_Mission M, Ref_MissionModule R
+  FROM  Ref_Mission M, Ref_MissionModule R
   WHERE M.Mission    = R.Mission
-  AND R.SystemModule = 'Vacancy'
-  AND M.Mission IN (SELECT Mission 
-                    FROM   Ref_Mandate 
-					WHERE  DateExpiration > getDate())  
-				
+  AND   R.SystemModule = 'Vacancy'
+  AND   M.Operational = 1
+  AND   M.Mission IN (SELECT Mission 
+                      FROM   Ref_Mandate 
+					  WHERE  DateExpiration > getDate())  				
   <cfif SESSION.isAdministrator eq "No">				
   AND (
   
@@ -143,9 +143,7 @@ password="#SESSION.dbpw#">
 				
 	<tr>
 		<td class="line" style="height:100%">
-		<cf_divscroll>
-		<cfdiv id="search">
-		</cf_divscroll>
+		<cf_divscroll><cfdiv id="search"></cf_divscroll>
 		</td>
 	</tr>
 		

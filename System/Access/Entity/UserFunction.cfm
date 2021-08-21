@@ -14,15 +14,6 @@ all access
 --->
 
 
-<script>
-function formvalidate() {
-	document.userfunction.onsubmit() 
-	if( _CF_error_messages.length == 0 ) {       
-		ptoken.navigate('UserFunctionSubmit.cfm?id=#url.id#','process','','','POST','userfunction')
-	 }   
-}	 
-</script>
-
 <cfquery name="get" 
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 

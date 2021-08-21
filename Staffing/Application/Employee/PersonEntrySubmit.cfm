@@ -363,7 +363,7 @@ password="#SESSION.dbpw#">
 	 
 		<script>		
 		    parent.parent.document.getElementById('indexno').value = '#IndexNo#'	
-			parent.parent.ColdFusion.Window.hide('myperson')							
+			parent.parent.ProsisUI.closeWindow('myperson')							
 		</script> 	
 		
 	 <cfelseif url.mode eq "lookup">	
@@ -373,9 +373,9 @@ password="#SESSION.dbpw#">
 	     <script>		
 		   
 		    if (document.getElementById('#url.box#')) {
-			  ColdFusion.navigate('#link#&action=insert&personno=#pers#','#url.box#')
+			  ptoken.navigate('#link#&action=insert&personno=#pers#','#url.box#')
 			} else {
-			  ColdFusion.navigate('#link#&action=insert&personno=#pers#','searchresult#url.box#')
+			  ptoken.navigate('#link#&action=insert&personno=#pers#','searchresult#url.box#')
 			}
 		 	ColdFusion.Window.hide('dialog#url.box#')			     
 	   
@@ -387,7 +387,7 @@ password="#SESSION.dbpw#">
 		 
 	     <script>
 		   
-		    window.location = "PersonEntry.cfm"	 	 
+		    ptoken.location('PersonEntry.cfm')	 	 
 	        w = 0
 	        h = 0
 	        if (screen) {

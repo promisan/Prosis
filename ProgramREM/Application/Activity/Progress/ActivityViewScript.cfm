@@ -18,7 +18,7 @@
 	}
 	
 	function progressreportrefresh(id) {
-	  ColdFusion.navigate('#SESSION.root#/programrem/application/Activity/Progress/ActivityProgressOutput.cfm?mode=read&activityid='+id,'box'+id)	  
+	  ptoken.navigate('#SESSION.root#/programrem/application/Activity/Progress/ActivityProgressOutput.cfm?mode=read&activityid='+id,'box'+id)	  
 	}  		 
 	
 	function menuoption(opt,out,show) {
@@ -42,7 +42,7 @@
 	function ganttprint(out) {
 			    
 		per = document.getElementById("period").value
-		se = window.open("#SESSION.root#/ProgramREM/Application/Activity/Progress/ActivityProgress.cfm?mission=#url.mission#&programcode=#url.programcode#&period="+per+"&output="+out+"&mode=Print","_blank","width=1000, height=700, status=no, toolbar=no, scrollbars=yes, resizable=yes")
+		se = ptoken.open("#SESSION.root#/ProgramREM/Application/Activity/Progress/ActivityProgress.cfm?mission=#url.mission#&programcode=#url.programcode#&period="+per+"&output="+out+"&mode=Print","_blank","width=1000, height=700, status=no, toolbar=no, scrollbars=yes, resizable=yes")
 		se.print()	
 	} 
 	
@@ -55,7 +55,7 @@
 		   row.className = "regular"
 		   pmax.className = "hide"
 		   pmin.className = "regular"
-		   ColdFusion.navigate('#SESSION.root#/ProgramREM/Application/Activity/Progress/ActivityProgressOutput.cfm?activityid='+id,'box'+id)
+		   ptoken.navigate('#SESSION.root#/ProgramREM/Application/Activity/Progress/ActivityProgressOutput.cfm?activityid='+id,'box'+id)
 		} else {
 		   row.className = "hide"
 		   pmin.className = "hide"
@@ -95,26 +95,23 @@
 	   }
 	 }
 	 
-	 function showdep(act,id) {	 
-	  
+	 function showdep(act,id) {	 	  
 	     ColdFusion.Window.create('executetask', 'Dependencies', '',{x:20,y:20,height:380,width:580,closable:true,modal:false,center:true})	
 		 ColdFusion.navigate('ActivityDependency.cfm?activityid='+act,'executetask')
 	 } 
 			
-	 function statusprogress(id,cls) {	
-		
+	 function statusprogress(id,cls) {			
 		se = document.getElementsByName("bar"+id)
-		var cnt = 0
-		
+		var cnt = 0		
 		while (se[cnt]) {
 		 se[cnt].className = cls
 		 cnt++
 		} 		
-		}   	
+	 }   	
 				  
 	 function search(pg,prg,per) {
-		 ColdFusion.navigate('#SESSION.root#/programREM/reporting/progress/project/ProgressDrillDetail.cfm?ProgramCode='+prg+'&Period='+per+'&Text='+pg,prg+'_result')
-		 } 
+		 ptoken.navigate('#SESSION.root#/programREM/reporting/progress/project/ProgressDrillDetail.cfm?ProgramCode='+prg+'&Period='+per+'&Text='+pg,prg+'_result')
+	 } 
 		  		  
 	</script>
 	

@@ -152,7 +152,7 @@
 							  <cfif employee.indexNo neq "">
 							  
 							   <td class="labelit" style="padding-top:1px"><font color="808080">#client.indexNoName#:<cf_space spaces="30"></td>   
-                               <td class="labelmedium" style="height:20px;font-size:14px" colspan="1">
+                               <td class="labelmedium" style="height:20px;font-size:16px" colspan="1">
 							   <cfif url.refer eq "backoffice">
 							   #Employee.IndexNo#
 							   <cfelse>
@@ -162,7 +162,7 @@
 							  <cfelse>
 							  
 							   <td class="labelit" style="padding-top:1px" width="20%"><font color="808080"><cf_tl id="ExternalReference">:</td>   
-                               <td class="labelmedium" style="height:20px;font-size:14px" colspan="1">#Employee.Reference#
+                               <td class="labelmedium" style="height:20px;font-size:16px" colspan="1">#Employee.Reference#
 							  							  
 							  </cfif>							  
 							 							  						  
@@ -335,7 +335,9 @@
 																 
 								</cfif>  
 								
+								<!---
 								<cfoutput>5.#now()#</cfoutput>
+								--->
                             
                            </td>   
 						   

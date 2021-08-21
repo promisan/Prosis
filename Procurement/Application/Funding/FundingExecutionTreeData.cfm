@@ -20,7 +20,7 @@
 			    INNER JOIN Organization.dbo.Ref_MissionPeriod AS M ON R.Mission = M.Mission AND R.Period = M.Period AND R.EditionId = M.EditionId 
 			    INNER JOIN Organization.dbo.Ref_Mission S ON R.Mission = S.Mission 
 				
-		AND     R.Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE MissionStatus = '0')		
+		AND     R.Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE MissionStatus = '0' and Operational = 1)		
 
 
         <!--- alternate edition --->			   
@@ -39,7 +39,7 @@
 			    INNER JOIN Organization.dbo.Ref_MissionPeriod AS M ON R.Mission = M.Mission AND R.Period = M.Period AND R.EditionId = M.EditionIdAlternate 
 			    INNER JOIN Organization.dbo.Ref_Mission S ON R.Mission = S.Mission 
 				
-		AND     R.Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE MissionStatus = '0')		
+		AND     R.Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE MissionStatus = '0' and Operational = 1)		
 			   
 		UNION   ALL	   
 		
@@ -57,7 +57,7 @@
 			   
 		WHERE   R.Period IS NULL
 		
-		AND     R.Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE MissionStatus = '0')
+		AND     R.Mission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE MissionStatus = '0' and Operational = 1)
 		
 		ORDER BY S.MissionType, M.Mission, PlanningPeriod, ExecutionPeriod					
 						
@@ -125,7 +125,7 @@
 
 <cfelse>	 
 
-	<cfif missioncheck.recordcount lte "5">
+	<cfif missioncheck.recordcount lte "3">
 	    <cfset exp = "Yes">
 	<cfelse>
 		<cfset exp = "No">  

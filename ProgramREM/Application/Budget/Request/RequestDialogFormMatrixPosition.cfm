@@ -279,7 +279,7 @@
 				   <input type = "text"
 				      onchange = "ptoken.navigate('RequestDialogFormMatrixScript.cfm?row=#row#&col=#col#&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')" 
 					  style    = "padding-top:2px;width:100%;text-align:center" 
-					  onclick  = "if (this.value != '1') { this.value = '1' } else { this.value = '0'};ColdFusion.navigate('RequestDialogFormMatrixScript.cfm?row=#row#&col=#col#&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')"
+					  onclick  = "if (this.value != '1') { this.value = '1' } else { this.value = '0'};ptoken.navigate('RequestDialogFormMatrixScript.cfm?row=#row#&col=#col#&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')"
 					  name     = "c#row#_#col#"
 					  id       = "c#row#_#col#"
 					  readonly					 				  
@@ -415,7 +415,7 @@
 					<cfif StandardCost.recordcount eq 0>
 															
 					     <input type="input"  
-						  onchange= "ColdFusion.navigate('RequestDialogFormMatrixScript.cfm?row=#row#&col=0&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')"
+						  onchange= "ptoken.navigate('RequestDialogFormMatrixScript.cfm?row=#row#&col=0&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')"
 						  class="regularh" style="border:0px;padding-top:2px;text-align:right;width:96%" id="requestPrice_#row#" name="requestPrice_#row#" value="#numberformat(rate,',__')#">  	  
 					
 					<cfelse>

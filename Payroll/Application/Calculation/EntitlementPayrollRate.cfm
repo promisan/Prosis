@@ -63,7 +63,6 @@ and the ones that are not ruled by the entitlement group but the salary group --
 		  
 </cfsavecontent>  
 
-
 <cfquery name="RateAmount" 
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
@@ -175,6 +174,7 @@ password="#SESSION.dbpw#">
 	<!--- added 10/10/2010 --->
 	AND    Ent.EntitlementClass = 'Rate'
 	AND    R.SettleUntilPeriod  = '#settle#' 
+	
 		
 </cfquery>
 

@@ -56,7 +56,7 @@
 	<cfoutput>
 	
 		<script LANGUAGE = "JavaScript">		     
-		     ptoken.navigate('RecordListingResult.cfm?idmenu=#url.idmenu#&search=#url.search#&mission=#url.mission#','result')
+		     ptoken.navigate('RecordListingResult.cfm?idmenu=#url.idmenu#&search=#url.search#&mission=#url.mission#&application=#url.application#','result')
 		</script>	
 	
 	</cfoutput>

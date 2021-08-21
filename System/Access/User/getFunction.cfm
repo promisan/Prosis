@@ -20,26 +20,37 @@ password="#SESSION.dbpw#">
 
 <cfif function.recordcount eq "0">
 
-<table><tr class="labelmedium"><td>No functions set</td></tr></table>
+<cfoutput>
+<table><tr class="labelmedium"><td>No functions set for #url.mission#</td></tr></table>
+</cfoutput>
 
 <cfelse>
 
 <cfset cnt = 0>
-<table style="background-color:f1f1f1">
+
+<table style="width:100%;background-color:f1f1f1">
+
+<tr><td style="height:3px"></td></tr>
+
 <cfoutput query="Function">
 	<cfset cnt = cnt + 1>
-    <cfif cnt eq "1">
+    
+	<cfif cnt eq "1">
 	  <tr class="labelmedium2" style="height:18px">
 	</cfif>
-	<td style="width:30px;padding-left:2px;padding-right:8px">
-	     <input type="checkbox" class="radiol" name="functionselect" <cfif counted gte "1">checked</cfif> value="#ProfileId#">
-	 </td>
-	 <td style="padding-right:8px;width:200px">#FunctionName#</td>
-	 
-	 <cfif cnt eq "3">
-	     <cfset cnt = 0></tr>
+	<td style="padding-left:6px;padding-right:2px">
+	    <input type="checkbox" class="radiol" name="functionselect" <cfif counted gte "1">checked</cfif> value="#ProfileId#">
+	</td>
+	<td style="padding-right:2px;width:30%">#FunctionName#</td>	 
+	<cfif cnt eq "3">
+	    <cfset cnt = 0></tr>
 	</cfif>
+	
 </cfoutput>
+
+  </tr>
+  <tr><td style="height:3px"></td></tr>
+
 </table>
 
 </cfif>

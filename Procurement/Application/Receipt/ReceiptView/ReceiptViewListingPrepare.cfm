@@ -1,6 +1,6 @@
 <cfset condition = "">
 	
-<cfif url.period neq "">	
+<cfif url.period neq "" and url.id1 neq "locate">	
      <cfset condition = "R.Period = '#URL.Period#' and R.Mission = '#URL.Mission#'">
 <cfelse>
      <cfset condition = "R.Mission = '#URL.Mission#'"> 
@@ -38,16 +38,17 @@
 <cfif Form.DateStart neq "">
      <cfset dateValue = "">
 	 <CF_DateConvert Value="#Form.DateStart#">
-	 <cfset dte = #dateValue#>
+	 <cfset dte = dateValue>
 	 <cfset condition = "#condition# AND R.ReceiptDate >= #dte#">
 </cfif>	
  
 <cfif Form.DateEnd neq "">
 	 <cfset dateValue = "">
 	 <CF_DateConvert Value="#Form.DateEnd#">
-	 <cfset dte = #dateValue#>
+	 <cfset dte = dateValue>
 	 <cfset condition = "#condition# AND R.ReceiptDate <= #dte#">
 </cfif>	
+
 		
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Receipt">		
 
@@ -91,9 +92,10 @@
 		WHERE 	 #preserveSingleQuotes(condition)#  
 		AND      R.ActionStatus != '9'
 				 
-		ORDER BY R.ReceiptNo		
+		ORDER BY R.ReceiptNo				
+		
 	</cfquery>
-
+	
 <cfelse>
 	
 	<cfquery name="SearchResult" 

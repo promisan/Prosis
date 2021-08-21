@@ -24,5 +24,13 @@
 
 </cftry>
 
+<!--- forces the reload --->
+<cfset session.listingdata[url.box]['sqlorig'] = "">
+
+<!---
+<script>
+  document.getElementById('reloadoption').click()
+</script>
+--->
 
 	

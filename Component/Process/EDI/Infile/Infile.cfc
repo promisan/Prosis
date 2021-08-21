@@ -311,8 +311,7 @@
 							SELECT   *
 							FROM     Materials.dbo.Warehouse
 							WHERE    Warehouse = '#GetBatch.Warehouse#'
-					</cfquery>
-					
+					</cfquery>					
 										
 					<!--- Get Warehouse and Series Information --->
 					<cfquery name="GetSeries"
@@ -520,8 +519,7 @@
 			<cfquery name="GetLines"
 					datasource="#datasource#"
 					username="#SESSION.login#"
-					password="#SESSION.dbpw#">
-					
+					password="#SESSION.dbpw#">					
 					
 					SELECT   TH.Mission, 
 					         TL.OrgUnit, 
@@ -582,16 +580,16 @@
 					datasource="#datasource#"
 					username="#SESSION.login#"
 					password="#SESSION.dbpw#">
-					SELECT   ISNULL(SUM(AmountDebit),0) as Amount
-					FROM     Accounting.dbo.TransactionLine AS TL INNER JOIN
-	                         Accounting.dbo.TransactionHeader AS TH ON TL.Journal = TH.Journal AND TL.JournalSerialNo = TH.JournalSerialNo
-					WHERE    TL.Journal         = '#Journal#' 
-					AND      TL.JournalSerialNo = '#JournalSerialNo#' 
-					AND      TL.TransactionSerialNo <> 0 <!--- contra-line --->
-					AND      TL.GLAccount  IN  (SELECT   GLAccount
-				                                FROM     Accounting.dbo.Ref_Account
-                 					            WHERE    TaxAccount = 1) <!--- we exclude lines that reflect tax --->
-					AND      TL.AmountCredit < 0    <!--- negative amounts to be reflected to be equally divided --->					
+						SELECT   ISNULL(SUM(AmountDebit),0) as Amount
+						FROM     Accounting.dbo.TransactionLine AS TL INNER JOIN
+		                         Accounting.dbo.TransactionHeader AS TH ON TL.Journal = TH.Journal AND TL.JournalSerialNo = TH.JournalSerialNo
+						WHERE    TL.Journal         = '#Journal#' 
+						AND      TL.JournalSerialNo = '#JournalSerialNo#' 
+						AND      TL.TransactionSerialNo <> 0 <!--- contra-line --->
+						AND      TL.GLAccount  IN  (SELECT   GLAccount
+					                                FROM     Accounting.dbo.Ref_Account
+	                 					            WHERE    TaxAccount = 1) <!--- we exclude lines that reflect tax --->
+						AND      TL.AmountCredit < 0    <!--- negative amounts to be reflected to be equally divided --->					
 				</cfquery>		
 			
 			<!--- Overall total --->
@@ -663,6 +661,8 @@
 							
 								<!--- 28/6/2021 : in principle we add to the line the standard tax for Guatemala 
 								                             as this is posted in another line --->
+															 
+								<cfset total = 0>								 
 							
 								<cfloop query="GetLines">
 								
@@ -711,7 +711,9 @@
 											
 											<dte:Total>#trim(numberformat(Amount,"__._______"))#</dte:Total>
 											
-										</dte:Item>					
+										</dte:Item>	
+										
+										<cfset total = total + amount>				
 																			
 								</cfloop>
 								
@@ -721,7 +723,7 @@
 								<dte:TotalImpuestos>
 										<dte:TotalImpuesto NombreCorto="IVA" TotalMontoImpuesto="#trim(numberformat(FEL.Tax,"__.__"))#"></dte:TotalImpuesto>
 								</dte:TotalImpuestos>
-								<dte:GranTotal>#trim(numberformat(FEL.Amount,"__._______"))#</dte:GranTotal>
+								<dte:GranTotal>#trim(numberformat(total,"__._______"))#</dte:GranTotal>
 							</dte:Totales>
 								
 							<cfif FEL.InvoiceType eq "FCAM">
@@ -934,12 +936,7 @@
 
 	</cffunction>
 	
-	
-	
-	
-	
-	
-	
+		
 	
 	
 	<!--- to be replaced --->
@@ -963,8 +960,6 @@
 		<cfset vCatProd						= CatProd>
 		<cfset vAddrType					= AddrType>
 		
-		
-
 		<cfquery name="GetBatch"
 			datasource="AppsMaterials"
 			username="#SESSION.login#"
@@ -1159,7 +1154,7 @@
 			<cfset vUniqueId = "#GetBatch.BatchNo#-#LEFT(GetPrevious.ActionId,3)#">
 		</cfif>
 
-<!--- Get Warehouse information --->
+		<!--- Get Warehouse information --->
 		<cfquery name="GetWarehouse"
 			datasource="#datasource#"
 			username="#SESSION.login#"
@@ -1169,7 +1164,7 @@
 				WHERE  Warehouse = '#GetInvoice.Warehouse#'
 		</cfquery>
 
-<!--- Get Warehouse device information --->
+		<!--- Get Warehouse device information --->
 		<cfquery name="GetWarehouseDevice"
 			datasource="#datasource#"
 			username="#SESSION.login#"
@@ -1181,21 +1176,20 @@
 				AND    Operational=1
 		</cfquery>
 
-<!--- Get Warehouse and Series Information --->
+		<!--- Get Warehouse and Series Information --->
 		<cfquery name="GetWarehouseSeries"
 			datasource="#datasource#"
 			username="#SESSION.login#"
 			password="#SESSION.dbpw#">
 				SELECT T.*, O.OrgUnitName
 				FROM   Organization.dbo.OrganizationTaxSeries T
-						INNER JOIN Organization.dbo.Organization O ON T.OrgUnit = O.OrgUnit
-				WHERE  T.OrgUnit = '#GetWarehouseDevice.TaxOrgUnitEDI#'
-				AND    T.SeriesType = 'Invoice'
-				AND    T.Operational=1
+					   INNER JOIN Organization.dbo.Organization O ON T.OrgUnit = O.OrgUnit
+				WHERE  T.OrgUnit     = '#GetWarehouseDevice.TaxOrgUnitEDI#'
+				AND    T.SeriesType  = 'Invoice'
+				AND    T.Operational = 1
 		</cfquery>
 
-
-<!--- Get Config --->
+		<!--- Get Config --->
 		<cfquery name="GetMissionConfig"
 			datasource="#datasource#"
 			username="#SESSION.login#"
@@ -1206,15 +1200,15 @@
 			    AND    ClassExchange = 'FACE'
 		</cfquery>
 
-<!---- STORE THIS IN A CONFIG TABLE !! ---->
+		<!--- STORE THIS IN A CONFIG TABLE !! --->
 		<cfset vUser     =   GetMissionConfig.ExchangeUserId>
 		<cfset vPwd      =   GetMissionConfig.ExchangePassword>
 	
-<!--- NIT from Seller --->
+		<!--- NIT from Seller --->
 		<cfset vNitEFACE    = GetWarehouseSeries.EFACEId>
 		<cfset DocumentType = GetWarehouseSeries.TaxDocumentType>  <!--- SAT Document Type: Regular Invoice --->
 
-<!----initializing.....------->
+		<!--- initializing..... --->
 
 		<cfset vExchangeRate = "1">
 		<cfset vCurrency = "GTQ">
@@ -1256,15 +1250,17 @@
 			<cfset vNIT = "C/F">
 		</cfif>
 
-		<cfset vInvoiceTotalAmount = "0">
-		<cfset vInvoiceTotalExempt = "0">
-		<cfset vInvoiceTotalDiscount = "0">
-		<cfset vInvoiceTotalTax = "0">
+		<cfset vInvoiceTotalAmount    = "0">
+		<cfset vInvoiceTotalExempt    = "0">
+		<cfset vInvoiceTotalDiscount  = "0">
+		<cfset vInvoiceTotalTax       = "0">
+		
 		<cfif GetInvoice.TotalDiscounts neq "">
 			<cfset vInvoiceTotalDiscount = GetInvoice.TotalDiscounts+0>
 		<cfelse>
 			<cfset vInvoiceTotalDiscount = 0>
 		</cfif>
+		
 		<cfif GetInvoice.TotalTaxDiscounts neq "">
 			<cfset vInvoiceTotalTaxDiscount = GetInvoice.TotalTaxDiscounts+0>
 		<cfelse>
@@ -1547,12 +1543,12 @@
 
 				<cfif findNoCase("Connection Failure",httpResponse.fileContent)>
 					<cfset vError = 1>
-					<cfset EFACEResponse.Status = "false">
-					<cfset EFACEResponse.Cae = "">
-					<cfset EFACEResponse.DocumentNo = "">
-					<cfset EFACEResponse.Dte = "">
+					<cfset EFACEResponse.Status           = "false">
+					<cfset EFACEResponse.Cae              = "">
+					<cfset EFACEResponse.DocumentNo       = "">
+					<cfset EFACEResponse.Dte              = "">
 					<cfset EFACEResponse.ErrorDescription = "Connection Failure">
-					<cfset EFACEResponse.ErrorDetail = "Connection Failure">
+					<cfset EFACEResponse.ErrorDetail      = "Connection Failure">
 
 				</cfif>
 
@@ -1560,10 +1556,10 @@
 
 					<Cfif jSonCertification.resultado neq "NO">
 						<cfset EFACEResponse.Status = "OK">
-						<cfset EFACEResponse.Cae = jSonCertification.uuid>
-						<cfset EFACEResponse.Series = jSonCertification.serie>
+						<cfset EFACEResponse.Cae        = jSonCertification.uuid>
+						<cfset EFACEResponse.Series     = jSonCertification.serie>
 						<cfset EFACEResponse.DocumentNo = jSonCertification.numero>
-						<cfset EFACEResponse.Dte = jSonCertification.fecha>
+						<cfset EFACEResponse.Dte        = jSonCertification.fecha>
 						<cfset EFACEResponse.ErrorDescription = "">
 					<cfelse>
 
@@ -1586,10 +1582,10 @@
 						</cfloop>
 
 
-						<cfset EFACEResponse.Status = "false">
-						<cfset EFACEResponse.Cae = "">
+						<cfset EFACEResponse.Status     = "false">
+						<cfset EFACEResponse.Cae        = "">
 						<cfset EFACEResponse.DocumentNo = "">
-						<cfset EFACEResponse.Dte = "">
+						<cfset EFACEResponse.Dte        = "">
 						<cfset EFACEResponse.ErrorDescription = "#vCategory#">
 						<cfset EFACEResponse.ErrorDetail = "#vError#">
 
@@ -1630,8 +1626,6 @@
 	</cffunction>
 	
 
-
-		
 	
 
 	<cffunction name="SaleVoid"
@@ -1680,12 +1674,12 @@
 		
 		<!--- Get Mission Information --->
 		<cfquery name="GetMission"
-				datasource="#datasource#"
-				username="#SESSION.login#"
-				password="#SESSION.dbpw#">
-			SELECT *
-			FROM  Organization.dbo.Ref_Mission
-			WHERE Mission = '#getTransaction.mission#'
+			datasource="#datasource#"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+				SELECT *
+				FROM  Organization.dbo.Ref_Mission
+				WHERE Mission = '#getTransaction.mission#'
 		</cfquery>
 
         <!--- Get Warehouse and Series Information --->
@@ -1707,7 +1701,7 @@
 
 			SELECT 	TOP 1 *
 			FROM    Accounting.dbo.TransactionHeaderAction A
-					INNER JOIN Accounting.dbo.TransactionHeader H ON H.Journal = A.Journal AND H.JournalSerialNo = A.JournalSerialNo
+					INNER JOIN Accounting.dbo.TransactionHeader H       ON H.Journal = A.Journal AND H.JournalSerialNo = A.JournalSerialNo
 					INNER JOIN Organization.dbo.OrganizationTaxSeries T ON T.OrgUnit = '#FEL.OrgUnitTax#' AND T.SeriesNo = A.ActionReference4
 			WHERE   H.Journal         = '#journal#'
 			AND     H.JournalSerialNo = '#journalserialNo#'
@@ -1717,10 +1711,10 @@
 
 		<cfif GetOriginalInvoice.recordcount neq 0>
 		
-				<cfquery name		="getEDIConfig"
-					datasource	="#datasource#"
-					username  	="#SESSION.login#"
-					password  	="#SESSION.dbpw#">
+				<cfquery name	= "getEDIConfig"
+					datasource	= "#datasource#"
+					username  	= "#SESSION.login#"
+					password  	= "#SESSION.dbpw#">
 					SELECT 		*
 					FROM 		System.dbo.Parameter
 				</cfquery>
@@ -1731,8 +1725,19 @@
 				<cfif not directoryExists(vLogsDirectory)>
 					<cfdirectory action="create" directory="#vLogsDirectory#">
 				</cfif>
-	
-				<!---- STORE THIS IN A CONFIG TABLE !! ---->
+				
+				<!--- NEEDED --->
+				
+				<cfquery name="GetMissionConfig"
+				datasource="#datasource#"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+					SELECT *
+					FROM   Organization.dbo.Ref_MissionExchange
+					WHERE  Mission = '#mission#'
+				    AND    ClassExchange = 'FACE'
+				</cfquery>
+					
 				<cfset vUser     = GetMissionConfig.ExchangeUserId>
 				<cfset vPwd      = GetMissionConfig.ExchangePassword>
 				
@@ -1760,7 +1765,7 @@
 								<dte:GTAnulacionDocumento xmlns:ds="http://www.w3.org/2000/09/xmldsig##" xmlns:dte="http://www.sat.gob.gt/dte/fel/0.1.0" xmlns:n1="http://www.altova.com/samplexml/other-namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="0.1" xsi:schemaLocation="http://www.sat.gob.gt/dte/fel/0.1.0 C:\Users\User\Desktop\FEL\Esquemas\GT_AnulacionDocumento-0.1.0.xsd">
 					<dte:SAT>
 					<dte:AnulacionDTE ID="DatosCertificados">
-							<dte:DatosGenerales FechaEmisionDocumentoAnular="#GetOriginalInvoice.ActionReference3#" FechaHoraAnulacion="#DateFormat(now(),'YYYY-MM-DD')#T#TimeFormat(now(),'HH:MM:SS')#-06:00" ID="DatosAnulacion" IDReceptor="#vNormalizedNit#" MotivoAnulacion="ANULACION" NITEmisor="#vNitEFACE#" NumeroDocumentoAAnular="#GetOriginalInvoice.ActionSource2#"></dte:DatosGenerales>
+							<dte:DatosGenerales FechaEmisionDocumentoAnular="#GetOriginalInvoice.ActionReference3#" FechaHoraAnulacion="#DateFormat(now(),'YYYY-MM-DD')#T#TimeFormat(now(),'HH:MM:SS')#-06:00" ID="DatosAnulacion" IDReceptor="#vNormalizedNit#" MotivoAnulacion="ANULACION" NITEmisor="#vNitEFACE#" NumeroDocumentoAAnular="#GetOriginalInvoice.ActionReference1#"></dte:DatosGenerales>
 					</dte:AnulacionDTE>
 					</dte:SAT>
 					</dte:GTAnulacionDocumento>
@@ -1791,6 +1796,7 @@
 	
 				<cfset jSonDTE = deserializeJSON(httpResponse.fileContent)>
 				<cfif jsonDTE.resultado neq "NO">
+				
 					<cfset revBase64DTE =  ToString(ToBinary(jSONDTE.archivo)) />
 	
 					<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetTransaction.JournalTransactionNo#_Response_Signature_decoded.txt" output="#revBase64DTE#">
@@ -1806,14 +1812,15 @@
 					}>
 	
 					<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetTransaction.JournalTransactionNo#_To_Certify.txt" output="#serializeJSON(stToCertify)#">
-					<cfset vSerialNo = GetInvoice.BatchNo>
+					
+					<cfset vSerialNo = GetTransaction.JournalTransactionNo>
 	
 					<cfhttp url="https://certificador.feel.com.gt/fel/anulacion/v2/dte/" method="post" result="httpResponse" timeout="60">
-						<cfhttpparam type="header" name="usuario" value="#GetWarehouseSeries.UserName#" />
-						<cfhttpparam type="header" name="llave" value="#GetWarehouseSeries.UserKey#" />
+						<cfhttpparam type="header" name="usuario"       value="#GetWarehouseSeries.UserName#" />
+						<cfhttpparam type="header" name="llave"         value="#GetWarehouseSeries.UserKey#" />
 						<cfhttpparam type="header" name="identificador" value="#vSerialNo#" />
-						<cfhttpparam type="header" name="Content-Type" value="application/json" />
-						<cfhttpparam type="body" value="#serializeJSON(stToCertify)#">
+						<cfhttpparam type="header" name="Content-Type"  value="application/json" />
+						<cfhttpparam type="body"                        value="#serializeJSON(stToCertify)#">
 					</cfhttp>
 	
 					<cfset jSonCertification = deserializeJSON(httpResponse.fileContent)>

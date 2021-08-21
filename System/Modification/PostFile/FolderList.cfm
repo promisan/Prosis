@@ -6,7 +6,7 @@
 <table width="100%" height="100%">
 	<tr><td valign="top" height="100%" style="padding-top:4px">
 		<cf_securediv style="height:100%" 
-		     bind="url:FolderListDetail.cfm?dir=#url.dir#&CFTREEITEMKEY=#url.CFTREEITEMKEY#&systemfunctionid=#url.systemfunctionid#" 
+		     bind="url:FolderListDetail.cfm?dir=#url.dir#&key=#url.key#&systemfunctionid=#url.systemfunctionid#" 
 			 id="mylisting">
 	</td></tr>
 	

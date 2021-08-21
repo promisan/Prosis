@@ -112,7 +112,7 @@
 	
 	<tr>
 		<td style="padding-left:10px;padding-right:15px">
-		<cfdiv id="boxresource" 
+		<cf_securediv id="boxresource" 
 		  bind="url:#SESSION.root#/programrem/Application/Budget/Request/RequestResourceDetail.cfm?programcode=#url.programCode#&period=#url.period#&objectcode=&cell=resource">
 		</td>
 	</tr>

@@ -190,16 +190,21 @@ password="#SESSION.dbpw#">
                       ORDER BY PC.DateEffective DESC) AS ContractLevel_ord, 
 					  
 					  P.FirstName+' '+P.LastName as Name, 
-					  -- L.PayrollStart, L.PayrollEnd, 
-					  L.DocumentCurrency, 
-					  <!--- L.PaymentAmount  * F.Percentage AS AmountPayUSD, --->
-					  ROUND(L.DocumentAmount,2) as DocumentAmount <!--- * F.Percentage AS DocumentAmount, --->
-					  -- L.Amount * F.Percentage AS Amount
+					  <!---	  -- L.PayrollStart, L.PayrollEnd, --->
+					  
+					  <!--- Hanno these amounts are not immediately populated : we have several values Payment to staff amount, cost to the organization
+				    	  L.DocumentCurrency, 
+					      <!--- L.PaymentAmount  * F.Percentage AS AmountPayUSD, --->
+					      ROUND(L.DocumentAmount,2)  as DocumentAmount <!--- * F.Percentage AS DocumentAmount, --->
+					  --->
+					  
+					  L.Currency as DocumentCurrency, 
+					  ROUND(L.Amount,2)             as DocumentAmount         <!---  L.AmountBase * F.Percentage   as Amount --->
 								 
 		FROM          EmployeeSettlement AS S 
 		              INNER JOIN EmployeeSettlementLine AS L ON S.PersonNo = L.PersonNo AND S.SalarySchedule = L.SalarySchedule AND S.Mission = L.Mission AND S.PaymentDate = L.PaymentDate AND S.PaymentStatus = L.PaymentStatus
 					  
-					  <!--- disabled
+					  <!--- disabled more towards budget connection
 					  INNER JOIN EmployeeSettlementLineFunding AS F ON L.PaymentId = F.PaymentId 
 					  INNER JOIN Program.dbo.ProgramPeriod AS Pe 
 					  INNER JOIN Program.dbo.Ref_Period AS R ON Pe.Period = R.Period ON F.ProgramCode = Pe.ProgramCode AND YEAR(R.DateEffective) = L.PaymentYear 
@@ -211,13 +216,15 @@ password="#SESSION.dbpw#">
 		                          END - CHARINDEX('_', Pe.PeriodHierarchy)) = PP.ProgramCode AND Pe.Period = PP.Period 
 					  INNER JOIN  Program.dbo.Program AS M ON F.ProgramCode = M.ProgramCode 
 					  --->
-					  INNER JOIN  SalarySchedule AS SS ON S.SalarySchedule = SS.SalarySchedule 
-					  INNER JOIN  SalaryScheduleMission AS SM ON S.SalarySchedule = SM.SalarySchedule AND S.Mission = SM.Mission AND S.PaymentDate >= SM.DateEffectivePortal 
-					  INNER JOIN  Ref_PayrollItem AS I ON L.PayrollItem = I.PayrollItem 
-					  INNER JOIN  Employee.dbo.Person AS P ON S.PersonNo = P.PersonNo 
+					  INNER JOIN  SalarySchedule AS SS               ON S.SalarySchedule = SS.SalarySchedule 
+					  INNER JOIN  SalaryScheduleMission AS SM        ON S.SalarySchedule = SM.SalarySchedule AND S.Mission = SM.Mission AND S.PaymentDate >= SM.DateEffectivePortal 
+					  INNER JOIN  Ref_PayrollItem AS I               ON L.PayrollItem = I.PayrollItem 
+					  INNER JOIN  Employee.dbo.Person AS P           ON S.PersonNo = P.PersonNo 
 					  INNER JOIN  Organization.dbo.Organization AS O ON L.OrgUnit = O.OrgUnit
 		WHERE        S.Mission = '#url.mission#' 
-		 --          AND L.DocumentAmount is not NULL
+		             -- AND L.DocumentAmount is not NULL
+					 
+					
 		
 		
 		) as B

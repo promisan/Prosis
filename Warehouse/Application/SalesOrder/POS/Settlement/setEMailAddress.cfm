@@ -19,7 +19,7 @@
 		<input type="button" 
 		     class="button10g" 
 		     onclick="ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/doInvoiceMail.cfm?batchid=#url.batchid#','mailbox')" 
-		     style="height:28;width:150;font-size:13px" class="regular" name="save" id="save" value="#lt_text#">
+		     style="border:1px solid silver;height:28;width:150;font-size:13px" class="regular" name="save" id="save" value="#lt_text#">
 			 
 	</cfoutput>
 

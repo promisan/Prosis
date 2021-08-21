@@ -27,7 +27,7 @@
 <cf_tl id="Export to Excel" var="lblExportToExcel">
 <cfoutput>
     <h3 style="padding-bottom:10px;">
-        <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="35" height="35" onclick="Prosis.exportToExcel('detailGeoCompRepresentationContent#url.viewId#Detail');" title="#lblExportToExcel#">
+        <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="30" height="30" onclick="Prosis.exportToExcel('detailGeoCompRepresentationContent#url.viewId#Detail');" title="#lblExportToExcel#">
         BY REPRESENTATION
     </h3>
 </cfoutput>

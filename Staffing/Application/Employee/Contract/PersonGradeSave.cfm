@@ -58,7 +58,7 @@
 			<cfoutput>
 			
 				<script>
-					ColdFusion.navigate('PersonGrade.cfm?id=#url.id#','dialoggrade')
+					ptoken.navigate('PersonGrade.cfm?id=#url.id#','dialoggrade')
 				</script>
 				
 			</cfoutput>

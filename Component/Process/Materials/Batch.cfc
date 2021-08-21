@@ -3,7 +3,7 @@
     <cfproperty name="name" type="string">
     <cfset this.name = "Stock requests">
 	
-	<cffunction name="DenyBatch" access="public" displayname="Clear a batch">
+	<cffunction name="DenyBatch" access="public" displayname="Deny a stock POS batch">
 					
 			<cfargument name = "BatchNo" type="string"  required="true"   default="">	
 			<cfargument name="DataSource"      type="string"  required="true" default="appsOrganization">					
@@ -161,6 +161,17 @@
 					   ActionMemo             = '#ActionMemo#'
 				WHERE  BatchNo                = '#BatchNo#'
 			</cfquery>
+			
+			<!--- logging --->
+			
+			<cfquery name="set"
+				datasource="#datasource#" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					INSERT INTO Materials.dbo.WarehouseBatchAction
+     				    	(BatchNo,ActionCode,ActionDate,ActionStatus,OfficerUserId,OfficerLastName,OfficerFirstName)
+					VALUES 	('#URL.BatchNo#','Deny',getdate(),'1','#session.acc#','#session.last#','#session.first#')							
+			</cfquery>		
 				
 			<cftry>
 		
@@ -175,9 +186,7 @@
 				<cfcatch></cfcatch>
 		
 			</cftry>
-		
-											
-	</cffunction>		
-		
+								
+	</cffunction>			
 	
 </cfcomponent>

@@ -3,7 +3,8 @@
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT * FROM Ref_Mission
+	SELECT * 
+	FROM   Ref_Mission
 </cfquery>	
 
 <cfparam name="URL.Search" default="">
@@ -29,25 +30,28 @@
 					   U.OfficerLastName, 
 					   U.OfficerFirstName, 
 					   
-					   <cfif entities.recordcount gte "10">
+					   <cfif entities.recordcount gte "3">
 					   
 					  	   '0' as OrgUnit,
 					   
 					   <cfelse>
 					   
-						   <!--- we check if the usergroup is connected to a single branch within an enity to provide
+						   <!--- we check if the usergroup is connected to a single parent within 
+						   an entity to provide
 						   better information as to what the usergroup is intended --->				   
 						  					   
 						   (SELECT    TOP 1 P.OrgUnit
 						    FROM      Organization.dbo.Organization AS O INNER JOIN
-			                          Organization.dbo.Organization AS P ON O.HierarchyRootUnit = P.OrgUnitCode 
-									                                   AND O.Mission = P.Mission 
-																	   AND O.MandateNo = P.MandateNo
+			                          Organization.dbo.Organization AS P 
+									             ON O.HierarchyRootUnit = P.OrgUnitCode 
+			                                   AND O.Mission = P.Mission 
+					    					   AND O.MandateNo = P.MandateNo
 									  
 							WHERE     O.OrgUnit IN  (SELECT   OrgUnit
-							                  FROM     Organization.dbo.OrganizationAuthorization F
-						                      WHERE    F.OrgUnit     = O.OrgUnit										  
-											  AND      F.UserAccount = U.Account)
+							                         FROM     Organization.dbo.OrganizationAuthorization F
+						                             WHERE    F.OrgUnit     = O.OrgUnit										  
+											         AND      F.UserAccount = U.Account)
+											  
 							GROUP BY  P.OrgUnit
 							HAVING    COUNT(DISTINCT P.OrgUnit) = 1) as OrgUnit,
 											
@@ -103,11 +107,17 @@
 				
 				</cfif>
 				
-				AND    (U.Account LIKE '%#URL.Search#%' OR U.LastName LIKE '%#URL.Search#%' OR U.Remarks LIKE '%#URL.Search#%')
+				AND    (U.Account LIKE '%#URL.Search#%' 
+				             OR U.LastName LIKE '%#URL.Search#%' 
+							 OR U.Remarks LIKE '%#URL.Search#%')
 								
 				) as U LEFT OUTER JOIN Organization.dbo.Organization O ON U.OrgUnit = O.OrgUnit
 				
-		ORDER BY U.AccountOwner, U.AccountMission, O.HierarchyCode, U.AccountGroupName, U.LastName 
+		ORDER BY U.AccountOwner, 
+		         U.AccountMission, 
+				 O.HierarchyCode, 
+				 U.AccountGroupName, 
+				 U.LastName 
 				
 	</cfquery>
 	
@@ -161,8 +171,10 @@
 		
 		 <cfif entities.recordcount lte "10">	
 			<tr style="background-color:white">
-				<td colspan="8" style="height:42px;padding-top:5px;padding-left:25px;font-size:26px;font-weight:350">		   		
+				<td colspan="8" style="height:42px;padding-top:5px;padding-left:25px;font-size:26px">
+						   		
 				<cfif orgunitname eq ""><cf_tl id="Multiple"><cfelse>#OrgUnitName#</cfif>		
+				
 				</td>
 			</tr>	
 		 </cfif>	

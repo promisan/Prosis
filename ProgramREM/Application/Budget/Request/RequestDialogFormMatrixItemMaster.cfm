@@ -12,7 +12,8 @@
 
 <cfif list.recordcount eq "0">
 	
-	<tr class="labelmedium"><td colspan="#dates.recordcount+4#" align="center" height="30" ><font color="FF0000">No items defined. Please contact administrator</font></td></tr>
+	<tr class="labelmedium"><td colspan="<cfoutput>#dates.recordcount+4#</cfoutput>" align="center" height="30" ><font color="gray">No items defined. Please contact administrator</font></td></tr>
+	
 	
 <cfelse>	
 	
@@ -98,7 +99,7 @@
 		   <cfif currentrow eq "1">
 		
 			 <td align="center" bgcolor="f4f4f4" style="cursor:pointer;padding-right:1px;border-top:1px solid silver;border-left:1px solid silver"
-		   		onclick="ColdFusion.navigate('RequestDialogFormMatrixCopy.cfm?row=#row#&col=1&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')">
+		   		onclick="ptoken.navigate('RequestDialogFormMatrixCopy.cfm?row=#row#&col=1&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')">
 				 <img src="#SESSION.root#/images/copy.png" height="12" width="12" alt="" border="0">
 			 </td>
 			 
@@ -121,7 +122,7 @@
 		  
 		  </td>
 		  <td bgcolor="ffffff" align="center" style="padding-top:3px;padding-left:4px;border-top:1px solid silver;border-left:1px solid silver">
-		  
+		  		  
 		  <!--- only visible for budgetmanager --->
 		  
 		  <cfparam name="Requirement.requirementid" default="#URL.RequirementId#">
@@ -129,7 +130,7 @@
 		  <cfif BudgetManagerAccess eq "EDIT" or BudgetManagerAccess eq "ALL">
 		 			  		   
 		   	   <cf_img icon="expand" toggle="yes" 
-				   onclick="parent.getrate('#row#','#url.programcode#','#url.itemmaster#','#topicvaluecode#','','#Requirement.requirementid#','#url.objectCode#','#url.location#','#url.period#')">			 			 						
+				   onclick="_cf_loadingtexthtml='';parent.getrate('#row#','#url.programcode#','#url.itemmaster#','#topicvaluecode#','','#Requirement.requirementid#','#url.objectCode#','#url.location#','#url.period#')">			 			 						
 				   
 		  </cfif>		   
 			   
@@ -140,12 +141,13 @@
 		    <cfif Request.recordcount eq "1" and Requirement.recordcount eq "1">	
 		  
 		     <input type   = "input" 
-				  onchange = "ColdFusion.navigate('RequestDialogFormMatrixScript.cfm?row=#row#&col=0&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')"		
+				  onchange = "ptoken.navigate('RequestDialogFormMatrixScript.cfm?row=#row#&col=0&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')"		
 				  class    = "regularh" 
-				  style    = "border:0px;padding-top:2px;text-align:right;padding-right:2px;width:96%" 
+				  style    = "border:0px;padding-top:2px;text-align:right;padding-right:2px;width:99%" 
 				  id       = "requestPrice_#row#" 
 				  name     = "requestPrice_#row#" 
 				  value    = "#numberformat(requirement.requestprice,'__,__')#">  
+				 
 				  				  
 		    <cfelse>
 			
@@ -188,16 +190,16 @@
 					
 					ORDER BY L.ListOrder, IC.CostOrder
 				</cfquery>
-							
+					
 	
 				<cfif StandardCost.recordcount eq 0>
 				     <input type="input"  
-					  onchange= "ColdFusion.navigate('RequestDialogFormMatrixScript.cfm?row=#row#&col=0&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')"
-					  class="regularh" style="border:0px;padding-top:2px;text-align:right;width:96%" id="requestPrice_#row#" name="requestPrice_#row#" value="#numberformat(rate,'__,__')#">  	  
+					  onchange= "ptoken.navigate('RequestDialogFormMatrixScript.cfm?row=#row#&col=0&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')"
+					  class="regularh" style="border:0px;padding-top:2px;text-align:right;width:100%" id="requestPrice_#row#" name="requestPrice_#row#" value="#numberformat(rate,'__,__')#">  	  
 				<cfelse>
 					<input type="input"  
 					  readonly = "yes"
-					  class="regularh" style="border:0px;padding-top:2px;text-align:right;width:96%" id="requestPrice_#row#" name="requestPrice_#row#" value="">  	  							  
+					  class="regularh" style="border:0px;padding-top:2px;text-align:right;width:100%" id="requestPrice_#row#" name="requestPrice_#row#" value="">  	  							  
 				</cfif>			   	  
 			  
 		    </cfif>
@@ -208,8 +210,12 @@
 		 </tr>
 		 
 		 <tr>
-		 	<td colspan="#5+col#">				   
-		 		<cfdiv bind="url:RequestDialogGetRate.cfm?row=#row#&programcode=#url.programcode#&period=#url.period#&itemmaster=#url.itemmaster#&objectCode=#url.objectCode#&topicvaluecode=#topicvaluecode#&requirementid=#Requirement.requirementid#&location=#url.location#" id="dPrice_#row#" style="display:none" / >
+		 	<td colspan="#5+col#">		
+						   
+		 		<cf_securediv bind="url:RequestDialogGetRate.cfm?row=#row#&programcode=#url.programcode#&period=#url.period#&itemmaster=#url.itemmaster#&objectCode=#url.objectCode#&topicvaluecode=#topicvaluecode#&requirementid=#Requirement.requirementid#&location=#url.location#"
+				 id="dPrice_#row#" 
+				 style="display:none">
+			
 			</td>
 		 </tr>
 	

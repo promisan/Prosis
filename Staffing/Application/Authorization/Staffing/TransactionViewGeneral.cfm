@@ -74,14 +74,14 @@ password="#SESSION.dbpw#">
 	<script>
 	
 	function reloadForm(page,sort,layout,mandate,detail) {
-	   mis = document.getElementById("mission").value
-	   Prosis.busy('yes') 
-	   ptoken.location("TransactionViewGeneral.cfm?ID=#URL.ID#&ID1=#URL.ID1#&ID4=#URL.ID4#&Page=" + page + "&Sort=" + sort + "&Lay=" + layout + "&Mandate=" + mandate + "&Mission=" + mis + "&detail=" + detail);
+	    mis = document.getElementById("mission").value
+	    Prosis.busy('yes') 
+	    ptoken.location("TransactionViewGeneral.cfm?ID=#URL.ID#&ID1=#URL.ID1#&ID4=#URL.ID4#&Page=" + page + "&Sort=" + sort + "&Lay=" + layout + "&Mandate=" + mandate + "&Mission=" + mis + "&detail=" + detail);
 	}
 	
 	function processaction(act,des,doc,src) {
-	if (confirm("Do you want to " + des + " this transaction ?")) {
-	    ptoken.open("TransactionProcess.cfm?ID=#URL.ID#&ID1=#URL.ID1#&mission=#URL.mission#&mandate=#URL.mandate#&ID3=#URL.ID3#&ID4=#URL.ID4#&Page=#url.page#&sort=#url.sort#&lay=#url.lay#&act=" + act + "&doc=" + doc + "&src=" + src, "_self")
+	    if (confirm("Do you want to " + des + " this transaction ?")) {
+	       ptoken.open("TransactionProcess.cfm?ID=#URL.ID#&ID1=#URL.ID1#&mission=#URL.mission#&mandate=#URL.mandate#&ID3=#URL.ID3#&ID4=#URL.ID4#&Page=#url.page#&sort=#url.sort#&lay=#url.lay#&act=" + act + "&doc=" + doc + "&src=" + src, "_self")
 	  	}
 	}
 	

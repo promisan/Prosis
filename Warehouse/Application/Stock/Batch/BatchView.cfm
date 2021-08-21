@@ -297,8 +297,7 @@ password="#SESSION.dbpw#">
 												FROM     ItemTransaction
 												WHERE    TransactionBatchNo = '#URL.BatchNo#'
 												AND      ActionStatus = '0'
-										</cfquery>
-																										
+										</cfquery>																										
 																								
 										<cfif enforcelines eq "0" or check.recordcount eq "0">	
 																						   
@@ -319,8 +318,7 @@ password="#SESSION.dbpw#">
 					    		</td>	
 								
 								<td align="center" style="padding-left:25px">		
-								
-												
+											
 																								
 								<!--- validate of the transactions of the batch were already sourced --->
 								
@@ -395,14 +393,63 @@ password="#SESSION.dbpw#">
 									
 			<cfelse>
 			
-			<table width="100%" class="formpadding">						
+			<table width="100%" class="formpadding" style="border:1px solid silver">						
 							
-				<tr><td colspan="3" class="labelmedium" style="font-size:16px">	
+				<tr><td colspan="3" class="labelmedium" style="padding-left:10px;font-size:16px">	
+				
+				    <table>
+					<tr class="labelmedium2">
 				    <cfif Batch.actionStatus eq "1"> 
-					<font color="2BBD86"><cf_tl id="Confirmed by"><cfelseif Batch.actionstatus eq "9"><font color="FF0000"><cf_tl id="Denied by"></cfif>	
-					<cfif Batch.actionStatus eq "1" or  Batch.actionStatus eq "9"> 			
-					&nbsp;:&nbsp;#Batch.ActionOfficerFirstName# #Batch.ActionOfficerLastName# on #dateformat(Batch.ActionOfficerDate,CLIENT.DateFormatShow)# #timeformat(Batch.ActionOfficerDate,"HH:MM")#
+					
+					    <td style="color:008000;font-weight:bold">
+						<cf_tl id="Confirmed by">:
+						</td>
+						
+						<td style="padding-left:5px">
+						#Batch.ActionOfficerFirstName# #Batch.ActionOfficerLastName# on #dateformat(Batch.ActionOfficerDate,CLIENT.DateFormatShow)# #timeformat(Batch.ActionOfficerDate,"HH:MM")#					
+						</td>
+																		
+					
+					<cfelseif Batch.actionstatus eq "9">
+					
+						<td style="color:FF0000;font-weight:bold">
+						<cf_tl id="Denied by">:
+						</td>
+					
+						<td style="padding-left:5px">
+						#Batch.ActionOfficerFirstName# #Batch.ActionOfficerLastName# on #dateformat(Batch.ActionOfficerDate,CLIENT.DateFormatShow)# #timeformat(Batch.ActionOfficerDate,"HH:MM")#					
+						</td>
+					
+					</cfif>	
+					
+					<cfif Batch.actionStatus neq "9"> 
+					
+						<!--- check the history --->
+						
+						<cfquery name="Check"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							SELECT  *
+							FROM    WarehouseBatchAction
+							WHERE   BatchNo = '#Batch.BatchNo#'
+							-- AND     ActionCode = 'Deny'
+							ORDER BY Created 
+						</cfquery>	
+						
+						<cfif check.recordcount gte "1">
+						
+						<td style="padding-left:5px;color:FF0000">
+						was cancelled before on #dateformat(Check.ActionDate,CLIENT.DateFormatShow)# by #Check.OfficerFirstName# #check.officerLastName#
+						</td>
+						
+						</cfif>
+					
 					</cfif>
+					
+					</tr>
+					</table> 
+					
 					</td>
 					
 					<cfif Batch.actionstatus neq "9">		

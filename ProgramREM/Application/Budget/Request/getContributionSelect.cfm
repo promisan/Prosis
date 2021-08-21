@@ -2,7 +2,7 @@
 <!--- select --->
 
 <script>
-	try { ColdFusion.Window.destroy('mycontribution',true) } catch(e) {}
+	try { ProsisUI.closeWindow('mycontribution',true) } catch(e) {}
 </script>
 
 <cfset url.mode = "view">

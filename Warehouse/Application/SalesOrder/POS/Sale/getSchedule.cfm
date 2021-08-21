@@ -22,7 +22,8 @@
   password="#SESSION.dbpw#">
 	 SELECT *
 	 FROM   Ref_PriceSchedule	
-	 WHERE  FieldDefault = 1						   							   
+	 WHERE  FieldDefault = 1
+	 AND Operational = '1'
 </cfquery>
 		
 <cfif qThisSale.recordcount neq 0>		

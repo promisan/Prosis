@@ -19,7 +19,7 @@ password="#SESSION.dbpw#">
 	function validate(mode) {
 		document.formperson.onsubmit() 
 		if( _CF_error_messages.length == 0 ) {		    
-           	ColdFusion.navigate('PersonEntrySubmit.cfm?personno=#url.personNo#&mode='+mode,'personresult','','','POST','formperson')
+           	ptoken.navigate('PersonEntrySubmit.cfm?personno=#url.personNo#&mode='+mode,'personresult','','','POST','formperson')
 	    }   
     }
 		

@@ -17,6 +17,7 @@ password="#SESSION.dbpw#">
 	AND    R.Role = Role.Role
 </cfquery>
 
+
 <cfform onsubmit="return false" name="entityform" style="height:98%">
 
 <cfif url.mode eq "dialog">

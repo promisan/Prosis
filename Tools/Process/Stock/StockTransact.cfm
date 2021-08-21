@@ -654,7 +654,7 @@
 		   password="#SESSION.dbpw#">
 		   SELECT * 
 		   FROM   Purchase.dbo.PurchaseLinereceipt
-		   WHERE  ReceiptId = '#attributes.receipt#'    
+		   WHERE  ReceiptId = '#attributes.receiptId#'    
 		</cfquery>
 		
 		<cfif Receipt.ReceiptMultiplier gt "1">

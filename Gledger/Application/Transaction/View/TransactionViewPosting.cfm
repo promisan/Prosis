@@ -517,15 +517,33 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 				<TD style="width:50%;min-width:260;padding-right:4px"><cf_tl id="GLAccount"></TD>
 				<TD style="min-width:110;padding-right:4px" colspan="2"><cf_tl id="Document"></TD>
 				<TD align="right"></TD>
-
 				<TD style="min-width:88" align="right"><cf_tl id="Debit"></TD>
 				<TD style="min-width:88" align="right"><cf_tl id="Credit"></TD>
 				<cfif access neq "READ">
 					<TD style="min-width:88" align="right">in #param.BaseCurrency#</TD>
-				<TD style="min-width:88" align="right">in #param.BaseCurrency#</TD>
+				    <TD style="min-width:88" align="right">in #param.BaseCurrency#</TD>
 					<TD style="min-width:10" align="right"></TD>
 				</cfif>
 				</tr>
+				
+				<cfquery name="TotalCheck"
+					datasource="AppsLedger"
+					username="#SESSION.login#"
+					password="#SESSION.dbpw#">
+						SELECT     ROUND(SUM(AmountDebit - AmountCredit), 1)         AS Currency, 
+						           ROUND(SUM(AmountBaseDebit - AmountBaseCredit), 1) AS Base
+						FROM       TransactionLine
+						WHERE      Journal         = '#Journal#' 
+						AND        JournalSerialNo = '#JournalSerialNo#' 
+				 </cfquery>
+				
+				<cfif totalCheck.Currency neq "0" or totalCheck.Base neq "0">				
+				<tr class="labelmedium">
+					<td colspan="<cfif access neq 'READ'>13<cfelse>10</cfif>" align="center" style="font-weight:notmal;background-color:red;color:white">
+					Transaction appears to be not in balance. Please contact your administrator
+					</td>
+				</tr>
+				</cfif>
 
 			<cfelse>
 
@@ -568,17 +586,12 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 
 							<img src="#SESSION.root#/Images/icon_expand.gif"								
 								id="#JournalTransactionNo#Exp" name="#JournalTransactionNo#Max"
-								border="0"
-								class="hide"
-								align="absmiddle" style="cursor: pointer;"
+								border="0" class="hide"	align="absmiddle" style="cursor: pointer;"
 								onClick="more('#JournalTransactionNo#')">
 
 							<img src="#SESSION.root#/Images/icon_collapse.gif"
 								id="#JournalTransactionNo#Min" name="#JournalTransactionNo#Min"								
-								border="0"
-								align="absmiddle"
-								class="regular"
-								style="cursor: pointer;"
+								border="0" class="regular" align="absmiddle" style="cursor: pointer;"
 								onClick="more('#JournalTransactionNo#')">
 
 							<cfset cl = "regular">

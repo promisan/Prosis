@@ -275,9 +275,7 @@ password="#SESSION.dbpw#">
 		   <input type="hidden"   name="Period"      id="Period"      value="#url.Period#">
 		   <input type="hidden"   name="EditionId"   id="EditionId"   value="#url.EditionId#">	  
 		   <input type="hidden"   name="ObjectCode"  id="ObjectCode"  value="#url.objectcode#">
-		   	   
-		  
-		   		   	 	   
+		  		   		   	 	   
 		    <tr>
 			   <td class="labelmedium" height="20" width="150"><cf_tl id="Fund">:</td>
 			   <TD class="labelmedium">			
@@ -306,7 +304,8 @@ password="#SESSION.dbpw#">
 			   			   
 			   	   <cfif entry.fund eq "">
 				  
-				   	   <select name="fund" id="fund" class="regularxl enterastab" style="width:80px" onchange="ColdFusion.navigate('#session.root#/ProgramREM/Application/Budget/Request/getContribution.cfm?mode=edit&requirementid=#url.requirementid#&programcode=#url.programcode#&fund='+this.value+'&period=#url.period#','contributionresult')">
+				   	   <select name="fund" id="fund" class="regularxl enterastab" style="width:80px" 
+					      onchange="javascript:reloadmatrix('#edition.period#','#id#');ptoken.navigate('#session.root#/ProgramREM/Application/Budget/Request/getContribution.cfm?mode=edit&requirementid=#url.requirementid#&programcode=#url.programcode#&fund='+this.value+'&period=#url.period#','contributionresult')">
 						   <cfloop query="Fund">
 						   <option value="#Code#" <cfif settings.fund eq code>selected</cfif>>#Description#</option>
 						   </cfloop>
@@ -320,7 +319,8 @@ password="#SESSION.dbpw#">
 				   					   
 				   <cfelse>
 			   
-					   <select name="fund" id="fund" class="regularxl enterastab" style="width:80px" onchange="ColdFusion.navigate('#session.root#/ProgramREM/Application/Budget/Request/getContribution.cfm?mode=edit&requirementid=#url.requirementid#&programcode=#url.programcode#&fund='+this.value+'&period=#url.period#','contributionresult')">
+					   <select name="fund" id="fund" class="regularxl enterastab" style="width:80px" 
+					     onchange="javascript:reloadmatrix('#edition.period#','#id#');ptoken.navigate('#session.root#/ProgramREM/Application/Budget/Request/getContribution.cfm?mode=edit&requirementid=#url.requirementid#&programcode=#url.programcode#&fund='+this.value+'&period=#url.period#','contributionresult')">
 						   <cfloop query="Fund">
 						   <option value="#Code#" <cfif entry.fund eq code>selected</cfif>>#Description#</option>
 						   </cfloop>
@@ -763,8 +763,9 @@ password="#SESSION.dbpw#">
 							<cfset selected = entry.RequestLocationCode>
 							
 					   </cfif>	
-					   					   
-					     <select name="RequestLocationCode" id="requestlocationcode" style="width:350px" class="regularxl enterastab">
+					   				   
+					     <select name="RequestLocationCode" id="requestlocationcode" style="width:350px" class="regularxl enterastab" 
+						   onchange="javascript:reloadmatrix('#edition.period#','#id#')">
 						    <!---
 					   		<option value=""><cf_tl id="Undefined"></option>		
 							--->
@@ -788,12 +789,10 @@ password="#SESSION.dbpw#">
 		  
 		 <cfif Object.RequirementMode eq "3">	 
 		 
-		   
-		 
 			    <script language="JavaScript">	
 							   		 
 				     if (se = document.getElementById('details')) {
-					   	 ColdFusion.navigate('../Request/RequestList.cfm?scope=dialog&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&objectcode=#url.objectcode#&requirementid=#id#','details')						   					   
+					   	 ptoken.navigate('../Request/RequestList.cfm?scope=dialog&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&objectcode=#url.objectcode#&requirementid=#id#','details')						   					   
 					 }
 								 
 			   </script>	
@@ -841,7 +840,7 @@ password="#SESSION.dbpw#">
 								       <cfelse>
 									   			  
 									   	  <cfif Object.RequirementMode neq "2">	
-										
+										  										  										
 										  	   <cfif Object.RequirementPeriod eq "1">												  			   			  									  
 														  
 									  				<select name="itemmaster" 
@@ -849,13 +848,13 @@ password="#SESSION.dbpw#">
 												          message="Please select an item"
 												          visible="Yes"
 														  class="enterastab regularxl"
-														  onchange="alldetinsert('#url.editionid#_#url.objectcode#','#url.editionid#','#url.objectcode#','#requirementid#','edit','dialog',this.value)"
+														  onchange="javascript:reloadmatrix('#edition.period#','#id#');alldetinsert('#url.editionid#_#url.objectcode#','#url.editionid#','#url.objectcode#','#requirementid#','edit','dialog',this.value)"
 												          enabled="Yes"
 														  style="width:350px"
 												          required="Yes">
 												  
-												  <cfelse>		
-												  												  							  								  
+												  <cfelse>
+												  													  												  							  								  
 												  	 <select name="itemmaster" 
 													 	  id="itemmaster"												     	  
 												          message="Please select an item"
@@ -864,7 +863,7 @@ password="#SESSION.dbpw#">
 														  style="width:350px"
 														  class="enterastab regularxl"
 												          required="Yes"
-												          onchange="ColdFusion.navigate('../Request/getRequestDescription.cfm?line=1&id=#id#&itemmaster='+this.value,'description'); ColdFusion.navigate('../request/RequestList.cfm?scope=dialog&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&objectcode=#url.objectcode#&itemmaster='+this.value+'&requirementid=#id#','details')">
+												          onchange="javascript:reloadmatrix('#edition.period#','#id#');ptoken.navigate('../Request/getRequestDescription.cfm?line=1&id=#id#&itemmaster='+this.value,'description'); ptoken.navigate('../request/RequestList.cfm?scope=dialog&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&objectcode=#url.objectcode#&itemmaster='+this.value+'&requirementid=#id#','details')">
 														  								 					  
 												  </cfif>
 											       
@@ -887,17 +886,16 @@ password="#SESSION.dbpw#">
 											   <script language="JavaScript">	
 											   		 
 											     if (se = document.getElementById('details')) {
-												   	 ColdFusion.navigate('../Request/RequestList.cfm?scope=dialog&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&objectcode=#url.objectcode#&itemmaster=#itm#&requirementid=#id#','details')						   					   
+												   	 ptoken.navigate('../Request/RequestList.cfm?scope=dialog&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&objectcode=#url.objectcode#&itemmaster=#itm#&requirementid=#id#','details')						   					   
 												 }
 												 
 											   </script>			 
 										   				   
 										   <cfelse>
 										   											  	
-											   <cfif url.itemmaster eq "" or url.mode eq "add"> 
-											   
-											   									   										   										   				   
-												   <select name="itemmaster" id="itemmaster" style="width:350px" class="enterastab regularxl">
+											   <cfif url.itemmaster eq "" or url.mode eq "add"> 									   
+											   																									   										   										   				   
+												   <select onchange="javascript:reloadmatrix('#edition.period#','#id#')" name="itemmaster" id="itemmaster" style="width:350px" class="enterastab regularxl">
 													  
 													   <cfloop query="itemmaster">
 													   	 <option value="#Code#" <cfif url.itemmaster eq code>selected</cfif>><cfif CodeDisplay eq "">#Code#<cfelse>#CodeDisplay#</cfif> #Description#</option>
@@ -917,12 +915,10 @@ password="#SESSION.dbpw#">
 													</cfquery>
 													
 													<input type="hidden" name="itemmaster" id="itemmaster" value="#url.itemmaster#">
-													#ItemMaster.Description#
-											   
+													#ItemMaster.Description#											   
 											   
 											   </cfif> 
 										  
-										   
 											   <!--- load the budget item listing screen --->
 											   
 											   <cfif url.itemmaster neq "">
@@ -933,19 +929,18 @@ password="#SESSION.dbpw#">
 										   
 										       <script language="JavaScript1.2">											    
 											     if (se = document.getElementById('details')) {
-												   	 ColdFusion.navigate('../Request/RequestList.cfm?scope=dialog&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&objectcode=#url.objectcode#&itemmaster=#itm#&requirementid=#id#','details')						   					   
+												   	 ptoken.navigate('../Request/RequestList.cfm?scope=dialog&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&objectcode=#url.objectcode#&itemmaster=#itm#&requirementid=#id#','details')						   					   
 												 }
 											   </script>	
 										  			   
 										   </cfif>
 										   			   
-									   </cfif>
-								   
+									   </cfif>								   
 								  
 								</td>
 							
 								<td style="padding-left:8px;">
-									<cf_tl id="View Instructions" var="1">
+									<cf_tl id="Instructions" var="1">
 									<table>
 										<tr>
 											<td>
@@ -957,7 +952,7 @@ password="#SESSION.dbpw#">
 													onclick="getItemObjectInstructions('#url.objectcode#', $('##itemmaster').val(), '#url.programcode#','#url.period#','#url.editionid#','InstructionsDetail', this, 'collapse.png', 'expand.png');">
 											</td>
 											<td style="padding-left:3px;" class="labelmedium">											    
-												<label for="imgViewInstructions"><cf_tl id="View Instructions"></label>	
+												<label for="imgViewInstructions"><cf_tl id="Instructions"></label>	
 											</td>
 										</tr>
 									</table>
@@ -978,6 +973,8 @@ password="#SESSION.dbpw#">
 		   
 		   </cfif>
 		   
+		   <span class="hide" id="ctotal"></span>
+		   
 		 	   
 		   <!--- -------------------------------------- --->
 		   <!--- ---------- Subitem for period  ------- --->
@@ -997,7 +994,7 @@ password="#SESSION.dbpw#">
 					       #entry.requestDescription#				   
 				   <cfelse>		
 				      <cfparam name="itm" default="#url.itemmaster#">			 
-					  <cfdiv bind="url:getRequestDescription.cfm?line=1&id=#id#&itemmaster=#itm#">  
+					  <cf_securediv bind="url:getRequestDescription.cfm?line=1&id=#id#&itemmaster=#itm#">  
 				   </cfif>
 				   		   
 				   </TD>
@@ -1039,164 +1036,165 @@ password="#SESSION.dbpw#">
 																			
 							<tr class="labelmedium line">				
 						  
-									<cfif URL.Mode neq "edit" and url.mode neq "add">	
-									   
-									   	 <td style="padding-right:1px;width:100" id="description" class="labelmedium">	   
-									     #entry.requestDescription#				   
-										 </td>
-										 	   
-								    <cfelse>		
-								   
-									      <cfparam name="itm" default="#url.itemmaster#">			 
-										  <td style="width:100%;padding-right:4px">						  				  
-										  <cfdiv id="description" bind="url:getRequestDescription.cfm?line=1&id=#id#&itemmaster=#itm#">  
-										  </td>
-										  
-								    </cfif>
-									   					
-									<cfif Object.RequirementMode eq "0">					
-															   
-										   <cfif URL.Mode neq "edit" and url.mode neq "add">
-										   
-											   <td style="padding-right:1px;width:40" align="right" class="labelmedium">		
-											   #entry.requestQuantity#
-											   </td>	   
-											   
-										   <cfelse>
-										  
-											   <td align="right" style="width:100;padding-right:4px">
-											 
-												   <cfinput type = "Text"
-												       name      = "requestquantity_1"
-													   id        = "requestquantity_1"
-												       value     = "#entry.requestQuantity#"
-												       validate  = "float"
-													   class     = "enterastab regularxl"
-													   style     = "text-align:right;padding-right:3px;width:40;height:25;border:0px;border-right:1px solid silver"		  
-													   message   = "Please enter a quantity"
-												       required  = "Yes"      
-												       typeahead = "No">
+							<cfif URL.Mode neq "edit" and url.mode neq "add">	
+							   
+							   	 <td style="padding-right:1px;width:100" id="description" class="labelmedium">	   
+							     #entry.requestDescription#				   
+								 </td>
+								 	   
+						    <cfelse>		
+						   
+							      <cfparam name="itm" default="#url.itemmaster#">			 
+								  <td style="width:100%;padding-right:4px">						  				  
+								  <cf_securediv id="description" bind="url:getRequestDescription.cfm?line=1&id=#id#&itemmaster=#itm#">  
+								  </td>
+								  
+						    </cfif>
+							   					
+							<cfif Object.RequirementMode eq "0">					
 													   
-												</td>	   
+								   <cfif URL.Mode neq "edit" and url.mode neq "add">
+								   
+									   <td style="padding-right:1px;width:40" align="right" class="labelmedium">		
+									   #entry.requestQuantity#
+									   </td>	   
+									   
+								   <cfelse>
+								  
+									   <td align="right" style="width:100;padding-right:4px">
+									 
+										   <cfinput type = "Text"
+										       name      = "requestquantity_1"
+											   id        = "requestquantity_1"
+										       value     = "#entry.requestQuantity#"
+										       validate  = "float"
+											   class     = "enterastab regularxl"
+											   style     = "text-align:right;padding-right:3px;width:40;height:25;border:0px;border-right:1px solid silver"		  
+											   message   = "Please enter a quantity"
+										       required  = "Yes"      
+										       typeahead = "No">
 											   
-										   </cfif>	
-															 
-									<cfelse>
-									 					 							
-											<cfif URL.Mode neq "edit" and url.mode neq "add">
+										</td>	   
 									   
-									   	     <td style="padding-right:0px;width:60" align="right">						   
-									   	      #entry.ResourceQuantity# 
-											 </td> 
-											 
-											 <td style="padding-right:0px;width:60" align="right">						   
-									   	      #entry.ResourceDays#					   
-										     </td>
-											 
-											 <td style="padding-right:0px;width:60" align="right">						   
-									   	      #entry.requestQuantity#					   
-										     </td>
-									   
-									   	   <cfelse>
-									   
-									        <td style="padding-right:4px">	
+								   </cfif>	
+													 
+							<cfelse>
+							 					 							
+									<cfif URL.Mode neq "edit" and url.mode neq "add">
+							   
+							   	     <td style="padding-right:0px;width:60" align="right">						   
+							   	      #entry.ResourceQuantity# 
+									 </td> 
+									 
+									 <td style="padding-right:0px;width:60" align="right">						   
+							   	      #entry.ResourceDays#					   
+								     </td>
+									 
+									 <td style="padding-right:0px;width:60" align="right">						   
+							   	      #entry.requestQuantity#					   
+								     </td>
+							   
+							   	   <cfelse>
+							   
+							        <td style="padding-right:4px">	
+								   
+									    <cfinput type="Text"
+									       name="resourcequantity_1"
+										   id="resourcequantity_1"
+									       value="#entry.resourceQuantity#"
+									       validate="float"			
+										   class="enterastab regularxl"		  
+										   style="text-align:right;padding-right:3px;height:25;width:60;border:0px;border-right:1px solid silver"
+										   message="Please enter a quantity"
+									       required="Yes">
+								   
+								    </td>
+								  				  					   
+								    <td style="padding-right:4px">
+								  						  
+									    <cfinput type="Text"
+									       name="resourcedays_1"
+										   id="resourcedays_1"
+									       value="#entry.resourcedays#"
+									       validate="float"		
+										   class="enterastab regularxl"			  
+										   style="text-align:right;padding-right:3px;height:25;width:60;border:0px;border-right:1px solid silver"
+										   message="Please enter a quantity"
+									       required="Yes">
 										   
-											    <cfinput type="Text"
-											       name="resourcequantity_1"
-												   id="resourcequantity_1"
-											       value="#entry.resourceQuantity#"
-											       validate="float"			
-												   class="enterastab regularxl"		  
-												   style="text-align:right;padding-right:3px;height:25;width:60;border:0px;border-right:1px solid silver"
-												   message="Please enter a quantity"
-											       required="Yes">
-										   
-										    </td>
-										  				  					   
-										    <td style="padding-right:4px">
-										  						  
-											    <cfinput type="Text"
-											       name="resourcedays_1"
-												   id="resourcedays_1"
-											       value="#entry.resourcedays#"
-											       validate="float"		
-												   class="enterastab regularxl"			  
-												   style="text-align:right;padding-right:3px;height:25;width:60;border:0px;border-right:1px solid silver"
-												   message="Please enter a quantity"
-											       required="Yes">
-												   
-										    </td>
-										 				 					   
-										    <td style="padding-left:3px;text-align:right;padding-right:3px;vertical-align: middle;">
-										   						  
-											  <cfdiv id="quantity_1" style="width:60;border-right:1px solid silver;height:25;padding-right:3px;"
-											    bind="url:RequestQuantityMode1.cfm?mode=quantity&resource_1={resourcequantity_1}&day_1={resourcedays_1}"/>
-																											   
-										     </td>
-															 
-										 </cfif>	
-										 											 
-							 		 </cfif>
-									 	 			  		   
-									 <cfif URL.Mode neq "edit" and url.mode neq "add">
-										   
-									   	     <td style="padding-right:3px;border-right:1px solid silver" align="right" class="labelmedium">#numberformat(entry.requestPrice,",.__")# </td>
-										   
-									 <cfelse>
-										   
-											 <td style="padding-left:1px;padding-right:1px">
-												
-												   <cfif entry.requestprice lte "0.05">
-												     <cfset val = "0.00">				
-												   <cfelse>	 			
-												      <cfset val = "#numberformat(entry.requestPrice,",.__")#">
-												   </cfif>
+								    </td>
+								 				 					   
+								    <td style="padding-left:3px;text-align:right;padding-right:3px;vertical-align: middle;">
+								   					  
+									  <cf_securediv id="quantity_1" style="width:60;border-right:1px solid silver;height:25;padding-right:3px;"
+									    bind="url:RequestQuantityMode1.cfm?mode=quantity&resource_1={resourcequantity_1}&day_1={resourcedays_1}">
+																									   
+								     </td>
+													 
+								 </cfif>	
+								 											 
+					 		 </cfif>
+							 	 			  		   
+							 <cfif URL.Mode neq "edit" and url.mode neq "add">
+								   
+							   	 <td style="padding-right:3px;border-right:1px solid silver" align="right" class="labelmedium">#numberformat(entry.requestPrice,",.__")# </td>
+								   
+							 <cfelse>
+								   
+								 <td style="padding-left:1px;padding-right:1px">
 									
-												   <cf_tl id="Please enter a cost price" var="1">
-												   								   
-												   <cfinput type="Text" 
-													   name     = "requestprice_1"
-													   id       = "requestprice_1"
-												       value    = "#val#"												       				   
-													   style    = "padding-right:3px;text-align:right;width:70;height:25;border:0px;border-right:1px solid silver"
-													   message  = "#lt_text#"
-													   class    = "regularxl enterastab"
-												       required = "Yes">	
-													   
-													   <!-- validate = "float"	 --->		   
-									 	   
-											 </td>
-										   
-									 </cfif>		
-							 	   			   
-									 <td align="right" class="labelmedium"
-									    style="padding-left:4px;width:85px;border-bottom:1px solid silver;text-align:right;padding-right:0px">
+								   <cfif entry.requestprice lte "0.05">
+								     <cfset val = "0.00">				
+								   <cfelse>	 			
+								      <cfset val = "#numberformat(entry.requestPrice,",.__")#">
+								   </cfif>
+					
+								   <cf_tl id="Please enter a cost price" var="1">
+								   								   
+								   <cfinput type="Text" 
+									   name     = "requestprice_1"
+									   id       = "requestprice_1"
+								       value    = "#val#"												       				   
+									   style    = "padding-right:3px;text-align:right;width:70;height:25;border:0px;border-right:1px solid silver"
+									   message  = "#lt_text#"
+									   class    = "regularxl enterastab"
+								       required = "Yes">	
+									   
+									   <!-- validate = "float"	 --->		   
+						 	   
+								 </td>
 								   
-								   	<cfif URL.Mode neq "edit" and url.mode neq "add">
-										
-									   		#numberformat(entry.requestAmountBase,",.__")#
-										
-									<cfelse>							
-																						
-											<cfif Object.RequirementMode eq "0">							
-											   
-											    <cfdiv id="total_div" style="background-color:f1f1f1;width:80;border-right:1px solid silver;height:25;padding-right:3px;"
-												bind="url:RequestQuantityMode0.cfm?mode=total&price={requestprice_1}&quantity_1={requestquantity_1}"/>
+							 </cfif>		
+					 	   			   
+							 <td align="right" class="labelmedium"
+							    style="padding-left:4px;width:85px;border-bottom:1px solid silver;text-align:right;padding-right:0px">
+																						   
+						   	<cfif URL.Mode neq "edit" and url.mode neq "add">
+								
+							   		#numberformat(entry.requestAmountBase,",.__")#
+								
+							<cfelse>		
+																			
 																				
-											<cfelse>												
-																							
-												<cfdiv id="total_div" style="background-color:f1f1f1;width:80;border-right:1px solid silver;height:25;padding-right:3px;"
-												bind="url:RequestQuantityMode1.cfm?mode=total&price={requestprice_1}&resource_1={resourcequantity_1}&day_1={resourcedays_1}"/>
-																															
-											</cfif>													
+									<cfif Object.RequirementMode eq "0">							
+									   
+									    <cf_securediv id="total_div" style="background-color:f1f1f1;width:80;border-right:1px solid silver;height:25;padding-right:3px;padding-top:4px"
+										bind="url:RequestQuantityMode0.cfm?filler=0&mode=total&price={requestprice_1}&quantity_1={requestquantity_1}">
+																
+									<cfelse>												
 																					
-									</cfif>	
-																	
-									<input type="hidden" name="requestamountbase_1" id="requestamountbase_1" value="#entry.requestAmountBase#">				
+										<cf_securediv id="total_div" style="background-color:f1f1f1;width:80;border-right:1px solid silver;height:25;padding-right:3px;padding-top:4px"
+										bind="url:RequestQuantityMode1.cfm?filler=0&mode=total&price={requestprice_1}&resource_1={resourcequantity_1}&day_1={resourcedays_1}">
+																																							
+									</cfif>													
+																			
+							</cfif>	
 															
-									</td>
-														
-									</tr>
+							<input type="hidden" name="requestamountbase_1" id="requestamountbase_1" value="#entry.requestAmountBase#">				
+													
+							</td>
+												
+							</tr>
 												
 						</table>
 						</td>
@@ -1252,7 +1250,7 @@ password="#SESSION.dbpw#">
 																
 						<cfif Object.RequirementMode eq "0" or Object.RequirementMode eq "1">			
 							
-							  <table width="100%" align="center" border="0" style="border:0px dotted silver" cellspacing="0" cellpadding="0">
+							  <table width="100%" align="center" border="0">
 							  <tr>	
 																  
 							   <cfset url.requirementid = id>
@@ -1268,11 +1266,10 @@ password="#SESSION.dbpw#">
 							<cfelse>	
 											
 							    <!--- entry of quantities per sub item and audit period --->	
-																														   
-							   <cfdiv bindonload="false"
-							          bind="url:RequestDialogFormMatrix.cfm?requirementid=#id#&planperiod=#url.period#&period=#edition.period#&fund={fund}&objectcode=#url.objectcode#&itemmaster={itemmaster}&location={requestlocationcode}&programcode=#url.programcode#&mission=#Program.Mission#&editionid=#URL.Editionid#" 
-									  id="matrix">
-								
+																																																														   
+							   <cfdiv id="matrixbox">					   
+							   
+									 								
 								   <cfset url.planperiod  = url.period>	  
 								   <cfset url.period      = edition.period>
 								   <cfset url.requirementid = id>	
@@ -1300,7 +1297,7 @@ password="#SESSION.dbpw#">
 					  	 			   
 				   	   <tr><td height="3"></td></tr>	 		   
 					  
-					   <tr class="xxxx#cl#">
+					   <tr class="#cl#">
 					   <td width="120" class="labelmedium"><cf_tl id="Requirement">:</td>
 					   				  
 						   <cfif Object.RequirementMode eq "0">
@@ -1322,7 +1319,7 @@ password="#SESSION.dbpw#">
 														 </cfif>						
 													</cfloop>																					
 																																						
-												    <cfdiv id="subtotal" bindonload="false" bind="url:RequestQuantityMode0.cfm?mode=quantity&#lk#">
+												    <cfdiv id="subtotal" bindonload="false" bind="url:RequestQuantityMode0.cfm?mode=quantity&#lk#&mid=#url.mid#">
 														#entry.RequestQuantity#																																									
 													</cfdiv>
 																
@@ -1357,7 +1354,7 @@ password="#SESSION.dbpw#">
 													 </cfif>						
 												</cfloop>
 																														
-												<cfdiv id="subtotal" bindonload="false"	bind="url:RequestQuantityMode1.cfm?scope=period&mode=quantity&#lk#">	
+												<cfdiv id="subtotal" bindonload="false"	bind="url:RequestQuantityMode1.cfm?scope=period&mode=quantity&#lk#&mid=#url.mid#">	
 												
 													<div id="total_display" style="font-size:13">#numberformat(entry.RequestQuantity,",.__")#</div>
 													
@@ -1448,7 +1445,7 @@ password="#SESSION.dbpw#">
 									<cfif Object.RequirementMode eq "0">
 																								
 									    <cfdiv id="total" bindonload="false"
-										bind="url:RequestQuantityMode0.cfm?scope=period&mode=total&price={requestprice_1}&#lk#">
+										bind="url:RequestQuantityMode0.cfm?scope=period&mode=total&price={requestprice_1}&#lk#&mid=#url.mid#">
 										    <div id="total_display" style="font-size:15" >
 												#numberformat(entry.requestAmountBase,",.__")#								
 											</div>
@@ -1457,7 +1454,7 @@ password="#SESSION.dbpw#">
 									<cfelse>
 																			
 										<cfdiv id="total" bindonload="false"
-											bind="url:RequestQuantityMode1.cfm?scope=period&mode=total&price={requestprice_1}&#lk#">
+											bind="url:RequestQuantityMode1.cfm?scope=period&mode=total&price={requestprice_1}&#lk#&mid=#url.mid#">
 											  <div id="total_display" style="font-size:15">
 											     #numberformat(entry.requestAmountBase,",.__")#							 
 										      </div>
@@ -1496,7 +1493,7 @@ password="#SESSION.dbpw#">
 			   
 			   <cfelse>
 			   		   
-			   		<textarea style="padding:4px;width:97.5%;max-width:97.5%;resize: vertical;height:45;font-size:13px" name="RequestRemarks" class="enterastab regular">#entry.requestRemarks#</textarea>
+			   		<textarea style="background-color:ffffcf;padding:4px;width:99.0%;max-width:99.0%;resize: vertical;height:45;font-size:16px" name="RequestRemarks" class="enterastab regular">#entry.requestRemarks#</textarea>
 					
 				</cfif>	
 			   

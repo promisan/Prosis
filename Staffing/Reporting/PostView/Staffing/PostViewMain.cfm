@@ -360,7 +360,7 @@
 					<table width="100%">
 					<tr>
 															
-					<td class="labelmedium" style="height:40px;font-weight:250;font-size:24px">
+					<td class="labelmedium" style="height:40px;font-size:24px">
 						
 						<cfquery name="Tree" 
 						datasource="AppsOrganization" 
@@ -458,14 +458,15 @@
 						   onClick="Prosis.busy('yes');totals.value='unit';reloadview('unit',snapshot.value,treename.value,'<cfoutput>#URL.Mandate#</cfoutput>')" <cfif URL.UNIT neq "cum">checked</cfif>>
 						</td>   
 																				   
-						<td onclick="Prosis.busy('yes');unittotal.click()" style="font-weight:290;cursor: pointer;;padding-left:4px" class="labelmedium">
+						<td onclick="Prosis.busy('yes');unittotal.click()" style="cursor: pointer;padding-left:4px" class="labelmedium2">
 						
 							<cfif URL.UNIT neq "cum">
-							<font color="0080C0" style="font-size: 16px;">
+							<font color="0080C0" style="font-size: 17px;font-weight:bold;">
 							<cfelse>
 							<font style="font-size: 14px;">
 							</cfif>
-							<cf_tl id="Unit totals">	
+							<cf_tl id="Cell contains Unit only">	
+							</font>
 								
 						</td>			
 						
@@ -475,14 +476,15 @@
 							 value="cum" 
 							 onClick="Prosis.busy('yes');totals.value='cum';reloadview('cum',snapshot.value,treename.value,'<cfoutput>#URL.Mandate#</cfoutput>')" <cfif URL.UNIT eq "cum">checked</cfif>>
 						</td>
-						<td onclick="Prosis.busy('yes');cumtotal.click()" class="labelmedium" style="font-weight:290;cursor: pointer;padding-left:4px;padding-right:10px">
+						<td onclick="Prosis.busy('yes');cumtotal.click()" class="labelmedium2" style="cursor: pointer;padding-left:4px;padding-right:10px">
 						
 							<cfif URL.UNIT eq "cum">
-								<font color="0080C0" style="font-size: 16px;">
+								<font color="0080C0" style="font-weight:bold;font-size: 17px;">
 							<cfelse>
 								<font style="font-size: 14px;">
 							</cfif>
-							<cf_tl id="Cumulative totals">
+							<cf_tl id="Cell contains Unit AND below">
+							</font>
 						
 						</td>
 						</tr>

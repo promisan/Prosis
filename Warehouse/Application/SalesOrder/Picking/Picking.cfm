@@ -271,20 +271,20 @@
 
                 if (status != currStatus || allowRepost) {
                     $('##currentStatus_'+cid).val(status);
-                    ColdFusion.navigate('#session.root#/warehouse/application/salesorder/picking/setTransactionStatus.cfm?transactionId='+tid+'&status='+status+'&acc='+acc+'&memo='+vMemo+'&detailscontainer='+vDetailsContainer+'&cid='+cid+'&batchno='+batchno, 'divSubmit_'+cid);
+                    ptoken.navigate('#session.root#/warehouse/application/salesorder/picking/setTransactionStatus.cfm?transactionId='+tid+'&status='+status+'&acc='+acc+'&memo='+vMemo+'&detailscontainer='+vDetailsContainer+'&cid='+cid+'&batchno='+batchno, 'divSubmit_'+cid);
                 }
             }
 
             function resetStatus(b, t, s) {
                 if (confirm('#lblResetStatus#')) {
-                    ColdFusion.navigate('#session.root#/warehouse/application/salesorder/picking/resetTransactionStatus.cfm?batchno='+b+'&transactionid='+t, s);
+                    ptoken.navigate('#session.root#/warehouse/application/salesorder/picking/resetTransactionStatus.cfm?batchno='+b+'&transactionid='+t, s);
                 }
             }
 
             function showBatch(b) {
                 $('.clsDetail'+b).slideDown();
                 $('.clsMainContainer'+b).css('background-color','##EEEEEE');
-                ColdFusion.navigate('#session.root#/warehouse/application/salesorder/picking/pickingDetail.cfm?#vPickingParameters#&batchno='+b,'detail'+b);
+                ptoken.navigate('#session.root#/warehouse/application/salesorder/picking/pickingDetail.cfm?#vPickingParameters#&batchno='+b,'detail'+b);
             }
 
             function hideBatch(b) {
@@ -316,17 +316,17 @@
 
             function doTicketPrint(e, b) {
                 e.stopPropagation();
-                window.open('#session.root#/Warehouse/Application/SalesOrder/Picking/PrintTicket.cfm?batchno='+b, "_blank", "left=10, top=10, width=600, height=800, status=yes, toolbar=no, scrollbars=no, resizable=yes");	
+                ptoken.open('#session.root#/Warehouse/Application/SalesOrder/Picking/PrintTicket.cfm?batchno='+b, "_blank", "left=10, top=10, width=600, height=800, status=yes, toolbar=no, scrollbars=no, resizable=yes");	
             }
             
             function doRefreshStatus(e, b) {
                 if (e) { e.stopPropagation(); }
-                ColdFusion.navigate('#session.root#/warehouse/application/salesorder/picking/refreshStatus.cfm?&batchno='+b,'refresh'+b);
+                ptoken.navigate('#session.root#/warehouse/application/salesorder/picking/refreshStatus.cfm?&batchno='+b,'refresh'+b);
             }
 
             function showInCustomerView(e, b) {
                 if (e) { e.stopPropagation(); }
-                ColdFusion.navigate('#session.root#/warehouse/application/salesorder/picking/monitor/setCustomerView.cfm?coloron=#vColorOn#&coloroff=#vColorOff#&iconon=#vIconOn#&iconoff=#vIconOff#&batchno='+b,'submit'+b);
+                ptoken.navigate('#session.root#/warehouse/application/salesorder/picking/monitor/setCustomerView.cfm?coloron=#vColorOn#&coloroff=#vColorOff#&iconon=#vIconOn#&iconoff=#vIconOff#&batchno='+b,'submit'+b);
             }
 
             function colorByPercentage(color2, color1, weight) {
@@ -351,7 +351,7 @@
             }
 
             function refreshBoxes(b) {
-                ColdFusion.navigate('#session.root#/warehouse/application/salesorder/picking/box/BoxRefresh.cfm?batchno='+b, 'divBoxContainer_'+b);
+                ptoken.navigate('#session.root#/warehouse/application/salesorder/picking/box/BoxRefresh.cfm?batchno='+b, 'divBoxContainer_'+b);
             }
 
             function editBoxes(e, b) {

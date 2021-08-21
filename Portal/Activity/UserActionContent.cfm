@@ -153,7 +153,7 @@
 							alias           = "",
 							functionscript  = "EditPerson",
 							functionfield   = "PersonNo",
-							filtermode		= "1",
+							filtermode		= "4",
 							display         = "yes",																			
 							search          = "text"}>	
 						

@@ -4,8 +4,8 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	    SELECT *
-	    FROM Ref_ParameterMission
-		WHERE Mission = '#URL.Mission#' 
+	    FROM   Ref_ParameterMission
+		WHERE  Mission = '#URL.Mission#' 
 </cfquery>
 
 <cfparam name="URL.Period" default="#Parameter.DefaultPeriod#">
@@ -86,10 +86,10 @@
 	  </cfif>
 				
 	  <tr>
-	     <td height="20" style="padding-left:4px;font-size:18px" class="labelmedium2"><a href="javascript:newreceipt();"><cf_tl id="Record new receipts"></a></td>
+	     <td height="20" style="padding-left:4px;font-size:16px" class="labelmedium2"><a href="javascript:newreceipt();"><cf_tl id="Record new receipts"></a></td>
 	  </tr>					  
 	  <tr>
-	     <td height="20" style="padding-left:4px;font-size:18px" class="labelmedium2"><a href="javascript:newSearch();"><cf_tl id="Search"></a></td>
+	     <td height="20" style="padding-left:4px;font-size:16px" class="labelmedium2"><a href="javascript:newSearch();"><cf_tl id="Extended search"></a></td>
 	  </tr>
 	  
 	  <tr><td height="2"></td></tr>
@@ -139,10 +139,11 @@
 	  <tr><td class="line"></td></tr>	
 			
 	  <tr><td valign="top" style="padding-top:4px">
-	   
+	  	  	   
 	   <cf_receiptTreeData	
 		    iconpath="#SESSION.root#/Tools/Treeview/Images" 
 			mission = "#URL.Mission#"
+			systemfunctionid="#url.systemfunctionid#"
 			destination = "PurchaseViewOpen.cfm">
 			
 	 </td></tr>	

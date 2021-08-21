@@ -79,10 +79,10 @@ var amount = 0
   
 </cfloop>
 
-ptoken.navigate('setAmount.cfm?total='+total/10+'&amount='+amount/100,'ctotal')
+
+ptoken.navigate('setAmount.cfm?total='+total/10+'&amount='+amount/100,'ctotal');
 
 </script>
-
 
 
 </cfoutput>

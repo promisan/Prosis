@@ -59,7 +59,6 @@
 	FROM    Ref_Tax
 </cfquery>
 
-
 <table width="96%" align="center">
 	<tr><td height="5"></td></tr>
 	<cfif SearchResult.recordCount gt 0>
@@ -182,8 +181,8 @@
 															<cfquery name="qSearchResultDetail" dbtype="query">
 																SELECT  *
 																FROM 	SearchResultDetail
-																WHERE	ItemNo = '#SearchResult.ItemNo#'
-																AND		UoM = '#SearchResult.UoM#'
+																WHERE	ItemNo        = '#SearchResult.ItemNo#'
+																AND		UoM           = '#SearchResult.UoM#'
 																AND		PriceSchedule = '#validPriceShedules.PriceSchedule#'
 																AND		DateEffective <= <cfqueryparam value="#vDeliveryDate#" cfsqltype="CF_SQL_DATE">
 																ORDER BY DateEffective DESC
@@ -195,12 +194,12 @@
 															<cfif qSearchResultDetail.recordCount eq 0>
 															
 																<cfquery name="qSearchResultDetail" dbtype="query">
-																	SELECT  *
-																	FROM 	SearchResultDetail
-																	WHERE	ItemNo = '#SearchResult.ItemNo#'
-																	AND		UoM = '#SearchResult.UoM#'
-																	AND		PriceSchedule = '#validPriceShedules.PriceSchedule#'
-																	AND		DateEffective > <cfqueryparam value="#vDeliveryDate#" cfsqltype="CF_SQL_DATE">
+																	SELECT   *
+																	FROM 	 SearchResultDetail
+																	WHERE	 ItemNo        = '#SearchResult.ItemNo#'
+																	AND		 UoM           = '#SearchResult.UoM#'
+																	AND		 PriceSchedule = '#validPriceShedules.PriceSchedule#'
+																	AND		 DateEffective > <cfqueryparam value="#vDeliveryDate#" cfsqltype="CF_SQL_DATE">
 																	ORDER BY DateEffective ASC
 																</cfquery>
 																
@@ -215,10 +214,7 @@
 																	<cfset vPriceId = replace(priceId,"-","","ALL") & "_" & replace(SearchResult.receiptno,"-","","ALL")>
 																	<td>
 																		<select 
-																			style="font:10px" 
-																			name="TaxCode_#vPriceId#" 
-																			id="TaxCode_#vPriceId#"
-																		   	size="1" 
+																			style="font:10px" name="TaxCode_#vPriceId#" id="TaxCode_#vPriceId#" size="1" 
 																			disabled>
 																		    <cfloop query="taxes">
 																				<option value="#TaxCode#" <cfif TaxCode eq qSearchResultDetail.TaxCode>selected</cfif>>
@@ -243,9 +239,9 @@
 																			disabled="disabled">
 																	</td>
 																	<td width="1%">
-																		<input type="Hidden" id="taxValue_#vPriceId#" name="taxValue_#vPriceId#" value="#TaxCode#">
-																		<input type="Hidden" id="value_#vPriceId#" name="value_#vPriceId#" value="#SalesPrice#">
-																		<input type="Checkbox" id="en_#vPriceId#" name="en_#vPriceId#" onclick="enablePriceEdit('#vPriceId#');">
+																		<input type="Hidden"   id="taxValue_#vPriceId#" name="taxValue_#vPriceId#" value="#TaxCode#">
+																		<input type="Hidden"   id="value_#vPriceId#"    name="value_#vPriceId#" value="#SalesPrice#">
+																		<input type="Checkbox" id="en_#vPriceId#"       name="en_#vPriceId#" onclick="enablePriceEdit('#vPriceId#');">
 																	</td>		
 																</tr>
 															</cfloop>
@@ -262,12 +258,13 @@
 				</td>
 			</tr>
 		</cfoutput>
-		<tr><td height="8"></td></tr>
+		<tr><td height="4"></td></tr>
 		<tr><td colspan="2" class="line"></td></tr>
-		<tr><td height="8"></td></tr>
+		<tr><td height="4"></td></tr>
 		<tr>
 			<td align="center" colspan="2">
-				<input type="Submit" id="save" name="save" value="  Save  "  class="button10g">
+			
+				<input type="Submit" id="save" name="save" value="Save"  style="height:27px;width:400px" class="button10g">
 			</td>
 		</tr>
 		

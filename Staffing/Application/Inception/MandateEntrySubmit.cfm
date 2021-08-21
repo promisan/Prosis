@@ -394,8 +394,8 @@ password="#SESSION.dbpw#">
 
 	<script language="JavaScript1.2">
 	
-	 	parent.ColdFusion.navigate('MandateViewTree.cfm?Mission=#URL.Mission#&Mandate=#man#','tree')
-		window.location = "MandateListing.cfm?Mission=#URL.Mission#"
+	 	parent.ptoken.navigate('MandateViewTree.cfm?Mission=#URL.Mission#&Mandate=#man#','tree')
+		ptoken.location('MandateListing.cfm?Mission=#URL.Mission#')
 		
 	</script>
 

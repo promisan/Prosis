@@ -146,8 +146,7 @@
 				
 			<cfelse>
 							
-        		<h1 style="color:#333333;font-size:20px;font-weight:200">Dependent <strong> Entitlements</strong></h1>
-        		
+        		<h1 style="color:#333333;font-size:20px;font-weight:200">Dependent <strong> Entitlements</strong></h1>        		
 			
 			</cfif>	
         
@@ -227,7 +226,7 @@
 		<cfset color = "white">
 	</cfif>
 	
-	<tr bgcolor="#color#" class="navigation_row labelmedium2">
+	<tr bgcolor="#color#" class="navigation_row labelmedium2 line">
 	
 	     <td height="20" align="center" style="padding-left:4px;cursor:pointer" onclick="workflowdrilldependent('#dependentid#','box_#dependentid#')" >
 		 
@@ -326,7 +325,7 @@
 								<cfif access eq "EDIT" or access eq "ALL">
 								
 								   <td style="padding-left:2px;padding-top:2px">
-								   	<cf_img icon="edit" navigation="Yes" onclick="dependentedit('#URL.ID#','#DependentId#','#url.action#','#url.contractid#')">
+								   	<cf_img icon="open" navigation="Yes" onclick="dependentedit('#URL.ID#','#DependentId#','#url.action#','#url.contractid#')">
 								   </td>																	
 								   <cfset editmode = "1">
 									
@@ -341,16 +340,14 @@
 							
 						<cfelse>
 						
-						 <table>
-							 <tr>
-							 <td>
+						     <table><tr><td>
 							 
 							  <cfif ActionStatus neq "9">	
 								
 								<cfif getAdministrator("#hasContract.Mission#") or access eq "EDIT" or access eq "ALL">
 								
 								   <td style="padding-left:2px">
-								   	<cf_img icon="edit" navigation="Yes" onclick="dependentedit('#URL.ID#','#DependentId#','#url.action#','#url.contractid#')">
+								   	<cf_img icon="open" navigation="Yes" onclick="dependentedit('#URL.ID#','#DependentId#','#url.action#','#url.contractid#')">
 								   </td>																	
 								   <cfset editmode = "1">
 									
@@ -358,7 +355,7 @@
 								
 							</cfif>
 							 
-							 </td></tr></table>
+							</td></tr></table>
 										 
 						</cfif>
 					
@@ -395,7 +392,7 @@
 						
 							<cfif (opencontract eq "0" and url.action eq "person") or url.action eq "contract">
 																		
-								 <cf_img icon="edit" navigation="Yes"  onclick="dependentedit('#URL.ID#','#DependentId#','#url.action#','')">
+								 <cf_img icon="open" navigation="Yes"  onclick="dependentedit('#URL.ID#','#DependentId#','#url.action#','')">
 								 
 							 <cfelse>
 							 	 
@@ -415,7 +412,7 @@
 		  </cfif>	
 			
 		</td>	
-		<td colspan="2" style="font-weight:350;font-size:17px">
+		<td colspan="2" style="font-weight:350;font-size:16px">
 		    
 		    <cfif editmode eq "1">
 			<a href="javascript:dependentedit('#URL.ID#','#DependentId#','#url.action#','#url.contractid#')"><font size="2" color="408080">#RelDescription#</font></a>: #FirstName# #LastName#
@@ -460,13 +457,13 @@
 		<TD style="padding-right:2px"><cfif DateEffective neq "">#Dateformat(DateEffective, CLIENT.DateFormatShow)#<cfelse>#Dateformat(Created, CLIENT.DateFormatShow)#</cfif></TD>
 			
 		<cfif actionStatus eq "9">
-			<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;background-color:##ff0000"><cf_tl id="Inactive"></td>	
+			<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;background-color:##ff000080"><cf_tl id="Inactive"></td>	
 		<cfelseif actionstatus eq "0">
-		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:yellow"><cf_tl id="Pending"></td>
+		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:##ffffaf80"><cf_tl id="Pending"></td>
 		<cfelseif actionstatus eq "1">
-		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:##e1e1e1"><cf_tl id="In Process"></td>		
+		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:##e1e1e180"><cf_tl id="In Process"></td>		
 		<cfelse>
-		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:##80E382"><cf_tl id="Cleared"></td>	
+		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:##80E38280"><cf_tl id="Cleared"></td>	
 		</cfif>		
 		
 	</tr>

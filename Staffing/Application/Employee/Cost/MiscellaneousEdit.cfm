@@ -92,7 +92,7 @@ password="#SESSION.dbpw#">
 	<tr><td height="5"></td></tr>
 	  
     <TR class="labelmedium2">
-    <TD><cf_tl id="Document date">:</TD>
+    <TD style="width:180px"><cf_tl id="Document date">:</TD>
     <TD>
 	
 		<cfif edit eq "1">
@@ -101,6 +101,7 @@ password="#SESSION.dbpw#">
 			FormName="MiscellaneousEdit"
 			FieldName="DocumentDate" 
 			class="regularxl"
+			message="Incorrect document date"
 			DateFormat="#APPLICATION.DateFormat#"
 			Default="#Dateformat(Entitlement.DocumentDate, CLIENT.DateFormatShow)#"
 			AllowBlank="False">	
@@ -164,6 +165,7 @@ password="#SESSION.dbpw#">
 			FormName="MiscellaneousEdit"
 			FieldName="DateEffective" 
 			class="regularxl"
+			message="Incorrect due date"
 			DateFormat="#APPLICATION.DateFormat#"
 			Default="#Dateformat(Entitlement.DateEffective, CLIENT.DateFormatShow)#"
 			AllowBlank="False">	
@@ -190,6 +192,7 @@ password="#SESSION.dbpw#">
 			FormName="MiscellaneousEdit"
 			FieldName="PayrollStart" 
 			class="regularxl"
+			message="Incorrect payroll date"
 			DateFormat="#APPLICATION.DateFormat#"
 			Default="#Dateformat(Entitlement.PayrollStart, CLIENT.DateFormatShow)#"
 			AllowBlank="False">	

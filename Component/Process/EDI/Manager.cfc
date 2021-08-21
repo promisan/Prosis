@@ -100,7 +100,7 @@
 
 				<cfif Mode eq "2">
 				
-				    <!--- 2020 mode POS only --->
+				    <!--- 2020 mode current for POS only --->
 				
 					<cfinvoke component = "Service.Process.EDI.#qmission.EDIMethod#"
 				      	method              = "SaleIssueV2"
@@ -113,7 +113,7 @@
 					
 				<cfelseif Mode eq "3">
 				
-					<!--- 2021 mode revised for all sales --->
+					<!--- 2021 mode revised for all sales and POS AR --->
 				
 					<cfinvoke component      = "Service.Process.EDI.#qmission.EDIMethod#"
 							method           = "SaleIssueV3"
@@ -190,9 +190,8 @@
 										<cfif StructKeyExists(EDIResult,"SeriesNo")>
 										'#EDIResult.SeriesNo#',
 										<cfelse>
-											NULL,
-										</cfif>
-										
+											'FEL',   <!--- hardcoded hanno --->
+										</cfif>										
 										<cfif StructKeyExists(EDIResult,"Series")>
 										'#EDIResult.Series#',
 										<cfelse>
@@ -319,8 +318,8 @@
 										ActionReference3,
 										ActionReference4,
 										ActionMemo,
-										ActionDate,
 										ActionStatus,
+										ActionDate,										
 										OfficerUserId,
 										OfficerLastName,
 										OfficerFirstName)
@@ -330,16 +329,17 @@
 										'#JournalSerialNo#',
 										'CreditNote',
 										'#EDIResult.Source1#',
-										,#EDIResult.Source2#,'
-										'2',
+										'#EDIResult.Source2#',
+										'2', <!--- auto fel --->
 										<!--- more information --->
 										'#EDIResult.Cae#',
 										'#EDIResult.DocumentNo#',
 										'#EDIResult.Dte#',
-										'#GetWarehouseSeries.SeriesNo#',
-										'#left(EDIResult.ErrorDescription,100)#',
+										'FEL',
+										<!---  '#GetWarehouseSeries.SeriesNo#', --->
+										'#left(EDIResult.ErrorDescription,100)#',										
+										'5',     <!--- 5 void process completed --->
 										getDate(),
-										'5',     <!--- 5 voic process completed --->
 										'#SESSION.acc#',
 										'#SESSION.last#',
 										'#SESSION.first#')

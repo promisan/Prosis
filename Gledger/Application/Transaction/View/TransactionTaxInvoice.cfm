@@ -29,8 +29,8 @@
 	        username="#SESSION.login#"
 	        password="#SESSION.dbpw#">			
 		        SELECT *
-		        FROM   Materials.dbo.WarehouseBatch B
-		        WHERE  B.BatchId = '#qHeader.TransactionSourceId#'
+		        FROM   Materials.dbo.WarehouseBatch
+		        WHERE  BatchId = '#qHeader.TransactionSourceId#'
 	    </cfquery>
 	
 	    <cfif url.terminal eq "">
@@ -67,11 +67,14 @@
 				    AND      ActionReference2 IS NOT NULL
 				    AND      ActionReference3 IS NOT NULL
 				    ORDER BY Created DESC
+					
 	    </cfquery>
 				
 	    <cfif qCheck.recordcount eq 0 OR qCheck.ActionStatus eq 9>
+		
+				<!--- this now will generate an invoice : we move this now to preparation mode = 3 
 					
-	            <cfinvoke  component = "Service.Process.Materials.POS"
+	            <cfinvoke  component      = "Service.Process.Materials.POS"
 	                   method             = "initiateInvoice"
 					   Journal            = "#url.journal#"
 					   JournalSerialNo    = "#url.journalSerialNo#"		
@@ -83,10 +86,25 @@
 	                   currency           = "#url.Currency#"
 	                   Mode               = "#url.mode#"
 	                   returnvariable     = "vInvoice">
+					   
+				--->
+				
+				<cfinvoke component = "Service.Process.EDI.Manager"
+					   method           = "SaleIssue" 
+					   Datasource       = "AppsOrganization"
+					   Mission          = "#qHeader.Mission#"
+					   Terminal			= "#Terminal#"
+				       Mode 			= "#url.Mode#"  <!--- = 3 --->
+					   Journal          = "#url.journal#"
+					   JournalSerialNo  = "#url.journalSerialNo#"							    
+					   returnvariable	= "vInvoice">
+									   
 	
 	        <cfset vActionId = vInvoice.ActionId>
 	
 	    <cfelse>
+		
+			<!--- a record was found, so we show what we have already --->
 	
 	        <cfset vActionId = qCheck.ActionId>
 	
@@ -96,10 +114,17 @@
 		
 		    <!--- points to the same template as we do in the POS settlement --->
 			
+		    <script>
+		        ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#URL.BatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#", 'wsettle');
+		        try { window.opener.location.reload(); } catch(e) {}
+	       </script>
+			
+			<!---
 	        <script>
 		        ptoken.navigate("#SESSION.root#/GLedger/Application/Transaction/Invoice/SaleViewInvoice.cfm?actionid=#vActionId#&journal=#URL.journal#&journalserialNo=#url.journalserialno#&currency=#url.currency#&terminal=#url.terminal#", 'wsettle');
 		        try { window.opener.location.reload(); } catch(e) {}
 	       </script>	
+		   --->
 		   
 		</cfoutput>   	   
 		
@@ -107,14 +132,14 @@
 				
 	<cfdefaultcase>
 		
-		    <!--- reflect the code as POS to trigger differently --->
+		    <!--- accounting and workorder sales --->
 				
 			<cfinvoke component = "Service.Process.EDI.Manager"
 					   method           = "SaleIssue" 
 					   Datasource       = "AppsOrganization"
 					   Mission          = "#qHeader.Mission#"
 					   Terminal			= "#Terminal#"
-				       Mode 			= "#Mode#"
+				       Mode 			= "#url.Mode#"  <!--- = 3 --->
 					   Journal          = "#url.journal#"
 					   JournalSerialNo  = "#url.journalSerialNo#"							    
 					   returnvariable	= "stResponse">

@@ -72,13 +72,17 @@
 		
 	}
 	
+	function setitem(context,id,box,itm,uom) {
+	   ProsisUI.createWindow('setitem', 'Amend warehouse item', '',{x:100,y:100,height:250,width:600,modal:true,center:true})>			   
+	   ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/Item/Description/Item.cfm?context='+context+'&id='+id+'&box='+box+'&itemno='+itm+'&uom='+uom,'setitem')
+	}
+	
 	function showarchive(actionid,req) {
 	   ProsisUI.createWindow('reqarchive', 'Requisition Action', '',{x:100,y:100,height:550,width:740,modal:false,center:true})>			   
 	   ptoken.navigate('#SESSION.root#/procurement/application/requisition/requisition/RequisitionArchive.cfm?actionid='+actionid,'reqarchive')
 	}
 	
-	var root = "#root#";
-	
+	var root = "#root#";	
 	function job(id) {
 	    w = #CLIENT.width# - 120;
 	    h = #CLIENT.height# - 160;
@@ -95,8 +99,7 @@
 		ptoken.open("#SESSION.root#/Procurement/Application/PurchaseOrder/ExecutionRequest/RequestEntry.cfm?header=0&mission="+mis+"&period="+per,"right");	
 	} 
 	 
-	function editRequest(requestid) {
-	  
+	function editRequest(requestid) {	  
 	   w = #CLIENT.width# - 60;
 	   h = #CLIENT.height# - 120;
 	   ptoken.open("#SESSION.root#/Procurement/Application/PurchaseOrder/ExecutionRequest/RequestView.cfm?id="+requestid+"&tc="+new Date().getTime(), "_blank", "left=40, top=40, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=yes");  

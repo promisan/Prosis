@@ -125,7 +125,7 @@ password="#SESSION.dbpw#">
 <tr><td height="30" colspan="4" align="center">
 	<cfoutput>
 	<cf_tl id="Back" var="1">
-   <input type="button" name="cancel" value="#lt_text#" class="button10g" onClick="ColdFusion.navigate('LeaveBalances.cfm?id=#url.id#&mode=balance','contentbox2')">
+   <input type="button" name="cancel" value="#lt_text#" class="button10g" onClick="ptoken.navigate('LeaveBalances.cfm?id=#url.id#&mode=balance','contentbox2')">
    <!---
 	   	<cfif OnBoard.recordcount neq "0">
 		--->

@@ -57,7 +57,7 @@ function toggleMenu(){
 	<cfif url.idmenu eq "">
 		<cfset vAccess = "No">
 	<cfelse> 
-		<cfset vAccess = "Yes">	
+		<cfset vAccess = "Yes">			
 	</cfif>	
 
 	<cf_screenTop border="0" 
@@ -94,7 +94,7 @@ function toggleMenu(){
 
 <cfif Item.recordcount eq "0">
 
-	<table align="center"><tr><td align="center" style="padding-top:50px" class="labelit">Problem, item could not be located</td></tr></table>
+	<table align="center"><tr><td align="center" style="padding-top:50px" class="labelmedium">Problem, item could not be located</td></tr></table>
 	<cfabort>
 
 </cfif>

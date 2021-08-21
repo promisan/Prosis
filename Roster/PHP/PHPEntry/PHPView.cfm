@@ -275,15 +275,16 @@ password="#SESSION.dbpw#">
 		size 	  = "10px">	
 									  
 		<cfinclude template="PHPIdentity.cfm">	
-				
 			 			  
 	</cf_layoutarea>			
 	
 	<cfparam name="url.owner" default="">
 	 	
 	<cf_layoutarea position="center" name="box" style = "border-right:1px solid 6688aa">
-						
-		 <iframe src="#SESSION.root#/Roster/PHP/#Check.TemplateURL#?#check.templatecondition#&Code=#URL.Code#&PersonNo=#url.PersonNo#&mission=#URL.mission#&Section=#Check.Code#&Alias=#URL.Alias#&Object=#URL.Object#&Topic=#Check.TemplateTopicId#&ApplicantNo=#url.ApplicantNo#&id1=#Check.TemplateCondition#&owner=#url.owner#&triggerGroup=#url.triggerGroup#&source=#URL.source#" 
+
+		 <cfparam name="url.mid" default="">						
+		 
+		 <iframe src="#SESSION.root#/Roster/PHP/#Check.TemplateURL#?#check.templatecondition#&Code=#URL.Code#&PersonNo=#url.PersonNo#&mission=#URL.mission#&Section=#Check.Code#&Alias=#URL.Alias#&Object=#URL.Object#&Topic=#Check.TemplateTopicId#&ApplicantNo=#url.ApplicantNo#&id1=#Check.TemplateCondition#&owner=#url.owner#&triggerGroup=#url.triggerGroup#&source=#URL.source#&mid=#url.mid#" 
 		            name="right" id="right" width="100%" height="100%" scrolling="no" frameborder="0"></iframe>		
 					
 	</cf_layoutarea>	
@@ -322,8 +323,10 @@ password="#SESSION.dbpw#">
 			collapsible = "true" 
 			splitter    = "true"
 			overflow    = "scroll">
+			
+			<cfparam name="url.mid" default="">	
 					
-			<iframe src="#SESSION.root#/Roster/PHP/PHPEntry/PHPMenu.cfm?Section=#Check.code#&PersonNo=#url.PersonNo#&Id=#url.ApplicantNo#&owner=#url.owner#&mission=#URL.mission#&triggergroup=#url.triggergroup#"
+			<iframe src="#SESSION.root#/Roster/PHP/PHPEntry/PHPMenu.cfm?Section=#Check.code#&PersonNo=#url.PersonNo#&Id=#url.ApplicantNo#&owner=#url.owner#&mission=#URL.mission#&triggergroup=#url.triggergroup#&mid=#url.mid#"
 			        	name="left" id="left" width="100%" height="99%" scrolling="no" frameborder="0"></iframe>				
 				
 	    </cf_layoutarea>		

@@ -28,6 +28,7 @@
 				<td></td>
 				<td><cf_tl id="Promo"></td>
 				<td><cf_tl id="Currency"></td>
+				<td style="width:100px" align="right"><cf_tl id="Last Receipt"></td>
 				<td style="width:100px" align="right"><cf_tl id="Last Order"></td>
 				<td style="width:100px" align="right"><cf_tl id="Last Cost"></td>
 				<td style="width:100px;padding-right:5px" align="right"><cf_tl id="Proposed"></td>
@@ -55,9 +56,9 @@
 			
 			<cfif Schedule.recordcount eq "0">
 			
-			<tr class="labelmedium2 line" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''">
-			   <td colspan="11" align="center" style="height:40px;font-size:18px">This item category : #Item.Category# is not declared for any warehouse in #url.mission#</td>
-			</tr>   
+				<tr class="labelmedium2 line" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''">
+				   <td colspan="11" align="center" style="height:40px;font-size:18px">This item category : #Item.Category# is not declared for any warehouse in #url.mission#</td>
+				</tr>   
 			
 			</cfif>
 					
@@ -66,16 +67,18 @@
 				<tr class="labelmedium line" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''">
 					
 					<td align="center">
+						
 						<cf_tl id="Show price history" var="1">
-						<img 
-							src="#session.root#/images/history2.png" 
-							style="cursor:pointer; height:14px;" 
-							title="#lt_text#"
-							onclick="showPricingHistory('#url.id#', '#Measure#', '#Code#', '#w#', '#url.mission#');">
+						
+						<img src="#session.root#/images/history2.png" 
+							 style="cursor:pointer; height:14px;" 
+							 title="#lt_text#"
+							 onclick="showPricingHistory('#url.id#', '#Measure#', '#Code#', '#w#', '#url.mission#');">
+							 
 					</td>
-					<td valign="top" style="font-size:15px;padding-top:4px;">#Description#</td>
 					
-																					
+					<td valign="top" style="font-size:15px;padding-top:4px;">#Description#</td>
+																										
 					<cfquery name="Currency" 
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
@@ -95,8 +98,7 @@
 											 AND    Operational = 1)
 					</cfquery>
 																														
-					<cfloop query="Currency">	
-						
+					<cfloop query="Currency">						
 																		
 						<cfquery name="line"
 						datasource="AppsMaterials" 
@@ -143,7 +145,9 @@
 									Tooltip="Effective Date"
 									Style="border:0px;border-left:1px solid silver;border-right:1px solid silver;text-align:center"
 									AllowBlank="False">	
+									
 							<cfelse>
+							
 								<cf_intelliCalendarDate9
 									FieldName="#w#_#measure#_#Schedule.code#_#currency#_DateEffective" 
 									Default="#dateformat(line.dateEffective,CLIENT.DateFormatShow)#"
@@ -153,6 +157,7 @@
 									Tooltip="Effective Date"
 									Style="border:0px;border-left:1px solid silver;border-right:1px solid silver;text-align:center"
 									AllowBlank="False">	
+									
 							</cfif>
 						
 						</cfif>	
@@ -168,6 +173,39 @@
 						</td>	
 						
 						<td style="padding-left:3px;padding-right:3px">#Currency#</td>
+						
+						<cfquery name="Transaction"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT     *
+								FROM       ItemTransaction
+								WHERE      ItemNo             = '#url.id#'
+								AND        TransactionUoM     = '#measure#'
+								AND        Mission            = '#url.mission#'
+								AND        TransactionType    = '1'
+								ORDER BY   Created DESC
+							</cfquery>	
+							
+							<cfif Transaction.recordcount eq "0">
+							
+								<cfquery name="Transaction"
+								datasource="AppsMaterials" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+									SELECT     *
+									FROM       ItemTransaction
+									WHERE      ItemNo             = '#url.id#'
+									AND        TransactionUoM     = '#measure#'								
+									AND        TransactionType    = '1'
+									ORDER BY   Created DESC
+								</cfquery>	
+														
+							</cfif>
+						
+						<td style="padding-left:3px;padding-right:6px" align="right">						
+							#dateformat(Transaction.TransactionDate,client.dateformatshow)#						
+						</td>
 						
 						<td style="padding-left:3px;padding-right:6px" align="right">
 						
@@ -206,10 +244,10 @@
 								<cfif Purchase.WarehousePrice eq "">
 									<cfif currency neq purchase.currency>#purchase.Currency#</cfif> #numberformat(Purchase.ReceiptPrice/Purchase.ReceiptMultiplier,'.,__')#																
 								<cfelseif Purchase.WarehouseCurrency eq Currency or Purchase.WarehouseCurrency eq "">											
-									#numberformat(Purchase.WarehousePrice,'.,__')#							
+									#numberformat(Purchase.WarehousePrice,'.,___')#							
 								<cfelse>						
 									<cf_exchangeRate Currencyfrom="#Purchase.WarehouseCurrency#" CurrencyTo="#currency#">
-									#numberformat(Purchase.WarehousePrice/exc,'.,__')#																
+									#numberformat(Purchase.WarehousePrice/exc,'.,___')#																
 								</cfif>
 							<cfelse>
 								----
@@ -218,45 +256,12 @@
 						</td>
 						
 						<td style="padding-left:3px;padding-right:6px" align="right">
-											
-							<cfquery name="Transaction"
-							datasource="AppsMaterials" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
-								SELECT     TransactionCostPrice
-								FROM       ItemTransaction
-								WHERE      ItemNo             = '#url.id#'
-								AND        TransactionUoM     = '#measure#'
-								AND        Mission            = '#url.mission#'
-								AND        TransactionType    = '1'
-								ORDER BY   Created DESC
-							</cfquery>	
-							
-							<cfif Transaction.recordcount eq "0">
-							
-								<cfquery name="Transaction"
-								datasource="AppsMaterials" 
-								username="#SESSION.login#" 
-								password="#SESSION.dbpw#">
-									SELECT     TransactionCostPrice
-									FROM       ItemTransaction
-									WHERE      ItemNo             = '#url.id#'
-									AND        TransactionUoM     = '#measure#'								
-									AND        TransactionType    = '1'
-									ORDER BY   Created DESC
-								</cfquery>	
-														
-							</cfif>
-																	
-							<cfif application.BaseCurrency eq Currency>					
-							
-								#numberformat(Transaction.TransactionCostPrice,'.,__')#
-								
-							<cfelse>
-							
+																							
+							<cfif application.BaseCurrency eq Currency>												
+								#numberformat(Transaction.TransactionCostPrice,'.,___')#								
+							<cfelse>							
 								<cf_exchangeRate Currencyfrom="#application.BaseCurrency#" CurrencyTo="#currency#">
-								#numberformat(Transaction.TransactionCostPrice/exc,'.,__')#				
-													
+								#numberformat(Transaction.TransactionCostPrice/exc,'.,___')#																	
 							</cfif>				
 						
 						</td>
@@ -279,7 +284,7 @@
 							   required="No" 
 							   size="10" 
 							   maxlength="12" 
-							   style="text-align: right;border:0px;border-left:1px solid silver;border-right:1px solid silver">
+							   style="background-color:f1f1f1;text-align: right;border:0px;border-left:1px solid silver;border-right:1px solid silver">
 							
 							<cfelse>
 						
@@ -289,7 +294,7 @@
 							   message="Enter a valid price" 
 							   validate="float" 
 							   class="regularxl"
-							   required="Yes" 
+							   required="No" 
 							   size="10" 
 							   maxlength="12" 
 							   style="text-align: right;border:0px;border-left:1px solid silver;border-right:1px solid silver">				
@@ -300,6 +305,19 @@
 												
 						<td style="padding-left:3px;height:28px;" align="right">
 						
+						    <cfif w eq "">
+						
+							<cfquery name="Tax"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT     *
+								FROM       WarehouseCategory
+								WHERE      Warehouse IN (SELECT Warehouse FROM Warehouse WHERE Mission = '#url.mission#')								
+							</cfquery>	
+							
+							<cfelse>
+							
 							<cfquery name="Tax"
 							datasource="AppsMaterials" 
 							username="#SESSION.login#" 
@@ -309,18 +327,18 @@
 								WHERE      Warehouse = '#w#'								
 							</cfquery>	
 							
+							</cfif>
+							
 							<cfif Line.TaxCode eq "">
 								<cfset defaulttax = Tax.TaxCode>
 							<cfelse>	
 							    <cfset defaulttax = Line.TaxCode>
 							</cfif>
-						
+												
 							<select class="regularxl" name="#w#_#measure#_#Schedule.code#_#currency#_taxcode" id="#w#_#measure#_#Schedule.code#_#currency#_taxcode"
 							   size="1" style="text-align: right;border:0px;border-left:1px solid silver;border-right:1px solid silver">
 							    <cfloop query="taxes">
-									<option value="#TaxCode#" <cfif TaxCode eq defaulttax>selected</cfif>>
-							    		#Description#
-									</option>
+									<option value="#TaxCode#" <cfif TaxCode eq defaulttax>selected</cfif>>#Description#</option>
 								</cfloop>
 						    </select>							
 						

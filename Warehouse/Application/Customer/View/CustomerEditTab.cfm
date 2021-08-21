@@ -42,7 +42,7 @@
 		
 </cfif>
 			  
-<cfajaximport tags="cfdiv,cfform">
+<cfajaximport tags="cfdiv,cfform,cfinput-autosuggest">
 
 <cf_calendarscript>
 <cf_dialogstaffing>
@@ -157,6 +157,17 @@
 									source 	   = "../Address/CustomerAddress.cfm?customerid=#url.drillid#&mission=#Customer.mission#">									
 									
 						<cfset itm = itm+1>		
+						<cf_tl id="Communication"	var="vCommunication">
+						<cf_menutab item       = "#itm#" 
+						            iconsrc    = "Circulation.png" 
+									targetitem = "2"
+									padding    = "5"
+									iconwidth  = "#wd#" 								
+									iconheight = "#ht#"
+									name       = "#vCommunication#"
+									source 	   = "../Outreach/CustomerOutreach.cfm?customerid=#url.drillid#&mission=#Customer.mission#">				
+									
+						<cfset itm = itm+1>		
 						<cf_tl id="Price Schedule" var="vPriceSchedule">
 						<cf_menutab item       = "#itm#" 
 						            iconsrc    = "Price.png" 
@@ -166,6 +177,17 @@
 									iconheight = "#ht#" 
 									name       = "#vPriceSchedule#"
 									source 	   = "../PriceSchedule/RecordListing.cfm?customerid=#url.drillid#&mission=#Customer.mission#">
+									
+						<cfset itm = itm+1>		
+						<cf_tl id="Quotes"	var="vQuotes">
+						<cf_menutab item       = "#itm#" 
+						            iconsrc    = "Logos/Warehouse/Pending-Receipts.png" 
+									targetitem = "2"
+									padding    = "5"
+									iconwidth  = "#wd#" 								
+									iconheight = "#ht#"
+									name       = "#vQuotes#"
+									source 	   = "../Quote/QuoteListingContent.cfm?customerid=#url.drillid#&mission=#Customer.mission#">				
 									
 						<cfset itm = itm+1>		
 						<cf_tl id="Sales Orders" var="vHistory">
@@ -189,8 +211,7 @@
 									name       = "#vBeneficiaries#"
 									source 	   = "../Beneficiary/RecordListing.cfm?customerid=#url.drillid#&mission=#Customer.mission#">
 
-
-							<td width="15%"></td>								 		
+						 		
 					</tr>
 			</table>
 	

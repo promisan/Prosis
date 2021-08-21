@@ -55,16 +55,23 @@ password="#SESSION.dbpw#">
 				</tr>	
 			</table>	
 		
-			</td>			
+			</td>		
 			
-			<td style="height:50px;width:20px"></td>
-			<td class="label">
-			<input type="radio" class="radiol" name="toggle" value="1" onclick="Prosis.busy('yes');window.location='menu1.cfm?#act#'" <cfif url.operational eq "1">checked</cfif>>
-			</td><td>&nbsp;</td><td class="labellarge" style="cursor: pointer;" onclick="Prosis.busy('yes');window.location='menu1.cfm?#act#'"><cfif url.operational eq "1"><b></cfif><cf_tl id="Active"></td>
+			<cfif getAdministrator("*") eq "1">	
 			
-			<td style="padding-left:10px">
-			<input type="radio" class="radiol" name="toggle" value="0" onclick="Prosis.busy('yes');window.location='menu1.cfm?#cls#'" <cfif url.operational eq "0">checked</cfif>>
-			</td><td>&nbsp;</td><td class="labellarge" style="cursor: pointer;" onclick="Prosis.busy('yes');window.location='menu1.cfm?#cls#'"><font color="blue"><cfif url.operational eq "0"><b></cfif><cf_tl id="Archive"></td>
+				<td style="height:50px;width:20px"></td>
+				<td class="label">
+				<input type="radio" class="radiol" name="toggle" value="1" onclick="Prosis.busy('yes');ptoken.location('menu1.cfm?#act#')" <cfif url.operational eq "1">checked</cfif>>
+				</td><td>&nbsp;</td><td class="labellarge" style="cursor: pointer;" onclick="Prosis.busy('yes');window.location='menu1.cfm?#act#'"><cfif url.operational eq "1"><b></cfif><cf_tl id="Active"></td>						
+				<td style="padding-left:10px">			
+				<input type="radio" class="radiol" name="toggle" value="0" onclick="Prosis.busy('yes');ptoken.location('menu1.cfm?#cls#')" <cfif url.operational eq "0">checked</cfif>>
+				</td><td>&nbsp;</td><td class="labellarge" style="cursor: pointer;" onclick="Prosis.busy('yes');window.location='menu1.cfm?#cls#'"><font color="blue"><cfif url.operational eq "0"><b></cfif><cf_tl id="Archive"></td>
+				
+			<cfelse>
+			
+				<input type="hidden" name="name" value="1">
+			
+			</cfif>
 						
 			</tr>
 		

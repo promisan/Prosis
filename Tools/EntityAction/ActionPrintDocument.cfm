@@ -154,6 +154,25 @@ datasource="AppsInit">
 
 <cfif url.mode eq "pdf" and url.format neq "HTML">
 
+	  <cfset text = replace("#DocumentContent#", "@pb", "<p style='page-break-after:always;'>&nbsp;</p>", "ALL")>	
+	 
+	  <cffile action="WRITE" 
+	        file="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#DocumentName#.htm" 
+		    output="#text#" 
+			addnewline="Yes" 
+		    fixnewline="No">										 
+
+	  <!--- NEW on-the-fly converter of htm content to pdf --->  
+      <cf_htm_pdf fileIn="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#DocumentName#">
+		
+	  <cfoutput>
+		<script>		
+			window.open('#SESSION.root#/CFRStage/User/#SESSION.acc#/#DocumentName#.pdf','_top')
+		</script>
+	  </cfoutput>		 
+
+	<!--- this was the old Coldfusion embedded content which we replaced with a component 
+	 
 	<cfparam name="client.footer" default="">
 
     <!---
@@ -223,6 +242,8 @@ datasource="AppsInit">
 		</cfif>  		
 										
 	</cfdocument>
+	
+	--->
 	
 <cfelse>
 

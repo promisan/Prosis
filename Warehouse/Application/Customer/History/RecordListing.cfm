@@ -127,7 +127,7 @@
 <cfset itm = itm+1>		
 <cfset fields[itm] = {label         = "#lt_text#",                  
 					  field         = "BatchReference",
-					  filtermode    = "1",
+					  filtermode    = "4",
 					  display		= "Yes",
 					  displayfilter = "Yes",
 					  search        = "text"}>	
@@ -136,7 +136,7 @@
 <cfset itm = itm+1>		
 <cfset fields[itm] = {label         = "#lt_text#",                  
 					  field         = "BatchNo",
-					  filtermode    = "1",
+					  filtermode    = "4",
 					  display		= "Yes",
 					  displayfilter = "Yes",					  					  
 					  functionscript    = "batch",

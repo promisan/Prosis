@@ -221,6 +221,8 @@
 							<td width="10">&nbsp;</td>
 							
 						</cfif>
+						
+						--->
 				   
 					   	<td align="right" style="width:20;height:30px"> 
 							  <button type="button" 
@@ -240,7 +242,6 @@
 							  </button>					
 						</td>	
 						
-						--->
 						
 						<td align="right"  style="width:20;height:30px">				 			 
 							  <button type="button" 
@@ -287,7 +288,7 @@
 												
 			<cfelse>
 																					
-				<cfdiv id="boxFieldDoc#no#"
+				<cf_securediv id="boxFieldDoc#no#"
 			       bind="url:ProcessActionDocumentTextElement.cfm?no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&element=documentcontent">			
 												
 			</cfif>		

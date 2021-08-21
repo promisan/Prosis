@@ -6,9 +6,9 @@
   datasource="AppsOrganization" 
   username="#SESSION.login#" 
   password="#SESSION.dbpw#">
-      SELECT TOP 1 *
-      FROM   Ref_Mandate
-   	  WHERE  Mission = '#Mission#' 
+      SELECT   TOP 1 *
+      FROM     Ref_Mandate
+   	  WHERE    Mission = '#Mission#' 
 	  ORDER BY MandateDefault DESC
 </cfquery>
 
@@ -20,49 +20,44 @@ which is derrived through the missionorgunitid --->
 		  method       = "SyncWarehouseAccess"
 		  Mission      = "#Mission#"
 		  Role         = "#URL.ID4#">	 
-		      
-<cftree name="root"
-   font="Calibri"
-   fontsize="12"		
-   bold="No"   
-   format="html"    
-   required="No">   	
+		  
+<cf_UItree id="root"
+	title="<span style='font-size:16px;padding-bottom:3px'>Warehouse</span>"		
+	Root="no"
+	expand="Yes">		  
 		
 		<cfoutput>
 		
-		  <cftreeitem value="#Mission#"
-		      display="<span class='labelmedium'><b>#Mission# #CurrentMandate.Description#</span>"
-			  parent="Root"		
-			  target="right"
-			  href="OrganizationListing.cfm?Mission=#Mission#&ID4=#URL.ID4#"					
-		      expand="Yes">
-			  				
+		<cf_UItreeitem value="#Mission#"
+	        display="<span style='font-size:15px;padding-top:1px;;padding-bottom:1px' class='labelit'>#CurrentMandate.Description#</span>"				
+			target="right"
+			parent="root"
+			href="OrganizationListing.cfm?Mission=#Mission#&ID4=#URL.ID4#">	
+				  				
 			<cfquery name="City" 
 			  datasource="AppsOrganization" 
 			  username="#SESSION.login#" 
 			  password="#SESSION.dbpw#">
 			      SELECT DISTINCT City
-				  FROM  Materials.dbo.Warehouse W
-				  WHERE Mission = '#Mission#'      
+				  FROM   Materials.dbo.Warehouse W
+				  WHERE  Mission = '#Mission#'      
 			</cfquery>
 			
 			<cfloop query="City">
+			
+				<cf_UItreeitem value="#mission#_#currentrow#"
+			        display="<span style='font-size:15px' class='labelit'>#City#</span>" parent="#mission#">	
 				
-				<cftreeitem value="#mission#_#currentrow#"
-			        display="<div class='labelmedium'>#City#"
-					parent="#Mission#"				
-					expand="No">	
-		
 				  <cfquery name="Warehouse" 
-				  datasource="AppsOrganization" 
-				  username="#SESSION.login#" 
-				  password="#SESSION.dbpw#">
-				      SELECT DISTINCT O.TreeOrder, O.OrgUnitName, O.OrgUnit, O.OrgUnitCode, W.WarehouseName 
-				      FROM  #Client.LanPrefix#Organization O, Materials.dbo.Warehouse W
-				   	  WHERE O.MissionOrgUnitId = W.MissionOrgUnitId
-					  AND   W.Mission          = '#Mission#'
-					  AND   O.MandateNo        = '#CurrentMandate.MandateNo#'
-					  AND   W.City             = '#City#'
+					  datasource="AppsOrganization" 
+					  username="#SESSION.login#" 
+					  password="#SESSION.dbpw#">
+				      SELECT   DISTINCT O.TreeOrder, O.OrgUnitName, O.OrgUnit, O.OrgUnitCode, W.WarehouseName 
+				      FROM     #Client.LanPrefix#Organization O, Materials.dbo.Warehouse W
+				   	  WHERE    O.MissionOrgUnitId = W.MissionOrgUnitId
+					  AND      W.Mission          = '#Mission#'
+					  AND      O.MandateNo        = '#CurrentMandate.MandateNo#'
+					  AND      W.City             = '#City#'
 					  ORDER BY TreeOrder, OrgUnitName 
 				  </cfquery>
 				  
@@ -70,24 +65,18 @@ which is derrived through the missionorgunitid --->
 				  
 				  <cfloop query="Warehouse">
 				  
-				  	<cftreeitem value="#mission#_#WarehouseName#"
-				        display="#WarehouseName#"
-						parent="#parent#"		
-						href="OrganizationListing.cfm?ID0=#OrgUnit#&ID1=#OrgUnit#&Mission=#Mission#&ID3=#CurrentMandate.MandateNo#&ID4=#URL.ID4#"	
+				  	<cf_UItreeitem value="#mission#_#WarehouseName#"
+				        display="<span style='font-size:13px' class='labelit'>#WarehouseName#</span>"
+						parent="#parent#"						
 						target="right"
-						expand="No">		  
-					    
-				  </cfloop>
-				  
-				  <cftreeitem value="dummay"
-			        display=""
-					parent="#parent#"				
-					expand="No">					  
+						href="OrganizationListing.cfm?ID0=#OrgUnit#&ID1=#OrgUnit#&Mission=#Mission#&ID3=#CurrentMandate.MandateNo#&ID4=#URL.ID4#">	
+				  					    
+				  </cfloop>						  
 			  
 			  </cfloop>
 			      
 		</cfoutput>
 		
-</cftree>
+</cf_UItree>
 
 

@@ -4,7 +4,9 @@
 
 <cf_tl id="Register family member" var="1">
 
-<cf_screentop height="100%" label="#lt_text#" close="parent.parent.ColdFusion.Window.destroy('mydependent',true)" scroll="Yes" layout="webapp" banner="gray" line="no" menuaccess="context" option="Personnel Administration">
+<cf_screentop height="100%" label="#lt_text#" html="No" scroll="Yes" layout="webapp" banner="gray" line="no" menuaccess="context" option="Personnel Administration">
+
+<!--- close="parent.parent.ColdFusion.Window.destroy('mydependent',true)" --->
 
 <cf_CalendarScript>
 
@@ -61,7 +63,8 @@ password="#SESSION.dbpw#">
 	ORDER BY ListingOrder
 </cfquery>
 
-<cfform action="DependentEntrySubmit.cfm?action=#url.action#&contractid=#url.contractid#" method="POST" target="process" name="DependentEntry">
+<cfform action="DependentEntrySubmit.cfm?action=#url.action#&contractid=#url.contractid#"
+  method="POST" target="process" name="DependentEntry">
 	
 <cfquery name="Employee" 
      datasource="AppsEmployee" 
@@ -72,7 +75,7 @@ password="#SESSION.dbpw#">
         WHERE PersonNo = '#URL.ID#'
 </cfquery>      	
 
-<table width="96%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="96%" align="center" class="formpadding">
 
 <tr class="hide"><td>
    <iframe name="process" id="process" width="100%" height="80"></iframe></td>
@@ -82,12 +85,12 @@ password="#SESSION.dbpw#">
 
 <cfoutput><input type="hidden" name="PersonNo" value="#URL.ID#" class="regular"></cfoutput>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
  
   <tr>
     <td width="100%" class="header">
 	
-    <table border="0" cellpadding="0" cellspacing="0" width="97%" align="center" class="formpadding formspacing">
+    <table width="97%" align="center" class="formpadding formspacing">
 	
     <TR><td height="4"></td></TR>		
 	
@@ -520,7 +523,7 @@ password="#SESSION.dbpw#">
 	<tr><td height="1" colspan="2" height="51" align="center">
 	<cfoutput>
 		<cf_tl id="Cancel" var="1">
-		<input type="button" name="cancel" value="#lt_text#" class="button10g" onClick="parent.parent.ColdFusion.Window.destroy('mydependent',true)">		
+		<input type="button" name="cancel" value="#lt_text#" class="button10g" onClick="parent.parent.ProsisUI.closeWindow('mydependent',true)">		
  		<cf_tl id="Save" var="1">
 		<input class="button10g" type="submit" name="Submit"  value=" #lt_text# ">
    </cfoutput>

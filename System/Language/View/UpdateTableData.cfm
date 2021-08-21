@@ -48,23 +48,23 @@
 <!--- NEW management info listing  added 22/8/2011 --->
 
 <cfinvoke component="UpdateTable" method="table" 
-	  TableCode="Ref_ModuleControlSection" 
-	  SystemModule="System"
-      DataSource="AppsSystem"  
+	  TableCode      = "Ref_ModuleControlSection" 
+	  SystemModule   = "System"
+      DataSource     = "AppsSystem"  
 	  InterfaceTable = "1"
 	  KeyFieldName   = "SystemFunctionId"
 	  KeyFieldName2  = "FunctionSection"     
-	  Fields="SectionName">	  
+	  Fields         = "SectionName">	  
   
 <cfinvoke component="UpdateTable" method="table" 
-	  TableCode="Ref_ModuleControlSectionCell" 
-	  SystemModule="System"
-      DataSource="AppsSystem"  
+	  TableCode      = "Ref_ModuleControlSectionCell" 
+	  SystemModule   = "System"
+      DataSource     = "AppsSystem"  
 	  InterfaceTable = "1"
 	  KeyFieldName   = "SystemFunctionId"
 	  KeyFieldName2  = "FunctionSection"   
 	  KeyFieldName3  = "CellCode"       
-	  Fields="CellLabel">	  	
+	  Fields         = "CellLabel">	  	
 	  
 <!--- -------------------------- --->
 <!--- -----ORGANIZATION--------- --->
@@ -94,18 +94,25 @@
 	  Fields="QuestionLabel,QuestionMemo">
 	 	  
 <cfinvoke component="UpdateTable" method="table" 
-	  TableCode="Ref_EntityDocument" 
-	  SystemModule="System"
-      DataSource="AppsOrganization"  
-      KeyFieldName="DocumentId"
-	  Fields="DocumentDescription">
+	  TableCode      = "Ref_EntityDocument" 
+	  SystemModule   = "System"
+      DataSource     = "AppsOrganization"  
+      KeyFieldName   = "DocumentId"
+	  Fields         ="DocumentDescription">
  
 <cfinvoke component="UpdateTable" method="table" 
-	  TableCode="Organization" 
-	  SystemModule="System"
-      DataSource="AppsOrganization"  
-      KeyFieldName="OrgUnit"
-	  Fields="OrgUnitName,OrgUnitNameShort,Remarks">
+	  TableCode     = "Organization" 
+	  SystemModule  = "System"
+      DataSource    = "AppsOrganization"  
+      KeyFieldName  = "OrgUnit"
+	  Fields        = "OrgUnitName,OrgUnitNameShort,Remarks">
+	  
+<cfinvoke component="UpdateTable" method="table" 
+	  TableCode     = "MissionProfile" 
+	  SystemModule  = "System"
+      DataSource    = "AppsOrganization"  
+      KeyFieldName  = "ProfileId"
+	  Fields        = "FunctionName">	  
 	  
 <cfinvoke component="UpdateTable" method="table" 
 	  TableCode="Ref_EntityClassAction" 

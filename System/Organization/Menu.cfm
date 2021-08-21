@@ -29,12 +29,12 @@
 	    <table cellspacing="0" cellpadding="0">
 		<tr>		
 		<td>
-		<input type="radio" class="radiol" name="toggle" id="toggle" value="1" onclick="window.location='menu.cfm?operational=1'" <cfif url.operational eq "1">checked</cfif>>
-		</td><td>&nbsp;</td><td style="cursor:pointer" class="labellarge" onclick="window.location='menu.cfm?operational=1'"><cfif url.operational eq "1"><b></cfif>Active</td>
+		<input type="radio" class="radiol" name="toggle" id="toggle" value="1" onclick="ptoken.location('menu.cfm?operational=1')" <cfif url.operational eq "1">checked</cfif>>
+		</td><td>&nbsp;</td><td style="cursor:pointer" class="labellarge" onclick="ptoken.location('menu.cfm?operational=1')"><cfif url.operational eq "1"><b></cfif>Active</td>
 		<td>&nbsp;</td>
 		<td>
-		<input type="radio" class="radiol" name="toggle" id="toggle" value="0" onclick="window.location='menu.cfm?operational=0'" <cfif url.operational eq "0">checked</cfif>>
-		</td><td>&nbsp;</td><td style="cursor:pointer" class="labellarge" onclick="window.location='menu.cfm?operational=0'"><font color="FF0000"><cfif url.operational eq "0"><b></cfif>Closed</td>
+		<input type="radio" class="radiol" name="toggle" id="toggle" value="0" onclick="ptoken.location('menu.cfm?operational=0')" <cfif url.operational eq "0">checked</cfif>>
+		</td><td>&nbsp;</td><td style="cursor:pointer" class="labellarge" onclick="ptoken.location='menu.cfm?operational=0'"><font color="FF0000"><cfif url.operational eq "0"><b></cfif>Closed</td>
 		</tr>
 		</table>
 	</td>

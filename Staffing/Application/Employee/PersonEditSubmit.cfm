@@ -45,8 +45,7 @@
 	<script LANGUAGE = "JavaScript">
 		 
 		 {	 
-			parent.parent.parent.window.close()
-			// parent.parent.parent.ColdFusion.Window.destroy('personedit',true)    
+			parent.parent.parent.window.close()			    
 		 }
 	    
 	</script>	

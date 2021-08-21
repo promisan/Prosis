@@ -1,4 +1,8 @@
 
+<script>
+_cf_loadingtexthtml='';	
+</script>
+
 <cfset vTotal = 0 >
 <cfif url.requirementid neq "">
 
@@ -182,10 +186,10 @@
 				</cfquery>				
 						
 				<cfif entry.recordcount eq "1">
-				    <cfset load = "Yes">
-					<!--- <cfset id = entry.RequirementId> --->
-					<cfset cl =  "regular">
-					<input type="hidden" name="itm_#code#_#row#"    id="itm_#code#_#s#" style="width:20" value="1">
+				        <cfset load = "Yes">
+					    <!--- <cfset id = entry.RequirementId> --->
+					    <cfset cl =  "regular">
+					    <input type="hidden" name="itm_#code#_#row#"    id="itm_#code#_#s#" style="width:20" value="1">
 				<cfelse>
 				    <cfset load = "No">
 					<!--- <cfset id = "00000000-0000-0000-0000-000000000000"> --->
@@ -208,7 +212,7 @@
 					   		
 							<cfif s eq "1">		
 							
-							<table cellspacing="0" border="0" cellpadding="0">
+							<table>
 							<tr>		
 								
 								<td>
@@ -226,7 +230,7 @@
 												</cfif>
 											</td>
 											<td width="14px;" style="padding-left:2px;padding-top:3px">
-												<cf_tl id="View Instructions" var="1">
+												<cf_tl id="Instructions" var="1">
 												<table>
 													<tr>
 														<td>
@@ -281,7 +285,7 @@
 							 	   
 					    <cfelse>		
 					   				     		 
-							  <td style="height:25px;width:100%;padding-right:4px;border-left:1px solid silver">	
+							  <td style="height:25px;width:100%;padding-right:4px">	
 							  
 							  <cfif entry.requirementid eq "">							  
 							  		<cfset vid = "">
@@ -290,10 +294,11 @@
 							  </cfif>
 																			
 							  <!--- 2/7/2014 removed as this gave ajax errors 	--->				  
-							  <cfdiv id="description_#row#" 
-							     bindOnLoad="No" 
+							  <cf_securediv id="description_#row#" 
+							     bindOnLoad="Yes" 
 								 bind="url:getRequestDescription.cfm?setlabel=0&line=#row#&id=#vid#&itemmaster=#Code#&mission=#program.mission#&location={requestlocationcode}">  
 								 
+								 <!---
 								  <cfset url.setlabel   = "0">
 								  <cfset url.line       = row>
 								  <cfset url.id         = vid>
@@ -303,7 +308,9 @@
 							  					  
 							  	  <cfinclude template="getRequestDescription.cfm">						 
 								 
-							  </cfdiv>	 					  	 
+							  </cfdiv>
+							  
+							  --->	 					  	 
 							  
 							  </td>
 							  
@@ -329,15 +336,15 @@
 					   
 					        <td style="padding-right:2px">	
 							
-							    <cfinput type="Text"
-							       name="resourcequantity_#row#"
-								   id="resourcequantity_#row#"
-							       value="#entry.resourceQuantity#"					       	
-								   class="enterastab regularxl"		  
-								   style="text-align:right;height:25;width:50;border:0px;border-right:1px solid silver"
-								   message="Please enter a quantity"
-								   onblur="javascript:syncAmounts()"
-							       required="no">
+							    <cfinput type = "Text"
+							       name       = "resourcequantity_#row#"
+								   id         = "resourcequantity_#row#"
+							       value      = "#entry.resourceQuantity#"					       	
+								   class      = "enterastab regularxl"		  
+								   style      = "text-align:right;height:25;width:50;border:0px;border-right:1px solid silver"
+								   message    = "Please enter a quantity"
+								   onblur     = "javascript:syncAmounts()"
+							       required   = "no">
 		
 						    </td>
 						  				  					   
@@ -345,19 +352,19 @@
 							
 							    <cfif BudgetEntryQuantity2 eq "1">
 								
-								<cfset vTempResourceDays = 1>
-								<cfif entry.resourcedays neq "">
-									<cfset vTempResourceDays = entry.resourcedays>
-								</cfif>
-						  						  
-							    <cfinput type="Text"
-							       name="resourcedays_#row#"
-								   id="resourcedays_#row#"
-							       value="#vTempResourceDays#"					       
-								   class="enterastab regularxl"			  
-								   style="text-align:right;height:25;width:50;border:0px;border-right:1px solid silver"
-								   message="Please enter a quantity"
-							       required="no">
+									<cfset vTempResourceDays = 1>
+									<cfif entry.resourcedays neq "">
+										<cfset vTempResourceDays = entry.resourcedays>
+									</cfif>
+															  						  
+								    <cfinput type  = "Text"
+								       name        = "resourcedays_#row#"
+									   id          = "resourcedays_#row#"
+								       value       = "#vTempResourceDays#"					       
+									   class       = "enterastab regularxl"			  
+									   style       = "text-align:right;height:25;width:50;border:0px;border-right:1px solid silver"
+									   message     = "Please enter a quantity"
+								       required    = "no">
 								   
 								 <cfelse>
 								 
@@ -371,15 +378,15 @@
 						    </td>
 						 				 					   
 						    <td style="padding-left:1px;text-align:right;padding-right:1px;">
-						   			  
-							  <cfdiv id="quantity_#row#" class="labelmedium" style="background-color:f4f4f4;width:50;border-right:1px solid silver;height:25;padding-right:3px;" bindonload="No"
-							    bind="url:RequestQuantityMode1.cfm?start=#row#&lines=#row#&mode=quantity&resource_#row#={resourcequantity_#row#}&day_#row#={resourcedays_#row#}">
+													   			 									 
+							  <cf_securediv id="quantity_#row#" class="labelmedium" style="background-color:f4f4f4;width:50;border-right:1px solid silver;height:25;padding-right:3px;" bindonload="Yes"
+							    bind="url:RequestQuantityMode1.cfm?modality=test&mode=quantity&start=#row#&lines=#row#&resource_#row#={resourcequantity_#row#}&day_#row#={resourcedays_#row#}">
 								
-								<div id="quantity_display_#row#" style="padding-top:3px;font-size:14">#numberformat(entry.requestQuantity,",__")#</div>
-														
-								<input type="hidden" name="requestquantity_#row#" id="requestquantity_#row#" value="#entry.requestQuantity#">	
-								
+								<!---
+								<div id="quantity_display_#row#" style="padding-top:3px;font-size:14">#numberformat(entry.requestQuantity,",__")#</div>														
+								<input type="hidden" name="requestquantity_#row#" id="requestquantity_#row#" value="#entry.requestQuantity#">																	
 							  </cfdiv>	
+							  --->
 																							   
 						     </td>
 											 
@@ -439,19 +446,16 @@
 		
 						   		#numberformat(entry.requestAmountBase,",.__")#
 							
-						<cfelse>							
+						<cfelse>		
+								
 																				
-								<cfdiv id="total_#row#" class="labelmedium" style="background-color:A4FFA4;width:80;border:0px solid silver;height:25;padding-top:3px;padding-right:3px;" bindonload="No"
-								bind="url:RequestQuantityMode1.cfm?start=#row#&lines=#row#&mode=total&price={requestprice_#row#}&resource_#row#={resourcequantity_#row#}&day_#row#={resourcedays_#row#}">							
-								#numberformat(entry.requestAmountBase,",.__")#
+								<cf_securediv id="total_#row#" class="labelmedium" style="background-color:A4FFA4;width:80;border:0px solid silver;height:25;padding-top:3px;padding-right:3px;" bindonload="Yes"
+								bind="url:RequestQuantityMode1.cfm?modality=test&mode=total&start=#row#&lines=#row#&price={requestprice_#row#}&resource_#row#={resourcequantity_#row#}&day_#row#={resourcedays_#row#}">							
 								
-								<!--- removed by hanno not needed in my view 28/7/2014
-								<div id="total_display_#row#" style="padding-top:3px;font-size:14">														
-								<!--- #numberformat(entry.requestAmountBase,"__,__.__")# --->
-								</div>
-								--->
-								
+								<!--- 
+								#numberformat(entry.requestAmountBase,",.__")#																
 								</cfdiv>
+								--->
 																	
 						</cfif>						
 														
@@ -482,7 +486,8 @@
 		
 		<tr><td colspan="3" style="height:30" align="right" class="labelmedium"><cf_tl id="Total">:</td>
 		    <td colspan="6" align="right">	
-			    <cfdiv id="overall" class="labelmedium" style="background-color:77E7EC;width:100;height:25;padding-right:3px;;border:1px solid silver"><cfoutput>#numberFormat(Total.Amount,"___,___.__")#</cfoutput></cfdiv>		
+			    <cfdiv id="overall" class="labelmedium" style="background-color:77E7EC;width:100;height:25;padding-right:3px;;border:1px solid silver"><cfoutput>#numberFormat(Total.Amount,"___,___.__")#</cfoutput>
+				</cfdiv>		
 			</td>
 		</tr>	
 			

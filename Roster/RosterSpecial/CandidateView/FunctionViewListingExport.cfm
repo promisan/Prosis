@@ -74,9 +74,12 @@
 	</cfquery>
 	
 	<cfset URL.ControlId = Layout.ControlId>
+	
+	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/>  
 
 	<cfoutput>
 		<script language="JavaScript">		
-	  	  window.location = "#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcel.cfm?table1=#SESSION.acc#Roster_#FileNo#&controlid=#Layout.ControlId#"		 		 
+	  	  window.location = "#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcel.cfm?mid=#mid#&table1=#SESSION.acc#Roster_#FileNo#&controlid=#Layout.ControlId#"		 		 
 		</script>
 	</cfoutput>

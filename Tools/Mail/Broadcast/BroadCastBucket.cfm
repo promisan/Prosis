@@ -76,4 +76,5 @@
    AND     AF.Status = '#URL.Status#'
 </cfquery>
 
-<cflocation addtoken="No" url="BroadCastView.cfm?id=#rowguid#">
+<cfparam name="url.mid" default="">
+<cflocation addtoken="No" url="BroadCastView.cfm?id=#rowguid#&mid=#url.mid#">

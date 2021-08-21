@@ -114,7 +114,7 @@
 	
 	<table width="96%" border="0" align="center" class="navigation_table">
 	   <tr><td>&nbsp;</td></tr>
-	   <tr class="labelmedium line">
+	   <tr class="labelmedium2 line">
 	      <td width="5%" height="20" style="padding-left:5px"><cf_tl id="No"></td>
 	      <td width="10%"><cf_tl id="Account"></td>
 		  <td width="20%"><cf_tl id="Name"></td>
@@ -225,12 +225,12 @@
 					
 					<!--- define the criteria from the report --->
 					<cfparam name="Form.LayoutId"   default="00000000-0000-0000-0000-000000000000">
-					<cfparam name="Form.FileFormat" default = "FlashPaper">
+					<cfparam name="Form.FileFormat" default = "PDF">
 						
 					<cfset serial = row+99>   <!--- counting from 100 --->
 					
 					<table width="96%" border="0" align="center">				
-				     <tr class="labelmedium line">
+				     <tr class="labelmedium2 line">
 					    <td width="5%" style="padding-left:5px">#serial#</td>
 					    <td width="10%">#Account#</td>
 						<td width="20%">#DistributionName#</td>
@@ -447,7 +447,7 @@
 								<table width="96%" border="0" align="center">
 								      <tr>				
 									  <td>
-									  	<td class="labelmedium linedotted"><font color="FF0000">Problem with report. Report has been skipped</font></td>
+									  	<td class="labelmedium linedotted"><font color="FF0000">Problem with report. Report was skipped</font></td>
 									  </tr>
 								<table>
 							
@@ -526,8 +526,12 @@
 	</cfif>
 	
 	<table>
-	<tr><td style="padding-left:20px" height="30" class="labelmedium">	
+	<tr><td style="padding-left:40px;font-size:30px" height="30" class="labelmedium2">	
 	Completed <cfif class eq "Trial"><br>Test Mode : No eMails were sent except for administrator account</cfif>	
 	</td></tr>
 	</table>
+	
+	<script>
+	 Prosis.busy('no')
+	</script>
 	

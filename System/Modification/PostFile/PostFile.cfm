@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" title="Application Code Inquiry" scroll="no" html="No" jQuery="Yes">
+<cf_screentop height="100%" title="Application Code Inquiry" scroll="no" html="No" jQuery="Yes" TreeTemplate="Yes">
 
 <cf_layoutscript>
 
@@ -23,19 +23,13 @@
 			<table width="100%" height="100%" class="tree formpadding">
 			<tr><td valign="top">
 			
-			    <!--- Hanno - Armin
-				<cf_UItree name="idfolder" font="calibri"  fontsize="12" bold="No" format="html" required="No">
-				     <cf_UITreeitem
-							  bind="cfc:service.Tree.FolderTree.getNodes({cftreeitempath},{cftreeitemvalue},'#SESSION.rootpath#')">
-			    </cf_UItree>
-				--->
-				
 				<cfform>
-				<cftree name="idfolder" font="tahoma" fontsize="11" bold="No" format="html" required="No">				
-				     <cftreeitem bind="cfc:service.Tree.FolderTree.getNodes({cftreeitempath},{cftreeitemvalue},'#SESSION.rootpath#')">  		 					 
-			    </cftree>		
+					<cf_UItree name="idfolder" font="tahoma" fontsize="11" bold="No" format="html" required="No">
+						 <cf_UItreeitem bind="cfc:service.Tree.FolderTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#SESSION.rootpath#')">
+					</cf_UItree>
 				</cfform>
-						
+
+
 			</td></tr>
 			</table>
 		

@@ -5,7 +5,7 @@
 
 <cf_dialogStaffing>
 
-	<script language="JavaScript">
+<script language="JavaScript">
 	
 	function distribution(id) {
 		ptoken.open("#SESSION.root#/System/Access/User/Audit/ListingReportDetail.cfm?drillid=" + id, id);
@@ -19,26 +19,25 @@
 	
 	function listing(row,id) {
      		
-	icM  = document.getElementById("d"+row+"Min");
-    icE  = document.getElementById("d"+row+"Exp");
-	se   = document.getElementById("d"+row);
-		 		 
-	if (se.className == "hide") {	 				
-     	 icM.className = "regular";
-	     icE.className = "hide";
-		 se.className  = "regular";
-		 ptoken.navigate('DistributionLogDetail.cfm?batchid=#URL.ID#&row=' + row + '&Id=' + id,'i'+row)
-	 } else {	 	     
-     	 icM.className = "hide";
-	     icE.className = "regular";
-     	 se.className  = "hide";		 	 
-	 }
-		 		
-  }
+		icM  = document.getElementById("d"+row+"Min");
+	    icE  = document.getElementById("d"+row+"Exp");
+		se   = document.getElementById("d"+row);
+			 		 
+		if (se.className == "hide") {	 				
+	     	 icM.className = "regular";
+		     icE.className = "hide";
+			 se.className  = "regular";
+			 ptoken.navigate('DistributionLogDetail.cfm?batchid=#URL.ID#&row=' + row + '&Id=' + id,'i'+row)
+		 } else {	 	     
+	     	 icM.className = "hide";
+		     icE.className = "regular";
+	     	 se.className  = "hide";		 	 
+		 }		 		
+     }
   
-  function recordedit(id1) {
-         ptoken.open("../Reports/RecordEdit.cfm?ID=" + id1, "Edit", "left=40, top=15, width=1090, height=890, toolbar=no, status=yes, scrollbars=no, resizable=yes");
-  }
+     function recordedit(id1) {
+          ptoken.open("../Reports/RecordEdit.cfm?ID=" + id1, "Report config");
+     }
 	
 </script>	
 	
@@ -48,29 +47,29 @@
    datasource="AppsSystem" 
    username="#SESSION.login#" 
    password="#SESSION.dbpw#">
-   SELECT *
-   FROM ReportBatchLog
-   WHERE BatchId = '#URL.ID#'
+	   SELECT *
+	   FROM ReportBatchLog
+	   WHERE BatchId = '#URL.ID#'
 </cfquery>
 
 <cfquery name="Avg" 
    datasource="AppsSystem" 
    username="#SESSION.login#" 
    password="#SESSION.dbpw#">
-   SELECT Avg(AvgTimeEmail) as AvgTimeEmail
-   FROM ReportBatchLog
+	   SELECT Avg(AvgTimeEmail) as AvgTimeEmail
+	   FROM ReportBatchLog
 </cfquery>
 
 <cfquery name="Mode" 
    datasource="AppsSystem" 
    username="#SESSION.login#" 
    password="#SESSION.dbpw#">
-	SELECT     DistributionCategory, COUNT(*) AS Mode
-	FROM         UserReportDistribution
-	WHERE BatchId = '#URL.ID#'
-	AND  DistributionStatus = '1'
-	AND  DistributionCategory != 'ERROR'
-	GROUP BY DistributionCategory
+	SELECT    DistributionCategory, COUNT(*) AS Mode
+	FROM      UserReportDistribution
+	WHERE     BatchId = '#URL.ID#'
+	AND       DistributionStatus = '1'
+	AND       DistributionCategory != 'ERROR'
+	GROUP BY  DistributionCategory
 </cfquery>
 
 <cfquery name="Failed" 
@@ -87,44 +86,47 @@
                Ref_SystemModule M ON R.SystemModule = M.SystemModule
 	WHERE      UR.DistributionStatus  = '9'
 	AND        UR.BatchId = '#URL.ID#'
-	ORDER BY M.Description, R.FunctionName, RL.LayOutName, U.DistributionName
+	ORDER BY   M.Description, 
+	           R.FunctionName, 
+			   RL.LayOutName, 
+			   U.DistributionName
 </cfquery>
 
 <cfquery name="Module" 
    datasource="AppsSystem" 
    username="#SESSION.login#" 
    password="#SESSION.dbpw#">
-   SELECT     M.Description, COUNT(*) AS Module
-   FROM       UserReportDistribution D INNER JOIN
-              UserReport UR ON D.ReportId = UR.ReportId INNER JOIN
-              Ref_ReportControlLayout RL ON UR.LayoutId = RL.LayoutId INNER JOIN
-              Ref_ReportControl R ON RL.ControlId = R.ControlId INNER JOIN
-              Ref_SystemModule M ON R.SystemModule = M.SystemModule
-   WHERE BatchId = '#URL.ID#'		  
-   AND       DistributionStatus = '1'  
-   GROUP BY M.Description
+	   SELECT     M.Description, COUNT(*) AS Module
+	   FROM       UserReportDistribution D INNER JOIN
+    	          UserReport UR ON D.ReportId = UR.ReportId INNER JOIN
+        	      Ref_ReportControlLayout RL ON UR.LayoutId = RL.LayoutId INNER JOIN
+	              Ref_ReportControl R ON RL.ControlId = R.ControlId INNER JOIN
+    	          Ref_SystemModule M ON R.SystemModule = M.SystemModule
+	   WHERE      BatchId = '#URL.ID#'		  
+	   AND        DistributionStatus = '1'  
+	   GROUP BY   M.Description
 </cfquery>   
 
 <cfquery name="Log" 
 datasource="AppsSystem" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT     M.Description, R.FunctionName, RL.LayOutName, RL.LayoutId, R.ControlId,
-           RL.TemplateReport, COUNT(*) AS Prepared
-FROM         UserReportDistribution UR INNER JOIN
-                      UserReport U ON UR.ReportId = U.ReportId INNER JOIN
-                      Ref_ReportControlLayout RL ON U.LayoutId = RL.LayoutId INNER JOIN
-                      Ref_ReportControl R ON RL.ControlId = R.ControlId INNER JOIN
-                      Ref_SystemModule M ON R.SystemModule = M.SystemModule
-WHERE     (UR.DistributionCategory <> 'ERROR')
-AND       BatchId = '#URL.ID#'
-AND       DistributionStatus = '1'
-GROUP BY M.Description,
-         R.FunctionName, 
-		 RL.LayOutName, 
-		 RL.TemplateReport, 
-		 RL.LayoutId, 
-		 R.ControlId
+	SELECT     M.Description, R.FunctionName, RL.LayOutName, RL.LayoutId, R.ControlId,
+	           RL.TemplateReport, COUNT(*) AS Prepared
+	FROM         UserReportDistribution UR INNER JOIN
+                 UserReport U ON UR.ReportId = U.ReportId INNER JOIN
+                 Ref_ReportControlLayout RL ON U.LayoutId = RL.LayoutId INNER JOIN
+                 Ref_ReportControl R ON RL.ControlId = R.ControlId INNER JOIN
+                 Ref_SystemModule M ON R.SystemModule = M.SystemModule
+	WHERE     (UR.DistributionCategory <> 'ERROR')
+	AND       BatchId = '#URL.ID#'
+	AND       DistributionStatus = '1'
+	GROUP BY M.Description,
+	         R.FunctionName, 
+			 RL.LayOutName, 
+			 RL.TemplateReport, 
+			 RL.LayoutId, 
+			 R.ControlId
 </cfquery>
 
 <cfoutput query="Header">
@@ -325,14 +327,10 @@ GROUP BY M.Description,
 		   
 		   <td>
 		   
-			   <cfif Access eq "EDIT" or Access eq "ALL">
-			   
-			       <a title="Report configuration" href="javascript:recordedit('#ControlId#')">#FunctionName#</a>
-				   
-			   <cfelse>
-			   
-			       #FunctionName#
-				   
+			   <cfif Access eq "EDIT" or Access eq "ALL">			   
+			       <a title="Report configuration" href="javascript:recordedit('#ControlId#')">#FunctionName#</a>				   
+			   <cfelse>			   
+			       #FunctionName#				   
 			   </cfif>
 		   
 		   </td>

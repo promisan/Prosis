@@ -110,14 +110,13 @@
 	function distribution(s,idmenu) {
 	    ptoken.open("#SESSION.root#/Payroll/Application/PaymentDistribution/EmployeeDistribution.cfm?ID=#URL.ID#&ID1=#URL.ID1#&systemfunctionid="+idmenu, "right");
 	}
-	
-	
+		
 	function payroll(s,idmenu) {
 	    ptoken.open("#SESSION.root#/Payroll/Application/Payroll/EmployeePayroll.cfm?ID=#URL.ID#&ID1=#URL.ID1#&systemfunctionid="+idmenu, "right");
 	}
 	
 	function overtime(s,idmenu) {
-	    ptoken.location ("#SESSION.root#/Payroll/Application/Overtime/EmployeeOvertime.cfm?ID=#URL.ID#&ID1=#URL.ID1#&systemfunctionid="+idmenu,"parent.right");
+	    ptoken.location("#SESSION.root#/Payroll/Application/Overtime/EmployeeOvertime.cfm?ID=#URL.ID#&ID1=#URL.ID1#&systemfunctionid="+idmenu,"parent.right");
 	}
 	
 	function dependent(s,idmenu) {
@@ -127,21 +126,13 @@
 	function issueddocument(s,idmenu) {
 	    ptoken.location("Document/EmployeeDocument.cfm?ID=#URL.ID#&systemfunctionid="+idmenu,"parent.right");
 	}
-	
-
-
 
 	function issueddocument(s,idmenu) {
 	    ptoken.location("Document/EmployeeDocument.cfm?ID=#URL.ID#&systemfunctionid="+idmenu,"parent.right");
 	}
 
-
-
-
-	function php(s,idmenu) {
-	    w = #CLIENT.width# - 60;
-	    h = #CLIENT.height# - 120;
-		ptoken.open("#SESSION.root#/Roster/Candidate/Details/PHPView.cfm?ID=#Applicant.PersonNo#&mode=Manual", "_blank", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
+	function php(s,idmenu) {	 
+		ptoken.open("#SESSION.root#/Roster/Candidate/Details/PHPView.cfm?ID=#Applicant.PersonNo#&mode=Manual", "PHP");
 	}
 	
 	function scheduledtasks() {
@@ -162,49 +153,49 @@
 	<!--- DW UN ONLY --->
 	<!--- ---------- --->
 	
-	function pa(s,idmenu) {
-	    window.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=pa", "right");
+	function pa(s,idmenu) {	
+	    ptoken.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=pa", "right");
 	}
 	
 	function assignment(s,idmenu) {
-	    window.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=assignment", "right");
+	    ptoken.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=assignment", "right");
 	}
 	
 	function incumbency0(s,idmenu) {
-		window.open("#SESSION.root#/DWarehouse/Detail/EmployeeRouting.cfm?ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=assignment", "right");
+		ptoken.open("#SESSION.root#/DWarehouse/Detail/EmployeeRouting.cfm?ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=assignment", "right");
 	   
 	}
 	
 	function grade(s,idmenu) {
-	    window.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=grade", "right");
+	    ptoken.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=grade", "right");
 	}
 	
 	function appointment(s,idmenu) {
-	    window.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=appointment", "right");	
+	    ptoken.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=appointment", "right");	
 	}
 	
 	function entitlement2(s,idmenu) {
-	    window.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=entitlement", "right");
+	    ptoken.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=history&topic=entitlement", "right");
 	}
 	
 	function insurance(s,idmenu) {
-	    window.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=Miscellaneous&topic=insurance", "right");
+	    ptoken.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=Miscellaneous&topic=insurance", "right");
 	}
 	
 	function medical(s,idmenu) {
-	    window.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=Miscellaneous&topic=medical", "right");
+	    ptoken.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=Miscellaneous&topic=medical", "right");
 	}
 	
 	function education(s,idmenu) {
-	     window.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=Miscellaneous&topic=education", "right");	
+	    ptoken.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=Miscellaneous&topic=education", "right");	
 	}	
 			
 	function rental(s,idmenu) {
-	    window.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=Miscellaneous&topic=rental", "right");
+	    ptoken.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=Miscellaneous&topic=rental", "right");
 	}
 	
 	function offer(s,idmenu) {
-	    window.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=Miscellaneous&topic=offer", "right");
+	    ptoken.open("#SESSION.root#/DWarehouse/Detail/EmployeeGeneral.cfm?ts="+new Date().getTime()+"&ID=#URL.ID1#&systemfunctionid="+idmenu+"&section=Miscellaneous&topic=offer", "right");
 	}
 
 </script>

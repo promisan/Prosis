@@ -309,7 +309,7 @@ password="#SESSION.dbpw#">
 		      type="button" 
 			  name="Submit" 
 			  value=" #lt_text#" 
-			  onclick="ColdFusion.navigate('#SESSION.root#/Roster/Candidate/Details/Address/AddressDelete.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&id=#url.id#&id1=#url.id1#&entryScope=#url.entryScope#&mission=#url.mission#','addressprocess')">
+			  onclick="ptoken.navigate('#SESSION.root#/Roster/Candidate/Details/Address/AddressDelete.cfm?owner=#url.owner#&applicantno=#url.applicantno#&section=#url.section#&id=#url.id#&id1=#url.id1#&entryScope=#url.entryScope#&mission=#url.mission#','addressprocess')">
 	 
 	 </cfif>
 	 

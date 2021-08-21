@@ -22,21 +22,21 @@ function add(mod,mn,cls,fnd) {
 	ptoken.open("#SESSION.root#/system/Modules/InquiryBuilder/InquiryEdit.cfm?systemmodule="+mod+"&functionclass=" + cls, "inquiry");	
 }
 
-function maintaintopics(mod,mn,cls,fnd) {
-	window.showModalDialog("TopicListing.cfm?systemmodule="+mod+"&functionclass=" + cls + "&ts="+new Date().getTime(), window, "unadorned:yes; edge:raised; status:no; dialogHeight:525px; dialogWidth:800px; help:no; scroll:no; center:yes; resizable:no");	
-	more(mod,mn,cls,fnd)
+// function maintaintopics(mod,mn,cls,fnd) {
+//	window.showModalDialog("TopicListing.cfm?systemmodule="+mod+"&functionclass=" + cls + "&ts="+new Date().getTime(), window, "unadorned:yes; edge:raised; status:no; dialogHeight:525px; dialogWidth:800px; help:no; scroll:no; center:yes; resizable:no");	
+//	more(mod,mn,cls,fnd)
+//}
+
+function more(mod,mn,cls,fnd) {   
+    ptoken.navigate('RecordListingDetail.cfm?module='+mod+'&main='+mn+'&functionclass='+cls+'&find=' + fnd,'right')
 }
 
-function more(mod,mn,cls,fnd) {
-    ColdFusion.navigate('RecordListingDetail.cfm?module='+mod+'&main='+mn+'&functionclass='+cls+'&find=' + fnd,'right')
-}
-
-function editfunction(mod) {
-    ColdFusion.navigate('FunctionEdit.cfm?module='+mod,'right')
+function editfunction(mod) {    
+    ptoken.navigate('FunctionEdit.cfm?module='+mod,'right')
 }
 
 function help(mod,cls) {    
-    ColdFusion.navigate('../HelpBuilder/RecordListing.cfm?module='+mod+'&class='+cls,'right')
+    ptoken.navigate('../HelpBuilder/RecordListing.cfm?module='+mod+'&class='+cls,'right')
 }
 
 function helpedit(mod,cde,cls,id) {
@@ -45,10 +45,10 @@ function helpedit(mod,cde,cls,id) {
     ptoken.open("../helpBuilder/RecordEdit.cfm?module="+mod+"&code="+cde+"&class="+cls+"&id="+id,id)   
 }
     
-function functionedit(id1) {
+function functionedit(id1,scope) {
 	w = #CLIENT.width# - 200;
 	h = #CLIENT.height# - 120;    
-    ptoken.open("RecordEdit.cfm?ID=" + id1, "_blank", "left=40, top=40, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=no")
+    ptoken.open("RecordEdit.cfm?ID=" + id1 + "&scope=" + scope, "_blank", "left=40, top=40, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=no")
 }
 	
 function functionrefresh(id1) {

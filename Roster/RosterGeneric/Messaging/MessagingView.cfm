@@ -12,7 +12,8 @@
 <cf_LayoutScript>
 <cf_DialogStaffing>
 
-<table width="100%" height="100%"><tr><td style="padding:10px;width:100%;height:100%">
+<table width="100%" height="100%">
+<tr><td style="width:100%;height:100%">
 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>
 	 
@@ -26,7 +27,7 @@
 		size 	  = "30px">	
 		
 	<table width="100%" height="100%">
-	<tr><td style="padding-top:20px;padding:2px;font-size:30px" class="labellarge">
+	<tr class="line"><td style="padding-left:15px;background-color:f1f1f1;padding-top:5px;padding:2px;font-size:30px" class="labellarge">
 		<cfoutput>Exchange Messages with #url.owner# candidates </cfoutput>
 	</td>
 	</tr>
@@ -37,7 +38,7 @@
 	<cf_layoutarea position="center" name="box">	
 	
 	<table width="100%" height="100%">
-	<tr><td valign="top" style="padding:10px">
+	<tr><td valign="top" style="padding:5px">
 	    
 		<cfset url.systemfunctionid = url.idmenu>
 		

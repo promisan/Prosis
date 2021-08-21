@@ -18,7 +18,7 @@ There are three mode
 	3. Edition, which is being published, actionstatus = 0
 --->
 
-<table width="97%" height="100%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">	
+<table width="97%" height="100%" align="center" class="formpadding">	
     
 	<tr><td height="60">
 		
@@ -58,6 +58,8 @@ There are three mode
 				  <cfif get.recordcount eq "1">
 				  
 					  <td valign="top" style="padding-right:6px;padding-top:5px;border-right:0px solid gray">
+					  
+					  <input type="hidden" name="exerciseclass" id="exerciseclass" value="#get.Exerciseclass#">
 					  
 					  <table>
 					     <tr class="labelmedium"><td style="font-size:24px">#get.EditionDescription#</td></tr>

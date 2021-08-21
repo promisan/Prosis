@@ -31,14 +31,22 @@
 	<html>
 	
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>				
-		<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#</cfoutput>/tools/entityAction/Report/LayoutStyleSheet.css">					
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>									
 	</head>
+	
+	<!---
+	<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#</cfoutput>/tools/entityAction/Report/LayoutStyleSheet.css">	
+	--->
+	
+	<!--- we load the style sheet to the PDF engine can access it --->
+	<style>	
+	<cfinclude template="LayoutStylesheet.css">	
+	</style>
 		
 	<body>
 
 		<table width="99%" id="tmain">
-						
+								
 		<cfif Attributes.TitleLine1 neq "" or
 		  Attributes.Logo neq "" or
 		  Attributes.TitleLine2 neq "" or 

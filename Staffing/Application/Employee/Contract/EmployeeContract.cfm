@@ -1152,7 +1152,7 @@ password="#SESSION.dbpw#">
 						
 						<cf_assignid>
 													
-					    <cfset jvlink = "ProsisUI.createWindow('spa', 'Contract Post Adjustment','',{x:100,y:100,height:630,width:630,resizable:false,modal:true,center:true});ColdFusion.navigate('#session.root#/Staffing/Application/Employee/Contract/Adjustment/ContractSPA.cfm?contractid=#contractid#&postadjustmentid=#rowguid#&spabox=spa#row#','spa')">				
+					    <cfset jvlink = "ProsisUI.createWindow('spa', 'Contract Post Adjustment','',{x:100,y:100,height:630,width:630,resizable:false,modal:true,center:true});ptoken.navigate('#session.root#/Staffing/Application/Employee/Contract/Adjustment/ContractSPA.cfm?contractid=#contractid#&postadjustmentid=#rowguid#&spabox=spa#row#','spa')">				
 						
 						<cfif (access eq "ALL" or access eq "EDIT") and SPAcount lte "2">
 						

@@ -19,7 +19,7 @@ as in the inquiry status review to be matched with the total --->
 		             
 <cfsavecontent variable="myquery">	
    
-    SELECT *, RequestDate, Created
+    SELECT *, --, RequestDate
 	FROM ( 
 	
 	SELECT      F.FundingId,

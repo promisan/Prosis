@@ -19,10 +19,16 @@
 				
 				</td>
 				
+				<td align="right">
+				
+				</td>
+				
 			  </tr>
 				 
 		  </table>		  
 		  </td>
+		  
+		  
    </tr>  
   	   
 	<cf_tl id="Add bucket" var="1">
@@ -89,7 +95,7 @@
 	   <cfif SearchResult.recordcount lt "10" and Tbl eq "T" and (AccessBucket eq "EDIT" or AccessBucket eq "ALL")>
 	   
 			<cfoutput>
-			  <tr><td colspan="#tblr#" align="left" colspan="4" style="height:35px" class="labelmedium">			   
+			  <tr><td colspan="#tblr#" align="left" colspan="4" class="labelmedium2">			   
 				   <a href="javascript:recordadd('','','','','','','','','#url.edition#')"><cf_tl id="Add a bucket"></a>				  
 				 </td>
 			  </tr>
@@ -129,7 +135,7 @@
 			   	
 				<cfif Total lte "100" or Tbl neq "T">
 			    <td style="cursor:pointer;height:40px" valign="bottom" 
-				class="labellarge" onClick="listing('#occ#','show','only','','','#URL.Status#','','#url.exerciseclass#')">#tSummary#</td>		
+				      class="labellarge" onClick="listing('#occ#','show','only','','','#URL.Status#','','#url.exerciseclass#')">#tSummary#</td>		
 				<cfelse>
 				<td></td>	
 				</cfif>						
@@ -173,15 +179,15 @@
 			</tr>
 		</cfif>	
 				
-		<tr style="vertical-align:top; height:0;">
+		<tr>
 		 		 
 		<td align="right" colspan="2">
 						 
-		 <table width="100%" align="right">
+		 <table width="100%" align="right" class="navigation_table">
 		 		 
 		 	<cfinclude template="RosterViewHeader.cfm">
 		 		 	  
-			<tr class="labelmedium" style="height:24px;background-color:f1f1f1">
+			<tr class="labelmedium2" style="height:24px;background-color:f1f1f1">
 			
 			      <td style="width:100%;border:1px solid silver;padding-left:8px"><cf_tl id="Buckets or Job Openings"></td>
 				   
@@ -305,22 +311,23 @@
 					AND    Status = '#st#'
 				  </cfquery>
 			  
-				  <cfset cl   = Get.ShowRosterColor>
+				  <cfset clr  = Get.ShowRosterColor>
 				  <cfset ac   = Get.TextHeader>
 				  <cfset tool = Get.Meaning>
 									  
-		          <tr bgcolor="#cl#" class="labelmedium line" style="height:20px">
+		          <tr class="labelmedium2 line navigation_row" style="height:26px">
 				  
-				     <td width="40" style="border:1px solid d3d3d3;padding-left:8px">
-						 <table>
-						 <tr class="labelmedium" style="height:15px">
+				     <td width="40" style="border:1px solid d3d3d3;padding-left:8px;background-color:###clr#80;">
+						 <table style="height:100%">
+						 <tr class="labelmedium2" style="height:15px">
 						 <td>#ac#<cf_space spaces="10"></td>
 						 <td style="border-left:1px solid silver;padding-left:4px">#get.Meaning#</td>
 						 </tr>
 						 </table>
-					 </td>						  
-		 		     <td align="right" style="border:1px solid d3d3d3;padding-right:4px">
-									
+					 </td>	
+					 					  
+		 		     <td align="right" style="border-left:1px solid silver;padding-right:4px;background-color:###clr#80;">
+								
 					   <cfif Evaluate("Total" & st) neq "" and Evaluate("Total" & st) neq "0">					  
 							#numberformat(Evaluate("Total" & st),'_,-')#  
 							<cfelse>-
@@ -341,7 +348,7 @@
 							 	 <cfif cl eq "1">	
 													
 								<td align="right" id="cl#Occ#"
-									style="border:1px solid silver;cursor: pointer;padding-right:4px" 
+									style="border:1px solid silver;cursor: pointer;padding-right:4px;background-color:###clr#80;" 
 									onClick="javascript: listing('#Occ#','show','all','#columnParent[item]#','subtotal','#URL.Status#',this,'#url.exerciseclass#')">
 								
 								<cfelse>
@@ -354,7 +361,7 @@
 							
 								 <cfif cl eq "1">	
 							
-								<td align="right" style="border:1px solid silver;cursor: pointer;padding-right:4px"
+								<td align="right" style="border:1px solid silver;cursor: pointer;padding-right:4px;background-color:###clr#80;"
 								id="cl#Occ#" onClick="javascript: listing('#Occ#','show','all','#column[item]#','grade','#URL.Status#',this,'#url.exerciseclass#')"> 	
 																
 								<cfelse>

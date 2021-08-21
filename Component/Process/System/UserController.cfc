@@ -122,15 +122,14 @@
 					AND     HostName           = '#CGI.http_host#'
 					AND     HostSessionId      = '#SESSION.SessionId#'         				
 					AND     ActionTemplate     = '#tmp#'
-					AND     ActionQueryString  = '#str#'  							
+					AND     ActionQueryString  = '#str#' 										
 			</cfquery>	
 			
 			<cfif get.recordcount eq "0">
 			
 			    <!--- NEW additionally we check if the SAME user/session has this link 
-				  matched in length for the attributes which qualifies for now as well
-				  as we have in cfdiv the issue of the {mission} not to fire an MIP  
-				  : Hanno 19/5/2020 --->					
+				  matched in length which qualifies for now as well
+				  as we have in cfdiv the issue of the {mission} not to fire an MIP yet : Hanno 19/5/2020 --->					
 			
 				<cfquery name="check" 
 					datasource="AppsSystem">				
@@ -140,15 +139,15 @@
 						AND     HostName               = '#CGI.http_host#'
 						AND     HostSessionId          = '#SESSION.SessionId#'         				
 						AND     ActionTemplate         = '#tmp#'
-						AND     left(ActionQueryString,20) = '#left(str,20)#'  <!--- same length --->									
+						AND     LEFT(ActionQueryString,20) = '#left(str,20)#'  <!--- same contained by length --->					
+									
 				</cfquery>	
 				
-				<!--- Hanno temp measure : 
-				an almost match qualifies for a fresh link to be given --->
+				<!--- Hanno temp measure : an almost match qualifies for a fresh link to be given --->
 				
 				<cfif check.recordcount gte "1">
 				
-					<cfinvoke component        = "Service.Process.System.UserController"  
+					<cfinvoke component    = "Service.Process.System.UserController"  
 					   	method             = "GetHash"
 						returnvariable     = "hash">	
 								
@@ -161,8 +160,7 @@
 				
 		<!--- link NOT found for user / session or no longer valid --->
 															
-		<cfif get.recordcount eq "0" 		
-		      or get.Operational eq "0">			  
+		<cfif get.recordcount eq "0" or get.Operational eq "0">			  
 			  
 			<!---	
 				 then we validate the passed Hash is authentic and valid			 
@@ -398,7 +396,7 @@
 				 AND    ActionTemplate     = '#tmp#'
 				 AND    ActionQueryString  = '#str#'  
 				 AND    Operational        = '1'   		
-				 		 	
+				 				 		 	
 			</cfquery>	
 																							
 			<cfif checkAccess.RecordCount eq "0">
@@ -446,7 +444,7 @@
 							</td>
 						 </tr>
 					   </table>	
-					   <cfabort>
+					   <cfabort>					   
 				   
 				   </cfif>	
 						

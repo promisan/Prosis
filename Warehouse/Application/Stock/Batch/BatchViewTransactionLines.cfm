@@ -588,9 +588,10 @@ password="#SESSION.dbpw#">
 										<table>
 										<tr class="labelmedium" style="height:20px">		
 											<td style="padding-left:5px;width:35px;height:20px;padding-right:5px">#row#.</td>							
-											<td align="right" style="width:40px;padding-right:3px">
+											<td align="center" style="width:40px;padding:2px">
 											<img onclick="batchtransaction('#transactionid#','#url.systemfunctionid#','process')" 
-											  height="16" width="18" src="#session.root#/images/TransactionType/#transactionType#.png" alt="" border="0">
+											  height="15" width="16" 
+											  src="#session.root#/images/TransactionType/#transactionType#.png" alt="" border="0">
 										</td>
 										    
 										</tr>
@@ -598,7 +599,7 @@ password="#SESSION.dbpw#">
 									
 									</td>	
 									
-									<td class="hide ccontent">#Description#: #ItemNoExternal# #ItemBarcode# #ItemDescription# #Make# #Model# #TransactionReference# #RequestReference# #assetBarcode# #serialNo# #AssetDecalNo#</td>
+									<td class="hide ccontent">#Description# #ItemNoExternal# #ItemBarcode# #ItemDescription# #Make# #Model# #TransactionReference# #RequestReference# #assetBarcode# #serialNo# #AssetDecalNo#</td>
 														
 									<td id="status_#transactionid#" style="padding-left:4px;padding-right:3px" width="2%">
 									
@@ -742,11 +743,12 @@ password="#SESSION.dbpw#">
 											
 												<table align="left" style="height:100%">
 													<tr class="labelmedium" style="height:20px">
-													    <td style="border-left:1px solid silver;padding-left:3px">#LocationDescription# : </td>
+													    <td style="background-color:e1e1e1;border-left:1px solid silver;padding-right:4px;padding-left:3px">#LocationDescription#</td>
 														<td style="padding-left:3px" align="left">
 														   <a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">															
-															#ItemDescription# #ItemNoExternal# <!--- <cfif itembarcode neq "">-&nbsp;#ItemBarCode#</cfif> --->															
+															#ItemDescription#  <!--- <cfif itembarcode neq "">-&nbsp;#ItemBarCode#</cfif> --->															
 														   </a>
+														   #ItemNoExternal#
 														</td>
 													</tr>
 													
@@ -1427,14 +1429,19 @@ password="#SESSION.dbpw#">
 				<cfif url.mode neq "embed">
 																
 					<tr bgcolor="fafafa" style="border-top:1px solid silver">
-						  	<td height="20" align="center"></td>
-							<td colspan="10" align="right"  style="padding-right:4px;padding-top:4px">
-							    <table style="border:1px solid silver;background-color:d4d4d4"><tr class="labelmedium2"><td style="padding:4px">
-							    <cf_tl id="Count">:
+						  	<td align="center"></td>
+							<td colspan="10" align="right"  style="padding-right:30px;padding-top:4px">
+							    <table style="background-color:ffffaf">
+								<tr class="labelmedium2">
+								<td style="padding-left:10px;font-size:14px">
+							    <cf_tl id="Lines">
 								</td>
-								<td style="padding-left:5px;padding:4px">#searchresult.recordcount#</td>
+								<td style="padding-left:5px;font-size:14px;">#searchresult.recordcount#</td>
 								
-								<td style="padding-left:5px;padding:4px">								    						        								
+								<td style="padding-left:10px;font-size:14px">
+							    <cf_tl id="Quantity">
+								</td>
+								<td style="padding-left:5px;font-size:14px;padding-right:5px">								    						        								
 								<cfif searchresult.transactiontype eq "2">
 									#NumberFormat(-tot,'#pformat#')#
 								<cfelseif batch.transactiontype eq "8">		
@@ -1450,8 +1457,8 @@ password="#SESSION.dbpw#">
 								 		SELECT sum(Sales) as Total
 										FROM   SearchResult</cfquery>		
 								
-								<td><cf_tl id="Sale"></td>
-								<td style="padding-left:5px;padding:4px">#numberformat(getTotal.total,",.__")#</td>
+								<td style="padding-left:5px;font-size:14px;padding-right:5px"><cf_tl id="Sale"></td>
+								<td style="padding-left:5px;padding-right:5px">#numberformat(getTotal.total,",.__")#</td>
 								</cfif>
 								</tr></table>
 																

@@ -9,29 +9,7 @@
 		 FROM   PurchaseLineReceipt
 		 WHERE  ReceiptNo = '#Object.ObjectKeyValue1#'	
 </cfquery>		
-			
-<cfquery name="InsertAction" 
-     datasource="AppsPurchase" 
-     username="#SESSION.login#" 
-     password="#SESSION.dbpw#">
-	     INSERT INTO ReceiptAction ( 
-				  ReceiptId, 
-				  ActionStatus, 
-				  ActionDate, 
-				  OfficerUserId, 
-				  OfficerLastName, 
-				  OfficerFirstName ) 			  
-		 SELECT ReceiptId, 
-		        '1', 
-				'#DateFormat(Now(),CLIENT.dateSQL)#', 
-				'#SESSION.acc#', 
-				'#SESSION.last#', 
-				'#SESSION.first#'
-		 FROM   PurchaseLineReceipt
-		 WHERE  ActionStatus = '0'
-	     AND    ReceiptNo = '#Object.ObjectKeyValue1#'	
-</cfquery>
-
+	
 <cfset vReceiptNo = Replace(Object.ObjectKeyValue1,"-","","all")>
 
 <cfquery name="Update" 
@@ -71,11 +49,13 @@
 					Purchase P,
 					Ref_OrderType T,
 			        RequisitionLine L
-			 WHERE  ReceiptNo = '#Object.ObjectKeyValue1#'	
+			 WHERE  ReceiptNo       = '#Object.ObjectKeyValue1#'	
 			 AND    R.RequisitionNo = PL.RequisitionNo 
 			 AND    P.OrderType     = T.Code
 			 AND    P.PurchaseNo    = PL.PurchaseNo
 			 AND    R.RequisitionNo = L.RequisitionNo  
+			 AND    R.ActionStatus != '9'
+			 AND    PL.ActionStatus != '9'
 			 
 	</cfquery>	 
 		
@@ -88,7 +68,7 @@
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
 		 	 
-		    SELECT    SUM(L.AmountBaseDebit-L.AmountBaseCredit) as Amount  <!--- define the amount to be activated --->
+		    SELECT    SUM(L.AmountBaseDebit-L.AmountBaseCredit) as Amount  <!--- define the amount to be activated into the receipt --->
 	                 
 		    FROM      TransactionHeader H INNER JOIN
 	                  TransactionLine L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo INNER JOIN
@@ -98,27 +78,27 @@
 		    AND       H.TransactionSource    = 'ReceiptSeries'
 		    AND       H.TransactionSourceNo  = '#Object.ObjectKeyValue1#'	
 			AND       H.TransactionSourceId IS NULL <!--- cost reflected on the lines --->										
-		    AND       H.ActionStatus <> '9' 	
+		    AND       H.ActionStatus        <> '9' 	
 			AND       L.TransactionSerialNo != '0'  
-			AND       R.TaxAccount = '0'			
+			AND       R.TaxAccount           = '0'		
 			
 			<!--- we should also verify if the posting is indeed on the purchases account --->
 					
    </cfquery>	
    
-   <cfif Overhead.Amount eq "">
+   <cfset overheadpercentage = "0">
+   <cfset overheadvolrate    = "0">
    
-   	   <cfset overheadpercentage = "0">
-	   
-   <cfelse>		   
-   
+   <cfif Overhead.Amount neq "">
+     
    		<!-- we loop through the lines to get the total --->
 		
+		<cfset vol = 0>
 		<cfset tot = 0>
 		<cfset tpc = 0>
 		
-		<cfloop query = "line">
-		
+		<cfloop query = "line">		
+												
 			<cfquery name="Item" 
 				   datasource="AppsPurchase" 
 				   username="#SESSION.login#" 
@@ -128,9 +108,10 @@
 				          Materials.dbo.ItemUoM U
 				   WHERE  I.ItemNo = U.ItemNo
 				   AND    I.ItemNo  = '#WarehouseItemNo#'
-				   AND    U.UoM     = '#WarehouseUoM#'
+				   AND    U.UoM     = '#WarehouseUoM#' 
 			</cfquery>	
 			
+			<cfset vol = vol + ReceiptVolume>
 			<cfset tpc = tpc + ReceiptAmountBaseCost>			
 			
 			<cfif Item.ValuationCode eq "Manual">	
@@ -160,9 +141,9 @@
             <cfelseif WarehouseCurrency neq currency and WarehousePrice neq "">
 			
 				<cf_exchangeRate datasource="appsMaterials"
-					EffectiveDate = "#dateFormat(Line.DeliveryDate, CLIENT.DateFormatShow)#"
-			        CurrencyFrom  = "#WarehouseCurrency#"
-					CurrencyTo    = "#Application.BaseCurrency#"> 	
+					EffectiveDate    = "#dateFormat(Line.DeliveryDate, CLIENT.DateFormatShow)#"
+			        CurrencyFrom     = "#WarehouseCurrency#"
+					CurrencyTo       = "#Application.BaseCurrency#"> 	
 										
 				<cfset tot = tot + (warehouseprice/exc) * receiptwarehouse>									
 			
@@ -173,14 +154,17 @@
 			</cfif> 			
 		
 		</cfloop>
-					   	     
-   	    <!--- revert the USD amount into the currency amount --->
-   
-	    <cfset overheadpercentage = Overhead.Amount / tot>
-		<cfset overheadpercprice  = Overhead.Amount / tpc>
+		
+		<!--- we check if volume was supplied --->
+		<cfif vol neq "0">   
+	   	    <cfset overheadvolrate = Overhead.Amount / vol> <!--- rate per volume to be added ---> 
+		</cfif>
+		
+	    <cfset overheadpercentage  = Overhead.Amount / tot>
+		<cfset overheadpercprice   = Overhead.Amount / tpc>
 						 		 	   
    </cfif>
-
+   
    <!--- 
    
    		Routine to consume BOM materials and activate the costs as part of the received items.   
@@ -189,8 +173,7 @@
    when you receive the items the price will not contain the raw materials simply because you provide the raw materials for it which requires you to 
    activate them instead of consumption 
    
-   --->	
-   
+   --->	   
       
    <cfset singleResourceOrder = "0">
   
@@ -207,7 +190,6 @@
 		we do not know what to deduct upon receipt of the workorderlineitem --->
 		
 		<cfset singleResourceOrder = "1">
-
 		
 	    <cfquery name="qBOMFinishedProducts" 
 			datasource="AppsPurchase" 
@@ -454,8 +436,7 @@
 				<cfquery name = "qReceipts" dbtype="query">
 					SELECT DISTINCT WorkOrderItemId,ResourceItemNo,ResourceUoM
 					FROM BOMItems
-				</cfquery>				
-								
+				</cfquery>										
 				
 				<CF_DropTable dbName="AppsTransaction" 
 	              tblName="BOMItemsDetails_#SESSION.acc#_#batchNo#_#vReceiptNo#"> 
@@ -580,10 +561,10 @@
 				
 					<cfquery name="qFirstLine"  dbtype="query">	
 						SELECT  * 
-						FROM BOMItems
-						WHERE TransactionLot = '#qLots.TransactionLot#'
-						AND ResourceItemNo   = '#qLots.ResourceItemNo#'
-						AND ResourceUoM      = '#qLots.ResourceUoM#'
+						FROM    BOMItems
+						WHERE   TransactionLot = '#qLots.TransactionLot#'
+						AND     ResourceItemNo   = '#qLots.ResourceItemNo#'
+						AND     ResourceUoM      = '#qLots.ResourceUoM#'
 					</cfquery>					
 				
 					<cfquery name="qInsertSummary"
@@ -608,8 +589,7 @@
 							SUM(ReceiptQuantity) AS ReceiptQuantity 
 					FROM UserTransaction.dbo.BOMItems_#SESSION.acc#_#batchNo#_#vReceiptNo#
 					GROUP BY ResourceItemNo, ResourceUom
-				</cfquery>
-				
+				</cfquery>				
 
 				<CF_DropTable dbName="AppsTransaction" 
 	              tblName="ReceiptPost_#SESSION.acc#_#batchNo#_#vReceiptNo#"> 
@@ -831,6 +811,7 @@
 			</cfif>
 	
 		<cfif SingleResourceOrder eq "1">
+		
 				<cfquery name="getOverHead" 
 				datasource="AppsWorkOrder" 
 				username="#SESSION.login#" 
@@ -853,12 +834,11 @@
 		
 	  </cfif> <!--- operational --->
 	
-   </cfif>
-		
+   </cfif>		
       
    <cfloop query="Line">
    
-   		<!--- obtain added line costs --->
+   		<!--- obtain added line costs like we do for DAI --->
 		
 		<cfquery name="relatedCost" 
 		   datasource="AppsPurchase" 
@@ -867,7 +847,31 @@
 			SELECT    SUM(AmountCost/#ReceiptWarehouse#) AS Amount
 			FROM      PurchaseLineReceiptCost
 			WHERE     ReceiptId = '#ReceiptId#'
+			
 		</cfquery>
+		
+		<cfquery name="InsertAction" 
+			     datasource="AppsPurchase" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+				     INSERT INTO ReceiptAction ( 
+							  ReceiptId, 
+							  ActionStatus, 
+							  ActionDate, 
+							  OfficerUserId, 
+							  OfficerLastName, 
+							  OfficerFirstName ) 			  
+					 SELECT ReceiptId, 
+					        '1', 
+							'#DateFormat(Now(),CLIENT.dateSQL)#', 
+							'#SESSION.acc#', 
+							'#SESSION.last#', 
+							'#SESSION.first#'
+					 FROM   PurchaseLineReceipt
+					 WHERE  ActionStatus = '0'
+				     AND    ReceiptId = '#receiptid#'	
+					 
+			</cfquery>
 		
 		<cfif relatedCost.amount eq "">
 		
@@ -933,26 +937,12 @@
 					 <cf_message message = "#lt_text#">
 					 <cfabort>
 					 					
-				<cfelse>
+				<cfelse>								
 									
-									
-					<!--- the transaction valuation is in principle the curr/
-					                                     price you paid --->		
-					<cfset curr  = currency>		
-															
-					<cfset stockcostprice = ReceiptAmountBaseCost/ReceiptWarehouse>		
-										
-					<cfset cost = stockcostprice>	
+					<!--- the transaction valuation is in principle the curr/price you paid --->		
 					
-					<cfif overheadpercentage eq "0">	
-						<cfset cost = cost + relcost>
-					<cfelse>
-					    <cfset cost = cost + relcost + (cost * overheadpercentage)>						
-					</cfif>		
-					
-					<!--- to be checked with RONMELL 2062019 --->
-																														
-					<!--- added as the new price is higher and also booked on the contra-account --->
+					<!--- to be checked with RONMELL 206/2019 --->																														
+					<!--- added as the new price is higher and also booked on the contra-account 
 																									
 					<cfif SingleResourceOrder eq "1">
 					
@@ -964,7 +954,11 @@
 						</cfif>	
 						
 					</cfif>	
-												
+					
+					--->
+					
+					<!--- the FOB price of the stock --->		
+					<cfset stockcostprice = ReceiptAmountBaseCost/ReceiptWarehouse>		
 											
 					<!--- apply a different cost price in case of warehouse items --->										
 																	
@@ -982,7 +976,13 @@
 						<cfif overheadpercentage eq "0">	
 							<cfset cost = cost + relcost>
 						<cfelse>
-						    <cfset cost = cost + relcost + (cost * overheadpercentage)>						
+						   <cfif overheadvolrate neq "0">
+							    <!--- line receipt volumne * rate divided by stock items in receipt --->
+							    <cfset volcharge = receiptvolume * overheadvolrate / receiptwarehouse> 
+						        <cfset cost      = cost + relcost + volcharge>																								
+							<cfelse>
+							    <cfset cost    = cost + relcost + (cost * overheadpercentage)>												
+							</cfif>			
 						</cfif>		
 																								
 					<cfelseif WarehousePrice gt "0">					
@@ -996,8 +996,10 @@
 						<cfif curr eq APPLICATION.BaseCurrency>								
 							<cfset cost = WarehousePrice>								
 						<cfelseif Currency eq curr>						
+							
 							<!--- we take the exchange rate found in the receipt --->						
-							<cfset cost = warehousePrice / ExchangeRate>						
+							<cfset cost = warehousePrice / ExchangeRate>		
+											
 						<cfelse>
 												
 							<cf_exchangeRate datasource="appsMaterials"
@@ -1012,10 +1014,42 @@
 						<cfif overheadpercentage eq "0">	
 							<cfset cost = cost + relcost>							
 						<cfelse>
-						    <cfset cost = cost + relcost + (cost * overheadpercentage)>													
+						
+						 	<cfif overheadvolrate neq "0">
+							    <!--- line receipt volumne * rate divided by stock items in receipt --->
+							    <cfset volcharge = receiptvolume * overheadvolrate / receiptwarehouse> 
+						        <cfset cost      = cost + relcost + volcharge>	
+								<!---							
+								<cfoutput>i:#line.WarehouseItemNo#--v:#receiptvolume#-r:-#overheadvolrate#--w:--#receiptwarehouse#=====#volcharge#</cfoutput>								
+								--->
+							<cfelse>
+							    <cfset cost    = cost + relcost + (cost * overheadpercentage)>												
+							</cfif>				
+						   											
 						</cfif>	
+						
+					<cfelse>
+					
+						<cfset curr  = currency>		
+					
+						<!--- the price of stock as it will be activated per item --->										
+						<cfset stockcostprice = ReceiptAmountBaseCost/ReceiptWarehouse>												
+						<cfset cost = stockcostprice>						
+																						
+						<cfif overheadpercentage eq "0">						
+							<cfset cost = cost + relcost>						
+						<cfelse>									
+						    <cfif overheadvolrate neq "0">
+							    <!--- line receipt volumne * rate divided by stock items in receipt --->
+							    <cfset volcharge = receiptvolume * overheadvolrate / receiptwarehouse> 
+						        <cfset cost      = cost + relcost + volcharge>													
+								
+							<cfelse>
+							    <cfset cost    = cost + relcost + (cost * overheadpercentage)>												
+							</cfif>	
+						</cfif>							
 																																														
-					</cfif>					
+					</cfif>											
 
 					<cfset cost  = round(cost*10000)/10000>										
 					<cfset price = ReceiptAmountCost/ReceiptWarehouse>
@@ -1045,7 +1079,15 @@
 					<cfif overheadpercentage eq "0">	
 						<cfset price = price + relcost>
 					<cfelse>
-					    <cfset price = price + relcost + (price * overheadpercentage)>						
+					
+						 <cfif overheadvolrate neq "0">
+						    <!--- line receipt volumne * rate divided by stock items in receipt --->
+						    <cfset volcharge = receiptvolume * overheadvolrate / receiptwarehouse> 
+						    <cfset price   = price + relcost + volcharge>
+						<cfelse>
+						    <cfset price   = price + relcost + (price * overheadpercentage)>												
+						</cfif>		
+					   					
 					</cfif>															
 										
 					<!--- check if the receipt has changed in item, uom, warehouse lot, quantity or value otherwise 
@@ -1055,7 +1097,7 @@
 					   datasource="AppsPurchase" 
 					   username="#SESSION.login#" 
 					   password="#SESSION.dbpw#">
-				   
+					   				   
 					    SELECT     Warehouse,
 						           TransactionLot, 
 								   ItemNo, 
@@ -1098,12 +1140,13 @@
 						   datasource="AppsPurchase" 
 						   username="#SESSION.login#" 
 						   password="#SESSION.dbpw#">
+						  
 						   SELECT * 
 						   FROM   Materials.dbo.ItemTransactionValuation V
 						   WHERE  TransactionId IN (SELECT TransactionId 
-						                            FROM    Materials.dbo.ItemTransaction 
-												    WHERE   TransactionId = V.TransactionId
-						  						    AND     ReceiptId  = '#ReceiptId#')
+						                            FROM   Materials.dbo.ItemTransaction 
+												    WHERE  TransactionId = V.TransactionId
+						  						    AND    ReceiptId  = '#ReceiptId#')
 													
 						   AND    DistributionTransactionId NOT IN 
 						                     	   (SELECT TransactionId 
@@ -1125,14 +1168,13 @@
 								  or getTransaction.Warehouse          neq Warehouse
 								  or getTransaction.Quantity           gt ReceiptWarehouse>					
 								  
-								   <cf_message message = "This receipt may no longer be posted as it has been partially consumed. <br>Please contact your administrator (1)" return="No">						 						 
-								   <cfabort>
+								<cf_message message = "This receipt may no longer be posted as it has been partially consumed. <br>Please contact your administrator (1)" return="No">						 						 
+								<cfabort>
 						
 							<cfelseif (abs(getTransaction.TransactionCostPrice-stockcostprice) gte 0.00 
 							           and getTransaction.Quantity eq ReceiptWarehouse)>	
-																						
-																		
-									 <cfinvoke component = "Service.Process.Materials.Stock"  
+																												
+								 <cfinvoke component = "Service.Process.Materials.Stock"  
 									   method              = "correctItemValuation" 
 									   receiptid           = "#ReceiptId#"
 									   receiptCostCurrency = "#APPLICATION.BaseCurrency#"
@@ -1140,15 +1182,18 @@
 									   receiptCurrency     = "#curr#"									   
 									   receiptPrice        = "#price#"
 									   GLCurrency          = "#Line.PurchaseCurrency#">		
-									   
-									   pppppppp		
-									   <cfabort>					
+								
+								 <!---
+								 apply a correction and let it go
+								 <cf_message message = "#ReceiptId# -----#stockcostprice# #cost#---- #getTransaction.TransactionCostPrice# - #stockcostprice#" return="No">						 						 									   
+								 <cfabort>					
+								 --->
 								   
 							<cfelseif (abs(getTransaction.TransactionCostPrice-stockcostprice) gte 0.00 
 							        and getTransaction.Quantity lt ReceiptWarehouse 
-									and getTransaction.Lines eq "1")>							
+									and getTransaction.Lines eq "1")>	
 									
-									 <cfinvoke component = "Service.Process.Materials.Stock"  
+								 <cfinvoke component = "Service.Process.Materials.Stock"  
 									   method              = "correctItemValuation" 
 									   receiptid           = "#ReceiptId#"		
 									   receiptCostCurrency = "#APPLICATION.BaseCurrency#"	
@@ -1156,9 +1201,11 @@
 									   receiptCurrency     = "#curr#"									   
 									   receiptPrice        = "#price#"
 									   GLCurrency          = "#Line.PurchaseCurrency#">											 
-									   
-									   0000000
-									   <cfabort>
+								
+								   <!--- 	
+								   apply a correction and let it go  
+								   <cfabort>
+								   --->
 								   
 							 <cfelse>							 
 								  
@@ -1489,7 +1536,18 @@
 											GLCurrency                = "#APPLICATION.BaseCurrency#"
 											GLAccountDebit            = "#GLStock.GLAccount#"
 											GLAccountDiff             = "#GLPrice.GLAccount#"
-											GLAccountCredit           = "#GLReceipt.GLAccount#">								  
+											GLAccountCredit           = "#GLReceipt.GLAccount#">	
+											
+											<!--- we set the sale price if the item has no prices set for 
+											the warehouse of this entity --->
+											
+											<cfinvoke component = "Service.Process.Materials.Item"  
+											   method           = "createItemUoMPrice" 
+											   mission          = "#Line.Mission#" 
+											   ItemNo           = "#Line.WarehouseItemNo#" 
+											   UoM              = "#Line.WarehouseUoM#"
+											   Cost             = "#cost#"									   
+											   datasource       = "AppsPurchase">	 							  
 									  
 										  <cfif checkloc.Distribution eq "8">						  
 										  
@@ -1566,6 +1624,17 @@
 									GLAccountDebit        = "#GLStock.GLAccount#"
 									GLAccountDiff         = "#GLPrice.GLAccount#"
 									GLAccountCredit       = "#GLReceipt.GLAccount#">
+									
+									<!--- we set the sale price if the item has no prices set for 
+									the warehouse of this entity --->
+									
+									<cfinvoke component = "Service.Process.Materials.Item"  
+									   method           = "createItemUoMPrice" 
+									   mission          = "#Mission#" 
+									   ItemNo           = "#WarehouseItemNo#" 
+									   UoM              = "#WarehouseUoM#"
+									   Cost             = "#cost#"									   
+									   datasource       = "AppsPurchase">	 
 															
 							</cfif>	
 							
@@ -1591,5 +1660,8 @@
 	
 </cfif>		
 
+<script>
+	parent.history.go()	
+</script>
 
 

@@ -400,7 +400,7 @@ status = 2 : can be changed but a new workflow will be initiated
 							cnt = 0
 						    while (se[cnt]) { se[cnt].className = 'regular'; cnt++  }
 						 }		
-						// ColdFusion.navigate('ProcessAction.cfm?contractid='+id+'&actioncode='+val,'DateExpiration_trigger')		  
+						  
 					  			 
 					 }
 			       </script>					
@@ -842,7 +842,7 @@ status = 2 : can be changed but a new workflow will be initiated
 		</TR>		
 						
 		<tr class="labelmedium" style="height:20px">
-		<TD valign="top" style="padding-top:2px"><cf_tl id="Remarks">: <cf_space spaces="35"></TD>
+		<TD valign="top" style="padding-top:2px;min-width:200px"><cf_tl id="Remarks">:</TD>
 		<TD>
 		
 			<cfif mode eq "view">
@@ -875,7 +875,7 @@ status = 2 : can be changed but a new workflow will be initiated
 		<cfif operational eq "1" or Parameter.DependentEntitlement eq "1">	 
 						
 		<tr class="line">							
-			<TD style="height:28px;font-size:18px;font-weight:200" colspan="2" class="labelmedium" width="100"><cf_tl id="Entitlements"></TD>			
+			<TD style="height:28px;font-size:18px" colspan="2" class="labelmedium" width="100"><cf_tl id="Entitlements"></TD>			
 		</tr>								
 				
 			<cfloop index="itm" list="Insurance,RateInsurance,Entitlement,Dependent">
@@ -1303,7 +1303,7 @@ status = 2 : can be changed but a new workflow will be initiated
 			  	
 			   <cfif url.action eq "Person" or url.action eq "entitlement">			   			   				  
 				   <cf_tl id="Back" var="1">
-				   <input type="button" name="back" value="#lt_text#" class="button10g" style="width:100px" onClick="goback('#url.action#')">			   
+				   <input type="button" name="back" value="#lt_text#" class="button10g" style="width:140px" onClick="goback('#url.action#')">			   
 			   </cfif>
 			   			
 			    <!--- status 0 in wf, status 2 not applicable wf  --->
@@ -1316,12 +1316,12 @@ status = 2 : can be changed but a new workflow will be initiated
 				   
 				   <cfif getAdministrator("*") eq "1">
 					   <cf_tl id="Delete" var="1">						   
-					   <input type="submit" name="Delete" value="#lt_text#" style="width:100px" class="button10g" onClick="return ask()">					   
+					   <input type="submit" name="Delete" value="#lt_text#" style="width:140px" class="button10g" onClick="return ask()">					   
 				   </cfif>   
 					
 					<cfif access eq "EDIT" or access eq "ALL">   
 					   <cf_tl id="Save" var="1">						   
-					   <input class="button10g" type="submit" name="Submit" style="width:100px" value="#lt_text#">
+					   <input class="button10g" type="submit" name="Submit" style="width:140px" value="#lt_text#">
 				   </cfif>
 				
 				<!--- 
@@ -1330,9 +1330,7 @@ status = 2 : can be changed but a new workflow will be initiated
 				
 		       </td>
 			 </tr> 
-			 
-			 <tr><td colspan="4" height="6"></td></tr>
-			
+			 			
 			</cfoutput>
 				 				  
 		</cfif>			  

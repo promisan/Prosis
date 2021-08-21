@@ -41,6 +41,10 @@
 	<cfset vFiltered = 1>
 </cfif>
 
+<cfif url.orgunittype eq "">
+	<cfset url.orgunittype = "operational">
+</cfif>
+
 
 <cfquery name="getDirectory" 
 	datasource="AppsEmployee">
@@ -396,8 +400,6 @@
 </div>
 	
 </cfif>
-
-
 
 <!--- $('.orgUnitContainer .panel-heading').on('click', function(){ toggleChildOrgUnit($(this).closest('.animate-panel').attr('id')); }); --->
 <cfset AjaxOnLoad("function() { initPanelButtons(); }")>

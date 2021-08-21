@@ -183,11 +183,12 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-<cfif BudgetAccess eq "EDIT" or BudgetAccess eq "ALL">
+<cfif (BudgetAccess eq "EDIT" or BudgetAccess eq "ALL") and url.mode neq "Add">
 
 	 <cfset url.mode = "edit">
 
 </cfif>
+
 
 <cfif url.mode eq "resource">
 	<cfset user = "Yes">
@@ -246,28 +247,27 @@ password="#SESSION.dbpw#">
 		} else {
 		alldetinsert('#url.editionid#_'+obj,'#url.editionid#',obj,se,'edit','dialog')   
 		}		
-        ColdFusion.navigate('ObjectSelect.cfm?objectcode='+obj+'&prior='+selectme.value,'selected')				
+        ptoken.navigate('ObjectSelect.cfm?objectcode='+obj+'&prior='+selectme.value,'selected')				
 	}
 	
 	function period(edi,obj) {  		
-		ColdFusion.navigate('setLabel.cfm?period=#url.period#&editionid='+edi,'selected')
-		window.open("RequestDialogView.cfm?mode=#url.mode#&requirementid=#url.requirementid#&programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid="+edi+"&objectcode="+obj+"&cell=#url.cell#","dialogview")
-		ColdFusion.navigate('ObjectSelect.cfm?objectcode='+obj+'&prior='+document.getElementById('selectme').value,'selected')	 	
+		ptoken.navigate('setLabel.cfm?period=#url.period#&editionid='+edi,'selected')
+		ptoken.open("RequestDialogView.cfm?mode=#url.mode#&requirementid=#url.requirementid#&programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid="+edi+"&objectcode="+obj+"&cell=#url.cell#","dialogview")
+		ptoken.navigate('ObjectSelect.cfm?objectcode='+obj+'&prior='+document.getElementById('selectme').value,'selected')	 	
 	}
 	
 	function reload(obj) {            	
-       	window.open("RequestDialogView.cfm?mode=#url.mode#&requirementid=#url.requirementid#&programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid=#url.editionid#&objectcode="+obj+"&cell=#url.cell#","dialogview")
-		ColdFusion.navigate('ObjectSelect.cfm?objectcode='+obj+'&prior='+selectme.value,'selected')
+       	ptoken.open("RequestDialogView.cfm?mode=#url.mode#&requirementid=#url.requirementid#&programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid=#url.editionid#&objectcode="+obj+"&cell=#url.cell#","dialogview")
+		ptoken.navigate('ObjectSelect.cfm?objectcode='+obj+'&prior='+selectme.value,'selected')
 	}
 	
 	function getrate(row,prg,mas,top,mde,rid,obj,loc,per) {		
-	
 				
 		if (mde == "refresh") {
 		
 			dialogview.document.formrequest.onsubmit() 
 			if( _CF_error_messages.length == 0 ) {    		 
-				dialogview.ColdFusion.navigate("#SESSION.root#/programrem/Application/Budget/Request/RateCalculation.cfm?row="+row,'entrydialogsave','','','POST','formrequest');						
+				dialogview.ptoken.navigate("#SESSION.root#/programrem/Application/Budget/Request/RateCalculation.cfm?row="+row,'entrydialogsave','','','POST','formrequest');						
 			 }  	
 			 		
 		} else {
@@ -277,8 +277,9 @@ password="#SESSION.dbpw#">
 			if (se.style.display == "none")	{
 
 				se.style.display="inline";	
-				se.style.visibility ="visible";					
-				dialogview.ColdFusion.navigate("RequestDialogGetRate.cfm?row="+row+"&objectcode="+obj+"&location="+loc+"&programcode="+prg+"&period="+per+"&itemmaster="+mas+"&topicvaluecode="+top+"&mode="+mde+"&requirementid="+rid,'dPrice_'+row);		
+				se.style.visibility ="visible";													
+				dialogview.ptoken.navigate("RequestDialogGetRate.cfm?row="+row+"&objectcode="+obj+"&location="+loc+"&programcode="+prg+"&period="+per+"&itemmaster="+mas+"&topicvaluecode="+top+"&mode="+mde+"&requirementid="+rid,'dPrice_'+row);		
+				
 			} else {
 				se.style.display="none";	
 				se.style.visibility ="hidden";	
@@ -290,13 +291,15 @@ password="#SESSION.dbpw#">
 
 </script>
 	
-	<table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" height="100%" align="center">
 	
-	<tr class="line"><td height="40" style="padding-top:4px"><cfinclude template="RequestMenu.cfm"></td></tr>
+	<tr class="line">
+	<td style="padding-top:4px;padding-bottom:2px"><cfinclude template="RequestMenu.cfm"></td>
+	</tr>
 				
 	<tr><td width="100%" 
 	        height="100%" 
-			colspan="4" valign="top" style="padding:4px" valign="middle" align="center">
+			colspan="4" valign="top" style="padding:2px" valign="middle" align="center">
 			
 			<cfif Object.recordcount eq "0">
 	
@@ -307,7 +310,7 @@ password="#SESSION.dbpw#">
 			<cfelse>
 						
 			<iframe name    = "dialogview" 
-		        src         = "RequestDialogView.cfm?mode=#url.mode#&requirementid=#url.requirementid#&programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid=#url.editionid#&objectcode=#url.objectcode#&cell=#url.cell#" 
+		        src         = "RequestDialogView.cfm?mode=#url.mode#&requirementid=#url.requirementid#&programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid=#url.editionid#&objectcode=#url.objectcode#&cell=#url.cell#&mid=#url.mid#" 
 				id          = "dialogview" 
 				width       = "100%"
 				height      = "100%" 

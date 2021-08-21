@@ -17,9 +17,9 @@ password="#SESSION.dbpw#">
 	  
 <CFIF Access NEQ "ALL"> 	  
 
-	<table width="100%"><tr>
-	<td align="center" height="100">
-	<font face="Calibri" size="2"><i><cf_tl id="You are not authorised to update this function" class="message"></font></td>
+	<table width="100%">
+	<tr class="labelmedium2">
+	<td align="center" height="100"><cf_tl id="You are not authorised to update this function" class="message"></td>
 	</tr>
 	</table>
     <cfabort>
@@ -50,10 +50,12 @@ password="#SESSION.dbpw#">
 
 <cfform action="MissionEditSubmit.cfm?id2=#url.id2#" method="POST" name="missionedit">
 
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="96%" align="center">
 
  <tr><td height="5"></td></tr>	
- <tr class="line"><td colspan="2" style="height:40px;font-size:25px;font-weight:200"><cf_tl id="Definition"></td></tr>
+ <tr class="line">
+    <td colspan="2" style="height:40px;font-size:25px;font-weight:200"><cf_tl id="Definition"></td>
+ </tr>
   
   <tr>
   
@@ -77,7 +79,9 @@ password="#SESSION.dbpw#">
 	
 	<td colspan="2" align="right" id="clear">
 	  <cfoutput>
+	  
 		<cfif mission.operational eq "0" and access.recordcount gte "1">
+		
 			<cf_tl id="Clear Authorization" var="vClear">
 			
 		    <input class="button10g" 
@@ -87,7 +91,9 @@ password="#SESSION.dbpw#">
 				id="Clear"
 				value="#vClear#" 
 				onclick="ptoken.navigate('MissionAccessClear.cfm?mission=#mission.mission#','clear')">
+				
 		</cfif>
+		
 	  </cfoutput>	
 	</td>
   </tr> 
@@ -101,11 +107,11 @@ password="#SESSION.dbpw#">
 		    <td height="15" class="labelmedium"><cf_tl id="Acronym">:<cf_space spaces="50"></td>
 			<td width="100%">
 			
-				<table cellspacing="0" cellpadding="0" class="formspacing">
-				<tr>				
-					<td class="labelmedium"><cfoutput>#Mission.Mission# - (#Mission.MissionPrefix#)</cfoutput></td>   
+				<table class="formspacing">
+				<tr class="labelmedium2">				
+					<td ><cfoutput>#Mission.Mission# - (#Mission.MissionPrefix#)</cfoutput></td>   
 					
-					<td style="padding-left:20px" class="labelmedium"><cf_tl id="Organization code">: </td>
+					<td style="padding-left:20px"><cf_tl id="Organization code">: </td>
 								  		     
 					<td>
 			
@@ -117,7 +123,7 @@ password="#SESSION.dbpw#">
 						     		
 					</td>				
 					
-				    <td style="padding-left:20px" align="right" class="labelmedium"><cf_tl id="Operational">:</td>
+				    <td style="padding-left:20px" align="right"><cf_tl id="Operational">:</td>
 					<td><input type="checkbox" class="radiol enterastab" name="Operational" id="Operational" value="1" <cfif #Mission.Operational# eq "1">checked</cfif>></td>
 				</tr>	
 				</table>
@@ -125,8 +131,8 @@ password="#SESSION.dbpw#">
 			</td>
 			</TR>	
 					
-			<TR>
-		    <td style="min-width:200px" class="labelmedium"><cf_tl id="Name">:</td>
+			<TR class="labelmedium2">
+		    <td style="min-width:200px"><cf_tl id="Name">:</td>
 			<td style="width:100%"><cfinput type="Text" name="MissionName" value="#Mission.MissionName#" message="Please enter a mission name" required="Yes" size="80" maxlength="180" class="regularxl enterastab">
 				 <input type="hidden" 
 				        name="Mission" 
@@ -135,7 +141,7 @@ password="#SESSION.dbpw#">
 			</td>
 			</TR>	
 				
-			<td  class="labelmedium">Owner:</td>
+			<td>Owner:</td>
 			 
 			  <cfquery name="Owners" 
 		     datasource="AppsOrganization" 
@@ -155,8 +161,8 @@ password="#SESSION.dbpw#">
 			</td>
 			</TR>
 					
-			<TR>
-		    <TD class="labelmedium"><cf_tl id="Country">:</TD>
+			<TR class="labelmedium2">
+		    <TD><cf_tl id="Country">:</TD>
 		    <TD>
 			   	<select name="country" id="country" required="No" class="regularxl enterastab">
 				    <cfoutput query="Nation">
@@ -167,8 +173,8 @@ password="#SESSION.dbpw#">
 			</TR>					
 				
 		   			
-			<tr> 		
-				<TD class="labelmedium" > <cf_tl id="Effective from">:</td>		    
+			<tr class="labelmedium2"> 		
+				<TD> <cf_tl id="Effective from">:</td>		    
 			<td>		
 			
 			<table><tr><td>
@@ -201,13 +207,13 @@ password="#SESSION.dbpw#">
 			</td>
 			</TR>
 			
-			 <TR>
-		    <TD class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Time Zone">:</TD>
+			<TR class="labelmedium2">
+		    <TD valign="top" style="padding-top:3px"><cf_tl id="Time Zone">:</TD>
 		    <TD>
 				
 				<table cellspacing="0" cellpadding="0">
 				
-				   <tr class="labelmedium linedotted">
+				   <tr class="labelmedium2 linedotted">
 				   <td><cf_tl id="Effective"></td>
 				   <td align="right" style="padding-left:10px">GMT +/-</td>
 				   </tr>
@@ -228,9 +234,9 @@ password="#SESSION.dbpw#">
 		   		   <cfoutput query="Zone">
 				   
 					   <cfif currentrow neq recordcount>
-						   <tr>
-						   <td class="labelmedium" align="center" style="height:30px;">#dateformat(DateEffective,CLIENT.DateFormatShow)#</td>
-						   <td class="labelmedium" style="padding-left:9px" align="center">#TimeZone#</td>		   
+						   <tr class="labelmedium2">
+						   <td align="center" style="height:30px;">#dateformat(DateEffective,CLIENT.DateFormatShow)#</td>
+						   <td style="padding-left:9px" align="center">#TimeZone#</td>		   
 						   </tr>
 					   <cfelse>
 					     	<cfset dt = dateformat(DateEffective,CLIENT.DateFormatShow)>
@@ -275,8 +281,8 @@ password="#SESSION.dbpw#">
 			</TD>
 			</TR>	
 			
-			<tr>
-			<td class="labelmedium"><cf_tl id="Classification">:</td>
+			<tr class="labelmedium2">
+			<td><cf_tl id="Classification">:</td>
 			<td>
 			
 			  <cfquery name="Type" 
@@ -296,23 +302,24 @@ password="#SESSION.dbpw#">
 			</td>		
 			</tr>
 								
-			<TR>		    
-		    <td class="labelmedium"><cf_tl id="Home page URL">:  </td>
+			<TR class="labelmedium2">		    
+		    <td><cf_tl id="Home page URL">:  </td>
 			<td><cfinput type="Text" name="MissionURL" value="#Mission.MissionURL#" required="No" size="80" maxlength="80" class="regularxl enterastab">				
 			</td>
 			</TR>	
 			
-			<TR>		    
-		    <td class="labelmedium"><cf_tl id="Mail Signature logo">:  </td>
+			<TR class="labelmedium2">		    
+		    <td><cf_tl id="Mail Signature logo">:  </td>
 			<td><cfinput type="Text" name="MissionPathLogo" value="#Mission.MissionPathLogo#" required="No" size="80" maxlength="80" class="regularxl enterastab">				
 			</td>
 			</TR>	
 						
-			<tr>				
-			<td class="labelmedium"><cf_tl id="Tree administrative">:</td>
+			<tr class="labelmedium2">				
+			<td><cf_tl id="Tree administrative">:</td>
 			
-			<td><table border="0" cellspacing="0" cellpadding="0">
-			<tr>
+			<td>
+			<table>
+			<tr class="labelmedium2">
 			 
 			  <cfquery name="Tree" 
 		     datasource="AppsOrganization" 
@@ -334,7 +341,7 @@ password="#SESSION.dbpw#">
 			     		
 			</td>
 							
-			<td class="labelmedium" style="padding-left:10px;padding-right:10px;min-width:100px" width="20%"><cf_tl id="Functional">:</td>
+			<td style="padding-left:10px;padding-right:10px;min-width:100px" width="20%"><cf_tl id="Functional">:</td>
 			 
 			  <cfquery name="Tree" 
 		     datasource="AppsOrganization" 
@@ -367,9 +374,9 @@ password="#SESSION.dbpw#">
 			
 			<cfif Operational eq "1">
 			
-			<tr>
+			<tr class="labelmedium2">
 				
-			<td class="labelmedium">
+			<td>
 				<cf_tl id="Limited mode will not assume a recruitment process, resulting in a faster refresh of the screen" var="vStaffingMode" class="message">
 				<cfoutput>
 			    <a href="##" title="#vStaffingMode#">
@@ -392,13 +399,13 @@ password="#SESSION.dbpw#">
 						
 			</TR>	
 						
-			<tr>
+			<tr class="labelmedium2">
 				
-			<td class="labelmedium"><a href="##" title="Advanced mode will create employee record upon arrival"><cf_tl id="Recruitment mode">:</a></td>
+			<td><a href="##" title="Advanced mode will create employee record upon arrival"><cf_tl id="Recruitment mode">:</a></td>
 			 			  		     
 			<td>
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					<tr>
+					<tr class="labelmedium2">
 						<td width="40%" class="labelmedium">
 						 <input type="radio" class="radiol enterastab" name="StaffingCreatePerson" id="StaffingCreatePerson" value="1" <cfif #Mission.StaffingCreatePerson# eq "1">checked</cfif>><cf_tl id="Advanced"> (<cf_tl id="Creates Employee">)
 						 <input type="radio" class="radiol enterastab" name="StaffingCreatePerson" id="StaffingCreatePerson" value="0" <cfif #Mission.StaffingCreatePerson# eq "0">checked</cfif>><cf_tl id="Limited">
@@ -452,10 +459,10 @@ password="#SESSION.dbpw#">
 			
 			--->
 									
-			<tr>
+			<tr class="labelmedium2">
 			
 				<cf_tl id="Limited mode will not assume usage of the Procurement module for recording obligation" var="vProcMessage" class="message">
-				<td class="labelmedium" >
+				<td>
 					<cfoutput>
 					<a href="##" title="#vProcMessage#">
 					</cfoutput>
@@ -464,7 +471,7 @@ password="#SESSION.dbpw#">
 				</td>
 				 			  		     
 				<td>
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<table width="100%">
 						<tr>
 							<td width="40%" class="labelmedium">
 							 <input type="radio" class="radiol enterastab" name="ProcurementMode" id="ProcurementMode" value="1" <cfif Mission.ProcurementMode eq "1">checked</cfif>> <cf_tl id="Procurement">
@@ -476,8 +483,8 @@ password="#SESSION.dbpw#">
 						
 			</TR>		
 
-			<tr> 		
-				<TD class="labelmedium"><cf_tl id="Document Server Mode">:</td>		    
+			<tr class="labelmedium2"> 		
+				<TD><cf_tl id="Document Server Mode">:</td>		    
 				<td>
 						
 				<select name="DocumentServerMode" id="DocumentServerMode" class="regularxl enterastab"> 
@@ -489,12 +496,10 @@ password="#SESSION.dbpw#">
 				</td>
 			</TR>
 			
-			
-			
 			<tr>
 												
 			<td colspan="2">
-				<cfdiv bind="url:getMissionType.cfm?mission=#url.id2#&missiontype={MissionType}">			
+				<cf_securediv bind="url:getMissionType.cfm?mission=#url.id2#&missiontype={MissionType}">			
 			</td>
 			</tr>		
 	
@@ -545,27 +550,28 @@ password="#SESSION.dbpw#">
 	--->
 	<tr colspan="2">
 	
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<table width="100%">
 						
 			<tr>	
 				<td valign="top" colspan="1">
-				  <table width="100%" cellspacing="0" cellpadding="0" align="center">
+				  <table width="100%" align="center">
 				  				
 				  <tr><td>
-				  <table width="95%" border="0" cellspacing="0" cellpadding="0">
+				  <table width="98%" style="border:1px solid silver;background-color:ffffef">
 				 
 				    <cfoutput query="ModuleAll" group="AreaOrder"> 
 					
 						<cfset cnt = 0>
 						 
-						<tr class="labelit" style="height:20px"><td class="line" colspan="9"><font color="C46200">#SystemArea#</td></tr>
+						<tr class="labelmedium2" style="height:10px">
+						<td class="line" style="height:10px;padding-left:4px" colspan="9"><font color="C46200">#SystemArea#</td></tr>
 					
 						<cfoutput>					
 					
 					    <cfset cnt = cnt+1>
 						
 						<cfif cnt eq "1">
-				         <TR>			   
+				        <TR class="labelmedium2" style="height:10px">			   
 						</cfif>
 		
 					    <cfif SelectedMission eq "">
@@ -573,20 +579,20 @@ password="#SESSION.dbpw#">
 					    <cfelse> <cfset cl = "regular">
 					    </cfif>
 				     							
-						<TD  style="padding-right:5px;height:20px;width:10px;padding-left:20px" class="labelit" id="#systemmodule#3" class="#cl#" align="right">
+						<TD  style="padding-left:5px;padding-right:5px;min-width:20px" id="#systemmodule#3" class="#cl#" align="right">
 						<cfif SelectedMission eq "">
-				            <input type="checkbox" name="SystemModule" style="height:14px;width:14px" id="SystemModule" value="#SystemModule#" onClick="sel('#SystemModule#',this.checked)">							
+				            <input type="checkbox" name="SystemModule" class="radiol" id="SystemModule" value="#SystemModule#" onClick="sel('#SystemModule#',this.checked)">							
 				        <cfelse>
-					        <input type="checkbox" name="SystemModule" style="height:14px;width:14px" id="SystemModule" value="#SystemModule#" checked onClick="sel('#SystemModule#',this.checked)">						
+					        <input type="checkbox" name="SystemModule" class="radiol" id="SystemModule" value="#SystemModule#" checked onClick="sel('#SystemModule#',this.checked)">						
 				        </cfif>
 						</td>
 						
-						<TD id="#systemmodule#2b" style="width:20px;padding-left:10px" class="#cl#" align="center">
-							<cfdiv bind = "url:../../Parameter/ParameterSystemCheck.cfm?mission='#Mission.Mission#'&module=#systemmodule#&licenseid=#LicenseForModule#&licenseidall=#LicenseForAll#&mode=short" 
+						<TD id="#systemmodule#2b" style="min-width:40px;padding-left:5px" class="#cl#">						
+							<cf_securediv bind = "url:../../Parameter/ParameterSystemCheck.cfm?mission='#Mission.Mission#'&module=#systemmodule#&licenseid=#LicenseForModule#&licenseidall=#LicenseForAll#&mode=short" 
 							   id   = "box#systemmodule#">	
 						</TD>
 						
-				    	<TD class="labelmedium #cl#" id="#systemmodule#2" style="width:30%;height:20px;padding-left:30px;padding-right:4px">#SystemModuleName#</TD>
+				    	<TD class="#cl#" id="#systemmodule#2" style="width:33%;padding-right:4px">#SystemModuleName#</TD>
 																			 
 						<cfif cnt eq "3">
 				         </TR>			   
@@ -606,13 +612,21 @@ password="#SESSION.dbpw#">
 	
 	<tr><td height="5"></td></tr>
 			
-	<tr style="border-top:1px solid silver"><td colspan="2" align="center" height="40" style="padding-top:3px">
-	  <cfoutput>
+	<tr><td colspan="2" align="center" style="padding-top:5px">
+	  <table>
+	   <tr>
+	    <cfoutput>
 	  	<cf_tl id="Close" var="vClose">
 		<cf_tl id="Save"  var="vSave">
+		<td>
 	  	<input class="button10g" style="width:140;height:25" type="button" name="cancel" id="cancel" value="#vClose#" onClick="parent.window.close()">	 
+		</td>
+		<td style="padding-left:2px">
 	    <input class="button10g" style="width:140;height:25" type="submit" name="Submit" id="Submit" value="#vSave#" onclick="Prosis.busy('yes')">
-	  </cfoutput>
+		</td>
+	    </cfoutput>
+	  </tr>
+	 </table>
 	</td></tr>
 	
 	<tr><td height="5"></td></tr>

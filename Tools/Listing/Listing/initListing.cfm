@@ -23,6 +23,16 @@
 <!--- apply the base query --->
 
 <cfset listquery  = session.listingdata[url.box]['sqlorig']>  
+
+<cfset fileNo = 1>
+
+<!--- prepare temp variables, is not really needed for this mode --->
+<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparationVars.cfm">	
+
+<cfset sc = listquery>			
+<!--- convert reserved words in the query string like @user --->
+<cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">		
+
 <cfset datasource = session.listingdata[url.box]['datasource']> 
 <cfset annotation = session.listingdata[url.box]['annotation']>
 
@@ -30,7 +40,7 @@
 	datasource="#datasource#" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#"> 										
-	#preserveSingleQuotes(listquery)# 					
+	#preserveSingleQuotes(sc)# 					
 </cfquery>	
 
 <!--- update the data to be shown --->
@@ -42,15 +52,12 @@
 <cfset session.listingdata[box]['records']          = searchresult.recordcount>  <!--- page count 1 of 20 from 300 3: --->
 <cfset session.listingdata[box]['dataset']          = searchresult>	
 
-
-
 <!--- filter fields to be shown --->
 <cfset attributes.listlayout = session.listingdata[url.box]['listlayout']>
 
 <!-- <cfform> -->
 <!--- now we render the filter again --->
 <cfinclude template="ListingFilter.cfm">
-
 
 <!-- </cfform> -->
 

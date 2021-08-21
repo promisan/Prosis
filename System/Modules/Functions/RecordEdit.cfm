@@ -1,6 +1,7 @@
 <cfinclude template="../InquiryBuilder/InquiryScript.cfm">
 
 <cfparam name="url.mission" default="">
+<cfparam name="url.scope"   default="menu">
 
 <cfquery name="Line" 
 datasource="AppsSystem" 
@@ -59,7 +60,7 @@ password="#SESSION.dbpw#">
 					iconheight = "#ht#" 
 		            class      = "highlight1"
 					name       = "Function Settings"
-					source     = "FunctionSetting.cfm?id=#URL.ID#&mission=#url.mission#">
+					source     = "FunctionSetting.cfm?id=#URL.ID#&mission=#url.mission#&scope=#url.scope#">
 					
 				</cfif>	
 					
@@ -154,7 +155,7 @@ password="#SESSION.dbpw#">
 		<cf_menucontainer item="1" class="regular">	
 			
 			<cfif Line.functionClass neq "Window">				
-				<cf_securediv bind="url:FunctionSetting.cfm?id=#URL.ID#&mission=#url.mission#">
+				<cf_securediv bind="url:FunctionSetting.cfm?id=#URL.ID#&mission=#url.mission#&scope=#url.scope#">
 			<cfelse>
 			    <cf_securediv bind="url:FunctionMemo.cfm?id=#URL.ID#?id=#URL.ID#&mission=#url.mission#">	
 			</cfif>	

@@ -36,7 +36,7 @@
 </cfif>
 
 <cfif vThisSummaryType eq "Country">
-    <cfset vDisplayHeader = "Country">
+    <cfset vDisplayHeader = "Member State">
     <cfquery name="getDataSummary" datasource="#vThisDatasource#">		
         SELECT	Rank as SummaryOrder,
                 Country as SummaryField,
@@ -66,7 +66,7 @@
         <cfloop from="1" to="#ArrayLen(vThisFilterMap)#" index="i">
             <cfset vComplementFilterParams = vComplementFilterParams & "&geoF#i#=#evaluate('url.geoF#i#')#">
         </cfloop>
-        <cfdiv 
+        <cf_securediv 
             id="divSummaryComplement#trim(vThisSummaryComplement)#" 
             bind="url:#session.root#/tools/listing/geographic/geoListingMapSummaryComplement#vThisSummaryComplement#.cfm?viewId=#url.viewId#&zoomFunction=&country=#vComplementFilterParams#">
 
@@ -77,7 +77,7 @@
         <cfloop from="1" to="#ArrayLen(vThisFilterMap)#" index="i">
             <cfset vComplementFilterParams = vComplementFilterParams & "&geoF#i#=#evaluate('url.geoF#i#')#">
         </cfloop>
-        <cfdiv 
+        <cf_securediv 
             id="divSummaryComplement2#trim(vThisSummaryComplement2)#" 
             bind="url:#session.root#/tools/listing/geographic/geoListingMapSummaryComplement#vThisSummaryComplement2#.cfm?viewId=#url.viewId#&zoomFunction=&country=#vComplementFilterParams#">
 
@@ -90,8 +90,8 @@
 <cfif vThisSummaryType eq "Country">
     <cfoutput>
         <h3 style="padding-bottom:10px;">
-            <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="35" height="35" onclick="Prosis.exportToExcel('detailGeoContent#url.viewId#');" title="#lblExportToExcel#">
-            BY MEMBERSTATE
+            <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="30" height="30" onclick="Prosis.exportToExcel('detailGeoContent#url.viewId#');" title="#lblExportToExcel#">
+            BY MEMBER STATE
         </h3>
     </cfoutput>
 </cfif>
@@ -99,7 +99,7 @@
 <cfif vThisSummaryType eq "Region">
     <cfoutput>
         <h3 style="padding-bottom:10px;">
-            <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="35" height="35" onclick="Prosis.exportToExcel('detailGeoContent#url.viewId#');" title="#lblExportToExcel#">
+            <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="30" height="30" onclick="Prosis.exportToExcel('detailGeoContent#url.viewId#');" title="#lblExportToExcel#">
             BY REGIONAL GROUP
         </h3>
     </cfoutput>
@@ -260,7 +260,7 @@
         <cfloop from="1" to="#ArrayLen(vThisFilterMap)#" index="i">
             <cfset vComplementFilterParams = vComplementFilterParams & "&geoF#i#=#evaluate('url.geoF#i#')#">
         </cfloop>
-        <cfdiv 
+        <cf_securediv 
             id="divSummaryComplement3#trim(vThisSummaryComplement3)#" 
             bind="url:#session.root#/tools/listing/geographic/geoListingMapSummaryComplement#vThisSummaryComplement3#.cfm?viewId=#url.viewId#&zoomFunction=&country=#vComplementFilterParams#">
 

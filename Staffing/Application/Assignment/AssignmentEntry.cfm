@@ -33,14 +33,14 @@
 	<cf_tl id="Position Assignment" var="vPosition">
 	
 	<cf_screentop scroll="Yes" 
-	    layout="webapp" 
-		label="#vPosition#" 
-		menuaccess="context" 
-		banner="yellow"
+	    layout     = "webapp" 
+		label      = "#vPosition#" 
+		menuaccess = "context" 
+		banner     = "yellow"
 		html       = "#html#"
-		height="100%"
-		line="No"
-		jQuery="yes">
+		height     = "100%"
+		line       = "No"
+		jQuery     = "yes">
  
 </cfif>
 
@@ -149,7 +149,7 @@ password="#SESSION.dbpw#">
 
 <cf_divscroll>
 
-<table width="97%" border="0" class="formpadding" cellspacing="0" cellpadding="0" align="center">
+<table width="97%" border="0" class="formpadding" align="center">
 
 <tr><td style="padding:7px">
 	<cfinclude template="../Position/Position/PositionViewHeader.cfm">
@@ -171,7 +171,7 @@ password="#SESSION.dbpw#">
 		   <input type="hidden" name="AssignmentNo" value="0">
 	    </cfoutput>   
 	   
-	    <table width="95%" border="0" class="formpadding" cellspacing="0" cellpadding="0" align="center">
+	    <table width="95%" border="0" class="formpadding" align="center">
 		 	 	
 		<TR>
 	    <TD class="labelmedium" style="width:170px"><cf_tl id="Incumbent">:</TD>
@@ -189,8 +189,7 @@ password="#SESSION.dbpw#">
 		</cfquery>
 			
 		<cfif URL.PersonNo eq "" and Check.PersonNo eq "">
-					   
-		
+					   		
 			<cfset link = "#SESSION.root#/staffing/application/Assignment/getEmployee.cfm?PositionNo=#url.id#&insert=yes">	
 		
 			<table cellspacing="0" cellpadding="0">
@@ -211,7 +210,7 @@ password="#SESSION.dbpw#">
 			<td>&nbsp;</td>
 			<td width="500" style="border:1px solid silver">
 						   
-			   <cfdiv bind="url:#link#" id="employee"></cfdiv>
+			   <cf_securediv bind="url:#link#" id="employee">
 			   
 			</td>
 			<td width="30%"></td>
@@ -458,7 +457,7 @@ password="#SESSION.dbpw#">
 			  <cf_dialogAsset>
 			
 			  <cfoutput>
-			  	<table cellspacing="0" cellpadding="0">
+			  	<table>
 				<tr>
 				<td>
 			  	  <cf_img icon="open" onclick="selectloc('movement','location','locationcode','locationname','x','x','x','x','#Organization.Mission#')">
@@ -528,8 +527,7 @@ password="#SESSION.dbpw#">
 						
 		<!--- option to record topics in a dropdown --->
 			
-	    <cfinclude template="AssignmentEditTopic.cfm">
-		
+	    <cfinclude template="AssignmentEditTopic.cfm">		
 		
 		<cfif Organization.StaffingMode eq "1" and Parameter.AssignmentFunction eq "1">
 						    

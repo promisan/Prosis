@@ -21,7 +21,9 @@
     <!--- check if receipt exists in  Materials 
 	     trigger will remove asset  + GL --->
 	
+	<!---
 	<cftry>
+	--->
 	
 	<cftransaction>
 		 
@@ -37,8 +39,10 @@
 			 FROM   Materials.dbo.ItemTransaction
 			 WHERE  TransactionBatchNo IN (SELECT BatchNo
 			                               FROM   Materials.dbo.WarehouseBatch 
-										   WHERE  BatchId = '#URL.rctid#')
+										   WHERE  BatchId = '#URL.rctid#') 
 	</cfquery>
+	
+	
 	
 	<cfloop query="Lines">
 					
@@ -46,9 +50,9 @@
 	     datasource="AppsPurchase" 
 	     username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">
-	     DELETE 
-		 FROM   Materials.dbo.ItemTransaction
-		 WHERE  TransactionId = '#TransactionId#'
+		     DELETE 
+			 FROM   Materials.dbo.ItemTransaction
+			 WHERE  TransactionId = '#TransactionId#' 
 		</cfquery>
 					
 	</cfloop>
@@ -122,6 +126,8 @@
 	<cfif url.receiptno eq "">
 		<cfinclude template="ReceiptDetail.cfm">
 	</cfif>
+	
+	<!---
 				
 	<cfcatch>
 	
@@ -136,6 +142,8 @@
 	</cfcatch>
 		
 	</cftry>
+	
+	--->
 				
 <cfelse>
 

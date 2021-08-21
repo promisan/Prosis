@@ -25,14 +25,17 @@
 						formatted  = "timeformat(DateLastModified,'HH:MM')"}>			
 	
 	<cfset dir = replace(url.dir, "\", "\\", "ALL")>
-	<cfset key = replace(url.cftreeitemkey, "\", "\\", "ALL")>
-									
+	
+	
+	<cfset key = replace(url.key, "\", "\\", "ALL")>
+	
+										
 	<cf_listing
 	    header         = "<font size='2'>Files Stored in directory: #key#</font>"
 	    box            = "myfileslisting"
-		link           = "#SESSION.root#/System/Modification/PostFile/FolderListDetail.cfm?dir=#dir#&cftreeitemkey=#key#&systemfunctionid=#url.systemfunctionid#"
+		link           = "#SESSION.root#/System/Modification/PostFile/FolderListDetail.cfm?dir=#dir#&key=#key#&systemfunctionid=#url.systemfunctionid#"
 	    html           = "No"	
-		tablewidth     = "98%"
+		tablewidth     = "99.5%"
 		tableheight    = "100%"
 		listtype       = "directory"
 		listpath       = "#dir#"

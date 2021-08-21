@@ -76,7 +76,7 @@ password="#SESSION.dbpw#">
 
 function facttablexls1(control,format,box) {  
     // here I could capture the client variable if this is better for large selections 
-	ColdFusion.navigate('RequisitionViewSelected.cfm','process','','','POST','req') 
+	ptoken.navigate('RequisitionViewSelected.cfm','process','','','POST','req') 
 	ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?ts="+new Date().getTime()+"&box="+box+"&data=1&controlid="+control+"&format="+format, "facttable");
 }	
 
@@ -139,7 +139,7 @@ function hla(itm,val,fld){
 
 function reason(row,box,req,cls,st) {  
     _cf_loadingtexthtml='';	  
-    ColdFusion.navigate('RequisitionProcessReason.cfm?row='+row+'&requisitionno='+req+'&statusclass='+cls+'&status='+st,box+'_reason')	
+    ptoken.navigate('RequisitionProcessReason.cfm?row='+row+'&requisitionno='+req+'&statusclass='+cls+'&status='+st,box+'_reason')	
 }   
 
 
@@ -159,25 +159,23 @@ function reqsearch() {
 	ann   = document.getElementById('annotationsel').value	
 	fun   = document.getElementById('fundsel').value			
 	fund  = document.getElementById('fundcode').value		
-    ColdFusion.navigate('RequisitionCertifyPending.cfm?page='+pag+'&role=#url.role#&mission=#url.mission#&period='+per+'&search='+val+'&unit='+unit+'&annotationid='+ann+'&fun='+fun+'&fund='+fund,'contentbox1')
+    ptoken.navigate('RequisitionCertifyPending.cfm?page='+pag+'&role=#url.role#&mission=#url.mission#&period='+per+'&search='+val+'&unit='+unit+'&annotationid='+ann+'&fun='+fun+'&fund='+fund,'contentbox1')
 }  
   
 
 function processdata(txt,per,role) {
 	
-	if (txt == 'process')
-	{	
+	if (txt == 'process') {	
 		txt = '#vprocess#'
 	}
 
-	if (txt == 'assign')
-	{
+	if (txt == 'assign') {
 		txt = '#vassign#'
 	}	
 	
 	if (confirm("#dyw# "+txt+" #srl# ?"))	{
 	Prosis.busy('yes')  
-	ColdFusion.navigate('RequisitionCertifySubmit.cfm?role='+role+'&mode=process&mission=#URL.Mission#&period='+per,'contentbox1','','','POST','req')
+	ptoken.navigate('RequisitionCertifySubmit.cfm?role='+role+'&mode=process&mission=#URL.Mission#&period='+per,'contentbox1','','','POST','req')
 	}
 }
 	
@@ -279,7 +277,7 @@ function processdata(txt,per,role) {
 									<cfset item = item+1>
 								
 									<cf_menutab item  = "#item#" 
-							            iconsrc       = "Report_icon.png" 
+							            iconsrc       = "Logos/Procurement/Inquiry.png" 
 										iconwidth     = "#wd#" 
 										iconheight    = "#ht#" 
 										name          = "#FunctionName#"
@@ -294,12 +292,13 @@ function processdata(txt,per,role) {
 						<cfcatch></cfcatch>
 						
 						</cftry>
+						
+						<!---
 												
 						<cfset item = item+1>		
 											
 						<cf_tl id="Dataset Inquiry" var="1">
-						<cfset tInquiry = "#Lt_text#">
-										
+						<cfset tInquiry = "#Lt_text#">										
 												
 						<cfinvoke component="Service.Analysis.CrossTab"  
 							  method      = "ShowInquiry"
@@ -327,6 +326,8 @@ function processdata(txt,per,role) {
 							name       = "#tInquiry#"
 							script     = "document.getElementById('periodlist').className = 'hide'"
 							source     = "javascript:#script#">		
+							
+							--->
 															 		
 					</tr>
 			</table>

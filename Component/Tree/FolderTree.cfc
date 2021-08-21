@@ -21,7 +21,7 @@
 			<cfset s.parent    = "tree"> 
 									
 			<!--- static tree --->
-			<cfset s.display   = "<b><u>#directory#</b>">	
+			<cfset s.display   = "#directory#">	
 			<cfset s.expand    = "true">					
 						
             <cfset arrayAppend(result,s)/>
@@ -83,7 +83,7 @@
      <cfargument name="directory"  type="String" required="true" default=""/>
     
     <!--- set up return array --->
-      
+
       <cfset var result= arrayNew(1)/>
       <cfset var s =""/>	  			  
 	  
@@ -95,11 +95,12 @@
 			<cfset s.parent    = "tree"> 
 									
 			<!--- static tree --->
-			<cfset s.display   = "<b><u>#directory#</b>">	
+			<cfset s.display   = "#directory#">	
 			<cfset s.expand    = "true">					
 						
             <cfset arrayAppend(result,s)/>
-			
+
+
 	  <cfelse>			  
 	  	 	  
 	  	<cfset l = len(value)>
@@ -115,7 +116,7 @@
 		   name="list" 
 		   type="dir" 
 		   listinfo="name">
-						   			           
+
 	       <cfoutput query="list">
 		   
 				   	<cfdirectory
@@ -127,7 +128,7 @@
 													 			           
 	            <cfset s = structNew()/>
 	            <cfset s.value     = "#value#\#name#">						
-				<cfset s.img       = "#SESSION.root#/images/folder_close.gif">
+				<cfset s.img       = "#SESSION.root#/images/folder.png">
 				<cfset s.imgopen   = "#SESSION.root#/images/folder_open.gif">			
 				<cfset s.parent    = "#value#"> 
 				
@@ -136,7 +137,7 @@
 				</cfif>
 				
 				<cfset s.display   = "#Name#">			
-				<cfset s.href      = "FolderList.cfm?dir=#directory#">
+				<cfset s.href      = "FolderList.cfm?dir=#directory#&key=#value#\#name#">
 				<cfset s.target    = "right">	
 				<cfset s.title     = "aaaaa">
 				<cfset s.expand    = "false">					
@@ -145,7 +146,8 @@
 	       </cfoutput>
 	   	   	   
 	   </cfif>
-	   
+
+
 	   <cfscript>
 			threadName = "ws_msg_" & createUUID();
 			treenodes = result;
@@ -158,7 +160,6 @@
 				writeOutput(msg);
 		</cfscript>
 		      
-   <cfreturn result/>
 
 </cffunction>
 

@@ -17,6 +17,7 @@
 </cfquery>	
 
 <div style="padding-top:5px; padding-bottom:5px; padding-left:5%;">
+
     <table width="100%" class="navigation_table" style="border:1px solid #c0c0c0;">
         <tr class="line labelmedium2" style="background-color:#F1F1F1;">
             <td style="padding-left:4px"><cf_tl id="Effective"></td>
@@ -44,6 +45,7 @@
             </tr>
         </cfif>
     </table>
+	
 </div>
 
 <cfset AjaxOnLoad("doHighlight")>

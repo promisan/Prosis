@@ -3,9 +3,9 @@
 
 <table width="99%" cellspacing="0" cellpadding="0">
 
-<tr>
+<tr class="labelmedium2">
    	
-    <td height="25" align="left" style="padding-left:10px">
+    <td align="left" style="padding-left:10px">
 	<!---
 	<cf_tl id="Reload" var="1">	
 	<input type="button" name="Refresh" value="#lt_text#" style="width:110;height:25;font-size:12px" 
@@ -29,7 +29,7 @@
 			<input type="button" 
 			    name="Add" 
 				value="#lt_text#" 
-				style="width:110;height:25;font-size:11px" 
+				style="width:110;height:25;border:1px solid silver" 
 				class="button10g" 
 				onclick="Prosis.busy('yes');alldetinsert('#url.editionid#_#url.objectcode#','#url.editionid#',ObjectSelect.value,'','add','dialog')">
 			
@@ -40,7 +40,7 @@
 		
 			<cf_ProgramPeriodEdition mission="#program.unitMission#" period="#url.period#" editionid="#url.editionid#">
 					
-			<select name="EditionSelect" class="regularxl" style="width:150px" onchange="period(this.value,document.getElementById('ObjectSelect').value)">
+			<select name="EditionSelect" class="regularxl" style="border:0px;background-color:f1f1f1;width:150px" onchange="period(this.value,document.getElementById('ObjectSelect').value)">
 			<cfloop query="Edition">
 				<option value="#Editionid#" <cfif editionid eq url.editionid>selected</cfif>>#Description#</option>
 			</cfloop>
@@ -59,7 +59,7 @@
 			   selected="#url.objectcode#" 
 			   visible="Yes" 
 			   enabled="Yes" 
-			   style="width:250px"
+			   style="width:250px;border:0px;;background-color:f1f1f1"
 			   onchange="object(this.value);" 
 			   id="ObjectSelect" 
 			   class="regularxl"/>		
@@ -72,7 +72,7 @@
 		<input type="text" id="selectme" name="selectme" value="#url.objectcode#">
 	</td>
 	
-	<td width="80%" align="right" style="padding-right:10px;font-weight:300" class="labelmedium"><cf_tl id="Officer">:&nbsp;<font color="808080">#SESSION.last# #SESSION.first#</font></td>
+	<td width="80%" align="right" style="padding-right:10px;"><cf_tl id="Officer">:&nbsp;<font color="808080">#SESSION.last# #SESSION.first#</font></td>
 				
 </tr>
 </table>

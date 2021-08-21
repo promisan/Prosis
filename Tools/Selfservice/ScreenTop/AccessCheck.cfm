@@ -19,7 +19,8 @@
 	<cfinvoke component="Service.Access"  
 		    method="function"  
 			SystemFunctionId="#attributes.SystemFunctionId#" 
-			returnvariable="access">				
+			returnvariable="access">	
+						
 			
 	<cfif access eq "DENIED">	
 			

@@ -19,8 +19,10 @@
 		returntype  = "string" 
 		displayname = "Delete Access">
 		
-		<cfargument name="Logging"          type="string"  required="false" default="0">				
+		<cfargument name="Logging"          type="string"  required="false" default="0">	
+		<!--- not needed
 		<cfargument name="ActionId"         type="string"  required="true">
+		--->
 		<cfargument name="ActionStatus"     type="string"  required="true">
 		<cfargument name="ActionStep"       type="string"  required="true">
 		<cfargument name="userAccount"      type="string"  required="true">

@@ -27,13 +27,13 @@
 	password="#SESSION.dbpw#">
 		SELECT 	S.*
 		FROM	Ref_PriceSchedule S
-		WHERE EXISTS (
-					SELECT 	*
-					FROM 	WarehouseCategoryPriceSchedule
-					WHERE	Category = (SELECT Category FROM Item WHERE ItemNo = '#getLine.ItemNo#')
-					AND		(Warehouse = '#url.destinationWarehouse#' OR Warehouse IS NULL)
-					AND		PriceSchedule = S.Code
-				)
+		WHERE EXISTS (	SELECT 	*
+						FROM 	WarehouseCategoryPriceSchedule
+						WHERE	Category   = (SELECT Category 
+						                      FROM   Item 
+											  WHERE  ItemNo = '#getLine.ItemNo#')
+						AND		(Warehouse = '#url.destinationWarehouse#' OR Warehouse IS NULL)
+						AND		PriceSchedule = S.Code )
 		OR 		FieldDefault = 1
 		ORDER BY S.FieldDefault DESC, S.ListingOrder ASC
 </cfquery>
@@ -45,6 +45,17 @@
 		SELECT  *
 		FROM    Ref_Tax
 </cfquery>
+
+<cfquery name="Tax"
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT     *
+		FROM       WarehouseCategory
+		WHERE      Warehouse = '#url.destinationWarehouse#'								
+</cfquery>	
+
+	
 
 <table style="width:100%;min-width:600px">
 	
@@ -156,6 +167,14 @@
 											</cfoutput>
 											
 											<td style="padding-left:4px;padding-right:4px">
+																						
+																						
+												<cfif qPriceList.TaxCode eq "">
+													<cfset defaulttax = Tax.TaxCode>
+												<cfelse>	
+												    <cfset defaulttax = qPriceList.TaxCode>
+												</cfif>
+											
 												<cfoutput>
 													<select 
 														name="taxCode_#url.id#_#ScheduleList.code#_#CurrencyList.currency#" 
@@ -163,7 +182,7 @@
 														class="regularxl" style="border:0px"
 														onchange="submitReceiptItemPrice('#url.mission#','#url.warehouse#','#url.destinationWarehouse#','#url.id#','#ScheduleList.code#','#CurrencyList.currency#');">
 															<cfloop query="TaxList">
-																<option value="#TaxCode#" <cfif qPriceList.TaxCode eq taxcode>selected</cfif>>#Description#
+																<option value="#TaxCode#" <cfif defaulttax eq taxcode>selected</cfif>>#Description#
 															</cfloop>
 													</select>
 												</cfoutput>

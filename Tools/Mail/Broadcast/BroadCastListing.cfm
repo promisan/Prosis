@@ -1,5 +1,7 @@
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
+<cfparam name="url.mid" default="">
+
 <!--- 
 1. check if open record exisits
 2. create entry
@@ -170,7 +172,7 @@
 		
 		</cfloop>
 				
-		<cflocation addtoken="No" url="BroadCastView.cfm?id=#rowguid#">
+		<cflocation addtoken="No" url="BroadCastView.cfm?id=#rowguid#&mid=#url.mid#">
 	
 	<cfelse>
 	
@@ -188,22 +190,22 @@
 				datasource="AppsSystem" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#"> 	
-				SELECT * 
-				FROM   Ref_ModuleControlDetailField
-				WHERE  SystemFunctionId = '#url.systemfunctionid#'		
-				AND    FunctionSerialNo = '#url.functionserialNo#'
-				AND    FieldOutputFormat = 'eMail'
+					SELECT * 
+					FROM   Ref_ModuleControlDetailField
+					WHERE  SystemFunctionId = '#url.systemfunctionid#'		
+					AND    FunctionSerialNo = '#url.functionserialNo#'
+					AND    FieldOutputFormat = 'eMail'
 			 </cfquery>	
 			 
 			 <cfquery name="Name" 
 				datasource="AppsSystem" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#"> 	
-				SELECT * 
-				FROM   Ref_ModuleControlDetailField
-				WHERE  SystemFunctionId = '#url.systemfunctionid#'		
-				AND    FunctionSerialNo = '#url.functionserialNo#'
-				AND    FieldHeaderLabel = 'Name'
+					SELECT * 
+					FROM   Ref_ModuleControlDetailField
+					WHERE  SystemFunctionId = '#url.systemfunctionid#'		
+					AND    FunctionSerialNo = '#url.functionserialNo#'
+					AND    FieldHeaderLabel = 'Name'
 			</cfquery>	
 				
 			<cfquery name="Clear" 
@@ -243,13 +245,9 @@
 						   datasource="#Key.QueryDataSource#" 
 						   username="#SESSION.login#" 
 						   password="#SESSION.dbpw#">
-						   INSERT INTO System.dbo.BroadcastRecipient
-							        (BroadcastId, 
-									RecipientCode, 
-									eMailAddress, 
-									RecipientName)
-							VALUES ('#check.BroadCastId#','#RecipientCode#','#eMailAddress#','#RecipientName#')
-						   
+						    INSERT INTO System.dbo.BroadcastRecipient
+							         (BroadcastId, RecipientCode, eMailAddress, RecipientName)
+							VALUES ('#check.BroadCastId#','#RecipientCode#','#eMailAddress#','#RecipientName#')						   
 						</cfquery>
 					
 						<cfcatch>
@@ -259,9 +257,7 @@
 							   username="#SESSION.login#" 
 							   password="#SESSION.dbpw#">
 							   INSERT INTO System.dbo.BroadcastRecipient
-								        (BroadcastId, 					
-										eMailAddress, 
-										RecipientName)
+								        (BroadcastId, eMailAddress, RecipientName)
 							   VALUES ('#check.BroadCastId#','#eMailAddress#','#RecipientName#')  
 							</cfquery>			
 									
@@ -272,11 +268,9 @@
 				</cfif>
 			
 			</cfloop>		
-	
-	
-	
+					
 		<cfif check.officerUserid eq SESSION.acc or SESSION.isAdministrator eq "Yes">	
-			<cflocation addtoken="No" url="BroadCastView.cfm?id=#check.broadcastid#">		
+			<cflocation addtoken="No" url="BroadCastView.cfm?id=#check.broadcastid#&mid=#url.mid#">		
 		<cfelse>		
 			<cfoutput>
 			<table><tr><td class="labelit">Another user (#check.officerFirstName# #Check.OfficerLastName#) is currently preparing an eMail for this listing. Operational not allowed</td></tr></table>

@@ -1,11 +1,11 @@
 
 <cfform action="ContractEditSubmit.cfm?action=#url.action#" method="POST" name="ContractEntry" onSubmit="#onsub#" style="width:100%">
 		
-	<table width="99%" align="center" class="formpadding">
+	<table width="100%" align="center" class="formpadding">
 	
 	<cfif url.action eq "0">
 			
-		<tr>
+		<tr class="fixrow">
 			<td height="10" style="padding-left:7px">	
 			  <cfset ctr      = "0">		
 			  <cfset openmode = "close"> 

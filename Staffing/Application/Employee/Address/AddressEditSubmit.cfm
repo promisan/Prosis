@@ -139,7 +139,7 @@ password="#SESSION.dbpw#">
 				    
 	<script language = "JavaScript">		
 	   Prosis.busy('no')	
-	   ColdFusion.navigate('#SESSION.root#/Staffing/Application/Employee/Address/EmployeeAddressDetail.cfm?mode=edit&webapp=#url.webapp#&ID=#Form.PersonNo#','addressdetail')		
+	   ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Address/EmployeeAddressDetail.cfm?mode=edit&webapp=#url.webapp#&ID=#Form.PersonNo#','addressdetail')		
      </script>	
 	 
     <!---

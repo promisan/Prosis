@@ -193,6 +193,7 @@ password="#SESSION.dbpw#">
 							 AND    ClassParameter = P.OrderClass
 							 AND    Role           = 'ProcRI'
 							 AND    UserAccount    = '#SESSION.acc#')	
+							
 	</cfif>		
 	ORDER BY P.PurchaseNo 
 	

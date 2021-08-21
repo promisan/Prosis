@@ -80,13 +80,13 @@
 
 <cf_mobileRow>
 
-    <cfdiv 
+    <cf_securediv 
         id="#attributes.viewId#MapContainer" 
         class="col-lg-6 col-sm-12" 
         style="position:-webkit-sticky; position:sticky; top:0;" 
         bind="url:#session.root#/Tools/Listing/Geographic/geoListingMap.cfm?viewId=#attributes.viewId#&country=#vFilterParams#&zoomFunction=#attributes.zoomFunction#">
     
-    <cfdiv 
+    <cf_securediv 
         id="#attributes.viewId#MapTable" 
         class="col-lg-6 col-sm-12" 
         bind="url:#session.root#/Tools/Listing/Geographic/geoListingMapSummary.cfm?viewId=#attributes.viewId#&country=#vFilterParams#">

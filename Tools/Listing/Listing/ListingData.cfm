@@ -823,9 +823,16 @@
 	<cfparam name="session.listingdata['#box#']['sqlsorting']" default="">
 	
 	<cfparam name="sc" default="">
-					
+		
+	<!--- to help clearing cache during development 
+	<cfset applycache = "0">
+	--->
+	
+	
+						
 	<cfif applycache eq "0" or (session.listingdata[box]['sqlsorting'] neq listsorting and sc neq "")>			
-							
+	
+								
 		<cfparam name="session.listingdata['#box#']['recordsinit']" default="-1">  	
 						
 		<!--- ---------------------------------------------------------------------- --->

@@ -25,5 +25,5 @@
 		   ControllerNo     = "992"
 		   ObjectContent    = "#SearchResult#"
 		   ObjectIdfield    = "batchno"
-		   delay            = "12">	  
+		   delay            = "10">	  
 		   

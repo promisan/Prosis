@@ -156,7 +156,7 @@
 <cf_tl id="Export to Excel" var="lblExportToExcel">
 <cfoutput>
     <h3 style="padding-bottom:10px;">
-        <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="35" height="35" onclick="Prosis.exportToExcel('detailGeoCompLongitudinalByRegionContent#url.viewId#Detail');" title="#lblExportToExcel#">
+        <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="30" height="30" onclick="Prosis.exportToExcel('detailGeoCompLongitudinalByRegionContent#url.viewId#Detail');" title="#lblExportToExcel#">
         LONGITUDINAL BY REGIONAL GROUP
     </h3>
 </cfoutput>
@@ -258,7 +258,15 @@
             <cfif vCountPeriods neq 0>UNION ALL</cfif>
             SELECT  '#SelectionDate#' as SelectionDateRaw,
                     '#dateFormat(SelectionDate, 'mmm-yyyy')#' as SelectionDate,
-                    f_#dateFormat(SelectionDate, 'yyyymmdd')# AS Total
+                    (
+                        f_#dateFormat(SelectionDate, 'yyyymmdd')# 
+                        /
+                        <cfif evaluate("getComplementDataDetailLimits.Total_#dateFormat(SelectionDate, 'yyyymmdd')#") eq 0>
+                            1
+                        <cfelse>
+                            #evaluate("getComplementDataDetailLimits.Total_#dateFormat(SelectionDate, 'yyyymmdd')#")#
+                        </cfif>
+                    ) * 100 AS Total
             FROM    getComplementDataDetail
             WHERE   CountryGroup = '#getComplementDataDetailDistinctGroups.CountryGroup#'
             <cfset vCountPeriods = vCountPeriods + 1>
@@ -267,7 +275,15 @@
             UNION ALL
             SELECT  '#vSelectedDate#' as SelectionDateRaw,
                     '#dateFormat(vSelectedDate, 'mmm-yyyy')#' as SelectionDate,
-                    f_#dateFormat(vSelectedDate, 'yyyymmdd')# AS Total
+                    (
+                        f_#dateFormat(vSelectedDate, 'yyyymmdd')# 
+                        /
+                        <cfif evaluate("getComplementDataDetailLimits.Total_#dateFormat(vSelectedDate, 'yyyymmdd')#") eq 0>
+                            1
+                        <cfelse>
+                            #evaluate("getComplementDataDetailLimits.Total_#dateFormat(vSelectedDate, 'yyyymmdd')#")#
+                        </cfif>
+                    ) * 100 AS Total
             FROM    getComplementDataDetail
             WHERE   CountryGroup = '#getComplementDataDetailDistinctGroups.CountryGroup#'
         </cfif>
@@ -299,7 +315,8 @@
     scaleStep = "1"
     height = "200px"
     legend = "true"
-    legendPosition = "left"
+    legendPosition = "bottom"
+    labelAppend = "%"
     dataPoints = "yes"
     scaleLabel = "<%= numberAddCommas(value) %>"
     tooltipLabel = "<%if (label){%><%=label%>: <%}%><%= numberAddCommas(value) %>">

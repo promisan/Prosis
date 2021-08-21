@@ -285,7 +285,8 @@
 <div name="processing" id="processing" class="hide"></div>
      
 <cfform target="_self"
- action="Search4Submit.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#Search.Owner#&mode=#url.mode#&status=#search.status#" method="POST" name="searchform" id="searchform" style="height:98.5%">
+ action="Search4Submit.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#Search.Owner#&mode=#url.mode#&status=#search.status#"
+    method="POST" name="searchform" id="searchform" style="height:98.5%">
 
 <table style="height:100%" width="100%">
 
@@ -1723,7 +1724,7 @@
 	<cfoutput>
 		<script language="JavaScript1.1">
 			function revert() {
-				window.location = "Search2.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#search.Owner#&Mode=#url.Mode#&Status=#search.Status#"
+				ptoken.location('Search2.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#search.Owner#&Mode=#url.Mode#&Status=#search.Status#')
 			}
 	</script>
 	</cfoutput>
@@ -1740,15 +1741,16 @@
 	<td align="center" height="35">
 	<button name="Prior" class="button10g" style="width:160;height:27px"
 	 value="Next" type="button" onClick="revert()">
-	<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/prev.gif" align="absmiddle" alt="" border="0">&nbsp;Back</b>
+	<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/prev.gif" align="absmiddle" alt="" border="0"><cf_tl id="Back">
 	</button>
 	
 	<button name="Prios" 
-	        class="button10g" 
-			value="Prior" 
-			type="submit" 
-			style="width:160;height:27px">&nbsp;Search</b>
-	<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/next.gif" border="0" align="absmiddle"> 
+	    class="button10g" 
+		value="Prior" 
+		type="submit" 
+		style="width:160;height:27px">
+			<cf_tl id="Search">
+			<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/next.gif" border="0" align="absmiddle"> 
 	</button>
 	
 </td>

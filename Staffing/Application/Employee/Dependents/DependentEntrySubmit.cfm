@@ -520,8 +520,8 @@
 		   ActionStatus       = "1">		
 			
 	<script>		   
-	     parent.parent.parent.right.dependentrefresh('#FORM.PersonNo#','#url.contractid#','#url.action#')			
-		 parent.parent.parent.ProsisUI.closeWindow('mydependent',true)	    
+	     parent.parent.dependentrefresh('#FORM.PersonNo#','#url.contractid#','#url.action#')			
+		 parent.parent.ProsisUI.closeWindow('mydependent',true)	    
 	</script>	
 		 	 
 </cfoutput>	 

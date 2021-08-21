@@ -25,7 +25,8 @@
 		
 </cfif>
 
-ColdFusion.navigate('RequestDialogFormMatrixScript.cfm?row=#url.row#&col=#url.col#&rows=#url.rows#&cols=#url.cols#','ctotal')
+ptoken.navigate('RequestDialogFormMatrixScript.cfm?row=#url.row#&col=#url.col#&rows=#url.rows#&cols=#url.cols#','ctotal')
+
 
 </script>
 

@@ -2,7 +2,7 @@
 <cfparam name="url.html"   default="No">
 <cfparam name="url.closeAction" default="">
 
-<cf_screentop html="no" bannerheight="60" label="Address Maintenance" layout="webdialog" jQuery="Yes">
+<cf_screentop html="no" label="Address Maintenance" layout="webdialog" jQuery="Yes">
 
 <cf_divscroll overflowx="auto">
 
@@ -11,9 +11,16 @@
 <cf_dialogStaffing>
 <cf_systemscript>
 
-<cf_mapscript scope="embed">
+<cfif client.googlemap eq "1">
 
-<cfajaximport tags="cfmap,cfform" params="#{googlemapkey='#client.googlemapid#'}#">
+	<cf_mapscript scope="embed">
+	<cfajaximport tags="cfmap,cfform" params="#{googlemapkey='#client.googlemapid#'}#">
+	
+<cfelse>
+
+	<cfajaximport tags="cfform">
+
+</cfif>	
 
 <cfquery name="AddressType" 
 datasource="AppsOrganization" 

@@ -108,11 +108,9 @@ datasource="AppsInit">
 	<cfif url.docid eq "">
 		
 		<cfif Entity.DefaultFormat eq "HTML">
-		    <cfset filename = "memo_#FileNo#.htm">
-		<cfelseif Entity.DefaultFormat eq "FlashPaper">
-			<cfset filename = "memo_#FileNo#.swf">
+		    <cfset filename = "memo_#FileNo#.htm">		
 		<cfelse>
-		    <cfset filename = "memo_#FileNo#.pdf">
+		    <cfset filename = "memo_#FileNo#">
 		</cfif>	
 		<cfset password = "">
 	
@@ -129,22 +127,18 @@ datasource="AppsInit">
 		<cfif Name.DocumentDescription neq "">
 		
 			<cfif Entity.DefaultFormat eq "HTML">
-		    	<cfset filename = "memo_#FileNo#.htm">
-			<cfelseif Entity.DefaultFormat eq "FlashPaper">
-				 <cfset filename = "#Name.DocumentDescription#_#FileNo#.swf">
+		    	<cfset filename = "memo_#FileNo#.htm">			
 			<cfelse>
-		   		 <cfset filename = "#Name.DocumentDescription#_#FileNo#.pdf">
+		   		 <cfset filename = "#Name.DocumentDescription#_#FileNo#">
 			</cfif>	
 			<cfset password = "#Name.DocumentPassword#">
 			
 		<cfelse>	
 		
 			<cfif Entity.DefaultFormat eq "HTML">
-		    	<cfset filename = "memo_#FileNo#.htm">
-			<cfelseif Entity.DefaultFormat eq "FlashPaper">
-				<cfset filename = "doc_#FileNo#.swf">
+		    	<cfset filename = "memo_#FileNo#.htm">			
 			<cfelse>
-		    	<cfset filename = "doc_#FileNo#.pdf">
+		    	<cfset filename = "doc_#FileNo#">
 			</cfif>	
 			<cfset password = "">		
 		
@@ -152,13 +146,27 @@ datasource="AppsInit">
 	
 	</cfif>
 	
-	<cfif attach eq "">
-	   <cfset attach = "#fileName#">
-	<cfelse>
-	   <cfset attach = "#Attach#,#FileName#">
-	</cfif>	
+	<cfif Entity.DefaultFormat eq "HTML">
 	
+		<cfif attach eq "">
+		   <cfset attach = "#fileName#">
+		<cfelse>    
+		   <cfset attach = "#Attach#,#FileName#">
+		</cfif>	
+	
+	<cfelse>
+	
+		<cfif attach eq "">
+		   <cfset attach = "#fileName#.pdf">
+		<cfelse>    
+		   <cfset attach = "#Attach#,#FileName#.pdf">
+		</cfif>	
+	
+	</cfif>
+			
 	<cfif Entity.DefaultFormat neq "HTML">
+	
+	     <!---
 		    
 		<cfdocument 
 		      format       = "#Entity.DefaultFormat#"
@@ -246,10 +254,23 @@ datasource="AppsInit">
 			
 		</cfdocument>
 		
+		--->
+		
+		<cfset text = replace("#DocumentContent#", "@pb", "<p style='page-break-after:always;'>&nbsp;</p>", "ALL")>
+		
+		<cffile action="WRITE" 
+          file="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#fileName#.htm" 
+		  output="#text#" 
+		  addnewline="Yes" 
+		  fixnewline="No">		
+		 
+		<!--- on-the-fly converter of htm content to pdf --->  
+		<cf_htm_pdf fileIn= "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#fileName#">
+		
 	<cfelse>
 	
-	<cfset text = replace("#DocumentContent#", "@pb", "<tr style='page-break-after: always;'><p></p></tr>", "ALL")>	
-	<cfsavecontent variable="mailfile">#Text#</cfsavecontent>
+		<cfset text = replace("#DocumentContent#", "@pb", "<tr style='page-break-after: always;'><p></p></tr>", "ALL")>	
+		<cfsavecontent variable="mailfile">#Text#</cfsavecontent>
 	
 	<cftry>
 	
@@ -263,7 +284,7 @@ datasource="AppsInit">
 	   file="#SESSION.rootPath#/CFRStage/User/#SESSION.acc#/#fileName#" 
 	   output="#mailfile#" 
 	   addnewline="Yes" 
-	   fixnewline="No">
+	   fixnewline="No">	   
 		
 	</cfif>	
 
@@ -279,5 +300,3 @@ datasource="AppsInit">
 	</script>
 
 </cfoutput>
-
-</body>

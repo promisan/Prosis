@@ -304,14 +304,14 @@ password="#SESSION.dbpw#">
 						<cfset linemode = "">
 						   				   						
 				        <cfif actionStatus eq "9">
-							<tr bgcolor="FFD5D5" style="height:22px" class="navigation_row line labelmedium">
+							<tr bgcolor="FFD5D5" style="height:22px" class="navigation_row line labelmedium2">
 						<cfelseif requirementid eq url.requirementid or requirementidparent eq get.RequirementIdParent>
-							<tr bgcolor="e6e6e6" style="height:22px" class="navigation_row line labelmedium">
+							<tr bgcolor="e6e6e6" style="height:22px" class="navigation_row line labelmedium2">
 							<cfset linemode = "edit">
 						<cfelseif requesttype eq "Ripple">
-							<tr bgcolor="f4f4f4" style="height:22px" class="navigation_row line labelmedium">					
+							<tr bgcolor="f4f4f4" style="height:22px" class="navigation_row line labelmedium2">					
 						<cfelse>
-							<tr style="height:22px" class="navigation_row line labelmedium">
+							<tr style="height:22px" class="navigation_row line labelmedium2">
 						</cfif>
 									
 						<td width="40" height="20" 
@@ -323,9 +323,9 @@ password="#SESSION.dbpw#">
 						
 						<td align="center" style="padding-left:5px;padding-right:2px;padding-top:1px">
 						
-							<table cellspacing="0" cellpadding="0">
+							<table>
 							
-							<tr>
+							<tr class="labelmedium2">
 							
 								<td style="width:20" align="center">
 								
@@ -371,13 +371,17 @@ password="#SESSION.dbpw#">
 										
 										    <cfif cnt eq "1">
 											
-												<table><tr><td style="padding-top:3px">
+												<table>
+												<tr>
+												<td style="padding-top:0px">
 																					
-												<cf_img icon="edit" navigation="Yes"
-												tooltip="This will edit the requirement"
+												<cf_img icon="open" navigation="Yes"
+												tooltip="Edit the financial requirement"
 												onclick="alldetinsert('#url.editionid#_#url.objectcode#','#url.editionid#','#url.objectcode#','#requirementid#','edit','#url.scope#')">
 												
-												</td></tr></table>
+												</td>
+												</tr>
+												</table>
 												
 											<cfelse>
 											
@@ -403,7 +407,7 @@ password="#SESSION.dbpw#">
 						
 						<td width="15%" style="min-width:260px;padding-left:1px;padding-right:3px">
 						<cfif priormaster neq "#itemmastercode#">
-						#ItemMasterCode# #ItemMasterDescription#
+						#ItemMasterCode# #ItemMasterDescription# 
 						<cfset priormaster = ItemMasterCode>
 						<cfelse>
 						
@@ -431,19 +435,18 @@ password="#SESSION.dbpw#">
 							<cfelse>
 							
 							    <table>
-								<tr class="labelmedium" style="height:10px">								
-							    <cfif PositionNo neq "">	
-								<td style="min-width:50px">
-								<a href="javascript:EditPosition('#Program.mission#','','#PositionNo#')">							
-								<cfif PositionOperational eq "0"><font color="FF0000"><span style="text-decoration: line-through;">#SourcePostNumber#</span></font><cfelse>#SourcePostNumber#</cfif>&nbsp;:&nbsp;
-								</a>	
-								</td>													
-								</cfif>
-								
-								<td>#RequestDescription#</td>
-								
-								</tr>
+									<tr class="labelmedium2" style="height:10px">								
+								    <cfif PositionNo neq "">	
+									<td style="min-width:50px">
+									<a href="javascript:EditPosition('#Program.mission#','','#PositionNo#')">							
+									<cfif PositionOperational eq "0"><font color="FF0000"><span style="text-decoration: line-through;">#SourcePostNumber#</span></font><cfelse>#SourcePostNumber#</cfif>&nbsp;:&nbsp;
+									</a>	
+									</td>													
+									</cfif>								
+									<td>#RequestDescription#</td>								
+									</tr>
 								</table>
+								
 							</cfif>
 												
 						</td>	

@@ -1,6 +1,7 @@
 <cfparam name="URL.entryScope"    default="Backoffice">
 <cfparam name="URL.Owner"         default="">
-<cfparam name="url.applicantno" default="0">
+<cfparam name="URL.Mid"           default="">
+<cfparam name="url.applicantno"  default="0">
 
 <cfquery name="DeleteExperience" 
 datasource="AppsSelection" 
@@ -14,7 +15,7 @@ password="#SESSION.dbpw#">
 		
 <cfif url.entryScope eq "Backoffice">
 
-	<cflocation url="../General.cfm?Owner=#url.owner#&Source=#url.source#&ID=#URL.ID#&ID2=#URL.ID2#&Topic=#URL.Topic#&applicantNo=#url.applicantno#" addtoken="No">		  
+	<cflocation url="../General.cfm?Owner=#url.owner#&Source=#url.source#&ID=#URL.ID#&ID2=#URL.ID2#&Topic=#URL.Topic#&applicantNo=#url.applicantno#&mid=#url.mid#" addtoken="No">		  
 	
 <cfelseif url.entryScope eq "Portal">
 
@@ -28,7 +29,7 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput>
 		<script>
-			window.location = '#SESSION.root#/Roster/PHP/PHPEntry/Background/#template#?Owner=#url.owner#&ID=#url.id#&entryScope=#url.entryScope#&applicantno=#url.applicantno#&section=#url.section#';
+			window.location = '#SESSION.root#/Roster/PHP/PHPEntry/Background/#template#?Owner=#url.owner#&ID=#url.id#&entryScope=#url.entryScope#&applicantno=#url.applicantno#&section=#url.section#&mid=#url.mid#';
 		</script>
 	</cfoutput>
 	

@@ -42,41 +42,44 @@
 		<cfset vBackground = "background: ##ededed;">		
 	</cfif>
 	
-	<table width="99%" border="0" align="center" style="background:##f1f1f1; border-radius: 0 0 10px 10px;padding-bottom: 10px;">		
+	<table border="0" style="width:100%;background:##f1f1f1; border-radius: 0 0 10px 10px;padding-bottom: 2px;">		
 
-	<tr><td style="height:5px"></td></tr></tr>
-	
+		
 	<tr class="hide"><td id="toggleprocess"></td></tr></tr>
 	
-	<tr>
+	<tr class="fixrow">
 		
-		<td width="99%" id="personinfo" class="#cl#">			
+		<td id="personinfo" class="#cl#">	
+				
 		    <cfinclude template="../../../Staffing/Application/Employee/PersonViewHeader.cfm">
+			
              <div onclick="personviewtoggle('person')" class="clsNoPrint"
-                style="cursor: pointer;padding: 0 0 2px 10px;display: block;margin: 0 auto 3px;height: 100%;width: 99%;"><h3 style="font-size: 14px;color:##033F5D;"><cf_tl id="Hide"> <img src="#Client.VirtualDir#/images/Up3.png" width="17" height="17" 
-		    id="personcol"
-			style="cursor: pointer;padding: 2px;margin:0;position: relative;top: 3px;"
-			class="#cl#"></h3></div>
+                style="padding-left:20px;cursor: pointer;display: block;margin: 0 auto 3px;height: 100%">
+				<!---
+				<cf_tl id="Hide"> 
+				--->
+				<img src="#Client.VirtualDir#/images/Up3.png" width="20" height="20" 
+			    id="personcol"
+				style="cursor: pointer;padding: 2px;margin:0;position: relative;top: 3px;"
+				class="#cl#">
+			</div>
+			
 		</td>
 		
-		<td id="personshort" height="20" class="#cla#" onclick="personviewtoggle('person')" 
-		  style="cursor:pointer;padding:2px 0 0 20px!important;">								    			  
-		   <font style="color:##033F5D;font-size:17px;text-transform: uppercase; width: auto;font-weight: 600;"><cfoutput>#Employee.FirstName# #Employee.LastName# <cfif Employee.indexno neq "">(#Employee.IndexNo#)</cfif></cfoutput></font>
+		<td id="personshort" class="#cla#" onclick="personviewtoggle('person')" 
+		  style="height:35px;cursor:pointer;padding:0 0 0 20px!important;">		
+		  						    			  
+		   <font style="color:##033F5D;font-size:19px;text-transform: uppercase; width: auto;"><cfoutput>#Employee.FirstName# #Employee.LastName# <cfif Employee.indexno neq "">(#Employee.IndexNo#)</cfif></cfoutput></font>
             
             <img src="#Client.VirtualDir#/Images/Down3.png" width="24" height="24"  		    
 			id="personexp"					
 			align="absmiddle"
-			style="cursor: pointer;padding: 4px;float: right;margin: 0 5px 3px;"
+			style="cursor: pointer;padding-right: 14px;float: right;margin: 0 5px 3px;"
             class="#cla#">
 			
 		</td>
 	</tr>	
-	
-	<cfif ctr eq "0">
-	
-	<tr><td height="3"></td></tr>
-	
-	</cfif>
+		
 	
 	<tr><td height="3"></td></tr>	
 	

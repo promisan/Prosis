@@ -55,7 +55,7 @@
 		<script language="JavaScript">
 		
 		function searchgo() {		
-			window.open('#client.virtualdir#/ProgramREM/Inquiry/LocateProgram/InquiryForm.cfm?mission=#url.mission#&period='+document.getElementById('PeriodSelect').value,'right')		
+			ptoken.open('#client.virtualdir#/ProgramREM/Inquiry/LocateProgram/InquiryForm.cfm?mission=#url.mission#&period='+document.getElementById('PeriodSelect').value,'right')		
 		}
 			
 		function view(val) {
@@ -109,12 +109,12 @@
 			}			
 			document.getElementById("MandateNo").value = mandate
 			
-		   }
+		}
 		
 		function updateDonor() {		
-		       document.getElementById('reviewcontent').className = "hide"
-			   // refresh the tree to be shown, effectively we also have to tune the filtering !!!
-			   ptoken.navigate('#session.root#/ProgramREM/Application/Program/Donor/DonorTreeContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#URL.Mission#','treecontent')				
+		    document.getElementById('reviewcontent').className = "hide"
+			// refresh the tree to be shown, effectively we also have to tune the filtering !!!
+			ptoken.navigate('#session.root#/ProgramREM/Application/Program/Donor/DonorTreeContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#URL.Mission#','treecontent')				
 		}
 		
 		</script>
@@ -134,8 +134,7 @@
 			<cfset vInitSrc = "">
 		</cfif>
 	
-		<iframe name="right" id="right" width="100%" height="100%" scrolling="no" src="#vInitSrc#"
-		    frameborder="0"></iframe>			
+		<iframe name="right" id="right" width="100%" height="100%" scrolling="no" src="#vInitSrc#" frameborder="0"></iframe>			
 				
 	</cf_layoutarea>				
 			

@@ -148,201 +148,200 @@ password="#SESSION.dbpw#">
 		</cfoutput>
 	</cfif>
 	
-	<cfoutput query="SearchResult" group="SystemModule">
-	
-	<cfif url.find neq "">	  
-	
-	   <tr><td colspan="7" class="labellarge">#SystemModule#</td></tr>
-	   
-	<cfelse>
-	
-	   <cfif url.main eq "1">
-	   
-		   <cfif FunctionClass eq "Manuals">
+		<cfoutput query="SearchResult" group="SystemModule">
+		
+		<cfif url.find neq "">	  
+		
+		   <tr><td colspan="7" class="labellarge">#SystemModule#</td></tr>
 		   
-		   <tr>
-		   <td colspan="7" align="left" height="20">
-				<table cellspacing="0" cellpadding="0" class="formpadding">
-				  <tr><td height="7"></td></tr>
-				  <tr><td colspan="2" width="20">		  
-				  <img onclick="addmanual('#url.Module#','#url.main#','#url.functionClass#','#url.find#')" src="#SESSION.root#/Images/manual.png" height="31" width="31" alt="" border="0" align="absmiddle">		  
-				  </td>
-				  <td style="padding-left:8px;padding-top:6px"><a href="javascript:addmanual('#url.Module#','#url.main#','#url.functionClass#','#url.find#')"><b>Add a Manual</a>
-				  </td>
-				  </tr>
-				  <tr><td height="2"></td></tr>
-				  <tr>
-				  <td>&nbsp;&nbsp;&nbsp;</td>
-				  <td colspan="2" class="labelmedium">
-				  <font color="gray">Manuals are externally prepared (PDF) documents that refer to application functions as supported by the system.
-				  </td>
-				  </tr>
-			    </table>
-		  </td>
-		  </tr>
+		<cfelse>
+		
+		   <cfif url.main eq "1">
 		   
-		  <cfelseif FunctionClass eq "Reporting" or FunctionClass eq "Inquiry" or FunctionClass eq "Application">
-		      
-		   <tr>
-		   <td colspan="7" align="left" height="20">
-				<table class="formpadding">
-				  <tr><td height="4"></td></tr>
-				  <tr>				 
-				  	<td class="labellarge" style="padding-left:3px;font-size:25px">		  				  	  
-					  <a href="javascript:add('#url.Module#','#url.main#','#url.functionClass#','#url.find#')"><cf_tl id="Add a custom Listing"></a>
+			   <cfif FunctionClass eq "Manuals">
+			   
+			   <tr>
+			   <td colspan="7" align="left" height="20">
+					<table cellspacing="0" cellpadding="0" class="formpadding">
+					  <tr><td height="7"></td></tr>
+					  <tr><td colspan="2" width="20">		  
+					  <img onclick="addmanual('#url.Module#','#url.main#','#url.functionClass#','#url.find#')" src="#SESSION.root#/Images/manual.png" height="31" width="31" alt="" border="0" align="absmiddle">		  
 					  </td>
-				  </tr>				 
-				  <tr>				  
-					  <td class="labelmedium" style="padding-left:4px">
-					  <font color="gray">Listings may be created by developers and can then be deployed in exactly the same way as any other #SESSION.welcome# application function.
+					  <td style="padding-left:8px;padding-top:6px"><a href="javascript:addmanual('#url.Module#','#url.main#','#url.functionClass#','#url.find#')"><b>Add a Manual</a>
 					  </td>
-				  </tr>
-			    </table>
-		  </td>
-		  </tr>
+					  </tr>
+					  <tr><td height="2"></td></tr>
+					  <tr>
+					  <td>&nbsp;&nbsp;&nbsp;</td>
+					  <td colspan="2" class="labelmedium">
+					  <font color="gray">Manuals are externally prepared (PDF) documents that refer to application functions as supported by the system.
+					  </td>
+					  </tr>
+				    </table>
+			  </td>
+			  </tr>
+			   
+			  <cfelseif FunctionClass eq "Reporting" or FunctionClass eq "Inquiry" or FunctionClass eq "Application">
+			      
+			   <tr>
+			   <td colspan="7" align="left" height="20">
+					<table class="formpadding">
+					  <tr><td height="4"></td></tr>
+					  <tr>				 
+					  	<td class="labellarge" style="padding-left:3px;font-size:25px">		  				  	  
+						  <a href="javascript:add('#url.Module#','#url.main#','#url.functionClass#','#url.find#')"><cf_tl id="Add a custom Listing"></a>
+						  </td>
+					  </tr>				 
+					  <tr>				  
+						  <td class="labelmedium" style="padding-left:4px">
+						  <font color="gray">Listings may be created by developers and can then be deployed in exactly the same way as any other #SESSION.welcome# application function.
+						  </td>
+					  </tr>
+				    </table>
+			  </td>
+			  </tr>
+			  
+			  </cfif>
 		  
 		  </cfif>
-	  
-	  </cfif>
-	  	    
-	</cfif>
-	
-	<cfoutput group="FunctionClass">
-	
-	<cfif url.find neq "">
-		<tr class="line"><td colspan="7" class="labellarge" style="padding-left:10px;height:35">#FunctionClass#</td></tr>
+		  	    
+		</cfif>
 		
-	</cfif>
-	
-	<cfif currentrow eq "1">	
-		<tr class="labelmedium2 fixrow line"> 
-		    <td width="20"></td>
-		    <TD style="min-width:250px"><cf_tl id="Name"></TD>			
-			<TD style="min-width:20px" align="center">O</TD>	
-			<TD><cf_tl id="Usergroup"></TD>
-			<TD><cf_tl id="Role"></TD>				
-		</TR>		
-	</cfif>
-	
-	<cfoutput group="MainMenuItem">
-	
-		<cfoutput group="MenuClass">
-		
-			<tr class="line fixrow2">
+			<cfoutput group="FunctionClass">
 			
-				<td colspan="6" style="padding-left:10px;padding-top:5px;height:40px;font-size:22px" class="labelmedium2">
-					<cfif SystemModule eq "Portal" and FunctionClass eq "Portal" and MenuClass eq "Topic">
-						<a href="javascript: maintaintopics('#SystemModule#','0','#FunctionClass#','');" title="Click to maintain topics">#MenuClass#</a>
-					<cfelse>
-						#MenuClass#
-					</cfif>
-				</td>
-			</tr>
+			<cfif url.find neq "">
+				<tr class="line"><td colspan="7" class="labellarge" style="padding-left:10px;height:35">#FunctionClass#</td></tr>
+				
+			</cfif>
 			
-			<cfoutput group="SystemFunctionId">					
-							
-			    <cfif Operational eq "0" and MenuClass neq "Builder">
-					<tr bgcolor="e4e4e4" class="navigation_row line labelmedium2">
-				<cfelseif MenuClass eq "Builder">	
-					<tr bgcolor="fafafa" id="line#SystemFunctionId#" class="navigation_row line labelmedium2">
-				<cfelse>
-					<tr bgcolor="white" class="navigation_row line labelmedium2">
-				</cfif>			    
-					
-					<cfif systemmodule eq "selfservice" or systemmodule eq "pmobile">
-					
-						<td height="20" 
-							style="padding-left:14px;padding-top:2px;padding-right:6px"
-							class="navigation_action"
-							onClick="portaledit('#SystemFunctionId#','#systemmodule#','#url.functionClass#')">
-							
-						<cf_img icon="open">
-											
-					<cfelseif menuclass eq "Builder">
-						<td height="20" 
-							style="padding-left:14px;padding-top:2px;padding-right:6px"
-							class="navigation_action"
-							onClick="functionedit('#SystemFunctionId#')">
-							
-					   	  <cf_img icon="open">
-
-					<cfelse>
-						<td height="20" 
-							style="padding-left:14px;padding-top:2px;padding-right:6px"
-							class="navigation_action"
-							onClick="functionedit('#SystemFunctionId#')">							
-	
-						 <cf_img icon="open">		
-						  
-					</cfif>	  
-					
-				</td>
+			<cfif currentrow eq "1">	
+				<tr class="labelmedium2 fixrow line"> 
+				    <td width="20"></td>
+				    <TD style="min-width:250px"><cf_tl id="Name"></TD>			
+					<TD style="min-width:20px" align="center">O</TD>	
+					<TD><cf_tl id="Usergroup"></TD>
+					<TD><cf_tl id="Role"></TD>				
+				</TR>		
+			</cfif>
+			
+				<cfoutput group="MainMenuItem">
 				
-				<TD>
-				
-					<table>
+					<cfoutput group="MenuClass">
 					
-						<tr class="labelmedium">
-						<td style="width:100%;font-size:16px;">						
-						<cfif url.find neq "">
-							<cfset cc = replaceNocase(FunctionName,  URL.Find,  "<b><u><font color='0080C0'>#URL.Find#</font></u></b>" ,  "ALL")>
-							#cc#
-						<cfelse>
-						   <cfif mainmenuitem eq "0"></cfif>#FunctionName#
-						</cfif>						
-						</td>
-						</tr>
-					
-						<tr>
-					
-							<td style="padding-left:14px;padding-right:4px">						
-							#Dateformat(Created, "DD/MM/YY")# :
-							<cfif menuclass eq "Builder">					
-								#OfficerLastname#						
-							<cfelse>				
-								<cfif FunctionPath eq ""><b>jv:</b>&nbsp;#ScriptName#
+						<tr class="line fixrow2">
+						
+							<td colspan="6" style="padding-left:10px;padding-top:5px;height:40px;font-size:22px" class="labelmedium2">
+								<cfif SystemModule eq "Portal" and FunctionClass eq "Portal" and MenuClass eq "Topic">
+									<a href="javascript: maintaintopics('#SystemModule#','0','#FunctionClass#','');" title="Click to maintain topics">#MenuClass#</a>
 								<cfelse>
-									<cfif len(FunctionPath) gt 44>#left(FunctionPath,30)#...<cfelse>#FunctionPath#</cfif>
-								</cfif>						
-							</cfif>						
+									#MenuClass#
+								</cfif>
 							</td>
-					
 						</tr>
-					
-					</table>
-				
-				</TD>
-								
-				<TD style="min-width:20px;padding-right:5px" id="status#SystemFunctionId#" align="center">				
-				   <cfif Operational eq "0"><font color="FF0000">D</font><cfelse></cfif>
-			    </TD>	
-				
-				<TD id="role#SystemFunctionId#">
-				    <cfif systemmodule neq "selfservice" or systemmodule eq "pmobile">
-						<cfset url.id = "#SystemFunctionId#">
-						<cfinclude template="RecordListingGroup.cfm">		
-					</cfif>
-				</TD>
-					
-				<TD id="role#SystemFunctionId#">
-				    <cfif systemmodule neq "selfservice" or systemmodule eq "pmobile">
-						<cfset url.id = "#SystemFunctionId#">
-						<cfinclude template="RecordListingRole.cfm">		
-					</cfif>
-				</TD>
-				
-				
-			    </TR>						
+						
+						<cfoutput group="SystemFunctionId">					
 										
-			</CFOUTPUT>	
+						    <cfif Operational eq "0" and MenuClass neq "Builder">
+								<tr bgcolor="e4e4e4" class="navigation_row line labelmedium2">
+							<cfelseif MenuClass eq "Builder">	
+								<tr bgcolor="fafafa" id="line#SystemFunctionId#" class="navigation_row line labelmedium2">
+							<cfelse>
+								<tr bgcolor="white" class="navigation_row line labelmedium2">
+							</cfif>			    
+								
+								<cfif systemmodule eq "selfservice" or systemmodule eq "pmobile">
+								
+									<td height="20" 
+										style="padding-left:14px;padding-top:2px;padding-right:6px"
+										class="navigation_action"
+										onClick="portaledit('#SystemFunctionId#','#systemmodule#','#url.functionClass#')">
+										
+									<cf_img icon="open">
+														
+								<cfelseif menuclass eq "Builder">
+								
+									<td height="20" 
+										style="padding-left:14px;padding-top:2px;padding-right:6px"
+										class="navigation_action"
+										onClick="functionedit('#SystemFunctionId#','maintain')">
+										
+								   	  <cf_img icon="open">
 			
+								<cfelse>
+								
+									<td height="20" 
+										style="padding-left:14px;padding-top:2px;padding-right:6px"
+										class="navigation_action"
+										onClick="functionedit('#SystemFunctionId#','maintain')">							
+														
+									 <cf_img icon="open">		
+									  
+								</cfif>	  
+								
+							</td>
+							
+							<TD>
+							
+								<table>
+								
+									<tr class="labelmedium">
+									<td style="width:100%;font-size:16px;">						
+										<cfif url.find neq "">
+											<cfset cc = replaceNocase(FunctionName,  URL.Find,  "<b><u><font color='0080C0'>#URL.Find#</font></u></b>" ,  "ALL")>
+											#cc#
+										<cfelse>
+										   <cfif mainmenuitem eq "0"></cfif>#FunctionName#
+										</cfif>						
+									</td>
+									</tr>
+								
+									<tr>								
+										<td style="padding-left:14px;padding-right:4px">						
+										#Dateformat(Created, "DD/MM/YY")# :
+										<cfif menuclass eq "Builder">					
+											#OfficerLastname#						
+										<cfelse>				
+											<cfif FunctionPath eq ""><b>jv:</b>&nbsp;#ScriptName#
+											<cfelse>
+												<cfif len(FunctionPath) gt 44>#left(FunctionPath,30)#...<cfelse>#FunctionPath#</cfif>
+											</cfif>						
+										</cfif>						
+										</td>								
+									</tr>
+								
+								</table>
+							
+							</TD>
+											
+							<TD style="min-width:20px;padding-right:5px" id="status#SystemFunctionId#" align="center">				
+							   <cfif Operational eq "0"><font color="FF0000">D</font><cfelse></cfif>
+						    </TD>	
+							
+							<TD id="role#SystemFunctionId#">
+							    <cfif systemmodule neq "selfservice" or systemmodule eq "pmobile">
+									<cfset url.id = "#SystemFunctionId#">
+									<cfinclude template="RecordListingGroup.cfm">		
+								</cfif>
+							</TD>
+								
+							<TD id="role#SystemFunctionId#">
+							    <cfif systemmodule neq "selfservice" or systemmodule eq "pmobile">
+									<cfset url.id = "#SystemFunctionId#">
+									<cfinclude template="RecordListingRole.cfm">		
+								</cfif>
+							</TD>				
+							
+						    </TR>						
+													
+						</CFOUTPUT>	
+						
+					</CFOUTPUT>	
+				
+				</CFOUTPUT>	
+			
+			</CFOUTPUT>	
+		
 		</CFOUTPUT>	
-	
-	</CFOUTPUT>	
-	
-	</CFOUTPUT>	
-	
-	</CFOUTPUT>	
 	
 	</TABLE>
 

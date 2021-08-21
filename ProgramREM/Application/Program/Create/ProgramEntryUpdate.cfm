@@ -154,7 +154,6 @@
 
 </cfif>	 
 
-
 <cfif URL.ProgramCode neq "">			<!--- Updating existing Program --->
 
 	<cfset ProgramCode = Form.ProgramCode>
@@ -219,8 +218,7 @@
 			Mission        = "#getProgram.Mission#"
 			Period         = "#Form.Period#"				
 			Role           = "'BudgetManager'"
-			ReturnVariable = "BudgetAccess"> 
-				
+			ReturnVariable = "BudgetAccess"> 				
 	   
 	   <cftransaction>
 		
@@ -574,13 +572,16 @@
 		FROM   Ref_ParameterMission
 		WHERE  Mission = '#getProgram.Mission#'
 	</cfquery>		
+	
+	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/>  
 	 
 	<cfswitch expression="#getProgram.ProgramClass#">
 			
 		<cfcase value="Program">
 		
 			<script LANGUAGE = "JavaScript"> 
-				window.location = "../ProgramViewTop.cfm?ProgramCode=#form.ProgramCode#&mission=#getProgram.Mission#&&Period=#form.Period#"		
+				window.location = "../ProgramViewTop.cfm?ProgramCode=#form.ProgramCode#&mission=#getProgram.Mission#&&Period=#form.Period#&mid=#mid#"		
 			</script>
 			  
 		</cfcase>
@@ -590,18 +591,18 @@
 		    <cfif Parameter.DefaultOpenProgram eq "Activity">
 			
 			  	  <script LANGUAGE = "JavaScript"> 
-					  window.location = "../Activity/Progress/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#"
+					  window.location = "../Activity/Progress/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#&mid=#mid#"
 				  </script>
 			  						  
 			<cfelse>
 											   
 				  <cfif Parameter.EnableIndicator eq "1">
 					  <script LANGUAGE = "JavaScript"> 
-							window.location = "../Indicator/TargetView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#"
+							window.location = "../Indicator/TargetView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#&mid=#mid#"
 					  </script>
 				  <cfelse>
 					  <script LANGUAGE = "JavaScript"> 
-						    window.location = "../ActivityProgram/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#"
+						    window.location = "../ActivityProgram/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#&mid=#mid#"
 				   	  </script>
 				  </cfif>
 								
@@ -613,11 +614,11 @@
 										
 				<cfif Parameter.EnableGANTT eq "1">		
 					<script LANGUAGE = "JavaScript"> 					   
-						window.location = "../../Activity/Progress/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#&output=1"
+						window.location = "../../Activity/Progress/ActivityView.cfm?ProgramCode=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#&output=1&mid=#mid#"
 					</script>
 				<cfelse>	
 				    <script LANGUAGE = "JavaScript"> 		
-				  		window.location = "../Events/EventsView.cfm?ProgramCode=Mission=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#"
+				  		window.location = "../Events/EventsView.cfm?ProgramCode=Mission=#form.ProgramCode#&Mission=#getProgram.Mission#&Period=#form.Period#&mid=#mid#"
 					</script>
 				</cfif>			
 						

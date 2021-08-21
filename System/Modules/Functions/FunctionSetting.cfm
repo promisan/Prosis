@@ -625,12 +625,12 @@ password="#SESSION.dbpw#">
 					  name="del" 
 					  id="del"
 					  value="Delete" 
-					  onclick="ptoken.navigate('FunctionDelete.cfm?id=#Line.SystemFunctionId#','myresult')">
+					  onclick="ptoken.navigate('FunctionDelete.cfm?id=#Line.SystemFunctionId#&scope=#url.scope#','myresult')">
 			  </cfif>
 			  	     
 		  		  	 
 		  <input class="button10g" style="width:140px;height:25" type="button" name="update" id="update" value ="Apply"
-		  onclick="ptoken.navigate('RecordSubmit.cfm?ID=#URL.ID#&mission=#url.mission#','contentbox1','','','POST','entry')">
+		  onclick="ptoken.navigate('RecordSubmit.cfm?ID=#URL.ID#&mission=#url.mission#&scope=#url.scope#','contentbox1','','','POST','entry')">
 		  
 		  </cfoutput>
 		 

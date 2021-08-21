@@ -1,4 +1,4 @@
-<cfparam name="url.sort" default="category">
+<cfparam name="url.sort"  default="category">
 
 <cfset dest = "userTransaction.dbo.StockResupply#URL.Warehouse#_#SESSION.acc#">
 
@@ -160,10 +160,10 @@ password="#SESSION.dbpw#">
 														
 				<table width="99%" border="0" class="navigation_table">
 																				
-					<tr class="labelmedium line fixrow" style="border-top:1px solid silver">
+					<tr class="labelmedium2 line fixrow" style="height:26px;border-top:1px solid silver">
 					    <td style="min-width:35px"></td>
 						<td align="center" style="min-width:50px;border-left:1px solid silver;padding-right:4px"><cf_tl id="No"></td>
-						<td align="center" style="min-width:120px;border-left:1px solid silver;padding-right:4px"><cf_tl id="External"></td>
+						<td align="center" style="min-width:110px;border-left:1px solid silver;padding-right:4px"><cf_tl id="External"></td>
 						<td align="center" style="width:89%;border-left:1px solid silver;padding-right:4px"><cf_tl id="Item"></td>	
 						<td align="center" style="min-width:80px;border-left:1px solid silver;padding-right:4px"><cf_tl id="MinOrder"></td>			
 						<td align="center" style="min-width:80px;border-left:1px solid silver;padding-right:4px"><cf_tl id="Price"></td>			
@@ -353,7 +353,9 @@ password="#SESSION.dbpw#">
 		                        		   ItemVendorOffer AS IVO ON IV.ItemNo = IVO.ItemNo AND IV.UoM = IVO.UoM
 								WHERE      IV.ItemNo   = '#ItemNo#' 
 								AND        IV.UoM      = '#UoM#'
+								<cfif url.offer eq "0">
 								AND        IVO.Mission = '#URL.Mission#'
+								</cfif>
 							    ORDER BY   IV.Preferred DESC, 
 								           IVO.DateEffective DESC		
 																											

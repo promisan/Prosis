@@ -12,8 +12,11 @@
 <cf_calendarScript>
 
 <!--- Search form --->
+
+	
+	<cfform name="formlocate" onsubmit="return false">	
 		
-	<table width="98%" border="0" align="center" class="formpadding">
+	<table width="99%" border="0" align="center">
 	
 	<tr class="line">
 		
@@ -59,9 +62,8 @@
 	
 	<td>	
 	
-	<cfform name="formlocate" onsubmit="return false">	
 		
-	<table width="98%" align="center" class="formpadding">
+	<table width="100%" align="center" class="formpadding">
 	
 		<TR>
 		<TD class="labelmedium2"><cf_tl id="Receipt No">:</TD>
@@ -105,8 +107,7 @@
 				FieldName="dateend" 
 				Default="#Dateformat(Period.dateExpiration, CLIENT.DateFormatShow)#"
 				AllowBlank="True"
-				Class="regularxxl">	
-			
+				Class="regularxxl">				
 			
 			</cfif>	
 				
@@ -190,10 +191,10 @@
 	
 	</TABLE>
 		
-	</CFFORM>
-	
 	</td></tr>
 		
 	</table>
+	
+	</CFFORM>
 	
 

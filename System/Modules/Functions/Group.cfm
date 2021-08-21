@@ -69,14 +69,13 @@ password="#SESSION.dbpw#">
 	AND U.Account = R.Account
 </cfquery>
 
-
 <cfform action="#SESSION.root#/System/Modules/Functions/GroupSubmit.cfm?ID=#URL.ID#&ID1=#URL.ID1#" method="POST" enablecab="Yes" name="group">
 
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="100%" height="100%" align="center" class="navigation_table">
 	    
 	  <tr>
 	    <td valign="center" width="100%" class="regular">
-	    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+	    <table width="100%">
 		
 		<cfoutput>
 		
@@ -89,30 +88,30 @@ password="#SESSION.dbpw#">
 												
 		<cfif URL.ID1 eq Account>
 									
-			<TR class="navigation_row">
+			<TR class="navigation_row labelmedium2">
 					
-		       <td class="labelmedium" width="10%">#Detail.AccountMission#<input type="hidden" name="Group" id="Group" value="#rl#"></td>		    					   						 						  
-			   <td class="labelmedium" width="20%">#Detail.Account#</td>
-			   <td class="labelmedium" width="60%" colspan="2">#Detail.LastName#</td>					   
+		       <td width="10%">#Detail.AccountMission#<input type="hidden" name="Group" id="Group" value="#rl#"></td>		    					   						 						  
+			   <td width="20%">#Detail.Account#</td>
+			   <td width="60%" colspan="2">#Detail.LastName#</td>					   
 			   <td align="center">
 			      <input type="checkbox" name="Operational" id="Operational" value="1" <cfif "1" eq Detail.Operational>checked</cfif>>
 			   </td>			   
-			   <td colspan="2" align="right"><input type="submit" class="button10s" style="width:40;height:20" value="Save" >&nbsp;</td>
+			   <td colspan="2" style="padding-right:3px" align="right"><input type="submit" class="button10s" style="width:40;height:20" value="Save" ></td>
 
 		    </TR>	
 					
 		<cfelse>
 		
-			<TR bgcolor="ffffff" class="navigation_row">
-			   <td width="10%" style="padding-left:3px" class="labelmedium" height="25">#Detail.accountMission#</td>
-			   <td width="52%" class="labelmedium" colspan="2">#Detail.LastName# (#rl#)</td>			  
-			   <td width="30%" align="right" class="labelmedium">#OfficerUserId# (#dateformat(created,CLIENT.DateFormatShow)#)</td>
-			   <td width="40" align="center" class="labelmedium"><cfif op eq "0"><b>No</b></cfif></td>
+			<TR bgcolor="ffffff" class="navigation_row labelmedium2">
+			   <td width="10%" style="padding-left:3px" height="25">#Detail.accountMission#</td>
+			   <td width="52%" colspan="2">#Detail.LastName# (#rl#)</td>			  
+			   <td width="30%" align="right">#OfficerUserId# (#dateformat(created,CLIENT.DateFormatShow)#)</td>
+			   <td width="40" align="center"><cfif op eq "0"><b>No</b></cfif></td>
 			   <td colspan="2" width="40" align="right">
-				   <table cellspacing="0" cellpadding="0">
+				   <table>
 				   <tr>
 				   <td>	
-					<cf_img icon="edit" navigation="Yes" onclick="ptoken.navigate('#SESSION.root#/System/Modules/Functions/Group.cfm?ID=#URL.ID#&ID1=#account#','igroup')">
+					<cf_img icon="open" navigation="Yes" onclick="ptoken.navigate('#SESSION.root#/System/Modules/Functions/Group.cfm?ID=#URL.ID#&ID1=#account#','igroup')">
 				   </td>
 				   <td style="padding-left:6px;padding-right:5px;">
 					 <cf_img icon="delete" onclick="ptoken.navigate('#SESSION.root#/System/Modules/Functions/GroupPurge.cfm?ID=#URL.ID#&ID1=#account#','igroup')">

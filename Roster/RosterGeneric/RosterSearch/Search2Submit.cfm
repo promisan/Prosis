@@ -221,16 +221,19 @@ password="#SESSION.dbpw#">
 		</cfif>
 				
 	</cfloop>
+	
+	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/> 
 		
 	<cfif Go eq "0">
   
        <cfoutput>
 	   <script language="JavaScript1.2">
     	   alert("You did not selected any grade/functions.")
-		   window.location = "Search2.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&Mode=#URL.Mode#&Status=#URL.Status#"
+		   window.location = "Search2.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&Mode=#URL.Mode#&Status=#URL.Status#&mid=#mid#"
 	   </script>
 	   </cfoutput>
 	   <cfabort>	   
 	</cfif>
 		
-<cflocation url="Search4.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&Mode=#URL.Mode#&Status=#URL.Status#" addtoken="No">
+<cflocation url="Search4.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&Mode=#URL.Mode#&Status=#URL.Status#&mid=#mid#" addtoken="No">

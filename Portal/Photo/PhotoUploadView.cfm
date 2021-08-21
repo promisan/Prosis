@@ -16,7 +16,7 @@
 				 <cfif FileExists("#SESSION.rootDocumentPath#\#url.destination#\#url.filename#.jpg")>	
 				 
 				 		<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\#url.destination#\#url.filename#.jpg")>
-					    <cfimage source="#myImage#" width="170" height="200" action="writeToBrowser">	 
+					    <cfimage source="#myImage#" width="200" height="220" action="writeToBrowser">	 
 						
 						<!---						 		
 					  <img src="#SESSION.rootDocument#\#url.destination#\#url.filename#.jpg?id=#rowguid#"
@@ -45,7 +45,7 @@
 				 <cfif FileExists("#SESSION.rootDocumentPath#\#url.destination#\#url.filename#.jpg")>	
 				 
 				 	  <cfset myImage=ImageNew("#SESSION.rootDocumentpath#\#url.destination#\#url.filename#.jpg")>
-					  <cfimage source="#myImage#" width="170" height="200" action="writeToBrowser">	 		 
+					  <cfimage source="#myImage#" width="200" height="220" action="writeToBrowser">	 		 
 					
 					<!---							 		
 					  <img src="#SESSION.rootDocument#\#url.destination#\#url.filename#.jpg?id=#rowguid#"
@@ -68,8 +68,8 @@
 
 		<cfif FileExists("#SESSION.rootDocumentPath#\#url.destination#\#url.filename#.jpg")>	
 		
-				<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\#url.destination#\#url.filename#.jpg")>
-			    <cfimage source="#myImage#" width="170" height="200" action="writeToBrowser">	
+			<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\#url.destination#\#url.filename#.jpg")>
+			<cfimage source="#myImage#" width="200" height="220" action="writeToBrowser">	
 	
 			<!---
 			<img src="#SESSION.rootDocument#/#url.destination#/#url.filename#.jpg?id=#rowguid#"

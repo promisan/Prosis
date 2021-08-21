@@ -92,8 +92,14 @@
 		     style="background-color:#iif(currentrow MOD 2,DE('fafafa'),DE('f4f4f4'))#"> 
 		</cfif>				
 							
-		<td align="right" style="padding-right:4px;height:21px" id="#s#" onclick="var r = $('##r#row#').position();">#currentrow#.
+		<td align="right" style="padding-right:4px;height:21px" id="#s#" onclick="var r = $('##r#row#').position();">
 				
+				<cfif attributes.navtemplate neq "">				
+			       <input id="nav#row#" value="#currentrow#" style="width:60px" type="button" onclick="navtarget('#session.root#/#attributes.navtemplate#?ajax=yes&ajaxid=#s#','#attributes.navtarget#')"> 	   	   		   
+			   <cfelse>
+				   #currentrow#	    
+    		   </cfif>	
+			 
 		</td>	
 								   
 		   <!--- to be checked 1/9/2013 --->
@@ -101,12 +107,8 @@
 		   <cfif attributes.selectmode eq "Checkbox">		   
 			   <td><input type="checkbox" class="radio" name="ListSelect" id="ListSelect" value="#s#"></td>		   		   
 		   <cfelseif attributes.selectmode eq "Radio">		   		   
-			   <td><input type="radio"    class="radio" name="ListSelect" id="ListSelect" value="#s#"></td>	
-			<!---	   
-		   <cfelseif attributes.navtemplate neq "">
-		        <input id="nav#row#" type="hidden" onclick="navtarget('#session.root#/#attributes.navtemplate#?ajax=yes&ajaxid=#s#','#attributes.navtarget#')"> 	   	   		   
-			--->	
-		   </cfif>						   			   				   
+			   <td><input type="radio"    class="radio" name="ListSelect" id="ListSelect" value="#s#"></td>				   		    	   		   
+    	   </cfif>						   			   				   
 																
 		   <cfif attributes.listtype eq "Directory">
 				

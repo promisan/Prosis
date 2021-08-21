@@ -60,11 +60,11 @@
 		
 		<tr><td colspan="2">
 			
-			<table width="100%" cellspacing="0" cellpadding="0">
+			<table width="100%">
 			
 			<tr>
 			   <td colspan="2">
-			       <cfdiv bind="url:#SESSION.root#/staffing/application/employee/personaction/ActionForm.cfm?scope=add&mode=edit&actioncode={actioncode}"
+			       <cf_securediv bind="url:#SESSION.root#/staffing/application/employee/personaction/ActionForm.cfm?scope=add&mode=edit&actioncode={actioncode}"
 				     id="content">
 			   </td>
 			</tr>
@@ -76,15 +76,15 @@
 				<input type="button" 
 						   name="Close" 
 						   value="Close" 
-						   class="button10s" 
+						   class="button10g" 
 						   onclick="listaction('#url.id#')" 
 						   style="height:20;width:100px">	
 			
 			   <input type="button" 
 						   name="Save" 
 						   value="Save" 
-						   class="button10s" 
-						   onclick="ColdFusion.navigate(document.getElementById('formsave').value,'content','','','POST','actionform')" 
+						   class="button10g" 
+						   onclick="ptoken.navigate(document.getElementById('formsave').value,'content','','','POST','actionform')" 
 						   style="height:20;width:100px">	
 			
 			</td></tr>

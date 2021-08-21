@@ -4,7 +4,6 @@
 	 <cfset url.id = CLIENT.personno>
 </cfif>
 
-
 <!--- Create Criteria string for query from data entered thru search form --->
 
 <cfquery name="RevertPayroll" 
@@ -32,36 +31,36 @@
 		actionobjectkeyvalue1="#url.id#">
 </cfif>
 
-<table width="96%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="96%" align="center">
 <tr>		
 <td>
-
-<cfif url.action eq "Person">
-		
-	<cf_actionListingScript>
-	<cf_FileLibraryScript>
-	<cf_dialogPosition>
-	<cfinclude template="EmployeeDependentScript.cfm">	
-	<cfset ctr = "1">
-	<cfset openmode = "show">
-	<cfinclude template="../PersonViewHeaderToggle.cfm">
-	<table><tr><td height="1"></td></tr></table>
 	
-<cfelseif url.action eq "Claim">	
-
-	<cf_actionListingScript>
-	<cf_FileLibraryScript>
-	<cfinclude template="EmployeeDependentScript.cfm">
+	<cfif url.action eq "Person">
+				
+		<cf_actionListingScript>
+		<cf_FileLibraryScript>
+		<cf_dialogPosition>
+		<cfinclude template="EmployeeDependentScript.cfm">	
+		<cfset ctr = "1">
+		<cfset openmode = "show">
+		<cfinclude template="../PersonViewHeaderToggle.cfm">
+		<table><tr><td height="1"></td></tr></table>
 		
-</cfif>
-
-<table style="min-width:800px" width="98%" align="center">
-<tr>		
-	<td colspan="14" id="contentdependent" style="min-width:800px;padding-left:5px;padding-right:5px">
+	<cfelseif url.action eq "Claim">	
+	
+		<cf_actionListingScript>
+		<cf_FileLibraryScript>
+		<cfinclude template="EmployeeDependentScript.cfm">
+			
+	</cfif>
+	
+	<table style="min-width:800px" width="98%" align="center">
+	<tr>		
+		<td colspan="14" id="contentdependent" style="min-width:800px;padding-left:1px;padding-right:1px">
 		<cfinclude template="../Dependents/EmployeeDependentDetail.cfm">
-	</td>
-</tr>
-</table>	
+		</td>
+	</tr>
+	</table>	
 
 </td>
 </tr>

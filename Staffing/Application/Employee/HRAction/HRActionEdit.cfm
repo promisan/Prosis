@@ -435,7 +435,7 @@ password="#SESSION.dbpw#">
 				    <input type="text" 
 				     name="Remarks" 
 					 value="#get.Remarks#" 
-					 onchange="ColdFusion.navigate('../../../Staffing/Application/Employee/HRAction/HRActionUpdate.cfm?PersonActionId=#URL.ID1#','process','','','POST','actionform')"
+					 onchange="ptoken.navigate('../../../Staffing/Application/Employee/HRAction/HRActionUpdate.cfm?PersonActionId=#URL.ID1#','process','','','POST','actionform')"
 					 size="60"
 					 style="height:27px"
 					 class="regularxl" 

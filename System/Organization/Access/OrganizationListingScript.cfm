@@ -4,10 +4,11 @@
 
 <cfoutput>
 
+
 <script language="JavaScript">
 
-function broadcast(role,mission) {     
-	  ptoken.open("#SESSION.root#/Tools/Mail/Broadcast/BroadCastUser.cfm?role="+role+"&mission="+mission+"&ts="+new Date().getTime(), "broadcast", "status=yes, height=850px, width=920px, center=yes,scrollbars=no, toolbar=no, resizable=no");
+function broadcast(role,mission) {        
+	  ptoken.open("#SESSION.root#/Tools/Mail/Broadcast/BroadCastUser.cfm?role="+role+"&mission="+mission, "broadcast", "status=yes, height=850px, width=920px, center=yes,scrollbars=no, toolbar=no, resizable=no");
 }
 
 function Process(action) {
@@ -43,25 +44,26 @@ function hl(itm,fld,s){
   }
   
 function listing() {
-    parent.window.open("OrganizationView.cfm","_top")
+    parent.ptoken.open("OrganizationView.cfm","_top")
 }  
 
 function reloadForm(role,acc) {
-    parent.ColdFusion.navigate('OrganizationTree.cfm?mission=#URL.Mission#&class='+role,'tree')
-	location = "OrganizationListing.cfm?Mission=#URL.Mission#&ID4="+role+"&ID5="+acc
+    Prosis.busy('yes')   
+    parent.ptoken.navigate('OrganizationTree.cfm?mission=#URL.Mission#&class='+role,'tree')
+	ptoken.location('OrganizationListing.cfm?Mission=#URL.Mission#&ID4='+role+'&ID5='+acc)
 }  
 
 function reloadView(role,acc) {  
-   location = "OrganizationListing.cfm?mission=#URL.Mission#&id1=#url.id1#&id2=#url.id2#&id3=#url.id3#&id4="+role+"&ID5="+acc
+   ptoken.location('OrganizationListing.cfm?mission=#URL.Mission#&id1=#url.id1#&id2=#url.id2#&id3=#url.id3#&id4='+role+'&ID5='+acc)
 }  
 
 function process(acc) {        
 	ProsisUI.createWindow('myaccess', 'Access', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true})    			
-	ColdFusion.navigate(root + '/System/Organization/Access/UserAccessView.cfm?ID1=tree&ID=#URL.ID4#&ID2=#URL.ID1#&Mission=#URL.Mission#&ID4=#URL.ID3#&ACC=' + acc,'myaccess') 		
+	ptoken.navigate(root + '/System/Organization/Access/UserAccessView.cfm?ID1=tree&ID=#URL.ID4#&ID2=#URL.ID1#&Mission=#URL.Mission#&ID4=#URL.ID3#&ACC=' + acc,'myaccess') 		
  } 
 
 function reinstate(role,acc,accessid) {
-    location = "OrganizationListingReinstate.cfm?ts="+new Date().getTime()+"&accessid="+accessid+"&mission=#URL.Mission#&id1=#url.id1#&id2=#url.id2#&id3=#url.id3#&ID4="+role+"&ID5="+acc
+    ptoken.location('OrganizationListingReinstate.cfm?accessid='+accessid+'&mission=#URL.Mission#&id1=#url.id1#&id2=#url.id2#&id3=#url.id3#&ID4='+role+'&ID5='+acc)
 }
 
 function more(bx,row,enf) {
@@ -75,7 +77,7 @@ function more(bx,row,enf) {
 			 icE.className = "hide";
 			 se.className  = "regular";
 			 
-			 ColdFusion.navigate('#SESSION.root#/system/Access/Membership/RecordListingDetail.cfm?mode=regular&mod=' + bx +'&row=' + row,'i'+row) 
+			 ptoken.navigate('#SESSION.root#/system/Access/Membership/RecordListingDetail.cfm?mode=regular&mod=' + bx +'&row=' + row,'i'+row) 
 			
 	      }	else {
 	   	 	icM.className = "hide";
@@ -91,7 +93,7 @@ function drilldown(account,box,con,mis,man,role,org) {
 	  se = document.getElementById("row_"+box);			  
 	  if (se.className == "hide") {		  
 		 se.className = "regular"
-		 ColdFusion.navigate('#SESSION.root#/System/Organization/Access/UserAccessListingDetail.cfm?box='+box+'&id='+account+'&id1='+con+'&mis=' + mis + '&man=' + man + '&org='+ org + '&role=' + role ,box)  
+		 ptoken.navigate('#SESSION.root#/System/Organization/Access/UserAccessListingDetail.cfm?box='+box+'&id='+account+'&id1='+con+'&mis=' + mis + '&man=' + man + '&org='+ org + '&role=' + role ,box)  
 	     } else {		   
 		 se.className = "hide"     
 	  }
@@ -108,7 +110,7 @@ function group(row,act,id) {
      	 icM.className = "regular";
 	     icE.className = "hide";
 		 se.className  = "regular";
-		 window.open("../../Access/Membership/RecordListingDetail.cfm?Mode=limited&Mod="+id+"&now=#now()#&row=" + row, "i"+row)
+		 ptoken.open("../../Access/Membership/RecordListingDetail.cfm?Mode=limited&Mod="+id+"&now=#now()#&row=" + row, "i"+row)
 		
 	 } else {	 
 	   	 icM.className = "hide";

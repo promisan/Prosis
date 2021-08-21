@@ -174,16 +174,19 @@
 		</tr>
 		
 		<TR>
-		<TD class="labelmedium2"><cf_tl id="Order amount">:</TD>
-		<TD><SELECT name="amountoperator" id="amountoperator" class="regularxxl">
+		<TD class="labelmedium2"><cf_tl id="Order amount"> <cfoutput>#APPLICATION.BaseCurrency#</cfoutput>:</TD>
+		<TD><table><tr><td>
+		<SELECT name="amountoperator" id="amountoperator" class="regularxxl">
 				<option value=">=" selected><cf_tl id="greater than">
 				<OPTION value="<="><cf_tl id="smaller than">
 			</SELECT>
-			<input type="text" name="amount" id="amount" value="0" size="10" class="regularxxl" style="width:80px;text-align: right;">
-			<cfoutput>#APPLICATION.BaseCurrency#</cfoutput>
+			</td>
+			<td style="padding-left:3px">
+			<input type="text" name="amount" id="amount" value="0" size="10" class="regularxxl" style="width:70px;text-align:right;padding-right:3px">	
+			</td></tr></table>		
 		</TD>
 		
-		<TD class="labelmedium2"><cf_tl id="Item description matches">:</TD>
+		<TD class="labelmedium2"><cf_tl id="Item">:</TD>
 		<TD>	
 		<input type="text" name="orderitem" id="orderitem" class="regularxxl" value="" style="width:300px" size="40">
 		</TD>

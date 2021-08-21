@@ -206,16 +206,16 @@ This is not how it intended, solution prevent check box if this was inherited by
 
 </HEAD>
 
-<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" onLoad="javascript:document.forms.result.selectrole.focus()">
+<body leftmargin="0" onLoad="javascript:document.forms.result.selectrole.focus()">
 
 <cf_divscroll overflowx="auto">
 
 <cfform action="ControlBatch.cfm?ID=#orgunit#&Mission=#URL.Mission#&ID1=#orgunit#&ID2=#URL.ID2#&ID4=#URL.ID4#" method="post" name="formresult" id="formresult">
 
-<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+<table style="width:99%" align="left" class="formpadding">
         
   <tr>
-  <td colspan="2" align="left" style="height:40" class="labellarge">
+  <td colspan="2" align="left" style="height:42" class="labellarge">
     
 	<table width="100%" border="0">
 	<tr>
@@ -223,8 +223,8 @@ This is not how it intended, solution prevent check box if this was inherited by
 	<td class="labellarge" style="font-size:29px;padding-left:10px">
   	<cfoutput>
 	      #URL.Mission#	  
-	      <cfif URL.ID3 neq ""><font style="font-size:19px">[#URL.ID3#]</cfif>		  
-		  <cfif URL.ID1 neq ""><font style="font-size:23px"><br>#Organization.OrgUnitCode# #Organization.OrgUnitName#</b>
+	      <cfif URL.ID3 neq ""><font style="font-size:18px">[#URL.ID3#]</cfif>		  
+		  <cfif URL.ID1 neq ""><font style="font-size:22px"><br>#Organization.OrgUnitCode# #Organization.OrgUnitName#</b>
 		  <cfelse>&nbsp;
 		  <img src="#SESSION.root#/Images/Logos/System/Tree.png" height="25" alt="" align="absmiddle" border="0">						  
 		  </cfif>
@@ -235,7 +235,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 	 
 		 <table>
 		 <tr>
-		 
+		 		 		 
 		 <td align="right" height="35" valign="top" style="padding-top:3px">
 			  
 			    <cfselect name="selectrole" 
@@ -244,7 +244,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 				   value="Role" 
 				   display="Description" 
 				   selected="#url.id4#" 
-				   style="height:28px;font-size:18px"
+				   style="height:28px;font-size:18px;border:0px;background-color:AAD5FF"
 				   class="regularxl" 
 				   group="SystemFunction" 
 				   onChange="reloadForm(this.value,selectuser.value)">		    
@@ -265,18 +265,20 @@ This is not how it intended, solution prevent check box if this was inherited by
 	 
   </td>      
   </tr>  
-  <tr><td colspan="2"  class="line"></td></tr>  
   
-  <tr class="labelmedium"><td colspan="2" align="center">
-      <font color="blue">The highest granted access level will dominate, unless user group access is reverted</font>
-	  </td>
-  </tr>
+ 
+  
+<tr>
    
-  <td width="100%" colspan="2" style="padding-left:10px;padding-right:10px">
+<td width="100%" colspan="2" style="padding-left:10px;padding-right:10px">
 
-<table width="100%" border="0" align="center" class="navigation_table">
+<table width="100%" align="center" class="navigation_table">
 
-<tr><td colspan="9" class="line"></td></tr>  
+  <tr class="labelmedium2">
+      <td colspan="9" align="center" style="border:1px solid silver;background-color:ffffaf">
+      The highest granted access level will dominate, unless user group access is reverted
+	  </td>
+  </tr>	
 
  <tr>
   
@@ -319,7 +321,7 @@ This is not how it intended, solution prevent check box if this was inherited by
    
 </tr>
  
-<TR class="labelmedium line" height="20">
+<TR class="labelmedium2 line" height="20">
    
 	<td colspan="2" style="width:20px;padding-left:1px;padding-right:4px">
 	   <cfoutput>
@@ -352,8 +354,10 @@ This is not how it intended, solution prevent check box if this was inherited by
 
 <cfoutput query="SearchResult" group="AccountType">
 
- <tr>
-    <td colspan="9" class="labelmedium" style="height:45px;font-size:21px"><cfif accounttype eq "Group">User Group<cfelse>Individual User Account</cfif></b></td>
+ <tr class="labelmedium fixrow">
+    <td colspan="9" style="padding-left:5px;height:40px;font-size:21px">
+	<cfif accounttype eq "Group"><cf_tl id="User Group"><cfelse><cf_tl id="Individual User Account"></cfif>
+	</td>
  </tr>
 
 <cfset box = 0>
@@ -622,5 +626,9 @@ This is not how it intended, solution prevent check box if this was inherited by
 </cfform>
 
 </cf_divscroll>
+
+<script>
+	Prosis.busy('no')
+</script>
 
 <cfset AjaxOnLoad("doHighlight")>

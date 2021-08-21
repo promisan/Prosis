@@ -72,7 +72,7 @@
 <cfoutput>
 
 	<script language="JavaScript">
-	  window.location = "TransactionViewGeneral.cfm?id=#URL.ID#&id1=#url.id1#&mission=#url.mission#&mandate=#url.mandate#&id3=#url.id3#&id4=#url.id4#&page=#url.page#&sort=#url.sort#&lay=#url.lay#"
+	  ptoken.location('TransactionViewGeneral.cfm?id=#URL.ID#&id1=#url.id1#&mission=#url.mission#&mandate=#url.mandate#&id3=#url.id3#&id4=#url.id4#&page=#url.page#&sort=#url.sort#&lay=#url.lay#')
 	</script>
 
 </cfoutput>

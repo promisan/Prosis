@@ -4,11 +4,12 @@
 <script language="JavaScript">
 
 function refreshTree() {
-      ColdFusion.navigate('DistributionViewTree.cfm','tree');
+      ptoken.navigate('DistributionViewTree.cfm','tree');
 }
 
-function batch(mode) {	     
-      right.location = "#SESSION.root#/tools/cfreport/EngineReport.cfm?ts="+new Date().getTime()+"&mode="+mode;
+function batch(mode) {	    
+      Prosis.busy('yes') 
+      ptoken.open('#SESSION.root#/tools/cfreport/EngineReport.cfm?mode='+mode,'right')
 }
 
 </script>
@@ -33,11 +34,13 @@ function batch(mode) {
 			 <cfinclude template="DistributionMenu.cfm">
 			  
 	</cf_layoutarea>		
+	
+	<cfparam name="url.mid" default="">
 			  
 	<cf_layoutarea 
           position="left"
           name="tree"
-          source="DistributionViewTree.cfm"          
+          source="DistributionViewTree.cfm?mid=#url.mid#"          
           size="240"
           collapsible="true"
           splitter="true"

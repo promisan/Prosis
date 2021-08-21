@@ -68,6 +68,21 @@
 		
 </cfquery>
 
+
+<cfquery name="Activated" 
+	 datasource="AppsMaterials" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">	 	 
+		SELECT     SUM(TransactionValue) AS Total
+		FROM       ItemTransaction
+		WHERE      TransactionType = '1'
+		AND        ReceiptId IN
+                             (SELECT    ReceiptId
+                               FROM     Purchase.dbo.PurchaseLineReceipt
+                               WHERE    ReceiptNo = '#url.receiptno#')							   
+	   
+</cfquery>
+
 <cfif AdditionalCost.AmountBaseDebit eq "">
 	<cfset amt = 0>
 	<cfset prc = "">
@@ -82,6 +97,7 @@
     try { document.getElementById('totaldirect').innerHTML  = '#numberformat(itm,',.__')#' }         catch(e) {}
 	try { document.getElementById('totalother').innerHTML   = '#prc# #numberformat(amt,',.__')#' }   catch(e) {}
 	try { document.getElementById('totalsum').innerHTML     = '#numberformat(itm+cst+amt,',.__')#' } catch(e) {}	
+	try { document.getElementById('activatedsum').innerHTML   = '#numberformat(Activated.Total,',.__')#' } catch(e) {}
 </script>
 
 <!--- ----------------------- --->

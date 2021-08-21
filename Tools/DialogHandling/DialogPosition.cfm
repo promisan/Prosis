@@ -169,7 +169,7 @@ function showdocument(vacno,candlist,actionid) {
 function gjp() {
     fun = document.getElementById("functionno")
 	grd = document.getElementById("postgrade")
-    ptoken.open("#SESSION.root#/Roster/Maintenance/FunctionalTitles/FunctionGradePrint.cfm?ID=" + fun.value + "&ID1=" + grd.value, "_blank", "toolbar=no, status=yes, scrollbars=no, resizable=yes"); 
+    ptoken.open("#SESSION.root#/Roster/Maintenance/FunctionalTitles/FunctionGradePrint.cfm?ID=" + fun.value + "&ID1=" + grd.value, "_blank"); 
 }
 
 </script>

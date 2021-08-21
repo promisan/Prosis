@@ -593,7 +593,7 @@
 		
 		
 		<TR class="labelmedium2">
-	    <TD style="padding-left:5px;min-width:200px"><cf_tl id="International Coding">:</TD>
+	    <TD style="padding-left:5px;min-width:260px"><cf_tl id="International Coding">:</TD>
 	    <TD>
 			<table border="0" cellspacing="0" cellpadding="0">
 				

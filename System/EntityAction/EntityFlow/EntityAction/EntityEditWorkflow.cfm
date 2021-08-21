@@ -18,15 +18,14 @@
 		
 		<td>
 				   <cfinput type="Text"
-			       name="MailFrom"
-			       required="No"
-			       visible="Yes"
-				   value="#entity.MailFrom#"
-			       enabled="Yes"
-			       size="50"
-				   tooltip="This represents the name that will be tied to the email e.g. John Doe"
-			       maxlength="50"
-			       class="regularxl"> 
+				       name="MailFrom"
+				       required="No"
+				       visible="Yes"
+					   value="#entity.MailFrom#"
+				       enabled="Yes"
+				       size="50"					   
+				       maxlength="50"
+				       class="regularxl"> 
 		</td>	
 		</tr>
 
@@ -40,8 +39,7 @@
 			       visible="Yes"
 				   value="#entity.MailFromAddress#"
 			       enabled="Yes"
-			       size="50"
-				   tooltip="This represents the email address that is tied to the email. e.g. jdoe@test.com"
+			       size="50"				   
 			       maxlength="50"
 			       class="regularxl"
 				   validate="email"> 
@@ -95,8 +93,7 @@
 				       message="You must enter a valid email address"
 				       validate="email"
 				       required="No"
-				       visible="Yes"
-					   tooltip="Enforce all Custom and Standard mail message to be sent to this account"
+				       visible="Yes"					   
 					   value="#entity.MailRecipient#"
 				       enabled="Yes"
 				       size="50"
@@ -308,8 +305,7 @@
 			       message="You must enter a valid no"
 			       validate="integer"
 			       required="No"
-			       visible="Yes"
-				   tooltip="Define how many historical workflows should be presented"
+			       visible="Yes"				   
 				   value="#entity.ShowHistory#"
 			       enabled="Yes"
 			       size="1"

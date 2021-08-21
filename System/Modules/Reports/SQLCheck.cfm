@@ -1,7 +1,6 @@
 <cf_screentop html="no" jquery="yes">
 
 <cf_listingscript>
-<cfajaximport>
 
 <table width="100%" height="100%">
 	<tr>
@@ -45,9 +44,9 @@
 			</cfif>  
 			
 		<cfoutput>
-		
+						
 			<cftry>
-		
+							
 			<cfquery name="Check" 
 		    datasource="#url.ds#">
 			 SELECT #dis# 
@@ -61,7 +60,7 @@
 			</cfquery>	
 			
 			<cfcatch>
-			
+						
 				<table width="97%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
 				<tr><td colspan="2">
 					<font size="2" color="FF0000">The below SQL query can not be validated. Please correct your configuration settings.</font>
@@ -72,6 +71,7 @@
 				<tr><td colspan="2" class="line"></td></tr>
 				<tr><td width="20">Script:</td><td><font size="2">
 				 <cfoutput>
+				 				 
 				 SELECT #dis# <br>
 				      #URL.Sel# as Value, <br>
 					  #URL.Display# as Display 
@@ -95,12 +95,14 @@
 			</cfcatch>
 			
 			</cftry>
-				
+							
 			<cfsavecontent variable="myquery"> 
-			 SELECT #dis# #url.sel#, 
-			      #URL.Sel# as LookupValue
-				  <cfif url.sorting neq "">, #URL.Sorting# , #URL.Sorting# as LookupSorting</cfif>, 
-				  #URL.Display#, #URL.Display# as Display
+			     SELECT
+				      #URL.Sel# as LookupValue
+				  <cfif url.sorting neq ""> 
+				  ,#URL.Sorting# as LookupSorting
+				  </cfif>
+				  ,#URL.Display# as Display
 			 <cfif not Find("FROM ", "#Get.CriteriaValues#")>
 				 FROM #URL.Table#
 		 	 </cfif>	 

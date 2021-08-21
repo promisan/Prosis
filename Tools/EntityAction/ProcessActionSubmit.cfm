@@ -111,7 +111,7 @@
 						
 			<cfif url.submitaction eq "embedsave">
 			
-				<cfparam name="#client.processtab#" default="2">
+				<cfparam name="client.processtab" default="2">
 				<script>				 				  			  
 				  document.getElementById('menu#client.processtab#').click()				  			 		  
 				</script>			

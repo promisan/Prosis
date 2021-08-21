@@ -21,12 +21,14 @@
 	 WHERE  ControlId = '#Layout.ControlId#' 
 </cfquery>
 
-<table width="400" style="height:25" class="formpadding">
+<table width="160" style="height:25" class="formpadding">
 	
 <cfif Layout.LayoutFormat eq "PDF">
 
 	<tr class="hide">
-	<TD class="labelmedium" style="width:20px;padding-left:10px"> <input type="Radio" class="radiol" name="FileFormat" id="FileFormat" value="PDF" checked></TD><td class="labelmedium" style="padding:3px">PDF</td>
+	<TD class="labelmedium" style="width:20px;padding-left:10px">
+	 <input type="Radio" class="radiol" name="FileFormat" id="FileFormat" value="PDF" checked></TD>
+	 <td class="labelmedium" style="padding:3px">PDF</td>
 		 
 <cfelseif Layout.LayoutClass eq "View">		
 
@@ -53,9 +55,13 @@
 		<td class="labelmedium" style="padding-left:4px">
 		<input type="Radio" class="radiol" name="FileFormat" id="FileFormat" value="PDF"
 			<cfif url.sel eq "PDF">checked</cfif>></td><td class="labelmedium" style="padding:3px">PDF</td>
+			
+		<!---	
 		<td class="labelmedium" style="padding-left:4px">					 
 		<input type="Radio" class="radiol" name="FileFormat" id="FileFormat" value="Excel"
 			<cfif url.sel eq "Excel">checked</cfif>></td><td class="labelmedium" style="padding:3px">MS-Excel</td>
+			
+			--->
 		
 		
 	<cfelse>
@@ -131,6 +137,7 @@
 					  variable = "sql">  
 						  
 					<cfif Find("_dim", "#sql#")>	
+					
 						<table><tr><td style="padding-left:6px">			 
 						<input type="Radio" name="FileFormat" id="FileFormat" class="radiol" value="OLAP" 
 						    <cfif url.sel neq "Excel">checked</cfif>></td><td style="padding-left:4px" class="labelmedium"><cf_tl id="Dimensional Analysis"></td>
@@ -138,7 +145,7 @@
 						<input type="Radio" name="FileFormat" id="FileFormat" class="radiol" value="Excel" 
 							<cfif url.sel eq "Excel">checked</cfif> ></td><td style="padding-left:4px" class="labelmedium">Excel</td>
 							</tr>
-							</table>
+						</table>
 						
 					<cfelse>
 						<table><tr><td>						
@@ -164,27 +171,27 @@
 				ORDER BY S.name, C.colid  
 				</cfquery>		
 				
-				<TD colspan="7" class="labelmedium" style="padding-left:5px">
-			
+				<TD colspan="7" class="labelmedium" style="padding-left:5px">			
 			
 			    <cfif fields.recordcount gte "1">	
 				
-						<table><tr><td style="padding-left:6px">			 
-						<input type="Radio" name="FileFormat" id="FileFormat" class="radiol" value="OLAP" 
-						    <cfif url.sel neq "Excel">checked</cfif>></td><td style="padding-left:4px" class="labelmedium"><cf_tl id="Dimensional Analysis"></td>
-							<td style="padding-left:14px">
-						<input type="Radio" name="FileFormat" id="FileFormat" class="radiol" value="Excel" 
-							<cfif url.sel eq "Excel">checked</cfif> ></td><td style="padding-left:4px" class="labelmedium">Excel</td>
-							</tr>
-							</table>
+					<table><tr><td style="padding-left:6px">			 
+					<input type="Radio" name="FileFormat" id="FileFormat" class="radiol" value="OLAP" 
+					    <cfif url.sel neq "Excel">checked</cfif>></td><td style="padding-left:4px" class="labelmedium"><cf_tl id="Dimensional Analysis"></td>
+						<td style="padding-left:14px">
+					<input type="Radio" name="FileFormat" id="FileFormat" class="radiol" value="Excel" 
+						<cfif url.sel eq "Excel">checked</cfif> ></td><td style="padding-left:4px" class="labelmedium">Excel</td>
+						</tr>
+					</table>
 			
 						
 				<cfelse>
 										
-					<table><tr><td>						
+					<table>
+					<tr><td>						
 						<input type="Radio" name="FileFormat" id="FileFormat" value="Excel" checked></td><td style="padding-left:4px" class="labelit">Excel</td>
 						</tr>
-						</table>
+					</table>
 					
 				</cfif>	
 				
@@ -228,8 +235,10 @@
 		<td style="padding-left:6px">			 																	
 	<input type="Radio" class="radiol" name="FileFormat" id="FileFormat" value="RTF"
 		<cfif url.sel eq "RTF">checked</cfif>>
-		</td><td style="padding-left:4px" class="labelmedium">Word</td>		
-		
+		</td><td style="padding-left:4px" class="labelmedium">MS Word</td>		
+	
+	<!--- DISABLED Hanno
+	
 		<td style="padding-left:6px">				 
 	<input type="Radio" class="radiol" name="FileFormat" id="FileFormat" value="Excel"
 		<cfif url.sel eq "Excel">checked</cfif>>
@@ -245,6 +254,8 @@
 	<input type="Radio" class="radiol" name="FileFormat" id="FileFormat" value="XML"
 		<cfif url.sel eq "HTML">checked</cfif>></td>
 		<td class="labelmedium" style="padding-left:4px">XML</td>
+		
+	--->
 		
 	<!--- subscription hide --->	
 	<script language="JavaScript">

@@ -112,6 +112,7 @@
 			   AND    UoM    = PR.WarehouseUoM) as UOMDescription,
 	          PL.OrderUoMVolume, 
 			  RL.CaseNo,
+			  
 			  (SELECT   count(*)
 			   FROM     Materials.dbo.ItemTransaction R INNER JOIN
 	                    Materials.dbo.ItemTransactionValuation Used ON R.TransactionId = Used.TransactionId
@@ -234,9 +235,9 @@ password="#SESSION.dbpw#">
 		   <tr class="line labelmedium fixrow">
 		 </cfif>
 	  
-		 <td width="1%">&nbsp;</td>
+		 <td style="min-width:10px"></td>
 		 <td style="width:40px;padding-right:4px"></td>		
-	     <td width="35%"><cf_tl id="Product"></td>
+	     <td><cf_tl id="Product"></td>
 		 
 		 <td width="80" style="padding-right:3px">
 		     <cfif url.mode neq "direct"><cf_tl id="Item"></cfif>
@@ -345,8 +346,8 @@ password="#SESSION.dbpw#">
 																		
 					<cfelse>
 										
-					     <cfif ActionStatus eq "0" or receipt.actionStatus eq "0">
-						 
+					     <cfif ActionStatus eq "0" or (receipt.actionStatus eq "0" and actionStatus neq "9")>
+					
 						      <cf_img icon="open" 
 							     onclick="ProcRcptLineEdit('#ReceiptId#','#Receipts.RequisitionNo#','#URL.Mode#','edit','#url.box#','')">
 						
@@ -366,8 +367,8 @@ password="#SESSION.dbpw#">
 						    onclick="ProcRcptLineDelete('#ReceiptId#','#Receipts.RequisitionNo#','#URL.Mode#','delete','#url.box#')">
 													
 					<cfelse>
-					
-					     <cf_img icon="edit" 
+										
+					     <cf_img icon="open" 
 						    onclick="ProcRcptLineEdit('#ReceiptId#','#Receipts.RequisitionNo#','#URL.Mode#','edit','#url.box#','')">											
 					 							 
 					</cfif>	 
@@ -393,7 +394,8 @@ password="#SESSION.dbpw#">
 	   
 	   <!--- product or warehouse --->
 	   
-	   <td style="#stl#">
+	   <td style="#stl#;overflow: hidden;text-overflow: ellipsis;">
+	  
 		 <cfif ReceiptItemNo neq "">
 				 <font color="008000">#ReceiptItemNo#:</font>
 		 </cfif>#ReceiptItem#
@@ -462,8 +464,7 @@ password="#SESSION.dbpw#">
 	     
 	   </cfif>
 	   
-	   <td style="#stl#">	
-	     
+	   <td style="#stl#">	     
 
 		   <cfif url.mode neq "receipt">
 		   
@@ -572,18 +573,20 @@ password="#SESSION.dbpw#">
 		 </td>						
 	   </cfloop>	
 	   
-	   <td align="center" style="#stl#;padding-left:8px;padding-right:4px;padding-top:1px;width:10">
-	   
-	   		<cfparam name="editmode" default="view">
+	   <td align="center" style="#stl#;padding-left:8px;padding-right:4px;padding-top:1px;width:10">	   
+	       
+	   	   <cfparam name="editmode" default="view">						
 	   					
 		   <cfif (ActionStatus eq "0" and editmode eq "Edit") or (ReceiptAccess eq "ALL" and ActionStatus eq "1")>		   
 			   
 		     <!--- do not allow to remove if receipt has been processed already --->
-		  						 	 
-			 <cfif posted eq "0">		
-			 
+								  						 	 
+			 <cfif posted eq "0">
+			 											 
 				 <cf_img icon="delete" 
-				    onclick="ptoken.navigate('#SESSION.root#/procurement/application/receipt/receiptentry/ReceiptPurge.cfm?box=#url.box#&reqno=#URL.reqno#&Mode=#URL.Mode#&rctid=#receiptid#','#url.box#')"> 			 
+				    tooltip="This receipt has not yet been distributed and can be removed if needed for reporting"
+				    onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/procurement/application/receipt/receiptentry/ReceiptPurge.cfm?box=#url.box#&reqno=#URL.reqno#&Mode=#URL.Mode#&rctid=#receiptid#&editmode=#editmode#','#url.box#')"> 			 
+							
 			  			   
 			 </cfif> 
 			   
@@ -676,76 +679,86 @@ password="#SESSION.dbpw#">
 			datasource="AppsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">	  
-				SELECT    *
-				FROM      ItemTransaction T, ItemUoM U
-				WHERE     T.ItemNo = U.ItemNo AND T.TransactionUoM = U.UoM
-				AND       ReceiptId = '#ReceiptId#'	 
-				AND       TransactionType = '1' <!--- to hide the moved transactions --->
+				SELECT  *
+				FROM    ItemTransaction T INNER JOIN ItemUoM U ON T.ItemNo = U.ItemNo AND T.TransactionUoM = U.UoM
+				WHERE   ReceiptId = '#ReceiptId#'	 
+				AND     TransactionType = '1' <!--- to hide the moved transactions --->
 		</cfquery>
 		
 		<cfif transaction.recordcount gte "1">
 	 
 	 	<tr>	
 		 
-			 <td></td>
-			 
-			 <td colspan="15" style="padding-bottom:7px">		  		
+ 
+			 <td colspan="16" style="padding-bottom:7px">		  		
 					
 				 <table width="97%" class="navigation_table" align="right">
+				 
+				     <!---
 				 				   				 
 				     <tr class="labelit line" style="height:15px">
 					     <td width="20"></td>						 
 						 <td width="30%"><cf_tl id="Unit"></td>
 						 <td width="100"><cf_tl id="Location"></td>
 						 <td width="25%"><cf_tl id="UoM"></td>
-						 <td width="100" align="right"><cf_tl id="Ordered"></td>
+						 <td width="100" align="right"><cf_tl id="Order price"></td>
 						 <td width="100" align="right"><cf_tl id="Paid"></td>
 						 <td width="80"  align="right"><cf_tl id="Quantity"></td>						 	
-						 <td width="100" align="right"><cf_tl id="Cost Value"></td>												 
+						 <td width="100" align="right"><cf_tl id="Activ. price"></td>												 
 						 <td width="150" align="right"><cf_tl id="Stock value"></td>
 						 <td width="6"></td>
-					 </tr>					 
+					 </tr>		
+					 
+					 --->	
+					 
+					 <cf_tl id="FOB price"        var="fob">
+					 <cf_tl id="Complete purchase price"   var="pur">
+					 <cf_tl id="Quantity"         var="qty">
+					 <cf_tl id="Activ. price"     var="act">
+					 <cf_tl id="Stock value"      var="val">		 
 					 
 				 	<cfloop query="Transaction">
 					
-					 	<tr bgcolor="ffffcf" class="labelmedium navigation_row line">
+					 	<tr bgcolor="ffffdf" class="labelmedium navigation_row line">
 						   <td style="width:30px;height:25px;padding-left:7px">#currentrow#.</td>						 
 						   <td style="width:30%">#OrgUnitName#</td>
 						   <td style="width:100px">#Location#</td>
 						   <td style="width:15%">#UOMDescription#</td>
-						   <td style="width:100px" align="right">
+						   <td style="width:100px" align="right" title="#fob#">
+						   
+						       <!--- FOB --->
+							   
 							   <cfif ReceiptCostPrice gte 0.1>
 							   #numberformat(ReceiptCostPrice,",.____")#
 							   <cfelse>
 							   #numberformat(ReceiptCostPrice,",._____")#
-							   </cfif>						   
+							   </cfif>	
+							   					   
 						   </td>
-						   <td style="width:100px" align="right">
+						   <td style="width:100px" align="right" title="#pur#">
 							   <cfif ReceiptPrice gte 0.1>
 							   #numberformat(ReceiptPrice,",.____")#
 							   <cfelse>
 							   #numberformat(ReceiptPrice,",._____")#
 							   </cfif>						   
 						   </td>
-						   <td style="width:100px" align="right">
+						   <td style="width:100px" align="right" title="#qty#">
 						 
-						   
 						   	   <cf_precision number="#ItemPrecision#">							   
 							   #numberformat("#TransactionQuantity#","#pformat#")#							   
 							   <cfif transactionQuantityBase neq TransactionQuantity><font size="1">(#TransactionQuantityBase#)</cfif>
 						   
 					       </td>
-						   <td style="width:100px" align="right">
+						   <td style="width:100px" align="right" title="#act#">
 						   <cfif TransactionCostPrice gte 0.1>
 						   #numberformat(TransactionCostPrice,",.____")#
 						   <cfelse>
 						   #numberformat(TransactionCostPrice,",._____")#
 						   </cfif>						   
 						   </td>
-						   <td style="width:100px;padding-right:3px" align="right">#numberformat(TransactionValue,",.__")#</td>						
+						   <td align="right" style="width:100px;padding-right:3px" title="#val#">#numberformat(TransactionValue,",.__")#</td>						
 						   <td></td>
-						 </tr>		
-									
+						 </tr>										
 						 						  
 						 <cfif receipts.actionstatus gte "1" and receipts.actionstatus lte "2" and url.presentation eq "1">							 
 						 					
@@ -787,10 +800,10 @@ password="#SESSION.dbpw#">
 							</td>
 							</tr>
 						
-						</cfif>
-																								 
+						</cfif>																								 
 					 			
 					 </cfloop>
+					 
 				 </table>		 
 			 
 			 </td>
@@ -850,7 +863,7 @@ password="#SESSION.dbpw#">
 						  </td>				  				 
 						  <td class="labelmedium" style="padding-top:3px;padding-left:4px">
 							 <a href="javascript:ProcRcptLineEdit('#URL.rctid#','#URL.reqno#','#url.mode#','new','#url.box#','',document.getElementById('receiptdate').value)">					
-							 <font color="6688aa"><cfif url.taskid neq ""> <cf_tl id="Add a taskorder receipt"> <cfelse> <cf_tl id="Add a receipt"> </cfif> </font></a>						
+							 <cfif url.taskid neq ""> <cf_tl id="Add a taskorder receipt"> <cfelse> <cf_tl id="Add a receipt"> </cfif></a>						
 						  </td>				  
 					  
 					  </tr>				  
@@ -961,7 +974,7 @@ password="#SESSION.dbpw#">
  
 </td></tr>
 
-<tr><td style="height:5px"></td></tr>
+<tr><td style="height:3px"></td></tr>
 
 </table>
 

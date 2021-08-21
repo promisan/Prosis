@@ -292,7 +292,6 @@
 </cfif>		
 					
 <cfset itm = itm+1>			
-
 <cf_tl id="Purchase No" var="1">
 						
 <cfset fields[itm] = {label           = "#lt_text#",                   
@@ -311,8 +310,7 @@
 					search            = "text"}>
 					
 									
-<cfset itm = itm+1>					
-
+<cfset itm = itm+1>			
 <cf_tl id="Order Class" var="1">
 <cfset fields[itm] = {label      = "#lt_text#", 
                     width      = "0", 
@@ -320,8 +318,7 @@
 					filtermode = "2",
 					search     = "text"}>
 					
-<cfset itm = itm+1>					
-						
+<cfset itm = itm+1>								
 <cf_tl id="Order Type" var="1">
 <cfset fields[itm] = {label      = "#lt_text#", 
 					width      = "0", 
@@ -329,16 +326,14 @@
 					filtermode = "3",    
 					search     = "text"}>							
 					
-<cfset itm = itm+1>					
-
+<cfset itm = itm+1>		
 <cf_tl id="Period" var="1">
 <cfset fields[itm] = {label      = "#lt_text#", 
                     width      = "0", 
 					alias      = "P",
 					field      = "Period"}>									
 						
-<cfset itm = itm+1>											
-					
+<cfset itm = itm+1>							
 <cf_tl id="Date" var="1">
 <cfset fields[itm] = {label      = "#lt_text#",    
 					width        = "0", 
@@ -348,8 +343,7 @@
 					formatted    = "dateformat(OrderDate,CLIENT.DateFormatShow)",
 					search       = "date"}>
 					
-<cfset itm = itm+1>					
-					
+<cfset itm = itm+1>							
 <cf_tl id="Officer" var="1">
 <cfset fields[itm] = {label      = "#lt_text#",    
 					width      = "0", 
@@ -358,15 +352,13 @@
 					alias      = "P",
 					search     = "text"}>	
 					
-<cfset itm = itm+1>					
-					
+<cfset itm = itm+1>							
 <cfset fields[itm] = {label      = "L",    
 					width      = "0", 
 					field      = "Lines",
 					alias      = "P"}>						
 					
-<cfset itm = itm+1>					
-
+<cfset itm = itm+1>		
 <cf_tl id="Cur" var="1">
 <cfset fields[itm] = {label      = "#lt_text#.",    
 					width      = "0", 
@@ -375,8 +367,7 @@
 					alias      = "P",
 					search     = "text"}>											
 					
-<cfset itm = itm+1>					
-
+<cfset itm = itm+1>			
 <cf_tl id="Amount" var="1">
 <cfset fields[itm] = {label      = "#lt_text#",
 					width      = "0", 

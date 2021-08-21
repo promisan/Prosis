@@ -14,7 +14,7 @@
 <tr class="line labelmedium regular <cfif color neq 'ffffdf'>navigation_row</cfif>" bgcolor="#color#" style="height:26px" 
        onMouseOver="earmark('b#journal#_#journalserialNo#_#glaccount#','highlight')"
 	   onMouseOut="earmark('b#journal#_#journalserialNo#_#glaccount#','regular')">   	 	
-	     
+	   	     
    <td align="center"><cfif color neq "ffffdf">#cnt#</cfif></td>
    <td style="padding-right:3px"><cfif color neq "ffffdf"><cfif Lines.AccountClass eq "Result">#Lines.TransactionPeriodLine#<cfelse>#Lines.TransactionPeriodHeader#</cfif></cfif></td>
    <td>#DateFormat(TransactionDate, CLIENT.DateFormatShow)#</td>
@@ -25,14 +25,16 @@
 	   <table width="100%" cellspacing="0" cellpadding="0">
 		   <tr class="labelmedium" style="height:19px">
 		   
-		   <cfif Lines.accountLabel neq "">
-			   <cfset sl = Lines.accountLabel>
+		   <cfparam name="AccountLabel" default="">
+		   
+		   <cfif accountLabel neq "">
+			   <cfset sl = accountLabel>
 		   <cfelse>
-			   <cfset sl = Lines.glaccount>
+			   <cfset sl = glaccount>
 		   </cfif>
 		   
 		   <td style="min-width:#len(sl)*10#"><a href="javascript:showledger('#mission#','#orgunitowner#','#accountperiod#','#glaccount#')">#sl#</a></td>		   
-		   <td style="width:100%;padding-left:2px">#Lines.GLDescription#</td>
+		   <td style="width:100%;padding-left:2px">#GLDescription#</td>
 		   </tr>
 	   </table>
    </td>  

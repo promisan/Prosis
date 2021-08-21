@@ -115,16 +115,17 @@
 	</TR>
 
 	<CFOUTPUT query="SearchResult">
-
-		<TR class="navigation_row line labelmedium2" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f1f1f1'))#">
-			<TD width="30" align="center" class="navigation_action" style="padding-left:7px;padding-top:3px"
-			   onclick="selected('#customerid#','#customername#')"><cf_img icon="select"></TD>
+	
+		    <cfset name = replace(customername,"'"," ","ALL")>
+			<TR class="navigation_row line labelmedium2" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f1f1f1'))#">
+			<TD width="30" align="center" class="navigation_action" style="padding-left:7px;padding-top:2px"
+			   onclick="selected('#customerid#','#name#')"><cf_img icon="select"></TD>
             <TD><a href="javascript:editCustomer('#customerid#')">#CustomerSerialNo#</a></TD>
-			<TD>#CustomerName#</TD>
-			<TD>#PersonNo#</TD>
-			<td>#Mission#</td>
-			<td>#dateformat(LastDate,client.dateformatshow)#</td>
-			<TD>#Reference#</TD>
+			<TD style="padding-left:2px">#CustomerName#</TD>
+			<TD style="padding-left:2px">#PersonNo#</TD>
+			<td style="padding-left:2px">#Mission#</td>
+			<td style="padding-left:2px">#dateformat(LastDate,client.dateformatshow)#</td>
+			<TD style="padding-left:2px">#Reference#</TD>
 		</TR>
 
 	</CFOUTPUT>

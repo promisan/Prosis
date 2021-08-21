@@ -673,7 +673,7 @@
 					 
 					 <cfelse>
 					
-						 <cfdiv id="box#edition#"
+						 <cf_securediv id="box#edition#"
 						        bind="url:#SESSION.root#/programrem/application/budget/allotment/AllotmentClear.cfm?programcode=#url.programcode#&period=#PlanPeriod#&editionid=#edition#"/>	
 								
 					 </cfif>		

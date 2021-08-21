@@ -182,7 +182,7 @@
 
 <cfif url.status eq "0">
 
-	<cfdiv bind="url:#session.root#/warehouse/application/stock/batch/StockBatchlistingConnection.cfm?warehouse=#url.warehouse#">	
+	<cf_securediv bind="url:#session.root#/warehouse/application/stock/batch/StockBatchlistingConnection.cfm?warehouse=#url.warehouse#">	
 		   
 </cfif>		   
 

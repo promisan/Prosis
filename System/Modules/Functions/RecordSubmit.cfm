@@ -1,6 +1,8 @@
 
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"> 
 
+<cfparam name="url.scope"  default="Menu">
+
 <cfif Len(Form.FunctionName) gt 80>
 	 <cf_message message = "You entered a name that exceeded the allowed size of 40 characters."
 	  return = "back">
@@ -29,12 +31,12 @@
 datasource="AppsSystem" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT  SystemFunctionId 
-	FROM    Ref_ModuleControlRole
-	WHERE   SystemFunctionId = '#URL.ID#'
+	SELECT   SystemFunctionId 
+	FROM     Ref_ModuleControlRole
+	WHERE    SystemFunctionId = '#URL.ID#'
 	UNION ALL
-	SELECT  SystemFunctionId 
-	FROM    Ref_ModuleControlUserGroup
+	SELECT   SystemFunctionId 
+	FROM     Ref_ModuleControlUserGroup
 	WHERE    SystemFunctionId = '#URL.ID#'
 </cfquery>
 
@@ -90,7 +92,7 @@ SET      FunctionName         = '#Form.FunctionName#',
 		 OfficerUserId    = '#SESSION.acc#',
 		 OfficerLastName  = '#SESSION.last#',
 		 OfficerFirstName = '#SESSION.first#',
-		 LastModified = getDate()
+		 LastModified     = getDate()
 WHERE    SystemFunctionId = '#URL.ID#'
 </cfquery>
 
@@ -186,10 +188,22 @@ password="#SESSION.dbpw#">
  
 <cfinclude template="FunctionSetting.cfm">
 
-<script>	    
-	 try {
-	 opener.history.go() } catch(e) {}	 
-</script>		
+<cfif url.scope neq "maintain">
+	
+	<script>	    
+		 try {
+		 opener.history.go() } catch(e) {}	 
+	</script>		
+
+<cfelse>
+
+	<!--- refresh maintenance screen --->
+	
+	<script>
+		opener.ptoken.navigate('RecordListingDetail.cfm?module=#Source.SystemModule#&main=#Form.MainMenuItem#&functionclass=#Source.FunctionClass#&find=','right')
+	</script>
+
+</cfif>
 
 </cfoutput> 
 		

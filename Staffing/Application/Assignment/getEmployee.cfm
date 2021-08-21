@@ -51,7 +51,7 @@
 	  personno="#url.selected#">
 	
 	<script>
-	    ColdFusion.navigate('EmployeeAssignment.cfm?id=#URL.personNo#&header=0','historybox')
+	    ptoken.navigate('EmployeeAssignment.cfm?id=#URL.personNo#&header=0','historybox')
 	</script>
 		  
 <cfif validcontract eq "1">

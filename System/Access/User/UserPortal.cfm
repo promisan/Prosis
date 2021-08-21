@@ -24,10 +24,8 @@
 <cf_divscroll style="height:100%">
 
 <table width="96%" align="center">
-	<tr>
-		<td height="20"></td>
-	</tr>
-	<tr class="labelmedium2">
+	
+	<tr class="labelmedium2 fixrow">
 		<td width="6%">
 			<cfoutput>
 			<img src="#SESSION.root#/Images/Logos/System/Portal.png" title="Portals" height="48" align="middle">

@@ -166,7 +166,10 @@ password="#SESSION.dbpw#">
 
 <cf_screentop html="No" label="Roster Bucket Select" jquery="Yes" height="100%" scroll="Yes">
 
-<cfform action="Search2Submit.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&mode=#URL.Mode#&status=#url.status#" method="POST" name="functionselect" style="height:97%">
+<cfform action="Search2Submit.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&mode=#URL.Mode#&status=#url.status#" 
+   method="POST" 
+   name="functionselect" 
+   style="height:97%">
 
 <table width="98%" height="100%" align="center" class="formpadding">
 
@@ -174,7 +177,7 @@ password="#SESSION.dbpw#">
 
 	<table height="100%" width="100%" align="center">
 	 
-	 <tr class="line">
+	 <tr>
 	    <td height="31" valign="top">		
 				
 			<cfif occgroup.recordcount gte "2">
@@ -196,7 +199,7 @@ password="#SESSION.dbpw#">
 		  
 		</td>
 		<td align="right">
-		<input type="reset"  value="Reset" class="button10s" style="height:21;width:130px">	
+		<input type="reset"  value="Reset" class="button10s" style="height:25px;width:130px">	
 		</td>
 	 </tr> 	
 	 
@@ -231,11 +234,11 @@ password="#SESSION.dbpw#">
 	<td align="center" valign="middle">
 	
 	<button name="Prior" id="Prior" style="width: 160px;height:27" class="button10g" value="Next" type="button" onClick="first()">
-	    <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/prev.gif" align="absmiddle" alt="" border="0">&nbsp;Back
+	    <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/prev.gif" align="absmiddle" alt="" border="0"><cf_tl id="Back">
 	</button>
 			
 	<button name="Prios" id="Prios" style="width: 160px;height:27" 
-	    class="button10g" value="Prior" type="submit">&nbsp;Search Criteria
+	    class="button10g" value="Prior" type="submit"><cf_tl id="Search Criteria">
 	    <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/next.gif" border="0" align="absmiddle"> 
 	</button>
 		

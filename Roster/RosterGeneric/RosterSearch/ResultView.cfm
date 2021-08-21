@@ -85,7 +85,7 @@
 	   scroll="no">
    
 <cf_LayoutScript>
-<cfajaximport tags="cftree,cfform">	
+<cfajaximport tags="cfform">	
 		 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>
 
@@ -107,7 +107,7 @@
 		
 	<cf_layoutarea position="center" name="box">
 				
-			<iframe src="ResultListing.cfm?mode=#url.mode#&docno=#url.docNo#&ID=GEN&ID1=#URL.ID#&ID2=B&ID3=GEN&height=#URL.height#"
+			<iframe src="ResultListing.cfm?mode=#url.mode#&docno=#url.docNo#&ID=GEN&ID1=#URL.ID#&ID2=B&ID3=GEN&height=#URL.height#&mid=#url.mid#"
 		        name="center"
 		        id="center"
 		        width="100%"
@@ -126,7 +126,7 @@
 		splitter    = "true"
 		overflow    = "hidden">
 				
-			<iframe src="SearchTree.cfm?docno=#url.docNo#&ID=1&ID1=#URL.ID#&mode=#url.Mode#&Owner=#Check.Owner#&Status=#Check.RosterStatus#"
+			<iframe src="SearchTree.cfm?docno=#url.docNo#&ID=1&ID1=#URL.ID#&mode=#url.Mode#&Owner=#Check.Owner#&Status=#Check.RosterStatus#&mid=#url.mid#"
 		        name="left"
 		        id="left"
 		        width="100%"

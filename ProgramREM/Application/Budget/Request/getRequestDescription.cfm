@@ -81,7 +81,7 @@
 
 		<table width="100%" cellspacing="0" cellpadding="0">
 		<tr><td style="padding-right:3px">
-   		
+		   		
 		<cf_InputDSA name = "topicvaluecode_#url.line#" 
 		     selected     = "#entry.topicvaluecode#"
 			 function     = "applycost"
@@ -111,7 +111,7 @@
 			       name      = "RequestDescription_#url.line#"		   	   
 				   maxlength = "200"	
 				   class     = "regularxl enterastab"
-				   style     = "width:98%;height:25;padding-left:4px;border:1px solid silver"	
+				   style     = "width:98%;height:25px;padding-left:4px;background-color:eaeaea"	
 				   size      = "40"   
 			       value     = "#entry.requestDescription#">
 				</td>
@@ -128,12 +128,12 @@
 		<cfoutput>	
 		
 				
-		<table width="100%" cellspacing="0" cellpadding="0">
+		<table width="100%" height="100%">
 		<tr><td>
 					
 			<cfset sel = list.topicvaluecode>
 											
-			<select name="TopicValueCode_#url.line#"  class="regularxl enterastab" style="width:98%" 
+			<select name="TopicValueCode_#url.line#"  class="regularxl enterastab" style="height:100%;border:1px solid silver;width:98%;background-color:eaeaea" 
 				onchange="applycost('#url.itemmaster#',this.value,'#url.line#','#entry.topicvaluecode#','#url.mission#','#url.location#')">
 				
 				<option value="">--<cf_tl id="select option">--</option>

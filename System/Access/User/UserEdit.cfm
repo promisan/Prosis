@@ -370,8 +370,7 @@ password="#SESSION.dbpw#">
 			<!--- Field: AccountGroup --->
 		    <TR>
 			
-		    <td class="labelmedium" title="Classification of the account"><cf_tl id="Account Group">:</td>
-			
+		    <td class="labelmedium" title="Classification of the account"><cf_tl id="Account Group">:</td>			
 		    <TD class="labelmedium">
 			
 				<cfset nat = get.AccountGroup>
@@ -390,8 +389,8 @@ password="#SESSION.dbpw#">
 			</TR>
 			  
 		    <TR>
-		    <TD class="labelmedium">Managing entity:</TD>
-		    <TD class="labelmedium">
+		    <TD class="labelmedium"><cf_tl id="Managing entity">:</TD>
+		    <TD>
 			
 			  <cfif Get.AccountType neq "Individual">	
 			
@@ -403,7 +402,13 @@ password="#SESSION.dbpw#">
 					 onchange      = "_cf_loadingtexthtml='';ptoken.navigate('getFunction.cfm?usergroup=#url.id#&mission='+this.value,'functions')"
 				     selected      = "#get.AccountMission#"
 			         value         = "Mission"
-			         display       = "Mission"/>	
+			         display       = "Mission">	
+					 
+					 <cfif accessUserAdmin eq "ALL">
+						<option value="Global" selected><cf_tl id="Not defined"></option>
+					</cfif>
+					 
+				   </cfselect>	 
 				   
 			   <cfelse>
 			   
@@ -429,8 +434,8 @@ password="#SESSION.dbpw#">
 			
 				<tr>
 				
-					<td style="padding-top:3px" valign="top" class="labelmedium"><cf_tl id="Functions">:</td>
-					<td id="functions">
+					<td valign="top" class="labelmedium"><cf_tl id="Functions">:</td>
+					<td style="width:100%;height:100%" id="functions">
 					
 					<cfset url.usergroup = url.id>
 					<cfset url.mission   = get.accountMission>
@@ -536,7 +541,7 @@ password="#SESSION.dbpw#">
 			
 			<tr>		
 				
-			<td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
+			<td class="labelmedium" valign="top" style="min-width:160px;padding-top:4px"><cf_tl id="Remarks">:</td>
 			 <TD height="100%">
 			 <cfoutput query="get">
 			   <textarea style="width:98%;height:60px;padding:3px;font-size:13px" class="regular" id="" name="Remarks" type="text" size="50" maxlength="200">#Remarks#</textarea>
@@ -546,7 +551,9 @@ password="#SESSION.dbpw#">
 			
 		    <TR>
 			<td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Session settings">:&nbsp;</td>
+			
 			<TD style="background-color:f1f1f1;padding-left:8px;padding-right:4px">
+				
 				<table width="100%" align="center">
 				<tr>
 				    <td class="labelit" title="Password will not longer expire based on the general system settings">Disable Password expiration after <cfoutput>#System.PasswordExpiration#</cfoutput> weeks </td>

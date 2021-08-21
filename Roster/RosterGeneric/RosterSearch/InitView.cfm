@@ -69,8 +69,6 @@
 
 </cfif>   
 
-
-
 </cfoutput>
 
 <meta http-equiv="Pragma" content="no-cache"> 

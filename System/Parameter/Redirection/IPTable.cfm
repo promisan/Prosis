@@ -33,7 +33,7 @@
 	
 	function purge(ip) {
 		if (confirm("Do you want to remove this IP range ?")) {
-		     window.location = "IPTablePurge.cfm?ID="+ip			
+		     ptoken.location('IPTablePurge.cfm?ID='+ip)
 		}		    
 	}
 	
@@ -211,7 +211,7 @@ password="#SESSION.dbpw#">
 				   <td><!--- #OfficerLastName# ---></td>
 				   <td>#DateFormat(Created, CLIENT.DateFormatShow)#</td>
 				   <td align="center">
-				     <A href="IPTable.cfm?ID1=#IPRangeID#&idmenu=#url.idmenu#">[edit]</a>
+				     <A href="javascript:ptoken.location('IPTable.cfm?ID1=#IPRangeID#&idmenu=#url.idmenu#')">[edit]</a>
 				   </td>
 				   <td align="center" style="padding-top:3px">
 				      <cf_img icon="delete" onclick="purge('#IPRangeID#')">			

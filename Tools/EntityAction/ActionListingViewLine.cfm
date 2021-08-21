@@ -965,7 +965,7 @@
 				<tr class="line">
 					<td colspan="#col#" id="h#currentrow#">
 									
-				   <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="">
+				   <table width="100%" align="center">
 				   <tr><td id="urldetail#currentrow#" height="15">   
 				   
 				    <!--- embedding of a custom template in the view --->

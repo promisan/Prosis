@@ -9,10 +9,9 @@
 </cfquery>
 
 <cfoutput>
-	<table width="98%" align="center" class="formpadding">
-		<tr><td height="5"></td></tr>		
+	<table width="99%" align="center" class="formpadding">		
 		<tr>
-			<td class="labelit" colspan="2" style="padding:10px; border-radius:7px;border:1px solid ##C0C0C0; background-color:##EfEfEf;">
+			<td class="labelit" colspan="2" style="padding:10px; border:1px solid ##d0d0d0; background-color:##f1f1f1;">
 				<cfif trim(get.BudgetEntryInstruction) neq "">
 					#get.BudgetEntryInstruction#
 				<cfelse>

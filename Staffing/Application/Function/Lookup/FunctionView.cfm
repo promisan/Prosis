@@ -6,7 +6,6 @@
 <cfparam name="url.param1"  default="">
 <cfparam name="url.edition" default="#url.param1#">
 
-
 <!--- helper to reload the buckets --->
 
 <input type="hidden" id="scope" value="#url.occ#">		

@@ -49,8 +49,7 @@ password="#SESSION.dbpw#">
 								WHERE  ContractType = '#url.contracttype#'
 								AND    Operational = 1)
 	</cfif>							
-	
-							
+								
 	AND    (  SalaryTrigger IN (
 		                        SELECT  RC.SalaryTrigger
 								FROM    SalaryScheduleComponent SC INNER JOIN
@@ -67,6 +66,7 @@ password="#SESSION.dbpw#">
 																					
 								
 </cfquery>
+
 
 <table width="100%" class="formpadding">
 

@@ -110,7 +110,7 @@
 					   <cfif source eq "Manual">		
 						   <cfif accessmode eq "EDIT">
 						   		<cf_tl id="Edit" var="1">
-						       	<cf_img icon="edit" tooltip="#lt_text#" navigation="Yes" onclick="Prosis.busy('yes');ColdFusion.navigate('#SESSION.root#/Roster/Candidate/Details/Address/AddressEdit.cfm?applicantno=#url.applicantno#&owner=#url.owner#&mission=#url.mission#&section=#url.section#&entryScope=#url.entryScope#&ID=#URL.ID#&ID1=#AddressId#','addressbox')">	  
+						       	<cf_img icon="edit" tooltip="#lt_text#" navigation="Yes" onclick="Prosis.busy('yes');ptoken.navigate('#SESSION.root#/Roster/Candidate/Details/Address/AddressEdit.cfm?applicantno=#url.applicantno#&owner=#url.owner#&mission=#url.mission#&section=#url.section#&entryScope=#url.entryScope#&ID=#URL.ID#&ID1=#AddressId#','addressbox')">	  
 							</cfif>
 						</cfif>
 						

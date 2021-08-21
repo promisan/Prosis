@@ -188,16 +188,15 @@
 	
 <cfoutput>
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+
+<table width="100%" height="100%">
 <tr><td width="100%" height="100%"> 
 
-		<iframe src="#session.root#/Staffing/Application/Position/Lookup/PositionView.cfm?Source=#URL.Source#&Mission=#URL.Mission#&MandateNo=#URL.MandateNo#&ApplicantNo=#URL.ApplicantNo#&PersonNo=#URL.PersonNo#&RecordId=#URL.RecordId#&DocumentNo=#URL.DocumentNo#"
-	        name="main"
-	        id="main"
-	        width="100%"
-	        height="100%"
-			scrolling="no"
-	        frameborder="0"></iframe>
+	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/>        
+
+	<iframe src="#session.root#/Staffing/Application/Position/Lookup/PositionView.cfm?Source=#URL.Source#&Mission=#URL.Mission#&MandateNo=#URL.MandateNo#&ApplicantNo=#URL.ApplicantNo#&PersonNo=#URL.PersonNo#&RecordId=#URL.RecordId#&DocumentNo=#URL.DocumentNo#&mid=#mid#"
+        name="main" id="main" width="100%" height="100%" scrolling="no" frameborder="0"></iframe>
 			
 </td></tr>
 </table>

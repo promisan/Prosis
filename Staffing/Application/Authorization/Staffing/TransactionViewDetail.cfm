@@ -68,7 +68,7 @@
 	   
 	   <script>
 	     function revert() {
-			 window.location = "#SESSION.root#/staffing/application/authorization/staffing/TransactionCancel.cfm?actionreference=#url.ActionReference#"
+			 ptoken.location('#SESSION.root#/staffing/application/authorization/staffing/TransactionCancel.cfm?actionreference=#url.ActionReference#')
 		 }
 	   </script>
 	   
@@ -288,8 +288,7 @@
 		      returnvariable="accessStaffing">	
 		   
 		   <cfif AccessStaffing eq "EDIT" or AccessStaffing eq "ALL">
-	   		  
-			  
+	   		  			  
 			   <tr>
 			     <td colspan="1" align="center" height="45">
 				 

@@ -142,6 +142,8 @@ password="#SESSION.dbpw#">
 	ORDER BY   P.ViewOrder, PostOrderBudget 
 </cfquery>
 
+
+
 <!--- process table --->
 <cfquery name="ResourceInit" 
 datasource="AppsQuery" 
@@ -183,9 +185,9 @@ password="#SESSION.dbpw#">
 		
 	<cfsavecontent variable="HTML">
 	
-		<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+		<table width="100%" height="100%">
 				
-		<tr><td height="20">		
+		<tr><td height="20">			
 			<cfinclude template="RosterViewLoopSubMenu.cfm">				
 		</td></tr>
 				

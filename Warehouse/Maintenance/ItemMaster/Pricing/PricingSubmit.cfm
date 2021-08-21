@@ -92,44 +92,63 @@ password="#SESSION.dbpw#">
 					
 					<cfif check.recordcount eq "1">
 					
-						<cfquery name="update"
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							UPDATE     ItemUoMPrice
-							SET        SalesPrice    = '#prc#', 
-							           TaxCode       = '#tax#',
-									   Promotion     = '#pro#'						
-							WHERE      ItemNo        = '#url.id#'
-							AND        Mission       = '#URL.Mission#' 
-							AND        UoM           = '#itemuom.uom#'
-							AND        PriceSchedule = '#schedule.code#' 						
-							AND        Warehouse     IS NULL 
-							AND        Currency      = '#currency#'		
-							AND        DateEffective = #eff#							
-						</cfquery>
+						 <cfif prc neq "">
 					
-					<cfelse>
+							<cfquery name="update"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">							
+								UPDATE     ItemUoMPrice
+								SET        SalesPrice    = '#prc#', 
+								           TaxCode       = '#tax#',
+										   Promotion     = '#pro#'						
+								WHERE      ItemNo        = '#url.id#'
+								AND        Mission       = '#URL.Mission#' 
+								AND        UoM           = '#itemuom.uom#'
+								AND        PriceSchedule = '#schedule.code#' 						
+								AND        Warehouse     IS NULL 
+								AND        Currency      = '#currency#'		
+								AND        DateEffective = #eff#							
+							</cfquery>
+						
+						<cfelse>
+						
+							<cfquery name="delete"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">							
+								DELETE     ItemUoMPrice								
+								WHERE      ItemNo        = '#url.id#'
+								AND        Mission       = '#URL.Mission#' 
+								AND        UoM           = '#itemuom.uom#'
+								AND        PriceSchedule = '#schedule.code#' 						
+								AND        Warehouse     IS NULL 
+								AND        Currency      = '#currency#'		
+								AND        DateEffective = #eff#							
+							</cfquery>
+						
+						</cfif>
+					
+					<cfelseif prc neq "">
 					
 						<cfquery name="insert"
 						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
 							INSERT INTO ItemUoMPrice
-							(ItemNo, 
-							 UoM, 
-							 PriceSchedule, 
-							 Mission, 							
-							 Currency, 
-							 DateEffective, 
-							 Promotion,
-							 SalesPrice, 
-							 TaxCode, 
-							 OfficerUserId, 
-							 OfficerLastName, 
-		                     OfficerFirstName)
-							VALUES
-							(
+								(ItemNo, 
+								 UoM, 
+								 PriceSchedule, 
+								 Mission, 							
+								 Currency, 
+								 DateEffective, 
+								 Promotion,
+								 SalesPrice, 
+								 TaxCode, 
+								 OfficerUserId, 
+								 OfficerLastName, 
+			                     OfficerFirstName)
+							VALUES (
 							'#url.id#', 
 							'#itemuom.uom#', 
 							'#schedule.code#', 
@@ -150,7 +169,6 @@ password="#SESSION.dbpw#">
 			</cfloop>
 		</cfloop>
 	</cfloop>
-
 
 <cfquery name="Warehouse"
 	datasource="AppsMaterials" 
@@ -208,16 +226,15 @@ password="#SESSION.dbpw#">
 			<cfloop query="Currency">
 			
 				<cfparam name="Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_dateeffective" default="">
-				<cfparam name="Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_promotion" default="">
-				<cfparam name="Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_salesprice" default="">
-				<cfparam name="Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_taxcode" default="">
+				<cfparam name="Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_promotion"     default="">
+				<cfparam name="Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_salesprice"    default="">
+				<cfparam name="Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_taxcode"       default="">
 			
 				<cfset dte = evaluate("Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_dateeffective")>
 				<cfset pro = evaluate("Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_promotion")>
 				<cfset prc = evaluate("Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_salesprice")>
 				<cfset tax = evaluate("Form.#warehouse.warehouse#_#itemuom.uom#_#schedule.code#_#currency#_taxcode")>	
-				
-				<cfif prc neq "">				
+					
 				
 			   	  <cfset dateValue = "">
 				  <CF_DateConvert Value="#dte#">
@@ -242,65 +259,81 @@ password="#SESSION.dbpw#">
 					
 					<cfif check.recordcount eq "1">
 					
-						<cfquery name="update"
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							UPDATE     ItemUoMPrice
-							SET        SalesPrice = '#prc#', 
-							           TaxCode    = '#tax#',
-									   Promotion  = '#pro#'						
-							WHERE      ItemNo        = '#url.id#'
-							AND        Mission       = '#URL.Mission#' 
-							AND        UoM           = '#itemuom.uom#'
-							AND        PriceSchedule = '#schedule.code#' 						
-							AND        Warehouse     = '#warehouse.warehouse#'
-							AND        Currency      = '#currency#'		
-							AND        DateEffective = #eff#							
-						</cfquery>
+					    <cfif prc neq "">
 					
-					<cfelse>
+							<cfquery name="update"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								UPDATE     ItemUoMPrice
+								SET        SalesPrice = '#prc#', 
+								           TaxCode    = '#tax#',
+										   Promotion  = '#pro#'						
+								WHERE      ItemNo        = '#url.id#'
+								AND        Mission       = '#URL.Mission#' 
+								AND        UoM           = '#itemuom.uom#'
+								AND        PriceSchedule = '#schedule.code#' 						
+								AND        Warehouse     = '#warehouse.warehouse#'
+								AND        Currency      = '#currency#'		
+								AND        DateEffective = #eff#							
+							</cfquery>
+						
+						<cfelse>
+						
+							<cfquery name="update"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">							
+								DELETE     ItemUoMPrice										
+								WHERE      ItemNo        = '#url.id#'
+								AND        Mission       = '#URL.Mission#' 
+								AND        UoM           = '#itemuom.uom#'
+								AND        PriceSchedule = '#schedule.code#' 						
+								AND        Warehouse     = '#warehouse.warehouse#'
+								AND        Currency      = '#currency#'		
+								AND        DateEffective = #eff#							
+							</cfquery>
+												
+						</cfif>
+					
+					<cfelseif prc neq "">
 					
 						<cfquery name="insert"
 						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
 							INSERT INTO ItemUoMPrice
-							(ItemNo, 
-							 UoM, 
-							 PriceSchedule, 
-							 Mission, 
-							 Warehouse, 
-							 Currency, 
-							 DateEffective, 
-							 Promotion,
-							 SalesPrice, 
-							 TaxCode, 
-							 OfficerUserId, 
-							 OfficerLastName, 
-		                     OfficerFirstName)
-							VALUES
-							(
-							'#url.id#', 
-							'#itemuom.uom#', 
-							'#schedule.code#', 
-							'#url.mission#', 
-							'#warehouse.warehouse#', 
-							'#currency#', 
-							#eff#, 
-							'#pro#',
-							'#prc#', 
-							'#tax#', 
-							'#SESSION.acc#', 
-							'#SESSION.last#', 
-		                    '#SESSION.first#') 
+									(ItemNo, 
+									 UoM, 
+									 PriceSchedule, 
+									 Mission, 
+									 Warehouse, 
+									 Currency, 
+									 DateEffective, 
+									 Promotion,
+									 SalesPrice, 
+									 TaxCode, 
+									 OfficerUserId, 
+									 OfficerLastName, 
+				                     OfficerFirstName)
+							VALUES ('#url.id#', 
+									'#itemuom.uom#', 
+									'#schedule.code#', 
+									'#url.mission#', 
+									'#warehouse.warehouse#', 
+									'#currency#', 
+									#eff#, 
+									'#pro#',
+									'#prc#', 
+									'#tax#', 
+									'#SESSION.acc#', 
+									'#SESSION.last#', 
+				                    '#SESSION.first#' ) 
 								
 						</cfquery>
 					
 					</cfif>
 					
-				 </cfif>	
-
 			</cfloop>
 		</cfloop>
 	</cfloop>

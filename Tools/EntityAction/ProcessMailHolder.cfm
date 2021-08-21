@@ -777,11 +777,20 @@
 						          file="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#DocumentDescription#.htm" 
 								  output="#DocumentContent#" 
 								  addnewline="Yes" 
-								  fixnewline="No">								
+								  fixnewline="No">		
+								 
+								<!--- on-the-fly converter of htm content to pdf --->  
+								<cf_htm_pdf fileIn= "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#DocumentDescription#">
 								
+								<cfset mailatt[rw][1] = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#DocumentDescription#.pdf">
+								<cfset mailatt[rw][2] = "normal">
+								<cfset mailatt[rw][3] = "#DocumentDescription#.pdf">
+								
+								<!---								
 								<cfset mailatt[rw][1] = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#DocumentDescription#.htm">
 								<cfset mailatt[rw][2] = "normal">
 								<cfset mailatt[rw][3] = "#DocumentDescription#.htm">
+								--->
 																
 							</cfif>
 					        	

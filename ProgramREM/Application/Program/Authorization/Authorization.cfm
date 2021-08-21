@@ -76,7 +76,7 @@
 											
 		<tr class="linedotted">
 	    <td width="60%" colspan="2" align="right" style="padding-left:40px;padding-right:20px">		
-			<cfdiv bind="url:#SESSION.root#/ProgramREM/Application/Program/Authorization/AuthorizationAccess.cfm?programCode=#url.ProgramCode#&role=#role#&mode=#url.mode#" id="#role#"/>		
+			<cf_securediv bind="url:#SESSION.root#/ProgramREM/Application/Program/Authorization/AuthorizationAccess.cfm?programCode=#url.ProgramCode#&role=#role#&mode=#url.mode#" id="#role#"/>		
 		</td>
 		</tr>  
 				

@@ -90,7 +90,7 @@
 					
 		<td>
 		   
-		   <table width="100%" cellspacing="0" cellpadding="0">		
+		   <table cellspacing="0" cellpadding="0">		
 		   
 		   <tr class="line">
 		   <td colspan="3" height="4" style="padding-left:5px;font-size:25px;height:45px;font-weight:200;">	
@@ -103,7 +103,7 @@
 		   <td style="padding-left:10px;padding-top:7px" class="labelit" valign="top">
 		  
 		   <cfoutput>	
-		      <select name="layoutid" class="regularxl" style="width:98%;background-color:efefef;font-size:18px;height:40px" id="layoutid" onchange="getclass(this.value,'#SelFileFormat#','#controlid#','#reportid#')">
+		      <select name="layoutid" class="regularxl" style="border:0px;width:400px;background-color:efefef;font-size:18px;height:40px" id="layoutid" onchange="getclass(this.value,'#SelFileFormat#','#controlid#','#reportid#')">
 		   </cfoutput>
 		  										
 		   <cfoutput query="Layout">		   

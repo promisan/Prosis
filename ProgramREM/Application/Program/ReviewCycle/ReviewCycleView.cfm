@@ -398,10 +398,10 @@
 						
 				<tr><td class="line">
 				<table><tr>
-				<td class="labelit" style="padding-left:5px;padding-right:10px"><font color="808080"><cf_tl id="Other actions">:</td>
+				<td class="labelmedium" style="padding-left:5px;padding-right:10px"><font color="808080"><cf_tl id="Other actions">:</td>
 				<cfoutput query="PriorReview">
-				<td class="labelmedium" style="padding-left:5px;padding-right:10px">
-				  <a href="ReviewCycleView.cfm?header=#url.header#&cycleid=#url.cycleid#&reviewid=#reviewid#">#OfficerLastName# #dateformat(created,client.dateformatshow)# <cfif actionstatus eq "3"><cf_tl id="Completed"><cfelseif actionstatus eq "9"><cf_tl id="Denied"><cfelse><cf_tl id="Pending"></cfif></a>
+				<td class="labelmedium2" style="padding-left:5px;padding-right:10px">
+				  <a href="javascript:ptoken.location('ReviewCycleView.cfm?header=#url.header#&cycleid=#url.cycleid#&reviewid=#reviewid#')">#OfficerLastName# #dateformat(created,client.dateformatshow)# <cfif actionstatus eq "3"><cf_tl id="Completed"><cfelseif actionstatus eq "9"><cf_tl id="Denied"><cfelse><cf_tl id="Pending"></cfif></a>
 	 		    </td>
 				</cfoutput>
 				</tr>
@@ -586,7 +586,7 @@
 					 <cfoutput>
 						 
 					 	<input type="hidden" id="workflowlink_#URL.ReviewId#" value="#wflnk#"> 					 
-					    <cfdiv id="#URL.ReviewId#"  bind="url:#wflnk#?ajaxid=#URL.ReviewId#"/>												
+					    <cf_securediv id="#URL.ReviewId#"  bind="url:#wflnk#?ajaxid=#URL.ReviewId#">												
 							
 					 </cfoutput>	 
 							

@@ -23,13 +23,13 @@ password="#SESSION.dbpw#">
 			 	
 			 	<td height="30" style="padding-left:0px">
 							     
-				  <input style="width:160px;height:24px;font-size:13px;padding:4px"
-				     class="button10g" 
-					 onclick="updateTextArea();ColdFusion.navigate('FunctionEditSubmit.cfm?module=#url.module#','process','','','POST','entry')" 
-					 type="button" 
-					 name="update" 
-					 id="update" 
-					 value ="Apply">
+				  <input style = "width:160px;height:24px;font-size:13px;padding:4px"
+				     class     = "button10g" 
+					 onclick   = "updateTextArea();ptoken.navigate('FunctionEditSubmit.cfm?module=#url.module#','process','','','POST','entry')" 
+					 type      = "button" 
+					 name      = "update" 
+					 id        = "update" 
+					 value     = "Apply">
 				  
 				 </td>
 				 <td width="10%"></td>
@@ -55,11 +55,10 @@ password="#SESSION.dbpw#">
 			   
 			   </cfform>
 							 
-				 </td>
+				</td>
 				
 			 </tr>			
 															  
 	</table> 	
 	
 	</cfoutput>
-

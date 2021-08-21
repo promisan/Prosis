@@ -320,8 +320,18 @@ first server that opens the script and that is recorded in the control database 
    ScheduleStartDate = "01/01/07"
    ScheduleStartTime = "03:00"
    ApplicationServer = "#Host.ApplicationServer#" 
-   ScheduleInterval  = "daily">     
+   ScheduleInterval  = "daily">   
       
+<cf_ScheduleRegister
+   SystemModule      = "Warehouse" 
+   ScheduleTemplate  = "warehouse/application/tools/WarehousePrices.cfm"
+   ScheduleName      = "Sales Pricing"
+   ScheduleMemo      = "Prepare WWW pricing lookup table" 
+   ScheduleStartDate = "01/01/21"
+   ScheduleStartTime = "03:00"
+   ApplicationServer = "#Host.ApplicationServer#" 
+   ScheduleInterval  = "daily">     
+                 
 	  
 <cf_ScheduleRegister
    SystemModule      = "Accounting" 

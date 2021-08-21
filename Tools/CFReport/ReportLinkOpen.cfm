@@ -90,11 +90,11 @@
 
 <cfset URL.ReportId = replace("#URL.ReportId#"," ","","ALL")>
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 					 
 	  <tr id="myprogressbox" class="xhide">  <!--- xhide as otherwise progress bar does not show properly --->
 	  
-	      <td height="120" style="padding-top:5px" align="center">
+	      <td height="30" align="center" style="padding-top:20px">
 
 				<cfif isDefined("Session.status")>
 						<cfscript>
@@ -117,7 +117,7 @@
 					<cfif get.PreparationMillisecond gte "500">																								
 					
 						<cfprogressbar name="pBar" 
-								style="bgcolor:fafafa;progresscolor:ffffaf"  
+								style="bgcolor:fafafa;progresscolor:c1c1c1"  
 								duration="#get.PreparationMillisecond#" 
 								height="20" 
 								interval="200" 													
@@ -129,7 +129,7 @@
 				  		<cfif getInit.VirtualDirectory eq "">					
 						
 							 <cfprogressbar name="pBar" 
-							   style="bgcolor:fafafa;progresscolor:ffffaf" 
+							   style="bgcolor:fafafa;progresscolor:c1c1c1" 
 								bind="cfc:component.Authorization.AuthorizationBatch.getstatus()" 
 								height="20" 
 								interval="200" 
@@ -141,7 +141,7 @@
 							 <cfset pre = "#getInit.VirtualDirectory#.component">
 							 				 
 							  <cfprogressbar name="pBar" 
-							    style="bgcolor:fafafa;progresscolor:ffffaf" 
+							    style="bgcolor:fafafa;progresscolor:c1c1c1" 
 								bind="cfc:#pre#.Authorization.AuthorizationBatch.getstatus()" 
 								height="20" 
 								interval="200" 
@@ -202,9 +202,11 @@
 <!--- canvas was made and now we start creating the report --->
 
 <cfoutput>
+
+	<cfparam name="url.mid" default="">
 	 
 	<script>    
-	     ColdFusion.navigate('ReportLinkOpenGo.cfm?reportId=#url.reportid#&Mode=Link&Category=#category#&userid=#userid#','action')		
+	     ColdFusion.navigate('ReportLinkOpenGo.cfm?reportId=#url.reportid#&Mode=Link&Category=#category#&userid=#userid#&mid=#url.mid#','action')		
 	</script>
 
 </cfoutput>

@@ -1,5 +1,4 @@
 
-
 <!--- saves language input --->
 
 	<cfparam name="Attributes.tablecode"                default="Organization">
@@ -45,7 +44,7 @@
 		FROM      System.dbo.LanguageSource
 		WHERE     TableCode = '#Attributes.TableCode#' 
 	</cfquery>
-			
+				
 	<cfif Source.recordcount neq "1">
 			
 		<!--- do nothing, this will throw an error --->
@@ -130,8 +129,8 @@
 					
 					</cftry>
 											
-			<cfelseif Attributes.mode neq "save">			
-						
+			<cfelseif Attributes.mode neq "save">	
+												
 					<cfquery name="TextLanguage" 
 					datasource="#ds#" 
 					username="#SESSION.login#" 
@@ -476,16 +475,12 @@
 									  LanguageCode
 									  <cfif Attributes.ShowLanguageOperational eq 1>,L.Operational</cfif>
 							HAVING    (LanguageCode IS NULL)
-						</cfquery>	
-							
+						</cfquery>								
 					
 					</cfoutput>
 				
-				</cfloop>
-				
+				</cfloop>				
 							
 		   </cfif>	
 		   
-	</cfif>		  
-	
-	 
+	</cfif>		   

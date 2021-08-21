@@ -187,9 +187,9 @@
 			<td colspan="3" style="padding-left:4px">
 			 
 				 <table>
-					 <tr>	
+					 <tr class="labelmedium2">	
 					 
-					 <TD align="left" class="labelmedium"><cf_tl id="Restock through">:</TD>
+					 <TD align="left"><cf_tl id="Restock through">:</TD>
 			         <td colspan="1" align="left" style="padding-left:3px">
 					  
 					    <table cellspacing="0" cellpadding="0">
@@ -213,16 +213,28 @@
 						    <input type="hidden" name="restocking" id="restocking" value="Warehouse">
 						</cfif>	
 						
-				  	</td>		
+				  	</td>	
 					
-					<td style="padding-left:10px">			
+					<TD style="padding-left:9px;padding-top:3px" class="labelmedium">
+					<select name="offer" id="offer">
+						<option value="0">Last price offer to #url.mission#</option>
+						<option value="1">Last price offer to any entity</option>
+					</select>
+					
+					</TD>		
+					
+					<td style="padding-left:10px;padding-top:3px">			
 					<cf_tl id="Apply filter" var="1">
 					<cfoutput>
 						<input type="button" name="apply" style="width:200px;height:25px;font-size:13px" class="button10g" value="#lt_text#" onclick="resupply('s','#url.systemfunctionid#',document.getElementById('restocking').value)">
 					</cfoutput>				
 					</td>		
 					<td align="left" style="padding-left:5px"><input type="checkbox" name="refreshcontent" id="refreshcontent" value="1" class="radiol"></td>	
-					<TD style="padding-left:5px" class="labelmedium"><cf_uitooltip tooltip="Refresh listing with NEW items that were recorded since"><cf_tl id="Refresh content"></cf_uitooltip></TD>			   			
+					<TD style="padding-left:5px;padding-top:3px" class="labelmedium">
+					<cf_uitooltip tooltip="Refresh listing with NEW items that were recorded since"><cf_tl id="Refresh content"></cf_uitooltip>
+					</TD>	
+					<td align="left" style="padding-left:5px"><input type="checkbox" name="offer" id="offer" value="1" class="radiol"></td>	
+					   			
 				
 										 			 
 					</tr>

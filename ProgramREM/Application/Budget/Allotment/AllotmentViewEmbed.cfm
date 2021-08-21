@@ -57,11 +57,12 @@ WHERE ProgramCode = '#URL.Program#'
 										
 		</cf_layoutarea>
 		
+		<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+		<cfset mid = oSecurity.gethash()/>  		
+		
 		<cf_layoutarea size="100%" position="center" name="box" overflow="hidden">
 		
-	
-			
-				<iframe src="AllotmentInquiry.cfm?Mode=embed&Program=#url.program#&EditionId=66&Period=#url.period#"
+				<iframe src="AllotmentInquiry.cfm?Mode=embed&Program=#url.program#&EditionId=66&Period=#url.period#&mid=#mid#"
 				     name="right" id="right" width="100%" height="100%" scrolling="no"
 				     frameborder="0"></iframe>	
 					

@@ -214,8 +214,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 	datasource="AppsSystem" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT * 
-		FROM   UserModule
+		SELECT *  		FROM   UserModule
 		WHERE  Account          = '#SESSION.acc#'
 		AND    SystemFunctionId = '#url.SystemFunctionId#'			
 	</cfquery>
@@ -1110,24 +1109,24 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 		
 		    <!--- interface enforces the refresh --->
 			<cfif form.useCache eq "0">
+			
 				<cfset attributes.refresh = "1">			
+				
 			<cfelse>	
 						
 				<cfif url.systemfunctionid neq "">
 			
-				<cfquery name="getListLog" 
-					datasource="AppsSystem" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						SELECT   TOP 1 *
-						FROM     Ref_ModuleControlDetailLog
-						WHERE    SystemFunctionId = '#url.SystemFunctionId#'
-						AND      FunctionSerialNo = '1'
-						ORDER BY LogSerialNo DESC 
-						
+					<cfquery name="getListLog" 
+						datasource="AppsSystem" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT   TOP 1 *
+							FROM     Ref_ModuleControlDetailLog
+							WHERE    SystemFunctionId = '#url.SystemFunctionId#'
+							AND      FunctionSerialNo = '1'
+							ORDER BY LogSerialNo DESC 						
 					</cfquery>		
-					
-									
+														
 					<cfif getListLog.LogStamp gt session.listingdata[attributes.box]['timestamp']>		
 					   <cfset session.listingdata[box]['recordsinit']   = 0> 		
 					   <cfset attributes.refresh = "1">		
@@ -1139,8 +1138,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 				
 					<cfset attributes.refresh = "0">
 				
-			    </cfif>	
-							
+			    </cfif>							
 							
 			</cfif>
 		</cfif>	

@@ -9,8 +9,8 @@
 			contractid = '';
 		}
 				
-		parent.ProsisUI.createWindow('mydependent', 'Dependent', '',{x:100,y:100,height:parent.document.body.clientHeight-80,width:parent.document.body.clientWidth-80,modal:true,resizable:false,center:true})    					
-		parent.ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Dependents/DependentView.cfm?contractid='+contractid+'&action='+mode+'&ID='+persno,'mydependent') 		
+		ProsisUI.createWindow('mydependent', 'Dependent', '',{x:100,y:100,height:parent.document.body.clientHeight-80,width:parent.document.body.clientWidth-80,modal:true,resizable:true,center:true})    					
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Dependents/DependentView.cfm?contractid='+contractid+'&action='+mode+'&ID='+persno,'mydependent') 		
 	}	
 	
 	function dependentrefresh(personno,contractid,mode) {   	 		
@@ -20,16 +20,12 @@
 	
 	function dependentedit(persno,depid,mode,ctr) {
 	
-		if (mode == "contract") {
-		    
-//			try { parent.ColdFusion.Window.destroy('mydependent',true) } catch(e) {}
+		if (mode == "contract") {	    
 			parent.ProsisUI.createWindow('mydependent', 'Maintain Dependent', '',{x:100,y:100,height:parent.document.body.clientHeight-120,width:parent.document.body.clientWidth-120,modal:true,resizable:false,center:true})    					
 			parent.ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Dependents/DependentView.cfm?contractid='+ctr+'&action='+mode+'&ID='+persno+'&ID1='+depid,'mydependent') 		
 		
-		} else {
-		
-			ptoken.location("#SESSION.root#/Staffing/Application/Employee/Dependents/DependentView.cfm?contractid="+ctr+"&action="+mode+"&ID="+persno+"&ID1="+depid)		
-					
+		} else {		
+			ptoken.location("#SESSION.root#/Staffing/Application/Employee/Dependents/DependentView.cfm?contractid="+ctr+"&action="+mode+"&ID="+persno+"&ID1="+depid)							
 		}
 	}	
 		

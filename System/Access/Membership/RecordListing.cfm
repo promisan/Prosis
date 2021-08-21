@@ -42,8 +42,8 @@
 		 }
 	  }  
 	  
-	  function recordadd(grp) { 
-	    ptoken.open("../user/UserEntry.cfm?mode=&ID=group","user","left=20, top=20, width=770, height=730, status=yes, toolbar=no, scrollbars=no, resizable=no");			
+	function recordadd(grp) { 
+	      ptoken.open("../user/UserEntry.cfm?mode=&ID=group","user","left=20, top=20, width=770, height=730, status=yes, toolbar=no, scrollbars=no, resizable=no");			
 	}	
 	 
 		  
@@ -51,8 +51,9 @@
 		if (confirm("Do you want to remove this group and the inherited access of its members?")) {
 		    search  = document.getElementById("find").value
 			mission = document.getElementById("mission").value
+			app     = document.getElementById('Application').value 
 			Prosis.busy('yes')		
-			ptoken.navigate('GroupPurge.cfm?idmenu=#url.idmenu#&id='+acc+'&search='+search+'&mission='+mission,'result')
+			ptoken.navigate('GroupPurge.cfm?idmenu=#url.idmenu#&id='+acc+'&search='+search+'&mission='+mission + '&application=' + app,'result')
 		}
 	}	
 	
@@ -138,10 +139,8 @@ to this group. If a group is no roles, no membership is allowed --->
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	    SELECT *
-		FROM  Organization.dbo.Ref_Mission
-		WHERE Mission IN (SELECT AccountMission
-						  FROM   UserNames			
-						  WHERE  AccountType = 'Group')
+		FROM   Organization.dbo.Ref_Mission
+		WHERE  Mission IN (SELECT AccountMission FROM UserNames	WHERE  AccountType = 'Group')
 		AND   Operational = 1						  
 </cfquery>
 

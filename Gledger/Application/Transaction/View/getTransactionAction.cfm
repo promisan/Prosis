@@ -103,17 +103,24 @@
 				
 					<cf_img icon="delete"
 				    	tooltip="cancel action" 
-						onclick="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/Gledger/Application/Transaction/View/getTransactionAction.cfm?action=delete&actionid=#actionid#&journal=#journal#&journalserialNo=#journalserialno#','invoiceactionbox')">
+						onclick="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('#session.root#/Gledger/Application/Transaction/View/getTransactionAction.cfm?action=delete&actionid=#actionid#&journal=#journal#&journalserialNo=#journalserialno#','invoiceactionbox')">
+														
 				</cfif>	
 			
-				</td>		
-				
+				</td>	
+							
 			</cfif>
 			
 			<td align="center" width="140" style="padding-left:3px;padding-right:3px">#dateformat(ActionDate,CLIENT.DateFormatShow)# [#timeformat(Created,"HH:MM")#]</td>		
 			<td align="center" style="#st#;<cfif ActionStatus eq '9'>background-color:FF8080</cfif>">#ActionStatus# <cfif ActionStatus eq "1">Success<cfelse>Fail</cfif></td>
 			<td align="center" style="#st#;<cfif ActionMode eq '2'>background-color:yellow</cfif>">#ActionMode# <cfif ActionMode eq "2">Electronic<cfelse>Manual</cfif></td>
-			<td align="center" style="#st#">#ActionReference1#</td>
+			<td align="center" style="#st#">			
+			<cfif currentrow eq "1" and actionMode eq "2">	
+				<a href="javascript:PrintTaxReceivable('')">#ActionReference1#</a>
+			<cfelse>
+				#ActionReference1#
+			</cfif>
+			</td>
 			<td align="center" style="#st#">#ActionReference2#</td>
 			<td align="center" style="#st#">#ActionReference3#</td>
 			<td align="center" style="#st#">#ActionReference4#</td>
@@ -151,3 +158,7 @@
 	 </cfoutput>
 	 
  </table>	 
+ 
+ <script>
+  Prosis.busy('no')
+ </script>

@@ -132,26 +132,24 @@ password="#SESSION.dbpw#">
 	datasource="AppsSelection" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		UPDATE FunctionTitle
-				
-		SET   ParentFunctionNo       = '#Form.functionno#', 
-		      FunctionDescription    = '#Form.FunctionDescription#', 
-			  FunctionPrefix         = '#Form.FunctionPrefix#',
-			  FunctionKeyword        = '#Form.FunctionKeyword#',
-			  FunctionSuffix         = '#Form.FunctionSuffix#',
-			  FunctionOperational    = '#Form.FunctionOperational#',
-			  OccupationalGroup      = '#Form.OccGroup#',
-			
-			  <cfif Form.FunctionClassification neq "">
-			  	FunctionClassification = '#Form.FunctionClassification#',
-			  <cfelse>
-			    FunctionClassification = NULL,
-			  </cfif>
-			
-			  FunctionRoster         = '#Form.FunctionRoster#',
-			  FunctionClass          = '#Form.FunctionClass#'
-			 
-		WHERE FunctionNo           = '#Form.FunctionNoOld#'
+	
+		UPDATE FunctionTitle				
+		SET    ParentFunctionNo       = '#Form.functionno#', 
+		       FunctionDescription    = '#Form.FunctionDescription#', 
+			   FunctionPrefix         = '#Form.FunctionPrefix#',
+			   FunctionKeyword        = '#Form.FunctionKeyword#',
+			   FunctionSuffix         = '#Form.FunctionSuffix#',
+			   FunctionOperational    = '#Form.FunctionOperational#',
+			   OccupationalGroup      = '#Form.OccGroup#',			
+			   <cfif Form.FunctionClassification neq "">
+			  	 FunctionClassification = '#Form.FunctionClassification#',
+			   <cfelse>
+			     FunctionClassification = NULL,
+			   </cfif>			
+			   FunctionRoster         = '#Form.FunctionRoster#',
+			   FunctionClass          = '#Form.FunctionClass#'			 
+		WHERE  FunctionNo             = '#Form.FunctionNoOld#'
+		
 	</cfquery>	
 	
 	  <cf_LanguageInput

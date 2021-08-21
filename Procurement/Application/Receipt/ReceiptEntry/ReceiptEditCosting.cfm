@@ -10,7 +10,6 @@
 	 WHERE  ReceiptNo = '#URL.ID#'
 </cfquery>
 
-
 <table width="100%" align="center" style="padding:2px">
 								 					 
 		 <!--- -------------------------- --->
@@ -54,7 +53,8 @@
 		 <tr class="<cfoutput>#cl#</cfoutput> line">
 		 
 		 	<td colspan="4" style="padding-left:8px" class="labelmedium">			
-			    <table style="width:100%"><tr><td class="labelmedium" bgcolor="white" style="font-size:22px;width:200px;padding:3px;padding-left:7px;"><cf_tl id="Received items and value"></td></tr></table></td>		
+			    <table style="width:100%"><tr><td class="labelmedium" bgcolor="white" style="font-size:22px;width:200px;padding:3px;padding-left:7px;">
+				<cf_tl id="Received items and value"></td></tr></table></td>		
 			</td>
 			
 			<cfquery name="Volume" dbtype="query">
@@ -262,45 +262,8 @@
 		 
 		 </tr>
 		 
-		 </cfif>	
-		 
-		 <!---	this has been moved outside	 		 
-			 	
-	   	 <tr>
-		 <td colspan="7" align="right" style="padding-top:5px;padding-right:18px" class="labelmedium">
-		     <table align="right">
-				 <tr>
-				 <td class="labelmedium" align="right"
-				     bgcolor="white" 
-					 style="color:black;font-size:15px;padding-top:8px;width:200px;padding-right:7px"><cf_tl id="Total in"><cfoutput><font size="+1">#application.basecurrency#</cfoutput>
-				 </td>
-				 
-				 <td align="right" bgcolor="FFFFFF"
-				        style="border:1px solid silver;padding-top: 2px; width:100px; font-size:15px;padding-right:4px">
-					 
-					  <table width="100%">
-							 <tr><td style="padding-left:4px;font-size:10px"><cf_tl id="Tax value"></td></tr>
-							 <tr><td align="right" class="labellarge" id="totaltax"></td></tr>								 	 
-						 </table>		
-					 </td>
-				 					 
-				 <td bgcolor="FFFFFF" 
-			         style="border:1px solid silver;padding-top: 2px; width:120px; font-size:20px;padding-right:4px">
-						 <table width="100%">
-							 <tr><td style="padding-left:4px;font-size:10px"><cf_tl id="Activation value"></td></tr>
-							 <tr><td align="right" class="labellarge" id="totalsum"></td></tr>								 	 
-						 </table>					 
-				</td>	 
-					 	 
-					 
-				 </tr>
-			 </table>
-		 </td>				 
-			
-		 </tr>
-		 
-		 --->
-				
+		 </cfif>		
+						
 </table>
 
 <CFOUTPUT>

@@ -7,7 +7,7 @@
 	
 	<cfoutput>
 	
-	<table style="width:100px" class="formpadding">
+	<table class="formpadding">
 	
 	<tr>
 		<td class="labelmedium2" style="width:10px">
@@ -48,10 +48,10 @@
 <cfelse>	
 
      <cfoutput>
-	 <table cellspacing="0" cellpadding="0" class="formpadding"><tr><td>
+	 <table class="formpadding"><tr><td>
      <!--- <img src="#SESSION.root#/Images/alert_stop.gif" alt="" border="0" align="absmiddle">	--->
 	 </td><td class="labelmedium2">
-	 <font color="FF0000">Invalid Key</font>	
+	 <font color="FF0000">Invalid</font>	
 	 </td></tr>
 	 </table>
 	 </cfoutput>		

@@ -277,7 +277,7 @@ detail --->
 											
 					<cfdiv id="quantity_#currentrow#" 
 				       bindonload="false"
-				       bind="url:RequestQuantityMode1.cfm?mode=sum&line=#currentrow#&resource={resourcequantity_#currentrow#}&day={resourcedays_#currentrow#}">
+				       bind="url:RequestQuantityMode1.cfm?mode=sum&line=#currentrow#&resource={resourcequantity_#currentrow#}&day={resourcedays_#currentrow#}&mid=#url.mid#">
 					   						 				  															  							   
 					   <input type = "text" 
 					    class      = "regularh enterastab" 

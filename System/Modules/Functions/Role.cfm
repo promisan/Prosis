@@ -56,11 +56,11 @@ password="#SESSION.dbpw#">
 
 <cfform action="#SESSION.root#/System/Modules/Functions/RoleSubmit.cfm?ID=#URL.ID#&ID1=#URL.ID1#" method="POST" name="role">
 	
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="100%" height="100%" align="center" class="navigation_table">
 		    
 	  <tr>
 	    <td valign="center" width="100%" class="regular" style="padding-top:4px">
-	    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+	    <table width="100%">
 			
 		<cfoutput>
 		<cfloop query="Detail">
@@ -158,7 +158,8 @@ password="#SESSION.dbpw#">
 					  </table>	 				   
 				  		  				   
 				   </td>					   				   
-				   <td align="center" width="5%"><cfdiv id="divRoleMission_#URL.ID#_#Role#" bind="url:#SESSION.root#/System/Modules/Functions/Role_Mission.cfm?ID=#URL.ID#&role=#role#"></td>
+				   <td align="center" width="5%">
+				   <cf_securediv id="divRoleMission_#URL.ID#_#Role#" bind="url:#SESSION.root#/System/Modules/Functions/Role_Mission.cfm?ID=#URL.ID#&role=#role#"></td>
 				   <td align="left" width="50" style="padding-right:4px">
 				   <cf_UIToolTip tooltip="Enabled or disabled">
 				   	   <input class="radiol" type="checkbox" name="Operational" id="Operational" value="1" <cfif "1" eq Detail.Operational>checked</cfif>>					   
@@ -169,9 +170,9 @@ password="#SESSION.dbpw#">
 						
 			<cfelse>
 						
-				<TR class="labelmedium line navigation_row">
+				<TR class="labelmedium2 line navigation_row">
 								
-				   <td width="40%" height="20" style="padding-left:4px;<cfif op eq '0'>background-color:ff8080<cfelse>background-color:80ff80</cfif>;padding-left: 4px">#rl#</td>
+				   <td width="40%" height="20" style="padding-left:4px;<cfif op eq '0'>background-color:##ff808080<cfelse>background-color:##80ff8050</cfif>;padding-left: 4px">#rl#</td>
 				   <td width="20%" style="padding-left:4px">				   
 				   
 					  <table cellspacing="0" cellpadding="0">
@@ -205,17 +206,17 @@ password="#SESSION.dbpw#">
 				    				   
 				   <td  colspan="3" align="right">		
 					   <table cellspacing="0" cellpadding="0">
-					    <tr class="labelmedium">
+					    <tr class="labelmedium2">
 						   	<td style="padding-left:3px;padding-right:8px"><cfdiv id="divRoleMission_#URL.ID#_#Role#" bind="url:#SESSION.root#/System/Modules/Functions/Role_Mission.cfm?ID=#URL.ID#&role=#role#"></td>
 							<td align="right">#OfficerUserId#&nbsp;(#dateformat(created,CLIENT.DateFormatShow)#)<cf_space spaces="40"></td>				 
 						   	<td style="padding-left:7px;padding-right:3px">
 								<table cellspacing="0" cellpadding="0">
 									<tr>
 										<td>
-										<cf_img icon="edit" onclick="ColdFusion.navigate('#SESSION.root#/System/Modules/Functions/Role.cfm?ID=#URL.ID#&ID1=#role#','irole')">
+										<cf_img icon="open" onclick="ptoken.navigate('#SESSION.root#/System/Modules/Functions/Role.cfm?ID=#URL.ID#&ID1=#role#','irole')">
 										</td>
 										<td style="padding-left:5px;">
-										<cf_img icon="delete" onclick="ColdFusion.navigate('#SESSION.root#/System/Modules/Functions/RolePurge.cfm?ID=#URL.ID#&ID1=#role#','irole')">
+										<cf_img icon="delete" onclick="ptoken.navigate('#SESSION.root#/System/Modules/Functions/RolePurge.cfm?ID=#URL.ID#&ID1=#role#','irole')">
 										</td>
 									</tr>
 								</table>
@@ -260,7 +261,7 @@ password="#SESSION.dbpw#">
 	          visible="Yes"
 			  class="regularxl"
 	          enabled="Yes"
-	          onchange="ColdFusion.navigate('#SESSION.root#/System/Modules/Functions/RoleAdd.cfm?role='+this.value,'roleadd')"
+	          onchange="ptoken.navigate('#SESSION.root#/System/Modules/Functions/RoleAdd.cfm?role='+this.value,'roleadd')"
 	          style="width:320px">
 		  
 		      <option  value="">--- select ---</option>

@@ -99,7 +99,7 @@ ORDER BY Mission
 
 <tr><td style="padding-left:60px">
 
-<table width="750" border="0" cellspacing="0" cellpadding="0" valign="center"  class="formpadding">
+<table width="750" valign="center"  class="formpadding">
 
  <tr>
     <td height="26" class="labelmedium" style="padding-left:10px">
@@ -114,13 +114,13 @@ ORDER BY Mission
   
 <tr><td colspan="2">
   
-<table width="95%" border="0" cellspacing="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
 	<tr><td height="5" colspan="1" width="30%"></td></tr>
 
-	<TR>
+	<TR class="labelmedium2">
 	
-	<td colspan="1" class="labelmedium"><cf_tl id="Track No">:</td>
+	<td><cf_tl id="Track No">:</td>
 	
 	<INPUT type="hidden" name="Crit3_FieldName" value="V.DocumentNo">
 	<INPUT type="hidden" name="Crit3_FieldType" value="CHAR">
@@ -138,78 +138,73 @@ ORDER BY Mission
 		</SELECT>
 		--->
 		
-	<INPUT class="regularxxl" type="text" name="Crit3_Value" size="10">
+		<INPUT class="regularxxl" type="text" name="Crit3_Value" size="10">
    	
 	</TD>
 	</tr>
 		
-	<tr>	
-	<td colspan="1" class="labelmedium"><cf_tl id="Track Reference No">:</td>	    
+	<tr class="labelmedium2">	
+	<td colspan="1"><cf_tl id="Track Reference No">:</td>	    
 	<td colspan="3">		
-	<INPUT class="regularxxl" type="text" name="ReferenceNo" size="28">   	
-	</TD>
+		<INPUT class="regularxxl" type="text" name="ReferenceNo" size="28">   	
+	</td>
 	</tr>
 			
-	<tr>	
-	<td style="min-width:180px" colspan="1" class="labelmedium"><cf_tl id="Entity">:</td>	
+	<tr class="labelmedium2">	
+	<td style="min-width:180px" colspan="1"><cf_tl id="Entity">:</td>	
 	<td colspan="3">
 	
-	    <select value="All" name="mission" size="1" class="regularxxl">
+	    <select value="All" name="mission" size="1" class="regularxxl">		
 		
-		<option value="All" selected><cf_tl id="Any"></option>
-		
-		
-	    <cfoutput query="Mission">
-		
-		 <cfinvoke component="Service.Access"  
-		          method="vacancytree" 
-		    	  mission="#Mission#"
-			      returnvariable="accessTree">
-	   			
-	 			 <cfif AccessTree neq "NONE">
-				    <option value="'#Mission#'">#Mission# (#total#)</option>	
-				 </cfif>	
-				 
-		</cfoutput>
+			<option value="All" selected><cf_tl id="Any"></option>				
+		    <cfoutput query="Mission">
+			
+			 <cfinvoke component="Service.Access"  
+			          method="vacancytree" 
+			    	  mission="#Mission#"
+				      returnvariable="accessTree">
+		   			
+		 			 <cfif AccessTree neq "NONE">
+					    <option value="'#Mission#'">#Mission# (#total#)</option>	
+					 </cfif>	
+					 
+			</cfoutput>
 				
 	    </select>
 				
 	</td>	
 	</tr>
 		
-	<tr>	
-	<td colspan="1" class="labelmedium"><cf_tl id="Roster Edition">:</td>	
+	<tr class="labelmedium2">	
+	<td colspan="1"><cf_tl id="Roster Edition">:</td>	
 	<td colspan="3">
 	
-	    <select name="submissionedition" class="regularxxl">
-		
-		<option value="" selected>Any</option>
-		
+	    <select name="submissionedition" class="regularxxl">		
+		<option value="" selected>Any</option>		
 	    <cfoutput query="Edition">	 			
 			    <option value="#SubmissionEdition#">#EditionDescription#</option>	
-		</cfoutput>
-		
+		</cfoutput>		
 	    </select>
 				
 	</td>	
 	</tr>
 		
-	<tr>	
-	<td colspan="1" class="labelmedium"><cf_tl id="Grade">:</td>	
-	<td colspan="3"><cfdiv bind="url:InquiryFormGrade.cfm?mission={mission}" id="grade"></td>	
+	<tr class="labelmedium2">	
+	<td colspan="1"><cf_tl id="Grade">:</td>	
+	<td colspan="3"><cf_securediv bind="url:InquiryFormGrade.cfm?officeruserid=#session.acc#&mission={mission}" id="grade"></td>	
 	</tr>
 		
-	<tr>	
-	<td colspan="1" class="labelmedium"><cf_tl id="Hide Cancelled Tracks">:</td>	
+	<tr class="labelmedium2">	
+	<td colspan="1"><cf_tl id="Hide Cancelled Tracks">:</td>	
 	<td colspan="3">
 	  <input type="checkbox" name="Operational" class="radiol" checked value="1" name="Operational">
 	</td>
 	
 	</tr>
 		
-	<tr>
+	<tr class="labelmedium2">
 		
-	<td colspan="1" class="labelmedium"><cf_tl id="Functional title">:</td>
+	<td colspan="1"><cf_tl id="Functional title">:</td>
 	
     <TD>
 	<cfoutput>
@@ -221,8 +216,8 @@ ORDER BY Mission
 	   <input type="hidden" id="documentnotrigger" name="documentnotrigger" class="disabled" size="6" maxlength="6" readonly>	
 	   
 	   </td>
-	   <td>
-	   
+	   <td>	   
+			
 			  <img src="<cfoutput>#SESSION.root#/Images/search.png</cfoutput>" onClick="selectfunction('webdialog','functionno','functionaltitle','','','')" alt="" name="img1" height="12" width="12" 
 				  style="cursor: pointer;height:25;width:25" alt="" border="0" align="top">
 	  
@@ -233,9 +228,9 @@ ORDER BY Mission
 	</TD>
 	</TR>	
 			
-	<TR>
+	<TR class="labelmedium2">
 	
-	<td colspan="1" class="labelmedium"><cf_tl id="Postnumber">:</td>
+	<td colspan="1"><cf_tl id="Postnumber">:</td>
 			    
 	<td colspan="3">
 	 
@@ -244,9 +239,9 @@ ORDER BY Mission
 	</TD>
 	</tr>
 		
-	<tr>
+	<tr class="labelmedium2">
 	
-	<td colspan="1" class="labelmedium"><cf_tl id="Due date">:</td>
+	<td colspan="1"><cf_tl id="Due date">:</td>
 	
 	<td colspan="3">
 	
@@ -274,9 +269,8 @@ ORDER BY Mission
 	
 	</tr>
 		
-    <TR>
-	
-	<td colspan="1" class="labelmedium"><cf_tl id="Candidate name">:</td>	    
+    <TR class="labelmedium2">	
+	<td colspan="1"><cf_tl id="Candidate name">:</td>	    
 	<td colspan="3">    			
 	<INPUT class="regularxxl" type="text" name="Name" size="30">	
 	</TD>
@@ -284,7 +278,7 @@ ORDER BY Mission
 		
 	<tr>
 	
-	<td valign="top" style="padding-top:5px" colspan="1" class="labelmedium"><cf_tl id="Candidate status">:</td>
+	<td valign="top" colspan="1" class="labelmedium"><cf_tl id="Candidate status">:</td>
 	
 	<td colspan="3">
 	   <cf_uiselect name="CandidateStatus" class="regularxxl"
@@ -294,11 +288,10 @@ ORDER BY Mission
 	
 	</tr>
 			
-	<tr>
-	
-	<td colspan="1" class="labelmedium"><cf_tl id="Candidate Track">:</td>	
+	<tr class="labelmedium2">	
+	<td colspan="1" style="padding-top:6px"><cf_tl id="Candidate Track">:</td>	
 	<td colspan="3">	
-	    <cfdiv bind="url:InquiryFormTrack.cfm?mission={mission}" id="flow">	
+	    <cf_securediv bind="url:InquiryFormTrack.cfm?officeruserid=#session.acc#&mission={mission}" id="flow">	
 	</td>	
 	</tr>
 			
@@ -319,7 +312,6 @@ ORDER BY Mission
 
 </table>
 	
-
 </CFFORM>
 
 <cf_screenbottom layout="webapp">

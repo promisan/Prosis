@@ -234,7 +234,7 @@ password="#SESSION.dbpw#">
 	
 	<cfset g = "0">
 	
-	<tr class="labelmedium2"><td height="40" style="padding-top:5px;font-size:23px" colspan="#col#">#GradeDescription# [#GradeDeployment#]</td></tr>
+	<tr class="labelmedium2 line"><td height="30" style="padding-top:5px;font-size:19px" colspan="#col#">#GradeDescription# <cfif gradedescription neq gradedeployment>[#GradeDeployment#]</cfif></td></tr>
 		
 	<cfoutput>
 		

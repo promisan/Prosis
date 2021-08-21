@@ -33,13 +33,13 @@ password="#SESSION.dbpw#">
 <script>
 
 function reloadForm(page,sort,layout,mandate,mission) {
-        window.location="ResultListing.cfm?ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#&Page=" + page + "&Sort=" + sort + "&Lay=" + layout + "&SearchId=" + mandate;
+        ptoken.location('ResultListing.cfm?ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#&Page=' + page + '&Sort=' + sort + '&Lay=' + layout + '&SearchId=' + mandate);
 }
 
 function archive() {
 
 	if (confirm("Do you want to archive this result ?")) {
-	window.location = "ResultArchive.cfm?ID=<cfoutput>#URL.ID1#</cfoutput>"
+	ptoken.location('ResultArchive.cfm?ID=<cfoutput>#URL.ID1#</cfoutput>')
    	}
 	{return false}
 }
@@ -48,7 +48,7 @@ function archive() {
 function process() {
 
 	if (confirm("Do you want to delete this result ?")) {
-	window.location = "ResultProcess.cfm?ID1=#URL.ID1#"
+	ptoken.location('ResultProcess.cfm?ID1=#URL.ID1#')
    	}
 	{return false}
 }
@@ -232,7 +232,7 @@ function hl(itm,fld){
   
 <cf_divscroll>
 
-<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="99%" align="center" class="navigation_table">
 	
 	<tr><td colspan="10">
 	<cfif URL.Page eq "1">
@@ -389,7 +389,7 @@ function hl(itm,fld){
 		<cfoutput>	
 		<cf_tl id="Refresh" var="1"> 
 		<input type="button" name="Refresh" value="#lt_text#" class="button10g" onClick="javascript:location.reload()">
-		<cfif #SearchAction.Status# neq "0">
+		<cfif SearchAction.Status neq "0">
 		<cf_tl id="Remove" var="1">
 		<input type="button" name="Remove" value="#lt_text#" class="button10g" onClick="javascript:process()">
 		<cfelse>

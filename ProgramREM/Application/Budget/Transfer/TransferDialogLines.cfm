@@ -247,12 +247,12 @@
 				
 				</td>	
 				<td style="border:1px solid silver;padding-right:3px;min-width:110px" align="right" class="input">
-				<cfdiv bind="url:AmountSelect.cfm?status=pending&direction=#url.direction#&mode=edit&period=#url.period#&editionid=#url.editionid#&programcode=#programcode#&fund=#fund#&objectcode=#objectcode#&resource=#url.resource#" 
+				<cf_securediv bind="url:AmountSelect.cfm?status=pending&direction=#url.direction#&mode=edit&period=#url.period#&editionid=#url.editionid#&programcode=#programcode#&fund=#fund#&objectcode=#objectcode#&resource=#url.resource#" 
 				       id="pending#url.direction#">	
 				</td>
 				
 				<td style="border:1px solid silver;padding-right:3px;min-width:110px" align="right" class="input">
-				<cfdiv bind="url:AmountSelect.cfm?status=cleared&direction=#url.direction#&mode=edit&period=#url.period#&editionid=#url.editionid#&programcode=#programcode#&fund=#fund#&objectcode=#objectcode#&resource=#url.resource#" 
+				<cf_securediv bind="url:AmountSelect.cfm?status=cleared&direction=#url.direction#&mode=edit&period=#url.period#&editionid=#url.editionid#&programcode=#programcode#&fund=#fund#&objectcode=#objectcode#&resource=#url.resource#" 
 				       id="cleared#url.direction#">
 				</td>
 								
@@ -378,7 +378,7 @@
 				<td colspan="3"></td>				
 				<td style="padding:2px;border:1px solid silver">	
 				
-					<cfdiv bind="url:FieldSelect.cfm?actionclass=#url.actionclass#&direction=#url.direction#&field=program&period=#url.period#&editionid=#url.editionid#&resource=#url.resource#&program=#url.program#" 
+					<cf_securediv bind="url:FieldSelect.cfm?actionclass=#url.actionclass#&direction=#url.direction#&field=program&period=#url.period#&editionid=#url.editionid#&resource=#url.resource#&program=#url.program#" 
 					       id="Program#url.direction#">			
 						   
 				</td>	

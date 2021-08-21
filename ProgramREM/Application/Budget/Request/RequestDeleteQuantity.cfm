@@ -190,7 +190,7 @@
 <cfoutput>
 	
 	<script>	
-		ColdFusion.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestResourceDetail.cfm?mission=#program.mission#&programcode=#selected.programCode#&period=#selected.period#&editionid=#selected.EditionId#&objectcode=#selObjectCode#&cell=#url.cell#','box#url.cell#')			
+		ptoken.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestResourceDetail.cfm?mission=#program.mission#&programcode=#selected.programCode#&period=#selected.period#&editionid=#selected.EditionId#&objectcode=#selObjectCode#&cell=#url.cell#','box#url.cell#')			
 	</script>
 	
 </cfoutput>			   		

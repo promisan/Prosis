@@ -48,12 +48,11 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfset counted = SearchResult.recordcount>
-	
-	
+		
 <script>
 
 	function reloadForm(group,page) {
-    	 ptoken.location('InquiryResult.cfm?fileNo=<cfoutput>#URL.FileNo#</cfoutput>&IDSorting=' + group + '&Page=' + page)
+    	ptoken.location('InquiryResult.cfm?fileNo=<cfoutput>#URL.FileNo#</cfoutput>&IDSorting=' + group + '&Page=' + page)
 	}
 
 	function search() {
@@ -61,15 +60,15 @@ password="#SESSION.dbpw#">
 	}
 	
 </script>	
-	
+
 <table style="width:97%" align="center" height="100%">
   <tr class="line">
    <td height="25" style="padding-top:40px;">
     
 	   	<table>		
-		<tr class="labellmedium">
+		<tr class="labellmedium2">
 			<td style="font-size:30px;padding-left:4px;font-weight:200"><cf_tl id="Recruitment Track"></td>
-			<td style="padding-left:14px;padding-top:5px;" class="labelmedium">
+			<td style="padding-left:14px;padding-top:5px;">
 			   <a href="javascript:search()"><cf_tl id="New search"></a>
 			</td>
 			<td style="padding-left:4px">
@@ -81,7 +80,7 @@ password="#SESSION.dbpw#">
    </td>
    <td align="right" style="padding-top:40px;;padding-right:5px">
       
-	   <select name="group" size="1" class="regularxxl" onChange="javascript:reloadForm(this.value,page.value)">
+	   <select name="group" id="group" size="1" class="regularxxl" onChange="javascript:reloadForm(this.value,page.value)">
 	    	 <option value="DueDate"    <cfif URL.IDSorting eq "Duedate">selected</cfif>>Group by Due date
 		     <OPTION value="Mission"    <cfif URL.IDSorting eq "Mission">selected</cfif>>Group by Mission
 		     <OPTION value="PostGrade"  <cfif URL.IDSorting eq "PostGrade">selected</cfif>>Group by Post grade
@@ -96,7 +95,7 @@ password="#SESSION.dbpw#">
 		
 		<cfelse>
 		   
-			<select name="page" size="1" class="regularxxl" onChange="reloadForm(group.value,this.value)">
+			<select name="page" id="page" size="1" class="regularxxl" onChange="reloadForm(group.value,this.value)">
 			    <cfloop index="Item" from="1" to="#pages#" step="1">
 		    	    <cfoutput><option value="#Item#"<cfif URL.page eq Item>selected</cfif>>Page #Item# of #pages#</option></cfoutput>
 			    </cfloop>	 

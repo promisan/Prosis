@@ -10,6 +10,15 @@
 				FROM   Ref_Contact
 				ORDER  BY ListingOrder
 	</cfquery>
+	
+	<cfquery name="Default" 
+			 datasource="AppsMaterials" 
+			 username="#Session.login#" 
+			 password="#Session.dbpw#">
+			 	SELECT *
+				FROM   Ref_PriceSchedule
+				WHERE FieldDefault = 1
+	</cfquery>
 					
 	<cfsavecontent variable="myquery">		
 	
@@ -21,6 +30,20 @@
 			   LastName, 
 			   FirstName, 
 			   Reference, 
+			   
+			   CASE WHEN
+                    (SELECT   TOP (1) R.Description
+                     FROM     CustomerSchedule AS CS INNER JOIN Ref_PriceSchedule AS R ON CS.PriceSchedule = R.Code
+                     WHERE    CS.CustomerId = C.CustomerId
+                     ORDER BY CS.Created DESC) IS NULL THEN '#Default.Description#' 
+					 
+			   ELSE
+                    (SELECT   TOP (1) R.Description
+                     FROM     CustomerSchedule AS CS INNER JOIN Ref_PriceSchedule AS R ON CS.PriceSchedule = R.Code
+                     WHERE    CS.CustomerId = C.CustomerId
+                     ORDER BY CS.Created DESC) END AS PriceSchedule,			   
+						 
+			   			 
 			   CustomerSerialNo,
 			   PhoneNumber, 
 			   MobileNumber, 
@@ -81,7 +104,14 @@
 					  filtermode    = "4",
 					  displayfilter = "Yes",
 					  search        = "text"}>		
-		  					
+					  
+<cfset itm = itm+1>						
+<cf_tl id="Schedule" var="vSchedule">
+<cfset fields[itm] = {label     = "#vSchedule#",                  
+					  field       = "PriceSchedule",
+					  filtermode    = "3",		
+  					  alias			= "C",			
+					  search      = "text"}>						  		  					
 				
 <cfset itm = itm+1>						
 <cf_tl id="Reference" var="vReference">
@@ -96,7 +126,7 @@
 <cfset fields[itm] = {label       = "#vTax#",	
                       field       = "TaxExemption",
 					  alias		  = "C",                      
-					  filtermode  = "2",
+					  filtermode  = "3",
 					  search      = "text"}>						  
 					  
 <cfset itm = itm+1>		
@@ -108,7 +138,8 @@
 					  searchfield = "MobileNumber",
 					  filtermode  = "0",
 					  search      = "text"}>						  					
-					
+
+<!---					
 <cfset itm = itm+1>		
 <cf_tl id="Phone" var="vPhone">
 <cfset fields[itm] = {label     = "#vPhone#",                  
@@ -117,7 +148,8 @@
 					  filtermode    = "4",
 					  searchfield = "PhoneNumber",
 					  filtermode  = "0",
-					  search      = "text"}>								
+					  search      = "text"}>	
+--->					  							
 						
 <cfset itm = itm+1>		
 <cf_tl id="eMail" var="vEmail">

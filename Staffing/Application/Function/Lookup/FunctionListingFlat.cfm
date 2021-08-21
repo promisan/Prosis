@@ -1,9 +1,9 @@
 
-<cfparam name="URL.ID2" default="Template">
-<cfparam name="URL.ID3" default="0000">
-<cfparam name="URL.Mission" default="#URL.ID2#">
-<cfparam name="URL.Mandate" default="#URL.ID3#">
-<cfparam name="URL.FormName" default="">
+<cfparam name="URL.ID2"                    default="Template">
+<cfparam name="URL.ID3"                    default="0000">
+<cfparam name="URL.Mission"                default="#URL.ID2#">
+<cfparam name="URL.Mandate"                default="#URL.ID3#">
+<cfparam name="URL.FormName"               default="">
 <cfparam name="URL.fldfunctionno"          default="functionno">
 <cfparam name="URL.fldfunctiondescription" default="functiondescription">
 

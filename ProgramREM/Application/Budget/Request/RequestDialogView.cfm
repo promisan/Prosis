@@ -22,8 +22,10 @@
 	<cf_dialogPosition>
 	
 	<cfoutput>
+	
+	<cf_divscroll>
 		
-	<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="100%" class="formpadding">
 	
 	<tr><td valign="top" style="padding-left:15px;padding-right:15px">
 	
@@ -49,21 +51,20 @@
 				datasource="AppsProgram" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">							  
-				  SELECT OrgUnit
-				  FROM   Program.dbo.ProgramPeriod
-				  WHERE  ProgramCode = '#url.ProgramCode#'		
-				  AND    Period      = '#url.period#'										
+					  SELECT OrgUnit
+					  FROM   Program.dbo.ProgramPeriod
+					  WHERE  ProgramCode = '#url.ProgramCode#'		
+					  AND    Period      = '#url.period#'										
 				</cfquery>
 							
 				<cfquery name="GetRoot" 
 				datasource="AppsOrganization" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">				
-					SELECT  Par.OrgUnit, Par.OrgUnitName, Par.OrgUnitNameShort, Par.HierarchyCode
-					FROM    Organization AS O INNER JOIN
-	                		Organization AS Par ON O.HierarchyRootUnit = Par.OrgUnitCode AND O.Mission = Par.Mission AND O.MandateNo = Par.MandateNo
-					WHERE   O.OrgUnit = '#period.orgunit#'
-					
+						SELECT  Par.OrgUnit, Par.OrgUnitName, Par.OrgUnitNameShort, Par.HierarchyCode
+						FROM    Organization AS O INNER JOIN
+		                		Organization AS Par ON O.HierarchyRootUnit = Par.OrgUnitCode AND O.Mission = Par.Mission AND O.MandateNo = Par.MandateNo
+						WHERE   O.OrgUnit = '#period.orgunit#'					
 				</cfquery> 
 												
 				<table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -76,24 +77,24 @@
 						  <cfif url.activityid neq "">
 						      <td>						  
 						      <input type="radio" name="summarymode" class="radiol"
-						      onclick="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/programrem/application/budget/request/RequestSummary.cfm?summarymode=activity&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&activityid=#url.activityid#','summary')"			
+						      onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/programrem/application/budget/request/RequestSummary.cfm?summarymode=activity&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&activityid=#url.activityid#','summary')"			
 						      value="activity"></td>
 						      <td class="labelit" style="padding-left:4px"><cf_tl id="Activity"></td>						  
 						  </cfif>
 						  
 						  	<td style="padding-left:7px">						  
 						      <input type="radio" name="summarymode" class="radiol"
-						      onclick="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/programrem/application/budget/request/RequestSummary.cfm?summarymode=program&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&activityid=#url.activityid#','summary')"			
+						      onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/programrem/application/budget/request/RequestSummary.cfm?summarymode=program&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&activityid=#url.activityid#','summary')"			
 						      value="program"></td>
 						      <td class="labelit" style="padding-left:4px">#get.ProgramClass#</td>
 							 							  
 							  <td style="padding-left:7px"><input type="radio" name="summarymode" class="radiol" 
-							  onclick="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/programrem/application/budget/request/RequestSummary.cfm?summarymode=unit&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&activityid=#url.activityid#','summary')"					    
+							  onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/programrem/application/budget/request/RequestSummary.cfm?summarymode=unit&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&activityid=#url.activityid#','summary')"					    
 							  value="unit"></td>
 							  <td style="padding-left:4px" class="labelit"><cf_tl id="Unit"></td>
 							 							  
 							   <td style="padding-left:7px"><input type="radio" name="summarymode" class="radiol" checked
-							  onclick="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/programrem/application/budget/request/RequestSummary.cfm?summarymode=parent&orgunit=#getroot.orgunit#&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&activityid=#url.activityid#','summary')"					    
+							  onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/programrem/application/budget/request/RequestSummary.cfm?summarymode=parent&orgunit=#getroot.orgunit#&programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&activityid=#url.activityid#','summary')"					    
 							  value="unit"></td>
 							  <td style="padding-left:4px" class="labelit"><cfif getRoot.OrgUnitNameShort neq "">#getRoot.OrgUnitNameShort#<cfelse><cf_tl id="Parent"></cfif></td>
 							 
@@ -131,14 +132,14 @@
 					AND       Pe.Period      = '#url.period#' 	
 				</cfquery>
 				
-				<table width="100%" cellspacing="0" cellpadding="0" border="0">
+				<table width="100%">
 								
 				   <!--- ----------------------------- --->				
 				   <!--- ----------------------------- --->
 				   <!--- ajax container for processing --->
 				   <!--- ----------------------------- --->
 				   
-					<tr class="xxhide">
+					<tr class="hide">
 					   <td colspan="4" id="entrydialogsave"></td>
 					</tr>
 				   <!--- ----------------------------- --->
@@ -181,10 +182,7 @@
 				   <cfif Program.ReferenceBudget1 neq "">
 					- #Program.ReferenceBudget1#-#Program.ReferenceBudget2#-#Program.ReferenceBudget3#-#Program.ReferenceBudget4#-#Program.ReferenceBudget5#-#Program.ReferenceBudget6#
 				   </cfif>		
-				   </b>	
-				   
-				 
-				   	   
+				   </b>					   
 				   
 				   </td>
 				   <td align="right" style="padding-right:3px" width="23">
@@ -331,6 +329,8 @@
 	</tr>
 	
 	</table>
+	
+	</cf_divscroll>
 	
 	</cfoutput>
 	

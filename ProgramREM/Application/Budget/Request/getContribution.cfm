@@ -236,7 +236,7 @@
 					type="button" 
 					name="Select" 
 					value="Select"
-					onclick="ColdFusion.navigate('#session.root#/ProgramREM/Application/Budget/Request/getContributionSelect.cfm?requirementid=#url.requirementid#&programcode=#url.programcode#&fund=#url.fund#&period=#url.period#','contributionresult','','','POST','contributionform')">
+					onclick="ptoken.navigate('#session.root#/ProgramREM/Application/Budget/Request/getContributionSelect.cfm?requirementid=#url.requirementid#&programcode=#url.programcode#&fund=#url.fund#&period=#url.period#','contributionresult','','','POST','contributionform')">
 					
 				</cfoutput>
 			

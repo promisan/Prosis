@@ -25,6 +25,15 @@
 		ORDER BY   Usr.LastName, Usr.FirstName
 </cfquery>
 
+<cfquery name="ProfileAssigned"
+	datasource="AppsOrganization"
+	username="#SESSION.login#"
+	password="#SESSION.dbpw#">
+		SELECT     *
+		FROM       MissionProfile B INNER JOIN MissionProfileGroup A ON B.ProfileId = A.ProfileId
+		WHERE      A.AccountGroup  = '#URL.Mod#'		
+</cfquery>
+
 <cfquery name="RoleAssigned"
 	datasource="AppsOrganization"
 	username="#SESSION.login#"
@@ -112,18 +121,51 @@
 			</tr>
 	
 		</cfif>
-
+		
+		<cfif profileassigned.recordcount gte "1">
+		
+			<tr>
+			<td id="#URL.Mod#Profile" class="regular" style="border-top:1px solid silver">
+	
+				<table width="100%" class="navigation_table" align="center">
+										
+						<tr class="labelmedium2 line" style="height:29px">		
+	   	    				<td width="17">&nbsp;</td>				
+							<TD><cf_tl id="Entity"></TD>
+							<TD width="80%"><cf_tl id="Profile name"></TD>
+							<TD width="10%"><cf_tl id="Created"></TD>						
+						</TR>
+					
+					<cfloop query="profileassigned">
+			
+						<tr bgcolor="white" class="navigation_row line labelmedium2" style="height:20px">
+						<TD style="min-width:30px;padding-left:3px">#currentRow#.</TD>								
+						<td>#Mission#</td>
+						<td>#FunctionName#</td>
+						<td>#dateformat(created,client.dateformatshow)#</td>
+						</TR>
+					
+					</cfloop>
+			
+				</table>
+	
+			</td></tr>		
+			
+			<tr><td></td></tr>		
+				
+		</cfif>
+		
 		<tr>
-		<td id="#URL.Mod#Member" class="regular" style="border-top:1px solid silver">
+		<td id="#URL.Mod#Member" class="regular">
 
 			<table width="100%" class="navigation_table" align="center">
-		
+			
 				<cfif searchresult.recordcount eq "0">
 						<tr class="labelmedium"><td align="center" height="40"><font color="FF0000">Attention:</font> There are no members defined for this group.</font></td></tr>
 				<cfelse>
 		
-					<tr class="labelmedium line" style="height:29px">
-						<td align="center" width="17">&nbsp;</td>
+					<tr class="labelmedium2 line" style="height:29px">
+						<td width="17">&nbsp;</td>
 						<TD width="30%"><cf_tl id="Member"></TD>
 						<TD width="10%"><cf_tl id="UserId"></TD>
 						<TD width="10%"><cf_tl id="AccountNo"></TD>
@@ -140,11 +182,11 @@
 				<cfloop query="SearchResult">
 		
 					<cfif Disabled eq "1">
-						<tr bgcolor="FBE0D9" class="navigation_row line labelmedium" style="height:20px">
+						<tr bgcolor="FBE0D9" class="navigation_row line labelmedium2" style="height:20px">
 					<cfelse>
-						<tr bgcolor="white" class="navigation_row line labelmedium" style="height:20px">
+						<tr bgcolor="white" class="navigation_row line labelmedium2" style="height:20px">
 					</cfif>
-					<TD align="center" width="4%">#currentRow#.</TD>
+					<TD style="min-width:30px;padding-left:3px">#currentRow#.</TD>
 			
 					<TD><a href="javascript:ShowUser('#URLEncodedFormat(Account)#')"><cfset vJoined = Dateformat(Joined, "#CLIENT.DateFormatShow#")>
 						<cf_UItooltip tooltip="Created: #vJoined#">#LastName#, #FirstName#</cf_UItooltip></a></TD>
@@ -161,7 +203,7 @@
 					<TD align="center" style="padding-left:4px;padding-right:4px">
 					<cfif Disabled eq "1"><font color="FF0000">No</font><cfelse></cfif>
 					</TD>
-					<TD align="center">
+					<TD align="center" style="padding-top:2px;padding-right:30px">
 					<cfif URL.Mode eq "Full">
 						 <cf_img icon="delete" onclick="purgemember('#URL.Mod#','#account#','#url.row#')">
 					</cfif>
@@ -213,7 +255,7 @@
 				<cf_assignid>
 	
 				<tr class="line labelmedium2">
-					<td width="3%" align="center">#CurrentRow#.</td>
+					<td width="3%" style="padding-left:3px">#CurrentRow#.</td>
 					<td align="center" style="padding-top:2px" onClick="<cfif #OrgUnitLevel# eq 'Global'>showroleG('#Role#')<cfelse>showrole('#Role#','#Mission#')</cfif>">
 						<cf_img icon="open">
 					</td>

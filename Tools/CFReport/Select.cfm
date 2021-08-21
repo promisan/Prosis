@@ -3,7 +3,7 @@
     <title>Open report selection screen</title>
     <!--- correction on the selection for CF ajax --->
     <script src="HTML/fixColdfusionAjax.js"></script>
-	<cfajaximport tags="cfform,cfwindow,cfdiv,CFINPUT-AUTOSUGGEST">
+	<cfajaximport tags="cfform,cfdiv">
 	<cfoutput>
 	<link rel="stylesheet" type="text/css" src="#SESSION.root#/#client.style#">
 	</cfoutput>	

@@ -103,19 +103,35 @@ password="#SESSION.dbpw#">
 			
 	<cfif get.TransactionId neq "">	
 	
-		<!--- reset payables --->
+		<!--- reset payables, 
 		
-		<cfquery name="Reset" 
-		datasource="AppsPayroll" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			DELETE Accounting.dbo.TransactionHeader
-			FROM   Accounting.dbo.TransactionHeader H INNER JOIN Accounting.dbo.TransactionLine L
-			       ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo
-			WHERE  ParentJournal         = '#get.Journal#'
-			AND    ParentJournalSerialNo = '#get.JournalSerialNo#'						
-		</cfquery>
-				
+		hanno 29/7/2021 : it can be that a payables is already processed 
+		in the current situation it will not allow to proceed and will through an error --->
+		
+		<cftry>
+		
+			<cfquery name="Reset" 
+			datasource="AppsPayroll" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				DELETE Accounting.dbo.TransactionHeader
+				FROM   Accounting.dbo.TransactionHeader H INNER JOIN Accounting.dbo.TransactionLine L
+				       ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo
+				WHERE  ParentJournal         = '#get.Journal#'
+				AND    ParentJournalSerialNo = '#get.JournalSerialNo#'								
+			</cfquery>
+		
+		<cfcatch>
+		
+			<script>
+			   alert('One or more payroll transactions were already paid. Operation not supported. Please contact your administrator.')
+			</script>
+			<cfabort>
+		
+		</cfcatch>
+		
+		</cftry>
+							
 		<cfquery name="Reset" 
 		datasource="AppsPayroll" 
 		username="#SESSION.login#" 

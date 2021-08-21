@@ -1,6 +1,15 @@
  
 <cfoutput>
 
+<cfquery name="Period" 
+	datasource="AppsProgram" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+	    FROM   Ref_Period
+		WHERE  Period = '#URL.Period#' 
+</cfquery>
+
 <cf_tl id="Receipts" var="vReceipt">
 
 <cf_UItree
@@ -20,7 +29,7 @@
 	 <cf_UItreeitem value="Pending"
 	        display="<span style='font-size:14px' class='labelit'>#vPendingClearance#</span>"
 			parent="Tasks"			
-			href="ReceiptViewOpen.cfm?ID1=Pending&ID=STA&Mission=#Attributes.Mission#"							
+			href="ReceiptViewOpen.cfm?ID1=Pending&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
 			target="right"
 	        expand="No">					
 	
@@ -31,10 +40,9 @@
 	<cf_UItreeitem value="Asset"
 	        display="<span style='font-size:14px' class='labelit'>#vPendingAsset#</span>"
 			parent="Tasks"					
-			href="ReceiptViewOpen.cfm?ID1=Equipment&ID=STA&Mission=#Attributes.Mission#"							
+			href="ReceiptViewOpen.cfm?ID1=Equipment&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
 			target="right"
-	        expand="No">	
-						
+	        expand="No">							
    
     <cf_tl id="Inquiry" var="vInquiry">
    
@@ -42,33 +50,34 @@
 	        display="<span style='font-size:17px;padding-top:5px;;padding-bottom:5px;font-weight:bold' class='labelit'>#vInquiry#</span>"
 			parent="Root"						
 	        expand="Yes">	 
+			
+		<cfif Period.dateexpiration gte now()>	
 						
-		<cf_tl id="Received" var="vReceivedOn">
-		<cf_tl id="Today" var="vToday">
-							
-		<cf_UItreeitem value="Today"
-	        display="<span style='font-size:14px' class='labelit'>#vReceivedOn# #vToday#</span>"
-			parent="Listing"				
-			target="right"
-			href="ReceiptViewOpen.cfm?ID1=TODAY&ID=STA&Mission=#Attributes.Mission#">			  
-			
-		<cf_tl id="Received" var="vReceived">
-		<cf_tl id="This Week" var="vThisWeek">
-			
-		<cf_UItreeitem value="Week"
-	        display="<span style='font-size:14px' class='labelit'>#vReceived# #vThisWeek#</span>"
-			parent="Listing"				
-			target="right"
-			href="ReceiptViewOpen.cfm?ID1=WEEK&ID=STA&Mission=#Attributes.Mission#">			
+			<cf_tl id="Received" var="vReceivedOn">
+			<cf_tl id="Today" var="vToday">
+								
+			<cf_UItreeitem value="Today"
+		        display="<span style='font-size:14px' class='labelit'>#vReceivedOn# #vToday#</span>"
+				parent="Listing" target="right"
+				href="ReceiptViewOpen.cfm?ID1=TODAY&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#">			  
+				
+			<cf_tl id="Received" var="vReceived">
+			<cf_tl id="This Week" var="vThisWeek">
+				
+			<cf_UItreeitem value="Week"
+		        display="<span style='font-size:14px' class='labelit'>#vReceived# #vThisWeek#</span>"
+				parent="Listing" target="right"
+				href="ReceiptViewOpen.cfm?ID1=WEEK&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#">			
+				
+		</cfif>	
     		  
 		<cf_tl id="Received" var="vReceived">
-		<cf_tl id="This Month" var="vThisMonth">
-			
-		<cf_UItreeitem value="Month"
-	        display="<span style='font-size:14px' class='labelit'>#vReceived# #vThisMonth#</span>"
-			parent="Listing"				
-			target="right"
-			href="ReceiptViewOpen.cfm?ID1=MONTH&ID=STA&Mission=#Attributes.Mission#">			
+		<cf_tl id="Period" var="vPeriod">
+				
+		<cf_UItreeitem value="Year"
+	        display="<span style='font-size:14px' class='labelit'>#vReceived# #url.period#</span>"
+			parent="Listing" target="right"
+			href="ReceiptViewOpen.cfm?ID1=YEAR&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#">			
 
 </cf_UItree>
 

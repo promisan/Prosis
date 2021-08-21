@@ -886,7 +886,7 @@
 							<cfset template="Education.cfm">
 						</cfif>
 						
-						<cfset backAction = "window.location = '#SESSION.root#/Roster/PHP/PHPEntry/Background/#template#?ID=#url.id#&entryScope=#url.entryScope#&applicantno=#url.applicantno#&section=#url.section#&owner=#URL.owner#'">
+						<cfset backAction = "ptoken.location('#SESSION.root#/Roster/PHP/PHPEntry/Background/#template#?ID=#url.id#&entryScope=#url.entryScope#&applicantno=#url.applicantno#&section=#url.section#&owner=#URL.owner#')">
 					
 					<cfelseif url.entryScope eq "Validation">
 								

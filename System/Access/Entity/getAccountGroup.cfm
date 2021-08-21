@@ -22,15 +22,16 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfset cnt = 0>
-<table>
+<table style="width:100%">
 <cfoutput query="Function">
 	<cfset cnt = cnt + 1>
     <cfif cnt eq "1">
-	<tr class="labelmedium2">
+	<tr class="labelmedium2 linedotted">
 	</cfif>
-	 <td style="width:200px">#LastName# : #Remarks#</td>
 	 <td style="padding-left:20px;padding-right:20px">
-	     <input type="checkbox" class="radiol" name="AccountGroup" <cfif Member gte "1">checked</cfif> value="#UserAccount#"></td>
+	     <input type="checkbox" class="radiol" name="AccountGroup" <cfif Member gte "1">checked</cfif> value="#UserAccount#"></td> 
+	 <td style="width:97%">#LastName# : #Remarks#</td>
+	 
 	 <cfif cnt eq "1">
 	 <cfset cnt = 0>
 	</tr>

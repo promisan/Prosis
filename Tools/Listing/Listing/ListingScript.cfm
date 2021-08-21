@@ -14,8 +14,12 @@
 <cfparam name="attributes.gadgets"      default="No">
 
 <cfif attributes.mode eq "Extended">
+
+	<cfajaximport tags="cfform,cfdiv">
 	
+	<!---	
 	<cfajaximport tags="cfform,cfinput-autosuggest,cfdiv">
+	--->
 		
 <cfelse>
 
@@ -319,7 +323,7 @@ function deleterow(box,dsn,table,field,keyvalue) {
    if (confirm("Do you want to remove this record ?")) {		
 
    	   // remove record in the associated tables 	   	
-	   ptoken.navigate('#SESSION.root#/tools/listing/listing/ListingDelete.cfm?dsn='+dsn+'&table='+table+'&key='+field+'&val='+keyvalue,box+'_ajax')	
+	   ptoken.navigate('#SESSION.root#/tools/listing/listing/ListingDelete.cfm?box='+box+'&dsn='+dsn+'&table='+table+'&key='+field+'&val='+keyvalue,box+'_ajax')	
 	   
 	   // remove records in the interface	   
 	   $('tr[name*='+box+'_'+keyvalue+']') .each(function() { this.remove(); });    	  	   	    
@@ -424,10 +428,10 @@ function listnavigateRow(box)	{
 	} 
 	   
 	
-// function navtarget(url,tgt) {  
-//   _cf_loadingtexthtml="<div style='padding-top:10px'><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";	
-//   ptoken.navigate(url,tgt)
-// }	
+ function navtarget(url,tgt) {  
+   _cf_loadingtexthtml="<div style='padding-top:10px'><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy10.gif'/>";	
+   ptoken.navigate(url,tgt)
+ }	
 
 function listingshow(itm) {
 

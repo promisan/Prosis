@@ -63,7 +63,7 @@ password="#SESSION.dbpw#">
 	<cfset maplink = "">			
 </cfif>
 
-<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="98%" align="center" class="formpadding">
 
   <cfif url.entryscope neq "backoffice">
    
@@ -315,7 +315,9 @@ password="#SESSION.dbpw#">
 	</td>
 	
 	<td valign="top" align="right" style="padding-left:10px">
+    	<cfif client.googlemap eq "1">
 		<cf_mapshow scope="embed" mode="edit" script="no" width="400" height="390">							
+		</cfif>
 	</td>	
 	
 	</tr>	

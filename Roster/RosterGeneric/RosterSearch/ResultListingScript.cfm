@@ -12,7 +12,7 @@
 				  document.getElementById('critMax').className='hide'
 				  document.getElementById('critMin').className='regular'
 				  document.getElementById('criteriabox').className='regular'
-				  ColdFusion.navigate('ResultCriteria.cfm?id=#URL.ID1#','searchcriteria')	
+				  ptoken.navigate('ResultCriteria.cfm?id=#URL.ID1#','searchcriteria')	
 			}
 			
 		}
@@ -117,32 +117,31 @@
 		 
 		 }else{
 		 
-		 sel[count].checked = false
-		 
-		 itm = sel[count]
-		 
-		 if (ie){
-	          while (itm.tagName!="TR")
-	          {itm=itm.parentElement;}
-	     }else{
-	          while (itm.tagName!="TR")
-	          {itm=itm.parentNode;}
-	     }
-		 
-		 // itm.className = "regular";
-		 
-		 }
-		 count++
+			 sel[count].checked = false
+			 
+			 itm = sel[count]
+			 
+			 if (ie){
+		          while (itm.tagName!="TR")
+		          {itm=itm.parentElement;}
+		     }else{
+		          while (itm.tagName!="TR")
+		          {itm=itm.parentNode;}
+		     }		 
+			 // itm.className = "regular";		 
+			 }
+			 count++
+			 
 		 }
 		
 	  }
 	  
 	  function searchdel(id) {
-	     parent.window.location = "SearchDelete.cfm?id="+id  
+	     parent.ptoken.location('SearchDelete.cfm?id='+id) 
 	  }
 	  
 	  function back() {  
-	     parent.window.location = "Search4.cfm?docno=#url.docno#&ID=#URL.ID1#&mode=new"  
+	     parent.ptoken.location('Search4.cfm?docno=#url.docno#&ID=#URL.ID1#&mode=new')  
 	  }
 	  
 	</script>	

@@ -82,8 +82,8 @@
 							<input type="file" 
 							   name="UploadedFile" id="UploadedFile" 
 							   size="40" accept="image/jpeg" 
-							   onChange="ColdFusion.navigate('#session.root#/Portal/Photo/PhotoCheck.cfm?source='+this.value,'submitbox')"
-							   style="font-size:13px;border:0px solid silver; background-color:white">
+							   onChange="ptoken.navigate('#session.root#/Portal/Photo/PhotoCheck.cfm?source='+this.value,'submitbox')"
+							   style="font-size:13px;border:1px solid silver; background-color:white">
 						
 						</td>
 						</tr>
@@ -101,7 +101,8 @@
 								<cfoutput>
 									<cfif FileExists("#SESSION.rootDocumentpath#\#url.destination#\#url.fileName#.jpg")>	
 										<cf_tl id="Remove Picture" var="1">
-										<input type="submit" name="Delete" style="font-size:13px;width:170;height:27" id="Delete" value="#lt_text#" class="photoupload button10g">
+										<input type="submit" name="Delete" style="border:1px solid silver;font-size:13px;width:170;height:27" id="Delete" value="#lt_text#" 
+										  class="photoupload button10g">
 									</cfif>
 								</cfoutput>
 							</td>	

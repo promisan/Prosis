@@ -121,8 +121,8 @@
 	</cfloop>
 				
 	<script language="JavaScript">				
-		document.getElementById('requestPrice_#URL.row#').value = '#numberformat(qfinal,",.__")#'				
-		ptoken.navigate('RequestDialogFormMatrixScript.cfm?row=#url.row#&col=0&rows=20&cols=12','ctotal')							
+		document.getElementById('requestPrice_#URL.row#').value = '#numberformat(qfinal,",.__")#'					
+		ptoken.navigate('RequestDialogFormMatrixScript.cfm?row=#url.row#&col=0&rows=20&cols=12','ctotal')									
 	</script>
 	
 </cfif>

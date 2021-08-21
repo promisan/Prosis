@@ -28,6 +28,7 @@ password="#SESSION.dbpw#">
 	AND    A.Role IN (SELECT Role 
 	                  FROM   Organization.dbo.Ref_AuthorizationRole 
 	   			      WHERE  SystemModule = 'Roster')
+		  
 										
     UNION
 					 
@@ -37,7 +38,7 @@ password="#SESSION.dbpw#">
 	       Ref_SubmissionEdition S ON FO.SubmissionEdition = S.SubmissionEdition
 	WHERE  A.UserAccount = '#SESSION.acc#'
 	) as T 
-	WHERE Owner > '' 	
+	WHERE Owner IN (SELECT Code FROM Organization.dbo.Ref_AuthorizationRoleOwner WHERE Operational = 1)	
 		
 </cfquery>	
 
@@ -66,7 +67,11 @@ password="#SESSION.dbpw#">
 	
 	AND 1=0
 				
-	</cfif>								  				  
+	</cfif>		
+	
+	AND Owner IN (SELECT Code 
+	              FROM   Organization.dbo.Ref_AuthorizationRoleOwner 
+				  WHERE  Operational = 1)							  				  
 				
 </cfquery>
 

@@ -524,9 +524,14 @@ _UIObject.prototype.doTree = function(id){
 			_tree_action({ node: node });
 		});
 	}
+
 }
 
 _UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,serviceData) {
+		console.log(serviceRoot);
+		console.log(serviceMethod);
+		console.log(serviceData);
+
 		binder = new kendo.data.HierarchicalDataSource({
 			transport: {
 				read: {
@@ -547,7 +552,11 @@ _UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,service
 		console.log('id',id);
 		_TREES.push(id);
 
-		var _html = $("##_prosis-tree-template").html();
+		if ($("##_prosis-tree-template").html())
+			var _html = $("##_prosis-tree-template").html();
+		else
+			console.log('Please enable tree template by adding Template = yes on ScreenTop')
+
 		$("##"+id).kendoTreeView({
 			dataSource: binder,
 			template: kendo.template(_html),

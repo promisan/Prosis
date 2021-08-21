@@ -116,6 +116,9 @@ password="#SESSION.dbpw#">
 		
 <cf_tl id="ActionPlanDetail" var="1" edit="0">
 <cfset tActionPlanDetail = "#Lt_text#">
+
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>  
 				
 <cf_layout type="border" id="mainLayout" width="100%">	
 			
@@ -126,7 +129,6 @@ password="#SESSION.dbpw#">
 			size       ="240px"  
 			overflow   ="scroll">
 			
-
 			<table width="100%">
 				<tr>
 					<td>
@@ -137,6 +139,8 @@ password="#SESSION.dbpw#">
 			</table>	
 		
 	</cf_layoutArea>
+	
+	
 			
 	<cf_layoutArea 
 			name="center" 
@@ -146,19 +150,19 @@ password="#SESSION.dbpw#">
 			
 				<cfcase value="Program">
 								
-				    <iframe src="ProgramViewTop.cfm?ProgramCode=#URL.ProgramCode#&Mission=#Mission.Mission#&Period=#Check.Period#" name="right" id="right" width="100%" height="100%" scrolling="no" frameborder="0" framespacing="0" target="_self"></iframe>
+				    <iframe src="ProgramViewTop.cfm?ProgramCode=#URL.ProgramCode#&Mission=#Mission.Mission#&Period=#Check.Period#&mid=#mid#" name="right" id="right" width="100%" height="100%" scrolling="no" frameborder="0" framespacing="0" target="_self"></iframe>
 				  
 				</cfcase>
 				
 				<cfcase value="Component">
 				
 				    <cfif Parameter.DefaultOpenProgram eq "Activity">										
-					  <iframe src="../Activity/Progress/ActivityView.cfm?ProgramCode=#URL.ProgramCode#&Mission=#Mission.Mission#&Period=#Check.Period#" name="right" frameborder="0" id="right" scrolling="no" width="100%" height="100%" framespacing="1" target="_self"></iframe>									  
+					  <iframe src="../Activity/Progress/ActivityView.cfm?ProgramCode=#URL.ProgramCode#&Mission=#Mission.Mission#&Period=#Check.Period#&mid=#mid#" name="right" frameborder="0" id="right" scrolling="no" width="100%" height="100%" framespacing="1" target="_self"></iframe>									  
 					<cfelse>					
 						<cfif Parameter.EnableIndicator eq "1">
-						<iframe src="Indicator/TargetView.cfm?ProgramCode=#URL.ProgramCode#&Mission=#Mission.Mission#&Period=#Check.Period#&Layout=#URL.ProgramLayout#" name="right" frameborder="0" id="right" width="100%" height="100%" framespacing="0" scrolling="no" target="_self"></iframe>
+						<iframe src="Indicator/TargetView.cfm?ProgramCode=#URL.ProgramCode#&Mission=#Mission.Mission#&Period=#Check.Period#&Layout=#URL.ProgramLayout#&mid=#mid#" name="right" frameborder="0" id="right" width="100%" height="100%" framespacing="0" scrolling="no" target="_self"></iframe>
 						<cfelse>						
-						<iframe src="ActivityProgram/ActivityView.cfm?ProgramCode=#URL.ProgramCode#&Mission=#Mission.Mission#&Period=#Check.Period#&Layout=#URL.ProgramLayout#" name="right" frameborder="0" id="right" width="100%" height="100%" framespacing="0" scrolling="no" target="_self"></iframe>
+						<iframe src="ActivityProgram/ActivityView.cfm?ProgramCode=#URL.ProgramCode#&Mission=#Mission.Mission#&Period=#Check.Period#&Layout=#URL.ProgramLayout#&mid=#mid#" name="right" frameborder="0" id="right" width="100%" height="100%" framespacing="0" scrolling="no" target="_self"></iframe>
 						</cfif>
 						
 					</cfif>
@@ -168,13 +172,13 @@ password="#SESSION.dbpw#">
 				<cfcase value="Project">
 					
 					<cfif Parameter.DefaultOpenProgram eq "Activity">
-					  <iframe src="../Activity/ActivityMain.cfm?Mission=#Mission.Mission#&width=#Width#&ProgramCode=#Check.ProgramCode#&Period=#Check.Period#&Size=Small&output=1" name="right" frameborder="0" id="right" scrolling="no" width="100%" height="100%" framespacing="1" target="_self"></iframe>															
+					  <iframe src="../Activity/ActivityMain.cfm?Mission=#Mission.Mission#&width=#Width#&ProgramCode=#Check.ProgramCode#&Period=#Check.Period#&Size=Small&output=1&mid=#mid#" name="right" frameborder="0" id="right" scrolling="no" width="100%" height="100%" framespacing="1" target="_self"></iframe>															
 					<cfelseif Parameter.DefaultOpenProgram eq "Require">
-					  <iframe src="Resource/ResourceView.cfm?Mission=#Mission.Mission#&width=#Width#&ProgramCode=#Check.ProgramCode#&Period=#Check.Period#&Size=Small&output=1" name="right" frameborder="0" id="right" scrolling="no" width="100%" height="100%" framespacing="1" target="_self"></iframe>															
+					  <iframe src="Resource/ResourceView.cfm?Mission=#Mission.Mission#&width=#Width#&ProgramCode=#Check.ProgramCode#&Period=#Check.Period#&Size=Small&output=1&mid=#mid#" name="right" frameborder="0" id="right" scrolling="no" width="100%" height="100%" framespacing="1" target="_self"></iframe>															
 					<cfelseif Parameter.DefaultOpenProgram eq "Summary">
-					   <iframe src="Summary/Summary.cfm?Mission=#Mission.Mission#&width=#Width#&ProgramCode=#Check.ProgramCode#&Period=#Check.Period#&Size=Small&output=1" name="right" frameborder="0" id="right" scrolling="no" width="100%" height="100%" framespacing="1" target="_self"></iframe>										
+					   <iframe src="Summary/Summary.cfm?Mission=#Mission.Mission#&width=#Width#&ProgramCode=#Check.ProgramCode#&Period=#Check.Period#&Size=Small&output=1&mid=#mid#" name="right" frameborder="0" id="right" scrolling="no" width="100%" height="100%" framespacing="1" target="_self"></iframe>										
 					<cfelse>
-					  	<iframe src="Events/EventsView.cfm?Mission=#Mission.Mission#&width=#Width#&ProgramCode=#Check.ProgramCode#&Period=#Check.Period#&Size=Small&output=1" name="right" frameborder="0" id="right" scrolling="no" width="100%" height="100%" framespacing="1" target="_self"></iframe>				
+					  	<iframe src="Events/EventsView.cfm?Mission=#Mission.Mission#&width=#Width#&ProgramCode=#Check.ProgramCode#&Period=#Check.Period#&Size=Small&output=1&mid=#mid#" name="right" frameborder="0" id="right" scrolling="no" width="100%" height="100%" framespacing="1" target="_self"></iframe>				
 					</cfif>						
 					
 				</cfcase>			

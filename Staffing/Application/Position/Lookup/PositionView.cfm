@@ -15,7 +15,7 @@
 	<script language="JavaScript">
 	
 		function reloadTree(man) {
-	        ColdFusion.navigate('PositionTree.cfm?&ApplicantNo=#URL.ApplicantNo#&PersonNo=#URL.PersonNo#&RecordId=#URL.RecordId#&DocumentNo=#URL.DocumentNo#&source=#url.source#&Mission=#URL.Mission#&MandateNo='+man,'tree');
+	        ptoken.navigate('PositionTree.cfm?&ApplicantNo=#URL.ApplicantNo#&PersonNo=#URL.PersonNo#&RecordId=#URL.RecordId#&DocumentNo=#URL.DocumentNo#&source=#url.source#&Mission=#URL.Mission#&MandateNo='+man,'tree');
 	    }
 	
 		function clearno() 
@@ -32,14 +32,14 @@
 		function findme() {		
 			val = document.getElementById("find").value
 			man = document.getElementById("selectedmandate").value			
-			ColdFusion.navigate('PositionListing.cfm?ID=#url.source#&ID1='+val+'&ID2=#URL.Mission#&ID3='+man+'&Source=#URL.Source#&ApplicantNo=#URL.ApplicantNo#&PersonNo=#URL.PersonNo#&RecordId=#URL.RecordId#&DocumentNo=#URL.DocumentNo#','listresult')
+			ptoken.navigate('PositionListing.cfm?ID=#url.source#&ID1='+val+'&ID2=#URL.Mission#&ID3='+man+'&Source=#URL.Source#&ApplicantNo=#URL.ApplicantNo#&PersonNo=#URL.PersonNo#&RecordId=#URL.RecordId#&DocumentNo=#URL.DocumentNo#','listresult')
 		
 		}
 	
 		function assignment(source, positionno, applicantno, personno, recordid, documentno) {
 			
-		     <cfif url.source eq "vac">	 
-		     	window.location = "#SESSION.root#/Staffing/Application/Assignment/AssignmentEntry.cfm?ts="+new Date().getTime()+"&source=" + source + "&id=" + positionno + "&applicantno=" + applicantno + "&personno=" + personno + "&recordid=" + recordid + "&documentno=" + documentno; 
+		     <cfif url.source eq "vac">			    
+		     	ptoken.location('#SESSION.root#/Staffing/Application/Assignment/AssignmentEntry.cfm?source=' + source + '&id=' + positionno + '&applicantno=' + applicantno + '&personno=' + personno + '&recordid=' + recordid + '&documentno=' + documentno); 
 		       //ptoken.open("#SESSION.root#/Staffing/Application/Assignment/AssignmentEntry.cfm?ts="+new Date().getTime()+"&source=" + source + "&id=" + positionno + "&applicantno=" + applicantno + "&personno=" + personno + "&recordid=" + recordid + "&documentno=" + documentno, "_top");
 			 <cfelse>
 			 ptoken.open("#SESSION.root#/Staffing/Application/Assignment/AssignmentEntry.cfm?ts="+new Date().getTime()+"&source=" + source + "&id=" + positionno + "&applicantno=" + applicantno + "&personno=" + personno + "&recordid=" + recordid + "&documentno=" + documentno, "PositionLookup");		 
@@ -188,8 +188,7 @@
 			<cf_divscroll style="height:100%;padding-right:4px">			
 			<table width="97%" height="100%" style="padding-left:20px;padding-right:20px">				
 			<tr><td id="listresult" style="padding-top:5px" valign="top" align="center" height="100%" class="labelmedium">	
-				<cfinclude template="PositionListing.cfm">
-				
+				<cfinclude template="PositionListing.cfm">				
 				</td>
 			</tr>
 			</table>	

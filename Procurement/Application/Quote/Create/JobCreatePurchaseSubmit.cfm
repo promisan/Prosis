@@ -323,25 +323,36 @@ the requisition orgunit, parent --->
 		<cf_exchangeRate CurrencyFrom="#RequestCurrency#" CurrencyTo="#Curr#" datasource="AppsPurchase">
 		<cfset Price = RequestCurrencyPrice / exc>
 			
-	</cfif>			
-	
-	<cfset OrderAmountCost    = RequestQuantity*Price>	
-	
+	</cfif>
+
+
 	<cfset TaxIncluded = Parameter.DefaultTaxIncluded>
-		
+
+
 	<cfif Parameter.TaxExemption eq "1">
-		
+			<cfset OrderAmountCost    = RequestQuantity*Price>
 			<cfset OrderTax             = 0>			
 			<cfset OrderAmountTax       = 0>							
 			<cfset OrderAmountBaseCost  = RequestAmountBase>
-			<cfset OrderAmountBaseTax   = 0>						
-					
+			<cfset OrderAmountBaseTax   = 0>
+
 	<cfelse>
 		
 			<cfset OrderTax             = Parameter.TaxDefault>
-			<cfset OrderAmountTax       = OrderAmountCost*OrderTax>		
-			<cfset OrderAmountBaseCost  = RequestAmountBase>			
-			<cfset OrderAmountBaseTax   = OrderAmountBaseCost*OrderTax>					
+
+			<cfif TaxIncluded eq "1">
+				<cfset OrderAmountCost    = RequestQuantity*Price/(1+OrderTax)>
+				<cfset OrderAmountTax       = OrderAmountCost*OrderTax>
+
+				<cfset OrderAmountBaseCost  = RequestAmountBase/(1+OrderTax)>
+				<cfset OrderAmountBaseTax  = OrderAmountBaseCost*OrderTax>
+			<cfelse>
+				<cfset OrderAmountTax       = OrderAmountCost*OrderTax>
+				<cfset OrderAmountBaseCost  = RequestAmountBase>
+				<cfset OrderAmountBaseTax   = OrderAmountBaseCost*OrderTax>
+			</cfif>
+
+
 						
 	</cfif>		
 	

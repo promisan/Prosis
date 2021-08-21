@@ -1,4 +1,5 @@
 <cfcomponent displayname="ProsisReact" hint="Prosis React Datasource">
+
 	<cffunction name="trackUser" access="remote" returnType="void">
 		<cfargument name="account" 		Required=false default="">
 		<cfargument name="host" 		Required=false default="">
@@ -59,198 +60,22 @@
 	<cffunction name="getAll" access="remote" hint="send a websocket message" returnType="void">
 		
 		<cfargument name="mission" 				Required=false default="BAMBINO">
-		<cfargument name="categoryItem" 		Required=false default="">
-		<cfargument name="category" 			Required=false default="">
-		<cfargument name="searchText" 			Required=false default="">
-		<cfargument name="orderBy" 				Required=false default="">
+		<cfargument name="warehouse" 			Required=false default="BAM03"> <!--- Default: Sucursal (BAM03) --->
 		<cfargument name="PriceSchedule" 		Required=false default="">
-		
+		<cfargument name="category" 			Required=false default="">
+		<cfargument name="categoryItem" 		Required=false default="">
 		<cfargument name="currency" 			Required=false default="QTZ">
-		<cfargument name="selectTopNDiscount" 	Required=false default="">
-		<cfargument name="selectTopN" 			Required=false default="">
 		<cfargument name="itemNo" 				Required=false default="">
+		<cfargument name="searchText" 			Required=false default="">
+		<cfargument name="selectTopN" 			Required=false default="">
+		<cfargument name="onSale" 				Required=false default="0">
+		<cfargument name="orderBy" 				Required=false default="">
 		<cfargument name="account" 				Required=false default="">
 
 		<cfset trackUser(arguments.account,'tienda','','#categoryItem#','#category#','#searchText#','#mission#')>
-
 		<cfheader name="Access-Control-Allow-Origin" value="*">
 
 		<cfset vSearchText = trim(searchText)>
-
-		<cfoutput>
-			<cfsavecontent  variable="priceQuery">
-				SELECT ItemNo, 
-					UoM as UoMCode,
-					UoMDescription as UoM, 
-					PriceSchedule, 
-					PriceScheduleDescription, 
-					ListingOrder,
-					Currency, 
-					SalesPrice, 
-					FieldDefault, 
-					PriceDate, 
-					PriorPrice, 
-					PriorDate,
-					ISNULL((SalesPrice-PriorPrice), 0) as PriceOff,
-					CASE
-						WHEN (PriorPrice = 0 OR PriorPrice IS NULL) THEN 0
-						ELSE FLOOR(ISNULL((100*(PriorPrice - SalesPrice))/PriorPrice, 0)*-1) 
-					END AS PriceOffPercentage
-				FROM
-				(
-					SELECT MP.ItemNo, 
-						IU.UoMDescription,
-						MP.UoM, 
-						PriceSchedule, 
-						Currency, 
-					(
-						SELECT TOP (1) ROUND(LP.SalesPrice, 2) AS Expr1
-						FROM ItemUoMPrice AS LP
-							INNER JOIN
-						(
-							SELECT ItemNo, 
-								UoM, 
-								PriceSchedule, 
-								MAX(DateEffective) AS LastDate
-							FROM ItemUoMPrice AS P
-							WHERE(Mission = MP.Mission)
-								AND (Currency = MP.Currency)
-								AND (DateEffective <= GETDATE())
-							GROUP BY ItemNo, 
-									UoM, 
-									PriceSchedule
-						) AS L ON L.ItemNo           = LP.ItemNo
-								AND L.UoM            = LP.UoM
-								AND L.PriceSchedule  = LP.PriceSchedule
-								AND L.LastDate       = LP.DateEffective
-								AND LP.ItemNo        = MP.ItemNo
-								AND LP.UoM           = MP.UoM
-								AND LP.PriceSchedule = MP.PriceSchedule
-								AND LP.Mission       = MP.Mission
-								AND LP.Currency      = MP.Currency
-					) AS SalesPrice, 
-					(
-						SELECT TOP (1) LP.DateEffective AS Expr1
-						FROM ItemUoMPrice AS LP
-							INNER JOIN
-						(
-							SELECT ItemNo, 
-								UoM, 
-								PriceSchedule, 
-								MAX(DateEffective) AS LastDate
-							FROM ItemUoMPrice AS P
-							WHERE(Mission = MP.Mission)
-								AND (Currency = MP.Currency)
-								AND (DateEffective <= GETDATE())
-							GROUP BY ItemNo, 
-									UoM, 
-									PriceSchedule
-						) AS L_1 ON L_1.ItemNo            = LP.ItemNo
-									AND L_1.UoM           = LP.UoM
-									AND L_1.PriceSchedule = LP.PriceSchedule
-									AND L_1.LastDate      = LP.DateEffective
-									AND LP.ItemNo         = MP.ItemNo
-									AND LP.UoM            = MP.UoM
-									AND LP.PriceSchedule  = MP.PriceSchedule
-									AND LP.Mission        = MP.Mission
-									AND LP.Currency       = MP.Currency
-						ORDER BY DateEffective DESC
-					) AS PriceDate, 
-					(
-						SELECT TOP (1) ROUND(LP.SalesPrice, 2) AS Expr1
-						FROM ItemUoMPrice AS LP
-							INNER JOIN
-						(
-							SELECT ItemNo, 
-								UoM, 
-								PriceSchedule, 
-								MAX(DateEffective) AS LastDate
-							FROM ItemUoMPrice AS P
-							WHERE(Mission = MP.Mission)
-								AND (Currency = MP.Currency)
-								AND (DateEffective <= GETDATE())
-							GROUP BY ItemNo, 
-									UoM, 
-									PriceSchedule
-						) AS L_1 ON L_1.ItemNo = LP.ItemNo
-									AND L_1.UoM = LP.UoM
-									AND L_1.PriceSchedule = LP.PriceSchedule
-									AND L_1.LastDate > LP.DateEffective
-									AND LP.ItemNo = MP.ItemNo
-									AND LP.UoM = MP.UoM
-									AND LP.PriceSchedule = MP.PriceSchedule
-									AND LP.Mission = MP.Mission
-									AND LP.Currency = MP.Currency
-						ORDER BY DateEffective DESC
-					) AS PriorPrice, 
-					(
-						SELECT TOP (1) LP.DateEffective AS Expr1
-						FROM ItemUoMPrice AS LP
-							INNER JOIN
-						(
-							SELECT ItemNo, 
-								UoM, 
-								PriceSchedule, 
-								MAX(DateEffective) AS LastDate
-							FROM ItemUoMPrice AS P
-							WHERE(Mission = MP.Mission)
-								AND (Currency = MP.Currency)
-								AND (DateEffective <= GETDATE())
-							GROUP BY ItemNo, 
-									UoM, 
-									PriceSchedule
-						) AS L_1 ON L_1.ItemNo = LP.ItemNo
-									AND L_1.UoM = LP.UoM
-									AND L_1.PriceSchedule = LP.PriceSchedule
-									AND L_1.LastDate > LP.DateEffective
-									AND LP.ItemNo         = MP.ItemNo
-									AND LP.UoM            = MP.UoM
-									AND LP.PriceSchedule  = MP.PriceSchedule
-									AND LP.Mission        = MP.Mission
-									AND LP.Currency       = MP.Currency
-						ORDER BY DateEffective DESC
-					) AS PriorDate, 
-						S.Description AS PriceScheduleDescription, 
-						S.FieldDefault,
-						S.ListingOrder
-					FROM  ItemUoMPrice AS MP
-						  INNER JOIN Ref_PriceSchedule S ON MP.PriceSchedule = S.Code
-						  INNER JOIN ItemUoM IU ON IU.ItemNo = MP.ItemNo AND IU.UoM = MP.UoM
-					WHERE Mission = '#arguments.mission#'
-					AND   Currency = '#arguments.currency#'
-					AND   IU.EnablePortal = '1'
-					GROUP BY Mission, 
-							Currency, 
-							MP.ItemNo, 
-							MP.UoM,
-							IU.UoMDescription, 
-							PriceSchedule, 
-							S.Description, 
-							S.FieldDefault,
-							S.ListingOrder
-				) AS B	
-			</cfsavecontent>
-		</cfoutput>
-
-		<cfif categoryItem eq "">
-		
-			<cfquery name="qCategoryItem" datasource="AppsMaterials">
-				SELECT  TOP 1 CategoryItem
-				FROM 	Ref_CategoryItem CI
-				WHERE   EXISTS (SELECT 'X'
-								FROM   Item I	
-								       INNER JOIN ItemImage II	    ON II.ItemNo = I.ItemNo
-						 			   INNER JOIN ItemUoM M	        ON M.ItemNo = I.ItemNo
-									   INNER JOIN ItemUoMMission MI ON MI.ItemNo = I.ItemNo
-								WHERE  I.CategoryItem = CI.CategoryItem
-								--AND II.Created>='2019-09-02'
-								AND    MI.Mission = '#arguments.Mission#'
-								AND    II.ImageClass = '001' )
-				ORDER BY NEWID()
-			</cfquery>
-
-			<cfset categoryItem=qCategoryItem.CategoryItem>
-		</cfif>
 
 		<cfquery name="qItems" datasource="AppsMaterials">
 			<cfif trim(selectTopN) eq "">
@@ -258,306 +83,182 @@
 			<cfelse>
 				SELECT TOP #trim(selectTopN)# *
 			</cfif>
-			FROM (
-			SELECT 	 I.Category,
-			I.CategoryItem,
-			C.Description as CategoryDescription,
-			CI.CategoryItemName,
-			I.ItemDescription,
-			I.ItemNo,
-			I.ItemPrecision,
-			I.ItemNoExternal,
-			II.ImagePath,
-			(   SELECT ROUND(SUM(TransactionQuantity),5)
-			    FROM   ItemTransaction
-				WHERE  ItemNo         = I.ItemNo
-				AND    Mission        = MI.Mission
-				AND    WorkorderId is NULL
-				AND    TransactionId NOT IN	(SELECT      I.TransactionId
-											 FROM         Warehouse AS W INNER JOIN ItemTransaction AS I ON W.Warehouse = I.Warehouse AND W.LocationReceipt = I.Location
-											 WHERE        I.TransactionType = '1' 
-											 AND          I.TransactionId NOT IN (SELECT TransactionId FROM ItemTransactionValuation) )
-			) as OnHand
+			FROM (	SELECT 	I.Category,
+							I.CategoryItem,
+							C.Description as CategoryDescription,
+							CI.CategoryItemName,
+							I.ItemDescription,
+							I.ItemNo,
+							IU.UoM,
+							IU.UoMDescription,
+							I.ItemPrecision,
+							I.ItemNoExternal,
+							MIP.FieldDefault,
+							MIP.PriceSchedule,
+							MIP.PriceScheduleDescription,
+							MIP.Currency,
+							CU.CurrencySymbol,
+							MIP.PriorPrice,
+							MIP.SalesPrice,
+							MIP.PriceDate,
+							MIP.PriceOffPercentage,
+							MIP.PriceOff,
+							ISNULL((
+								SELECT	IWx.MinReorderQuantity
+								FROM	ItemWarehouse IWx WITH (NOLOCK) 
+								WHERE	IWx.ItemNo = IU.ItemNo
+								AND		IWx.UoM = IU.UoM
+								AND		IWx.Warehouse = '#arguments.warehouse#' -- Param: Warehouse
+							), 0) AS OfferMinimumQuantity,
+							ISNULL((   
+								SELECT ROUND(SUM(ITx.TransactionQuantity),5)
+								FROM   ItemTransaction ITx WITH (NOLOCK)
+								WHERE  ITx.ItemNo = I.ItemNo
+								AND    ITx.Mission = MI.Mission
+								AND    ITx.WorkorderId IS NULL
+								AND    ITx.TransactionId NOT IN	
+										(
+											SELECT	Ix.TransactionId
+											FROM	Warehouse AS Wx WITH (NOLOCK)
+													INNER JOIN ItemTransaction AS Ix WITH (NOLOCK)
+														ON Wx.Warehouse = Ix.Warehouse 
+														AND Wx.LocationReceipt = Ix.Location
+											WHERE	Ix.TransactionType = '1' 
+											AND		Ix.TransactionId NOT IN 
+													(SELECT ITVx.TransactionId FROM ItemTransactionValuation AS ITVx WITH (NOLOCK)) 
+										)
+							), 0) as OnHand
+						
+					FROM	Item I WITH (NOLOCK)
+							INNER JOIN Ref_Category C WITH (NOLOCK)
+								ON I.Category = C.Category
+							INNER JOIN Ref_CategoryItem CI WITH (NOLOCK)
+								ON CI.Category = I.Category 
+								AND CI.CategoryItem = I.CategoryItem
+							INNER JOIN ItemUoM IU WITH (NOLOCK)
+								ON IU.ItemNo = I.ItemNo 
+							INNER JOIN ItemUoMMission MI WITH (NOLOCK)
+								ON MI.ItemNo = I.ItemNo
+							INNER JOIN skMissionItemPrice MIP WITH (NOLOCK)
+								ON MIP.Mission = MI.Mission
+								AND MIP.ItemNo = IU.ItemNo
+								AND MIP.UoM = IU.UoM
+								AND MIP.Currency = '#arguments.Currency#' -- Param: Currency
+								<cfif trim(arguments.PriceSchedule) eq "">
+									AND MIP.FieldDefault = 1
+								<cfelse>
+									AND MIP.PriceSchedule = '#arguments.PriceSchedule#' -- Param: PriceSchedule
+								</cfif>
+							INNER JOIN Accounting.dbo.Currency CU WITH (NOLOCK)
+								ON CU.Currency = MIP.Currency
+					WHERE	MI.Mission       = '#arguments.mission#' -- Param: Mission
+					AND		IU.EnablePortal  = '1'
 
-			FROM   Item I
-				   INNER JOIN Ref_Category C      ON I.Category = C.Category
-				   INNER JOIN Ref_CategoryItem CI ON CI.Category = I.Category AND CI.CategoryItem = I.CategoryItem
-				   INNER JOIN ItemImage II	       ON II.ItemNo = I.ItemNo
-				   INNER JOIN ItemUoM IU 	 	   ON IU.ItemNo = I.ItemNo 
-				   INNER JOIN ItemUoMMission MI   ON MI.ItemNo = I.ItemNo
-			WHERE  MI.Mission = '#arguments.Mission#'
-			AND    II.ImageClass = '001'
-			AND    IU.EnablePortal = '1'
-			
-			<cfif trim(arguments.itemno) neq "">
-			
-			AND    I.ItemNo = '#arguments.itemno#'
-			
-			<cfelse>
-			
-				<cfif vSearchText neq "">
-					AND 
-					(
-						<cf_softlike left="I.ItemDescription" 	right="#vSearchText#" language="ESP">
-						OR
-						<cf_softlike left="CI.CategoryItemName" right="#vSearchText#" language="ESP">
-						OR
-						<cf_softlike left="C.Description" 		right="#vSearchText#" language="ESP">
-						OR
-						I.ItemNo = '#vSearchText#'
-						OR
-						I.itemNoExternal like '%#vSearchText#%'
-						OR
-						I.ItemNo IN (SELECT Ux.ItemNo FROM ItemUoM Ux WHERE Ux.ItemBarcode like '%#vSearchText#%')
-					)
-				<cfelseif arguments.category neq "">
-					AND I.Category = '#arguments.category#'
-				<cfelse>
-					<cfif trim(selectTopNDiscount) eq "">
-						AND CI.CategoryItem = '#CategoryItem#'
+					--With pictures
+					AND		EXISTS (
+								SELECT	'X'
+								FROM	ItemImage Ix WITH (NOLOCK)
+								WHERE	Ix.ItemNo = I.ItemNo
+								AND		Ix.ImageClass = '001' --No thumbnails
+							)
+
+					<cfif trim(arguments.onSale) eq "1">
+						--On sale items
+						AND 	MIP.Promotion = 1 
+						AND 	MIP.PriorPrice > 0 
 					</cfif>
-				</cfif>
+			
+					<cfif trim(arguments.itemno) neq "">
+						AND    I.ItemNo = '#arguments.itemno#'
+					<cfelse>
+						<cfif vSearchText neq "">
+							AND 
+							(
+								<cf_softlike left="I.ItemDescription" 	right="#vSearchText#" language="ESP">
+								OR
+								<cf_softlike left="CI.CategoryItemName" right="#vSearchText#" language="ESP">
+								OR
+								<cf_softlike left="C.Description" 		right="#vSearchText#" language="ESP">
+								OR
+								I.ItemNo = '#vSearchText#'
+								OR
+								I.itemNoExternal like '%#vSearchText#%'
+								OR
+								I.ItemNo IN (SELECT Ux.ItemNo FROM ItemUoM Ux WHERE Ux.ItemBarcode like '%#vSearchText#%')
+							)
+						<cfelseif arguments.category neq "">
+							AND I.Category = '#arguments.category#'
+						<cfelseif arguments.CategoryItem neq "">
+							AND CI.CategoryItem = '#arguments.CategoryItem#'
+						</cfif>
+					</cfif>
 
-				<cfif trim(selectTopNDiscount) neq "">
-					AND I.ItemNo IN (
-						SELECT TOP #trim(selectTopNDiscount)# Px.ItemNo
-						FROM (
-							#preserveSingleQuotes(priceQuery)#
-						) as Px
-						INNER JOIN ItemUoMPrice UPx ON UPx.ItemNo = Px.ItemNo
-							AND UPx.UoM = Px.UoMCode
-							AND UPx.PriceSchedule = <cfif arguments.PriceSchedule eq "">
-														(   SELECT	Code
-															FROM	Ref_PriceSchedule
-															WHERE	FieldDefault = '1'	 
-														)
-													<cfelse>
-														'#arguments.PriceSchedule#'
-													</cfif>
-							AND UPx.DateEffective = Px.PriceDate
-							AND UPx.Mission       = '#arguments.Mission#'
-							AND UPX.Currency      = '#arguments.currency#'
-							AND UPx.Promotion     = '1'
-						WHERE 	Px.PriceOff < 0
-						AND 	Px.PriceSchedule = <cfif arguments.PriceSchedule eq "">
-														(
-															SELECT	Code
-															FROM	Ref_PriceSchedule
-															WHERE	FieldDefault = '1'	 
-														)
-													<cfelse>
-														'#arguments.PriceSchedule#'
-													</cfif>
-						ORDER BY Px.PriceOffPercentage ASC
-					)
-				</cfif>
-			</cfif>
-
-			) as XL
+					) as XL
 
 			WHERE  OnHand > 0
 
-			ORDER BY <cfif OrderBy neq "">
-						<cfswitch expression="#OrderBy#">
-							<cfcase value="stockASC">
-								OnHand DESC
-							</cfcase>
-							<cfcase value="stockDESC">
-								OnHand ASC
-							</cfcase>
-							<cfcase value="descASC">
-								ItemDescription ASC
-							</cfcase>
-							<cfcase value="descDESC">
-								ItemDescription DESC
-							</cfcase>
-							<cfcase value="catASC">
-								CategoryDescription ASC
-							</cfcase>
-							<cfcase value="catDESC">
-								CategoryDescription DESC
-							</cfcase>
-							<cfcase value="priceASC">
-								CategoryDescription ASC
-							</cfcase>
-							<cfcase value="priceDESC">
-								CategoryDescription DESC
-							</cfcase>
-							<cfcase value="discountASC">
-								CategoryDescription ASC
-							</cfcase>
-							<cfcase value="discountDESC">
-								CategoryDescription DESC
-							</cfcase>
-			
-						</cfswitch>
-				<cfelse>
-					ItemNo
-				</cfif>
+			ORDER BY 	
+				<cfswitch expression="#arguments.OrderBy#">
+					<cfcase value="stockASC">
+						OnHand DESC
+					</cfcase>
+					<cfcase value="stockDESC">
+						OnHand ASC
+					</cfcase>
+					<cfcase value="descASC">
+						ItemDescription ASC
+					</cfcase>
+					<cfcase value="descDESC">
+						ItemDescription DESC
+					</cfcase>
+					<cfcase value="catASC">
+						CategoryDescription ASC
+					</cfcase>
+					<cfcase value="catDESC">
+						CategoryDescription DESC
+					</cfcase>
+					<cfcase value="priceASC">
+						SalesPrice ASC
+					</cfcase>
+					<cfcase value="priceDESC">
+						SalesPrice DESC
+					</cfcase>
+					<cfcase value="discountASC">
+						PriceOffPercentage ASC
+					</cfcase>
+					<cfcase value="discountDESC">
+						PriceOffPercentage DESC
+					</cfcase>
+					<cfdefaultcase>
+						ItemDescription ASC
+					</cfdefaultcase>
+				</cfswitch>
+
 		</cfquery>
 
-		<cfset qCandidates = QueryNew("Category,CategoryItem,CategoryDescription,CategoryItemName,ItemDescription,ItemNo,CurrencyFormat,CurrencyId,ItemDescription, ValuationCode,UoMDescription,ItemNoExternal,OnHand,Picture,itemuom", "Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar,Varchar")>
-
-		<cfloop query ="qItems">
-
-			<cfset thisFile= "D:\Prosis\CHARLIE\Document\#qItems.ImagePath#">
-
-			<cfset vFile = "">
-			<cfif (FileExists(thisFile))>
-				<cfset vFile = Replace(qItems.ImagePath,'Warehouse/Pictures/','')>
-			</cfif>
-
-			<cfquery name="qItemCheck" dbtype="query">
-				SELECT  *
-				FROM    qCandidates
-				WHERE   ItemNo = '#qItems.ItemNo#'
-			</cfquery>
-
-			<!--- kherrera(2021-07-12): to validate vFile
-			<cfif vFile neq "" and qItemCheck.recordcount eq 0> --->
-			
-			<cfif qItemCheck.recordcount eq 0>
-
-				<cfquery name="qUoM" datasource="AppsMaterials">
-					SELECT TOP 1 *
-					FROM   ItemUoM
-					WHERE  ItemNo = '#qItems.ItemNo#'
-				</cfquery>
-
-				<cfif qUoM.recordcount eq 1>
-					<cfset temp = QueryAddRow(qCandidates)>
-					<cfset Temp = QuerySetCell(qCandidates, "ItemNo", qItems.ItemNo)>
-					<cfset Temp = QuerySetCell(qCandidates, "Category", qItems.Category)>
-					<cfset Temp = QuerySetCell(qCandidates, "CategoryItem", qItems.CategoryItem)>
-					<cfset Temp = QuerySetCell(qCandidates, "CategoryDescription", qItems.CategoryDescription)>
-					<cfset Temp = QuerySetCell(qCandidates, "CategoryItemName", qItems.CategoryItemName)>
-					<cfset Temp = QuerySetCell(qCandidates, "ItemDescription", qItems.ItemDescription)>
-					<cfset Temp = QuerySetCell(qCandidates, "ItemDescription", qItems.ItemDescription)>
-					<cfset Temp = QuerySetCell(qCandidates, "ItemNoExternal", qItems.ItemNoExternal)>
-					<cfset Temp = QuerySetCell(qCandidates, "OnHand", qItems.OnHand)>
-					<cfset Temp = QuerySetCell(qCandidates, "Picture", vFile)>
-					<cfset Temp = QuerySetCell(qCandidates, "itemuom", qUoM.UoM)>
-				</cfif>
-				
-			</cfif>
-			
-		</cfloop>
-
-		<cfset result = QueryToArray(qCandidates)>
+		<cfset result = QueryToArray(qItems)>
 
 		<cfloop array="#result#" item="itm">
 		
-			<cfquery name="qPrices" datasource="AppsMaterials">
-				SELECT 	 *
-				FROM     ( #preserveSingleQuotes(priceQuery)# ) as PriceData
-				WHERE 	 ItemNo = '#itm.itemNo#'
-				ORDER BY ListingOrder DESC
-			</cfquery>
-<!---
-AND S.FieldDefault='1'
---->
-
-			<cfset itm.prices = arrayNew(1)>
-
-			<cfquery name="qOffer"
-				datasource="AppsMaterials">
-				SELECT 	IVO.OrgUnitVendor,IVO.OfferMinimumQuantity
-				FROM 	ItemVendor IV 
-						INNER JOIN ItemVendorOffer IVO ON IV.ItemNo = IVO.ItemNo
-				WHERE 	IV.ItemNo     = '#itm.itemNo#'
-				AND 	IV.Preferred  = '1'
-				ORDER BY DateEffective DESC
+			<cfquery name="qImages" datasource="AppsMaterials">
+				SELECT 	*
+				FROM 	ItemImage WITH (NOLOCK)
+				WHERE 	ItemNo = '#itm.itemNo#'
+				AND		ImageClass = '001' --No thumbnails
+				ORDER BY ImageSerialNo ASC
 			</cfquery>
 
-			<cfloop query="#qPrices#">
-				<cfset itm.prices[CurrentRow]["UoM"]=lcase(qPrices.UoM)>
-				<cfset itm.prices[CurrentRow]["PriceSchedule"]=qPrices.PriceSchedule>
-				<cfset itm.prices[CurrentRow]["PriceScheduleDescription"]=qPrices.PriceScheduleDescription>
-				<cfset itm.prices[CurrentRow]["Currency"]="#Left(qPrices.Currency,1)#.">
-				<cfset itm.prices[CurrentRow]["SalesPrice"]=qPrices.SalesPrice>
-				<cfset itm.prices[CurrentRow]["FieldDefault"]=qPrices.FieldDefault>
-				<cfset itm.prices[CurrentRow]["PriorPrice"]=qPrices.PriorPrice>
-				<cfset itm.prices[CurrentRow]["PriceOffPercentage"]=qPrices.PriceOffPercentage>
-				<cfset itm.prices[CurrentRow]["PriceOff"]=qPrices.PriceOff>
-				<cfset itm.prices[CurrentRow]["OfferMinimumQuantity"]=qOffer.OfferMinimumQuantity>
+			<cfset itm.picture = arrayNew(1)>
+			<cfloop query="#qImages#">
+				<cfset thisFile= "D:\Prosis\CHARLIE\Document\#qImages.ImagePath#">
+				<cfset vFile = "">
+				<cfif (FileExists(thisFile))>
+					<cfset vFile = Replace(qImages.ImagePath,'Warehouse/Pictures/','')>
+					<cfset itm.picture[CurrentRow]=vFile>
+				</cfif>
 			</cfloop>
 
 		</cfloop>
-
-		<cfif orderBy eq "priceASC" or orderBy eq "priceDESC" or orderBy eq "discountASC" or orderBy eq "discountDESC">
-			<cfif orderBy eq "priceDESC" or orderBy eq "discountASC">
-				<cfset vASC =  1>
-				<cfset vDESC = -1>
-			</cfif>
-
-			<cfif orderBy eq "priceASC" or orderBy eq "discountDESC">
-				<cfset vASC =  -1>
-				<cfset vDESC = 1>
-			</cfif>
-
-			<cfscript>
-				arraySort(
-						result,
-						function (e1, e2){
-							p1 = -1;
-							cfloop(array=e1.prices, index="idx"){
-								if (PriceSchedule == '') {
-									if (idx.FieldDefault eq 1) {
-										if (orderBy == 'priceASC' || orderBy == 'priceDESC') {
-											p1 = idx.SalesPrice;
-										}
-										if (orderBy == 'discountASC' || orderBy == 'discountDESC') {
-											p1 = idx.PriceOffPercentage;
-										}
-									}
-								} else {
-									if (idx.PriceSchedule == PriceSchedule) {
-										if (orderBy == 'priceASC' || orderBy == 'priceDESC') {
-											p1 = idx.SalesPrice;
-										}
-										if (orderBy == 'discountASC' || orderBy == 'discountDESC') {
-											p1 = idx.PriceOffPercentage;
-										}
-									}
-								}
-							}
-
-							p2 = -1;
-							cfloop(array=e2.prices, index="idx"){
-								if (PriceSchedule == '') {
-									if (idx.FieldDefault eq 1) {
-										if (orderBy == 'priceASC' || orderBy == 'priceDESC') {
-											p2 = idx.SalesPrice;
-										}
-										if (orderBy == 'discountASC' || orderBy == 'discountDESC') {
-											p2 = idx.PriceOffPercentage;
-										}
-									}
-								} else {
-									if (idx.PriceSchedule == PriceSchedule) {
-										if (orderBy == 'priceASC' || orderBy == 'priceDESC') {
-											p2 = idx.SalesPrice;
-										}
-										if (orderBy == 'discountASC' || orderBy == 'discountDESC') {
-											p2 = idx.PriceOffPercentage;
-										}
-									}
-								}
-							}
-
-							if (p1 lt p2)
-								return vDESC;
-
-							if (p1 gt p2)
-								return vASC;
-
-							if (p1 eq p2)
-								return 0;
-						}
-						);
-			</cfscript>
-
-		</cfif>
 
 		<cfscript>
 			threadName = "ws_msg_" & createUUID();
@@ -570,6 +271,7 @@ AND S.FieldDefault='1'
 			writeOutput(msg);
 		</cfscript>
 	</cffunction>
+	
 
   	<cffunction name="getCategories" access="remote" hint="send a websocket message" returnType="void">
 	
@@ -581,44 +283,82 @@ AND S.FieldDefault='1'
 
 		<!--- tracking user ---> 
 		<cfset trackUser(arguments.account,'tienda','','','#category#','#searchText#','#mission#')>
-
 		<cfheader name="Access-Control-Allow-Origin" value="*">
 
-		<cfquery name="qCategories" datasource="AppsMaterials">
-			SELECT DISTINCT Category, CategoryDescription, CategoryImage
-			
-			FROM (	SELECT 	I.Category,
-							C.Description as CategoryDescription,
-							C.Image as CategoryImage,
-							(	SELECT ROUND(SUM(TransactionQuantity),5)
-								FROM   ItemTransaction 
-								WHERE  ItemNo         = I.ItemNo
-								AND	   TransactionUoM = U.UoM ) as OnHand 
-					FROM    Item I
-							INNER JOIN Ref_Category C   ON I.Category = C.Category
-							INNER JOIN ItemUoM U   	    ON I.ItemNo   = U.ItemNo		
-							INNER JOIN ItemImage II   	ON II.ItemNo  = I.ItemNo
-							INNER JOIN ItemUoM M		ON M.ItemNo   = I.ItemNo
-					WHERE  	II.ImageClass = '001' AND C.FinishedProduct = '1' ) as XL 
-			WHERE  	OnHand > 0  
+		<cfquery name="qCategoriesBase" datasource="AppsMaterials">
+			SELECT	*
+			FROM	(
+						SELECT 	C.Category,
+								C.Description as CategoryDescription,
+								C.Image as CategoryImage,
+								C.TabOrder as CategoryOrder,
+								CI.CategoryItem,
+								CI.CategoryItemName,
+								ISNULL((   
+									SELECT ROUND(SUM(ITx.TransactionQuantity),5)
+									FROM   ItemTransaction ITx WITH (NOLOCK)
+									WHERE  ITx.ItemNo = I.ItemNo
+									AND    ITx.Mission = MI.Mission
+									AND    ITx.WorkorderId IS NULL
+									AND    ITx.TransactionId NOT IN	
+											(
+												SELECT	Ix.TransactionId
+												FROM	Warehouse AS Wx WITH (NOLOCK)
+														INNER JOIN ItemTransaction AS Ix WITH (NOLOCK)
+															ON Wx.Warehouse = Ix.Warehouse 
+															AND Wx.LocationReceipt = Ix.Location
+												WHERE	Ix.TransactionType = '1' 
+												AND		Ix.TransactionId NOT IN 
+														(SELECT ITVx.TransactionId FROM ItemTransactionValuation AS ITVx WITH (NOLOCK)) 
+											)
+								), 0) as OnHand
+									
+						FROM	Item I WITH (NOLOCK)
+								INNER JOIN Ref_Category C WITH (NOLOCK)
+									ON I.Category = C.Category
+								INNER JOIN Ref_CategoryItem CI WITH (NOLOCK)
+									ON CI.Category = I.Category 
+									AND CI.CategoryItem = I.CategoryItem
+								INNER JOIN ItemUoM IU WITH (NOLOCK)
+									ON IU.ItemNo = I.ItemNo 
+								INNER JOIN ItemUoMMission MI WITH (NOLOCK)
+									ON MI.ItemNo = I.ItemNo
+						WHERE	MI.Mission       = '#arguments.Mission#' -- Param: Mission
+						AND		IU.EnablePortal  = '1'
+						AND  	C.Operational = '1'
+
+						--With pictures
+						AND		EXISTS (
+									SELECT	'X'
+									FROM	ItemImage Ix WITH (NOLOCK)
+									WHERE	Ix.ItemNo = I.ItemNo
+									AND		Ix.ImageClass = '001' --No thumbnails
+								)
+					) AS Base
+			WHERE	Base.OnHand > 0
 			
 			<cfif trim(Category) neq "">
-			AND     Category = '#Category#'
+			AND     Base.Category = '#Category#'
 			</cfif>
 			
 			<cfif trim(SearchText) neq "">
-			AND    <cf_softlike left="CategoryDescription" right="#trim(SearchText)#" language="ESP">
+			AND    <cf_softlike left="Base.CategoryDescription" right="#trim(SearchText)#" language="ESP">
 			</cfif>
-			
+
+		</cfquery>
+
+		<cfquery name="qCategories" dbtype="query">
+			SELECT DISTINCT Category, CategoryDescription, CategoryImage, CategoryOrder
+			FROM 	qCategoriesBase
 			ORDER BY 	<cfswitch expression="#OrderBy#">
 							<cfcase value="asc">
-								CategoryDescription ASC
+								CategoryOrder ASC
 							</cfcase>
 							<cfcase value="desc">
-								CategoryDescription DESC
+								CategoryOrder DESC
 							</cfcase>
 							<cfdefaultcase>
-								CategoryDescription ASC
+								CategoryOrder ASC
 							</cfdefaultcase>
 						</cfswitch>
 		</cfquery>
@@ -626,30 +366,12 @@ AND S.FieldDefault='1'
 		<cfset result = QueryToArray(qCategories)>
 		
 		<cfloop array="#result#" item="itm">
-		
-			<cfquery name="qSubCategories" datasource="AppsMaterials">
-			
-				SELECT CategoryItem, 
-				       CategoryItemName,
-					   SUM(OnHand)
-				FROM ( SELECT 	CI.CategoryItem, 
-								CI.CategoryItemName,
-								(	SELECT ROUND(SUM(TransactionQuantity),5)
-									FROM   ItemTransaction 
-									WHERE  ItemNo         = I.ItemNo
-								) as OnHand 
-						FROM    Item I
-								INNER JOIN Ref_Category C        ON I.Category = C.Category
-								INNER JOIN Ref_CategoryItem CI 	 ON CI.Category = C.Category AND I.CategoryItem = CI.CategoryItem
-								INNER JOIN ItemImage II			 ON II.ItemNo = I.ItemNo
-								INNER JOIN ItemUoM M			 ON M.ItemNo = I.ItemNo									
-						WHERE 	C.Category  = '#itm.Category#'
-						AND     II.ImageClass = '001'					
-					) as XL 
-					
-					GROUP BY  CategoryItem,CategoryItemName
-					HAVING    SUM(OnHand) > 0	
-					ORDER BY  CategoryItemName
+
+			<cfquery name="qSubCategories" dbtype="query">
+				SELECT DISTINCT CategoryItem, CategoryItemName
+				FROM 	qCategoriesBase
+				WHERE 	Category  = '#itm.Category#'
+				ORDER BY CategoryItemName ASC
 			</cfquery>
 						
 			<cfset itm.subcategories = arrayNew(1)>
@@ -1030,7 +752,7 @@ AND S.FieldDefault='1'
 		<cfset APPLICATION.BaseCurrency = "QTZ">
 		<cfset client.dateformatshow = "dd/mm/YYYY">
 
-		<cfinvoke component = "Service.Process.EDI.website.materials.Request"
+		<cfinvoke component = "Service.Process.EDI.website.store.Request"
 			method           = "addCart"
 			cart             = "#Cart#"
 			returnvariable   = "postResult">

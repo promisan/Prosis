@@ -1,5 +1,4 @@
 
-
 <cf_divscroll>
 
 <cfparam name="URL.ID2"            default="Template">
@@ -11,7 +10,6 @@
 <cfparam name="URL.FormName"               default="">
 <cfparam name="URL.fldfunctionno"          default="functionno">
 <cfparam name="URL.fldfunctiondescription" default="functiondescription">
-
 
 <input type="hidden" name="mission" value="<cfoutput>#URL.Mission#</cfoutput>">
 
@@ -74,8 +72,7 @@ password="#SESSION.dbpw#">
     <TD><cf_tl id="Id"></TD>
 	<TD width="56%"><cf_tl id="Description"></TD>
 	<TD><cf_tl id="Class"></TD>
-	<TD><cf_tl id="Bucket"></TD>
-   
+	<TD><cf_tl id="Bucket"></TD>   
 </TR>
 
 <cfoutput query="Level01">
@@ -84,13 +81,14 @@ password="#SESSION.dbpw#">
 
 <TR class="navigation_row line labelmedium2">
 	
-	<td colspan="2" style="padding-top:3px;padding-left:7px">
+	<td colspan="2" style="padding-top:2px;padding-left:7px">
 	    <cf_img icon="select" onclick="Selected('#FunctionNo#','#des#','#url.fldfunctionno#','#url.fldfunctiondescription#')" navigation="Yes">	
-	</TD>
-	<TD style="height:18"><a href="javascript:Selected('#FunctionNo#','#FunctionDescription#','#url.fldfunctionno#','#url.fldfunctiondescription#')">#FunctionNo#</a></TD>
-	<TD>#FunctionDescription#</TD>
-	<TD>#FunctionClass#</TD>
+	</td>
+	<td>#FunctionNo#</TD>
+	<td>#FunctionDescription#</TD>
+	<td>#FunctionClass#</TD>
 	<td align="center"><cfif Child neq "">*</cfif>&nbsp;</td>
+	
 </TR>
 
    <cfif Child neq "">
@@ -114,15 +112,15 @@ password="#SESSION.dbpw#">
 			
 		<CFSET des = Replace("#FunctionDescription#", "'", "", "ALL" )> 
 	   
-	    <TR bgcolor="white"  class="navigation_row line labelmedium2">
+	    <tr bgcolor="white" class="navigation_row line labelmedium2">
 	 	 <td colspan="2" style="padding-top:3px;padding-left:17px">	
 		   <cf_img icon="open" navigation="Yes" onclick="Selected('#FunctionNo#','#des#','#url.fldfunctionno#','#url.fldfunctiondescription#')">		
 		</td>
-		<TD>#FunctionNo#</font></TD>
-		<TD>#FunctionDescription#</font></TD>
-		<TD>#FunctionClass#</TD>
+		<td>#FunctionNo#</font></TD>
+		<td>#FunctionDescription#</font></TD>
+		<td>#FunctionClass#</TD>
 		<td align="center" style="padding-right:4px"><cfif Roster neq "">*</cfif></td>
-		</TR>
+		</tr>
 			
 		<cfquery name="Level03" 
 	    datasource="AppsSelection" 
@@ -139,17 +137,14 @@ password="#SESSION.dbpw#">
 		      
 			    <CFSET des = Replace("#FunctionDescription#", "'", "", "ALL" )> 
 				
-			    <tr bgcolor="white"  class="navigation_row line labelmedium2">
-				
+			    <tr bgcolor="white"  class="navigation_row line labelmedium2">				
 					<td colspan="2" class="regular" style="padding-top:3px;padding-left:25px">	
-						<cf_img icon="open" navigation="Yes" onclick="Selected('#FunctionNo#','#des#')">		
-					</td>
-				
+						<cf_img icon="open" navigation="Yes" onclick="Selected('#FunctionNo#','#des#','#url.fldfunctionno#','#url.fldfunctiondescription#')">		
+					</td>				
 					<TD>#FunctionNo#</font></TD>
 					<TD>#FunctionDescription#</TD>
 					<TD>#FunctionClass#</TD>
-					<td align="right" style="padding-right:4px"><cfif Roster neq "">Yes</cfif></td>
-			
+					<td align="right" style="padding-right:4px"><cfif Roster neq "">Yes</cfif></td>			
 			    </TR>
 				   
 		    </cfloop>

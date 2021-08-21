@@ -154,10 +154,6 @@
 			 </td>
 			 
 			 </cfif>
-			 
-			 <!--- *** LISTING PRINT FUNCTION **** --->
-			 
-			 <cfinclude template="ListingPrint.cfm">
 					 
 			 <cfquery name="Mail" 
 				datasource="AppsSystem" 
@@ -174,12 +170,13 @@
 			 
 			   <td width="1" style="padding:2px">|</td>	
 			   <td class="labelmedium" style="padding:2px" onclick="mail('#url.systemfunctionid#','#url.functionserialNo#')" #selectme#>	 
-			   <img src="#SESSION.root#/Images//mail3.gif" alt="" border="0">
-			    <cf_tl id="Broadcast mail">
-			   </td>
-			  <td width="1" style="padding:2px">|</td>	
+			   <img src="#SESSION.root#/Images//mail3.gif" alt="" border="0"> <cf_tl id="Broadcast">			   </td>			  	
 			 						 
 			 </cfif>
+			 
+			  <!--- *** LISTING PRINT FUNCTION **** --->
+			 <td width="1" style="padding:2px">|</td>
+			 <cfinclude template="ListingPrint.cfm">
 					 
 			</cfif>
 						

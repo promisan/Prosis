@@ -277,6 +277,15 @@ password="#SESSION.dbpw#">
 			WHERE  BatchNo                = '#URL.BatchNo#'
 		</cfquery>
 		
+		<cfquery name="set"
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				INSERT INTO WarehouseBatchAction
+				(BatchNo,ActionCode,ActionDate,ActionStatus,OfficerUserId,OfficerLastName,OfficerFirstName)
+				VALUES ('#URL.BatchNo#','Revert',getdate(),'1','#session.acc#','#session.last#','#session.first#')							
+		</cfquery>		
+		
 		<!--- we alread reset related sales transactions to become active again --->
 		
 		<!--- terchnically we should check if there 

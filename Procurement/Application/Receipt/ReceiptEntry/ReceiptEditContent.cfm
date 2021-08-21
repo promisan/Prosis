@@ -266,9 +266,11 @@
 			
 	<tr>
 	
-	<td colspan="2" style="padding-left:20px;height:25;font-size:20px" class="labellarge"><cf_tl id="Shipment and Receipt Details"> #Receipt.ReceiptNo#</td>
+	<td style="padding-left:20px;height:25;font-size:20px" class="labellarge">
+	<cf_tl id="Shipment and Receipt Details"> #Receipt.ReceiptNo#
+	</td>
 		
-	<td colspan="1" align="right" height="25" style="padding-right:4px">
+	<td align="right" height="25" style="padding-right:4px">
 	
 	       <table>
 		   <tr>	   
@@ -291,31 +293,24 @@
 				<td style="padding-right:4px"><cf_tl id="Presentation">:</td>
 				<td style="padding-right:5px">
 				<select id="financial" onchange="reload()" class="regularxl">
-				<option value="0" <cfif url.presentation eq "0">selected</cfif>><cf_tl id="Standard"></option>
-				<option value="1" <cfif url.presentation eq "1">selected</cfif>><cf_tl id="Include Ledger"></option>
-				<option value="9" <cfif url.presentation eq "9">selected</cfif>><cf_tl id="Summary"></option>
+					<option value="0" <cfif url.presentation eq "0">selected</cfif>><cf_tl id="Standard"></option>
+					<option value="1" <cfif url.presentation eq "1">selected</cfif>><cf_tl id="Include Ledger"></option>
+					<option value="9" <cfif url.presentation eq "9">selected</cfif>><cf_tl id="Summary"></option>
 				</select>
 				</td>				
 				<td>|</td>				
 				<td style="padding-left:4px">
 		       			 
 				<img src="#SESSION.root#/Images/mail.png"
-			     alt="eMail Routing Slip Invoicing Procedures"
-			     border="0"
-				 height="32px"
-				 width="32px"
-			     align="bottom"
-			     style="cursor: pointer;"
-				 onClick="javascript:mail()">
+				     alt="eMail Routing Slip Invoicing Procedures"
+				     border="0" height="32px" width="32px" align="bottom" style="cursor: pointer;" onClick="javascript:mail()">
 				 
 				</td>
 				<td>|</td>	
 				<td style="padding-left:4px;padding-right:8px"> 
 			    
 				<img src="#SESSION.root#/Images/print_gray.png" 
-				 style="cursor:pointer; height:32px;" onclick="avascript:print()"
-				 alt="Print" 
-				 border="0" align="absmiddle">		
+				 style="cursor:pointer; height:32px;" onclick="avascript:print()" alt="Print" border="0" align="absmiddle">		
 				 
 				 </td></tr>
 				</table>		
@@ -970,7 +965,15 @@
 							 <tr><td style="padding-left:4px;font-size:10px"><cf_tl id="Activation value"></td></tr>
 							 <tr><td align="right" class="labellarge" id="totalsum"></td></tr>								 	 
 						 </table>					 
-				</td>	 
+				</td>	
+				
+				 <td bgcolor="FFFFFF" 
+			         style="border:1px solid silver;padding-top: 2px; width:120px; font-size:20px;padding-right:4px">
+						 <table width="100%">
+							 <tr><td style="padding-left:4px;font-size:10px"><cf_tl id="Activated"></td></tr>
+							 <tr><td align="right" class="labellarge" id="activatedsum"></td></tr>								 	 
+						 </table>					 
+				</td>	  
 					 	 
 					 
 				 </tr>

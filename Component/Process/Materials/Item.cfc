@@ -910,6 +910,7 @@
 			<cfargument name = "DataSource"	      type="string"   required="true"   default="AppsPurchase">																 
 
 			<cfif UoMCode neq "">
+			
 			    <cfquery name="CheckUoM" 
 				datasource="#datasource#" 
 				username="#SESSION.login#" 
@@ -920,6 +921,7 @@
 				</cfquery>		
 				
 				<cfif CheckUoM.recordcount eq 0>
+				
 				    <cfquery name="insertRef" 
 					datasource="#datasource#" 
 					username="#SESSION.login#" 
@@ -928,7 +930,9 @@
 				            	(Code,Description,ListingOrder,OfficerUserId,OfficerLastName,OfficerFirstName)
 				    	VALUES  ('#UoMCode#','#UoMDescription#',0,'#SESSION.acc#','#SESSION.last#','#SESSION.first#')
 					</cfquery>		
+				
 				</cfif>
+				
 			</cfif>
 
 			<cfquery name="parameter"
@@ -936,8 +940,8 @@
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">		
 				SELECT *
-				FROM  Materials.dbo.Ref_ParameterMission
-				WHERE Mission = '#mission#'
+				FROM   Materials.dbo.Ref_ParameterMission
+				WHERE  Mission = '#mission#'
 			</cfquery>
 
 		    <cfquery name="insertItemUoM" 
@@ -1009,32 +1013,46 @@
 	         returntype="numeric"			 
              displayname="Suggested selling price routine for the item (if it does not exist it creates it)">
 
-			<cfargument name = "Currency"    		type="string"  required="true"   default="USD">					
-			<cfargument name = "Mission"    		type="string"  required="true"   default="">					
-			<cfargument name = "ItemNo"    		    type="string"  required="true"   default="">					
-			<cfargument name = "UoM"     		    type="string"  required="true"   default="0">				
-			<cfargument name = "Cost"     		    type="numeric" required="true"   default="0">											
-			<cfargument name = "Price"     		    type="numeric" required="true"   default="0">														
-			<cfargument name = "Category"     		type="string"  required="true"   default="ZAP">				
-			<cfargument name = "dataSource"			type="string"  required="true"   default="AppsPurchase">													
+			<cfargument name = "Currency"    	type="string"  required="true"   default="USD">					
+			<cfargument name = "Mission"    	type="string"  required="true"   default="">					
+			<cfargument name = "ItemNo"    		type="string"  required="true"   default="">					
+			<cfargument name = "UoM"     		type="string"  required="true"   default="0">				
+			<cfargument name = "Cost"     		type="numeric" required="true"   default="0">											
+			<cfargument name = "Price"     		type="numeric" required="true"   default="0">														
+			<cfargument name = "Category"     	type="string"  required="false"  default="">				
+			<cfargument name = "dataSource"		type="string"  required="true"   default="AppsPurchase">	
+			
+			<cfif Category eq "">
+			
+				 <cfquery name="Item" 
+					datasource="#datasource#" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					SELECT*
+					 FROM  Materials.dbo.Item
+					 WHERE ItemNo = '#ItemNo#'				
+				</cfquery>						
+				
+				<cfset Category = Item.Category>
+			
+			</cfif>
+											
 
 		    <cfquery name="checkWarehouse" 
-			datasource="#datasource#" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
+				datasource="#datasource#" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
 				SELECT Warehouse,
 				       Category,
 				       PriceSchedule,
 				       Currency,
 				       CostPriceMultiplier,
-				       CostPriceCeiling,
-				       Operational
+				       CostPriceCeiling
 				 FROM  Materials.dbo.WarehouseCategoryPriceSchedule
-				 WHERE Warehouse IN (
-									SELECT Warehouse
-									FROM   Materials.dbo.Warehouse 
-									WHERE  Mission = '#Mission#'
-							        )
+				 WHERE Warehouse IN ( SELECT Warehouse
+									  FROM   Materials.dbo.Warehouse 
+									  WHERE  Mission = '#Mission#'
+									  AND    Operational = 1 )
 				  AND  Operational = '1'
 				  AND  Category    = '#Category#'
 			</cfquery>			
@@ -1044,124 +1062,237 @@
 			<cfset eff = dateValue>			
 			
 			<cfset vCost = 0>
-				
-			<cfloop query = "checkWarehouse">
-				<cfquery name="CheckPrice" 
-					datasource="#datasource#" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">			
-						SELECT *  
-						FROM Materials.dbo.ItemUoMPrice
-						WHERE ItemNo      = '#ItemNo#'
-						AND	UoM           = '#UoM#'
-						AND	PriceSchedule = '#checkWarehouse.PriceSchedule#'
-						AND Mission       = '#Mission#'
-						AND Warehouse     = '#checkWarehouse.Warehouse#'
-						AND	Currency      = '#checkWarehouse.Currency#'
-				</cfquery>
 			
-				<cfset vCost = Cost>
-				<cfif checkPrice.recordcount eq 0>
-					<!---- then I have to create a new item based on parameters if and only if the Price has not been passed --->
-					<cfif Price eq 0>
-						<cfset vSalesPrice = CalculateSuggestedPrice(
-												Cost       = Cost,
-												Multiplier = CheckWarehouse.CostPriceMultiplier, 
-												Ceiling    = checkWarehouse.CostPriceCeiling,
-												CurrencyTo = checkWarehouse.Currency,
-												Datasource = datasource)>
-					<cfelse>
-						<cfif Currency eq checkWarehouse.Currency>
-							<cfset vSalesPrice = Price>		
-						<cfelse>
-						    <cf_exchangerate CurrencyFrom = "#Currency#" CurrencyTo = "#checkWarehouse.Currency#" datasource="AppsPurchase">
-						    <cfset vConverted_Amount = round(Price/exc * 100 )/ 100>
-							<!--- it calculates an average of the price for the cost--->						
-							<cfset vSalesPrice = vConverted_Amount>							
-						
-						</cfif>
-					</cfif>	
-
-					<cfquery name="CheckTaxCode" 
+			<cfquery name="CheckItem" 
+				datasource="#datasource#" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">			
+					SELECT *  
+					FROM   Materials.dbo.ItemUoMPrice
+					WHERE  ItemNo        = '#ItemNo#'
+					AND	   UoM           = '#UoM#'
+					AND	   Mission       = '#Mission#'											
+			</cfquery>
+			
+			<cfif checkItem.recordcount eq "0">
+				
+				<cfloop query = "checkWarehouse">
+				
+					<cfquery name="CheckItem" 
 						datasource="#datasource#" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">			
-						SELECT TaxCode
-						FROM   Materials.dbo.ItemWarehouse				
-						WHERE  ItemNo      = '#ItemNo#'
-						AND    Warehouse   = '#checkWarehouse.Warehouse#'
-					</cfquery>	
-					
-					<cfset vTaxCode = "">
-					<cfif CheckTaxCode.recordcount neq 0>
-						<cfset vTaxCode = ChecktaxCode.TaxCode>
-					<cfelse>
-						
-						<!--- last chance to determine the tax code --->
-						<cfquery name="CheckTaxCode" 
-						datasource="#datasource#" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">			
-							SELECT DISTINCT  TaxCode
-							FROM   Materials.dbo.WarehouseCategory
-							WHERE  Category  = '#Category#'
-					    </cfquery>	
-						
-						<cfif CheckTaxCode.recordcount neq 0>
-							<cfset vTaxCode = ChecktaxCode.TaxCode>
-						<cfelse>
-							<cfset vTaxCode = "">
-						</cfif>		
-						
-					</cfif>				
-					
+							SELECT *  
+							FROM   Materials.dbo.ItemUoMPrice
+							WHERE  ItemNo        = '#ItemNo#'
+							AND	   UoM           = '#UoM#'
+							AND	   PriceSchedule = '#PriceSchedule#'						
+							AND	   Currency      = '#Currency#'
+					</cfquery>
+				
 					<cfquery name="CheckPrice" 
 						datasource="#datasource#" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">			
-							INSERT INTO Materials.dbo.ItemUoMPrice
-					           (ItemNo
-					           ,UoM
-					           ,PriceSchedule
-					           ,Mission
-					           ,Warehouse
-					           ,Currency
-					           ,DateEffective
-					           ,SalesPrice
-	   						   <cfif vTaxCode neq "">
-								   ,TaxCode
-							   </cfif>	   
-					           ,CalculationMode
-					           ,CalculationClass
-					           ,CalculationPointer
-					           ,OfficerUserId
-					           ,OfficerLastName
-					           ,OfficerFirstName
-					           )
-					     VALUES (
-						       '#ItemNo#'
-					           ,'#UoM#' 
-					           ,'#checkWarehouse.PriceSchedule#'
-					           ,'#Mission#'
-					           ,'#checkWarehouse.Warehouse#'
-					           ,'#checkWarehouse.Currency#'
-					           ,#eff#
-					           ,'#vSalesPrice#'
-							   <cfif vTaxCode neq "">
-								   ,'#vTaxCode#'
-							   </cfif>
-					           ,'NoCalculation'
-					           ,NULL
-					           ,'0'
-							   ,'#SESSION.acc#'
-					    	   ,'#SESSION.last#'		  
-		  	                   ,'#SESSION.first#'
-					           )
-					</cfquery>							
+							SELECT *  
+							FROM   Materials.dbo.ItemUoMPrice
+							WHERE  ItemNo        = '#ItemNo#'
+							AND	   UoM           = '#UoM#'
+							AND	   PriceSchedule = '#PriceSchedule#'
+							AND    Mission       = '#Mission#'
+							AND    Warehouse     = '#Warehouse#'
+							AND	   Currency      = '#Currency#'
+					</cfquery>
 				
-				</cfif>
-			
-			</cfloop>	
+					<cfset vCost = Cost>
+					
+					<cfif checkPrice.recordcount eq 0>
+					
+						<cfquery name="CheckTaxCode" 
+							datasource="#datasource#" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">			
+							SELECT TaxCode
+							FROM   Materials.dbo.ItemWarehouse				
+							WHERE  ItemNo      = '#ItemNo#'
+							AND    Warehouse   = '#Warehouse#'
+						</cfquery>	
+						
+						<cfset vTaxCode = "">
+						
+						<cfif CheckTaxCode.recordcount neq 0>
+						
+							<cfset vTaxCode = ChecktaxCode.TaxCode>
+							
+						<cfelse>
+							
+							<!--- last chance to determine the tax code --->
+							
+							<cfquery name="CheckTaxCode" 
+							datasource="#datasource#" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">			
+								SELECT DISTINCT  TaxCode
+								FROM   Materials.dbo.WarehouseCategory
+								WHERE  Category  = '#Category#'
+						    </cfquery>	
+							
+							<cfif CheckTaxCode.recordcount neq 0>
+								<cfset vTaxCode = ChecktaxCode.TaxCode>
+							<cfelse>
+								<cfset vTaxCode = "">
+							</cfif>		
+							
+						</cfif>		
+										
+						<!---- then I have to create a new item based on parameters if and only if the Price has not been passed --->
+						
+						<cfif Price eq 0>
+						
+							<cfset vSalesPrice = CalculateSuggestedPrice(
+													Cost       = Cost,
+													TaxCode    = vTaxCode,
+													Multiplier = CostPriceMultiplier, 
+													Ceiling    = CostPriceCeiling,
+													CurrencyTo = Currency,
+													Datasource = datasource)>
+													
+																										
+						<cfelse>
+						
+							<cfif Currency eq checkWarehouse.Currency>
+								<cfset vSalesPrice = Price>		
+							<cfelse>
+							    <cf_exchangerate CurrencyFrom = "#Currency#" CurrencyTo = "#checkWarehouse.Currency#" datasource="AppsPurchase">
+							    <cfset vConverted_Amount = round(Price/exc * 100 )/ 100>
+								<!--- it calculates an average of the price for the cost--->						
+								<cfset vSalesPrice = vConverted_Amount>								
+							</cfif>
+							
+						</cfif>	
+	
+						<cfquery name="getWarehouse" 
+							datasource="#datasource#" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							    SELECT *
+							    FROM   Materials.dbo.Warehouse 
+							    WHERE  Warehouse = '#Warehouse#' 
+						</cfquery>			
+						
+						<cfif getWarehouse.SupplyWarehouse eq "">
+						
+							<!--- entity price --->
+							
+							<cfquery name="CheckPrice" 
+								datasource="#datasource#" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">			
+									SELECT *  
+									FROM   Materials.dbo.ItemUoMPrice
+									WHERE  ItemNo      = '#ItemNo#'
+									AND	   UoM           = '#UoM#'
+									AND	   PriceSchedule = '#checkWarehouse.PriceSchedule#'
+									AND    Mission       = '#Mission#'
+									AND    Warehouse  IS NULL
+									AND	   Currency      = '#checkWarehouse.Currency#'
+							</cfquery>
+							
+							<cfif checkPrice.recordcount eq "0">
+						
+								<cfquery name="CheckPrice" 
+									datasource="#datasource#" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">			
+										INSERT INTO Materials.dbo.ItemUoMPrice
+								           (ItemNo
+								           ,UoM
+								           ,PriceSchedule
+								           ,Mission						          
+								           ,Currency
+								           ,DateEffective
+								           ,SalesPrice
+				   						   <cfif vTaxCode neq "">
+											   ,TaxCode
+										   </cfif>	   
+								           ,CalculationMode
+								           ,CalculationClass
+								           ,CalculationPointer
+								           ,OfficerUserId
+								           ,OfficerLastName
+								           ,OfficerFirstName
+								           )
+								     VALUES (
+									       '#ItemNo#'
+								           ,'#UoM#' 
+								           ,'#checkWarehouse.PriceSchedule#'
+								           ,'#Mission#'						           
+								           ,'#checkWarehouse.Currency#'
+								           ,#eff#
+								           ,'#vSalesPrice#'
+										   <cfif vTaxCode neq "">
+											   ,'#vTaxCode#'
+										   </cfif>
+								           ,'Generated'
+								           ,NULL
+								           ,'0'
+										   ,'#SESSION.acc#'
+								    	   ,'#SESSION.last#'		  
+					  	                   ,'#SESSION.first#' )
+								</cfquery>	
+								
+							</cfif>							
+						
+						</cfif>	
+						
+						<cfquery name="CheckPrice" 
+							datasource="#datasource#" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">		
+							
+								INSERT INTO Materials.dbo.ItemUoMPrice
+						           (ItemNo
+						           ,UoM
+						           ,PriceSchedule
+						           ,Mission
+						           ,Warehouse
+						           ,Currency
+						           ,DateEffective
+						           ,SalesPrice
+		   						   <cfif vTaxCode neq "">
+									   ,TaxCode
+								   </cfif>	   
+						           ,CalculationMode
+						           ,CalculationClass
+						           ,CalculationPointer
+						           ,OfficerUserId
+						           ,OfficerLastName
+						           ,OfficerFirstName )
+						     VALUES (
+							       '#ItemNo#'
+						           ,'#UoM#' 
+						           ,'#checkWarehouse.PriceSchedule#'
+						           ,'#Mission#'
+						           ,'#checkWarehouse.Warehouse#'
+						           ,'#checkWarehouse.Currency#'
+						           ,#eff#
+						           ,'#vSalesPrice#'
+								   <cfif vTaxCode neq "">
+									   ,'#vTaxCode#'
+								   </cfif>
+						           ,'generated'
+						           ,NULL
+						           ,'0'
+								   ,'#SESSION.acc#'
+						    	   ,'#SESSION.last#'		  
+			  	                   ,'#SESSION.first#' )
+						</cfquery>							
+					
+					</cfif>
+				
+				</cfloop>	
+				
+			</cfif>	
 			
 			<cfreturn vCost>			
 			
@@ -1172,29 +1303,50 @@
 	         returntype="numeric"
              displayname="Return the suggested price">
 				
-			<cfargument name = "Cost"    		type="numeric"  required="true"   default="0">					
-			<cfargument name = "Multiplier"	    type="numeric"  required="true"   default="0">					
-			<cfargument name = "Ceiling"  	    type="numeric"  required="true"   default="0">		
-			<cfargument name = "CurrencyTo"     type="string"   required="true"   default="USD">		
-			<cfargument name = "Datasource"     type="string"   required="true"   default="AppsPurchase">					
-			
-				<cfset vCost   = Cost * Multiplier>
+				<cfargument name = "Cost"    		type="numeric"  required="true"   default="0">		
+				<cfargument name = "Taxcode"  		type="string"   required="true"   default="00">				
+				<cfargument name = "Multiplier"	    type="numeric"  required="true"   default="0">					
+				<cfargument name = "Ceiling"  	    type="numeric"  required="true"   default="5">		
+				<cfargument name = "CurrencyTo"     type="string"   required="true"   default="USD">		
+				<cfargument name = "Datasource"     type="string"   required="true"   default="AppsPurchase">	
 				
-				<cfset exc = 0.00>
+				<cfquery name="TaxCode" 
+						datasource="#datasource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">		
+						SELECT *
+						FROM   Accounting.dbo.Ref_Tax
+						WHERE  TaxCode = '#taxCode#'				
+			    </cfquery>
+				
+				<cfif TaxCode.TaxCalculation eq "Inclusive">
+					<cfset vCost   = Cost * (1+TaxCode.Percentage) * Multiplier>
+				<cfelse>
+					<cfset vCost   = Cost * Multiplier>
+				</cfif> 
+								
+				<cfset exc = 1.00>
+				
 			    <cf_exchangerate CurrencyFrom = "#APPLICATION.BaseCurrency#" CurrencyTo = "#CurrencyTo#" datasource="#datasource#">
-			    <cfset vConverted_Amount = round(vCost/exc * 100 )/ 100>
+			    
+				<cfset vConverted_Amount = round(vCost/exc * 100 )/ 100>
 
-				<cfset vDivisor = Ceiling>			
-				<cftry>
-					<cfloop condition="vConverted_Amount/vDivisor gte 1">
+				<!---
+				
+					<cfset vDivisor = Ceiling>			
+					<cfif vDivisor eq "0">
+						<cfset vDivisor = "1">
+					</cfif>			
+				
+					<cfloop condition="vConverted_Amount/vDivisor gt 1">
 						<cfset vDivisor = vDivisor + Ceiling>
+						<cfoutput>#vConverted_Amount#--#vDivisor#</cfoutput>
+						<cfabort>
 					</cfloop>
-				<cfcatch>
-					<cfset vDivisor = 0>
-				</cfcatch>
-				</cftry>
-		
-				<cfreturn vDivisor>
+					
+				--->	
+						
+				<cfreturn vConverted_Amount>
 	
 	</cffunction>
 

@@ -43,15 +43,15 @@ password="#SESSION.dbpw#">
 <script>
 
 	function reloadForm(page) {
-	     window.location="RecordListing.cfm?Page=" + page; 
+	     ptoken.location('RecordListing.cfm?Page=' + page); 
 	}
 
 	function recordadd() {
-	     window.location = "MandateEntry.cfm?Mission=#URL.Mission#";
+	     ptoken.location('MandateEntry.cfm?Mission=#URL.Mission#');
 	}
 
 	function recordedit(mis,id) {
-	     window.location = "MandateEdit.cfm?ID=" + mis + "&ID1=" + id;
+	     ptoken.location('MandateEdit.cfm?ID=' + mis + '&ID1=' + id);
 	}
 
 </script>	
@@ -60,9 +60,9 @@ password="#SESSION.dbpw#">
 	
 <tr><td colspan="2" style="padding-top:7px">
 
-<table width="96%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="" class="navigation_table">
+<table width="96%" align="center" bgcolor="" class="navigation_table">
 
-<tr class="labelmedium line">
+<tr class="labelmedium2 line">
     <TD width="40"></TD>
     <TD><cf_tl id="Code"></TD>
 	<TD><cf_tl id="Name"></TD>
@@ -77,9 +77,9 @@ password="#SESSION.dbpw#">
 <cfoutput query="SearchResult">
     	
     <!--- <TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('ffffcf'))#"> --->
-	<TR height="20" bgcolor="white" class="line navigation_row labelmedium">
+	<TR height="20" bgcolor="white" class="line navigation_row labelmedium2">
 		<td align="center" style="padding-top:1px">	
-		  <cf_img icon="edit" navigation="Yes" onclick="recordedit('#Mission#','#MandateNo#')">
+		  <cf_img icon="select" navigation="Yes" onclick="recordedit('#Mission#','#MandateNo#')">
 		</td>
 		<TD><a href="javascript:recordedit('#Mission#','#MandateNo#')">#MandateNo#</a></TD>
 		<TD>#Description#</TD>

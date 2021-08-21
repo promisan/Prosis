@@ -69,7 +69,7 @@
 				
 				 <cf_menucontainer item="1" class="regular"> 					 		
 				 	<cfset init = "1">		
-					<cfdiv bind="url:#SESSION.root#/System/Access/User/Audit/UserOnLine.cfm?id=#url.id#">							  		
+					<cf_securediv bind="url:#SESSION.root#/System/Access/User/Audit/UserOnLine.cfm?id=#url.id#">							  		
 				 </cf_menucontainer>
 				 				 
 				 <cf_menucontainer item="2" class="hide" iframe="logbox">

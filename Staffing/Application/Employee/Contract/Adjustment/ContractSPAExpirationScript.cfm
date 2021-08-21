@@ -11,7 +11,7 @@
 	expir = document.getElementById("DateExpiration")
 	
 	if (effec.value != '') {
-	   ColdFusion.navigate('#SESSION.root#/staffing/Application/Employee/Contract/ContractEditFormIncrement.cfm?reset=1&eff='+effec.value,'increment')	
+	   ptoken.navigate('#SESSION.root#/staffing/Application/Employee/Contract/ContractEditFormIncrement.cfm?reset=1&eff='+effec.value,'increment')	
 	}
 	
 </script>

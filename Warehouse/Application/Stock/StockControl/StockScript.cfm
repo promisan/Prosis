@@ -1932,16 +1932,17 @@ function resupplysort(s,modid,res) {
 
 		document.getElementById("optionselect").value = "resupply('s','"+modid+"')"	
 		
-		whs  = document.getElementById("warehouse").value;	
-		mis  = document.getElementById("mission").value;	
-		srt  = document.getElementById("sort").value
+		whs   = document.getElementById("warehouse").value;	
+		mis   = document.getElementById("mission").value;	
+		srt   = document.getElementById("sort").value
+		off   = document.getElementById("offer").value
 		if (res != "") {
 		Prosis.busy('yes')				
-		url = "../Resupply/ResupplyListing.cfm?height="+document.body.offsetHeight+
-					"&systemfunctionid="+modid+
+		url = "../Resupply/ResupplyListing.cfm?systemfunctionid="+modid+
 		            "&warehouse="+whs+					
 					"&restocking="+res+
-					"&sort="+srt+
+					"&sort="+srt+	
+					"&offer="+ent+				
 					"&mission="+mis				
 		_cf_loadingtexthtml='';				
 		ptoken.navigate(url,'subbox','','','POST','criteria')			

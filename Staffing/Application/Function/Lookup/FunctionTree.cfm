@@ -13,19 +13,20 @@
 	}
 	
 	function search(condition)
-		    			
-		<cfif URL.Mode eq "Lookup">		
-		{			
-		parent._cf_loadingtexthtml='';			
-		parent.ptoken.navigate('#session.root#/staffing/application/Function/Lookup/FunctionListingFlat.cfm?edition=#url.edition#&Mode=#URL.Mode#&Owner=#URL.Owner#&ID1=' + condition + '&FormName=#URL.formname#&fldfunctionno=#URL.fldfunctionno#&fldfunctiondescription=#URL.fldfunctiondescription#','rightme')
-		}		
+		  
+		{    			
+		<cfif URL.Mode eq "Lookup">	
+						
+			parent._cf_loadingtexthtml='';			
+			parent.ptoken.navigate('#session.root#/staffing/application/Function/Lookup/FunctionListingFlat.cfm?edition=#url.edition#&Mode=#URL.Mode#&Owner=#URL.Owner#&ID1=' + condition + '&FormName=#URL.formname#&fldfunctionno=#URL.fldfunctionno#&fldfunctiondescription=#URL.fldfunctiondescription#','rightme')
+					
 		<cfelse>		
-		{		
-		parent._cf_loadingtexthtml='';	
-		parent.ptoken.navigate('#session.root#/staffing/application/Function/Lookup/FunctionListingFlat.cfm?edition=#url.edition#&Mode=#URL.Mode#&Owner=#URL.Owner#&ID1=' + condition,'rightme')
-		}
-		
+					
+			parent._cf_loadingtexthtml='';	
+			parent.ptoken.navigate('#session.root#/staffing/application/Function/Lookup/FunctionListingFlat.cfm?edition=#url.edition#&Mode=#URL.Mode#&Owner=#URL.Owner#&ID1=' + condition,'rightme')
+					
 		</cfif>
+		}
 
 </script>
 

@@ -186,7 +186,7 @@ password="#SESSION.dbpw#">
 		if ($('##addressdetail').length > 0 || $("input[name='addressdetail']").length > 0) {
 			vContainer = 'addressdetail';
 		}
-		ColdFusion.navigate('#SESSION.root#/Staffing/Application/Employee/Address/EmployeeAddressDetail.cfm?mode=edit&webapp=#url.webapp#&ID=#Form.PersonNo#',vContainer);
+		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Address/EmployeeAddressDetail.cfm?mode=edit&webapp=#url.webapp#&ID=#Form.PersonNo#',vContainer);
      </script>	
 	 
 	 </cfoutput>	   

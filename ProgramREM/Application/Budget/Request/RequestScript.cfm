@@ -1,9 +1,11 @@
 
 <cf_dialogREMProgram>
 
+<cfparam name="url.EditionId"  default="">
 <cfparam name="url.ACTIVITYID" default="">
+<cfparam name="url.Objectcode" default="">
 
-<cfajaximport tags="cfform,cfdiv,cfwindow,cfinput-datefield">
+<cfajaximport tags="cfform,cfdiv">
 <cfoutput>
   	
   <cf_tl id="Budget Request Form" var="1">
@@ -11,27 +13,38 @@
   
   <cf_tl id="View Instructions" var="vExpandInstructionsMessage">
   <cf_tl id="Hide Instructions" var="vCollapseInstructionsMessage">
-  
+ 
  	
 	<script>
-			
+	
+	function reloadmatrix(per,id) {
+	    
+		if (document.getElementById('matrixbox')) {
+		
+			fund    = document.getElementById('fund').value
+			imaster = document.getElementById('itemmaster').value
+			loc     = document.getElementById('requestlocationcode').value				
+			ptoken.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestDialogFormMatrix.cfm?planperiod=#url.period#&period='+per+'&requirementid='+id+'&fund='+fund+'&objectcode=#url.objectcode#&itemmaster='+imaster+'&location='+loc+'&programcode=#url.programcode#&mission=#url.Mission#&editionid=#URL.Editionid#','matrixbox')							
+		}
+		
+	}
+				
 	function alldet(cell,edi,obj) {			
 				
 		se = document.getElementById(cell)
 					
 		if (se.className == "hide") {
 		   se.className = "regular"		  		
-		   ColdFusion.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestList.cfm?programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid='+edi+'&objectcode='+obj+'&cell='+cell,'box'+cell)
+		   ptoken.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestList.cfm?programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid='+edi+'&objectcode='+obj+'&cell='+cell,'box'+cell)
 		 } else {		 
 		   se.className = "hide"
 		}   
 	}
 	
 	function getcontribution(id,fd,prg,per) {	
-	
-		try { ColdFusion.Window.destroy('mycontribution',true) } catch(e) {}
-		ColdFusion.Window.create('mycontribution', 'Contribution', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:false,resizable:false,center:true})    						
-		ColdFusion.navigate('#SESSION.root#/ProgramREM/Application/Budget/Request/getContribution.cfm?requirementid='+id+'&programcode='+prg+'&fund='+fd+'&period='+per,'mycontribution') 			
+			
+		ProsisUI.createWindow('mycontribution', 'Contribution', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:false,resizable:false,center:true})    						
+		ptoken.navigate('#SESSION.root#/ProgramREM/Application/Budget/Request/getContribution.cfm?requirementid='+id+'&programcode='+prg+'&fund='+fd+'&period='+per,'mycontribution') 			
 
 	}
 	
@@ -48,7 +61,7 @@
 		    se = dialogview.document.getElementById("entrydialog")			
 			if (se) {											
 			    Prosis.busy('yes')
-				dialogview.ColdFusion.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestDialogForm.cfm?mode='+mode+'&requirementid='+id+'&programcode=#url.programCode#&period=#url.period#&activityid=#url.activityid#&editionid='+edi+'&objectcode='+obj+'&cell='+cell,'entrydialog')						
+				dialogview.ptoken.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestDialogForm.cfm?mode='+mode+'&requirementid='+id+'&programcode=#url.programCode#&period=#url.period#&activityid=#url.activityid#&editionid='+edi+'&objectcode='+obj+'&cell='+cell,'entrydialog')						
 			} else {
 			  				    
 			  reload(obj)			  
@@ -59,9 +72,9 @@
 				if (se) {		
 					Prosis.busy('yes')
 				    if (itm) {													
-					ColdFusion.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestDialogForm.cfm?mode='+mode+'&requirementid='+id+'&programcode=#url.programCode#&period=#url.period#&activityid=#url.activityid#&editionid='+edi+'&objectcode='+obj+'&cell='+cell+'&itemmaster='+itm,'entrydialog')	
+					ptoken.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestDialogForm.cfm?mode='+mode+'&requirementid='+id+'&programcode=#url.programCode#&period=#url.period#&activityid=#url.activityid#&editionid='+edi+'&objectcode='+obj+'&cell='+cell+'&itemmaster='+itm,'entrydialog')	
 					} else {
-						ColdFusion.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestDialogForm.cfm?mode='+mode+'&requirementid='+id+'&programcode=#url.programCode#&period=#url.period#&activityid=#url.activityid#&editionid='+edi+'&objectcode='+obj+'&cell='+cell,'entrydialog')						
+						ptoken.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestDialogForm.cfm?mode='+mode+'&requirementid='+id+'&programcode=#url.programCode#&period=#url.period#&activityid=#url.activityid#&editionid='+edi+'&objectcode='+obj+'&cell='+cell,'entrydialog')						
 					}					
 				} else {			  
 				  reload(obj)			  

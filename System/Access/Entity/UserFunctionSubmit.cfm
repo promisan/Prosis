@@ -1,5 +1,6 @@
 
-<cfparam name="form.clean"        default="1">
+
+<cfparam name="form.clean"        default="0">
 <cfparam name="form.grouponly"    default="0">
 <cfparam name="form.accountgroup" default="">
 <cfparam name="form.mission"      default="">
@@ -49,7 +50,7 @@
 		password="#SESSION.dbpw#">		
 			SELECT DISTINCT Source
 			FROM   OrganizationAuthorization
-			WHERE  UserAccount = '#url.id#'
+			WHERE  UserAccount = '#url.id#'			
 	</cfquery>	
 
 	<!--- define all groups this person has access to and remove access from those groups --->
@@ -171,7 +172,11 @@
 					  
 </cfloop>		
 
-</cftransaction>			  
+</cftransaction>	
+
+<script>
+	Prosis.busy('no')
+</script>		  
 
 
 

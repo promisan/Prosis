@@ -3,6 +3,8 @@
 
 <cf_screenTop height="100%" title="#lt_text#  #URL.Mission#" border="0" 
    html="No" scroll="No" menuAccess="Yes" jquery="Yes" validateSession="Yes">
+
+<cfajaximport tags="cfform">   
    
 <cfoutput>
 
@@ -18,15 +20,17 @@ function refreshTree() {
 }
 
 function reloadForm(per) { 
-	ptoken.navigate('ReceiptViewTree.cfm?mission=#URL.Mission#&period='+per,'treebox')
+   _cf_loadingtexthtml='';	
+	ptoken.navigate('ReceiptViewTree.cfm?systemfunctionid=#url.systemfunctionid#&mission=#URL.Mission#&period='+per,'treebox')
 }
 
 function newreceipt() {	
-	$('##right').attr('src','../ReceiptEntry/LocatePurchaseView.cfm?Mission=#URL.Mission#&Period='+document.getElementById("PeriodSelect").value);
+    ptoken.open('../ReceiptEntry/LocatePurchaseView.cfm?systemfunctionid=#url.systemfunctionid#&Mission=#URL.Mission#&Period='+document.getElementById("PeriodSelect").value,'right')
+	// $('##right').attr('src','../ReceiptEntry/LocatePurchaseView.cfm?Mission=#URL.Mission#&Period='+document.getElementById("PeriodSelect").value);
 }
 
 function newSearch() {
-    ptoken.location('ReceiptViewOpen.cfm?ID1=Locate&ID=STA&Mission=#URL.Mission#','right')
+    ptoken.open('ReceiptViewOpen.cfm?systemfunctionid=#url.systemfunctionid#&ID1=Locate&ID=STA&Mission=#URL.Mission#','right')
 //	$('##right').attr('src','ReceiptViewOpen.cfm?ID1=Locate&ID=STA&Mission=#URL.Mission#');
 }
 

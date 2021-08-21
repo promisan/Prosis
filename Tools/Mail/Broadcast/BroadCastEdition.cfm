@@ -168,5 +168,6 @@
 
 </cftransaction>
 
-<cflocation addtoken="No" url="BroadCastView.cfm?id=#vBroadcastId#">
+<cfparam name="url.mid" default="">
+<cflocation addtoken="No" url="BroadCastView.cfm?id=#vBroadcastId#&mid=#url.mid#">
 

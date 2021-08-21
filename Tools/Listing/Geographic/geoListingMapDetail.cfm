@@ -83,7 +83,7 @@
 
     <cfoutput>
         <h3 style="padding-bottom:10px;">
-            <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="35" height="35" onclick="Prosis.exportToExcel('detailGeoContent#url.viewId#Detail');" title="#lblExportToExcel#">
+            <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="30" height="30" onclick="Prosis.exportToExcel('detailGeoContent#url.viewId#Detail');" title="#lblExportToExcel#">
             
             <cfif trim(url.country) neq "">
                 #ucase(getNation.NationalityName)# 
@@ -200,10 +200,10 @@
 
     <h3 style="padding-bottom:10px; padding-top:20px;">
         <cfoutput>
-            <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="35" height="35" onclick="Prosis.exportToExcel('detailGeoRegionContent#url.viewId#Detail');" title="#lblExportToExcel#">
+            <img src="#session.root#/images/Excel.png" style="cursor:pointer;" width="30" height="30" onclick="Prosis.exportToExcel('detailGeoRegionContent#url.viewId#Detail');" title="#lblExportToExcel#">
             
             <cfif trim(url.region) neq "">
-                <cf_tl id="Region Country Detail" var="lblCountryDetail">
+                <cf_tl id="Region Member State Detail" var="lblCountryDetail">
                 #UCASE(lblCountryDetail)#
             </cfif>
 
@@ -218,7 +218,7 @@
     <table class="table tableDetail table-striped table-bordered table-hover detailGeoRegionContent<cfoutput>#url.viewId#</cfoutput>Detail" id="detailGeoRegionContent<cfoutput>#url.viewId#</cfoutput>Detail" style="width:100%;">
         <thead>
             <tr>
-                <th><cf_tl id="Country"></th>
+                <th><cf_tl id="Member State"></th>
                 <th><cf_tl id="Female"></th>
                 <th><cf_tl id="Male"></th>
                 <th><cf_tl id="Total"></th>

@@ -3,7 +3,6 @@
 <cfparam name="Form.OrderPrice" default="0">
 
 <cfif Len(Form.OrderItem) gt 200>
-
 	<script>
 		alert('Maximum length Description allowed is 200');
 	</script>
@@ -378,27 +377,35 @@
 		
 		<script>
 		    alert("Attention:\n\nYou must issue and clear this purchase Order again !")		
-			parent.parent.history.go()	
+			parent.history.go()	
+			Prosis.busy('no')
 		</script>	
 		
 	<cfelse>			
 	
 		<cfif log eq "0">
 		
-			<script>
-			    parent.parent.ColdFusion.Window.hide('myline')
-				try {
-					parent.parent.document.getElementById('refreshpurchasline').click()	
-				} catch(e) { parent.parent.history.go() }			
+			<script>				    		    		    			   		
+				try {					    		    
+					parent.document.getElementById('refreshpurchasline').click()						
+				} catch(e) { parent.history.go(); }	
+				<cfif url.action eq 'next'>		
+				  if (document.getElementById('gonext')) {
+				     document.getElementById('gonext').click() }				 
+				<cfelse>				  
+				  parent.ProsisUI.closeWindow('myline')
+				</cfif> 
+				Prosis.busy('no')
 			</script>
 			
 		<cfelse>
 		
-			<script>
-			    parent.document.getElementById('menu2').click()
-				try {
-					parent.parent.document.getElementById('refreshpurchasline').click()	
-				} catch(e) { parent.parent.history.go() }			
+			<script>			    			    				
+				try {				   
+					parent.document.getElementById('refreshpurchasline').click()	
+				} catch(e) { parent.history.go() }	
+				document.getElementById('menu2').click()	
+				Prosis.busy('no')			
 			</script>
 			
 		</cfif>	
@@ -408,3 +415,4 @@
 	</cftransaction>
 
 </cfif>
+

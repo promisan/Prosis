@@ -35,11 +35,11 @@ function refreshTree() {
 
 </cfoutput>
 
-<table width="100%" height="100%" class="tree" style="padding:9px" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" height="100%" class="tree" style="padding:9px" align="center">
 
   <tr><td valign="top" style="padding-top:4px;padding-left:10px">
   
-	<table width="98%" border="0" cellspacing="0" cellpadding="0" align="left">
+	<table width="98%" align="left">
 	
 	<cfoutput>
 	
@@ -48,7 +48,7 @@ function refreshTree() {
 			<tr>
 				<td><img src="#SESSION.root#/Images/bullet.png" alt="" border="0"></td>
 				<td style="padding-left:8px;height:45px;font-size:20px">
-					<a href="Search3.cfm?Mission=#URL.Mission#" target="right"><cf_tl id="New search"></a>
+					<a href="javascript:ptoken.open('Search3.cfm?Mission=#URL.Mission#','right')"><cf_tl id="New search"></a>
 				</td>
 			</tr>
 	</table>

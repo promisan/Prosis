@@ -61,7 +61,9 @@
 			values to select --->
 			
 			<cfset ini = session.listingdata[box]['recordsinit']>
-			<cfset fil = session.listingdata[box]['records']>			
+			<cfset fil = session.listingdata[box]['records']>	
+			<cfset dsn = session.listingdata[box]['datasource']>	
+			
 			<cftry>						
 				<cfif fil gt ini>								
 			      <cfset filterselect = searchresult>
@@ -162,7 +164,7 @@
 							<cfset lookup = replaceNoCase(current.lookupscript,"@fld","#fld# as DISPLAY")> 
 							<cfset lookup = replaceNoCase(lookup,"@code","#srh# as CODE")>
 							
-							<cfquery name="lookupdata" datasource="#attributes.datasource#" 
+							<cfquery name="lookupdata" datasource="#dsn#" 
 							  username="#SESSION.login#" password="#SESSION.dbpw#">
 								#preservesingleQuotes(lookup)#
 							</cfquery>	

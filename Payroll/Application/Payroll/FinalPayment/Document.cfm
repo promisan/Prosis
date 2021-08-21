@@ -341,16 +341,18 @@ password="#SESSION.dbpw#">
 					datasource="AppsPayroll" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						SELECT   R.Code, R.Description
+						SELECT   DISTINCT R.Code, R.Description
 						FROM     PersonEntitlement PE 
 						         INNER JOIN Ref_PayrollComponent R ON PE.SalaryTrigger = R.SalaryTrigger 
-								 INNER JOIN	SalaryScheduleComponent S ON PE.SalarySchedule = S.SalarySchedule AND R.Code = S.ComponentName			
+								 INNER JOIN SalaryScheduleComponent S ON PE.SalarySchedule = S.SalarySchedule 
+									AND      PE.EntitlementGroup = S.EntitlementGroup
+									AND      R.Code = S.ComponentName 
 						WHERE    PersonNo              = '#get.PersonNo#' 
 						AND      PE.SalarySchedule     = '#get.SalarySchedule#' 
-						AND      PE.SalaryTrigger     IN (#preservesinglequotes(components)#) 		     
+						AND      PE.SalaryTrigger     IN (#preservesinglequotes(components)#)      
 						AND      PE.DateEffective     <= #max# 
 						AND      (PE.DateExpiration IS NULL OR PE.DateExpiration >= #max#)
-						
+						AND      Status != '9'						
 					</cfquery>
 					
 					<cfloop query="getAllowance">

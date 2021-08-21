@@ -17,7 +17,7 @@
 					  FROM  JournalAccount  
 					  WHERE Journal = J.Journal
 					  AND   Mode = 'Contra'
-					  ORDER BY ListDefault DESC) as GLAccount, 
+					  ORDER BY ListDefault DESC) as GLAccountJournal,
 					 
 			         T.TransactionCategory as Category, 
 					 T.Description as DescriptionCategory,

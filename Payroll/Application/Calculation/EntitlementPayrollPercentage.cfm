@@ -170,6 +170,8 @@ password="#SESSION.dbpw#">
 	AND      R.EntitlementGrade     = 'SPA'
 		
 	ORDER BY PersonNo 
+	
+	
 			
 </cfquery>
 

@@ -163,6 +163,8 @@
 			AND     V.EntityCode      = 'VacCandidate'			
 		</cfquery>
 	
+	
+	
 <cfelse>
 	
 	<!--- Query returning search results --->
@@ -170,7 +172,6 @@
 	datasource="appsVacancy" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">	
-	
 	
 		SELECT      DISTINCT V.DocumentNo, 
 		            V.Mission, 
@@ -202,8 +203,7 @@
 							)
 								 
 		</cfif>
-		#PreserveSingleQuotes(CriteriaList)# 	
-		
+		#PreserveSingleQuotes(CriteriaList)# 					
 	
 	</cfquery>
 		

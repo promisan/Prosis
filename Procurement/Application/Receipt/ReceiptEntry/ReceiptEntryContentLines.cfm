@@ -1,4 +1,3 @@
-<cfajaximport tags="cfwindow">
 
 <script>
 	function setQty(q, r) {
@@ -16,9 +15,9 @@
 	 <td></td>
 	 <td width="38%"><cf_tl id="Item"></td>
 	 <td></td>
-	 <td><cf_tl id="UoM"></td>
-	 <td><cf_tl id="Volume"></td>
-	 <td><cf_tl id="Curr."></td>
+	 <td style="min-width:80px"><cf_tl id="UoM"></td>
+	 <td style="min-width:50px"><cf_tl id="Vol"></td>
+	 <td style="min-width:30px"><cf_tl id="Cur"></td>
 	 <td style="min-width:80px" align="right"><cf_tl id="Price"></td>
 	 <td style="min-width:60px" align="right"><cf_tl id="Disc"></td>
 	 <td style="min-width:60px" align="right"><cf_tl id="Qty"></td>
@@ -154,7 +153,7 @@
 			   <td>#OrderItem#</td>
 			   <td>#OrderItemNo#</td>
 			   <td>#OrderUoM#</td>
-			   <td>#OrderUoMVolume#</td>
+			   <td style="padding-left:4px">#OrderUoMVolume#</td>
 			   <td>#Currency#</td>				   
 			   <td style="min-width:100px" align="right">#NumberFormat(OrderPrice,",.__")#</td>
 			   <td style="min-width:100px" align="right">#NumberFormat(OrderDiscount*100,"._")#%</td>
@@ -308,13 +307,19 @@
 					   </cfif>
 					   				   
 				   </td>				   
-				   <td align="center" style="padding-right:7px;padding-left:3px">#CurrentRow#.</td>
-				   <cfif Delivery.Status eq "3">
-				   <td>#OrderItem# <cfif CaseNo neq "">(#CaseNo#)</cfif></td>
+				   <td align="center" style="padding-right:7px;padding-left:3px">#CurrentRow#.</td>				   
+				   				   			   
+				   <cfif WarehouseItemNo neq "">
+					  <td>
+					   <a href="javascript:setitem('purchase','#requisitionno#','box_#requisitionno#_item','#WarehouseItemNo#','#warehouseUoM#')">
+					   <span id="box_#requisitionno#_item">#OrderItem#</span></a></td>
+					  <td><a href="javascript:setitem('purchase','#requisitionno#','box_#requisitionno#_item','#WarehouseItemNo#','#warehouseUoM#')">#OrderItemNo#</td>
 				   <cfelse>
-				   <td>#OrderItem# <cfif CaseNo neq "">(#CaseNo#)</cfif></td>
-				   </cfif>
-				   <td>#OrderItemNo#</td>
+				      <td>#OrderItem# <cfif CaseNo neq "">(#CaseNo#)</cfif></td> 
+					  <td>#OrderItemNo#</td>
+				   </cfif>				   
+				   	   
+				   
 				   <td>#OrderUoM#</td>
 				   <td>#OrderUoMVolume#</td>
 				   <td>#Currency#</td>				   
@@ -322,8 +327,7 @@
 				   <td align="right">#NumberFormat(OrderDiscount*100,"._")#%</td>
 				   <td align="right">#NumberFormat(OrderQuantity,",__")#</td>
 				   <td align="right">#NumberFormat(OrderAmount,',.__')#</td>
-				   <td align="right">#NumberFormat(OrderAmountTax,",.__")#</td>	
-				   		   
+				   <td align="right">#NumberFormat(OrderAmountTax,",.__")#</td>					   		   
 				   <td align="center">
 				   				   
 					   <cfif receiptquantity gt "0">
@@ -358,10 +362,10 @@
 						  
 						  <cfif Delivery.Status eq "2">
 						  
-							  <table cellspacing="0" cellpadding="0">
+							  <table>
 							  
-								  <tr><td class="labelit"><cf_tl id="Partial"></td>
-
+								  <tr>
+								  <td class="labelit"><cf_tl id="Partial"></td>
 								  <td id="status_#requisitionno#" style="padding-left:6px">								  								  
 								
 								  <cfif Delivery.OrderValue gt "0">
@@ -407,7 +411,7 @@
 											      name    = "delivery#RequisitionNo#" 
 												  value   = "1" 	
 												  checked										  
-												  onclick = "ColdFusion.navigate('setDeliveryStatus.cfm?requisitionno=#requisitionno#&recordstatus=1','status_#requisitionno#')"
+												  onclick = "ptoken.navigate('setDeliveryStatus.cfm?requisitionno=#requisitionno#&recordstatus=1','status_#requisitionno#')"
 												  class   = "radiol">												  
 										 </cf_UIToolTip>
 									</cfif>	 

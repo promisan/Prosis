@@ -53,8 +53,10 @@ password="#SESSION.dbpw#">
     <cf_message message="#vText1# #vText2#">
 
 <cfelse>
+
+	<cfparam name="url.mid" default="">
 	
-	<cflocation addtoken="No" url="#SESSION.root#/CaseFile/Application/Case/#Tab.TabTemplate#/ClaimView.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#">
+	<cflocation addtoken="No" url="#SESSION.root#/CaseFile/Application/Case/#Tab.TabTemplate#/ClaimView.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&mid=#url.mid#">
 
 </cfif>
 

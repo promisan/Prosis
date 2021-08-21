@@ -9,4 +9,4 @@ password="#SESSION.dbpw#">
 	AND     Mission='#url.mission#'
 </cfquery>
 
-<cflocation addtoken="No" url="#SESSION.root#/CaseFile/Application/Case/#Tab.TabTemplate#/ClaimLocate.cfm">
+<cflocation addtoken="No" url="#SESSION.root#/CaseFile/Application/Case/#Tab.TabTemplate#/ClaimLocate.cfm?mid=#url.mid#">

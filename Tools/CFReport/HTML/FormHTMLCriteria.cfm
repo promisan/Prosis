@@ -225,8 +225,7 @@
 								
 								<tr>
 								  
-								  <td height="100%" valign="top" style="padding-left:2px;cursor:pointer;min-width:250px">		
-								  					  								  
+								  <td height="100%" valign="top" style="padding-left:2px;cursor:pointer;min-width:250px">										  					  								  
 								 								  									 			  								 				   
 										   <table height="100%" class="formspacing">
 										   					  					  					   
@@ -437,7 +436,7 @@
 										</cfif>
 							
 									<tr>																																																		 
-										<td valign="top" style="height:100%;height:30px;padding-top:2px;padding-left:4px;cursor:pointer;background-color:<cfif CriteriaClass eq 'Layout'>C1E0FF<cfelse>FFBD9D</cfif>;border:0px solid silver">										  
+										<td valign="top" style="height:100%;height:30px;padding-top:2px;padding-left:4px;cursor:pointer;background-color:<cfif CriteriaClass eq 'Layout'>C1E0FF<cfelse>e1e1e1</cfif>;border:0px solid silver">										  
 																				
 										<cf_uitooltip tooltip="#tt#">
 																				 																											

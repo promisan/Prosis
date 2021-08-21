@@ -101,34 +101,25 @@
 	 
 	 	<cffile action="COPY" 
 			source="#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.png" 
-	    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">  	 
-		 	 								 		
-		  <img src="#SESSION.root#\\CFRStage\Signature\#attributes.account#.jpg?id=#rowguid#"			   
-			   border="0"
-			   align="absmiddle"
-               height="#attributes.imageheight#" 
-			   width="#attributes.imagewidth#">			  			  
-						
-	 <cfelseif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg")>	
-	 
+	    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">  	
+			
+		 <cfimage name="vSignature" action="read" source="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg"/> 
+		 				
+	 <cfelseif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg")>	 
+	 		 
 	 	  <cffile action="COPY" 
 			source="#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg" 
 	    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">   	
-	 	 											 		
-		  <img src="#SESSION.root#\\CFRStage\Signature\#attributes.account#.jpg?id=#rowguid#"			   
-			   border="0"
-			   align="absmiddle"
-               height="#attributes.imageheight#" 
-			   width="#attributes.imagewidth#">
-		 
-  	 <cfelse>		 
-			 
-		   <img src="#SESSION.root#/Images/image-not-found.gif" alt="Not found" 
-		       style="height: auto;width: #attributes.imagewidth#px;margin: auto;" 
-			   border="0" 
-			   align="absmiddle">
-			  
+			
+		  <cfimage name="vSignature" action="read" source="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg"/>
+	 			 
+  	 <cfelse>	
+	 
+	 	  <cfimage name="vSignature" action="read" source="#SESSION.root#/Images/image-not-found.gif"/>		 
+						  
 	 </cfif>
+	 
+	 <img src="data:image/*;base64,#toBase64(vSignature)#"	align="absmiddle" height="#attributes.imageheight#" width="#attributes.imagewidth#">
 	
 	 </td></tr>
 	 
@@ -165,6 +156,5 @@
 	</table>	
 	 
 </cfoutput>	 	 
-	 
  
 	 

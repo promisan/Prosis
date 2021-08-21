@@ -9,6 +9,7 @@
 	FROM    Ref_SubmissionEdition
 	WHERE   SubmissionEdition = '#URL.Edition#'
 	</cfquery>
+		
 	
 <cfif Edition.recordcount eq "1">	
 

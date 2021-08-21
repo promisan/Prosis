@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"> 
+<cf_screentop height="100%" jquery="Yes"  scroll="Yes" html="No">		
 
 <cfparam name="Form.MandateParent" default="">
 
@@ -515,7 +515,7 @@
 
 <cfoutput>
 <script language="JavaScript">
-     parent.ColdFusion.navigate('MandateViewTree.cfm?Mission=#form.Mission#&Mandate=#Form.MandateNo#','treebox')
-     window.location = "MandateListing.cfm?Mission=#Form.Mission#&ts=#now()#"
+     parent.ptoken.navigate('MandateViewTree.cfm?Mission=#form.Mission#&Mandate=#Form.MandateNo#','treebox')
+     ptoken.location('MandateListing.cfm?Mission=#Form.Mission#')
 </script>  
 </cfoutput>

@@ -164,7 +164,7 @@
 <cf_ModuleInsertSubmit
    SystemModule      = "AdminUser" 
    FunctionClass     = "User"
-   FunctionName      = "Authorization Roles" 
+   FunctionName      = "User Roles" 
    MenuOrder         = "4"
    MainMenuItem      = "1"
    FunctionMemo      = "Record and Maintain User Authorization Roles"
@@ -185,6 +185,19 @@
    FunctionPath      = "Owner/RecordListing.cfm"
    ScriptName        = ""
    AccessUserGroup   = "0">     
+   
+    
+<cf_ModuleInsertSubmit
+   SystemModule      = "AdminUser" 
+   FunctionClass     = "User"
+   FunctionName      = "Entity functions" 
+   MenuOrder         = "6"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Record and Maintain Entity functions"
+   FunctionDirectory = "System/Access/"
+   FunctionPath      = "Entity/RecordListing.cfm"
+   ScriptName        = ""
+   AccessUserGroup   = "0">        
    
 <cf_ModuleInsertSubmit
    SystemModule       = "System" 

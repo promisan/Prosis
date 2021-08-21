@@ -1,6 +1,4 @@
 
-
-
 <cfcomponent displayname="Application" output="true" hint="Handle the application.">
  
 	<!--- Set up the application. --->

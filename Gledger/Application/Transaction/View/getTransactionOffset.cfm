@@ -28,6 +28,7 @@
 			  TL.TransactionDate,
 			  TL.Reference,
 			  TL.TransactionType,
+			  TL.TransactionCurrency,
 			  TL.Currency, 
 			  TL.GLaccount,
 			  TL.AmountDebit,
@@ -62,18 +63,17 @@
 
 <table width="90%" border="0" align="center" class="navigation_table">
 
-	<tr class="labelmedium line">
+	<tr class="labelmedium2 line">
 	    <td style="width:80%"><cf_tl id="Transaction"></td>
 		   <td style="min-width:90px"><cf_tl id="Date"></td>
-		   <td style="min-width:50px"><cf_tl id="Currency"></td>
-		   <td style="min-width:80px"></td>
+		   <td style="min-width:30px" colspan="2"><cf_tl id="Transaction amount"></td>		  
 		   <td style="min-width:100px" align="right"><cf_tl id="Exchange rate"></td>
 		   <td style="min-width:100px" align="right">
 		   <cfif SelectLines.Total lt 0><cf_tl id="Credit"><cfelse><cf_tl id="Debit"></cfif>		   
 		   </td>
 	</tr>	
 	
-	<tr class="labelmedium line">
+	<tr class="labelmedium2 line">
 	    <td style="width:80%;font-size:18px">#Get.JournalTransactionNo#</td>
 		<td style="font-size:15px">#dateformat(get.TransactionDate,client.dateformatshow)#</td>
 		<td style="font-size:15px">#Get.Currency#</td>
@@ -87,11 +87,23 @@
 	<cfif selectLines.GLAccount eq GLAccount>
 		
 	<tr class="labelmedium navigation_row line" style="height:23px">
-	    <td style="width:80%;font-size:14px;padding-left:5px"><a href="javascript:ShowTransaction('#linejournal#','#linejournalserialNo#')">#LineJournalName#</td>
+	    <td style="width:80%;font-size:14px;padding-left:5px"><a href="javascript:ShowTransaction('#linejournal#','#linejournalserialNo#')">#LineJournalName# #currency#</td>
 		<td style="min-width:90px;;font-size:14px">#dateformat(TransactionDate,client.dateformatshow)#</td>
-		   <td style="min-width:70px;;font-size:14px">#currency#</td>
-		   <td style="min-width:80px;;font-size:14px"><cfif currency neq get.currency>#numberformat(TransactionAmount,',.__')#</cfif></td>
-		   <td align="right" style="min-width:80px;;font-size:14px">#numberformat(ExchangeRate,',.____')#</td>
+		   <td style="min-width:40px;;font-size:14px">#TransactionCurrency#</td>
+		   <td align="right" style="min-width:80px;;font-size:14px"><cfif currency neq get.currency>#numberformat(TransactionAmount,',.__')#</cfif></td>
+		   <td align="right" style="min-width:80px;;font-size:14px">
+		   
+		   
+		   <cfif currency neq get.currency>
+		  
+			   <cfif credit gt 0>
+			   #numberformat(Credit/TransactionAmount,',.____')#
+			   <cfelse>#numberformat(Debit/TransactionAmount,',.____')#
+			   </cfif>
+		   
+		   </cfif>
+		   		   
+		   </td>
 		   <td style="min-width:120px;font-size:14px;padding-right:4px" align="right"><cfif credit gt 0>#numberformat(Credit,',.__')#<cfelse>#numberformat(Debit,',.__')#</cfif></td>
 	</tr>	
 	
@@ -177,7 +189,7 @@
 		
 	<tr class="labelmedium line">
 	    <td style="width:80%;font-size:18px"><cf_tl id="Balance"></td>		
-	   <td colspan="5" style="min-width:120px;font-size:20px" align="right"><cfif abs(get.AmountOutstanding) gte "0.05">#NumberFormat(get.AmountOutstanding,',.__')#<cfelse><span style="color:green"><cf_tl id="Nihil"></span></cfif></td>
+	   <td colspan="5" style="min-width:120px;font-size:20px" align="right"><cfif abs(get.AmountOutstanding) gte "0.05">#NumberFormat(get.AmountOutstanding,',.__')#<cfelse><span style="color:green"><cf_tl id="Nihil"><font size="1">#NumberFormat(get.AmountOutstanding,',.__')#</font></span></cfif></td>
 	</tr>	
 
 </table>

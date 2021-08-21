@@ -34,15 +34,15 @@
 			<!--- trying now for all --->
 			<cf_licenseCheck module="'#preserveSingleQuotes(Module)#'" mission="'ALL'" message="No" LicenseId ="#url.licenseIdAll#">
 		</cfif>
-					
+							
 		<cfinclude template="ShowLicenseExpiration.cfm">		
 		
 		<cfcatch>
 		     <cfoutput>
-			  <table cellspacing="0" cellpadding="0" class="formpadding"><tr><td>
+			  <table class="formpadding"><tr class="labelmedium2"><td>
 			 <img src="#SESSION.root#/Images/alert_stop.gif" alt="" border="0" align="absmiddle">	
-			 </td><td class="labelmedium2">
-			 <font color="FF0000">Invalid Key - 2</font>
+			 </td><td>
+			 <font color="FF0000">Error2</font>
 			  </td></tr></table>
 			 </cfoutput>
 		</cfcatch>

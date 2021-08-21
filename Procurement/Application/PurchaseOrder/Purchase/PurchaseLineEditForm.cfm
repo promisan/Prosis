@@ -17,6 +17,7 @@ password="#SESSION.dbpw#">
     FROM   PurchaseLineReceipt L
 	WHERE  L.RequisitionNo = '#URL.ID#'
 	AND    ActionStatus != '9'
+	AND    ActionStatus >= '1'
 </cfquery>
 
 <cfquery name="Parameter1" 
@@ -75,12 +76,10 @@ password="#SESSION.dbpw#">
 
 <cfparam name="Status" default="1">
 
-<table width="97%" align="center" class="formpadding" cellspacing="0" cellpadding="0">
-	<tr class="hide"><td height="100" colspan="2"><iframe name="result" id="result"></iframe></td></tr>
+<table>
 <tr><td>
-		
 
-<cfform action="PurchaseLineEditSubmit.cfm?ID=#URL.ID#" method="POST" name="entry" target="result">
+<cfform action="PurchaseLineEditSubmit.cfm?ID=#URL.ID#" onsubmit="return false" method="POST" name="entry" target="result">
 
     <!--- precalc --->
 	
@@ -164,16 +163,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 		
 	<table width="98%" align="center" class="formpadding">
-	
-	<cfif receipts.recordcount gte "1">
-	<tr><td colspan="2" class="line"></td></tr>
-	<tr><td colspan="2" class="labelmedium" align="center">
-	    <font color="FF0000">
-			<b>Attention:</b> This line has been (partially) received.
-		</font>
-	</td></tr>
-	</cfif>
-	
+			
 	<cfif Travel.recordcount gte "1">
 	
 		<tr class="hide"><td id="saving"></td></tr>
@@ -187,7 +177,7 @@ password="#SESSION.dbpw#">
 			   name       = "OrderItemNo" 
 	           id         = "OrderItemNo"
 			   value      = "<cfoutput>#Line.OrderItemNo#</cfoutput>" 
-			   onchange   = "ColdFusion.navigate('PurchaseLineEditTravel.cfm?id=<cfoutput>#url.id#</cfoutput>','saving','','','POST','entry')"
+			   onchange   = "ptoken.navigate('PurchaseLineEditTravel.cfm?id=<cfoutput>#url.id#</cfoutput>','saving','','','POST','entry')"
 			   size       = "20" 
 			   maxlength  = "20">
 					
@@ -197,7 +187,7 @@ password="#SESSION.dbpw#">
 		<TR>
 	        <td valign="top" class="labelmedium"><cf_tl id="Description">:</td>
 	        <TD><textarea cols="60" rows="3" style="padding:3px;font-size:14px" name="OrderItem" class="regular"
-			  onchange="ColdFusion.navigate('PurchaseLineEditTravel.cfm?id=<cfoutput>#url.id#</cfoutput>','saving','','','POST','entry')"><cfoutput>#Line.OrderItem#</cfoutput></textarea> </TD>
+			  onchange="ptoken.navigate('PurchaseLineEditTravel.cfm?id=<cfoutput>#url.id#</cfoutput>','saving','','','POST','entry')"><cfoutput>#Line.OrderItem#</cfoutput></textarea> </TD>
 		</TR>
 			
 		<!--- travel provision --->		
@@ -314,7 +304,7 @@ password="#SESSION.dbpw#">
 					 <table><tr>
 					 <td>
 					  <cfinput type="Text" id="ordermultiplier" name="ordermultiplier" value="#Line.OrderMultiplier#" message="Enter a valid quantity" 
-				  		validate="float" class="regularxl" required="Yes" size="3" style="text-align: right;" 
+				  		validate="float" class="regularxl" required="Yes" size="8" style="text-align: right;" 
 						onChange="javascript:whs(this.value,orderquantity.value,orderprice.value)">
 				    </td>
 					<td style="padding-left:10px;padding-right:4px" class="labelmedium">
@@ -322,13 +312,13 @@ password="#SESSION.dbpw#">
 					</td>
 					<td>  
 					  <cfoutput>
-				        <input type="text" size="5" class="regularxl" id="orderwarehouse" name="orderwarehouse" value="#Line.ordermultiplier*Line.orderquantity#" size="14" readonly style="text-align: right;">
+				        <input type="text" size="8" class="regularxl" id="orderwarehouse" name="orderwarehouse" value="#round(Line.ordermultiplier*1000*Line.orderquantity)/1000#" size="20" readonly style="text-align: right;">
 					  </cfoutput>
 				    </td>
 					<td style="padding-left:4;padding-right:4px">@</td>
 					<td style="padding-left:1px">  
 					  <cfoutput>
-				        <input type="text" size="5" class="regularxl" id="unitprice" name="unitprice" value="#numberformat(prc/Line.ordermultiplier,'_.___')#" size="10" readonly style="text-align: right;">
+				        <input type="text" size="8" class="regularxl" id="unitprice" name="unitprice" value="#numberformat(prc/Line.ordermultiplier,'_.___')#" size="10" readonly style="text-align: right;">
 					  </cfoutput>
 				    </td>
 					<td style="padding-left:3px" class="labelmedium"><cfoutput>#Request.QuantityUoM#</cfoutput></td>
@@ -354,7 +344,7 @@ password="#SESSION.dbpw#">
 	    <TD class="labelmedium"><cf_tl id="Price">:</TD>
 	    <TD>
 		
-			<table cellspacing="0" cellpadding="0" class="formspacing">
+			<table class="formspacing">
 			<tr><td>
 			
 			<cfquery name="Lines" 
@@ -439,12 +429,13 @@ password="#SESSION.dbpw#">
 			
 			<td class="labelmedium" style="padding-left:4px">
 			
+			
 			<cfif Line.OrderZero eq "1">
 		     <input type="checkbox" class="radiol" name="orderzero" id="orderzero" value="1" checked onClick="free(this.checked)">
 			<cfelse>
 			 <input type="checkbox" class="radiol" name="orderzero" id="orderzero" value="1" onClick="free(this.checked)">
-			</cfif>&nbsp;<cf_tl id="Item offered for free">
-			
+			</cfif>
+			</td><td style="padding-left:3px"><cf_tl id="Item offered for free">		
 			</td>
 			</tr>
 			</table>
@@ -478,13 +469,21 @@ password="#SESSION.dbpw#">
 			</cfoutput>
 			
 			</td>
-			<td style="padding-left:5px" class="labelmedium">			
-			    <input type="checkbox" class="radiol" name="entrysetting" id="entrysetting" value="1" onClick="extendedprice(this.checked)">		
-		        <cf_tl id="allow to edit">
-			</td>
+			<td style="padding-left:5px" class="labelmedium">	
+			    <table><tr><td>		
+			    <input type="checkbox" class="radiol" name="entrysetting" id="entrysetting" value="1" onClick="extendedprice(this.checked)">
+				</td>						
+		        
+				<td style="padding-left:3px">
+				<cf_tl id="allow to edit">				
+				</td>		
+				</tr>
+		
+			</table>
 			
-			</tr>
-			
+			</td>		
+				</tr>
+		
 			</table>
 		
 		</TD>
@@ -663,7 +662,7 @@ password="#SESSION.dbpw#">
 		</TR>
 				   
 	<TR>
-        <td class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Remarks">:</td>
+        <td class="labelmedium" valign="top" style="min-width:300px;padding-top:3px"><cf_tl id="Remarks">:</td>
         <TD><textarea style="width:98%;font-size:13px;padding:3px" rows="3" name="Remarks" class="regular"><cfoutput>#Line.Remarks#</cfoutput></textarea> </TD>
 	</TR>
 	
@@ -677,19 +676,32 @@ password="#SESSION.dbpw#">
 	
 	<cf_tl id="Reset" var="1">
 	<cfset vReset=#lt_text#>	
+	
+	<cf_tl id="Next" var="1">
+	<cfset vNext=#lt_text#>	
 
-	<cf_tl id="Save Line" var="1">
+	<cf_tl id="Save and Close" var="1">
 	<cfset vSaveLine=#lt_text#>	
+	
+	<cf_tl id="Save and Next" var="1">
+	<cfset vSaveNext=#lt_text#>	
 
 	<tr><td height="30" align="center" colspan="2">
+	
+		<table align="center" class="formspacing">
+		<tr>
     
 	   <cfoutput>
+	   
+	   	    <td>
 	 
 		   <cfif Line.personNo eq "">
-			  <input class="button10g" style="height:25px" type="button"  name="close" id="close" value="#vClose#" onclick="parent.ProsisUI.closeWindow('myline',true)">
+			  <input class="button10g" style="height:27px" type="button"  name="close" id="close" value="#vClose#" onclick="parent.ProsisUI.closeWindow('myline',true)">
 		   <cfelse>
-		 	  <input class="button10g" style="height:25px" type="button"  name="close" id="close" value="#vClose#" onclick="parent.ProsisUI.closeWindow('myline',true)">	 
+		 	  <input class="button10g" style="height:27px" type="button"  name="close" id="close" value="#vClose#" onclick="parent.ProsisUI.closeWindow('myline',true)">	 
 		   </cfif>
+		   
+		   </td>
 				   
 		   <cfif Travel.recordcount eq "0">		
 		      
@@ -706,9 +718,53 @@ password="#SESSION.dbpw#">
 			  	 <cfif Line.personNo eq "" or 
 				       getAdministrator(Line.mission) eq "1" or 
 					   (ApprovalAccess eq "EDIT" or ApprovalAccess eq "ALL")>
-					   
-				  	 <input class="button10g" style="height:25px" type="reset"  name="Reset" id="Reset" value="#vReset#">
-					 <input class="button10g" style="height:25px" type="submit" name="save"  id="save"  value="#vSaveLine#">
+					
+					<td>   
+				  	 <input class="button10g" style="height:27px" type="reset"  name="Reset" id="Reset" value="#vReset#">
+					</td>
+					<td> 
+					 <input class="button10g" style="width:200px;height:27px" type="button" onclick="formvalidate('#url.id#','next')" name="next"  id="next"  value="#vSaveNext#">
+					</td> 
+										
+					<!--- next / prior --->
+					
+					<cfquery name="Lines" 
+					datasource="AppsPurchase" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					    SELECT L.*
+					    FROM   PurchaseLine L
+						WHERE  L.ActionStatus != '9'
+						AND    L.PurchaseNo = '#Line.PurchaseNo#'
+						ORDER BY L.ListingOrder, L.OrderItemNo, L.Created
+					</cfquery>
+					
+					<cfset sel = 0>
+					<cfset next = "">
+					<cfloop query="Lines">
+					   <cfif sel eq "1">
+					   	  <cfset next = requisitionNo>
+					   </cfif>
+					   <cfif requisitionNo eq URL.ID>
+					      <cfset sel = 1>
+					   <cfelse>
+					   	  <cfset sel = 0>	  
+					   </cfif>
+					</cfloop>
+					
+					<cfif next neq "">
+					
+					<td class="hide"> 					
+					 <input class="button10g" type="button" style="height:27px" 
+					  name="gonext"  id="gonext"  value="#vNext#" onclick="_cf_loadingtexthtml='';ptoken.navigate('PurchaseLineEditForm.cfm?mode=#url.mode#&id=#next#','contentbox1')">
+					</td> 
+					
+					</cfif>
+											
+					<td> 
+					 <input class="button10g" style="width:200px;height:27px" type="button" onclick="formvalidate('#url.id#','close')" name="save"  id="save"  value="#vSaveLine#">
+					</td>
+										
 					 
 			   	</cfif>	 
 				
@@ -717,7 +773,10 @@ password="#SESSION.dbpw#">
 		  
 	   </cfoutput>
 	   
-	   </td>	
-	</tr>		
+	   </tr>
 				
 </CFFORM>
+</table>
+	   
+	   </td>	
+	</tr>		

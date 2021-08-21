@@ -204,43 +204,43 @@ function validateincident(id,box) {
 						
 			<cf_menucontainer item="2" class="hide">
 			
-			<cfquery name="myTabs" 
-					datasource="AppsCaseFile" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-					SELECT   *
-					FROM     Ref_ClaimTypeTab
-					WHERE    Code = '#Claim.ClaimType#'	
-					AND      (
-					          ClaimTypeClass is NULL 
-					                 OR 
-							  ClaimTypeClass = '#claim.ClaimTypeClass#'
-							 )
-					AND      TabName != 'Control'
-					AND      Mission = '#url.mission#'
-					AND      TabNameParent is NULL
-					AND      Operational = 1 
-					ORDER BY TabOrder				    
-			</cfquery>				
+				<cfquery name="myTabs" 
+						datasource="AppsCaseFile" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						SELECT   *
+						FROM     Ref_ClaimTypeTab
+						WHERE    Code = '#Claim.ClaimType#'	
+						AND      (
+						          ClaimTypeClass is NULL 
+						                 OR 
+								  ClaimTypeClass = '#claim.ClaimTypeClass#'
+								 )
+						AND      TabName != 'Control'
+						AND      Mission = '#url.mission#'
+						AND      TabNameParent is NULL
+						AND      Operational = 1 
+						ORDER BY TabOrder				    
+				</cfquery>				
 			
-			<cfset itm = 2>					 
-			
-			<cfloop query="mytabs">
-			
-				<cfif accessgranted gte accesslevelread and accessgranted neq "">		
-							
-					<cfset itm = itm+1>					
-					<cfif tabtemplate eq "element" or ModeOpen eq "Bind">						
-						<cf_menucontainer item="#itm#" class="hide">														
-					<cfelse>								
-					    <cf_menucontainer item="#itm#" class="hide">										
-						<cfinclude template="#TabTemplate#">
-					    </cf_menucontainer>						
+				<cfset itm = 2>					 
+				
+				<cfloop query="mytabs">
+				
+					<cfif accessgranted gte accesslevelread and accessgranted neq "">		
+								
+						<cfset itm = itm+1>					
+						<cfif tabtemplate eq "element" or ModeOpen eq "Bind">						
+							<cf_menucontainer item="#itm#" class="hide">														
+						<cfelse>								
+						    <cf_menucontainer item="#itm#" class="hide">										
+							<cfinclude template="#TabTemplate#">
+						    </cf_menucontainer>						
+						</cfif>
+					
 					</cfif>
 				
-				</cfif>
-			
-			</cfloop>
+				</cfloop>
 			
 			</cfoutput>
 						

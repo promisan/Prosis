@@ -883,4 +883,7 @@
 
 </cfif>		
 
-<cflocation url="Query/QuerySearch.cfm?mode=#url.mode#&docno=#url.docno#&ID=#URL.ID#" addtoken="No">
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/> 
+
+<cflocation url="Query/QuerySearch.cfm?mode=#url.mode#&docno=#url.docno#&ID=#URL.ID#&mid=#mid#" addtoken="No">

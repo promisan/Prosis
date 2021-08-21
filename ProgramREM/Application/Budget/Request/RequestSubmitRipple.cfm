@@ -315,7 +315,7 @@
 						
 							<script language="JavaScript">	
 							   try {		
-								parent.ColdFusion.navigate('ObjectSelect.cfm?objectcode=#RippleObjectCode#&prior=#Form.ObjectCode#','selected')
+								parent.ptoken.navigate('ObjectSelect.cfm?objectcode=#RippleObjectCode#&prior=#Form.ObjectCode#','selected')
 								} catch(e) {}
 							</script>
 							

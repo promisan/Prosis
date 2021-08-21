@@ -68,12 +68,12 @@
 				password="#SESSION.dbpw#">
 					SELECT 	*
 					FROM 	ItemUoMPrice
-					WHERE 	ItemNo = '#ItemNo#'
-					AND		UoM = '#UoM#'
+					WHERE 	ItemNo        = '#ItemNo#'
+					AND		UoM           = '#UoM#'
 					AND		PriceSchedule = '#PriceSchedule#'
-					AND		Mission = '#url.mission#'
-					AND		Warehouse = '#url.warehouse#'
-					AND		Currency = '#url.currency#' 
+					AND		Mission       = '#url.mission#'
+					AND		Warehouse     = '#url.warehouse#'
+					AND		Currency      = '#url.currency#' 
 					AND		DateEffective = '#dateFormat(SearchResult.deliveryDateEnd,"yyyymmdd")#'
 			</cfquery>
 			
@@ -82,7 +82,8 @@
 			
 			<cfset vTaxCode = evaluate("Form.TaxCode_#vPriceId#")>
 			
-			<cfif validate.recordCount eq 0>
+			<cfif validate.recordCount eq 0 and vSalesPrice gt 0>
+			
 				<cfquery name="insert"
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
@@ -105,9 +106,7 @@
 							OfficerLastName,
 							OfficerFirstName
 						)
-					VALUES
-						(
-							'#ItemNo#',
+					VALUES ('#ItemNo#',
 							'#UoM#',
 							'#PriceSchedule#',
 							'#Mission#',
@@ -121,18 +120,19 @@
 							'#CalculationPointer#',
 							'#SESSION.acc#',
 							'#SESSION.last#',
-							'#SESSION.first#'
-						)
+							'#SESSION.first#' )
 				</cfquery>
+				
 			<cfelse>
+			
 				<cfquery name="update"
 					datasource="AppsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 					UPDATE ItemUoMPrice
-					SET SalesPrice = #vSalesPrice#,
-						TaxCode = '#vTaxCode#'
-					WHERE PriceId = '#PriceId#'
+					SET    SalesPrice = #vSalesPrice#,
+						   TaxCode = '#vTaxCode#'
+					WHERE  PriceId = '#PriceId#'
 				</cfquery>
 			
 			</cfif>
@@ -145,6 +145,6 @@
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('../../SalesOrder/Pricing/Form/PricingForm.cfm?mission=#url.mission#&warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&currency=#url.currency#&category=#url.category#&selectionDate=#url.SelectionDate#','contentbox1');
+		ptoken.navigate('../../SalesOrder/Pricing/Form/PricingForm.cfm?mission=#url.mission#&warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#&currency=#url.currency#&category=#url.category#&selectionDate=#url.SelectionDate#&mid=#url.mid#','contentbox1');
 	</script>
 </cfoutput>

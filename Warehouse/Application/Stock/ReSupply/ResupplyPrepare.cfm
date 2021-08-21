@@ -22,6 +22,8 @@
 <cfparam name="Form.Filter"            default="">
 <cfparam name="Form.RestockingSelect"  default="">
 <cfparam name="Form.RefreshContent"    default="0">
+<cfparam name="Form.Offer"             default="0">
+
 
 <cfquery name="get" 
 		datasource="AppsMaterials" 
@@ -823,6 +825,8 @@ password="#SESSION.dbpw#">
 <cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemFulfilled">
 <cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemOnHand">
 <cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemOnHandMission">
+
+<cfset url.offer = form.Offer>
 
 <cfinclude template="ResupplyListing.cfm">
 

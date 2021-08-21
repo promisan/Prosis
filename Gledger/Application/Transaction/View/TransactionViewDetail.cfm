@@ -92,10 +92,12 @@
 			   <td align="right">	
 				
 				   <table>
+				   
 				   <tr><td>
 				   <input type="radio" style="height:18;width:18" name="SummaryView" value="1" <cfif url.summary eq "1">checked</cfif> onClick="view('1')">
 				   </td>
 				   <td class="labelmedium2" style="padding-left:2px;padding-right:8px"><cf_tl id="Standard view"></td>
+				   
 				   <td style="padding-left:5px">
 				   <input type="radio" style="height:18;width:18" name="SummaryView" value="0" <cfif url.summary eq "0">checked</cfif> onClick="view('0')">
 				   </td>
@@ -105,6 +107,7 @@
 					   <input type="radio" style="height:18;width:18" name="SummaryView" value="0" <cfif url.summary eq "9">checked</cfif> onClick="view('9')">
 				   </td>
 				   <td class="labelmedium2" style="padding-left:2px"><cf_tl id="Edit"></td>
+				   </tr>
 				 
 				   </table>
 				   
@@ -159,7 +162,10 @@
 			<tr>
 			<cfset jrn = Journal>
 			</td>
-			<td width="25%" style="height:35px;font-size:19px;padding-left:3px;" bgcolor="<cfoutput>#cl#</cfoutput>" class="labelmedium22"  align="center" ><CFOUTPUT query="Transaction">#JournalSerialNo#</cfoutput><cfif Transaction.RecordStatus eq "9"><cf_tl id="Voided"></cfif></td>			 
+			<td width="25%" style="height:35px;font-size:19px;padding-left:3px;" bgcolor="<cfoutput>#cl#</cfoutput>" class="labelmedium22"  align="center">
+			<cfoutput query="Transaction">#JournalSerialNo#</cfoutput>
+			<cfif Transaction.RecordStatus eq "9"><cf_tl id="Voided"></cfif>
+			</td>			 
 		    </td>
 			</tr>		
 			</table>
@@ -690,21 +696,21 @@
 				datasource="AppsLedger" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">			
-				SELECT   u.Description AS UnitClass, 			         
-						 s.Currency, 
-						 s.TransactionAmount, 						 
-						 w.Reference, 
-						 p.PersonNo, 
-						 p.IndexNo, 
-						 p.LastName, 
-						 p.FirstName
-				FROM     TransactionHeaderWorkOrder AS s INNER JOIN
-	                     WorkOrder.dbo.WorkOrderLine AS w ON s.WorkorderId = w.WorkOrderId AND s.WorkorderLine = w.WorkOrderLine INNER JOIN
-	                     WorkOrder.dbo.Ref_UnitClass AS u ON s.UnitClass = u.Code LEFT OUTER JOIN
-	                     Employee.dbo.Person AS p ON w.PersonNo = p.PersonNo
-				WHERE    s.Journal         = '#Journal#'
-				AND      s.JournalSerialNo = '#journalSerialNo#'	
-				ORDER BY u.description		
+					SELECT   u.Description AS UnitClass, 			         
+							 s.Currency, 
+							 s.TransactionAmount, 						 
+							 w.Reference, 
+							 p.PersonNo, 
+							 p.IndexNo, 
+							 p.LastName, 
+							 p.FirstName
+					FROM     TransactionHeaderWorkOrder AS s INNER JOIN
+		                     WorkOrder.dbo.WorkOrderLine AS w ON s.WorkorderId = w.WorkOrderId AND s.WorkorderLine = w.WorkOrderLine INNER JOIN
+		                     WorkOrder.dbo.Ref_UnitClass AS u ON s.UnitClass = u.Code LEFT OUTER JOIN
+		                     Employee.dbo.Person AS p ON w.PersonNo = p.PersonNo
+					WHERE    s.Journal         = '#Journal#'
+					AND      s.JournalSerialNo = '#journalSerialNo#'	
+					ORDER BY u.Description		
 				</cfquery>
 				
 				<cfif ChargeDetails.recordcount neq "0">
@@ -790,11 +796,11 @@
 						WHERE  PersonNo = '#ReferencePersonNo#'				
 					  </cfquery>	
 									
-					  <A HREF ="javascript:EditPerson('#ReferencePersonNo#')"><font color="0080C0">#getPerson.FirstName# #getPerson.LastName# (#getPerson.Nationality#)</a>
+					  <A HREF ="javascript:EditPerson('#ReferencePersonNo#')">#getPerson.FirstName# #getPerson.LastName# (#getPerson.Nationality#)</a>
 					  
 					<cfelseif ReferenceOrgUnit neq "">   
 					
-					  <A HREF ="javascript:viewOrgUnit('#ReferenceOrgUnit#')"><font color="0080C0">#ReferenceName#</a>
+					  <A HREF ="javascript:viewOrgUnit('#ReferenceOrgUnit#')">#ReferenceName#</a>
 					  
 					<cfelse>
 					
@@ -824,7 +830,9 @@
 						WHERE  BatchId = '#TransactionSourceId#'				
 					  </cfquery>	
 				
-					<td class="cellborder labelmedium2" style="padding-left:5px"><a href="javascript:batch('#getBatch.BatchNo#')">#getBatch.BatchNo#</a></td>
+					<td class="cellborder labelmedium2" style="padding-left:5px">
+					<a href="javascript:batch('#getBatch.BatchNo#')">#getBatch.BatchNo#</a>
+					</td>
 				
 			     <cfelse>
 				 				
@@ -906,11 +914,11 @@
 			  
 		      <tr>
 		        <td height="20" bgcolor="fafafa" width="25%" style="padding-left:15px;" class="labelmedium2"><cf_tl id="Unit">:</td>
+				
 		        <td width="25%" class="cellborder labelmedium2" style="padding-left:5px">							
 					  <A HREF ="javascript:viewOrgUnit('#ReferenceOrgUnit#')">#ReferenceName#</a>				
 				</td>
-				
-												
+																
 		        <td colspan="2" bgcolor="f1f1f1" style="padding-left:15px" align="center" class="labelmedium2">
 				
 				 <cfquery name="Validation" 
@@ -945,7 +953,8 @@
 		      <tr>
 		        <td height="20" bgcolor="fafafa" width="25%" style="padding-left:15px" class="labelmedium2"><cf_tl id="Reference">:</td>
 				<td width="25%" class="cellborder labelmedium2" style="padding-left:5px">
-				<A HREF ="javascript:viewEvent('#TransactionSourceId#')">#ReferenceNo#</a></td>
+				<A HREF ="javascript:viewEvent('#TransactionSourceId#')">#ReferenceNo#</a>
+				</td>
 				<!---
 				<td width="25%" bgcolor="fafafa" style="padding-left:15px" class="labelmedium2"><cf_tl id="Discount date">:</td>
 		 		<td width="25%" class="cellborder labelmedium2" style="padding-left:5px">#DateFormat(ActionDiscountDate, CLIENT.DateFormatShow)#</font></td> 		
@@ -1168,664 +1177,661 @@
   <tr class="NoPrint clsNoPrint">
     <td width="100%" height="20" colspan="2">
          <table width="100%" class="formpadding">
-		 
+				 
 		 <cfset adv = 0>		 
 		 
-		  <cfif Transaction.AmountOutstanding gt 0.05 and Transaction.recordStatus eq "1" and (access eq "EDIT" or Access eq "ALL")>
-	        										  
-	          <cfif Transaction.TransactionCategory eq "Payables">
-			  			  				
-				 <tr><td colspan="3" height="1" class="line"></td></tr>
-			  	 <tr><td colspan="3" style="height:40px">
-				 
-				   <table cellspacing="0" cellpadding="0">
-					<tr><td class="labelmedium2">	
-			  
-			      <cfquery name="CurPeriod"
-	               datasource="AppsLedger" 
-	               username="#SESSION.login#" 
-	               password="#SESSION.dbpw#">
-	              	   SELECT *
-		               FROM   Ref_ParameterMission
-					   WHERE  Mission = '#Transaction.Mission#'
-	              </cfquery>
-				  			  			  
-				  <cfoutput>
-				   	
-						<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Payment','#CurPeriod.CurrentAccountPeriod#','','')">
-						<cf_tl id="Submit a Payment Order">
-						</a>
-								      
-				  </cfoutput>
+			  <cfif Transaction.AmountOutstanding gt 0.05 and Transaction.recordStatus eq "1" and (access eq "EDIT" or Access eq "ALL")>		  
+			  		        										  
+		          <cfif Transaction.TransactionCategory eq "Payables">
+				  			  				
+					 <tr><td colspan="3" height="1" class="line"></td></tr>
+				  	 <tr><td colspan="3" style="height:40px">
+					 
+					   <table cellspacing="0" cellpadding="0">
+						<tr><td class="labelmedium2">	
 				  
-				  </td>				  
-				  				  
-				  <cfif Transaction.amountOutstanding gt "0">
-					
-						<td style="padding-left:10px;padding-right:10px">|</td>
-						
-						<td class="labelmedium2">				
-											  
-					  	<cfoutput>
-					   		<a href="javascript:CorrectTransaction('#Transaction.Journal#','#Transaction.JournalSerialNo#','Payables')">
-						    <cf_tl id="Record a discount">
+				      <cfquery name="CurPeriod"
+		               datasource="AppsLedger" 
+		               username="#SESSION.login#" 
+		               password="#SESSION.dbpw#">
+		              	   SELECT *
+			               FROM   Ref_ParameterMission
+						   WHERE  Mission = '#Transaction.Mission#'
+		              </cfquery>
+					  			  			  
+					  <cfoutput>
+					   	
+							<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Payment','#CurPeriod.CurrentAccountPeriod#','','')">
+							<cf_tl id="Submit a Payment Order">
 							</a>
-					   	</cfoutput>		
-												
-						<!--- check process access --->											
-										
-					 	<cfquery name="checkadvances"
-			               datasource="AppsLedger" 
-			               username="#SESSION.login#" 
-			               password="#SESSION.dbpw#">					
-								SELECT    TOP 10 
-										  TransactionId,JournalTransactionNo,OfficerLastName,
-										  TransactionDate,currency,ABS(Amount) Amount, ABS(AmountOutstanding) as AmountOutstanding
-
-								FROM      TransactionHeader H
-								WHERE     Mission              = '#Transaction.Mission#'
-								AND       (ReferenceOrgUnit    = '#Transaction.ReferenceOrgUnit#')
-								AND       TransactionCategory  = 'Advances'
-								--AND     Currency             = '#Transaction.Currency#' 
-								AND       ABS(AmountOutstanding) > 0.05
-								AND  	  ActionStatus        != '9'
-								AND  	  RecordStatus        != '9'
+									      
+					  </cfoutput>
+					  
+					  </td>				  
+					  				  
+					  <cfif Transaction.amountOutstanding gt "0">
 						
-						<!--- only of journals to which the user has edit/all access --->
-						
-							<cfif getAdministrator("#Transaction.Mission#") eq "0">
-								AND       Journal IN (SELECT ClassParameter 
-							                      FROM   Organization.dbo.OrganizationAuthorization 
-												  WHERE  Role        = 'Accountant'
-												  AND    Mission     = '#Transaction.Mission#'
-												  AND    UserAccount = '#session.acc#'
-												  AND    AccessLevel IN ('1','2'))
-							</cfif>
-												
-							<!--- advance received --->
-							AND   EXISTS (
-							         SELECT 'X'
-							         FROM   TransactionLine
-									 WHERE  Journal             = H.Journal
-									 AND    JournalSerialNo     = H.JournalSerialNo
-									 AND    TransactionSerialNo = '0'
-									 AND    AmountDebit > 0
-									 )
-										 
-							ORDER BY TransactionDate
-						</cfquery>
-
-						<cfif checkadvances.recordcount gte "1">
 							<td style="padding-left:10px;padding-right:10px">|</td>
-							<td class="labelmedium2">
-							<a href="javascript:toggleobjectbox('offset')">
-								<cf_tl id="Offset against advance">								
-							</a>
-							</td>			
-						</cfif>	
-						
-						<!--- functionality for offsetting against advance --->
-						
-					</cfif>
-					
-					</tr>
-					
-					</table>
-					
-					</td>
-				  				  
-				  </tr>
-				  
-				  <cfif checkadvances.recordcount gte "1">
-				  
-					  <tr id="offset" class="hide"><td colspan="3" style="padding-left:15px">							  	
-						
-							<table width="100%" cellspacing="0" cellpadding="0">				
-						
-							<tr><td>
 							
-								<cfform name="offsetform" id="offsetform">
-																
-								<table width="100%" class="formspacing">
-									<tr class="labelmedium2 line">
-										<td><cf_tl id="Transaction"></td>
-										<td><cf_tl id="Officer"></td>
-										<td><cf_tl id="Date"></td>
-										<td><cf_tl id="Currency"></td>
-										<td align="right"><cf_tl id="Amount"></td>	
-										<td align="right"><cf_tl id="Balance"></td>
-										<td align="right"><cf_tl id="postingdate"></td>
-										<td align="right"><cf_tl id="Offset"></td>
-									</tr>
-									
-									<cfset amt = Transaction.AmountOutstanding>									
-
-									<cfset indexadvance=0>
-									
-									<cfoutput query="CheckAdvances">
-
-										<cfset indexadvance = indexadvance + 1>
-									
-									    <input type="hidden" name="Advances" value="#transactionid#">
-									    
-										<tr class="labelmedium2" style="height:15px">
-										 <td style="height:20px">#JournalTransactionNo#</td>
-										 <td>#OfficerLastName#</td>
-										 <td>#dateformat(TransactionDate,client.dateformatshow)#</td>
-										 <td>#currency#</td>
-										 <td align="right">#numberformat(Amount,',.__')#</td>
-										 <td align="right">#numberformat(AmountOutstanding,',.__')#</td>
-										 <td align= "right">
-										 	<cf_intelliCalendarDate9
-			    							      FieldName="postingdate_#indexadvance#" 				 
-												  class="regularxl enterastab"
-			    		      					  Default="#Dateformat(now(), CLIENT.DateFormatShow)#">	
-										 </td>	
-										 <td align="right">
-
-										 <cfif CheckAdvances.currency neq Transaction.currency>
-										   <cf_exchangeRate currencyFrom = "#CheckAdvances.currency#" currencyTo = "#Transaction.currency#">
-										   <cfset erate = exc>
-										<cfelse>
-											<cfset erate = 1>   
-										</cfif> 
-
-										<cfset val = amt * erate>
-										<cfif val gt amountoutstanding>
-											<cfset val = amountoutstanding>
-										<cfelse>	
-											<cfset val = val>	
-										</cfif>
-										
-										<cfset amt = amt - (val / erate)>
-										 <!-----
-										 <cfif amt gt amountOutstanding>										 	
-											<cfset offset = amountoutstanding>
-										 <cfelse>											    
-										 	<cfset offset = amt>											
-										 </cfif>
-										 <cfset amt = amt - offset>	
-										 
-										 <input class="regularxl" value="#offset#" type="text" name="Offset_#left(TransactionId,8)#" style="width:80px;text-align:right" maxlength="20">
-										 ----->
-
-										 <input type="hidden" 
-											 name="out_#left(TransactionId,8)#"											 
-											 id="out_#left(TransactionId,8)#"
-											 value="#amountOutstanding#" 
-											 size="10" 
-											 maxlength="12" 											
-											 class="regularxl enterastab" 
-											 style="background-color:ffffcf;width:96%;height:23px;text-align:right;padding-top:0px">				
-										
-										
-										<input type="text" 
-											 name="amt_#left(TransactionId,8)#"					
-											 id="amt_#left(TransactionId,8)#"									 
-											 value="#NumberFormat(val,'_,____.__')#" 
-											 size="10" 
-											 maxlength="12" 
-											 onchange="recalcline('#left(TransactionId,8)#')"
-											 class="regularxl enterastab" 
-											 style="background-color:ffffcf;width:96%;height:23px;text-align:right;padding-top:0px">																						
+							<td class="labelmedium2">				
+												  
+						  	<cfoutput>
+						   		<a href="javascript:CorrectTransaction('#Transaction.Journal#','#Transaction.JournalSerialNo#','Payables')">
+							    <cf_tl id="Record a discount">
+								</a>
+						   	</cfoutput>		
+													
+							<!--- check process access --->											
+											
+						 	<cfquery name="checkadvances"
+				               datasource="AppsLedger" 
+				               username="#SESSION.login#" 
+				               password="#SESSION.dbpw#">					
+									SELECT    TOP 10 
+											  TransactionId,JournalTransactionNo,OfficerLastName,
+											  TransactionDate,currency,ABS(Amount) Amount, ABS(AmountOutstanding) as AmountOutstanding
+	
+									FROM      TransactionHeader H
+									WHERE     Mission              = '#Transaction.Mission#'
+									AND       (ReferenceOrgUnit    = '#Transaction.ReferenceOrgUnit#')
+									AND       TransactionCategory  = 'Advances'
+									--AND     Currency             = '#Transaction.Currency#' 
+									AND       ABS(AmountOutstanding) > 0.05
+									AND  	  ActionStatus        != '9'
+									AND  	  RecordStatus        != '9'
 							
-										 </td>
-										 
-										 <td align="right">
-										 
-										 <cfif CheckAdvances.currency eq Transaction.currency>
-												
-											<input type="text" 
-												 name="exc_#left(TransactionId,8)#" 
-												 id="exc_#left(TransactionId,8)#"
-												 value="#NumberFormat(1,',._____')#" 
-												 size="10" 								 
-												 maxlength="10" 
-												 readonly
-												 tabindex="9999"
-												 class="regularxl enterastab" 
-												 style="background-color:eaeaea;text-align: right;padding-top:0px;width:92%;height:23px;">
+							<!--- only of journals to which the user has edit/all access --->
+							
+								<cfif getAdministrator("#Transaction.Mission#") eq "0">
+									AND       Journal IN (SELECT ClassParameter 
+								                      FROM   Organization.dbo.OrganizationAuthorization 
+													  WHERE  Role        = 'Accountant'
+													  AND    Mission     = '#Transaction.Mission#'
+													  AND    UserAccount = '#session.acc#'
+													  AND    AccessLevel IN ('1','2'))
+								</cfif>
+													
+								<!--- advance received --->
+								AND   EXISTS (
+								         SELECT 'X'
+								         FROM   TransactionLine
+										 WHERE  Journal             = H.Journal
+										 AND    JournalSerialNo     = H.JournalSerialNo
+										 AND    TransactionSerialNo = '0'
+										 AND    AmountDebit > 0
+										 )
 											 
-										<cfelse>
-																
-											 <input type="text" 
-												 name="exc_#left(TransactionId,8)#" 
-												 id="exc_#left(TransactionId,8)#"
-												 value="#NumberFormat(erate,',._____')#" 
-												 size="10" 			
-												 onchange="recalcline('#left(TransactionId,8)#')"				 
-												 tabindex="9999"
-												 maxlength="10" 							 
-												 class="regularxl enterastab" 
-												 style="background-color:ffffcf;text-align: right;padding-top:0px;width:92%;height:23px;">
-										 
-										</cfif>
-										
-										 </td>
-										 
-										 <td align="right">
-										 
-										 										    
-											<cfset offset = val/erate>																								
-										 										 
-										 	<input type="text" 
-												 name="off_#left(TransactionId,8)#" 
-												 id="off_#left(TransactionId,8)#"
-												 value="#NumberFormat(offset,'_,____.__')#" 
-												 size="10" 
-												 readonly
-												 tabindex="9999"
-												 maxlength="12" 
-												 class="regularxl enterastab" 							 
-												 style="text-align: right;padding-top:0px;width:92%;height:23px;">										 
-										 
-										 </td>
-										</tr>
-									</cfoutput>	
-									
-									<tr><td colspan="7" align="center">
-									<cfoutput>
-									
-									<cf_tl id="Apply Offset" var="voffset">
-									
-									<input onclick="ptoken.navigate('#session.root#/Gledger/Application/Transaction/Offset/APOffsetSubmit.cfm?journal=#Transaction.Journal#&JournalSerialNo=#Transaction.JournalSerialNo#','offsetprocess','','','POST','offsetform')" 
-									   type="button" style="width:160px" class="button10g" id="Offsetapply" name="Offsetapply" value="#voffset#">
-									</cfoutput> 
-									</td>
-									</tr>
-									<tr><td ><div id="offsetprocess" name="offsetprocess"></div></td></tr>
-									
-								</table>
+								ORDER BY TransactionDate
+							</cfquery>
+	
+							<cfif checkadvances.recordcount gte "1">
+								<td style="padding-left:10px;padding-right:10px">|</td>
+								<td class="labelmedium2">
+								<a href="javascript:toggleobjectbox('offset')">
+									<cf_tl id="Offset against advance">								
+								</a>
+								</td>			
+							</cfif>	
+							
+							<!--- functionality for offsetting against advance --->
+							
+						</cfif>
+						
+						</tr>
+						
+						</table>
+						
+						</td>
+					  				  
+					  </tr>
+					  
+					  <cfif checkadvances.recordcount gte "1">
+					  
+						  <tr id="offset" class="hide"><td colspan="3" style="padding-left:15px">							  	
+							
+								<table width="100%" cellspacing="0" cellpadding="0">				
+							
+								<tr><td>
 								
-								</cfform>
+									<cfform name="offsetform" id="offsetform">
+																	
+									<table width="100%" class="formspacing">
+										<tr class="labelmedium2 line">
+											<td><cf_tl id="Transaction"></td>
+											<td><cf_tl id="Officer"></td>
+											<td><cf_tl id="Date"></td>
+											<td><cf_tl id="Currency"></td>
+											<td align="right"><cf_tl id="Amount"></td>	
+											<td align="right"><cf_tl id="Balance"></td>
+											<td align="right"><cf_tl id="postingdate"></td>
+											<td align="right"><cf_tl id="Offset"></td>
+										</tr>
+										
+										<cfset amt = Transaction.AmountOutstanding>									
+	
+										<cfset indexadvance=0>
+										
+										<cfoutput query="CheckAdvances">
+	
+											<cfset indexadvance = indexadvance + 1>
+										
+										    <input type="hidden" name="Advances" value="#transactionid#">
+										    
+											<tr class="labelmedium2" style="height:15px">
+											 <td style="height:20px">#JournalTransactionNo#</td>
+											 <td>#OfficerLastName#</td>
+											 <td>#dateformat(TransactionDate,client.dateformatshow)#</td>
+											 <td>#currency#</td>
+											 <td align="right">#numberformat(Amount,',.__')#</td>
+											 <td align="right">#numberformat(AmountOutstanding,',.__')#</td>
+											 <td align= "right">
+											 	<cf_intelliCalendarDate9
+				    							      FieldName="postingdate_#indexadvance#" 				 
+													  class="regularxl enterastab"
+				    		      					  Default="#Dateformat(now(), CLIENT.DateFormatShow)#">	
+											 </td>	
+											 <td align="right">
+	
+											 <cfif CheckAdvances.currency neq Transaction.currency>
+											   <cf_exchangeRate currencyFrom = "#CheckAdvances.currency#" currencyTo = "#Transaction.currency#">
+											   <cfset erate = exc>
+											<cfelse>
+												<cfset erate = 1>   
+											</cfif> 
+	
+											<cfset val = amt * erate>
+											<cfif val gt amountoutstanding>
+												<cfset val = amountoutstanding>
+											<cfelse>	
+												<cfset val = val>	
+											</cfif>
+											
+											<cfset amt = amt - (val / erate)>
+											 <!-----
+											 <cfif amt gt amountOutstanding>										 	
+												<cfset offset = amountoutstanding>
+											 <cfelse>											    
+											 	<cfset offset = amt>											
+											 </cfif>
+											 <cfset amt = amt - offset>	
+											 
+											 <input class="regularxl" value="#offset#" type="text" name="Offset_#left(TransactionId,8)#" style="width:80px;text-align:right" maxlength="20">
+											 ----->
+	
+											 <input type="hidden" 
+												 name="out_#left(TransactionId,8)#"											 
+												 id="out_#left(TransactionId,8)#"
+												 value="#amountOutstanding#" 
+												 size="10" 
+												 maxlength="12" 											
+												 class="regularxl enterastab" 
+												 style="background-color:ffffcf;width:96%;height:23px;text-align:right;padding-top:0px">				
+											
+											
+											<input type="text" 
+												 name="amt_#left(TransactionId,8)#"					
+												 id="amt_#left(TransactionId,8)#"									 
+												 value="#NumberFormat(val,'_,____.__')#" 
+												 size="10" 
+												 maxlength="12" 
+												 onchange="recalcline('#left(TransactionId,8)#')"
+												 class="regularxl enterastab" 
+												 style="background-color:ffffcf;width:96%;height:23px;text-align:right;padding-top:0px">																						
+								
+											 </td>
+											 
+											 <td align="right">
+											 
+											 <cfif CheckAdvances.currency eq Transaction.currency>
+													
+												<input type="text" 
+													 name="exc_#left(TransactionId,8)#" 
+													 id="exc_#left(TransactionId,8)#"
+													 value="#NumberFormat(1,',._____')#" 
+													 size="10" 								 
+													 maxlength="10" 
+													 readonly
+													 tabindex="9999"
+													 class="regularxl enterastab" 
+													 style="background-color:eaeaea;text-align: right;padding-top:0px;width:92%;height:23px;">
+												 
+											<cfelse>
+																	
+												 <input type="text" 
+													 name="exc_#left(TransactionId,8)#" 
+													 id="exc_#left(TransactionId,8)#"
+													 value="#NumberFormat(erate,',._____')#" 
+													 size="10" 			
+													 onchange="recalcline('#left(TransactionId,8)#')"				 
+													 tabindex="9999"
+													 maxlength="10" 							 
+													 class="regularxl enterastab" 
+													 style="background-color:ffffcf;text-align: right;padding-top:0px;width:92%;height:23px;">
+											 
+											</cfif>
+											
+											 </td>
+											 
+											 <td align="right">											 
+											 										    
+												<cfset offset = val/erate>																								
+											 										 
+											 	<input type="text" 
+													 name="off_#left(TransactionId,8)#" 
+													 id="off_#left(TransactionId,8)#"
+													 value="#NumberFormat(offset,'_,____.__')#" 
+													 size="10" 
+													 readonly
+													 tabindex="9999"
+													 maxlength="12" 
+													 class="regularxl enterastab" 							 
+													 style="text-align: right;padding-top:0px;width:92%;height:23px;">										 
+											 
+											 </td>
+											</tr>
+										</cfoutput>	
+										
+										<tr><td colspan="7" align="center">
+										<cfoutput>
+										
+										<cf_tl id="Apply Offset" var="voffset">									
+										<input onclick="ptoken.navigate('#session.root#/Gledger/Application/Transaction/Offset/APOffsetSubmit.cfm?journal=#Transaction.Journal#&JournalSerialNo=#Transaction.JournalSerialNo#','offsetprocess','','','POST','offsetform')" 
+										   type="button" style="width:160px" class="button10g" id="Offsetapply" name="Offsetapply" value="#voffset#">
+										</cfoutput> 
+										</td>
+										</tr>
+										<tr><td ><div id="offsetprocess" name="offsetprocess"></div></td></tr>
+										
+									</table>
+									
+									</cfform>
+								
+								</td></tr>
+							
+								</table>
 							
 							</td></tr>
 						
-							</table>
-						
-						</td></tr>
-					
-					</cfif>				  				  
-				 				   
-			   <cfelseif Transaction.TransactionCategory eq "Receivables">				      
-
-			      <cfquery name="CurPeriod"
-	               datasource="AppsLedger" 
-	               username="#SESSION.login#" 
-	               password="#SESSION.dbpw#">
-		               SELECT *
-	    	           FROM   Ref_ParameterMission
-					   WHERE  Mission = '#Transaction.Mission#'
-	              </cfquery>
-			   
-				  <tr><td colspan="3" height="1" class="line"></td></tr>
-				  <tr><td colspan="3" style="padding-left:4px;height:20px" class="labelmedium2">
-				  				  
-				    <table cellspacing="0" cellpadding="0">
-					<tr>		
-									
-
-				  	<cfif Transaction.TransactionSource eq "SalesSeries">
-
-					 	<cfquery name="getMode"
-	               		datasource="AppsMaterials"
-	               		username="#SESSION.login#"
-	               		password="#SESSION.dbpw#">
-							SELECT    w.SaleMode
-							FROM      WarehouseBatch AS wb INNER JOIN
-				                      Warehouse AS w ON wb.Warehouse = w.Warehouse
-							WHERE     wb.BatchId = '#Transaction.TransactionSourceId#'
-						</cfquery>
-						
-						
-				  		<!--- Cash and carry with receivable mode --->
-						
-						<cfif getMode.salemode eq "3">
-				  		
-							<cfoutput>
+						</cfif>				  				  
+					 				   
+				   <cfelseif Transaction.TransactionCategory eq "Receivables">		
+				   	
+				      <cfquery name="CurPeriod"
+		               datasource="AppsLedger" 
+		               username="#SESSION.login#" 
+		               password="#SESSION.dbpw#">
+			               SELECT *
+		    	           FROM   Ref_ParameterMission
+						   WHERE  Mission = '#Transaction.Mission#'
+		              </cfquery>
+				   
+					  <tr><td colspan="3" height="1" class="line"></td></tr>
+					  <tr><td colspan="3" style="padding-left:4px;height:20px" class="labelmedium2">
+					  										
+					    <table>
+						<tr>											
+	
+					  	<cfif Transaction.TransactionSource eq "SalesSeries">
+	
+						 	<cfquery name="getMode"
+		               		datasource="AppsMaterials"
+		               		username="#SESSION.login#"
+		               		password="#SESSION.dbpw#">
+								SELECT    w.SaleMode
+								FROM      WarehouseBatch AS wb INNER JOIN
+					                      Warehouse AS w ON wb.Warehouse = w.Warehouse
+								WHERE     wb.BatchId = '#Transaction.TransactionSourceId#'
+							</cfquery>
 							
-								<cfif dateformat(now(),client.dateSQL) gt dateformat(transaction.created,client.dateSQL)> 
+							
+					  		<!--- Cash and carry with receivable mode --->
+							
+							<cfif getMode.salemode eq "3">
+					  		
+								<cfoutput>
 								
-								<td class="labelmedium2">				  				  		
+									<cfif dateformat(now(),client.dateSQL) gt dateformat(transaction.created,client.dateSQL)> 
+									
+									<td class="labelmedium2">				  				  		
+							   			<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Banking','#CurPeriod.CurrentAccountPeriod#','#Transaction.Journal#','#Transaction.JournalSerialNo#')">
+								    	<cf_tl id="Record a settlement">
+										</a>
+							   		</td>
+									
+									<cfelse>
+									
+							  		<td class="labelmedium2">				  		
+							   			<a href="javascript:PosSettlement('#url.id#')">
+								    	<cf_tl id="Record a settlement">
+										</a>				   		
+									</td>
+									
+									</cfif>
+								
+									<td style="padding-left:10px;padding-right:10px">|</td>
+							  		<td class="labelmedium2">				  		
+							   			<a href="javascript:PrintReceivable()">
+								    	<cf_tl id="Invoice">
+										</a>				   		
+									</td>
+									<td style="padding-left:10px;padding-right:10px">|</td>
+									<td class="labelmedium2">
+										<a href="javascript:PrintTaxReceivable()">
+										<cf_tl id="Electronic Invoice">
+										</a>
+									</td>
+									<td style="padding-left:10px;padding-right:10px">|</td>		
+												
+								</cfoutput>		
+							
+							<cfelse>
+							
+								<td class="labelmedium2">				  
+						  		<cfoutput>
 						   			<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Banking','#CurPeriod.CurrentAccountPeriod#','#Transaction.Journal#','#Transaction.JournalSerialNo#')">
 							    	<cf_tl id="Record a settlement">
 									</a>
-						   		</td>
-								
-								<cfelse>
-								
-						  		<td class="labelmedium2">				  		
-						   			<a href="javascript:PosSettlement('#url.id#')">
-							    	<cf_tl id="Record a settlement">
-									</a>				   		
+						   		</cfoutput>		
 								</td>
-								
-								</cfif>
+								<td style="padding-left:10px;padding-right:10px">|</td>						
 							
-								<td style="padding-left:10px;padding-right:10px">|</td>
-						  		<td class="labelmedium2">				  		
-						   			<a href="javascript:PrintReceivable('#url.id#')">
-							    	<cf_tl id="Invoice">
-									</a>				   		
-								</td>
-								<td style="padding-left:10px;padding-right:10px">|</td>
-								<td class="labelmedium2">
-									<a href="javascript:PrintTaxReceivable('#url.id#')">
-									<cf_tl id="Electronic Invoice">
-									</a>
-								</td>
-								<td style="padding-left:10px;padding-right:10px">|</td>		
-											
-							</cfoutput>		
-						
+							</cfif>					
+	
 						<cfelse>
 						
-							<td class="labelmedium2">				  
-					  		<cfoutput>
+							<cfoutput>
+						
+							<td style="padding-left:10px;padding-right:10px">|</td>
+					  		<td class="labelmedium2">				  		
+					   			<a href="javascript:PrintReceivable('#url.id#')"><cf_tl id="Invoice"></a>				   		
+							</td>
+							<td style="padding-left:10px;padding-right:10px">|</td>
+							<td class="labelmedium2">
+								<a href="javascript:PrintTaxReceivable('#url.id#')"><cf_tl id="Electronic Invoice"></a>
+							</td>
+							<td style="padding-left:10px;padding-right:10px">|</td>							
+							<td class="labelmedium2">				  		
 					   			<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Banking','#CurPeriod.CurrentAccountPeriod#','#Transaction.Journal#','#Transaction.JournalSerialNo#')">
 						    	<cf_tl id="Record a settlement">
 								</a>
+							</td>	
 					   		</cfoutput>		
+							
+							<td style="padding-left:10px;padding-right:10px">|</td>	
+							
+						</cfif>						
+						
+						<cfif Transaction.amountOutstanding gt "0">
+						
+							<td class="labelmedium2">				  
+						  
+						  	<cfoutput>
+						   		<a href="javascript:CorrectTransaction('#Transaction.Journal#','#Transaction.JournalSerialNo#','Receivables')">
+							    <cf_tl id="Record a discount">
+								</a>
+						   	</cfoutput>		
+							
 							</td>
-							<td style="padding-left:10px;padding-right:10px">|</td>						
 						
-						</cfif>					
-
-					<cfelse>
-					
-						<cfoutput>
-					
-						<td style="padding-left:10px;padding-right:10px">|</td>
-				  		<td class="labelmedium2">				  		
-				   			<a href="javascript:PrintReceivable('#url.id#')"><cf_tl id="Invoice"></a>				   		
-						</td>
-						<td style="padding-left:10px;padding-right:10px">|</td>
-						<td class="labelmedium2">
-							<a href="javascript:PrintTaxReceivable('#url.id#')"><cf_tl id="Electronic Invoice"></a>
-						</td>
-						<td style="padding-left:10px;padding-right:10px">|</td>							
-						<td class="labelmedium2">				  		
-				   			<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Banking','#CurPeriod.CurrentAccountPeriod#','#Transaction.Journal#','#Transaction.JournalSerialNo#')">
-					    	<cf_tl id="Record a settlement">
-							</a>
-						</td>	
-				   		</cfoutput>		
-						
-						<td style="padding-left:10px;padding-right:10px">|</td>	
-						
-					</cfif>						
-					
-					<cfif Transaction.amountOutstanding gt "0">
-					
-						<td class="labelmedium2">				  
-					  
-					  	<cfoutput>
-					   		<a href="javascript:CorrectTransaction('#Transaction.Journal#','#Transaction.JournalSerialNo#','Receivables')">
-						    <cf_tl id="Record a discount">
-							</a>
-					   	</cfoutput>		
-						
-						</td>
-					
-					</cfif>
-					
-					<!--- check process access --->
-				  	<cftransaction isolation="serializable">
-					
-					 <cfquery name="checkadvances"
-		               datasource="AppsLedger" 
-		               username="#SESSION.login#" 
-		               password="#SESSION.dbpw#">					
-						SELECT    TOP 10 								
-								  Journal,
-								  JournalSerialNo,
-								  TransactionId,JournalTransactionNo,OfficerLastName,
-								  TransactionDate,currency,ABS(Amount) Amount, ABS(AmountOutstanding) as AmountOutstanding
-						FROM      TransactionHeader H
-						WHERE     Mission = '#Transaction.Mission#'
-						<cfif Transaction.TransactionSource eq "SalesSeries">
-						AND       (ReferenceOrgUnit    = '#Transaction.ReferenceOrgUnit#' <cfif getBatch.CustomerId neq "">OR ReferenceId = '#getBatch.CustomerId#'</cfif>)
-						<cfelseif  Transaction.TransactionSource eq "AccountSeries" AND Transaction.ReferenceId neq "">
-						AND       ReferenceId = '#Transaction.ReferenceId#'
-						<cfelse>
-						AND       ReferenceOrgUnit    = '#Transaction.ReferenceOrgUnit#'
-					 	</cfif>
-						AND       TransactionCategory = 'Advances'
-											
-						<!--- extend the usage 
-						AND       Currency = 'QTZ' 
-						--->
-																		
-						AND       AmountOutstanding > 0.05
-						AND  	  ActionStatus != '9'
-						AND  	  RecordStatus != '9'
-						
-						<!--- only of journals to which the user has edit/all access --->
-						
-						<cfif getAdministrator("#Transaction.Mission#") eq "0">
-						AND       Journal IN (SELECT ClassParameter 
-						                      FROM   Organization.dbo.OrganizationAuthorization 
-											  WHERE  Role    = 'Accountant'
-											  AND    Mission = '#transaction.Mission#'
-											  AND    UserAccount = '#session.acc#'
-											  AND    AccessLevel IN ('1','2'))
 						</cfif>
+						
+						<!--- check process access --->
+					  	<cftransaction isolation="serializable">
+						
+						 <cfquery name="checkadvances"
+			               datasource="AppsLedger" 
+			               username="#SESSION.login#" 
+			               password="#SESSION.dbpw#">					
+							SELECT    TOP 10 								
+									  Journal,
+									  JournalSerialNo,
+									  TransactionId,JournalTransactionNo,OfficerLastName,
+									  TransactionDate,currency,ABS(Amount) Amount, ABS(AmountOutstanding) as AmountOutstanding
+							FROM      TransactionHeader H
+							WHERE     Mission = '#Transaction.Mission#'
+							<cfif Transaction.TransactionSource eq "SalesSeries">
+							AND       (ReferenceOrgUnit    = '#Transaction.ReferenceOrgUnit#' <cfif getBatch.CustomerId neq "">OR ReferenceId = '#getBatch.CustomerId#'</cfif>)
+							<cfelseif  Transaction.TransactionSource eq "AccountSeries" AND Transaction.ReferenceId neq "">
+							AND       ReferenceId = '#Transaction.ReferenceId#'
+							<cfelse>
+							AND       ReferenceOrgUnit    = '#Transaction.ReferenceOrgUnit#'
+						 	</cfif>
+							AND       TransactionCategory = 'Advances'
 												
-						<!--- advance received --->
-						AND   EXISTS (
-						             SELECT 'X'
-						             FROM   TransactionLine
-									 WHERE  Journal             = H.Journal
-									 AND    JournalSerialNo     = H.JournalSerialNo
-									 AND    TransactionSerialNo = '0'
-									 AND    AmountCredit        > 0
-									 )
-									 
-						 									 
-						ORDER BY TransactionDate					
-					</cfquery>
-					</cftransaction>
-					
-					<cfif checkadvances.recordcount gt "0">
-						<td style="padding-left:10px;padding-right:10px">|</td>
-						<td class="labelmedium2">
-						<a href="javascript:toggleobjectbox('offset')">
-							<cf_tl id="Offset against advance">							
-						</a>
-						</td>					
-					</cfif>					
-					
-					</tr>					
-					
-					</table>		   
-					
-				  </td>
-				  </tr>		
-				  
-				  <cfif checkadvances.recordcount gt "0">
-				  
-					  <tr id="offset" class="hide"><td colspan="3">							  	
-						
-							<table width="100%" cellspacing="0" cellpadding="0">				
-						
-							<tr><td style="padding-left:14px;padding-right:14px">
+							<!--- extend the usage 
+							AND       Currency = 'QTZ' 
+							--->
+																			
+							AND       AmountOutstanding > 0.05
+							AND  	  ActionStatus != '9'
+							AND  	  RecordStatus != '9'
 							
-								<!---- <form name="offsetform" id="offsetform"> ---->
-								<cfform name="offsetform" id="offsetform">
+							<!--- only of journals to which the user has edit/all access --->
+							
+							<cfif getAdministrator("#Transaction.Mission#") eq "0">
+							AND       Journal IN (SELECT ClassParameter 
+							                      FROM   Organization.dbo.OrganizationAuthorization 
+												  WHERE  Role    = 'Accountant'
+												  AND    Mission = '#transaction.Mission#'
+												  AND    UserAccount = '#session.acc#'
+												  AND    AccessLevel IN ('1','2'))
+							</cfif>
+													
+							<!--- advance received --->
+							AND   EXISTS (
+							             SELECT 'X'
+							             FROM   TransactionLine
+										 WHERE  Journal             = H.Journal
+										 AND    JournalSerialNo     = H.JournalSerialNo
+										 AND    TransactionSerialNo = '0'
+										 AND    AmountCredit        > 0
+										 )
+										 
+							 									 
+							ORDER BY TransactionDate					
+						</cfquery>
+						</cftransaction>
+						
+						<cfif checkadvances.recordcount gt "0">
+							<td style="padding-left:10px;padding-right:10px">|</td>
+							<td class="labelmedium2">
+							<a href="javascript:toggleobjectbox('offset')">
+								<cf_tl id="Offset against advance">							
+							</a>
+							</td>					
+						</cfif>					
+						
+						</tr>					
+						
+						</table>		   
+						
+					  </td>
+					  </tr>		
+					  
+					  <cfif checkadvances.recordcount gt "0">
+					  
+						  <tr id="offset" class="hide"><td colspan="3">							  	
+							
+								<table width="100%" cellspacing="0" cellpadding="0">				
+							
+								<tr><td style="padding-left:14px;padding-right:14px">
 								
-								<table width="100%" class="formspacing">
-									<tr class="labelmedium2 line">
-										<td><cf_tl id="Transaction"></td>
-										<td><cf_tl id="Officer"></td>
-										<td><cf_tl id="Date"></td>
-										<td><cf_tl id="Journal"></td>
-										<td><cf_tl id="Currency"></td>
-										<td align="right"><cf_tl id="Amount"></td>	
-										<td align="right"><cf_tl id="Balance"></td>
-										<td colspan="4" align="right"><cf_tl id="Offset"></td>
-									</tr>
+									<!---- <form name="offsetform" id="offsetform"> ---->
+									<cfform name="offsetform" id="offsetform">
 									
-									<tr class="labelmedium2 line">
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td align="right"></td>	
-										<td align="right"></td>			
-										<td align="right"><cf_tl id="posting date"></td>									
-										<td align="right"><cf_tl id="Amount"></td>
-										<td align="right"><cf_tl id="Exchange"></td>
-										<td align="right"><cf_tl id="Offset"></td>
-									</tr>
-									
-									<cfset amt = Transaction.AmountOutstanding>									
-									<cfset indexadvance=0>
-
-
-									<cfoutput query="CheckAdvances">
-										<input type="hidden" name="Advances" id="Advances" value="#transactionid#">
-									
-									<cfset indexadvance = indexadvance + 1>
-										<tr class="labelmedium2">
-
-										 <td style="height:25px"><a href="javascript:ShowTransaction('#journal#','#JournalSerialNo#','1','tab')">#JournalTransactionNo#</a></td>
-										 <td>#OfficerLastName#</td>
-										 
-										 <td>#dateformat(TransactionDate,client.dateformatshow)#</td>
-										 <td>#Journal#</td>
-										 <td>#currency#</td>
-										 <td align="right">#numberformat(Amount,',.__')#</td>
-										 <td align="right">#numberformat(AmountOutstanding,',.__')#</td>
-										 <td align="right">
-										 
-										 	<cf_intelliCalendarDate9
-			    							      FieldName="postingdate_#indexadvance#" 				 
-												  class="regularxl enterastab"
-			    		      					  Default="#Dateformat(now(), CLIENT.DateFormatShow)#">	
-
-										 <td align="right"> 
-										 <cfif currency neq Transaction.currency>
-							   
-										   <cf_exchangeRate currencyFrom = "#currency#" currencyTo = "#Transaction.currency#">
-										   <cfset erate = exc>
-							   
-										<cfelse>
-							
-											<cfset erate = 1>   
-														
-										</cfif> 
-										
-										<!--- --------available------ --->
-																														
-										<cfset val = amt * erate>
-										<cfif val gt amountoutstanding>
-											<cfset val = amountoutstanding>
-										<cfelse>	
-											<cfset val = val>	
-										</cfif>
-										
-										<cfset amt = amt - (val / erate)>
-																		
-										<input type="hidden" 
-											 name="out_#left(TransactionId,8)#"											 
-											 id="out_#left(TransactionId,8)#"
-											 value="#amountOutstanding#" 
-											 size="10" 
-											 maxlength="12" 											
-											 class="regularxl enterastab" 
-											 style="background-color:ffffcf;width:96%;height:23px;text-align:right;padding-top:0px">														
-										
-										<input type="text" 
-											 name="amt_#left(TransactionId,8)#"					
-											 id="amt_#left(TransactionId,8)#"									 
-											 value="#NumberFormat(val,',.__')#" 
-											 size="10" 
-											 maxlength="12" 
-											 onchange="recalcline('#left(TransactionId,8)#')"
-											 class="regularxl enterastab" 
-											 style="background-color:ffffcf;width:96%;height:23px;text-align:right;padding-top:0px">																						
-							
-										 </td>
-										 
-										 <td align="right">
-										 
-										 <cfif currency eq Transaction.currency>
-												
-											<input type="text" 
-												 name="exc_#left(TransactionId,8)#" 
-												 id="exc_#left(TransactionId,8)#"
-												 value="#NumberFormat(1,',._____')#" 
-												 size="10" 								 
-												 maxlength="10" 
-												 readonly
-												 tabindex="9999"
-												 class="regularxl enterastab" 
-												 style="background-color:eaeaea;text-align: right;padding-top:0px;width:92%;height:23px;">
-											 
-										<cfelse>
-																
-											 <input type="text" 
-												 name="exc_#left(TransactionId,8)#" 
-												 id="exc_#left(TransactionId,8)#"
-												 value="#NumberFormat(erate,',._____')#" 
-												 size="10" 			
-												 onchange="recalcline('#left(TransactionId,8)#')"				 
-												 tabindex="9999"
-												 maxlength="10" 							 
-												 class="regularxl enterastab" 
-												 style="background-color:ffffcf;text-align: right;padding-top:0px;width:92%;height:23px;">
-										 
-										</cfif>
-										
-										 </td>
-										 
-										 <td align="right">
-										 
-										 										    
-											<cfset offset = val/erate>																								
-										 										 
-										 	<input type="text" 
-												 name="off_#left(TransactionId,8)#" 
-												 id="off_#left(TransactionId,8)#"
-												 value="#NumberFormat(offset,',.__')#" 
-												 size="10" 
-												 readonly
-												 tabindex="9999"
-												 maxlength="12" 
-												 class="regularxl enterastab" 							 
-												 style="text-align: right;padding-top:0px;width:92%;height:23px;">										 
-										 
-										 </td>
-										 
+									<table width="100%" class="formspacing">
+										<tr class="labelmedium2 line">
+											<td><cf_tl id="Transaction"></td>
+											<td><cf_tl id="Officer"></td>
+											<td><cf_tl id="Date"></td>
+											<td><cf_tl id="Journal"></td>
+											<td><cf_tl id="Currency"></td>
+											<td align="right"><cf_tl id="Amount"></td>	
+											<td align="right"><cf_tl id="Balance"></td>
+											<td colspan="4" align="right"><cf_tl id="Offset"></td>
 										</tr>
-									</cfoutput>	
-									
-									<tr><td colspan="11" align="center" style="padding-top:5px;border-top:1px solid silver">
-									<cfoutput>
-									<cf_tl id="Apply Offset" var="off">
-									<input onclick="ptoken.navigate('#session.root#/Gledger/Application/Transaction/Offset/AROffsetSubmit.cfm?journal=#Transaction.Journal#&JournalSerialNo=#Transaction.JournalSerialNo#','offsetprocess','','','POST','offsetform')" 
-									   type="button" style="width:260px" class="button10g" id="Offsetapply" name="Offsetapply" value="#off#">
-									</cfoutput> 
-									</td>
-									</tr>
-									<tr><td colspan="11" id="offsetprocess"></td></tr>
-								</table>
+										
+										<tr class="labelmedium2 line">
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td align="right"></td>	
+											<td align="right"></td>			
+											<td align="right"><cf_tl id="posting date"></td>									
+											<td align="right"><cf_tl id="Amount"></td>
+											<td align="right"><cf_tl id="Exchange"></td>
+											<td align="right"><cf_tl id="Offset"></td>
+										</tr>
+										
+										<cfset amt = Transaction.AmountOutstanding>									
+										<cfset indexadvance=0>
+	
+	
+										<cfoutput query="CheckAdvances">
+											<input type="hidden" name="Advances" id="Advances" value="#transactionid#">
+										
+										<cfset indexadvance = indexadvance + 1>
+											<tr class="labelmedium2">
+	
+											 <td style="height:25px"><a href="javascript:ShowTransaction('#journal#','#JournalSerialNo#','1','tab')">#JournalTransactionNo#</a></td>
+											 <td>#OfficerLastName#</td>
+											 
+											 <td>#dateformat(TransactionDate,client.dateformatshow)#</td>
+											 <td>#Journal#</td>
+											 <td>#currency#</td>
+											 <td align="right">#numberformat(Amount,',.__')#</td>
+											 <td align="right">#numberformat(AmountOutstanding,',.__')#</td>
+											 <td align="right">
+											 
+											 	<cf_intelliCalendarDate9
+				    							      FieldName="postingdate_#indexadvance#" 				 
+													  class="regularxl enterastab"
+				    		      					  Default="#Dateformat(now(), CLIENT.DateFormatShow)#">	
+	
+											 <td align="right"> 
+											 <cfif currency neq Transaction.currency>
+								   
+											   <cf_exchangeRate currencyFrom = "#currency#" currencyTo = "#Transaction.currency#">
+											   <cfset erate = exc>
+								   
+											<cfelse>
 								
-								</cfform>
+												<cfset erate = 1>   
+															
+											</cfif> 
+											
+											<!--- --------available------ --->
+																															
+											<cfset val = amt * erate>
+											<cfif val gt amountoutstanding>
+												<cfset val = amountoutstanding>
+											<cfelse>	
+												<cfset val = val>	
+											</cfif>
+											
+											<cfset amt = amt - (val / erate)>
+																			
+											<input type="hidden" 
+												 name="out_#left(TransactionId,8)#"											 
+												 id="out_#left(TransactionId,8)#"
+												 value="#amountOutstanding#" 
+												 size="10" 
+												 maxlength="12" 											
+												 class="regularxl enterastab" 
+												 style="background-color:ffffcf;width:96%;height:23px;text-align:right;padding-top:0px">														
+											
+											<input type="text" 
+												 name="amt_#left(TransactionId,8)#"					
+												 id="amt_#left(TransactionId,8)#"									 
+												 value="#NumberFormat(val,',.__')#" 
+												 size="10" 
+												 maxlength="12" 
+												 onchange="recalcline('#left(TransactionId,8)#')"
+												 class="regularxl enterastab" 
+												 style="background-color:ffffcf;width:96%;height:23px;text-align:right;padding-top:0px">																						
+								
+											 </td>
+											 
+											 <td align="right">
+											 
+											 <cfif currency eq Transaction.currency>
+													
+												<input type="text" 
+													 name="exc_#left(TransactionId,8)#" 
+													 id="exc_#left(TransactionId,8)#"
+													 value="#NumberFormat(1,',._____')#" 
+													 size="10" 								 
+													 maxlength="10" 
+													 readonly
+													 tabindex="9999"
+													 class="regularxl enterastab" 
+													 style="background-color:eaeaea;text-align: right;padding-top:0px;width:92%;height:23px;">
+												 
+											<cfelse>
+																	
+												 <input type="text" 
+													 name="exc_#left(TransactionId,8)#" 
+													 id="exc_#left(TransactionId,8)#"
+													 value="#NumberFormat(erate,',._____')#" 
+													 size="10" 			
+													 onchange="recalcline('#left(TransactionId,8)#')"				 
+													 tabindex="9999"
+													 maxlength="10" 							 
+													 class="regularxl enterastab" 
+													 style="background-color:ffffcf;text-align: right;padding-top:0px;width:92%;height:23px;">
+											 
+											</cfif>
+											
+											 </td>
+											 
+											 <td align="right">
+											 
+											 										    
+												<cfset offset = val/erate>																								
+											 										 
+											 	<input type="text" 
+													 name="off_#left(TransactionId,8)#" 
+													 id="off_#left(TransactionId,8)#"
+													 value="#NumberFormat(offset,',.__')#" 
+													 size="10" 
+													 readonly
+													 tabindex="9999"
+													 maxlength="12" 
+													 class="regularxl enterastab" 							 
+													 style="text-align: right;padding-top:0px;width:92%;height:23px;">										 
+											 
+											 </td>
+											 
+											</tr>
+										</cfoutput>	
+										
+										<tr><td colspan="11" align="center" style="padding-top:5px;border-top:1px solid silver">
+										<cfoutput>
+										<cf_tl id="Apply Offset" var="off">
+										<input onclick="ptoken.navigate('#session.root#/Gledger/Application/Transaction/Offset/AROffsetSubmit.cfm?journal=#Transaction.Journal#&JournalSerialNo=#Transaction.JournalSerialNo#','offsetprocess','','','POST','offsetform')" 
+										   type="button" style="width:260px" class="button10g" id="Offsetapply" name="Offsetapply" value="#off#">
+										</cfoutput> 
+										</td>
+										</tr>
+										<tr><td colspan="11" id="offsetprocess"></td></tr>
+									</table>
+									
+									</cfform>
+								
+								</td></tr>
+							
+								</table>
 							
 							</td></tr>
 						
-							</table>
-						
-						</td></tr>
-					
-					</cfif>
-				     
-				  
-	          </cfif>			  
-			 
-        </cfif>		
+						</cfif>
+					     
+					  
+		          </cfif>			  
+				 
+	        </cfif>		
 		  
 		  </td></tr>
         </table>

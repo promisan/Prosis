@@ -279,7 +279,7 @@
 						WHERE     Mission       = '#mission#'															
 						AND       Currency      = '#Currency#' 	
 						<!--- price schedule found, take last schedule --->
-						AND       PriceSchedule = '#getDetault.Code#'		
+						AND       PriceSchedule = '#getDefault.Code#'		
 						ORDER BY  DateEffective DESC
 		           </cfquery>	
 				   				   					
@@ -3049,8 +3049,7 @@
 			
 			 <!--- force manual or contextual manual through the interface selected button --->
 			
-			<cfif getWarehouseJournal.TransactionMode eq "1" 
-			     or Mode eq "1">
+			<cfif getWarehouseJournal.TransactionMode eq "1" or Mode eq "1">
 					
 				<cfset Invoice.Mode              = "1"> <!--- manual --->
 				<cfset Invoice.ErrorDescription  = "">
@@ -3062,7 +3061,7 @@
 			    <cfset Invoice.Mode              = "2">
 				<cfset Invoice.ErrorDescription  = "">
 				<cfset Invoice.ErrorDetail       = "">
-				<cfset Invoice.Status           = "1">							   	
+				<cfset Invoice.Status            = "1">							   	
 					
 				<!--- validate series otherwise Invoice.Mode = "1" : Manual which was removed by Hanno 13 June 2021 --->
 												

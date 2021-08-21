@@ -66,12 +66,12 @@
 
 <cf_mobileRow class="clsGeoListingSummary" style="border-top:1px solid ##C0C0C0; padding-top:10px; height:auto;">
 
-    <cfdiv 
+    <cf_securediv 
         id="#attributes.viewId#MapContainer" 
         class="col-lg-4 col-sm-12" 
         bind="url:#session.root#/Tools/Listing/Geographic/geoListingMap.cfm?viewId=#attributes.viewId#&country=#vFilterParams#&zoomFunction=#attributes.zoomFunction#&mapStyle=#attributes.mapStyle#">
     
-    <cfdiv 
+    <cf_securediv 
         id="#attributes.viewId#MapTable" 
         class="col-lg-8 col-sm-12" 
         style="min-height:300px;"

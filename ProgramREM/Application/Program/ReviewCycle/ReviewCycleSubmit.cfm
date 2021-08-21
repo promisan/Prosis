@@ -63,6 +63,6 @@
 <cfoutput>
 <script>
    Prosis.busy('no');
-   window.location = "ReviewCycleView.cfm?header=#url.header#&reviewid=#url.reviewid#&CycleId=#url.cycleid#"
+   ptoken.location('ReviewCycleView.cfm?header=#url.header#&reviewid=#url.reviewid#&CycleId=#url.cycleid#')
 </script>
 </cfoutput>	

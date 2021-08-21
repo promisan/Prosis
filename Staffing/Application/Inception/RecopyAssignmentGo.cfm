@@ -154,8 +154,8 @@
 <cfoutput>
 	
 	<script language="JavaScript">    
-	    ColdFusion.navigate('RecopyAssignmentResult.cfm?mission=#url.Mission#&mandateNo=#url.MandateNo#','boxcopy')	
-	    ColdFusion.Window.destroy('mydialog',true)	
+	    ptoken.navigate('RecopyAssignmentResult.cfm?mission=#url.Mission#&mandateNo=#url.MandateNo#','boxcopy')	
+	    ProsisUI.closeWindow('mydialog',true)	
 	</script>
 
 </cfoutput>

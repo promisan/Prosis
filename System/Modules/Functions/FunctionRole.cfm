@@ -5,14 +5,13 @@
 datasource="AppsSystem" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-    SELECT L.*
-    FROM Ref_ModuleControl L
-	WHERE SystemFunctionId = '#URL.ID#'
+    SELECT  L.*
+    FROM    Ref_ModuleControl L
+	WHERE   SystemFunctionId = '#URL.ID#'
 </cfquery>
 
 <table width="95%" align="center"  cellspacing="0" cellpadding="0">
-
-	<tr><td width="20"></td><td height="10"></td></tr>
+	
 	<tr><td height="10"></td></tr>	
 	
 	<cfif Line.AccessRole eq "1">
@@ -21,48 +20,48 @@ password="#SESSION.dbpw#">
 	   <td width="20">
 	   <img width="48" height="48" style="padding:0 5px 5px 0;" src="<cfoutput>#SESSION.root#</cfoutput>/Images/Authorization.png" align="absmiddle" alt="System Function Admin" border="0">
 	   </td>
-	   <td><h2 style="font-size:22px;font-weight:200;">Grant access to the following ROLES:</h2></td>
+	   <td style="padding-top:20px"><h2 style="font-size:22px;font-weight:200;">Grant access to the following ROLES:</h2></td>
 	   
 	</TR>
-	<tr><td colspan="2"></td></tr>
+	
 	<TR>   
 	   <td></td>
        <td colspan="1">
-	   	 <cfdiv bind="url:#SESSION.root#/System/Modules/Functions/Role.cfm?id=#URL.ID#" id="irole">		
+	   	 <cf_securediv bind="url:#SESSION.root#/System/Modules/Functions/Role.cfm?id=#URL.ID#" id="irole">		
 		</td>
 	</TR>
+	
 	<cfelse>
 	
 	<TR>
 	   <td width="40" height="38">
 	   <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/alert.gif" align="absmiddle" alt="System Function Admin" border="0">
 	   </td>
-	   <td>Access to this function is granted through User Administration</td>
+	   <td >Access to this function is granted through User Administration</td>
 	   
 	</TR>
 	
 	</cfif>
 	<tr><td colspan="2" height="25"></td></tr>
 	<tr><td colspan="2" class="line"></td></tr>
-	<tr><td colspan="2" height="5"></td></tr>
-	<cfif Line.AccessUserGroup eq "1">
 	
-	<tr><td height="5"></td></tr>
-	<tr><td height="1" colspan="2" bgcolor="F0F2EC"></td></tr>
-	<tr><td height="10"></td></tr>			   
-	<TR>
-        <td width="20">
-		<img width="48" height="48" style="padding:0 5px 5px 0;" src="<cfoutput>#SESSION.root#</cfoutput>/Images/User-Group.png" align="absmiddle" alt="System Function Admin" border="0">
-		</td>
-		<td><h2 style="font-size:22px;font-weight:200;position:relative;top:-4px;">Grant access to the following USER GROUPS:</h2></td>
-	</TR>
-
-	<TR>	
-	    <td></td>
-		<td colspan="1">
-		  <cfdiv bind="url:#SESSION.root#/System/Modules/Functions/Group.cfm?id=#URL.ID#&dialogHeight=#url.dialogHeight#" id="igroup">		  
-		</td>
-	</TR>
+	<cfif Line.AccessUserGroup eq "1">
+		
+		<tr><td height="10"></td></tr>			   
+		<TR>
+	        <td width="20">
+			<img width="48" height="48" style="padding:0 5px 5px 0;" src="<cfoutput>#SESSION.root#</cfoutput>/Images/User-Group.png" align="absmiddle" alt="System Function Admin" border="0">
+			</td>
+			<td style="padding-top:20px"><h2 style="font-size:22px;font-weight:200;position:relative;top:-4px;">Grant access to the following USER GROUPS:</h2></td>
+		</TR>
+	
+		<TR>	
+		    <td></td>
+			<td colspan="1">
+			  <cf_securediv bind="url:#SESSION.root#/System/Modules/Functions/Group.cfm?id=#URL.ID#&dialogHeight=#url.dialogHeight#" id="igroup">		  
+			</td>
+		</TR>
+	
 	</cfif>
 	<tr><td colspan="2" height="30"></td></tr>
 	<tr><td colspan="2" class="line"></td></tr>
@@ -96,19 +95,16 @@ password="#SESSION.dbpw#">
 			</cfif>
 			
 			<cfif vShow eq 1>
-				<tr><td height="5"></td></tr>
-				<tr><td height="1" colspan="2" bgcolor="F0F2EC"></td></tr>
 				
 				<tr><td height="10"></td></tr>
 				<TR><td height="25">
 					<img width="48" height="48" style="padding:0 5px 5px 0;" src="<cfoutput>#SESSION.root#</cfoutput>/Images/Disable-Tab.png" align="absmiddle" alt="Tree access" border="0">
 					</td>
-					<td><h2 style="font-size:22px;font-weight:200;position:relative;top:-4px;">Disable function for the the following ENTITIES (Trees):</h2></td>
-				</TR>
-				<tr><td colspan="2" bgcolor="C0C0C0"></td>  </tr>	
+					<td style="padding-top:20px"><h2 style="font-size:22px;font-weight:200;position:relative;top:-4px;">Disable function for the the following ENTITIES (Trees):</h2></td>
+				</TR>				
 				<TR><td></td>
 			         <td colspan="1">
-					 	 <cfdiv bind="url:#SESSION.root#/System/Modules/Functions/TreeDeny.cfm?id=#URL.ID#" id="itree">
+					 	 <cf_securediv bind="url:#SESSION.root#/System/Modules/Functions/TreeDeny.cfm?id=#URL.ID#" id="itree">
 					</td>
 				</TR>
 			</cfif>

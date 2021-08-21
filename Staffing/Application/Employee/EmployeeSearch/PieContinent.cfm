@@ -32,7 +32,7 @@ password="#SESSION.dbpw#">
 <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 <cfchart style = "#chartStyleFile#" format="html" 
     chartheight="300" chartwidth="600" showxgridlines="no" showygridlines="no" showborder="no" fontbold="no" 
-	fontitalic="no" show3d="yes" rotated="no" sortxaxis="yes" showlegend="yes" 
+	fontitalic="no" show3d="no" rotated="no" sortxaxis="yes" showlegend="yes" 
 	tipbgcolor="000000" 
 	showmarkers="no" pieslicestyle="solid">
 

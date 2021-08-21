@@ -425,8 +425,7 @@ password="#SESSION.dbpw#">
 			<tr>
 			
 				<cfoutput>	 	
-				
-				
+								
 				 <cfif EditAccess eq "Edit" or EditAccess eq "ALL">
 				 					 
 					 <td>
@@ -531,27 +530,22 @@ password="#SESSION.dbpw#">
 			<cfset clrow = 0>
 			<cfset dep = 0>
 				
-			<cfoutput query = "Activity" group="SubProject">
-			
+			<cfoutput query = "Activity" group="SubProject">			
 			    
 				<cfquery name="Project" dbtype="query">
-						SELECT    MIN(ActivityDateStart) AS ProjectStart, 
-						          MAX(ActivityDate)      AS ProjectEnd							  
-						FROM      Activity
-						<cfif subproject neq "">
-						WHERE     SubProject = '#Subproject#'  														
-						<cfelse>
-						WHERE     Subproject is NULL
-						</cfif>
+					SELECT    MIN(ActivityDateStart) AS ProjectStart, 
+					          MAX(ActivityDate)      AS ProjectEnd							  
+					FROM      Activity
+					<cfif subproject neq "">
+					WHERE     SubProject = '#Subproject#'  														
+					<cfelse>
+					WHERE     Subproject is NULL
+					</cfif>
 				</cfquery>			
-			
-								
-			    <cfinclude template="ActivityListingCluster.cfm">				
 							
-				<cfoutput>		
-									
-					<cfinclude template="ActivityListingLine.cfm">
-												
+			    <cfinclude template="ActivityListingCluster.cfm">								
+				<cfoutput>											
+					<cfinclude template="ActivityListingLine.cfm">												
 				</cfoutput>
 			
 			</cfoutput>

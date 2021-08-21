@@ -1,7 +1,7 @@
  
 <cf_screentop html="no" jquery="Yes">
 
-<cfajaximport tags="cfdiv,cfwindow">
+<cfajaximport tags="cfdiv,cfform">
 <cf_dialogOrganization>
 <cf_dialogProcurement>
 <cf_dialogMaterial>
@@ -14,7 +14,6 @@
 <cfparam name="URL.box"           default="">
 <cfparam name="URL.taskId"        default="">
 <cfparam name="URL.mode"          default="regular">
-
 
 <cfif url.purchase eq "">
 				  
@@ -87,14 +86,21 @@
 		
     function methodquestionaire() {	
 		document.getElementById('recordreceipt').className = "regular"	
-	}	 		
+	}	 	
+		
+	function itemapply(context,id,box,itm,uom) {
+		document.item.onsubmit() 
+		if( _CF_error_messages.length == 0 ) {
+		    _cf_loadingtexthtml='';	
+         	ptoken.navigate('#session.root#/warehouse/maintenance/item/Description/ItemSubmit.cfm?context='+context+'&id='+id+'&itemno='+itm+'&uom='+uom,box,'','','POST','item')
+	 }   
+	}		
 	
 	function rctmore(box,req,act,mode) {	
 	  
 		icM  = document.getElementById(box+"Min")
 	    icE  = document.getElementById(box+"Exp")
-		se   = document.getElementById(box);	
-				
+		se   = document.getElementById(box);					
 		 		 
 		if (act=="show") {	 
 	     	 icM.className = "regular";
@@ -105,8 +111,7 @@
 	     	 icM.className = "hide";
 		     icE.className = "regular";
 	     	 se.className  = "hide"	 
-		 }
-			 		
+		 }			 		
 	  }	 
 	  
 	function taskmore(box,task,req,act,mode) {		  		
@@ -163,23 +168,22 @@
 		   }
 	 }  	
 	 	 
-	function setstockline(box,req,uom,qty,prc,mode,wuo,cur) {	
-	      
+	function setstockline(box,req,uom,qty,prc,mode,wuo,cur) {		      
 		_cf_loadingtexthtml='';			    
 	     ptoken.navigate('setReceiptLine.cfm?mode='+mode+'&box='+box+'&requisitionno='+req+'&uom='+uom+'&warehouseitemuom='+wuo+'&quantity='+qty+'&price='+prc+'&currency='+cur,'boxorderprocess_'+box)	   
 	}
 	  
 	function mail() {
-		  w = #CLIENT.width# - 100;
-		  h = #CLIENT.height# - 140;
-		  window.open("../../../../Tools/Mail/MailPrepare.cfm?Id=Mail&ID1=#URL.Purchase#&ID0=Procurement/Application/Purchaseorder/Purchase/POViewPrint.cfm","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
-	  	}
+		w = #CLIENT.width# - 100;
+		h = #CLIENT.height# - 140;
+		ptoken.open("../../../../Tools/Mail/MailPrepare.cfm?Id=Mail&ID1=#URL.Purchase#&ID0=Procurement/Application/Purchaseorder/Purchase/POViewPrint.cfm","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+  	}
 			
 	function print() {
-		  w = #CLIENT.width# - 100;
-		  h = #CLIENT.height# - 140;
-		  window.open("../../../../Tools/Mail/MailPrepare.cfm?Id=Print&ID1=#URL.Purchase#&ID0=Procurement/Application/Purchaseorder/Purchase/POViewPrint.cfm","_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
-	  	} 
+		w = #CLIENT.width# - 100;
+		h = #CLIENT.height# - 140;
+		ptoken.open("../../../../Tools/Mail/MailPrepare.cfm?Id=Print&ID1=#URL.Purchase#&ID0=Procurement/Application/Purchaseorder/Purchase/POViewPrint.cfm","_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+  	} 
 	
 </script>
 
@@ -219,26 +223,24 @@
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
  
-	  SELECT  Req.RequestType, 
- 	          Req.CaseNo,
-	          Req.RequestQuantity, 
-			  Req.QuantityUoM,
-			  Req.WarehouseItemNo,
-			  Req.WarehouseUoM,	           	
-			  (    SELECT ItemBarCode
+	  SELECT   Req.RequestType, 
+ 	           Req.CaseNo,
+	           Req.RequestQuantity, 
+			   Req.QuantityUoM,
+			   Req.WarehouseItemNo,
+			   Req.WarehouseUoM,	           	
+			   (   SELECT ItemBarCode
 			       FROM   Materials.dbo.ItemUoM
 				   WHERE  ItemNo =  Req.WarehouseItemNo
 				   AND    UoM    =  Req.WarehouseUoM ) as ItemBarCode,    			  		  
-			  Req.Warehouse,			  
-			  PL.*,
-			  (	   SELECT   SUM(RCT.ReceiptQuantity/RCT.ReceiptOrderMultiplier) <!--- 6/3 to add the multiplier to determine the quantiy expressed in UoM of the order --->
+			   Req.Warehouse,			  
+			   PL.*,
+			   (   SELECT   SUM(RCT.ReceiptQuantity/RCT.ReceiptOrderMultiplier) <!--- 6/3 to add the multiplier to determine the quantiy expressed in UoM of the order --->
 			   	   FROM     PurchaseLineReceipt RCT 
 				   WHERE    RCT.RequisitionNo = PL.RequisitionNo
 	    	       AND      RCT.ActionStatus != '9'
-			  ) AS ReceiptQuantity
-			  			  
-	  FROM    RequisitionLine Req INNER JOIN PurchaseLine PL ON PL.RequisitionNo = Req.RequisitionNo
-	        
+			  ) AS ReceiptQuantity			  			  
+	  FROM    RequisitionLine Req INNER JOIN PurchaseLine PL ON PL.RequisitionNo = Req.RequisitionNo	        
 	  WHERE    PL.ActionStatus != '9'	
 	  AND      PL.PurchaseNo    = '#url.Purchase#'	
 	  ORDER BY PL.OrderItemNo  
@@ -619,7 +621,7 @@
 							
 								<td style="padding-left:0px;padding-top:8px;padding-bottom:5px" valign="top">
 								
-									<table cellspacing="0" cellpadding="0">
+									<table>
 										<tr>
 										<td onClick="maximize('det_question','1')" style="cursor: pointer;" class="labelmedium"><u><cf_tl id="Checklist"></u></td>
 										
@@ -635,8 +637,7 @@
 												align="absmiddle" class="regular" style="cursor: pointer;" 
 												onClick="maximize('det_question','0')">
 										
-										</td>
-										
+										</td>										
 										</tr>
 									</table>
 								
@@ -644,8 +645,8 @@
 											
 								<td colspan="3" id="det_question" name="det_question" class="regular">
 				
-										<cfdiv id="questioncontent"
-										   bind="url:#SESSION.root#/tools/entityaction/ProcessActionQuestionaireObject.cfm?entitycode=ProcReceipt&entityclass={entityclass}"></cfdiv>			
+										<cf_securediv id="questioncontent"
+										   bind="url:#SESSION.root#/tools/entityaction/ProcessActionQuestionaireObject.cfm?entitycode=ProcReceipt&entityclass={entityclass}">			
 									
 								</td>
 								

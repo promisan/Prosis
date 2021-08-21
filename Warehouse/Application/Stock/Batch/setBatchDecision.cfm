@@ -117,6 +117,17 @@
 						   ActionOfficerDate      = getDate()
 					WHERE  BatchNo = '#url.BatchNo#'
 				</cfquery>
+				
+				<cfquery name="set"
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						INSERT INTO WarehouseBatchAction
+						(BatchNo,ActionCode,ActionDate,ActionStatus,OfficerUserId,OfficerLastName,OfficerFirstName)
+						VALUES 
+						('#URL.BatchNo#','Clear',getdate(),'1','#session.acc#','#session.last#','#session.first#')							
+				</cfquery>				
+				
 							
 			</cfif>
 			
@@ -241,7 +252,7 @@
 			      mode="greenlarge" 
 				  label="Next" 
 				  label2="Transdaction"
-				  onclick="window.location='BatchView.cfm?mode=process&systemfunctionid=#url.systemfunctionid#&mission=#batch.mission#&warehouse=#Batch.warehouse#'" 
+				  onclick="ptoken.location='BatchView.cfm?mode=process&systemfunctionid=#url.systemfunctionid#&mission=#batch.mission#&warehouse=#Batch.warehouse#'" 
 				  name="Next" 
 				  id="Next" 
 				  value="Next">							

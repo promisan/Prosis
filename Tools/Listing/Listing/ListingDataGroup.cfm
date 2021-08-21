@@ -264,17 +264,17 @@ we should not apply this is if the grouping has not changed, this will then save
 		</cflock>
 	
 	<cfcatch>
-		
+			
 		<!---
 		<cfdump var="#SearchResult#">
 		--->
-			
+					
 		<script>
 			Prosis.busy('no')
 			Prosis.busyRegion('no','_divSubContent')		
 		</script>
 	
-		ERROR: <cfoutput>#preservesinglequotes(groupsql)#</cfoutput>	 
+		GROUP ERROR: <cfoutput>#preservesinglequotes(groupsql)#</cfoutput>	 
 		
 		<cfabort>
 		

@@ -1,6 +1,4 @@
 
-
-
 <cfset Criteria = ''>
 
 <cf_divscroll style="height:99%">
@@ -25,24 +23,34 @@
 			</cfquery>
 			<tr class="line">		
 			<cfif Check.recordcount gte "1">
-				<td height="50" class="labelit">
-				<img src="#SESSION.root#/Images/attention.gif" alt="Last Run" border="0"> : 
-				<a href="DistributionLog.cfm?ID=#Check.BatchId#" target="right">
-				<b>#DateFormat(Check.ProcessStart, CLIENT.DateFormatShow)#</b></a>
+				<td style="height:60px" class="labelmedium2">
+				
+					<table>
+					<tr>
+					<td><img src="#SESSION.root#/Images/attention.gif" alt="Last Run" border="0"></td>				
+					<td style="padding-left:5px;font-size:20px"> 
+					   <a href="javascript:ptoken.open('DistributionLog.cfm?ID=#Check.BatchId#','right')">
+					   #DateFormat(Check.ProcessStart, CLIENT.DateFormatShow)#
+					   </a>
+					</td>
+					</tr>
+					</table>
+					
 				</td>
+				
 			<cfelse>
-			<td align="center" height="40">
-			<cfoutput>
-				<button onClick="javascript:batch('backoffice')" style="width:170" class="button10g" ><font face="Calibri" size="3">Run #dateFormat(now(), "dd MMM")#</font></button>
-			</cfoutput>
-			</td>	
+				<td align="center" height="40">
+				<cfoutput>
+					<button onClick="javascript:batch('backoffice')" style="width:98%;border:1px solid silver" class="button10g" ><font face="Calibri" size="3">Run #dateFormat(now(), "dd MMM")#</font></button>
+				</cfoutput>
+				</td>	
 			</cfif>		
 			</tr>
 				
 		</cfoutput>
 	  
 	    <tr class="labelmedium2" style="height:35px">
-           <td><a href="javascript:refreshTree()"><cf_tl id="Refresh"></a>&nbsp;|&nbsp;<a title="All Reports are prepared but are not distributed by Mail" href="javascript:batch('trial')">Test run</a></td>
+           <td><a href="javascript:refreshTree()"><cf_tl id="Refresh"></a>&nbsp;|&nbsp;<a title="All Reports are prepared but are not distributed by Mail" href="javascript:batch('trial')">Trial RUN</a></td>
         </tr>
 			
 	   	  

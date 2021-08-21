@@ -526,15 +526,18 @@
 	<cfif URL.Status eq "5">	  
 	
 		<cf_tl id="Mail Attachment has been prepared">
+		
+		<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+		<cfset mid = oSecurity.gethash()/>
 	
 		<script language="JavaScript">					
-			
-		    Prosis.alert("#lt_text#.") 
-			if (rpt) {					
-			 	rpt.src = "#SESSION.root#/Tools/Mail/Mail.cfm?ID1=#Report.FunctionName#&ID2=#attach#&Source=Listing&Sourceid=#URL.ReportId#&Mode=Full&GUI=#URL.GUI#"
-			} else {			
-				window.location = "#SESSION.root#/Tools/Mail/Mail.cfm?ID1=#Report.FunctionName#&ID2=#attach#&Source=Listing&Sourceid=#URL.ReportId#&Mode=Full&GUI=#URL.GUI#"
+					    
+			if (rpt) {								   
+			 	rpt.src = "#SESSION.root#/Tools/Mail/Mail.cfm?ID1=#Report.FunctionName#&ID2=#attach#&Source=Listing&Sourceid=#URL.ReportId#&Mode=Full&GUI=#URL.GUI#&mid=#mid#"
+			} else {						
+				window.location = "#SESSION.root#/Tools/Mail/Mail.cfm?ID1=#Report.FunctionName#&ID2=#attach#&Source=Listing&Sourceid=#URL.ReportId#&Mode=Full&GUI=#URL.GUI#&mid=#mid#"
 			}
+			Prosis.alert("#lt_text#.") 
 				
 		</script>		
 	
@@ -546,7 +549,7 @@
 		
 		<script language="JavaScript">		
 				   
-		   alert("Completed.  Email has been sent to your account and your request has been logged.");		   
+		   alert("Completed.  Email has been sent to your account and your request was logged.");		   
 		   #ajaxLink('#SESSION.root#/tools/cfreport/ReportSQLInstant.cfm?status=1')#
 		   
 		</script> 			

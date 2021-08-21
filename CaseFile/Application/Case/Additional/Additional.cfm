@@ -5,7 +5,7 @@
 
 <table width="99%" cellspacing="0" cellpadding="0" class="formpadding">
 	<tr><td height="10"></td></tr>
-	<tr><td><b>&nbsp;&nbsp;&nbsp;<cf_tl id="Additional information"></b></td></tr>
+	<tr><td><b>   <cf_tl id="Additional information"></b></td></tr>
 	<tr><td class="line"></td></tr>
 	<tr><td>
 	
@@ -23,3 +23,4 @@
 </cfif>
 
 </cfoutput>
+

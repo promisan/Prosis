@@ -713,7 +713,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 					datasource="AppsPayroll" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						SELECT DISTINCT SalaryTrigger 
+						SELECT DISTINCT SalaryTrigger, ComponentName 
 						FROM   SalaryScheduleComponent C, Ref_PayrollComponent R
 						WHERE  SalarySchedule = '#Form.Schedule#' 
 						AND    EntitlementRecurrent = 0	
@@ -749,8 +749,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 				ProcessBatchId = "#calcid#"					   		
 				Description    = "SickLeave50"> 
 				
-			<cfinclude template="Special/SickLeave50.cfm">
-								
+			<cfinclude template="Special/SickLeave50.cfm">								
 			<cfinclude template="Special/LeaveConmutation.cfm">		
 			
 			<cf_progress name="Settlement">		
@@ -767,9 +766,9 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 			password="#SESSION.dbpw#">
 				SELECT TOP 1 * 
 				FROM   userTransaction.dbo.sal#SESSION.thisprocess#Percentage
-				WHERE  SettleUntilPeriod = '#settle#'
+				WHERE  SettleUntilPeriod = '#settle#' 
 			</cfquery>
-			
+									
 			<cfif getPrior.recordcount gte "1">
 							
 				<cf_CalculationProcessProgressInsert
@@ -871,7 +870,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			SELECT     SUM(PaymentAmount) AS Amount, 
-						SUM(Amount) AS PostingAmount
+					   SUM(Amount) AS PostingAmount
 			FROM       EmployeeSettlementLine
 			WHERE      Mission        = '#URL.Mission#'		   
 			AND        SalarySchedule = '#SalarySchedule#'
@@ -910,13 +909,13 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				UPDATE SalarySchedulePeriod 
-				SET    CalculationDate    = #now()#, 
+				SET    CalculationDate     = #now()#, 
 						TransactionCount   = '#cnt#',
 						TransactionValue   = '#amt#',					   
 						OfficerUserId      = '#SESSION.acc#',
 						OfficerLastName    = '#SESSION.last#',
 						OfficerFirstName   = '#SESSION.first#'
-				WHERE  CalculationId      = '#CalculationId#'				
+				WHERE  CalculationId       = '#CalculationId#'				
 		</cfquery>
 		
 		<cfif SettlementStatus eq "Initial">
@@ -927,7 +926,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 				password="#SESSION.dbpw#">
 							
 					UPDATE SalarySchedulePeriod 
-					SET    CalculationDate         = #now()#, 
+					SET    CalculationDate          = #now()#, 
 							CalculationStatus       = '1',
 							TransactionPayment      = '#pay#',
 							TransactionPosting      = '#post#',
@@ -937,7 +936,7 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 							OfficerUserId           = '#SESSION.acc#',
 							OfficerLastName         = '#SESSION.last#',
 							OfficerFirstName        = '#SESSION.first#'
-					WHERE  CalculationId           = '#CalculationId#'		
+					WHERE  CalculationId            = '#CalculationId#'		
 					AND    CalculationStatus IN ('0','1')	
 						
 			</cfquery>
@@ -952,15 +951,15 @@ but was disabled for STL on 7/22/2019. It can be re-enabled, but for now we keep
 				password="#SESSION.dbpw#">			
 			
 				UPDATE SalarySchedulePeriod 
-				SET    CalculationDate         = #now()#, 
-						CalculationStatus       = '2',
-						TransactionPaymentFinal = '#pay#',
-						TransactionPosting      = '#post#', 
-						SettlementFinalDate     = #now()#,
-						OfficerUserId           = '#SESSION.acc#',
-						OfficerLastName         = '#SESSION.last#',
-						OfficerFirstName        = '#SESSION.first#'
-				WHERE  CalculationId          = '#CalculationId#'	
+				SET    CalculationDate          = #now()#, 
+					   CalculationStatus        = '2',
+					   TransactionPaymentFinal  = '#pay#',
+					   TransactionPosting       = '#post#', 
+					   SettlementFinalDate      = #now()#,
+					   OfficerUserId            = '#SESSION.acc#',
+					   OfficerLastName          = '#SESSION.last#',
+					   OfficerFirstName         = '#SESSION.first#'
+				WHERE  CalculationId            = '#CalculationId#'	
 				AND    CalculationStatus IN ('0','1','2')				
 			</cfquery>
 		
