@@ -97,28 +97,30 @@
 <cf_insertBatchClass  Code="WOReturn"      Description="WorkOrder Stock Return">
 <cf_insertBatchClass  Code="Production"    Description="WorkOrder Stock Production">
 <cf_insertBatchClass  Code="WOMedical"     Description="Medical Stock Issuance">
+<cf_insertBatchClass  Code="Quote"         Description="Standard Quote">
+<cf_insertBatchClass  Code="QteReserve"    Description="Quote Reservation">
 
-<cf_insertRequestType  Code="Pickticket" Description="Pickticket Request">
-<cf_insertRequestType  Code="TaskOrder"  Description="TaskOrder Request">
-<cf_insertRequestType  Code="Warehouse"  Description="Warehouse Request">
+<cf_insertRequestType  Code="Pickticket"   Description="Pickticket Request">
+<cf_insertRequestType  Code="TaskOrder"    Description="TaskOrder Request">
+<cf_insertRequestType  Code="Warehouse"    Description="Warehouse Request">
 
-<cf_insertValuation  Code="Average" Operational="0" Description="Average">
-<cf_insertValuation  Code="FIFO"    Operational="1" Description="First In, First Out (FIFO)">
-<cf_insertValuation  Code="LIFO"    Operational="1" Description="Last In, First Out (LIFO)">
-<cf_insertValuation  Code="Last"    Operational="0" Description="Last Purchase Price">
-<cf_insertValuation  Code="Manual"  Operational="1" Description="Standard Cost Price">
+<cf_insertValuation  Code="Average"        Operational="0"   Description="Average">
+<cf_insertValuation  Code="FIFO"           Operational="1"   Description="First In, First Out (FIFO)">
+<cf_insertValuation  Code="LIFO"           Operational="1"   Description="Last In, First Out (LIFO)">
+<cf_insertValuation  Code="Last"           Operational="0"   Description="Last Purchase Price">
+<cf_insertValuation  Code="Manual"         Operational="1"   Description="Standard Cost Price">
 
-<cf_insertAssetAction Code="Condition"  Description="Item Condition">
-<cf_insertAssetAction Code="Inventory"  Description="Inventory Check">
-<cf_insertAssetAction Code="Operations" Description="Operations Log">
+<cf_insertAssetAction Code="Condition"     Description="Item Condition">
+<cf_insertAssetAction Code="Inventory"     Description="Inventory Check">
+<cf_insertAssetAction Code="Operations"    Description="Operations Log">
 
-<cf_insertItemClass Code="Asset"    Description="Serialised Item">
-<cf_insertItemClass Code="Supply"   Description="Inventoried Item">
-<cf_insertItemClass Code="Service"  Description="Service item">
-<cf_insertItemClass Code="Other"    Description="Non-Inventoried Item">
+<cf_insertItemClass Code="Asset"           Description="Serialised Item">
+<cf_insertItemClass Code="Supply"          Description="Inventoried Item">
+<cf_insertItemClass Code="Service"         Description="Service item">
+<cf_insertItemClass Code="Other"           Description="Non-Inventoried Item">
 
-<cf_insertDisposal  Code="1" Description="Donation">
-<cf_insertDisposal  Code="2" Description="Sales">
+<cf_insertDisposal  Code="1"               Description="Donation">
+<cf_insertDisposal  Code="2"               Description="Sales">
 
 <cf_insertShipToMode  Code="deliver" Description="Delivery" ListingOrder="1">
 <cf_insertShipToMode  Code="collect" Description="Collection" ListingOrder="2">

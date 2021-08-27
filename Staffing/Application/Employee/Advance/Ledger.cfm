@@ -8,7 +8,7 @@
 <cf_dialogOrganization>
 <cf_listingScript>
 
-<table width="99%" height="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="99%" height="100%" align="center">
 
 <tr class="linedotted">
 	<td height="20" style="padding-left:0px">	

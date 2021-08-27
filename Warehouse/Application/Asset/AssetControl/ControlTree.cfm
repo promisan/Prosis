@@ -17,11 +17,11 @@
 	<tr><td height="3"></td></tr>
 	<tr class="hide"><td height="3"></td><td><cfdiv name="drefresh" id="drefresh"/></td></tr>
 	
-	<tr class="line">
+	<tr>
 	<td class="labelmedium" style="height:20;padding-left:10px">
 	<table>
 	<tr class="labelmedium">
-	<td>
+	<td style="padding-top:2px">
 	<img style="width: 15px;" src="#SESSION.root#/images/Edit.png" alt="" border="0">
 	</td>
 	<td class="labelmedium" style="padding-top:2px;font-size:16px;padding-left:10px">
@@ -33,9 +33,9 @@
 		 style="cursor:pointer;width: 15px;padding: 4px 6px 0 0;">
 	</td>
 	</tr>	
-    <tr class="line">
+    <tr>
 	<td class="labelmedium" style="height:20;padding-left:10px">
-	<table><tr class="labelmedium"><td>
+	<table><tr class="labelmedium"><td style="padding-top:2px">
 	<img style="width: 15px;" src="#SESSION.root#/images/Edit.png" alt="" border="0">
 	</td>
 	<td class="labelmedium" style="padding-top:2px;font-size:16px;padding-left:10px">

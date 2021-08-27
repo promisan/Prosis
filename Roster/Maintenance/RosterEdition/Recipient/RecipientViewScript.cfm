@@ -46,8 +46,7 @@ function reloadAddressDetail(edition){
 }
 
 function getUnitAddress(id, edition){
-	ProsisUI.createWindow('UnitWindow', 'Edit unit address', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true});    				
-	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewUnit.cfm?systemfunctionid=&ID='+id+'&closeAction=parent.ColdFusion.Window.hide(\'UnitWindow\'); parent.reloadAddressDetail(\''+edition+'\');',"UnitWindow")
+	ptoken.open('#SESSION.root#/Roster/Maintenance/RosterEdition/Recipient/RecipientViewUnit.cfm?systemfunctionid=&ID='+id+'&closeAction=parent.ColdFusion.Window.hide(\'UnitWindow\'); parent.reloadAddressDetail(\''+edition+'\');',"UnitWindow", "status=yes, height=850px, width=920px, scrollbars=no, toolbar=no, resizable=no")
 }
 
 function doSend(edition,actionid) {	

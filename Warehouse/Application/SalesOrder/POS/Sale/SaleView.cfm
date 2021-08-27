@@ -821,7 +821,7 @@ password="#SESSION.dbpw#">
 				
 				<cfelse>
 				
-				<td></td>
+				<td width="50%"></td>
 				
 				</cfif>
 													

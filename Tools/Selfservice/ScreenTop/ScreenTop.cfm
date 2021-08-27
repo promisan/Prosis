@@ -447,7 +447,10 @@ datasource="AppsInit">
 														<!--- -support icon- --->
 														<!--- -------------- --->
 																												
-														<cfif (url.systemfunctionid neq "" and systemfunctionid neq "" and systemfunctionid neq "undefined")> 	
+														<cfif (url.systemfunctionid neq "" 
+														    and systemfunctionid neq "" 
+															and systemfunctionid neq "00000000-0000-0000-0000-000000000000"
+															and systemfunctionid neq "undefined")> 	
 
 															<cfquery name="getFunction" 
 																datasource="AppsSystem"

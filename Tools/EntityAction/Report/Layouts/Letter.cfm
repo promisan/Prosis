@@ -1,5 +1,6 @@
 
 <cfoutput>
+<cfif Attributes.Reference neq "" OR Attributes.DocumentDate neq "">
 <table width="99%" cellspacing="0" cellpadding="0" id="tdata_memo">
 	<tr height="20">
 		<td colspan="2">&nbsp;</td>
@@ -18,4 +19,5 @@
   	</tr>	
 	
 </table>	
+</cfif>
 </cfoutput>

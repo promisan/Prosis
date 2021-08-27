@@ -283,16 +283,16 @@
 				
 <cfelse>
 
-	<tr><td class="labelmedium" colspan="3">
+	<tr><td class="labelmedium2" colspan="3">
 	
 		<cfif Total.total lte "100">	   
  	   
 	   <cfoutput>
 	   
 		   <table>
-		   <tr>
+		   <tr class="labelmedium2">
 		   <td><cf_img icon="select" onClick="multivalue('selectall','0','#url.par#','#url.fly#','#URL.Page#')"></td>
-		   <td class="labelmedium">
+		   <td>
 			   <a href="javascript:multivalue('selectall','0','#url.par#','#url.fly#','#URL.Page#')"><cf_tl id="Select all"></a>
 		   </td>
 		   </tr>
@@ -312,7 +312,7 @@
     
 		<table style="width:99%" class="navigation_table">   
 																	
-			<TR bgcolor="f4f4f4" class="labelmedium fixrow">
+			<TR bgcolor="f4f4f4" class="labelmedium2 fixrow">
 			   	
 			    <td height="15" width="8%"></td>
 			    <TD><cf_tl id="Code"></TD>				
@@ -334,8 +334,8 @@
 			
 			</cfif>
 				
-			<td style="min-width:30px">			
-			  <cf_img icon="open" onClick="multivalue('add','#PK#','#url.par#','#url.fly#','#URL.Page#')" navigation="Yes">						   
+			<td style="min-width:30px;padding-top:1px">			
+			  <cf_img icon="select" onClick="multivalue('add','#PK#','#url.par#','#url.fly#','#URL.Page#')" navigation="Yes">						   
 			</td>
 						
 			<cfif base.Lookupfieldshow eq "1">	

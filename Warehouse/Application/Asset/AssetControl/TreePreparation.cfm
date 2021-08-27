@@ -22,15 +22,13 @@
 				nodeList.push(node.children[i]);
 			}
 		}
-	
 		
 		for (var i = 0; i < nodeList.length; i++) {
 			current_node = nodeList[i];				
 		    ColdFusion.Tree.loadNodes([],{'treeid':'tmaterials','parent':current_node});	   			
 			current_node = nodeList[i];						
 			current_node.expand();
-		}
-		
+		}		
 		*****/
 			
 	    var oTree     = ColdFusion.Tree.getTreeObject('tmaterials');		

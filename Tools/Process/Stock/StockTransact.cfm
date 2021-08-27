@@ -621,7 +621,7 @@
 	   username="#SESSION.login#" 
 	   password="#SESSION.dbpw#">
 	   SELECT * 
-	   FROM   Purchase.dbo.PurchaseLinereceipt
+	   FROM   Purchase.dbo.PurchaseLineReceipt
 	   WHERE  ReceiptId = '#attributes.receiptId#'    
 	</cfquery>
 	

@@ -6,7 +6,8 @@
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
 		UPDATE CustomerRequest
-		SET    Remarks = '#form.Remarks#'		
-		WHERE  Requestno = '#URL.Requestno#'
+		SET    Remarks      = '#form.Remarks#', 
+		       RequestClass = '#Form.RequestClass#'
+		WHERE  Requestno    = '#URL.Requestno#'
 </cfquery>
 	

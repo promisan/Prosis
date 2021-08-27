@@ -3,6 +3,7 @@
 <cfparam name="Form.ReceiptPrice"            default="0">
 <cfparam name="Form.PersonNo"                default="">
 <cfparam name="Form.Remarks"                 default="">
+<cfparam name="Form.ReceiptVolume"           default="0">
 <cfparam name="Form.WarehouseReceiptUoM"     default="">
 <cfparam name="Form.RequisitionNo"           default="#URL.reqno#">
 
@@ -667,8 +668,7 @@
 		<cf_tl id="You entered a receipt for a value which exceeded the Purchase Order amount of " class="message" var="vMessage1">
 		 
 		<cftransaction>
-		
-			
+					
 		<!--- start --->
 	
 		<cfset dateValue = "">
@@ -804,6 +804,7 @@
 			   PersonNo                = '#Form.PersonNo#', 
 			   ReceiptUoM              = '#ReceiptUoM#', 
 			   ReceiptMultiplier       = '#StockMultiplier#', 
+			   ReceiptVolume           = '#Form.ReceiptVolume#',
 			   Currency                = '#Form.Currency#',
 			   <cfif Form.QuoteZero eq "1" and Form.CostPriceB eq "0">
 			   		ReceiptZero             = 1,

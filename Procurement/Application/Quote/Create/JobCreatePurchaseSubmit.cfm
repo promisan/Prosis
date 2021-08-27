@@ -328,31 +328,29 @@ the requisition orgunit, parent --->
 
 	<cfset TaxIncluded = Parameter.DefaultTaxIncluded>
 
-
 	<cfif Parameter.TaxExemption eq "1">
-			<cfset OrderAmountCost    = RequestQuantity*Price>
-			<cfset OrderTax             = 0>			
-			<cfset OrderAmountTax       = 0>							
-			<cfset OrderAmountBaseCost  = RequestAmountBase>
-			<cfset OrderAmountBaseTax   = 0>
+	
+		<cfset OrderAmountCost    = RequestQuantity*Price>
+		<cfset OrderTax             = 0>			
+		<cfset OrderAmountTax       = 0>							
+		<cfset OrderAmountBaseCost  = RequestAmountBase>
+		<cfset OrderAmountBaseTax   = 0>
 
 	<cfelse>
 		
-			<cfset OrderTax             = Parameter.TaxDefault>
+			<cfset OrderTax                = Parameter.TaxDefault>
 
 			<cfif TaxIncluded eq "1">
-				<cfset OrderAmountCost    = RequestQuantity*Price/(1+OrderTax)>
+				<cfset OrderAmountCost      = RequestQuantity*Price/(1+OrderTax)>
 				<cfset OrderAmountTax       = OrderAmountCost*OrderTax>
-
 				<cfset OrderAmountBaseCost  = RequestAmountBase/(1+OrderTax)>
-				<cfset OrderAmountBaseTax  = OrderAmountBaseCost*OrderTax>
+				<cfset OrderAmountBaseTax   = OrderAmountBaseCost*OrderTax>
 			<cfelse>
+			    <cfset OrderAmountCost      = RequestQuantity*Price>
 				<cfset OrderAmountTax       = OrderAmountCost*OrderTax>
 				<cfset OrderAmountBaseCost  = RequestAmountBase>
 				<cfset OrderAmountBaseTax   = OrderAmountBaseCost*OrderTax>
 			</cfif>
-
-
 						
 	</cfif>		
 	

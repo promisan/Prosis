@@ -108,7 +108,7 @@
 						formatted   = "CustomerName",										
 						alias       = "C",																			
 						search      = "text",
-						filtermode  = "2"}>		
+						filtermode  = "3"}>		
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Reference" var = "1">
@@ -152,7 +152,7 @@
 						column      = "common",							
 						alias       = "C",																			
 						search      = "text",
-						filtermode  = "2"}>				
+						filtermode  = "3"}>				
 					
 	
 	<!---						
@@ -172,7 +172,7 @@
 	     				field       = "Officer",																							
 						alias       = "C",																			
 						search      = "text",
-						filtermode  = "2"}>									
+						filtermode  = "3"}>									
 						
 								
 	<cfset itm = itm+1>
@@ -197,7 +197,7 @@
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "MobileNumber",																	
 						alias       = "C",		
-						rowlevel      = "2",																	
+						rowlevel    = "2",																	
 						search      = "text"}>		
 						
 	<cfset itm = itm+1>		
@@ -205,8 +205,7 @@
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "PhoneNumber",																	
 						alias       = "C",	
-						rowlevel      = "2",																		
-						search      = "text"}>			
+						rowlevel    = "2"}>			
 											
 	<cfset itm = itm+1>	
 	<cf_tl id="Remarks" var = "1">		
@@ -224,7 +223,7 @@
 	<cf_tl id="Id" var = "1">												
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "CustomerId",					
-						display     = "No",
+						display     = "No",						
 						alias       = ""}>		
 	
 	<!---					

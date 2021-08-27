@@ -64,88 +64,98 @@
 <!--- context menu --->   
     
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Employee"
-   FunctionName = "Bank account" 
-   MenuClass    = "Payroll"
-   MenuOrder    = "1"
-   MainMenuItem = "0"
-   FunctionMemo = "Bank account"
-   ScriptName   = "bankaccount"> 
+   SystemModule     = "Payroll" 
+   FunctionClass    = "Employee"
+   FunctionName     = "Bank account" 
+   MenuClass        = "Payroll"
+   MenuOrder        = "1"
+   MainMenuItem     = "0"
+   FunctionMemo     = "Bank account"
+   ScriptName       = "bankaccount"> 
      
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Employee"
-   FunctionName = "Overtime" 
-   MenuClass    = "Payroll"
-   MenuOrder    = "2"
-   MainMenuItem = "0"
-   FunctionMemo = "Overtime"
-   ScriptName   = "overtime"> 
+   SystemModule     = "Payroll" 
+   FunctionClass    = "Employee"
+   FunctionName     = "Overtime" 
+   MenuClass        = "Payroll"
+   MenuOrder        = "2"
+   MainMenuItem     = "0"
+   FunctionMemo     = "Overtime"
+   ScriptName       = "overtime"> 
    
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Employee"
-   FunctionName = "Miscellaneous" 
-   MenuClass    = "Payroll"
-   MenuOrder    = "3"
-   MainMenuItem = "0"
-   FunctionMemo = "Miscellaneous"
-   ScriptName   = "miscellaneous">  
+   SystemModule     = "Payroll" 
+   FunctionClass    = "Employee"
+   FunctionName     = "Miscellaneous" 
+   MenuClass        = "Payroll"
+   MenuOrder        = "3"
+   MainMenuItem     = "0"
+   FunctionMemo     = "Miscellaneous"
+   ScriptName       = "miscellaneous">  
     
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Employee"
-   FunctionName = "Entitlements" 
-   MenuClass    = "Payroll"
-   MenuOrder    = "4"
-   MainMenuItem = "0"
-   FunctionMemo = "Entitlements"
-   ScriptName   = "entitlement">     
+   SystemModule     = "Payroll" 
+   FunctionClass    = "Employee"
+   FunctionName     = "Entitlements" 
+   MenuClass        = "Payroll"
+   MenuOrder        = "4"
+   MainMenuItem     = "0"
+   FunctionMemo     = "Entitlements"
+   ScriptName       = "entitlement">  
+   
+<cf_ModuleInsertSubmit
+   SystemModule     = "Payroll" 
+   FunctionClass    = "Employee"
+   FunctionName     = "Payment Method" 
+   MenuClass        = "Payroll"
+   MenuOrder        = "7"
+   MainMenuItem     = "0"
+   FunctionMemo     = "Distribute payroll"
+   ScriptName       = "distribution">         
      
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Employee"
-   FunctionName = "Payslip" 
-   MenuClass    = "Payroll"
-   MenuOrder    = "6"
-   MainMenuItem = "0"
-   FunctionMemo = "Payslip"
-   ScriptName   = "payroll">     
-   
-<cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Employee"
-   FunctionName = "Payment Method" 
-   MenuClass    = "Payroll"
-   MenuOrder    = "7"
-   MainMenuItem = "0"
-   FunctionMemo = "Distribute payroll"
-   ScriptName   = "distribution">             
+   SystemModule     = "Payroll" 
+   FunctionClass    = "Employee"
+   FunctionName     = "Payslip" 
+   MenuClass        = "Payroll"
+   MenuOrder        = "8"
+   MainMenuItem     = "0"
+   FunctionMemo     = "Payslip"
+   ScriptName       = "payroll">     
+     
+ <cf_ModuleInsertSubmit
+   SystemModule      = "Payroll" 
+   FunctionClass     = "Employee"
+   FunctionName      = "Local Payroll" 
+   MenuClass         = "Payroll"
+   MenuOrder         = "9"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Localised payroll recapitulation"
+   ScriptName        = "payrolllocal">               
 
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Maintain"
-   FunctionName = "Payroll Trigger" 
-   MenuClass    = "Main"
-   MenuOrder    = "4"
-   MainMenuItem = "1"
-   FunctionMemo = "Maintain Selectable Payroll entitlements"
+   SystemModule      = "Payroll" 
+   FunctionClass     = "Maintain"
+   FunctionName      = "Payroll Trigger" 
+   MenuClass         = "Main"
+   MenuOrder         = "4"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Maintain Selectable Payroll entitlements"
    FunctionDirectory = "Payroll/Maintenance"
-   FunctionPath = "Trigger/RecordListing.cfm"
-   FunctionIcon = "Maintain">  
+   FunctionPath      = "Trigger/RecordListing.cfm"
+   FunctionIcon      = "Maintain">  
    
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Reference"
-   FunctionName = "Trigger Class" 
-   MenuClass    = "Main"
-   MenuOrder    = "5"
-   MainMenuItem = "1"
-   FunctionMemo = "Maintain Payroll Triggers classes"
+   SystemModule      = "Payroll" 
+   FunctionClass     = "Reference"
+   FunctionName      = "Trigger Class" 
+   MenuClass         = "Main"
+   MenuOrder         = "5"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Maintain Payroll Triggers classes"
    FunctionDirectory = "Payroll/Maintenance"
-   FunctionPath = "TriggerGroup/RecordListing.cfm"
-   FunctionIcon = "Maintain">  
+   FunctionPath      = "TriggerGroup/RecordListing.cfm"
+   FunctionIcon      = "Maintain">  
    
  <cf_ModuleInsertSubmit
    SystemModule="Payroll" 

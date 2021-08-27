@@ -189,7 +189,7 @@ password="#SESSION.dbpw#">
  
 <table width="96%"align="center">
   
-  <tr><td colspan="2" class="xxhide">
+  <tr><td colspan="2" class="hide">
 	   <iframe name="result" id="result" width="100%" height="100"></iframe>
 	</td></tr>
 	

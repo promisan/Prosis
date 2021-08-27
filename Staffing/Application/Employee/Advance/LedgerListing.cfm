@@ -120,25 +120,24 @@
 					  search        = "number",
 					  align         = "right",
 					  aggregate     = "sum",
-					  formatted     = "numberformat(PostingAmountBase,',.__')"}>		
-					  
+					  formatted     = "numberformat(PostingAmountBase,',.__')"}>						  
 	
-	<cf_listing
-	    header          = "Advance"
-	    box             = "AdvanceList_#url.id#"
-		link            = "#SESSION.root#/Staffing/Application/Employee/Advance/LedgerListing.cfm?id=#url.id#&systemfunctionid=#url.systemfunctionid#"	   
-		datasource      = "AppsLedger"
-		listquery       = "#myquery#"					
-		listgroup       = "Currency"		
-		listgroupdir    = "ASC"			
-		listorder       = "TransactionDate"
-		listorderfield  = "TransactionDate"		
-		listorderdir    = "ASC"		
-		headercolor     = "ffffff"
-		listlayout      = "#fields#"
-		filterShow      = "Hide"
-		excelShow       = "Yes"
-		drillmode       = "tab"	
-		drillargument   = "900;1200"
-		drilltemplate   = "../Gledger/Application/Transaction/View/TransactionView.cfm?id="
-		drillkey        = "TransactionId">		
+<cf_listing
+    header          = "Advance"
+    box             = "AdvanceList_#url.id#"
+	link            = "#SESSION.root#/Staffing/Application/Employee/Advance/LedgerListing.cfm?id=#url.id#&systemfunctionid=#url.systemfunctionid#"	   
+	datasource      = "AppsLedger"
+	listquery       = "#myquery#"					
+	listgroup       = "Currency"		
+	listgroupdir    = "ASC"			
+	listorder       = "TransactionDate"
+	listorderfield  = "TransactionDate"		
+	listorderdir    = "ASC"		
+	headercolor     = "ffffff"
+	listlayout      = "#fields#"
+	filterShow      = "Hide"
+	excelShow       = "Yes"
+	drillmode       = "tab"	
+	drillargument   = "900;1200"
+	drilltemplate   = "../Gledger/Application/Transaction/View/TransactionView.cfm?id="
+	drillkey        = "TransactionId">		

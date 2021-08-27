@@ -144,16 +144,16 @@
    FunctionIcon = "Maintain">  
    
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Employee"
-   FunctionName = "Historical Actions" 
-   MenuClass = "History"
-   MenuOrder = "2"
-   MainMenuItem = "0"
-   FunctionMemo = "Profile"
-   ScriptName = "phistory"
-   AccessRole = "ContractManager"
-   FunctionIcon = "Maintain">     
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Employee"
+   FunctionName      = "Historical Actions" 
+   MenuClass         = "History"
+   MenuOrder         = "2"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Profile"
+   ScriptName        = "phistory"
+   AccessRole        = "ContractManager"
+   FunctionIcon      = "Maintain">     
    
 <!--- --------- ---> 
 <!--- applicant --->
@@ -186,31 +186,31 @@
    FunctionIcon = "Maintain">        
             
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Employee"
-   FunctionName = "Courses" 
-   MenuClass = "Learning"
-   MenuOrder = "2"
-   MainMenuItem = "0"
-   FunctionMemo = "Learning"
-   AccessRole = "ContractManager"
-   ScriptName = "course"
-   FunctionIcon = "Maintain">          
+   SystemModule    = "Staffing" 
+   FunctionClass   = "Employee"
+   FunctionName    = "Courses" 
+   MenuClass       = "Learning"
+   MenuOrder       = "2"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Learning"
+   AccessRole      = "ContractManager"
+   ScriptName      = "course"
+   FunctionIcon    = "Maintain">          
    
 <!--- ------------- --->   
 <!--- Used Resource --->
 <!--- ------------- --->      
       
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Employee"
-   FunctionName = "Equipment" 
-   MenuClass = "Resource"
-   MenuOrder = "1"
-   MainMenuItem = "0"
-   FunctionMemo = "Equipment"
-   ScriptName = "asset"
-   FunctionIcon = "Maintain">    
+   SystemModule    = "Staffing" 
+   FunctionClass   = "Employee"
+   FunctionName    = "Equipment" 
+   MenuClass       = "Resource"
+   MenuOrder       = "1"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Equipment"
+   ScriptName      = "asset"
+   FunctionIcon    = "Maintain">    
     
 <cf_ModuleInsertSubmit
    SystemModule    = "Staffing" 
@@ -369,16 +369,16 @@
    FunctionIcon = "Maintain">         
    
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Maintain"
-   FunctionName = "Salary scales" 
-   MenuClass = "Employee"
-   MenuOrder = "3"
-   MainMenuItem = "1"
-   FunctionMemo = "Edit Salary Scales"
-   FunctionDirectory="Payroll/Maintenance"
-   FunctionPath = "SalarySchedule/RecordListing.cfm"
-   FunctionIcon = "Maintain">    
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Maintain"
+   FunctionName      = "Salary scales" 
+   MenuClass         = "Employee"
+   MenuOrder         = "3"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Edit Salary Scales"
+   FunctionDirectory ="Payroll/Maintenance"
+   FunctionPath      = "SalarySchedule/RecordListing.cfm"
+   FunctionIcon      = "Maintain">    
    
 <cf_ModuleInsertSubmit
    SystemModule="Staffing" 
@@ -603,8 +603,7 @@
    FunctionMemo = "Maintain Schedule classes (night, day etc.)"
    FunctionDirectory="Staffing/Maintenance"
    FunctionPath = "ScheduleClass/RecordListing.cfm"
-   FunctionIcon = "Maintain">           
-          
+   FunctionIcon = "Maintain">                     
 
 <cf_ModuleInsertSubmit
    SystemModule="Staffing" 
@@ -617,34 +616,33 @@
    FunctionMemo = "Locate staffmember"
    FunctionDirectory="Staffing/Application"
    FunctionPath = "Employee/PersonSearch1.cfm"
-   FunctionIcon = "admin">  
-
+   FunctionIcon = "admin"> 
 
    <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Maintain"
-   FunctionName = "Person Event Triggers" 
-   MenuClass = "Staffing"
-   MenuOrder = "10"
-   MainMenuItem = "1"
-   BrowserSupport = "2"
-   FunctionMemo = "Maintain Person Event Triggers and combinations"
-   FunctionDirectory="Staffing/Maintenance"
-   FunctionPath = "PersonEventTrigger/RecordListing.cfm"
-   FunctionIcon = "Maintain">       
+   SystemModule         = "Staffing" 
+   FunctionClass        = "Maintain"
+   FunctionName         = "Person Event Triggers" 
+   MenuClass            = "Staffing"
+   MenuOrder            = "10"
+   MainMenuItem         = "1"
+   BrowserSupport       = "2"
+   FunctionMemo         = "Maintain Person Event Triggers and combinations"
+   FunctionDirectory    = "Staffing/Maintenance"
+   FunctionPath         = "PersonEventTrigger/RecordListing.cfm"
+   FunctionIcon         = "Maintain">       
    
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Maintain"
-   FunctionName = "Person Events" 
-   MenuClass = "Staffing"
-   MenuOrder = "11"
-   MainMenuItem = "1"
-   BrowserSupport = "2"
-   FunctionMemo = "Maintain Person events"
-   FunctionDirectory="Staffing/Maintenance"
-   FunctionPath = "PersonEvent/RecordListing.cfm"
-   FunctionIcon = "Maintain">         
+   SystemModule         = "Staffing" 
+   FunctionClass        = "Maintain"
+   FunctionName         = "Person Events" 
+   MenuClass            = "Staffing"
+   MenuOrder            = "11"
+   MainMenuItem         = "1"
+   BrowserSupport       = "2"
+   FunctionMemo         = "Maintain Person events"
+   FunctionDirectory    = "Staffing/Maintenance"
+   FunctionPath         = "PersonEvent/RecordListing.cfm"
+   FunctionIcon         = "Maintain">         
           
         
 <cf_ModuleInsertSubmit
@@ -675,28 +673,28 @@
 <!--- payroll --->
 
 <cf_ModuleInsertSubmit
-   SystemModule="Staffing" 
-   FunctionClass = "Maintain"
-   FunctionName = "Designation" 
-   MenuClass    = "Payroll"
-   MenuOrder    = "1"
-   MainMenuItem = "1"
-   FunctionMemo = "Maintain Designations"
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Maintain"
+   FunctionName      = "Designation" 
+   MenuClass         = "Payroll"
+   MenuOrder         = "1"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Maintain Designations"
    FunctionDirectory = "Payroll/Maintenance"
-   FunctionPath = "Designation/RecordListing.cfm"
-   FunctionIcon = "Maintain">      
+   FunctionPath      = "Designation/RecordListing.cfm"
+   FunctionIcon      = "Maintain">      
       
 <cf_ModuleInsertSubmit
-   SystemModule  = "Staffing" 
-   FunctionClass = "Maintain"
-   FunctionName = "Payroll Locations" 
-   MenuClass    = "Payroll"
-   MenuOrder    = "2"
-   MainMenuItem = "1"
-   FunctionMemo = "Maintain Payroll Location and Designations"
+   SystemModule      = "Staffing" 
+   FunctionClass     = "Maintain"
+   FunctionName      = "Payroll Locations" 
+   MenuClass         = "Payroll"
+   MenuOrder         = "2"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Maintain Payroll Location and Designations"
    FunctionDirectory = "Payroll/Maintenance"
-   FunctionPath = "Location/RecordListing.cfm"
-   FunctionIcon = "Maintain">    
+   FunctionPath      = "Location/RecordListing.cfm"
+   FunctionIcon      = "Maintain">    
    
 <!--- matrix action --->  
 

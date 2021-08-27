@@ -51,7 +51,7 @@
 <cf_tl id = "On Hand"        var ="vOnHand">
 <cf_tl id = "Value"          var ="vStockValue">
 <cf_tl id = "Max"            var ="vMaxStock">
-<cf_tl id = "Movement"       var ="vLast">
+<cf_tl id = "Sale"           var ="vLast">
 <cf_tl id = "ItemNoExternal" var ="vItemNoExternal">
 
 <cfquery name="Param" 
@@ -109,26 +109,22 @@
 	--->
 	
 	<cfset itm = itm+1>	
-	<cfset fields[itm] = {label       = "#vSubCategory#",                    
-	     				field         = "CategoryItemName",																							
-						search        = "text",	
-						filtermode    = "3"}>							
-
+	<cfset fields[itm] = {label           = "#vSubCategory#",                    
+	     				field             = "CategoryItemName",																							
+						search            = "text",	
+						filtermode        = "3"}>							
 		
 	<cfset itm = itm+1>		
 	<cfset fields[itm] = {label     	  = "Barcode",                    
 	     				field       	  = "ItemBarCode",							
 						align       	  = "left",
-						search			  = "text"}>
-				
+						search			  = "text"}>				
 
 	<cfset itm = itm+1>		
 	<cfset fields[itm] = {label           = "#vItemNoExternal#",                    
 	     				field             = "ItemNoExternal",							
 						align       	  = "left",
-						search			  = "text"}>	
-						
-				
+						search			  = "text"}>					
 	
 	<cfset itm = itm+1>	
 	<cfset fields[itm] = {label           = "#vItem#",                    
@@ -179,12 +175,12 @@
 	</cfif>		
 	
 	<cfset itm = itm+1>	
-	<cfset fields[itm] = {label          = "#vLast#",                    
-	     				field            = "LastTransaction",													
-						align            = "center",		
-						column           = "month",																	
-						formatted        = "dateformat(LastTransaction,client.dateformatshow)",						
-						search           = "date"}>		
+	<cfset fields[itm] = {label           = "#vLast#",                    
+	     				field             = "LastSale",													
+						align             = "center",		
+						column            = "month",																	
+						formatted         = "dateformat(LastSale,client.dateformatshow)",						
+						search            = "date"}>		
 
 	<cfset itm = itm+1>		
 	<cfset fields[itm] = {label           = "#vMin#",                    
@@ -208,14 +204,13 @@
 						search			  = "number"}>																						
 					
 	<cfset itm = itm+1>	
-	<cfset fields[itm] = {label     = "#vOnHand#",                    
-	     				field       = "OnHand",		
-						aggregate   = "SUM",						
-						align       = "right",																			
-						formatted   = "numberformat(OnHand,'[precision]')",
-						precision   = "ItemPrecision",
-						search      = "number"}>		
-	
+	<cfset fields[itm] = {label           = "#vOnHand#",                    
+	     				field             = "OnHand",		
+						aggregate         = "SUM",						
+						align             = "right",																			
+						formatted         = "numberformat(OnHand,'[precision]')",
+						precision         = "ItemPrecision",
+						search            = "number"}>		
 			
 <!--- define access --->
 <cfsavecontent variable="myaddscript">

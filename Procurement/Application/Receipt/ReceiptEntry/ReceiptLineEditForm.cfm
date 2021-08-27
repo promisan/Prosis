@@ -111,9 +111,8 @@ password="#SESSION.dbpw#">
 				R.Description as ItemMaster, 
 				R.EnforceWarehouse, 
 				L.WarehouseItemNo  <!--- here we defined through the item master how we select item --->
-	    FROM    RequisitionLine L, ItemMaster R
-		WHERE   L.ItemMaster = R.Code
-		AND     RequisitionNo = '#URL.reqno#' 
+	    FROM    RequisitionLine L INNER JOIN ItemMaster R ON L.ItemMaster = R.Code
+		WHERE   RequisitionNo = '#URL.reqno#' 
 	</cfquery>			
 			
 	<cfquery name="EntryClass" 
@@ -498,7 +497,7 @@ password="#SESSION.dbpw#">
 							
 					</cfif>
 					</td>
-					<td style="width:auto">	
+					<td style="width:auto;padding-left:2px">	
 					
 					<cfif nr lte ArrayLen(myArray)>		
 					
@@ -632,16 +631,14 @@ password="#SESSION.dbpw#">
 					
 			<cfif Purchase.ReceiptDeliveryTime eq "0">
 					
-						<input type="hidden" name="receiptstarthour" value="12">
-						<input type="hidden" name="receiptstartminute" value="00">
-						<input type="hidden" name="receiptendhour" value="12">
-						<input type="hidden" name="receiptendminute" value="00">
-						<input type="hidden" name="deliveryofficer" value="">
+					<input type="hidden" name="receiptstarthour" value="12">
+					<input type="hidden" name="receiptstartminute" value="00">
+					<input type="hidden" name="receiptendhour" value="12">
+					<input type="hidden" name="receiptendminute" value="00">
+					<input type="hidden" name="deliveryofficer" value="">
 										
 			<cfelse>
-			
-			<tr><td colspan="2" height="1"></td></tr>
-					
+								
 			<tr>		
 			
 			<td class="labelmedium" style="padding-left:10px"><cf_tl id="Delivery by">:<font color="FF0000">*</font></td>
@@ -820,6 +817,26 @@ password="#SESSION.dbpw#">
 	</td>
 		 	
 	</tr>
+			
+	<cfif Line.receiptVolume neq "0">
+	
+		<tr>		
+		 <td class="labelmedium" style="padding-left:10px"><cf_tl id="Total volume">:<font color="FF0000">*</font></td>	 
+		 <td colspan="3">	 
+				<cfoutput>
+				<input type="text" id="receiptvolume" name="receiptvolume" value="#Line.ReceiptVolume#" 
+				   style="text-align:right;padding-right:3px" class="regularxl" size="5">
+				</cfoutput>M3
+		 </td>				 
+		</tr> 
+	  
+	<cfelse>
+	
+		<input type="hidden" name="receiptvolume" value="0">  
+	
+	</cfif>
+	
+	
   								
 	<cfquery name="hasTopics" 
 	   datasource="AppsMaterials"

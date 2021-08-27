@@ -6,8 +6,8 @@
 	<tr class="hide"><td id="boxsend"></td></tr>
 	
 	<tr><td height="100%" style="border:0px solid silver">
-	
-		<iframe src="BroadCastBody.cfm?id=#url.id#&mode=#url.mode#&readonly=#url.readonly#&sourcepath=#URL.sourcepath#&ts=#now()#"
+		<cf_getMId>
+		<iframe src="BroadCastBody.cfm?id=#url.id#&mode=#url.mode#&readonly=#url.readonly#&sourcepath=#URL.sourcepath#&ts=#now()#&mid=#mid#"
 		   id="savebody"
 		   name="savebody" 
 		   width="100%" 

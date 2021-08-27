@@ -115,6 +115,10 @@
 	    ptoken.open("#SESSION.root#/Payroll/Application/Payroll/EmployeePayroll.cfm?ID=#URL.ID#&ID1=#URL.ID1#&systemfunctionid="+idmenu, "right");
 	}
 	
+	function payrolllocal(s,idmenu) {	   
+	    ptoken.open("#SESSION.root#/Staffing/Application/Employee/Payroll/LocalisedListing.cfm?ID=#URL.ID#&ID1=#URL.ID1#&systemfunctionid="+idmenu, "right");
+	}
+	
 	function overtime(s,idmenu) {
 	    ptoken.location("#SESSION.root#/Payroll/Application/Overtime/EmployeeOvertime.cfm?ID=#URL.ID#&ID1=#URL.ID1#&systemfunctionid="+idmenu,"parent.right");
 	}

@@ -425,12 +425,13 @@
 				</script>	
 						
 				<cfif ((FunctionClass neq "Application") and FunctionClass neq "Roster" and FunctionClass neq "Inquiry") or 
-					  MenuClass eq "Special" OR
+					  MenuClass eq "Special"                                        or
+					  MenuClass eq "Audit"                                          or
 					  (FunctionClass eq "Application" and SystemModule is "Roster") or
-					  MenuClass eq "Builder" or
-					  Find("Mission",class) or 
-					  Find("Detail",class) or
-					  Presentation eq "2" or
+					  MenuClass eq "Builder"                                        or
+					  Find("Mission",class)                                         or 
+					  Find("Detail",class)                                          or
+					  Presentation eq "2"                                           or
 					  Selection eq "Favorite">		
 					 					  					 					  		  								
 					 <cfif Selection eq "Favorite">

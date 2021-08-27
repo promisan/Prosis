@@ -167,7 +167,7 @@
 							  </cfif>	
 							  
 							 <cfif attributes.Format eq "RichTextFull">
-								  <cfset rt = "Default">	
+								  <cfset rt = "Full">	
 							 <cfelseif attributes.Format eq "Mini">
 								  <cfset rt = "Mini">			  							
 							 <cfelse>

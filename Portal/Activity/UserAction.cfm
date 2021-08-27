@@ -21,6 +21,7 @@ function reloadForm(view,tpe,cls) {
 }  
 
 function expiresession(box,id) {   
+    alert('expire session')
 	ptoken.navigate('setSessionExpiry.cfm?id='+id+'&box='+box,box+'_ajax')		
 }
 

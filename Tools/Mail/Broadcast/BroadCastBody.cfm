@@ -6,7 +6,7 @@
 <cf_screentop height="98%" html="No" jquery="Yes">
 
 <cfform name="formbody" 
-    action="BroadCastSubmit.cfm?mode=#url.mode#&broadcastid=#url.id#&scope=body&readonly=#url.readonly#&sourcepath=#URL.sourcepath#"				
+    action="BroadCastSubmit.cfm?mode=#url.mode#&broadcastid=#url.id#&scope=body&readonly=#url.readonly#&sourcepath=#URL.sourcepath#&mid=#url.mid#"				
 	method="POST"
 	target="savebody">		
 				

@@ -1942,7 +1942,7 @@ function resupplysort(s,modid,res) {
 		            "&warehouse="+whs+					
 					"&restocking="+res+
 					"&sort="+srt+	
-					"&offer="+ent+				
+					"&offer="+off+				
 					"&mission="+mis				
 		_cf_loadingtexthtml='';				
 		ptoken.navigate(url,'subbox','','','POST','criteria')			

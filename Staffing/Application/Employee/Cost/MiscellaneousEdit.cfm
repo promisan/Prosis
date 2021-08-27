@@ -68,7 +68,6 @@ password="#SESSION.dbpw#">
 
 <table width="98%" align="center">
 
-
 <tr><td><cfinclude template="../PersonViewHeaderToggle.cfm"></td></tr>
 
 <tr><td>
@@ -87,10 +86,8 @@ password="#SESSION.dbpw#">
        
   <tr>
     <td width="100%" class="header" style="padding-left:20px">
-    <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%" class="formpadding formspacing">
+    <table align="center" width="100%" class="formpadding">
 	
-	<tr><td height="5"></td></tr>
-	  
     <TR class="labelmedium2">
     <TD style="width:180px"><cf_tl id="Document date">:</TD>
     <TD>
@@ -155,8 +152,8 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium"><cf_tl id="Due date">:</TD>
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Due date">:</TD>
     <TD>
 	
 		<cfif edit eq "1">
@@ -180,10 +177,8 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>	
 	
-	
-	
-	<TR>
-    <TD class="labelmedium2"><cf_tl id="Payroll date">:</TD>
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Payroll date">:</TD>
     <TD>
 	
 		<cfif edit eq "1">
@@ -256,26 +251,31 @@ password="#SESSION.dbpw#">
 		
 	</TD>
 	</TR>
+		
+	<cfif Entitlement.EntitlementClass eq "Deduction">	  
 	
-	
-	<tr>			   	  
-	   <td colspan="2" id="ledger" style="padding-left:10px;padding-right:10px">
-	   <cfif Entitlement.EntitlementClass eq "Deduction">	  
+		<tr>			   	  
+		   <td colspan="2" id="ledger" style="padding-left:10px;padding-right:10px">	   
 	       <cfset url.class = Entitlement.EntitlementClass>
 		   <cfset url.transactionid = Entitlement.SourceId>
 		   <cfinclude template="showAdvance.cfm">	   
-	   </cfif>
-	   </td>
-	</tr>
-	
+		   </td>
+		</tr>	
+		
+	</cfif>
+
 	
 	</cfoutput>
 	
 	<TR class="labelmedium2">
+	
     <TD><cf_tl id="Amount">:</TD>
+	
     <TD>
 	
-		<table><tr><td>
+		<table>
+		<tr class="labelmedium2">
+		<td>
 		
 		<cfif edit eq "1">
 		
@@ -293,53 +293,54 @@ password="#SESSION.dbpw#">
 		
 		</cfif>	
 		</td>
+		
 		<td style="padding-left:3px">
 		
-		<cfif edit eq "1">
-		
-		<cfinput type="Text" name="Amount" value="#NumberFormat(Entitlement.Amount, ".__")#"
-		    message="Please enter a correct amount" 
-			validate="float" 
-			required="Yes" 
-			size="12" 
-			maxlength="16" 
-			class="regularxl"
-			style="text-align: center">		
+			<cfif edit eq "1">
 			
-		<cfelse>
-		
-			<cfoutput>#NumberFormat(Entitlement.Amount, ".__")#</cfoutput>
-		
-		</cfif>	
+			<cfinput type="Text" name="Amount" value="#NumberFormat(Entitlement.Amount, ".__")#"
+			    message="Please enter a correct amount" 
+				validate="float" 
+				required="Yes" 
+				size="12" 
+				maxlength="16" 
+				class="regularxl"
+				style="text-align: center">		
+				
+			<cfelse>
 			
-		</td></tr></table>	
+				<cfoutput>#NumberFormat(Entitlement.Amount, ".__")#</cfoutput>
+			
+			</cfif>	
+			
+		</td>
+		</tr>
+		</table>	
 			
 	</TD>
 	</TR>	
 			
-		<cfif edit eq "1">
+	<cfif edit eq "1">
 		
 		<TR class="labelmedium2">
         <td valign="top" style="padding-top:7px"><cf_tl id="Remarks">:</td>
-        <TD>
-		
+        <TD>		
 		<textarea style="width:99%;padding:3px;font-size:14px" class="regular" rows="2" name="Remarks"><cfoutput>#Entitlement.Remarks#</cfoutput></textarea> 
+		</td>
+		</tr>
 		
-		<cfelse>
+	<cfelse>
 		
-		<TR class="labelmedium2">
-        <td><cf_tl id="Remarks">:</td>
-        <TD>
-		
-		<cfoutput>#Entitlement.Remarks#</cfoutput>
-		
+		<cfif Entitlement.Remarks neq "">
+		<tr class="labelmedium2">
+	        <td><cf_tl id="Remarks">:</td>
+    	    <td><cfoutput>#Entitlement.Remarks#</cfoutput></td>
+		</tr>
 		</cfif>
 		
-		</TD>
-				
-	</TR>
+	</cfif>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD><cf_tl id="Attachment">:</TD>
     <TD>		
 	
@@ -377,15 +378,30 @@ password="#SESSION.dbpw#">
 		<tr><td colspan="2" align="center" height="35">
 		  <cfoutput>
 	   	   <cf_tl id="Back" var="1">
-		   <input type="button" name="cancel" value="#lt_text#" class="button10g" onClick="history.back()">
+		   <input type="button" name="cancel" value="#lt_text#" class="button10g" style="width:200px;height:25px" onClick="history.back()">
 		   <cf_tl id="Delete" var="1">	  	  
-		   <input class="button10g" type="submit" name="Delete" value="#lt_text#">
+		   <input class="button10g" type="submit" name="Delete" value="#lt_text#" style="width:200px;height:25px">
 	   	   <cf_tl id="Save" var="1">	  	  
-		   <input class="button10g" type="submit" name="Submit" value="#lt_text#">	   
+		   <input class="button10g" type="submit" name="Submit" value="#lt_text#" style="width:200px;height:25px">	   
 		  </cfoutput>
 		  
 	   </td>
 	   </tr>
+	   
+   <cfelse>
+   
+   	<tr><td colspan="2" class="line"></td></tr> 
+		 	 	
+		<tr><td colspan="2" align="center" height="35">
+		  <cfoutput>
+	   	   <cf_tl id="Back" var="1">
+		   <input type="button" name="cancel" value="#lt_text#" style="width:200px;height:25px" class="button10g" onClick="history.back()">		 
+		  </cfoutput>
+		  
+	   </td>
+	   </tr>
+   
+   	   
    
    </cfif>
       		

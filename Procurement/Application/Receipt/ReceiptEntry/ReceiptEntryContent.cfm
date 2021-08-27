@@ -274,8 +274,7 @@
 
 <cfform name="entry" id="entry" style="height:100%" target="result" method="POST" onsubmit="return false">
 
-<table width="96%" height="100%"
-       border="0" padding="0" spacing="0"
+<table width="96%" height="100%"       
 	   align="center"
        bordercolor="D4D4D4">
 	     		 

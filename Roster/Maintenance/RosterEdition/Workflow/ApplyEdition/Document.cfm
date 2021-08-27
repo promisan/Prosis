@@ -91,6 +91,7 @@ password="#SESSION.dbpw#">
 			AND       Operational  = '1' 
 			AND       ActionStatus = '0'
 		</cfquery>
+
 	
 		<select name="EditionSelect" class="regularxxl">
 		<cfoutput query="getEdition">

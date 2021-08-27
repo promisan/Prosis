@@ -122,7 +122,23 @@
 						
 					(SELECT ISNULL(MaximumStock,1)
 	    			    FROM ItemWarehouse IW 
-		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = '#url.warehouse#') as MaximumStock,			
+		    			WHERE IW.ItemNo = T.ItemNo and IW.UoM = T.TransactionUoM and IW.Warehouse = '#url.warehouse#') as MaximumStock,	
+					
+					CASE WHEN  (SELECT     TOP (1) TransactionDate
+			                     FROM       ItemTransaction
+	    		                 WHERE      Mission = '#url.mission#' 
+								 AND        ItemNo = T .ItemNo 
+								 AND        TransactionUoM = T .TransactionUoM 
+								 AND        TransactionType = '2'
+	    		                 ORDER BY   TransactionDate DESC) IS NULL THEN '01/01/1900' 
+						 
+					 ELSE     (SELECT    TOP (1) TransactionDate
+                               FROM     ItemTransaction AS IT
+                               WHERE    Mission = '#url.mission#' 
+							   AND      ItemNo = T .ItemNo 
+							   AND      TransactionUoM = T .TransactionUoM 
+							   AND      TransactionType = '2'
+                               ORDER BY TransactionDate DESC) END as LastSale,				
 								           
 		 		   T.TransactionLot,          
 		           I.ItemDescription,
@@ -244,6 +260,7 @@
 		 --->
 		
 		 ORDER BY I.Category, T.ItemNo, I.ParentItemNo 
+		
 		 			
 	</cfquery>		
 

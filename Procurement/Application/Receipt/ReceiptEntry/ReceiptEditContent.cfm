@@ -132,7 +132,6 @@
 <!--- determine if the user may edit this receipt : role and current status,
  if there is no workflow : determine --->
  
-	
 
 <cfquery name="Min" 
  datasource="AppsPurchase" 
@@ -442,87 +441,87 @@
 						
 				</td>
 				<td style="padding-left:4px;"><cf_tl id="Order Date">:</td>
-				<td style="">#DateFormat(PO.OrderDate,CLIENT.DateFormatShow)#</td>
+				<td style="width:50%">#DateFormat(PO.OrderDate,CLIENT.DateFormatShow)#</td>
 			  </tr>		
 			  
 			  <cfelse>
 			  
-			  <tr class="labelmedium2">
-				  <td valign="top" style="padding-top:6px;padding-left:4px;"><cf_tl id="Vendor"></td>
-				  <td colspan="3">
-				  <table style="width:98%">
-				  
-					  <tr class="line labelmedium2">
-						  <td><cf_tl id="Name"></td>
-						  <td><cf_tl id="PurchaseNo"></td>				 	  
-						  <td><cf_tl id="Date"></td>		
-						   <td><cf_tl id="Order type"></td>		
-						  <td style="width:40"><cf_tl id="Lines"></td>
-						  <td></td>
-						  <td style="width:60" align="right"><cf_tl id="Receipt Cost"></td>  
-						  
-						  <td style="width:60" align="right"><cf_tl id="Tax"></td>  
-						  <td style="width:80" align="right"><cf_tl id="Payable"></td>   
-						  <td style="width:60" align="right"><cf_tl id="Cost">#application.basecurrency#</td> 
-					  </tr>
-				  
-					  <cfloop query="PO">
+				  <tr class="labelmedium2">
+					  <td valign="top" style="padding-top:6px;padding-left:4px;"><cf_tl id="Vendor"></td>
+					  <td colspan="3">
+					  <table style="width:98%">
 					  
-						  <cfquery name="ReceiptLine" 
-							datasource="AppsPurchase" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
-						  	SELECT     count(*) as Lines,
-									   SUM(PLR.ReceiptAmountCost) AS Cost, 
-									   SUM(PLR.ReceiptAmountBaseCost) AS CostBase,
-							           SUM(PLR.ReceiptAmountTax) AS Tax, 
-									   SUM(PLR.ReceiptAmount) AS Payable
-							FROM       PurchaseLineReceipt AS PLR INNER JOIN
-					                   PurchaseLine AS PL ON PLR.RequisitionNo = PL.RequisitionNo
-							WHERE      PurchaseNo    = '#PurchaseNo#'				 
-							AND        PLR.ReceiptNo = '#Receipt.ReceiptNo#' 
-							AND        PLR.Currency  = '#Currency#' 
-							AND        PLR.ActionStatus <> '9'
-							GROUP BY PL.PurchaseNo, PLR.ReceiptNo
-						  </cfquery>					  
-						 			  
-						  <cfinvoke component = "Service.Access"  
-							method           = "RoleAccess" 
-							mission          = "#Mission#" 
-							Function         = "Procurement"				   
-							returnvariable   = "access">	  
-						
 						  <tr class="line labelmedium2">
-							  <td>
-							    <cfif Access eq "GRANTED">
-								<a href="javascript:viewOrgUnit('#PO.OrgUnitVendor#')">#PO.OrgUnitName#</a>
-								<cfelse>
-								#PO.OrgUnitName#
-								</cfif>
-							  </td>
-							  <td> 
-							  <cfif Access eq "GRANTED">		
-								<a href="javascript:ProcPOEdit('#PO.PurchaseNo#','','tab')">#PO.PurchaseNo#</a>
-							  <cfelse>		
-								#PO.PurchaseNo#			
-							  </cfif>
-							  </td>
-							  			  
-							  <td>#DateFormat(PO.OrderDate,CLIENT.DateFormatShow)#</td>		
-							  <td>#PO.OrderTypeDescription#</td>						  
-							  <td>#ReceiptLine.Lines#</td>
-							  <td>#Currency#</td>
-							  <td align="right">#numberformat(ReceiptLine.cost,",.__")#</td>  					  
-							  <td align="right">#numberformat(ReceiptLine.tax,",.__")#</td>  
-							  <td align="right">#numberformat(ReceiptLine.payable,",.__")#</td> 
-							  <td align="right">#numberformat(ReceiptLine.costbase,",.__")#</td>  				  
+							  <td><cf_tl id="Name"></td>
+							  <td><cf_tl id="PurchaseNo"></td>				 	  
+							  <td><cf_tl id="Date"></td>		
+							   <td><cf_tl id="Order type"></td>		
+							  <td style="width:40"><cf_tl id="Lines"></td>
+							  <td></td>
+							  <td style="width:60" align="right"><cf_tl id="Receipt Cost"></td>  
+							  
+							  <td style="width:60" align="right"><cf_tl id="Tax"></td>  
+							  <td style="width:80" align="right"><cf_tl id="Payable"></td>   
+							  <td style="width:60" align="right"><cf_tl id="Cost">#application.basecurrency#</td> 
 						  </tr>
 					  
-					  </cfloop>
-				  <tr></tr>
-				  </table>
-				  </td>
-			  </tr>
+						  <cfloop query="PO">
+						  
+							  <cfquery name="ReceiptLine" 
+								datasource="AppsPurchase" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+							  	SELECT     count(*) as Lines,
+										   SUM(PLR.ReceiptAmountCost) AS Cost, 
+										   SUM(PLR.ReceiptAmountBaseCost) AS CostBase,
+								           SUM(PLR.ReceiptAmountTax) AS Tax, 
+										   SUM(PLR.ReceiptAmount) AS Payable
+								FROM       PurchaseLineReceipt AS PLR INNER JOIN
+						                   PurchaseLine AS PL ON PLR.RequisitionNo = PL.RequisitionNo
+								WHERE      PurchaseNo    = '#PurchaseNo#'				 
+								AND        PLR.ReceiptNo = '#Receipt.ReceiptNo#' 
+								AND        PLR.Currency  = '#Currency#' 
+								AND        PLR.ActionStatus <> '9'
+								GROUP BY PL.PurchaseNo, PLR.ReceiptNo
+							  </cfquery>					  
+							 			  
+							  <cfinvoke component = "Service.Access"  
+								method           = "RoleAccess" 
+								mission          = "#Mission#" 
+								Function         = "Procurement"				   
+								returnvariable   = "access">	  
+							
+							  <tr class="line labelmedium2">
+								  <td>
+								    <cfif Access eq "GRANTED">
+									<a href="javascript:viewOrgUnit('#PO.OrgUnitVendor#')">#PO.OrgUnitName#</a>
+									<cfelse>
+									#PO.OrgUnitName#
+									</cfif>
+								  </td>
+								  <td> 
+								  <cfif Access eq "GRANTED">		
+									<a href="javascript:ProcPOEdit('#PO.PurchaseNo#','','tab')">#PO.PurchaseNo#</a>
+								  <cfelse>		
+									#PO.PurchaseNo#			
+								  </cfif>
+								  </td>
+								  			  
+								  <td>#DateFormat(PO.OrderDate,CLIENT.DateFormatShow)#</td>		
+								  <td>#PO.OrderTypeDescription#</td>						  
+								  <td>#ReceiptLine.Lines#</td>
+								  <td>#Currency#</td>
+								  <td align="right">#numberformat(ReceiptLine.cost,",.__")#</td>  					  
+								  <td align="right">#numberformat(ReceiptLine.tax,",.__")#</td>  
+								  <td align="right">#numberformat(ReceiptLine.payable,",.__")#</td> 
+								  <td align="right">#numberformat(ReceiptLine.costbase,",.__")#</td>  				  
+							  </tr>
+						  
+						  </cfloop>
+					  <tr></tr>
+					  </table>
+					  </td>
+				  </tr>
 			  	  
 			  </cfif>
 			  
@@ -570,23 +569,29 @@
 			  <tr class="labelmedium2">
 			    <td style="padding-left:4px;"><cf_tl id="Packingslip No">:</td>
 				<td>
+					
 					<cfif EditMode eq "edit">
 						<input type="text" name="PackingSlipNo" id="PackingSlipNo" size="20" value="#Receipt.PackingslipNo#" class="regularxl enterastab" maxlength="20"></td>
 					<cfelse>
 					    <cfif Receipt.PackingslipNo eq "">--<cfelse>#Receipt.PackingslipNo#</cfif>
 						
 					</cfif>
-				<td style="padding-left:4px" height="26"><cf_tl id="Transaction date">:</td>
+					
+				<td style="padding-left:4px"><cf_tl id="Receipt date">:</td>
 				<td>
-					<cfif EditMode eq "edit">
+					 <cfif EditMode eq "edit">
+						
 							<cf_intelliCalendarDate9
 							 class="regularxl enterastab"
 								FieldName="ReceiptDate" 
 								Default="#Dateformat(Receipt.ReceiptDate, CLIENT.DateFormatShow)#"
 								DateValidEnd="#Dateformat(now(), 'YYYYMMDD')#"
 								AllowBlank="False">	
+								
 					 <cfelse>
+					 
 						#Dateformat(Receipt.ReceiptDate, CLIENT.DateFormatShow)# #Receipt.OfficerFirstName# #Receipt.OfficerLastName# #DateFormat(Receipt.Created, CLIENT.DateFormatShow)#
+						
 					</cfif>		
 				 </tr>
 			  </tr>	

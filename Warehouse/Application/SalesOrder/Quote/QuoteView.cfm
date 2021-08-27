@@ -115,12 +115,12 @@
 						
 			</cf_layoutarea>		 
 		
-			<cf_layoutarea  position="left" name="box" collapsible="true" size="250" 
+			<cf_layoutarea  position="left" name="box" collapsible="true" size="280" 
 						splitter="true">
 			
 				<form name="quote" id="quote" style="width:100%;height:98%;padding-left:5px;padding-right:3px">
 			
-				<table style="width:96%" align="center">
+				<table style="width:96%" align="center" class="formpadding formspacing">
 				
 				<tr class="line labelmedium" style="height:40px">
 				   <td style="font-size:20px"><cf_tl id="Quotation"></td>
@@ -156,22 +156,60 @@
 				      <td><cf_tl id="Time">:</td>
 				      <td>#dateformat(Request.Created,client.dateformatshow)# #timeformat(Request.Created,"HH:MM")#</td>
 				</tr>
+				
+								
 				<tr class="labelmedium" style="height:20px">
-				      <td colspan="2"><cf_tl id="About this request">:</td>				    
+				      <td colspan="2" style="font-weight:bold"><cf_tl id="About this request">:</td>				    
 				</tr>
-				<tr class="labelmedium" style="height:20px">
+				
+				<cfset apply = "ptoken.navigate('#session.root#/warehouse/application/salesOrder/Quote/setQuote.cfm?requestNo=#request.RequestNo#','process','','','POST','quote')">
+				
+				<cfif Request.BatchNo eq "">
+				
+					<tr class="labelmedium" style="height:20px">
+				      <td><cf_tl id="Responsible">:</td>
+				      <td>#Request.OfficerFirstName#</td>
+					</tr>					
+				
+					<tr class="labelmedium" style="height:20px">
+					      <td colspan="2">
+						  
+							  <table>
+								  <tr>
+									  <td><input type="radio" name="RequestClass" class="radiol" value="Quote" onclick="#apply#" <cfif Request.RequestClass eq "Quote">checked</cfif>></td>
+									  <td style="padding-left:3px"><cf_tl id="Quote"></td>
+									  <td style="padding-left:3px"><input type="radio" name="RequestClass" class="radiol" onclick="#apply#" value="QteReserve" <cfif Request.RequestClass eq "QteReserve">checked</cfif>></td>
+									  <td style="padding-left:3px"><cf_tl id="Reservation"></td>
+								  </tr>
+							  </table>
+						
+						  </td>
+					</tr>
+				
+				<cfelse>
+				
+					<tr class="labelmedium" style="height:20px">
+				      <td><cf_tl id="Responsible">:</td>
+				      <td>#Request.OfficerFirstName#</td>
+					</tr>		
+				
+				      <input type="hidden" name="RequestClass" value="#Request.RequestClass#">
+				
+				</cfif>
+				
+				<tr class="labelmedium" style="padding-top:4px;height:20px">
 				      <td colspan="2">
 					  <textarea name="remarks" 
-					  onchange="ptoken.navigate('#session.root#/warehouse/application/salesOrder/Quote/setQuote.cfm?requestNo=#request.RequestNo#','process','','','POST','quote')"
-					  style="padding:5px;width:100%;font-size:14px;height:80px;background-color:ffffff">#Request.Remarks#</textarea>
+					  onchange="#apply#"
+					  style="padding:5px;width:98%;font-size:14px;height:80px;background-color:ffffff">#Request.Remarks#</textarea>
 					  </td>
 				</tr>
-				<tr><td id="process"></td></tr>
+				<tr class="hide"><td id="process"></td></tr>
 				
 				<cfif Request.BatchNo eq "">
 						
 				<tr class="labelmedium">
-				      <td style="height:40px"><cf_tl id="Load">:</td>
+				      <td style="height:40px"><cf_tl id="Open">:</td>
 				      <td>					 
 					  <input type="button" name="Load" value="Load" class="button10g" 
 					  onclick="Prosis.busy('yes');ptoken.navigate('#session.root#/warehouse/application/salesOrder/Quote/QuoteInit.cfm?systemfunctionid=#url.systemfunctionid#&scope=#url.scope#&requestNo=#url.requestNo#','content')">
@@ -192,22 +230,21 @@
 			
 				<cfif Request.BatchNo eq "">
 						
-						<cf_securediv style="height:99.0%" id="contentquote"
+					<cf_securediv style="height:99.0%" id="contentquote"
 						  bind="url:#session.root#/warehouse/application/salesOrder/POS/Sale/SaleInit.cfm?systemfunctionid=#url.systemfunctionid#&scope=#url.scope#&mission=#Request.mission#&warehouse=#Request.warehouse#&requestNo=#url.requestNo#">
 								  
 				<cfelse>
 		
 					<cfset url.batchno = request.BatchNo>
-					<cfset url.mode    = "embed">		
-									
+					<cfset url.mode    = "embed">										
 					<cfinclude template="../../Stock/Batch/BatchView.cfm">
 											
 				</cfif>	  
 				
-				</cf_divscroll>
-			
+				</cf_divscroll>			
 			
 			</cf_layoutarea>	
+			
 			
 			<cfif Object.recordcount gte "1">
 						

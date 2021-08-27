@@ -123,14 +123,14 @@
 	<cfif mode eq "edit">
 		<cfset border = "0">
 	<cfelse>
-	    <cfset border = "1">
+	    <cfset border = "0">
 	</cfif>
 	
 	<table width="<cfif Mode eq 'Edit'>98%<cfelse>98%</cfif>">
 	
 	   <tr>	
 	   
-	   <td style="height:30px;border:#border#px solid silver;border-radius:5px">
+	   <td style="height:30px;border:#border#px solid silver">
 	   
 	   <table width="100%" class="navigation_table">
 	      	   		
@@ -143,29 +143,23 @@
 		<cfif List.recordcount eq "0">
 		
 			<tr>
-			<td colspan="#col#" align="center" class="labelmedium" style="color:silver;font-size:14px;padding-left:20px"><cf_tl id="No records selected"></font></td>
+			<td colspan="#col#" align="center" class="labelmedium" style="color:silver;font-size:14px;padding-left:20px"><cf_tl id="No records selected"></td>
 			</tr>
 		
 		<cfelse>
 		
 			<cfif mode eq "edit">
 			
-				<tr class="line">
+				<tr>
 				
 				<td align="right" style="width:20px">
 				
-			   		<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/Delete.png"
-			     		title="Remove all"
-					     border="0"
-						 height="16"
-						 width="16"
-					     align="middle"
-					     style="cursor: pointer;"
-					     onClick="multivalue('deleteall','','#URL.criterianame#','#url.fly#','#url.page#')">		
-						 
+			   		<img src="#SESSION.root#/Images/delete.png" style="height:20px;width:20px" title="Remove all" 
+					     onClick="ptoken.navigate('HTML/FormHTMLComboMultiAction.cfm?action=deleteall&value=&fld=#URL.criterianame#&fly=#url.fly#&page=#url.page#','selectedvalues','','','POST','multiform')">		
+							 
 				</td>	
 				
-				<td colspan="#col-1#" align="left" class="labelmedium" style="font-size:18px;padding-left:20px">
+				<td colspan="#col-1#" align="left" class="labelmedium" style="height:30px;font-size:18px;padding-left:5px">
 				#List.recordcount# <cf_tl id="records selected">
 				</td>
 				</tr>
@@ -182,7 +176,7 @@
 			    <cfset sel = "#sel#,#pk#">
 			</cfif>	
 						
-		<tr class="navigation_row line">
+		<tr class="navigation_row line labelmedium2">
 		
 		<cfif mode eq "edit">
 			<td width="3%" align="center"></td>
@@ -199,7 +193,7 @@
 		
 		<cfif mode eq "edit">
 		
-			<td align="right" style="padding-right:10px">
+			<td align="right" style="padding-top:3px;padding-right:10px">
 			
 			<cf_img icon="delete" tooltip="Remove #Display#" navigation="Yes"
 			     onClick="multivalue('delete','#PK#','#URL.criterianame#','#url.fly#','#url.page#')">
@@ -227,3 +221,9 @@
 </cfoutput>		
 
 <cfset ajaxonload("doHighlight")>
+
+<cfif mode neq "edit">
+<script>
+	try { ProsisUI.closeWindow('combomulti')} catch(e){};
+</script>
+</cfif>

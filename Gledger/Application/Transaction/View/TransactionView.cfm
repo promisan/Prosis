@@ -5,7 +5,7 @@
 <cfparam name="url.id"      default="">
 <cfparam name="url.role"    default="">
 
-<cfif url.id neq "">
+<cfif url.id neq "" and url.id neq "undefined">
 	
 	<cfquery name="Log" 
 			datasource="appsLedger" 

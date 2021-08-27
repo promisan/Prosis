@@ -3,6 +3,7 @@
 <cf_screentop height="100%" html="No" jquery="Yes" scroll="Yes" menuaccess="context" actionobject="Person" actionobjectkeyvalue1="#url.id#">
 
 <cf_actionListingScript>
+<cf_dialogledger>
 <cf_FileLibraryScript>		
 <cfajaximport tags="cfdiv">
 
@@ -57,16 +58,19 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 	SELECT *, 
 	
+			 (SELECT TOP 1 TransactionId
+			  FROM     Accounting.dbo.TransactionHeader
+			  WHERE    TransactionId = L.SourceId) as TransactionId,
+				 
 	         (SELECT TOP 1 ObjectKeyValue4 
 			  FROM     Organization.dbo.OrganizationObject 
 			  WHERE    (Objectid   = L.CostId OR ObjectKeyValue4 = L.CostId)
 			  AND      EntityCode = 'EntCost' 
 			  AND      Operational = 1) as Workflow
 			  		
-	FROM   PersonMiscellaneous L, Ref_PayrollItem I
-	WHERE  L.PersonNo = '#URL.ID#' 
-	AND    L.PayrollItem = I.PayrollItem
-	#preserveSingleQuotes(condition)#
+	FROM     PersonMiscellaneous L INNER JOIN Ref_PayrollItem I ON L.PayrollItem = I.PayrollItem
+	WHERE    L.PersonNo = '#URL.ID#' 	
+          	 #preserveSingleQuotes(condition)#
 	ORDER BY L.PayrollItem, 
 	         L.DocumentDate, 
 			 L.DocumentReference, 
@@ -237,7 +241,15 @@ password="#SESSION.dbpw#">
 		<td id="status_#workflow#"><cfif Status eq "2"><font color="008000"><cf_tl id="Cleared"><cfelseif Status eq "3"><font color="008000"><cf_tl id="Cleared"><cfelseif Status eq "5"><font color="008000">In Payroll</font><cfelse>Pending</cfif></td>
 		<td><cfif documentreference neq docref>#DocumentReference#</cfif></TD>
 		<td>#OfficerLastName#</TD>
-		<td>#Source#</TD>
+		<td>
+		
+		<cfif TransactionId neq "">		
+			<a href="javascript:ShowTransaction('','','view','tab','','#TransactionId#')">#source#</a>		
+		<cfelse>		
+			<span style="color:purple">#Source#</span>		
+		</cfif>
+				
+		</TD>
 		<TD>#EntitlementClass#</TD>
 		
 		<cfif workflow neq "" and wfStatus eq "Open" and DateDiff("D",dateEffective,now()) gte -14>
@@ -249,6 +261,8 @@ password="#SESSION.dbpw#">
 		<TD>#Currency#</TD>
 		<TD style="padding-right:5px" align="right">#NumberFormat(Amount, ",.__")#</TD>	
 	</tr>
+	
+	
 	
 	<cfif Remarks neq "">
 	<TR class="navigation_row_child labelmedium" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('F1F1F1'), DE('F1F1F1'))#">
@@ -262,9 +276,9 @@ password="#SESSION.dbpw#">
 		<tr>
 		<td colspan="2" style="width:10px" align="right"></td>
 		
-		<td colspan="9" align="left" style="border:1px solid silver">
+		<td colspan="9" align="left" style="padding-bottom:1px">
 		
-			<table width="100%" bgcolor="ffffaf" cellspacing="0" cellpadding="0">
+			<table width="100%" bgcolor="ffffaf" cellspacing="0" cellpadding="0" style="border:1px solid silver">
 			    <tr class="labelmediuum" style="height:20px">				    
 					<td style="background-color:e4e4e4;min-width:170px;padding-left:5px"><cf_tl id="Payroll entitlement">:</td>
 					

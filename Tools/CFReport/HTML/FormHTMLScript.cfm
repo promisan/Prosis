@@ -283,14 +283,14 @@
 			
 	function combomulti(fld,val,fly) {
 		  
-			try { ProsisUI.closeWindow('combomulti',true)} catch(e){};			
-			ProsisUI.createWindow('combomulti', 'Selection', '',{x:100,y:100,width:700,height:document.body.offsetHeight-200,resizable:false,modal:true,center:true});			  	  
-		    ptoken.navigate('HTML/FormHTMLComboMulti.cfm?controlid=#controlid#&CriteriaName='+fld+'&CriteriaDefault='+val+'&fly='+fly,'combomulti');	   
+		try { ProsisUI.closeWindow('combomulti',true)} catch(e){};			
+		ProsisUI.createWindow('combomulti', 'Selection', '',{x:100,y:100,width:700,height:document.body.offsetHeight-200,resizable:false,modal:true,center:true});			  	  
+		ptoken.navigate('HTML/FormHTMLComboMulti.cfm?controlid=#controlid#&CriteriaName='+fld+'&CriteriaDefault='+val+'&fly='+fly,'combomulti');	   
 								
 	}	
-			
-	function multivalue(act,val,fld,fly,pag) {	    	        
-			ptoken.navigate('HTML/FormHTMLComboMultiAction.cfm?action='+act+'&value='+val+'&fld='+fld+'&fly='+fly+'&page='+pag,'selectedvalues','','','POST','multiform')		
+				
+	function multivalue(act,val,fld,fly,pag) {	    	        	    
+		ptoken.navigate('HTML/FormHTMLComboMultiAction.cfm?action='+act+'&value='+val+'&fld='+fld+'&fly='+fly+'&page='+pag,'selectedvalues','','','POST','multiform')		
 	}
 	
 	function multisearch(fld,fly,pg) {					
@@ -323,12 +323,8 @@
 	      						
 			url = "#SESSION.root#/Tools/CFReport/HTML/FormHTMLComboMultiSelected.cfm?controlid=#controlId#&criteriaName="
 			            +fld+"&mode=view&fly="+fly;
-					
-			ptoken.navigate(url,'combo'+fld,'','','POST','multiform')			
-			try { ProsisUI.closeWindow('combomulti',true)} catch(e){};
-					
-		}
-		
+			ptoken.navigate(url,'combo'+fld,'','','POST','multiform')										
+		}		
 		
 	// more 	
 		

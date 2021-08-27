@@ -22,6 +22,8 @@ datasource="AppsSystem">
 		<cfset StructClear(targetSession)>
 			
 		<cfcatch>
+		
+		<script>alert('Jorge check')</script>
 				
 		</cfcatch>
 		

@@ -174,19 +174,21 @@
 				</tr>	
 				</cfcase>
 				<cfcase value="Letter">
-				<tr>			
-					<td width="5%"></td>
-				    <td width="80%" class="serif_small">
-						<cfinclude template="Layouts/Letter.cfm">
-					</td>
-				</tr>		
+				<cfif Attributes.Reference neq "" OR Attributes.DocumentDate neq "">
+					<tr>			
+						<td width="5%"></td>
+						<td width="80%" class="serif_small">
+							<cfinclude template="Layouts/Letter.cfm">
+						</td>
+					</tr>		
+				</cfif>
 				</cfcase>							
 		
 			</cfswitch>
 			
 		  <tr>
 		    <td width="5%"></td>
-		    <td width="80%" class="serif_small">
+		    <td width="80%" id="standardtext">
 						
 			<!--- body content comes here to be loaded on the fly --->
 						
@@ -197,28 +199,29 @@
 		    </td>
 			<td width="5%"></td>
 		  </tr>
-		  
-		 <tr>
-			<td width="5%"></td>
-			<td width="80%" class="serif_small">
+		 <cfif Attributes.Closing neq ""> 
+			<tr>
+				<td width="5%"></td>
+				<td width="80%" class="serif_small">
+				
+			<!---We should see if there is a signature block --->
+			<cfswitch expression="#Attributes.Class#">
 			
-		 <!---We should see if there is a signature block --->
-		 <cfswitch expression="#Attributes.Class#">
-		
-			<cfcase value="Memo">
-					<cfinclude template="Layouts/Signature_Memo.cfm">
-			</cfcase>
-			<cfcase value="Letter">
-					<cfinclude template="Layouts/Signature_Letter.cfm">
-			</cfcase>							
-		
-		</cfswitch>			
-		
-		<!----- we should print the botton of the page --->
-		
-		    </td>
-			<td width="5%"></td>
-		  </tr>
+				<cfcase value="Memo">
+						<cfinclude template="Layouts/Signature_Memo.cfm">
+				</cfcase>
+				<cfcase value="Letter">
+						<cfinclude template="Layouts/Signature_Letter.cfm">
+				</cfcase>							
+			
+			</cfswitch>			
+			
+			<!----- we should print the botton of the page --->
+			
+				</td>
+				<td width="5%"></td>
+			</tr>
+		  </cfif>
 			
 		</table>		
 		
