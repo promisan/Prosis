@@ -37,7 +37,7 @@
 	
 		<table cellspacing="0" width="100%">
 						
-			<tr style="background-color:fafafa" class="line">
+			<tr class="fixrow" style="background-color:fafafa" class="line">
 			
 				<td style="padding-top:3px" valign="bottom">
 				

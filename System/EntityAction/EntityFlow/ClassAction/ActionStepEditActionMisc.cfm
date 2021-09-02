@@ -9,13 +9,12 @@
 	        <tr><td height="2"></td></tr>
 		    
 			<TR>
-	    		<TD class="labelmedium" width="40%" style="padding-left:10px;cursor:pointer"><cf_UIToolTip  tooltip="Time in days after the inception of the workflow when this action should be completed">Lead-time:</cf_UIToolTip></b></TD>
+	    		<TD class="labelmedium" width="40%" style="padding-left:10px;cursor:pointer" title="Time in days after the inception of the workflow when this action should be completed">Lead-time:</TD>
 	    		<TD class="labelmedium">
 					<cfinput type="text" 
 					   name="ActionLeadtime" 
 					   value="#Get.ActionLeadtime#" 
-					   size="4" 
-					   tooltip="Time in days after the inception of the workflow when this action should be completed"
+					   size="4" 					   
 					   maxlength="4" 
 					   class="regularxl" 
 					   style="text-align: center;" 
@@ -24,13 +23,12 @@
 			</TR>
 			
 			<TR>
-	    		<TD class="labelmedium" width="40%" style="cursor:pointer;padding-left:10px;"><cf_UIToolTip tooltip="The time within this action would need to be completed after the completion of a prior action. <br>The action will be shown highlighted in my clearances once time exceeds the target. Enter 0 to disable">Action response:</cf_UIToolTip></b></TD>
+	    		<TD class="labelmedium" width="40%" style="cursor:pointer;padding-left:10px;" title="The time within this action would need to be completed after the completion of a prior action. <br>The action will be shown highlighted in my clearances once time exceeds the target. Enter 0 to disable">Action response:</TD>
 	    		<TD class="labelmedium">
 					<cfinput type="text" 
 					   name="ActionTakeAction" 
 					   value="#Get.ActionTakeAction#" 
 					   size="4" 
-					   tooltip="The time within this action would need to be completed after the completion of a prior action. <br>The action will be shown highlighted in my clearances once time exceeds the target. Enter 0 to disable"
 					   required="Yes"
 					   maxlength="4" 
 					   class="regularxl" 

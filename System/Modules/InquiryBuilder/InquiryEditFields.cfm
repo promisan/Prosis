@@ -204,7 +204,7 @@ password="#SESSION.dbpw#">
 		   <td style="text-align:center;border:1px solid silver;"><cf_tl id="Filter"></td>
 		   <td style="text-align:center;cursor:pointer;border:1px solid silver;"><cf_UIToolTip tooltip="Filter selection mode">Select mode</cf_UIToolTip></td>
 		   <td style="text-align:center;border:1px solid silver;"><cf_UIToolTip tooltip="Show option in the tree">Tree</cf_UIToolTip></td>
-		   <td style="text-align:center;border:1px solid silver;"></td>
+		   <td style="width:20px;text-align:center;border:1px solid silver;"></td>
 		   
 	    </TR>	
 			
@@ -233,20 +233,28 @@ password="#SESSION.dbpw#">
 					
 					</span>
 				
-				     <td></td>
-				     <td align="center" style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
+				     <td align="center">
 					 
+					 	   <input type="button" 
+							   value="Close" 							   
+							   style="width:50px;height:23px"
+					   		   onclick="ptoken.navigate('#submitlink#&fieldiskey='+fieldiskey.value+'&fieldingrid='+fieldingrid.value+'&fieldalignment='+fieldalignment.value+'&fieldid=#fieldid#&listingorder='+listingorder.value+'&fieldname='+fieldname.value+'&fieldqueryalias='+fieldqueryalias.value+'&fieldheaderlabel='+fieldheaderlabel.value+'&fieldoutputformat='+fieldoutputformat.value+'&fieldwidth='+fieldwidth.value+'&fieldsort='+fieldsort.value+'&fieldfilterclass='+fieldfilterclass.value+'&fieldtree='+fieldtree.value+'&FieldFilterClassMode='+FieldFilterClassMode.value,'fields')">
+					
+					 
+					 </td>
+				     <td align="center" style="width:50px;border-left:1px solid silver;padding-left:2px;padding-right:2px">
+					 					 
 					  <input type="Text" 
-							  name="listingorder" id="listingorder"
-							  value="#ListingOrder#" 
+							  name="listingorder" id="listingorder#currentrow#"
+							  value="#ListingOrder#" 							  
 							  onchange="document.getElementById('update').click()"
-							  style="width:23;text-align: center;border:0px;background-color:transparent" 
+							  style="width:100%;text-align: center;border:0px;background-color:transparent" 
 							  class="regularxl"
 							  maxlength="2">
 														 
 					 </td>
 					 
-					 <td align="center" style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
+					 <td align="center" style="border-left:1px solid silver;padding-left:3px;padding-right:2px">
 					 					 					 							
 						<cfif alias eq "0">
 												
@@ -382,7 +390,7 @@ password="#SESSION.dbpw#">
 								
 							  <option value=""       <cfif FieldFilterClass eq "">selected</cfif>>N/A</option>					 
 						 	  <option value="Text"   <cfif FieldFilterClass eq "Text">selected</cfif>>Text</option> 
-							  <option value="Amount" <cfif FieldFilterClass eq "Amount">selected</cfif>>Amount</option> 
+							  <option value="Amount" <cfif FieldFilterClass eq "Amount">selected</cfif>>Amount | Number</option> 
 						 	  <option value="Date"   <cfif FieldFilterClass eq "Date">selected</cfif>>Date</option> 
 						  											
 						 </select>
@@ -397,7 +405,7 @@ password="#SESSION.dbpw#">
 							  <option value="0"  <cfif FieldFilterClassMode eq "0">selected</cfif>>Default</option> 
 						 	  <option value="1"  <cfif FieldFilterClassMode eq "1">selected</cfif>>Combo</option> 
 						  	  <option value="2"  <cfif FieldFilterClassMode eq "2">selected</cfif>>Select list</option> 										
-							  <option value="3"  <cfif FieldFilterClassMode eq "3">selected</cfif>>Multiple/Checkbox</option> 	
+							  <option value="3"  <cfif FieldFilterClassMode eq "3">selected</cfif>>Multiple | Checkbox</option> 	
 							  <option value="4"  <cfif FieldFilterClassMode eq "4">selected</cfif>>Like</option> 	
 							  
 						 </select>
@@ -417,10 +425,6 @@ password="#SESSION.dbpw#">
 										 		
 					<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">			   
 				   
-						   <input type="button" 
-							   value="Close" 							   
-							   style="width:50px;height:23px"
-					   		   onclick="ptoken.navigate('#submitlink#&fieldiskey='+fieldiskey.value+'&fieldingrid='+fieldingrid.value+'&fieldalignment='+fieldalignment.value+'&fieldid=#fieldid#&listingorder='+listingorder.value+'&fieldname='+fieldname.value+'&fieldqueryalias='+fieldqueryalias.value+'&fieldheaderlabel='+fieldheaderlabel.value+'&fieldoutputformat='+fieldoutputformat.value+'&fieldwidth='+fieldwidth.value+'&fieldsort='+fieldsort.value+'&fieldfilterclass='+fieldfilterclass.value+'&fieldtree='+fieldtree.value+'&FieldFilterClassMode='+FieldFilterClassMode.value,'fields')">
 							   	
 					</td>									
 				   
@@ -441,13 +445,13 @@ password="#SESSION.dbpw#">
 					<cfset color = "ffffff">
 				</cfif>			
 														
-				<TR class="navigation_row labelmedium line" bgcolor="#color#" style="height:18px" onDblClick="#edit#">
+				<TR class="navigation_row labelmedium line" bgcolor="#color#" style="height:18px" onClick="#edit#">
 				
 				  <td align="right" style="padding-right:4px;padding-top:3px;border-left:0px solid silver;">		
 				   
 					   <table>
 						   <tr>		
-						   <td><cf_img icon="open" tooltip="Editing this field settings" onclick="fieldedit('#fieldid#','#systemfunctionid#','#FunctionSerialNo#')"></td>						  						 
+						   <td><cf_img icon="open"   tooltip="Editing this field settings" onclick="fieldedit('#fieldid#','#systemfunctionid#','#FunctionSerialNo#')"></td>						  						 
 						   <td><cf_img icon="select" tooltip="Editing this field settings" onclick="#edit#"></td>		   
 						   </tr>
 					   </table>		 
@@ -455,7 +459,7 @@ password="#SESSION.dbpw#">
 				  </td>
 				
 				   <td align="center" class="navigation_action" style="border-left:1px solid silver;padding;3px">#ListingOrder#.</td>
-				   <td style="border-left:1px solid silver;padding-left;3px">
+				   <td style="border-left:1px solid silver;padding-left:3px">
 				    <cfif not find(" #FieldAliasQuery#", fr)>
 					     <font color="FF0000">
 					  </cfif> #FieldAliasQuery#
@@ -472,16 +476,18 @@ password="#SESSION.dbpw#">
 				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px"><cfif FieldInGrid eq "0">--<cfelse><cfif fieldwidth eq "0">Fit<cfelse>#FieldWidth#</cfif></cfif></td>
 				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px"><cfif FieldSort eq "1">Sort<cfelseif FieldSort eq "2">Group<cfelseif FieldSort eq "3">Sum<cfelse></cfif></td>
 				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px"><cfif FieldFilterClass eq "">--<cfelse>#FieldFilterClass#</cfif></td>
-				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px"><cfif FieldFilterClass eq "">--
-				                        <cfelseif FieldFilterClassMode eq "1">Combo  <!--- ajax combo --->
-										<cfelseif FieldFilterClassMode eq "2">List1  <!--- select --->
-										<cfelseif FieldFilterClassMode eq "3">ListNN  <!--- checkbox or select multi --->
-										<cfelseif FieldFilterClassMode eq "4">Like
-										</cfif></td>	
-				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px"><cfif FieldTree eq "0">No<cfelse>Yes</cfif></td>		
+				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">
+				              <cfif FieldFilterClass eq "">--
+				              <cfelseif FieldFilterClassMode eq "1">Combo  <!--- ajax combo --->
+							  <cfelseif FieldFilterClassMode eq "2">List1  <!--- select --->
+							  <cfelseif FieldFilterClassMode eq "3">ListNN  <!--- checkbox or select multi --->
+							  <cfelseif FieldFilterClassMode eq "4">Like
+							  </cfif>
+				    </td>	
+				   <td style="border-left:1px solid silver;padding-left:4px;padding-right:2px"><cfif FieldTree eq "0">No<cfelse>Yes</cfif></td>		
 				   
 				   				   
-				    <td style="border-left:1px solid silver;padding-top:4px;padding-left:2px;padding-right:2px">	   
+				    <td align="center" style="border-left:1px solid silver;padding-top:4px;padding-left:2px;padding-right:2px">	   
 						   
 							   	<cf_img icon="delete"
 								     onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFieldsPurge.cfm?Datasource=#Form.querydatasource#&SystemFunctionId=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#&fieldid=#fieldid#','fields')">										
@@ -523,14 +529,15 @@ password="#SESSION.dbpw#">
 											   	
 				</td>
 				
-			     <td align="center" style="width:30px;border-left:1px solid silver;padding-left:2px;padding-right:2px">
+			     <td align="center" style="width:50px;border-left:1px solid silver;padding-left:2px;padding-right:2px">
 				 
 				  <input type="Text" 
 					  name="listingorder"
                       id="listingorder" 
 					  value="#ord#" 
 					  class="regularxl"
-					  style="width:95%;text-align:center;border:0px" 
+					  onclick="this.focus()"
+					  style="width:100%;text-align:center;border:0px" 
 					  maxlength="2">
 													 
 				 </td>
@@ -658,6 +665,7 @@ password="#SESSION.dbpw#">
 							
 						  <option value="" selected>No</option>					 
 					 	  <option value="Text">Text</option> 
+						  <option value="Amount">Amount | Number</option> 
 					 	  <option value="Date">Date</option> 
 					  											
 					 </select>

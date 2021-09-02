@@ -112,7 +112,7 @@
 					<select id="tjournal" name="tjournal" class="regularxl" style="width:100px" onchange="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('TransactionDetailReconcileResult.cfm?mode=#url.mode#&ID1=#URL.ID1#&find='+$('##findvalue').val()+'&tax='+$('##taxvalue').val()+'&ijournal='+$('##tjournal').val()+'&period='+$('##tperiod').val(),'reconcileresult')">
 						<option value="">Any</option>
 						<cfloop query="qJournal">
-							<option value="'#Journal#'">#Description#</option>
+							<option value="'#Journal#'">#Description# - #Journal#</option>
 						</cfloop>
 					</select>
 					</td>

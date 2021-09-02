@@ -8,7 +8,7 @@
 	}
 </script>
 
-<table width="98%" style="min-width:1000px"align="center" class="navigation_table">
+<table width="100%" style="min-width:1000px"align="center" class="navigation_table">
 	 
 	 <tr class="labelmedium line fixrow">
 	 <td height="20"></td>
@@ -44,7 +44,7 @@
 	 <cfelse>
 	 
 	     <td align="right" width="100" align="right"><cf_tl id="Outst."></td>
-		 <td align="right" width="100" align="right">		 
+		 <td align="right" width="100" align="right" style="padding-right:4px">		 
 		 <cf_tl id="Quantity">		 
 		 </td>
 		 
@@ -147,11 +147,11 @@
 		   		
 			  <!--- Show task order lines to be recorded --->
 				
-			   <tr class="labelmedium2 linedotted">			   
+			   <tr class="labelmedium2 line">			   
 		       <td align="center"></td>				   
 			   <td height="18" align="center" style="padding-left:3px;padding-right:6px">#CurrentRow#.</td>
 			   <td>#OrderItem#</td>
-			   <td>#OrderItemNo#</td>
+			   <td style="padding-right:4px">#OrderItemNo#</td>
 			   <td>#OrderUoM#</td>
 			   <td style="padding-left:4px">#OrderUoMVolume#</td>
 			   <td>#Currency#</td>				   
@@ -313,10 +313,10 @@
 					  <td>
 					   <a href="javascript:setitem('purchase','#requisitionno#','box_#requisitionno#_item','#WarehouseItemNo#','#warehouseUoM#')">
 					   <span id="box_#requisitionno#_item">#OrderItem#</span></a></td>
-					  <td><a href="javascript:setitem('purchase','#requisitionno#','box_#requisitionno#_item','#WarehouseItemNo#','#warehouseUoM#')">#OrderItemNo#</td>
+					  <td style="padding-right:4px"><a href="javascript:setitem('purchase','#requisitionno#','box_#requisitionno#_item','#WarehouseItemNo#','#warehouseUoM#')">#OrderItemNo#</td>
 				   <cfelse>
 				      <td>#OrderItem# <cfif CaseNo neq "">(#CaseNo#)</cfif></td> 
-					  <td>#OrderItemNo#</td>
+					  <td style="padding-right:4px">#OrderItemNo#</td>
 				   </cfif>				   
 				   	   
 				   
@@ -460,7 +460,7 @@
 						   </cfif>
 						  					  
 						   <table><tr class="labelmedium"><td align="right">
-						    <a href="javascript:setQty(#out#, '#rw#')" style="font-size:17px;cursor:pointer"><u>#NumberFormat(out,",.__")#</a></td></tr></table>
+						    <a href="javascript:setQty(#out#, '#rw#')" style="font-size:17px;cursor:pointer">#NumberFormat(out,",.__")#</a></td></tr></table>
 						   
 						   </cfif>
 						   

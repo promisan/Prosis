@@ -57,4 +57,5 @@
 
 </cfif>   
 
-<CFSET Caller.Files = getfiles.recordcount>   
+<CFSET Caller.Files = getfiles.recordcount>
+<CFSET Caller.FileList = getfiles>

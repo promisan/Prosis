@@ -44,8 +44,8 @@
 	    <td class="labellarge" style="padding-left:10">Turn on/off "Reply to" address:</td>
 	    <TD class="labellarge">
 	  	    <cfoutput query="get">
-			<INPUT type="radio" name="ReplyTo" id="ReplyTo" value="1" <cfif #Get.ReplyTo# eq "1">checked</cfif>> Enabled
-			<INPUT type="radio" name="ReplyTo" id="ReplyTo" value="0" <cfif #Get.ReplyTo# eq "0">checked</cfif>> Disabled
+			<INPUT type="radio" name="ReplyTo" id="ReplyTo" value="1" <cfif Get.ReplyTo eq "1">checked</cfif>> Enabled
+			<INPUT type="radio" name="ReplyTo" id="ReplyTo" value="0" <cfif Get.ReplyTo eq "0">checked</cfif>> Disabled
 			</cfoutput>
 	    </TD>
 		</TR>			
@@ -94,7 +94,7 @@
 			<select name="Language" id="Language" class="regularxl">
 			<cfoutput>
 			<cfloop query="Language">
-			  <option value="#Code#" <cfif #Get.LanguageCode# eq "#Code#">selected</cfif>>#Code#</option>
+			  <option value="#Code#" <cfif Get.LanguageCode eq "#Code#">selected</cfif>>#Code#</option>
 			</cfloop>
 			</cfoutput>
 			</select>
@@ -117,22 +117,23 @@
 		</TR>
 				
 		<TR>
-	    <td class="labellarge" style="padding-left:10">Transactional Server:</td>
+	    <td class="labellarge" style="padding-left:10;cursor:pointer" title="Release 9 : Server name must be the same as for the Authorization server">Transactional Server:</td>
 	    <TD>
 	  	    <cfoutput query="get">
-			<cfinput class="regularxl" type="Text" tooltip="<b> Release 7</b> :Server name must be the same as for the Authorization server" name="DataBaseServer" value="#DataBaseServer#" required="Yes" size="20" maxlength="30">
+			<cfinput class="regularxl" type="Text" name="DataBaseServer" value="#DataBaseServer#" required="Yes" size="20" maxlength="30">
 			</cfoutput>
 	    </TD>
 		</TR>
 		
 		<TR>
-	    <td class="labellarge" style="padding-left:40">Server Usage/Upgrade License:</td>
+	    <td class="labellarge" style="padding-left:40;cursor:pointer" title="Database server license</b> Contact : info@promisan.com to acquire one">Server Usage/Upgrade License:</td>
 	    <TD>
 			<table cellspacing="0" cellpadding="0">
 			<tr>
 	  	    <cfoutput query="get">			
 				<td>
-					<cfinput class="regularxl" type="Text" tooltip="Database server license</b> Contact : info@promisan.com to acquire one" name="DatabaseServerLicenseId" value="#DatabaseServerLicenseId#" required="Yes" size="58" maxlength="60">				
+					<cfinput class="regularxl" type="Text" name="DatabaseServerLicenseId" 
+					   value="#DatabaseServerLicenseId#" required="Yes" size="58" maxlength="60">				
 				</td>
 				<td style="padding-left:6px">
 					<cf_licensecheck mode="server">
@@ -162,10 +163,11 @@
 		</tr>
 				
 		<TR>
-	    <td class="labellarge" style="padding-left:10">Default OLAP database:</td>
+	    <td class="labellarge" style="padding-left:10;cursor:pointer" 
+		  title="Database name must be located on the Transaction server">Default OLAP database:</td>
 	    <TD>
 	  	    <cfoutput query="get">
-			<cfinput class="regularxl" tooltip="Database name must be located on the Transaction server" type="Text" name="DataBaseAnalysis" value="#DataBaseAnalysis#" required="Yes" size="30" maxlength="30">
+			<cfinput class="regularxl" type="Text" name="DataBaseAnalysis" value="#DataBaseAnalysis#" required="Yes" size="30" maxlength="30">
 			</cfoutput>
 	    </TD>
 		</TR>
@@ -175,7 +177,7 @@
 	    <td class="labellarge" style="padding-left:10">Server date format:</td>
 	    <TD>
 	  	    <cfoutput query="get">
-			<cfif #DateFormatSQL# is 'EU'>
+			<cfif DateFormatSQL is "EU">
 			<INPUT type="radio" name="DateFormatSQL" id="DateFormatSQL" value="EU" checked> European (dd/mm/yy)
 			<INPUT type="radio" name="DateFormatSQL" id="DateFormatSQL" value="US"> American (mm/dd/yy) 
 			<cfelse>

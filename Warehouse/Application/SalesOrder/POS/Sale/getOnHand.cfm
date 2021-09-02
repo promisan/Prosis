@@ -88,8 +88,7 @@ password="#SESSION.dbpw#">
 	
 		<span class="clsNoPrint clsDetailLineCell" id="transfer_#get.transactionid#" style="padding-bottom:2px;min-width:200px"></span>	
 		
-		<br> 
-		<button style="width:90px;padding:4px 2px 6px;font-size:13px!important;background:##f8f9fa;color:##033F5D" 
+		<button style="width:90px;height:29px;font-size:13px!important;background:##f8f9fa;;border:1px solid gray" 
 			type="button" id="btransfer_#url.line#" name="btransfer_#url.line#" onclick="salesTransfer('#URL.id#','#URL.warehouse#')">
 		     <cf_tl id="Transfer"><i class="fas fa-share-square"></i>
 		</button>

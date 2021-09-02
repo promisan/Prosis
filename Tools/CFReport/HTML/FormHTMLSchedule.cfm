@@ -350,7 +350,7 @@
 					
 			<tr>	 	 
 				
-				 <td class="labelmedium" style="padding:<cfoutput>#pd#</cfoutput>"><cf_tl id="Mail Cc">:</td>	
+				 <td class="labelmedium" style="cursor:pointer;padding:<cfoutput>#pd#</cfoutput>" title="eMail address (example : kyriacou@un.org)"><cf_tl id="Mail Cc">:</td>	
 				 <td style="padding:<cfoutput>#pd#</cfoutput>">
 				 <cfinput type="Text" 
 				         name="DistributionEMailCC" 
@@ -362,8 +362,7 @@
 				         label="eMail address CC:"
 						 class="regularxl"						 
 						 message="Please enter a valid eMail address" 
-						 style="text-align: left;width:100%"
-						 tooltip="<table><tr><td>eMail address (example : kyriacou@un.org)</td></table>">	
+						 style="text-align: left;width:100%">	
 						 <!---validate="email"--->
 						 
 				 </td>		 
@@ -396,7 +395,7 @@
 				
 			<tr>	 	 
 				
-				 <td class="labelmedium" style="padding:<cfoutput>#pd#</cfoutput>"><cf_tl id="Distribution"><cf_tl id="list">:</td>	
+				 <td class="labelmedium" style="cursor:pointer;padding:<cfoutput>#pd#</cfoutput>" title="Send this report to mailing list"><cf_tl id="Distribution"><cf_tl id="list">:</td>	
 				 <td style="padding:<cfoutput>#pd#</cfoutput>">
 				 
 					 <cfquery name="Mailing" 
@@ -428,8 +427,7 @@
 							    message="" 
 							   	required="No"
 								width="50"
-								style="font:10px;width: 300;"
-								tooltip="Send this report to mailing list"
+								style="font:10px;width: 300;"								
 								label="Mailing list:"
 								query="Mailing"
 								queryPosition="below"

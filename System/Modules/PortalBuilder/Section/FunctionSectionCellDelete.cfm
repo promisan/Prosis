@@ -11,6 +11,6 @@
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('Section/FunctionSectionCell.cfm?id=#url.id#&section=#url.section#', 'divCellListing');
+		ptoken.navigate('Section/FunctionSectionCell.cfm?id=#url.id#&section=#url.section#', 'divCellListing');
 	</script>
 </cfoutput>

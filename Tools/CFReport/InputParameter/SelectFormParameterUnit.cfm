@@ -378,8 +378,7 @@
 					id              = "#fldid#"
 					multiple        = "Yes"
 				    message         = "#Error#" 
-				   	required        = "#ob#"
-					tooltip         = "#CriteriaMemo#"
+				   	required        = "#ob#"					
 					width           = "#sizeU#"
 					style           = "border:0px;height:180;width: #SizeU*8#;"
 					label           = "#CriteriaDescription#:">

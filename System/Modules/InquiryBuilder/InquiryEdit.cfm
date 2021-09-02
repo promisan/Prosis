@@ -168,11 +168,7 @@ password="#SESSION.dbpw#">
 <cfform name="inquiryform" id="inquiryform" style="height:98.5%">
 
 <table width="97%" align="center">
-
-    <!---
-	<tr class="labelmedium"><td style="font-size:26px"><cf_tl id="Query"></td></tr>
-	--->
-	
+  	
 	<tr><td colspan="2">			
 		<cfinclude template="InquiryEditQuery.cfm">		
 	</td></tr>  	

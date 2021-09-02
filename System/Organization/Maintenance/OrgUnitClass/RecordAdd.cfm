@@ -17,23 +17,23 @@
 
     <tr><td></td></tr>
     <TR>
-    <TD class="labelmedium">Code:</TD>
+    <TD class="labelmedium"><cf_tl id="Code">:</TD>
     <TD>
   	   <cfinput type="text" name="code" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium"><cf_tl id="Description">:</TD>
     <TD>
   	   <cfinput type="text" name="Description" value="" message="Please enter a description" required="Yes" size="30" maxlength="40" class="regularxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Icon:</TD>
+    <TD title="Please enter the name of a graphic icon" style="cursor:pointer" class="labelmedium"><cf_tl id="Icon">:</TD>
     <TD>
-  	   <cfinput type="text" name="ListingIcon" value="" tooltip="Please enter the name of a graphic icon" required="No" size="20" maxlength="20" class="regularxl">
+  	   <cfinput type="text" name="ListingIcon" value="" required="No" size="20" maxlength="20" class="regularxl">
     </TD>
 	</TR>
 	

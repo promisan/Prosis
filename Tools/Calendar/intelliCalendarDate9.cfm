@@ -51,7 +51,7 @@
 	<cfoutput>
 	
 	<table cellspacing="0" cellpadding="0">
-	<tr><td>
+	<tr><td title="#Attributes.ToolTip#" style="cursor:pointer">
 		
 	<cfif attributes.inline eq "true">
 	
@@ -77,10 +77,8 @@
 	
 	<cfelse>
 											
-		<cfif Attributes.onError neq "">
-		
-		<cfif attributes.tooltip eq "">
-						
+		<cfif Attributes.onError neq "">		
+							
 			<cfinput type="text" 	 
 		 	id         = "#Attributes.id#" 		 	
 	     	class      = "#Attributes.Class#"
@@ -98,29 +96,6 @@
 		 	value      = "#attributes.default#"/>
 			
 		<cfelse>
-					
-			<cfinput type="text" 	 
-		 	id         = "#Attributes.id#" 
-		 	tooltip    = "#Attributes.ToolTip#"
-	     	class      = "#Attributes.Class#"
-	     	style      = "#Attributes.Style#"
-		 	validate   = "#dateval#"
-	     	required   = "#req#"	
-		 	size       = "11"
-			mask       = "99/99/9999"
-			onKeyUp    = "#attributes.OnKeyUp#"
-			OnChange   = "#attributes.OnChange#"
-			OnBlur     = "#attributes.OnChange#"
-		 	onError    = "#Attributes.onError#"	
-		 	message    = "#Attributes.Message#"
-		 	name       = "#Attributes.FieldName#" 
-		 	value      = "#attributes.default#"/>
-		
-		</cfif>	
-			
-		<cfelse>
-								
-			<cfif attributes.tooltip eq "">
 			
 				<cfinput type="text" 	 
 			 	id         = "#Attributes.id#" 		 	
@@ -135,28 +110,7 @@
 				OnBlur     = "#attributes.OnChange#"
 			 	message    = "#Attributes.Message#"
 			 	name       = "#Attributes.FieldName#" 
-			 	value      = "#attributes.default#"/>		
-			
-			<cfelse>
-					
-					<!--- tooltip    = "#Attributes.ToolTip#" --->
-					
-				<cfinput type="text" 	 
-			 	id         = "#Attributes.id#" 		 	
-		     	class      = "#Attributes.Class#"
-		     	style      = "#Attributes.Style#"
-			 	validate   = "#dateval#"
-		     	required   = "#req#"	
-			 	size       = "11"
-				mask       = "99/99/9999"
-				onKeyUp    = "#attributes.OnKeyUp#"
-				OnChange   = "#attributes.OnChange#"
-				OnBlur     = "#attributes.OnChange#"
-			 	message    = "#Attributes.Message#"
-			 	name       = "#Attributes.FieldName#" 
-			 	value      = "#attributes.default#"/>		
-						
-			</cfif> 
+			 	value      = "#attributes.default#"/>				
 			
 		</cfif>
 					 

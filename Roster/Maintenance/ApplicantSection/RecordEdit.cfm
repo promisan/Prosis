@@ -34,7 +34,7 @@
 	
 		function askDelete(id) {
 			if (confirm("#lt_text#")) {	
-				ColdFusion.navigate('RecordPurge.cfm?id='+id,'divRemove');
+				ptoken.navigate('RecordPurge.cfm?id='+id,'divRemove');
 			}
 		}	
 		
@@ -51,7 +51,7 @@
 
 <cfform action="RecordSubmit.cfm?id1=#url.id1#" method="POST" enablecab="Yes" name="dialog">
 
-	<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+	<table width="95%" align="center" class="formpadding formspacing">
 	
 	    <cfoutput>
 	    <TR>
@@ -69,23 +69,17 @@
 		
 		<TR>
 	    <TD class="labelmedium"><cf_tl id="Trigger Group">:</TD>
-	    <TD>
-	  	   <cfinput type="Text" name="TriggerGroup" value="#get.TriggerGroup#" message="Please enter a Trigger Group" required="no" size="10" maxlength="20" class="regularxl">
-	    </TD>
+	    <TD><cfinput type="Text" name="TriggerGroup" value="#get.TriggerGroup#" message="Please enter a Trigger Group" required="no" size="10" maxlength="20" class="regularxl"></TD>
 		</TR>
 		
 		<TR>
 	    <TD class="labelmedium"><cf_tl id="Description">:</TD>
-	    <TD>
-	  	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="no" size="30" maxlength="50" class="regularxl">
-	    </TD>
+	    <TD><cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="no" size="30" maxlength="50" class="regularxl"></TD>
 		</TR>
 		
 		<TR>
-	    <TD class="labelmedium"><cf_tl id="Tooltip">:</TD>
-	    <TD>
-	  	   <cfinput type="Text" name="DescriptionTooltip" value="#get.DescriptionTooltip#" message="Please enter a description tooltip" required="no" size="50" maxlength="100" class="regularxl">
-	    </TD>
+	    <TD class="labelmedium" title="Please enter a description tooltip" style="cursor:pointer"><cf_tl id="Tooltip">:</TD>
+	    <TD><cfinput type="Text" name="DescriptionTooltip" value="#get.DescriptionTooltip#" message="Please enter a description tooltip" required="no" size="50" maxlength="100" class="regularxl"></TD>
 		</TR>
 		
 		<TR>
@@ -99,37 +93,27 @@
 		
 		<TR>
 	    <TD class="labelmedium"><cf_tl id="Instruction Image">:</TD>
-	    <TD>
-	  	   <cfinput type="Text" name="InstructionImage" value="#get.InstructionImage#" required="no" size="50" maxlength="50" class="regularxl">
-	    </TD>
+	    <TD><cfinput type="Text" name="InstructionImage" value="#get.InstructionImage#" required="no" size="50" maxlength="50" class="regularxl"></TD>
 		</TR>
 		
 		<TR>
 	    <TD class="labelmedium"><cf_tl id="Condition">:</TD>
-	    <TD>
-	  	   <cfinput type="Text" name="ShowCondition" value="#get.ShowCondition#" required="no" size="50" maxlength="200" class="regularxl">
-	    </TD>
+	    <TD><cfinput type="Text" name="ShowCondition" value="#get.ShowCondition#" required="no" size="50" maxlength="200" class="regularxl"></TD>
 		</TR>
 		
 		<TR>
 	    <TD class="labelmedium"><cf_tl id="Topic Id">:</TD>
-	    <TD>
-	  	   <cfinput type="Text" name="TemplateTopicId" value="#get.TemplateTopicId#" required="no" size="10" maxlength="20" class="regularxl">
-	    </TD>
+	    <TD><cfinput type="Text" name="TemplateTopicId" value="#get.TemplateTopicId#" required="no" size="10" maxlength="20" class="regularxl"></TD>
 		</TR>
 		
 		<TR>
 	    <TD class="labelmedium"><cf_tl id="Template URL">:</TD>
-	    <TD>
-	  	   <cfinput type="Text" name="TemplateURL" value="#get.TemplateURL#" required="no" size="50" maxlength="100" class="regularxl">
-	    </TD>
+	    <TD><cfinput type="Text" name="TemplateURL" value="#get.TemplateURL#" required="no" size="50" maxlength="100" class="regularxl"></TD>
 		</TR>
 		
 		<TR>
 	    <TD class="labelmedium"><cf_tl id="Passtru Condition">:</TD>
-	    <TD>
-	  	   <cfinput type="Text" name="TemplateCondition" value="#get.TemplateCondition#" required="no" size="50" maxlength="100" class="regularxl">
-	    </TD>
+	    <TD><cfinput type="Text" name="TemplateCondition" value="#get.TemplateCondition#" required="no" size="50" maxlength="100" class="regularxl"></TD>
 		</TR>
 		
 		<TR>
@@ -161,9 +145,7 @@
 		
 		<TR>
 	    <TD class="labelmedium"><cf_tl id="Order">:</TD>
-	    <TD>
-	  	  	<cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" required="yes" message="Please enter a valid listing order" validate="integer" size="2" maxlength="4" style="text-align:center;" class="regularxl">
-	    </TD>
+	    <TD><cfinput type="Text" name="ListingOrder" value="#get.ListingOrder#" required="yes" message="Please enter a valid listing order" validate="integer" size="2" maxlength="4" style="text-align:center;" class="regularxl"></TD>
 		</TR>
 		
 		<TR>

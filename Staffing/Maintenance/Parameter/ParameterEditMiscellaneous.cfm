@@ -162,12 +162,10 @@ FROM Ref_AddressType
     </tr>	
 	
 	<TR>
-    <td style="cursor: pointer;" class="labelmedium2">
-	<cf_UIToolTip  tooltip="Show address information in employee profile banner">Profile Address:</cf_UIToolTip>
-	</td>
+    <td style="cursor: pointer;" class="labelmedium2" title="Show address information in employee profile banner">Profile Address:</td>
     <TD>	
 	
-		<cfselect name="AddressType" class="regularxxl" tooltip="Show address information in employee profile banner">
+		<cfselect name="AddressType" class="regularxxl">
 			<cfloop query="Address">
 				<option value="#AddressType#" <cfif addresstype eq get.addresstype>selected</cfif>>#Description#</option>
 			</cfloop>

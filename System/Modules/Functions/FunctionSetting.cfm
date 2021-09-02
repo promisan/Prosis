@@ -234,7 +234,7 @@ password="#SESSION.dbpw#">
 	<TD>
 	
 	<table cellspacing="0" cellpadding="0">
-	   <tr><td>
+	   <tr><td style="height:40px">
 	
 		<cfquery name="Icon" 
 		datasource="AppsSystem" 
@@ -246,20 +246,20 @@ password="#SESSION.dbpw#">
 		</cfquery>
 		
 		  <cfoutput>
-		  <select name="FunctionIcon" id="FunctionIcon" class="regularxl" 
-		   onChange="ColdFusion.navigate('#SESSION.root#/tools/SubmenuImages.cfm?functionicon='+this.value,'showicon')">
+		  <select name="FunctionIcon" id="FunctionIcon" class="regularxxl" 
+		   onChange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/SubmenuImages.cfm?functionicon='+this.value,'showicon')">
 		   		 
-			<option value="Main" selected>Default</option>	   
-			<option value="Report"  <cfif Line.FunctionIcon eq "Report">selected</cfif>>Report</option>
+			<option value="Main"    selected>Default</option>	   
+			<option value="Report"   <cfif Line.FunctionIcon eq "Report">selected</cfif>>Report</option>
 			<option value="DataSet"  <cfif Line.FunctionIcon eq "Dataset">selected</cfif>>Dataset</option>
 			<option value="Monitor"  <cfif Line.FunctionIcon eq "Monitor">selected</cfif>>Monitor</option>
-			<option value="Schedule"  <cfif Line.FunctionIcon eq "Schedule">selected</cfif>>Schedule</option>
-			<option value="List"  <cfif Line.FunctionIcon eq "List">selected</cfif>>List</option>
-			<option value="Log"  <cfif Line.FunctionIcon eq "Log">selected</cfif>>Log</option>
-			<option value="Audit"  <cfif Line.FunctionIcon eq "Audit">selected</cfif>>Audit</option>
-			<option value="Workflow"  <cfif Line.FunctionIcon eq "Workflow">selected</cfif>>Workflow</option>
-			<option value="Tree"  <cfif Line.FunctionIcon eq "Tree">selected</cfif>>Tree</option>
-			<option value="HowTo"  <cfif Line.FunctionIcon eq "HowTo">selected</cfif>>Manual</option>
+			<option value="Schedule" <cfif Line.FunctionIcon eq "Schedule">selected</cfif>>Schedule</option>
+			<option value="List"     <cfif Line.FunctionIcon eq "List">selected</cfif>>List</option>
+			<option value="Log"      <cfif Line.FunctionIcon eq "Log">selected</cfif>>Log</option>
+			<option value="Audit"    <cfif Line.FunctionIcon eq "Audit">selected</cfif>>Audit</option>
+			<option value="Workflow" <cfif Line.FunctionIcon eq "Workflow">selected</cfif>>Workflow</option>
+			<option value="Tree"     <cfif Line.FunctionIcon eq "Tree">selected</cfif>>Tree</option>
+			<option value="HowTo"     <cfif Line.FunctionIcon eq "HowTo">selected</cfif>>Manual</option>
 			  
 			<!---  
 		   <cfloop query="Icon">
@@ -273,7 +273,7 @@ password="#SESSION.dbpw#">
 		  </td>
 		  <td>&nbsp;</td>
 		  <td style="border: 0px solid Silver;">
-		   <cfdiv bind="url:#SESSION.root#/tools/SubmenuImages.cfm?functionicon=#line.functionicon#" id="showicon">
+		   <cf_securediv bind="url:#SESSION.root#/tools/SubmenuImages.cfm?functionicon=#line.functionicon#" id="showicon">
 		  </td>		  
 		  </tr>
 		  

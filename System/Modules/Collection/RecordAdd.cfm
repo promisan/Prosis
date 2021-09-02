@@ -148,18 +148,17 @@
 	 
 	 <!--- Field: DocumentPathName --->
 	 <tr class="labelmedium">
-		 <td valign="top">
+		 <td valign="top" style="cursor:pointer" title="Select one or more document framework directories">
 		 	Document Folders to be indexed:
 		 </td>
 		 <td colspan="2">
 			
 			<cfselect name="DocumentPathName" height="23"
-				required   = "yes"
-				tooltip    = "Select one or more document framework directories"
+				required   = "yes"				
 				message    = "Please select a Document path"
 				multiple   = "yes"
 				bindOnLoad = "yes"
-				class="regularxl"
+				class      = "regularxl"
 		   		bind       = "cfc:service.Input.Input.DropdownSelect('AppsSystem','Ref_Attachment','DocumentPathName','DocumentPathName','SystemModule',{SystemModule},'','','Null')">				
 		    </cfselect>
 						

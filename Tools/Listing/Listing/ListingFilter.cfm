@@ -487,18 +487,18 @@
 										
 											<input type="hidden" name="filter#current.field#_checkbox" value="No">											
 																																										
-											<cf_UISelect name  = "filter#current.field#"
-											     class         = "regularxxl"
-											     queryposition = "below"
-											     query         = "#lookupdata#"
-											     value         = "PK"
-											     onchange      = "applyfilter('','1','content')"
-											     message       = "Please select a value for #Current.LabelFilter#"
-											     required      = "#oblig#"
-											     display       = "DISPLAY"
-											     selected      = "#val#"
-												 separator     = "|"
-											     multiple      = "yes"/>												
+											<cf_UISelect name   = "filter#current.field#"
+											     class          = "regularxxl"
+											     queryposition  = "below"
+											     query          = "#lookupdata#"
+											     value          = "PK"
+											     onchange       = "applyfilter('','1','content')"
+											     message        = "Please select a value for #Current.LabelFilter#"
+											     required       = "#oblig#"
+											     display        = "DISPLAY"
+											     selected       = "#val#"
+												 separator      = "|"
+											     multiple       = "yes"/>												
 
 										   <cfset reset =  "#reset#;document.getElementById('filter#current.field#').value=''">	 
 									  									

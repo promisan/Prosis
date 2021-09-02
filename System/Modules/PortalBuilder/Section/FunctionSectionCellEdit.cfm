@@ -101,7 +101,7 @@ password="#SESSION.dbpw#">
 				name="CellCode" 
 				required="Yes" 
 				message="Please, enter a valid code."
-			   	class="regularxl"
+			   	class="regularxxl"
 			   	size="10"
 				value="#get.CellCode#"
 			   	maxlength="10">
@@ -123,7 +123,7 @@ password="#SESSION.dbpw#">
 				Message         = "Please, enter a valid label."
 				MaxLength       = "150"
 				Size            = "50"
-				Class           = "regularxl"
+				Class           = "regularxxl"
 				Operational     = "1"
 				Label           = "Yes">
 			</table>
@@ -136,7 +136,7 @@ password="#SESSION.dbpw#">
 				name="CellTooltip" 
 				required="no"
 				message="Please, enter a valid tooltip." 
-			   	class="regularxl"
+			   	class="regularxxl"
 			   	size="68"
 				value="#get.CellTooltip#"
 			   	maxlength="200">
@@ -154,7 +154,7 @@ password="#SESSION.dbpw#">
 			<cfset dsNames = dsService.getNames()>
 			<cfset ArraySort(dsnames, "textnocase")> 
 						
-			<select name="CellValueDatasource" id="CellValueDatasource" class="regularxl">						
+			<select name="CellValueDatasource" id="CellValueDatasource" class="regularxxl">						
 				<cfloop index="i" from="1" to="#ArrayLen(dsNames)#">
 					<cfoutput>
 						<option value="#dsNames[i]#" <cfif get.CellValueDatasource eq "#dsNames[i]#">selected</cfif>>#dsNames[i]#</option>
@@ -174,7 +174,7 @@ password="#SESSION.dbpw#">
 				name="CellValueField" 
 				required="yes"
 				message="Please, enter a valid field." 
-			   	class="regularxl"
+			   	class="regularxxl"
 			   	size="20"
 				value="#vDefaultField#"
 			   	maxlength="30">
@@ -183,7 +183,7 @@ password="#SESSION.dbpw#">
 	<tr>
 		<td class="labelmedium">Format:</td>
 		<td colspan="2">
-			<select name="CellValueFormat" id="CellValueFormat" class="regularxl">			
+			<select name="CellValueFormat" id="CellValueFormat" class="regularxxl">			
 				<option value="Number" <cfif get.CellValueFormat eq "Number">selected</cfif>>Number</option>
 				<option value="Currency" <cfif get.CellValueFormat eq "Currency">selected</cfif>>Currency</option>
 				<option value="Text" <cfif get.CellValueFormat eq "Text">selected</cfif>>Text</option>
@@ -193,8 +193,8 @@ password="#SESSION.dbpw#">
 	<tr style="display:none;">
 		<td class="labelmedium">Array:</td>
 		<td colspan="2" class="labelmedium">
-			<input type="radio" name="CellArray" id="CellArray" value="0" onclick="javascript: toggleArray(0);" <cfif get.CellArray eq "0" or url.code eq "">checked</cfif>>No
-			<input type="radio" name="CellArray" id="CellArray" value="1" onclick="javascript: toggleArray(1);" <cfif get.CellArray eq "1">checked</cfif>>Yes				
+			<input type="radio" name="CellArray" id="CellArray" class="radiol" value="0" onclick="javascript: toggleArray(0);" <cfif get.CellArray eq "0" or url.code eq "">checked</cfif>>No
+			<input type="radio" name="CellArray" id="CellArray" class="radiol" value="1" onclick="javascript: toggleArray(1);" <cfif get.CellArray eq "1">checked</cfif>>Yes				
 		</td>
 	</tr>
 	<cfset vArrayClass = "regular">
@@ -208,7 +208,7 @@ password="#SESSION.dbpw#">
 				name="CellCodeField" 
 				required="no"
 				message="Please, enter a valid code field." 
-			   	class="regularxl"
+			   	class="regularxxl"
 			   	size="20"
 				value="#get.CellCodeField#"
 			   	maxlength="30">
@@ -221,7 +221,7 @@ password="#SESSION.dbpw#">
 				name="CellDescriptionField" 
 				required="no"
 				message="Please, enter a valid description field." 
-			   	class="regularxl"
+			   	class="regularxxl"
 			   	size="20"
 				value="#get.CellDescriptionField#"
 			   	maxlength="30">
@@ -234,7 +234,7 @@ password="#SESSION.dbpw#">
 				name="CellOrderField" 
 				required="no"
 				message="Please, enter a valid order field." 
-			   	class="regularxl"
+			   	class="regularxxl"
 			   	size="20"
 				value="#get.CellOrderField#"
 			   	maxlength="30">
@@ -248,7 +248,7 @@ password="#SESSION.dbpw#">
 		</td>
 		<td colspan="2" class="labelmedium">
 			<cfoutput>
-				<textarea name="CellValueQuery" cols="70" rows="6" class="regularxl" style="border:1px solid ##C0C0C0;">#get.CellValueQuery#</textarea>
+				<textarea name="CellValueQuery" cols="70" rows="6" class="regularxxl" style="border:1px solid ##C0C0C0;">#get.CellValueQuery#</textarea>
 			</cfoutput>
 			<br>
 			@id, @mission, @user, @today : are valid operators
@@ -258,7 +258,7 @@ password="#SESSION.dbpw#">
 		<td valign="top" class="labelmedium">Condition:</td>
 		<td colspan="2" class="labelmedium">
 			<cfoutput>
-				<textarea name="CellValueConditionQuery" cols="70" rows="6" class="regularxl" style="border:1px solid ##C0C0C0;">#get.CellValueConditionQuery#</textarea>
+				<textarea name="CellValueConditionQuery" cols="70" rows="6" class="regularxxl" style="border:1px solid ##C0C0C0;">#get.CellValueConditionQuery#</textarea>
 			</cfoutput>
 		</td>
 	</tr>
@@ -273,11 +273,12 @@ password="#SESSION.dbpw#">
 			   	class="regularxl"
 			   	size="35"
 				value="#get.DetailTemplate#"
-				onblur= "ColdFusion.navigate('FileValidation.cfm?template='+this.value+'&container=pathCellValidationDiv&resultField=validateCellPath','pathCellValidationDiv')"
+				onblur= "ptoken.navigate('FileValidation.cfm?template='+this.value+'&container=pathCellValidationDiv&resultField=validateCellPath','pathCellValidationDiv')"
 			   	maxlength="100">
 		</td>
 		<td valign="middle" align="left" width="25%">
-		 	<cfdiv id="pathCellValidationDiv" bind="url:FileValidation.cfm?template=#get.DetailTemplate#&container=pathCellValidationDiv&resultField=validateCellPath">				
+		 	<cf_securediv id="pathCellValidationDiv"
+			   bind="url:FileValidation.cfm?template=#get.DetailTemplate#&container=pathCellValidationDiv&resultField=validateCellPath">				
 		</td>
 	</tr>
 	<tr><td height="10"></td></tr>
@@ -287,7 +288,7 @@ password="#SESSION.dbpw#">
 		<td colspan="3" align="center">
 			<!--- onclick="return validateCellFileFields();" --->
 			<cfoutput>
-			<input type="Submit" class="button10g" name="save" id="save" value="  Save  ">			
+			<input type="Submit" class="button10g" name="save" id="save" value="Save">			
 			</cfoutput>
 		</td>
 	</tr>

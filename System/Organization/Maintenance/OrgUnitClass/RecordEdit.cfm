@@ -18,17 +18,11 @@ WHERE OrgUnitClass = '#URL.ID1#'
 
 <script language="JavaScript">
 
-function ask()
-
-{
-	if (confirm("Do you want to remove this class?")) {
-	
-	return true 
-	
-	}
-	
-	return false
-	
+function ask()	{
+	if (confirm("Do you want to remove this class?")) {	
+	return true 	
+	}	
+	return false	
 }	
 
 </script>
@@ -37,12 +31,12 @@ function ask()
 
 <!--- edit form --->
 
-<table width="90%" class="formpadding formspacing" cellspacing="0" cellpadding="0" align="center">
+<table width="90%" class="formpadding formspacing" align="center">
 
     <cfoutput>
 	<tr><td></td></tr>
     <TR>
-    <TD class="labelmedium">Code:</TD>
+    <TD class="labelmedium"><cf_tl id="Code">:</TD>
     <TD class="labelmedium">
   	   <input type="text" name="Code" id="Code" value="#get.OrgUnitClass#" size="20" maxlength="20" class="regularxl">
 	   <input type="hidden" name="Codeold" id="Codeold" value="#get.OrgUnitClass#" size="20" maxlength="20"class="regular">
@@ -50,7 +44,7 @@ function ask()
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Description:</TD>
+    <TD class="labelmedium"><cf_tl id="Description">:</TD>
     <TD class="labelmedium">
   	   <cfinput type="text" name="Description" value="#get.Description#" message="please enter a description" required="yes" size="30" 
 	   maxlenght="30" class= "regularxl">
@@ -58,9 +52,9 @@ function ask()
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Icon:</TD>
-    <TD class="labelmedium">
-  	   <cfinput type="text" name="ListingIcon" value="#get.ListingIcon#" tooltip="Please enter the name of a graphic icon" required="No" size="30" maxlength="30" class="regularxl">
+    <TD class="labelmedium"><cf_tl id="Icon">:</TD>
+    <TD class="labelmedium"  title="Please enter the name of a graphic icon" style="cursor:pointer">
+  	   <cfinput type="text" name="ListingIcon" value="#get.ListingIcon#" required="No" size="30" maxlength="30" class="regularxl">
     </TD>
 	</TR>
 		

@@ -24,7 +24,7 @@ password="#SESSION.dbpw#">
 	
 </cfquery>
 
-<cfif ResultList.recordcount gte "250">
+<cfif ResultList.recordcount gte "350">
 
 	<table class="formspacing">
 

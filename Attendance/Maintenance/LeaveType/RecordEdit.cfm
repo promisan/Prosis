@@ -342,8 +342,8 @@ password="#SESSION.dbpw#">
 								<table>
 									<tr class="labelmedium">
 										<td style="padding-top:1px;padding-left:2px;padding-right:4px">if longer than:</TD>
-										<td>
-								  		   <cfinput type="text" class="regularxl" tooltip="Set threshold for SLWOP accrual suspension" name="ThresholdSLWOP" value="#Get.ThresholdSLWOP#" size="2" maxlength="3" style="text-align: center;" message="Please enter a threshold for SLWOP before it affects the accrual" 
+										<td style="cursor:pointer" title="Set threshold for SLWOP accrual suspension">
+								  		   <cfinput type="text" class="regularxl" name="ThresholdSLWOP" value="#Get.ThresholdSLWOP#" size="2" maxlength="3" style="text-align: center;" message="Please enter a threshold for SLWOP before it affects the accrual" 
 										     validate="integer">
 										</td>	
 										<td style="padding-left:4px">days</td>

@@ -24,9 +24,10 @@
   <cfoutput>   
   
    <span id="main_#url.systemfunctionid#">
-  	
+  		
    <cfif listclass eq "Listing">
-         
+   
+           
    	    <!--- menu listing --->
               	   
    	   <cf_layout type="border">
@@ -93,7 +94,6 @@
 			</cfif>			
 			
 			<cf_layoutArea position="center" name="content" style="padding:5px; height:70%; min-height:70%;" overflow="hidden">	
-						
 							
 				<cfform name="listfilter" method="POST" onsubmit="return false" style="height:100%"> 
 														
@@ -115,14 +115,14 @@
 										<cf_tl id="Filter" var="tlFilter">    
 										<tr>
 											
-											<td style="padding-left:10px">								  
+											<td style="padding-left:10px;width:100px">								  
 											  <cf_tl id="Reset filter" var="1">									  
-											  <input type="button" style="width:220px;border:1px solid silver" onclick="resetfilter('#url.systemfunctionid#','#url.functionserialno#','#attributes.box#')" value="#lt_text#" class="button10g">
+											  <input type="button" style="width:200px;border:1px solid silver" 
+											   onclick="resetfilter('#url.systemfunctionid#','#url.functionserialno#','#attributes.box#')" value="#lt_text#" class="button10g">
 								  
 								  			</td>
 								  
-											<td style="min-width:300px">
-											
+											<td style="min-width:300px;width:100%">											
 											<cfinclude template="ListingMenu.cfm">		
 											</td>
 											
@@ -170,8 +170,7 @@
 										</tr>  								
 										<tr><td colspan="2"><cfinclude template="ListingPivot.cfm"></td></tr>
 										
-									</table>
-									
+									</table>									
 									
 								</td>
 							</tr>   
@@ -209,13 +208,14 @@
 			<cfif attributes.screentop eq "yes">					
 			    <cf_screentop html="#attributes.html#" height="#attributes.tableheight#" scroll="#scroll#"> 						
 			</cfif>		
+			
 									
 			<cfform name="listfilter" method="POST" onsubmit="return false" style="height:#attributes.tableheight#"> 	
 
 				<table width="#attributes.tablewidth#" height="#attributes.tableheight#" align="center" onKeyUp="listnavigateRow('#box#')">
 															 
 		 		  <cfif attributes.banner neq "">   
-				   <tr class="line"><td>#attributes.banner#</td></tr>				   			  
+				   <tr class="line"><td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">#attributes.banner#</td></tr>				   			  
 				  </cfif>
 				  						  			  
 				  <!--- ajaxbox --->   
@@ -242,7 +242,7 @@
 					<input type="hidden" name="listorderdir"          id="listorderdir"          value = "#url.listorderdir#">							
 					<input type="hidden" name="listcolumn1_type"      id="listcolumn1_type"      value = "#url.listcolumn1_type#">
 					<input type="hidden" name="listcolumn1_typemode"  id="listcolumn1_typemode"  value = "#url.listcolumn1_typemode#">
-									
+														
 					<cfif attributes.filtershow neq "No">
 					
 						<cfif attributes.filtershow eq "hide">						  
@@ -345,9 +345,8 @@
 											<cfif option.icon neq "">
 											<img src="#SESSION.root#/images/#option.icon#" height="16" width="16" alt="" border="0" align="absmiddle">
 											</cfif>
-											</td>
-											
-											<td align="center" style="padding-right:8px;white-space: nowrap;font-size:14px">#option.label#</font>
+											</td>											
+											<td align="center" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-right:8px;font-size:14px">#option.label#</font>
 											</td>
 										</tr>
 										</table>
@@ -398,7 +397,7 @@
 							  							  							  
 							  <cfif attributes.boxlabel neq ""> 								
 								<td align="center" class="labelmedium2" 
-								   style="min-width:100px;background-color:gray;color:white;font-size:15px;padding-left:9px;padding-right:9px">#attributes.boxlabel#</td>		
+								   style="white-space: nowrap; overflow: hidden;text-overflow: ellipsis;min-width:100px;background-color:gray;color:white;font-size:15px;padding-left:9px;padding-right:9px">#attributes.boxlabel#</td>		
 							   </cfif>					  						  
 							  														  
 							  </tr>
@@ -409,8 +408,8 @@
 																		
 						</tr>	
 																
-						</cfif>		
-																		
+						</cfif>	
+																								
 						<tr>
 						
 							<td bgcolor="#attributes.headercolor#" colspan="2">
@@ -428,7 +427,9 @@
 											<img src="#SESSION.root#/images/down6.png" 		    
 												id="locate#attributes.box#_exp" onclick="listingshow('locateme')" class="#cla#" style="cursor:pointer">										
 										</cfif>																			
-									</td>									
+										
+									</td>	
+																	
 									</tr>	
 																											
 									<cfif url.systemfunctionid neq "" and group eq "Yes">

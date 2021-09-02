@@ -158,13 +158,12 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 	<TR class="#cl#" id="pointer">
-    <TD class="labelmedium" style="padding-right:4px" align="right"><cf_tl id="Dependent pointers">:</TD>
+    <TD class="labelmedium" style="padding-right:4px;cursor:pointer" align="right" 
+	 title="Pointer to apply different rates based on the number of dependents for an employee"><cf_tl id="Dependent pointers">:</TD>
     <TD class="labelmedium" >
 		
 	  <cfinput type="text" 
-	   name="TriggerConditionPointer" 
-	   value="#get.TriggerConditionPointer#" tooltip="Pointer to apply different rates based on the number of dependents for an employee" size="20" 
-	   maxlength="20" class= "regularxl">
+	   name="TriggerConditionPointer" value="#get.TriggerConditionPointer#" size="20" maxlength="20" class= "regularxl">
 	
 	</TD>
 	</TR>

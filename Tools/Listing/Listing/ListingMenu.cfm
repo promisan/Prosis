@@ -30,10 +30,15 @@
 	<cfif show eq "1">	
 	
 	   <table width="100%">
-	   <tr>
-	   <td style="font-weight:320;font-size:25px;padding-top:4px;padding-left:10px;height:34px">
 	   
-	   <cfif system.functionTarget eq "Right">
+	   <tr>
+	  
+	   <td>
+	   
+	   <table class="formspacing">
+	   <tr>
+	   <td style="border-radius:3px;background-color:ffffaf;border:1px solid silver; font-size:15px;padding-left:20px;padding-right:20px;height:27px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+	   
 	   
 	   <cfquery name="Menu" 
 		datasource="AppsSystem" 
@@ -45,8 +50,10 @@
 		</cfquery>
 	   
 	   <cfoutput>#Menu.FunctionName#</cfoutput>
-	   
-	   </cfif>
+	   	   
+	   </td>
+	   </tr>
+	   </table>
 	   
 	   </td>
 	   <td style="padding-left:20px;padding-right:14px" align="right">

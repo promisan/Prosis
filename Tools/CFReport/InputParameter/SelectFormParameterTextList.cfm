@@ -36,12 +36,10 @@
 						       enabled   = "Yes"
 						       size      = "#CriteriaWidth#"
 						       maxlength = "800"
-							   class     = "regularXXL"
-							   tooltip   = "#CriteriaMemo#"
+							   class     = "regularXXL"							   
 							   message   = "#Error#">			 
 				 
-				    <cfelse>				
-					
+				    <cfelse>						
 				
 						 <cf_textInput
 							   form            = "selection"
@@ -58,8 +56,7 @@
 						       size            = "#CriteriaWidth#"
 						       maxlength       = "800"
 							   class           = "regularXXL"
-							   autosuggest     = "cfc:service.reporting.presentation.getlookup('#ControlId#','#CriteriaName#',{cfautosuggestvalue})"
-						       tooltip         = "#CriteriaMemo#"
+							   autosuggest     = "cfc:service.reporting.presentation.getlookup('#ControlId#','#CriteriaName#',{cfautosuggestvalue})"						       
 							   message         = "#Error#">
 					   
 				    </cfif>	

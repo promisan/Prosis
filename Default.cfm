@@ -16,7 +16,7 @@
 <cfparam name="SESSION.last"              default="">
 <cfparam name="SESSION.first"             default="">
 
-<cf_setRelease version="9.00.00987" release="20210817">
+<cf_setRelease version="9.00.00991" release="20210902">
 
 <cfquery name="Get" 
 datasource="AppsSystem">
@@ -70,11 +70,11 @@ datasource="AppsSystem">
 <!--- ---------- check coldfusion version ----------- --->
 <!--- ----------------------------------------------- --->
 
-<cfif Server.Coldfusion.ProductVersion lte "16,0,0">						
+<cfif Server.Coldfusion.ProductVersion lte "18,0,0">						
 		
 		<cfoutput>						
 		<table align="center"><tr><td class="labelmedium" align="center" style="font-size:25px;padding-top:40px">		
-                 #Parameter.SystemTitle# is no longer supported under Adobe ColdFusion 16,0,0 <br> Please contact your administrator
+                 #Parameter.SystemTitle# is no longer supported under Adobe ColdFusion 18,0,0 <br> Please contact your administrator
 		</td></tr></table>	
 		</cfoutput>
 			

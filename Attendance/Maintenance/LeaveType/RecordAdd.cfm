@@ -40,6 +40,17 @@ password="#SESSION.dbpw#">
 
 	<tr><td></td></tr>
 	
+	<tr>
+    <td class="labelmedium">Parent:</td>
+    <td class="labelmedium">
+		<select name="LeaveParent" id="LeaveParent" class="regularxl">
+		   <cfoutput query="parent">
+     	   	<option value="#Parent.TimeClass#">#Parent.TimeClass#</option>
+       	   </cfoutput>	
+	    </select>
+	</td>
+	</tr>
+	
     <TR>
     <TD class="labelmedium">Code:</TD>
     <TD class="labelmedium">
@@ -69,16 +80,7 @@ password="#SESSION.dbpw#">
     </TD>
 	</TR>	
 	
-	<tr>
-    <td class="labelmedium">Parent:</td>
-    <td class="labelmedium">
-		<select name="LeaveParent" id="LeaveParent" class="regularxl">
-		   <cfoutput query="parent">
-     	   	<option value="#Parent.TimeClass#">#Parent.TimeClass#</option>
-       	   </cfoutput>	
-	    </select>
-	</td>
-	</tr>
+	
 			
 	<cfquery name="Action" 
 	datasource="AppsEmployee" 
@@ -235,11 +237,16 @@ password="#SESSION.dbpw#">
 	</TR>	
 		
 	<TR id="accrual" class="regular">
-    <TD class="labelmedium">Threshold SLWOP:</TD>
-    <TD>
-  	   <cfinput type="text" class="regularxl" tooltip="Set threshold for SLWOP accrual suspension" 
-	    name="ThresholdSLWOP" value="30" size="2" maxlength="3" style="text-align: center;" message="Please enter a threshold for SLWOP before it affects the accrual" validate="integer">
-    </TD>
+    <TD class="labelmedium" style="cursor:pointer" title="Set threshold for SLWOP accrual suspension">Threshold SLWOP:</TD>
+    <td>
+	  	   <cfinput type="text" class="regularxl" 
+			    name="ThresholdSLWOP" 
+			    value="30" 
+				 size="2" 
+				 maxlength="3" 
+				 style="text-align: center;" 
+				 message="Please enter a threshold for SLWOP before it affects the accrual" validate="integer">
+    </td>
 	</TR>
 	
 	<TR id="accrual" class="regular">	

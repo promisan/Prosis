@@ -637,7 +637,7 @@
 		   SET    MinReorderQuantity = '#Receipt.ReceiptMultiplier#'
 		   WHERE  ItemNo    = '#Attributes.ItemNo#'
 		   AND    UoM       = '#Attributes.TransactionUoM#'
-		   AND    Warehouse = '#Attributes.Warehouse#'
+		   AND    Warehouse = '#Attributes.Warehouse#'	  
 		</cfquery>
 	
 	</cfif>

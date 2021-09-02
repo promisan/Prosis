@@ -257,8 +257,7 @@
 			       size      = "#CriteriaWidth#"
 			       maxlength = "800"
 				   style     = "text-align: center;"
-				   class     = "regular3"
-				   tooltip   = "#CriteriaMemo#">							
+				   class     = "regular3">							
 				  
 				   </td></tr>
 			   </table>
@@ -338,39 +337,37 @@
 				
 			    <cfif LookupMultiple eq "0">
 				
-					<cfselect name="#CriteriaName#" 
-					selected="#CriteriaDefault#"
-			    	size="1" 
-					class="#cl#"
-					id="#fldid#"
-					multiple="No"
-				    message="#Error#" 
-				   	required="#ob#"
-					width="#sizeU#"
-					tooltip="#CriteriaMemo#"
-					label="#CriteriaDescription#:"
-					query="query#CriteriaName#"
-					queryPosition="below"
-					value="Mission"
-					display="Mission"/>
+					<cfselect name = "#CriteriaName#" 
+					selected       = "#CriteriaDefault#"
+			    	size           = "1" 
+					class          = "#cl#"
+					id             = "#fldid#"
+					multiple       = "No"
+				    message        = "#Error#" 
+				   	required       = "#ob#"
+					width          = "#sizeU#"					
+					label          = "#CriteriaDescription#:"
+					query          = "query#CriteriaName#"
+					queryPosition  = "below"
+					value          = "Mission"
+					display        = "Mission"/>
 								
 				<cfelse>
 				
-					<cfselect name="#CriteriaName#" 
-					selected="#CriteriaDefault#"
-			    	size="#s#" 
-					class="#cl#"
-					id="#fldid#"
-					multiple="Yes"
-				    message="#Error#" 
-				   	required="#ob#"
-					width="#sizeU#"
-					tooltip="#CriteriaMemo#"
-					label="#CriteriaDescription#:"
-					query="query#CriteriaName#"
-					queryPosition="below"
-					value="Mission"
-					display="Mission"/>
+					<cfselect name = "#CriteriaName#" 
+					selected       = "#CriteriaDefault#"
+			    	size           = "#s#" 
+					class          = "#cl#"
+					id             = "#fldid#"
+					multiple       = "Yes"
+				    message        = "#Error#" 
+				   	required       = "#ob#"
+					width          = "#sizeU#"					
+					label          = "#CriteriaDescription#:"
+					query          = "query#CriteriaName#"
+					queryPosition  = "below"
+					value          = "Mission"
+					display        = "Mission"/>
 								
 				</cfif>
 															

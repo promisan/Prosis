@@ -22,7 +22,7 @@
 			<tr>
 			
 			<cf_UIToolTip tooltip="Adds a filter section to the inquiry listing">
-				<td class="labelmedium" height="24">Filter:</td>
+				<td class="labelmedium" height="24"><cf_tl id="Filter">:</td>
 			</cf_UIToolTip>
 			
 			<td style="padding-left:4px">

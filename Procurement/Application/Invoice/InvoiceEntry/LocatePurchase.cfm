@@ -7,9 +7,12 @@
 <cf_calendarScript>
 
 <script>
-function applyprogram(prg,scope) {
-	   ptoken.navigate('setProgram.cfm?programcode='+prg+'&scope='+scope,'processmanual')
-	}  
+
+  function applyprogram(prg,scope) {
+        _cf_loadingtexthtml='';	
+        ptoken.navigate('setProgram.cfm?programcode='+prg+'&scope='+scope,'processmanual')
+  }  
+
 </script>	
 
 <cfquery name="Parameter" 
@@ -101,14 +104,14 @@ password="#SESSION.dbpw#">
 
 <table width="97%" cellspacing="0" align="center" class="formpadding">
 	
-	<TR>
-	<TD class="labelmedium2"><cf_tl id="Purchase">:</TD>
+	<TR class="labelmedium2">
+	<TD><cf_tl id="Purchase">:</TD>
 	<td colspan="1">	
 	<table cellspacing="0" cellpadding="0">
-	<tr>
+	<tr class="labelmedium2">
 	<td><input type="text" class="regularxxl" name="purchaseno" id="purchaseno" value="" size="8"></td>
 	<td width="6"></td>
-	<TD class="labelmedium2"><cf_tl id="Type">:</TD>
+	<TD><cf_tl id="Type">:</TD>
 	<td width="6"></td>			
 	<td align="left" valign="top">
 	<select name="ordertype" id="ordertype" size="1" class="regularxxl">
@@ -134,7 +137,7 @@ password="#SESSION.dbpw#">
 	</tr>
 	</table>
 	</td>
-	<TD class="labelmedium2"><cf_tl id="Issued after">:</TD>
+	<TD><cf_tl id="Issued after">:</TD>
 	<TD>	
 	 <cf_intelliCalendarDate9
 		FieldName="orderdate" 
@@ -146,65 +149,57 @@ password="#SESSION.dbpw#">
 	
 	</TR>
 	
-	<TR>
-	<TD class="labelmedium2"><cf_tl id="Requisition">:</TD>
-	<TD>	
-	<input type="text" name="requisitionno" id="requisitionno" class="regularxxl" value="" size="20">
-	</TD>
+	<TR class="labelmedium2">
+	<TD><cf_tl id="Requisition">:</TD>
+	<TD><input type="text" name="requisitionno" id="requisitionno" class="regularxxl" value="" size="20"></TD>	
+	<TD><cf_tl id="Period">:</TD>
 	
-	<TD class="labelmedium2"><cf_tl id="Period">:</TD>
-	
-	<td align="left" valign="top">
-	
+	<td align="left" valign="top">	
 	<select name="Period" id="Period" size="1" class="regularxxl">
 	    <option value="" selected><cf_tl id="All"></option>
 	    <cfoutput query="tPeriod">
 		<option value="#Period#" <cfif URL.Period eq Period>selected</cfif> >#Period#</option>
 		</cfoutput>
-	</select>		
-	
-	</td>	
-					
+	</select>			
+	</td>						
 	</tr>
 		
-	<TR>
-	<td class="labelmedium2"><cf_tl id="Program">/<cf_tl id="Project"></td>
+	<TR class="labelmedium2">
+	<td><cf_tl id="Program">/<cf_tl id="Project"></td>
 	<td>
 	  
 	  <cfoutput>
-	  <table border="0" cellspacing="0" cellpadding="0">			  
+	  <table>			  
 	  <td>
 	  <input type="text" name="programdescription" id="programdescription" class="regularxxl" value="" size="40" maxlength="80" readonly 
 	  onclick="this.value='';programcode.value=''">
 	  <input type="hidden" name="programcode" id="programcode" value="" size="20" maxlength="20" readonly>
 	  </td>
 	  
-	  <td>  
+	  <td> 
 	  	  
-	     <img src="#SESSION.root#/Images/select6.jpg"
-			     name="img1"
-			     id="img1"
-				 style="height:25;border:0px solid silver"
-			     border="0"
-				 align="absmiddle"
-			     style="cursor: pointer;"
-			     onClick="selectprogram('#URL.mission#','','applyprogram','')"
-			     onMouseOver="document.img1_src='#SESSION.root#/Images/select6b.jpg'"
-			     onMouseOut="document.img1_src='#SESSION.root#/Images/select6.jpg'">	
-	  </td>
-	  
+	     <img src="#SESSION.root#/Images/select6.jpg"			     
+			     id          = "img1"
+				 style       = "height:28;border:0px solid silver"			     
+				 align       = "absmiddle"
+			     style       = "cursor: pointer;"
+			     onClick     = "selectprogram('#URL.mission#','','applyprogram','')"
+			     onMouseOver = "document.img1_src='#SESSION.root#/Images/select6b.jpg'"
+			     onMouseOut  = "document.img1_src='#SESSION.root#/Images/select6.jpg'">	
+				 
+	  </td>	  
 	  <td style="width:25px;height:25px;border:0px solid gray" align="center">
 	  	<img src="#SESSION.root#/Images/delete5.gif" style="height:18;border:0px solid silver" align="absmiddle" alt="" border="0" onclick="programdescription.value='';programcode.value=''">
-	  </td>
-	  
+	  </td>	  
 	  <td id="processmanual"></td>
+	  
 	  </tr>
 	  </table>
 	  </cfoutput>
 	  	
 	</td>
 		
-	<TD class="labelmedium2"><cf_tl id="Order Class">:</TD>
+	<TD><cf_tl id="Order Class">:</TD>
 			
 	<td align="left" valign="top">
 	<select name="orderclass" id="orderclass" size="1" class="regularxxl">
@@ -219,14 +214,14 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	
-	<TR>
-	<TD class="labelmedium2"><cf_tl id="Vendor Code">:</TD>
+	<TR class="labelmedium2">
+	<TD title="Vendor Code" style="cursor:pointer"><cf_tl id="Vendor Code">:</TD>
 			
 	<td align="left"> 
-		<cfinput type="Text" class="regularxxl" tooltip="Vendor Code" name="orgunit" validate="integer" required="No" size="10">	
+		<cfinput type="Text" class="regularxxl" name="orgunit" validate="integer" required="No" size="10">	
 	</td>	
 				
-	<td align="left" class="labelmedium2"><cf_tl id="Vendor Name">:</td>	
+	<td align="left"><cf_tl id="Vendor Name">:</td>	
 	<td>
 	
 	  <select name="orgunitvendor" id="orgunitvendor" style="width:160px" size="1" class="regularxxl">
@@ -253,8 +248,8 @@ password="#SESSION.dbpw#">
 	
 	<cfif employee.recordcount gte "1">
 	
-		<TR>
-		<TD class="labelmedium2"><cf_tl id="IndexNo">:</TD>
+		<TR class="labelmedium2">
+		<TD><cf_tl id="IndexNo">:</TD>
 				
 		<td align="left"> 
 		<cfinput type="Text" class="regularxxl" tooltip="IndexNo" name="indexNo" required="No" size="10">	
@@ -274,8 +269,8 @@ password="#SESSION.dbpw#">
 	
 	</cfif>
 			
-	<TR>
-	<TD class="labelmedium2"><cf_tl id="Order amount">:</TD>
+	<TR class="labelmedium2">
+	<TD><cf_tl id="Order amount">:</TD>
 	<TD><SELECT name="amountoperator" id="amountoperator" class="regularxxl">
 			<OPTION value="="><cf_tl id="is">
 			<option value=">=" selected><cf_tl id="greater than">
@@ -285,7 +280,7 @@ password="#SESSION.dbpw#">
 		<cfoutput>#APPLICATION.BaseCurrency#</cfoutput>
 	</TD>
 	
-	<TD class="labelmedium2"><cf_tl id="Descriptive">:</TD>
+	<TD><cf_tl id="Descriptive">:</TD>
 	<TD>	
 	<input type="text" name="orderitem" id="orderitem" value="" size="30" class="regularxxl">
 	<cfoutput>
@@ -296,8 +291,8 @@ password="#SESSION.dbpw#">
 	
 	</TR>
 		
-	<TR>
-	<TD class="labelmedium2"><cf_tl id="Obligation Status">:</TD>
+	<TR class="labelmedium2">
+	<TD><cf_tl id="Obligation Status">:</TD>
 	<td align="left" valign="top" class="labelmedium2">
 	    <cfif Parameter.InvoicePriorIssue eq "1">
 	    <select name="actionstatus" id="actionstatus" size="1" class="regularxxl">

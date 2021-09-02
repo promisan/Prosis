@@ -44,8 +44,8 @@ password="#SESSION.dbpw#">
 			<table width="97%"		      
 		       align="center"><tr>
 			   
-			    <cfset wd = "64">
-				<cfset ht = "64">
+			    <cfset wd = "54">
+				<cfset ht = "54">
 				
 				<cfset itm = "0">					
 				
@@ -147,9 +147,7 @@ password="#SESSION.dbpw#">
 		</td>
 		
 		</tr>
-		
-		<tr><td height="10"></td></tr>
-		
+				
 		<cfinclude template="FunctionScript.cfm">	
 		
 		<cf_menucontainer item="1" class="regular">	

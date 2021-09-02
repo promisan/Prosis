@@ -267,17 +267,15 @@
 												</cfif>					
 															
 												<td valign="top" bgcolor="E6F2FF" style="cursor:pointer;border:1px solid silver;width:145px" 
-												  onClick="document.getElementById('#CriteriaName#_radio').click()">
-												
-													<cf_UIToolTip tooltip="<b>Cluster option</b> :#Parameter.CriteriaMemo#">												
+												  onClick="document.getElementById('#CriteriaName#_radio').click()" title="Option:#Parameter.CriteriaMemo#">
+																																			
 														<table>													
 															<tr><td class="labelit" style="padding:2px;font-size:15px">											
 															<cf_tl id="#CriteriaDescription#"> 
 															<cfif Obligatory.recordcount neq "0"><font color="FF0000">*</font></cfif>	
 															</td></tr>
 														</table>
-													</cf_UIToolTip>
-												
+																									
 												</td>
 																				
 											<cfelse>										
@@ -373,7 +371,7 @@
 														
 										<cfelse>
 															
-											<cf_securediv bind="url:SelectFormContainer.cfm?controlid=#controlid#&criterianame=#criterianame#&reportid=#url.reportid#&fldid=#fldid#&cl=#cl#&val={#parent#}">
+											<cf_securediv bind="url:SelectFormContainer.cfm?controlid=#controlid#&criterianame=#criterianame#&reportid=#url.reportid#&fldid=#fldid#&cl=#cl#&val={#parent#}" id="d#fldid#">
 																										
 										</cfif>			
 																												
@@ -437,9 +435,7 @@
 							
 									<tr>																																																		 
 										<td valign="top" style="height:100%;height:30px;padding-top:2px;padding-left:4px;cursor:pointer;background-color:<cfif CriteriaClass eq 'Layout'>C1E0FF<cfelse>e1e1e1</cfif>;border:0px solid silver">										  
-																				
-										<cf_uitooltip tooltip="#tt#">
-																				 																											
+																															 																											
 										    <table>
 											
 											<tr>
@@ -448,7 +444,7 @@
 																							 
 													<table>
 													<tr class="labelmedium2">
-													<td style="min-width:260px">		
+													<td style="min-width:260px" title="#tt#">		
 																																																				
 														<cfif findNoCase("?",Parameter.CriteriaDescription)>
 														 <cfset sign = "">
@@ -479,9 +475,7 @@
 												</tr>
 											</cfif>
 											
-											</table>	
-											
-										 </cf_uitooltip>											
+											</table>																				
 																				
 									   </td>								  
 									

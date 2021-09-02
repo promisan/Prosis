@@ -114,23 +114,23 @@
 
 		
 		<tr style="padding-left:20px" id="Basic_1" <cfif Get.PasswordMode neq "Basic">class="hide"</cfif>>
-			<td class="labelmedium" style="padding-left:20px">Pattern (regex):</td>
+			<td class="labelmedium" style="cursor:pointer;padding-left:20px" title="Please enter a regular expression">Pattern (regex):</td>
 			<td>
-			<cfinput type="Text" name="PasswordBasicPattern" value="#Get.PasswordBasicPattern#" tooltip="Please enter a regular expression" required="Yes" visible="Yes" enabled="Yes" size="15" maxlength="40" class="regularxl"></td>
+			<cfinput type="Text" name="PasswordBasicPattern" value="#Get.PasswordBasicPattern#" required="Yes" visible="Yes" size="15" maxlength="40" class="regularxl"></td>
 			</td>
 		</tr>
 		
 		<tr style="padding-left:20px" id="Basic_2" <cfif Get.PasswordMode neq "Basic">class="hide"</cfif>>
 			<td style="padding-left:20px" class="labelmedium">Tip:</td>
 			<td>
-			<cfinput type="Text" name="PasswordTip" value="#Get.PasswordTip#" required="No" visible="Yes" enabled="Yes" size="60" maxlength="80" class="regularxl" style="text-align: center;"></td>
+			<cfinput type="Text" name="PasswordTip" value="#Get.PasswordTip#" required="No" visible="Yes" size="60" maxlength="80" class="regularxl" style="text-align: center;"></td>
 		</tr>
 		
 
 		<tr style="padding-left:20px" id="Advance_1" <cfif Get.PasswordMode eq "Basic">class="hide"</cfif>>
 			<td class="labelmedium" style="padding-left:20px">Minimum length:</td>
 			<td>
-			<cfinput type="Text" style="text-align:center" name="PasswordLength" value="#Get.PasswordLength#" required="Yes" visible="Yes" enabled="Yes" size="2" maxlength="2" class="regularxl"></td>
+			<cfinput type="Text" style="text-align:center" name="PasswordLength" value="#Get.PasswordLength#" required="Yes" visible="Yes" size="2" maxlength="2" class="regularxl"></td>
 			</td>
 		</tr>
 		
@@ -196,7 +196,7 @@
 			      <cfset support = get.PasswordSupport> 	  
 			</cfif>	  		
 			
-			<tr><td style="padding-left:20px" class="labelmedium">Password support (not for support account) :</td>
+			<tr><td style="padding-left:20px;min-width:300px;" class="labelmedium">Password support (not valid for support):</td>
 		    <TD>  
 			 <input type="text" 
 			    name="PasswordSupport" 
@@ -236,7 +236,9 @@
 		</TR>
 		
 		<TR>
-	    <td style="padding-left:20px" class="labelmedium"><cf_UIToolTip tooltip="Global parameter to enable or disable error management for each application server">Exception Control:</cf_UIToolTip></td>
+	    <td style="padding-left:20px;cursor:pointer" class="labelmedium" title="Global parameter to enable or disable error management for each application server">
+		Exception Control:
+		</td>
 		<TD>
 			<table><tr>
 		    <td>

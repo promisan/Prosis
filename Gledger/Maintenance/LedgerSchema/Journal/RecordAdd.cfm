@@ -195,7 +195,7 @@ function formvalidate() {
 		mis = document.getElementById("mission").value;
 		cat = document.getElementById("transactioncategory").value
 		url = "getSystemJournal.cfm?mis="+mis+"&cat="+cat;
-		ColdFusion.navigate(url,'systembox')	 
+		ptoken.navigate(url,'systembox')	 
 	}
 
 	</script>
@@ -328,15 +328,14 @@ function formvalidate() {
 	
 	  <table cellspacing="0" cellpadding="0" class="formspacing">
 		  <tr class="labelmedium2">
-		   <td>No:</td>
+		   <td style="cursor:pointer" title="Cluster Transactions under a single batch">No:</td>
 		   <td>&nbsp;</td>
 		   <td>
 	  	    <cfinput type="Text" name="JournalBatchNo"
 		       value="0" validate="integer" required="No"
 		       visible  = "Yes" 
 			   enabled  = "Yes"
-			   class    = "regularxxl"
-		       tooltip  = "Cluster Transactions under a single batch"
+			   class    = "regularxxl"		       
 		       size     = "4"
 			   style    = "width:40px;text-align: center;">
 		   </td>
@@ -359,14 +358,14 @@ function formvalidate() {
 		   <td><cf_tl id="Description">:</td>	
 		   <td>&nbsp;</td>	 
 		   <td>
-			   <cfinput type="Text"
-		       name="BatchDescription"
-		       required="No"
-		       visible="Yes"
-			   class    = "regularxxl"
-		       enabled="Yes"
-		       size="40"
-		       maxlength="50">
+			   <cfinput type = "Text"
+		       name          = "BatchDescription"
+		       required      = "No"
+		       visible       = "Yes"
+			   class         = "regularxxl"
+		       enabled       = "Yes"
+		       size          = "40"
+		       maxlength     = "50">
 		   </td>		   
 		  </tr>
 	  </table>

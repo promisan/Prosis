@@ -117,7 +117,7 @@ password="#SESSION.dbpw#">
 			
 		<cfoutput query="getLines">					
 			
-			<tr style="border-bottom:1px solid silver;height:25px;font-size:12px" class="navigation_row labelmedium" <cfif ItemClass neq 'Service' and TransactionQuantity gt 0 and TransactionQuantity gt OnHand>bgcolor="FFC1C1"<cfelse><cfif getLines.currentrow MOD 2>bgcolor="fefefe"</cfif></cfif> id="line_#currentrow#">
+			<tr style="border-bottom:1px solid silver;height:25px;font-size:12px" class="navigation_row labelmedium" <cfif ItemClass neq 'Service' and TransactionQuantity gt 0 and TransactionQuantity gt OnHand>bgcolor="ffffaf"<cfelse><cfif getLines.currentrow MOD 2>bgcolor="fefefe"</cfif></cfif> id="line_#currentrow#">
 			
 			    <td style="padding-left:14px;padding-top:0px;padding-right:3px; min-width:25px" valign="top"><p style="font-size:15px;padding-top:3.5px;">#currentrow#.</p></td>
 			    
@@ -189,7 +189,7 @@ password="#SESSION.dbpw#">
 								</cfif>		
 																
 								<!--- reorder quantity of the parent warehouse --->
-								
+																								
 								<cfquery name="qReorder"
 									datasource="AppsMaterials" 
 									username="#SESSION.login#" 
@@ -216,7 +216,7 @@ password="#SESSION.dbpw#">
 											</div>
 				</td>	
 
-				<td style="min-width:200px;padding-top:4px" valign="top">
+				<td style="min-width:200px;padding-top:2px" valign="top">
 					
 					<span id="onhand_#currentrow#" style="min-width:100px;font-size:15px">
 										
@@ -255,21 +255,21 @@ password="#SESSION.dbpw#">
 									datasource="AppsMaterials" 
 									username="#SESSION.login#" 
 									password="#SESSION.dbpw#">		
-										SELECT SUM(TransactionQuantity) as TransactionTransfer,
-										       SUM(TransactionTransfer) as QuantityTransfer 
+										SELECT isNULL(SUM(TransactionQuantity),0) as TransactionTransfer,
+										       isNULL(SUM(TransactionTransfer),0) as QuantityTransfer 
 										FROM   CustomerRequestLineTransfer
 										WHERE  TransactionId='#TransactionId#'
 								</cfquery>														
 								
-								<span class="clsNoPrint clsDetailLineCell" id="transfer_#transactionid#" style="padding-bottom:2px;min-width:100px">
-									<cfif qExistingTransfer.recordcount neq 0>																
+								<span class="clsNoPrint clsDetailLineCell" id="transfer_#transactionid#" style="padding-bottom:5px;min-width:100px">
+									<cfif qExistingTransfer.TransactionTransfer neq 0>																
 										| #qExistingTransfer.TransactionTransfer# [#qExistingTransfer.QuantityTransfer#]
 									</cfif>	
 								</span>									
 																
-								<br>
+								<span style="padding-top:10px">								
 								<button 
-									style="width:90px;padding:4px 2px 6px;font-size:13px!important;background:##f8f9fa;color:##033F5D;border-radius:4px;border:1px solid ##CCCCCC;" 
+									style="width:90px;height:29px;font-size:13px!important;background:##f8f9fa;color:##033F5D;border:1px solid gray;" 
 									type="button" 
 									id='btransfer_#currentrow#' 
 									name='btransfer_#currentrow#' 
@@ -277,6 +277,7 @@ password="#SESSION.dbpw#">
 									class="clsDetailLineCell">
 										<cf_tl id="Transfer"><i class="fas fa-share-square"></i>
 								</button>
+								</span>
 									
 							</cfif>
 
@@ -286,12 +287,12 @@ password="#SESSION.dbpw#">
 					
 				</td>
 								
-				<td align="right" style="min-width:50px;padding-top:0px;" valign="top">
+				<td align="right" style="min-width:50px;padding-top:2px;" valign="top">
 				
 				   <cfif BatchNo eq "">
 				
 				    <input type="text" 
-					 style = "background-color:fff;width:45px;text-align:center;border:1px solid silver;border-top:0px;border-radius:0px;" 
+					 style = "background-color:fff;width:45px;text-align:center;border:1px solid silver;" 
 					 id    = "TransactionQuantity_#currentrow#"
 					 class = "regularxxl enterastab TransactionQuantity_#transactionid#"
 					 <cfif vLast eq currentrow>
@@ -314,8 +315,7 @@ password="#SESSION.dbpw#">
 
 				</td>						
 				
-				<td align="right" style="min-width:100px;padding-top:0px;" valign="top">
-				
+				<td align="right" style="min-width:100px;padding-top:2px;" valign="top">				
 								
 					<cfif SalesPrice eq "0">
 						<cfset cl = "FF8080">
@@ -324,7 +324,7 @@ password="#SESSION.dbpw#">
 					</cfif>
 					
 					<input type="text" 
-					 style = "background-color:#cl#;width:85px;text-align:right;padding-right:2px;border:1px solid silver;border-top:0px;" 
+					 style = "background-color:#cl#;width:85px;text-align:right;padding-right:2px;border:1px solid silver" 
 					 id    = "SalesPrice_#currentrow#"
 					 class = "regularxxl enterastab SalesPrice_#transactionid#"
 					 <cfif vLast eq currentrow>

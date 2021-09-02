@@ -271,23 +271,7 @@
 						                display        = "Display">
 										<option value = "#fieldDefault#">#fieldDefault#</option>
 									 </cf_UIselect>
-									 
-									 <!---
-									  <cfselect name="f_#documentcode#"
-									      id       = "f_#DocumentCode#"
-							              message  = "Please enter #fieldvalidation#"
-							              query    = "List"
-							              value    = "#LookupFieldKey#"
-							              display  = "#LookupFieldName#"
-							              selected = "#Topic.documentItemValue#"
-							              tooltip  = "#DocumentDescription#"				            		              
-							              required = "#req#"
-										  class    = "regularxxl"
-							              queryposition="below">
-							         		<option value = "#fieldDefault#">#fieldDefault#</option>
-							        </cfselect>
-									--->
-							 							 
+									 							 							 
 								 </cfif>  											 		
 							
 							<cfelse>

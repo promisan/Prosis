@@ -477,7 +477,7 @@ function ask() {
 	
 	<tr id="recon2" class="<cfoutput>#cl#</cfoutput>">
 	
-	 <td></td><td width="70%" class="labelit"><font color="gray">Select this option for an account that represents amounts that require successive bank reconciliation upon receipts like [Payments underway], [Receivables]. This will 
+	 <td></td><td width="70%" class="labelit"><font color="gray">Select this option for an account that represents amounts that require successive bank reconciliation upon receipts like [Direct payments, Payments underway], [Receivables]. This will 
 	 ensure that posting on this account will  will be shown for successive bank reconciliation.	
 	</td></tr>
 	

@@ -13,30 +13,27 @@
 
 <cf_divscroll style="height:100%">
 
-
 <table width="95%" align="center">
 
-     <tr><td height="7"></td></tr>
-		  			
-		   <cfoutput>
-		    <tr>			
-			<td class="labelmedium" style="height:36px;padding-left:9px;font-size:18px">			
-			<a href="PurchaseViewOpen.cfm?ID1=Locate&ID=LOC&Mission=#url.Mission#" target="right"><cf_tl id="Extended Search"></a>
-			</td>
-			</tr>
-		  </cfoutput>	
-		
-	<tr><td class="linedotted"></td></tr>
-	
-	 <cfoutput>	 
+	 <cfoutput>
 	  
-	    <tr>
-		<td class="labelmedium" style="height:36px;padding-left:9px;font-size:18px">		
-		 <a href="PurchaseViewOpen.cfm?ID1=2&ID=PEN&Mission=#url.Mission#" target="right"><cf_tl id="Pending for Approval"></a>	  			
+     <tr><td height="7"></td></tr>		  			
+		   
+     <tr>			
+		<td class="labelmedium" style="height:36px;padding-left:9px;font-size:18px">			
+		<a href="javascript:ptoken.open('PurchaseViewOpen.cfm?ID1=Locate&ID=LOC&Mission=#url.Mission#','right')"><cf_tl id="Extended Search"></a>
 		</td>
-		</tr>	 
+	 </tr>
+		  
+	 <tr><td class="linedotted"></td></tr>
+	
+	 <tr>
+		<td class="labelmedium" style="height:36px;padding-left:9px;font-size:18px">		
+		 <a href="javascript:ptoken.open('PurchaseViewOpen.cfm?ID1=2&ID=PEN&Mission=#url.Mission#','right')"><cf_tl id="Pending for Approval"></a>	  			
+		</td>
+	 </tr>	 
 			 
-	  </cfoutput>
+	 </cfoutput>
 	  
 	 <tr><td height="1" class="line"></td></tr>	
 	

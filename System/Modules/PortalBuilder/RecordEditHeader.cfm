@@ -304,7 +304,7 @@
 									name="functionDirectory" 
 									required="#vPathRequired#" 
 									message="Please, enter a valid directory."
-								   	class="regularxl"
+								   	class="regularxxl"
 								   	size="50"
 									value="#get.functionDirectory#"
 								   	maxlength="80" 
@@ -319,14 +319,14 @@
 											name="functionPath" 
 											required="#vPathRequired#"
 											message="Please, enter a valid path." 
-										   	class="regularxl"
+										   	class="regularxxl"
 										   	size="20"
 											value="#get.functionPath#"
 											onblur= "ColdFusion.navigate('FileValidation.cfm?template='+document.getElementById('functionDirectory').value+this.value+'&container=pathValidationDiv&resultField=validatePath','pathValidationDiv')"
 										   	maxlength="80">
 									</td>
 									<td valign="middle" align="left" width="50%">
-									 	<cfdiv id="pathValidationDiv" bind="url:FileValidation.cfm?template=#get.functionDirectory##get.functionPath#&container=pathValidationDiv&resultField=validatePath">				
+									 	<cf_securediv id="pathValidationDiv" bind="url:FileValidation.cfm?template=#get.functionDirectory##get.functionPath#&container=pathValidationDiv&resultField=validatePath">				
 									</td>
 								</tr>
 							</table>
@@ -344,7 +344,7 @@
 				<cfinput type="Text" 
 					name="functionCondition" 
 					required="No" 
-				   	class="regularxl"
+				   	class="regularxxl"
 				   	size="55"
 					value="#get.functionCondition#"
 				   	maxlength="100">
@@ -363,7 +363,7 @@
 					message="Please, enter a valid greater than 0 integer width." 
 					validate="integer" 
 					range="1,"
-				   	class="regularxl"
+				   	class="regularxxl"
 				   	size="1"
 					value="#get.ScreenWidth#"
 				   	maxlength="4" 
@@ -375,7 +375,7 @@
 					message="Please, enter a valid greater than 0 integer height." 
 					validate="integer" 
 					range="1,"
-				   	class="regularxl"
+				   	class="regularxxl"
 				   	size="1"
 					value="#get.ScreenHeight#"
 				   	maxlength="4" 
@@ -394,7 +394,7 @@
 					name="MenuOrder" 
 					required="Yes"
 					message="Please, enter a valid numeric order." 
-				   	class="regularxl"
+				   	class="regularxxl"
 				   	size="1" 
 					maxlength="3" 
 					validate="integer"
@@ -433,22 +433,23 @@
 				<cfoutput>
 				<table cellspacing="0" cellpadding="0" class="formpadding">
 					<tr>
-						<td class="labelmedium">
-						<label>
-							<input style="width:18px;height:18px" type="radio" name="BrowserSupport" id="BrowserSupport" value="1" <cfif get.BrowserSupport eq "1">checked</cfif>>
-							<img src="#SESSION.root#/Images/explorer_icon.gif" alt="Internet Explorer" border="0" align="absmiddle"> 9+ only
-						</label>
-						</td>
-						<td width="10">&nbsp;</td>
+						
+						
 						<td class="labelmedium"> 
 							<label>
 								<input style="width:18px;height:18px" type="radio" name="BrowserSupport" id="BrowserSupport" value="2" <cfif get.BrowserSupport eq "2" or url.id eq "">checked</cfif>>
-								<img src="#SESSION.root#/Images/explorer_icon.gif" alt="Internet Explorer" border="0" align="absmiddle">9+		
-								&nbsp;<img src="#SESSION.root#/Images/firefox_icon.gif" height="14" width="14" alt="Firefox (Mozilla)" border="0" align="absmiddle">&nbsp;30+
+								<img src="#SESSION.root#/Images/edge_icon.jpg" height="15" alt="Edge" border="0" align="absmiddle">Edge		
 								&nbsp;<img src="#SESSION.root#/Images/chrome_icon.jpg" height="15" alt="Chrome" border="0" align="absmiddle">&nbsp;
+								&nbsp;<img src="#SESSION.root#/Images/firefox_icon.gif" height="14" width="14" alt="Firefox (Mozilla)" border="0" align="absmiddle">&nbsp;50+							
 								&nbsp;<img src="#SESSION.root#/Images/safari_icon.png" height="16" alt="Safari" border="0" align="absmiddle">&nbsp;
 							</label>
 						</td>		
+						<td class="labelmedium">
+						<label>
+							<input style="width:18px;height:18px" type="radio" name="BrowserSupport" id="BrowserSupport" value="1" <cfif get.BrowserSupport eq "1">checked</cfif>>
+							<img src="#SESSION.root#/Images/explorer_icon.gif" height="15" alt="Internet Explorer" border="0" align="absmiddle"> 11 only (deprecated)
+						</label>
+						</td>
 					</tr>
 				</table>
 				</cfoutput>
@@ -505,7 +506,7 @@
 						name="FunctionContact" 
 						required="No"
 						message="Please, enter a valid email or a list of emails separated by semicolons(;)." 
-					   	class="regularxl"
+					   	class="regularxxl"
 					   	size="40" 
 						maxlength="80" 
 						validate="regex" 

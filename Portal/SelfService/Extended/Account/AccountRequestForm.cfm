@@ -168,7 +168,7 @@
 					</tr>
 					 
 					<tr>
-						<td class="labelmedium2" style="padding-right:4px">
+						<td class="labelmedium2" style="padding-right:4px;cursor:pointer" title="please enter a valid eMail address">
 							<cf_tl id="eMail address">:
 						</td>
 						<td><font color="FF0000">*</font></td>
@@ -177,8 +177,7 @@
 						       name="eMailAddress"
 							   id="emailaddress"
 						       message="Please enter a valid eMail address"	      
-						       required="Yes"
-							   tooltip="please enter a valid eMail address"
+						       required="Yes"							   
 						       visible="Yes"
 						       enabled="Yes"
 						       size="40"

@@ -118,9 +118,10 @@ password="#SESSION.dbpw#">
 		</cfoutput>
 				
 	</cfif>		
-
-	<cf_droptable dbname="AppsQuery" tblname="#HeaderSelect.Mission##SESSION.acc#Ledger">	
 	
+	
+	<cf_droptable dbname="AppsQuery" tblname="#HeaderSelect.Mission##SESSION.acc#Ledger">	
+		
 	<!--- Query returning search results --->
 	<cfquery name="SearchResult"
 	datasource="AppsLedger" 
@@ -196,6 +197,7 @@ password="#SESSION.dbpw#">
 			                   FROM   Journal 
 							   WHERE  Mission = '#HeaderSelect.Mission#'	
 							   AND    TransactionCategory  IN ('Payables','DirectPayment'))		
+							   
 							   
 		<cfelseif url.mode eq "PO">
 				
@@ -278,7 +280,7 @@ password="#SESSION.dbpw#">
 		</cfif>		
 		
 		--->
-		
+						
 	</cfquery>
 	
 	<!---	

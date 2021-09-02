@@ -83,11 +83,8 @@
 									   AND    ActionStatus != '3'							   
 									   </cfif>									   
 									   )			
-	
 				
 	</cfquery>	
-	
-	
 	
 	<!--- We also create a settlement record if the person is onboard and has a final payment instance and somehow it was not created yet.
 	
@@ -664,7 +661,9 @@
 			   
 		FROM    userTransaction.dbo.sal#SESSION.thisprocess#SettledDiff D
 		
-		WHERE   1=1 <!--- (abs(DiffCalc) > 0.01 OR abs(DiffPay) > 0.01)	--->
+		<!--- Hanno we show A00 as zero if it applies to the same month --->
+		WHERE   (abs(DiffCalc) > 0.02 OR abs(DiffPay) > 0.02 
+		                       OR (PayrollItem = 'A00' AND #CALCEND# = #SALEND#))
 		
 		<cfif processmodality eq "InCycleBatch">	
 			    AND     D.PersonNo IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#Catchup)	

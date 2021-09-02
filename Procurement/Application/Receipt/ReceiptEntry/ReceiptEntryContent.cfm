@@ -239,8 +239,8 @@
 			   	   FROM     PurchaseLineReceipt RCT 
 				   WHERE    RCT.RequisitionNo = PL.RequisitionNo
 	    	       AND      RCT.ActionStatus != '9'
-			  ) AS ReceiptQuantity			  			  
-	  FROM    RequisitionLine Req INNER JOIN PurchaseLine PL ON PL.RequisitionNo = Req.RequisitionNo	        
+			   ) as ReceiptQuantity			  			  
+	  FROM     RequisitionLine Req INNER JOIN PurchaseLine PL ON PL.RequisitionNo = Req.RequisitionNo	        
 	  WHERE    PL.ActionStatus != '9'	
 	  AND      PL.PurchaseNo    = '#url.Purchase#'	
 	  ORDER BY PL.OrderItemNo  
@@ -272,11 +272,9 @@
 
 <cfoutput>
 
-<cfform name="entry" id="entry" style="height:100%" target="result" method="POST" onsubmit="return false">
+<cfform name="entry" id="entry" style="min-width:1200px;height:100%" target="result" method="POST" onsubmit="return false">
 
-<table width="96%" height="100%"       
-	   align="center"
-       bordercolor="D4D4D4">
+<table width="96%" height="100%" align="center">
 	     		 
   <tr class="hide"><td height="200"><cf_divscroll style="height:100%" id="result"/></td></tr>
    
@@ -290,15 +288,15 @@
 		<input type="hidden" name="TaskId"       id="TaskId"         value="#url.taskid#">
 	</cfoutput>
    
-	  <table width="98%" align="center">	 
+	  <table width="100%" align="center" style="background-color:f1f1f1">	 
 	  		  
-	  <tr class="labelmedium">
-	    <td width="150" style="padding-left:10px"><cf_tl id="Purchase No">:</td>
+	  <tr class="labelmedium2">
+	    <td style="min-width:250px;padding-left:10px"><cf_tl id="Purchase No">:</td>
 		<td width="203">
 		
 			<table>
 			
-			<tr><td>
+			<tr class="labelmedium2"><td>
 						
 			<a href="javascript:ProcPOEdit('#PO.Purchaseno#','','tab')">			
 			<cf_getPurchaseNo purchaseNo="#PO.PurchaseNo#" mode="both">
@@ -310,10 +308,7 @@
        			 
 					<img src="#SESSION.root#/Images/mail.png"
 				     alt="eMail Routing Slip Invoicing Procedures"
-				     border="0"
-				     align="bottom"
-					 width="25px"
-					 height="25px"
+				     border="0" align="bottom" width="25px" height="25px"
 				     style="cursor: pointer;"
 					 onClick="javascript:mail()">
 					 
@@ -339,9 +334,9 @@
 		<td align="right"></td>		
 	  </tr>	
 	  	  
-	  <tr class="labelmedium">
+	  <tr class="labelmedium2">
 	    <td style="padding-left:10px"><cf_tl id="Vendor">:</td>
-		<td><a href="javascript:viewOrgUnit('#PO.OrgUnitVendor#')">#PO.OrgUnitName#</a></td>
+		<td style="min-width:300px"><a href="javascript:viewOrgUnit('#PO.OrgUnitVendor#')">#PO.OrgUnitName#</a></td>
 	    <td><cf_tl id="Order Date">:</td>
 		<td>#DateFormat(PO.OrderDate,CLIENT.DateFormatShow)#</td>
 		<td><cf_tl id="Class">:</td>
@@ -367,13 +362,13 @@
 			
 			<cfif workorder.recordcount gte "1">			
 		  
-		    <tr class="labelmedium">
+		    <tr class="labelmedium2">
 		    <td valign="top" style="padding-top:5px;padding-left:10px;padding-top:4px"><cf_tl id="Workorder">:</td>
 			<td colspan="3" style="padding-top:4px">
 			
 			<table style="width:300" class="navigation_table">
 				<cfloop query="workorder">
-					<tr style="height:21px" class="labelmedium navigation_row">
+					<tr style="height:21px" class="labelmedium2 navigation_row">
 						<td style="padding-top:2px"><cf_img icon="edit" onclick="workorderlineopen('#workorderlineid#','#url.systemfunctionid#','#reference#')"></td>
 						<td>#Reference#</td>
 						<td>#Workorderline#</td>
@@ -404,13 +399,13 @@
 			WHERE    RT.TaskId = '#url.taskid#'
 		 </cfquery>	
 	   
-	   <tr bgcolor="B1E7F5" class="line labelmedium">
+	   <tr bgcolor="B1E7F5" class="labelmedium2">
 	    <td style="height:24;padding-left:20px"><cf_tl id="Task Order">:</td>
 		<td>#Task.Reference#</td>
 	    <td><cf_tl id="Date Issued">:</td>
 		<td>#DateFormat(Task.OrderDate,CLIENT.DateFormatShow)#</td>		
 		<td><cf_tl id="Item">:</td>
-		<td>#Task.ItemDescription# <font size="3"><b>#numberformat(Task.TaskQuantity,'__,__')# #Task.UoMDescription#</font></td>		
+		<td>#Task.ItemDescription# <font size="3"><b>#numberformat(Task.TaskQuantity,',__')# #Task.UoMDescription#</font></td>		
 	  </tr>	
 		  
 	  </cfif>
@@ -439,8 +434,8 @@
 	 
 	<cfelse>
 			
-	<tr class="line" style="border-top:1px solid silver">
-	<td colspan="1" valign="bottom" style="height:40px;padding-left:10px;font-size:32px" class="labelmedium"><cf_tl id="This Receipt"></td></tr>	  
+	<tr class="line">
+	<td colspan="1" valign="bottom" style="height:50px;padding-left:10px;font-size:32px" class="labelmedium"><cf_tl id="This Receipt"></td></tr>	  
 	 		 		 		  	  
 		 <cf_workflowenabled 
 		     mission="#po.mission#" 
@@ -598,7 +593,7 @@
 							
 							<select name="entityclass" id="entityclass" style="width:200" class="regularxl">					   
 								<cfloop query="Class">
-								<option value="#EntityClass#">#EntityClassName#</option>
+								<option value="#EntityClass#" <cfif PO.OrderClass eq EntityClass>selected</cfif>>#EntityClassName#</option>
 								</cfloop>
 							</select>		
 						  
@@ -783,10 +778,7 @@
 					 </cfif>	
 				 
 				 </table>	
-				 			 
 							 
-			
-			 
 		</td>
 		</tr>	  
 							 

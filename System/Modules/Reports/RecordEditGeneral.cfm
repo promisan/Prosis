@@ -11,16 +11,16 @@
 			datasource="AppsSystem" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			SELECT DISTINCT S.SystemModule, S.Description, S.MenuOrder
-			FROM  Ref_SystemModule S, 
-				  Organization.dbo.OrganizationAuthorization A				 
-			WHERE A.ClassParameter = S.RoleOwner
-			AND   A.UserAccount = '#SESSION.acc#'
-			AND   A.Role = 'AdminSystem'
-			AND S.SystemModule IN (SELECT SystemModule FROM Ref_ModuleControl)		
-			AND S.SystemModule IN (SELECT SystemModule FROM Ref_ReportMenuClass )			
-			AND   S.Operational = '1'			
-			ORDER BY S.Menuorder	
+				SELECT DISTINCT S.SystemModule, S.Description, S.MenuOrder
+				FROM  Ref_SystemModule S, 
+					  Organization.dbo.OrganizationAuthorization A				 
+				WHERE A.ClassParameter = S.RoleOwner
+				AND   A.UserAccount = '#SESSION.acc#'
+				AND   A.Role = 'AdminSystem'
+				AND S.SystemModule IN (SELECT SystemModule FROM Ref_ModuleControl)		
+				AND S.SystemModule IN (SELECT SystemModule FROM Ref_ReportMenuClass )			
+				AND   S.Operational = '1'			
+				ORDER BY S.Menuorder	
 			</cfquery>
 	
 		<cfelse>
@@ -29,12 +29,12 @@
 			datasource="AppsSystem" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			SELECT DISTINCT S.SystemModule, S.Description, S.MenuOrder
-			FROM   Ref_SystemModule S
-			WHERE  S.Operational = '1'	
-			AND    S.SystemModule IN (SELECT SystemModule FROM Ref_ModuleControl)		
-			AND    S.SystemModule IN (SELECT SystemModule FROM Ref_ReportMenuClass )	
-			ORDER BY S.Menuorder	
+				SELECT DISTINCT S.SystemModule, S.Description, S.MenuOrder
+				FROM   Ref_SystemModule S
+				WHERE  S.Operational = '1'	
+				AND    S.SystemModule IN (SELECT SystemModule FROM Ref_ModuleControl)		
+				AND    S.SystemModule IN (SELECT SystemModule FROM Ref_ReportMenuClass )	
+				ORDER BY S.Menuorder	
 			</cfquery>
 		
 		</cfif>
@@ -179,15 +179,14 @@
 		</cfif>
 		
 		<TR>		
-	 		<TD style="height:28" class="labelmedium" width="70">Owner :</TD>
+	 		<TD style="height:28;cursor:pointer" title="The owner of the report" class="labelmedium" width="70"><cf_tl id="Owner">:</TD>
 		    <TD>
 				<table cellspacing="0" cellpadding="0">
 				<tr><td class="labelmedium">								
 				
 						<cfif Line.Operational eq "0">	
 						
-							<cfselect name="Owner"
-					          tooltip="The owner of the report"
+							<cfselect name="Owner"					          
 					          visible="Yes"
 					          enabled="Yes"
 							  class="regularxl">
@@ -214,16 +213,16 @@
 				
 		<tr>
 			
-					<cfquery name="Language" 
-						 datasource="AppsSystem"
-						 username="#SESSION.login#" 
-						 password="#SESSION.dbpw#">
-						 SELECT *
-						 FROM   Ref_SystemLanguage
-						 WHERE  Operational IN ('1','2')
-					</cfquery> 		
+				<cfquery name="Language" 
+					 datasource="AppsSystem"
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
+					 SELECT *
+					 FROM   Ref_SystemLanguage
+					 WHERE  Operational IN ('1','2')
+				</cfquery> 		
 				
-		 		<TD style="height:28;padding-right:4px" class="labelmedium" width="70">Language:</TD>
+		 		<TD style="height:28;padding-right:4px" class="labelmedium" width="70"><cf_tl id="Language">:</TD>
 			    <TD class="labelmedium">
 				<cfif Line.Operational eq "0">	
 				<select name="LanguageCode" id="LanguageCode" class="regularxl">
@@ -246,7 +245,7 @@
 		   <td style="height:28" class="labelmedium">
 		   
 		   <table cellspacing="0" cellpadding="0">
-			<tr><td class="labelmedium">Name:</td>
+			<tr><td class="labelmedium"><cf_tl id="Name">:</td>
 			<td style="padding-left:3px">
 			<button class="button10g" type="button" style="width:50;height:23" name="aboutreport" id="aboutreport" onclick="about()">
 				More
@@ -268,7 +267,7 @@
 			<tr>
 			<td class="labelmedium" style="height:28" width="15%">
 			<table cellspacing="0" cellpadding="0">
-			<tr><td class="labelmedium">Name:</td>
+			<tr><td class="labelmedium"><cf_tl id="Name">:</td>
 			<td style="padding-left:3px">
 			<button class="button10g" type="button" style="width:50;height:23" name="aboutreport" id="aboutreport" onclick="about()">
 				More
@@ -284,7 +283,7 @@
 	 	</cfif>
 		
 		<tr>
-			<td class="labelmedium" style="height:28">Menu Icon :</td>
+			<td class="labelmedium" style="height:28"><cf_tl id="Menu Icon">:</td>
 			<td class="labelmedium">
 				<table width="100%" cellspacing="0" cellpadding="0" align="center">
 					<tr>
@@ -300,9 +299,8 @@
 							      </select>
 							</cfoutput>
 						</td>
-						<td style="padding-left:3px">
-						
-							<cfdiv bind="url:#SESSION.root#/tools/SubmenuImages.cfm?isreport=1&functionicon=#Line.Functionicon#" id="showicon">
+						<td style="padding-left:3px">						
+							<cf_securediv bind="url:#SESSION.root#/tools/SubmenuImages.cfm?isreport=1&functionicon=#Line.Functionicon#" id="showicon">
 						</td>
 					</tr>
 				</table>
@@ -310,7 +308,9 @@
 		</tr>
 		
 		<TR>
-	    <TD style="height:28" class="labelmedium" style="cursor:pointer"><cf_UIToolTip tooltip="Defines a variable ReportLabel which can be used for the header of the report">Menu Title :</cf_UIToolTip></TD>
+	    <TD style="height:28" class="labelmedium" style="cursor:pointer" title="Defines a variable ReportLabel which can be used for the header of the report">
+		<cf_tl id="Menu Title">:
+		</TD>
 		<TD class="labelmedium">		
 			<input type="text" name="ReportLabel" id="ReportLabel" value="#Line.ReportLabel#" size="60" maxlength="60" class="regularxl">				
 		</td>
@@ -380,7 +380,7 @@
 				 
 				</TD>
 				
-				<TD class="labelmedium" style="padding-left:10px;padding-right:4px" height="20" align="right">Sort Order:</TD>
+				<TD class="labelmedium" style="padding-left:10px;padding-right:4px" height="20" align="right"><cf_tl id="Sort Order">:</TD>
 				<TD class="labelmedium">
 				
 				<cfif Line.Operational eq "xxxx">		
@@ -393,7 +393,7 @@
 				
 		    	</TD>
 				
-				<TD class="labelmedium" height="20" style="padding-left:10px" align="right">Host:</TD>
+				<TD class="labelmedium" height="20" style="padding-left:10px" align="right"><cf_tl id="Host">:</TD>
 				
 				<TD class="labelmedium">
 				
@@ -412,12 +412,12 @@
 				</cfquery> 		
 												
 				<select name="ReportHostName" id="ReportHostName" class="regularxl">
-				          <option value="">All Hosts</option>
-						  <cfloop query="Hosts">		
-						  <option value="#ApplicationServer#" 
-						      <cfif ApplicationServer eq Line.ReportHostName>selected</cfif>>#ApplicationServer#
-						  </option>
-						  </cfloop>
+			          <option value="">All Hosts</option>
+					  <cfloop query="Hosts">		
+					  <option value="#ApplicationServer#" 
+					      <cfif ApplicationServer eq Line.ReportHostName>selected</cfif>>#ApplicationServer#
+					  </option>
+					  </cfloop>
 				</select>
 				
 				   
@@ -450,7 +450,8 @@
 					
 		<tr>
 		<td style="height:28" style="cursor:pointer" class="labelmedium">
-		    <cf_tooltip tooltip="Send an Error Notification email to this address in case report fails for the end user, in addition to the default mail notification to the owner"
+		    <cf_tooltip 
+			tooltip="Send an Error Notification email to this address in case report fails for the end user, in addition to the default mail notification to the owner"
 			content="Error eMail Alert">:
 		</td>
 		
@@ -480,9 +481,9 @@
 		</tr>					
 				
 		<TR>
-	    <TD style="height:28" style="cursor:pointer" class="labelmedium">
-		<cf_tooltip tooltip="The path/directory in which the CFMX templates for this report (SQL.cfm, xxxx.CFR etc) are stored"
-					content="File Library:">
+	    <TD style="height:28px" style="cursor:pointer" class="labelmedium">
+				<cf_tooltip tooltip="The path/directory in which the CFMX templates for this report (SQL.cfm, xxxx.CFR etc) are stored"
+				content="File Library:">
         </TD>
 		<TD>
 		

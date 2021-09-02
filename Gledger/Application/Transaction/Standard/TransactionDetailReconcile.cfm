@@ -17,7 +17,7 @@
 				FROM #SESSION.acc#GledgerHeader_#client.sessionNo#_#session.mytransaction#
 			</cfquery>
 						
-			<tr style="height:20px" class="line">
+			<tr style="height:20px">
 				<td colspan="2" valign="top" align="center" style="height:60px">
 				<table width="100%" style="height:100%">										
 					<tr class="line labelmedium">
@@ -50,7 +50,7 @@
 			</tr>			 
 											
 			<tr>
-				<td colspan="2" align="center" style="height:420px;padding-left:5px">														  
+				<td colspan="2" align="center" style="height:420px">														  
 				  <cf_divscroll>				  			  				  
 				      <cf_securediv id="reconcileresult" 
 					  name="reconcileresult" 

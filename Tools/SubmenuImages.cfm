@@ -8,25 +8,28 @@
  <cfoutput>
    
  		<cfif url.isreport eq "0">
-
+		
+		    <table><tr><td style="padding:5px">
+		    <table>
+			<tr>
+			<td align="center" style="border-radius:6px;height:40px;min-width:40px;padding:3px;background-color:##B0D8FF50">
+			
 			 <cfif FunctionIcon eq "World">
-	             <img src="#client.virtualdir#/Images/world.jpg"  width="30" height="32" #att#>
+	             <img src="#client.virtualdir#/Images/world.jpg"       width="34" height="34" #att#>
 			 <cfelseif FunctionIcon eq "HowTo">
-	             <img src="#client.virtualdir#/Images/HowTo.png"  height="32" #att#>
+	             <img src="#client.virtualdir#/Images/manual.png"      height="34" width="34" #att#>
 			 <cfelseif FunctionIcon eq "QuickGuide">
-	             <img src="#client.virtualdir#/Images/QuickGuide.png"  height="32" #att#>
+	             <img src="#client.virtualdir#/Images/QuickGuide.png"  height="34" width="34" #att#>
 			 <cfelseif FunctionIcon eq "Time" >
-			     <img src="#client.virtualdir#/Images/timesheet.jpg"   #att#>	
+			     <img src="#client.virtualdir#/Images/timesheet.jpg"   height="34" width="34" #att#>	
 			 <cfelseif FunctionIcon eq "webcast">
-			     <img src="#client.virtualdir#/Images/webcast.gif"   #att#>			 	
+			     <img src="#client.virtualdir#/Images/webcast.gif"     height="34" width="34" #att#>			 	
 			 <cfelseif FunctionIcon eq "Help">
-			     <img src="#client.virtualdir#/Images/help.png"        #att# height="28" width="28">	
+			     <img src="#client.virtualdir#/Images/help.png"        height="28" width="28" #att#>	
 			  <cfelseif FunctionIcon eq "Personal">
-			     <img src="#client.virtualdir#/Images/person.gif"      #att#>			 	
+			     <img src="#client.virtualdir#/Images/person.gif"      height="34" width="34" #att#>			 	
 			 <cfelseif FunctionIcon eq "Schedule">
-			     <img src="#client.virtualdir#/Images/schedule.png"   #att# width="36" height="36">	
-			 <cfelseif FunctionIcon eq "Dataset">
-			     <img src="#client.virtualdir#/Logos/modules.png" width="36" height="36"  #att#>		 	
+			     <img src="#client.virtualdir#/Images/schedule.png"    width="35" height="35" #att#>					 	
 	      	 <cfelseif FunctionIcon eq "Plan">
 			     <img src="#client.virtualdir#/Images/timesheet1.jpg"  #att#>	
 			 <cfelseif FunctionIcon eq "Review">
@@ -34,45 +37,43 @@
 			 <cfelseif FunctionIcon eq "Maintain">			
 				<cf_img icon="bullet">
 			 <cfelseif FunctionIcon eq "Locate">
-	             <img src="#client.virtualdir#/Images/search2.png"  width="36" height="36"  #att#>	
+	             <img src="#client.virtualdir#/Images/search2.png"     width="36" height="36" #att#>	
 			  <cfelseif FunctionIcon eq "Log">
-	             <img src="#client.virtualdir#/Images/Log_icon.png"    #att# width="36" height="36">		 					
+	             <img src="#client.virtualdir#/Images/Log_icon.png"    width="36" height="36" #att#>		 					
 			 <cfelseif FunctionIcon eq "Inquiry">
-	             <img src="#client.virtualdir#/Images/locate2.png"  width="36" height="36"   #att#>	
+	             <img src="#client.virtualdir#/Images/locate2.png"     width="36" height="36" #att#>	
 			 <cfelseif MenuClass eq "Builder">
-	             <img src="#SESSION.root#/Images/logos/listing.png"  #att#  width="48" height="48">		 
+	             <img src="#SESSION.root#/Images/logos/listing.png"    width="36" height="36" #att#>		 
 			 <cfelseif FunctionIcon eq "Statistics">
-	             <img src="#client.virtualdir#/Images/graph2.gif"      #att#>		
+	             <img src="#client.virtualdir#/Images/graph2.gif"      width="36" height="36" #att#>		
 			 <cfelseif FunctionIcon eq "Monitor">
 	             <img src="#client.virtualdir#/Images/monitoring2.png" #att# width="36" height="36" >		 
 			 <cfelseif FunctionIcon eq "Access">
-	             <img src="#client.virtualdir#/Images/access1.gif"     #att#>	
+	             <img src="#client.virtualdir#/Images/access1.gif"     #att# height="34" width="34" #att#>	
 			 <cfelseif FunctionIcon eq "Code">
-	             <img src="#client.virtualdir#/Images/sourcecode.gif"  #att#>		 
+	             <img src="#client.virtualdir#/Images/sourcecode.gif"  #att# height="34" width="34" #att#>		 
 			 <cfelseif FunctionIcon eq "User">
-	             <img src="#client.virtualdir#/Images/access1.gif"     #att#>	
+	             <img src="#client.virtualdir#/Images/access1.gif"     #att# height="34" width="34" #att#>	
 			 <cfelseif FunctionIcon eq "Group">
-	             <img src="#client.virtualdir#/Images/group.png"       #att#>	
+	             <img src="#client.virtualdir#/Images/group.png"       #att# height="34" width="34" #att#>	
 			 <cfelseif FunctionIcon eq "Role">
 	             <img src="#client.virtualdir#/Images/Role_admin.png"  #att# width="36" height="36">	
 			 <cfelseif FunctionIcon eq "Tree">
-	             <img src="#client.virtualdir#/Images/Tree.gif"        #att#>	
+	             <img src="#client.virtualdir#/Images/Tree.png"        #att# height="34" width="34" #att#>	
 			 <cfelseif FunctionIcon eq "Utility">
 	             <img src="#client.virtualdir#/Images/Utility.gif"     #att#>		 
 			 <cfelseif FunctionIcon eq "Parameter">
 	             <img src="#client.virtualdir#/Images/Setting.png" height="26" width="26" #att#>
 			 <cfelseif FunctionIcon eq "Workflow">
-			      <img src="#client.virtualdir#/Images/workflow1.gif" height="35" width="35" #att#>	
+			      <img src="#client.virtualdir#/Images/workflow1.png" height="34" width="34" #att#>				
 			 <cfelseif FunctionIcon eq "Manual">
-			      <img src="#client.virtualdir#/Images/manual.gif" #att#>	
-			 <cfelseif FunctionIcon eq "Manual">
-			      <img src="#client.virtualdir#/Images/manual.gif" #att#>	
+			      <img src="#client.virtualdir#/Images/manual.png" #att# height="34" width="34" #att#>	
 			 <cfelseif FunctionIcon eq "Attachment">	
 	              <img src="#client.virtualdir#/Images/attachment.png" #att#> 		  		  	  
 			 <cfelseif FunctionIcon eq "PDF">	
 	              <img src="#client.virtualdir#/Images/pdf_adobe.gif" #att#> 	
-			 <cfelseif FunctionIcon eq "Report">	
-	              <img src="#SESSION.root#/Images/logos/system/reports.png" #att# width="44" height="44"> 		 
+			 <cfelseif FunctionIcon eq "Report">				 
+	              <img src="#SESSION.root#/Images/logos/system/reports.png" #att# width="35" height="35"> 		 
 			 <cfelseif FunctionIcon eq "Library">	
 	              <img src="#client.virtualdir#/Images/folder4.gif"  #att#> 
 			 <cfelseif FunctionIcon eq "Roster">				
@@ -82,26 +83,31 @@
 			 <cfelseif FunctionIcon eq "Document">	
 	              <img src="#client.virtualdir#/Images/info.gif" #att#> 	
 			 <cfelseif FunctionIcon eq "List">			 
-	              <img src="#client.virtualdir#/Images/logos/listing.png" #att# width="36" height="36"> 	 	 			
+	              <img src="#client.virtualdir#/Images/logos/listing.png" #att# width="38" height="36"> 	 	 			
 			 <cfelseif FunctionIcon eq "Audit">	
-	              <img src="#client.virtualdir#/Images/audit.png" #att# width="25" height="25" >
+	              <img src="#client.virtualdir#/Images/audit.png?8" #att# width="31" height="31">				  
 			 <cfelseif FunctionIcon eq "Video">
 			 	  <img src="#client.virtualdir#/Images/video.gif" #att#>
+			 <cfelseif FunctionIcon eq "Dataset">			 
+			     <img src="#client.virtualdir#/Images/dataset.png"   #att# height="34" width="34">	  
 			 <cfelse>
 				<cf_img icon="bullet">
 	          </cfif>
+			  
+			  </td></tr></table>
+			  </td></tr></table>
 		
 		<cfelse>
 		
 			<!--- Icons for reports --->
 			<cfif FunctionIcon eq "PDF">
-			     <img src="#client.virtualdir#/Images/report6.gif"   #att# height="26" width="26">
+			     <img src="#client.virtualdir#/Images/report6.gif"   #att# height="34" width="34">
 			<cfelseif FunctionIcon eq "Dataset">
-			     <img src="#client.virtualdir#/Images/dataset2.gif"   #att# height="26" width="26">
+			     <img src="#client.virtualdir#/Images/dataset.png"  #att# height="34" width="34">
 			<cfelseif FunctionIcon eq "Listing">
-			     <img src="#client.virtualdir#/Images/list.png"   #att# height="26" width="26">				 
+			     <img src="#client.virtualdir#/Images/list.png"      #att# height="34" width="34">				 
 			<cfelse>			
-				<img src="#client.virtualdir#/Images/report6.gif"   #att# height="26" width="26">
+				<img src="#client.virtualdir#/Images/report6.gif"    #att# height="34" width="34">
 				
 			</cfif>
 		

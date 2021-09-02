@@ -60,25 +60,27 @@ password="#SESSION.dbpw#">
 		
 		 <!--- Field: Currency --->
 	    <tr class="labelmedium2">
-	    <td width="200">Enterprise base Currency:</td>
+	    <td width="200" style="cursor:pointer" title="Please do not change unless instruction by Promisan">Enterprise base Currency:</td>
 	    <td align="left">
 		
-		  <table><tr class="labelmedium"><td>
-		  <cfselect name="BaseCurrency"
-	          tooltip="Please do not change unless instruction by  vendor"
-	          visible="Yes"
-	          enabled="Yes"
-			  style="font-size:20px;height:35px"
-			  class="regularxxl"
-	          onchange="javascript:save()">
-	   		    <cfoutput query="Currency">
-	        	<option value="#Currency#" <cfif Currency is Get.BaseCurrency>selected</cfif>>#Currency#</option>
-	         	</cfoutput>
-		      </cfselect>
-			  </td>		  
-			
-			   
-			 </td></tr></table> 
+		  <table>
+		  <tr class="labelmedium">
+		  <td>
+		  		<cfselect name="BaseCurrency"	         
+		          visible  = "Yes"
+		          enabled  = "Yes"
+				  style    = "font-size:20px;height:35px"
+				  class    = "regularxxl"
+		          onchange = "javascript:save()">
+		   		    <cfoutput query="Currency">
+	    	    	<option value="#Currency#" <cfif Currency is Get.BaseCurrency>selected</cfif>>#Currency#</option>
+	        	 	</cfoutput>
+		        </cfselect>
+				
+			</td>		  		   
+			</td>
+			</tr>
+			</table> 
 		
 	    </td>
 			
@@ -87,7 +89,7 @@ password="#SESSION.dbpw#">
 		<tr>
 		   <td colspan="2" style="padding-left:10px"><font color="red"><b>Change</b> the base currency ONLY after you verified this with Promisan b.v. Once a base currency is set it can not be changed without data fixes.</td>
 		</tr>  
-			
+		
 		
 		<tr><td height="5" colspan="1"></td></tr>
 		

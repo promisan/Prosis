@@ -386,8 +386,7 @@
 					align      = "right",
 					aggregate  = "sum",
 					search     = "number",
-					formatted  = "numberformat(AmountBase,',.__')"}>						
-					
+					formatted  = "numberformat(AmountBase,',.__')"}>											
 					
 <cfif url.id eq "LOC">
     <cfset s = "No">
@@ -400,29 +399,29 @@
 	<cfset f = "">
 </cfif>		
 										
-	<cf_listing
-    	header        = "lsPurchase"
-    	box           = "lsPurchase"
-		link          = "#SESSION.root#/Procurement/Application/Purchaseorder/PurchaseView/PurchaseViewListing.cfm?#cgi.query_string#"
-		linkform      = "#f#"
-    	html          = "No"
-		show	      = "30"
-		datasource    = "AppsQuery"
-		listquery     = "#myquery#"
-		listkey       = "PurchaseNo"
-		listgroup     = "IssuedBy"	
-		listorder     = "PurchaseNo"
-		listorderalias = "P"
-		listorderdir  = "ASC"
-		headercolor   = "ffffff"
-		listlayout    = "#fields#"
-		annotation    = "ProcPO"
-		filterShow    = "#s#"
-		excelShow     = "Yes"
-		drillmode     = "embed"	
-		drillstring   = "mode=list"
-		drilltemplate = "Procurement/Application/Invoice/InvoiceEntry/InvoiceEntryMatchHeader.cfm"
-		drillkey      = "PurchaseNo">
+<cf_listing
+   	header         = "lsPurchase"
+   	box            = "lsPurchase"
+	link           = "#SESSION.root#/Procurement/Application/Purchaseorder/PurchaseView/PurchaseViewListing.cfm?#cgi.query_string#"
+	linkform       = "#f#"
+   	html           = "No"
+	show	       = "30"
+	datasource     = "AppsQuery"
+	listquery      = "#myquery#"
+	listkey        = "PurchaseNo"
+	listgroup      = "IssuedBy"	
+	listorder      = "PurchaseNo"
+	listorderalias = "P"
+	listorderdir   = "ASC"
+	headercolor    = "ffffff"
+	listlayout     = "#fields#"
+	annotation     = "ProcPO"
+	filterShow     = "#s#"
+	excelShow      = "Yes"
+	drillmode      = "embed"	
+	drillstring    = "mode=list"
+	drilltemplate  = "Procurement/Application/Invoice/InvoiceEntry/InvoiceEntryMatchHeader.cfm"
+	drillkey       = "PurchaseNo">
 
 <script>
 	parent.Prosis.busy('no')

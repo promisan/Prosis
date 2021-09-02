@@ -106,7 +106,7 @@
 	
 	<cf_menucontainer item="1" class="regular">	
 	 
-	<cfdiv id="divMain" bind="url:RecordEditDetail.cfm?id=#url.id#&mission=#url.mission#&class=#url.class#&functionClass=#url.functionClass#&systemmodule=#url.systemmodule#" style="height:100%;">
+     	<cf_securediv id="divMain" bind="url:RecordEditDetail.cfm?id=#url.id#&mission=#url.mission#&class=#url.class#&functionClass=#url.functionClass#&systemmodule=#url.systemmodule#" style="height:100%;">
 	
 	</cf_menucontainer>	
 	
