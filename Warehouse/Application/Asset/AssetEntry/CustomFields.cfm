@@ -9,8 +9,9 @@
   FROM   Ref_Topic
   WHERE  Code IN (SELECT Topic
                   FROM   ItemTopic 
-				  WHERE  ItemNo = '#ItemNo#')
+				  WHERE  ItemNo = '#ItemNo#')				 
   AND    Operational = 1
+  AND    TopicClass = 'Asset'
 </cfquery>
 
 <cfoutput query="GetTopics">

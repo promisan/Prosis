@@ -799,14 +799,14 @@ password="#SESSION.dbpw#">
 				
 		</td>		
 		<td>		
-		
+				
 		   <cf_selectlookup
 			    box        = "employee"
 				link       = "#link#"
 				button     = "Yes"
 				icon       = "search.png"
-				iconwidth  = "30"
-				iconheight = "29"				
+				iconwidth  = "26"
+				iconheight = "26"				
 				close      = "Yes"
 				type       = "employee"
 				des1       = "Selected">	
@@ -835,9 +835,7 @@ password="#SESSION.dbpw#">
 		<input type="hidden" name="receiptvolume" value="0">  
 	
 	</cfif>
-	
-	
-  								
+							
 	<cfquery name="hasTopics" 
 	   datasource="AppsMaterials"
 	   username="#SESSION.login#" 
@@ -894,11 +892,11 @@ password="#SESSION.dbpw#">
 				<TR>
 			    <TD width="100" class="labelmedium" style="padding-left:10px"><cf_tl id="Item mode">:<font color="FF0000">*</font></TD>
 			    <TD colspan="3">	
-					<table width="100%" align="center" cellspacing="0" cellpadding="0">
+					<table width="100%" align="center">
 					<tr>
 					<td height="23">															
 										
-						<table cellspacing="0" cellpadding="0">					
+						<table>					
 						
 						<cfif Requisition.EnforceWarehouse eq "0">
 												
@@ -1161,7 +1159,7 @@ password="#SESSION.dbpw#">
 					  </td>
 						   
 					  <td id="TransactionLot_content" class="labelmedium" style="padding-left:3px;width:20">
-						<cfdiv bind="url:#session.root#/tools/process/stock/getLot.cfm?mission=#Purchase.mission#&transactionlot={TransactionLot}">
+						<cf_securediv bind="url:#session.root#/tools/process/stock/getLot.cfm?mission=#Purchase.mission#&transactionlot={TransactionLot}">
 					  </td>
 						   
 				   </tr>
@@ -1671,7 +1669,6 @@ password="#SESSION.dbpw#">
 				</td>
 				
 				
-				
 				 <!--- we allow for selection of the warehouse item  ---> 
 								
 			   	 <cfif url.taskid eq "" and line.WarehouseTaskid eq "" and requestHasWarehouseItem eq "No">
@@ -1720,29 +1717,32 @@ password="#SESSION.dbpw#">
 		<!--- --------------------------------------------- --->
 		<!--- -------warehouse item generation mode ------- --->
 		<!--- --------------------------------------------- --->		
+		
+		</tr>
+		
+		<tr id="whs3" class="#clc#">	
 								
-	    <TD id="whs3" class="#clc#" style="padding-left:0px">	
-		
-			<cfparam name="hasTopics.recordcount" default="0">
-		
-			<cfif hasTopics.recordcount gte "1">
-						
-				<!--- show here the classifications as defined for the entry class to be set --->
-				<cfset url.itemNo   = Line.WarehouseItemNo>
-				<cfset url.UoM      = Line.WarehouseUoM>			
-				<cfinclude template = "ReceiptLineEditFormTopic.cfm">
+			<td></td>						 
+		    <TD colspan="3" style="padding-left:0px">	
 			
-			</cfif>
-		    		    			 
-		</TD>
-						
-		<!--- ------------------------------ --->
-		<!--- ----end of warehouse mode----- --->
-		<!--- ------------------------------ --->
-		
-	</TR>
-	
-	
+				<cfparam name="hasTopics.recordcount" default="0">
+			
+				<cfif hasTopics.recordcount gte "1">
+							
+					<!--- show here the classifications as defined for the entry class to be set --->
+					<cfset url.itemNo   = Line.WarehouseItemNo>
+					<cfset url.UoM      = Line.WarehouseUoM>			
+					<cfinclude template = "ReceiptLineEditFormTopic.cfm">
+				
+				</cfif>
+			    		    			 
+			</TD>
+				
+		</TR>	
+	   						
+	<!--- ------------------------------ --->
+	<!--- ----end of warehouse mode----- --->
+	<!--- ------------------------------ --->	
 					
 	<!--- this is the ajax process box for price and quantity definition based on the selections made --->
 	<tr class="hide"><td colspan="4" id="processlines"></td></tr>	

@@ -238,7 +238,11 @@
 	
 	<td>
 	
+	
+	
 	<cfset filter = replaceNoCase(condition,"'","|","ALL")>	
+	
+	<!---
 		
     <!--- button to show inquiry function --->
 	<cfinvoke component="Service.Analysis.CrossTab"  
@@ -257,7 +261,9 @@
 		  module      = "Warehouse"
 		  reportName  = "Facttable: Non-Expendables"
 		  olap        = "1"
-		  table1Name  = "Equipment"> 		  
+		  table1Name  = "Equipment"> 	
+		  
+		  --->	  
 		  
 	</td>
 		
@@ -268,8 +274,7 @@
 		  <cfinvoke component="Service.Analysis.CrossTab"  
 		  method      = "ShowInquiry"
 		  buttonName  = "Inquiry"
-		  buttonClass = "button10g"
-		  buttonIcon  = "#SESSION.root#/images/dataset.png"
+		  buttonClass = "button10g"		  
 		  buttonText  = "Excel"
 		  buttonStyle = "width:95;height:26"
 		  reportPath  = "Warehouse\Application\Asset\AssetControl\"

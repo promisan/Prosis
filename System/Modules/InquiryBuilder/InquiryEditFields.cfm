@@ -68,6 +68,8 @@ password="#SESSION.dbpw#">
 	<cfinclude template="QueryPreparationVars.cfm">
 	<cfinclude template="QueryValidateReserved.cfm">
 	
+	<cfset sc = replaceNoCase(sc, "--Condition","")> 
+	
 	<!--- -------------------------- --->
 	<!--- ----- end of preparation   --->
 	<!--- -------------------------- --->
@@ -192,7 +194,7 @@ password="#SESSION.dbpw#">
 							 
 		   </td>
 		   <td height="22" style="text-align:center;border:1px solid silver;padding-left:1px"><cf_tl id="sort"></td>
-		   <td style="text-align:center;border:1px solid silver;padding-left:1px"><cfif alias eq "1">Alias</cfif></td>
+		   <td style="text-align:center;border:1px solid silver;padding-left:1px"><cfif alias eq "1"><cf_tl id="Alias"></cfif></td>
 	   	   <td style="text-align:center;border:1px solid silver;padding-left:1px"><cf_tl id="Field"></td>
 		   <td style="text-align:center;border:1px solid silver;padding-left:1px">isKey</td>
 		   <td style="text-align:center;border:1px solid silver;padding-left:1px"><cf_tl id="Show"></td>
@@ -348,14 +350,15 @@ password="#SESSION.dbpw#">
 					 
 					 <select name="fieldoutputformat" id="fieldoutputformat" onchange="document.getElementById('update').click()" style="width:100%;border:0px;background-color:transparent" class="regularxl">
 											 
-					 	  <option value=""          <cfif fieldoutputformat eq "">selected</cfif>>Default</option> 
-					 	  <option value="Date"      <cfif fieldoutputformat eq "Date">selected</cfif>>Date</option> 
-						  <option value="DateTime"  <cfif fieldoutputformat eq "DateTime">selected</cfif>>Date/Time</option> 
-					   	  <option value="Time"      <cfif fieldoutputformat eq "Time">selected</cfif>>Time</option> 
-						  <option value="Number"    <cfif fieldoutputformat eq "Number">selected</cfif>>Number</option> 
-					   	  <option value="Amount"    <cfif fieldoutputformat eq "Amount">selected</cfif>>Amount (2)</option> 
-						  <option value="Amount0"   <cfif fieldoutputformat eq "Amount0">selected</cfif>>Amount (0)</option> 
-						  <option value="eMail"     <cfif fieldoutputformat eq "eMail">selected</cfif>>eMail</option> 											
+					 	  <option value=""           <cfif fieldoutputformat eq "">selected</cfif>>Default</option> 
+					 	  <option value="Date"       <cfif fieldoutputformat eq "Date">selected</cfif>>Date</option> 
+						  <option value="DateTime"   <cfif fieldoutputformat eq "DateTime">selected</cfif>>Date/Time</option> 
+					   	  <option value="Time"       <cfif fieldoutputformat eq "Time">selected</cfif>>Time</option> 
+						  <option value="Number"     <cfif fieldoutputformat eq "Number">selected</cfif>>Number</option> 
+					   	  <option value="Amount"     <cfif fieldoutputformat eq "Amount">selected</cfif>>Amount (2)</option> 
+						  <option value="Amount0"    <cfif fieldoutputformat eq "Amount0">selected</cfif>>Amount (0)</option> 
+						  <option value="eMail"      <cfif fieldoutputformat eq "eMail">selected</cfif>>eMail</option> 	
+						  <option value="Attachment" <cfif fieldoutputformat eq "Attachment">selected</cfif>>Attachment</option> 														
 					 </select>
 					 
 					 </td>
@@ -425,6 +428,9 @@ password="#SESSION.dbpw#">
 										 		
 					<td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">			   
 				   
+				   		   	<cf_img icon="delete"
+								     onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/System/Modules/InquiryBuilder/InquiryEditFieldsPurge.cfm?Datasource=#Form.querydatasource#&SystemFunctionId=#URL.SystemFunctionId#&FunctionSerialNo=#URL.FunctionSerialNo#&fieldid=#fieldid#','fields')">										
+					
 							   	
 					</td>									
 				   
@@ -464,9 +470,17 @@ password="#SESSION.dbpw#">
 					     <font color="FF0000">
 					  </cfif> #FieldAliasQuery#
 				   </td>
-				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">				     					  
-					  <cfif not find(fieldname,SelectQuery.columnList)><font color="FF0000"></cfif> 
-					  #FieldName#									
+				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px">	
+				      
+					  <!--- no accurate --->					  
+					  <cfset found = 0>					  
+					  <cfloop index="itm" list="#SelectQuery.columnList#">					  
+						  <cfif itm eq fieldName>
+						  	<cfset found = 1>
+						  </cfif>					  
+					  </cfloop>					  			     					  
+					  <cfif found eq "0"><font color="FF0000"></cfif>#FieldName#									
+					  
 				   </td>
 				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px"><cfif FieldisKey eq "1">*<cfelse></cfif></td>
 				   <td style="border-left:1px solid silver;padding-left:2px;padding-right:2px"><cfif FieldInGrid eq "1">Yes<cfelse>No</cfif></td>
@@ -629,7 +643,8 @@ password="#SESSION.dbpw#">
 						  <option value="Number">Number</option> 
 					   	  <option value="Amount">Amount(2)</option> 
 						   <option value="Amount0">Amount(0)</option> 
-						  <option value="eMail">eMail</option> 																	
+						  <option value="eMail">eMail</option> 		
+						  <option value="Attachment">Attachment</option> 															
 					 </select>
 									 
 				</td>

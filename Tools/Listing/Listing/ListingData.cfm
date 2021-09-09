@@ -418,9 +418,9 @@
 			</cfif>
 			
 			<!--- compose the query --->
-						
-			<cfset querylist = "#strleft# #strwhr# #condition# #ann# #strright# #listsorting#">			
-													
+											
+			<cfset querylist = "#strleft# #strwhr# #condition# #ann# #strright# #listsorting#">		
+																			
 		<cfelse>
 				
 		    <!--- recompose the query that contains a group --->
@@ -488,7 +488,7 @@
 		</cfif>
 					
 	</cfoutput>
-	
+		
 	<!--- ------------------------------------------ --->
 	<!--- WE CHECK IF WE CAN TAKE THE CACHED VERSION --->
 	<!--- ------------------------------------------ --->			
@@ -582,7 +582,7 @@
 			<cfset sc = querylist>
 			
 			<!--- make some conversion on specific words --->
-			<cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">				
+			<cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">	
 						
 			<cftry>
 						
@@ -608,6 +608,8 @@
 				
 				</cfcatch>
 			</cftry>	
+			
+			
 														
 		<cfelse>			   
 		
@@ -749,6 +751,8 @@
 					</cfquery>		
 				
 				</cfif>
+							
+			
 			
 				<cfoutput>		
 				<table width="80%" align="center" class="formpadding">
@@ -764,6 +768,8 @@
 					</td></tr>
 					</cfif>
 				</table>
+							
+				
 				</cfoutput>		
 				
 				<script>

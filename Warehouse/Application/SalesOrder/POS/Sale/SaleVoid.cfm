@@ -111,8 +111,8 @@
 			<table class="formspacing">
 				                
             <tr>
-				<td>							
-				
+				<td>		
+									
                 <button type="button" class="btn btn-lg btn-light" onclick="#jvlink#" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;">                                                       
 				<img src="#SESSION.root#/Images/Search-R-Blue.png" width="26"><span style="top:-4px;left: -2px;"><cf_tl id="Find Customer"></button>
 				
@@ -159,7 +159,8 @@
 		<table class="formspacing">
 		            
             <tr>
-				<td>					
+				<td>	
+								
                 <button type="button" class="btn btn-lg btn-light" onclick="#jvlink#" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;">                                                       
 				<img src="#SESSION.root#/Images/Search-R-Blue.png" width="26"><span style="top:-4px;left: -2px;"><cf_tl id="Find Customer"></span>
 				</button>

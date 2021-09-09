@@ -195,7 +195,7 @@
 			#numberformat(OrderQuantity,',.___')#</td>
 		    <td  style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver;padding-left:4px">#OrderUoM#</td>
 			<td  style="text-align:right;border-left:1px solid gray;padding-right:4px;border-right:1px solid silver;padding-left:5px">
-			<cfif OrderUoMVolume neq "0">#OrderUoMVolume*OrderQuantity#<cfelse>-- <!---(#OrderUoMVolume#)---></cfif></td>
+			<cfif OrderUoMVolume neq "0"  and OrderUoMVolume neq "">#OrderUoMVolume*OrderQuantity#<cfelse>-- <!---(#OrderUoMVolume#)---></cfif></td>
 			 <td  style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver" align="right">
 			<cfif Lines.OrderQuantity lte 0>
 				<cfset Lines.OrderQuantity = 1>
@@ -321,4 +321,5 @@
 
 </cfoutput>
 
-<cfset AjaxOnLoad("doHighlight")>		
+<cfset AjaxOnLoad("doHighlight")>
+

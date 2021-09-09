@@ -130,20 +130,19 @@ password="#SESSION.dbpw#">
 		var vWidth = 900;
 		var vHeight = 650;    
 				   
-		ColdFusion.Window.create('mydialog', 'Metric', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    
-		ColdFusion.Window.show('mydialog'); 				
-		ColdFusion.navigate(rt + 'ItemSupplyEdit.cfm?type=AssetItem&id='+itm+'&supply='+supply+'&uom='+uom+'&ts='+new Date().getTime(),'mydialog'); 
+		ProsisUI.createWindow('mydialog', 'Metric', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    					
+		ptoken.navigate(rt + 'ItemSupplyEdit.cfm?type=AssetItem&id='+itm+'&supply='+supply+'&uom='+uom,'mydialog'); 
 	}
 	
 	function supplydelete(itm,supply,uom) {
 	  var rt = '#SESSION.root#/Warehouse/Maintenance/Item/Consumption/';
-	  ColdFusion.navigate(rt + 'ItemSupplyDelete.cfm?type=AssetItem&id='+itm+'&supply='+supply+'&supplyuom='+uom,'supplyedit')
+	  ptoken.navigate(rt + 'ItemSupplyDelete.cfm?type=AssetItem&id='+itm+'&supply='+supply+'&supplyuom='+uom,'supplyedit')
 	}
 	
 	function getsupplydefinition(itm) {
 		var rt = '#SESSION.root#/Warehouse/Maintenance/Item/Consumption/AssetItem/';
 		if (confirm('This action will add to your data the supply definition of the item master defined for this asset.\n\nDo you want to continue ?')) {
-	    	ColdFusion.navigate(rt + 'GetSupplyDefinition.cfm?type=AssetItem&id=' + itm,'supplylist');
+	    	ptoken.navigate(rt + 'GetSupplyDefinition.cfm?type=AssetItem&id=' + itm,'supplylist');
 		}
 	}
 	
@@ -153,7 +152,7 @@ password="#SESSION.dbpw#">
 		var cmu = document.getElementById('consumptionMenuItem').value;		
 		document.getElementById('menu'+itm).className = 'regular';
 		document.getElementById('menu'+cmu).className = 'highlight1';
-		ColdFusion.navigate(rt + 'ItemSupply.cfm?id=#URL.assetid#&type=AssetItem','contentbox1');
+		ptoken.navigate(rt + 'ItemSupply.cfm?id=#URL.assetid#&type=AssetItem','contentbox1');
 	}
 	
 	function selectaction(code,control) {

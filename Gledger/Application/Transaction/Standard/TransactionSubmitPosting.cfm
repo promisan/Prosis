@@ -422,7 +422,7 @@
 		   		'#FORM.ReferenceName2#',
 		   </cfif>	   
 		   '#FORM.ReferenceNo#',
-			<cfif Form.Party eq "cus">
+			<cfif Form.Party eq "cus" and form.CustomerId neq "">
 				'#FORM.CustomerId#',				
 			<cfelse>
 				<cfif HeaderSelect.Referenceid neq "">

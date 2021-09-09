@@ -174,6 +174,10 @@ function mail(id,ser) {
 	  ptoken.open("#SESSION.root#/Tools/Mail/Broadcast/BroadCastListing.cfm?systemfunctionid="+id+"&functionserialno="+ser, "broadcast", "status=no, height=715px, width=920px, scrollbars=no, toolbar=no, resizable=no");
 }
 
+function attachopen(id) {
+	  ptoken.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank");		
+}
+
 <!--- function to apply the selected value on the fly --->
 function gofilter(e) {
 	   keynum = e.keyCode ? e.keyCode : e.charCode;
@@ -638,16 +642,20 @@ function toggledrill(mode,box,template,key,arg,drillbox,str) {
 	}
 	
 	function printListing(maxrows, pTarget) {
-		ptoken.navigate('#session.root#/tools/listing/listing/defineRowsToShow.cfm?action=all&maxRows='+maxrows, pTarget, function(){
-		applyfilter('1','','content', function(){
-			Prosis.webPrint.print('##printTitle','.clsListingContent', true, function(){ 
-				$('##_divContentFields').attr('style','width:100%;'); $('##_divContentFields').parent('div').attr('style','width:100%;');
+		window['__mainPrintListingCallbackRollback'] = function() {
+			applyfilter('1','','content');
+		};
+
+		window['__mainPrintListingCallback'] = function(){ 
+			applyfilter('1','','content', function(){
+				Prosis.webPrint.print('##printTitle','.clsListingContent', true, function(){ 
+					$('##_divContentFields').attr('style','width:100%;'); $('##_divContentFields').parent('div').attr('style','width:100%;');
 				});
-			ptoken.navigate('#session.root#/tools/listing/listing/defineRowsToShow.cfm?action=reset&maxRows='+maxrows, pTarget, function(){
-				applyfilter('1','','content');
-				});
+				ptoken.navigate('#session.root#/tools/listing/listing/defineRowsToShow.cfm?action=reset&maxRows='+maxrows, pTarget, '__mainPrintListingCallbackRollback');
 			});
-		});
+		};
+		
+		ptoken.navigate('#session.root#/tools/listing/listing/defineRowsToShow.cfm?action=all&maxRows='+maxrows, pTarget, '__mainPrintListingCallback');
 	}
 	
 </script>

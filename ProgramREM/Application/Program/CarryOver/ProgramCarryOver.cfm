@@ -50,7 +50,7 @@
 		if( _CF_error_messages.length == 0 ) {		
 		    <!--- [it passed Passed the CFFORM JS validation, now run a Ajax script to save] --->
 			Prosis.busy('yes') 
-			ColdFusion.navigate('ProgramCarryOverSubmit.cfm?Mission=#Org.Mission#&Period='+per+'&PeriodCurrent=#URL.Period#&Edition='+document.getElementById('editionselect').value,'process','','','POST','programform')
+			ptoken.navigate('ProgramCarryOverSubmit.cfm?Mission=#Org.Mission#&Period='+per+'&PeriodCurrent=#URL.Period#&Edition='+document.getElementById('editionselect').value,'process','','','POST','programform')
 		 }   
 	
 	 }
@@ -108,12 +108,12 @@
 
 	<cfoutput>
 	
-		<table width="97%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+		<table width="97%" height="100%" align="center">
 				
 		<!--- process submit box --->
 		<tr colspan="2" class="hide"><td id="process"></td></tr>	
 		
-		<tr><td colspan="2" style="padding:10px">
+		<tr><td colspan="2" style="padding:10px;background-color:f1f1f1">
 
 				<table>
 				
@@ -183,7 +183,7 @@
 		</cfoutput>
 		
 		<tr>
-			<td colspan="2" valign="top" height="100%" style="padding-left:10px;padding-right:10px">
+			<td colspan="2" valign="top" height="100%" style="padding-left:1px;padding-right:1px">
 				<cf_divscroll id="content">
 					<cfinclude template="ProgramCarryOverMain.cfm">
 				</cf_divscroll>

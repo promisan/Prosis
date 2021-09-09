@@ -82,9 +82,8 @@
 			alert("#tNoLines#.")
 		
 		} else {
-		
-			try { parent.ColdFusion.Window.destroy('mysubmit',true) } catch(e) {}
-			parent.ColdFusion.Window.create('mysubmit', 'Submit', '',{x:100,y:100,height:parent.document.body.clientHeight-80,width:parent.document.body.clientWidth-80,modal:true,resizable:false,center:true})    
+					
+			parent.ProsisUI.createWindow('mysubmit', 'Submit', '',{x:100,y:100,height:parent.document.body.clientHeight-80,width:parent.document.body.clientWidth-80,modal:true,resizable:false,center:true})    
 			parent.ptoken.navigate('#session.root#/Procurement/Application/Requisition/Process/RequisitionCreate.cfm?req='+lis+'&status='+sta+'&mission=#URL.Mission#&period='+per,'mysubmit') 	
 
 		}	

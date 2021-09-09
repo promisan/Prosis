@@ -155,8 +155,7 @@ password="#SESSION.dbpw#">
 		AND       HistoricContract != '1'	
 		AND       DateEffective < '#EODNext#'		        
 		ORDER BY  DateEffective DESC		
-	</cfquery>
-	
+	</cfquery>	
 	
 	<cfif getPeriod.recordcount neq "0">
 		<cfset max = getPeriod.DateExpiration>
@@ -165,7 +164,6 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 	<cfset balancestatus = "1">
-
 
 </cfif>
 
@@ -556,9 +554,14 @@ password="#SESSION.dbpw#">
 							<cfset dte1=createdate(year(min),month(min),1)>
 							<cfset dte = createdate(year(min),month(min),day(DaysInMonth(dte1)))>
 						<cfelse>
-							<cfset dte1=createdate(year(min),month(min)+1,1)>
-						    <cfset dte = createdate(year(min),month(min)+1,day(DaysInMonth(dte1)))>
-						</cfif>	
+						    <cfif month(min) eq "12">
+								<cfset dte1 = createdate(year(min)+1,1,1)>
+							    <cfset dte  = createdate(year(min)+1,1,day(DaysInMonth(dte1)))>
+							<cfelse>
+								<cfset dte1 = createdate(year(min),month(min)+1,1)>
+							    <cfset dte  = createdate(year(min),month(min)+1,day(DaysInMonth(dte1)))>
+							</cfif>
+						</cfif> 
 							
 						<cfset dy = datediff("d",min,dte)+1>
 											

@@ -38,28 +38,43 @@
 <!--- -------------------------- --->
 
 <cf_ModuleInsertSubmit
-	   SystemModule="Warehouse" 
-	   FunctionClass = "Application"
-	   FunctionName = "Asset Control" 
-	   MenuClass = "Mission"
-	   MenuOrder = "1"
-	   MainMenuItem = "1"
-	   FunctionMemo = "Asset Control and Management"
-	   ScriptName = "asset"
-	   AccessUserGroup = "0">     
+	   SystemModule      = "Warehouse" 
+	   FunctionClass     = "Application"
+	   FunctionName      = "Asset Control" 
+	   MenuClass         = "Mission"
+	   MenuOrder         = "1"
+	   MainMenuItem      = "1"
+	   FunctionMemo      = "Asset Control and Management"
+	   ScriptName        = "asset"
+	   AccessUserGroup   = "0">     
 	   
 <cf_ModuleInsertSubmit
-	   SystemModule="Warehouse" 
-	   FunctionClass = "Application"
-	   FunctionName = "Supply Request and Stock Task Order" 
-	   MenuClass = "Mission"
-	   MenuOrder = "2"
-	   MainMenuItem = "1"
-	   FunctionMemo = "Warehouse Stock Request and Processing"
-	   ScriptName = "taskorder"
-	   AccessUserGroup = "0">   	   
+	   SystemModule      = "Warehouse" 
+	   FunctionClass     = "Application"
+	   FunctionName      = "Stock Availability and quotation" 
+	   MenuClass         = "Mission"
+	   MenuOrder         = "1"
+	   MainMenuItem      = "1"
+	   FunctionMemo      = "Inquiry stock and submit quotations"
+	   FunctionDirectory = "Warehouse/Application"
+	   FunctionPath      = "StockOrder/Quote/StockView.cfm"   	  
+	   AccessUserGroup   = "1"
+	   Operational       = "1"> 	   
 
-<!--- disabled --->
+<!--- disabled fuel --->
+	   
+<cf_ModuleInsertSubmit
+	   SystemModule      = "Warehouse" 
+	   FunctionClass     = "Application"
+	   FunctionName      = "Supply Request and Stock Task Order" 
+	   MenuClass         = "Mission"
+	   MenuOrder         = "2"
+	   MainMenuItem      = "1"
+	   FunctionMemo      = "Warehouse Stock Request and Processing"
+	   ScriptName        = "taskorder"
+	   AccessUserGroup   = "0">   	   
+	   
+<!--- disabled fuel --->
 
 <cf_ModuleInsertSubmit
 	   SystemModule="Warehouse" 
@@ -72,7 +87,9 @@
 	   FunctionMemo = "Issue requests for (Non) expendable items"
 	   ScriptName = "supply"
 	   AccessUserGroup = "0"
-	   Operational="0">	   
+	   Operational="0">	 
+	   
+<!--- internal supply request --->	     
 	 	    
 <cf_ModuleInsertSubmit
 	   SystemModule="Warehouse" 
@@ -85,6 +102,8 @@
 	   FunctionDirectory = "Warehouse/Application"
 	   FunctionPath = "Process/Clearance/Listing.cfm"
 	   AccessUserGroup = "0">
+	   
+<!--- main workhorse --->	   
     
 <cf_ModuleInsertSubmit
 	   SystemModule="Warehouse" 
@@ -127,18 +146,6 @@
 <!--- ---------Inquiry---------- --->
 <!--- -------------------------- --->
 
-<cf_ModuleInsertSubmit
-   SystemModule      = "Warehouse" 
-   FunctionClass     = "Inquiry"
-   FunctionName      = "Stock Availability" 
-   MenuClass         = "Main"
-   MenuOrder         = "7"
-   MainMenuItem      = "1"
-   FunctionMemo      = "Stock Availability"
-   FunctionDirectory = "Warehouse/Inquiry"
-   FunctionPath      = "Availability/StockInquiry.cfm"   	  
-   AccessUserGroup   = "0"
-   Operational       = "1"> 
 
 <cf_ModuleInsertSubmit
    SystemModule      = "Warehouse" 

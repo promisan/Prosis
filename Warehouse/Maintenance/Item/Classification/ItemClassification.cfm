@@ -29,7 +29,16 @@
 					AND T.Operational  = 1 
 					AND C.ItemPointer != 'UoM' <!--- reserved for ItemUoM --->
 					AND  ValueClass IN ('List','Lookup')
-		WHERE    T.TopicClass = 'EntryClass'			
+		WHERE    T.TopicClass = 'EntryClass'	
+		
+		UNION 
+		
+		SELECT	 T.*
+		FROM     Ref_Topic T INNER JOIN Ref_TopicCategory C ON T.Code = C.Code
+					AND C.Category   = '#Item.Category#'
+					AND T.Operational  = 1 					
+					-- AND  ValueClass IN ('List','Lookup')
+		WHERE    T.TopicClass = 'Category'					
 		
 		UNION 
 		
@@ -171,17 +180,16 @@ password="#SESSION.dbpw#">
 							  FROM   #tbcl#
 							  WHERE  Topic  = '#Code#'		
 							  AND    ItemNo = '#Item.ItemNo#'				 
-						</cfquery>		
+						</cfquery>							
 						
-						
-						<cfinput type="Text"
-					       name="Topic_#Code#"
-					       required="#ValueObligatory#"					     
-					       size="#valueLength#"
-						   class="regularxxl enterastab"
-						   message="Please enter a #Description#"
-						   value="#GetValue.TopicValue#"
-					       maxlength="#ValueLength#">   		
+						<cfinput type = "Text"
+					       name       = "Topic_#Code#"
+					       required   = "#ValueObligatory#"					     
+					       size       = "#valueLength#"
+						   class      = "regularxxl enterastab"
+						   message    = "Please enter a #Description#"
+						   value      = "#GetValue.TopicValue#"
+					       maxlength  = "#ValueLength#">   		
 				    
 				</cfif>
 								

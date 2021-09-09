@@ -14,7 +14,7 @@
 
 	<cf_screentop height="100%" 
 	   scroll="Yes" 
-	   html="Yes" 
+	   html="No" 
 	   label="Supplies #vLabel# Item" 
 	   option="Maintain Supply Item" 
 	   layout="webapp" 
@@ -26,7 +26,7 @@
 
 	<cf_screentop height="100%" 
 	   scroll="Yes" 
-	   html="Yes" 
+	   html="No" 
 	   label="Supplies #vLabel# Item" 	   	
 	   layout="webapp"    
 	   banner="gray" 
@@ -56,7 +56,7 @@
 
 <cfform action="#session.root#/warehouse/maintenance/item/Consumption/ItemSupplyEditSubmit.cfm?id=#url.id#&supply=#url.supply#&uom=#url.uom#&type=#url.type#" method="POST" name="frmItemSupply" target="processItemSupply">
 		
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
 <cfoutput>
 	<tr><td height="15"></td></tr>    			

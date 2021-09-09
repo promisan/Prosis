@@ -54,10 +54,14 @@
 	
 	</cfif>		
 	
+	
 	<cftry>
 	
-	    <cfset sc = replace(QueryScript, "SELECT",  "SELECT TOP 1")> 
+	    <cfset sc = replaceNoCase(QueryScript, "SELECT",  "SELECT TOP 1")> 
 		
+		<!--- added 6/9/2021 --->
+		<cfset sc = replaceNoCase(sc, "--Condition","")> 
+				
 		<cfoutput>
 		<cfsavecontent variable="sc">	
 			SELECT *
@@ -73,7 +77,7 @@
 		<cfset fileNo = "#Header.DetailSerialNo#">					
 		<cfinclude template="QueryPreparation.cfm">				
 		<cfinclude template="QueryValidateReserved.cfm">
-																				
+																								
 		<cfquery name="SelectQuery" 
 		datasource="#Form.QueryDatasource#" 
 		username="#SESSION.login#" 
@@ -94,31 +98,27 @@
 		
 		<cfoutput>		
 		
-		<script language="JavaScript">		
-		
-			_cf_loadingtexthtml='';	    
+			<script language="JavaScript">		
 			
-			ptoken.navigate('../InquiryBuilder/InquiryEditFields.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','fields')
-			// ColdFusion.navigate('../InquiryBuilder/SubDrill.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','drill')
-			ptoken.navigate('../InquiryBuilder/SubTable.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','table')
-			ptoken.navigate('../InquiryBuilder/SubBottom.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','bottom')
-						
-		</script>
+				_cf_loadingtexthtml='';	    
+				
+				ptoken.navigate('../InquiryBuilder/InquiryEditFields.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','fields')
+				// ptoken.navigate('../InquiryBuilder/SubDrill.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','drill')
+				ptoken.navigate('../InquiryBuilder/SubTable.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','table')
+				ptoken.navigate('../InquiryBuilder/SubBottom.cfm?systemfunctionid=#url.systemfunctionid#&functionserialno=#url.functionserialno#','bottom')
+							
+			</script>
 		
-		<table class="formpadding">
-		
-		<tr>		
-		<td class="labelmedium2" style="padding-left:4px"><font color="008000">Query validated and saved #timeformat(now(),"HH:MM")#.</td></tr>		
-		<script>		
-			document.getElementById('testing').className = "button10g"
-		</script>					
-		
-		</table>
+			<table class="formpadding" style="height:10px">			
+			<tr>		
+			<td class="labelmedium2" style="padding-left:4px"><font color="008000">Query validated and saved #timeformat(now(),"HH:MM:SS")#.</td></tr>				
+			<script>		
+				document.getElementById('testing').className = "button10g"
+			</script>							
+			</table>
 		</cfoutput>
-		<cfabort>
-	
-		<cfcatch>
-		
+			
+		<cfcatch>		
 											
 				<cfoutput>
 				<table width="100%">
@@ -129,10 +129,8 @@
 				#CFCatch.Message# - #CFCATCH.Detail#
 				</td></tr>
 				<tr class="labelmedium"><td>#Form.QueryDatasource#</td></tr>
-				<tr><td width="100%" style="padding:5px;background-color:FF8080;border:1px solid silver">
-				
-				#preservesinglequotes(sc)#
-								
+				<tr><td width="100%" style="padding:5px;background-color:FF8080;border:1px solid silver">				
+				#preservesinglequotes(sc)#								
 				</td></tr>
 				</table>		       
 				</cfoutput>

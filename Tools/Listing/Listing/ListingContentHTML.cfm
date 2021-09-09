@@ -1,6 +1,5 @@
 
-
-					
+				
 
 <cfif url.listgroupfield eq "" 
       or url.listgrouptotal eq "0" <!--- no summary requested --->
@@ -71,18 +70,19 @@
 								
 					  <cfset presentation = "group">
 					  
-				</cfif>								
+				</cfif>			
 																															
 				<cf_divscroll id="_divContentFields" overflowx="auto" height="#vContentHeight#">
 				
-					<div id="_divSubContent" class="clsListingContent">
-					
+					<div id="_divSubContent" class="clsListingContent">					
 										
 					<cfoutput>
-																			   		   
+																								   		   
 						<table style="width:98%" class="navigation_table" id="#box#_table">
-																														
-							<cfinclude template="ListingHeader.cfm">							
+																																												
+							<cfinclude template="ListingHeader.cfm">	
+							
+									
 																			
 							<cfset cols = session.listingdata[box]['columns']>									
 							
@@ -97,7 +97,7 @@
 								<cfsavecontent variable="mygridcontent">				
 								   								  
 									<cfif presentation eq "list">
-																				  																								
+																							  																								
 										<cfset navmode = attributes.navigation>		
 										<!--- show records optionally with group information --->																																													
 										<cfinclude template="ListingContentHTMLStandard.cfm">	
@@ -116,7 +116,8 @@
 							
 							</cfif>
 							
-							<tr class="hidden"><td id="#attributes.box#_gridbox"></td></tr>										
+							<tr class="hidden"><td id="#attributes.box#_gridbox"></td></tr>		
+																	
 						
 						</table>	
 											
@@ -147,6 +148,7 @@
 	</table>	
 	
 </cfoutput>	
+
 
 <script>
 	try { Prosis.busyRegion('no','_divSubContent') } catch(e) {}

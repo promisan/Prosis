@@ -100,7 +100,7 @@
 				AND      DateEffective <= GETDATE() 
 				<cfif lowest neq "">
 				AND       DateEffective >= #lowest#
-				</cfif>				
+				</cfif>							
 		</cfquery>		
 				
 		<cfset sale.mission = getWarehouse.Mission>	
@@ -151,7 +151,7 @@
 		<cfset sale.itemclass       = getItem.ItemClass>	
 		
 		<!--- get the most recent effective schedule for this customer --->
-				
+					
 		<cfif PriceSchedule eq ""> 
 				
 			<cfquery name="getSchedule" 
@@ -207,6 +207,8 @@
 			AND       PriceSchedule = '#PriceSchedule#'		
 			ORDER BY  DateEffective DESC
 		</cfquery>	
+		
+		
 						
 		<cfif getPrice.recordcount eq "1">
 		
@@ -220,6 +222,9 @@
 		<!--- we check for a price in ANOTHER currency and convert it to the currency of selection --->
 		
 		<cfelse>
+		
+		
+		
 		
 			<cfquery name="getPrice" maxrows=1 dbtype="query">
 				SELECT    *
@@ -242,7 +247,7 @@
 					 <cfset sale.taxcode       = getPrice.TaxCode>
 					 					 
 			<cfelse>	
-			
+						
 			    <!--- get from any warehouse in the same mission --->
 			   
 			    <cfquery name="getPrice" maxrows=1 dbtype="query">
@@ -253,10 +258,11 @@
 					<!--- price schedule found, take last schedule --->
 					AND       PriceSchedule = '#PriceSchedule#'		
 					ORDER BY  DateEffective DESC
+					
 		        </cfquery>
 			   												
 				<cfif getPrice.recordcount eq "1">
-									
+													
 					 <cfset sale.priceschedule = getPrice.PriceSchedule>
 					 <cfset sale.scheduleprice = getPrice.SalesPrice>
 					 <cfset sale.price         = getPrice.SalesPrice>

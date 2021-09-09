@@ -92,7 +92,7 @@
 					
 				</cfloop>
 				
-					<td align="center" style="min-width:#cwd#px;border-left:1px solid silver;" colspan="1"><cf_tl id="Total"></td>
+					<td align="center" style="min-width:#cwd+10#px;border-left:1px solid silver;" colspan="1"><cf_tl id="Total"></td>
 					<cfset span = span + (cnt-1)>						
 					
 				</tr>					
@@ -142,7 +142,7 @@
 					</cfloop>
 					
 					<cfif cnt eq "2">						     
-					     <td style="background-color:e6e6e6;text-align:center;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:1px"></td>							 
+					     <td style="background-color:e6e6e6;text-align:center;min-width:#cwd+10#px;width:#perc#%;border-left:1px solid silver;padding-right:1px"></td>							 
 						 <cfset cell = cell+1>
 					<cfelse>	
 						 	 <td style="width:#perc*(cnt-1)#%">
@@ -267,7 +267,7 @@
 				<!--- total column --->
 				
 				<cfif cnt eq "2">						     
-				     <td style="text-align:right;background-color:##d6d6d680;min-width:#cwd#px;width:#perc#%;border-left:1px solid silver;padding-right:6px">
+				     <td style="text-align:right;background-color:##d6d6d680;min-width:#cwd+10#px;width:#perc#%;border-left:1px solid silver;padding-right:6px">
 					 <cfparam name="myTot[#cnt#]" default="">
 					 <cfset val = myTot[cnt]>#val#
 						 </td>				 						

@@ -5,7 +5,7 @@
 	<cfoutput> 		
 								
 		<cfloop array="#attributes.listlayout#" index="current">	
-								
+														
 			<cfparam name="current.display"     default="yes">		
 			<cfparam name="current.style"       default="">
 			<!--- row to be shown : row 1, row 2 etc. --->
@@ -255,6 +255,69 @@
 					<td>						
 					<table height="20"><tr><td height="100%" bgcolor="0080C0" style="width:1px"></td></tr></table>									
 					</td>
+					
+				<cfelseif current.formatted eq "Attachment">		
+				
+					<CFSET hascontent="Yes">	
+					
+					 <cfquery name="attach" 
+						datasource="AppsSystem" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						SELECT       AttachmentId,FileName
+						FROM         Attachment						
+					    WHERE        AttachmentId = '#evaluate(contentformat)#' 
+						and          FileStatus != '9'
+					</cfquery>	
+					
+					<cfset cellclick = "attachopen('#attach.AttachmentId#')">
+
+					<cfset inner = "#left(attach.FileName,20)#..">
+										
+					<cfif url.ajaxid eq "content">	
+													
+						<td id="f#box#_#dkey#_#cnt#" colspan="#current.colspan#" align="#current.align#" style="background-color:BFECFB;padding-right:6px;padding-left:6px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" title="#attach.FileName#" onclick="#cellclick#">#inner#</td>																		
+					
+					<cfelseif url.ajaxid eq "append">
+					 
+					    <!--- ---------- --->
+					 	<!--- APPEND ROW --->
+						<!--- ---------- --->
+						
+						<cfscript>
+						 
+						 if (len(cellclick) gte '2') {
+							 myclick = "onclick=#cellclick#"
+							} else {
+						     myclick = "" 
+							} 
+						 boxcontent[cnt] = "<td id='f#box#_#dkey#_#rowshow#_#cnt#' colspan='#current.colspan#' align='#current.align#' style='padding-right:6px;background-color:BFECFB;padding-left:6px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;' title='#attach.FileName#' #myclick#>#inner#</td>"
+						 						 										
+						</cfscript>		
+					 							
+					<cfelse>	
+									
+						<!--- instead of showing we update the field in listingshow.cfm line 379 and then we display that info --->				   																		
+					   <script language="JavaScript">		
+							
+							   try {					   																					
+								se = document.getElementById('f#box#_#dkey#_#rowshow#_#cnt#')																																			
+								if (se) { $('##'+'f#box#_#dkey#_#rowshow#_#cnt#').html('#inner#'); }						
+ 							    } catch(e) {}	
+															
+							</script> 							
+						
+						<!--- 
+						// first we set the value in a formfield that is is listingshow							
+								// document.getElementById('f#box#_fieldvalue').value = '#urlencodedformat(inner)#'																			
+								// output that value in doing a post on that form
+								// _cf_loadingtexthtml='';								
+								// ptoken.navigate('#session.root#/Tools/Listing/Listing/setValue.cfm?field=f#box#_fieldvalue','f#box#_#dkey#_#rowshow#_#cnt#','','','POST','mylistform')						 								
+							    // se.className = "#class#" --->
+																						
+					</cfif>		
+					
+					
 									
 				<!--- rating box --->	
 						
@@ -335,7 +398,7 @@
 						 
 						 <cfscript>
 					 
-						   inner = evaluate(contentformat)						 
+						   inner = evaluate(contentformat)								   				 
 						   if (len(cellclick) gte "2") {
 							    myclick = "onclick=toggledrill('#drillmode#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')"
 							} else {	
@@ -424,6 +487,8 @@
 						<cfif rowshow gte "2" and len(inner) gte "2">
 							<cfset hascontent = "Yes">															
 						</cfif>											
+						
+						<!--- to test for text value only : white-space: nowrap;overflow: hidden;text-overflow: ellipsis; --->
 																																		
 						<td id="f#box#_#dkey#_#rowshow#_#cnt#" <cfif current.align neq "left">align="#current.align#"</cfif> class="#attributes.classcell#" 
 						colspan="#current.colspan#" style="#cellstyle#;#current.style#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#</td>																			

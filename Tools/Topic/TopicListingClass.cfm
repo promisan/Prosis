@@ -27,23 +27,16 @@
 		
 		<cfcase value="Item">
 								
-			<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
-				
-				<tr><td height="25" colspan="3" align="left" class="labelmedium"><b>Asset Item Topic</b></td> 
-				    <td colspan="2"></td>
-				</tr>
-				<tr><td height="1" colspan="3" class="linedotted"></td></tr>
-				
-				<cfset classlink = "#SESSION.root#/tools/Topic/Materials/ItemClass.cfm?alias=#alias#&Topic=#Code#">
-						
-				<tr> 
-				
+			<table width="100%" align="center">
+													
+				<cfset classlink = "#SESSION.root#/tools/Topic/Materials/ItemClass.cfm?alias=#alias#&Topic=#Code#">						
+				<tr> 				
 				<td height="25" colspan="3" align="left" class="labelit">
 	
 				   <cf_selectlookup
 					    class    = "Item"
 					    box      = "l#code#_item"
-						title    = "Select Item Master"
+						title    = "Select Item"
 						link     = "#classlink#"								
 						des1     = "ItemNo">
 							
@@ -62,15 +55,30 @@
 				
 		</cfcase>
 		
+		<cfcase value="Category">		
+							
+				<table width="100%" align="center">
+				
+					<tr class="line"><td style="height:30px" colspan="3"  align="left"><cf_tl id="Select"><cf_tl id="Category"></td>												
+					<tr>
+						<cfset link = "#SESSION.root#/Tools/Topic/Materials/Category.cfm?topic=#code#">						
+						<td colspan="3"> <cf_securediv bind="url:#link#" id="#code#_category"> </td>
+					</tr>
+					
+				</table>
+				
+				<input type="hidden" name="ClassForm" id="ClassForm" value="Saved">
+									
+		</cfcase>
+		
 		<cfcase value="EntryClass">		
 							
-				<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" bordercolor="silver" rules="rows">
+				<table width="100%" align="center">
 				
-					<tr class="line"><td height="25" colspan="3"  align="left">Entry Class</b></td>
-					<td colspan="2"></td></tr>										
+					<tr class="line"><td style="height:30px" colspan="3"  align="left"><cf_tl id="Select"><cf_tl id="EntryClass"></td>												
 					<tr>
 						<cfset link = "#SESSION.root#/Tools/Topic/Materials/EntryClass.cfm?topic=#code#">						
-						<td height="25" colspan="3" align="left"> <cfdiv bind="url:#link#" id="#code#_entryclass" > </td>
+						<td colspan="3" align="left"> <cf_securediv bind="url:#link#" id="#code#_entryclass" > </td>
 					</tr>
 					
 				</table>

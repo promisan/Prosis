@@ -167,8 +167,7 @@
 							<cfquery name="lookupdata" datasource="#dsn#" 
 							  username="#SESSION.login#" password="#SESSION.dbpw#">
 								#preservesingleQuotes(lookup)#
-							</cfquery>	
-							
+							</cfquery>								
 						
 						<cfelse>	
 																		

@@ -1,4 +1,17 @@
 
+<!--- manual      --->
+
+<cf_ModuleInsertSubmit
+   SystemModule="Payroll" 
+   FunctionClass = "Manuals"
+   FunctionName = "Payroll Manual"    
+   MenuOrder = "1"
+   MainMenuItem = "1"   
+   FunctionMemo = "Payroll manual"
+   FunctionDirectory = "Manual/Payroll"
+   FunctionPath = "Payroll.pdf"
+   AccessUserGroup = "0">    
+   
 <!--- application --->
    
 <cf_ModuleInsertSubmit
@@ -60,6 +73,7 @@
    FunctionDirectory = "Payroll/Inquiry"
    FunctionPath = "Settlement/SettlementView.cfm"
    AccessUserGroup = "0">      
+
    
 <!--- context menu --->   
     

@@ -65,11 +65,15 @@ password="#SESSION.dbpw#">
 		</cfcase>
 		
 		<cfcase value="Amount0">	
-			<cfset formatted = "numberformat(#fieldname#,',')">	
+			<cfset formatted = "numberformat(#fieldname#,',__')">	
 		</cfcase>
 		
 		<cfcase value="Number">	
-			<cfset formatted = "numberformat(#fieldname#,',')">	
+			<cfset formatted = "numberformat(#fieldname#,',__')">	
+		</cfcase>
+		
+		<cfcase value="Attachment">	
+			<cfset formatted = "attachment">	
 		</cfcase>
 	
 	</cfswitch>

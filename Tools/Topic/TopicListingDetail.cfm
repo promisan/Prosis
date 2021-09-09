@@ -38,7 +38,7 @@
 
 </cfif>
 
-<table width="100%" class="navigation_table" class="formpadding">
+<table style="width:98%" class="navigation_table" class="formpadding">
 		   	
 	 <TR class="fixrow labelmedium2 line">
 		<td width="10"></td>

@@ -786,7 +786,8 @@
 						  WHERE  Code IN (SELECT Code 
 				                 FROM   ItemTopic 
 								 WHERE ItemNo = '#Ass#')
-						  AND Operational = 1				  
+						  AND Operational = 1			
+						  AND TopicClass = 'Asset'
 				</cfquery>
 							
 				<cfloop query="getTopics">

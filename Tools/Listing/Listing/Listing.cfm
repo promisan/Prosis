@@ -501,7 +501,6 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 							
 </cfif>
 
-
 <cfparam name="URL.listorderformat"        default="">
 <cfparam name="URL.listgroupformat"        default="">
 
@@ -1029,8 +1028,8 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 			
 			<!--- if we find an enforced filter without value we ensure the result = 0 --->
 			
-			<cfif current.filterforce eq "1" and val eq "">
-			     <cfset condition = "AND 1=0">
+			<cfif current.filterforce eq "1" and val eq "">									
+			     <cfset condition = "AND 1=0">				
 			</cfif>
 							
 		</cfif>	

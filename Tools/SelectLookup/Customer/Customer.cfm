@@ -27,7 +27,7 @@
 		<INPUT type="hidden" name="Crit1_FieldName" id="Crit1_FieldName" value="CustomerName">		
 		<INPUT type="hidden" name="Crit1_FieldType" id="Crit1_FieldType" value="CHAR">
 		<TR>
-		<TD style="height:27px;padding:2px" width="100" class="labelmedium"><cf_tl id="Name">:</TD>
+		<TD style="height:27px;padding:2px;min-width:100px"  class="labelmedium"><cf_tl id="Name">:</TD>
 		<TD><SELECT name="Crit1_Operator" id="Crit1_Operator" class="regularxl">#SelectOptions#</SELECT>			
 		<INPUT type="text" name="Crit1_Value" id="Crit1_Value" class="regularxl" size="20" value=""> 	
 		</TD>

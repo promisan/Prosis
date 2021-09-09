@@ -156,9 +156,10 @@
 								FROM     xl#client.languageId#_Ref_ModuleControl
 								WHERE    SystemModule = '#SystemModule#'
 								AND      FunctionClass != 'PDF'	
-								AND      MainMenuItem = '#itm#'
+								AND      MainMenuItem = '#itm#'								
 							</cfquery>
 							
+														
 						  </cfif>	
 																	
 					</cfif>

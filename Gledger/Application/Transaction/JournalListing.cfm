@@ -196,9 +196,7 @@
 				</td>	
 			
 			<cfelse>
-			
-			
-					
+				
 				<cfif Journal.TransactionCategory is "Payables" or
 				      Journal.TransactionCategory is "Memorial" or 
 				      Journal.TransactionCategory is "DirectPayment" or 
@@ -210,7 +208,7 @@
 					  
 					<td>	
 									
-					<table cellspacing="0" cellpadding="0" class="formpadding">
+					<table class="formpadding">
 					
 						<tr class="labelmedium2">					
 						

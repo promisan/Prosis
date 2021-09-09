@@ -443,6 +443,7 @@
 				 AND   OrgUnitCode = '#Form.OrgUnitCode#'
      </cfquery>
 	
+	
 		
 	<cfoutput>
         <script language="JavaScript">
@@ -450,7 +451,7 @@
 		    try {
 	    	parent.unitshow('#org.orgunit#')			
 			} catch(e) {}			
-			window.location = "#link#&id4=#url.mode#"
+			window.location = "#link#&id4=#url.mode#&mid=#mid#"
 	    </script>	
 	</cfoutput> 
 	

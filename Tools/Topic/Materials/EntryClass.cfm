@@ -15,16 +15,13 @@
 				 EntryClass,
 				 OfficerUserId,
 				 OfficerLastName,
-				 OfficerFirstName,
-				 Created)
+				 OfficerFirstName)
 			VALUES(
 				'#url.topic#',
 				'#url.class#',
 				'#SESSION.acc#',
 				'#SESSION.last#',
-				'#SESSION.first#',
-				getdate()
-			)
+				'#SESSION.first#')
 			
 		</cfquery>
 		
@@ -49,10 +46,10 @@
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			UPDATE Ref_TopicEntryClass
-			SET    ItemPointer = '#url.ItemPointer#'
-			WHERE  Code = '#url.topic#'	
-			AND    EntryClass = '#url.class#'
+			UPDATE  Ref_TopicEntryClass
+			SET     ItemPointer = '#url.ItemPointer#'
+			WHERE   Code        = '#url.topic#'	
+			AND     EntryClass  = '#url.class#'
 		</cfquery>
 		
 </cfif>
@@ -70,30 +67,29 @@ password="#SESSION.dbpw#">
 
 </cfquery>
 
-
 <cfset columns = 4>
 <cfset cont    = 0>
 
 <cfoutput>
 
 <table width="100%">
-
-	<tr>  <td colspan="#columns#" height="15" align="center"> </td> </tr>
 		
 	<cfloop query="Select">
 	
-		<cfif cont eq 0> <tr> </cfif>
+		<cfif cont eq 0> <tr class="labelmedium2"></cfif>
 		<cfset cont = cont + 1>
 		
 		 <td bgcolor="<cfif selected neq "">ffffbf</cfif>">
-		 	<input type="checkbox" value="#code#" <cfif Selected neq "">checked="yes"</cfif> onClick="javascript:ColdFusion.navigate('#SESSION.root#/Tools/Topic/Materials/EntryClass.cfm?Topic=#URL.Topic#&class=#code#&checked='+this.checked,'#url.topic#_entryclass')">
+		 	<input type="checkbox" class="radiol" value="#code#" <cfif Selected neq "">checked="yes"</cfif> 
+			onClick="javascript:ptoken.navigate('#SESSION.root#/Tools/Topic/Materials/EntryClass.cfm?Topic=#URL.Topic#&class=#code#&checked='+this.checked,'#url.topic#_entryclass')">
 		 </td>
-		<td bgcolor="<cfif selected neq "">ffffbf</cfif>" style="padding-left:3px; font-size:8pt;">#Description#
+		<td bgcolor="<cfif selected neq "">ffffbf</cfif>" style="padding-left:3px;">#Description#
 		</td>
 		
 		<td bgcolor="<cfif selected neq "">ffffbf</cfif>" style="padding-left:3px">
 			<cfif Selected neq "">
-				<select style="font-size : 7pt" onChange="javascript:ColdFusion.navigate('#SESSION.root#/Tools/Topic/Materials/EntryClass.cfm?Topic=#URL.Topic#&class=#code#&ItemPointer='+this.value,'#url.topic#_entryclass')">
+			    <!--- used for creation of the item --->
+				<select style="font-size : 7pt" onChange="javascript:ptoken.navigate('#SESSION.root#/Tools/Topic/Materials/EntryClass.cfm?Topic=#URL.Topic#&class=#code#&ItemPointer='+this.value,'#url.topic#_entryclass')">
 					<option value="Class" <cfif ItemPointer eq "Class">selected</cfif> >Class</option>
 					<option value="Color" <cfif itemPointer eq "Color">selected</cfif> >Color</option>
 					<option value="UoM"   <cfif itemPointer eq "UoM"  >selected</cfif> >UoM</option>
@@ -101,7 +97,7 @@ password="#SESSION.dbpw#">
 			</cfif>
 		</td>
 		 
-		 <cfif cont eq columns> </tr> <tr> <td colspan="3" height="3px"></td></tr> <cfset cont = 0> </cfif>
+		 <cfif cont eq columns> </tr> <cfset cont = 0> </cfif>
 		 
 	 </cfloop>
 	 

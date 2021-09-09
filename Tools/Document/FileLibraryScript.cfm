@@ -67,7 +67,7 @@ function addfile(mode,host,dir,subdir,fil,box,ref,svr,window,pdf,memo) {
 }
 
 function viewfiles(mode,host,dir,subdir,fil) {   
-   ptoken.open("#SESSION.root#/Tools/Document/DocumentView.cfm?mode="+mode+"&ts="+new Date().getTime()+"&host="+host+"&dir="+dir+"&sub="+subdir+"&fil="+fil, "mail","width=800, height=620, status=yes, menubar=yes, toolbar=yes, scrollbars=no, resizable=yes");					
+   ptoken.open("#SESSION.root#/Tools/Document/DocumentView.cfm?mode="+mode+"&host="+host+"&dir="+dir+"&sub="+subdir+"&fil="+fil,"mail","width=800, height=620, status=yes, menubar=yes, toolbar=yes, scrollbars=no, resizable=yes");					
 }  
 
 function mailfiles(mode,host,dir,subdir,fil) {      
@@ -169,7 +169,7 @@ function showfile(mode,openas,id) {
 	    if (openas == "view") {		
 		    <!--- ---------------------------------------------------------------- --->
 		    <!--- perform the read action which copies the file to a secure place- --->
-			<!--- ---------------------------------------------------------------- --->							
+			<!--- ---------------------------------------------------------------- --->								
 			ptoken.open("#SESSION.root#/Tools/Document/FileRead.cfm?scope=actual&id="+id,"_blank");							
 		} else {
     	   ptoken.open("#SESSION.root#/Tools/Document/FileEdit.cfm?mode="+mode+"&ts="+new Date().getTime()+"&id="+id, 'FileLibrary');						

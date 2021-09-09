@@ -3,11 +3,15 @@
 
 <cfset programlist = "#programlist#,#programcode#">
 
-<TR class="labelmedium line navigation_row">
+<TR class="labelmedium2 line navigation_row">
 	
 	<td height="23"></td>
-	<td  width="10%" style="padding-left:20px"><cfif Reference neq "">#Reference#<cfelse>#ProgramCode#</cfif></td>
-	<td colspan="4" style="background-color:ffffaf;padding-left:5px">#ProgramName#</b></td>
+	<td width="10%" style="padding-left:20px"><cfif Reference neq "">#Reference#<cfelse>#ProgramCode#</cfif></td>
+	<cfif ProgramScope eq "Global" or ProgramScope eq "Parent">
+	<td colspan="4" style="background-color:##80FF8080;padding-left:5px">#ProgramName#</td>
+	<cfelse>
+	<td colspan="4" style="background-color:##ffffaf80;padding-left:5px">#ProgramName#</td>
+	</cfif>
 	<td></td>
 	<td align="center">
 	
@@ -20,8 +24,8 @@
 			 </tr>
 			 </table>
 		     
-		 <cfelse>
-			   <img src="#SESSION.root#/Images/check.png" height="12" width="15" alt="" border="0" align="bottom">
+		 <cfelse>		  
+			   <img src="#SESSION.root#/Images/check.png" height="15" width="15" alt="Selected by default" border="0" align="bottom">
 		 </cfif>
 	</td>
 	
@@ -43,15 +47,14 @@
 	ORDER BY ListingOrder
 	</cfquery>
 		
-  <cfloop query="Components">
-  
+  <cfloop query="Components">  
      
-	   <tr class="line navigation_row labelmedium">
+	   <tr class="line navigation_row labelmedium2">
 		    <td height="21"></td>
-			<td width="10%"></td>
-		    <td bgcolor="ffffaf" colspan="3" style="padding-left:25px" class="labelit">#Components.ProgramName#</A></td>
-			<TD bgcolor="ffffaf"><cfif Reference neq "">#Components.Reference# (#Components.ProgramCode#)<cfelse>#Components.ProgramCode#</cfif></TD>
-			<td bgcolor="ffffaf" align="center" style="padding-right:5px">
+			<td style="min-width:180px"></td>
+		    <td style="background-color:##ffffaf80;padding-left:25px" colspan="3">#Components.ProgramName#</A></td>
+			<TD style="min-width:150px;background-color:##ffffaf80" ><cfif Reference neq "">#Components.Reference# (#Components.ProgramCode#)<cfelse>#Components.ProgramCode#</cfif></TD>
+			<td style="background-color:##ffffaf80"  align="center" style="padding-right:5px">
 			
 				<cfoutput>
 				
@@ -113,13 +116,13 @@
 				
 		<cfloop query="SubComponents">
 		
-		   <tr class="line navigation_row labelmedium">
+		   <tr class="line navigation_row labelmedium2">
 		   
 		   	   <td></td>
 			   <td width="5%"></td>
-			   <td bgcolor="ffffdf" colspan="3" style="padding-left:35px" class="labelit">#SubComponents.ProgramName#</td>
-			   <TD bgcolor="ffffdf" colspan="1" class="labelit"><cfif Reference neq "">#SubComponents.Reference#<cfelse>#SubComponents.ProgramCode#</cfif></TD>
-			   <td bgcolor="ffffdf" colspan="1" align="center">
+			   <td style="background-color:##ffffdf80;padding-left:35px" colspan="3">#SubComponents.ProgramName#</td>
+			   <TD style="background-color:##ffffdf80"  colspan="1"><cfif Reference neq "">#SubComponents.Reference#<cfelse>#SubComponents.ProgramCode#</cfif></TD>
+			   <td style="background-color:##ffffdf80"  colspan="1" align="center">
 				
 			        <cfoutput>
 				

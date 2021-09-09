@@ -180,7 +180,7 @@
 			<cfoutput>
 				<script>
 				 	try {
-					ColdFusion.Window.hide('dialogsubmit');
+					ProsisUI.closeWindow('dialogsubmit');
 					} catch(e) {}
 					
 					#ajaxLink('../Process/RequisitionCreatePending.cfm?mission=#URL.Mission#&period=#URL.Period#')#
@@ -356,7 +356,7 @@
 		var doc = ifrm.contentDocument? ifrm.contentDocument: ifrm.contentWindow.document;
 		var m3 = doc.getElementById('menu3');
 		m3.click();
-		parent.ColdFusion.Window.destroy('mysubmit',true);
+		parent.ProsisUI.closeWindow('mysubmit',true);
 	}		
 					
 </script>

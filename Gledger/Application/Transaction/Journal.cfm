@@ -62,7 +62,6 @@
 	  </cfquery>
 	  --->
 
-	  -
 	<cfquery name="getPeriod" dbtype="query">
 		SELECT DISTINCT AccountPeriod
 		FROM   TransactionListing

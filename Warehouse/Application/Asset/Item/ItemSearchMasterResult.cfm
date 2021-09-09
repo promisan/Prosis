@@ -85,43 +85,42 @@ SELECT   I.*, U.UoM, U.UOMDescription, U.ItemUoMId, C.Description as CategoryDes
 </cfif>
 
 	
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="right" class="navigation_table">
+<table width="100%" align="right" class="navigation_table">
 
   <tr>
    
   	 <td align="right">
     
-		<table width="100%" border="0" cellspacing="0" cellpadding="0"frame="all">   
+		<table width="100%">   
 								
-		<TR>
-		    <td width="30" align="center" height="12"></td>
-			<td width="50" class="labelit" style="padding-left:3px" ><cf_tl id="Code"></td>
-			<TD width="40%" class="labelit" style="padding-left:3px"><cf_tl id="Description"></TD>
-			<TD width="10%" class="labelit" style="padding-left:3px"><cf_tl id="Make"></TD>
-			<TD width="20%" class="labelit" style="padding-left:3px"><cf_tl id="Model"></TD>
-			<td width="10%" class="labelit" style="padding-left:3px"><cf_tl id="UoM"></td>
-			<td width="15%" class="labelit" style="padding-left:3px" ><cf_tl id="Class"></td>
-		   
-		</TR>
-		<tr><td colspan="7" class="linedotted"></td></tr>
-		
-		<CFOUTPUT query="SearchResult">
-		
-			<cfset des = Replace(ItemDescription,'"','','ALL')>
-			
-			<TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f5f5f5'))#" class="navigation_row line">
-				<td height="18" align="center" valign="middle" style="padding-top:3px;padding-left:4px;padding-right:4px" class="navigation_action" onclick="Selected('#ItemNo#','#ItemUoMId#')">
-				 <cf_img icon="select" onclick="Selected('#ItemNo#','#ItemUoMId#')">			
-				</td>
-				<TD class="labelit" style="padding-left:3px;padding-right:3px"><a href="javascript:Selected('#ItemNo#','#ItemUoMId#')">#ItemNo#</a></TD>
-				<TD class="labelit" style="padding-left:3px">#ItemDescription#</TD>			
-				<TD class="labelit" style="padding-left:3px">#Make#</TD>
-				<TD class="labelit" style="padding-left:3px">#Model#</TD>
-				<TD class="labelit" style="padding-left:3px">#UoMDescription#</TD>
-				<TD class="labelit" style="padding-left:3px">#CategoryDescription#</TD>			
+			<TR class="labelmedium2 line">
+			    <td width="30" align="center" height="12"></td>
+				<td width="50" style="padding-left:3px" ><cf_tl id="Code"></td>
+				<TD width="40%" style="padding-left:3px"><cf_tl id="Description"></TD>
+				<TD width="10%" style="padding-left:3px"><cf_tl id="Make"></TD>
+				<TD width="20%" style="padding-left:3px"><cf_tl id="Model"></TD>
+				<td width="10%" style="padding-left:3px"><cf_tl id="UoM"></td>
+				<td width="15%" style="padding-left:3px" ><cf_tl id="Class"></td>		   
 			</TR>
+					
+			<CFOUTPUT query="SearchResult">
 			
-		</CFOUTPUT>
+				<cfset des = Replace(ItemDescription,'"','','ALL')>
+				
+				<TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f5f5f5'))#" class="navigation_row line labelmedium2">
+					<td height="18" align="center" valign="middle" style="padding-left:4px;padding-right:4px" class="navigation_action" 
+					  onclick="Selected('#ItemNo#','#ItemUoMId#')">
+					 <cf_img icon="select" onclick="Selected('#ItemNo#','#ItemUoMId#')">			
+					</td>
+					<TD style="padding-left:3px;padding-right:3px">#ItemNo#</TD>
+					<TD style="padding-left:3px">#ItemDescription#</TD>			
+					<TD style="padding-left:3px">#Make#</TD>
+					<TD style="padding-left:3px">#Model#</TD>
+					<TD style="padding-left:3px">#UoMDescription#</TD>
+					<TD style="padding-left:3px">#CategoryDescription#</TD>			
+				</TR>
+				
+			</CFOUTPUT>
 		
 		</table>
 		

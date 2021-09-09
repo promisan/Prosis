@@ -169,13 +169,11 @@ password="#SESSION.dbpw#">
 
 <table width="97%" align="center">
   	
-	<tr><td colspan="2">			
-		<cfinclude template="InquiryEditQuery.cfm">		
-	</td></tr>  	
+	<tr><td colspan="2"><cfinclude template="InquiryEditQuery.cfm"></td></tr>  	
 			
 	<tr id="detailfunction" name="detailfunction" class="#cl#">
 	
-	   <td colspan="2" style="height:240px;border:1px solid silver;border-top:0px;padding:4px">
+	   <td colspan="2" valign="top" style="height:100%;padding-top:4px">
 	    	
 	   	<cfif URL.SystemFunctionId eq "">
 		
@@ -191,12 +189,10 @@ password="#SESSION.dbpw#">
 	   </td>
 	</tr>
 		
-	<tr><td colspan="2" style="padding-top:5px">
+	<tr><td colspan="2">
 	
 		<table width="100%" cellspacing="0" class="formpadding">			
-			<tr><td>
-			<cfinclude template="InquiryEditSettings.cfm">	
-			</td></tr>				
+			<tr><td><cfinclude template="InquiryEditSettings.cfm"></td></tr>				
 		</table>
 	
 	</td>

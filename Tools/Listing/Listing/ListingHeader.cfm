@@ -19,7 +19,7 @@
 	<!--- ------------------------------------------------------------------------------ --->
 	
 	<cfloop array="#attributes.listlayout#" index="current">
-	
+			
 		 <cfparam name="current.label"        default="">					
 		 <cfparam name="current.formatted"    default="">
 		 <cfparam name="current.width"        default="0">		
@@ -40,8 +40,8 @@
 		 
 		 <cfif showrows lt current.rowlevel>
 		       <cfset showrows = current.rowlevel>
-		 </cfif> 		 
-			 
+		 </cfif> 		
+		 			 
 		 <cfif current.rowlevel eq "2">
 		 
 		    <cfparam name="cols2nd" default="0">
@@ -63,8 +63,11 @@
 			 <!--- does not count as is shown in grouping --->	
 							 		 
 		 <cfelseif current.display eq "1" and current.rowlevel eq "1">
+		 
 		 		 
-		    <cfset col = col+1>		 				
+		    <cfset col = col+1>		
+			
+							
 				
 		    <cfif current.width eq "0">
 			
@@ -73,23 +76,29 @@
 				<cfset labelsize = len(current.label)*3>	
 				<cfset sizefield = len(current.label)*3>													
 				
-				<!--- inspect the first 15 records for the width --->																				
+				<!--- inspect the first 15 records for the width --->		
+												
 				
 				<cfloop query="searchresult" startrow="1" endrow="15">				
-				
+								    										
 				    <cfif current.formatted eq "Rating">					
 						<cfset sizefield = "10">					
 					<cfelse>
-					
-						<cftry>													
+					 	
+					   							
+						<cftry>		
+														
 						    <cfset selitem = "#evaluate(current.formatted)#">	
 							<cfif selitem eq "">
 							     <cfset selitem = "#evaluate(current.field)#">	
 							</cfif>											
-						<cfcatch>						
-						    <cfset selitem = "#evaluate(current.field)#">									
+							
+						<cfcatch>		
+						  				
+						     <cfset selitem = "#evaluate(current.field)#">	
+															
 						</cfcatch>
-						</cftry>
+						</cftry>														
 																														
 						<cfif len(selitem)*2 gt sizefield>																															
 						     <cfset sizefield = len(selitem)*2>									
@@ -98,10 +107,10 @@
 						<cfif sizefield gte "100">
 						     <cfset sizefield = "80">							  
 						</cfif>
-													
-					</cfif>				
-											
-				</cfloop>	
+																															
+					</cfif>	
+																				
+				</cfloop>					
 				
 				<!--- we set the width in an array --->
 				<cfset wd[col] = sizefield>
@@ -117,17 +126,19 @@
 				</cfif>	
 				
 			</cfif>	
-					  
+								  
 		  </cfif>
-	
+		  		  	
     </cfloop>
+	
 				
 	<!--- apply the width --->
 	
 	<cfset totalcols = totalcols+col>
 	
 	<cfset col = 0> 
-		
+	
+			
 	<cfloop array="#attributes.listlayout#" index="current">
 	
 		 <cfparam name="current.label"      default="">		
@@ -249,7 +260,7 @@
 		  </cfif>
 	
     </cfloop>	
-				
+					
 	<cfif attributes.listtype eq "Directory">	
 		<td width="30" class="#attributes.classheader#"><cf_tl id="sel"></td>	
 		<cfset totalcols = totalcols+1>

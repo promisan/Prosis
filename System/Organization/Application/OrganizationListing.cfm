@@ -31,7 +31,7 @@
 function tree(parent,name) {
      
 	url = "#SESSION.root#/System/Organization/Tree/OrgTreeLevel.cfm?direction=horizontal&parent="+parent+"&tree=operational&nme="+name+"&selectiondate=&fund=&postClass=&Layout=&Summary="
-	ColdFusion.navigate(url,'treeview')		
+	ptoken.navigate(url,'treeview')		
 				 
 }
 
@@ -125,7 +125,7 @@ function tree(parent,name) {
 	  
 	<cfoutput>	  
 	
-	<table width="100%" height="100%" cellspacing="0" border="0" cellpadding="0">
+	<table width="100%" height="100%">
 	<tr>
 	
 	<td width="90%" height="4">
@@ -169,6 +169,7 @@ function tree(parent,name) {
 	<td style="padding-left:5px;"><label for="ListMode2"><img src="#SESSION.root#/images/orgchart.gif" height="23" width="23" alt="" border="0"></label>
 	</td>
 	<td style="padding-left:20px; padding-right:10px;">
+	
 		<span id="printTitle" style="display:none;"><cf_tl id="Organization">: #Mission.Mission# [#URL.ID3#]</span>
 		<cf_tl id="Print" var="1">
 		<cf_button2 
@@ -181,6 +182,7 @@ function tree(parent,name) {
 			width		= "30px"
 			printTitle	= "##printTitle"
 			printContent = "##mainOrgContainer">
+			
 	</td>
 	</tr>
 	</table>
@@ -191,16 +193,9 @@ function tree(parent,name) {
 	
 </tr>
 
-<tr><td height="1" class="linedotted" colspan="2"></td></tr>  
-<tr><td colspan="2" height="100%">
- 
-<table width="100%" height="100%" align="center">
-    
-  <tr>  
+<tr><td colspan="2" height="100%" valign="top">  
   
-  <td width="100%" height="100%" colspan="2" valign="top">  
-  
-  	<cf_divscroll style="height:100%; padding:10px;" overflowx="Auto" id="mainOrgContainer">
+  	<cf_divscroll style="height:100%; padding-left:3px;padding-right:3px" overflowx="Auto" id="mainOrgContainer">
   
 	    <cfif url.id1 eq "all">
 		  <cfset mode = "tree">	
@@ -211,9 +206,9 @@ function tree(parent,name) {
 		</cfif>
 		
 	    <cfif client.orgmode eq "listing">
-	    	<cfdiv id="treeview" bind="url:OrganizationListingList.cfm?page=1&id1=#url.id1#&id2=#url.id2#&id3=#url.id3#&id4=#url.id4#">
+	    	<cf_securediv id="treeview" bind="url:OrganizationListingList.cfm?page=1&id1=#url.id1#&id2=#url.id2#&id3=#url.id3#&id4=#url.id4#">
 		<cfelse>
-			<cfdiv id="treeview" bind="url:#SESSION.root#/System/Organization/Tree/OrgTreeInit.cfm?direction=horizontal&mode=#mode#&orgunit=#SearchResult.OrgUnit#&nme=#nme#">
+			<cf_securediv id="treeview" bind="url:#SESSION.root#/System/Organization/Tree/OrgTreeInit.cfm?direction=horizontal&mode=#mode#&orgunit=#SearchResult.OrgUnit#&nme=#nme#">
 		</cfif>	
 	
 	</cf_divscroll>

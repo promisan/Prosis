@@ -6,7 +6,6 @@
 --->
 
 
-
 <cfquery name="Att" 
 	 datasource="AppsSystem"
 	 username="#SESSION.login#" 
@@ -171,8 +170,6 @@
 
 		</cfif>
 		
-		--->
-
 		
 	</cfif>			
 				

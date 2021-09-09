@@ -20,6 +20,7 @@
 	datasource="AppsMaterials"
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
+	
 		SELECT	T.*
 		FROM    Ref_Topic T
 				INNER JOIN Ref_TopicEntryClass C
@@ -28,6 +29,15 @@
 					AND T.Operational = 1 
 					AND C.ItemPointer != 'UoM'
 					AND ValueClass IN ('List','Lookup')
+					
+		UNION 
+		
+		SELECT	 T.*
+		FROM     Ref_Topic T INNER JOIN Ref_TopicCategory C ON T.Code = C.Code
+					AND C.Category   = '#Item.Category#'
+					AND T.Operational  = 1 					
+					-- AND  ValueClass IN ('List','Lookup')
+		WHERE    T.TopicClass = 'Category'						
 		
 		UNION 
 		
@@ -72,8 +82,7 @@
 		
 	<cfelse>
 		
-		<cfset tbcl = "ItemClassification">
-		
+		<cfset tbcl = "ItemClassification">		
 						
 		<cfquery name="Classification" 
 			datasource="appsMaterials" 
@@ -102,8 +111,7 @@
 			WHERE 	Code     = '#Code#'
 			AND 	ListCode = '#vValue#'
 		</cfquery>
-		
-		
+				
 		<cfif trim(vValue) eq "">
 				
 			<cfquery name="Delete" 
@@ -118,44 +126,29 @@
 		
 		<cfelse>
 						
-			<cfif qItemClassification.recordCount eq 0>
-			
+			<cfif qItemClassification.recordCount eq 0>			
 												
-				<cfif TopicClass eq "Details">					
-				
-					<cftry>			
-									
+				<cfif TopicClass eq "Details">				
+													
 					<cfquery name="Insert" 
 						datasource="appsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
 							INSERT INTO ItemTopic (
 									ItemNo,
-									Topic,	
-									<cfif valueClass eq "List">
-									ListCode,
-									</cfif>
-									TopicValue,							
+									Topic,																
 									OfficerUserId,
 									OfficerLastName,
 									OfficerFirstName
 								) VALUES (
 									'#url.id#',
-									'#getTopics.code#',		
-									<cfif valueClass eq "List">
-									'#vValue#',
-									</cfif>
-									'#vValue#',						
+									'#getTopics.code#',															
 									'#SESSION.acc#',
 									'#SESSION.last#',
 									'#SESSION.first#'
 								)
 					</cfquery>
-					
-					<cfcatch></cfcatch>
-					
-					</cftry>
-					
+										
 				</cfif>
 			
 				<cfquery name="Insert" 

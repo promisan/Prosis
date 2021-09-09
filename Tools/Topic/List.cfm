@@ -32,13 +32,13 @@ password="#SESSION.dbpw#">
 <cfparam name="URL.ID2" default="new">
 <cfform  method="POST"  name="listform" id="listform">
 
-<table width="90%" class="navigation_table" align="center" border="0" style="padding-left:10px;padding-right:10px">
+<table width="90%" class="navigation_table" align="center" style="padding-left:10px;padding-right:10px">
    
 		<cfif list.recordcount eq "0">
 		  <cfset url.id2 = "new">
 		</cfif>  
 				
-		    <TR class="line labelmedium">
+		    <TR class="line labelmedium2">
 			   <td height="23" style="padding-left:3px" width="40">#.</td>
 			   <td width="50">Code</td>
 			   <td width="60%">Description</td>			  
@@ -47,13 +47,12 @@ password="#SESSION.dbpw#">
 			   <td colspan="2" align="right">
 		       <cfoutput>
 				 <cfif URL.ID2 neq "new">
-				     <A href="javascript:ColdFusion.navigate('#SESSION.root#/tools/topic/List.cfm?alias=#alias#&Code=#URL.Code#&ID2=new&systemmodule=#url.systemmodule#','#url.code#_list')">
-					 <font face="calibri" size="2" color="0080FF">[Add]</font></a>
+				     <A href="javascript:ptoken.navigate('#SESSION.root#/tools/topic/List.cfm?alias=#alias#&Code=#URL.Code#&ID2=new&systemmodule=#url.systemmodule#','#url.code#_list')">
+					 [Add]</a>
 				 </cfif>
 				 </cfoutput>&nbsp;
 			   </td>		  
-		    </TR>
-							
+		    </TR>							
 				
 		<cfoutput>
 
@@ -69,13 +68,13 @@ password="#SESSION.dbpw#">
 											
 			    <input type="hidden" name="ListCode" id="ListCode" value="<cfoutput>#nm#</cfoutput>">
 													
-				<TR class="labelmedium" style="height:10px">
+				<TR class="labelmedium2" style="height:30px">
 					<td height="20" valign="top">
 						
 				   	<cfinput type="Text"
 					       name="ListOrder"
 					       value="#ls#"
-						   class="regularxl"
+						   class="regularxxl"
 					       validate="integer"
 					       required="Yes"
 						   message="Please enter an order value" 
@@ -109,7 +108,7 @@ password="#SESSION.dbpw#">
 							Message         = "Please enter a topic description"
 							MaxLength       = "50"						
 							Size            = "50"
-							Class           = "regularxl">
+							Class           = "regularxxl">
 							
 						
 		           </td>
@@ -134,7 +133,7 @@ password="#SESSION.dbpw#">
 															
 			<cfelse>								
 						
-				<TR class="line labelmedium navigation_row" style="height:10px">
+				<TR class="line labelmedium2 navigation_row" style="height:10px">
 				   <td style="padding-left:3px">#ls#.</td>
 				   <td style="padding-left:3px">#nm#</td>
 				   <td>#de#</td>				   
@@ -144,8 +143,8 @@ password="#SESSION.dbpw#">
 				   <td align="right" style="padding-top:2px">				  
 				   <table>					 
 					 <tr>					 
-					 <td style="padding-top:2px">
-				      <cf_img icon="edit" onclick="ColdFusion.navigate('#SESSION.root#/tools/topic/List.cfm?alias=#alias#&Code=#URL.Code#&ID2=#nm#&systemmodule=#url.systemmodule#','#url.code#_list')">						  					
+					 <td style="padding-top:0px">
+				      <cf_img icon="open" onclick="ptoken.navigate('#SESSION.root#/tools/topic/List.cfm?alias=#alias#&Code=#URL.Code#&ID2=#nm#&systemmodule=#url.systemmodule#','#url.code#_list')">						  					
 				     </td>
 							   			   
 					   <cfquery name="Check" 
@@ -160,7 +159,7 @@ password="#SESSION.dbpw#">
 					   
 					  <td align="left" style="padding-left:5px;padding-top:2px;padding-right:4px">
 					     <cfif check.recordcount eq "0">
-						     <cf_img icon="delete" onclick="ColdFusion.navigate('#SESSION.root#/tools/topic/ListPurge.cfm?alias=#alias#&Code=#URL.Code#&ID2=#nm#&systemmodule=#url.systemmodule#','#url.code#_list')">					 	      
+						     <cf_img icon="delete" onclick="ptoken.navigate('#SESSION.root#/tools/topic/ListPurge.cfm?alias=#alias#&Code=#URL.Code#&ID2=#nm#&systemmodule=#url.systemmodule#','#url.code#_list')">					 	      
 						 </cfif>	   						  
 					  </td>
 					
@@ -178,9 +177,9 @@ password="#SESSION.dbpw#">
 								
 		<cfif URL.ID2 eq "new">
 		
-			 <TR>
+			 <TR style="height:30px">
 			
-				<td height="25">
+				<td>
 				
 				   <cfinput type="Text" 
 				      name="ListOrder" 
@@ -190,34 +189,33 @@ password="#SESSION.dbpw#">
 					  style="text-align:center;width:30"
 					  value="#lst#"
 					  validate="integer"
-					  class="regularxl"
+					  class="regularxxl"
 					  maxlength="2">
 					  
 				</td>
 				
-			<td height="28">
+			<td>
 			
-				    <cfinput type="Text" 
-				         value="" 
-						 name="ListCode" 
-						 message="You must enter a code" 
-						 required="Yes" 
-						 size="2" 
-						 maxlength="20" 
-						 class="regularxl">
+			    <cfinput type="Text" 
+			         value="" 
+					 name="ListCode" 
+					 message="You must enter a code" 
+					 required="Yes" 
+					 size="2" 
+					 maxlength="20" 
+					 class="regularxxl">
+					 
 	        </td>
-						  						 
 			
-				
-				  <td>
+			 <td>
 				   	<cfinput type="Text" 
 				         name="ListValue" 
 						 message="You must enter a name" 
 						 required="Yes" 
 						 size="60" 
 						 maxlength="80" 
-						 class="regularxl">
-				</td>		
+						 class="regularxxl">
+			 </td>		
 				
 			<td>
 			     <cfinput type="checkbox" class="radiol" name="ListDefault" id="ListDefault" value="1">

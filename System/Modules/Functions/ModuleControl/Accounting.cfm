@@ -4,6 +4,19 @@
    Description     = "Financials"
    MenuTemplate    = "../Gledger/Menu.cfm" 
    MenuOrder       = "9">
+   
+
+<cf_ModuleInsertSubmit
+   SystemModule  = "Accounting" 
+   FunctionClass = "Manuals"
+   FunctionName  = "Accounting Manual"    
+   MenuOrder     = "1"
+   MainMenuItem  = "1"   
+   FunctionMemo  = "Accounting manual"
+   FunctionDirectory = "Manual/Accounting"
+   FunctionPath = "Accounting.pdf"
+   AccessUserGroup = "0">       
+   
   
 <cf_ModuleInsertSubmit
    SystemModule    = "Accounting" 

@@ -69,25 +69,22 @@
    <cfset man = SearchResult.MandateNo>
 </cfif>   
 
-
 <cfinvoke component="Service.Access"
   method="org" 
   orgunit="#SearchResult.OrgUnit#" 
   mission="#URL.ID2#"
   returnvariable="myaccess">
 
-	<table class="navigation_table" width="98%" align="center">
+	<table class="navigation_table" style="width:98.5%" align="center">
 
-	<TR class="line labelmedium">
-		<td><cf_tl id="Hierarchy"></td>
+	<TR class="line labelmedium2 fixrow">
+		<td style="padding-left:4px"><cf_tl id="Hierarchy"></td>
 		<td width="10"></td>
 		<TD><cf_tl id="Description"></TD>
 		<td><cf_tl id="Class"></td>
 	    <TD width="95"><cf_tl id="Code"></TD>
 		<td></td>
 	</TR>
-
-
 	<cfoutput query="SearchResult" group="TreeOrder">
 
 	<cfoutput>
@@ -99,7 +96,7 @@
 		 </cfif>
 
 		 <cf_OrganizationListingDetail
-		  Color             = "yellow"
+		  Color             = "ffffff"
 		  Action            = "#mode#"
 		  Mission           = "#URL.ID2#"
 		  MandateNo         = "#SearchResult.MandateNo#"
@@ -153,7 +150,7 @@
 		    <cfloop query="Level03">
 
 					 <cf_OrganizationListingDetail
-				  Color         = "f4f4f4"
+				  Color         = "ffffcf"
 				  Action        = "#mode#"
 				  Mission       = "#URL.ID2#"
 				  MandateNo     = "#SearchResult.MandateNo#"
@@ -179,7 +176,7 @@
 			    <cfloop query="Level04">
 
 						 <cf_OrganizationListingDetail
-					  Color         = "ffffff"
+					  Color         = "fafafa"
 					  Action        = "#mode#"
 					  Mission       = "#URL.ID2#"
 					  MandateNo     = "#SearchResult.MandateNo#"
@@ -191,6 +188,34 @@
 					  OrgUnitClass  = "#Level04.OrgUnitClass#"
 					  OrgUnitName   = "#Level04.OrgUnitName#"
 					  OrgUnitNameShort  = "#Level04.OrgUnitNameShort#">
+					  
+					   <cfquery name="Level05"
+					      datasource="AppsOrganization"
+					      username="#SESSION.login#"
+					      password="#SESSION.dbpw#">
+					       SELECT   DISTINCT *
+					       FROM     userQuery.dbo.Base#SESSION.acc#_#fileNo#
+						   WHERE    ParentOrgUnit = '#Level04.OrgUnitCode#'
+						   ORDER BY TreeOrder
+					    </cfquery>
+		
+					    <cfloop query="Level05">
+		
+								 <cf_OrganizationListingDetail
+							  Color         = "fdfdfd"
+							  Action        = "#mode#"
+							  Mission       = "#URL.ID2#"
+							  MandateNo     = "#SearchResult.MandateNo#"
+							  OrgUnit       = "#Level05.OrgUnit#"
+							  HierarchyCode = "#Level05.HierarchyCode#"
+							  OrgUnitCode   = "#Level05.OrgUnitCode#"
+							  Autonomous    = "#Level05.Autonomous#"
+							  OrgUnitPar    = "#SearchResult.OrgUnitCode#"
+							  OrgUnitClass  = "#Level05.OrgUnitClass#"
+							  OrgUnitName   = "#Level05.OrgUnitName#"
+							  OrgUnitNameShort  = "#Level05.OrgUnitNameShort#">
+		
+						</cfloop>
 
 				</cfloop>
 

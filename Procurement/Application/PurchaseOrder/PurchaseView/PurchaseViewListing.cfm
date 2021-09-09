@@ -313,25 +313,25 @@
 <cfset itm = itm+1>			
 <cf_tl id="Order Class" var="1">
 <cfset fields[itm] = {label      = "#lt_text#", 
-                    width      = "0", 
-					field      = "OrderClass",
-					filtermode = "2",
-					search     = "text"}>
+                    width        = "0", 
+					field        = "OrderClass",
+					filtermode   = "2",
+					search       = "text"}>
 					
 <cfset itm = itm+1>								
 <cf_tl id="Order Type" var="1">
 <cfset fields[itm] = {label      = "#lt_text#", 
-					width      = "0", 
-					field      = "OrderType",							
-					filtermode = "3",    
-					search     = "text"}>							
+					width        = "0", 
+					field        = "OrderType",							
+					filtermode   = "3",    
+					search       = "text"}>							
 					
 <cfset itm = itm+1>		
 <cf_tl id="Period" var="1">
 <cfset fields[itm] = {label      = "#lt_text#", 
-                    width      = "0", 
-					alias      = "P",
-					field      = "Period"}>									
+                    width        = "0", 
+					alias        = "P",
+					field        = "Period"}>									
 						
 <cfset itm = itm+1>							
 <cf_tl id="Date" var="1">
@@ -346,47 +346,47 @@
 <cfset itm = itm+1>							
 <cf_tl id="Officer" var="1">
 <cfset fields[itm] = {label      = "#lt_text#",    
-					width      = "0", 
-					field      = "OfficerLastName",
-					filtermode = "2",   
-					alias      = "P",
-					search     = "text"}>	
+					width        = "0", 
+					field        = "OfficerLastName",
+					filtermode   = "2",   
+					alias        = "P",
+					search       = "text"}>	
 					
 <cfset itm = itm+1>							
 <cfset fields[itm] = {label      = "L",    
-					width      = "0", 
-					field      = "Lines",
-					alias      = "P"}>						
+					width        = "0", 
+					field        = "Lines",
+					alias        = "P"}>						
 					
 <cfset itm = itm+1>		
 <cf_tl id="Cur" var="1">
 <cfset fields[itm] = {label      = "#lt_text#.",    
-					width      = "0", 
-					field      = "Currency",
-					filtermode = "2",
-					alias      = "P",
-					search     = "text"}>											
+					width        = "0", 
+					field        = "Currency",
+					filtermode   = "2",
+					alias        = "P",
+					search       = "text"}>											
 					
 <cfset itm = itm+1>			
 <cf_tl id="Amount" var="1">
 <cfset fields[itm] = {label      = "#lt_text#",
-					width      = "0", 
-					field      = "Amount",
-					align      = "right",
-					aggregate  = "sum",
-					search     = "number",
-					formatted  = "numberformat(Amount,',.__')"}>	
+					width        = "0", 
+					field        = "Amount",
+					align        = "right",
+					aggregate    = "sum",
+					search       = "number",
+					formatted    = "numberformat(Amount,',.__')"}>	
 					
 <cfset itm = itm+1>					
 
 <cf_tl id="Base" var="1">
 <cfset fields[itm] = {label      = "#lt_text#",
-					width      = "0", 
-					field      = "AmountBase",
-					align      = "right",
-					aggregate  = "sum",
-					search     = "number",
-					formatted  = "numberformat(AmountBase,',.__')"}>											
+					width        = "0", 
+					field        = "AmountBase",
+					align        = "right",
+					aggregate    = "sum",
+					search       = "number",
+					formatted    = "numberformat(AmountBase,',.__')"}>											
 					
 <cfif url.id eq "LOC">
     <cfset s = "No">

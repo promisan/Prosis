@@ -26,7 +26,7 @@
 		   if (sel != 'Text') {
 		     document.getElementById("ValueLength").className="hide"
 		   } else {
-		     document.getElementById("ValueLength").className="regularxl"
+		     document.getElementById("ValueLength").className="regularxxl"
 		   }
 		   
 		   if (sel != 'Lookup') {
@@ -99,7 +99,7 @@ password="#SESSION.dbpw#">
 		<table width="90%" cellspacing="0" align="center" class="formpadding formspacing">  	
 				
 				<tr><td height="6"></td></tr>
-				<tr>
+				<tr class="labelmedium2">
 				
 					<cfif systemmodule eq "Roster">
 					
@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
 						
 					<cfelse>
 					
-						<td class="labelmedium2"><cf_tl id="Entity">:</td>
+						<td><cf_tl id="Entity">:</td>
 						
 						 <cfquery name="Mis" 
 							datasource="#alias#" 
@@ -135,13 +135,12 @@ password="#SESSION.dbpw#">
 				  
 				</tr>
 				
-				<!---		
-				<tr>
-					<td class="labelmedium2"><cf_tl id="Class">:</td>
+				
+				<tr class="labelmedium2">
+					<td><cf_tl id="Usage Class">:</td>
 					<td>#TopicClass#</td>
 				</tr>		
-				--->
-				
+								
 				<tr>		
 					<td class="labelmedium2">
 						<input type="hidden" value="#TopicClass#" name="TopicClass" id="TopicClass">
@@ -152,8 +151,8 @@ password="#SESSION.dbpw#">
 						
 				<cfif systemmodule eq "Roster">
 				
-					<tr>
-					<td width="140" class="labelmedium2"><cf_tl id="Source">:</td>	
+					<tr class="labelmedium2">
+					<td width="140"><cf_tl id="Source">:</td>	
 					<td width="80%">		  
 					
 						<cfquery name="RSource" 
@@ -177,9 +176,9 @@ password="#SESSION.dbpw#">
 					</tr>	
 				</cfif>
 							
-				<tr>
+				<tr class="labelmedium2">
 						
-					<td class="labelmedium2"><cf_tl id="Sort">:</td>			
+					<td><cf_tl id="Sort">:</td>			
 					<td><cfinput type="Text" 
 					         value="#ListingOrder#" 
 							 validate="integer"
@@ -203,9 +202,9 @@ password="#SESSION.dbpw#">
 					
 				</cfif>
 				
-				<tr>
+				<tr class="labelmedium2">
 				
-					<td class="labelmedium2" valign="top" style="padding-top:8px"><cf_tl id="Label">:</td>		
+					<td valign="top" style="padding-top:8px"><cf_tl id="Label">:</td>		
 					<td>
 					
 						<cfif language eq "yes">
@@ -242,9 +241,9 @@ password="#SESSION.dbpw#">
 				
 				</tr>
 				
-				<tr>
+				<tr class="labelmedium2">
 				
-					<td class="labelmedium2" valign="top" style="padding-top:8px"><cf_tl id="Description">:</td>				 
+					<td valign="top" style="padding-top:8px"><cf_tl id="Description">:</td>				 
 					<td>
 					
 						<cfif language eq "yes">
@@ -280,8 +279,8 @@ password="#SESSION.dbpw#">
 				
 				</tr>
 				
-				<tr valign="top">
-					<td style="padding-top:8px" class="labelmedium2"><cf_tl id="Tooltip">:</td>
+				<tr valign="top" class="labelmedium2">
+					<td style="padding-top:8px"><cf_tl id="Tooltip">:</td>
 					<td>
 						 	<cfif language eq "yes">
 					
@@ -305,16 +304,16 @@ password="#SESSION.dbpw#">
 					</td>
 				</tr>
 								
-				<tr>
+				<tr class="labelmedium2">
 				
-					<td style="width:150px;max-width:150px" class="labelmedium2"><cf_tl id="Field Type">:</td>  		
+					<td style="width:150px;max-width:150px"><cf_tl id="Field Type">:</td>  		
 					<td>
 					
-				       <table cellspacing="0" cellpadding="0">
+				       <table>
 					   <tr>
 						   <td>
 						   
-							   <select name="ValueClass" id="ValueClass" class="regularxl" 
+							   <select name="ValueClass" id="ValueClass" class="regularxxl" 
 								      onchange="option(this.value)">
 								      <option value="List" <cfif valueclass eq "List">selected</cfif>>List</option>									  
 									  <option value="Lookup" <cfif valueclass eq "Lookup">selected</cfif>>Lookup</option>
@@ -329,7 +328,7 @@ password="#SESSION.dbpw#">
 								   </select>
 						   
 						   </td>			   
-						   <td>
+						   <td style="padding-left:4px">
 					   			   	
 							<cfif valueclass eq "Text">
 							   <cfset cl = "regularxl">
@@ -343,10 +342,10 @@ password="#SESSION.dbpw#">
 								 required="Yes" 
 								 size="2" 					
 								 value="#ValueLength#"
-								 style="text-align:center;width:30"					 
+								 style="text-align:center;width:40;height:28px"					 
 								 maxlength="3" 
 								 validate="integer"				
-								 class="#cl#">		
+								 class="#cl#">	
 								 							 	
 								 
 							<cfif valueclass eq "List">

@@ -577,12 +577,12 @@ password="#SESSION.dbpw#">
 			</td>
 			</tr>	
 										
-			<tr>
+			<tr class="labelmedium line">
 			<td style="padding-top:5px;height:34px;padding-left:14px;padding-right:10px" colspan="5">
 						
 			<table height="100%" align="left">
 									
-			<tr style="height:32px;" class="labelmedium">
+			<tr style="height:32px;">
 								
 					<td style="border:0px solid silver;min-width:60px;font-size:20px" id="trarequestno" align="center">					
 					<cfinclude template="getCustomerRequest.cfm">					
@@ -604,7 +604,7 @@ password="#SESSION.dbpw#">
 							WHERE  EnableProcurement = 1	   							   
 					</cfquery>
 					
-					<select name="currency" id="currency" style="background-color:f1f1f1;font-size:16px;height:100%;width:100%;border:0px;" class="regularXXL"
+					<select name="currency" id="currency" style="background-color:f1f1f1;font-size:16px;height:100%;width:100%;border:0px;" class="regularxxl"
 						onchange="ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applySaleHeader.cfm?field=currency&currency='+this.value+'&requestno='+document.getElementById('RequestNo').value+'&customeridinvoice='+document.getElementById('customerinvoiceidselect').value,'salelines','','','POST','saleform')">
 						
 						<cfloop query="currencylist">

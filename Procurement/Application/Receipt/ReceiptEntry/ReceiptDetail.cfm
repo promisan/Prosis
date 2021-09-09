@@ -394,7 +394,7 @@ password="#SESSION.dbpw#">
 	   
 	   <!--- product or warehouse --->
 	   
-	   <td style="#stl#;overflow: hidden;text-overflow: ellipsis;">
+	   <td style="#stl#;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
 	  
 		 <cfif ReceiptItemNo neq "">
 				 <font color="008000">#ReceiptItemNo#:</font>

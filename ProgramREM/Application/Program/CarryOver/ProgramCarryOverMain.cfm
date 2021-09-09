@@ -302,7 +302,7 @@
 
 <cfform onsubmit="return false" name="programform">
 
-	<table width="99%" class="navigation_table">
+	<table width="100%" class="navigation_table">
 		
 		<cfoutput query="SearchResult" group="TreeOrder">
 		
@@ -315,7 +315,9 @@
 				     SELECT   DISTINCT ProgramCode, ProgramName,Reference, ListingOrder, Exist, ProgramScope
 				     FROM     dbo.tmp#SESSION.acc#Program P
 					 WHERE    P.OrgUnit     = '#SearchResult.OrgUnit#'
-					 -- AND      (P.ParentCode = '' OR P.ParentCode is NULL)
+					 <!--- 3/9/2021 corrected by hanno in order not to show too much, but if the project is under a different unit
+					 it might not always be visible / STL --->
+					 AND      (P.ParentCode = '' OR P.ParentCode is NULL)
 					 UNION 
 					 SELECT   DISTINCT ProgramCode, ProgramName,Reference, ListingOrder, Exist, ProgramScope
 				     FROM     dbo.tmp#SESSION.acc#Program P
@@ -323,25 +325,39 @@
 					 ORDER BY ListingOrder 
 			    </cfquery>
 				
-				<cfif Program.recordcount gte "1">
+				<cfquery name="check" 
+			     datasource="AppsQuery" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+				     SELECT   DISTINCT ProgramCode, ProgramName,Reference, ListingOrder, Exist, ProgramScope
+				     FROM     dbo.tmp#SESSION.acc#Program P
+					 WHERE    P.OrgUnit     = '#SearchResult.OrgUnit#'		
+					 AND      P.ProgramScope = 'Unit'								 
+			    </cfquery>
 				
-				 <tr class="line labelmedium2">
-			      <td width="30" align="center">
-			         <img src="#SESSION.root#/Images/view.jpg" 
-					      alt="" width="14" height="15" border="0" align="middle">
-			       </td>
-				   <td>#OrgUnitCode#</td>
-			       <td colspan="5">#OrgUnitName#</td>
-			       <TD colspan="2"></TD>
-				 </TR>
-				 
-				 </cfif>
-									
-				<cfloop query="Program">	
-										   
-				   <cfinclude template="ProgramCarryOverDetail.cfm"> 		   
-				   
-			    </cfloop>			   
+				<cfif check.recordcount gte "1">
+				
+					<cfif Program.recordcount gte "1">
+					
+						 <tr class="line labelmedium2" style="height:40px">
+					      <td width="30" align="center">
+					         <img src="#SESSION.root#/Images/view.jpg" 
+							      alt="" width="15" height="17" border="0" align="middle">
+					       </td>
+						   <td>#OrgUnitCode#</td>
+					       <td style="font-size:20px" colspan="5">#OrgUnitName#</td>
+					       <TD colspan="2"></TD>
+						 </TR>
+					 
+					 </cfif>
+										
+					 <cfloop query="Program">	
+											   
+					   <cfinclude template="ProgramCarryOverDetail.cfm"> 		   
+					   
+				     </cfloop>			   
+				
+				</cfif>
 			    
 			</CFOUTPUT>
 		

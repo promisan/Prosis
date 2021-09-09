@@ -84,8 +84,8 @@
 	
 	</td></tr>
 	
-	<tr class="labelmedium2">					
-	   <td >Attention : select edition of which the requirement/budget lines would need to be inherited for the selected records</td>				
+	<tr class="labelmedium">					
+	   <td>Attention : select edition of which the requirement/budget lines would need to be inherited for the selected records</td>				
 	</tr>
 
 <cfelse>

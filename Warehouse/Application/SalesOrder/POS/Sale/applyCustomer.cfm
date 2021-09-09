@@ -3,7 +3,6 @@
 <!--- Ajax template template to set the customer upon selection and update the screen --->
 <!--- ------------------------------------------------------------------------------- --->
 
-
 <cfparam name="url.init"       default="0">
 <cfparam name="url.requestno"  default="">
 <cfparam name="url.batchid"    default="">
@@ -245,8 +244,7 @@
 				
 					<script>
 					    document.getElementById('buttonnew').click()					    
-					</script>
-					
+					</script>					
 								
 				<cfelse>
 				
@@ -292,9 +290,9 @@
 						 username="#SESSION.login#" 
 						 password="#SESSION.dbpw#">
 						    UPDATE CustomerRequest
-							SET    CustomerId = '#url.customerid#', 
-							       AddressId = '#url.addressid#'
-							WHERE  Requestno = '#getNULLSale.RequestNo#'					
+							SET    CustomerId   = '#url.customerid#', 
+							       AddressId    = '#url.addressid#'
+							WHERE  Requestno    = '#getNULLSale.RequestNo#'					
 					</cfquery>
 				
 					<cfquery name="associate" 
@@ -303,7 +301,7 @@
 						 password="#SESSION.dbpw#">
 						    UPDATE CustomerRequestLine
 							SET    CustomerIdInvoice = '#url.customerid#'
-							WHERE  RequestNo = '#getNULLSale.RequestNo#'					
+							WHERE  RequestNo         = '#getNULLSale.RequestNo#'					
 					</cfquery>
 						
 					<cfquery name="associate" 

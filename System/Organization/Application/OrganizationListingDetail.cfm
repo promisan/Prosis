@@ -4,16 +4,16 @@
       <cf_assignid>
 
 	  <cfif attributes.action eq "Edit">
-	  	<tr bgcolor="#attributes.color#" style="height:20px;background-color:###attributes.color#80" class="navigation_row clsSearchrow line" onContextMenu="cmexpand('mymenu','#rowguid#','')">
+	  	<tr style="height:20px;background-color:###attributes.color#50" class="navigation_row clsSearchrow line" onContextMenu="cmexpand('mymenu','#rowguid#','')">
 	  <cfelse>
-	  	<tr bgcolor="#attributes.color#" style="height:20px;background-color:###attributes.color#80" class="navigation_row clsSearchrow line">
+	  	<tr style="height:20px;background-color:###attributes.color#50" class="navigation_row clsSearchrow line">
 	  </cfif>
 
 		  <td style="display:none;" class="ccontent">#Attributes.OrgUnitClass# #Attributes.OrgUnitCode# #Attributes.OrgUnitName#</td>
-		  <td style="padding-right:8px;padding-top:3px;padding-left:4px;min-width:250;font-size: 15px;">
+		  <td style="padding-right:8px;padding-left:4px;min-width:250;font-size: 15px;">
 			  <table>
 			  <tr>
-			  	<td>
+			  	<td style="font-size:15px">
 				  <cfif Attributes.HierarchyCode eq "">
 						  &nbsp;<font color="804040"><b>Not defined</font>
 				  <cfelse>
@@ -30,64 +30,66 @@
 		  </td>
 
 		  <td width="10">
-		  <table><tr>
-
-		  <cfif attributes.action eq "Edit">
-
-		  	 <td class="hide" id="mymenu" name="mymenu">
-
-			 <table>
-
-			  <tr class="labelmedium" style="height:21px">
-				<td name="mymenu#rowguid#" id="mymenu#rowguid#">
-
-				  <cf_tl id="Edit" 		   var="vEdit">
-				  <cf_tl id="Edit details" var="vEditDetails">
-				  <cf_tl id="Add Node" 	   var="vAddNode">
-				  <cf_tl id="More"   	   var="vMaintain">
-				  <cf_tl id="Maintain organization information" var="vMantainOrganization">
-
-			      <cf_dropDownMenu
-				     name		= "menu"
-			   	     headerName = "Node"
-				     menuRows	= "3"
-					 AjaxId		= "mymenu"
-
-				     menuName1   = "#vEdit#"
-				     menuAction1 = "javascript:editOrgUnit('#Attributes.OrgUnit#','','base')"
-				     menuIcon1   = "#SESSION.root#/Images/edit.gif"
-				     menuStatus1 = "#vEditDetails#"
-
-				     menuName2   = "#vAddNode#"
-				     menuAction2 = "javascript:addOrgUnit('#Attributes.Mission#','#Attributes.MandateNo#','#Attributes.OrgUnitCode#','#Attributes.OrgUnitPar#','base','#url.id4#')"
-				     menuIcon2   = "#SESSION.root#/Images/org_new.gif"
-				     menuStatus2 = "#vAddNode#"
-
-				     menuName3   = "#vMaintain#"
-				     menuAction3 = "javascript:viewOrgUnit('#Attributes.OrgUnit#')"
-				     menuIcon3   = "#SESSION.root#/Images/details.gif"
-				     menuStatus3 = "#vMantainOrganization#">
-
-				 </td>
-
-			  </tr>
-
-			  </table>
-
-			  </td>
-
-		   <cfelse>
-
-				<td width="20"></td>
-
-		   </cfif>
-
-		   </tr>
-		   </table>
+		  
+			  <table>
+			  <tr>
+	
+			  <cfif attributes.action eq "Edit">
+	
+			  	 <td class="hide" id="mymenu" name="mymenu">
+	
+					 <table>
+		
+					  <tr class="labelmedium2" style="height:21px">
+						<td name="mymenu#rowguid#" id="mymenu#rowguid#">
+		
+						  <cf_tl id="Edit" 		   var="vEdit">
+						  <cf_tl id="Edit details" var="vEditDetails">
+						  <cf_tl id="Add Node" 	   var="vAddNode">
+						  <cf_tl id="More"   	   var="vMaintain">
+						  <cf_tl id="Maintain organization information" var="vMantainOrganization">
+		
+					      <cf_dropDownMenu
+						     name		= "menu"
+					   	     headerName = "Node"
+						     menuRows	= "3"
+							 AjaxId		= "mymenu"
+		
+						     menuName1   = "#vEdit#"
+						     menuAction1 = "javascript:editOrgUnit('#Attributes.OrgUnit#','','base')"
+						     menuIcon1   = "#SESSION.root#/Images/edit.gif"
+						     menuStatus1 = "#vEditDetails#"
+		
+						     menuName2   = "#vAddNode#"
+						     menuAction2 = "javascript:addOrgUnit('#Attributes.Mission#','#Attributes.MandateNo#','#Attributes.OrgUnitCode#','#Attributes.OrgUnitPar#','base','#url.id4#')"
+						     menuIcon2   = "#SESSION.root#/Images/org_new.gif"
+						     menuStatus2 = "#vAddNode#"
+		
+						     menuName3   = "#vMaintain#"
+						     menuAction3 = "javascript:viewOrgUnit('#Attributes.OrgUnit#')"
+						     menuIcon3   = "#SESSION.root#/Images/details.gif"
+						     menuStatus3 = "#vMantainOrganization#">
+		
+						 </td>
+		
+					  </tr>
+		
+					  </table>
+	
+				  </td>
+	
+			   <cfelse>
+	
+					<td width="20"></td>
+	
+			   </cfif>
+	
+			   </tr>
+			   </table>
 		   </td>
 
-		   <cfif attributes.color eq "yellow">
-	       <TD style="height:35px;font-size:20px" width="70%">#Attributes.OrgUnitName#</td>
+		   <cfif attributes.color eq "ffffff">
+	       <TD style="font-weight:bold;height:30px;font-size:16px" width="70%">#Attributes.OrgUnitName#</td>
 		   <cfelse>
 		   <TD width="70%">#Attributes.OrgUnitName#
 		   </cfif>

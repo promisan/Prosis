@@ -1,15 +1,13 @@
 
 <!--- container for topic maintenance object --->
-<cf_divscroll style="height:100%">
-
 <cfset Page         = "0">
 <cfset add          = "1">
 	
-	<table height="100%" width="96%" align="center" class="formpadding">
+<table height="100%" width="96%" align="center" class="formpadding">
 
-     <tr><td height="4"><cfinclude template = "../HeaderMaintain.cfm"> 	</td></tr>		
-	
+    <tr><td height="4"><cfinclude template = "../HeaderMaintain.cfm"></td></tr>			
     <tr><td height="4"></td></tr>				
+	
 	<tr>
 	
 	    <td style="height:100%" width="100%" id="listing">
@@ -18,7 +16,9 @@
 		       systemmodule       = "Warehouse"
 		       alias              = "appsMaterials"
 			   language           = "Yes"
+			   
 			   <!--- Tables where topics are used --->
+			   
 			   topictable1        = "AssetItemTopic"
 			   topictable1name    = "Asset"			     			   
    			   topicfield1        = "Topic"
@@ -38,7 +38,14 @@
    			   topicfield3        = "Topic"
 			   topicscope3        = "Item"
 			   topicscope3table   = "ItemTopic"
-			   topicscope3field   = "ItemNo">		
+			   topicscope3field   = "ItemNo"
+			   
+			   topictable4        = "ItemClassification"
+			   topictable4name    = "Category"				  
+   			   topicfield4        = "Topic"
+			   topicscope4        = "Category"
+			   topicscope4table   = "Ref_TopicCategory"
+			   topicscope4field   = "Category">		
 			   
 		</td>
 		
@@ -46,5 +53,3 @@
 	<tr><td height="5"></td></tr>				
 
 </table>	
-				
-</cf_divscroll>

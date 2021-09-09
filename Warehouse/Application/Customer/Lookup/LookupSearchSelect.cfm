@@ -35,12 +35,12 @@
 
 <tr><td>
 
-<TABLE width="94%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<TABLE width="94%" align="center" class="formpadding">
 
     <INPUT type="hidden" name="Crit3_FieldName" id="Crit3_FieldName" value="CustomerSerialNo">
     <INPUT type="hidden" name="Crit3_FieldType" id="Crit3_FieldType" value="CHAR">
     <TR>
-        <TD align="left"  class="labelmedium"><cfoutput>Id</cfoutput>:
+        <TD style="width:200px" align="left"  class="labelmedium"><cfoutput>Id</cfoutput>:
         <input type="hidden" name="Crit3_Operator" id="Crit3_Operator" value="CONTAINS"></TD>
         <TD>
             <INPUT type="text" name="Crit3_Value" id="Crit3_Value" class="regularxl" size="10">

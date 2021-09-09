@@ -226,14 +226,15 @@ password="#SESSION.dbpw#">
 								<td class="labelmedium2">Content Format:</td>
 								<td>
 									<select name="FieldOutputFormat" id="FieldOutputFormat" class="regularxxl">						 
-									 	  <option value=""         <cfif fieldoutputformat eq "">selected</cfif>>As in table</option> 
-									 	  <option value="Date"     <cfif fieldoutputformat eq "Date">selected</cfif>>D: #CLIENT.DateFormatShow#</option> 
-										  <option value="DateTime" <cfif fieldoutputformat eq "Date">selected</cfif>>D: #CLIENT.DateFormatShow# hh:mm</option> 
-									   	  <option value="Time"     <cfif fieldoutputformat eq "Time">selected</cfif>>T: hh:mm</option> 
-										  <option value="Number"   <cfif fieldoutputformat eq "Number">selected</cfif>>F:Number</option> 
-									   	  <option value="Amount"   <cfif fieldoutputformat eq "Amount">selected</cfif>>F:Amount [0.00]</option> 
-										  <option value="Amount0"  <cfif fieldoutputformat eq "Amount0">selected</cfif>>F:Amount [0]</option> 
-										  <option value="eMail"    <cfif fieldoutputformat eq "eMail">selected</cfif>>Mail [nn@dd.cc]</option> 											
+									 	  <option value=""           <cfif fieldoutputformat eq "">selected</cfif>>As in table</option> 
+									 	  <option value="Date"       <cfif fieldoutputformat eq "Date">selected</cfif>>D: #CLIENT.DateFormatShow#</option> 
+										  <option value="DateTime"   <cfif fieldoutputformat eq "Date">selected</cfif>>D: #CLIENT.DateFormatShow# hh:mm</option> 
+									   	  <option value="Time"       <cfif fieldoutputformat eq "Time">selected</cfif>>T: hh:mm</option> 
+										  <option value="Number"     <cfif fieldoutputformat eq "Number">selected</cfif>>F:Number</option> 
+									   	  <option value="Amount"     <cfif fieldoutputformat eq "Amount">selected</cfif>>F:Amount [,000.00]</option> 
+										  <option value="Amount0"    <cfif fieldoutputformat eq "Amount0">selected</cfif>>F:Amount [,000]</option> 
+										  <option value="eMail"      <cfif fieldoutputformat eq "eMail">selected</cfif>>Mail [nn@dd.cc]</option> 		
+										  <option value="Attachment" <cfif fieldoutputformat eq "Attachment">selected</cfif>>Attachment</option> 									
 									 </select>
 								</td>
 								

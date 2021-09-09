@@ -112,9 +112,9 @@
  <cfoutput>
  
  <cfif (Journ.Currency eq URL.entryCurrency and APPLICATION.BaseCurrency eq Journ.Currency) or acc.MonetaryAccount eq "1" or acc.MonetaryAccount eq "">
+ cccccccc
      <cfset show = "disabled">
  </cfif> 
-
 	  
  <tr class="labelmedium2">
  <td>&nbsp;</td>

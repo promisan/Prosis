@@ -22,7 +22,7 @@
 			   if (sel != 'Text') {
 			     document.getElementById("ValueLength").className="hide"
 			   } else {
-			     document.getElementById("ValueLength").className="regularxl"
+			     document.getElementById("ValueLength").className="regularxxl"
 			   }
 			   if (sel != 'Lookup') {
 			      lookup.className='hide'
@@ -45,11 +45,12 @@
 
 <cfform method="POST" name="newtopic" action="#SESSION.root#/tools/topic/TopicListingSubmit.cfm?#link#&id2=new" onsubmit="return addtopic()">
 
-<table width="93%" cellspacing="0" align="center" class="formpadding formspacing">  	
+<table width="93%" align="center" class="formpadding formspacing">  	
 
 		<tr>
 		
 			<cfif systemmodule neq "Roster">
+			
 				<td class="labelmedium"><cf_tl id="Entity">:</td>
 				
 				 <cfquery name="Mis" 
@@ -65,7 +66,7 @@
 					
 				  <TD>
 				  
-				 		<select name="mission" id="mission" class="regularxl">
+				 		<select name="mission" id="mission" class="regularxxl">
 							<option value="" selected>[Any]</option>
 							<cfoutput query="Mis">
 							<option value="#Mission#">#Mission#</option>
@@ -83,7 +84,7 @@
 		<td width="140" class="labelmedium"><cf_tl id="Class">:</td>	
 		<td width="80%">		  	 
 			 
-			 <select name="topicclass" id="topicclass" class="regularxl">
+			 <select name="topicclass" id="topicclass" class="regularxxl">
 			 
 				  <cfloop index="itm" from="1" to="5">
 				  <cfif evaluate("topictable#itm#name") neq "">
@@ -113,7 +114,7 @@
 				FROM   Ref_Source			  
 			 </cfquery>	 
 			 
-			 <select name="source" id="source" class="regularxl">
+			 <select name="source" id="source" class="regularxxl">
 			 
 				  <cfoutput query="Source">
 				  	 <option value="#Source#"><cfif Description neq "">#Description#<cfelse>#Source#</cfif></option>
@@ -140,7 +141,7 @@
 					 size="2" 
 					 style="width:80;text-align:left" 
 					 maxlength="20" 
-					 class="regularxl">
+					 class="regularxxl">
 						 
 	        </td>			
 		</tr>
@@ -156,17 +157,14 @@
 					 required="Yes" 				 
 					 style="width:30;text-align:center" 
 					 maxlength="3" 
-					 class="regularxl">
+					 class="regularxxl">
 			</td>
 		
 		</tr>
 		
-		<cfif systemmodule eq "Roster">
-		
-			<cfset tablecode = "Ref_Topic">
-		
-		<cfelse>
-		
+		<cfif systemmodule eq "Roster">		
+			<cfset tablecode = "Ref_Topic">		
+		<cfelse>		
 			<cfset tablecode = "topic#systemmodule#">
 		</cfif>
 		
@@ -188,7 +186,7 @@
 						Message         = "Please enter a topic label"						
 						MaxLength       = "20"
 						Size            = "20"
-						Class           = "regularxl">
+						Class           = "regularxxl">
 				
 				<cfelse>
 				
@@ -200,7 +198,7 @@
 						 size="20" 	
 						 style="text-align:left" 					 
 						 maxlength="20" 
-						 class="regularxl">		
+						 class="regularxxl">		
 					 
 				</cfif>	 	 			 
 					 
@@ -225,7 +223,7 @@
 						Message         = "Please enter a topic description"
 						MaxLength       = "50"						
 						Size            = "50"
-						Class           = "regularxl">
+						Class           = "regularxxl">
 				
 				<cfelse>
 				
@@ -235,7 +233,7 @@
 						 required="Yes" 
 						 size="50" 										 
 						 maxlength="60" 
-						 class="regularxl">		
+						 class="regularxxl">		
 					 
 				</cfif>	 	 			 
 					 
@@ -257,7 +255,7 @@
 							Required        = "No"
 							Value           = ""
 							MaxLength       = "200"
-							style           = "height:19"
+							style           = "height:19px"
 							Size            = "40"
 							Rows            = "3"
 							Class           = "regular">
@@ -277,7 +275,7 @@
 			   <tr>
 				   <td>
 				   
-					   <select name="ValueClass" id="ValueClass" class="regularxl" onchange="option(this.value)">					      
+					   <select name="ValueClass" id="ValueClass" class="regularxxl" onchange="option(this.value)">					      
 						  <option value="Lookup" selected>Lookup</option>
 						  <option value="List">List</option>						 				 
 					   	  <option value="Text">Text</option>
@@ -291,7 +289,7 @@
 					   </select>
 				   
 				   </td>			   
-				   <td>
+				   <td style="padding-left:4px">
 			   			   	
 					<cfinput type="Text" 
 				         name="ValueLength" 
@@ -300,7 +298,7 @@
 						 size="1" 						 
 						 value="60"					 
 						 maxlength="3"				 
-						 style="width:30;text-align:center;height:19" 
+						 style="width:40px;text-align:center" 
 						 validate="integer"				 
 						 class="hide">					
 								 
@@ -360,7 +358,7 @@
 						       autosuggest="cfc:service.reporting.presentation.gettable({listdatasource},{cfautosuggestvalue})"
 						       maxresultsdisplayed="7"
 							   showautosuggestloadingicon="No"
-							   onchange="ColdFusion.navigate('#SESSION.root#/tools/topic/RecordField.cfm?#link#&id=&ID2='+this.value+'&multiple=0&ds='+document.getElementById('listdatasource').value,'showfields')"
+							   onchange="ptoken.navigate('#SESSION.root#/tools/topic/RecordField.cfm?#link#&id=&ID2='+this.value+'&multiple=0&ds='+document.getElementById('listdatasource').value,'showfields')"
 						       typeahead="No"
 						       required="No"
 						       visible="Yes"

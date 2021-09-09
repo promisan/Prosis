@@ -25,17 +25,16 @@ password="#SESSION.dbpw#">
 <table width="98%" cellspacing="0" cellpadding="0" class="formpadding">
 
 <cfoutput>
-<tr class="line">
-    <td class="labelit" width="10%" align="center"><a href="javascript:supplyedit('#URL.ID#','','')">[<cf_tl id="New Supply">]</a></td>	
-	<td class="labelit"><cf_tl id="Product"></td>	
-	<td class="labelit" width="10%"><cf_tl id="UoM"></td>
-	<td class="labelit" width="10%" align="center"><cf_tl id="Capacity"></td>
-	<td class="labelit" width="10%" align="center"><cf_tl id="Daily Usage"></td>
-	<cfif url.type eq "AssetItem"><td class="labelit"><cf_tl id="Supplied through"></td></cfif>
-	<td class="labelit" width="15%"><cf_tl id="Officer"></td>
-	<td class="labelit" width="15%"><cf_tl id="Created"></td>
+<tr class="line labelmedium2">
+    <td width="10%" align="center"><a href="javascript:supplyedit('#URL.ID#','','')">[<cf_tl id="New Supply">]</a></td>	
+	<td><cf_tl id="Product"></td>	
+	<td width="10%"><cf_tl id="UoM"></td>
+	<td width="10%" align="center"><cf_tl id="Capacity"></td>
+	<td width="10%" align="center"><cf_tl id="Daily Usage"></td>
+	<cfif url.type eq "AssetItem"><td><cf_tl id="Supplied through"></td></cfif>
+	<td width="15%"><cf_tl id="Officer"></td>
+	<td width="15%"><cf_tl id="Created"></td>
 </tr>
-<tr><td height="5"></td></tr>
 
 <cfif Supply.recordCount eq 0>
 
@@ -69,7 +68,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Supply">
 
-<tr onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''" bgcolor="" style="padding-top:3px">
+<tr onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''" bgcolor="" class="labelmedium" style="padding-top:3px">
   <td align="center" style="padding-top:3px;">  
     
 	<table cellspacing="0" cellpadding="0" class="formpadding">
@@ -83,12 +82,12 @@ password="#SESSION.dbpw#">
 	   </tr>
     </table>
   </td>
-  <td class="labelit">#SupplyDescription#</b></td>
-  <td class="labelit">#UoMDescription#</td>
-  <td class="labelit" align="center">#lsNumberFormat(SupplyCapacity,",")#</td>
-  <td class="labelit" align="center">#lsNumberFormat(SupplyDailyUsage,",")#</td>
+  <td>#SupplyDescription#</b></td>
+  <td>#UoMDescription#</td>
+  <td align="center">#lsNumberFormat(SupplyCapacity,",")#</td>
+  <td align="center">#lsNumberFormat(SupplyDailyUsage,",")#</td>
   <cfif url.type eq "AssetItem">
-  <td class="labelit">
+  <td>
   	<cfquery name="warehouse" 
 		datasource="appsMaterials" 
 		username="#SESSION.login#" 
@@ -111,8 +110,8 @@ password="#SESSION.dbpw#">
 	#whList#
   </td>
   </cfif>
-  <td class="labelit">#OfficerFirstName# #OfficerLastName#</td>
-  <td class="labelit">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>	  
+  <td>#OfficerFirstName# #OfficerLastName#</td>
+  <td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>	  
 </tr>
 
 <cfquery name="Metric" 
@@ -131,7 +130,7 @@ password="#SESSION.dbpw#">
 	<td align="right"></td>
 	<td colspan="#vColumns#">
 		<table border="0">
-			<tr class="labelit">
+			<tr class="labelmedium">
 			<td><cf_tl id="Standard Consumption">:</td>
 			<cfloop query="Metric">
 				<td valign="bottom"><cfif Metric.currentrow neq 1>-</cfif></td>
@@ -143,7 +142,8 @@ password="#SESSION.dbpw#">
 						<cfelseif lcase(TargetDirection) eq "down">
 							<cfset imgSource = "arrow-down.gif">
 						</cfif>
-						<img src="#SESSION.root#/Images/#imgSource#" alt="#TargetDirection#" height="14" border="0" align="absmiddle">(#TargetRange#) &nbsp;
+						<img src="#SESSION.root#/Images/#imgSource#" 
+						    alt="#TargetDirection#" height="14" border="0" align="absmiddle">(#TargetRange#) &nbsp;
 					</p>
 				</td>
 			</cfloop>
@@ -236,7 +236,7 @@ password="#SESSION.dbpw#">
 				<cfset priorMission = "">
 				
 				<cfloop query="MetricTargetLocations">
-					<tr onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''" bgcolor="">
+					<tr onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''" bgcolor="" class="labelmedium2">
 					
 						<cfquery name="qMetricTarget" dbtype="query">
 							SELECT 	*
@@ -255,12 +255,12 @@ password="#SESSION.dbpw#">
 						</cfquery>
 						
 						<cfif url.type eq "Item">
-						<td class="labelit"><cfif priorMission neq MetricTargetLocations.Mission>#MetricTargetLocations.Mission#</cfif></td>
-						<td class="labelit" valign="bottom">#MetricTargetLocations.LocationName#</td>
+						<td><cfif priorMission neq MetricTargetLocations.Mission>#MetricTargetLocations.Mission#</cfif></td>
+						<td valign="bottom">#MetricTargetLocations.LocationName#</td>
 						</cfif>
 						
 						<cfif url.type eq "AssetItem">
-							<td class="labelit" colspan="2">#dateFormat(MetricTargetLocations.DateEffective,'#CLIENT.DateFormatShow#')#</td>
+							<td colspan="2">#dateFormat(MetricTargetLocations.DateEffective,'#CLIENT.DateFormatShow#')#</td>
 						</cfif>
 						
 						<cfset priorMetric = qMetricTarget.Metric>
@@ -268,7 +268,7 @@ password="#SESSION.dbpw#">
 						<cfset priorMetricDescription = qMetricTarget.MetricDescription>
 						<cfset cntMetricTarget = 1>
 						
-						<td class="labelit">#qMetricTarget.MetricQuantity#&nbsp;&nbsp;#qMetricTarget.MetricDescription#</td>
+						<td>#qMetricTarget.MetricQuantity#&nbsp;&nbsp;#qMetricTarget.MetricDescription#</td>
 						
 						<cfloop query="qMetricTarget">
 							<cfif priorMetric neq Metric>

@@ -332,7 +332,7 @@
 	<cfoutput>
 		<script>
 			ptoken.navigate('#session.root#/warehouse/maintenance/item/Consumption/ItemSupplyListing.cfm?type=#url.type#&id=#url.id#','supplylist');
-			ColdFusion.Window.hide('mydialog');
+			ProsisUI.closeWindow('mydialog');
 		</script>	
 	</cfoutput>
 

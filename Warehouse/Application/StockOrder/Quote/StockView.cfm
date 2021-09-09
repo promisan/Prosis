@@ -9,7 +9,8 @@
 	 password="#SESSION.dbpw#">
 	   SELECT    *
 	   FROM      Warehouse
-	   WHERE     Warehouse IN (SELECT Warehouse FROM itemTransaction)
+	   WHERE     Mission = '#url.mission#'
+	   AND       Warehouse IN (SELECT Warehouse FROM itemTransaction)
 	   AND       Operational = 1  	   
 	</cfquery>
 	
@@ -21,6 +22,8 @@
 	   FROM      Ref_Category
 	   WHERE     Operational = 1  	   
 	</cfquery>
+	
+	<cfoutput>
 
 	<script language="JavaScript">
 	
@@ -43,9 +46,34 @@
 	   ptoken.navigate('getSelectionCategory.cfm?mission='+mis+'&category='+cat,'boxcategory')      
 	}
 	
+	function addquote() {     
+	    _cf_loadingtexthtml='';  		  
+	    ptoken.navigate('addQuote.cfm?mission=#url.mission#&warehouse='+document.getElementById('warehousequote').value,'boxquote')      
+	}
+		
+	function additem(whs,itm,uom,cur,sch) {
+	 
+	  if (document.getElementById('requestno').value == '') {	     
+	     addquote()	  
+	  } else { 
+	    _cf_loadingtexthtml='';		
+	    ptoken.navigate('getQuoteLine.cfm?action=add&requestno='+document.getElementById('requestno').value+'&warehouse='+whs+'&itemno='+itm+'&uom='+uom+'&currency='+cur+'&priceschedule='+sch,'boxlines') 
+	  }	
+	}
+	
+	function setquote(no,act,val) {	  
+       _cf_loadingtexthtml='';		
+	   ptoken.navigate('setQuote.cfm?action='+act+'&requestno='+no+'&val='+val,'boxprocess','','','POST','stockform') 	
+	}	
+			
+	function deleteitem(tra) {	  
+       _cf_loadingtexthtml='';		
+	   ptoken.navigate('setQuote.cfm?action=deleteline&transactionid='+tra,'boxprocess') 	
+	}
+	
 	function search() {     
 	   _cf_loadingtexthtml='';  
-	   ptoken.navigate('StockInquirySubmit.cfm','content','','','POST','stockform')      
+	   ptoken.navigate('getStockContent.cfm','content','','','POST','stockform')      
 	}
 	
 	function stockreserve(itm,whs) {
@@ -54,6 +82,8 @@
 	}
 	
 	</script>
+	
+	</cfoutput>
 	
 	<cf_layoutscript>
 	<cf_textareascript>
@@ -80,17 +110,18 @@
 				  size="35"
 		          name="top">	
 				
-					<table class="formpadding navigation_table" style="height:100%;border-botomm:1px solid gray;width:100%;background-color:f1f1f1">
+					<table class="formpadding navigation_table" style="height:100%;border-botomm:1px solid gray;width:100%;background-color:e6e6e6">
 						<tr>
 						<td>
 							<table>
 							<tr>
-							
-							    <td style="font-size:12px;padding-bottom:10px;padding-left:10px;padding-right:4px"><cf_tl id="Category"></td>
-								<td style="padding-right:10px">
+														    
+								<td style="height:45px;padding-left:10px;padding-right:10px">
+								
+								<input type="hidden" name="Mission" value="<cfoutput>#url.mission#</cfoutput>">
 								
 								<select name="category" 
-								   style="background-color:f1f1f1" 
+								   style="background-color:f5f5f5;font-size:19px;height:33px"
 								   class="regularxxl" 
 								   onChange="getcategory('<cfoutput>#url.mission#</cfoutput>',this.value);search()">
 								   
@@ -102,29 +133,31 @@
 								</select>
 								</td>
 								
-								<td style="font-size:12px;padding-bottom:10px;padding-right:4px"><cf_tl id="Store"></td>
+								<td style="font-size:14px;padding-bottom:3px;padding-right:4px"><cf_tl id="Store"></td>
 								<td style="padding-right:10px">
 								
-								<select name="warehouse" style="background-color:f1f1f1" class="regularxxl" onChange="search()">
+								<select name="warehouse" style="background-color:f5f5f5;font-size:19px;height:33px" class="regularxxl" onChange="search()">
 								<option value="">Any</option>
 								<cfoutput query="Warehouse">
 							     	<option value="#Warehouse#">#WarehouseName#</option>
 								</cfoutput>	
 								</select>
 								</td>
-								<td style="font-size:12px;padding-bottom:10px;padding-right:4px"><cf_tl id="SKU"></td>
+								<td style="font-size:14px;padding-bottom:3px;padding-right:4px"><cf_tl id="SKU"></td>
 								<td style="padding-right:10px">
-								<input style="width:70px;text-align:center;border:0px;background-color:f1f1f1" name="ItemNo" class="regularxxl" onKeyUp = "apply(event)">
+								<input style="width:90px;text-align:center;background-color:f5f5f5;font-size:19px;height:33px" name="ItemNo" class="regularxxl" onKeyUp = "apply(event)">
 								</td>
-								<td style="font-size:12px;padding-bottom:10px;padding-right:4px"><cf_tl id="Name"></td>
+								<td style="font-size:14px;padding-bottom:3px;padding-right:4px"><cf_tl id="Name"></td>
 								<td style="padding-right:10px">
-								<input style="width:180px;background-color:f1f1f1" name="ItemName" class="regularxxl" onKeyUp = "apply(event)"></td>
+								<input style="width:180px;background-color:f5f5f5;font-size:19px;height:33px" name="ItemName" class="regularxxl" onKeyUp = "apply(event)"></td>
+								
+								<td align="right" style="padding-right:4px">
+								<input type="button" onclick="search()" style="height:33px;width:110px;border:1px solid silver;height:30px;" class="button10g" name="Find" value="Find">
+								</td>
 							</tr>
 							</table>
 						
-						<td align="right" style="padding-right:4px">
-						<input type="button" onclick="search()" style="width:110px" class="button10g" name="Find" value="Find">
-						</td>
+						
 						</tr>
 						
 						</table>
@@ -162,15 +195,15 @@
 		<cf_layoutarea 
 		    position="right" 
 			name="commentbox" 
-			minsize="20%" 
-			maxsize="30%" 
+			minsize="380" 
+			maxsize="380" 
 			size="380" 
 			overflow="yes" 
-			initcollapsed="yes"
+			
 			collapsible="true" 
 			splitter="true">
 			
-					<cfinclude template="getQuote.cfm">			
+					<cfinclude template="QuoteView.cfm">			
 					
 					<!---
 				

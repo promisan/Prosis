@@ -124,8 +124,7 @@
 			<tr style="border-top:1px solid silver">			 
 			 <td colspan="2" style="min-width:700px">
 				<table width="100%" style="padding:1px;background-color:fafafa">					
-					<tr class="labelmedium">
-					<td style="min-width:200px" id="testresult"></td>
+					<tr class="labelmedium">					
 					<td align="right">
 					<table><tr>
 						<td style="padding-left:4px">@mission</td><td width="2">=</td><td style="padding-right:4px">Mission</td>
@@ -140,7 +139,9 @@
 				</table>
 			   </td>
 			</tr> 
-						
+			
+			<tr><td colspan="2" id="testresult"></td></tr> 
+				
 		</table>
 	</td>
 	</tr>

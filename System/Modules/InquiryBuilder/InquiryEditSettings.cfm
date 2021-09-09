@@ -8,7 +8,7 @@
    <cfset val[row] = itm>	
 </cfloop>
 
-<table width="99%" class="formpadding" align="center">
+<table width="100%" class="formpadding" align="center">
 <tr><td valign="top">
 
 <table class="formpadding" align="center" style="width:100%">

@@ -35,27 +35,27 @@
 	</cfif>	
 
 	<cf_screentop height="100%" 
-	   scroll="Yes" 
-	   html="#html#" 
-	   label="#Item.ItemDescription# [#Item.ItemNo#]" 
-	   layout="webapp" 
-	   banner="gray" 
-	   menuAccess="#menuaccess#" 
-	   jQuery="Yes"	   
-	   systemfunctionid="#url.idmenu#">
+		   scroll="Yes" 
+		   html="#html#" 
+		   label="#Item.ItemDescription# [#Item.ItemNo#]" 
+		   layout="webapp" 
+		   banner="gray" 
+		   menuAccess="#menuaccess#" 
+		   jQuery="Yes"	   
+		   systemfunctionid="#url.idmenu#">
 
 <cfelse>
 
 	<cf_screentop height="100%" 
-	   scroll="Yes" 
-	   html="#html#" 
-	   option="Add Master Catalog Item" 
-	   label="Asset and/or Supplies Master Item" 
-	   layout="webapp" 
-	   banner="gray"	   
-	   menuAccess="#menuaccess#" 
-	   jQuery="Yes"
-	   systemfunctionid="#url.idmenu#">
+		   scroll="Yes" 
+		   html="#html#" 
+		   option="Add Master Catalog Item" 
+		   label="Asset and/or Supplies Master Item" 
+		   layout="webapp" 
+		   banner="gray"	   
+		   menuAccess="#menuaccess#" 
+		   jQuery="Yes"
+		   systemfunctionid="#url.idmenu#">
 	
 </cfif>
 

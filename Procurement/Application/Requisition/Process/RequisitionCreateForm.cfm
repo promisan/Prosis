@@ -6,7 +6,7 @@
 <cf_DialogStaffing>
 
 <cf_tl id="Submit Requests" var="vSubmit">
-<cf_screentop height="100%" close="parent.parent.ColdFusion.Window.destroy('mysubmit',true)" label="#vSubmit#" jquery="Yes" line="no" banner="gray" layout="webapp" scroll="Yes" html="yes">
+<cf_screentop height="100%" close="parent.parent.ColdFusion.Window.destroy('mysubmit',true)" label="#vSubmit#" jquery="Yes" line="no" banner="gray" layout="webapp" scroll="Yes" html="no">
 
 <cfoutput>
 
@@ -37,7 +37,7 @@
 	<cf_message message="No lines were selected to be processed." return="No">			
 <cfelse>	
 
-<form method="post" name="postrequest" id="postrequest" height="100%">
+<form method="post" name="postrequest" id="postrequest" height="98%">
 
 <table width="100%" height="100%" bgcolor="white">
 

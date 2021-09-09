@@ -107,9 +107,9 @@
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT    *
-	FROM      Ref_Category
-	WHERE     Category = '#sale.Category#' 
+		SELECT    *
+		FROM      Ref_Category
+		WHERE     Category = '#sale.Category#' 
 	</cfquery>	
 	
 	<!--- DEFINE he location from where it is retrieved --->			
@@ -181,7 +181,6 @@
 			FROM      Warehouse  
 			WHERE     Warehouse = '#url.Warehouse#' 
 		</cfquery>	
-
 	
 	    <cfquery name="getLines" 
 			datasource="AppsMaterials" 

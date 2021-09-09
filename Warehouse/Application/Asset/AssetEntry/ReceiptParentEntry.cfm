@@ -23,7 +23,6 @@
 
 </cfif>
 
-
 <cf_calendarscript>
 
 <cfquery name="Parameter" 
@@ -95,11 +94,11 @@ password="#SESSION.dbpw#">
 	<cfset rqty = "15">
 	</cfif>
 	
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="100%" height="100%" class="formpadding">
 	
 	<tr><td valign="top" height="100%" align="center">
 	
-	<table width="96%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="formspacing">
+	<table width="96%" height="100%" align="center" class="formspacing">
 	<tr><td align="center" height="100%">
 			
 <cfelse>
@@ -123,7 +122,8 @@ password="#SESSION.dbpw#">
 		<cfset amount = "">
 	</cfif>
 	<cfset rqty = "#Receipt.ReceiptQuantity#">
-	<table width="98%" border="0" align="center" cellspacing="0" class="formpadding">
+	<table width="98%" align="center" class="formpadding">
+	
 	<tr><td align="center">
 	
 </cfif>	
@@ -146,7 +146,6 @@ password="#SESSION.dbpw#">
 	</cfoutput>
 
 <cfelse>
-
 	
 <cfform action="ReceiptParentEntrySubmit.cfm?Mission=#URL.Mission#&ID=#URL.ID#&Mode=#URL.Mode#" 
 		method="POST" 
@@ -158,9 +157,9 @@ password="#SESSION.dbpw#">
 	
 <cfoutput query="Parent">
 		
-	<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="98%" align="center" class="formpadding">
 	<tr>
-	    <td colspan="5" height="20" class="labelmedium" style="padding-left:1px"><b>#ItemDescription#</b></td>
+	    <td colspan="5" height="20" class="labelmedium2" style="padding-top:5px;padding-left:1px"><b>#ItemDescription#</b></td>
 	</tr>
 	
 	<tr><td height="1" colspan="5" class="linedotted"></td></tr>
@@ -310,15 +309,15 @@ password="#SESSION.dbpw#">
 		<tr><td height="3"></td></tr>
 		<tr><td colspan="5">
 		
-			<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-			   <tr class="linedotted">
-				   <td width="3%" class="labelmedium"><cf_tl id="No"></td>
+			<table width="95%" align="center" class="formpadding">
+			   <tr class="linedotted labelmedium2">
+				   <td width="3%"><cf_tl id="No"></td>
 				   <td width="1%"></td>
-			       <td style="width:15%" class="labelmedium"><cf_tl id="SerialNo"></td>	
-				   <td style="width:10%" class="labelmedium"><cf_tl id="DecalNo"></td>		  
-				   <td style="width:10%" class="labelmedium"><cf_tl id="Barcode"></td>
-				   <td style="width:10%" class="labelmedium"><cf_tl id="SourceNo"></td>
-			       <td style="width:40%" class="labelmedium"><cf_tl id="Memo"></td>
+			       <td style="width:15%"><cf_tl id="SerialNo"></td>	
+				   <td style="width:10%"><cf_tl id="DecalNo"></td>		  
+				   <td style="width:10%"><cf_tl id="Barcode"></td>
+				   <td style="width:10%"><cf_tl id="SourceNo"></td>
+			       <td style="width:40%"><cf_tl id="Memo"></td>
 			   </tr>			   
 			  			   
 			   <!--- ajax box for runtime validation --->
@@ -350,12 +349,15 @@ password="#SESSION.dbpw#">
 			   }
 			   
 			   function sel(no,ch) {
+			   
 				   se1 = document.getElementById("SerialNo"+no)
 				   se2 = document.getElementById("BarCode"+no)
 				   se3 = document.getElementById("Memo"+no)
 				   se4 = document.getElementById("DecalNo"+no)
 				   se5 = document.getElementById("SourceNo"+no)
+				   
 				   if (ch == true) {   
+				   
 				   	    se1.disabled = false
 					    se1.className = "regular enterastab"
 						se2.disabled = false
@@ -365,8 +367,10 @@ password="#SESSION.dbpw#">
 						se4.disabled = false
 					    se4.className = "regular enterastab"	
 						se5.disabled = false
-					    se5.className = "regular enterastab"									
+					    se5.className = "regular enterastab"	
+														
 					} else { 
+					
 					     se1.disabled = true
 				         se1.value = ""
 					     se1.className = "disabled"
@@ -382,6 +386,7 @@ password="#SESSION.dbpw#">
 						 se5.disabled = true
 						 se5.value = ""
 					     se5.className = "disabled"			
+						 
 				   }
 			  
 			   }		
@@ -431,8 +436,7 @@ password="#SESSION.dbpw#">
 						   
 						<cfif Parameter.VerifySerialNo eq "1">										
 					 		 <font color="FF0000">*</font>					
-						</cfif>		
-					   
+						</cfif>							   
 										
 					</td>
 						
@@ -441,7 +445,7 @@ password="#SESSION.dbpw#">
 					<table cellspacing="0" cellpadding="0"><tr><td>
 					
 					<cfif Parameter.VerifyDecalNo eq "1">	
-						    <cfset validate = "ColdFusion.navigate('validateEntry.cfm?mission=#url.mission#&box=DecalNo_#ItemNo#_#itm#&field=AssetDecalNo&value='+this.value,'validate')">	
+						    <cfset validate = "ptoken.navigate('validateEntry.cfm?mission=#url.mission#&box=DecalNo_#ItemNo#_#itm#&field=AssetDecalNo&value='+this.value,'validate')">	
 						<cfelse>
 							<cfset validate = "">	
 						</cfif>
@@ -469,7 +473,7 @@ password="#SESSION.dbpw#">
 					<td style="padding-right:1px">
 					
 					<cfif Parameter.VerifyDecalNo eq "1">	
-						    <cfset validate = "ColdFusion.navigate('validateEntry.cfm?mission=#url.mission#&box=DecalNo_#ItemNo#_#itm#&field=AssetDecalNo&value='+this.value,'validate')">	
+						    <cfset validate = "ptoken.navigate('validateEntry.cfm?mission=#url.mission#&box=DecalNo_#ItemNo#_#itm#&field=AssetDecalNo&value='+this.value,'validate')">	
 						<cfelse>
 							<cfset validate = "">	
 						</cfif>
@@ -511,7 +515,7 @@ password="#SESSION.dbpw#">
 					<td style="padding-right:1px">
 					
 						<cfif Parameter.VerifySerialNo eq "1">	
-						    <cfset validate = "ColdFusion.navigate('validateEntry.cfm?mission=#url.mission#&box=SerialNo_#ItemNo#_#itm#&field=SerialNo&value='+this.value,'validate')">	
+						    <cfset validate = "ptoken.navigate('validateEntry.cfm?mission=#url.mission#&box=SerialNo_#ItemNo#_#itm#&field=SerialNo&value='+this.value,'validate')">	
 						<cfelse>
 							<cfset validate = "">	
 						</cfif>
@@ -529,7 +533,7 @@ password="#SESSION.dbpw#">
 					<td style="padding-right:1px">
 						
 						<cfif Parameter.VerifyDecalNo eq "1">	
-						    <cfset validate = "ColdFusion.navigate('validateEntry.cfm?mission=#url.mission#&box=DecalNo_#ItemNo#_#itm#&field=AssetDecalNo&value='+this.value,'validate')">	
+						    <cfset validate = "ptoken.navigate('validateEntry.cfm?mission=#url.mission#&box=DecalNo_#ItemNo#_#itm#&field=AssetDecalNo&value='+this.value,'validate')">	
 						<cfelse>
 							<cfset validate = "">	
 						</cfif>
@@ -553,7 +557,7 @@ password="#SESSION.dbpw#">
 					<td style="padding-right:1px">
 					
 						<cfif Parameter.VerifyBarCode eq "1">	
-						    <cfset validate = "ColdFusion.navigate('validateEntry.cfm?mission=#url.mission#&box=BarCode_#ItemNo#_#itm#&field=AssetBarCode&value='+this.value,'validate')">	
+						    <cfset validate = "ptoken.navigate('validateEntry.cfm?mission=#url.mission#&box=BarCode_#ItemNo#_#itm#&field=AssetBarCode&value='+this.value,'validate')">	
 						<cfelse>
 							<cfset validate = "">	
 						</cfif>
@@ -611,12 +615,12 @@ password="#SESSION.dbpw#">
 				 				 			 			 
 		<cfif ModuleEnabled eq "1">
 						
-			<tr><td class="linedotted" colspan="6"></td></tr>				
+			<tr><td class="line" colspan="6"></td></tr>				
 			<tr>
-			<td class="labelmedium">Ledger Posting</td>
+			<td class="labelmedium2">Ledger Posting</td>
 			<td colspan="5">
 			
-			<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+			<table width="100%" class="formpadding">
 					  							
 				 <td style="padding-left:5px" class="labelmedium" height="22"><cf_tl id="Stock Account">:</td>
 				 <td class="labelmedium">
@@ -625,13 +629,13 @@ password="#SESSION.dbpw#">
 							    datasource="appsMaterials" 
 							    username="#SESSION.login#" 
 							    password="#SESSION.dbpw#">
-							    SELECT    R.*
-							    FROM      Ref_CategoryGledger S, Accounting.dbo.Ref_Account R
-								WHERE     S.Category = '#Category#'
-								AND       (S.Mission  = '#url.mission#' or S.Mission is NULL) 
-								AND       S.Area = 'Stock' 
-								AND       S.GLAccount = R.GLAccount
-								ORDER BY Mission DESC					
+								    SELECT    R.*
+								    FROM      Ref_CategoryGledger S, Accounting.dbo.Ref_Account R
+									WHERE     S.Category = '#Category#'
+									AND       (S.Mission  = '#url.mission#' or S.Mission is NULL) 
+									AND       S.Area = 'Stock' 
+									AND       S.GLAccount = R.GLAccount
+									ORDER BY  Mission DESC					
 							 </cfquery>
 							 
 							 <cfif account.recordcount eq "0">
@@ -650,12 +654,12 @@ password="#SESSION.dbpw#">
 					    datasource="appsMaterials" 
 					    username="#SESSION.login#" 
 					    password="#SESSION.dbpw#">
-					    SELECT    DISTINCT R.GLAccount,R.Description, S.Area
-					    FROM      Ref_CategoryGledger S, Accounting.dbo.Ref_Account R
-						WHERE     S.Category = '#Category#'
-						AND       (S.Mission  = '#url.mission#') 
-						AND       S.Area != 'Stock' 
-						AND       S.GLAccount = R.GLAccount											
+						    SELECT    DISTINCT R.GLAccount,R.Description, S.Area
+						    FROM      Ref_CategoryGledger S, Accounting.dbo.Ref_Account R
+							WHERE     S.Category = '#Category#'
+							AND       (S.Mission  = '#url.mission#') 
+							AND       S.Area != 'Stock' 
+							AND       S.GLAccount = R.GLAccount											
 					</cfquery>
 					 
 					<cfif Account.recordcount eq "0">
@@ -706,10 +710,8 @@ password="#SESSION.dbpw#">
 				
 		</cfif>
 		
-		
 		</TABLE>
-	</TD></TR>
-			
+	</TD></TR>		
 	
 	</table>		
 			
@@ -721,7 +723,7 @@ password="#SESSION.dbpw#">
 	
 			<script>
 			function search() {			
-				window.location = "../Item/ItemSearchMaster.cfm?mode=#url.mode#&mission=#url.mission#"		
+				ptoken.location('../Item/ItemSearchMaster.cfm?mode=#url.mode#&mission=#url.mission#')		
 			}
 			</script>
 		
@@ -740,11 +742,11 @@ password="#SESSION.dbpw#">
 	
 	<cfelse>
 		
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<table width="100%">
 		<tr><td height="1" class="linedotted"></td></tr>
 		<tr><td height="27" align="center">
 		<cf_tl id="Back" var="1">	
-		<input type="button" name="Submit" id="Submit" class="button10g" style="width:120;height:23;font-size:13px" value="#lt_text#" onclick="window.location='ReceiptParentSelect.cfm?id=#url.id#'">
+		<input type="button" name="Submit" id="Submit" class="button10g" style="width:120;height:23;font-size:13px" value="#lt_text#" onclick="ptoken.location('ReceiptParentSelect.cfm?id=#url.id#')">
 		<cf_tl id="Register" var="1">	
 		<cfif save eq "1">		
 		<input type="submit" name="Submit" id="Submit" class="button10g" style="width:120;height:23;font-size:13px" value="#lt_text#">

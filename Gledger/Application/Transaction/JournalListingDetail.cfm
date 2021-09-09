@@ -309,7 +309,7 @@
 						    <cfset nme = ReferenceName>	
 						</cfif>
 												
-						<td colspan="2" class="clsSearchField" style="padding-right:4px" title="#mem#">
+						<td colspan="2" class="clsSearchField" style="padding-right:4px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;" title="#mem#">
 						
 							<cfset memo = "">	
 							
