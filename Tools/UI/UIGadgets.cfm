@@ -284,6 +284,7 @@ function saveExpanded(id) {
 }
 
 function _tree_collapse(e){
+	/***
 	var id = this.element.context.id;
 	var item = this.dataItem(e.node);
 	var element = this.dataItem(e.node);
@@ -297,6 +298,7 @@ function _tree_collapse(e){
 			//expanded[element.id] = false;
 		}
 	}
+	***/
 }
 
 function _tree_action(e) {
@@ -376,8 +378,9 @@ function _tree_action_binder_single(item) {
 
 function _expand_to() {
 	var data = this.items();
-	console.log(this.select());
+	var expanded = null;
 /***
+ 	 console.log(this.select());
 	if (this.select()) {
 		var id = this.element.context.id;
 		var str_expanded = Cookies.get(id + '_expanded');

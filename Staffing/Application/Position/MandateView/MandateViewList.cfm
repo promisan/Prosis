@@ -23,6 +23,11 @@
 <cfif url.org neq "">
 	<cfset client.org = url.org>
 </cfif>
+
+<cfif url.orgUnitcode neq "">
+    <cfset client.org = url.orgUnitcode>
+</cfif>
+
 <cfif Client.Lay eq "Current">
      <cfset Client.lay = "Maintain">
 </cfif>
@@ -168,20 +173,13 @@
 		  
 		  <cfif URL.OrgUnitCode neq "">		  
 		  
-		  			<cf_OrganizationSelect
-					    Mission = URL.Mission
-						Mandate = URL.Mandate
-						OrgUnitCode = URL.OrgUnitCode>  
+	  			<cf_OrganizationSelect
+				    Mission = "#URL.Mission#"
+					Mandate = "#URL.Mandate#"
+					OrgUnitCode = "#URL.OrgUnitCode#">  
 					
 		  </cfif>	
-		  
-		  
-		  
-	   
-
-		  xxxxxxx
-		  <cfabort>
-		  
+		  		  		  
 		  <cfif URL.OrgUnit1 neq "">
 		            <cfif cond eq "">
 					   <cfset cond = " AND Post.OrgUnitAdministrative = '#URL.OrgUnit1#'">
