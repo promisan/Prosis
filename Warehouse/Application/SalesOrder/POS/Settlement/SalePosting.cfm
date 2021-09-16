@@ -182,8 +182,10 @@
 		11/13/2014 
 		---->
 		
-		<!---<cfif getPrior.total eq getNewSale.Total>--->
-<!---- Here we need a better way to indicate we operate in new e-invoice mode, Armin 10/6/2020---->
+		<!--- <cfif getPrior.total eq getNewSale.Total> --->
+        <!--- Here we need a better way to indicate we operate in new e-invoice mode, Armin 10/6/2020
+		
+
 		<cfquery name="getSeries"
 			datasource="AppsOrganization"
 			username="#SESSION.login#"
@@ -235,8 +237,11 @@
 				</cfif>
 			</cfif>
 		</cfif>
-
-	
+		
+		--->
+		
+		<cfset issueinv = "0">
+			
 	</cfif>
 
 <cfelse>

@@ -2,6 +2,10 @@
 
 <!--- get position --->
 
+<cfparam name="url.action" default="insert">
+
+<cfif url.action eq "insert">
+
  <cfquery name="Position" 
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
@@ -13,8 +17,14 @@
 
 <cfoutput>
 <script>
+    
+	<cfif Position.SourcePostNumber neq "">
     document.getElementById('#url.class#_1').innerHTML = "#Position.SourcePostNumber#"
+	<cfelse>
+	document.getElementById('#url.class#_1').innerHTML = "#Position.PositionParentId#"
+	</cfif>
 	document.getElementById('#url.class#_2').innerHTML = "#Position.FunctionDescription#"
+		
 </script>
 </cfoutput>
 
@@ -26,7 +36,7 @@
 	password="#SESSION.dbpw#">
 	SELECT      *
 	FROM        PositionRelation
-	WHERE       PositionNo = '#url.positionno#'	
+	WHERE       PositionNo    = '#url.pos#'	
 	AND         RelationClass = '#url.class#'	
 </cfquery>	
 
@@ -56,8 +66,25 @@
 
 </cfif>
 
+<cfelseif url.action eq "delete">
+	
+	 <cfquery name="check" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		DELETE FROM PositionRelation
+		WHERE       PositionNo    = '#url.pos#'	
+		AND         RelationClass = '#url.class#'	
+	</cfquery>	
+	
+		
+	<cfoutput>
+	<script>
+	    		
+	    document.getElementById('#url.class#_1').innerHTML = ""		
+		document.getElementById('#url.class#_2').innerHTML = ""
+			
+	</script>
+	</cfoutput>
 
-
-
-
-
+</cfif>

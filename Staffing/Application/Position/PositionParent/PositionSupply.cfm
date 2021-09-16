@@ -174,21 +174,19 @@ password="#SESSION.dbpw#">
 						PR.Created
 			FROM        PositionRelation AS PR INNER JOIN
                         Position AS PO ON PR.PositionNoRelation = PO.PositionNo
-			WHERE       PR.PositionNo = '#url.id2#'
+			WHERE       PR.PositionNo = '#url.id#' 
 			AND         PR.RelationClass = '#itm#'			
 		</cfquery>				
 		
 	    <tr class="labelmedium2 linedotted">
 		  <td style="width:200px;padding-left:34px"><cf_tl id="#itm#"></td>
-		 	  
-		  <cfset link = "#SESSION.root#/Staffing/Application/Position/PositionParent/getPosition.cfm?event=1">
-		 		 
+		 		 		 
 		  <td style="min-width:50%">
 		      <table style="width:100%" class="navigation_table">
 		      <tr class="labelmedium navigation_row">
-			  <td style="width:40px">
+			  <td style="width:30px">
 			  
-			    <cfset link = "#SESSION.root#/Staffing/Application/Position/PositionParent/getPosition.cfm?pos=#url.id2#&class=#itm#">
+			    <cfset link = "#SESSION.root#/Staffing/Application/Position/PositionParent/getPosition.cfm?pos=#url.id#&class=#itm#">
 							
 		  		<cf_selectlookup
 				    box          = "positionbox_detail"
@@ -206,8 +204,9 @@ password="#SESSION.dbpw#">
 					
 			  </td>
 			  
-			  <td id="#itm#_1" style="width:50px"><cfif relation.SourcePostNumber eq "">#relation.PositionParentId#<cfelse>#relation.SourcePostNumber#</cfif></td>
-			  <td id="#itm#_2" style="min-width:150px">#relation.FunctionDescription#</td>
+			  <td><cf_img icon="delete" onclick="ptoken.navigate('#SESSION.root#/Staffing/Application/Position/PositionParent/getPosition.cfm?action=delete&pos=#url.id#&class=#itm#','positionbox_detail')"></td>			  
+			  <td id="#itm#_1" style="width:40px"><cfif relation.SourcePostNumber eq "">#relation.PositionParentId#<cfelse>#relation.SourcePostNumber#</cfif></td>
+			  <td id="#itm#_2" style="padding-left:5px;min-width:150px">#relation.FunctionDescription#</td>
 			  <td id="#itm#_3" style="padding-right:5px" align="right">#relation.OfficerLastName# #dateformat(relation.created,client.dateformatshow)#</td>
 			  </tr>
 			  </table>

@@ -17,23 +17,20 @@
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">	 
 	 SELECT *
-	 FROM WarehouseBatch
-	 WHERE BatchId = '#url.batchId#'
+	 FROM    WarehouseBatch
+	 WHERE   BatchId = '#url.batchId#'
 	</cfquery>
 	
 	<cfquery name="getInvoice"
 	 datasource="AppsLedger" 
 	 username="#SESSION.login#" 
-	 password="#SESSION.dbpw#">
-	 
-	 SELECT A.*, H.Currency, H.OrgUnitTax
-	 FROM TransactionHeader H
-	 INNER JOIN TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo = A.JournalSerialNo
-	 WHERE H.TransactionSourceId = '#url.batchId#'
-	 AND   H.TransactionCategory = 'Receivables'
-	 AND   A.ActionCode = 'Invoice'
-	</cfquery>
-	
+	 password="#SESSION.dbpw#">	 
+		 SELECT A.*, H.Currency, H.OrgUnitTax
+		 FROM   TransactionHeader H INNER JOIN TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo = A.JournalSerialNo
+		 WHERE  H.TransactionSourceId = '#url.batchId#'
+		 AND    H.TransactionCategory = 'Receivables'
+		 AND    A.ActionCode          = 'Invoice'
+	</cfquery>	
 		
 	<cfquery name="getWarehouseJournal"
 	 datasource="AppsMaterials" 
