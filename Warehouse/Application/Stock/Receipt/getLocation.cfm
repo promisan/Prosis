@@ -65,7 +65,7 @@
 
 <cfoutput>
 <cf_tl id="Select a destination location" var="1">
-<select 
+<select style="height:35px;border:0px;background-color:f1f1f1;font-size:19px;"
 	name="flocation" 
 	id="flocation" 
 	class="regularxl"	

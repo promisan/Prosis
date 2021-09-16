@@ -278,6 +278,8 @@ There are three mode
 				  <cfif URL.Edition eq "All">
 					
 						<cfset itm = itm+1>		
+						
+						<!--- to be converted to a listin--->
 								
 						<cf_menutab item       = "#itm#" 					            
 						            iconsrc    = "Logos/Modules.png" 

@@ -27,59 +27,67 @@
 
 	<script language="JavaScript">
 	
-	function apply(e) {	  
-	   _cf_loadingtexthtml='';  	      
-	   keynum = e.keyCode ? e.keyCode : e.charCode;	   	 						
-	   if (keynum == 13) {
-	      search();
-	   }						
-	}
-	
-	// refresh data in Prosis not needed 	
-	function refresh(mis,itm,box) {     
-	   _cf_loadingtexthtml='';  
-	   ptoken.navigate('getStock.cfm?mission='+mis+'&itemno='+itm,box)      
-	}
-	
-	function getcategory(mis,cat) {     
-	   _cf_loadingtexthtml='';  	  
-	   ptoken.navigate('getSelectionCategory.cfm?mission='+mis+'&category='+cat,'boxcategory')      
-	}
-	
-	function addquote() {     
-	    _cf_loadingtexthtml='';  		  
-	    ptoken.navigate('addQuote.cfm?mission=#url.mission#&warehouse='+document.getElementById('warehousequote').value,'boxquote')      
-	}
+		function apply(e) {	  
+		   _cf_loadingtexthtml='';  	      
+		   keynum = e.keyCode ? e.keyCode : e.charCode;	   	 						
+		   if (keynum == 13) {
+		      search();
+		   }						
+		}
 		
-	function additem(whs,itm,uom,cur,sch) {
-	 
-	  if (document.getElementById('requestno').value == '') {	     
-	     addquote()	  
-	  } else { 
-	    _cf_loadingtexthtml='';		
-	    ptoken.navigate('getQuoteLine.cfm?action=add&requestno='+document.getElementById('requestno').value+'&warehouse='+whs+'&itemno='+itm+'&uom='+uom+'&currency='+cur+'&priceschedule='+sch,'boxlines') 
-	  }	
-	}
-	
-	function setquote(no,act,val) {	  
-       _cf_loadingtexthtml='';		
-	   ptoken.navigate('setQuote.cfm?action='+act+'&requestno='+no+'&val='+val,'boxprocess','','','POST','stockform') 	
-	}	
+		// refresh data in Prosis not needed 	
+		function refresh(mis,itm,box) {     
+		   _cf_loadingtexthtml='';  
+		   ptoken.navigate('getStock.cfm?mission='+mis+'&itemno='+itm,box)      
+		}
+		
+		function getcategory(mis,cat) {     
+		   _cf_loadingtexthtml='';  	  
+		   ptoken.navigate('getSelectionCategory.cfm?mission='+mis+'&category='+cat,'boxcategory')      
+		}
+		
+		function addquote() {     
+		    _cf_loadingtexthtml='';  		  
+		    ptoken.navigate('addQuote.cfm?mission=#url.mission#&warehouse='+document.getElementById('warehousequote').value,'boxquote')      
+			document.getElementById('boxaction').className = "hide"
+		}
 			
-	function deleteitem(tra) {	  
-       _cf_loadingtexthtml='';		
-	   ptoken.navigate('setQuote.cfm?action=deleteline&transactionid='+tra,'boxprocess') 	
-	}
-	
-	function search() {     
-	   _cf_loadingtexthtml='';  
-	   ptoken.navigate('getStockContent.cfm','content','','','POST','stockform')      
-	}
-	
-	function stockreserve(itm,whs) {
-	 	ProsisUI.createWindow('stockinquiry','Inquiry Reservations','',{x:100,y:100,width:900,height:420,resizable:true,modal:true,center:true})
-		// ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/ItemMaster/Stock/StockView.cfm?warehouse='+whs+'&itemNo='+itm+'&uom='+uom,'stockinquiry')							
-	}
+		function additem(whs,itm,uom,cur,sch) {
+		 
+		  if (document.getElementById('requestno').value == '') {	     
+		     addquote()	  
+		  } else { 
+		    _cf_loadingtexthtml='';		
+		    ptoken.navigate('getQuoteLine.cfm?action=add&requestno='+document.getElementById('requestno').value+'&warehouse='+whs+'&itemno='+itm+'&uom='+uom+'&currency='+cur+'&priceschedule='+sch,'boxlines') 
+			document.getElementById('boxaction').className = "regular"
+		  }	
+		}
+			
+		function setquote(no,act,val) {	  
+	       _cf_loadingtexthtml='';		
+		   ptoken.navigate('setQuote.cfm?action='+act+'&requestno='+no+'&val='+val,'boxprocess','','','POST','stockform') 	
+		}	
+		
+		function applyQuote(act) {	  
+	       _cf_loadingtexthtml='';		
+		   ptoken.navigate('applyQuote.cfm?action='+act,'boxprocess','','','POST','stockform') 	
+		}	
+		
+						
+		function deleteitem(tra) {	  
+	       _cf_loadingtexthtml='';		
+		   ptoken.navigate('setQuote.cfm?action=deleteline&transactionid='+tra,'boxprocess') 	
+		}
+		
+		function search() {     
+		   _cf_loadingtexthtml='';  
+		   ptoken.navigate('getStockContent.cfm','content','','','POST','stockform')      
+		}
+		
+		function stockreserve(whs,itm,uom,mde) {
+		 	ProsisUI.createWindow('stockinquiry','Reservations','',{x:100,y:100,width:900,height:420,resizable:true,modal:true,center:true})
+			ptoken.navigate('#SESSION.root#/Warehouse/Application/StockOrder/Quote/ReservationView.cfm?warehouse='+whs+'&itemNo='+itm+'&uom='+uom+'&mode='+mde,'stockinquiry')							
+		}
 	
 	</script>
 	

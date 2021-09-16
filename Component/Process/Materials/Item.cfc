@@ -1030,7 +1030,7 @@
 					password="#SESSION.dbpw#">
 					SELECT*
 					 FROM  Materials.dbo.Item
-					 WHERE ItemNo = '#ItemNo#'				
+					 WHERE ItemNo = '#ItemNo#'			
 				</cfquery>						
 				
 				<cfset Category = Item.Category>
@@ -1054,7 +1054,7 @@
 									  WHERE  Mission = '#Mission#'
 									  AND    Operational = 1 )
 				  AND  Operational = '1'
-				  AND  Category    = '#Category#'
+				  AND  Category    = '#Category#'		  
 			</cfquery>			
 
 			<cfset dateValue = "">
@@ -1087,7 +1087,7 @@
 							WHERE  ItemNo        = '#ItemNo#'
 							AND	   UoM           = '#UoM#'
 							AND	   PriceSchedule = '#PriceSchedule#'						
-							AND	   Currency      = '#Currency#'
+							AND	   Currency      = '#Currency#'							
 					</cfquery>
 				
 					<cfquery name="CheckPrice" 
@@ -1115,10 +1115,10 @@
 							SELECT TaxCode
 							FROM   Materials.dbo.ItemWarehouse				
 							WHERE  ItemNo      = '#ItemNo#'
-							AND    Warehouse   = '#Warehouse#'
+							AND    Warehouse   = '#Warehouse#'							
 						</cfquery>	
 						
-						<cfset vTaxCode = "">
+						<cfset vTaxCode = "00">
 						
 						<cfif CheckTaxCode.recordcount neq 0>
 						
@@ -1134,13 +1134,11 @@
 							password="#SESSION.dbpw#">			
 								SELECT DISTINCT  TaxCode
 								FROM   Materials.dbo.WarehouseCategory
-								WHERE  Category  = '#Category#'
+								WHERE  Category  = '#Category#' 								
 						    </cfquery>	
 							
 							<cfif CheckTaxCode.recordcount neq 0>
-								<cfset vTaxCode = ChecktaxCode.TaxCode>
-							<cfelse>
-								<cfset vTaxCode = "">
+								<cfset vTaxCode = ChecktaxCode.TaxCode>							
 							</cfif>		
 							
 						</cfif>		
@@ -1148,15 +1146,14 @@
 						<!---- then I have to create a new item based on parameters if and only if the Price has not been passed --->
 						
 						<cfif Price eq 0>
-						
+							
 							<cfset vSalesPrice = CalculateSuggestedPrice(
-													Cost       = Cost,
-													TaxCode    = vTaxCode,
-													Multiplier = CostPriceMultiplier, 
-													Ceiling    = CostPriceCeiling,
-													CurrencyTo = Currency,
-													Datasource = datasource)>
-													
+													Cost         = Cost,
+													TaxCode      = vTaxCode,
+													Multiplier   = CostPriceMultiplier, 
+													PriceCeiling = CostPriceCeiling,
+													CurrencyTo   = checkWarehouse.Currency,
+													Datasource   = datasource)>													
 																										
 						<cfelse>
 						
@@ -1178,6 +1175,7 @@
 							    SELECT *
 							    FROM   Materials.dbo.Warehouse 
 							    WHERE  Warehouse = '#Warehouse#' 
+																
 						</cfquery>			
 						
 						<cfif getWarehouse.SupplyWarehouse eq "">
@@ -1306,11 +1304,11 @@
 				<cfargument name = "Cost"    		type="numeric"  required="true"   default="0">		
 				<cfargument name = "Taxcode"  		type="string"   required="true"   default="00">				
 				<cfargument name = "Multiplier"	    type="numeric"  required="true"   default="0">					
-				<cfargument name = "Ceiling"  	    type="numeric"  required="true"   default="5">		
+				<cfargument name = "PriceCeiling"   type="numeric"  required="true"   default="5">		
 				<cfargument name = "CurrencyTo"     type="string"   required="true"   default="USD">		
 				<cfargument name = "Datasource"     type="string"   required="true"   default="AppsPurchase">	
 				
-				<cfquery name="TaxCode" 
+				<cfquery name="getTaxCode" 
 						datasource="#datasource#" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">		
@@ -1318,9 +1316,9 @@
 						FROM   Accounting.dbo.Ref_Tax
 						WHERE  TaxCode = '#taxCode#'				
 			    </cfquery>
-				
-				<cfif TaxCode.TaxCalculation eq "Inclusive">
-					<cfset vCost   = Cost * (1+TaxCode.Percentage) * Multiplier>
+							
+				<cfif getTaxCode.TaxCalculation eq "Inclusive">
+					<cfset vCost   = Cost * (1+getTaxCode.Percentage) * Multiplier>
 				<cfelse>
 					<cfset vCost   = Cost * Multiplier>
 				</cfif> 
@@ -1330,22 +1328,15 @@
 			    <cf_exchangerate CurrencyFrom = "#APPLICATION.BaseCurrency#" CurrencyTo = "#CurrencyTo#" datasource="#datasource#">
 			    
 				<cfset vConverted_Amount = round(vCost/exc * 100 )/ 100>
-
-				<!---
+								
+				<cfif PriceCeiling neq "">
 				
-					<cfset vDivisor = Ceiling>			
-					<cfif vDivisor eq "0">
-						<cfset vDivisor = "1">
-					</cfif>			
-				
-					<cfloop condition="vConverted_Amount/vDivisor gt 1">
-						<cfset vDivisor = vDivisor + Ceiling>
-						<cfoutput>#vConverted_Amount#--#vDivisor#</cfoutput>
-						<cfabort>
-					</cfloop>
+					<cfset amt = vConverted_Amount / PriceCeiling>
 					
-				--->	
-						
+					<cfset vConverted_Amount = ceiling(amt)* PriceCeiling>
+														
+				</cfif>
+																			
 				<cfreturn vConverted_Amount>
 	
 	</cffunction>

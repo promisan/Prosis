@@ -34,6 +34,6 @@
 
 <cfoutput>
 	<script>
-		window.location = "ParameterEdit.cfm?idmenu=#URL.IDMenu#&mission=#url.Mission#";
+		ptoken.location('ParameterEdit.cfm?idmenu=#URL.IDMenu#&mission=#url.Mission#');
 	</script>
 </cfoutput>

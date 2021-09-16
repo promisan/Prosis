@@ -313,11 +313,11 @@ password="#SESSION.dbpw#">
 			    </td>
 			</tr>	 
 			
-			<tr><td height="28" colspan="2" style="padding-top:10px;font-size:16px" class="labelmedium line">
+			<tr><td height="28" colspan="2" style="padding-top:5px;font-size:16px" class="labelmedium">
 			
 			<cfoutput>
 			    						
-				<a target="right" href="MandateViewOpen.cfm?ID=Locate&ID2=#URL.Mission#&ID3=#MandateDefault#">
+				<a target="right" style="cursor:pointer" onclick="javascript:ptoken.open('MandateViewOpen.cfm?ID=Locate&ID2=#URL.Mission#&ID3=#MandateDefault#','right')">
 				<cf_tl id="Extended search">
 				</a>			
 				
@@ -325,9 +325,11 @@ password="#SESSION.dbpw#">
 						
 			</td></tr>				
 			
+			<!---
 			<tr class="line labelmedium"><td style="padding-top:10px;color:8365AB;font-size:16px;height:42;"><cf_tl id="Organizational Structure"></td></tr>								
+			--->
 									  
-		    <tr><td colspan="2" align="center">
+		    <tr><td colspan="2" align="center" style="padding-top:10px">
 				<table width="99%" align="right">
 				<tr><td>
 						

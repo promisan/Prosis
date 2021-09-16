@@ -315,9 +315,9 @@
 					 <cfelse>
 					 	 <cfset amtD   = Amount>	 
 					 </cfif>
-					 <cfset amtD   = round(amtD*100)/100>
+					 <cfset amtD   = round(amtD*10000)/10000>
 					 <cfset amtDB  = Amount/bseexc>
-					 <cfset amtDB  = round(amtDB*1000)/1000>
+					 <cfset amtDB  = round(amtDB*10000)/10000>
 				 
 				<cfelse>
 				
@@ -328,9 +328,9 @@
 					 <cfelse>
 					     <cfset amtC   = -Amount>
 					 </cfif>	 
-					 <cfset amtC   = round(amtC*100)/100>
+					 <cfset amtC   = round(amtC*10000)/10000>
 					 <cfset amtCB  = -Amount/bseexc>
-					 <cfset amtCB  = round(amtCB*1000)/1000>				
+					 <cfset amtCB  = round(amtCB*10000)/10000>				
 				
 				</cfif> 
 			
@@ -344,9 +344,9 @@
 				     <cfset amtC   = Amount>
 				 </cfif>						 
 				
-				 <cfset amtC   = round(amtC*100)/100>
+				 <cfset amtC   = round(amtC*10000)/10000>
 				 <cfset amtCB  = Amount/bseexc>
-				 <cfset amtCB  = round(amtCB*1000)/1000>
+				 <cfset amtCB  = round(amtCB*10000)/10000>
 				 <cfset amtD   = 0>
 				 <cfset amtDB  = 0>
 				 
@@ -358,9 +358,9 @@
 				 	 <cfset amtD   = -Amount>	 
 				</cfif> 				
 				
-				 <cfset amtD   = round(amtD*100)/100>
+				 <cfset amtD   = round(amtD*10000)/10000>
 				 <cfset amtDB  = -Amount/bseexc>
-				 <cfset amtDB  = round(amtDB*1000)/1000>
+				 <cfset amtDB  = round(amtDB*10000)/10000>
 				 <cfset amtC   = 0>
 				 <cfset amtCB  = 0>
 				
@@ -374,58 +374,58 @@
 				    password="#SESSION.dbpw#">
 								
 				    INSERT INTO  Accounting.dbo.TransactionLine (
-					  Journal, 
-				      JournalSerialNo,
-				      TransactionSerialNo, 
-					  <cfif attributes.parentlineId neq "">
-					  ParentLineId,
-					  </cfif>
-				      JournalTransactionNo,
-				      GLAccount,
-				      Memo,
-				      OrgUnit,
-					  Fund,
-					  ObjectCode,
-					  ProgramCode,
-					  ActivityId,
-					  ProgramPeriod,				  
-					  ContributionLineId,
-					  WorkOrderLineId,
-				      AccountPeriod,
-				      TransactionType, 
-					  TransactionPeriod,
-					  TransactionDate,
-					  TransactionCurrency,
-					  TransactionAmount,
-					  TransactionTaxCode,
-				      Reference, 
-					  ReferenceName,
-					  ReferenceNo,
-					  ReferenceQuantity,
-					  warehouseItemNo,		
-					  <cfif referenceid neq "">
-					  	ReferenceId,
-						<cfif referenceidparam neq "">
-							ReferenceIdParam,
-						</cfif>
-					  </cfif>
-					  ExchangeRate,
-				      Currency,
-				      AmountDebit,
-				      AmountCredit,
-				      ExchangeRateBase,
-				      AmountBaseDebit,
-				      AmountBaseCredit,
-					  <cfif attributes.ParentJournal neq "">
-						  ParentJournal,
-						  ParentJournalSerialNo,
-					  </cfif>
-					  <cfif attributes.ParentTransactionId neq "">
-						  ParentTransactionId,
-					  </cfif>
-				      OfficerUserId,
-					  OfficerLastName,
-					  OfficerFirstName)
+						  Journal, 
+					      JournalSerialNo,
+					      TransactionSerialNo, 
+						  <cfif attributes.parentlineId neq "">
+						  ParentLineId,
+						  </cfif>
+					      JournalTransactionNo,
+					      GLAccount,
+					      Memo,
+					      OrgUnit,
+						  Fund,
+						  ObjectCode,
+						  ProgramCode,
+						  ActivityId,
+						  ProgramPeriod,				  
+						  ContributionLineId,
+						  WorkOrderLineId,
+					      AccountPeriod,
+					      TransactionType, 
+						  TransactionPeriod,
+						  TransactionDate,
+						  TransactionCurrency,
+						  TransactionAmount,
+						  TransactionTaxCode,
+					      Reference, 
+						  ReferenceName,
+						  ReferenceNo,
+						  ReferenceQuantity,
+						  warehouseItemNo,		
+						  <cfif referenceid neq "">
+						  	ReferenceId,
+							<cfif referenceidparam neq "">
+								ReferenceIdParam,
+							</cfif>
+						  </cfif>
+						  ExchangeRate,
+					      Currency,
+					      AmountDebit,
+					      AmountCredit,
+					      ExchangeRateBase,
+					      AmountBaseDebit,
+					      AmountBaseCredit,
+						  <cfif attributes.ParentJournal neq "">
+							  ParentJournal,
+							  ParentJournalSerialNo,
+						  </cfif>
+						  <cfif attributes.ParentTransactionId neq "">
+							  ParentTransactionId,
+						  </cfif>
+					      OfficerUserId,
+						  OfficerLastName,
+						  OfficerFirstName)
 				   VALUES (
 					  '#Attributes.Journal#',
 				      '#Attributes.JournalNo#',

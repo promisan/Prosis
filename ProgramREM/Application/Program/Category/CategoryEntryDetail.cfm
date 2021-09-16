@@ -144,7 +144,7 @@
 							
 	<tr><td style="padding-left:10px">
 		   	
-    <table style="width:97%" height="100%">
+    <table style="width:99%" height="100%">
 		
 	<cfoutput query="MasterArea" group="Area">
 	
@@ -166,13 +166,14 @@
 		<cfset ard = Description>
 		<cfset mem = DescriptionMemo>
 								 							
-		<TR>
-			<td onClick="areaexpand('#arc#')" style="padding-top:6px;cursor: pointer;">
+		<TR class="fixrow">
+		
+			<td onClick="areaexpand('#arc#')" style="padding-left:10px;padding-bottom:6px;padding-top:6px;cursor: pointer;">
 				<table width="100%">
 					<tr>
 					  <td align="left">
 					  			  			
-						   <table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0">
+						   <table height="100%" width="100%">
 						   						       
 							   <tr><td valign="top" width="20" style="padding-left:3px;padding-right:5px;height:34px;padding-top:10px">
 												   
@@ -187,10 +188,10 @@
 								</td>
 								
 								<cfif mem neq "">
-							      <td style="height:30px;padding-left:4px;font-size:25px;font-weight:200" colspan="1" valign="top" class="labelmedium"><font color="0080C0"><u>#ard# <cfif Obligatory eq "1"><font color="FF0000">*)</font></cfif></u></b>:
+							      <td style="height:30px;padding-left:4px;font-size:25px;font-weight:200" colspan="1" valign="top" class="labelmedium"><font color="0080C0">#ard# <cfif Obligatory eq "1"><font color="FF0000">*)</font></cfif></u></b>:
 								      <font size="3" color="808080">#mem#</font></td>
 								<cfelse>
-								  <td style="height:25px;padding-left:7px;font-size:25px;font-weight:200" colspan="1"  class="labellarge"><font color="0080C0"><u>#ard#</u> <cfif Obligatory eq "1"><font color="FF0000">*)</cfif></td>
+								  <td style="height:25px;padding-left:7px;font-size:25px;font-weight:200" colspan="1"  class="labellarge"><font color="0080C0">#ard# <cfif Obligatory eq "1"><font color="FF0000">*)</cfif></td>
 								</cfif>
 												
 								</tr>
@@ -330,7 +331,7 @@
 												<cfif par eq 1>
 												
 													<cf_tl id="Open" var="1">
-													<tr id="clsHeader_#code#" class="line" title="#lt_text#" onclick="$('.clsDetail_#code#').toggle();" style="cursor:pointer; background-color:##f4f4f4;">
+													<tr id="clsHeader_#code#" title="#lt_text#" onclick="$('.clsDetail_#code#').toggle();" style="cursor:pointer; background-color:##f4f4f4;">
 													
 												<cfelse>
 													<cfquery name="getSelected" dbtype="query">
@@ -346,12 +347,12 @@
 														<cfset vDisplay = "display:none;">
 													</cfif>
 													
-													<tr class="line clsElement clsDetail_#parent#" style="#vDisplay#">
+													<tr class="clsElement clsDetail_#parent#" style="#vDisplay#">
 												</cfif>
 																							
 												<cfif par eq "0" or (par eq "1" and EntryMode is "1")>		
 																					
-												 <td valign="top" align="right" style="width:60px;max-width:60px;min-width:60px;padding-top:6px;padding-right:5px">																													
+												 <td valign="top" align="right" style="width:60px;max-width:60px;min-width:60px;padding-top:4px;padding-right:5px">																													
 													<cfif Selected eq "">
 													    <input type="checkbox"  style="height:18px;width:18px" name="programcategory"  value="'#Code#'" onClick="hlsave(this.checked,'#url.programcode#','#code#','#mode#','#url.period#')">
 													<cfelse>
@@ -370,7 +371,7 @@
 													<table width="99%" height="100%">								  
 														<tr>
 														<td valign="top" style="padding:2px;padding-left:14px;padding-top:4px;height:17px" class="<cfif par eq '1'>labellarge<cfelse>labelmedium</cfif>">													
-														<cfif par eq '1'><b></cfif><u>#Description#</u></b> <cfif descriptionmemo neq "">: #DescriptionMemo#</cfif>																									
+														<cfif par eq '1'><b></cfif>#Description#</b> <cfif descriptionmemo neq "">: #DescriptionMemo#</cfif>																									
 														</td>														
 														</tr>
 													</table>

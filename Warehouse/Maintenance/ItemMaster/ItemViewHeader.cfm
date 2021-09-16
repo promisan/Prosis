@@ -30,7 +30,7 @@ password="#SESSION.dbpw#">
 <table width="100%" height="100%">
   
   <tr style="height:20px">
-    <td style="padding-left:6px;background-color:f1f1f1;border:1px solid silver">
+    <td style="padding-left:6px;background-color:f1f1f1">
 	
 	<cfform>
   
@@ -74,7 +74,7 @@ password="#SESSION.dbpw#">
 		
 			<table>
 			<cfloop query = "UoMSelect">
-			<tr class="labelmedium">		  
+			<tr class="labelmedium2">		  
 				<td>#UoMDescription#</td>
 				<td style="padding-left:5px">#UoMMultiplier#</td>		
 				<td style="padding-left:5px">#ItemBarCode#</td>				   
@@ -113,7 +113,7 @@ password="#SESSION.dbpw#">
 				</cfloop>
 				
 		  </table>
-		  	  
+		  	 
 		  </td>
 		  </tr>	  
 		  	  
@@ -206,14 +206,15 @@ password="#SESSION.dbpw#">
 	  </table>
 	 	 
  	 </cfform>
-	 
+	 	 
 	 </td>
 	 </tr>   	 	 
 	 
 	 <tr>
 	  <td id="detail" valign="top">	  
 	   <cfset url.itemNo = item.ItemNo>
-	   <cfinclude template="Transaction/TransactionListing.cfm">	  
+	   <cfinclude template="Transaction/TransactionListing.cfm">	
+	   
 	  <!--- ajax box for showing result values --->
 	  </td>
 	 </tr>

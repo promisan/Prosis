@@ -64,7 +64,7 @@
 			<cfelse>
 			<tr>
 				<td>
-					<table width="100%" align="center" class="formspacing">
+					<table width="100%" align="center" class="formpadding">
 						<tr>
 							<td width="2%"></td>
 							<td width="200" class="labelmedium" valign="top"><cf_space spaces="50">#Currency# #Description#:</td>
@@ -99,7 +99,7 @@
 																
 								<cfselect 
 									name="Journal_#area#_#currency#" 
-									query="qJ" class="regularxl"
+									query="qJ" class="regularxxl"
 									queryposition="below" 
 									required="No" 
 									style="width:400"
@@ -113,7 +113,98 @@
 								
 							</td>
 						</tr>
-						<cfif area eq "SETTLE">
+						
+						<cfif area eq "SALE">
+						
+							<cfif qWJ.Journal neq "">								
+																				
+									<tr class="clsDetails_#area#_#currency#">
+									<td width="2%" style="padding:3px;"></td>
+									<td style="padding-left:40px" class="labelmedium"><cf_tl id="Quotation form">:</td>
+									<td>
+										<table width="100%">
+											<tr>
+												<td width="95%">
+													<cfinput type="Text" 
+															 name="TemplateMode1_#area#_#currency#" 
+															 id="TemplateMode1_#area#_#currency#" 
+															 value="#qWJ.TransactionTemplateMode1#" 
+															 class="regularxxl clsTransactionTemplate" 
+															 required="No" 
+															 maxlength="80" 
+															 style="width:100%;"
+															 onblur= "ptoken.navigate('Journal/FileValidation.cfm?template='+this.value+'&container=pathValidationDivMode1_#area#_#currency#&resultField=validatePathMode1_#area#_#currency#','pathValidationDivMode1_#area#_#currency#')">
+												</td>
+												<td width="5%" style="padding-left:3px;">
+													<cf_securediv id="pathValidationDivMode1_#area#_#currency#" bind="url:Journal/FileValidation.cfm?template=#qWJ.TransactionTemplateMode1#&container=pathValidationDivMode1_#area#_#currency#&resultField=validatePathMode1_#area#_#currency#">
+												</td>
+											</tr>
+										</table>
+									</td>
+									</tr>
+									
+									<tr class="clsDetails_#area#_#currency#">
+									<td width="2%" style="padding:3px;"></td>
+									<td style="padding-left:40px" class="labelmedium"><cf_tl id="Sale form">:</td>
+									<td>
+										<table width="100%">
+											<tr>
+												<td width="95%" >
+													<cfinput 
+														type="Text" 
+														name="TemplateMode2_#area#_#currency#" 
+														id="TemplateMode2_#area#_#currency#" 
+														value="#qWJ.TransactionTemplateMode2#" 
+														class="regularxxl clsTransactionTemplate" 
+														required="No" 
+														maxlength="80" 
+														style="width:100%;"
+														onblur= "ptoken.navigate('Journal/FileValidation.cfm?template='+this.value+'&container=pathValidationDivMode2_#area#_#currency#&resultField=validatePathMode2_#area#_#currency#','pathValidationDivMode2_#area#_#currency#')">
+												</td>
+												<td width="5%" style="padding-left:3px;">
+													<cf_securediv id="pathValidationDivMode2_#area#_#currency#" 
+													  bind="url:Journal/FileValidation.cfm?template=#qWJ.TransactionTemplateMode2#&container=pathValidationDivMode2_#area#_#currency#&resultField=validatePathMode2_#area#_#currency#">
+												</td>
+											</tr>
+										</table>
+									</td>
+									</tr>
+									
+									<tr class="clsDetails_#area#_#currency#">
+									<td width="2%" style="padding:3px;"></td>
+									<td style="height:25px;padding-left:40px" class="labelmedium"><cf_tl id="Mail">:</td>
+									<td>
+										<table>
+											<tr>
+											   <td class="labelmedium" style="padding-left:3px"><input type="radio" class="radiol" value="0" <cfif qWJ.TransactionMail eq "0">checked</cfif> name="Mail_#area#_#currency#"></td>											 												 
+											   <td class="labelmedium" style="padding-left:4px">Embed (standard format)</td>
+											   <td class="labelmedium" style="padding-left:8px"><input type="radio" class="radiol" value="1" <cfif qWJ.TransactionMail eq "1">checked</cfif> name="Mail_#area#_#currency#"></td>
+											   <td class="labelmedium" style="padding-left:4px">Embed (Invoice template)</td>
+											   <td class="labelmedium" style="padding-left:8px"><input type="radio" class="radiol" value="2" <cfif qWJ.TransactionMail eq "2">checked</cfif> name="Mail_#area#_#currency#"></td>																				   											 
+											   <td class="labelmedium" style="padding-left:4px">Attachment (Invoice template/PDF)</td>								   											   
+											</tr>
+										</table>
+									</td>
+									</tr>										
+									
+									<tr class="clsDetails_#area#_#currency#">
+										<td width="2%" style="padding:3px;"></td>
+										<td valign="top" style="padding-top:4px;padding-left:40px"  class="labelmedium"><cf_tl id="Disclaimer Text">:</td>									
+										<td colspan="2">
+											<cf_textarea 
+												name      = "Memo_#area#_#currency#" 
+												id        = "Memo_#area#_#currency#" 
+												maxlength = "1000" 
+												validate  = "maxlength" 
+												message   = "#area# #currency#: Memo field exceeds 1000 chars."
+												style     = "background-color:f1f1f1;border:0px;height:100px; width:100%; font-size:12px; padding:3px;"
+												class     = "regular">#qWJ.transactionMemo#</cf_textarea>
+										</td>
+									</tr>
+										
+								</cfif>									
+						
+						<cfelseif area eq "SETTLE">
 						
 								<cfif qWJ.Journal neq "">
 								
@@ -139,19 +230,19 @@
 										<td>
 											<table width="100%">
 												<tr>
-													<td width="95%"  style="padding:3px;" >
+													<td width="95%">
 														<cfinput type="Text" 
 																 name="TemplateMode1_#area#_#currency#" 
 																 id="TemplateMode1_#area#_#currency#" 
 																 value="#qWJ.TransactionTemplateMode1#" 
-																 class="regularxl clsTransactionTemplate" 
+																 class="regularxxl clsTransactionTemplate" 
 																 required="No" 
 																 maxlength="80" 
 																 style="width:100%;"
-																 onblur= "ColdFusion.navigate('Journal/FileValidation.cfm?template='+this.value+'&container=pathValidationDivMode1_#area#_#currency#&resultField=validatePathMode1_#area#_#currency#','pathValidationDivMode1_#area#_#currency#')">
+																 onblur= "ptoken.navigate('Journal/FileValidation.cfm?template='+this.value+'&container=pathValidationDivMode1_#area#_#currency#&resultField=validatePathMode1_#area#_#currency#','pathValidationDivMode1_#area#_#currency#')">
 													</td>
 													<td width="5%" style="padding-left:3px;">
-														<cfdiv id="pathValidationDivMode1_#area#_#currency#" bind="url:Journal/FileValidation.cfm?template=#qWJ.TransactionTemplateMode1#&container=pathValidationDivMode1_#area#_#currency#&resultField=validatePathMode1_#area#_#currency#">
+														<cf_securediv id="pathValidationDivMode1_#area#_#currency#" bind="url:Journal/FileValidation.cfm?template=#qWJ.TransactionTemplateMode1#&container=pathValidationDivMode1_#area#_#currency#&resultField=validatePathMode1_#area#_#currency#">
 													</td>
 												</tr>
 											</table>
@@ -164,17 +255,17 @@
 										<td>
 											<table width="100%">
 												<tr>
-													<td width="95%"  style="padding:3px;" >
+													<td width="95%">
 														<cfinput 
-															type="Text" 
-															name="TemplateMode2_#area#_#currency#" 
-															id="TemplateMode2_#area#_#currency#" 
-															value="#qWJ.TransactionTemplateMode2#" 
-															class="regularxl clsTransactionTemplate" 
-															required="No" 
-															maxlength="80" 
-															style="width:100%;"
-															onblur= "ColdFusion.navigate('Journal/FileValidation.cfm?template='+this.value+'&container=pathValidationDivMode2_#area#_#currency#&resultField=validatePathMode2_#area#_#currency#','pathValidationDivMode2_#area#_#currency#')">
+															type      = "Text" 
+															name      = "TemplateMode2_#area#_#currency#" 
+															id        = "TemplateMode2_#area#_#currency#" 
+															value     = "#qWJ.TransactionTemplateMode2#" 
+															class     = "regularxxl clsTransactionTemplate" 
+															required  = "No" 
+															maxlength = "80" 
+															style     = "width:100%;"
+															onblur    = "ptoken.navigate('Journal/FileValidation.cfm?template='+this.value+'&container=pathValidationDivMode2_#area#_#currency#&resultField=validatePathMode2_#area#_#currency#','pathValidationDivMode2_#area#_#currency#')">
 													</td>
 													<td width="5%" style="padding-left:3px;">
 														<cfdiv id="pathValidationDivMode2_#area#_#currency#" bind="url:Journal/FileValidation.cfm?template=#qWJ.TransactionTemplateMode2#&container=pathValidationDivMode2_#area#_#currency#&resultField=validatePathMode2_#area#_#currency#">
@@ -205,14 +296,14 @@
 										<tr class="clsDetails_#area#_#currency#">
 											<td width="2%" style="padding:3px;"></td>
 											<td valign="top" style="padding-top:4px;padding-left:40px"  class="labelmedium"><cf_tl id="Disclaimer Text">:</td>
-											<td style="padding:3px;" >
+											<td>
 													<cf_textarea 
 														name="Memo_#area#_#currency#" 
 														id="Memo_#area#_#currency#" 
 														maxlength="1000" 
 														validate="maxlength" 
 														message="#area# #currency#: Memo field exceeds 1000 chars."
-														style="border-radius:3px; height:100px; width:100%; border:1px solid ##C0C0C0; font-size:12px; padding:3px;"
+														style="background-color:f1f1f1;border:0px;border-radius:3px; height:100px; width:100%;font-size:12px; padding:3px;"
 														class="regular">#qWJ.transactionMemo#</cf_textarea>
 											</td>
 										</tr>

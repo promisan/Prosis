@@ -1,7 +1,0 @@
-Invalid character (+) encountered while parsing (tag "CFSET" with attributes vGroupId=DateTimeRequested). 
-Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes qActionsDate.Total=). 
-Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes qActionsDate.Total=). 
-Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes qActionsDate.Total=). 
-Invalid quoted string '' encountered while parsing (tag "CFIF" with attributes qActionsDate.Total=). 
-Invalid quoted string 'function(){}' encountered while parsing (tag "CFSET" with attributes). 
-Invalid quoted string 'function(){ }' encountered while parsing (tag "CFSET" with attributes). 

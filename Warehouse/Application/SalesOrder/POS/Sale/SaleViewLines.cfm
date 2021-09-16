@@ -213,12 +213,17 @@ password="#SESSION.dbpw#">
 							
 							</cfif>
 						</span>
-											</div>
+						</div>
 				</td>	
 
-				<td style="min-width:200px;padding-top:2px" valign="top">
+				<td style="min-width:200px" valign="top">
+				
+				    <table>
+					<tr><td valign="top" id="onhand_#currentrow#" style="min-width:100px;font-size:15px">
 					
+					<!---
 					<span id="onhand_#currentrow#" style="min-width:100px;font-size:15px">
+					--->
 										
 						<cfif ItemClass eq "Service">
 						
@@ -242,14 +247,8 @@ password="#SESSION.dbpw#">
 								<cfset vStock = stockTransactionUoM.onhand>
 									
 							</cfif>
-					
-							<cfif TransactionQuantity gt OnHand>
-								<font color="FF0000">#numberformat(vStock,'_')#</font>
-							<cfelse>							
-								#numberformat(vStock,'_')# 
-							</cfif>		
-
-							<cfif (TransactionQuantity gt vStock)>
+							
+							<cfif TransactionQuantity gt vStock>
 								
 								<cfquery name="qExistingTransfer"
 									datasource="AppsMaterials" 
@@ -259,17 +258,12 @@ password="#SESSION.dbpw#">
 										       isNULL(SUM(TransactionTransfer),0) as QuantityTransfer 
 										FROM   CustomerRequestLineTransfer
 										WHERE  TransactionId='#TransactionId#'
-								</cfquery>														
+								</cfquery>	
 								
-								<span class="clsNoPrint clsDetailLineCell" id="transfer_#transactionid#" style="padding-bottom:5px;min-width:100px">
-									<cfif qExistingTransfer.TransactionTransfer neq 0>																
-										| #qExistingTransfer.TransactionTransfer# [#qExistingTransfer.QuantityTransfer#]
-									</cfif>	
-								</span>									
-																
-								<span style="padding-top:10px">								
+								<span>		
+												
 								<button 
-									style="width:90px;height:29px;font-size:13px!important;background:##f8f9fa;color:##033F5D;border:1px solid gray;" 
+									style="width:90px;height:28px;font-size:13px!important;background:##f8f9fa;color:##033F5D;border:1px solid gray;" 
 									type="button" 
 									id='btransfer_#currentrow#' 
 									name='btransfer_#currentrow#' 
@@ -277,13 +271,26 @@ password="#SESSION.dbpw#">
 									class="clsDetailLineCell">
 										<cf_tl id="Transfer"><i class="fas fa-share-square"></i>
 								</button>
-								</span>
-									
+								</span>													
+								
+								<span class="clsNoPrint clsDetailLineCell" id="transfer_#transactionid#" style="padding-bottom:5px;min-width:100px">
+									<cfif qExistingTransfer.TransactionTransfer neq 0>																
+										| #qExistingTransfer.TransactionTransfer# [#qExistingTransfer.QuantityTransfer#]
+									</cfif>	
+								</span>									
+																	
 							</cfif>
+					
+							<cfif TransactionQuantity gt OnHand>
+								<font color="FF0000">#numberformat(vStock,'_')#</font>
+							<cfelse>							
+								#numberformat(vStock,'_')# 
+							</cfif>		
 
+							
 						</cfif>
 						
-					</span>					
+					</td></tr></table> 				
 					
 				</td>
 								
@@ -343,7 +350,7 @@ password="#SESSION.dbpw#">
 
 				</td>	
 					
-				<td valign="top" align="right" style="min-width:100px;padding-top:7px 0;padding-right:4px; width:10%;">
+				<td valign="top" align="right" style="min-width:100px;padding-top:9px 0;padding-right:4px; width:10%;">
 				
 					<cfif SalesPrice eq "0">
 						<cfset cl = "FF8080">
@@ -351,7 +358,7 @@ password="#SESSION.dbpw#">
 						<cfset cl = "transparent">
 					</cfif>
 					 
-					<div style="background-color:#cl#;padding-top:2px;height:26px;padding-right:2px" id="total_#currentrow#" class="labelmedium total_#transactionid#">					
+					<div style="background-color:#cl#;padding-top:4px;height:26px;padding-right:2px" id="total_#currentrow#" class="labelmedium total_#transactionid#">					
 						#numberformat(SalesTotal,',.__')#
 					</div>
 					<div class="clsNoPrint clsDetailLineCell">
@@ -384,19 +391,22 @@ password="#SESSION.dbpw#">
 					WHERE    T.Warehouse      = '#url.warehouse#'
 					AND      T.ItemNo         = '#ItemNo#'
 					AND      T.TransactionUoM = '#TransactionUoM#'
+					AND      T.RequestNo     != '#URL.Requestno#'
 					AND      T.CustomerId    != '#URL.CustomerId#'
+					AND      T.BatchId is NULL
 					AND      T.ActionStatus  != '9'
 					AND      T.BatchNo IS NULL <!--- not converted into a sale transaction --->
 				    AND      T.ItemClass      = 'Supply'						
 					GROUP BY T.CustomerId
+					
 			</cfquery>
 			
 			<cfif qOverlap.recordcount neq 0 and WParameter.SingleLine eq 0>
 				<tr class="line labelit">
 					<td colspan="2"></td>
 					<td colspan="6">
-					<div style="color:red">
-						#watched# <a href="##" onclick="salesOverlap('#TransactionId#','#URL.Warehouse#')">#qOverlap.recordcount#</a> <cfif qOverlap.recordcount eq 1>#lcase(person)#<cfelse>#lcase(people)#</cfif> 
+					<div style="color:6688aa">
+						#watched# <a href="##" onclick="salesOverlap('#TransactionId#','#URL.Warehouse#')"><font style="color:red" size="4">#qOverlap.recordcount#</font></a> <cfif qOverlap.recordcount eq 1>#lcase(person)#<cfelse>#lcase(people)#</cfif> 
 					</div>
 					</td>
 				</tr>		 

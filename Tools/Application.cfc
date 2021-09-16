@@ -8,7 +8,8 @@
 		<cfset THIS.ApplicationTimeout = CreateTimeSpan( 0, 0, 180, 0 ) />
 		<cfset THIS.SessionManagement = true />
 		<cfset THIS.clientmanagement = true />	
-		<cfset THIS.SessionTimeout   = CreateTimeSpan(0,0,180,0)/>		 
+		<cfset THIS.SessionTimeout   = CreateTimeSpan(0,0,180,0)/>
+		<cfset THIS.sessioncookie.httponly = true>
 		 
 		<cffunction
 		name="OnRequestStart"
@@ -27,8 +28,7 @@
 				verifyCSRF           = "1"
 			    verifyAuthentication = "1" <!--- keep as 0 for scheduled tasks etc. --->
 			    trackUser            = "1"
-				errorHandling        = "1">
-					
+				errorHandling        = "1">					
 
 		<!--- Return out. --->
 		<cfreturn true />

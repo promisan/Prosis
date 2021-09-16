@@ -70,7 +70,7 @@ password="#SESSION.dbpw#">
 			
 		) as XL
 		
-		WHERE OnHand > 1
+		WHERE OnHand >= 1
 				
 		ORDER BY  Type, Warehouse, PickingOrder, OnHand		
 </cfquery>

@@ -7,7 +7,8 @@
 	<cfset THIS.SessionManagement = true />
 	<cfset THIS.clientmanagement = true />	
 	<cfset THIS.SessionTimeout   = CreateTimeSpan(0,24,180,0)/>        
-	<cfset this.wschannels = [{name="validatorchannel"}]>		
+	<cfset this.wschannels = [{name="validatorchannel"}]>
+	<cfset THIS.sessioncookie.httponly = true>
 		 
 	<cffunction
 		name="OnRequestStart"
@@ -19,11 +20,7 @@
 				<!--- Define arguments. --->
 				<cfargument	name="TargetPage" type="string"	required="true"/>
 			
-					<!--- forcing https 
-					<cfif CGI.HTTPS eq "off">
-						<cflocation url="https://#cgi.server_name##cgi.script_name#" addtoken="false">
-					</cfif>
-					--->		
+					
 																									
 			 		<cf_appInit>
 											    

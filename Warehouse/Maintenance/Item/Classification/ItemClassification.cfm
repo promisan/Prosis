@@ -23,30 +23,35 @@
 	datasource="AppsMaterials"
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT	 T.*
+	
+
+	
+		SELECT	 P.Description,P.SearchOrder, T.*
 		FROM     Ref_Topic T INNER JOIN Ref_TopicEntryClass C ON T.Code = C.Code
 					AND C.EntryClass   = '#ItemMaster.EntryClass#'
 					AND T.Operational  = 1 
 					AND C.ItemPointer != 'UoM' <!--- reserved for ItemUoM --->
 					AND  ValueClass IN ('List','Lookup')
+					INNER JOIN Ref_TopicParent P ON T.Parent = P.Parent
 		WHERE    T.TopicClass = 'EntryClass'	
 		
 		UNION 
 		
-		SELECT	 T.*
+		SELECT	 P.Description,P.SearchOrder,T.*
 		FROM     Ref_Topic T INNER JOIN Ref_TopicCategory C ON T.Code = C.Code
 					AND C.Category   = '#Item.Category#'
 					AND T.Operational  = 1 					
 					-- AND  ValueClass IN ('List','Lookup')
+				 INNER JOIN Ref_TopicParent P ON T.Parent = P.Parent	
 		WHERE    T.TopicClass = 'Category'					
 		
 		UNION 
 		
-		SELECT   T.*
-		FROM     Ref_Topic T
+		SELECT   P.Description,P.SearchOrder,T.*
+		FROM     Ref_Topic T INNER JOIN Ref_TopicParent P ON T.Parent = P.Parent
 		WHERE    T.TopicClass = 'Details'
 		
-		ORDER BY T.TopicClass, T.ListingOrder ASC
+		ORDER BY P.SearchOrder, P.Description, T.TopicClass, T.ListingOrder ASC
 		
 </cfquery>
 
@@ -68,20 +73,24 @@ password="#SESSION.dbpw#">
 	<cfoutput>
 	
 	<TR class="labelmedium2">
-    <td height="20" width="140"><cf_tl id="Class">:</td>
+    <td width="140"><cf_tl id="Class">:</td>
     <TD width="80%">#Cls.Description#
     </td>
     </tr>
 	
-    <TR class="labelmedium2">
-    <TD height="20"><cf_tl id="Code">:</TD>
-    <TD>#item.Classification#</TD>
-	</TR>
+	<cfif item.Classification neq "">
+	    <TR class="labelmedium2">
+		    <TD><cf_tl id="Code">:</TD>
+		    <TD>#item.Classification#</TD>
+		</TR>
+	</cfif>
 	
+	<!---
 	<TR class="labelmedium2">
-    <TD height="20"><cf_tl id="Description">:</TD>
+    <TD><cf_tl id="Description">:</TD>
     <TD>#item.ItemDescription#</TD>
-	</TR>	
+	</TR>
+	--->	
 	
 	<tr><td class="line" colspan="2" height="1"></td></tr>
 	
@@ -104,7 +113,13 @@ password="#SESSION.dbpw#">
 		<cfabort>
 	</cfif>
 	
-	<cfoutput query="getTopics">
+	<cfoutput query="getTopics" group="Description">
+	
+		<tr class="line">
+			<td colspan="2" style="font-size:25px" class="labelmedium2">#Description#</td>			
+		</tr>	
+	
+	    <cfoutput>
 
 		<tr>
 			<td width="80" height="23" class="labelmedium2">#TopicLabel#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
@@ -195,6 +210,8 @@ password="#SESSION.dbpw#">
 								
 			</td>
 		</tr>
+		
+	    </cfoutput>
 
 	</cfoutput>
 		

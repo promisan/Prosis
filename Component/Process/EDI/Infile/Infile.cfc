@@ -185,7 +185,7 @@
 			
 			<!--- to add header --->
 			
-			<cfset FEL.InvoiceType     = "FCAM">
+			<cfset FEL.InvoiceType     =  GetTaxSeries.DocumentType>
 			
 			<cfif getTransaction.TransactionDate lte getTransaction.ActionBefore>
 			    <cfset FEL.ActionBefore = "#DateFormat(DateAdd('d',30,GetTransaction.TransactionDate),'YYYY-MM-DD')#">

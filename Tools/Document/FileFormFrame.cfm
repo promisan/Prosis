@@ -3,12 +3,20 @@
 </HEAD><body bgcolor="ffffff" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
+<cfajaxproxy cfc="Service.Process.System.UserController" jsclassname="systemcontroller">
+
 <script language="JavaScript">
-function check() {
-if (document.attach.uploadedfile.value == "") {
-   alert("You must select a file to upload.")
-   return false }
-}
+
+function checkfile() {
+
+	var uController = new systemcontroller();			
+	document.attach.action = document.attach.action + '&mid='+ uController.GetMid();
+			
+	if (document.attach.uploadedfile.value == "") {
+	   alert("You must select a file to upload.")
+	   return false }
+	   
+	}
 </script>
 
 <cfparam name="url.mode"    default="attachment">
@@ -18,8 +26,8 @@ if (document.attach.uploadedfile.value == "") {
 	method="post" 
 	style="border:0px;padding:0px"
 	enctype="multipart/form-data" 
-	onSubmit="return check()">
-		
+	onSubmit="return checkfile()">
+			
 	<input type="hidden" name="DocumentServerPath" id="DocumentServerPath" value="" size="50" readonly>
 				
 	<table width="100%" cellspacing="0" cellpadding="0" style="padding:0px;">	
@@ -34,6 +42,7 @@ if (document.attach.uploadedfile.value == "") {
 			 <cf_tl id="Attach">
 			</button>		
 			<input type="hidden" name="serverfile" id="serverfile">
+						
 		</TD>
 	</TR>
 	

@@ -20,6 +20,7 @@
 			(
 				SELECT 	I.ItemNo, 
 				        I.ItemDescription, 
+						I.ItemNoExternal,
 						Make, Model, ProgramCode, ItemMaster,  
                         Classification, 
 						Destination, 
@@ -145,6 +146,13 @@
 --->
 
 <cfset itm = itm+1>
+<cf_tl id="ItemNo" var="1">
+<cfset fields[itm] = {label           = "#lt_text#", 
+                    width             = "0", 
+					field             = "ItemNoExternal",					
+					search            = "text"}>	
+
+<cfset itm = itm+1>
 <cf_tl id="Description" var="1">
 <cfset fields[itm] = {label           = "#lt_text#", 
                     width             = "0", 
@@ -155,14 +163,24 @@
 <cf_tl id="Make" var="1">						
 <cfset fields[itm] = {label           = "#lt_text#",                   
 					field             = "Make",
-					search            = "text"}>		
+					search            = "text"}>	
 					
+<cfset itm = itm+1>		
+<cf_tl id="Category" var="1">
+<cfset fields[itm] = {label           = "#lt_text#", 
+                    width             = "0", 
+					filtermode        = "3",
+					field             = "CategoryItemName",					
+					search            = "text"}>						
+
+<!---					
 <cfset itm = itm+1>		
 <cf_tl id="Classification" var="1">
 <cfset fields[itm] = {label           = "#lt_text#", 
                     width             = "0", 
 					field             = "Classification",					
 					search            = "text"}>
+--->					
 											
 <cfset itm = itm+1>		
 <cf_tl id="Project" var="1">
@@ -200,7 +218,8 @@
 <cfset itm = itm+1>		
 <cf_tl id="UoM" var="1">
 <cfset fields[itm] = {label           = "U",                    
-					filtermode        = "0",   
+					filtermode        = "0", 
+					width             = "6",   
 					LabelFilter       = "#lt_text#", 
 					search            = "number",					
 					field             = "UoMs"}>	
@@ -209,6 +228,7 @@
 <cf_tl id="Child" var="1">
 <cfset fields[itm] = {label           = "C",                    					  
 					search            = "number",	
+					width             = "6", 
 					LabelFilter       = "#lt_text#", 				
 					field             = "Children"}>	
 					
@@ -219,8 +239,9 @@
 
 	<cfset fields[itm] = {label      = "##",                    					
 				LabelFilter          = "#lt_text#",	
+				width                = "6", 
 				functionscript       = "item",
-				functionfield        = "ItemNo",			
+				functionfield        = "ItemNo",							
 				functioncondition    = "#url.fmission#",
 				align                = "right",	
 				search               = "number",				
@@ -231,6 +252,7 @@
 <cfset fields[itm] = {label          = "##",                    					
 					LabelFilter      = "#lt_text#",						
 					align            = "right",		
+					width            = "6", 
 					search           = "number",			
 					field            = "InUse"}>	
 

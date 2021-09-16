@@ -25,31 +25,33 @@
 					FROM 	Materials.dbo.Warehouse 
 					WHERE 	Warehouse = '#url.fwarehouse#'
 				) as ModeSetItem
+				
 		FROM 	Receipt#URL.Warehouse#_#SESSION.acc# R
 		WHERE	R.Selected = '1'
 		ORDER BY R.Category, R.ItemDescription
 		
 </cfquery>
 
-<!-- <cfform name="frmProcessReceipt" id="frmProcessReceipt" onsubmit="return false;"> -->
 
-<table width="100%"align="center" class="formpadding">
+<!-- <cfform name="frmProcessReceipt" id="frmProcessReceipt" style="height:100%" onsubmit="return false;"> -->
+
+<table width="100%"align="center" class="formpadding navigation_table">
 
 	<tr class="line fixrow labelmedium">
-		<td width="3%"></td>
-		<td align="center" width="4%" height="20"><cf_tl id="No."></td>
-		<td width="8%"><cf_tl id="Item"></td>
-		<td width="10%"><cf_tl id="Barcode"></td>
-		<td><cf_tl id="Description"></td>
-		<td width="10%" align="center"><cf_tl id="Unit"></td>
-		<td width="10%" align="right" style="padding-right:10px;"><cf_tl id="Qty"></td>
+		<td style="width:20px" width="3%"></td>
+		<td align="center" style="width:60px" height="20"><cf_tl id="Id"></td>
+		<td style="width:100px"><cf_tl id="Item"></td>
+		<td style="width:100px"><cf_tl id="Barcode"></td>
+		<td style="width:60%"><cf_tl id="Description"></td>
+		<td style="width:80px" align="center"><cf_tl id="Unit"></td>
+		<td style="width:60px;padding-right:4px" align="right"><cf_tl id="Qty"></td>
 	</tr>
 		
 	<cfset dirtyCount = 0>
 	<cfoutput query="getSelected" group="category">
 	
 		<tr>
-			<td height="30" colspan="7" class="labellarge">#categoryDescription#</td>
+			<td height="30" colspan="7" style="font-size:20px" class="labellarge">#categoryDescription#</td>
 		</tr>
 		
 		<cfoutput>
@@ -82,9 +84,9 @@
 				<cfset vShowQuantity = 1>
 			</cfif>			
 			
-			<tr class="line labelmedium" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''" bgcolor="" style="#vItemColor#" #vItemMessage#>
+			<tr class="line labelmedium navigation_row" style="#vItemColor#" #vItemMessage#>
 			
-				<td align="center" style="padding-top:1px; padding-left:5px;">
+				<td align="center" style="padding-top:2px; padding-left:5px;">
 					<cf_img icon="delete" onclick="removeReceiptTemp('#url.mission#','#url.warehouse#',#transactionId#)">
 				</td>
 				
@@ -169,9 +171,13 @@
 		
 	</cfoutput>
 </table>
+
+
 <cf_tl id="Transfer has been submitted" var="1">
 <cf_tl id="Stock on hand balances have been adjusted" var="1">
 <!-- </cfform> -->
+
+<cfset ajaxonload("doHighlight")>
 
 <cfif dirtyCount eq getSelected.recordCount>
 	<script>

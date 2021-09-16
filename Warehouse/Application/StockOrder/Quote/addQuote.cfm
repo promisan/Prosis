@@ -22,7 +22,7 @@
 			 '#url.warehouse#', 
 			 '#url.Customerid#', 
 			 '#url.addressId#',
-			 'Manual',
+			 'Quote',
 			 '0',
 			 '#session.acc#',
 			 '#session.last#',
@@ -66,13 +66,29 @@
 		  </td>
 	  </tr>
 				
-	  <tr class="labelmedium2">
+	  <tr class="labelmedium2 line">
 		  <td style="padding-left:10px;font-size:15px"><cf_tl id="eMail"></td>
 		  <td colspan="2" id="boxmail" style="border-left:1px solid silver">
 		    <input onchange="setquote('#getHeader.RequestNo#','mail')" class="regularxxl" type="text" 
 		    id="customermail" name="CustomerMail" 
 		    style="padding-left:4px;width:100%;background-color:f1f1f1;border:0px"></td>
 	  </tr>
+	  
+	  <tr class="labelmedium" style="height:30px">
+	      <td></td>
+	      <td colspan="2">
+		  
+			  <table>
+				  <tr>
+					  <td><input type="radio" name="RequestClass" class="radiol" value="Quote" onclick="setquote('#getHeader.RequestNo#','class')" checked></td>
+					  <td style="padding-left:3px"><cf_tl id="Quote ONLY"></td>					  
+					  <td style="padding-left:3px"><input type="radio" name="RequestClass" class="radiol" onclick="setquote('#getHeader.RequestNo#','class')" value="QteReserve"></td>
+					  <td style="padding-left:3px"><cf_tl id="Reservation"></td>
+				  </tr>
+			  </table>
+		
+		  </td>
+		</tr>
 				
 </table>		
 

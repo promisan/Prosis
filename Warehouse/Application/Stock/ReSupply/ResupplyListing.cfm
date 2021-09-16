@@ -24,13 +24,13 @@ password="#SESSION.dbpw#">
 	
 </cfquery>
 
-<cfif ResultList.recordcount gte "350">
+<cfif ResultList.recordcount gte "500">
 
 	<table class="formspacing">
 
 	<tr><td height="30"></td></tr>
 	<tr><td height="100%" colspan="3" align="center" class="labelmedium" style="padding-left:20px">
-		<cf_tl id="There were too many items found that would need to be replenished. Please update your filtering">
+		<cf_tl id="There were too many items found that would need to be replenished. Please update your filter">
 	</td>
 	</tr>
 	<tr> 	  

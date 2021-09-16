@@ -266,7 +266,7 @@
 						password="#SESSION.dbpw#">
 						SELECT       AttachmentId,FileName
 						FROM         Attachment						
-					    WHERE        AttachmentId = '#evaluate(contentformat)#' 
+					    WHERE        AttachmentId = '#evaluate(current.field)#' 
 						and          FileStatus != '9'
 					</cfquery>	
 					

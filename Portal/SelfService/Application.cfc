@@ -10,6 +10,7 @@ hint="Handle the application.">
 		<cfset THIS.SessionManagement = true />
 		<cfset THIS.clientmanagement = true />	
 		<cfset THIS.SessionTimeout   = CreateTimeSpan(0,24,180,0)/>
+		<cfset THIS.sessioncookie.httponly = true>
 
 	    <cffunction
 	        name="OnSessionStart"
@@ -17,15 +18,6 @@ hint="Handle the application.">
 	        returntype="void"
 	        output="false"
 	        hint="I fire when a session needs to be initialized.">
-	 
-	        <!--- Log session stsart. --->
-	        <cffile
-	            action="append"
-	            file="#ExpandPath( './logSESSION.txt' )#"
-	            output="Started: #SESSION.SESSIONID# #now()#"
-	            addnewline="true"
-	            />
-	 
 	        <!--- Return out. --->
 	        <cfreturn />
 	    </cffunction>
@@ -44,14 +36,6 @@ hint="Handle the application.">
 	            type="struct"
 	            required="true"
 	            hint="I am the expired session scope."
-	            />
-	 
-	        <!--- Log session stsart. --->
-	        <cffile
-	            action="append"
-	            file="#ExpandPath( './logSESSION.txt' )#"
-	            output="Ended: #ARGUMENTS.Session.SESSIONID# #now()#"
-	            addnewline="true"
 	            />
 	 
 	        <!--- Return out. --->

@@ -50,8 +50,7 @@
 		
 		<cfif get.recordcount eq "1">
 				
-		     <!---
-		
+		     		
 			<cfset qty = get.TransactionQuantity+qty>
 					
 			<cfset price = get.SalesPrice>
@@ -85,16 +84,12 @@
 				SET    TransactionQuantity = #qty#,
 					   SalesUnitPrice      = '#unitprice#',	
 				       SalesAmount         = '#amountsle#',
-					   SalesTax            = '#amounttax#',
-					   SalesPersonNo       = '#url.salespersonno#'
+					   SalesTax            = '#amounttax#'
 				WHERE  TransactionId       = '#get.transactionid#'		
 			</cfquery>
-			
-			--->
-			
+						
 		<cfelse>	
-		
-		    
+		 
 		
 			<cfquery name="warehouse" 
 				datasource="AppsMaterials" 
@@ -205,68 +200,91 @@
 			ORDER BY Created DESC			
 </cfquery>
 
-<table style="width:100%" class="navigation_table">
+<table style="height:100%;width:100%" class="navigation_table">
 
-<cfoutput query="getLines">
-<tr class="line#transactionid#"><td style="height"></td></tr>
-<tr class="line#transactionid# labelmedium line navigation_row">
-	<td colspan="3" style="padding-left:5px">#ItemNo# #ItemDescription#</td>
-	<td align="right" style="padding-right:3px;width:100px"><a href="javascript:deleteitem('#transactionid#')" style="color:red;width:100px"><cf_tl id="delete"></a></td>
-</tr>
-<tr class="line#transactionid# labelmedium2">	
-    
-	<td style="width:20%"></td>	
+<tr><td style="height:100%;padding-bottom:3px">
+
+	<cf_divscroll>
 	
-	<td style="border:1px solid silver;width:100px;" align="right">
+	<table style="width:97%" class="navigation_table">
+	
+	<cfoutput query="getLines">
+	
+	<tr class="line#transactionid#"><td style="height"></td></tr>
+	<tr class="line#transactionid# labelmedium line navigation_row">
+		<td colspan="3" style="padding-left:5px">#ItemNo# #ItemDescription#</td>
+		<td align="right" style="padding-right:3px;width:40px"><a href="javascript:deleteitem('#transactionid#')" style="color:red;width:100px"><cf_tl id="del"></a></td>
+	</tr>
+	<tr class="line#transactionid# labelmedium2">	
+	    
+		<td style="width:20%"></td>	
+		
+		<td style="border:1px solid silver;width:100px;" align="right">
+		
+			<table style="width:100%">
+			<tr class="labelmedium2">
+			<td style="cursor:pointer;font-size:15px;min-width:35px;background-color:silver" align="center" onclick="setquote('#transactionid#','mutation','-1')">
+			<input type="button" value="-" class="button10g" style="width:100%;height:100%">
+			</td>
+			<td align="center">
+			<input type="text" id="qty#transactionid#" style="width:60px;text-align:center;border:0px" 
+			  onchange="setquote('#transactionid#','mutation',this.value)" value="#numberformat(TransactionQuantity)#" class="regularxl">	
+			</td>
+			<td style="cursor:pointer;font-size:15px;min-width:35px;background-color:silver" align="center" onclick="setquote('#transactionid#','mutation','1')">
+			<input type="button" value="+" class="button10g" style="width:100%;height:100%">
+			</td>
+			</tr>
+			</table>
+		
+		</td>
+		<td style="border:1px solid silver;padding-right:3px" align="right">#numberformat(salesUnitPrice,',.__')#</td>
+		<td style="border:1px solid silver;padding-right:3px" id="value#transactionid#" align="right">#numberformat(salesAmount,',.__')#</td>
+	</tr>
+	</cfoutput>
+	
+	</table>
+	
+	</cf_divscroll>
+
+</td>
+</tr>
+
+<tr><td style="padding-bottom:4px">
 	
 		<table style="width:100%">
+		
+		 <cfquery name="get" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">			
+					SELECT   sum(SalesAmount) as Amount,
+					         sum(SalesTax)    as Tax,
+							 sum(SalesTotal)  as Total				
+					FROM     CustomerRequestLine
+					WHERE    RequestNo       = '#url.RequestNo#'						
+		</cfquery>
+		
+		<cfoutput>
+		
 		<tr class="labelmedium2">
-		<td style="cursor:pointer;font-size:15px;min-width:35px;background-color:silver" align="center" onclick="setquote('#transactionid#','mutation','-1')">
-		<input type="button" value="-" class="button10g" style="width:100%;height:100%">
-		</td>
-		<td align="center">
-		<input type="text" id="qty#transactionid#" style="width:60px;text-align:center;border:0px" 
-		  onchange="setquote('#transactionid#','mutation',this.value)" value="#numberformat(TransactionQuantity)#" class="regularxl">	
-		</td>
-		<td style="cursor:pointer;font-size:15px;min-width:35px;background-color:silver" align="center" onclick="setquote('#transactionid#','mutation','1')">
-		<input type="button" value="+" class="button10g" style="width:100%;height:100%">
-		</td>
+		    <td align="right" style="padding-right:10px" colspan="3"><cf_tl id="Amount"></td>
+			<td align="right" id="qteamount" style="padding-right:4px;font-weight:bold;border:1px solid silver">#numberformat(get.Amount,',.__')#</td>
 		</tr>
+		<tr class="labelmedium2">
+		    <td align="right" style="padding-right:10px" colspan="3"><cf_tl id="Tax"></td>
+			<td align="right" id="qtetax" style="padding-right:4px;font-weight:bold;border:1px solid silver">#numberformat(get.Tax,',.__')#</td>
+		</tr>
+		<tr class="labelmedium2">
+		    <td align="right" style="padding-right:10px" colspan="3"><cf_tl id="Total"></td>
+			<td align="right" id="qtetotal" style="padding-right:4px;font-weight:bold;border:1px solid silver">#numberformat(get.Total,',.__')#</td>
+		</tr>
+		
+		</cfoutput>
+		
 		</table>
 	
 	</td>
-	<td style="border:1px solid silver;padding-right:3px" align="right">#numberformat(salesUnitPrice,',.__')#</td>
-	<td style="border:1px solid silver;padding-right:3px" id="value#transactionid#" align="right">#numberformat(salesAmount,',.__')#</td>
 </tr>
-</cfoutput>
-
- <cfquery name="get" 
-		datasource="AppsMaterials" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">			
-			SELECT   sum(SalesAmount) as Amount,
-			         sum(SalesTax)    as Tax,
-					 sum(SalesTotal)  as Total				
-			FROM     CustomerRequestLine
-			WHERE    RequestNo       = '#url.RequestNo#'						
-</cfquery>
-
-<cfoutput>
-
-<tr class="labelmedium2">
-    <td align="right" style="padding-right:10px" colspan="3"><cf_tl id="Amount"></td>
-	<td align="right" id="qteamount" style="font-weight:bold;border:1px solid silver">#numberformat(get.Amount,',.__')#</td>
-</tr>
-<tr class="labelmedium2">
-    <td align="right" style="padding-right:10px" colspan="3"><cf_tl id="Tax"></td>
-	<td align="right" id="qtetax" style="font-weight:bold;border:1px solid silver">#numberformat(get.Tax,',.__')#</td>
-</tr>
-<tr class="labelmedium2">
-    <td align="right" style="padding-right:10px" colspan="3"><cf_tl id="Total"></td>
-	<td align="right" id="qtetotal" style="font-weight:bold;border:1px solid silver">#numberformat(get.Total,',.__')#</td>
-</tr>
-
-</cfoutput>
 
 </table>
 

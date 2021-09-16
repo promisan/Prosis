@@ -1,8 +1,9 @@
-<cf_screentop html="no">
+<cf_screentop html="no" jquery="Yes">
 
 <cf_calendarscript>
 
 <cfoutput>
+
 <script language="JavaScript">
 	
 	function filter() {
@@ -16,17 +17,8 @@
 		par = document.getElementById("parent")
 		pst = document.getElementById("sourcepostnumber")
 		nme = document.getElementById("name")
-		
-		detail.location = "MandateViewGeneral.cfm?Act=0&ID=#URL.ID#&ID2=#URL.ID2#&ID3=#URL.ID3#" +
-		              "&selectiondate="+sel.value+
-					  "&locationcode="+loc.value+
-					  "&orgunit1="+adm.value+
-					  "&orgunitcode="+org.value+
-					  "&occgroup="+occ.value+
-					  "&vacant="+vac.value+
-					  "&parent="+par.value+
-					  "&sourcepostnumber="+pst.value+
-					  "&name="+nme.value;
+				
+		ptoken.open('MandateViewGeneral.cfm?Act=0&ID=#URL.ID#&ID2=#URL.ID2#&ID3=#URL.ID3#&selectiondate='+sel.value+'&locationcode='+loc.value+'&orgunit1='+adm.value+'&orgunitcode='+org.value+'&occgroup='+occ.value+'&vacant='+vac.value+'&parent='+par.value+'&sourcepostnumber='+pst.value+'&name='+nme.value,'detail')
 	}
 	
 	function applyunit(org) {    
@@ -190,6 +182,7 @@ password="#SESSION.dbpw#">
 				<tr>
 				<td>
 				<input type="text" name="orgunitname" id="orgunitname" value="" class="regularxl" size="35" maxlength="60" readonly>
+				<input type="hidden" name="orgunitcode" id="orgunitcode" value="" class="regularxl" size="35" maxlength="60" readonly>
 				</td>
 				<td width="1"></td>
 				<td>

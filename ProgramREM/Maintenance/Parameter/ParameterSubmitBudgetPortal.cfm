@@ -24,6 +24,6 @@
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate("ParameterBudgetMenu.cfm?idmenu=#URL.IDMenu#&mission=#url.Mission#&selected=3", "contentbox5");
+		ptoken.navigate("ParameterBudgetMenu.cfm?idmenu=#URL.IDMenu#&mission=#url.Mission#&selected=3", "contentbox5");
 	</script>
 </cfoutput>

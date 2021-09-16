@@ -26,6 +26,6 @@
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate("ParameterEditKPI.cfm?idmenu=#URL.IDMenu#&mission=#url.Mission#", "contentbox5");
+		ptoken.navigate("ParameterEditKPI.cfm?idmenu=#URL.IDMenu#&mission=#url.Mission#", "contentbox5");
 	</script>
 </cfoutput>

@@ -239,7 +239,7 @@
 		  h = #CLIENT.height# - 140;
 		  
 		  docid = document.getElementById("printdocumentid").value
-		  		  
+		  		  		  
 		  if (docid != "") {			   
 			  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
 		  } else {
@@ -333,7 +333,7 @@
 		 
 			 	<script>				
 					function refresh() {
-					    window.location = "POView.cfm?#CGI.QUERY_STRING#"
+					    ptoken.location('POView.cfm?ID1=#url.id1#&mode=#url.mode#')
 					}				
 				</script>
 				

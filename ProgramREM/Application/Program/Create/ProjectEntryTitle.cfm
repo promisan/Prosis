@@ -49,12 +49,15 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <!--- prepare subtitles to be customazble --->
+
+<cf_tl class="Message" id="ProjectJustification"         var="vProjectJustification">
+<cf_tl class="Message" id="ProjectObjectives"            var="vProjectObjectives">
 	
 <cfif qGroup.Mission eq "DPA" OR qGroup.Mission eq "DPPA-DPO">
 					
 	<!--- DPA projects --->						
 	<cfset vDisplayProblemAnalysis = "display:none;">
-	
+			
 	<!--- Rapid Response --->
 	<cfif qGroup.ProgramGroup eq "D02">		
 		<cf_tl class="Message" id="Rapid DPPA-DPO Objective"       var="vSummarySubtitle">
@@ -77,7 +80,7 @@ password="#SESSION.dbpw#">
 <!--- General text box titles and subtitles --->
 <cfoutput>
 <cfsavecontent variable="vSummaryLabel">
-	<cf_tl id="Overall Objectives">:<font color="FF0000">*</font>
+	 #vProjectObjectives#:<font color="FF0000">*</font>
 	<cfif vSummarySubtitle neq "">
 	<br><font size="2" color="808080">#vSummarySubtitle#</font>
 	</cfif>	
@@ -92,7 +95,7 @@ password="#SESSION.dbpw#">
 
 <cfset vDisplayDescription = "">
 <cfsavecontent variable="vDescriptionLabel">
-   <cf_tl id="Justification">:<font color="FF0000">*</font>
+   #vProjectJustification#:<font color="FF0000">*</font>
    <cfif vJustificationSubtitle neq "">
 	<br><font size="2" color="808080">#vJustificationSubtitle#</font>
 	</cfif>      
@@ -459,6 +462,8 @@ password="#SESSION.dbpw#">
 				</TD>
 			</TR>
 			
+			<cfif Parameter.EnableJustification eq "1">
+			
 			<TR style="#vDisplayDescription#">
 		        <TD valign="top" style="padding-top:5px" class="labelmedium" colspan="6">
 					#vDescriptionLabel# 
@@ -482,7 +487,7 @@ password="#SESSION.dbpw#">
 					LanguageDefault = "1"	
 					Message         = ""
 					Form            = "programform"
-					Maxlength       = "30000"
+					Maxlength       = "#Parameter.JustificationMode#"
 					cols            = "69"
 					rows            = "12"
 					Class           = "regular">
@@ -501,7 +506,7 @@ password="#SESSION.dbpw#">
 					LanguageDefault = "1"	
 					Message         = ""
 					Form            = "programform"
-					Maxlength       = "30000"
+					Maxlength       = "#Parameter.JustificationMode#"
 					cols            = "69"
 					rows            = "12"
 					Class           = "regular">
@@ -512,6 +517,8 @@ password="#SESSION.dbpw#">
 			    </TD>
 				
 		     </TR>		
+			 
+			 </cfif>
 			
 		 <cfif Parameter.EnableObjective eq "1">
 		 	
@@ -539,7 +546,7 @@ password="#SESSION.dbpw#">
 						LanguageDefault = "1"	
 						Message         = ""
 						Form            = "programform"
-						Maxlength       = "30000"
+						Maxlength       = "#Parameter.ObjectiveMode#"
 						height          = "140"
 						cols            = "69"
 						rows            = "12"
@@ -559,7 +566,7 @@ password="#SESSION.dbpw#">
 						LanguageDefault = "1"	
 						Message         = ""
 						Form            = "programform"
-						Maxlength       = "30000"
+						Maxlength       = "#Parameter.ObjectiveMode#"
 						height          = "140"
 						cols            = "69"
 						rows            = "12"
@@ -584,9 +591,9 @@ password="#SESSION.dbpw#">
 		     username="#SESSION.login#" 
 		     password="#SESSION.dbpw#">
 	    	  SELECT *
-		      FROM ProgramGroup
-			  WHERE ProgramCode = '#url.parentCode#'
-			  AND   ProgramGroup = 'D03'
+		      FROM    ProgramGroup
+			  WHERE   ProgramCode = '#url.parentCode#'
+			  AND     ProgramGroup = 'D03'
 		     </cfquery>
 			 		 
 			 <cfif Parameter.EnableObjective eq "1" and check.recordcount eq "0">
@@ -615,7 +622,7 @@ password="#SESSION.dbpw#">
 						LanguageDefault = "1"	
 						Message         = ""
 						Form            = "programform"
-						Maxlength       = "10000"
+						Maxlength       = "#Parameter.ObjectiveMode#"
 						height          = "140"
 						cols            = "69"
 						rows            = "6"
@@ -635,7 +642,7 @@ password="#SESSION.dbpw#">
 						LanguageDefault = "1"	
 						Message         = ""
 						Form            = "programform"
-						Maxlength       = "10000"
+						Maxlength       = "#Parameter.ObjectiveMode#"
 						height          = "140"
 						cols            = "69"
 						rows            = "6"
@@ -652,63 +659,64 @@ password="#SESSION.dbpw#">
 		     <input type="hidden" name="PeriodProblem" id="PeriodProblem" value=""> 
 						
 			</cfif> 
+			
+		<cfif Parameter.EnableRequirement eq "1">	
 					
-		<TR>
-		       <TD valign="top" style="padding-top:5px;padding-right:20px" class="labelmedium" colspan="6">
-			   	#vRequirementsLabel#
-			   </td>		
-		</tr>
-		
-		<tr>   
-								
-		        <TD colspan="6">
-								
-				
-				<cfif mode eq "edit">
-								
-				<cf_LanguageInput
-					TableCode       = "ProgramPeriod" 
-					Mode            = "Edit"
-					Name            = "PeriodObjective"
-					Value           = "#EditProgram.ProgramObjective#"
-					Key1Value       = "#EditProgram.ProgramCode#"
-					Key2Value       = "#EditProgram.Period#"
-					Type            = "text"
-					Required        = "No"
-					LanguageDefault = "1"	
-					Message         = ""
-					Form            = "programform"
-					Maxlength       = "30000"					
-					cols            = "69"
-					height          = "150"
-					rows            = "13"
-					Class           = "regular">	
+				<TR>
+				   <TD valign="top" style="padding-top:5px;padding-right:20px" class="labelmedium" colspan="6">
+				   	#vRequirementsLabel#
+				   </td>		
+				</tr>
+			
+				<tr>   								
+			        <TD colspan="6">							
 					
-				<cfelse>
-				
-				<cf_LanguageInput
-					TableCode       = "ProgramPeriod" 
-					Mode            = "View"
-					Name            = "PeriodObjective"
-					Value           = "#EditProgram.ProgramObjective#"
-					Key1Value       = "#EditProgram.ProgramCode#"
-					Key2Value       = "#EditProgram.Period#"
-					Type            = "text"
-					Required        = "No"
-					LanguageDefault = "1"	
-					Message         = ""
-					Form            = "programform"
-					Maxlength       = "30000"
-					cols            = "69"
-					height          = "150"
-					rows            = "13"
-					Class           = "regular">	
-				
-				
-				</cfif>		
-							
-				</td>
-			</tr>		
+					<cfif mode eq "edit">
+									
+						<cf_LanguageInput
+							TableCode       = "ProgramPeriod" 
+							Mode            = "Edit"
+							Name            = "PeriodObjective"
+							Value           = "#EditProgram.ProgramObjective#"
+							Key1Value       = "#EditProgram.ProgramCode#"
+							Key2Value       = "#EditProgram.Period#"
+							Type            = "text"
+							Required        = "No"
+							LanguageDefault = "1"	
+							Message         = ""
+							Form            = "programform"
+							Maxlength       = "#Parameter.RequirementMode#"					
+							cols            = "69"
+							height          = "150"
+							rows            = "13"
+							Class           = "regular">	
+						
+					<cfelse>
+					
+						<cf_LanguageInput
+							TableCode       = "ProgramPeriod" 
+							Mode            = "View"
+							Name            = "PeriodObjective"
+							Value           = "#EditProgram.ProgramObjective#"
+							Key1Value       = "#EditProgram.ProgramCode#"
+							Key2Value       = "#EditProgram.Period#"
+							Type            = "text"
+							Required        = "No"
+							LanguageDefault = "1"	
+							Message         = ""
+							Form            = "programform"
+							Maxlength       = "#Parameter.RequirementMode#"
+							cols            = "69"
+							height          = "150"
+							rows            = "13"
+							Class           = "regular">					
+					
+					</cfif>		
+								
+					</td>
+				</tr>	
+			
+		</cfif>		
 		
 		<cfif mode eq "edit">					
 				

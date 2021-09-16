@@ -87,7 +87,16 @@ datasource="AppsMaterials"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 
-	SELECT   TOP #last# *
+	SELECT   TOP #last# *, 
+	
+			(SELECT     TOP (1) THA.ActionReference1
+		     FROM       Accounting.dbo.TransactionHeader AS TH INNER JOIN
+		                Accounting.dbo.TransactionHeaderAction AS THA ON TH.Journal = THA.Journal AND TH.JournalSerialNo = THA.JournalSerialNo
+		     WHERE      TH.TransactionSourceId = R.BatchId 
+			 AND        TH.TransactionCategory = 'Receivables' 
+			 AND        THA.ActionCode = 'Invoice'
+		     ORDER BY   THA.ActionDate DESC) as InvoiceReference
+	
 	FROM     WarehouseBatch R 
 			 INNER JOIN Customer 
 			 	ON R.CustomerId = Customer.CustomerId 
@@ -162,7 +171,7 @@ password="#SESSION.dbpw#">
 				</td>
 				<td class="labellarge" style="padding-left:2px; color:##1983E0;"><a href="javascript:batch('#BatchNo#','#mission#','process','')">#BatchNo#</a></td>
 				<td class="labellarge">#dateformat(TransactionDate,CLIENT.DateFormatShow)#</td>		
-				<td class="labellarge">#BatchReference# </td>
+				<td class="labellarge">#InvoiceReference# </td>
 				<td class="labellarge" style="padding-left:4px">#CustomerName#</td>
 				<td class="labellarge" style="padding-left:4px"><cfif CustomerName neq CustomerInvoice>#CustomerInvoice#<cfelse>..</cfif></td>
 				<td class="labellarge" style="padding-left:4px">#BatchMemo#</td>					

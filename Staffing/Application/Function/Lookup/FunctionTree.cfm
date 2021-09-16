@@ -1,4 +1,5 @@
 
+
 <cfoutput>
 
 <cfparam name="URL.Owner" default="">
@@ -32,8 +33,11 @@
 
 </cfoutput>
 
+
+
 <cfset fclass = "">
 <cfset owner  = url.owner>
+
 
 <cfif url.Owner neq "">
 	
@@ -46,13 +50,14 @@
 	   WHERE Mission = '#URL.Owner#'
 	</cfquery>
 	
+	
 	<cfif mission.recordcount eq "1">
 
 		<cfset fclass = "'#Mission.FunctionClass#'">
 		<cfset owner  = Mission.MissionOwner>
 		
 	</cfif>
-	
+		
 </cfif>
 
 <cfquery name="Parameter" 
@@ -95,7 +100,7 @@
   
     <cfif fclass is "">
 		
-	['<b>No access</b>',null] 
+	 No access 
 	
 	<cfelse>
 	

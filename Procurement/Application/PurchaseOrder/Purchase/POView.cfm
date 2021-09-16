@@ -200,19 +200,6 @@
 		     ptoken.open("#SESSION.root#/Procurement/Application/Invoice/InvoiceEntry/InvoiceEntryView.cfm?html=yes&Mission=#PO.Mission#&Period=#PO.Period#&OrgUnit="+orgunit+"&PersonNo="+personno+"&PurchaseNo="+po,"_blank","width=1050, height=960, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes");							   						 
 		 }	
 		 
-		function present(mode) {
-			     		  		  
-			 w = #CLIENT.width# - 100;
-			 h = #CLIENT.height# - 140;
-			  
-			 docid = document.getElementById("printdocumentid").value
-			  		  
-			 if (docid != "") {			   
-				  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
-			 } else {
-			      ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?templatepath=#tmp#&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")		 
-			 }	  
-	  	} 			
 		
 			
 	</script>

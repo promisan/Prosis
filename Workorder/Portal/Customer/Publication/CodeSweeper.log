@@ -1,9 +1,0 @@
-Invalid character (+) encountered while parsing (tag "CFSET" with attributes Total=Total). 
-Invalid character (+) encountered while parsing (tag "CFSET" with attributes TotalByDay=TotalByDay). 
-Invalid equal sign (=) encountered while parsing (tag "CFPARAM" with attributes). 
-Invalid character (+) encountered while parsing (tag "CFSET" with attributes cnt=cnt). 
-Invalid number "0" encountered while parsing (tag "CFIF" with attributes pubList.recordcount=). 
-Invalid number "0" encountered while parsing (tag "CFIF" with attributes pubList.recordcount=). 
-Invalid character (+) encountered while parsing (tag "CFSET" with attributes vSourceList=vSourceList). 
-Invalid character (+) encountered while parsing (tag "CFSET" with attributes vSourceList=vSourceList). 
-Invalid character (+) encountered while parsing (tag "CFSET" with attributes vSourceList=vSourceList). 

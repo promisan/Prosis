@@ -12,10 +12,11 @@
 	
     <cfproperty name="name" type="string">
     <cfset this.name = "CFRS Session Controller">
+	
+	<cfparam name="SESSION.authent" default="0">
 	<cfset VARIABLES.Instance.USR_MID = "_user" />
 	<cfset VARIABLES.Instance.SES_MID = "_session" />
-
-	<cffunction name="GetHash" access="public" returntype="string">
+		<cffunction name="GetHash" access="public" returntype="string">
 		
 			<cfset vInit = now()>
 			<cfset ts = DateFormat(vInit,"DDMMYYYY")&TimeFormat(vInit,"hhmmss")>						
@@ -24,6 +25,17 @@
 			<cfreturn hash>	
 				
 	</cffunction>	
+	
+	<cffunction name="GetMid" access="remote" returnFormat="json" output="false">
+	
+		<cfif SESSION.authent eq 1>
+			<cfset vInit = now()>
+			<cfset ts = DateFormat(vInit,"DDMMYYYY")&TimeFormat(vInit,"hhmmss")>						
+	   		<cfset key    = SESSION.acc & "h@mesweeth@ome" & ts>
+			<cfset hash   = Hash(key & VARIABLES.Instance.USR_MID, "SHA")>
+			<cfreturn hash>		
+		</cfif>
+	</cffunction>
 
 	<cffunction name="Hashit" access="public" returntype="boolean">
 	
@@ -159,6 +171,7 @@
 		</cftransaction>
 				
 		<!--- link NOT found for user / session or no longer valid --->
+			
 															
 		<cfif get.recordcount eq "0" or get.Operational eq "0">			  
 			  
@@ -177,9 +190,9 @@
 			</cfif>		
 
 			<cf_gethost>	
-													
+																
 			<cfif Match_USR or Match_SES or force eq "Yes">		
-																						
+																									
 					<cfquery name="getUser" 
 						datasource="AppsSystem">
 							SELECT * 
@@ -220,30 +233,32 @@
 							</cfquery>							
 					
 					</cfif>		
-					
 															
 					<cfif session.acc neq "">
 					
 						<cfif get.recordcount eq "0">
 																							
 								<cftry>
+								
+									<cf_assignId>
 													
 									<cfquery name="addRecord" 
 										datasource="AppsSystem">
 											INSERT INTO UserStatusController
-											(Account,
+											(ControllerLinkId,
+											 Account,
 											 HostName,
 											 HostSessionId,									 
 											 ActionTemplate,
-											 ActionQueryString,
+											 ActionQueryString,											 
 											 Operational)
 										VALUES	
-										   ( '#SESSION.acc#',
+										   ( '#rowguid#',
+										     '#SESSION.acc#',
 											 '#CGI.http_host#',									
 											 '#Session.SessionId#',
 											 '#tmp#',
-											 '#str#',
-											 '1')		
+											 '#str#','1')		
 											 								
 									</cfquery>		
 									
@@ -275,7 +290,7 @@
 								
 			<cfif AccessValidate eq "Yes" and (session.acc neq "" or hash eq "999")>
 						
-				<cfif param.URLProtectionMode eq "2">						
+				<cfif param.URLProtectionMode eq "2"  or findNoCase("submit.cfm",tmp)>						
 					 <!--- we enforce that access is revoked --->
 					 <cfset AccessRevoke = "Yes">
 				</cfif>		
@@ -299,7 +314,7 @@
 		
 			<!--- A MATCH was found for this user  --->
 									
-				<cfif param.URLProtectionMode eq "2">		
+				<cfif param.URLProtectionMode eq "2" or findNoCase("submit.cfm",get.actiontemplate)>		
 								
 				    <!--- we enforce that access is revoked 
 					so it can be accessed as hyperlink only with

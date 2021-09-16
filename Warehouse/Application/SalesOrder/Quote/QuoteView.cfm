@@ -1,4 +1,3 @@
-
 	
 <cf_screentop height="99%" label="Quotation #URL.RequestNo#" html="No" layout="webapp" jquery="Yes" scroll="No">
 
@@ -120,46 +119,54 @@
 			
 				<form name="quote" id="quote" style="width:100%;height:98%;padding-left:5px;padding-right:3px">
 			
-				<table style="width:96%" align="center" class="formpadding formspacing">
+				<table style="width:96%" align="center" class="formpadding">
 				
-				<tr class="line labelmedium" style="height:40px">
+				<tr class="line labelmedium2" style="height:40px">
 				   <td style="font-size:20px"><cf_tl id="Quotation"></td>
 				   <td align="right" style="padding-right:4px;font-size:25px">#url.requestNo#</td>
 			    </tr>
 				
 				<tr><td style="height:10px"></td></tr>
-				<tr class="labelmedium" style="height:20px">
+				<tr class="labelmedium2" style="height:20px">
 				      <td><cf_tl id="Warehouse">:</td>
 				      <td>#Request.Warehouse#</td>
 				</tr>
-				<tr class="labelmedium" style="height:20px">
+								
+				<tr class="labelmedium2" style="height:20px">
+				      <td><cf_tl id="Status">:</td>
+				      <cfif Request.ActionStatus eq "0"><td style="text-align:center;background-color:ffffaf"><cf_tl id="Draft"></td>
+					  <cfelseif Request.ActionStatus eq "1"><td style="text-align:center;background-color:green"><cf_tl id="Submitted"></td>
+					  <cfelseif Request.ActionStatus eq "9"><td style="text-align:center;background-color:FF8080"><cf_tl id="Cancelled"></td>
+					  </cfif>
+				</tr>
+				
+				<tr class="labelmedium2" style="height:20px">
 				      <td><cf_tl id="Customer">:</td>
 				      <td><a href="javascript:editCustomer('#customer.Customerid#')">#Customer.CustomerName#</a></td>
 				</tr>
-				<tr class="labelmedium" style="height:20px">
+				<tr class="labelmedium2" style="height:20px">
 				      <td><cf_tl id="Address">:</td>
 				      <td><cfif customerAddress.Address eq "">N/A<cfelse>#CustomerAddress.Address#</cfif></td>
 				</tr>
-				<tr class="labelmedium" style="height:20px">
+				<tr class="labelmedium2" style="height:20px">
 				      <td><cf_tl id="Source">:</td>
 				      <td>#Request.Source#</td>
 				</tr>
-				<tr class="labelmedium" style="height:20px">
+				<tr class="labelmedium2" style="height:20px">
 				      <td><cf_tl id="Recorded">:</td>
 				      <td>#Request.OfficerFirstName#</td>
 				</tr>
-				<tr class="labelmedium" style="height:20px">
-				      <td><cf_tl id="Status">:</td>
-				      <td><cfif Request.BatchNo neq ""><cf_tl id="Sold"><cfelse><cf_tl id="Pending"></cfif></td>
+				<tr class="labelmedium2" style="height:20px">
+				      <td><cf_tl id="Stage">:</td>
+				      <td><cfif Request.BatchNo neq ""><cf_tl id="Sold"><cfelse><cf_tl id="Quote"></cfif></td>
 				</tr>
-				<tr class="labelmedium" style="height:20px">
+				<tr class="labelmedium2" style="height:20px">
 				      <td><cf_tl id="Time">:</td>
 				      <td>#dateformat(Request.Created,client.dateformatshow)# #timeformat(Request.Created,"HH:MM")#</td>
 				</tr>
-				
-								
-				<tr class="labelmedium" style="height:20px">
-				      <td colspan="2" style="font-weight:bold"><cf_tl id="About this request">:</td>				    
+												
+				<tr class="labelmedium2" style="height:20px">
+				      <td colspan="2" style="font-weight:normal;font-size:20px"><cf_tl id="About this request">:</td>				    
 				</tr>
 				
 				<cfset apply = "ptoken.navigate('#session.root#/warehouse/application/salesOrder/Quote/setQuote.cfm?requestNo=#request.RequestNo#','process','','','POST','quote')">
@@ -172,12 +179,13 @@
 					</tr>					
 				
 					<tr class="labelmedium" style="height:20px">
-					      <td colspan="2">
+					      <td colspan="2" style="padding-left:20px">
 						  
 							  <table>
 								  <tr>
 									  <td><input type="radio" name="RequestClass" class="radiol" value="Quote" onclick="#apply#" <cfif Request.RequestClass eq "Quote">checked</cfif>></td>
-									  <td style="padding-left:3px"><cf_tl id="Quote"></td>
+									  <td style="padding-left:3px"><cf_tl id="Quote ONLY"></td>
+									  
 									  <td style="padding-left:3px"><input type="radio" name="RequestClass" class="radiol" onclick="#apply#" value="QteReserve" <cfif Request.RequestClass eq "QteReserve">checked</cfif>></td>
 									  <td style="padding-left:3px"><cf_tl id="Reservation"></td>
 								  </tr>

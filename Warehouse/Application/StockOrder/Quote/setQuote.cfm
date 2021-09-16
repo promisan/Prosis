@@ -140,6 +140,20 @@
 </cfcase>
 
 
+<cfcase value="class">
+
+	<cfquery name="set"
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		UPDATE CustomerRequest
+		SET   RequestClass = '#form.RequestClass#'
+		WHERE RequestNo = '#url.requestno#'				
+	</cfquery>
+	
+</cfcase>
+
+
 <cfcase value="warehouse">
 
 	<cfquery name="set"
@@ -151,8 +165,6 @@
 		WHERE RequestNo = '#url.requestno#'				
 	</cfquery>
 	
-	<script>alert('#form.warehouse#')</script>
-
 </cfcase>
 
 <cfcase value="customer">

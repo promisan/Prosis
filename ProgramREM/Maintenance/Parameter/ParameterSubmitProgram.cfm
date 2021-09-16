@@ -9,6 +9,11 @@
 		password="#SESSION.dbpw#">
 			UPDATE Ref_ParameterMission
 				SET EnableObjective                = '#Form.EnableObjective#',
+				    ObjectiveMode                  = '#Form.ObjectiveMode#',
+					EnableJustification            = '#Form.EnableJustification#',
+					JustificationMode              = '#Form.JustificationMode#',
+					EnableRequirement              = '#Form.EnableRequirement#',
+					RequirementMode                = '#Form.RequirementMode#',
 					DefaultOpenProgram             = '#Form.DefaultOpenProgram#',
 					ProgressMemoEnforce            = '#Form.ProgressMemoEnforce#',
 					CarryOverMode                  = '#Form.CarryOverMode#',
@@ -24,6 +29,6 @@
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate("ParameterEditProgram.cfm?idmenu=#URL.IDMenu#&mission=#url.Mission#", "contentbox2");
+		ptoken.navigate("ParameterEditProgram.cfm?idmenu=#URL.IDMenu#&mission=#url.Mission#", "contentbox2");
 	</script>
 </cfoutput>

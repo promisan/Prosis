@@ -75,7 +75,7 @@
 	    <table width="100%" height="100%" align="center">
 		
 		<tr><td align"center" id="list" style="height:99%;padding-left:5px">	
-		
+				
 		    <cf_divscroll>
 					
 		    <cf_securediv style="height:98.5%" bind="url:MandateViewList.cfm?#cgi.query_string#&lay=listing">	

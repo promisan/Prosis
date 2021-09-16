@@ -15,7 +15,7 @@
 	</cfquery>
 		
 	<TR>
-    <td width="100" class="labelmedium">Default Receipt Unit:</b></td>
+    <td width="100" class="labelmedium2">Default Receipt Unit:</b></td>
     <TD width="75%">
 	    
 	 	<cfoutput>
@@ -50,7 +50,7 @@
 	</cfquery>
 	
 	<TR>
-    <td class="labelmedium">Default Receipt Location:</b></td>
+    <td class="labelmedium2">Default Receipt Location:</b></td>
     <TD>
 		 <table cellspacing="0" cellpadding="0">
 		    <tr><td>
@@ -66,7 +66,7 @@
     </tr>
 	
 	<tr>
-		<td class="labelmedium">Last Year of Depreciation</td>
+		<td class="labelmedium2">Last Year of Depreciation</td>
 		<td><select name="LastYearDepreciation" id="LastYearDepreciation" class="regularxl">
 		<cfloop index="itm" list="2008,2009,2010,2011,2012,2013,2014,2015" delimiters=",">
 		<option value="#itm#" <cfif get.lastyeardepreciation eq "#itm#">selected</cfif>>#itm#</option>

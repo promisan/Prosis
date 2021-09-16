@@ -260,7 +260,7 @@
 												 name="#nm#" 
 												 class="#Attributes.Class#"
 												 maxlength="#Attributes.maxlength#"
-												 onKeyUp="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/tools/input/text/memolength.cfm?field=#nm#&size=#Attributes.maxlength#','memcount_#nm#','','','POST','#attributes.form#')"											 
+												 onKeyUp="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/input/text/memolength.cfm?field=#nm#&size=#Attributes.maxlength#','memcount_#nm#','','','POST','#attributes.form#')"											 
 												 style="max-width:99%;width:99%;resize: vertical;background-color:<cfif SystemDefault neq '1'>F0FFFF<cfelse>F1F1F1</cfif>;border-radius:3px;font-size:14px;padding:8px">#val#</textarea>		
 											
 										<cfelse>

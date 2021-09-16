@@ -103,7 +103,7 @@ password="#SESSION.dbpw#">
 		}
 				
 		function printStatistics(wh,loc,divToGet) {
-			window.open('../WarehouseLocation/LocationStatistics/PrintableVersion.cfm?warehouse='+wh+'&location='+loc+'&divToGet='+divToGet+'&ts='+new Date().getTime(), 'LocationStatistics', 'left=100, top=100, width=1000, height=700, toolbar=no, status=no, scrollbars=no, resizable=no');
+			ptoken.open('../WarehouseLocation/LocationStatistics/PrintableVersion.cfm?warehouse='+wh+'&location='+loc+'&divToGet='+divToGet+'&ts='+new Date().getTime(), 'LocationStatistics', 'left=100, top=100, width=1000, height=700, toolbar=no, status=no, scrollbars=no, resizable=no');
 		}
 		
 		function selectWHA(w,c) {
@@ -174,8 +174,8 @@ password="#SESSION.dbpw#">
 		<table width="100%" align="center">
 		<tr>
 		
-				<cfset wd = "60">
-				<cfset ht = "60">		
+				<cfset wd = "50">
+				<cfset ht = "50">		
 				<cfset itm="1">	
 						
 				<cf_tl id = "Settings" var = "vName1">

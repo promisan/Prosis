@@ -186,7 +186,7 @@
 		  <script language="JavaScript1.2">
 		   	  		    
 					  function key(code,location) {					 				 					     
- 					      ColdFusion.navigate('#SESSION.root#/Tools/Input/Keyword/KeywordFind.cfm?code='+code,location)					
+ 					      ptoken.navigate('#SESSION.root#/Tools/Input/Keyword/KeywordFind.cfm?code='+code,location)					
 					  }    
 								
 				</script>								

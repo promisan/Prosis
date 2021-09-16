@@ -1,6 +1,11 @@
 
 <cf_screentop jquery="Yes" html="No">
 
+<cfparam name="url.id1" default="">
+<cfparam name="url.id2" default=""> 	   	
+<cfparam name="url.id3" default="">
+<cfparam name="url.id4" default="">
+
 <cfoutput>
 	
 	<cfif url.id eq "org">
@@ -18,11 +23,11 @@
 		//var element  = parent.ColdFusion.DOM.getElement(tree.prevspanid,id_tree);
 		//element.style.backgroundColor=tree.prevspanbackground;
 		// parent._cf_loadingtexthtml='';	
-		// parent.ptoken.navigate('setTree.cfm?mission=#url.id2#&mandate=#url.id3#','mandatetree')		
+		// parent.ptoken.navigate('setTree.cfm?mission=#url.id2#&mandate=#url.id3#','mandatetree')	
+			
 		</script>
 				
 	<cfelse>
-
 
 		<script>
 		//parent.document.getElementById('selectedfilter').value = '#url.id#'
@@ -32,14 +37,10 @@
 			console.log(parent._SELECTED_ITEMS[i].id);
 			console.log(parent._SELECTED_ITEMS[i].value);
 			console.log('----');
-
 		}
-
 		</script>
-
 		
-	</cfif>
-	
+	</cfif>	
 	
 	<cfif URL.ID eq "Locate">
 	
@@ -48,9 +49,7 @@
 		</script>
 		
 	<cfelse>
-	
-		<cfparam name="url.id4" default="">
-	
+		
 		<script language="JavaScript">	 
 		   //unitcode = parent.YAHOO.widget.TreeView.getTree('idtree')._cf_node
 			var vl = parent._SELECTED_ITEMS.length;

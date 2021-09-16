@@ -34,6 +34,6 @@ WHERE 	Mission                        = '#url.Mission#'
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate("ParameterEditProgress.cfm?idmenu=#URL.IDMenu#&mission=#url.Mission#", "contentbox3");
+		ptoken.navigate("ParameterEditProgress.cfm?idmenu=#URL.IDMenu#&mission=#url.Mission#", "contentbox3");
 	</script>
 </cfoutput>

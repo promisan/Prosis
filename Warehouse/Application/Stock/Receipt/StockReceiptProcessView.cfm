@@ -91,9 +91,9 @@
 		ORDER BY Category, ItemDescription		
 </cfquery>
 
-<cfform name="frmProcessReceipt" id="frmProcessReceipt" onsubmit="return false;">
+<cfform name="frmProcessReceipt" id="frmProcessReceipt" style="height:100%" onsubmit="return false;">
 
-	<table width="97%" align="center">
+	<table width="97%" align="center" style="height:100%">
 			
 			<tr><td height="10"></td></tr>
 			<cfif getSelected.recordCount eq 0>
@@ -108,18 +108,17 @@
 				<tr><td height="5"></td></tr>
 				<cfabort>
 			</cfif>
+			
 			<tr>
 				<td colspan="6">
 					<table width="100%" cellspacing="0" class="formpadding">
 						<tr>
-							<td class="labelmedium"><cf_tl id="Destination Warehouse">:</td>
+							<td class="labelmedium"><cf_tl id="Destination Warehouse"></td>
 							<td style="padding-left:10px;">
 								<cfoutput>
 								<cf_tl id="Select a destination warehouse" var="1">
 								<select name="fwarehouse" 
-									id="fwarehouse" 
-									class="clsWarehouse regularxl" 								
-									style="width:300" 
+									id="fwarehouse" class="clsWarehouse regularxl" 	style="height:35px;font-size:19px;border:0px;background-color:f1f1f1;width:300" 
 									onchange="saveChangeTmpReceipt('#url.mission#','#url.warehouse#','TransferWarehouse',this.value, '', ''); refreshReceiptDetail('#url.mission#','#url.warehouse#');">
 									<option value=""> -- #lt_text# --
 									<cfloop query="getWarehouse">
@@ -127,24 +126,22 @@
 									</cfloop>
 								</select>
 								</cfoutput>
-							</td>
-						</tr>
-						<tr>	
-							<td class="labelmedium"><cf_tl id="Location">:</td>
+							</td>						
+							<td style="padding-left:20px;" class="labelmedium"><cf_tl id="Location"></td>
 							<td style="padding-left:10px;">
 							
-								<cfdiv id="divLocation"
+								<cf_securediv id="divLocation"
 								    bind="url:#SESSION.root#/warehouse/application/stock/receipt/getLocation.cfm?mission=#url.mission#&warehouse=#url.warehouse#&fwarehouse={fwarehouse}&flocation=#getSelectedLocation.TransferLocation#">
 									
 							</td>
 						</tr>					
 						<tr>
-							<td width="200" class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Remarks">:</td>
-							<td width="80%" style="padding-left:10px;" colspan="2">
+							<td width="200" class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Memo">:</td>
+							<td width="80%" style="padding-left:10px;" colspan="4">
 							
 							    <cfoutput>
 							    <textarea name="Memo" 
-								          style="width:99%;height:40;font-size:13px;padding:4px" 
+								          style="width:100%;height:40;font-size:14px;padding:4px;border:0px;background-color:f4f4f4" 
 										  class="regular" 
 										  totlength="200"  
 										  onkeyup="return ismaxlength(this)"	
@@ -185,7 +182,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="6" id="processTempReceipt"></td>
+				<td style="height:100%" colspan="6" id="processTempReceipt"></td>
 			</tr>
 	
 	</table>

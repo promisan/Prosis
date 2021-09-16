@@ -186,8 +186,6 @@ datasource="AppsSystem">
 		'#ccto#') 
 </cfquery>
 
-
-
 <!--- mail is triggered to the system manager --->
 <cfif attributes.eMail eq "1" and check.recordcount eq "1">
 	<cf_ErrorInsertMail errorid="#attributes.errorid#">	

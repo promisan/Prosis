@@ -46,8 +46,8 @@
 	
 		<table width="96%" border="0" align="center">		  		
 						
-			<cfset ht = "48">
-			<cfset wd = "48">
+			<cfset ht = "42">
+			<cfset wd = "42">
 					
 			<tr>	
 			
@@ -91,7 +91,7 @@
 						name       = "#lt_text#"
 						source     = "../Receipt/StockReceiptBatchListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#URL.Mission#&warehouse=#url.warehouse#">	
 					
-						<td width="10%"></td>
+						<td width="20%"></td>
 																	 		
 				</tr>
 				
@@ -106,8 +106,6 @@
 	 <table width="100%" 
 	      border="0"
 		  height="100%"
-		  cellspacing="0" 
-		  cellpadding="0" 
 		  align="center">
 		  	 					
 			<cf_menucontainer item="1" class="regular">		

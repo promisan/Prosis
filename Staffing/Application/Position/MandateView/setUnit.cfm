@@ -15,6 +15,7 @@
 	<script>
 		document.getElementById("orgunit").value        = '#get.OrgUnit#'		
 		document.getElementById("orgunitname").value    = '#get.OrgUnitName#'
+		document.getElementById("orgunitcode").value    = '#get.OrgUnitCode#'
 		document.getElementById("mission").value        = '#get.Mission#'
 		//  document.getElementById("mandateno").value      = '#get.MandateNo#'		
 	</script>	

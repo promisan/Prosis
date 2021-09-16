@@ -231,7 +231,7 @@
 				SELECT  TOP 1 * 
 				FROM    UserStatusController
 				WHERE   HostName           = '#CGI.http_host#'
-				AND     ActionTemplate     = '#CGI.SCRIPT_NAME#'						
+				AND     ActionTemplate     = '#CGI.SCRIPT_NAME#'										
 		</cfquery>			
 		
 		<!--- ---------------------------------------- --->
@@ -266,7 +266,7 @@
 		right now we do this for ajax links but i think we should do this for any links
 		
 		--->		
-		
+	
 		<cfif mid eq "" and checkenabled.recordcount gte "1" and findNoCase("cf_clientid",CGI.QUERY_STRING) eq "1">
 		
 			<!--- ----------------------------------------------------------------- --->
@@ -284,9 +284,8 @@
 			<cfset mid = "9999999">	
 									
 														
-		</cfif>			
-		
-		
+		</cfif>		
+					
 		<!--- we check if the template is launched by this user within a certain time frame based on an 
 		id created upon triggering the termplate --->		
 		

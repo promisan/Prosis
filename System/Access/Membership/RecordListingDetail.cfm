@@ -77,13 +77,13 @@
 	
 				<table>
 				<tr>
-				<td height="22" class="labelmedium" style="padding-left:4px">
+				<td height="22" class="labelmedium2" style="padding-left:4px">
 	
 				<cfset link = "UserMemberSubmit.cfm?id=group||id1=#url.mod#||id2=#url.row#">
 	
 					<cf_selectlookup
 					box          = "s#url.row#"
-					title        = "<font color='0080C0'>Add User</font>"
+					title        = "Add User to group"
 					link         = "#link#"
 					button       = "No"
 					iconheight   = "25"
@@ -96,7 +96,7 @@
 	
 				<td style="padding-left:5px;padding-right:5px">|</td>
 				<td style="padding-left:5px;padding-right:5px"><img src="#SESSION.root#/Images/mail.gif" alt="" border="0" align="absmiddle"></td>
-				<td style="padding-left:5px;padding-right:5px" class="labelmedium" title="Send a broadcast mail to the members of this group">
+				<td style="padding-left:5px;padding-right:5px" class="labelmedium2" title="Send a broadcast mail to the members of this group">
 					<a href="javascript:broadcast('#url.mod#')"><cf_tl id="Mail Broadcast"></a>
 				</td>
 	
@@ -106,11 +106,11 @@
 					<td align="right" style="padding-left:5px;padding-right:5px" title="Re-synchronize role authorization of members with user group role profile">
 						<img src="#SESSION.root#/Images/sweeper3_sm.gif" id="sync#URL.Mod#" alt="" border="0" align="absmiddle">
 					</td>
-					<td align="left" style="width:40" class="labelmedium"><a href="javascript:sync('#URL.Mod#','#url.row#')"><cf_tl id="Synchronize"></a></td>
+					<td align="left" class="labelmedium2" title="Re-synchronize role authorization of members with user group role profile"><a href="javascript:sync('#URL.Mod#','#url.row#')"><cf_tl id="Synchronize"></a></td>
 	
 			</cfoutput>
 					
-					<td style="width:200;padding-left:10px" class="labelmedium" width="1" id="a#URL.Mod#"></td>
+					<td style="width:200;padding-left:10px" class="labelmedium2" width="1" id="a#URL.Mod#"></td>
 			</tr>
 	
 			</table>

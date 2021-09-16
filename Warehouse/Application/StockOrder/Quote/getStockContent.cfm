@@ -79,24 +79,26 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">		
 		
-		SELECT     TOP 400 Mission, Warehouse, WarehouseName,
-		           ItemNo, ItemNoExternal, ItemDescription, Category, UoM, UoMName, MinReorderQuantity,
+		SELECT     TOP 400 Mission, Warehouse, WarehouseName, ItemPrecision,
+		           ItemNo, ItemNoExternal, ItemDescription, Category, CategoryName, UoM, UoMName, MinReorderQuantity,
 				   PriceSchedule, PriceScheduleDescription, Promotion, Currency, SalesPrice, PriceDate, LastSold,
-				   QuantityForSale, QuantityReserved
+				   QuantityForSale, 
+				   QuantityReserved,
+				   QuantityRequested 
 				   
 		FROM       (SELECT        DISTINCT 
 		                          L.Mission, W.Warehouse, N.WarehouseName, L.ItemNo, I.ItemDescription, I.ItemNoExternal, 
-								  L.Category, 
+								  L.Category, C.Description as CategoryName,
 								  L.UoM, 
 								  L.UoMName, 
+								  I.ItemPrecision,
 								  L.PriceSchedule, L.PriceScheduleDescription, 
 								  L.Promotion, L.Currency, L.SalesPrice, L.PriceDate,
 		                          MinReorderQuantity,
 								  
 								 (SELECT     MIN(TransactionDate)
                                    FROM       ItemTransaction
-                                   WHERE      Mission = L.Mission AND Warehouse = W.Warehouse AND ItemNo = L.ItemNo AND TransactionUoM = L.UoM AND TransactionType = '2') AS LastSold,
-								
+                                   WHERE      Mission = L.Mission AND Warehouse = W.Warehouse AND ItemNo = L.ItemNo AND TransactionUoM = L.UoM AND TransactionType = '2') AS LastSold,								
 		
                                   (SELECT     ISNULL(SUM(TransactionQuantity),0) AS stockOnHand
                                    FROM       ItemTransaction
@@ -104,12 +106,22 @@
 								   
                                   (SELECT     ISNULL(SUM(TransactionQuantity),0) AS stockOnHand
                                    FROM       ItemTransaction AS ItemTransaction_1
-                                   WHERE      Mission = L.Mission AND Warehouse = W.Warehouse AND ItemNo = L.ItemNo AND TransactionUoM = L.UoM AND WorkOrderId IS NOT NULL) AS QuantityReserved
+                                   WHERE      Mission = L.Mission AND Warehouse = W.Warehouse AND ItemNo = L.ItemNo AND TransactionUoM = L.UoM AND WorkOrderId IS NOT NULL) AS QuantityReserved,
+								   
+								   (SELECT   ISNULL(SUM(TransactionQuantity),0)
+								    FROM     vwCustomerRequest
+								    WHERE    ItemNo          = L.ItemNo
+								    AND      TransactionUoM  = L.UoM
+								    AND      Warehouse       = W.Warehouse
+								    AND      BatchNo IS NULL 
+								    AND      RequestClass = 'QteReserve' 
+								    AND      ActionStatus = '1') as QuantityRequested 
 								   
                     FROM           skMissionItemPrice AS L INNER JOIN
                                    ItemWarehouse AS W ON L.ItemNo = W.ItemNo AND L.UoM = W.UoM INNER JOIN
 								   Item I ON L.ItemNo = I.ItemNo INNER JOIN
-								   Warehouse N ON W.Warehouse = N.Warehouse
+								   Warehouse N ON W.Warehouse = N.Warehouse INNER JOIN
+								   Ref_Category C ON L.Category = C.Category
 					
 					WHERE          N.Mission = '#Form.Mission#'		
 					AND            L.Mission = '#form.Mission#'   
@@ -136,12 +148,15 @@
 					</cfif>
 					
 					<cfif Form.itemNo neq "">
+										
 					AND            (I.ItemNo LIKE '%#form.ItemNo#' OR I.ItemNoExternal LIKE '%#form.ItemNo#%')
 					</cfif>
 					
 					<!--- apply the fuzzy search for the name and apply support for spanish sign --->						
 					<cfif Form.itemName neq "">
-					AND            I.ItemDescription LIKE '%#form.ItemName#%' 
+					
+					AND  <cf_softlike left="I.ItemDescription" right="#form.ItemName#" language="#client.languageId#">
+					
 					</cfif>			
 					
 					AND            W.Warehouse IN (#quotedvalueList(warehouse.warehouse)#)		
@@ -160,15 +175,16 @@
 		<cfif form.warehouse eq ""> 
 		ORDER BY    ItemDescription, ItemNo, Warehouse
 		<cfelse>
-		ORDER BY    ItemDescription, ItemNo, Warehouse
-		
+		ORDER BY    ItemDescription, ItemNo, Warehouse				
 		</cfif>
+		
 		
 </cfquery>
 
-<table style="width:98.5%" class="formpadding navigation_table">
+<table style="width:97%" class="formpadding navigation_table">
 		
 		<cfoutput>
+		
 		<tr class="labelmedium2 fixrow">	
 		    
 			<td style="padding-left:4px;min-width:170px"><cf_tl id="Store"></td>
@@ -180,11 +196,14 @@
 			<td style="min-width:60px" align="right"><cf_tl id="UoM"></td>	
 			<td style="min-width:60px" align="right"><cf_tl id="Sold"></td>
 			<td style="min-width:100px;padding-right:4px;" align="right"><cf_tl id="Available"></td>		
-			<td style="min-width:70px" align="right"><cf_tl id="Reserved"></td>
-			<td style="min-width:70px" align="right"><cf_tl id="Exhibition"></td>
+			<td style="min-width:70px;padding-right:4px" align="right"><cf_tl id="Reserved"></td>
+			<td style="min-width:70px;padding-right:4px" align="right"><cf_tl id="Requested"></td>	
+			<td style="min-width:70px;padding-right:4px" align="right"><cf_tl id="Exhibition"></td>
+			<!---
 			<td style="min-width:70px;padding-right:4px" align="right"><cf_tl id="Disposed"></td>		
-			
+			--->			
 		</tr>
+		
 		</cfoutput>
 		
 		<cfif form.warehouse eq "">
@@ -203,15 +222,16 @@
 			
 				<cfif form.warehouse eq "">		
 							
-					<tr class="fixrow2"><td colspan="9" style="padding-top:10px;padding-bottom:4px">
+					<tr class="fixrow2"><td colspan="10" style="padding-top:10px;padding-bottom:4px">
+
 					<table style="width:100%">
 							
 					<tr style="height:26px;width:80%" class="labelmedium2 fixrow2">
 						<td style="border-radius:6px;padding-left:13px;padding-bottom:3px;background-color:gray">
 						<table style="width:100%">
 						<tr>
-						<td style="color:white;background-color:gray;font-weight:xbold;font-size:15px"><cfif itemNoExternal neq "">#ItemNoExternal#<cfelse>#ItemNo#</cfif> : #ItemDescription#</td>
-						<td align="right" style="color:white;background-color:gray;width:20%;padding-right:4px;font-size:15px">#Category#</td>
+						<td style="color:white;background-color:gray;font-weight:xbold;font-size:15px"><cfif itemNoExternal neq ""><b>#ItemNoExternal#</b><cfelse>#ItemNo#</cfif> : #ItemDescription#</td>
+						<td align="right" style="color:white;background-color:gray;width:20%;padding-right:4px;font-size:15px">#CategoryName#</td>
 						</tr>
 						</table>
 						</td>						
@@ -231,6 +251,8 @@
 				</cfif>
 							
 				<cfoutput>
+				
+				<cf_precision precision="#ItemPrecision#">
 											
 				<tr class="labelmedium2 line navigation_row">	
 				   
@@ -257,25 +279,32 @@
 					<td style="background-color:##B0D8FF50;padding-right:3px;font-weight:bold" align="right">
 					<cfif promotion eq "0">--<cfelse>#numberformat(SalesPrice,',.__')#</cfif></td>		
 					<td style="padding-right:3px" align="right">#UoM#</td>		
-					<td style="background-color:##ffffaf50;font-size:12px;padding-left:7px;padding-right:7px" align="right">#dateformat(LastSold,client.dateformatshow)#</td>
+					<td style="background-color:##ffffaf50;font-size:12px;padding-left:7px;padding-right:7px" align="right">
+					#dateformat(LastSold,client.dateformatshow)#</td>
 					<cfif QuantityForSale eq "0">
 						<td style="font-size:13px;background-color:##f1f1f150;padding-right:3px" align="right">--</td>
 						<cfelse>				
 						<td style="font-size:16px;background-color:##80FF8050;padding-right:3px" align="right">
-						#numberformat(QuantityForSale,',.__')#
+						#numberformat(QuantityForSale,'#pformat#')#
 						</td>
 						</cfif>	
 																						
 					<cfif quantityreserved eq "0">
 						<td style="font-size:14px;background-color:##e1e1e1;padding-right:3px;" align="right">--</td>
-					<cfelse>
-						<td style="font-size:15px;background-color:red;padding-right:3px;" align="right">
-						<a style="color:white" href="javascript:stockreserve('#warehouse#','#itemno#')">#numberformat(quantityreserved,',.__')#</a>
+					<cfelse>					
+						<td style="font-size:15px;background-color:008080;padding-right:3px;" align="right">
+						<a style="color:white" href="javascript:stockreserve('#warehouse#','#itemno#','#uom#','reserve')">
+						#numberformat(quantityreserved,'#pformat#')#</a>
 						</td>
 					</cfif>
 					
 					<td style="backgtround-color:##ffffaf50;padding-right:3px" align="right">
-					<!--- <cfif stockexhibited eq "0">--<cfelse>#numberformat(StockExhibited,',.__')#</cfif> --->
+					
+					   <cfif QuantityRequested eq "0">--<cfelse>
+					   <a href="javascript:stockreserve('#warehouse#','#itemno#','#uom#','request')">
+					   #numberformat(QuantityRequested,'#pformat#')#
+					   </a>
+					   </cfif> 
 					</td>
 					<td style="background-color:##ffffaf50;padding-right:3px" align="right">				
 					<!--- <cfif stockdisposed eq "0">--<cfelse>#numberformat(StockDisposed,',.__')#</cfif> --->				

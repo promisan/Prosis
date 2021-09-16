@@ -501,7 +501,7 @@ password="#SESSION.dbpw#">
 	   
 	  <!--- posted ---> 
 	  
-	  <cfif GLCheck.recordcount eq "1">
+	  <cfif GLCheck.recordcount neq "0">
 	
 	     <TD class="labelmedium2"><cf_tl id="Posted Amount">:</TD>
 	     <td style="padding-left:4px;background-color:e6e6e6;padding-right:4px" class="labelmedium2">	

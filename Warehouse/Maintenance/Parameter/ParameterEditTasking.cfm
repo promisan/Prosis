@@ -5,7 +5,7 @@
 	
 	<tr><td height="6"></td></tr>		
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <td width="200">Taskorder Prefix/LastNo:</b></td>
     <TD>
  		<input type="text" class="regularxl" name="TaskOrderPrefix" id="TaskOrderPrefix" value="#TaskOrderPrefix#" size="6" maxlength="6" style="text-align: right;">
@@ -13,7 +13,7 @@
     </TD>
 	</TR>
 		
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <td>External Funding Order Type:</b></td>
     <TD>
   	   

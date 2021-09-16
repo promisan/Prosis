@@ -37,23 +37,23 @@
 	<cfquery name="qCheck" 
 	datasource="AppsSystem">
 		SELECT *
-	  	FROM Ref_Attachment
-		WHERE DocumentFileServerRoot = '#checkHost#'
+	  	FROM   Ref_Attachment
+		WHERE  DocumentFileServerRoot = '#checkHost#'
 	</cfquery>	
 	
 	<cfquery name="qCheckParameter" 
 	datasource="AppsInit">
 		SELECT *
-	  	FROM  Parameter
-		WHERE DocumentRootPath = '#checkHost#' OR ReportRootPath   = '#checkHost#'
+	  	FROM   Parameter
+		WHERE  DocumentRootPath = '#checkHost#' OR ReportRootPath = '#checkHost#'
 	</cfquery>	
 	
 	<cfif qCheck.recordcount eq 0 AND  qCheckParameter.recordcount eq 0>
 	
-			<cf_ErrorInsert	 ErrorSource      = "URL"
-				 ErrorReferer     = ""
-				 ErrorDiagnostics = "URL parameter Document Host, value #checkHost# is not a valid document host."
-				 Email = "1">
+			<cf_ErrorInsert	 ErrorSource   = "URL"
+				 ErrorReferer              = ""
+				 ErrorDiagnostics          = "URL parameter Document Host, value #checkHost# is not a valid document host."
+				 Email                     = "1">
 	
 			<cf_message status = "Alert"
 				message="<br>Alert : There are reasons to believe that the URL has been compromised. <br><br><b><font color='804040'>Your request can not be executed!</font><br>" return="No">

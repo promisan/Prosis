@@ -22,7 +22,13 @@
 						  C.PhoneNumber, 
 						  C.MobileNumber,
 						  C.eMailAddress, 
-						  (CASE WHEN BatchNo is NULL THEN 'Pending' ELSE 'Sold' END) as QuoteStatus,
+						  CR.RequestClass,
+						  
+						  (SELECT     Description
+                           FROM       Ref_WarehouseBatchClass
+                           WHERE      Code = CR.RequestClass) AS RequestClassName,
+						  
+						  (CASE WHEN BatchNo is NULL THEN 'Open' ELSE 'Sold' END) as QuoteStatus,
 						  CR.OfficerLastName as Officer,
 						  
                           (SELECT     AddressCity
@@ -86,7 +92,7 @@
 						search      = "text"}>		
 						
 	<cfset itm = itm+1>
-	<cf_tl id="Status" var = "1">
+	<cf_tl id="Stage" var = "1">
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "QuoteStatus",											
 						alias       = "C",	
@@ -244,23 +250,23 @@
 <!--- prevent the method to see this as an embedded listing --->
 	
 <cf_listing
-	    header              = "CustomerQuote"
-	    box                 = "customerquote_#url.warehouse#"
-		link                = "#SESSION.root#/Warehouse/Application/SalesOrder/Quote/ControlListDataContent.cfm?warehouse=#url.warehouse#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"	   			
-		datasource          = "AppsMaterials"
-		listquery           = "#myquery#"					
-		listorderfield      = "CustomerName"
-		listorder           = "CustomerName"
-		listorderdir        = "ASC"
-		headercolor         = "ffffff"		
-		menu                = "#menu#"
-		filtershow          = "Yes"
-		excelshow           = "Yes" 			
-		listlayout          = "#fields#"
-		drillmode           = "tab" 
-		drillargument       = "#client.height-90#;#client.width-100#;false;false"	
-		drilltemplate       = "Warehouse/Application/SalesOrder/Quote/QuoteView.cfm?systemfunctionid=#url.systemfunctionid#&scope=quote&mission=#url.mission#&warehouse=#url.warehouse#&mode=dialog&RequestNo="
-		drillkey            = "RequestNo"		
-		deletetable         = "Materials.dbo.CustomerRequest"
-		annotation          = "WhsQuote">	
+	    header             = "CustomerQuote"
+	    box                = "customerquote_#url.warehouse#"
+		link               = "#SESSION.root#/Warehouse/Application/SalesOrder/Quote/ControlListDataContent.cfm?warehouse=#url.warehouse#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"	   			
+		datasource         = "AppsMaterials"
+		listquery          = "#myquery#"					
+		listorderfield     = "CustomerName"
+		listorder          = "CustomerName"
+		listorderdir       = "ASC"
+		headercolor        = "ffffff"		
+		menu               = "#menu#"
+		filtershow         = "Yes"
+		excelshow          = "Yes" 			
+		listlayout         = "#fields#"
+		drillmode          = "tab" 
+		drillargument      = "#client.height-90#;#client.width-100#;false;false"	
+		drilltemplate      = "Warehouse/Application/SalesOrder/Quote/QuoteView.cfm?systemfunctionid=#url.systemfunctionid#&scope=quote&mission=#url.mission#&warehouse=#url.warehouse#&mode=dialog&RequestNo="
+		drillkey           = "RequestNo"		
+		deletetable        = "Materials.dbo.CustomerRequest"
+		annotation         = "WhsQuote">	
 		

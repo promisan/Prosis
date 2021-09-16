@@ -12,8 +12,10 @@
 </cfif>
 
 <cfparam name="url.header" default="0">
+
+    <cf_divscroll height="100%"> 
 	
-	<table width="100%" height="100%" border="0">
+	<table width="100%" border="0">
 	
 		<cfif url.header eq "1">	
 		
@@ -82,8 +84,8 @@
 					<cfoutput query="statusclasslist">						
 					
 							<tr class="labelmedium line" style="height:35px">
-						    <td style="width:145px" class="labelmedium"><cf_tl id="Status #StatusClass#">:</td>
-							    <td>
+						    <td style="min-width:245px;font-size:16px" class="labelmedium2"><cf_tl id="Status #StatusClass#">:</td>
+							    <td align="right">
 								
 									<cfquery name="StatusSelect" dbtype="query">
 								       SELECT *
@@ -92,7 +94,7 @@
 								    </cfquery>
 																																																	 							 																								
 									<select class="regularxxl" 
-										  style="border:0px" 
+										  style="background-color:ffffaf" 
 										  onchange="ptoken.navigate('#session.root#/ProgramREM/Application/Program/Category/setProgramStatus.cfm?programcode=#url.programcode#&statusclass=#statusclass#&programstatus='+this.value,'processclass')">												 					
 										 <cfloop query="StatusSelect">
 										     <option value="#Code#" <cfif Selected eq Code> selected</cfif>>#Description#</option>
@@ -108,28 +110,25 @@
 				</table>
 		
 		</td></tr>		
-		
-		
-				
+								
 	    <cfset mission      = program.OrgUnitMission>
 		<cfset programclass = program.programclass>
 								
-		<tr><td colspan="2" style="padding-left:3px;padding-right:10px" height="100%">
-		
-		   <cf_divscroll height="100%">
+		<tr><td colspan="2" style="padding-left:3px;padding-right:10px" height="100%">		
 						
 			   <cfform action="CategoryEntrySubmit.cfm" method="POST" name="program">	
 			        <cfset url.programaccess = programaccess>   
 				    <input type="hidden" name="ProgramCode" value="<cfoutput>#url.programcode#</cfoutput>">
 					<input type="hidden" name="Period"      value="<cfoutput>#url.period#</cfoutput>">
 			        <cfinclude template="CategoryEntryDetail.cfm">
-			   </cfform>	
+			   </cfform>		   
 		   
-		   </cf_divscroll>
 		   
 		   </td>
 		</tr>   
 	
 	</table>
+	
+	</cf_divscroll>
 
 <cf_screenbottom html="No">

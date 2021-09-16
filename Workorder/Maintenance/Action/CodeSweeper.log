@@ -1,9 +1,0 @@
-Invalid quoted string '60' encountered while parsing (tag "CFIF" with attributes get.HourMode=). 
-Invalid quoted string 'function()$('>' encountered while parsing (tag "CFSET" with attributes). 
-Invalid quoted string 'function() {$('>' encountered while parsing (tag "CFSET" with attributes). 
-Invalid quoted string 'function() { $('##example2').dataTable();' encountered while parsing (tag "CFSET" with attributes). 
-Invalid quoted string 'function() { initAppFunctions();doDataTable('>' encountered while parsing (tag "CFSET" with attributes). 
-Invalid quoted string 'function() { initPanelButtons(); doDataTable('##myTable'); }' encountered while parsing (tag "CFSET" with attributes). 
-Invalid quoted string 'function() { initPanelButtons(); doDataTable('##myTable'); $(#myTable_length).val(25); }' encountered while parsing (tag "CFSET" with attributes). 
-Invalid quoted string 'function() { initPanelButtons(); doDataTable('##myTable', {'>' encountered while parsing (tag "CFSET" with attributes). 
-Invalid quoted string 'function() { initPanelButtons(); doDataTable('##myTable', { 'iDisplayLength': 50});' encountered while parsing (tag "CFSET" with attributes). 

@@ -13,26 +13,60 @@
 
 <cfform method="POST" name="parameterprogram" action="ParameterSubmitProgram.cfm?idmenu=#URL.Idmenu#&mission=#URL.mission#">
 
-<table width="96%" cellspacing="0" cellpadding="0" align="center">
+<table width="96%" align="center">
 	
 	<tr><td height="12"></td></tr>
+	
+	    <TR class="labelmedium">
+	    <td colspan="4" style="height:40px;font-size:21px;width:200px">Program / Project outline:</td>	   
+		</tr>
 		
-	    <TR class="LabelMedium">
-	    <td style="width:200px">Hide entry Goal:</b></td>
+		<TR class="labelmedium2">
+	    <td style="width:200px">Justification:</b></td>
 	    <TD colspan="3">
-		   <table><tr class="LabelMedium">
-		   <td><input type="radio" class="radiol" name="EnableObjective" value="1" <cfif EnableObjective eq "1">checked</cfif>></td>
-		   <td style="padding-left:5px">No</td>
-		   <td style="padding-left:8px"><input type="radio" class="radiol" name="EnableObjective" value="0" <cfif EnableObjective eq "0">checked</cfif>></td>
-		   <td style="padding-left:5px">Yes</td>
+		   <table class="formpadding"><tr class="LabelMedium">
+		   <td><input type="radio" class="radiol" name="EnableJustification" value="1" <cfif EnableJustification eq "1">checked</cfif>></td>
+		   <td style="padding-left:5px">Show</td>
+		   <td style="padding-left:5px"><input type="input" style="text-align:center;width:50px" class="regularxl" name="JustificationMode" value="#JustificationMode#"></td>
+		   <td style="padding-left:8px"><input type="radio" class="radiol" name="EnableJustification" value="0" <cfif EnableJustification eq "0">checked</cfif>></td>
+		   <td style="padding-left:5px">Hide</td>
 		   </tr>
 		   </table>
 	    </TD>
 		</TR>	
-		<tr><td></td></td><td colspan="3" class="LabelMedium" style="color:gray;">Hides entry of Goal and Objective on the program definition level.</td></tr>
-		<tr><td colspan="4" height="10px"></td></tr>
 		
+	    <TR class="labelmedium2">
+	    <td style="width:200px">Goal:</b></td>
+	    <TD colspan="3">
+		   <table class="formpadding"><tr class="LabelMedium">
+		   <td><input type="radio" class="radiol" name="EnableObjective" value="1" <cfif EnableObjective eq "1">checked</cfif>></td>
+		   <td style="padding-left:5px">Show</td>
+		   <td style="padding-left:5px"><input type="input" style="text-align:center;width:50px" class="regularxl" name="ObjectiveMode" value="#ObjectiveMode#"></td>
+		   <td style="padding-left:8px"><input type="radio" class="radiol" name="EnableObjective" value="0" <cfif EnableObjective eq "0">checked</cfif>></td>
+		   <td style="padding-left:5px">Hide</td>
+		   </tr>
+		   </table>
+	    </TD>
+		</TR>	
 		
+		<TR class="labelmedium2">
+	    <td style="width:200px">Requirement:</b></td>
+	    <TD colspan="3">
+		   <table class="formpadding"><tr class="LabelMedium">
+		   <td><input type="radio" class="radiol" name="EnableRequirement" value="1" <cfif EnableRequirement eq "1">checked</cfif>></td>
+		   <td style="padding-left:5px">Show</td>
+		   <td style="padding-left:5px"><input type="input" style="text-align:center;width:50px" class="regularxl" name="RequirementMode" value="#RequirementMode#"></td> 
+		   <td style="padding-left:8px"><input type="radio" class="radiol" name="EnableRequirement" value="0" <cfif EnableRequirement eq "0">checked</cfif>></td>
+		   <td style="padding-left:5px">Hide</td>
+		   </tr>
+		   </table>
+	    </TD>
+		</TR>	
+		
+		<TR class="labelmedium">
+	    <td colspan="4" style="height:40px;font-size:21px;width:200px">Program / Project handling settings:</td>	   
+		</tr>
+			
 	    <TR class="LabelMedium">
 	    <td width="150" class="header">Default Program dialog:</td>
 	    <TD>

@@ -2,10 +2,11 @@
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT S.*, P.FullName, C.CustomerName 
+	SELECT S.*, P.FullName, C.CustomerName, I.ItemNoExternal
 	FROM   vwCustomerRequest S 
 	       LEFT OUTER JOIN Employee.dbo.Person P    ON S.SalesPersonNo = P.PersonNo 
 		   LEFT OUTER JOIN Materials.dbo.Customer C	ON C.CustomerId = S.CustomerId
+		   INNER JOIN Item I ON S.ItemNo = I.ItemNo
 	WHERE  Transactionid = '#url.Id#'		
 </cfquery>
 
@@ -24,74 +25,49 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
-<table width="100%">		
+<table width="96%" align="center" class="navigation_table">		
 	
-	<tr height="30px">
-		<td width="5%"></td>
-		<td colspan="6" align="center" class="labellarge" style="font-weight:bold">
-			#get.ItemDescription#
-		</td>
-		<td width="5%"></td>
+	<tr height="30px">		
+		<td colspan="6" align="center" style="font-size:22px" class="labellarge">#get.ItemDescription# #get.ItemNoExternal#</td>		
 	</tr>
-	
-	<tr height="30px">
-		<td width="5%"></td>
-		<td colspan="6" align="left" class="labelit" style="font-weight:bold">
-			<cf_tl id="Available">
-		</td>
-		<td width="5%"></td>
-	</tr>	
-	
-	<tr>
-		<td width="5%"></td>
-		<td width="10%"></td>
-		<td align="left" class="labelit"></td>
-		<td width="20%">
-		</td>	
-		<td align="right" class="labelit">#numberformat(itemEntityStock,",__")#</td>			
-		<td width="10%" align="right">
+		
+	<tr style="background-color:e4e4e4;border-top:3px solid silver" class="line labelmedium2">
+				
+		<td colspan="4" style="padding-left:4px"><cf_tl id="Available"></td>		
+		<td align="right">#numberformat(itemEntityStock,",__")#</td>			
+		<td align="right" style="padding-right:5px">
 			#DateFormat(now(),CLIENT.DateFormatShow)#
-			#TimeFormat(now(),"HH:MM:ss")#
+			#TimeFormat(now(),"HH:MM")#
 		</td>
-		<td width="5%"></td>	
+		
 	</tr>
-
-	<tr height="30px">
-		<td width="5%"></td>
-		<td colspan="6" align="left" class="labelmedium" style="font-weight:bold">
-			<cf_tl id="This request">
-		</td>
-		<td width="5%"></td>
-	</tr>	
 	
-	<tr class="labelmedium line">
-		<td width="5%"></td>
-		<td width="10%"></td>
-		<td width="20%" align="left">
+	<tr class="labelmedium2 line navigation_row">
+		
+		<td colspan="2" style="padding-left:4px;font-weight:bold"><cf_tl id="This request"></td>
+		<td align="left">
 			<cfif get.FullName neq "">
 				#get.FullName#
 			<cfelse>
 				#SESSION.first# #SESSION.last#
 			</cfif>	
 		</td>
-		<td width="20%" align="left">#get.CustomerName#</td>		
+		<td align="left">#get.CustomerName#</td>		
 		<td align="right">
 			-#numberformat(get.TransactionQuantity,",__")#
 			<cfset itemBeingSold   = itemBeingSold + get.TransactionQuantity> 
 		</td>			
-		<td width="10%" align="right">
+		<td align="right" style="padding-right:5px">
 			#DateFormat(get.Created,CLIENT.DateFormatShow)#
-			#TimeFormat(get.Created,"HH:MM:ss")#
+			#TimeFormat(get.Created,"HH:MM")#
 		</td>
-		<td width="5%"></td>	
+		
 	</tr>
 
-	<tr height="30px">
-		<td width="5%"></td>
-		<td colspan="6" align="left" class="labelit" style="font-weight:bold">
-			<cf_tl id="Other requests">
-		</td>
-		<td width="5%"></td>
+	<tr class="line labelmedium2">		
+		<td colspan="6" align="left" style="padding-left:4px;font-weight:bold">
+			<cf_tl id="Quotations">
+		</td>		
 	</tr>
 	
 	<cfquery name="getOthers"
@@ -111,46 +87,34 @@ password="#SESSION.dbpw#">
 	</cfquery>	
 		
 	<cfloop query="#getOthers#">
-	<tr class="labelmedium line">
-		<td width="5%"></td>
-		<td width="10%"></td>
-		<td width="20%" align="left" class="labelit">
-			#getOthers.FullName#
-		</td>
-		<td width="20%" align="left" class="labelit">
-			#getOthers.CustomerName#
-		</td>		
-		<td align="right" class="labelit">
-			-#numberformat(getOthers.TransactionQuantity,",__")#
+	
+	<tr class="labelmedium2 line navigation_row">
+		<td style="padding-left:4px">#RequestClass#</td>
+		<td>#RequestNo#</td>
+		<td>#FullName#</td>
+		<td>#CustomerName#</td>		
+		<td align="right">
+			-#numberformat(TransactionQuantity,",__")#
 			<cfset itemBeingSold   = itemBeingSold + getOthers.TransactionQuantity>
 		</td>			
-		<td width="20%" align="right">
-			#DateFormat(getOthers.Created,CLIENT.DateFormatShow)#
-			#TimeFormat(getOthers.Created,"HH:MM:ss")#
-		</td>
-		<td width="5%"></td>	
+		<td align="right" style="padding-right:4px">
+			#DateFormat(Created,CLIENT.DateFormatShow)#
+			#TimeFormat(Created,"HH:MM")#
+		</td>		
 	</tr>
+	
 	</cfloop>	
-	
-	<tr height="30px">
-		<td width="5%"></td>
-		<td colspan="6" align="left" class="labelit" style="font-weight:bold">
-			<cf_tl id="Remaining">
-		</td>
-		<td width="5%"></td>
-	</tr>
-	
-	<tr>
-		<td width="5%"></td>
-		<td width="10%"></td>
-		<td align="left" class="labelit"></td>
-		<td width="20%" align="left" class="labelit"></td>			
-		<td align="right" class="labelit">#numberformat(itemEntityStock-itemBeingSold,",__")#</td>			
-		<td width="10%" align="right">
-		</td>
-		<td width="5%"></td>	
+		
+	<tr style="background-color:e4e4e4;" class="line labelmedium2">
+				
+		<td colspan="4" style="padding-left:4px"><cf_tl id="Virtual balance"></td>				
+		<td align="right">#numberformat(itemEntityStock-itemBeingSold,",__")#</td>			
+		<td align="right"></td>
+		
 	</tr>		
 	
 </table>
 
 </cfoutput>
+
+<cfset ajaxonload("doHighlight")>

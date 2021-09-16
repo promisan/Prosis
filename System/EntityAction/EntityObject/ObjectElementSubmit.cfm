@@ -27,6 +27,9 @@
 <cfparam name="Form.DocumentFramework"   default="0">
 <cfparam name="Form.DocumentEditor"      default="FCK">
 <cfparam name="Form.DocumentOrientation" default="Vertical">
+<cfparam name="Form.MarginTop"           default="0">
+<cfparam name="Form.MarginBottom"        default="0">
+<cfparam name="Form.Scale"               default="100">
 <cfparam name="Form.PortalShow"          default="0">
 <cfparam name="Form.LookupFieldKey"      default="">
 <cfparam name="Form.LookupFieldName"     default="">
@@ -82,6 +85,9 @@
 				 DocumentOrder       = '#Form.DocumentOrder#',
 				 FieldType           = '#Form.FieldType#', 
 				 PortalShow          = '#Form.PortalShow#', 
+				 MarginTop           = '#Form.MarginTop#',
+				 MarginBottom        = '#Form.MarginBottom#',
+				 Scale               = '#Form.Scale#',
 				 <!---
 				 <cfif url.type eq "mail">
 					 MailTo              = '#Form.MailTo#',
@@ -176,6 +182,9 @@
 					 DocumentFramework,
 					 DocumentOrientation,
 					 DocumentEditor,
+					 MarginTop,
+					 MarginBottom,
+					 Scale,
 					 LogActionContent,
 					
 					 <cfif form.fieldtype eq "Text" or form.fieldtype eq "List">
@@ -221,6 +230,9 @@
 					  '#Form.DocumentFramework#',
 					  '#Form.DocumentOrientation#',
 					  '#Form.DocumentEditor#',
+					  '#Form.MarginTop#',
+				      '#Form.MarginBottom#',
+				      '#Form.Scale#',
 					  '#Form.LogActionContent#',
 					  
 					  <cfif form.fieldtype eq "Text" or form.fieldtype eq "List">

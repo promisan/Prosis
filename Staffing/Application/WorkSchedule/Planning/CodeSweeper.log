@@ -1,8 +1,0 @@
-Invalid quoted string 'url.day_' encountered while parsing (tag "CFIF" with attributes). 
-Invalid quoted string 'url.day_' encountered while parsing (tag "CFIF" with attributes). 
-Invalid number "1" encountered while parsing (tag "CFIF" with attributes get.operational=). 
-Invalid number "1" encountered while parsing (tag "CFIF" with attributes get.operational=). 
-Invalid number "1" encountered while parsing (tag "CFIF" with attributes get.operational=). 
-Invalid number "1" encountered while parsing (tag "CFIF" with attributes get.operational=). 
-Invalid quoted string 'function(){togglePositionSection(0);}' encountered while parsing (tag "CFSET" with attributes). 
-Invalid quoted string 'function(){ togglePositionSection(0);}' encountered while parsing (tag "CFSET" with attributes). 

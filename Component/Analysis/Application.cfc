@@ -4,15 +4,14 @@ output="true"
 hint="Handle the application.">
  
 		<!--- Set up the application. --->
-		<cfset THIS.Name = "Prosis" />
+		<cfset THIS.Name               = "Prosis" />
 		<cfset THIS.ApplicationTimeout = CreateTimeSpan( 0, 24, 180, 0 ) />
-		<cfset THIS.SessionManagement = true />
-		<cfset THIS.clientmanagement = true />	
-		<cfset THIS.SessionTimeout   = CreateTimeSpan(0,24,180,0)/>
-        
-		<cfset this.wschannels = [{name="validatorchannel"}]>
-		
-		 
+		<cfset THIS.SessionManagement  = true />
+		<cfset THIS.clientmanagement   = true />	
+		<cfset THIS.SessionTimeout     = CreateTimeSpan(0,24,180,0)/>
+		<cfset THIS.sessioncookie.httponly = true>
+		<cfset this.wschannels         = [{name="validatorchannel"}]>
+				 
 		<cffunction
 			name="OnRequestStart"
 			access="public"
@@ -23,11 +22,11 @@ hint="Handle the application.">
 			<!--- Define arguments. --->
 			<cfargument	name="TargetPage" type="string"	required="true"/>
 			
-<!----forcing https 
+<!--- forcing https 
 		<cfif CGI.HTTPS eq "off">
 			<cflocation url="https://#cgi.server_name##cgi.script_name#" addtoken="false">
 		</cfif>
------>
+--->
 																						
 			 		<cf_appInit>
 										    
@@ -43,7 +42,7 @@ hint="Handle the application.">
 					<cf_Control 
 						verifyMultipleLogon  = "0"
 						verifyCSRF           = "0"
-					    verifyAuthentication = "0"						
+					    verifyAuthentication = "1"						
 					    trackUser            = "#TrackUser#"
 						errorHandling        = "1"
 						sqlsyntax            = "1">

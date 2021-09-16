@@ -11,16 +11,17 @@
 <cf_param name="url.memo"	    	default="" type="String">
 <cfparam name="DocumentServerIsOp"  default="0">
 
-<cfif url.pdfscript neq "">
+<cfajaxproxy cfc="Service.Process.System.UserController" jsclassname="systemcontroller">
 
-<cf_screentop height="100%" icon="pdfform.png" label="Attach Readable PDF" jquery="Yes"
-   scroll="no" banner="gray" html="Yes" user="no" bannerheight="40" layout="webapp">
+
+<cfif url.pdfscript neq "">
+	
+	<cf_screentop height="100%" icon="pdfform.png" label="Attach Readable PDF" jquery="Yes" scroll="no" banner="gray" html="Yes" 
+	     user="no" bannerheight="40" layout="webapp">
 
 <cfelse>
 
-
-<cf_screentop height="100%" label="Attach file" html="No" jquery="Yes"
-   scroll="no" banner="red" user="no" bannerheight="40" layout="webapp">
+<cf_screentop height="100%" label="Attach file" html="No" jquery="Yes" scroll="no" banner="red" user="no" bannerheight="40" layout="webapp">
    
 </cfif>
 		
@@ -48,38 +49,32 @@
 	
 	<script language="JavaScript">
 	
-	function check() {
-
-	<cfif DocumentServerIsOp eq "0">
-		if (document.attach.uploadedfile.value == "") {
-		   alert("You must select a file to upload.")
-		   return false }
-		
-	</cfif>
-
-	<cfoutput>
-	
-			<cfif DocumentServerIsOp eq "1">
-	
-				if (document.attach.DocumentServer.value == "") {
-				   document.getElementById('busy').className='hide'			   
-				   alert("You must select a Document server destination.")
-				   return false 
-				}
+		function checkfile() {
+			
+			var uController = new systemcontroller();			
+			document.attach.action = document.attach.action + '&mid='+ uController.GetMid();
+						
+			<cfif DocumentServerIsOp eq "0">
+				if (document.attach.uploadedfile.value == "") {
+				   alert("You must select a file to upload.")
+				   return false }
 				
 			</cfif>
-	</cfoutput>	
-	   
-	}
-	
-	function browse() {	
-		ret = window.showModalDialog("Xythos/Tree.cfm?Dir=<cfoutput>#URL.DIR#</cfoutput>", window, "unadorned:yes; edge:raised; status:no; dialogHeight:300px; dialogWidth:370px; help:no; scroll:yes; center:yes; resizable:no");
-		if (ret) {
-			ptoken.navigate('FileDocumentSet.cfm?DSP='+ret,'dFile');
-			document.getElementById("DocumentServerPath").value = ret;
+		
+			<cfoutput>
+			
+					<cfif DocumentServerIsOp eq "1">
+			
+						if (document.attach.DocumentServer.value == "") {
+						   document.getElementById('busy').className='hide'			   
+						   alert("You must select a Document server destination.")
+						   return false }
+						
+					</cfif>
+			</cfoutput>	
+		   
 		}
-	}		
-	
+		
 	</script>
 
 <table width="100%" height="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">	
@@ -87,41 +82,41 @@
 <tr><td valign="top" style="padding:10px">
 
 <cfif DocumentServerIsOp eq "0">
-
 	<cfset vServerSubmit = "FileFormSubmit">
 <cfelse>
 	<cfset vServerSubmit = "FileFormSubmitServer">
 </cfif>
 
-<CFFORM name="attach" 
-	    action="#vServerSubmit#.cfm?host=#url.host#&mode=#url.mode#&box=#URL.Box#&DIR=#URL.DIR#&ID=#URL.ID#&ID1=#URL.ID1#&reload=#URL.reload#" 
-		method="post" 
-		target="saveatt"
-		enctype="multipart/form-data" 
-		onSubmit="return check()">
-		
+<CFFORM name  = "attach" 
+	action    = "#vServerSubmit#.cfm?host=#url.host#&mode=#url.mode#&box=#URL.Box#&DIR=#URL.DIR#&ID=#URL.ID#&ID1=#URL.ID1#&reload=#URL.reload#" 
+	method    = "post" 
+	target    = "saveatt"
+	enctype   = "multipart/form-data" 
+	onSubmit  = "return checkfile()">
+			
 <table width="95%" align="center" class="formpadding">	
 
 <cfif DocumentServerIsOp eq "0">	
 		<TR class="labelmedium">
+
 			<td width="100"><cf_tl id="File">:</td>
 			<TD>
 				<cfif DocumentServerIsOp eq "1">
-					<input type="file" 
-					   name="uploadedfile" 
-					   id="uploadedfile" 
-					   size="32" 			   
-					   class="regularxl" 
-					   style="height:30px;font-size:16px;height:30px;border:0px">
+					<input type = "file" 
+					   name     = "uploadedfile" 
+					   id       = "uploadedfile" 
+					   size     = "32" 			   
+					   class    = "regularxl" 
+					   style    = "height:30px;font-size:16px;height:30px;border:0px">
 				<cfelse>
 					<cfoutput>
-					<input type="file"
-		    		   name="uploadedfile"
-					   id="uploadedfile"
-				       size="32"
-					   style="height:30px;font-size:16px;height:30px;border:0px"			  
-			    	   class="regularxl"
-				       onChange="ptoken.navigate('FileFormPDF.cfm?box=#url.box#&dir=#url.dir#&source='+this.value+'&destination='+document.getElementById('ServerFile').value,'pdf')">		
+					<input type = "file"
+		    		   name     = "uploadedfile"
+					   id       = "uploadedfile"
+				       size     = "32"
+					   style    = "height:30px;font-size:16px;height:30px;border:0px"			  
+			    	   class    = "regularxl"
+				       onChange = "ptoken.navigate('FileFormPDF.cfm?box=#url.box#&dir=#url.dir#&source='+this.value+'&destination='+document.getElementById('ServerFile').value,'pdf')">		
 					  </cfoutput> 
 				</cfif>
 			</TD>
@@ -193,7 +188,9 @@
 
 <!---- a Document server has been enabled for this IP (e.g. Xythos) ---->	
 <cfoutput>
+
 <input type="hidden" name="DocumentServer" id="DocumentServer" value="#url.DocumentServer#" size="50" readonly>		
+
 </cfoutput>
 		
 <cfif DocumentServerIsOp eq "1">
@@ -206,10 +203,8 @@
 		<input type="text" name="DocumentServerPath" id="DocumentServerPath" value="#CLIENT.DocumentServerPath#" size="48" class="regularh">
 		</cfoutput>		
 		
-			<button name="ServerBrowse" id="ServerBrowse" onclick="javascript:browse()" class="regularh"><cf_tl id="Save as">..</button>
-		
-			
-					
+		<button name="ServerBrowse" id="ServerBrowse" onclick="javascript:browse()" class="regularh"><cf_tl id="Save as">..</button>
+							
 	</TD>
 </TR>
 
@@ -252,6 +247,7 @@
 
 <tr class="hide"><td height="100">
 
+    <!--- target --->
 	<iframe name="saveatt"
          id="saveatt"
          width="100%"

@@ -1,6 +1,7 @@
 
 <cfparam name="URL.header"        		default="Yes">
-<cfparam name="client.org"        		default="">
+<cfparam name="URL.OrgUnitCode"    		default="">
+<cfparam name="client.org"        		default="#URL.OrgUnitCode#">
 <cfparam name="URL.Org"           		default="#client.org#">
 <cfparam name="URL.ID1"           		default="">
 <cfparam name="URL.PostClass"     		default="">
@@ -139,8 +140,9 @@
 				Mandate = "#URL.Mandate#"					
 				Enforce = "1"		
 				OrgUnitCode = "#URL.ORG#">  	
-			  
+							  
 </cfif>
+
 
 <cfswitch expression="#URL.ID#">
 
@@ -163,6 +165,7 @@
 				
 		  </cfif>
 		  
+		  
 		  <cfif URL.OrgUnitCode neq "">		  
 		  
 		  			<cf_OrganizationSelect
@@ -171,6 +174,13 @@
 						OrgUnitCode = URL.OrgUnitCode>  
 					
 		  </cfif>	
+		  
+		  
+		  
+	   
+
+		  xxxxxxx
+		  <cfabort>
 		  
 		  <cfif URL.OrgUnit1 neq "">
 		            <cfif cond eq "">
@@ -300,6 +310,7 @@
 			AND   OrgUnitCode = '#URL.ID1#'   			
 	   </cfquery>
 	   
+	   
 	   <cfinvoke component="Service.Access"  
 	        method="org" 
 		    orgunit="#OrgUnit.OrgUnit#" 
@@ -403,6 +414,7 @@
      <cfset orderby = "Post.#URL.Sort#">	
 </cfif> 
 
+
 <!--- create a temp table for later repeated usage in the template --->
 
 <cfset FileNo = round(Rand()*100)>
@@ -502,7 +514,8 @@
 		  </cfquery>				
 				 	
 		  <!--- returning search results with relevant positions --->
-		  				 		
+		  
+		 		  				 		
 		  <cfquery name="Position" 
 			datasource="AppsEmployee" 
 			username="#SESSION.login#" 
@@ -768,7 +781,8 @@
 				</cfif>	  
 				
 															
-				ORDER BY PositionNo 						
+				ORDER BY PositionNo 	
+								
 							
 			</cfquery>		
 							

@@ -466,6 +466,9 @@ $.fn.kendoView = function(options) {
     /// &#10;evalTemplate - Boolean (default: false)
     /// &#10;If set to true, the view template will be treated as kendo template and evaluated against the provided model instance.
     /// &#10;
+    /// &#10;useWithBlock - Boolean (default: true)
+    /// &#10;If set to false and evalTemplate is set to true, the kendo template will be evaluated without using a with block.
+    /// &#10;
     /// &#10;tagName - String (default: "div")
     /// &#10;The tag used for the root element of the view.
     /// &#10;
@@ -1045,11 +1048,12 @@ kendo.data.GanttDataSource.prototype = {
     },
 
 
-    taskChildren: function(task) {
+    taskChildren: function(task,fromView) {
         /// <summary>
         /// Returns a list of all direct child tasks.
         /// </summary>
         /// <param name="task" type="kendo.data.GanttTask" >The parent task. If this parameter is not specified, all root-level tasks will be returned.</param>
+        /// <param name="fromView" type="bool" >Whether the data should be taken from the dataSource.view() (only the filtered items) or from the .data() call (all items in the DataSource). If this parameter is not specified, the data() call will be used and filter would not be taken into account.</param>
         /// <returns type="Array">—The list of all direct child tasks.</returns>
 
     },
@@ -1368,6 +1372,12 @@ $.fn.kendoGanttTask = function(options) {
     /// &#10;
     /// &#10;percentComplete - String|Number|Object (default: 0)
     /// &#10;The completion percentage of the task. A value between 0 and 1 representing how much of a task is completed.
+    /// &#10;
+    /// &#10;plannedEnd - Date 
+    /// &#10;The date at which the Gantt task ends as per the planned schedule. The plannedEnd date is mandatory when rendering the Planned vs Actual view in the Gantt.
+    /// &#10;
+    /// &#10;plannedStart - Date 
+    /// &#10;The date at which the Gantt task starts as per the planned schedule. The plannedStart date is mandatory when rendering the Planned vs Actual view in the Gantt.
     /// &#10;
     /// &#10;start - Date 
     /// &#10;The date at which the Gantt task starts. The start date is mandatory.
@@ -1832,6 +1842,146 @@ $.fn.getKendoObservableObject = function() {
 $.fn.kendoObservableObject = function(options) {
     /// <summary>
     /// Instantiates a kendo.data.ObservableObject widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.data.OrgChartDataSource = function() { };
+
+kendo.data.OrgChartDataSource.prototype = {
+
+
+
+
+    groupedItemsTree: function(groupField) {
+        /// <summary>
+        /// Builds and returns an items tree when grouping is enabled.
+        /// </summary>
+        /// <param name="groupField" type="String" >The field the items should be grouped by.</param>
+        /// <returns type="Array">An array featuring the tree-like hierarchy in the source.</returns>
+
+    },
+
+
+    itemChildren: function(item,fromView) {
+        /// <summary>
+        /// Returns a list of all direct child items.
+        /// </summary>
+        /// <param name="item" type="kendo.data.OrgChartModel" >The parent item. If this parameter is not specified, the root level items will be returned.</param>
+        /// <param name="fromView" type="bool" >Whether the data should be taken from the dataSource.view() (only the visible items) or from the .data() call (all loaded items in the DataSource). If this parameter is not specified, the items will be taken from the data() method.</param>
+        /// <returns type="Array">The list of all direct child items.</returns>
+
+    },
+
+
+    itemsTree: function(item) {
+        /// <summary>
+        /// Builds and returns an items tree.
+        /// </summary>
+        /// <param name="item" type="kendo.data.OrgChartModel" >The parent item for which the tree should be created. If this parameter is not specified, the tree will be build for the entire source.</param>
+        /// <returns type="Array">An array featuring the tree-like hierarchy in the source.</returns>
+
+    },
+
+
+    prospectParents: function(item) {
+        /// <summary>
+        /// Returns a list of all items in the source that can be parents of the passed item. It will filter-out the item and the full hierarchy of its children.
+        /// </summary>
+        /// <param name="item" type="kendo.data.OrgChartModel" >The item the prospect parents should be identified for.</param>
+        /// <returns type="Array">The list of all possible parents.</returns>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoOrgChartDataSource = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.data.OrgChartDataSource widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.data.OrgChartDataSource">The kendo.data.OrgChartDataSource instance (if present).</returns>
+};
+
+$.fn.kendoOrgChartDataSource = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.data.OrgChartDataSource widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;schema - Object 
+    /// &#10;The schema configuration of the OrgChartDataSource.
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.data.OrgChartModel = function() { };
+
+kendo.data.OrgChartModel.prototype = {
+
+
+
+
+    loaded: function() {
+        /// <summary>
+        /// Gets or sets the loaded flag of the OrgChart. Setting the loaded flag to false allows reloading of child items.
+        /// </summary>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoOrgChartModel = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.data.OrgChartModel widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.data.OrgChartModel">The kendo.data.OrgChartModel instance (if present).</returns>
+};
+
+$.fn.kendoOrgChartModel = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.data.OrgChartModel widget based the DOM elements that match the selector.
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;

@@ -12,14 +12,17 @@
 
 <cf_tl id="Functional Title" var="1">
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/> 
+
 <table width="100%" height="100%" class="formspacing">
 	<tr>
 		<td valign="top" width="270" style="padding:10px">
 										
 		<cfif URL.Mode eq "Lookup">					
-		  <cfset link = "#session.root#/Staffing/Application/Function/Lookup/FunctionTree.cfm?Edition=#url.edition#&Occ=#url.occ#&FormName=#URL.formname#&fldfunctionno=#URL.fldfunctionno#&fldfunctiondescription=#URL.fldfunctiondescription#&Owner=#URL.Owner#&Mode=#URL.Mode#">
+		  <cfset link = "#session.root#/Staffing/Application/Function/Lookup/FunctionTree.cfm?Edition=#url.edition#&Occ=#url.occ#&FormName=#URL.formname#&fldfunctionno=#URL.fldfunctionno#&fldfunctiondescription=#URL.fldfunctiondescription#&Owner=#URL.Owner#&Mode=#URL.Mode#&mid=#mid#">
 		<cfelse>				
-		  <cfset link = "#session.root#/Staffing/Application/Function/Lookup/FunctionTree.cfm?Edition=#url.edition#&Occ=#url.occ#&Owner=#URL.Owner#&Mode=#URL.Mode#">
+		  <cfset link = "#session.root#/Staffing/Application/Function/Lookup/FunctionTree.cfm?Edition=#url.edition#&Occ=#url.occ#&Owner=#URL.Owner#&Mode=#URL.Mode#&mid=#mid#">
 		</cfif>
 				
 		<iframe src="#link#"

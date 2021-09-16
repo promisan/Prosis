@@ -35,8 +35,9 @@
 <cfparam name="Form.OrgUnit"                 default="">
 <cfparam name="Form.OrgUnit0"                default="">
 <cfparam name="Form.EnforceAllotmentRequest" default="0">
-<cfparam name="Form.PeriodDescription"      default="">
-<cfparam name="Form.PeriodObjective"      default="">
+<cfparam name="Form.PeriodDescription"       default="">
+<cfparam name="Form.PeriodObjective"         default="">
+<cfparam name="Form.PeriodProgram"           default="">
 
 <cfif Form.ProgramScope eq "Parent">
 	 		 

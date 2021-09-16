@@ -119,9 +119,8 @@ function toggleMenu(){
 		<cf_divscroll>			
 		<table width="100%" height="100%" class="formpadding">			    		
 			<tr>				
-				<td width="100%" valign="top" id="main" style="padding:4px">			
-				   <cfinclude template="ItemViewHeader.cfm">	
-				   			
+				<td width="100%" valign="top" id="main">			
+				   <cfinclude template="ItemViewHeader.cfm">					   			
 				</td>
 			</tr>
 		</table>
@@ -192,6 +191,5 @@ function toggleMenu(){
 
 --->
 
-<cf_screenbottom layout="webdialog">
-   
+<cf_screenbottom layout="webdialog">  
 	

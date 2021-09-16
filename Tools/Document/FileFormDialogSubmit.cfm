@@ -4,11 +4,6 @@
 <cfif url.accept eq "1">
 
     <cf_tl id="Cancel" var="1">
-
-	<!---
-	<input type="button"  value="#lt_text#" class="button10g" 
-	onclick="parent.document.getElementById('#url.box#_holdercontent_close').click()">
-	--->
 	
 	<input type="button"  value="#lt_text#" class="button10g" onclick="parent.ProsisUI.closeWindow('attachdialog')">
 		
@@ -17,7 +12,7 @@
 			id="save"  
 			value="Attach File" 
 			class="button10g" 
-			onclick="document.getElementById('save').className='hide';document.getElementById('busy').className='regular'">
+			onclick="document.getElementById('save').className='hide';document.getElementById('busy').className='regular'">			
 		
 <cfelse>
 

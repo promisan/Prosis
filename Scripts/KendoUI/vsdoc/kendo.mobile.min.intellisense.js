@@ -927,12 +927,13 @@ intellisense.annotate(instance, {
         /// <returns type="Array">—The list of all child tasks.</returns>
         /// </signature>
     },
-    taskChildren: function(task) {
+    taskChildren: function(task,fromView) {
         /// <signature>
         /// <summary>
         /// Returns a list of all direct child tasks.
         /// </summary>
         /// <param name="task" type="kendo.data.GanttTask" >The parent task. If this parameter is not specified, all root-level tasks will be returned.</param>
+        /// <param name="fromView" type="bool" >Whether the data should be taken from the dataSource.view() (only the filtered items) or from the .data() call (all items in the DataSource). If this parameter is not specified, the data() call will be used and filter would not be taken into account.</param>
         /// <returns type="Array">—The list of all direct child tasks.</returns>
         /// </signature>
     },
@@ -1623,6 +1624,144 @@ intellisense.annotate(instance, {
         /// </signature>
     },
 
+
+    unbind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+        /// </signature>
+    }
+
+});
+
+return instance;
+
+};
+
+intellisense.redirectDefinition(wrapper, original);
+
+return wrapper;
+
+})();
+
+
+intellisense.annotate(kendo.data, {
+    OrgChartDataSource: function() {
+        /// <signature>
+        /// <summary>Constructor of kendo.data.OrgChartDataSource</summary>
+        /// </signature>
+    }
+});
+
+kendo.data.OrgChartDataSource = (function() {
+var original = kendo.data.OrgChartDataSource;
+var wrapper = function() {
+var instance = new original();
+intellisense.annotate(instance, {
+    groupedItemsTree: function(groupField) {
+        /// <signature>
+        /// <summary>
+        /// Builds and returns an items tree when grouping is enabled.
+        /// </summary>
+        /// <param name="groupField" type="String" >The field the items should be grouped by.</param>
+        /// <returns type="Array">An array featuring the tree-like hierarchy in the source.</returns>
+        /// </signature>
+    },
+    itemChildren: function(item,fromView) {
+        /// <signature>
+        /// <summary>
+        /// Returns a list of all direct child items.
+        /// </summary>
+        /// <param name="item" type="kendo.data.OrgChartModel" >The parent item. If this parameter is not specified, the root level items will be returned.</param>
+        /// <param name="fromView" type="bool" >Whether the data should be taken from the dataSource.view() (only the visible items) or from the .data() call (all loaded items in the DataSource). If this parameter is not specified, the items will be taken from the data() method.</param>
+        /// <returns type="Array">The list of all direct child items.</returns>
+        /// </signature>
+    },
+    itemsTree: function(item) {
+        /// <signature>
+        /// <summary>
+        /// Builds and returns an items tree.
+        /// </summary>
+        /// <param name="item" type="kendo.data.OrgChartModel" >The parent item for which the tree should be created. If this parameter is not specified, the tree will be build for the entire source.</param>
+        /// <returns type="Array">An array featuring the tree-like hierarchy in the source.</returns>
+        /// </signature>
+    },
+    prospectParents: function(item) {
+        /// <signature>
+        /// <summary>
+        /// Returns a list of all items in the source that can be parents of the passed item. It will filter-out the item and the full hierarchy of its children.
+        /// </summary>
+        /// <param name="item" type="kendo.data.OrgChartModel" >The item the prospect parents should be identified for.</param>
+        /// <returns type="Array">The list of all possible parents.</returns>
+        /// </signature>
+    },
+
+    bind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+        /// </signature>
+    },
+
+    unbind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+        /// </signature>
+    }
+
+});
+
+return instance;
+
+};
+
+intellisense.redirectDefinition(wrapper, original);
+
+return wrapper;
+
+})();
+
+
+intellisense.annotate(kendo.data, {
+    OrgChartModel: function() {
+        /// <signature>
+        /// <summary>Constructor of kendo.data.OrgChartModel</summary>
+        /// </signature>
+    }
+});
+
+kendo.data.OrgChartModel = (function() {
+var original = kendo.data.OrgChartModel;
+var wrapper = function() {
+var instance = new original();
+intellisense.annotate(instance, {
+    loaded: function() {
+        /// <signature>
+        /// <summary>
+        /// Gets or sets the loaded flag of the OrgChart. Setting the loaded flag to false allows reloading of child items.
+        /// </summary>
+        /// </signature>
+    },
+
+    bind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+        /// </signature>
+    },
 
     unbind: function(event, callback) {
         /// <signature>

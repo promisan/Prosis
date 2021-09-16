@@ -269,17 +269,17 @@ _UIObject.prototype.doAlert = function(tlt,msg,color) {
 } //end doAlert
 
 function saveExpanded(id) {
-
+	console.log(id);
 	var treeview = $("##"+id).data("kendoTreeView");
 	var expandedItemsIds = {};
-
-	treeview.element.find(".k-item").each(function () {
+/***
+	treeview.select().find(".k-item").each(function () {
 		var item = treeview.dataItem(this);
 		if (item.expanded) {
 			expandedItemsIds[item.id] = true;
 		}
 	});
-
+***/
 	//Cookies.set(id+'_expanded', kendo.stringify(expandedItemsIds));
 }
 
@@ -327,14 +327,14 @@ function _tree_action(e) {
 
 function _tree_action_binder(e) {
 
-	var id = this.element.context.id;
+	var id = e.node.id;
 	var item = this.dataItem(e.node);
 	var url = item.HREF;
 	var target = item.TARGET;
 	console.log(url);
 	console.log(target);
 
-	_SELECTED_ITEMS.push({id:this.element.context.id,value:item.VALUE})
+	_SELECTED_ITEMS.push({id:id,value:item.VALUE})
 
 	saveExpanded(id,e.node);
 	if (url) {
@@ -376,13 +376,17 @@ function _tree_action_binder_single(item) {
 
 function _expand_to() {
 	var data = this.items();
-
-	var id = this.element.context.id;
-	var str_expanded = Cookies.get(id+'_expanded');
-	var expanded = null;
-	if (str_expanded) {
-		expanded = JSON.parse(str_expanded);
+	console.log(this.select());
+/***
+	if (this.select()) {
+		var id = this.element.context.id;
+		var str_expanded = Cookies.get(id + '_expanded');
+		var expanded = null;
+		if (str_expanded) {
+			expanded = JSON.parse(str_expanded);
+		}
 	}
+ ***/
 
 	for (var i = 0; i < data.length; i++) {
 		var dataitem = data[i];

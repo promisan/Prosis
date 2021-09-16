@@ -10,6 +10,7 @@ hint="Handle the application.">
 		<cfset THIS.SessionManagement = true />
 		<cfset THIS.clientmanagement = true />	
 		<cfset THIS.SessionTimeout   = CreateTimeSpan(0,0,180,0)/>
+		<cfset THIS.sessioncookie.httponly = true>
 
 		 
 		<cffunction

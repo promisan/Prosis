@@ -1,5 +1,6 @@
 
 <!--- only show if category is selected as it is driven by the category --->
+
 <table style="width:100%" style="font-size:15px">
     
 		<tr class="labelmedium2"><td><cf_tl id="Brand"></td></tr>
@@ -13,7 +14,7 @@
 		   WHERE     Code IN (SELECT Make FROM Item WHERE Category = '#url.category#')    
 		</cfquery>
 		
-		<tr class="labelmedium2"><td style="padding:6px;font-size:15px">
+		<tr class="labelmedium2"><td colspan="2" style="padding:6px;font-size:15px">
 		
 		  <cf_UISelect name   = "filterMake"
 		     class          = "regularxxl"
@@ -33,7 +34,7 @@
 	
 	<tr class="labelmedium2"><td><cf_tl id="Subcategory"></td></tr>
 	
-	<tr><td style="padding:6px">
+	<tr><td colspan="2" style="padding:6px">
 			
 		<cfquery name="SubCat" 
 		 datasource="appsMaterials" 
@@ -80,9 +81,7 @@
 	<cfoutput query="topics">
 	
 	<tr class="labelmedium2"><td>#TopicLabel#</td></tr>
-	
-	<tr><td style="padding:6px">
-	
+			
 	<cfif ValueClass eq "List">
 				
 		<cfquery name="GetList" 
@@ -96,18 +95,44 @@
 				ORDER BY T.ListOrder ASC
 		</cfquery>
 		
+		<cfif getList.recordcount lte "6">
+				
+		  <cfloop query="getList">
+		  <tr class="labelmedium">
+		  
+		      <td style="padding-left:6px;font-size:13px">#ListValue#</td>
+			  <td>
+			  
+			  <input type="checkbox" 
+			    style="height:17px;width:16px" 
+				name="filter#code#" onclick="search()"	value="#ListCode#">
+				
+			  </td>
+			  
+		  </tr>
+		  </cfloop>	
+		
+		<cfelse>
+		
+		<tr><td colspan="2" style="padding:2px">
+						
 		 <cf_UISelect name   = "filter#code#"
 		     class          = "regularxxl"
 		     queryposition  = "below"
+			 style          = "width:100%"
 		     query          = "#GetList#"
 		     value          = "ListCode"
 		     onchange       = "search()"		     
 		     required       = "No"
 		     display        = "ListValue"
-			 filter         = "contains"
 		     selected       = ""
 			 separator      = "|"
 		     multiple       = "yes"/>		
+			 
+		  </cfif>	 
+		  
+		  </td>
+		  </tr>
 															
 		<cfelseif ValueClass eq "Lookup">
 		
@@ -144,9 +169,7 @@
 				 --->
 				 
 	 </cfif>			 
-		
-	</td></tr>
-		
+				
 	</cfoutput>	
 		
 </table>

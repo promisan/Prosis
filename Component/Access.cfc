@@ -3539,7 +3539,7 @@
 											
 			<!--- unit level --->
 			
-			<cfif qAccess.AccessLevel eq "">
+			<cfif qAccess.AccessLevel eq "" or qAccess.AccessLevel eq "READ">
 			
 				<cftransaction isolation="read_uncommitted">	
 					<cfquery name="qAccess" 
@@ -3560,7 +3560,7 @@
 					</cfquery>
 				</cftransaction>	
 								
-				<cfif qAccess.AccessLevel eq "0">
+				<cfif qAccess.AccessLevel eq "0" or qAccess.AccessLevel eq "READ">
 					<cftransaction isolation="read_uncommitted">			
 						<cfquery name="qAccess" 
 						datasource="AppsProgram" 

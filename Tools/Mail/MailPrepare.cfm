@@ -24,14 +24,22 @@
 	
 	<cfset url.templatepath = Document.DocumentTemplate>
 	<cfset password = Document.DocumentPassword>
+	<cfif documentEditor eq "HTMPDF">
+		<cfset renderer = Document.DocumentEditor>
+	<cfelse>
+		<cfset renderer = "CFDOC">
+	</cfif>	
+	
 	<cfset encryption = "128-bit">
 
 <cfelse>
 
+	<cfset renderer = "CFDOC">
 	<cfset password = "">
 	<cfset encryption = "none">
 	
 </cfif>		 
+
 
 <TITLE><cfoutput>#URL.ID1#</cfoutput></TITLE>
 
@@ -45,11 +53,8 @@
 
 
 <cfset FileNo = round(Rand()*100)>
-<cfif URL.Format eq "PDF">
-	<cfset attach = "#URL.FileName#_#FileNo#.pdf">
-<cfelse>
-	<cfset attach = "#URL.FileName#_#FileNo#.swf">
-</cfif>	
+
+<cfset attach = "#URL.FileName#_#FileNo#">
 
 <cfset vpath="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#attach#">
 
@@ -65,7 +70,7 @@
 	      format       = "#URL.format#"
 	      pagetype     = "letter"
 		  overwrite    = "yes"
-		  filename     = "#vPath#"
+		  filename     = "#vPath#.pdf"
 		  margintop    = "#URL.marginTop#"
 		  marginbottom = "#URL.marginBottom#"
 	      marginright  = "0"
@@ -75,6 +80,7 @@
 	      fontembed    = "Yes"
 	      scale        = "#URL.scale#"
 	      backgroundvisible="Yes">
+		  
 		  
 		  <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 		  		  		  		  
@@ -98,7 +104,7 @@
 		   format       = "#URL.Format#" 
 		   overwrite    = "yes" 
 		   encryption   = "none"
-		   filename     = "#vPath#">
+		   filename     = "#vPath#.pdf">
 			
 			<!--- other variables --->					
 			<cfreportparam name = "root"            value="#SESSION.root#">
@@ -132,30 +138,56 @@
 	  </script>
 
 <cfelse>
+
+  
 	  	
 	<cfif FindNoCase(".cfm", URL.templatepath)>
 	
-	 	<cfdocument 
-		      format            = "#URL.Format#"
-		      pagetype          = "letter"
-			  overwrite         = "yes"
-			  filename          = "#vPath#"
-			  margintop         = "#URL.marginTop#"
-			  marginbottom      = "#URL.marginBottom#"
-		      marginright       = "0"
-		      marginleft        = "0"
-		      orientation       = "#URL.orientation#"
-		      unit              = "cm"
-		      encryption        = "none"
-		      fontembed         = "No"
-		      scale             = "#URL.scale#"
-		      backgroundvisible = "Yes">
+		<cfif renderer eq "CFDOC">	
+	    
+		 	<cfdocument 
+			      format            = "#URL.Format#"
+			      pagetype          = "letter"
+				  overwrite         = "yes"
+				  filename          = "#vPath#.pdf"
+				  margintop         = "#URL.marginTop#"
+				  marginbottom      = "#URL.marginBottom#"
+			      marginright       = "0"
+			      marginleft        = "0"
+			      orientation       = "#URL.orientation#"
+			      unit              = "cm"
+			      encryption        = "none"
+			      fontembed         = "No"
+			      scale             = "#URL.scale#"
+			      backgroundvisible = "Yes">
+					  
+				  <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+				  
+				  <cfinclude template="../../#URL.templatepath#">
+				 		
+			</cfdocument>	
+		
+		<cfelse>
+		
+			<cfsavecontent variable="documentcontent">		
+			<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+			<cfinclude template="../../#URL.templatepath#">
+			</cfsavecontent>		
+		
+			<cffile action="WRITE" 
+	          file="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#attach#.htm" 
+			  output="#DocumentContent#" 
+			  addnewline="Yes" 
+			  fixnewline="No">	
 			  
-			  <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
-			  
-			  <cfinclude template="../../#URL.templatepath#">
-			 		
-		</cfdocument>	
+			  <cfoutput>#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#attach#.pdf</cfoutput>	
+								 
+								<!--- on-the-fly converter of htm content to pdf --->  
+		      <cf_htm_pdf fileIn= "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#attach#">
+		
+		</cfif>
+		
+		
 	
 	<cfelse>	
 		
@@ -166,7 +198,7 @@
 		   format       = "#URL.Format#" 
 		   overwrite    = "yes" 
 		   encryption   = "none"
-		   filename     = "#vpath#">
+		   filename     = "#vpath#.pdf">
 				<cfreportparam name = "ID"  value="#URL.ID1#"> 
 		</cfreport>	
 
@@ -177,7 +209,7 @@
 	
 	<cfoutput>
 	<script language="JavaScript">
-			window.location = "#SESSION.root#/CFRStage/User/#SESSION.acc#/#attach#"
+			window.location = "#SESSION.root#/CFRStage/User/#SESSION.acc#/#attach#.pdf"
 	</script>
 	</cfoutput>
 

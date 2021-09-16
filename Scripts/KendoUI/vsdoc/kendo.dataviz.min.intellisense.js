@@ -927,12 +927,13 @@ intellisense.annotate(instance, {
         /// <returns type="Array">—The list of all child tasks.</returns>
         /// </signature>
     },
-    taskChildren: function(task) {
+    taskChildren: function(task,fromView) {
         /// <signature>
         /// <summary>
         /// Returns a list of all direct child tasks.
         /// </summary>
         /// <param name="task" type="kendo.data.GanttTask" >The parent task. If this parameter is not specified, all root-level tasks will be returned.</param>
+        /// <param name="fromView" type="bool" >Whether the data should be taken from the dataSource.view() (only the filtered items) or from the .data() call (all items in the DataSource). If this parameter is not specified, the data() call will be used and filter would not be taken into account.</param>
         /// <returns type="Array">—The list of all direct child tasks.</returns>
         /// </signature>
     },
@@ -1623,6 +1624,144 @@ intellisense.annotate(instance, {
         /// </signature>
     },
 
+
+    unbind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+        /// </signature>
+    }
+
+});
+
+return instance;
+
+};
+
+intellisense.redirectDefinition(wrapper, original);
+
+return wrapper;
+
+})();
+
+
+intellisense.annotate(kendo.data, {
+    OrgChartDataSource: function() {
+        /// <signature>
+        /// <summary>Constructor of kendo.data.OrgChartDataSource</summary>
+        /// </signature>
+    }
+});
+
+kendo.data.OrgChartDataSource = (function() {
+var original = kendo.data.OrgChartDataSource;
+var wrapper = function() {
+var instance = new original();
+intellisense.annotate(instance, {
+    groupedItemsTree: function(groupField) {
+        /// <signature>
+        /// <summary>
+        /// Builds and returns an items tree when grouping is enabled.
+        /// </summary>
+        /// <param name="groupField" type="String" >The field the items should be grouped by.</param>
+        /// <returns type="Array">An array featuring the tree-like hierarchy in the source.</returns>
+        /// </signature>
+    },
+    itemChildren: function(item,fromView) {
+        /// <signature>
+        /// <summary>
+        /// Returns a list of all direct child items.
+        /// </summary>
+        /// <param name="item" type="kendo.data.OrgChartModel" >The parent item. If this parameter is not specified, the root level items will be returned.</param>
+        /// <param name="fromView" type="bool" >Whether the data should be taken from the dataSource.view() (only the visible items) or from the .data() call (all loaded items in the DataSource). If this parameter is not specified, the items will be taken from the data() method.</param>
+        /// <returns type="Array">The list of all direct child items.</returns>
+        /// </signature>
+    },
+    itemsTree: function(item) {
+        /// <signature>
+        /// <summary>
+        /// Builds and returns an items tree.
+        /// </summary>
+        /// <param name="item" type="kendo.data.OrgChartModel" >The parent item for which the tree should be created. If this parameter is not specified, the tree will be build for the entire source.</param>
+        /// <returns type="Array">An array featuring the tree-like hierarchy in the source.</returns>
+        /// </signature>
+    },
+    prospectParents: function(item) {
+        /// <signature>
+        /// <summary>
+        /// Returns a list of all items in the source that can be parents of the passed item. It will filter-out the item and the full hierarchy of its children.
+        /// </summary>
+        /// <param name="item" type="kendo.data.OrgChartModel" >The item the prospect parents should be identified for.</param>
+        /// <returns type="Array">The list of all possible parents.</returns>
+        /// </signature>
+    },
+
+    bind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+        /// </signature>
+    },
+
+    unbind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+        /// </signature>
+    }
+
+});
+
+return instance;
+
+};
+
+intellisense.redirectDefinition(wrapper, original);
+
+return wrapper;
+
+})();
+
+
+intellisense.annotate(kendo.data, {
+    OrgChartModel: function() {
+        /// <signature>
+        /// <summary>Constructor of kendo.data.OrgChartModel</summary>
+        /// </signature>
+    }
+});
+
+kendo.data.OrgChartModel = (function() {
+var original = kendo.data.OrgChartModel;
+var wrapper = function() {
+var instance = new original();
+intellisense.annotate(instance, {
+    loaded: function() {
+        /// <signature>
+        /// <summary>
+        /// Gets or sets the loaded flag of the OrgChart. Setting the loaded flag to false allows reloading of child items.
+        /// </summary>
+        /// </signature>
+    },
+
+    bind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+        /// </signature>
+    },
 
     unbind: function(event, callback) {
         /// <signature>
@@ -5042,6 +5181,9 @@ intellisense.annotate(jQuery.fn, {
         /// &#10;legend - Object 
         /// &#10;The chart legend configuration options.
         /// &#10;
+        /// &#10;paneDefaults - Object 
+        /// &#10;The default options for all panes.
+        /// &#10;
         /// &#10;panes - Array 
         /// &#10;The chart panes configuration.Panes are used to split the chart in two or more parts. The panes are ordered from top to bottom.Each axis can be associated with a pane by setting its pane option to the name of the desired pane. Axis that don't have specified pane are placed in the top (default) pane.Series are moved to the desired pane by associating them with an axis.
         /// &#10;
@@ -5073,7 +5215,7 @@ intellisense.annotate(jQuery.fn, {
         /// &#10;The default options for all series.
         /// &#10;
         /// &#10;theme - String 
-        /// &#10;The chart theme. This can be either a built-in theme or "sass". When set to "sass" the chart will read the variables from the Sass-based themes. More information on the built-in themes could be found in the Less-based themes article.The supported values are: "sass" - special value, see notes; "black"; "blueopal"; "bootstrap"; "default"; "highcontrast"; "metro"; "metroblack"; "moonlight"; "silver" or "uniform".
+        /// &#10;The chart theme. This can be either a built-in theme or "sass". When set to "sass" the chart will read the variables from the Sass-based themes. More information on the built-in themes could be found in the Less-based themes article.The supported values are: "sass" - special value, see notes; "black"; "blueopal"; "bootstrap"; "default"; "fiori"; "flat"; "highcontrast"; "material"; "materialblack"; "metro"; "metroblack"; "moonlight"; "nova"; "office365"; "silver" or "uniform".
         /// &#10;
         /// &#10;title - String 
         /// &#10;The chart title configuration options or text.
@@ -5101,6 +5243,191 @@ intellisense.annotate(jQuery.fn, {
         /// &#10;
         /// &#10;zoomable - Object (default: false)
         /// &#10;Specifies if the chart can be zoomed.
+        /// &#10;
+        /// </summary>
+        /// <param name="options" type="Object">
+        /// The widget configuration options
+        /// </param>
+        /// </signature>
+    }
+});
+
+intellisense.annotate(kendo.dataviz.ui, {
+    CircularGauge: function() {
+        /// <signature>
+        /// <summary>Constructor of kendo.dataviz.ui.CircularGauge</summary>
+        /// </signature>
+    }
+});
+
+kendo.dataviz.ui.CircularGauge = (function() {
+var original = kendo.dataviz.ui.CircularGauge;
+var wrapper = function() {
+var instance = new original();
+intellisense.annotate(instance, {
+    destroy: function() {
+        /// <signature>
+        /// <summary>
+        /// Prepares the Gauge for safe removal from the DOM.Detaches event handlers and removes data entries in order to avoid memory leaks.
+        /// </summary>
+        /// </signature>
+    },
+    exportImage: function(options) {
+        /// <signature>
+        /// <summary>
+        /// Exports the Gauge as an image. The result can be saved using kendo.saveAs.The export operation is asynchronous and returns a promise. The promise will be resolved with a PNG image encoded as a Data URI.
+        /// </summary>
+        /// <param name="options" type="" >Parameters for the exported image.</param>
+        /// <returns type="Promise">A promise that will be resolved with a PNG image encoded as a Data URI.</returns>
+        /// </signature>
+    },
+    exportPDF: function(options) {
+        /// <signature>
+        /// <summary>
+        /// Exports the Gauge as a PDF file. The result can be saved using kendo.saveAs.The export operation is asynchronous and returns a promise. The promise will be resolved with a PDF file encoded as a Data URI.
+        /// </summary>
+        /// <param name="options" type="kendo.drawing.PDFOptions" >Parameters for the exported PDF file.</param>
+        /// <returns type="Promise">A promise that will be resolved with a PDF file encoded as a Data URI.</returns>
+        /// </signature>
+    },
+    exportSVG: function(options) {
+        /// <signature>
+        /// <summary>
+        /// Exports the Gauge as an SVG document. The result can be saved using kendo.saveAs.The export operation is asynchronous and returns a promise. The promise will be resolved with a SVG document encoded as a Data URI.
+        /// </summary>
+        /// <param name="options" type="" >Export options.</param>
+        /// <returns type="Promise">A promise that will be resolved with a SVG document encoded as a Data URI.</returns>
+        /// </signature>
+    },
+    redraw: function() {
+        /// <signature>
+        /// <summary>
+        /// Redraws the gauge.
+        /// </summary>
+        /// </signature>
+    },
+    resize: function(force) {
+        /// <signature>
+        /// <summary>
+        /// Adjusts the widget layout to match the size of the container.
+        /// </summary>
+        /// <param name="force" type="Boolean" >Defines whether the widget should proceed with resizing even if the element dimensions have not changed.</param>
+        /// </signature>
+    },
+    setOptions: function(options) {
+        /// <signature>
+        /// <summary>
+        /// Sets the current gauge options.
+        /// </summary>
+        /// <param name="options" type="Object" >The gauge settings to update.</param>
+        /// </signature>
+    },
+    svg: function() {
+        /// <signature>
+        /// <summary>
+        /// Returns the SVG representation of the gauge. The returned string is a self-contained SVG document that can be used as is or converted to other formats using tools like Inkscape andImageMagick. Both programs provide command-line interface suitable for server-side processing.
+        /// </summary>
+        /// </signature>
+    },
+    imageDataURL: function() {
+        /// <signature>
+        /// <summary>
+        /// Returns a PNG image of the gauge encoded as a Data URL.
+        /// </summary>
+        /// <returns type="String">A data URL with image/png MIME type. Will be null if the browser does not support the canvas element.</returns>
+        /// </signature>
+    },
+    value: function() {
+        /// <signature>
+        /// <summary>
+        /// Gets or sets the value of the gauge.
+        /// </summary>
+        /// </signature>
+    },
+
+    bind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+        /// </signature>
+    },
+
+    unbind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+        /// </signature>
+    }
+
+});
+
+return instance;
+
+};
+
+intellisense.redirectDefinition(wrapper, original);
+
+return wrapper;
+
+})();
+
+
+jQuery.fn.kendoCircularGauge = function() {
+    this.data("kendoCircularGauge", new kendo.dataviz.ui.CircularGauge());
+
+    return this;
+};
+
+intellisense.annotate(jQuery.fn, {
+    getKendoCircularGauge: function() {
+        /// <signature>
+        /// <summary>
+        /// Returns a reference to the kendo.dataviz.ui.CircularGauge widget, instantiated on the selector.
+        /// </summary>
+        /// <returns type="kendo.dataviz.ui.CircularGauge">The kendo.dataviz.ui.CircularGauge instance (if present).</returns>
+        /// </signature>
+    },
+    kendoCircularGauge: function(options) {
+        /// <signature>
+        /// <summary>
+        /// Instantiates a kendo.dataviz.ui.CircularGauge widget based the DOM elements that match the selector.
+        /// &#10;Accepts an object with the following configuration options:
+        /// &#10;
+        /// &#10;centerTemplate - String|Function 
+        /// &#10;The label template. Template variables: *   value - the value
+        /// &#10;
+        /// &#10;color - String 
+        /// &#10;The color of the value pointer. Accepts a valid CSS color string, including hex and rgb.
+        /// &#10;
+        /// &#10;colors - Array 
+        /// &#10;The color ranges of the value pointer. The pointer color will be set to the color from the range that contains the current value.
+        /// &#10;
+        /// &#10;gaugeArea - Object 
+        /// &#10;The gauge area configuration options. This is the entire visible area of the gauge.
+        /// &#10;
+        /// &#10;opacity - Number 
+        /// &#10;The opacity of the value pointer.
+        /// &#10;
+        /// &#10;renderAs - String 
+        /// &#10;Sets the preferred rendering engine. If it is not supported by the browser, the Gauge will switch to the first available mode.The supported values are: "svg" - renders the widget as inline SVG document, if available or "canvas" - renders the widget as a Canvas element, if available..
+        /// &#10;
+        /// &#10;scale - Object 
+        /// &#10;Configures the scale.
+        /// &#10;
+        /// &#10;theme - String 
+        /// &#10;The gauge theme. This can be either a built-in theme or "sass". When set to "sass" the gauge will read the variables from the Sass-based themes.The supported values are: "sass" - special value, see notes; "black"; "blueopal"; "bootstrap"; "default"; "highcontrast"; "metro"; "metroblack"; "moonlight"; "silver" or "uniform".
+        /// &#10;
+        /// &#10;transitions - Boolean (default: true)
+        /// &#10;A value indicating if transition animations should be played.
+        /// &#10;
+        /// &#10;value - Number 
+        /// &#10;The gauge value.
         /// &#10;
         /// </summary>
         /// <param name="options" type="Object">
@@ -5427,7 +5754,7 @@ intellisense.annotate(instance, {
     resize: function() {
         /// <signature>
         /// <summary>
-        /// Adjusts the diagram size to match the size of the container.
+        /// Adjusts the diagram viewport to match the size of the container.
         /// </summary>
         /// </signature>
     },
@@ -6275,6 +6602,9 @@ intellisense.annotate(jQuery.fn, {
         /// &#10;
         /// &#10;errorCorrection - String (default: "L")
         /// &#10;The error correction level used to encode the value.The possible values are: "L" - approximately 7% of the codewords can be restored.; "M" - approximately 15% of the codewords can be restored.; "Q" - approximately 25% of the codewords can be restored. or "H" - approximately 30% of the codewords can be restored..
+        /// &#10;
+        /// &#10;overlay - Object 
+        /// &#10;The overlay configuration which alows you to choose from predefined layouts or insert a custom image.
         /// &#10;
         /// &#10;padding - Number (default: 0)
         /// &#10;Sets the minimum distance in pixels that should be left between the border and the QR modules.

@@ -656,19 +656,72 @@ password="#SESSION.dbpw#">
 							<cfelseif URL.type eq "document">
 								
 								<tr>							
-								<td class="labelmedium" style="padding-right:5px;padding-left:23px;cursor:pointer">
-								<cf_UIToolTip
-									 tooltip="Add this password to the generate PDF of this document">
+								<td class="labelmedium" title="Add this password to the generate PDF of this document" style="padding-right:5px;padding-left:23px;cursor:pointer">
+								
 								Password:&nbsp;
-								</cf_UIToolTip>
+								
 								</td>
 								<td style="padding;3px">								
 									<input type="Text" 
 										name="DocumentPassword" 	
 										id="DocumentPassword"								
-										size="10" 
+										size="10" 										
 										maxlength="20" 
 										class="regularxl">
+								</td>	
+								
+								</tr>
+								
+								<tr>							
+								<td class="labelmedium" title="Margin" style="padding-right:5px;padding-left:23px">								
+								Formatting:&nbsp;						
+								</td>
+								<td colspan="7" style="padding;3px">	
+								
+								<table style="width:100%">
+								<tr>
+								<td style="padding-left:4px" class="labelmedium">Margin-top:</td>
+								<td style="padding-left:4px">	
+								<input type="Text" 
+										name="MarginTop" 	
+										id="MarginTop"	
+										style="text-align:center"							
+										size="5" 
+										maxlength="5" 
+										class="regularxl">			
+								</td>
+								<td style="padding-left:4px" class="labelmedium">Margin-bottom:</td>
+								<td style="padding-left:4px">	
+								<input type="Text" 
+										name="MarginBottom" 	
+										id="MarginBottom"	
+										style="text-align:center"								
+										size="5" 
+										maxlength="5" 
+										class="regularxl">			
+								</td>
+								<td style="padding-left:4px" class="labelmedium">Scale:</td>
+								<td style="padding-left:4px">	
+								<input type="Text" 
+										name="Scale" 	
+										id="Scale"		
+										style="text-align:center"							
+										size="3" 
+										maxlength="3" 
+										class="regularxl">			
+								</td>
+								<td style="padding-left:4px" class="labelmedium">Renderer:</td>
+								<td style="padding-left:4px">	
+								<input type="radio" name="DocumentEditor" checked value="CFDOC" class="radiol">			
+								</td>
+								<td>cfdocument</td>
+								<td style="padding-left:4px">	
+								<input type="radio" name="DocumentEditor" value="HTMPDF" class="radiol">			
+								</td>
+								<td>htm_pdf</td>
+								</tr>
+								</table>							
+									
 								</td>	
 								
 								</tr>
@@ -690,6 +743,10 @@ password="#SESSION.dbpw#">
 			<cfset ps = DocumentPassword>
 			<cfset op = Operational>
 			<cfset md = DocumentMode>
+			<cfset mtop = MarginTop>
+			<cfset mbot = MarginBottom>
+			<cfset scal = Scale>
+			<cfset dedt = DocumentEditor>
 																				
 			<cfif URL.ID2 eq nm>	
 																			
@@ -899,7 +956,7 @@ password="#SESSION.dbpw#">
 				
 				<cfif url.type neq "Attach" and url.type neq "Field" and url.type neq "Question"> 		
 								 
-				<tr bgcolor="ffffff" class="line">
+				<tr bgcolor="ffffff">
 				   
 				    <td class="labelmedium" style="padding-left:20px">
 					
@@ -1021,12 +1078,7 @@ password="#SESSION.dbpw#">
 								
 				<cfif url.type neq "Field" and url.type neq "Activity" and url.type neq "question">
 				
-				<tr bgcolor="ffffff">			
-			    <td valign="top" style="padding-left:15px;padding-top:7px;padding-right:30px" height="25" class="labelmedium">&nbsp;Settings</td>
-				<td colspan="7" align="right">
-
-				<table width="100%" class="formpadding">
-										
+														
 				<cfif url.type eq "field">
 							
 							<!---
@@ -1038,7 +1090,7 @@ password="#SESSION.dbpw#">
 				<cfelseif url.type eq "rule">
 											
 							<tr>
-							<td class="labelit">Message:</td>
+							<td style="padding-left:23px" class="labelit">Message:</td>
 							<td><cfinput type  = "Text" 
 								class          = "regularxl" 
 								value          = "#MessageProcessor#" 
@@ -1050,7 +1102,7 @@ password="#SESSION.dbpw#">
 							</tr>
 							
 							<tr>
-							<td class="labelit">Message color:</td>
+							<td style="padding-left:23px" class="labelit">Message color:</td>
 							<td><cfinput type  = "Text" 
 								class          = "regularxl" 
 								value          = "#DocumentColor#" 
@@ -1062,7 +1114,7 @@ password="#SESSION.dbpw#">
 							</tr>
 							
 							<tr>
-							<td class="labelit">Auditor:</td>
+							<td style="padding-left:23px" class="labelit">Auditor:</td>
 							<td><cfinput type  = "Text" 
 								class          = "regularxl" 
 								value          = "#MessageAudit#" 
@@ -1077,7 +1129,7 @@ password="#SESSION.dbpw#">
 				<cfelseif url.type eq "dialog" or url.type eq "session">
 											
 							<tr>
-							<td class="labelit">String List:</td>
+							<td style="padding-left:23px" class="labelit">String List:</td>
 							<td class="labelit"><cfinput type  = "Text" 
 								class          = "regularxl" 
 								value          = "#documentstringList#" 
@@ -1096,7 +1148,7 @@ password="#SESSION.dbpw#">
 				<cfelseif url.type eq "script">
 											
 							<tr>
-							<td style="min-width:100px" class="labelit">Runtime&nbsp;Parameter:</td>
+							<td style="padding-left:23px;min-width:100px" class="labelit">Runtime&nbsp;Parameter:</td>
 							<td><cfinput type  = "Text" 
 								class          = "regularxl" 
 								value          = "#documentstringList#" 
@@ -1110,7 +1162,7 @@ password="#SESSION.dbpw#">
 				<cfelseif URL.type eq "report">
 				
 							<tr>
-								<td class="labelit" style="cursor:pointer">
+								<td style="padding-left:23px" class="labelit" style="cursor:pointer">
 									<cf_UIToolTip tooltip="Select the type of layout the document will have">Layout:</cf_UIToolTip>
 								</td>
 								<td>
@@ -1123,7 +1175,7 @@ password="#SESSION.dbpw#">
 
 							<tr>
 							
-							<td class="labelit" style="cursor:pointer">
+							<td style="padding-left:23px" class="labelit" style="cursor:pointer">
 								<cf_UIToolTip tooltip="Select the type of layout the document will have">Orientation:</cf_UIToolTip>
 							</td>							
 							<td>
@@ -1137,7 +1189,7 @@ password="#SESSION.dbpw#">
 							
 							<tr>
 							
-							<td class="labelit" style="cursor:pointer">
+							<td style="padding-left:23px" class="labelit" style="cursor:pointer">
 								<cf_UIToolTip tooltip="Select the type of layout the document will have">Editor:</cf_UIToolTip>
 							</td>							
 							<td>
@@ -1150,7 +1202,7 @@ password="#SESSION.dbpw#">
 							</tr>						
 
 							<tr>
-							<td class="labelit" style="height:25px" style="cursor:pointer">
+							<td style="padding-left:23px" class="labelit" style="cursor:pointer">
 							<cf_UIToolTip tooltip="Pointer to define if this report will be presented under a custom portal">Portal:</cf_UIToolTip></td>
 								<td>								
 								  <input type = "checkbox" 
@@ -1162,7 +1214,7 @@ password="#SESSION.dbpw#">
 							</tr>	
 							
 							<tr>
-								<td class="labelit" style="cursor:pointer" style="height:25px">
+								<td class="labelit" style="padding-left:23px;cursor:pointer;height:25px">
 								<cf_UIToolTip
 								tooltip="Pointer to define if the template uses the standard framework for document generation which requires the user to select a language and formatting (letter, memo, fax)">
 								Framework:</cf_UIToolTip>
@@ -1172,7 +1224,7 @@ password="#SESSION.dbpw#">
 							</tr>
 							
 							<tr>
-								 <td class="labelit">
+								 <td style="padding-left:23px;cursor:pointer;height:25px">
 								 <cf_UIToolTip	tooltip="A context senstive value to be used for filtering at runtime valid reports">Usage Criteria:</cf_UIToolTip>
 								 </td>
 								 
@@ -1191,7 +1243,7 @@ password="#SESSION.dbpw#">
 							
 							
 							<tr>
-							<td class="labelit">Password:</td>
+							<td style="padding-left:23px;cursor:pointer;height:25px">Password:</td>
 							<td>
 								<cfinput type="Text" 
 								      name="DocumentPassword" 
@@ -1206,27 +1258,80 @@ password="#SESSION.dbpw#">
 							
 				<cfelseif URL.type eq "document">
 							
-								<tr>							
-								<td style="cursor:pointer" class="labelit">
-								<cf_UIToolTip tooltip="Add this password to the generate PDF of this document">Password:&nbsp;</cf_UIToolTip>
-								</td>
-								<td>								
-									<input type="Text" 
-									name="DocumentPassword" 
-									id="DocumentPassword"									
-									size="10" 
-									value="#ps#" 
-									maxlength="20" 
-									class="regularxl">
-								</td>	
-								</tr>
+							<tr>							
+							<td style="padding-left:23px;cursor:pointer;height:25px" title="Add this password to the generate PDF of this document">
+							Password:
+							</td>
+							<td colspan="7">								
+								<input type="Text" 
+								name="DocumentPassword" 
+								id="DocumentPassword"									
+								size="10" 
+								value="#ps#" 
+								maxlength="20" 
+								class="regularxl">
+							</td>	
+							</tr>
+								
+							<tr>							
+							<td class="labelmedium" title="Margin" style="padding-right:5px;padding-left:23px;cursor:pointer">								
+							Formatting:							
+							</td>
+							<td style="padding:3px" colspan="7">	
+							
+							<table style="width:100%">
+							<tr>
+							<td style="padding-left:4px" class="labelmedium">Margin-top:</td>
+							<td style="padding-left:4px">	
+							<input type="Text" 
+									name="MarginTop" 	
+									id="MarginTop"								
+									size="5" 
+									maxlength="5" 
+									style="text-align:center"	
+									value="#mtop#" 
+									class="regularxl">			
+							</td>
+							<td style="padding-left:4px" class="labelmedium">Margin-bottom:</td>
+							<td style="padding-left:4px">	
+							<input type="Text" 
+									name="MarginBottom" 	
+									id="MarginBottom"								
+									size="5" 
+									maxlength="5" 
+									style="text-align:center"	
+									value="#mbot#" 
+									class="regularxl">			
+							</td>
+							<td style="padding-left:4px" class="labelmedium">Scale:</td>
+							<td style="padding-left:4px">	
+							<input type="Text" 
+									name="Scale" 	
+									id="Scale"	
+									style="text-align:center"									
+									size="3" 
+									maxlength="3" 
+									value="#scal#" 
+									class="regularxl">			
+							</td>
+							<td style="padding-left:4px" class="labelmedium">Renderer:</td>
+							<td style="padding-left:4px">	
+							<input type="radio" name="DocumentEditor" <cfif dedt neq "HTMPDF">checked</cfif> value="CFDOC" class="radiol">			
+							</td>
+							<td>cfdocument</td>
+							<td style="padding-left:4px">	
+							<input type="radio" name="DocumentEditor" value="HTMPDF" <cfif dedt eq "HTMPDF">checked</cfif> class="radiol">			
+							</td>
+							<td>htm_pdf</td>
+							</tr>
+							</table>							
+								
+							</td>	
+							
+							</tr>
 							
 				</cfif>
-																			
-						</table>
-					</td>
-									
-				</tr>		
+					
 				
 				</cfif>
 																											

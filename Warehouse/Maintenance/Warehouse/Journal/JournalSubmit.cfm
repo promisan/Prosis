@@ -99,6 +99,6 @@
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('Journal/Journal.cfm?id1=#url.id1#','contentbox2');
+		ptoken.navigate('Journal/Journal.cfm?id1=#url.id1#','contentbox2');
 	</script>
 </cfoutput>

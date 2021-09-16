@@ -1,4 +1,5 @@
 	
+<cfparam name="URL.mid"             default="">	
 <cfparam name="URL.DocumentServer"  default="">
 <cfparam name="URL.dialog"          default="1">
 <cfparam name="Form.KeepOriginal"   default="0">
