@@ -56,8 +56,7 @@
 			for (var i = vl-1; i >= 0; i--) {
 				console.log(parent._SELECTED_ITEMS[i].id);
 				console.log(parent._SELECTED_ITEMS[i].value);
-				if (parent._SELECTED_ITEMS[i].id == 'idtree')
-				{
+				if (parent._SELECTED_ITEMS[i].id == 'idtree') {
 					unitcode = parent._SELECTED_ITEMS[i].value;
 					break;
 				}

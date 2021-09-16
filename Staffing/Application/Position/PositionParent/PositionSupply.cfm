@@ -42,23 +42,23 @@ password="#SESSION.dbpw#">
 	WHERE 	 PostType = '#PositionChild.PostType#' 	
 </cfquery>
 
-<table width="97%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="97%" border="0" align="center" class="formpadding">
 
 <tr><td height="10"></td></tr>
 
 	<tr class="noprint" class="line">
    
-    <td height="24" style="padding-right:4px">
+    <td height="24" colspan="2" style="padding-right:4px">
 	
 		<cfoutput>	
 		<table cellspacing="0" cellpadding="0" class="formpadding">
 		<tr>
 		    <td class="labelit" style="padding-left:5px">Current PostNumber:</td>
-			<td class="labelmedium" style="padding-left:5px"><b>#PositionChild.SourcePostNumber#</font></b></td>
+			<td class="labelmedium2" style="padding-left:5px">#PositionChild.SourcePostNumber#</td>
 			<td class="labelit" style="padding-left:10px">Mandate:</td>
-			<td class="labelmedium"><b>#Current.Description#</b></td>
+			<td class="labelmedium2">#Current.Description#</td>
 			<td class="labelit" style="padding-left:10px">Period:</td>
-			<td class="labelmedium" style="padding-left:5px"><b>#DateFormat(Current.DateEffective, CLIENT.DateFormatShow)# - #DateFormat(Current.DateExpiration, CLIENT.DateFormatShow)#</b></td>
+			<td class="labelmedium2" style="padding-left:5px">#DateFormat(Current.DateEffective, CLIENT.DateFormatShow)# - #DateFormat(Current.DateExpiration, CLIENT.DateFormatShow)#</b></td>
 		</tr>
 		</table>	
 		</cfoutput>
@@ -119,7 +119,7 @@ password="#SESSION.dbpw#">
 		
 	<cfoutput> 
 	
-	<tr><td style="font-size:25px;height:45px;padding-left:3px;font-weight:200" class="labellarge">Program/Fund and object</td></tr>
+	<tr><td colspan="2" style="font-size:25px;height:45px;padding-left:3px;font-weight:200" class="labellarge">Program/Fund and object</td></tr>
 	
 	<cf_verifyOperational 
          module    = "Program" 
@@ -128,32 +128,99 @@ password="#SESSION.dbpw#">
 	<cfif operational eq "1">
 	
 	
-		<tr><td style="padding-left:4px"><font size="1">usage:<b> Budget Planning</td></tr>
+		<tr><td colspan="2" style="width:400px;padding-left:4px"><font size="1">usage:<b> Budget Planning</td></tr>
 		<tr><td height="1" class="line" colspan="2"></td></tr>
 	
 		<tr><td colspan="2" style="padding-left:20px">
-			<cfdiv bind="url:../Funding/PositionFunding.cfm?ID=#url.id2#" id="fundbox">
+			<cf_securediv bind="url:../Funding/PositionFunding.cfm?ID=#url.id2#" id="fundbox">
 		</td></tr>
 		
 		<cfif PostType.Procurement eq "1">
 		
-		<tr><td height="4"></td></tr>
+		<tr><td colspan="2" height="4"></td></tr>
 		
-		<tr><td style="padding-left:4px"><font size="1">usage:<b> Obligation driven</td></tr>
+		<tr><td colspan="2" style="padding-left:4px"><font size="1">usage:<b> Obligation driven</td></tr>
 		<tr><td height="1" class="line" colspan="2"></td></tr>
 		
 		<tr><td colspan="2" style="padding-left:20px">
-			<cfdiv bind="url:../Funding/PositionObligation.cfm?ID=#url.id2#" id="obligbox">
+			<cf_securediv bind="url:../Funding/PositionObligation.cfm?ID=#url.id2#" id="obligbox">
 		</td></tr>
 		
 		</cfif>
 					  
 	</cfif>	
 	
+	<tr><td height="10" colspan="2"></td></tr>
+	<tr><td colspan="2" style="font-weight:200;font-size:25px;height:45px;padding-left:3px" class="labellarge"><cf_tl id="Relationships"></td></tr>
+	<tr><td style="min-width:50%" style="padding-left:4px"><font size="1">usage:<b> Workforce relationships</td></tr>
+	<tr><td height="1" class="line" colspan="2"></td></tr>
+	<tr class="hide"><td id="positionbox_detail" class="line" colspan="2"></td></tr>
+	
+	<cfloop index="itm" list="Supervisor,Administrator">	
+	
+	    <cfquery name="Relation" 
+			datasource="AppsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT      PR.PositionNoRelation, 
+			            PO.FunctionNo, 
+						PO.FunctionDescription, 
+						PO.SourcePostNumber, 
+						PO.PositionParentId,
+						PO.PositionNo, 
+						PR.OfficerUserId, 
+						PR.OfficerLastName, 
+						PR.OfficerFirstName, 
+						PR.Created
+			FROM        PositionRelation AS PR INNER JOIN
+                        Position AS PO ON PR.PositionNoRelation = PO.PositionNo
+			WHERE       PR.PositionNo = '#url.id2#'
+			AND         PR.RelationClass = '#itm#'			
+		</cfquery>				
 		
-	<tr><td height="10"></td></tr>
-	<tr><td style="font-weight:200;font-size:25px;height:45px;padding-left:3px" class="labellarge"><cf_tl id="Workforce class"></td></tr>
-	<tr><td style="padding-left:4px"><font size="1">usage:<b> Workforce Classification and Planning</td></tr>
+	    <tr class="labelmedium2 linedotted">
+		  <td style="width:200px;padding-left:34px"><cf_tl id="#itm#"></td>
+		 	  
+		  <cfset link = "#SESSION.root#/Staffing/Application/Position/PositionParent/getPosition.cfm?event=1">
+		 		 
+		  <td style="min-width:50%">
+		      <table style="width:100%" class="navigation_table">
+		      <tr class="labelmedium navigation_row">
+			  <td style="width:40px">
+			  
+			    <cfset link = "#SESSION.root#/Staffing/Application/Position/PositionParent/getPosition.cfm?pos=#url.id2#&class=#itm#">
+							
+		  		<cf_selectlookup
+				    box          = "positionbox_detail"
+					title        = "Position Search"
+					icon         = "search.png"
+					link		 = "#link#"
+					des1		 = "PositionNo"
+					filter1      = "Mission"
+					filter1Value = "#positionchild.mission#"
+					button       = "No"
+					style        = "width:28px;height:28px"
+					close        = "Yes"			
+					datasource	 = "AppsEmployee"		
+					class        = "PositionSingle">	
+					
+			  </td>
+			  
+			  <td id="#itm#_1" style="width:50px"><cfif relation.SourcePostNumber eq "">#relation.PositionParentId#<cfelse>#relation.SourcePostNumber#</cfif></td>
+			  <td id="#itm#_2" style="min-width:150px">#relation.FunctionDescription#</td>
+			  <td id="#itm#_3" style="padding-right:5px" align="right">#relation.OfficerLastName# #dateformat(relation.created,client.dateformatshow)#</td>
+			  </tr>
+			  </table>
+		  </td>
+		  
+		</tr>	
+		
+	</cfloop>
+	
+		
+	<tr><td height="10" colspan="2"></td></tr>
+	<tr><td colspan="2" style="font-weight:200;font-size:25px;height:45px;padding-left:3px" class="labellarge"><cf_tl id="Workforce class"></td></tr>
+	<tr><td style="min-width:50%" style="padding-left:4px"><font size="1">usage:<b> Workforce Classification and Planning</td></tr>
 	<tr><td height="1" class="line" colspan="2"></td></tr>
 	
 	<cf_verifyOperational 
@@ -163,7 +230,7 @@ password="#SESSION.dbpw#">
 	<cfif operational eq "1">
 	
 		<tr><td colspan="2" style="padding-left:20px">
-			<cfdiv bind="url:WorkforceEntry.cfm?ID=#url.id#" id="workbox">
+			<cf_securediv bind="url:WorkforceEntry.cfm?ID=#url.id#" id="workbox">
 		</td></tr>
 		
 	<cfelse>
@@ -173,9 +240,9 @@ password="#SESSION.dbpw#">
 	</cfif>	
 	
 	
-	<tr><td height="10"></td></tr>
-	<tr><td style="font-weight:200;font-size:25px;height:45px;padding-left:3px" class="labellarge"><cf_tl id="Roster"> <font size="3">from which candidates for this position will be sourced</td></tr>
-	<tr><td style="padding-left:4px"><font size="1">usage:<b> <cf_tl id="Roster Forecasting"></td></tr>
+	<tr><td height="10" colspan="2"></td></tr>
+	<tr><td colspan="2" style="font-weight:200;font-size:25px;height:45px;padding-left:3px" class="labellarge"><cf_tl id="Roster"> <font size="3">from which candidates for this position will be sourced</td></tr>
+	<tr><td colspan="2" style="padding-left:4px"><font size="1">usage:<b> <cf_tl id="Roster Forecasting"></td></tr>
 	<tr><td height="1" class="line" colspan="2"></td></tr>
 	
 	<cf_verifyOperational 
@@ -190,7 +257,7 @@ password="#SESSION.dbpw#">
 		
 	<cfelse>
 	
-		<tr><td align="center"><font color="808080">Function not operational</td></tr>	
+		<tr><td colspan="2" align="center"><font color="808080">Function not operational</td></tr>	
 			  
 	</cfif>	
 	
@@ -198,3 +265,5 @@ password="#SESSION.dbpw#">
 	
 	
 </table>
+
+<cfset ajaxonload("doHighlight")>

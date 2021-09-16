@@ -309,7 +309,7 @@ function _tree_action(e) {
 	console.log(url);
 	console.log(target);
 
-	_SELECTED_ITEMS.push({id:this.element.context.id,value:$(e.node).attr('data-value')})
+	_SELECTED_ITEMS.push({id:e.node.id,value:$(e.node).attr('data-value')})
 
 	if (url) {
 		if (url != '') {

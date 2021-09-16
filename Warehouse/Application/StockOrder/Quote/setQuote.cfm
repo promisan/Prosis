@@ -154,6 +154,20 @@
 </cfcase>
 
 
+<cfcase value="remarks">
+
+	<cfquery name="set"
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		UPDATE CustomerRequest
+		SET   Remarks   = '#form.remarks#'
+		WHERE RequestNo = '#url.requestno#'				
+	</cfquery>
+	
+</cfcase>
+
+
 <cfcase value="warehouse">
 
 	<cfquery name="set"

@@ -82,6 +82,7 @@
 		   name="search" 
 		   id="search"
 		   value="<cfoutput>#lt_text#</cfoutput>" 
+		   style="border:1px solid silver"
 		   onclick="ptoken.navigate('#SESSION.root#/tools/selectlookup/Position/PositionSingleResult.cfm?datasource=#datasource#&page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#','resultunit#box#','','','POST','selectpositionsingleform#box#')"
 		   class="button10g">
 		   

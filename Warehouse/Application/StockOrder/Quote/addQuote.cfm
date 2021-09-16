@@ -51,12 +51,12 @@
 <table width="100%">
 
       <tr class="labelmedium2 line">
-		  <td style="padding-left:10px;font-size:15px"><cf_tl id="Number"></td>
+		  <td style="padding-left:10px;font-size:12px"><cf_tl id="Number"></td>
 		  <td colspan="2">#getHeader.RequestNo#</td>
 	  </tr>
 	
 	  <tr class="labelmedium2 line">
-		  <td valign="top" style="padding-top:4px;padding-left:10px;font-size:15px"><cf_tl id="Customer"></td>
+		  <td valign="top" style="padding-top:4px;padding-left:10px;font-size:12px"><cf_tl id="Customer"></td>
 		  
 		  <td id="customerbox" style="padding-top:2px"></td>
 		  <td align="right">
@@ -67,11 +67,20 @@
 	  </tr>
 				
 	  <tr class="labelmedium2 line">
-		  <td style="padding-left:10px;font-size:15px"><cf_tl id="eMail"></td>
+		  <td style="padding-left:10px;font-size:12px"><cf_tl id="eMail"></td>
 		  <td colspan="2" id="boxmail" style="border-left:1px solid silver">
 		    <input onchange="setquote('#getHeader.RequestNo#','mail')" class="regularxxl" type="text" 
 		    id="customermail" name="CustomerMail" 
 		    style="padding-left:4px;width:100%;background-color:f1f1f1;border:0px"></td>
+	  </tr>
+	  
+	    <tr class="labelmedium2 line">
+		  <td style="padding-left:10px;font-size:12px"><cf_tl id="Memo"></td>
+		  <td colspan="2" id="boxmail" style="border-left:1px solid silver">
+		    <textarea onchange="setquote('#getHeader.RequestNo#','remarks')" class="regularxl" type="text" 
+		    id="remarks" name="remarks" 
+		    style="font-size:14px;height:42px;padding:4px;width:100%;background-color:f1f1f1;border:0px"></textarea>
+			</td>
 	  </tr>
 	  
 	  <tr class="labelmedium" style="height:30px">

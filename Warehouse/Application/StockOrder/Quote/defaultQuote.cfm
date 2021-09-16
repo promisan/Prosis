@@ -34,6 +34,15 @@ password="#SESSION.dbpw#">
 	WHERE  Warehouse   = '#get.Warehouse#'						
 </cfquery>
 
+<cfquery name="customer"
+datasource="AppsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT * 
+	FROM   Customer
+	WHERE  CustomerId   = '#get.CustomerId#'						
+</cfquery>
+
 <cfset pheight = "700">
 <cfset pconten = "500">
 <cfset pdiscla = "200">
@@ -71,10 +80,10 @@ password="#SESSION.dbpw#">
 	   <td style="width:4%"></td>
 	   <td style="border:0px solid silver;padding:5px;width:48%;height:100px;background-color:##e1e1e1">   
 	        <table>
-			    <tr class="labelmedium"><td style="height:25px;padding-left:5px">Customer</td></tr>
-				<tr class="labelmedium"><td style="height:25px;padding-left:5px">Address</td></tr>
-				<tr class="labelmedium"><td style="height:25px;padding-left:5px">Mobile</td></tr>
-				<tr class="labelmedium"><td style="height:25px;padding-left:5px">eMail</td></tr>
+			    <tr class="labelmedium"><td style="height:25px;padding-left:5px"><cfif customer.customername neq "">#Customer.CustomerName#<cfelse><cf_tl id="On request"></cfif></td></tr>
+				<tr class="labelmedium"><td style="height:25px;padding-left:5px">#Customer.PostalCode#</td></tr>
+				<tr class="labelmedium"><td style="height:25px;padding-left:5px">#Customer.MobileNumber#</td></tr>
+				<tr class="labelmedium"><td style="height:25px;padding-left:5px">#get.CustomerMail#</td></tr>
 			</table>
 		  </td>
 	   </tr>
@@ -118,7 +127,12 @@ password="#SESSION.dbpw#">
 					<td style="text-align:right;padding-right:4px">#numberformat(SalesAmount,',.__')#</td>
 		     </tr>			 
 			 
-			 </cfloop> 			  
+			 </cfloop> 		
+			 
+			 <cfif get.Remarks neq "">
+			 
+			 <tr class="labelmedium2"><td colspan="7" style="padding-top:6px" align="center">#get.Remarks#</td></tr>
+			 </cfif>	  
 				  
 		   </table>
 		      

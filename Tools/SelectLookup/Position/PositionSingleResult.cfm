@@ -99,7 +99,7 @@ password="#SESSION.dbpw#">
 		     )
 </cfquery>
 
-<cf_pagecountN show="18" 
+<cf_pagecountN show="16" 
                count="#Total.Total#">
 			   
 <cfset counted  = total.total>			   
@@ -122,7 +122,7 @@ SELECT TOP #last# *
 	ORDER BY SourcePostNumber, DateEffective
 </cfquery>
 
-<table width="100%" class="navigation_table">
+<table style="98.5%" class="navigation_table">
 
 <tr class="line"><td height="14" colspan="6">						 
 	 <cfinclude template="PositionSingleNavigation.cfm">	 				 
@@ -132,7 +132,7 @@ SELECT TOP #last# *
 
 <cfif currentrow gte first>
 
-	<tr class="navigation_row line labelmedium" style="height:19px">	  
+	<tr class="navigation_row line labelmedium2" style="height:19px">	  
 	    <td width="35" style="padding-left:5px;padding-right:6px;padding-top:2px" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#positionNo#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  
 			<cf_img icon="select">						
 		</td>

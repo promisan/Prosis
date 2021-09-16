@@ -3581,3 +3581,7 @@ background:transparent;
 .toggleScroll-y::-webkit-scrollbar-thumb {
 background:rgba(0,0,0,0.25) !important; 
 }
+
+.modal-backdrop {
+  z-index:990;
+}

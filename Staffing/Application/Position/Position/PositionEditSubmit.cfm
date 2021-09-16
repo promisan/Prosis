@@ -62,6 +62,14 @@
 					 DELETE FROM Position
 					 WHERE  PositionNo = '#Form.PositionNo#' 
 			</cfquery>	
+			
+			<cfquery name="Position" 
+			     datasource="AppsEmployee" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+					 DELETE FROM PositionRelation
+					 WHERE  PositionNoRelation = '#Form.PositionNo#' 
+			</cfquery>	
 		
 			<cfquery name="Parent" 
 			     datasource="AppsEmployee" 
@@ -89,6 +97,14 @@
 			     password="#SESSION.dbpw#">
 					 DELETE FROM Position
 					 WHERE  PositionNo = '#Form.PositionNo#' 
+			</cfquery>	
+			
+			<cfquery name="Position" 
+			     datasource="AppsEmployee" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+					 DELETE FROM PositionRelation
+					 WHERE  PositionNoRelation = '#Form.PositionNo#' 
 			</cfquery>	
 			
 			<!---	
