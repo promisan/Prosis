@@ -7,7 +7,7 @@ hint="Handle the application.">
 		<cfset THIS.Name = "Prosis" />
 		<cfset THIS.ApplicationTimeout = CreateTimeSpan( 0, 0, 30, 0 ) />
 		<cfset THIS.SessionManagement = true />
-		<cfset THIS.clientmanagement = true />	
+		<cfset THIS.clientmanagement = false />
 		<cfset THIS.SessionTimeout   = CreateTimeSpan(0,0,30,0)/>
 		 
 		<cffunction
