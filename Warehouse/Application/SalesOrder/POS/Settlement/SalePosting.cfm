@@ -183,23 +183,9 @@
 		---->
 		
 		<!--- <cfif getPrior.total eq getNewSale.Total> --->
-        <!--- Here we need a better way to indicate we operate in new e-invoice mode, Armin 10/6/2020
+        <!--- Here we need a better way to indicate we operate in new e-invoice mode, Armin 10/6/2020 --->
 		
-
-		<cfquery name="getSeries"
-			datasource="AppsOrganization"
-			username="#SESSION.login#"
-			password="#SESSION.dbpw#">
-			
-				SELECT  *
-				FROM    OrganizationTaxSeries
-				WHERE   SeriesType = 'Invoice'
-				
-		</cfquery>
-
-		<cfif getSeries.UserKey eq "">
-
-			<cfif getPriorTotal.total eq getNewSaleTotal.Total>
+		<cfif getPriorTotal.total eq getNewSaleTotal.Total>
 
 				<cfquery name="setNew"
 					datasource="AppsMaterials"
@@ -212,36 +198,12 @@
 
 				<cfset issueinv = "0">
 
-			<cfelse>
-
-				<cfset issueinv = "1">
-
-			</cfif>
 		<cfelse>
-			<cfif getParent.BatchReference eq "">
-				<cfset issueinv = "1">
-			<cfelse>
-				<cfif getPriorTotal.total eq getNewSaleTotal.Total>
-					<cfquery name="setNew"
-							datasource="AppsMaterials"
-							username="#SESSION.login#"
-							password="#SESSION.dbpw#">
-						UPDATE WarehouseBatch
-						SET    BatchReference = '#getParent.BatchReference#'
-					WHERE  BatchId = '#vBatchId#'
-					</cfquery>
 
-					<cfset issueinv = "0">
-				<cfelse>
-					<cfset issueinv = "1">
-				</cfif>
-			</cfif>
+				<cfset issueinv = "1">
+
 		</cfif>
-		
-		--->
-		
-		<cfset issueinv = "0">
-			
+					
 	</cfif>
 
 <cfelse>
@@ -249,6 +211,7 @@
 	<cfset issueinv = "1">
 	
 </cfif>
+
 
 <cfif issueinv eq "0">
 

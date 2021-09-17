@@ -222,10 +222,7 @@
 		<!--- we check for a price in ANOTHER currency and convert it to the currency of selection --->
 		
 		<cfelse>
-		
-		
-		
-		
+				
 			<cfquery name="getPrice" maxrows=1 dbtype="query">
 				SELECT    *
 				FROM      getPriceData			   
@@ -3062,6 +3059,45 @@
 				<cfset Invoice.ErrorDetail       = "">
 				<cfset Invoice.Status            = "1">
 				
+				<cf_assignid>
+														   
+				<cfquery name="inherit"
+						datasource="AppsLedger" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+					
+						INSERT INTO TransactionHeaderAction
+							
+								(Actionid,
+								 Journal, 
+								 JournalSerialNo,
+								 ActionCode,
+								 ActionMode,
+								 ActionDate,
+								 ActionStatus,
+								 ActionReference1,											
+								 OfficerUserId,
+								 OfficerLastName,
+								 OfficerFirstName)
+							 
+						VALUES   ('#rowguid#',
+						         '#get.Journal#', 
+							     '#get.JournalSerialNo#',
+								 'Invoice',
+								 '1',
+								 getDate(),
+								 '1',
+								 'No tax series set',										
+								 '#session.acc#',
+								 '#session.last#',
+								 '#session.first#')
+								 
+						
+																							
+					</cfquery>		
+					
+					<cfset Invoice.ActionId = rowguid> 						
+				
 			<cfelse>
 			
 			    <cfset Invoice.Mode              = "2">
@@ -3077,13 +3113,11 @@
 					 password="#SESSION.dbpw#">
 					 	SELECT  *
 						FROM    OrganizationTaxSeries
-						WHERE   1 = 1
+						WHERE   SeriesType   = 'Invoice'	
 						<cfif get.OrgUnitTax neq 0>
 						AND     Orgunit 	= '#get.OrgUnitTax#'
 						</cfif>
-						AND		Operational  = 1
-						AND     SeriesType   = 'Invoice'
-						AND     UserKey is NOT NULL
+						AND		Operational  = 1										
 						<!--- AND	((InvoiceCurrent < InvoiceEnd) <cfif Mode eq "3" > OR (UserKey IS NOT NULL)</cfif>) --->
 					</cfquery> 	
 
@@ -3095,9 +3129,46 @@
 							<cfset Invoice.ErrorDetail      = "">
 							
 							<!--- Hanno 6/13/2021 here we need to add the logging TransactionHeaderAction 
-							                               for the manual mode  --->
+							                               for the manual mode  --->														   
 							
-
+							<cf_assignid>
+														   
+							<cfquery name="inherit"
+									datasource="AppsLedger" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+								
+									INSERT INTO TransactionHeaderAction
+										
+											(Actionid,
+											 Journal, 
+											 JournalSerialNo,
+											 ActionCode,
+											 ActionMode,
+											 ActionDate,
+											 ActionStatus,
+											 ActionReference1,											
+											 OfficerUserId,
+											 OfficerLastName,
+											 OfficerFirstName)
+										 
+									VALUES   ('#rowguid#',
+									         '#get.Journal#', 
+										     '#get.JournalSerialNo#',
+											 'Invoice',
+											 '1',
+											 getDate(),
+											 '1',
+											 'No tax series set',										
+											 '#session.acc#',
+											 '#session.last#',
+											 '#session.first#')
+											 
+																																			
+								</cfquery>		
+								
+								<cfset Invoice.ActionId = rowguid> 					   
+					
 					<cfelse>
 					
 							<!--- EDI --->
