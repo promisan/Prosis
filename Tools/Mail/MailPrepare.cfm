@@ -23,8 +23,9 @@
 	</cfquery>
 	
 	<cfset url.templatepath = Document.DocumentTemplate>
-	<cfset password = Document.DocumentPassword>
-	<cfif documentEditor eq "HTMPDF">
+	<cfset password         = Document.DocumentPassword>
+	
+	<cfif Document.documentEditor eq "HTMPDF">
 		<cfset renderer = Document.DocumentEditor>
 	<cfelse>
 		<cfset renderer = "CFDOC">
@@ -138,12 +139,12 @@
 	  </script>
 
 <cfelse>
-
-  
 	  	
 	<cfif FindNoCase(".cfm", URL.templatepath)>
 	
-		<cfif renderer eq "CFDOC">	
+		<cfif renderer neq "HTMPDF">	
+		
+		     <!--- format --->
 	    
 		 	<cfdocument 
 			      format            = "#URL.Format#"

@@ -36,8 +36,9 @@
 	 datasource="AppsProgram" 
 	  username="#SESSION.login#" 
 	  password="#SESSION.dbpw#">
-		SELECT * FROM ProgramAllotmentRequestQuantity																
-		WHERE     RequirementId = '#requirementId#'
+		SELECT * 
+		FROM   ProgramAllotmentRequestQuantity																
+		WHERE  RequirementId = '#requirementId#'
 </cfquery>
 
 <cfif url.objectcode neq "">
@@ -170,9 +171,13 @@
 	
 	<!--- make a copy of the new adjusted header line --->			
 	
+	<cfif check.recordcount gt "1">
+	
 	<cfinvoke component = "Service.Process.Program.ProgramAllotment"  
 		   method           = "LogRequirement" 
 		   RequirementId    = "#url.RequirementId#">	
+		   
+	</cfif>	   
 		   
 	<!--- put the ProgramAllotmentDetail in sync with the requirements --->	   
 			   

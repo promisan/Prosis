@@ -3,8 +3,8 @@ datasource="AppsEmployee"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	 SELECT *
-	 FROM  PositionParent		 
-	 WHERE PositionParentId = '#URL.ID2#'	 
+	 FROM   PositionParent		 
+	 WHERE  PositionParentId = '#URL.ID2#'	 
 </cfquery>
 
 <cfif PositionParent.recordcount eq "0">
@@ -17,10 +17,10 @@ datasource="AppsOrganization"
 maxrows=1 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT *
-   FROM Ref_Mandate
-   WHERE Mission = '#PositionParent.Mission#'
-   AND MandateNo = '#PositionParent.MandateNo#'
+    SELECT  *
+    FROM    Ref_Mandate
+    WHERE   Mission = '#PositionParent.Mission#'
+    AND     MandateNo = '#PositionParent.MandateNo#'
 </cfquery>
 
 <cfquery name="PositionChild" 
@@ -42,23 +42,25 @@ password="#SESSION.dbpw#">
 	WHERE 	 PostType = '#PositionChild.PostType#' 	
 </cfquery>
 
-<table width="97%" border="0" align="center" class="formpadding">
+<cf_divscroll>
 
-<tr><td height="10"></td></tr>
+<table width="97%" align="center" class="formpadding">
+
+	<tr><td height="10"></td></tr>
 
 	<tr class="noprint" class="line">
    
     <td height="24" colspan="2" style="padding-right:4px">
 	
 		<cfoutput>	
-		<table cellspacing="0" cellpadding="0" class="formpadding">
+		<table class="formpadding">
 		<tr>
-		    <td class="labelit" style="padding-left:5px">Current PostNumber:</td>
+		    <td class="labelit" style="padding-left:5px"><cf_tl id="Post number">:</td>
 			<td class="labelmedium2" style="padding-left:5px">#PositionChild.SourcePostNumber#</td>
-			<td class="labelit" style="padding-left:10px">Mandate:</td>
-			<td class="labelmedium2">#Current.Description#</td>
-			<td class="labelit" style="padding-left:10px">Period:</td>
-			<td class="labelmedium2" style="padding-left:5px">#DateFormat(Current.DateEffective, CLIENT.DateFormatShow)# - #DateFormat(Current.DateExpiration, CLIENT.DateFormatShow)#</b></td>
+			<td class="labelit" style="padding-left:10px"><cf_tl id="Mandate">:</td>
+			<td class="labelmedium2" style="padding-left:5px">#Current.Description#</td>
+			<td class="labelit" style="padding-left:10px"><cf_tl id="Period">:</td>
+			<td class="labelmedium2" style="padding-left:5px">#DateFormat(Current.DateEffective, CLIENT.DateFormatShow)# - #DateFormat(Current.DateExpiration, CLIENT.DateFormatShow)#</td>
 		</tr>
 		</table>	
 		</cfoutput>
@@ -114,10 +116,9 @@ password="#SESSION.dbpw#">
 	</cfif>
 			
 	</td>
-  </tr> 	
- 
+  </tr> 
 		
-	<cfoutput> 
+  <cfoutput> 
 	
 	<tr><td colspan="2" style="font-size:25px;height:45px;padding-left:3px;font-weight:200" class="labellarge">Program/Fund and object</td></tr>
 	
@@ -125,8 +126,7 @@ password="#SESSION.dbpw#">
          module    = "Program" 
 		 Warning   = "No">		 
 		
-	<cfif operational eq "1">
-	
+	<cfif operational eq "1">	
 	
 		<tr><td colspan="2" style="width:400px;padding-left:4px"><font size="1">usage:<b> Budget Planning</td></tr>
 		<tr><td height="1" class="line" colspan="2"></td></tr>
@@ -262,7 +262,8 @@ password="#SESSION.dbpw#">
 	
 	</cfoutput>	
 	
-	
 </table>
+
+</cf_divscroll>
 
 <cfset ajaxonload("doHighlight")>
