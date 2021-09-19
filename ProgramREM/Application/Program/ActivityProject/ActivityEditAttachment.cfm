@@ -16,10 +16,10 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 
-<table width="95%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 
 		<tr><td height="5"></td></tr>		
-		<tr><td height="40" style="font-weight:200" class="labelmedium">Attach relevant documents to this activity</td></tr>		
+		<tr><td height="40" class="labelmedium2">Attach relevant documents</td></tr>		
 				
 		<tr><td height="5"></td></tr>
 		
@@ -45,8 +45,7 @@ password="#SESSION.dbpw#">
 			Highlight="no"
 			Rowheader="no"
 			Width="100%"
-			Listing="yes"
-			mode="attachmentmultiple">		
+			Listing="yes">		
 			
 		<cfelse>				
 							
@@ -61,8 +60,7 @@ password="#SESSION.dbpw#">
 			Highlight="no"
 			Rowheader="no"
 			Width="100%"
-			Listing="yes"
-			mode="attachmentmultiple">	
+			Listing="yes">	
 			
 		</cfif>	
 											

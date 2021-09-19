@@ -63,7 +63,7 @@
 			
 	<cfoutput query="Listing" group="TopicClass">
 	
-	<tr><td colspan="12" style="height:40px" class="labellarge line"><font size="2">Topic:</font>&nbsp;#TopicClass#</font></td></tr>
+	<tr class="line"><td colspan="12" style="height:40px;font-size:24px" class="labellarge line"><font size="3">Topic:</font>&nbsp;#TopicClass#</font></td></tr>
 	
 	  <!--- Nery : determine the number --->
 		
@@ -122,7 +122,7 @@
 						<!---- This is hardcoded as TopicListingClass does not show anything if it is AppsEmployee, so there is no point to show expand for employee 
 							Copying exactly the same condition as in TopicListingClass
 						--->					
-						  <td style="padding-left:8px;padding-top:8px;">	
+						  <td style="padding-left:8px;padding-top:10px;">	
 						  	<cf_img icon="expand" toggle="yes" onclick="showDetail('#code#','#systemmodule#','#link#','#serialno#','detail_#code#');">
 						  </td>
 						</cfif>  

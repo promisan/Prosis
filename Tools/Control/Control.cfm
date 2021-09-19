@@ -148,6 +148,8 @@
 	</cfif>
 					
 	<cfif Attributes.VerifyCSRF eq "1">
+	
+	    <!--- mantinsa --->
 								
 		<cfif (CGI.SCRIPT_NAME eq "/apps/Component/Process/Workorder/UploadPicture.cfm" AND 
 		       findNoCase("android", GetHttpRequestData().Headers["user-agent"]) neq 0) 

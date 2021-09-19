@@ -1,1 +1,0 @@
-<cfapplication name="fuseguard_manager_views" clientmanagement="false" sessionmanagement="false"><cfabort>

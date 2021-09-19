@@ -7,7 +7,8 @@
 	<cffunction name="DropdownSelect"
              access="remote"
              returntype="array"
-             displayname="DropdownSelect">
+             displayname="DropdownSelect"
+			 secureJSON = "yes" verifyClient = "yes">
 		
 		    <cfargument name="DataSource"    type="string" required="true">
 			<cfargument name="Table"         type="string" required="true">

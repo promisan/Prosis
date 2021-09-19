@@ -845,11 +845,7 @@
 				<td colspan="2" height="28">	
 				
 					<iframe src="#SESSION.root#/tools/document/FileFormFrame.cfm?inputsize=#inputsize#&Box=#attbox#&HOST=#host#&DIR=#DocumentPath#&ID=#Subdirectory#&ID1=#filter#&reload=1"
-			        width="100%"
-			        height="34" 
-					style="margin-left:-3px;"
-			        scrolling="no"
-			        frameborder="0"></iframe>
+			        width="100%" height="34" style="margin-left:-3px;" scrolling="no" frameborder="0"></iframe>
 							
 				</td>
 		</tr>

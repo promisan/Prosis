@@ -4,7 +4,7 @@
 --->
 
 <!---Hidden dialog until Photo is clicked --->
-<div id="picturedialog" style="z-index:1100; position:absolute;"></div>	
+<div id="picturedialog" style="padding-top:200px;z-index:100; position:absolute;"></div>	
 
 <cf_dialogstaffing>
 <cf_systemscript>

@@ -378,28 +378,50 @@ refer to line 710
 		<!--- ---------- --->
 		<!--- GL Posting --->
 		<!--- ---------- --->
-		
-		
-		
+				
 		<cfif url.clear eq "1">
-			
+		
+				<!--- we clear transaction that are not so relevant --->
+				
+				<cfquery name="Memorial" 
+				    datasource="AppsLedger" 
+				    username="#SESSION.login#" 
+				    password="#SESSION.dbpw#">
+				    SELECT L.* 
+					FROM   TransactionHeader H INNER JOIN 
+					       TransactionLine L ON H.Journal = L.ParentJournal AND  H.JournalSerialNo = L.ParentJournalSerialNo
+					WHERE  H.ReferenceId     = '#URL.INVID#'
+					AND    L.Journal IN (SELECT Journal FROM Ref_Journal WHERE TransactionCategory = 'Memorial'							
+				</cfquery>
+				
+				<cfloop query="Memorial">
+				
+					<cfquery name="ClearLedger" 
+					    datasource="AppsLedger" 
+					    username="#SESSION.login#" 
+					    password="#SESSION.dbpw#">
+					    DELETE 
+						FROM    TransactionHeader
+						WHERE   Journal = '#Journal#' 
+						AND     JournalSerialNo = '#JournalSerialNo#'					
+					</cfquery>		
+								
+				</cfloop>
+							
 				<cfquery name="Check" 
 				    datasource="AppsLedger" 
 				    username="#SESSION.login#" 
 				    password="#SESSION.dbpw#">
 				    SELECT * 
-					FROM   TransactionHeader H, 
-					       TransactionLine L
-					WHERE  H.Journal         = L.ParentJournal
-					AND    H.JournalSerialNo = L.ParentJournalSerialNo
-					AND    H.ReferenceId     = '#URL.INVID#'
-					AND    H.Journal is not NULL			
+					FROM   TransactionHeader H INNER JOIN 
+					       TransactionLine L ON H.Journal = L.ParentJournal AND  H.JournalSerialNo = L.ParentJournalSerialNo
+					WHERE  H.ReferenceId     = '#URL.INVID#'							
 				</cfquery>
-				
+							
 				<cfif Check.recordcount gte "1">
 				
 					<cf_message 
-					  message = "Problem, it appears that this invoice was already processed (paid). Operation not allowed. Please contact your administrator."
+					  message = "Problem, it appears that this invoice was already processed [paid]. Operation not allowed. Please contact your administrator."
 					  return = "no">
 					  <cfabort>
 				
@@ -480,9 +502,7 @@ refer to line 710
 			  	</cfif>
 				
 			</cfif>	
-			
-			
-			
+						
 			<cfquery name="Parameter" 
 		    datasource="AppsLedger" 
 		    username="#SESSION.login#" 

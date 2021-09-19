@@ -42,7 +42,7 @@
 
 <table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
 
-<tr class="labelit line">
+<tr class="labelmedium line">
 	<td style="padding-left:2px"><cf_tl id="Entity"></td>
 	<td style="padding-left:2px"><cf_tl id="List"></td>
 	<td><cf_tl id="Ripple to Item Master"></td>

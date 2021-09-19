@@ -134,8 +134,6 @@
 			Prosis.busy('no'); } catch(e) {}
 	</script>
 
-
-
 	<cf_waitEnd>
 
 	<html><head>
@@ -149,8 +147,6 @@
 		DELETE FROM stReportStatus
 		WHERE  OfficerUserId = '#SESSION.acc#'
 	</cfquery>
-
-
 
 	<cfquery name="Parameter"
 			datasource="AppsInit">
@@ -283,11 +279,9 @@
 		<cfset DisableFriendlyError = "0">
 	</cfif>
 
-
-	<cfif Parameter.enableError eq "2" and
-	SESSION.isAdministrator eq "No" and
-	DisableFriendlyError eq "0"  and
-	SESSION.overwrite eq "0">
+	<cfif Parameter.enableError eq "2" 
+	    and SESSION.isAdministrator eq "No" 
+		and DisableFriendlyError    eq "0" and	SESSION.overwrite eq "0">
 
 <!--- friendly message --->
 
@@ -296,84 +290,73 @@
 			<table width="97%" align="center">
 
 			<tr><td valign="middle" align="center" style="padding-top:10px">
-
+	
 			<div style="width:60%;padding:9px;color:FFFFFF; font-size:30px; font-family:Verdana; background-color:E08283; border-radius:10px;">
-
-			<table bgcolor="white" align="center" border="0" bgcolor="transparent">
-
-			<tr>
-			<td bgcolor="white" height="100%" rowspan="5" valign="top" style="border-radius:8px;padding:10px">
-
-			<table>
-			<tr><td bgcolor="FFFFFF" style="border-radius:8px;padding:6px">
-					<img src="#SESSION.root#/Images/error_3.png" alt="System is not available" width="34" height="34" border="0" align="absmiddle">
-		</td>
-		</table>
-
-		</td>
-
-		<td align="left" valign="top" style="padding:10px" class="labelmedium">
-
-			<cfif Log.EnableProcess eq "0">
-
+	
+				<table bgcolor="white" align="center" border="0" bgcolor="transparent">
+				<tr>
+				<td bgcolor="white" height="100%" rowspan="5" valign="top" style="border-radius:8px;padding:10px">
+					<table>
+					<tr><td bgcolor="FFFFFF" style="border-radius:8px;padding:6px">
+						<img src="#SESSION.root#/Images/error_3.png" alt="System is not available" width="34" height="34" border="0" align="absmiddle">
+			        </td>
+					</tr>	
+	    		</table>
+				</td>
+				<td align="left" valign="top" style="padding:10px" class="labelmedium2">
+	
+				<cfif Log.EnableProcess eq "0">
 					We have detected a recurrent problem in the application.
-
-			<cfelse>
-
+				<cfelse>
 					We have detected an unexpected problem in the application and has been recorded under Case No. <b>#Log.ErrorNo#</b>
-
-			</cfif>
-
-			</td>
-			</tr>
-
-<!---
-<cfif Log.EnableProcess eq "0">
-   <tr><td colspan="2" style="padding-left:10px;padding-right:10px" class="labelit"><font face="Calibri" size="2"><cfif SESSION.first neq "">#SESSION.first#,</cfif>we have determined that you experienced the same problem also earlier.</td></tr>
-<cfelse>
-    <tr><td colspan="2" style="padding-left:10px;padding-right:10px" class="labelit"><font face="Calibri" size="2"><cfif SESSION.first neq "">#SESSION.first#,</cfif>we sent a confirmation eMail to your eMail address.</td></tr>
-</cfif>	 --->
-
-			<cfif Parameter.ErrorMailToOwner eq "9">
-				<cfset cl = "button10g">
-<!--- manually send mail --->
-					<button class="#cl#" type="button"
-										 style   = "height:20px"
-										 name    = "mailbutton"
-										 id      = "mailbutton"
-						onclick = "window.open('#SESSION.root#/ErrorDetail.cfm?id=#rowguid#&ts=-#dt#-,-#ts#-','myerrormailbox');document.getElementById('mailbutton').className='hide'">
-					<font color="0080FF">Press Here</font> to Notify: <b>#Parameter.SystemContact#</b>
-				</button>
-			<cfelse>
-<!--- auto send mail see line 391 --->
-				<cfset cl = "hide">
-
-			</cfif>
-
-				</td></tr>
-
-			<cfif Parameter.ErrorMailToOwner neq "9">
-
-					<tr>
-					<td colspan="2" style="padding-left:10px" class="labelit"><font face="Calibri" size="2" color="white">#SESSION.welcome# Team has been notified of your problem.</td>
+				</cfif>
+	
+				</td>
 				</tr>
-
-			</cfif>
-
-				<tr class="hide">
-
-					<td>
-
-						<iframe name="myerrormailbox"
-								id="myerrormailbox"
-								scrolling="no"
-								frameborder="0"></iframe>
-
-					</td>
-
-				</tr>
-
-			</table>
+	
+	<!---
+	<cfif Log.EnableProcess eq "0">
+	   <tr><td colspan="2" style="padding-left:10px;padding-right:10px" class="labelit"><font face="Calibri" size="2"><cfif SESSION.first neq "">#SESSION.first#,</cfif>we have determined that you experienced the same problem also earlier.</td></tr>
+	<cfelse>
+	    <tr><td colspan="2" style="padding-left:10px;padding-right:10px" class="labelit"><font face="Calibri" size="2"><cfif SESSION.first neq "">#SESSION.first#,</cfif>we sent a confirmation eMail to your eMail address.</td></tr>
+	</cfif>	 --->
+	
+	
+				<cfif Parameter.ErrorMailToOwner eq "9">
+					<cfset cl = "button10g">
+	<!--- manually send mail --->
+						<button class="#cl#" type="button"
+											 style   = "height:20px"
+											 name    = "mailbutton"
+											 id      = "mailbutton"
+							onclick = "window.open('#SESSION.root#/ErrorDetail.cfm?id=#rowguid#&ts=-#dt#-,-#ts#-','myerrormailbox');document.getElementById('mailbutton').className='hide'">
+						<font color="0080FF">Press Here</font> to Notify: <b>#Parameter.SystemContact#</b>
+					</button>
+				<cfelse>
+	<!--- auto send mail see line 391 --->
+					<cfset cl = "hide">
+	
+				</cfif>
+	
+					</td></tr>
+	
+				<cfif Parameter.ErrorMailToOwner neq "9">
+	
+						<tr>
+						<td colspan="2" style="padding-left:10px" class="labelit"><font face="Calibri" size="2" color="white">#SESSION.welcome# Team has been notified of your problem.</td>
+					</tr>
+	
+				</cfif>
+	
+					<tr class="hide">
+	
+						<td>					
+							<iframe name="myerrormailbox" id="myerrormailbox" scrolling="no" frameborder="0"></iframe>
+						</td>
+	
+					</tr>
+	
+				</table>
 
 			</div>
 
@@ -386,35 +369,35 @@
 					</script>
 
 			</cfif>
-
-<!--- get the recorded error in the log file of cf
-
- Note:  April 10, 2015. by Nery.
- As discussed with Hanno, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database therefore no
- need for exception.log file to be populated (b) Even though this is "display:none", it is a security vulnerability to output detailed error information to clients.
-
-<tr><td class="hide" colspan="1" id="errordetail">
-     <table width="100%" cellspacing="1" cellpadding="1">
-     <tr><td height="1" bgcolor="silver">
-     </td></tr>
-     <style>
-         XMP {
-             display:none;
-         }
-     </style>
-     <tr><td height="1" bgcolor="silver"></td></tr>
-     <tr>
-     <td>
-     <!--- the usual error comes below --->
-     <XMP>
-     <!--- below actually generates the loginfo in the log file on cf7/8
-       #error.generateContent#
-     --->
-     </td>
-     </tr>
- </table>
-</td></tr>
---->
+			
+			<!--- get the recorded error in the log file of cf
+			
+			 Note:  April 10, 2015. by Nery.
+			 As discussed with Hanno, I'm taking this out because: (a) We are already storing error diagnostics and error content in the database therefore no
+			 need for exception.log file to be populated (b) Even though this is "display:none", it is a security vulnerability to output detailed error information to clients.
+			
+			<tr><td class="hide" colspan="1" id="errordetail">
+			     <table width="100%" cellspacing="1" cellpadding="1">
+			     <tr><td height="1" bgcolor="silver">
+			     </td></tr>
+			     <style>
+			         XMP {
+			             display:none;
+			         }
+			     </style>
+			     <tr><td height="1" bgcolor="silver"></td></tr>
+			     <tr>
+			     <td>
+			     <!--- the usual error comes below --->
+			     <XMP>
+			     <!--- below actually generates the loginfo in the log file on cf7/8
+			       #error.generateContent#
+			     --->
+			     </td>
+			     </tr>
+			 </table>
+			</td></tr>
+			--->
 
 			</table>
 
@@ -444,13 +427,13 @@
 
 			<tr><td height="26"
 					colspan="2"
-					class="labelmedium"
+					class="labelmedium2"
 					bgcolor="c1c1c1"><font color="FFFFFF">&nbsp;#SESSION.welcome# Application Agent</td></tr>
 
 				<tr><td colspan="2" bgcolor="gray"></td></tr>
 			<tr><td colspan="2">
 
-			<table width="99%" align="center" cellspacing="1" cellpadding="1" bgcolor="FFFFFF">
+			<table width="99%" align="center" bgcolor="FFFFFF">
 
 				<cfquery name="Log"
 						datasource="AppsSystem">

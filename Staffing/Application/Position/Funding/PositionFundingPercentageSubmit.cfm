@@ -100,7 +100,11 @@
 							<cfelse>
 							NULL,
 							</cfif>
+							<cfif getBase.FundClass neq "">
 							'#getBase.FundClass#',
+							<cfelse>
+							NULL,
+							</cfif>
 							'#vFund#',
 							'#vProgramCode#',
 							#vPercentage#,

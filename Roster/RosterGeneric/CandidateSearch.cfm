@@ -32,6 +32,8 @@
     <cfset path = "Custom/#Owner.PathHistoryProfile#">
 </cfif>
 
+<cfajaxproxy cfc="Service.Process.System.UserController" jsclassname="systemcontroller">
+
 <script>
 
 function maxme(itm) {
@@ -81,8 +83,9 @@ function list(page) {
 						
 			document.getElementById("php_"+script).className = "hide"
 			document.getElementById("wait_"+script).className = "regular"
-													
 
+			var uController = new systemcontroller();			
+			
 			url = "#SESSION.root#/#path#?PHP_Roster_List="+roster+"&FileNo="+script	
 																			
 	 		AjaxRequest.get({			
@@ -90,7 +93,7 @@ function list(page) {
 			'onSuccess':function(req) { 	
 			 document.getElementById("php_"+script).className = "regular"
 			 document.getElementById("wait_"+script).className = "hide"
-		  	 window.open("#SESSION.root#/cfrstage/user/#SESSION.acc#/php_"+script+".pdf?ts="+new Date().getTime(),"php_"+script)
+		  	 window.open("#SESSION.root#/cfrstage/getFile.cfm?file=php_"+script+".pdf"+ "&mid="+ uController.GetMid(),"php_"+script)
 			
           	  },					
     	    'onError':function(req) { 	

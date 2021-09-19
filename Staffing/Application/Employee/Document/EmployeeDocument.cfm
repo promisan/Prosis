@@ -36,11 +36,11 @@
 				 </td>
 			</tr>	
 			
-		</table>
+	  </table>
 
 <cfelse>
 
-		<table cellpadding="0" cellspacing="0" width="99%" align="center">
+	  <table cellpadding="0" cellspacing="0" width="99%" align="center">
 		
 			<tr><td height="10">	
 				  <cfset ctr      = "0">		
@@ -49,7 +49,7 @@
 				 </td>
 			</tr>	
 			
-		</table>
+	 </table>
 
 </cfif>	
 

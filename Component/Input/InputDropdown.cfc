@@ -7,7 +7,9 @@
 	<cffunction name="DropdownSelect"
              access="remote"
              returntype="array"
-             displayname="DropdownSelected">
+             displayname="DropdownSelected"
+			 secureJSON = "yes" 
+			 verifyClient = "yes">
 						 		
 		    <cfargument name="DataSource"      type="string" required="true">
 			<cfargument name="Table"           type="string" required="true">
@@ -315,7 +317,7 @@
 		
 	</cffunction>	
 		
-	<cffunction name="getlocation" access="remote" returntype="query">  
+	<cffunction name="getlocation" access="remote" returntype="query" secureJSON = "yes" verifyClient = "yes">  
 	
 	 <cfargument name="warehouse" type="string" required="true" />  
 	 <cfargument name="itemno" type="string" required="true" />  	 
@@ -347,7 +349,7 @@
 	
 	</cffunction> 
 	
-	<cffunction name="getStockRequestType" access="remote" returntype="query">  
+	<cffunction name="getStockRequestType" access="remote" returntype="query" secureJSON = "yes" verifyClient = "yes">  
 	
 	 <cfargument name="warehouse" type="string" required="true" />  
 	 

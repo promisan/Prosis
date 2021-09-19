@@ -1,6 +1,6 @@
 <cfoutput>
 
-	<tr class="labelit linedotted  navigation_row">
+	<tr class="labelmedium linedotted  navigation_row">
 	
 	<cfquery name="MissionList" 
 		datasource="AppsPurchase" 
@@ -61,7 +61,7 @@
 	
 	<cfset url.init = "1">
 	
-	<td width="320" style="padding-left:3px" id="itemmaster">
+	<td width="320" style="padding-top:10px;padding-left:3px" id="itemmaster">
 	
 		    <cfset url.mission = mission>
 			<cfset url.selected = rippleitemmaster>					
@@ -70,7 +70,7 @@
 			
 	</td>
 	
-	<td width="80" style="padding-left:3px" id="itemmasterobject">
+	<td width="80" style="padding-top:10px;padding-left:3px" id="itemmasterobject">
 	
 		 	<cfset url.itemmaster = rippleitemmaster>		
 			<cfset url.selected   = rippleobjectcode>	
@@ -101,7 +101,7 @@
 		<cfif url.mode eq "edit" or url.mode eq "add">
 			<input type="text" name="BudgetAmount" id="BudgetAmount" style="text-align:right" value="#RippleList.BudgetAmount#" class="regularxl" size="6" maxlength="20">
 		<cfelse>
-			#NumberFormat(RippleList.BudgetAmount,"__,___.__")#				
+			#NumberFormat(RippleList.BudgetAmount,",.__")#				
 		</cfif>	
 	
 	</td>
@@ -125,7 +125,7 @@
 		</cfif>	
 	</td>
 
-	<td align="center" style="width:20px">
+	<td align="center" style="width:20px;padding-right:5px">
 		<cfif url.mode eq "edit">
 			<button onclick="updateripple('#url.code#','#top#','#mission#','#rippleitemmaster#','#rippleobjectcode#')" id="btnSaveLine" name="btnSaveLine" class="button10s" style="height:25"><cf_tl id="Save"></button>										
 		<cfelseif url.mode eq "add">

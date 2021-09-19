@@ -7,28 +7,29 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		CREATE TABLE dbo.StockBatch_#SESSION.acc# (
-			[BatchNo]             [int] NULL ,
-			[BatchReference]      [varchar] (50) NULL ,
-			[TransactionType]     [varchar] (2) NULL ,
-			[Description]         [varchar] (100) NULL ,
-			[DeliveryMode]        [bit] NULL,
-			[Category]            [varchar] (100) NULL ,
-			[LocationDescription] [varchar] (100) NULL ,
-			[BatchDescription]    [varchar] (80)  NULL ,
-			[TransactionDate]     [datetime] NULL ,
-			[ActionStatus]        [varchar] (2) NULL ,
-			[ContraWarehouse]     [varchar] (60)  NULL ,
-			[CustomerId]          [uniqueidentifier] NULL ,
-			[CustomerName]        [varchar] (100) NULL ,
-			[Quantity]            [int] NULL ,
-			[Lines]               [int] NULL ,
-			[Cleared]             [int] NULL ,
-			[Amount]              [float] NULL ,
-			[OfficerUserId]       [varchar] (20) NULL ,
-			[OfficerLastName]     [varchar] (40) NULL ,
-			[OfficerFirstName]    [varchar] (30) NULL ,
-			[Created]             [datetime] NULL ,			
-			[ProcessStatus]       [varchar] (20) NULL )
+			[BatchNo]                 [int] NULL ,
+			[BatchReference]          [varchar] (50) NULL ,
+			[TransactionType]         [varchar] (2) NULL ,
+			[Description]             [varchar] (100) NULL ,
+			[DeliveryMode]            [bit] NULL,
+			[Category]                [varchar] (100) NULL ,
+			[LocationDescription]     [varchar] (100) NULL ,
+			[BatchDescription]        [varchar] (80)  NULL ,
+			[TransactionDate]         [date] NULL ,
+			[TransactionStatusDate]   [date] NULL ,
+			[ActionStatus]            [varchar] (2) NULL ,
+			[ContraWarehouse]         [varchar] (60)  NULL ,
+			[CustomerId]              [uniqueidentifier] NULL ,
+			[CustomerName]            [varchar] (100) NULL ,
+			[Quantity]                [int] NULL ,
+			[Lines]                   [int] NULL ,
+			[Cleared]                 [int] NULL ,
+			[Amount]                  [float] NULL ,
+			[OfficerUserId]           [varchar] (20) NULL ,
+			[OfficerLastName]         [varchar] (40) NULL ,
+			[OfficerFirstName]        [varchar] (30) NULL ,
+			[Created]                 [datetime] NULL ,			
+			[ProcessStatus]           [varchar] (20) NULL )
 	</cfquery>
 		
 	<!--- main records --->
@@ -60,9 +61,11 @@
 				   (SELECT  Description FROM WarehouseLocation WHERE warehouse = '#URL.Warehouse#' AND Location = B.Location) as B,	
 				   
 				   B.BatchDescription, 
+				   
+				   B.TransactionDate,
 				   			   		   
-				   CONVERT(VARCHAR(10),B.TransactionDate,126) as F,  
-						   			   
+				   (CASE WHEN B.ActionOfficerDate is NULL THEN B.TransactionDate ELSE B.ActionOfficerDate END) as ActionOfficerDate,
+				  	 			   
 				   <!---			   
 				   (SELECT TOP 1 CONVERT(VARCHAR(10),TransactionDate,126) FROM ItemTransaction#suff# WHERE TransactionBatchNo = B.BatchNo ORDER BY TransactionDate DESC ) as TransactionDate,				   
 				   --->

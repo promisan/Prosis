@@ -98,11 +98,11 @@
 					 
 </cfloop>
 
-<cfif not DirectoryExists("#SESSION.rootPath#\CFRStage\User\#URL.acc#\")>
+<cfif not DirectoryExists("#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\")>
 
 	   <cfdirectory 
 	     action="CREATE" 
-         directory="#SESSION.rootPath#\CFRStage\User\#URL.acc#\">
+         directory="#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\">
 
 </cfif>
 		
@@ -268,8 +268,8 @@
 	   dataquery        = "#xlsquery#"
 	   GroupByOne       = "#Group1.FieldName#"
 	   GroupByTwo       = "#Group2.FieldName#"   
-	   filename         = "#SESSION.rootPath#\CFRStage\User\#URL.acc#\#FileName#.xls" 
-	   filenamepreview  = "#SESSION.rootPath#\CFRStage\User\#URL.acc#\#FileName#_Preview.xls" 
+	   filename         = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#.xls" 
+	   filenamepreview  = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#_Preview.xls" 
 	   sheetname        = "#filename#"
 	   rowstart         = "2"
 	   returnvariable   = "excel">	
@@ -291,7 +291,7 @@
 	   datasource       = "#Output.DataSource#"
 	   dataquery        = "#xlsquery#"
 	   cols             = "#col#" 
-	   filename         = "#SESSION.rootPath#\CFRStage\User\#URL.acc#\#FileName#.xls" 
+	   filename         = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#.xls" 
 	   sheetname        = "#filename#"
 	   returnvariable   = "excel">
 
@@ -313,9 +313,9 @@
 			<!--- open the excel file --->
 			
 			<cfif batch eq 0>
-				ptoken.open("#SESSION.root#/cfrstage/user/#URL.acc#/#FileName#_Preview.xls?ts=#ts#","_blank") 
+				ptoken.open("#SESSION.root#/cfrstage/getFile.cfm?file=#FileName#_Preview.xls","_blank") 
 			<cfelse>
-				ptoken.open("#SESSION.root#/cfrstage/user/#URL.acc#/#FileName#.xls?ts=#ts#","_blank") 
+				ptoken.open("#SESSION.root#/cfrstage/getFile.cfm?file=#FileName#.xls","_blank") 
 			</cfif>
 			
 			<!--- show menu --->

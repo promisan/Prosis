@@ -5,7 +5,7 @@
 	<cfset VARIABLES.Instance.USR_MID = "_user" />
 	<cfset VARIABLES.Instance.SES_MID = "_session" />
 
-	<cffunction name="passtru" access="remote" returnFormat="json" output="false">	
+	<cffunction name="passtru" access="remote" returnFormat="json" output="false"  secureJSON = "yes" verifyClient = "yes">
 		<cfargument name="url"   type="string" required="false" default="">
 		<cfargument name="p1"    type="string" required="false" default="">
 		<cfargument name="p2"    type="string" required="false" default="">		
@@ -17,7 +17,7 @@
 			</cfif>
 	</cffunction>	
 
-	<cffunction name="setSrc" access="remote" returnFormat="json" output="false">	
+	<cffunction name="setSrc" access="remote" returnFormat="json" output="false"  secureJSON = "yes" verifyClient = "yes">
 		<cfargument name="url"   type="string" required="false" default="">
 		<cfargument name="p1"    type="string" required="false" default="">
 			<cfif SESSION.authent eq 1>
@@ -31,7 +31,7 @@
 			</cfif>
 	</cffunction>
 
-	<cffunction name="submit" access="remote" returnFormat="json" output="false">	
+	<cffunction name="submit" access="remote" returnFormat="json" output="false"  secureJSON = "yes" verifyClient = "yes">
 		<cfargument name="url"     type="string" required="false" default="">
 		<cfargument name="target"  type="string" required="false" default="">
 		<cfargument name="p1"      type="string" required="false" default="">
@@ -46,7 +46,7 @@
 			</cfif>
 	</cffunction>	
 	
-	<cffunction name="open" access="remote" returnFormat="json" output="false">	
+	<cffunction name="open" access="remote" returnFormat="json" output="false"  secureJSON = "yes" verifyClient = "yes">
 		<cfargument name="url"   type="string" required="false" default="">
 		<cfargument name="p1"    type="string" required="false" default="">
 		<cfargument name="p2"    type="string" required="false" default="">		
@@ -63,7 +63,7 @@
 			</cfif>
 	</cffunction>
 
-	<cffunction name="location" access="remote" returnFormat="json" output="false">	
+	<cffunction name="location" access="remote" returnFormat="json" output="false"  secureJSON = "yes" verifyClient = "yes">
 		<cfargument name="url"   type="string" required="false" default="">
 		<cfargument name="p1"    type="string" required="false" default="">
 			<cfif SESSION.authent eq 1>
@@ -77,7 +77,7 @@
 			</cfif>
 	</cffunction>		
 
-	<cffunction name="navigate" access="remote" returnFormat="json" output="false">	
+	<cffunction name="navigate" access="remote" returnFormat="json" output="false"  secureJSON = "yes" verifyClient = "yes">
 		<cfargument name="url"   type="string" required="false" default="">
 		<cfargument name="p1"    type="string" required="false" default="">				
 		<cfargument name="p2"    type="string" required="false" default="">
@@ -95,7 +95,7 @@
 			</cfif>
 	</cffunction>		
 
-	<cffunction name="submitForm" access="remote" returnFormat="json" output="false">			
+	<cffunction name="submitForm" access="remote" returnFormat="json" output="false"  secureJSON = "yes" verifyClient = "yes">
 		<cfargument name="p1"    type="string" required="false" default="" hint="This is the formname">				
 		<cfargument name="url"   type="string" required="false" default="" hint="This is the URL">
 		<cfargument name="p2"    type="string" required="false" default="" hint="This is the errer">
@@ -126,7 +126,7 @@
 	</cffunction>	
 	--->	
 
-	<cffunction name = "getUnion" access="remote" returnType="string">
+	<cffunction name = "getUnion" access="remote" returnType="string"  secureJSON = "yes" verifyClient = "yes">
 		<cfargument name="url"   type="string" required="false" default="" hint="This is the URL">	
 		<cfif find("?",url) eq 0>
 			<cfreturn "?">
@@ -144,7 +144,8 @@
 		</cfif>
 	</cffunction>
 	
-	<cffunction name = "getSecret" returnType="string">
+	<cffunction name = "getSecret" returnType="string" secureJSON = "yes" verifyClient = "yes">
+
 		<cfif SESSION.authent eq 1>
 			<cfreturn "h@mesweeth@ome">
 		</cfif>

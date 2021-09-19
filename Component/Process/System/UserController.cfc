@@ -16,7 +16,7 @@
 	<cfparam name="SESSION.authent" default="0">
 	<cfset VARIABLES.Instance.USR_MID = "_user" />
 	<cfset VARIABLES.Instance.SES_MID = "_session" />
-		<cffunction name="GetHash" access="public" returntype="string">
+	<cffunction name="GetHash" access="public" returntype="string"  secureJSON = "yes" verifyClient = "yes">
 		
 			<cfset vInit = now()>
 			<cfset ts = DateFormat(vInit,"DDMMYYYY")&TimeFormat(vInit,"hhmmss")>						
@@ -26,7 +26,7 @@
 				
 	</cffunction>	
 	
-	<cffunction name="GetMid" access="remote" returnFormat="json" output="false">
+	<cffunction name="GetMid" access="remote" returnFormat="json" output="false"  secureJSON = "yes" verifyClient = "yes">
 	
 		<cfif SESSION.authent eq 1>
 			<cfset vInit = now()>
@@ -37,7 +37,7 @@
 		</cfif>
 	</cffunction>
 
-	<cffunction name="Hashit" access="public" returntype="boolean">
+	<cffunction name="Hashit" access="public" returntype="boolean" >
 	
 		<cfargument name = "vInit" type="date" required="true"  default="0">	 
 		<cfargument name = "mid"   type="string" required="true" default = "000000000000000000000000">		
@@ -179,7 +179,8 @@
 				 then we validate the passed Hash is authentic and valid			 
 				 then we record the link OR activate the link (operational)			 
 				 and THEN we check the link for access again 
-			--->				
+			--->			
+			
 						
 			<cfset Match_USR = hashit(vInit,hash,VARIABLES.Instance.USR_MID)>			
 				
@@ -190,7 +191,8 @@
 			</cfif>		
 
 			<cf_gethost>	
-																
+			
+																						
 			<cfif Match_USR or Match_SES or force eq "Yes">		
 																									
 					<cfquery name="getUser" 
@@ -218,7 +220,7 @@
 									 HostSessionId,
 									 NodeIP, 
 									 NodeVersion, 									 
-									 TemplateGroup,
+									 TemplateGroup,									 
 									 ActionTimeStamp, 
 									 ActionTemplate)
 							VALUES
@@ -227,7 +229,7 @@
 									 '#Session.SessionId#',
 									 '#CGI.Remote_Addr#', 
 									 '#bws#', 									 
-									 'Process',
+									 'Process',									 
 									 getDate(), 
 									 '#tmp#')
 							</cfquery>							
@@ -250,17 +252,20 @@
 											 HostName,
 											 HostSessionId,									 
 											 ActionTemplate,
-											 ActionQueryString,											 
+											 ActionQueryString,		
+											 ControllerMID,									 
 											 Operational)
 										VALUES	
 										   ( '#rowguid#',
 										     '#SESSION.acc#',
 											 '#CGI.http_host#',									
 											 '#Session.SessionId#',
-											 '#tmp#',
-											 '#str#','1')		
+											 '#tmp#',											 
+											 '#str#',
+											 '#hash#','1')		
 											 								
-									</cfquery>		
+									</cfquery>	
+									
 									
 								<cfcatch></cfcatch>
 									
@@ -301,6 +306,7 @@
 						ActionQueryString  = "#CGI.QUERY_STRING#"
 						AccessRevoke       = "#AccessRevoke#"
 						AccessMessage      = "#AccessMessage#"
+						Hash               = "#hash#"
 						Redirect           = "#redirect#"
 						returnvariable     = "AccessRight">	
 																				
@@ -411,9 +417,20 @@
 				 AND    ActionTemplate     = '#tmp#'
 				 AND    ActionQueryString  = '#str#'  
 				 AND    Operational        = '1'   		
-				 				 		 	
+				 
+								 
+				 UNION
+				 
+				 <!--- wild card to allow bookmarking in obvious cases --->
+				 
+				 SELECT * 
+				 FROM   UserStatusController
+				 WHERE  ControllerMID    = '#hash#'					
+				 AND    Account          = '#SESSION.acc#'
+				 				 	
+				 				 				 		 	
 			</cfquery>	
-																							
+																										
 			<cfif checkAccess.RecordCount eq "0">
 								          
 				  <CFSET AccessRight = "DENIED">
@@ -472,5 +489,5 @@
 		<cfreturn AccessRight>
 							 
 	</cffunction>
-	
-</cfcomponent>			 
+
+</cfcomponent>

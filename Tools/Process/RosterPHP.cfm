@@ -63,7 +63,7 @@ password="#SESSION.dbpw#">
 									
 						document.getElementById("php_"+script).className = "hide"
 						document.getElementById("wait_"+script).className = "regular"
-																						
+																												
 						url = "#SESSION.root#/#path#?IDFunction=#Attributes.IDFunction#&PHP_Roster_List="+roster+"&FileNo="+script	
 																						
 				 		AjaxRequest.get({			

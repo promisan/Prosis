@@ -1,1 +1,0 @@
-<!--- this file simply blocks directory browsing --->

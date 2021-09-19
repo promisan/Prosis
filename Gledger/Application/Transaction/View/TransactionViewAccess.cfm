@@ -89,6 +89,7 @@
 							      and (actionStatus eq "0" or (actionStatus eq "1" and wfexist eq "0"))
 								  and (TransactionSource eq "AccountSeries"
 											or TransactionSource eq "ReceiptSeries"
+											or TransactionSource eq "PurchaseSeries"
 											or TransactionSource eq "ReconcileSeries"
 											or TransactionSource eq "SalesSeries")>
 							

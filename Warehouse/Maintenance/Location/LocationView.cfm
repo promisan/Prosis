@@ -1,7 +1,7 @@
 
 <cfoutput>
 
-<cfajaximport tags="cftree,cfform,cfwindow">
+<cfajaximport tags="cfform">
 
 <script language="JavaScript1.2">
 
@@ -13,11 +13,11 @@ h = #CLIENT.height# - 160
 }
 
 function refreshTree() {
-	ColdFusion.navigate('LocationTree.cfm?id2=#url.mission#','tree')
+	ptoken.navigate('LocationTree.cfm?id2=#url.mission#','tree')
 }
 
 function orgaccess() {
-    window.open("../Access/OrganizationView.cfm","_top")   
+    ptoken.open("../Access/OrganizationView.cfm","_top")   
 }
 
 </script>

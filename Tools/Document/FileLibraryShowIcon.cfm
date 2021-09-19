@@ -59,6 +59,9 @@
 <cfelseif FindNoCase(".gif", "#NameShow#")>			  
 	   <img src="#SESSION.root#/Images/file_image.jpg" align="absmiddle" alt="Open Image" height="15" width="13" border="0" align="center">
 
+<cfelseif FindNoCase(".png", "#NameShow#")>			  
+	   <img src="#SESSION.root#/Images/file_image.jpg" align="absmiddle" alt="Open Image" height="15" width="13" border="0" align="center">
+	   	   
 <cfelseif FindNoCase(".doc", "#NameShow#")>			  
 	   <img src="#SESSION.root#/Images/Document/word.png" align="absmiddle" alt="Open Word attachment" height="32" border="0" align="center">	
 	   
@@ -79,7 +82,7 @@
 
 <cfelse>
 	<cfif DocumentServerIsOp eq "0">	
-	    <img src="#SESSION.root#/Images/document/generic.png" height="32" align="absmiddle" alt="Open document"   border="0" align="center">		
+	   <img src="#SESSION.root#/Images/document/generic.png" height="32" align="absmiddle" alt="Open document" border="0" align="center">		
 	<cfelse>
 	   <img src="#SESSION.root#/Images/documentserver.png" align="absmiddle" alt="Open document"  height="32" border="0" align="center">	
 	</cfif>  

@@ -18,9 +18,8 @@
 <cf_fileLibraryScript>
 <cf_calendarscript>
 
-<cf_mapscript scope="embed" height="300" width="360">
-
 <cfif CLIENT.googlemap eq "1">
+    <cf_mapscript scope="embed" height="300" width="360">
 	<cfajaximport tags="cfmap,cfform" params="#{googlemapkey='#client.googlemapid#'}#"> 
 <cfelse>
 	<cfajaximport tags="cfform"> 

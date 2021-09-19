@@ -390,7 +390,7 @@
 		<cfset dest = "#SESSION.rootdocumentpath#\#wfentity#\#actionid#\php_profile.pdf">	
 		
 	<cfelse>	
-		<cfset dest = "#SESSION.rootpath#\cfrstage\user\#SESSION.acc#\php_#fileno#.pdf">		
+		<cfset dest = "#SESSION.rootdocumentpath#\cfrstage\user\#SESSION.acc#\php_#fileno#.pdf">		
 	</cfif>
 		
 	<cfpdf action     = "MERGE"

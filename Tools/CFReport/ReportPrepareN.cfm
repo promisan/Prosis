@@ -429,7 +429,7 @@
 	   permissions   = "#Report.OutputPermission#"
 	   ownerpassword = "#report.PasswordOwner#"
 	   userpassword  = "#report.PasswordUser#"
-	   filename      = "#SESSION.rootPath#CFRStage\User\#SESSION.acc#\#attach#">
+	   filename      = "#SESSION.rootDocumentPath#CFRStage\User\#SESSION.acc#\#attach#">
 	 
 		    <cfreportparam name = "Table1"     value="#Table1#">
 			<cfreportparam name = "Table2"     value="#Table2#">
@@ -494,13 +494,13 @@
 		</cfif>
 							
 		<cffile action="COPY" 
-			source      = "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#attach#" 
+			source      = "#SESSION.rootDocumentPath#\CFRStage\User\#SESSION.acc#\#attach#" 
 			destination = "#SESSION.rootDocumentPath#\CFReports\#report.account#\#distributionid#.#suffix#">			
 	
 	</cfif>	
-	
-					
+						
 </cfif>
+
 	
 <!--- identify distribution settings --->
 <cfquery name="User" 

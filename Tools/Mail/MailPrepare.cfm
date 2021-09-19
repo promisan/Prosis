@@ -52,15 +52,27 @@
 
 </cfif>
 
+<cfif not DirectoryExists("#SESSION.rootdocumentpath#\CFRStage\User\#SESSION.acc#\")>
+
+	   <cfdirectory 
+	     action="CREATE" 
+            directory="#SESSION.rootdocumentpath#\CFRStage\User\#SESSION.acc#\">
+
+</cfif>
+
 
 <cfset FileNo = round(Rand()*100)>
 
 <cfset attach = "#URL.FileName#_#FileNo#">
 
 <cfset vpath="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#attach#">
-
 <cfset vpath=replace(vpath,"\\","\","ALL")>
 <cfset vpath=replace(vpath,"//","/","ALL")>
+
+<cfset vspath="#SESSION.rootdocumentpath#\CFRStage\User\#SESSION.acc#\#attach#">
+<cfset vspath=replace(vspath,"\\","\","ALL")>
+<cfset vspath=replace(vspath,"//","/","ALL")>
+
 
 
 <cfif URL.ID eq "Mail">	
@@ -71,7 +83,7 @@
 	      format       = "#URL.format#"
 	      pagetype     = "letter"
 		  overwrite    = "yes"
-		  filename     = "#vPath#.pdf"
+		  filename     = "#vsPath#.pdf"
 		  margintop    = "#URL.marginTop#"
 		  marginbottom = "#URL.marginBottom#"
 	      marginright  = "0"
@@ -105,7 +117,7 @@
 		   format       = "#URL.Format#" 
 		   overwrite    = "yes" 
 		   encryption   = "none"
-		   filename     = "#vPath#.pdf">
+		   filename     = "#vsPath#.pdf">
 			
 			<!--- other variables --->					
 			<cfreportparam name = "root"            value="#SESSION.root#">
@@ -193,24 +205,27 @@
 	<cfelse>	
 		
 		<cfset rep=replace(url.templatepath,"/","\","ALL")>
-			
+
 		<cfreport 
 		   template     = "#SESSION.rootPath##rep#" 
 		   format       = "#URL.Format#" 
 		   overwrite    = "yes" 
 		   encryption   = "none"
-		   filename     = "#vpath#.pdf">
+		   filename     = "#vspath#.pdf">
 				<cfreportparam name = "ID"  value="#URL.ID1#"> 
 		</cfreport>	
+
+
 
 	</cfif>
 
 	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
 	<cfset mid = oSecurity.gethash()/> 
-	
+	<cfset vFile = "#SESSION.acc#\#attach#.pdf">
 	<cfoutput>
-	<script language="JavaScript">
-			window.location = "#SESSION.root#/CFRStage/User/#SESSION.acc#/#attach#.pdf"
+
+	<script language="JavaScript">	
+			window.location = "#SESSION.root#/CFRStage/getFile.cfm?id=#EncodeForURL(vFile)#&mid=#mid#"
 	</script>
 	</cfoutput>
 

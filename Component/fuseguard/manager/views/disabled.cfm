@@ -1,1 +1,0 @@
-The web manager is not enabled or is misconfigured. Please consult the documentation.

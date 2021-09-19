@@ -75,6 +75,7 @@ password="#SESSION.dbpw#">
 				   T.TransactionBatchNo, 
 				   T.TransactionReference,
 				   B.BillingStatus,
+				   (CASE WHEN B.ActionOfficerDate is NULL THEN T.TransactionDate ELSE B.ActionOfficerDate END) as ActionOfficerDate,
 				   <!---  T.AssetId, --->
 				   <!---  T.ReceiptId, --->
 				   T.PersonNo, 
@@ -109,21 +110,20 @@ password="#SESSION.dbpw#">
                             AssetItemActionMetric AAM ON AI.AssetActionId = AAM.AssetActionId
 				    WHERE TransactionId = T.TransactionId) as AssetMetric,
 				   				   
-				   P.IndexNo as PersonIndexNo,
+				   P.IndexNo   as PersonIndexNo,
 				   P.Reference as PersonReference,
-				   P.LastName as PersonLastName,
+				   P.LastName  as PersonLastName,
 				   P.FirstName as PersonFirstName,	   				
 				   T.Created
 				   
 		FROM      <cfif batch.actionStatus neq "9">ItemTransaction<cfelse>ItemTransactionDeny</cfif> T INNER JOIN
-	               Ref_TransactionType R ON T.TransactionType = R.TransactionType 
-				   INNER JOIN Item M ON M.ItemNo = T.ItemNo
-				   INNER JOIN ItemUoM I ON T.ItemNo = I.ItemNo AND T.TransactionUoM = I.UoM 
+	               Ref_TransactionType R                 ON T.TransactionType = R.TransactionType 
+				   INNER JOIN Item M                     ON M.ItemNo = T.ItemNo
+				   INNER JOIN ItemUoM I                  ON T.ItemNo = I.ItemNo AND T.TransactionUoM = I.UoM 
 				   INNER JOIN WarehouseBatch B ON B.BatchNo = T.TransactionBatchNo 
 				   LEFT OUTER JOIN AssetItem A ON T.AssetId = A.AssetId
-				   LEFT OUTER JOIN Item AI ON A.ItemNo = AI.ItemNo
-				   LEFT OUTER JOIN Employee.dbo.Person P ON T.PersonNo = P.PersonNo
-				   
+				   LEFT OUTER JOIN Item AI               ON A.ItemNo = AI.ItemNo
+				   LEFT OUTER JOIN Employee.dbo.Person P ON T.PersonNo = P.PersonNo				   
   		
 		WHERE      T.TransactionBatchNo  = '#URL.BatchNo#'  	
 		
@@ -132,6 +132,7 @@ password="#SESSION.dbpw#">
 </cfsavecontent>	
 
 </cfoutput>
+
 
 <cfset itm = 0>
 
@@ -173,11 +174,20 @@ password="#SESSION.dbpw#">
 	<cfset itm = itm+1>
 	<cf_tl id="Date" var = "1">				
 	<cfset fields[itm] = {label     	= "#lt_text#",                    
-	     				field       	= "TransactionDate",					
+	     				field       	= "TransactionDate",											
 						alias       	= "",		
 						align       	= "center",		
 						formatted   	= "dateformat(TransactionDate,CLIENT.DateFormatShow)",																	
-						search      	= ""}>										
+						search      	= ""}>		
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Status Date" var = "1">				
+	<cfset fields[itm] = {label     	= "#lt_text#",                    
+	     				field       	= "ActionOfficerDate",					
+						alias       	= "",		
+						align       	= "center",		
+						formatted   	= "dateformat(ActionOfficerDate,CLIENT.DateFormatShow)",																	
+						search      	= ""}>														
 							
 
 <cfif checkcontent.assetid neq "">

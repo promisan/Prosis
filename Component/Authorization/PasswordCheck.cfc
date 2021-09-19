@@ -16,7 +16,7 @@
 	<cfset Instance.MIN_ATLEASTPOLICY      = 0 />
 	<cfset Instance.PASSWORDHISTORY			= 0 />
 	
-	<cffunction name="compare" access="remote" returntype="any" returnformat="JSON">
+	<cffunction name="compare" access="remote" returntype="any" returnformat="JSON"  secureJSON = "yes" verifyClient = "yes">
  	 	<cfargument name="password1"   	required="true" type="string" default = "">
 		<cfargument name="password2" 	required="true" type="string" default = "">
 
@@ -38,7 +38,7 @@
 		
 	</cffunction>	
 	
-	<cffunction name="testPassword" access="remote" returntype="any" returnformat="JSON">
+	<cffunction name="testPassword" access="remote" returntype="any" returnformat="JSON"  secureJSON = "yes" verifyClient = "yes">
 	
  	 	<cfargument name="password"   	required="true" type="string" default = "">
 		<cfargument name="userName" 	required="true" type="string" default = "">

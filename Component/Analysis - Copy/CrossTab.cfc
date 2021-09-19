@@ -664,7 +664,7 @@
 			 			 
 	</cffunction>		
 			
-	<!--- HEADER
+	<!--- HEADER --->
 	
 	<cffunction access="public" name="Header" 
 	         	output="true" 
@@ -2273,7 +2273,5 @@
 			<cfreturn controlId>
 			
 		</cffunction>	
-		
-		 --->
 			
 </cfcomponent>

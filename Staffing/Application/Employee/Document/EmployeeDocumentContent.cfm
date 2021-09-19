@@ -82,7 +82,7 @@ password="#SESSION.dbpw#">
 					
 	    <td align="right" valign="bottom" style="padding-bottom:5px;padding-right:28px">
 			<cf_tl id="Add" var="vAdd">
-			<input type="button" value="#vAdd#" class="button10g" onClick="javascript:issuedocument('#URL.ID#')">&nbsp;
+			<input type="button" value="#vAdd#" class="button10g" onClick="issuedocument('#URL.ID#')">&nbsp;
 	    </td>
 		
 		</cfoutput>

@@ -9,7 +9,7 @@
 	<cfset THIS.SessionTimeout   = CreateTimeSpan(0,24,180,0)/>        
 	<cfset this.wschannels = [{name="validatorchannel"}]>
 	<cfset THIS.sessioncookie.httponly = true>
-	<cfset This.setClientCookies = false>
+	<cfset This.secureJSON             = true>
 		 
 	<cffunction
 		name="OnRequestStart"

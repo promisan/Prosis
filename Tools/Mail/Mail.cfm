@@ -423,7 +423,7 @@
 							
 				<script LANGUAGE = "JavaScript">
 					function openreport(att) {					
-					      ptoken.open("#SESSION.root#/CFRStage/User/#SESSION.acc#/"+att, "Attachment")
+					      ptoken.open("#SESSION.root#/CFRStage/getFile.cfm?file="+att, "Attachment")
 					}
 				</script>
 				

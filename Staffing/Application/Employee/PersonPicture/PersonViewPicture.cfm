@@ -65,8 +65,7 @@
 				    <!--- was too slow
 				 	<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg")>
 					<cfimage source="#myImage#" width="114" height="#url.pictureheight#" action="writeToBrowser">
-					--->
-					
+					--->					
 					 
 				    <cffile action="COPY" 
 					    source="#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg" 

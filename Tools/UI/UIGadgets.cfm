@@ -542,7 +542,7 @@ _UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,service
 		binder = new kendo.data.HierarchicalDataSource({
 			transport: {
 				read: {
-					url: serviceRoot + ".cfc?method="+serviceMethod,
+					url: "#Client.root#/System/getJson.cfm?service="+serviceRoot+ "&method="+serviceMethod,
 					dataType: "json",
 					data: serviceData[0]
 				}
@@ -556,6 +556,9 @@ _UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,service
 				}
 			}
 		});
+
+		console.log(binder);
+
 		console.log('id',id);
 		_TREES.push(id);
 

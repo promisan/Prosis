@@ -1,6 +1,6 @@
 <cfcomponent>
 
-	<cffunction name="getNodesV2" access="remote"  returnType="void">
+	<cffunction name="getNodesV2" access="remote" returnFormat="json" output="false" secureJSON = "yes" verifyClient = "yes">
 
 		<cfargument name="vpath"             required="true" default="">
 		<cfargument name="value"             required="true" default="">
@@ -481,17 +481,11 @@
 
 
 		<cfscript>
-			threadName = "ws_msg_" & createUUID();
 			treenodes = result;
-
 			msg = SerializeJSON(treenodes);
-
-			cfthread(action:"run",name:threadName,message:msg){
-				WsPublish("prosis","tree node ");
-			}
-
-			writeOutput(msg);
 		</cfscript>
+
+		<cfreturn msg>
 
 
 	</cffunction>

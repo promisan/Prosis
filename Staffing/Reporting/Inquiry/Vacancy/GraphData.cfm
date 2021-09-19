@@ -173,7 +173,7 @@
 
 <cfset vColorlist = "##D24D57,##52B3D9,##E08283,##E87E04,##81CFE0,##2ABB9B,##5C97BF,##9B59B6,##E08283,##663399,##4DAF7C,##87D37C">
 <cfset vImagePath = "#session.rootpath#\CFRStage\user\#session.acc#\_vacancyGraph">
-<cfset vImageURL = "#session.root#/CFRStage/user/#session.acc#/_vacancyGraph">
+<cfset vImageURL  = "#session.root#/CFRStage/user/#session.acc#/_vacancyGraph">
 
 <cfif url.format eq "Pie">
 

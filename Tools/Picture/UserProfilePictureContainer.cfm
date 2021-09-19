@@ -25,7 +25,7 @@ meaning:  on the body level --->
 		margin-top:-200px;
 		border:1px solid white;
 		background-color:#f3f3f3;
-		z-index:12;
+		z-index:700;
 		overflow:hidden;
 		-webkit-border-radius: 10px;
 		-moz-border-radius: 10px;

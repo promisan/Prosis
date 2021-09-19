@@ -17,11 +17,13 @@
 </cfquery>
 
 <cfform>
+
 	<cfif url.mode eq "edit" or url.mode eq "add">
+	
 		<cfselect name="RippleItemMaster" 
 		     group="EntryClass" 
 			 query="ItemMaster" 
-			 onchange="ColdFusion.navigate('Budgeting/getItemMasterObject.cfm?itemmaster='+this.value+'&mission=#URL.Mission#&mode=#URL.mode#','itemmasterobject')" 
+			 onchange="ptoken.navigate('Budgeting/getItemMasterObject.cfm?itemmaster='+this.value+'&mission=#URL.Mission#&mode=#URL.mode#','itemmasterobject')" 
 			 value="Code" 
 			 style="width:99%"
 			 display="Description" 
@@ -51,7 +53,7 @@
 <cfif url.init eq "0">
 
 	<script language="JavaScript">
-		 ColdFusion.navigate('Budgeting/getItemMasterObject.cfm?itemmaster=#url.selected#&mission=#url.mission#&mode=#URL.mode#','itemmasterobject')
+		 ptoken.navigate('Budgeting/getItemMasterObject.cfm?itemmaster=#url.selected#&mission=#url.mission#&mode=#URL.mode#','itemmasterobject')
 	</script> 
 
 </cfif>

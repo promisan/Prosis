@@ -191,7 +191,7 @@ The output of the reports has 3 variations
 	<cfreport template  = "#reppath#" 
 	   format    = "#format#" 
 	   overwrite = "yes" 
-	   filename  = "#SESSION.rootpath#CFRStage\User\#SESSION.acc#\Report_#fileNo#.#suffix#">
+	   filename  = "#SESSION.rootDocumentpath#\CFRStage\User\#SESSION.acc#\Report_#fileNo#.#suffix#">
 	 					
 		<cfreportparam name = "Table1"         value="#URL.Table1#">
 		<cfreportparam name = "Table2"         value="#URL.Table2#">
@@ -262,7 +262,7 @@ The output of the reports has 3 variations
 		</cfif>
 							
 		<cffile action="COPY" 
-			source="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\Report_#fileNo#.#suffix#" 
+			source="#SESSION.rootDocumentPath#\CFRStage\User\#SESSION.acc#\Report_#fileNo#.#suffix#" 
 			destination="#SESSION.rootDocumentPath#\CFReports\#SESSION.acc#\#url.distributionid#.#suffix#">			
 		
 	</cfif>	
@@ -272,10 +272,12 @@ The output of the reports has 3 variations
 	<!--- ----------------------------------------------------------- --->
 		
 	<cfoutput>	
+		<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+		<cfset mid = oSecurity.gethash()/> 
 		
 		<script>		
-						     
-			window.location = "#SESSION.root#/CFRStage/User/#SESSION.acc#/Report_#fileNo#.#suffix#"
+				
+			window.location = "#SESSION.root#/CFRStage/getFile.cfm?file=Report_#fileNo#&suffix=#suffix#&mid=#mid#"
 			//window.open('#SESSION.root#/CFRStage/User/#SESSION.acc#/Report_#fileNo#.#suffix#');
 			/*
 			var ifrm = document.createElement("IFRAME"); 

@@ -108,9 +108,19 @@
 					  field         = "TransactionDate",
 				      searchfield   = "TransactionDate",
 					  column        = "month",
+					  align       	= "center",		
 					  filtermode    = "0",
 					  formatted     = "dateformat(TransactionDate,client.dateformatshow)",
 					  search        = "date"}>	
+					  
+<cfset itm = itm+1>
+<cf_tl id="Status Date" var = "1">				
+<cfset fields[itm] = {label     	= "#lt_text#",                    
+     				field       	= "TransactionStatusDate",					
+					column          = "month",	
+					align       	= "center",		
+					formatted   	= "dateformat(TransactionStatusDate,CLIENT.DateFormatShow)",																	
+					search      	= "date"}>						  
 					  
 <cfset itm = itm+1>		
 <cf_tl id="Time" var="vTime">
@@ -118,12 +128,11 @@
 					  field         = "Created",
 				      searchfield   = "Created",
 					  filtermode    = "0",
-					  formatted     = "timeformat(Created,'HH:MM')",
-					  search        = "text"}>	
+					  formatted     = "timeformat(Created,'HH:MM')"}>	
 					  
-<cfset itm = itm+1>		
-
+<cfset itm = itm+1>	
 <cfset fields[itm] = {label         = "##", 
+                      labelfilter   = "Lines",
 					  field         = "Lines",
 				      searchfield   = "Lines",
 					  filtermode    = "0",
@@ -134,6 +143,7 @@
 <cfset itm = itm+1>		
 <cf_tl id="Clear" var="vClear">
 <cfset fields[itm] = {label         = "CL", 
+                      LabelFilter   = "Lines cleared",
 					  field         = "Cleared",
 				      searchfield   = "Cleared",
 					  filtermode    = "0",
@@ -151,7 +161,7 @@
 					align         = "center",
 					formatted     = "Rating",
 					ratinglist    = "0=Yellow,1=Green,9=Red"}>	
-	
+		
 <cfif url.status eq "0">
 	<cfset sl = "Hide">
 <cfelse>

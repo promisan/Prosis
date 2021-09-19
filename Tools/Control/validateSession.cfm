@@ -129,7 +129,7 @@
 				
 				<cfoutput>
 				<script>
-				 ProsisUI.createWindow('relogonbox', 'Authentication Manager', '',{x:100,y:100,height:230,width:480,closable:false,modal:true,center:true,resizable:false})    	   									 
+				 ProsisUI.createWindow('relogonbox', 'Authentication Manager', '',{x:100,y:100,height:280,width:480,closable:false,modal:true,center:true,resizable:false})    	   									 
 	  		     ColdFusion.navigate('#session.root#/Portal/reLogon.cfm','relogonbox')
 				</script>	
 				</cfoutput>

@@ -30,6 +30,7 @@
 		 access="remote" 
 		 returntype="any" 
 		 displayname="Progress" 
+		 verifyClient = "yes"
 		 output="false">
 		 	 
 			 <cfset str = structNew()>	
@@ -54,6 +55,7 @@
 		<cffunction name="DumpExcelTable" 
 		 access="public" 
 		 returntype="any" 
+		 verifyClient = "yes"
 		 displayname="Dump Excel Table" 
 		 output="yes">
 				
@@ -101,6 +103,7 @@
 		<cffunction name="ExcelTable" 
 			 access="public" 
 			 returntype="any" 
+			 verifyClient = "yes"
 			 displayname="Excel Table" 
 			 output="yes">
 				
@@ -437,7 +440,7 @@
 		<!--- ---------------------------------- --->
 		
 		<!--- opening sheet --->
-					
+
 		<cfspreadsheet action    = "write" 
 		               filename  = "#filename#" 
 					   autosize  = "false"
@@ -466,6 +469,7 @@
 		        access="public"
 		        returntype="any"				 
 				output="yes"
+				verifyClient = "yes"
 		        displayname="Excel Table">
 				
 				<cfargument name="total"         type="numeric"      required="true"   default="1">						

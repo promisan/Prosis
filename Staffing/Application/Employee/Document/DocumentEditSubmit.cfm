@@ -1,28 +1,29 @@
 
+<cfparam name="url.action" default="edit">
+
 <cfparam name="form.DependentId" default="">
-
-
-<cfif Len(Form.Remarks) gt 100>
-  <cfset remarks = left(Form.Remarks,100)>
-<cfelse>
-  <cfset remarks = Form.Remarks>
-</cfif>  
-
-<cfset dateValue = "">
-<CF_DateConvert Value="#Form.DateEffective#">
-<cfset STR = dateValue>
-
-<cfset dateValue = "">
-<cfif Form.DateExpiration neq ''>
-    <CF_DateConvert Value="#Form.DateExpiration#">
-    <cfset END = dateValue>
-<cfelse>
-    <cfset END = 'NULL'>
-</cfif>	
 
 <!--- verify if record exist --->
 
-<cfif ParameterExists(Form.Submit)> 
+<cfif url.action eq "edit"> 
+		
+	<cfif Len(Form.Remarks) gt 100>
+	  <cfset remarks = left(Form.Remarks,100)>
+	<cfelse>
+	  <cfset remarks = Form.Remarks>
+	</cfif>  
+	
+	<cfset dateValue = "">
+	<CF_DateConvert Value="#Form.DateEffective#">
+	<cfset STR = dateValue>
+	
+	<cfset dateValue = "">
+	<cfif Form.DateExpiration neq ''>
+	    <CF_DateConvert Value="#Form.DateExpiration#">
+	    <cfset END = dateValue>
+	<cfelse>
+	    <cfset END = 'NULL'>
+	</cfif>	
 
 	<cfquery name="Document" 
 	datasource="AppsEmployee" 
@@ -140,17 +141,15 @@
 		
 	</cfif>	
 
-</cfif>
-
-<cfif ParameterExists(Form.Delete)> 
+<cfelseif url.action eq "delete"> 
 
 	<cfquery name="Document" 
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		DELETE FROM PersonDocument
-		WHERE       PersonNo = '#Form.PersonNo#' 
-		AND         DocumentId  = '#Form.DocumentId#' 
+		WHERE       PersonNo    = '#url.id#' 
+		AND         DocumentId  = '#url.id1#' 
 	</cfquery>
 
 </cfif>
@@ -158,7 +157,7 @@
 <cfoutput>
 		
 	<script>	
-		 ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/EmployeeDocumentContent.cfm?ID=#Form.PersonNo#','dialog')    
+		 ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/EmployeeDocumentContent.cfm?ID=#url.id#','dialog')    
 	</script>	
 
 </cfoutput>	   

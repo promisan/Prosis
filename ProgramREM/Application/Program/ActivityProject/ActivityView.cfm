@@ -171,13 +171,12 @@
 							
 			<tr><td height="30" style="padding-top:6px;padding-bottom:6px">
 
-				<table width="97%" height="100%" align="center" cellspacing="0" cellpadding="0"><tr>
+				<table width="97%" height="100%" align="center"><tr>
 					
 					<cfset ht = "54">
 					<cfset wd = "54">
 					
-					<cfset itm= 1>
-					
+					<cfset itm= 1>				
 					
 								
 					<cf_tl id="Activity Definition" var="1">	

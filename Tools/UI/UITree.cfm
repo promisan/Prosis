@@ -128,13 +128,15 @@
                         </cfif>
                     </cfif>
                 </cfloop>
-                <cfset vReturnJSon = SerializeJSON(vReturn)>
+
+                <cfset vReturnJSon = SerializeJSON(vReturn,"struct",false)>
+                
                 <cfreturn vReturnJSon>
 
             </cffunction>
 
             <cfoutput>
-                <cfset AjaxOnLoad("function(){ProsisUI.doTreeBinder('#ATTRIBUTES.id#','#client.root#/#serviceURL#','#method#',#getParameters()#);}")>
+                <cfset AjaxOnLoad("function(){ProsisUI.doTreeBinder('#ATTRIBUTES.id#','#EncodeForURL(serviceURL)#','#method#',#getParameters()#);}")>
             </cfoutput>
 
         </cfif>
