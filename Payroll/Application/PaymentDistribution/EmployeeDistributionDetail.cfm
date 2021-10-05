@@ -2,7 +2,7 @@
 <cf_DateConvert Value="#url.dateEffective#">
 <cfset vDateEffective = dateValue>
 
-<cfset vLines = url.lines>
+<cfset vLines     = url.lines>
 <cfset vBigAmount = url.bigAmount>
 
 <cfif url.mode eq "Cash">
@@ -111,8 +111,7 @@
 			WHERE 	PersonNo = '#url.id#'	
 			AND 	Operational = 1
 			AND 	DateEffective = #vDateEffective#
-	</cfquery>
-	
+	</cfquery>	
 
 	<cfloop from="1" to="#vLines#" index="thisLine">
 
@@ -132,14 +131,17 @@
 		</cfquery>
 
 		<cfoutput>
+			
 			<table width="100%" class="formpadding navigation_table">
+			
 				<tr class="navigation_row">
+					
 					<td class="labellarge" width="3%">
 						<input type="hidden" name="DistributionOrder_#thisLine#" value="#thisLine#">
 						#thisLine#.
 					</td>
-					<td style="padding-left:10px;">
 					
+					<td style="padding-left:10px;">					
 					   
 						<select name="AccountId_#thisLine#" id="AccountId_#thisLine#" class="regularxl clsSelect" style="width:500px;font-size:15px; height:32px;">
 							<cfset vCntAccounts = 0>
@@ -161,6 +163,7 @@
 
 								<option class="clsOption" value="#AccountId#" #vSelected#>#BankDescription# (#AccountNo#)</option>
 								<option disabled style="font-size:12px;">&nbsp;&nbsp;&nbsp;#AccountName#: #AccountCurrency# #AccountType# #Swiftcode#</option> 
+								
 							</cfloop>
 									
 							<cfif get.PaymentMode eq "Check">
@@ -199,8 +202,7 @@
 								<cfset vValue = 0>
 							</cfif>
 
-							<input 
-								type="text" 
+							<input type="text" 
 								name="DistributionNumber_#thisLine#" 
 								id="DistributionNumber_#thisLine#" 
 								class="regularxl" 

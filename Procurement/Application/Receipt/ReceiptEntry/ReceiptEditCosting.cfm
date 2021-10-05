@@ -53,8 +53,35 @@
 		 <tr class="<cfoutput>#cl#</cfoutput> line">
 		 
 		 	<td colspan="4" style="padding-left:8px" class="labelmedium">			
-			    <table style="width:100%"><tr><td class="labelmedium" bgcolor="white" style="font-size:22px;width:200px;padding:3px;padding-left:7px;">
-				<cf_tl id="Received items and value"></td></tr></table></td>		
+			    <table style="width:100%">
+				<tr>
+				<td class="labelmedium" bgcolor="white" style="font-size:22px;min-width:200px;padding:3px;padding-left:7px;">
+				<cf_tl id="Received items and value"></td>
+				
+				<td>
+				<td align="right" style="padding:4px;padding-left:20px;width:100px;background-color:ffffff">
+						
+				    <table>
+					<tr><td  style="cursor: pointer;border:1px solid silver">
+					 <input class="regularxxl" 
+					     title="Search for receipt line" 
+						 style="border:0px solid silver;background-color:ffffff;padding-left:3px" 
+						 id="inputline" name="inputline">
+					</td>
+					<td style="cursor: pointer;border:1px solid silver">	
+					<cfoutput>				
+					<img src="#SESSION.root#/Images/search.png" alt="Find" 					   
+					   border="0" height="24" width="26" id="refreshreceipt" align="absmiddle"
+					   onclick="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('../ReceiptEntry/ReceiptDetail.cfm?mode=receipt&rctId=#checkLines.receiptid#&reqno=#checkLines.requisitionno#&box=i#Receipt.ReceiptNo#&search='+document.getElementById('inputline').value,'i#Receipt.ReceiptNo#')">							   
+					   </cfoutput>	
+					</td>
+					</tr>
+					</table>
+							   
+				</td>											
+				</tr>
+				</table>
+				</td>		
 			</td>
 			
 			<cfquery name="Volume" dbtype="query">
@@ -195,13 +222,12 @@
 			 			
 				 <table width="100%" align="center" bgcolor="ffffff">
 				 	<tr><td style="padding-left:1px" id="i<cfoutput>#Receipt.ReceiptNo#</cfoutput>">
-																														
+																																			
 							<cfset url.mode     = "receipt">
 							<cfset url.box      = "i#Receipt.ReceiptNo#">																		
 							<cfset url.reqno    = "#checkLines.requisitionno#">
 							<cfset url.rctid    = "#checkLines.receiptid#">
-							<cfinclude template = "../ReceiptEntry/ReceiptDetail.cfm">
-							
+							<cfinclude template = "../ReceiptEntry/ReceiptDetail.cfm">							
 												
 					 </td></tr>
 				 </table>

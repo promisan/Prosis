@@ -21,7 +21,7 @@
 					
 		<tr class="labelmedium" style="padding-right:2px">
 		
-			<td style="padding-left:30px"><cf_tl id="Mobile"></td>	
+			<td style="padding-left:24px" title="Mobile No"><cf_tl id="Mobile"></td>	
 			<td width="110"> <input type="text" 
 					   id="mobilenumber_#url.customerid#"
 					   size="8" style="align:center;background-color:##efefef50"
@@ -36,10 +36,8 @@
 			--->
 			
 			
-			<td style="min-width:120px" class="CustDOB">
-			
-				<cf_uiTooltip Tooltip="Date of birth">
-			
+			<td style="padding-left:3px;min-width:120px" title="Date of birth" class="CustDOB">
+										
 				<cf_intelliCalendarDate9
 					FieldName="CustomerDOB_#left(url.customerid,4)#" 
 					id="CustomerDOB_#left(url.customerid,4)#" 
@@ -51,15 +49,12 @@
 					DateValidEnd="#dateformat(now(),'YYYYMMDD')#"
 					Default="#dateformat(customer.CustomerDOB,client.dateformatshow)#"
 					AllowBlank="True">	
-				</cf_uitooltip>
-			
+							
 			</td>
 			
 						
-			<td style="min-width:160px;width:100%">
-			
-				<cf_uiTooltip Tooltip="eMail address">
-			
+			<td style="min-width:160px;width:100%" title="eMail address">
+						
 				  <input type="text" 				  
 					   id  ="emailaddress_#url.customerid#"
 					   size="15"
@@ -70,7 +65,6 @@
 					   class="regularxl enterastab"
 					   value = "#customer.emailAddress#">
 					   
-					</cf_uitooltip>   
 			</td>
 			
 		</tr>	
@@ -79,7 +73,7 @@
 				
 		<tr class="labelmedium">
 			
-			<td style="min-width:70px;padding-right:4px;padding-left:30px"><cf_tl id="Postal"></td>	
+			<td style="min-width:70px;padding-right:4px;padding-left:24px"><cf_tl id="Postal"></td>	
 			<td colspan="4">		
 						
 				 <cf_textInput
@@ -125,7 +119,7 @@
 			<tr><td height="2"></td></tr>
 			
 			<tr class="labelmedium">
-				<td style="padding-left:30px;min-width:80px;padding-right:5px"><cf_tl id="Branch"></td>	
+				<td style="padding-left:24px;min-width:80px;padding-right:5px"><cf_tl id="Branch"></td>	
 				
 				<cfif url.addressid eq "00000000-0000-0000-0000-000000000000" and qExisting.recordcount neq 0>
 					<cfset url.addressid = qExisting.AddressId>

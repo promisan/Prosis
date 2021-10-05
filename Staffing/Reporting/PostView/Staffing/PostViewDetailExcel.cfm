@@ -54,6 +54,16 @@
 	
 	</cfif>
 	
+	<cfquery name="NationTopic" 
+		datasource="AppsSystem" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT    *
+		FROM      Ref_Topic
+		WHERE     TopicClass = 'Nation' 
+		AND       Operational = 1
+	</cfquery>	
+	
 	<cfquery name="Assignment1" 
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
@@ -66,6 +76,16 @@
 			   P.PersonNo, 
 			   P.Nationality as NationalityShort,
 			   N.Name as Nationality,
+			   <cfloop query="nationtopic">
+			   
+			   (SELECT   TOP (1) TopicValue
+			   FROM      System.dbo.Ref_NationTopic
+			   WHERE     Code = N.Code 
+			   AND       Topic = '#code#'
+			   AND       Operational = 1
+               ORDER BY  DateEffective DESC) as #TopicLabel#,
+			   
+			   </cfloop>
 			   N.Continent,
 			   P.eMailAddress,
 			   P.BirthDate,
@@ -219,54 +239,52 @@
 			   PP.OrgUnitOperational as OrgUnitOperationalParent, 
 			   Org.OrgUnitName, 
 			   
-			   		<cfif CheckVacancy.recordcount eq "0">
-					   0 as RecruitmentTrack,
-					  
-					<cfelse>
-					
-					  <!--- select track occurence --->
-													  
-								(
-								
-								SELECT    count(*) 
-								
-								FROM
-															
-										(
-										
-										SELECT    D.*							
-										FROM      Vacancy.dbo.DocumentPost as Track INNER JOIN
-					      			              Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-							                      Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-							                      Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo
-										WHERE     SP.PositionNo = P.PositionNo 
-										AND       D.EntityClass IS NOT NULL 
-										AND       D.Status = '0'
-																								
-										UNION 
-																						
-										<!--- first position in the next mandate --->			
-										
-										SELECT     D.* 
-										
-										FROM       Vacancy.dbo.DocumentPost as Track INNER JOIN
-							                       Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-								                   Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-								                   Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
-							                       Position PN ON SP.PositionNo = PN.SourcePositionNo
-												   
-										WHERE      PN.PositionNo = P.PositionNo
-										AND        D.EntityClass IS NOT NULL 
-										AND        D.Status = '0' 
-										
-										) as DerrivedTable 
+		   	   <cfif CheckVacancy.recordcount eq "0">
+				   0 as RecruitmentTrack,
+				  
+			   <cfelse>
+				
+				  <!--- select track occurence --->
+												  
+							(
+							
+							SELECT    count(*) 
+							
+							FROM
 														
-								) AS  RecruitmentTrack,  <!--- prior mandate track linked through position source --->
-						  
-					  
-					  
-					 </cfif>				   
-			  
+									(
+									
+									SELECT    D.*							
+									FROM      Vacancy.dbo.DocumentPost as Track INNER JOIN
+				      			              Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
+						                      Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
+						                      Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo
+									WHERE     SP.PositionNo = P.PositionNo 
+									AND       D.EntityClass IS NOT NULL 
+									AND       D.Status = '0'
+																							
+									UNION 
+																					
+									<!--- first position in the next mandate --->			
+									
+									SELECT     D.* 
+									
+									FROM       Vacancy.dbo.DocumentPost as Track INNER JOIN
+						                       Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
+							                   Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
+							                   Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
+						                       Position PN ON SP.PositionNo = PN.SourcePositionNo
+											   
+									WHERE      PN.PositionNo = P.PositionNo
+									AND        D.EntityClass IS NOT NULL 
+									AND        D.Status = '0' 
+									
+									) as DerrivedTable 
+													
+							) AS  RecruitmentTrack,  <!--- prior mandate track linked through position source --->
+					  					  
+			   </cfif>				   
+					 			  
 			   Org.HierarchyCode, 
 			   Org.OrgUnitCode, 
 			   PP.DateEffective as ParentEffective, 
@@ -282,6 +300,9 @@
 			   A.PersonNo, 
 			   A.Nationality, 
 			   A.Continent,
+			   <cfloop query="nationtopic">
+			   A.#TopicLabel#,
+			   </cfloop>				
 			   A.Gender,  
 			   A.IndexNo, 
 			   A.eMailAddress,
@@ -293,25 +314,26 @@
 			   <!--- last contract level issued --->
 			   <!--- -------------------------- --->
 			   
-			   (SELECT  TOP 1  R.Description
-				FROM    PersonContract PC INNER JOIN Ref_ContractType R ON PC.ContractType = R.ContractType
-				WHERE   PC.PersonNo = A.PersonNo 
-				AND     PC.ActionStatus != '9' 
-				ORDER BY DateEffective DESC) as ContractType,
-			  
+			   (SELECT   TOP 1  R.Description
+				FROM     PersonContract PC INNER JOIN Ref_ContractType R ON PC.ContractType = R.ContractType
+				WHERE    PC.PersonNo = A.PersonNo 
+				AND      PC.ActionStatus != '9' 
+				ORDER BY DateEffective DESC) as ContractType,			  
 			 			     
-			   (SELECT TOP 1 Contractlevel 
-			    FROM PersonContract C 
-				WHERE C.PersonNo = A.PersonNo 
-				AND  C.ActionStatus != '9' 
+			   (SELECT   TOP 1 Contractlevel 
+			    FROM     PersonContract C 
+				WHERE    C.PersonNo = A.PersonNo 
+				AND      C.ActionStatus != '9' 
 				ORDER BY DateEffective DESC) as ContractLevel,
 				
-			   (SELECT TOP 1 ContractStep 
-			    FROM PersonContract C 
-				WHERE C.PersonNo = A.PersonNo 
-				AND  C.ActionStatus != '9' 
+			   (SELECT   TOP 1 ContractStep 
+			    FROM     PersonContract C 
+				WHERE    C.PersonNo = A.PersonNo 
+				AND      C.ActionStatus != '9' 
 				ORDER BY DateEffective DESC) as ContractStep
-				<!-----rfuentes added on ruys request 13-May-2019 ------>
+				
+				<!--- rfuentes added on ruys request 13-May-2019 --->
+				
 				,(
 					SELECT TOP 1 PACx.ContactCallSign
 					FROM	PersonAddress PAx with (NOLOCK) 
@@ -325,6 +347,7 @@
 					WHERE	PAx.PersonNo = A.PersonNo
 					ORDER BY PACx.Created DESC
 				) as ContactTelephoneNo
+				
 				,(
 					SELECT TOP 1 AD.AddressRoom 
 					FROM 	PersonAddressContact C with (NOLOCK) 
@@ -334,6 +357,7 @@
 					WHERE 	C.PersonNo	= A.PersonNo
 					AND 	C.ContactCode IN ('Office', 'Extension')
 				) as AddressRoom
+				
 				<!-----/rfuentes added on ruys request 13-May-2019 ------>
 			   
 		INTO  userQuery.dbo.#SESSION.acc#Position_#url.box#	   

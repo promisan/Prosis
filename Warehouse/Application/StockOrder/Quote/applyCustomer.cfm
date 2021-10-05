@@ -13,7 +13,7 @@
 
 <table>
 <cfoutput query="getHeader">
-<tr class="labelmedium2"><td>#CustomerSerialNo#</td></tr>
+<tr class="labelmedium2"><td><a href="javascript:editCustomer('#getHeader.customerid#')">#CustomerSerialNo#</a></td></tr>
 <tr class="labelmedium2"><td>#CustomerName#</td></tr>
 </cfoutput>
 </table>

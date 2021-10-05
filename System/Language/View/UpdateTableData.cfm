@@ -18,7 +18,34 @@
       DataSource     = "AppsSystem" 
       KeyFieldName   = "Code"
       InterfaceTable = "1"
-      Fields         = "Name,Nationality,Continent">     
+      Fields         = "Name,Nationality,Continent">    
+	  
+<cfinvoke component  = "UpdateTable"  method="table" 
+	  TableCode      = "TopicNation" 
+	  TableName      = "Ref_Topic"
+	  SystemModule   = "Warehouse"  
+      DataSource     = "AppsSystem"  
+      KeyFieldName   = "Code" 
+	  Fields         = "TopicLabel,Description,Tooltip">	
+			  
+<cfinvoke component  = "UpdateTable" method="table" 
+	  TableCode      = "TopicNationList" 
+	  TableName      = "Ref_TopicList"
+	  SystemModule   = "Warehouse"  
+      DataSource     = "AppsSystem"  
+      KeyFieldName   = "Code" 
+	  KeyFieldName2  = "ListCode"
+	  Fields         = "ListValue">			
+			  	   	  
+<cfinvoke component="UpdateTable" method="table"
+      TableCode      = "Ref_Nation"
+      SystemModule   = "System"
+      DataSource     = "AppsSystem" 
+      KeyFieldName   = "Code"
+      InterfaceTable = "1"
+      Fields         = "Name,Nationality,Continent">     	  
+	  
+	  
 
 <cfinvoke component="UpdateTable" method="table"
       TableCode      = "Ref_Application"

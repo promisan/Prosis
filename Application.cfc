@@ -3,13 +3,14 @@
  
 	<!--- Set up the application. --->
 	<cfset THIS.Name = "Prosis" />
-	<cfset THIS.ApplicationTimeout = CreateTimeSpan( 0, 24, 180, 0 ) />
-	<cfset THIS.SessionManagement = true />
-	<cfset THIS.clientmanagement = true />
-	<cfset THIS.SessionTimeout   = CreateTimeSpan(0,24,180,0)/>        
-	<cfset this.wschannels = [{name="validatorchannel"}]>
+	<cfset THIS.ApplicationTimeout     = CreateTimeSpan( 0, 24, 180, 0 ) />
+	<cfset THIS.SessionManagement      = true />
+	<cfset THIS.clientmanagement       = true />
+	<cfset THIS.scriptprotect          = "all" />	
+	<cfset THIS.SessionTimeout         = CreateTimeSpan(0,24,180,0)/>        
+	<cfset THIS.wschannels             = [{name="validatorchannel"}]>
 	<cfset THIS.sessioncookie.httponly = true>
-	<cfset This.secureJSON             = true>
+	<cfset THIS.secureJSON             = true>
 		 
 	<cffunction
 		name="OnRequestStart"
@@ -20,9 +21,7 @@
 		 
 				<!--- Define arguments. --->
 				<cfargument	name="TargetPage" type="string"	required="true"/>
-			
-					
-																									
+																												
 			 		<cf_appInit>
 											    
 					<cfparam name="CLIENT.Timeout" default="40">

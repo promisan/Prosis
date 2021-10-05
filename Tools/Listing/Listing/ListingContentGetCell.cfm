@@ -3,7 +3,8 @@
 <cfparam name  = "rowshow" default="1">
 
 	<cfoutput> 		
-								
+	
+					
 		<cfloop array="#attributes.listlayout#" index="current">	
 														
 			<cfparam name="current.display"     default="yes">		
@@ -491,7 +492,9 @@
 						<!--- to test for text value only : white-space: nowrap;overflow: hidden;text-overflow: ellipsis; --->
 																																		
 						<td id="f#box#_#dkey#_#rowshow#_#cnt#" <cfif current.align neq "left">align="#current.align#"</cfif> class="#attributes.classcell#" 
-						colspan="#current.colspan#" style="#cellstyle#;#current.style#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#</td>																			
+						colspan="#current.colspan#" style="#cellstyle#;#current.style#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#
+						
+						</td>																			
 												
 					 <cfelseif url.ajaxid eq "append">
 					 

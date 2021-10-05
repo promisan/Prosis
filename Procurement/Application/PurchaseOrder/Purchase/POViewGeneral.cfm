@@ -177,7 +177,7 @@
 		
 	function reloadForm(mode,sort,head) {	
 		    
-		 if (head == "undefined") {
+		 if (!head) {
 		    header = "#url.header#"
 		} else { 
 		    header = head
@@ -438,9 +438,7 @@
 						   <cfif PO.ActionStatus gt "1">						   
 						   
 						   	    <cfform action="POStatusSubmit.cfm?Header=#url.header#&Role=#URL.Role#&ID1=#URL.ID1#&Sort=#URL.Sort#" 
-									method="post" 
-									id="fStatus" 
-									name="fStatus"
+									method="post" id="fStatus" name="fStatus"
 									onsubmit="return true">		
 						
 								   <!--- manual status management, legacy mode --->
@@ -548,7 +546,7 @@
 
 <tr><td>
 
-	<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="99%" align="center">
 	  
        <tr class="fixrow"><td height="20" onClick="more('fun','show')" style="cursor: pointer;">
 		   <table width="100%">
@@ -621,7 +619,7 @@
 					} else {				
 					se.className = "regular"		 
 				    url = "POViewLines_BalanceDetail.cfm?id="+id;	
-			   	    ColdFusion.navigate(url,'i'+id)}				  
+			   	    ptoken.navigate(url,'i'+id)}				  
 				  }
 				  
 			function classes(id) {
@@ -632,7 +630,7 @@
 				 } else {
 					 se.className = "regular"
 					 url = "POViewClass.cfm?mode=view&id="+id;	
-					 ColdFusion.navigate(url,'xi'+id)		  
+					 ptoken.navigate(url,'xi'+id)		  
 				  }	  
 				  }
 			
@@ -661,7 +659,7 @@
 							<img src="#SESSION.root#/Images/arrowdown.gif"  alt="" id="linesMin" border="0" class="regular" align="absmiddle">				
 						
 						</td>					
-						<td onClick="more('lines','show')" class="labellarge" style="background-color:white;padding-left:3px;font-size:24px;height:50px;color:0080C0;"><cf_tl id="Purchase details and Receipts"></td>					
+						<td onClick="more('lines','show')" class="labellarge" style="background-color:white;padding-right:13px;font-size:24px;height:50px;color:0080C0;"><cf_tl id="Purchase details and Receipts"></td>					
 						
 							<cf_tl id="Export data to Excel" var="vExport">
 							
@@ -683,27 +681,19 @@
 									  olap           = "0" 
 									  excel          = "1"> 				
 				 
-		 
- 	
 						
+						<td align="right" style="padding:4px;padding-left:20px;width:150px;background-color:ffffff">
 						
-						<td align="right" style="padding-left:4px;width:150px;padding-right:4px;background-color:white">
-						
-						    <table style="border:1px solid gray;background-color:white"><tr><td>
-							<input class="regularxl" style="border:0px" id="inputline" name="inputline">
+						    <table>
+							<tr><td><input class="regularxxl" style="border:0px;background-color:f1f1f1;padding-left:3px" id="inputline"></td>
+							<td>						
+							<img src="#SESSION.root#/Images/search.png" alt="Find line" 
+							   style="cursor: pointer;border:1px solid silver" 
+							   border="0" height="25" width="25" id="refreshpurchasline" align="absmiddle"
+							   onclick="_cf_loadingtexthtml='';ptoken.navigate('POViewGeneralLines.cfm?sort=#url.sort#&mode=#url.mode#&id1=#url.id1#&filter='+document.getElementById('inputline').value,'linescontent');ptoken.navigate('getPurchaseTotal.cfm?id1=#url.id1#','total')">							   
 							</td>
-							<td style="border-left:1px solid gray;background-color:white">						
-							<img src="#SESSION.root#/Images/search.png" 
-							   alt="Find line" 
-							   style="cursor: pointer;border:0px solid gray" 
-							   border="0" 
-							   height="25"
-							   width="25"
-							   id="refreshpurchasline"
-							   align="absmiddle"
-							   onclick="_cf_loadingtexthtml='';ptoken.navigate('POViewGeneralLines.cfm?sort=#url.sort#&mode=#url.mode#&id1=#url.id1#&filter='+document.getElementById('inputline').value,'linescontent');ColdFusion.navigate('getPurchaseTotal.cfm?id1=#url.id1#','total')">
-							   
-							   </td></tr></table>
+							</tr>
+							</table>
 							   
 						</td>					
 						</tr>
@@ -915,10 +905,32 @@
 						
 					<td style="background-color:white"><cfdiv bind="url:ObligationStatus.cfm?id1=#url.id1#" id="obligation"></td>
 					
-					</cfif>
 		
-					</td>
-								
+		           </cfif>	
+				   
+				   <cfquery name="Total" 
+					datasource="AppsPurchase" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">				
+						SELECT    COUNT(*) As Docs,
+								  DocumentCurrency,
+								  SUM(DocumentAmount) as Total 
+				        FROM      Invoice I				
+						WHERE     InvoiceId IN (SELECT InvoiceId FROM InvoicePurchase WHERE PurchaseNO = '#URL.ID1#')				
+						AND       ActionStatus != '9'  
+					    AND   (
+								EXISTS
+								(SELECT 'X'
+									FROM   Organization.dbo.OrganizationObject
+									WHERE  EntityCode    = 'ProcInvoice'
+									AND ObjectKeyValue4 = I.InvoiceId 
+								) 
+								OR HistoricInvoice = 1
+						)
+						GROUP BY  DocumentCurrency
+					</cfquery>  
+				   
+				   <cfif Total.docs gte "1">
 										
 						<cf_tl id="Export data to Excel" var="vExport">
 						
@@ -939,55 +951,34 @@
 								  ajax           = "0"
 								  olap           = "0" 
 								  excel          = "1"> 				
+									
 					
-					
-					
-					<td align="right" style="padding-left:4px;width:150px;padding-right:4px;background-color:white">					
-					
-					  <table style="border:1px solid gray">
-					   <tr><td><input class="regularxl" onkeyup="document.getElementById('refreshinvoiceline').click()" style="border:0px" name="inputinvoice" id="inputinvoice"></td>
-						   <td style="border-left:1px solid gray">						
+					<td align="right" style="padding:4px;padding-left:20px;width:150px;background-color:ffffff">
+						
+						    <table>
+							<tr><td><input class="regularxxl" onkeyup="document.getElementById('refreshinvoiceline').click()" style="border:0px;background-color:f1f1f1;padding-left:3px" id="inputinvoice"></td>
+							<td>						
 							<img src="#SESSION.root#/Images/search.png" 
 							   alt="Find line" 
-							   style="cursor: pointer;border:0px solid gray" 
-							   border="0" 
-							   height="25"
-							   width="25"
-							   id="refreshinvoiceline"
-							   align="absmiddle"
-							   onclick="_cf_loadingtexthtml='';	ptoken.navigate('POViewInvoice.cfm?sort=#url.sort#&mode=#url.mode#&id1=#url.id1#&filter='+inputinvoice.value,'invoicecontent')">
+							   style="cursor: pointer;border:1px solid silver" 
+							   border="0" height="25" width="25" id="refreshinvoiceline" align="absmiddle"
+							   onclick="_cf_loadingtexthtml='';	ptoken.navigate('POViewInvoice.cfm?sort=#url.sort#&mode=#url.mode#&id1=#url.id1#&filter='+document.getElementById('inputinvoice').value,'invoicecontent')">							   
 							</td>
-						</tr>
-					  </table>
-									 
-					</td>
+							</tr>
+							</table>
+							   
+					</td>	
 					
+					</cfif>					
+					
+										
+										
 					</cfoutput>
 					</tr>
 			  </table>
 			  </td></tr>		  
 			  
-			  <cfquery name="Total" 
-				datasource="AppsPurchase" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT    COUNT(*) As Docs,
-							  DocumentCurrency,
-							  SUM(DocumentAmount) as Total 
-			        FROM      Invoice I				
-					WHERE     InvoiceId IN (SELECT InvoiceId FROM InvoicePurchase WHERE PurchaseNO = '#URL.ID1#')				
-					AND       ActionStatus != '9'  
-				    AND   (
-							EXISTS
-							(SELECT 'X'
-								FROM   Organization.dbo.OrganizationObject
-								WHERE  EntityCode    = 'ProcInvoice'
-								AND ObjectKeyValue4 = I.InvoiceId 
-							) 
-							OR HistoricInvoice = 1
-					)
-					GROUP BY  DocumentCurrency
-				</cfquery>  
+			  
 				
 				<cf_tl id="REQ046" var="1">
 				<cfset vReq046=#lt_text#>		

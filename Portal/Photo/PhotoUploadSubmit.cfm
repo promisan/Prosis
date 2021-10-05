@@ -8,10 +8,14 @@
 
 <cf_tl id="Picture updated" var="lblUpdated">
 
-<cftry>
-	<cfdirectory action="CREATE" directory="#SESSION.rootDocumentPath#\#url.destination#">
-	<cfcatch></cfcatch>
-</cftry>
+<cfparam name="SESSION.authent"   default="">	
+
+<cfif SESSION.authent eq 1>
+	
+	<cftry>
+		<cfdirectory action="CREATE" directory="#SESSION.rootDocumentPath#\#url.destination#">
+		<cfcatch></cfcatch>
+	</cftry>
 
 	<cf_assignid>
 	
@@ -24,6 +28,14 @@
 		       	filefield="UploadedFile"
 			    destination="#SESSION.rootDocumentPath#\#url.destination#\#url.filename#.jpg"
 		        nameconflict="OVERWRITE">
+
+			<cfif not IsImageFile("#SESSION.rootDocumentPath#\#url.destination#\#url.filename#.jpg")>
+				<cffile action="DELETE" file="#SESSION.rootDocumentPath#\#url.destination#\#url.filename#.jpg">
+				<script>
+					alert('Image file not accepted');
+				</script>
+				<cfabort>
+			</cfif>
 			
 		</cfif>
 		
@@ -107,4 +119,6 @@
 	</cfcatch>	
 
 	</cftry>
+	
+</cfif>	
 	

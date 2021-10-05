@@ -23,10 +23,6 @@
 
 <cfset link    = replace(url.link,"||","&","ALL")>
    
-<table width="100%" border="0" frame="hsides" cellspacing="0" cellpadding="0" >
- 
-<td width="100%" colspan="2" valign="top">
-
 <!--- Query returning search results --->
 
 <cfquery name="Total" 
@@ -59,21 +55,16 @@ password="#SESSION.dbpw#">
     ORDER BY Code
 </cfquery>
 
-<table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+<table style="width:100%" class="navigation_table">
 
-<tr><td height="14" colspan="3">
-						 
-	 <cfinclude template="Navigation.cfm">
-	 				 
+<tr><td height="14" colspan="3">						 
+	 <cfinclude template="Navigation.cfm">	 				 
 </td></tr>
-<tr><td height="3"></td></tr>
-
 <cfoutput query="SearchResult">
 
 <cfif currentrow gte first>
 
-	<tr class="labelmedium navigation_row">
-	  
+	<tr class="labelmedium2 navigation_row">	  
 	    <td style="padding-top:3px" height="18" width="30">		
 		   <cf_img icon="select" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#code#','#url.box#','','','POST','')">					
 		</td>
@@ -85,14 +76,11 @@ password="#SESSION.dbpw#">
 		     
 </CFOUTPUT>
 
-<tr><td height="20" colspan="3">
-						 
-	 <cfinclude template="Navigation.cfm">
-	 				 
+<tr><td height="20" colspan="3">						 
+	 <cfinclude template="Navigation.cfm">	 				 
 </td></tr>
 
 </TABLE>
  
-</table>
 
 <cfset ajaxonload("doHighlight")>

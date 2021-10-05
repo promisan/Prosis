@@ -650,6 +650,7 @@ password="#SESSION.dbpw#">
 								password="#SESSION.dbpw#">
 					   
 						      SELECT   A.RequirementId,
+							           A.ActionStatus,
 							  		   I.Code AS ItemMaster, 
 							           I.Description AS ItemMasterDescription, 
 									   R.Code, 
@@ -683,16 +684,35 @@ password="#SESSION.dbpw#">
 								   						   
 							   	   <td colspan="11" bgcolor="E6F2FF">
 								   
-									   <table width="100%" cellspacing="0" cellpadding="0">								   
+									   <table width="100%">								   
 									   					   
 									   <cfloop query="rippled">
 									   			   
 										   	<tr class="labelmedium line">
+											
 											  <td style="padding-left:40px"><cf_tl id="ripple">:</td>
 											  <td>#Rippled.RequestDescription#</td>
 											  <td>#Rippled.Code# #Rippled.Description#</td>										 
 											  <td>#Rippled.ItemMaster# #Rippled.ItemMasterDescription#</td>
-											  <td align="right">#numberformat(Rippled.RippleAmount,",")#</td>
+											 
+											  <cfif Cleared eq "0" and RequirementLock eq "0" and ActionStatus neq "9">	
+															
+													  <td align="right">											
+														  <table>
+															  <tr>
+															  <td><cf_img icon="edit" onclick="javascript:getripple('#requirementid#')"></td>
+															  <td align="right" style="width:100%" id="ripple#requirementid#">#numberformat(Rippled.RippleAmount,",")#</td>
+												 			  </tr>
+											 			  </table>				
+													  </td>
+														  
+											  <cfelse>
+											  
+											  		  <td align="right" style="width:100%">#numberformat(Rippled.RippleAmount,",")#</td>
+											  
+											  </cfif>			
+													  
+														  							  
 											  <td style="padding-left:4px;padding-top:4px;padding-right:4px">			
 											  
 											  <!--- rippled lines will only be removed for the ripple line itself --->								  									  											

@@ -31,17 +31,17 @@ function ask() {
 
 </cfoutput>
 
-<cfform action="RecordSubmit.cfm?portalid=#url.id1#"  method="POST" enablecab="Yes" name="dialog" target="result">
+<cfform action="RecordSubmit.cfm?portalid=#url.id1#"  method="POST" name="dialog" target="result">
 
 <cfquery name="SearchResult"
 	 datasource="AppsSystem" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 	     SELECT *
-		FROM Ref_ModuleControl
-		WHERE SystemModule = 'SelfService'
-		AND FunctionClass IN ('SelfService','Report')		
-		AND MenuClass = 'Main'
+		 FROM   Ref_ModuleControl
+		 WHERE  SystemModule = 'SelfService'
+		 AND    FunctionClass IN ('SelfService','Report')		
+		 AND    MenuClass = 'Main'
  </cfquery>
 	 
 
@@ -144,7 +144,7 @@ function ask() {
 	</TR>
 		
 	<tr><td colspan="2">
-			<cfdiv bind="url:RecordFile.cfm?portalid=#url.id1#&mode=#get.class#" id="location"/>
+			<cf_securediv bind="url:RecordFile.cfm?portalid=#url.id1#&mode=#get.class#" id="location">
 		</td>
 	</tr>
 	
@@ -153,13 +153,13 @@ function ask() {
     <TD>
 	
   	   <cfinput type="Text" 
-	     name="HostNameList" 
-		 message="Enter the hostnames that will show this link" 
-		 required="No" 
-		 value="#Get.HostNameList#"
-		 size="50"
-		 maxlength="80" 
-		 class="regularxxl">
+		     name="HostNameList" 
+			 message="Enter the hostnames that will show this link" 
+			 required="No" 
+			 value="#Get.HostNameList#"
+			 size="50"
+			 maxlength="80" 
+			 class="regularxxl">
 		 
     </TD>
 	</TR>

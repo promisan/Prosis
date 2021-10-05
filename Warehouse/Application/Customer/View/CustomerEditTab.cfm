@@ -1,18 +1,20 @@
 
 <cfparam name="url.drillid" default="">
+<cfparam name="url.scope"   default="">
 
 <cfif url.drillid eq "">
 
 	<cf_screentop height="100%" 
-			  scroll="Yes" 
-			  label="New Customer"
-			  jQuery="yes" 
-			  layout="webapp" 
-			  systemmodule="Warehouse" 
-			  functionclass="Window" 
-			  functionName="Customer Edit" 
-			  line="no"
-			  banner="gray">
+			  scroll        = "Yes" 
+			  label         = "New Customer"
+			  jQuery        = "yes" 
+			  layout        = "webapp" 
+			  html          = "No"
+			  systemmodule  = "Warehouse" 
+			  functionclass = "Window" 
+			  functionName  = "Customer Edit" 
+			  line          = "no"
+			  banner        = "gray">
 
 <cfelse>
 
@@ -55,7 +57,9 @@
 <script language="JavaScript">
 		
 		function saveCustomer(){
+		 
 			document.customerform.onsubmit() 
+			
 			if( _CF_error_messages.length == 0 ) {		
 			
 				var validateReference = document.getElementById('validateReference');
@@ -64,10 +68,11 @@
 					alert('Please enter a valid Reference.');
 					validateReference.focus();
 					return false;
-				}
-			
+				}							
+				
 				ptoken.navigate('CustomerSubmit.cfm','contentbox1','','','POST','customerform');
-			}
+				
+			} else { Prosis.busy('no') }
 		}
 		
 		//Address
@@ -126,8 +131,8 @@
 			
 			<table width="100%" align="center">		  		
 										
-				<cfset ht = "64">
-				<cfset wd = "64">			
+				<cfset ht = "58">
+				<cfset wd = "58">			
 				
 				<tr>		
 							
@@ -143,7 +148,7 @@
 									iconheight = "#ht#" 
 									name       = "#vDetails#"
 									class      = "highlight1"
-									source 	   = "CustomerEdit.cfm?drillid=#url.drillid#">														
+									source 	   = "CustomerEdit.cfm?scope=#url.scope#&drillid=#url.drillid#">														
 						
 						<cfset itm = itm+1>		
 						<cf_tl id="Address"	var="vAddress">
@@ -221,9 +226,7 @@
 	 
 	<tr><td height="1" colspan="1" class="linedotted"></td></tr>
 
-</cfif>
-
-<tr><td height="100%" style="padding:10px">
+	<tr><td height="100%" style="padding:6px">
 	
 	<table width="100%" 	     
 		  height="100%"
@@ -239,7 +242,13 @@
 												
 	</table>
 
-</td></tr>
+	</td></tr>
+
+<cfelse>
+
+	<tr><td id="contentbox1"><cfinclude template="CustomerEdit.cfm"></td></tr>
+
+</cfif>
 
 </table>
 

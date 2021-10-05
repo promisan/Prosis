@@ -34,16 +34,11 @@ password="#SESSION.dbpw#">
 
 <script language="JavaScript">
 
-function ask()
-{
-	if (confirm("#vRemove#?")) {
-	
-	return true 
-	
-	}
-	
-	return false
-	
+function ask() {
+	if (confirm("#vRemove#?")) {	
+	return true 	
+	}	
+	return false	
 }	
 
 </script>
@@ -57,14 +52,14 @@ function ask()
 	
 <cfform action="UoMVolume/ItemUoMVolumeSubmit.cfm" method="POST" name="frmItemUoMVolume" target="processItemUoMVolume">
 
-<table width="80%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="80%" align="center" class="formpadding">
 
 	 <cfoutput>
 
     <tr class="labelmedium"><td colspan="2" style="font-size:18px">
 				
 	<cfif url.temperature neq "">
-		  Maintain Unit of Measure Volume [#Item.ItemDescription# - #Item.UoMDescription#]
+		 Maintain Unit of Measure Volume [#Item.ItemDescription# - #Item.UoMDescription#]
 	<cfelse>
 		 Add Unit of Measure Volume [#Item.ItemDescription# - #Item.UoMDescription#]
 	</cfif>
@@ -72,8 +67,6 @@ function ask()
 	</td></tr>
 
 	<tr><td colspan="2" align="center" height="10"></tr>
-	
-   
 	
 	<cfinput type="hidden" name="ItemNo" value="#url.id#">
 	<cfinput type="hidden" name="UoM" value="#url.uom#">
@@ -101,10 +94,10 @@ function ask()
 	
 	<tr><td align="center" colspan="2" height="40">
 	<cfif url.temperature neq "">
-    <cf_button class="button10g" type="submit" name="Delete" id="Delete" value=" Delete " onclick="return ask()">
-    <cf_button class="button10g" type="submit" name="Update" id="Update" value=" Update ">
+    <input type="submit" name="Delete" id="Delete" value="Delete" class="button10g" onClick="return ask()">
+    <input type="submit" class="button10g" type="submit" name="Update" id="Update" value=" Update ">
 	<cfelse>
-	<cf_button class="button10g" type="submit" name="Save" id="Save" value="  Save  ">
+	<input type="submit" class="button10g" type="submit" name="Save" id="Save" value="Save">
 	</cfif>
 	</td>	
 	

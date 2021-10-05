@@ -34,8 +34,6 @@
 <cfform>
 
 <cfset seldate = dateformat(getDate.DateExpiration,client.dateformatShow)>
-
-
 	
 <cfif GlobalAccess neq "NONE" OR MissionAccess eq "READ" OR MissionAccess eq "EDIT" or MissionAccess eq "ALL">
 		 

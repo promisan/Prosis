@@ -17,8 +17,11 @@ SET PersonActionPrefix     = '#Form.PersonActionPrefix#',
 WHERE Mission              = '#url.Mission#'
 </cfquery>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <cfoutput>
 <script>
-	#ajaxLink('ParameterEditContract.cfm?mission=#url.mission#')#	
+	#ajaxLink('ParameterEditContract.cfm?mission=#url.mission#&mid=#mid#')#	
 </script>
 </cfoutput>

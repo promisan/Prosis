@@ -12,8 +12,8 @@
        <cfabort> 
 </cfif>
 
-<cfif Len(Form.Remarks) gt 300>	   
-	   <cf_alert message = "You entered a memo that exceeded the allowed size of 300 characters.">
+<cfif Len(Form.Remarks) gt 1000>	   
+	   <cf_alert message = "You entered a memo that exceeded the allowed size of 1000 characters.">
 	   <cfabort>
 </cfif>
 

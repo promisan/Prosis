@@ -281,7 +281,7 @@ password="#SESSION.dbpw#">
 														width		= "36px"
 														imageHeight = "32px"
 														image 		= "Print.png"
-														onclick 	= "printquote('#MParameter.RequestTemplate#')">
+														onclick 	= "composequote('#MParameter.RequestTemplate#')">
 											</cfif>
 										</cfoutput>
 								   </td>
@@ -394,7 +394,7 @@ password="#SESSION.dbpw#">
 								         id           = "customerselect"	
 										 onfocus      = "this.style.border='1px solid gray';document.getElementById('customerinvoiceselectbox').className ='hide';" 
 										 onblur       = "this.style.border='0px solid gray';forceSelect(this, 'customeridselect');"			 
-								         style        = "border:1px solid silver;background-image:linear-gradient(to bottom,##ffffff,##ffffff);padding-left:4px;width:75px;height:26px;font-size:16px;"
+								         style        = "text-align:center;border:1px solid silver;background-image:linear-gradient(to bottom,##ffffff,##ffffff);padding-left:4px;width:75px;height:26px;font-size:16px;"
 								         autocomplete = "off" 				  							       		  
 								         onkeyup      = "searchcombo('#get.mission#','#url.warehouse#','','customer',this.value,'up','','##customeridselect_val');"
 								         onkeydown    = "searchcombo('#get.mission#','#url.warehouse#','','customer',this.value,'down','','##customeridselect_val');">
@@ -424,7 +424,7 @@ password="#SESSION.dbpw#">
 					</tr>	
 										
 					<tr id="customerdata_box" class="#vHide#">						
-						<td style="padding-left:6px;padding-top:3px;padding-bottom:3px;" colspan="3" id="customerdata_content"></td>
+						<td style="padding-left:2px;padding-top:3px;padding-bottom:3px;" colspan="3" id="customerdata_content"></td>
 					</tr>	
 					
 					<!--- combo box to select the customer --->

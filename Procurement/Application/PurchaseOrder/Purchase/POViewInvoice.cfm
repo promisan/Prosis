@@ -55,14 +55,13 @@
 					   	AND    PurchaseNo ='#URL.ID1#'
 					   ) as ChargedAmount	
 					   				    
-	        FROM      Invoice I, InvoicePurchase IP
-			WHERE     I.InvoiceId = IP.InvoiceId
-			AND       IP.PurchaseNO = '#URL.ID1#' 
+	        FROM      Invoice I INNER JOIN InvoicePurchase IP ON I.InvoiceId = IP.InvoiceId
+			WHERE     IP.PurchaseNO = '#URL.ID1#' 
 									  
 			<cfif url.filter neq "">
 			AND   (
 		          I.InvoiceNo   LIKE '%#url.filter#%' OR 
-				  I.Description LIKE '%#url.filter#%' 		  
+				  I.Description LIKE '%#url.filter#%' 		
 				  )
 			</cfif>		
 			ORDER BY documentDate
@@ -289,8 +288,6 @@
 				</cfif>
 			
 			</cfif>
-			
-			
 						
 		  </cfloop>
 		

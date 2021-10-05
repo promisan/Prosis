@@ -1,6 +1,7 @@
 
 <cfparam name="URL.Mode" default="Workflow">
 <cfparam name="URL.dialog" default="0">
+<cfparam name="FORM.TaxExemption"   default="0">
 
 <cfset dateValue = "">
 <cfif Form.DocumentDate neq ''>
@@ -45,7 +46,8 @@ datasource="appsPurchase"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	UPDATE Invoice
-	SET    Description = '#Form.Description#'
+	SET    Description = '#Form.Description#',
+			TaxExemption = '#FORM.TaxExemption#'
 	WHERE  InvoiceId = '#Form.Key4#' 
 </cfquery>
 

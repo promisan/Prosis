@@ -278,10 +278,10 @@
 	<cfif DisableFriendlyError eq "">
 		<cfset DisableFriendlyError = "0">
 	</cfif>
-
-	<cfif Parameter.enableError eq "2" 
-	    and SESSION.isAdministrator eq "No" 
-		and DisableFriendlyError    eq "0" and	SESSION.overwrite eq "0">
+	
+	<cfif Parameter.enableError eq "2" and SESSION.isAdministrator eq "No"
+	and DisableFriendlyError eq "0" 
+	and	SESSION.overwrite eq "0">
 
 <!--- friendly message --->
 
@@ -291,24 +291,19 @@
 
 			<tr><td valign="middle" align="center" style="padding-top:10px">
 	
-			<div style="width:60%;padding:9px;color:FFFFFF; font-size:30px; font-family:Verdana; background-color:E08283; border-radius:10px;">
+			<div style="width:40%;padding:8px;font-family:Verdana; background-color:silver; border-radius:10px;">
 	
-				<table bgcolor="white" align="center" border="0" bgcolor="transparent">
+				<table align="center" bgcolor="transparent">
 				<tr>
-				<td bgcolor="white" height="100%" rowspan="5" valign="top" style="border-radius:8px;padding:10px">
-					<table>
-					<tr><td bgcolor="FFFFFF" style="border-radius:8px;padding:6px">
-						<img src="#SESSION.root#/Images/error_3.png" alt="System is not available" width="34" height="34" border="0" align="absmiddle">
-			        </td>
-					</tr>	
-	    		</table>
+				<td height="100%" rowspan="2" style="border-radius:8px;padding:3px">
+					<img src="#SESSION.root#/Images/error_3.png" alt="System is not available" width="36" height="36" border="0" align="absmiddle">			       
 				</td>
-				<td align="left" valign="top" style="padding:10px" class="labelmedium2">
+				<td align="left" rowspan="1" style="height:15px;font-size:16px;padding:0px;padding-left:8px" class="labelmedium2">
 	
 				<cfif Log.EnableProcess eq "0">
-					We have detected a recurrent problem in the application.
+					A recurrent problem in the application was detected.
 				<cfelse>
-					We have detected an unexpected problem in the application and has been recorded under Case No. <b>#Log.ErrorNo#</b>
+					An unexpected problem in the application was detected and was recorded under Case No. <b>#Log.ErrorNo#</b>
 				</cfif>
 	
 				</td>
@@ -324,6 +319,8 @@
 	
 				<cfif Parameter.ErrorMailToOwner eq "9">
 					<cfset cl = "button10g">
+					
+					   <tr><td>
 	<!--- manually send mail --->
 						<button class="#cl#" type="button"
 											 style   = "height:20px"
@@ -332,18 +329,17 @@
 							onclick = "window.open('#SESSION.root#/ErrorDetail.cfm?id=#rowguid#&ts=-#dt#-,-#ts#-','myerrormailbox');document.getElementById('mailbutton').className='hide'">
 						<font color="0080FF">Press Here</font> to Notify: <b>#Parameter.SystemContact#</b>
 					</button>
+					</td></tr>
 				<cfelse>
 	<!--- auto send mail see line 391 --->
 					<cfset cl = "hide">
 	
 				</cfif>
 	
-					</td></tr>
-	
 				<cfif Parameter.ErrorMailToOwner neq "9">
 	
-						<tr>
-						<td colspan="2" style="padding-left:10px" class="labelit"><font face="Calibri" size="2" color="white">#SESSION.welcome# Team has been notified of your problem.</td>
+					<tr>
+						<td colspan="2" style="padding-left:20px;font-size:12px" class="labelit">#SESSION.welcome# Team has been notified of your problem.</td>
 					</tr>
 	
 				</cfif>
@@ -677,12 +673,14 @@
 				</td></tr></table>
 				</td>
 				</tr>
+				    
+					 <!--- disabled user admin --->
 
 					<cfparam name="SESSION.overwrite" default="0">
 
 					<cfif Parameter.EnableDetailError eq "1" or
 					DisableFriendlyError eq "1" or
-					SESSION.isAdministrator eq "Yes" or
+					SESSION.isAdministrator eq "Yes" or  <!--- disabled user admin --->
 					SESSION.overwrite eq "1">
 
 						<cfset cl = "regular">
@@ -726,11 +724,8 @@
 					</td>
 					</tr>
 
-
 				<tr><td class="hide" colspan="1" id="errordetail">
-
-
-
+				
 				<table width="100%" cellspacing="1" cellpadding="1">
 
 					<tr><td height="1" bgcolor="silver">

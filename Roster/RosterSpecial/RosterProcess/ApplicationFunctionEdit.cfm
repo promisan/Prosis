@@ -3,10 +3,10 @@
 
 <cf_calendarscript>
 
-<cf_divscroll style="height:100%">
+<cf_divscroll style="height:98%">
 
 <!--- Entry form --->
-<CFFORM name="edit"
+<CFFORM name="edit" style="height:98%"
   action="ApplicationFunctionDecision.cfm?box=#URL.box#&Owner=#Get.Owner#&Mode=#URL.Mode#&IDFunction=#URL.IDFunction#" 
   method="post">
 
@@ -31,7 +31,7 @@
 	
    <table width="100%">
 		
-   <tr><td colspan="4" style="padding-top:5px;padding:5px;border-top:0px solid silver;border-bottom:1px solid silver">
+   <tr><td colspan="4" style="padding-top:5px;padding:5px;border-top:0px solid silver">
 
 	   <table width="99%" align="center">
 	     		
@@ -71,11 +71,11 @@
 										
 						<TD style="padding-top:2px">
 					    <cfoutput query="Get" maxrows=1>
-					    	<textarea class="regular" name="Remarks" style="font-size:13px;height:40px;padding:2px;min-height:15;padding:4px;width:99%" type="text">#RosterGroupMemo#</textarea>
+					    	<textarea class="regular" name="Remarks" style="border:0px;background-color:f1f1f1;font-size:13px;height:40px;padding:2px;min-height:15;padding:4px;width:99%" type="text">#RosterGroupMemo#</textarea>
 					    </cfoutput>				
 					    </TD>
 						<td align="right" style="width:100;padding-top:2px;padding-right:3px">				
-					    <input type="button" name="Memo" value="Save" onclick="saveremarks()" style="height:40px;width:100px" class="button10g"></td>
+					    <input type="button" name="Memo" value="Save" onclick="saveremarks()" style="border:1px solid silver;height:40px;width:100px" class="button10g"></td>
 						<td class="hide" id="saveremarks"></td>
 					</tr>
 					</table>
@@ -118,10 +118,9 @@
    </table>
    </td>
    
-   </tr>
+   </tr>  
   
-  
-   <tr><td colspan="2" style="border:0px solid silver;padding:3px;-moz-border-radius:3px;border-radius:3px;padding-top:7px;padding-left:15px;padding-right:10px;padding-bottom:6px">  	 
+   <tr><td colspan="2" style="padding:3px;-moz-border-radius:3px;border-radius:3px;padding-top:7px;padding-left:15px;padding-right:10px;padding-bottom:6px">  	 
 		<cfinclude template="ApplicationFunctionEditCandidate.cfm">	
        <td>  
    </tr>
@@ -147,8 +146,8 @@
 	  <TR>
 	  <td colspan="2" style="padding-top:5px">
 	    <table width="100%">
-			<tr class="line">
-		    <td id="currentbox" class="labelmedium" style="height:45px;font-weight:200;font-size:28px;padding-left:10px">		
+			<tr>
+		    <td id="currentbox" class="labelmedium" style="height:45px;font-size:28px;padding-left:10px">		
 			    <cfinclude template="ApplicationFunctionEditCurrent.cfm">						
 			</td>
 			<td align="right" style="padding-right:4px">			
@@ -168,10 +167,10 @@
 		
 		<table width="99%" align="center">
 		
-			<tr>
+			<tr class="line">
 		 									
-					<cfset ht = "48">
-					<cfset wd = "48">					
+					<cfset ht = "40">
+					<cfset wd = "40">					
 					
 						<cfparam name="url.mycl" default="0">
 					
@@ -183,7 +182,7 @@
 								iconsrc    = "Logos/Roster/Candidacy/Status_gray.png" 
 								iconwidth  = "#wd#" 
 								iconheight = "#ht#" 
-								padding    = "6"						
+								padding    = "2"						
 								class      = "highlight1"
 								name       = "Status of Candidacy">		
 								
@@ -193,7 +192,7 @@
 								iconsrc    = "Logos/Roster/Candidacy/Submission_gray.png" 
 								iconwidth  = "#wd#" 
 								iconheight = "#ht#" 
-								padding    = "6"	
+								padding    = "2"	
 								source     = "ApplicationFunctionSubmission.cfm?applicantno=#url.id#&functionid=#url.id1#&owner=#get.owner#"																
 								name       = "Submitted Profile">					
 										
@@ -217,7 +216,7 @@
 									iconwidth  = "#wd#" 
 									iconheight = "#ht#" 
 									targetitem = "3"
-									padding    = "6"												
+									padding    = "2"												
 									name       = "Cover letter"
 									source     = "ApplicationFunctionCover.cfm?id=#url.id#&id1=#url.id1#&owner=#get.owner#">	
 																	
@@ -230,7 +229,7 @@
 								iconwidth  = "#wd#" 
 								iconheight = "#ht#" 
 								targetitem = "3"
-								padding    = "6"												
+								padding    = "2"												
 								name       = "Candidacy Log"
 								source     = "ApplicationFunctionHistory.cfm?id=#url.id#&id1=#url.id1#&owner=#get.owner#">		
 															
@@ -242,7 +241,7 @@
 								iconsrc    = "Logos/Roster/Candidacy/Status_gray.png" 
 								iconwidth  = "#wd#" 
 								iconheight = "#ht#" 
-								padding    = "6"									
+								padding    = "2"									
 								name       = "Candidacy Status">		
 							
 														
@@ -251,7 +250,7 @@
 								iconsrc    = "Logos/Roster/Candidacy/Submission_gray.png" 
 								iconwidth  = "#wd#" 
 								iconheight = "#ht#" 
-								padding    = "6"		
+								padding    = "2"		
 								source     = "ApplicationFunctionSubmission.cfm?applicantno=#url.id#&functionid=#url.id1#&owner=#get.owner#"								
 								name       = "Submitted Profile">									
 														
@@ -274,7 +273,7 @@
 									iconwidth  = "#wd#" 
 									iconheight = "#ht#" 
 									targetitem = "3"
-									padding    = "6"												
+									padding    = "2"												
 									name       = "Cover Letter"
 									source     = "ApplicationFunctionCover.cfm?id=#url.id#&id1=#url.id1#&owner=#get.owner#">	
 																		
@@ -318,7 +317,7 @@
 		
 		<td colspan="1" height="99%" width="90%" valign="top">
 			
-			<table border="0" align="center" width="100%" cellspacing="0" cellpadding="0">	
+			<table border="0" align="center" width="100%">	
 		
 		    <cfif url.mycl eq "0">
 			

@@ -279,10 +279,15 @@
 
 <cfoutput>
 
+<cfajaxproxy cfc="Service.Process.System.UserController" jsclassname="systemcontroller">
+
 <script language="JavaScript">
 
 	function printingPHP(roster,format,script) {
-		 ptoken.open("#SESSION.root#/cfrstage/user/#SESSION.acc#/php_"+script+".pdf?ts="+new Date().getTime(),"php_"+script, "location=no, toolbar=no, scrollbars=yes, resizable=yes")
+		var uController = new systemcontroller();
+
+		ptoken.open("#SESSION.root#/cfrstage/getFile.cfm?file=php_"+script+".pdf&mid="+ uController.GetMid(),"php_"+script, "location=no, toolbar=no, scrollbars=yes, resizable=yes")
+
 	}
 	
 	ie = document.all?1:0

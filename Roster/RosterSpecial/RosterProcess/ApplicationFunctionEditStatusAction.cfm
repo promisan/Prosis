@@ -39,7 +39,7 @@
 	  
 <cfset accessarray =  ListToArray(AccessList)>
 	  
-<table height="26" width="350">
+<table height="26" class="formspacing">
 
 <cfset cnt = 1>
 <cfset go  = 0>
@@ -52,12 +52,8 @@
 			
 			<cfif cnt eq "1"><tr></cfif>
 							   
-				<td width="15%" 
-				    height="22" 
-					id="status_#currentrow#" 
-					align="left" 					
-					style="border:1px solid silver;border-radius:5px"
-					bgcolor="yellow">
+				<td id="status_#currentrow#" 						
+					style="min-width:195px;height:35px;background-color:ffffaf">
 					
 					<table class="formpadding">
 					<tr><td style="padding-left:6px">
@@ -79,7 +75,7 @@
 						
 					    </td>
 						
-						<td style="padding-left:6px;font-size:17px" class="labelmedium2"><!---#status#---> #Meaning#</td>
+						<td style="padding-left:6px;font-size:15px;font-weight:bold" class="labelmedium2"><!---#status#---> #Meaning#</td>
 						
 					</tr>
 						
@@ -94,8 +90,8 @@
 	      <cfset go = "1">
 					 
 		  <cfif cnt eq "1"><tr></cfif>
-				<td width="15%" id="status_#currentrow#" align="left"
-					style="padding-left:6px;border: 1px solid silver;"  class="regular"> 
+				<td id="status_#currentrow#" align="left"
+					style="min-width:195px;height:35px;padding-left:6px;background-color:f1f1f1"  class="regular"> 
 					
 					<cfset ruleDescription = "">
 						
@@ -123,14 +119,16 @@
 					 </td>
 					<td style="padding-top:1px;padding-left:3px" align="left">
 					    <table class="formpadding">
-						<tr class="labelmedium2">						 
-						 <td style="font-size:16px;padding-left:3px">#Meaning#</td>
-						 <td style="padding-left:2px">
-						<cfif ruleDescription neq "">
-							<img src="#client.root#/images/link.gif" alt="Process rule: #ruleDescription#" style="cursor:pointer; vertical-align:middle">
-						</cfif>
-						</td>
-						</tr>
+							<tr class="labelmedium2">						 
+							 <td style="font-size:15px;padding-left:3px">#Meaning#</td>
+							 <td style="padding-top:4px;padding-left:4px">
+							<cfif ruleDescription neq "">
+								<img src="#client.root#/images/link.gif" 
+								  title="Process rule: #ruleDescription#" 
+								  style="cursor:pointer; vertical-align:middle">
+							</cfif>
+							</td>
+							</tr>
 						</table>
 					</td>
 					</tr>

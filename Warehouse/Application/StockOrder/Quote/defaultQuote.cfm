@@ -175,7 +175,7 @@ password="#SESSION.dbpw#">
 		   
 			   <table width="100%" class="formpadding" style="height:100px;background-color:##BFECFB; border:0px solid silver">
 					   				   
-					 <cfquery name="get" 
+					 <cfquery name="getTotal" 
 							datasource="AppsMaterials" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">			
@@ -190,16 +190,16 @@ password="#SESSION.dbpw#">
 									
 					<tr class="labelmedium">
 					    <td align="right" style="padding-right:10px" colspan="3"><cf_tl id="Amount"></td>
-						<td align="right" id="qteamount" style="font-size:18px;padding-right:4px;font-weight:xbold;border:1px solid silver">#numberformat(get.Amount,',.__')#</td>
+						<td align="right" id="qteamount" style="font-size:18px;padding-right:4px;font-weight:xbold;border:1px solid silver">#numberformat(getTotal.Amount,',.__')#</td>
 						<td style="width:4px"></td>
 					</tr>
 					<tr class="labelmedium">
 					    <td align="right" style="padding-right:10px" colspan="3"><cf_tl id="Tax"></td>
-						<td align="right" id="qtetax" style="font-size:18px;padding-right:4px;font-weight:xbold;border:1px solid silver">#numberformat(get.Tax,',.__')#</td>
+						<td align="right" id="qtetax" style="font-size:18px;padding-right:4px;font-weight:xbold;border:1px solid silver">#numberformat(getTotal.Tax,',.__')#</td>
 					</tr>
 					<tr class="labelmedium">
 					    <td align="right" style="padding-right:10px" colspan="3"><cf_tl id="Total"></td>
-						<td align="right" id="qtetotal" style="font-size:18px;padding-right:4px;font-weight:xbold;border:1px solid silver">#numberformat(get.Total,',.__')#</td>
+						<td align="right" id="qtetotal" style="font-size:18px;padding-right:4px;font-weight:xbold;border:1px solid silver">#numberformat(getTotal.Total,',.__')#</td>
 					</tr>
 					
 					<tr><td style="height:4px"></td></tr>
@@ -214,35 +214,28 @@ password="#SESSION.dbpw#">
    
    </td></tr>
    
+   <cfquery name="Text"
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT * 
+		FROM   WarehouseJournal
+		WHERE  Warehouse   = '#get.Warehouse#'		
+		AND    Area        = 'Sale'
+		AND    Currency    = '#Lines.SalesCurrency#'				
+	</cfquery>
+	   
    <cfsavecontent variable="disclaimertext">
-	   <table><tr><td style="font-size:12px">
-	   Condiciones: Con mi firma (Cliente), en nombre propio y/o de la empresa a la cual represento, la presente cotización es considerada como una "aceptación de
-	compra" a favor de distribuidora Mariscal, S. A., por el (los) articulo(s) cotizado(s), asi como la(s) cantidad(es), precio(s), tiempo de entrega, condiciones de
-	pago y caracteristicas especificas de lo que estoy (estamos) ordenando a travez del presente documento que funciona como si fuera una orden de compra
-	emitida por el comprador.
-	</td></tr>
-	<tr><td style="font-size:12px">
-	<b>Notas Importantes</b>
-	No se entregara ningún material sin antes haber recibido el pago correspondiente.
-	Mariscal es responsable de la mercaderia cuando se hace con el transporte de la Empresa.
-	El despacho de la mercadería esta sujeto a la existencia del mismo en el momento de la aceptación.
-	Precios sujetos a cambio sin previo aviso.
-	Ofertas validas mientras duren existencias.
-	Productos en promoción no tienen cambio ni devolución.
-	</td>
-	</tr>
+	<table>
+	<tr><td style="font-size:13px">#Text.Transactionmemo#</td></tr>	
 	</table>
    </cfsavecontent>
    
    <!--- footer --->
            
-   <tr class="labelmedium"><td align="center" valign="top" style="padding-top:8px;border-top:1px solid silver;height:#pdiscla#px;font-size:11px">#disclaimertext#</td></tr>
+   <tr class="labelmedium"><td align="center" valign="middle" style="padding-top:8px;border-top:1px solid silver;height:#pdiscla#px;font-size:13px">#disclaimertext#</td></tr>
 
 </table>
-
-<p style='page-break-after:always;'>&nbsp;</p>
-
-testing page break
 
 </cfoutput>
 

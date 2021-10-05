@@ -24,7 +24,7 @@
 	<cfoutput>
 		<script>
 		alert("Sorry, but order value: #url.ListOrder# is incorrect")		
-		 ColdFusion.navigate('Budgeting/List.cfm?Code=#URL.Code#&ID2=#url.id2#','list')	
+		 ptoken.navigate('Budgeting/List.cfm?Code=#URL.Code#&ID2=#url.id2#','list')	
 		</script>
 	</cfoutput>
 	<cfabort>
@@ -40,7 +40,7 @@
 	<cfoutput>
 		<script>
 		alert("Sorry, but numeric value #url.ListAmount# is incorrect")		
-		 ColdFusion.navigate('Budgeting/List.cfm?Code=#URL.Code#&ID2=#url.id2#','list')	
+		 ptoken.navigate('Budgeting/List.cfm?Code=#URL.Code#&ID2=#url.id2#','list')	
 		</script>
 	</cfoutput>
 	<cfabort>
@@ -90,7 +90,7 @@
 		<cfoutput>
 	    <script>
 		alert("Sorry, invalid code")		
-		 ColdFusion.navigate('Budgeting/List.cfm?Code=#URL.Code#&ID2=#url.id2#','list')	
+		 ptoken.navigate('Budgeting/List.cfm?Code=#URL.Code#&ID2=#url.id2#','list')	
 		</script>
 		<cfabort>
 		</cfoutput>
@@ -160,7 +160,7 @@
 <cfoutput>
   <script>
     _cf_loadingtexthtml=''
-    ColdFusion.navigate('Budgeting/List.cfm?Code=#URL.Code#&ID2=','list')	
+    ptoken.navigate('Budgeting/List.cfm?Code=#URL.Code#&ID2=','list')	
   </script>	
 </cfoutput>
 

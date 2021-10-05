@@ -88,21 +88,22 @@ password="#SESSION.dbpw#">
 			 
 			 <cfif Format.DocumentMode eq "AsIs" and Format.DocumentLayout eq "PDF">
 			 
-			  	  <cftry>		  				  		
+			      			 
+			  	   <cftry>		  				  		
 					<cfdirectory action="CREATE" 
 				          directory="#SESSION.rootDocumentPath#\WFObjectReport\#URL.ActionID#">
 				   <cfcatch></cfcatch>
 				  </cftry>
 				  			
 				  <cfset wfrpt = "#SESSION.rootDocumentPath#\WFObjectReport\#URL.ActionID#\#Format.DocumentCode#.pdf">
-				  					
+				 				 			  					
 				  <cfinclude template="../../../#Format.DocumentTemplate#">	
-					
+				 					
 				  <cfif Not FileExists(wfrpt)>
 						ERROR, file #wfrpt# could not be generated check the custom template #Format.DocumentTemplate#!!
 						<cfabort>
 				  </cfif> 
-										 
+				  										 
 			<cfelse>
 
 				<cfset URL.Signature         = "#signature.blockline1#<br>#signature.blockline2#<br>#signature.blockline3#<br>#signature.blockline4#<br>#signature.blockline5#">

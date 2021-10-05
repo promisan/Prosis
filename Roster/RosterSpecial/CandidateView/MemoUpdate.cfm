@@ -1,12 +1,12 @@
 
 <cfoutput>
 
-<cfif Len(URL.ID1) gt 200>
+<cfif Len(URL.ID1) gt 1000>
 
     <script language="JavaScript">
 	
 	   {
-		alert("You entered a memo that exceeded the allowed length of 200 characters.")
+		alert("You entered a memo that exceeded the allowed length of 1000 characters.")
 	   }
 	
 	</script>

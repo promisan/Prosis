@@ -73,14 +73,14 @@ password="#SESSION.dbpw#">
 	        <p style="clear: both; font-size: 15px; margin: 1% 0 0 1%;">Declare and attach a copy of document that we require (passport, laissez passer, medical clearance, tests, drivers license).</p>
 	        <div class="emptyspace" style="height: 13px;"></div>
 	        
-		    <table><tr><td></td>
+		    <table><tr class="labelmedoum2"><td></td>
 			<td><input type="radio" class="radiol" name="Status" value="0" onClick="reloadDocument('#url.id#','0')" <cfif URL.Status eq "0">checked</cfif>></td><td style="padding-left:4px;padding-right:10px" class="labelmedium"><cfif URL.Status eq "0"><b></cfif><cf_tl id="All"></td>
 			<td><INPUT type="radio" class="radiol" name="Status" value="1" onClick="reloadDocument('#url.id#','1')" <cfif URL.Status eq "1">checked</cfif>></td><td style="padding-left:4px;padding-right:10px" class="labelmedium"><cfif URL.Status eq "1"><b></cfif><cf_tl id="Current"></td>
 			<td><INPUT type="radio" class="radiol" name="Status" value="2" onClick="reloadDocument('#url.id#','2')" <cfif URL.Status eq "2">checked</cfif>></td><td style="padding-left:4px;padding-right:10px" class="labelmedium"><cfif URL.Status eq "2"><b></cfif><cf_tl id="Expired"></td>
 			</tr></table>
 		</td>
 					
-	    <td align="right" valign="bottom" style="padding-bottom:5px;padding-right:28px">
+	    <td align="right" valign="bottom" style="padding-bottom:5px;padding-right:45px">
 			<cf_tl id="Add" var="vAdd">
 			<input type="button" value="#vAdd#" class="button10g" onClick="issuedocument('#URL.ID#')">&nbsp;
 	    </td>
@@ -90,7 +90,7 @@ password="#SESSION.dbpw#">
 	  </tr>
 	  
 	  <tr>
-	  <td width="96%" colspan="3" align="center">
+	  <td width="98%" colspan="3" align="center">
 	  
 		  <table class="formpadding navigation_table" width="94%" align="center">
 				

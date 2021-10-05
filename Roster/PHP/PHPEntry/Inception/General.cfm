@@ -65,10 +65,8 @@
   datasource="AppsSelection">
 	SELECT    *, 
 	          S.Source AS SubmissionSource
-	FROM      Applicant A, 
-	          ApplicantSubmission S
-	WHERE     A.PersonNo    = S.PersonNo
-	AND       S.ApplicantNo = '#url.ApplicantNo#' 
+	FROM      Applicant A INNER JOIN ApplicantSubmission S ON A.PersonNo    = S.PersonNo
+	WHERE     S.ApplicantNo = '#url.ApplicantNo#' 
 </cfquery>
 
 <cfquery name="Nation" 
@@ -130,8 +128,6 @@
 		<cf_divscroll>
 					
 		<table width="98%" height="100%" border="0" class="formpadding">
-			
-			
 					
 			<cfif URL.action eq "Create">	
 			

@@ -1,3 +1,4 @@
+
 <cf_tl id="My Picture" var="vTitle">
 
 <cfparam name="attributes.acc" 			default="#session.acc#">
@@ -16,15 +17,15 @@
 
 <script>
 	function _pr_changeProfilePicture() {
-		ColdFusion.navigate('<cfoutput>#session.root#</cfoutput>/Portal/Photo/PhotoUpload.cfm?pictureDialog=__ProsisPresentation_picturedialog&widmodalbg=__ProsisPresentation_widmodalbg&Pic=__ProsisPresentation_Pic<cfoutput>&filename=#attributes.acc#&title=#attributes.title#&width=#url.width#&height=#url.height#&destination=#attributes.destination#&mode=#attributes.module#&style=#attributes.style#</cfoutput>','__ProsisPresentation_picturedialog');
+		ptoken.navigate('<cfoutput>#session.root#</cfoutput>/Portal/Photo/PhotoUpload.cfm?pictureDialog=__ProsisPresentation_picturedialog&widmodalbg=__ProsisPresentation_widmodalbg&Pic=__ProsisPresentation_Pic<cfoutput>&filename=#attributes.acc#&title=#attributes.title#&width=#url.width#&height=#url.height#&destination=#attributes.destination#&mode=#attributes.module#&style=#attributes.style#</cfoutput>','__ProsisPresentation_picturedialog');
 		$('#__ProsisPresentation_widmodalbg').css('display','block'); 
 		$('#__ProsisPresentation_picturedialog').slideDown(300);
 	}	
 </script>
 
 <div id="__ProsisPresentation_userPic">
-	<div id="__ProsisPresentation_Pic">		
-		<cfdiv bind="url:#session.root#/Portal/PhotoShow.cfm?acc=#attributes.acc#&height=#attributes.height#&width=#attributes.width#&destination=#attributes.destination#&mode=#attributes.module#&style=#attributes.style#">
+	<div id="__ProsisPresentation_Pic">			
+		<cf_securediv bind="url:#session.root#/Portal/PhotoShow.cfm?acc=#attributes.acc#&height=#attributes.height#&width=#attributes.width#&destination=#attributes.destination#&mode=#attributes.module#&style=#attributes.style#">
 	</div>
 </div>
 

@@ -118,7 +118,7 @@ password="#SESSION.dbpw#">
 				   <td colspan="2" align="right">
 				   <input type="button" 
 				        value="Save" 
-						onclick="ColdFusion.navigate('ListSubmit.cfm?code=#url.code#&id2='+topicvaluecode.value+'&topicvalue='+topicvalue.value+'&listorder='+listordering.value+'&listamount='+listamount.value+'&listdefault='+listdefault.checked+'&operational='+operational.checked,'list')"					
+						onclick="ptoken.navigate('ListSubmit.cfm?code=#url.code#&id2='+topicvaluecode.value+'&topicvalue='+topicvalue.value+'&listorder='+listordering.value+'&listamount='+listamount.value+'&listdefault='+listdefault.checked+'&operational='+operational.checked,'list')"					
 						class="button10s" 
 						style="width:50">&nbsp;</td>
 			    </TR>					
@@ -134,7 +134,7 @@ password="#SESSION.dbpw#">
 				   <td align="center"><cfif def eq "1">*</cfif></td>	
 				   <td align="center"><cfif op eq "0"><font color="FF0000">-</font><cfelse>*</cfif></td>
 				   <td align="right" style="padding-top:3px;">
-				   	  <cf_img icon="edit" onclick="ColdFusion.navigate('List.cfm?Code=#URL.Code#&ID2=#nm#','list');">
+				   	  <cf_img icon="edit" onclick="ptoken.navigate('List.cfm?Code=#URL.Code#&ID2=#nm#','list');">
 				   </td>
 			   			   
 				   <cfquery name="Check" 
@@ -149,7 +149,7 @@ password="#SESSION.dbpw#">
 				   
 				   <td align="center" width="20" style="padding-top:3px;">
 				     <cfif check.recordcount eq "0">
-						   <cf_img icon="delete" onclick="ColdFusion.navigate('ListPurge.cfm?Code=#URL.Code#&ID2=#nm#','list');">
+						   <cf_img icon="delete" onclick="ptoken.navigate('ListPurge.cfm?Code=#URL.Code#&ID2=#nm#','list');">
 					 </cfif>	   
 					  
 				    </td>
@@ -231,7 +231,7 @@ password="#SESSION.dbpw#">
 				<input type="submit" 
 					value="Add" 
 					class="button10s" 
-					onclick="ColdFusion.navigate('ListSubmit.cfm?code=#url.code#&topicvaluecode='+topicvaluecode.value+'&topicvalue='+topicvalue.value+'&listorder='+listordering.value+'&listamount='+listamount.value+'&listdefault='+listdefault.checked+'&operational='+operational.checked,'list')"
+					onclick="ptoken.navigate('ListSubmit.cfm?code=#url.code#&topicvaluecode='+topicvaluecode.value+'&topicvalue='+topicvalue.value+'&listorder='+listordering.value+'&listamount='+listamount.value+'&listdefault='+listdefault.checked+'&operational='+operational.checked,'list')"
 					style="width:40">
 					
 			</td>			    

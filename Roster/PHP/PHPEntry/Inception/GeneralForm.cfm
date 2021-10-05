@@ -41,7 +41,7 @@
 	
 </cfif>
 
-<table border="0" class="formpadding">
+<table class="formpadding formspacing">
 
 <cfoutput>
 					
@@ -752,7 +752,7 @@
 				     <td valign="top" style="padding-top:4px" class="labelmedium" align="left"><cf_tl id="More information"> :</td>
 				     <TD colspan="2" class="labelmedium" align="left">	 
 					 <cfif url.mode neq "view">	
-					 <textarea rows="2" name="Remarks" class="regular" style="width:100%;font-size:13px;padding:3px;scrollbar-track-color: silver;">#Get.Remarks#</textarea>
+					 <textarea rows="2" name="Remarks" class="regular" style="width:100%;font-size:14px;padding:4px;scrollbar-track-color: silver;">#Get.Remarks#</textarea>
 					 <cfelse>
 					 #Get.Remarks#
 					 </cfif>
@@ -769,7 +769,7 @@
 				
 		<cfset row=row+1>	
 		<tr style="padding-top:6px;">			
-			<td valign="top" style="padding-top:4px" class="labelmedium"><cf_tl id="Attachments">:</td>
+			<td valign="top" style="padding-top:4px" class="labelmedium"><cf_tl id="Attachment">#dateformat(get.SubmissionDate,client.dateformatshow)#:</td>
 			<td>
 						
 				 <cf_filelibraryN
@@ -778,11 +778,44 @@
 					Insert="yes"
 					Filter=""	
 					Box="submission"
-					showsize="no"
+					showsize="yes"
 					Remove="yes">	
 					
 			</td>
 		</tr>
+		
+		<cfquery name="Other" 
+		  datasource="AppsSelection">
+			SELECT    *, 
+			          S.Source AS SubmissionSource
+			FROM      Applicant A INNER JOIN ApplicantSubmission S ON A.PersonNo    = S.PersonNo
+			WHERE     S.PersonNo  = '#get.PersonNo#'
+			AND       S.Source    = '#get.SubmissionSource#'
+			AND       ApplicantNo != '#url.ApplicantNo#' 
+		</cfquery>
+		
+		
+		
+		<cfloop query="Other">
+		
+			<cfset row=row+1>	
+			<tr style="padding-top:6px;">			
+				<td valign="top" style="padding-top:4px" class="labelmedium"><cf_tl id="Attachment">#dateformat(SubmissionDate,client.dateformatshow)# #OfficerLastName#:</td>
+				<td>
+							
+					 <cf_filelibraryN
+						DocumentPath="Submission"
+						SubDirectory="#SubmissionId#" 			
+						Insert="no"
+						Filter=""	
+						Box="submission#row#"
+						showsize="yes"
+						Remove="no">	
+						
+				</td>
+			</tr>
+			
+		</cfloop>
 		
 		</cfif>
 		

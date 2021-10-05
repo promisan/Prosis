@@ -23,36 +23,40 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			DELETE 
-			FROM 	[dbo].[PersonAccountMission]
-	      	WHERE 	PersonNo = '#vPersonNo#'
+			FROM 	PersonAccountMission
+	      	WHERE 	PersonNo  = '#vPersonNo#'
 	      	AND 	AccountId = '#vAccountId#'
 	</cfquery>
 
 	<cfoutput query="getMissions">
+	
+	    <cfif bankid neq "">
 		
-		<cfif isDefined("Form.Bank_#Mission#")>
-			<cfset vBankId = evaluate("Form.Bank_#Mission#")>
-			<cfquery name="insertAccountMission" 
-				datasource="AppsPayroll" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					INSERT INTO [dbo].[PersonAccountMission]
-					           ([PersonNo]
-					           ,[AccountId]
-					           ,[Mission]
-					           ,[BankId]
-					           ,[OfficerUserid]
-					           ,[OfficerLastName]
-					           ,[OfficerFirstName])
-					     VALUES
-					           ('#vPersonNo#'
-					           ,'#vAccountId#'
-					           ,'#Mission#'
-					           ,'#vBankId#'
-					           ,'#session.acc#'
-					           ,'#session.last#'
-					           ,'#session.first#')
-			</cfquery>
+			<cfif isDefined("Form.Bank_#Mission#")>
+				<cfset vBankId = evaluate("Form.Bank_#Mission#")>
+				<cfquery name="insertAccountMission" 
+					datasource="AppsPayroll" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						INSERT INTO [dbo].[PersonAccountMission]
+						           (PersonNo
+						           ,AccountId
+						           ,Mission
+						           ,BankId
+						           ,OfficerUserid
+						           ,OfficerLastName
+						           ,OfficerFirstName)
+						     VALUES
+						           ('#vPersonNo#'
+						           ,'#vAccountId#'
+						           ,'#Mission#'
+						           ,'#vBankId#'
+						           ,'#session.acc#'
+						           ,'#session.last#'
+						           ,'#session.first#')
+				</cfquery>
+			</cfif>
+		
 		</cfif>
 
 	</cfoutput>

@@ -158,10 +158,10 @@ password="#SESSION.dbpw#">
 	
     <!--- Field: Phone No. --->
     <TR class="labelmedium">
-	    <TD><cf_tl id="Phone No">:</TD>
+	    <cf_tl id="Please enter a PhoneNo" var="1" class="message">		
+	    <TD  title="#lt_text#"><cf_tl id="Phone No">:</TD>
 	    <TD>
-		
-			<cf_tl id="Please enter a PhoneNo" var="1" class="message">		
+			
 			<cfinput type="Text" name="PhoneNumber" class="regularxl enterastab" message="#lt_text#" value="" required="No" size="30" maxlength="30">
 			
 		</TD>
@@ -169,12 +169,10 @@ password="#SESSION.dbpw#">
 	
 	 <!--- Field: Mobile No. --->
     <TR class="labelmedium">
-	    <TD><cf_tl id="Mobile No">:</TD>
-	    <TD>
-		
-			<cf_tl id="Please enter a MobileNo" var="1" class="message">		
-			<cfinput type="Text" name="MobileNumber" class="regularxl enterastab" message="#lt_text#" value="" required="No" size="30" maxlength="30">
-			
+	    <cf_tl id="Please enter a MobileNo" var="1" class="message">	
+	    <TD title="#lt_text#"><cf_tl id="Mobile No">:</TD>
+	    <TD>			
+			<cfinput type="Text" name="MobileNumber" class="regularxl enterastab" message="#lt_text#" value="" required="No" size="30" maxlength="30">			
 		</TD>
 	</TR>
 	

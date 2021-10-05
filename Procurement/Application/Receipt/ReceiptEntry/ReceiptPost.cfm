@@ -1546,6 +1546,7 @@
 											   mission          = "#Line.Mission#" 
 											   ItemNo           = "#Line.WarehouseItemNo#" 
 											   UoM              = "#Line.WarehouseUoM#"
+											   DateEffective    = "#dateFormat(Line.DeliveryDate, CLIENT.DateFormatShow)#"
 											   Cost             = "#cost#"									   
 											   datasource       = "AppsPurchase">	 							  
 									  
@@ -1628,13 +1629,17 @@
 									<!--- we set the sale price if the item has no prices set for 
 									the warehouse of this entity --->
 									
+									
+									
 									<cfinvoke component = "Service.Process.Materials.Item"  
 									   method           = "createItemUoMPrice" 
 									   mission          = "#Mission#" 
 									   ItemNo           = "#WarehouseItemNo#" 
 									   UoM              = "#WarehouseUoM#"
+									   DateEffective    = "#dateFormat(Line.DeliveryDate, CLIENT.DateFormatShow)#"
 									   Cost             = "#cost#"									   
-									   datasource       = "AppsPurchase">	 
+									   datasource       = "AppsPurchase">	
+									
 															
 							</cfif>	
 							

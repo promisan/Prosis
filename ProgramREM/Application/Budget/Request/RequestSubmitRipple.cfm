@@ -10,7 +10,6 @@
 			WHERE      RequirementId = '#requirementId#'				
 	</cfquery>	
 	
-	
 			
 	<cfif getRequest.recordcount eq "1">
 				
@@ -42,8 +41,7 @@
 												 AND    Status IN ('P','0')) 	
 												 
 												 				  															  	
-					</cfquery>
-					
+					</cfquery>					
 					
 					<!--- if this line has been cleared for recreation --->
 															
@@ -77,21 +75,50 @@
 			</cfif>		
 			
 			<!--- apply the defined ripples for this item master / mission / topic --->
+			
+			<cfoutput>
+			<cfsavecontent variable="GetRipples">
+			
+				SELECT       R.Code, 
+				             R.TopicValueCode, 
+							 R.Mission, 
+							 R.RippleItemMaster, 
+							 R.RippleObjectCode, 							 
+							 R.BudgetMode, 
+							 R.BudgetAmount, 
+							 R.BudgetMemo, 
+							 R.Operational
+				FROM         Purchase.dbo.ItemMasterRipple AS R INNER JOIN
+	                             (SELECT       Code, TopicValueCode, Mission, RippleItemMaster, RippleObjectCode, MAX(DateEffective) AS Date
+	                               FROM        Purchase.dbo.ItemMasterRipple
+	                               WHERE       DateEffective < '#getRequest.RequestDue#' 
+								   AND         Mission = '#Program.Mission#'
+	                               GROUP BY Code, TopicValueCode, Mission, RippleItemMaster, RippleObjectCode) 
+								   AS D  ON R.Code             = D.Code 
+								        AND R.TopicValueCode   = D.TopicValueCode 
+										AND R.Mission          = D.Mission 
+										AND R.RippleItemMaster = D.RippleItemMaster 
+										AND R.RippleObjectCode = D.RippleObjectCode 
+										AND R.DateEffective    = D.Date
+				WHERE        R.Operational = 1
+			
+			</cfsavecontent>
+			</cfoutput>
 				
 			<cfquery name="getRipple" 
 				datasource="AppsProgram" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 				SELECT     R.*
-				FROM       Purchase.dbo.ItemMasterRipple R, Purchase.dbo.ItemMaster S
-				WHERE      R.RippleItemMaster = S.Code
-				AND        R.Code = '#getRequest.ItemMaster#'
+				FROM       (#preservesingleQuotes(getRipples)#) as R INNER JOIN Purchase.dbo.ItemMaster S ON R.RippleItemMaster = S.Code
+				WHERE      R.Code = '#getRequest.ItemMaster#'
 				<cfif getRequest.topicvalueCode neq "">
 				AND        (TopicValueCode = '#getRequest.TopicValueCode#' or TopicValueCode = '')
 				<cfelse>
 				AND        TopicValueCode = ''
 				</cfif> 
-				AND        R.Mission = '#Program.Mission#' 
+				AND        R.Mission       = '#Program.Mission#' 
+				
 				AND        R.RippleObjectCode IN
 			                          (SELECT  Code
 		          			           FROM    Program.dbo.Ref_Object
@@ -127,9 +154,7 @@
 												  
 						AND    RequirementIdParent = '#getRequest.RequirementIdParent#'
 					</cfquery>		
-					
-					
-										
+															
 					<cfif budgetMode eq "1">
 					
 					       <cfset quantity = "1">							   
@@ -279,7 +304,11 @@
 								  WHERE R.RequirementId = '#rowguid#'
 							 </cfquery>		
 							 
-						</cfif>	 														 
+						</cfif>	 	
+						
+						<cfinvoke component = "Service.Process.Program.ProgramAllotment"  
+						   method           = "LogRequirement" 
+						   RequirementId    = "#rowguid#">													 
 							 					
 				   </cfif>						
 											

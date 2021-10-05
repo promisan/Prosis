@@ -1027,10 +1027,8 @@
 					
 					<!--- container for showing documents --->
 					
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
-						<tr><td height="1"></td></tr>
-						<tr><td style="padding:10px" align="center" id="document_#ObjectId#_#objectcnt#_#currentrow#"></td></tr>	
-						<tr><td height="1"></td></tr>															
+					<table width="100%">						
+						<tr><td style="padding:10px" align="center" id="document_#ObjectId#_#objectcnt#_#currentrow#"></td></tr>																					
 					</table>
 					
 					 </td>

@@ -342,7 +342,7 @@ function search(tpe,date) {
 	frm  = document.getElementById("dsearch");
 	frm.className = "regular" 		
 	Prosis.busy('yes')			
-	url = "PostViewDetail.cfm?tree=#URL.Tree#&filterid="+fil+"&ts="+new Date().getTime()+"&search=1&fld=" + fld.value + "&opt=" + op + "&sorting=" + srt.value + "&tpe=" + tpe + "&mission=#URL.Mission#&mandate=#URL.Mandate#&date="+date		
+	url = "PostViewDetail.cfm?tree=#URL.Tree#&filterid="+fil+"&search=1&fld=" + fld.value + "&opt=" + op + "&sorting=" + srt.value + "&tpe=" + tpe + "&mission=#URL.Mission#&mandate=#URL.Mandate#&date="+date		
 	ptoken.navigate(url,'isearch');	
 	}
 	

@@ -454,8 +454,8 @@
 		</cfif>		
 		
 		<!--- rounding --->
-		<cfset sale.amount    = round(sale.amount*100)/100>
-		<cfset sale.amounttax = round(sale.amounttax*100)/100>
+		<cfset sale.amount    = round(sale.amount*10000)/10000>
+		<cfset sale.amounttax = round(sale.amounttax*10000)/10000>
 		
 		<cfif quantity eq "0">
 			<cfset sale.pricenet = "0">

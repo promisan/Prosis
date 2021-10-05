@@ -53,8 +53,7 @@
 			
 			)														
 	</cfquery>
-	
-				
+					
 	<cfquery name="LastContract" 
 	datasource="AppsPayroll" 
 	username="#SESSION.login#" 
@@ -70,12 +69,13 @@
 	<cfset tYes = "#Lt_text#">
 	
 	<cfset cnt = "0">
-	
+		
 	<cfif Ent.Recordcount eq "0">
 	
 	<tr class="labelmedium"><td><cf_tl id="Not applicable"></td></tr>
 	
 	</cfif>	
+	
 	<cfoutput query="Ent">		
 	
 		<cfset cnt = cnt+1>				

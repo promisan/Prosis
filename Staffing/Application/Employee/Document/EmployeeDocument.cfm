@@ -22,7 +22,7 @@
 
 <cfinclude template="EmployeeDocumentContentScript.cfm">
 
-<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="99%" align="center" class="formpadding">
  <tr><td>
 
 <cfif url.webapp eq "">

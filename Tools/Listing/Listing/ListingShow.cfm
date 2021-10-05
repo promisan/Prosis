@@ -24,7 +24,7 @@
 
   <cfoutput>   
   
-   <span id="main_#url.systemfunctionid#">
+   <div style="height:100%;" id="main_#url.systemfunctionid#">
   		
    <cfif listclass eq "Listing">
    
@@ -462,7 +462,7 @@
 		 	
 	</cfif>   
 	
-	</span> 
+	</div> 
         
    </cfoutput>
     

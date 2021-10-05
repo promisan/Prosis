@@ -2,19 +2,19 @@
 <cfparam name="url.idmenu" default="">
 
 <cf_screentop height="100%" 
-			  layout="webapp" 
-			  label="Edit Deployment Grade" 
-			  menuAccess="Yes" 
-			  user="no"
-			  systemfunctionid="#url.idmenu#">
+	  layout="webapp" 
+	  label="Edit Deployment Grade" 
+	  menuAccess="Yes" 
+	  user="no"
+	  systemfunctionid="#url.idmenu#">
 
 <cfquery name="Get" 
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT *
-FROM Ref_GradeDeployment
-WHERE GradeDeployment = '#URL.ID1#'
+	SELECT *
+	FROM   Ref_GradeDeployment
+	WHERE  GradeDeployment = '#URL.ID1#'
 </cfquery>
 
 <cfquery name="Budget"
@@ -22,7 +22,7 @@ datasource="AppsEmployee"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
     SELECT *
-	FROM Ref_PostGradeBudget
+	FROM   Ref_PostGradeBudget
 	ORDER BY PostOrderBudget
 </cfquery>
 
@@ -48,7 +48,7 @@ function ask() {
 
 <CFFORM action="RecordSubmit.cfm" method="post" name="dialog">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 <!--- Field: code --->
 	 <cfoutput>
 

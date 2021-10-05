@@ -3,6 +3,11 @@
     <cfproperty name="name" type="string">
     <cfset this.name = "Database utilities">
 	
+	<cfinvoke component = "Service.Process.System.UserController"  
+	   method           = "ValidateCFCAccess" 
+	   sessionId        = "#session.sessionid#" 
+	   account          = "#session.acc#">	
+	
 	<cffunction
 	    name 	    = "getTableFields"
 	    description = "Returns comma separated fields of a table (ignoring computed fields)"

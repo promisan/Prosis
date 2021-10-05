@@ -1,6 +1,9 @@
 
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <cfparam name="Form.ActionCode"       default="">
 <cfparam name="Form.GroupCode"        default="">
 <cfparam name="Form.GroupListCode"    default="">
@@ -100,7 +103,7 @@
 	
 		<cfoutput>
 			<script LANGUAGE = "JavaScript">
-				 window.location = "#SESSION.root#/staffing/application/employee/contract/EmployeeContract.cfm?ID=#Form.PersonNo#";
+				 window.location = "#SESSION.root#/staffing/application/employee/contract/EmployeeContract.cfm?ID=#Form.PersonNo#&mid=#mid#";
 			</script>	
 		</cfoutput>	
 		
@@ -136,7 +139,7 @@
 		   password="#SESSION.dbpw#">
 	    	  UPDATE Payroll.dbo.PersonEntitlement
 		      SET    Status = '9'
-		      WHERE  ContractId  = '#Form.ContractCurrent#'  xxxx
+		      WHERE  ContractId  = '#Form.ContractCurrent#'  
 	</cfquery>			
 	
 	<!--- rescind contract --->
@@ -153,7 +156,7 @@
 		   
 	<cfoutput>
 		<script LANGUAGE = "JavaScript">
-			 window.location = "#SESSION.root#/staffing/application/employee/contract/EmployeeContract.cfm?ID=#Form.PersonNo#";
+			 window.location = "#SESSION.root#/staffing/application/employee/contract/EmployeeContract.cfm?ID=#Form.PersonNo#&mid=#mid#";
 		</script>	
 	</cfoutput>		   
 		
@@ -1148,19 +1151,21 @@
 
 <cfif url.wf neq "1">
 
+	
+
 	<cfparam name="message" default="">
 	
 	<cfif message neq "">
 	
 		<cf_message message="#message#" return="click" 
-		script="window.location = '#SESSION.root#/staffing/application/employee/contract/EmployeeContract.cfm?ID=#Form.PersonNo#'">
+		script="window.location = '#SESSION.root#/staffing/application/employee/contract/EmployeeContract.cfm?ID=#Form.PersonNo#&mid=#mid#'">
 	
 	<cfelse>
 			  
 		<cfoutput>
 			
 			<script>
-				 window.location = "#SESSION.root#/staffing/application/employee/contract/EmployeeContract.cfm?ID=#Form.PersonNo#";
+				 window.location = "#SESSION.root#/staffing/application/employee/contract/EmployeeContract.cfm?ID=#Form.PersonNo#&mid=#mid#";
 			</script>	
 			
 		</cfoutput>	   

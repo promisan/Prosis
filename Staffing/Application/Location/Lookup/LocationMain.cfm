@@ -38,8 +38,7 @@
 	  html="No" 
 	  scroll="No"		 
 	  layout="webapp"
-	  jQuery="Yes"
-	  close="parent.ColdFusion.Window.destroy('mylocation',true)"
+	  jQuery="Yes"	  
 	  banner="gray"		 
 	  line="no"
 	  label="Location">

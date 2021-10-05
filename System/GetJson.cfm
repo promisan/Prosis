@@ -2,14 +2,19 @@
 <cfset vComponent = Replace(vComponent,"/",".","all")>
 <cfset vComponent = Replace(vComponent,"component.","service.")>
 
-<cfinvoke 
-    component="#vComponent#" 
-    method="#url.method#" 
-    returnVariable="res"> 
-    <cfloop collection="#url#" item="key" >
-        <cfif key neq "method" and key neq "getAdministrator" and key neq "service">
-            <cfinvokeargument name="#key#"  value="#url[key]#"> 
-        </cfif>    
-    </cfloop>
-</cfinvoke> 
-<cfoutput>#Replace(res,"//","")#</cfoutput>
+<cfinvoke
+        component="#vComponent#"
+        method="#url.method#"
+        returnVariable="res">
+        <cfloop collection="#url#" item="key" >
+            <cfif key neq "method" and key neq "getAdministrator" and key neq "service">
+                <cfinvokeargument name="#key#"  value="#url[key]#">
+            </cfif>
+        </cfloop>
+</cfinvoke>
+<cfif Left(res,2) eq "//">
+    <cfset vNew = Mid(res,3,Len(res))>
+<cfelse>
+    <cfset vNew = res>
+</cfif>
+<cfoutput>#vNew#</cfoutput>

@@ -20,6 +20,7 @@ password="#SESSION.dbpw#">
 </cfif>
 
 <cfoutput>
+
 <script>
 	function applyCustomerData(mis,fld,val) {	
 		_cf_loadingtexthtml='';		
@@ -27,16 +28,16 @@ password="#SESSION.dbpw#">
 	}
 </script>
 
-<cf_divscroll>
+<cf_divscroll style="height:98%">
 
-<cfform method="POST"  name="customerform" onsubmit="return false">
+<cfform method="POST"  style="height:98%" name="customerform" onsubmit="return false">
 
 <table width="95%" class="formpadding formspacing" align="center">
 
 	<tr><td colspan="2" height="3" id="inputvalidation"></td></tr>
 	
 	<tr class="labelmedium2">
-	<td><cf_tl id="Entity"></td>
+	<td style="min-width:220px"><cf_tl id="Entity"></td>
 	<td style="font-size:17px">#url.Mission# / <b>#Customer.CustomerSerialNo#</b></td>
 	</tr>
 	
@@ -44,13 +45,17 @@ password="#SESSION.dbpw#">
 		<td width="18%"> <cf_tl id="Reference"> : <font color="red">*</font></td>
 		<td>
 		
+			<input name="Scope"   type="hidden" value="#url.scope#">
+		
 			<cfif url.drillid eq "">
+			    <input name="Action"  type="hidden" value="add">				
 				<input name="Mission" type="hidden" value="#url.mission#">
 				<cf_AssignId>
 				<input name="CustomerId" type="hidden" value="#rowguid#">
 				<cfset CustomerId = rowguid>
 				<cfset mission    = url.Mission>
 			<cfelse>
+			    <input name="Action"  type="hidden" value="edit">
 				<input name="Mission" type="hidden" value="#Customer.Mission#">
 				<input name="CustomerId" type="hidden" value="#Customer.CustomerId#">
 				<cfset CustomerId = Customer.CustomerId>
@@ -86,7 +91,7 @@ password="#SESSION.dbpw#">
 								 maxlength="20"
 								 class="regularxxl enterastab"
 								 required="Yes"
-								 onKeyUp ="ColdFusion.navigate('ValidateReference.cfm?customerid=#CustomerId#&reference='+this.value+'&mission=#url.mission#','id_validateReference');"
+								 onKeyUp ="_cf_loadingtexthtml='';	ptoken.navigate('ValidateReference.cfm?customerid=#CustomerId#&reference='+this.value+'&mission=#url.mission#','id_validateReference');"
 								 message="Please enter Reference.">									 
 								 
 						 </td>
@@ -105,7 +110,7 @@ password="#SESSION.dbpw#">
 			<cfinput name="CustomerName" 
 					 type="text" 
 					 value="#Customer.CustomerName#" 
-					 size="30" 
+					 size="70" 
 					 class="regularxxl enterastab"
 					 maxlength="80" 
 					 required="Yes" 
@@ -141,7 +146,7 @@ password="#SESSION.dbpw#">
 														
 					<td id="member">
 																					
-						<input type="text"   name="name"     id="name"     value="#Get.FirstName# #Get.LastName#" style="cursor:pointer;text-decoration: underline;padding-left:4px" 
+						<input type="text"   name="name"     id="name"  value="#Get.FirstName# #Get.LastName#" style="width:200px;cursor:pointer;padding-left:4px" 
 						        textsize="80" maxlength="80" class="enterastab regularxxl" readonly onclick="ShowCandidate('#Customer.PersonNo#')">				
 						<input type="hidden" name="personno" id="personno" value="#Customer.PersonNo#" size="10" maxlength="10" readonly>
 					
@@ -398,15 +403,15 @@ password="#SESSION.dbpw#">
 				<td class="labelit" style="padding-left:5px">#application.basecurrency#</td>
 				<td style="padding-left:15px" class="labelmedium"><cf_tl id="Current outstanding">#application.basecurrency# :</td>
 				
-				<cfif customer.customerid neq "">
+				<cfif url.drillid neq "">
 							
-				<cfinvoke component = "Service.Process.Materials.Customer"  
-				   method           = "CustomerReceivables" 
-				   mission          = "#customer.Mission#" 
-				   customerid       = "#customer.CustomerId#"  
-				   returnvariable   = "credit">	   
-				  			  			
-				<td style="padding-left:15px" class="labelmedium">#numberformat(credit.outstanding,",.__")#</td>	
+					<cfinvoke component = "Service.Process.Materials.Customer"  
+					   method           = "CustomerReceivables" 
+					   mission          = "#customer.Mission#" 
+					   customerid       = "#customer.CustomerId#"  
+					   returnvariable   = "credit">	   
+					  			  			
+					<td style="padding-left:15px" class="labelmedium">#numberformat(credit.outstanding,",.__")#</td>	
 				
 				</cfif>
 							
@@ -445,14 +450,10 @@ password="#SESSION.dbpw#">
 	<tr valign="top" style="padding-top:5px" class="labelmedium2">
 		<td ><cf_tl id="Memo">:</td>
 		<td>
-			<textarea name="Memo" rows="5" style="font-size:13px;padding:4px;width:80%" class="regular enterastab">#Customer.Memo#</textarea>
+			<textarea name="Memo" style="height:50px;font-size:14px;padding:4px;width:95%" class="regular enterastab">#Customer.Memo#</textarea>
 		</td>
 	</tr>
-	
-	<tr>
-		<td colspan="2" class="line"></td>
-	</tr>
-		
+				
 	<tr>
 		<td colspan="2" align="center">
 			<table>
@@ -470,7 +471,7 @@ password="#SESSION.dbpw#">
 						<cfif validatePurge.recordCount eq 0>
 							<td style="padding-right:5px;" id="processPurge">
 								<cf_tl id="Delete" var="1">
-								<cfinput type="button" name="delete" style="width:120" class="button10g" value="#lt_text#" onclick="purgeCustomer('#url.drillid#','processPurge');">
+								<cfinput type="button" name="delete" style="height:35px;width:180" class="button10g" value="#lt_text#" onclick="purgeCustomer('#url.drillid#','processPurge');">
 							</td>
 						</cfif>
 					</cfif>
@@ -482,7 +483,7 @@ password="#SESSION.dbpw#">
 							<cf_tl id="Update" var="1">
 							<cfset action = "Update">
 						</cfif>
-						<cfinput type="button" name="#action#" style="width:120" class="button10g" value="#lt_text#" onclick="Prosis.busy('yes');_cf_loadingtexthtml='';saveCustomer();">
+						<cfinput type="button" name="#action#" style="height:35px;width:180" class="button10g" value="#lt_text#" onclick="Prosis.busy('yes');_cf_loadingtexthtml='';saveCustomer();">
 					</td>
 				</tr>
 			</table>

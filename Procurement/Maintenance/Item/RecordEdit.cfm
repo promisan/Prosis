@@ -1,6 +1,6 @@
 
 <cf_textareascript>		  
-<cfajaximport tags="cfwindow,cfdiv,cfform">
+<cfajaximport tags="cfdiv,cfform">
 <cf_menuscript>
 <cf_dialogmaterial>
 <cf_listingscript>
@@ -52,28 +52,28 @@ password="#SESSION.dbpw#">
 		setTimeout("document.getElementById('processUomEach').innerHTML='';",2000);
 	}
 
-	function saveripple(code) {
-		ptoken.navigate('Budgeting/RippleSubmit.cfm?id='+code+'&id1='+document.getElementById("TopicValueCode").value+'&id2='+document.getElementById("Mission").value+'&id3='+document.getElementById("RippleItemMaster").value+'&id4='+document.getElementById("RippleObjectCode").value+'&id5='+document.getElementById("BudgetMode").value+'&id6='+document.getElementById("BudgetAmount").value,'result');
+	function saveripple(code) {	    
+		ptoken.navigate('Budgeting/RippleSubmit.cfm?id='+code+'&id1='+document.getElementById("TopicValueCode").value+'&id2='+document.getElementById("Mission").value+'&id3='+document.getElementById("RippleItemMaster").value+'&id4='+document.getElementById("RippleObjectCode").value+'&eff='+document.getElementById("DateEffective").value+'&id5='+document.getElementById("BudgetMode").value+'&id6='+document.getElementById("BudgetAmount").value,'result');
 	}
 	
-	function updateripple(code, id1,id2,id3,id4) {
+	function updateripple(code,id1,id2,id3,id4,id5) {
 		if (document.getElementById("Operational").checked == 1)
 			op = 1;
 		else
 			op = 0;			
-		ptoken.navigate('Budgeting/RippleUpdateSubmit.cfm?id='+code+'&id1='+document.getElementById("TopicValueCode").value+'&id2='+document.getElementById("Mission").value+'&id3='+document.getElementById("RippleItemMaster").value+'&id4='+document.getElementById("RippleObjectCode").value+'&id5='+document.getElementById("BudgetMode").value+'&id6='+document.getElementById("BudgetAmount").value+'&id7='+op+'&id11='+id1+'&id22='+id2+'&id33='+id3+'&id44='+id4,'result');
+		ptoken.navigate('Budgeting/RippleUpdateSubmit.cfm?id='+code+'&id1='+document.getElementById("TopicValueCode").value+'&id2='+document.getElementById("Mission").value+'&id3='+document.getElementById("RippleItemMaster").value+'&id4='+document.getElementById("RippleObjectCode").value+'&eff='+document.getElementById("DateEffective").value+'&id5='+document.getElementById("BudgetMode").value+'&id6='+document.getElementById("BudgetAmount").value+'&id7='+op+'&id11='+id1+'&id22='+id2+'&id33='+id3+'&id44='+id4+'&id55='+id5,'result');
 	}	
 	
-	function do_delete(id,id1,id2,id3,id4) {
+	function do_delete(id,id1,id2,id3,id4,eff) {
 		if (confirm("Do you want to remove this record ?")) {
 			_cf_loadingtexthtml='';	
-			ptoken.navigate('Budgeting/RippleDelete.cfm?id='+id+'&id1='+id1+'&id2='+id2+'&id3='+id3+'&id4='+id4,'result');		
+			ptoken.navigate('Budgeting/RippleDelete.cfm?id='+id+'&id1='+id1+'&id2='+id2+'&id3='+id3+'&id4='+id4+'&eff='+eff,'result');		
 		}		
 	}	
 	
-	function do_edit(id,id1,id2,id3,id4) {
+	function do_edit(id,id1,id2,id3,id4,id5) {
 	    _cf_loadingtexthtml='';	
-		ptoken.navigate('Budgeting/RecordRipple.cfm?mode=edit&code='+id+'&id1='+id1+'&id2='+id2+'&id3='+id3+'&id4='+id4,'ripple');		
+		ptoken.navigate('Budgeting/RecordRipple.cfm?mode=edit&code='+id+'&id1='+id1+'&id2='+id2+'&id3='+id3+'&id4='+id4+'&id5='+id5,'ripple');		
 	}	
 
 	function define_costelements(id) {
@@ -161,15 +161,12 @@ password="#SESSION.dbpw#">
 
 </cfoutput>
 
-
 <cf_divscroll>
 
 <table width="95%"      
 	   height="100%"
 	   align="center">
-	   
-	<!--- <tr><td height="25" style="font-size:15px;"><font face="Calibri" size="3"><cfoutput>#get.description#</cfoutput></td></tr> --->
-	
+		
 	<tr><td height="2" id="process"></td></tr>
 	<tr>
 		<td align="center" valign="top">

@@ -40,11 +40,6 @@ password="#SESSION.dbpw#">
 
 <cfif format.recordcount gte "1">
 
-<tr>
-<td style="height:20px;padding-left:10px;padding-top:5px;font-size:21px" colspan="2" class="labellarge">
-	<!--- <cfoutput><cf_tl id="Generate"></cfoutput>: --->
-</td>
-</tr>
 	   
 <tr><td colspan="2" style="width:800px">
 
@@ -65,7 +60,7 @@ password="#SESSION.dbpw#">
 		<tr>
 		</cfif>  			    	  
 		
-		<td style="height:100px;border:1px solid silver;border-radius:8px">
+		<td style="height:100px;border:1px solid silver;border-radius:5px">
 		
 		    <table style="width:96%;height:100%" align="center">
 				    		  		   
@@ -84,16 +79,16 @@ password="#SESSION.dbpw#">
 			     <TR class="highlight1">
 		    </cfif> 			  
 			 
-			<td style="padding:6px">
+			<td style="padding:2px">
 			   			   						  						   
 				<table style="width:280px;background-color:ffffff" class="formpadding">
 						
 					<tr class="labelmedium2 line">
-					<td style="border-radius:7px;text-align:center;background-color:ffffff;font-weight:normal;font-size:20px" colspan="2">
+					<td style="border-radius:4px;text-align:center;background-color:ffffff;font-weight:normal;font-size:20px" colspan="2">
 					<table>
 					<tr>
-					<td style="padding-left:5px;padding-right:8px"><img src="#session.root#/images/documentedit.png" style="height:40px;width:40px" alt="" border="0"></td>
-					<td style="padding-top:7px;font-weight:normal;font-size:20px">#DocumentDescription#</td>
+					<td style="padding-left:5px;padding-right:8px"><img src="#session.root#/images/documentedit.png" style="height:30px;width:30px" alt="" border="0"></td>
+					<td style="padding-top:7px;font-weight:normal;font-size:17px">#DocumentDescription#</td>
 					</tr>
 					</table>					
 					</td>					
@@ -108,7 +103,7 @@ password="#SESSION.dbpw#">
 							<cfif CurrentDocument eq "">
 							
 							 <input class="button10g" 
-							   type="button" style="border-radius:15px;width:200px;border:0px solid silver;font-size:15px"
+							   type="button" style="border-radius:5px;width:92%;border:1px solid c6c6c6;font-size:15px"
 							   onclick="savereportfields('0');embedtabdoc('#url.id#','#documentid#',document.getElementById('signatureblock#documentcode#').value,document.getElementById('languagecode#documentcode#').value,document.getElementById('format#documentcode#').value,'#currentrow#','add')"
 							   value="#lt_text#">
 							   

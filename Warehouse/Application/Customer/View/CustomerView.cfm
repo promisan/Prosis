@@ -2,18 +2,6 @@
 
 <cf_ListingScript>
 
-<cfoutput>
-
-	<script language = "JavaScript">
-	
-		function addCustomer(){			
-			  ptoken.open("CustomerEditTab.cfm?mission=#url.mission#", "AddCustomer", "left=40, top=40, width=930, height= 670, status=yes, scrollbars=no, resizable=yes");
-		}
-	
-	</script>
-
-</cfoutput>
-
 <table width="97%" height="100%" align="center">
  
  <tr>

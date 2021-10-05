@@ -129,7 +129,7 @@
 		
 		   <td height="20" width="10%" class="labelmedium"><font color="808080"><cf_tl id="Print Format"> :</td>
 		   <td width="40%" class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
-		  	  	   		   
+
 		    <cfif URL.Mode eq "view">
 		   
 		     <cfif PO.PrintDocumentId eq "">

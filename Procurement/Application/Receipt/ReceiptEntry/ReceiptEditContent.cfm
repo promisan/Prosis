@@ -16,8 +16,7 @@
 	 layout="webapp" 
 	 jquery="yes"
 	 line="no"
-	 user="yes">	
-	 
+	 user="yes">		 
 
 <cfparam name="URL.Id" default="#URL.Id#">
   
@@ -103,6 +102,19 @@
 <cf_dialogMaterial>
 <cf_calendarScript>
 <cf_LedgerTransactionScript>
+
+<!--- prevent enterkey to trigger submit --->
+
+<script>
+	
+	$(document).keypress(
+	  function(event){
+	    if (event.which == '13') {
+	      event.preventDefault();
+	    }
+	});
+
+</script>
 
 <cfquery name="PO" 
  datasource="AppsPurchase" 
@@ -253,7 +265,7 @@
  
 <cfoutput>
 
-<table width="99%" height="98%" border="0" align="center">
+<table width="99%" height="98%" align="center">
 
 	<tr class="hide"><td id="process"></td></tr>
   
@@ -330,7 +342,10 @@
 	
 	<cfif checkLines.recordcount eq "0">
 		 
-		 <tr class="line"><td align="center" style="padding:10px" colspan="2" class="labellarge"><font color="FF0000"><cf_tl id="This receipt document was cancelled"></td></tr>
+		 <tr class="line">
+		 <td align="center" style="padding:10px" colspan="2" class="labellarge">
+		   <font color="FF0000"><cf_tl id="This receipt document was cancelled"></td>
+	     </tr>
 		  
 		 <cfquery name="CloseCurrent" 
 		 datasource="AppsPurchase"
@@ -669,6 +684,7 @@
 			  </tr>	  
 			  	  
 			 <cfif EditMode eq "edit">	  
+			  
 			  <tr>	
 				<td class="labelmedium2" valign="top" style="padding-left:4px;"><cf_tl id="Remarks">:</td>
 				<td colspan="3" class="labelmedium2" style="padding-left:0px">
@@ -679,6 +695,7 @@
 				
 				</td>
 			  </tr>
+			  
 			  <cfelseif receipt.receiptremarks neq "">
 			  
 			  <tr>	
@@ -698,22 +715,22 @@
 					  <cf_filelibraryN
 						DocumentPath   = "PurchaseReceipt"
 						SubDirectory   = "#Receipt.AttachmentId#" 		
-						Filter=""
-						color="transparent"
-						Insert="yes"
-						Remove="yes"
-						reload="true">		
+						Filter         = ""
+						color          = "transparent"
+						Insert         = "yes"
+						Remove         = "yes"
+						reload         = "true">		
 					
 				  <cfelse>
 				  
 					  <cf_filelibraryN
 						DocumentPath   = "PurchaseReceipt"
 						SubDirectory   = "#Receipt.AttachmentId#" 		
-						Filter=""
-						color="transparent"
-						Insert="no"
-						Remove="no"
-						reload="true">		
+						Filter         = ""
+						color          = "transparent"
+						Insert         = "no"
+						Remove         = "no"
+						reload         = "true">		
 				  		  
 				  </cfif>	  
 			  
@@ -727,7 +744,8 @@
 					  <td style="padding-left:4px;"> 	
 					
 						  <cf_tl id="Update" var="1">
-						  <input type="button" onClick="updateheader()" style="font-size:13px;height:25px;width:130" class="button10g" name="#lt_text#" id="#lt_text#"  value="#lt_text#">				
+						  <input type="button" onClick="updateheader()" 
+						   style="font-size:13px;height:25px;width:130" class="button10g" name="#lt_text#" id="#lt_text#"  value="#lt_text#">				
 			
 						</td>			
 								

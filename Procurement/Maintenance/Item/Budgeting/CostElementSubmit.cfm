@@ -80,8 +80,8 @@
 <cfoutput>
 
 <script>
-	ColdFusion.navigate('Budgeting/CostElementList.cfm?id1=#Form.Code#','dExisting');
-	ColdFusion.Window.hide('wCostElement');	
+	ptoken.navigate('Budgeting/CostElementList.cfm?id1=#Form.Code#','dExisting');
+	ProsisUO.closeWindow('wCostElement');	
 </script>
 
 </cfoutput>

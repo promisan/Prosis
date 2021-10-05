@@ -44,6 +44,5 @@
 	 </table>
 	 
 	 </cfif>
-	 
-	
+	 	
  </cfoutput>

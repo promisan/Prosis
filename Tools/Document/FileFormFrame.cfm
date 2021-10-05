@@ -1,7 +1,14 @@
+
+<!---
+
 <HTML><HEAD>
     <TITLE>Attach document</TITLE>
 </HEAD><body bgcolor="ffffff" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
+
+--->
+
+<cf_screentop html="No" jquery="Yes">
 
 <cfajaxproxy cfc="Service.Process.System.UserController" jsclassname="systemcontroller">
 
@@ -11,7 +18,7 @@ function checkfile() {
 
 	var uController = new systemcontroller();			
 	document.attach.action = document.attach.action + '&mid='+ uController.GetMid();
-			
+		
 	if (document.attach.uploadedfile.value == "") {
 	   alert("You must select a file to upload.")
 	   return false }
@@ -50,4 +57,8 @@ function checkfile() {
 	
 </CFFORM>
 
+<!---
+
 </BODY></HTML>
+
+--->

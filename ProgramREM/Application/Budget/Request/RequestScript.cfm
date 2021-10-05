@@ -25,6 +25,7 @@
 			imaster = document.getElementById('itemmaster').value
 			loc     = document.getElementById('requestlocationcode').value				
 			ptoken.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestDialogFormMatrix.cfm?planperiod=#url.period#&period='+per+'&requirementid='+id+'&fund='+fund+'&objectcode=#url.objectcode#&itemmaster='+imaster+'&location='+loc+'&programcode=#url.programcode#&mission=#url.Mission#&editionid=#URL.Editionid#','matrixbox')							
+			
 		}
 		
 	}
@@ -36,8 +37,10 @@
 		if (se.className == "hide") {
 		   se.className = "regular"		  		
 		   ptoken.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestList.cfm?programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid='+edi+'&objectcode='+obj+'&cell='+cell,'box'+cell)
-		 } else {		 
-		   se.className = "hide"
+		} else {		 
+		 
+		  se.className = "hide"
+		  
 		}   
 	}
 	
@@ -45,6 +48,13 @@
 			
 		ProsisUI.createWindow('mycontribution', 'Contribution', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:false,resizable:false,center:true})    						
 		ptoken.navigate('#SESSION.root#/ProgramREM/Application/Budget/Request/getContribution.cfm?requirementid='+id+'&programcode='+prg+'&fund='+fd+'&period='+per,'mycontribution') 			
+
+	}
+	
+	function getripple(id) {	
+			
+		ProsisUI.createWindow('myripple', 'Amend Ripple', '',{x:100,y:100,height:340,width:550,modal:true,resizable:false,center:true})    						
+		ptoken.navigate('#SESSION.root#/ProgramREM/Application/Budget/Request/RippleEdit.cfm?id='+id,'myripple') 			
 
 	}
 	

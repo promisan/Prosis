@@ -166,8 +166,7 @@ function workflowdrill(key) {
 
 <tr><td height="30">
 
-<cfif CLIENT.submission eq "MANUAL">
-  
+<cfif CLIENT.submission eq "MANUAL">  
  
 	<cfinclude template="Applicant/Applicant.cfm">	
 	

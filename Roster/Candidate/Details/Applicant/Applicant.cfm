@@ -1,6 +1,8 @@
    
 <cfoutput>
    
+<cfajaxproxy cfc="Service.Process.System.UserController" jsclassname="systemcontroller">
+   
 <script language="JavaScript">
 	
 	function reload() { 
@@ -57,6 +59,7 @@
 			document.getElementById("php_"+script).className = "hide"
 			document.getElementById("wait_"+script).className = "regular"
 													
+			var uController = new systemcontroller();
 
 			url = "#SESSION.root#/#path#?PHP_Roster_List="+roster+"&FileNo="+script	
 																			
@@ -65,7 +68,7 @@
 			'onSuccess':function(req) { 	
 			 document.getElementById("php_"+script).className = "regular"
 			 document.getElementById("wait_"+script).className = "hide"
-		  	 window.open("#SESSION.root#/cfrstage/user/#SESSION.acc#/php_"+script+".pdf?ts="+new Date().getTime(),"php_"+script, "location=no, toolbar=no, scrollbars=yes, resizable=yes")
+			 window.open("#SESSION.root#/cfrstage/getFile.cfm?file=php_"+script+".pdf&mid="+ uController.GetMid(),"php_"+script)
 			
           	  },					
     	    'onError':function(req) { 	

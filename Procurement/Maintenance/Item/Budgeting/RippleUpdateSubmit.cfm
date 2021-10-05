@@ -1,24 +1,30 @@
 
-<cfif URL.id eq "" OR URL.id2 eq "" OR URL.id3 eq "" OR URL.id4 eq "">
+<cfif URL.id eq "" OR URL.id2 eq "" OR URL.id3 eq "" OR URL.id4 eq "" OR URL.eff eq "">
 	<script>
 		alert('Please define all the inputs');
 	</script>
 	<cfabort>
 </cfif>
 
+<cfset dateValue = "">
+<CF_DateConvert Value="#url.eff#">
+<cfset EFF = dateValue>
 	
 <cfquery name="qCheck" 
 datasource="AppsPurchase" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT * FROM ItemMasterRipple
-	WHERE Code = '#URL.id#' AND TopicValueCode = '#URL.id11#' AND Mission = '#URL.id22#'
+	WHERE Code           = '#URL.id#' 
+	AND TopicValueCode   = '#URL.id11#' 
+	AND Mission          = '#URL.id22#'
 	AND RippleItemMaster = '#URL.id33#'
 	AND RippleObjectCode = '#URL.id44#'
+	AND DateEffective    = '#URL.id55#'
 </cfquery>
 
-
 <cfif qCheck.recordcount eq "1">
+
 	<cfquery name="qUpdate" 
 	datasource="AppsPurchase" 
 	username="#SESSION.login#" 
@@ -28,6 +34,7 @@ password="#SESSION.dbpw#">
                Mission          = '#url.id2#',
                RippleItemMaster = '#url.id3#',
                RippleObjectCode = '#url.id4#',
+			   DateEffective    = #eff#,
                BudgetMode       = '#url.id5#',
                BudgetAmount     = '#url.id6#',
 		       Operational      = '#url.id7#'
@@ -35,37 +42,47 @@ password="#SESSION.dbpw#">
 		AND    TopicValueCode   = '#URL.id11#' 
 		AND    Mission          = '#URL.id22#'
 		AND    RippleItemMaster = '#URL.id33#'
-		AND    RippleObjectCode = '#URL.id44#'		
+		AND    RippleObjectCode = '#URL.id44#'	
+		AND    DateEffective    = '#URL.id55#'		
 	</cfquery>
 
 	<cfoutput>
 	<script>
-		ColdFusion.navigate('Budgeting/RecordRipple.cfm?Code=#URL.id#&mode=view','ripple');
+		ptoken.navigate('Budgeting/RecordRipple.cfm?Code=#URL.id#&mode=view','ripple');
 	</script>
 	</cfoutput>	
+	
 <cfelse>
-
 
 	<cfquery name="qCheck" 
 	datasource="AppsPurchase" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT * FROM ItemMasterRipple
-		WHERE Code = '#URL.id#' AND TopicValueCode = '#URL.id1#' AND Mission = '#URL.id2#'
-		AND RippleItemMaster = '#URL.id3#'
-		AND RippleObjectCode = '#URL.id4#'
+		SELECT * 
+		FROM   ItemMasterRipple
+		WHERE  Code             = '#URL.id#' 
+		AND    TopicValueCode   = '#URL.id1#' 
+		AND    Mission          = '#URL.id2#'
+		AND    RippleItemMaster = '#URL.id3#'
+		AND    RippleObjectCode = '#URL.id4#'
+		AND    DateEffective    = '#URL.id8#'
 	</cfquery>
 
 	<cfif qCheck.recordcount eq 0>
+	
 		<cftransaction>
+		
 		<cfquery name="qDelete" 
 		datasource="AppsPurchase" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			DELETE ItemMasterRipple
-			WHERE Code = '#URL.id#' AND TopicValueCode = '#URL.id11#' AND Mission = '#URL.id22#'
-			AND RippleItemMaster = '#URL.id33#'
-			AND RippleObjectCode = '#URL.id44#'
+			WHERE  Code = '#URL.id#' 
+			AND    TopicValueCode   = '#URL.id11#' 
+			AND    Mission          = '#URL.id22#'
+			AND    RippleItemMaster = '#URL.id33#'
+			AND    RippleObjectCode = '#URL.id44#'
+			AND    DateEffective    = '#URL.id55#'
 		</cfquery>
 
 		<cfquery name="qInsert" 
@@ -78,6 +95,7 @@ password="#SESSION.dbpw#">
 	           ,Mission
 	           ,RippleItemMaster
 	           ,RippleObjectCode
+			   ,DateEffective
 	           ,BudgetMode
 	           ,BudgetAmount
 	           ,Operational
@@ -90,6 +108,7 @@ password="#SESSION.dbpw#">
 			    '#url.id2#',
 			    '#url.id3#',
 				'#url.id4#',
+				'#eff#',
 				'#url.id5#',
 				'#url.id6#',
 				1,
@@ -98,11 +117,7 @@ password="#SESSION.dbpw#">
 				'#Session.last#'
 			   ) 
 		</cfquery>
-		</cftransaction>
-		
-		
-		
-	
+		</cftransaction>	
 	
 	<cfelse>
 		<script>

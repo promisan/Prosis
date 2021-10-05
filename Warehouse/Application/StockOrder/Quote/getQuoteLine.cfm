@@ -212,8 +212,14 @@
 	
 	<tr class="line#transactionid#"><td style="height"></td></tr>
 	<tr class="line#transactionid# labelmedium line navigation_row">
-		<td colspan="3" style="padding-left:5px">#ItemNo# #ItemDescription#</td>
-		<td align="right" style="padding-right:3px;width:40px"><a href="javascript:deleteitem('#transactionid#')" style="color:red;width:100px"><cf_tl id="del"></a></td>
+		<td colspan="4" style="padding-left:5px">
+		<table width="100%">
+		<tr>
+		   <td class="labelmedium">#ItemNo# #ItemDescription#</td>
+		   <td align="right" style="padding-right:3px;width:20px"><a href="javascript:deleteitem('#transactionid#')" style="color:red;width:100px"><cf_tl id="del"></a></td>
+		</tr>
+		</table>
+		</td>
 	</tr>
 	<tr class="line#transactionid# labelmedium2">	
 	    
@@ -237,8 +243,8 @@
 			</table>
 		
 		</td>
-		<td style="border:1px solid silver;padding-right:3px" align="right">#numberformat(salesUnitPrice,',.__')#</td>
-		<td style="border:1px solid silver;padding-right:3px" id="value#transactionid#" align="right">#numberformat(salesAmount,',.__')#</td>
+		<td style="min-width:70px;border:1px solid silver;padding-right:3px" align="right">#numberformat(salesUnitPrice,',.__')#</td>
+		<td style="min-width:90px;border:1px solid silver;padding-right:3px" id="value#transactionid#" align="right">#numberformat(salesAmount,',.__')#</td>
 	</tr>
 	</cfoutput>
 	

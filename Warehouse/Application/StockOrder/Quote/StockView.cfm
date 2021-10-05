@@ -1,6 +1,9 @@
 
 <cfset title = "Stock inquiry and quote preparation">
 
+<cf_dialogmaterial>
+<cf_presenterscript>
+
 <cf_screentop html="No" label="#title#" jquery="Yes">
 	
 	<cfquery name="Warehouse" 
@@ -40,7 +43,7 @@
 		   _cf_loadingtexthtml='';  
 		   ptoken.navigate('getStock.cfm?mission='+mis+'&itemno='+itm,box)      
 		}
-		
+				
 		function getcategory(mis,cat) {     
 		   _cf_loadingtexthtml='';  	  
 		   ptoken.navigate('getSelectionCategory.cfm?mission='+mis+'&category='+cat,'boxcategory')      

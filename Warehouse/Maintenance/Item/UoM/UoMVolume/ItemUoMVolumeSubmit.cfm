@@ -13,7 +13,6 @@
 		AND		Temperature = '#Temperature#'
 </cfquery>
 
-
 <cfoutput>
 
 <cf_tl id = "The combination of item, uom and temperature already exists.  Operation aborted." var = "vAlready">
@@ -24,7 +23,7 @@
 	
 		<script language="JavaScript">
 			alert("#vAlready#");
-			ColdFusion.Window.hide('mydialog');
+			ProsisUI.closeWindow('mydialog');
 		</script>  
 	
 	<cfelse>
@@ -53,8 +52,8 @@
 		</cfquery>
 		
 		<script language="JavaScript">   
-		    ColdFusion.navigate('UoMVolume/ItemUoMVolume.cfm?id=#Form.ItemNo#&UoM=#Form.UoM#','itemUoMVolumelist');     
-			ColdFusion.Window.hide('mydialog');
+		    ptoken.navigate('UoMVolume/ItemUoMVolume.cfm?id=#Form.ItemNo#&UoM=#Form.UoM#','itemUoMVolumelist');     
+			ProsisUI.closeWindow('mydialog');
 		</script> 
 		
 	</cfif>

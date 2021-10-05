@@ -39,7 +39,7 @@ password="#SESSION.dbpw#">
     <TR>
     <TD class="labelmedium" width="100"><cf_tl id="Code">:</TD>
     <TD width="65%">
-  	   <input type="text" name="PostGrade" value="#get.PostGrade#" size="10" maxlength="10"class="regularxl">
+  	   <input type="text" name="PostGrade" value="#get.PostGrade#" size="10" maxlength="10"class="regularxxl">
 	   <input type="hidden" name="PostGradeOld" value="#get.PostGrade#" size="10" maxlength="10" readonly>
     </TD>
 	</TR>
@@ -58,7 +58,7 @@ password="#SESSION.dbpw#">
 	<TR>
     <TD class="labelmedium"><cf_tl id="Budget code">:</TD>
     <TD>
-  	   <cfinput type="Text" name="PostgradeBudget" value="#Get.PostGradeBudget#" message="Please enter a budget code" required="Yes" size="10" maxlength="10"class="regularxl">
+  	   <cfinput type="Text" name="PostgradeBudget" value="#Get.PostGradeBudget#" message="Please enter a budget code" required="Yes" size="10" maxlength="10"class="regularxxl">
     </TD>
 	</TR>
 	
@@ -67,7 +67,7 @@ password="#SESSION.dbpw#">
 	<TR>
     <TD class="labelmedium"><cf_tl id="Listing order">:</TD>
     <TD>
-  	   <cfinput type="Text" name="PostOrder" value="#Get.PostOrder#" message="Please enter a listing order" validate="integer" required="Yes" size="3" maxlength="3" class="regularxl">
+  	   <cfinput type="Text" name="PostOrder" value="#Get.PostOrder#" message="Please enter a listing order" validate="integer" required="Yes" size="3" maxlength="3" class="regularxxl">
     </TD>
 	</TR>
 	
@@ -76,7 +76,7 @@ password="#SESSION.dbpw#">
 	<TR>
     <TD class="labelmedium"><cf_tl id="Parent">:</TD>
     <TD >
-	   <select name="PostGradeParent" class="regularxl">
+	   <select name="PostGradeParent" class="regularxxl">
 	   <cfloop query="Parent">
 	   <option value="#Parent.Code#" <cfif #Get.PostGradeParent# eq "#Parent.Code#">selected</cfif>>#Parent.Description#</option>
 	    </cfloop>
@@ -91,8 +91,8 @@ password="#SESSION.dbpw#">
     <td class="labelmedium"><cf_tl id="Enable Position Grade">:</b></td>
 	</cf_UIToolTip>
     <TD class="labelmedium">	
-	<input type="radio" name="PostGradePosition" <cfif Get.PostGradePosition eq "1">checked</cfif> value="1">Enabled
-	<input type="radio" name="PostGradePosition" <cfif Get.PostGradePosition eq "0">checked</cfif> value="0">Disabled	
+	<input type="radio" class="radiol" name="PostGradePosition" <cfif Get.PostGradePosition eq "1">checked</cfif> value="1">Enabled
+	<input type="radio" class="radiol" name="PostGradePosition" <cfif Get.PostGradePosition eq "0">checked</cfif> value="0">Disabled	
     </td>
     </tr>	
 	
@@ -103,8 +103,8 @@ password="#SESSION.dbpw#">
     <td class="labelmedium"><cf_tl id="Enable recruitment track">:</b></td>
 	</cf_UIToolTip>
     <TD class="labelmedium">	
-	<input type="radio" name="PostGradeVactrack" <cfif Get.PostGradeVactrack eq "1">checked</cfif> value="1">Enabled
-	<input type="radio" name="PostGradeVactrack" <cfif Get.PostGradeVactrack eq "0">checked</cfif> value="0">Disabled	
+	<input type="radio" class="radiol" name="PostGradeVactrack" <cfif Get.PostGradeVactrack eq "1">checked</cfif> value="1">Enabled
+	<input type="radio" class="radiol" name="PostGradeVactrack" <cfif Get.PostGradeVactrack eq "0">checked</cfif> value="0">Disabled	
     </td>
     </tr>	
 	
@@ -115,8 +115,8 @@ password="#SESSION.dbpw#">
     <td class="labelmedium"><cf_tl id="Enable Contract Level">:</b></td>
 	</cf_UIToolTip>
     <TD class="labelmedium">	
-	<input type="radio" name="PostGradeContract" <cfif Get.PostGradeContract eq "1">checked</cfif> value="1">Enabled
-	<input type="radio" name="PostGradeContract" <cfif Get.PostGradeContract eq "0">checked</cfif> value="0">Disabled	
+	<input type="radio" class="radiol" name="PostGradeContract" <cfif Get.PostGradeContract eq "1">checked</cfif> value="1">Enabled
+	<input type="radio" class="radiol" name="PostGradeContract" <cfif Get.PostGradeContract eq "0">checked</cfif> value="0">Disabled	
     </td>
     </tr>	
 	
@@ -126,11 +126,13 @@ password="#SESSION.dbpw#">
     <TD class="labelmedium"><cf_tl id="Total Steps">:</TD>
     <TD>
 	 <table><tr><td>
-  	   <cfinput type="Text" name="PostGradeSteps" value="#Get.PostGradeSteps#" range="1,20" validate="integer" style="text-align:center;width:40" required="Yes" visible="Yes" enabled="Yes" size="3" maxlength="2" class="regularxl">
+  	   <cfinput type="Text" name="PostGradeSteps" value="#Get.PostGradeSteps#"
+	        range="1,20" validate="integer" message="range support from 1..20"
+			style="text-align:center;width:40" required="Yes" visible="Yes" size="3" maxlength="2" class="regularxxl">
 	   </td>
 	   <td class="labelmedium" style="padding-left:10px">Default increment:</td>
 	   <td class="labelmedium">
-	   <input type="radio" name="PostGradeStepInterval" <cfif Get.PostGradeStepInterval neq "2">checked</cfif> value="1">1
+	    <input type="radio" name="PostGradeStepInterval" <cfif Get.PostGradeStepInterval neq "2">checked</cfif> value="1">1
 		<input type="radio" name="PostGradeStepInterval" <cfif Get.PostGradeStepInterval eq "2">checked</cfif> value="2">2	
 	   </td>
 	   </tr></table>
@@ -165,7 +167,7 @@ password="#SESSION.dbpw#">
 			ORDER BY Step ASC 
 		</cfquery>
 	
-    <table width="75%">
+    <table width="75%" class="formspacing">
     	<tr>
     		<td>Step</td><td>Interval:</td>
     	</tr>
@@ -177,7 +179,10 @@ password="#SESSION.dbpw#">
 		    			<td>#Step#
 		    			</td>
 		    			<td>
-			    			<cfinput type="Text" id="PostOrder_#Get.postGrade1#_#Step#" name="PostOrder_#Get.postGrade1#_#Step#" value="#GetIntervals.StepInterval#" message="Please enter a listing order" validate="integer" required="Yes" size="3" maxlength="3" class="regularxl">
+			    			<cfinput type="Text" id="PostOrder_#Get.postGrade1#_#Step#" 
+							   name="PostOrder_#Get.postGrade1#_#Step#" 
+							   value="#GetIntervals.StepInterval#" 
+							   message="Please enter a listing order" validate="integer" required="Yes" size="3" maxlength="3" class="regularxl">
 			    			<cfinput type="hidden" id="PostOrder_#Get.postGrade1#_#Step#_action" name="PostOrder_#Get.postGrade1#_#Step#_action" value="update">
 			    		</td>
 		    		</tr>

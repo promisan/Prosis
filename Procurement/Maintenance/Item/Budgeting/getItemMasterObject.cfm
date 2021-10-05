@@ -26,11 +26,15 @@
 
 <cfform>
 	<cfif url.mode eq "edit" or url.mode eq "add">
+	
 		<cfselect name="RippleObjectCode" class="regularxl" style="width:100px"
 			query="ItemMasterObject" 
 			value="ObjectCode" 
 			display="ObjectCode" 
-			selected="#url.selected#"/>
+			selected="#url.selected#"
+			queryposition="below">
+				
+		</cfselect>	
 	<cfelse>
 		<cfoutput>
 			#url.selected#

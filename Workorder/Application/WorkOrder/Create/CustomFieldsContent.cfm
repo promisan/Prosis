@@ -163,7 +163,7 @@
 		   <cf_textarea name="Topic_#Code#" id="Topic_#Code#"                                      
 			   height         = "100" 
 			   width          = "91%"
-			   toolbar        = "basic"
+			   toolbar        = "mini"
 			   init           = "Yes"
 			   resize         = "yes"
 			   color          = "ffffff">#GetValue.TopicValue#</cf_textarea>						   						

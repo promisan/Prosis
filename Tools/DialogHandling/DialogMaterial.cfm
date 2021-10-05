@@ -70,6 +70,18 @@
 	    h = #CLIENT.height# - 145;
 		ptoken.open(root + "/Warehouse/Application/StockOrder/Task/Shipment/TaskView.cfm?actionstatus=1&scope=regular&stockorderid="+id,"_blank", "left=60, top=30, width=" + w + ", height= " + h + ", status=yes, scrollbars=no, resizable=yes");
 	}
+	
+	function editCustomer(id){			    								  
+       	ptoken.open('#SESSION.root#/Warehouse/Application/Customer/View/CustomerEditTab.cfm?drillid='+id,'editcustomer'+id); 			  		      
+	}
+	
+	function addCustomer(mis,scope){		
+		    		
+		var vWidth  = 930;
+		var vHeight = 670;   			 	
+		ProsisUI.createWindow('addcustomer', 'Customer', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    								  
+       	ptoken.navigate('#SESSION.root#/Warehouse/Application/Customer/View/Customer.cfm?mission='+mis+'&scope='+scope,'addcustomer'); 			  		      
+	}
     
 	function selectcustomer(formname,fldcustomerid,fldcustomername,customerid) {       
 	    ProsisUI.createWindow('customer', 'Customer', '',{x:100,y:100,height:document.body.clientHeight-90,width:790,modal:true,center:true})

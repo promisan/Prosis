@@ -20,7 +20,7 @@
 			   <tr>
 			   
 			   <td colspan="2" style="padding-left:20px">
-		  		  <select style="width:190px;" class="regularxl" name="ProgramClass" id="ProgramClass" onChange="refreshListing()">
+		  		  <select style="width:99%;background-color:e6e6e6" class="regularxxl" name="ProgramClass" id="ProgramClass" onChange="refreshListing()">
 					  <option value="All" selected><cf_tl id="All"></option>
 					  <option value="Component"  <cfif client.programclass eq "component">selected</cfif>><cf_tl id="Components"></option>
 					   <cfif Parameter.enableGANTT eq "1">
@@ -54,7 +54,7 @@
 		   <tr>
 		     
 			   <td colspan="2" style="padding-left:20px">
-				  <select style="width:190px" class="regularxl" name="ProgramGroup" id="ProgramGroup" onChange="refreshListing()">
+				  <select style="width:99%;background-color:e6e6e6" class="regularxxl" name="ProgramGroup" id="ProgramGroup" onChange="refreshListing()">
 					  <option value="All" selected><cf_tl id="All program groups"></option>
 					  <cfoutput query="Class">
 					     <option value="#Code#" <cfif client.programgroup eq code>selected</cfif>>#Description#</option>

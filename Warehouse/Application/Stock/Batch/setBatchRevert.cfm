@@ -268,12 +268,12 @@ password="#SESSION.dbpw#">
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			UPDATE WarehouseBatch
-			SET    ActionStatus = '0', 
+			SET    ActionStatus           = '0', 
 			       ActionOfficerUserId    = '#SESSION.acc#',
 			       ActionOfficerLastName  = '#SESSION.last#',
 				   ActionOfficerFirstName = '#SESSION.first#',
 				   ActionOfficerDate      = getDate(),
-				   ActionMemo             = 'Reverted'
+				   ActionMemo             = 'Reverted to draft'
 			WHERE  BatchNo                = '#URL.BatchNo#'
 		</cfquery>
 		
@@ -283,7 +283,12 @@ password="#SESSION.dbpw#">
 			password="#SESSION.dbpw#">
 				INSERT INTO WarehouseBatchAction
 				(BatchNo,ActionCode,ActionDate,ActionStatus,OfficerUserId,OfficerLastName,OfficerFirstName)
-				VALUES ('#URL.BatchNo#','Revert',getdate(),'1','#session.acc#','#session.last#','#session.first#')							
+				VALUES ('#URL.BatchNo#',
+				        'Reinstate',
+						getdate(),
+						'1',
+						'#session.acc#',
+						'#session.last#','#session.first#')							
 		</cfquery>		
 		
 		<!--- we alread reset related sales transactions to become active again --->
@@ -300,7 +305,6 @@ password="#SESSION.dbpw#">
 			  SET       RecordStatus = '1', ActionStatus = '0'
 			  WHERE     TransactionSourceId = '#Batch.BatchId#' 
 	    </cfquery>
-		
 		
 	
 	</cftransaction>

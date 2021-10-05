@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
 	<cf_ScreenTop height="100%" html="no" jquery="Yes" band="no" layout="webapp" 
 	label="Register User Account" scroll="Yes">
 <cfelse>
-	<cf_ScreenTop height="100%" html="no" jquery="Yes" band="No" layout="webapp" banner="blue"  label="Register User Group" scroll="No">
+	<cf_ScreenTop height="100%" html="yes" jquery="Yes" band="No" layout="webapp" banner="blue"  label="Register User Group" scroll="No">
 </cfif>
 
 <cf_dialogStaffing>
@@ -131,8 +131,7 @@ password="#SESSION.dbpw#">
 
 		<table width="100%" 	     
 		  height="100%"		  
-		  align="center" 
-	      bordercolor="d4d4d4">	  
+		  align="center">	  
 		  <tr>
 
 			<cfset wd = "44">

@@ -63,22 +63,34 @@
 		<td class="linedotted"></td>
 	</tr>
 	
+	<cfajaxproxy cfc="Service.Process.System.UserController" jsclassname="systemcontroller">
+		
+	<script language="JavaScript">
+	
+	function checkfile() {	
+		var uController = new systemcontroller();								
+		document.attach.action = document.attach.action + '&mid='+ uController.GetMid();						
+		}
+		
+	</script>
+	
 	<tr>
 		<td align="center" style="padding-top:5px">
-		
+				
 			<cfoutput>
 			
 			<form name="attach" 
 			      action="#session.root#/Portal/Photo/PhotoUploadSubmit.cfm?mode=#url.mode#&filename=#url.fileName#&Pic=#url.Pic#&width=#url.width#&height=#url.height#&destination=#url.destination#&style=#url.style#" method="post" 
 			      target="signaturebox" 
-				  enctype="multipart/form-data">
+				  enctype="multipart/form-data"				   
+				  onSubmit="return checkfile()">
 			
 				<table>
 					<tr>
 					  <td>
 					    <table><tr>
 						<td bgcolor="f4f4f4" style="padding:3px;border:0px solid silver">
-												
+																		
 							<input type="file" 
 							   name="UploadedFile" id="UploadedFile" 
 							   size="40" accept="image/jpeg" 

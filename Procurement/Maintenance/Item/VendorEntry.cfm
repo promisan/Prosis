@@ -119,7 +119,7 @@ password="#SESSION.dbpw#">
 			<td width="70%">#Details.OrgUnitName#</td>
 			
 			<td align="right" style="padding-top:3px;">
-				<cf_img icon="delete" onclick="ColdFusion.navigate('VendorEntryPurge.cfm?mission=#url.mission#&ID=#URL.ID#&ID1=#Vendors.OrgUnitVendor#','contentbox1');">
+				<cf_img icon="delete" onclick="ptoken.navigate('VendorEntryPurge.cfm?mission=#url.mission#&ID=#URL.ID#&ID1=#Vendors.OrgUnitVendor#','contentbox1');">
 			</td>			
 			</TR>
 			
@@ -153,7 +153,7 @@ password="#SESSION.dbpw#">
 			   <cfoutput>
 			   
 				   <input type="button" value="Save" style="height:19" class="button10s" 
-				   onclick="ColdFusion.navigate('VendorEntrySubmit.cfm?mission=#url.mission#&id=#url.id#&vendorcode='+VendorCode.value,'contentbox1')">
+				   onclick="ptoken.navigate('VendorEntrySubmit.cfm?mission=#url.mission#&id=#url.id#&vendorcode='+VendorCode.value,'contentbox1')">
 				   
 			   </cfoutput>
 				   

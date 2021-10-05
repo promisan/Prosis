@@ -532,6 +532,7 @@
 	</table>
 	
 	<script>
-	 Prosis.busy('no')
+		parent.Prosis.busy('no')
 	</script>
+	
 	

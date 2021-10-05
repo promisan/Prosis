@@ -71,7 +71,7 @@
 		    <link rel="stylesheet" href="#session.root#/scripts/mobile/resources/styles/style.css">
 
 			<!-- Vendor scripts -->
-			<script src="#session.root#/scripts/mobile/resources/vendor/jquery/dist/jquery.min.js"></script>
+			<script src="#session.root#/scripts/jquery/jquery.js"></script>
 			<script src="#session.root#/scripts/mobile/resources/vendor/jquery-ui/jquery-ui.min.js"></script>
 			<script src="#session.root#/scripts/mobile/resources/vendor/slimScroll/jquery.slimscroll.min.js"></script>
 			<script src="#session.root#/scripts/mobile/resources/vendor/bootstrap/dist/js/bootstrap.min.js"></script>

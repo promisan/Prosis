@@ -99,8 +99,8 @@
 	</cfif>		
 		
 	<cfoutput>
-				
-		<select name="StepIncreaseDate" style="width:150px;border:0px" class="<cfif url.lastcontractid eq "">regularxl<cfelse>regularxl</cfif>">
+						
+		<select name="StepIncreaseDate" style="width:150px;<cfif url.entry eq 'edit'>border:0px</cfif>" class="<cfif url.lastcontractid eq "">regularxxl<cfelse>regularxxl</cfif>">
 			<!--- was before; rfuentes, STL tmp 
 		     <option value="" selected><cf_tl id="No applicable"></option>
 			 

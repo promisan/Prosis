@@ -3,14 +3,13 @@
 datasource="AppsSelection" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-	SELECT APPS.*,
-	       RS.EntityClass
-    FROM   ApplicantSubmission AS APPS
-		   INNER JOIN Ref_SubmissionEdition RS
-		   		ON APPS.SubmissionEdition = RS.SubmissionEdition
-    WHERE  PersonNo = '#URL.ID#' AND Source = '#url.source#'
+	SELECT    APPS.*,
+	          RS.EntityClass
+    FROM      ApplicantSubmission AS APPS
+		      INNER JOIN Ref_SubmissionEdition RS ON APPS.SubmissionEdition = RS.SubmissionEdition
+    WHERE     PersonNo = '#URL.ID#' AND Source = '#url.source#'	
+	ORDER BY  Created DESC
 </cfquery>
-
 
 <cfquery name="SubmissionEdition" 
 datasource="AppsSelection" 
@@ -21,13 +20,15 @@ password="#SESSION.dbpw#">
     WHERE  SubmissionEdition = '#Submission.SubmissionEdition#' 
 </cfquery>
 
+<cfset src = "">
+
 <table border="0" width="98%" align="center">
 		
      <tr><td>
 			 
-			 <table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+			 <table width="100%" class="navigation_table">
 			
-			  <TR class="labelmedium line">
+			  <TR class="labelmedium2 line">
 			  	  <td></td>
 				  <td height="19"><cf_tl id="Date submission"></td>
 				  <TD><cf_tl id="Source"></TD>
@@ -40,9 +41,9 @@ password="#SESSION.dbpw#">
 				  <TD><cf_tl id="Entered"></TD>
 		      </TR>
 			  
-			  <cfoutput query="Submission">			  
-				 
-				  <tr class="labelmedium navigation_row">
+			  <cfoutput query="Submission">		
+			  
+				  <tr class="labelmedium2 navigation_row">
 				  	  <td>
 
 					   <cfif EntityClass neq "" >
@@ -78,14 +79,21 @@ password="#SESSION.dbpw#">
 						  
 						  <cfif submission.recordcount gte "1">
 						  
-							  <cf_RosterPHP 
-									DisplayType = "HLink"
-									Image       = "#SESSION.root#/Images/pdf_small.gif"
-									DisplayText = "#Source#"
-									style       = "height:14;width:16"
-									Script      = "#currentrow#"
-									RosterList  = "#ApplicantNo#"
-									Format      = "Document">	
+						  	  <table>
+								  <tr>
+								  <td>   
+							  
+								  <cf_RosterPHP 
+										DisplayType = "HLink"										
+										DisplayText = "#ApplicantNo#"
+										style       = "height:14;width:16"
+										Script      = "#currentrow#"
+										RosterList  = "#ApplicantNo#"
+										Format      = "Document">	
+										
+								  </td>
+								  </tr>
+							  </table>	
 						  
 						  <cfelse>
 						  
@@ -141,6 +149,22 @@ password="#SESSION.dbpw#">
 								 <TR>
 					 
 								  <td colspan="10" style="padding-top:4px;padding-right:10px">		
+								  
+								  <cfif find(source,src)>
+								  
+								  	<cf_filelibraryN
+										DocumentPath="Submission"
+										SubDirectory="#submissionid#" 	
+										Filter=""		
+										Insert="no"
+										loadscript="No"
+										Box="mysubmission"
+										Remove="no"
+										ShowSize="yes">		
+								  
+								  <cfelse> 
+								  
+								  	<cfset src = "#src#,#source#">	
 								 
 							 		<cf_filelibraryN
 										DocumentPath="Submission"
@@ -151,6 +175,8 @@ password="#SESSION.dbpw#">
 										Box="mysubmission"
 										Remove="yes"
 										ShowSize="yes">		
+										
+									</cfif>	
 																				
 								</td>
 						

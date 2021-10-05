@@ -32,7 +32,7 @@ password="#SESSION.dbpw#">
 
 <!--- Entry form --->
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="95%" align="center" class="formpadding formspacing">
 
    <tr><td></td></tr>
 

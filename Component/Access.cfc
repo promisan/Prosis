@@ -81,6 +81,7 @@
     <cfproperty name="name" type="string">
     <cfset this.name = "User authorization">
 	
+	
 	<!--- 1.0 GENERAL ACCESS TO A MENU FUNCTION --->
 	
 	<cffunction access="public" name="Function" output="true" returntype="string" displayname="Verify Function Access">
@@ -442,7 +443,17 @@
 		<cfif defaultDSAuth eq "0">
 			<cfset vUserName = SESSION.login>
 			<cfset vPwd = SESSION.dbpw>
-		</cfif>
+		</cfif>		
+		
+		<!--- just to check if this person has activity otherwise 
+		   no maybe just directly accessing : NEW --->
+		
+		<cfinvoke component = "Service.Process.System.UserController"  
+		   method           = "ValidateCFCAccess" 
+		   sessionId        = "#session.sessionid#" 
+		   datasource       = "#datasource#"
+		   defaultDSAuth    = "#defaultDSAuth#"
+		   account          = "#session.acc#">	
 		
 		<cftransaction isolation="read_uncommitted">
 			

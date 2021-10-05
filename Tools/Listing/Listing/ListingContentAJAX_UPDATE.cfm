@@ -1,5 +1,6 @@
 <!--- we refresh the fields directly --->
-	 
+
+ 
 	<cfif searchResult.recordcount eq "1">	
 			 
 		<!--- we loop through the record with its query field row values --->	 

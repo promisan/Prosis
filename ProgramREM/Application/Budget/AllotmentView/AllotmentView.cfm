@@ -53,11 +53,11 @@
 	    se = document.getElementById("treeselect")					
 		if (treeselect.value != "") {
 		
-				parent.right.document.location = "AllotmentViewGeneral.cfm?Period=" + document.getElementById("PeriodSelect").value + 
-	                     "&Edition=" + parent.document.getElementById("edition").value + 
-	                     "&ProgramGroup=" + document.getElementById("ProgramGroup").value +					
-						 "&" + treeselect.value						 
-				Prosis.busy('yes')		 														
+				parent.right.ptoken.location('AllotmentViewGeneral.cfm?Period=' + document.getElementById('PeriodSelect').value + 
+	                     '&Edition=' + parent.document.getElementById('edition').value + 
+	                     '&ProgramGroup=' + document.getElementById('ProgramGroup').value +					
+						 '&' + treeselect.value						 
+				parent.right.Prosis.busy('yes')		 														
 		} else {					
 			parent.right.document.location.href = "#SESSION.root#/Tools/Treeview/TreeViewInit.cfm"
 		}				

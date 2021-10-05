@@ -343,7 +343,13 @@
 					</cfif>
 					
 				#ann#
+				
+				<cfif url.contentmode eq "5" and qentrykey neq "">	
+				ORDER BY #qentrykey# DESC
+				<cfelse>
 				#listsorting#	
+				</cfif>
+				
 				
 				</cfif>											
 			

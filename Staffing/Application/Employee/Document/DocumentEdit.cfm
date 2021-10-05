@@ -16,14 +16,16 @@ password="#SESSION.dbpw#">
     FROM PersonDocument S, 
 	     Ref_DocumentType R
 	WHERE S.DocumentType = R.DocumentType
-	AND PersonNo = '#URL.ID#'
+	AND PersonNo   = '#URL.ID#'
 	AND DocumentId = '#URL.ID1#'
 </cfquery>
 
-<cfform action="#session.root#/Staffing/Application/Employee/Document/DocumentEditSubmit.cfm" method="POST" name="DocumentEdit">
+<cfform action="#session.root#/Staffing/Application/Employee/Document/DocumentEditSubmit.cfm?id=#URL.ID#&id1=#URL.ID1#" 
+  method="POST" name="documententry" onSubmit="return checkfile()">
 
-	<table width="99%" align="center"  border="0" cellspacing="0" cellpadding="0">
-	  <tr><td>
+	<table width="99%" align="center">
+	
+	<tr><td>
 	
 	<cfoutput query = "Document">
 	
@@ -36,7 +38,7 @@ password="#SESSION.dbpw#">
 	    <td width="100%" align="left" valign="middle" style="border:0px solid silver;font-size:25px" class="labellarge">
 		<table><tr><td>
 		<cfoutput>
-		<img src="#session.root#/images/document.png" alt="" width="68" height="68" border="0">
+		<img src="#session.root#/images/document.png" alt="" width="68" height="58" border="0">
 		</td>
 		<td class="labellarge" style="padding-top:10px;font-size:25px;padding-left:10px"><cf_tl id="Edit issued document">
 		</cfoutput>
@@ -54,22 +56,22 @@ password="#SESSION.dbpw#">
 								
 			<cfif dependentid neq "">
 			
-			<cfquery name="Dependent" 
-				datasource="AppsEmployee" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					SELECT *
-					FROM   PersonDependent
-					WHERE  PersonNo = '#URL.ID#'
-					AND    DependentId = '#dependentid#'
-					AND    ActionStatus != '9'					
-			</cfquery>
+				<cfquery name="Dependent" 
+					datasource="AppsEmployee" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT *
+						FROM   PersonDependent
+						WHERE  PersonNo = '#URL.ID#'
+						AND    DependentId = '#dependentid#'
+						AND    ActionStatus != '9'					
+				</cfquery>
 			
-			<input type="hidden" name="DependentId" value="#dependentid#">
+				<input type="hidden" name="DependentId" value="#dependentid#">
 								
 					<TR>
 				    <TD height="21" class="labelmedium"><cf_tl id="Individual">:</TD>
-					<TD width="80%" class="labelmedium">
+					<TD width="80%" class="labelmedium2">
 					 #Dependent.FirstName# #Dependent.LastName# [#Dependent.Gender#] #dateformat(Dependent.BirthDate,CLIENT.DateFormatShow)#
 					</td>
 			</tr>		
@@ -79,14 +81,14 @@ password="#SESSION.dbpw#">
 			<TR>
 		    <TD class="labelmedium"><cf_tl id="Document type">:</TD>
 		    <TD width="80%">
-			<INPUT type="text" class="regularxl enterastab" value="#Document.DocumentType#" name="Documenttype" maxLength="20" size="20" readonly>		
+			<INPUT type="text" class="regularxxl enterastab" value="#Document.DocumentType#" name="Documenttype" maxLength="20" size="20" readonly>		
 			</TD>
 			</TR>
 			
 			<TR>
 		    <TD class="labelmedium"><cf_tl id="Document No">:</TD>
 		    <TD>
-			<INPUT type="text" class="regularxl enterastab" value="#Document.DocumentReference#" name="DocumentReference" maxLength="30" size="30">		
+			<INPUT type="text" class="regularxxl enterastab" value="#Document.DocumentReference#" name="DocumentReference" maxLength="30" size="30">		
 			</TD>
 			</TR>
 			
@@ -97,7 +99,7 @@ password="#SESSION.dbpw#">
 				<cf_intelliCalendarDate9
 					FormName="DocumentEdit"
 					FieldName="DateEffective" 
-					Class="regularxl enterastab"
+					Class="regularxxl enterastab"
 					DateFormat="#APPLICATION.DateFormat#"
 					Default="#Dateformat(Document.DateEffective, CLIENT.DateFormatShow)#">	
 			
@@ -111,7 +113,7 @@ password="#SESSION.dbpw#">
 				<cf_intelliCalendarDate9
 					FormName="DocumentEdit"
 					FieldName="DateExpiration" 		
-					Class="regularxl enterastab"
+					Class="regularxxl enterastab"
 					DateFormat="#APPLICATION.DateFormat#"
 					Default="#Dateformat(Document.DateExpiration, CLIENT.DateFormatShow)#">	
 					
@@ -132,7 +134,7 @@ password="#SESSION.dbpw#">
 		    <TD class="labelmedium"><cf_tl id="Country">:</TD>
 		    <TD>
 			
-			   	<select name="Country" class="regularxl enterastab">
+			   	<select name="Country" class="regularxxl enterastab">
 					<option value=""></option>
 				    <cfloop query="Nation" >
 					<option value="#Code#" <cfif Document.IssuedCountry eq Code>selected</cfif>>#Name#</option>
@@ -142,6 +144,15 @@ password="#SESSION.dbpw#">
 			</TD>
 			</TR>					
 				
+			
+			
+			<TR>
+		        <td style="padding-top:6px" valign="top" class="labelmedium"><cf_tl id="Remarks">:</td>
+		        <TD style="padding-left:0px">
+				<textarea style="width:98%;padding:4px;font-size:15px;height:70px;" class="regular" totlength="200"  onkeyup="return ismaxlength(this)" rows="3" name="Remarks">#Document.Remarks#</textarea>
+				</TD>
+			</TR>
+			
 			<tr><td class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Attachment">:</td>
 			<td>		
 					<cf_filelibraryN
@@ -154,13 +165,6 @@ password="#SESSION.dbpw#">
 						Listing="yes">
 			</td>		
 			</tr>
-			
-			<TR>
-		        <td style="padding-top:6px" valign="top" class="labelmedium"><cf_tl id="Remarks">:</td>
-		        <TD style="padding-left:0px">
-				<textarea style="width:98%;padding:3px;font-size:13px" class="regular" totlength="200"  onkeyup="return ismaxlength(this)" rows="3" name="Remarks">#Document.Remarks#</textarea>
-				</TD>
-			</TR>
 					  
 		   </table>
 		   

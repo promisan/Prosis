@@ -23,13 +23,13 @@ function addfile(mode,host,dir,subdir,fil,box,ref,svr,window,pdf,memo) {
 	
 		if (mode == 'attachmentmultiple') {
 					
-			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:350,width:590,resizable:false,modal:false,center:true,color:'##e1e1e1'})    
+			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:400,width:590,resizable:false,modal:false,center:true,color:'##e1e1e1'})    
 			// ColdFusion.Window.show('attachdialog') 					
 			ptoken.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf+'&memo='+memo,'attachdialog') 		
 		
 		} else {
 				    		
-			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:400,width:530,resizable:false,modal:true,center:true})    
+			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:450,width:530,resizable:false,modal:true,center:true})    
 			// ColdFusion.Window.show('attachdialog') 					
 			ptoken.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf+'&memo='+memo,'attachdialog') 		
 		}	
@@ -44,7 +44,7 @@ function addfile(mode,host,dir,subdir,fil,box,ref,svr,window,pdf,memo) {
 		
 		} else {
 				    		
-			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:400,width:530,resizable:false,modal:true,center:true})    
+			ProsisUI.createWindow('attachdialog', 'Attachment', '',{x:100,y:100,height:450,width:530,resizable:false,modal:true,center:true})    
 			// ColdFusion.Window.show('attachdialog') 					
 			ptoken.navigate('#SESSION.root#/Tools/Document/FileFormDialog.cfm?host='+host+'&mode='+mode+'&box='+box+'&dir=' + dir + '&ID=' + subdir + '&ID1=' + fil + '&reload='+ref+'&documentserver='+svr+'&pdfscript='+pdf+'&memo='+memo,'attachdialog') 		
 		}	

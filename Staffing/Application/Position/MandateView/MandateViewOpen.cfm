@@ -51,18 +51,8 @@
 	<cfelse>
 		
 		<script language="JavaScript">	 
-		   //unitcode = parent.YAHOO.widget.TreeView.getTree('idtree')._cf_node
-			var vl = parent._SELECTED_ITEMS.length;
-			for (var i = vl-1; i >= 0; i--) {
-				console.log(parent._SELECTED_ITEMS[i].id);
-				console.log(parent._SELECTED_ITEMS[i].value);
-				if (parent._SELECTED_ITEMS[i].id == 'idtree') {
-					unitcode = parent._SELECTED_ITEMS[i].value;
-					break;
-				}
-			}
-
-		   ptoken.location('MandateViewGeneral.cfm?org='+unitcode+'&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID4=#URL.ID4#&selectiondate=' + parent.document.getElementById('selectiondate').value)					 	 
+			unitcode = parent._SELECTED_ITEMS[0].value;
+		   	ptoken.location('MandateViewGeneral.cfm?org='+unitcode+'&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID4=#URL.ID4#&selectiondate=' + parent.document.getElementById('selectiondate').value)
 		</script>
 	
 	</cfif>

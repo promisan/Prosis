@@ -23,9 +23,7 @@
 	datasource="AppsMaterials"
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	
-
-	
+		
 		SELECT	 P.Description,P.SearchOrder, T.*
 		FROM     Ref_Topic T INNER JOIN Ref_TopicEntryClass C ON T.Code = C.Code
 					AND C.EntryClass   = '#ItemMaster.EntryClass#'
@@ -43,7 +41,9 @@
 					AND T.Operational  = 1 					
 					-- AND  ValueClass IN ('List','Lookup')
 				 INNER JOIN Ref_TopicParent P ON T.Parent = P.Parent	
-		WHERE    T.TopicClass = 'Category'					
+		WHERE    T.TopicClass = 'Category'		
+		
+				
 		
 		UNION 
 		
@@ -51,9 +51,24 @@
 		FROM     Ref_Topic T INNER JOIN Ref_TopicParent P ON T.Parent = P.Parent
 		WHERE    T.TopicClass = 'Details'
 		
-		ORDER BY P.SearchOrder, P.Description, T.TopicClass, T.ListingOrder ASC
+		ORDER BY T.TopicClass, P.SearchOrder, P.Description, T.ListingOrder ASC
+		
 		
 </cfquery>
+
+<!---
+
+UNION 
+		
+		SELECT	 P.Description,P.SearchOrder,T.*
+		FROM     Ref_Topic T 
+					-- AND  ValueClass IN ('List','Lookup')
+				 INNER JOIN Ref_TopicParent P ON T.Parent = P.Parent	
+		WHERE    T.TopicClass = 'ItemUoM'	
+		
+		--->
+
+
 
 <cfquery name="Cls" 
 datasource="AppsMaterials" 
@@ -74,14 +89,14 @@ password="#SESSION.dbpw#">
 	
 	<TR class="labelmedium2">
     <td width="140"><cf_tl id="Class">:</td>
-    <TD width="80%">#Cls.Description#
+    <TD colspan="3" width="80%">#Cls.Description#
     </td>
     </tr>
 	
 	<cfif item.Classification neq "">
 	    <TR class="labelmedium2">
 		    <TD><cf_tl id="Code">:</TD>
-		    <TD>#item.Classification#</TD>
+		    <TD colspan="3">#item.Classification#</TD>
 		</TR>
 	</cfif>
 	
@@ -92,22 +107,20 @@ password="#SESSION.dbpw#">
 	</TR>
 	--->	
 	
-	<tr><td class="line" colspan="2" height="1"></td></tr>
+	<tr><td class="line" colspan="4" height="1"></td></tr>
 	
 	<tr class="labelmedium2">
-	<td colspan="2" height="40" style="color:gray">
+	<td colspan="4" height="40" style="color:gray">
 	<cf_tl id="Only change if you are absolutely certain on the effect this might have" class="message">
 	<cf_tl id="for item price and stock management" class="message">		
 	</td></tr>
 	
-	<tr><td class="line" colspan="2"></td></tr>
-	
-	<tr><td height="5"></td></tr>
-	
+	<tr><td class="line" colspan="4"></td></tr>
+		
 	</cfoutput>
 	
 	<cfif getTopics.recordCount eq 0>
-		<tr><td height="30" align="center" colspan="2"><font face="Calibri" size="2"><i>
+		<tr><td height="30" align="center" colspan="4"><font face="Calibri" size="2"><i>
 			<cf_tl id="No topics recorded for this item" class="message">.<br><cf_tl id="Please check the Procurement Item Master for this Item" class="message">.
 			</b></i></td></tr>
 		<cfabort>
@@ -116,12 +129,17 @@ password="#SESSION.dbpw#">
 	<cfoutput query="getTopics" group="Description">
 	
 		<tr class="line">
-			<td colspan="2" style="font-size:25px" class="labelmedium2">#Description#</td>			
+			<td colspan="4" style="font-size:22px" class="labelmedium2">#Description#</td>			
 		</tr>	
+		
+		<cfset cnt = 0>
 	
 	    <cfoutput>
+		
+		<cfset cnt = cnt+1>
 
-		<tr>
+		<cfif cnt eq "1"><tr></cfif>  
+		
 			<td width="80" height="23" class="labelmedium2">#TopicLabel#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
 			<td>
 			
@@ -209,14 +227,16 @@ password="#SESSION.dbpw#">
 				</cfif>
 								
 			</td>
-		</tr>
+			
+			<cfif cnt eq "2"></tr><cfset cnt= 0></cfif>
+		
 		
 	    </cfoutput>
 
 	</cfoutput>
 		
 		<tr><td height="5"></td></tr>
-		<tr><td colspan="2" class="line"></td></tr>
+		<tr><td colspan="4" class="line"></td></tr>
 		<tr>
 			<td colspan="2" style="padding-left:10px">
 				<cf_tl id="Save" var="vSave">

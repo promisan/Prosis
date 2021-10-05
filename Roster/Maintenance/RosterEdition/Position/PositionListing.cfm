@@ -61,7 +61,19 @@ password="#SESSION.dbpw#">
               Organization.dbo.Organization AS O ON P.OrgUnitOperational = O.OrgUnit INNER JOIN
               FunctionTitle AS F ON SP.FunctionNo = F.FunctionNo
 			  
-	WHERE     SubmissionEdition = '#url.submissionedition#'			
+	WHERE     SubmissionEdition = '#url.submissionedition#'		
+	
+	<cfif qExercise.ActionStatus eq "3" and SESSION.isAdministrator eq "No" and not findNoCase(qExercise.owner,SESSION.isOwnerAdministrator)>
+						
+			<!--- limit access --->		
+			AND 	SP.Reference  IN (SELECT FO.ReferenceNo
+			                          FROM   FunctionOrganization FO INNER JOIN RosterAccessAuthorization RA ON RA.FunctionId = Fo.FunctionId
+                   			          WHERE  SubmissionEdition = SP.SubmissionEdition
+			                          AND    Mission           = P.Mission			                          
+			                          AND    RA.UserAccount    = '#session.acc#') 			   
+								  
+	</cfif>	
+		
 	AND       RecordStatus = '1'		  
 	ORDER BY  P.Mission,G.PostOrder, P.PostGrade
 	

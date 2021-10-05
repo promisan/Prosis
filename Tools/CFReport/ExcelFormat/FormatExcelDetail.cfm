@@ -39,11 +39,11 @@
 
 <tr><td style="height:100%">
 
-<cf_divscroll>
+	<cf_divscroll>
 
 	<table width="98%" class="formpadding">
 	
-	<tr class="xhide"><td colspan="4" align="center" id="processpreview"></td></tr>
+	<tr class="hide"><td colspan="4" align="center" id="processpreview"></td></tr>
 	
 	<tr><td height="8"></td></tr>
 	
@@ -236,7 +236,7 @@
 			</tr>
 				
 			<cfif Fields.recordcount eq "0">
-				<tr><td colspan="4" align="center" class="cellcontent"><font color="408080"><cf_tl id="All fields have been selected"></b></font></td></tr>
+				<tr><td colspan="4" align="center" class="cellcontent"><font color="408080"><cf_tl id="All fields have been selected"></font></td></tr>
 			</cfif>
 				
 			<tr>
@@ -301,7 +301,7 @@
 							
 							<cfif selected eq "0">
 							
-								<td width="90%" style="heigh:15px;cursor:pointer;padding-left:3px;background-color=f3f3f3;min-width:200" 
+								<td width="90%" style="heigh:15px;cursor:pointer;padding-left:5px;background-color=f3f3f3;min-width:200" 
 								  onmouseout="this.className='regular'" 
 								  onmouseover="this.className='highlight'" 
 								  onclick="fieldadd('#name#','Detail','#url.id#','#url.table#','#format#')">
@@ -318,8 +318,9 @@
 							
 							<cfelse>
 							
-								<td width="90%" bgcolor="ffffef"  style="padding-left:3px;font-size:12px;min-width:200">														
-									<i><font color="gray"><cfif get.Outputheader neq "">#get.OutputHeader#<cfelse>#Name#</cfif></font> 														
+								<td width="90%" bgcolor="ffffef"  style="padding-left:5px;font-size:12px;min-width:200">														
+									<a href="javascript:fielddelete('#name#','#url.id#','#url.table#')"><u><cf_tl id="revoke"></u></a>&nbsp;|&nbsp	
+									<i><font color="gray"><cfif get.Outputheader neq "">#get.OutputHeader#<cfelse>#Name#</cfif></font></i>							 														
 								</td>
 							
 							</cfif>
@@ -497,6 +498,7 @@
 	<cfif Selected.recordcount gt "0">
 		   
 		<tr><td colspan="5" align="center" style="padding:5px">
+		
 			<table cellspacing="0" cellpadding="0" class="formspacing">
 			<tr>
 				<td>				

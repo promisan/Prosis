@@ -67,7 +67,7 @@ password="#SESSION.dbpw#">
 	
 <cfelse>
 
-	<cfset check.recordcount = "0">	
+	<cfset glcheck.recordcount = "0">	
 
 </cfif>
 
@@ -302,10 +302,12 @@ password="#SESSION.dbpw#">
 <!--- check if the invoice is paid again cancelled requisitions --->  
   
 <tr>
-<td class="labelmedium2" style="border:0px solid gray;padding-left:12px;padding-right:10px;height:40px;font-size:20px">
+<td class="labelmedium2" colspan="4" style="font-weight:bold;padding-left:12px;padding-right:10px;font-size:16px">
 <cf_tl id="Amounts Payable">
 </td>
-<td colspan="3" style="padding-left:10px;padding-right:10px">
+</tr>
+<tr>
+<td colspan="4" style="padding-left:35px;padding-right:5px">
 <cfinclude template="InvoiceMatchOther.cfm">
 </td>
 </tr>
@@ -674,7 +676,7 @@ password="#SESSION.dbpw#">
 	 <cfset url.mission = Invoice.Mission>		
 	  	 			 		   
 	  <tr style="height:30px">
-	        <td style="padding-left:33px;padding-top:6px" valign="top" class="labelmedium2"><cf_tl id="Orginal invoice attachments">:</td>
+	        <td style="padding-left:33px;padding-top:6px" valign="top" title="Original invoice attachment" class="labelmedium2"><cf_tl id="Invoice attachments">:</td>
 			<td colspan="3" id="attach">
 			   <cfset access = AccessReq>
 			   <cfinclude template="../InvoiceEntry/InvoiceEntryAttachment.cfm">						

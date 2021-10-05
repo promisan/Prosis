@@ -137,11 +137,13 @@
 					AND     ActionQueryString  = '#str#' 										
 			</cfquery>	
 			
-			<cfif get.recordcount eq "0">
+						
+			<cfif get.recordcount eq "0" and findNoCase("submit.cfm",tmp) eq "0">
 			
 			    <!--- NEW additionally we check if the SAME user/session has this link 
 				  matched in length which qualifies for now as well
-				  as we have in cfdiv the issue of the {mission} not to fire an MIP yet : Hanno 19/5/2020 --->					
+				  as we have in cfdiv the issue of the {mission} not to fire an MIP yet : Hanno 19/5/2020 --->		
+				  		
 			
 				<cfquery name="check" 
 					datasource="AppsSystem">				
@@ -163,24 +165,21 @@
 					   	method             = "GetHash"
 						returnvariable     = "hash">	
 								
-				</cfif>
-				
+				</cfif>				
 						
 			</cfif>
 		
 		</cftransaction>
 				
 		<!--- link NOT found for user / session or no longer valid --->
-			
-															
-		<cfif get.recordcount eq "0" or get.Operational eq "0">			  
-			  
+																			
+		<cfif get.recordcount eq "0" or get.Operational eq "0">	
+							  
 			<!---	
 				 then we validate the passed Hash is authentic and valid			 
 				 then we record the link OR activate the link (operational)			 
 				 and THEN we check the link for access again 
-			--->			
-			
+			--->				
 						
 			<cfset Match_USR = hashit(vInit,hash,VARIABLES.Instance.USR_MID)>			
 				
@@ -191,10 +190,9 @@
 			</cfif>		
 
 			<cf_gethost>	
-			
-																						
-			<cfif Match_USR or Match_SES or force eq "Yes">		
 																									
+			<cfif Match_USR or Match_SES or force eq "Yes">		
+																												
 					<cfquery name="getUser" 
 						datasource="AppsSystem">
 							SELECT * 
@@ -264,8 +262,7 @@
 											 '#str#',
 											 '#hash#','1')		
 											 								
-									</cfquery>	
-									
+									</cfquery>										
 									
 								<cfcatch></cfcatch>
 									
@@ -278,8 +275,11 @@
 							<cfquery name="get" 
 								datasource="AppsSystem">
 									UPDATE  UserStatusController
-									SET     Operational = 1
+									SET     ControllerMID = '#hash#',
+									        Operational   = 1,
+											Created       = getDate()
 									WHERE   ControllerLinkId = '#get.ControllerLinkId#'									
+									
 							</cfquery>	
 												
 						</cfif>		
@@ -292,7 +292,7 @@
 					</cfif>					
 				
 			</cfif>	
-								
+					    								
 			<cfif AccessValidate eq "Yes" and (session.acc neq "" or hash eq "999")>
 						
 				<cfif param.URLProtectionMode eq "2"  or findNoCase("submit.cfm",tmp)>						
@@ -311,12 +311,13 @@
 						returnvariable     = "AccessRight">	
 																				
 			<cfelse>
-						
+											
 				<cfset accessRight = "GRANTED">								
 								
 			</cfif>			
 			
 		<cfelse>
+		
 		
 			<!--- A MATCH was found for this user  --->
 									
@@ -325,6 +326,7 @@
 				    <!--- we enforce that access is revoked 
 					so it can be accessed as hyperlink only with
 					MID  --->
+					
 						
 					<cfquery name="get" 
 						datasource="AppsSystem">
@@ -380,6 +382,8 @@
 		<cfelse>
 				   			
 			<!--- remove the MID --->
+			
+			<CFSET AccessRight = "DENIED">
 		
 			<cfif len(ActionTemplate) gte 200>
 				 <cfset tmp = left(ActionTemplate,200)>
@@ -416,44 +420,76 @@
 				 </cfif>
 				 AND    ActionTemplate     = '#tmp#'
 				 AND    ActionQueryString  = '#str#'  
-				 AND    Operational        = '1'   		
-				 
-								 
-				 UNION
-				 
-				 <!--- wild card to allow bookmarking in obvious cases --->
-				 
-				 SELECT * 
-				 FROM   UserStatusController
-				 WHERE  ControllerMID    = '#hash#'					
-				 AND    Account          = '#SESSION.acc#'
-				 				 	
-				 				 				 		 	
-			</cfquery>	
-																										
-			<cfif checkAccess.RecordCount eq "0">
-								          
-				  <CFSET AccessRight = "DENIED">
-				  				  
-		    <cfelse>
+				 AND    Operational        = '1'
+			</cfquery>
 						
-				<!--- function to remove this access so it can not be reloaded --->
+			<!--- added : no book mark disalbed but maybe the same MID + time --->
+						
+			<cfif checkAccess.recordcount eq "0" 
+			    and param.URLProtectionMode eq "2" 
+				and not findNoCase("submit.cfm",tmp)>
 							
-				<cfif AccessRevoke eq "Yes">
+				<!--- we verify check if this user has maybe the same MID --->
 				
-				    <cfquery name="revertLoad" 
+				<cfif len(hash) gt "40">				
+					<cfset hash = left(hash,40)>
+				</cfif>
+								
+				<cfquery name="checkMID" 
+				datasource="AppsSystem">
+					 SELECT TOP 1 * 
+					 FROM   UserStatusController
+					 <cfif session.acc eq "">
+					 WHERE  HostSessionId  = '#Session.sessionid#'				
+					 <cfelse>
+					 WHERE  Account        = '#SESSION.acc#'
+					 -- AND    HostSessionId  = '#Session.sessionid#'
+					 </cfif>
+					 AND    ActionTemplate     = '#tmp#'
+					 -- AND    ActionQueryString  = '#str#'  
+					 AND    ControllerMID      = '#hash#'	
+					 ORDER BY Created DESC				 
+				</cfquery>
+								
+				<cfif checkMID.recordcount gte "1">				
+																
+				      <cfset min = datediff("m",checkMID.created,now())>
+					 				   
+				      <cfif min lte "30">
+					  				   
+				          <!--- we grant access --->
+				          <CFSET AccessRight = "GRANTED">
+						 
+												
+				      </cfif>	
+					  
+				</cfif>	  				
+						
+			</cfif>				
+																													
+			<cfif checkAccess.RecordCount eq "0" and accessRight eq "DENIED">
+																	          
+				  <CFSET AccessRight = "DENIED">
+				  				  				  
+		    <cfelse>
+									
+				<!--- function to remove this access so it can not be reloaded --->
+												
+			    <cfquery name="revertLoad" 
 					datasource="AppsSystem">
 						 UPDATE UserStatusController
-						 SET    Operational        = '0'
+						 SET    Created            = getDate(),
+						        ControllerMID      = '#hash#'
+								<cfif AccessRevoke eq "Yes">
+						        ,Operational        = '0'	
+								</cfif>					        
 						 WHERE  Account            = '#SESSION.acc#'						 
 						 AND    ActionTemplate     = '#tmp#'					 
 						 AND    ActionQueryString  = '#str#'  										 
-					</cfquery>										
-			
-				</cfif>
-			
+				</cfquery>	
+									
 		        <CFSET AccessRight = "GRANTED">
-				
+												
 			</cfif>	  
 					
 			<cfif AccessMessage eq "Yes">
@@ -472,7 +508,7 @@
 									
 					   <table width="100%" height="100%" align="center">
 						 <tr><td align="center" class="labellarge" style="color:ff0000;font-size:18px;padding-top:10px">					 						   				   
-							   <cf_tl id="Authorization to access function is denied" class="Message">.						   
+							   <cf_tl id="Authorization to access function is denied" class="Message">.				   
 							</td>
 						 </tr>
 					   </table>	
@@ -489,5 +525,93 @@
 		<cfreturn AccessRight>
 							 
 	</cffunction>
+	
+	<cffunction name="ValidateCFCAccess" access="public" 
+	     returntype="string" displayname="Verify CFC Access to control CSRF" output="yes">
+		 
+		 	<cfargument name="sessionid"        type="string" required="true">
+			<cfargument name="account"          type="string" required="true">	
+			<cfargument name="defaultDSAuth"   	type="string" required="false" default="0">	
+			<cfargument name="datasource"       type="string" default="AppsOrganization" required="yes">		
+		 		 	
+			<cfparam name="url.mid"           default="">
+			
+			<cfif not findNoCase("default.cfm",CGI.SCRIPT_NAME) 
+				 and not findNoCase("actionview.cfm",CGI.SCRIPT_NAME)
+				 and not findNoCase("public.cfm",CGI.SCRIPT_NAME)
+				 and not findNoCase("errorrequest.cfm",CGI.SCRIPT_NAME)
+				 and not findNoCase("error.cfm",CGI.SCRIPT_NAME)
+				 and not findNoCase("selectFormContainer.cfm",CGI.SCRIPT_NAME)
+				 and not findNoCase("mainmenuopen.cfm",CGI.SCRIPT_NAME)>		
+				 
+				<cfset vUserName = "">
+				<cfset vPwd = "">
+				<cfif defaultDSAuth eq "0">
+					<cfset vUserName = SESSION.login>
+					<cfset vPwd = SESSION.dbpw>
+				</cfif>				
+				
+				<cfquery name="getmid" 
+				  datasource="#datasource#" username="#vUserName#" password="#vPwd#">
+			    	SELECT   TOP 1 *
+				    FROM     System.dbo.UserStatusController
+			    	WHERE    Account       = '#account#' 
+					AND      ControllerMID = '#url.mid#'	
+					AND      Created > getDate()-1	
+				</cfquery>	
+				
+				<cfif getMid.recordcount eq "1">	
+				
+					<!--- we pass because this MID has been actively used today --->
+				
+				<cfelse>
+				
+					<cfquery name="getactivity" 
+					  datasource="#datasource#" username="#vUserName#" password="#vPwd#">
+					    	SELECT    TOP 1 *
+						    FROM      System.dbo.UserStatusController
+					    	WHERE     Account       = '#account#' 
+							AND       HostName      = '#CGI.http_host#'
+							and       HostSessionId = '#sessionid#'
+							ORDER BY  Created DESC
+					</cfquery>	
+				
+					<cfif getactivity.recordcount eq "0">
+					    
+						 <table width="100%" height="100%" align="center">
+							 <tr><td align="center" class="labellarge" style="color:ff0000;font-size:18px;padding-top:10px">					 						   				   
+								   <cf_tl id="Authorization to access function is revoked-mid" class="Message">.						   
+								</td>
+							 </tr>
+						  </table>	
+						  <cfabort>
+						  
+					<cfelseif getactivity.recordcount eq "1">	  
+					
+					   <cfset sec = datediff("s",getactivity.created,now())>
+					   
+					   <cfif sec gt "30">
+					   
+					      <table width="100%" height="100%" align="center">
+							 <tr><td align="center" class="labellarge" style="color:ff0000;font-size:18px;padding-top:10px">					 						   				   
+								   <cf_tl id="Authorization to access function is revoked" class="Message">.						   
+								</td>
+							 </tr>
+						  </table>	
+						  <cfabort>	 
+						 
+						<cfelse>
+						
+							<!--- we pass --->  
+						  
+						</cfif>    		
+						
+					</cfif>
+				
+			     </cfif>
+								
+			</cfif>	 
+		 
+	</cffunction>	 
 
 </cfcomponent>

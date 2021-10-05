@@ -9,11 +9,11 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 	
-	<table width="100%" border="0" rules="none" bordercolor="silver" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 		
 		<tr><td>
 		
-		<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+		<table width="95%" align="center" class="formpadding">
 		
 		<TR>										
 		 		
@@ -31,8 +31,7 @@ password="#SESSION.dbpw#">
 		<tr>	
 			
 		    <td>
-				<cfdiv bind="url:#link#" 
-				       id="l#url.id1#_standard"/>
+				<cf_securediv bind="url:#link#" id="l#url.id1#_standard">
 			</td>
 					
 		</TR>
@@ -61,8 +60,7 @@ password="#SESSION.dbpw#">
 		<tr>	
 			
 		    <td>
-				<cfdiv bind="url:#link#" 
-				       id="l#url.id1#_object"/>
+				<cf_securediv bind="url:#link#" id="l#url.id1#_object">
 			</td>
 					
 		</TR>
@@ -71,12 +69,11 @@ password="#SESSION.dbpw#">
 		
 		<tr><td height="4"></td></tr>		
 		<tr><td>Budget Item List: 
-		      	  <A href="javascript:ColdFusion.navigate('List.cfm?Code=#get.code#&ID2=','list')">
-						 <font color="0080FF">[add new]</font></a>
+		      	  <A href="javascript:ptoken.navigate('List.cfm?Code=#get.code#&ID2=','list')">[add new]</a>
 			 </td>
 		</tr>
 		<tr>	 
-		    <td><cfdiv id="list" bind="url:List.cfm?code=#get.code#"/></td>
+		    <td><cf_securediv id="list" bind="url:List.cfm?code=#get.code#"></td>
 		</tr>
 					
 		</table>

@@ -19,6 +19,7 @@
 <cf_insertAction  Code="Deny"          Description="Batch deny">
 <cf_insertAction  Code="Clear"         Description="Batch clear">
 <cf_insertAction  Code="Reinstate"     Description="Batch Reinstate">
+<cf_insertAction  Code="Send"          Description="Send quote">
 
 <cf_insertStatus  Class="Request"  Status="1"  ListingOrder="2" Description="Cleared"          Description2="Pending Approval">
 <cf_insertStatus  Class="Request"  Status="2"  ListingOrder="3" Description="Approved"         Description2="Pending Picking">

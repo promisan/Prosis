@@ -16,51 +16,43 @@
 
 <cfif url.scope eq "DIALOG">
 
-	<cfset url.width = "700">
-	<cfset url.height = "540">
+	<cfset url.width  = "700">
+	<cfset url.height = "640">
 
 </cfif>
 
 <cfoutput>
 
-
 <cfif url.mode eq "edit">
-
-   <cfset edt = "pictureedit('#url.path#','#url.dir#','#url.filter#','#url.width#','#url.height#')">
-    
+   <cfset edt = "pictureedit('#url.path#','#url.dir#','#url.filter#','#url.height#','#url.width#')">    
 <cfelse>
-
-	<cfset edt = "">
-			
+   <cfset edt = "">			
 </cfif>
 
-<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<table width="100%" border="0">
 
 <tr>
 
     <td align="center">
 	
 	 <cfif FileExists("#SESSION.rootDocumentPath#/#path#/#dir#/#filter##dir#.jpg")>		 
-		 		   						
-			  <cf_assignid>
-						
-			  <cfif url.width neq "0">		
-			  		  										
-				  <img src="#SESSION.rootDocument#/#path#/#dir#/#filter##dir#.jpg?id=#rowguid#"
-					     alt=""
-						 style="cursor:pointer"
+	 
+	 		<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+			<cfset mid = oSecurity.gethash()/> 
+			
+     		<cffile action="COPY" 
+					source="#SESSION.rootDocumentPath#/#path#/#dir#/#filter##dir#.jpg" 
+  			    	destination="#SESSION.rootDocumentPath#\CFRStage\EmployeePhoto\#dir#.jpg" nameconflict="OVERWRITE">
+				 
+				  <img src="#SESSION.root#/CFRStage/getFile.cfm?id=#dir#.jpg&mode=EmployeePhoto&mid=#mid#"
+					     alt    = "Photo of #dir#"
+					     border = "0"
 						 onclick="#edt#"
-					     height="#url.height#" width="#url.width#"
-					     border="0"
-					     align="absmiddle">
-					 
-			  <cfelse>
+					     align  = "absmiddle"
+						 style="cursor:pointer"
+						 height="#url.height#" width="#url.width#">	
+						 						
 			  
-			    <img src="#SESSION.rootDocument#/#path#/#dir#/#filter##dir#.jpg?id=#rowguid#" height="#url.height#" width="#url.width#"
-				     alt="" border="0" align="absmiddle" style="cursor:pointer"
-						 onclick="#edt#">
-			  
-			  </cfif>	
 			  					 
   	 <cfelse>		 
 				
@@ -68,7 +60,7 @@
 			 title="Picture" name="EmployeePhoto"  
 			 id="EmployeePhoto" 
 			 width="130" style="cursor:pointer"
-						 onclick="#edt#"
+			 onclick="#edt#"
 			 height="#url.Height#" 
 			 align="absmiddle"> 
 					

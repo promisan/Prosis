@@ -7,7 +7,7 @@
 	
 	<tr><td id="lineentry" style="height:100%;padding-right:25px">
 									
-		<table width="100%" height="100%" border="0" style="border:1px solid silver">		
+		<table width="100%" height="100%" border="0" style="border-top:1px solid silver">		
 			
 			<cfquery name="HeaderSelect"
 			datasource="AppsQuery" 
@@ -50,7 +50,7 @@
 			</tr>			 
 											
 			<tr>
-				<td colspan="2" align="center" style="height:420px">														  
+				<td colspan="2" align="center" style="height:690px">														  
 				  <cf_divscroll>				  			  				  
 				      <cf_securediv id="reconcileresult" 
 					  name="reconcileresult" 

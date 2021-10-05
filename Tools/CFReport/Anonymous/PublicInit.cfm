@@ -124,7 +124,8 @@
 	</cftry>
 		 
 	<cfset CLIENT.reportingServer = "#Parameter.ReportingServer#"> 
-	<cfset SESSION.rootDocument    = "#Parameter.DocumentServer#"> 
+	<cfset SESSION.rootDocument   = "#Parameter.DocumentServer#"> 
+	
 	
 	<cfset APPLICATION.DateFormat      = "#Parameter.DateFormat#">
 	<cfif Parameter.DateFormat is "EU">
@@ -161,6 +162,7 @@
 	    <cfset SESSION.rootDocument = "#Init.DocumentRoot#"> 
 	</cfif>
 	<cfset SESSION.rootDocumentPath = "#Init.DocumentRootPath#">	
+	
 	<cfset SESSION.rootReport       = "#Init.ReportRoot#">
 	<cfset SESSION.rootReportPath   = "#Init.ReportRootPath#">
 	<cfset CLIENT.servername        = "#Init.ApplicationServer#"> 

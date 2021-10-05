@@ -3,7 +3,7 @@
     hint="Prosis Global Functions">
 
 	<!--- passes either the mission or the owner --->
-	
+
 	<cffunction name="getAdministrator"
 	             access="public"
 	             returntype="boolean"

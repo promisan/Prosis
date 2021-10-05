@@ -12,7 +12,7 @@
 <cfif Log.Last eq "">
 	  <cfset No = "1">
 <cfelse>
-	  <cfset No = #Log.Last#+1>
+	  <cfset No = Log.Last+1>
 </cfif>
 
 <cfinvoke component = "Service.Process.System.Database"  
@@ -72,8 +72,11 @@
 
 <cfoutput>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <script>
-	#ajaxLink('ParameterEditMiscellaneous.cfm')#	
+	#ajaxLink('ParameterEditMiscellaneous.cfm?mid=#mid#')#	
 </script>
 
 </cfoutput>

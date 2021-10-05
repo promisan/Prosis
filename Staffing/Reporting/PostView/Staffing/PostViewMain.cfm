@@ -155,7 +155,7 @@
 			
 						<td>		
 						<cf_tl id="Workforce maintenance" var="1">
-						<input type="button" onclick="maintain()" name="maintain" value="#lt_text#" class="button10g" style="height:31px;width:210px;font-size:14px">							
+						<input type="button" onclick="maintain()" name="maintain" value="#lt_text#" class="button10g" style="height:31px;width:220px;font-size:14px">							
 						</td>
 					
 					</cfif>
@@ -269,11 +269,9 @@
 					
 					</td>							
 					
-					<td style="padding-left:20px;padding-right:4px;cursor:pointer" class="labelit" onclick="javascript:refresh()">
-					 <CF_UITooltip Tooltip="Review Workforce Structure in grahical representation.">
+					<td title="Reload structure with the latest information" style="padding-left:20px;padding-right:4px;cursor:pointer" class="labelit" onclick="javascript:refresh()">					
 					<cf_tl id="Refresh">
-					</cf_uiTooltip>
-					
+										
 					</td>
 
 					<td class="labelmedium" align="center" style="min-width:120px;border: 1px solid Gray;padding-left:10px;padding-right:10px">

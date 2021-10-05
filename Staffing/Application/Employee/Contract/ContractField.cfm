@@ -122,14 +122,13 @@
 		</cfquery>
 				
 		<cfoutput>
-	  	<select name="ContractType" id="ContractType"
-		     size="1" 
-			 class="regularxxl" 
+	  	<select name="ContractType" id="ContractType" size="1" class="regularxxl" 
 			 onchange="_cf_loadingtexthtml='';ptoken.navigate('getFinancialEntitlement.cfm?id=#url.id#&contracttype='+this.value+'&salaryschedule='+document.getElementById('salaryschedule').value,'boxentitlement');ptoken.navigate('#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?field=apptstatus&mission=#url.mission#&default=&contracttype='+this.value,'fldappstatus')">
+			 <cfif url.default eq "">
+			 <option value=""></option>
+			 </cfif>
 				<cfloop query="ContractType">
-					<option value="#ContractType#" <cfif ContractType eq url.default>selected</cfif>>
-			    		 #Description#
-					</option>
+					<option value="#ContractType#" <cfif ContractType eq url.default>selected</cfif>>#Description#</option>
 				</cfloop>
 	    </select>
 		</cfoutput>	

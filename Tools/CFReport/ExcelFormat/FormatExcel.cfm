@@ -8,9 +8,9 @@
 
 <cfif url.reportId eq "" and url.mode eq "regular">
 	<cf_tl id="Export Data to MS Excel" var="1">
-	<cf_screentop height="100%" jquery="Yes" scroll="Vertical" layout="webapp" label="#lt_text#" banner="gray" line="no">	 
+	<cf_screentop height="100%" jquery="Yes" scroll="No" layout="webapp" label="#lt_text#" banner="gray" line="no">	 
 <cfelse>
-    <cf_screentop height="100%" jquery="Yes" scroll="Yes" html="No" banner="gray">	 
+    <cf_screentop height="100%" jquery="Yes" scroll="No" html="No" banner="gray">	 
 	<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 </cfif>
 
@@ -161,9 +161,9 @@
 	<cfset table10 = url.table10>	
 </cfif>
 
-<cf_divscroll height="100%" id="divExcelExportContainer">
-	<cfinclude template="FormatExcelSelect.cfm">			
-</cf_divscroll>	
+<table style="height:100%;width:100%">
+<tr><td style="height:100%" id="divExcelExportContainer"><cfinclude template="FormatExcelSelect.cfm"></td></tr>
+</table>	
 
 <cfif url.reportId eq "" and url.mode eq "regular">
 	<cf_screenbottom layout="webapp">

@@ -7,6 +7,7 @@
 <cfparam name="URL.purchase"           default = "">
 <cfparam name="URL.select"             default = "">
 <cfparam name="URL.id1"                default = "">
+<cfparam name="URL.search"             default = "">
 <cfparam name="URL.mode"               default = "edit">
 <cfparam name="URL.action"             default = "">
 
@@ -126,7 +127,11 @@
 	  <cfelseif URL.Mode eq "Receipt">
 	  WHERE   ReceiptNo IN (SELECT ReceiptNo 
 	                        FROM   PurchaseLineReceipt 
-							WHERE  ReceiptId = '#URL.rctid#') 	  
+							WHERE  ReceiptId = '#URL.rctid#') 	 
+			<cfif url.search neq "">
+			AND  (PR.ReceiptItemNo LIKE '%#url.search#%' OR PR.ReceiptItem LIKE '%#url.search#%')
+			</cfif>				 
+	       						
 	  <cfelse>
 	  WHERE   RL.RequisitionNo = '#URL.reqno#' 	  
 	  </cfif>
@@ -984,5 +989,6 @@ password="#SESSION.dbpw#">
 	<script>
 	    if (document.getElementById('settotal')) {
 			receiptcost(); 	}	
+		Prosis.busy('no')	
 	</script>	
 </cfif>	

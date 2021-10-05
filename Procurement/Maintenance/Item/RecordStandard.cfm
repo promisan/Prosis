@@ -59,7 +59,7 @@
 		  <td width="90">#DateFormat(dateExpiration,CLIENT.DateFormatShow)#</td> 
 		   
 		  <td style="padding-top:3px;">
-			   <cf_img icon="delete" onclick="ColdFusion.navigate('#SESSION.root#/Procurement/Maintenance/Item/RecordStandard.cfm?action=delete&ItemMaster=#URL.ItemMaster#&StandardCode=#Code#','l#url.ItemMaster#_standard');">
+			   <cf_img icon="delete" onclick="ptoken.navigate('#SESSION.root#/Procurement/Maintenance/Item/RecordStandard.cfm?action=delete&ItemMaster=#URL.ItemMaster#&StandardCode=#Code#','l#url.ItemMaster#_standard');">
 		  </td>
 		  
 	   </tr>  

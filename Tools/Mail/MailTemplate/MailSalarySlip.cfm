@@ -95,122 +95,122 @@
 	
 	<cfoutput query="Settlement">
 	
-	<cfif attributes.serial eq "0">
-	
-		<cfset filename = "#SESSION.rootDocumentPath#\Payslip\#path#\#PersonNo#.pdf">
+		<cfif attributes.serial eq "0">
 		
-	<cfelse>
-	
-		<cfset filename = "#SESSION.rootDocumentPath#\Payslip\#path#\#PersonNo#_#attributes.serial#.pdf">
-	
-	</cfif>		
-	
-	<cfif isValid("email", "#eMailAddress#") or eMailAddress eq "">	
-						
-		<cfif MissionSchedule.DisableMailPayslip eq "0"> 
-		 
-			   <cfsavecontent variable="mailbody">
-
-			   		<style>
-						body {
-							font-size: 130%;
-							font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-						}
-		            </style>
-				   
-				   <cfoutput>				   		   			  
-				   
-				   <table width="98%" align="center">
-				   
-					    <tr><td>#PersonNo# #FirstName# #LastName# (#eMailAddress#)</td></tr>		
-					    <tr><td height="1" class="line"></td></tr>										
-						<tr><td>#Schedule.description# <cfif settlementPhase neq "Final">(<cf_tl id="#settlementPhase#">)</cfif></td></tr>		
-					    <tr><td height="1" class="line"></td></tr>		
-					    <tr><td>#Schedule.PaySlipMailText#</td></tr>
-					    <tr><td height="1" class="line"></td></tr>			
-						   
-						<tr>
-						 <td align="center">
-						 <font size="1" color="808080">
-						 This message, including any attachments, contains confidential information intended for a specific individual and purpose, and is protected by law. If you are not the intended recipient, please contact the sender immediately by reply e-mail and destroy all copies. You are hereby notified that any disclosure, copying, or distribution of this message, or the taking of any action based on it, is strictly prohibited.
-						 </font>
-						 </td>
-						</tr>
-					
-				   </table>				  
-				   
-				   </cfoutput>
-				   
-			 </cfsavecontent>
-			 					 
-			 <cf_tl id="Payslip" var="pay">
-			 
-			 <cfif Param.PayslipEMail neq "">
-			   <cfset mailfrom  = Param.PayslipEMail>			   
-			 <cfelse>
-			   <cfset mailfrom =  client.eMail>			 
-			 </cfif>
-			 
-			 <cfif Param.PayslipDestination neq "" or eMailAddress eq "">
-			   <cfset address  = Param.PayslipDestination>			   
-			 <cfelse>
-			   <cfset address =  eMailAddress>			 
-			 </cfif>			
-													 				
-			 <cfmail to    = "#Address#"	
-		        from       = "#mailfrom#"
-				FailTo     = "#client.eMail#" 
-				replyto    = "#mailfrom#"
-		        subject    = "#Schedule.description# #per# #FirstName# #LastName#"		       
-		        type       = "HTML"
-		        mailerID   = "#SESSION.welcome#"
-		        spoolEnable= "Yes">					
-				#mailbody#
-						
-				     <cfmailparam remove="no" file = "#filename#">
-															
-			</cfmail>	
-							
-			<!--- now we update the table to prevent that e payslip is going to be sent again ---> 
+			<cfset filename = "#SESSION.rootDocumentPath#\Payslip\#path#\#PersonNo#.pdf">
 			
-			<cfquery name="ConfirmMailAction" 
-				    datasource="AppsPayroll" 
-				    username="#SESSION.login#" 
-				    password="#SESSION.dbpw#">
-					INSERT INTO EmployeeSettlementAction
-								(PersonNo, 
-								 SalarySchedule, 
-								 Mission, 
-								 PaymentDate, 
-								 ActionCode, 
-								 ActionDate, 
-								 ActionContent, 
-								 DocumentPath, 
-								 OfficerUserId, 
-								 OfficerLastName, 
-								 OfficerFirstName)
-					 VALUES	 ('#PersonNo#',
-							  '#SalarySchedule#',
-							  '#Mission#',
-							  '#PaymentDate#',
-							  '#Attributes.SettlementPhase#',
-							  '#dateformat(now(),client.dateSQL)#',
-							  '#mailbody#',
-							  '#filename#',
-							  '#session.acc#',
-							  '#session.last#',
-							  '#session.first#')						
-			</cfquery>	
-	
-			<cfoutput>#vEmailLoggedLabel#: #eMailAddress#.</cfoutput>		
+		<cfelse>
+		
+			<cfset filename = "#SESSION.rootDocumentPath#\Payslip\#path#\#PersonNo#_#attributes.serial#.pdf">
 		
 		</cfif>		
+	
+		<cfif isValid("email", "#eMailAddress#") or eMailAddress eq "">	
 							
-	<cfelse>
+			<cfif MissionSchedule.DisableMailPayslip eq "0"> 
+			 
+				   <cfsavecontent variable="mailbody">
 	
-	<!--- failed email delivery --->	
-	
-	</cfif>			
+				   		<style>
+							body {
+								font-size: 130%;
+								font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+							}
+			            </style>
+					   
+					   <cfoutput>				   		   			  
+					   
+					   <table width="98%" align="center">
+					   
+						    <tr><td>#PersonNo# #FirstName# #LastName# (#eMailAddress#)</td></tr>		
+						    <tr><td height="1" class="line"></td></tr>										
+							<tr><td>#Schedule.description# <cfif settlementPhase neq "Final">(<cf_tl id="#settlementPhase#">)</cfif></td></tr>		
+						    <tr><td height="1" class="line"></td></tr>		
+						    <tr><td>#Schedule.PaySlipMailText#</td></tr>
+						    <tr><td height="1" class="line"></td></tr>			
+							   
+							<tr>
+							 <td align="center">
+							 <font size="1" color="808080">
+							 This message, including any attachments, contains confidential information intended for a specific individual and purpose, and is protected by law. If you are not the intended recipient, please contact the sender immediately by reply e-mail and destroy all copies. You are hereby notified that any disclosure, copying, or distribution of this message, or the taking of any action based on it, is strictly prohibited.
+							 </font>
+							 </td>
+							</tr>
+						
+					   </table>				  
+					   
+					   </cfoutput>
+					   
+				 </cfsavecontent>
+				 					 
+				 <cf_tl id="Payslip" var="pay">
+				 
+				 <cfif Param.PayslipEMail neq "">
+				   <cfset mailfrom  = Param.PayslipEMail>			   
+				 <cfelse>
+				   <cfset mailfrom =  client.eMail>			 
+				 </cfif>
+				 
+				 <cfif Param.PayslipDestination neq "" or eMailAddress eq "">
+				   <cfset address  = Param.PayslipDestination>			   
+				 <cfelse>
+				   <cfset address =  eMailAddress>			 
+				 </cfif>			
+														 				
+				 <cfmail to    = "#Address#"	
+			        from       = "#mailfrom#"
+					FailTo     = "#client.eMail#" 
+					replyto    = "#mailfrom#"
+			        subject    = "#Schedule.description# #per# #FirstName# #LastName#"		       
+			        type       = "HTML"
+			        mailerID   = "#SESSION.welcome#"
+			        spoolEnable= "Yes">					
+					#mailbody#
+							
+					     <cfmailparam remove="no" file = "#filename#">
+																
+				</cfmail>	
+								
+				<!--- now we update the table to prevent that e payslip is going to be sent again ---> 
+				
+				<cfquery name="ConfirmMailAction" 
+					    datasource="AppsPayroll" 
+					    username="#SESSION.login#" 
+					    password="#SESSION.dbpw#">
+						INSERT INTO EmployeeSettlementAction
+									(PersonNo, 
+									 SalarySchedule, 
+									 Mission, 
+									 PaymentDate, 
+									 ActionCode, 
+									 ActionDate, 
+									 ActionContent, 
+									 DocumentPath, 
+									 OfficerUserId, 
+									 OfficerLastName, 
+									 OfficerFirstName)
+						 VALUES	 ('#PersonNo#',
+								  '#SalarySchedule#',
+								  '#Mission#',
+								  '#PaymentDate#',
+								  '#Attributes.SettlementPhase#',
+								  '#dateformat(now(),client.dateSQL)#',
+								  '#mailbody#',
+								  '#filename#',
+								  '#session.acc#',
+								  '#session.last#',
+								  '#session.first#')						
+				</cfquery>	
+		
+				<cfoutput>#vEmailLoggedLabel#: #eMailAddress#.</cfoutput>		
+			
+			</cfif>		
+								
+		<cfelse>
+		
+		<!--- failed email delivery --->	
+		
+		</cfif>			
 	
 	</cfoutput>
 	

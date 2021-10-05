@@ -439,10 +439,10 @@ password="#SESSION.dbpw#">
 				datasource="AppsEmployee" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				SELECT     TOP 1 *
-				FROM       EmployeeActionSource
-				WHERE      ActionSourceNo = '#getAssignment.AssignmentNo#'
-				ORDER BY Created DESC
+					SELECT     TOP 1 *
+					FROM       EmployeeActionSource
+					WHERE      ActionSourceNo = '#getAssignment.AssignmentNo#'
+					ORDER BY Created DESC
 				</cfquery>
 																									
 				<cfif getAssignment.AssignmentStatus eq "0" AND Mandate.MandateStatus eq "1" and checkaction.actionstatus eq "0">
@@ -889,7 +889,6 @@ password="#SESSION.dbpw#">
 									                       FROM   Position
 														   WHERE  Mission = '#PositionParent.Mission#')
 							</cfquery>	
-							
 							
 							
 							<cfoutput>

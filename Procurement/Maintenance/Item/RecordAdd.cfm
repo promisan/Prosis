@@ -236,7 +236,7 @@ password="#SESSION.dbpw#">
 				ORDER BY ListingOrder 
 			</cfquery>
 				
-		<select name="EntryClass" id="EntryClass" class="regularxxl" onchange="ColdFusion.navigate('getEntryClass.cfm?code='+this.value,'checkme')">		
+		<select name="EntryClass" id="EntryClass" class="regularxxl" onchange="ptoken.navigate('getEntryClass.cfm?code='+this.value,'checkme')">		
 		
 			<cfoutput query="entryList">
 				<option value="#code#" <cfif currentrow eq "1">checked</cfif>>#Description#</option>

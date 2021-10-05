@@ -8,6 +8,7 @@
 <cfajaximport tags="cfdiv">
 
 <cfparam name="URL.Status" default="">
+<cfparam name="URL.sort"   default="doc">
 
 <cfoutput>
 <script language="JavaScript">
@@ -16,9 +17,11 @@ function entitlement(persno) {
     ptoken.location("MiscellaneousEntry.cfm?ID=" + persno);
 }
 
-function reloadForm(st) {
+function reloadForm() {
     Prosis.busy('yes');
-	ptoken.location("EmployeeMiscellaneous.cfm?ID=#URL.ID#&Status=" + st);
+	fil = document.getElementById('filter').value
+	srt = document.getElementById('sort').value
+	ptoken.location('EmployeeMiscellaneous.cfm?ID=#URL.ID#&status=' + fil + '&sort=' + srt);
 }
 
 function recordedit(id) {
@@ -49,6 +52,9 @@ function workflowdrill(key,box,mode) {
 
 <cfif URL.Status eq "">
           <cfset condition = "AND Status != '9'">
+<cfelseif URL.Status eq "0d">		  
+          <cfset condition = "AND Status = '0' AND DateEffective < getDate()+35">
+		  
 <cfelse>  <cfset condition = "AND Status = '#URL.Status#'">
 </cfif>
 
@@ -72,9 +78,14 @@ password="#SESSION.dbpw#">
 	WHERE    L.PersonNo = '#URL.ID#' 	
           	 #preserveSingleQuotes(condition)#
 	ORDER BY L.PayrollItem, 
-	         L.DocumentDate, 
-			 L.DocumentReference, 
-			 L.DateEffective 
+	         <cfif url.sort eq "doc">
+			 L.DocumentDate, 
+			 L.DateEffective, 
+			 <cfelse>
+			 L.DateEffective, L.DocumentDate,
+			 </cfif> 
+			 L.DocumentReference 
+			 
 </cfquery>
 
 
@@ -90,25 +101,37 @@ password="#SESSION.dbpw#">
 	
 <table width="99%" align="center">
   <tr class="line">
-     	<td>
-		    <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/Logos/Payroll/Miscellaneous.png" height="64" alt=""  border="0" align="absmiddle">
-			</td>
+     	
     <td width="100%">
 		<table width="100%">
-			<tr><td class="labellarge" style="font-size: 30px;text-transform: capitalize;font-weight: 200;padding:16px 0 25px;"><cf_tl id="Miscellaneous Payroll Entry"></td>
-			<td style="padding-left:60px" style="min-width:80" class="labelit"><cf_tl id="Status">:</td>
+			<tr>
+			<td colspan="5" style="font-size: 27px;text-transform: capitalize;font-weight: 200;">
+			<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/Logos/Payroll/Miscellaneous.png" height="40" alt=""  border="0" align="absmiddle">
+			<cf_tl id="Miscellaneous Payroll Entry"></td>
+			</tr>
+			<tr>		
+			<td style="padding-left:6px"><cf_tl id="Filter"></td>	
 			<td style="padding-left:10px" style="min-width:20">
-			<select name="sort" class="regularxl" style="width:180px;height:30px;font-size:17px" onChange="javascript:reloadForm(this.value)">
+			<select id="filter" class="regularxl" style="border:0px;background-color:f1f1f1;width:280px;height:30px;font-size:17px" onChange="javascript:reloadForm()">
 		        <OPTION value="" <cfif URL.Status eq "">selected</cfif>><cf_tl id="All except cancelled">
 		        <OPTION value="0" <cfif URL.Status eq "0">selected</cfif>><cf_tl id="Pending">
+				<OPTION value="0d" <cfif URL.Status eq "0d">selected</cfif>><cf_tl id="Pending and due">
 			    <OPTION value="2" <cfif URL.Status eq "2">selected</cfif>><cf_tl id="Approved">
 				<OPTION value="3" <cfif URL.Status eq "3">selected</cfif>><cf_tl id="Payment">
 			    <OPTION value="5" <cfif URL.Status eq "5">selected</cfif>><cf_tl id="Settled">
 				<OPTION value="9" <cfif URL.Status eq "9">selected</cfif>><cf_tl id="Cancelled">
 			 </SELECT>		
+			</td>	
+			<td><cf_tl id="Sort"></td>			
+			<td style="padding-left:10px" style="min-width:20">
+			<select id="sort" class="regularxl" style="border:0px;background-color:f1f1f1;width:280px;height:30px;font-size:17px" onChange="javascript:reloadForm()">
+		        <OPTION value="doc" <cfif URL.sort eq "doc">selected</cfif>><cf_tl id="Document date">
+		        <OPTION value="due" <cfif URL.sort eq "due">selected</cfif>><cf_tl id="Due date">
+			   
+			 </SELECT>		
 			</td>
 			<cfoutput>
-		    <td align="right" style="padding-right:4px;width:20%">
+		    <td align="right" style="padding-right:1px;width:20%">
 			<input type="button" value="New Entry" style="height:30px" class="button10g" onClick="javascript:entitlement('#URL.ID#','#URL.ID1#')">	 
 		    </td>
 			</cfoutput>

@@ -76,7 +76,7 @@
 		<tr><td colspan="2" class="line"></td></tr>
 		<tr><td height="5"></td></tr>
 
-		<tr>
+		<tr class="labelmedium2">
 			<td colspan="2" style="padding-left:45px">
 				<cfdiv id="divDetail">
 			</td>

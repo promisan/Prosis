@@ -69,11 +69,11 @@
 <!--- hold the value selected from the tree nodes --->
 <input type="hidden" name="treeselect" id="treeselect">
 
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" class="tree formpadding">
+<table width="100%" height="100%" class="tree formpadding">
   
   <tr><td valign="top" id="treebox">  	
   
-    <table width="97%" align="center" border="0" cellspacing="0" cellpadding="0">
+    <table width="97%" align="center">
 		  
 	  <tr><td height="2"></td></tr>
 	  

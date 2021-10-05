@@ -16,25 +16,25 @@
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 					<cfoutput>	
 					
-					<tr><td width="20%" class="labelmedium"><cf_tl id="Edition">:</td>
-					    <td class="labelmedium">#Function.EditionDescription#</td>
-						<td width="10%" class="labelmedium"><cf_tl id="Status">:</td>
-					    <td class="labelmedium"><cfif Function.SubmissionStatus eq "3">Locked<cfelse>In Process</cfif></td>						
+					<tr class="labelmedium2"><td width="20%"><cf_tl id="Edition">:</td>
+					    <td>#Function.EditionDescription#</td>
+						<td width="10%"><cf_tl id="Status">:</td>
+					    <td><cfif Function.SubmissionStatus eq "3">Locked<cfelse>In Process</cfif></td>						
 					</tr>						
-					<tr>	
-						<td width="20%" class="labelmedium"><cf_tl id="Reference">:</td>
-					    <td class="labelmedium">#Function.ReferenceNo#</td>								
-						<td width="10%" class="labelmedium"><cf_tl id="Period">:</td>
-					    <td class="labelmedium">#dateformat(Function.DateEffective,client.dateformatshow)# - #dateFormat(Function.DateExpiration, client.dateformatshow)#
+					<tr class="labelmedium2">	
+						<td width="20%"><cf_tl id="Reference">:</td>
+					    <td>#Function.ReferenceNo#</td>								
+						<td width="10%"><cf_tl id="Period">:</td>
+					    <td>#dateformat(Function.DateEffective,client.dateformatshow)# - #dateFormat(Function.DateExpiration, client.dateformatshow)#
 						<cf_space spaces="53">
 						</td>		
 					</tr>										
 					<cfif function.mission neq "">
-						<tr>
-					    <td width="20%" class="labelmedium"><cf_tl id="Entity">:</td>
-					    <td class="labelmedium">
+						<tr class="labelmedium2">
+					    <td width="20%"><cf_tl id="Entity">:</td>
+					    <td>
 							<table>
-								<tr class="labelmedium">
+								<tr class="labelmedium2">
 								
 								  <td>#Function.Mission#</td>
 								  
@@ -59,9 +59,9 @@
 						</td>
 						</tr>						
 					</cfif>									
-					<tr>					
-						<td width="150" class="labelmedium"><cf_tl id="Job Title">:</td>
-						<td class="labelmedium">
+					<tr class="labelmedium2">					
+						<td width="150"><cf_tl id="Job Title">:</td>
+						<td>
 						
 							#Function.GradeDeployment# 
 							<cfif Function.AnnouncementTitle neq "">#Function.AnnouncementTitle#<cfelse>#Function.FunctionDescription#</cfif> 
@@ -81,17 +81,17 @@
 							</cfif>					
 						
 						</td>			
-						<td width="10%" class="labelmedium"><cf_tl id="Owner">:</td>
-					    <td class="labelmedium">#Function.Owner#</td>						
+						<td width="10%"><cf_tl id="Owner">:</td>
+					    <td>#Function.Owner#</td>						
 					   
 					</tr>		
 					  
-					<tr>					
+					<tr class="labelmedium2">					
 					   					   
 						<cfif Function.DocumentNo neq "">
 															
-								<td class="labelmedium"><cf_tl id="Recruitment Request">:</td>
-							    <td class="labelmedium">
+								<td><cf_tl id="Recruitment Request">:</td>
+							    <td>
 								<cfoutput>
 									<a href="javascript:showdocument('#Function.DocumentNo#')">#Function.DocumentNo#</a>
 								</cfoutput>  		
@@ -109,24 +109,21 @@
 														
 						<cfelse>													
 								
-								<td class="labelmedium"><cf_tl id="Recruitment Request">:</td>
-								<td class="labelmedium">N/A</td>								
+								<td><cf_tl id="Recruitment Request">:</td>
+								<td>N/A</td>								
 						
 						</cfif>		
 						
-						<td width="10%" class="labelmedium"><cf_tl id="Class">:</td>
-					    <td class="labelmedium">#Function.ExerciseClass#</td>				  					   
+						<td width="10%"><cf_tl id="Class">:</td>
+					    <td>#Function.ExerciseClass#</td>				  					   
 					   				
 					</tr>			
 									   					   
 					<cfif Function.Memo neq "">
 						
-						<tr>																	
-								<td class="labelmedium"><cf_tl id="Memo">:</td>
-							    <td colspan="3" class="labelmedium">															
-							    #Function.Memo#								
-								</td>				 					   
-					   				
+						<tr class="labelmedium2">																	
+							<td><cf_tl id="Memo">:</td>
+						    <td colspan="3">#Function.Memo#</td>				 					   					   				
 						</tr>																				
 						
 					</cfif>	
@@ -155,8 +152,8 @@
 								
 								<cfif functionnew.recordcount gte "1"> 
 																				
-									<tr>
-									<td colspan="1" class="labelmedium"><cf_tl id="Reassign To">:</td>
+									<tr class="labelmedium2">
+									<td><cf_tl id="Reassign To">:</td>
 								    <td colspan="3" valign="middle">
 									
 									<form action="FunctionViewLoopSubmit.cfm" method="post" onSubmit="return ask()">

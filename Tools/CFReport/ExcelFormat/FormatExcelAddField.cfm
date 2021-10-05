@@ -187,11 +187,6 @@
 
 <!--- open screen again --->
 
-<cfparam name="url.mid" default="">
-<cfoutput>
-<script>
-  _cf_loadingtexthtml='';	
-  ptoken.navigate('FormatExcelDetail.cfm?mode=#url.mode#&reportid=#url.reportid#&id=#URL.ID#&table=#URL.Table#&mid=#url.mid#','contentbox1')
-</script>
-</cfoutput>
+<cfinclude template="FormatExcelDetail.cfm">
+
 

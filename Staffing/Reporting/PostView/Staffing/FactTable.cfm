@@ -248,7 +248,6 @@
 		
 </cfif>	
 
-
 <cftransaction isolation="read_uncommitted">
 
 <cfquery name="MissingUnits" 

@@ -71,7 +71,7 @@
 			<cf_img icon="edit" onclick="toggleInstructions('#vCodeId#');">
 		  </td>
 		   <td width="12" style="padding-top:5px;padding-left:3px">
-			 <cf_img icon="delete" onclick="_cf_loadingtexthtml='';ColdFusion.navigate('#SESSION.root#/Procurement/Maintenance/Item/Budgeting/RecordObject.cfm?action=delete&ItemMaster=#URL.ItemMaster#&ObjectCode=#Code#','l#url.ItemMaster#_object');">
+			 <cf_img icon="delete" onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Procurement/Maintenance/Item/Budgeting/RecordObject.cfm?action=delete&ItemMaster=#URL.ItemMaster#&ObjectCode=#Code#','l#url.ItemMaster#_object');">
 		  </td>	   
 	   </tr>     
 	   

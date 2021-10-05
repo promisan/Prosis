@@ -53,7 +53,7 @@
 
 <cfoutput>  	
 <script>
-	ColdFusion.navigate('VendorEntry.cfm?mission=#url.mission#&id=#url.id#','contentbox1')
+	ptoken.navigate('VendorEntry.cfm?mission=#url.mission#&id=#url.id#','contentbox1')
 </script>
 </cfoutput>	
  

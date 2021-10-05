@@ -138,12 +138,12 @@ password="#SESSION.dbpw#">
 		<INPUT type="hidden" name="Crit1_FieldType" value="CHAR">
 		<TR>
 		<TD class="labelmedium" style="min-width:220px"><cfoutput><cf_tl id="IndexNo"></cfoutput></TD>
-		<td style="border:1px solid silver;padding:0px">
+		<td style="border:0px solid silver;padding:0px;">
 		
 			<table style="min-width:300px;width:100%">
 			<tr>
 			<td style="width:100px;border-right:1px solid silver" align="right">
-			    <SELECT name="Crit1_Operator" class="regularxl" style="width:100px;border:0px">
+			    <SELECT name="Crit1_Operator" class="regularxl" style="background-color:e9e9e9;width:100px;border:0px">
 			
 				<OPTION value="CONTAINS"><cfoutput>#vcontains#</cfoutput>
 				<OPTION value="BEGINS_WITH"><cfoutput>#vbegins#</cfoutput>
@@ -157,7 +157,8 @@ password="#SESSION.dbpw#">
 			
 			</td>
 			
-			<td style="padding-left:3px"><INPUT type="text" name="Crit1_Value" value="<cfoutput>#SESSION.StaffSearch['IndexNo']#</cfoutput>" style="border:0px;width:95%" class="regularxl"></td>	
+			<td style="padding-left:3px">
+			<INPUT type="text" name="Crit1_Value" value="<cfoutput>#SESSION.StaffSearch['IndexNo']#</cfoutput>" style="border:0px;width:95%;background-color:e9e9e9;" class="regularxl"></td>	
 			</tr>
 			</table>
 				
@@ -169,12 +170,12 @@ password="#SESSION.dbpw#">
 		<INPUT type="hidden" name="Crit0_FieldType" value="CHAR">
 		<TR>
 		<TD class="labelmedium"><cf_tl id="PersonNo">:</TD>
-		<TD style="border:1px solid silver;padding:0px">
+		<TD style="border:0px solid silver;padding:0px">
 		
 			<table style="min-width:270px;width:100%">
 			<tr>
 			<td style="width:100px;border-right:1px solid silver" align="right">
-			    <SELECT name="Crit0_Operator" class="regularxl" style="width:100px;border:0px">
+			    <SELECT name="Crit0_Operator" class="regularxl" style="width:100px;border:0px;background-color:e9e9e9;">
 				
 					<OPTION value="CONTAINS"><cfoutput>#vcontains#</cfoutput>
 					<OPTION value="BEGINS_WITH"><cfoutput>#vbegins#</cfoutput>
@@ -186,7 +187,7 @@ password="#SESSION.dbpw#">
 				
 				</SELECT>
 			</td>
-			<td style="padding-left:3px"><INPUT type="text" name="Crit0_Value" style="border:0px;width:95%" class="regularxl"></td>	
+			<td style="padding-left:3px"><INPUT type="text" name="Crit0_Value" style="border:0px;width:95%;background-color:e9e9e9;" class="regularxl"></td>	
 			</tr>
 			</table>
 		
@@ -197,11 +198,11 @@ password="#SESSION.dbpw#">
 		<INPUT type="hidden" name="Crit1a_FieldType" value="CHAR">
 		<TR>
 		<TD class="labelmedium"><cf_tl id="ExtReference">:</TD>
-		<td style="border:1px solid silver;padding:0px">
+		<td style="border:0px solid silver;padding:0px">
 			<table style="min-width:300px;width:100%">
 			<tr>
 			<td style="width:100px;border-right:1px solid silver" align="right">
-			    <SELECT name="Crit1a_Operator" class="regularxl" style="width:100px;border:0px" >
+			    <SELECT name="Crit1a_Operator" class="regularxl" style="width:100px;border:0px;background-color:e9e9e9;">
 					
 						<OPTION value="CONTAINS"><cfoutput>#vcontains#</cfoutput>
 						<OPTION value="BEGINS_WITH"><cfoutput>#vbegins#</cfoutput>
@@ -211,7 +212,7 @@ password="#SESSION.dbpw#">
 					</SELECT>
 					
 			</td>
-			<td style="padding-left:3px"><INPUT type="text" name="Crit1a_Value" style="border:0px;width:95%" class="regularxl"></td>	
+			<td style="padding-left:3px"><INPUT type="text" name="Crit1a_Value" style="border:0px;width:95%;background-color:e9e9e9;" class="regularxl"></td>	
 			</tr>
 			</table>
 							
@@ -223,11 +224,11 @@ password="#SESSION.dbpw#">
 		<INPUT type="hidden" name="Crit3b_FieldType" value="CHAR">
 		<TR><TD class="labelmedium"><cf_tl id="Full name">:</TD>
 		
-		<td style="border:1px solid silver;padding:0px">
+		<td style="border:0px solid silver;padding:0px">
 			<table style="min-width:300px;width:100%">
 			<tr>
 			<td style="width:100px;border-right:1px solid silver" align="right">
-			<select name="Crit3b_Operator" class="regularxl" style="width:100px;border:0px" >
+			<select name="Crit3b_Operator" class="regularxl" style="width:100px;border:0px;background-color:e9e9e9;">
 			
 				<OPTION value="CONTAINS"><cfoutput>#vcontains#</cfoutput>
 				<OPTION value="BEGINS_WITH"><cfoutput>#vbegins#</cfoutput>
@@ -241,7 +242,7 @@ password="#SESSION.dbpw#">
 			
 			</td>
 				
-			<td style="padding-left:3px"><INPUT type="text" name="Crit3b_Value" style="border:0px;width:95%" class="regularxl"></td>	
+			<td style="padding-left:3px"><INPUT type="text" name="Crit3b_Value" style="border:0px;width:95%;background-color:e9e9e9;" class="regularxl"></td>	
 			</tr>
 			</table>
 		
@@ -254,11 +255,11 @@ password="#SESSION.dbpw#">
 		<TR>
 		<TD class="labelmedium"><cf_tl id="Last name">/<cf_tl id="Maiden name">:</b></TD>
 		
-		<td style="border:1px solid silver;padding:0px">
+		<td style="border:0px solid silver;padding:0px">
 			<table style="min-width:300px;width:100%">
 				<tr>
 				<td style="width:100px;border-right:1px solid silver" align="right">
-				<select name="Crit2_Operator" class="regularxl" style="width:100px;border:0px" >
+				<select name="Crit2_Operator" class="regularxl" style="width:100px;border:0px;background-color:e9e9e9;">
 				
 					<OPTION value="CONTAINS"><cfoutput>#vcontains#</cfoutput>
 					<OPTION value="BEGINS_WITH"><cfoutput>#vbegins#</cfoutput>
@@ -271,7 +272,7 @@ password="#SESSION.dbpw#">
 				</SELECT>
 				
 				</td>
-				<td style="padding-left:3px"><INPUT type="text" name="Crit2_Value" style="border:0px;width:95%" class="regularxl"></td>	
+				<td style="padding-left:3px"><INPUT type="text" name="Crit2_Value" style="border:0px;width:95%;background-color:e9e9e9;" class="regularxl"></td>	
 				</tr>
 			</table>
 			
@@ -283,12 +284,12 @@ password="#SESSION.dbpw#">
 		<INPUT type="hidden" name="Crit3_FieldType" value="CHAR">
 		<TR>
 		<TD class="labelmedium"><cf_tl id="First name">:</b></TD>
-		<TD style="border:1px solid silver;padding:0px">
+		<TD style="border:0px solid silver;padding:0px">
 		
 		<table style="min-width:300px;width:100%">
 				<tr>
 				<td style="width:100px;border-right:1px solid silver" align="right">
-				<select name="Crit3_Operator" class="regularxl" style="width:100px;border:0px" >
+				<select name="Crit3_Operator" class="regularxl" style="width:100px;border:0px;background-color:e9e9e9;">
 				
 			
 				<OPTION value="CONTAINS"><cfoutput>#vcontains#</cfoutput>
@@ -303,7 +304,7 @@ password="#SESSION.dbpw#">
 			
 			</td>
 			<td style="padding-left:3px">		
-			<INPUT type="text" name="Crit3_Value" style="border:0px;width:95%" class="regularxl">		
+			<INPUT type="text" name="Crit3_Value" style="border:0px;width:95%;background-color:e9e9e9;" class="regularxl">		
 			</td>
 			</tr>
 		   </table>
@@ -315,12 +316,12 @@ password="#SESSION.dbpw#">
 		<INPUT type="hidden" name="Crit3a_FieldType" value="CHAR">
 		<TR>
 		<TD class="labelmedium"><cf_tl id="Middle name">:</TD>
-		<TD style="border:1px solid silver;padding:0px">
+		<TD style="border:0px solid silver;padding:0px;">
 		
 		<table style="min-width:300px;width:100%">
 				<tr>
 				<td style="width:100px;border-right:1px solid silver" align="right">
-				<select name="Crit3a_Operator" class="regularxl" style="width:100px;border:0px" >
+				<select name="Crit3a_Operator" class="regularxl" style="width:100px;border:0px;background-color:e9e9e9;">
 				
 				<OPTION value="CONTAINS"><cfoutput>#vcontains#</cfoutput>
 				<OPTION value="BEGINS_WITH"><cfoutput>#vbegins#</cfoutput>
@@ -334,7 +335,7 @@ password="#SESSION.dbpw#">
 			
 			</td>
 			<td style="padding-left:3px">		
-			<INPUT type="text" name="Crit3a_Value" style="border:0px;width:95%" class="regularxl">	
+			<INPUT type="text" name="Crit3a_Value" style="border:0px;width:95%;background-color:e9e9e9;" class="regularxl">	
 			
 			</td>
 		
@@ -359,9 +360,9 @@ password="#SESSION.dbpw#">
 		
 			<table class="formpadding">
 			<tr>
-				<td><input type="radio" class="radiol" name="Crit4_Value" value="" checked></td><td style="padding-top:2px" class="labelmedium2"><cf_tl id="Any"></td>	
-				<td style="padding-left:4px"><input type="radio" class="radiol" name="Crit4_Value" value="M"></td><td style="padding-top:2px" class="labelmedium2"><cf_tl id="Male"></td>
-				<td style="padding-left:4px"><input type="radio" class="radiol" name="Crit4_Value" value="F"></td><td style="padding-top:2px" class="labelmedium2"><cf_tl id="Female"></td>
+				<td><input type="radio" class="radiol" name="Crit4_Value" value="" checked></td><td style="padding-left:2px;padding-top:4px" class="labelmedium2"><cf_tl id="Any"></td>	
+				<td style="padding-left:4px"><input type="radio" class="radiol" name="Crit4_Value" value="M"></td><td style="padding-left:2px;padding-top:4px" class="labelmedium2"><cf_tl id="Male"></td>
+				<td style="padding-left:4px"><input type="radio" class="radiol" name="Crit4_Value" value="F"></td><td style="padding-left:2px;padding-top:4px" class="labelmedium2"><cf_tl id="Female"></td>
 			</tr>
 			</table>
 	   
@@ -371,7 +372,7 @@ password="#SESSION.dbpw#">
 		<TR>
 		<TD class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Modality">:</TD>
 		
-		<TD>
+		<TD style="padding-right:30px">
 								
 			<cfquery name="Category" 
 			datasource="AppsEmployee" 
@@ -387,7 +388,7 @@ password="#SESSION.dbpw#">
 					class          = "regularXXL"
 					id             = "PersonStatus"		
 					multiple       = "Yes"													
-					style          = "width:100%"											
+					style          = "width:95%;background-color:e9e9e9;"											
 					query          = "#Category#"
 					queryPosition  = "below"
 					value          = "Code"
@@ -431,14 +432,14 @@ password="#SESSION.dbpw#">
 		<TR>
 		<TD class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Nationality">:</TD>
 		
-		<TD>
+		<TD style="width:95%;padding-right:30px">
 		
 		<cf_UIselect name = "Nationality"					
 					size           = "1"
 					class          = "regularXXL"
 					id             = "Nationality"		
 					multiple       = "Yes"													
-					style          = "width:100%"											
+					style          = "width:95%;background-color:e9e9e9;"											
 					query          = "#Nation#"
 					queryPosition  = "below"
 					value          = "Code"
@@ -458,10 +459,10 @@ password="#SESSION.dbpw#">
 		<tr><td height="1" colspan="2" class="line"></td></tr>	
 		
 	    <tr>
-	    <td height="40" align="center" colspan="2">
+	    <td align="center" colspan="2">
 		 <cfoutput>
 		 <cf_tl id="Search" var="vSearch">
-		 <input type="submit" name="Submit" value="#vSearch#" class="button10g" onclick="Prosis.busy('yes')" style="width:130;height:27">
+		 <input type="submit" name="Submit" value="#vSearch#" class="button10g" onclick="Prosis.busy('yes')" style="width:190;height:29px">
 	 	 </cfoutput>
 		</td>
 		

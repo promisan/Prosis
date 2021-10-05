@@ -99,12 +99,11 @@
 		 </TR>
 		 
 		 </cfif>
-						
-		 
+						 
 		 <TR class="labelmedium2">
 			 <TD style="padding-left:5px" width="150"><cf_tl id="Last Project"> :<font color="FF0000">*</font></TD>  
 			 <TD>		 
-			 <cf_securediv id="bProgram" bind="url:getProgram.cfm?mission={mission}&itemNo=#URL.Id#">		 	
+			 <cf_securediv id="bProgram" bind="url:getProgram.cfm?itemNo=#URL.Id#&mission={mission}">		 	
 			 </TD>
 		 </TR>		
 		 

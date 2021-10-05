@@ -50,8 +50,11 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <cfoutput>
 <script>
-	#ajaxLink('ParameterEditStaffing.cfm?mission=#url.mission#')#	
+	#ajaxLink('ParameterEditStaffing.cfm?mission=#url.mission#&mid=#mid#')#	
 </script>
 </cfoutput>

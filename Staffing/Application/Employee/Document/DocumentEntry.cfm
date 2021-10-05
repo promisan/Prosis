@@ -9,7 +9,8 @@ password="#SESSION.dbpw#">
 
 <cf_assignId>  
 
-<cfform action="#session.root#/Staffing/Application/Employee/Document/DocumentEntrySubmit.cfm?documentid=#rowguid#" method="POST" name="documententry">
+<cfform action="#session.root#/Staffing/Application/Employee/Document/DocumentEntrySubmit.cfm?documentid=#rowguid#" 
+   method="POST" name="documententry" onSubmit="return checkfile()">
 
 <table width="98%" align="center">	
   
@@ -22,7 +23,7 @@ password="#SESSION.dbpw#">
 				    <td width="100%" align="left" valign="middle" style="border:0px solid silver;font-size:25px" class="labellarge">
 					<table><tr><td>
 					<cfoutput>
-					<img src="#session.root#/images/document.png" alt="" width="68" height="68" border="0">
+					<img src="#session.root#/images/document.png" alt="" width="68" height="58" border="0">
 					</td>
 					<td class="labellarge" style="padding-top:15px;font-size:25px;padding-left:10px"><cf_tl id="Register issued document">
 					</cfoutput>
@@ -50,7 +51,7 @@ password="#SESSION.dbpw#">
 					<TR>
 				    <TD class="labelmedium"><cf_tl id="Individual">:</TD>
 					<TD width="80%" class="labelmedium">
-					<select name="DependentId" class="regularxl enterastab">
+					<select name="DependentId" class="regularxxl enterastab">
 						<option value="">[Same]</option>
 						<cfoutput query="Dependent">
 							<option value="#dependentid#">#FirstName# #LastName# [#Gender#] #dateformat(BirthDate,CLIENT.DateFormatShow)#</option>
@@ -62,7 +63,7 @@ password="#SESSION.dbpw#">
 					<TR>
 				    <TD class="labelmedium"><cf_space spaces="40"><cf_tl id="Document type">: <font color="FF0000">*</font></TD>
 				    <TD width="80%" class="labelmedium">
-					  	<select name="documenttype" size="1" class="regularxl enterastab">
+					  	<select name="documenttype" size="1" class="regularxxl enterastab">
 						<cfoutput query="DocumentType">
 						<option value="#DocumentType#">
 				    		#Description#
@@ -83,7 +84,7 @@ password="#SESSION.dbpw#">
 							 enabled="Yes" 
 							 size="30" 
 							 maxlength="30" 
-							 class="regularxl enterastab">
+							 class="regularxxl enterastab">
 					</TD>
 					</TR>
 					
@@ -92,7 +93,7 @@ password="#SESSION.dbpw#">
 				    <TD>	
 						<cf_intelliCalendarDate9
 						FieldName="DateEffective" 
-						class="regularxl enterastab"
+						class="regularxxl enterastab"
 						DateFormat="#APPLICATION.DateFormat#"
 						Default="#Dateformat(now(), CLIENT.DateFormatShow)#">	
 							
@@ -106,7 +107,7 @@ password="#SESSION.dbpw#">
 						FieldName="DateExpiration" 
 						DateFormat="#APPLICATION.DateFormat#"
 						Default=""
-						class="regularxl enterastab"
+						class="regularxxl enterastab"
 						AllowBlank="True">				
 					</TD>
 					</TR>			
@@ -124,7 +125,7 @@ password="#SESSION.dbpw#">
 					<TR>
 				    <TD class="labelmedium"><cf_tl id="Country">:</TD>
 				    <TD>
-					   	<select name="country" class="regularxl enterastab">
+					   	<select name="country" class="regularxxl enterastab">
 							<option value=""></option>
 						    <cfoutput query="Nation">
 							<option value="#Code#">#Name#</option>
@@ -135,7 +136,7 @@ password="#SESSION.dbpw#">
 						   
 					<TR>
 				        <td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
-				        <TD><textarea class="regular" style="width:98%;font-size:13px;padding:3px" rows="3" totlength="200"  onkeyup="return ismaxlength(this)" name="Remarks"></textarea> </TD>
+				        <TD><textarea class="regular" style="width:98%;height:70px;font-size:14px;padding:4px" totlength="200"  onkeyup="return ismaxlength(this)" name="Remarks"></textarea> </TD>
 					</TR>
 								
 					<cf_filelibraryscript>

@@ -124,7 +124,7 @@
 	<tr>
 		<td id="distributionDetail">
 			<cfif ValidAccounts.recordcount gt 0 AND ValidContracts.recordCount gt 0 AND validCurrencies.recordCount gt 0>
-				<cfdiv bind="url:#SESSION.root#/Payroll/Application/PaymentDistribution/EmployeeDistributionListing.cfm?ID=#URL.ID#&lines=#vLines#&bigAmount=#vBigAmount#&scope=#url.scope#&viewMode=view&DateEffective=">
+				<cf_securediv bind="url:#SESSION.root#/Payroll/Application/PaymentDistribution/EmployeeDistributionListing.cfm?ID=#URL.ID#&lines=#vLines#&bigAmount=#vBigAmount#&scope=#url.scope#&viewMode=view&DateEffective=">
 			<cfelse>
 				<table width="100%">
 					<tr>

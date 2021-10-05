@@ -56,9 +56,10 @@ datasource="AppsInit">
 		
 		
 	<TR>
-	<cf_UIToolTip tooltip="Verifies passed URL query string (?id=xxxxxx&id1=xxxxxx) prior to processing the request.">
-    <td style="padding-top:6px;cursor:pointer" valign="top" class="labelmedium" width="160">URL query string protection (XSS):</td>
-	</cf_UIToolTip>
+	
+    <td style="padding-top:6px;cursor:pointer" title="Verifies passed URL query string (?id=xxxxxx&id1=xxxxxx) prior to processing the request." 
+	valign="top" class="labelmedium" width="160">URL query string protection (XSS):</td>
+	
 	<TD class="labelmedium">
 	
 	<table cellspacing="0" cellpadding="0"><tr>
@@ -73,7 +74,7 @@ datasource="AppsInit">
 	<td valign="top">
 	<input type="radio" class="radiol" name="EnableURLCheck" id="EnableURLCheck" value="1" <cfif get.EnableURLCheck eq "1">checked</cfif>>
 	</td>
-	<td class="labelmedium" style="padding-top:2px;padding-left:10px">Limited (embedded)</td>
+	<td class="labelmedium" style="padding-top:2px;padding-left:10px">Prosis SQL keyword and Coldfusion string protection</td>
 	</tr>
 	
 	<tr>
@@ -156,12 +157,8 @@ datasource="AppsInit">
 	</td>
 	</tr>
 		
-	<TR>
-	  
-	  <cf_UIToolTip tooltip="Verifies passed FORM elements prior to processing the user request">
-	    <td style="cursor:pointer" width="160" class="labelmedium">Check FORM elements:</td>
-	  </cf_UIToolTip>
-	  
+	<TR> 
+	  <td style="cursor:pointer" title="Verifies passed FORM elements prior to processing the user request" width="160" class="labelmedium">Customised check FORM elements:</td>	 	  
 	  <TD><input type="checkbox" class="radiol" name="EnableFormCheck" id="EnableFormCheck" value="1" <cfif get.EnableFormCheck eq "1">checked</cfif>></TD>
 	  
 	</TR>

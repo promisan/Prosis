@@ -27,42 +27,42 @@ password="#SESSION.dbpw#">
     <TR>
     <TD class="labelmedium">Code:</TD>
     <TD>
-  	   <cfinput type="Text" name="PostGrade" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxl">
+  	   <cfinput type="Text" name="PostGrade" value="" message="Please enter a code" required="Yes" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 		
 	<TR>
     <TD class="labelmedium">Display:</TD>
     <TD>
-  	   <cfinput type="Text" name="PostgradeDisplay" value="" message="Please enter a display description" required="Yes" size="20" maxlength="20" class="regularxl">
+  	   <cfinput type="Text" name="PostgradeDisplay" value="" message="Please enter a display description" required="Yes" size="20" maxlength="20" class="regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
     <TD class="labelmedium">Budget code:</TD>
     <TD>
-  	   <cfinput type="Text" name="PostgradeBudget" value="" message="Please enter a budget code" required="Yes" size="10" maxlength="10" class="regularxl">
+  	   <cfinput type="Text" name="PostgradeBudget" value="" message="Please enter a budget code" required="Yes" size="10" maxlength="10" class="regularxxl">
     </TD>
 	</TR>
 		
 	<TR>
     <TD class="labelmedium">Listing order:</TD>
     <TD>
-  	   <cfinput type="Text" name="PostOrder" value="0" message="Please enter a listing order" validate="integer" required="Yes" size="3" maxlength="3" class="regularxl">
+  	   <cfinput type="Text" name="PostOrder" value="0" message="Please enter a listing order" validate="integer" required="Yes" size="3" maxlength="3" class="regularxxl">
     </TD>
 	</TR>
 		
 	<TR>
     <TD class="labelmedium">Maximum number of steps:</TD>
     <TD>
-  	   <cfinput type="Text" name="PostGradeSteps" value="15" range="1,20" validate="integer" style="text-align:center;width:30" required="Yes" visible="Yes" enabled="Yes" size="3" maxlength="2" class="regularxl">
+  	   <cfinput type="Text" name="PostGradeSteps" value="15" range="1,20" validate="integer" style="text-align:center;width:30" required="Yes" visible="Yes" enabled="Yes" size="3" maxlength="2" class="regularxxl">
     </TD>
 	</TR>
 		
 	<TR>
     <TD class="labelmedium">Parent:</TD>
     <TD class="labelmedium">
-	   <select name="PostGradeParent" class="regularxl">
+	   <select name="PostGradeParent" class="regularxxl">
 	   <cfloop query="Parent">
 	   <cfoutput>
 	   <option value="#Parent.Code#">#Parent.Description#</option>

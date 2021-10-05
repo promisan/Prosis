@@ -96,20 +96,22 @@
 			if ((mandate != document.getElementById("MandateNo").value) || enforce == 1) {				
 			   // refresh the tree to be shown, effectively we also have to tune the filtering !!!
 			   ptoken.navigate('#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewTreeContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#URL.Mission#&mandate='+mandate+'&period='+per,'treecontent')						  		      		
-			} else {   		   	
-				if (treeselect.value != "") {	
-			      right.document.location ="#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewGeneral.cfm?Period=" + document.getElementById("PeriodSelect").value + 
-	                     "&Mode=" + document.getElementById("Mode").value +
-	                     "&ProgramGroup=" + document.getElementById("ProgramGroup").value +
-						 "&ProgramClass=" + document.getElementById("ProgramClass").value +
-						 "&ReviewCycleId=" +
-						 "&" + treeselect.value
-				}		 
-			
+			} else {   		  
+			    	
+				if (document.getElementById('treeselect').value != "") {					 			 
+				  parent.right.Prosis.busy('yes')
+			      parent.right.ptoken.location('#session.root#/ProgramREM/Application/Program/ProgramView/ProgramViewGeneral.cfm?Period=' + per + 
+	                     '&Mode=' + document.getElementById("Mode").value +
+	                     '&ProgramGroup=' + document.getElementById("ProgramGroup").value +
+						 '&ProgramClass=' + document.getElementById("ProgramClass").value +
+						 '&ReviewCycleId=' +
+						 '&' + document.getElementById('treeselect').value)
+												
+				}				
 			}			
-			document.getElementById("MandateNo").value = mandate
-			
+			document.getElementById("MandateNo").value = mandate			
 		}
+		
 		
 		function updateDonor() {		
 		    document.getElementById('reviewcontent').className = "hide"

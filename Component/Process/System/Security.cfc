@@ -111,21 +111,6 @@
 			</cfif>
 	</cffunction>		
 	
-	<!--- DISCONTINUED
-	<cffunction name="showModalDialog" access="remote" returnFormat="json" output="false">
-		<cfargument name="url"   type="string" required="false" default="" hint="This is the URL">
-		<cfargument name="p1"    type="any" required="false" default="" hint="usually null, represents the window name. Other possible values are _self, _blank, _parent">
-		<cfargument name="p2"    type="string" required="false" default="" hint="Window attributes">
-		<cfargument name="p3"    type="string" required="false" default="" hint="function after the return value is done">
-		<cfargument name="p4"    type="any" required="false" default="" hint="function parametesr in the way of a json string">				
-			<cfset hash        = Hash(getkey() & VARIABLES.Instance.SES_MID, "SHA")>
-			<cfset vjson       = SerializeJSON(p4)>			
-			<cfset union       = getUnion(url)>
-			<cfset vLink       = "showModalDialog~#url##union#mid=#hash#~#p1#~#p2#~#p3#~#vjson#">
-			<cfreturn vLink>			
-	</cffunction>	
-	--->	
-
 	<cffunction name = "getUnion" access="remote" returnType="string"  secureJSON = "yes" verifyClient = "yes">
 		<cfargument name="url"   type="string" required="false" default="" hint="This is the URL">	
 		<cfif find("?",url) eq 0>

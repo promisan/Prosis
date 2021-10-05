@@ -46,7 +46,7 @@
   
 	  <cfoutput>
 		  <script>
-			  ColdFusion.navigate('#link#','l#url.id1#_standard')
+			  ptoken.navigate('#link#','l#url.id1#_standard')
 		  </script>
 	  </cfoutput>
   

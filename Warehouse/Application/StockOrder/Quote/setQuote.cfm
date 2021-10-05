@@ -36,7 +36,7 @@
 	<cfoutput>
 	
 	<script>	      
-	    $(".line#url.transactionid# tr").each(function() {$(this).remove();});
+	    $("tr.line#url.transactionid#").each(function() {$(this).remove();});
 		document.getElementById('qteamount').innerHTML = "#numberformat(get.Amount,',.__')#"   	
 		document.getElementById('qtetax').innerHTML    = "#numberformat(get.Tax,',.__')#" 
 		document.getElementById('qtetotal').innerHTML  = "#numberformat(get.Total,',.__')#" 		

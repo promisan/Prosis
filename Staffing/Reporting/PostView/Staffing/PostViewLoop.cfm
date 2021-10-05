@@ -324,8 +324,8 @@
 				
 					function refresh() {
 				  
-					  if (confirm("Refresh Staffing table with latest recorded information. Do you want to continue ?")) {
-					    window.location = "CacheRefresh.cfm?link=#link#"
+					  if (confirm("Refresh Workforce Matrix with latest recorded information.\n\n Do you want to continue ?")) {
+					    ptoken.location('CacheRefresh.cfm?link=#link#')
 					   }					 
 					}
 					

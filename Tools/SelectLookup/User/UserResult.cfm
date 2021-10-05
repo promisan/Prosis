@@ -188,7 +188,7 @@ password="#SESSION.dbpw#">
 	   method="useradmin" 
 	   returnvariable="access">	
    
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
 
 <tr><td height="5"></td></tr>
 
@@ -270,7 +270,7 @@ password="#SESSION.dbpw#">
 						  					   
 						    <td style="min-width:30px;padding-left:1px;padding-top:3px">
 							   <cfif Access eq "EDIT" or Access eq "ALL">
-							   <cf_img icon="edit" onclick="javascript:ShowUser('#URLEncodedFormat(Account)#')">
+							   <cf_img icon="open" onclick="javascript:ShowUser('#URLEncodedFormat(Account)#')">
 							   </cfif>
 						   </td>						   						   			   
 										          

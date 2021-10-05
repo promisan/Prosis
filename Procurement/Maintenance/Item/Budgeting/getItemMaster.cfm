@@ -20,15 +20,15 @@
 
 	<cfif url.mode eq "edit" or url.mode eq "add">
 	
-		<cfselect name="RippleItemMaster" 
-		     group="EntryClass" 
-			 query="ItemMaster" 
-			 onchange="ptoken.navigate('Budgeting/getItemMasterObject.cfm?itemmaster='+this.value+'&mission=#URL.Mission#&mode=#URL.mode#','itemmasterobject')" 
-			 value="Code" 
-			 style="width:99%"
-			 display="Description" 
-			 class="regularxl"
-			 selected="#url.selected#"
+		<cfselect name = "RippleItemMaster" 
+		     group     = "EntryClass" 
+			 query     = "ItemMaster" 
+			 onchange  = "_cf_loadingtexthtml='';ptoken.navigate('Budgeting/getItemMasterObject.cfm?itemmaster='+this.value+'&mission=#URL.Mission#&mode=#URL.mode#','itemmasterobject')" 
+			 value     = "Code" 
+			 style     = "width:99%"
+			 display   = "Description" 
+			 class     = "regularxl"
+			 selected  = "#url.selected#"
 			 queryposition="below">
 				<option name=""></option>
 			</cfselect>	 

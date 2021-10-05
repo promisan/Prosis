@@ -76,7 +76,7 @@ password="#SESSION.dbpw#">
 
 <tr><td>
 
-<table border="0" cellpadding="0" cellspacing="0"  width="100%" class="navigation_table">
+<table  width="100%" class="navigation_table">
 
 <TR class="line labelmedium">
     <td height="20"></td>

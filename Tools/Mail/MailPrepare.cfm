@@ -1,6 +1,10 @@
 
 <cfparam name="URL.docid"          default="">
 <cfparam name="URL.id0"            default="">
+<cfparam name="URL.id1"          default="">
+<cfparam name="URL.id2"          default="">
+<cfparam name="URL.id3"          default="">
+
 <cfparam name="URL.templatepath"   default="#url.id0#">
 
 <cfparam name="URL.subject"        default="#URL.ID1#">
@@ -10,6 +14,7 @@
 <cfparam name="URL.marginBottom"   default="0.5">
 <cfparam name="URL.scale"          default="89">
 <cfparam name="URL.orientation"    default="portrait">
+<cfparam name="URL.renderer"       default="CFDOC">
 
 <cfif url.docid neq "">
 
@@ -35,7 +40,7 @@
 
 <cfelse>
 
-	<cfset renderer = "CFDOC">
+	<cfset renderer = "#URL.renderer#">
 	<cfset password = "">
 	<cfset encryption = "none">
 	
@@ -60,7 +65,6 @@
 
 </cfif>
 
-
 <cfset FileNo = round(Rand()*100)>
 
 <cfset attach = "#URL.FileName#_#FileNo#">
@@ -70,9 +74,6 @@
 <cfset vpath=replace(vpath,"//","/","ALL")>
 
 <cfset vspath="#SESSION.rootdocumentpath#\CFRStage\User\#SESSION.acc#\#attach#">
-<cfset vspath=replace(vspath,"\\","\","ALL")>
-<cfset vspath=replace(vspath,"//","/","ALL")>
-
 
 
 <cfif URL.ID eq "Mail">	
@@ -124,7 +125,9 @@
 			<cfreportparam name = "logoPath"        value="#Parameter.LogoPath#">
 			<cfreportparam name = "logoFileName"    value="#Parameter.LogoFileName#">
 			<cfreportparam name = "system"          value="#SESSION.welcome#">	
-			<cfreportparam name = "ID"              value="#URL.ID1#"> 			
+			<cfreportparam name = "ID"              value="#URL.ID1#">
+			<cfreportparam name = "ID2"  			value="#URL.ID2#">
+			<cfreportparam name = "ID3"  			value="#URL.ID3#">
 			<cfreportparam name = "dateformatshow"  value="#CLIENT.DateFormatShow#"> 
 			
 		</cfreport>	
@@ -162,7 +165,7 @@
 			      format            = "#URL.Format#"
 			      pagetype          = "letter"
 				  overwrite         = "yes"
-				  filename          = "#vPath#.pdf"
+				  filename          = "#vsPath#.pdf"
 				  margintop         = "#URL.marginTop#"
 				  marginbottom      = "#URL.marginBottom#"
 			      marginright       = "0"
@@ -212,7 +215,10 @@
 		   overwrite    = "yes" 
 		   encryption   = "none"
 		   filename     = "#vspath#.pdf">
-				<cfreportparam name = "ID"  value="#URL.ID1#"> 
+				<cfreportparam name = "ID"  value="#URL.ID1#">
+				<cfreportparam name = "ID2"  value="#URL.ID2#">
+				<cfreportparam name = "ID3"  value="#URL.ID3#">
+
 		</cfreport>	
 
 

@@ -1,12 +1,12 @@
 
 <cf_screentop html="No" jquery="Yes" scroll="Yes">
 	
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="right">
+<table width="100%" align="right">
    
 <tr>  
 <td width="100%" colspan="2" style="padding:14px">
 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="100%" align="center" class="formpadding">
 	
 	<cfset cond = "LocationName LIKE '%#URL.ID1#%'">          
 	
@@ -26,7 +26,7 @@
 		ORDER BY ListingOrder,LocationName
 	</cfquery>
 	
-	<table border="0" cellpadding="0" cellspacing="0"  bordercolor="e4e4e4" width="98%" class="navigation_table">
+	<table width="98%" class="navigation_table">
 	
 	<!---
 	<TR class="line labelmedium">
@@ -45,7 +45,7 @@
 		 <cf_img icon="select" navigation="Yes" onclick="parent.selectloc('#LocationCode#','#LocationName#')">	
 		</td>
 		<TD style="min-width:40px">#LocationCode#</TD>
-		<TD>#LocationName#</TD>
+		<TD style="padding-left:5px">#LocationName#</TD>
 		<TD>#DateFormat(DateEffective, CLIENT.DateFormatShow)# <cfif DateEffective neq "">-</cfif></TD>
 		<TD>#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>
 	</TR>

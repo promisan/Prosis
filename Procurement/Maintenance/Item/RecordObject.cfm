@@ -68,7 +68,7 @@
 		  <td width="70%">#Description#</td>	 
 		   
 		  <td style="padding-top:3px;">
-			 <cf_img icon="delete" onclick="ColdFusion.navigate('#SESSION.root#/Procurement/Maintenance/Item/RecordObject.cfm?action=delete&ItemMaster=#URL.ItemMaster#&ObjectCode=#Code#','l#url.ItemMaster#_object');">
+			 <cf_img icon="delete" onclick="ptoken.navigate('#SESSION.root#/Procurement/Maintenance/Item/RecordObject.cfm?action=delete&ItemMaster=#URL.ItemMaster#&ObjectCode=#Code#','l#url.ItemMaster#_object');">
 		  </td>
 		  
 	   </tr>  

@@ -33,6 +33,7 @@
 <cfif url.documenthost neq "">
 
 	<cfset checkHost = "#replace(url.documenthost,'|','\','ALL')#">
+	<cfset checkHost = "#replace(checkHost,'\\','\','ALL')#">
 
 	<cfquery name="qCheck" 
 	datasource="AppsSystem">
@@ -67,7 +68,7 @@
 <cfoutput>
 
 	 <cfif DocumentServer neq "No">
-	
+	 	
 			<cfquery name="Parameter" 
 			datasource="AppsInit">
 				SELECT * 
@@ -166,14 +167,15 @@
 		</cfquery>
 		
 	<cfcatch>
-			<cf_message status = "Alert"
+	
+		<cf_message status = "Alert"
 				message="<br>Alert : There are reasons to believe that the URL has been compromised. <br><br><b><font color='804040'>Your request can not be executed!</font><br>" return="No">
 				
-			<cfabort>			
+		<cfabort>	
+					
 	</cfcatch>		
 	</cftry>
 	
-
 </cfif>	
 
 <!--- --------------------------------------------------------------------------- --->

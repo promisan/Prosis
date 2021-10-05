@@ -494,7 +494,9 @@
 			AND     PersonNo NOT IN (SELECT PersonNo 
 			                         FROM   userTransaction.dbo.sal#SESSION.thisprocess#Final)	
 									 
-			AND     PersonNo IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#OnBoard)							 							 
+			AND     PersonNo IN (SELECT PersonNo FROM userTransaction.dbo.sal#SESSION.thisprocess#OnBoard)		
+			
+			AND     ActionStatus != '3'					 							 
 		</cfquery>	
 		
 		<cfif getSettlement.recordcount gte "1">

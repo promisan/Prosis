@@ -10,6 +10,7 @@
     Renderer        = createobject("java", "org.zefer.pd4ml.PD4ML").init();    
     fInput          = createObject("java", "java.io.File").init("#attributes.filein#.htm").toURI().toURL();
     fOut            = createobject("java", "java.io.FileOutputStream").init("#attributes.fileout#.pdf");
-    Renderer.render(fInput, fOut);
+	Renderer.render(fInput, fOut); 
+
     fOut.close();   
 </cfscript>

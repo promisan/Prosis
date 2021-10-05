@@ -1011,17 +1011,19 @@
 	<cffunction name="createItemUoMPrice"
              access="public"
 	         returntype="numeric"			 
-             displayname="Suggested selling price routine for the item (if it does not exist it creates it)">
-
+             displayname="Suggested selling price routine for the item | if it does not exist it creates it">
+			 
+			
 			<cfargument name = "Currency"    	type="string"  required="true"   default="USD">					
 			<cfargument name = "Mission"    	type="string"  required="true"   default="">					
 			<cfargument name = "ItemNo"    		type="string"  required="true"   default="">					
 			<cfargument name = "UoM"     		type="string"  required="true"   default="0">				
-			<cfargument name = "Cost"     		type="numeric" required="true"   default="0">											
+			<cfargument name = "Cost"     		type="numeric" required="true"   default="0">		
+			<cfargument name = "DateEffective" 	type="string"  required="true"   default="#DateFormat(now(),CLIENT.DateFormatShow)#">										
 			<cfargument name = "Price"     		type="numeric" required="true"   default="0">														
 			<cfargument name = "Category"     	type="string"  required="false"  default="">				
 			<cfargument name = "dataSource"		type="string"  required="true"   default="AppsPurchase">	
-			
+									
 			<cfif Category eq "">
 			
 				 <cfquery name="Item" 
@@ -1035,8 +1037,8 @@
 				
 				<cfset Category = Item.Category>
 			
-			</cfif>
-											
+			</cfif>				
+										
 
 		    <cfquery name="checkWarehouse" 
 				datasource="#datasource#" 
@@ -1056,10 +1058,10 @@
 				  AND  Operational = '1'
 				  AND  Category    = '#Category#'		  
 			</cfquery>			
-
+									
 			<cfset dateValue = "">
-		    <CF_DateConvert Value="#DateFormat(now(),CLIENT.DateFormatShow)#">
-			<cfset eff = dateValue>			
+		    <CF_DateConvert Value="#DateEffective#">
+			<cfset eff = dateeffective>				
 			
 			<cfset vCost = 0>
 			
@@ -1069,9 +1071,10 @@
 				password="#SESSION.dbpw#">			
 					SELECT *  
 					FROM   Materials.dbo.ItemUoMPrice
-					WHERE  ItemNo        = '#ItemNo#'
-					AND	   UoM           = '#UoM#'
-					AND	   Mission       = '#Mission#'											
+					WHERE  ItemNo         = '#ItemNo#'
+					AND	   UoM            = '#UoM#'
+					AND	   Mission        = '#Mission#'		
+					AND    DateEffective  = #eff#							
 			</cfquery>
 			
 			<cfif checkItem.recordcount eq "0">
@@ -1086,7 +1089,8 @@
 							FROM   Materials.dbo.ItemUoMPrice
 							WHERE  ItemNo        = '#ItemNo#'
 							AND	   UoM           = '#UoM#'
-							AND	   PriceSchedule = '#PriceSchedule#'						
+							AND	   PriceSchedule = '#PriceSchedule#'	
+							AND    DateEffective = #eff#						
 							AND	   Currency      = '#Currency#'							
 					</cfquery>
 				
@@ -1099,6 +1103,7 @@
 							WHERE  ItemNo        = '#ItemNo#'
 							AND	   UoM           = '#UoM#'
 							AND	   PriceSchedule = '#PriceSchedule#'
+							AND    DateEffective = #eff#
 							AND    Mission       = '#Mission#'
 							AND    Warehouse     = '#Warehouse#'
 							AND	   Currency      = '#Currency#'
@@ -1143,7 +1148,7 @@
 							
 						</cfif>		
 										
-						<!---- then I have to create a new item based on parameters if and only if the Price has not been passed --->
+						<!--- then I have to create a new item based on parameters if and only if the Price has not been passed --->
 						
 						<cfif Price eq 0>
 							
@@ -1188,9 +1193,10 @@
 								password="#SESSION.dbpw#">			
 									SELECT *  
 									FROM   Materials.dbo.ItemUoMPrice
-									WHERE  ItemNo      = '#ItemNo#'
+									WHERE  ItemNo        = '#ItemNo#'
 									AND	   UoM           = '#UoM#'
 									AND	   PriceSchedule = '#checkWarehouse.PriceSchedule#'
+									AND    DateEffective = #eff#
 									AND    Mission       = '#Mission#'
 									AND    Warehouse  IS NULL
 									AND	   Currency      = '#checkWarehouse.Currency#'
@@ -1291,8 +1297,10 @@
 				</cfloop>	
 				
 			</cfif>	
-			
+									
 			<cfreturn vCost>			
+			
+			--->
 			
 	</cffunction>	
 	

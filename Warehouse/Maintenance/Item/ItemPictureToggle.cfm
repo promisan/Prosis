@@ -4,6 +4,7 @@
 <cfif URL.id eq "">
 
 	<cfset URL.Id = URL.ItemNo> 
+	
 	<cfquery name="Item" 
 			 datasource="AppsMaterials" 
 			 username="#SESSION.login#" 
@@ -17,37 +18,30 @@
 
 <cfoutput>
 
-		<cfquery name="Image" 
-				 datasource="AppsMaterials" 
-				 username="#SESSION.login#" 
-				 password="#SESSION.dbpw#">
-					SELECT *
-					FROM   ItemImage
-					WHERE  ItemNo      = '#URL.Id#'
-		</cfquery>		
+<cfquery name="Image" 
+	 datasource="AppsMaterials" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+		SELECT *
+		FROM   ItemImage
+		WHERE  ItemNo      = '#URL.Id#'
+</cfquery>		
 
-		<cfif Image.recordcount neq 0>		
-	        <tr>
-	        <div style="height:92px;margin-left: 5px;border-bottom: 1px solid ##efefef;">
-	            <div style="float: left;">
-                    <a href="#session.rootDocument#/#Image.ImagePath#"
-			             class='lightview'
-		               	 data-lightview-group='Items'
-			             data-lightview-title="#Image.ItemNo#<br>(#Item.ItemNoExternal#)"
-			             data-lightview-caption="#Item.ItemDescription#<br>#Item.Mission#"
-		                 data-lightview-options="skin: 'mac'">
-                        <img style="max-width: 120px;height:auto;border: 1px solid ##efefef;" src="#session.rootDocument#/#Image.ImagePath#" width="800" height="600">
-		            </a>
-	            </div>
-				<!---
-	            <div style="float: left;width:50%;padding-left: 15px;">
-	            	<h2 style="margin: 4px 0 0;">#Image.ItemNo#</h2>
-	            	<h2 style="margin: 4px 0 0;">(#Item.ItemNoExternal#)</h2>
-	                #Item.ItemDescription#<br>#Item.Mission#
-	            </div>
-				--->
-	        </div>
-	        </tr>
-        </cfif>
+<cfif Image.recordcount neq 0>		
+       <tr>
+       <div style="height:92px;margin-left: 5px;border-bottom: 1px solid ##efefef;">
+           <div style="float: left;">
+              <a href="#session.rootDocument#/#Image.ImagePath#"
+	             class='lightview'
+               	 data-lightview-group='Items'
+	             data-lightview-title="#Image.ItemNo#<br>(#Item.ItemNoExternal#)"
+	             data-lightview-caption="#Item.ItemDescription#<br>#Item.Mission#"
+                 data-lightview-options="skin: 'mac'">
+               <img style="max-width: 120px;height:auto;border: 1px solid ##efefef;" src="#session.rootDocument#/#Image.ImagePath#" width="800" height="600">
+            </a>
+            </div>		
+       </div>
+       </tr>
+</cfif>
 
 </cfoutput>        

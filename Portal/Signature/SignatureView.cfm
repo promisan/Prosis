@@ -8,37 +8,48 @@
 
 <cfoutput>
 
+    <cftry>
+		<cfdirectory action="CREATE" directory="#SESSION.rootDocumentPath#\User\Signature">		
+		<cfcatch></cfcatch>
+	</cftry>
+	
+	<cftry>		
+		<cfdirectory action="CREATE" directory="#SESSION.rootDocumentPath#\CFRStage\Signature">
+		<cfcatch></cfcatch>
+	</cftry>
+
 	 <cfif FileExists("#SESSION.rootDocumentPath#\User\Signature\#account#.png")>	
 	 
+			<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+			<cfset mid = oSecurity.gethash()/> 
+
 	 		<cffile action="COPY" 
 					source="#SESSION.rootDocumentPath#\User\Signature\#account#.png" 
-  			    	destination="#SESSION.rootPath#\CFRStage\Signature\#account#.png" nameconflict="OVERWRITE">
+  			    	destination="#SESSION.rootDocumentPath#\CFRStage\Signature\#account#.png" 
+					nameconflict="OVERWRITE">
 				 
-				  <cf_assignid> 
-									 		
-				  <img src="#SESSION.root#\CFRStage\Signature\#account#.png?id=#rowguid#"
-					     alt="Signature of #account#"
-					     border="0"
-					     align="absmiddle"
-	                     height="#imageheight#" 
-					     width="#imagewidth#">		 		 
-	     
+				  <img src="#SESSION.root#/CFRStage/getFile.cfm?id=#account#.png&mode=Signature&mid=#mid#"
+					     alt    = "Signature of #account#"
+					     border = "0"
+					     align  = "absmiddle"
+	                     height = "#imageheight#" 
+					     width  = "#imagewidth#">	     
 			
 	 <cfelseif FileExists("#SESSION.rootDocumentPath#\User\Signature\#account#.jpg")>
-	 	 
-				<cffile action="COPY" 
+	 
+	 		<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+			<cfset mid = oSecurity.gethash()/> 
+
+     		<cffile action="COPY" 
 					source="#SESSION.rootDocumentPath#\User\Signature\#account#.jpg" 
-  			    	destination="#SESSION.rootPath#\CFRStage\Signature\#account#.jpg" nameconflict="OVERWRITE">
+  			    	destination="#SESSION.rootDocumentPath#\CFRStage\Signature\#account#.jpg" nameconflict="OVERWRITE">
 				 
-				  <cf_assignid> 
-									 		
-				  <img src="#SESSION.root#\CFRStage\Signature\#account#.jpg?id=#rowguid#"
-					     alt="Signature of #account#"
-					     border="0"
-					     align="absmiddle"
-	                     height="#imageheight#" 
-					     width="#imagewidth#">
-				
+				  <img src="#SESSION.root#/CFRStage/getFile.cfm?id=#account#.jpg&mode=Signature&mid=#mid#"
+					     alt    = "Signature of #account#"
+					     border = "0"
+					     align  = "absmiddle"
+	                     height = "#imageheight#" 
+					     width  = "#imagewidth#">				 				
 		 
   	 <cfelse>		
 	 

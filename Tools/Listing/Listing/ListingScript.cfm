@@ -208,20 +208,20 @@ function filtergroup(box,opt) {
 function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1value) {	
 
        	_cf_loadingtexthtml='';																				
-		try { document.getElementById("treerefresh").click();} catch(e) {}		
-		
+		try { document.getElementById("treerefresh").click();} catch(e) {}	
+						
 	    try {	
-				
-		    if (mypage == "") {		  				   
-			     pg = document.getElementById('page').value 		   
-		    } else {   		 
+					
+		    if (mypage == '') {				    
+			    pg = document.getElementById('page').value 					    
+		    } else { 			    	 
 			     pg = mypage
 			}		
-																																						 					  	
+																																																					 					  	
 			document.listfilter.onsubmit() 
-																		
-			if( _CF_error_messages.length == 0 ) {						   
-			   		 						  		   		  	  
+																					
+			if( _CF_error_messages.length == 0 ) {		
+									   		 						  		   		  	  
 			   lk    = document.getElementById('mylink').value			  
 			   lkf   = document.getElementById('mylinkform').value  			   		     		  		  
 			 			   			  		   				  		   		   
@@ -239,8 +239,10 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 					  // alert("View could not be updated : "+ajaxid); target="" 
 					  }		   
 				}
-																																								  			  		   		   
-				if (target != "") {		   		   	  		   		   	 					   		   
+				
+				// alert(target)
+																																												  			  		   		   
+				if (target != "") {							   		   	 					   		   
 				
 				   sfld  = document.getElementById('selectedfields').value	 					    			 		 
 				   if (lkf == "") {					   
@@ -254,11 +256,9 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 		     }   
 
 		} catch(e) {	
-		
-			
-		  // alert(e)		
-		  
-		  												
+					
+		   // alert(e)		
+		  	  												
 	  	   if (!pg)
 		   
 		   pg=0
@@ -266,26 +266,29 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 		   
 		   if (document.getElementById('mylink'))							
 		   		lk    = document.getElementById('mylink').value		   
-		   lkf=""
+		        lkf   = ""
+				
 		   if (document.getElementById('mylinkform'))	
-		   	   lkf   = document.getElementById('mylinkform').value	
-		
+		   	    lkf   = document.getElementById('mylinkform').value	
+				   
 		   target = ""
-		   
+		  		   
 		   if (ajaxid == "content") {
 		   		if (document.getElementById('gridbox'))		  
 			   		target   = document.getElementById('gridbox').value  
-			   } else {
+		   } else {
 			    if (document.getElementById('ajaxbox'))
 			   		target   = document.getElementById('ajaxbox').value  
-		      }		   
+		   }	
+		   		   
+		   //  alert('target:'+target)	 
 		   
 		   sfld =""		  		   
 		   if (document.getElementById('selectedfields'))
 		    	sfld  = document.getElementById('selectedfields').value  			
 		  	   		    
 		   if (target != "") {
-		   
+		   		   		        		   
 			   	if (lkf == "") {			  	 			
 			     	ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'','','POST','listfilter')
 			   	} else {			

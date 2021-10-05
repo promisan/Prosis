@@ -61,17 +61,17 @@
 					 </cfif> 
 													
 				 <cfelse>	
-				 
-				    <!--- was too slow
-				 	<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg")>
-					<cfimage source="#myImage#" width="114" height="#url.pictureheight#" action="writeToBrowser">
-					--->					
-					 
+
+
 				    <cffile action="COPY" 
 					    source="#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg" 
-		  		    	destination="#SESSION.rootPath#\CFRStage\EmployeePhoto\#pict#.jpg" nameconflict="OVERWRITE">
+		  		    	destination="#SESSION.rootDocumentPath#\CFRStage\EmployeePhoto\#pict#.jpg" nameconflict="OVERWRITE">
 					
-				     <img src="#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg?id=#rowguid#" 
+					<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+					<cfset mid = oSecurity.gethash()/> 
+
+
+				     <img src="#SESSION.root#/CFRStage/GetFile.cfm?id=#pict#.jpg&mode=EmployeePhoto&mid=#mid#" 
 						 title  = "Picture" 
 						 name   = "EmployeePhoto"  
 						 id     = "EmployeePhoto" 

@@ -17,26 +17,26 @@
 		SELECT *, Created
 		FROM (	
 	
-			SELECT      WL.StorageId, 
-			            R.Description  AS LocationClass, 
-						WL.Location    AS LocationCode, 
-						WL.Description AS LocationName, 
-						(SELECT LocationName
-						FROM   Location
-						WHERE Location = WL.LocationId) AS GeoLocation, 
-                        ISNULL ((SELECT  OrgUnitName
-                                 FROM    Organization.dbo.Organization
-                                 WHERE   OrgUnit = WL.OrgUnitOperator), 'Internal') AS Operator,
-                        (SELECT  COUNT(DISTINCT Location) AS Expr1
-                         FROM    ItemTransaction
-                         WHERE   Warehouse = WL.Warehouse 
-						 AND     Location = WL.Location) AS InUse, 
-						 WL.BillingMode, 
-						 WL.Operational, 
-						 WL.Created
-			FROM         WarehouseLocation AS WL INNER JOIN
-                         Ref_WarehouseLocationClass AS R ON WL.LocationClass = R.Code 
-			WHERE        WL.Warehouse = '#url.warehouse#'
+			SELECT    WL.StorageId, 
+			          R.Description            AS LocationClass, 
+					  WL.Location              AS LocationCode, 
+					  WL.Description           AS LocationName, 
+					  (SELECT LocationName
+					   FROM   Location
+					   WHERE Location = WL.LocationId) AS GeoLocation, 
+                      ISNULL ((SELECT  OrgUnitName
+                               FROM    Organization.dbo.Organization
+                               WHERE   OrgUnit = WL.OrgUnitOperator), 'Internal') AS Operator,
+                      (SELECT  COUNT(DISTINCT Location) AS Expr1
+                       FROM    ItemTransaction
+                       WHERE   Warehouse = WL.Warehouse 
+				   	   AND     Location = WL.Location) AS InUse, 
+					   WL.BillingMode, 
+					   WL.Operational, 
+					   WL.Created
+			FROM       WarehouseLocation AS WL INNER JOIN
+                       Ref_WarehouseLocationClass AS R ON WL.LocationClass = R.Code 
+			WHERE      WL.Warehouse = '#url.warehouse#'
 			
 		) as D
 		WHERE 1=1

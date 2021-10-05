@@ -7,6 +7,7 @@
 <cfparam name="Attributes.Notification"  default="message">
 
 <cfif attributes.type neq "UUID">
+
 	<cftry>
 		<cfparam name="#Attributes.Name#"     default="#attributes.default#" type="#attributes.type#">
 	<cfcatch>
@@ -24,8 +25,10 @@
 	</cftry>
 	
 	<cfset VAL=evaluate(attributes.name)>
+	
 <cfelse>
-  <!--- UUID is differente from GUID, need the following conversion  --->
+
+    <!--- UUID is differente from GUID, need the following conversion  --->
   
     <cfparam name="#Attributes.Name#"     default="#attributes.default#">
   
@@ -37,6 +40,7 @@
 		<cfset VAL = Insert("-",VAL,13)>
 		<cfset VAL = Insert("-",VAL,18)>
 	</cfif>
+	
 </cfif>
 
 		<cfif attributes.type neq "" and VAL neq "">
@@ -74,8 +78,7 @@
 					
 					</cfif>
 					
-			   		<cfif FindNoCase("&##x27;",VAL)>
-					
+			   		<cfif FindNoCase("&##x27;",VAL)>					
 										
 						<cf_ErrorInsert	 ErrorSource      = "SQLSyntax"
 								 ErrorReferer     = ""

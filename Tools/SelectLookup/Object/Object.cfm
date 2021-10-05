@@ -1,4 +1,3 @@
-<cf_screentop label="Search" height="100%" scroll="No" layout="webapp" close="ColdFusion.Window.hide('dialog#url.box#')">
 
 <table align="center" bgcolor="FFFFFF" width="100%" height="100%">
 <tr><td valign="top">
@@ -7,7 +6,7 @@
 
 <cfoutput>
 
-<table width="94%" height="100%" border="0" align="center" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="94%" height="100%" align="center" class="formpadding">
 
 <tr><td height="20">
  
@@ -90,7 +89,7 @@
 	   name="search"
 	   id="search"
 	   value="<cfoutput>#lt_text#</cfoutput>" 
-	   onclick="ptoken.navigate('#SESSION.root#/tools/selectlookup/Object/ObjectResult.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','objectresult','','','POST','selectobject')"
+	   onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/tools/selectlookup/Object/ObjectResult.cfm?page=1&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#','objectresult','','','POST','selectobject')"
 	   class="button10g">
 </td></tr>
 

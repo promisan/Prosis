@@ -14,7 +14,7 @@
 	  
 	  window.moveTo(20,20)
 	  window.resizeTo(w,h)
-	  window.location = "MailPrepare.cfm?Id=#URL.ID#&ID1=#URL.ID1#&ID0=#ID0#&orientation=#URL.orientation#&mid=#url.mid#"
+	  window.location = "MailPrepare.cfm?Id=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID0=#ID0#&orientation=#URL.orientation#&mid=#url.mid#"
 	 	  
 	 </script> 
   		
@@ -22,7 +22,7 @@
 
 	<script language="JavaScript">
 		
-	  window.location = "MailPrepare.cfm?Id=#URL.ID#&ID1=#URL.ID1#&ID0=#ID0#&orientation=#URL.orientation#&mid=#url.mid#"
+	  window.location = "MailPrepare.cfm?Id=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID0=#ID0#&orientation=#URL.orientation#&mid=#url.mid#"
 
 	</script>
 

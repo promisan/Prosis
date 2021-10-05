@@ -64,11 +64,11 @@
 	}
 		
 	function general(s,idmenu) {
-	    parent.right.location =  "EmployeeIdentification.cfm?ID=#URL.ID#&systemfunctionid="+idmenu
+	    ptoken.location("EmployeeIdentification.cfm?ID=#URL.ID#&systemfunctionid="+idmenu,"parent.right");	   
 	}
 			
 	function incumbency(s,idmenu) {
-	    parent.right.location = "../Assignment/EmployeeAssignment.cfm?ID=#URL.ID#&systemfunctionid="+idmenu
+	    ptoken.location("../Assignment/EmployeeAssignment.cfm?ID=#URL.ID#&systemfunctionid="+idmenu,"parent.right");	   	   
 	}
 	
 	function entitlement(s,idmenu) {
@@ -141,15 +141,13 @@
 	
 	function scheduledtasks() {
 		ptoken.location("#SESSION.root#/Staffing/Application/Employee/ScheduledTasks/ScheduledTasks.cfm?ID1=#URL.ID#&ts="+new Date().getTime(),"parent.right");
-	}
-	
+	}	
 	
 </script>
 
 <cfif FileExists("#Session.rootPath#\Custom\StaffingScript.cfm")>
 	<cfinclude template="../../../Custom/StaffingScript.cfm">
 </cfif>
-
 
 <script>	
 	

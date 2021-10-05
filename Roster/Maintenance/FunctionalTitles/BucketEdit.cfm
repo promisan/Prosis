@@ -33,7 +33,8 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
     SELECT *
 	FROM   Ref_GradeDeployment P, Employee.dbo.Ref_PostGrade G
-	WHERE  GradeDeployment IN (SELECT GradeDeployment FROM FunctionTitleGrade WHERE FunctionNo = '#FunctionId.FunctionNo#')	AND G.PostGrade = P.GradeDeployment
+	WHERE  GradeDeployment IN (SELECT GradeDeployment FROM FunctionTitleGrade WHERE FunctionNo = '#FunctionId.FunctionNo#')	
+	AND    G.PostGrade = P.GradeDeployment
 	ORDER BY ListingOrder
 </cfquery>
 
@@ -89,7 +90,7 @@ password="#SESSION.dbpw#">
 	<TD class="labelmedium">
 	    <select name="GradeDeployment" class="regularxl" required="Yes">
 		<cfoutput query="Grade">
-		<option value="#GradeDeployment#" <cfif #FunctionId.GradeDeployment# eq "#GradeDeployment#">selected</cfif>>#GradeDeployment#</option>
+		<option value="#GradeDeployment#" <cfif FunctionId.GradeDeployment eq "#GradeDeployment#">selected</cfif>>#GradeDeployment#</option>
 		</cfoutput>
 		</select>	
 	</TD>

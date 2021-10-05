@@ -57,15 +57,12 @@
 	<cfset _match = REMatch("[a-zA-Z][a-zA-Z0-9_/]*", account)>		
 </cfif> 
 
-
 <cftry>
 	<cfset account_check ="#_match[1]#">
 <cfcatch>
 	<cfset account_check ="">
 </cfcatch>
 </cftry>
-
-
 
 <cfparam name="Form.AllowMultipleLogon"   default="0">
 <cfparam name="Form.DisableTimeOut"       default="0">
@@ -130,7 +127,7 @@ password="#SESSION.dbpw#">
 	     w = screen.width - 60
 	     h = screen.height - 130
 	     }
-	 	 ptoken.open("UserDetail.cfm?ID=" + account + "&ID1=" + h + "&ID2=" + w, "EmployeeDialog", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
+	 	 ptoken.open("UserDetail.cfm?ID=" + account + "&ID1=" + h + "&ID2=" + w, "EmployeeDialog");
 		
 	</script>	  
 	
@@ -152,7 +149,7 @@ password="#SESSION.dbpw#">
 		     w = screen.width - 60
 		     h = screen.height - 130
 		     }
-		 	 ptoken.open("UserDetail.cfm?ID=" + account + "&ID1=" + h + "&ID2=" + w, "EmployeeDialog", "left=20, top=20, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
+		 	 ptoken.open("UserDetail.cfm?ID=" + account + "&ID1=" + h + "&ID2=" + w, "EmployeeDialog");
 			
 		 </script>	  
 	
@@ -188,7 +185,7 @@ password="#SESSION.dbpw#">
 				 IndexNo,
 				 FirstName,
 				 Gender,
-				 Password,
+				 Password,				 
 				 DisableFriendlyError,
 				 PasswordExpiration,
 				 AllowMultipleLogon,
@@ -201,6 +198,7 @@ password="#SESSION.dbpw#">
 				 AccountOwner,
 				 Gender,
 			 </cfif>
+			 AccountNo,
 			 AccountMission, 
 			 LastName,
 			 AccountGroup,
@@ -219,7 +217,7 @@ password="#SESSION.dbpw#">
 				  '#Form.IndexNo#',
 				  '#Form.FirstName#',
 				  '#Form.Gender#',
-				  '#newPassword#',
+				  '#newPassword#',				  
 				  '#Form.DisableFriendlyError#',
                   '#Form.PasswordExpiration#',
                   '#Form.AllowMultipleLogon#',
@@ -231,7 +229,8 @@ password="#SESSION.dbpw#">
 			   <cfelse>
 				  '#Form.AccountOwner#',
 				  'N/A',
-	  		   </cfif>	  
+	  		   </cfif>	 
+			  '#Form.AccountNo#', 
 			  '#Form.AccountMission#',
 			  '#Form.LastName#',
 			  '#Form.AccountGroup#',
@@ -245,38 +244,55 @@ password="#SESSION.dbpw#">
 			  '0')</cfquery>
 		  
    <cfoutput>
-   
-<!--- insert group membership --->
-
-<cfif Form.AccountType eq "Individual">
-
-	<cfset URL.acc = "#Account#">
-	<cfset URL.mode = "new">
-	<cfinclude template="../Membership/UserMemberSubmit.cfm">   
-
-</cfif>
+	   
+	<!--- insert group membership --->
+	
+	<cfif Form.AccountType eq "Individual">
+	
+		<cfset URL.acc = "#Account#">
+		<cfset URL.mode = "new">
+		<cfinclude template="../Membership/UserMemberSubmit.cfm">   
+		
+		<script>
+		    		
+			parent.todays()	
+			parent.ProsisUI.closeWindow('newaccount')	
+				
+		</script>	 	
+		
+	<cfelse>	
+	
+		<script>
+		    	
+			 var account = "#account#";		  
+				
+		     w = 90
+		     h = 90
+		     if (screen)  {
+		     w = screen.width - 60
+		     h = screen.height - 130
+		     }
+		 	 ptoken.open("UserDetail.cfm?ID=" + account + "&ID1=" + h + "&ID2=" + w, "EmployeeDialog");
+			 parent.window.close()					
+				
+		</script>	 	
+	
+	</cfif>
    
    <!--- ----------------------- --->
    <!--- send email notification --->
    
    <cfif Form.eMailAddress neq "" and Form.DisableNotification eq "0">
 
-	<cf_MailUserAccountCreation 
-	     account="#account#" password="#newPassword#">
-		 
+		<cf_MailUserAccountCreation 
+		     account="#account#" password="#newPassword#">		 
+			 
    </cfif>		 
 
    <!--- ----------------------- --->
     
    <cfset root = "#SESSION.root#">
 
-    <script>
-	    		
-		parent.parent.todays()	
-		parent.parent.ProsisUI.closeWindow('newaccount')	
-			
-	</script>	 	
-	
     </cfoutput>	  
 	
 </cfif>	

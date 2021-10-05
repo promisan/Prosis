@@ -25,7 +25,9 @@ password="#SESSION.dbpw#">
 	</cfif>
 </cfquery>
 
-<cfif DirectoryExists("#SESSION.rootpath#\CFRStage\User\#SESSION.acc#")>
+<cfajaxproxy cfc="Service.Process.System.UserController" jsclassname="systemcontroller">
+
+<cfif DirectoryExists("#SESSION.rootdocumentpath#\CFRStage\User\#SESSION.acc#")>
 
        <!--- skip--->				
 	   
@@ -33,7 +35,7 @@ password="#SESSION.dbpw#">
 						  
       <cfdirectory 
 		  action   = "CREATE" 
-	      directory= "#SESSION.rootpath#\CFRStage\User\#SESSION.acc#">
+	      directory= "#SESSION.rootdocumentpath#\CFRStage\User\#SESSION.acc#">
 				  
 </cfif>
 
@@ -63,7 +65,9 @@ password="#SESSION.dbpw#">
 									
 						document.getElementById("php_"+script).className = "hide"
 						document.getElementById("wait_"+script).className = "regular"
-																												
+						
+						var uController = new systemcontroller();																												
+
 						url = "#SESSION.root#/#path#?IDFunction=#Attributes.IDFunction#&PHP_Roster_List="+roster+"&FileNo="+script	
 																						
 				 		AjaxRequest.get({			
@@ -71,7 +75,7 @@ password="#SESSION.dbpw#">
 						'onSuccess':function(req) { 	
 						 document.getElementById("php_"+script).className = "regular"
 						 document.getElementById("wait_"+script).className = "hide"
-					  	 window.open("#SESSION.root#/cfrstage/user/#SESSION.acc#/php_"+script+".pdf?IDFunction=#Attributes.IDFunction#&ts="+new Date().getTime(),"php_"+script)
+					  	 window.open("#SESSION.root#/cfrstage/getFile.cfm?file=php_"+script+".pdf&mid="+ uController.GetMid(),"php_"+script)
 						
 		           	  },					
 			    	    'onError':function(req) { 	

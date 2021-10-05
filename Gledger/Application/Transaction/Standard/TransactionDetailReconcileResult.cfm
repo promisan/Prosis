@@ -123,6 +123,8 @@ password="#SESSION.dbpw#">
 	<cf_droptable dbname="AppsQuery" tblname="#HeaderSelect.Mission##SESSION.acc#Ledger">	
 		
 	<!--- Query returning search results --->
+	
+		
 	<cfquery name="SearchResult"
 	datasource="AppsLedger" 
 	username="#SESSION.login#" 
@@ -198,9 +200,9 @@ password="#SESSION.dbpw#">
 							   WHERE  Mission = '#HeaderSelect.Mission#'	
 							   AND    TransactionCategory  IN ('Payables','DirectPayment'))		
 							   
-							   
+					   
 		<cfelseif url.mode eq "PO">
-				
+						
 		 AND     J.Journal IN (SELECT Journal 
 			                   FROM   Journal 
 							   WHERE  Mission = '#HeaderSelect.Mission#'	
@@ -280,7 +282,7 @@ password="#SESSION.dbpw#">
 		</cfif>		
 		
 		--->
-						
+								
 	</cfquery>
 	
 	<!---	
@@ -333,6 +335,8 @@ password="#SESSION.dbpw#">
 
 </cfquery>
 
+
+
 <!---
 <cfoutput>2. #cfquery.executiontime#:#searchresult.recordcount#</cfoutput>
 --->
@@ -348,8 +352,6 @@ password="#SESSION.dbpw#">
 	SELECT DISTINCT AccountPeriod
 	FROM SearchResult
 </cfquery>
-
-
 
 <cfset client.pagerecords = 100>
 
@@ -440,7 +442,7 @@ password="#SESSION.dbpw#">
 		
 			<cfset fld = left(TransactionLineId,8)>
 				
-		    <TR class="navigation_row clsFinance labelmedium" style="height:20px;border-bottom:1px solid silver">
+		    <TR class="navigation_row clsFinance labelmedium2" style="height:20px;border-bottom:1px solid silver">
 			
 			    <td align="center" style="padding-left:4px;padding-right:4px;;<cfif actionstatus eq '0'>background-color:yellow</cfif>">
 				
@@ -450,7 +452,8 @@ password="#SESSION.dbpw#">
 										
 					<input type = "checkbox" 
 					name        = "selected" 
-					id          = "selected"							
+					id          = "selected"	
+					class       = "radiol"						
 					value       = "#TransactionLineId#"
 					onClick     = "hl(this,this.checked,'#fld#');settotal('#url.mode#')">
 					

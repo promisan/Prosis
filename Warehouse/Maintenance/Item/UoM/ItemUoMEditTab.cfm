@@ -105,7 +105,7 @@ function uommissiondelete(itm,uom,mission) {
 
 function uomvolumeedit(itm,uom,temperature) {
    var vWidth = 600;
-   var vHeight = 250;      
+   var vHeight = 350;      
    ProsisUI.createWindow('mydialog', 'Temperature', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});       		
    ptoken.navigate("UoMVolume/ItemUoMVolumeEdit.cfm?id="+itm+"&uom="+uom+"&temperature="+temperature,'mydialog');
 }

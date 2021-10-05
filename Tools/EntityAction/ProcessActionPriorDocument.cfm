@@ -72,15 +72,15 @@
 
 <table style="width:100%;height:100%" align="center">
 
-<tr><td valign="top" style="padding-left:6px">
+<tr><td valign="top" style="padding-left:0px">
 	
 	<table width="100%" style="width:100%;height:95%">
 		
-	<tr class="line">	
+	<tr>	
 	
 	<cfset lk = "">
-	<cfset ht = "36">
-	<cfset wd = "36">	
+	<cfset ht = "32">
+	<cfset wd = "32">	
 		 	 		
 		<!--- 1. embedded documents only for read --->	
 		
@@ -195,7 +195,7 @@
 				
 		</cfif>	
 		
-		<td style="width:30%"></td>
+		<td style="width:40%"></td>
 				
 		</tr>
 		
@@ -203,9 +203,9 @@
 
 </td></tr>
 
-<tr><td valign="top" height="100%">
+<tr><td valign="top" height="100%" style="padding-top:3px">
 	
-	<table width="100%" height="100%" align="center" bgcolor="white">
+	<table width="100%" height="100%" align="center" bgcolor="white" style="border:1px solid gray">
 		
 			 <cf_menucontainer name="priordocument" item="1" class="regular">				 				 
 					 <cfinclude template="#lk#">		

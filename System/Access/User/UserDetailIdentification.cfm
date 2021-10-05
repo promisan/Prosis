@@ -244,7 +244,7 @@ password="#SESSION.dbpw#">
 	  
 		<td  style="padding-top:4px" valign="top" align="right">
 			
-			<cf_tl id="Change picture" var="1">
+			<cf_tl id="Change user picture" var="1">
 			<cf_userProfilePicture acc="#URL.ID#" height="130px" width="auto" title="#lt_text#">
 			   
 		 </td>

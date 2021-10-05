@@ -14,17 +14,17 @@
 
 <cfset vTemplate = "#SESSION.rootpath##url.template#">
 
-<cfif not DirectoryExists("#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\")>
+<cfif not DirectoryExists("#SESSION.rootDocumentPath#\CFRStage\User\#SESSION.acc#\")>
 
 	   <cfdirectory action="CREATE" 
-            directory="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\">
+            directory="#SESSION.rootDocumentPath#\CFRStage\User\#SESSION.acc#\">
 
 </cfif>
 
 <cfset FileNo = round(Rand()*100)>
 <cfset attach = "#URL.FileName#_#FileNo#.pdf">
 
-<cfset vpath="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#attach#">
+<cfset vpath="#SESSION.rootDocumentPath#\CFRStage\User\#SESSION.acc#\#attach#">
 
 <cfset vpath=replace(vpath,"\\","\","ALL")>
 <cfset vpath=replace(vpath,"//","/","ALL")>
@@ -46,8 +46,11 @@
 	<cfreportparam name = "id10"  value="#url.id10#">
 </cfreport>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>
+
 <cfoutput>
 <script language="JavaScript">
-		window.location = "#SESSION.root#/CFRStage/User/#SESSION.acc#/#attach#?ts=#GetTickCount()#";
+		window.location = "#SESSION.root#/CFRStage/getFile.cfm?File=#attach#&mid=#mid#";
 </script>
 </cfoutput>

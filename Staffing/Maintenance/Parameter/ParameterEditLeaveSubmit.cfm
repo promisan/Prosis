@@ -14,8 +14,11 @@ password="#SESSION.dbpw#">
 	WHERE 	Mission = '#url.mission#'	
 </cfquery>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
+
 <cfoutput>
 <script>
-	#ajaxLink('ParameterEditLeave.cfm?mission=#url.mission#')#	
+	#ajaxLink('ParameterEditLeave.cfm?mission=#url.mission#&mid=#mid#')#	
 </script>
 </cfoutput>

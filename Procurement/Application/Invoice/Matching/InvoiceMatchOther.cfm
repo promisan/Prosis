@@ -28,7 +28,7 @@ password="#SESSION.dbpw#">
 			
 <cfif Other.recordcount gt "1">			
 	
-	     <table width="100%" align="center" class="formspacing">
+	     <table width="100%" style="border:1px solid d4d4d4" class="navigation_table">
 								 
 	     <cfoutput query="Other">
 		 
@@ -38,35 +38,30 @@ password="#SESSION.dbpw#">
 			Filter="">	
 		 
 		 <cfif InvoiceId eq URL.ID>
-		 <tr bgcolor="ffffaf" class="line labelmedium">	
+		 <tr bgcolor="ffffaf" class="line labelmedium2">	
 		 <cfelse>
-	     <tr bgcolor="f4f4f4" class="line labelit">	
+	     <tr bgcolor="f4f4f4" class="line labelmedium2 navigation_row">	
 		 </cfif>
 		 
-		 <td width="12" style="padding-left:4px;padding-right:4px;height:22px;width:40px;">
+		 <td style="padding-left:4px;background-color:e6e6e6" width="20">#InvoiceSerialNo#.</td>
+		 
+		 <td style="padding-left:4px;padding-right:4px;height:22px;width:40px;">
 		 			 
 		   <cfif files gte "1">
 		   
-		   <img src="#SESSION.root#/Images/arrowright.gif" alt="Expand" onclick="javascript:moreattachments('#InvoiceId#','#currentrow#','#mission#')" 
-		     align="absmiddle" 
-			 border="0" 
-			 style="cursor: pointer;"
-			 class="show" 
-			 id="vExp_#currentrow#">
-	 
-		   <img src="#SESSION.root#/Images/arrowdown.gif" 
-		      alt="Collapse" 
-			  onclick="javascript:moreattachments('#InvoiceId#','#currentrow#','#mission#')" 
-			  border="0" 
-			  style="cursor: pointer;"
-			  class="hide" 
-			  id="vMin_#currentrow#">
+			   <img src="#SESSION.root#/Images/arrowright.gif" alt="Expand" onclick="javascript:moreattachments('#InvoiceId#','#currentrow#','#mission#')" 
+			     align="absmiddle" 
+				 border="0" style="cursor: pointer;" class="show" id="vExp_#currentrow#">
+		 
+			   <img src="#SESSION.root#/Images/arrowdown.gif" 
+			      alt="Collapse" 
+				  onclick="javascript:moreattachments('#InvoiceId#','#currentrow#','#mission#')" 
+				  border="0" style="cursor: pointer;" class="hide" id="vMin_#currentrow#">
 			  
-			 </cfif> 
+			</cfif> 
 			 						  
-		</td>
-		 				 
-		 <td style="padding-left:4px;background-color:e6e6e6" width="20">#InvoiceSerialNo#.</td>
+		 </td> 				 
+		
 		 <td>
 		 	<cfif files gte "1">
 			 <a title="recorded" href="javascript:moreattachments('#InvoiceId#','#currentrow#','#mission#')">
@@ -131,3 +126,5 @@ password="#SESSION.dbpw#">
 	    </table>
 					
    </cfif>
+   
+   <cfset ajaxonload("doHighlight")>

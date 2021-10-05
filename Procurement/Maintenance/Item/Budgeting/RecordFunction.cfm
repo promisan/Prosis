@@ -59,7 +59,7 @@
 		  <td width="70%">#FunctionDescription#</td>	
 		  <td width="90">#OccupationalGroup#</td> 
 		   
-		  <td><A href="javascript:ColdFusion.navigate('#SESSION.root#/Procurement/Maintenance/Item/RecordFunction.cfm?action=delete&ItemMaster=#URL.ItemMaster#&FunctionNo=#FunctionNo#','l#url.ItemMaster#_standard')">
+		  <td><A href="javascript:ptoken.navigate('#SESSION.root#/Procurement/Maintenance/Item/RecordFunction.cfm?action=delete&ItemMaster=#URL.ItemMaster#&FunctionNo=#FunctionNo#','l#url.ItemMaster#_standard')">
 			      <img src="#SESSION.root#/images/delete5.gif" 
 				     height="11" 
 					 width="11" 

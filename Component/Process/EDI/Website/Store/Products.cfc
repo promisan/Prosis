@@ -1,4 +1,4 @@
-<cfcomponent displayname="ProsisReact" hint="Prosis React Datasource">
+<cfcomponent displayname="ProsisReact Shipping" hint="Prosis React Store and customer management">
 
 	<cffunction name="trackUser" access="remote" returnType="void">
 		<cfargument name="account" 		Required=false default="">
@@ -21,34 +21,34 @@
 
 			<cfquery name="insertLog"
 					datasource="AppsSystem">
-				INSERT INTO UserStatusLog
-				(Account,
-				HostName,
-				NodeIP,
-				NodeVersion,
-				HostSessionNo,
-				ActionTimeStamp,
-				ActionTemplate,
-				ActionQueryString,
-				TemplateGroup,
-				PathName,
-				FileName,
-				SystemFunctionId,
-				Mission)
-				VALUES
-				('#account#',
-				 '#host#',
-				'#CGI.Remote_Addr#',
-				'#bws#',
-				'#sessionNo#',
-				getDate(),
-				'#CGI.SCRIPT_NAME#',
-				'#CGI.QUERY_STRING#',
-				'#group#',
-				'#PathName#',
-				'#FileName#',
-				NULL,
-				'#Mission#'
+					INSERT INTO UserStatusLog
+					(Account,
+					HostName,
+					NodeIP,
+					NodeVersion,
+					HostSessionNo,
+					ActionTimeStamp,
+					ActionTemplate,
+					ActionQueryString,
+					TemplateGroup,
+					PathName,
+					FileName,
+					SystemFunctionId,
+					Mission)
+					VALUES
+					('#account#',
+					 '#host#',
+					'#CGI.Remote_Addr#',
+					'#bws#',
+					'#sessionNo#',
+					getDate(),
+					'#CGI.SCRIPT_NAME#',
+					'#CGI.QUERY_STRING#',
+					'#group#',
+					'#PathName#',
+					'#FileName#',
+					NULL,
+					'#Mission#'
 			)
 			</cfquery>
 

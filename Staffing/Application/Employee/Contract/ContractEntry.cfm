@@ -78,7 +78,7 @@
 	}
 	
 	function applyscale(scaleno,grd,stp,cur) {	    		  
-	    ptoken.navigate('#SESSION.root#/staffing/Application/Employee/Contract/setScale.cfm?scaleno='+scaleno+'&grade='+grd+'&step='+stp+'&currency='+cur+'&personno=#url.id#&contracttype=#LastContract.contracttype#','process')	  				
+	    ptoken.navigate('#SESSION.root#/staffing/Application/Employee/Contract/setScale.cfm?scaleno='+scaleno+'&grade='+grd+'&step='+stp+'&currency='+cur+'&personno=#url.id#&contracttype='+document.getElementById('ContractType').value,'process')	  				
 	}	
 
 </script>
@@ -117,8 +117,8 @@
 		</td>
      </tr>	
 	  
-	 <tr class="line">
-	    <td width="100%" style="padding-left:15px;font-size:21px;font-weight:270" align="left" class="labelmedium">
+	 <tr class="line fixrow">
+	    <td width="100%" style="background-color:white;padding-left:15px;font-size:21px;font-weight:270" align="left" class="labelmedium">
 		<cfoutput>
 			<cf_tl id="Initial Appointment"> / <cf_tl id="Re-appointment">
 		</cfoutput>
@@ -314,7 +314,7 @@
 			
 			<td>
 										
-				<select name="ActionCode" class="regularxxl" style="width:99%" onchange="ptoken.navigate('getReason.cfm?actioncode='+this.value,'groupfield')">					    
+				<select name="ActionCode" class="regularxxl" onchange="ptoken.navigate('getReason.cfm?scope=backoffice&actioncode='+this.value,'groupfield')">					    
 					<cfoutput query="Action">
 						<option value="#ActionCode#">#Description#</option>
 					</cfoutput>		
@@ -328,7 +328,7 @@
 	    <td class="labelmedium" style="height:31px"><cf_tl id="Reason">:</TD>
 								
 		<td id="groupfield" name="groupfield">	
-			 <cfset url.actioncode = Action.ActionCode>
+			 <cfset url.actioncode = Action.ActionCode>			 
 			 <cfinclude template="getReason.cfm">			 			 
 		 </td>
 							
@@ -497,7 +497,7 @@
 	<TR>
     <TD class="labelmedium"><cf_tl id="Contract type">:</TD>   	
     <TD>
-		
+				
 	    <cf_securediv bind="url:#SESSION.root#/staffing/Application/Employee/Contract/ContractField.cfm?id=#url.id#&field=contracttype&mission={mission}&default=#LastContract.contracttype#" 
 		 id="fldcontracttype">
 		 			
@@ -614,11 +614,11 @@
 					
 		<cfoutput>				
 		<tr>			
-	  	<TD class="labelmedium"><a id="contractselect" href="javascript:selectscale('#url.id#','#lastcontract.contractType#','#url.id1#')"><cf_tl id="Grade">:</TD>
+	  	<TD class="labelmedium"><a id="contractselect" href="javascript:selectscale('#url.id#',document.getElementById('ContractType').value,'#url.id1#')"><cf_tl id="Grade">:</TD>
 		    <TD><input type="text" name="contractlevel" id="contractlevel" value="#lastcontract.contractlevel#" size="20" maxlength="20" readonly class="regularxxl" style="background-color: f4f4f4;"></TD> 
 		</tr>
 		<tr>
-		<TD class="labelmedium"><a href="javascript:selectscale('#url.id#','#lastcontract.contractType#','#url.id1#')"><cf_tl id="Step">:</a></TD>
+		<TD class="labelmedium"><a href="javascript:selectscale('#url.id#',document.getElementById('ContractType').value,'#url.id1#')"><cf_tl id="Step">:</a></TD>
 			<TD><input type="text" id="contractstep" name="contractstep" value="#lastcontract.contractstep#" style="background-color: f4f4f4;" class="regularxxl" size="4" maxlength="4" readonly></TD> 							
 		</tr>
 		</cfoutput>
@@ -662,22 +662,22 @@
 		<tr>
 		<td class="labelmedium2"><cf_tl id="Negotiated Salary"><cfoutput>#application.basecurrency#</cfoutput></td>
 		<td><input type="hidden" readonly style="padding-left:3px; border:0px;" size="2" maxlength="4" value="<cfoutput>#application.basecurrency#</cfoutput>" style="background-color: f4f4f4;" class="regularxxl" id="currency" name="currency"> :</TD>
-		</tr></table>
+		</tr>
+		</table>
 		</td>
 	    <TD> 			   
 			<cfinput type="Text" class="regularxl" style="text-align: center;background-color: white;" name="ContractSalaryAmount" message="Please enter a valid number" validate="float" required="No" size="10" maxlength="10">
 		</TD>
 		</TR>				
 			
-	</cfif>
-				
+	</cfif>			
 	
 			
 	<TR>
 	    <TD class="labelmedium" style="height:30px"><cf_tl id="Review Panel">:</TD>
 	    <TD class="labelmedium">	
-			<INPUT type="radio" class="radiol" name="ReviewPanel" value="1"> Yes
-			<INPUT type="radio" class="radiol" name="ReviewPanel" value="0" checked> No		
+			<INPUT type="radio" class="radiol" name="ReviewPanel" value="1"> <cf_tl id="Yes">
+			<INPUT type="radio" class="radiol" name="ReviewPanel" value="0" checked> <cf_tl id="No">		
 		</TD>
 	</TR>
 	

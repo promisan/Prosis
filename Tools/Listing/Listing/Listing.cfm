@@ -1150,6 +1150,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 
 <cfinclude template="ListingData.cfm">
 
+
 <!--- ---------------------- --->
 <!--- PRESENTING the result  --->
 <!--- ---------------------- --->
@@ -1178,6 +1179,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cfelse>	
 
     <cfset dkey = url.ajaxid>
+	
 	<!--- performs only an update action --->	
 	<cfinclude template="ListingContentAJAX_UPDATE.cfm">		
 

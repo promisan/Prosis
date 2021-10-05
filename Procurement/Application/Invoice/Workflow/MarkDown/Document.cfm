@@ -201,7 +201,7 @@ password="#SESSION.dbpw#">
 			  <td>	
 			  		   
 			   <cfinput type="Text" 
-			       style="padding-left:3px;width:20px" 
+			       style="padding-left:3px;width:100px"
 				   class="regularxl enterastab" 
 				   name="invoiceseries" 
 				   value="#Inv.InvoiceSeries#" 
@@ -220,6 +220,13 @@ password="#SESSION.dbpw#">
 					  required="Yes" 
 					  size="15" maxlength="30"> 
 			  
+			  </td>
+			  <td width="5px"></td>
+			  <td class="labelmedium">
+   				<cf_tl id="Tax Exemption">
+   		  	  </td>
+			  <td>
+				  <input type="checkbox" class="radiol" name="TaxExemption" value="1" <cfif inv.TaxExemption eq "1">checked</cfif>>
 			  </td>
 		  
 		  </tr>

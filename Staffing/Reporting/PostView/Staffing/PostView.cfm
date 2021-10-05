@@ -25,12 +25,6 @@
 <cfinclude template="PostViewInit.cfm">
 <cf_systemscript>
   
-<cfinvoke component       = "Service.Process.System.UserController"  
-	    method            = "ValidateFunctionAccess"  
-		SessionNo         = "#client.SessionNo#" 
-		ActionTemplate    = "#client.virtualdir#/Staffing/Reporting/PostView/Staffing/PostView.cfm"
-		ActionQueryString = "#url.mission#">	
-
 <cfquery name="Mandate" 
  datasource="AppsOrganization" 
  maxrows=1 

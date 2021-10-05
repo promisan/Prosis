@@ -74,7 +74,7 @@ javascript:window.history.forward(1);
 			
 <cfif (EditAccess eq "EDIT" or EditAccess eq "ALL")>
 
-	<cflocation url="CategoryEntry.cfm?header=1&ProgramCode=#URL.ProgramCode#&Period=#URL.Period#&Layout=#URL.Layout#" addtoken="No">
+	<cflocation url="CategoryEntry.cfm?header=1&ProgramCode=#URL.ProgramCode#&Period=#URL.Period#&Layout=#URL.Layout#&mid=#url.mid#" addtoken="No">
 
 </cfif>
 
@@ -88,7 +88,7 @@ javascript:window.history.forward(1);
   method="POST" 
   name="groupentry">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" class="formpadding">
 
 <tr><td style="padding:10px">
 	<cfinclude template="../Header/ViewHeader.cfm">

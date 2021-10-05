@@ -1,5 +1,7 @@
 
-<cfif  ParameterExists(Form.Save)>
+<cfparam name="form.scope" default="listing">
+
+<cfif form.action eq "add">
 	
 	<cfif Form.CustomerDOB neq ''>
 	    <CF_DateConvert Value="#Form.CustomerDOB#">
@@ -20,7 +22,7 @@
 		</cfoutput> 		
 		<cfabort>
 	
-	</cfif>
+	</cfif>	
 	
 	<cfquery name="Insert" 
 	datasource="AppsMaterials" 
@@ -58,9 +60,7 @@
 			Operational,
 			OfficerUserId,
 			OfficerLastName,
-			OfficerFirstName,
-			Created
-		)
+			OfficerFirstName )
 		VALUES(
 			'#Form.CustomerId#',
 			'#Form.Mission#',			
@@ -93,32 +93,60 @@
 			#Form.Operational#,
 			'#SESSION.acc#',
 			'#SESSION.last#',
-			'#SESSION.first#',
-			getdate()
+			'#SESSION.first#'
 		)
 	</cfquery>
 	
-<!---
+	<cfquery name="get" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT * FROM Customer WHERE CustomerId = '#Form.CustomerId#'
+	</cfquery>
+	
+	<!---
 	<cfinvoke component = "Service.Process.Materials.Customer"  
 	   method           = "AddCustomerAddress" 
 	   mission			= "#Form.Mission#"
 	   warehouse        = "#Form.Warehouse#"
-  	   customerId	    = "#Form.CustomerId#">	--->
+  	   customerId	    = "#Form.CustomerId#">	
+    --->
 	
 	<cfoutput>
+		
+	<cfif form.scope eq "listing">
+				
+		<script>	
+			    Prosis.busy('no')	  
+			    try {	
+				   									
+					// window.open('CustomerEditTab.cfm?drillid=#Form.CustomerId#&mid=#mid#')
+					parent.applyfilter('5','','content')	
+					parent.ProsisUI.closeWindow('addcustomer')					
+					}
+					// parent.window.resizeTo(920,720);
+				 catch(e) {}    	
+	    </script>	
+		
+	<cfelse>
 	
 		<script>	
-		    Prosis.busy('no')	  
-		    try {				
-				parent.opener.applyfilter('','','content');
-				parent.window.location = 'CustomerEditTab.cfm?drillid=#Form.CustomerId#'
-				parent.window.resizeTo(920,720);
-			} catch(e) {}    	
-    	</script>	
+			    Prosis.busy('no')	  
+			    try {	
+				   					
+					parent.document.getElementById('CustomerSerialNo').value = '#get.CustomerSerialNo#'
+					parent.document.getElementById('search').click()
+					parent.ProsisUI.closeWindow('addcustomer')					
+					}
+					
+				 catch(e) {}    	
+	    </script>	
 	
+	</cfif>	
+			
 	</cfoutput>
-	
-<cfelseif  ParameterExists(Form.Update)>
+			
+<cfelseif form.action eq "edit">
 
 	<cfif Form.CustomerDOB neq ''>
 	    <CF_DateConvert Value="#Form.CustomerDOB#">
@@ -164,12 +192,31 @@
 
 	<cfoutput>
 	
-		<script>
-		    Prosis.busy('no')  			
-	
-    	</script>	
+		<cfif url.scope eq "listing">
+				
+			<script>	
+				    Prosis.busy('no')						
+				    try {	
+						parent.opener.applyfilter('0','','#Form.Customerid#')										
+					} catch(e) {}    	
+		    </script>	
 		
-		<cfset url.drillid = "#Form.CustomerId#">
+	    <cfelse>
+	
+			<script>	
+				    Prosis.busy('no')	  
+				    try {	
+					   									
+						alert('refresh the search with the new customer')	
+						parent.ProsisUI.closeWindow('addcustomer')					
+						}
+						
+					 catch(e) {}    	
+		    </script>	
+	
+		</cfif>	
+			
+		<cfset url.drillid = "#Form.CustomerId#">		
 		<cfinclude template="CustomerEdit.cfm">
 	
 	</cfoutput>

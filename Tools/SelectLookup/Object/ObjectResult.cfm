@@ -26,7 +26,7 @@
 
 <cfset link    = replace(url.link,"||","&","ALL")>
    
-<table width="98%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%">
  
 <td width="100%" colspan="2" valign="top">
 
@@ -66,12 +66,10 @@ password="#SESSION.dbpw#">
     ORDER BY Code
 </cfquery>
 
-<table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+<table border="0" width="98%" class="navigation_table">
 
-<tr><td height="14" colspan="4">
-						 
-	 <cfinclude template="ObjectNavigation.cfm">
-	 				 
+<tr><td height="14" colspan="4">						 
+	 <cfinclude template="ObjectNavigation.cfm">	 				 
 </td></tr>
 <tr><td height="3"></td></tr>
 <tr><td colspan="4" height="1" class="line"></td></tr>
@@ -80,22 +78,20 @@ password="#SESSION.dbpw#">
 
 <cfif currentrow gte first>
 
-	<tr class="navigation_row line">
+	<tr class="navigation_row line labelmedium2">
 	  
-	    <td class="navigation_action" height="18" width="30" style="padding-left:3px;padding-top:3px" 
-		onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#code#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>"><cf_img icon="open"></td>
-		<td width="11%" class="labelit" style="padding-left:5px"><cfif codedisplay neq "">#CodeDisplay#<cfelse>#Code#</cfif></td>		
-		<TD width="85%" class="labelit">#Description#</TD>
+	    <td class="navigation_action" height="18" width="30" style="padding-left:3px;padding-top:1px" 
+		onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#code#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>"><cf_img icon="open"></td>
+		<td width="11%" style="padding-left:5px"><cfif codedisplay neq "">#CodeDisplay#<cfelse>#Code#</cfif></td>		
+		<TD width="85%">#Description#</TD>
 	</tr>
 	
 </cfif>	
 		     
 </CFOUTPUT>
 
-<tr class="line"><td height="20" colspan="4">
-						 
-	 <cfinclude template="ObjectNavigation.cfm">
-	 				 
+<tr class="line"><td height="20" colspan="4">						 
+	 <cfinclude template="ObjectNavigation.cfm">	 				 
 </td></tr>
 
 </TABLE>

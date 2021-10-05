@@ -15,6 +15,6 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 <script>
-	ColdFusion.navigate('Budgeting/CostElementList.cfm?id1=#URL.id1#','dExisting');
+	ptoken.navigate('Budgeting/CostElementList.cfm?id1=#URL.id1#','dExisting');
 </script>
 </cfoutput>

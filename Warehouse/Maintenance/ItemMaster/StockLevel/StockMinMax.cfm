@@ -142,12 +142,14 @@ that carry this item and that are enabled --->
 					AND    Operational = 1
 				</cfquery>	
 							
-				<tr onMouseOver="this.style.backgroundColor='f1f1f1'" onMouseOut="this.style.backgroundColor=''">
-					<td valign="top" width="15%" style="padding-top:12px;padding-left:6px; padding-right:6px;border-right:1px solid gray;">#UoMDescription# (#UoM#)</td>
-					<td>
+				<tr class="labelmedium">
+					<td style="padding-top:4px;font-weight:bold;padding-left:15px;font-size:17px">#UoMDescription# (#UoM#)</td>
+				</tr>	
+				<tr>
+					
+					<td style="padding-left:10px">
 						<table width="100%"  align="center">
-						
-							<tr><td height="5"></td></tr>
+													
 							<tr class="labelmedium2">
 								<cfif whs.MinimumStock gt whs.MaximumStock>
 									<cfset cl = "yellow">
@@ -252,16 +254,17 @@ that carry this item and that are enabled --->
 										   
 								</td>
 													
-								<td style="padding-left:10px;"><cf_tl id="Through">:</td>
-								<td colspan="2" style="min-width:400px">
+								<td colspan="4" style="padding-left:10px;">								
 								<table>
 								<tr>
+								    <td><cf_tl id="Through">:</td>
 									<td><input type="radio" class="radiol" name="Restocking_#row#" id="Restocking_#row#" value="Procurement" <cfif whs.Restocking neq "Warehouse">checked</cfif>></td>
 									<td style="padding-left:4px"><cf_tl id="Procurement"></td>
 									<td style="padding-left:4px"><input type="radio" class="radiol" name="Restocking_#row#" id="Restocking_#row#" value="Warehouse" <cfif whs.Restocking eq "Warehouse">checked</cfif>></td>
 									<td style="padding-left:4px"><cf_tl id="Parent Warehouse"></td>								
 								</tr>
-								</table>						
+								</table>	
+								</td>					
 								
 							</tr>								
 																					
@@ -280,7 +283,8 @@ that carry this item and that are enabled --->
 							</tr>							
 																					
 							<tr class="labelmedium2">	
-								<td style="padding-left:5px;"><cf_tl id="Average Days">:</td>
+								<td title="Record the number of days over which the average comsumption will be calculated" 
+								style="padding-left:5px;"><cf_tl id="Average Days">:</td>
 								<td colspan="2">
 									<cfinput type="Text" 
 									name="AveragePeriod_#row#" 				
@@ -289,11 +293,13 @@ that carry this item and that are enabled --->
 									message="Record the number of days over which the average comsumption will be calculated" 
 									validate="integer"
 									class="regularxxl" 
-									size="2" 
-									maxlength="2"
+									size="3" 
+									maxlength="3"
 									style="text-align:center;border:0px;background-color:e1e1e1;"
 									visible="Yes" enabled="Yes">
 								</td>
+								
+								<!---
 								<td><cf_tl id="Average">:</td>
 								<td colspan="2">
 									
@@ -304,6 +310,9 @@ that carry this item and that are enabled --->
 									
 									
 								</td>
+								
+								--->
+								
 							</tr>	
 							
 							<cfquery name="stockC"
@@ -347,9 +356,177 @@ that carry this item and that are enabled --->
 							
 							</cfif>
 							
+							<cfquery name="getTopics" 
+								datasource="AppsMaterials"
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+									
+									SELECT	 P.Description,P.SearchOrder,T.*, T.Description as TopicDescription
+									FROM     Ref_Topic T 
+												-- AND  ValueClass IN ('List','Lookup')
+											 INNER JOIN Ref_TopicParent P ON T.Parent = P.Parent	
+									WHERE    T.TopicClass = 'ItemUoM'															
+									
+							</cfquery>
+							
+							  <tr class="line">  	
+								  
+								  	<td width="80" height="23" style="padding-left:5px" class="labelmedium2"><cf_tl id="Replenishment topic"></td>
+																	
+								    <cfloop index="itm" list="System,OE">
+									
+										<cfif itm eq "OE">
+										<td colspan="3"><cf_tl id="Expert opinion"></td>										
+										<cfelse>
+										<td colspan="2"><cf_tl id="Generated"></td>
+										</cfif>
+																		
+									</cfloop>
+									
+							 </tr>		
+																												
+							<cfloop query="getTopics">
+															
+								  <tr>  	
+								  
+								  	<td width="80" height="23" style="padding-left:5px" class="labelmedium2">#TopicDescription#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
+																	
+								    <cfloop index="itm" list="System,OE">									
+									
+									<cfif itm eq "OE">
+																									
+									<td style="padding-left:10px">
+									  <input class="regularxxl" style="min-width:300px;border:0px;border-bottom:1px solid silver;width:99%;background-color:ffffcf" type="text" name="Memo">
+									</td>
+									
+									</cfif>
+																	
+									
+									<td>																		
+																		   
+										<cfif ValueClass eq "List">
+										
+										    <!---
+										
+											<cfquery name="GetList" 
+												datasource="AppsMaterials" 
+												username="#SESSION.login#" 
+												password="#SESSION.dbpw#">
+													SELECT	T.*, 
+															P.ListCode as Selected
+													FROM 	Ref_TopicList T 
+															LEFT OUTER JOIN #tbcl# P ON P.Topic = T.Code AND P.ItemNo = '#url.id#'
+													WHERE 	T.Code = '#Code#'  
+													AND 	T.Operational = 1
+													ORDER BY T.ListOrder ASC
+											</cfquery>
+											
+											<select class="regularxxl" name="Topic_#Code#" ID="Topic_#Code#">
+												<cfif ValueObligatory eq "0">
+													<option value=""></option>
+												</cfif>
+												<cfloop query="GetList">
+													<option value="#GetList.ListCode#" <cfif GetList.Selected eq GetList.ListCode>selected</cfif>>#GetList.ListValue#</option>
+												</cfloop>
+											</select> 
+											
+											--->
+											
+										<cfelseif ValueClass eq "Lookup">
+										
+										    <!---
+										
+											<cfquery name="GetList" 
+												  datasource="#ListDataSource#" 
+												  username="#SESSION.login#" 
+												  password="#SESSION.dbpw#">
+											
+													 SELECT     DISTINCT 
+													            #ListPK# as ListCode, 
+													            #ListDisplay# as ListValue,
+															    #ListOrder# as ListOrder,
+															    P.Value as Selected
+													  FROM      #ListTable# T LEFT OUTER JOIN 
+															   	(SELECT ItemNo, Topic, ListCode As Value 
+																 FROM   Materials.dbo.#tbcl# 
+																 WHERE  ItemNo='#Item.ItemNo#') P ON P.Topic = '#GetTopics.Code#' 
+													  WHERE     #PreserveSingleQuotes(ListCondition)#
+													  ORDER BY  #ListOrder#
+											
+											</cfquery>
+												
+											<select class="regularxxl" name="Topic_#Code#" ID="Topic_#Code#">
+												<cfif ValueObligatory eq "0">
+													<option value=""></option>
+												</cfif>
+												<cfloop query="GetList">
+													<option value="#ListCode#" <cfif Selected eq ListCode>selected</cfif>>#ListValue#</option>
+												</cfloop>
+											</select> 	
+											
+											--->
+											   
+										<cfelseif ValueClass eq "Text">
+																		
+											 <cfquery name="GetValue"  
+											  datasource="appsMaterials" 
+											  username="#SESSION.login#" 
+											  password="#SESSION.dbpw#">
+												  SELECT *
+												  FROM   ItemUoMTopic
+												  WHERE  Topic     = '#Code#'		
+												  AND    ItemNo    = '#url.id#'	
+												  AND    UoM       = '#itemuom.uom#'	
+												  AND    Warehouse = '#W#'
+												  AND    Source    = '#itm#'	
+												  ORDER BY DateEffective DESC	 
+											</cfquery>		
+																						
+											<!---
+											<cfoutput>
+											SELECT *
+												  FROM   ItemUoMTopic
+												  WHERE  Topic     = '#Code#'		
+												  AND    ItemNo    = '#url.id#'	
+												  AND    UoM       = '#uom#'	
+												  AND    Warehouse = '#W#'
+												  AND    Source    = '#itm#'		
+											</cfoutput>
+											--->																										
+											
+											<cfinput type = "Text"
+										       name       = "Topic_#Code#"
+										       required   = "#ValueObligatory#"					     
+										       size       = "#valueLength#"
+											   style      = "width:99%;text-align:right;padding-right:4px;border:0px;border-bottom:1px solid silver;background-color:eaeaea"
+											   class      = "regularxxl enterastab"
+											   message    = "Please enter a #Description#"
+											   value      = "#GetValue.TopicValue#"
+										       maxlength  = "#ValueLength#">   
+											  										    
+										</cfif>
+														
+									</td>
+									
+									<td>
+									
+									<input type="button" value="H" style="width:28px" class="button10g" title="History">
+									
+									</td>
+																	
+									
+									</cfloop>
+									
+									<td style="width:10%"></td>
+																		
+									</tr>							
+								
+							</cfloop>		
+							
+							<tr><td style="padding-top:4px"></td></tr>								
 							<tr class="labelmedium2">	
 								<td style="padding-left:5px;"><cf_tl id="Shipping Memo">:</td>
-								<td colspan="5">
+								<td colspan="6">
 								<input type="text" name="ShippingMemo_#row#" id="ShippingMemo_#row#" value="#whs.ShippingMemo#" style="border:0px;background-color:e1e1e1;f1f1f1;width:90%;height:25;font-size:14px;padding:3px" class="regular">
 								</td>
 							</tr>	

@@ -22,7 +22,6 @@
 </cfif>
 
 <cfset link    = replace(url.link,"||","&","ALL")>
-
    
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
  
@@ -47,7 +46,7 @@ SELECT count(*) as Total
 	</cfif>
 </cfquery>
 
-<cf_pagecountN show="16" 
+<cf_pagecountN show="15" 
                count="#Total.Total#">
 			   
 <cfset counted  = total.total>			   

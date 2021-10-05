@@ -3,7 +3,8 @@
 
 <cfoutput>
 
-<cf_wait1 text="Preparing Staffing table, please be patient">
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
 
 <!--- delete cached html which triggers a refresh in postview loop --->
 
@@ -13,9 +14,10 @@
 </cftry>
 
 <cfset lnk = "#replace(url.link,"_","&",'ALL')#">
-	<script language="JavaScript">
-	       window.location = "PostViewLoop.cfm?#lnk#" 
-	</script>
+<script language="JavaScript">
+       window.location = "PostViewLoop.cfm?#lnk#&mid=#mid#" 
+</script>
+	
 </cfoutput>
 
 	

@@ -1,6 +1,8 @@
 
 <cfparam name="url.mission" default="">
 
+
+
 <cfquery name="Warehouse" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
@@ -75,6 +77,15 @@
   
   </td>
   
+  <cfquery name="WarehouseCat" 
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT    *
+		FROM      WarehouseCategory
+		WHERE     Warehouse = '#warehouse#'		
+  </cfquery>	
+  
   <td align="right">
   
 	  <select name="TaxCode_#row#"						          
@@ -85,7 +96,7 @@
 		  style="text-align:right;width:50;border-top:0px;border-bottom:0px"					  
           class="regularxl">						
 		  <cfloop query="taxlist">
-		  <option value="#TaxCode#">#Description#</option>		  
+		  <option value="#TaxCode#" <cfif WarehouseCat.Taxcode eq taxcode>selected</cfif>>#Description#</option>		  
 		  </cfloop>
   
   </td>

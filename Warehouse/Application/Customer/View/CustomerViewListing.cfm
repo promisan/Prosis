@@ -92,15 +92,13 @@
 <cf_tl id="No" var="vNo">
 <cfset fields[itm] = {label     = "#vNo#",                  
 					  field       = "CustomerSerialNo",
-					  filtermode    = "4",		
-  					  alias			= "C",			
+					  filtermode    = "4",		  					 
 					  search      = "text"}>	
 					
 <cfset itm = itm+1>		
 <cf_tl id="Name" var="vName">
 <cfset fields[itm] = {label         = "#vName#", 
-					  field         = "CustomerFullName",
-					  alias			= "C",				      
+					  field         = "CustomerFullName",					        
 					  filtermode    = "4",
 					  displayfilter = "Yes",
 					  search        = "text"}>		
@@ -109,31 +107,27 @@
 <cf_tl id="Schedule" var="vSchedule">
 <cfset fields[itm] = {label     = "#vSchedule#",                  
 					  field       = "PriceSchedule",
-					  filtermode    = "3",		
-  					  alias			= "C",			
+					  filtermode    = "3",		  					 
 					  search      = "text"}>						  		  					
 				
 <cfset itm = itm+1>						
 <cf_tl id="Reference" var="vReference">
 <cfset fields[itm] = {label     = "#vReference#",                  
 					  field       = "Reference",
-					  filtermode    = "4",		
-  					  alias			= "C",			
+					  filtermode    = "4",		  					 
 					  search      = "text"}>	
 					  
 <cfset itm = itm+1>		
 <cf_tl id="Exempt" var="vTax">
 <cfset fields[itm] = {label       = "#vTax#",	
-                      field       = "TaxExemption",
-					  alias		  = "C",                      
+                      field       = "TaxExemption",					                 
 					  filtermode  = "3",
 					  search      = "text"}>						  
 					  
 <cfset itm = itm+1>		
 <cf_tl id="Mobile" var="vMobile">
 <cfset fields[itm] = {label     = "#vMobile#",                  
-					  field       = "MobileNumber",
-  					  alias			= "C",
+					  field       = "MobileNumber",  					 
 					  filtermode    = "4",
 					  searchfield = "MobileNumber",
 					  filtermode  = "0",
@@ -154,8 +148,7 @@
 <cfset itm = itm+1>		
 <cf_tl id="eMail" var="vEmail">
 <cfset fields[itm] = {label       = "#vEmail#",	
-                      field       = "eMailAddress",
-					  alias			= "C",
+                      field       = "eMailAddress",					  
 					  filtermode    = "4",
                       searchfield = "eMailAddress",
 					  filtermode  = "0",
@@ -172,20 +165,20 @@
 <cfset itm = itm+1>			
 <cf_tl id="LastTransaction" var="vTransaction">				
 <cfset fields[itm] = {label       = "#vTransaction#",  					
-					  field       = "LastTransaction",
-					  alias		  = "C",
+					  field       = "LastTransaction",					 
 					  search      = "date",
 					  formatted   = "dateformat(LastTransaction,'#CLIENT.DateFormatShow#')"}>	
 					  
 		  
 <cfset itm = itm+1>		
 <cf_tl id="Created" var="vCreated">
-<cfset fields[itm] = {label       = "#vCreated#",  					
-					  field       = "Created",
-					  alias		  = "C",
-					  search      = "date",
-					  searchalias = "C",
-					  formatted   = "dateformat(Created,'#CLIENT.DateFormatShow#')"}>	
+<cfset fields[itm] = {label        = "#vCreated#",  					
+					  field        = "Created",
+					  alias		   = "C",
+					  search       = "date",
+					  fieldentry   = "1",	
+					  searchalias  = "C",
+					  formatted    = "dateformat(Created,'#CLIENT.DateFormatShow#')"}>	
 					  
 <cfset itm = itm+1>							
 	   
@@ -195,15 +188,15 @@
 		
 	<cf_tl id="#newLabel#" var="1">
 							
-	<cfset menu[1] = {label = "#lt_text#", script = "addCustomer()"}>				 
+	<cfset menu[1] = {label = "#lt_text#", script = "addCustomer('#url.mission#','listing')"}>				 
 		
 	<cf_listing
 	    header         = "Customer"
 		menu           = "#menu#"
-	    box            = "customerlisting"
+	    box            = "#mission#customerlisting"
 		link           = "CustomerViewListing.cfm?systemfunctionid=#url.systemfunctionid#&Mission=#url.mission#"
 	    html           = "No"
-		show           = "40"
+		show           = "400"
 		datasource     = "AppsMaterials"
 		listquery      = "#myquery#"			
 		listorder      = "LastName"

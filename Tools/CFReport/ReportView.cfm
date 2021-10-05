@@ -73,6 +73,17 @@ The output of the reports has 3 variations
 	 AND        M.RoleOwner = O.Code  
 </cfquery>
 
+
+
+<cfset vPath = "#SESSION.rootDocumentPath#\CFRStage\User\#SESSION.acc#\">
+<cfset vPath = Replace(vPath,"\\","\","all")>
+<cfif not DirectoryExists("#vPath#")>
+
+	<cfdirectory action="CREATE"
+			directory="#vPath#">
+
+</cfif>
+
 <!--- this will show the report --->
 
 <cfif UserReport.TemplateReport eq "Excel">
@@ -190,8 +201,8 @@ The output of the reports has 3 variations
 							
 	<cfreport template  = "#reppath#" 
 	   format    = "#format#" 
-	   overwrite = "yes" 
-	   filename  = "#SESSION.rootDocumentpath#\CFRStage\User\#SESSION.acc#\Report_#fileNo#.#suffix#">
+	   overwrite = "yes"
+	   filename  = "#vPath#Report_#fileNo#.#suffix#">
 	 					
 		<cfreportparam name = "Table1"         value="#URL.Table1#">
 		<cfreportparam name = "Table2"         value="#URL.Table2#">

@@ -81,6 +81,9 @@
 		
 		SELECT     TOP 400 Mission, Warehouse, WarehouseName, ItemPrecision,
 		           ItemNo, ItemNoExternal, ItemDescription, Category, CategoryName, UoM, UoMName, MinReorderQuantity,
+				   
+				   (SELECT TOP 1 ImagePath FROM ItemImage WHERE ItemNo = D.ItemNo) as ImagePath,			  
+						   
 				   PriceSchedule, PriceScheduleDescription, Promotion, Currency, SalesPrice, PriceDate, LastSold,
 				   QuantityForSale, 
 				   QuantityReserved,
@@ -176,8 +179,7 @@
 		ORDER BY    ItemDescription, ItemNo, Warehouse
 		<cfelse>
 		ORDER BY    ItemDescription, ItemNo, Warehouse				
-		</cfif>
-		
+		</cfif>		
 		
 </cfquery>
 
@@ -222,28 +224,52 @@
 			
 				<cfif form.warehouse eq "">		
 							
-					<tr class="fixrow2"><td colspan="10" style="padding-top:10px;padding-bottom:4px">
+					<tr class="fixrow2 line"><td colspan="10" style="padding-top:10px;padding-bottom:4px">
 
 					<table style="width:100%">
-							
-					<tr style="height:26px;width:80%" class="labelmedium2 fixrow2">
-						<td style="border-radius:6px;padding-left:13px;padding-bottom:3px;background-color:gray">
+					
+					<tr>
+										
+					<td style="min-width:160px;padding-left:8px" align="center">
+					   <cfif imagePath neq "">
+					   
+					    <div style="height:92px;margin-left: 5px;border-bottom: 1px solid ##efefef;">
+				           <div style="float: left;">
+				              <a href="#session.rootDocument#/#ImagePath#"
+					             class='lightview'
+				               	 data-lightview-group='Items'
+					             data-lightview-title="#ItemNo#<br>(#ItemNoExternal#)"
+					             data-lightview-caption="#ItemDescription#<br>#Mission#"
+				                 data-lightview-options="skin: 'mac'">
+							   <img style="max-width: 150px;height:auto;border: 1px solid ##efefef;" src="#session.rootDocument#/#ImagePath#">		 
+				            </a>
+				           </div>
+						 </div>
+				   
+					     </cfif>
+						 
+					</td>
+													
+					<td valign="top" style="width:100%;border-radius:6px;padding-left:13px;padding-bottom:3px">
 						<table style="width:100%">
 						<tr>
-						<td style="color:white;background-color:gray;font-weight:xbold;font-size:15px"><cfif itemNoExternal neq ""><b>#ItemNoExternal#</b><cfelse>#ItemNo#</cfif> : #ItemDescription#</td>
-						<td align="right" style="color:white;background-color:gray;width:20%;padding-right:4px;font-size:15px">#CategoryName#</td>
+						<td style="color:xwhite;font-size:18px"><cfif itemNoExternal neq ""><b>#ItemNoExternal#</b><cfelse>#ItemNo#</cfif> : #ItemDescription#</td>
 						</tr>
+						<tr>
+						<td style="color:xwhite;gray;width:20%;padding-right:4px;font-size:15px">#CategoryName#</td>
+						</tr>
+						<cf_tl id="Add" var="1">
+						<tr>
+						   <td  style="padding-top:4px;padding-left:10px">
+						   <input type="button" value="#lt_text#" class="button10g" style="width:170px;border:1px solid silver" 
+							onClick="additem('#warehouse#','#itemno#','#uom#','#currency#','#priceschedule#')">
+						   </td>																				
+						</tr>
+						
 						</table>
 						</td>						
-					</tr>
-					
-					<cf_tl id="Add" var="1">
+					</tr>					
 										
-					<tr><td colspan="9" align="center" style="padding-top:4px;padding-left:10px">
-					   <input type="button" value="#lt_text#" class="button10g" style="width:170px;border:1px solid silver" 
-						onClick="additem('#warehouse#','#itemno#','#uom#','#currency#','#priceschedule#')">
-					</td></tr>
-					
 					</table>
 					
 					</td></tr>
@@ -263,7 +289,7 @@
 					<table>
 					<tr>
 					<td style="padding-right:4px">
-					<input type="button" value="#lt_text#" class="button10g" style="border-radius:10px;width:60px;border:1px solid silver" 
+					<input type="button" value="#lt_text#" class="button10g" style="border-radius:3px;width:67px;border:1px solid silver" 
 						onClick="additem('#warehouse#','#itemno#','#uom#','#priceschedule#','#currency#')">
 					</td>
 					<td>

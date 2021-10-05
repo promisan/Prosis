@@ -1,12 +1,9 @@
  
 <cfajaximport>
 
- 
 <!----------------------------------------------------------------------------->
-<cfif DirectoryExists("#SESSION.rootDocumentPath#\#url.path#\#url.dir#\")>
-	
-        <!--- skip--->
-			
+<cfif DirectoryExists("#SESSION.rootDocumentPath#\#url.path#\#url.dir#\")>	
+        <!--- skip--->			
 <cfelse>  	
 	  
 	    <cfdirectory 
@@ -31,12 +28,15 @@
 
 </cfif>
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/>   
 
-<cfoutput>
+<cfoutput>  
 
 	<script>		
-		parent.ColdFusion.navigate('#session.root#/Tools/Picture/PictureView.cfm?mode=view&path=#url.path#&dir=#url.dir#&filter=#url.filter#&width=#url.width#&height=#url.height#','pictureshow');
-		parent.ColdFusion.navigate('#SESSION.root#/Tools/Picture/PictureView.cfm?mode=edit&path=#url.path#&dir=#url.dir#&filter=#url.filter#&width=#url.width#&height=#url.height#','picturebox');
+	    _cf_loadingtexthtml='';	
+		parent.ColdFusion.navigate('#session.root#/Tools/Picture/PictureView.cfm?mode=view&path=#url.path#&dir=#url.dir#&filter=#url.filter#&width=#url.width#&height=#url.height#&mid=#mid#','pictureshow');
+		parent.ColdFusion.navigate('#SESSION.root#/Tools/Picture/PictureView.cfm?mode=edit&path=#url.path#&dir=#url.dir#&filter=#url.filter#&width=#url.width#&height=#url.height#&mid=#mid#','picturebox');
 	</script>
 
 </cfoutput>

@@ -144,6 +144,8 @@
 		<input type="hidden" name="DOB" id="DOB" value="">
 		
 		<cfif URL.ID eq "Individual">
+		
+		 
 	
 	    <!--- Field: eMail --->
 	    <TR class="labelmedium2">
@@ -200,6 +202,23 @@
 		       class="regularxxl">
 		</TD>
 		</TR>
+		
+		 <!--- Field: Mail Server Account --->
+		 <TR>
+		    <TD class="labelmedium2"><cf_tl id="Corporate Logon">:</TD>
+		    <TD class="labelmedium2">
+		    					
+				<cfinput type="Text"
+			       name="AccountNo"			       
+			       required="No"
+				   class="regularxl"
+			       visible="Yes"
+			       enabled="Yes"
+			       size="40"
+			       maxlength="40">
+				
+			</TD>
+		</TR>   
 		
 		<!--- Field: LDAP Domain --->
 	    <TR class="labelmedium2">

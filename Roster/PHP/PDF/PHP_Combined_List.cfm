@@ -389,7 +389,11 @@
 		</cftry>		
 		<cfset dest = "#SESSION.rootdocumentpath#\#wfentity#\#actionid#\php_profile.pdf">	
 		
-	<cfelse>	
+	<cfelse>
+		<cftry>
+			<cfdirectory action="CREATE" directory="#SESSION.rootdocumentpath#\cfrstage\user\#SESSION.acc#">
+			<cfcatch></cfcatch>
+		</cftry>
 		<cfset dest = "#SESSION.rootdocumentpath#\cfrstage\user\#SESSION.acc#\php_#fileno#.pdf">		
 	</cfif>
 		

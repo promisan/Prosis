@@ -519,9 +519,15 @@ function stockquotedialog(id) {
 	  ptoken.navigate('../../salesorder/Quote/QuoteDialog.cfm?requestNo='+id,'salerequest');
  }
 
-function printquote(t) {
+function printquote(t,p2,p3) {
 	req   = document.getElementById("RequestNo").value
-	window.open("#session.root#/Tools/Mail/MailPrepareOpen.cfm?id="+req+"&ID1="+req+"&ID0="+t,"_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+	window.open("#session.root#/Tools/Mail/MailPrepareOpen.cfm?id="+req+"&ID1="+req+"&ID0="+t+"&ID2="+p2+"&ID3="+p3,"_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+}
+
+ function composequote(t) {
+	req   = document.getElementById("RequestNo").value
+	ProsisUI.createWindow('QuoteDetails', 'Quote details', '',{x:100,y:100,width:300,height:300,resizable:false,modal:true,center:true})
+	ptoken.navigate("#session.root#/"+t+"?id="+req,'QuoteDetails');
 }
 
 function saledispatch(s,modid) {		

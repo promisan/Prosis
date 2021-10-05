@@ -2,6 +2,9 @@
 <cf_CalendarScript>
 <cf_FileLibraryScript>
 <cf_dialogPosition>
+
+
+<cfajaxproxy cfc="Service.Process.System.UserController" jsclassname="systemcontroller">
   
 <cfoutput>
 	
@@ -19,7 +22,12 @@
 		    _cf_loadingtexthtml='';			
 		    ptoken.navigate('#session.root#/Staffing/Application/Employee/Document/EmployeeDocumentContent.cfm?ID='+id+'&Status=' + st,'dialog');
 		}
-	
+		
+		function checkfile() {
+			var uController = new systemcontroller();					
+			document.documententry.action = document.documententry.action + '&mid='+ uController.GetMid();					
+		}
+		
 	</script>
 
 </cfoutput>

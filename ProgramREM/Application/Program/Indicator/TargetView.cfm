@@ -3,7 +3,7 @@
 <cfparam name="url.Period"      default="">
 <cfparam name="url.ProgramId"   default="">
 
-<cfajaximport tags="cfdiv,cfwindow">
+<cfajaximport tags="cfdiv">
 <cf_ActionListingScript>
 <cf_FileLibraryScript>	 
 <cf_dialogREMProgram>	 
@@ -52,7 +52,7 @@ password="#SESSION.dbpw#">
 <cfif Check.recordcount eq "0">
 
   <cflocation addtoken="No" 
-        url="#SESSION.root#/programRem/Application/Program/Category/CategoryEntry.cfm?Period=#URL.Period#&ProgramCode=#URL.ProgramCode#">
+        url="#SESSION.root#/programRem/Application/Program/Category/CategoryEntry.cfm?Period=#URL.Period#&ProgramCode=#URL.ProgramCode#&mid=#url.mid#">
 		
 </cfif>
 
