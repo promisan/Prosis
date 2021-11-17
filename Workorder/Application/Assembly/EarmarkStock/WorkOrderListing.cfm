@@ -100,12 +100,12 @@
 		<tr>
 			<td style="padding:3px;" height="100%">
 			
-				<table width="100%" cellspacing="0" cellpadding="0">			
+				<table width="100%">			
 				
-					<tr class="labelmedium2 line">
+					<tr class="labelmedium2 line fixlengthlist">
 					
-						<td width="5%" style="padding-left:3px"></td>
-						<td style="width:30"></td>
+						<td></td>
+						<td></td>
 						<td><cf_tl id="Code"></td>
 						<td><cf_tl id="Description"></td>		
 						<td><cf_tl id="Color"></td>							
@@ -113,11 +113,11 @@
 						<td align="right"><cf_tl id="Sales Order"></td>													
 						<td style="cursor:pointer" align="right"><cf_UIToolTip  tooltip="Available earmarked stock"><cf_tl id="Earmarked"></cf_UIToolTip><cf_space spaces="15"></td>
 						<cfif line.pointerSale eq "1">
-							<td align="right"><cf_tl id="Shipped"><cf_space spaces="15"></td>
+							<td align="right"><cf_tl id="Shipped"></td>
 						<cfelse>
-							<td align="right"><cf_tl id="Freed"><cf_space spaces="15"></td>
+							<td align="right"><cf_tl id="Freed"></td>
 						</cfif>
-						<td align="right"><cf_tl id="Pending"><cf_space spaces="15"></td>
+						<td align="right"><cf_tl id="Pending"></td>
 						
 					</tr>					
 																					
@@ -125,7 +125,7 @@
 					
 						<cfset bal = quantity-shipped>
 													
-						<tr class="navigation_row line labelmedium" style="height:22px">
+						<tr class="navigation_row line labelmedium fixlengthlist" style="height:22px">
 						
 							<td align="center">							    
 								
@@ -144,8 +144,8 @@
 							<td>#ItemDescription#</td>
 							<td>#ItemColor#</td>
 							<td>#uoMDescription#</td>																															
-							<td bgcolor="A8EFF2" style="padding-right:5px" align="right">#numberformat(Quantity,'__')#</td>																
-							<td style="padding-right:3px" align="right" bgcolor="ffffcf">
+							<td bgcolor="A8EFF2" align="right">#numberformat(Quantity,'__')#</td>																
+							<td align="right" bgcolor="ffffcf">
 							
 								<table width="100%">
 									
@@ -166,12 +166,12 @@
 														
 							<cfif BillingMode eq "None">
 							
-								<td align="right" colspan="2" style="padding-right:3px"></td>
+								<td align="right" colspan="2"></td>
 								
 							<cfelse>
-								<td align="right" bgcolor="e1e1e1" style="padding-right:3px">#Shipped#</td>																
+								<td align="right" bgcolor="e1e1e1">#Shipped#</td>																
 								<cfif bal gt 0>
-								<td bgcolor="ffffaf" style="padding-right:3px" align="right">#bal#</td>
+								<td bgcolor="ffffaf" align="right">#bal#</td>
 								<cfelse>
 								<td bgcolor="white" align="right">
 								<img src="#session.root#/images/check_icon.gif" width="18" height="18" alt="Completed" border="0">

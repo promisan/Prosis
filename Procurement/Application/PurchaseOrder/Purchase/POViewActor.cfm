@@ -79,7 +79,7 @@
 	 AND     S.Role = P.Role
 	</cfquery>
 						
-		<table width="98%"  align="right" cellspacing="0" cellpadding="0">
+		<table width="98%"  align="right" class="navigation_table">
 		
 		<cfif getAdministrator("*") eq "1" or ApprovalAccess eq "EDIT" or ApprovalAccess eq "ALL">
 								
@@ -98,29 +98,29 @@
 			</tr> 					
 		
 		</cfif>
-		<tr>
+		<tr class="fixlengthlist labelmedium2 line">
 		  <td height="20" width="7"></td>
-		  <td class="labelit"><cf_tl id="Role"></td>
-		  <td class="labelit"><cf_tl id="Date"></td>
-		  <td class="labelit"><cf_tl id="Officer"></td>
-		  <td class="labelit"><cf_tl id="Granted by"></td>
-		</tr>
-		<tr><td height="1" colspan="5" class="line"></td></tr> 		
+		  <td><cf_tl id="Role"></td>
+		  <td><cf_tl id="Date"></td>
+		  <td><cf_tl id="Officer"></td>
+		  <td><cf_tl id="Granted by"></td>
+		  <td></td>
+		</tr>		
 		<cfloop query="Actor">
-		<tr>
+		<tr class="fixlengthlist labelmedium2 line navigation_row">
 		  <td height="20"></td>
-		  <td class="labelit">#Actor.Description#</td>
-		  <td class="labelit">#dateformat(Created,CLIENT.DateFormatShow)#</td>
-		  <td class="labelit">#Actor.ActorFirstName# #Actor.ActorLastName#</td>
-		  <td class="labelit">#Actor.OfficerFirstName# #Actor.OfficerLastName#</td>
+		  <td>#Actor.Description#</td>
+		  <td>#dateformat(Created,CLIENT.DateFormatShow)#</td>
+		  <td>#Actor.ActorFirstName# #Actor.ActorLastName#</td>
+		  <td>#Actor.OfficerFirstName# #Actor.OfficerLastName#</td>
 		  <td><cf_img icon="delete" 
-		      onclick="ColdFusion.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Purchase/POViewActor.cfm?action=delete&id1=#URL.ID1#&account=#actor.ActorUserId#','actor')">
+		      onclick="ptoken.navigate('#SESSION.root#/Procurement/Application/PurchaseOrder/Purchase/POViewActor.cfm?action=delete&id1=#URL.ID1#&account=#actor.ActorUserId#','actor')">
 		  </td>
 		</tr>
-		<cfif currentRow neq recordcount>
-		<tr><td height="1" colspan="5" class="line"></td></tr> 
-		</cfif>
+		
 		</cfloop>
 		</table>
 	
 </cfoutput>	
+
+<cfset ajaxonload("doHighlight")>

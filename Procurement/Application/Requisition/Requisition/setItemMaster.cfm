@@ -37,12 +37,10 @@ password="#SESSION.dbpw#">
 	try {	
 	
 		processmas('#get.Code#','requestcostprice','#get.Costprice#','#dlg#','#get.EnforceWarehouse#','single')	
-		} catch(e) {		
-
+		} catch(e) {	
 			try {
 			processmas('#get.Code#','requestcurrencyprice','#get.Costprice#','#dlg#','#get.EnforceWarehouse#','single')	
-			} catch(e) {}	
-				
+			} catch(e) {}					
 	}	
 	
 	</cfif>		

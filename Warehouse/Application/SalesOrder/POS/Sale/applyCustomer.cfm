@@ -54,11 +54,11 @@
 							 Mission, OrgUnit, PersonNo, 
 							 CustomerName, Reference, PhoneNumber, MobileNumber, eMailAddress, PostalCode, 
 							 Memo, TaxExemption, Terms, Operational, 
-							 OfficerUserId, OfficerLastName, OfficerFirstName, Created)
+							 OfficerUserId, OfficerLastName, OfficerFirstName)
 					SELECT   CustomerId, Mission, OrgUnit, PersonNo, 
 					         CustomerName,  Reference, PhoneNumber, MobileNumber, eMailAddress, PostalCode, 
 							 Memo, TaxExemption, Terms, Operational, 
-							 OfficerUserId, OfficerLastName, OfficerFirstName, Created
+							 '#session.acc#', '#session.last#','#session.first#'
 					FROM     WorkOrder.dbo.Customer
 					WHERE    CustomerId = '#url.customerid#'
 			</cfquery>

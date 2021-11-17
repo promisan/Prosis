@@ -100,7 +100,7 @@
 
 <cf_distributer>
 
-<table width="95%" height="100%" align="center" cellspacing="0" cellpadding="0">
+<table width="95%" height="100%" align="center">
 	   
   <tr><td height="5"></td></tr>	   
 	   
@@ -302,7 +302,7 @@
 
 <CF_Droptable dbName="AppsQuery"  tblName="#SESSION.acc#Subscription_#fileno#">
 
-<tr><td colspan="2" height="100%">
+<tr><td colspan="2" height="100%" style="padding-left:10px">
 
 	<table height="100%" width="100%" align="center" class="navigation_table">
 	
@@ -432,15 +432,15 @@
 	
 	<table width="99%" align="left">
 	
-	<tr class="labelmedium2 fixrow">
+	<tr class="labelmedium2 fixrow fixlengthlist">
 	    <td height="20" align="left"></td>
 		<td>Owner</td>
-		<td width="30%">Name</td>
-		<td width="80">Subscribers</td>
-		<td width="17%">Officer</td>
+		<td>Name</td>
+		<td>Subscribers</td>
+		<td>Officer</td>
 		<td align="center">Inception</td>	
-		<td width="20"></td>
-		<td width="20"></td>
+		<td></td>
+		<td></td>
 	</tr>
 		
 	<cfoutput query="SearchResult" group="SystemModule">
@@ -452,7 +452,7 @@
 			WHERE SystemModule = '#SystemModule#'				
 			</cfquery>
 	
-	<tr class="fixrow2">
+	<tr class="fixrow2 fixlengthlist">
 	  <td height="21" colspan="4" class="labelmedium2" style="font-weight:400;height;31;font-size:16px;padding-left:20px">#Description#&nbsp;&nbsp;<font size="2">[#Total.Total#]</font></td>
 	  <td colspan="4" align="right">
 	  
@@ -538,9 +538,9 @@
 		 <cfset color = "ffffff">
 		</cfif> 	
 				
-		<tr bgcolor="#color#" class="navigation_row labelmedium2 line">
+		<tr bgcolor="#color#" class="navigation_row labelmedium2 line fixlengthlist">
 		
-			<td width="6%" align="center" height="15" class="navigation_action" onclick="<cfif functionName neq prior>javascript:recordedit('#ControlId#')</cfif>">
+			<td align="center" height="15" class="navigation_action" onclick="<cfif functionName neq prior>javascript:recordedit('#ControlId#')</cfif>">
 			
 				<cfif functionName neq prior>	
 				
@@ -607,7 +607,7 @@
 		<td>#left(OfficerFirstName,1)#. #OfficerLastName#</td>
 		<td align="center">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
 					
-		<td width="3%" align="center">
+		<td align="center">
 			
 		<cfif TemplateSQL neq "Application">	
 			
@@ -616,7 +616,7 @@
 		</cfif>
 		</td>
 		
-		<td width="3%">
+		<td>
 		
 		<cfif TemplateSQL neq "Application">
 		

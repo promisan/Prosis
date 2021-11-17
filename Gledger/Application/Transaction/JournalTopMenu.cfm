@@ -1,14 +1,15 @@
 		 
 			<cfoutput>
 
-	         <table width="100%" align="left">
+	        <table width="100%" align="left">
 		    <tr class="labelmedium">
 			
-				<td style="font-size:30px;height:65px;font-weight:350">					
+				<td title="#Journal.Description# #Journal.Journal#" 
+				  style="min-width:250px;font-size:30px;height:65px;font-weight:350" class="fixlength">					
 				#Journal.Description# <font size="2">#Journal.Journal#</font>
 				</td>
 			
-				<td style="padding-left:4px;padding-bottom:3px;width:30px;font-weight:200">			
+				<td style="padding-left:4px;padding-bottom:3px;width:30px;font-weight:200" class="fixlength">			
 									
 				<span style="display:none;" id="printTitle"><cf_tl id="Journal"> #Journal.Journal# #Journal.Description#</span>
 				

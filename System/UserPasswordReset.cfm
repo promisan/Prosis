@@ -35,21 +35,21 @@ password="#SESSION.dbpw#">
 	WHERE   Account = '#URL.ID#'
 </cfquery>
 
-<table width="100%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" align="center" class="formpadding">
 <tr><td height="10"></td></tr>
 
-<tr><td colspan="2" height="20" class="labelmedium"><font color="gray">Password has been reset for the following user:</td></tr>
+<tr><td colspan="2" height="20" class="labelmedium2"><font color="gray">Password has been reset for the following user:</td></tr>
 
 <tr><td height="5"></td></tr>
-<tr class="labelit">
-	<td width="100"><cfoutput>Account:</td>
+<tr class="labelmedium2">
+	<td style="width:200px"><cfoutput>Account:</td>
 	<td>#url.id#</cfoutput></b></td>
 </tr>
-<tr class="labelit">
+<tr class="labelmedium2">
 	<td width="100"><cfoutput>Name:</td>
 	<td>#User.FirstName# #User.LastName#</cfoutput></b></td>
 </tr>
-<tr class="labelit">
+<tr class="labelmedium2">
 <TD><cf_tl id="Temporary Password">:</td>
 <td><font color="0080FF"><b><cfoutput>#random#</cfoutput></b></font></TD>
 </tr>
@@ -57,7 +57,7 @@ password="#SESSION.dbpw#">
 <tr><td colspan="2" class="line"></td></tr>
 <tr><td height="5"></td></tr>
 <tr>
-<td colspan="2" class="labelmedium">
+<td colspan="2" class="labelmedium2">
 Request the user to logon with this temporary password. <br> <br>He/she will be forced to assign a new password
 </td>
 </tr>

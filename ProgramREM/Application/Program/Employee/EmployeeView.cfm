@@ -52,7 +52,7 @@
 		
 		<cfparam name="url.staffmode" default="">
 			
-		<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+		<table width="99%" align="center" class="navigation_table">
 		
 		  <tr>
 		  	<td colspan="8" height="30" valign="middle">
@@ -136,31 +136,31 @@
 							  
 		 </cfquery>				  
 					  
-		  <TR class="line labelmedium">
+		  <TR class="line labelmedium2 fixlengthlist">
 			
 			       <td style="width:3%"></td>
-				   <td width="8%"  height="15"><cf_tl id="Grade"> </td>
-			       <td width="10%" height="15"><cf_tl id="IndexNo"> </td>				   
-				   <TD width="20%" height="15"><cf_tl id="Name"></TD>
-				   <TD width="6%"  height="15"><cf_tl id="G"></TD>
-				   <TD width="20%" height="15"><cf_tl id="Period"></TD>
-				   <td width="5%" height="15"><cf_tl id="Position"></td>
-				   <td width="30%" height="15"><cf_tl id="Title"></td>
+				   <td height="15"><cf_tl id="Grade"> </td>
+			       <td height="15"><cf_tl id="IndexNo"> </td>				   
+				   <TD height="15"><cf_tl id="Name"></TD>
+				   <TD height="15"><cf_tl id="G"></TD>
+				   <TD height="15"><cf_tl id="Period"></TD>
+				   <td height="15"><cf_tl id="Position"></td>
+				   <td height="15"><cf_tl id="Title"></td>
 			     
 		  </TR>
 		  
 		  <cfif staff.recordcount eq "0">
 		  
 		  <tr>
-		  <td colspan="8" class="labelmedium" style="height:30" align="center"><font color="808080">There are NO staff assignments recorded for this Program/Project</td>
+		  <td colspan="8" class="labelmedium2" style="height:30" align="center"><font color="808080">There are NO staff assignments recorded for this Program/Project</td>
 		  </tr>
 		  
 		  </cfif>
 		  
 		  <cfoutput query="Staff">
 		 
-		   <tr class="navigation_row line labelmedium">
-		      <td height="20" style="padding-left:4px;padding-right:5px">	
+		   <tr class="navigation_row line labelmedium2 fixlengthlist">
+		      <td height="20">	
 			    <cfif ProgramAccess eq "EDIT" or ProgramAccess eq "ALL">  
 			    <cf_img icon="edit" navigation="Yes" onclick="EditPerson('#PersonNo#')">      	
 				<cfelse>
@@ -210,31 +210,31 @@
 			</td>			
 		  </tr>
 		  		  
-		  <TR class="line">			
+		  <TR class="line fixlengthlist labelmedium2">			
 		       <td></td>
 			   <td></td>
-		       <td width="10%" height="15" class="labelit"><cf_tl id="IndexNo"> </td>
-			   <TD width="20%" height="15" class="labelit"><cf_tl id="Name"></TD>
-			   <TD width="6%" height="15" class="labelit"><cf_tl id="G"></TD>
-			   <TD width="20%" height="15" class="labelit"><cf_tl id="Period"></TD>
-			   <td width="40%" colspan="2" class="labelit" height="15"><cf_tl id="Role"></td>				  	     
+		       <td><cf_tl id="IndexNo"> </td>
+			   <TD><cf_tl id="Name"></TD>
+			   <TD><cf_tl id="G"></TD>
+			   <TD><cf_tl id="Period"></TD>
+			   <td><cf_tl id="Role"></td>				  	     
 		  </TR>
 		  	
 		  <cfoutput query="Employee">
 		 
-			   <tr class="navigation_row linedotted">
-			      <td colspan="2" height="20" style="padding-left:4px;padding-right:5px">	  
+			   <tr class="navigation_row labelmedium2 linedotted fixlengthlist">
+			      <td colspan="2" height="20">	  
 				    <cf_img icon="edit" navigation="Yes" onclick="edit('#ProgramOfficerNo#')">      	
 			      </td>
-			      <td class="labelit"><a href="javascript:EditPerson('#PersonNo#')"><font color="0080C0">#IndexNo#</a></td>
-				  <td class="labelit">#FirstName# #LastName#</td>
-				  <td class="labelit">#Gender#</td>
-				  <td class="labelit">#DateFormat(DateEffective,CLIENT.DateFormatShow)# - #DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>
-				  <td colspan="2" class="labelit">#Remarks#</td>	 
+			      <td><a href="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></td>
+				  <td>#FirstName# #LastName#</td>
+				  <td>#Gender#</td>
+				  <td>#DateFormat(DateEffective,CLIENT.DateFormatShow)# - #DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>
+				  <td colspan="2">#Remarks#</td>	 
 			   </tr> 	  
 			   
 			   <cfif ProgramDuty neq "">		   
-				   <tr class="navigation_row_child linedotted labelit"><td>
+				   <tr class="navigation_row_child linedotted labelmedium2"><td>
 				   <td></td>
 				   <td colspan="6">#ProgramDuty#</td>
 				   </tr>		   

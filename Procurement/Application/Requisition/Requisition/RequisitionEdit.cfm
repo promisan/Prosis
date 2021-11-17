@@ -1,8 +1,9 @@
 
-<cfajaximport tags="cfwindow,cfform">
+<cfajaximport tags="cfform">
 <cf_dialogworkorder>
 <cf_dialogProcurement>
 <cf_textareascript>
+<cf_listingscript>
 <cf_calendarscript>
 
 <cfparam name="URL.Mode"                default="entry">
@@ -91,12 +92,13 @@ password="#SESSION.dbpw#">
 	
 		function showProjectListing(mis, per){
 			try{
-				ColdFusion.Window.destroy('wProjectListing');
+				ProsisUI.closeWindow('wProjectListing');
 			}catch(ee){}
-			ColdFusion.Window.create('wProjectListing', 'Projects', '#session.root#/Procurement/Application/Requisition/Program/ProgramListing.cfm?mission='+mis+'&period='+per,{x:50,y:50,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true})    
+			ProsisUI.createWindow('wProjectListing', 'Projects'+mis, '#session.root#/Procurement/Application/Requisition/Program/ProgramListing.cfm?mission='+mis+'&period='+per,{x:50,y:50,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true})    
 		}
 	</script>
 </cfoutput>
+
 
 <cf_dialogPosition>
 
@@ -155,7 +157,7 @@ password="#SESSION.dbpw#">
 				<td bgcolor="FDFEDE" class="labelmedium" align="center" style="border:1px solid silver">#dateformat(Line.Created, CLIENT.DateFormatShow)#</td>				
 				<td style="padding-left:6px" class="labelit"><cf_tl id="Status">:</td>				
 				<td bgcolor="FDFEDE" class="labelmedium" style="border:1px solid silver" align="center">
-				<cfdiv bind="url:RequisitionEditStatus.cfm?requisitionno=#url.id#" id="reqstatus">		
+				<cf_securediv bind="url:RequisitionEditStatus.cfm?requisitionno=#url.id#" id="reqstatus">		
 				</td>
 				</tr>	
 								
@@ -372,8 +374,9 @@ password="#SESSION.dbpw#">
 		
 				
 	</cfif>
-	</cfoutput>	
 		
+	</cfoutput>	
+			
 	<tr class="hide" id="resultbox"><td height="10" id="resultsubmit"></td></tr>
 			   	    				
 	<tr><td colspan="2" style="padding-left:14px;height:100%" valign="top">
@@ -720,6 +723,8 @@ password="#SESSION.dbpw#">
 	</td></tr>
 		
 	</table>	
+
+	
 
 		
 <cfif url.header eq "1" or url.mode eq "workflow">

@@ -1,13 +1,16 @@
 
-<cfparam name="URL.docid"          default="">
-<cfparam name="URL.id0"            default="">
+
+<cfparam name="URL.docid"        default="">
+<cfparam name="URL.id0"          default="">
 <cfparam name="URL.id1"          default="">
 <cfparam name="URL.id2"          default="">
 <cfparam name="URL.id3"          default="">
 
+<cfparam name="URL.mode"           default="dialog">
 <cfparam name="URL.templatepath"   default="#url.id0#">
 
 <cfparam name="URL.subject"        default="#URL.ID1#">
+<cfparam name="URL.to"             default="xxxx@un.org">
 <cfparam name="URL.filename"       default="Document">
 <cfparam name="URL.format"         default="PDF">
 <cfparam name="URL.marginTop"      default="2.2">
@@ -46,7 +49,6 @@
 	
 </cfif>		 
 
-
 <TITLE><cfoutput>#URL.ID1#</cfoutput></TITLE>
 
 <cfif not DirectoryExists("#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\")>
@@ -80,38 +82,56 @@
   		
 	<cfif FindNoCase(".cfm", URL.templatepath)>
 	
-		<cfdocument 
-	      format       = "#URL.format#"
-	      pagetype     = "letter"
-		  overwrite    = "yes"
-		  filename     = "#vsPath#.pdf"
-		  margintop    = "#URL.marginTop#"
-		  marginbottom = "#URL.marginBottom#"
-	      marginright  = "0"
-	      marginleft   = "0"
-	      orientation  = "#URL.orientation#"
-	      unit         = "cm"
-	      fontembed    = "Yes"
-	      scale        = "#URL.scale#"
-	      backgroundvisible="Yes">
-		  
-		  
-		  <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
-		  		  		  		  
-		  <cfinclude template="../../#URL.templatepath#">
-		  			
-		</cfdocument>	
+		<cfif renderer neq "HTMPDF">
+	
+			<cfdocument 
+		      format            = "#URL.format#"
+		      pagetype          = "letter"
+			  overwrite         = "yes"
+			  filename          = "#vsPath#.pdf"
+			  margintop         = "#URL.marginTop#"
+			  marginbottom      = "#URL.marginBottom#"
+		      marginright       = "0"
+		      marginleft        = "0"
+		      orientation       = "#URL.orientation#"
+		      unit              = "cm"
+		      fontembed         = "Yes"
+		      scale             = "#URL.scale#"
+		      backgroundvisible = "Yes">
+			  
+			  <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">		  		  		  		  
+			  <cfinclude template="../../#URL.templatepath#">
+			  			
+			</cfdocument>	
+		
+		<cfelse>
+		
+		    <cfsavecontent variable="documentcontent">		
+				<cfinclude template="../../#URL.templatepath#">
+			</cfsavecontent>		
+		
+			<cffile action="WRITE" 
+	          file="#vsPath#.htm" 
+			  output="#DocumentContent#" 
+			  addnewline="Yes" 
+			  fixnewline="No">	
+											 
+			 <!--- on-the-fly converter of htm content to pdf --->  
+		     <cf_htm_pdf fileIn= "#vsPath#">		
+
+		</cfif>							
 				
 	<cfelse>
 	
 		<cfquery name="Parameter" 
 		datasource="AppsInit">
 			SELECT * 
-			FROM Parameter
-			WHERE HostName = '#CGI.HTTP_HOST#'  
+			FROM   Parameter
+			WHERE  HostName = '#CGI.HTTP_HOST#'  
 		</cfquery>
-	
-		<cfset rep=replace(url.templatepath,"/","\","ALL")>
+			
+		<cfset rep    = replace(url.templatepath,"/","\","ALL")>		
+		<cfset vspath = replace(vspath,"\\","\","ALL")>		
 		
 		<cfreport 
 		   template     = "#SESSION.rootPath##rep#" 
@@ -133,16 +153,16 @@
 		</cfreport>	
 
 	</cfif>
-		
+				
 	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
-	<cfset mid = oSecurity.gethash()/> 
+	<cfset mid = oSecurity.gethash()/> 	
 		
 	<cfoutput>
-	<script language="JavaScript">
-			window.location = "#SESSION.root#/Tools/Mail/Mail.cfm?Subject=#URL.Subject#&ID1=#URL.ID1#&ID2=#attach#&Source=Action&Sourceid=#URL.ID#&Mode=Dialog&GUI=HTML&mid=#mid#"
+	<script language="JavaScript">	        
+			window.location = "#SESSION.root#/Tools/Mail/Mail.cfm?mode=#url.mode#&Subject=#URL.Subject#&ID1=#URL.ID1#&ID2=#attach#.pdf&Source=Action&Sourceid=#URL.ID#&ID=#url.to#&mid=#mid#"
 	</script>
 	</cfoutput>
-		
+			
 <cfelseif URL.Id eq "HTM">
 
 	  <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
@@ -159,7 +179,7 @@
 	
 		<cfif renderer neq "HTMPDF">	
 		
-		     <!--- format --->
+		     <!--- CF format --->
 	    
 		 	<cfdocument 
 			      format            = "#URL.Format#"
@@ -191,19 +211,15 @@
 			</cfsavecontent>		
 		
 			<cffile action="WRITE" 
-	          file="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#attach#.htm" 
+	          file="#vsPath#.htm" 
 			  output="#DocumentContent#" 
 			  addnewline="Yes" 
 			  fixnewline="No">	
-			  
-			  <cfoutput>#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#attach#.pdf</cfoutput>	
-								 
-								<!--- on-the-fly converter of htm content to pdf --->  
-		      <cf_htm_pdf fileIn= "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#attach#">
-		
-		</cfif>
-		
-		
+											 
+			 <!--- on-the-fly converter of htm content to pdf --->  
+		     <cf_htm_pdf fileIn= "#vsPath#">		
+	
+		</cfif>		
 	
 	<cfelse>	
 		
@@ -220,11 +236,9 @@
 				<cfreportparam name = "ID3"  value="#URL.ID3#">
 
 		</cfreport>	
-
-
-
+		
 	</cfif>
-
+	
 	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
 	<cfset mid = oSecurity.gethash()/> 
 	<cfset vFile = "#SESSION.acc#\#attach#.pdf">

@@ -41,7 +41,7 @@
 	
 	<cf_mobileMenuItem 
 		description="#FunctionMemo#"
-		reference="javascript:ColdFusion.navigate('#vURL#','mainContainer');">
+		reference="javascript:ptoken.navigate('#vURL#','mainContainer');">
 	</cf_mobileMenuItem>
 
 </cfoutput>

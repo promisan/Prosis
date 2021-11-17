@@ -127,10 +127,10 @@ password="#SESSION.dbpw#">
 			<TR><td class="labelmedium"><cf_tl id="Parent node">:</td>
 			<TD>
 			
-			<table cellspacing="0" cellpadding="0" class="formpadding">
+			<table style="width:100%" cellspacing="0" cellpadding="0" class="formpadding">
 			<tr>
-			<td width="80%">
-				<input type="text"   name="orgunitnameparent" id="orgunitnameparent" value="#Parent.OrgUnitName#" class="regularxl" size="50" maxlength="80" readonly>		
+			<td width="84%">
+				<input type="text"   name="orgunitnameparent" id="orgunitnameparent" value="#Parent.OrgUnitName#" class="regularxl" style="width:100%" readonly>		
 				<input type="hidden" name="orgunit"           id="orgunit" value="">
 				<input type="hidden" name="parentorgunit"     id="parentorgunit"    value="#ParentOrgUnit#"> 
 				<input type="hidden" name="parentorgunitold"  id="parentorgunitold" value="#ParentOrgUnit#">
@@ -440,7 +440,7 @@ password="#SESSION.dbpw#">
 				
 		</TR>	
 		
-		<TR>
+		<TR class="fixlengthlist">
 	    <TD class="labelmedium" style="height:25px"><cf_tl id="Work scheduling and submission">:</TD>	 
 		<TD class="labelmedium">	
 			<table cellspacing="0" cellpadding="0">
@@ -576,8 +576,8 @@ password="#SESSION.dbpw#">
 		</TR>
 				
 		<TR>
-		    <TD class="labelmedium" style="cursor:pointer;padding-top:1px" valign="top">
-			<cf_UIToolTip tooltip="Define a user account that will be granted access to Portal information (invoices etc.) associated to this node"><cf_tl id="Associated Users">:</cf_UIToolTip></TD>
+		    <TD class="labelmedium" style="cursor:pointer;padding-top:4px" valign="top" title="Define a user account that will be granted access to Portal information (invoices etc.) associated to this node">
+			<cf_tl id="Associated Users">:</TD>
 		    <TD height="70" valign="top" style="border:0px solid silver">			
 			<cfinclude template="OrganizationUser.cfm">			
 			</TD>

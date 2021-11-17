@@ -25,26 +25,26 @@
 	<script language="JavaScript">
 			
 		document.getElementById('itemno').value  = "#get.Itemno#"				
-		ColdFusion.navigate('#SESSION.root#/warehouse/application/stock/Transaction/getUoM.cfm?mode=#url.mode#&itemno=#url.ItemNo#&showLocation=#url.showLocation#','uombox')				
+		ptoken.navigate('#SESSION.root#/warehouse/application/stock/Transaction/getUoM.cfm?mode=#url.mode#&itemno=#url.ItemNo#&showLocation=#url.showLocation#','uombox')				
 					
 	</script>	
 	
-	<table style="width:100%" cellspacing="0" cellpadding="0">
+	<table style="width:100%;border:0px solid silver" cellspacing="2" cellpadding="2">
 	
 		<cfif url.showLocation eq "yes">
 		
-			<tr>
-				<td width="10%" style="border-bottom:1px solid silver;padding-right:3px" class="labelit"><cf_tl id="Id"></td>
-			    <td width="40%" style="padding-left:5px;padding-right:3px" class="labelmedium"><a href="javascript:item('#get.ItemNo#','','#warehouse.mission#')">#get.ItemNo#</a></td>
-				<td width="10%" style="border-bottom:1px solid silver;padding-right:3px" class="labelit"><cf_tl id="Name"></td>
-			    <td style="padding-left:5px"  width="40%" class="labelmedium">#get.ItemDescription#</td>		
+			<tr class="fixlengthlist labelmedium2 line">
+				<td style="background-color:f1f1f1;border-right:1px solid silver;padding-right:3px"><cf_tl id="Id"></td>
+			    <td style="border-right:1px solid silver;padding-left:5px;padding-right:3px"><a href="javascript:item('#get.ItemNo#','','#warehouse.mission#')">#get.ItemNo#</a></td>
+				<td style="background-color:f1f1f1;border-right:1px solid silver;padding-right:3px"><cf_tl id="Name"></td>
+			    <td style="">#get.ItemNoExternal# #get.ItemDescription#</td>		
 			</tr>
 			
-			<tr>
-				<td class="labelit" style="border-bottom:1px solid silver;padding-right:3px"><cf_tl id="Category"></td>
-			    <td style="padding-left:5px;padding-right:3px" class="labelmedium">#get.Description#</td>
-				<td class="labelit" style="border-bottom:1px solid silver;padding-right:3px"><cf_tl id="Class"></td>
-			    <td style="padding-left:5px" class="labelmedium">#get.ItemClass#</td>		
+			<tr class="fixlengthlist labelmedium2">
+				<td style="background-color:f1f1f1;border-right:1px solid silver;padding-right:3px"><cf_tl id="Category"></td>
+			    <td style="border-right:1px solid silver;padding-left:5px;padding-right:3px">#get.Description#</td>
+				<td style="background-color:f1f1f1;border-right:1px solid silver;padding-right:3px"><cf_tl id="Class"></td>
+			    <td style="padding-left:5px">#get.ItemClass#</td>		
 			</tr>
 		
 		<cfelse>

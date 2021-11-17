@@ -30,10 +30,20 @@
 		
 	}
 	
+	function itemclassification(itm,mid) {	
+	    ptoken.open(root + "/Warehouse/Maintenance/Item/RecordEdit.cfm?idmenu="+mid+"&ID=" + itm, "dlg_"+itm);	
+	}
+	
 	function EditAsset(assetid,template) {
 	    w = #CLIENT.width# - 50;
 	    h = #CLIENT.height# - 120;
 		ptoken.open(root + "/Warehouse/Application/Asset/AssetView.cfm?ID=" + assetid + "&template="+template, "_blank", "left=10, top=10, width=" + w + ", height= " + h + ", status=yes, toolbar=no, scrollbars=no, resizable=yes");
+	}
+	
+	function stockquote(requestno,functionid) {   
+	    w = #CLIENT.width# - 80;
+	    h = #CLIENT.height# - 165;
+		ptoken.open(root + "/Warehouse/Application/SalesOrder/Quote/QuoteView.cfm?systemfunctionid="+functionid+"&RequestNo="+requestno, "quote"+requestno);	
 	}
 	
 	function batch(batch,mis,mode,functionid,trigger) {   

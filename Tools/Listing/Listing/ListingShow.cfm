@@ -27,8 +27,7 @@
    <div style="height:100%;" id="main_#url.systemfunctionid#">
   		
    <cfif listclass eq "Listing">
-   
-           
+              
    	    <!--- menu listing --->
               	   
    	   <cf_layout type="border">

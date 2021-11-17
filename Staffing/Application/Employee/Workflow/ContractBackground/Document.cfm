@@ -19,7 +19,7 @@
   <tr><td height="1" colspan="2" bgcolor="E4E4e4"></td></tr>  
   <tr>
     <td colspan="2">
-    <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0" bordercolor="111111" class="formpadding">
+    <table width="100%" align="center" border="0" class="formpadding">
 	
 	<tr><td height="4" colspan="4"><b>Select relevant back ground</td></tr>
 	

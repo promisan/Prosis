@@ -162,7 +162,7 @@ password="#SESSION.dbpw#">
 							
 							<tr>
 								<td class="labelmedium2">Field sort by:</td>
-								<td colspan="3">
+								<td colspan="1">
 								
 								<cfset sc = replace(get.QueryScript, "SELECT",  "SELECT TOP 1")> 
 		
@@ -216,6 +216,31 @@ password="#SESSION.dbpw#">
 								  	     <option value="#col#" <cfif fieldnamesort eq col>selected</cfif>>#col#</option> 
 								     </cfloop>								
 								  </select>
+								
+								</td>
+								
+								<td class="labelmedium2">Field function:</td>
+								<td colspan="1">
+								<table>
+								<tr>
+								<td title="function available in the context of the listing">								
+									<input type="text" name="FieldFunction" id="FieldFunction" maxlength="30" value="#FieldFunction#" class="regularxxl">								
+								</td>
+								 <td style="padding-left:2px" title="field content to be passed into function">
+								 <select name="fieldfunctionfield" id="fieldfunctionfield" class="regularxxl">		
+								     <option value=""><cf_tl id="same"></option>						 
+								     <cfloop index="col" list="#colfields#" delimiters=",">							      
+								  	     <option value="#col#" <cfif fieldfunctionfield eq col>selected</cfif>>#col#</option> 
+								     </cfloop>								
+								  </select>
+								  </td>
+								  <td style="padding-left:2px" title="condition field to be passed">								
+									<input type="text" name="FieldFunctionCondition" id="FieldFunctionCondition" maxlength="20" value="#FieldFunctionCondition#" class="regularxxl">								
+								</td>
+								
+								</tr>								
+								</table>
+								
 								
 								</td>
 											

@@ -134,7 +134,7 @@
 		<tr bgcolor="fafafa">
 		  <td style="border:1px solid silver" colspan="2" height="20" style="padding:6px">			 
 		  <cfoutput><img src="#SESSION.root#/images/logos/warehouse/fuel.png" alt="" border="0"></cfoutput>
-		  &nbsp;<font face="Verdana" size="3" color="C0C0C0"><cfoutput>#lt_content#</cfoutput></b>	    	   
+		  &nbsp;<font size="3" color="C0C0C0"><cfoutput>#lt_content#</cfoutput></b>	    	   
 		  </td>
 		</tr>		
 		
@@ -235,8 +235,8 @@
 		<cfelseif url.mode eq "disposal">	
 		
 		<tr>
-		  <td style="border:0px solid silver" colspan="2" style="padding:2px">	
-		  
+		  <td colspan="2" style="padding:2px">	
+		  		  		  
 		  <!---
 		  <table height="67px" cellpadding="0" cellspacing="0" border="0" style="overflow-x:hidden" >												
 		  		    			
@@ -302,7 +302,7 @@
 						
 				<cfif url.warehouse neq "">
 				
-			        <TR class="labelmedium"> 
+			        <TR class="labelmedium2"> 
 			          <TD height="20" width="100"><cf_space spaces="60"><cf_tl id="Facility">:</TD>
 			          <td width="80%" align="left">
 					  
@@ -323,7 +323,7 @@
 				
 				<cfelse>
 				
-					 <TR class="labelmedium"> 
+					 <TR class="labelmedium2"> 
 			          <TD height="22" width="120"><cf_tl id="Warehouse">:</TD>
 			          <td width="80%" align="left" >
 					 						
@@ -341,7 +341,7 @@
 								</cfif>	 
 						</cfquery>
 																		
-						<select name="warehouse" id="warehouse" class="regularxl">
+						<select name="warehouse" id="warehouse" class="regularxxl">
 							<!---
 							  onchange="document.getElementById('itemno').value='';document.getElementById('itemdescription').value=''">
 						  --->
@@ -368,9 +368,9 @@
 					
 				<cfif url.mode eq "Disposal">
 						
-					<tr>  
-					  <td class="labelmedium" height="20" width="100"><cf_tl id="Transaction">:</td>
-				      <td class="labelmedium"><cf_tl id="Disposal"> (#TransactionType.Description#)</td>			  	   
+					<tr class="labelmedium2 line">  
+					 
+				      <td colspan="2" style="height:32px;font-size:18px"><cf_tl id="Disposal"> (#TransactionType.Description#)</td>			  	   
 				    </TR>	
 						
 				</cfif>						
@@ -378,8 +378,8 @@
 				<input type="hidden" name="tratpe" id="tratpe" value="#url.id#">
 								
 				
-				<tr>  
-				  <TD height="22" width="100" class="labelmedium"><cf_tl id="Local Date/Time">:</TD>
+				<tr class="labelmedium2">  
+				  <TD width="100"><cf_tl id="Local Date/Time">:</TD>
 				  
 				     <cf_getWarehouseTime warehouse="#url.warehouse#">
 					 				  
@@ -388,7 +388,7 @@
 					 
 				  <td>
 				  
-					<table cellspacing="0" cellpadding="0">
+					<table>
 					<tr>
 					
 					<td>
@@ -396,7 +396,7 @@
 					<cf_intelliCalendarDate9
 						FieldName  = "TransactionDate" 
 						Default    = "#dateformat(localtime,CLIENT.DateFormatShow)#"
-						Class      = "regularxl enterastab"
+						Class      = "regularxxl enterastab"
 						AllowBlank = "false"> 		
 					
 				    </td>
@@ -405,7 +405,7 @@
 					
 					<td>					
 					
-					<select name="Transaction_hour" id="Transaction_hour" class="regularxl enterastab">
+					<select name="Transaction_hour" id="Transaction_hour" class="regularxxl enterastab">
 					
 						<cfloop index="it" from="0" to="23" step="1">
 						
@@ -422,21 +422,19 @@
 					<td>-</td>
 					<td>
 					
-					<select name="Transaction_minute" id="Transaction_minute" class="regularxl enterastab">
+					<select name="Transaction_minute" id="Transaction_minute" class="regularxxl enterastab">
 						
-						<cfloop index="it" from="0" to="59" step="1">
-							
+						<cfloop index="it" from="0" to="59" step="1">							
 							<cfif it lte "9">
 								  <cfset it = "0#it#">
 							</cfif>				 							
-							<option value="#it#" <cfif mn eq it>selected</cfif>>#it#</option>
-							
+							<option value="#it#" <cfif mn eq it>selected</cfif>>#it#</option>							
 						</cfloop>	
 										
 					</select>						
 					
 					</td>
-					<td class="labelmedium" style="padding-left:7px">[UTC#timezone#]</td>
+					<td style="padding-left:7px">[UTC#timezone#]</td>
 					</tr>
 					</table>			
 		         
@@ -446,8 +444,8 @@
 							
 				<cfif url.mode eq "sale">
 				
-				<TR> 
-		          <TD height="22" class="labelmedium"><cf_tl id="Equipment Item">:</TD>
+				<TR class="labelmedium2"> 
+		          <TD height="22"><cf_tl id="Equipment Item">:</TD>
 		          <td align="left">
 				    <table width="99%" cellspacing="0" cellpadding="0">
 					
@@ -482,10 +480,10 @@
 				
 				<cfif url.mode eq "sale">
 				
-					<TR> 
-			          <TD height="22" class="labelmedium"><cf_tl id="Unit">: <font color="FF0000">*</font></TD>
+					<TR class="labelmedium2"> 
+			          <TD><cf_tl id="Unit">: <font color="FF0000">*</font></TD>
 			          <td align="left">
-					    <table width="99%" cellspacing="0" cellpadding="0">
+					    <table width="99%">
 						<tr>
 						
 						    <td width="98%" style="height:20;padding:2px;border:1px solid silver" id="unitbox"></td>	
@@ -518,8 +516,9 @@
 				
 				<cfif url.mode eq "sale" or url.mode eq "Disposal">
 				
-					<TR> 
-			          <TD height="22" class="labelmedium">
+					<TR class="labelmedium2"> 
+			          
+					  <TD>
 					  <cfif url.mode eq "sale">
 					  	<cf_tl id="Receiver">:
 					  <cfelse>
@@ -529,10 +528,12 @@
 					  <font color="FF0000">*</font></TD>
 					  
 			          <td align="left">
-					    <table width="99%" cellspacing="0" cellpadding="0">
+					  
+					    <table width="99%">
+						
 						<tr>
 						
-						    <td width="98%" style="height:30" id="personbox"></td>	
+						    <td width="98%" style="height:30;border:1px solid silver;" id="personbox"></td>	
 							
 							<td width="30" style="padding-left:3px" valign="top">
 													
@@ -561,33 +562,32 @@
 			   
 			   </cfif>
 			   
-			    <cfif url.mode eq "externalsale">
+			   <cfif url.mode eq "externalsale">
 				
-				<tr>  
-				  <td height="22" class="labelmedium" width="100"><cf_tl id="Customer">:</TD>
+				<tr class="labelmedium2">  
+				  <td height="22" width="100"><cf_tl id="Customer">:</TD>
 		        				  				  
 				  <td align="left">
-					    <table width="99%" cellspacing="0" cellpadding="0">
+					    <table width="99%">
 						<tr>
 						
-						    <td width="98%" style="height:20;padding:2px;border:1px solid silver" id="customerbox"></td>	
+						    <td width="98%" style="height:20;padding:2px;border:1px solid silver" id="customerbox"></td>								
+							<td width="20" style="padding-left:3px" valign="top">
 							
-							<td width="20" style="padding-left:0px;padding-left:3px" valign="top">
-							
-						       <cfset link = "#SESSION.root#/Warehouse/Application/Stock/Transaction/getCustomer.cfm?">	
+						      <cfset link = "#SESSION.root#/Warehouse/Application/Stock/Transaction/getCustomer.cfm?">	
 										   
-							   	  <cf_selectlookup
-								    box          = "customerbox"
-									link         = "#link#"
-									title        = "Customer"
-									icon         = "contract.gif"
-									button       = "No"
-									close        = "Yes"	
-									datasource   = "AppsMaterials"
-									filter1      = "mission"
-									filter1value = "#url.mission#"					
-									class        = "customer"
-									des1         = "CustomerId">										
+						   	  <cf_selectlookup
+							    box          = "customerbox"
+								link         = "#link#"
+								title        = "Customer"
+								icon         = "contract.gif"
+								button       = "No"
+								close        = "Yes"	
+								datasource   = "AppsMaterials"
+								filter1      = "mission"
+								filter1value = "#url.mission#"					
+								class        = "customer"
+								des1         = "CustomerId">										
 												
 							</td>
 							
@@ -623,14 +623,14 @@
 				</cfquery>
 				
 				<cfif unit.recordcount gte "1">				
-				<TR> 
-		          <TD height="22" class="labelmedium"><cf_tl id="OrgUnit">:</TD>
+				<TR class="labelmedium2"> 
+		          <TD height="22"><cf_tl id="OrgUnit">:</TD>
 		          <td align="left">
 				  		
-				    <select name="orgunit" id="orgunit" class="regularxl">							    
-								<cfloop query="unit">
-									<option value="#orgunit#">#OrgUnitCode# #OrgUnitName#</option>
-								</cfloop>
+				    <select name="orgunit" id="orgunit" class="regularxxl">							    
+						<cfloop query="unit">
+							<option value="#orgunit#">#OrgUnitCode# #OrgUnitName#</option>
+						</cfloop>
 					</select>					  
 									
 			  	  </td>			  	   
@@ -658,9 +658,9 @@
 			   
 				   <cfif ServiceUnit.recordcount eq "0">
 				   
-				   	<tr>  
-						  <TD height="22" class="labelmedium" width="100"><cf_tl id="Service unit">:</TD>
-				          <td class="labelmedium">
+				   	<tr class="labelmedium2">  
+						  <TD height="22" width="100"><cf_tl id="Service unit">:</TD>
+				          <td>
 						  <font color="FF0000"><cf_tl id="Issued item will not be billed"></font>												
 						  <input type="hidden" name="billingunit" id="billingunit" value="">
 						  </td>
@@ -669,11 +669,11 @@
 								
 					<cfelse>				   
 					
-						<tr>  
-						  <TD height="22" class="labelmedium" width="100"><cf_tl id="Service unit">:</TD>
-				          <td class="labelmedium">
+						<tr class="labelmedium2">  
+						  <TD height="22" width="100"><cf_tl id="Service unit">:</TD>
+				          <td>
 						 						
-							<select name="billingunit" id="billingunit" class="regularxl">							    
+							<select name="billingunit" id="billingunit" class="regularxxl">							    
 								<cfloop query="ServiceUnit">
 									<option value="#unit#">#UnitCode# #UnitDescription#</option>
 								</cfloop>
@@ -687,22 +687,22 @@
 							
 				</cfif>		
 								
-				<TR> 
-		          <TD height="22" class="labelmedium"><cf_tl id="Reference">:</TD>
+				<TR class="labelmedium2"> 
+		          <TD><cf_tl id="Reference">:</TD>
 		          <td align="left">
 				  	<input type="text" name="TransactionReference" id="TransactionReference" 
-					  class="regularxl enterastab" style="width:50%" maxlength="20">
+					  class="regularxxl enterastab" style="width:50%" maxlength="20">
 			  	  </td>			  	   
 		        </TR>			
 							
-				<TR> 
-		          <TD height="22" valign="top" style="padding-top:4px" class="labelmedium"><cf_tl id="Stock Item">: <font color="FF0000">*</font></TD>
+				<TR class="labelmedium2"> 
+		          <TD valign="top" style="padding-top:4px"><cf_tl id="Stock Item">: <font color="FF0000">*</font></TD>
 		          <td align="left" width="80%">
 				  
-				    <table width="99%" cellspacing="0" cellpadding="0">
+				    <table width="99%">
 					<tr>
 					
-					   <td width="98%" style="height:30px;padding-left:0px;border:0px solid silver" id="itembox"></td> 
+					   <td width="98%" style="height:30px;padding-left:0px;border:1px solid silver" id="itembox"></td> 
 					   <td width="30" style="padding-left:3px" valign="top">
 					   					   					   	
 				       <cfset link = "#SESSION.root#/warehouse/application//stock/Transaction/getItem.cfm?warehouse=#url.warehouse#&mode=#url.mode#">
@@ -790,7 +790,7 @@
 			  	  </td>			  	   
 		        </TR>
 				
-				<tr id="uomlabel" class="hide"><td height="22" class="labelmedium"><cf_tl id="UoM">: <font color="FF0000">*</font></td>
+				<tr id="uomlabel" class="hide"><td height="22" class="labelmedium2"><cf_tl id="UoM">: <font color="FF0000">*</font></td>
 				    <td id="uombox"></td>
 				</tr>		
 								
@@ -798,9 +798,9 @@
 																				
 					<cfif Param.LotManagement eq "1">
 		
-						<tr>
+						<tr class="labelmedium2">
 						
-							<td width="100" class="labelmedium"><cf_tl id="Production Lot">:</td>
+							<td width="100"><cf_tl id="Production Lot">:</td>
 						
 						    <td>
 							
@@ -836,30 +836,32 @@
 				    <td id="locbox"></td>
 				</tr>
 							
-				<TR> 
-		            <TD  valign="top" style="padding-top:6px" class="labelmedium"><cf_tl id="Memo">:</TD>
+				<TR class="labelmedium2"> 
+		            <TD  valign="top" style="padding-top:6px"><cf_tl id="Memo">:</TD>
 		            <td align="left">
 					
 					    <textarea name="remarks" 
-								 id="remarks"					     
-								 class="regular enterastab" 
-								 totlength="200"
-								 onkeyup="return ismaxlength(this)"					
-								 style="height:42;width:99%;padding:3px;font-size:14px"></textarea>
+							 id="remarks"					     
+							 class="regular enterastab" 
+							 totlength="200"
+							 onkeyup="return ismaxlength(this)"					
+							 style="height:42;width:99%;padding:3px;font-size:14px"></textarea>
 					
 			  	    </td>			  	   
 		        </TR>					
 				
-				<tr id="submitbox0" class="hide"><td class="linedotted" colspan="2" height="1"></td></tr>
+				<tr id="submitbox0" class="hide"><td class="line" colspan="2" height="1"></td></tr>
 				
 				<TR id="submitbox1" class="hide"> 
 		          <TD colspan="2" align="center" height="28">
-				  <cf_tl id="Add Line" var="1">			  
-				  <input type="button" 
-				      class="button10g" style="height:24px;width:190" 
-					  value="#lt_text#" 
-					  onclick="ptoken.navigate('../Transaction/TransactionEntrySubmit.cfm?systemfunctionid=#url.systemfunctionid#&mode=#url.mode#&warehouse=#url.warehouse#','detail','','','POST','transactionform')" 
-					  name="addline" id="addline">
+				  
+					  <cf_tl id="Add Line" var="1">			  
+					  <input type="button" 
+					      class="button10g" style="height:24px;width:190" 
+						  value="#lt_text#" 
+						  onclick="ptoken.navigate('../Transaction/TransactionEntrySubmit.cfm?systemfunctionid=#url.systemfunctionid#&mode=#url.mode#&warehouse=#url.warehouse#','detail','','','POST','transactionform')" 
+						  name="addline" id="addline">
+					  
 				  </TD>
 		        </TR>
 							

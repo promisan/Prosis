@@ -175,7 +175,7 @@
 	
 	<cfelse>
 	
-		<tr class="labelmedium line">
+		<tr class="labelmedium line fixlengthlist">
 		  <td style="padding:2px"><cf_tl id="Location"></td>
 		  <td style="padding:2px" align="right"><cf_tl id="On Hand"></td>
 		  <td style="padding:2px" align="right"><cf_tl id="Quantity">&Delta;</td>	
@@ -186,7 +186,7 @@
 		
 		<cfloop query="Get">
 		
-			<tr class="labelmedium">
+			<tr class="labelmedium fixlengthlist">
 			  <td style="padding:2px">#Location# #Description# <cfif storagecode neq "">(#StorageCode#)</cfif></td>
 			  <td width="100" style="padding:2px" align="right"><cfif stock lt 0><font color="FF0000"></cfif>
 			  	<cfif isNumeric(stock)>
@@ -405,25 +405,25 @@
 		
 		<cfelse>
 		
-			<tr class="line labelit">
-			  <td style="padding-left:2px"><cf_tl id="Location"></td>
-			  <td style="padding-left:2px" align="right"><cf_tl id="On Hand"></td>
-			  <td style="padding-left:2px" align="right"><cf_tl id="Quantity">&Delta;</td>	 
-			  <td style="padding-left:2px" align="right"><cf_tl id="Reference"></td>	  	
-			  <td style="padding-left:2px" align="right"><cf_tl id="Est. Price"></td>	 	
-			  <td style="padding-left:2px" align="right"><cf_tl id="Sales">/<cf_tl id="Charge"></td>	 	
+			<tr class="line labelmedium fixlengthlist">
+			  <td><cf_tl id="Location"></td>
+			  <td align="right"><cf_tl id="On Hand"></td>
+			  <td align="right"><cf_tl id="Quantity">&Delta;</td>	 
+			  <td align="right"><cf_tl id="Reference"></td>	  	
+			  <td align="right"><cf_tl id="Est. Price"></td>	 	
+			  <td align="right"><cf_tl id="Sales">/<cf_tl id="Charge"></td>	 	
 			</tr>
 							
 			<cfoutput query="Get" group="TransactionLot">	
 				
 				<cfif transactionlot eq "0">
 					<cfif url.mode neq "initial">
-					<tr class="line">
+					<tr class="line fixlengthlist">
 					<td colspan="6" style="height:30" class="labelmedium"><cf_tl id="No lot"></td>
 					</tr>
 					</cfif>
 				<cfelse>
-					<tr class="line"><td colspan="6" class="labelmedium">
+					<tr class="line fixlengthlist"><td colspan="6" class="labelmedium">
 					<font color="0080C0">#TransactionLot#</font> <font size="2">[#dateformat(TransactionLotDate,client.dateformatshow)#]
 					</td></tr>					
 				</cfif>		
@@ -434,7 +434,7 @@
 
 				<input type="hidden" name="location#currentrow#"     id="location#currentrow#"     value="#location#">				
 				
-					<tr>
+					<tr class="fixlengthlist">
 					  <td style="padding:2px" class="labelit"><cfif transactionlot neq "0">&nbsp;&nbsp;&nbsp;</cfif>#Location# #Description# (#StorageCode#)</td>
 					  <td width="100" style="padding:2px" align="right" class="labelit">
 					  <cfif stock lt 0><font color="FF0000"></cfif>#numberformat(stock,"__,__")#

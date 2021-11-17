@@ -84,18 +84,18 @@
 	
 		<cfoutput query="Position">
 		
-			<tr class="line labelmedium navigation_row" style="height:18px">
+			<tr class="line labelmedium2 navigation_row fixlengthlist" style="height:18px">
 			
-				<td width="6%" align="center">				
+				<td align="center">				
 				  <cf_img icon="select" navigation="Yes" onclick="assignment('#URL.Source#','#PositionNo#','#URL.ApplicantNo#','#URL.PersonNo#','#URL.RecordId#','#URL.DocumentNo#');">										 
 				 </td>
-				 <td width="10%">#MandateNo#</td>
-			     <TD width="40%">#FunctionDescription#</TD>
-			     <TD width="6%">#PostGrade#</TD>
-			     <TD width="15%">#PostType#</TD>
-				 <TD width="10%"><cfif SourcePostNumber eq "">#Positionno#<cfelse>#SourcePostNumber#</cfif></TD>
-			     <TD width="9%" style="padding-right:7px">#DateFormat(DateEffective, CLIENT.DateFormatShow)#</TD>
-			     <TD width="9%" style="padding-right:7px">#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>
+				 <td>#MandateNo#</td>
+			     <TD>#FunctionDescription#</TD>
+			     <TD>#PostGrade#</TD>
+			     <TD>#PostType#</TD>
+				 <TD><cfif SourcePostNumber eq "">#Positionno#<cfelse>#SourcePostNumber#</cfif></TD>
+			     <TD>#DateFormat(DateEffective, CLIENT.DateFormatShow)#</TD>
+			     <TD>#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>
 		   
 		   </tr> 
 			
@@ -121,15 +121,15 @@
 				
 				<cfloop query="assignment">
 				
-					<tr bgcolor="fffffaf" class="line labelit navigation_row_child">
+					<tr bgcolor="fffffaf" class="line labelmedium2 navigation_row_child">
 					   <td></td>
 					   <td align="center"></td>			   
 					   <td>#FullName#</td>
 					   <td>#Indexno#</td>
 					   <td></td>
 					   <td></td>
-					   <td style="padding-right:7px">#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
-					   <td style="padding-right:7px">#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>			   
+					   <td>#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
+					   <td>#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>			   
 					</tr>	
 		
 				</cfloop>	
@@ -183,16 +183,16 @@
 		
 	<cfoutput query="Position">
 	
-	<tr class="labelmedium navigation_row" style="height:18px">
-			<td width="6%" align="center" style="padding-top:3px;cursor:pointer" class="navigation_action" onclick="transfer('#URL.Source#','#PositionNo#','#URL.PersonNo#','#URL.RecordId#','#URL.DocumentNo#')">			
+	<tr class="labelmedium navigation_row fixlengthlist" style="height:18px">
+			<td align="center" style="padding-top:3px;cursor:pointer" class="navigation_action" onclick="transfer('#URL.Source#','#PositionNo#','#URL.PersonNo#','#URL.RecordId#','#URL.DocumentNo#')">			
 			  <cf_img icon="select">			  			
 			 </td>
-		     <TD width="50%">#FunctionDescription#</TD>
-		     <TD width="6%"  style="padding-right:4px">#PostGrade#</TD>
-		     <TD width="15%" style="padding-right:4px">#PostType#</TD>
-			 <TD width="10%" style="padding-right:4px">#SourcePostNumber#</TD>
-		     <TD width="9%"  style="padding-right:6px">#DateFormat(DateEffective, CLIENT.DateFormatShow)#</TD>
-		     <TD  width="9%"  style="padding-right:6px">#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>
+		     <TD>#FunctionDescription#</TD>
+		     <TD>#PostGrade#</TD>
+		     <TD>#PostType#</TD>
+			 <TD>#SourcePostNumber#</TD>
+		     <TD>#DateFormat(DateEffective, CLIENT.DateFormatShow)#</TD>
+		     <TD>#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>
 	</tr> 
 		
 	<tr class="line labelmedium navigation_row_child" style="height:20px">
@@ -228,14 +228,14 @@
 		
 	<cfloop query="assignmentList">
 	
-	<tr bgcolor="ffffcf" class="labelit line navigation_row_child">
+	<tr bgcolor="ffffaf" class="labelmedium2 line navigation_row_child">
 	   <td height="18"></td>
-	   <td bgcolor="ffffcf" style="padding-left:3px;border-left:1px dotted silver;border-top:1px dotted silver">#FullName#</td>
-	   <td bgcolor="ffffcf" style="border-top:1px dotted silver">#IndexNo#</td>
-	   <td bgcolor="ffffcf" style="border-top:1px dotted silver"></td>
-	   <td bgcolor="ffffcf" style="border-top:1px dotted silver"></td>
-	   <td bgcolor="ffffcf" style="padding-right:4px;border-top:1px dotted silver">#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
-	   <td bgcolor="ffffcf" style="padding-right:4px;border-top:1px dotted silver">#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>
+	   <td bgcolor="ffffaf" style="padding-left:3px;border-left:1px dotted silver;border-top:1px dotted silver">#FullName#</td>
+	   <td bgcolor="ffffaf" style="border-top:1px dotted silver">#IndexNo#</td>
+	   <td bgcolor="ffffaf" style="border-top:1px dotted silver"></td>
+	   <td bgcolor="ffffaf" style="border-top:1px dotted silver"></td>
+	   <td bgcolor="ffffaf" style="padding-right:4px;border-top:1px dotted silver">#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
+	   <td bgcolor="ffffaf" style="padding-right:4px;border-top:1px dotted silver">#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</td>
 	   
 	</tr>	
 		
@@ -314,7 +314,7 @@
 	
 	</cfif>
 	
-	<table border="0" cellpadding="0" cellspacing="0" width="100%" class="formpadding">
+	<table width="100%" class="formpadding">
 		
 	<cfoutput query="SearchResult" group="TreeOrder">
 		

@@ -561,32 +561,27 @@
 
 		<cfoutput>
 
-				<table cellspacing="0" cellpadding="0">
-				<tr class="labelmedium2">
-
-				<td>
-						<INPUT type="radio" class="radiol" name="BrowserSupport" id="BrowserSupport" value="1" <cfif line.functionclass eq "Listing" or line.functionclass eq "Maintain" or Line.FunctionClass eq "System">disabled</cfif><cfif Line.BrowserSupport eq "1">checked</cfif>>
-			</td>
-			<td style="padding-left:3px">
-
-					<img src="#SESSION.root#/Images/explorer_icon.gif" height="21" width="19" alt="Internet Explorer" border="0" align="absmiddle"> only IE 11
-			</td>
-				<td width="40" align="center"></td>
-			<td>
-					<INPUT type="radio" class="radiol" name="BrowserSupport" id="BrowserSupport" value="2" <cfif Line.BrowserSupport eq "2" or line.functionclass eq "Listing" or line.functionClass eq "Maintain" or Line.FunctionClass eq "System">checked</cfif>>
-			</td>
-			<td>
-			<table cellspacing="0" cellpadding="0" class="formpadding">
-			<tr>
-			<td><img src="#SESSION.root#/Images/edge.png" height="17" width="16" alt="Edge" border="0" align="absmiddle"></td>
-			<td style="padding-left:2px"><img src="#SESSION.root#/Images/chrome_icon.jpg"   height="18" width="17" alt="Chrome 60+" border="0" align="absmiddle"></td>
-			<td style="padding-left:2px"><img src="#SESSION.root#/Images/safari_icon.png"   height="19" width="17" alt="Safari 5+" border="0" align="absmiddle"></td>
-			<td style="padding-left:2px"><img src="#SESSION.root#/Images/firefox_icon.gif"  height="18" width="17" alt="Firefox (Mozilla) 60+" border="0" align="absmiddle"></td>
-			</tr>
-			</table>
-			</td>
-
-			</tr>
+			<table>
+			
+				<tr class="labelmedium2 fixlengthlist">
+				
+					<td><INPUT type="radio" class="radiol" name="BrowserSupport" id="BrowserSupport" value="1" <cfif line.functionclass eq "Listing" or line.functionclass eq "Maintain" or Line.FunctionClass eq "System">disabled</cfif><cfif Line.BrowserSupport eq "1">checked</cfif>></td>
+					<td width="40">Only Chromium (Edge/Chrome)</td>
+					<td><img src="#SESSION.root#/Images/edge.png" height="21" width="19" alt="Edge" border="0" align="absmiddle"></td>				
+					<td><INPUT type="radio" class="radiol" name="BrowserSupport" id="BrowserSupport" value="2" <cfif Line.BrowserSupport eq "2" or line.functionclass eq "Listing" or line.functionClass eq "Maintain" or Line.FunctionClass eq "System">checked</cfif>></td>
+					<td width="40">All common browsers</td>
+					<td>
+						<table class="formpadding">
+							<tr class="fixlengthlist">
+							<td><img src="#SESSION.root#/Images/edge.png" height="21" width="19" title="Edge 80+" border="0" align="absmiddle"></td>
+							<td style="padding-left:2px"><img src="#SESSION.root#/Images/chrome_icon.jpg"   height="21" width="19" title="Chrome 80+" border="0" align="absmiddle"></td>
+							<td style="padding-left:2px"><img src="#SESSION.root#/Images/safari_icon.png"   height="21" width="19" title="Safari 10+" border="0" align="absmiddle"></td>
+							<td style="padding-left:2px"><img src="#SESSION.root#/Images/firefox_icon.gif"  height="21" width="19" title="Firefox (Mozilla) 80+" border="0" align="absmiddle"></td>
+							</tr>
+						</table>
+					</td>
+	
+				</tr>
 
 			</table>
 

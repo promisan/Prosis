@@ -46,7 +46,6 @@
 <cfinclude template="ZeroPriceValidation.cfm">
 <cfinclude template="../Settlement/OversaleValidation.cfm">
 
-
 <cfinvoke component = "Service.Process.Materials.POS"  
 	   method             = "postTransaction" 
 	   requestno          = "#url.requestno#" 
@@ -67,7 +66,6 @@
 	   returnvariable     = "batchid">		
 
 <cfoutput>
-
 
 <!--- get journal --->
 
@@ -137,8 +135,7 @@
 		
 		<script>
 			 // refresh screen 			
-			ptoken.navigate('#SESSION.root#/Warehouse/Application/Stock/Batch/BatchView.cfm?batchNo=#getBatch.BatchNo#&mode=embed','content')			
-			
+			ptoken.navigate('#SESSION.root#/Warehouse/Application/Stock/Batch/BatchView.cfm?batchNo=#getBatch.BatchNo#&mode=embed','content')				
 		</script>
 	
 	</cfif>	

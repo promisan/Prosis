@@ -109,16 +109,13 @@ password="#SESSION.dbpw#">
 	<cfoutput>
 	<cfif currentrow gte first>
 
-	<tr style="height:20px" class="line labelmedium navigation_row">
+	<tr style="height:20px" class="line labelmedium navigation_row fixlengthlist">
 	  
-	    <td width="30" class="navigation_action" style="padding-top:4px" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#URLEncodedFormat(Mission)#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">
-		
-		<cf_img icon="select">
-		
-	
+	    <td width="30" class="navigation_action" style="padding-top:1px" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#URLEncodedFormat(Mission)#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">		
+		<cf_img icon="select">			
 		</td>		
 		<td>#Mission#</td>
-		<td width="60%">#left(MissionName,50)#</td>
+		<td>#MissionName#</td>
 		
 	</tr>
 	</cfif>

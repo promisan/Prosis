@@ -56,16 +56,14 @@ password="#SESSION.dbpw#">
 
 <cfif SearchResult.recordCount neq "0" and getWorkOrder.recordcount gte "0">
 
-<table width="99%" align="center" border="0" bgcolor="white" cellspacing="0" cellpadding="0" align="center" id="selected">
-
-<tr class="line"><td style="height:27px;padding-left:8px;font-size:17px;font-weight:bold" class="labelmedium"><cf_tl id="Selected"></td></tr>
+<table width="100%" align="center" border="0" align="center" id="selected">
 
 <tr><td>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
+<table width="100%" align="center" class="formpadding navigation_table">
 
-    <TR class="labelmedium line">
-   	  <TD width="20"></TD>
+    <TR class="labelmedium line fixlengthlist">
+   	  <TD width="20"><b><cf_tl id="Track"></TD>
    	  <TD><cf_tl id="PersonNo"></TD>
       <TD><cf_tl id="LastName"></TD>
       <TD><cf_tl id="FirstName"></TD>
@@ -78,7 +76,7 @@ password="#SESSION.dbpw#">
 		 	
 	<cfoutput query="SearchResult">
 	
-	<TR bgcolor="white" class="navigation_row labelmedium line">
+	<TR bgcolor="white" class="navigation_row labelmedium line fixlengthlist">
 	
 	<td height="21" width="35" align="center" valign="middle">
 	
@@ -98,7 +96,7 @@ password="#SESSION.dbpw#">
 		
 			  <button class="button3"  type="button" onClick="showdocumentcandidate('#URL.ID#','#PersonNo#')">
 				   <img src="#SESSION.root#/Images/subflow_select.png" name="img5_#currentrow#"
-				   width="16" height="14" onMouseOver="document.img5_#currentrow#.src='#SESSION.root#/Images/subflow.png'" 
+				   width="18" height="16" onMouseOver="document.img5_#currentrow#.src='#SESSION.root#/Images/subflow.png'" 
 				   onMouseOut="document.img5_#currentrow#.src='#SESSION.root#/Images/subflow_select.png'"
 				   alt="Open candidate track" border="0" align="absmiddle" 
 				   style="border-color: Silver; cursor: pointer">
@@ -169,7 +167,7 @@ password="#SESSION.dbpw#">
 	    <table border="0" width="99%" align="center">
 		
 		<cfloop query="OtherCandidates">
-		<tr>
+		<tr class="fixlengthlist labelmedium2">
 	
 		<cfswitch expression = Status>
 		  <cfcase value = "Short-listed" >
@@ -186,7 +184,7 @@ password="#SESSION.dbpw#">
 	  	</cfdefaultcase>
 		</cfswitch> 		
 				
-		<td bgcolor="black" class="labelmedium" style="height:20px;padding:5px">
+		<td bgcolor="black" style="height:20px;padding:5px">
 		<a href="javascript:showdocument('#DocumentNo#','ZoomIn')">
 		
 		<cfif Status eq "Return" >

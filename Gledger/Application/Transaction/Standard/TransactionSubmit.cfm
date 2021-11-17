@@ -149,14 +149,22 @@ password="#SESSION.dbpw#">
 <cfoutput>
 
 <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
-<cfset mid = oSecurity.gethash()/>   
+<cfset mid = oSecurity.gethash()/>
 
-<script language='JavaScript'>       
-     try {parent.opener.document.getElementById('apply').click();} catch(e) {
-   	      try {parent.opener.history.go();} catch(e) {}
-	 }	
-	 parent.window.close()			
-	 //try {parent.history.go() } catch(e) {}	
-	 ptoken.open('#session.root#/gledger/application/transaction/view/TransactionView.cfm?id=#trid#&mid=#mid#');
-</script>
+<cfif url.closewindow eq 0>
+	<script language='JavaScript'>
+		try {parent.opener.document.getElementById('apply').click();} catch(e) {
+			try {parent.opener.history.go();} catch(e) {}
+		}
+		parent.window.close()
+		//try {parent.history.go() } catch(e) {}
+		ptoken.open('#session.root#/gledger/application/transaction/view/TransactionView.cfm?id=#trid#&mid=#mid#');
+	</script>
+<cfelse>
+	<script language='JavaScript'>
+		ptoken.open('#session.root#/gledger/application/transaction/view/TransactionView.cfm?id=#trid#&mid=#mid#');
+		try {parent.history.go() } catch(e) {}
+	</script>
+</cfif>
+
 </cfoutput>

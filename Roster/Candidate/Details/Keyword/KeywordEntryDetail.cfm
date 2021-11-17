@@ -75,12 +75,12 @@
 		
 			<td width="33%" style="border-right:1px solid silver;padding-left:3px;<cfif Color neq "">background-color:#Color#</cfif>">
 			
-				<table width="100%" cellspacing="0" cellpadding="0">
+				<table width="100%">
 					
 					<cfif Selected eq "0">
-			            <TR>
+			            <TR class="fixlengthlist">
 					<cfelse>
-						<TR class="highlight1">
+						<TR class="highlight1 fixlengthlist">
 					</cfif>
 					<td width="2%" style="padding-left:4px;padding-right:6px;" align="left">
 										
@@ -129,7 +129,7 @@
 						   
 					</td>
 					
-					<td width="98%" class="labelit" style="padding-left:5px;padding-right:20px">#Description#</td>
+					<td width="98%" class="labelmedium fixlength" title="#description#" style="padding-left:5px;padding-right:20px">#Description#</td>
 					
 					</tr>
 					

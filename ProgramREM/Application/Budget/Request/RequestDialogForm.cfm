@@ -1,4 +1,7 @@
 
+
+<cfparam name="url.mid" default="">
+
 <cfquery name="Object" 
 datasource="AppsProgram" 
 username="#SESSION.login#" 
@@ -263,13 +266,13 @@ password="#SESSION.dbpw#">
 
 <cfform name="formrequest" onsubmit="return false" method="post">		
 
-<table class="formpadding" width="100%" border="0">
+<table class="formpadding" width="98%" align="center" border="0">
 
 <tr class="hide"><td id="process"></td></tr>
 
-<tr><td style="padding-left:10px">
+<tr><td style="padding-left:6px;padding-right:4px;border:1px solid silver">
 
-	<table class="formpadding" width="98%" border="0">
+	<table class="formpadding" align="center" width="99%" border="0">
 						  
 		   <input type="hidden"   name="ProgramCode" id="ProgramCode" value="#url.ProgramCode#">
 		   <input type="hidden"   name="Period"      id="Period"      value="#url.Period#">
@@ -277,8 +280,8 @@ password="#SESSION.dbpw#">
 		   <input type="hidden"   name="ObjectCode"  id="ObjectCode"  value="#url.objectcode#">
 		  		   		   	 	   
 		    <tr>
-			   <td class="labelmedium" height="20" width="150"><cf_tl id="Fund">:</td>
-			   <TD class="labelmedium">			
+			   <td class="labelmedium" height="20"><cf_tl id="Fund">:</td>
+			   <TD class="labelmedium" colspan="2">			
 			   
 			   <table>
 			   <tr>
@@ -315,8 +318,7 @@ password="#SESSION.dbpw#">
 					   <cfelse>
 					   	 <cfset initfund = settings.fund>
 					   </cfif>
-					   
-				   					   
+					 				   					   
 				   <cfelse>
 			   
 					   <select name="fund" id="fund" class="regularxl enterastab" style="width:80px" 
@@ -340,7 +342,7 @@ password="#SESSION.dbpw#">
 				<cfif parameter.budgetCategory neq "">
 				   
 					   <td style="padding-left:20px" class="labelmedium" height="20"><cf_tl id="Classification">:</td>
-					   <TD style="padding-left:10px">
+					   <TD style="padding-left:10px"  colspan="2">
 					   
 					   <cfif URL.Mode neq "edit" and url.mode neq "add">
 					   
@@ -402,7 +404,7 @@ password="#SESSION.dbpw#">
 		   <tr id="contributionbox" class="#cl#"> 
 		   
 		   	<td style="padding-left:4px" class="labelmedium" height="26" width="150"></td>
-		    <td>
+		    <td  colspan="2">
 			
 			 <table width="100%">
 			 <tr>
@@ -474,7 +476,7 @@ password="#SESSION.dbpw#">
 												
 				<tr>
 				   <td class="labelmedium" width="120"><cf_tl id="Activity">:</td>
-				   <TD height="20">		
+				   <TD height="20" colspan="2">		
 				   
 				    <table cellspacing="0" cellpadding="0">
 					<tr><td>
@@ -530,7 +532,7 @@ password="#SESSION.dbpw#">
 			   <tr>
 			   
 			    <td class="labelmedium"><cf_tl id="OrgUnit">:</TD>
-			    <td align="left" valign="top">	
+			    <td align="left" valign="top" colspan="2">	
 					  
 					  <cfquery name="Org"
 			          datasource="AppsOrganization" 
@@ -598,7 +600,7 @@ password="#SESSION.dbpw#">
 				    
 			 <tr>
 				   <td class="labelmedium"><cf_tl id="Due date">:</td>
-				   <TD class="labelmedium">				   
+				   <TD class="labelmedium" colspan="2">				   
 				   				   
 				    <cfif URL.Mode neq "edit" and url.mode neq "add">
 					
@@ -733,8 +735,8 @@ password="#SESSION.dbpw#">
 			   </cfif>				 
 		  		   
 			   <tr>
-			    <td class="labelmedium" width="120"><cf_tl id="Activity Location">:</td>
-				   <TD height="25" class="labelmedium">	
+			    <td class="labelmedium fixlength" width="120"><cf_tl id="Activity Location">:</td>
+				   <TD height="25" class="labelmedium" colspan="2">	
 				   				   				   
 				   <cfif URL.Mode neq "edit" and url.mode neq "add">
 					
@@ -801,7 +803,7 @@ password="#SESSION.dbpw#">
 		 			
 			   <tr>
 				   <td class="labelmedium" width="120"><cf_tl id="Requirement">:</td>
-				   <TD height="20" class="labelmedium">		   
+				   <TD height="20" class="labelmedium" colspan="2">		   
 				   
 					<cfif ItemMaster.recordcount eq "0">
 		
@@ -966,7 +968,7 @@ password="#SESSION.dbpw#">
 			   </tr>
 			   
 			   <tr>
-					<td colspan="2" id="InstructionsDetail" style="display:none;">
+					<td colspan="3" id="InstructionsDetail" style="display:none;">
 						<cfdiv id="divInstructionsDetail">
 					</td>
 			   </tr>
@@ -987,8 +989,8 @@ password="#SESSION.dbpw#">
 			   <!--- ---------------------------------------------- --->
 			   
 			   <tr>
-				   <td class="labelit" style="padding-left:15px" id="labelitem" width="15%"><cf_tl id="Item">:</td>
-				   <TD class="labelmedium" height="20" id="description">
+				   <td class="labelit" style="padding-left:15px" id="labelitem"><cf_tl id="Item">:</td>
+				   <TD class="labelmedium" height="20" id="description" colspan="2">
 				  
 				   <cfif URL.Mode neq "edit" and url.mode neq "add">		   
 					       #entry.requestDescription#				   
@@ -1020,8 +1022,8 @@ password="#SESSION.dbpw#">
 											
 					<tr>
 						<td valign="top" class="labelmedium"></td>
-						<td>
-						<table width="100%" cellspacing="0" cellpadding="0">
+						<td colspan="2">
+						<table width="100%">
 						
 							<tr class="labelmedium line">
 							    <td id="labelitem"><cf_tl id="Item"></td>
@@ -1224,14 +1226,13 @@ password="#SESSION.dbpw#">
 						</cfif>
 						ORDER BY  DateYear, AuditDate 
 				</cfquery>	
-							
-				<tr><td height="4"></td></tr>
-				
+						
+								
 				<cfif Object.RequirementMode eq "0"	or Object.RequirementMode eq "1" or Object.RequirementMode eq "2">
 						
 				<tr>
 						
-				<td colspan="2" style="padding-left:4px;padding-right:7px">
+				<td colspan="3" style="padding-left:4px;padding-right:7px">
 				
 					<cfset prior = "">
 					
@@ -1428,11 +1429,12 @@ password="#SESSION.dbpw#">
 				   		   
 			    <tr>	    
 				 
-				   <td style="width:100;padding-right:4px" class="labelmedium"><cf_tl id="Amount"> #Parameter.BudgetCurrency#:</td>				  
+				   <td style="width:100;padding-right:4px" class="labelmedium"><cf_tl id="Amount"> #Parameter.BudgetCurrency# :</td>				  
 				   <td>				   
 					   	<table cellspacing="0" cellpadding="0">
 						<tr>
-						   <td align="right" bgcolor="A4FFA4" style="font-size:14px;height:27px;width:91;border-radius:3px;border:1px solid silver;padding-right:3px">
+						
+						   <td align="right" bgcolor="A4E4F0" style="font-size:15px;height:30px;width:132;border:1px solid silver;padding-right:3px">
 							
 							<cfparam name="lk" default="">
 					   
@@ -1446,7 +1448,7 @@ password="#SESSION.dbpw#">
 																								
 									    <cfdiv id="total" bindonload="false"
 										bind="url:RequestQuantityMode0.cfm?scope=period&mode=total&price={requestprice_1}&#lk#&mid=#url.mid#">
-										    <div id="total_display" style="font-size:15" >
+										    <div id="total_display" style="font-size:18px">
 												#numberformat(entry.requestAmountBase,",.__")#								
 											</div>
 										</cfdiv>
@@ -1455,7 +1457,7 @@ password="#SESSION.dbpw#">
 																			
 										<cfdiv id="total" bindonload="false"
 											bind="url:RequestQuantityMode1.cfm?scope=period&mode=total&price={requestprice_1}&#lk#&mid=#url.mid#">
-											  <div id="total_display" style="font-size:15">
+											  <div id="total_display" style="font-size:18px">
 											     #numberformat(entry.requestAmountBase,",.__")#							 
 										      </div>
 										</cfdiv>
@@ -1493,7 +1495,7 @@ password="#SESSION.dbpw#">
 			   
 			   <cfelse>
 			   		   
-			   		<textarea style="background-color:ffffcf;padding:4px;width:99.0%;max-width:99.0%;resize: vertical;height:45;font-size:16px" name="RequestRemarks" class="enterastab regular">#entry.requestRemarks#</textarea>
+			   		<textarea style="background-color:f1f1f1;padding:4px;width:99.5%;max-width:99.5%;resize: vertical;height:45;font-size:16px" name="RequestRemarks" class="enterastab regular">#entry.requestRemarks#</textarea>
 					
 				</cfif>	
 			   
@@ -1510,10 +1512,10 @@ password="#SESSION.dbpw#">
 				FROM Parameter
 			</cfquery>
 		   
-		    <tr>
+		    <tr class="line">
 			<td class="labelmedium"><cf_tl id="Specifications">:</td>
 		  
-			<td colspan="1">
+			<td colspan="2">
 					
 			  	 <cf_filelibraryN
 					DocumentPath="#Parameter.DocumentLibrary#"
@@ -1531,9 +1533,9 @@ password="#SESSION.dbpw#">
 			</td>
 		   
 		   </tr>
-			  
-		   <tr><td colspan="2" height="1" class="line"></td></tr>
-		   <tr><td colspan="2" height="30">
+			 
+		   
+		   <tr><td colspan="3" height="30">
 		   	  
 			   <cfif ItemMaster.recordcount gte "1" and (URL.Mode eq "edit" or URL.Mode eq "add")>
 			   

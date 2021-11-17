@@ -12,41 +12,37 @@
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 		SELECT  *
-		FROM    OrganizationObject INNER JOIN
-		        Vacancy.dbo.[Document] ON OrganizationObject.ObjectKeyValue1 = Vacancy.dbo.[Document].DocumentNo INNER JOIN
-		        Applicant.dbo.FunctionOrganization ON Vacancy.dbo.[Document].DocumentNo = Applicant.dbo.FunctionOrganization.DocumentNo
-		WHERE   OrganizationObject.ObjectId = '#Object.ObjectId#'
+		FROM    OrganizationObject OO INNER JOIN
+		        Vacancy.dbo.[Document] ON OO.ObjectKeyValue1 = Vacancy.dbo.[Document].DocumentNo INNER JOIN
+		        Applicant.dbo.FunctionOrganization FO ON Vacancy.dbo.[Document].DocumentNo = FO.DocumentNo
+		WHERE   OO.ObjectId = '#Object.ObjectId#'
 </cfquery>
 
 <cfif get.recordcount eq "1">
-  
-  	
+    	
   <table style="width:100%">
 	
 	<tr><td style="height:4px"></td></tr>
 	
 	<cfoutput>
 	
-	<tr>
-	<td colspan="2" align="center" style="height:40px;font-size:30px">Assessment Report for Track : #Object.ObjectKeyValue1#</td>
-	</tr>	
-	
-	<tr><td style="height:10px;border-bottom:1px solid silver" colspan="2"></td></tr>
-	
-	<tr><td style="height:10px"></td></tr>
+		<tr><td colspan="2" align="center" style="height:40px;font-size:30px">Assessment Report for Track : #Object.ObjectKeyValue1#</td></tr>	
 		
-	<tr>
-	<td style="font-size:20px">Job:</td>
-	<td style="font-size:20px">#get.ReferenceNo# / #get.FunctionalTitle# #get.PostGrade#</td>
-	</tr>
-	<tr>
-	<td style="font-size:20px">Unit:</td>
-	<td style="font-size:20px">#get.Mission# / #get.OrganizationUnit#</td>
-	</tr>
+		<tr><td style="height:10px;border-bottom:1px solid silver" colspan="2"></td></tr>
 		
-	<tr><td style="height:10px;border-bottom:1px solid silver" colspan="2"></td></tr>
-	
-	<tr><td style="height:10px"></td></tr>
+		<tr><td style="height:10px"></td></tr>
+			
+		<tr>
+			<td style="font-size:20px">Job:</td>
+			<td style="font-size:20px">#get.ReferenceNo# / #get.FunctionalTitle# #get.PostGrade#</td>
+		</tr>
+		<tr>
+			<td style="font-size:20px">Unit:</td>
+			<td style="font-size:20px">#get.Mission# / #get.OrganizationUnit#</td>
+		</tr>
+			
+		<tr><td style="height:10px;border-bottom:1px solid silver" colspan="2"></td></tr>		
+		<tr><td style="height:10px"></td></tr>
 	
 	</cfoutput>
 	
@@ -94,7 +90,9 @@
 		  <cfif wParam neq "">
 		  AND       ActionCode = '#wParam#'
 		  </cfif>
-		  ORDER BY  DCA.DocumentNo, DCA.PersonNo, DCA.OfficerUserId, C.ListingOrder		
+		  ORDER BY  DCA.DocumentNo, DCA.PersonNo, DCA.OfficerUserId, C.ListingOrder	
+		  
+		  	
 		</cfquery>		
 		 
 		<cfoutput query="Assessment" group="OfficerUserId">

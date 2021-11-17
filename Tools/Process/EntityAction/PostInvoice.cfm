@@ -391,7 +391,7 @@ refer to line 710
 					FROM   TransactionHeader H INNER JOIN 
 					       TransactionLine L ON H.Journal = L.ParentJournal AND  H.JournalSerialNo = L.ParentJournalSerialNo
 					WHERE  H.ReferenceId     = '#URL.INVID#'
-					AND    L.Journal IN (SELECT Journal FROM Ref_Journal WHERE TransactionCategory = 'Memorial'							
+					AND    L.Journal IN (SELECT Journal FROM Journal WHERE TransactionCategory = 'Memorial')							
 				</cfquery>
 				
 				<cfloop query="Memorial">

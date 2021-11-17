@@ -101,7 +101,7 @@
 	  <cfif url.id neq "WHS">
 	  	  
 		  <tr class="line">
-			   <td style="height:30px;font-size:20px;padding-left:5px;padding-right:4px" class="labellarge"><cfoutput>#Title#</cfoutput>
+			   <td style="height:30px;font-size:20px;padding-left:5px;padding-right:4px" class="fixlength labellarge"><cfoutput>#Title#</cfoutput>
 			   <cfoutput query="DisplayPeriod">
 				   #Description#
 			   </cfoutput>		

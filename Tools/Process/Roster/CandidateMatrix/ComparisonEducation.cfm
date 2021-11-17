@@ -38,9 +38,9 @@ password="#SESSION.dbpw#">
 	datasource="AppsSelection" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT   A.*, 
-		         A.SubmissionId as EXperienceId,
-		         F.ExperienceFieldId,
+		SELECT    A.*, 
+		          A.SubmissionId as EXperienceId,
+		          F.ExperienceFieldId,
 			      F.Status as StatusDomain,
 		          R.Description,
 			      R.Status as TopicStatus,
@@ -68,8 +68,8 @@ password="#SESSION.dbpw#">
 	datasource="AppsSelection" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT   A.*, 
-		         F.ExperienceFieldId,
+		SELECT    DISTINCT A.*, 
+		          F.ExperienceFieldId,
 				   <!---
 				   F.ReviewLastName, 
 				   F.ReviewFirstName,
@@ -129,7 +129,7 @@ password="#SESSION.dbpw#">
 		<td class="labelit" colspan="7">
 		<table style="width:100%"><tr><td>#OrganizationCity# #Nation.Name#</td>
 		<td align="right">#DateFormat(ExperienceStart,"MM/YYYY")#
-		- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020">Todate<cfelse>#DateFormat(ExperienceEnd,"MM/YYYY")#</cfif>
+		- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2030"><cf_tl id="Todate"><cfelse>#DateFormat(ExperienceEnd,"MM/YYYY")#</cfif>
 		</td>
 		</tr></table>
 		
@@ -170,7 +170,7 @@ password="#SESSION.dbpw#">
 	</cfif>
 		
 		<td></td>
-		<td colspan="7" class="labelit">
+		<td colspan="7">
 		
 			<table cellspacing="0" cellpadding="0">
 			 <tr class="labelmedium2">		 
@@ -187,7 +187,7 @@ password="#SESSION.dbpw#">
 	
 	    <cfif TopicStatus eq "1">
 	
-			<tr bgcolor="ffffcf" class="labelmedium2 navigation_row">
+			<tr bgcolor="ffffaf" class="labelmedium2 navigation_row" style="height:10px">
 			<td bgcolor="white"></td>			  
 			<td colspan="6" style="padding-left:4px">#Description#</td>			
 			<TD width="10%" align="right" style="padding-right:4px">
@@ -198,16 +198,14 @@ password="#SESSION.dbpw#">
 					<cfif StatusDomain is "9"><cf_tl id="Cancelled"></cfif>
 				</cfif>
 			
-			</TD>
-					
+			</TD>					
 			</TR>
 		
 		</cfif>
 		
 	</cfoutput>
 	
-	<cfif currentrow neq recordcount>
-		<tr><td height="3" colspan="8"></td></tr>
+	<cfif currentrow neq recordcount>		
 		<tr><td colspan="8" class="linedotted"></td></tr>
 	</cfif>
 	

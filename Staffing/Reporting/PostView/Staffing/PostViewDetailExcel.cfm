@@ -262,6 +262,18 @@
 									WHERE     SP.PositionNo = P.PositionNo 
 									AND       D.EntityClass IS NOT NULL 
 									AND       D.Status = '0'
+									
+									UNION
+										
+										<!--- position has an upcoming track assignment --->  
+										
+										SELECT      PA.SourceId
+                                        FROM        PersonAssignment AS PA 
+                                        WHERE       PA.Source = 'vac' 
+										AND         PA.PositionNo = P.PositionNo
+										AND         PA.AssignmentStatus IN ('0', '1') 
+										AND         PA.AssignmentType = 'Actual' 
+										AND         PA.DateEffective >= GETDATE() 
 																							
 									UNION 
 																					

@@ -1,8 +1,8 @@
 <div id="divReevaluationWaitText" 
     style="display:none; text-align:center; margin:20%; margin-top:5%; padding:5%; font-size:28px; color:FAFAFA; background-color:rgba(0,0,0,0.7); border-radius:8px;">
 	
-	<cf_tl id="Please wait, while the reevaluation process is in progress">
-	<br>
+	<cf_tl id="Please wait, stock re-evaluation in progress">...
+	<br><br>
 	<cfprogressbar name="pBar" 
 	    style="bgcolor:000000; progresscolor:DB996E; textcolor:FAFAFA;"
 	    bind="cfc:Service.Excel.Excel.getstatus()" 

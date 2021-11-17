@@ -208,7 +208,7 @@
 			<td width="25%" style="height:35px;font-size:19px;padding-left:3px;border:0px solid gray;border-radius:5px" 
 			  bgcolor="<cfoutput>e6e6e6</cfoutput>" class="labelmedium22" align="center" >
 			  
-					  <CFOUTPUT query="Transaction">
+			  <CFOUTPUT query="Transaction">
 				
 				<cfif JournalBatchNo neq "">#JournalBatchNo#/</cfif>
 				
@@ -306,7 +306,6 @@
 		
       </tr>  
 	 
-    
     </table>
     </td>
   </tr>  
@@ -586,39 +585,8 @@
     
   <!--- show actions with regards to the header --->
         
-  <cfquery name="Action" 
-		datasource="AppsLedger" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			SELECT   TOP 3 R.Code, 
-			         R.Description, 
-					 T.ActionId,
-					 T.ActionMode,
-					 T.ActionStatus,
-					 T.ActionReference1,
-					 T.ActionReference2,
-					 T.ActionReference3,
-					 T.ActionReference4,
-					 T.ActionDate
-			FROM     TransactionHeaderAction T, Ref_Action R
-			WHERE    T.ActionCode      = R.Code
-			AND      T.Journal         = '#Journal#'
-			AND      T.JournalSerialNo = '#JournalSerialNo#'
-			AND      T.ActionMode IN ('1','2')
-			AND      R.Code = 'Invoice'
-			ORDER BY R.Code, ActionDate DESC
-			
- </cfquery>
-   
-  <cfif action.recordcount gte "1">
  
-  <tr><td colspan="2" height="20" bgcolor="f4f4f4" id="invoiceactionbox">  
-      <cfinclude template="getTransactionAction.cfm">	 
-	 </td>
-  </tr>	 
-	 
-  </cfif>
-        	            
+
   <cfoutput query="Transaction">
     
   	  <cfif TransactionSource eq "WorkOrderSeries">
@@ -665,7 +633,7 @@
 			  </table>
 		    </td>
 		  </tr>
-		  	  
+		  
 	  	 <cfif url.summary eq "0">
 	  			
 			<cfquery name="getMode" 
@@ -1064,11 +1032,11 @@
 							WHERE  PersonNo = '#ReferencePersonNo#'				
 					  </cfquery>	
 									
-					  <A HREF ="javascript:EditPerson('#ReferencePersonNo#')"><font color="0080C0">#getPerson.FirstName# #getPerson.LastName# (#getPerson.Nationality#)</a>
+					  <A HREF ="javascript:EditPerson('#ReferencePersonNo#')">#getPerson.FirstName# #getPerson.LastName# (#getPerson.Nationality#)</a>
 					  
 					<cfelseif ReferenceOrgUnit neq "">   
 					
-					  <A HREF ="javascript:viewOrgUnit('#ReferenceOrgUnit#')"><font color="0080C0">#ReferenceName#</a>
+					  <A HREF ="javascript:viewOrgUnit('#ReferenceOrgUnit#')">#ReferenceName#</a>
 					  
 					<cfelse>
 					
@@ -1173,6 +1141,47 @@
 	  </cfif>    
        
   </cfoutput>
+  
+  <cfquery name="Action" 
+		datasource="AppsLedger" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT   TOP 6 R.Code, 
+			         R.Description, 
+					 T.ActionId,
+					 T.ActionMode,
+					 T.ActionStatus,
+					 T.ActionReference1,
+					 T.ActionReference2,
+					 T.ActionReference3,
+					 T.ActionReference4,
+					 T.ActionDate
+			FROM     TransactionHeaderAction T, Ref_Action R
+			WHERE    T.ActionCode      = R.Code
+			AND      T.Journal         = '#Journal#'
+			AND      T.JournalSerialNo = '#JournalSerialNo#'
+			AND      T.ActionMode IN ('1','2')
+			AND      R.Code = 'Invoice'
+			ORDER BY R.Code, T.Created DESC, ActionDate DESC
+			
+  </cfquery>
+		      
+  <cfif Transaction.TransactionCategory eq "Receivables">	
+		  
+	       <!--- 
+		   <cfif (Transaction.ActionStatus eq "0" and action.recordcount gte "1") or action.recordcount eq 0>
+		   --->
+		
+			   <tr><td colspan="2" height="20" id="invoiceactionbox" style="padding-top:2px">
+			      <cfinclude template="getTransactionAction.cfm">
+				 </td>
+			   </tr>	
+	
+		   <!---	   	
+		   </cfif> 
+		   --->
+		
+  </cfif>	    
  
   <tr class="NoPrint clsNoPrint">
     <td width="100%" height="20" colspan="2">
@@ -1382,33 +1391,33 @@
 											 
 											 <td align="right">
 											 
-											 <cfif CheckAdvances.currency eq Transaction.currency>
-													
-												<input type="text" 
-													 name="exc_#left(TransactionId,8)#" 
-													 id="exc_#left(TransactionId,8)#"
-													 value="#NumberFormat(1,',._____')#" 
-													 size="10" 								 
-													 maxlength="10" 
-													 readonly
-													 tabindex="9999"
-													 class="regularxl enterastab" 
-													 style="background-color:eaeaea;text-align: right;padding-top:0px;width:92%;height:23px;">
+												<cfif CheckAdvances.currency eq Transaction.currency>
+														
+													<input type="text" 
+														 name="exc_#left(TransactionId,8)#" 
+														 id="exc_#left(TransactionId,8)#"
+														 value="#NumberFormat(1,',._____')#" 
+														 size="10" 								 
+														 maxlength="10" 
+														 readonly
+														 tabindex="9999"
+														 class="regularxl enterastab" 
+														 style="background-color:eaeaea;text-align: right;padding-top:0px;width:92%;height:23px;">
+													 
+												<cfelse>
+																		
+													 <input type="text" 
+														 name="exc_#left(TransactionId,8)#" 
+														 id="exc_#left(TransactionId,8)#"
+														 value="#NumberFormat(erate,',._____')#" 
+														 size="10" 			
+														 onchange="recalcline('#left(TransactionId,8)#')"				 
+														 tabindex="9999"
+														 maxlength="10" 							 
+														 class="regularxl enterastab" 
+														 style="background-color:ffffcf;text-align: right;padding-top:0px;width:92%;height:23px;">
 												 
-											<cfelse>
-																	
-												 <input type="text" 
-													 name="exc_#left(TransactionId,8)#" 
-													 id="exc_#left(TransactionId,8)#"
-													 value="#NumberFormat(erate,',._____')#" 
-													 size="10" 			
-													 onchange="recalcline('#left(TransactionId,8)#')"				 
-													 tabindex="9999"
-													 maxlength="10" 							 
-													 class="regularxl enterastab" 
-													 style="background-color:ffffcf;text-align: right;padding-top:0px;width:92%;height:23px;">
-											 
-											</cfif>
+												</cfif>
 											
 											 </td>
 											 
@@ -1482,8 +1491,7 @@
 					                      Warehouse AS w ON wb.Warehouse = w.Warehouse
 								WHERE     wb.BatchId = '#Transaction.TransactionSourceId#'
 							</cfquery>
-							
-							
+														
 					  		<!--- Cash and carry with receivable mode --->
 							
 							<cfif getMode.salemode eq "3">
@@ -1508,18 +1516,6 @@
 									
 									</cfif>
 								
-									<td style="padding-left:10px;padding-right:10px">|</td>
-							  		<td class="labelmedium2">				  		
-							   			<a href="javascript:PrintReceivable()">
-								    	<cf_tl id="Invoice">
-										</a>				   		
-									</td>
-									<td style="padding-left:10px;padding-right:10px">|</td>
-									<td class="labelmedium2">
-										<a href="javascript:PrintTaxReceivable()">
-										<cf_tl id="Electronic Invoice">
-										</a>
-									</td>
 									<td style="padding-left:10px;padding-right:10px">|</td>		
 												
 								</cfoutput>		
@@ -1545,10 +1541,7 @@
 					  		<td class="labelmedium2">				  		
 					   			<a href="javascript:PrintReceivable('#url.id#')"><cf_tl id="Invoice"></a>				   		
 							</td>
-							<td style="padding-left:10px;padding-right:10px">|</td>
-							<td class="labelmedium2">
-								<a href="javascript:PrintTaxReceivable('#url.id#')"><cf_tl id="Electronic Invoice"></a>
-							</td>
+							
 							<td style="padding-left:10px;padding-right:10px">|</td>							
 							<td class="labelmedium2">				  		
 					   			<a href="javascript:ProcessTransaction('#Transaction.Mission#','#Transaction.OrgUnitOwner#','Banking','#CurPeriod.CurrentAccountPeriod#','#Transaction.Journal#','#Transaction.JournalSerialNo#')">

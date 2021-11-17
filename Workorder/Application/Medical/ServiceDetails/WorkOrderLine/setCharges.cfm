@@ -768,3 +768,7 @@ AND       Journal is not NULL
 </cfif>
 
 <cfset ajaxOnLoad("scrollbottom")>
+
+<script>
+Prosis.busy('no')
+</script>

@@ -74,7 +74,7 @@ password="#SESSION.dbpw#">
  <table width="100%" class="formspacing">     
  
     <tr>
-		<td class="labelmedium2" style="border:0px solid gray;padding-left:12px;padding-top:5px;padding-right:10px;font-size:20px">
+		<td class="labelmedium2" style="font-weight:bold;padding-top:5px;padding-right:10px;font-size:18px">
 		<cf_tl id="Provider">
 	</td>
 
@@ -82,7 +82,7 @@ password="#SESSION.dbpw#">
       
 	<cfif Invoice.orgunitvendor neq "0">	
 	   
-	    <tr class="labelmedium2">
+	    <tr class="labelmedium2 fixlengthlist">
 	
 		<!--- vendor invoice --->
 		
@@ -95,7 +95,7 @@ password="#SESSION.dbpw#">
 			WHERE OrgUnit = '#Invoice.orgunitvendor#'
 		</cfquery>				
 		
-	    <td style="min-width:160px;max-width:160;width:160;padding-left:13px"><cf_tl id="Vendor">/<cf_tl id="Contractor">:</td>
+	    <td><cf_tl id="Vendor">/<cf_tl id="Contractor">:</td>
 		<cfoutput>
 			<td class="labelmedium2" style="padding-left:4px;background-color:e6e6e6">				  
 			  <a href="javascript:viewOrgUnit('#OrgUnit.OrgUnit#')">#OrgUnit.OrgUnitName#</a>
@@ -115,10 +115,10 @@ password="#SESSION.dbpw#">
 			WHERE PersonNo = '#InvoiceIncoming.PersonNo#' 
 		</cfquery>	
 		
-		<tr class="labelmedium2">
-		<td colspan="1" style="min-width:160px;max-width:160;padding-left:13px"><cf_tl id="Employee">:</td>
+		<tr class="labelmedium2 fixlengthlist">
+		<td style="min-width:160px;max-width:160;padding-left:13px"><cf_tl id="Employee">:</td>
 		<cfoutput>
-			<td colspan="1" class="labelmedium2" style="padding-left:4px;background-color:e6e6e6">	
+			<td class="labelmedium2" style="padding-left:4px;background-color:e6e6e6">	
 			  <a href="javascript:EditPerson('#Person.PersonNo#')">#Person.FirstName# #Person.LastName#</font></a>
 			   <input type="hidden" name="orgunit" id="orgunit" value="0"> 
 			   <input type="hidden" name="personno" id="personno" value="#Person.PersonNo#"> 
@@ -146,9 +146,9 @@ password="#SESSION.dbpw#">
 	</td>
 </tr>
 
-<TR class="labelmedium2">
+<TR class="labelmedium2 fixlengthlist">
   
-   <TD style="padding-left:13px"><cfif md eq "org">Invoice<cfelse>Document</cfif> No:</TD>
+   <TD><cfif md eq "org">Invoice<cfelse>Document</cfif> No:</TD>
    <td style="padding-left:4px;background-color:e6e6e6">	
       
 	   <cfoutput><cfif InvoiceIncoming.InvoiceSeries neq "">#InvoiceIncoming.InvoiceSeries#-<cfelse></cfif>#Invoice.InvoiceNo#</cfoutput>	 
@@ -167,14 +167,14 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
-<TR> 
+<TR class="fixlengthlist"> 
 
 	<cfinvoke component="Service.Access"  
 	  method="ProcApprover" 
 	  orgunit="#Invoice.OrgUnitOwner#"  
 	  returnvariable="accessreq">	
 	  
-      <td height="18" class="labelmedium2" style="padding-left:13px"><cf_tl id="Amount Original">:</td>
+      <td height="18" class="labelmedium2"><cf_tl id="Amount Original">:</td>
       <td style="padding-left:4px;background-color:e6e6e6">	
       		
 		  <table><tr class="labelmedium2">
@@ -302,8 +302,8 @@ password="#SESSION.dbpw#">
 <!--- check if the invoice is paid again cancelled requisitions --->  
   
 <tr>
-<td class="labelmedium2" colspan="4" style="font-weight:bold;padding-left:12px;padding-right:10px;font-size:16px">
-<cf_tl id="Amounts Payable">
+<td class="labelmedium2" colspan="4" style="font-weight:bold;padding-right:10px;font-size:17px">
+<cf_tl id="Payable">
 </td>
 </tr>
 <tr>
@@ -364,22 +364,23 @@ password="#SESSION.dbpw#">
   
  </cfif>
     			
-  <TR class="abelmedium2">
+  <TR class="labelmedium2 fixlengthlist">
      
-   <TD style="padding-left:33px"><cf_tl id="Transaction date">:</td>
+   <TD><cf_tl id="Transaction date">:</td>
    
    <td>	 
    
    	 <cfoutput>
    
-     <table cellspacing="0" cellpadding="0">
-	 <tr><td class="labelmedium2" style="padding-left:10px;background-color:e6e6e6;padding-right:10px">#Dateformat(Invoice.DocumentDate, CLIENT.DateFormatShow)#</td>
-	 <td style="padding-left:24px;padding-right:10px" class="labelmedium2"><cf_tl id="Date Due">:</td>
-	 <td style="padding-left:14px;background-color:e6e6e6;padding-right:14px" class="labelmedium2">
+     <table>
+	 <tr>	 
+	 <td class="labelmedium2" style="padding-left:10px;background-color:e6e6e6;padding-right:10px">#Dateformat(Invoice.DocumentDate, CLIENT.DateFormatShow)#</td>
+	 <td style="padding-right:10px" class="labelmedium2"><cf_tl id="Due">:</td>
+	 <td style="background-color:e6e6e6" class="labelmedium2 fixlength">
 	    <cfif Invoice.ActionBefore gte now()>
 		#Dateformat(Invoice.ActionBefore, CLIENT.DateFormatShow)#
 		<cfelse>
-	 	<font color="FF0000">#Dateformat(Invoice.ActionBefore, CLIENT.DateFormatShow)# : <cf_tl id="Overdue"></font>
+	 	<font color="FF0000">#Dateformat(Invoice.ActionBefore, CLIENT.DateFormatShow)# : <cf_tl id="pastdue"></font>
 		</cfif>
 	 </td>
 	 	 
@@ -415,14 +416,14 @@ password="#SESSION.dbpw#">
    
   </TR>	
    
-  <TR> 
+  <TR class="fixlengthlist"> 
      	 	 	
 	<cfinvoke component="Service.Access"  
 	  method="ProcApprover" 
 	  orgunit="#Invoice.OrgUnitOwner#"  
 	  returnvariable="accessreq">	
 	 
-     <td class="labelmedium2" style="padding-left:33px"><cf_tl id="Amount">:</TD>
+     <td class="labelmedium2"><cf_tl id="Amount">:</TD>
 	 
      <td class="labelmedium2" style="padding-left:4px;background-color:ffffff">
 		   
@@ -508,7 +509,7 @@ password="#SESSION.dbpw#">
 	     <TD class="labelmedium2"><cf_tl id="Posted Amount">:</TD>
 	     <td style="padding-left:4px;background-color:e6e6e6;padding-right:4px" class="labelmedium2">	
 		 <cfoutput>
-		      <a href="javascript:ShowTransaction('#GLCheck.Journal#','#GLCheck.JournalSerialNo#','1','tab','z','z')">			  
+		      <a href="javascript:ShowTransaction('#GLCheck.Journal#','#GLCheck.JournalSerialNo#','1','tab')">			  
 		 	  #GLCheck.DocumentCurrency# #NumberFormat(GLCheck.DocumentAmount,",.__")#		  
 			  </a>
 		  </cfoutput>	  
@@ -540,8 +541,8 @@ password="#SESSION.dbpw#">
    
         <cfoutput>
 		
-	       <tr>	  
-		       <TD height="20" style="padding-left:33px" class="labelmedium2"><cf_tl id="Reconciliation">:</TD>
+	       <tr class="fixlengthlist">	  
+		       <TD height="20" class="labelmedium2"><cf_tl id="Reconciliation">:</TD>
 	              <td style="padding-left:4px;background-color:e6e6e6" class="labelmedium2">	 
 	    	       	  <font color="FF8040">#dateformat(Reconcile.Created,CLIENT.DateFormatShow)#	  
 	   		   </td>	
@@ -620,11 +621,11 @@ password="#SESSION.dbpw#">
    <tr class="line"><td height="25" colspan="4" align="center" class="labelmedium2" bgcolor="FCD8A7">Alert: invoice mapped against obligation lines which have been disabled. <b>Contact your administrator.</td></tr>
    
    <tr><td colspan="4" style="padding-left:33px">
-   <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+   <table width="100%" class="formpadding">
    
 	   <cfoutput query="cancelled">
 	   
-	   	 <tr id="#requisitionno#_1" bgcolor="ffffdf" class="labelmedium2">
+	   	 <tr id="#requisitionno#_1" bgcolor="ffffdf" class="labelmedium2 fixlengthlist">
 			
 			   <td rowspan="2" align="left"></td>
 	    	   <td>&nbsp;</td>		  

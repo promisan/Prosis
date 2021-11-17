@@ -42,11 +42,18 @@
 		<cfargument name = "vInit" type="date" required="true"  default="0">	 
 		<cfargument name = "mid"   type="string" required="true" default = "000000000000000000000000">		
 		<cfargument name = "pmode" type="string" required="true" default = "">
+					
+			<cfquery name="param" 
+			datasource="AppsInit">
+				SELECT  * 
+				FROM    Parameter
+				WHERE   HostName           = '#CGI.http_host#'				
+		    </cfquery>	
 		
 			<cfset dp = DateFormat(vInit,"DDMMYYYY")>		
 			<cfset Match = FALSE>
 			
-			<cfloop from="0" to = "10" index = "i">
+			<cfloop from="0" to = "#param.MIDThreshold#" index = "i">
 			
 				<!--- going back 10 seconds backwards --->
 				
@@ -57,8 +64,7 @@
 		   		<cfset key    = SESSION.acc & "h@mesweeth@ome" & vTry>
 				<cfset hash   = Hash(key & ARGUMENTS.pmode, "SHA")>
 								
-				<cfif hash eq mid>
-				    
+				<cfif hash eq mid>				    
 					<cfset Match = TRUE>
 					<cfbreak>
 				</cfif>
@@ -364,23 +370,24 @@
 			
 		<cfargument name="ActionTemplate"    type="string" required="true">
 		<cfargument name="ActionQueryString" type="string" required="true">		
+		<cfargument name="Datasource"        type="string" required="no" default="appsSystem">		
 		<cfargument name="Redirect"          type="string" required="no"  default="No">
 		<cfargument name="AccessRevoke"      type="string" required="yes" default="No">
 		<cfargument name="AccessMessage"     type="string" required="yes" default="Yes">
 									
 		<cfquery name="param" 
-			datasource="AppsInit">
+			datasource="#datasource#">
 				SELECT  * 
-				FROM    Parameter
+				FROM    Parameter.dbo.Parameter
 				WHERE   HostName = '#CGI.http_host#'				
 		</cfquery>		
-						
-		<cfif param.URLProtectionMode eq "0">		
-		
+								
+		<cfif param.URLProtectionMode eq "0">
+			
 			<CFSET AccessRight = "GRANTED">	
 									
 		<cfelse>
-				   			
+						   			
 			<!--- remove the MID --->
 			
 			<CFSET AccessRight = "DENIED">
@@ -409,9 +416,9 @@
 			</cfif> 
 					
 			<cfquery name="checkAccess" 
-			datasource="AppsSystem">
+			datasource="#datasource#">
 				 SELECT * 
-				 FROM   UserStatusController
+				 FROM   System.dbo.UserStatusController
 				 <cfif session.acc eq "">
 				 WHERE  HostSessionId  = '#Session.sessionid#'				
 				 <cfelse>
@@ -436,9 +443,9 @@
 				</cfif>
 								
 				<cfquery name="checkMID" 
-				datasource="AppsSystem">
+				datasource="#datasource#">
 					 SELECT TOP 1 * 
-					 FROM   UserStatusController
+					 FROM   System.dbo.UserStatusController
 					 <cfif session.acc eq "">
 					 WHERE  HostSessionId  = '#Session.sessionid#'				
 					 <cfelse>
@@ -458,8 +465,7 @@
 				      <cfif min lte "30">
 					  				   
 				          <!--- we grant access --->
-				          <CFSET AccessRight = "GRANTED">
-						 
+				          <CFSET AccessRight = "GRANTED">						 
 												
 				      </cfif>	
 					  
@@ -476,8 +482,8 @@
 				<!--- function to remove this access so it can not be reloaded --->
 												
 			    <cfquery name="revertLoad" 
-					datasource="AppsSystem">
-						 UPDATE UserStatusController
+					datasource="#datasource#">
+						 UPDATE System.dbo.UserStatusController
 						 SET    Created            = getDate(),
 						        ControllerMID      = '#hash#'
 								<cfif AccessRevoke eq "Yes">
@@ -530,87 +536,98 @@
 	     returntype="string" displayname="Verify CFC Access to control CSRF" output="yes">
 		 
 		 	<cfargument name="sessionid"        type="string" required="true">
-			<cfargument name="account"          type="string" required="true">	
+			<cfargument name="account"          type="string" required="true">				
 			<cfargument name="defaultDSAuth"   	type="string" required="false" default="0">	
 			<cfargument name="datasource"       type="string" default="AppsOrganization" required="yes">		
-		 		 	
-			<cfparam name="url.mid"           default="">
 			
-			<cfif not findNoCase("default.cfm",CGI.SCRIPT_NAME) 
-				 and not findNoCase("actionview.cfm",CGI.SCRIPT_NAME)
-				 and not findNoCase("public.cfm",CGI.SCRIPT_NAME)
-				 and not findNoCase("errorrequest.cfm",CGI.SCRIPT_NAME)
-				 and not findNoCase("error.cfm",CGI.SCRIPT_NAME)
-				 and not findNoCase("selectFormContainer.cfm",CGI.SCRIPT_NAME)
-				 and not findNoCase("mainmenuopen.cfm",CGI.SCRIPT_NAME)>		
-				 
-				<cfset vUserName = "">
-				<cfset vPwd = "">
-				<cfif defaultDSAuth eq "0">
-					<cfset vUserName = SESSION.login>
-					<cfset vPwd = SESSION.dbpw>
-				</cfif>				
-				
-				<cfquery name="getmid" 
-				  datasource="#datasource#" username="#vUserName#" password="#vPwd#">
-			    	SELECT   TOP 1 *
-				    FROM     System.dbo.UserStatusController
-			    	WHERE    Account       = '#account#' 
-					AND      ControllerMID = '#url.mid#'	
-					AND      Created > getDate()-1	
-				</cfquery>	
-				
-				<cfif getMid.recordcount eq "1">	
-				
-					<!--- we pass because this MID has been actively used today --->
-				
-				<cfelse>
-				
-					<cfquery name="getactivity" 
-					  datasource="#datasource#" username="#vUserName#" password="#vPwd#">
-					    	SELECT    TOP 1 *
-						    FROM      System.dbo.UserStatusController
-					    	WHERE     Account       = '#account#' 
-							AND       HostName      = '#CGI.http_host#'
-							and       HostSessionId = '#sessionid#'
-							ORDER BY  Created DESC
-					</cfquery>	
-				
-					<cfif getactivity.recordcount eq "0">
-					    
-						 <table width="100%" height="100%" align="center">
-							 <tr><td align="center" class="labellarge" style="color:ff0000;font-size:18px;padding-top:10px">					 						   				   
-								   <cf_tl id="Authorization to access function is revoked-mid" class="Message">.						   
-								</td>
-							 </tr>
-						  </table>	
-						  <cfabort>
-						  
-					<cfelseif getactivity.recordcount eq "1">	  
-					
-					   <cfset sec = datediff("s",getactivity.created,now())>
-					   
-					   <cfif sec gt "30">
-					   
-					      <table width="100%" height="100%" align="center">
-							 <tr><td align="center" class="labellarge" style="color:ff0000;font-size:18px;padding-top:10px">					 						   				   
-								   <cf_tl id="Authorization to access function is revoked" class="Message">.						   
-								</td>
-							 </tr>
-						  </table>	
-						  <cfabort>	 
-						 
-						<cfelse>
-						
-							<!--- we pass --->  
-						  
-						</cfif>    		
-						
-					</cfif>
-				
-			     </cfif>
+			<cfquery name="param" 
+			datasource="#datasource#">
+				SELECT  * 
+				FROM    Parameter.dbo.Parameter
+				WHERE   HostName = '#CGI.http_host#'				
+		    </cfquery>		
 								
-			</cfif>	 
+		    <cfif param.URLProtectionMode neq "0">
+		 		 	
+			    <cfparam name="url.mid"           default="">
+			
+				<cfif not findNoCase("default.cfm",CGI.SCRIPT_NAME) 
+					 and not findNoCase("actionview.cfm",CGI.SCRIPT_NAME)
+					 and not findNoCase("public.cfm",CGI.SCRIPT_NAME)
+					 and not findNoCase("errorrequest.cfm",CGI.SCRIPT_NAME)
+					 and not findNoCase("error.cfm",CGI.SCRIPT_NAME)
+					 and not findNoCase("selectFormContainer.cfm",CGI.SCRIPT_NAME)
+					 and not findNoCase("mainmenuopen.cfm",CGI.SCRIPT_NAME)>		
+					 
+					<cfset vUserName = "">
+					<cfset vPwd = "">
+					<cfif defaultDSAuth eq "0">
+						<cfset vUserName = SESSION.login>
+						<cfset vPwd = SESSION.dbpw>
+					</cfif>				
+					
+					<cfquery name="getmid" 
+					  datasource="#datasource#" username="#vUserName#" password="#vPwd#">
+				    	SELECT   TOP 1 *
+					    FROM     System.dbo.UserStatusController
+				    	WHERE    Account       = '#account#' 
+						AND      ControllerMID = '#url.mid#'	
+						AND      Created > getDate()-1	
+					</cfquery>	
+					
+					<cfif getMid.recordcount eq "1">	
+					
+						<!--- we pass because this MID has been actively used today --->
+					
+					<cfelse>
+					
+						<cfquery name="getactivity" 
+						  datasource="#datasource#" username="#vUserName#" password="#vPwd#">
+						    	SELECT    TOP 1 *
+							    FROM      System.dbo.UserStatusController
+						    	WHERE     Account       = '#account#' 
+								AND       HostName      = '#CGI.http_host#'
+								and       HostSessionId = '#sessionid#'
+								ORDER BY  Created DESC
+						</cfquery>	
+					
+						<cfif getactivity.recordcount eq "0">
+						    
+							 <table width="100%" height="100%" align="center">
+								 <tr><td align="center" class="labellarge" style="color:ff0000;font-size:18px;padding-top:10px">					 						   				   
+									   <cf_tl id="Authorization to access function is revoked-mid" class="Message">.						   
+									</td>
+								 </tr>
+							  </table>	
+							  <cfabort>
+							  
+						<cfelseif getactivity.recordcount eq "1">	  
+						
+						   <cfset sec = datediff("s",getactivity.created,now())>
+						   
+						   <cfif sec gt "30">
+						   
+						      <table width="100%" height="100%" align="center">
+								 <tr><td align="center" class="labellarge" style="color:ff0000;font-size:18px;padding-top:10px">					 						   				   
+									   <cf_tl id="Authorization to access function is revoked" class="Message">.						   
+									</td>
+								 </tr>
+							  </table>	
+							  <cfabort>	 
+							 
+							<cfelse>
+							
+								<!--- we pass --->  
+							  
+							</cfif>    		
+							
+						</cfif>
+					
+				     </cfif>
+									
+				</cfif>	 
+			
+			</cfif>
 		 
 	</cffunction>	 
 

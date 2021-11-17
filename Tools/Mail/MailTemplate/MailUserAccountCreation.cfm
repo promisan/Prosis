@@ -78,10 +78,10 @@ WHERE HostName = '#CGI.HTTP_HOST#'
 	<cfset vSubject = "#SESSION.welcome# #lt_text#">
 
 	<cfmail TO  = "#Check.eMailAddress#"
-    	FROM        = "#email##"
+    	FROM        = "#email#"
 		SUBJECT     = "#vSubject#"
 		FAILTO      = "#CLIENT.eMail#"
-		mailerID    = "#SESSION.welcome# CF2018"
+		mailerID    = "#SESSION.welcome#"
 		TYPE        = "html"
 		spoolEnable = "Yes"
 		wraptext    = "100">	
@@ -102,14 +102,14 @@ WHERE HostName = '#CGI.HTTP_HOST#'
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				INSERT INTO UserMail
-					(Account, 
-					Source, 
-				    Reference, 
-					MailAddress, 
-					MailAddressFrom, 
-					MailSubject, 
-					MailBody, 
-					MailStatus)
+						(Account, 
+						Source, 
+					    Reference, 
+						MailAddress, 
+						MailAddressFrom, 
+						MailSubject, 
+						MailBody, 
+						MailStatus)
 				VALUES ('#Check.Account#',
 				       'Security',
 					   'Account Creation',

@@ -133,7 +133,7 @@
 	   	<td align="center" colspan="2">
 		    <table width="100%" align="center">
 			
-				<tr class="labelit" style="border-top:1px solid silver">
+				<tr class="labelit" style="border-top:1px solid silver fixlengthlist">
 					
 					<td style="padding-left:5px"><cf_tl id="Class"></td>
 					<td><cf_tl id="Unit"></td>	
@@ -145,7 +145,7 @@
 				</tr>
 				
 								
-				<tr class="labelit line">								
+				<tr class="labelit line  fixlengthlist">								
 					<td></td>
 					<td></td>
 					<td style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Used">|<cf_tl id="Charged"></td>	
@@ -163,7 +163,7 @@
 				<cfif Owner.recordcount gt "1">
 								
 				<cfoutput>
-				<tr bgcolor="D3E9F8"> 
+				<tr bgcolor="D3E9F8" class="fixlengthlist"> 
 						<td colspan="3" align="right" style="padding-right:10px;border-top:1px solid silver;padding-left:6px;height:35px;font-size:14px" class="labelmedium">					
 						<cf_tl id="Total">
 						</td>
@@ -175,10 +175,10 @@
 									  SUM(SalePayable) as Payable									
 							FROM      ListBilling							
 						 </cfquery>	
-						<td class="labellarge" style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;font-size:20px;padding-right:4px" align="right"><font color="808080">#numberformat(Owner.COSS,',.__')#</td>													
-						<td class="labellarge" style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;font-size:20px;padding-right:4px" align="right">#numberformat(Owner.Income,',.__')#</td>
-						<td class="labellarge" style="border-top:1px solid silver;border-right:1px solid silver;font-size:20px;padding-right:4px" align="right">#numberformat(Owner.Tax,',.__')#</td>
-						<td class="labellarge" style="border-top:1px solid silver;border-right:1px solid silver;font-size:20px;padding-right:4px" align="right">#numberformat(Owner.Payable,',.__')#</td>					
+						<td class="labellarge" style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;font-size:18px" align="right"><font color="808080">#numberformat(Owner.COSS,',.__')#</td>													
+						<td class="labellarge" style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;font-size:18px" align="right">#numberformat(Owner.Income,',.__')#</td>
+						<td class="labellarge" style="border-top:1px solid silver;border-right:1px solid silver;font-size:18px" align="right">#numberformat(Owner.Tax,',.__')#</td>
+						<td class="labellarge" style="border-top:1px solid silver;border-right:1px solid silver;font-size:18px" align="right">#numberformat(Owner.Payable,',.__')#</td>					
 					
 				</tr>				
 				</cfoutput>
@@ -196,7 +196,7 @@
 						WHERE     OrgUnit = '#orgunitOwner#'		
 					</cfquery>	
 				
-					<tr bgcolor="ffffaf" class="line labelmedium"> 
+					<tr bgcolor="ffffaf" class="line labelmedium  fixlengthlist"> 
 						<td colspan="3" style="border-top:1px solid silver;padding-left:8px;height:36px;font-size:19px">					
 						#OrgunitOwnerName#
 						</td>
@@ -209,10 +209,10 @@
 							FROM      ListBilling
 							WHERE     OrgUnitOwner = '#orgunitowner#'
 						 </cfquery>	
-						<td style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;font-size:17px;padding-right:4px" align="right">#numberformat(Owner.COSS,',.__')#</td>													
-						<td style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;font-size:17px;padding-right:4px" align="right">#numberformat(Owner.Income,',.__')#</td>
-						<td style="border-top:1px solid silver;border-right:1px solid silver;font-size:17px;padding-right:4px" align="right">#numberformat(Owner.Tax,',.__')#</td>
-						<td style="border-top:1px solid silver;border-right:1px solid silver;font-size:19px;padding-right:4px" align="right">#numberformat(Owner.Payable,',.__')#</td>					
+						<td style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;font-size:16px" align="right">#numberformat(Owner.COSS,',.__')#</td>													
+						<td style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;font-size:16px" align="right">#numberformat(Owner.Income,',.__')#</td>
+						<td style="border-top:1px solid silver;border-right:1px solid silver;font-size:16px" align="right">#numberformat(Owner.Tax,',.__')#</td>
+						<td style="border-top:1px solid silver;border-right:1px solid silver;font-size:16px" align="right">#numberformat(Owner.Payable,',.__')#</td>					
 					
 					</tr>								
 													
@@ -250,7 +250,7 @@
 						    <cfset vamt = 0>
 						    <cfset vtax = 0>
 							<cfif reference neq "#BillingReference# - #BillingName#">											
-							<tr class="line labelmedium">
+							<tr class="line labelmedium  fixlengthlist">
 							<td colspan="7"  style="padding-left:10px;height:1px;">
 								<!--- we are hiding this now as it gave some confusion in the presentation 
 								#dateformat(TransactionDate,client.dateformatshow)#
@@ -264,14 +264,14 @@
 						
 						<cfoutput>
 						
-							<tr class="labelmedium" style="height:20px;border-top:1px solid silver">							    														
+							<tr class="labelmedium  fixlengthlist" style="height:20px;border-top:1px solid silver">							    														
 								<td style="padding-left:10px;border-bottom:1px solid silver"><cfif prior neq UnitClassName>#unitclassname#</cfif></td>
-								<td style="width:40%;border-bottom:1px solid silver">#UnitDescription#</td>		
-								<td align="right" style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px"><cfif quantityCost gte "1">#QuantityCost#|</cfif>#Quantity#</td>																	
-								<td align="right" style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px"></td>
-								<td align="right" style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" >#numberformat(SaleAmountIncome,',__.__')#</td>		
-								<td align="right" style="border-right:1px solid silver;padding-right:4px">#numberformat(SaleAmountTax,',.__')#</td>									
-								<td align="right" style="border-right:1px solid silver;padding-right:10px">#numberformat(SalePayable,',.__')#</td>								
+								<td style="border-bottom:1px solid silver">#UnitDescription#</td>		
+								<td align="right" style="border-left:1px solid silver;border-right:1px solid silver"><cfif quantityCost gte "1">#QuantityCost#|</cfif>#Quantity#</td>																	
+								<td align="right" style="border-left:1px solid silver;border-right:1px solid silver"></td>
+								<td align="right" style="border-left:1px solid silver;border-right:1px solid silver">#numberformat(SaleAmountIncome,',__.__')#</td>		
+								<td align="right" style="border-right:1px solid silver">#numberformat(SaleAmountTax,',.__')#</td>									
+								<td align="right" style="border-right:1px solid silver">#numberformat(SalePayable,',.__')#</td>								
 							</tr>
 							
 							<cfset vamt = vamt + SaleAmountIncome>	
@@ -282,18 +282,18 @@
 						
 						</cfoutput>
 																										
-						<tr class="labelmedium">
-						    <td colspan="2" align="left" style="height:28px;padding-left:20px"></td>
+						<tr class="labelmedium2  fixlengthlist" style="height:20px;background-color:f1f1f1">
+						    <td colspan="2" align="left" style="padding-left:20px"></td>
 							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" >
-							
+														
 							<cfif journal neq "">
 							
 								<cfset haspostings = "1">
 
-								<table>
-									<tr>
+								<table style="width:100%">
+									<tr class="labelmedium2 fixlengthlist">
 									
-									<td style="padding-left:10px;">
+									<td style="width:20px;padding-left:10px;">
 											
 											<cfquery name="Document" 
 									         	  datasource="AppsOrganization" 
@@ -313,9 +313,9 @@
 													type="button" 
 													mode="icon" 
 													image="print_gray.png" 
-													height="20px" 
-													width="20px" 
-													imageHeight="18px" 
+													height="22px" 
+													width="22px" 
+													imageHeight="20px" 
 													title="#lt_text#"
 													onclick="doPrintFormat('#journal#', '#journalserialNo#','#document.documentid#','#document.documenttemplate#');">											
 											
@@ -327,9 +327,9 @@
 													type="button" 
 													mode="icon" 
 													image="print_gray.png" 
-													height="20px" 
-													width="20px" 
-													imageHeight="18px" 
+													height="22px" 
+													width="22px" 
+													imageHeight="20px" 
 													title="#lt_text#"
 													onclick="printFormSelected('#journal#', '#journalserialNo#','#workorder.serviceitem#');">									
 													
@@ -348,16 +348,20 @@
 											AND       JournalSerialNo = '#journalserialno#' 			
 										</cfquery>	
 										
-										<td style="padding-top:3px;padding-left:10px;" class="labelmedium">
+										<td>
+										
+										   #DateFormat(header.DocumentDate,CLIENT.DateFormatShow)# :
 											<a href="javascript:ShowTransaction('#journal#', '#journalserialNo#','','window','workorderbiller')">
-																				
-												 <cfif header.amountOutstanding gte "0.05"><font color="FF0000"><cfelse><font color="0080FF"></cfif>										
+																			
+												 <cfif header.amountOutstanding gte "0.05"><font color="FF0000"></cfif>										
 											     <cfif InvoiceNo neq "">
-												 	#InvoiceSeries#-#InvoiceNo# #DateFormat(header.DocumentDate,CLIENT.DateFormatShow)#</font>
+												 	#InvoiceSeries#-#InvoiceNo#</font>
 												 <cfelse>
 													#journal#-#journalserialNo#</font>
 												</cfif>
-											</a>									
+																																			
+											</a>
+																	
 											
 										</td>
 										
@@ -382,7 +386,7 @@
 																															
 											<cfif checkOffset.recordcount eq "0" and listBilling.recordcount gte "1">
 											
-											<td style="padding-top:2px">
+											<td align="right" style="padding-top:2px">
 																															
 											 <cf_img icon="delete" 
 											     onclick="Prosis.busy('yes');ptoken.navigate('undoPosting.cfm?workorderlineid=#get.workorderlineid#&journal=#journal#&journalserialno=#journalserialno#','posting')">
@@ -398,10 +402,10 @@
 
 								</cfif>
 							</td>
-							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"></b></td>							
-							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"><b>#numberformat(vamt,',.__')#</b></td>
-							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"><b>#numberformat(vtax,',.__')#</b></td>
-							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-right:1px solid silver;padding-right:10px" align="right"><b>#numberformat(vtax+vamt,',.__')#</b></td>			
+							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"></td>							
+							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right">#numberformat(vamt,',.__')#</b></td>
+							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right">#numberformat(vtax,',.__')#</td>
+							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-right:1px solid silver;padding-right:10px" align="right">#numberformat(vtax+vamt,',.__')#</td>			
 						</tr>	
 																																										
 						<cfif post eq "1" and Journal eq "">
@@ -489,13 +493,13 @@
 								
 						</cfif>								
 						
-						</cfoutput>				<!------InvoiceNo---->
+						</cfoutput>				<!--- InvoiceNo --->
 
-						</cfoutput>				<!------transactionDAte---->
+						</cfoutput>				<!--- transactionDAte --->
 					
-					</cfoutput>  <!------orgunitcustomer---->
+					</cfoutput>  <!--- orgunitcustomer --->
 																	
-				</cfoutput> <!-------orgunitowner ----->
+				</cfoutput> <!--- orgunitowner --->
 													
 			</table>
 			

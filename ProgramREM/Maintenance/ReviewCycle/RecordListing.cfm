@@ -2,13 +2,12 @@
 
 <cf_screentop html="No" jquery="Yes">
 
-
-
-<table width="98%" height="100%" align="center">
+<table width="100%" height="100%" align="center">
 
 <cfset Page         = "0">
 <cfset add          = "1">
 <cfset save         = "0"> 
+
 <tr style="height:10px"><td><cfinclude template = "../HeaderMaintain.cfm"></td></tr>
 
 <tr><td valign="top" style="height:100%">
@@ -30,7 +29,7 @@
 			}
 			
 			function recordedit(id1) {
-				ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&fmission="+document.getElementById("fmis").value+"&ID1=" + id1, "EditPromotion", "left=30, top=30, width=900, height= 850, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+				ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&fmission="+document.getElementById("fmis").value+"&ID1=" + id1, "EditPromotion");
 			}
 			
 			function recordpurge(id1,mis) {

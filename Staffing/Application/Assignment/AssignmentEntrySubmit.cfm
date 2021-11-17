@@ -94,7 +94,7 @@ password="#SESSION.dbpw#">
 	<cfif checkPosition.recordcount gte "1">
 	
 		<script>
-		alert("You recorded a incumbecny period which is not covered by the selected position which is valid for : #DateFormat(check.dateeffective,client.dateformatshow)# - #DateFormat(check.dateexpiration,client.dateformatshow)#.\n\n\Operation aborted.")
+		alert("You recorded an incumbency period that is not covered by the selected position. It is valid for : #DateFormat(check.dateeffective,client.dateformatshow)# - #DateFormat(check.dateexpiration,client.dateformatshow)#.\n\n\Operation aborted.")
 		</script>
 		<cfabort>
 	

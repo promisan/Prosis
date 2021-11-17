@@ -45,10 +45,10 @@ function recordedit(id) {
 
 <table width="100%" class="navigation_table">
 
-<tr class="fixrow labelmedium2 line">
-    <td width="40" align="left"></td>
+<tr class="fixrow labelmedium2 line fixlengthlist">
+    <td align="left"></td>
     <td align="left">Code</td>
-	<td width="25%" align="left">Description</td>
+	<td align="left">Description</td>
 	<td align="left">Percentage</td>
 	<td align="left">Calculation</td>
 	<td align="left">Rounding</td>
@@ -61,13 +61,13 @@ function recordedit(id) {
 <cfset i = 0>
 <cfoutput query="SearchResult">
     
-    <tr class="navigation_row labelmedium2 line">
+    <tr class="navigation_row labelmedium2 line fixlengthlist">
 	<td align="center" style="padding-top:1px">
 		  <cf_img icon="open" navigation="Yes" onclick="recordedit('#TaxCode#')">
 	</td>
 	<td height="23">#TaxCode#</td>
 	<td>#Description#</td>
-	<td style="padding-right:5px" align="right">#NumberFormat(Percentage*100,'.___')#%</td>
+	<td align="right">#NumberFormat(Percentage*100,'.___')#%</td>
 	<td>#TaxCalculation#</td>
 	<td><cfif TaxRounding eq "1">Yes<cfelse>No</cfif></td>
 	<td>#GLAccountPaid#</td>

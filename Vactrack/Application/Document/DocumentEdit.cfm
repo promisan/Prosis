@@ -257,8 +257,14 @@ function details(id) {
 
 function revoke(st) {
 
-	if (confirm("Do you want to withdraw this vacancy track ?")) {
-		window.location = "DocumentCancel.cfm?ID=#URL.ID#&Status="+st;
+    if (st == '0') {
+		if (confirm("Do you want to reinstate this recruitment ?")) {
+			window.location = "DocumentCancel.cfm?ID=#URL.ID#&Status="+st;
+	    }
+	} else {	
+		if (confirm("Do you want to withdraw this recruitment track ?")) {
+			window.location = "DocumentCancel.cfm?ID=#URL.ID#&Status="+st;
+		}	
 	}
 	
 	return false

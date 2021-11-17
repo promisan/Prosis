@@ -122,10 +122,10 @@
 			
 			</td></tr>			
 						
-			<TR class="labelmedium line">
+			<TR class="labelmedium2 line fixlengthlist">
 	   <cfelse>
 	          
-			<TR class="labelmedium line" bgcolor="d2d2d2">
+			<TR class="labelmedium2 line fixlengthlist" bgcolor="d2d2d2">
 	   </cfif>					 	 	 
 
 	   <td height="21" width="20"></td>
@@ -135,15 +135,15 @@
 	       <td width="2%">&nbsp;</td>
 	   </cfif>
 	   <td><cf_tl id="InvoiceNo"></td>
-	   <td width="30%"><cf_tl id="Description"></td>
-	   <td width="100" align="left"><cf_tl id="Date"></td>
-	   <td width="80"><cf_tl id="Status"></td>
-	   <td width="100"><cf_tl id="Officer"></td>
-	   <td width="80" align="center"><cf_tl id="Entered"></td>
-	   <td width="50" align="center"></td>
-       <td align="right" style="padding-right:6px;min-width:100px"><cf_tl id="On Invoice"></td>
-	   <td align="right" style="padding-right:6px;min-width:100px"><cf_tl id="PO Offset"></td>
-	   <td align="right" style="padding-right:6px;min-width:100px"><cf_tl id="Posted"></td>
+	   <td><cf_tl id="Description"></td>
+	   <td align="left"><cf_tl id="Date"></td>
+	   <td><cf_tl id="Status"></td>
+	   <td><cf_tl id="Officer"></td>
+	   <td align="center"><cf_tl id="Entered"></td>
+	   <td align="center"></td>
+       <td align="right"><cf_tl id="On Invoice"></td>
+	   <td align="right"><cf_tl id="PO Offset"></td>
+	   <td align="right"><cf_tl id="Posted"></td>
 	 </TR> 
 									
 		<cfif Lines.recordcount eq "0">
@@ -154,7 +154,7 @@
 							
 			<cfloop query="Lines">
 										
-			<tr class="labelmedium2 navigation_row line" style="height:20px">
+			<tr class="labelmedium2 navigation_row line fixlengthlist" style="height:20px">
 									
 				<td width="20" align="center">#CurrentRow#</td>
 				
@@ -170,8 +170,8 @@
 				  <td></td>						
 				</cfif> 
 				
-				<td width="180">#InvoiceNo#/#invoiceserialno#</td>
-				<td width="30%">
+				<td>#InvoiceNo#/#invoiceserialno#</td>
+				<td>
 				<cfif description eq "">---<cfelse>
 					<cfif len(Description) gte "50">
 					<a href="##" title="#Description#">#left(Description,50)#..</a>
@@ -190,9 +190,9 @@
 				<td>#OfficerLastName#</td>
 				<td align="center">#DateFormat(Created,CLIENT.DateFormatShow)#</td>
 				<td align="center">#DocumentCurrency#</td>
-				<td align="right" style="padding-right:2px">#NumberFormat(DocumentAmount,",.__")#</td>
-				<td align="right" style="padding-right:2px">#NumberFormat(PurchaseAmount,",.__")#</td>
-				<td align="right" style="padding-right:2px">#NumberFormat(ChargedAmount,",.__")#</td>
+				<td align="right">#NumberFormat(DocumentAmount,",.__")#</td>
+				<td align="right">#NumberFormat(PurchaseAmount,",.__")#</td>
+				<td align="right">#NumberFormat(ChargedAmount,",.__")#</td>
 							
            	</tr>
 			

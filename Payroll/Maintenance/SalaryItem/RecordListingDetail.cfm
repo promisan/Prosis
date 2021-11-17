@@ -23,7 +23,7 @@ password="#SESSION.dbpw#">
 
 <table width="95%" align="center" class="navigation_table">
 
-<tr class="labelmedium fixrow">
+<tr class="labelmedium fixrow fixlengthlist">
    	<TD style="padding-left:4px;height:20"><cf_tl id="Section"></TD> 
 	<TD><cf_tl id="Code"></TD>
 	<TD><cf_tl id="Description"></TD>
@@ -48,7 +48,7 @@ password="#SESSION.dbpw#">
 
 	<cfoutput group="PayrollItem">   
 	 
-	    <TR class="navigation_row line labelmedium" style="height:22px">
+	    <TR class="navigation_row line labelmedium fixlengthlist" style="height:22px">
 			<td width="6%" align="center" style="height:14">
 				<table align="right">
 					<tr>

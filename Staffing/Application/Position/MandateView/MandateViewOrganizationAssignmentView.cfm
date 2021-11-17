@@ -1,4 +1,5 @@
 
+
 <cfparam name="URL.PDF"      default="0">
 <cfparam name="orow"         default="0">
 <cfparam name="recruitmenttrack" default="0">
@@ -15,8 +16,8 @@
    <cfset descp = FunctionDescription>
    <cfset orgcp = OrgUnitOperational>
     
-   <table width="100%" class="navigation_table">     
-       
+   <table width="100%" class="navigation_table">   
+          
 	<cfparam name="Occurence" default="1">	
 	
 	<cfset cl = PresentationColor>
@@ -33,7 +34,7 @@
 	
 		<cfif prior eq PositionNo>
 		
-		<td colspan="5" style="min-width:610px"></td>
+		<td colspan="5" style="min-width:619px"></td>
 		
 		<cfelse>
 					
@@ -76,12 +77,10 @@
                
 	    <td style="min-width:70px">#PostGrade#<td>
 	   
-	    <td style="min-width:280px">		 
+	    <td class="fixlength" style="min-width:280px">		 
 		 
 		   <cfset fun = rtrim(ltrim(FunctionDescription))>		  	   
-		   <cfif len(fun) gte "27">
-			   <cfset fun = "#left(fun,27)#..">	   
-		   </cfif>#fun#
+		   #fun#
 		 		   
 	   </td>
 	  
@@ -105,7 +104,6 @@
 											       
 				   <a title="#class# : #OrgUnitOwnerNameShort#" 
 				   href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#','i#PositionNo#')"> 
-				   
 				      				   				   
 			   	   <cfif SourcePostNumber neq "">
 				    #SourcePostNumber#
@@ -170,7 +168,7 @@
 		   
 	   <cfelse>
 		   				   
-			   <TD style="background-color:###cl#80;width:100%;min-width:160px;padding-left:3px">
+			   <TD class="fixlength" style="background-color:###cl#80;width:100%;min-width:160px;padding-left:3px">
 									
 				<cfif Extension neq "">				
 														
@@ -253,7 +251,7 @@
       
   <cfif Lastname neq "" and OrgUnit neq orgcp and Class eq "Used">
   
-	   <tr bgcolor="#cl#" class="labelmedium">
+	   <tr bgcolor="#cl#" class="labelmedium fixlengthlist">
 	      <td></td>
 	      <TD colspan="12" bgcolor="E6E6E6"><cfif OrgUnit neq orgcp>#OrgUnitName#</cfif></TD>
 	   </tr>
@@ -261,57 +259,15 @@
   </cfif>	 
     
   <cfif recruitmenttrack gt "0">
-			
-	    <cfquery name="Doc" datasource="AppsEmployee" username="#SESSION.login#" password="#SESSION.dbpw#">
-		
-			<!--- select track occurence --->												  
-							
-			SELECT    D.* 
-			<!----- show the inspira trackNo ------>
-						,(SELECT TOP 1 ReferenceNo
-							FROM   Applicant.dbo.FunctionOrganization
-							WHERE  FunctionId =  D.FunctionId
-							) as InspiraTrack
-						,(SELECT TOP 1 ISNULL(Ref.EntityClassNameShort, Ref.EntityClass) 
-							FROM Organization.dbo.Ref_EntityClass as Ref 
-							WHERE Ref.EntityCode='VacDocument' AND Ref.EntityClass = D.EntityClass) as EntityClassNameShort
-			FROM      Vacancy.dbo.DocumentPost as Track INNER JOIN
-    			              Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-                      Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-                      Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo
-			WHERE     SP.PositionNo = '#PositionNo#' 
-			AND       D.EntityClass IS NOT NULL 
-			AND       D.Status = '0'
-			
-			<!--- current mandate track linked through source --->
-			
-			UNION 
-															
-			<!--- first position in the next mandate --->			
-			
-			SELECT     D.*
-			<!----- show the inspira trackNo ------>
-						,(SELECT TOP 1 ReferenceNo
-							FROM   Applicant.dbo.FunctionOrganization
-							WHERE  FunctionId =  D.FunctionId
-							) as InspiraTrack
-						,(SELECT TOP 1 ISNULL(Ref.EntityClassNameShort, Ref.EntityClass) 
-							FROM Organization.dbo.Ref_EntityClass as Ref 
-							WHERE Ref.EntityCode='VacDocument' AND Ref.EntityClass = D.EntityClass) as EntityClassNameShort
-			FROM       Vacancy.dbo.DocumentPost as Track INNER JOIN
-                       Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-	                   Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-	                   Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
-                       Position PN ON SP.PositionNo = PN.SourcePositionNo
-			WHERE      D.EntityClass IS NOT NULL 
-			AND        D.Status = '0' 
-			AND        PN.PositionNo = '#PositionNo#'						
-				
-		</cfquery>	
+  
+        <cfinvoke component = "Service.Process.Vactrack.Vactrack"  
+		   method           = "getTrackPosition" 
+		   positionNo       = "#PositionNo#"
+		   returnvariable   = "doc">	   	    	
 								
 		<cfloop query="doc">	
-						
-			<tr bgcolor="yellow" class="labelmedium" style="height:22px;border-top:1px solid silver">
+								
+			<tr bgcolor="<cfif class eq 'future'>DFBFFF<cfelse>yellow</cfif>" class="labelmedium" style="height:22px;border-top:1px solid silver">
 			
 				<td align="center">
 					<img src="#SESSION.root#/Images/join.gif" alt="Recruitment action" border="0" align="middle" style="cursor: pointer;" onClick="showdocument('#DocumentNo#')">
@@ -339,19 +295,40 @@
 							SELECT  PersonNo, LastName, FirstName, StatusDate
 							FROM    DocumentCandidate P
 							WHERE   DocumentNo = '#DocumentNo#' 
-							  AND   Status = '2s'
+							  AND   Status IN ('2s','3')
 						</cfquery>	
-						
+												
 						<cfset cpl = DateFormat(Candidate.StatusDate, CLIENT.DateFormatShow)>
 																				
 						<cfif Candidate.recordcount gte "1">
+						
 							<td>
 							<cfloop query = "Candidate">
 								&nbsp;
 								<cfif URL.PDF eq 0>
-									<a href="javascript:ShowCandidate('#Candidate.PersonNo#')">
+									<a href="javascript:ShowCandidate('#PersonNo#')">
 								</cfif>
-								#Candidate.FirstName# #Candidate.LastName# - #cpl#</a>
+								#Candidate.FirstName# #Candidate.LastName# on #cpl#</a>
+								
+								<cfquery name="Assignment" 
+									datasource="AppsVacancy" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+										SELECT  TOP 1 *
+										FROM    Employee.dbo.PersonAssignment P
+										WHERE   SourceId = '#doc.DocumentNo#' 
+										AND     SourcePersonNo = '#PersonNo#'
+										AND     AssignmentStatus IN ('0','1')
+										AND     AssignmentType = 'Actual'
+										ORDER BY DateEffective
+								</cfquery>	
+								
+								<cfif Assignment.recordcount eq "1">
+								
+								&nbsp;&nbsp;Reporting date : #dateformat(Assignment.DateEffective,client.dateformatshow)#
+								
+								</cfif>
+								
 							</cfloop>
 							</td>
 						<cfelse>
@@ -547,7 +524,7 @@
 						</cfquery>
 											 
 						<tr class="labelmedium">
-							<td height="30" style="min-width:140px;padding-left:10px">Loaned to:</TD>	
+							<td height="30" style="min-width:140px;padding-left:10px"><cf_tl id="Loaned to">:</TD>	
 							<TD width="100%">
 							<cfif URL.PDF eq 0><A HREF ="javascript:EditPost('#PositionNo#')"></cfif><b>
 							#Loaned.Mission# - 

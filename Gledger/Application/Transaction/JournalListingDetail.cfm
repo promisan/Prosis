@@ -36,9 +36,9 @@
 
 		<table width="99%" align="left" class="navigation_table">
 		
-		     <tr style="height:10px" class="fixrow labelmedium2 line">
+		     <tr style="height:10px" class="fixrow labelmedium2 line fixlengthlist">
 				  
-			     <td style="min-width:70" align="left">
+			     <td align="left">
 			  	  				 
 			       <table>
 				   <tr>
@@ -70,22 +70,22 @@
 										
 			    </td>
 				
-				<td colspan="2" style="min-width:350px"><cf_tl id="Reference"></td>
-				<td style="min-width:95px"><cf_tl id="Batch"></TD>
-				<td style="min-width:95px"><cf_tl id="Document"></TD>		
-				<td style="min-width:55px"><cf_tl id="Series"></TD>
-				<td style="width:100%" colspan="2"><cf_tl id="Description"></TD>	
-				<td style="min-width:95px"><cf_tl id="Posted"></TD>
-			    <td style="min-width:30px" align="center"><cf_tl id="Curr"></TD>							
+				<td colspan="2"><cf_tl id="Reference"></td>
+				<td><cf_tl id="Batch"></TD>
+				<td><cf_tl id="Document"></TD>		
+				<td><cf_tl id="Series"></TD>
+				<td colspan="2"><cf_tl id="Description"></TD>	
+				<td><cf_tl id="Posted"></TD>
+			    <td align="center"><cf_tl id="Curr"></TD>							
 				<cfif outst eq "1">			
-					<td style="min-width:110px" align="right"><cf_tl id="Amount"></td>
-					<td style="min-width:110px" align="right"><cf_tl id="Outstanding"></td>			
+					<td align="right"><cf_tl id="Amount"></td>
+					<td align="right"><cf_tl id="Outstanding"></td>			
 					<cfset col = 9>			
 				<cfelse>			
-				    <td style="min-width:110px" align="right"><cf_tl id="Document"></td>
+				    <td align="right"><cf_tl id="Document"></td>
 					<cfif journal.glaccount gte "1" and Journal.TransactionCategory neq "Memorial">
-						<td style="min-width:110px" align="right"><cf_tl id="Debit"></td>
-						<td style="min-width:110px" align="right"><cf_tl id="Credit"></td>
+						<td align="right"><cf_tl id="Debit"></td>
+						<td align="right"><cf_tl id="Credit"></td>
 						<cfset col = 11>
 					<cfelse>
 						<cfset col = 9>
@@ -220,14 +220,14 @@
 						    <cfset color = "white">
 						</cfif>
 														
-					    <TR bgcolor="#color#" class="labelmedium2 line navigation_row clsSearchClass" id="#journal#_#journalserialno#">
+					    <TR bgcolor="#color#" class="labelmedium line navigation_row clsSearchClass fixlengthlist" id="#journal#_#journalserialno#">
 										
 					    <td class="navigation_action" 
-						   style="padding-top:1px;padding-left:4px;padding-right:7px" align="center" onClick="ShowTransaction('#Journal#','#JournalSerialNo#','1','tab')">	
+						   style="padding-top:1px" align="center" onClick="ShowTransaction('#Journal#','#JournalSerialNo#','1','tab')">	
 							<div class="clsNoPrint"><cf_img icon="open"></div>								
 						</td>
 						
-						<TD class="clsSearchField" style="min-width:120px;padding-right:3px">
+						<TD class="clsSearchField">
 												
 							<cfif url.find neq "">
 								<cfset ref = replaceNoCase(JournalTransactionNo, url.find,"<u><font color='red'>#url.find#</font></u>", "ALL")> 
@@ -239,8 +239,8 @@
 						
 						</TD>
 						
-						<td class="clsSearchField" style="min-width:130px;padding-right:3px">
-						 
+						<td class="clsSearchField">
+												 
 						 <cfif ReferenceNo neq ref>
 						 
 							 <cfif ReferenceNo neq "">					   
@@ -252,7 +252,7 @@
 									<cfelse>
 									    <cfset ref = ReferenceNo>	
 									</cfif>																				
-									#Ref#
+									#Ref# 
 																	
 								<cfelse>
 									
@@ -287,9 +287,9 @@
 						
 						</td>
 						
-						<TD class="clsSearchField" style="padding-right:8px">#Dateformat(JournalBatchDate, "#CLIENT.dateformatshow#")#</TD>					
-						<TD class="clsSearchField" style="padding-right:8px">#Dateformat(DocumentDate, "#CLIENT.dateformatshow#")#</TD>						
-						<TD class="clsSearchField" style="padding-right:8px">#JournalSerialNo#</TD>
+						<TD class="clsSearchField">#Dateformat(JournalBatchDate, "#CLIENT.dateformatshow#")#</TD>					
+						<TD class="clsSearchField">#Dateformat(DocumentDate, "#CLIENT.dateformatshow#")#</TD>						
+						<TD class="clsSearchField">#JournalSerialNo#</TD>
 						
 						<cfset mem = "">
 											
@@ -309,38 +309,23 @@
 						    <cfset nme = ReferenceName>	
 						</cfif>
 												
-						<td colspan="2" class="clsSearchField" style="padding-right:4px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;" title="#mem#">
-						
-							<cfset memo = "">	
-							
-							<cfif mem neq "">									
-								<cfif len(mem) gte "60">
-									<cfset memo = "#left(mem,60)#..">	
-								<cfelse>
-									<cfset memo = mem>							
-								</cfif>
-							</cfif>
-							
-							<cfif memo neq "">
-								<cfif FindNoCase(CustomerName,mem) gt 0>
-									<cfset vDetails = memo>
-								<cfelse>
-									<cfset vDetails = "#CustomerName#...">
-								</cfif>
-								<a HREF ="javascript:editCustomer('#ReferenceId#')">#vDetails#</a>
+						<td colspan="2" class="clsSearchField" title="#mem#">
+																											
+							<cfif mem neq "">								
+								<a HREF ="javascript:editCustomer('#ReferenceId#')"><cfif nme neq "">#nme#&nbsp;</cfif> #mem#</a>
 							<cfelse>
 								#nme#
 							</cfif>
 				
 						</td>
 						
-						<TD class="clsSearchField" style="padding-right:6px">#Dateformat(TransactionDate, "#CLIENT.dateformatshow#")#</TD>							
-					    <TD class="clsSearchField" style="padding-right:3px" align="center">#Currency#</TD>
+						<TD class="clsSearchField">#Dateformat(TransactionDate, "#CLIENT.dateformatshow#")#</TD>							
+					    <TD class="clsSearchField" align="center">#Currency#</TD>
 						
 						<cfif outst eq "1">
 						
-						    <td align="right" class="clsSearchField" style="min-width:100px;padding-right:3px">#NumberFormat(Amount,',.__')#</td>	
-							<td align="right" class="clsSearchField" style="min-width:100px;padding-right:3px">#NumberFormat(AmountOutstanding,',.__')#</td>	
+						    <td align="right" class="clsSearchField">#NumberFormat(Amount,',.__')#</td>	
+							<td align="right" class="clsSearchField">#NumberFormat(AmountOutstanding,',.__')#</td>	
 							
 							<cfif amountoutstanding neq "">
 							   <cfset AmtOut  = AmtOut  + AmountOutstanding>	
@@ -349,12 +334,12 @@
 							
 						<cfelse>
 						
-							<td class="clsSearchField" style="min-width:100px;padding-right:3px" align="right">#NumberFormat(Amount,',.__')#</td>
+							<td class="clsSearchField" align="right">#NumberFormat(Amount,',.__')#</td>
 							
 							<cfif journal.glaccount gte "1" and Journal.TransactionCategory neq "Memorial">
 							
-								<td align="right" class="clsSearchField" style="min-width:100px;padding-right:3px">#NumberFormat(AmountTriggerDebit,',.__')#</td>	
-								<td align="right" class="clsSearchField" style="min-width:100px;padding-right:3px">#NumberFormat(AmountTriggerCredit,',.__')#</td>	
+								<td align="right" class="clsSearchField">#NumberFormat(AmountTriggerDebit,',.__')#</td>	
+								<td align="right" class="clsSearchField">#NumberFormat(AmountTriggerCredit,',.__')#</td>	
 								
 								<cfif amounttriggerDebit neq "">
 								   <cfset AmtTriD  = AmtTriD  + AmountTriggerDebit>	
@@ -372,7 +357,7 @@
 						<cfset Amt  = Amt  + Amount>  
 					    <cfset AmtT = AmtT + Amount>
 										
-						 <td style="padding-left:4px;padding-right:4px;padding-top:3px" valign="absmiddle" align="center" id="note_#Journal#_#JournalSerialNo#">
+						 <td style="padding-top:3px" valign="absmiddle" align="center" id="note_#Journal#_#JournalSerialNo#">
 								 
 							 <cf_annotationshow entity="GLTransaction" 
 						         keyvalue4="#TransactionId#" docbox="note_#Journal#_#JournalSerialNo#">						

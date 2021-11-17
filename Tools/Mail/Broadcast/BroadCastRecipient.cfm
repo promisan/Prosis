@@ -18,7 +18,7 @@
 		
 		<cfif check.SystemFunctionId eq "">
 		
-		 <tr><td class="labelmedium" style="padding-left:17px">
+		 <tr><td class="labelmedium" style="padding-left:10px">
 		 
 				   <cf_selectlookup
 				    class    = "User"

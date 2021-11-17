@@ -330,7 +330,7 @@
 					<cfoutput>
 				
 					<script>
-						alert("It appears you have not applied any changes to this record. \nNo amendment has been recorded.")		
+						alert("It appears you have not applied any changes to this record.\nNo amendment has been recorded.")		
 						ptoken.location("AssignmentEdit.cfm?id=#check.PersonNo#&id1=#Form.AssignmentNo#&Template=Assignment")																		
 					</script>
 					
@@ -552,6 +552,31 @@
 					<!--- ---------------------- --->
 					<!--- 0. new assignment record  --->
 					<!--- ---------------------- ---> 		
+					
+					 <cfquery name="getPrior" 
+				     datasource="AppsEmployee" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">
+					 SELECT *
+					 FROM   PersonAssignment
+					 WHERE  AssignmentNo = '#Form.AssignmentNo#'
+					 </cfquery>
+					 
+					 <!-- the start date is the same we take the same source as it was --->
+					 
+					 <cfif getPrior.dateEffective eq str>
+					 
+						 <cfset source = getPrior.source>
+						 <cfset srceid = getPrior.sourceId>
+						 <cfset srcper = getPrior.sourcePersonNo>
+					
+					 <cfelse>	 
+					 
+						 <cfset source = "Manual">
+						 <cfset srceid = "#Form.AssignmentNo#">
+						 <cfset srcper = "">
+					 
+					 </cfif>
 					  
 				    <cfquery name="InsertAssignment" 
 				     datasource="AppsEmployee" 
@@ -563,8 +588,8 @@
 							 DateEffective,
 							 DateExpiration,
 							 <cfif Form.ExpirationListCode neq "">
-							 ExpirationCode,
-							 ExpirationListCode,
+								 ExpirationCode,
+								 ExpirationListCode,
 							 </cfif>
 							 OrgUnit,
 							 LocationCode,
@@ -576,7 +601,9 @@
 							 AssignmentType,
 							 Incumbency,
 							 Remarks,
+							 Source,
 							 SourceId,
+							 SourcePersonNo,
 							 OfficerUserId,
 							 OfficerLastName,
 							 OfficerFirstName)
@@ -585,8 +612,8 @@
 						      #STR#,
 							  #END#,
 							  <cfif Form.ExpirationListCode neq "">
-							  '#Form.ExpirationCode#',
-							  '#Form.ExpirationListCode#',
+								  '#Form.ExpirationCode#',
+								  '#Form.ExpirationListCode#',
 							  </cfif>
 							  '#Form.OrgUnit#',
 							  '#Form.LocationCode#',
@@ -598,7 +625,9 @@
 							  '#Form.AssignmentType#',
 							  '#Form.Incumbency#',
 							  '#Form.Remarks#',
-							  '#Form.AssignmentNo#',
+							  '#source#',
+							  '#srceid#',
+							  '#srcper#',							  							  
 							  '#SESSION.acc#',
 							  '#SESSION.last#',
 							  '#SESSION.first#')

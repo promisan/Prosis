@@ -34,13 +34,14 @@
 						
 						<TD bgcolor="yellow" style="border-right:1px solid silver;min-width:120" align="center" colspan="2"><cf_tl id="Outstanding"></TD>		  
 						
-						<td style="min-width:260" align="center" bgcolor="D7EFF7">
+						<td style="min-width:255px;width:255px;max-width:255px" align="center" bgcolor="D7EFF7">
 						<table width="100%">
-						  <tr class="line labelmedium"><td align="center" colspan="3"><cf_tl id="Reconciliation"></td></tr>
+						  <tr class="line labelmedium"><td align="center" colspan="4"><cf_tl id="Reconciliation"></td></tr>
 						  <tr class="labelmedium" bgcolor="D3E9F8">		
-									   		<td align="center"  style="padding-left:4px"><cf_tl id="Amount"> <cfoutput>#headerselect.currency#</cfoutput></td>
-											<TD align="center"  style="padding-left:4px"><cf_tl id="Exchange"></TD>
-											<td align="center"  style="padding-left:4px"><cf_tl id="Offset"></td>			
+									   		<td align="right"  style="padding-right:24px"><cf_tl id="Amount"> <cfoutput>#headerselect.currency#</cfoutput></td>
+											<TD align="right"  style="padding-right:24px"><cf_tl id="Exchange"></TD>
+											<td align="right"  style="padding-right:4px"><cf_tl id="Offset"></td>		
+											<td align="center"  style="padding-left:20px"></td>		
 						  </tr>
 						</table>
 						</td>			

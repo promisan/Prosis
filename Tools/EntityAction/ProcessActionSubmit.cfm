@@ -230,10 +230,7 @@
 		
 		   <cfabort>
 		
-	</cfif>	
-	
-	
-	
+	</cfif>		
 		
 	<!--- --------------------------------------- --->
 	<!--- Perform general validation requirements --->
@@ -648,7 +645,7 @@
 					actionpublishno  = "#Action.ActionPublishNo#"					
 					wfmode           = "#url.wfmode#">	
 					
-			   <!--- process the submit/approve method --->								
+			   <!--- process the submit/approve method 						
 			 			
 			   <cf_ProcessActionMethod
 				    methodname       = "submission"
@@ -657,7 +654,9 @@
 					ActionId         = "#Action.ActionId#"
 					actioncode       = "#Action.ActionCode#"
 					actionpublishno  = "#Action.ActionPublishNo#"					
-					wfmode           = "#url.wfmode#">							
+					wfmode           = "#url.wfmode#">		
+					
+					--->					
 			 							
 		</cfif>	
 		
@@ -727,7 +726,22 @@
 				<cfinclude template="ProcessActionSubmitStatus.cfm">
 			</cftransaction>
 		
-		</cfif>	
+		</cfif>
+		
+		<cfif Form.actionStatus eq "2" or Form.actionStatus eq "2Y">	
+		
+		<!--- process the submit/approve method --->								
+			 			
+		<cf_ProcessActionMethod
+			    methodname       = "submission"
+				location         = "file"
+				ObjectId         = "#Object.ObjectId#"
+				ActionId         = "#Action.ActionId#"
+				actioncode       = "#Action.ActionCode#"
+				actionpublishno  = "#Action.ActionPublishNo#"					
+				wfmode           = "#url.wfmode#">		
+				
+		</cfif>			
 									
 			
 		<!---	

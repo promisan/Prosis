@@ -146,15 +146,14 @@ password="#SESSION.dbpw#">
 					WHERE Mission = '#mission#'
 					</cfquery>
 				
-					<tr class="line">
+					<tr class="line fixlengthlist">
 					<td align="center" class="labellarge">		
 					This item is valued under #ItemList.ValuationCode#. 
 					    Recalculate #mission# stock and ledger transactions younger than #dateformat(get.RevaluationCutoff,client.dateformatshow)# using the below button.				
 					</td>							
-					</tr>
+					</tr>						
 						
-						
-					<tr>
+					<tr class="fixlengthlist">
 					<td align="center" class="labelmedium">		
 					   <font color="0080C0"><cf_tl id="Attention"> : <cf_tl id="Uncheck the regular revaluation checkbox">, <cf_tl id="if you want to enforce values to reduce to the stock levels">.
 					</td>							
@@ -165,11 +164,12 @@ password="#SESSION.dbpw#">
 					<table><tr class="labelmedium">
 					   
 					   <td style="padding-right:5px">
-					   		<cf_tl id="Regular Valuation">:
-					   		<br><span style="font-size:10px; color:8C8C8C; font-style:italic;">(<cf_tl id="Uncheck to FORCE zero valuation">)</span>
+					   		<cf_tl id="Standard Valuation">:
+					   		<br><span style="font-size:10px; color:8C8C8C; font-style:italic;">(<cf_tl id="Uncheck to FORCE suspicious valuation">)</span>
 					   	</td>
 					   <td style="padding-right:10px">
-					   <input type="checkbox" class="radiol" id="transferrevaluation" value="1" checked>
+					   <input type="checkbox" style="height:16px;height:16px" class="radiol" id="transferrevaluation" value="1" checked>
+					   
 					   </td>
 					   
 					   <td class="labelit">
@@ -179,7 +179,7 @@ password="#SESSION.dbpw#">
 					   </tr></table>
 					</td></tr>
 					
-					<tr><td class="labelit" align="center"><font color="gray"><i>The process may take some time and will proceed even if you close the screen.</td></tr>
+					<tr class="fixlengthlist"><td class="labelit" align="center"><font color="gray"><i>The process may take some time and will proceed even if you close the screen.</td></tr>
 				
 					
 					
@@ -189,7 +189,7 @@ password="#SESSION.dbpw#">
 			
 			</cfif>
 			
-			<tr class="labelmedium2 line">
+			<tr class="labelmedium2 line fixlengthlist">
 			<td width="10"></td>
 			<td><cf_tl id="Warehouse"></td>
 			<td><cf_tl id="UoM"></td>			
@@ -198,12 +198,12 @@ password="#SESSION.dbpw#">
 			<td align="center"><cf_tl id="Receipts"></td>
 			<td align="center"><cf_tl id="Value"></td>
 			<td align="center"><cf_tl id="Movements"></td>
-			<td width="6%" align="center"><cf_tl id="Minimum"></td>
-			<td width="6%" align="center"><cf_tl id="Maximum"></td>
-			<td width="7%" align="center"><cf_tl id="Reserved"></td>
-			<td width="7%" align="center"><cf_tl id="On Hand"></td>
-			<td width="7%" align="center"><cf_tl id="Cost"></td>
-			<td width="7%" align="center"><cf_tl id="Value">#application.basecurrency#</td>
+			<td align="center"><cf_tl id="Minimum"></td>
+			<td align="center"><cf_tl id="Maximum"></td>
+			<td align="center"><cf_tl id="Reserved"></td>
+			<td align="center"><cf_tl id="On Hand"></td>
+			<td align="center"><cf_tl id="Cost"></td>
+			<td align="center"><cf_tl id="Value">#application.basecurrency#</td>
 	    	</tr>		
 			
 			<cfoutput group="Warehouse">
@@ -230,24 +230,24 @@ password="#SESSION.dbpw#">
 				</tr>
 				
 			<cfoutput>
-				<tr class="labelmedium2 line navigation_row">
+				<tr class="labelmedium2 line navigation_row fixlengthlist">
 					<td></td>
 					<td></td>
 					<td>#UoMDescription# (#uom#)</td>					
 					<td>#ItemBarCode#</td>
-					<td align="right" bgcolor="FDFEDE" style="border-left:1px solid gray; padding-right:3px">#numberformat(StandardCost,",.__")#</td>
-					<td align="right" bgcolor="e4e4e4" style="border-left:1px solid gray; padding-right:3px">#Receipts#</td>
-					<td align="right" bgcolor="e4e4e4" style="border-left:1px solid gray; padding-right:3px">#numberformat(ReceiptsValue,",.__")#</td>					
+					<td align="right" bgcolor="FDFEDE" style="border-left:1px solid gray;">#numberformat(StandardCost,",.__")#</td>
+					<td align="right" bgcolor="e4e4e4" style="border-left:1px solid gray;">#Receipts#</td>
+					<td align="right" bgcolor="e4e4e4" style="border-left:1px solid gray;">#numberformat(ReceiptsValue,",.__")#</td>					
 					<td>
 						<table width="100%" height="100%">
 						<tr>
-							<td width="50%" align="right" style="border-left:1px solid gray; padding-right:3px">+ #RecordsIn#</td>
-							<td width="50%" align="right" style="border-left:1px solid gray; padding-right:3px">- #RecordsOut#</td>
+							<td width="50%" align="right" style="border-left:1px solid gray;">+ #RecordsIn#</td>
+							<td width="50%" align="right" style="border-left:1px solid gray;">- #RecordsOut#</td>
 						</tr>
 						</table>
 					</td>					
-					<td align="right" style="border-left:1px solid gray; padding-right:3px">#MinimumStock#</td>
-					<td align="right" style="border-left:1px solid gray; padding-right:3px">#MaximumStock#</td>
+					<td align="right" style="border-left:1px solid gray;">#MinimumStock#</td>
+					<td align="right" style="border-left:1px solid gray;">#MaximumStock#</td>
 					
 					<cfif Reserved neq "0">
 					
@@ -256,14 +256,14 @@ password="#SESSION.dbpw#">
 							<cfset color = "ff8080">
 						</cfif>
 						
-						<td align="right" bgcolor="#color#" style="padding-right:5px;border-left:1px solid gray; padding-right:3px">
+						<td align="right" bgcolor="#color#" style="border-left:1px solid gray;">
 							<cf_precision number="#ItemPrecision#">																														
 							#lsNumberFormat(Reserved,pformat)#
 						</td>
 						
 					<cfelse>
 					
-					<td align="right" style=";border-left:1px solid gray; padding-right:3px">-</td>
+					<td align="right" style=";border-left:1px solid gray;">-</td>
 					
 					</cfif>
 					
@@ -274,14 +274,14 @@ password="#SESSION.dbpw#">
 							<cfset color = "ff8080">
 						</cfif>
 						
-						<td align="right" bgcolor="#color#" style="padding-right:5px;border-left:1px solid gray; padding-right:3px">
+						<td align="right" bgcolor="#color#" style="border-left:1px solid gray;">
 							<cf_precision number="#ItemPrecision#">																														
 							#lsNumberFormat(OnHand,pformat)#
 						</td>
 						
 					<cfelse>
 					
-					<td align="right" style=";border-left:1px solid gray; padding-right:3px">-</td>
+					<td align="right" style=";border-left:1px solid gray;">-</td>
 					
 					</cfif>
 					
@@ -299,14 +299,14 @@ password="#SESSION.dbpw#">
 					</cfif>
 					
 					<cfif ratio lte 3 and ratio gte -3 and Onhand neq "0">					
-					<td align="right" bgcolor="DEF8EF" style="padding-right:5px;border-left:1px solid gray; padding-right:3px">					 
+					<td align="right" bgcolor="DEF8EF" style="border-left:1px solid gray">					 
 						#lsNumberFormat(Price,",.__")#				 
 					</td>
 					<cfelse>
-					<td align="right" style="padding-right:5px;border-left:1px solid gray; padding-right:3px">-</td>
+					<td align="right" style="border-left:1px solid gray">-</td>
 					</cfif>	
 					
-					<td align="right" style="padding-right:15px;border-left:1px solid gray; padding-right:3px">			
+					<td align="right" style="padding-right:15px;border-left:1px solid gray;">			
 					    <cfif Amount eq "0">-<cfelse>#lsNumberFormat(Amount,",.__")#</cfif>								
 					</td>
 				</tr>

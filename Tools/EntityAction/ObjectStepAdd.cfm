@@ -90,6 +90,7 @@
 			 FROM      Ref_EntityActionPublish R 
 			 WHERE     R.ActionPublishNo = '#pub#' 
 			 AND       R.ActionCode IN (#preservesinglequotes(ac)#)  
+			 			 
 		</cfquery>
 		
 		<cfquery name="Current" 

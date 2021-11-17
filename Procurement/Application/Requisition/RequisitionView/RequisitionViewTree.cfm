@@ -134,7 +134,7 @@
 			     
 		         <td style="padding-left:7px;height:34px;padding-top:2px;font-size:18px" class="labelmedium2">
 				 	
-				    <a href="javascript: ProcReqEntry('#URL.Mission#',document.getElementById('PeriodSelect').value,'#url.systemfunctionid#')">							
+				    <a title="Submit Procurement requirements" href="javascript: ProcReqEntry('#URL.Mission#',document.getElementById('PeriodSelect').value,'#url.systemfunctionid#')">							
 					    <cf_tl id="Record Requisitions">
 					</td>
 					</a>
@@ -144,7 +144,7 @@
 				<cfif Parameter.EnableExecutionRequest eq "1">
 										
 					<tr>
-				      <td style="height:40px;padding-top:2px;font-weight:200;font-size:18px" class="labelmedium line">					  
+				      <td style="height:34px;padding-left:7px;padding-top:2px;font-size:18px" class="labelmedium2 line">					  
 					   <a title="Submit Open Contract Request" href="javascript: addRequest('#url.mission#','#url.period#',1,'','Status','0')">		
 					   <cf_tl id="Record Open Contract">
 					   </a>	

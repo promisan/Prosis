@@ -117,7 +117,7 @@ password="#SESSION.dbpw#">
 			
 		<cfoutput query="getLines">					
 			
-			<tr style="border-bottom:1px solid silver;height:25px;font-size:12px" class="navigation_row labelmedium" <cfif ItemClass neq 'Service' and TransactionQuantity gt 0 and TransactionQuantity gt OnHand>bgcolor="ffffaf"<cfelse><cfif getLines.currentrow MOD 2>bgcolor="fefefe"</cfif></cfif> id="line_#currentrow#">
+			<tr style="border-bottom:1px solid silver;height:35px;font-size:12px" class="navigation_row fixlengthlist labelmedium" <cfif ItemClass neq 'Service' and TransactionQuantity gt 0 and TransactionQuantity gt OnHand>bgcolor="ffffaf"<cfelse><cfif getLines.currentrow MOD 2>bgcolor="fefefe"</cfif></cfif> id="line_#currentrow#">
 			
 			    <td style="padding-left:14px;padding-top:0px;padding-right:3px; min-width:25px" valign="top"><p style="font-size:15px;padding-top:3.5px;">#currentrow#.</p></td>
 			    
@@ -135,7 +135,7 @@ password="#SESSION.dbpw#">
 				.clsDetailLineCell {height: 25px; <cfif WParameter.SingleLine eq 1>display:none</cfif>}
 				</style>
 				
-				<td style="width:90%">
+				<td style="width:90%" class="fixlength">
 				
 					<div style="height:25px;">
 						<cfif WParameter.SingleLine eq 1>
@@ -144,7 +144,7 @@ password="#SESSION.dbpw#">
 							<p style="font-size:15px;text-transform:capitalize;padding-top:2px;">
 							#ItemDescription# 
 							<span style="display:none; font-size:12px!important;color:##808080;" class="clsDetailLineCell">
-								(#ItemBarcode#)
+							[#ItemBarcode#]
 							</span>
 						</cfif>	
 						</p>
@@ -219,7 +219,7 @@ password="#SESSION.dbpw#">
 				<td style="min-width:200px" valign="top">
 				
 				    <table>
-					<tr><td valign="top" id="onhand_#currentrow#" style="min-width:100px;font-size:15px">
+					<tr><td valign="top" id="onhand_#currentrow#" style="padding-top:3px;min-width:100px;font-size:15px">
 					
 					<!---
 					<span id="onhand_#currentrow#" style="min-width:100px;font-size:15px">
@@ -299,7 +299,7 @@ password="#SESSION.dbpw#">
 				   <cfif BatchNo eq "">
 				
 				    <input type="text" 
-					 style = "background-color:fff;width:45px;text-align:center;border:1px solid silver;" 
+					 style = "background-color:fff;width:55px;text-align:center;border:1px solid silver;" 
 					 id    = "TransactionQuantity_#currentrow#"
 					 class = "regularxxl enterastab TransactionQuantity_#transactionid#"
 					 <cfif vLast eq currentrow>

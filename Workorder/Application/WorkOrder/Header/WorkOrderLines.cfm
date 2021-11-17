@@ -94,8 +94,6 @@
 <cfset wd  = 100/i>
 
 <table width="100%" height="<cfoutput>#line.recordcount*25+38#</cfoutput>"
-     cellspacing="0" 
-	 cellpadding="0" 	
 	 class="navigation_table">
 
 		<cfoutput>
@@ -116,17 +114,17 @@
 							
 					<tr>
 					
-						<td height="100%" style="height:22;padding-left:12px;border-bottom:1px solid silver">
+						<td height="100%" style="height:26;padding-left:12px;border-bottom:1px solid silver">
 																		
 							 <table cellspacing="0" cellpadding="0">
 								 <tr>
 								  <td style="padding-top:1px">
 								    <cf_img icon="select" navigation="Yes" onclick="workorderlineopen('#workorderlineid#','#url.systemfunctionid#','embed')">
 								  </td>								  
-								  <td style="padding-left:8px" class="labelit">
+								  <td style="padding-top:3px;padding-left:8px;min-width:150px" class="labelit fixlength">
 								      <a href="javascript:workorderlineopen('#workorderlineid#','#url.systemfunctionid#','embed')">
-								      <font color="0080C0">#ServiceDomainClass# #Description#</font> <cfif forsale eq "1"><font color="gray">(<cf_tl id="sale">)</font></cfif><cfif forstock eq "1">(deduct)</cfif></font></a>								  
-									  <cf_space spaces="70">
+								      #ServiceDomainClass# #Description#</font> <cfif forsale eq "1"><font color="gray">(<cf_tl id="sale">)</font></cfif><cfif forstock eq "1">(deduct)</cfif></font>
+									  </a>								  									  
 								  </td>								  
 								 </tr>
 							 </table>
@@ -147,7 +145,7 @@
 		
 				<cf_divscroll overflowx="Auto">
 									
-				<table width="99%" cellspacing="0" cellpadding="0">
+				<table width="99%">
 				
 				<tr>
 				   
@@ -156,7 +154,7 @@
 					
 					<td class="labelit" align="center" style="width:#wd#%;height:21">
 						
-					<table width="100%" cellspacing="0" cellpadding="0" border="0">
+					<table width="100%">
 					<tr>
 					
 					<!--- month --->
@@ -174,7 +172,7 @@
 								</cfif>
 							</cfloop>							
 							
-							<td class="labelit line" align="center" colspan="#cnt#" style="font-weight:200;height:23px;border-left:1px solid silver;border-right:1px solid silver;padding-right:5px">								
+							<td class="labelmedium2 line" align="center" colspan="#cnt#" style="height:23px;border-left:1px solid silver;border-right:1px solid silver;padding-right:5px">								
 															
 							<cfset m = monthasstring(week[2])>
 							<cfset y = week[3]>
@@ -193,9 +191,9 @@
 					
 					<!--- week --->
 					
-					<tr>
+					<tr style="height:15px">
 					<cfloop array="#list#" index="week">					    												
-						<td align="center" class="labelit line" style="font-weight:200">#week[1]# <cf_space spaces="7"></td>					
+						<td style="font-size:13px" align="center" class="labelmedium line">#week[1]# <cf_space spaces="7"></td>					
 					</cfloop>					
 					</tr>					
 						

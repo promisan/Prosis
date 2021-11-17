@@ -143,10 +143,10 @@ password="#SESSION.dbpw#">
 <tr>  
 <td width="100%" colspan="2">
   
-	<table style="min-width:1000px" width="100%" class="navigation_table">
+	<table width="100%" class="navigation_table">
 		
-	<TR class="line labelmedium2 fixrow">
-	    <td colspan="2" style="width:60px" align="center"></td>
+	<TR class="line labelmedium2 fixrow fixlengthlist">
+	    <td colspan="2" align="center"></td>
 	    <td><cf_tl id="Date"></td>
 		<TD><cf_tl id="Status"></TD>
 		<TD><cf_tl id="Reference"></TD>
@@ -156,7 +156,7 @@ password="#SESSION.dbpw#">
 		<TD><cf_tl id="Due"></TD>
 		<TD><cf_tl id="Qty"></TD>
 		<TD><cf_tl id="Curr."></TD>
-		<TD width="10%" align="right" style="min-width:130px;padding-right:4px"><cf_tl id="Amount"></TD>
+		<TD align="right"><cf_tl id="Amount"></TD>
 	</TR>	
 	<cfset last = '1'>
 	
@@ -176,11 +176,11 @@ password="#SESSION.dbpw#">
 				
 	<cfoutput>
 		
-	<TR class="navigation_row labelmedium2">
+	<TR class="navigation_row labelmedium2 fixlengthlist">
 	
 	    <cfif workflow neq "" and (source eq "Manual" or source eq "Ledger")>
 	 
-			 <td height="20" align="center" style="width:2%;cursor:pointer;padding-left:4px" 
+			 <td height="20" align="center" style="cursor:pointer" 
 					onclick="workflowdrill('#workflow#','box_#workflow#')" >
 					
 				<cf_wfActive entitycode="EntCost" objectkeyvalue4="#costid#">	
@@ -221,7 +221,7 @@ password="#SESSION.dbpw#">
 		
 				<cfset wfStatus = "">
 			
-			    <td height="20" style="width:2%" align="center"></td>	
+			    <td height="20" align="center"></td>	
 			  
 		</cfif>
 					
@@ -249,7 +249,7 @@ password="#SESSION.dbpw#">
 			AND        PayrollStart   = '#Payroll.PayrollStart#'
 		</cfquery>	
 		
-		<td align="center" style="min-width:30;padding-right:10px">
+		<td align="center" style="padding-right:10px">
 	
 			<cfif getAdministrator("#Payroll.Mission#") eq "1" 
 			      or  Status eq "0" 
@@ -280,17 +280,15 @@ password="#SESSION.dbpw#">
 		<cfelse>
 		<td align="center">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
 		</cfif>		
-		<TD style="padding-left:3px">#Quantity#</TD>
+		<TD>#Quantity#</TD>
 		<TD>#Currency#</TD>
-		<TD style="padding-right:5px" align="right">#NumberFormat(Amount, ",.__")#</TD>	
+		<TD align="right">#NumberFormat(Amount, ",.__")#</TD>	
 	</tr>
-	
-	
-	
+		
 	<cfif Remarks neq "">
-	<TR class="navigation_row_child labelmedium" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('F1F1F1'), DE('F1F1F1'))#">
+	<TR class="navigation_row_child labelmedium  fixlengthlist" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('F1F1F1'), DE('F1F1F1'))#">
 	    <td colspan="2"></td>
-		<td style="padding-right:5px" colspan="10" align="left">#Remarks#</td>
+		<td colspan="10" align="left">#Remarks#</td>
 	</tr>
 	</cfif>	
 	
@@ -299,10 +297,10 @@ password="#SESSION.dbpw#">
 		<tr>
 		<td colspan="2" style="width:10px" align="right"></td>
 		
-		<td colspan="9" align="left" style="padding-bottom:1px">
+		<td colspan="10" align="left" style="padding-bottom:1px">
 		
 			<table width="100%" bgcolor="ffffaf" cellspacing="0" cellpadding="0" style="border:1px solid silver">
-			    <tr class="labelmediuum" style="height:20px">				    
+			    <tr class="labelmediuum2" style="height:20px">				    
 					<td style="background-color:e4e4e4;min-width:170px;padding-left:5px"><cf_tl id="Payroll entitlement">:</td>
 					
 					<!---

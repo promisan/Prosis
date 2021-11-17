@@ -34,8 +34,8 @@
 	 <cfif GroupAll.recordcount neq "0">
 	 
 	 <tr><td style="padding-top:4px"></td></tr>
-	 <tr class="labelmedium line">
-		 <td colspan="4" style="height:30px;font-size:16px"><b><cfoutput><cf_tl id="#itm#"></cfoutput>:</td>
+	 <tr class="labelmedium2 line">
+		 <td colspan="4" style="height:40px;font-size:20px"><cfoutput><cf_tl id="#itm#"></cfoutput>:</td>
 	 </tr>
 	 
 	 <cfset show = 1>
@@ -59,8 +59,8 @@
 			<td width="25%">
 				<table width="100%">
 				<cfif check.recordcount eq "0">
-					      <TR class="regular" style="height:16px">
-				<cfelse>  <TR class="highlight2" style="height:16px">
+					      <TR class="regular fixlengthlist" style="height:16px">
+				<cfelse>  <TR class="highlight2 fixlengthlist" style="height:16px">
 				</cfif>
 			   
 				<TD style="padding-left:6px;width:30px">	
@@ -69,13 +69,13 @@
 				<cfelse>
 					<input type="checkbox" class="radiol" name="Document" id="Document" value="#DocumentId#" checked onClick="hl(this,this.checked)"></td>
 			    </cfif> 
-				<TD class="labelmedium" style="fon-size:15px;padding-right:6px">#DocumentDescription#</TD>
+				<TD class="labelmedium" title="#documentDescription#" style="padding-left:6px">#DocumentDescription#</TD>
 				</table>
 			</td>
 			<cfif GroupAll.recordCount eq "1">
 				<td width="33%"></td>
 			</cfif>
-	  			<cfif r neq 3>
+	  			<cfif r neq 2>
 				   <cfset r = r+1>
 				<cfelse>
 				   <cfset r = 0>

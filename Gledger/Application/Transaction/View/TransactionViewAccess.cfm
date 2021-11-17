@@ -29,6 +29,7 @@
 
 </cfif>
 
+ 
  <cfif TransactionSource eq "AccountSeries" 
       or TransactionSource eq "ReconcileSeries"  
 	  or TransactionSource eq "SalesSeries"	 
@@ -44,6 +45,7 @@
 		  orgunit   = "#Transaction.OrgUnitOwner#"
 		  returnvariable="access">	
 		  
+		 
 		  		 		 			
       <cfif (ActionStatus eq "0" or allowEdit eq "1") 
 	     and (Access eq "ALL" or Access eq "EDIT") 
@@ -70,7 +72,7 @@
 												
 							<cfset pJournal         = Journal>
 							<cfset pJournalSerialNo = JournalSerialNo>
-							
+														
 							<!--- check if this transaction has any children --->
 						
 							<cfquery name="Children" 
@@ -112,7 +114,8 @@
 	   </cfif>
 		
    <cfelse>		
-   
+  
+     
    		<cfif actionStatus eq "0" or (getAdministrator("*") eq "1" and TransactionSource eq "AccountSeries")>
 						   
    		   <cfinvoke component="Service.Access"  
@@ -163,6 +166,46 @@
 					</cfif>			
 			   
 			   </cfif>
+			   
+		<cfelseif TransactionSource eq "EventSeries">	  
+		
+			<cfinvoke component="Service.Access"  
+	          method="journal"  
+			  journal="#URL.Journal#" 
+			  orgunit="#Transaction.OrgUnitOwner#"
+			  returnvariable="access">
+  	  
+		      <cfif Access eq "ALL" and PeriodStatus eq "0">
+			  
+			           <cfquery name="Check" 
+						datasource="AppsLedger" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT *
+							FROM   Event
+							WHERE  EventId = '#Transaction.TransactionSourceId#'							
+						</cfquery>					
+									
+				  		<cfif check.recordcount eq "0">   		
+						 
+						 <table cellspacing="0" cellpadding="0" class="formpadding">
+						 
+						 <tr class="line">
+												
+						 <td style="padding-left:4px" class="labelit">
+						 <input type="button" class="button10g" style="width:120;height:25" onClick="EditTransaction('#Journal#','#JournalSerialNo#')" value="Amend">						
+						 </td>
+						 
+						 <td style="padding-left:2px">												 
+						 <input type="button" class="button10g" style="width:120;height:25" onClick="del('#Journal#','#JournalSerialNo#')" value="Delete">
+						 </td>
+						 </tr>
+						 </table>
+										 						 					   
+	     	    		</cfif>		  
+			  
+			  			  
+			  </cfif> 
 			   
 		<cfelse>
 		

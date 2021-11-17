@@ -278,7 +278,6 @@
 
 </table>
 
-
 <script>
 	Prosis.busy('no')
 </script>

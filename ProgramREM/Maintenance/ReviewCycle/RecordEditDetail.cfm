@@ -1,3 +1,7 @@
+<script>
+	_cf_loadingtexthtml='';	
+</script>
+
 <cfquery name="Get" 
 	datasource="appsProgram" 
 	username="#SESSION.login#" 
@@ -14,7 +18,7 @@
 
 <cfform action="RecordSubmit.cfm?idmenu=#url.idmenu#&id1=#url.id1#&fmission=#url.fmission#" method="POST" name="frmReviewCycle">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="95%" align="center" class="formpadding formspacing">
 
 	<tr><td height="10"></td></tr>
 
@@ -56,7 +60,7 @@
 	<TR>
 	    <TD class="labelmedium"><cf_tl id="Period">:</TD>
 	    <TD class="labelmedium">
-	  	   <cfdiv id="divPeriod" bind="url:getPeriod.cfm?id1=#url.id1#&period=#get.period#&mission={Mission}">
+	  	   <cf_securediv id="divPeriod" bind="url:getPeriod.cfm?id1=#url.id1#&period=#get.period#&mission={Mission}">
 	    </TD>
 	</TR>
 	
@@ -94,11 +98,11 @@
 			<table cellspacing="0" cellpadding="0">
 			<tr>
 			<td>
-				<cfdiv id="divEffectiveDate" bind="url:setDate.cfm?id1=#url.id1#&period=#get.period#&name=Effective&blank=0">
+				<cf_securediv id="divEffectiveDate" bind="url:setDate.cfm?id1=#url.id1#&period=#get.period#&name=Effective&blank=0">
 			</td>	
 			<td style="padding-left:5;padding-right:5px">-</td>
 			<td>
-				<cfdiv id="divExpirationDate" bind="url:setDate.cfm?id1=#url.id1#&period=#get.period#&name=Expiration&blank=0">
+				<cf_securediv id="divExpirationDate" bind="url:setDate.cfm?id1=#url.id1#&period=#get.period#&name=Expiration&blank=0">
 			</td>
 			</tr>
 			</table>
@@ -111,11 +115,11 @@
 			<table cellspacing="0" cellpadding="0">
 			<tr>
 			<td>
-				<cfdiv id="divEffectiveDateBudget" bind="url:setDate.cfm?id1=#url.id1#&period=#get.period#&name=BudgetEffective&blank=0">
+				<cf_securediv id="divEffectiveDateBudget" bind="url:setDate.cfm?id1=#url.id1#&period=#get.period#&name=BudgetEffective&blank=0">
 			</td>	
 			<td style="padding-left:5;padding-right:5px">-</td>
 			<td>
-				<cfdiv id="divExpirationDateBudget" bind="url:setDate.cfm?id1=#url.id1#&period=#get.period#&name=BudgetExpiration&blank=0">
+				<cf_securediv id="divExpirationDateBudget" bind="url:setDate.cfm?id1=#url.id1#&period=#get.period#&name=BudgetExpiration&blank=0">
 			</td>
 			</tr>
 			</table>
@@ -177,7 +181,7 @@
 	
 	<tr>
 		<td colspan="2">
-			<cfdiv id="divDetailgroup" bind="url:Group.cfm?idmenu=#url.idmenu#&id1=#url.id1#&fmission={Mission}">
+			<cf_securediv id="divDetailgroup" bind="url:Group.cfm?idmenu=#url.idmenu#&id1=#url.id1#&fmission={Mission}">
 		</td>
 	</tr>	
 	
@@ -185,7 +189,7 @@
 	
 	<tr>
 		<td colspan="2">
-			<cfdiv id="divDetail" bind="url:Profile/Profile.cfm?idmenu=#url.idmenu#&id1=#url.id1#&fmission={Mission}">
+			<cf_securediv id="divDetail" bind="url:Profile/Profile.cfm?idmenu=#url.idmenu#&id1=#url.id1#&fmission={Mission}">
 		</td>
 	</tr>	
 					

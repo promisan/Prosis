@@ -91,14 +91,14 @@ password="#SESSION.dbpw#">
   
 	  <table width="100%" class="navigation_table">
 			
-		<TR class="line labelmedium2">
-		    <td width="5%" align="center"></td>
-		    <td width="20%"><cf_tl id="Bank"></td>
-			<td width="30%"><cf_tl id="Address"></td>
-			<td width="10%"><cf_tl id="Type"></td>			
-			<TD width="12%"><cf_tl id="Account"></TD>			
-			<TD width="10%" style="padding-left:4px"><cf_tl id="IBAN"></TD>
-			<TD width="10%"><cf_tl id="Effective"></TD>
+		<TR class="line labelmedium2 fixlengthlist">
+		    <td align="center"></td>
+		    <td><cf_tl id="Bank"></td>
+			<td><cf_tl id="Address"></td>
+			<td><cf_tl id="Type"></td>			
+			<TD><cf_tl id="Account"></TD>			
+			<TD><cf_tl id="IBAN"></TD>
+			<TD><cf_tl id="Effective"></TD>
 		</TR>
 		
 		<cfinvoke component="Service.Access"  method="employee"  personno="#URL.ID#" returnvariable="access">
@@ -122,7 +122,7 @@ password="#SESSION.dbpw#">
 			<cfset cl = "FFC1C180">		
 		</cfif>
 		
-		<TR bgcolor="FFFFFF" class="labelmedium2 line navigation_row">
+		<TR bgcolor="FFFFFF" class="labelmedium2 line navigation_row fixlengthlist">
 		<td align="center" height="20" style="background-color:###cl#">		
 		     
 		     <cfif access eq "EDIT" or access eq "ALL">
@@ -160,12 +160,12 @@ password="#SESSION.dbpw#">
 			 </cfif>  
 			 
 		</td>	
-		<td style="padding-left:0px;background-color:###cl#">#Description#</td>
-		<td style="padding-left:2px;background-color:###cl#">#BankAddress#</td>
-		<td style="padding-left:2px;background-color:###cl#">#AccountType#-#AccountCurrency#</td>		
-		<td style="padding-left:2px;background-color:###cl#">#AccountNo#</td>		
-		<TD style="padding-left:2px;background-color:###cl#;padding-left:5px;padding-right:4px"><cfif IBAN eq AccountNo><i><font color="gray"><cf_tl id="Same"><cfelse>#IBAN#</cfif></TD>		
-		<td style="padding-left:2px;background-color:###cl#;padding-right:4px;">#dateformat(DateEffective,client.dateformatshow)#</td>		
+		<td style="background-color:###cl#">#Description#</td>
+		<td style="background-color:###cl#">#BankAddress#</td>
+		<td style="background-color:###cl#">#AccountType#-#AccountCurrency#</td>		
+		<td style="background-color:###cl#">#AccountNo#</td>		
+		<TD style="background-color:###cl#;padding-left:5px;padding-right:4px"><cfif IBAN eq AccountNo><i><font color="gray"><cf_tl id="Same"><cfelse>#IBAN#</cfif></TD>		
+		<td style="background-color:###cl#;padding-right:4px;">#dateformat(DateEffective,client.dateformatshow)#</td>		
 		
 		</tr>
 				
@@ -199,7 +199,7 @@ password="#SESSION.dbpw#">
 		
 			<cfloop query = "Distribution">
 				
-				<tr bgcolor="D0FDC4" class="labelmedium2 line">
+				<tr bgcolor="D0FDC4" class="labelmedium2 line fixlengthlist">
 				
 				<td align="left"></td>
 				<td colspan="8">

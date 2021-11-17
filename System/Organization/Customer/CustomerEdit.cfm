@@ -104,8 +104,7 @@
 									<cf_menutab item   = "1" 
 									        base       = "sub"
 											target     = "subbox"
-											targetitem = "1"
-											width      = "20%"
+											targetitem = "1"											
 											padding    = "3"
 											class      = "highlight"
 									        iconsrc    = "Status-02.png" 
@@ -119,8 +118,7 @@
 									<cf_menutab item   = "2" 
 									        base       = "sub"
 											target     = "subbox"
-											targetitem = "1"
-											width      = "20%"
+											targetitem = "1"											
 											padding    = "3"											
 									        iconsrc    = "Action.png" 
 											iconwidth  = "#wd#" 									
@@ -135,8 +133,7 @@
 									        base       = "sub"
 											target     = "subbox"
 											targetitem = "1"									
-											padding    = "3"
-											width      = "20%"									
+											padding    = "3"																		
 									        iconsrc    = "Invoice.png" 
 											iconwidth  = "#wd#" 
 											iconheight = "#ht#" 
@@ -149,8 +146,7 @@
 									        base       = "sub"
 											target     = "subbox"
 											targetitem = "2"									
-											padding    = "3"
-											width      = "20%"									
+											padding    = "3"																			
 									        iconsrc    = "Contact.png" 
 											iconwidth  = "#wd#" 
 											iconheight = "#ht#" 
@@ -163,8 +159,7 @@
 										<cf_menutab item   = "5" 
 										        base       = "sub"
 												target     = "subbox"
-												targetitem = "3"
-												width      = "20%"
+												targetitem = "2"												
 												padding    = "3"										
 										        iconsrc    = "Billing.png" 
 												iconwidth  = "#wd#" 
@@ -172,7 +167,9 @@
 												name       = "#vBilling#"
 												source     = "../../../Workorder/Application/WorkOrder/ServiceDetails/Charges/ChargesCustomer.cfm?systemfunctionid=#url.systemfunctionid#&mission=#get.mission#&customerid=#url.customerid#">				
 												
-									  </cfif>		
+									  </cfif>	
+									  
+									  <td style="width:10%"></td>	
 									 								 								
 									</tr>
 									</table>	
@@ -212,7 +209,7 @@
 							   <table width="99%" height="100%" align="center">	   					
 															
 									<cfif url.serviceclass eq "">
-																						
+																															
 										<cf_menucontainer name="subbox" item="1" class="regular">										
 										      <cfset url.mission = get.mission>
 											  <cfinclude template="../../../Workorder/Application/WorkOrder/Create/WorkOrderListing.cfm">											 
@@ -223,6 +220,7 @@
 											  <cfinclude template="../Application/Address/UnitAddressView.cfm">											  
 										</cf_menucontainer>	  										
 										<cf_menucontainer name="subbox" item="3" class="hide">																		  
+										</cf_menucontainer>		
 																		
 									<cfelse>
 									
@@ -236,7 +234,8 @@
 											  <cfinclude template="../../../Workorder/Application/WorkOrder/Create/WorkOrderListing.cfm">										
 										</cf_menucontainer>
 										
-										<cf_menucontainer name="subbox" item="3" class="hide">																		  																
+										<cf_menucontainer name="subbox" item="3" class="xxxxxhide">		
+										</cf_menucontainer>																  																
 									
 									</cfif>								
 								

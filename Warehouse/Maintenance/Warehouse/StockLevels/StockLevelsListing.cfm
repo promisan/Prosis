@@ -29,10 +29,12 @@
 					ON WC.Warehouse = IW.Warehouse
 					AND WC.Category = I.Category
 		WHERE	UM.EnableStockClassification = 1
+		AND     U.Operational = 1 
 		AND		IW.Warehouse = '#url.warehouse#'
 		ORDER BY C.Description, I.ItemDescription, U.UoMDescription
 	    
 </cfquery>
+
 
 <cfquery name="getClasses" 
 	datasource="AppsMaterials" 
@@ -54,7 +56,7 @@
 	<table width="95%" align="center" cellpadding="0" cellspacing="0" class="navigation_table">
 		<tr><td height="5"></td></tr>
 		
-		<tr>
+		<tr class="line">
 			<td class="labelit" width="6%"><cf_tl id="Category"></td>	
 			<td class="labelit" width="15%"><cf_tl id="Item"></td>
 			<td class="labelit" width="10%"><cf_tl id="UoM"></td>
@@ -62,11 +64,7 @@
 				<td class="labelit" align="right">#Description#</td>
 			</cfoutput>
 		</tr>
-		
-		<cfoutput>
-			<tr><td colspan="#getClasses.recordCount + 3#" class="line"></td></tr>
-		</cfoutput>
-		
+						
 		<cfoutput query="get" group="Category">
 			
 			<tr>

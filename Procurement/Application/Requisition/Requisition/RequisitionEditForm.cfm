@@ -34,6 +34,7 @@ password="#SESSION.dbpw#">
 <cf_FileLibraryScript>
 <cf_DialogREMProgram>
 
+
 <cfinclude template="../Travel/TravelScript.cfm">
 
 	<cfinclude template="RequisitionEditPrepare.cfm">
@@ -83,11 +84,11 @@ password="#SESSION.dbpw#">
 	
 	<cfinvoke component = "Service.Access"  
 	   method           = "RoleAccess" 
-	   SystemFunction         = "Requisition"
+	   SystemFunction   = "Requisition"
 	   Mission          = "#Line.Mission#"
 	   AccessLevel      = "'1','2'" 	  
 	   returnvariable   = "accessmodule">		
-	   		
+	   	   		
 	<cfif (Line.ActionStatus gte "3" or (accessModule eq "DENIED" and access neq "limited"))>
 	     <!--- purchase order created or user has no access, then we limit no matter what  --->
 	     <cfset Access = "View">    
@@ -126,12 +127,12 @@ password="#SESSION.dbpw#">
 	<cfoutput>
 		<script>
 			function selectBeneficiary(per, w) {
-				ColdFusion.navigate('#session.root#/procurement/application/requisition/travel/beneficiary/setBeneficiary.cfm?requisitionno=#Line.requisitionNo#&access=#access#&personno='+per, 'divGetBeneficiary');
+				ptoken.navigate('#session.root#/procurement/application/requisition/travel/beneficiary/setBeneficiary.cfm?requisitionno=#Line.requisitionNo#&access=#access#&personno='+per, 'divGetBeneficiary');
 				w.close();
 			}
 			
 			function removeBeneficiary(id) {
-				ColdFusion.navigate('#session.root#/procurement/application/requisition/travel/beneficiary/beneficiarypurge.cfm?requisitionno=#Line.requisitionNo#&access=#access#&beneficiaryid='+id, 'divBeneficiary');
+				ptoken.navigate('#session.root#/procurement/application/requisition/travel/beneficiary/beneficiarypurge.cfm?requisitionno=#Line.requisitionNo#&access=#access#&beneficiaryid='+id, 'divBeneficiary');
 			}
 			
 			function editBeneficiary(id) {
@@ -142,6 +143,7 @@ password="#SESSION.dbpw#">
 	</cfoutput>
 
 <cf_divscroll>	
+
 
 						
 <table width="100%" height="100%">
@@ -302,7 +304,7 @@ password="#SESSION.dbpw#">
 			  <img src="#SESSION.root#/Images/search.png" alt="Select authorised unit" name="img0" 
 				  onMouseOver="document.img0.src='#SESSION.root#/Images/search.png'" 
 				  onMouseOut="document.img0.src='#SESSION.root#/Images/search.png'"
-				  style="cursor: pointer;" alt="" width="28" height="29" border="1" align="absmiddle" 
+				  style="cursor: pointer;border:1px solid silver;height:26px" alt="" width="25" height="25"  align="absmiddle" 
 				  onClick="selectorgroleN('#mis#','',document.getElementById('period').value,'ProcReqEntry','orgunit','applyorgunit','1','modal','enable')"> 
 				 				  
 			 </td>
@@ -376,7 +378,7 @@ password="#SESSION.dbpw#">
 			  <img src="#SESSION.root#/Images/search.png" alt="Select implementing unit" name="img9" 
 			  onMouseOver="document.img9.src='#SESSION.root#/Images/search.png'" 
 			  onMouseOut="document.img9.src='#SESSION.root#/Images/search.png'"
-			  style="cursor: pointer;;border-radius:0px" alt="" width="28" height="29" border="1" align="absmiddle" 
+			  style="cursor: pointer;border:1px solid silver;height:26px" alt="" width="25" height="25" align="absmiddle" 
 			  onClick="selectorgroleN('#mis#','',document.getElementById('period').value,'ProcReqEntry','orgunit','applyorgunit','2','modal','disable')">
 			  
 			 </td>
@@ -1122,7 +1124,7 @@ password="#SESSION.dbpw#">
 	</cfquery>	
 			
 	<tr class="hide"><td>
-		<cfdiv id="budgetentry"
+		<cf_securediv id="budgetentry"
 	    	bind="url:#SESSION.root#/Procurement/Application/Requisition/Requisition/RequisitionEditFormBudget.cfm?requisitionno=#url.id#&mission=#line.mission#&period=#line.period#&itemmaster=#line.itemmaster#">
 	</td></tr>
 	
@@ -1177,8 +1179,7 @@ password="#SESSION.dbpw#">
 	<!--- determine if the funding should be shown --->
 	<!--- ---------------------------------------- --->	
 												
-	<tr class="hide" id="funding1"><td height="0" colspan="2"></td></tr>
-	
+	<tr class="hide" id="funding1"><td height="0" colspan="2"></td></tr>	
 				
 	<TR id="funding2" class="labelmedium  <cfif access neq 'edit'>line</cfif>">
 	
@@ -1186,9 +1187,8 @@ password="#SESSION.dbpw#">
 			<cf_tl id="Funding">:								
 	    	</td>
 			
-		    <TD height="23" id="fundbox" style="padding-right:20px">													
-			
-				<script>funding('')</script>																		
+		    <TD height="23" id="fundbox" style="padding-right:20px">			
+				<script>funding('')</script>														
 				
 		    </TD>
 				
@@ -1208,7 +1208,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif Access eq "Edit" or Access eq "Limited">		
 	 
-	    <TR class="line">     
+	    <TR>     
 		
 						 				 
 			 <td id="memo" colspan="2" style="padding-right:20px">
@@ -1234,7 +1234,7 @@ password="#SESSION.dbpw#">
 	 
 	 <cfelse>
 										   
-		<TR class="line">     
+		<TR>     
 				
 		 	<td valign="top" style="padding-top:5px" class="labelmedium">										
 					<cf_tl id="REQ022">:											
@@ -1350,7 +1350,7 @@ password="#SESSION.dbpw#">
 			<tr class="hide" name="reqaction" id="reqaction">
 			    <td class="labelmedium" valign="top" style="padding-left:9px;padding-top:6px"><cf_tl id="Reasons">:</td>
 				<td>
-					<cfdiv bind="url:../Process/RequisitionProcessReason.cfm?row=1&requisitionno=#Line.requisitionno#&statusclass=requisition&status=9">
+					<cf_securediv bind="url:../Process/RequisitionProcessReason.cfm?row=1&requisitionno=#Line.requisitionno#&statusclass=requisition&status=9">
 				</td>
 			</tr>				
 									
@@ -1446,7 +1446,7 @@ password="#SESSION.dbpw#">
 			<tr id="submitline">	
 			   <td align="center" colspan="2" height="35">
 			   
-			       <table cellspacing="0" cellpadding="0" class="formpadding">
+			       <table class="formpadding">
 				   <tr>
 			   
 			   	   <cfoutput>				   
@@ -1472,15 +1472,15 @@ password="#SESSION.dbpw#">
 						   						   						   						   
 							   <cfif Line.OrgUnit neq "">						   	 			   	
 							       <cfif Line.ActionStatus eq "1">
-								     <td><input class="button10g" style="width:140;height:25px;font-size:13px" type="button" name="purge" id="purge" value="#vRemove#" onclick="askpurge()"></td>
+								     <td><input class="button10g" style="width:140;height:28px;font-size:13px" type="button" name="purge" id="purge" value="#vRemove#" onclick="askpurge()"></td>
 								   <cfelseif Line.ActionStatus eq "1f">
-								     <td style="padding-left:1px"><input class="button10g" style="width:140;height:25px;font-size:13px" type="button" name="purge" id="purge" value="#vRemove#" onclick="askpurge()"></td>
-									 <td style="padding-left:1px"><input class="button10g" style="width:140;height:25px;font-size:13px" type="button" name="cancelselect" id="cancelselect" value="#vCancel#" onclick="cancelreq()"></td> 						  
+								     <td style="padding-left:1px"><input class="button10g" style="width:140;height:28px;font-size:13px" type="button" name="purge" id="purge" value="#vRemove#" onclick="askpurge()"></td>
+									 <td style="padding-left:1px"><input class="button10g" style="width:140;height:28px;font-size:13px" type="button" name="cancelselect" id="cancelselect" value="#vCancel#" onclick="cancelreq()"></td> 						  
 								   <cfelseif Line.ActionStatus eq "1p" and Parameter.RequestPurge eq "1"> 
-								     <td style="padding-left:1px"><input class="button10g" style="width:140;height:25px;font-size:13px" type="button" name="purge" id="purge" value="#vRemove#" onclick="askpurge()"></td>
+								     <td style="padding-left:1px"><input class="button10g" style="width:140;height:28px;font-size:13px" type="button" name="purge" id="purge" value="#vRemove#" onclick="askpurge()"></td>
 								   <cfelse>										  
 								     <cfif url.mode neq "Entry">
-									     <td style="padding-left:1px"><input class="button10g" style="width:140;height:25px;font-size:13px" type="button" name="cancelselect" id="cancelselect" value="#vCancel#" onclick="cancelreq()"></td>
+									     <td style="padding-left:1px"><input class="button10g" style="width:140;height:28px;font-size:13px" type="button" name="cancelselect" id="cancelselect" value="#vCancel#" onclick="cancelreq()"></td>
 									 </cfif>
 								   </cfif>
 							   </cfif>
@@ -1490,13 +1490,13 @@ password="#SESSION.dbpw#">
 							
 					  	   <cfif Line.ActionStatus eq "1">
 						   		<td style="padding-left:1px">
-									 <input class="button10g" type="button" name="clone" id="clone"  style="width:140;height:25px;font-size:13px" value="#vClone#" onclick="askclone()">
+									 <input class="button10g" type="button" name="clone" id="clone"  style="width:140;height:28px;font-size:13px" value="#vClone#" onclick="askclone()">
 								</td>
 						   </cfif>
 							
 							 <td style="padding-left:1px">			
 							
-							   <input class="button10g" type="button" style="width:140;height:25px;font-size:13px" onclick="updateTextArea();Prosis.busy('yes');ptoken.navigate('RequisitionEditSubmit.cfm?ID=#URL.ID#&Mode=#URL.Mode#&refer=#url.refer#','resultsubmit','','','POST','processaction')"
+							   <input class="button10g" type="button" style="width:140;height:28px;font-size:13px" onclick="updateTextArea();Prosis.busy('yes');ptoken.navigate('RequisitionEditSubmit.cfm?ID=#URL.ID#&Mode=#URL.Mode#&refer=#url.refer#','resultsubmit','','','POST','processaction')"
 								  id="save" name="save" value="#vUpdate#">		
 								 							  
 							  </td>
@@ -1526,7 +1526,7 @@ password="#SESSION.dbpw#">
 				   	   <cfif url.mode neq "workflow">
 				      
 					  	   <td>
-						   <input type="button" class="button10g" style="width:140;height:25px;font-size:13px" name="Close" id="Close" value="#vClose#" onClick="window.close()">
+						   <input type="button" class="button10g" style="width:140;height:28px;font-size:13px" name="Close" id="Close" value="#vClose#" onClick="window.close()">
 						   </td>
 						   
 						   <cfif Line.ActionStatus eq "9" and getAdministrator(line.mission) eq "1" and Line.Recordcount gte "1"> 
@@ -1535,7 +1535,7 @@ password="#SESSION.dbpw#">
 							   
 							   <cfif funds eq "Yes">   
 								   <td style="padding-left:3px">							   
-								   <input type="button" class="button10g" style="width:140;height:25px;font-size:13px" name="reinstate" id="reinstate" value="#vReinstate#" onclick="askreinstate()">
+								   <input type="button" class="button10g" style="width:140;height:28px;font-size:13px" name="reinstate" id="reinstate" value="#vReinstate#" onclick="askreinstate()">
 								   </td>								
 							   </cfif>
 						   	   
@@ -1559,11 +1559,12 @@ password="#SESSION.dbpw#">
 					name="cancel" 
 					class="button10g"
                     id="cancel"
+					style="width:140;height:28px;font-size:13px"
 					value="Cancel Line" 
 					onclick="askcancel('reqaction')">
 				</td>
 				<td>				
-					<cfdiv bind="url:../Process/RequisitionProcessReason.cfm?row=1&requisitionno=#Line.requisitionno#&statusclass=requisition&status=9">
+					<cf_securediv bind="url:../Process/RequisitionProcessReason.cfm?row=1&requisitionno=#Line.requisitionno#&statusclass=requisition&status=9">
 				</td>
 			</tr>	
 		
@@ -1644,11 +1645,11 @@ password="#SESSION.dbpw#">
 						  <input type="hidden" 
 					   		name="workflowlinkprocess_prepare_#url.id#" 
 	                        id="workflowlinkprocess_prepare_#url.id#"
-						    onclick="ColdFusion.navigate('RequisitionEditStatus.cfm?requisitionno=#url.id#','reqstatus')">
+						    onclick="ptoken.navigate('RequisitionEditStatus.cfm?requisitionno=#url.id#','reqstatus')">
 							
 						</cfoutput>
 							
-						<cfdiv bind="url:#SESSION.root#/procurement/application/requisition/requisition/RequisitionEditFlow.cfm?ajaxid=prepare_#URL.ID#" id="prepare_#URL.ID#">					
+						<cf_securediv bind="url:#SESSION.root#/procurement/application/requisition/requisition/RequisitionEditFlow.cfm?ajaxid=prepare_#URL.ID#" id="prepare_#URL.ID#">					
 										 
 					</td>					
 				   </tr>				   
@@ -1692,11 +1693,11 @@ password="#SESSION.dbpw#">
 						  <input type="button" class="hide"
 					       name    = "workflowlinkprocess_review_#url.id#"
                            id      = "workflowlinkprocess_review_#url.id#"
-					       onClick = "ColdFusion.navigate('RequisitionEditStatus.cfm?requisitionno=#url.id#','reqstatus')">
+					       onClick = "ptoken.navigate('RequisitionEditStatus.cfm?requisitionno=#url.id#','reqstatus')">
 						
 						</cfoutput>
 							
-						<cfdiv bind="url:#SESSION.root#/procurement/application/requisition/requisition/RequisitionReviewFlow.cfm?ajaxid=review_#URL.ID#" id="review_#URL.ID#">					
+						<cf_securediv bind="url:#SESSION.root#/procurement/application/requisition/requisition/RequisitionReviewFlow.cfm?ajaxid=review_#URL.ID#" id="review_#URL.ID#">					
 										 
 						</td>
 					 </tr>	

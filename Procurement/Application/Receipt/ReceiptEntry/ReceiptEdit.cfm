@@ -13,7 +13,6 @@ password="#SESSION.dbpw#">
 	WHERE  ObjectKeyValue1 = '#url.id#'
 	AND    Operational = 1
 </cfquery>
-
 		
     <cfif Object.recordcount gte "1">
 	

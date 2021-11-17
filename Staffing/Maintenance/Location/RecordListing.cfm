@@ -117,16 +117,16 @@ password="#SESSION.dbpw#">
 
 <table width="97%" align="center" class="navigation_table">
 	  
-<tr class="labelmedium2 line fixrow">
+<tr class="labelmedium2 line fixrow fixlengthlist">
     <td></td>
     <td>Code</td>
-	<td>Location name</td>
-	<td align="center">Effective</td>
-	<td align="center">Expiration</td>
-	<td align="center">Service Location</td>
+	<td><cf_tl id="Location name"></td>
+	<td align="center"><cf_tl id="Effective"></td>
+	<td align="center"><cf_tl id="Expiration"></td>
+	<td align="center"><cf_tl id="Service Location"></td>
 	<td style="width:30px" align="center">S</td>
-	<td>Officer</td>
-    <td>Entered</td>
+	<td><cf_tl id="Officer"></td>
+    <td><cf_tl id="Entered"></td>
   
 </tr>
 
@@ -136,7 +136,7 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput>
 	  	
-	    <tr style="height:22px" class="labelmedium2 navigation_row line"> 
+	    <tr style="height:22px" class="labelmedium2 navigation_row line fixlengthlist"> 
 		<td width="5%" align="center">
 		   <cf_img icon="open" navigation="Yes" onclick="recordedit('#LocationCode#')">
 		</td>		

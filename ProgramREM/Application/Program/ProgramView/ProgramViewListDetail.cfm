@@ -94,25 +94,19 @@
 	</cfif>
 	
 	<td colspan="7">	
-		
-	<table cellspacing="0" cellpadding="0">
+			
+	<table>
 	
 		<tr>
 		
 		<td>
 											
-			<table cellspacing="0" cellpadding="0">
+			<table>
 			
 				<tr>	
 				
-				<td valign="top" style="padding-top:12px" onclick="cmexpand('mymenu','#rowguid#','#menufile#')"><cf_img icon="select"></td>	
-				
-					<td id="mymenu" name="mymenu" class="hide">
-					<table cellspacing="0" cellpadding="0">
-						<tr><td id="mymenu#rowguid#"></td></tr>
-					</table>
-					</td>												
-																	
+				<td valign="top" style="padding-top:12px" onclick="cmexpand('mymenu','#rowguid#','#menufile#')"><cf_img icon="open"></td>	
+																
 					<cfif show eq "1">	
 										  									
 						<cfif ProgramScope eq "Unit">
@@ -188,11 +182,20 @@
 	</TD>		
 					
 	</TR>
+	
+	<tr style="position: sticky; top: 36px; z-index:99999">
+		<td id="mymenu" name="mymenu">
+		    <table><tr>
+		     <td colspan="9" style="padding-top:2px" id="mymenu#rowguid#"></td>
+			 </tr></table>
+		</td>
+	</tr>
 												  
 	<tr id="i#ProgramCode#" class="hide">
 	  	  <td colspan="9" id="d#ProgramCode#"></td>
-	</tr>		
-			
+	</tr>	
+		
+	
 	<cfset prior = programid>
 	<cfset value = "">
 						
@@ -262,22 +265,22 @@
 				   
 					   	<cfset value = programid>	
 				   			
-						<cfset show = "0">
-						<cfset cl = "f8f8f8">
-						<cfset ht = "12">
-						<cfset ftstyle  = "border:0px solid gray;background-color:eaeaea;height:16px;font-variant: normal;font-size:#ht#">
+						<cfset show     = "0">
+						<cfset cl       = "f8f8f8">
+						<cfset ht       = "14">
+						<cfset ftstyle  = "border:0px solid gray;background-color:##eaeaea80;height:16px;font-variant: normal;font-size:#ht#">
 						<cfset ftstyleb = "height:16px;font-variant: normal;font-size:#ht#">
 								
 				   </cfif>					   
 				  				   
-				    <tr class="navigation_row" style="border-bottom:1px dotted silver">
+				    <tr class="navigation_row labelmedium2" style="border-bottom:1px dotted silver">
 				   			        																	
 				        <td colspan="1" style="padding-left:20px;padding-right:4px">								
 						<cfloop index="itm" list="#ProgramHierarchy#" delimiters=".">&nbsp;<b>.&nbsp;</cfloop>					
 						</td>
 						
 						<td width="20" style="padding-left:3px">
-																		
+																								
 							<table width="100%" cellspacing="0" cellpadding="0">
 							<tr>
 																										
@@ -321,7 +324,7 @@
 				 
 					    </td>
 																
-					   	<td class="line labelmedium" style="min-width:130px;border:1px solid gray;padding-left:5px;height:15px;" id="ref_#programid#" 
+					   	<td class="line labelmedium2" style="min-width:130px;border:1px solid gray;padding-left:5px;height:15px;" id="ref_#programid#" 
 						onclick="javascript:cmexpand('mymenu','#rowguid#','#menufile#')" bgcolor="#cl#">
 						
 						   <table width="100%">
@@ -332,7 +335,7 @@
 							<tr><td style="height:8px;background-color:orange;border:1px solid gray"></td></tr>
 							</cfif>
 												
-						    <tr class="labelmedium"><td style="#ftstyle#">																										
+						    <tr class="labelmedium2"><td style="#ftstyle#">																										
 																
 							<cfif ProgramScope eq "Unit" and show eq "1">	  
 								
@@ -352,7 +355,8 @@
 						
 						<td style="#ftstyle#;padding-left:2px" colspan="3">
 						
-							<table width="100%" cellspacing="0" cellpadding="0">
+												
+							<table width="100%">
 							<tr>
 							
 								<td id="mymenu" name="mymenu" class="hide">
@@ -368,17 +372,19 @@
 								    <cfif ProgramClass eq "Project">						     
 										 
 										 <table width="100%" cellspacing="0" cellpadding="0">
-										     
+										 										     
 											 <cfif show eq "1">
 										      <tr>
-												  <td colspan="3">													 											  
+												  <td colspan="3">											 											  
+												 
 												  <table width="100%" cellspacing="0" cellpadding="0">
-												  <tr>
-												  <td class="labelit" style="padding-left:5px;font-size:12px;height:10px;padding-top:1px"><font color="gray"><cfif OrgUnitName neq "">#OrgUnitName#<cfelse>#OrgUnitNameLong#</cfif></td>
+												  
+												  <tr class="labelmedium2">
+												  <td style="padding-left:5px;height:10px;padding-top:1px"><font color="gray"><cfif OrgUnitName neq "">#OrgUnitName#<cfelse>#OrgUnitNameLong#</cfif></td>
 												  <cfif url.reviewCycleId eq "">
-												  <td class="labelit" style="font-size:12px;padding-right:4px;height:10px;padding-top:1px" align="right"><font color="gray">#left(ProgramManager,50)#</td>
+												  <td style="padding-right:4px;height:10px;padding-top:1px" align="right"><font color="gray">#left(ProgramManager,50)#</td>
 												  <cfelse>
-												  <td class="labelit" style="font-size:12px;padding-right:4px;height:10px;padding-top:1px" align="right"><cfif ReviewCycleStatus eq "3"><font color="008080"><cf_tl id="Completed"></font><cfelse><font color="FF0000"><cf_tl id="Pending"></cfif></td>												 
+												  <td style="padding-right:4px;height:10px;padding-top:1px" align="right"><cfif ReviewCycleStatus eq "3"><font color="008080"><cf_tl id="Completed"></font><cfelse><font color="FF0000"><cf_tl id="Pending"></cfif></td>												 
 												  </cfif>
 												  </tr>
 												  </table>
@@ -390,21 +396,21 @@
 											 <cfif ProgramScope eq "Unit" and show eq "1">	
 											 <td><cf_img icon="edit" navigation="Yes" onclick="EditProgram('#ProgramCode#','#Period#','#ProgramClass#')"></td>
 											 </cfif>											 
-											 <td width="97%" class="labelmedium" id="nme_#programid#" style="padding-top:1px;#ftstyle#;padding-left:8px">#ProgramName#</td>
+											 <td width="97%" class="labelmedium2" id="nme_#programid#" style="padding-top:1px;#ftstyle#;padding-left:8px">#ProgramName#</td>
 											 </tr>
 										 </table>
 																				 
 									<cfelse>
 									
 										  <table cellspacing="0" width="100%"  cellpadding="0">
-										 
+										  										  										 
 										      <cfif show eq "1">
 										      <tr>
 												  <td colspan="3">
 												  <table width="100%">
 												  <tr>
-												  <td colspan="3" class="labelit" style="font-size:12px;padding-left:5px;padding-top:1px"><font color="gray"><cfif OrgUnitName neq "">#OrgUnitName#<cfelse>#OrgUnitNameLong#</cfif> </td>
-												  <td class="labelit" style="font-size:12px;padding-right:4px;height:10px;padding-top:1px" align="right"><font color="gray">#ProgramManager#</td>
+												  <td colspan="3" class="labelmedium2" style="padding-left:5px;padding-top:1px"><font color="gray"><cfif OrgUnitName neq "">#OrgUnitName#<cfelse>#OrgUnitNameLong#</cfif> </td>
+												  <td class="labelmedium2" style="padding-right:4px;height:10px;padding-top:1px" align="right"><font color="gray">#ProgramManager#</td>
 												  </tr>
 												  </table>
 												  </td>
@@ -413,7 +419,7 @@
 											  <tr>
 											  <td><cfloop index="itm" list="#ProgramHierarchy#" delimiters=".">&nbsp;&nbsp;</cfloop></td>
 											  <td><cf_img icon="edit" navigation="Yes" onclick="EditProgram('#ProgramCode#','#Period#','#ProgramClass#')"></td>
-											  <td width="97%" class="labelmedium" id="nme_#programid#" style="padding-top:1px;padding-left:8px;#ftstyle#">#ProgramName#</td>
+											  <td width="97%" class="labelmedium2" id="nme_#programid#" style="padding-top:1px;padding-left:8px;#ftstyle#">#ProgramName#</td>
 											  </tr>
 										  </table> 
 																				 
@@ -519,11 +525,10 @@
 			
     </cfif>		
 				
-	<cfif value neq "">				
+	<cfif value neq "" or resultListing.recordcount lte "5">				
 	   <script language="JavaScript">
 			document.getElementById('box#prior#').className = "regular fixrow2"
-	   </script>
-	  
+	   </script>	  
 	</cfif>
 			
 </cfoutput>   

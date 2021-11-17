@@ -373,7 +373,8 @@ password="#SESSION.dbpw#">
 	
 	<cf_layoutarea position="center" name="box" overflow="scroll">
 				
-		<cf_divscroll style="height:99%">		
+		<cf_divscroll>	
+		
 			<cfinclude template="InvoiceMatchEdit.cfm">
 		</cf_divscroll>			
 					

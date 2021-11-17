@@ -205,7 +205,6 @@
 
 </cftransaction>
 
-
 <cfif url.layout eq "org">
 	<cfset group = "ParentOrgUnit">
 <cfelse>
@@ -256,17 +255,17 @@ td.mycellN {
 		
 		<cfsavecontent variable="myquery">
 		     <cfoutput>
-			 SELECT count(*) as Total,
-			        SUM(FTE_New) as FTE_New,
-					SUM(Staff_New) as Staff_New,
-			 	    SUM(Cost_new) as Cost_new,
-					SUM(FTE_continued) as FTE_continued,
+			 SELECT count(*)             as Total,
+			        SUM(FTE_New)         as FTE_New,
+					SUM(Staff_New)       as Staff_New,
+			 	    SUM(Cost_new)        as Cost_new,
+					SUM(FTE_continued)   as FTE_continued,
 					SUM(Staff_continued) as Staff_continued,
-					SUM(Cost_continued) as Cost_continued,										
+					SUM(Cost_continued)  as Cost_continued,										
 					<cfloop index="qtr" from="1" to="4">
-					SUM(Cost_#qtr#) as Cost_#qtr#,
+					SUM(Cost_#qtr#)      as Cost_#qtr#,
 					</cfloop>
-					SUM(Cost_total) as Cost_total															  
+					SUM(Cost_total)      as Cost_total															  
 		    FROM    getBase		
 			</cfoutput>
 		</cfsavecontent>	
@@ -298,16 +297,16 @@ td.mycellN {
 					<td colspan="6" style="border-bottom:1px solid ##C0C0C0;"></td>
 				</tr>
 				<!--- second line --->
-				<tr class="labelmedium2 line" style="height:30px;filter:alpha(opacity=95); -moz-opacity:0.95; -webkit-opacity:0.95; opacity:0.95;">
-					<td colspan="2" style="padding-left:10px;width:70%"></td>		
-					<td align="right" bgcolor="#vNewColor#" class="mycell"  style="padding-right:3px;min-width:60px"><cf_tl id="Staff"></td>							
-					<td align="right" bgcolor="#vNewColor#" class="mycell"  style="padding-right:3px;min-width:60px"><cf_tl id="FTE"></td>					
-					<td align="right" class="mycell"  bgcolor="#vNewColor#"  style="padding-right:3px;min-width:60px"><cf_tl id="Cost"></td>		
-					<td align="right" class="mycell"  bgcolor="#vContinueColor#" style="padding-right:3px;min-width:60px"><cf_tl id="Staff"></td>			
-					<td align="right" class="mycell"  bgcolor="#vContinueColor#" style="padding-right:3px;min-width:60px"><cf_tl id="FTE"></td>					
-					<td align="right" class="mycell"  bgcolor="#vContinueColor#" style="padding-right:3px;min-width:60px"><cf_tl id="Cost"></td>					
-					<td align="right" class="mycell"  bgcolor="#vOtherColor#"    style="padding-right:3px;min-width:60px"><cf_tl id="Other"></td>					
-					<td align="right" class="mycell"  bgcolor="#vTotalColor#"    style="padding-right:3px;min-width:70px"><cf_tl id="Total"></td>		
+				<tr class="labelmedium2 line fixlengthlist" style="height:30px;filter:alpha(opacity=95); -moz-opacity:0.95; -webkit-opacity:0.95; opacity:0.95;">
+					<td colspan="2" style="padding-left:10px;"></td>		
+					<td align="right" bgcolor="#vNewColor#" class="mycell"  style="min-width:50px"><cf_tl id="Staff"></td>							
+					<td align="right" bgcolor="#vNewColor#" class="mycell"  style="min-width:50px"><cf_tl id="FTE"></td>					
+					<td align="right" class="mycell"  bgcolor="#vNewColor#"  style="min-width:50px"><cf_tl id="Cost"></td>		
+					<td align="right" class="mycell"  bgcolor="#vContinueColor#" style="min-width:50px"><cf_tl id="Staff"></td>			
+					<td align="right" class="mycell"  bgcolor="#vContinueColor#" style="min-width:50px"><cf_tl id="FTE"></td>					
+					<td align="right" class="mycell"  bgcolor="#vContinueColor#" style="min-width:50px"><cf_tl id="Cost"></td>					
+					<td align="right" class="mycell"  bgcolor="#vOtherColor#"    style="min-width:50px"><cf_tl id="Other"></td>					
+					<td align="right" class="mycell"  bgcolor="#vTotalColor#"    style="min-width:60px"><cf_tl id="Total"></td>		
 					<cfloop index="qtr" from="1" to="4">			
 					<td align="right" class="mycell"  bgcolor="#vQColor#" style="padding-right:3px;min-width:60px"> <cf_space spaces="14"><cf_tl id="Q#qtr#"></td>
 					</cfloop>					
@@ -319,7 +318,7 @@ td.mycellN {
 			  	</cfquery>		
 								
 				<tr class="line" style="filter:alpha(opacity=88); -moz-opacity:0.88; -webkit-opacity:0.88; opacity:0.88;">
-					<td width="100%" class="labelmedium2" height="30px" style="height:28px;font-size:17px"><cf_tl id="Overall total"><b>#url.year#</b></td>										
+					<td width="100%" class="labelmedium2" height="30px" style="height:28px;font-size:17px"><cf_tl id="Overall total">#url.year#</td>										
 					<td class="labelit mycellN" style="padding-left:8px;font-weight:bold; padding-right:2px;"><b>#qSum.total#</td>		
 					<cfset scope = "total">
 					<cfinclude template="RequirementContentCell.cfm">																	
@@ -346,7 +345,7 @@ td.mycellN {
 						<tr class="line navigation_row" 
 							style="filter:alpha(opacity=80); -moz-opacity:0.80; -webkit-opacity:0.80 opacity:0.80;">
 							
-							<td colspan="1" width="100%" class="labelmedium2" style="padding-left:2px; font-size:17px; height:30px;font-weight:bold;">
+							<td colspan="1" class="labelmedium2 fixlength" style="padding-left:2px; font-size:17px; height:30px;font-weight:bold;">
 							   <cfif url.layout eq "org"><cfif ParentUnitNameShort neq "">#ParentUnitNameShort#<cfelse>#ParentUnitName#</cfif><cfelse>#ParentProgramName#</cfif>									
 							</td>							
 							<td style="padding-left:8px;font-size:17px;" align="right" class="labelmedium2 mycellN" ><b>#qSum.total#</td>	
@@ -367,7 +366,7 @@ td.mycellN {
 																
 						<tr class="clsDetail_#ParentOrgUnit# navigation_row line" 
 							style="cursor:pointer; filter:alpha(opacity=70); -moz-opacity:0.70; -webkit-opacity:0.70; opacity:0.70;" 
-							title="#trMessage#" 
+							title="#trMessage# #OrgUnitName#" 
 							onclick="if($('.clsDetailChild_#OrgUnit#').is(':visible')){ $('.clsDetailChild_#OrgUnit#').css('display','none'); $('##twistie_#OrgUnit#').attr('src','#session.root#/images/arrowright.gif'); }else{ $('.clsDetailChild_#OrgUnit#').css('display',''); $('##twistie_#OrgUnit#').attr('src','#session.root#/images/arrowdown3.gif'); }">
 								<td style="padding-left:#len(hierarchyCode)*4#px;" class="labelit" bgcolor="f1f1f1">								
 									<table>
@@ -379,7 +378,7 @@ td.mycellN {
 												</cfif>
 												<img id="twistie_#OrgUnit#" src="#vShowTwistie#">
 											</td>
-											<td class="labelmedium" style="padding-left:7px;">#OrgUnitName#</td>
+											<td class="fixlength labelmedium" style="padding-left:7px;">#OrgUnitName#</td>
 										</tr>
 									</table>
 								</td>								
@@ -398,9 +397,11 @@ td.mycellN {
 											
 							<!--- project/component level --->						
 							<tr class="line labelmedium navigation_row clsDetailChild_#orgUnit# clsDetail_#evaluate(group)#" 
-								style="#vShowLines#">							
-									<td colspan="2" width="80%" style="padding-left:#18+len(hierarchyCode)*4+7#px;padding-right:5px"><a class="navigation_action" href="javascript:EditProgram('#ProgramCode#','#Period#','Project')">#Reference#</a> #ProgramName#</td>
+								style="#vShowLines#" title="#ProgramName#">							
+									<td class="fixlength" style="padding-left:#10+len(hierarchyCode)*4+7#px;padding-right:5px">
+									<a class="navigation_action" href="javascript:EditProgram('#ProgramCode#','#Period#','Project')">#Reference#</a> #ProgramName#</td>
 									
+									<td></td>
 									<cfset scope = "detail">
 									<cfinclude template="RequirementContentCell.cfm">									
 							</tr>														

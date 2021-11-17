@@ -555,8 +555,20 @@
 										WHERE     SP.PositionNo = P.PositionNo 
 										AND       D.EntityClass IS NOT NULL 
 										AND       D.Status = '0'
+										
+										UNION
+										
+										<!--- position has an upcoming track assignment --->  
+										
+										SELECT      PA.SourceId
+                                        FROM        PersonAssignment AS PA 
+                                        WHERE       PA.Source = 'vac' 
+										AND         PA.PositionNo = P.PositionNo
+										AND         PA.AssignmentStatus IN ('0', '1') 
+										AND         PA.AssignmentType = 'Actual' 
+										AND         PA.DateEffective >= GETDATE() 
 																								
-										UNION 
+										UNION 									
 																						
 										<!--- also we get a first position in the next mandate --->			
 										
@@ -619,7 +631,9 @@
 						 PP.FunctionDescription  as ParentFunctionDescription,						 
 						 <cfif CheckVacancy.recordcount eq "0">						 
 						 	    0 as RecruitmentTrack,							 					 
-						 <cfelse>						
+						 <cfelse>		
+						 
+						      <!--- check if the position has an active recruitment track --->				
 						 					 												  
 								(
 								
@@ -628,32 +642,46 @@
 								FROM															
 										(
 										
-										SELECT    D.DocumentNo						
-										FROM      Vacancy.dbo.DocumentPost as Track INNER JOIN
-					      			              Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-							                      Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-							                      Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo
-										WHERE     SP.PositionNo = P.PositionNo 
-										AND       D.EntityClass IS NOT NULL 
-										AND       D.Status = '0'
-																								
+										<!--- current mandate ---> 
+										
+										SELECT      D.DocumentNo						
+										FROM        Vacancy.dbo.DocumentPost as Track INNER JOIN
+					      			                Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
+							                        Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
+							                        Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo
+										WHERE       SP.PositionNo = P.PositionNo 
+										AND         D.EntityClass IS NOT NULL 
+										AND         D.Status = '0'
+										
+										UNION
+										
+										<!--- position has a upcoming track assignment --->  
+										
+										SELECT      PA.SourceId
+                                        FROM        PersonAssignment AS PA 
+                                        WHERE       PA.Source = 'vac' 
+										AND         PA.PositionNo = P.PositionNo
+										AND         PA.AssignmentStatus IN ('0', '1') 
+										AND         PA.AssignmentType = 'Actual' 
+										AND         PA.DateEffective >= GETDATE() 
+																																												
 										UNION 
 																						
 										<!--- also we get a first position in the next mandate --->			
 										
-										SELECT     D.DocumentNo 
+										SELECT      D.DocumentNo 
 										
-										FROM       Vacancy.dbo.DocumentPost as Track INNER JOIN
-							                       Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-								                   Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-								                   Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
-							                       Position PN ON SP.PositionNo = PN.SourcePositionNo
+										FROM        Vacancy.dbo.DocumentPost as Track INNER JOIN
+							                        Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
+								                    Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
+								                    Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
+							                        Position PN ON SP.PositionNo = PN.SourcePositionNo
 												   
-										WHERE      PN.PositionNo = P.PositionNo
-										AND        D.EntityClass IS NOT NULL 
-										AND        D.Status = '0' 
+										WHERE       PN.PositionNo = P.PositionNo
+										AND         D.EntityClass IS NOT NULL 
+										AND         D.Status = '0' 
 										
-										) as DerrivedTable 
+										) as D
 														
 								) AS  RecruitmentTrack,  
 						  
@@ -719,6 +747,18 @@
 										WHERE     SP.PositionNo = P.PositionNo 
 										AND       D.EntityClass IS NOT NULL 
 										AND       D.Status = '0'
+										
+										UNION
+										
+										<!--- position has an upcoming track assignment --->  
+										
+										SELECT      PA.SourceId
+                                        FROM        PersonAssignment AS PA 
+                                        WHERE       PA.Source = 'vac' 
+										AND         PA.PositionNo = P.PositionNo
+										AND         PA.AssignmentStatus IN ('0', '1') 
+										AND         PA.AssignmentType = 'Actual' 
+										AND         PA.DateEffective >= GETDATE() 
 																								
 										UNION 
 																						

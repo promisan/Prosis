@@ -69,7 +69,7 @@ password="#SESSION.dbpw#">
 	
 	<cf_divscroll>	 
 	  	
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" height="100%" align="center">
 	
 	<cfif header gte "1">
 	

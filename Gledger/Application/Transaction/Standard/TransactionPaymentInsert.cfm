@@ -102,8 +102,10 @@ password="#SESSION.dbpw#">
 			
 	<!--- Add TransactionHeader in a loop to the temp table --->
 	
+	
+	
 	<cfoutput query="SearchResult">
-						
+							
 		<!--- ---------------  --->
 		<!--- offset advances --->
 		<!--- --------------- --->
@@ -165,9 +167,6 @@ password="#SESSION.dbpw#">
 				</cfif>	
 												
 			</cfquery>
-			
-			
-			
 						
 			<!--- SUM the total of the advances --->
 			
@@ -177,8 +176,7 @@ password="#SESSION.dbpw#">
 				FROM     Advance
 				GROUP BY TransactionCurrency, Currency, Reference, TransactionSourceNo, GLAccount
 			
-			</cfquery>
-			
+			</cfquery>		
 		
 			
 			<cfif Advance.recordcount gte "1">
@@ -245,10 +243,7 @@ password="#SESSION.dbpw#">
 							<cfset offset = diff>								
 						<cfelse>												
 							<cfset offset = payment>						
-						</cfif>		
-						
-						
-						
+						</cfif>								
 					
 					<cfelse>
 					
@@ -316,12 +311,15 @@ password="#SESSION.dbpw#">
 					   <cfset bexc  = exc>
 					
 					</cfif>
-						
+					
+										
 					<cfset credit      = amt>
 					<cfset debit       = 0>
 					<cfset creditbase  = amtB>
 					<cfset debitbase   = 0> 
 					<cfset accounttype = "Credit"> 
+					
+				
 							
 					<!--- offset transaction entry --->
 									
@@ -398,6 +396,7 @@ password="#SESSION.dbpw#">
 			</cfif>	
 			
 		</cfif>	
+		
 		
 		<cfset fld = left(TransactionId,8)>		
 		
@@ -572,6 +571,8 @@ password="#SESSION.dbpw#">
 		
 		</cfif> 
 		
+		
+				
 		<cfif ActionDiscountDate gte now() and abs(amtdis) gt 0>
 		
 			<cfquery name="Insert" 

@@ -70,12 +70,12 @@ password="#SESSION.dbpw#">
 			SELECT  DISTINCT ORG.MissionOrgUnitId, ORG.HierarchyCode
             FROM    TransactionHeader H 
 					INNER JOIN TransactionLine HL ON H.Journal = HL.Journal AND H.JournalSerialNo = HL.JournalSerialNo 
-					INNER JOIN Organization.dbo.Organization ORG ON HL.OrgUnit = ORG.OrgUnit
+					INNER JOIN Organization.dbo.Organization ORG ON HL.OrgUnit = ORG.OrgUnit AND HL.OrgUnit <> 0
             WHERE   H.Mission       = '#url.mission#' 
 			AND     H.AccountPeriod = '#url.accountperiod#'		
-								
+											
 		</cfquery>
-		
+				
 		<cfset orglist = "#quotedvalueList(costunitselect.missionOrgUnitId)#">
 				
 		<cfloop query="CostUnitSelect">
@@ -149,6 +149,7 @@ password="#SESSION.dbpw#">
 			
 		</cfquery>
 		
+				
 			<tr><td colspan="2" style="padding-top:2px;height:25px" class="labelmedium"><cf_tl id="Cost center">:</td></tr>
 						
 			<tr><td colspan="2" style="padding-left:2px;padding-top:2px">
@@ -184,15 +185,17 @@ password="#SESSION.dbpw#">
 				FROM      Program.dbo.Program PC
 				WHERE     ProgramCode IN
 				
-                           (SELECT    L.ProgramCode
+                           (SELECT    DISTINCT L.ProgramCode
                             FROM      TransactionHeader H INNER JOIN
                                       TransactionLine L ON H.Journal = L.Journal AND H.JournalSerialNo = L.JournalSerialNo
                             WHERE     H.Mission       = '#url.mission#' 
-							AND       H.AccountPeriod = '#url.accountperiod#')
+							AND       H.AccountPeriod = '#url.accountperiod#'
+							AND       L.ProgramCode <> '')
 							
 				ORDER BY ProgramName				
 							
 			</cfquery>
+			
 			
 			<tr><td colspan="2" style="padding-top:2px;height:25px" class="labelmedium"><cf_tl id="Program">:</td></tr>
 						
@@ -566,6 +569,7 @@ password="#SESSION.dbpw#">
 			AND       AccountPeriod <= '#url.accountperiod#'	
 			ORDER BY  AccountPeriod
 		</cfquery>
+		
 				
 		<!--- account period --->
 			
@@ -614,6 +618,8 @@ password="#SESSION.dbpw#">
 		</tr>
 		
 		<cfif report eq "pl" or url.report eq "fund">
+		
+			 <!--- period of the line --->
 						
 			<cfquery name="Period"
 			datasource="AppsLedger" 
@@ -621,17 +627,16 @@ password="#SESSION.dbpw#">
 			password="#SESSION.dbpw#">
 				SELECT    DISTINCT L.TransactionPeriod
 				FROM      TransactionHeader H 
-				          INNER JOIN TransactionLine L ON H.Journal         = L.Journal
-												AND       H.JournalSerialNo = L.JournalSerialNo
-				WHERE     H.Mission       = '#url.mission#' 
-				AND       H.AccountPeriod = '#url.accountperiod#'					
-				AND       H.RecordStatus    = '1'
-				AND       H.ActionStatus IN ('0','1')	
-				AND       L.GLAccount IN (SELECT GLAccount FROM Ref_Account WHERE AccountClass = 'Result')
+				          INNER JOIN TransactionLine L ON H.Journal = L.Journal	AND H.JournalSerialNo = L.JournalSerialNo 
+						  AND  H.Mission       = '#url.mission#' AND  H.AccountPeriod = '#url.accountperiod#' AND H.RecordStatus    = '1'
+             				AND       H.ActionStatus IN ('0','1')	
+				WHERE    L.GLAccount IN (SELECT GLAccount FROM Ref_Account WHERE AccountClass = 'Result')
 				ORDER BY  L.TransactionPeriod				
 			</cfquery>
 									
 		<cfelse>		
+		
+		    <!--- period of the document --->
 		
 			<cfquery name="Period"
 			datasource="AppsLedger" 
@@ -649,6 +654,9 @@ password="#SESSION.dbpw#">
 		
 		</cfif>
 		
+		<!---
+		<cfoutput>#cfquery.executiontime#</cfoutput>
+		--->
 		
 		<!--- posting period --->
 	
@@ -720,6 +728,7 @@ password="#SESSION.dbpw#">
 </table>
 
 <script language="JavaScript">
+   Prosis.busy('no');
    if (document.getElementById('alertme')) {
 	    reloadalert()
    }

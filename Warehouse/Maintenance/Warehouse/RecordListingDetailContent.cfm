@@ -4,13 +4,13 @@
 
 <cfoutput>
 
-	<TR class="labelmedium2 navigation_row clsWarehouseRow line" style="<cfif operational eq "0">color:f4f4f4</cfif>">
+	<TR class="labelmedium2 navigation_row clsWarehouseRow line fixlengthlist" style="<cfif operational eq "0">color:f4f4f4</cfif>">
 		<TD style="display:none;">#City#</td>
 		<TD style="padding-left:10px"><cfif operational eq "0"><font color="808080"><i></cfif><cfloop index="itm" from="1" to="#whslevel#">*&nbsp;*&nbsp;&nbsp;</cfloop>#WarehouseName#</TD>	
 		<TD class="navigation_action" onclick="edit('#warehouse#')" style="padding-left:10px;padding-right:6px">				    		
 			<cf_img icon="open">		   
 		</TD>	
-		<TD class="ccontent" height="18"><cfif operational eq "0"><font color="808080"><i></cfif>#Warehouse#</TD>	
+		<TD class="ccontent"><cfif operational eq "0"><font color="808080"><i></cfif>#Warehouse#</TD>	
 		<TD class="ccontent"><cfif operational eq "0"><font color="808080"><i></cfif>#classDescription#</TD>
 		<TD align="right" style="padding-right:30px"><cfif operational eq "0"><font color="808080"><i></cfif>#locations#</td>
 		<TD align="center" style="padding-right:20px">#children#</TD>										
@@ -50,9 +50,6 @@
 		</cfloop> 	
 		
 		<cfset whslevel = whslevel - 1>	
-		
-		
-			
 		
 	</cfif>
 		

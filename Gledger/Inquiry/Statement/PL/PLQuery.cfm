@@ -78,6 +78,7 @@
 
 <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#PL#FileNo#">
 
+
 <cfinvoke component   = "Service.Process.GLedger.Statement"  
    method             = "getIncomeStatement" 
    mission            = "#url.mission#"   
@@ -93,6 +94,7 @@
    layout             = "#form.layout#"
    table              = "#SESSION.acc#PL#FileNo#"    
    returnvariable     = "result">	
+   
 
 <cfif form.format eq "list">
 

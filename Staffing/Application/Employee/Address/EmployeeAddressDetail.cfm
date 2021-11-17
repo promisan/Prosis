@@ -18,7 +18,7 @@ password="#SESSION.dbpw#">
 	ORDER BY A.AddressType DESC
 </cfquery>
 
-<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="98%" align="center">
  
   <tr>
     <td style="padding-top:4px;height:65px;padding-left:10px;font-size:23px" class="labellarge">
@@ -29,12 +29,12 @@ password="#SESSION.dbpw#">
 	</td>
         
     <cfoutput>
-    <td align="right" style="padding-right:5px;padding-bottom:3px" valign="bottom">
+    <td align="right" class="labelmedium2" style="padding-right:5px;padding-bottom:3px" valign="bottom">
 			
         <cfif mode eq "edit">
 		   
 			<cf_tl id="Add new Contact" var="1">			
-			<a href="javascript:personaddressentry('#URL.ID#')"><font size="2" face="Verdana" color="0080C0">[#lt_text#]</font></a>	
+			<a href="javascript:personaddressentry('#URL.ID#')"><font size="2" color="0080C0">[#lt_text#]</font></a>	
 				
 		</cfif>
 			
@@ -44,19 +44,19 @@ password="#SESSION.dbpw#">
      
   <td width="100%" colspan="2">
 
-	<table border="0" cellpadding="0" cellspacing="0" width="100%" class="formpadding navigation_table">
+	<table border="0" width="100%" class="formpadding navigation_table">
 		
 	<tr><td class="line" colspan="9"></td></tr>	
 	
-	<TR  class="labelmedium2 line">
-	    <td height="20" width="2%"></td>
-	    <td width="20%"><cf_tl id="Type"></td>
-		<TD width="25%"><cf_tl id="Address"></TD>
-		<TD width="15%"><cf_tl id="City"></TD>		
-		<TD width="10%"><cf_tl id="Zone"></TD>	
-		<TD width="20%"><cf_tl id="Contact"></TD>
-		<TD width="5%"><cf_tl id="Source"></TD>
-		<TD width="23%" align="right"><cf_tl id="Effective"></TD>
+	<TR  class="labelmedium2 line fixlengthlist">
+	    <td height="20"></td>
+	    <td><cf_tl id="Type"></td>
+		<TD><cf_tl id="Address"></TD>
+		<TD><cf_tl id="City"></TD>		
+		<TD><cf_tl id="Zone"></TD>	
+		<TD><cf_tl id="Contact"></TD>
+		<TD><cf_tl id="Source"></TD>
+		<TD align="right"><cf_tl id="Effective"></TD>
 	</TR>
 	
 	<cfset last = '1'>
@@ -75,15 +75,15 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput query="Search">
 	
-		<TR class="labelmedium2 navigation_row line" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f4f4f4'))#">
+		<TR class="labelmedium2 navigation_row line fixlengthlist" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f4f4f4'))#">
 		
-		<td align="center" style="padding-left:12px;padding-top:4px;padding-right:12px"> 		   
+		<td align="center" style="padding-top:4px"> 		   
 		    <cf_img icon="open" navigation="yes" onclick="personaddressedit('#URL.ID#','#AddressId#','#url.webapp#')">		  			
 		</td>	
 		
 		<td><a href="javascript:personaddressedit('#URL.ID#','#AddressId#','#url.webapp#')">#AddressTypeDescription#</a></td>
 		
-		<td style="padding-left:4px">
+		<td style="padding-left:4px" title="#Address# #Address2# #AddressRoom#">
 		    <a href="javascript:personaddressedit('#URL.ID#','#AddressId#','#url.webapp#')">#Address# #Address2# #AddressRoom#</a>
 		</td>
 		
@@ -104,15 +104,10 @@ password="#SESSION.dbpw#">
 		</td>
 		<TD>#Contact# #ContactRelationship#</TD>
 		<td>#source#</td>
-		<td align="right" style="padding-left:4px;padding-right:4px">#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
+		<td align="right">#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>
 		</TR>
-	
-		<TR class="labelmedium2 line navigation_row_child" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f4f4f4'))#">
-	
-		    <td colspan="1"></td>
-			<td colspan="8" align="left">
-					
-			<cfquery name="ContactNo" 
+		
+		<cfquery name="ContactNo" 
 			datasource="AppsEmployee" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
@@ -123,10 +118,17 @@ password="#SESSION.dbpw#">
 					  AND Addressid = '#AddressId#'
 					  AND ContactCode = P.Code ) as CallSign
 			    FROM Ref_Contact P
-			</cfquery>
+		</cfquery>
+		
+		<cfif contactNo.recordcount gte "1">
+	
+		<TR class="labelmedium2 line navigation_row_child" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f4f4f4'))#">
+	
+		    <td colspan="1"></td>
+			<td colspan="8" align="left">
 			
 				<table>
-				<tr class="labelmedium2">
+				<tr class="labelmedium2 fixlengthlist" style="height:0px">
 				<cfset row = 0>
 				
 					<cfloop query="contactNo">	
@@ -140,8 +142,8 @@ password="#SESSION.dbpw#">
 						
 					  </cfif> 
 					  
-					  <td style="padding-left:10px"><cf_tl id="#Description#">:</td>
-					  <td style="padding-left:10px">						  
+					  <td><cf_tl id="#Description#">:</td>
+					  <td>						  
 					      <font color="gray">
 					      <cfif callsign eq "">n/a<cfelse><b>#CallSign#</cfif></b>	
 					      </font>
@@ -156,6 +158,8 @@ password="#SESSION.dbpw#">
 			</td>
 	
 		</TR>
+		
+		</cfif>
 		
 	</cfoutput>
 	

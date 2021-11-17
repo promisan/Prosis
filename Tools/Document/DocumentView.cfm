@@ -159,17 +159,17 @@
 								<cfset nameshow = right(name, x-y)>
 								
 								<cfif FindNoCase(".pdf", "#NameShow#")> 	
-									<img src="#SESSION.root#/Portal/Images/icons/PDFIcon.png">				  
+									<img src="#SESSION.root#/Images/PDF.gif">				  
 							   	<cfelseif FindNoCase(".jpg", "#NameShow#") or FindNoCase(".png", "#NameShow#")>			
-									<img src="#SESSION.root#/Portal/images/icons/JPGIcon.png">
+									<img src="#SESSION.root#/images/JPGIcon.png">
 							   	<cfelseif FindNoCase(".gif", "#NameShow#")>		
-									<img src="#SESSION.root#/Portal/images/icons/GIFIcon.png">	  
+									<img src="#SESSION.root#/images/GIFIcon.png">	  
 							   	<cfelseif FindNoCase(".doc", "#NameShow#") or FindNoCase(".docx", "#NameShow#")>	
-									<img src="#SESSION.root#/Portal/images/icons/WordIcon.png">		  	  				  							   
+									<img src="#SESSION.root#/images/Word.jpg">		  	  				  							   
 								<cfelseif FindNoCase(".xls", "#NameShow#") or FindNoCase(".xlsx", "#NameShow#")>
-									<img src="#SESSION.root#/Portal/images/icons/ExcelIcon.gif">
+									<img src="#SESSION.root#/images/Excel.gif">
 								<cfelseif FindNoCase(".ppt", "#NameShow#") or FindNoCase(".pptx", "#NameShow#") or FindNoCase(".pps", "#NameShow#")>
-									<img src="#SESSION.root#/Portal/images/icons/PowerPointIcon.png">	   				   
+									<img src="#SESSION.root#/images/PowerPointIcon.png">	   				   
 								<cfelse>
 									<img src="#SESSION.root#/Portal/images/icons/FileIcon.png">	
 								</cfif>		

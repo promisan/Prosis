@@ -31,7 +31,7 @@ password="#SESSION.dbpw#">
 
 <table width="95%" align="center" class="navigation_table">
 			
-    <tr class="labelmedium2 line fixrow">
+    <tr class="labelmedium2 line fixrow fixlengthlist">
 	   <td width="20"></td>
 	   <td width="10%">Code</td>
 	   <td width="30%">Description</td>
@@ -230,7 +230,7 @@ password="#SESSION.dbpw#">
 																				
 		<cfelse>
 										
-			<tr height="20" class="labelmedium2 navigation_row line">			
+			<tr height="20" class="labelmedium2 navigation_row line fixlengthlist">			
 			  			   
 			   <td align="center" style="padding-top:1px;">
 				 <cf_img icon="open" navigation="Yes" onclick="ColdFusion.navigate('RecordListingDetail.cfm?ID2=#code#','listing')">
@@ -241,8 +241,7 @@ password="#SESSION.dbpw#">
 			   <td>#ActionCode#</td>
 			   <td>#context#</td>
 			   <td>#listvalues#</td>
-			   <td><cfif operational eq "0"><b>No</b><cfelse>Yes</cfif></td>
-			   
+			   <td><cfif operational eq "0"><b>No</b><cfelse>Yes</cfif></td>			   
 			   <td>#OfficerFirstName# #OfficerLastName#</td>
 			   <td align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>
 			   

@@ -9,16 +9,16 @@
 	    <TD style="min-width:60px;padding-left:3px;padding-right:3px"><cf_tl id="Curr"></TD>
 		<td style="min-width:100px" align="right"><cf_tl id="Debit"></td>
 		<td style="min-width:100px" align="right"><cf_tl id="Credit"></td>
-	    <td style="min-width:100px" align="right" style="padding-right:4px"><cf_tl id="Base Debit"></td>
-		<td style="min-width:100px" align="right" style="padding-right:4px"><cf_tl id="Base Credit"></td>	
+	    <td style="min-width:100px;padding-right:4px" align="right"><cf_tl id="Base Debit"></td>
+		<td style="min-width:100px;padding-right:4px" align="right"><cf_tl id="Base Credit"></td>	
 	</TR>		
 	
 	<cfoutput query="SearchResult" group="Currency">
 	
 	<cfset amtDT = 0>
 	<cfset amtCT = 0>
-	
-	<cfoutput group="#URL.ID#">
+				
+	<cfoutput group="#URL.grouping#">
 	
 		<cfset amtD = 0>
 		<cfset amtC = 0>
@@ -27,18 +27,18 @@
 		
 		<cfif currrow gte first and currrow lte last or first eq "1">
 				
-		   <cfswitch expression = URL.ID>
+		   <cfswitch expression = URL.Grouping>
 			     <cfcase value = "Journal">
-			    	 <td colspan="11"  style="height:34" class="labellarge">#Journal# #JournalName#</b></td>
+			    	 <td colspan="11"  style="height:34" class="labellarge">#Journal# #JournalName#</td>
 			     </cfcase>
 			     <cfcase value = "AccountGroup">
-				     <td colspan="11"  style="height:34" class="labellarge">#AccountGroup# #AccountGroupName#</b></td> 
+				     <td colspan="11"  style="height:34" class="labellarge">#AccountGroup# #AccountGroupName#</td> 
 			     </cfcase>	 
 				 <cfcase value = "Posted">
-				     <td colspan="11"  style="height:34" class="labellarge">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</b></td>
+				     <td colspan="11"  style="height:34" class="labellarge">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
 			     </cfcase>
 			     <cfcase value = "TransactionDate">
-				     <td colspan="11"  style="height:34" class="labellarge">#Dateformat(TransactionDate, "#CLIENT.DateFormatShow#")#</b></td>
+				     <td colspan="11"  style="height:34" class="labellarge">#Dateformat(TransactionDate, "#CLIENT.DateFormatShow#")#</td>
 			     </cfcase>
 			     <cfdefaultcase>
 			     	<td colspan="11" style="height:34" class="labellarge">#Journal# #JournalName#<b></td>
@@ -122,7 +122,7 @@
 	   </cfif> 
 	   
 	   </CFIF>
-	   
+	   	   
 	</CFOUTPUT>
 	
 	</TABLE>

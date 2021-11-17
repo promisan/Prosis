@@ -129,8 +129,7 @@ function processmas(val,fldcostprice,price,dialog,enforce,mode) {
 		 
 		 } 
 		 catch(e) {}  			 
-		 verifystatus('#url.id#')	
-			
+		 verifystatus('#url.id#')			
 			 			
 }
 

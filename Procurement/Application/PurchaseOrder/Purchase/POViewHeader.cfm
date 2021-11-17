@@ -14,7 +14,7 @@
 
 	<tr><td colspan="4" style="padding:15px">
 	
-	<table width="100%" cellspacing="0" cellpadding="0">	
+	<table width="100%">	
 	
 	     <tr>   
 							
@@ -22,8 +22,8 @@
 		
 	        <cf_DialogStaffing>
 		
-			 <td width="80" class="labelmedium"><font color="808080"><cf_tl id="Employee">:</td>
-			 <td height="20" class="labelmedium" colspan="3" style="border:1px solid gray;height:27px;padding-left:5px">
+			 <td width="80" class="labelmedium2"><font color="808080"><cf_tl id="Employee">:</td>
+			 <td height="20" class="labelmedium2" colspan="3" style="border:1px solid gray;height:27px;padding-left:5px">
 			      				   
 				      <cfquery name="Person" 
 			          datasource="AppsEmployee" 
@@ -51,8 +51,8 @@
 			 		
 			<cfelse>
 			
-				   <td class="labelmedium"><cf_tl id="Vendor">:</td>
-				   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:1px" colspan="3">
+				   <td class="labelmedium2"><cf_tl id="Vendor">:</td>
+				   <td class="labelmedium2" style="border:1px solid gray;height:27px;padding-left:1px" colspan="3">
 	      				   
 				    <cfquery name="Org" 
 			          datasource="AppsOrganization" 
@@ -108,7 +108,7 @@
 					  <cfelse>
 					  
 					  	<table>
-						<tr class="labelmedium">
+						<tr class="labelmedium2">
 						<td style="padding-left:5px">					  
 					    <input type="hidden" name="vendororgunit" id="vendororgunit" value="#PO.OrgUnitVendor#">     										  
 				        <a href="javascript:viewOrgUnit('#PO.OrgUnitVendor#')"><font color="0080C0">#Org.OrgUnitName#</font></a></b>						
@@ -127,8 +127,8 @@
 	 
 		<tr>
 		
-		   <td height="20" width="10%" class="labelmedium"><font color="808080"><cf_tl id="Print Format"> :</td>
-		   <td width="40%" class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
+		   <td height="20" width="10%" class="labelmedium2"><font color="808080"><cf_tl id="Print Format"> :</td>
+		   <td width="40%" class="labelmedium2" style="border:1px solid gray;height:27px;padding-left:5px">
 
 		    <cfif URL.Mode eq "view">
 		   
@@ -169,7 +169,7 @@
 					AND    DocumentType = 'document'
       			  </cfquery>
 		   
-		      <select name="printdocumentid" id="printdocumentid"  style="border:0px;width:100%" class="regularxl enterastab">
+		      <select name="printdocumentid" id="printdocumentid"  style="border:0px;width:100%" class="regularxxl enterastab">
 			 	
 			   <option value="">System Default</option>	  
 		       <cfloop query="Document">
@@ -196,8 +196,8 @@
 			 
 			 <cfelse>
 			 
-			   <td width="10%" style="padding-left:10px" class="labelmedium"><font color="808080"><cf_tl id="IncoTerms">:</td>
-			   <td width="40%" class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
+			   <td width="10%" style="padding-left:10px" class="labelmedium2"><font color="808080"><cf_tl id="IncoTerms">:</td>
+			   <td width="40%" class="labelmedium2" style="border:1px solid gray;height:27px;padding-left:5px">
 		  		   
 			    <cfif URL.Mode eq "view">
 			   
@@ -222,7 +222,7 @@
 	        		FROM   Ref_IncoTerm 
 	      		 </cfquery>
 			   
-			      <select name="IncoTerms" id="IncoTerms"  style="border:0px;width:100%" class="regularxl enterastab">
+			      <select name="IncoTerms" id="IncoTerms"  style="border:0px;width:100%" class="regularxxl enterastab">
 				 	
 				   <option>	  
 			       <cfloop query="Inco">
@@ -240,8 +240,8 @@
 	</tr>
 							
 	<tr>
-	   <td class="labelmedium"><font color="808080"><cf_tl id="Order class">:</td>
-	   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
+	   <td class="labelmedium2"><font color="808080"><cf_tl id="Order class">:</td>
+	   <td class="labelmedium2" style="border:1px solid gray;height:27px;padding-left:5px">
 	   			   			   
 	       <cfif URL.Mode eq "view">
 		   
@@ -268,7 +268,7 @@
 					WHERE   (Mission is NULL or Mission = '#PO.Mission#')
       		 </cfquery>
 		   
-		      <select name="OrderClass" id="OrderClass"  style="border:0px;width:100%" class="regularxl enterastab">
+		      <select name="OrderClass" id="OrderClass"  style="border:0px;width:100%" class="regularxxl enterastab">
 			 	  
 		       <cfloop query="POClass">
 			     <option value="#POClass.Code#" <cfif POClass.Code eq PO.OrderClass>selected</cfif>>
@@ -282,8 +282,8 @@
 		   
 	   </td>
 	
-	   <td class="labelmedium" style="padding-left:10px" height="20"><font color="808080"><cf_tl id="Order Type">:</td>
-	   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
+	   <td class="labelmedium2" style="padding-left:10px" height="20"><font color="808080"><cf_tl id="Order Type">:</td>
+	   <td class="labelmedium2" style="border:1px solid gray;height:27px;padding-left:5px">
 	   			   			   
 	       <cfif URL.Mode eq "view">
 		   
@@ -326,7 +326,7 @@
 			
 			</cfif>
 		   
-		      <select name="ordertype" id="ordertype"  style="border:0px;width:100%" class="regularxl enterastab">
+		      <select name="ordertype" id="ordertype"  style="border:0px;width:100%" class="regularxxl enterastab">
 								  
 		       <cfloop query="POType">
 			     <option value="#Code#" <cfif Code eq PO.OrderType>selected</cfif>>#POType.Description#</option>
@@ -371,7 +371,7 @@
         		    FROM   Ref_Standard 
       			  </cfquery>
 		   
-		      <select name="standardcode" id="standardcode"  style="border:0px;width:100%" class="regularxl enterastab">
+		      <select name="standardcode" id="standardcode"  style="border:0px;width:100%" class="regularxxl enterastab">
 			   <option value=""></option>							  
 		       <cfloop query="standardlist">
 			     <option value="#standardlist.Code#" <cfif Code eq PO.StandardCode>selected</cfif>>
@@ -384,8 +384,8 @@
 	   
 	   </td>
 	   	   	   
-	   <td class="labelmedium" style="min-width:130px;padding-left:10px" height="20"><font color="808080"><cf_tl id="Systems Contract">:</td>
-	   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
+	   <td class="labelmedium2" style="min-width:130px;padding-left:10px" height="20"><font color="808080"><cf_tl id="Systems Contract">:</td>
+	   <td class="labelmedium2" style="border:1px solid gray;height:27px;padding-left:5px">
 	   
 	    <cfif URL.Mode eq "view">
 		   
@@ -443,18 +443,18 @@
 	      		  </cfquery>
 				  
 				  <cfquery name="system" 
-		          datasource="AppsProgram" 
-	      		  username="#SESSION.login#" 
-	        	  password="#SESSION.dbpw#">
-				   SELECT   MissionParent 
-				   FROM     Organization.dbo.Ref_Mission 
-				   WHERE    Mission = '#PO.mission#'
+			          datasource="AppsProgram" 
+		      		  username="#SESSION.login#" 
+		        	  password="#SESSION.dbpw#">
+					   SELECT   MissionParent 
+					   FROM     Organization.dbo.Ref_Mission 
+					   WHERE    Mission = '#PO.mission#'
 				  </cfquery> 
 			  
 				  <cfquery name="projectlist" 
-		          datasource="AppsProgram" 
-	      		  username="#SESSION.login#" 
-	        	  password="#SESSION.dbpw#">
+			          datasource="AppsProgram" 
+		      		  username="#SESSION.login#" 
+		        	  password="#SESSION.dbpw#">
 				  
 	      			    SELECT P.ProgramCode,
 						       P.ProgramName,
@@ -468,8 +468,7 @@
 						                       FROM   Organization.dbo.Organization 
 											   WHERE  Mission = '#system.MissionParent#'
 											   AND    OrgUnitCode = '#org.OrgUnitCode#'	
-											 )	
-											 
+											 )									 
 																								
 	      		  </cfquery>			  
 			  
@@ -477,21 +476,20 @@
 			  
 			  <cfif ProjectList.recordcount eq "0">
 			  
-			  <select name="programcode" id="programcode"  style="border:0px;width:100%" class="regularxl enterastab">
-				<option value="">No System Contracts found</option>				  		      						  
-			  </select>
+				  <select name="programcode" id="programcode"  style="border:0px;width:100%" class="regularxxl enterastab">
+					<option value="">No System Contracts found</option>				  		      						  
+				  </select>
 			  
 			  <cfelse>
 		   
-		      <select name="programcode" id="programcode"  style="border:0px;width:100%" class="regularxl enterastab">
-				<option value="">N/A</option>				  
-		       <cfloop query="projectlist">
-			     <option value="#ProgramCode#" <cfif ProgramCode eq PO.ProgramCode>selected</cfif>>
-				    #reference# #left(ProgramName,55)#
-				 </option>
-			   </cfloop>
-						  
-			  </select>
+			      <select name="programcode" id="programcode"  style="border:0px;width:100%" class="regularxxl enterastab">
+					<option value="">N/A</option>				  
+			       <cfloop query="projectlist">
+				     <option value="#ProgramCode#" <cfif ProgramCode eq PO.ProgramCode>selected</cfif>>
+					    #reference# #left(ProgramName,55)#
+					 </option>
+				   </cfloop>							  
+				  </select>
 			  
 			  </cfif>
 		   
@@ -502,8 +500,8 @@
 	   </cfif>
 	   
 	   <tr>
-		   <td class="labelmedium" width="90"><font color="808080"><cf_tl id="Condition">:</td>
-		   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
+		   <td class="labelmedium2" width="90"><font color="808080"><cf_tl id="Condition">:</td>
+		   <td class="labelmedium2" style="border:1px solid gray;height:27px;padding-left:5px">
 		   			   			   
 		       <cfif URL.Mode eq "view">
 			   
@@ -520,7 +518,7 @@
 				   
 			   <cfelse>
 			   
-			      <select name="POCondition" id="POCondition"  style="border:0px;width:100%" class="regularxl enterastab">
+			      <select name="POCondition" id="POCondition"  style="border:0px;width:100%" class="regularxxl enterastab">
 				  
 				   <cfquery name="POCondition" 
 		          datasource="AppsPurchase" 
@@ -542,8 +540,8 @@
 			   
 		   </td>	  
 		
-		   <td class="labelmedium" style="padding-left:10px"><font color="808080"><cf_tl id="Total">:</td>
-		   <td class="labelmedium" id="total" style="border:1px solid gray;height:27px;">		   
+		   <td class="labelmedium2" style="padding-left:10px"><font color="808080"><cf_tl id="Total">:</td>
+		   <td class="labelmedium2" id="total" style="border:1px solid gray;height:27px;">		   
 		      <cfinclude template="getPurchaseTotal.cfm">		   			    						
 			</td>
 				
@@ -568,8 +566,8 @@
 			   <tr>
 			   
 			   <cfif getCustom.PurchaseReference1 neq "">
-			   <td class="labelmedium" width="125"><font color="808080">#getCustom.PurchaseReference1#:</td>
-			   <td colspan="1" class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
+			   <td class="labelmedium2" width="125"><font color="808080">#getCustom.PurchaseReference1#:</td>
+			   <td colspan="1" class="labelmedium2" style="border:1px solid gray;height:27px;padding-left:5px">
 			   			   			   
 			       <cfif URL.Mode eq "view">	
 				       <cfif UserDefined1 eq "">--<cfelse>#Userdefined1#</cfif>			       		   
@@ -583,8 +581,8 @@
 			   
 			   <cfif getCustom.PurchaseReference2 neq "">
 				
-				   <td width="125" style="padding-left:10px" class="labelmedium"><font color="808080">#getCustom.PurchaseReference2#:</td>
-				   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
+				   <td width="125" style="padding-left:10px" class="labelmedium2"><font color="808080">#getCustom.PurchaseReference2#:</td>
+				   <td class="labelmedium2" style="border:1px solid gray;height:27px;padding-left:5px">
 				   	
 					  <cfif URL.Mode eq "view">		   		      			  
 					      <cfif UserDefined2 eq "">--<cfelse>#Userdefined2#</cfif>	  		   
@@ -609,7 +607,7 @@
 			 <tr>
 			 
 			   <cfif getCustom.PurchaseReference3 neq "">	
-			   <td class="labelmedium" width="125"><font color="808080">#getCustom.PurchaseReference3#:</td>
+			   <td class="labelmedium2" width="125"><font color="808080">#getCustom.PurchaseReference3#:</td>
 			   <td colspan="1" style="border:1px solid gray;height:27px;padding-left:5px" class="labelmedium">	   			   			   
 			       <cfif URL.Mode eq "view">		   		      			  
 				       <cfif UserDefined3 eq "">--<cfelse>#Userdefined3#</cfif>	  		   
@@ -620,8 +618,8 @@
 			   </cfif>
 			
 			   <cfif getCustom.PurchaseReference4 neq "">	
-			   <td class="labelmedium" style="padding-left:10px"><font color="808080">#getCustom.PurchaseReference4#:</td>
-			   <td class="labelmedium" style="border:1px solid gray;height:27px;padding-left:5px">
+			   <td class="labelmedium2" style="padding-left:10px"><font color="808080">#getCustom.PurchaseReference4#:</td>
+			   <td class="labelmedium2" style="border:1px solid gray;height:27px;padding-left:5px">
 			   
 				  <cfif URL.Mode eq "view">		   		      			  
 				       <cfif UserDefined4 eq "">--<cfelse>#Userdefined4#</cfif>	  			   
@@ -638,7 +636,7 @@
 			  		
 		<tr>   
 		
-		<td width="90" class="labelmedium" valign="top" style="height:25px;padding-top:4px">
+		<td width="90" class="labelmedium2" valign="top" style="height:25px;padding-top:4px">
 		
 				<a href="javascript:more('address')"><cf_tl id="Address">:</a>
 	
@@ -669,10 +667,10 @@
 		<cfif PO.PersonNo eq "" and PO.Payroll eq "0">
 			   						
 		<tr>
-		   <td height="21" class="labelmedium" width="90"><font color="808080"><cf_tl id="Shipping date">:</td>
-		   <td style="border:1px solid gray;height:27px;padding-left:5px">
+		   <td class="labelmedium2" width="90"><font color="808080"><cf_tl id="Shipping date">:</td>
+		   <td style="border:1px solid gray;height:30px;padding-left:5px">
 		   
-		   <table cellspacing="0" cellpadding="0"><tr><td class="labelmedium">
+		   <table><tr><td class="labelmedium2">
 		   			   			   
 		       <cfif URL.Mode eq "view">
 				  	<cfif ShippingDate eq "">--<cfelse>#dateformat(ShippingDate, CLIENT.DateFormatShow)#</cfif>	  	      			  
@@ -684,15 +682,15 @@
 							Default="#dateformat(ShippingDate,CLIENT.DateFormatShow)#"
 							AllowBlank="True"
 							style="text-align:center;border:0px"
-							Class="regularxl">	
+							Class="regularxxl">	
 			   
 					   
 			    </cfif>
 				
 				</td>
 				
-				<td class="labelmedium" style="padding-left:6px;padding-right:3px"><font color="808080">by:</td>
-				<td>
+				<td class="labelmedium2" style="border-right:1px solid silver;padding-left:16px;padding-right:3px"></td>
+				<td style="padding-left:4px">
 							
 				<cfif URL.Mode eq "view">
 				
@@ -705,13 +703,13 @@
 						WHERE Code = '#PO.TransportCode#'  			
 	      		  </cfquery>
 				
-				 <table cellspacing="0" cellpadding="0"><tr><td class="labelmedium">
+				 <table cellspacing="0" cellpadding="0"><tr><td class="labelmedium2">
 				  <cfoutput>#Tracking.Description#</cfoutput>
 				  </td>
 				  <td>&nbsp;&nbsp;</td>
-				  <td class="labelmedium">
+				  <td class="labelmedium2">
 				  
-				  <a href="javascript:potrack('#PO.PurchaseNo#')"><font color="0080C0">[edit]</a>
+				  <a href="javascript:potrack('#PO.PurchaseNo#')">[edit]</a>
 				  				  
 				  </td></tr></table>
 				
@@ -725,7 +723,7 @@
 		        		FROM   Ref_Transport      			
 	      		  </cfquery>
 				  
-				    <select name="TransportCode" id="TransportCode" class="regularxl enterastab" style="border:0px;width:100%">
+				    <select name="TransportCode" id="TransportCode" class="regularxxl enterastab" style="border:0px;width:100%">
 									  
 				       <cfloop query="Tracking">
 					     <option value="#Code#" <cfif Code eq PO.TransportCode>selected</cfif>>
@@ -741,7 +739,7 @@
 			   
 		   </td>
 		
-		   <td style="padding-left:10px" class="labelmedium"><font color="808080"><cf_tl id="Delivery date">:</td>
+		   <td style="padding-left:10px" class="labelmedium2"><font color="808080"><cf_tl id="Delivery date">:</td>
 		   <td style="border:1px solid gray;height:27px;padding-left:5px">
 		   			   			   
 		       <cfif URL.Mode eq "view">
@@ -770,12 +768,10 @@
 	<tr>
 					   				
 		 <td valign="top" style="padding-top:4px" class="labelmedium"><font color="808080"><cf_tl id="Memo">:</td>							
-	     <td colspan="3" align="left"  style="border:1px solid gray;height:27px;padding-left:0px">
+	     <td colspan="3" align="left"  style="border:1px solid gray;height:60px;padding-left:0px">
 		 		 					 
-		      <textarea style="width:100%;height:44;padding:3px;font-size:12px;border:0px" 
-			      class="regular" 
-				  rows="1" 
-				  name="PORemarks"><cfoutput>#PO.Remarks#</cfoutput></textarea>
+		      <textarea style="background-color:ffffdf;width:100%;height:60px;padding:3px;font-size:14px;border:0px" 
+			      class="regular" name="PORemarks"><cfoutput>#PO.Remarks#</cfoutput></textarea>
 		 			   
 	   </td>
 	</tr>

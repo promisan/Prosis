@@ -46,7 +46,7 @@
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
 		 
-		    SELECT   *
+		    SELECT   *, left(Source,1)+':'+left(PayrollItemName, 200) as PayrollItemNameS
 			 FROM     Ref_PayrollItem PI
 			 WHERE    PayrollItem IN (SELECT PayrollItem 
 			                          FROM   EmployeeSalary ES INNER JOIN 
@@ -114,37 +114,55 @@
 	</cfquery>
 
 	<table width="100%">		
-		<tr class="line">
-			<td class="labelmedium2 line" colspan="2"><cf_tl id="Payroll Item">:</td>
+		<tr>
+			<td class="labelmedium2" colspan="2"><cf_tl id="Payroll Item">:</td>
 		</tr>
-		<tr class="line">
-			<td class="labellarge" colspan="2">
+		<tr>
+			<td class="labellarge" colspan="2" style="padding:5px">
 			
-			     <cfset ht = getPayrollItems.recordcount*24>
-				 <cfif ht gt 400>
-				 	<cfset ht = "400">
-				 </cfif>				 
+				 
+				 <cf_UIselect name = "PayrollItem"					
+					size           = "1"
+					class          = "regularXXL"
+					id             = "PayrollItem"		
+					multiple       = "Yes"													
+					style          = "width:100%"											
+					query          = "#getPayrollItems#"
+					queryPosition  = "below"
+					value          = "PayrollItem"
+					display        = "PayrollItemNameS"/>
+					
+				<!---	
+				
+				 <cfset ht = getPayrollItems.recordcount*24>
+				 <cfif ht gt 300>
+				 	<cfset ht = "300">
+				 </cfif>	
+				 			 
 				<select name="PayrollItem" id="PayrollItem" class="regularxxl" style="background-color:f4f4f4;padding:4px;border:0px;height:<cfoutput>#ht#</cfoutput>px; width:100%;" multiple="multiple">
 					<cfoutput query="getPayrollItems">
 						<option value="#PayrollItem#"> #left(Source,1)#: #left("#PayrollItemName# (#PayrollItem#)", 200)#
 					</cfoutput>
 				</select>
+				
+				--->
 			</td>
 		</tr>
 
 		<tr>
-			<td width="50%" valign="top">
+			<td width="50%" valign="top" style="padding-right:4px">
 				<table width="100%">
 					<tr>
 						<td class="labelmedium2"><cf_tl id="Contract grade">:</td>
 					</tr>
-					<cfset ht = getPostGrades.recordcount*23>
-					<cfif ht gt 400>
-				 	<cfset ht = "400">
-					 </cfif>	
+					
+					   <cfset ht = getPostGrades.recordcount*21>
+					   <cfif ht gt 400>
+				 	     <cfset ht = "400">
+					   </cfif>	
 					<tr>
 						<td class="labellarge">
-							<select name="PostGrade" id="PostGrade" class="regularxxl" style="background-color:f4f4f4;border-left:0px;border-right:0px;height:<cfoutput>#ht#</cfoutput>px; width:100%;" multiple="multiple">
+							<select name="PostGrade" id="PostGrade" class="regularxl" style="background-color:f4f4f4;border-left:0px;border-right:0px;height:<cfoutput>#ht#</cfoutput>px; width:100%;" multiple="multiple">
 								<cfoutput query="getPostGrades">
 									<option value="#PostGrade#"> #left("#PostGrade#", 250)#
 								</cfoutput>
@@ -160,7 +178,7 @@
 					</tr>
 					<tr>
 						<td class="labellarge">
-							<select name="Location" id="Location" class="regularxxl" style="background-color:f4f4f4;border-left:0px;border-right:0px;height:<cfoutput>#ht#</cfoutput>px; width:100%;" multiple="multiple">
+							<select name="Location" id="Location" class="regularxl" style="background-color:f4f4f4;border-left:0px;border-right:0px;height:<cfoutput>#ht#</cfoutput>px; width:100%;" multiple="multiple">
 								<cfoutput query="getLocations">
 									<option value="#LocationCode#">#LocationDescription#
 								</cfoutput>
@@ -191,7 +209,7 @@
 				
 				<cfset vCols = 3>
 				<table width="100%">
-					<tr>
+					<tr class="fixlengthlist">
 						<cfset vCnt = 0>
 						<cfoutput query="getDates">
 							
@@ -201,7 +219,7 @@
 								<cfset vThisValue = dateFormat(vThisDate, "YYYY") & dateFormat(vThisDate, "M")>
 								<input type="checkbox" <cfif currentrow lte vSelectedMonths>checked="checked"</cfif> class="regularxl clsMonth" name="month" id="month_#currentrow#" style="height:18px; width:18px;" value="#vThisValue#">
 							</td>
-							<td class="labelmedium" style="font-size:95%;">
+							<td class="labelmedium" style="font-size:90%;">
 								<cfset vThisMonth = dateFormat(vThisDate, "MMM")>
 								<cf_tl id="#vThisMonth#" var="1">
 								<label for="month_#currentrow#">#lt_text#-#dateFormat(vThisDate, "YY")#</label>
@@ -225,7 +243,7 @@
 				<td colspan="2">	
 				<table width="100%">
 					<tr>
-						<td class="labelmedium2"><cf_tl id="Sort/Filter">:</td>
+						<td class="fixlength labelmedium2"><cf_tl id="Sort/Filter"></td>
 						<td class="labellarge">
 							<input type="radio" name="order" value="0" id="order0" checked="checked" style="height:15px; width:15px;"> <label for="order0"><cf_tl id="Index"></label>
 						</td>
@@ -233,7 +251,7 @@
 							<input type="radio" name="order" id="order1" value="1" style="height:15px; width:15px;"> <label for="order1"><cf_tl id="Name"></label>
 						</td>
 						<td class="labellarge" align="right" style="padding-left:10px;">
-							<input type="text" style="width:120px;border:0px;border-left:1px solid silver;background-color:f1f1f1" class="regularxxl" name="FilterPerson" id="FilterPerson">
+							<input type="text" style="width:100px;border:0px;border-left:1px solid silver;background-color:f1f1f1" class="regularxxl" name="FilterPerson" id="FilterPerson">
 						</td>
 					</tr>
 				</table>

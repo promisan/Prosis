@@ -111,27 +111,36 @@ password="#SESSION.dbpw#">
 	<cfelse>
 	     <cfset agg = "">
 	</cfif>
+	
+	<cfif fieldfunctionfield eq "">
+		<cfset functionfield = fieldname>
+	<cfelse>
+	    <cfset functionfield = fieldfunctionfield>
+	</cfif>
 
 	<cfset fields[currentrow] = 
-           {label           = "#lbl#", 
-		    labelfilter     = "#lblfilter#",
-            width           = "#fieldWidth#", 
-			field           = "#fieldName#",
-			fieldsort       = "#fieldNameSort#",
-			formatted       = "#formatted#",
-			column          = "#fieldcolumn#",
-			display         = "#grid#",		
-			align           = "#fieldalignment#",		
-			alias           = "#fieldaliasquery#",
-			isKey           = "#fieldIskey#",
-			rowlevel        = "#fieldrow#",
-			colspan         = "#fieldColspan#",
-			aggregate       = "#agg#",
-			processmode     = "#FieldEditInputType#",
-			processtemplate = "#FieldEditTemplate#",
-			search          = "#FieldFilterClass#",
-			filterforce     = "#FieldFilterForce#",
-			filtermode      = "#FieldFilterClassMode#"}>		
+           {label             = "#lbl#", 
+		    labelfilter       = "#lblfilter#",
+            width             = "#fieldWidth#", 
+			field             = "#fieldName#",
+			fieldsort         = "#fieldNameSort#",
+			formatted         = "#formatted#",
+			column            = "#fieldcolumn#",
+			display           = "#grid#",		
+			align             = "#fieldalignment#",		
+			alias             = "#fieldaliasquery#",
+			isKey             = "#fieldIskey#",
+			rowlevel          = "#fieldrow#",
+			colspan           = "#fieldColspan#",
+			aggregate         = "#agg#",
+			functionscript    = "#fieldfunction#",
+			functionfield     = "#functionfield#",
+			functioncondition = "#fieldfunctioncondition#",
+			processmode       = "#FieldEditInputType#",
+			processtemplate   = "#FieldEditTemplate#",
+			search            = "#FieldFilterClass#",
+			filterforce       = "#FieldFilterForce#",
+			filtermode        = "#FieldFilterClassMode#"}>		
 					
 </cfoutput>		
 
@@ -244,9 +253,3 @@ password="#SESSION.dbpw#">
 	deletetable    = "#main.querytable#"
 	drillkeyalias  = "#key.FieldAliasQuery#"
 	drillkey       = "#thiskey#">
-	
-
-
-		
-
-		

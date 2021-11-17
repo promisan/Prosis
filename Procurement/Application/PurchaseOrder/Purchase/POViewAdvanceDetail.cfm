@@ -72,20 +72,20 @@
 		
 		<cfif Lines.recordcount gte "1">
 		 
-		    <TR class="labelmedium2 line">
+		    <TR class="labelmedium2 line fixlengthlist">
 			   <td height="18" width="20"></td>
 			   <td width="2%">&nbsp;</td>	
 			   <td><cf_tl id="Reference"></td>
-			   <td style="width:100px"><cf_tl id="Statement"></td>   
-			   <td width="30%"><cf_tl id="Description"></td>				   
-			   <td style="width:120px"><cf_tl id="Transaction Date"></td>
-			   <td style="width:100px"><cf_tl id="Period"></td>
-			   <td width="80"><cf_tl id="Status"></td>
-			   <td width="120"><cf_tl id="Officer"></td>
-			   <td width="80" align="center"><cf_tl id="Currency"></td>
-		       <td width="100" align="right"><cf_tl id="Advance"></td>
-			   <td width="100" align="right"><cf_tl id="Offset"></td>
-			   <td width="20"></td>
+			   <td><cf_tl id="Statement"></td>   
+			   <td><cf_tl id="Description"></td>				   
+			   <td><cf_tl id="Transaction Date"></td>
+			   <td><cf_tl id="Period"></td>
+			   <td><cf_tl id="Status"></td>
+			   <td><cf_tl id="Officer"></td>
+			   <td align="center"><cf_tl id="Currency"></td>
+		       <td align="right"><cf_tl id="Advance"></td>
+			   <td align="right"><cf_tl id="Offset"></td>
+			   <td></td>
 			 </TR> 						 	
 		 							
 			 <cfif Lines.recordcount eq "0">
@@ -96,7 +96,7 @@
 				
 					<cfloop query="Lines">
 													
-						<tr class="line labelmedium2 navigation_row">
+						<tr class="line labelmedium2 navigation_row fixlengthlist">
 									
 							<td align="center">#CurrentRow#</td>
 														

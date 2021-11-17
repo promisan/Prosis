@@ -162,7 +162,7 @@ password="#SESSION.dbpw#">
 </cfif>   
 </cfoutput>
 
-<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="formspacing">
+<table width="98%" border="0" align="center" class="formspacing">
 
 <cfoutput>
 
@@ -194,19 +194,19 @@ password="#SESSION.dbpw#">
 
 <tr><td colspan="3" style="padding-left:10px;padding-right:10px;">
 
-	 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+	 <table width="100%" align="center" class="navigation_table">
 	 
-	  <tr>
+	  <tr class="labelmedium">
 	    <cfif DebitPanel.recordcount eq "0" and form.layout neq "corporate">
 			<!--- show nothing --->	
 	    <cfelse>
-	    <td width="50%" style="height:50px;font-size:30px" class="labellarge">
+	    <td width="50%" style="padding-top:10px;height:30px;font-size:30px">
 			<cf_tl id="Assets"> <font size="3"><cfoutput>[#application.basecurrency#]</cfoutput></font>
 		</td>					
 		</cfif>
 		
 		<cfif form.layout eq "corporate">
-		    <td width="50%" style="padding-top:20px;height:50px;font-size:30px" class="labellarge">
+		    <td width="50%" style="padding-top:10px;height:30px;font-size:30px">
 				<cf_tl id="Liabilities"><font size="3"><cfoutput>[#application.basecurrency#]</cfoutput></font>
 			</td>
 		</cfif>
@@ -214,9 +214,9 @@ password="#SESSION.dbpw#">
 	  </tr>
 	  
 	  <cfif form.layout eq "corporate">
-		   <tr><td id="alertme" colspan="2"></td></tr>
+		   <tr style="height:1px"><td id="alertme" colspan="2"></td></tr>
 	  <cfelse>
-	  	   <tr><td id="alertme"></td></tr>	  
+	  	   <tr style="height:1px"><td id="alertme"></td></tr>	  
 	  </cfif>	   
 	  
 	  <cfif form.layout eq "corporate">
@@ -229,14 +229,14 @@ password="#SESSION.dbpw#">
 	  
 	    <td width="50%" valign="top" tyle="padding-left:30px">
 						
-		   <table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+		   <table width="100%" class="navigation_table">
 		   		
 			<cfif PeriodList.recordcount gte "1">	
 			
-			<tr>
+			<tr class="fixlengthlist">
 			  <td></td>
-			  <td class="labellarge"><cf_space spaces="35"></td>
-			  <td class="labellarge" style="width:100%"></td>
+			  <td></td>
+			  <td></td>
 			  
 			  <cfif form.layout neq "corporate">	
 			  
@@ -246,7 +246,7 @@ password="#SESSION.dbpw#">
 				  </cfoutput>
 				  --->
 			  <cfelse>
-			  	  <td class="labellarge" align="center"><cf_space spaces="14"><cf_tl id="Total"></td>
+			  	  <td align="center"></td>
 			  </cfif>
 			 
 			</tr>
@@ -256,8 +256,7 @@ password="#SESSION.dbpw#">
 			<cfset field  = "Debit">
 			<cfset fileno = fileNo>
 			<cfif DebitPanel.recordcount gt "0">		
-			
-			<cfinclude template="BalanceViewData.cfm">
+				<cfinclude template="BalanceViewData.cfm">
 			</cfif>
 			
 			</table>
@@ -269,7 +268,7 @@ password="#SESSION.dbpw#">
 			</tr>
 			
 			<tr><td width="50%" height="1" class="linedotted"></td></tr>
-			<tr><td width="50%" valign="bottom" class="labellarge" style="font-size:30px;height:50px;padding-top:20px">
+			<tr><td width="50%" valign="bottom" class="labellarge" style="font-size:30px;height:20px;padding-top:20px">
 				<cf_tl id="Liabilities"><font size="3"><cfoutput>[#application.basecurrency#]</cfoutput></font>
 			</td></tr>
 			
@@ -279,14 +278,14 @@ password="#SESSION.dbpw#">
 			
 	    <td width="50%" valign="top" style="<cfif form.layout eq 'horizontal'>padding-left:20px</cfif>">		
 		
-		   <table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+		   <table width="100%" class="navigation_table">
 		
 			<cfif PeriodList.recordcount gte "1">	
 			
-			<tr>
+			<tr class="fixlengthlist">
 			  <td></td>
-			  <td align="center" class="labellarge"><cf_space spaces="35"></td>
-			  <td align="center" style="width:100%" class="labellarge"><cf_space spaces="65"></td>
+			  <td align="center"><cf_space spaces="35"></td>
+			  <td align="center"></td>
 			  
 			  <cfif form.layout neq "corporate">
 			      <!---
@@ -295,7 +294,7 @@ password="#SESSION.dbpw#">
 				  </cfoutput>
 				  --->
 			  <cfelse>			  
-			  	<td class="labellarge" align="center"><cf_space spaces="14"><cf_tl id="Total"></td>				  
+			  	<td align="center"></td>				  
 			  </cfif>			  				   
 			 
 			</tr>
@@ -317,7 +316,7 @@ password="#SESSION.dbpw#">
 		  
 		  <tr>
 		   
-		    <td height="60" width="50%" align="right" valign="bottom" class="labelmedium" style="padding-right:5px">	
+		    <td width="50%" align="right" valign="bottom" class="labelmedium" style="padding-right:5px">	
 			 <cfif dbt lt crt>			
 				<b> <cfoutput>#NumberFormat(crt,'#frm#')#</cfoutput>
 			 <cfelse>
@@ -325,7 +324,7 @@ password="#SESSION.dbpw#">
 			 </cfif>
 			</td>
 			
-			<td height="60" width="50%" align="right" valign="bottom" style="padding-right:5px" class="labelmedium">	
+			<td width="50%" align="right" valign="bottom" style="padding-right:5px" class="labelmedium">	
 				<cfif crt lt dbt>	
 					<b><cfoutput>#NumberFormat(dbt,'#frm#')#</cfoutput>
 				<cfelse>
@@ -343,7 +342,6 @@ password="#SESSION.dbpw#">
 </table>
 
 <cfset AjaxOnLoad("doHighlight")>
-
 
 <script>
 	Prosis.busy('no')

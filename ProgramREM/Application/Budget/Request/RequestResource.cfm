@@ -44,14 +44,14 @@
 		    se1.className = "hide";		
 		    se2.className = "regular";
 			while (se[count])
-				{ se[count].className = "navigation_row labelit regular"; 
+				{ se[count].className = "navigation_row labelit regular fixlengthlist"; 
 				  count++; }
 				  
 		} else { 		  
 		    se1.className = "regular"
 			se2.className = "hide"
 			while (se[count])
-				{ se[count].className = "navigation_row labelit hide"; 
+				{ se[count].className = "navigation_row labelit hide fixlengthlist"; 
 				  count++; }
 		}  
 		
@@ -104,7 +104,7 @@
 		
 		<cfoutput>
 		<tr><td style="padding-left:5px" class="labelmedium">
-		  <a href="javascript:EditProgram('#url.programcode#','#url.period#','#getProgram.ProgramClass#','Resource')"><font color="0080C0">Open in full view</font></a>
+		  <a href="javascript:EditProgram('#url.programcode#','#url.period#','#getProgram.ProgramClass#','Resource')">Open in full view</a>
 		  </td>
 	    </tr>
 		</cfoutput>

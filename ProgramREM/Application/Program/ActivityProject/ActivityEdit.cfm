@@ -130,7 +130,7 @@ password="#SESSION.dbpw#">
 														
 							<tr><td colspan="4">
 							
-								<table width="95%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+								<table width="95%" align="center" class="formpadding">
 																
 									<!--- Field: Activity Description--->
 									<TR>
@@ -171,14 +171,12 @@ password="#SESSION.dbpw#">
 								    <!--- Field: Activity Description--->
 									<TR>
 								        <td valign="top">
-										   <table cellspacing="0" cellpadding="0"><tr><td height="20" class="labelmedium"><cf_tl id="Description">:</td></tr></table>
+										   <table><tr><td height="20" class="labelmedium"><cf_tl id="Description">:</td></tr></table>
 										</td>
 									    <td colspan="3" height="28" class="labelmedium">
 										   <cfoutput>
-											<cfif ProgramAccess eq "ALL" or completed eq "0">	
-																						
-											<textarea class="regular" style="font-size:15px;padding:5px;width:100%;height:66" name="activitydescription">#EditActivity.ActivityDescription#</textarea>									
-											
+											<cfif ProgramAccess eq "ALL" or completed eq "0">																							
+											<textarea class="regular" style="font-size:15px;padding:5px;width:100%;height:66px" name="activitydescription">#EditActivity.ActivityDescription#</textarea>																				
 											<cfelse>
 											<input type="hidden" name="activitydescription" id="activitydescription" value="">		
 											#EditActivity.ActivityDescription#
@@ -190,9 +188,9 @@ password="#SESSION.dbpw#">
 								    <!--- Field: Activity Outline--->
 									<TR>
 								        <td valign="top">
-										   <table cellspacing="0" cellpadding="0"><tr><td height="20" style="padding-top:3px" class="labelmedium"><cf_tl id="Detailed Outline">:</td></tr></table>
+										   <table><tr><td height="20" class="labelmedium"><cf_tl id="Detailed Outline">:</td></tr></table>
 										</td>
-									    <td colspan="3" height="28" class="labelmedium" style="padding-right:1px;border-bottom:1px solid silver">
+									    <td colspan="3" height="28" class="labelmedium" style="padding-right:1px;border:1px solid silver">
 										   <cfoutput>
 										   
 											<cfif ProgramAccess eq "ALL" or completed eq "0">											
@@ -517,10 +515,10 @@ password="#SESSION.dbpw#">
 						 		  
 							  <cfif st eq "new">
 								  	<cf_tl id="Save | Next" var="1">
-								   <input class="button10g" style="width:140px;height:25px;font-size:13px" type="button" name="UpdateNext" value="<cfoutput>#lt_text#</cfoutput>" onclick="updateTextArea();validate()">		
+								   <input class="button10g" style="width:170px;height:27px;font-size:13px" type="button" name="UpdateNext" value="<cfoutput>#lt_text#</cfoutput>" onclick="updateTextArea();validate()">		
 							  <cfelse>
 								   <cf_tl id="Save" var="1">
-								   <input class="button10g" style="width:140px;height:25px;font-size:13px" type="button" name="Update" value="<cfoutput>#lt_text#</cfoutput>" onclick="updateTextArea();validate()">
+								   <input class="button10g" style="width:170px;height:27px;font-size:13px" type="button" name="Update" value="<cfoutput>#lt_text#</cfoutput>" onclick="updateTextArea();validate()">
 							  </cfif>
 						   
 						  </td>

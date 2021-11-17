@@ -188,7 +188,7 @@ password="#SESSION.dbpw#">
 			    </cfif>			
 				</td>
 				<td width="97%" onClick="action('#SystemFunctionId#','#currentrow#')" style="background-color:white;cursor:pointer;color:F24F00;padding-left:10px;font-size:19px" 
-				class="labelmedium">#FunctionMemo#</td>
+				class="labelmedium fixlength">#FunctionMemo#</td>
 				</tr>	
 				
 			</table>

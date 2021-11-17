@@ -49,24 +49,24 @@
 	<cfif Selected.recordcount gte "1">
 		
 		<table width="100%">
-				
-		<tr class="line">
+		
+		<cfoutput>		
+		<tr class="line  fixlengthlist">
 		   <td colspan="7" style="font-size:16px;height:26px;padding-left:1px;" class="labelmedium2"><cf_tl id="Selected"></td>	   
-		   <td align="right" style="padding-top:3px">	   
-		   <cfoutput>
-		   <cf_img icon="delete" onClick="javascript:fielddelete('','#url.id#','#url.table#')">	remove all  
-		   </cfoutput>	   
+		   <td align="right" style="cursor:pointer;color:6688aa;padding-top:3px fixlength">   
+		   <a href="javascript:fielddelete('','#url.id#','#url.table#')"><cf_tl id="remove all"></a>	   
 		   </td>
 		</tr>
+		</cfoutput>
 			
 		<!--- container saving label --->
 		<tr class="hide"><td id="label"></td></tr>
 		
-		<tr class="labelmedium2 line">
-		<td width="40"></td>
-		<td width="20"></td>
+		<tr class="labelmedium2 line fixlengthlist">
+		<td></td>
+		<td></td>
 		<td><cf_tl id="Field name"></td>	
-		<td align="center" width="20"></td>	
+		<td align="center"></td>	
 		<td><cf_tl id="Label"></td>
 		<td align="center"></td>	
 		<td><cf_tl id="Sort"></td>
@@ -75,7 +75,7 @@
 				
 		<cfoutput query="Selected">
 		
-		<tr style="height:15px" class="line labelmedium2">
+		<tr style="height:15px" class="line labelmedium2 fixlengthlist">
 		
 		<td align="center">
 			
@@ -145,9 +145,8 @@
 			</tr>
 			</table>
 		</td>
-		
-									
-		<td width="300" style="padding:0px">
+											
+		<td>
 			<input type="text" 
 			   name="label" 
 			   id="label"
@@ -157,9 +156,7 @@
 			   onchange="update('label','#fieldName#',this.value,'#url.id#','label','#url.table#')">		
 		</td>	
 		
-		
-			
-		<td id="sorting#currentrow#" style="padding-left:5px">
+		<td id="sorting#currentrow#">
 		
 			<cfif OutputSorting eq "">
 				   <a href="javascript:update('sorting','#fieldName#','ASC','#url.id#','sorting#currentrow#','#url.table#')">ASC</a>&nbsp;|

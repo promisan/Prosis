@@ -102,6 +102,7 @@ password="#SESSION.dbpw#">
 	                               FROM   Ref_ProgramCategory 
 								   WHERE  Area = '#Area#') 
 	</cfif>
+		
 	
 </cfquery>
 
@@ -109,8 +110,24 @@ password="#SESSION.dbpw#">
 
 <cfloop index="Item" 
         list="#Form.ProgramCategory#" 
-        delimiters="' ,">
+        delimiters="',">
 
 		<cfinclude template="CategoryEntrySubmitItem.cfm">
 		
 </cfloop>		
+
+<cfquery name="UpdateGroup" 
+	datasource="AppsProgram" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		DELETE FROM ProgramCategoryPeriod			
+		WHERE  ProgramCode      = '#Form.ProgramCode#' 
+		AND    Period           = '#URL.Period#'
+		<cfif area neq "">	
+	    AND    ProgramCategory IN (SELECT Code 
+	                               FROM   Ref_ProgramCategory 
+								   WHERE  Area = '#Area#') 
+	    </cfif>
+		AND   ProgramCategory NOT IN (#preserveSingleQuotes(Form.ProgramCategory)#)
+		 		 
+</cfquery>

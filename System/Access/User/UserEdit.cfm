@@ -472,7 +472,7 @@ password="#SESSION.dbpw#">
 		    <!--- Field: Mail Server Account --->
 		    <TR>
 		    <TD class="labelmedium"><cf_tl id="LDAP Domain">:</TD>
-		    <TD class="labelmedium">
+		    <TD class="labelmedium fixlength">
 		    	<cfoutput query="get">
 				
 				<cfinput type="Text"
@@ -495,7 +495,7 @@ password="#SESSION.dbpw#">
 		       	   visible="Yes"
 		           enabled="Yes"
 		           size="60"
-		           maxlength="80">				
+				   style="width:400px">				
 				
 			    </cfoutput>	
 			</TD>
@@ -517,8 +517,7 @@ password="#SESSION.dbpw#">
 			       visible="Yes"
 			       enabled="Yes"
 			       size="50"
-			       maxlength="60">
-				   
+			       maxlength="60"> 
 				
 				
 			    </cfoutput>	
@@ -549,13 +548,13 @@ password="#SESSION.dbpw#">
 			</TD>
 			</TR>
 			
-		    <TR>
+		    <TR class="fixlengthlist">
 			<td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Session settings">:&nbsp;</td>
 			
 			<TD style="background-color:f1f1f1;padding-left:8px;padding-right:4px">
 				
 				<table width="100%" align="center">
-				<tr>
+				<tr class="fixlengthlist">
 				    <td class="labelit" title="Password will not longer expire based on the general system settings">Disable Password expiration after <cfoutput>#System.PasswordExpiration#</cfoutput> weeks </td>
 					<TD>
 			    		<cfoutput query="get">
@@ -570,7 +569,7 @@ password="#SESSION.dbpw#">
 					
 					</TD>
 				</tr>
-				<tr>
+				<tr class="fixlengthlist">
 				
 				    <td class="labelit"><cfoutput>Disable Session timeout after #System.SessionExpiration# min :</cfoutput></td>
 					<TD>
@@ -587,7 +586,7 @@ password="#SESSION.dbpw#">
 					</TD>
 					
 				</tr>
-				<tr>
+				<tr class="fixlengthlist">
 				    
 					<td class="labelit"><cf_tl id="Disable IP routing">:</td>
 					<TD>
@@ -605,7 +604,7 @@ password="#SESSION.dbpw#">
 					
 				</tr>
 				
-				<tr>
+				<tr class="fixlengthlist">
 				    
 					<td class="labelit" title="User is granted access onto the pre-production server">Enable as Pre-production user:</td>
 					<TD>
@@ -632,17 +631,15 @@ password="#SESSION.dbpw#">
 			</td>
 			</tr>
 			
-			
-			
-			<tr class="line">		
+			<tr class="line fixlengthlist">		
 				
 			<td class="labelmedium" style="padding-top:4px"><cf_tl id="Recorded by">:</td>
 			 <TD height="100%" class="labelmedium">
 						 
 			 <table>
 			 
-			 <tr>
-			 <td class="labelmedium">
+			 <tr class="fixlengthlist labelmedium2">
+			 <td>
 			  <cfoutput query="get">
 			  <cfif OfficerLastName eq "">undefined<cfelse>#OfficerFirstName# #OfficerLastName#</cfif> on #dateformat(created,CLIENT.DateFormatShow)#
 			 </cfoutput>
@@ -660,8 +657,8 @@ password="#SESSION.dbpw#">
 					
 					<cfoutput>
 					 		    	  
-						 <td style="padding-left:20px"  class="labelmedium"><cf_tl id="Last Logon">:</td>
-						 <td style="padding-left:10px" class="labelmedium">
+						 <td><cf_tl id="Last Logon">:</td>
+						 <td>
 						 <cfif Last.Created eq ""><font color="FF0000"><cf_tl id="never"></b>
 						 <cfelse>#DateFormat(Last.Created, CLIENT.DateFormatShow)#
 						 </cfif>
@@ -669,8 +666,8 @@ password="#SESSION.dbpw#">
 									
 					</cfoutput>	
 								 
-			    <td style="padding-left:20px" class="labelmedium"><cf_tl id="Password">:</td>
-				<td class="labelmedium" style="padding-left:10px">
+			    <td><cf_tl id="Password">:</td>
+				<td>
 				<cfif len(get.Password) lte 10>
 					<font color="FF0000"><cf_tl id="Unsecure password"></font>
 				<cfelse>

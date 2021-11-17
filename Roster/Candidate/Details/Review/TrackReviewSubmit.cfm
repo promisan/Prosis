@@ -109,7 +109,7 @@ VALUES  ('#url.reviewid#',
 <script>
  
  parent.parent.reviewrefresh('#URL.DocumentNo#')
- parent.parent.ColdFusion.Window.destroy('mydialog',true) 
+ parent.parent.ProsisUI.closeWindow('mydialog',true) 
   
 </script>	
 

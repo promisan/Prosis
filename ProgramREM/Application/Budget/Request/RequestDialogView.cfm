@@ -145,8 +145,8 @@
 				   <!--- ----------------------------- --->
 				   <!--- ----------------------------- --->
 		
-				  <tr class="labelmedium">
-				   <td width="100%" style="height:30;padding-left:10px">
+				  <tr class="labelmedium2 fixrow">
+				   <td class="fixlength" style="background-color:white;font-size:20px;height:35px;padding-left:10px">
 				   
 				   <cfif Program.Reference neq "">#Program.Reference#<cfelse>#Program.ProgramCode#</cfif> - #Program.ProgramName# 
 				   
@@ -185,7 +185,7 @@
 				   </b>					   
 				   
 				   </td>
-				   <td align="right" style="padding-right:3px" width="23">
+				   <td align="right" style="background-color:white;padding-right:3px" width="23">
 					
 					<cf_space spaces="8">
 					
@@ -214,8 +214,7 @@
 					Period         = "#URL.Period#"	
 					EditionId      = "#URL.editionID#" 
 					ReturnVariable = "RequirementLock">							
-				
-				  <tr><td colspan="2" class="line"></td></tr>
+								 
 				  <tr class="regular" id="entrybox" name="entrybox">
 				  <td colspan="2" valign="top" height="300" align="center" class="labelmedium" id="entrydialog" name="entrydialog">
 				  

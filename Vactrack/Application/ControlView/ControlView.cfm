@@ -31,13 +31,11 @@
 					 
 	</cf_layoutarea>
 
-
-	<cf_layoutarea  position="left" name="tree" maxsize="300" size="290" collapsible="true" splitter="true">
+	<cf_layoutarea  position="left" name="tree" maxsize="340" size="340" collapsible="true" splitter="true">
 		<cf_divScroll>
 			<cfinclude template="ControlTree.cfm">
 		</cf_divScroll>
 	</cf_layoutarea>
-
 
 	<cf_layoutarea  position="center" name="box">
 				

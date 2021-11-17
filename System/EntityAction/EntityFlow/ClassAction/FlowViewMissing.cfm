@@ -45,7 +45,14 @@
 	<table width="100%" class="formpadding">
 	
 	<tr><td colspan="5"></td></tr>
-	<tr style="border-top:1px solid silver;height:30px" class="line labelmedium"><td colspan="5" align="center"><font color="FF0000"><b>Attention : </b>#Missing.recordcount# actions are not properly configured, and require your action.</b></td></tr>	
+	<tr style="border-top:1px solid silver;height:30px" class="line labelmedium2">
+	<td colspan="5" align="center">
+	<cfif missing.recordcount eq "1">
+	<font color="FF0000"><b>Attention : </b>#Missing.recordcount# action is not properly configured, and requires your action.</b>
+	<cfelse>
+	<font color="FF0000"><b>Attention : </b>#Missing.recordcount# actions are not properly configured, and requires your action.</b>
+	</cfif>
+	</td></tr>	
 	<tr><td colspan="5"></td></tr>
 	
 	<cfset ln = 1>
@@ -64,7 +71,7 @@
 
 			<div id="#ActionCode#" style="width:130px;height:35px; position:relative; cursor: pointer;">
 				
-				<table width="140" height="35" border="0" align="center" bgcolor="transparent"cellpadding="0" cellspacing="0"
+				<table width="140" height="35" border="0" align="center" bgcolor="transparent"
 				style="cursor: pointer; border:1px solid silver;padding:3px" 
 				onDblClick="stepedit('#Missing.ActionCode#','#URL.PublishNo#')" > 
 				

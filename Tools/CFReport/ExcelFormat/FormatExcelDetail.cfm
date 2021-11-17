@@ -49,11 +49,12 @@
 	
 	<!--- grouping 1 --->
 	
-	<tr class="line"><td class="labelmedium" style="height:30px;font-size:23px;padding-left:5px">
+	<tr class="line fixlengthlist">
+	    <td class="labelmedium" style="height:30px;font-size:20px;padding-left:5px">
 		 <cf_tl id="Output Grouping and subtotals">	
 		</td>	
 	
-	   <td colspan="2">
+	   <td colspan="1">
 	
 	   <table class="formpadding">
 	   
@@ -104,7 +105,7 @@
 			
 		   <td width="20"></td>
 			        
-	        <td width="30" height="24">&nbsp;&nbsp;&nbsp;#grp#:</td>
+	       <td width="30" height="24">&nbsp;&nbsp;&nbsp;#grp#:</td>
 					
 	        <td>
 			    <select <cfif disable eq "1">disabled</cfif> class="regularxxl" style="font-size:15px" name="Grouping#Grp#" id="Grouping#Grp#" 
@@ -141,7 +142,7 @@
 	   <cfset gr = "''">  
 	      
 	   <tr class="line">
-	   <td class="labelmedium" style="height:30px;font-size:23px;padding-left:5px">
+	   <td class="labelmedium" style="height:30px;font-size:20px;padding-left:5px">
 		   
 			<cf_tl id="Field Selection">
 			</td>
@@ -225,8 +226,8 @@
 				   <table>
 				    <tr class="labelmedium2">
 				     <cfoutput>				 
-					 <td  style="padding-left:4px;font-size:17px">
-				        <a href="javascript:fieldadd('','Detail','#url.id#','#url.table#')">[<cf_tl id="Select all fields">]</a>
+					 <td  style="padding-left:4px;font-size:15px">
+				        <a href="javascript:fieldadd('','Detail','#url.id#','#url.table#')"><cf_tl id="Select all fields"></a>
 				     </td>		 
 				     </cfoutput>
 					</tr>
@@ -241,7 +242,7 @@
 				
 			<tr>
 			
-			  <td colspan="4">		  
+			  <td colspan="5">		  
 			  	<table width="100%">
 					<tr>					
 				    <cfset cnt=0>
@@ -253,13 +254,13 @@
 						<cfset cnt = cnt + 1>
 								
 						<cfif cnt eq "1">
-						<td width="20%" valign="top">
-						<cf_space spaces="30">
-						<table width="100%" cellspacing="0" cellpadding="0">
+						<td valign="top">
+						
+						<table width="100%">
 						</cfif>
 							
-							<tr class="labelmedium" style="height:16px">							
-							<td width="30" style="font-size:11px;min-width:40px" align="center">#CurrentRow#.</td>
+							<tr class="labelmedium fixlengthlist" style="height:16px">							
+							<td width="30" style="font-size:11px" align="center">#CurrentRow#.</td>
 							
 							<cfif userType eq "8">
 							   <cfset format = "numeric">
@@ -301,24 +302,26 @@
 							
 							<cfif selected eq "0">
 							
-								<td width="90%" style="heigh:15px;cursor:pointer;padding-left:5px;background-color=f3f3f3;min-width:200" 
+								<td style="height:15px;cursor:pointer;padding-left:5px;background-color=f3f3f3" 
 								  onmouseout="this.className='regular'" 
 								  onmouseover="this.className='highlight'" 
 								  onclick="fieldadd('#name#','Detail','#url.id#','#url.table#','#format#')">
-								    											
-									<a style="font-size:12px;color:black" title="Select field: #name#"><cfif get.Outputheader neq "">#get.OutputHeader#<cfelse>#Name#</cfif> 
+								    																			
+									<a style="font-size:12px;color:black" title="Select field: #name#"><cfif get.Outputheader neq "">#get.OutputHeader#<cfelse>#Name#</cfif>
+									  <span style="color:800080"> 
 									  <cfif userType eq "8">
 									      &nbsp;(<cf_tl id="Numeric">)
 									  <cfelseif userType eq "12">
 									      &nbsp;(<cf_tl id="Date">)
 									  </cfif>
+									  </span>
 									</a>
 									
 								</td>
 							
 							<cfelse>
 							
-								<td width="90%" bgcolor="ffffef"  style="padding-left:5px;font-size:12px;min-width:200">														
+								<td bgcolor="ffffef"  style="padding-left:5px;font-size:12px">														
 									<a href="javascript:fielddelete('#name#','#url.id#','#url.table#')"><u><cf_tl id="revoke"></u></a>&nbsp;|&nbsp	
 									<i><font color="gray"><cfif get.Outputheader neq "">#get.OutputHeader#<cfelse>#Name#</cfif></font></i>							 														
 								</td>
@@ -343,10 +346,12 @@
 				
 		</tr>
 		
+		
 		<tr><td colspan="5" valign="top" id="selectedfields">	
 				<cfinclude template="formatExcelDetailSelected.cfm">			
 			 </td>
 		</tr>
+		
 		
 		<cfoutput>
 		
@@ -354,12 +359,14 @@
 		
 		<tr><td height="5"></td></tr>
 		<tr class="line">
-		<td colspan="1" class="cellcontent" style="height:30px;font-weight:200;font-size:20px"><cf_tl id="Filter Excel Output"></td>	
-			<td colspan="4">
+		<td colspan="1" class="cellcontent" style="height:30px;font-size:16px"><cf_tl id="Filter Excel Output"></td>	
+		</tr>
+		<tr>
+			<td colspan="5">
 			
 				<form name="filterform" id="filterform" method="post">
 				
-					<table border="0" class="formpadding" cellspacing="0" cellpadding="0">
+					<table border="0" class="formpadding">
 					
 						 <cfquery name="Fields" 
 							datasource="#ds#">

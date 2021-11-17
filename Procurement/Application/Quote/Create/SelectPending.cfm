@@ -45,7 +45,7 @@
 			
 			<input type="hidden" id="reqno" name="reqno">
 			
-			<cfdiv id="pending" style="height:100%;" 
+			<cf_securediv id="pending" style="height:100%;" 
 			  bind="url:SelectLines.cfm?mode=#mode#&page=#url.page#&annotationid=#url.annotationid#&mission=#url.mission#&period=#url.period#&search=#url.search#&fun=#url.fun#&fund=#url.fund#&unit=#url.unit#">	
 			  
 			</form>

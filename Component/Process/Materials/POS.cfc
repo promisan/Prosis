@@ -3119,7 +3119,9 @@
 						</cfif>
 						AND		Operational  = 1										
 						<!--- AND	((InvoiceCurrent < InvoiceEnd) <cfif Mode eq "3" > OR (UserKey IS NOT NULL)</cfif>) --->
-					</cfquery> 	
+					</cfquery>
+
+
 
 					<cfif getSeries.recordCount eq "0">
 					
@@ -3674,7 +3676,11 @@
 					W.WarehouseName,										
 					WB.BatchNo, 
 					WB.Batchid,						
-					WB.BatchReference,
+					(SELECT  TOP 1   THA.ActionReference2
+						FROM            Accounting.dbo.TransactionHeader AS TH INNER JOIN
+			                         Accounting.dbo.TransactionHeaderAction AS THA ON TH.Journal = THA.Journal AND TH.JournalSerialNo = THA.JournalSerialNo
+						WHERE        (THA.ActionCode = 'Invoice') AND TH.TransactionSourceId = WB.BatchId
+						ORDER BY TH.Created DESC) as BatchReference,
 					WB.BatchMemo,		
 					U.ItemBarCode,
 					CU.CustomerId,

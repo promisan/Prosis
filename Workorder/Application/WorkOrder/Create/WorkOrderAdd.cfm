@@ -259,11 +259,11 @@
 													
 									<tr>
 									   <td colspan="2" style="padding:20px">
-									       <!--- embedded form for this order --->
-										   						  					   
-										   <cf_getMID>						  
-									       <cfdiv bind="url:#SESSION.root#/workorder/application/workorder/create/workorderform.cfm?idmenu=#url.systemfunctionid#&context=#url.context#&scope=add&mode=edit&mission=#url.mission#&orgunit=#url.orgunit#&personno=#url.personno#&date=#url.date#&serviceitem={serviceitemselect}&customerid=#url.customerid#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&requestid=#url.requestid#&mid=#mid#"
-										     id="content">					
+									       <!--- embedded form for this order --->										   				  					   
+										   					  
+									       <cf_securediv bind="url:#SESSION.root#/workorder/application/workorder/create/workorderform.cfm?idmenu=#url.systemfunctionid#&context=#url.context#&scope=add&mode=edit&mission=#url.mission#&orgunit=#url.orgunit#&personno=#url.personno#&date=#url.date#&serviceitem={serviceitemselect}&customerid=#url.customerid#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&requestid=#url.requestid#"
+										     id="content">		
+											 			
 									   </td>
 									</tr>
 																			

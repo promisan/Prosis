@@ -131,13 +131,9 @@
 			</td>
 											
 			<td style="padding-left:4px;padding-top:3px;min-width:80px">	
-			
-			<!---								
-			
+					
 				<cf_securediv bind= "url:ParameterSystemCheck.cfm?module=#systemmodule#&licenseid={LicenseId_#val#}" id= "box#val#">									
-				
-				--->
-			
+							
 			</td>
 						
 			</tr>

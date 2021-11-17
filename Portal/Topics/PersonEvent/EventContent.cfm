@@ -186,7 +186,7 @@
 			  <cfchart style = "#chartStyleFile#" 
 				       format="png"
 				       chartheight="350" 
-					   chartwidth="640"    			  
+					   chartwidth="540"    			  
 				       seriesplacement="default"	 
 					   showborder="No"
 					   show3d="no"
@@ -225,7 +225,7 @@
 				 <cfchart style = "#chartStyleFile#" 
 				       format="png"
 				       chartheight="300" 
-					   chartwidth="400"    			  
+					   chartwidth="350"    			  
 				       seriesplacement="default"	 
 					   showborder="No"
 					   show3d="no"
@@ -416,14 +416,15 @@
 			 								
 			 <cfoutput query="List">				 										
 								
-				<tr class="navigation_row line">
+				<tr class="navigation_row line fixlengthlist">
+				 
 				  <td style="width:100%">
 				  
 					  <table width="95%" align="right">
-					  <tr class="labelit">
-					  	<td style="height:23px;font-size:12px">													
+					  <tr class="labelmedium2">
+					  	<td style="height:23px;">													
 							<cfif prior neq FieldRowName>
-							#left(FieldRowName,26)# 
+							#FieldRowName# 
 							<cfset prior = fieldRowName>
 							</cfif>
 						</td>
@@ -473,8 +474,6 @@
 				  </cfloop> 
 				  				 
 				  <cfloop index="mth" from="1" to="12">
-				  
-				   	  
 													
 						<cfset pend = arPending[mth]>
 						

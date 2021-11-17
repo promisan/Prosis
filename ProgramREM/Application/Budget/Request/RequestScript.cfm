@@ -71,6 +71,7 @@
 		    se = dialogview.document.getElementById("entrydialog")			
 			if (se) {											
 			    Prosis.busy('yes')
+				_cf_loadingtexthtml='';
 				dialogview.ptoken.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestDialogForm.cfm?mode='+mode+'&requirementid='+id+'&programcode=#url.programCode#&period=#url.period#&activityid=#url.activityid#&editionid='+edi+'&objectcode='+obj+'&cell='+cell,'entrydialog')						
 			} else {
 			  				    
@@ -81,6 +82,7 @@
 			    se = document.getElementById("entrydialog")							
 				if (se) {		
 					Prosis.busy('yes')
+					_cf_loadingtexthtml='';
 				    if (itm) {													
 					ptoken.navigate('#SESSION.root#/programrem/Application/Budget/Request/RequestDialogForm.cfm?mode='+mode+'&requirementid='+id+'&programcode=#url.programCode#&period=#url.period#&activityid=#url.activityid#&editionid='+edi+'&objectcode='+obj+'&cell='+cell+'&itemmaster='+itm,'entrydialog')	
 					} else {
@@ -93,10 +95,8 @@
 			
 		} else {	
 		
-		    if (mode == "resource") {
-			
-			   ptoken.open("#SESSION.root#/programrem/Application/Budget/Request/RequestDialog.cfm?mode="+mode+"&requirementid="+id+"&programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid="+edi+"&objectcode="+obj+"&cell="+cell,"requirement")
-						
+		    if (mode == "resource") {			
+			   ptoken.open("#SESSION.root#/programrem/Application/Budget/Request/RequestDialog.cfm?mode="+mode+"&requirementid="+id+"&programcode=#url.programcode#&period=#url.period#&activityid=#url.activityid#&editionid="+edi+"&objectcode="+obj+"&cell="+cell,"requirement")						
 			} else {
 			
 			    // not sure if this is still in use hanno 22/9/2015						

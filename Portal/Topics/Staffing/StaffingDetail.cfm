@@ -181,7 +181,7 @@
   	
 	<table width="100%">
 	
-	   <tr style="border-top:1px solid silver" class="labelmedium line navigation_table fixrow">
+	   <tr style="border-top:1px solid silver" class="labelmedium2 line navigation_table fixrow fixlengthlist">
 	   	   <td></td>
 	       <td><cf_tl id="Position"></td>
 		   <td><cf_tl id="Grade"></td>	 
@@ -213,12 +213,10 @@
 					 WHERE  Code = '#Person.Nationality#' 		 
 			</cfquery>
 	   	  	   
-		   <tr class="labelmedium navigation_row linedotted" style="height:20px">
+		   <tr class="labelmedium2 navigation_row linedotted fixlengthlist" style="height:20px">
 		   	   <td style="padding-left:4px">#currentrow#.</td>
 		       <td style="padding-left:4px">
-			   <a href="javascript:EditPosition('','','#PositionNo#')">
-			   <cfif sourcePostNumber neq "">#SourcePostNumber#<cfelse>#PositionParentId#</cfif>
-			   </a>
+			   <a href="javascript:EditPosition('','','#PositionNo#')"><cfif sourcePostNumber neq "">#SourcePostNumber#<cfelse>#PositionParentId#</cfif></a>
 			   </td>
 			   <td>#PostGrade#</td>
 			   <td>#LocationName#</td>
@@ -228,7 +226,7 @@
 				   <table>
 				   <tr class="labelmedium" style="height:20px">
 				        <td><img src="#session.root#/images/logos/staffing/iconperson.png" alt="" border="0"></td>
-				        <td style="padding-left:4px" ><a href="javascript:EditPerson('#personno#')"><font color="0080C0">#Person.IndexNo#</a></td>
+				        <td style="padding-left:4px" ><a href="javascript:EditPerson('#personno#')">#Person.IndexNo#</a></td>
 				   </tr>
 				   </table>
 			   </td>

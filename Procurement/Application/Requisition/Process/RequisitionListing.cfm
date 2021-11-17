@@ -261,18 +261,18 @@
 							
 			<cfif Requisition.recordcount neq "0">	
 			
-			<TR class="line labelmedium">
+			<TR class="line labelmedium2 fixlengthlist">
 			  
-			   <td style="width:10px;width:40px">		
+			   <td>		
 				<cfif url.process eq "Radio">
 					<cfoutput>
-						<a href="javascript:ColdFusion.navigate('#session.root#/Procurement/Application/Requisition/Process/setRequisitionProcess.cfm','process','','','POST','req')">[<cf_tl id="Clear all">]</a>		
+						<a href="javascript:ptoken.navigate('#session.root#/Procurement/Application/Requisition/Process/setRequisitionProcess.cfm','process','','','POST','req')">[<cf_tl id="Clear all">]</a>		
 					</cfoutput>	
 				</cfif>
 				</td>		
-			   <td width="30%"><cf_tl id="Description"></td>
+			   <td><cf_tl id="Description"></td>
 			   <td></td>
-			   <td width="10%"><cf_tl id="Date"></td>
+			   <td><cf_tl id="Date"></td>
 			   <td align="center"><cf_tl id="Quantity"></td>
 			   <td align="center"><cf_tl id="UoM"></td>
 			   <td align="right"><cf_tl id="Price"></td>
@@ -350,7 +350,7 @@
 							WHERE  Reference = '#Reference#'
 						</cfquery>					
 																
-						<tr style="padding-bottom:3px" class="labelmedium">
+						<tr style="padding-bottom:3px" class="labelmedium2 fixlengthlist">
 						   <td style="font-size:22px;height:36px;padding-right:5px;padding-left:5px" colspan="4">					       
 						       <a href="javascript:RequisitionView('#mission#','#period#','#Reference#')">#Reference#</a>
 						   </td>
@@ -359,8 +359,8 @@
 				 	    </TR>									
 						
 						<cfif Header.RequisitionPurpose neq "">					
-							<TR>												
-							<td colspan="8" class="labelmedium" style="font-size:15px;border-bottom:1px solid gray;padding-left:10px;padding:5px">#Header.RequisitionPurpose#</td>						
+							<TR class="labelmedium2 fixlengthlist">												
+							<td colspan="8" style="font-size:15px;height:26px;border-bottom:1px solid gray;padding-left:5px;padding:5px">#Header.RequisitionPurpose#</td>						
 							</TR>										
 						</cfif>		
 																					
@@ -520,9 +520,9 @@
 						
 						</cfif>		
 																											
-						<tr id="#mode#_#currentrow#_1">
+						<tr id="#mode#_#currentrow#_1" class="fixlengthlist">
 						
-						   <td rowspan="3" valign="top" style="padding-top:3px;padding-left:4px;padding-right:10px">
+						   <td rowspan="3" valign="top">
 						   					   				
 						   	 <cfif mode eq "Pending">
 							 						 												 
@@ -751,7 +751,7 @@
 						 		   
 						   </td>	
 						   
-						    <td class="labelmedium" style="font-size:18px;padding-left:6px" colspan="4">
+						    <td class="labelmedium2" style="font-size:17px;" colspan="4">
 									
 									<cfif IndTravel eq "0" and IndPosition eq "0" and IndService eq "0">								
 							        	<cfif caseNo neq "">#CaseNo# </cfif> #RequestDescription#						
@@ -825,7 +825,7 @@
 						 				 
 						 <!--- second row --->
 						   
-						 <tr id="#mode#_#currentrow#_2" bgcolor="#cl#" class="labelmedium navigation_row_child" style="height:20px">
+						 <tr id="#mode#_#currentrow#_2" bgcolor="#cl#" class="labelmedium navigation_row_child fixlengthlist" style="height:20px">
 						   			   		    	  
 						   <td style="padding:1px;border:1px solid silver" rowspan="2">
 						   					   					   
@@ -1014,7 +1014,7 @@
 						
 						<!--- thirdrow --->
 										
-						<tr id="#mode#_#currentrow#_3" bgcolor="#cl#" class="labelmedium navigation_row_child line" style="height:20px">		
+						<tr id="#mode#_#currentrow#_3" bgcolor="#cl#" class="labelmedium navigation_row_child line fixlengthlist" style="height:20px">		
 												
 						<td height="16" style="padding-left:4px" colspan="1">
 																											
@@ -1197,34 +1197,34 @@
 										AND       Pe.Period = '#PlanningPeriod.PlanningPeriod#'
 					    			</cfquery>
 																										
-											<tr class="labelmedium">										   
-											   
-											   <td width="30" class="noprint" style="padding-left:3px" onclick="programobject('#requisitionno#','#programcode#','#url.mission#','#PlanningPeriod.PlanningPeriod#','#per#','#Program.programclass#','','#PlanningPeriod.editionid#','#fund#','','budget_#rowguid#')">
-														   			
-													   <cf_space spaces="4">									
-																			
-													   <img src="#SESSION.root#/Images/arrow.gif" alt="" 
-															id="budget_#rowguid#Exp" border="0" class="regular" align="absmiddle" style="cursor: pointer;">
-																			
-													   <img src="#SESSION.root#/Images/arrowdown.gif" 
-															id="budget_#rowguid#Min" alt="" border="0" align="absmiddle" class="hide" style="cursor: pointer;" height="12" width="12">
-																									
-												</td>		
-											   
-											   </td>
-											   <td width="70" style="padding-left:6px">#Fund#</td>	
-											   <td width="100" style="padding-left:6px">#ProgramPeriod#</td>									  							  
-											   <td width="30%" style="padding-left:6px">
-												   <a href="javascript:AllotmentInquiry('#ProgramCode#','#fund#','#Per#','','')">
-												   <cfif Program.reference neq "">#Program.Reference#<cfelse>#ProgramCode#</cfif>
-												   &nbsp;#Program.ProgramName#
-												   </a>
-											   </td>									   
-											   <td width="16%" style="padding-left:6px">#Program.OrgUnitName#</td>
-											   <td width="20%" style="padding-left:6px">#CodeDisplay#&nbsp;#ObjectDescription#</td>
-											   <td width="70" style="padding-left:6px">#Percentage*100#%</td>
-											   <td align="right" style="padding-right:10px;padding-left:10px">#numberFormat(Percentage*amt,"__,__.__")#</td>								   
-											</tr>
+									<tr class="labelmedium">										   
+									   
+									   <td width="30" class="noprint" style="padding-left:3px" onclick="programobject('#requisitionno#','#programcode#','#url.mission#','#PlanningPeriod.PlanningPeriod#','#per#','#Program.programclass#','','#PlanningPeriod.editionid#','#fund#','','budget_#rowguid#')">
+												   			
+											   <cf_space spaces="4">									
+																	
+											   <img src="#SESSION.root#/Images/arrow.gif" alt="" 
+													id="budget_#rowguid#Exp" border="0" class="regular" align="absmiddle" style="cursor: pointer;">
+																	
+											   <img src="#SESSION.root#/Images/arrowdown.gif" 
+													id="budget_#rowguid#Min" alt="" border="0" align="absmiddle" class="hide" style="cursor: pointer;" height="12" width="12">
+																							
+										</td>		
+									   
+									   </td>
+									   <td width="70" style="padding-left:6px">#Fund#</td>	
+									   <td width="100" style="padding-left:6px">#ProgramPeriod#</td>									  							  
+									   <td width="30%" style="padding-left:6px">
+										   <a href="javascript:AllotmentInquiry('#ProgramCode#','#fund#','#Per#','','')">
+										   <cfif Program.reference neq "">#Program.Reference#<cfelse>#ProgramCode#</cfif>
+										   &nbsp;#Program.ProgramName#
+										   </a>
+									   </td>									   
+									   <td width="16%" style="padding-left:6px">#Program.OrgUnitName#</td>
+									   <td width="20%" style="padding-left:6px">#CodeDisplay#&nbsp;#ObjectDescription#</td>
+									   <td width="70" style="padding-left:6px">#Percentage*100#%</td>
+									   <td align="right" style="padding-right:10px;padding-left:10px">#numberFormat(Percentage*amt,"__,__.__")#</td>								   
+									</tr>
 											
 									
 									<tr>
@@ -1287,10 +1287,8 @@
 		 						  </cfif>						  
 							   </td>	  
 									
-						       <td rowspan="1" align="center" style="padding-top:3px">
-							   						   
-							   	<cf_img icon="edit"  onClick="javascript:ProcQuoteEdit('#quotationid#')">
-								
+						       <td rowspan="1" align="center" style="padding-top:3px">							   						   
+							   	<cf_img icon="edit"  onClick="javascript:ProcQuoteEdit('#quotationid#')">								
 						       </td>
 							   <td>#OrgUnitName#</td>
 				    		   <td align="center"
@@ -1360,8 +1358,7 @@
 		   
 		 <input type="hidden" 
 		   name="clrlist" id="clrlist"
-		   value="<cfoutput>#myclr#</cfoutput>">	  
-		   	
+		   value="<cfoutput>#myclr#</cfoutput>">
 						
 	</table>	
 

@@ -11,10 +11,10 @@
 		<td align="right" style="padding-right:10px">
 	
 		 <cfif URL.Page gt "1">	 
-		       <input type="button" name="Prior" id="Prior" value="<<" class="button3" onClick="ptoken.navigate('#SESSION.root#/tools/selectlookup/User/UserResult.cfm?height=#url.height#&page=#url.page-1#&close=#url.close#&box=#box#&link=#url.link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#','resultuser#box#','','','POST','selectuser#box#')">
+		       <input type="button" name="Prior" id="Prior" value="<<" class="button3" onClick="_cf_loadingtexthtml='';	ptoken.navigate('#SESSION.root#/tools/selectlookup/User/UserResult.cfm?height=#url.height#&page=#url.page-1#&close=#url.close#&box=#box#&link=#url.link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#','resultuser#box#','','','POST','selectuser#box#')">
 		   </cfif>
 		  <cfif URL.Page lt "#Pages#">
-		       <input type="button" name="Next" id="Next" value=">>" class="button3" onClick="ptoken.navigate('#SESSION.root#/tools/selectlookup/User/UserResult.cfm?height=#url.height#&page=#url.page+1#&close=#url.close#&box=#box#&link=#url.link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#','resultuser#box#','','','POST','selectuser#box#')">
+		       <input type="button" name="Next" id="Next" value=">>" class="button3" onClick="_cf_loadingtexthtml='';	ptoken.navigate('#SESSION.root#/tools/selectlookup/User/UserResult.cfm?height=#url.height#&page=#url.page+1#&close=#url.close#&box=#box#&link=#url.link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#','resultuser#box#','','','POST','selectuser#box#')">
 		   </cfif>
 		   
 		</td>	

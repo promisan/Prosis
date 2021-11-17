@@ -41,9 +41,9 @@
  
   <tr><td colspan="2">
   
-	<table width="100%" border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table formpadding">
+	<table width="100%" width="100%" class="navigation_table formpadding">
 			
-	<TR class="labelmedium line">
+	<TR class="labelmedium2 line fixrow">
 	    <TD height="20" width="5%"></TD>
 	    <TD width="10%"><cf_tl id="Code"></TD>		
 		<TD width="15%"><cf_tl id="Implementer"></TD>
@@ -63,12 +63,12 @@
 	
 	<cfoutput query="SearchResult">
 	  <cfif RecordStatus eq "9">
-		<tr bgcolor="FFBBBB" class="<cfif ManagerAccess neq 'ALL'>hide</cfif> line">
+		<tr bgcolor="FFBBBB" class="<cfif ManagerAccess neq 'ALL'>hide</cfif> line labelmedium2">
 	  <cfelse>
-		<tr class="navigation_row line">
+		<tr class="navigation_row line labelmedium2">
 	  </cfif> 
 	<td align="center" width="5%" style="padding-top:2px">
-	   <cf_img icon="edit" navigation="Yes" onClick="EditProgram('#SearchResult.ProgramCode#','#SearchResult.Period#','Component')">
+	   <cf_img icon="select" navigation="Yes" onClick="EditProgram('#SearchResult.ProgramCode#','#SearchResult.Period#','Component')">
 	</td>	
 	<TD style="padding-left:2px">#ProgramCode#</TD>	
 	<TD>#OrgUnitName#</td>
@@ -79,7 +79,7 @@
 	<td align="center">
 		<cfif RecordStatus eq "9">
 			<CFIF ManagerAccess eq "ALL">
-				<a href="javascript:reinstate('#ProgramCode#')"><font color="gray">Reinstate</font></a>
+				<a href="javascript:reinstate('#ProgramCode#')"><cf_tl id="Reinstate"></a>
 			</cfif>
 		</cfif>
 	</TD>
@@ -99,7 +99,7 @@
 			SubDirectory="#ProgramCode#"
 			Filter="#Per#">
 	
-			<cfif ManagerAccess eq "EDIT" or ManagerAccess eq "ALL" and Files gte "1">
+			<cfif (ManagerAccess eq "EDIT" or ManagerAccess eq "ALL") and Files gte "1">
 			<tr>
 				 <td colspan="1"></td>
 				 <td colspan="7">
@@ -135,9 +135,9 @@
 			<cfloop query="SubComponents">
 			
 				<cfif RecordStatus eq "9">
-				<tr class="labelit linedotted" bgcolor="FFBFBF" class="<cfif ManagerAccess neq 'ALL'>hide</cfif>">
+				<tr class="labelmedium2 linedotted" bgcolor="FFBFBF" class="<cfif ManagerAccess neq 'ALL'>hide</cfif>">
 				<cfelse>
-				<tr class="labelit linedotted">
+				<tr class="labelmedium2 linedotted">
 				</cfif>
 				  <td bgcolor="white" align="center" width="5%"></td>	
 					<TD><img src="#SESSION.root#/Images/join.gif" alt="" border="0" align="absmiddle">&nbsp;&nbsp;<a href="javascript:EditProgram('#ProgramCode#','#Period#','Component')">#ProgramCode#</A></TD>					

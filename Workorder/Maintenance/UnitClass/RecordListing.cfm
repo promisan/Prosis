@@ -44,28 +44,28 @@ function recordedit(id1, id2) {
 
 	<table width="95%" align="center" class="navigation_table">
 	
-		<tr class="labelmedium2 line fixrow">
+		<tr class="labelmedium2 line fixrow fixlengthlist">
 		    <td></td> 
-		    <td>Code</td>
-			<td>Description</td>
-			<td>Sort</td>	
-			<td>Officer</td>
-		    <td>Entered</td>
-			<td align="right">Units</td>  
+		    <td><cf_tl id="Code"></td>
+			<td><cf_tl id="Description"></td>
+			<td><cf_tl id="Sort"></td>	
+			<td><cf_tl id="Officer"></td>
+		    <td><cf_tl id="Entered"></td>
+			<td align="right"><cf_tl id="Units"></td>  
 		</tr>
 		
 		<cfoutput query="SearchResult">
 				   
-		    <tr class="navigation_row line labelmedium2"> 
-			<td width="5%" align="center" style="padding-top:1px;">
+		    <tr class="navigation_row line labelmedium2 fixlengthlist"> 
+			<td align="center" style="padding-top:1px;">
 				  <cf_img icon="open" navigation="Yes" onclick="recordedit('#code#', '#serviceItemUnitOccurrences#')">
 			</td>		
-			<td width="20%">#code#</td>
-			<td width="40%">#description#</td>
+			<td>#code#</td>
+			<td>#description#</td>
 			<td align="center">#listingOrder#</td>	
 			<td>#OfficerFirstName# #OfficerLastName#</td>
 			<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-			<td width="10%" align="right">#serviceItemUnitOccurrences#</td>
+			<td align="right">#serviceItemUnitOccurrences#</td>
 		    </tr>	    	
 		
 		</cfoutput>

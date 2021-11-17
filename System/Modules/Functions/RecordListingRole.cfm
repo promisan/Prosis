@@ -21,17 +21,17 @@
 	<cfset row = "0">
 	
 	<cfif roles.recordcount eq "0">
-	     <tr><td colspan="3" class="labelmedium2" style="padding-left:4px">[<cf_tl id="No role access set">]</td></tr>	
+	     <tr><td colspan="3" style="background-color:ffffcf;" class="labelmedium2 fixlength">[<cf_tl id="No role set">]</td></tr>	
 	</cfif>
 				
 	<cfloop query="roles">
 	
-	 <tr class="<cfif currentrow neq recordcount>line</cfif> labelmedium2">
-		 <td width="30" class="labelit" height="17" style="padding-left:3px">
+	 <tr class="<cfif currentrow neq recordcount>line</cfif> labelmedium2 fixlengthlist">
+		 <td class="labelit" height="17">
 		 <cfset row = row+1>#row#. 
 		 </td>
 		 
-		 <td width="60%">
+		 <td title="#RoleDescription# [#OrgUnitLevel#]">
 		 
 			 <cfif OrgUnitLevel eq "Global">
 				 <a href="javascript:showrole('#role#')">#RoleDescription# [global] </a>
@@ -41,7 +41,7 @@
 			 
 		 </td>
 		 
-		 <td width="200">
+		 <td>
 		 
 			 <cfquery name="access" 
 				datasource="AppsSystem" 

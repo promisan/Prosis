@@ -76,6 +76,7 @@
 		   		   
 </cfif>		   
 
+
 <!--- ------------------------------------------------------------------------- --->		   
 <!--- if the reposting has not changed the amount, no invoice is being generated --->
 <!--- ------------------------------------------------------------------------- --->
@@ -322,8 +323,8 @@
 	</cfif>
 	
 	<!--- Depending on the sales mode, it triggers the EDI manager for adding up information at
-	transactionHeaderAction --->		
-	
+	transactionHeaderAction --->
+
 	<cfif url.scope eq "standalone">
 	
 		<cfquery name="qCheck" 
@@ -352,6 +353,8 @@
 			   returnvariable     = "vInvoice">
 			
 			<cfset vActionId = vInvoice.ActionId>
+
+
 			
 		<cfelse>
 		

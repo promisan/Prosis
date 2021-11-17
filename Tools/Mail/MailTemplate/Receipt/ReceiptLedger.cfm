@@ -2,181 +2,123 @@
 <!--- eMail of sales that is recorded in the ledger module and will get the data 
                                                              from the financials instead of the warehouse batch --->
 
+<cf_screentop html="No" layout="webapp">
+
 <cfparam name="attributes.ActionId" default="BBA46599-AAB2-6219-3BE7-BE282B60E820">
 
 <cfset actionid = attributes.batchid>
 
 <cfquery name="Header" 
-	   datasource="AppsMaterials" 
+	   datasource="AppsLedger" 
 	   username="#SESSION.login#" 
 	   password="#SESSION.dbpw#">
-	     
-		SELECT   WB.Mission, 
-		         W.Warehouse, W.WarehouseName, W.City, W.Address, W.Telephone, M.MissionName, WB.BatchNo, W.eMailAddress, 
-				 C.CustomerName, 
-				 CustomerIdInvoice,
-				 WB.TransactionDate, 
-                 C.Reference
-	    FROM     WarehouseBatch WB INNER JOIN
-                 Warehouse W ON WB.BatchWarehouse = W.Warehouse INNER JOIN
-                 Organization.dbo.Ref_Mission M ON WB.Mission = M.Mission INNER JOIN
-                 Customer C ON WB.CustomerIdInvoice = C.CustomerId
-		WHERE    WB.BatchId = '#batchId#'       
+	   
+	   SELECT     TH.Journal, Journal.Description, TH.JournalSerialNo, 
+	              TH.Mission, TH.OrgUnitOwner, TH.TransactionDate, TH.TransactionPeriod, 
+	              TH.Reference, TH.ReferenceName, TH.ReferenceNo, TH.ReferenceId, 
+				  THA.ActionReference1, THA.ActionReference2, THA.ActionReference3, THA.ActionReference4, 
+				  THA.EMailAddress, 
+				  TH.DocumentCurrency, TH.DocumentAmount
+				  
+       FROM       TransactionHeader AS TH INNER JOIN
+                  TransactionHeaderAction AS THA ON TH.Journal = THA.Journal AND TH.JournalSerialNo = THA.JournalSerialNo INNER JOIN
+                  Journal ON TH.Journal = Journal.Journal
+				  
+	   WHERE      THA.ActionId = '#attributes.actionid#'	
+	   		      
 </cfquery>
 
-<cfquery name="Action" 
-	   datasource="AppsMaterials" 
-	   username="#SESSION.login#" 
-	   password="#SESSION.dbpw#">
-		SELECT   *
-	    FROM     TransactionHeaderAction
-		WHERE    ActionId = '#Action.customeridinvoice#'       
-</cfquery>
+<cfif isValid("email","#Header.eMailAddress#")>
 
-<cfif isValid("email","#Customer.eMailAddress#")>
-
-	<cfquery name="Lines" 
-		   datasource="AppsMaterials" 
-		   username="#SESSION.login#" 
-		   password="#SESSION.dbpw#">
-		   
-		   SELECT     WB.Mission, 
-		              WB.BatchNo, 
-					  WB.TransactionDate, 
-					  T.ItemNo, 
-					  T.ItemDescription, 
-					  T.TransactionUoM, 
-					  B.ItemBarCode, 
-					  T.TransactionQuantity, 
-					  TS.SalesCurrency, 
-	                  TS.SalesPrice, 
-					  TS.SalesAmount, 
-					  TS.SalesTax, 
-					  TS.SalesTotal
-		   FROM       WarehouseBatch WB INNER JOIN
-	                  ItemTransaction T ON WB.BatchNo = T.TransactionBatchNo INNER JOIN
-	                  ItemTransactionShipping TS ON T.TransactionId = TS.TransactionId LEFT OUTER JOIN
-	                  ItemUoMMissionLot B ON T.ItemNo = B.ItemNo AND T.Mission = B.Mission AND T.TransactionUoM = B.UoM AND T.TransactionLot = B.TransactionLot
-		   WHERE      WB.BatchId = '#batchId#'
-				
-	</cfquery>
+	    <!--- 14/11 standard eMail content for FEL posting --->
 	
-	<cfquery name="Settle" 
-		   datasource="AppsMaterials" 
-		   username="#SESSION.login#" 
-		   password="#SESSION.dbpw#">
-		   SELECT     *
-		   FROM       WarehouseBatchSettlement
-		   WHERE      BatchNo = '#Header.BatchNo#'
-	</cfquery>	   
 	
-	<cfquery name="Footer" 
-		   datasource="AppsMaterials" 
-		   username="#SESSION.login#" 
-		   password="#SESSION.dbpw#">
-		   SELECT * FROM WarehouseJournal
-		   WHERE  Warehouse = '#Header.Warehouse#'
-		   AND    Area      = 'SETTLE'
-		   AND    Currency  = '#Lines.SalesCurrency#'
-	</cfquery>	   
-	
-	<cfoutput>
-	
-	<cfif Header.eMailAddress eq "">
-		<cfset frommail = "noreply@promisan.com">
-	<cfelse>
-	    <cfset frommail = "#Header.eMailAddress#">
-	</cfif>
-	
-	<cfmail to="#Customer.eMailAddress#" from="#frommail#" subject="Receipt #Header.MissionName#" type="HTML" spoolEnable="Yes">
-	
-		<cfloop query="Header">
+	    <!---
 		
-		<table style="min-width:500px">
-		<tr><td colspan="2" style="padding-left:10px;font-size:30px;font-family: Calibri;">#MissionName# #WarehouseName#</td></tr>
-		<tr><td colspan="2" style="padding-left:10px;font-size:23px;font-family: Calibri;">#City# #Address#</td></tr>
-		<tr><td colspan="2" style="padding-left:10px;font-size:19px;font-family: Calibri;">#Telephone#</td></tr>
-		<tr><td colspan="2" style="height:20"></td></tr>
-		<tr>
-			<td style="padding-left:10px;font-size:20px;font-family: Calibri; font-size: medium;">#CustomerName# #Reference#</td>
-			<td style="padding-left:10px;font-size:20px;font-family: Calibri; font-size: medium;" align="right">#DateFormat(TransactionDate,client.dateformatshow)# #TimeFormat(TransactionDate,"HH:MM")#</td>
-		</tr>
-		<tr>
-			<td style="padding-left:10px;font-size:20px;font-family: Calibri; font-size: medium;"><b><cf_tl id="TransactionNo"></b></td>	
-			<td style="padding-left:10px;font-size:20px;font-family: Calibri; font-size: medium;" align="right"><b>#BatchNo#</td>	
-		</tr>
-		<tr>
-			<td style="padding-left:10px;font-size:20px;font-family: Calibri; font-size: medium;"><b><cf_tl id="Tax reference"></b></td>	
-			<td style="padding-left:10px;font-size:20px;font-family: Calibri; font-size: medium;" align="right">------</td>	
-		</tr>
-		<tr><td style="padding-top:10px;padding-left:10px" colspan="2">
+		<cfquery name="Lines" 
+			   datasource="AppsMaterials" 
+			   username="#SESSION.login#" 
+			   password="#SESSION.dbpw#">
+			   
+			   SELECT     WB.Mission, 
+			              WB.BatchNo, 
+						  WB.TransactionDate, 
+						  T.ItemNo, 
+						  T.ItemDescription, 
+						  T.TransactionUoM, 
+						  B.ItemBarCode, 
+						  T.TransactionQuantity, 
+						  TS.SalesCurrency, 
+		                  TS.SalesPrice, 
+						  TS.SalesAmount, 
+						  TS.SalesTax, 
+						  TS.SalesTotal
+			   FROM       WarehouseBatch WB INNER JOIN
+		                  ItemTransaction T ON WB.BatchNo = T.TransactionBatchNo INNER JOIN
+		                  ItemTransactionShipping TS ON T.TransactionId = TS.TransactionId LEFT OUTER JOIN
+		                  ItemUoMMissionLot B ON T.ItemNo = B.ItemNo AND T.Mission = B.Mission AND T.TransactionUoM = B.UoM AND T.TransactionLot = B.TransactionLot
+			   WHERE      WB.BatchId = '#batchId#'
+					
+		</cfquery>
+		
+		<cfquery name="Settle" 
+			   datasource="AppsMaterials" 
+			   username="#SESSION.login#" 
+			   password="#SESSION.dbpw#">
+			   SELECT     *
+			   FROM       WarehouseBatchSettlement
+			   WHERE      BatchNo = '#Header.BatchNo#'
+		</cfquery>	   
+		
+		--->
+		
+	    <cfset frommail = "noreply@promisan.com">
+	
+		<cfquery name="Param" 
+			datasource="AppsSystem" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			   SELECT     *
+			   FROM       Parameter		   
+		</cfquery>	
+	
+	    <cfset frommail = "#Param.DefaulteMail#">   	
+		
+		<cfsavecontent variable="#body#">
+		
+		    <cfoutput query="Header">
 			
-			<table width="100%" cellspacing="0" cellpadding="0">
-			
-				 <tr>
-				    <td style="width:300px;border-bottom:1px solid silver;font-family: Calibri; font-size: medium;"><cf_tl id="Item"></td>
-					<td style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;"><cf_tl id="SKU"></td>
-					<td style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;"><cf_tl id="Qty"></td>
-					<td style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;" align="right"><cf_tl id="Amount"> #Lines.SalesCurrency#</td>
-				</tr>
+				<table style="min-width:500px">
+					<tr class="labelmedium2"><td colspan="2" style="padding-left:10px;font-size:15px;font-family: Calibri;">Dear Patient</td></tr>		
+					<tr class="labelmedium2"><td colspan="2" style="padding-left:10px;font-size:15px;font-family: Calibri;">Below you find the link to your Electronic Invoice issued on 
+					#dateformat(Action.ActionDate,client.dateformatshow)# for a total of #Header.DocumentCurrency# #numberformat(Header.DocumentAmount,',.__')#</td></tr>
+					<tr class="labelmedium2"><td colspan="2" style="padding-left:10px;font-size:15px;font-family: Calibri;">
+					<tr class="labelmedium2">
+			            <td width="20%" >UUID</td>
+				        <td width="80%" align="right">
+						<a href="https://report.feel.com.gt/ingfacereport/ingfacereport_documento?uuid=#vCae#" target="_blank">#ActionReference1#</a>
+						</td>
+				    </tr>	
+					<tr class="labelmedium2"><td colspan="2" style="padding-left:10px;font-size:15px;font-family: Calibri;">Regards</td></tr>
+				</table>	
 				
-				<cfset am = 0>
-				<cfset tx = 0>
-				
-				<cfloop query="Lines">
-				
-				<cfset tx = tx+SalesTax>
-				<cfset am = am+SalesAmount>
-				
-			    <tr>
-				    <td style="width:300px;border-bottom:1px solid silver;font-family: Calibri; font-size: medium;">#ItemDescription#</td>
-					<td style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;"><cfif ItemBarCode neq "">#ItemBarCode#<cfelse>#ItemNo#</cfif></td>
-					<td style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;">#TransactionQuantity*-1#</td>
-					<td style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;" align="right">#numberformat(SalesAmount,",.__")#</td>
-				</tr>	
-						
-				</cfloop>
-				
-				<tr><td style="height:4px"></td></tr>
-								
-				<tr><td colspan="3" align="right" style="height:30px;font-family: Calibri; font-size: medium;"><cf_tl id="Subtotal"></td>
-				    <td align="right" style="font-family: Calibri; font-size: medium;">#numberformat(am,",.__")#</td>
-				</tr>
-				<tr><td colspan="3" align="right" style="height:30px;font-family: Calibri; font-size: medium;"><cf_tl id="Taxes"></td>
-				    <td align="right" style="font-family: Calibri; font-size: medium;">#numberformat(tx,",.__")#</td>
-				</tr>
-				<tr><td colspan="3" align="right" style="border-bottom:1px solid silver;height:30px;font-family: Calibri; font-size: medium;"><b><cf_tl id="Total"></td>
-				    <td align="right" style="border-bottom:1px solid silver;font-family: Calibri; font-size: medium;">#numberformat(am+tx,",.__")#</td>
-				</tr>
-								
-				<cfset se = 0>
-				
-				<cfloop query="settle">
-				<cfset se = se+SettleAmount>
-				<tr><td colspan="3" align="right" style="height:30px;font-family: Calibri; font-size: medium;">#SettleCode# #BankName#</td>
-				    <td align="right" style="font-family: Calibri; font-size: medium;">#numberformat(SettleAmount,",.__")#</td>
-				</tr>
-				</cfloop>
-				
-				<tr><td colspan="3" align="right" style="height:30px;font-family: Calibri; font-size: medium;"><b><cf_tl id="Total Paid"></td>
-				    <td align="right" style="font-family: Calibri; font-size: medium;">#numberformat(se,",.__")#</td>
-				</tr>
-								
-			</table>
+			</cfoutput>	
 		
-		</td></tr>
+   		</cfsavecontent>
 		
-		<cfif len(Footer.TransactionMemo) gte "5"> 
-		<tr><td colspan="2" style="padding-top:20px;padding-left:10px;font-size:20px;font-family: Calibri; font-size: x-small;" align="center">#Footer.TransactionMemo#</td></tr>		
-		</cfif>
-		<tr><td colspan="2" align="right" style="padding-top:20px;padding-left:10px;font-size:20px;font-family: Calibri; font-size: small;">Prosis ERP</td></tr>
-			
-		</table>
+		<cfmail to      = "#Header.eMailAddress#" 
+		        from    = "#frommail#" 
+				bcc     = "#frommail#" 
+		        subject = "Electronic Invoice" 
+				type    = "HTML" 
+				spoolEnable = "Yes">
 		
-		</cfloop>
-	
-	</cfmail>
-	
-	</cfoutput>
+			    <cfoutput>#body#</cfoutput>
+				
+				<br><br>
+			    <!--- disclaimer --->
+    			<cf_maildisclaimer context="password" id="mailid:#attributes.ActionId#">
+										
+		</cfmail>
 	
 </cfif>	

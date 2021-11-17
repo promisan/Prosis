@@ -116,7 +116,7 @@
 						<cfset s = StructNew()>
 						<cfset s.value   = "#mis#">
 						<cfset s.parent  = "root">
-						<cfset s.display = "<span class='labelit' style='padding-top:2px;padding-bottom:2px;font-size:18px'>#mis# [#total#]</span>">
+						<cfset s.display = "<span class='labelit' style='padding-top:3px;padding-bottom:3px;font-size:17px'>#mis# [#total#]</span>">
 						<cfset s.href    = "ControlListing.cfm?ID=MIS&Mission=#Mis#&Status=0&Entity=Both&Parent=All">
 						<cfset s.target  = "right">
 						<cfset arrayAppend(result,s)/>
@@ -286,7 +286,7 @@
 					<cfset s = StructNew()>
 					<cfset s.value   = "#Description#">
 					<cfset s.parent  = "#vmid#">
-					<cfset s.display = "<span class='labelit' style='font-size:13px'>#Description#</span>">
+					<cfset s.display = "<span class='labelit' style='font-size:12px'>#Description#</span>">
 					<cfset s.href    = "ControlListing.cfm?ID=MIS&Mission=#mis#&Status=#Sta#&Entity=VacDocument&Parent=#Code#">
 					<cfset s.target  = "right">
 					<cfset s.expand="true"/>
@@ -319,7 +319,7 @@
 					<cfset s = StructNew()>
 					<cfset s.value    = "#Description#">
 					<cfset s.parent   = "#vmid#">
-					<cfset s.display  = "<span class='labelit' style='font-size:13px'>#Description#</span>">
+					<cfset s.display  = "<span class='labelit' style='font-size:12px'>#Description#</span>">
 					<cfset s.href     = "ControlListing.cfm?ID=MIS&Mission=#Mis#&Status=#Sta#&Entity=VacCandidate&Parent=#Code#">
 					<cfset s.target   = "right">
 					<cfset s.expand   = "true"/>

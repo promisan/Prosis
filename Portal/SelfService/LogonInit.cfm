@@ -310,9 +310,9 @@ datasource="AppsSystem">
 		
 </cftry>		
 	
-<cfif not DirectoryExists("#SESSION.rootPath#\CFRStage\user\#SESSION.acc#\")>
+<cfif not DirectoryExists("#SESSION.rootDocumentPath#\CFRStage\user\#SESSION.acc#\")>
 
-   <cfdirectory action="CREATE" directory="#SESSION.rootPath#\CFRStage\user\#SESSION.acc#\">
+   <cfdirectory action="CREATE" directory="#SESSION.rootDocumentPath#\CFRStage\user\#SESSION.acc#\">
 
 </cfif>
 

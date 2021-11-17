@@ -81,9 +81,9 @@
 	   <cfif ParentOrgUnit eq "">		  
   		  		    
 		<tr bgcolor="FFFFAF"
-		    id="#orgunit#" style="cursor: pointer;" class="navigation_row line labelmedium2">
+		    id="#orgunit#" style="cursor: pointer;" class="navigation_row line labelmedium2 fixlengthlist">
 			
-			<td width="25" style="padding-top:1px;padding-left:4px">
+			<td style="padding-top:1px;padding-left:4px">
 			
 		     <cfif enabled eq "1">
 			 
@@ -97,20 +97,18 @@
 			 
 		  </td>
 		 			  
-		  <td style="width:50px;padding-left:7px;padding-right:4px">#OrgUnitCode#</td>
-		  <td width="16%" style="padding-left:7px;padding-right:4px"><cfif len(OrgUnitNameShort) lte 10>#OrgUnitNameShort#</cfif></td>			   
-		  <td width="70%"><cfif enabled eq "0"><font color="gray"></cfif>#OrgUnitName#</TD>			  
-		  <td width="15%" style="padding-left:4px;padding-right:4px">
-			  <cfif enabled eq "0"><font color="gray"></cfif>#HierarchyCode#</b>
-		  </td>
+		  <td>#OrgUnitCode#</td>
+		  <td><cfif len(OrgUnitNameShort) lte 10>#OrgUnitNameShort#</cfif></td>			   
+		  <td><cfif enabled eq "0"><font color="gray"></cfif>#OrgUnitName#</TD>			  
+		  <td><cfif enabled eq "0"><font color="gray"></cfif>#HierarchyCode#</td>
 	
 	  </TR>
 	   
 	   <cfelse>
 	   
-		<tr bgcolor="FFFFFF" id="#orgunit#" style="cursor: pointer;height:20px" class="navigation_row line labelmedium2">
+		<tr bgcolor="FFFFFF" id="#orgunit#" style="cursor: pointer;height:20px" class="navigation_row line labelmedium2 fixlengthlist">
 
-		<td width="25" style="padding-top:3px;padding-left:4px">
+		<td>
 		
 	     <cfif enabled eq "1">
 		 
@@ -124,15 +122,15 @@
 	   
 	   </td>
 	  
-	   <td style="width:50px;padding-left:7px;padding-right:4px">#OrgUnitCode#</td>
+	   <td>#OrgUnitCode#</td>
 		
 	   <cfset nm = replace(OrgUnitName, "'","","ALL")> 
 		
 	   <td><cfif len(OrgUnitNameShort) lte 10>#OrgUnitNameShort#</cfif></td>
 					
-	   <TD width="60%"><cfif enabled eq "0"><font color="gray"></cfif>#OrgUnitName#</TD>
+	   <TD><cfif enabled eq "0"><font color="gray"></cfif>#OrgUnitName#</TD>
 		
-	   <td width="15%" style="padding-left:4px;padding-right:4px">
+	   <td>
 		   <cfif enabled eq "0"><font color="gray"></cfif>#HierarchyCode#
 	   </td>
 		
@@ -177,9 +175,9 @@
 					<cfset nm = replace(OrgUnitName, "'","","ALL")> 
 					<cfset cd = replaceNoCase(OrgUnitCode,"'","","ALL")>
 				
-					<tr style="cursor:pointer" class="navigation_row labelmedium2 line" style="height:20px">
+					<tr style="cursor:pointer" class="navigation_row labelmedium2 line fixlengthlist" style="height:20px">
 					
-					   <td width="8%" align="center" style="padding-left:4px">			     
+					   <td align="center" style="padding-left:4px">			     
 						 
 						 <cfif url.mode eq "cfwindow">
 						     <cf_img icon="select" navigation="Yes" onClick="setvalue('#url.field#','#OrgUnit#')">
@@ -189,7 +187,7 @@
 					    				   
 					   </td>
 					   
-					   <td width="20%" style="padding-left:4px;padding-right:4px">#OrgUnitCode#</td>
+					   <td>#OrgUnitCode#</td>
 					   
 					   <cfif url.uni neq "">
 							<cfset unit = ReplaceNoCase(OrgUnitName, url.uni, "<b><u><font color='0066CC'>#url.uni#</font></u></b>")>
@@ -197,8 +195,8 @@
 							<cfset unit = "#OrgUnitName#">
 					   </cfif>
 					   
-					   <td width="60%">#unit#</TD>
-					   <td width="15%">#OrgUnitClass#</TD>
+					   <td>#unit#</TD>
+					   <td>#OrgUnitClass#</TD>
 						 				
 					</tr>
 										

@@ -54,17 +54,17 @@ function purge(acc) {
 <tr><td height="4"></td></tr>
 <tr><td colspan="2">
 
-<table width="95%" align="center" border="0" class="navigation_table">
+<table width="95%" align="center" class="navigation_table">
 	
-<TR class="line labelmedium2">
-    <TD width="2%"></TD>
-	<td width="10%">Code</td>
-    <TD width="25%">Description</TD>
-    <TD width="10%">Interface</TD>
-    <TD width="20%">Officer</TD>	
-	<TD width="10%" align="center">Active</TD>
-	<TD width="10%" align="center">Disabled</TD>
-	<TD width="5%"></TD>
+<TR class="line labelmedium2 fixlengthlist">
+    <TD></TD>
+	<td>Code</td>
+    <TD>Description</TD>
+    <TD>Interface</TD>
+    <TD>Officer</TD>	
+	<TD align="center">Active</TD>
+	<TD align="center">Disabled</TD>
+	<TD></TD>
 </TR>
 
 <CFOUTPUT query="SearchResult" startrow="#first#" maxrows="#No#">
@@ -87,9 +87,9 @@ function purge(acc) {
 		AND AccountGroup = '#AccountGroup#'
 	</cfquery>
 
-	<TR class="navigation_row line labelmedium2">
+	<TR class="navigation_row line labelmedium2 fixlengthlist">
 	
-		<td width="30">&nbsp;#CurrentRow#</td>		
+		<td>&nbsp;#CurrentRow#</td>		
 		<td height="20"><a class="navigation_action" href="javascript:recordedit('#AccountGroup#')">#AccountGroup#</a></TD>
 		<TD>#Description#</TD>
 		<TD>#UserInterface#</TD>

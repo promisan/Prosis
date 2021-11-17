@@ -67,7 +67,7 @@
 
 	<tr><td height="6"></td></tr>
 
-	<tr class="line labelmedium2">
+	<tr class="line labelmedium2 fixlengthlist">
 	  	  
 	   <td><cf_tl id="UoM"></td>
 	   <td><cf_tl id="BarCode"></td>	   
@@ -233,7 +233,7 @@
 		</cfquery>				
 		
 	
-		<tr class="labelmedium2 line" style="height:32px">
+		<tr class="labelmedium2 line fixlengthlist" style="height:32px">
 		
 		<td style="padding-right:4px">#UoMDescription#</td>		
 		<td style="padding-right:4px"><a href="javascript:item('#getItem.ItemNo#','','#workorder.mission#')"><cfif getItem.ItemNoExternal neq "">#getItem.ItemNoExternal#<cfelse>#ItemBarCode#</cfif></a></td>
@@ -248,7 +248,7 @@
 		
 		<cf_tl id="Standard"  var="vStandard">
 		<cf_tl id="Promotion" var="vPromotion">
-		<cf_tl id="Discount" var="vDiscount">
+		<cf_tl id="Discount"  var="vDiscount">
 		
 		<select id="Memo_#workorderitemid#" name="Memo_#workorderitemid#" class="regularxxl enterastab"  
 		onchange="_cf_loadingtexthtml='';ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=memo&value='+this.value,'process')">

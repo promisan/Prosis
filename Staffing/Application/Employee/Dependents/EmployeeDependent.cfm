@@ -56,7 +56,7 @@
 	
 	<table style="min-width:800px" width="98%" align="center">
 	<tr>		
-		<td colspan="14" id="contentdependent" style="min-width:800px;padding-left:1px;padding-right:1px">
+		<td colspan="14" id="contentdependent" style="padding-left:1px;padding-right:1px">
 		<cfinclude template="../Dependents/EmployeeDependentDetail.cfm">
 		</td>
 	</tr>

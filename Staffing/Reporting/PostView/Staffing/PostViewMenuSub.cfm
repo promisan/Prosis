@@ -1,7 +1,7 @@
 
 <cfoutput>
 
-<table width="99%" style="min-width: 1200px;" border="0" align="center">		  		
+<table width="99%" border="0" align="center">		  		
 						
 	<cfinvoke component="Service.Presentation.Presentation"
     method="highlight" class="highlight3"

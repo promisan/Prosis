@@ -58,18 +58,18 @@ password="#SESSION.dbpw#">
 		
 		<cfelse>
 				
-	    <tr class="labelmedium line">
+	    <tr class="labelmedium line fixlengthlist">
 			
-		 <td width="80"><cf_tl id="Item"></td>		
-	     <td width="30%"><cf_tl id="Description"></td>    		 
+		 <td><cf_tl id="Item"></td>		
+	     <td><cf_tl id="Description"></td>    		 
 	    
 	     <cfif url.mode eq "extended">		 
-		     <td height="20" width="70"><cf_tl id="Qty"></td>  
-		     <td width="20%" colspan="2"><cf_tl id="UoM"></td> 			 
+		     <td height="20"><cf_tl id="Qty"></td>  
+		     <td colspan="2"><cf_tl id="UoM"></td> 			 
 		 <cfelse>		 
-		     <td height="20" width="70"><cf_tl id="Qty"></td> 
-		 	 <td width="10%"><cf_tl id="Start"></td>	 
-			 <td width="10%"><cf_tl id="End"></td>			 
+		     <td height="20"><cf_tl id="Qty"></td> 
+		 	 <td><cf_tl id="Start"></td>	 
+			 <td><cf_tl id="End"></td>			 
 	     </cfif>
 		 
 	     <td align="right">
@@ -121,12 +121,11 @@ password="#SESSION.dbpw#">
 		   </td>	
 		   <td align="right"><cf_tl id="Total"></td>  		  
 		   
-		   <td width="7%" align="center" class="labelmedium" style="padding-left:3px">
-		   
+		   <td width="7%" align="center" class="labelmedium" style="padding-left:3px">		   
 		   
 	         <cfoutput>
 			 <cfif url.access eq "Edit" or url.access eq "Limited">			 
-				 <cfset jvlink = "ProsisUI.createWindow('dialogservice', 'Service Detail', '',{x:100,y:100,height:400,width:520,resizable:false,modal:true,center:true});ptoken.navigate('../Service/ServiceItemDialog.cfm?ID=#URL.ID#&ID2=new&mode=#url.mode#','dialogservice')">							 
+				 <cfset jvlink = "ProsisUI.createWindow('dialogservice', 'Service Detail', '',{x:100,y:100,height:450,width:520,resizable:false,modal:true,center:true});ptoken.navigate('../Service/ServiceItemDialog.cfm?ID=#URL.ID#&ID2=new&mode=#url.mode#','dialogservice')">							 
 			     <A href="javascript:#jvlink#"><cf_tl id="add"></a>
 			 </cfif>
 			 </cfoutput>
@@ -143,39 +142,39 @@ password="#SESSION.dbpw#">
 		
 			<cfoutput query="Detail">		
 			
-			  	<cfset jvlink = "ProsisUI.createWindow('dialogservice', 'Service Detail', '',{x:100,y:100,height:375,width:520,resizable:false,modal:true,center:true});ptoken.navigate('../Service/ServiceItemDialog.cfm?ID=#URL.ID#&ID2=#serviceid#&mode=#url.mode#','dialogservice')">							 
+			  	<cfset jvlink = "ProsisUI.createWindow('dialogservice', 'Service Detail', '',{x:100,y:100,height:450,width:520,resizable:false,modal:true,center:true});ptoken.navigate('../Service/ServiceItemDialog.cfm?ID=#URL.ID#&ID2=#serviceid#&mode=#url.mode#','dialogservice')">							 
 								 	
-				<TR class="navigation_row">
+				<TR class="navigation_row fixlengthlist labelmedium2">
 				    
-					<td class="labelit">
+					<td>
 					<cfif url.access eq "Edit">
 					<a href="javascript:#jvlink#">#PersonnelActionNo#</a>
 					<cfelse>
 					#PersonnelActionNo#
 					</cfif>
 					</td>
-				    <td class="labelit">#servicedescription#</td>
+				    <td>#servicedescription#</td>
 									
 					<cfif url.mode eq "extended">
 								
-					    <td height="20" class="labelit">#serviceQuantity#</td>
-				    	<td align="center" height="20" class="labelit">#quantity#</td>
-						<td class="labelit">#uoM#</td>
+					    <td height="20">#serviceQuantity#</td>
+				    	<td align="center" height="20">#quantity#</td>
+						<td>#uoM#</td>
 						
 					<cfelse>
 					
-						 <td class="labelit" height="20">#serviceQuantity#</td>
-						 <td class="labelit">#dateformat(ServiceEffective,CLIENT.DateFormatShow)#</td>
-					     <td class="labelit">#dateformat(ServiceExpiration,CLIENT.DateFormatShow)#</td>	
+						 <td height="20">#serviceQuantity#</td>
+						 <td>#dateformat(ServiceEffective,CLIENT.DateFormatShow)#</td>
+					     <td>#dateformat(ServiceExpiration,CLIENT.DateFormatShow)#</td>	
 						
 					</cfif>
 									
-					<td align="right" class="labelit">#numberformat(uOMRate,",.__")#</td>				
-					<td align="right" class="labelit">#numberformat(Amount,",.__")#</td>
+					<td align="right">#numberformat(uOMRate,",.__")#</td>				
+					<td align="right">#numberformat(Amount,",.__")#</td>
 					
 				    <td align="center">
 					
-						<table cellspacing="0" cellpadding="0"><tr>
+						<table><tr>
 					
 						<cfif url.access eq "Edit">
 						
@@ -203,7 +202,7 @@ password="#SESSION.dbpw#">
 				
 				<cfif serviceunit.recordcount eq "1">
 				
-				<tr class="navigation_row_child">
+				<tr class="navigation_row_child fixlengthlist">
 				<td></td>
 				<td class="labelit" colspan="7"><font color="808080"><cf_tl id="Beneficiary">:</font>
 				

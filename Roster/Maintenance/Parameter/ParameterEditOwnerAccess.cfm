@@ -171,10 +171,10 @@
 		</tr>	
 		<cfloop query="StatusesFrom">
 			<tr>
-				<td width="200"  style="border:1px solid C0C0C0;" id="From_#level#_#StatusesFrom.Status#">
+				<td width="200" style="border:1px solid C0C0C0;" id="From_#level#_#StatusesFrom.Status#">
 				<table width="100%" cellspacing="0" cellpadding="0">
 				<tr class="labelit">
-					<td width="20" style="padding-left:3px"><cfif status eq "9"><font color="CF806B"></cfif>#Status#</td>
+					<td style="padding-left:3px" width="20"><cfif status eq "9"><font color="CF806B"></cfif>#Status#</td>
 					<td style="padding-left:3px"><cfif status eq "9"><font color="CF806B"></cfif>#meaning#</td>
 				</tr>
 				</table>

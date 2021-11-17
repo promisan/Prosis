@@ -55,25 +55,25 @@ password="#SESSION.dbpw#">
      
   <td width="100%" colspan="2">
 
-	<table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table formpadding">
+	<table border="0" width="100%" class="navigation_table formpadding">
 			
-	<TR class="line labelmedium">
+	<TR class="line labelmedium2 fixlengthlist">
 	    <td height="20" width="2%"></td>
-	    <td width="14%"><cf_tl id="Type"></td>
-		<TD width="30%"><cf_tl id="Address"></TD>
-		<TD width="15%"><cf_tl id="City"></TD>
-		<TD width="15%"><cf_tl id="Country"></TD>
-		<TD width="23%" align="right"><cf_tl id="Effective"></TD>
+	    <td><cf_tl id="Type"></td>
+		<TD><cf_tl id="Address"></TD>
+		<TD><cf_tl id="City"></TD>
+		<TD><cf_tl id="Country"></TD>
+		<TD align="right"><cf_tl id="Effective"></TD>
 	</TR>
 		
 	<cfoutput query="Search">
 	
-		<TR class="navigation_row line labelmedium">
+		<TR class="navigation_row line labelmedium2 fixlengthlist">
 		<td align="center" style="padding-left:12px;padding-top:2px;padding-right:12px"> 		   
 		    <cf_img  icon="edit" navigation="Yes" onclick="addressedit('#URL.CustomerID#','#AddressId#')">		  			
 		</td>	
 		
-		<td><a href="javascript:addressedit('#URL.CustomerId#','#AddressId#')"><font color="0080C0">#AddressTypeDescription#</a></td>		
+		<td><a href="javascript:addressedit('#URL.CustomerId#','#AddressId#')">#AddressTypeDescription#</a></td>		
 		<td style="padding-left:4px">#Address# #Address2# #AddressRoom#</td>		
 		<td>#AddressCity#</td>
 		<td>#Name#</td>		
@@ -85,9 +85,9 @@ password="#SESSION.dbpw#">
 	<cfif search.recordcount eq 0>
 	
 		<tr>
-		<td colspan="6" height="200" align="center" class="labelmedium"><cf_tl id="There are no address records to show in this view" class="message">.</font>
+		<td colspan="6" height="200" align="center" class="labelmedium2"><cf_tl id="There are no address records to show in this view" class="message">.</font>
 		 <cfoutput>				
-			<a href="javascript:addressentry('#URL.CustomerId#')"><font color="0080C0"><u><cf_tl id="New Address"></font></a>	
+			<a href="javascript:addressentry('#URL.CustomerId#')"><u><cf_tl id="New Address"></a>	
 		 </cfoutput>
 		 </td>
 		</tr>

@@ -1,8 +1,8 @@
 
-<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"> 
+
+<cf_screentop height="100%" jQuery="yes" html="no" bannerheight="4" title="Data set declaration form" layout="webapp" banner="gray">
 
 <cfif Form.VariableName is "">
-	
 	
 	<cf_alert message = "You must enter a variable name. Operation not allowed."
 	  return = "back">
@@ -17,7 +17,6 @@
     <cfabort>
 		
 </cfif>
-
 
 <cfif FindNoCase(".", "#Form.VariableName#")>
 		
@@ -37,7 +36,6 @@
     <cfabort>
 		
 </cfif>
-
 
 <cfif not IsNumeric("#Form.ListingOrder#")>
 		
@@ -149,7 +147,7 @@ WHERE OutputId = '#Form.OutputId#'
 </cfif>	
 
 <script language="JavaScript">
-	 parent.parent.ColdFusion.Window.hide('myexcel',true)
+	 parent.parent.ProsisUI.closeWindow('myexcel',true)
 	 parent.parent.outputrefresh()
 </script>  
 

@@ -436,23 +436,23 @@ password="#SESSION.dbpw#">
  
 	  <table style="width:99%;border-bottom:1px solid silver;padding:2px">
 			
-		<TR class="labelmedium line fixrow">
-		    <td width="3%" height="18" align="center"></td>
-			<td width="3%"></td>		
-			<TD width="50"><cf_tl id="Entity"></TD>	
-			<TD colspan="2" style="min-width:160"><cf_tl id="Action"></TD>	
+		<TR class="labelmedium line fixrow fixlengthlist">
+		    <td height="18" align="center"></td>
+			<td></td>		
+			<TD><cf_tl id="Entity"></TD>	
+			<TD colspan="2"><cf_tl id="Action"></TD>	
 			
-			<TD style="min-width:100px"><cf_tl id="Reference"></TD>					    
-			<TD style="min-width:100px"><cf_tl id="Type"></TD>
+			<TD><cf_tl id="Reference"></TD>					    
+			<TD><cf_tl id="Type"></TD>
 			<TD><cf_tl id="Schedule"></TD>
 			<TD></TD>
 						
-			<TD style="min-width:90px"><cf_tl id="Gr">/<cf_tl id="St"></TD>	
-			<TD style="min-width:90px"><cf_tl id="Increment"></TD>				
-			<TD align="right" style="min-width:80px;padding-right:5px"><cf_tl id="Base"></TD>						
-			<TD style="min-width:40px"><cf_tl id="Status"></TD>		
-			<td style="min-width:90px"><cf_tl id="Effective"></td>
-			<TD style="min-width:90px"><cf_tl id="Expiration"></TD>		
+			<TD><cf_tl id="Gr">/<cf_tl id="St"></TD>	
+			<TD><cf_tl id="Increment"></TD>				
+			<TD align="right" style="padding-right:5px"><cf_tl id="Base"></TD>						
+			<TD><cf_tl id="Status"></TD>		
+			<td><cf_tl id="Effective"></td>
+			<TD><cf_tl id="Expiration"></TD>		
 		</TR>
 		
 		<cfset last = '1'>
@@ -572,21 +572,21 @@ password="#SESSION.dbpw#">
 			
 			</cfif>
 		
-		<tr bgcolor="f1f1f1" style="border-top:0px solid silver;height:30px;" class="navigation_row labelmedium2">
+		<tr bgcolor="f1f1f1" style="border-top:0px solid silver;height:30px;" class="navigation_row labelmedium2 fixlengthlist">
 		
 		<cfelseif HistoricContract eq "1">
 		
 		<!--- active contract --->
-		<tr bgcolor="f1f1f1" style="height:30px;border-top:1px solid silver" class="navigation_row labelmedium2">
+		<tr bgcolor="f1f1f1" style="height:30px;border-top:1px solid silver" class="navigation_row labelmedium2 fixlengthlist">
 		
 		<cfelseif dateeffective lte now() and (dateExpiration is "" or dateExpiration gte now())>
 		
 		<!--- active contract --->
-		<tr bgcolor="DAF9FC" class="navigation_row labelmedium2" style="height:30px;border-top:1px solid silver">
+		<tr bgcolor="DAF9FC" class="navigation_row labelmedium2 fixlengthlist" style="height:30px;border-top:1px solid silver">
 		
 		<cfelse>
 		
-		<TR bgcolor="#iif(currentrow Mod 2, DE('FFFFFF'), DE('FFFFFF'))#" style="height:30px;border-top:1px solid silver" class="navigation_row labelmedium2">
+		<TR bgcolor="#iif(currentrow Mod 2, DE('FFFFFF'), DE('FFFFFF'))#" style="height:30px;border-top:1px solid silver" class="navigation_row labelmedium2 fixlengthlist">
 		
 		</cfif>
 					
@@ -672,8 +672,8 @@ password="#SESSION.dbpw#">
 				<cfset cl = "">
 			</cfif>
 			
-			<td style="background-color:#cl#;padding-left:3px;padding-right:5px">#Mission#</td>		
-			<td style="background-color:#cl#;padding-right:2px" colspan="2">#ActionDescription#</td>
+			<td style="background-color:#cl#">#Mission#</td>		
+			<td style="background-color:#cl#" colspan="2">#ActionDescription#</td>
 			<td style="background-color:#cl#">
 						
 			<cfquery name = "Action"
@@ -731,10 +731,10 @@ password="#SESSION.dbpw#">
 			
 			</TD>			
 			
-			<TD style="background-color:#cl#" style="padding-left:3px">#Description#</TD>
+			<TD style="background-color:#cl#">#Description#</TD>
 			<TD style="background-color:#cl#">#ServiceLocation#&nbsp;#SalarySchedule#</TD>
 			
-			<td style="background-color:#cl#;padding-left:7px;padding-right:7px">
+			<td style="background-color:#cl#">
 
 				<cfif operational eq "1">
 				
@@ -782,7 +782,7 @@ password="#SESSION.dbpw#">
 						
 			</td>
 			
-			<td style="background-color:#cl#" style="padding-left:3px">
+			<td style="background-color:#cl#">
 			
 			<cfif SalarySchedule eq "NoPay">
 				<font color="800040"><cf_tl id="Unfunded"></font>
@@ -802,7 +802,7 @@ password="#SESSION.dbpw#">
 			
 			</td>
 			
-			<td align="right" style="background-color:#cl#;padding-right:7px">
+			<td align="right" style="background-color:#cl#">
 						
 				<cfif BaseSalary eq "0" or BaseSalary eq "">--
 				<cfelseif contractTime eq 100 or contractTime eq "">			
@@ -813,7 +813,7 @@ password="#SESSION.dbpw#">
 			
 			</td>			
 			
-			<td style="background-color:#cl#;padding-left:4px;padding-right:6px;" id="status_#contractid#">
+			<td style="background-color:#cl#" id="status_#contractid#">
 			
 				<cfif HistoricContract eq "1">
 				

@@ -241,23 +241,23 @@ function accounttoggle(mis,acc,act) {
 
 	<table width="99%" class="navigation_table">
 		
-		<tr class="labelmedium2 line fixrow">
-		    <td height="18" width="40"></td>
-			<td width="60"></td>
-		    <td style="min-width:120px"><cf_tl id="Code"></td>
-			<td width="60%"><cf_tl id="Description"></td>
-			<td style="width:80px"><cf_tl id="System"></td>
-			<td style="min-width:30px" align="center"><cf_tl id="T"></td>
-			<td style="min-width:30px" align="center"><cf_tl id="C"></td>
-			<td style="min-width:50px" align="center"><cf_UItooltip  tooltip="Usage: Neutral,Customer,Vendor"><cf_tl id="U"></cf_UItooltip></td>
+		<tr class="labelmedium2 line fixrow fixlengthlist">
+		    <td height="18"></td>
+			<td></td>
+		    <td><cf_tl id="Code"></td>
+			<td><cf_tl id="Description"></td>
+			<td><cf_tl id="System"></td>
+			<td align="center"><cf_tl id="T"></td>
+			<td align="center"><cf_tl id="C"></td>
+			<td align="center"><cf_UItooltip  tooltip="Usage: Neutral,Customer,Vendor"><cf_tl id="U"></cf_UItooltip></td>
 		    <td align="center" width="6%" ><cf_tl id="Tax"></td>
-		    <td style="min-width:100px"><cf_tl id="Bank"></td>
-			<td style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Monetary Account"><cf_tl id="Mon"></cf_UItooltip></td>
-			<td style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Enforce Program Entry"><cf_tl id="Prg"></cf_UItooltip></td>
-			<td style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Tax Account"><cf_tl id="T"></cf_UItooltip></td>
-			<td style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Stock"><cf_tl id="I"></cf_UItooltip></td>
-			<td align="right" style="min-width:40px;cursor: pointer;"><cf_UItooltip  tooltip="Used"><cfoutput>#last.AccountPeriod#</cfoutput></cf_UItooltip></td>						
-			<td style="width:50px"></td>
+		    <td><cf_tl id="Bank"></td>
+			<td style="cursor: pointer;"><cf_UItooltip  tooltip="Monetary Account"><cf_tl id="Mon"></cf_UItooltip></td>
+			<td style="cursor: pointer;"><cf_UItooltip  tooltip="Enforce Program Entry"><cf_tl id="Prg"></cf_UItooltip></td>
+			<td style="cursor: pointer;"><cf_UItooltip  tooltip="Tax Account"><cf_tl id="T"></cf_UItooltip></td>
+			<td style="cursor: pointer;"><cf_UItooltip  tooltip="Stock"><cf_tl id="I"></cf_UItooltip></td>
+			<td align="right" style="cursor: pointer;"><cf_UItooltip  tooltip="Used"><cfoutput>#last.AccountPeriod#</cfoutput></cf_UItooltip></td>						
+			<t></td>
 		</tr>	
 	
 	<cfoutput query="SearchResult" group="AccountParent">
@@ -281,7 +281,7 @@ function accounttoggle(mis,acc,act) {
 					 	
 	<cfoutput group="AccountGroup1">
 	   
-	     <tr class="line navigation_row clsSearchrow labelmedium2">
+	     <tr class="line navigation_row clsSearchrow labelmedium2 fixlengthlist">
 		 <td style="display:none;" class="ccontent">#AccountGroup1# #GroupDescription#</td>
 	     <td></td>	
 	     <td colspan="1">
@@ -343,24 +343,24 @@ function accounttoggle(mis,acc,act) {
 				
 				</cfif>
 			
-			    <tr class="line labelmedium2 cellcontent navigation_row clsSearchrow" bgcolor="#cl#">
+			    <tr class="line labelmedium2 cellcontent navigation_row clsSearchrow fixlengthlist" bgcolor="#cl#">
 				<td style="display:none;" class="ccontent">#AccountParent# #Parentdescription# #AccountGroup1# #GroupDescription# #GlAccount# #Description# #Mission.SystemAccount# #AccountType# #AccountClass# #TaxCode# #vBankAccountNo#</td>
 				<td></td>
 				<td></td>
-			    <td style="padding-left:1px"><a class="navigation_action" onClick="javascript:edit('#GLAccount#','#AccountParent#')">#GlAccount#</td>
-				<td style="padding-left:1px">#Description#</td>
+			    <td><a class="navigation_action" onClick="javascript:edit('#GLAccount#','#AccountParent#')">#GlAccount#</td>
+				<td title="#description#">#Description#</td>
 				<td align="center" style="border-left:1px solid silver">#Mission.SystemAccount#</td>
-				<td align="center" style="padding-left:2px">#Left(AccountType,1)#</td>
-				<td align="center" style="padding-left:2px">#Left(AccountClass,1)#</td>
-				<td align="center" style="padding-left:2px">#Left(AccountCategory,3)#</td>
-				<td align="center" style="padding-left:2px">#TaxCode#</td>
-			    <td align="center" style="padding-left:2px">#vBankAccountNo#</td>
-				<td align="center" style="padding-left:2px"><cfif MonetaryAccount eq "1" and ForceCurrency eq "">Yes<cfelseif MonetaryAccount eq "1" and ForceCurrency neq "">#ForceCurrency#<cfelse></cfif></td>
-				<td align="center" style="padding-left:2px"><cfif forceProgram eq "1">Yes</cfif></td>
-			    <td align="center" style="padding-left:2px"><cfif TaxAccount eq "1">Yes</cfif></td>
-				<td align="center" style="padding-left:2px"><cfif StockAccount eq "1">Yes</cfif></td>
-				<td align="right" style="padding-right:2px">#used#</td>
-				<td align="center" style="min-width:30px;padding-left:2px;border-left:1px solid silver" id="i#glaccount#">
+				<td align="center">#Left(AccountType,1)#</td>
+				<td align="center">#Left(AccountClass,1)#</td>
+				<td align="center">#Left(AccountCategory,3)#</td>
+				<td align="center">#TaxCode#</td>
+			    <td align="center">#vBankAccountNo#</td>
+				<td align="center"><cfif MonetaryAccount eq "1" and ForceCurrency eq "">Yes<cfelseif MonetaryAccount eq "1" and ForceCurrency neq "">#ForceCurrency#<cfelse></cfif></td>
+				<td align="center"><cfif forceProgram eq "1">Yes</cfif></td>
+			    <td align="center"><cfif TaxAccount eq "1">Yes</cfif></td>
+				<td align="center"><cfif StockAccount eq "1">Yes</cfif></td>
+				<td align="right">#used#</td>
+				<td align="center" style="border-left:1px solid silver" id="i#glaccount#">
 				
 				<cfif mission.recordcount eq "1">
 						 

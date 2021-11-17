@@ -1,8 +1,10 @@
 
+
 <cf_screentop 
 	  html   = "no" 	 
+	  jquery="Yes"
 	  layout = "webapp">
-
+	  
 <cf_listingScript>
 	  
 <cfoutput>
@@ -91,9 +93,11 @@
 					ratinglist  = "9=Red,0=white,1=Gray,2=yellow,3=Green"}>
 					
 					
-<table style="height:100%;width:100%"><tr><td style="padding:10px">				
+<table style="height:100%;width:100%"><tr><td style="padding:10px">		
+
+	
 <cf_listing header          = "listing1"
-		    box             = "programDetail"
+		    box             = "programdetail#url.mission#"
 			link            = "#SESSION.root#/Procurement/Application/Requisition/Program/ProgramListingContent.cfm?mission=#url.mission#&period=#url.period#"
 		    html            = "No"		
 			datasource      = "AppsProgram"
@@ -106,10 +110,11 @@
 			filtershow      = "show"
 			excelshow       = "yes"
 			listlayout      = "#fields#"			
-			show            = "100"
+			show            = "200"
 			drillmode       = "window"	
 		    drillargument   = "#client.height-90#;#client.width-60#;true;true"				
 			drilltemplate   = "ProgramREM/Application/Program/ProgramView.cfm?Period=#url.period#&ProgramCode="
 			drillkey        = "ProgramCode"			
-			drillbox        = "editProgram" >
+			drillbox        = "editProgram">
+			
 </td></tr></table>				

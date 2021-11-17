@@ -113,19 +113,19 @@ datasource="AppsInit">
 	
 		<table width="98%" align="center" class="navigation_table">
 		
-		<tr class="labelmedium line" style="height:10px">
+		<tr class="labelmedium line fixlengthlist" style="height:10px">
 		 
 		        <td class=""></td>
-		  		<td width="200"><cf_tl id="Hostname"></td>
-				<td width="200"><cf_tl id="Server"></td>
-			    <td width="200"><cf_tl id="Root"></td>
-				<td width="200"><cf_tl id="Manager"></td>
-				<td width="20"></td>
+		  		<td><cf_tl id="Hostname"></td>
+				<td><cf_tl id="Server"></td>
+			    <td><cf_tl id="Root"></td>
+				<td><cf_tl id="Manager"></td>
+				<td></td>
 		</tr>   
 		
 		<cfoutput query="List">
-		<tr bgcolor="<cfif URL.host eq HostName>ffffcf</cfif>" style="height:20px"class="line navigation_row labelmedium">
-		   <td height="20" width="40" align="center">
+		<tr bgcolor="<cfif URL.host eq HostName>ffffcf</cfif>" class="line navigation_row labelmedium fixlengthlist">
+		   <td height="20" align="center">
 		   <cfif URL.Host neq HostName>
 		      <cf_img icon="select" navigation="Yes" onClick="load('#HostName#')"> 	   
 		   </cfif>
@@ -159,7 +159,7 @@ datasource="AppsInit">
 			
 				<cfoutput>
 			
-					<table height="100%" cellspacing="0" cellpadding="0" class="formpadding">	
+					<table height="100%" class="formpadding">	
 					<!--- <tr><td align="center" class="labelmedium"><b>Disclaimer:</td></tr> --->
 					<tr><td style="font-weight:300px" class="labelmedium"><font size="6" color="808080">#get.HostName#</font><br>Application parameters are stored on a local Database called db.Parameter. There may be different Parameter database instances each serving a different set of application server.
 					</td></tr>
@@ -172,7 +172,7 @@ datasource="AppsInit">
 			
 			<cf_menuscript>
 						
-			<tr><td valign="top" height="30">
+			<tr><td valign="top" height="30" style="padding-left:20px">
 			
 			<cfset ht = "48">
 			<cfset wd = "48">
@@ -221,6 +221,7 @@ datasource="AppsInit">
 						name       = "Security Settings"
 						source     = "ParameterEditSecurity.cfm?host=#url.host#">				
 			
+			<td style="width:5%"></td>
 				
 			</tr>
 			

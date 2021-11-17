@@ -247,7 +247,7 @@ password="#SESSION.dbpw#">
 		</cfquery>
 		
 		<tr>	
-			<td style="padding-left:5px;padding-top:3px" class="line labelmedium2">
+			<td style="padding-left:5px;padding-top:3px" class="labelmedium2">
 			
 			<cfquery name="Lines" 
 			datasource="AppsPurchase" 
@@ -271,18 +271,21 @@ password="#SESSION.dbpw#">
 				
 			</td>
 			
+			</tr>
+			
 			<cfif receipts.recordcount gte "1">	
-			<td colspan="1" class="line labelmedium2" style="padding-right:30px" align="right">
+			<tr>
+			<td class="labelmedium2" style="padding-right:30px" align="right">
 			    <font color="FF0000">
 					<b>Attention:</b> This line has been (partially) received.
 				</font>
 			</td>
+			</tr>
 			</cfif>
 			
 			</tr>
 			
-			<tr class="hide"><td id="result"></td></tr>
-			
+			<tr class="hide"><td id="result"></td></tr>			
 			
 	</table>
 	

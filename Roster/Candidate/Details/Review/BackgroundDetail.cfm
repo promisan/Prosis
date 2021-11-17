@@ -42,14 +42,14 @@
 		
 	    <table width="100%" border="0" cellspacing="0" cellpadding="0">
 		
-	    <TR class="linedotted">
+	    <TR class="linedotted fixlengthlist labelmedium">
 	       <td height="25" width="5%" align="center">
 			   <input type="checkbox" class="radiol" name="selected_all" id="selected_all" value="All" onClick="selectexperienceall(this.checked);">
 			   </td>
-	       <TD class="labelit"><cf_tl id="Organization"></TD>
-	       <TD class="labelit"><cf_tl id="Function"></TD>
-		   <TD class="labelit"><cf_tl id="From"></TD>
-		   <TD class="labelit"><cf_tl id="To"></TD>
+	       <TD><cf_tl id="Organization"></TD>
+	       <TD><cf_tl id="Function"></TD>
+		   <TD><cf_tl id="From"></TD>
+		   <TD><cf_tl id="To"></TD>
 	   </TR>
 	  
 	   <cfset module = "">
@@ -61,9 +61,9 @@
 		   <cfoutput>
 		      
 		   <cfif CurrentAssigned is ''>
-		      <tr class="linedotted" bgcolor="f8f8f8" id="line#currentrow#">
+		      <tr class="linedotted labelmedium2" bgcolor="f8f8f8" id="line#currentrow#">
 		   <cfelse>
-		      <tr class="linedotted" class="highLight1" id="line#currentrow#">
+		      <tr class="linedotted labelmedium" class="highLight1" id="line#currentrow#">
 		   </cfif>   
 		   <td width="5%" align="center" style="padding:2px">
 		      <cfif CurrentAssigned is ''>
@@ -72,40 +72,40 @@
 		        <input type="checkbox" class="radiol" id="selected_#currentRow#" name="selected" value="#ExperienceId#" checked onClick="selectexperience(this,this.checked,'#currentRow#')">
 			  </cfif>
 		      </TD>
-		      <TD class="labelmedium">#OrganizationName#</TD>
-			  <TD class="labelmedium">#ExperienceDescription#</TD>
-		      <TD class="labelmedium" style="padding-right:10px">#DateFormat(ExperienceStart, CLIENT.DateFormatShow)#</td>
-			  <TD class="labelmedium" style="padding-right:10px">#DateFormat(ExperienceEnd, CLIENT.DateFormatShow)#</TD>
+		      <TD>#OrganizationName#</TD>
+			  <TD>#ExperienceDescription#</TD>
+		      <TD style="padding-right:10px">#DateFormat(ExperienceStart, CLIENT.DateFormatShow)#</td>
+			  <TD style="padding-right:10px">#DateFormat(ExperienceEnd, CLIENT.DateFormatShow)#</TD>
 		   </TR>
 		   
 		   <cfif OrganizationTelephone neq "">
-		   <tr>
+		   <tr class="labelmedium2">
 		   		<td></td>
-				<td class="labelit"><cf_tl id="Phone">:</td>
-			    <td colspan="3" class="labelit"><font color="00A600">#OrganizationTelephone#</td>
+				<td><cf_tl id="Phone">:</td>
+			    <td colspan="3"><font color="00A600">#OrganizationTelephone#</td>
 		   </tr>
 		   </cfif>
 		   
 		   <cfif supervisorname neq "">
-			   <tr>
+			   <tr class="labelmedium2">
 			   		<td></td>
-					<td class="labelit"><cf_tl id="Supervisor">:</td>
-					<td colspan="3" class="labelit"><font color="blue">#SupervisorName#</td>    
+					<td><cf_tl id="Supervisor">:</td>
+					<td colspan="3"><font color="blue">#SupervisorName#</td>    
 			   </tr>
 		   </cfif>
 		   
 		   <cfif Organizationemail neq "">
-		      <tr>
+		      <tr class="labelmedium2">
 		   		<td></td>
-				<td class="labelit"><cf_tl id="Mail">:</td>
-		   		<td colspan="3" class="labelit"><font color="blue">#OrganizationeMail#</td>
+				<td><cf_tl id="Mail">:</td>
+		   		<td colspan="3"><font color="blue">#OrganizationeMail#</td>
 		      </tr>
 		   </cfif>
 		   
-		   <tr>
+		   <tr class="labelmedium2">
 		   		<td></td>
-				<td class="labelit"><cf_tl id="Address">:</td>
-				<td colspan="3" class="labelit"><font color="00A600">#OrganizationAddress# #OrganizationZIP# #OrganizationCity# #OrganizationCountry#</td>
+				<td><cf_tl id="Address">:</td>
+				<td colspan="3"><font color="00A600">#OrganizationAddress# #OrganizationZIP# #OrganizationCity# #OrganizationCountry#</td>
 		   </tr>
 		      
 		   <cfif ExperienceCategory eq "Employment">
@@ -135,12 +135,12 @@
 				
 				       <td></td>
 					   <td colspan="4" style="padding-left:0px;border-top:1px dotted silver;border-bottom:1px dotted silver">
-					   <cfset url.box    = "box#currentrow#">			   			   
-				       <cfset url.owner  = line.owner>  <!--- filter the class to show just relevant classes --->
-					   <cfset url.id     = ExperienceId>
-				       <cfset url.id1    = ExperienceCategory>
+					   <cfset url.box       = "box#currentrow#">			   			   
+				       <cfset url.owner     = line.owner>  <!--- filter the class to show just relevant classes --->
+					   <cfset url.id        = ExperienceId>
+				       <cfset url.id1       = ExperienceCategory>
 				       <cfset url.candidate = 0>
-					   <cfset Group      = "'Experience','Region'">
+					   <cfset Group        = "'Experience','Region'">
 					   <cfinclude template="../Keyword/KeywordEntry.cfm"> 	
 					   	
 				</td></tr>						

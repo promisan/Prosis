@@ -21,6 +21,9 @@
 	<cfset tbl = "Ref_EntityActionPublish">
 </cfif>
 
+
+
+
 <cfif parentinit eq "Yes">
 
 	<cfquery name="Update" 

@@ -1,7 +1,9 @@
 
  <!--- show receipt mapping screen --->
+ 
 
-<tr><td colspan="7" style="padding-top:5px;padding-left:13px;padding-right:10px">
+<tr>
+<td colspan="7" style="padding-top:5px;padding-left:13px;padding-right:10px">
 	 
 <table width="100%" align="center">
 
@@ -49,39 +51,39 @@
 						
 		</tr>
 		
-		<tr bgcolor="E6E6E6" class="labelmedium2" class="line">
+		<tr bgcolor="E6E6E6" class="labelmedium2 fixlengthlist" class="line">
 							  
-			   <td colspan="4" style="border-left:0px solid silver;padding-left:4px"><cf_tl id="Delivery"></td>
-			   <td width="30%" colspan="2" style="padding-left:4px;border-left:0px solid silver;border-bottom:0px dotted silver"><cf_tl id="Product"></td>						  
-			   <td style="padding-left:4px;border-left:0px solid silver"><cf_tl id="Qty"></td>
-			   <td align="center" style="padding-left:4px;border-left:0px solid silver"><cf_tl id="Curr">.</td>
-			   <td colspan="2" align="left" style="padding-left:4px;border-left:0px solid silver;padding-right:2px;border-bottom:0px dotted silver"><cf_tl id="Receipt"></td>
+			   <td colspan="4"><cf_tl id="Delivery"></td>
+			   <td width="30%" colspan="2" style="border-bottom:0px dotted silver"><cf_tl id="Product"></td>						  
+			   <td style="border-left:0px solid silver"><cf_tl id="Qty"></td>
+			   <td align="center"><cf_tl id="Curr">.</td>
+			   <td colspan="2" align="left"><cf_tl id="Receipt"></td>
 			   <cfif Parameter1.InvoiceMatchPriceActual neq "0">
-			   <td colspan="3" align="left" style="padding-left:4px;border-left:0px solid silver;padding-right:2px;border-bottom:0px dotted silver"><cf_tl id="On Invoice"></td>						   						  
+			   <td colspan="3" align="left"><cf_tl id="On Invoice"></td>						   						  
 			   </cfif>
-			   <td width="1%" style="border:0px solid silver"></td>
+			   <td width="1%"></td>
 				  
 		</tr>	
 			
-		<tr bgcolor="ffffcf" class="labelmedium2">
+		<tr bgcolor="ffffcf" class="fixlengthlist labelmedium2">
 					   
-			   <td colspan="3" style="width:20%;padding-left:34px;border-right:1px solid silver"><cf_tl id="Date"> / <cf_tl id="Order"></td>
-			   <td style="width:8%;padding-left:4px;border:1px solid silver"><cf_tl id="Recipient"></td>
-			   <td style="padding-left:4px;border:1px solid silver"><cf_tl id="Name"></td>
-			   <td style="width:50px;padding-left:4px;border:1px solid silver"><cf_tl id="Item"></td>
-			   <td style="width:50px;padding-left:4px;border:1px solid silver"></td>
-			   <td align="center" style="width:50px;border:1px solid silver"></td>
-			   <td align="right" style="width:100px;border:1px solid silver;padding-right:2px;"><cf_tl id="Price"></td>
-			   <td align="right" style="width:90px;border:1px solid silver;padding-right:2px"><cf_tl id="Amount"></td>
+			   <td colspan="3" style="padding-left:24px;border:1px solid silver"><cf_tl id="Date"> / <cf_tl id="Order"></td>
+			   <td style="border:1px solid silver"><cf_tl id="Recipient"></td>
+			   <td style="border:1px solid silver"><cf_tl id="Name"></td>
+			   <td style="border:1px solid silver"><cf_tl id="Item"></td>
+			   <td style="border:1px solid silver"></td>
+			   <td align="center" style="border:1px solid silver"></td>
+			   <td align="right"  style="border:1px solid silver"><cf_tl id="Price"></td>
+			   <td align="right"  style="border:1px solid silver"><cf_tl id="Amount"></td>
 			   <cfif Parameter1.InvoiceMatchPriceActual neq "0">
-			   <td align="right" style="width:90px;border:1px solid silver;padding-right:2px"><cf_tl id="Price"></td>
-			   <td align="right" style="width:90px;border:1px solid silver;padding-right:2px"><cf_tl id="Tax"></td>
-			   <td align="right" style="width:90px;border:1px solid silver;padding-right:2px"><cf_tl id="Amount"></td>
+			   <td align="right"  style="border:1px solid silver"><cf_tl id="Price"></td>
+			   <td align="right"  style="border:1px solid silver"><cf_tl id="Tax"></td>
+			   <td align="right"  style="border:1px solid silver"><cf_tl id="Amount"></td>
 			   </cfif>
-			   <td width="2%"></td>
+			   <td></td>
 				  
 		</tr>
-		
+						
 		<cfif Invoice.ActionStatus eq "1">	
 		
 								
@@ -282,16 +284,17 @@
 																		
 				<cfif CheckLedger.ReceiptId eq ReceiptId and CheckLedger.InvoiceId neq "">
 				    
-					    <tr class="highlight4 line labelmedium" style="height:20px">
+					    <tr class="highlight4 line labelmedium fixlengthlist" style="height:20px">
 						<cfelse>
-						<tr class="line labelmedium" style="height:20px">
+						<tr class="line labelmedium fixlengthlist" style="height:20px">
 						</cfif>
+
 				    	<td height="18"></td>
-						<td style="padding-left:4px;min-width:30px">#currentrow#.</td>
-						<td style="padding-left:4px;border-left:1px solid silver">
+						<td>#currentrow#.</td>
+						<td style="border-left:1px solid silver">
 						   #DateFormat(DeliveryDate,CLIENT.DateFormatShow)# / #PurchaseNo# <cfif PackingSlipNo eq "">/ <a href="javascript:receipt('#ReceiptNo#','view')">#ReceiptNo#</a><cfelse>/ #PackingslipNo#</cfif>
 						</td>
-						<td style="padding-left:4px;border-left:1px solid silver">
+						<td style="border-left:1px solid silver">
 						
 						<cfif warehouse neq "">
 						
@@ -326,24 +329,24 @@
 						</cfif>								
 						
 						</td>								
-						<td style="min-width:200px;padding-left:4px;border-left:1px solid silver">#left(ReceiptItem,40)#</td>
-						<td style="padding-left:4px;border-left:1px solid silver">#ReceiptItemNo#</td>
-					    <td align="right" style="max-width:60px;padding-left:4px;border-left:1px solid silver;padding-right:3px">#numberformat(ReceiptQuantity,',__')#</td>
-						<td style="padding-left:4px;border-left:1px solid silver" align="center">#Invoice.DocumentCurrency#</td>
-					    <td align="right" style="border-left:1px solid silver;padding-right:4px">
+						<td style="border-left:1px solid silver">#ReceiptItem#</td>
+						<td style="border-left:1px solid silver">#ReceiptItemNo#</td>
+					    <td align="right" style="border-left:1px solid silver">#numberformat(ReceiptQuantity,',__')#</td>
+						<td style="border-left:1px solid silver" align="center">#Invoice.DocumentCurrency#</td>
+					    <td align="right" style="border-left:1px solid silver">
 					    	<cftry>
 					    		#NumberFormat(amt/ReceiptQuantity,",.__")#
 					    	<cfcatch>
 					    	</cfcatch>		
 					    	</cftry>	
 					    </td>
-						<td align="right" style="border-left:1px solid silver;padding-right:4px">
+						<td align="right" style="border-left:1px solid silver">
 						
 						#NumberFormat(amt,",.__")#</td>
 													
 						<cfif Parameter1.InvoiceMatchPriceActual eq "1">								
 						
-							<td align="right" style="height:22;padding-left:1px;padding-right:1px;border-left:1px solid silver;width:80px">
+							<td align="right" style="height:22;border-left:1px solid silver">
 																				
 								<cfif invoice.actionStatus eq "0">		
 							
@@ -360,22 +363,22 @@
 															
 							</td>
 							
-							<td align="right" style="padding-right:3px;border-left:1px solid silver;width:80px">#numberformat(ReceiptTax*100,'._')#%</td>
+							<td align="right" style="border-left:1px solid silver">#numberformat(ReceiptTax*100,'._')#%</td>
 							
 							<td align="right" 
-							    style="border-left:1px solid silver;padding-right:4px" 
+							    style="border-left:1px solid silver" 
 								id="inv#receiptid#">#NumberFormat(InvoiceAmount,",.__")#</td>
 								
 						<cfelseif Parameter1.InvoiceMatchPriceActual eq "2">
 						
-							<td align="right" id="inv#receiptid#" style="height:21;padding-left:2px;padding-right:2px;border-left:1px solid silver;width:80px">														
+							<td align="right" id="inv#receiptid#" style="height:21;border-left:1px solid silver">														
 								 #NumberFormat(InvoicePrice,",.__")#								 															
 							</td>
 							
-							<td align="right" style="padding-right:3px;border-left:1px solid silver;width:80px">#numberformat(ReceiptTax*100,',._')#%</td>
+							<td align="right" style="border-left:1px solid silver">#numberformat(ReceiptTax*100,',._')#%</td>
 							
 							<td align="right" 
-							    style="border-left:1px solid silver;padding-right:4px">
+							    style="border-left:1px solid silver">
 								
 								<cfinput name="amt#receiptid#" 
 								 type="text" 
@@ -394,11 +397,11 @@
 							
 							<cfif actionstatus eq "zzzz">
 							
-							<td  align="center" style="background-color:d3d3d3;border:1px solid silver;padding-left:2px;padding-right:2px"></td>
+							<td  align="center" style="background-color:d3d3d3;border:1px solid silver"></td>
 							
 							<cfelse>
 							
-							<td align="center" style="border:1px solid silver;padding-left:2px;padding-right:2px">
+							<td align="center" style="border:1px solid silver">
 														
 							   <input type="checkbox" style="height:16px;width:16px" class="enterastab myselect" value="'#ReceiptId#'" name="linesselect"
 								 onClick="hl(this, this.checked)"
@@ -411,7 +414,7 @@
 						   
 						<cfelse>  
 						
-							<td  align="center" style="border:1px solid silver;padding-left:2px;padding-right:2px">
+							<td  align="center" style="border:1px solid silver">
 							<cfif CheckLedger.ReceiptId eq ReceiptId and CheckLedger.InvoiceId neq "">
 																
 							<img src="#SESSION.root#/images/check_icon.gif" alt="Matched" border="0" align="absmiddle">
@@ -426,12 +429,12 @@
 															
 					<cfif Currency neq Invoice.DocumentCurrency>
 					
-					<tr bgcolor="FDFEDE" class="labelmedium" style="height:20px">
+					<tr bgcolor="FDFEDE" class="labelmedium fixlengthlist" style="height:20px">
 					   <td colspan="5"></td>
 					   <td colspan="2" style="font-size:10px;border-bottom:1px solid silver;border-left:1px solid silver;padding-left:4px"><cf_tl id="Receipt"><cf_tl id="Currency">:</td>
-					   <td style="padding-left:4px;border-bottom:1px solid silver;border-left:1px solid silver" align="center">#Currency#</td>
-					   <td style="padding-right:7px;padding-left:4px;border-bottom:1px solid silver;border-left:1px solid silver" align="right">#NumberFormat(ReceiptAmount/ReceiptQuantity,",.__")#</td>							   
-					   <td style="padding-left:4px;border-bottom:1px solid silver;border-right:1px solid silver;border-left:1px solid silver;padding-right:4px" align="right">#NumberFormat(ReceiptAmount,",.__")#</td>
+					   <td style="border-bottom:1px solid silver;border-left:1px solid silver" align="center">#Currency#</td>
+					   <td style="border-bottom:1px solid silver;border-left:1px solid silver" align="right">#NumberFormat(ReceiptAmount/ReceiptQuantity,",.__")#</td>							   
+					   <td style="border-bottom:1px solid silver;border-right:1px solid silver;border-left:1px solid silver" align="right">#NumberFormat(ReceiptAmount,",.__")#</td>
 					   <td></td>
 					</tr>
 					
@@ -443,15 +446,14 @@
 		
 		</table>
 	</td></tr>
-</table></td>
-</tr>	
+	
 
 <cfif invoice.actionStatus eq "0">
 
 	<!--- -store receipts from a deeper iframe level-- --->
     <input type="hidden" name="receipt" id="receipt">
 			
-	<tr><td height="4" colspan="2" id="match" style="padding-right:10px;">
+	<tr><td height="4" colspan="2" id="match">
 
 		<!--- -store receipts from a deeper iframe level-- --->
 	    <input type="hidden" name="receipt" id="receipt">
@@ -519,3 +521,8 @@
     </td></tr>	
 
 </cfif>
+
+</table>
+
+</td>
+</tr>	

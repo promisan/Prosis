@@ -9,7 +9,7 @@
 			contractid = '';
 		}
 				
-		ProsisUI.createWindow('mydependent', 'Dependent', '',{x:100,y:100,height:parent.document.body.clientHeight-80,width:parent.document.body.clientWidth-80,modal:true,resizable:true,center:true})    					
+		ProsisUI.createWindow('mydependent', 'Dependent', '',{x:100,y:100,height:parent.document.body.clientHeight-120,width:parent.document.body.clientWidth-320,modal:true,resizable:true,center:true})    					
 		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Dependents/DependentView.cfm?contractid='+contractid+'&action='+mode+'&ID='+persno,'mydependent') 		
 	}	
 	

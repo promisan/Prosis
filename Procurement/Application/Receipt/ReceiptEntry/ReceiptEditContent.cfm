@@ -277,7 +277,7 @@
 			
 	<tr>
 	
-	<td style="padding-left:20px;height:25;font-size:20px" class="labellarge">
+	<td style="padding-left:20px;height:25;font-size:20px" class="fixlength labellarge">
 	<cf_tl id="Shipment and Receipt Details"> #Receipt.ReceiptNo#
 	</td>
 		
@@ -300,8 +300,7 @@
 		   <td align="right" style="padding-left:10px">
 		
 				<table>
-				<tr class="labelmedium2">
-				<td style="padding-right:4px"><cf_tl id="Presentation">:</td>
+				<tr class="labelmedium2">				
 				<td style="padding-right:5px">
 				<select id="financial" onchange="reload()" class="regularxl">
 					<option value="0" <cfif url.presentation eq "0">selected</cfif>><cf_tl id="Standard"></option>

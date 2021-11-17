@@ -60,7 +60,7 @@
 					<tr>
 					
 					<td>
-													
+																		
 			        <!--- pass cfm for searching, getting and the condition needed for both search and getting --->
 					
 					<cfif attributes.inputmask eq "">

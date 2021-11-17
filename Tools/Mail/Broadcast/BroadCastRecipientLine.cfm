@@ -112,7 +112,7 @@
 	
 	 <tr><td colspan="6"><cfinclude template="BroadCastNavigation.cfm"></td></tr>
 	 
-	 <tr height="20" class="line labelmedium2">
+	 <tr height="20" class="line labelmedium2 fixlengthlist">
 	 	 <cfif Group.RecordCount gt 0>
 	 	 <td></td>
 		 </cfif>
@@ -141,9 +141,9 @@
 				<cfoutput>
 				
 					<cfif check.broadcastStatus eq "0"> 
-					<tr id="r#currentrow#" class="navigation_row navigation_action line labelmedium2">
+					<tr id="r#currentrow#" class="navigation_row navigation_action line labelmedium2 fixlengthlist">
 					<cfelse>
-					<tr id="r#currentrow#" class="navigation_row line labelmedium2"> 
+					<tr id="r#currentrow#" class="navigation_row line labelmedium2 fixlengthlist"> 
 					</cfif>
 						<cfif Group.RecordCount gt 0>
 							<td></td>
@@ -161,7 +161,7 @@
 		  					<td>#RecipientCode#</td>
 		  				</cfif>
 						
-						<TD>#EMailAddress#</TD>
+						<TD title="#emailaddress#">#EMailAddress#</TD>
 						<td align="center">
 						<cfif broadcast.BroadcastStatus eq "0">
 						  <input type="checkbox"

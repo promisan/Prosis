@@ -152,8 +152,6 @@ password="#SESSION.dbpw#">
 		   <cf_dialogLedger>
 		   <cf_annotationscript>
 		
-		
-		
 		    <cfoutput query="GLAccount">
 			<table width="100%" align="center" style="height:30px">
 			<tr style="labelmedium2;height:30px" class="line">
@@ -255,7 +253,7 @@ password="#SESSION.dbpw#">
 			
 			<td class="labelmedium2" style="padding-left:5px;border-right:0px"><cf_tl id="Expressed"></td>
 			
-			<td style="border:0px solid silver;;border-left:0px" align="right">
+			<td style="border:0px solid silver;border-left:0px" align="right">
 						
 			<cfquery name="Currency"
 			datasource="AppsLedger" 

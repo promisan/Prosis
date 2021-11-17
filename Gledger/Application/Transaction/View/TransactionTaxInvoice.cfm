@@ -1,8 +1,9 @@
-<cfset url.scope 	= "standalone">
 
+<cfparam name="url.scope"        default="pos"> <!--- finance | pos --->
 <cfparam name="url.currency"     default="QTZ">
 <cfparam name="url.mode"         default="3">  <!--- new mode FEL by Hanno which handles discounts and enforces 12% --->
 <cfparam name="url.terminal"     default="">
+<cfparam name="url.actionid"     default="">
 
 <cfquery name="qHeader"
     datasource="AppsMaterials"
@@ -17,12 +18,14 @@
 <cfif qHeader.TransactionSource eq "SalesSeries" 
    or qHeader.TransactionSource eq "WorkOrderSeries" 
    or qHeader.TransactionSource eq "AccountSeries">
-  
-<cfswitch expression="#qHeader.TransactionSource#">
+   
+   <!--- and url.scope eq "standalone" --->
 
-	<cfcase value="SalesSeries">
-	
-		<!--- Hanno : this one makes still use of the V2 component also used for POS Cash and Carry --->
+<cfif qHeader.TransactionSource eq "SalesSeries" and url.scope eq "pos">  
+		
+		<!--- Hanno : verify if this is still used
+		
+		this one makes still use of the V2 component also used for POS Cash and Carry --->
 	
 	    <cfquery name="qBatch"
 	        datasource="AppsMaterials"
@@ -30,7 +33,7 @@
 	        password="#SESSION.dbpw#">			
 		        SELECT *
 		        FROM   Materials.dbo.WarehouseBatch
-		        WHERE  BatchId = '#qHeader.TransactionSourceId#'
+		        WHERE  BatchId = '#qHeader.TransactionSourceId#' 
 	    </cfquery>
 	
 	    <cfif url.terminal eq "">
@@ -66,8 +69,7 @@
 				    AND      ActionReference1 IS NOT NULL
 				    AND      ActionReference2 IS NOT NULL
 				    AND      ActionReference3 IS NOT NULL
-				    ORDER BY Created DESC
-					
+				    ORDER BY Created DESC					
 	    </cfquery>
 				
 	    <cfif qCheck.recordcount eq 0 OR qCheck.ActionStatus eq 9>
@@ -96,9 +98,9 @@
 					   Terminal			= "#Terminal#"
 				       Mode 			= "#url.Mode#"  <!--- = 3 --->
 					   Journal          = "#url.journal#"
-					   JournalSerialNo  = "#url.journalSerialNo#"							    
-					   returnvariable	= "vInvoice">
-									   
+					   JournalSerialNo  = "#url.journalSerialNo#"		
+					   ActionId         = "#url.actionid#"						    
+					   returnvariable	= "vInvoice">									   
 	
 	        <cfset vActionId = vInvoice.ActionId>
 	
@@ -109,13 +111,22 @@
 	        <cfset vActionId = qCheck.ActionId>
 	
 	    </cfif>
-	
+		
+	    	<cfif url.actionid neq "">
+			
+					<cfset vActionId = url.actionid>	
+			
+			</cfif>
+				
 	    <cfoutput>
 		
 		    <!--- points to the same template as we do in the POS settlement --->
 			
 		    <script>
 		        ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#URL.BatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#", 'wsettle');
+				try {
+			    ptoken.navigate("#SESSION.root#/GLedger/Application/Transaction/View/getTransactionAction.cfm?journal=#URL.journal#&journalserialNo=#url.journalserialno#", 'invoiceactionbox');
+				} catch(e) {}
 		        try { window.opener.location.reload(); } catch(e) {}
 	       </script>
 			
@@ -128,10 +139,8 @@
 		   
 		</cfoutput>   	   
 		
-	</cfcase>
-				
-	<cfdefaultcase>
-		
+	<cfelse>
+			
 		    <!--- accounting and workorder sales --->
 				
 			<cfinvoke component = "Service.Process.EDI.Manager"
@@ -141,7 +150,8 @@
 					   Terminal			= "#Terminal#"
 				       Mode 			= "#url.Mode#"  <!--- = 3 --->
 					   Journal          = "#url.journal#"
-					   JournalSerialNo  = "#url.journalSerialNo#"							    
+					   JournalSerialNo  = "#url.journalSerialNo#"		
+					   ActionId         = "#url.actionid#"					    
 					   returnvariable	= "stResponse">
 					
 			<cfif stResponse.Status neq "OK">	
@@ -155,9 +165,10 @@
 							   Datasource       = "AppsOrganization"
 							   Mission          = "#qHeader.Mission#"
 							   Terminal			= "#Terminal#"
-							   Mode 			= "#Mode#"		
+							   Mode 			= "#url.Mode#"		
 							   Journal          = "#url.journal#"
-							   JournalSerialNo  = "#url.journalSerialNo#"									   
+							   JournalSerialNo  = "#url.journalSerialNo#"		
+							   ActionId         = "#url.actionid#"								   
 							   RetryNo			= "#rtNo#"
 							   returnvariable	= "stResponse">		
 				
@@ -178,14 +189,30 @@
 					 
 				</cfif>
 				
+				<cfset vActionId = stResponse.ActionId>
+				
+			<cfelse>
+			
+				<cfset vActionId = stResponse.ActionId>	
+			
 			</cfif>	  	
+			
+			<cfif url.actionid neq "">
+			
+					<cfset vActionId = url.actionid>	
+			
+			</cfif>
 			
 			<cfoutput>
 			
 			  <!--- points to a different template --->
 		
 	          <script>
+			  
+			    _cf_loadingtexthtml='';	
 		        ptoken.navigate("#SESSION.root#/GLedger/Application/Transaction/Invoice/SaleViewInvoice.cfm?actionid=#vActionId#&journal=#URL.journal#&journalserialNo=#url.journalserialno#&currency=#url.currency#&terminal=#url.terminal#", 'wsettle');
+		        ptoken.navigate("#SESSION.root#/GLedger/Application/Transaction/View/getTransactionAction.cfm?journal=#URL.journal#&journalserialNo=#url.journalserialno#", 'invoiceactionbox');
+
 		        try { window.opener.location.reload(); } catch(e) {}
 	          </script>	
 		   
@@ -193,9 +220,7 @@
 			
 			<!--- Armin : do record action and other stuff --->	
 	
-	</cfdefaultcase>
-			
-</cfswitch>
+	</cfif>
 
 <cfelse>
 

@@ -164,21 +164,21 @@
 	</cfquery>
 	
 		
-	<tr class="line labelmedium2 fixrow" style="background-color:white">
-	 <td align="right" style="width:25px">C</td>
-	 <td width="3%"></td>
-	 <td style="min-width:70px"><cf_tl id="Period"></td>
-	 <td style="min-width:65px"><cf_tl id="Entity"></td>	
-	 <td width="50%"><cf_tl id="Schedule"></td>	 
-	 <td style="min-width:120px"><cf_tl id="Prepared"></td>	 
-	 <td style="min-width:120px"><cf_tl id="Updated"></td>	 
-	 <td style="min-width:100px"><cf_tl id="Mode"></td>	 
-	 <td style="min-width:80px"><cf_tl id="Status"></td>
-	 <td style="min-width:90px"><cf_tl id="Phase"></td>
-	 <td style="min-width:100px"><cf_tl id="Sent Slip"></td>	 
-	 <td style="min-width:100px;padding-right:8px" colspan="2" align="right"><cf_tl id="Net Pay"></td>	
+	<tr class="line labelmedium2 fixrow fixlengthlist" style="background-color:white">
+	 <td align="right">C</td>
+	 <td></td>
+	 <td><cf_tl id="Period"></td>
+	 <td><cf_tl id="Entity"></td>	
+	 <td><cf_tl id="Schedule"></td>	 
+	 <td><cf_tl id="Prepared"></td>	 
+	 <td><cf_tl id="Updated"></td>	 
+	 <td><cf_tl id="Mode"></td>	 
+	 <td><cf_tl id="Status"></td>
+	 <td><cf_tl id="Phase"></td>
+	 <td><cf_tl id="Sent Slip"></td>	 
+	 <td colspan="2" align="right"><cf_tl id="Net Pay"></td>	
 	 <cfif url.scope neq "portal">
-	 <td style="min-width:100px;padding-right:8px" colspan="2" align="right"><cf_tl id="Net Pay"></td>		 
+	 <td colspan="2" align="right"><cf_tl id="Net Pay"></td>		 
 	 <cfelse>
 	 <td></td><td></td>
 	 </cfif>
@@ -316,22 +316,22 @@
 					</cfif>			   
 				</cfif>
 		
-				<tr bgcolor="#c#" style="height:21px" class="line labelmedium2 navigation_row">
+				<tr bgcolor="#c#" style="height:21px" class="line labelmedium2 navigation_row fixlengthlist">
 				
 					<cfif hasContract eq "0" and ActionStatus neq "3" and PaymentFinal eq "0">
-					<td align="right" style="background-color:red;padding-left:2px;;padding-right:8px">
+					<td align="right" style="background-color:red">
 					<cfelse>
-					<td align="right" style="padding-left:2px;;padding-right:8px">
+					<td align="right">
 					</cfif>		
 					
-					<td align="center" width="50" style="padding-top:8px;padding-left:1px">																
+					<td align="center" width="50" style="padding-top:8px">																
 						<cf_img icon="expand" id="show#currentrow#" navigation="Yes" toggle="yes" onclick="detail('#currentrow#','#settlementid#','#currency#','#settlementphase#')">		
 					</td>
-					<td style="padding-left:4px"><cfif pdate neq paymentdate>#DateFormat(PaymentDate,"MMMM")#<cfelse>..</cfif></td>
+					<td><cfif pdate neq paymentdate>#DateFormat(PaymentDate,"MMMM")#<cfelse>..</cfif></td>
 					<td>#Mission#</td>	
-					<td style="min-width:200px;padding-left:5px">#SalaryScheduleName#</td>	
-					<td style="padding-left:4px">#DateFormat(Created,client.dateformatshow)#-<font size="1">#TimeFormat(Created,"HH:MM")#</font></td>	
-					<td style="padding-left:4px"><cfif Created neq LastUpdated>#DateFormat(LastUpdated,client.dateformatshow)#-<font size="1">#TimeFormat(Created,"HH:MM")#</font><cfelse>..</cfif></td>	
+					<td>#SalaryScheduleName#</td>	
+					<td>#DateFormat(Created,client.dateformatshow)#-<font size="1">#TimeFormat(Created,"HH:MM")#</font></td>	
+					<td><cfif Created neq LastUpdated>#DateFormat(LastUpdated,client.dateformatshow)#-<font size="1">#TimeFormat(Created,"HH:MM")#</font><cfelse>..</cfif></td>	
 					<td>	
 					<cfif PaymentStatus eq "1"><cf_tl id="Off cycle"><cfelse><cf_tl id="In cycle"></cfif></td>						
 					<td>
@@ -350,26 +350,26 @@
 						
 					<td align="right" style="padding-right:0px">
 						<table width="100%">
-							<tr>
-							<td style="padding-right:4px;font-size:10px">#currency#</td>
-							<td align="right" style="padding-right:3px">#numberFormat(NetPayment,",.__")#</td>			
+							<tr clss="fixlengthlist">
+							<td style="font-size:10px">#currency#</td>
+							<td align="right">#numberFormat(NetPayment,",.__")#</td>			
 							</tr>
 						</table>
 					</td>			
-					<td style="padding-left:4px;padding-top:4px">
+					<td style="4px;padding-top:4px">
 						<cf_img icon="print" onclick="print('#settlementid#','#settlementphase#',0)">			
 					</td>	
 							
 					<cfif url.scope neq "portal" and documentcurrency neq "" and currency neq documentcurrency and calculationstatus eq "3">
-						<td align="right" style="padding-left:5px;padding-right:0px">
+						<td align="right">
 							<table width="100%">
-							<tr>
-							<td style="padding-right:4px;font-size:10px">#documentcurrency#</td>
-							<td align="right" style="padding-right:3px">#numberFormat(NetPaymentDocument,",.__")#</td>			
+							<tr class="fixlengthlist">
+							<td style="font-size:10px">#documentcurrency#</td>
+							<td align="right">#numberFormat(NetPaymentDocument,",.__")#</td>			
 							</tr>
 							</table>
 						</td>				
-						<td style="padding-left:5px;;padding-top:4px">
+						<td style="padding-top:4px">
 							<cf_img icon="print" onclick="print('#settlementid#','#settlementphase#',1)">
 						</td>
 					<cfelse>
@@ -431,7 +431,7 @@
 						<tr class="navigation_row_child">
 						    <td></td>
 						    <td colspan="9" style="padding:2px">
-								<table border="1" bordercolor="silver" rules="none" cellspacing="0" cellpadding="0">
+								<table border="1" bordercolor="silver" cellspacing="0" cellpadding="0">
 								<tr bgcolor="D0E8E8">					
 								<td style="padding:2px" width="300"><cfif Reference neq "">#Reference#<cfelse>#ProgramCode#</cfif> #ProgramName#</td>	
 								<td style="padding:2px" width="70">#Fund#</td>

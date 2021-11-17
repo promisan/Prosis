@@ -1232,7 +1232,7 @@
 
 					</cfif>
 
-					<cfelseif id eq "ATT">
+				<cfelseif id eq "ATT">
 
 					<cfif len(orgLabel) gt "40">
 						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#' title='#orgLabel#'>#left(orgLabel,40)#..</span>">
@@ -1240,7 +1240,7 @@
 						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#' title='#orgLabel#'>#orgLabel#</span>">
 					</cfif>
 
-					<cfelseif id eq "DON">
+				<cfelseif id eq "DON">
 
 					<cfif len(orgLabel) gt "34">
 						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#' title='#orgLabel#'>#left(orgLabel,34)#.. <cfif counted gt 0>[#counted#]</cfif></span>">
@@ -1250,10 +1250,10 @@
 
 				<cfelse>
 
-					<cfif len(orgLabel) gt "34">
-						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' title='#orgLabel#'>#left(orgLabel,34)#..</span>">
+					<cfif len(orgLabel) gt "42">
+						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' title='#orgLabel#'>#left(orgLabel,38)# ...</span>">
 					<cfelse>
-						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' title='#orgLabel#'>#orgLabel#</span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' class='fixlength' title='#orgLabel#'>#orgLabel#</span>">
 					</cfif>
 
 				</cfif>

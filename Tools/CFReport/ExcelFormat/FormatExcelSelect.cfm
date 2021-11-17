@@ -1,7 +1,7 @@
 
 <table width="100%" height="100%" align="center">
 
-<tr><td colspan="2" height="30px" valign="top">
+<tr><td colspan="2" valign="top">
 
    <table width="100%" border="0" class="formpadding navigation_table">
 		
@@ -75,11 +75,11 @@
 							AND      S.name = '#tbl#'	
 							</cfquery>
 						   						   
-						   <tr id="r#currentRow#" style="cursor:pointer;" class="labelmedium2 navigation_row line"
+						   <tr id="r#currentRow#" style="cursor:pointer;" class="labelmedium2 navigation_row line fixlengthlist"
 						    onclick="reload('#CurrentRow#','#OutputId#','#tbl#')"
 						    bgcolor="<cfif #CurrentRow# eq "1">ffffff</cfif>">
 							
-						    <td width="50" style="padding-left:13px">
+						    <td style="padding-left:13px">
 							
 							<cf_tl id="Open" var="1">
 							
@@ -95,10 +95,10 @@
 							
 							   
 							</td>
-						    <td width="30%" style="padding-left:10px">#OutputName#</td>
-							<td width="30%">#datasource#:#tbl#</td>
+						    <td>#OutputName#</td>
+							<td>#datasource#:#tbl#</td>
 							<td align="right">#numberFormat(FieldNo.total, ",")#</td>
-							<td align="right" style="padding-right:14px">#numberFormat(NoRecords.total, ",")#</td>
+							<td align="right">#numberFormat(NoRecords.total, ",")#</td>
 						   </tr>		
 						  
 						   <cfif tblinit eq "">
@@ -173,7 +173,7 @@
 <cfif tblinit neq "">
 
  	<script>
-	   ptoken.navigate('#SESSION.root#/Tools/Cfreport/ExcelFormat/FormatExcelDetail.cfm?mode=#url.mode#&reportid=#url.reportid#&ID=#idinit#&Table=#tblinit#','contentbox1')
+	   ptoken.navigate('#SESSION.root#/Tools/cfreport/ExcelFormat/FormatExcelDetail.cfm?mode=#url.mode#&reportid=#url.reportid#&ID=#idinit#&Table=#tblinit#','contentbox1')
  	</script>
 	
 <cfelse>

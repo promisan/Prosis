@@ -156,7 +156,6 @@ Tthe field ParentLineId is populated with
 		WHERE  Journal = '#Journal#' 	
 		AND    J.Currency = C.Currency
 	</cfquery>
-
 	
 	<cfquery name="DefaultContraAccount"
 	datasource="AppsLedger" 
@@ -192,6 +191,7 @@ Tthe field ParentLineId is populated with
 		    Mission, 
 			TransactionId,
 			OrgUnitOwner, 
+			OrgUnitTax,
 			<cfif isNumeric(url.referenceorgunit)>
 			ReferenceName,
 			ReferenceOrgUnit,
@@ -233,6 +233,7 @@ Tthe field ParentLineId is populated with
 		    '#URL.Mission#',
 			newid(),
 			'#URL.OrgUnitOwner#',
+			'#JournalSelect.OrgUnitTax#',
 			<cfif isNumeric(url.referenceorgunit)>
 			'#org.orgunitname#',
 			'#url.referenceorgunit#', 

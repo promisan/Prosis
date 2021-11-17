@@ -93,7 +93,7 @@
 	
 <cfif Program.ProgramNameShort neq "">
 		
-	<cf_tl id="Add #Program.ProgramNameShort#" var="1">
+	<cf_tl id="Add #Program.ProgramNameShort# project" var="1">
 	<cfset tAdd = "#Lt_text#">
 		
 	<cf_tl id="Add #Program.ProgramNameShort# component" var="1">

@@ -52,7 +52,7 @@
 			
 		<cfoutput>
 			    
-		    <TR  class="labelmedium line navigation_row" bgcolor="" <cfif operational eq 0>style="font-style:italic; color:808080;"</cfif>> 
+		    <TR class="labelmedium2 line navigation_row" <cfif operational eq 0>style="font-style:italic; color:808080;"</cfif>> 
 				
 				<td align="center" style="padding-top:4px">
 					<table cellspacing="0" cellpadding="0">

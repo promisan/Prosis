@@ -234,21 +234,19 @@
 
 	<tr><td height="6"></td></tr>
 
-	<tr>
+	<tr class="fixlengthlist line labelmedium2">
 	  
 	   <cfoutput query="getTopics">
-	   <td class="labelit line">#TopicLabel#</td>
+	   <td><cf_tl id="#TopicLabel#"></td>
 	   </cfoutput>
-	   <td align="right" class="labelit line"><cf_tl id="On Hand"><cf_space spaces="23"></td>
-	   <td align="right" class="labelit line"><cf_tl id="Type"></td>	   
-	   <td align="right" class="labelit line"><cf_tl id="Quantity"></td>  
-	   <td align="right" class="labelit line"><cf_tl id="Price"><cfoutput>#workorder.Currency#</cfoutput></td>		  
+	   <td align="right"><cf_tl id="On Hand"></td>
+	   <td align="right"><cf_tl id="Type"></td>	   
+	   <td align="right"><cf_tl id="Quantity"></td>  
+	   <td align="right"><cf_tl id="Price"><cfoutput>#workorder.Currency#</cfoutput></td>		  
 	    <td></td>
 	   <td></td>	   
 	</tr>
-	
-	<tr><td class="line" colspan="<cfoutput>#cols#</cfoutput>"></td></tr>
-	
+		
 	<cfoutput query="items">
 	
 		<!--- define the current values --->
@@ -472,13 +470,13 @@
 		
 		</cfif>		
 	
-		<tr>
+		<tr class="fixlengthlist line labelmedium2" style="height:35px">
 		
 		<cfloop index="cde" list="#valueList(getTopics.code)#">
-			<td class="labelit">#evaluate("#Cde#ListValue")#</td>
+			<td>#evaluate("#Cde#ListValue")#</td>
 		</cfloop>		
 		
-		<td align="right" class="labelmedium" style="padding-right:4px">
+		<td align="right" style="padding-right:4px">
 		
 		<cfif found eq "Yes">
 		
@@ -513,11 +511,11 @@
 						
 		<cf_tl id="Standard"  var="vStandard">
 		<cf_tl id="Promotion" var="vPromotion">
-		<cf_tl id="Discount" var="vDiscount">
+		<cf_tl id="Discount"  var="vDiscount">
 		
-		<select id="Memo_#workorderitemid#" name="Memo_#workorderitemid#" class="regularxl enterastab"  onchange="_cf_loadingtexthtml='';ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=memo&value='+this.value,'process')">
-		  <option value="Standard" selected>#vStandard#></option>
-		  <option value="Promotion">#vPromotion#></option>
+		<select id="Memo_#workorderitemid#" name="Memo_#workorderitemid#" class="regularxxl enterastab"  onchange="_cf_loadingtexthtml='';ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=memo&value='+this.value,'process')">
+		  <option value="Standard" selected>#vStandard#</option>
+		  <option value="Promotion">#vPromotion#</option>
 		  <option value="Discount">#vDiscount#</option>
 		</select>		
 		
@@ -527,7 +525,7 @@
 		
 		  <cf_tl id="Please, enter a valid numeric quantity greater than 0." var="1">
 		  
-		  <cfinput type="text" class="regularxl enterastab" 
+		  <cfinput type="text" class="regularxxl enterastab" 
 		           name="quantity" 
 				   id="quantity_#workorderitemid#" 
 				   onchange="_cf_loadingtexthtml='';ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=quantity&value='+this.value,'process')" 
@@ -549,7 +547,7 @@
 					
 					<cfinput type  = "text" 
 						onchange   = "_cf_loadingtexthtml='';ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=price&value='+this.value,'process')" 				 
-						class      = "regularxl enterastab" 
+						class      = "regularxxl enterastab" 
 						name       = "price" 
 						id         = "price_#workorderitemid#" 
 						value      = "#numberformat(price,",.__")#" 
@@ -566,14 +564,14 @@
 		</td>
 		
 		<td style="padding-left:3px;padding-top:0px;padding-right:4px">
-		<input type="radio" class="radioL" name="selected" 
+		<input type="radio" class="radiol" name="selected" 
 		   value="#workorderitemid#" 
 		   onchange= "_cf_loadingtexthtml='';ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=asDefault&value='+this.value,'process')">		
 		</td>
 		
 		<td style="padding-top:1px;padding-right:1px" id="copy_#workorderitemid#">		
-		<img src="#session.root#/images/copy.png" title="Inherit from selected line"
-			onclick="ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=copy&value=#workorderitemid#','process');" style="cursor:pointer" alt="Copy" border="0">		
+    		<img src="#session.root#/images/copy.png" title="Inherit from selected line"
+	    		onclick="ptoken.navigate('setItemValue.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#&workorderitemid=#workorderitemid#&field=copy&value=#workorderitemid#','process');" style="cursor:pointer" alt="Copy" border="0">		
 		</td>
 			
 		</tr>

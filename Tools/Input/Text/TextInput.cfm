@@ -74,7 +74,7 @@
 		
 			<cfif attributes.autosuggest eq "">
 				
-				<cfinput type="Text"
+						<cfinput type="Text"
 			       name       = "#Attributes.Name#"
 				   id         = "#Attributes.id#"
 			       value      = "#Attributes.Value#"
@@ -120,6 +120,8 @@
 			
 			   
 		<cfelse>
+		
+		 
 			<cfif req eq "No">
 				<input type="Text"
 		       	name      = "#Attributes.Name#"
@@ -244,9 +246,9 @@
 		
 		<td>
 		
-		<table border="0" cellspacing="0" cellpadding="0" style="height:20;border:0px solid silver">
+		<table style="height:20;border:0px solid silver">
 		<tr><td>
-		
+				
 			<cfinput type = "text"
 		       name       = "#Attributes.Name#"
 			   id         = "#Attributes.Id#"
@@ -261,8 +263,8 @@
 			   onKeyUp    = "#attributes.onKeyUp#">
 			   			 			   
 			   </td>			   
-			   <td class="#attributes.class#" id="zipfind_#Attributes.Id#" style="height:25px;padding-left:1px;border:0px">
-			   
+			   <td class="#attributes.class#" id="zipfind_#Attributes.Id#" style="min-width:200px;height:25px;padding-left:1px;border:0px">
+			 
 			    <cfif attributes.value neq "">
 				
 					<cfset url.code = Attributes.Value>

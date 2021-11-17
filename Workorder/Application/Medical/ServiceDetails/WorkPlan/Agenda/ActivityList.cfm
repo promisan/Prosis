@@ -657,7 +657,7 @@
 
 			<cf_divScroll id="mainAgendaListing">
 											
-			<table width="99%" border="0" cellspacing="0" cellpadding="0" class="clsPrintContent navigation_table">
+			<table width="99%" class="clsPrintContent navigation_table">
 			
 				<cfif url.size eq "small" or 
 				      url.size eq "embed" or  

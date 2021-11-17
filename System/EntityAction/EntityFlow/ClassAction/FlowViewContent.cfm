@@ -115,7 +115,7 @@
 	<cfif url.scope eq "Config">
 	
 	<tr>
-	<td style="padding-left:10px;font-size:30px;height:50px;font-weight:200" colspan="2" class="labelmedium">#Class.EntityDescription# : <font size="3">#Class.EntityClassName#</td>
+	<td style="padding-left:10px;font-size:30px;height:50px;font-weight:200" colspan="2" class="labelmedium fixlength">#Class.EntityDescription# : <font size="3">#Class.EntityClassName#</td>
 	<td align="right" style="padding:3px">
 	
 			<table class="formspacing">
@@ -220,7 +220,7 @@
 			 AND      ActionPublishNo = '#PublishNo#'
 		</cfquery>	
 		
-		<tr class="labelmedium line">
+		<tr class="labelmedium line fixlengthlist">
 		<td style="height:29px;font-size:18px;padding-left:10px" ><cf_tl id="Published">:</td>
 		<td style="font-size:18px;padding-left:10px">#dateFormat(Publish.DateEffective, CLIENT.DateFormatShow)# at : #timeFormat(Publish.DateEffective, "HH:MM")# [#Publish.ActionPublishNo#]</td>
 		<td align="center" style="padding-left:10px;font-size:18px;">
@@ -280,7 +280,7 @@
 				
 				<cfif PublishNo eq "">
 				
-				<td align="right" style="font-weight:200;font-size:16px;padding-top:4px;padding-right:8px" class="labelmedium">
+				<td align="right" style="font-size:16px;padding-top:4px;padding-right:8px" class="labelmedium">
 		
 				    <cfquery name="Check" 
 					datasource="AppsOrganization" 
@@ -295,7 +295,7 @@
 					</cfquery>
 				
 				    <cfif Check.recordcount gt "0" and (accessWorkflow eq "EDIT" OR accessWorkflow eq "ALL")>					 
-					 <a href="javascript:stepadd()">[Add workflow actions to this flow]</a>					 
+					 <a href="javascript:stepadd()">[Press to Add workflow actions]</a>					 
 					</cfif>
 					  
 				</cfif>		

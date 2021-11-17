@@ -15,7 +15,7 @@ password="#SESSION.dbpw#">
 <table width="94%" cellspacing="0" cellpadding="0" align="center" class="formpadding navigation_table">
 
 <tr><td height="8"></td></tr>
-<tr class="line labelmedium">
+<tr class="line labelmedium fixlengthlist">
 	<td><cf_tl id="Effective"></td>
 	<td><cf_tl id="Expiration"></td>
 	<td><cf_tl id="Location"></td>
@@ -38,7 +38,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Log">
 
-<tr class="navigation_row line labelmedium">
+<tr class="navigation_row line labelmedium fixlengthlist">
 	<td style="padding-left:2px">#dateformat(DateEffective,CLIENT.DateFormatShow)#</td>
 	<td>#dateformat(DateExpiration,CLIENT.DateFormatShow)#</td>
 	<td>#LocationCode#</td>

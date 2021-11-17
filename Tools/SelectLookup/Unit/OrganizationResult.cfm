@@ -141,7 +141,7 @@ ORDER BY HierarchyCode
 </cfquery>
 
 
-<table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+<table width="100%" class="navigation_table">
 
 <tr><td height="14" colspan="4">						 
 	 <cfinclude template="OrganizationNavigation.cfm">	 				 
@@ -151,16 +151,15 @@ ORDER BY HierarchyCode
 	
 	<cfif currentrow gte first>
 	
-		<tr style="height:20px" class="navigation_row labelmedium line">
-		  
-		    <td width="30" class="navigation_action" 
-				style="padding-left:6px;padding-top:1px" 
+		<tr style="height:20px" class="navigation_action navigation_row labelmedium line fixlengthlist">
+		 
+		    <td class="navigation_action" 				 
 				onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#orgunit#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>;">			
 			   <cf_img icon="open">			  		
 			</td>
-			<td width="60">#OrgUnitCode#</td>
-			<TD width="3%"><!--- #OrgUnitNameShort# ---></TD>
-			<TD width="75%">#OrgUnitName#</TD>
+			<td>#OrgUnitCode#</td>
+			<TD><!--- #OrgUnitNameShort# ---></TD>
+			<TD>#OrgUnitName#</TD>
 		</tr>
 		
 	</cfif>	

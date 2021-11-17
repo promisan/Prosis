@@ -34,7 +34,7 @@ WHERE PersonNo = '#URL.ID#'
 function validate() {
 	document.ApplicantEdit.onsubmit() 
 	if( _CF_error_messages.length == 0 ) {         
-		ColdFusion.navigate('ApplicantEditSubmit.cfm','process','','','POST','ApplicantEdit')
+		ptoken.navigate('ApplicantEditSubmit.cfm','process','','','POST','ApplicantEdit')
 	 }   
 }	 
 
@@ -42,13 +42,13 @@ function validate() {
 
 <cf_dialogPosition>
 
-<cfform action="ApplicantEditSubmit.cfm"  onsubmit="return false" style="height:100" method="POST" name="ApplicantEdit" id="ApplicantEdit">
+<cfform onsubmit="return false" style="height:100" method="POST" name="ApplicantEdit" id="ApplicantEdit">
  
 <table width="92%" height="100%" cellspacing="" cellpadding="0" align="center" class="formpadding">
 	
 	<tr><td height="10"></td></tr>
 	
-	<tr class="hide"><td colspan="2" id="process"></td></tr>
+	<tr class="xxxxhide"><td colspan="2" id="process"></td></tr>
 	
 		
 	    <!--- Field: Applicant.LastName --->
@@ -322,7 +322,7 @@ function validate() {
 	<input type="button" name="close" id="close" value="Close" class="button10g" onClick="parent.ProsisUI.closeWindow('mydialog',true)">
 	</td>	
 	<td>
-	<input class="button10g" type="submit" name="Update" id="Update" value="Save" onclick="Prosis.busy('yes');validate()">
+	<input class="button10g" type="button" name="Update" id="Update" value="Save" onclick="Prosis.busy('yes');validate()">
 	</td></tr>
 	</table>
 	

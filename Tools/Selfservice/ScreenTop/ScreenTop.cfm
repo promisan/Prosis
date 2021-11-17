@@ -314,13 +314,13 @@ datasource="AppsInit">
 		
 					<td width="100%" height="100%" align="right" valign="top">
 							
-						<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+						<table width="100%" height="100%">
 						
 							<tr id="screentopbox">
 													
 								<td width="100%" align="right">		
 																	
-									<table width="100%" border="0" cellspacing="0" cellpadding="0"
+									<table width="100%" border="0"
 									background="<cfif attributes.mail eq 'yes'>#SESSION.root#/#bg#</cfif>"
 									style="background-repeat:no-repeat; background-image:url(#SESSION.root#/#bg#); background-position:left top; -webkit-background-size:100% 100%; -moz-background-size:100% 100%; -o-background-size:100% 100%; background-size:100% 100%; background-color:###attributes.backgroundColor#;">
 	
@@ -347,28 +347,32 @@ datasource="AppsInit">
 											
 											<td rowspan="<cfif attributes.option eq ''>1<cfelse>2</cfif>" height="#ht#">
 	
-												<table cellspacing="0" cellpadding="0" border="0">													
+												<table width="100%" cellspacing="0" cellpadding="0" border="0">													
 													<tr>													
 														<td colspan="2">
-															<table cellspacing="0" cellpadding="0">
+															<table width="100%" cellspacing="0" cellpadding="0">
 																<tr>
 																	<td align="center" class="labelmedium drk-hover" style="width:50px;background:##033F5D;width:32px;border-right:1px solid rgba(255,255,255,0.2);padding:10px 10px 10px 10px;height:50px;">
 																	   <img src="#session.root#/images/logos/menu/prosis-icon.png" style="cursor:pointer" height="24" width="24" title="Function" border="0" onclick="##">						 
 																	</td>											
 																	<td>
-																	<table cellspacing="0" cellpadding="0">
+																	<table width="100%" cellspacing="0" cellpadding="0">
 																		<tr style="height:22px">
-																		<td class="labellarge" style="padding-left:17px;color:#attributes.textColorClose#;">																																				
+																		<td class="fixlength labellarge" style="padding-left:17px;color:#attributes.textColorClose#;">																																				
 																			<span id="screentoplabel" style="font-size:20px;">#Attributes.label#  <cfif url.print eq "1"><font size="2"><i><cf_tl id="Print Version" class="message"></i></font></cfif></span>																		
 																		</td>
 																		</tr>
 																		<cfif attributes.option neq "">
 																		<tr style="height:23px">																																									
-																			<td class="labelit" id="screentopoption" style="padding-left:26px;color:#attributes.textColorClose#">#attributes.option#</td>
+																			<td class="fixlength labelit" id="screentopoption" style="padding-left:26px;color:#attributes.textColorClose#">#attributes.option#</td>
 																		</tr>	
 																	    </cfif>
 																	</table>
 																	</td>
+																	
+																	<!--- container for show of interval check in workflow --->	
+																	<span class="hide" id="communicate"></span>
+																	
 																</tr>
 																																
 															</table>
@@ -400,12 +404,12 @@ datasource="AppsInit">
 												
 													<tr>
 													    <cfif attributes.menucopy eq "Yes">
-                                                        <td class="labelmedium drk-hover" style="border-left:1px solid rgba(255,255,255,0.2);padding:12px 18px;color:#attributes.textColorClose#;"
+                                                        <td class="fixlength labelmedium drk-hover" style="border-left:1px solid rgba(255,255,255,0.2);padding:12px 18px;color:#attributes.textColorClose#;"
 														 align="right" onclick="ptoken.open('#tpe#://#SERVER_NAME#/#SCRIPT_NAME#?#cgi.query_string#','_blank')">														 
 														 #SESSION.first# #SESSION.last#														 													
 													     <cfif session.isAdministrator eq "yes">*</cfif></td>
 														 <cfelse>
-														  <td class="labelmedium drk-hover" style="border-left:1px solid rgba(255,255,255,0.2);padding:12px 18px;color:#attributes.textColorClose#;"
+														  <td class="fixlength labelmedium drk-hover" style="border-left:1px solid rgba(255,255,255,0.2);padding:12px 18px;color:#attributes.textColorClose#;"
 														 align="right">														 
 														 #SESSION.first# #SESSION.last#														 													
 													     <cfif session.isAdministrator eq "yes">*</cfif></td>
@@ -422,7 +426,7 @@ datasource="AppsInit">
 														
 														<cfif attributes.menuPrint eq "yes">
 																						
-															<td align="right" width="1%" class="labelmedium drk-hover" align="center" style="border-left:1px solid rgba(255,255,255,0.2); font-size:11px; color:#attributes.textColorClose#; padding-top:3px; padding-right:15px; padding-left:15px;">										
+															<td align="right" width="1%" class="fixlength labelmedium drk-hover" align="center" style="border-left:1px solid rgba(255,255,255,0.2); font-size:11px; color:#attributes.textColorClose#; padding-top:3px; padding-right:15px; padding-left:15px;">										
 																<div class="clsScreenTopPrintTitle" style="display:none;">#Attributes.title#</div>
 																
 																<cf_tl id="Print Screen Content" var="1">

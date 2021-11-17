@@ -1424,7 +1424,7 @@ password="#SESSION.dbpw#">
 							we allow for selection of the item  --->	
 																																											
 							<cfif requestHasWarehouseItem eq "Yes" or requisition.EnforceWarehouse gte "1">
-																															
+																																						
 								<table cellspacing="0" cellpadding="0">
 								<tr><td>								
 								<input type="text"   name="itemno"  id="itemno"                   value="#Requisition.WarehouseItemNo#"     class="regularxl" size="6"   readonly>
@@ -1467,14 +1467,15 @@ password="#SESSION.dbpw#">
 										<cfloop query="UoMList"><option value="#uoM#" <cfif UoM eq Requisition.WarehouseUoM>selected</cfif>>#UoMDescription#</option></cfloop>
 									</select>	
 								
-								<cfelse>		
-																							
+								<cfelse>	
+																															
 									<input type="text"   name="uomname" id="uomname"                  value="#Requisition.QuantityUoM#"         class="regularxl" size="10"  readonly 
 									     style="background-color:eaeaea;padding-left:2px;text-align: left;">
 										 										 
 									<input type="hidden" name="itemuom" id="itemuom"                  value="#Requisition.WarehouseUoM#">	
 																	
 								</cfif>
+								
 																
 								</td></tr>
 								</table>							
@@ -1488,8 +1489,7 @@ password="#SESSION.dbpw#">
 								
 														
 							</cfif>		
-								
-																			
+																
 						<cfelse>
 																		
 						     <cfquery name="Item" 
@@ -1821,7 +1821,7 @@ password="#SESSION.dbpw#">
 	 
 	 <cfelse>
 	 
-	 	<cfset chg = "setstockline('1','#Line.RequisitionNo#',document.getElementById('WarehouseReceiptUoM').value,this.value,document.getElementById('warehouseprice').value,'quantityline','#itemUoM.UoM#',document.getElementById('warehousecurrency').value)">
+	 	<cfset chg = "setstockline('1','#Line.RequisitionNo#',document.getElementById('WarehouseReceiptUoM').value,this.value,document.getElementById('warehouseprice').value,'quantityline',document.getElementById('itemuom').value,document.getElementById('warehousecurrency').value)">
 	
    	 	 <cfinput type="Text" 
 			  name="receiptquantity" 

@@ -90,7 +90,7 @@
 			<cfif attributes.hideLanguage eq "No">			
 				<tr><td height="4"></td></tr>		
 				<tr>
-				<td align="center" bgcolor="f1f1f1" class="labelmedium" style="font-weight:300;height:20px;-moz-border-radius: 2px;border-radius: 2px;padding:4px;border:1px solid silver"><cf_tl id="Languages"></td>
+				<td align="center" bgcolor="f1f1f1" class="labelmedium" style="height:20px;-moz-border-radius: 2px;border-radius: 2px;padding:4px;border:1px solid silver"><cf_tl id="Languages"></td>
 				</tr>			
 	
 				<tr>
@@ -103,7 +103,7 @@
 			<cfif attributes.hideEducation eq "No">			
 				<tr><td height="4"></td></tr>
 				<tr>
-				<td bgcolor="f1f1f1" align="center" style="font-weight:300;height:20px;-moz-border-radius: 2px;border-radius: 2px;padding:4px;border:1px solid silver" class="labelmedium"><cf_tl id="Academic Classifications"></td>	
+				<td bgcolor="f1f1f1" align="center" style="height:20px;-moz-border-radius: 2px;border-radius: 2px;padding:4px;border:1px solid silver" class="labelmedium"><cf_tl id="Academic Classifications"></td>	
 				</tr>
 				<tr>
 				<td valign="top" style="padding:4px;border-right:0px dotted silver;">				
@@ -129,7 +129,7 @@
 					
 			<tr><td height="4" </td></tr>
 			<tr>
-			<td bgcolor="f1f1f1" align="center" class="labelmedium" style="font-weight:300;height:20px;-moz-border-radius: 2px;padding:4px;border:1px solid silver"><cf_tl id="Work Experience"></td>
+			<td bgcolor="f1f1f1" align="center" class="labelmedium" style="height:20px;-moz-border-radius: 2px;padding:4px;border:1px solid silver"><cf_tl id="Work Experience"></td>
 			</tr>
 			<tr>
 			<td valign="top" style="padding:4px;border-right:0px dotted silver">				

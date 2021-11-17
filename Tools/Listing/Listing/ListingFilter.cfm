@@ -662,12 +662,12 @@
 							  <cfset val = evaluate("form.filter#current.field#_from")>		
 							  
 							  <!--- was true but gave issue in the refresh --->					
-							 							  
+							 					  
 							     <cf_intelliCalendarDate9
 									FieldName="filter#current.field#_from" 
 									Default="#val#"
 									class="regularxxl"
-									manual="false"
+									manual="true"
 									AllowBlank="#blank#">									
 																		
 							   <cfset reset =  "#reset#;document.getElementById('filter#current.field#_from').value=''">	 

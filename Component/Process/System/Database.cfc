@@ -4,7 +4,8 @@
     <cfset this.name = "Database utilities">
 	
 	<cfinvoke component = "Service.Process.System.UserController"  
-	   method           = "ValidateCFCAccess" 
+	   method           = "ValidateCFCAccess"
+	   datasource       = "#DataSource#" 
 	   sessionId        = "#session.sessionid#" 
 	   account          = "#session.acc#">	
 	

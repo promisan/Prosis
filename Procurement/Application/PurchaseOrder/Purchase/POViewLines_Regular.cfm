@@ -1,4 +1,6 @@
 
+
+
 <!--- Prosis template framework --->
 <cfsilent>
 	<proUsr>jmazariegos</proUsr>
@@ -64,15 +66,15 @@
 
 <table width="100%" style="min-width:1100px" align="center" class="navigation_table">
   
-    <TR bgcolor="white" class="labelmedium2 fixrow240">
-	   <td height="19" width="24" style="width:20px;"></td>
+    <TR bgcolor="white" class="labelmedium2 fixrow240 fixlengthlist">
+	   <td height="19" width="24"></td>
 	   <cfif URL.Mode eq "Edit" and PO.ActionStatus eq "0">
-	   <td colspan="2" style="width:20px;"></td>
+	   <td colspan="2"></td>
 	   <cfelse>
-	   <td colspan="2" style="width:20px;"></td>
+	   <td colspan="2"></td>
 	   </cfif>
-	   <td style="width:20px"></td>
-	   <td width="40%" style="top:40px"><cf_tl id="Description"></td>
+	   <td></td>
+	   <td style="top:40px"><cf_tl id="Description"></td>
 	   <td><cf_tl id="Job"></td>
 	   <td align="right"><cf_tl id="Qty"></td>
        <td align="center"><cf_tl id="UoM"></td>
@@ -105,7 +107,7 @@
 			<cfif OrderAmountBase lte "0">
 							
 			<tr bgcolor="gray" id="#requisitionno#_1" style="height:20px;<cfif actionstatus eq '9'>background-color:##FEC5B880</cfif>" 
-			    class="labelmedium line navigation_row">
+			    class="labelmedium line navigation_row fixlengthlist">
 			
 			<cfelse>
 									
@@ -119,37 +121,37 @@
 			
 			<tr id="#requisitionno#_1" 
 			   style="border-bottom:1px dotted silver;height:20px;border-top:1px solid silver;background-color:<cfif actionstatus eq '9'>##FEC5B880<cfelse>#cls#</cfif>" 
-			   class="labelmedium2 navigation_row">
+			   class="labelmedium2 navigation_row fixlengthlist">
 			
 			</cfif>			
 						
-			<td style="height:23px" width="10" align="center">#CurrentRow#.</td>
+			<td style="height:23px" align="center">#CurrentRow#.</td>
 									
 			<cfif (URL.Mode eq "Edit" AND PO.ActionStatus eq "0") 
 			      or
 				  (Parameter.EditPurchaseAfterIssue eq "1" AND PO.ActionStatus eq "3" and DeliveryStatus eq "0" and URL.Mode eq "Edit")>
 				  
-				  <td align="center" style="width:20px;padding-top:2px">					  
+				  <td align="center" style="padding-top:2px">					  
 				  	<cf_img icon="open" onclick="ProcReqEdit('#RequisitionNo#','dialog')">	  							  
 			  		</td>	
 				  													
-			        <td align="center" style="width:20px;padding-top:1px">					
+			        <td align="center" style="padding-top:1px">					
 					<cf_img icon="edit" onclick="ProcLineEdit('#requisitionno#','edit');">										 
 					</td>
 				
 			<cfelse>
 			
-			<td align="center" style="width:20px;padding-top:2px">					  
+			<td align="center" style="padding-top:2px">					  
 				  	<cf_img icon="open" onclick="ProcReqEdit('#RequisitionNo#','dialog')">	  							  
 			  </td>	
 			
-			  <td align="center" style="width:20px;padding-top:2px">					  
+			  <td align="center" style="padding-top:2px">					  
 				  	<cf_img icon="edit" onclick="ProcLineEdit('#requisitionno#','view');">	  							  
 			  </td>				  
 				
 			</cfif> 
 			
-			<td align="left" style="width:10px;padding-top:2px">
+			<td align="left" style="padding-top:2px">
 														
 			<cfif Receipts eq "0">
 			
@@ -178,25 +180,21 @@
 				<cfelse>				
 					<cfset des = OrderItem>				
 				</cfif>
-				
-				<cfif len(des) gte "60">
-					<a href="javascript:ProcReqEdit('#RequisitionNo#','dialog')" title="#des#">#left(des,60)#..</a>
-				<cfelse>
-				    #des#
-				</cfif>
-			
+								
+				<span title="#des#">#des#</span>
+							
 			</td>
 			
 			<td><a href="javascript:job('#JobNo#')"><U><font color="gray"><cfif caseno neq "">#CaseNo#<cfelse>#JobNo#</cfif></font></a>
 			<cfif lineReference neq ""><cfif CaseNo neq "">/</cfif>#LineReference#</cfif>
 			</td>
 			
-   		    <td style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver" align="right">
+   		    <td style="border-left:1px solid gray;border-right:1px solid silver" align="right">
 			#numberformat(OrderQuantity,',.___')#</td>
-		    <td  style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver;padding-left:4px">#OrderUoM#</td>
-			<td  style="text-align:right;border-left:1px solid gray;padding-right:4px;border-right:1px solid silver;padding-left:5px">
+		    <td  style="border-left:1px solid gray;border-right:1px solid silver;padding-left:4px">#OrderUoM#</td>
+			<td  style="text-align:right;border-left:1px solid gray;border-right:1px solid silver">
 			<cfif OrderUoMVolume neq "0"  and OrderUoMVolume neq "">#OrderUoMVolume*OrderQuantity#<cfelse>-- <!---(#OrderUoMVolume#)---></cfif></td>
-			 <td  style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver" align="right">
+			 <td  style="border-left:1px solid gray;border-right:1px solid silver" align="right">
 			<cfif Lines.OrderQuantity lte 0>
 				<cfset Lines.OrderQuantity = 1>
 			</cfif>
@@ -208,7 +206,7 @@
 			</cfif>			 
 			</td>
 			
-			<td  style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver" align="right">
+			<td  style="border-left:1px solid gray;border-right:1px solid silver" align="right">
 			
 			<cfif Orderwarehouse gt "0">
 				<cfset prc = OrderAmountCost/OrderWarehouse>
@@ -221,13 +219,13 @@
 			
 			</td>
 	       
-			<td  style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver" align="right">#NumberFormat(OrderAmountCost,",.__")#</td>
-			<td  style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver" align="right">#NumberFormat(OrderAmountTax,",.__")#</td>
-			<td  style="background-color:ffffaf;border-left:1px solid gray;padding-right:4px;border-right:1px solid silver" style="padding-right:4px" align="right">#NumberFormat(OrderAmount,",.__")#</td>
+			<td  style="border-left:1px solid gray;border-right:1px solid silver" align="right">#NumberFormat(OrderAmountCost,",.__")#</td>
+			<td  style="border-left:1px solid gray;border-right:1px solid silver" align="right">#NumberFormat(OrderAmountTax,",.__")#</td>
+			<td  style="background-color:ffffaf;border-left:1px solid gray;border-right:1px solid silver" style="padding-right:4px" align="right">#NumberFormat(OrderAmount,",.__")#</td>
 			<cfif APPLICATION.BaseCurrency neq lines.currency>
-				<td  style="background-color:f1f1f1;border-left:1px solid gray;padding-right:4px;border-right:1px solid silver;padding-left:8px" align="right">#NumberFormat(OrderAmountBase,",__.__")#</td>
+				<td  style="background-color:f1f1f1;border-left:1px solid gray;border-right:1px solid silver;padding-left:8px" align="right">#NumberFormat(OrderAmountBase,",__.__")#</td>
 			<cfelse>
-				<td  style="border-left:1px solid gray;padding-right:4px;border-right:1px solid silver;padding-left:8px"></td>
+				<td  style="border-left:1px solid gray;border-right:1px solid silver"></td>
 			</cfif>			
            	</tr>		
 			

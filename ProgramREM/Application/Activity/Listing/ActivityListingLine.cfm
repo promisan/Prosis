@@ -30,7 +30,7 @@
 		<cfset de = ActivityDate>
 	</cfif>
 		
-	<tr name="cl#clrow#" id="cl#clrow#" class="navigation_row labelmedium line">
+	<tr name="cl#clrow#" id="cl#clrow#" class="navigation_row labelmedium line fixlengthlist">
 		
 	<cfif url.outputshow eq "0" and url.option neq "2">
 	
@@ -62,13 +62,11 @@
 	
 	</cfif>
 	
-	<td style="cursor: pointer;min-width:30px;padding-right:5px" onClick="javascript:showprogress('#activityId#')">
-	
-		#currentrow#
-	
+	<td style="cursor: pointer;padding-right:5px" onClick="javascript:showprogress('#activityId#')">	
+		#currentrow#	
 	</td>	
 	
-	<cfif ActivityDescription neq "">
+	<cfif ActivityDescription neq ""and len(activitydescription) gt "4">
 		<cfset vDescription = ActivityDescription>
 	<cfelse>
 		<cf_tl id="Undefined" var="1">
@@ -76,10 +74,10 @@
 	</cfif>
 		
 	<cfif (EditAccess eq "Edit" or EditAccess eq "ALL") and (ActivityPeriod eq url.Period)>	
-	    <td style="padding-left:10px;width:100%" onclick="javascript:edit('#activityid#')">
-		  
-		  <font color="0080C0">
-		  
+	    
+		<td style="padding-left:10px" onclick="javascript:edit('#activityid#')">	
+						  
+		  <font color="0080C0">		  
 		  <cf_UITooltip
 			id         = "#activityId#"
 			ContentUrl = "Listing/ActivityPopup.cfm?activityid=#activityid#"
@@ -87,13 +85,13 @@
 			Position   = "right"  
 			Width      = "400"
 			Height     = "200"
-			Duration   = "300">#vDescription#</cf_UITooltip>
-		  
+			Duration   = "300">#vDescription#</cf_UITooltip>		  
 		  </font>
 		</td>
-	<cfelse>
-		<td style="width:100%">
 		
+	<cfelse>
+		<td>
+						
 		<cf_UITooltip
 			id         = "#activityId#"
 			ContentUrl = "Listing/ActivityPopup.cfm?activityid=#activityid#"
@@ -128,8 +126,8 @@
 			
 	</td>
 							
-	<td align="center" style="min-width:100px">#DateFormat(ActivityDateStart, CLIENT.DateFormatShow)#</td>
-	<td align="center" style="min-width:100px">
+	<td align="center" style="width:100px">#DateFormat(ActivityDateStart, CLIENT.DateFormatShow)#</td>
+	<td align="center" style="width:100px">
 	<cfif url.output eq "1" or Status eq "Pending">
 		<!--- the real planned date ---->
 		#DateFormat(ActivityDateEnd, CLIENT.DateFormatShow)#
@@ -138,7 +136,7 @@
 	</cfif>	
 	</td>
 	
-	<td>
+	<td align="center" style="width:60px">
 	
 	<cftry>
 	
@@ -213,39 +211,37 @@
 			  	<cfloop query="getCosting">
 				 
 					 <cfset tot = tot + RequestAmountBase>
-				     <tr class="line labelit navigation_row">
+					 
+				     <tr class="line labelmedium2 navigation_row">
+					 
 					    <td style="padding-top:2px;width:20px">
 											
-						<cfif Allotment eq "0" or Allotment eq "">
-																												
-							<cfif RequestType eq "ripple">
+							<cfif Allotment eq "0" or Allotment eq "">
+																													
+								<cfif RequestType eq "ripple">
+								
+									<!--- only budget manager has access to rippled stuff --->																				
+									<cfif requirementLock eq "0" and (BudgetManagerAccess eq "EDIT" or BudgetManagerAccess eq "ALL")>																				
+										<cf_img icon="edit" navigation="Yes" onclick="alldetinsert('resource','#editionid#','#objectcode#','#requirementid#','resource')">								
+									</cfif>
+								
+								<cfelse>
 							
-								<!--- only budget manager has access to rippled stuff --->	
-																			
-								<cfif requirementLock eq "0" and (BudgetManagerAccess eq "EDIT" or BudgetManagerAccess eq "ALL")>	
-																			
-									<cf_img icon="edit" navigation="Yes" onclick="alldetinsert('resource','#editionid#','#objectcode#','#requirementid#','resource')">
+									<cfif requirementLock eq "0">																					
+										<cf_img icon="edit" navigation="Yes" onclick="alldetinsert('resource','#editionid#','#objectcode#','#requirementid#','resource')">													
+									</cfif>
 								
 								</cfif>
-							
-							<cfelse>
-						
-								<cfif requirementLock eq "0">		
-																			
-									<cf_img icon="edit" navigation="Yes" onclick="alldetinsert('resource','#editionid#','#objectcode#','#requirementid#','resource')">
-													
-								</cfif>
-							
-							</cfif>
-																							
-						</cfif>					
+																								
+							</cfif>					
 						
 						</td>
 					 	<td style="width:60px;padding-left:4px">#Fund#</td>
 						<td style="width:20%">#Description#</td>
-						<td style="width:100">#Dateformat(RequestDue,client.dateformatshow)#</td>
+						<td style="width:100px">#Dateformat(RequestDue,client.dateformatshow)#</td>
 						<td>#ItemMaster# #RequestDescription#</td>
-						<td align="right" style="width:120px;padding-right:4px">#numberformat(RequestAmountBase,",__.__")#</td>
+						<td align="right" style="width:120px;padding-right:4px">#numberformat(RequestAmountBase,",.__")#</td>
+						
 					 </tr>
 				 
 				</cfloop> 

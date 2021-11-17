@@ -35,16 +35,15 @@
 		<cfif displayMode eq "1">
 				
 		    <cfoutput>
-			<table cellspacing="0" cellpadding="0" align="<cfoutput>#align#</cfoutput>" border="0" class="formpadding">		
-				<tr>		
-					<td class="labelit" style="color:<cfoutput>#color#</cfoutput>; font-size:13px">
-					    <cf_space spaces="34">						
+			<table align="<cfoutput>#align#</cfoutput>" border="0" class="formpadding">		
+				<tr class="fixlengthlist">		
+					<td class="labelmedium2" style="color:<cfoutput>#color#</cfoutput>; font-size:13px">					   				
 						<cf_tl id="User name">:
 					</td>			
 					<td style="padding-left:10px;">
-						<input name="account" id="account" required="yes" class="regularxl enterastab" style="text-align: center;" type="text" value="<cfoutput>#logon#</cfoutput>" size="18"  maxlength="30" onchange="document.getElementById('password').value='';" onblur="document.getElementById('password').value='';">
+						<input name="account" id="account" required="yes" class="regularxxl enterastab" style="text-align: center;" type="text" value="<cfoutput>#logon#</cfoutput>" size="18"  maxlength="30" onchange="document.getElementById('password').value='';" onblur="document.getElementById('password').value='';">
 					</td>					                  
-					<td class="labelit" style="padding-left:20px; color:<cfoutput>#color#</cfoutput>; font-size:13px">
+					<td class="labelmedium2" style="padding-left:20px; color:<cfoutput>#color#</cfoutput>; font-size:13px">
 						<cf_tl id="Password">:
 					</td>			  
 					<td style="padding-left:10px;">
@@ -55,7 +54,7 @@
 						   id="password" 
 						   size="18" 
 						   maxlength="50" 
-						   class="passwordxl" 
+						   class="passwordxxl" 
 						   autocomplete="off" 
 						   onKeyUp="go(event)"
 						   style="text-align: center;" 
@@ -134,8 +133,8 @@
 		<cfif displayMode eq "2">
 		
 			<cfoutput>
-			<table cellspacing="0" cellpadding="0" border="0" class="formpadding"  width="320">		
-				<tr>		
+			<table border="0" class="formpadding"  width="320">		
+				<tr class="fixlengthlist">		
 					
 					<cfif Parameter.ApplicationLogon neq "">
 						<td>		
@@ -144,7 +143,7 @@
 									<td>
 										<img style="vertical-align:middle" src="#Parameter.ApplicationLogon#" width=24px">
 									</td>
-									<td class="labelit"  style="color:<cfoutput>#color#</cfoutput>; font-size:14px;" align="right">
+									<td class=" fixlength"  style="color:<cfoutput>#color#</cfoutput>; font-size:14px;" align="right">
 										<cfif Parameter.ApplicationLogonLabel neq "">
 											#Parameter.ApplicationLogonLabel#
 										<cfelse>
@@ -156,8 +155,8 @@
 							</table>
 						</td>
 					<cfelse>
-						<td class="labelit" style="color:<cfoutput>#color#</cfoutput>; font-size:14px" align="right">
-							<cf_space spaces="34">
+						<td class="labelit fixlength" style="color:<cfoutput>#color#</cfoutput>; font-size:14px" align="right">
+							
 							<cfif Parameter.ApplicationLogonLabel neq "">
 								#Parameter.ApplicationLogonLabel#
 							<cfelse>
@@ -168,7 +167,8 @@
 					</cfif>
 						
 
-					<td style="padding-top:5px;" align="right">					
+					<td style="padding-top:5px;" align="right">			
+							
 						<input name="account" 
 							   id="account" 
 							   class="regularxl enterastab" 
@@ -181,8 +181,8 @@
 					</td>		
 				</tr>
 				<tr><td height="3" colspan="2"></td></tr>
-				<tr>
-					<td class="labelit" style="color:<cfoutput>#color#</cfoutput>; font-size:14px" align="right">
+				<tr class="fixlengthlist">
+					<td class="labelit fixlength" style="color:<cfoutput>#color#</cfoutput>; font-size:14px" align="right">
 						<cf_tl id="Password">:
 					</td>			  
 					<td style="padding-top:5px;" align="right">
@@ -200,7 +200,7 @@
 					</td>			             
 				</tr>
 				<tr><td height="3" colspan="2"></td></tr>
-				<tr>
+				<tr class="fixlengthlist">
 					<td style="padding-left:10px; padding-top:5px;" align="center" colspan="2">
 					
 						<input style="height: 36px; border:none; border-radius: 5px; padding: 5px; background: ##1a73e8; color: ##ffffff; text-transform: uppercase; font-weight: 600; font-size:14px; font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,'Raleway', sans-serif !important" type="button" 
@@ -237,17 +237,17 @@
 																				
 										<td>
 													
-												<cfquery name="Link" 
-													datasource="AppsSystem">
-													SELECT    *
-													FROM      PortalLinks
-													WHERE     PortalId = '#Parameter.SystemSupportPortalId#'
-												</cfquery>		
-												<cfoutput>		 
-													<a href="support.cfm?id=#Parameter.SystemSupportPortalId#" style="color:<cfoutput>#color#</cfoutput>" target="_new">
-														#Link.Description#
-													</a>
-												</cfoutput>		
+											<cfquery name="Link" 
+												datasource="AppsSystem">
+												SELECT    *
+												FROM      PortalLinks
+												WHERE     PortalId = '#Parameter.SystemSupportPortalId#'
+											</cfquery>		
+											<cfoutput>		 
+												<a href="support.cfm?id=#Parameter.SystemSupportPortalId#" style="color:<cfoutput>#color#</cfoutput>" target="_new">
+													#Link.Description#
+												</a>
+											</cfoutput>		
 											
 										</td>
 										<td style="color:<cfoutput>#color#</cfoutput>">

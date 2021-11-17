@@ -63,12 +63,9 @@
 			 <!--- does not count as is shown in grouping --->	
 							 		 
 		 <cfelseif current.display eq "1" and current.rowlevel eq "1">
-		 
-		 		 
+		 		 		 
 		    <cfset col = col+1>		
 			
-							
-				
 		    <cfif current.width eq "0">
 			
 			    <cfset size = len(current.label)+5>		
@@ -76,15 +73,13 @@
 				<cfset labelsize = len(current.label)*3>	
 				<cfset sizefield = len(current.label)*3>													
 				
-				<!--- inspect the first 15 records for the width --->		
-												
+				<!--- inspect the first 15 records for the width --->													
 				
 				<cfloop query="searchresult" startrow="1" endrow="15">				
 								    										
 				    <cfif current.formatted eq "Rating">					
 						<cfset sizefield = "10">					
-					<cfelse>
-					 	
+					<cfelse>					 	
 					   							
 						<cftry>		
 														
@@ -130,14 +125,12 @@
 		  </cfif>
 		  		  	
     </cfloop>
-	
-				
+					
 	<!--- apply the width --->
 	
 	<cfset totalcols = totalcols+col>
 	
 	<cfset col = 0> 
-	
 			
 	<cfloop array="#attributes.listlayout#" index="current">
 	
@@ -191,14 +184,15 @@
 						
 						</cfloop>		
 																
-						<td style="width:#dw#;min-width:#size#;border-left:1px solid silver;padding-left:5px">																															
+						<td style="width:#dw#;min-width:#size#;border-left:1px solid silver;padding-left:5px">	
+																																	
 						
 					<cfelse>										
 					
 						<td style="width:#dw#;min-width:#current.width#;border-left:1px solid silver;padding-left:5px">		
 																															
 					</cfif>	
-							
+												
 			<cfelse>
 			
 			    <cfif url.listorderdir is "ASC">
@@ -208,17 +202,16 @@
 				</cfif>
 								
 				<cfset sc = "document.getElementById('listorderdir').value='#dir#';document.getElementById('listorderfield').value='#current.field#';document.getElementById('listorder').value='#current.fieldsort#';document.getElementById('listorderalias').value='#current.alias#';applyfilter('','','content')">
-								
+							
 				<cfif find("%",current.width)> 								
-				    <td style="width:#current.width#;border-left:1px solid silver;padding-left:5px" onClick="#sc#">
+				    <td style="min-width:20px;width:#current.width#;border-left:1px solid silver;padding-left:5px" onClick="#sc#">
 				<cfelse>				
 					<cfparam name="current.formatted" default="#current.field#">						
 					<cfif current.formatted eq "">
 						<cfset current.formatted = current.field>
 					</cfif>																					 																
-					<td onClick="#sc#" style="width:#dw#;#stl#;border-left:1px solid silver;padding-left:5px">														
-				</cfif>	
-				
+					<td onClick="#sc#" style="min-width:20px;width:#dw#;#stl#;border-left:1px solid silver;padding-left:5px">														
+				</cfif>					
 																	
 			</cfif>
 									
@@ -258,7 +251,7 @@
 			</td>
 		  
 		  </cfif>
-	
+		  	
     </cfloop>	
 					
 	<cfif attributes.listtype eq "Directory">	

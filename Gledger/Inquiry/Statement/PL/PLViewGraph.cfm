@@ -109,18 +109,19 @@
 	</cfif>
 	
 	<cf_mobileGraph
-		id = "plGraph"
-		type = "area"
-		height = "500px"
-		series = "#vSeriesArray#"
-		minScale = "#vMinScale#"
-		maxScale = "#vMaxScale#"
-		responsive = "yes"
-		scaleLabel = "<%= numberAddCommas(roundNumber(value, 2)) %>"
+		id           = "plGraph"
+		type         = "area"
+		height       = "500px"
+		series       = "#vSeriesArray#"
+		minScale     = "#vMinScale#"
+		maxScale     = "#vMaxScale#"
+		responsive   = "yes"
+		scaleLabel   = "<%= numberAddCommas(roundNumber(value, 2)) %>"
 		tooltipLabel = "<%if (label){%><%=label%>: <%}%> <%= numberAddCommas(roundNumber(value, 2)) %>"
 		multitooltiplabel = "<%= datasetLabel %>: <%= numberAddCommas(roundNumber(value, 2)) %>"
-		onclick = "function(e) { console.log(e[0].label + ' - ' + e[0].value); }">
+		onclick      = "function(e) { console.log(e[0].label + ' - ' + e[0].value); }">
 	</cf_mobileGraph>	
+	
 	
 </td></tr>
 </table>	

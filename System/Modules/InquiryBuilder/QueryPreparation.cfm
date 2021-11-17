@@ -1,12 +1,14 @@
 
+<cfparam name="functionserialNo" default="1">
+
 <cfquery name="Module"
 		datasource="AppsSystem"
 		username="#SESSION.login#"
 		password="#SESSION.dbpw#">
-	SELECT *
-	FROM    Ref_ModuleControlDetail
-	WHERE   SystemFunctionId = '#systemfunctionid#'
-AND     FunctionSerialNo = '#functionserialno#'
+		SELECT  *
+		FROM    Ref_ModuleControlDetail
+		WHERE   SystemFunctionId = '#systemfunctionid#'
+	    AND     FunctionSerialNo = '#functionserialno#'
 </cfquery>
 
 <cfinclude template="QueryPreparationVars.cfm">

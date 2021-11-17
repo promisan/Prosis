@@ -8,10 +8,13 @@
 
 <cfset mode = "personal">
 
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/> 
+
 <script language="JavaScript">
 
 function editEntitlement(persno, no) {
-   window.location = "EntitlementEdit.cfm?Status=#URL.Status#&ID=" + persno + "&ID1=" + no;
+   window.location = "EntitlementEdit.cfm?Status=#URL.Status#&ID=" + persno + "&ID1=" + no + "&mid=#mid# 
 }
 </script>
 
@@ -44,7 +47,7 @@ function editEntitlement(persno, no) {
 
 <cfif form.entitlement eq "">
 
-	<table width="100%" height="90%" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" height="90%" align="center">
 	    <tr>
 		<td valign="middle" align="center">
 		<table>
@@ -149,7 +152,7 @@ password="#SESSION.dbpw#">
 	<table width="100%" cellspacing="0" cellpadding="0" align="center">
 	<tr>
 	<td align="center" height="30">
-	<font face="Verdana" size="2" color="FF0000"><b>An entitlement with an overlapping period is found</font></b></p>
+	<font face="Verdana" size="2" color="FF0000">An entitlement with an overlapping period is found</font></p>
 	</td></tr>
 	<tr><td align="center">
 	<input type="button" class="button10g" style="width:100;height:23" value="Edit" onClick="editEntitlement('#Entitlement.PersonNo#','#Entitlement.EntitlementId#');">	
@@ -243,7 +246,8 @@ password="#SESSION.dbpw#">
 				  Currency, 
 				  Amount, 
 				  DocumentReference, 
-				  Remarks, 			   
+				  Remarks, 		
+				  Status,	   
                   OfficerUserId, 
 				  OfficerLastName, 
 				  OfficerFirstName)
@@ -264,7 +268,8 @@ password="#SESSION.dbpw#">
 				     Currency, 
 				     Amount, 
 				     DocumentReference, 
-				     Remarks, 			   
+				     Remarks, 		
+					 Status,	   
                      '#SESSION.acc#',
 		    	     '#SESSION.last#',		  
 	  			     '#SESSION.first#'

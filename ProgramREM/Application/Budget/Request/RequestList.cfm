@@ -245,28 +245,28 @@ password="#SESSION.dbpw#">
 		
 	</cfif>
 	
-	<tr class="labelmedium line" style="height:15px">
+	<tr class="labelmedium line fixlengthlist" style="height:15px">
 	    <td height="15"></td>
 	    <td></td>		
 		<td></td>
-		<td width="40"><cf_tl id="Loc"></td>		
+		<td><cf_tl id="Loc"></td>		
 		<td><cf_tl id="Item"></td>
 		<td><cf_tl id="Requirement"></td> 		
 		<td><cf_tl id="Person"></td>
 		<td><cf_tl id="Allotment"></td>  		
-		<td style="padding-left:2px" width="60"><cf_tl id="Fund"></td>		
-		<td style="padding-left:5px" align="center" colspan="2"><cf_tl id="Quantity"></td>
+		<td><cf_tl id="Fund"></td>		
+		<td align="center" colspan="2"><cf_tl id="Quantity"></td>
 		<td align="right"><cf_tl id="Price"></td>
 		<td align="right"><cf_tl id="Total"><cfoutput>#Param.BudgetCurrency#</cfoutput><cf_space spaces="23"></td>	
-		<td style="width:20"></td>	 
+		<td></td>	 
 	</TR>	
 			
 	   <cfoutput query="details" group="RequestDue">
 	   
 	    <cfif RequestDue eq "">
-	    <tr class="line"><td colspan="14" style="padding-top:3px;padding-left:3px" class="labelmedium"> <cf_tl id="Not dated"> </td></tr>
+	    <tr class="line"><td colspan="14" style="padding-top:3px;padding-left:3px" class="labelmedium2"> <cf_tl id="Not dated"> </td></tr>
 		<cfelse>
-		<tr class="line"><td colspan="12" style="padding-top:3px;padding-left:3px" class="labelmedium">#dateformat(RequestDue,client.dateformatshow)#</td>
+		<tr class="line"><td colspan="12" style="padding-top:3px;padding-left:3px" class="labelmedium2">#dateformat(RequestDue,client.dateformatshow)#</td>
 				
 		<cfquery name="getDate" dbtype="query">
 			SELECT 	sum(RequestAmountBase) as Total
@@ -274,7 +274,7 @@ password="#SESSION.dbpw#">
 			WHERE 	RequestDue = '#dateformat(requestdue,client.dateSQL)#'
 		</cfquery> 
 
-		<td class="labelit" align="right" style="padding-left:4px"><b>#numberformat(getDate.Total,",_")#</td>
+		<td class="labelmedium2" align="right" style="padding-left:4px"><b>#numberformat(getDate.Total,",_")#</td>
 		<td></td>		
 		</tr>
 		</cfif>
@@ -304,30 +304,30 @@ password="#SESSION.dbpw#">
 						<cfset linemode = "">
 						   				   						
 				        <cfif actionStatus eq "9">
-							<tr bgcolor="FFD5D5" style="height:22px" class="navigation_row line labelmedium2">
+							<tr bgcolor="FFD5D5" style="height:22px" class="navigation_row line labelmedium2 fixlengthlist">
 						<cfelseif requirementid eq url.requirementid or requirementidparent eq get.RequirementIdParent>
-							<tr bgcolor="e6e6e6" style="height:22px" class="navigation_row line labelmedium2">
+							<tr bgcolor="e6e6e6" style="height:22px" class="navigation_row line labelmedium2 fixlengthlist">
 							<cfset linemode = "edit">
 						<cfelseif requesttype eq "Ripple">
-							<tr bgcolor="f4f4f4" style="height:22px" class="navigation_row line labelmedium2">					
+							<tr bgcolor="f4f4f4" style="height:22px" class="navigation_row line labelmedium2 fixlengthlist">					
 						<cfelse>
-							<tr style="height:22px" class="navigation_row line labelmedium2">
+							<tr style="height:22px" class="navigation_row line labelmedium2 fixlengthlist">
 						</cfif>
 									
-						<td width="40" height="20" 
-						   valign="center" style="padding-top:5px;padding-left:6px;padding-right:2px" onClick="more('#requirementid#')">								   		
+						<td height="20" 
+						   valign="center" style="padding-top:5px" onClick="more('#requirementid#')">								   		
 						   <cf_img icon="expand" toggle="yes">			 			 											   
 						</td>										
 						
-						<td width="20" style="padding-left:2px;padding-right:2px">#currentrow#.</td>
+						<td>#currentrow#.</td>
 						
-						<td align="center" style="padding-left:5px;padding-right:2px;padding-top:1px">
+						<td align="center" style="padding-top:1px">
 						
 							<table>
 							
 							<tr class="labelmedium2">
 							
-								<td style="width:20" align="center">
+								<td style="width:20PX" align="center">
 								
 									<cfif Object.RequirementMode eq "2">
 									
@@ -355,7 +355,7 @@ password="#SESSION.dbpw#">
 																
 								</td>		
 							
-								<td style="width:20;padding-left:6px" align="center" valign="center">
+								<td style="width:20PX;padding-left:6px" align="center" valign="center">
 								
 								<!--- ----------------------------------------------------------- --->
 								<!--- important, do not change unless you know what you are doing --->
@@ -373,10 +373,9 @@ password="#SESSION.dbpw#">
 											
 												<table>
 												<tr>
-												<td style="padding-top:0px">
+												<td style="padding-top:0px" title="Edit the financial requirement">
 																					
 												<cf_img icon="open" navigation="Yes"
-												tooltip="Edit the financial requirement"
 												onclick="alldetinsert('#url.editionid#_#url.objectcode#','#url.editionid#','#url.objectcode#','#requirementid#','edit','#url.scope#')">
 												
 												</td>
@@ -403,9 +402,9 @@ password="#SESSION.dbpw#">
 						
 						</td>		
 						
-						<td style="padding-left:4px;padding-right:3px">#RequestLocationCode#</td>			
+						<td>#RequestLocationCode#</td>			
 						
-						<td width="15%" style="min-width:260px;padding-left:1px;padding-right:3px">
+						<td>
 						<cfif priormaster neq "#itemmastercode#">
 						#ItemMasterCode# #ItemMasterDescription# 
 						<cfset priormaster = ItemMasterCode>
@@ -418,15 +417,15 @@ password="#SESSION.dbpw#">
 								
 								<cfif Cleared eq "0">	
 									<cfif BudgetAccess eq "EDIT" or BudgetAccess eq "ALL">			
-									<td  style="min-width:200px">
+									<td>
 									</cfif>
 								<cfelse>				
-									<td style="min-width:200px">
+									<td>
 								</cfif>
 								
 							<cfelse>
 							
-								<td width="30%" tyle="min-width:200px"><b><cf_tl id="Ripple">:</b></font>
+								<td><b><cf_tl id="Ripple">:</b></font>
 							
 							</cfif>
 																		
@@ -435,9 +434,9 @@ password="#SESSION.dbpw#">
 							<cfelse>
 							
 							    <table>
-									<tr class="labelmedium2" style="height:10px">								
+									<tr class="labelmedium2 fixlengthlist" style="height:10px">								
 								    <cfif PositionNo neq "">	
-									<td style="min-width:50px">
+									<td>
 									<a href="javascript:EditPosition('#Program.mission#','','#PositionNo#')">							
 									<cfif PositionOperational eq "0"><font color="FF0000"><span style="text-decoration: line-through;">#SourcePostNumber#</span></font><cfelse>#SourcePostNumber#</cfif>&nbsp;:&nbsp;
 									</a>	
@@ -451,7 +450,7 @@ password="#SESSION.dbpw#">
 												
 						</td>	
 						
-						<td style="padding-left:4px;min-width:150px">
+						<td>
 						
 							<cfif PersonNo neq "">
 		 
@@ -470,7 +469,7 @@ password="#SESSION.dbpw#">
 						
 						</td> 
 																
-						<td width="10%" style="padding-right:3px">
+						<td>
 							
 							<cfif actionstatus eq "0">
 							    <font color="FF8040"> <cf_tl id="Disabled"></font>
@@ -482,12 +481,12 @@ password="#SESSION.dbpw#">
 						
 						</td>			
 						
-						<td width="70">#FundCode#</td>
-						<td width="85" align="right">#numberformat(RequestQuantity,"_._")# </td>
-						<td width="85" align="right"><cfif ResourceQuantity gte "2" and ResourceDays gte "2">(#ResourceQuantity#|#ResourceDays#)</cfif></td>
-						<td width="85" align="right" style="padding-left:4px">#numberformat(RequestPrice,"_,_")#</td>
-						<td width="85" align="right" style="padding-left:4px">#numberformat(RequestAmountBase,"_,_")#</td>
-						<td width="40" align="center">
+						<td>#FundCode#</td>
+						<td align="right">#numberformat(RequestQuantity,"_._")# </td>
+						<td align="right"><cfif ResourceQuantity gte "2" and ResourceDays gte "2">(#ResourceQuantity#|#ResourceDays#)</cfif></td>
+						<td align="right" style="padding-left:4px">#numberformat(RequestPrice,"_,_")#</td>
+						<td align="right" style="padding-left:4px">#numberformat(RequestAmountBase,"_,_")#</td>
+						<td align="center">
 						
 						<!--- condition for delete if detailed line is open and not cleared or denied --->
 						
@@ -572,7 +571,7 @@ password="#SESSION.dbpw#">
 							 <cfif move.recordcount gte "1">						 					 	 
 							
 								<cfloop query="Move" endrow="#move.recordcount-1#">
-									<tr class="navigation_row_child labelmedium">
+									<tr class="navigation_row_child labelmedium fixlengthlist">
 										<td></td>			
 										<td colspan="3"></td>
 										<td colspan="2"><font color="808080"><cf_tl id="Moved from">:</font>&nbsp;#ProgramName#</td>
@@ -587,13 +586,11 @@ password="#SESSION.dbpw#">
 						</cfif>
 													
 						<tr id="detail#requirementid#" class="hide">
-							   <td></td>
-							   <td></td>
-							   <td></td>
-						   	   <td colspan="11" bgcolor="FDFEDE">
-							   <table width="100%" cellspacing="0" cellpadding="0">
-							   		<tr class="line">
-									<td class="labelit" style="padding-left:40px;min-width:200">#dateformat(Created,"DD/MM/YY")#:&nbsp;#OfficerLastName#</td>								
+
+						   	   <td colspan="14" bgcolor="f1f1f1">
+							   <table width="100%">
+							   		<tr class="line labelmedium2">
+									<td style="padding-left:40px;min-width:200">#dateformat(Created,"DD/MM/YY")#:&nbsp;#OfficerLastName#</td>								
 								    
 									<!--- not needed
 									<cfif RequestRemarks neq ""> 							  

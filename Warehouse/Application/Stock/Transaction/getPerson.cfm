@@ -35,7 +35,7 @@
 				 if (confirm("Person not found #url.search#. Do you want to record this person ?")) {
 					 try { ColdFusion.Window.destroy('dialogperson',true)} catch(e){};
 					 ColdFusion.Window.create('dialogperson', 'Record person', '',{x:100,y:100,height:332,width:450,resizable:false,modal:true,center:true});
-					 ColdFusion.navigate('#SESSION.root#/Warehouse/Application/Stock/Transaction/setPerson.cfm?mission=#url.mission#','dialogperson')			
+					 ptoken.navigate('#SESSION.root#/Warehouse/Application/Stock/Transaction/setPerson.cfm?mission=#url.mission#','dialogperson')			
 				  }
 			  
 			  }
@@ -90,18 +90,18 @@
 		document.getElementById('personno').value = "#url.personno#"										
 	</script>		
 		
-	<table width="100%" cellspacing="0">
+	<table width="100%" cellspacing="0" style="background-color:f1f1f1">
 	
-		<tr><!--- <td class="labelmedium" style="padding-left:3px;width:150"><cf_space spaces="20"><cf_tl id="Name">:</td> --->
-		    <td width="40%" class="labelmedium" style="border:1px solid silver;padding-left:4px"><cf_space spaces="60">#Person.FirstName# #Person.LastName#</td>
+		<tr class="fixlengthlist labelmedium2"><!--- <td class="labelmedium" style="padding-left:3px;width:150"><cf_space spaces="20"><cf_tl id="Name">:</td> --->
+		    <td style="border:0px solid silver;padding-left:4px">#Person.FirstName# #Person.LastName#</td>
 			<!---  <td class="labelmedium" style="padding-left:8px;padding-right:5px;" width="10%"><cf_space spaces="20"><cf_tl id="Nationality">:</td> --->
-		    <td style="border:1px solid silver;padding-left:4px" class="labelmedium" width="40%">#Person.Nationality#</td>		
+		    <td style="border:0px solid silver;padding-left:4px">#Person.Nationality#</td>		
 		</tr>		
 		
-		<tr><!--- <td class="labelmedium" style="padding-left:3px"><cf_tl id="ExternalReference">:</td> --->
-		    <td style="border:1px solid silver;padding-left:4px" class="labelmedium">#Person.Reference# <cfif Person.ReferenceDate neq ""><font size="1">[#dateformat(Person.ReferenceDate,CLIENT.DateFormatShow)#]</font></cfif></td>
+		<tr class="fixlengthlist labelmedium2"><!--- <td class="labelmedium" style="padding-left:3px"><cf_tl id="ExternalReference">:</td> --->
+		    <td style="border:0px solid silver;padding-left:4px">#Person.Reference# <cfif Person.ReferenceDate neq ""><font size="1">[#dateformat(Person.ReferenceDate,CLIENT.DateFormatShow)#]</font></cfif></td>
 			<!--- <td class="labelmedium" style="padding-left:8px;padding-right:5px;"><cf_tl id="Gender">:</td> --->
-		    <td style="border:1px solid silver;padding-left:4px" class="labelmedium">#Person.Gender#</td>		
+		    <td style="border:0px solid silver;padding-left:4px">#Person.Gender#</td>		
 		</tr>	
 		
 		<cfif Assignment.recordcount eq "0" and Person.recordcount gte "1">

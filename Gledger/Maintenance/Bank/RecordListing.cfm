@@ -48,7 +48,7 @@ password="#SESSION.dbpw#">
 		
 		<table width="99%" align="center" class="navigation_table">
 		
-			<tr class="labelmedium2 fixrow">
+			<tr class="labelmedium2 fixrow fixlengthlist">
 			    <td></td>
 			    <td><cf_tl id="Bank"></td>
 				<td><cf_tl id="Curr"></td>				
@@ -58,18 +58,18 @@ password="#SESSION.dbpw#">
 			</tr>			
 			
 				<cfoutput query="SearchResult">
-				    <tr class="navigation_row line labelmedium2">
+				    <tr class="navigation_row line labelmedium2 fixlengthlist">
 						<td align="center" style="width:30px">
 							  <cf_img icon="select" navigation="yes" onclick="recordedit('#BankId#')">
 						</td>
-						<td>#BankName#</td>
+						<td title="#BankName#">#BankName#</td>
 						<td>#Currency#</td>
 						<td>#AccountNo#</td>
 						<!---
 						<td>#AccountName#</td>
 						--->
-						<td>#BankAddress#</td>
-						<td>#GLAccount# #Description#</td>
+						<td title="#Bankaddress#">#BankAddress#</td>
+						<td title="#GLAccount# #Description#">#GLAccount# #Description#</td>
 				    </tr>
 				</cfoutput>
 			

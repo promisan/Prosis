@@ -26,7 +26,7 @@ password="#SESSION.dbpw#">
     </td>
 </tr>
 
-<tr class="line labelmedium">
+<tr class="line labelmedium fixlengthlist">
     <td width="60" colspan="2"><a href="javascript:recorduomedit('#URL.ID#','')">Add</a></td>		
 	<td><cf_tl id="Code"></td>
 	<td><cf_tl id="Label"></td>
@@ -52,7 +52,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="qUoM">
 
-<tr class="line navigation_row" id="trUoMRow_#currentrow#" style="height:20px;background-color:<cfif url.uomselected eq #UoM#>'E1EDFF'<cfelse>''</cfif>">
+<tr class="line navigation_row fixlengthlist" id="trUoMRow_#currentrow#" style="height:20px;background-color:<cfif url.uomselected eq #UoM#>'E1EDFF'<cfelse>''</cfif>">
 
   <td width="30">
     <table cellspacing="0" cellpadding="0">

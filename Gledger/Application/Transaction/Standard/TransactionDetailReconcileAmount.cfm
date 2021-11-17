@@ -31,7 +31,7 @@
 					 
 			 <script>	
 			     alert("Outstanding amount exceeded, will correct the exchange.")		 
-				 ColdFusion.navigate('TransactionDetailReconcileExchange.cfm?line=#url.line#&field=#url.field#&exchange=#exc#','total')	
+				 ptoken.navigate('TransactionDetailReconcileExchange.cfm?line=#url.line#&field=#url.field#&exchange=#exc#','total')	
 			 </script>
 	
 	</cfif>	 

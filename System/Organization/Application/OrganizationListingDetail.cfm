@@ -4,15 +4,15 @@
       <cf_assignid>
 
 	  <cfif attributes.action eq "Edit">
-	  	<tr style="height:20px;background-color:###attributes.color#50" class="navigation_row clsSearchrow line" onContextMenu="cmexpand('mymenu','#rowguid#','')">
+	  	<tr style="height:20px;background-color:###attributes.color#50" class="navigation_row clsSearchrow line fixlengthlist" onContextMenu="cmexpand('mymenu','#rowguid#','')">
 	  <cfelse>
-	  	<tr style="height:20px;background-color:###attributes.color#50" class="navigation_row clsSearchrow line">
+	  	<tr style="height:20px;background-color:###attributes.color#50" class="navigation_row clsSearchrow line fixlengthlist">
 	  </cfif>
 
 		  <td style="display:none;" class="ccontent">#Attributes.OrgUnitClass# #Attributes.OrgUnitCode# #Attributes.OrgUnitName#</td>
-		  <td style="padding-right:8px;padding-left:4px;min-width:250;font-size: 15px;">
+		  <td style="font-size: 15px;">
 			  <table>
-			  <tr>
+			  <tr class="fixlengthlist">
 			  	<td style="font-size:15px">
 				  <cfif Attributes.HierarchyCode eq "">
 						  &nbsp;<font color="804040"><b>Not defined</font>
@@ -22,14 +22,12 @@
 						</cfloop>
 				  </cfif>
 		  		</td>
-		  		<td style="padding-left:3px">
-		  			#Attributes.OrgUnitNameShort#
-		  		</td>
-		  		</tr>
-				</table>
+		  		<td>#Attributes.OrgUnitNameShort#</td>
+		  	  </tr>
+			  </table>
 		  </td>
 
-		  <td width="10">
+		  <td>
 		  
 			  <table>
 			  <tr>
@@ -89,32 +87,31 @@
 		   </td>
 
 		   <cfif attributes.color eq "ffffff">
-	       <TD style="font-weight:bold;height:30px;font-size:16px" width="70%">#Attributes.OrgUnitName#</td>
+	       <TD title="#attributes.OrgUnitName#" style="font-weight:bold;height:30px;font-size:16px">#Attributes.OrgUnitName#
 		   <cfelse>
-		   <TD width="70%">#Attributes.OrgUnitName#
+		   <TD title="#attributes.OrgUnitName#">#Attributes.OrgUnitName#
 		   </cfif>
 		   <cfif Attributes.Autonomous eq "1"><b>(^)</b></cfif>
 		   </TD>
 
 		   <cfif attributes.action neq "Edit">
-			   <td width="100" style="padding-right:7px">#Attributes.OrgUnitClass#</td>
-		       <td style="padding-right:4px">#Attributes.OrgUnitCode#</td>
+			   <td>#Attributes.OrgUnitClass#</td>
+		       <td>#Attributes.OrgUnitCode#</td>
 		   <cfelse>
-			   <td width="100" style="padding-right:7px">
+			   <td>
 			   	<a href="javascript:editOrgUnit('#Attributes.OrgUnit#','','base')">
 				   <cfif attributes.color eq "yellow"><b></cfif>#Attributes.OrgUnitClass#
 				</a>
 			   </td>
-			   <td style="padding-right:7px">
+			   <td>
 			   	<a href="javascript:editOrgUnit('#Attributes.OrgUnit#','','base')">
 					#Attributes.OrgUnitCode#
 				</a>
 			   </td>
 		   </cfif>
 
-		   </td>
 
-		   <td class="clsNoPrint" width="30" style="padding-top:2px">
+		   <td class="clsNoPrint" style="padding-top:2px">
 			 	<cf_img icon="open" navigation="Yes" onclick="viewOrgUnit('#Attributes.OrgUnit#')">
 		   </td>
 

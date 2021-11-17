@@ -68,8 +68,6 @@ UNION
 		
 		--->
 
-
-
 <cfquery name="Cls" 
 datasource="AppsMaterials" 
 username="#SESSION.login#" 

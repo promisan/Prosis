@@ -9,26 +9,31 @@
   	FROM   Parameter
 </cfquery>
 
-<cfparam name="Attributes.HideTitle"      default="No">
-<cfparam name="Attributes.HidePerson"     default="No">
-<cfparam name="Attributes.HideLanguage"   default="No">
-<cfparam name="Attributes.HideEducation"  default="No">
-<cfparam name="Attributes.HideDetails"    default="No">
-<cfparam name="Attributes.HideTopics"     default="Yes">
-<cfparam name="Attributes.HideExperience" default="No">
-<cfparam name="Attributes.IDFunction"     default="">
+<cfparam name="Attributes.HideTitle"          default="No">
+<cfparam name="Attributes.HidePerson"         default="No">
+<cfparam name="Attributes.HideLanguage"       default="No">
+<cfparam name="Attributes.HideEducation"      default="No">
+<cfparam name="Attributes.HideDetails"        default="No">
+<cfparam name="Attributes.HideTopics"         default="Yes">
+<cfparam name="Attributes.HideExperience"     default="No">
+<cfparam name="Attributes.IDFunction"         default="">
 
-<cfparam name="Attributes.Height"         default="400">
-<cfparam name="Attributes.Attachment"     default="No">
-<cfparam name="Attributes.DocumentNo"     default="">
-<cfparam name="Attributes.ApplicantNo"    default="">
-<cfparam name="Attributes.PersonNo"	      default="">
-<cfparam name="Attributes.Owner"	      default="">
-<cfparam name="Attributes.Source"	      default="">
-<cfparam name="Attributes.RosterActionNo" default="">
+<cfparam name="Attributes.Height"             default="400">
+<cfparam name="Attributes.Attachment"         default="No">
+<cfparam name="Attributes.DocumentNo"         default="">
+<cfparam name="Attributes.ApplicantNo"        default="">
+<cfparam name="Attributes.PersonNo"	          default="">
+<cfparam name="Attributes.Owner"	          default="">
+<cfparam name="Attributes.Source"	          default="">
+<cfparam name="Attributes.RosterActionNo"     default="">
 <cfparam name="Attributes.Layout"         	  default="Horizontal">
 <cfparam name="Attributes.ExperienceStatus"   default="'0','1'">
 <cfparam name="Attributes.ExperienceReviewed" default="No">
+
+<!--- added by hanno 20/10/2021 to ensure in case of same submission record per same source no duplicated --->
+<cfif attributes.applicantno neq "">
+	<cfset ComparisonApplicantNo = attributes.applicantno>
+</cfif>
 
 <cf_dialogMail>
 

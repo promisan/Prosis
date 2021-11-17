@@ -106,6 +106,10 @@ function list(page) {
 	
 </script>
 
+<cfif mode eq "Limited" or url.mission neq "">
+    <cf_screentop layout="webapp" html="Yes" label="#url.mission# inquiry" scroll="Yes">
+</cfif>
+
 </cfoutput>
 
 	<CFFORM onsubmit="return false"	name="candidateform" style="height:100%">		

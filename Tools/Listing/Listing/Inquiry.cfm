@@ -84,6 +84,7 @@
 </cfif>	
 
 <cf_listingscript>
+<cf_dialogmaterial>
 
 <cf_layoutScript>
 

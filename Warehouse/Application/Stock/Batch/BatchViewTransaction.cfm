@@ -167,9 +167,10 @@ function openreference(id) {
 					
 					</cfif>	
 					
-				<cfelse>
+				<cfelse>	
 				
-					#Batch.BatchNo#	
+						#Batch.BatchNo#		
+				
 							
 				</cfif>
 				
@@ -235,10 +236,10 @@ function openreference(id) {
 		</cfif>
 						
 		
-		<tr  class="labelmedium"><td width="10" style="border-left:0px dotted silver;padding-left:4px"></td>
-		    <td style="font-size:16px;border:1px solid silver;padding:4px">#Batch.OfficerFirstName# #Batch.OfficerLastName#</td>
-	    	<td width="40" style="padding-left:20px"><font color="808080"><cf_tl id="Status">:</td>
-			<td colspan="3" id="status" height="200" style="font-size:16px;border:1px solid silver;padding:4px">
+		<tr  class="labelmedium"><td class="fixlength" width="10"></td>
+		    <td class="fixlength" style="font-size:16px;border:1px solid silver;padding:4px">#Batch.OfficerFirstName# #Batch.OfficerLastName#</td>
+	    	<td class="fixlength" style="padding-left:20px"><font color="808080"><cf_tl id="Status">:</td>
+			<td class="fixlength" colspan="3" id="status" height="200" style="font-size:16px;border:1px solid silver;padding:4px">
 						
 			    <cfif Batch.ActionStatus eq "0">
 				
@@ -380,8 +381,8 @@ function openreference(id) {
 				
 			</td>	
 										  			   
-		    <td width="40" style="border-left:0px dotted silver;padding-left:20px"><font color="808080"><cf_tl id="Usage">:</td>
-			<td id="usage" style="font-size:16px;border:1px solid silver;padding:4px">   								   
+		    <td width="40" class="fixlength" style="border-left:0px dotted silver;padding-left:20px"><font color="808080"><cf_tl id="Usage">:</td>
+			<td id="usage" class="fixlength" style="font-size:16px;border:1px solid silver;padding:4px">   								   
 					
 					<cfquery name="Category"
 					datasource="AppsMaterials" 
@@ -407,8 +408,8 @@ function openreference(id) {
 					</cfif>
 			</td>	
 			
-			<td width="40" style="border-left:0px dotted silver;padding-left:5px"><font color="808080"><cf_tl id="Last entry">:</td>
-			<td id="usage" style="font-size:16px;border:1px solid silver;padding:4px">   								   
+			<td class="fixlength" style="border-left:0px dotted silver;padding-left:5px"><font color="808080"><cf_tl id="Last entry">:</td>
+			<td id="usage" class="fixlength" style="font-size:16px;border:1px solid silver;padding:4px">   								   
 					
 					<cfquery name="getTra"
 					datasource="AppsMaterials" 
@@ -431,7 +432,7 @@ function openreference(id) {
 		
 		<cfif Batch.BatchReference neq "" or actors.recordcount gte "1">				
 			
-			<tr  class="labelmedium"><td width="10" style="padding:4px"><font color="808080"></td>
+			<tr  class="labelmedium fixlengthlist"><td width="10" style="padding:4px"><font color="808080"></td>
 				<td style="font-size:16px;border:1px solid silver;padding:4px">#Batch.BatchReference#</td>
 				<td style="border:0px solid silver;padding-left:20px"><cf_tl id="Action">:</td>
 				

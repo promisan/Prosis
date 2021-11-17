@@ -936,15 +936,16 @@ password="#SESSION.dbpw#">
 				
 				</td>
 			
-			</tr>			 
+			</tr>		
+			
+				 
 		
 		  <TR> 
-			 <TD width="158" class="labelmedium2"><cf_tl id="Description">/<cf_tl id="Memo">:</TD>
+			 <TD width="158" class="labelmedium2"><cf_tl id="Reference">:</TD>
 	             <td align="left" colspan="3">
 				 
 				  <input type="text"   id="entryreference"     name="entryreference"     value="<cfoutput>#URL.entryreference#</cfoutput>"  class="regularxxl" style="width:80%" maxlength="100">
-				  <input type="hidden" id="entryreferencename" name="entryreferencename" value="<cfoutput>#URL.entryreferencename#</cfoutput>" >
-				 
+				
 				 </td>	
 				 
 					<!--- Query returning search results --->
@@ -970,7 +971,18 @@ password="#SESSION.dbpw#">
 			
 					</script>	
 				
-		  </tr>		
+		  </tr>	
+		  
+		  <TR> 
+			 <TD width="158" class="labelmedium2"><cf_tl id="Memo">:</TD>
+	             <td align="left" colspan="3">
+				 
+				  <input type="text"   id="entryreferencename" name="entryreferencename" value="<cfoutput>#URL.entryreferencename#</cfoutput>"  class="regularxxl" style="width:80%" maxlength="100">
+				 				 
+				 </td>					 				
+		  </tr>			
+		  
+		  
 		  	  											
 		  <cfif TaxCodeMode eq "1" and SysJou neq "ExchangeRate">
 		  	

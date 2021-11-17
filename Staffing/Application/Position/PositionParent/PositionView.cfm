@@ -237,10 +237,10 @@
 		
 	<input type="hidden" id="sourcepost" name="sourcepost">
 		
-		<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0">		  		
+		<table width="100%" border="0" align="center">		  		
 	
-	        <cfset ht = "58">
-			<cfset wd = "58">			
+	        <cfset ht = "52">
+			<cfset wd = "52">			
 						
 			<cfinvoke component="Service.Access"  
 				  method         = "position" 
@@ -320,6 +320,16 @@
 						name       = "#vIncumbent#"
 						iframe     = "assignments"
 						source     = "iframe:../../Assignment/PostAssignment.cfm?caller=postdialog&id=#url.id2#">						
+						
+				<cfset itm = itm+1>		
+				<cf_tl id="Recruitment" var="vRecruitment">
+				<cf_menutab item   = "#itm#" 
+				        iconsrc    = "Logos/Staffing/Staffing.png" 
+						iconwidth  = "#wd#" 
+						iconheight = "#ht#" 
+						targetitem = "2"
+						name       = "#vRecruitment#"						
+						source     = "../Recruitment/PositionView.cfm?caller=postdialog&id=#url.id2#">			
 												
 				<cfinvoke component="Service.Access"  
 					  method         = "position" 
@@ -342,7 +352,8 @@
 						source     = "ParentHeader.cfm?ID2=#Position.PositionParentId#">							 
 						
 				 </cfif>
-				 		
+				 
+				 <!---		
 					 <cfset itm = itm+1>	
 				 	 <cf_tl id="Memo" var="vMiscellaneous">
 					 <cf_menutab item       = "#itm#" 
@@ -351,7 +362,9 @@
 							iconheight = "#ht#" 
 							targetitem = "2"
 							name       = "#vMiscellaneous#"
-							source     = "../Position/PositionMemo.cfm?positionno=#url.id2#">		
+							source     = "../Position/PositionMemo.cfm?positionno=#url.id2#">	
+							
+					--->			
 				 			
 				 
 				 <cf_verifyOperational module="WorkOrder" Warning="No">

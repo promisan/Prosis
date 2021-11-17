@@ -149,7 +149,10 @@
 <cf_tl id="ItemNo" var="1">
 <cfset fields[itm] = {label           = "#lt_text#", 
                     width             = "0", 
-					field             = "ItemNoExternal",					
+					field             = "ItemNoExternal",		
+					functionscript    = "itemclassification",
+					functionfield     = "itemno",			
+					functioncondition = "#url.systemfunctionid#",			
 					search            = "text"}>	
 
 <cfset itm = itm+1>

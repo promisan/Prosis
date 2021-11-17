@@ -26,7 +26,7 @@ password="#SESSION.dbpw#">
     FROM    Ref_EntityClassPublish
 	WHERE   EntityCode = '#URL.EntityCode#' 
     AND     EntityClass = '#URL.EntityClass#'	
-	ORDER BY ActionPublishNo
+	ORDER BY ActionPublishNo DESC
 </cfquery>
 
 <cfquery name="Detail" 
@@ -113,7 +113,7 @@ password="#SESSION.dbpw#">
 		</cfquery>
 					
 		<cfoutput>
-		<select name="entityclass" id="entityclass" class="regularxl" onchange="searching('#url.entitycode#',document.getElementById('find').value,this.value)">
+		<select name="entityclass" id="entityclass" class="regularxxl" onchange="searching('#url.entitycode#',document.getElementById('find').value,this.value)">
 		
 			<option value=""><cf_tl id="Any"></option>
 			<cfloop query="Class">
@@ -139,7 +139,7 @@ password="#SESSION.dbpw#">
 				   onKeyUp   = "search(event)"
 			       maxlength = "25"
 				   style     = "padding-left:3px;width:100"
-			       class     = "regularxl">
+			       class     = "regularxxl">
 			   
 		</td>
 				
@@ -176,17 +176,17 @@ password="#SESSION.dbpw#">
 		
 	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
 			
-	    <TR class="line labelmedium2 fixrow">
+	    <TR class="line labelmedium2 fixrow fixlengthlist">
 		   
 		   <td></td>
-		   <td style="padding-left:2px;min-width:70px" height="20"><cf_tl id="Code"></td>		  
-		   <td style="padding-left:2px" width="50%"><cf_tl id="Description"></td>
-		   <td style="padding-left:2px" width="40">S</td>
-		   <td style="padding-left:2px" width="10%"><cf_tl id="Class"></td>
-		   <td style="padding-left:2px"><cf_UIToolTip tooltip="The presentation of the action in the browser"><cf_tl id="Window"></cf_UIToolTip></td>
-		   <td style="padding-left:2px" width="40" align="center"><cf_UIToolTip tooltip="Allow Object Owner to grant access to users for this step on the object level">Fly.</cf_UIToolTip></td>
-		   <td style="padding-left:2px" width="40" align="center"><cf_UIToolTip tooltip="Enabled for embediding in new worflows">Op.</cf_UIToolTip></td>
-		   <td align="right" style="padding-right:10px" colspan="4">
+		   <td height="20"><cf_tl id="Code"></td>		  
+		   <td><cf_tl id="Description"></td>
+		   <td>S</td>
+		   <td><cf_tl id="Class"></td>
+		   <td><cf_UIToolTip tooltip="The presentation of the action in the browser"><cf_tl id="Window"></cf_UIToolTip></td>
+		   <td align="center"><cf_UIToolTip tooltip="Allow Object Owner to grant access to users for this step on the object level">Fly.</cf_UIToolTip></td>
+		   <td align="center"><cf_UIToolTip tooltip="Enabled for embediding in new worflows">Op.</cf_UIToolTip></td>
+		   <td align="right" colspan="4">
 	         
 			 <cfoutput>			 
 			 <cfif URL.ID2 neq "new">
@@ -399,14 +399,14 @@ password="#SESSION.dbpw#">
 								
 		<cfelse>		
 					
-			<TR class="navigation_row line labelmedium2" style="height:22px;padding:0px" bgcolor="<cfif ActionType eq 'Create'>ffffdf</cfif>">		   
+			<TR class="navigation_row line labelmedium2 fixlengthlist" style="height:22px;padding:0px" bgcolor="<cfif ActionType eq 'Create'>ffffdf</cfif>">		   
 			   
 			   <td width="2"></td>
-			   <td style="padding-left:5px">#nm#</td>			  
+			   <td>#nm#</td>			  
 			   <td style="padding-left:3px">#de#</td>
 			   <td>#ListingOrder#</td>
 			   <td><cfif ActionType eq "Create"><font color="6688aa"></cfif>#ActionType#</td>
-			   <td style="min-width:140px">
+			   <td>
 				<cfif "0" eq ProcessMode>Window
 				<cfelseif ProcessMode eq "2">Tabbed&nbsp;Window
 				<cfelseif ProcessMode eq "3">Browser&nbsp;tab
@@ -416,7 +416,7 @@ password="#SESSION.dbpw#">
 			   </td>
 			   <td align="center"><cfif EnableAccessFly eq "0"><b>N</b><cfelse>Y</cfif></td>
 			   <td align="center"><cfif op eq "0"><b>N</b><cfelse>Y</cfif></td>
-			   <td align="center" style="padding-top:1px;padding-left:2px;padding-right:2px">				   	   
+			   <td align="center" style="padding-top:1px">				   	   
 			     <cf_img icon="edit" navigation="Yes" onclick="#ajaxLink('ActionRecords.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#&search=#url.search#&entityclass=#url.entityclass#')#">	   											 
 			   </td>
 			   <td align="center" style="padding-left:2px;padding-right:2px">

@@ -128,21 +128,19 @@ password="#SESSION.dbpw#">
 
 	<table width="99%" class="navigation_table">
 				   
-		<tr class="labelmedium line fixrow" style="height:20">	  
-	    <td style="min-width:40"></td>
-		<td style="min-width:60"><cf_tl id="Sale"></td>
-		<TD style="min-width:90"><cf_tl id="Date"></TD>		
-		<td style="min-width:70"><cf_tl id="Tax No"></td>
-		<td style="width:25%"><cf_tl id="Customer"></td>
-		<td style="min-width:100"><cf_tl id="Customer Invoice"></td>
-		<TD style="min-width:100"><cf_tl id="Reference"></TD>			
-		<TD style="min-width:120"><cf_tl id="Sales Person"></TD>		
-		<TD style="min-width:150"><cf_tl id="Posted"></TD>
-		<TD style="min-width:50"><cf_tl id="Status"></TD>			
+		<tr class="labelmedium2 line fixrow fixlengthlist">	  
+		    <td></td>
+			<td><cf_tl id="Sale"></td>
+			<TD><cf_tl id="Date"></TD>		
+			<td><cf_tl id="Tax No"></td>
+			<td><cf_tl id="Customer"></td>
+			<td><cf_tl id="Customer Invoice"></td>
+			
+			<TD><cf_tl id="Sales Person"></TD>		
+			<TD><cf_tl id="Posted"></TD>
+			<TD><cf_tl id="Status"></TD>			
 		</tr>  		 
-		
-		
-		
+			
 		<cfoutput query="SearchResult">
 				
 		<cfif currentrow gte first>
@@ -158,8 +156,8 @@ password="#SESSION.dbpw#">
 				   <cf_tl id="Completed" var="1">
 				</cfif>
 						
-			<tr style="height:28px;" class="navigation_row line" title="<cfif ParentBatchNo neq "">Reposted from Sales No.: #ParentBatchNo#</cfif>">		  
-			    <td align="center" style="padding-top:5px;background-color:###cl#80">	
+			<tr class="navigation_row labelmedium2 line fixlengthlist" title="<cfif ParentBatchNo neq "">Reposted from Sales No.: #ParentBatchNo#</cfif>">		  
+			    <td align="center" style="padding-top:2px;background-color:###cl#80">	
 							
 				   <!--- sales that relate to issuance/inventory/issuance batch can not be edited here, we support opening the batch --->
 				   
@@ -169,21 +167,21 @@ password="#SESSION.dbpw#">
 							   onclick="window['fnCBDialogSaleClose'] = function(){ ProsisUI.closeWindow('dialog#url.box#') }; ptoken.navigate('#link#&action=insert&#url.des1#=#batchid#','#url.box#1','fnCBDialogSaleClose','','POST','');">
 				   </cfif>	
 				</td>
-				<td class="labellarge" style="padding-left:2px; color:##1983E0;"><a href="javascript:batch('#BatchNo#','#mission#','process','')">#BatchNo#</a></td>
-				<td class="labellarge">#dateformat(TransactionDate,CLIENT.DateFormatShow)#</td>		
-				<td class="labellarge">#InvoiceReference# </td>
-				<td class="labellarge" style="padding-left:4px">#CustomerName#</td>
-				<td class="labellarge" style="padding-left:4px"><cfif CustomerName neq CustomerInvoice>#CustomerInvoice#<cfelse>..</cfif></td>
-				<td class="labellarge" style="padding-left:4px">#BatchMemo#</td>					
-				<td class="labellarge" style="padding-left:4px">#ActionOfficerFirstName# #ActionOfficerLastName#</td>
-				<td class="labellarge" style="padding-left:4px">
+				<td style="color:##1983E0;"><a href="javascript:batch('#BatchNo#','#mission#','process','')">#BatchNo#</a></td>
+				<td>#dateformat(TransactionDate,CLIENT.DateFormatShow)#</td>		
+				<td>#InvoiceReference# </td>
+				<td>#CustomerName#</td>
+				<td><cfif CustomerName neq CustomerInvoice>#CustomerInvoice#<cfelse>..</cfif></td>
+								
+				<td>#ActionOfficerFirstName# #ActionOfficerLastName#</td>
+				<td>
 				<cfif datediff("d",TransactionDate,Created) eq "0">
 				#timeformat(Created,"HH:MM")#
 				<cfelse>
 				#dateformat(Created,CLIENT.DateFormatShow)# #timeformat(Created,"HH:MM")#
 				</cfif> 
 				</td>
-				<td class="labellarge" style="padding-left:4px;background-color:###cl#80">#lt_text#</td>	
+				<td style="padding-left:4px;background-color:###cl#80">#lt_text#</td>	
 			</tr>
 			
 			<cfif ParentBatchNo neq "">
@@ -207,7 +205,7 @@ password="#SESSION.dbpw#">
 				</cfquery>
 				
 				<cfloop query="detail">
-					<tr style="height:20px" class="navigation_row_child labellarge">
+					<tr style="height:20px" class="navigation_row_child labellarge fixlengthlist ">
 					    <td height="18" align="center" style="padding-top:3px">
 							<img src="#SESSION.root#/images/join.gif" align="absmiddle">
 						</td>
@@ -216,10 +214,14 @@ password="#SESSION.dbpw#">
 						<td bgcolor="FFD7D8">#BatchReference#</td>
 						<td bgcolor="FFD7D8" style="padding-left:4px">#CustomerName#</td>
 						<td bgcolor="FFD7D8" style="padding-left:4px">#CustomerInvoice#</td>
-						<TD bgcolor="FFD7D8">#BatchMemo#</TD>
-						<TD bgcolor="FFD7D8"><cfif actionStatus eq "9"><cf_tl id="Voided"><cfelse><cf_tl id="Active"></cfif></TD>		
+						
+							
 						<td bgcolor="FFD7D8">#ActionOfficerFirstName# #ActionOfficerLastName#</td>		
-						<TD bgcolor="FFD7D8">#dateformat(Created,CLIENT.DateFormatShow)# #timeformat(Created,"HH:MM")#</TD>
+						<TD bgcolor="FFD7D8">
+						<cfif datediff("d",TransactionDate,Created) eq "0">
+						#dateformat(Created,CLIENT.DateFormatShow)#
+						</cfif> #timeformat(Created,"HH:MM")#</TD>
+						<TD bgcolor="FFD7D8"><cfif actionStatus eq "9"><cf_tl id="Voided"><cfelse><cf_tl id="Active"></cfif></TD>	
 					</tr>
 				</cfloop>
 			

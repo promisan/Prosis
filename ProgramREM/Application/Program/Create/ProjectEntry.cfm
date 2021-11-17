@@ -395,11 +395,11 @@ function validate(md) {
    
   <tr>	
 
-    <td align="center" height="30">
+    <td align="center" height="30" style="padding-left:20px">
 	
 	 <!--- top menu --->
 				
-		<table width="100%" border="0" align="center" class="formpadding">		  		
+		<table border="0" align="center" class="formpadding">		  		
 						
 			<cfset ht = "48">
 			<cfset wd = "48">
@@ -466,6 +466,8 @@ function validate(md) {
 				</cfif>		
 				
 			</cfif>	
+			
+			<td style="width:10%"></td>
 																			 		
 			</tr>
 		</table>
@@ -541,11 +543,11 @@ function validate(md) {
 		 
 	</script>
 	
-	<tr><td height="100%" style="padding-top:7px;padding-left:30px;padding-right:30px">	
+	<tr><td style="padding-top:7px;padding-left:30px;padding-right:30px">	
 	
 	    <cf_divscroll>
 		
-		<cfform method="POST" name="programform" style="height:100%" onsubmit="return false">
+		<cfform method="POST" name="programform" onsubmit="return false">
 		
 			<table width="100%" height="100%">	
 										
@@ -639,8 +641,8 @@ function validate(md) {
 		
 		<tr><td colspan="6" height="1" class="linedotted"></td></tr>
 		
-		<tr><td id="savebox" colspan="6" align="center" style="height:40px">
-					
+		<tr><td id="savebox" colspan="6" align="center" style="height:67px">
+							
 			<cfoutput>	   
 												
 		     <cfif isParent.recordcount  eq "0" 

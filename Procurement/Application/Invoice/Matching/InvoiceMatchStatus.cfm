@@ -199,13 +199,13 @@ password="#SESSION.dbpw#">
 		
 </cfif>
 
-<table width="100%" height="100%" lign="center">
+<table width="100%" style="height:20px" align="center">
 
-	<tr><td valign="top" style="padding-left:12px">
+	<tr><td valign="top">
 	
 		<table width="100%" align="center" class="formpadding">
 		
-		<tr bgcolor="DDFBE2" class="labelmedium2 line">
+		<tr bgcolor="DDFBE2" class="labelmedium2 line fixlengthlist">
 		
 		  <cfoutput>
 		  
@@ -255,6 +255,5 @@ password="#SESSION.dbpw#">
 		
 	</td>
 	</tr>	
-	<tr><td height="190" colspan="2"></td></tr>
-
+	
 </table>

@@ -21,55 +21,63 @@ function ShowPicture(itm) {
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-SELECT *
-    FROM Position
-    WHERE PositionNo = '#URL.ID#'</cfquery>
+	SELECT  *
+    FROM    Position
+    WHERE   PositionNo = '#URL.ID#'
+</cfquery>
 	
 <cfquery name="LastAssignment" 
-datasource="AppsEmployee" 
-maxrows=1 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-SELECT *
-    FROM PersonAssignment
-    WHERE PositionNo = '#URL.ID#'
-	ORDER BY DateEffective DESC</cfquery>	
+	datasource="AppsEmployee" 	
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT   TOP 1 *
+    FROM     PersonAssignment
+    WHERE    PositionNo = '#URL.ID#'
+	ORDER BY DateEffective DESC
+</cfquery>	
 
-<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="99%" align="center">
+  
+  <!---
+  
   <tr class="noprint">
   
     <cfoutput>
 	
-    <td height="26" width="70%" class="labelmedium2">			
-		#Position.SourcePostNumber# #Position.FunctionDescription# #Position.PostGrade# (#Position.PositionNo#)			
-    </td>
-	
-	<td align="right" style="padding-right:10px">
-	
-	<cfif url.Caller neq "PostDialog">
-	
-		<cf_tl id="Edit Position" var="vEditPosition">
+	    <td height="26" width="70%" class="labelmedium2" style="font-size:16px">			
+			#Position.SourcePostNumber# (#Position.PositionNo#)			
+	    </td>
 		
-		<input type="button" 
-		       name="Edit" 
-			   value="#vEditPosition#" 
-			   style="width:120px;height:20px"
-			   class="button10g" 
-			   onClick="javascript:EditPosition('#Position.Mission#','#Position.MandateNo#','#Position.PositionNo#')">
-	</cfif>
-	
-	</td>
+		<td align="right" style="padding-right:10px">
+		
+			<cfif url.Caller neq "PostDialog">
+			
+				<cf_tl id="Edit Position" var="vEditPosition">
+				
+				<input type="button" 
+				       name="Edit" 
+					   value="#vEditPosition#" 
+					   style="width:120px;height:20px"
+					   class="button10g" 
+					   onClick="javascript:EditPosition('#Position.Mission#','#Position.MandateNo#','#Position.PositionNo#')">
+			</cfif>
+		
+		</td>
 	
 	</cfoutput>
 		
   </tr> 	
   
+  --->
+  
+  <tr class="labelmedium2 fixrow"><td colspan="2" style="height:25px;padding-left:5px;font-size:23px;font-weight:bold"><cf_tl id="Budget Position"></td></tr>
+
   <tr>
-	<td height="22" colspan="2" align="left">
+	<td colspan="2" align="left">
 	
-		<table width="100%" cellspacing="0" cellpadding="0" class="formpadding formspacing">
-		<tr><td width="170"  class="labelmedium"><cf_tl id="Position Authorised for" class="message">:</td>
-			<td class="labelmedium"><b>
+		<table width="100%" class="formpadding formspacing">
+		<tr><td width="170" style="padding-left:5px" class="labelmedium2"><cf_tl id="Usage">:</td>
+			<td class="labelmedium2" style="font-size:18px">
 			
 			<cfquery name="Parent" 
 		    datasource="AppsEmployee" 
@@ -89,18 +97,49 @@ SELECT *
 		   
 		   </td>
 	   </tr>
+	   <tr><td style="padding-left:5px" width="170"  class="labelmedium"><cf_tl id="Funding">:</td>
+			<td class="labelmedium" style="font-size:18px">
+			
+			<cfquery name="Funding" 
+		    datasource="AppsEmployee" 
+		    username="#SESSION.login#" 
+		    password="#SESSION.dbpw#">
+			
+			SELECT      TOP 2 PositionParentId, FundingId, DateEffective, DateExpiration, Fund, FundClass, ProgramCode, ObjectCode, ContributionId, RequisitionNo, Percentage, OfficerUserId, OfficerLastName, OfficerFirstName, 
+                        Created
+			FROM        PositionParentFunding
+			WHERE       PositionParentId = '#Position.PositionParentId#'
+			ORDER BY    DateExpiration DESC
+			
+			</cfquery>
+			
+			<table>
+			<cfoutput query="funding">
+			<tr class="labelmedium" style="height:10px">
+			    <td style="padding-right:4px">#dateformat(DateEffective,client.dateformatshow)#</td>
+				<td>-</td>
+    			<td style="padding-left:4px">#dateformat(DateExpiration,client.dateformatshow)#</td>
+				<td style="padding-left:4px">#Fund#</td>
+				<td style="padding-left:4px">#Percentage*100#%</td>
+			</tr>
+			</cfoutput>
+			</table>
+			
+				   
+		   </td>
+	   </tr>
 	   </table>
 	   
    </td>
 	    
   </tr>  
   <tr>
-    <td width="100%" colspan="2" bgcolor="ffffff" style="padding:5px;border-left:3px solid gray">
+    <td width="100%" colspan="2" bgcolor="ffffff" style="border-top:1px solid silver;background-color:f1f1f1">
 	
-    <table border="0" align="center" width="98%">
+    <table align="right" width="99%">
 				  
-	  <tr>
-        <td style="height:20px;padding-top:5px" valign="top" height="18" class="labelit"><cf_tl id="Organization">:</td>
+	  <tr class="labelmedium2">
+        <td style="height:20px;padding-top:5px" valign="top"><cf_tl id="Organization">:</td>
 		
 		<td colspan="4">
 		
@@ -158,25 +197,25 @@ SELECT *
 		  ORDER BY HierarchyCode
 	   </cfquery>
 	   
-	   <cfset Indent = "0">
+	   <cfset Indent = "3">
 					
 	   <cfoutput query="Org">
 	   
 	   	   <cfif currentrow eq recordcount>
-		   	<cfset cl = "ffffaf">
+		   	<cfset cl = "dadada">
 		   <cfelse>
 		   	<cfset cl = "ffffff">	
 		   </cfif>	
 	   	   
-	       <TR class="labelmedium line" style="background-color:#cl#">		   		   	  
-	          <td style="min-width:100px;padding-left:#indent#px">
+	       <TR class="labelmedium2 line" style="background-color:#cl#">		   		   	  
+	          <td style="padding-top:2px;min-width:100px;padding-left:#indent#px">
 			  <cfif currentrow eq recordcount>
 			  <img src="#SESSION.root#/Images/bullet.gif" height="20"  border="0" align="absmiddle">	          
 			  <cfelse>
 			  <img src="#SESSION.root#/Images/bullet.gif" height="16"  border="0" align="absmiddle">		  
 			  </cfif>
 	       </td>
-	       <td width="40%">#Mission# - #OrgUnitName#</td>
+	       <td width="40%"><cfif currentrow eq "1">#mission#&nbsp;-&nbsp;</cfif>#OrgUnitName#</td>
 	       <TD width="10%">#OrgUnitCode#</TD>
 	       <TD width="30%">#OrgUnitClass#</TD>
 		   <TD width="10%">#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>	 
@@ -193,48 +232,45 @@ SELECT *
 	   
 	   <cfoutput> 
     
-      <tr class="labelmedium2">
-        <td width="17%"><cf_tl id="Function">:</td>
-        <td colspan="3">
-		
-		    <table>
-			<tr class="labelmedium2">			
-			<td><a href="javascript:EditPosition('#Position.Mission#','#Position.MandateNo#','#Position.PositionNo#')">
-			    #Position.PostGrade# #Position.FunctionDescription#</a>
-			</td>			
-			<td style="padding-left:10px;height:20px"><cf_tl id="Post type">:</td>			
-	        <td style="padding-left:5px;height:20px" colspan="3">#Position.PostType#</td>
-	
-			<cfif Position.SourcePostNumber neq "">
+	      <tr class="labelmedium2">
+	        <td width="17%"><cf_tl id="Function">:</td>
+	        <td colspan="3">
 			
-				<td style="padding-left:10px" >
+			    <table>
+				<tr class="labelmedium2">			
+				<td><a href="javascript:EditPosition('#Position.Mission#','#Position.MandateNo#','#Position.PositionNo#')">
+				    #Position.PostGrade# #Position.FunctionDescription#</a> (#Position.PositionNo#)			
+				</td>			
+				<td style="padding-left:10px;height:20px"><cf_tl id="Post type">:</td>			
+		        <td style="padding-left:5px;height:20px" colspan="3">#Position.PostType#</td>
+		
+				<cfif Position.SourcePostNumber neq "">
 				
-					<cf_tl id="External Postnumber">:
+					<td style="padding-left:10px" >
+					
+						<cf_tl id="External Postnumber">:
+						
+						</td>
+						
+						<td style="padding-left:10px" class="labelmedium">
+																
+						<cf_customLink
+						   FunctionClass = "Staffing"
+						   FunctionName  = "stPosition"
+						   Key="#Position.SourcePostNumber#"> 
+					
+						<input type="hidden" name="SourcePostNumber" value="#Position.SourcePostNumber#">
 					
 					</td>
-					
-					<td style="padding-left:10px" class="labelmedium">
 				
-					#Position.Source#&nbsp;
+				</cfif>						
 				
-					<cf_customLink
-					   FunctionClass = "Staffing"
-					   FunctionName  = "stPosition"
-					   Key="#Position.SourcePostNumber#"> 
+				</tr>
+				</table>
 				
-					<input type="hidden" name="SourcePostNumber" value="#Position.SourcePostNumber#">
-				
-				</td>
+			</td>
 			
-			</cfif>						
-			
-			</tr>
-			</table>
-			
-		</td>
-		
-      </tr>
-	 	 	  
+	      </tr> 	 	  
 	  
 	  </cfoutput>
 	   
@@ -254,19 +290,20 @@ SELECT *
 		    	WHERE  LocationCode = '#Position.LocationCode#'
 			</cfquery>	
 					
-		#Location.LocationName#</cfif>
+			#Location.LocationName#
+		</cfif>
 	  </td>
 	  </tr>
 	   
 	  <tr class="labelmedium2">
         <td><cf_tl id="Class">:</td>
-        <td colspan="2">#Position.PostClass#</td>
+        <td colspan="2">#Position.PostClass# | #Position.VacancyActionClass# </td>
 	 </tr>
 	 	 	  	  	  
 	  <tr class="labelmedium2">
-        <td><cf_tl id="Effective">:</td>
+        <td><cf_tl id="Effective for usage">:</td>
         <td colspan="2">#Dateformat(Position.DateEffective, CLIENT.DateFormatShow)#
-		- #Dateformat(Position.DateExpiration, CLIENT.DateFormatShow)#
+		- #Dateformat(Position.DateExpiration, CLIENT.DateFormatShow)# | <font color="8000FF">#position.remarks#
 		</td>
       </tr>
 	 	  

@@ -324,7 +324,7 @@
 			
 			<!--- 2 - 3 main detail content --->
 																
-			<tr class="labelmedium2 line <cfif opening.recordcount gte "1">fixrow2<cfelse>fixrow</cfif>">
+			<tr class="labelmedium2 fixlengthlist line <cfif opening.recordcount gte "1">fixrow2<cfelse>fixrow</cfif>">
 			
 			<cfquery name="Opening" dbtype="query" >
 				SELECT SUM(Debit)                as Debit, 
@@ -340,10 +340,10 @@
 				</cfif>
 			</cfquery>
 			
-			    <td style="min-width:40px"></td>
-				<TD style="min-width:100px"><cf_tl id="Journal"></TD>
-			    <TD style="min-width:130px;width:20%"><cf_tl id="TraNo"></TD>
-				<TD style="width:60%"><cf_tl id="Reference"></TD>
+			    <td></td>
+				<TD><cf_tl id="Journal"></TD>
+			    <TD><cf_tl id="TraNo"></TD>
+				<TD><cf_tl id="Reference"></TD>
 				
 				<cfif URL.mde neq "Transaction">
 				
@@ -355,25 +355,25 @@
 					
 				<cfelse>
 				
-					<TD style="min-width:100px"><cf_tl id="Date"></TD>
-					<TD style="min-width:100px"><cf_tl id="Posted"></TD>		
+					<TD><cf_tl id="Date"></TD>
+					<TD><cf_tl id="Posted"></TD>		
 						
 				</cfif>	
 				
-			    <TD style="min-width:60px"><cf_tl id="Curr"></TD>
-				<td style="min-width:100px" align="right"><cf_tl id="Debit"></td>
-				<td style="min-width:100px;padding-right:4px" align="right"><cf_tl id="Credit"></td>
-				<td style="min-width:96px;border-left:1px solid silver;padding-right:2px" bgcolor="yellow" align="right"><cf_tl id="Debit"> #curr#</td>
-				<td style="min-width:96px;border-left:1px dotted silver;border-right:1px solid silver;padding-right:4px" bgcolor="yellow" align="right"><cf_tl id="Credit"> #curr#</td>
+			    <TD><cf_tl id="Curr"></TD>
+				<td style="width:100px" align="right"><cf_tl id="Debit"></td>
+				<td style="width:100px;padding-right:4px" align="right"><cf_tl id="Credit"></td>
+				<td style="width:96px;border-left:1px solid silver;padding-right:2px" bgcolor="yellow" align="right"><cf_tl id="Debit"> #curr#</td>
+				<td style="width:96px;border-left:1px dotted silver;border-right:1px solid silver;padding-right:4px" bgcolor="yellow" align="right"><cf_tl id="Credit"> #curr#</td>
 				
 				<cfif URL.mde neq "Transaction">
-					<td style="min-width:100px;;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Running"></td>	
+					<td style="width:100px;;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Running"></td>	
 				<cfelse>
 					<td style="min-width:0px;" align="right"></td>		
 				</cfif>
 				
 				<cfif URL.mde eq "Posting"  and Account.BankId neq "" and url.aggregate eq "0">
-				<td style="min-width:30px;" align="right"><cf_tl id="Note"></td>	
+				<td align="right"><cf_tl id="Note"></td>	
 				<cfelse>
 				   <td style="min-width:0px;" align="right"></td>		
 				</cfif>
@@ -482,7 +482,7 @@
 					  				  														
 					  <cfif srow-first lt rows>									
 					  
-					    <tr id="r#currentrow#" class="navigation_row labelmedium2 line" style="height:25px">																		    
+					    <tr id="r#currentrow#" class="navigation_row labelmedium2 line fixlengthlist" style="height:25px">																		    
 						<td align="center">#currentrow#</td>						
 						<TD style="padding-left:4px">
 						
@@ -513,7 +513,7 @@
 							</table>						
 						</TD>
 						
-						<TD class="navigation_action" style="cursor: pointer;padding-left:4px">
+						<TD class="navigation_action" style="cursor: pointer">
 						
 						    <cfif url.aggregate eq "0">
 																					
@@ -535,7 +535,7 @@
 							
 						</TD>
 							
-						<td colspan="2" style="word-break: break-all; word-wrap: break-word;">	
+						<td colspan="2">	
 						
 						    <cfif url.aggregate eq "0">
 												
@@ -604,10 +604,10 @@
 											
 					    <TD align="left">#SearchResult.Currency#</TD>
 					    <td align="right">#t##NumberFormat(AmountDebit,',.__')#</td>	
-						<td align="right" style="padding-right:3px">#t##NumberFormat(AmountCredit,',.__')#</td>							
-						<td style="min-width:100px;border-left:1px solid silver;padding-right:3px;background-color:##ffffaf80" align="right">#t##NumberFormat(AmountBaseDebit*DateExchangeRate,',.__')#</td>	
-						<td style="min-width:100px;border-left:1px solid silver;border-right:1px dotted silver;border-right:1px solid silver;padding-right:3px;background-color:##ffffaf80" align="right">#t##NumberFormat(AmountBaseCredit*DateExchangeRate,',.__')#</td>							
-						<td align="right" style="min-width:100px;border-left:solid silver 1px;padding-right:4px;border-top:solid gray 0px"></td>
+						<td align="right">#t##NumberFormat(AmountCredit,',.__')#</td>							
+						<td style="width:100px;border-left:1px solid silver;padding-right:3px;background-color:##ffffaf80" align="right">#t##NumberFormat(AmountBaseDebit*DateExchangeRate,',.__')#</td>	
+						<td style="width:100px;border-left:1px solid silver;border-right:1px dotted silver;border-right:1px solid silver;padding-right:3px;background-color:##ffffaf80" align="right">#t##NumberFormat(AmountBaseCredit*DateExchangeRate,',.__')#</td>							
+						<td align="right" style="width:100px;border-left:solid silver 1px;padding-right:4px;border-top:solid gray 0px"></td>
 
 						<cfif URL.mde eq "Posting" and Account.BankId neq "" and url.aggregate eq "0">		    
 							<td align="right" id="note_#Journal#_#JournalSerialNo#" style="padding-bottom:5px">
@@ -675,9 +675,7 @@
 									   
 									   <cfset mydte = createDate(left(transactionperiod,4),mid(transactionperiod,5,2),"01")>									   
 									   <cfset dte = "#dateformat(mydte,CLIENT.DateFormatShow)#">		
-									   
-									   
-									   					  									  								    
+										   					  									  								    
 									<cfelseif findNoCase("date", group)>
 									   #dateformat(evaluate(group),"#client.dateformatshow#")#
 									   <cfset dte = "#dateformat(evaluate(group),CLIENT.DateFormatShow)#">						   
@@ -770,7 +768,7 @@
 	<cfif ytd.recordcount gte "1">		
 			 						
 				  
-		  <TR class="labelmedium2" style="background-color:e1e1e1;height:29px;border:1px solid silver">	
+		  <TR class="labelmedium2 fixlengthlist" style="height:29px;border:1px solid silver">	
 		    
 		  	<td style="width:100%;padding-left:5px">
 			
@@ -799,13 +797,14 @@
 							  olap        = "0" 
 							  excel       = "1"> 	
 									
-			</tr></table>			
+			</tr>
+			</table>			
 			</td>		 
-			<td align="right" style="background-color:f1f1f1;min-width:200px;padding-right:5px"><cf_tl id="Closing">#url.pap#</td>		   													
-			<td style="min-width:100px;border-bottom:1px solid silver;border-left:1px solid silver;padding-right:2px" bgcolor="yellow" align="right">
+			<td align="right" style="min-width:160px;padding-right:5px"><cf_tl id="Closing">#url.pap#</td>		   													
+			<td style="min-width:98px;border-bottom:1px solid silver;border-left:1px solid silver" bgcolor="yellow" align="right">
 			#NumberFormat(ytd.DebitBase/exch,',.__')#
 			</td>	
-			<td style="min-width:100px;border-left:1px dotted silver;border-bottom:1px solid silver;border-right:1px solid silver;padding-right:4px" bgcolor="yellow" align="right" width="10%">
+			<td style="min-width:98px;border-left:1px dotted silver;border-bottom:1px solid silver;border-right:1px solid silver" bgcolor="yellow" align="right" width="10%">
 			#NumberFormat(ytd.CreditBase/exch,',.__')#
 			</td>	
 			
@@ -813,7 +812,7 @@
 			<cfif URL.mde neq "Transaction"> 
 			--->
 												
-			<td align="right" bgcolor="80FF80" style="min-width:100px;padding-right:4px">
+			<td align="right" bgcolor="80FF80" style="min-width:100px">
 								
 				<cfif ytd.balance neq 0>
 					<cfif Account.accounttype eq "Credit">			
@@ -838,9 +837,9 @@
 			--->
 			
 			<cfif URL.mde eq "Posting"  and Account.BankId neq "">
-			<td style="min-width:29px"></td>
+			<td style="min-width:24px"></td>
 			<cfelse>
-			<td style="min-width:16px"></td>
+			<td style="min-width:10px"></td>
 			</cfif>
 			
 		  </TR>	  

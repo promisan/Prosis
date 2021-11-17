@@ -72,19 +72,19 @@
 	
 <!--- Query returning search results --->
 		
-<table width="99%"  border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+<table width="99%" class="navigation_table">
 	
-	<TR class="line labelmedium fixrow" style="height:25px">
+	<TR class="line labelmedium2 fixrow" style="height:25px">
 	    <td height="20" width="50"></td>
 		<td width="70"></td>
 		<td><cf_tl id="Code"></td>
 	    <td style="padding-left:30px"><cf_tl id="Name"></td>
-		<td width="70" colspan="1"></td>	
-		<td width="40%" colspan="1"></td>
+		<td width="70"></td>	
+		<td width="40%"></td>
 	    <TD width="20%"><cf_tl id="Entered"></TD>
 	    <td colspan="2" style="padding-right:5px"><cf_tl id="Date"></td>		
 	</TR>
-			
+				
 	<cfset prior = "0">
 	<cfset value = "">
 	<cfoutput query="ResultListing">

@@ -60,19 +60,17 @@
 
 	<cfset stl = "border:1px solid silver;padding-right:3px">
 	
-	<tr bgcolor="E6F2FF" style="border-top:0px solid silver" class="navigation_row">	
+	<tr bgcolor="E6F2FF" style="border-top:0px solid silver" class="navigation_row fixlengthlist fixrow labelmedium2">	
 		  		  		  
-		  <td class="labellarge" style="border:1px solid silver;padding-left:14px;height:40px;padding-bottom:8px;padding-top:5px;font-size:26px">
-		  
+		  <td colspan="2" style="min-width:200px;border:1px solid silver;padding-left:14px;font-weight:bold;padding-bottom:4px;padding-top:2px;font-size:24px">
+		  		  
 		  <cfif attributes.panel eq "Credit">
-		   <cf_tl id="Gross Margin"> 
+		     <cf_tl id="Income"> 
 		  <cfelse>
 		  	 <cf_tl id="Operating costs">
 		  </cfif> 
-		   <cf_space spaces="65">
+		 
 		  </td>
-		  	 
-		  <td bgcolor="ffffff" class="labellarge" align="right" style="width:100%;height:25px;padding-left:10px;padding-right:7px"><cfif attributes.PANEL EQ "Debit"><cf_tl id="Total"><cfelse><cf_tl id="Total"></cfif>:</td>
 		 
 		  <cfif attributes.showperiod eq "1">
 		 
@@ -95,8 +93,7 @@
 						AND     Panel = '#attributes.panel#'
 					</cfquery>
 				
-				<td class="labellarge" align="right" style="#stl#">
-				<cf_space spaces="19">
+				<td align="right" style="#stl#">
 				<font color="808080">
 				<cfif data.total lt 0>
 			    <font color="FF0000">#NumberFormat(evaluate("Data.Total"),'(,____)')#</font>
@@ -123,8 +120,7 @@
 		      <font color="FF0000">#NumberFormat(evaluate("Data.Total"),'(_,____)')#</font>
 			  <cfelse>
 			  #NumberFormat(evaluate("Data.Total"),'_,____')#
-			  </cfif>
-			  <cf_space spaces="22">
+			  </cfif>			  
 			  </font>
 		  </td>
 			
@@ -143,26 +139,28 @@
 		<cfset pDetailVisible = "">	
 	</cfif>
 
+	<!--- 
 	<cfif attributes.aggregation neq "Parent">
 	<tr><td height="14"></td></tr>
 	<cfelse>	
 	</cfif>
+	--->
 	
-    <tr style="border-bottom:1px solid silver; cursor:pointer;" onclick="toggleSection('.clsParentDetail_#attributes.panel#_#pAccountParentId#');">
+    <tr style="border-bottom:1px solid silver; cursor:pointer;" class="labelmedium2" onclick="toggleSection('.clsParentDetail_#attributes.panel#_#pAccountParentId#');">
 	   	   
 	   		<cfif attributes.aggregation eq "Parent">					
 			 
 			  <cfset bold = "">
 			  <cfset pCollapse = true>
 			  <cfset stl = "border:0px solid silver;padding-right:3px">
-			  <td bgcolor="ffffff" colspan="2" style="padding-left:10px;height:34px" class="labellarge" ><font color="gray">#AccountParent# #AccountParentDescription#</td>
+			  <td bgcolor="ffffff" colspan="2" style="padding-left:10px;height:34px"><font color="gray">#AccountParent# #AccountParentDescription#</td>
 			  				  						 
 		   <cfelse>			
 			 
 			  <cfset bold = "<b>">
 			  <cfset pCollapse = false>
 			  <cfset stl = "border:1px solid silver;padding-right:3px;border-radius:4px">
-			  <td bgcolor="ffffff" colspan="2" style="padding-left:10px;height:34px" class="labelmedium"><font color="gray">#AccountParent# #AccountParentDescription#</td>
+			  <td bgcolor="ffffff" colspan="2" style="padding-left:10px;height:34px"><font color="gray">#AccountParent# #AccountParentDescription#</td>
 				  						  
 		   </cfif>		
 						
@@ -699,11 +697,10 @@
 	
 		<cfif attributes.showperiod eq "1" or data.total gt "0">
 		
-			<cfset stl = "border:1px solid silver;padding-right:3px;border-radius:0px;background-color:green;color:white">	
+			<cfset stl = "border:1px solid silver;padding-right:3px;border-radius:0px;background-color:##00800050;color:black">	
     
-			<tr class="navigation_row line">		  
-				  <td class="labelmedium" style="padding-left:10px;padding-right:3px"> <cf_tl id="Profit"></td>
-				  <td class="labelmedium" style="padding-left:2px;padding-right:3px"></td>
+			<tr class="navigation_row line fixlengthlist labelmedium2">		  
+				  <td colspan="2" class="labelmedium" style="padding-left:10px;padding-right:3px"> <cf_tl id="Profit"></td>
 				 
 				 <cfif attributes.showperiod eq "1">
 				 
@@ -725,13 +722,13 @@
 					   				   				
 							<cfif data.total gt "0">	
 							   				
-							<td bgcolor="E1FFC4" class="labellarge" align="right" style="#stl#;border-bottom:1px solid silver">
+							<td align="right" style="#stl#;border-bottom:1px solid silver">
 								#NumberFormat(Data.Total,'_,____')#</font>
 							</td>
 							
 							<cfelse>
 							
-								<td bgcolor="E1FFC4" style="#stl#;border-bottom:1px solid silver"></td>
+								<td style="#stl#;border-bottom:1px solid silver;background-color:##ffffff80"></td>
 								
 							</cfif>
 						
@@ -749,12 +746,12 @@
 				  </cfquery>	   
 				  			 		  	
 				  <cfif data.total gt "0">		 		  	
-				 	 <td bgcolor="E1FFC4" class="labelmedium" align="right" style="#stl#;border-bottom:1px solid silver">
+				 	 <td align="right" style="#stl#;border-bottom:1px solid silver;font-size:20px">
 					  #NumberFormat(Data.Total,'_,____')# 
 					  </font>
 					 </td>
 				  <cfelse>
-				  	<td bgcolor="E1FFC4" style="#stl#:border-bottom:1px solid silver"></td> 	 
+				  	<td style="#stl#:border-bottom:1px solid silver;background-color:##ffffff80"></td> 	 
 				  </cfif>	
 					
 			 </tr>		
@@ -779,12 +776,11 @@
 				<tr><td height="15"></td></tr>
 			
 			</cfif>
-			
-			<cfset stl = "border:1px solid silver;padding-right:3px;border-radius:0px;background-color:red;color:white">
+						
+			<cfset stl = "border:1px solid silver;padding-right:3px;border-radius:0px;background-color:##FF000050;color:black">
 		
-			<tr class="navigation_row line">		  
-			  <td class="labelmedium" style="padding-left:10px;padding-right:3px"><cf_tl id="Loss"></td>
-			  <td class="labellarge" style="padding-left:2px;padding-right:3px"></td>
+			<tr class="navigation_row line labelmedium2 fixlengthlist">		  
+			  <td colspan="2" style="padding-left:10px;padding-right:3px"><cf_tl id="Loss"></td>
 			 
 			 <cfif attributes.showperiod eq "1">
 			 
@@ -805,11 +801,9 @@
 						</cfquery>
 				   		
 						<cfif data.total gte "0">	   				
-						<td class="labellarge" align="right" style="#stl#;border-bottom:1px solid silver">																	
-							#NumberFormat(Data.Total,'_,____')#													
-						</td>
+						<td align="right" style="#stl#;border-bottom:1px solid silver">#NumberFormat(Data.Total,'_,____')#	 															</td>
 						<cfelse>
-						<td style="#stl#;border-bottom:1px solid silver"></td>
+						<td style="#stl#;border-bottom:1px solid silver;background-color:##ffffff50"></td>
 						</cfif>
 					
 				   </cfloop>
@@ -826,11 +820,11 @@
 			  </cfquery>   
 	  		  
 			  <cfif data.total gte "0">		 		  	
-			 	 <td class="labellarge" bgcolor="FED7CF" align="right" style="#stl#;border-bottom:1px solid silver">				 
+			 	 <td align="right" style="#stl#;border-bottom:1px solid silver;font-size:20px;font-weight:bold">				 
 				  #NumberFormat(Data.Total,'_,____')#
 				 </td>
 			  <cfelse>
-			  	<td bgcolor="FED7CF" style="#stl#;border-bottom:1px solid silver"></td> 	 
+			  	<td style="#stl#;border-bottom:1px solid silver;background-color:##ffffff80"></td> 	 
 			  </cfif>	
 				
 		   </tr>		

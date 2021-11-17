@@ -68,7 +68,7 @@ password="#SESSION.dbpw#">
      
   <tr>
     <td width="100%" class="header">
-    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%">
+    <table width="100%">
 	
     <TR><TD class="header">&nbsp;</TD></TR>		
 

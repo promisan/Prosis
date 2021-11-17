@@ -34,7 +34,9 @@ password="#SESSION.dbpw#">
 <script>
 
 function reloadForm(page,view,layout,global) {
+   try {
    lv = document.getElementById("find").value
+   } catch(e) { lv = '' } 
    ptoken.location('ProgramViewGeneral.cfm?find='+lv+'&ProgramClass=#URL.ProgramClass#&ProgramGroup=#URL.ProgramGroup#&ReviewCycleId=#URL.ReviewCycleId#&Period=#URL.Period#&ID=#URL.ID#&ID1=#URL.ID1#&Global=' + global + '&Page=' + page + '&View=' + view + '&Lay=' + layout + '&Mandate=#URL.Mandate#&Mission=#URL.Mission#&Mode=#URL.Mode#')
 }
 

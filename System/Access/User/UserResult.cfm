@@ -75,9 +75,9 @@
 	          {itm=itm.parentNode;}
 	     }	 		 	 	
 		 if (fld != false){
-			 itm.className = "labelmedium line highlight2";
+			 itm.className = "labelmedium line fixlengthlist highlight2";
 		 }else{
-			 itm.className = "labelmedium line";		
+			 itm.className = "labelmedium line fixlengthlist";		
 		 }	
 	  }	 
 	</script>	
@@ -377,21 +377,20 @@
 				
 				<table width="98%">
 								
-				<tr class="labelmedium2 fixrow">
-					<td height="22" style="width:40px"></td>
-					<td style="min-width:200px"><cf_tl id="Name"></td>
-					<td width="100"><cf_tl id="Account"></td>
+				<tr class="labelmedium2 fixrow fixlengthlist">
+					<td height="22"></td>
+					<td><cf_tl id="Name"></td>
+					<td><cf_tl id="Account"></td>
 					<td><cf_tl id="Managed"></td>
-					<td width="130"><cf_tl id="Network"></td>
-					<td style="min-width:120px"><cfoutput>#client.indexNoName#</cfoutput></td>
-					
-					<td style="min-width:120px"><cf_tl id="eMail"></td>
+					<td><cf_tl id="Network"></td>
+					<td><cfoutput>#client.indexNoName#</cfoutput></td>					
+					<td><cf_tl id="eMail"></td>
 					<td><cf_tl id="Group"></td>
-					<td style="min-width:120px"><cf_tl id="Last logon"></td>
-					<td width="20"></td>
-					<td width="20"></td>
-					<td width="20"></td>
-					<td width="20"></td>
+					<td><cf_tl id="Last logon"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 								
 				<cfset currrow = 0>
@@ -428,14 +427,14 @@
 				   
 				   <cfif currrow lte No>
 				   
-				   <TR bgcolor="#IIf(disabled eq '1', DE('d6d6d6'), DE('FFFFFF'))#" class="labelmedium2 navigation_row line" style="height:25px">
+				   <TR bgcolor="#IIf(disabled eq '1', DE('d6d6d6'), DE('FFFFFF'))#" class="labelmedium2 navigation_row line fixlengthlist" style="height:25px">
 				        
-				   <td width="60" align="center">
+				   <td align="center">
 				   
 					   <table cellspacing="0" cellpadding="0">
 					   <tr>
 					   
-					   <td>#currentrow#</td>
+					   <td class="fixlengthlist" style="width:30px">#currentrow#</td>
 					  					  						
 						<cfif AccessCount gte "1">
 					   	   
@@ -464,37 +463,33 @@
 					
 				   </td>
 				
-				   <TD><a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#LastName#<cfif firstname neq "">, #FirstName#</cfif></a></td> 
-				   <TD style="padding-right:5px">#Account#</TD>  
-				   
-				   <td style="padding-right:5px">#AccountMission#</td>
-				   
-				   <TD style="padding-right:5px"><cfif mailserverdomain neq "">#MailServerDomain#/</cfif>#MailServerAccount#</TD> 
+				   <TD class="fixlength" title="#FirstName# #lastName#"><a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#LastName#<cfif firstname neq "">, #FirstName#</cfif></a></td> 
+				   <TD>#Account#</TD> 				   
+				   <td>#AccountMission#</td>				   
+				   <TD class="fixlength"><cfif mailserverdomain neq "">#MailServerDomain#/</cfif>#MailServerAccount#</TD> 
 				   
 				   <cfif StaffRecord neq "">				   
-				   		<TD style="padding-right:5px"><A HREF="javascript:EditPerson('#StaffRecord#')"><font color="800000">#StaffIndexNo#</a></TD>   				   
+				   		<TD title="Staff"><A HREF="javascript:EditPerson('#StaffRecord#')">#StaffIndexNo#</a></TD>   				   
 				   <cfelseif NaturalPerson neq "">			   
-				    	<TD style="padding-right:5px"><A HREF="javascript:ShowCandidate('#PersonNo#')">#IndexNo#</a></TD>				   
+				    	<TD title="Person"><A HREF="javascript:ShowCandidate('#PersonNo#')">#IndexNo#</a></TD>				   
 					<cfelse>
-						<TD style="padding-right:5px"></TD>			
+						<TD></TD>			
 				   </cfif>
 				   
 				  
-				   <TD style="padding-right:5px">
-				   
-				   <cfif eMailAddress neq "">
-						 <a href="javascript:email('#eMailAddress#','','','','User','#Account#')">#eMailAddress#</font>
-					<cfelse>
-						 #eMailAddress#
-				   </cfif>
-				   
+				   <TD title="#eMailAddress#">				   
+					   <cfif eMailAddress neq "">
+							 <a href="javascript:email('#eMailAddress#','','','','User','#Account#')">#eMailAddress#</font>
+					   <cfelse>
+							 #eMailAddress#
+					   </cfif>				   
 				   </TD>
-				   <TD style="padding-left:3px;padding-right:5px">#AccountGroup#</TD>
+				   <TD style="padding-left:3px">#AccountGroup#</TD>
 				   <TD>
 				       <cfif DateFormat(LastLogon, CLIENT.DateFormatShow) eq "">
 					   <font color="FF0000">never</font><cfelse>#DateFormat(LastLogon, CLIENT.DateFormatShow)#</cfif>
 				   </td>				      
-				   <td align="right" style="height:20px;padding-right:5px">
+				   <td align="right" style="height:20px">
 				
 					    <cfif AccessCount gte "1">
 						
@@ -533,11 +528,9 @@
 						 
 				   </td>
 				   
-				   <td style="padding-right:8px">					            
-					  
-				   </td>
+				   <td></td>
 				   
-				   <td style="padding-right:8px">	
+				   <td>	
 				   
 				   		<cfif AccessCount gte "1">
 							   
@@ -557,7 +550,7 @@
 						  
 				   </td>
 						 
-				   <td align="right" class="labelit" style="padding-right:6px">
+				   <td align="right">
 				     							
 					   <cfif Anonymous.AnonymousUserId eq Account>
 					   

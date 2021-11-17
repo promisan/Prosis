@@ -60,7 +60,9 @@ that carry this item and that are enabled --->
 	password="#SESSION.dbpw#">
 	    SELECT *
 		FROM   ItemUoM
-		WHERE  ItemNo = '#URL.ID#'				
+		WHERE  ItemNo = '#URL.ID#'		
+		AND    Operational = 1		
+		ORDER BY UoM
 </cfquery>	
 
 <cfquery name="TaxList"
@@ -368,7 +370,11 @@ that carry this item and that are enabled --->
 									WHERE    T.TopicClass = 'ItemUoM'															
 									
 							</cfquery>
-							
+														 
+							 <tr><td colspan="6" style="padding-right:40px">
+							 							 
+							 <table>
+							 
 							  <tr class="line">  	
 								  
 								  	<td width="80" height="23" style="padding-left:5px" class="labelmedium2"><cf_tl id="Replenishment topic"></td>
@@ -376,9 +382,9 @@ that carry this item and that are enabled --->
 								    <cfloop index="itm" list="System,OE">
 									
 										<cfif itm eq "OE">
-										<td colspan="3"><cf_tl id="Expert opinion"></td>										
+										<td colspan="4"><cf_tl id="Expert opinion"></td>										
 										<cfelse>
-										<td colspan="2"><cf_tl id="Generated"></td>
+										<td colspan="3"><cf_tl id="Generated"></td>
 										</cfif>
 																		
 									</cfloop>
@@ -389,20 +395,49 @@ that carry this item and that are enabled --->
 															
 								  <tr>  	
 								  
-								  	<td width="80" height="23" style="padding-left:5px" class="labelmedium2">#TopicDescription#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
+								  	<td width="80" height="23" style="border:1px solid solid silver;min-width:230px;padding-left:5px" class="labelmedium2">#TopicDescription#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
 																	
-								    <cfloop index="itm" list="System,OE">									
+								    <cfloop index="src" list="System,OE">										
+									  
+										<cfquery name="getValue" 
+										datasource="AppsMaterials"
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+										  	SELECT   DateEffective, 
+											         ListCode, TopicValue, TopicAttribute1, TopicAttribute2, TopicAttribute3
+			                                FROM     ItemUoMTopic
+			                                WHERE    ItemNo    = '#URL.Id#' 
+											AND      UoM       = '#ItemUoM.UoM#' 
+											AND      Topic     = '#Code#' 
+											AND      Warehouse = '#w#' 
+											AND      Source    = '#itm#' 
+											AND      Mission is NULL 
+											AND      Operational = 1
+			                                ORDER BY DateEffective DESC
+										</cfquery>											
 									
-									<cfif itm eq "OE">
-																									
-									<td style="padding-left:10px">
-									  <input class="regularxxl" style="min-width:300px;border:0px;border-bottom:1px solid silver;width:99%;background-color:ffffcf" type="text" name="Memo">
-									</td>
+										<td style="padding-left:9px;padding-right:3px;min-width:100px">										
+										
+										<cfif getValue.dateEffective neq "">
+										    <cfset st  = dateformat(getValue.dateEffective, client.dateformatshow)>
+											<cfset sts = "#Dateformat(getValue.dateEffective, 'YYYYMMDD')#">
+										<cfelse>
+											<cfset st = dateformat(now(), client.dateformatshow)>
+											<cfset sts = "#Dateformat('01/01/2020', 'YYYYMMDD')#">
+										</cfif>
+																														
+										<cf_setCalendarDate
+										      name     = "DateEffective_#row#_#Code#_#src#"     
+											  id       = "DateEffective_#row#_#Code#_#src#"   											        
+										      font     = "16"
+											  edit     = "Yes"
+											  class    = "regularxxl"				  
+											  value    = "#st#"
+										      mode     = "date"> 																				
+										
+										</td>								
 									
-									</cfif>
-																	
-									
-									<td>																		
+									<td style="min-width:80px;padding-left:3px">																		
 																		   
 										<cfif ValueClass eq "List">
 										
@@ -467,38 +502,13 @@ that carry this item and that are enabled --->
 											--->
 											   
 										<cfelseif ValueClass eq "Text">
-																		
-											 <cfquery name="GetValue"  
-											  datasource="appsMaterials" 
-											  username="#SESSION.login#" 
-											  password="#SESSION.dbpw#">
-												  SELECT *
-												  FROM   ItemUoMTopic
-												  WHERE  Topic     = '#Code#'		
-												  AND    ItemNo    = '#url.id#'	
-												  AND    UoM       = '#itemuom.uom#'	
-												  AND    Warehouse = '#W#'
-												  AND    Source    = '#itm#'	
-												  ORDER BY DateEffective DESC	 
-											</cfquery>		
-																						
-											<!---
-											<cfoutput>
-											SELECT *
-												  FROM   ItemUoMTopic
-												  WHERE  Topic     = '#Code#'		
-												  AND    ItemNo    = '#url.id#'	
-												  AND    UoM       = '#uom#'	
-												  AND    Warehouse = '#W#'
-												  AND    Source    = '#itm#'		
-											</cfoutput>
-											--->																										
+																																								
 											
 											<cfinput type = "Text"
-										       name       = "Topic_#Code#"
+										       name       = "Topic_#row#_#Code#_#src#"
 										       required   = "#ValueObligatory#"					     
 										       size       = "#valueLength#"
-											   style      = "width:99%;text-align:right;padding-right:4px;border:0px;border-bottom:1px solid silver;background-color:eaeaea"
+											   style      = "width:99%;text-align:right;padding-right:4px;<cfif src eq 'System'>background-color:eaeaea<cfelse>background-color:ffffff</cfif>"
 											   class      = "regularxxl enterastab"
 											   message    = "Please enter a #Description#"
 											   value      = "#GetValue.TopicValue#"
@@ -508,9 +518,18 @@ that carry this item and that are enabled --->
 														
 									</td>
 									
-									<td>
+									<cfif src eq "OE">
+																										
+										<td style="padding-left:3px;width:60%">
+										  <input class="regularxxl" style="min-width:300px;width:99%;background-color:ffffcf" type="text" 
+										  name="Memo_#row#_#Code#_#src#">
+										</td>
+										
+										</cfif>		
 									
-									<input type="button" value="H" style="width:28px" class="button10g" title="History">
+									<td style="padding-left:2px">
+									
+									<input type="button" value="H" style="height:28px;width:30px;border:1px solid silver" class="button10g" title="History">
 									
 									</td>
 																	
@@ -521,7 +540,9 @@ that carry this item and that are enabled --->
 																		
 									</tr>							
 								
-							</cfloop>		
+							</cfloop>	
+							
+							</table></td></tr>	
 							
 							<tr><td style="padding-top:4px"></td></tr>								
 							<tr class="labelmedium2">	
@@ -554,4 +575,6 @@ that carry this item and that are enabled --->
 </table>
 
 </cfform>
+
+
 

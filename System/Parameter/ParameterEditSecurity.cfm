@@ -72,28 +72,30 @@ datasource="AppsInit">
 	
 	<tr>
 	<td valign="top">
-	<input type="radio" class="radiol" name="EnableURLCheck" id="EnableURLCheck" value="1" <cfif get.EnableURLCheck eq "1">checked</cfif>>
+	<input type="radio" class="radiol" name="EnableURLCheck" id="EnableURLCheck" value="2" <cfif get.EnableURLCheck eq "2">checked</cfif>>
 	</td>
-	<td class="labelmedium" style="padding-top:2px;padding-left:10px">Prosis SQL keyword and Coldfusion string protection</td>
+	<td class="labelmedium" style="padding-top:2px;padding-left:10px"><b>F</b>use<b>G</b>uard<br><font color="808080">recuires installation thirdparty tool</font></td>
 	</tr>
+	
 	
 	<tr>
 	<td valign="top">
-	<input type="radio" class="radiol" name="EnableURLCheck" id="EnableURLCheck" value="2" <cfif get.EnableURLCheck eq "2">checked</cfif>>
+	<input type="radio" class="radiol" name="EnableURLCheck" id="EnableURLCheck" value="1" <cfif get.EnableURLCheck eq "1">checked</cfif>>
 	</td>
-	<td class="labelmedium" style="padding-top:2px;padding-left:10px"><b>F</b>use<b>G</b>uard<br><font color="808080">extended protection recuires installation</font></td>
+	<td class="labelmedium" style="padding-top:2px;padding-left:10px">Prosis SQL keyword and [ptoken] native string protection (<b><u>recommended</u></b>)</td>
 	</tr>
+	
 	</table>
 		</td>
 	</tr>
 	
+	
 	<TR>
-	<cf_UIToolTip tooltip="Validates User access for the content of the URL prior to processing the request.">
-    <td valign="top" style="padding-top:6px" class="labelmedium" width="160">Cross-site Request Forgery CSFR:</td>
-	</cf_UIToolTip>
+	<td valign="top" title="Validates User access for the content of the URL prior to processing the request" style="padding-top:6px" class="labelmedium" width="160">Cross-site Request Forgery CSFR:</td>
 	<TD>
-	<table cellspacing="0" cellpadding="0"><tr>
-	<td valign="top">
+	
+	<table border="0" cellspacing="0" cellpadding="0"><tr>
+	<td valign="top" style="width:20px">
 	<input type="radio" class="radiol" name="URLProtectionMode" id="URLProtectionMode" value="0" <cfif get.URLProtectionMode eq "0">checked</cfif>>
 	</td>
 	<td class="labelmedium" style="padding-left:10px">Only Cross-site POST are scanned.
@@ -106,19 +108,53 @@ datasource="AppsInit">
 	<tr>
 	<td valign="top">
 	<input type="radio" class="radiol" name="URLProtectionMode" id="URLProtectionMode" value="1" <cfif get.URLProtectionMode eq "1">checked</cfif>>
-	</td>
-	<td class="labelmedium" style="padding-top:2px;padding-left:10px">Enabled, allows for bookmarking (ajax excluded) by same user under an authenticated session<br><font color="808080">adds anti-CSRF token (mid) to the URL, which is validated upon opening the template</font></td>
+	</td>	
+	<td>
+		<table>
+		<tr class="labelmedium">
+			<td style="padding-top:2px;padding-left:10px">Enabled, allows for bookmarking (ajax excluded) by same user under an authenticated session. MID trusted:
+					<cfinput type="Text"
+				       name="MIDThreshold"
+				       width="1"
+					   value="#get.MIDThreshold#"
+					   style="text-align:center;width:30px"
+				       validate="integer"
+				       required="Yes"
+				       visible="Yes"
+					   class="regularxl"
+				       enabled="Yes"
+				       size="3"
+				       maxlength="2"> seconds  
+		</tr>
+		<tr>
+		  <td colspan="3" style="padding-left:10px">
+		  <font color="808080">adds anti-CSRF token (mid) to the URL, which is validated upon opening the template</font>
+		  </td>
+		</tr>
+		</table> 
+		  
+		  
 	</tr>
 	
 	<tr>
 	<td valign="top">
 	<input type="radio" class="radiol" name="URLProtectionMode" id="URLProtectionMode" value="2" <cfif get.URLProtectionMode eq "2">checked</cfif>>
 	</td>
-	<td class="labelmedium" style="padding-top:2px;padding-left:10px">Enabled, strict (no bookmarking)<br><font color="808080">adds anti-CSRF token (mid) to the URL, which is expired upon receiving the template</font></td>
+	<td class="labelmedium">
+		<table>
+			<tr class="labelmedium">
+			<td style="padding-top:2px;padding-left:10px"> Enabled, strict (no bookmarking)</td>
+		    </tr>
+			<tr>
+			<td style="padding-left:10px">
+			 <font color="808080">adds anti-CSRF token (mid) to the URL, which is expired upon receiving the template</font>
+			  </td>
+			</tr>
+		</table>
+	</td>   
 	</tr>
+		
 	</table>
-   
-	</td>
 	</tr>
 	
 	<TR>
@@ -154,8 +190,7 @@ datasource="AppsInit">
 		</tr>
 		</table>
    
-	</td>
-	</tr>
+	
 		
 	<TR> 
 	  <td style="cursor:pointer" title="Verifies passed FORM elements prior to processing the user request" width="160" class="labelmedium">Customised check FORM elements:</td>	 	  

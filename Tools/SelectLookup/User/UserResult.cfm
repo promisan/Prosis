@@ -202,7 +202,7 @@ password="#SESSION.dbpw#">
 						
 			<table width="100%" align="center" class="navigation_table">
 			
-			<TR class="line labelmedium fixrow">
+			<TR class="line labelmedium fixrow fixlengthlist">
 			    <td></td>			   
 			    <TD><cf_tl id="Name"></TD>
 				<TD style="padding-left:1px"><cf_tl id="IndexNo"></TD>
@@ -250,7 +250,7 @@ password="#SESSION.dbpw#">
 			   				
 				   <cfif currrow lte last and currrow gte first>
 				   				
-					   <TR class="navigation_row labelmedium line" style="height:20px">
+					   <TR class="navigation_row labelmedium line fixlengthlist" style="height:20px">
 					  
 						   <td  height="18" width="30" align="center" style="padding-top:4px;padding-right:7px"
 								class="navigation_action"  
@@ -259,16 +259,16 @@ password="#SESSION.dbpw#">
 						   </td>
 						   
 						   <cfif accounttype eq "Individual">
-						   <td width="40%" style="padding-left:1px">#LastName# <cfif firstname neq "">, #FirstName#</cfif></td>						   						   						   
-						   <td style="min-width:100px;padding-left:1px">#IndexNo#</td>	
-						   <td width="30%" style="padding-left:1px">
+						   <td>#LastName# <cfif firstname neq "">, #FirstName#</cfif></td>						   						   						   
+						   <td>#IndexNo#</td>	
+						   <td title="#emailaddress#">
 						   <cfif eMailAddress neq ""><a href="javascript:email('#eMailAddress#','','','','User','#Account#')"></cfif>#eMailAddress#					   
 						   </td>
 						   <cfelse>
-						   <td colspan="3" width="70%" style="padding-left:1px"><font color="FF0080">ug:&nbsp;</font>#LastName#</td>		
+						   <td colspan="3"><font color="FF0080">ug:&nbsp;</font>#LastName#</td>		
 						   </cfif>
 						  					   
-						    <td style="min-width:30px;padding-left:1px;padding-top:3px">
+						    <td style="padding-top:3px">
 							   <cfif Access eq "EDIT" or Access eq "ALL">
 							   <cf_img icon="open" onclick="javascript:ShowUser('#URLEncodedFormat(Account)#')">
 							   </cfif>

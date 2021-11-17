@@ -63,7 +63,7 @@
 
 	function aboutworkflow(id) {	
 	    try { ProsisUI.closeWindow('aboutworkflow',true)} catch(e){};
-		ProsisUI.createWindow('aboutworkflow', 'About this workflow', '',{x:10,y:10,height:250,width:460,resizable:false,modal:true,center:true});
+		ProsisUI.createWindow('aboutworkflow', 'About this workflow', '',{x:10,y:10,height:350,width:520,resizable:false,modal:true,center:true});
 		ptoken.navigate('#SESSION.root#/Tools/EntityAction/AboutThisWorkflow.cfm?objectid='+id,'aboutworkflow')					
 	}
 	
@@ -298,9 +298,9 @@
 			// ptoken.open("#SESSION.root#/Tools/EntityAction/ProcessAction.cfm?windowmode=window&ajaxid="+ajaxid+"&process="+allow+"&id="+id+"&myentity=#url.myclentity#", "_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes"); 					
 	        
 			if (document.body.clientWidth <= 1250) {							
-			ProsisUI.createWindow('workflowstep', 'Process workflow step', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})    
+			ProsisUI.createWindow('workflowstep', 'Process workflow step', '',{x:100,y:100,height:document.body.clientHeight-50,width:document.body.clientWidth-50,modal:true,center:true})    
 			} else {
-			ProsisUI.createWindow('workflowstep', 'Process workflow step', '',{x:100,y:100,height:document.body.clientHeight-90,width:1250,modal:true,center:true})    			
+			ProsisUI.createWindow('workflowstep', 'Process workflow step', '',{x:100,y:100,height:document.body.clientHeight-50,width:1250,modal:true,center:true})    			
 			}
 			ptoken.navigate('#SESSION.root#/Tools/EntityAction/ProcessActionView.cfm?windowmode=embed&ajaxid='+ajaxid+'&process='+allow+'&id='+id+'&myentity=#url.myclentity#','workflowstep')
 				
@@ -369,7 +369,7 @@
   <!--- modified to open without a nasty dialog 6/5/2009 --->
   <!--- ------------------------------------------------ ---> 
   function resetwf(id,ajaxid,cls) {   
-      ProsisUI.createWindow('wfreset', 'Reset workflow', '',{x:100,y:100,height:300,width:600,modal:true,center:true})    
+      ProsisUI.createWindow('wfreset', 'Reset workflow', '',{x:100,y:100,height:360,width:600,modal:true,center:true})    
 	  ptoken.navigate('#SESSION.root#/Tools/EntityAction/Dialog/DialogReset.cfm?entityclass=' + cls + '&objectid=' + id + '&ajaxid=' + ajaxid,'wfreset') 	
   }
   
@@ -440,9 +440,9 @@
   <!--- checks the object status --->
   function objectstatus(last,id,ajaxid) {	
         try {       	  	    
-        	se = document.getElementById('communicate_'+id)		
+        	se = document.getElementById('communicate')		
 			if (se) {		
-			ptoken.navigate('#SESSION.root#/tools/EntityAction/getObjectStatus.cfm?lastaction='+last+'&objectid='+id+'&ajaxid='+ajaxid,'communicate_'+id,null,workflowerrorhandler)	 		 									
+			ptoken.navigate('#SESSION.root#/tools/EntityAction/getObjectStatus.cfm?lastaction='+last+'&objectid='+id+'&ajaxid='+ajaxid,'communicate',null,workflowerrorhandler)	 		 									
 			}	
 		} catch(e) {}
   }		  

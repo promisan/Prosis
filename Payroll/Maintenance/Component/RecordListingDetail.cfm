@@ -20,7 +20,7 @@ password="#SESSION.dbpw#">
 	ORDER BY R.TriggerGroup,R.SalaryTrigger, C.EntitlementPointer, ListingOrder DESC
 </cfquery>
 
-<tr class="labelmedium2 fixrow">
+<tr class="labelmedium2 fixrow fixlengthlist">
     <td></td>
 	<td><cf_tl id="Description"></td>
 	<td><cf_tl id="M"></td>
@@ -34,12 +34,12 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="SearchResult" group="TriggerGroup">
 
-	<tr class="fixrow2 labelmedium2">
+	<tr class="fixrow2 labelmedium2 fixlengthlist">
 	<td colspan="9" style="height:45px;font-size:30px;padding-left:10px">#TriggerGroup#</td></tr>
 	
 	<cfoutput group="SalaryTrigger">
 	
-	<tr class="line fixrow3 labelmedium2">
+	<tr class="line fixrow3 labelmedium2 fixlengthlist">
 	    <td colspan="9" style="font-size:18px;padding-left:30px;height:30px;top:65px;">#TriggerDescription#</td></tr>
 		
 		<cfoutput group="EntitlementPointer">  
@@ -47,20 +47,20 @@ password="#SESSION.dbpw#">
 		<cfoutput>     
 						
 			<cfif operational eq "0">
-				<tr bgcolor="f2f2f2" class="navigation_row labelmedium2"> 
+				<tr bgcolor="f2f2f2" class="navigation_row labelmedium2 fixlengthlist"> 
 			<cfelse>
-				<tr bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('ffffff'))#" class="navigation_row labelmedium2"> 
+				<tr bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('ffffff'))#" class="navigation_row labelmedium2 fixlengthlist"> 
 			</cfif> 
 		    
-				<td width="6%" align="center" style="padding-left:10px;padding-top:1px;">
+				<td align="center" style="padding-left:10px;padding-top:1px;">
 				<cf_img icon="open" navigation="yes" onclick="recordedit('#Code#')">
 				</td>	
 				<td>#Description#</td>
 				<td><cfif triggergroup neq "Personal">#SalaryMultiplier#</cfif></td>
 				<td><cfif triggergroup neq "Personal">#Period#</cfif></td>
 				<td>#EntitlementGroup#</td>
-				<td style="padding-left:3px;padding-right:3px"><cfif period eq "Percent">#triggerconditionpointer#<cfelse>#EntitlementPointer#</cfif></td>
-				<td style="padding-left:3px;padding-right:3px"><cfif period neq "Percent" and triggergroup neq "Personal">
+				<td><cfif period eq "Percent">#triggerconditionpointer#<cfelse>#EntitlementPointer#</cfif></td>
+				<td><cfif period neq "Percent" and triggergroup neq "Personal">
 				<cfif RateStep eq "9">FL<cfelseif RateStep eq "1">GR<cfelse>ST</cfif>
 				
 				</cfif></td>

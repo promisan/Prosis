@@ -152,8 +152,7 @@ password="#SESSION.dbpw#">
 														 	eMailAddress,					 	
 													 	 	OfficerUserId,
 														 	OfficerLastName,
-														 	OfficerFirstName,	
-														 	Created)
+														 	OfficerFirstName)
 											      	VALUES ('#rowguid#',
 														    '#PersonNo#',
 													       	'#url.Mission#', 
@@ -162,8 +161,7 @@ password="#SESSION.dbpw#">
 															'#applicant.eMailAddress#',														  				
 														  	'#SESSION.acc#',
 												    	  	'#SESSION.last#',		  
-													  	  	'#SESSION.first#',
-														  	getDate())
+													  	  	'#SESSION.first#')
 											  </cfquery>
 										  
 										      <cfset customerid = rowguid>		
@@ -281,7 +279,7 @@ password="#SESSION.dbpw#">
 												SubDirectory="#Submission.submissionid#"
 												Filter=""	 			
 												Insert="no"
-												Box="attach_#ApplicantNo#"
+												Box="attach_#submission.ApplicantNo#"
 												Remove="no"
 												loadscript="No"
 												ShowSize="yes">	

@@ -178,19 +178,24 @@ password="#SESSION.dbpw#">
 
 	<table width="100%" class="navigation_table">
 	
-		<tr><td height="14" colspan="7">						 
+		<tr class="fixrow" ><td height="26" colspan="7">						 
 			 <cfinclude template="CustomerNavigation.cfm">	 				 
 		</td></tr>
-		
-		<tr class="line fixrow labelmedium2">	  
-			    <td height="18" width="35" style="padding-left:5px;padding-top:1px;padding-right:6px" class="navigation_action" onclick="_cf_loadingtexthtml='';ptoken.navigate('#link#&action=insert&#url.des1#=#customerid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  								
+				
+		<tr class="line fixrow2 labelmedium2 fixlengthlist">	  
+			    <td></td>
+				<!---
+				<td height="18" style="padding-top:1px" class="navigation_action" 
+				onclick="_cf_loadingtexthtml='';ptoken.navigate('#link#&action=insert&#url.des1#=#customerid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">
+				<cf_tl id="Add">			
 				</td>
-				<td style="min-width:90px"><cf_tl id="No"></td>
-				<td style="min-width:90px"><cf_tl id="Reference"></td>
-				<td style="min-width:70px"><cf_tl id="Person"></td>
-				<TD width="70%"><cf_tl id="Name"></TD>
-				<TD style="min-width:70px"><cf_tl id="Entity"></TD>
-				<TD style="min-width:90px"><cf_tl id="Phone"></TD>
+				--->
+				<td><cf_tl id="No"></td>
+				<td><cf_tl id="Reference"></td>
+				<td><cf_tl id="Person"></td>
+				<TD><cf_tl id="Name"></TD>
+				<TD><cf_tl id="Entity"></TD>
+				<TD><cf_tl id="Phone"></TD>
 				<!---
 				<TD style="min-width:100px;padding-right:3px"><cf_tl id="eMail"></TD>
 				--->
@@ -200,16 +205,16 @@ password="#SESSION.dbpw#">
 		
 		<cfif currentrow gte first>
 		
-			<tr class="navigation_row line labelmedium" style="height:21px">	  
-			    <td height="18" width="35" style="padding-left:5px;padding-top:2px;padding-right:6px" class="navigation_action" onclick="_cf_loadingtexthtml='';ptoken.navigate('#link#&action=insert&#url.des1#=#customerid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  
+			<tr class="navigation_row line labelmedium fixlengthlist" style="height:21px">	  
+			    <td height="18" width="35" style="padding-top:2px" class="navigation_action" onclick="_cf_loadingtexthtml='';ptoken.navigate('#link#&action=insert&#url.des1#=#customerid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  
 				<cf_img icon="select">						
 				</td>
-				<td style="min-width:60px">#CustomerSerialNo#</td>
-				<td style="min-width:90px">#Reference#</td>
-				<td style="min-width:70px">#PersonNo#</td>
-				<TD style="width:70%">#CustomerName#</TD>
+				<td>#CustomerSerialNo#</td>
+				<td>#Reference#</td>
+				<td>#PersonNo#</td>
+				<TD>#CustomerName#</TD>
 				<TD>#Mission#</TD>
-				<TD style="min-width:90px">#PhoneNumber#</TD>
+				<TD>#PhoneNumber#</TD>
 				<!---
 				<TD style="min-width:100px;padding-right:3px">#eMailAddress#</TD>
 				--->

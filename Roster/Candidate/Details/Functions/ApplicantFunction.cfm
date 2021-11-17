@@ -227,9 +227,9 @@ password="#SESSION.dbpw#">
 	AND    PrerosterStatus = 1
 </cfquery>	
 
-<cfform action="ApplicantFunctionSubmit.cfm?Owner=#URL.Owner#&ID=#URL.ID#&ID1=#URL.ID1#" method="post">
+<cfform action="ApplicantFunctionSubmit.cfm?Owner=#URL.Owner#&ID=#URL.ID#&ID1=#URL.ID1#" method="post" style="height:98%">
 
-<table width="100%" border="0" height="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" height="100%"  align="center">
 	   
 <tr><td colspan="2" align="center" width="96%" style="padding-left:10px">
 	<cfinclude template="../Applicant/Applicant.cfm">
@@ -238,7 +238,7 @@ password="#SESSION.dbpw#">
 <tr>
   <td height="100%" width="100%" colspan="2" valign="top" align="center" style="padding-left:5px">
   
-	<table border="0" align="center" cellspacing="0" width="98%" style="padding-left:3px" class="navigation_table">
+	<table align="center" width="98%" style="padding-left:3px" class="navigation_table">
 		   
 	<tr>
 	  <td colspan="5" height="26" style="height:50px;font-size:30px;padding-top:4px;padding-left:5px" class="labellarge"><cf_tl id="Roster Candidacy"></td>
@@ -282,7 +282,7 @@ password="#SESSION.dbpw#">
 	  </td>
 	</tr>
 			
-	<TR class="labelmedium line fixrow" style="border-top:1px solid silver">
+	<TR class="labelmedium line fixrow fixlengthlist" style="border-top:1px solid silver">
 	    <TD height="20"></TD>
 	    <TD style="width:20px"></TD>
 		<TD><cf_tl id="Title"></TD>
@@ -302,7 +302,7 @@ password="#SESSION.dbpw#">
 	<cfif getEdition.EnableManualEntry eq "1" and getEdition.Operational eq "1">
 	
 		<cfif FunctionAll.recordcount eq "0">		
-		<tr class="line labelmedium"><td colspan="11" style="height:30" align="center">
+		<tr class="line labelmedium fixlengthlist"><td colspan="11" style="height:30" align="center">
 		<font color="FF0000">No candidacy records found for this edition.
 			  <cfif Access eq "EDIT" or Access eq "ALL">	
 			  <cfoutput>
@@ -388,7 +388,7 @@ password="#SESSION.dbpw#">
 		
 			<cfif show eq "1">
 			
-			<TR class="labelmedium line navigation_row"">
+			<TR class="labelmedium2 line navigation_row fixlengthlist">
 			    <td height="20" align="right"></td>
 				<td style="padding-left:9px;padding-right:4px">
 				   
@@ -401,19 +401,19 @@ password="#SESSION.dbpw#">
 					
 				</td>		
 				
-				<td width="35%" class="labelmedium">
+				<td>
 				<a href="javascript:ShowFunction('#applicantNo#','#functionId#')">
 				<cfif AnnouncementTitle neq "">#AnnouncementTitle#<cfelse>#FunctionDescription#</cfif>
 				</a>
 				<cfif OrganizationCode neq "[ALL]"><font color="gray">: #OrganizationDescription#</cfif>
 				</TD>
-			    <TD class="labelmedium">#GradeDeployment#</TD>
-				<td class="labelmedium">#mission#</td>
+			    <TD>#GradeDeployment#</TD>
+				<td>#mission#</td>
 				<TD>
 				<cfif DocumentNo neq "">
-				<a href="javascript: showdocument('#DocumentNo#')"><font color="6688aa">#ReferenceNo#</font></a>
+				<a href="javascript: showdocument('#DocumentNo#')">#ReferenceNo#</a>
 				<cfelse>
-				<a href="javascript: va('#FunctionId#')"><font color="6688aa">#ReferenceNo#</font></a>
+				<a href="javascript: va('#FunctionId#')">#ReferenceNo#</a>
 				</cfif>
 				</TD>
 				
@@ -430,23 +430,23 @@ password="#SESSION.dbpw#">
 					
 						<cfif statuscode eq "3">
 						
-							<a href="javascript:ptoken.navigate('../Functions/ApplicantFunctionProcess.cfm?owner=#owner#&applicantno=#applicantNo#&functionid=#functionId#&status=#PreRosterStatus.status#','#functionid#')"><font color="0080FF">#Meaning#</a>
+							<a href="javascript:ptoken.navigate('../Functions/ApplicantFunctionProcess.cfm?owner=#owner#&applicantno=#applicantNo#&functionid=#functionId#&status=#PreRosterStatus.status#','#functionid#')">#Meaning#</a>
 							
 							<img src="#SESSION.root#/Images/arrow-down.gif" 
 								  align="absmiddle" 
 								  style="cursor: pointer;"
-								  onclick="ColdFusion.navigate('../Functions/ApplicantFunctionProcess.cfm?owner=#owner#&applicantno=#applicantNo#&functionid=#functionId#&status=#PreRosterStatus.status#','#functionid#')"
+								  onclick="ptoken.navigate('../Functions/ApplicantFunctionProcess.cfm?owner=#owner#&applicantno=#applicantNo#&functionid=#functionId#&status=#PreRosterStatus.status#','#functionid#')"
 								  alt="Roster Candidate" 
 								  border="0">
 						  
 						<cfelseif statuscode eq PreRosterStatus.status>
 						
-							<a href="javascript:ptoken.navigate('../Functions/ApplicantFunctionProcess.cfm?owner=#owner#&applicantno=#applicantNo#&functionid=#functionId#&status=3','#functionid#')"><font color="0080FF">#Meaning#</a>
+							<a href="javascript:ptoken.navigate('../Functions/ApplicantFunctionProcess.cfm?owner=#owner#&applicantno=#applicantNo#&functionid=#functionId#&status=3','#functionid#')">#Meaning#</a>
 											
 							<img src="#SESSION.root#/Images/favorite.gif" 
 								  align="absmiddle" 
 								  style="cursor: pointer;"
-								  onclick="ColdFusion.navigate('../Functions/ApplicantFunctionProcess.cfm?owner=#owner#&applicantno=#applicantNo#&functionid=#functionId#&status=3','#functionid#')"
+								  onclick="ptoken.navigate('../Functions/ApplicantFunctionProcess.cfm?owner=#owner#&applicantno=#applicantNo#&functionid=#functionId#&status=3','#functionid#')"
 								  alt="Roster Candidate" 
 								  border="0">
 					
@@ -466,13 +466,13 @@ password="#SESSION.dbpw#">
 				
 				</td>
 				<td><cfif Functiondate eq ''>---<cfelse>#DateFormat(FunctionDate, CLIENT.DateFormatShow)#</cfif></td>
-				<td style="padding-left:5px">
+				<td>
 				<cfif enableStatusDate eq "1">
 					<cfif StatusDate eq ''>---<cfelse>#DateFormat(StatusDate, CLIENT.DateFormatShow)#</cfif>
 				</cfif>
 				</td>	
 				<cfif operational eq "0">
-				<td bgcolor="e0e0e0" style="padding-left:5px">#SubmissionEdition#</td>
+				<td bgcolor="e0e0e0">#SubmissionEdition#</td>
 				<cfelse>
 				<td>#SubmissionEdition#</td>
 				</cfif>
@@ -513,8 +513,7 @@ password="#SESSION.dbpw#">
 					
 				</td>	
 					
-			</TR>	
-			
+			</TR>			
 									
 			<cfif mailid gte "1">			
 											

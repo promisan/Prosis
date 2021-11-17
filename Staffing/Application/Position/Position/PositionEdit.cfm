@@ -5,6 +5,7 @@
 	<proDes>ST version 1</proDes>
 	<proCom></proCom>
 </cfsilent>
+
 <!--- End Prosis template framework --->
 
 <cf_textareascript>
@@ -2104,6 +2105,14 @@ password="#SESSION.dbpw#">
    
    <tr><td></td></tr>
    
+   <cfif url.mode eq "read">	
+   
+   <tr><td colspan="2">   
+   <cf_securediv bind="url:../Position/PositionMemo.cfm?positionno=#url.id2#" id="memo">   
+   </td></tr>    
+   
+   </cfif>
+   
    </table>
    
    </cf_divscroll>
@@ -2111,8 +2120,13 @@ password="#SESSION.dbpw#">
    </td></tr>
    
    <cfoutput>
+   
+     
+  
           
    <tr><td align="center" style="height:40px" colspan="2" class="labelmedium2">
+   
+   
   		
    <cfif url.mode neq "read">
       
@@ -2123,6 +2137,7 @@ password="#SESSION.dbpw#">
 	   <input class="button10g" type="reset"  style="width:130;height:30" name="Reset" value="#lt_text#">
 	   
    </cfif>	  
+      
    
    
    <cfif laterPosition.recordcount gte "1">

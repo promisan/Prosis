@@ -77,7 +77,7 @@ password="#SESSION.dbpw#">
 
 function facttablexls1(control,format,box) {  
     // here I could capture the client variable if this is better for large selections 
-	ColdFusion.navigate('RequisitionViewSelected.cfm','process','','','POST','req')  	
+	ptoken.navigate('RequisitionViewSelected.cfm','process','','','POST','req')  	
 	window.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?ts="+new Date().getTime()+"&box="+box+"&data=1&controlid="+control+"&format="+format, "facttable");
 }	
 
@@ -88,7 +88,7 @@ function facttablexls1(control,format,box) {
 
 
 function mail2(mode,id) {
-	  window.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id="+mode+"&ID1="+id+"&ID0=#Parameter.RequisitionTemplate#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+	  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id="+mode+"&ID1="+id+"&ID0=#Parameter.RequisitionTemplate#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
 }	
 
 function process(id) {
@@ -140,7 +140,7 @@ function hla(itm,val,fld){
 
 function reason(row,box,req,cls,st) {   
     _cf_loadingtexthtml='';	 
-    ColdFusion.navigate('RequisitionProcessReason.cfm?row='+row+'&requisitionno='+req+'&statusclass='+cls+'&status='+st,box+'_reason')	
+    ptoken.navigate('RequisitionProcessReason.cfm?row='+row+'&requisitionno='+req+'&statusclass='+cls+'&status='+st,box+'_reason')	
 }   
 
 
@@ -368,7 +368,7 @@ function processdata(txt,per,role) {
 			   	   <cfoutput>				   
 				   <cfform name="req" method="post" style="height:100%">		   
 				  			  
-						 <cfdiv bind="url:RequisitionClearPending.cfm?role=#url.role#&mission=#url.mission#&period=#url.period#&search=#URL.search#" id="contentbox1">							 						  
+						 <cf_securediv bind="url:RequisitionClearPending.cfm?role=#url.role#&mission=#url.mission#&period=#url.period#&search=#URL.search#" id="contentbox1">							 						  
 						
 				   </cfform>					
 				   </cfoutput>

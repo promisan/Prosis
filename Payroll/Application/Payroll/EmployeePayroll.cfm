@@ -47,7 +47,7 @@
 		}		
 		
 		function editsettlement(id,set,grp,box) {
-			ProsisUI.createWindow('editsettlement', 'Edit settlement', '',{x:100,y:100,height:360,width:400,modal:true,center:true})    				
+			ProsisUI.createWindow('editsettlement', 'Edit settlement', '',{x:100,y:100,height:420,width:460,modal:true,center:true})    				
 			ptoken.navigate('#session.root#/Payroll/Application/Payroll/SettlementLineForm.cfm?box='+box+'&id='+id+'&paymentid='+set+'&printgroup='+grp,'editsettlement') 		
 		} 
 		
@@ -208,8 +208,8 @@
 								
 				<cf_menutab item       = "#itm#" 
 				            iconsrc    = "Logos/Payroll/Entitlement.png" 
-							iconwidth  = "64" 
-							iconheight = "64" 
+							iconwidth  = "54" 
+							iconheight = "54" 
 							class      = "highlight1"
 							name       = "#msg1#"
 							source     = "EmployeeEntitlement.cfm?id=#url.id#">
@@ -223,8 +223,8 @@
 			    <cf_menutab item       = "#itm#" 
 				            iconsrc    = "Action.png" 
 							targetitem = "1"
-							iconwidth  = "64" 
-							iconheight = "64" 
+							iconwidth  = "54" 
+							iconheight = "54" 
 							name       = "#msg3#"
 							source     = "../../../Staffing/Application/Employee/HRAction/HRAction.cfm?id=#url.id#">	
 							
@@ -247,8 +247,8 @@
 				    <cf_menutab item       = "#itm#" 
 					            iconsrc    = "Payment.png" 
 								targetitem = "1"
-								iconwidth  = "64" 
-								iconheight = "64" 
+								iconwidth  = "54" 
+								iconheight = "54" 
 								name       = "#msg5#"
 								source     = "EmployeeFinalPayment.cfm?id=#url.id#&systemfunctionid=#url.systemfunctionid#">	
 							
@@ -263,8 +263,8 @@
 			    <cf_menutab item       = "#itm#" 
 				            iconsrc    = "Logos/Payroll/Settlement.png" 
 							targetitem = "1"
-							iconwidth  = "64" 
-							iconheight = "64" 
+							iconwidth  = "54" 
+							iconheight = "54" 
 							name       = "#msg2#"
 							source     = "EmployeeSettlement.cfm?id=#url.id#">		
 						
@@ -288,8 +288,8 @@
 					<cf_menutab item       = "#itm#" 
 					            iconsrc    = "Logos/Payroll/Recalculate.png" 
 								targetitem = "1"
-								iconwidth  = "64" 
-								iconheight = "64" 
+								iconwidth  = "54" 
+								iconheight = "54" 
 								name       = "#msg4#"
 								source     = "../Calculation/CalculationProcessExecutePerson.cfm?id=#url.id#">	
 								
@@ -298,8 +298,8 @@
 					<cf_menutab item       = "#itm#" 
 					            iconsrc    = "Report/log.png" 
 								targetitem = "1"
-								iconwidth  = "64" 
-								iconheight = "64" 
+								iconwidth  = "54" 
+								iconheight = "54" 
 								name       = "#msg6#"
 								source     = "Calculation/CalculationListing.cfm?id=#url.id#&systemfunctionid=#url.systemfunctionid#">				
 						

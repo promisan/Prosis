@@ -140,10 +140,10 @@
 						 
 			</cfquery>
 			
-			<!---
+			<!---			
 			<cfoutput>#cfquery.executiontime#</cfoutput>
 			--->
-			
+					
 		
 		</cftransaction>					
 						
@@ -242,8 +242,7 @@
 				<!--- Query returning search results initial approval --->
 				
 				<cftransaction isolation="READ_UNCOMMITTED">
-				
-	
+					
 				<cfquery name="Extract"
 					datasource="AppsLedger" 
 					username="#SESSION.login#" 
@@ -277,10 +276,12 @@
 					INTO   UserQuery.dbo.#table#   	
 				
 					FROM (	
-						
-					<cfloop index="itm" list="Debit,Credit" delimiters=",">
 					
-					SELECT '#itm#' as Panel,
+					<!---	
+					<cfloop index="itm" list="Debit,Credit" delimiters=",">
+					--->
+					
+					SELECT (CASE WHEN G.AccountType = 'Debit' THEN 'Debit' ELSE 'Credit' END) as Panel,
 					       H.AccountPeriod,
 						   
 						   <cfif Mode eq "economic">						  
@@ -303,6 +304,7 @@
 							
 						   G.GLAccount, 
 					       G.Description, 
+						   
 						   G.AccountType,
 						   G.AccountLabel,
 						   G.AccountGroup, 
@@ -365,11 +367,9 @@
 					<cfif OrgUnitOwner neq "">
 					     AND   H.OrgUnitOwner IN (#preservesinglequotes(orgunitowner)#) 	 
 					</cfif>
-					
-					AND    G1.AccountType        = '#itm#'
-					
+										
 					<!--- PL accounts --->
-					AND    G.AccountClass        = 'Result'									
+					AND    G.AccountClass        = 'Result'						
 					
 					
 					GROUP BY H.AccountPeriod,
@@ -399,10 +399,12 @@
 							 ,T.Currency		
 							 </cfif> 
 							 
-					
+					<!---
 					<cfif itm eq "Debit"> UNION ALL </cfif>
-					
+															
 					</cfloop>
+					
+					--->
 					
 					) as Sub					
 					
@@ -428,8 +430,7 @@
 							 AccountGroupType,
 							 AccountParent,
 							 AccountParentDescription	
-							 
-								
+							 								
 				</cfquery>				
 				
 				</cftransaction>				
@@ -437,6 +438,7 @@
 				<!---
 				<cfoutput>#cfquery.executiontime#</cfoutput>		
 				--->
+				
 				
 				<cfif History neq "AccountPeriod">
 				
@@ -529,7 +531,7 @@
 					DELETE FROM dbo.#table#
 					WHERE   ABS(Credit) < 0.25 and ABS(Debit) < 0.25	
 				</cfquery>
-		
+						
 	</cffunction>		
 	
 	

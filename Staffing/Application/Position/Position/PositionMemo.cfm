@@ -60,12 +60,12 @@ password="#SESSION.dbpw#">
 	ORDER BY Created DESC
 </cfquery>
 
+<!---
 <cfform name="memoform" id="memoform">
+--->
 	
-	<table width="95%" align="center" class="navigation_table">
-	  
-	<tr><td height="5"></td></tr> 
-	
+	<table width="99%" align="center" class="navigation_table">
+	  	
 	<tr class="labelmedium2 line">
 	    <td height="20" style="min-width:30px"></td>
 		<td width="80%"><cf_tl id="Memo"></td>
@@ -80,34 +80,31 @@ password="#SESSION.dbpw#">
 	
 		<tr bgcolor="ffffff" class="line">
 		    <td valign="top" style="padding-top:5px" height="20">#currentrow#.</td>
-			<td bgcolor="ffffff" colspan="4" align="center" height="80" style="padding-right:10px">
-			<cf_textarea name="PositionMemo"
+			<td bgcolor="ffffff" colspan="3" style="padding-right:10px">
+						 
+			<textarea name="PositionMemo"
 				color   = "ffffff"
 				toolbar = "mini"	 
 				init    = "no"		
 				height  = "80"		 
-				style   = "font-size:14;padding:3px;width:97%;height:50">#positionMemo#</cf_textarea>
+				style   = "border:0px;font-size:14px;background-color:f1f1f1;font-size:14px;padding:3px;width:100%;height:50px">#positionMemo#</textarea>
 			</td>
-		</tr>
-		
-		<tr><td height="3"></td></tr>
-		<tr><td colspan="5" align="center">
+		  <td colspan="1" align="center"  style="padding-right:4px">
 		<input type="button" 
 		  name="Save" 
 		  value="Save" 
 		  class="button10g" 
-		  style="width:100px" 
-		  onclick="updateTextArea();ptoken.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','contentbox2','','','POST','memoform')">
+		  style="width:60px" 
+		  onclick="updateTextArea();_cf_loadingtexthtml='';ptoken.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','memo','','','POST','positionedit')">
 		</td></tr>
-		<tr><td height="3"></td></tr>
-	
+		
 	<cfelse>
 	
 	
 	    <cfif SESSION.acc eq OfficerUserId>
-		<tr class="labelmedium2 navigation_row line">
+		<tr class="labelmedium2 navigation_row linedotted">
 		<cfelse>
-		<tr class="labelmedium2 line">
+		<tr class="labelmedium2 linedotted">
 		</cfif>
 		    <td height="20" style="padding-left:3px">#currentrow#.</td>
 			<td width="70%" style="padding-left:3px">#paragraphformat(PositionMemo)#</td>
@@ -115,7 +112,7 @@ password="#SESSION.dbpw#">
 			<td>#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>
 			<td align="center" style="padding-top:1px;padding-right:4px">		
 			<cfif SESSION.acc eq OfficerUserId>
-			<cf_img icon="open" navigation="Yes" onclick="ptoken.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','contentbox2')">
+			<cf_img icon="open" navigation="Yes" onclick="_cf_loadingtexthtml='';ptoken.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','memo')">
 			</cfif>
 			</td>
 		</tr>
@@ -129,32 +126,29 @@ password="#SESSION.dbpw#">
 	<cf_assignId>
 	<cfset memoid = rowguid>	
 	
-	<tr><td height="5"></td></tr>
-	
 	<tr bgcolor="ffffff" class="line">
 	<td valign="top" style="padding-left:3px;padding-top:5px"><cfoutput>#memo.recordcount+1#.</cfoutput></td>
-	<td colspan="4" align="center" style="padding-right:10px">
-		<cf_textarea 
+	<td colspan="3" style="padding-right:10px">
+		<textarea 
 			name="PositionMemo"
 				color   = "ffffff"
 				toolbar = "mini"	 
 				init    = "no"
 				height  = "80" 				 
-				style="font-size:14;padding:3px;width:97%;"></cf_textarea>
+				style="border:0px;background-color:f1f1f1;font-size:14px;padding:3px;width:100%;"></textarea>
 	</td>
-	</tr>
-	<tr><td height="5"></td></tr>
-	
-	<tr><td colspan="5" align="center">
-	    <cfoutput>
+	<td style="padding-right:4px">
+	 <cfoutput>
 			<input type="button" 
 			    name="Save" 
 				value="Save" 
-				style="width:160px;height:25" 
+				style="width:60px;height:25" 
 				class="button10g" 
-				onclick="updateTextArea();ptoken.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','contentbox2','','','POST','memoform')">
+				onclick="updateTextArea();_cf_loadingtexthtml='';ptoken.navigate('../Position/PositionMemo.cfm?positionno=#url.PositionNo#&memoid=#memoid#','memo','','','POST','positionedit')">
 		</cfoutput>
-	</td></tr>
+	</td>
+	
+	</tr>
 	
 	<tr><td height="3"></td></tr>
 
@@ -162,7 +156,12 @@ password="#SESSION.dbpw#">
 
 </table>
 
+<!---
 </cfform>
+--->
 
 <cfset AjaxOnLoad("doHighlight")>	
+
+<!---
 <cfset AjaxOnLoad("initTextArea")>
+--->

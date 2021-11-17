@@ -94,17 +94,16 @@
 	<cfif Perf.Actual gt "0">			
 		
 		<table width="100%" bgcolor="D2EBF9">
-			<tr class="labelmedium line">
-			<td width="180"
-			        height="20"
+			<tr class="labelmedium line fixlengthlist">
+			<td   height="20"
 					align="center"
 			        bgcolor="f1f1f1"
 					class="labelit"><cf_tl id="Process Indicator"></td>
-			<td width="50" style="padding-left:5px;padding-right:4px"><cf_tl id="Allowed"></td>
+			<td style="padding-left:5px;padding-right:4px"><cf_tl id="Allowed"></td>
 			<td><b>#Perf.Planned# <cfif Perf.Planned gt "1"><cf_tl id="hour"><cfelse><cf_tl id="hours"></cfif></td>
-			<td width="40" style="padding-right:4px"><cf_tl id="Used"></td>
+			<td style="padding-right:4px"><cf_tl id="Used"></td>
 			<td><b>#Perf.Actual# hour<cfif Perf.Actual gt "1">s</cfif></b> since #dateformat(Perf.StartStamp,CLIENT.DateFormatShow)# #timeformat(Perf.StartStamp,"HH:MM")#</td>
-			<td width="70" style="padding-right:4px"><cf_tl id="Compliance"></td>
+			<td style="padding-right:4px"><cf_tl id="Compliance"></td>
 			<cfset ratio = (Perf.Planned/Perf.Actual)*100>
 			
 			<cfif ratio lte "60">
@@ -118,7 +117,7 @@
 			<td width="70"><b><font color="#color#">#numberformat(ratio,"__._")# %</td>
 			<td align="right">
 				
-				<table width="100" border="1" bordercolor="silver" cellspacing="0" cellpadding="0">
+				<table width="100" border="1" bordercolor="silver">
 				<tr>					
 					<td height="10" width="#ratio#" bgcolor="#color#"></td>
 					<td width="#100-ratio#" bgcolor="fafafa"></td>
@@ -126,7 +125,7 @@
 				</table>
 			
 			</td>
-			<td width="10">&nbsp;</td>				
+			<td width="10" style="width:10px"></td>				
 			</tr>
 			
 		</table>

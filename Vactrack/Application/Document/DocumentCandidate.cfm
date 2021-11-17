@@ -212,7 +212,7 @@
 	
 	<table width="99%" align="center" class="formpadding navigation_table">
 			
-	    <TR class="labelmedium2 line">
+	    <TR class="labelmedium2 line fixlengthlist">
 	   	  <TD></TD>
 		  <td></td>
 	   	  <TD><cf_tl id="Id"></TD>
@@ -238,7 +238,7 @@
 			 	
 		<cfoutput query="SearchResult">
 			
-		<TR class="labelmedium2 <cfif currentrow neq recordcount>line</cfif> navigation_row" style="height:20px">
+		<TR class="labelmedium2 fixlengthlist <cfif currentrow neq recordcount>line</cfif> navigation_row" style="height:20px">
 		
 		<td width="30" align="center" style="padding-top:4px">
 		
@@ -543,7 +543,7 @@
 				</cfif>
 	
 				<tr bgcolor="#cel#">
-					<td height="17" class="labelit" style="padding-left:5px">
+					<td height="17" class="labelit fixlength" style="padding-left:5px">
 					
 						<a href="javascript:showdocument('#DocumentNo#')">
 							
@@ -570,7 +570,7 @@
 		</cfif>	
 							
 		<cfif Remarks neq "">
-			<tr>
+			<tr class="fixlengthlist">
 			<td colspan="2"></td>
 			<td colspan="9">#Remarks#</td>
 			</tr>

@@ -14,6 +14,8 @@
 
 <cfset gradeselected = url.grade>
 
+<cfset yr = year(now())> 
+
 <cfif url.lastcontractid neq "">
 
     <!--- --------------------------------------------------------- --->
@@ -28,9 +30,10 @@
 			FROM      PersonContract PA 
 			WHERE     PA.Contractid = '#URL.lastcontractid#' 			
 	</cfquery>	
-	
+				
 	<cfif url.grade eq "">
 		<cfset gradeselected = LastContract.Contractlevel>
+		<cfset yr = lastContract.DateEffective>
 	</cfif>		
 			
 	<cfif LastContract.recordcount eq "1" and LastContract.actionstatus eq "1">
@@ -107,7 +110,7 @@
 		     <cfloop index="yr" from="#year(sel)-20#" to="#year(sel)+20#" step="1">
 			 																	--->
 			 <option value="" <cfif url.entry eq "new"> selected </cfif> ><cf_tl id="No applicable"></option>
-			 <cfloop index="yr" from="2018" to="#year(sel)+20#" step="1">
+			 <cfloop index="yr" from="#yr#" to="#year(sel)+20#" step="1">
 			    <cfloop index="itm" from="1" to="12" step="1">
 				
 						 <cfif len(itm) eq "1">

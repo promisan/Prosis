@@ -93,6 +93,7 @@
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
+				
 				SELECT    SUM(TransactionQuantity) AS Total
 				FROM      ItemTransaction
 				WHERE     1=1
@@ -108,7 +109,7 @@
 				<cfif TransactionLot neq "">
 				AND       TransactionLot = '#transactionlot#'
 				</cfif>
-				<!--- not earmarked --->
+				<!--- not earmarked, reserved --->
 				AND       WorkOrderId is NULL
 				
 				AND       ItemNo         = '#itemNo#' 
@@ -156,7 +157,7 @@
 				
 				AND       ItemNo         = '#itemNo#' 
 				AND       TransactionUoM = '#UoM#'		
-									
+												
 				
 				<cfif excludeBatchNo neq "">
 				AND     (TransactionBatchNo != '#excludeBatchNo#' OR TransactionBatchNo IS NULL)
@@ -212,75 +213,246 @@
 		
 	<cffunction name="getStockListing"
         access="public"
-        returntype="struct"
+        returntype="query"
         displayname="1b. get a listing of items with their current stock levels">
 		
-			<cfargument name="Mission"    type="string"  required="true"   default="">						
-			<cfargument name="Warehouse"  type="string"  required="false"  default="">		
-			<cfargument name="Location"   type="string"  required="false"  default="">		
+			<cfargument name="Content"             type="string"  required="false"  default="Searcher">	
 			
-			<cfargument name="ItemNo"     type="string"  required="true"   default="">
-			<cfargument name="UoM"        type="string"  required="true"   default="">
+			<cfargument name="Mission"             type="string"  required="true"   default="">						
+			<cfargument name="Warehouse"           type="string"  required="false"  default="">		
+			<cfargument name="Location"            type="string"  required="false"  default="">		
 			
-			<cfargument name="Mode"       type="string"  required="true"   default="Table">
-			<cfargument name="Table"      type="string"  required="false"  default="#SESSION.acc#Stock">
+			<cfargument name="PriceSchedule"       type="string"  required="false"  default=""> 
+			
+			<cfargument name="Make"                type="string"  required="true"   default="">
+			<cfargument name="Category"            type="string"  required="true"   default="">
+			<cfargument name="CategoryItem"        type="string"  required="true"   default="">
+			<cfargument name="ItemName"            type="string"  required="true"   default="">
+			<cfargument name="ItemNo"              type="string"  required="true"   default="">
+			<cfargument name="UoM"                 type="string"  required="true"   default="">
+			<cfargument name="Classify"            type="string"  required="true"   default="">
+			
+			<cfargument name="SettingOnHand"       type="string"  required="false"  default=""> 
+			<cfargument name="SettingPromotion"    type="string"  required="false"  default=""> 
+			<cfargument name="SettingReservation"  type="string"  required="false"  default="">
+			
+			<cfargument name="Mode"           type="string"  required="true"   default="Table">
+			<cfargument name="Table"          type="string"  required="false"  default="#SESSION.acc#Stock">
+			
+			<cfif content eq "Basic">
+			
+			     <!--- Hanno : Can be remove, was not really used 
+				                       maybe for fuel at some point  --->
 							
-			<cfquery name="stock" 
-				datasource="AppsMaterials" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
+				<cfquery name="stock" 
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					
+						SELECT	<cfif warehouse neq "">IWL.Warehouse</cfif>,
+						        <cfif location  neq "">IWL.Location</cfif>,
+								IWL.ItemNo,
+								IWL.UoM,
+								I.ItemDescription,
+								I.ItemPrecision,
+								U.UoMDescription,
+								I.ItemMaster,
+								
+								ISNULL((
+									SELECT 	SUM(TransactionQuantity)
+									FROM   	ItemTransaction					
+									WHERE   Mission        = '#mission#' 	
+									<cfif warehouse neq "">		
+										AND  	Warehouse      = '#warehouse#'
+									</cfif>
+									<cfif location neq "">		
+										AND  	Location       = '#location#'
+									</cfif>
+									AND		ItemNo         = '#itemno#'
+									AND		TransactionUoM = '#uom#'
+								),0) OnHand,
+								
+								SUM(IWL.HighestStock) as HighestStock,
+								SUM(IWL.MaximumStock) as MaximumStock,
+								SUM(IWL.MinimumStock) as MinimumStock
+						FROM	ItemWarehouseLocation IWL
+								INNER JOIN WarehouseLocation WL       ON WL.Warehouse = IWL.Warehouse AND WL.Location = IWL.Location
+								INNER JOIN Item I    	              ON IWL.ItemNo = I.ItemNo
+								INNER JOIN ItemUoM U	              ON IWL.ItemNo = U.ItemNo AND IWL.UoM = U.UoM				
+						WHERE   Warehouse IN (SELECT Warehouse FROM Warehouse WHERE Mission = '#mission#'
+						<cfif warehouse neq "">		
+						AND  	WL.Warehouse      = '#warehouse#'
+						</cfif>
+						<cfif location neq "">		
+						AND  	WL.Location       = '#location#'
+						</cfif>								
+						GROUP BY <cfif warehouse neq "">IWL.Warehouse</cfif>,
+						         <cfif location  neq "">IWL.Location</cfif>,
+								 IWL.ItemNo,
+								 IWL.UoM,
+								 I.ItemDescription,
+								 I.ItemPrecision,
+								 U.UoMDescription,
+								 I.ItemMaster
+						ORDER BY I.ItemDescription, 
+						         U.UoMDescription,
+							
+				</cfquery>
+			
+			<cfelseif content eq "Searcher">
+			
+			        <!--- only stores in use --->
+										
+					<cfquery name="Warehouses" 
+						 datasource="appsMaterials" 
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+						   SELECT    *
+						   FROM      Warehouse
+						   WHERE     Mission = '#mission#'
+						   AND       Warehouse IN (SELECT Warehouse FROM itemTransaction)
+						   AND       Operational = 1  	   
+					</cfquery>
+			
+					<cfquery name="stock" 
+						datasource="appsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">		
+													
+							SELECT     TOP 100 Mission, Warehouse, WarehouseName, ItemPrecision,
+							           ItemNo, ItemNoExternal, ItemDescription, 
+									   Category, CategoryName, 
+									   UoM, UoMName, MinReorderQuantity,
+									   
+									   (SELECT TOP 1 ImagePath FROM ItemImage WHERE ItemNo = D.ItemNo) as ImagePath,			  
+											   
+									   PriceSchedule, PriceScheduleDescription, 
+									   Promotion, Currency, SalesPrice, PriceDate, 
+									   LastSold,
+									   QuantityForSale, 
+									   QuantityReserved,
+									   QuantityRequested 
+									   
+							FROM       (SELECT   DISTINCT 
+							                     L.Mission, W.Warehouse, N.WarehouseName, L.ItemNo, I.ItemDescription, I.ItemNoExternal, 
+												 L.Category, C.Description as CategoryName,
+												 L.UoM, 
+												 L.UoMName, 
+												 I.ItemPrecision,
+												 L.PriceSchedule, L.PriceScheduleDescription, 
+												 L.Promotion, L.Currency, L.SalesPrice, L.PriceDate,
+							                     MinReorderQuantity,
+												 
+												 <!--- last sold --->	  
+												 (SELECT     MIN(TransactionDate)
+					                              FROM       ItemTransaction
+					                              WHERE      Mission = L.Mission AND Warehouse = W.Warehouse AND ItemNo = L.ItemNo AND TransactionUoM = L.UoM AND TransactionType = '2') AS LastSold,								
+												  
+												 <!--- for sale and not reseved in sales / workorder --->  
+							
+					                             (SELECT     ISNULL(SUM(TransactionQuantity),0) AS stockOnHand
+					                              FROM       ItemTransaction
+					                              WHERE      Mission = L.Mission AND Warehouse = W.Warehouse AND ItemNo = L.ItemNo AND TransactionUoM = L.UoM AND WorkOrderId IS NULL) AS QuantityForSale,
+												
+												 <!--- for sale and not reseved in sales / workorder --->  	 
+												   
+					                             (SELECT     ISNULL(SUM(TransactionQuantity),0) AS stockOnHand
+					                              FROM       ItemTransaction AS ItemTransaction_1
+					                              WHERE      Mission = L.Mission AND Warehouse = W.Warehouse AND ItemNo = L.ItemNo AND TransactionUoM = L.UoM AND WorkOrderId IS NOT NULL) AS QuantityReserved,
+													
+												 <!--- Serious quotes --->
+												 	   
+												 (SELECT   ISNULL(SUM(TransactionQuantity),0)
+												  FROM     vwCustomerRequest
+												  WHERE    ItemNo          = L.ItemNo
+												  AND      TransactionUoM  = L.UoM
+												  AND      Warehouse       = W.Warehouse
+												  AND      BatchNo IS NULL 
+												  AND      RequestClass = 'QteReserve' 
+												  AND      ActionStatus = '1') as QuantityRequested 
+													   
+					                    FROM      skMissionItemPrice AS L 
+										          INNER JOIN ItemWarehouse AS W ON L.ItemNo = W.ItemNo AND L.UoM = W.UoM 
+												  INNER JOIN Item I         ON L.ItemNo = I.ItemNo 
+												  INNER JOIN Ref_Category C ON L.Category = C.Category
+												  INNER JOIN Warehouse N    ON W.Warehouse = N.Warehouse 												  
+										
+										WHERE     N.Mission = '#Mission#'		
+										AND       L.Mission = '#Mission#'  
+										 
+					                    <cfif warehouse neq "">
+										AND       W.Warehouse = '#Warehouse#'
+										</cfif>
+										
+										<cfif priceschedule neq "">
+										AND            L.PriceSchedule = '#Priceschedule#' 
+										<cfelse>
+										AND            L.PriceSchedule = (SELECT TOP 1 PriceSchedule FROM Ref_PriceSchedule WHERE FieldDefault = '1') 					
+										</cfif>			
+										
+										<cfif Category neq "">
+										AND            I.Category = '#Category#'
+										</cfif>
+										
+										<cfif CategoryItem neq "">
+											AND        I.ItemNo IN ( SELECT ItemNo FROM Item WHERE CategoryItem IN (#preservesinglequotes(CategoryItem)#) )
+										</cfif>
+										
+										<cfif Classify neq "">					
+										AND            T.ItemNo IN ( #preserveSingleQuotes(Classify)# )					
+										</cfif>							
+															
+										<cfif Make neq "">
+										AND            I.Make IN (#preservesinglequotes(Make)#) 		
+										</cfif>
+										
+										<cfif ItemNo neq "">															
+										AND            (I.ItemNo LIKE '%#ItemNo#' OR I.ItemNoExternal LIKE '%#ItemNo#%')										
+										</cfif>
+										
+										<!--- apply the fuzzy search for the name and apply support for spanish sign --->						
+										<cfif ItemName neq "">
+										
+										AND ( 
+										<cf_softlike left="I.ItemDescription" right="#ItemName#" language="#client.languageId#">
+										OR  (I.ItemNo LIKE '%#ItemName#' OR I.ItemNoExternal LIKE '%#ItemName#%')
+										)
+										
+										</cfif>			
+										
+										AND            W.Warehouse IN (#quotedvalueList(warehouses.warehouse)#)		
+										AND            W.Operational   = 1 
+																	
+										AND            I.Operational   = 1 ) AS D
+										
+							WHERE      1=1
+							
+							AND        QuantityForSale IS NOT NULL
+							
+							<cfif SettingOnHand eq "1">
+							AND        QuantityForSale > 0
+							</cfif>
+							
+							<cfif SettingPromotion eq "1">
+							AND        Promotion > 1
+							</cfif>
+							
+							<cfif warehouse eq ""> 
+							ORDER BY    ItemDescription, ItemNo, Warehouse
+							<cfelse>
+							ORDER BY    ItemDescription, ItemNo, Warehouse				
+							</cfif>		
+														
+					</cfquery>
+					
+					
 				
-					SELECT	<cfif warehouse neq "">IWL.Warehouse</cfif>,
-					        <cfif location  neq "">IWL.Location</cfif>,
-							IWL.ItemNo,
-							IWL.UoM,
-							I.ItemDescription,
-							I.ItemPrecision,
-							U.UoMDescription,
-							I.ItemMaster,
-							
-							ISNULL((
-								SELECT 	SUM(TransactionQuantity)
-								FROM   	ItemTransaction					
-								WHERE   Mission        = '#mission#' 	
-								<cfif warehouse neq "">		
-									AND  	Warehouse      = '#warehouse#'
-								</cfif>
-								<cfif location neq "">		
-									AND  	Location       = '#location#'
-								</cfif>
-								AND		ItemNo         = '#itemno#'
-								AND		TransactionUoM = '#uom#'
-							),0) OnHand,
-							
-							SUM(IWL.HighestStock) as HighestStock,
-							SUM(IWL.MaximumStock) as MaximumStock,
-							SUM(IWL.MinimumStock) as MinimumStock
-					FROM	ItemWarehouseLocation IWL
-							INNER JOIN WarehouseLocation WL       ON WL.Warehouse = IWL.Warehouse AND WL.Location = IWL.Location
-							INNER JOIN Item I    	              ON IWL.ItemNo = I.ItemNo
-							INNER JOIN ItemUoM U	              ON IWL.ItemNo = U.ItemNo AND IWL.UoM = U.UoM				
-					WHERE   Warehouse IN (SELECT Warehouse FROM Warehouse WHERE Mission = '#mission#'
-					<cfif warehouse neq "">		
-					AND  	WL.Warehouse      = '#warehouse#'
-					</cfif>
-					<cfif location neq "">		
-					AND  	WL.Location       = '#location#'
-					</cfif>								
-					GROUP BY <cfif warehouse neq "">IWL.Warehouse</cfif>,
-					         <cfif location  neq "">IWL.Location</cfif>,
-							 IWL.ItemNo,
-							 IWL.UoM,
-							 I.ItemDescription,
-							 I.ItemPrecision,
-							 U.UoMDescription,
-							 I.ItemMaster
-					ORDER BY I.ItemDescription, 
-					         U.UoMDescription,
-						
-			</cfquery>
+			</cfif>
+			
+			<cfreturn stock>	
 		
 	</cffunction>	
+	
 	
 	<!--- ----------------------------------------------------- --->
 	<!--- ----- 0b. get transactions under a GLAccount -------- --->
@@ -368,7 +540,7 @@
 		<cfloop index="itm" from="1" to="#precision#">
 			<cfset corr = "#corr#0">
 		</cfloop>
-					
+							
 		<!--- general mistake in the transaction valuation which needs to be reprocessed --->	
 				
 		<!--- obtain the cuttofdate --->
@@ -378,11 +550,13 @@
 			password="#SESSION.dbpw#">
 			SELECT * 
 			FROM   Materials.dbo.Ref_ParameterMission
-			WHERE  Mission = '#filtermission#' 						
+			WHERE  Mission = '#filtermission#' 				
 		</cfquery>		
-		
-		<cfif mode neq "Force">
-							
+				
+		<!--- SET VALUE --->
+										
+		<cfif mode neq "Force">  <!--- standard --->
+											
 				<cfif filterMission neq "" and filterItemNo neq "">
 									
 					<!--- 1. this triggers an enforced reload --->
@@ -393,32 +567,33 @@
 							password="#SESSION.dbpw#">
 							DELETE FROM Materials.dbo.ItemTransactionValuation
 							WHERE  DistributionTransactionId IN
-			                             (SELECT  TransactionId
-			                              FROM    ItemTransaction T
-			                              WHERE   Mission = '#filtermission#' 
-										  AND     ItemNo  = '#filteritemno#'
-										  <!--- added 
-										  AND     TransactionDate >= (SELECT RevaluationCutoff
-										                              FROM   ItemUoMMission
-																	  WHERE  Mission = T.Mission
-																	  AND    ItemNo  = T.ItemNo
-																	  AND    UoM     = T.TransactionUoM)
-																	  
-																	  --->
-										  <!--- added 3/11/2016 --->
-										  AND     TransactionDate >= '#param.RevaluationCutoff#'
-										  )		
+	                             (SELECT  TransactionId
+	                              FROM    ItemTransaction T
+	                              WHERE   Mission = '#filtermission#' 
+								  AND     ItemNo  = '#filteritemno#'
+								  <!--- added 
+								  AND     TransactionDate >= (SELECT RevaluationCutoff
+								                              FROM   ItemUoMMission
+															  WHERE  Mission = T.Mission
+															  AND    ItemNo  = T.ItemNo
+															  AND    UoM     = T.TransactionUoM)
+															  
+															  --->
+								  <!--- added 3/11/2016 --->
+								  AND     TransactionDate >= '#param.RevaluationCutoff#'
+								  )		
+								 
 					</cfquery>					  
 				
 				</cfif>
-		
+						
 				<!--- 2. additional transactions to be revaluated because there is something wrong --->
 				
 				<cfquery name="transactions" 
 						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-							
+													
 							SELECT      TransactionId, 
 							            TransactionValue, 
 										Valuation AS IncorrectValuation, 
@@ -472,7 +647,149 @@
 					</cfquery>		
 				
 				</cfif>
-		
+								
+				<!--- NEW 5/11/2021 we make a financial correction for positive transaction with transaction type 9, 0 and 5 
+                                        that have a 0 value to the standard cost --->
+										
+				<cfquery name="get" 
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT     *
+						FROM       ItemTransaction
+						WHERE      ItemNo = '#filterItemNo#' 
+						AND        TransactionType IN ('0','1','9','5','2') <!--- production , initial stock, variance and reverse disposal --->
+						AND        TransactionQuantity > 0 
+						AND        TransactionValue    = 0 
+						AND        TransactionBatchNo is not NULL <!--- tratype = 1 but from inter office --->
+						AND        Mission = '#filterMission#'
+						AND        TransactionDate >= '#param.RevaluationCutoff#'						
+						
+						
+						ORDER BY   TransactionDate					
+				</cfquery>
+				
+				<cfloop query="get">
+				
+					<cfquery name="batch" 
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						SELECT     *
+						FROM       WarehouseBatch
+						WHERE      BatchNo = '#transactionBatchNo#'		
+													
+					</cfquery>
+				
+					<cfquery name="costprice" 
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						SELECT     *
+						FROM       ItemUoMMission
+						WHERE      ItemNo = '#ItemNo#' 
+						AND        UoM    = '#TransactionUoM#'
+						AND        Mission = '#Mission#'							
+					</cfquery>
+					
+					<!--- the below code comes from the edit transaction template SetTransactionEditSubmit.cfm --->
+					
+					<cf_StockTransactDelete transactionId="#TransactionId#" mode="log">		
+					
+					<cfquery name="getDetail"
+					datasource="AppsMaterials" 
+				    username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					    SELECT   *
+						FROM     ItemTransactionDetail
+						WHERE    TransactionId = '#Transactionid#'				
+					</cfquery>	
+					
+					<cfquery name="remove"
+					datasource="AppsMaterials" 
+				    username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					    DELETE FROM ItemTransaction
+						WHERE  TransactionId = '#TransactionId#'			
+					</cfquery>	
+					
+					<cfset cls      = "Stock">
+									
+					<!--- repost the incoming quantity --->
+					
+					<cfquery name="Period" 
+					    datasource="AppsMaterials" 
+					    username="#SESSION.login#" 
+					    password="#SESSION.dbpw#">
+						  SELECT    *
+						  FROM      Accounting.dbo.Period
+						  WHERE     PeriodDateStart <= '#dateformat(TransactionDate,client.dateSQL)#'
+						  AND       PeriodDateEnd   >= '#dateformat(TransactionDate,client.dateSQL)#'
+					   </cfquery> 
+					   					
+					<cf_StockTransact 
+					        TransactionId             = "#transactionid#"
+							TransactionClass          = "#cls#"								
+						    DataSource                = "AppsMaterials" 
+						    TransactionType           = "#transactiontype#"
+							TransactionSource         = "WarehouseSeries"
+							ItemNo                    = "#ItemNo#" 
+							Mission                   = "#Mission#" 
+							Warehouse                 = "#Warehouse#" 
+							Location                  = "#Location#"
+							TransactionLot            = "#TransactionLot#"
+							TransactionIdOrigin       = "#TransactionIdOrigin#"
+							TransactionCurrency       = "#APPLICATION.BaseCurrency#"
+							
+							TransactionQuantity       = "#TransactionQuantity#"				
+							
+							TransactionUoM            = "#TransactionUoM#"
+							TransactionUoMMultiplier  = "#TransactionUoMMultiplier#"
+							TransactionCostPrice      = "#costprice.StandardCost#"
+							ReceiptId                 = "#ReceiptId#"
+							ReceiptCostPrice          = "#costprice.StandardCost#"
+							ReceiptPrice              = "#ReceiptPrice#"
+							ActionStatus              = "#ActionStatus#"
+							TransactionDate           = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
+							TransactionTime           = "#timeformat(TransactionDate,'HH:MM')#"			
+							TransactionBatchNo        = "#TransactionBatchNo#"
+							Remarks                   = "#Remarks#"
+							
+							WorkOrderId               = "#WorkOrderId#"
+							WorkOrderLine             = "#WorkOrderLine#"
+							RequirementId             = "#RequirementId#"								
+							BillingUnit               = "#BillingUnit#"
+							
+							OrgUnit                   = "#OrgUnit#"
+							PersonNo                  = "#PersonNo#"
+							
+							CustomerId                = "#CustomerId#"
+							AssetId                   = "#AssetId#"
+							ProgramCode               = "#ProgramCode#"
+							RequestId                 = "#RequestId#"
+							TaskSerialNo              = "#TaskSerialNo#"
+							BillingMode               = "#BillingMode#"
+							
+							TransactionReference      = "#TransactionReference#"
+							TransactionMetric         = "#TransactionMetric#"
+							ParentTransactionId       = "#Parenttransactionid#"				
+							
+							DetailLineNo              = "#getDetail.recordcount#"
+							DetailReference1          = "#getDetail.Reference1#"
+							DetailReference2          = "#getDetail.Reference2#"
+							DetailReadInitial         = "#getDetail.MeterReadingInitial#"
+							DetailReadFinal           = "#getDetail.MeterReadingFinal#"		
+							
+							AccountPeriod             = "#Period.AccountPeriod#"						
+							GLTransactionNo           = "#TransactionBatchNo#"
+							GLTransactionSourceId     = "#Batch.BatchId#"
+							
+							GLCurrency                = "#APPLICATION.BaseCurrency#"
+							GLAccountDebit            = "#GLAccountDebit#" 
+							GLAccountCredit           = "#GLAccountCredit#">	
+							
+				</cfloop>
+					
 				<!--- 
 				
 				define all issuance transactions that are not or no longer sourced / incorrectly sourced 
@@ -524,64 +841,62 @@
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-				
+								
 				        SELECT I.*, StandardCost, StockQuantity, StockValue, '' as ChildId 
 						FROM   ItemTransaction I INNER JOIN (
-					
-					
-							SELECT  TOP 100 PERCENT
-							   
-									(SELECT     TOP (1) TransactionId
-		                                FROM      ItemTransaction
-		                                WHERE     Mission = T.Mission 
-									    AND       ItemNo = T.ItemNo 
-									    AND       TransactionUoM = T.TransactionUoM 
-									    AND       TransactionLot = T.TransactionLot 
-									    AND       TransactionQuantity < 0 
-									    AND       Warehouse = T.Warehouse
-		                                ORDER BY Created DESC) AS TransactionId,
 										
-										T.Mission, 
-							            T.Warehouse, 
-										T.ItemNo, 
-										R.ItemDescription,
-										R.ItemPrecision,
-										T.TransactionUoM, 
-										I.StandardCost, 
-										T.TransactionLot, 
-										ROUND(SUM(T.TransactionQuantity), R.ItemPrecision) AS StockQuantity, 
-		                    	        ROUND(SUM(T.TransactionValue)   , R.ItemPrecision) AS StockValue									
-		                               
-									   
-							FROM       ItemTransaction AS T INNER JOIN
-		                    		   ItemUoMMission AS I ON T.ItemNo = I.ItemNo AND T.TransactionUoM = I.UoM AND T.Mission = I.Mission INNER JOIN
-									   Item R ON T.ItemNo = R.ItemNo
-									   
-							WHERE      T.ItemNo  = '#filterItemNo#' 
-							AND        T.Mission = '#filterMission#'
-							GROUP BY   T.Mission, 
-							           T.Warehouse, 
-									   T.ItemNo, 
-									   R.ItemPrecision,
-									   R.ItemDescription, 
-									   T.TransactionUoM, 
-									   T.TransactionLot, 
-									   I.StandardCost
-							
-							<!--- define items that have a strange valuation at the end --->
-							
-							HAVING      (
-										ROUND(SUM(T.TransactionQuantity), R.ItemPrecision) = 0 
-										OR
-		                                ABS(ROUND(SUM(T.TransactionValue), R.ItemPrecision) 
-										  / ROUND(SUM(T.TransactionQuantity), R.ItemPrecision)) > I.StandardCost * 2
-										  
-										) AND (ROUND(SUM(T.TransactionValue), R.ItemPrecision) <> 0)
-										
-							ORDER BY   T.Warehouse
-							
-							) as J ON I.TransactionId = J.TransactionId
-																			
+								SELECT  TOP 100 PERCENT
+								   
+										(SELECT     TOP (1) TransactionId
+			                                FROM      ItemTransaction
+			                                WHERE     Mission = T.Mission 
+										    AND       ItemNo = T.ItemNo 
+										    AND       TransactionUoM = T.TransactionUoM 
+										    AND       TransactionLot = T.TransactionLot 
+										    AND       TransactionQuantity < 0 
+										    AND       Warehouse = T.Warehouse
+			                                ORDER BY Created DESC) AS TransactionId,
+											
+											T.Mission, 
+								            T.Warehouse, 
+											T.ItemNo, 
+											R.ItemDescription,
+											R.ItemPrecision,
+											T.TransactionUoM, 
+											I.StandardCost, 
+											T.TransactionLot, 
+											ROUND(SUM(T.TransactionQuantity), R.ItemPrecision) AS StockQuantity, 
+			                    	        ROUND(SUM(T.TransactionValue)   , R.ItemPrecision) AS StockValue			                               
+										   
+								FROM       ItemTransaction AS T INNER JOIN
+			                    		   ItemUoMMission AS I ON T.ItemNo = I.ItemNo AND T.TransactionUoM = I.UoM AND T.Mission = I.Mission INNER JOIN
+										   Item R ON T.ItemNo = R.ItemNo
+										   
+								WHERE      T.ItemNo  = '#filterItemNo#' 
+								AND        T.Mission = '#filterMission#'
+								GROUP BY   T.Mission, 
+								           T.Warehouse, 
+										   T.ItemNo, 
+										   R.ItemPrecision,
+										   R.ItemDescription, 
+										   T.TransactionUoM, 
+										   T.TransactionLot, 
+										   I.StandardCost
+								
+								<!--- define transaction that have a SUSPICIOUS valuation --->
+								
+								HAVING     (
+											ROUND(SUM(T.TransactionQuantity), R.ItemPrecision) = 0 
+											OR
+			                                ABS(ROUND(SUM(T.TransactionValue), R.ItemPrecision) 
+											  / ROUND(SUM(T.TransactionQuantity), R.ItemPrecision)) > I.StandardCost * 2
+											  
+										   ) AND (ROUND(SUM(T.TransactionValue), R.ItemPrecision) <> 0)
+											
+								ORDER BY   T.Warehouse
+								
+								) as J ON I.TransactionId = J.TransactionId
+																											
 			</cfquery>	
 		
 		</cfif>				
@@ -621,6 +936,8 @@
 			     </cfquery>
 				 
 				 <cfset newtransactionValue    = getValue.Value>
+				 
+			
 				 
 			<cfelse>
 			
@@ -725,11 +1042,13 @@
 			 			 
 			 <cfif ChildId neq "">
 			 	
-				<cfif revaluation eq "1">										
+				<cfif revaluation eq "1">	
+													
 				 	<cfset ids = "#TransactionId#,#ChildId#">	
 				<cfelse>				
 					<cfset ids = TransactionId>		
 				</cfif>
+								
 								
 			 <cfelse>
 			 
@@ -741,10 +1060,7 @@
 					 
 			 <!--- loop through the (1) or (2) transaction --->
 			 
-			 <cfloop index="traid" list="#ids#">
-			 
-			
-			 
+			 <cfloop index="traid" list="#ids#">			 			 
 						 
 			 	<cfset cnt = cnt + 1>
 				
@@ -777,7 +1093,7 @@
 				    <!--- the plus part --->
 				    <cfset diff = round((val-getTra.TransactionValue)*corr)/corr> 
 				</cfif>	
-				
+								
 				<cfif diff neq "0" or getGL.recordcount eq "0">		<!--- Hanno : 6/27/2017 we need to add also a comparison with the posted value, not just existance --->		
 																						
 					<cfif cnt eq "1">								 
@@ -822,8 +1138,7 @@
 					
 					<!--- apply the financials --->		
 				 			 
-					 <!--- update the header and the lines --->					 			 
-					
+					<!--- update the header and the lines --->					 			 					
 					
 					<cfif getGL.recordcount eq "0">
 					
@@ -910,7 +1225,17 @@
 							<cf_message message = "A Facility Journal for currency: #Application.BaseCurrency# was not defined. Operation not allowed." return = "back">
 							<cfabort>
 						  
-					    </cfif> 								
+					    </cfif>
+						
+						<cfquery name="Period" 
+					    datasource="appsMaterials" 
+					    username="#SESSION.login#" 
+					    password="#SESSION.dbpw#">
+						  SELECT    *
+						  FROM      Accounting.dbo.Period
+						  WHERE     PeriodDateStart <= '#dateformat(TransactionDate,client.dateSQL)#'
+						  AND       PeriodDateEnd   >= '#dateformat(TransactionDate,client.dateSQL)#'
+					   </cfquery> 											
 						
 						<cf_GledgerEntryHeader
 							    DataSource            = "appsMaterials"
@@ -925,6 +1250,7 @@
 								ReferenceName         = "#ItemNo# #left(Itemdescription,100)#"
 								ReferenceId           = "#TraId#"
 								ReferenceNo           = ""
+								AccountPeriod         = "#Period.AccountPeriod#"
 								TransactionDate       = "#dateformat(TransactionDate,client.dateformatshow)#"
 								DocumentCurrency      = "#Application.BaseCurrency#"
 								DocumentDate          = "#dateformat(TransactionDate,client.dateformatshow)#"
@@ -1006,12 +1332,14 @@
 								
 									<cfset workid = "">
 									
-								</cfif>					
+								</cfif>		
+								
+								<!--- new transaction : option to force the TransactionPeriod is pending --->			
 								
 								<cf_GledgerEntryLine
 									    DataSource            = "AppsMaterials"
 										Lines                 = "2"
-										TransactionDate       = "#dateformat(getGL.TransactionDate,client.dateformatshow)#"
+										TransactionDate       = "#dateformat(getGL.TransactionDate,client.dateformatshow)#"										
 										Journal               = "#getGL.Journal#"
 										JournalNo             = "#getGL.JournalSerialNo#"
 										JournalTransactionNo  = "#getGL.JournalTransactionNo#"
@@ -1139,7 +1467,7 @@
 										   AmountBaseDebit      = '0'	
 									WHERE  TransactionLineId    = '#TransactionLineId#'				
 									AND    TransactionSerialNo  = '2'	
-								
+																	
 								</cfquery>								
 								
 								<!--- ------------------------------------------------------------------------------------- --->
@@ -1378,6 +1706,8 @@
 							T.ParentTransactionId  									 
 			   
 			   	 </cfquery>
+				 
+				 
 				
 			</cfif>
 						
@@ -1539,6 +1869,7 @@
 				     username="#SESSION.login#" 
 				     password="#SESSION.dbpw#">
 					 
+					 
 				 		   SELECT     T.TransactionId as TraId, 
 						              T.TransactionQuantity, 
 									  T.TransactionCostPrice,
@@ -1563,6 +1894,12 @@
 						   AND        T.TransactionQuantity > 0  <!--- sourcing of stock --->
 						   AND        T.ItemNo          = '#ItemNo#'
 						   AND        T.TransactionUoM  = '#TransactionUoM#' 	
+						   
+						   <!--- we prevent that a transaction can be sourced from its own child --->
+						   
+						   AND        T.ParentTransactionId != '#transactionId#'
+						   AND        T.TransactionValue > 0
+						   
 						   <!---  AND       T.TransactionLot  = '#TransactionLot#'  --->	
 						   
 						   <!--- remove a rely on delayed receipt

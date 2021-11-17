@@ -102,7 +102,8 @@
 			WHERE     CustomerId IN (SELECT  CustomerId
 		                             FROM    vwCustomerRequest
 									 WHERE   Warehouse = '#url.warehouse#'
-									 AND     ActionStatus != '9')
+									 AND     ActionStatus != '9'
+									 AND     BatchNo is NULL)
 			AND       CustomerId != '#url.customerid#'						
 		</cfquery>
 			
@@ -123,9 +124,18 @@
 			<tr>
 				<td>
 				
+				    <cfset jvlink = "ProsisUI.createWindow('dialogquotebox','In Line','',{x:100,y:100,height:document.body.clientHeight-80,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/InLine/InLineView.cfm?warehouse=#url.warehouse#','dialogquotebox')">		
+
+								
+				 <!--- old embedded search for other sales
                  <button type="button" class="btn btn-lg btn-light" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;"
 					  onclick="searchcombo('#getCustomer.mission#','#url.warehouse#','','switch','inmemory','up','','##customeridselect_val')">
 					  <img src="#SESSION.root#/Images/SwitchUser-Blue.png" width="26"><span style="top:-4px;left: -2px;"><cf_tl id="Switch Sale"></button>
+				  --->	  
+				  <button type="button" class="btn btn-lg btn-light" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;"
+					  onclick="s#jvlink#">
+					  <img src="#SESSION.root#/Images/SwitchUser-Blue.png" width="26"><span style="top:-4px;left: -2px;"><cf_tl id="Switch Sale"></button>
+					  
 				
 				</td>
 			</tr>                
@@ -161,9 +171,10 @@
             <tr>
 				<td>	
 								
-                <button type="button" class="btn btn-lg btn-light" onclick="#jvlink#" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;">                                                       
-				<img src="#SESSION.root#/Images/Search-R-Blue.png" width="26"><span style="top:-4px;left: -2px;"><cf_tl id="Find Customer"></span>
-				</button>
+	                <button type="button" class="btn btn-lg btn-light" onclick="#jvlink#" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;">                                                       
+					<img src="#SESSION.root#/Images/Search-R-Blue.png" width="26"><span style="top:-4px;left: -2px;"><cf_tl id="Find Customer"></span>
+					</button>
+				
 				</td>
 			</tr>
 			
@@ -172,11 +183,29 @@
 				<tr>
 					<td>
 					
-	                <button type="button" class="btn btn-lg btn-light" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;"
-					  onclick="searchcombo('#getCustomer.mission#','#url.warehouse#','','switch','inmemory','up','','##customeridselect_val')">
-					  <img src="#SESSION.root#/Images/SwitchUser-Blue.png" width="26">
-					  <span style="top:-4px;left: -2px;"><cf_tl id="Switch Sale"></span>
-					</button>
+					  <!---
+										
+		                <button type="button" class="btn btn-lg btn-light" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;"
+						  onclick="searchcombo('#getCustomer.mission#','#url.warehouse#','','switch','inmemory','up','','##customeridselect_val')">
+						  <img src="#SESSION.root#/Images/SwitchUser-Blue.png" width="26">
+						  <span style="top:-4px;left: -2px;"><cf_tl id="Switch Sale"></span>
+						</button>
+					
+					  --->
+					  
+					  <!---
+					  <cfset jvlink = "ProsisUI.createWindow('wfuserchat', 'Messenger', '', { height:document.body.clientHeight-89,width:510,resizable:false,center:false,modal:false, position:{top:40, left:document.body.clientWidth-525}, animation:{ open: { effects: "slideIn:up" }, close: { effects: "slideIn:up", reverse: true} }});">
+					  --->
+				  
+					   <cfset jvlink = "ProsisUI.createWindow('dialogquotebox','In Line','',{height:document.body.clientHeight-80,width:#Attributes.width#,modal:#attributes.modal#,center:false,position:{top:40, left:document.body.clientWidth-#Attributes.width+30#}, animation:{ open: { effects: 'slideIn:up' }, close: { effects: 'slideIn:up', reverse: true} }});ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/InLine/InLineView.cfm?warehouse=#url.warehouse#','dialogquotebox')">		
+		
+
+					
+					  <button type="button" class="btn btn-lg btn-light" style="height: 38px;width: 180px;padding: 0 0 0 9px!important;text-align: left; margin-bottom:0px!important;"
+					  onclick="#jvlink#">
+					     <img src="#SESSION.root#/Images/SwitchUser-Blue.png" width="26">
+					     <span style="top:-4px;left: -2px;"><cf_tl id="Switch Sale"></span>
+					  </button>
 					
 					</td>
 				</tr>

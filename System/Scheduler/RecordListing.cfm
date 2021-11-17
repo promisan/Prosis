@@ -185,34 +185,34 @@
 	
 	<cf_divscroll>
 	
-	<table width="99%" class="navigation_table">
+	<table style="width:98%" align="left" class="navigation_table">
 	
 	<tr class="labelmedium line fixrow">
 	    <TD height="30" align="left"></TD>
-	    <TD width="10" align="left"></TD>
-		<td width="10"></td>
-		<TD align="left"><cf_tl id="Name"></TD>
-	    <TD align="left" width="50" style="padding-right:4px"><cf_tl id="Interval"></TD>
-		<TD align="left" width="50"><cf_tl id="Start"></TD>
-		<TD align="left" width="50"><cf_tl id="End"></TD>
-		<TD align="left" width="100"><cf_tl id="Server"></TD>
-		<TD align="left" width="100"><cf_tl id="Last Run Status"></TD>
-		<TD width="80">R.</TD>
-		<TD width="80"><cf_tl id="Fail To"></TD>
-		<td width="30"><cf_tl id="C"></td>
-		<td width="40"></td>
+	    <TD></TD>
+		<td></td>
+		<TD><cf_tl id="Name"></TD>
+	    <TD style="padding-right:4px"><cf_tl id="Interval"></TD>
+		<TD><cf_tl id="Start"></TD>
+		<TD><cf_tl id="End"></TD>
+		<TD><cf_tl id="Server"></TD>
+		<TD><cf_tl id="Last Run Status"></TD>
+		<TD>R.</TD>
+		<TD><cf_tl id="Fail To"></TD>
+		<td><cf_tl id="C"></td>
+		
 	</TR>
 	
 	<cfoutput query="SearchResult" group="Application">
 		
 	<tr style="cursor: pointer" class="labelmedium">	
-		<td colspan="12" style="font-weight:300;font-size:27px;height:42;padding-top:3px;padding-left:3px">#Application#</td>	
+		<td colspan="11" style="font-weight:300;font-size:27px;height:42;padding-top:3px;padding-left:3px">#Application#</td>	
 	</tr>	
 	
 	<cfoutput group="SystemModule">
 	
 	<tr style="cursor: pointer" height="20" class="fixrow2 labelmedium">	
-		<td colspan="13" style="font-weight:300;font-size:18px;height:30;padding-left:15px"><font color="black">#Description#</td>	
+		<td colspan="12" style="font-weight:300;font-size:18px;height:30;padding-left:15px"><font color="black">#Description#</td>	
 	</tr>	
 	
 	<cfset row = "0">
@@ -236,8 +236,8 @@
 		<tr class="navigation_row labelmedium2 line" id="lin#scheduleid#" style="height:22px">
 		
 		<td width="20"></td>	   	
-		<td width="10" align="center">#currentRow#.</td>		
-		<td style="padding-left:5px" width="20" align="center" id="option#scheduleid#">
+		<td class="fixlengthlist" align="center">#currentRow#.</td>		
+		<td class="fixlengthlist" style="padding-left:5px" width="20" align="center" id="option#scheduleid#">
 				 
 		    <cfset url.id  = scheduleId>
 			<cfset url.row = currentrow>		
@@ -265,12 +265,12 @@
 			
 		<cf_UIToolTip tooltip="#t#">
 	
-			<TD style="padding-left:#(c*10)+5#px">	
+			<TD class="fixlengthlist" style="padding-left:#(c*10)+5#px">	
 			<table>
 				<tr class="labelmedium"><td align="right" style="padding-right:2px;height:15px">
 					<cfif c gt 1><img src="#session.root#/images/join.gif" alt="" border="0"></cfif>
 				</td>
-				<td class="navigation_action" style="height:20px;padding-right:2px;font-size:14px;cursor:pointer" onclick="recordadd('#ScheduleId#')"><a title="#ScheduleMemo#"><font color="black">#ScheduleName#</a></td>
+				<td class="fixlengthlist navigation_action" style="height:20px;padding-right:2px;font-size:14px;cursor:pointer" onclick="recordadd('#ScheduleId#')"><a title="#ScheduleMemo#"><font color="black">#ScheduleName#</a></td>
 				</tr>
 			</table>
 			
@@ -278,7 +278,7 @@
 			
 		</cf_UIToolTip>
 		
-		<TD align="center" style="padding-left:4px;padding-right:4px">
+		<TD class="fixlengthlist" align="center" style="padding-left:4px;padding-right:4px">
 		
 		<cfif ScheduleInterval eq "Manual">
 		-
@@ -292,10 +292,10 @@
 		#ucase(left(ScheduleInterval,1))#
 		</cfif>
 		</TD>
-		<TD>#ScheduleStartTime#</td>
-		<td><cfif ScheduleInterval eq "3600" or ScheduleInterval eq "900" or ScheduleInterval eq "600">#ScheduleEndTime#</cfif></TD>
-		<td>#ApplicationServer#</td>
-		<td id="last#scheduleid#" width="130">
+		<TD class="fixlengthlist">#ScheduleStartTime#</td>
+		<td class="fixlengthlist"><cfif ScheduleInterval eq "3600" or ScheduleInterval eq "900" or ScheduleInterval eq "600">#ScheduleEndTime#</cfif></TD>
+		<td class="fixlengthlist">#ApplicationServer#</td>
+		<td class="fixlengthlist" id="last#scheduleid#" width="130">
 			<cfif last.actionStatus eq "9">
 		    <font color="FF0000">Interrupted</font>
 			<cfelseif last.actionStatus eq "0">
@@ -316,7 +316,7 @@
 			</cfif>
 		</td>
 		
-		<TD align="left" id="#scheduleid#">
+		<TD class="fixlengthlist" align="left" id="#scheduleid#">
 			
 			<cfset url.init = "1">
 			<cfset url.id = "#scheduleId#">
@@ -324,8 +324,8 @@
 		
 		</TD>
 		
-		<td>#ScriptFailureMail#</td>
-		<td>#left(ScheduleClass,1)#</td>
+		<td class="fixlengthlist">#ScriptFailureMail#</td>
+		<td class="fixlengthlist">#left(ScheduleClass,1)#</td>
 		
 		<td align="left" width="30">
 		

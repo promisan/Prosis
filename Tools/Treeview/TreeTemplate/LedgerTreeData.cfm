@@ -189,18 +189,22 @@ password="#SESSION.dbpw#">
 				        display="<span style='font-size:18px;padding-top:5px;font-weight:bold' class='labelit'>#vAccount#</span>"						
 						parent="root"							
 				        expand="Yes">	
+						
+				<cf_tl id="Trial Balance" var="1">		
 							
 				<cf_UItreeitem value="vw_Balance"
-				        display="<span style='font-size:15px;padding-top:2px' class='labelit'>Trial Balance</span>"
+				        display="<span style='font-size:15px;padding-top:2px' class='labelit'>#lt_text#</span>"
 						parent="account"	
-						href="../../../GLedger/Inquiry/Account/BalanceListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&glcategory=#Attributes.GLCategory#&Orgunit="										
+						href="..\..\..\GLedger\Inquiry\Account\BalanceListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&glcategory=#Attributes.GLCategory#&Orgunit="										
 						target="right"
-				        expand="No">			
+				        expand="No">	
+						
+				<cf_tl id="Result" var="1">						
 						
 				<cf_UItreeitem value="vw_Result"
-				        display="<span style='font-size:15px;' class='labelit'>Results</span>"
+				        display="<span style='font-size:15px;' class='labelit'>#lt_text#</span>"
 						parent="account"	
-						href="../../../GLedger/Inquiry/Account/ResultListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&glcategory=#Attributes.GLCategory#&OrgUnit="										
+						href="..\..\..\GLedger\Inquiry\Account\ResultListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&glcategory=#Attributes.GLCategory#&OrgUnit="										
 						target="right"
 				        expand="No">	
 					

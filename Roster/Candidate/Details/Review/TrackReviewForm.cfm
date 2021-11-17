@@ -95,7 +95,7 @@ password="#SESSION.dbpw#">
    ORDER BY B.ExperienceStart DESC 
 </cfquery>
 
-<cf_screentop close="parent.ColdFusion.Window.destroy('mydialog',true)" layout="webapp" height="100%" label="Request #Reference.Description# Review" scroll="yes">
+<cf_screentop html="No" layout="webapp" height="100%" label="Request #Reference.Description# Review" scroll="yes">
 	
 	<cfform action="TrackReviewSubmit.cfm?reviewcode=#url.reviewcode#&personno=#url.personno#&documentno=#url.documentno#&reviewid=#rowguid#" 
 	method="POST" target="result">

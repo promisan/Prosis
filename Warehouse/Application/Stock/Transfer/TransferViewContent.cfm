@@ -182,26 +182,26 @@
 <cfelse>
 
 					
-<tr class="fixrow labelmedium2 line">
-    <td width="1%"></td>							
-	<td width="1%"></td>	
+<tr class="fixrow labelmedium2 line fixlengthlist">
+    <td></td>							
+	<td></td>	
 	<cfif url.mode eq "standard">
-	<TD width="1%" align="right"></TD>						
+	<TD align="right"></TD>						
 	<cfelse>
-	<TD width="8%" align="right"><cf_tl id="Transfer"></TD>	
+	<TD align="right"><cf_tl id="Transfer"></TD>	
 	</cfif>			
-	<TD style="padding-left:5px;min-width:50px"><cf_tl id="Cat"></TD>		
-	<TD style="min-width:60px"><cf_tl id="No"></TD>		
-	<td style="min-width:100px"><cf_tl id="Code"></td>		
-	<TD style="width:100%"><cf_tl id="Product"></TD>	
+	<TD><cf_tl id="Cat"></TD>		
+	<TD><cf_tl id="No"></TD>		
+	<td><cf_tl id="Code"></td>		
+	<TD><cf_tl id="Product"></TD>	
 	<cfif url.loc eq "">
-	<TD style="min-width:60px"><cf_tl id="Location"></TD>	
+	<TD><cf_tl id="Location"></TD>	
 	</cfif>
-	<TD style="min-width:60px" align="right"><cf_tl id="Min"></TD>
-	<TD style="min-width:80px" align="center"><cfif Param.lotManagement eq "Yes"><cf_tl id="Lot"></cfif></TD>	
-	<TD style="min-width:60px"><cf_tl id="Reference"></TD>
-	<TD style="min-width:80px;padding-left:4px"><cf_tl id="Measure"></TD>					
-    <td style="min-width:60px;padding-right:5px" align="right"><cf_tl id="On Hand"></td>			
+	<TD align="right"><cf_tl id="Min"></TD>
+	<TD align="center"><cfif Param.lotManagement eq "Yes"><cf_tl id="Lot"></cfif></TD>	
+	<TD><cf_tl id="Reference"></TD>
+	<TD><cf_tl id="Measure"></TD>					
+    <td align="right"><cf_tl id="On Hand"></td>			
 </TR>
 	
 </cfif>			
@@ -250,7 +250,7 @@
 			
 		    <tr bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('Ffffff'))#"
 			    style="cursor:pointer;height:20px;padding:0px"
-				class="labelmedium2 navigation_row regular line"					
+				class="labelmedium2 navigation_row regular line fixlengthlist"					
 				ondblclick="item('#ItemNo#','#url.systemfunctionid#','#URL.Mission#')">
 				
 			<cfelse>	
@@ -258,14 +258,14 @@
 			 <!--- embedded mode --->
 			
 			 <tr bgcolor="#IIf(CurrentRow Mod 2, DE('f4f4f4'), DE('Ffffff'))#"
-			    class="navigation_row labelmedium2 line" style="cursor:pointer;height:20px;padding:0px">
+			    class="navigation_row labelmedium2 line fixlengthlist" style="cursor:pointer;height:20px;padding:0px">
 				
 			</cfif>
 				
 		    <td style="padding-left:6px"></td>								
 			<td height="20"></td>	
 			
-			<td style="padding-left:5px;padding-right:5px;padding-top:3px">
+			<td style="padding-top:3px">
 			
 				<cfif url.mode eq "Quick">
 				
@@ -322,27 +322,27 @@
 				 
 			</td>
 								
-			<TD style="padding-left:5px;padding-right:3px">#Category#</TD>												
-			<TD style="padding-right:3px"><cfif prior neq itemno>#ItemNo#<cfelse>&nbsp;</cfif></TD>			
-			<td style="padding-right:5px;">
+			<TD>#Category#</TD>												
+			<TD><cfif prior neq itemno>#ItemNo#<cfelse>&nbsp;</cfif></TD>			
+			<td>
 			<table style="width:100%">
-				<tr class="labelmedium2">
-					<td style="min-width:110px">#ItemNoExternal#</td>
-					<td style="padding-left:4px" align="right"><cf_img onclick="stockinquiry('#itemno#','#url.warehouse#','#unitofmeasure#')" icon="open"></td>
+				<tr class="labelmedium2 fixlengthlist">
+					<td>#ItemNoExternal#</td>
+					<td align="right"><cf_img onclick="stockinquiry('#itemno#','#url.warehouse#','#unitofmeasure#')" icon="open"></td>
 				</tr>
 			</table>
 			</td>
 			
 			<cfif url.stockorderid eq "">					
 			
-				<TD><cfif prior neq itemno>
+				<TD title="#ItemDescription#"><cfif prior neq itemno>
 				     <a href="javascript:item('#ItemNo#','#url.systemfunctionid#','#url.mission#',)">#ItemDescription#</a>
 					<cfelse>#ItemDescription#</cfif>
 				</TD>
 	
 			<cfelse>
 			
-				<TD style="min-width:30px"><cfif prior neq itemno>#ItemDescription#<cfelse></cfif></TD>					
+				<TD title="#ItemDescription#"><cfif prior neq itemno>#ItemDescription#<cfelse></cfif></TD>					
 				
 			</cfif>
 			
@@ -369,11 +369,11 @@
 			
 			<td align="right"><cfif param.LotManagement is "1" and TransactionLot neq "0">#TransactionLot#</cfif></td>	
 			<td><cfif Transactionreference neq "Stock discrepancy" and StockControlMode eq "Individual">#TransactionReference#</cfif></td>	
-			<td style="padding-left:4px">#UoMDescription#</td>	
-			<td align="right" style="padding-right:4px"><cfif Quantity lte "0"><b><font color="FF0000"></cfif>#NumberFormat(Quantity,'#pformat#')#</font></td>													
+			<td>#UoMDescription#</td>	
+			<td align="right"><cfif Quantity lte "0"><b><font color="FF0000"></cfif>#NumberFormat(Quantity,'#pformat#')#</font></td>													
 					
 			<cfif url.mode eq "Quick">
-				<td align="right" style="padding-left:5px;">
+				<td align="right">
 				<cfinclude template="StockTransfer.cfm">
 				<a class="hide" id="f#TransactionId#"></a>
 				<a class="hide" id="transfer#TransactionId#"></a>	

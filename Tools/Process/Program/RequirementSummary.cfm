@@ -216,8 +216,8 @@
 				<cfset w = 65/cnt>
 				
 				<cfset cnt = 0>
-				<tr class="labelmedium line" style="background-color:f1f1f1">
-				<td width="26%" style="height:20px;padding-left:4px;border:1px solid silver"><cf_tl id="Resource"></td>
+				<tr class="labelmedium line fixlengthlist" style="background-color:f1f1f1">
+				<td style="height:20px;padding-left:4px;border:1px solid silver"><cf_tl id="Resource"></td>
 				
 				<cfloop index="yr" from="#SY#" to="#EY#">		
 				
@@ -233,11 +233,11 @@
 					</cfif>									
 					<cfloop index="mt" from="#fr#" to="#to#">				
 						<cfset cnt = cnt+1>				
-					    <td width="#w#%" align="right" style="padding-right:4px;border:1px solid silver" align="center">Qtr #mt#</td>														
+					    <td width="#w#%" align="right" style="border:1px solid silver" align="center">Qtr #mt#</td>														
 					</cfloop>	
-					<td bgcolor="ffffcf" align="right" width="#w#%" style="font-size:16px;padding-right:4px;border:1px solid silver" align="center">#yr#</td>								
+					<td bgcolor="ffffcf" align="right" width="#w#%" style="font-size:16px;border:1px solid silver" align="center">#yr#</td>								
 				</cfloop>
-				<td style="font-size:16px;min-width:130px;padding-right:4px;border:1px solid silver" align="right" bgcolor="E3E8C6"><b>#planperiod.description#</td>
+				<td style="font-size:16px;padding-right:4px;border:1px solid silver" align="right" bgcolor="E3E8C6"><b>#planperiod.description#</td>
 				</tr>
 						
 				<!--- lines --->		
@@ -245,8 +245,8 @@
 				<cfloop query="getResource">	
 				
 				    <cfset tot = 0>	
-					<tr class="linedotted navigation_row">	
-					<td class="labelit" style="height:18px;padding-left:4px;">#Description#</td>	
+					<tr class="linedotted navigation_row fixlengthlist labelmedium2">	
+					<td style="height:18px">#Description#</td>	
 						
 						<cfloop index="yr" from="#SY#" to="#EY#">		
 									
@@ -266,7 +266,7 @@
 							<cfloop index="mt" from="#fr#" to="#to#">	
 							    <cfparam name="ar[yr][mt][listingorder]" default="">	
 								<cfif ar[yr][mt][listingorder] neq "">									
-								<td align="right" class="labelit" style="border-right:1px solid silver;height:18px;padding-right:3px;">						
+								<td align="right" style="border-right:1px solid silver;height:18px">						
 									#numberformat(ar[yr][mt][listingorder],',__')#
 									<cfset yrt = yrt + ar[yr][mt][listingorder]>
 									<cfset tot = tot + ar[yr][mt][listingorder]>
@@ -277,11 +277,11 @@
 									
 							</cfloop>		
 							
-							<td bgcolor="ffffcf" align="right" class="labelit" style="border-right:1px solid silver;background-color:##ffffaf80;height:18px;padding-right:3px;">#numberformat(yrt,'__,__')#</td>
+							<td bgcolor="ffffcf" align="right" class="labelit" style="border-right:1px solid silver;background-color:##ffffaf80;height:18px">#numberformat(yrt,'__,__')#</td>
 											   								
 						</cfloop>	
 							
-						<td width="10%" class="labelmedium" bgcolor="E3E8C6" style="border-right:1px solid silver;background-color:##E3E8C680;font-size:13px;height:18px;padding-right:3px;" align="right">
+						<td width="10%" class="labelmedium" bgcolor="E3E8C6" style="border-right:1px solid silver;background-color:##E3E8C680;font-size:13px;height:18px" align="right">
 						#numberformat(tot,',__')#			
 						</td>				
 					</tr>				
@@ -289,8 +289,8 @@
 				</cfloop>	
 				
 				<cfset tot = 0>	
-				<tr class="line" style="border-top:1px solid silver">	
-					<td class="labelmedium" style="padding-left:4px;"><cf_tl id="Total Requirements"></td>
+				<tr class="line labelmedium2 fixlengthlist" style="border-top:1px solid silver">	
+					<td><cf_tl id="Total Requirements"></td>
 							
 						<cfloop index="yr" from="#SY#" to="#EY#">					
 						
@@ -321,18 +321,18 @@
 								
 								</cfloop>
 													    							
-								<td class="labelmedium" align="right" style="border-right:1px solid silver;height:22px;padding-right:3px;">						
+								<td align="right" style="border-right:1px solid silver;height:22px">						
 									#numberformat(sub,',__')#							
 								</td>	
 								<cfset tot = tot+sub>
 															
 							</cfloop>	
 							
-							<td class="labelmedium" bgcolor="ffffcf" style="border-right:1px solid silver;background-color:##ffffaf80;height:22px;padding-right:3px;" align="right">#numberformat(yrt,'__,__')#</td>
+							<td bgcolor="ffffcf" style="border-right:1px solid silver;background-color:##ffffaf80;height:22px" align="right">#numberformat(yrt,'__,__')#</td>
 																			   								
 						</cfloop>	
 							
-						<td class="labelmedium" width="10%" align="right" bgcolor="E3E8C6" style="border-right:1px solid silver;background-color:##E3E8C680;height:22px;padding-right:3px;">
+						<td align="right" bgcolor="E3E8C6" style="border-right:1px solid silver;background-color:##E3E8C680;height:22px">
 						#numberformat(tot,',__')#			
 						</td>				
 				
@@ -345,8 +345,8 @@
 						
 						--->
 						
-						<tr class="line">	
-							<td class="labelit" style="padding-left:5px;"><cf_tl id="Program Support Cost"></td>	
+						<tr class="line labelmedium2">	
+							<td><cf_tl id="Program Support Cost"></td>	
 							
 								<cfset tot = 0>			
 								
@@ -406,19 +406,19 @@
 																															
 										</cfif>																		
 																																			    							
-										<td align="right" class="labelmedium" style="border-right:1px solid silver;font-size:13px;height:18px;padding-right:3px;">						
+										<td align="right" style="border-right:1px solid silver;font-size:13px;height:18px">						
 											#numberformat(sub,',__')#							
 										</td>									
 																	
 									</cfloop>	
 																																																					
-									<td class="labelmedium" bgcolor="ffffcf" style="border-right:1px solid silver;font-size:13px;height:18px;padding-right:3px;" align="right">
+									<td bgcolor="ffffcf" style="border-right:1px solid silver;font-size:13px;height:18px" align="right">
 									#numberformat(yrt,',__')#
 									</td>
 																					   								
 								</cfloop>	
 																						
-								<td class="labelmedium" bgcolor="E3E8C6" width="10%" align="right" style="border-right:1px solid silver;font-size:13px;height:18px;padding-right:3px;">								
+								<td bgcolor="E3E8C6" width="10%" align="right" style="border-right:1px solid silver;font-size:13px;height:18px">								
 								#numberformat(tot,',__')#			
 								</td>				
 								
@@ -428,8 +428,8 @@
 						
 							<!--- final overal total row --->
 						
-							<tr bgcolor="EBEAE7">	
-								<td class="labelmedium" style="padding-left:4px;"><cf_tl id="Overall"></td>		
+							<tr bgcolor="EBEAE7" class="labelmedium2">	
+								<td><cf_tl id="Overall"></td>		
 								
 								    <cfset tot = 0>
 									
@@ -486,19 +486,19 @@
 																				
 											</cfif>											
 																											    							
-											<td align="right" class="labelmedium" style="border-right:1px solid silver;height:22px;padding-right:3px;">						
+											<td align="right" style="border-right:1px solid silver;height:22px">						
 												<b>#numberformat(sub,',__')#</b>							
 											</td>																
 																		
 																		
 										</cfloop>	
 																				
-										<td class="labelmedium" bgcolor="ffffcf" style="border-right:1px solid silver;height:22px;padding-right:3px;" align="right">
+										<td bgcolor="ffffcf" style="border-right:1px solid silver;height:22px" align="right">
 										<b>#numberformat(yrt,',__')#</b></td>
 																						   								
 									</cfloop>		
 																		
-									<td class="labelmedium" width="10%" align="right" bgcolor="E3E8C6" style="border-right:1px solid silver;height:22px;padding-right:3px;">
+									<td align="right" bgcolor="E3E8C6" style="border-right:1px solid silver;height:22px">
 										<b>#numberformat(tot,',__')#</b></td>				
 							</tr>		
 						

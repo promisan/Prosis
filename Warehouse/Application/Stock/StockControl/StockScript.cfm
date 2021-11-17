@@ -1226,12 +1226,10 @@ function doHideSelectBox() {
 
 function searchcombo(mis,whs,cat,mde,val,mode,itm,valfield) {
 
-
-
    if ($.trim(val) != '' && $.trim(valfield) != '') {
 	   $(valfield).val(val);
    }
-  
+    
    if  (val.length < #param.AssetSearchChars#) {     	   	
 		document.getElementById(mde+'selectbox').className = "hide"		
 				   
@@ -1249,7 +1247,8 @@ function searchcombo(mis,whs,cat,mde,val,mode,itm,valfield) {
 	       switch(keynum) {
 		   case 13: 		  			
 		    // we need to review if this can be made more generic like we do for the search div 
-	     	document.getElementById(mde+'selectbox').className = "hide"		   			 		  	 			
+	     	document.getElementById(mde+'selectbox').className = "hide"		
+			 			 		  	 			
 			if (mde == 'customer') {					
 				if (document.getElementById('addressidselect'))	{
 					addressId = document.getElementById('addressidselect').value;
@@ -1313,7 +1312,8 @@ function searchcombo(mis,whs,cat,mde,val,mode,itm,valfield) {
 		   			template = 'customer';
 		   		} else {
 		   			template = mde;
-		   		}								
+		   		}						
+						
 			  	ptoken.navigate('#SESSION.root#/Warehouse/Application/Tools/divSearch/get'+template+'Search.cfm?mission='+mis+'&warehouse='+whs+'&category='+cat+'&itemno='+itm+'&search='+val+'&context='+mde+'selectbox',mde+'find')
 		   }	
 	    }	 

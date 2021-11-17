@@ -82,7 +82,7 @@ function exclog(id,id1) {
 	if (se.className == "hide") {	   	
 		 se.className  = "regular";
 		 url = "RecordListingDetail.cfm?time=#now()#&id=" + id + "&id1=" + id1
-		 ColdFusion.navigate(url,'detail'+id)
+		 ptoken.navigate(url,'detail'+id)
  	 } else {	   	
     	 se.className  = "hide"
 	 }
@@ -146,11 +146,11 @@ function exclog(id,id1) {
 			<td style="padding-left:10px">#OfficerFirstName# #OfficerLastName#</td>
 			
 			<td>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</td>
-			<td align="center" style="height:18;padding-top:4px;">	
+			<td align="center" style="height:18;padding-top:2px;">	
 			   <cf_img icon="expand" toggle="yes" onclick="exclog('#currency#')">	
 			</td>
 			<td><cfif URL.Option eq "hide">#Dateformat(Effective, "#CLIENT.DateFormatShow#")#</cfif></td>	
-			<td align="right" style="padding-right:6px"><cfif URL.Option eq "hide">#NumberFormat(ExchangeRate,'____,___.____')#</cfif></td>
+			<td align="right" style="padding-right:6px"><cfif URL.Option eq "hide">#NumberFormat(ExchangeRate,',.____')#</cfif></td>
 			
 	    </tr>
 		

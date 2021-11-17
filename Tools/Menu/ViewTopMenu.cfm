@@ -181,7 +181,7 @@
 	  <tr>
 		  <td valign="middle" style="height:#attributes.bannerheight#; min-height:#attributes.bannerheight#;">
 		  		  		  	  
-			  <table cellspacing="0" cellpadding="0">
+			  <table width="100%" cellspacing="0" cellpadding="0">
 			  
 				<tr>
 					<cfif attributes.icon neq "">
@@ -190,12 +190,12 @@
 					</cfif>
 				
 					<td>						
-						<table cellspacing="0" cellpadding="0">
+						<table width="100%" cellspacing="0" cellpadding="0">
 							<tr>
                                 <td align="center" class="labelmedium drk-hover" style="background:##033F5D;width:32px;border-right:1px solid rgba(255,255,255,0.2);padding:10px 10px 10px 10px;height:55px;">
 						   <img src="#session.root#/images/logos/menu/prosis-icon.png" style="cursor:pointer" height="24" width="24" title="Function" border="0" onclick="##">						 
 						</td>
-								<td class="labellarge" id="screentoplabel" style="font-size:18px;padding-left:20px;color:##FFFFFF;">
+								<td class="labellarge fixlength" id="screentoplabel" style="font-size:18px;padding-left:20px;color:##FFFFFF;">
 									#attributes.label#
 								</td>
 							</tr>
@@ -222,7 +222,7 @@
 					
 						<cfif attributes.option neq "">
 						
-							<td class="labelit" style="padding-top:11px;padding-right:10px; color:###attributes.textColorName#;">
+							<td class="labelit fixlength" style="padding-top:11px;padding-right:10px; color:###attributes.textColorName#;">
 								<span style="font-size:11px;">#attributes.option#</span>
 							</td>
 							
@@ -230,7 +230,7 @@
 						
 						</cfif>	
 					
-						<td class="labelmedium drk-hover" style="border-left:1px solid rgba(255,255,255,0.2);border-right:1px solid rgba(255,255,255,0.2);padding:17px 18px;color:##FFFFFF;" align="right">
+						<td class="labelmedium drk-hover fixlength" style="border-left:1px solid rgba(255,255,255,0.2);border-right:1px solid rgba(255,255,255,0.2);padding:17px 18px;color:##FFFFFF;" align="right">
 							#SESSION.first# #SESSION.last#
 																											
 						<cfif systemfunctionid neq "" && find(systemfunctionid,"-") gt 0> 

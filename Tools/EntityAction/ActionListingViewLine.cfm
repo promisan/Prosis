@@ -313,7 +313,8 @@
 						</cfquery>													
 													
 							<tr class="cellcontent">
-							<td style="height:43px;padding-right:4%;min-width:200px;"> 		
+							<td style="height:43px;padding-right:4%;min-width:200px;">
+							 		
 							<table width="100%" height="100%">
 							   <tr><td style="width:100%">																							
 								<table align="center" class="Procets-L" style="height:100%;width:100%;height:40px;max-width:360px;background-color:#box#;#vSquareStyle#;">								
@@ -348,7 +349,7 @@
 						    <cfset pr = "">
 						</cfif>						
 					
-						<tr><td style="<cfif sub eq '0'>height:43px<cfelse>height:25px</cfif>;min-width:200px;max-width:360px">
+						<tr><td style="<cfif sub eq '0'>height:43px<cfelse>height:25px</cfif>;min-width:200px;max-width:340px">
 								
 								<cfif sub eq "1">	
 								    <cfset box = "FFFF97">																				
@@ -359,29 +360,30 @@
 								<cfelse>
 									<cfset boxend = "gray">
 								</cfif>																														
-													
+																					
 								<table width="100%" height="100%" onClick="#pr#"
-									 style="max-width:360px;<cfif pr neq "" or SESSION.isAdministrator eq 'Yes'>cursor: pointer;</cfif> background-color:#box#; #vSquareStyle#;"
+									 style="<cfif pr neq "" or SESSION.isAdministrator eq 'Yes'>cursor: pointer;</cfif> background-color:#box#; #vSquareStyle#;"
 									 ondblClick="<cfif SESSION.isAdministrator eq "Yes">javascript:stepedit('#Actions.EntityCode#','#Actions.EntityClass#','#Actions.ActionPublishNo#','#ActionCode#')</cfif>">
-										<tr>
-											<td style="min-width:5px"></td>
-											<td align="center" class="labelmedium" style="width:100%;font-size:14px;line-height:14px;cursor: pointer;color:rgba(0,0,0,0.7);font-weight:400;text-transform: capitalize;">
-																																												
+										<tr class="fixlengthlist labelmedium">
+																																																						
 											<cfparam name="ActionCompleted" default="">
 											<cfparam name="ActionDenied" default="">
 											
 											<cfif actionStatus eq "2Y" and ActionCompleted neq "">
-											#ActionCompleted#
+											<cfset lbl = "#ActionCompleted#">
 											<cfelseif actionStatus eq "2" and ActionCompleted neq "">
-											#ActionCompleted#
+											<cfset lbl = "#ActionCompleted#">
 											<cfelseif actionStatus eq "2N" and ActionDenied neq "">
-											#ActionDenied#
+											<cfset lbl = "#ActionDenied#">
 											<cfelse>
-											#ActionDescription#
+											<cfset lbl = "#ActionDescription#">
 											</cfif>
 											
-											</td>											
-											<td style="min-width:5px"></td>
+											
+											<td align="center" title="#ActionCode# #lbl#"
+											style="padding-left:10px;padding-right:10px;width:100%;font-size:14px;cursor: pointer;color:rgba(0,0,0,0.7)">
+											#lbl#</td>																						
+											
 										</tr>
 								</table>
 							
@@ -398,9 +400,9 @@
 																	
 				</td>		
 											
-				<td style="padding-top:4px;width: auto; min-width:110px;">
+				<td style="padding-top:4px;" class="fixlength">
                           
-					<table cellspacing="0" cellpadding="0">			
+					<table>			
 							
 						<tr class="labelmedium">										
 						<cfif Entity.EnablePerformance eq "1">						

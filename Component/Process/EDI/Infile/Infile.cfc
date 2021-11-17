@@ -58,13 +58,13 @@
 		<cfreturn Customer>
 
 	</cffunction>
-	
 				
 	
 	<cffunction name="SaleIssueV3"
 			access="public"
 			returntype="any"
 			displayname="GetFACE">
+			<!--- This method is used for issuing and also displaying an existing one --->
 
 			<cfargument name="Datasource"         type="string"  required="true"   default="appsOrganization">
 			
@@ -87,6 +87,7 @@
 			<cfargument name="catProd"		      type="string"  required="false"  default="PRD">
 			<cfargument name="AddrType"		      type="string"  required="false"  default="Home">
 			
+			<!--- Infile = GT = 12% --->
 			<cfset FEL.TaxPercentage = 0.12000>
 		
 			<cfquery name="GetTransaction"
@@ -159,24 +160,49 @@
 			
 			<!--- needed for what ? --->
 			
+			<cfset vUniqueId = GetTransaction.JournalTransactionNo>
+			
 			<cfquery name="GetPrevious"
 				datasource="#datasource#"
 				username="#SESSION.login#"
 				password="#SESSION.dbpw#">
 					SELECT   A.*
 					FROM     Accounting.dbo.TransactionHeaderAction A
-					WHERE    Journal           = '#journal#'
-					AND      JournalSerialNo   = '#JournalSerialNo#'				
-					AND      ActionCode        = 'Invoice'
-					AND      ActionMode        = '2'							
-					ORDER BY Created DESC
+					WHERE    Journal          = '#journal#'
+					AND      JournalSerialNo  = '#JournalSerialNo#'				
+					AND      ActionCode       IN ('Invoice','Creditnote')
+					AND      ActionMode       = '2'		
+					AND      ActionStatus IN ('1','5')									
+					ORDER BY Created DESC								
 			</cfquery>
+					
+			<cfif GetPrevious.ActionStatus eq 5>
+				<!--- It is a re-attempt to post the SAME sales order which was cancelled
+				      when the underline FEL has been already voided -  credit note so we need to pass a different id --->
+				<cfset vUniqueId = "#GetTransaction.JournalTransactionNo#-#LEFT(GetPrevious.ActionId,5)#">
 			
-			<cfset vUniqueId = GetTransaction.JournalTransactionNo>
+			<cfelseif actionId neq "">
 			
-			<cfif GetPrevious.ActionStatus eq 9>
-				<!--- It is a re-attempt to post the same sales order when the underline FEL has been already voided--->
-				<cfset vUniqueId = "#GetTransaction.JournalTransactionNo#-#LEFT(GetPrevious.ActionId,3)#">
+				<cfquery name="GetAction"
+					datasource="#datasource#"
+					username="#SESSION.login#"
+					password="#SESSION.dbpw#">
+						SELECT   *
+						FROM     Accounting.dbo.TransactionHeaderAction
+						WHERE    ActionId         = '#actionid#'							
+				</cfquery>
+				
+				<cfif getAction.ActionSource1 eq ""> 
+				    <cfset vUniqueId = GetTransaction.JournalTransactionNo>			
+				<cfelse>
+				    <!--- we make sure we take the action which opened --->
+					<cfset vUniqueId = getAction.ActionSource1>	
+				</cfif>	
+			
+			<cfelse>
+			
+			    <cfset vUniqueId = GetTransaction.JournalTransactionNo>							
+				
 			</cfif>
 			
 			<!--- ------------------------- --->
@@ -186,7 +212,9 @@
 			<!--- to add header --->
 			
 			<cfset FEL.InvoiceType     =  GetTaxSeries.DocumentType>
-			
+			<cfset FEL.Phrase1 		   =  GetTaxSeries.Phrase1>
+			<cfset FEL.Phrase2 		   =  GetTaxSeries.Phrase2>
+
 			<cfif getTransaction.TransactionDate lte getTransaction.ActionBefore>
 			    <cfset FEL.ActionBefore = "#DateFormat(DateAdd('d',30,GetTransaction.TransactionDate),'YYYY-MM-DD')#">
 			<cfelse>
@@ -278,6 +306,28 @@
 							FROM     Materials.dbo.WarehouseBatch
 							WHERE    BatchId = '#getTransaction.TransactionSourceId#'						
 					</cfquery>
+					
+					<cfquery name="GetWarehouse"
+						datasource="#datasource#"
+						username="#SESSION.login#"
+						password="#SESSION.dbpw#">
+							SELECT   *
+							FROM     Materials.dbo.Warehouse
+							WHERE    Warehouse = '#GetBatch.Warehouse#'						
+					</cfquery>
+					
+					<!--- fall back --->
+					
+					<cfif FEL.VendorAddress eq "CUIDAD">
+					
+						<cfset FEL.VendoreMail      = "#GetWarehouse.Contact#"> 
+						<cfset FEL.VendorAddress    = "#GetWarehouse.Address#">
+						<cfset FEL.VendorPostalCode = "01001">	
+						<cfset FEL.VendorCity       = "GUATEMALA">
+						<cfset FEL.VendorState      = "GUATEMALA">
+						<cfset FEL.VendorCountry    = "#GetWarehouse.Country#">
+					
+					</cfif>
 					
 					<cfquery name="Customer"
 						datasource="#datasource#"
@@ -519,7 +569,7 @@
 			<cfquery name="GetLines"
 					datasource="#datasource#"
 					username="#SESSION.login#"
-					password="#SESSION.dbpw#">					
+					password="#SESSION.dbpw#">	
 					
 					SELECT   TH.Mission, 
 					         TL.OrgUnit, 
@@ -537,13 +587,14 @@
 							 <!--- adjust the query --->
 							 'B'                    AS  ItemType,
 							 
+							 TL.TransactionTaxCode  AS TaxCode,
 							 TL.ReferenceQuantity   AS SaleQuantity, 
 							 'C/U'                  AS SaleUoM, 
 							 TL.Currency            AS SaleCurrency, 
 							 TL.AmountCredit        AS AmountSale, 
 							 
-							 ROUND(TL.AmountCredit * #FEL.TaxPercentage#,  4) AS AmountTax, 
-                             ROUND(TL.AmountCredit * #1+FEL.TaxPercentage#, 4) AS AmountTotal, 
+							 ROUND(TL.AmountCredit * #FEL.TaxPercentage#,  6)  AS AmountTax, 
+                             ROUND(TL.AmountCredit * #1+FEL.TaxPercentage#, 6) AS AmountTotal, 
 							 
 							 TL.TransactionTaxCode, 
 							 TH.OrgUnitSource
@@ -572,8 +623,13 @@
 					FROM     getLines
 			</cfquery>		
 			
-			<cfset FEL.Sale   = getTotal.Amount>						
+			<cfset FEL.Sale   = getTotal.Amount>	
 			
+			<!--- correction if the amount like IO has already tax in it --->
+			<cfif getLines.TaxCode eq "00" and getTransaction.TransactionSource neq "SalesSeries">								     
+				 <cfset FEL.Sale = FEL.Sale * 100/112>			      
+			</cfif>		
+								
 			<!--- remove the discount (negative) as found in the posting line --->	
 				
 			<cfquery name="GetDiscount"
@@ -604,7 +660,7 @@
 			   <cfset FEL.Ratio      = "0">	
 			   <cfset FEL.Taxable    = FEL.Sale>	
 			</cfif>
-														
+																	
 			<cfset FEL.Tax        = FEL.Taxable * FEL.TaxPercentage>						
 			<cfset FEL.Amount     = FEL.Taxable + FEL.Tax>	
 									
@@ -616,6 +672,56 @@
 			<!--- ------- --->
 			<!--- NEW XML --->
 			<!--- ------- --->	
+			
+			<cfquery name="GetFirst"
+				datasource="#datasource#"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+					SELECT   TOP 1 A.*
+					FROM     Accounting.dbo.TransactionHeaderAction A
+					WHERE    Journal          = '#journal#'
+					AND      JournalSerialNo  = '#JournalSerialNo#'				
+					AND      ActionCode       = 'Invoice'
+					AND      ActionMode       = '2'		
+					AND      ActionStatus     = '9'									
+					ORDER BY Created 								
+			</cfquery>
+			
+			<cfif getFirst.recordcount eq "1">								   
+							
+				<cfif month(getFirst.created) neq month(now())>
+				
+					<!--- FEL allows up to 5 days correction --->	
+					<cfif datediff("d",  getFirst.created,  now()) gte 6> 	
+						<cfset dts = dateAdd("d",  -5,  now())>
+					<cfelse>
+					    <cfset dts = dateAdd("d",  0,  getFirst.created)>					    
+					</cfif>
+					
+				 <cfelse>
+				 
+				 	<cfset dts = now()>	
+					
+				</cfif>	
+				
+			<cfelse>	
+			
+				<cfif month(getLines.TransactionDate) neq month(now())>
+				
+			    	<!--- FEL allows up to 5 days correction --->	
+					<cfif datediff("d",  getLines.TransactionDate,  now()) gte 6> 	
+						<cfset dts = dateAdd("d",  -5,  now())>
+					<cfelse>
+					    <cfset dts = dateAdd("d",  0,  getLine.TransactionDate)>					    
+					</cfif>
+				
+				<cfelse>
+				 
+				 	<cfset dts = now()>	
+					
+				</cfif>	
+							
+			</cfif>
 			
 			<cfxml variable="XmlDTE">
 			<cfoutput>
@@ -630,7 +736,7 @@
 							<dte:DTE ID="DatosCertificados">
 															
 							<dte:DatosEmision ID="DatosEmision">
-										<dte:DatosGenerales CodigoMoneda="#FEL.Currency#" FechaHoraEmision="#DateFormat(now(),"YYYY-MM-DD")#T#TimeFormat(now(),"hh:mm:ssXXX")#" Tipo="#FEL.InvoiceType#"></dte:DatosGenerales>
+										<dte:DatosGenerales CodigoMoneda="#FEL.Currency#" FechaHoraEmision="#DateFormat(dts,"YYYY-MM-DD")#T#TimeFormat(dts,"hh:mm:ssXXX")#" Tipo="#FEL.InvoiceType#"></dte:DatosGenerales>
 										<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#FEL.VendorReference#" CorreoEmisor="#FEL.VendorMail#" NITEmisor="#FEL.VendorNIT#" NombreComercial="#FEL.VendorName#" NombreEmisor="#FEL.VendorEntity#">
 								<dte:DireccionEmisor>
 								<dte:Direccion>#FEL.VendorAddress#</dte:Direccion>
@@ -654,18 +760,24 @@
 							</dte:Receptor>
 								
 							<dte:Frases>
-									<dte:Frase CodigoEscenario="1" TipoFrase="1"></dte:Frase>
+									<cfif FEL.Phrase1 eq "">
+										<dte:Frase CodigoEscenario="1" TipoFrase="1"></dte:Frase>
+									<cfelse>
+										<dte:Frase CodigoEscenario="#FEL.Phrase1#" TipoFrase="#FEL.Phrase2#"></dte:Frase>
+									</cfif>
 							</dte:Frases>
+
 								
 							<dte:Items>
 							
 								<!--- 28/6/2021 : in principle we add to the line the standard tax for Guatemala 
-								                             as this is posted in another line --->
+								        as this is posted in another line --->
 															 
-								<cfset total = 0>								 
+								<cfset total = 0>		
+								<cfset totax = 0>							 
 							
 								<cfloop query="GetLines">
-								
+																
 										<cfif salequantity lt 0>
 											<cfset quantity = abs(salequantity)>
 										<cfelse>
@@ -681,50 +793,81 @@
 												<cfset v_ItemDescription = replace(v_ItemDescription,"&","&amp;","all")>
 												<cfset v_ItemDescription = replace(v_ItemDescription,"'","&apos;","all")>
 												
-											<dte:Descripcion>#ItemNo#|#v_ItemDescription#</dte:Descripcion>																											
-																																				
-											<cfset vSalesPrice = AmountSale*(1+FEL.TaxPercentage)/Quantity>
-											<cfset vSales      = vSalesPrice * Quantity>
-												
-											<dte:PrecioUnitario><cfif SaleQuantity neq 0>#trim(numberformat(ABS(vSalesPrice),"__._______"))#<cfelse>0</cfif></dte:PrecioUnitario>
-											<dte:Precio>#trim(numberformat(vSales,"__._______"))#</dte:Precio>				
+											<dte:Descripcion>#ItemNo#|#v_ItemDescription#</dte:Descripcion>			
 											
-											<cfset discount = FEL.Ratio * AmountSale>	
+											<!--- correction to lower the amount as tax would be added --->
+											<cfif getLines.TaxCode eq "00"  and getTransaction.TransactionSource neq "SalesSeries">
+											    <cfset amt = AmountSale * 100/112>										   
+											<cfelse>
+											 	<cfset amt = AmountSale>	   
+											</cfif>		
 																						
-											<dte:Descuento>#trim(numberformat(discount,"__._______"))#</dte:Descuento>
+											<cfset amt        = round(amt*10000)/10000>
 											
-											<cfset taxable  = amountsale - discount>
-											<!--- we are not reading the tax line in the sale but we assume it by default
-												to prevent issues  --->
-											<cfset tax      = taxable * FEL.TaxPercentage>
+																																	
+											<!--- calculate ratio --->
+											<cfset discount   = FEL.Ratio * amt>
+											<!--- Rethink for workorder with discount recorded : Hanno --->
+											<cfset taxable    = amt - discount>
+																						
+											<!--- calculate price with tax --->
+											<cfset vSalesPrice = taxable*(1+FEL.TaxPercentage)/Quantity>
+											<!--- round to 2 digits --->
+											
+											<cfset vSalesPrice = round(vSalesPrice*100000)/100000>	
+											
+											<!---
+											<cfset vSalesPrice = round(vSalesPrice*100)/100>																					
+											<!--- this caused cents difference --->
+											<cfset vSalesPrice = round(vSalesPrice*10000)/10000>											
+											--->
+											
+											<cfset amount  = vSalesPrice * Quantity>
 																							
+											<dte:PrecioUnitario><cfif SaleQuantity neq 0>#trim(numberformat(ABS(vSalesPrice),"__._______"))#<cfelse>0</cfif></dte:PrecioUnitario>
+											<dte:Precio>#trim(numberformat(amount,"__._______"))#</dte:Precio>				
+											
+											<!--- Rethink for workorder with discount recorded : Hanno --->
+																																
+											<dte:Descuento>#trim(numberformat(discount,"__._______"))#</dte:Descuento>
+																						
+											<!--- we are not reading the tax line in the sale but we assume it by default
+												to prevent issues  --->											
+																					
+											<cfset tax      = amount * (FEL.TaxPercentage / (1+FEL.TaxPercentage))>
+											<cfset taxable  = amount - tax>																																
+																																
+											<cfset amount = round(amount*100)/100>												
 											<dte:Impuestos>
 												<dte:Impuesto>
 													<dte:NombreCorto>IVA</dte:NombreCorto>
 													<dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable>
-												<dte:MontoGravable>#trim(numberformat(Taxable,"__._______"))#</dte:MontoGravable>
-												<dte:MontoImpuesto>#trim(numberformat(Tax,"__._______"))#</dte:MontoImpuesto>
+												<dte:MontoGravable>#trim(numberformat(Taxable,"__.____"))#</dte:MontoGravable>
+												<dte:MontoImpuesto>#trim(numberformat(Tax,"__.____"))#</dte:MontoImpuesto>
 												</dte:Impuesto>
 											</dte:Impuestos>
-											
-											<cfset amount      = taxable + tax>	
-											
-											<dte:Total>#trim(numberformat(Amount,"__._______"))#</dte:Total>
-											
+																																												
+											<dte:Total>#trim(numberformat(Amount,"__.____"))#</dte:Total>
+																						
 										</dte:Item>	
-										
-										<cfset total = total + amount>				
-																			
-								</cfloop>
-								
+																																				
+										<cfset total = total + amount>		
+										<cfset totax = totax + round(tax*10000)/10000>	
+																																															
+								</cfloop>		
+																																
 							</dte:Items>
-								
+							
+							<cfset total = ceiling(total*100)/100>
+							<cfset totax = ceiling(totax*100)/100>
+																													
 							<dte:Totales>
 								<dte:TotalImpuestos>
-										<dte:TotalImpuesto NombreCorto="IVA" TotalMontoImpuesto="#trim(numberformat(FEL.Tax,"__.__"))#"></dte:TotalImpuesto>
+										<dte:TotalImpuesto NombreCorto="IVA" TotalMontoImpuesto="#trim(numberformat(totax,"__.____"))#"></dte:TotalImpuesto>
 								</dte:TotalImpuestos>
-								<dte:GranTotal>#trim(numberformat(total,"__._______"))#</dte:GranTotal>
+								<dte:GranTotal>#trim(numberformat(total,"__.____"))#</dte:GranTotal>
 							</dte:Totales>
+																		
 								
 							<cfif FEL.InvoiceType eq "FCAM">
 								<dte:Complementos>
@@ -764,12 +907,13 @@
 		<cfset vEDIDirectory  = getEDIConfig.EDIDirectory>
 		<cfset vLogsDirectory = vEDIDirectory & "Logs\#GetMission.Mission#\Infile">
 
+		
 		<cfif not directoryExists(vLogsDirectory)>
 			<cfdirectory action="create" directory="#vLogsDirectory#">
 		</cfif>
-
+				
 		<cffile action="WRITE" file="#vLogsDirectory#\FEL_#vUniqueId#_#RetryNo#.txt" output="#StringDTE#">
-			
+					
 		<cfset Base64DTE = ToBase64(StringDTE) />
 
 		<cfset stToSign =
@@ -779,16 +923,16 @@
 			"alias": "#GetTaxSeries.Alias#",
 			"es_anulacion": "N"
 		}>
-
+		
 		<cffile action="WRITE" file="#vLogsDirectory#\FEL_#vUniqueId#_To_Sign_#RetryNo#.txt" output="#serializeJSON(stToSign)#">
-
+		
 		<cfhttp url="https://signer-emisores.feel.com.gt/sign_solicitud_firmas/firma_xml" method="post" result="httpResponse" timeout="60">
 			<cfhttpparam type="header" name="Content-Type" value="application/json" />
-			<cfhttpparam type="body"   value="#serializeJSON(stToSign)#">
+			<cfhttpparam type="body"   value="#Replace(serializeJSON(stToSign),"//","")#">
 		</cfhttp>
 
 		<cffile action="WRITE" file="#vLogsDirectory#\FEL_#vUniqueId#_Response_Signature_#RetryNo#.txt" output="#httpResponse.fileContent#">
-
+		
 		<cftry>
 			<cfset jSonDTE = deserializeJSON(httpResponse.fileContent)>
 			<cfset vError = 0>
@@ -798,9 +942,9 @@
 		</cftry>
 		
 		<cfset EFACEResponse.log = 1>
-
+		
 		<cfif vError eq 0>
-
+		
 			<cfif jsonDTE.resultado neq "NO">
 										
 				<cfset revBase64DTE =  ToString(ToBinary(jSONDTE.archivo)) />				
@@ -823,7 +967,7 @@
 					<cfhttpparam type="header"  name="llave"         value = "#GetTaxSeries.UserKey#" />
 					<cfhttpparam type="header"  name="identificador" value = "#vUniqueId#" />
 					<cfhttpparam type="header"  name="Content-Type"  value = "application/json" />
-					<cfhttpparam type="body" value="#serializeJSON(stToCertify)#">
+					<cfhttpparam type="body" value="#Replace(serializeJSON(stToCertify),"//","")#">
 				</cfhttp>
 
 				<cftry>
@@ -835,6 +979,8 @@
 				</cftry>
 
 				<cffile action="WRITE" file="#vLogsDirectory#\FEL_#vUniqueId#_Response_Certifier_#RetryNo#.txt" output="#httpResponse.fileContent#">
+				
+				<cfset EFACEResponse.ActionDate = dts>
 
 				<cfif findNoCase("Connection Failure",httpResponse.fileContent)>
 				
@@ -846,8 +992,7 @@
 					<cfset EFACEResponse.ErrorDescription = "Connection Failure">
 					<cfset EFACEResponse.ErrorDetail      = "Connection Failure">
 
-				</cfif>
-				
+				</cfif>				
 
 				<cfif vError eq 0>
 
@@ -923,8 +1068,9 @@
 			
 		</cfif>
 		
-		<cfset EFACEResponse.Source1 = "#vUniqueId#">
-		<cfset EFACEResponse.Source2 = "#FEL.customerNIT#">
+		<cfset EFACEResponse.ActionDate = dts>
+		<cfset EFACEResponse.Source1    = "#vUniqueId#">
+		<cfset EFACEResponse.Source2    = "#FEL.customerNIT#">
 		
 		<cfif EFACEResponse.Status eq "OK">
 			 <cfset EFACEResponse.Status = "1">			
@@ -935,13 +1081,9 @@
 		<cfreturn EFACEResponse>							
 
 	</cffunction>
-	
 		
-	
-	
 	<!--- to be replaced --->
-	
-	
+		
 	<cffunction name="SaleIssueV2"
 			access="public"
 			returntype="any"
@@ -1123,7 +1265,7 @@
 		</cfquery>
 
 
-<!--- Get Mission Information --->
+        <!--- Get Mission Information --->
 		<cfquery name="GetMission"
 			datasource="#datasource#"
 			username="#SESSION.login#"
@@ -1151,8 +1293,9 @@
 		<cfset vUniqueId = GetBatch.BatchNo>
 		<cfif GetPrevious.ActionStatus eq 9>
 			<!--- It is a re-attempt --->
-			<cfset vUniqueId = "#GetBatch.BatchNo#-#LEFT(GetPrevious.ActionId,3)#">
+			<cfset vUniqueId = "#GetBatch.BatchNo#-#LEFT(GetPrevious.ActionId,5)#">
 		</cfif>
+		
 
 		<!--- Get Warehouse information --->
 		<cfquery name="GetWarehouse"
@@ -1503,7 +1646,10 @@
 			</cfcatch>
 		</cftry>
 
-		<cfif vError eq 0>
+		<cfset EFACEResponse.log = 1>
+		<cfset EFACEResponse.ErrorDetail      = "">
+				
+		<cfif vError eq 0>			
 
 			<cfif jsonDTE.resultado neq "NO">
 				<cfset revBase64DTE =  ToString(ToBinary(jSONDTE.archivo)) />
@@ -1521,7 +1667,6 @@
 				}>
 
 				<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_To_Certify_#RetryNo#.txt" output="#serializeJSON(stToCertify)#">
-
 
 				<cfhttp url="https://certificador.feel.com.gt/fel/certificacion/v2/dte/" method="post" result="httpResponse" timeout="60">
 					<cfhttpparam type="header" name="usuario" value="#GetWarehouseSeries.UserName#" />
@@ -1542,8 +1687,9 @@
 				<cffile action="WRITE" file="#vLogsDirectory#\FEL_#GetInvoice.BatchNo#_Response_Certifier_#RetryNo#.txt" output="#httpResponse.fileContent#">
 
 				<cfif findNoCase("Connection Failure",httpResponse.fileContent)>
+				
 					<cfset vError = 1>
-					<cfset EFACEResponse.Status           = "false">
+					<cfset EFACEResponse.Status           = "0">
 					<cfset EFACEResponse.Cae              = "">
 					<cfset EFACEResponse.DocumentNo       = "">
 					<cfset EFACEResponse.Dte              = "">
@@ -1555,12 +1701,14 @@
 				<cfif vError eq 0>
 
 					<Cfif jSonCertification.resultado neq "NO">
-						<cfset EFACEResponse.Status = "OK">
+					
+						<cfset EFACEResponse.Status = "1">
 						<cfset EFACEResponse.Cae        = jSonCertification.uuid>
 						<cfset EFACEResponse.Series     = jSonCertification.serie>
 						<cfset EFACEResponse.DocumentNo = jSonCertification.numero>
 						<cfset EFACEResponse.Dte        = jSonCertification.fecha>
 						<cfset EFACEResponse.ErrorDescription = "">
+						
 					<cfelse>
 
 						<cfset e = jSonCertification>
@@ -1581,8 +1729,7 @@
 							</cfif>
 						</cfloop>
 
-
-						<cfset EFACEResponse.Status     = "false">
+						<cfset EFACEResponse.Status     = "0">
 						<cfset EFACEResponse.Cae        = "">
 						<cfset EFACEResponse.DocumentNo = "">
 						<cfset EFACEResponse.Dte        = "">
@@ -1590,17 +1737,20 @@
 						<cfset EFACEResponse.ErrorDetail = "#vError#">
 
 					</cfif>
+					
 				<cfelse>
-					<cfset EFACEResponse.Status = "false">
+				
+					<cfset EFACEResponse.Status = "0">
 					<cfset EFACEResponse.Cae = "">
 					<cfset EFACEResponse.DocumentNo = "">
 					<cfset EFACEResponse.Dte = "">
 					<cfset EFACEResponse.ErrorDescription = "Error en conexion 101">
+					
 				</cfif>
 
 			<cfelse>
 			
-				<cfset EFACEResponse.Status = "false">
+				<cfset EFACEResponse.Status = "0">
 				<cfset EFACEResponse.Cae = "">
 				<cfset EFACEResponse.DocumentNo = "">
 				<cfset EFACEResponse.Dte = "">
@@ -1610,7 +1760,7 @@
 
 		<cfelse>
 		
-			<cfset EFACEResponse.Status = "false">
+			<cfset EFACEResponse.Status = "0">
 			<cfset EFACEResponse.Cae = "">
 			<cfset EFACEResponse.DocumentNo = "">
 			<cfset EFACEResponse.Dte = "">
@@ -1618,14 +1768,13 @@
 			
 		</cfif>
 		
-		<cfset EFACEResponse.Source1 = "#GetInvoice.BatchNo#">
-		<cfset EFACEResponse.Source2 = "#vNormalizedNIT#">
+		<cfset EFACEResponse.ActionDate = now()>
+		<cfset EFACEResponse.Source1    = "#GetInvoice.BatchNo#">
+		<cfset EFACEResponse.Source2    = "#vNormalizedNIT#">
 		
 		<cfreturn EFACEResponse>
 
 	</cffunction>
-	
-
 	
 
 	<cffunction name="SaleVoid"
@@ -1650,7 +1799,7 @@
 					AND    JournalSerialNo = '#JournalSerialNo#'
 		</cfquery>
 			
-		<cfif GetTransaction.OrgUnitTax eq "">
+		<cfif GetTransaction.OrgUnitTax eq "" or GetTransaction.OrgUnitTax eq "0">
 			
 			    <!--- we look into the journal --->
 			
@@ -1660,7 +1809,7 @@
 					password="#SESSION.dbpw#">
 						SELECT *
 						FROM   Journal
-						WHERE  Journal         = '#getTransaction.journal#'					
+						WHERE  Journal         = '#getTransaction.journal#'											
 				</cfquery>
 				
 				<cfset FEL.OrgUnitTax = Journal.OrgUnitTax>		
@@ -1669,8 +1818,7 @@
 			
 				<cfset FEL.OrgUnitTax = getTransaction.OrgUnitTax>	
 			
-		</cfif>
-				
+		</cfif>				
 		
 		<!--- Get Mission Information --->
 		<cfquery name="GetMission"
@@ -1694,7 +1842,8 @@
 				AND    Operational = 1
 		</cfquery>
 
-		<cfquery name="GetOriginalInvoice"
+
+		<cfquery name="GetInvoiceToCancel"
 			datasource="#datasource#"
 			username="#SESSION.login#"
 			password="#SESSION.dbpw#">
@@ -1705,11 +1854,13 @@
 					INNER JOIN Organization.dbo.OrganizationTaxSeries T ON T.OrgUnit = '#FEL.OrgUnitTax#' AND T.SeriesNo = A.ActionReference4
 			WHERE   H.Journal         = '#journal#'
 			AND     H.JournalSerialNo = '#journalserialNo#'
+			AND     A.ActionStatus    = '1'
+			AND     A.ActionMode      = '2'
 			ORDER BY A.Created DESC
-						
+									
 		</cfquery>
 
-		<cfif GetOriginalInvoice.recordcount neq 0>
+		<cfif GetInvoiceToCancel.recordcount neq 0>
 		
 				<cfquery name	= "getEDIConfig"
 					datasource	= "#datasource#"
@@ -1745,7 +1896,7 @@
 	
 				<cfset DocumentType = "64">  <!--- SAT Document Type: Regular Invoice --->	
 	
-				<cfset vNIT = GetOriginalInvoice.ActionSource2>
+				<cfset vNIT = GetInvoiceToCancel.ActionSource2>
 				<cfif vNIT eq "CF" OR vNIT eq "C-F" OR vNIT eq "">
 					<cfset vNIT = "C/F">
 				</cfif>
@@ -1753,7 +1904,7 @@
 				<cfset vNormalizedNit = Replace(vNIT,"-","","ALL")>
 				<cfset vNormalizedNit = Replace(vNormalizedNit,"C/F","CF","ALL")>			
 	
-				<cfif GetOriginalInvoice.ActionReference5 eq "">
+				<cfif GetInvoiceToCancel.ActionReference5 eq "">
 				
 					<!--- void of GFACE : remove --->
 					
@@ -1765,7 +1916,7 @@
 								<dte:GTAnulacionDocumento xmlns:ds="http://www.w3.org/2000/09/xmldsig##" xmlns:dte="http://www.sat.gob.gt/dte/fel/0.1.0" xmlns:n1="http://www.altova.com/samplexml/other-namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="0.1" xsi:schemaLocation="http://www.sat.gob.gt/dte/fel/0.1.0 C:\Users\User\Desktop\FEL\Esquemas\GT_AnulacionDocumento-0.1.0.xsd">
 					<dte:SAT>
 					<dte:AnulacionDTE ID="DatosCertificados">
-							<dte:DatosGenerales FechaEmisionDocumentoAnular="#GetOriginalInvoice.ActionReference3#" FechaHoraAnulacion="#DateFormat(now(),'YYYY-MM-DD')#T#TimeFormat(now(),'HH:MM:SS')#-06:00" ID="DatosAnulacion" IDReceptor="#vNormalizedNit#" MotivoAnulacion="ANULACION" NITEmisor="#vNitEFACE#" NumeroDocumentoAAnular="#GetOriginalInvoice.ActionReference1#"></dte:DatosGenerales>
+							<dte:DatosGenerales FechaEmisionDocumentoAnular="#GetInvoiceToCancel.ActionReference3#" FechaHoraAnulacion="#DateFormat(now(),'YYYY-MM-DD')#T#TimeFormat(now(),'HH:MM:SS')#-06:00" ID="DatosAnulacion" IDReceptor="#vNormalizedNit#" MotivoAnulacion="ANULACION" NITEmisor="#vNitEFACE#" NumeroDocumentoAAnular="#GetInvoiceToCancel.ActionReference1#"></dte:DatosGenerales>
 					</dte:AnulacionDTE>
 					</dte:SAT>
 					</dte:GTAnulacionDocumento>
@@ -1789,7 +1940,7 @@
 	
 				<cfhttp url="https://signer-emisores.feel.com.gt/sign_solicitud_firmas/firma_xml" method="post" result="httpResponse" timeout="60">
 					<cfhttpparam type="header" name="Content-Type" value="application/json" />
-					<cfhttpparam type="body" value="#serializeJSON(stToSign)#">
+					<cfhttpparam type="body" value="#Replace(serializeJSON(stToSign),"//","")#">
 				</cfhttp>
 	
 				<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetTransaction.JournalTransactionNo#_Response_Signature.txt" output="#httpResponse.fileContent#">
@@ -1820,7 +1971,7 @@
 						<cfhttpparam type="header" name="llave"         value="#GetWarehouseSeries.UserKey#" />
 						<cfhttpparam type="header" name="identificador" value="#vSerialNo#" />
 						<cfhttpparam type="header" name="Content-Type"  value="application/json" />
-						<cfhttpparam type="body"                        value="#serializeJSON(stToCertify)#">
+						<cfhttpparam type="body"                        value="#Replace(serializeJSON(stToCertify),"//","")#">
 					</cfhttp>
 	
 					<cfset jSonCertification = deserializeJSON(httpResponse.fileContent)>
@@ -1845,17 +1996,16 @@
 	
 			<cfset EFACEResponse = structnew()>
 			
+			<cfset EFACEResponse.ActionDate    = now()>			
 			<!--- transaction --->
-			<cfset EFACEResponse.source1       = GetOriginalInvoice.ActionSource1>
-			
+			<cfset EFACEResponse.source1       = GetInvoiceToCancel.ActionSource1>			
 			<!--- customer NIT --->
-			<cfset EFACEResponse.source2       = GetOriginalInvoice.ActionSource1>
-			
+			<cfset EFACEResponse.source2       = GetInvoiceToCancel.ActionSource2>			
 			<cfset EFACEResponse.log           = 0>
 						
 			<cfif vStatus eq "200 OK" or vStatus eq "200">
 	
-				<cfif GetOriginalInvoice.ActionReference5 eq "">
+				<cfif GetInvoiceToCancel.ActionReference5 eq "">
 				
 					<cfset xmlDoc 	= xmlParse(httpResponse.fileContent, false)>
 					<cfset vvalid 	= xmlSearch(xmlDoc,"//*[local-name()='valido']")>
@@ -1895,64 +2045,11 @@
 	
 				<cfif EFACEResponse.log eq 1>
 	
-					<!--- Create new action for the original invoice describing the credit note : MOVED TO MANAGER.CFC 
-	
-					<cf_assignId>
-	
-					<cfquery name="get"
-							datasource="#datasource#"
-							username="#SESSION.login#"
-							password="#SESSION.dbpw#">
-							SELECT  *
-							FROM    Accounting.dbo.TransactionHeader
-							WHERE   TransactionSourceId = '#batchid#'
-							AND     TransactionCategory = 'Receivables'
-					</cfquery>
-	
-					<cfquery name="AddAction"
-							datasource="#datasource#"
-							username="#SESSION.login#"
-							password="#SESSION.dbpw#">
-							INSERT INTO Accounting.dbo.TransactionHeaderAction
-			
-								(ActionId,
-								Journal,
-								JournalSerialNo,
-								ActionCode,
-								ActionMode,
-								<!--- more information --->
-								ActionReference1,
-								ActionReference2,
-								ActionReference3,
-								ActionReference4,
-								ActionMemo,
-								ActionDate,
-								ActionStatus,
-								OfficerUserId,
-								OfficerLastName,
-								OfficerFirstName)
-			
-								VALUES ('#rowguid#',
-							'#get.Journal#',
-							'#get.JournalSerialNo#',
-							'CreditNote',
-							'2',
-							<!--- more information --->
-							'#EFACEResponse.Cae#',
-							'#EFACEResponse.DocumentNo#',
-							'#EFACEResponse.Dte#',
-							'#GetWarehouseSeries.SeriesNo#',
-							'#left(EFACEResponse.ErrorDescription,100)#',
-							getDate(),
-							'5',     <!--- 5 voic process completed --->
-							'#SESSION.acc#',
-							'#SESSION.last#',
-							'#SESSION.first#')
-					</cfquery>
-					
-					--->
+					<!--- Create new action for the original invoice describing the credit note : MOVED TO MANAGER.CFC --->
 						
 				<cfelse>
+				
+				
 	
 					<cfset EFACEResponse.Status     = "false">
 					<cfset EFACEResponse.Cae        = "">
@@ -1963,7 +2060,7 @@
 				</cfif>
 	
 			<cfelse>
-			
+						
 				<cfset EFACEResponse.Status      = vStatus>
 				<cfset EFACEResponse.Cae         = "">
 				<cfset EFACEResponse.DocumentNo  = "">
@@ -1973,8 +2070,9 @@
 			</cfif>
 			
 		<cfelse>
-		
+				
 			<!--- FEL was never posted, no record in transaction header, hence we allow to continue --->
+			
 			<cfset EFACEResponse.Status     = "OK">
 			<cfset EFACEResponse.Cae        = "">
 			<cfset EFACEResponse.DocumentNo = "">
@@ -1982,9 +2080,10 @@
 			<cfset EFACEResponse.ErrorDescription = "Nothing to revert in FEL">
 			
 		</cfif>
+				
 	
 	<cfreturn EFACEResponse>
-
+	
 	</cffunction>
 
 </cfcomponent>

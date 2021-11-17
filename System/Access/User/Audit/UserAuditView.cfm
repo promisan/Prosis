@@ -7,10 +7,10 @@
 	
 	<table cellspacing="0" width="100%">
 	
-	<tr>
+	<tr style="border-top:1px solid silver">
 	
-	 	 <cfset ht = "54">
-		 <cfset wd = "54">
+	 	 <cfset ht = "48">
+		 <cfset wd = "48">
   
 		  <cf_menutab item  = "1" 
 		      iconsrc    = "Logos/System/Activity.png" 
@@ -48,6 +48,7 @@
 			  name       = "System Errors"
 			  source     = "iframe:#SESSION.root#/System/Access/User/Audit/ListingError.cfm?id=#url.id#">				
 		
+		<td style="width:20%"></td>
 		</tr>
 		
 	</table>
@@ -69,7 +70,8 @@
 				
 				 <cf_menucontainer item="1" class="regular"> 					 		
 				 	<cfset init = "1">		
-					<cf_securediv bind="url:#SESSION.root#/System/Access/User/Audit/UserOnLine.cfm?id=#url.id#">							  		
+					<cfinclude template="UserOnLine.cfm">
+					<!--- <cf_securediv bind="url:#SESSION.root#/System/Access/User/Audit/UserOnLine.cfm?id=#url.id#">	--->						  		
 				 </cf_menucontainer>
 				 				 
 				 <cf_menucontainer item="2" class="hide" iframe="logbox">

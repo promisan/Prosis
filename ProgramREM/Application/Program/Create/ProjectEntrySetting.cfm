@@ -21,7 +21,7 @@
 						
 		<cfif update eq "yes">
 			
-				<tr class="line" style="background-color:f3f3f3"><td colspan="3" height="35" style="padding-left:10px">
+				<tr class="line" style="background-color:fafafa"><td colspan="3" style="height:40px;padding-left:10px">
 					<table cellspacing="0" cellpadding="0">
 						<tr class="labelmedium">
 						<td><input type="radio" class="radiol" name="toggle" id="toggle1" value="unit" checked onclick="togglebox('unit')"></td>
@@ -64,7 +64,7 @@
 						  ORDER BY HierarchyCode
 					</cfquery>  
 					
-					<select name="OrgUnitNew" class="regularxl" onchange="document.getElementById('OrgUnit').value=this.value">
+					<select name="OrgUnitNew" class="regularxl" onchange="document.getElementById('orgunit').value=this.value">
 						<cfoutput query="Unit">
 							<option value="#OrgUnit#" <cfif Org eq OrgUnit>selected</cfif>>#hierarchycode# #OrgUnitName#</option>		
 						</cfoutput>
@@ -336,9 +336,9 @@
 			</tr>
 			
 			<TR>
-			<TD class="labelmedium" style="padding-top:16px;padding-left:10px"><cf_tl id="Budget Account">:</TD>
-			<td> 
-				<table width="400" cellspacing="0" cellpadding="0">
+			<TD class="labelmedium" valign="top" style="padding-top:4px;padding-left:10px"><cf_tl id="Budget Account">:</TD>
+			<td style="padding-top:6px"> 
+				<table width="400" >
 				<tr bgcolor="E6E6E6">
 			    <TD style="text-align:center;border:1px solid silver" class="labelit"><cf_tl id="Budget1"></TD>
 				<TD style="text-align:center;border:1px solid silver" class="labelit"><cf_tl id="Budget2"></TD>

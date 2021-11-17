@@ -44,16 +44,15 @@
 			SELECT     DISTINCT TOP 20 A.*			
 			FROM       Customer A INNER JOIN vwCustomerRequest C ON A.CustomerId = C.CustomerId	
 			WHERE      C.Warehouse   = '#url.warehouse#' 
-			AND        C.Created > getDate()-1
-			AND        ActionStatus ! = '9'
+			AND        C.Created > getDate()-1  <!--- only recent --->
+			AND        ((Source = 'Manual' and ActionStatus IN ('0','1')) 
+			                  OR Source != 'Manual')
 			AND        BatchNo is NULL
 			<!--- not loaded from existing --->
 			AND        BatchId is NULL				
 			ORDER BY   CustomerName 
 			
-	</cfquery>
-	
-	
+	</cfquery>	
 
 <cfelse>
 	

@@ -160,23 +160,23 @@ password="#SESSION.dbpw#">
 														
 				<table width="99%" border="0" class="navigation_table">
 																				
-					<tr class="labelmedium2 line fixrow" style="height:26px;border-top:1px solid silver">
+					<tr class="labelmedium2 line fixrow fixlengthlist" style="height:26px;border-top:1px solid silver">
 					    <td style="min-width:35px"></td>
-						<td align="center" style="min-width:50px;border-left:1px solid silver;padding-right:4px"><cf_tl id="No"></td>
-						<td align="center" style="min-width:110px;border-left:1px solid silver;padding-right:4px"><cf_tl id="External"></td>
-						<td align="center" style="width:89%;border-left:1px solid silver;padding-right:4px"><cf_tl id="Item"></td>	
-						<td align="center" style="min-width:80px;border-left:1px solid silver;padding-right:4px"><cf_tl id="MinOrder"></td>			
-						<td align="center" style="min-width:80px;border-left:1px solid silver;padding-right:4px"><cf_tl id="Price"></td>			
-						<td align="center" style="min-width:50px;border-left:1px solid silver;padding-right:4px" align="right"><cf_tl id="Min"></td>
-						<td align="center" style="min-width:50px;border-left:1px solid silver;padding-right:4px" align="right"><cf_tl id="Max"></td>
-						<td align="center" style="min-width:70px;border-left:1px solid silver;padding-right:4px" align="right"><cf_tl id="OnHand"></td>
-						<td style="border-left:1px solid silver;padding-right:4px" align="center" colspan="2"><cf_tl id="Procurement"></td>				
-						<td style="border-left:1px solid silver;padding-right:4px" align="center" colspan="2"><cf_tl id="Reserved"></td>				
-						<td style="border-left:1px solid silver;padding-right:4px" align="center"><cf_tl id="Economic"></td>				
-						<td colspan="2" style="border-left:1px solid silver;border-right:1px solid silver;;padding-right:4px" align="center"><cf_tl id="Proposed"></td>				
+						<td align="center" style="border-left:1px solid silver"><cf_tl id="No"></td>
+						<td align="center" style="border-left:1px solid silver"><cf_tl id="External"></td>
+						<td align="center" style="border-left:1px solid silver"><cf_tl id="Item"></td>	
+						<td align="center" style="border-left:1px solid silver"><cf_tl id="MinOrder"></td>			
+						<td align="center" style="border-left:1px solid silver"><cf_tl id="Price"></td>			
+						<td align="center" style="border-left:1px solid silver" align="right"><cf_tl id="Min"></td>
+						<td align="center" style="border-left:1px solid silver" align="right"><cf_tl id="Max"></td>
+						<td align="center" style="border-left:1px solid silver" align="right"><cf_tl id="OnHand"></td>
+						<td style="border-left:1px solid silver" align="center" colspan="2"><cf_tl id="Procurement"></td>				
+						<td style="border-left:1px solid silver" align="center" colspan="2"><cf_tl id="Reserved"></td>				
+						<td style="border-left:1px solid silver" align="center"><cf_tl id="Economic"></td>				
+						<td colspan="2" style="border-left:1px solid silver;border-right:1px solid silver" align="center"><cf_tl id="Proposed"></td>				
 					</tr>
 							
-					<tr class="labelmedium line fixrow2">
+					<tr class="labelmedium line fixrow2 fixlengthlist">
 					
 					    <td colspan="9">
 						
@@ -197,11 +197,11 @@ password="#SESSION.dbpw#">
 									
 						</td>
 					   
-						<td style="border-left:1px solid silver;min-width:55px;padding-right:2px" align="center"><cf_tl id="Request"></td>
-						<td style="border-left:1px solid silver;min-width:55px;padding-right:2px" align="center"><cf_tl id="Purchase"></td>				
-						<td style="border-left:1px solid silver;min-width:55px;padding-right:2px" align="center"><cf_tl id="Request"></td>		
-						<td style="border-left:1px solid silver;min-width:55px;padding-right:2px" align="center"><cf_tl id="Order"></td>					
-						<td style="border-left:1px solid silver;min-width:70px;padding-right:4px" align="right"></td>				
+						<td style="border-left:1px solid silverpadding-right:2px" align="center"><cf_tl id="Request"></td>
+						<td style="border-left:1px solid silverpadding-right:2px" align="center"><cf_tl id="Purchase"></td>				
+						<td style="border-left:1px solid silverpadding-right:2px" align="center"><cf_tl id="Request"></td>		
+						<td style="border-left:1px solid silverpadding-right:2px" align="center"><cf_tl id="Order"></td>					
+						<td style="border-left:1px solid silverpadding-right:4px" align="right"></td>				
 						<td colspan="2" style="min-width:90px;border-left:1px solid silver;padding-left:12px;padding-right:10px;border-right:1px solid silver;" align="right">
 																	
 					     <!---
@@ -321,9 +321,9 @@ password="#SESSION.dbpw#">
 					<cfoutput>
 					
 					    <cf_precision number="#ItemPrecision#">
-						<tr class="labelmedium line navigation_row" style="height:20px" bgcolor="<cfif ToBeRequested lt 1>F4f4f4<cfelse>FFFFFF</cfif>">		
+						<tr class="labelmedium line navigation_row fixlengthlist" style="height:20px" bgcolor="<cfif ToBeRequested lt 1>F4f4f4<cfelse>FFFFFF</cfif>">		
 								
-						<td style="padding-top:2px;padding-left:3px">
+						<td>
 						   <table>
 						   <tr>
 						   <td>
@@ -337,9 +337,9 @@ password="#SESSION.dbpw#">
 						   </tr>
 						   </table>
 						</td>
-						<td style="padding-left:3px">#ItemNo#</td>
-						<td style="padding-left:3px">#ItemNoExternal#</td>
-						<td style="min-width:89%;padding-left:3px"><cfif len(ItemDescription) lte 5>#ItemDescriptionExternal#<cfelse>#ItemDescription#</cfif> : #UOMDescription#</td>	
+						<td>#ItemNo#</td>
+						<td>#ItemNoExternal#</td>
+						<td><cfif len(ItemDescription) lte 5>#ItemDescriptionExternal#<cfelse>#ItemDescription#</cfif> : #UOMDescription#</td>	
 						
 						<cfif hasVendor gte "1" and url.restocking eq "Procurement">
 										
@@ -361,13 +361,13 @@ password="#SESSION.dbpw#">
 																											
 							</cfquery>
 												
-							<td align="right" bgcolor="FED7CF" style="padding-right:4px">																
+							<td align="right" bgcolor="FED7CF">																
 								<cfloop query="getRelatedUoM">						
 									#OfferMinimumQuantity# 
 								</cfloop>	
 							</td>
 							
-							<td align="right" style="border-left:1px solid silver;padding-right:4px" bgcolor="FED7CF">						
+							<td align="right" style="border-left:1px solid silver" bgcolor="FED7CF">						
 								<cfloop query="getRelatedUoM">	
 									<table width="100%"><tr><td style="padding-left:3px">#Currency#</td><td align="right">#numberformat(ItemPrice,",.__")#</td></tr></td></table>
 								</cfloop>
@@ -380,10 +380,10 @@ password="#SESSION.dbpw#">
 							
 						</cfif>	
 															
-						<td align="right" style="border-left:1px solid silver;padding-right:4px" bgcolor="ffffaf">#numberFormat(MinimumStock,"#pformat#")#</td>
-						<td align="right" style="border-left:1px solid silver;padding-right:4px" bgcolor="CCFFCC">#numberFormat(MaximumStock,"#pformat#")#</td>	
+						<td align="right" style="border-left:1px solid silver" bgcolor="ffffaf">#numberFormat(MinimumStock,"#pformat#")#</td>
+						<td align="right" style="border-left:1px solid silver" bgcolor="CCFFCC">#numberFormat(MaximumStock,"#pformat#")#</td>	
 						 
-						<td align="right" bgcolor="EAFBFD" style="border-left:1px solid silver;padding-right:4px">		
+						<td align="right" bgcolor="EAFBFD" style="border-left:1px solid silver">		
 						
 						<cfif OnHandMission neq "0">
 						
@@ -400,16 +400,16 @@ password="#SESSION.dbpw#">
 							
 						</td>	
 						
-						<td align="right" style="border-left:1px solid silver;padding-right:4px">
+						<td align="right" style="border-left:1px solid silver">
 						<cfif InternalRequested neq "0">#numberFormat(InternalRequested,"#pformat#")#</cfif></td>				
-						<td align="right" style="border-left:1px solid silver;padding-right:4px">
+						<td align="right" style="border-left:1px solid silver">
 						<cfset val = requested + onorder>
 						<cfif val neq "0">#numberFormat(val,"#pformat#")#</cfif></td>			
-						<td align="right" style="border-left:1px solid silver;padding-right:4px">
+						<td align="right" style="border-left:1px solid silver">
 						<cfset val = Reserved-Fulfilled>
 						<cfif val neq "0">#numberFormat(Reserved-Fulfilled,"#pformat#")#</cfif></td>		
-						<td align="right" style="border-left:1px solid silver;padding-right:4px">---</td>				
-						<td align="right" bgcolor="<cfif EconomicStock lt MinimumStock>FF8080</cfif>" style="border-left:1px solid silver;padding-right:4px">
+						<td align="right" style="border-left:1px solid silver">---</td>				
+						<td align="right" bgcolor="<cfif EconomicStock lt MinimumStock>FF8080</cfif>" style="border-left:1px solid silver">
 							<cfif EconomicStock lt MinimumStock><font color="FFFFFF"></cfif>#numberFormat(EconomicStock,"#pformat#")#
 						</td>
 						
@@ -418,7 +418,7 @@ password="#SESSION.dbpw#">
 									
 						     <cfset cnt = cnt+1>
 						
-							 <td align="center" style="border-left:1px solid silver;padding-left:4px;padding-right:4px">
+							 <td align="center" style="border-left:1px solid silver">
 							 
 							 <table style="height:100%">
 							 

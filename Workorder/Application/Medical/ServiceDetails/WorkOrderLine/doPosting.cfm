@@ -155,7 +155,7 @@
 			<cfif getJournal.recordcount eq "0">
 				
 				<cfoutput>
-				<table align="center"><tr><td align="center" class="labelmedium">A Journal has not been set for this currency (#currency#) and owner (#orgunitowner#). Please contact your administrator</td></tr></table>		
+				<table align="center"><tr><td align="center" class="labelmedium2">A Journal has not been set for this currency (#currency#) and owner (#orgunitowner#). Please contact your administrator</td></tr></table>		
 				</cfoutput>
 				
 				<cfabort>
@@ -290,13 +290,13 @@
 					<cfset trano = "#ser#-#inv#">
 				<cfelse>
 					<cfset trano = "#inv#">
-				</cfif>		
-				
+				</cfif>						
 								
 				<cf_GledgerEntryHeader
 				    DataSource            = "AppsLedger"
 					Mission               = "#get.Mission#"
 					OrgUnitOwner          = "#OrgunitOwner#"
+					OrgUnitTax            = "#getJournal.OrgUnitTax#"
 					AccountPeriod         = "#getPeriod.AccountPeriod#"
 					Journal               = "#getJournal.journal#"	
 					TransactionPeriod	  =	"#ThisTransactionPeriod#"
@@ -437,6 +437,43 @@
 					
 				</cfloop>
 				
+				<!--- we are posting the Tax here --->
+				
+				<cfif getJournal.OrgUnitTax neq "">
+				
+					<cfinvoke component = "Service.Process.EDI.Manager"
+						   method           = "SaleIssue" 
+						   Datasource       = "AppsLedger"
+						   Mission          = "#get.Mission#"					   
+					       Mode 			= "3"  <!--- = 3 --->
+						   Journal          = "#getJournal.journal#"
+						   JournalSerialNo  = "#JournalTransactionNo#"		
+						   eMailAddress     = "#get.eMailAddress#"					  					    
+						   returnvariable	= "vInvoice">	
+						   
+						   <cfif vInvoice.Status eq "OK">
+						   
+						       <!--- this template triggers the correct custom template for print and mail to appear ---> 
+						   
+						       <!--- this has nowe to show into a kendo dialog with content on the fly ---> 
+							   
+						       <cfinclude template="../../../../../Gledger/Application/Transaction/Invoice/SaleViewInvoice.cfm">
+						   
+							   <!--- Hanno : based on the result of vInvoice we 
+					                  directly send a mail 
+									  but the print option is in the interface --->
+						   
+						   <cfelse>
+						   
+							   <!--- error message : advise to open the transaction, reissue and if not success contact provider --->
+						   						   
+						   </cfif>
+								
+				</cfif>					   
+				
+				<!--- ---------------------------- --->
+													   
+				
 				<cfquery name="crossBilling" 
 					datasource="AppsLedger" 
 					username="#SESSION.login#" 
@@ -458,7 +495,6 @@
 						AND       Journal = 'InProcess'		
 					
 				</cfquery>	
-
 				
 				<!--- ------------------------------------------- --->
 				<!--- get the settlements of the client per owner --->

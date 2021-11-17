@@ -51,7 +51,7 @@
 
 		
 <cf_listing
-    header        = "#client.header#"
+    header        = "User System Error"
     box           = "userdetail"
 	link          = "#SESSION.root#/System/Access/User/Audit/ListingError.cfm?id=#url.id#"
     html          = "No"

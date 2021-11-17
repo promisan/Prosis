@@ -246,7 +246,7 @@
 	
 	<cfif END gt PositionParent.DateExpiration>
 		<script>parent.Prosis.busy('no')</script> 
-	   	<cf_alert message = "You selected an end date that lies after the parent expiration date.\n\nOperation not allowed." 
+	   	<cf_alert message = "You selected an expiration date that lies after the parent expiration date (#dateformat(PositionParent.DateExpiration,client.dateformatshow)#).\n\nOperation not allowed." 
 		return = "back">
 		<cfabort>
 	</cfif>	

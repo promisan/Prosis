@@ -4,7 +4,7 @@
 <cfparam name="URL.Assetid" default="">
 <cfparam name="URL.List" default="">
 
-<cfajaximport tags="cfform,cfinput-datefield>
+<cfajaximport tags="cfform">
 
 <cfoutput>
 

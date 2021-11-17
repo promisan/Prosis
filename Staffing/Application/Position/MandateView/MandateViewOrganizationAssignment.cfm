@@ -56,12 +56,11 @@
 			</td>		
 			
 			<td width="20" align="center"style="padding-right:4px">-</td>
-			<TD width="36%">
+			<TD width="36%" class="fixlength">
 			<cfif (AccessStaffing eq "EDIT" or AccessStaffing eq "ALL") AND URL.PDF eq 0>
-			    <a title="Edit assignment" href="javascript:EditAssignment('#PersonNo#','#AssignmentNo#','#PositionNo#','i#positionNo#')">
-				<font color="0080C0">
+			    <a title="Edit assignment" href="javascript:EditAssignment('#PersonNo#','#AssignmentNo#','#PositionNo#','i#positionNo#')">				
 			</cfif>		
-			#FirstName# #LastName#</font></a>
+			#FirstName# #LastName#</a>
 			</TD>
 			
 			<td width="12%" class="labelit">

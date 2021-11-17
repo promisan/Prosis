@@ -40,11 +40,11 @@ password="#SESSION.dbpw#">
 
 </cfif>
 			
-		<table width="95%" cellpadding="0" cellspacing="0" align="center">
+		<table width="95%" align="center">
 		<tr><td>
-	    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="white">
+	    <table width="100%" bgcolor="white">
 			
-	    <TR class="labelmedium line">
+	    <TR class="labelmedium2 line">
 		   <td height="18">Name</td>
 		   <td width="50">Class</td>
 		   <td>Code</td>
@@ -54,11 +54,9 @@ password="#SESSION.dbpw#">
 		   <td align="center">Format</td>
 		   <td align="center">Active</td>		  
 	    </TR>	
-		
-		<tr><td height="1" colspan="8" class="linedotted"></td></tr>
+				
 		<cfif url.status eq "0">
-		<tr><td colspan="8" align="center" class="labelmedium" style="height:25px"><a href="javascript:outputedit('00000000-0000-0000-0000-000000000000')"><font color="2894FF">[Add a new layout]</a></td></tr>
-		<tr><td colspan="8" class="linedotted" height="1"></td></tr>
+		<tr class="line"><td colspan="8" align="center" class="labelmedium" style="height:25px"><a href="javascript:outputedit('00000000-0000-0000-0000-000000000000')">[Add a new layout]</a></td></tr>		
 		</cfif>
 				
 		<cfquery name="Check" 
@@ -72,7 +70,7 @@ password="#SESSION.dbpw#">
 		</cfquery>
 		
 		<cfif Check.recordcount eq "0">
-			<tr><td height="1" colspan="10" align="center" bgcolor="f4f4f4">
+			<tr class="labelmedium2"><td height="1" colspan="10" align="center" bgcolor="f4f4f4">
 			<cfset cnt = cnt+15>
 			<font face="Verdana" color="FF0000">Attention: You have not registered or enabled a report/view output definition.</font>
 			</td></tr>
@@ -93,15 +91,14 @@ password="#SESSION.dbpw#">
 						
 				<cfoutput>	
 		
-				 <TR class="line" bgcolor="<cfif op eq "0">FCCFC9<cfelse>ffffff</cfif>">
+				 <TR class="line labelmedium2" bgcolor="<cfif op eq "0">FCCFC9<cfelse>ffffff</cfif>">
 				
 				   <td>
 					    <table cellspacing="0" cellpadding="0">
-						<tr>
+						<tr class="labelmedium2">
 						
-						<td class="labelmedium" style="padding-left:5px">
-					    <A href="javascript:outputedit('#LayOutId#')">
-							<font color="0080C0">
+						<td style="padding-left:5px">
+					    <A href="javascript:outputedit('#LayOutId#')">							
 					    	<cfif TemplateReport eq "Excel">Dataset/Excel<cfelse>#rl#</cfif>
 						</a>
 						</td></tr></table>
@@ -155,7 +152,7 @@ password="#SESSION.dbpw#">
 						   <td width="20"  style="padding-top:3px">					   
 						   	<cf_img icon="edit" onClick="outputedit('#LayOutId#')">				         						  
 						   </td>
-					 	   <td align="center" height="24" style="padding-top:3px">					   
+					 	   <td align="center" height="24" style="padding-top:2px">					   
 						    <cfif TemplateReport neq "Excel">						
 								<cf_img icon="delete" onClick="outputpurge('#rl#')">							
 							<cfelse>					   									
@@ -171,7 +168,7 @@ password="#SESSION.dbpw#">
 			    </TR>	
 				
 				<cfif LayoutTitle neq "">				
-					<tr class="labelmedium line">
+					<tr class="labelmedium2 line">
 					<td></td>
 					<td>Title:</td>
 					<td colspan="6">#LayoutTitle#</td>
@@ -179,7 +176,7 @@ password="#SESSION.dbpw#">
 				</cfif>
 				
 				<cfif LayoutSubTitle neq "">				
-					<tr class="labelmedium line">
+					<tr class="labelmedium2 line">
 					<td></td>
 					<td>Subtitle:</td>
 					<td colspan="6">#LayoutSubtitle#</td>
@@ -191,8 +188,8 @@ password="#SESSION.dbpw#">
 					<tr>
 					<td></td>
 					<td colspan="7">
-						<table border="0" cellspacing="0" cellpadding="0">
-						<tr class="labelmedium line">
+						<table style="width:400px" border="0" cellspacing="0" cellpadding="0">
+						<tr class="labelmedium2 line">
 							<td width="80" bgcolor="f4f4f4">Permissions:</td>
 							<td width="160"><cfif OutputPermission eq "">none<cfelse>#OutputPermission#</cfif></td>
 							<td width="100" bgcolor="f4f4f4">Encryption:</td>
@@ -215,8 +212,7 @@ password="#SESSION.dbpw#">
 						Timestamp = "#TemplateSQLDate#">
 					
 					<cfif FileStatus eq "Changed" and TemplateReport neq "Excel">
-				  			   
-					     
+				  			
 						  <tr>
 					  	     <td colspan="8" align="center" bgcolor="ffffcf">
 							  <font color="FF0000">
@@ -235,9 +231,7 @@ password="#SESSION.dbpw#">
 				<td colspan="6">			
 				   <cfinclude template="ExcelListing.cfm">
 				</td>
-				</tr>
-					
-								
+				</tr>							
 				</cfif>
 				
 				</cfoutput>	

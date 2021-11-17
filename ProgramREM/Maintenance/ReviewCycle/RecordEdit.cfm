@@ -17,7 +17,7 @@
 			  jQuery="yes"
 			  systemfunctionid="#url.idmenu#">
 
-<cfajaximport tags="cfform,cfdiv,cfinput-datefield">
+<cfajaximport tags="cfform,cfdiv">
 <cf_calendarScript>
 
 <cf_tl id = "The expiration date must be greater than the effective date" var = "vDateError">
@@ -81,11 +81,11 @@
 	</script>
 </cfoutput>
 
-<table width="98%" align="center" style="height:100%">
+<table width="100%" align="center" style="height:100%">
 	<tr>
 		<td style="height:100%">
 		  <cf_divscroll style="height:100%">
-			<cfdiv id="divHeader" bind="url:RecordEditDetail.cfm?idmenu=#url.idmenu#&id1=#url.id1#&fmission=#url.fmission#">
+			<cf_securediv id="divHeader" bind="url:RecordEditDetail.cfm?idmenu=#url.idmenu#&id1=#url.id1#&fmission=#url.fmission#">
 		  </cf_divscroll>	
 		</td>
 	</tr>

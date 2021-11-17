@@ -12,22 +12,22 @@
 <table width="93%" cellspacing="0" cellpadding="0" align="center" class="navigation_table"
     style="padding-left:34px;padding-right:34px;border-top:0px dotted silver">
 
-	<tr class="line labelmedium2 fixrow">
-	    <td width="2%" rowspan="2"></td>
-		<td width="7%"  rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="Class"></td>
-		<td width="23%" rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="Item"></td>
-		<td width="8%"  rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="UoM"></td>
-		<td width="16%" rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="Code"></td>
-		<td width="9%"  rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="Ordered"></td>
-		<td width="27%" colspan="3" style="background-color:f4f4f4;height:30px;border-bottom:1px solid silver;border-left:1px solid silver" 
+	<tr class="line labelmedium2 fixrow fixlengthlist">
+	    <td rowspan="2"></td>
+		<td rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="Class"></td>
+		<td rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="Item"></td>
+		<td rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="UoM"></td>
+		<td rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="Code"></td>
+		<td rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="Ordered"></td>
+		<td colspan="3" style="background-color:f4f4f4;height:30px;border-bottom:1px solid silver;border-left:1px solid silver" 
 		             align="center"><cf_tl id="Available stock"></td>	
-		<td width="9%"  rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="Shipped"></td>
+		<td rowspan="2" align="center" style="border-left:1px solid silver"><cf_tl id="Shipped"></td>
 	</tr>
 
-	<tr class="labelit line">	   									
-		<td width="9%"  align="center" style="border-left:1px solid silver"><cf_tl id="Earmarked"><br><cf_tl id="This Order"></td>		
-		<td width="9%"  align="center" style="border-left:1px solid silver"><cf_tl id="Non"><br><cf_tl id="earmarked"></td>
-		<td width="9%"  align="center" style="border-left:1px solid silver"><cf_tl id="Earmarked Other"></td>		
+	<tr class="labelit line fixlengthlist">	   									
+		<td align="center" style="border-left:1px solid silver"><cf_tl id="Earmarked"><br><cf_tl id="This Order"></td>		
+		<td align="center" style="border-left:1px solid silver"><cf_tl id="Non"><br><cf_tl id="earmarked"></td>
+		<td align="center" style="border-left:1px solid silver"><cf_tl id="Earmarked Other"></td>		
 	</tr>
 
 <!--- line filtering --->
@@ -179,9 +179,9 @@
 		
 			<cf_precision number="#ItemPrecision#">
 			
-			<tr class="labelmedium2 line navigation_row">
+			<tr class="labelmedium2 line navigation_row fixlengthlist">
 			
-			    <td style="padding-left:4px;padding-right:5px;padding-top:2px;height:25px">
+			    <td style="padding-left:4px;padding-right:5px;padding-top:1px;height:25px">
 				<cf_img icon="open" navigation="Yes" onclick="item('#itemno#','#url.systemfunctionid#','#workorder.mission#')" >
 				</td>
 				<td>#ItemClass#</td>

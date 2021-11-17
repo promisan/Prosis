@@ -151,33 +151,33 @@ password="#SESSION.dbpw#">
  <tr class="line">
 	 <td height="42" style="font-size:24px;font-weight:200" colspan="2">Reporter Log for : <b>#DateFormat(Created, "DDDD, DD-MM-YYYY")#</b></td>  
  </tr> 
- <tr class="line labelmedium2">
+ <tr class="line labelmedium2 fixlengthlist">
    <td width="160">Server IP:</td>
    <td style="font-size:16px;height:28px" width="80%">#OfficerUserId#</td>
  </tr>  
- <tr class="line labelmedium2">
+ <tr class="line labelmedium2 fixlengthlist">
    <td>Batch status:</td>
    <td  style="font-size:16px;height:28px"><cfif ProcessStatus eq "Empty"><font color="red">Empty batch<cfelse><font color="408080">#ProcessClass# | #ProcessStatus#</cfif></td>
  </tr>
- <tr class="line labelmedium2">
+ <tr class="line labelmedium2 fixlengthlist">
    <td height="20">Process execution:</td>
    <td  style="font-size:16px;height:28px">#dateFormat(ProcessStart,client.dateformatshow)#: <b>#TimeFormat(ProcessStart,"HH:MM:SS")#</b> - ended: <b>#TimeFormat(ProcessEnd,"HH:MM:SS")#</b></td>
  </tr>
- <tr class="line labelmedium2">  
+ <tr class="line labelmedium2 fixlengthlist">  
    <td>Duration</td>
    <td  style="font-size:16px;height:28px"><cfif min neq "0"><b>#int(min)#</b> minutes<cfelse><b>#sec#</b> second(s)</cfif></td>   
  </tr>
    
  <cfset sent = EMailSent - Failed.recordcount>
   
- <tr class="line labelmedium2">  
+ <tr class="line labelmedium2 fixlengthlist">  
    <td>No of e-Mails sent:</td>
    <td style="font-size:16px;height:28px"><b>#Sent#</b> message(s) <font size="1">successfully delivered to CF defined mail engine</td>
  </tr>
  
  <cfif sent gt "0">
  
- <tr class="line labelmedium2">  
+ <tr class="line labelmedium2 fixlengthlist">  
    <td>Average time per e-Mail</td>
    <td  style="font-size:16.5px;height:28px"><b>#numberformat(sec/Sent,",_._")#&nbsp;</b><cfif #numberformat(sec/Sent,",_._")# eq "1">second<cfelse>seconds</cfif>
    &nbsp;[System average : #numberformat(Avg.AvgTimeEmail,",_._")# seconds]
@@ -195,7 +195,7 @@ password="#SESSION.dbpw#">
    <td>    
 	<table width="100%" >
 	<cfoutput query="Mode">
- 		 <tr class="labelmedium">  
+ 		 <tr class="labelmedium fixlengthlist">  
 		   <td width="150"  style="font-size:16px;height:28px">#DistributionCategory#</td>
 		   <td style="font-size:16px;height:28px">#Mode#</td>
 		 </tr>
@@ -207,13 +207,13 @@ password="#SESSION.dbpw#">
    </td>   
  </tr>
   
- <tr class="line labelmedium">  
+ <tr class="line labelmedium fixlengthlist">  
    <td height="20" valign="top" style="padding-top:5px">Total by module:</td>
    <td>
     
 	<table width="100%">
 	<cfoutput query="Module">
- 		 <tr class="labelmedium">  
+ 		 <tr class="labelmedium fixlengthlist">  
 		   <td style="min-width:200px;font-size:15px">#Description#</td>
 		   <td align="right" style="font-size:15px;padding-right:10px">#Module#</td>
 		 </tr>
@@ -228,7 +228,7 @@ password="#SESSION.dbpw#">
   
  <cfoutput>
  
- <tr class="line labelmedium">  
+ <tr class="line labelmedium fixlengthlist">  
    <td height="20">Preparation failed for:</td>
    <td style="font-size:15px;padding-right:10px" ><cfif Failed.recordcount gt "0"><b>
    <img src="#SESSION.root#/Images/caution.gif" alt=""  border="0">

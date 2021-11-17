@@ -130,7 +130,7 @@
 					<cfif trim(lcase(attributes.showBrandLogo)) eq "1" or trim(lcase(attributes.showBrandLogo)) eq "yes">
 						<!-- Navigation -->
 						<div id="logo" class="light-version" onclick="window.location.reload();" style="cursor:pointer;text-align:center;display:block;padding:0;height:auto;">
-							<cfoutput><img src="#attributes.brandLogo#" style="height:auto;"></cfoutput>
+							<cfoutput><img src="#attributes.brandLogo#" style="width:150px; height:auto;"></cfoutput>
 						</div>
 					</cfif>
 				

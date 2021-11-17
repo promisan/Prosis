@@ -320,8 +320,7 @@
 			
 		</cfif>	
 			
-		</cfloop>		
-			
+		</cfloop>				
 	
 	</cfif>
 	

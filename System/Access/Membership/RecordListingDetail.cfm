@@ -125,11 +125,11 @@
 		<cfif profileassigned.recordcount gte "1">
 		
 			<tr>
-			<td id="#URL.Mod#Profile" class="regular" style="border-top:1px solid silver">
+			<td id="#URL.Mod#Profile" class="regular">
 	
 				<table width="100%" class="navigation_table" align="center">
 										
-						<tr class="labelmedium2 line" style="height:29px">		
+						<tr class="labelmedium2 line fixlengthlist" style="height:29px">		
 	   	    				<td width="17">&nbsp;</td>				
 							<TD><cf_tl id="Entity"></TD>
 							<TD width="80%"><cf_tl id="Profile name"></TD>
@@ -138,7 +138,7 @@
 					
 					<cfloop query="profileassigned">
 			
-						<tr bgcolor="white" class="navigation_row line labelmedium2" style="height:20px">
+						<tr bgcolor="white" class="navigation_row line labelmedium2 fixlengthlist" style="height:20px">
 						<TD style="min-width:30px;padding-left:3px">#currentRow#.</TD>								
 						<td>#Mission#</td>
 						<td>#FunctionName#</td>
@@ -164,17 +164,17 @@
 						<tr class="labelmedium"><td align="center" height="40"><font color="FF0000">Attention:</font> There are no members defined for this group.</font></td></tr>
 				<cfelse>
 		
-					<tr class="labelmedium2 line" style="height:29px">
-						<td width="17">&nbsp;</td>
-						<TD width="30%"><cf_tl id="Member"></TD>
-						<TD width="10%"><cf_tl id="UserId"></TD>
-						<TD width="10%"><cf_tl id="AccountNo"></TD>
-						<TD width="22%"><cf_tl id="LDAP"></TD>
-						<TD width="19%"><cf_tl id="eMail"></TD>
-						<TD width="80"><cf_tl id="Last logon"></TD>
-						<TD width="3%" align="center" style="padding-left:4px;padding-right:4px"><cf_tl id="Denials"></TD>
-						<TD width="3%" style="padding-left:4px;padding-right:4px" align="center"><cf_tl id="Active"></TD>
-						<TD width="1%" align="center"></TD>
+					<tr class="labelmedium2 line fixlengthlist" style="height:29px">
+						<td>&nbsp;</td>
+						<TD><cf_tl id="Member"></TD>
+						<TD><cf_tl id="UserId"></TD>
+						<TD><cf_tl id="AccountNo"></TD>
+						<TD><cf_tl id="LDAP"></TD>
+						<TD><cf_tl id="eMail"></TD>
+						<TD><cf_tl id="Last logon"></TD>
+						<TD align="center" style="padding-left:4px;padding-right:4px"><cf_tl id="Denials"></TD>
+						<TD align="center"><cf_tl id="Active"></TD>
+						<TD align="center"></TD>
 					</TR>
 		
 				</cfif>
@@ -182,9 +182,9 @@
 				<cfloop query="SearchResult">
 		
 					<cfif Disabled eq "1">
-						<tr bgcolor="FBE0D9" class="navigation_row line labelmedium2" style="height:20px">
+						<tr bgcolor="FBE0D9" class="navigation_row line labelmedium2 fixlengthlist" style="height:20px">
 					<cfelse>
-						<tr bgcolor="white" class="navigation_row line labelmedium2" style="height:20px">
+						<tr bgcolor="white" class="navigation_row line labelmedium2 fixlengthlist" style="height:20px">
 					</cfif>
 					<TD style="min-width:30px;padding-left:3px">#currentRow#.</TD>
 			
@@ -193,7 +193,7 @@
 					<td>#Account#</td>
 					<td>#AccountNo#</td>
 					<td><cfif MailServerDomain neq "">#MailServerDomain#\</cfif>#lcase(MailServerAccount)#</td>
-					<TD><a href="javascript:email('#emailaddress#')">#left(eMailAddress,20)#</a></TD>
+					<TD title="#eMailAddress#"><a href="javascript:email('#emailaddress#')">#eMailAddress#</a></TD>
 					<TD>
 					<cfif LastConnection eq ""><font color="FF0000">Never</font><cfelse>#Dateformat(LastConnection, "#CLIENT.DateFormatShow#")#</cfif>
 					</TD>
@@ -233,7 +233,7 @@
 	
 			<table width="100%">
 		
-			<tr class="labelmedium2 line" bgcolor="E9E9E9">
+			<tr class="labelmedium2 line fixlengthlist" bgcolor="E9E9E9">
 				<td width="3%" align="left"></td>
 				<td width="5%" align="left"></td>
 				<td><cf_tl id="Module"></td>
@@ -254,16 +254,16 @@
 			
 				<cf_assignid>
 	
-				<tr class="line labelmedium2">
-					<td width="3%" style="padding-left:3px">#CurrentRow#.</td>
+				<tr class="line labelmedium2 fixlengthlist">
+					<td>#CurrentRow#.</td>
 					<td align="center" style="padding-top:2px" onClick="<cfif #OrgUnitLevel# eq 'Global'>showroleG('#Role#')<cfelse>showrole('#Role#','#Mission#')</cfif>">
 						<cf_img icon="open">
 					</td>
-					<td width="15%">#SystemModule#</td>
-					<td width="25%">#Description#</td>
-					<td width="15%">#Role#</td>
-					<td width="10%" style="padding-left:3px">#AccessLevel#</td>
-					<td width="10%">#Parameter#</td>
+					<td>#SystemModule#</td>
+					<td>#Description#</td>
+					<td>#Role#</td>
+					<td style="padding-left:3px">#AccessLevel#</td>
+					<td>#Parameter#</td>
 					<td style="padding-right:10px"><a href="javascript:ProsisUI.createWindow('useraccess', 'Access', '',{x:100,y:100,height:document.body.clientHeight-120,width:document.body.clientWidth-120,modal:true,center:true});ptoken.navigate('#session.root#/system/access/MemberShip/getDetailAccess.cfm?useraccount=#url.mod#&mission=#mission#&role=#role#&access=#accesslevel#','useraccess')">#Mission#</a></td>
 				</tr>
 					

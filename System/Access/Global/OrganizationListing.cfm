@@ -404,8 +404,8 @@ function group(bx,row) {
 		
 		<tr><td colspan="11"></td></tr>
 		
-		<TR class="labelmedium2 line fixrow">
-		    <td width="10" style="width:40px"></td>
+		<TR class="labelmedium2 line fixrow fixlengthlist">
+		    <td width="10"></td>
 			<TD><cf_tl id="Name"></TD>
 			<td></td>
 			<TD><cf_tl id="Account"></TD>
@@ -414,7 +414,7 @@ function group(bx,row) {
 			<TD><cf_tl id="Source"></TD>
 			<TD width="7%"><cf_tl id="Level"></TD>
 			<TD><cf_tl id="<cfoutput>#Role.Parameter#</cfoutput>"></TD>
-			<td width="20"></td>
+			<td></td>
 			<td height="20">&nbsp;</td>		
 		</TR>
 		
@@ -428,7 +428,7 @@ function group(bx,row) {
 			   
 		<cfoutput query="SearchResult" group="AccountType">
 	
-			<tr class="line labelmedium2 fixrow2">
+			<tr class="line labelmedium2 fixrow2 fixlengthlist">
 			   <td width="10%" colspan="11" style="padding-left:4px;height:50px">
 			      <table>
 				  <tr>
@@ -450,29 +450,28 @@ function group(bx,row) {
 				<cfoutput group="Source">
 					
 			    <cfif Type eq "Denied">
-					<tr bgcolor="F39E89" id="#account#_1" class="navigation_row labelmedium">
+					<tr bgcolor="F39E89" id="#account#_1" class="navigation_row labelmedium fixlengthlist">
 				<cfelseif AccountType eq "group">
-		    		<tr id="#account#_1" class="navigation_row labelmedium">
+		    		<tr id="#account#_1" class="navigation_row labelmedium fixlengthlist">
 				<cfelse>
-					<tr id="#account#_1" class="navigation_row labelmedium">
+					<tr id="#account#_1" class="navigation_row labelmedium fixlengthlist">
 				</cfif> 
 				
-				<td width="2%" height="20" align="center" style="padding-top:3px"> 
+				<td height="20" align="center" style="padding-top:3px"> 
 				     <cfif user neq Account>			 
 					    <cf_img icon="open" tooltip="manager authorization" onclick="process('#Account#')" navigation="Yes">					       				
 					  </cfif>
 				</td>	
 				
-				<td width="2%" align="left" style="padding-right:10px;padding-top:9px">
+				<td align="left" style="padding-right:10px;padding-top:9px">
 				
 				 <cfif AccountType eq "Group">	 
 		 		   <cf_img icon="expand" tooltip="members" toggle="yes" onclick="group('#Account#','#currentRow#')">			
 				  </cfif>	
 				  
-		        </td>
-				   			
+		        </td>				   			
 							  
-				<td width="30%">
+				<td>
 				
 				     <cfif AccountType eq "Group">
 					 
@@ -489,9 +488,9 @@ function group(bx,row) {
 					 </cfif>
 				</td>	
 			 
-				<TD width="15%"><cfif user neq Account>#account#</cfif></TD>
-				<TD width="10%"><cfif user neq Account>#accountgroup#</cfif></TD>	 
-				<td width="10%">					
+				<TD><cfif user neq Account>#account#</cfif></TD>
+				<TD><cfif user neq Account>#accountgroup#</cfif></TD>	 
+				<td>					
 						
 					<cfif disabled eq "1">				
 				     	 <font color="red">disabled</font>						 
@@ -504,12 +503,12 @@ function group(bx,row) {
 					</cfif>			
 				 
 				</td> 
-				<TD width="10%">			
+				<TD>			
 				<cfif source neq "manual">
 					<img src="#SESSION.root#/Images/group1.gif" align="absmiddle" alt="Inherited" border="0">&nbsp;#source#&nbsp;
 				<cfelse>Manual</cfif>
 				</TD>				
-				<TD width="40">
+				<TD>
 				
 					<cfif Role.AccessLevels eq "2">
 					
@@ -529,16 +528,17 @@ function group(bx,row) {
 					</cfif>	
 			 	
 				</TD>
-				<td width="100">
+				<td>
 				
-					<div style="width:150px;height:15;overflow-y: auto;">				
-					<table width="100%" cellspacing="0" cellpadding="0">					 				
+					<div style="width:120px;height:15;overflow-y: auto;">				
+					<table width="100%">					 				
 					
 					    <cfif ClassIsAction neq "1">		
 						  
 						    <cfoutput group="classparameter">
 							<tr class="labelmedium" style="height:15px"><td>#ClassParameter#</td></tr>
 							</cfoutput>
+							
 						<cfelse>					
 						<!--- hide entries, it is too much 23/7/05 
 						
@@ -569,11 +569,11 @@ function group(bx,row) {
 					</div>		
 								
 				 </td>
-				 <td width="55" align="center">
+				 <td align="center">
 				 
 				  <cfif Mission neq "">
 				  					 
-							<img src="#SESSION.root#/Images/tree3.gif" alt="" height="14" width="12"
+						<img src="#SESSION.root#/Images/tree3.gif" alt="" height="14" width="12"
 							id="#currentrow#tExp" border="0" class="show" 
 							align="absmiddle" style="cursor: pointer;" 
 							onClick="javascript:detail('#URL.ID4#','#account#','#currentrow#','#source#')">
@@ -587,7 +587,7 @@ function group(bx,row) {
 				  
 				 </td>			 
 						 
-				 <td align="center" style="padding-right:5px">
+				 <td align="center">
 				 
 				    <cfif access eq "EDIT" or access eq "ALL">
 					

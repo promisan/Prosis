@@ -282,5 +282,85 @@
 			 
 	</cffunction>
 	
+	<cffunction name="getTrackPosition"
+       access="public"
+       returntype="any"
+       displayname="Obtain tracks that are relevant for a position">
+	   
+	   <cfargument name="PositionNo"            type="string"  required="true"  default="">
+	   
+		   <cfquery name="Doc" datasource="AppsEmployee" username="#SESSION.login#" password="#SESSION.dbpw#">
+	   
+     	      <!--- select track occurence --->												  
+							
+				SELECT    D.*, 'Current' as Class,
+				        <!--- show the inspira trackNo --->
+						  (SELECT TOP 1 ReferenceNo
+							FROM   Applicant.dbo.FunctionOrganization
+							WHERE  FunctionId =  D.FunctionId ) as InspiraTrack,
+							
+						  (SELECT TOP 1 ISNULL(Ref.EntityClassNameShort, Ref.EntityClass) 
+							FROM Organization.dbo.Ref_EntityClass as Ref 
+							WHERE Ref.EntityCode='VacDocument' AND Ref.EntityClass = D.EntityClass) as EntityClassNameShort
+							
+				FROM      Vacancy.dbo.DocumentPost as Track INNER JOIN
+	    			      Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
+	                      Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN <!--- show against any position within the parent --->
+	                      Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo
+				WHERE     SP.PositionNo = '#PositionNo#' 
+				AND       D.EntityClass IS NOT NULL 
+				AND       D.Status = '0'
+				
+			UNION 
+			
+			    <!--- tracks that have an upcoming incumbency for this position --->	
+			
+				SELECT       D.*, 'Future' as Class,
+					        <!--- show the inspira trackNo --->
+							  (SELECT TOP 1 ReferenceNo
+								FROM   Applicant.dbo.FunctionOrganization
+								WHERE  FunctionId =  D.FunctionId ) as InspiraTrack,
+							  (SELECT TOP 1 ISNULL(Ref.EntityClassNameShort, Ref.EntityClass) 
+								FROM Organization.dbo.Ref_EntityClass as Ref 
+								WHERE Ref.EntityCode='VacDocument' AND Ref.EntityClass = D.EntityClass) as EntityClassNameShort
+								
+				FROM         Vacancy.dbo.[Document] D
+				WHERE        DocumentNo IN
+	                             (SELECT      PA.SourceId
+	                              FROM        PersonAssignment AS PA 
+	                              WHERE       PA.Source = 'vac' 
+								  AND         PA.PositionNo = '#PositionNo#'
+								  AND         PA.AssignmentStatus IN ('0', '1') 
+								  AND         PA.AssignmentType = 'Actual' 
+								  AND         PA.DateEffective >= GETDATE() )	
+									
+			UNION 
+															
+			    <!--- wildcard to track down the position from the past in a new mandate, so we still show it --->			
+			
+				SELECT     D.*, 'Current' as Class,
+				           <!--- show the inspira trackNo --->
+							(SELECT TOP 1 ReferenceNo
+								FROM   Applicant.dbo.FunctionOrganization
+								WHERE  FunctionId =  D.FunctionId ) as InspiraTrack,
+							(SELECT TOP 1 ISNULL(Ref.EntityClassNameShort, Ref.EntityClass) 
+								FROM Organization.dbo.Ref_EntityClass as Ref 
+								WHERE Ref.EntityCode='VacDocument' AND Ref.EntityClass = D.EntityClass) as EntityClassNameShort
+								
+				FROM       Vacancy.dbo.DocumentPost as Track INNER JOIN
+	                       Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
+		                   Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
+		                   Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
+	                       Position PN ON SP.PositionNo = PN.SourcePositionNo  <!--- the next mandate --->
+				WHERE      D.EntityClass IS NOT NULL 
+				AND        D.Status = '0' 
+				AND        PN.PositionNo = '#PositionNo#'						
+				
+		</cfquery>	
+	   
+	 <cfreturn doc>		 
+			 
+	</cffunction>  
+	
 </cfcomponent>	
 

@@ -130,14 +130,14 @@
 					<td align="right">
 					
 					<table align="right">
-					<tr>
+					<tr style="fixlengthlist">
 				    			
 					<td width="60" class="labelmedium"><cf_tl id="Date">:</td>
-					<td colspan="4" class="labelmedium" style="padding-left:3px"><cf_space spaces="38">
+					<td colspan="4" class="labelmedium" style="padding-left:3px">
 					 			 
 					 <cf_intelliCalendarDate9
 						FieldName="TransactionDate" 
-						Class="regularxl"
+						Class="regularxxl"
 						Default="#dateformat(now(),client.dateformatshow)#"
 						AllowBlank="False">	
 					  
@@ -151,17 +151,17 @@
 							FROM       Ref_Terms							
 					</cfquery> 	
 					
-					<td width="60" class="labelmedium" style="padding-right:10px"><cf_tl id="Terms">:</td>
+					<td width="60" class="labelmedium" style="padding-left:20px;padding-right:10px"><cf_tl id="Terms">:</td>
 					
 					<td>			
-					<select name="terms" id="terms" class="regularxl">
+					<select name="terms" id="terms" class="regularxxl">
 							<cfloop query="Terms">
 								<option value="#Code#">#Description#</option>
 							</cfloop>
 						</select>
 					</td>	
 					
-					<td width="60" style="padding-left:10px" class="labelmedium"><cf_tl id="Fiscal">:<cf_space spaces="15"></td>
+					<td width="60" style="padding-left:10px" class="labelmedium"><cf_tl id="Fiscal">:</td>
 					<td width="60" class="labelmedium" style="padding-left:3px">
 															
 					<cfquery name="PeriodList" 
@@ -176,7 +176,7 @@
 							AND      ActionStatus = '0'		
 					</cfquery>  						
 					
-					<select name="AccountPeriod" class="regularxl">
+					<select name="AccountPeriod" class="regularxxl">
 						 <cfloop query="PeriodList">
 						 	<option value="#AccountPeriod#" <cfif param.currentaccountperiod eq Accountperiod>selected</cfif>>#AccountPeriod#</option>
 						 </cfloop>
@@ -207,7 +207,7 @@
 		 
 		 </td></tr>
 		
-		<tr class="line labelmedium">
+		<tr class="line labelmedium fixlengthlist">
 		    <td></td>
 			<td><cf_tl id="Item"></td>
 			<td><cf_tl id="UoM"></td>
@@ -231,7 +231,7 @@
 			<cfif qty gt "0">
 				
 				<cfset ratio = (Quantity-QuantityBilled)/Quantity>			
-				<tr class="labelmedium navigation_row">
+				<tr class="labelmedium2 navigation_row fixlengthlist line">
 				    <td style="padding-left:4px">
 						<input type="checkbox" 
 					    class="radiol" 
@@ -240,7 +240,7 @@
 						onclick="ptoken.navigate('#session.root#/WorkOrder/Application/Assembly/Items/FinalProduct/Prebilling/setTotal.cfm?workorderid=#url.workorderid#&workorderline=#url.workorderline#','sale','','','POST','billingform')"
 						value="'#workorderitemid#'">
 					</td>
-					<td width="38%">#ItemDescription#</td>
+					<td>#ItemDescription#</td>
 					<td>#UoMDescription#</td>
 					<td>#ItemBarCode#</td>
 					<td align="right">#qty#</td>

@@ -455,7 +455,7 @@
 				
 				<cfif lng eq "Current" or lng eq "closing">
 
-				<tr class="line" style="border-top:1px solid silver" bgcolor="<cfif url.conditionfield eq 'mission'>f1f1f1<cfelse>white</cfif>">
+				<tr class="line fixlengthlist" style="border-top:1px solid silver" bgcolor="<cfif url.conditionfield eq 'mission'>f1f1f1<cfelse>white</cfif>">
 				    <td align="center" class="labelit"><cf_tl id="Item"></td>
 					<td align="center" style="border-left:1px solid gray" class="labelit">
 					
@@ -616,7 +616,7 @@
 				
 				<cfelse>
 				
-					<tr class="line" style="border-top:1px solid silver" bgcolor="<cfif url.conditionfield eq 'mission'>f1f1f1<cfelse>white</cfif>">
+					<tr class="line fixlengthlist" style="border-top:1px solid silver" bgcolor="<cfif url.conditionfield eq 'mission'>f1f1f1<cfelse>white</cfif>">
 					    <td align="center" class="labelit"><cf_tl id="Item"></td>
 						<td align="center" style="border-left:1px solid gray" class="labelit">#DateFormat(today,"MMM YYYY ")#</font></td>
 						<td align="center" style="border-left:1px solid gray" class="labelit">#DateFormat(lastMonth,"MMM YYYY ")#</td>
@@ -659,16 +659,16 @@
 								<cfset vTotalTransactions = "0">																   
 									
 								<cfif per eq "Item">	
-								<tr><td style="padding-left:2px;height:17px;" class="labelit">&nbsp;</td></tr>								
+								<tr class="fixlengthlist"><td style="padding-left:2px;height:21px;" class="labelit">&nbsp;</td></tr>								
 								<cfelseif Mode eq "Sale">								   
-								<tr>
+								<tr class="fixlengthlist">
 									<td colspan="2" align="right" style="padding-right:4px" class="labelit"><cf_tl id="#Mode#"></td>
 									 <cfif per neq "Item">
 									<td colspan="2" align="right" bgcolor="f4f4f4" style="padding-right:4px" class="labelit"><cf_tl id="COGS"></td>
 									</cfif>
 								</tr>
 								<cfelse>
-								<tr><td colspan="4" align="right" style="padding-right:4px" class="labelit"><cf_tl id="#Mode#"></td></tr>
+								<tr class="fixlengthlist"><td colspan="4" align="right" style="padding-right:4px" class="labelit"><cf_tl id="#Mode#"></td></tr>
 								</cfif>
 																																		
 								<cfoutput>
@@ -735,7 +735,7 @@
 										
 										</cfif>												
 																		
-								<tr class="navigation_row">	
+								<tr class="navigation_row fixlengthlist">	
 								
 								 <cfif per eq "Item">									
 									<td width="100%" align="left" style="<cfif currentrow neq 1>border-top:1px solid e1e1e1;</cfif>height:21px;padding-left:3px" class="labelmedium">#Description#</td>								 

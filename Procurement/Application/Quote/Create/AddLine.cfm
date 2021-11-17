@@ -209,17 +209,17 @@ password="#SESSION.dbpw#">
 			<tr>
 				<td>
 								
-				 <img src     = "#SESSION.root#/Images/search.png" 
-				      alt     = "Select item master" 
-					  name    = "img3" 
-					  onMouseOver="document.img3.src='#SESSION.root#/Images/contract.gif'" 
-					  onMouseOut="document.img3.src='#SESSION.root#/Images/search.png'"
-					  style   = "cursor: pointer;" 
-					  width   = "25" 
-					  height  = "25" 
-					  border  = "0" 
-					  align   = "absmiddle" 
-					  onClick = "selectmas('itemmaster','#url.mission#','#Job.Period#','#url.id#')">
+				 <img src         = "#SESSION.root#/Images/search.png" 
+				      alt         = "Select item master" 
+					  name        = "img3" 
+					  onMouseOver = "document.img3.src='#SESSION.root#/Images/contract.gif'" 
+					  onMouseOut  = "document.img3.src='#SESSION.root#/Images/search.png'"
+					  style       = "cursor: pointer;" 
+					  width       = "25" 
+					  height      = "25" 
+					  border      = "0" 
+					  align       = "absmiddle" 
+					  onClick     = "selectmas('itemmaster','#url.mission#','#Job.Period#','#url.id#')">
 				  
 				  </td>
 				  <td style="padding-left:2px">						  

@@ -40,7 +40,7 @@
 	
 	<table width="97%" align="center" class="navigation_table">
 	
-	<tr class="labelmedium2 line">
+	<tr class="labelmedium2 line fixlengthlist">
 	    <td></td>
 		<td><cf_tl id="Code"></td>
 		<td><cf_tl id="Description"></td>
@@ -49,8 +49,8 @@
 	</tr>
 	
 	<cfoutput query="SearchResult">
-		<tr class="labelmedium2 navigation_row line">
-			<td width="6%" align="center" style="padding-top:1px;">
+		<tr class="labelmedium2 navigation_row line fixlengthlist">
+			<td align="center" style="padding-top:1px;">
 				<cf_img icon="open" navigation="Yes" onclick="recordedit('#PrintGroup#')">
 			</td>	
 			<td>#PrintGroup#</td>

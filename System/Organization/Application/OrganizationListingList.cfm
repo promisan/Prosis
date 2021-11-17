@@ -27,6 +27,7 @@
    <cfset cond = "AND OrgUnit = '#URL.ID1#'">
 </cfif>
 
+
 <cfif URL.ID1 neq "NULL">
 	
 	<cfquery name="SearchResult"
@@ -77,12 +78,12 @@
 
 	<table class="navigation_table" style="width:98.5%" align="center">
 
-	<TR class="line labelmedium2 fixrow">
-		<td style="padding-left:4px"><cf_tl id="Hierarchy"></td>
+	<TR class="line labelmedium2 fixrow fixlengthlist">
+		<td><cf_tl id="Hierarchy"></td>
 		<td width="10"></td>
 		<TD><cf_tl id="Description"></TD>
 		<td><cf_tl id="Class"></td>
-	    <TD width="95"><cf_tl id="Code"></TD>
+	    <TD><cf_tl id="Code"></TD>
 		<td></td>
 	</TR>
 	<cfoutput query="SearchResult" group="TreeOrder">

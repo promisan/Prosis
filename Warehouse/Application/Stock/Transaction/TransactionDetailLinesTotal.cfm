@@ -2,7 +2,7 @@
 
 <cfif Line.recordcount gt "0">  		 
 		 
-		  <tr>
+		  <tr class="labelmedium2">
 		      
 			<td height="20" align="center" valign="middle"></td>
 							
@@ -23,21 +23,21 @@
 			<cfif presentation eq "price">	
 			
 			<td colspan="11" align="right">(#Total.Lines#)</td>			 
-			<td align="right" style="padding-right:4px">#NumberFormat(cst,'_____,__.__')#</td>
+			<td align="right" style="padding-right:4px">#NumberFormat(cst,',.__')#</td>
 			<td></td>
-			<td align="right" style="padding-right:4px">#NumberFormat(sal,'_____,__.__')#</td>
+			<td align="right" style="padding-right:4px">#NumberFormat(sal,',.__')#</td>
 			
 			<cfelseif presentation eq "log">	
 			
 			<td colspan="5"></td>		
 				<td colspan="1" align="right">(#Total.Lines#)</td>				
-				<td align="right">#NumberFormat(qty,'_____,__._')#</td>
+				<td align="right">#NumberFormat(qty,',._')#</td>
 			<td></td>
 							
 			<cfelse>
 					 
 			<td colspan="7" align="right">(#Total.Lines#)</td>		
-			<td align="right" style="padding-right:2px">#NumberFormat(qty,'_____,__.__')#</td>		
+			<td align="right" style="padding-right:2px">#NumberFormat(qty,',.__')#</td>		
 					
 			</cfif>
 	

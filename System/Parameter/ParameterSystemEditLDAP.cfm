@@ -42,7 +42,7 @@ password="#SESSION.dbpw#">
 		<td style="padding-top:5px;padding-bottom:5px;">
 		
 			<table width="98%" align="center" class="formpadding">
-				<tr class="labelmedium2 line">
+				<tr class="labelmedium2 line fixlengthlist">
 					<td>Server</td>
 					<td>Port</td>
 					<td>Domain</td>
@@ -56,7 +56,7 @@ password="#SESSION.dbpw#">
 				
 					<cfif URL.LDAPServer eq LDAPServer>
 
-					<tr class="labelmedium2" style="height:30px">
+					<tr class="labelmedium2 fixlengthlist" style="height:30px">
 						
 						<td><input class="regularxl" type="text" name="LDAPServer" style="width:90px" value="#LDAPServer#"></td>
 						<td><input class="regularxl" type="text" name="LDAPServerRoot" style="width:50px" value="#LDAPServerPort#"></td>
@@ -70,7 +70,7 @@ password="#SESSION.dbpw#">
 					
 					<cfelse>
 					
-						<tr class="labelmedium2 line">
+						<tr class="labelmedium2 line fixlengthlist">
 							<td>#LDAPServer#</td>
 							<td>#LDAPServerPort#</td>
 						  	<td>#LDAPServerDomain#</td>

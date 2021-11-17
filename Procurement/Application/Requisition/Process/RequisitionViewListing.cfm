@@ -45,11 +45,11 @@ function mail2(mode,id) {
 	    <td width="100%" >
 	    <table width="100%" class="formpadding navigation_table">
 			
-	    <TR class="labelmedium2 line">
-		   <td width="1%" height="19"></td>
-		   <td width="1%"></td>
-		   <td width="40%"><cf_tl id="Description"></td>
-		   <td width="10%"><cf_tl id="Date"></td>
+	    <TR class="labelmedium2 line fixlengthlist">
+		   <td height="19"></td>
+		   <td></td>
+		   <td><cf_tl id="Description"></td>
+		   <td><cf_tl id="Date"></td>
 		   <td align="right"><cf_tl id="Quantity"></td>
 		   <td align="center"><cf_tl id="UoM"></td>
 		   <td align="right"><cf_tl id="Price"></td>
@@ -140,10 +140,10 @@ function mail2(mode,id) {
 			 <cfset color = "transparent"> 
 		</cfif>
 												
-		<tr class="labelmedium2 line navigation_row" bgcolor="#color#">
+		<tr class="labelmedium2 line navigation_row fixlengthlist" bgcolor="#color#">
 		
 		   <td rowspan="2" align="left"></td>
-    	   <td style="width:6px"></td>		  
+    	   <td></td>		  
 		   <td><cfif qItem.ItemNoExternal neq "">#qItem.ItemNoExternal# - </cfif>#RequestDescription# </td>
 		   <td></td>
     	   <td align="right">#RequestQuantity#</td>
@@ -155,7 +155,7 @@ function mail2(mode,id) {
 		   </td>
 		</tr>
 		
-		<tr class="labelmedium2 navigation_row_child" id="#requisitionno#_2" bgcolor="#color#">
+		<tr class="labelmedium2 navigation_row_child fixlengthlist" id="#requisitionno#_2" bgcolor="#color#">
 		
 		<td></td>
 		<td><b>#Description#</b></td>

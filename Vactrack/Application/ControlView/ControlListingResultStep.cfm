@@ -29,13 +29,13 @@
 
 <table width="100%" class="navigation_table">
 
- <tr class="line labelmedium fixrow">
+ <tr class="line labelmedium fixrow fixlengthlist">
    <td style="min-width:40"></td>
    <td><cf_tl id="Class"></td>
    <td><cf_tl id="Track"></td>
    <td><cf_tl id="Due"></td>
    <td><cf_tl id="VA"></td>
-   <td><cf_tl id="Grade">/<cf_tl id="Candidate"></td>
+   <td title="Grade / Candidate">G / P</td>
    <td><cf_tl id="Position"></td>		       
    <td><cf_tl id="Title"></td>
    <td><cf_tl id="Office"></td>	   

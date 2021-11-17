@@ -4,7 +4,7 @@
 --->
 
 <!---Hidden dialog until Photo is clicked --->
-<div id="picturedialog" style="padding-top:200px;z-index:100; position:absolute;"></div>	
+<div id="picturedialog"></div>	
 
 <cf_dialogstaffing>
 <cf_systemscript>
@@ -152,7 +152,7 @@
 							  <cfif employee.indexNo neq "">
 							  
 							   <td class="labelit" style="padding-top:1px"><font color="808080">#client.indexNoName#:<cf_space spaces="30"></td>   
-                               <td class="labelmedium" style="height:20px;font-size:16px" colspan="1">
+                               <td class="labelmedium fixlength" style="height:20px;font-size:16px" colspan="1">
 							   <cfif url.refer eq "backoffice">
 							   #Employee.IndexNo#
 							   <cfelse>
@@ -193,7 +193,7 @@
 							  <cf_tl id="Name">:
 							  <cf_space spaces="20">
 							  </td>   
-                              <td class="labelmedium" style="height:20px;font-size:14px">#Employee.FullName#</td>   
+                              <td class="labelmedium fixlength" style="height:20px;font-size:14px">#Employee.FullName#</td>   
                            </tr>   
                          
                            <tr>   

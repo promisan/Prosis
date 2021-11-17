@@ -58,7 +58,7 @@ password="#SESSION.dbpw#">
 			
     <table width="96%" align="center" class="formpadding">
 	
-	<TR>
+	<TR class="fixlengthlist">
     <TD class="labelmedium" style="padding-left:8px;min-width:133px"><cf_tl id="Address type">: <font color="FF0000">*</font</TD>
 	
     <TD>

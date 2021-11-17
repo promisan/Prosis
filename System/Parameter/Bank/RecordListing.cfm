@@ -41,7 +41,7 @@ function recordedit(id) {
 
 <table width="95%" align="center" class="navigation_table">
 
-<tr class="line labelmedium2">
+<tr class="line labelmedium2 fixlengthlist">
    
     <TD height="20"></TD>
     <TD>Bank</TD>
@@ -55,7 +55,7 @@ function recordedit(id) {
 
 <cfoutput query="SearchResult">
     
-    <TR class="navigation_row line labelmedium2">
+    <TR class="navigation_row line labelmedium2 fixlengthlist">
 		<td height="20" align="center" style="width:25;padding-top:1px">
 		  <cf_img icon="open" navigation="Yes" onClick="recordedit('#BankId#')">
 		</td>

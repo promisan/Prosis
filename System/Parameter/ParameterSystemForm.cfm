@@ -125,15 +125,12 @@ password="#SESSION.dbpw#">
 		<cf_menucontainer item="3" class="#vclass#">
 			<cfinclude template="ParameterSystemEditServer.cfm">
 		<cf_menucontainer>
-		
-		
-		
+				
 		<cfif url.action eq 4><cfset vclass="regular"><cfelse><cfset vclass="hide"></cfif>
 		<cf_menucontainer item="4" class="#vclass#">
 			<cfinclude template="ParameterSystemEditReporting.cfm">
 		<cf_menucontainer>
-		
-				
+						
 		<cfif url.action eq 5><cfset vclass="regular"><cfelse><cfset vclass="hide"></cfif>		
 		<cf_menucontainer item="5" class="#vclass#">
 			<cfinclude template="ParameterSystemEditLicense.cfm">

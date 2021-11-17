@@ -84,20 +84,20 @@
   
 	  <table border="0" class="formpadding" width="100%" class="navigation_table">
 		
-	    <TR class="line labelmedium2">
-	       <td width="3%" align="center"></td>
-	       <td width="7%" align="left"><cf_tl id="IndexNo"></td>
-	       <TD width="20%"><cf_tl id="Name"></TD>
-		   <TD width="20%"><cf_tl id="Function"></TD>
-		   <TD width="6%"><cf_tl id="Location"></TD>
-		   <TD colspan="2" width="10%"><cf_tl id="Class"></TD>
+	    <TR class="line labelmedium2 fixlengthlist">
+	       <td align="center"></td>
+	       <td align="left"><cf_tl id="IndexNo"></td>
+	       <TD><cf_tl id="Name"></TD>
+		   <TD><cf_tl id="Function"></TD>
+		   <TD><cf_tl id="Location"></TD>
+		   <TD colspan="2"><cf_tl id="Class"></TD>
 		   <!---		   
 	       <TD width="6%"><cf_tl id="Type"></TD>
 	       --->
-		   <TD width="min-width:50"> <cf_tl id="Inc">.</TD>
-		   <TD style="min-width:73"> <cf_tl id="Effective"></TD>	
-		   <TD style="min-width:73"> <cf_tl id="Expiration"></TD>	
-		   <TD style="min-width:93"> <cf_tl id="Processed"></TD>	
+		   <TD> <cf_tl id="Inc">.</TD>
+		   <TD> <cf_tl id="Effective"></TD>	
+		   <TD> <cf_tl id="Expiration"></TD>	
+		   <TD> <cf_tl id="Processed"></TD>	
 	    </TR>
 			
 	    <cfset last = "1">
@@ -108,7 +108,7 @@
 	
 		<cfoutput query="Assignment">
 		   
-			<TR class="navigation_row line labelmedium2">
+			<TR class="navigation_row line labelmedium2 fixlengthlist">
 		   	   <td align="center" style="padding-left:4px">	   			  
 			     <cf_img icon="edit" navigation="Yes" onclick="EditAssignment('#PersonNo#','#AssignmentNo#','','position')">	 
 			   </td>	
@@ -120,10 +120,10 @@
 			   <!---	
 			   <td>#AssignmentType#</TD>
 			   --->
-			   <td style="padding-right:8px">#Incumbency#%</TD>
+			   <td>#Incumbency#%</TD>
 			   <td>#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
 		       <td>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
-			   <td style="min-width:120px">#Dateformat(Created, CLIENT.DateFormatShow)# #Timeformat(Created, "HH:MM")#</td>
+			   <td>#Dateformat(Created, CLIENT.DateFormatShow)# #Timeformat(Created, "HH:MM")#</td>
 		    </tr>
 			 
 			<cfif OrgUnit neq OrgUnitOperational>
@@ -205,13 +205,13 @@
 			
 			<cfoutput query="AssignmentPrior">
 			
-				<TR class="line labelmedium" style="background-color:e1e1e1">
+				<TR class="line labelmedium fixlengthlist" style="background-color:e1e1e1">
 			   	   <td class="labelit" align="center" style="padding-left:4px">	   			  
 				     <!---
 				     <cf_img icon="edit" navigation="Yes" onclick="EditAssignment('#PersonNo#','#AssignmentNo#','','position')">	 
 					 --->
 				   </td>	
-			       <td><A HREF="javascript:EditPerson('#PersonNo#','#IndexNo#')"><font color="6688aa">#IndexNo#</A></td>
+			       <td><A HREF="javascript:EditPerson('#PersonNo#','#IndexNo#')">#IndexNo#</A></td>
 			       <td>#LastName#, #FirstName#</TD>
 			   	   <td>#Mission# #FunctionDescription#</TD>
 				   <td>#LocationName#</td>

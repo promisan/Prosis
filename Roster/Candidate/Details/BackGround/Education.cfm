@@ -208,7 +208,7 @@ in edit mode, here the source = Compendium --->
 		<tr class="labelmedium"><td style="font-size:21px">#OrganizationName#</td></tr>
 		<tr>
 			<td class="labelmedium" style="padding-left:5px">#DateFormat(ExperienceStart,"YYYY/MM")#
-			- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020">Current<cfelse>#DateFormat(ExperienceEnd,"YYYY/MM")#</cfif>&nbsp;#OrganizationCity# #CountryName#</td>
+			- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2030"><cf_tl id="Todate"><cfelse>#DateFormat(ExperienceEnd,"YYYY/MM")#</cfif>&nbsp;#OrganizationCity# #CountryName#</td>
 		</tr>
 		</table>
 	

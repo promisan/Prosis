@@ -157,7 +157,7 @@ password="#SESSION.dbpw#">
 			<cfif getLocation.Recordcount eq "0">
 			
 			    <cfoutput>
-					<input class="regular" type="Text" name="LocationReceipt" id="LocationReceipt"  value="#Get.LocationReceipt#" size="20" maxlength="20">
+					<input class="regularxl" type="Text" name="LocationReceipt" id="LocationReceipt"  value="#Get.LocationReceipt#" size="20" maxlength="20">
 				</cfoutput>
 				
 			<cfelse>
@@ -588,8 +588,8 @@ password="#SESSION.dbpw#">
 		</td>
 		</tr>				
 				
-		<tr>
-		<td height="20" class="labelmedium"><cf_UIToolTip tooltip="Mode under which items to be transferred are transferred are accepted in this warehouse"><cf_tl id="Receipt Mode"></cf_UIToolTip>:</td>
+		<tr class="fixlengthlist">
+		<td height="20" class="labelmedium" title="Mode under which items to be transferred are transferred are accepted in this warehouse"><cf_tl id="Receipt Mode">:</td>
 		<td>   
 		   <table cellspacing="0" cellpadding="0">
 		   <tr><td>

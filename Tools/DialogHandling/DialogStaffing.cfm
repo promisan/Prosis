@@ -266,7 +266,8 @@ function selectzip(fldzip,fldcity,fldcountry,mode) {
 		 myvar2 = fldcity
 		 myvar3 = fldcountry
 				 
-		 ProsisUI.createWindow('myzip', 'ZIP', '',{x:100,y:100,height:560,width:560,modal:true,center:true})    		 				
+		 ProsisUI.createWindow('myzip', 'ZIP', '',{x:100,y:100,height:560,width:560,modal:true,center:true}) 
+		 _cf_loadingtexthtml='';	  		 				
 		 ptoken.navigate(root + '/Tools/Input/ZIP/ZIPView.cfm?country='+sCountry,'myzip') 						 
 }
 

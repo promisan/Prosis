@@ -72,7 +72,7 @@ password="#SESSION.dbpw#">
 	<cf_fileLibraryScript>
 	<cf_mapscript scope="embed">
 		
-	<cfajaximport tags="cfmap,cfinput-datefield,cfform"
+	<cfajaximport tags="cfmap,cfform"
 	     params="#{googlemapkey='#client.googlemapid#'}#"> 
 
 	<cfset modeshow = "hide">
@@ -145,9 +145,9 @@ password="#SESSION.dbpw#">
 	
 	<cf_verifyOnBoard PersonNo = "#URL.ID#">		
 		
-	<TR>
-    <TD style="padding-left:8px;min-width:109px" class="labelmedium" height="25"><cf_tl id="Address type">:</TD>
-    <TD class="labelmedium" style="width:100%">
+	<TR class="fixlengthlist">
+    <TD style="padding-left:8px" class="labelmedium" height="25"><cf_tl id="Address type">:</TD>
+    <TD class="labelmedium">
 	
 	<table><tr><td>
 	
@@ -168,7 +168,7 @@ password="#SESSION.dbpw#">
 	</TD>
 	
     <TD style="padding-left:13px;" height="25" class="labelmedium"><cf_tl id="Effective">:</TD>
-    <td class="labelmedium" style="padding-left:10px;">
+    <td class="labelmedium">
 	   
 	   <cfif url.mode eq "edit">
 	
@@ -188,7 +188,7 @@ password="#SESSION.dbpw#">
 		</td>
 						
 		<TD style="padding-left:13px;" class="labelmedium"><cf_tl id="Expiration">:</TD>
-		<TD class="labelmedium" style="padding-left:10px">
+		<TD class="labelmedium">
 		 
 		  <cfif url.mode eq "edit">
 	
@@ -225,7 +225,7 @@ password="#SESSION.dbpw#">
 	
 	<!--- address contact --->
 		
-	<TD colspan="1" class="labelmedium" style="padding-left:5px" height="20"><cf_tl id="Contact">:</TD>
+	<TD colspan="1" class="labelmedium" style="min-width:109px;padding-left:5px" height="20"><cf_tl id="Contact">:</TD>
 	
     <TD>
 	
@@ -277,8 +277,8 @@ password="#SESSION.dbpw#">
 	   ORDER BY ListingOrder
 	</cfquery>	
 	
-	<TR>
-	<td valign="top" class="labelmedium" style="padding-left:5px;padding-top:7px"><cf_tl id="Contact Information">:</td>
+	<TR class="fixlengthlist">
+	<td valign="top" class="labelmedium " style="min-width:109px;padding-left:5px;padding-top:7px"><cf_tl id="Contact Information">:</td>
     <TD colspan="1">
 	
 		<table cellspacing="0" cellpadding="0" class="formspacing">
@@ -288,7 +288,7 @@ password="#SESSION.dbpw#">
 			<cfloop query="Contact">
 			
 				<cfset row = row+1>
-				<cfif row eq "1"><tr></cfif>		
+				<cfif row eq "1"><tr class="fixlengthlist"></cfif>		
 					<td style="height:21;padding-right:4px" class="labelit"><font color="808080"><cf_tl id="#Description#">:</td>				
 				    <td style="padding-right:12px" class="labelmedium">
 					

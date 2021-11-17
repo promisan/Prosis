@@ -5,15 +5,13 @@
 
 <cf_screentop html="No">
 
-<cfoutput>
-
  <cfquery name="get"
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT * 
 	FROM   CustomerRequest 
-	WHERE  RequestNo       = '#form.Requestno#'						
+	WHERE  RequestNo       = '#url.id1#'						
 </cfquery>
 
 <cfquery name="mission"
@@ -34,6 +32,15 @@ password="#SESSION.dbpw#">
 	WHERE  Warehouse   = '#get.Warehouse#'						
 </cfquery>
 
+<cfquery name="Parameter"
+datasource="AppsInit" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT * 
+	FROM   Parameter
+	WHERE HostName = '#CGI.HTTP_HOST#'					
+</cfquery>
+
 <cfquery name="customer"
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
@@ -43,49 +50,57 @@ password="#SESSION.dbpw#">
 	WHERE  CustomerId   = '#get.CustomerId#'						
 </cfquery>
 
+<cfparam name="Form.Image" default="Yes">
+
 <cfset pheight = "700">
-<cfset pconten = "500">
+<cfset pconten = "650">
 <cfset pdiscla = "200">
 
+<cfoutput>
 
-<table align="center" style="width:100%;height:100%">
+<table style="width:96%;height:100%">
 
    <tr><td valign="top" style="height:#pheight#px;font-size:35px;">
    
 	   <table style="width:100%">
 	   
-	   <!--- top banner --->
+	   <cfimage name="vLogo" action="read" source="#parameter.LogoPath#\#parameter.LogoFileName#"/>
+	   <cfset vLogo = "<img src='data:image/*;base64,#toBase64(vLogo)#' style='width:160px;height=120px'>">
+	   
 	   <tr class="labelmedium2">
-	   <td colspan="3" style="height:40px;font-size:40px">#get.Mission# #mQuotation#</td>
-	   </tr>
-	    <tr class="labelmedium2">
-	   <td colspan="2" style="height:40px;font-size:18px"><cf_tl id="Our Reference">:&nbsp;#get.RequestNo#</td>
-	   <td colspan="1" align="right" style="height:40px;font-size:18px"><cf_tl id="Date">:&nbsp;#dateformat(get.Created,client.dateformatshow)#</td>
+		   <td colspan="1" style="height:40px;font-size:10px">#vLogo#</td>
+		   <td colspan="2" align="right" style="height:40px;font-size:24px"><b><font size="4">#get.Mission#</font></b><br>#mQuotation#</td>
+	   </tr>	
+	   
+	   <tr class="labelmedium2">
+		   <td colspan="2" style="height:40px;font-size:18px"><cf_tl id="Our Reference">:&nbsp;#get.RequestNo#</td>
+		   <td colspan="1" align="right" style="height:40px;font-size:18px"><cf_tl id="Date">:&nbsp;#dateformat(get.Created,client.dateformatshow)#</td>
 	   </tr>
 	   
 	   <tr><td style="height:5px"></td></tr>
 	   
 	   <!--- top boxes --->
 	   <tr class="labelmedium2">
+		   
+		   <td style="border:0px solid silver;padding:5px;width:48%;height:100px;background-color:##BFECFB">
+		   	   
+		        <table class="formspacing">
+				    <tr class="labelmedium"><td style="background-color:##BFECFE;height:21px;padding-left:5px">#Mission.MissionName#</td></tr>
+					<tr class="labelmedium"><td style="background-color:##BFECFE;height:21px;padding-left:5px">#Warehouse.WarehouseName#</td></tr>
+					<tr class="labelmedium"><td style="background-color:##BFECFE;height:21px;padding-left:5px">#Warehouse.Address#</td></tr>
+					<tr class="labelmedium"><td style="background-color:##BFECFE;height:21px;padding-left:5px">#Warehouse.Contact# #Warehouse.EMailAddress#</td></tr>
+				</table>
+		   </td>
+		   <td style="width:4%"></td>
+		   <td style="border:0px solid silver;padding:5px;width:48%;height:100px;background-color:##e1e1e1">   
+		        <table>
+				    <tr class="labelmedium"><td style="height:25px;padding-left:5px"><cfif customer.customername neq "">#Customer.CustomerName#<cfelse><cf_tl id="On request"></cfif></td></tr>
+					<tr class="labelmedium"><td style="height:25px;padding-left:5px">#Customer.PostalCode#</td></tr>
+					<tr class="labelmedium"><td style="height:25px;padding-left:5px">#Customer.MobileNumber#</td></tr>
+					<tr class="labelmedium"><td style="height:25px;padding-left:5px">#get.CustomerMail#</td></tr>
+				</table>
+		   </td>
 	   
-	   <td style="border:0px solid silver;padding:5px;width:48%;height:100px;background-color:##BFECFB">
-	   	   
-	        <table class="formspacing">
-			    <tr class="labelmedium"><td style="background-color:##BFECFE;height:21px;padding-left:5px">#Mission.MissionName#</td></tr>
-				<tr class="labelmedium"><td style="background-color:##BFECFE;height:21px;padding-left:5px">#Warehouse.WarehouseName#</td></tr>
-				<tr class="labelmedium"><td style="background-color:##BFECFE;height:21px;padding-left:5px">#Warehouse.Address#</td></tr>
-				<tr class="labelmedium"><td style="background-color:##BFECFE;height:21px;padding-left:5px">#Warehouse.Contact# #Warehouse.EMailAddress#</td></tr>
-			</table>
-	   </td>
-	   <td style="width:4%"></td>
-	   <td style="border:0px solid silver;padding:5px;width:48%;height:100px;background-color:##e1e1e1">   
-	        <table>
-			    <tr class="labelmedium"><td style="height:25px;padding-left:5px"><cfif customer.customername neq "">#Customer.CustomerName#<cfelse><cf_tl id="On request"></cfif></td></tr>
-				<tr class="labelmedium"><td style="height:25px;padding-left:5px">#Customer.PostalCode#</td></tr>
-				<tr class="labelmedium"><td style="height:25px;padding-left:5px">#Customer.MobileNumber#</td></tr>
-				<tr class="labelmedium"><td style="height:25px;padding-left:5px">#get.CustomerMail#</td></tr>
-			</table>
-		  </td>
 	   </tr>
 	   
 	   <tr><td style="height:20px"></td></tr>
@@ -100,38 +115,99 @@ password="#SESSION.dbpw#">
 			        <td style="height:30px;padding-left:4px"><cf_tl id="No"></td>
 				    <td style="padding-left:4px"><cf_tl id="Item"></td>
 					<td style="width:200px"><cf_tl id="Description"></td>
+					<cfif form.image eq "Yes">	
+					<td><cf_tl id="Photo"></td>
+					</cfif>		
 					<td><cf_tl id="UoM"></td>
 					<td style="text-align:right;padding-right:4px"><cf_tl id="Price"></td>
 					<td style="text-align:right;padding-right:4px"><cf_tl id="Qty"></td>
 					<td style="text-align:right;padding-right:4px"><cf_tl id="Amount"></td>
 		     </tr>			  
 			 
-				 <cfquery name="Lines"
+			 <cfquery name="Lines"
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 					SELECT * 
-					FROM   CustomerRequestLine L INNER JOIN Item I ON I.ItemNo = L.ItemNo
-					WHERE  RequestNo       = '#form.Requestno#'						
-				</cfquery>
+					FROM   CustomerRequestLine L 
+					       INNER JOIN Item I ON I.ItemNo = L.ItemNo
+					WHERE  RequestNo = '#url.id1#'						
+			 </cfquery>				
 			 
 			 <cfloop query="Lines">
 			 
-			  <tr class="line labelit">
-			        <td style="height:30px;padding-left:4px">#currentrow#</td>
-				    <td style="padding-left:4px">#ItemNoExternal#</td>
-					<td style="width:200px">#ItemDescription#</td>
-					<td>#TransactionUoM#</td>
-					<td style="text-align:right;padding-right:4px">#numberformat(SalesUnitPrice,',.__')#</td>
-					<td style="text-align:right;padding-right:4px">#numberformat(TransactionQuantity,',.__')#</td>
-					<td style="text-align:right;padding-right:4px">#numberformat(SalesAmount,',.__')#</td>
-		     </tr>			 
+				  <cfif scheduleprice neq salesprice>
+					  <cfset span = "2">
+				  <cfelse>
+					  <cfset span = "1">
+				  </cfif>	 
 			 
+				  <tr class="line labelit">
+				  
+				        <td rowspan="#span#" style="height:30px;padding-left:4px">#currentrow#</td>
+					    <td rowspan="#span#" style="padding-left:4px">#ItemNoExternal#</td>
+						<td rowspan="#span#" style="width:200px">#ItemDescription#</td>
+						
+						<cfif form.image eq "Yes">	
+						
+						      <cfquery name="image" 
+								datasource="appsMaterials" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">	
+							  	  SELECT TOP 1 ImagePath 
+								  FROM   Materials.dbo.ItemImage 
+								  WHERE  ItemNo = '#ItemNo#'	
+							 </cfquery> 
+							 
+							 <td rowspan="#span#">
+							 <cfif image.recordcount gte "1">
+							 
+							 <cftry>
+					 
+							 <cfimage name="vImg" action="read" source="#session.rootDocument#/#image.ImagePath#"/>
+	         	    		 <cfset vImg  = "<img src='data:image/*;base64,#toBase64(vImg)#' style='border:1px solid silver;width:60px;height=40px'>">
+							 #vImg#						 						 
+							 <cfcatch></cfcatch>
+							 </cftry>
+							 
+							 </cfif>
+							 </td>							 
+						
+						</cfif>			
+						
+						<td>#TransactionUoM#</td>
+						<td style="text-align:right;padding-right:4px">#numberformat(TransactionQuantity,',.__')#</td>
+						
+						<cfif scheduleprice eq salesprice>	
+										
+							<td style="text-align:right;padding-right:4px">#numberformat(SalesUnitPrice,',.__')#</td>				
+							<td style="text-align:right;padding-right:4px">#numberformat(SalesAmount,',.__')#</td>
+							
+						<cfelse>		
+						
+							<!--- pending to adjust  if the price does not include tax --->			
+							<cfset sprice =  SchedulePrice * (1 / 1 - taxpercentage) > 
+							
+							<td style="height:33px;text-decoration: line-through;text-align:right;padding-right:4px">#numberformat(sprice,',.__')#</td>														
+							<td style="height:33px;text-decoration: line-through;text-align:right;padding-right:4px">#numberformat(sprice*transactionQuantity,',.__')#</td>
+						
+						</cfif>
+						
+			     </tr>		
+			 
+				 <cfif scheduleprice neq salesprice>
+					<tr class="labelit" style="border-bottom:1px solid gray;font-size:14px;">							
+						<td colspan="3" align="right" style="background-color:##D02032;color:white;width:100px;padding-right:4px"><cf_tl id="Your price"></td>									
+						<td style="background-color:##BFECFE;color:white;text-align:right;padding-right:4px">#numberformat(SalesUnitPrice,',.__')#</td>			
+						<td style="background-color:##BFECFE;color:white;text-align:right;padding-right:4px">#numberformat(SalesAmount,',.__')#</td>				
+					</tr>	
+				</cfif>				 
+							 
 			 </cfloop> 		
 			 
 			 <cfif get.Remarks neq "">
 			 
-			 <tr class="labelmedium2"><td colspan="7" style="padding-top:6px" align="center">#get.Remarks#</td></tr>
+			 <tr class="labelmedium2"><td colspan="8" style="padding-top:6px" align="center">#get.Remarks#</td></tr>
 			 </cfif>	  
 				  
 		   </table>
@@ -183,7 +259,7 @@ password="#SESSION.dbpw#">
 								         sum(SalesTax)    as Tax,
 										 sum(SalesTotal)  as Total				
 								FROM     CustomerRequestLine
-								WHERE    RequestNo       = '#form.RequestNo#'						
+								WHERE    RequestNo       = '#url.id1#'						
 					</cfquery>
 					
 					<tr><td style="height:4px"></td></tr>
@@ -195,7 +271,7 @@ password="#SESSION.dbpw#">
 					</tr>
 					<tr class="labelmedium">
 					    <td align="right" style="padding-right:10px" colspan="3"><cf_tl id="Tax"></td>
-						<td align="right" id="qtetax" style="font-size:18px;padding-right:4px;font-weight:xbold;border:1px solid silver">#numberformat(getTotal.Tax,',.__')#</td>
+						<td align="right" id="qtetax"   style="font-size:18px;padding-right:4px;font-weight:xbold;border:1px solid silver">#numberformat(getTotal.Tax,',.__')#</td>
 					</tr>
 					<tr class="labelmedium">
 					    <td align="right" style="padding-right:10px" colspan="3"><cf_tl id="Total"></td>
@@ -212,7 +288,8 @@ password="#SESSION.dbpw#">
 	   
 	   </table>
    
-   </td></tr>
+   </td>
+   </tr>
    
    <cfquery name="Text"
 	datasource="AppsMaterials" 
@@ -226,14 +303,16 @@ password="#SESSION.dbpw#">
 	</cfquery>
 	   
    <cfsavecontent variable="disclaimertext">
-	<table>
-	<tr><td style="font-size:13px">#Text.Transactionmemo#</td></tr>	
-	</table>
+	<table><tr><td style="font-size:13px">#Text.Transactionmemo#</td></tr></table>
    </cfsavecontent>
    
    <!--- footer --->
            
-   <tr class="labelmedium"><td align="center" valign="middle" style="padding-top:8px;border-top:1px solid silver;height:#pdiscla#px;font-size:13px">#disclaimertext#</td></tr>
+   <tr class="labelmedium">
+       <td align  = "center" 
+	       valign = "middle" 
+           style  = "padding-top:8px;border-top:1px solid silver;height:#pdiscla#px;font-size:13px">#disclaimertext#</td>
+   </tr>
 
 </table>
 

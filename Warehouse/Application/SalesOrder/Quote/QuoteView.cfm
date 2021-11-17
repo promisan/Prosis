@@ -2,7 +2,7 @@
 <cf_screentop height="99%" label="Quotation #URL.RequestNo#" html="No" layout="webapp" jquery="Yes" scroll="No">
 
 	<cfset url.scope = "Quote">
-			
+						
 	<cfquery name="Clear"
 		datasource="AppsMaterials"
 		username="#SESSION.login#"
@@ -20,7 +20,7 @@
 		WHERE RequestNo NOT IN (SELECT RequestNO FROM CustomerRequestLine)
 		AND  Created < getDate()-1		
 	</cfquery>
-			
+					
 	<cfquery name="Request"
 		datasource="AppsMaterials"
 		username="#SESSION.login#"
@@ -28,6 +28,7 @@
 		SELECT *
 		FROM   CustomerRequest
 		WHERE  Requestno = '#URL.Requestno#'
+		AND    CustomerId IN (SELECT Customerid FROM Customer)
 	</cfquery>
 	
 	<cfif Request.recordcount gte "1">
@@ -114,16 +115,17 @@
 						
 			</cf_layoutarea>		 
 		
-			<cf_layoutarea  position="left" name="box" collapsible="true" size="280" 
+			<cf_layoutarea  position="left" name="box" collapsible="true" size="300" 
 						splitter="true">
 			
-				<form name="quote" id="quote" style="width:100%;height:98%;padding-left:5px;padding-right:3px">
+				<form name="quote" id="quote" style="width:97%;height:98%;padding-left:5px;padding-right:3px">
 			
-				<table style="width:96%" align="center" class="formpadding">
+				<table style="width:98%" align="center" class="formpadding">
 				
-				<tr class="line labelmedium2" style="height:40px">
-				   <td style="font-size:20px"><cf_tl id="Quotation"></td>
-				   <td align="right" style="padding-right:4px;font-size:25px">#url.requestNo#</td>
+				<tr><td height="10"></td></tr>
+				<tr class="line labelmedium2" style="height:35px;background-color:f1f1f1;">
+				   <td style="font-size:17px;padding-left:10px;"><cf_tl id="Quotation"></td>
+				   <td align="right" style="padding-right:4px;font-size:20px">#url.requestNo#</td>
 			    </tr>
 				
 				<tr><td style="height:10px"></td></tr>
@@ -164,10 +166,12 @@
 				      <td><cf_tl id="Time">:</td>
 				      <td>#dateformat(Request.Created,client.dateformatshow)# #timeformat(Request.Created,"HH:MM")#</td>
 				</tr>
-												
-				<tr class="labelmedium2" style="height:20px">
-				      <td colspan="2" style="font-weight:normal;font-size:20px"><cf_tl id="About this request">:</td>				    
+				
+				<tr><td style="height:10px"></td></tr>								
+				<tr class="labelmedium2 line" style="background-color:f1f1f1;height:35px">
+				      <td colspan="2" style="padding-left:10px;font-size:17px"><cf_tl id="About this request">:</td>				    
 				</tr>
+				<tr><td style="height:10px"></td></tr>
 				
 				<cfset apply = "ptoken.navigate('#session.root#/warehouse/application/salesOrder/Quote/setQuote.cfm?requestNo=#request.RequestNo#','process','','','POST','quote')">
 				
@@ -281,7 +285,9 @@
 		
 	<cfelse>
 	
-		<table><tr><td>Not found</td></tr></table>		
+		<table style="height:100%;width:100%">
+		<tr class="labelmedium2"><td align="center">This quote is not found or does not have a customer set</td></tr>
+		</table>		
 	
 	</cfif>
 	

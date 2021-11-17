@@ -1,6 +1,8 @@
 
 <cf_screentop height="100%" label="Financial Statement" scroll="no" html="No" jquery="Yes" busy="busy10.gif">
 
+<cfajaximport tags="cfdiv,cfform">
+
 <!--- blockEvent="rightclick" --->
 
 <cfquery name="MissionSelect" 
@@ -171,8 +173,6 @@ WHERE   Mission = '#URL.Mission#'
 
 </cfoutput>
 
-
-
 <cfoutput>
 
 <cf_LayoutScript>
@@ -256,7 +256,8 @@ WHERE   Mission = '#URL.Mission#'
 								
 						<td>		
 													
-							<select name="report" id="report" style="background-color:f1f1f1;border:0px;width:200px;font-size:18px;height:30px" class="regularxxl" size="1" onChange="transactionperiod()">
+							<select name="report" id="report" style="background-color:f1f1f1;border:0px;width:200px;font-size:18px;height:30px" class="regularxxl" size="1"
+							  onChange="Prosis.busy('yes');transactionperiod()">
 							    
 								<OPTION value="pl"      <cfif URL.report is "pl">selected</cfif>> <cf_tl id="Income Statement">
 								<OPTION value="balance" <cfif URL.report is "balance">selected</cfif>> <cf_tl id="Balance Sheet">
@@ -274,8 +275,10 @@ WHERE   Mission = '#URL.Mission#'
 						
 			<tr><td height="100%" style="padding-left:14px">
 			
-			<cf_divscroll style="text-align: center;height:100%" id="boxtransactionperiod">				   
+			<cf_divscroll style="text-align: center;height:100%" id="boxtransactionperiod">			
+			   
 					<cfinclude template="getTransactionPeriod.cfm">				
+			
 			</cf_divscroll>	
 			
 			</td>

@@ -18,26 +18,26 @@ password="#SESSION.dbpw#">
 	ORDER BY PostalCode
 </cfquery>
 	    
-<table width="99%" class="navigation_table">   
+<table width="98%" class="navigation_table">   
 							
-	<TR class="labelmedium line fixrow">
+	<TR class="labelmedium2 line fixrow fixlengthlist">
 	    <td height="17"></td>					    
 	    <TD><cf_tl id="Code"></TD>
 		<TD><cf_tl id="Location"></TD>
-		<td align="right" style="padding-right:5px"><cf_tl id="Country"></td>
+		<td align="right"><cf_tl id="Country"></td>
 	</TR>
 	
 	<CFOUTPUT query="SearchResult">
 			
 		<cfset des = Replace(Location,'"','','ALL')>
 														
-		<TR class="labelmedium line navigation_row" style="height:20px" onClick="<cfif searchresult.recordcount lte '10'>zipselected('#PostalCode#','#Location#','#Country#')</cfif>" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F1E7AB'))#">
-			<td width="60" height="20" align="center" style="padding-top:5px">		
+		<TR class="labelmedium2 line navigation_row fixlengthlist" style="height:20px" onClick="<cfif searchresult.recordcount lte '10'>zipselected('#PostalCode#','#Location#','#Country#')</cfif>" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('ffffaf'))#">
+			<td  height="20" align="center" style="padding-top:1px">		
 				<cf_img icon="select" class="navigation_action" onClick="zipselected('#PostalCode#','#Location#','#Country#')">				   
 			</td>
-			<TD width="70">#PostalCode#</TD>
+			<TD>#PostalCode#</TD>
 			<TD>#Location#</TD>
-			<TD align="right" style="padding-right:5px">#Country#</TD>			
+			<TD align="right">#Country#</TD>			
 		</TR>
 					
 	</CFOUTPUT>

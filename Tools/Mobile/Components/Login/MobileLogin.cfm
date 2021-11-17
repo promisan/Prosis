@@ -56,16 +56,20 @@
 									method="post"
 									onsubmit="$('.clsLoginLocalResult').html('<img style=height:20px; src=#session.root#/Portal/Mobile/Images/busyW8.gif>');" >
 		                            <div class="form-group">
-		                                <label class="control-label" for="account">Username</label>
-		                                <input type="text" placeholder="Type your username" title="Please enter your username" required="" value="" name="account" id="account" class="form-control">
+		                                <label class="control-label" for="account"><cf_tl id="Username"></label>
+										<cf_tl id="Type your username" var="lblph">
+										<cf_tl id="Please enter your username" var="lbltitle">
+		                                <input type="text" placeholder="#lblph#" title="#lbltitle#" required="" value="" name="account" id="account" class="form-control">
 		                                <!--- <span class="help-block small">Your unique username to app</span> --->
 		                            </div>
 		                            <div class="form-group">
-		                                <label class="control-label" for="password">Password</label>
-		                                <input type="password" title="Please enter your password" placeholder="Type your password" required="" value="" name="password" id="password" class="form-control">
+		                                <label class="control-label" for="password"><cf_tl id="Password"></label>
+										<cf_tl id="Please enter your password" var="lbltitle2">
+										<cf_tl id="Type your password" var="lblph2">
+		                                <input type="password" title="#lbltitle2#" placeholder="#lblph2#" required="" value="" name="password" id="password" class="form-control">
 		                                <!--- <span class="help-block small">Your strong password</span> --->
 		                            </div>
-		                            <button class="btn btn-block clsProsisDrk">Login</button>
+		                            <button class="btn btn-block clsProsisDrk"><cf_tl id="Login"></button>
 		                            <!--- <a class="btn btn-default btn-block" href="#">Register</a> --->
 		                        </form>
 							</cfoutput>

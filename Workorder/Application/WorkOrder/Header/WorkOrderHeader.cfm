@@ -38,9 +38,9 @@
 <cfform method="POST" name="workorderform" style="height:100%;width:100%">   	  
 
 <cfif init eq "1">
-<table width="95%" border="0" align="center">
+<table width="95%" align="center">
 <cfelse>
-<table width="95%" border="0" align="center">
+<table width="95%" align="center">
 
 </cfif>
 
@@ -117,7 +117,7 @@
 		<tr>
 			<td height="20" class="labelmedium" style="border:0px dotted c4c4c4;padding-left:8px"><cf_tl id="Implementer(s)">:<cf_space spaces="63"></td>
 			<td width="80%" style="border:1px dotted c4c4c4;">
-				<cfdiv id="divImplementers" bind="url:../Implementer/Implementer.cfm?workOrderId=#get.workOrderId#">
+				<cf_securediv id="divImplementers" bind="url:../Implementer/Implementer.cfm?workOrderId=#get.workOrderId#">
 			</td>
 		</tr>
 		
@@ -130,7 +130,7 @@
 		    <td class="labelmedium" valign="top" style="padding-top:3px;padding-left:8px"><cf_tl id="Progress">:</td>
 			--->
 		    <td style="padding:0px;" colspan="1"></td>
-			<td style="padding-right:20px">			
+			<td style="padding-right:20px">					
 			<cf_workorderlines workorderid="#get.workorderid#">			
 			</td>
 		</tr>

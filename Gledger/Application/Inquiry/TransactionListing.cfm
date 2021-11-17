@@ -43,7 +43,7 @@ password="#SESSION.dbpw#">
 <tr>
 <TD height="30">
 
-<select name="filter" id="filter" size"1" class="regularxl" onChange="javascript:reloadForm(this.value,document.getElementById('group').value,document.getElementById('page').value)">    
+<select name="filter" id="filter" size"1" class="regularxxl" onChange="javascript:reloadForm(this.value,document.getElementById('group').value,document.getElementById('page').value)">    
     <option value="All" <cfif "All" is '#URL.ID2#'>selected</cfif>>All</option>
     <cfoutput query="AccountGroup">
 	<option value="#AccountGroup#" <cfif AccountGroup is URL.ID2>selected</cfif>>
@@ -52,7 +52,7 @@ password="#SESSION.dbpw#">
 	</cfoutput>	
 </select>
 
-<select name="group" id="group" size="1" class="regularxl" onChange="javascript:reloadForm(document.getElementById('filter').value,this.value,document.getElementById('page').value)">
+<select name="group" id="group" size="1" class="regularxxl" onChange="javascript:reloadForm(document.getElementById('filter').value,this.value,document.getElementById('page').value)">
      <option value="Journal" <cfif URL.ID eq "Journal">selected</cfif>><cf_tl id="by Journal">
      <OPTION value="AccountGroup" <cfif URL.ID eq "AccountGroup">selected</cfif>><cf_tl id="by AccountGruop">
      <OPTION value="TransactionDate" <cfif URL.ID eq "TransactionDate">selected</cfif>><cf_tl id="by Transaction Date">
@@ -64,7 +64,7 @@ password="#SESSION.dbpw#">
 <td align="right" style="padding-right:5px">
 
      <cf_PageCountN count="#counted#">
-     <select name="page" id="page" size="1" style="color: gray;" class="regularxl"
+     <select name="page" id="page" size="1" style="color: gray;" class="regularxxl"
             onChange="javascript:reloadForm(document.getElementById('filter').value,document.getElementById('group').value,this.value)">
 	     <cfloop index="Item" from="1" to="#pages#" step="1">
                <cfoutput><option value="#Item#"<cfif #URL.page# eq "#Item#">selected</cfif>>Page #Item# of #pages#</option></cfoutput>
@@ -83,6 +83,7 @@ password="#SESSION.dbpw#">
 <cfelse>
 
 	<cfset pages = 1>
+	<cfset url.grouping = url.id>
 	<cfinclude template="TransactionListingLines.cfm">
 	
 </cfif>	

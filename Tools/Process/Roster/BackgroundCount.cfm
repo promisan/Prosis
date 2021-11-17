@@ -1,7 +1,7 @@
 <cfparam name="Attributes.ExperienceClass"	default="">
 <cfparam name="Attributes.ApplicantNo"		default="">
 <cfparam name="Attributes.ExperienceId"		default="">
-<cfparam name="Attributes.Color"			default="ffffef">
+<cfparam name="Attributes.Color"			default="ffffaf">
 <cfparam name="Attributes.Join"				default="Yes">
 <cfparam name="Attributes.Mode"				default="Display">
 
@@ -33,42 +33,63 @@ password="#SESSION.dbpw#">
 </cfquery>	
 			
 <cfoutput>
+
 <cfif qResult.recordcount neq 0>
+
 		<cfif attributes.mode eq "Display">
-		<table width="100%">
+		<table width="97%">
 		</cfif>
+		
 		<cfloop query = "qResult">
+		
 		<cf_MonthsToYears Months = "#qResult.Total#">
-			<cfif attributes.mode eq "Display">
-			
-		   <cfif Attributes.ExperienceId neq "" or Attributes.ExperienceClass neq "">
-		   		<cfif qResult.Description neq "">
-					<cfset vDescription = qResult.Description>
-					<cfset vDisplay = 1>
+		
+		   <cfif attributes.mode eq "Display">
+				
+			   <cfif Attributes.ExperienceId neq "" or Attributes.ExperienceClass neq "">
+			   		<cfif qResult.Description neq "">
+						<cfset vDescription = qResult.Description>
+						<cfset vDisplay = 1>
+					<cfelse>
+						<cfset vDisplay = 0>	
+					</cfif>	
 				<cfelse>
-					<cfset vDisplay = 0>	
-				</cfif>	
-			<cfelse>
-				<cfset vDescription = "Overall relevant work experience:">
-				<cfset vDisplay = 1>
-			</cfif>
+					<cfset vDescription = "Relevant work experience:">
+					<cfset vDisplay = 1>
+				</cfif>
 			
-			<cfif vDisplay eq 1>
-			 <tr class="labelit" bgcolor="#Attributes.Color#">				
-				<td width="80%">
-					- #vDescription#:
-				</td>					
-				<td width="20%" align="right" style="padding-left:5px;">
-					<cfif years gt 0>
-			   			#years#yr <!--- <cfif years gt 1>s</cfif> --->
-					</cfif>
-	
-					<cfif months gt 0>
-						#months#mt <!--- <cfif months gt 1>s</cfif> --->
-					</cfif>
-				</td>
-			</tr>
-			</cfif>
+				<cfif vDisplay eq 1>
+				
+				 <cfif Attributes.ExperienceClass eq "" and Attributes.ExperienceId eq "">
+				 <tr class="labelmedium2 fixlengthlist">				
+					<td width="50%">#vDescription#:</td>					
+					<td width="40%" align="center" style="border:1px solid silver;background-color:f1f1f1;font-size:18px;padding-left:5px;">
+						<cfif years gt 0>
+				   			<b>#years#</b> yr<cfif years gt 1>s</cfif>
+						</cfif>
+		
+						<cfif months gt 0>
+							<b>#months#</b> mth<cfif months gt 1>s</cfif>
+						</cfif>
+					</td>
+				</tr>
+				<cfelse>
+				 <tr class="labelmedium2 fixlengthlist">				
+					<td width="50%">#vDescription#:</td>					
+					<td width="40%" align="center" style="background-color:f4f4f4;font-size:14px;padding-left:5px;">
+						<cfif years gt 0>
+				   			<b>#years#</b> yr<cfif years gt 1>s</cfif>
+						</cfif>
+		
+						<cfif months gt 0>
+							<b>#months#</b> mth<cfif months gt 1>s</cfif>
+						</cfif>
+					</td>
+				</tr>
+				
+				</cfif>
+				</cfif>
+				
 			<cfelse>
 				<cfset Caller.years  = years>
 				<cfset Caller.months = months>

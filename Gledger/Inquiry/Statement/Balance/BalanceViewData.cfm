@@ -1,14 +1,14 @@
     
   <cfif form.layout neq "corporate">
   
-  <TR class="navigation_row linedotted" onclick="#vParentOnClick#">
-	  <td colspan="3" style="padding-left:10px;width:100%"></td>
+  <TR class="navigation_row linedotted fixrow fixlengthlist" onclick="#vParentOnClick#">
+	  <td colspan="3" style="background-color:white;padding-left:10px;"></td>
 	  
 	  <cfoutput>
 	  
 		  <cfloop index="itm" list="#nodelist#" delimiters=",">
 		  
-		  <td class="labellarge" align="right" style="border:1px dotted gray;padding-right:3px"><cf_space spaces="22">
+		  <td class="labellarge" align="right" style="min-width:70px;border:1px dotted gray;padding-right:3px">
 		  
 			  <cfif form.layout eq "owner">
 			  
@@ -59,11 +59,10 @@
 		<cfset vGroupVisible = "display:none;">
 	</cfif>
 	 
-	<TR class="navigation_row linedotted" onclick="#vParentOnClick#">
+	<TR class="navigation_row linedotted fixlengthlist labelmedium2" onclick="#vParentOnClick#">
 	  <td style="padding-left:10px"></td>
-	  <td style="width:100;padding-right:10px" class="labellarge">#AccountParent#</td>
-	  <td class="labellarge" style="width:100%">#AccountParentDescription#</td>
-	  
+	  <td colspan="2" style="height:30px;width:100;padding-right:10px;font-size:18px;font-weight:bold" class="labellarge">#AccountParent# #AccountParentDescription#</td>
+	  	  
 	   <cfif form.layout neq "corporate">
 	 
 		   <cfloop index="itm" list="#nodelist#" delimiters=",">
@@ -88,7 +87,7 @@
 				  </cfif>	  
 			  </cfquery>		  			
 		   			
-			<td class="labellarge" align="right" style="border:1px dotted gray;padding-right:3px">
+			<td class="labellarge" align="right" style="font-size:<cfif history eq 'transactionperiod'>14px<cfelse>18px</cfif>;border:1px dotted gray;padding-left:6px;padding-right:3px;font-weight:bold">
 							
 					<cfif data.total eq "">
 						-
@@ -106,7 +105,7 @@
 	
 	  <cfelse> <!--- total only if periods are not shown, because this is running balance --->
 	 
-		  <td align="right" class="labelmedium">
+		  <td align="right" class="labelmedium" style="font-zise:18px">
 		  
 			  <cfif evaluate(Parent.total) lte "0">
 			  <font color="FF0000">(#NumberFormat(-Parent.total,'#frm#')#)</font>
@@ -152,11 +151,10 @@
 				
 			</cfif>
 				
-			<TR class="clsDetail_#field#_#vAccountParentId# navigation_row linedotted" bgcolor="##e8e8e8" onclick="#vGroupOnClick#" style="#vGroupVisible#">
+			<TR class="clsDetail_#field#_#vAccountParentId# navigation_row linedotted fixlengthlist labelmedium2"  onclick="#vGroupOnClick#" style="#vGroupVisible#">
 		   	  <td style="padding-left:10px"></td>
-		  	  <td style="height:23px;width:100;padding-left:6px" class="labellarge"><cfif form.aggregation is "detail"></cfif>#AccountGroup#</b></td>
-			  <td class="labellarge" ><cfif form.aggregation is "detail"></cfif>#AccountGroupDescription#</td>
-			  
+		  	  <td colspan="2" style="height:23px;width:100;padding-left:6px;background-color:##e8e8e880"><cfif form.aggregation is "detail"></cfif>#AccountGroup# #AccountGroupDescription#</td>
+			 			  
 			   <cfif form.layout neq "corporate">
 	 
 				   <cfloop index="itm" list="#nodelist#" delimiters=",">
@@ -181,7 +179,7 @@
 						</cfif>	
 					  </cfquery>
 				   			
-					<td class="labellarge" align="right" style="border:1px dotted gray;padding-right:3px">
+					<td align="right" style="border:1px dotted gray;padding-right:3px">
 							<font color="808080">			
 							<cfif data.total eq "">
 								-
@@ -200,7 +198,7 @@
 			  <cfelse>
 			  
 			      <!--- Show total only if periods are not shown, because this is running balance --->
-				  <td align="right" style="width:100;padding-right:10px; background-color:##d4d4d4;" class="labellarge">	
+				  <td align="right" style="width:100;padding-right:10px; background-color:##d4d4d480;">	
 				  	<cfif Group.subtotal lt 0>
 						<font color="FF0000">#NumberFormat(evaluate("Group.subtotal"),'(_,____)')#</font>
 					<cfelse>
@@ -217,13 +215,11 @@
 					
 		   <!--- <cfif form.aggregation is "detail"> --->
 			
-				<tr class="clsDetail_#field#_#vAccountGroupId# navigation_row linedotted labellarge" style="#vDetailVisible#">
+				<tr class="clsDetail_#field#_#vAccountGroupId# navigation_row linedotted labelmedium2 fixlengthlist" style="#vDetailVisible#">
 				    <td style="padding-left:5px"></td>
 			    	
-					<td style="width:100;padding-left:10px;padding-right:10px" class="labellarge">#GLAccount#</td>
+					<td colspan="2" style="width:100;padding-left:10px;padding-right:10px">#GLAccount# #Description#</td>
 				    
-					<td style="padding-left:5px" class="labellarge">#Description#</td>
-					
 					<cfif form.layout neq "corporate">
 					
 						<cfset sum = "0">
@@ -256,7 +252,7 @@
 								<cfset sc = "showledger('#URL.mission#','',document.getElementById('period').value,'#GLAccount#','#itm#','','tab')">						    
 							</cfif>	
 																	
-							<td class="labellarge" align="right" style="padding-left:10px;border:1px solid e4e4e4;padding-right:8px"
+							<td align="right" style="padding-left:10px;border:1px solid e4e4e4;padding-right:8px"
 							 onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='transparent'" onclick="#sc#">
 								
 								<cfif data.total eq "">
@@ -315,12 +311,12 @@
  
  	<!--- ---------- --->
 	<!--- total line --->
-	<!--- ---------- --->
+	<!--- ---------- 
 	
-	<tr bgcolor="e4e4e4" class="linedotted navigation_row">	
+	<tr bgcolor="e4e4e4" class="linedotted navigation_row fixlengthlist">	
 		  
 		  <td></td>
-		  <td class="labelmedium" colspan="2" style="padding-left:4px;padding-right:3px"><CFIF field EQ "Debit"><cf_tl id="Total"> <b><cf_tl id="Assets"><cfelse>Total <b><cf_tl id="Liabilities"></cfif></td>
+		  <td class="labelmedium2" colspan="2" style="padding-left:4px;padding-right:3px"><CFIF field EQ "Debit"><cf_tl id="Total"> <b><cf_tl id="Assets"><cfelse><cf_tl id="Total"> <b><cf_tl id="Liabilities"></cfif></td>
 		 
 		  <cfif form.layout neq "corporate">
 		 
@@ -346,7 +342,7 @@
 						AND    Panel = '#field#'
 					</cfquery>
 				
-				<td class="labelmedium" align="right" style="padding-left:10px;border:1px dotted gray;padding-right:3px"><font color="808080">
+				<td class="labelmedium2" align="right" style="padding-left:10px;border:1px dotted gray;padding-right:3px"><font color="808080">
 				
 					<cfoutput>
 						<cfif Data.total lt 0>
@@ -361,7 +357,7 @@
 		  
 		  <cfelse>  <!--- Show total only if periods are not shown, because this is running balance --->
 		  
-			    <td class="labelmedium" align="right" style="padding-left:10px;padding-right:3px">
+			    <td class="labelmedium2" align="right" style="padding-left:10px;padding-right:3px">
 			  	<cfoutput>
 					<cfif field eq "Debit">
 					
@@ -386,6 +382,8 @@
 		  </cfif>					
 			
 	 </tr>	
+	 
+	 --->
  
     <!--- ------------------ --->
  	<!--- Profit / Loss line --->
@@ -398,7 +396,7 @@
 		<!---<cfif dbt lt crt>--->
 			 <tr bgcolor="#FED7CF">
 			 	<td></td>
-			  	<td height="15" colspan="2"  style="height:35px;padding-left:4px" class="labelmedium"><cfoutput>#Parameter.StatementLabelLoss#</cfoutput></td>
+			  	<td colspan="2"  style="height:25px;padding-left:4px" class="labelmedium2"><cfoutput>#Parameter.StatementLabelLoss#</cfoutput></td>
 				 
 			   <cfif form.layout neq "corporate">
 			   
@@ -420,12 +418,11 @@
 								WHERE   AccountPeriod     <= '#itm#'	
 								</cfif>		
 							</cfif>				
-						</cfquery>	
-									
+						</cfquery>									
 						
 						<cfif data.total gte "0">	
 						   				
-						<td class="labellarge" bgcolor="red" align="right" style="border:1px dotted gray;padding-right:3px">
+						<td class="labelmedium2" bgcolor="red" align="right" style="font-size:<cfif history eq 'transactionperiod'>14px<cfelse>18px</cfif>;border:1px dotted gray;padding-right:3px">
 							<cfoutput>
 							<font color="white">#NumberFormat(Data.Total,'_,____')#</font>
 							</cfoutput>
@@ -442,12 +439,11 @@
 			   <cfelse>  <!--- Show total only if periods are not shown, because this is running balance --->
 			   
 					<cfif dbt lt crt>
-					<td bgcolor="red" width="100" style="border:1px dotted gray;padding-right:3px; color:white;" align="right" class="labellarge">
+					<td bgcolor="red" width="100" style="font-size:23px;border:1px dotted gray;padding-right:3px; color:white;" align="right" class="labelmedium2">
 						<cfoutput>#NumberFormat(crt-dbt,'#frm#')#</cfoutput>
 					</td>
 					<cfelse>
-					<td>
-					</td>
+					<td></td>
 					</cfif>
 			   
 			   </cfif>
@@ -464,7 +460,7 @@
 		  	<td></td>
 			
 			<td colspan="2" class="labelmedium" style="padding-left:4px">
-			  	<cfoutput>#Parameter.StatementLabelProfit#</cfoutput></b></font>
+			  	<cfoutput>#Parameter.StatementLabelProfit#</cfoutput></font>
 			</td>
 			
 			 <cfif form.layout neq "corporate">
@@ -495,7 +491,7 @@
 						
 										   		
 						<cfif data.total gte "0">	   				 
-						<td class="labellarge" bgcolor="green" align="right" style="height:35px;border:1px dotted gray;padding-right:3px">
+						<td class="labellarge" bgcolor="green" align="right" style="height:25px;border:1px dotted gray;padding-right:3px">
 							<font color="white">											
 							<cfoutput>#NumberFormat(Data.Total,'_,____')#</cfoutput>
 							</font>

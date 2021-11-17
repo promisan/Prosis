@@ -27,7 +27,7 @@
 <cfset fileNo = 1>
 
 <!--- prepare temp variables, is not really needed for this mode --->
-<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparationVars.cfm">	
+<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparation.cfm">
 
 <cfset sc = listquery>			
 <!--- convert reserved words in the query string like @user --->

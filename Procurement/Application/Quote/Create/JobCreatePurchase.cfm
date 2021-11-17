@@ -10,7 +10,7 @@
 	  WHERE  Mission = '#URL.Mission#'
 </cfquery>
 
-<cfform method="POST" name="poform" style="height:100%">
+<cfform method="POST" name="poform" style="width:100%;height:100%">
 
 	<table width="100%" style="height:100%">
 		
@@ -111,7 +111,7 @@
 					
 			</cfif>
 					
-			<tr id="add">
+			<tr id="add" class="labelmedium2">
 			
 			   <td class="labelmedium2"><cf_tl id="Class">:</td>
 			   
@@ -209,7 +209,7 @@
 			
 			</cfif>		
 						
-			   <td class="labelmedium2" style="padding-left:10px;padding-right:10px"><cf_tl id="Order Type">:</b></td>
+			   <td class="fixlength labelmedium2" style="padding-left:5px"><cf_tl id="Type">:</td>
 			   <td>
 			   
 			   <select name="Ordertype" id="Ordertype" class="regularxxl enterastab">
@@ -220,7 +220,7 @@
 				 
 			   </td>
 				
-			   <td class="labelmedium2" style="padding-left:10px;padding-right:10px"><cf_tl id="Issue"> <cf_tl id="Currency">:</b></td>
+			   <td class="fixlength labelmedium2" style="padding-left:5px"><cf_tl id="Currency">:</td>
 			   <td id="currencybox">
 			   
 			   <cfquery name="CurrencyList" 
@@ -240,7 +240,7 @@
 				 
 			   </td>
 			   
-			   <td style="padding-left:10px;padding-right:10px"><cf_tl id="Unit">:</td>
+			   <td class="fixlength"  style="padding-left:5px"><cf_tl id="Unit">:</td>
 			   <td>
 			   
 			   <cfquery name="Root" 
@@ -379,7 +379,7 @@
 			
 		<tr><td style="height:100%;border:0px solid silver" colspan="2" valign="top">
 										
-		<cfdiv id="popending" style="height:100%"
+		<cf_securediv id="popending" style="height:100%"
 		    bind="url:SelectLines.cfm?mode=quick&mission=#url.mission#&period={period}">	
 							
 		</td></tr>

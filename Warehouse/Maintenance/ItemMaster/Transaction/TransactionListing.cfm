@@ -13,6 +13,8 @@
 	AND        T.ItemNo     = '#URL.ItemNo#'  		
     </cfsavecontent>
 </cfoutput>
+
+<cfset url.webapp = "backoffice">
 		
 <!--- get the records to be shown by saving them in a temp table for showing --->
 	

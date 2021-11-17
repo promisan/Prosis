@@ -123,11 +123,11 @@
 	
 <table width="97%" align="left" class="navigation_table">
 
-	<tr class="labellarge line fixrow">
-	    <td width="5%"></td>
-	    <TD><cf_tl id="Account"></TD>
-		<TD><cf_tl id="Memo"></TD>		
-		<TD align="center" width="5%">M</TD>
+	<tr class="labellarge line fixrow fixlengthlist">
+	    <td></td>
+	    <TD><cf_tl id="Group"></TD>
+		<TD><cf_tl id="Account"></TD>		
+		<TD align="center">M</TD>
 		<TD><cf_tl id="Officer"></TD>
 	    <TD><cf_tl id="Created"></TD>
 		<TD></TD>	
@@ -181,13 +181,13 @@
 				
 		<cfoutput group = "AccountGroupName">		
 			
-			<tr class="fixrow2 navigation_row labelmedium2">
+			<tr class="fixrow2 navigation_row labelmedium2 fixlengthlist">
 			
-			<td colspan="8" style="height:31px;padding-top:5px;padding-left:27px;font-size:16px;">#AccountGroupName#</td></tr>						
+			<td colspan="8" title="#AccountGroupName#" style="height:31px;padding-top:5px;padding-left:27px;font-size:16px;">#AccountGroupName#</td></tr>						
 												
 				<cfoutput>
 												
-				<TR bgcolor="white" class="navigation_row line labellarge">
+				<TR bgcolor="white" class="navigation_row line labellarge fixlengthlist">
 					<td align="center" style="padding-left:40px;padding-top:8px">				
 					    <cf_img icon="expand" toggle="yes" onclick="more('#Account#','#currentRow#')">														
 					</td>
@@ -198,20 +198,20 @@
 						<cfset ref = replaceNoCase(LastName, url.search,"<u><font color='6688aa'>#url.search#</font></u>", "ALL")> 
 					<cfelse>
 					    <cfset ref = LastName>	
-					</cfif>
-					#ref#	
+					</cfif>										
+														
+					<span title="#ref#">#ref#</span>				
 					
-					<cfif url.search neq "">
-							<cfset ref = replaceNoCase(Account, url.search,"<u><font color='6688aa'>#url.search#</font></u>", "ALL")> 
-						<cfelse>
-						    <cfset ref = Account>	
-						</cfif>					
-						(#ref#)		
-									
 					</a>
 					</TD>
+					
+					<cfif url.search neq "">
+							<cfset sub = replaceNoCase(Account, url.search,"<u><font color='6688aa'>#url.search#</font></u>", "ALL")> 
+						<cfelse>
+						    <cfset sub = Account>	
+						</cfif>		
 										
-					<TD style="padding-right:4px">#left(Remarks,70)#</TD>
+					<TD style="padding-right:4px">#sub#</TD>
 					<td align="center" style="padding-right:8px">#Members#</td>
 					<TD style="font-size:13px">#OfficerLastName#</TD>
 					<TD style="font-size:13px">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
@@ -219,6 +219,13 @@
 						<cf_img icon="delete" onclick="purgegroup('#account#')">		   			
 					</TD>
 				</TR>	
+				
+				<cfif remarks neq "">
+				
+				<tr class="fixrow2 navigation_row_child labelmedium2"><td colspan="7">#remarks#</td></tr>
+				
+				</cfif>
+				
 					
 				<tr id="#CurrentRow#" class="hide">
 				        <td></td>

@@ -1137,11 +1137,11 @@ password="#SESSION.dbpw#">
 							SELECT   SL.PersonNo,
 							         SL.Currency, 
 									 SL.Amount, 
-									 (SELECT GLAccount 
-									 FROM   Accounting.dbo.TransactionLine
-									 WHERE  Journal = H.Journal
-									 AND    JournalSerialNo = H.JournalSerialNo
-									 AND    TransactionSerialNo = '1') as OffsetGLAccount,
+									 (SELECT TOP 1 GLAccount 
+									  FROM   Accounting.dbo.TransactionLine
+									  WHERE  Journal = H.Journal
+									  AND    JournalSerialNo = H.JournalSerialNo
+									  AND    TransactionSerialNo >= '1'  ) as OffsetGLAccount,
 									 SL.GLAccountLiability, 
 							         H.Journal         as OffsetJournal, 
 									 H.JournalSerialNo as OffsetJournalSerialNo, 
@@ -1164,8 +1164,7 @@ password="#SESSION.dbpw#">
 							AND      SL.SettlementPhase    = '#refno#'
 							AND      SL.PaymentStatus      = '0' 										
 							AND      SL.Source = 'Offset' 	
-								 
-							
+														
 						</cfquery>	
 						
 						<!--- we create one transaction header with offset lines --->

@@ -50,9 +50,9 @@
 		#getRequest.Source#				
 	</td>		
 		
-	<td style="min-width:80px;border-right:0px solid gray">	
+	<td style="min-width:90px;border-right:0px solid gray">	
 		
-	<select name="RequestNo"  id="RequestNo" style="text-align:center;font-size:19px;height:100%;width:100%;border:0px;" class="regularXXL" 
+	<select name="RequestNo"  id="RequestNo" style="text-align:center;font-size:19px;height:100%;min-width:100%;border:0px;" class="regularXXL" 
 	onchange="ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/POS/sale/applyCustomer.cfm?requestNo='+this.value+'&mission=#getRequest.Mission#&warehouse=#getRequest.warehouse#&category=&itemno=&search=&customerid='+document.getElementById('customeridselect').value+'&addressid=#getRequest.AddressId#','customerbox')">													
 		<cfloop query="RequestNos">
 			<option value="#RequestNo#" <cfif url.requestNo eq RequestNo>selected</cfif>>#RequestNo#</option>

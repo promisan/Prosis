@@ -30,7 +30,7 @@
 	     }
 			 	 	 		 	
 		 if (fld != false){			 
-			 itm.className = "highLight2 labelmedium";
+			 itm.className = "highLight2 labelmedium2 fixlengthlist";
 			 try {		
 			 document.getElementById("val_"+id).className = "regular3 enterastab"
 			 document.getElementById("exc_"+id).className = "regular3 enterastab"
@@ -38,7 +38,7 @@
 			 } catch(e) {}
 			 
 		 } else {			    
-			 itm.className = "regular labelmedium";		
+			 itm.className = "regular labelmedium2 fixlengthlist";		
 			 try {
 			 document.getElementById("val_"+id).className = "hide"
 			 document.getElementById("exc_"+id).className = "hide"
@@ -131,17 +131,17 @@
 				<cfset wd = "54">
 				<cfset ht = "54">
 			
-				<cf_tl id="Manual Transaction Entry" var="1">
+				<cf_tl id="Manual Transaction" var="1">
 				
 				<cfset itm = "1">
 				
 				<tr class="line">
-					
+									
 				<cf_menutab item       = "#itm#" 
 				            iconsrc    = "Manual-Entry.png" 
 							iconwidth  = "#wd#" 
 							iconheight = "#ht#" 
-							padding    = "2"
+							padding    = "5"
 							class      = "highlight1"
 							targetitem = "1"
 							name       = "#lt_text#"
@@ -173,7 +173,7 @@
 				
 					<cfset itm = itm+1>	
 								
-					<cf_tl id="Select Pending Payable Transactions" var="1">			
+					<cf_tl id="Pending Payables" var="1">			
 					
 					<tr class="line">		
 									
@@ -182,7 +182,7 @@
 								iconwidth  = "#wd#" 
 								iconheight = "#ht#" 
 								targetitem = "2"
-								padding    = "2"
+								padding    = "5"
 								name       = "#lt_text#"
 								source     = "TransactionDetailPayment.cfm?journal=#url.journal#">
 					 </tr>
@@ -191,14 +191,14 @@
 				
 				<cfset itm = itm+1>	
 					
-				<tr class="line">			
+				<tr class="line" style="position: sticky; top: 180px;">			
 				<cf_menutab item       = "#itm#" 
 				            iconsrc    = "Detail.png" 
 							iconwidth  = "#wd#" 
 							targetitem = "2"
-							padding    = "2"
+							padding    = "5"
 							iconheight = "#ht#" 
-							name       = "Preview Transaction Result"
+							name       = "Preview Transaction"
 							source     = "TransactionDetailPreview.cfm?mission=#url.mission#&accountperiod={accountperiod}">	
 							
 				</tr>			

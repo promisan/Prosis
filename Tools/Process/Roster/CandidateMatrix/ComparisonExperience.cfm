@@ -47,6 +47,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfif attributes.IDFunction neq "" and qCheck.recordcount neq 0>
+
 	<cfquery name="Detail" 
 	datasource="AppsSelection" 
 	username="#SESSION.login#" 
@@ -125,7 +126,7 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-<table width="100%" align="center" class="formpadding">
+<table width="100%" border="0" align="center">
 
 <cfset yr = 0>
 <cfset row = 0>
@@ -162,6 +163,7 @@ password="#SESSION.dbpw#">
 
 <tr>
 	<td colspan="8" class="labelit" style="padding-left:23px;padding-right:5px">
+	
 			<cfquery name="qExperience" 
 			datasource="AppsSelection" 
 			username="#SESSION.login#" 
@@ -194,14 +196,12 @@ password="#SESSION.dbpw#">
    
    	  <cfset prioryear = yr>	 
 	  
-	  <tr>
-	  <td height="20" colspan="8" style="font-size:20;font-weight:200;padding-top:5px" class="labelmedium">
-	  #Yr#</td></tr>
+	  <tr class="linedotted">
+	     <td height="20" colspan="8" style="font-size:20;padding-top:5px" class="labelmedium">#Yr#</td>
+	  </tr>
 	  
 	</cfif>
 	
-	<tr><td height="5" colspan="8" class="linedotted"></td></tr>
-
 	<cfif Status neq "9">
 	    <tr bgcolor="ffffff" class="navigation_row">
 	<cfelse>	
@@ -211,9 +211,9 @@ password="#SESSION.dbpw#">
 	<cfset row = row + 1>
 	<td colspan="8">
 		<table width="100%">
-			<tr>
-			<td colspan="1" class="labelsmall" style="width:25;padding-left:5px">#Row#.</td>			
-			<td colspan="7" height="23" class="labelit" style="padding-left:5px">#OrganizationClass# #ExperienceDescription#</td>	 
+			<tr class="labelmedium2 fixlengthlist" style="height:20px">
+			<td colspan="1" style="width:25;padding-left:5px">#Row#.</td>			
+			<td colspan="7" style="padding-left:5px">#OrganizationClass# #ExperienceDescription#</td>	 
 			</tr>
 		</table>		
 	</td>
@@ -246,7 +246,7 @@ password="#SESSION.dbpw#">
 			
 			<cfif checking.recordcount gte "1">
 				
-				<tr class="#vClass# labelit navigation_row_child">
+				<tr class="#vClass# labelit navigation_row_child fixlengthlist">
 								
 					    <td colspan="3"><cf_tl id="Description"></td>
 						<td><cf_tl id="Owner"></td>
@@ -260,7 +260,7 @@ password="#SESSION.dbpw#">
 	
 				<cfloop query="checking">
 					
-					<tr class="#vClass# labelmedium2 linedotted navigation_row_child" bgcolor="ffffcf">
+					<tr class="#vClass# labelmedium2 linedotted navigation_row_child fixlengthlist" bgcolor="ffffcf">
 						<td style="padding-left:4px" colspan="3">#Description#</td>
 						<td>#Owner#</td>
 						<!---
@@ -268,9 +268,9 @@ password="#SESSION.dbpw#">
 						--->
 						<td>
 								<cfswitch expression="#Status#">
-										<cfcase value="0"> <font color="blue">Pending</font></cfcase>
-										<cfcase value="9"><font color="FF0000">Denied</font></cfcase>
-										<cfcase value="1">Cleared</cfcase>
+										<cfcase value="0"> <font color="blue"><cf_tl id="Pending"></font></cfcase>
+										<cfcase value="9"><font color="FF0000"><cf_tl id="Denied"></font></cfcase>
+										<cfcase value="1"><cf_tl id="Cleared"></cfcase>
 								</cfswitch>
 						</td>
 						<td colspan="2" style="padding-left:4px">#OfficerLastName#</td>
@@ -283,23 +283,23 @@ password="#SESSION.dbpw#">
 	
 	</cfif>
 		
-	<tr class="labelmedium2 navigation_row_child">
+	<tr class="labelmedium2 navigation_row_child fixlengthlist" style="height:15px">
 				
-		<td colspan="4" style="padding-left:15px"><b>#OrganizationName# <cfif OrganizationCity neq "">- #OrganizationCity#</cfif> #OrganizationCountry#</b></td>
-		<td colspan="4" width="40%" align="right" style="padding-right:5px">
+		<td colspan="4" title="#OrganizationName#" style="padding-left:15px"><b>#OrganizationName# <cfif OrganizationCity neq "">- #OrganizationCity#</cfif> #OrganizationCountry#</b></td>
+		<td colspan="4" align="center" style="border:1px solid silver;background-color:f1f1f1">
 		#DateFormat(ExperienceStart,"YYYY/MM")# -		 
-		<cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020" >todate<cfelse>#DateFormat(ExperienceEnd,"YYYY/MM")#</cfif></b>
+		<cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2030" ><cf_tl id="Todate"><cfelse>#DateFormat(ExperienceEnd,"YYYY/MM")#</cfif></b>
 		</td>
 				
 	</tr>
 				
 	<cfif SalaryCurrency neq "">
 	
-			<tr class="#vClass# navigation_row_child">			
-			<td colspan="8" style="padding-left:15px" class="labelit">		
-			    #SalaryCurrency# &nbsp;#NumberFormat(SalaryStart,'_,_')# - &nbsp;#NumberFormat(SalaryEnd,'_,_')#&nbsp;&nbsp;</b>			
-			</td>
-			</tr>
+		<tr class="#vClass# navigation_row_child">			
+		<td colspan="8" style="padding-left:15px" class="labelit">		
+		    #SalaryCurrency# &nbsp;#NumberFormat(SalaryStart,'_,_')# - &nbsp;#NumberFormat(SalaryEnd,'_,_')#&nbsp;&nbsp;</b>			
+		</td>
+		</tr>
 	
 	</cfif>
 	
@@ -366,7 +366,7 @@ password="#SESSION.dbpw#">
 						<b>#Description#</b>
 						</td>
 					</tr>
-					<tr class="#vClass#" style="-ms-word-break:break-all;">
+					<tr class="#vClass#" style="height:20px">
 						<td colspan="8" style="padding-left:15px" >
 							<table width="100%" cellspacing="0" cellpadding="0" align="center">
 								<tr class="labelmedium"><td>#TopicValue#</td></tr>
@@ -380,14 +380,14 @@ password="#SESSION.dbpw#">
 				
 				<tr id="#currentrow#" class="hide">
 					<td colspan="8">
-						<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">		
+						<table width="100%" align="center">		
 							<tr><td>
-							<table width="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+							<table width="100%" cellspacing="0" cellpadding="0" align="center">
 							<cfloop query="detailTopic">					
-							    <tr class="labelmedium">
+							    <tr class="labelmedium" style="height:20px">
 									<td style="padding-left:15px; padding-top:4px"><b>#Description#</b></td>
 								</tr>
-								<tr class="labelmedium">
+								<tr class="labelmedium" style="height:20px">
 									<td style="padding-left:15px">#TopicValue#</td>
 								</tr>										
 							</cfloop>

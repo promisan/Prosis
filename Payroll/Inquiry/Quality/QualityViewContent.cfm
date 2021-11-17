@@ -321,8 +321,8 @@
 					<table width="100%">
 							<tr>
 				
-							<td class="labelmedium2"><cf_tl id="Variation"> (<cf_tl id="percentage from the previous calculation">):</td>
-							<td class="labellarge" align="right">
+							<td class="labelmedium2 fixlength"><cf_tl id="Variation"> (<cf_tl id="percentage from the previous calculation">):</td>
+							<td class="labellarge  fixlength" align="right">
 								&plusmn;
 								<input 
 									type="text" 
@@ -401,7 +401,7 @@
 							</table>
 						</td>
 						<td width="1%">#vCountPersons#.</td>
-						<td class="navigation_action ccontent">
+						<td class="navigation_action ccontent fixlength">
 						    <a href="javascript:showPerson('#personNo#');">
 								<cfif url.order eq "0">
 									#indexNo# - #ucase(LastName)#, #FirstName#
@@ -479,7 +479,7 @@
 					<cfoutput>
 					
 						<tr class="navigation_row clsPayrollItemDetail_#PersonNo# clsPayrollItemDetail line labelmedium clsFilterRow">
-							<td class="ccontent" style="display:none;">
+							<td class="fixlength ccontent" style="display:none;">
 								<cfif url.order eq "0">#indexNo# - #ucase(LastName)#, #FirstName#</cfif><cfif url.order eq "1">#ucase(LastName)#, #FirstName# (#indexNo#)</cfif>
 							</td>
 							<td colspan="3" align="right" style="width:100%;padding-right:10px; color:##808080;">#PayrollItemDescription# (#PayrollItem#):</td>

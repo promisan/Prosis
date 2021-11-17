@@ -25,12 +25,12 @@ password="#SESSION.dbpw#">
 
 <cfif SearchResult.recordcount neq "0">
 
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 		
 	<tr><td colspan="2">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<table width="100%">
 		
-	<tr class="labelmedium line">
+	<tr class="labelmedium2 line">
 	    <TD width="5%"></TD>
 		<TD width="5%"></TD>
 		<TD width="20%">Mode</TD> 
@@ -61,7 +61,7 @@ password="#SESSION.dbpw#">
 	
 	<CFOUTPUT query="SearchResult">
 			
-		<TR class="labelmedium line" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFAF'), DE('FFFFfF'))#">
+		<TR class="labelmedium2 line" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFAF'), DE('FFFFfF'))#">
 			<td align="center" style="padding-left:2px">#CurrentRow#</td>
 			
 			<TD align="center" style="padding-top:1px">			

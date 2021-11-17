@@ -16,7 +16,7 @@
 <cfparam name="SESSION.last"              default="">
 <cfparam name="SESSION.first"             default="">
 
-<cf_setRelease version="9.03.01127" release="20211001">
+<cf_setRelease version="9.07.01569" release="20211113">
 
 <cfquery name="Get" 
 datasource="AppsSystem">
@@ -263,14 +263,17 @@ datasource="AppsSystem">
 																	
 					<table border="0" width="100%" height="100%" cellspacing="0" cellpadding="0">				
 						<tr>
-							<td valign="top" height="100%">						
+							<td valign="top" height="100%">		
+															
 								
 								<cfset path = "custom/logon/#Parameter.applicationServer#/">
-																
+																								
 								<cfif directoryexists("#session.rootpath#\#replace(path,"/","\","ALL")#")>								
 									<cfset found = "Yes">
+									
 								<cfelse>
 									<cfset found = "No">
+									
 								</cfif>
 								
 								<cfset client.googleMAPId = Parameter.GoogleMAPId>								

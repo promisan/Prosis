@@ -1,6 +1,7 @@
 
 <cfparam name="url.drillid" default="">
 <cfparam name="url.mission" default="">
+<cfparam name="url.scope"   default="listing">
 
 <cfquery name="Customer" 
 datasource="AppsMaterials" 
@@ -26,6 +27,13 @@ password="#SESSION.dbpw#">
 		_cf_loadingtexthtml='';		
 	   	ptoken.navigate('#SESSION.root#/Warehouse/Application/Customer/View/setCustomerData.cfm?mode=form&scope=mission&scopeid='+mis+'&field='+fld+'&value='+val,'inputvalidation');
 	}
+	
+	function dosub(cde,val,sel) {
+	    _cf_loadingtexthtml='';		
+	   	ptoken.navigate('#SESSION.root#/Warehouse/Application/Customer/View/getSubList.cfm?cde='+cde+'&val='+val+'&sel='+sel,'sub_'+cde);
+
+	
+	}
 </script>
 
 <cf_divscroll style="height:98%">
@@ -37,8 +45,31 @@ password="#SESSION.dbpw#">
 	<tr><td colspan="2" height="3" id="inputvalidation"></td></tr>
 	
 	<tr class="labelmedium2">
-	<td style="min-width:220px"><cf_tl id="Entity"></td>
-	<td style="font-size:17px">#url.Mission# / <b>#Customer.CustomerSerialNo#</b></td>
+	<td style="min-width:220px"><cf_tl id="Entity">:</td>
+	
+	<td>
+	
+	    <table>
+		<tr class="labelmedium2">
+	    <td style="font-size:17px">#url.Mission# <cfif customer.CustomerSerialNo neq "">/ <b>#Customer.CustomerSerialNo#</b></cfif></td>	
+	    <td style="padding-left:20px"><cf_tl id="Operational"> :</td>
+		<td style="height:30px">
+		
+			<table>
+			<tr class="labelmedium2">
+			<td style="padding-left:0px"><input name="Operational" class="radiol enterastab" type="radio" value="1" <cfif Customer.Operational eq 1 or url.drillid eq "">checked</cfif>></td>
+			<td style="padding-left:4px"><cf_tl id="Yes"></td>
+			<td style="padding-left:7px"><input name="Operational" class="radiol enterastab" type="radio" value="0" <cfif Customer.Operational eq 0>checked</cfif>></td>
+			<td style="padding-left:4px"><cf_tl id="No"></td>
+			</tr>
+			</table>			
+			
+		</td>
+		
+		</tr>
+		</table>
+	
+	</td>
 	</tr>
 	
 	<tr class="labelmedium2">
@@ -55,8 +86,8 @@ password="#SESSION.dbpw#">
 				<cfset CustomerId = rowguid>
 				<cfset mission    = url.Mission>
 			<cfelse>
-			    <input name="Action"  type="hidden" value="edit">
-				<input name="Mission" type="hidden" value="#Customer.Mission#">
+			    <input name="Action"  type="hidden"    value="edit">
+				<input name="Mission" type="hidden"    value="#Customer.Mission#">
 				<input name="CustomerId" type="hidden" value="#Customer.CustomerId#">
 				<cfset CustomerId = Customer.CustomerId>
 				<cfset mission    = Customer.Mission>
@@ -117,6 +148,86 @@ password="#SESSION.dbpw#">
 					 message="Please enter customer name.">
 		</td>
 	</tr>
+	
+	<!--- custom information --->
+		
+	<cfquery name="getTopics" 
+		datasource="AppsMaterials"
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			
+			SELECT	 P.Description,P.SearchOrder, T.*
+			FROM     Ref_Topic T INNER JOIN Ref_TopicParent P ON T.Parent = P.Parent							
+			WHERE    T.TopicClass = 'Customer'	
+			AND      ValueClass IN ('List','Lookup')	
+					
+	</cfquery>
+	
+	<cfloop query="getTopics">
+			
+		 <tr> 
+		
+			<td width="80" height="23" class="labelmedium2">#TopicLabel#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
+						
+			<cfset tbcl = "CustomerTopic">					
+								
+			<cfif ValueClass eq "List">
+			
+				<td>
+				
+					<cfquery name="GetList" 
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT	 T.*,
+							         <cfif customer.customerid neq "">
+							         (SELECT ListCode 
+									  FROM CustomerTopic 
+									  WHERE Topic = T.Code 
+									  AND CustomerId = '#Customer.CustomerId#') as Selected 							      
+									 <cfelse> '' as Selected </cfif>									 
+							FROM 	 Ref_TopicList T 
+							WHERE 	 T.Code = '#Code#'  
+							AND      ListCodeParent is NULL
+							AND 	 T.Operational = 1
+							ORDER BY T.ListOrder ASC
+					</cfquery>
+				
+				<table>
+				<tr>
+				<td>
+				
+				<select class="regularxxl" name="Topic_#Code#" ID="Topic_#Code#" onchange="dosub('#Code#',this.value,'#GetList.Selected#')">
+					<cfif ValueObligatory eq "0">
+						<option value=""></option>
+					</cfif>
+					<cfloop query="GetList">
+						<option value="#GetList.ListCode#" <cfif left(GetList.Selected,2) eq GetList.ListCode>selected</cfif>>#GetList.ListValue#</option>
+					</cfloop>
+				</select> 
+				
+				</td>
+				
+				<td style="padding-left:2px" id="sub_#Code#">
+				
+				<cfset url.cde = Code>
+				<cfset url.val = left(GetList.Selected,2)>
+				<cfset url.sel = GetList.Selected>
+				
+				<cfinclude template="getSubList.cfm">
+								
+				</td>
+				
+				</tr>
+				</table>
+								
+				</td>
+	
+			</cfif>		
+			
+		</tr>	
+			
+	</cfloop>		
 	
 	<cfquery name="Person" 
 		datasource="AppsMaterials" 
@@ -340,18 +451,17 @@ password="#SESSION.dbpw#">
 		<td>
 		
 		 <cf_textInput
-					  form      = "customerform"
-					  type      = "ZIP"
-					  mode      = "regularxxl"
-					  name      = "PostalCode"
-				      value     = "#Customer.PostalCode#"
-				      required  = "No"
-					  size      = "12"
-					  maxlength = "12"
-					  label     = "&nbsp;"
-					  style     = "width:100px;text-align: center;">		
+			  form      = "customerform"
+			  type      = "ZIP"
+			  mode      = "regularxxl"
+			  name      = "PostalCode"
+		      value     = "#Customer.PostalCode#"
+		      required  = "No"
+			  size      = "20"
+			  maxlength = "20"
+			  label     = "&nbsp;"
+			  style     = "width:60px;text-align: center;">		
 		
-			
 		</td>
 	</tr>
 	
@@ -383,7 +493,7 @@ password="#SESSION.dbpw#">
 	--->
 	
 	<tr class="labelmedium2">
-		<td><cf_tl id="Credit Threshold"> :</td>
+		<td><cf_tl id="Credit Threshold">#application.basecurrency#:</td>
 		<td style="height:25px">
 		
 		 <cfinvoke component="Service.Access"  
@@ -391,7 +501,7 @@ password="#SESSION.dbpw#">
 				   mission="#Mission#" 
 				   returnvariable="access"> 
 				   
-			   <table><tr>
+			   <table><tr class="labelmedium2">
 			    <td>
 	   				<cfif access eq "ALL">
 						<cfinput type="Text" class="regularxxl enterastab" style="width:80;text-align:right;padding-right:4px" name="ThresholdCredit" value="#numberformat(customer.ThresholdCredit,',.__')#">
@@ -400,8 +510,8 @@ password="#SESSION.dbpw#">
 						<cfinput type="hidden" name="ThresholdCredit" value="#numberformat(customer.ThresholdCredit,',.__')#">
 					</cfif>
 				</td>
-				<td class="labelit" style="padding-left:5px">#application.basecurrency#</td>
-				<td style="padding-left:15px" class="labelmedium"><cf_tl id="Current outstanding">#application.basecurrency# :</td>
+				
+				<td style="padding-left:15px"><cf_tl id="Current outstanding">:</td>
 				
 				<cfif url.drillid neq "">
 							
@@ -421,10 +531,34 @@ password="#SESSION.dbpw#">
 	</tr>
 	
 	<tr class="labelmedium2">
-		<td><cf_tl id="Tax Exemption"> :</td>
+	    <td><cf_tl id="Payment mode">:</td>
+		
 		<td style="height:30px">
 		    <table>
 			<tr class="labelmedium2">
+			
+			<td>
+			
+			<cfquery name="Settle" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT *
+			    FROM   Ref_Settlement E
+			    WHERE  Operational = 1
+			</cfquery>			
+			
+			   <select class="regularxxl" name="SettleCode" ID="SettleCode">					
+					<cfloop query="settle">
+						<option value="#Code#" <cfif Customer.SettleCode eq code>selected</cfif>>#Description#</option>
+					</cfloop>
+				</select> 			
+			
+			</td>
+			
+			
+			
+			<td style="padding-left:20px"><cf_tl id="Tax Exemption"> :</td>
 			<td style="padding-left:0px"><input name="TaxExemption" class="radiol enterastab" type="radio" value="1" <cfif Customer.TaxExemption eq 1>checked</cfif>></td>
 			<td style="padding-left:4px"><cf_tl id="Yes"></td>
 			<td style="padding-left:7px"><input name="TaxExemption" class="radiol enterastab" type="radio" value="0" <cfif Customer.TaxExemption eq 0 or url.drillid eq "">checked</cfif>></td>
@@ -433,20 +567,7 @@ password="#SESSION.dbpw#">
 			</table>
 		</td>
 	</tr>
-	<tr class="labelmedium2">
-		<td><cf_tl id="Operational"> :</td>
-		<td style="height:30px">
-			<table>
-			<tr class="labelmedium2">
-			<td style="padding-left:0px"><input name="Operational" class="radiol enterastab" type="radio" value="1" <cfif Customer.Operational eq 1 or url.drillid eq "">checked</cfif>></td>
-			<td style="padding-left:4px"><cf_tl id="Yes"></td>
-			<td style="padding-left:7px"><input name="Operational" class="radiol enterastab" type="radio" value="0" <cfif Customer.Operational eq 0>checked</cfif>></td>
-			<td style="padding-left:4px"><cf_tl id="No"></td>
-			</tr>
-			</table>			
-			
-		</td>
-	</tr>
+	
 	<tr valign="top" style="padding-top:5px" class="labelmedium2">
 		<td ><cf_tl id="Memo">:</td>
 		<td>

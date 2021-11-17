@@ -442,7 +442,7 @@ password="#SESSION.dbpw#">
 		
 			<cfset fld = left(TransactionLineId,8)>
 				
-		    <TR class="navigation_row clsFinance labelmedium2" style="height:20px;border-bottom:1px solid silver">
+		    <TR class="navigation_row clsFinance labelmedium2 fixlengthlist" style="height:20px;border-bottom:1px solid silver">
 			
 			    <td align="center" style="padding-left:4px;padding-right:4px;;<cfif actionstatus eq '0'>background-color:yellow</cfif>">
 				
@@ -463,12 +463,12 @@ password="#SESSION.dbpw#">
 					
 				</td>
 				
-				<TD style="padding-left:2px;padding-right:4px">#AccountPeriod#</td>
-				<TD style="padding-left:5px;padding-right:5px;width:auto"><a class="navigation_action" href="javascript:ShowTransaction('#Journal#','#JournalSerialNo#','1')">#JournalTransactionNo#</a></TD>
-				<TD style="min-width:200px;padding-left:2px;">#GLAccount# <cfif len(GLDescription) gt "20">#left(GLDescription,20)#..<cfelse>#GLDescription#</cfif></TD>		
-				<TD style="padding-left:5px;">#TransactionReference#</TD> 						
-				<TD style="padding-left:5px;">#Dateformat(TransactionDate, "#CLIENT.DateFormatShow#")#</TD>
-			    <TD style="width:50%;padding-left:6px;"><cfif referencename eq "" or referencename eq "Contra-account">#HeaderDescription#<cfelse>#ReferenceName#</cfif></TD>
+				<TD>#AccountPeriod#</td>
+				<TD><a class="navigation_action" href="javascript:ShowTransaction('#Journal#','#JournalSerialNo#','1')">#JournalTransactionNo#</a></TD>
+				<TD title="#GLDescription#">#GLAccount# #GLDescription#</TD>		
+				<TD>#TransactionReference#</TD> 						
+				<TD>#Dateformat(TransactionDate, "#CLIENT.DateFormatShow#")#</TD>
+			    <TD><cfif referencename eq "" or referencename eq "Contra-account">#HeaderDescription#<cfelse>#ReferenceName#</cfif></TD>
 				
 				<!--- 
 				
@@ -506,7 +506,7 @@ password="#SESSION.dbpw#">
 				
 				--->
 				
-			    <TD style="padding-left:3px;">#Currency#
+			    <TD>#Currency#
 				
 					<cfset fld = left(TransactionLineId,8)>
 											
@@ -519,7 +519,7 @@ password="#SESSION.dbpw#">
 					 
 				</TD>							
 				
-			    <TD style="background-color:yellow;padding-left:2px;padding-right:4px;border-right:1px solid silver;min-width:50" align="right">											
+			    <TD style="background-color:yellow;border-right:1px solid silver;min-width:90;max-width:90px;width:90px;" align="right">											
 												
 					<cfif currency neq headerselect.currency>
 					   
@@ -543,7 +543,7 @@ password="#SESSION.dbpw#">
 					
 				</td>	
 				
-				<td align="right" id="box_#TransactionLineId#_3" style="min-width:80;border-left:1px solid silver;padding-right:2px;" class="xxhide">
+				<td align="right" id="box_#TransactionLineId#_3" style="width:75px;max-width:75px;min-width:75;border-left:1px solid silver;" class="xxhide">
 																
 					<input type="text" 
 						 name="val_#fld#" 
@@ -557,7 +557,7 @@ password="#SESSION.dbpw#">
 				 						 
 				</td>	
 										
-				<td id="box_#TransactionLineId#_2" style="min-width:70;border-left:1px solid silver;padding-right:2px;" class="xxhide" align="right">
+				<td id="box_#TransactionLineId#_2" style="width:75px;max-width:75px;min-width:75;border-left:1px solid silver;" class="xxhide" align="right">
 				
 				<cfif currency eq headerselect.currency>
 																		
@@ -588,7 +588,7 @@ password="#SESSION.dbpw#">
 				</cfif>
 				</td>						
 				
-				<td id="box_#TransactionLineId#_1" style="min-width:80;border-left:1px solid silver;padding-right:2px;border-right:1px solid silver" class="xxhide" align="right">
+				<td id="box_#TransactionLineId#_1" style="width:75px;max-width:75px;min-width:80;border-left:1px solid silver;padding-right:2px;border-right:1px solid silver" class="xxhide" align="right">
 				
 					<input type="text" 
 					 name="off_#fld#" 
@@ -611,7 +611,8 @@ password="#SESSION.dbpw#">
 			</cfif>					
 				   
    </cfoutput>   
-   							
+
+<!---   							
 <tr style="height:0px">
     <TD width="20" align="center"></TD>
 	<TD style="padding-left:5px;min-width:40px"><!--- <cf_tl id="Per"> ---></TD>
@@ -623,6 +624,7 @@ password="#SESSION.dbpw#">
 	<TD style="min-width:150" colspan="2" align="center"><!---<cf_tl id="Outstanding">---></TD>		  	
 	<td style="min-width:250" colspan="3" align="center"></td>			
 </tr>
+--->
    		   		   
 </table>	
 			

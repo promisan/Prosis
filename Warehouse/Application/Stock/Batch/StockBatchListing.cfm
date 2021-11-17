@@ -163,13 +163,13 @@
 					ratinglist    = "0=Yellow,1=Green,9=Red"}>	
 		
 <cfif url.status eq "0">
-	<cfset sl = "Hide">
+	<cfset sl = "Yes">
 <cfelse>
 	<cfset sl = "Yes">
-</cfif>					  
-					  
+</cfif>			
+				  
 <cf_listing
-    header         = "BatchListing"
+    header         = "batch_#url.status#_#url.warehouse#"
     box            = "batch_#url.status#_#url.warehouse#"
 	link           = "#session.root#/warehouse/application/stock/batch/stockbatchlisting.cfm?status=#url.status#&warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#"
     html           = "Yes"

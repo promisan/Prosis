@@ -41,15 +41,15 @@ password="#SESSION.dbpw#">
 	
 		<table width="100%" border="0" align="right" class="navigation_table">
 		
-		<tr class="line labelmedium">	
+		<tr class="line labelmedium fixlengthlist">	
 		
 		<td height="22" width="40"></td>
-		<td width="30%">Name</td>
-		<td width="100">Account</td>
+		<td width="30%"><cf_tl id="Name"></td>
+		<td width="100"><cf_tl id="Account"></td>
 		<td width="100"><cfoutput>#client.indexNoName#</cfoutput></td>
-		<td width="20%">EMail</td>
-		<td width="100">Group</td>
-		<td width="20%">Officer</td>
+		<td width="20%"><cf_tl id="EMail"></td>
+		<td width="100"><cf_tl id="Group"></td>
+		<td width="20%"><cf_tl id="Officer"></td>
 		<td></td>
 		</tr>
 			
@@ -61,7 +61,7 @@ password="#SESSION.dbpw#">
 	
 	<CFOUTPUT query="Today">
 	
-		<TR id="todayno" class="line navigation_row labelmedium2">
+		<TR id="todayno" class="line navigation_row labelmedium2 fixlengthlist">
 		  	  
 		   <td align="center">
 		   
@@ -112,7 +112,7 @@ password="#SESSION.dbpw#">
 			   </cfif>#eMailAddress#
 		   </TD>
 		   <TD>#AccountGroup#</TD>	  
-		   <td width="150">#OfficerFirstName# #OfficerLastName#</td>
+		   <td>#OfficerFirstName# #OfficerLastName#</td>
 		   <td align="right" style="padding-right:4px">
 		   
 		   <cfif Access eq "EDIT" or Access eq "ALL">

@@ -91,7 +91,7 @@ function process(id) {
 
 
 function mail2(mode,id) {
-	  window.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id="+mode+"&ID1="+id+"&ID0=#Parameter.RequisitionTemplate#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+	  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id="+mode+"&ID1="+id+"&ID0=#Parameter.RequisitionTemplate#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
 }	
 
 function hl(val,line){	 
@@ -207,7 +207,7 @@ function processdata(txt,per,role) {
 
 <tr><td style="height:10;padding:6px" valign="top">
 
-	<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+	<table width="100%" height="100%">
 	
 		    <!--- ---------------------------------- --->
 			<!--- ---------- TOP MENU -------------- --->
@@ -344,8 +344,6 @@ function processdata(txt,per,role) {
 <tr><td>#option#</td></tr>
 	
 </cfoutput>
-
-
  
 <tr><td height="100%" style="padding-left:10px;padding-right:15px">
 		
@@ -368,7 +366,7 @@ function processdata(txt,per,role) {
 			   		
 				   <cfform name="req" method="post" style="height:100%">		   
 				 			  
-						  <cfdiv bind="url:RequisitionCertifyPending.cfm?role=#url.role#&mission=#url.mission#&period=#url.period#" id="contentbox1">
+						  <cf_securediv bind="url:RequisitionCertifyPending.cfm?role=#url.role#&mission=#url.mission#&period=#url.period#" id="contentbox1">
 						  
 					</cfform>
 								   

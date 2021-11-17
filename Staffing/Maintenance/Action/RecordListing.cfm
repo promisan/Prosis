@@ -41,7 +41,7 @@ password="#SESSION.dbpw#">
 
 		<table width="94%" align="center" class="navigation_table">
 		
-		<tr class="labelmedium2 line fixrow">
+		<tr class="labelmedium2 line fixrow fixlengthlist">
 		    <td>Area</td>   
 			<td></td>
 		    <td>Code</td>
@@ -62,7 +62,7 @@ password="#SESSION.dbpw#">
 		
 			<cfoutput>
 			        
-				<tr class="navigation_row line labelmedium2">			
+				<tr class="navigation_row line labelmedium2 fixlengthlist">			
 					<td style="height:19px;font-size:16px;padding-left:4px">
 					<cfif ActionSource neq prior>
 						#ActionSource#
@@ -70,7 +70,7 @@ password="#SESSION.dbpw#">
 					</td>				
 					<td width="30" align="center" style="padding-top:1px"><cf_img icon="open" navigation="Yes" onclick="recordedit('#ActionCode#')"></td>				
 					<td>#ActionCode#</td>
-					<td>#Description#</td>
+					<td title="#description#">#Description#</td>
 					<td>#ActionClass#</td>
 					<td>#EntityClass#</td>
 					<td><cfif ModeEffective eq "0">Validate<cfelseif ModeEffective eq "1">Allow overlap<cfelseif ModeEffective eq "9">Disable Edit</cfif></td>

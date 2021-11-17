@@ -44,7 +44,7 @@
 					  style="background-color:#color#;height:46px;width:100%;color:black;;border-top-right-radius:5px;padding-left:14px;padding-right:14px">
 					  
 					  <table style="width:100%">
-					  <tr><td colspan="2" align="right" style="color:white;font-size:18px;padding-right:5px" class="clsPostHeaderText">
+					  <tr><td colspan="2" align="right" title="#ucase(FunctionDescription)#" style="color:white;font-size:18px;padding-right:5px" class="clsPostHeaderText fixlength">
 					  <cfif PositionGroup eq "Loaned">
 					  <font color="000000">#ucase(ParentFunctionDescription)#<br><font size="1">[#ucase(FunctionDescription)#]</font></font>
 					  <cfelse>
@@ -53,7 +53,7 @@
 					  <tr>	
 					    
 					    <cfif OrgUnitOperational neq OwnerOrgUnit>									
-						<td colspan="1" align="center" style="border-radius:5px;padding-left:4px;height:17px;font-size:12px;background-color:##FF8000">	
+						<td class="fixlength" align="center" style="border-radius:5px;padding-left:4px;height:17px;font-size:12px;background-color:##FF8000">	
 						<cf_tl id="Owner">: #OwnerOrgUnitName#						
 						</cfif>											  
 					  
@@ -69,7 +69,7 @@
 			  			  
 			  <tr style="height:28px;width:30%">
 			  
-				  <td style="background-color:##e4e4e4;font-size:17px;padding-left:8px;width:160px;"><span style="font-size:12px;">Post##</span>&nbsp;
+				  <td class="fixlength" style="background-color:##e4e4e4;font-size:17px;padding-left:8px;width:160px;"><span style="font-size:12px;">Post##</span>&nbsp;
 				  
 				  <cfif getAdministrator("#mission#") eq "1">
 				  <a href="javascript:EditPosition('#mission#','#MandateNo#','#PositionNo#')" title="Inspect position information"><cfif sourcePostNumber eq "">#PositionParentid#<cfelse>#SourcePostNumber#</cfif></a>
@@ -78,10 +78,10 @@
 				  </cfif>
 				  </td>		
 				  				  				  
-				  <td align="right" colspan="2" style="background-color:yellow;padding-right:7px;height:18px;min-width:140px;">
+				  <td align="right" colspan="2" class="fixlength" style="background-color:yellow;padding-right:7px;height:18px;min-width:140px;">
 				  
 				   <table>
-				   <tr class="labelmedium">
+				   <tr class="labelmedium fixlengthlist">
 				   
 				   		<cfquery name="getGroup" 
 							datasource="AppsEmployee" 
@@ -126,11 +126,11 @@
 		
 		<!--- position classification --->
 		
-		<tr class="line labelmedium2 clsBig">				   
+		<tr class="labelmedium2 clsBig fixlengthlist">				   
 			  
 			  <cfif ApprovalPostGrade neq "" or ApprovalPostGrade neq "">		
 			    <td align="center" onclick="ViewPosition('#PositionParentId#')"
-				  style="cursor:pointer;height:34px;background-color:##bfff80;min-width:130px;padding-left:3px;padding-right:4px">		
+				  style="cursor:pointer;height:34px;background-color:##bfff80;padding-left:3px;padding-right:4px">		
 				  
 				  <u><cf_tl id="Classified"></u>
 				  
@@ -150,7 +150,7 @@
 				 </td>	
 			  <cfelse>
 			    <td align="center" 
-				  style="background-color:##ffb3b3;font-size:13px;min-width:130px;padding-left:3px;padding-right:4px">	
+				  style="background-color:##ffb3b3;font-size:13px;padding-left:3px;padding-right:4px">	
 			  		<cf_tl id="Not classified">	
 				 </td>						
 			  </cfif>					 
@@ -167,15 +167,14 @@
 				   id="workflowcondition_#url.ajaxid#" 		   
 				   value="?positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#">	
 			  
-			  <td id="#url.ajaxid#" style="height:100%;width:100%;padding:3px">		
-			  	
-										 	  			 				  
+			  <td id="#url.ajaxid#" style="height:100%;width:100%;padding-left:6px;padding-right:6px">		
+			  											 	  			 				  
 				  <cf_wfActive entityCode="PostClassification" objectkeyvalue1="#PositionParentId#">
 				  
 				  <cfif wfStatus eq "Closed">		
 				  
 				      <cf_tl id="Request new Classification" var="1">
-				      <input title="Click to initiate a new classification request for this position" disabled
+				      <input title="Click to initiate a new classification request for this position" 
 					  type="button" value="#lt_text#" class="button10g" onclick="javascript:AddClassification('#positionparentid#','#url.ajaxid#')" style="border-radius:10px;width:100%;border:1px solid silver">			  
 					  
 					  <!--- 
@@ -195,7 +194,7 @@
 			    
 		</tr>		  											
 		
-		<tr class="labelmedium2 line clsBig">
+		<tr class="labelmedium2 clsBig fixlengthlist">
 				
 		<cfquery name="VacancyClass" 
 			datasource="AppsEmployee" 
@@ -206,7 +205,7 @@
 				 WHERE  Code = '#VacancyActionClass#'		
 			</cfquery>
 		
-		  <td style="background-color:#vacancyClass.PresentationColor#;padding:3px;min-width:120px" align="center">#VacancyClass.Description#</td>
+		  <td class="fixlength" title="#VacancyClass.Description#" style="min-width:100px;max-width:100px;background-color:#vacancyClass.PresentationColor#;padding:3px" align="center">#VacancyClass.Description#</td>
 			  
 		    <cfset url.ajaxid = "recruit_#PositionParentId#">
 		
@@ -222,7 +221,7 @@
 				   id="workflowcondition_#url.ajaxid#" 		   
 				   value="?positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#">	
 		
-			<td align="center" style="padding:3px;width:100%;height:100%"  id="#url.ajaxid#">	
+			<td align="center" style="width:100%;height:100%"  id="#url.ajaxid#">	
 					
 				<cfinclude template="StaffingPositionWorkflowRecruit.cfm">						
 			
@@ -245,7 +244,7 @@
 				<td colspan="2" style="height:100px;width:100%">
 			     <table style="width:100%;height:100%">
 					 <tr>					
-					 <td style="font-size:18px;font-weight:bold;padding-top:4px;text-align:center;background-color:##80FFFF;width:100%">
+					 <td style="font-size:27px;font-weight:bold;padding-top:64px;text-align:center;color:green;width:100%">
 					 	<cf_tl id="Vacant">
 					 </td>		  								 
 					 </tr>
@@ -292,7 +291,7 @@
 					
 						<cfloop query="AssignDetail"  startrow="1" endrow="2">
 									
-						<td style="cursor:pointer;padding-left:4px;padding-right:4px;border:1px solid silver;<cfif incumbency eq "0">background-color:ffffaf</cfif>"
+						<td style="cursor:pointer;padding-left:4px;padding-right:4px;border:0px solid silver;<cfif incumbency eq "0">background-color:ffffaf</cfif>"
 							onclick="$('.clsAssignment_#PositionNo#, .clsIncIcon_#PositionNo#').hide(); $('.clsAssignment_#AssignmentNo#, .clsIncIcon_#assignmentNo#').show(200);">
 								<table>
 									<tr class="labelmedium">
@@ -351,7 +350,7 @@
 				
 			<cfelse>
 			 
-				<tr class="clsBig"><td style="height:10px"></td></tr>					
+				<tr class="clsBig"><td style="height:25px"></td></tr>					
 			
 			</cfif>
 			
@@ -391,7 +390,7 @@
 				WHERE      PersonNo = '#PersonNo#' 	
 				AND        Mission IN ('UNDEF','#url.mission#')	
 				AND        ActionStatus IN ('0','1')
-				AND        DateEffective <= '#url.selection#'
+				-- AND        DateEffective <= '#url.selection#'
 				ORDER BY   DateEffective DESC					
 			</cfquery>	
 			

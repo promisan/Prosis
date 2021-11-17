@@ -147,67 +147,18 @@ password="#SESSION.dbpw#">
 <cfif form.currency neq application.basecurrency>
 	
 	<cfoutput>
-	<tr><td class="labelmedium" style="padding:10px"><font size="6"><b>Attention:</b></font> PL Transactions that were NOT recorded in <b>#form.currency#</b> are presented using the #Application.BaseCurrency# value defined at the moment of posting and expressed in #form.currency# using exchange rate of <b>#getExchange.ExchangeRate#</b>.</td></tr>
+	<tr><td class="labelmedium2" style="padding:10px"><font size="6"><b>Attention:</b></font> PL Transactions that were NOT recorded in <b>#form.currency#</b> are presented using the #Application.BaseCurrency# value defined at the moment of posting and expressed in #form.currency# using exchange rate of <b>#getExchange.ExchangeRate#</b>.</td></tr>
 	</cfoutput>
 
 </cfif>
 
-
-<cfquery name="Check"
-	datasource="AppsLedger" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	SELECT       TOP 100 PERCENT Line.Journal, 
-	             Line.JournalSerialNo, 
-				 ROUND(SUM(Line.AmountBaseDebit), 2) AS Debit, 
-				 ROUND(SUM(Line.AmountBaseCredit), 2) AS Credit, 
-	             HDR.Mission, HDR.Description, HDR.TransactionSource, HDR.Reference, HDR.ReferenceName, HDR.AccountPeriod, HDR.TransactionDate, HDR.JournalBatchDate, 
-	             HDR.DocumentDate, HDR.ReferenceNo, HDR.ReferenceId, HDR.Created, HDR.DocumentCurrency, HDR.DocumentAmount
-				 
-	FROM         TransactionLine Line INNER JOIN
-	             TransactionHeader HDR ON Line.Journal = HDR.Journal AND Line.JournalSerialNo = HDR.JournalSerialNo
-	WHERE        HDR.Mission       = '#url.mission#'
-	AND          HDR.AccountPeriod = '#url.period#'
-			   
-	GROUP BY     Line.Journal, 
-	             Line.JournalSerialNo, 
-			     HDR.Mission, 
-			     HDR.Description, 
-				 HDR.AccountPeriod, 
-				 HDR.JournalBatchDate, 
-				 HDR.DocumentDate, 
-				 HDR.ReferenceNo, 
-		         HDR.ReferenceId, 
-				 HDR.Created, 
-				 HDR.TransactionDate, 
-				 HDR.TransactionSource, 
-				 HDR.Reference, 
-				 HDR.ReferenceName, 
-				 HDR.DocumentCurrency, 
-		         HDR.DocumentAmount
-				 
-	HAVING       (ABS(ROUND(SUM(Line.AmountBaseDebit) - SUM(Line.AmountBaseCredit), 2)) > 0.5)
-	
-	ORDER BY HDR.TransactionDate DESC, HDR.Created DESC
-</cfquery>
-
-
-<cfif check.recordcount gte "3">
-	<tr>
-	  <td colspan="3" style="height:30px" class="labelmedium" align="center">
-	  <font color="red">	 
-	  <cfif check.recordcount eq "1">
-	  <cf_tl id="There is #check.recordcount# ledger posting which is not in balance. Contact your administrator">	
-	  <cfelse>
-	  <cf_tl id="There are #check.recordcount# ledger postings that are not in balance. Contact your administrator">	 
-	  </cfif>
-	  </font>
-	</tr>
-</cfif>
+<tr><td colspan="3" class="labelmedium2" style="padding-left:10px;height:20px">
+<cfdiv bind="url:StatementCheck.cfm?mission=#url.mission#&period=#url.period#">
+</td></tr>
 
 <tr><td colspan="3" style="padding-left:20px;padding-top:2px;padding-right:20px">
 
-	<table id="plTable" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formspacing navigation_table">
+	<table id="plTable" width="100%" align="center" class="formspacing navigation_table">
 	
 	  <!---
 	  <cfif form.layout eq "horizontal">
@@ -222,25 +173,24 @@ password="#SESSION.dbpw#">
 	  </cfif>
 	  --->
 	 
-	  <tr>
+	  <tr class="fixlengthlist">
 	  
-	    <td width="50%" valign="top" style="padding-left:12px">
+	    <td width="50%" valign="top">
 						
-		    <table cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+		    <table width="100%" class="navigation_table">
 			
-				<cfif Period.recordcount gt "1">	
+				<cfif Period.recordcount gte "1">	
 								
-				<tr>
-				  
-				  <td class="labellarge"><cf_space spaces="15"></td>
-				  <td class="labellarge" style="width:100%"><cf_space spaces="65"></td>
+				<tr class="fixlengthlist labelmedium2">
+				  				  
+				  <td colspan="2" style="width:100%"></td>
 				  
 				  <cfif showperiod eq "1">
 					  <cfoutput query="Period">
-					  <td style="border-radius:4px;border:1px solid silver" class="labellarge" width="80" align="center"><cf_space spaces="10">#Period#</td>
+					  <td style="font-size:13px;border-radius:4px;border:1px solid silver;min-width:70px;width:75px" align="center">#Period#</td>
 					  </cfoutput>
 				  </cfif>
-				  <td style="border-radius:4px;border:1px solid silver" class="labellarge" align="center"><cf_space spaces="15"><cf_tl id="Total"></td>					   
+				  <td style="min-width:90px;width:100px;max-width:100px;border:1px solid silver" align="center"><cf_tl id="Total"></td>					   
 				 
 				</tr>
 				</cfif>			
@@ -260,35 +210,29 @@ password="#SESSION.dbpw#">
 		<cfif form.layout eq "vertical">
 		
 		</tr>
-				
-		<!---						
-		<tr><td width="50%" style="padding-top:20px;padding-bottom:10px;height:50px;padding-left:3px;font-size:26px" class="labellarge linedotted" height="28">
-		    <cf_tl id="Operating costs"></td>
-		</tr>
-		---> 
-					
-		<tr>
+						
+		<tr class="fixlengthlist">
 			
 		</cfif>
 		
-	    <td width="50%" valign="top" style="padding-left:12px">
+	    <td width="50%" valign="top">
 		
-	      <table border="0" cellpadding="0" cellspacing="0" width="100%" class="formpadding navigation_table">
+	      <table width="100%" class="formpadding navigation_table">
 		  			  
-			  <cfif Period.recordcount gt "1">	
+			  <cfif Period.recordcount gte "1">	
 				
-				<tr>				 
-				  <td class="labellarge"><cf_space spaces="15"></td>
-				  <td class="labellarge"><cf_space spaces="65"></td>				  
+				<tr class="fixlengthlist labelmedium2">				 
+				  <td colspan="2" style="width:100%"></td>		  
 				  <cfif showperiod eq "1">
 					  <cfoutput query="Period">
-					     <td width="80" style="border-radius:4px;border:1px solid silver" class="labellarge" align="center"><cf_space spaces="10">#Period#</td>
+					     <td style="font-size:13px;border-radius:4px;border:1px solid silver;min-width:70px;width:75px" align="center">#Period#</td>
 					  </cfoutput>
 				  </cfif>				  
-				  <td style="border-radius:4px;border:1px solid silver" class="labellarge" align="center"><cf_tl id="Total"><cf_space spaces="20"></td>					   				 
+				  <td style="min-width:90px;width:100px;max-width:100px;border:1px solid silver" align="center"><cf_tl id="Total"></td>					   				 
 				</tr>
 				
-			  </cfif>		
+			  </cfif>	
+			  	  
 								
 			  <cf_PLViewData panel="debit" 
 		            history="#form.history#" 
@@ -297,7 +241,7 @@ password="#SESSION.dbpw#">
 					fileno="#fileno#" 
 					showperiod="#showperiod#" 
 					periodlist="#ct#"> 					  
-		  					    
+							  					    
 	      </table>
 	    </td>
 	  </tr>
@@ -321,14 +265,14 @@ password="#SESSION.dbpw#">
 	  
 	  	<cfoutput>
 	  
-		  <tr>
+		  <tr class="fixlengthlist">
 		   
-		    <td width="50%" align="right" valign="bottom" class="labellarge" style="border-top:1px solid silver;height:30px;padding-right:5px">				
-				#NumberFormat(tot,',____')#				
+		    <td width="50%" align="right" valign="bottom" class="labellarge" style="border-top:1px solid silver;height:30px">				
+			#NumberFormat(tot,',____')#				
 			</td>
 			
-			<td width="50%" align="right" valign="bottom" style="border-top:1px solid silver;height:30px;padding-right:5px" class="labellarge">		
-				#NumberFormat(tot,',____')#				
+			<td width="50%" align="right" valign="bottom" style="border-top:1px solid silver;height:30px" class="labellarge">		
+			#NumberFormat(tot,',____')#				
 			</td>		
 		  </tr>  
 		  

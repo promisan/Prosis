@@ -15,13 +15,13 @@
 	height:360px;
 	left:50%;
 	margin-left:-250px;
-	margin-top:-200px;
+	margin-top:50px;
 	overflow:hidden;
 	position:absolute;
 	top:50%;
 	transition:all 800ms ease-in-out;
 	width:500px;
-	z-index:12;
+	z-index:99999;
 }
 
 .x-autocontainer-innerCt div:first-child {
@@ -838,6 +838,17 @@ TR.fixrow340 td {
 	z-index:9999;
 }
 
+TR.fixlengthlist td {
+	text-overflow: ellipsis;
+	white-space: nowrap;	
+	overflow: hidden; 
+	padding-left:3px;
+	padding-right:3px;
+	max-width:200px;
+	background-color:##e1e1e180
+}
+ 
+
 button.ButtonPrint {
 	border:1px solid;
 	border-color:silver;
@@ -881,11 +892,31 @@ td.highlight {
 	color:#000;
 	font-size:8pt;
 }
+
 td.highlight1, TD.highLight3 {
 	background-color:#e2e9f0;
 	border:0 solid silver;
 	color:#000;
 }
+
+td.fixlength {
+	text-overflow: ellipsis;
+	white-space: nowrap;	
+	overflow: hidden; 
+	max-width:200px;
+	padding-right:3px;
+}
+
+td.fixlengthlist {
+	text-overflow: ellipsis;
+	white-space: nowrap;	
+	overflow: hidden; 
+	padding-left:4px;
+	padding-right:4px;
+	max-width:200px;
+	background-color:##e1e1e180
+}
+
 td.normal {
 	color:0;
 	font-size:14px;

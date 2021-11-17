@@ -52,7 +52,7 @@
 <table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
 					
 <cfoutput query="History">   
-	<tr class="line labelit navigation_row" bgcolor="ffffef" style="height:16px">	
+	<tr class="line labelmedium navigation_row" bgcolor="ffffef" style="height:16px">	
 	<!--- <td width="80" align="left" style="padding-left:3px;padding-right:5px">(#Dateformat(Created, "#CLIENT.DateFormatShow#")#)</td> --->
 	<td width="80" style="padding-left:4px">#Dateformat(History.EffectiveDate, "#CLIENT.DateFormatShow#")#</td>
 	<td style="padding-top:4px;width:20px">	

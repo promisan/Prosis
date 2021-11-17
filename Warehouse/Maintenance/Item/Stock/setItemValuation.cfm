@@ -6,26 +6,27 @@
 <cftransaction>
 	
 	<cfif url.revaluation eq "false">
-	
+		
 		<cfinvoke component = "Service.Process.Materials.Stock"  
 		   method           = "RedoIssuanceTransaction" 
-		   Mode             = "Standard"
+		   Mode             = "Standard" <!---  and now also handles 0 initial stock values --->
 		   filtermission    = "#url.mission#"   
 		   filteritemno     = "#url.id#"
-		   finalStatus		= "0.5"
+		   finalStatus		= "0.3"
 		   revaluation      = "0">	 
 
 		<cf_tl id="Calculating forced completed" var="1">
 		<cfset session.StatusStr = lt_text> 
-	      					
+			      					
 		<cfinvoke component = "Service.Process.Materials.Stock"  
 		   method           = "RedoIssuanceTransaction" 
 		   Mode             = "Force" <!--- removes small differences --->
 		   filtermission    = "#url.mission#"   
 		   filteritemno     = "#url.id#"
-		   initialStatus  	= "0.5"
-		   revaluation      = "0">	   
-	
+		   initialStatus  	= "0.6"
+		   revaluation      = "0">	
+		
+			
 	<cfelse>
 		
 		  <cfinvoke component = "Service.Process.Materials.Stock"  

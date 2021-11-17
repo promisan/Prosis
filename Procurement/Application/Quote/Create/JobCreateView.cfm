@@ -172,7 +172,7 @@
 	  ann   = document.getElementById('annotationsel').value		 	 
 	  fun   = document.getElementById('fundsel').value		 
 	  fund  = document.getElementById('fundcode').value			 		 
-	  ColdFusion.navigate('SelectPending.cfm?mode=pending&page='+pag+'&annotationid='+ann+'&mission=#url.mission#&period='+per+'&search='+val+'&unit='+unit+'&fun='+fun+'&fund='+fund,'pending')
+	  ptoken.navigate('SelectPending.cfm?mode=pending&page='+pag+'&annotationid='+ann+'&mission=#url.mission#&period='+per+'&search='+val+'&unit='+unit+'&fun='+fun+'&fund='+fund,'pending')
 	}  	
 	
 	// function AddVacancy(pos,req) {

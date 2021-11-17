@@ -467,7 +467,7 @@
 						</td>		
 						<td><cfif receiptstatus eq "2"><cf_tl id="Matched"><cfelseif receiptstatus eq "1"><cf_tl id="Posted"></cfif></td>					  
 						<TD>#PurchaseNo#</TD>
-						<TD style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">#beneficiary#</TD>
+						<TD class="fixlength" style="padding-left:3px;padding-right:3px;max-width:250px;background-color:##e1e1e180" title="#beneficiary#">#beneficiary#</TD>
 						<TD style="padding-right:2px;">#PackingSlipNo#</TD>
 						<TD style="padding-right:2px;">#DateFormat(ReceiptDate, CLIENT.DateFormatShow)#</td>
 						<cfif Custom.ReceiptReference1 neq "">

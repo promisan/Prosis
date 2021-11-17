@@ -42,9 +42,9 @@ password="#SESSION.dbpw#">
 	
 	<table width="100%" class="formpadding formspacing">
 	
-		<tr class="labelmedium"><td colspan="2">This function will not financially repost a prior payroll period if it was already closed and set as IN cycle.<br><br> Its SOLE purpose is to apply corrections in the payroll in order to correct current and/or future payment settlement calculations.<br></td></tr>
+		<tr class="labelmedium2"><td colspan="2">This function will not financially repost a prior payroll period if it was already closed and set as IN cycle.<br><br> Its SOLE purpose is to apply corrections in the payroll in order to correct current and/or future payment settlement calculations.<br></td></tr>
 		<tr class="line"><td colspan="2"></td></tr>
-		<tr class="labelmedium">
+		<tr class="labelmedium2">
 		<td style="font-size:14px"><cf_tl id="Set as"></td>
 		<td>
 			<table><tr class="labelmedium"><td><input class="radiol" type="radio" name="PaymentStatus" value="0" <cfif settlement.paymentstatus eq "0">checked</cfif>></td>
@@ -55,7 +55,7 @@ password="#SESSION.dbpw#">
 		</td>		   	
 		</tr>
 		
-		<tr class="labelmedium">
+		<tr class="labelmedium2">
 		<td style="font-size:14px"><cf_tl id="Payment date"></td>
 		<td>
 		<select name="PaymentDate" class="regularxl" style="width:110px">
@@ -74,12 +74,12 @@ password="#SESSION.dbpw#">
 		</cfif>
 		
 		<cfoutput>
-		<tr class="labelmedium">
+		<tr class="labelmedium2">
 			<td style="font-size:14px"><cf_tl id="Amount"></td>
 			<td><input type="text" name="amount" class="regularxl" style="text-align:right;width:110px;padding-right:4px" value="#numberformat(amt,'.__')#"></td>
 		</tr>
 		
-		<tr class="labelmedium">
+		<tr class="labelmedium2">
 			<td style="font-size:14px"><cf_tl id="Memo"></td>
 			<td><input type="text" name="memo" maxlength="20" class="regularxl" style="width:220px;padding-right:4px"></td>
 		</tr>

@@ -146,6 +146,7 @@
 			<cfelseif lng eq "Closing">														   
 			AND      H.#datefield# BETWEEN #SQL_TODAYMINUS3# AND #SQL_TODAY# 
 			<cfelseif lng eq "Historic">
+			
 			AND      (
 				     H.#datefield# #preservesingleQuotes(SQL_MONTH)# 
 				     OR H.#datefield# #preservesingleQuotes(SQL_YEAR)# 
@@ -160,6 +161,7 @@
 			         C.Description, 
 					 H.#datefield#,
 					 H.TransactionCategory
+					 
 				 
 			UNION ALL							
 			
@@ -636,9 +638,9 @@
 									<tr><td style="padding-left:2px" class="labelit">&nbsp;</td></tr>								
 									<cfelseif Mode eq "Sale">								   
 									<tr class="line labelmedium2" style="height:20px">
-										<td colspan="2" align="right" style="padding-right:4px"><cf_tl id="#Mode#"></td>
+										<td colspan="2" align="right" style="min-width:80px;padding-right:4px"><cf_tl id="#Mode#"></td>
 										 <cfif per neq "Item">
-										<td colspan="2" align="right" bgcolor="f4f4f4" style="padding-right:4px"><cf_tl id="COGS"></td>
+										<td colspan="2" align="right" bgcolor="f4f4f4" style="min-width:80px;padding-right:4px"><cf_tl id="COGS"></td>
 										</cfif>
 									</tr>
 									<cfelse>
@@ -712,7 +714,7 @@
 									<tr class="navigation_row">	
 									
 									 <cfif per eq "Item">									
-										<td width="100%" align="left" style="<cfif currentrow neq 1>border-top:1px solid e1e1e1;</cfif>height:21px;padding-left:3px" class="labelmedium">
+										<td width="100%" align="left" style="<cfif currentrow neq 1>border-top:1px solid e1e1e1;</cfif>height:21px;padding-left:3px" class="fixlength labelmedium">
 										<cfif transactionCategory eq "Advances"><cf_tl id="Advances"><cfelse>#Description#</cfif></td>								 
 									 <cfelse>		
 									 								
@@ -894,7 +896,7 @@
 									
 									</cfif>
 									
-									<tr>	
+									<tr class="fixlengthlist">	
 									<cfif per eq "Item">	
 																	
 										<td  width="100%" align="left" style="padding-left:23px" class="line labelmedium"><cf_tl id="Total"></td>

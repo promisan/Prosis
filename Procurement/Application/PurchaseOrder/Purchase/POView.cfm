@@ -199,9 +199,7 @@
 		function invadd(orgunit,po,personno) {	
 		     ptoken.open("#SESSION.root#/Procurement/Application/Invoice/InvoiceEntry/InvoiceEntryView.cfm?html=yes&Mission=#PO.Mission#&Period=#PO.Period#&OrgUnit="+orgunit+"&PersonNo="+personno+"&PurchaseNo="+po,"_blank","width=1050, height=960, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes");							   						 
 		 }	
-		 
-		
-			
+		 			
 	</script>
 
 </cfoutput>

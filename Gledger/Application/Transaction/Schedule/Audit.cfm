@@ -107,6 +107,7 @@ password="#SESSION.dbpw#">
 	password="#SESSION.dbpw#">
 	
 	INSERT INTO TransactionLineSource
+	
 	(TransactionLineId, SourceTransactionLineId, Source, SourceGLAccount, SourceOrgUnit, SourceProgramCode, SourceObjectCode, AmountRatio)
 	
 	SELECT       L.TransactionLineId, 
@@ -117,7 +118,7 @@ password="#SESSION.dbpw#">
 				 S.ProgramCode, 
 				 S.ObjectCode,  
 	             ROUND(S.TransactionAmount /
-	                 (SELECT    SUM(TransactionAmount) 
+	                 (SELECT    (CASE WHEN SUM(TransactionAmount) > 0 THEN SUM(TransactionAmount) ELSE 1000000 END) AS Expr1
 	                  FROM      TransactionLine AS TL
 	                  WHERE     Journal          = L.ParentJournal 
 					  AND       JournalSerialNo  = L.ParentJournalSerialNo 

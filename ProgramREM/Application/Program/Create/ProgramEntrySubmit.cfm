@@ -816,16 +816,21 @@
 			
 		<cfif form.ProgramId eq "add">
 		
+		  <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+		  <cfset mid = oSecurity.gethash()/>  		
+		
 		  <cfif form.ProgramClass eq "Project">
 		
-				<script LANGUAGE = "JavaScript">			  
-				   ptoken.open(root + "/ProgramREM/Application/Program/ProgramView.cfm?ProgramId=#selected.programid#", "_top");						
+				<script LANGUAGE = "JavaScript">			  				   
+				   window.open("#session.root#/ProgramREM/Application/Program/ProgramView.cfm?ProgramId=#selected.programid#&mid=#mid#", "_blank");					   					
+				   window.close()
 				</script>	
 		  
 		  <cfelse>
 		  
-			    <script LANGUAGE = "JavaScript">						 
-				   ptoken.open(root + "/ProgramREM/Application/Program/ProgramView.cfm?ProgramId=#selected.programid#", "_top");				       
+			    <script LANGUAGE = "JavaScript">					   				 
+				   window.open("#session.root#/ProgramREM/Application/Program/ProgramView.cfm?ProgramId=#selected.programid#&mid=#mid#", "_blank");				       
+				   window.close()	
 				</script>
 		  
 		  </cfif>
@@ -833,7 +838,7 @@
 		<cfelse>
 		
 			<script LANGUAGE = "JavaScript">		   
-			   ptoken.open(root + "/ProgramREM/Application/Program/ProgramView.cfm?ProgramId=#selected.programid#", "_top");		
+			   ptoken.open("#session.root#/ProgramREM/Application/Program/ProgramView.cfm?ProgramId=#selected.programid#", "_top");		
 			</script>	
 			
 		</cfif>		

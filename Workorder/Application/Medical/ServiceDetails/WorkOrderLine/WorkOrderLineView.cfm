@@ -105,8 +105,6 @@
 	scroll="No" 
 	html="no">
 	
-	
-		
 	<cf_layoutscript>	
 	<cf_CalendarScript>
 	<cf_listingscript>			
@@ -122,9 +120,7 @@
 	<cf_DialogLedger>
 	<cf_DialogStaffing>
 
-
-
-	<cfajaximport tags="cfform,cfdiv,cfwindow">
+	<cfajaximport tags="cfform,cfdiv">
 	<cf_textareascript>
 		
 	<script language="JavaScript">
@@ -198,19 +194,19 @@
 	}
 
 	function printForm(journal, journalserialno) {
-		try { ColdFusion.Window.destroy('wPrintForm',true)} catch(e){};
-       	ColdFusion.Window.create('wPrintForm', '<cfoutput>#vLabelPrint#</cfoutput>', '',{x:100,y:100,width:600,height:200,resizable:false,modal:true,center:true})		
+		// try { ColdFusion.Window.destroy('wPrintForm',true)} catch(e){};
+       	ProsisUI.createWindow('wPrintForm', '<cfoutput>#vLabelPrint#</cfoutput>', '',{x:100,y:100,width:600,height:200,resizable:false,modal:true,center:true})		
 	   	ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/WorkOrder/Application/medical/servicedetails/workorderline/PrintForm.cfm?journal='+journal+'&journalserialno='+journalserialno,'wPrintForm');	
 	}
 
 	function printFormSelected(journal, journalserialno,serviceitem) {
-		try { ColdFusion.Window.destroy('wPrintForm',true)} catch(e){};
-       	ColdFusion.Window.create('wPrintForm', '<cfoutput>#vLabelPrint#</cfoutput>', '',{x:100,y:100,width:600,height:200,resizable:false,modal:true,center:true})		
+		// try { ColdFusion.Window.destroy('wPrintForm',true)} catch(e){};
+       	ProsisUI.createWindow('wPrintForm', '<cfoutput>#vLabelPrint#</cfoutput>', '',{x:100,y:100,width:600,height:300,resizable:false,modal:true,center:true})		
 	   	ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/WorkOrder/Application/medical/servicedetails/workorderline/PrintForm.cfm?journal='+journal+'&journalserialno='+journalserialno+'&serviceselected='+serviceitem,'wPrintForm');	
 	}
 
 	function doPrintFormat(journal, journalserialno, documentid, template) {
-		ptoken.open("<cfoutput>#SESSION.root#</cfoutput>/"+template+"?journal="+journal+"&journalserialno="+journalserialno+"&printdocumentid="+documentid,"doPrintFormat","left=100, top=100, width=500, height=500, status=no, toolbar=no, scrollbars=yes, resizable=yes");
+		ptoken.open("<cfoutput>#SESSION.root#</cfoutput>/"+template+"?journal="+journal+"&journalserialno="+journalserialno+"&printdocumentid="+documentid,"doPrintFormat","left=100, top=100, width=800, height=600, status=no, toolbar=no, scrollbars=yes, resizable=yes");
 	}
 		
 	function editForm(wli) {	   	
@@ -248,7 +244,7 @@
 			<cfinclude template="../../../../../Roster/Candidate/Details/Applicant/ApplicantDetail.cfm">				
 			</td></tr>			
 			<tr><td>		
-		    <cfdiv id="myContainer" bind="url:WorkOrderLineViewContent.cfm?drillid=#url.drillid#">				
+		    <cf_securediv id="myContainer" bind="url:WorkOrderLineViewContent.cfm?drillid=#url.drillid#">				
 			</td></tr>
 			
 		</table>			

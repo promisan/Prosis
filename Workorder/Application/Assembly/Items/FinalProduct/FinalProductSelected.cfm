@@ -47,7 +47,7 @@
 		</cfif>			
 		
 		<cfoutput query="SelectedItems">
-			<tr class="labelmedium2 navigation_row line">
+			<tr class="labelmedium2 navigation_row line fixlengthlist">
 			  <td style="width:10px"></td>
 			  <td style="width:20px" style="padding-top:1px"><cf_img icon="delete" onclick="deleteSelected('#WorkorderItemId#')"></td>
 			  <td>#ItemDescription#</td>

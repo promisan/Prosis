@@ -106,13 +106,12 @@
 	.clsFlowActionHighlight {
 		background-color: ##FFFF00;
 	}
-</style>
-	
+</style>	
 
 	<cf_tableround  mode="flat" startcolor="E4E4E4" endcolor="E4E4E4" totalwidth="#w#" totalheight="#h*Action.Recordcount#">
 	
 	<table width="100%"
-		       height="100%"		       
+		       height="100%"				      
 			   class="formpadding"
 			   align="center">
 	   
@@ -131,12 +130,7 @@
 			
 			<cfset drag = drag + 1>
 			<!---width="#w-6#"--->
-			<table width=""
-		       height="#h-4#"
-		       border="0"
-		       cellspacing="0"
-		       cellpadding="0"
-			   id="d#drag#">		
+			<table style="width:200px" height="#h-4#" id="d#drag#">		
 			   			  		   
 				<tr style="background-color:ffffaf">
 				   <td height="1" style="padding-left:3px" class="labelit" width="40%" id="b#Action.ActionCode#">
@@ -164,12 +158,15 @@
 
 			  <cfif (accessWorkflow eq "EDIT" or accessWorkflow eq "ALL") or url.scope eq "Object">
 		   						
-			   <tr style="cursor: pointer;" class="line labelit" 
+			   <tr style="cursor: pointer;" class="line labelmedium fixlengthlist" 
 				 onClick="stepinspect('#Action.ActionCode#','#URL.PublishNo#')">
 				 <!---#Boxcolor#--->
-			     <td colspan="3" align="center" bgcolor="#Boxcolor#" id="bd#drag#"> 				
-			     <cfif Action.ActionType eq "Decision"><font color="FFFFFF"></cfif>
-			   	  #ActionDescription#<cfif ActionReference neq ""><font size="1"><br>[#ActionReference#]</cfif>
+			     <td colspan="3" title="#ActionDescription#" align="center" bgcolor="#Boxcolor#" id="bd#drag#"> 	
+				  <table><tr class="fixlengthlist"><td><cfif Action.ActionType eq "Decision"><font color="FFFFFF"></cfif>#ActionDescription# </td></tr>
+				  <cfif ActionReference neq "">
+				  <tr><td><font size="1"><br>[#ActionReference#]</td></tr>
+				  </cfif>
+				  </table>	
 			     </td>
 			   </tr>
 			   			   
@@ -232,13 +229,13 @@
 			</script>
 		</cfif>  
 		
-		<table width="100%" height="100%" align="center">
-							
+		<table style="width:170px" height="100%" align="center">
+									
 			<cfif action.showasBranch eq "0" 
 			       or action.actiontype eq "Action" 
 				   or url.connector eq action.actionparent>
 					    
-				<tr class="labelmedium" style="background-color:##b0b0b080;height:15px;border-bottom:1px solid silver">
+				<tr class="labelmedium fixlengthlist" style="background-color:##b0b0b080;height:15px;border-bottom:1px solid silver">
 					<td width="50%" id="b#Action.ActionCode#" style="padding-left:2px;padding-top:1px;padding-bottom:1px">
 					<cfif (accessWorkflow eq "EDIT" or accessWorkflow eq "ALL")>			
 					    <a href="javascript:stepedit('#Action.actionCode#','#URL.PublishNo#')"><font color="000000">#Action.ActionCode#</a>
@@ -247,9 +244,7 @@
 					</cfif>
 					</td>
 					
-					<td align="right" id="y#Action.ActionCode#">
-																	 
-					</td>					
+					<td align="right" id="y#Action.ActionCode#"></td>					
 					
 					<td align="right" id="z#Action.ActionCode#">
 					
@@ -287,9 +282,9 @@
 								
 					<cfif Action.ActionType eq "Decision">
 			
-						<tr style="cursor: pointer;" class="labelmedium" style="cursor: pointer;" 
+						<tr style="cursor: pointer;" class="labelmedium fixlengthlist" 
 						   onClick="stepinspect('#Action.ActionCode#','#URL.PublishNo#')">
-						    <td colspan="3" style="word-wrap: break-word;font-size:12px" align="center" background="#SESSION.root#/images/decisionblue.jpg" id="b#Action.ActionCode#">
+						    <td colspan="3" class="fixlength" align="center" background="#SESSION.root#/images/decisionblue.jpg" id="b#Action.ActionCode#">
 						    #Action.ActionDescription# 		
 							<cfif Action.ActionReference neq ""><font size="1"><br>[#Action.ActionReference#]</cfif>					
 						    </td>
@@ -297,13 +292,19 @@
 					
 					<cfelse>
 														
-						<tr style="cursor: pointer;" class="labelmedium"
-							onClick="stepinspect('#Action.ActionCode#','#URL.PublishNo#')"
-							 id="b#Action.ActionCode#">
+						<tr style="cursor: pointer;" class="labelmedium fixlengthlist" onClick="stepinspect('#Action.ActionCode#','#URL.PublishNo#')"
+						    id="b#Action.ActionCode#">
 							 <!---#Boxcolor#--->
-						    <td colspan="3" align="center" bgcolor="#Boxcolor#" id="bd#drag#" style="word-wrap: break-word;;font-size:12px">
-							#Action.ActionDescription#		
-							<cfif Action.ActionReference neq ""><font size="1"><br>[#Action.ActionReference#]</cfif>	
+						    <td colspan="3" align="center" bgcolor="#Boxcolor#" id="bd#drag#">
+														
+							 <table align="center" style="width;100%">
+							  <tr class="fixlengthlist">
+							  <td align="center" title="#Action.ActionDescription#" style="max-width:150px"><cfif Action.ActionType eq "Decision"><font color="FFFFFF"></cfif>#Action.ActionDescription#</td></tr>
+							  <cfif Action.ActionReference neq "">
+							  <tr><td align="center"><font size="1">[#Action.ActionReference#]</td></tr>
+							  </cfif>
+							  </table>								
+						
 						    </td>
 							
 							<input type="hidden" name="action#drag#" id="action#drag#" value="#Action.ActionCode#">
@@ -319,7 +320,8 @@
 					<cfif Action.ActionType eq "Decision">
 							
 						<tr>
-						    <td colspan="3" class="labelit" align="center" style="word-wrap: break-word;" background="#SESSION.root#/images/decisionblue.jpg" id="b#Action.ActionCode#">
+						    <td colspan="3" class="labelit" align="center" style="word-wrap: break-word;" 
+							  background="#SESSION.root#/images/decisionblue.jpg" id="b#Action.ActionCode#">
 						    #Action.ActionDescription#
 						    </td>
 						</tr>
@@ -362,7 +364,7 @@
 					<cfif Branch.RecordCount gt 0> 
 						<cfset first = "YES">
 						<cfloop query="Branch">
-							<tr style="cursor: pointer;" 
+							<tr style="cursor: pointer;height:20px" 
 						    onMouseOver="javascript:showaction('#drag#','#Branch.ProcessActionCode#','clsFlowActionHighlight labelit','clsFlowActionHighlight labelit')"
 							onMouseOut="javascript:showaction('#drag#','#Branch.ProcessActionCode#','labelit','labelit')">
 								<td colspan="3" align="right" class="labelit" bgcolor="FDDCAA" id="#Branch.ProcessActionCode##drag#">
@@ -380,7 +382,8 @@
 						</cfloop>
 					<cfelse>		
 						<tr>
-							<td colspan = "3" align="right" height="5" bgcolor="FDDCAA">
+							<td colspan = "3" style="height:20px" align="right" height="5" bgcolor="FDDCAA">
+							
 							<cfswitch expression="#Action.ActionGoTo#">
 								<cfcase Value = '1'><img src="#SESSION.root#/images/SendDown.gif" alt="" border="0" style="cursor: pointer;"></cfcase>
 								<cfcase Value = '2'><img src="#SESSION.root#/images/SendUp.gif" alt="" border="0" style="cursor: pointer;"></cfcase>
@@ -393,7 +396,7 @@
 	
 			<cfelse>
 			
-				<tr><td align="center" class="labelit">
+				<tr><td align="center" class="labelmedium">
 				#Action.ActionCode#
 				<a href="#SESSION.root#/System//EntityAction/EntityFlow/ClassAction/FlowView.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&Connector=#Action.ActionParent#">
 					Linking pin		

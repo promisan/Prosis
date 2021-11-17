@@ -179,6 +179,7 @@
 				   SessionProtectionMode     = '#Form.SessionProtectionMode#',
 				   SessionProtectionInterval = '#Form.SessionProtectionInterval#',	 				 		 			 			
 				   URLProtectionMode         = '#Form.URLProtectionMode#',
+				   MIDThreshold              = '#Form.MIDThreshold#',
 				   EnableURLCheck            = '#Form.EnableURLCheck#',
 				   EnableFORMCheck           = '#Form.EnableFormCheck#',
 				   TemplateLogging           = '#Form.TemplateLogging#',

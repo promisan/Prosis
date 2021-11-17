@@ -1,3 +1,8 @@
+
+<cfparam name="URL.id0"         default="">
+<cfparam name="URL.id1"         default="">
+<cfparam name="URL.id2"         default="">
+<cfparam name="URL.id3"         default="">
 <cfparam name="URL.mid"         default="">
 <cfparam name="URL.orientation" default="portrait">
 
@@ -28,5 +33,3 @@
 
 </cfif>
 </cfoutput>
-
-

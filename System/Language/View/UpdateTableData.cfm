@@ -36,14 +36,8 @@
       KeyFieldName   = "Code" 
 	  KeyFieldName2  = "ListCode"
 	  Fields         = "ListValue">			
-			  	   	  
-<cfinvoke component="UpdateTable" method="table"
-      TableCode      = "Ref_Nation"
-      SystemModule   = "System"
-      DataSource     = "AppsSystem" 
-      KeyFieldName   = "Code"
-      InterfaceTable = "1"
-      Fields         = "Name,Nationality,Continent">     	  
+	   	  
+  	  
 	  
 	  
 

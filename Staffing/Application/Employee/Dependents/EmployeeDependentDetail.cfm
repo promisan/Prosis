@@ -70,7 +70,7 @@
 	<cfset access = "ALL">
 </cfif>
 		
-<table style="min-width:800px" width="100%" border="0" cellspacing="0" cellpadding="0">
+<table style="min-width:800px" width="100%">
  
    <tr class="line">
    
@@ -190,7 +190,7 @@
   </tr>
   
 <cfif openContract eq "1" and url.action eq "Person">
-	<tr class="line"><td align="center" style="height:30px;font-weight:200" class="labellarge" colspan="2"><font color="red"><cf_tl id="There is a contract pending review"></td></tr>
+	<tr class="line"><td align="center" style="height:30px" class="labellarge" colspan="2"><font color="red"><cf_tl id="There is a contract pending review"></td></tr>
 </cfif>
    
 <tr>
@@ -198,24 +198,24 @@
   <td width="100%" colspan="2">
   <table width="100%" class="navigation_table">
 	
-<TR class="labelmedium2 line">
-    <td height="20" style="width:20px"></td>
-    <td style="width:20px"></td>
-    <td width="40%" colspan="2"><cf_tl id="Relation"></td>	
-	<TD width="60"><cf_tl id="S"></TD>
-    <TD width="90"><cf_tl id="DOB"></TD>
-	<TD width="90"><cf_tl id="Beneficiary"></TD>
-	<TD width="70"><cf_tl id="Action"></TD>
-	<TD width="10%"><cf_tl id="Officer"></TD>
-	<TD width="80"><cf_tl id="Source"></TD>
-	<TD width="80"><cf_tl id="Effective"></TD>
-	<td width="80"><cf_tl id="Status"></td>
+<TR class="labelmedium2 line fixlengthlist">
+    <td height="20"></td>
+    <td></td>
+    <td colspan="2"><cf_tl id="Relation"></td>	
+	<TD><cf_tl id="S"></TD>
+    <TD><cf_tl id="DOB"></TD>
+	<TD><cf_tl id="Beneficiary"></TD>
+	<TD><cf_tl id="Action"></TD>
+	<TD><cf_tl id="Officer"></TD>
+	<TD><cf_tl id="Source"></TD>
+	<TD><cf_tl id="Effective"></TD>
+	<td><cf_tl id="Status"></td>
 </TR>
 
 <cfset last = '1'>
 
 <cfif search.recordcount eq "0">
-	<tr><td colspan="11" class="labelmedium" align="center" style="padding-top:10px;font-weight:200"><font color="808080"><cf_tl id="There are no records to be shown in this view">.</td></tr>
+	<tr><td colspan="11" class="labelmedium2" align="center" style="padding-top:10px;font-weight:300"><font color="808080"><cf_tl id="There are no records to be shown in this view">.</td></tr>
 </cfif>
 
 <cfoutput query="Search">
@@ -226,7 +226,7 @@
 		<cfset color = "white">
 	</cfif>
 	
-	<tr bgcolor="#color#" class="navigation_row labelmedium2 line">
+	<tr bgcolor="#color#" class="navigation_row labelmedium2 line fixlengthlist">
 	
 	     <td height="20" align="center" style="padding-left:4px;cursor:pointer" onclick="workflowdrilldependent('#dependentid#','box_#dependentid#')" >
 		 
@@ -282,7 +282,7 @@
 		 		 
 		</td>
 						
-		<td style="padding-top:1px;padding-left:4px;min-width:40px">		
+		<td style="padding-top:1px">		
 				
 		   <cfset editmode = "0">
 		    	   
@@ -412,7 +412,7 @@
 		  </cfif>	
 			
 		</td>	
-		<td colspan="2" style="font-weight:350;font-size:16px">
+		<td colspan="2" style="font-size:16px">
 		    
 		    <cfif editmode eq "1">
 			<a href="javascript:dependentedit('#URL.ID#','#DependentId#','#url.action#','#url.contractid#')"><font size="2" color="408080">#RelDescription#</font></a>: #FirstName# #LastName#
@@ -422,10 +422,10 @@
 			
 		</td>
 		
-		<TD style="padding-right:2px">#Gender#</TD>
-		<TD style="min-width:110">#Dateformat(BirthDate, CLIENT.DateFormatShow)# (#datediff("yyyy",BirthDate,now())#)</TD>
-		<td style="padding-right:2px">#Description#</td>
-		<TD style="padding-right:2px">
+		<TD>#Gender#</TD>
+		<TD>#Dateformat(BirthDate, CLIENT.DateFormatShow)# (#datediff("yyyy",BirthDate,now())#)</TD>
+		<td>#Description#</td>
+		<TD>
 		
 		<cfquery name = "Action"
 			datasource = "AppsEmployee"
@@ -452,18 +452,18 @@
 		</cfloop>
 				
 		</TD>
-		<td style="padding-right:2px">#OfficerLastName#</td>
-		<td style="padding-right:2px">#Source#</td>
-		<TD style="padding-right:2px"><cfif DateEffective neq "">#Dateformat(DateEffective, CLIENT.DateFormatShow)#<cfelse>#Dateformat(Created, CLIENT.DateFormatShow)#</cfif></TD>
+		<td>#OfficerLastName#</td>
+		<td>#Source#</td>
+		<TD><cfif DateEffective neq "">#Dateformat(DateEffective, CLIENT.DateFormatShow)#<cfelse>#Dateformat(Created, CLIENT.DateFormatShow)#</cfif></TD>
 			
 		<cfif actionStatus eq "9">
-			<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;background-color:##ff000080"><cf_tl id="Inactive"></td>	
+			<td id="status_#dependentid#" align="center" style="border:1px solid silver;background-color:##ff000080"><cf_tl id="Inactive"></td>	
 		<cfelseif actionstatus eq "0">
-		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:##ffffaf80"><cf_tl id="Pending"></td>
+		<td id="status_#dependentid#" align="center" style="border:1px solid silver;border-right:0px;background-color:##ffffaf80"><cf_tl id="Pending"></td>
 		<cfelseif actionstatus eq "1">
-		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:##e1e1e180"><cf_tl id="In Process"></td>		
+		<td id="status_#dependentid#" align="center" style="border:1px solid silver;border-right:0px;background-color:##e1e1e180"><cf_tl id="In Process"></td>		
 		<cfelse>
-		<td id="status_#dependentid#" align="center" style="font-weight:200;min-width:70px;border:1px solid silver;border-right:0px;background-color:##80E38280"><cf_tl id="Cleared"></td>	
+		<td id="status_#dependentid#" align="center" style="border:1px solid silver;border-right:0px;background-color:##80E38280"><cf_tl id="Cleared"></td>	
 		</cfif>		
 		
 	</tr>
@@ -491,7 +491,7 @@
 			<cfif operational eq "1" or Parameter.DependentEntitlement eq "1">	 
 			
 				<cfif url.action eq "Person" and actionstatus eq "0">
-					<tr style="height:20px;font-weight:200"><td></td><td></td><td class="line" colspan="10"><font color="red"><cf_tl id="Record record is not considered for payroll until approved"></td></tr>
+					<tr class="fixlengthlist" style="height:20px"><td></td><td></td><td class="line" colspan="10"><font color="red"><cf_tl id="Record record is not considered for payroll until approved"></td></tr>
 				</cfif>
 				
 				<!--- Query returning search results --->

@@ -271,6 +271,13 @@ function doSubmit(element) {
 	ptoken.navigate('TransactionSubmit.cfm?journal=#URL.Journal#','resultbox','','','POST','transactionheader');		
 }
 
+function doSubmitContinue(element) {
+	Prosis.busy('yes')
+	element.disabled = true;
+	document.getElementById('transactionheader').onsubmit()
+	ptoken.navigate('TransactionSubmit.cfm?journal=#URL.Journal#&closewindow=1','resultbox','','','POST','transactionheader');
+}
+
 function toggleGroup(selector){
 	if ($(selector).first().is(':visible')) {
 		$(selector).hide();
@@ -1307,31 +1314,29 @@ function togglebox(val) {
 			<tr>
 			
 					<td style="padding-left:35px;padding-right:15px;min-width:140px" valign="top">
-					
-					<table align="center" style=";background-color:fafafa">	
-					   <tr><td style="padding:4px">
-					   <table>			
-					    <cfinclude template="TransactionDetailMenu.cfm">
+					   
+						<table align="center" height="100%" style="background-color:fafafa">	
+						   <tr class="fixrow">
+							   <td style="padding:4px" valign="top">
+							       
+								   <table>			
+								   <cfinclude template="TransactionDetailMenu.cfm">
+								   </table>								   
+							   </td>
+						   </tr>	 					
 						</table>
-					   </td></tr>	 					
-					</table>
-					
+						
 					</td>
 				
 				    <td valign="top" style="width:100%;border:0px solid silver;height:100%;padding-left:4px;padding-right:4px">		
-					
-						<table style="height:100%;width:100%;" border="0" align="center">
-						
-							<cf_menucontainer item="1" class="regular">
-																							
-									<cfinclude template="TransactionDetailEntry.cfm">
-																	
-							</cf_menucontainer>		
-										
-							<cf_menucontainer item="2" class="hide" container="div">
-						
+					    
+						<table style="height:100%;width:100%;" border="0" align="center">						
+							<cf_menucontainer item="1" class="regular">																							
+									<cfinclude template="TransactionDetailEntry.cfm">																	
+							</cf_menucontainer>												
+							<cf_menucontainer item="2" class="hide" container="div">						
 						</table>
-								
+														
 					</td>
 				
 				</tr>
@@ -1346,6 +1351,10 @@ function togglebox(val) {
  
 </table>
 
-
+<script>
+	<cfif tracat is "Payment" or  tracat is "DirectPayment">
+		try {document.getElementById('menu2').click();} catch(e) {}
+	</cfif>
+</script>
 
 

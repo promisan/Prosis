@@ -53,6 +53,8 @@
 			FROM   TransactionHeaderAction WHERE ActionId = '#url.actionid#'			          
 </cfquery>  	
 
+
+
 <cfif getAction.ActionMode eq "2">
 
 	<!--- all relevant data in in TransactionHeaderAction --->
@@ -267,12 +269,12 @@
 			<td style="padding-right:10px">
 				<cf_tl id="Save and close" var="1">
 				
-				 <input type="button" 
-				      class="button10g" 
-				      onclick="ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Settlement/SaleInvoiceSave.cfm?actionid=#url.actionid#&batchid=#batchid#&batchreference='+document.getElementById('batchreference').value,'process')" 
-				      style="height:28;width:130" 					 
-					  name="save" id="save"
-					  value="#lt_text#">
+				 <input type  = "button" 
+				      class   = "button10g" 
+				      onclick = "ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Settlement/SaleInvoiceSave.cfm?actionid=#url.actionid#&batchid=#batchid#&batchreference='+document.getElementById('batchreference').value,'process')" 
+				      style   = "height:28;width:130" 					 
+					  name    = "save" id="save"
+					  value   = "#lt_text#">
 		    </td>
 			
 			<td class="hide" id="process"></td>

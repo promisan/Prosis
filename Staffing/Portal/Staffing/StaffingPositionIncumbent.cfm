@@ -47,16 +47,15 @@
 									  
 				  <cfif pict neq "">
 				  
-				  	  <cfif FileExists("#SESSION.rootpath#\EmployeePhoto\#pict#.jpg")>				  
-					  	   <cfset vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg">						  						   
+				  	  <cfif FileExists("#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg")>				  
+						   <cf_getMid>
+					  	   <cfset vPhoto = "#SESSION.root#\CFRStage\getFile.cfm?id=#pict#.jpg&mode=EmployeePhoto&mid=#mid#">						  						   
 				      <cfelse>
-					  
-						  <cffile action="COPY" 
-							source="#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg" 
-	  		    			destination="#SESSION.rootPath#\CFRStage\EmployeePhoto\#pict#.jpg" nameconflict="OVERWRITE">
-							
-							<cfset vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg">
-						
+						  <cfif Gender eq "Female">
+							  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-female.png">
+						  <cfelse>
+							  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-male.png">
+						  </cfif>
 					  </cfif> 	
 									
 						<img src="#vPhoto#" class="img-circle clsRoundedPicture" style="cursor:pointer;height:#size#; width:#size#;">		

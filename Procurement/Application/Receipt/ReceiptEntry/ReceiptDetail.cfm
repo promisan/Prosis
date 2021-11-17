@@ -207,7 +207,7 @@ password="#SESSION.dbpw#">
     
  <table width="100%">
  
- <tr><td>
+ <tr><td style="min-width:1000px">
  
  <table width="100%" border="0" class="navigation_table"> 
   
@@ -235,51 +235,51 @@ password="#SESSION.dbpw#">
 	 <cfelse>
 	   	    		  
 		 <cfif URL.Mode eq "Entry">
-		   <tr bgcolor="f5f5f5" class="line labelmedium fixrow">	  
+		   <tr bgcolor="f5f5f5" class="line labelmedium fixrow fixlengthlist">	  
 		 <cfelse>
-		   <tr class="line labelmedium fixrow">
+		   <tr class="line labelmedium fixrow fixlengthlist">
 		 </cfif>
 	  
-		 <td style="min-width:10px"></td>
-		 <td style="width:40px;padding-right:4px"></td>		
+		 <td></td>
+		 <td></td>		
 	     <td><cf_tl id="Product"></td>
 		 
-		 <td width="80" style="padding-right:3px">
+		 <td style="padding-right:3px">
 		     <cfif url.mode neq "direct"><cf_tl id="Item"></cfif>
 		 </td>	
 		 
 		 <cfif URL.Mode eq "Entry" or url.mode eq "Receipt">
-			 <td width="10%"><cf_tl id="Facility"></td>
+			 <td><cf_tl id="Facility"></td>
 		 <cfelse>
-			 <td width="10%"><cf_tl id="Reference"></td>	
+			 <td><cf_tl id="Reference"></td>	
 		 </cfif>
 			 
 		 <cfif url.mode neq "receipt">
 		     <!--- otherwise it will show double --->
-		     <td width="13%"><cf_tl id="PurchaseNo"></td>
+		     <td><cf_tl id="PurchaseNo"></td>
 		 <cfelse>
-		     <td width="1%"></td>	 
+		     <td></td>	 
 		 </cfif>
 			 		
-		 <td style="width:140px"><cf_tl id="Date"></td>		
-		 <td style="min-width:80px"><cf_tl id="Ordered"></td>	
-		 <td style="min-width:80px"><cf_tl id="Volume"></td>	
+		 <td><cf_tl id="Date"></td>		
+		 <td><cf_tl id="Ordered"></td>	
+		 <td><cf_tl id="Volume"></td>	
 		 
 		 <cfif url.mode neq "direct">
-		 	<td style="min-width:100px" align="right"><cf_tl id="Quantity"></td>
-		    <td style="width:6%;min-width:100px" align="right"><cf_tl id="UoM"></td>		 	
-	   	    <td colspan="2" style="min-width:100px;padding-right:4px" align="right"><cf_tl id="Amount"></td>
-			<td style="min-width:80px;border-left:1px solid silver;padding-right:3px" align="right"><cf_tl id="Tax"></td>
-			<td style="min-width:80px;border-left:1px solid silver;padding-right:3px" align="right"><cf_tl id="Cost"></td>	
+		 	<td align="right"><cf_tl id="Quantity"></td>
+		    <td align="right"><cf_tl id="UoM"></td>		 	
+	   	    <td colspan="2" align="right"><cf_tl id="Amount"></td>
+			<td style="border-left:1px solid silver" align="right"><cf_tl id="Tax"></td>
+			<td style="border-left:1px solid silver" align="right"><cf_tl id="Cost"></td>	
 		 <cfelse>			
 		 	<td colspan="2"><cf_tl id="Receiver"></td>	   	   
-			<td width="8%" align="right"><cf_tl id="Qty"></td>
-		    <td style="width:6%;min-width:120px" align="right"><cf_tl id="UoM"></td>			
+			<td align="right"><cf_tl id="Qty"></td>
+		    <td align="right"><cf_tl id="UoM"></td>			
 		 </cfif>
 		 <cfoutput query="Cost">	
-		 <td align="right" style="min-width:80px;border-left:1px solid silver;padding-right:4px">#Description#</td>						
+		 <td align="right" style="border-left:1px solid silver;padding-right:4px">#Description#</td>						
 		 </cfoutput>	
-		 <td align="right" style="min-width:4px;border-left:1px solid silver"></td>		 		
+		 <td align="right" style="border-left:1px solid silver"></td>		 		
 	     </tr>
 		 
 		  <cfif url.mode neq "direct">
@@ -316,7 +316,7 @@ password="#SESSION.dbpw#">
 	    <cfset stl = "">		
 	 </cfif>
  
- 	 <tr bgcolor="#color#" class="labelmedium line navigation_row" style="border-top:1px solid silver;height:22px">
+ 	 <tr bgcolor="#color#" class="labelmedium line navigation_row fixlengthlist" style="border-top:1px solid silver;height:22px">
 	 
 	   <td align="center" style="width:20;padding-left:5px;padding-top:1px;padding-right:9px">
 	   
@@ -386,7 +386,7 @@ password="#SESSION.dbpw#">
 	 			  	 
 	   </td>
 	   
-	   <td height="14" style="padding-right:6px">
+	   <td height="14">
 	   
 	   <cfswitch expression="#ActionStatus#">
 		   <cfcase value="0"><font color="gray"><cf_tl id="PE"></cfcase>
@@ -399,19 +399,21 @@ password="#SESSION.dbpw#">
 	   
 	   <!--- product or warehouse --->
 	   
-	   <td style="#stl#;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-	  
-		 <cfif ReceiptItemNo neq "">
-				 <font color="008000">#ReceiptItemNo#:</font>
-		 </cfif>#ReceiptItem#
-		 <cfif transactionlot gte "1">:
-			 #transactionlot#
-		 </cfif>
-		 <cfif CaseNo neq "">
-				 (#CaseNo#)
-		 </cfif>
-		 </td>
-	   <td style="#stl# padding-right:4px">  
+	   <cfsavecontent variable="myval">
+	     <cfif ReceiptItemNo neq "">#ReceiptItemNo#:</cfif>#ReceiptItem#
+		 <cfif transactionlot gte "1">:#transactionlot#</cfif>
+		 <cfif CaseNo neq "">(#CaseNo#)</cfif>
+	   </cfsavecontent>	 
+	   
+	   <td style="#stl#" title="#myval#">
+	   	  
+	     <cfif ReceiptItemNo neq ""><font color='008000'>&nbsp;#ReceiptItemNo#:&nbsp;</font></cfif>#ReceiptItem#
+		 <cfif transactionlot gte "1">:#transactionlot#</cfif>
+		 <cfif CaseNo neq "">(#CaseNo#)</cfif>
+	   	   
+	   </td>
+		 
+	   <td style="#stl#">  
    	   
 	   <cfif url.mode neq "direct">
 		   <cfif WarehouseItemNo neq "">	
@@ -495,32 +497,32 @@ password="#SESSION.dbpw#">
 		   
 	   </td>
 	   
-	   <td style="#stl#;padding-right:4px">#DateFormat(DeliveryDate, CLIENT.DateFormatShow)#</td>    
+	   <td style="#stl#">#DateFormat(DeliveryDate, CLIENT.DateFormatShow)#</td>    
 	  	      
 	   <!--- ------------------------------- ---> 
 	   <!--- portal access we show different --->	  
 	   <!--- ------------------------------- --->   
 	   
-	   <td align="right" style="background-color:##e6e6e6B3;#stl#;padding-right:3px">#NumberFormat(ReceiptOrder,",._")#</td>
-	   <td align="right" style="background-color:##ffffafB3;#stl#;padding-right:3px"><cfif ReceiptVolume neq "">#NumberFormat(ReceiptVolume,",.__")#</cfif> </td>
+	   <td align="right" style="background-color:##e6e6e6B3;#stl#">#NumberFormat(ReceiptOrder,",._")#</td>
+	   <td align="right" style="background-color:##ffffafB3;#stl#"><cfif ReceiptVolume neq "">#NumberFormat(ReceiptVolume,",.__")#</cfif> </td>
 	   	   
 	   <cfif url.mode neq "direct">	   
 		   
 		    <cfif WarehouseItemNo neq "">	    			 
 				  
-				<td align="right" style="background-color:##DAF9FCB3;#stl#;wmin-width:80px;width:80px;padding-left:4px;padding-right:3px">#NumberFormat(ReceiptWarehouse,",._")#</td>				  
-				<td align="right" style="background-color:##DAF9FCB3;#stl#;padding-left:3px;padding-right:3px">#left(UoMDescription,10)# <!--- <cfif uom.ItemBarcode neq "">(#UoM.ItemBarCode#)</cfif> ---></td>
+				<td align="right" style="background-color:##DAF9FCB3;#stl#;wmin-width:80px;width:80px">#NumberFormat(ReceiptWarehouse,",._")#</td>				  
+				<td align="right" style="background-color:##DAF9FCB3;#stl#">#left(UoMDescription,10)# <!--- <cfif uom.ItemBarcode neq "">(#UoM.ItemBarCode#)</cfif> ---></td>
 				  
 		   <cfelse>		  
 		   
-		   	    <td align="right" style="#stl#;padding-right:3px">#NumberFormat(ReceiptQuantity,",._")#</td>		   
-			    <td align="right" style="#stl#;padding-left:3px;padding-right:3px">#left(ReceiptUoM,10)#</td>
+		   	    <td align="right" style="#stl#">#NumberFormat(ReceiptQuantity,",._")#</td>		   
+			    <td align="right" style="#stl#">#left(ReceiptUoM,10)#</td>
 		   
 		   </cfif>
 		   		   
 		   <td align="right" colspan="2" style="#stl#;padding-right:4px"><font size="1">#Currency#</font>&nbsp;#NumberFormat(ReceiptAmountCost,",.__")#</td>
-		   <td align="right" style="background-color:##DDFBE2B3;padding-right:2px;border-left:1px solid silver;padding-left:8px #stl#">#NumberFormat(ReceiptAmountBaseTax,",.__")#</td>
-		   <td align="right" style="background-color:##DDFBE2B3;padding-right:2px;border-left:1px solid silver;padding-left:8px #stl#">#NumberFormat(ReceiptAmountBaseCost,",.__")#</td>
+		   <td align="right" style="background-color:##DDFBE2B3;border-left:1px solid silver;#stl#">#NumberFormat(ReceiptAmountBaseTax,",.__")#</td>
+		   <td align="right" style="background-color:##DDFBE2B3;border-left:1px solid silver;#stl#">#NumberFormat(ReceiptAmountBaseCost,",.__")#</td>
 		   		   
 	   <cfelse>
 	   
@@ -561,7 +563,7 @@ password="#SESSION.dbpw#">
 	   
 	   <cfloop query="Cost">	  
 	  
-		 <td  align="right" style="background-color:##FFCAFFB3;min-width:80px;border-left:1px solid silver;padding-right:4px">
+		 <td  align="right" style="background-color:##FFCAFFB3;border-left:1px solid silver">
 		 
 		 		<cfquery name="costdetail" 
 				  datasource="AppsPurchase" 
@@ -578,7 +580,7 @@ password="#SESSION.dbpw#">
 		 </td>						
 	   </cfloop>	
 	   
-	   <td align="center" style="#stl#;padding-left:8px;padding-right:4px;padding-top:1px;width:10">	   
+	   <td align="center" style="#stl#;padding-top:1px;width:10">	   
 	       
 	   	   <cfparam name="editmode" default="view">						
 	   					
@@ -692,8 +694,7 @@ password="#SESSION.dbpw#">
 		
 		<cfif transaction.recordcount gte "1">
 	 
-	 	<tr>	
-		 
+	 	<tr>		 
  
 			 <td colspan="16" style="padding-bottom:7px">		  		
 					

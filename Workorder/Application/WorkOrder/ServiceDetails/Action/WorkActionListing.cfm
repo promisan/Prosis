@@ -3,7 +3,6 @@
 <cfparam name="url.workorderid"               default="">
 <cfparam name="url.workorderline"             default="">
 
-
 <cfif url.workorderid eq "">
 	<table width="100%">
 	    <tr><td height="60" align="center" class="labelmedium"><cf_tl id="Invalid request. Action interrupted"></td></tr>
@@ -370,21 +369,40 @@ password="#SESSION.dbpw#">
 <cfform method="post" name="actionform_#url.tabno#" id="actionform_#url.tabno#">
 	
 	<table width="100%" 
-	  align="center" 		 
+	  align="center"  border="0"
 	  navigationhover="transparent"
 	  navigationselect="f4f4f4"
 	  class="navigation_table">
 		
-	<tr class="line labelmedium">
-	    <td style="width:20px"></td>
-	    <td style="width:20px" width="1%" height="21"></td>
-		<td style="width:20px" width="1%"><!--- wf box ---></td>
-		<td width="15%"><cf_tl id="Action"></td>
-		<td width="35%"><cf_tl id="Due"><cf_space spaces="50"></td>		
-		<td width="15%"><cf_tl id="Completed"></td>
-		<td width="10%"><cf_tl id="Officer"></td>
-		<td width="10%" align="left"><cf_tl id="Date">/<cf_tl id="Time"></td>
-		<td width="5%" align="right" style="padding-right:4px">
+	<tr class="line labelmedium fixlengthlist">
+	    <td colspan="3">
+		
+		<cfif (access eq "EDIT" or access eq "ALL") and 
+			      workorder.actionstatus lt "3" and 
+				  getWorkorderLine.ActionStatus lt "3">
+				<cfif url.id2 eq "">
+				<cfoutput>
+				     <cf_tl id="Add" var="1">
+				     <input type="button" 
+					  class="button10g" 
+					  value="#lt_text#"
+					  style="width:100%;height:20px;font-size:12px;border:1px solid silver"
+					  onclick="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/WorkOrder/Application/WorkOrder/ServiceDetails/Action/WorkActionListing.cfm?id2=new&tabno=#url.tabno#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&workactionid=&actionstatus=#url.actionstatus#&entrymode=#url.entrymode#','actioncontent')">
+						
+				</cfoutput>
+				</cfif>
+			</cfif>
+		
+		</td>
+	    		
+		<td><cf_tl id="Action"></td>
+		<td><cf_tl id="Due"></td>		
+		<td><cf_tl id="Completed"></td>
+		<td><cf_tl id="Officer"></td>
+		<td align="left"><cf_tl id="Date">/<cf_tl id="Time"></td>
+		
+		<!---
+		<td align="right" style="width:30px;">
 		
 			<cfif (access eq "EDIT" or access eq "ALL") and 
 			      workorder.actionstatus lt "3" and 
@@ -399,6 +417,7 @@ password="#SESSION.dbpw#">
 			</cfif>
 		
 		</td>	
+		--->
 	</tr>
 			
 	<cfif access eq "EDIT" or access eq "ALL">
@@ -409,15 +428,15 @@ password="#SESSION.dbpw#">
 			
 			<cfset workactionid = rowguid>	
 			
-			<tr bgcolor="white">
+			<tr bgcolor="white" class="fixlengthlist">
 			
-			<td class="navigation_pointer"></td>
+			<td style="width:10px" class="navigation_pointer"></td>
 			
 			<td valign="top" style="padding-top:6px" class="labelmedium"><cfoutput>#workaction.recordcount+1#.</cfoutput></td>
 			
 			<td></td>
 			
-			<td colspan="6" align="center">
+			<td colspan="6" align="center" style="width:100%">
 			
 				<table width="100%" class="formpadding">
 						
@@ -494,16 +513,16 @@ password="#SESSION.dbpw#">
 					
 		<cfif url.workactionid eq workactionid and SESSION.acc eq OfficerUserId>
 		
-			<tr class="navigation_row">
+			<tr class="navigation_row fixlengthlist labelmedium">
 						
-			    <td style="width:40px" class="navigation_pointer"></td>				
-			    <td valign="top" class="labelmedium" style="padding-top:7px">#currentrow#.</td>
+			    <td style="min-width:20px;width:20px;max-width:20px" class="navigation_pointer"></td>				
+			    <td valign="top" style="width:10px;padding-top:7px">#currentrow#.</td>
 				
 				<td colspan="7" align="center" height="80" style="padding-top:4px">
 				
-					<table width="100%" cellspacing="1" cellpadding="1" class="formpadding">
+					<table width="100%" class="formpadding">
 					
-					<tr class="labelmedium">
+					<tr class="labelmedium fixlengthlist">
 					
 						<td><cf_tl id="Type">:</td>
 						<td>							
@@ -552,10 +571,10 @@ password="#SESSION.dbpw#">
 		
 		<cfelse>
 		
-			<tr class="line labelmedium navigation_row">
+			<tr class="line labelmedium navigation_row fixlengthlist" style="height:30px">
 			
-			<td style="height:44px;width:20px" class="navigation_pointer"></td>			
-		    <td style="padding-left:4px">#currentrow#.</td>							
+			<td style="max-width:10px" class="navigation_pointer"></td>			
+		    <td style="max-width:10px">#currentrow#.</td>							
 			<td style="cursor:pointer;padding-top:1px" 
 			    onclick="workflowaction('#workactionid#','box_#workactionid#')" align="center">				
 								
@@ -609,10 +628,9 @@ password="#SESSION.dbpw#">
 												
 					 <cfif DateTimePlanningWorkplan eq "" and workorderlineStatus eq "3">
 					 
-					  <table>
-					  <tr class="labelmedium"><td>	
-					  					  
-					     <cf_space spaces="60">
+					  <table width="100%">
+					  <tr class="labelmedium"><td class="fixlength">	
+					  		 					     
 						 <font color="808080">
 						 #dateformat(DateTimePlanning,client.dateformatshow)# 					  
 						 </font>
@@ -624,16 +642,15 @@ password="#SESSION.dbpw#">
 					 
 					 <cfelseif DateTimePlanningWorkplan neq "">
 					
-					  <table cellspacing="0" cellpadding="0">
-					  <tr class="labelmedium" style="height:10px;min-width:100px"><td>	
+					  <table width="100%">
+					  <tr class="labelmedium fixlengthlist">
+					  <td>	
 					  	  
 						  <cfif WorkOrderLineStatus lt "3" and DateTimeActual eq "">
-						  
+						  						  
 						   <a href="javascript:workplan('#workactionid#')">
-						   #lsdateformat(DateTimePlanningWorkplan,"DD/MM/YYYY Dddd")#: 						 
-						   <font size="3" color="0080C0"><b>#timeformat(DateTimePlanningWorkplan,"HH:MM")#</b></font>
-						  									  
-							<cfquery name="Person" 
+						   
+						   <cfquery name="Person" 
 							datasource="AppsEmployee" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
@@ -641,18 +658,17 @@ password="#SESSION.dbpw#">
 							    FROM    Person
 								WHERE   PersonNo  = '#PersonNo#'						
 							</cfquery>
-							
-						    <font color="0080C0">
- 							#Person.LastName#		
-							</font>				
+						   
+						   <font color="0080C0">#Person.LastName#:</font>	
+						    <font color="0080C0"><b>#timeformat(DateTimePlanningWorkplan,"HH:MM")#</b></font>
+						   #lsdateformat(DateTimePlanningWorkplan,"DD/MM/YYYY Dddd")# 						 
+						  
+						  
 							</a>
 						  
 						  <cfelse>
 						  
-						   #lsdateformat(DateTimePlanningWorkplan,"DD/MM/YYYY Dddd")#
-						   <font size="2"><b>#timeformat(DateTimePlanningWorkplan,"HH:MM")#</b></font>
-						  									  
-							<cfquery name="Person" 
+						  <cfquery name="Person" 
 							datasource="AppsEmployee" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
@@ -661,7 +677,10 @@ password="#SESSION.dbpw#">
 								WHERE   PersonNo  = '#PersonNo#'						
 							</cfquery>
 													   
- 							#Person.LastName#									
+ 							#Person.LastName#: #timeformat(DateTimePlanningWorkplan,"HH:MM")#			
+						  
+						   #lsdateformat(DateTimePlanningWorkplan,"DD/MM/YYYY Dddd")#
+						   					  					
 						  
 						  </cfif>						 		  
 						  
@@ -670,15 +689,13 @@ password="#SESSION.dbpw#">
 						  #LocationPlanningWorkPlan#
 						  						  
 					  </td>
-					  
-					  
-					  
-					  <td style="padding-left:3px">
+					  					  
+					  <td style="padding-left:3px;padding-top:2px">
 					  					  
 						  <cfif WorkOrderLineStatus lt "3" and DateTimeActual eq "">
 						  
 							  <cfif access eq "EDIT" or access eq "ALL">					  
-							     <cf_img icon="delete" onclick="ColdFusion.navigate('#session.root#/WorkOrder/Application/WorkOrder/ServiceDetails/Action/deleteWorkPlan.cfm?workactionid=#workactionid#','plan#workactionid#')">					  
+							     <cf_img icon="delete" onclick="ptoken.navigate('#session.root#/WorkOrder/Application/WorkOrder/ServiceDetails/Action/deleteWorkPlan.cfm?workactionid=#workactionid#','plan#workactionid#')">					  
 							  </cfif>
 							  
 						  </cfif>
@@ -687,17 +704,18 @@ password="#SESSION.dbpw#">
 					  </tr>
 					  
 					  <cfif DateTimePlanningWorkPlanPrior neq "">
-					  <tr class="labelit"><td style="height:10px"><cf_tl id="Prior">:<font color="E64A00">
-						  #dateformat(DateTimePlanningWorkplanPrior,client.dateformatshow)# <font size="2">#timeformat(DateTimePlanningWorkplanPrior,"HH:MM")#</font>
-					  </td></tr>
+						  <tr class="labelit" style="font-size:13px;background-color:f1f1f1;height:10px"><td align="center"><cf_tl id="Prior">:
+						      <font color="E64A00">
+							  #dateformat(DateTimePlanningWorkplanPrior,client.dateformatshow)# #timeformat(DateTimePlanningWorkplanPrior,"HH:MM")#
+							  </font>
+						  </td></tr>
 					  </cfif>
 					  
 					  </table>	
 					 			
 					 <cfelse>
 					  			  	  
-					  <u>
-					
+					  <u>					
 					  <a href="javascript:workplan('#workactionid#','#lineorgunit#','#linepersonno#')">
 					  <font color="FF0000">#dateformat(DateTimePlanning,client.dateformatshow)# <font size="2">#timeformat(DateTimePlanning,"HH:MM")#</font>
 					  </a>
@@ -713,11 +731,11 @@ password="#SESSION.dbpw#">
 			
 			</td>		
 			
-			<td>
+			<td style="height:100%">
 				<table style="width:93%;padding-left:5px;border:1px solid gray">
 					<tr class="labelmedium">		
 					<cfif DateTimeActual neq "">	
-					<td style="font-size:15px;padding-left:4px;padding-right:4px" bgcolor="DDFBE2" align="center">		   		
+					<td style="padding-left:4px;padding-right:4px" bgcolor="DDFBE2" align="center">		   		
 					   #dateformat(DateTimeActual,client.dateformatshow)# <font size="2">#timeformat(DateTimeActual,"HH:MM")#</font>		
 					</td>	
 					<cfelseif ActionStatus eq "9">
@@ -741,10 +759,10 @@ password="#SESSION.dbpw#">
 				
 			</td>							
 										
-			<td style="font-size:12px">#OfficerLastName#</td>
-			<td style="font-size:12px">#dateformat(created,"DD/MM")# #timeformat(created,"HH:MM")#</td>
+			<td>#OfficerLastName#</td>
+			<td>#dateformat(created,"DD/MM")# #timeformat(created,"HH:MM")#</td>
 			
-			<td align="right" style="padding-right:4px">
+			<td align="right">
 			
 			    <!--- before it was looking at the access rights for that role but that was in my views not appropriate --->
 				

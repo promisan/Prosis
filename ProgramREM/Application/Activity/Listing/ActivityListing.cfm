@@ -522,7 +522,7 @@ password="#SESSION.dbpw#">
 	<tr><td>
 		
 		<table width="100%"
-		   height="30" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
+		   height="30" class="navigation_table">
 																				
 			<cfinclude template="ActivityListingHeader.cfm">
 														

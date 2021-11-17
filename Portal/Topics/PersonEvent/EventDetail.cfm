@@ -207,10 +207,10 @@ ORDER BY EventMonth,
 	
 	   <tr><td style="height:6px"></td></tr>
 	
-	   <tr style="border-top:0px solid silver" class="labelmedium line navigation_table">
+	   <tr style="border-top:0px solid silver" class="labelmedium line navigation_table fixlengthlist">
 	       <td></td>
 	       <td><cf_tl id="IndexNo"></td>
-	       <td><cf_tl id="Name"><cf_space spaces="50"></td>
+	       <td><cf_tl id="Name"></td>
 		   <td><cf_tl id="Due date"></td>
 		   <td><cf_tl id="Event"></td>	 
 		   <td><cf_tl id="Effective"></td>
@@ -248,49 +248,46 @@ ORDER BY EventMonth,
 	   
 	   <cfoutput>
 	   
-		   <tr class="labelmedium navigation_row" style="height:20px;border-top:1px solid gray">
+		   <tr class="labelmedium2 navigation_row fixlengthlist" style="height:20px;border-top:1px solid silver">
 		       <td style="min-width:20px;padding-top:2px;padding-left:10px"><cf_img navigation="Yes" icon="open" onclick="eventdialog('#eventid#')"></td>
 		       <td style="padding-right:7px">
-				   <table><tr class="labelmedium">
-				          <td><img src="#session.root#/images/logos/staffing/iconperson.png" style="height:15px" alt="" border="0"></td>
+				   <table><tr class="labelmedium2">
+				          <td><img src="#session.root#/images/logos/staffing/iconperson.png" style="height:17px" alt="" border="0"></td>
 				          <td style="padding-left:4px" ><a href="javascript:EditPerson('#personno#')">#IndexNo#</a></td>
 				   </tr>
 				   </table>
 			   </td>
-		       <td style="padding-right:5px">#FirstName# #LastName#</b></td>
-			   <td style="padding-right:5px">#dateformat(DateEventDue,client.dateformatshow)#</td>
-			   <td style="padding-right:5px">#EventTriggerName#: <font color="808000">#EventName# </td>	 
-			   <td style="padding-right:5px">#dateformat(ActionDateEffective, client.dateformatshow)#</td>
-			   <td style="padding-right:5px">#dateformat(ActionDateExpiration, client.dateformatshow)#</td>	 
-			   <td style="padding-right:5px">#OfficerLastName#</td>  
-			   <td style="padding-right:5px">#ActorName#</td> 
+		       <td>#FirstName# #LastName#</b></td>
+			   <td>#dateformat(DateEventDue,client.dateformatshow)#</td>
+			   <td>#EventTriggerName#: <font color="808000">#EventName# </td>	 
+			   <td>#dateformat(ActionDateEffective, client.dateformatshow)#</td>
+			   <td>#dateformat(ActionDateExpiration, client.dateformatshow)#</td>	 
+			   <td>#OfficerLastName#</td>  
+			   <td>#ActorName#</td> 
 		   </tr>
-		   <tr class="labelmedium navigation_row_child" style="height:20px;border-top:1px solid silver">
+		   
+		   <tr class="labelmedium2 navigation_row_child" style="height:20px;border-top:1px solid silver">
 		        <td colspan="1"></td>
 				<cfif PositionNo neq "">
 				<td style="padding-left:4px;background-color:ffffaf" >
 					<table>
-						<tr class="labelmedium"><td><img src="#session.root#/images/logos/staffing/iconposition.png" style="height:15px" alt="" border="0"></td>
-							<td style="padding-left:4px;background-color:ffffaf" ><a href="javascript:EditPosition('','','#PositionNo#')">#PostNumber#</a></td>
+						<tr class="labelmedium2"><td><img src="#session.root#/images/logos/staffing/iconposition.png" style="height:17px" alt="" border="0"></td>
+							<td style="padding-left:8px;background-color:ffffaf" ><a href="javascript:EditPosition('','','#PositionNo#')">#PostNumber#</a></td>
 						</tr>
 					</table>	
 				<cfelse>
 				<td></td>
 				</cfif>
+				<!---
 				<td colspan="1" style="background-color:##e1e1e180;border-left:1px solid silver;;border-right:1px solid silver;padding-left:3px;padding-left:1px;"><cf_tl id="Request">:</td>
-		        <td colspan="6" style="padding-left:4px"><cfif remarks neq "">#remarks#</cfif>
+				--->
+		        <td colspan="7" style="padding-left:4px;background-color:##ffffcf80">
+				 <cfif base.reasonname neq ""><b>#Base.ReasonName#:&nbsp;</b></cfif><cfif remarks neq "">#remarks#</cfif>
 			   </td>
 		   </tr>
-		    <cfif base.reasonname neq "">
-		   <tr class="labelmedium navigation_row_child" style="height:20px;border-top:1px solid silver">
-		        <td colspan="1"></td>
-				<td></td>
-				<td colspan="1" style="background-color:##e1e1e180;border-left:1px solid silver;;border-right:1px solid silver;padding-left:3px;padding-left:1px;"><cf_tl id="Reason for action">:</b> </td>
-				<td colspan="6" style="padding-left:4px"><font color="gray">#Base.ReasonName#</td></tr>	   
-		   </cfif>
-		  
+		   		  
 		   <cfif actorcomments neq "">
-		   <tr class="labelmedium navigation_row_child" style="height:20px;border-top:1px solid silver">
+		   <tr class="labelmedium2 navigation_row_child" style="height:20px;border-top:1px solid silver">
 		        <td colspan="1"></td>
 				<td></td>
 				<td colspan="1" style="background-color:##e1e1e180;border-left:1px solid silver;;border-right:1px solid silver;padding-left:3px;padding-left:1px;""><cf_tl id="Actor">:</b> </td>

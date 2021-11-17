@@ -1,7 +1,7 @@
 
 <cfform method="POST" name="selectionform" id="selectionform">
 
-<table>
+<table style="width:100%">
 
 <cfparam name="url.uom" default="">
 
@@ -86,7 +86,7 @@
 	<cfset cont = 0>
 	
 	<cfoutput>
-	<tr class="line"><td colspan="4" class="labelmedium">#getItemMaster.ItemDescription#</td></tr>	
+	<tr class="line lablemedium2"><td colspan="4" style="height:40px;font-size:23px">#getItemMaster.ItemDescription#</td></tr>	
 	</cfoutput>
 	
 	<cfoutput query="getTopics">		
@@ -99,28 +99,24 @@
 			<cfset ip  = itempointer>
 			
 			<cfif row eq "1">
-			<tr>
+			<tr style="fixlengthlist">
 			</cfif>
 						
-			    <td style="padding-right:5px">					
+			    <td style="padding:3px">					
 					
 					<cfset lastSelected = "">
 					
-					<table cellspacing="0" cellpadding="0" style="border:1px solid silver">
-					
-						<tr><td valign="top" bgcolor="black" class="labelit" style="padding-left:4px;"><font color="FFFFFF">#TopicLabel#:</td></tr>
-						
-						<tr><td class="line"></td></tr>
-					
-						<tr><td style="padding:4px" bgcolor="f4f4f4">
+					<table class="formpadding" style="width:100%;border:1px solid silver">
+										
+						<tr class="line"><td align="center" class="labelmedium2" style="background-color:804040;"><font color="FFFFFF">#TopicLabel#:</td></tr>
+											
+						<tr><td style="padding:3px">
 							<input type="text" 
 							onkeyup="_cf_loadingtexthtml='';ptoken.navigate('getTopic.cfm?ip=#ip#&workorderid=#url.workorderid#&workorderline=#url.workorderline#&code=#code#&itemno=#url.itemno#&uom=#url.UoM#&find='+this.value,'box_#GetTopics.Code#')"
 							class="regularxl" 
 							style="padding-left:3px;border:1px solid silver;width:100%" name="Filter_#GetTopics.Code#">
 						</td></tr>
-						
-						<tr><td class="line"></td></tr>
-						
+												
 						<tr>
 						<td id="box_#GetTopics.Code#">		
 						     <!--- show the selectable content for the topic --->		

@@ -40,12 +40,13 @@
 	  WHERE Account = '#SESSION.acc#'
 </cfquery>
 
-<cfif URL.Mode eq "Dialog">
+<cfif URL.Mode eq "Dialog" or URL.Mode eq "cfwindow">
 	<cfset colorheader = "">
     <cfset colorbg = "f9f9f9">
 	<cfset colorfont = "white">
 	<cfset button = "Button10g">
 <cfelse>
+   <!--- check maybe reporting framework ? --->
    <cfif URL.GUI eq "HTML">
 	    <cfset colorheader = "f0f0f0">
 		<!--- <cfset colorbg = "E0E0E0"> --->
@@ -61,9 +62,9 @@
 </cfif>
 
 <!--- define if mail should be stored --->
-<cfparam name="URL.Source" default="Manual">
-<cfparam name="URL.SourceId" default="">
-<cfparam name="CLIENT.Filter" default="">
+<cfparam name="URL.Source"     default="Manual">
+<cfparam name="URL.SourceId"   default="">
+<cfparam name="CLIENT.Filter"  default="">
 
 <cfswitch expression="#URL.Source#">
 
@@ -116,34 +117,32 @@
 
 <cfoutput> 
 
-<cf_divscroll>
-
-<table width="100%" height="99%">
+<table width="100%" style="height:98.5%">
 
 <tr><td>
 
 	<cfform action="MailVerify.cfm?id1=#url.id1#&Mode=#URL.Mode#" 
 	        method="post" 
-			style="height:99%"
+			style="height:98.5%"
 			name="mail" 
 			target="mailsubmit">	
 				 
 	<table width="99%" align="center" height="100%">
 		
-	<tr class="hide"><td><iframe name="mailsubmit" id="mailsubmit"></iframe></td></tr>
+	<tr class="hide"><td colspan="2"><iframe name="mailsubmit" id="mailsubmit"></iframe></td></tr>
 	
 	<tr class="line">
 	
 	   <td height="40" style="padding-left:4px;padding-top:8px">
 	     
-	    <button type="submit" style="font-size:15px;padding:2px;" class="button10g"><cf_tl id="Send"></button>
+	    <button type="submit" style="font-size:15px;height:30px;width:100px;padding:2px;" class="button10g"><cf_tl id="Send"></button>
 			
 		<cfif URL.Mode eq "Dialog">
 		    <!---
 		    <input type="button" name="close" id="close" class="#button#" value="Cancel" onClick="window.close()">
 			--->
 		<cfelseif url.mode eq "cfwindow">	
-			 <input type="hidden" name="close" id="close" class="#button#" value="Close" onClick="parent.ProsisUI.closeWindow('maildialog')">	
+			 <input type="button" name="close" id="close" style="font-size:15px;height:30px;width:100px;padding:2px;" class="button10g" value="Close" onClick="parent.ProsisUI.closeWindow('maildialog')">	
 		    <!--- disabled the full view dialog back
 			<input type="button" name="Back" class="#button#" value="Back" onclick="history.back(-1)">
 			--->
@@ -176,14 +175,16 @@
 		</cfif>
 			
 		<cfif URL.ID3 is not "">
-	  		 <input type="hidden" name="filter" id="filter" value="#URL.ID3#" size="50" class="regular">&nbsp;
+	  		 <input type="hidden" name="filter" id="filter" value="#URL.ID3#" size="50" class="regular">
 		<cfelse>
-		     <input type="hidden" name="filter" id="filter" value="#CLIENT.Filter#" size="50" class="regular">&nbsp;
+		     <input type="hidden" name="filter" id="filter" value="#CLIENT.Filter#" size="50" class="regular">
 		</cfif>	
 		
 	   </td>
 	   
 	   <td align="right"><!--- &nbsp;&nbsp;Message #URL.Source#&nbsp;&nbsp; ---></td>
+	   
+	   </tr>
 	  
 	   <tr><td colspan="2" height="7"></td></tr>
 		<tr>
@@ -193,10 +194,10 @@
 			
 			 <!--- Field: SentFROM --->
 		    <tr>
-		    <TD class="labelmedium" valign="top" style="padding-top:4px;padding-left:20px"><b><cf_tl id="From">:</TD>
-			<TD>
+		    <td class="labelmedium" valign="top" style="min-width:60px;padding-left:20px"><b><cf_tl id="From">:</TD>
+			<td style="width:80%" valign="top">
 			
-				<table cellspacing="0" cellpadding="0"><tr><td class="labelmedium" style="padding-top:3px">
+				<table><tr><td class="labelmedium" style="cursor:pointer" title="#Client.eMail#">
 				
 				<cfquery name="Parameter" 
 				   datasource="AppsSystem" 
@@ -208,23 +209,22 @@
 				
 				<cfif SESSION.acc eq Parameter.AnonymousUserid>
 				 
-					 <cfinput type="Text"
-				       name="SentFROM_Name"
-				       value=""
-				       message=""
-					   class="regularxl"
-				       required="Yes"
-				       visible="Yes"
-				       enabled="Yes"
-				       size="50"
-				       maxlength="50">
+					 <cfinput type = "Text"
+				       name        = "SentFROM_Name"
+				       value       = ""
+				       message     = ""
+					   class       = "regularxl"
+				       required    = "Yes"
+				       visible     = "Yes"
+				       enabled     = "Yes"
+				       size        = "50"
+				       maxlength   = "50">
 					   
 				<cfelse>
 				 
 				       <cfoutput>
 					        #SESSION.first# #SESSION.last#				
-					        <input type="hidden" name="SentFROM_Name" id="SentFROM_Name" value="#SESSION.first# #SESSION.last#">
-							
+					        <input type="hidden" name="SentFROM_Name" id="SentFROM_Name" value="#SESSION.first# #SESSION.last#">							
 					   </cfoutput>
 					   
 				</cfif>	  
@@ -256,7 +256,7 @@
 				   <cfelse>
 				   
 				       <cfoutput>
-					       <input type="hidden" name="SentFROM" id="SentFROM" value="#CLIENT.eMail#">#Client.eMail#
+					       <input type="hidden" name="SentFROM" id="SentFROM" value="#CLIENT.eMail#">
 					   </cfoutput>
 						
 					</cfif>	  
@@ -284,7 +284,7 @@
 				<cfif URL.Source eq "Manual" or 
 					URL.Source eq "Report" or 
 					URL.Source eq "ReportConfig">
-					
+										
 					  <cfinput type="Text"
 					       name="sendTO"
 					       value="#URL.ID#"
@@ -305,20 +305,20 @@
 					   <input type="hidden" name="sendTO" id="sendTO" value="#URL.ID#">
 					   <cfoutput>#To.Name# - #To.Nationality# (#URL.ID#)</cfoutput>
 					   
-				   <cfelse>
-				   
+				   <cfelse>				  
+				  				   
 					   <cfinput type="Text"
-				       name="sendTO"
-					   id="sendTO"
-				       value="#URL.ID#"
-				       message="Please enter a correct to: address"			      
-				       required="Yes"
-				       visible="Yes"
-				       enabled="Yes"
-					   style="width:97%"
-					   class="regularxl"
-				       size="80"
-				       maxlength="50">
+					       name="sendTO"
+						   id="sendTO"
+					       value="#URL.ID#"
+					       message="Please enter a correct to: address"			      
+					       required="Yes"
+					       visible="Yes"
+					       enabled="Yes"
+						   style="width:97%"
+						   class="regularxl"
+					       size="80"
+					       maxlength="50">
 				   		   			   			   
 				   </cfif>
 				   
@@ -473,7 +473,6 @@
 				</TD>
 				</TR>	
 				
-				<tr><td height="1" colspan="2" class="line"></td></tr>
 				
 			</cfoutput>
 		
@@ -551,7 +550,7 @@
 			
 			</cfif>						
 				
-			<tr><td colspan="2" style="height:47px;border:0px solid silver">
+			<tr><td colspan="2" style="height:47px">
 			<table width="99%" cellspacing="0" cellpadding="0" align="center">
 				<tr>
 					<td>				
@@ -600,34 +599,30 @@
 		
 		</cfif>
 			
-		<tr><td height="4" colspan="2"></td></tr>
+		<tr><td height="6" colspan="2"></td></tr>
 		
 		<!--- mail body, check for default text to be included --->
 		
 		<cfinclude template="MailBody.cfm">
 			  
 	    <TR><td colspan="2" align="center" style="height:100%" valign="top">
-		<table width="100%" style="height:100%" border="0" cellspacing="0" cellpadding="0" align="center">
+		<table width="100%" style="height:100%" align="center">
 		
-		<tr><td valign="top" align="center" style="height:100%;padding-left:0px;padding-right:2px;border:0px solid Silver;">
+		<tr><td valign="top" align="center" style="padding-top:4px;height:100%;padding-left:4px;padding-right:4px;">
 				
-		<cfif url.mode eq "Dialog" or url.mode eq "cfwindow">
+		<cfif url.mode eq "Dialog">
 			
 		<cf_textarea name="SentBody"			
 			 toolbar="Mini"			
 			 color="ffffff"			 
 			 init="Yes" 	
 			 resize="false"		    
-			 height="60%"><cfoutput>#mailbody#</cfoutput></cf_textarea>
+			 height="90%"><cfoutput>#mailbody#</cfoutput></cf_textarea>
 			
 		<cfelse>	
-						  	  				
-			<cf_textarea name="SentBody"
-	         toolbar="Mini"
-			 height="60%"		
-			 init="Yes"	
-			 color="ffffff"
-			 resize="false"><cfoutput>#mailbody#</cfoutput></cf_textarea>
+							  	  				
+			<textarea name="SentBody"
+			 style="border:0px solid silver;width:99%;background-color:f1f1f1;font-size:15px;padding:4px;height:100%"><cfoutput>#mailbody#</cfoutput></textarea>
 					 
 		</cfif>	
 			
@@ -655,8 +650,6 @@
 
 </td></tr>
 </table>
-
-</cf_divscroll>
 
 </cfoutput>	
 

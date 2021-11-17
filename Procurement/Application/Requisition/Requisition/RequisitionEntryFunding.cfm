@@ -595,7 +595,7 @@ password="#SESSION.dbpw#">
 	
 	</cfif>		
 		
-	<cf_tl id="Save" var="1">
+	<cf_tl id="Set" var="1">
 	<cfset vsave=lt_text>	
 			
 	<table style="width:600px" border="0" class="navigation_table">
@@ -605,9 +605,9 @@ password="#SESSION.dbpw#">
 		    <cfif Parameter.EnforceProgramBudget gte "1" and URL.Access eq "Edit">
 		  
 			    <cfif funding.recordcount eq "0">
-			    <td class="labelmedium">
+			    <td class="labelmedium2">
 				<cfelse>
-				<td class="labelmedium" width="30">
+				<td class="labelmedium2" width="30">
 				</cfif>
 					
 				<cfoutput>	
@@ -619,7 +619,7 @@ password="#SESSION.dbpw#">
 				</cfoutput>	  
 						
 				<cfif funding.recordcount eq "0">
-					 &nbsp;<a href="javascript:fd()"><font color="0080C0">[<cf_tl id="REQ031">]</font></a>				 
+					 &nbsp;<a href="javascript:fd()">[<cf_tl id="REQ031">]</a>				 
 				</cfif>
 						
 			    <td>
@@ -634,7 +634,7 @@ password="#SESSION.dbpw#">
 			
 			<cfif Funding.recordcount gte "1">
 			
-				<tr class="line labelmedium">
+				<tr class="line labelmedium2">
 					<td width="60"><cf_tl id="Per"><cf_space spaces="15"></td>			
 					<td width="50"><cf_tl id="Fund"></td>			
 					<cfif Parameter.EnforceProgramBudget eq "1">		
@@ -659,11 +659,11 @@ password="#SESSION.dbpw#">
 														
 			<cfif URL.fundingid eq FundingId>
 												
-				<TR style="height:25px" class="navigation_row line">
+				<TR style="height:34px" class="line">
 				
-				   <td>
+				   <td style="padding-left:4px">
 				   
-				     <select name="programperiod" id="programperiod" class="regularxl" style="width:100%">
+				     <select name="programperiod" id="programperiod" class="regularxxl" style="width:100%">
 			           <cfloop query="PeriodList">
 					     <option value="#Period#" <cfif period eq Funding.ProgramPeriod>selected</cfif>>#Period#</option>
 					   </cfloop>
@@ -674,7 +674,7 @@ password="#SESSION.dbpw#">
 				   <cfif Parameter.EnforceProgramBudget eq "0">				   	   	   
 				    					   						 						  
 					   <td style="padding-left:3px">
-					   <select name="fund" id="fund" class="regularxl" style="width:100%">
+					   <select name="fund" id="fund" class="regularxxl" style="width:100%">
 			           <cfloop query="FundList">
 					     <option value="#Code#" <cfif fd eq Code> SELECTED</cfif>>#Code#</option>
 					   </cfloop>
@@ -684,7 +684,7 @@ password="#SESSION.dbpw#">
 					   
 					   <td style="padding-left:3px">
 					   				   
-					   <select name="objectcde" id="objectcde" class="regularxl" style="width:100%">
+					   <select name="objectcde" id="objectcde" class="regularxxl" style="width:100%">
 			           <cfloop query="ObjectList">
 					     <option value="#Code#" <cfif obj eq Code> SELECTED</cfif>>#Code# #Description#</option>
 					   </cfloop>
@@ -723,7 +723,7 @@ password="#SESSION.dbpw#">
 						 </cfif>
 						 
 						 </td>
-						 <td class="labelit" style="padding-left:3px"><cfif CodeDisplay neq "">#CodeDisplay#<cfelse>#ObjectCode#</cfif> #Description#</td>
+						 <td class="labelmedium2" style="padding-left:3px"><cfif CodeDisplay neq "">#CodeDisplay#<cfelse>#ObjectCode#</cfif> #Description#</td>
 						 <input type="hidden" name="fund" id="fund" value="#Fund#">
 						 <input type="hidden" name="objectcde" id="objectcde" value="#ObjectCode#">
 					 
@@ -732,7 +732,7 @@ password="#SESSION.dbpw#">
 				   <input type="hidden" name="programcode" id="programcode" value="">
 				 			   
 				   <td style="padding-left:3px">
-				  	 <input type="Text" class="regularxl" name="percentage" id="percentage" value="#percentage*100#" size="2" style="text-align:center" maxlength="5">&nbsp;%
+				  	 <input type="Text" class="regularxxl" name="percentage" id="percentage" value="#percentage*100#" size="2" style="text-align:center" maxlength="5">&nbsp;%
 				   </td>
 				   
 				   <td></td>
@@ -743,7 +743,7 @@ password="#SESSION.dbpw#">
 					          type="button" 
 							  name="save"
                               id="save" 
-							  style="width:70;height:20px;"
+							  style="width:70;height:28px;"
 							  value="#vSave#" 
 							  onclick="funding('','#fundingid#','save',document.getElementById('fund').value,document.getElementById('objectcde').value,document.getElementById('programcode').value,document.getElementById('percentage').value,document.getElementById('programperiod').value)">
 					 </cfoutput>
@@ -756,7 +756,7 @@ password="#SESSION.dbpw#">
 				
 				<td colspan="7" style="padding-left:20px">	
 						
-					<cfdiv bind="url:#SESSION.root#/Procurement/Application/Requisition/FundingDetail/FundingDetail.cfm?id=#url.id#&fundingid=#url.fundingid#" 
+					<cf_securediv bind="url:#SESSION.root#/Procurement/Application/Requisition/FundingDetail/FundingDetail.cfm?id=#url.id#&fundingid=#url.fundingid#" 
 					       id="i#url.fundingid#">												
 				</td>
 				</tr>
@@ -862,7 +862,7 @@ password="#SESSION.dbpw#">
 																
 				<tr style="height:0px">								
 				<td colspan="7" style="padding-left:20px">												
-				    <cfdiv bind="url:#SESSION.root#/Procurement/Application/Requisition/FundingDetail/FundingDetail.cfm?id=#url.id#&fundingid=#fundingid#&access=view" 
+				    <cf_securediv bind="url:#SESSION.root#/Procurement/Application/Requisition/FundingDetail/FundingDetail.cfm?id=#url.id#&fundingid=#fundingid#&access=view" 
 					       id="i#fundingid#">					
 				</td>				
 				</tr>
@@ -911,7 +911,7 @@ password="#SESSION.dbpw#">
 					
 					   <td>
 					   
-					   <select name="programperiod" id="programperiod" class="regularxl" style="width:100%">
+					   <select name="programperiod" id="programperiod" class="regularxxl" style="width:100%">
 			           <cfoutput query="PeriodList">
 					     <option value="#Period#" <cfif url.per eq period>selected</cfif>>#Period#</option>
 					   </cfoutput>
@@ -920,7 +920,7 @@ password="#SESSION.dbpw#">
 					   </td>
 					
 					   <td style="padding-left:3px">
-					   <select name="fund" id="fund" class="regularxl" style="width:100%">
+					   <select name="fund" id="fund" class="regularxxl" style="width:100%">
 			           <cfoutput query="FundList">
 					     <option value="#Code#">#Code#</option>
 					   </cfoutput>
@@ -929,7 +929,7 @@ password="#SESSION.dbpw#">
 					   <td></td>
 					 					   
 					   <td style="padding-left:3px">
-					    <select name="objectcde" id="objectcde" class="regularxl" style="width:100%">
+					    <select name="objectcde" id="objectcde" class="regularxxl" style="width:100%">
 			           <cfoutput query="ObjectList">
 					     <option value="#Code#">#Code# #Description#</option>
 					   </cfoutput>
@@ -937,7 +937,7 @@ password="#SESSION.dbpw#">
 					   </td>
 					   <td style="padding-left:3px">
 					   <cfoutput>
-					   <input type="Text" name="percentage" id="percentage" class="regularxl" value="#perc*100#" range="1,#perc*100#" message="You entered an invalid percentage" validate="integer" required="Yes" size="3" maxlength="3" style="width:90%;height;21;font-size:13px;text-align:center">
+					   <input type="Text" name="percentage" id="percentage" class="regularxxl" value="#perc*100#" range="1,#perc*100#" message="You entered an invalid percentage" validate="integer" required="Yes" size="3" maxlength="3" style="width:90%;height;21;font-size:13px;text-align:center">
 					   </cfoutput>
 					   </td>
 					   <td>%</td>					   
@@ -950,7 +950,7 @@ password="#SESSION.dbpw#">
 						          type    = "button" 
 							      name    = "save" 
                                   id      = "save"
-							      style   = "width:70px"
+							      style   = "width:80px;height:29px"
 							      value   = "#vSave#" 
 							      onclick = "funding('','','save',document.getElementById('fund').value,document.getElementById('objectcde').value,document.getElementById('programcode').value,document.getElementById('percentage').value,document.getElementById('programperiod').value)">
 							 

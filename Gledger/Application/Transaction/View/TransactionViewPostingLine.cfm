@@ -11,39 +11,34 @@
 
 <cfoutput>
 
-<tr class="line labelmedium regular <cfif color neq 'ffffdf'>navigation_row</cfif>" bgcolor="#color#" style="height:26px" 
+<tr class="line labelmedium regular <cfif color neq 'ffffdf'>navigation_row</cfif> fixlengthlist" bgcolor="#color#" style="height:26px" 
        onMouseOver="earmark('b#journal#_#journalserialNo#_#glaccount#','highlight')"
 	   onMouseOut="earmark('b#journal#_#journalserialNo#_#glaccount#','regular')">   	 	
 	   	     
    <td align="center"><cfif color neq "ffffdf">#cnt#</cfif></td>
-   <td style="padding-right:3px"><cfif color neq "ffffdf"><cfif Lines.AccountClass eq "Result">#Lines.TransactionPeriodLine#<cfelse>#Lines.TransactionPeriodHeader#</cfif></cfif></td>
+   <td><cfif color neq "ffffdf"><cfif Lines.AccountClass eq "Result">#Lines.TransactionPeriodLine#<cfelse>#Lines.TransactionPeriodHeader#</cfif></cfif></td>
    <td>#DateFormat(TransactionDate, CLIENT.DateFormatShow)#</td>
    <td>#DateFormat(Created, CLIENT.DateFormatShow)#</td>   
-   <td style="padding-left:1px">#Reference#</td>   
-   <td style="padding-left:1px" name="b#parentjournal#_#parentjournalserialNo#_#glaccount#">
+   <td>#Reference#</td>   
+   <td name="b#parentjournal#_#parentjournalserialNo#_#glaccount#">
    
-	   <table width="100%" cellspacing="0" cellpadding="0">
-		   <tr class="labelmedium" style="height:19px">
+  		<cfparam name="AccountLabel" default="">
 		   
-		   <cfparam name="AccountLabel" default="">
-		   
-		   <cfif accountLabel neq "">
-			   <cfset sl = accountLabel>
-		   <cfelse>
-			   <cfset sl = glaccount>
-		   </cfif>
-		   
-		   <td style="min-width:#len(sl)*10#"><a href="javascript:showledger('#mission#','#orgunitowner#','#accountperiod#','#glaccount#')">#sl#</a></td>		   
-		   <td style="width:100%;padding-left:2px">#GLDescription#</td>
-		   </tr>
-	   </table>
+	    <cfif accountLabel neq "">
+		   <cfset sl = accountLabel>
+		<cfelse>
+		   <cfset sl = glaccount>
+		</cfif>
+   
+       <a title="#sl# #GLDescription#" href="javascript:showledger('#mission#','#orgunitowner#','#accountperiod#','#glaccount#')">#sl# #GLDescription#</a>
+   
    </td>  
    
-   <td bgcolor="f4f4f4" style="padding-left:3px;padding-right:3px;border-left:1px solid silver;font-size:10px;padding-top:5px" align="right"><cfif transactionserialno neq "0">#TransactionCurrency#</cfif></td>
-   <td bgcolor="f4f4f4" style="padding-left:3px;padding-right:3px;border-left:0px solid e3e3e3" align="right"><cfif transactionserialno neq "0">#NumberFormat(DocumentAmount,',.__')#</cfif></td>
+   <td bgcolor="f4f4f4" style="border-left:1px solid silver;font-size:10px;padding-top:5px" align="right"><cfif transactionserialno neq "0">#TransactionCurrency#</cfif></td>
+   <td bgcolor="f4f4f4" style="border-left:0px solid e3e3e3" align="right"><cfif transactionserialno neq "0">#NumberFormat(DocumentAmount,',.__')#</cfif></td>
 
-   <td align="right"    style="padding-left:3px;padding-right:3px;border-left:1px solid silver;font-size:10px;padding-top:5px">#currency#</td>
-   <td align="right"    style="padding-right:3px;border-left:0px solid e3e3e3">
+   <td align="right"    style="border-left:1px solid silver;font-size:10px;padding-top:5px">#currency#</td>
+   <td align="right"    style="border-left:0px solid e3e3e3">
       
 	<cfif amountdebit gt "0">
 		<cfset act = "Credit">
@@ -63,16 +58,16 @@
    
 	<cfif access neq "READ">
 	   
-	   <td style="padding-right:3px;border-left:1px solid silver;background-color:##ffffaf80" align="right">
+	   <td style="border-left:1px solid silver;background-color:##ffffaf80" align="right">
 	   <cfif AmountBaseDebit is not "">
 	   <cfif AmountDebit eq "0"><font color="C0C0C0"></cfif>
 	   #NumberFormat(AmountBaseDebit,',.__')#</cfif></td>
-	   <td style="padding-right:3px;border-left:1px solid silver;background-color:##ffffaf80" align="right">
+	   <td style="border-left:1px solid silver;background-color:##ffffaf80" align="right">
 	   <cfif AmountBaseCredit is not "">
 	   <cfif AmountCredit eq "0"><font color="C0C0C0"></cfif>
 	   #NumberFormat(AmountBaseCredit,',.__')#</cfif></td>  
 	          
-	   <td align="center" style="border-left:1px solid silver;padding-left:4px;padding-right:4px">
+	   <td align="center" style="border-left:1px solid silver">
 	       
 	   <!--- transaction journal is the parent journal --->  
 	        

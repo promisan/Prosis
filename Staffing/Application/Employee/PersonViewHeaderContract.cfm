@@ -239,7 +239,7 @@ password="#SESSION.dbpw#">
 				
 					<cfoutput>
 								
-						<tr class="labelmedium navigation_row line">							  
+						<tr class="labelmedium navigation_row line fixlengthlist">							  
 						   <td style="padding-right:2px;padding-left:2px">#PersonAssignment.Mission#</td>
 						   <td style="padding-right:2px" colspan="1">#dateformat(PersonAssignment.DateEffective,CLIENT.DateFormatShow)#</td>
 						   <td style="padding-right:2px">
@@ -249,8 +249,8 @@ password="#SESSION.dbpw#">
 						   #dateformat(PersonAssignment.DateExpiration,CLIENT.DateFormatShow)#
 						   </cfif>
 						   </td>
-						   <td style="width:45%;padding-right:2px" colspan="3">
-						   
+						   <td style="padding-right:2px" colspan="3" class="fixlength">
+						  
 						   <cfquery name="Parent" 
 							    datasource="AppsOrganization" 
 							    username="#SESSION.login#" 
@@ -314,7 +314,7 @@ password="#SESSION.dbpw#">
 								  and PersonAssignment.DateExpiration lt mandateRetrieve.DateExpiration>
 							
 								<tr style="height:20px">
-									<td colspan="8" style="padding-top:4px;color:ff0000" align="center" class="labellarge">
+									<td colspan="8" style="padding-top:4px;color:ff0000" align="center" class="labellarge fixlength">
 									<b>Attention:</b> Incumbency expiration per #dateformat(PersonAssignment.DateExpiration,CLIENT.DateFormatShow)# is INCONSISTENT with Contract expiration per (#dateformat(Contract.DateExpiration,CLIENT.DateFormatShow)#)
 									</td>
 								</tr>
@@ -326,7 +326,7 @@ password="#SESSION.dbpw#">
 							<cfif Contract.historiccontract eq "0">
 					
 							    <tr style="height:20px">
-								<td colspan="8" style="padding-top:4px;color:ff0000" align="center" class="labellarge">
+								<td colspan="8" style="padding-top:4px;color:ff0000" align="center" class="labellarge fixlength">
 									Contract record does not match the organization of last Incumbency record								
 								</td>
 								</tr>

@@ -65,7 +65,7 @@
 							
 	<cfif url.size eq "small" or url.size eq "embed">
 	
-		<tr class="clsPatientRow navigation_row" style="<cfif currentrow gte "2">border-top:1px solid silver</cfif>">		
+		<tr class="clsPatientRow navigation_row fixlengthlist" style="<cfif currentrow gte "2">border-top:1px solid silver</cfif>">		
 		    <td align="center" class="ecell" style="border-left:9px solid #cl#"></td> 						
 			<cfif hasBilling neq "">
 				<td style="border-left:9px solid #clb#"></td> 		
@@ -108,7 +108,7 @@
 					
 	<cfelse>
 	
-		<tr class="clsPatientRow navigation_row" style="<cfif currentrow gte "2">border-top:1px solid silver</cfif>;">	
+		<tr class="clsPatientRow navigation_row fixlengthlist" style="<cfif currentrow gte "2">border-top:1px solid silver</cfif>;">	
 			
 	    <td rowspan="2" align="center" class="fcell" style="background-color:#cl#;"></td> 							
 		<td rowspan="2" align="center" class="gcell" style="border-left:12px solid #clb#;border-right:0px solid <cfif hasBilling neq "">#cl#<cfelse>silver</cfif>;">#row#.</td> 				

@@ -165,35 +165,39 @@ password="#SESSION.dbpw#">
   <tr><td colspan="2"></td></tr>
   
   <tr>
-    <td width="100%" height="24" style="padding:15px 20px 20px">
+  
+    <td height="24" style="padding:15px 20px 20px">
 	
 	 <table><tr><td style="padding-left:10px">
 		    <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/Logos/Payroll/Overtime.png" height="64" alt=""  border="0" align="absmiddle">
 			</td>
-			<td valign="middle" style="font-size:28px">
-	    	 <cf_tl id="Registered Overtime" var="1">&nbsp;
+			<td valign="middle" class="fixlength" style="font-size:28px">
+	    	 <cf_tl id="Overtime" var="1">&nbsp;
 			 <cfoutput><span style="font-size: 30px;text-transform: capitalize;font-weight: 200;padding:16px 0 25px;">#lt_text#</span></cfoutput></font></b>
-			</td></tr></table>
+			</td></tr>
+ 	 </table>
 	 
 	 	 
 	</td>
 	<cfoutput>
-	    <td align="right" height="30" valign="bottom" style="padding-bottom:9px;padding-right:10px">
+	    <td align="right" height="30" valign="bottom" style="padding-bottom:9px">
 		
 		<table>
 		<tr class="labelmedium">
+		<td style="padding-left:18px">
+		 <cf_tl id="New Overtime Request" var="1">
+			<input type="button" value="#lt_text#" class="button10g" style="min-width:240px;height:29px;font-size:15px" onClick="overtime('#URL.ID#','#URL.ID1#')">
+		</td>
 		<td style="padding-left:4px"><input type="radio" name="mode" value="All" onclick="viewovertime('#url.id#','')" <cfif url.ovtmode eq "">checked</cfif>></td>
 		<td style="padding-left:4px"><cf_tl id="All"></td>
 		<td style="padding-left:8px"><input type="radio" name="mode" value="Pay" onclick="viewovertime('#url.id#','pay')" <cfif url.ovtmode eq "pay">checked</cfif>></td>
 		<td style="padding-left:4px"><cf_tl id="Pay"></td>
 		<td style="padding-left:8px"><input type="radio" name="mode" value="Time" onclick="viewovertime('#url.id#','time')" <cfif url.ovtmode eq "time">checked</cfif>></td>
 		<td style="padding-left:4px"><cf_tl id="Time"></td>
-		<td style="padding-left:18px">
-		 <cf_tl id="Record Overtime Request" var="1">
-			<input type="button" value="#lt_text#" class="button10g" style="width:270;height:29px;font-size:16px" onClick="overtime('#URL.ID#','#URL.ID1#')">
-		</td>
+		
 		</tr>
 		</table>	
+		
 	    </td>
 	</cfoutput>
   </tr>
@@ -221,25 +225,25 @@ password="#SESSION.dbpw#">
 		  ORDER BY  P.Mission, ESL.PayrollItem, R.PayrollItemName, ESL.Currency
 	</cfquery>
 	
-	<TR class="line labelmedium fixrow">
+	<TR class="line labelmedium fixrow fixlengthlist">
 	    <td></td>
-	    <td height="20" width="5%" align="center"></td>
+	    <td height="20" align="center"></td>
 		<td></td>		
-	    <td style="min-width:160px"><cf_tl id="Period"></td>		
-		<td width="7%"><cf_tl id="Type"></td>	
-		<TD style="min-width:160px"><cf_tl id="Reference"></TD>		
-		<TD width="10%" align="right" style="padding-right:10px"><cf_tl id="Overtime"></TD>
-		<TD width="10%" align="right" style="padding-right:10px"><cf_tl id="Accrue"></TD>
-		<TD width="5%" align="center"><cf_tl id="Pay"></TD>
-		<TD width="10%"><cf_tl id="Status"></TD>
-		<td width="10%"><cf_tl id="To Settle"></td>
-		<TD width="10%"><cf_tl id="Amount Payable"></TD>
-		<TD width="15%"><cf_tl id="Officer"></TD>
+	    <td><cf_tl id="Period"></td>		
+		<td><cf_tl id="Type"></td>	
+		<TD><cf_tl id="Reference"></TD>		
+		<TD align="right" style="padding-right:10px"><cf_tl id="Overtime"></TD>
+		<TD align="right" style="padding-right:10px"><cf_tl id="Accrue"></TD>
+		<TD align="center"><cf_tl id="Pay"></TD>
+		<TD><cf_tl id="Status"></TD>
+		<td><cf_tl id="To Settle"></td>
+		<TD><cf_tl id="Amount Payable"></TD>
+		<TD><cf_tl id="Officer"></TD>
 	</TR>
 	
 	<cfif searchresult.recordcount eq "0">
 	
-	<tr><td colspan="13" align="center" class="labelmedium" style="padding-top:10px;font-size:18px"><cf_tl id="There are no records to show in this view"></td></tr>
+	<tr><td colspan="13" align="center" class="labelmedium" style="padding-top:10px;font-size:16px"><cf_tl id="There are no records to show in this view"></td></tr>
 	
 	</cfif>
 			
@@ -314,8 +318,8 @@ password="#SESSION.dbpw#">
 	
 			<cfset row = row+1>
 		
-			<TR class="navigation_row labelmedium line" style="height:21px;<cfif TransactionType eq 'correction'>background-color:ffffaf</cfif>">
-			<td style="padding-left:10px">
+			<TR class="navigation_row labelmedium line fixlengthlist" style="height:21px;<cfif TransactionType eq 'correction'>background-color:ffffaf</cfif>">
+			<td>
 			<cfif prior neq overtimemonth>#MonthAsString(OverTimeMonth)#</cfif>
 			</td>
 			
@@ -352,7 +356,7 @@ password="#SESSION.dbpw#">
 				  
 				</cfif>	 
 				
-			<td align="center" style="padding-top:3px;padding-right:4px">
+			<td align="center" style="padding-top:3px">
 			<cfif status neq "5">
 				<cfif status gte "1" and url.scope eq "portal">				
 					<!--- we are no showing to edit --->					
@@ -362,9 +366,9 @@ password="#SESSION.dbpw#">
 			</cfif>	
 			</td>									
 			<td>#Dateformat(OvertimePeriodStart, CLIENT.DateFormatShow)# <cfif OvertimePeriodEnd neq OvertimePeriodStart>- #Dateformat(OvertimePeriodEnd, CLIENT.DateFormatShow)#</cfif></td>			
-			<td style="padding-left:3px">#TransactionType#</td>	
-			<td style="padding-left:3px">#DocumentReference#</td>						
-			<TD align="right" style="padding-right:10px">
+			<td>#TransactionType#</td>	
+			<td>#DocumentReference#</td>						
+			<TD align="right">
 			<cfif transactiontype neq "Correction">
 				#OvertimeHours#:<cfif OvertimeMinutes lt 10>0#OvertimeMinutes#<cfelse>#OvertimeMinutes#</cfif>
 			<cfelse>

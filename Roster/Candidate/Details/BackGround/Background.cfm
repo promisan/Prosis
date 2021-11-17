@@ -1,6 +1,7 @@
 
 <!--- Hanno : we need a provision for the online user to process it, even if allowedit = 0 --->
 
+
 <cfparam name="URL.entryScope"      default="Backoffice"> 
 <cfparam name="URL.source"          default="Manual">  
 <cfparam name="URL.Topic"           default="Employment"> 
@@ -400,7 +401,7 @@ password="#SESSION.dbpw#">
    
    	  <cfset prioryear = yr>
 	 	 
-	  <tr><td height="20" colspan="8" style="font-size:27px" class="labelmedium">#Yr#</td></tr>
+	  <tr class="line"><td height="20" colspan="8" style="font-size:27px" class="labelmedium">#Yr#</td></tr>
 	  
    </cfif>
 		
@@ -412,7 +413,7 @@ password="#SESSION.dbpw#">
 	
 	<cfset row = row + 1>
 	
-	<td colspan="8" class="labelit" style="padding-left:5px">
+	<td colspan="8" class="labelit" style="padding-top:5px;padding-left:5px">
 	
 	   <table>
 	   
@@ -484,10 +485,10 @@ password="#SESSION.dbpw#">
 		<td width="5%" align="left"></td>	
 		<td colspan="6">
 			<table>
-				<tr class="labelmedium">
+				<tr class="labelmedium2">
 				<td style="font-size:16px">
 				#DateFormat(ExperienceStart,CLIENT.DateFormatShow)#
-				- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2020" ><cf_tl id="Todate"><cfelse>#DateFormat(ExperienceEnd,CLIENT.DateFormatShow)#</cfif>		
+				- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2040" ><cf_tl id="Todate"><cfelse>#DateFormat(ExperienceEnd,CLIENT.DateFormatShow)#</cfif>		
 				</td>
 				</tr>
 				<tr><td>#OrganizationName# - #OrganizationCity# (#OrganizationCountry#)</td></tr>		
@@ -510,8 +511,9 @@ password="#SESSION.dbpw#">
 			<td colspan="7" class="labelit">#OrganizationAddress#</td>
 		</tr>
 	</cfif>
-			
-	<tr class="navigation_row_child labelmedium" style="height:20px">		
+	
+	<cfif OrganizationEMail neq "" or OrganizationTelephone neq "" or StaffSupervised neq "0">		
+	<tr class="navigation_row_child labelmedium2" style="height:20px">		
 		<td></td>
 		<td colspan="4">
 		<cf_tl id="Supervisor eMail">:<cfif OrganizationEMail neq "">
@@ -520,6 +522,7 @@ password="#SESSION.dbpw#">
 		<cfelse> N/A</cfif></b></td>
 		<td colspan="3" align="right" style="padding-right:10px;height:21px;"><cfif StaffSupervised neq "0"><cf_tl id="Supervised">:<cfif StaffSupervised eq "">n/a<cfelse>#StaffSupervised#</cfif></cfif></td>
 	</tr>
+	</cfif>
 	
 	<!--- ------------------------------------------------------- --->
 	<!--- detected requests for validation of the work experience --->
@@ -568,7 +571,7 @@ password="#SESSION.dbpw#">
 					
 					<tr class="navigation_row_child"><td colspan="8" align="center" style="padding-top:8px;padding-right:8px;padding-bottom:8px;padding-left:35px">
 									
-						<table width="90%" style="border:1px solid gray;border-radius:6px" align="center" class="formpadding" cellspacing="0" cellpadding="0" bgcolor="ffffcf">
+						<table width="90%" style="border:1px solid gray;border-radius:6px" align="center" class="formpadding" bgcolor="ffffcf">
 							
 							<tr class="line labelmedium" bgcolor="ffffef">
 							    <td style="padding-left:4px"><cf_tl id="Review type"></td>
@@ -670,15 +673,15 @@ password="#SESSION.dbpw#">
 					
 						<cfif url.EntryScope eq "Backoffice">
 							<cfloop query = "key">
-								<tr class="line navigation_row_child">		
+								<tr class="navigation_row_child labelmedium2" style="height:10px">		
 								    <td></td>
 									<cfif k neq ExperienceClassDescription>
-										<td class="labelit" style="height:20px;padding-left:20px" width="25%">&nbsp;<font color="gray">#ExperienceClassDescription#</td>
+										<td style="height:20px;padding-left:20px" width="25%">&nbsp;<font color="gray">#ExperienceClassDescription#</td>
 										<cfset k = "#ExperienceClassDescription#">
 									<cfelse>
 										<td width="40%"></td>
 									</cfif>
-									<td class="labelmedium" colspan="6" style="height:20px"><font color="800000">#Description#</td>
+									<td colspan="6" style="height:20px"><font color="800000">#Description#</td>
 								</tr>										
 							</cfloop>				
 						</cfif>
@@ -756,7 +759,7 @@ password="#SESSION.dbpw#">
 						
 		</cfoutput>
 					
-		<tr class="line navigation_row_child"><td style="height:10px" colspan="8"></td></tr>		
+		<tr class="line navigation_row_child"><td style="height:4px" colspan="8"></td></tr>		
 						
 </cfoutput>
 

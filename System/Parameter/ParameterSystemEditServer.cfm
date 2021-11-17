@@ -6,7 +6,7 @@
 	    <td  colspan="2" style="font-size:25px" width="170">Web Application Server</td>
 		</tr>
 				
-	    <TR>
+	    <TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10" width="170">Virtual Directory to root:</td>
 	    <TD width="70%">
 	  	    <cfoutput query="get">
@@ -17,7 +17,7 @@
 		
 		
 		 <!--- Field: DefaulteMail --->
-	    <TR>
+	    <TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10">Document Web Server URL:</td>
 	    <TD>
 	  	    <cfoutput query="get">
@@ -28,7 +28,7 @@
 			
 
 		 <!--- Field: DefaulteMail --->
-	    <TR>
+	    <TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10">Turn on/off Document Storage Server:</td>
 	    <TD class="labellarge">
 	  	    <cfoutput query="get">
@@ -40,7 +40,7 @@
 		
 
 		 <!--- Field: ReplyTo--->
-	    <TR>
+	    <TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10">Turn on/off "Reply to" address:</td>
 	    <TD class="labellarge">
 	  	    <cfoutput query="get">
@@ -51,7 +51,7 @@
 		</TR>			
 			
 		 <!--- Field: DefaulteMail --->
-	    <TR>
+	    <TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10">Default eMail Address:</td>
 	    <TD class="labellarge">
 	  	    <cfoutput query="get">
@@ -61,7 +61,7 @@
 		</TR>
 		
 		 <!--- Field: DefaulteMail --->
-	    <TR>
+	    <TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10">Log attachments:</td>
 	    <TD class="labellarge">
 	  	    <cfoutput query="get">
@@ -72,7 +72,7 @@
 		</TR>
 		
 		 <!--- Field: DateFormat --->
-	    <TR>
+	    <TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10">Presentation date Format:</td>
 	    <TD class="labellarge">
 	  	    <cfoutput query="get">
@@ -88,7 +88,7 @@
 		</TR>
 		
 		 <!--- Field: Language --->
-	    <TR>
+	    <TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10">Initial Language:</td>
 	    <TD>
 			<select name="Language" id="Language" class="regularxl">
@@ -107,7 +107,7 @@
 	    <td colspan="2" style="font-size:25px" class="labellarge" width="170">SQL Server</b></td>
 		</tr>
 			
-		<TR>
+		<TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10" width="190"><cf_UIToolTip tooltip="db.System and db.Organization">Configuration and Authorization:</cf_UIToolTip></td>
 	    <TD>
 	  	    <cfoutput query="get">
@@ -116,7 +116,7 @@
 	    </TD>
 		</TR>
 				
-		<TR>
+		<TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10;cursor:pointer" title="Release 9 : Server name must be the same as for the Authorization server">Transactional Server:</td>
 	    <TD>
 	  	    <cfoutput query="get">
@@ -128,16 +128,18 @@
 		<TR>
 	    <td class="labellarge" style="padding-left:40;cursor:pointer" title="Database server license</b> Contact : info@promisan.com to acquire one">Server Usage/Upgrade License:</td>
 	    <TD>
-			<table cellspacing="0" cellpadding="0">
-			<tr>
+			<table
+			<tr class="fixlengthlist">
 	  	    <cfoutput query="get">			
-				<td>
+				<td style="padding-left:3px">
 					<cfinput class="regularxl" type="Text" name="DatabaseServerLicenseId" 
-					   value="#DatabaseServerLicenseId#" required="Yes" size="58" maxlength="60">				
+					   value="#DatabaseServerLicenseId#" required="Yes" size="60" maxlength="70">				
 				</td>
 				<td style="padding-left:6px">
 					<cf_licensecheck mode="server">
+					<!---
 					<cfinclude template="ShowLicenseExpiration.cfm">		
+					--->
 				</td>			
 			</cfoutput>
 			</tr>
@@ -145,7 +147,7 @@
 	    </TD>
 		</TR>
 		
-		<TR>
+		<TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:40">Server Timezone (GMT +/-):</td>
 		
 		 <td>
@@ -162,7 +164,7 @@
 		</td>
 		</tr>
 				
-		<TR>
+		<TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10;cursor:pointer" 
 		  title="Database name must be located on the Transaction server">Default OLAP database:</td>
 	    <TD>
@@ -173,7 +175,7 @@
 		</TR>
 		
 		 <!--- Field: DateFormat --->
-	    <TR>
+	    <TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10">Server date format:</td>
 	    <TD>
 	  	    <cfoutput query="get">
@@ -188,7 +190,7 @@
 	    </TD>
 		</TR>	
 		
-		<TR>
+		<TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10">SQL Collate (searches):</td>
 	    <TD>
 	  	    <cfoutput query="get">
@@ -199,11 +201,11 @@
 		
 		<tr><td height="10"></td></tr>
 		
-		<TR>
+		<TR class="fixlengthlist">
 	    <td colspan="2" style="font-size:25px" class="labellarge">Mail Server </b><font face="Calibri" size="2">MS Exchange 2013 / 2016 or 2019</b></td>
 		</tr>
 				
-		<TR>
+		<TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10" width="170">IP/Name:</td>
 	    <TD class="labellarge">
 	  	    <cfoutput query="get">
@@ -214,7 +216,7 @@
 		
 		
 		 <!--- Field: ReplyTo--->
-	    <TR>
+	    <TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10">SMTP sending mode:</td>
 	    <TD class="labellarge">
 	  	    <cfoutput query="get">
@@ -225,7 +227,7 @@
 		</TR>	
 		
 		 <!--- Field: ReplyTo--->
-	    <TR>
+	    <TR class="fixlengthlist">
 	    <td class="labellarge" style="padding-left:10">Mail Content mode:</td>
 	    <TD class="labellarge">
 	  	    <cfoutput query="get">

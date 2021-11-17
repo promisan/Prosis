@@ -30,7 +30,7 @@ password="#SESSION.dbpw#">
 			  (SELECT TOP 1 FunctionId
 			   FROM   FunctionOrganization
 			   WHERE  SubmissionEdition = SP.SubmissionEdition
-			   AND    Mission           = P.Mission
+			  -- AND    Mission           = P.Mission
 			   AND    ReferenceNo         = SP.Reference) as FunctionId,
 			  
 			  F.FunctionDescription as PositionDescription,
@@ -125,11 +125,11 @@ password="#SESSION.dbpw#">
 	<tr><td height="15"></td></tr>
 		
 	<cfoutput>
-	<tr class="labelmedium2 line">
-	   <td valign="top" style="width:100px""><cf_tl id="Grade"></td>
+	<tr class="labelmedium2 line fixlengthlist">
+	   <td valign="top"><cf_tl id="Grade"></td>
 	   <td valign="top"><cf_tl id="Unit"></td>	 
 	   <td valign="top"><cf_tl id="Function"></td>
-       <td valign="top" width="10%"><cf_tl id="PostNo"></td>
+       <td valign="top"><cf_tl id="PostNo"></td>
 	   
 	   <cfloop query="language">	   
 	   <td width="8%" valign="top">
@@ -144,7 +144,7 @@ password="#SESSION.dbpw#">
 	   </td>	   
 	   </cfloop>
 	   
-	   <td valign="top" width="10%">
+	   <td valign="top">
 	   
 		   	<table width="100%">
 			    
@@ -186,7 +186,7 @@ password="#SESSION.dbpw#">
 			
 			<cfoutput>
 				
-				<tr id="row_#positionno#" style="height:20px" class="line labelmedium navigation_row">
+				<tr id="row_#positionno#" style="height:20px" class="line labelmedium navigation_row fixlengthlist">
 				
 				   <td align="right" style="padding-right:5px;padding-top:1px">
 				   		<cfif qExercise.actionStatus eq "0">
@@ -284,12 +284,10 @@ password="#SESSION.dbpw#">
 				   </cfloop>
 				   
 				   <td>
-				   
-				   	   <cf_space spaces="56">
-				   			   
+				   				   			   
 				       <table width="100%">
 					   
-					   <tr class="labelmedium" style="height:20px">
+					   <tr class="labelmedium fixlengthlist" style="height:20px">
 					   <td id="reference_#positionno#" align="right" style="padding-right:10px">				  
 					   		
 					   <cfif reference eq "" and qExercise.actionStatus eq "0">
@@ -300,7 +298,7 @@ password="#SESSION.dbpw#">
 						<cfelse>
 						
 								<cfif functionid neq "">
-								<a href="javascript:details('#functionid#')" class="navigation_action"><font color="0080C0">#reference#</a>
+								<a href="javascript:details('#functionid#')" class="navigation_action">#reference#</a>
 								<cfelse>
 								#reference#
 								</cfif>

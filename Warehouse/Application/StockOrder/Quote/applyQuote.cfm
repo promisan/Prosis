@@ -1,123 +1,99 @@
 
-<!--- various options to apply the quote --->
 
-<cfparam name="url.action" default="">
+<!--- apply quote --->
 
-<cfswitch expression="#url.action#">
+<table width="100%" height="100%">
+<tr>
+<td style="width:200px" valign="top">
 
-    <cfcase value="Quote"> 
-				
-		<cfset fileName = "myQuote_#form.requestno#">
-				
-		 <cfquery name="template"
-			datasource="AppsMaterials" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			SELECT  * 
-			FROM    WarehouseJournal 
-			WHERE   Warehouse    = '#Form.Warehouse#'						
-			AND     Area         = 'Sale'
-		</cfquery>
-
-		<cfsavecontent variable="DocumentContent">		
-		<cfif template.transactionTemplateMode1 eq "">
-             <cfinclude template="defaultQuote.cfm">
-		<cfelse>
-			 <cfinclude template="../../../../#template.transactionTemplateMode1#">
-		</cfif>
-		</cfsavecontent>
-				
-		<!--- embed into the mail framework and record the action : CustomerRequestAction --->
+      <table>
+	  <tr>
+	  
+	  	<cf_tl id="Print Quote" var="1">
+		<cfset wd = "58">
+		<cfset ht = "58">
+		<cfset itm = "1">
+			 			
+		<cf_menutab item       = "#itm#" 
+		            iconsrc    = "Logos/System/Document.png" 
+					iconwidth  = "#wd#" 
+					iconheight = "#ht#" 
+					padding    = "4"					
+					targetitem = "1"
+					name       = "#lt_text#"
+					source     = "applyQuoteGo.cfm?requestno=#url.requestno#&action=pdf&idmenu=#url.idmenu#">		
+							
+		</tr>	
 		
-		<!--- for testing only --->
+		<tr>
+	  
+	  	<cf_tl id="Mail Quote" var="1">
+		<cfset itm = itm+1>
+					 			
+		<cf_menutab item       = "#itm#" 
+		            iconsrc    = "Logos/System/MailOut.png" 
+					iconwidth  = "#wd#" 
+					iconheight = "#ht#" 
+					padding    = "4"					
+					targetitem = "1"
+					name       = "#lt_text#"
+					source     = "applyQuoteGo.cfm?requestno=#url.requestno#&action=quote&idmenu=#url.idmenu#">		
+							
+		</tr>		
 		
-		<cfset text = replace("#DocumentContent#", "@pb", "<p style='page-break-after:always;'>&nbsp;</p>", "ALL")>
-				
-		<cffile action="WRITE" 
-		      file="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#fileName#.htm" 
-			  output="#text#" 
-			  addnewline="Yes" 
-			  fixnewline="No">		
-				 
-		<!--- on-the-fly converter of htm content to pdf --->
-		<cf_htm_pdf fileIn= "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#fileName#">
-				 
+		<tr>
+	  
+	  	<cf_tl id="Whatsapp" var="1">
+		<cfset itm = itm+1>
+					 			
+		<cf_menutab item       = "#itm#" 
+		            iconsrc    = "Logos/System/Whatsapp.png?id=1" 
+					iconwidth  = "#wd#" 
+					iconheight = "#ht#" 
+					padding    = "4"					
+					targetitem = "1"
+					name       = "#lt_text#"
+					source     = "">		
+							
+		</tr>	
+		
+		<tr>
+	  
+	  	<cf_tl id="Send to POS" var="1">
+		<cfset itm = itm+1>
+					 			
+		<cf_menutab item       = "#itm#" 
+		            iconsrc    = "Logos/WorkOrder/Billing.png" 
+					iconwidth  = "#wd#" 
+					iconheight = "#ht#" 
+					padding    = "4"					
+					targetitem = "1"
+					name       = "#lt_text#"
+					source     = "applyQuoteGo.cfm?requestno=#url.requestno#&action=pos&idmenu=#url.idmenu#">		
+							
+		</tr>		
+		
+		<tr>
+	  
+	  	<cf_tl id="Sales Order" var="1">
+		<cfset itm = itm+1>
+		
+		<cf_menutab item       = "#itm#" 
+		            iconsrc    = "Logos/WorkOrder/Notes.png" 
+					iconwidth  = "#wd#" 
+					iconheight = "#ht#" 
+					padding    = "4"					
+					targetitem = "1"
+					name       = "#lt_text#"
+					source     = "applyQuoteGo.cfm?requestno=#url.requestno#&action=workorder&idmenu=#url.idmenu#">		
+							
+		</tr>									
 
-		<cfquery name="setAction" 
-			datasource="AppsMaterials" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">	
-								
-			INSERT INTO CustomerRequestAction ( 	
-				        RequestNo,
-						ActionCode, 
-						ActionMemo,
-						OfficerUserId, 
-						OfficerLastName, 
-						OfficerFirstName )
-					
-			VALUES ( '#form.RequestNo#', 
-					 'Send', 
-					 '----', 			
-					 '#session.acc#',
-					 '#session.last#',
-					 '#session.first#' )
-					 
-		</cfquery>
+		</table>				     
+</td>
 
-		<cfoutput>
-     	<script>		  
-			ptoken.open('#SESSION.root#/CFRStage/User/#SESSION.acc#/#fileName#.pdf','_new')
-		</script>
-		</cfoutput>
+<td id="contentbox1" valign="top" style="height:100%;width:100%;padding-right:10px;padding-left:20px"></td>
 
-	</cfcase>
-	
-	<cfcase value="POS">
-		
-		<cfquery name="getRequest"
-				datasource="AppsMaterials"
-				username="#SESSION.login#"
-				password="#SESSION.dbpw#">
-				UPDATE CustomerRequest
-				SET    ActionStatus = '1'
-				WHERE  RequestNo = '#Form.RequestNo#'
-				AND    RequestNo IN (SELECT RequestNo FROM CustomerRequestLine)
-		</cfquery>
-		
-		<!--- keep the daatbase clean 
-		remove entries without lines
-		reset other quotes of this person 
-		--->
-		
-		<cfquery name="clearRequest"
-				datasource="AppsMaterials"
-				username="#SESSION.login#"
-				password="#SESSION.dbpw#">
-				DELETE CustomerRequest				
-				WHERE  Source        = 'Quote'
-				AND    OfficerUserid = '#session.acc#'				
-				AND    RequestNo NOT IN (SELECT RequestNo FROM CustomerRequestLine)
-		</cfquery>
-		
-		<cfquery name="resetRequest"
-				datasource="AppsMaterials"
-				username="#SESSION.login#"
-				password="#SESSION.dbpw#">
-				UPDATE CustomerRequest
-				SET    ActionStatus  = '9'
-				WHERE  ActionStatus  = '0' 
-				AND    Source        = 'Quote'
-				AND    OfficerUserid = '#session.acc#'				
-		</cfquery>
-				
-		<script>
-		    alert('Quote has been submitted')
-			addquote()
-		</script>
-			
-	</cfcase>
-	
-	<cfcase value="WorkOrder"></cfcase>
+</tr>
+</table>
 
-</cfswitch> 

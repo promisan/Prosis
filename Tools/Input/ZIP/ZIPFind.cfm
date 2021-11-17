@@ -1,6 +1,6 @@
 
 <cfparam name="url.fld" default="">
-<cfparam name="attributes.style" default="">
+<cfparam name="attributes.style" default="min-width:200px">
 
 <cfif URL.Code neq "">
 	
@@ -24,9 +24,9 @@
 			       type="text" 
 				   name="Postal" 
 				   id="Postal"
-				   style="#attributes.style#"
+				   style="#attributes.style#;min-width:260px;"
 				   value="#SearchResult.Location#" 			   
-				   readonly class="regularxl">
+				   readonly class="regularxl">				   
 				 
 		<cfelse>
 			&nbsp;<cf_tl id="...">&nbsp;

@@ -51,17 +51,19 @@
 	</cffunction>	
 	
 	<cffunction name="SaleIssue"
-             access="public"
-             returntype="any"
-             returnformat="plain"
-             displayname="SubmitSale">
+        access="public"
+        returntype="any"
+        returnformat="plain"
+        displayname="SubmitSale">
 			 
 			 <cfargument name="Datasource"       type="string"  required="true"   default="appsOrganization">
 			 <cfargument name="Mission"          type="string"  required="true"   default="">
 			 <cfargument name="Terminal"         type="string"  required="true"   default="1">	
 			 <cfargument name="Journal"          type="string"  required="true"   default="">
-			 <cfargument name="JournalSerialNo"  type="string"  required="true"   default="">		 
+			 <cfargument name="JournalSerialNo"  type="string"  required="true"   default="">	
+			 <cfargument name="eMailAddress"     type="string"  required="true"   default="">	 
 			 <cfargument name="BatchId"          type="string"  required="true"   default="">
+			 <cfargument name="ActionId"         type="string"  required="true"   default="">
 			 <cfargument name="RetryNo"          type="string"  required="false"  default="0">
 			 <cfargument name="Mode" 	         type="string"  required="false"  default="2">
 			 
@@ -79,7 +81,7 @@
 					AND    TransactionCategory = 'Receivables'					
 				</cfquery>
 				
-				<cfset Journal = getTransaction.Journal>
+				<cfset Journal         = getTransaction.Journal>
 				<cfset JournalSerialNo = getTransaction.JournalSerialNo>			 
 			 
 			 </cfif>
@@ -90,8 +92,7 @@
 			  password="#SESSION.dbpw#">
 				    SELECT *
 					FROM   Organization.dbo.Ref_Mission
-					WHERE  Mission = '#Mission#'	 
-											   
+					WHERE  Mission = '#Mission#'												   
 			</cfquery>
 			
 			<!--- there is an EDI --->
@@ -114,23 +115,45 @@
 				<cfelseif Mode eq "3">
 				
 					<!--- 2021 mode revised for all sales and POS AR --->
-				
+									
 					<cfinvoke component      = "Service.Process.EDI.#qmission.EDIMethod#"
 							method           = "SaleIssueV3"
 							datasource       = "#ARGUMENTS.Datasource#"
 							mission          = "#Mission#"
 							Terminal         = "#Terminal#"
 							Journal          = "#journal#"
-							journalSerialNo  = "#journalserialNo#"							
+							journalSerialNo  = "#journalserialNo#"		
+							actionid         = "#actionid#"					
 							RetryNo		     = "#RetryNo#"
 							returnvariable   = "EDIResult">
 														
 				</cfif>
 				
-				<cfif EDIResult.Log eq "1">				
-			
-					<!--- create the log also with the NIT and document --->
+				<cfif EDIResult.Log eq "1">		
 							
+					<!--- create the log also with the NIT and document --->
+					
+					<cfquery name="checkAction"
+		               datasource="AppsLedger"
+		               username="#SESSION.login#"
+		               password="#SESSION.dbpw#">
+					   SELECT  *
+					   FROM    TransactionHeaderAction
+					   WHERE   Journal          = '#Journal#'
+					   AND     JournalSerialNo  = '#JournalSerialNo#'
+					   AND     ActionMode       = '2'
+					   AND     ActionStatus     = '1'
+					   AND     ActionReference1 = '#EDIResult.Cae#'
+					   
+					</cfquery>   
+					
+					<!--- this reference does not exist yet as approved --->
+					<cfif checkaction.recordcount eq "0">
+						<cfset status = "#EDIResult.Status#"> 
+					<cfelse>
+						<cfset status = "4">	
+					</cfif>				
+																	
 					<cf_assignId>			
 
 					<cfquery name="AddAction"
@@ -138,7 +161,7 @@
 		               username="#SESSION.login#"
 		               password="#SESSION.dbpw#">
 		                  INSERT INTO TransactionHeaderAction
-						  
+						  						  
 		                         (ActionId,
 							      Journal,
 		                          JournalSerialNo,
@@ -153,11 +176,11 @@
 								  --->
 								  
 								   <!--- more information --->	
-								   ActionReference1,
-								   ActionReference2,
-								   ActionReference3,						                       								
-							       ActionReference4,
-								   ActionReference5,
+								  ActionReference1,
+								  ActionReference2,
+								  ActionReference3,						                       								
+							      ActionReference4,
+								  ActionReference5,
 								   
 								  <!--- 
 								  <cfelseif getWarehouseJournal.TransactionMode eq "2">  <!--- Mode was 2 but no connection to the GFACE --->
@@ -168,7 +191,8 @@
 								  ActionMemo,
 								  ActionContent,
 		                          ActionDate,
-				  			      ActionStatus,                                
+				  			      ActionStatus,  
+								  eMailAddress,                              
 		                          OfficerUserId,
 		                          OfficerLastName,
 		                          OfficerFirstName)
@@ -195,7 +219,7 @@
 										<cfif StructKeyExists(EDIResult,"Series")>
 										'#EDIResult.Series#',
 										<cfelse>
-											NULL,
+										NULL,
 										</cfif>
 										
 								  <!--- 		
@@ -210,10 +234,10 @@
 								  
 								  '#left(EDIResult.ErrorDescription,100)#',
 								  '#EDIResult.ErrorDetail#',
-				                  getDate(), 
-								                                  
-		        		          '#EDIResult.Status#',     <!--- process completed 1 or 9 --->
-								  
+								  #EDIResult.ActionDate#,
+				                  								                                  
+		        		          '#Status#',     <!--- process completed 1 or 9 --->
+								  '#eMailAddress#',
 		                	      '#SESSION.acc#',
 		                          '#SESSION.last#',
 				                  '#SESSION.first#')  
@@ -222,8 +246,7 @@
 	
 				</cfif>		
 				
-				<cfset EDIResult.Status   = "OK">
-												
+				<cfset EDIResult.Status   = "OK">												
 				<cfset EDIResult.ActionId = rowguid>				
 
 			<cfelse>
@@ -275,11 +298,12 @@
 			  password="#SESSION.dbpw#">
 				    SELECT  *
 					FROM   Organization.dbo.Ref_Mission
-					WHERE  Mission = '#Mission#'	    							   
+					WHERE  Mission = '#Mission#'	 							   
 			</cfquery>
 			
-			<cfif qmission.EDIMethod neq "">	
 			
+			<cfif qmission.EDIMethod neq "">	
+						
 				<cfinvoke component   = "Service.Process.EDI.#qmission.EDIMethod#"  
 			      method              = "SaleVoid" 
 				  datasource          = "#ARGUMENTS.Datasource#"
@@ -289,10 +313,10 @@
 				  journalSerialNo     = "#journalserialNo#"						  
 			      returnvariable      = "EDIResult">
 				  
-				  <cfparam name="EDIResult.log" default="0">
-				  
+				  <cfparam name="EDIResult.log" default="1">
+				  				  
 				  <cfif EDIResult.Log eq "1">
-				  
+				  				  		  
 					  <!--- record action --->
 					  
 					    <cf_assignId>	
@@ -301,7 +325,7 @@
 								datasource="#datasource#"
 								username="#SESSION.login#"
 								password="#SESSION.dbpw#">
-								
+																								
 								INSERT INTO Accounting.dbo.TransactionHeaderAction
 				
 										(ActionId,
@@ -327,7 +351,7 @@
 								VALUES ('#rowguid#',
 										'#Journal#',
 										'#JournalSerialNo#',
-										'CreditNote',
+										'CreditNote', 
 										'#EDIResult.Source1#',
 										'#EDIResult.Source2#',
 										'2', <!--- auto fel --->
@@ -339,7 +363,7 @@
 										<!---  '#GetWarehouseSeries.SeriesNo#', --->
 										'#left(EDIResult.ErrorDescription,100)#',										
 										'5',     <!--- 5 void process completed --->
-										getDate(),
+										#EDIResult.ActionDate#,
 										'#SESSION.acc#',
 										'#SESSION.last#',
 										'#SESSION.first#')
@@ -349,7 +373,7 @@
 				 
 			<cfelse>
 			
-				<cfset EDIResult.Status = "OK">
+				<cfset EDIResult.Status = "No">
 			
 			</cfif>
 			

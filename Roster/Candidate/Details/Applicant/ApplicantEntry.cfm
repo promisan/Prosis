@@ -41,7 +41,7 @@
 
 </cfif>
 
-<cfif url.header eq "0">
+<cfif url.header eq "0" and url.class neq "4">
 	<cfset html = "No">
 <cfelse>
 	<cfset html = "Yes">	
@@ -50,10 +50,10 @@
 <cfif url.submissionedition neq "Generic">
    <cf_screentop height="100%" scroll="Yes" html="#html#" JQuery="yes" menuAccess="no" layout="webapp" label="Add Person" systemfunctionid="#url.idmenu#">
    <cfset url.header = "0">
-<cfelseif url.id eq "" and url.remove eq "" and url.idmenu neq "">
-	<cf_screentop height="100%" scroll="Yes" html="no" JQuery="yes" menuAccess="Yes" label="Add Person" systemfunctionid="#url.idmenu#">
+<cfelseif url.id eq "" and url.remove eq "" and url.idmenu neq "" and url.class neq "4">
+	<cf_screentop height="100%" scroll="Yes" html="no" JQuery="yes" menuAccess="Yes" label="Add Person" systemfunctionid="#url.idmenu#">	
 <cfelse>
-    <cf_screentop height="100%" scroll="Yes" html="#html#" layout="webapp" JQuery="yes" menuAccess="No"  label="Add Person" systemfunctionid="#url.idmenu#"> 
+    <cf_screentop height="100%" scroll="Yes" html="#html#" layout="webapp" JQuery="yes" menuAccess="No"  label="Add Person" systemfunctionid="#url.idmenu#"> 	
 </cfif>	
 
 <cf_filelibraryScript>
@@ -185,7 +185,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
-<cfif url.header eq "1">
+<cfif url.header eq "9">
 	
 	<table width="100%" border="0">
 	
@@ -268,7 +268,7 @@ password="#SESSION.dbpw#">
 				ORDER BY Created DESC
 			</cfquery>
 						
-			<TR>
+			<TR class="fixlengthlist">
 		    <TD class="labelmedium"><cf_tl id="Organization">:</TD>
 		    <TD colspan="3">
 			
@@ -298,7 +298,7 @@ password="#SESSION.dbpw#">
 			
 	   	    <!--- Field: Applicant.ApplicantClass --->
 		    <TR>
-		    <td class="labelmedium"><cf_tl id="Candidate Class">:</td>
+		    <td class="fixlength labelmedium"><cf_tl id="Candidate Class">:</td>
 			<td>
 			
 				<cf_tl id="Please define an applicant class" var="1" class="message">
@@ -319,14 +319,14 @@ password="#SESSION.dbpw#">
 			  	   
 		
 		<tr id="entity">
-		<td class="labelmedium"><cf_tl id="Entity">:</td>
+		<td class="fixlength  labelmedium"><cf_tl id="Entity">:</td>
 		<td>
 		<cf_securediv bind="url:getEntity.cfm?mission=#url.mission#&class={ApplicantClass}">
 		</td>
 		</tr>
 		
 	    <TR>
-	    <TD width="20%" class="labelmedium">#client.IndexNoName#:</TD>
+	    <TD width="20%" class="fixlength  labelmedium">#client.IndexNoName#:</TD>
 	    <TD>	
 		
 		   <table cellspacing="0" cellpadding="0">
@@ -374,24 +374,24 @@ password="#SESSION.dbpw#">
 		 
 		<!--- Field: Applicant.FirstName --->
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="First name">:<font color="FF0000">&nbsp;*</font></TD>
+	    <TD class="fixlength  labelmedium"><cf_tl id="First name">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD>		
 			<cf_tl id="Please enter a firstname" var="1" class="message">
 			<cfinput type="Text"  onchange="validate()" class="regularxl enterastab" id="firstname" name="firstName" message="#lt_text#" required="Yes" size="30" maxlength="30">
 			
 		</TD>
-		 <TD class="labelmedium"><cf_tl id="Second name">:</TD>
+		 <TD class="fixlength  labelmedium"><cf_tl id="Second name">:</TD>
 	    <TD>		
 			<INPUT type="text" class="regularxl enterastab" name="middlename" id="middlename" maxLength="30" size="30">			
 		</TD>
 		</TR>
 		
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Last name">:<font color="FF0000">&nbsp;*</font></TD>
+	    <TD class="fixlength labelmedium"><cf_tl id="Last name">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD><cf_tl id="Please enter lastname" var="1" class="message">
 			<cfinput type="Text" onchange="validate()" class="regularxl enterastab" id="lastname" name="lastname" message="#lt_text#" required="Yes" size="40" maxlength="40" >			
 		</TD>
-		  <TD class="labelmedium"><cf_tl id="Second Last name">:</TD>
+		  <TD class="fixlength labelmedium"><cf_tl id="Second Last name">:</TD>
 	    <TD><cf_tl id="Please enter lastname" var="1" class="message">
 			<cfinput type="Text" class="regularxl enterastab" id="lastname2" name="lastname2" message="#lt_text#" required="No" size="40" maxlength="40" >			
 		</TD>
@@ -399,7 +399,7 @@ password="#SESSION.dbpw#">
 		
 		 <!--- Field: Applicant.Mainden Name --->
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Maiden name">:</TD>
+	    <TD class="fixlength labelmedium"><cf_tl id="Maiden name">:</TD>
 	    <TD>		
 			<cf_tl id="Please enter maiden name" var="1" class="message">
 			<cfinput type="Text" class="regularxl enterastab" id="MaidenName" name="MaidenName" message="#lt_text#" required="No" size="40" maxlength="40">			
@@ -409,7 +409,7 @@ password="#SESSION.dbpw#">
 		
 	    <!--- Field: Applicant.DOB --->
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="DOB">:<font color="FF0000">&nbsp;*</font></TD>
+	    <TD class="fixlength labelmedium"><cf_tl id="DOB">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD>	
 		
 		<script language="JavaScript">
@@ -437,14 +437,14 @@ password="#SESSION.dbpw#">
 						
 	    <!--- Field: Applicant.Gender --->
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Gender">:<font color="FF0000">&nbsp;*</font></TD>
+	    <TD class="fixlength labelmedium"><cf_tl id="Gender">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD>
 		
 			<INPUT type="radio" name="Gender" id="Mgender" class="enterastab" value="M" checked> <cf_tl id="Male">
 			<INPUT type="radio" name="Gender" id="Fgender" class="enterastab" value="F"> <cf_tl id="Female"> 
 			
 		</TD>
-		<TD class="labelmedium"><cf_tl id="Marital Status">:<font color="FF0000">&nbsp;*</font></TD>
+		<TD class="fixlength labelmedium"><cf_tl id="Marital Status">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD>
 			<cfoutput>
 			<cfquery name = "qMarital" datasource = "AppsSelection">
@@ -464,7 +464,7 @@ password="#SESSION.dbpw#">
 			
 	    <!--- Field: Applicant.Nationality --->
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Nationality">:<font color="FF0000">&nbsp;*</font></TD>
+	    <TD class="fixlength labelmedium"><cf_tl id="Nationality">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD>
 		
 			<cfif tree eq "">
@@ -484,7 +484,7 @@ password="#SESSION.dbpw#">
 	    </TD>
 			
 		
-		<TD class="labelmedium"><cf_tl id="2nd Nationality">:</TD>
+		<TD class="fixlength labelmedium"><cf_tl id="2nd Nationality">:</TD>
 		<TD>
 	
 	  	    <cfselect name="NationalityAdditional" class="regularxl enterastab">
@@ -499,25 +499,25 @@ password="#SESSION.dbpw#">
 		
 	    <!--- Field: Applicant.EmailAddress --->
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="E-mail Address">:<font color="FF0000">&nbsp;*</font></TD>
+	    <TD class="fixlength labelmedium"><cf_tl id="E-mail Address">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD>
 			<cf_tl id="Please enter an e-mail address" var="1" class="message">
 			<cfinput type="Text" name="emailaddress" id="emailaddress" validate="email" message="#lt_text#" required="Yes" visible="Yes" enabled="Yes" size="40" maxlength="50" class="enterastab regularxl">
 		</TD>
 		
-	    <TD class="labelmedium"><cf_tl id="Mobile Number">:</TD>
+	    <TD class="fixlength labelmedium"><cf_tl id="Mobile Number">:</TD>
 	    <TD>		
 			<cfinput class="regularxl enterastab" type="text" name="MobileNumber" size="40" maxlength="50">			
 		</TD>
 		</TR>
 					 
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Reference">:</TD>
+	    <TD class="fixlength labelmedium"><cf_tl id="Reference">:</TD>
 	    <TD><input type="Text" class="regularxl enterastab" name="DocumentReference" maxlength="30"></TD>
 		</TR>	
 		
 		<TR>
-	     <td class="labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
+	     <td class="fixlength labelmedium" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
 	     <TD colspan="3"><textarea style="font-size:14px;padding:4px;width:99%" class="regular enterastab" rows="2" name="Remarks" totlength="400" onkeyup="return ismaxlength(this)"></textarea>
 	    </TD>
 		</TR>	

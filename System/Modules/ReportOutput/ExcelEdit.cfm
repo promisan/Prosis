@@ -7,7 +7,7 @@
 
 <script>
 function goto() {
-          window.open("RecordListing.cfm?ID=#URL.ID#", "_top");
+          ptoken.open("RecordListing.cfm?ID=#URL.ID#", "_top");
 }
 </script>
 </cfoutput>
@@ -32,7 +32,7 @@ WHERE OutputId = '#URL.ID1#'
 
 <CFFORM action="ExcelSubmit.cfm?ID=#URL.ID#&Mode=#URL.Mode#" method="post" target="result">
 	
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
 
 <tr class="hide"><td><iframe name="result"></iframe></td></tr>
 <input type="hidden" name="OutputId" id="OutputId" value="#URL.ID1#">
@@ -46,7 +46,7 @@ WHERE OutputId = '#URL.ID1#'
    <!--- Field: Id --->
    		
 	   <!--- Field: Description --->
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD><cf_tl id="Name">:</TD>
     <TD>
 		<cfinput type="Text"
@@ -57,20 +57,20 @@ WHERE OutputId = '#URL.ID1#'
        enabled="Yes"
        size="50"
        maxlength="50"
-       class="regularxl">
+       class="regularxxl">
 	</TD>
 	</TR>
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 	 <TD><cf_tl id="Class">:</TD>
 	 <td>
-	 	<input type="radio" onclick="ColdFusion.navigate('ExcelName.cfm?id=Variable','name')" name="outputclass" id="outputclass" value="Variable" <cfif Get.OutputClass eq "" or #Get.OutputClass# eq "Variable">checked</cfif>>Variable (SQL.cfm)
-		<input type="radio" onclick="ColdFusion.navigate('ExcelName.cfm?id=Table','name')" name="outputclass" id="outputclass" value="Table" <cfif Get.OutputClass eq "Table">checked</cfif>>Existing table/view
+	 	<input type="radio" onclick="ptoken.navigate('ExcelName.cfm?id=Variable','name')" name="outputclass" id="outputclass" value="Variable" <cfif Get.OutputClass eq "" or #Get.OutputClass# eq "Variable">checked</cfif>>Variable (SQL.cfm)
+		<input type="radio" onclick="ptoken.navigate('ExcelName.cfm?id=Table','name')" name="outputclass" id="outputclass" value="Table" <cfif Get.OutputClass eq "Table">checked</cfif>>Existing table/view
 		
 	</td>
 	</tr>
 	
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD><cf_tl id="Dataset Datasource">:</TD>
     <TD>
 	
@@ -90,7 +90,7 @@ WHERE OutputId = '#URL.ID1#'
 		<CFSET dsNames=dsService.getNames()>
 		<cfset ArraySort(dsnames, "textnocase")> 
 		
-	    <select name="DataSource" id="DataSource" class="regularxl">
+	    <select name="DataSource" id="DataSource" class="regularxxl">
 			<CFLOOP INDEX="i"
 			FROM="1"
 			TO="#ArrayLen(dsNames)#">
@@ -137,60 +137,60 @@ WHERE OutputId = '#URL.ID1#'
 	</tr>
 	
 		
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD><cf_tl id="Listing order">:</TD>
     <TD>
 		<input type="text" name="ListingOrder" style="text-align:center" id="ListingOrder" 
 		value="<cfif #Get.ListingOrder# neq "">#Get.ListingOrder#<cfelse>1</cfif>"
-		 size="2" maxlength="2" class="regularxl">
+		 size="2" maxlength="2" class="regularxxl">
 	</TD>
 	</TR>
 	
-	<tr class="labelmedium"><td height="40" style="font-weight:200;font-size:19px" colspan="2">Optional user selection settings</td></tr>
+	<tr class="labelmedium2"><td height="40" style="font-weight:200;font-size:19px" colspan="2">Optional user selection settings</td></tr>
 				
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD align="right" style="padding-right:5px">Excel : Grouping 1 Fieldname:</TD>
     <TD>
 		<input type="Text" name="FieldGrouping1" id="FieldGrouping1"
-		value="<cfif #Get.FieldGrouping1# neq "">#Get.FieldGrouping1#</cfif>" class="regularxl" size="30" maxlength="50">
+		value="<cfif #Get.FieldGrouping1# neq "">#Get.FieldGrouping1#</cfif>" class="regularxxl" size="30" maxlength="50">
 	</TD>
 	</TR>
 			
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <td align="right" style="padding-right:5px">Excel : Grouping 2 Fieldname:</td>
     <TD>
 		<input type="Text" name="FieldGrouping2" id="FieldGrouping2"
-		value="<cfif #Get.FieldGrouping2# neq "">#Get.FieldGrouping2#</cfif>" class="regularxl" size="30" maxlength="50">
+		value="<cfif #Get.FieldGrouping2# neq "">#Get.FieldGrouping2#</cfif>" class="regularxxl" size="30" maxlength="50">
 	</TD>
 	</TR>
 	
-	 <TR class="labelmedium">
+	 <TR class="labelmedium2">
     <TD  align="right" style="padding-right:5px">Detail fields(s):</TD>
-    <TD><textarea style="font-size:13px;padding:3px" class="regular" name="FieldDetail" cols="50" rows="2">#Get.FieldDetail#</textarea>
+    <TD><textarea style="font-size:14px;padding:3px" class="regular" name="FieldDetail" cols="50" rows="2">#Get.FieldDetail#</textarea>
 		</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD  align="right" style="padding-right:5px">Summary Fieldname(s):</TD>
     <TD>
 		<input type="Text" name="FieldSummary" id="FieldSummary"
-		value="<cfif #Get.FieldSummary# neq "">#Get.FieldSummary#</cfif>" class="regularxl" size="40" maxlength="50">
+		value="<cfif #Get.FieldSummary# neq "">#Get.FieldSummary#</cfif>" class="regularxxl" size="40" maxlength="50">
 	</TD>
 	</TR>
 			
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD  align="right" style="padding-right:5px">ROLAP Detail template:</TD>
     <TD>
 		<input type="Text" name="DetailTemplate" id="DetailTemplate"
-		value="<cfif #Get.DetailTemplate# neq "">#Get.DetailTemplate#</cfif>" class="regularxl" size="80" maxlength="80">
+		value="<cfif #Get.DetailTemplate# neq "">#Get.DetailTemplate#</cfif>" class="regularxxl" size="80" maxlength="80">
 	</TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD  align="right" style="padding-right:5px">ROLAP ID= passthru:</TD>
     <TD>
 		<input type="Text" name="DetailKey" id="DetailKey"
-		value="<cfif #Get.DetailKey# neq "">#Get.DetailKey#</cfif>" class="regularxl" size="30" maxlength="30">
+		value="<cfif #Get.DetailKey# neq "">#Get.DetailKey#</cfif>" class="regularxxl" size="30" maxlength="30">
 	</TD>
 	</TR>
 		
@@ -198,7 +198,7 @@ WHERE OutputId = '#URL.ID1#'
 			
 	<tr class="line">
         <td colspan="2" align="center">			
-		<cf_textarea name="OutputMemo" init="Yes" color="ffffff" toolbar="Mini" height="160">#Get.OutputMemo#</cf_textarea>		
+		<cf_textarea name="OutputMemo" init="Yes" color="ffffff" toolbar="Mini" height="120">#Get.OutputMemo#</cf_textarea>		
 		</td>
 		
 	</TR>		

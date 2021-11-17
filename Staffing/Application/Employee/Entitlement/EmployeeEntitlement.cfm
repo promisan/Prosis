@@ -238,8 +238,8 @@ password="#SESSION.dbpw#">
 	<tr>
 	
 	<td style="padding-left:10px" colspan="3">	
-	    <table style="height:50px;padding:5px;border:1px solid silver; background-color:BFECFB">
-		<tr class="labelmedium">		
+	    <table style="height:36px;padding:5px;border:1px solid silver;">
+		<tr class="labelmedium2 fixlengthlist">		
 		<td style="padding-left:4px"><INPUT type="radio" name="Status" class="radiol" value="1" onClick="reloadForm('1')" <cfif URL.Status eq "1">checked</cfif>></td>
 		<td style="padding-left:3px" onClick="reloadForm('1')"><cfif URL.Status eq "1"></cfif><cf_tl id="Valid">: #dateformat(now(),client.dateformatshow)#</td>
 		<td style="padding-left:10px"><INPUT type="radio" name="Status" class="radiol" value="2" onClick="reloadForm('2')" <cfif URL.Status eq "2">checked</cfif>></td>
@@ -256,7 +256,7 @@ password="#SESSION.dbpw#">
 		</table>
 	</td>
 	
-    <td align="right" valign="bottom" style="padding-bottom:5px"> 
+    <td align="right" valign="bottom" style="padding-top:0px"> 
 	
 		<cf_tl id="Add Rate based" var="1">
 		<cfset vGeneric    = "#lt_text#">
@@ -266,8 +266,8 @@ password="#SESSION.dbpw#">
 		
 		<table>
 		<tr>
-			<td><input type="button" value="#vGeneric#"  style="width:230px;border:1px solid gray;height:29px;font-size:15px" class="button10g" onClick="entitlementtrigger('#URL.ID#','#URL.ID1#')"></td>
-			<td style="padding-left:4px;padding-right:9px"><input type="button" style="width:230px;;border:1px solid gray;height:29px;font-size:15px" value="#vIndividual#" class="button10g" onClick="entitlement('#URL.ID#','#URL.ID1#')"></td>
+			<td><input type="button" value="#vGeneric#"  style="width:210px;border:1px solid gray;height:36px;font-size:15px" class="button10g" onClick="entitlementtrigger('#URL.ID#','#URL.ID1#')"></td>
+			<td style="padding-left:4px;padding-right:9px"><input type="button" style="width:210px;;border:1px solid gray;height:36px;font-size:15px" value="#vIndividual#" class="button10g" onClick="entitlement('#URL.ID#','#URL.ID1#')"></td>
 		</tr>
 		</table>
 	
@@ -282,20 +282,20 @@ password="#SESSION.dbpw#">
   
   <table width="100%">
     	
-	<TR height="18" class="line labelmedium2 fixrow">
-    	<td width="1%" align="center"></td>
-		<td width="1%" align="center"></td>
-		<TD width="30%"><cf_tl id="Entitlement"></TD>
-		<TD width="20%"><cf_tl id="Applies to"></TD>
-		<td width="6%"><cf_tl id="Status"></td>
-		<TD width="10%"><cf_tl id="Action"></TD>
-    	<td style="min-width:90"><cf_tl id="Effective"></td>
-		<TD style="min-width:90"><cf_tl id="Expiration"></TD>		
-		<TD width="10%"><cf_tl id="Group"></TD>
-		<TD width="5%"><cf_tl id="Days"></TD>
-		<TD width="15%"><cf_tl id="Schedule"></TD>		
-		<TD width="10%" align="right"><cf_tl id="Period"></TD>
-		<TD width="20%" align="right" style="padding-right:4px"><cf_tl id="Amount"></TD>
+	<TR height="18" class="line labelmedium2 fixrow fixlengthlist">
+    	<td align="center"></td>
+		<td align="center"></td>
+		<TD><cf_tl id="Entitlement"></TD>
+		<TD><cf_tl id="Applies to"></TD>
+		<td><cf_tl id="Status"></td>
+		<TD><cf_tl id="Action"></TD>
+    	<td><cf_tl id="Effective"></td>
+		<TD><cf_tl id="Expiration"></TD>		
+		<TD><cf_tl id="Group"></TD>
+		<TD><cf_tl id="Days"></TD>
+		<TD><cf_tl id="Schedule"></TD>		
+		<TD align="right"><cf_tl id="Period"></TD>
+		<TD align="right" style="padding-right:4px"><cf_tl id="Amount"></TD>
 	</TR>
 	
 <cfset last = '1'>
@@ -417,7 +417,7 @@ password="#SESSION.dbpw#">
 		
 				<table>
 					<tr>
-						<td STYLE="padding-left:5px;WIDTH:15PX;padding-top:2px">
+						<td STYLE="padding-left:5px;WIDTH:15PX;padding-top:0px">
 							<cfif ContractId eq "">	
 								<cfif EntitlementClass eq "Amount">				
 								   <cf_img icon="open" onClick="editamount('#EntitlementId#','#mde#')">				
@@ -438,14 +438,14 @@ password="#SESSION.dbpw#">
 	
 	</td>	
 
-	<TD style="padding-right:4px">
+	<TD>
 
 	<cfif EntitlementClass eq "Amount">#PayrollItemName#<cfelse>
     <cfif prior neq triggerdescription>#TriggerDescription#<cfelse>#TriggerDescription#<!---<img src="#client.root#/images/join.gif" alt="" border="0">---></cfif></cfif>
 	 
 	</TD>
 	
-	<TD width="20%">
+	<TD>
 	
 	<cfif dependentid eq ""><cf_tl id="Staffmember"><cfelse>
 	
@@ -518,7 +518,7 @@ password="#SESSION.dbpw#">
 	
 	</TD>
 	 
-	<td style="padding-right:15px">
+	<td>
 		
 		<cfif ContractId eq "">	
 			
@@ -548,8 +548,8 @@ password="#SESSION.dbpw#">
 	
 	<cfif DateEffective gt DateExpiration and dateExpiration neq "">
 		
-		<td align="center" style="background-color:FEC5B8;padding-left:4px;padding-right:4px">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
-		<td align="center" style="background-color:FEC5B8;padding-left:4px;padding-right:4px">
+		<td align="center" style="background-color:FEC5B8">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
+		<td align="center" style="background-color:FEC5B8">
 		  <cfif Dateformat(DateExpiration, CLIENT.DateFormatShow) eq ""><font color="808080">#vEoC#</font>
 		  <cfelse>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#
 		  </cfif>
@@ -557,8 +557,8 @@ password="#SESSION.dbpw#">
 	
 	<cfelse>
 	
-		<td align="center" style="padding-right:4px;padding-left:4px;">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
-		<td align="center" style="padding-right:4px;padding-left:4px;">
+		<td align="center">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
+		<td align="center">
 		  <cfif Dateformat(DateExpiration, CLIENT.DateFormatShow) eq ""><font color="808080">#vEoC#</font>
 		  <cfelse>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#
 		  </cfif>
@@ -566,8 +566,8 @@ password="#SESSION.dbpw#">
 	
 	</cfif>
 	
-	<TD style="padding-left:4px;padding-right:4px"><cfif TriggerGroupName eq "">#EntitlementGroup#<cfelse>#TriggerGroupName#</cfif></TD>
-	<TD style="padding-right:4px;min-width:70px">
+	<TD><cfif TriggerGroupName eq "">#EntitlementGroup#<cfelse>#TriggerGroupName#</cfif></TD>
+	<TD>
 	<cfif PayrollAccess eq "EDIT" or PayrollAccess eq "ALL">
 	<a href="javascript:toggledays('#EntitlementId#')" id="days_#EntitlementId#">
 	   <cfif EntitlementSalaryDays eq "1"><cf_tl id="net days"><cfelse><cf_tl id="Default"></cfif>
@@ -576,19 +576,19 @@ password="#SESSION.dbpw#">
 	<cfif EntitlementSalaryDays eq "1"><cf_tl id="net days"></cfif>
 	</cfif>
 	</TD>
-	<TD style="padding-right:4px"><cfif SalarySchedule neq getActiveSchedule.SalarySchedule><font color="FF0000">#SalarySchedule#</font><cfelse>#SalarySchedule#</cfif></TD>
+	<TD><cfif SalarySchedule neq getActiveSchedule.SalarySchedule><font color="FF0000">#SalarySchedule#</font><cfelse>#SalarySchedule#</cfif></TD>
 	<cfif EntitlementClass eq "Amount">
 	<TD align="left"><cf_tl id="#Period#"></TD>
-	<TD align="right" style="padding-right:4px;min-width:160px">
-	<table style="width:100%"><tr><td style="padding-left:5px">#Currency#</td><td align="right">#NumberFormat(Amount, ",.__")#</td></tr></table>
+	<TD align="right">
+	<table style="width:100%"><tr class="labelmedium2"><td style="padding-left:5px">#Currency#</td><td align="right">#NumberFormat(Amount, ",.__")#</td></tr></table>
 	</TD>
 	<cfelseif EnableAmount eq "1">
 	<TD align="right"></TD>
-	<TD align="right" style="padding-right:4px;min-width:160px">
-	<table style="width:100%"><tr><td style="padding-left:5px">#Currency#</td><td align="right">#NumberFormat(Amount, ",.__")#</td></tr></table>
+	<TD align="right">
+	<table style="width:100%"><tr class="labelmedium2"><td style="padding-left:5px">#Currency#</td><td align="right">#NumberFormat(Amount, ",.__")#</td></tr></table>
 	</TD>
 	<cfelseif ContractId neq "">
-	<TD colspan="2" style="min-width:150px"><font color="800080">#vCD#</TD>
+	<TD colspan="2"><font color="800080">#vCD#</TD>
 	<cfelse>
 	<td colspan="2"></td>
 	</cfif>

@@ -138,57 +138,17 @@
 		</tr>	
 		 				
 		<cfif recruitmenttrack gt "0">
-					
-			  <cfquery name="Doc" datasource="AppsEmployee" username="#SESSION.login#" password="#SESSION.dbpw#">
 		
-					<!--- select track occurence --->												  
-									
-					SELECT    D.* 
-						<!----- show the inspira trackNo ------>
-						,(SELECT TOP 1 ReferenceNo
-							FROM   Applicant.dbo.FunctionOrganization
-							WHERE  FunctionId =  D.FunctionId
-							) as InspiraTrack
-						,(SELECT TOP 1 ISNULL(Ref.EntityClassNameShort, Ref.EntityClass) 
-							FROM Organization.dbo.Ref_EntityClass as Ref 
-							WHERE Ref.EntityCode='VacDocument' AND Ref.EntityClass = D.EntityClass) as EntityClassNameShort
-					FROM      Vacancy.dbo.DocumentPost as Track INNER JOIN
-		    			              Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-		                      Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-		                      Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo
-					WHERE     SP.PositionNo = '#PositionNo#'
-					AND       D.EntityClass IS NOT NULL 
-					AND       D.Status = '0'
-					
-					<!--- current mandate track linked through source --->
-					
-					UNION 
-																	
-					<!--- first position in the next mandate --->			
-					
-					SELECT     D.*
-							<!----- show the inspira trackNo ------>
-							,(SELECT TOP 1 ReferenceNo
-								FROM   Applicant.dbo.FunctionOrganization
-								WHERE  FunctionId =  D.FunctionId
-								) as InspiraTrack
-							,(SELECT TOP 1 ISNULL(Ref.EntityClassNameShort, Ref.EntityClass) 
-							FROM Organization.dbo.Ref_EntityClass as Ref 
-							WHERE Ref.EntityCode='VacDocument' AND Ref.EntityClass = D.EntityClass) as EntityClassNameShort
-					FROM       Vacancy.dbo.DocumentPost as Track INNER JOIN
-		                       Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-			                   Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-			                   Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
-		                       Position PN ON SP.PositionNo = PN.SourcePositionNo
-					WHERE      D.EntityClass IS NOT NULL 
-					AND        D.Status = '0' 
-					AND        PN.PositionNo = '#PositionNo#'							
-						
-				</cfquery>	
+			 <cfinvoke component = "Service.Process.Vactrack.Vactrack"  
+			   method           = "getTrackPosition" 
+			   positionNo       = "#PositionNo#"
+			   returnvariable   = "doc">					
+			  
 								
 				<cfloop query="doc">	
+				
 								
-					<tr bgcolor="E3FBE8">
+					<tr bgcolor="<cfif class eq 'future'>DFBFFF<cfelse>yellow</cfif>">
 					
 						<td align="center"><img src="#SESSION.root#/Images/pointer.gif" alt="Recruitment action" width="9" height="9" border="0" align="middle" style="cursor: pointer;" onClick="javascript:showdocument('#DocumentNo#')">
 						
@@ -217,7 +177,7 @@
 									SELECT  PersonNo, LastName, FirstName, StatusDate
 									FROM    DocumentCandidate P
 									WHERE   DocumentNo = '#DocumentNo#' 
-									AND     Status = '2s'
+									AND     Status IN ('2s','3')
 								</cfquery>	
 								
 								<cfset cpl = DateFormat(Candidate.StatusDate, CLIENT.DateFormatShow)>

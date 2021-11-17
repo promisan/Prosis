@@ -216,7 +216,7 @@ function saveSettings(){
 	
 	<td align="center" width="100%" height="40" valign="top" colspan="2">
 	
-		<table width="100%" height="100%" class="formspacing" cellspacing="0" cellpadding="0"><tr>
+		<table width="100%" height="100%" class="formspacing" cellspacing="0" cellpadding="0"><tr class="fixlengthlist">
 		
 		<cfset ht = "64">
 		<cfset wd = "64">
@@ -306,9 +306,7 @@ function saveSettings(){
 				   source     = "">	  
 					
 			</cfif>			
-		
-		<td width="10%"></td>
-		
+				
 		</table>
 	
 	</td></tr>

@@ -158,7 +158,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 
-
+<cf_dialogPosition>
 <cf_dialogStaffing>
 
 <cfinclude template="../Document/Dialog.cfm">

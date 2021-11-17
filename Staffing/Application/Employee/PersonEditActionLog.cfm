@@ -18,11 +18,11 @@ password="#SESSION.dbpw#">
 
 <table cellspacing="0" cellpadding="0">
   <tr class="line labelmedium">
-  	<td style="min-width:200">Officer</td>
-	<td style="min-width:100">Recorded</td>
-	<td style="min-width:100">Expiry</td>
-	<td style="min-width:200">Value</td>
-	<td style="min-width:200">Memo</td>
+  	<td style="min-width:150">Officer</td>
+	<td style="min-width:90">Recorded</td>
+	<td style="min-width:90">Expiry</td>
+	<td style="min-width:180">Value</td>
+	<td class="fixlength">Memo</td>
   </tr>  
   <cfoutput query="List">
    <tr class="labelmedium line">

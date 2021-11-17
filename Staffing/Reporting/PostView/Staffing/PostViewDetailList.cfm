@@ -23,12 +23,11 @@
 	WHERE  Mission   = '#URL.Mission#'
 </cfquery>	
 
-
-<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table formpadding">
+<table width="100%" class="navigation_table formpadding">
   	   
 	   <tr><td>
 	 	  	  	      							   
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" id="box">
+		<table width="100%" align="center" id="box">
 		
 		<cfif SearchResult.recordcount eq "0">
 		
@@ -46,7 +45,7 @@
 		
 			<tr><td height="26">
 			
-				<table border="0" width="100%" align="center">
+				<table width="100%" align="center">
 					
 					<cfoutput>
 					
@@ -179,19 +178,19 @@
 			<!--- -----------Line 2 of 12 : Header record ------------------ --->
 			<!--- ---------------------------------------------------------- --->	
 		
-		    <tr class="labelmedium line">
+		    <tr class="labelmedium line fixlengthlist">
 				<td height="19" colspan="2"></td>
-				<td width="3%"><cf_tl id="PostNo"></td>
-				<td width="3%"></td>
-				<td width="5%"><cf_tl id="Grade"></td>
-				<td width="24%"><cfif URL.Mode eq "Only"><cf_tl id="Function"><cfelse><cf_tl id="Unit"></cfif></td>
-				<td width="12%"><cf_tl id="Location"></td>
-				<td width="3%"><cf_tl id="Inc"></td>
-				<td width="23%"><cf_tl id="Incumbent"></td>
-				<td width="6%"><cf_tl id="#CLIENT.IndexNoName#"><cf_space spaces="20"></td>
-				<td width="4%"><cf_tl id="Nat."></td>
-				<td width="7%"><cf_tl id="Level"></td>
-				<td width="3%"></td>
+				<td><cf_tl id="PostNo"></td>
+				<td></td>
+				<td><cf_tl id="Grade"></td>
+				<td><cfif URL.Mode eq "Only"><cf_tl id="Function"><cfelse><cf_tl id="Unit"></cfif></td>
+				<td><cf_tl id="Location"></td>
+				<td><cf_tl id="Inc"></td>
+				<td><cf_tl id="Incumbent"></td>
+				<td><cf_tl id="#CLIENT.IndexNoName#"><cf_space spaces="20"></td>
+				<td><cf_tl id="Nat."></td>
+				<td><cf_tl id="Level"></td>
+				<td></td>
 		    </tr>
 						
 			<cfset rw = 0>			
@@ -333,8 +332,6 @@
 					</cfif>
 				</cfif>		
 				
-				
-				
 				<cfif ort neq "#HierarchyCode#" and search eq "1">				
 														
 					<tr class="line">
@@ -401,11 +398,11 @@
 				<!--- -----------Line 4 of 12 : Positionrecord ----------------- --->
 				<!--- ---------------------------------------------------------- --->			
 																					
-				<tr bgcolor="#cl#" class="navigation_row line">
+				<tr bgcolor="#cl#" class="navigation_row line fixlengthlist">
 							
-				<td style="height:30px;border-top:1px solid silver;padding-left:10px;padding-right:3px" class="cellcontent"><cfif sme neq "1">#rw#.</cfif></td>
+				<td style="height:30px;border-top:1px solid silver" class="cellcontent"><cfif sme neq "1">#rw#.</cfif></td>
 								
-				<td width="20" style="padding-left:4px;border-top:1px solid silver;">
+				<td width="20" style="border-top:1px solid silver;">
 				
 				<cf_assignId>
 				
@@ -426,14 +423,14 @@
 				
 	     		</td>
 				
-				<td class="cellcontent" style="width:80px;padding-left:4px;padding-right:7px;border-top:1px solid silver">
+				<td class="cellcontent" style="border-top:1px solid silver">
 							
 					 <cfif url.sort eq "WorkSchedule" and currentrow eq "1">					 
-						 <cf_space spaces="25">					 
+						 <cf_space spaces="25">				 
 					 </cfif>
 				
 				   <a class="navigation_action" href="javascript:EditPosition('#URL.Mission#','#URL.Mandate#','#PositionNo#','i#URL.Org#')"  
-				      title="Edit position"><font color="0080C0">				   			   	   
+				      title="Edit position">			   			   	   
 
 					   <cfif SourcePostNumber neq "">				   
 					  	#SourcePostNumber# 						   
@@ -460,7 +457,7 @@
 				   
 			    </td>
 				
-				<td class="cellcontent" style="padding-right:3px;border-top:1px solid silver;"><cfif PostClass neq "Valid">#PostClass#</cfif></td>
+				<td class="cellcontent" style="border-top:1px solid silver;"><cfif PostClass neq "Valid">#PostClass#</cfif></td>
 				<td class="cellcontent" style="border-top:1px solid silver;">#PostGrade#</td>
 				<td class="cellcontent" style="border-top:1px solid silver;">
 				
@@ -474,16 +471,16 @@
 				</td>
 				<td class="cellcontent" style="border-top:1px solid silver;">#LocationName#</td>
 				<cfif Incumbency eq "0">
-				<td class="cellcontent" style="border-top:1px solid silver;padding-right:4px">
+				<td class="cellcontent" style="border-top:1px solid silver">
 					<table width="100%" bgcolor="FF80FF" style="border-left:1px solid silver;border-right:1px solid silver">
-					<tr>
-						<td align="center" style="padding-left:2px;padding-right:2px">#Incumbency#</td>
+					<tr class="fixlengthlist">
+						<td align="center">#Incumbency#</td>
 						<td align="center" style="padding-top:1px"><cf_img icon="open" onClick="javascript:positionchain('#personno#')"></td>
 					</tr>
 					</table>				
 				</td>
 				<cfelse>
-				<td class="cellcontent" style="border-top:1px solid silver;;padding-right:4px">#Incumbency#</td>
+				<td class="cellcontent" style="border-top:1px solid silver">#Incumbency#</td>
 				</cfif>
 								
 				<cfif PersonNo eq "">
@@ -529,7 +526,7 @@
 										 				 	 
 					 </cfif>
 					 
-					 <td style="width:25%" style="width:25%;border-top:1px solid silver;border-right:1px solid silver">
+					 <td style="border-top:1px solid silver;border-right:1px solid silver">
 					 
 					 	<cfif EnableAssignmentReview eq 1>
 					 
@@ -562,11 +559,11 @@
 					<td class="cellcontent" style="border-top:1px solid silver;"><a href="javascript:EditPerson('#PersonNo#','i#URL.Org#')"><font color="0080C0"><cfif IndexNo eq ""><cfif Reference neq "">#Reference#<cfelse>No Index</cfif><cfelse>#IndexNo#</cfif></a></td>
 					<td class="cellcontent" style="padding-left:4px;border-top:1px solid silver;">#Nationality#</td>
 					<td class="cellcontent" style="border-top:1px solid silver;padding-right:4px"><cfif ContractLevel neq "">#ContractLevel#/#ContractStep#<cfif ContractTime neq "100">:#ContractTime#%</cfif></cfif></td>
-					<td style="width:140;padding-right:4px;border-top:1px solid silver;">
+					<td style="border-top:1px solid silver;">
 											
 					<table width="100%" cellspacing="0" cellpadding="0">
 					
-					<tr bgcolor="white">
+					<tr bgcolor="white" class="fixlengthlist">
 															
 						<td style="border:1px solid silver;padding:1px;min-width:24" align="center">
 						<cfif Extension neq "">							
@@ -1095,49 +1092,18 @@
 									
 				<cfif RecruitmentTrack gt "0">
 				
-					    <cfquery name="Tracks" 
-						datasource="AppseMPLOYEE" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-					
-						<!--- select track occurence --->												  
-								
-						SELECT    D.*, RC.EntityClassName 
-						FROM      Vacancy.dbo.DocumentPost as Track INNER JOIN
-			    			              Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-			                      Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-			                      Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
-								  Organization.dbo.Ref_EntityClass RC ON RC.EntityClass = D.EntityClass AND RC.EntityCode = 'VacDocument'		
-						WHERE     SP.PositionNo = '#PositionNo#' 
-						AND       D.EntityClass IS NOT NULL 
-						AND       D.Status = '0'
-						
-						<!--- current mandate track linked through source --->
-						
-						UNION 
-																		
-						<!--- first position in the next mandate --->			
-						
-						SELECT     D.*, RC.EntityClassName
-						FROM       Vacancy.dbo.DocumentPost as Track INNER JOIN
-			                       Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-				                   Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-				                   Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
-			                       Position PN ON SP.PositionNo = PN.SourcePositionNo INNER JOIN
-								   Organization.dbo.Ref_EntityClass RC ON RC.EntityClass = D.EntityClass AND RC.EntityCode = 'VacDocument'		 
-						WHERE      D.EntityClass IS NOT NULL 
-						AND        D.Status = '0' 
-						AND        PN.PositionNo = '#PositionNo#'			
-						
-						</cfquery>			
-																			
+					 <cfinvoke component = "Service.Process.Vactrack.Vactrack"  
+					   method           = "getTrackPosition" 
+					   positionNo       = "#PositionNo#"
+					   returnvariable   = "Tracks">										  				
+					   																			
 					<cfloop query="Tracks">	
 					
 						<tr bgcolor="C0F1C1" class="labelmedium optional_#url.org#" style="border-top:1px solid silver;height:22px">
 					
 						 <td colspan="2"></td>					
 						 <td colspan="2" style="border-right:1px solid silver">#tRecruitment#</td>					
-						 <td colspan="5" style="padding-left:4px;font-size:12px;">#EntityClassName#:
+						 <td colspan="5" style="padding-left:4px;font-size:12px;">#EntityClassNameShort#:
 							
 							<cfif tracks.FunctionId neq "">
 							
@@ -1165,7 +1131,26 @@
 							
 							</cfif>	
 											
-							&nbsp;#officerUserFirstName# #OfficerUserLastName# : #dateformat(created,CLIENT.DateFormatShow)#
+							&nbsp;#officerUserFirstName# #OfficerUserLastName# on #dateformat(created,CLIENT.DateFormatShow)#
+							
+							<cfquery name="Assignment" 
+									datasource="AppsVacancy" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+										SELECT  TOP 1 *
+										FROM    Employee.dbo.PersonAssignment P
+										WHERE   SourceId = '#DocumentNo#' 
+										AND     SourcePersonNo = '#PersonNo#'
+										AND     AssignmentStatus IN ('0','1')
+										AND     AssignmentType = 'Actual'
+										ORDER BY DateEffective
+								</cfquery>	
+								
+								<cfif Assignment.recordcount eq "1">
+								
+								&nbsp;&nbsp;Reporting date : #dateformat(Assignment.DateEffective,client.dateformatshow)#
+								
+								</cfif>
 							
 						 </td>
 												 

@@ -24,9 +24,9 @@ ORDER BY HierarchyCode
 
 	<cfoutput query="SearchResult">
 	
-		<tr style="height:15px" class="navigation_row">
+		<tr style="height:15px" class="navigation_row fixlengthlist">
 		  
-		  <td width="30">	  
+		  <td>	  
 		  
 			<cfquery name="Check" 
 			datasource="AppsOrganization" 
@@ -55,9 +55,7 @@ ORDER BY HierarchyCode
 						
 		  </td>
 		  
-		  <td  
-			width="30" 
-			onclick="javascript:ptoken.navigate('#link#&action=insert&#url.des1#=#orgunit#','#url.box#');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">&nbsp;
+		  <td onclick="javascript:ptoken.navigate('#link#&action=insert&#url.des1#=#orgunit#','#url.box#');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">&nbsp;
 				 				   
 			   <img src="#SESSION.root#/Images/bullet.png" alt="Select"
 			     name="img98_#orgunit#" 
@@ -71,8 +69,8 @@ ORDER BY HierarchyCode
 				 align="absmiddle">					
 		
 			</td>
-			<td width="100" class="cellcontent">#HierarchyCode#</td>
-			<TD width="70%" class="cellcontent">#OrgUnitName#</TD>
+			<td class="cellcontent">#HierarchyCode#</td>
+			<TD class="cellcontent">#OrgUnitName#</TD>
 		</tr>		
 		<tr class="line"><td colspan="4" class="hide" id="box#orgunitcode#"><cfdiv id="i#orgunitcode#"></td></tr>
 				     

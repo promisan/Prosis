@@ -1,7 +1,7 @@
 
 <cfoutput>
 
-	<tr class="labelmedium navigation_row line">
+	<tr class="labelmedium navigation_row line fixlengthlist">
 	
 		<td style="padding-top:4px;padding-left:4px;padding-right:4px;width:50px">
 		

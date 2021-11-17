@@ -214,23 +214,23 @@
 		  
 		  <cfif PersonAssignment.recordcount neq "0">
 		  						  
-			   <TR class="line labelmedium2 fixrow" height="18">
-				    <td width="2%" align="center"></td>
-					<td width="2%" align="center"></td>
-					<TD style="min-width:140px"><cf_tl id="Function"> </TD>
-					<TD style="min-width:60px"><cf_tl id="Post"></TD>
-					<TD style="min-width:60px"><cf_tl id="Grade"></TD>
-					<td colspan="1" width="5%"><cf_tl id="Duty"></td>		
-					<TD style="min-width:100px"><cf_tl id="Effective"></TD>	
-					<TD style="min-width:100px"><cf_tl id="Expiration"></TD>	
+			   <TR class="line labelmedium2 fixrow fixlengthlist" height="18">
+				    <td align="center"></td>
+					<td align="center"></td>
+					<TD><cf_tl id="Function"> </TD>
+					<TD><cf_tl id="Post"></TD>
+					<TD><cf_tl id="Grade"></TD>
+					<td colspan="1"><cf_tl id="Duty"></td>		
+					<TD><cf_tl id="Effective"></TD>	
+					<TD><cf_tl id="Expiration"></TD>	
 					<cfif url.mode neq "Portal">				
 				    <TD><cf_tl id="Class"></TD>														
 					<td><cf_tl id="Status"></td>
 					</cfif>
-					<TD style="padding-right:10px">Inc.</TD>	
+					<TD>Inc.</TD>	
 					<cfif url.mode neq "Portal">	
 					<TD><cf_tl id="Officer"></TD>	
-					<TD style="min-width:100px"><cf_tl id="Recorded"></TD>	
+					<TD><cf_tl id="Recorded"></TD>	
 					<cfelse>
 					<td></td>
 					<td></td>
@@ -246,7 +246,7 @@
 		  <cfoutput query="PersonAssignment" group="MissionOwner">   
 		  
 				<cfif url.mode eq "standard" or url.mode eq "staffing">
-				<tr class="line"><td height="23"  style="font-size:20px;font-weight:200" class="labelmedium" colspan="13" align="left"><font size="2"><cf_tl id="Owner">:&nbsp;</font>#MissionOwnerName#</b></td></tr>					
+				<tr class="line"><td height="23"  style="font-size:20px;font-weight:300" class="labelmedium" colspan="13" align="left"><font size="2"><cf_tl id="Owner">:&nbsp;</font>#MissionOwnerName#</b></td></tr>					
 				</cfif>
 				
 				<cfset prior    = "">	
@@ -270,12 +270,12 @@
 										
 					<cfif DateEffective lte dte and incumbency eq "100">						
 					<cfset validwork = "0">
-					<tr class="line labelmedium" style="font-weight:200px"><td colspan="13" height="30" style="font-weight:200px" align="center" bgcolor="yellow"><font color="black">Attention: Assignment effective period overlaps with prior record</td></tr>					
+					<tr class="line labelmedium2" style="font-weight:200px"><td colspan="13" height="30" style="font-weight:200px" align="center" bgcolor="yellow"><font color="black">Attention: Assignment effective period overlaps with prior record</td></tr>					
 					</cfif>
 					
 					<cfif DateEffective gt DateExpiration and Incumbency eq "100">						
 					<cfset validwork = "0">
-					<tr class="line labelmedium" style="font-weight:200px;border-top:1px solid gray"><td colspan="13" height="30"  align="center" bgcolor="FF0000"><font color="white">Attention: Incorrect assignment. Please contact administrator to remove record.</td></tr>					
+					<tr class="line labelmedium2" style="font-weight:200px;border-top:1px solid gray"><td colspan="13" height="30"  align="center" bgcolor="FF0000"><font color="white">Attention: Incorrect assignment. Please contact administrator to remove record.</td></tr>					
 					</cfif>
 														
 				    <cfinvoke component="Service.Access"  
@@ -305,7 +305,7 @@
 						 
 						 <cfif OrgUnit neq priorOrg>						 	
 						 						 
-							 <tr class="labelmedium fixrow2">
+							 <tr class="labelmedium2 fixrow2 ">
 							 
 							 <td></td>
 							 
@@ -389,7 +389,7 @@
 						 
 						 <cfset priorOrg = OrgUnit>
 						
-						 <TR bgcolor="#color#" class="labelmedium line navigation_row" style="padding-top:3px;height:21px">
+						 <TR bgcolor="#color#" class="labelmedium2 line navigation_row fixlengthlist" style="padding-top:3px;height:21px">
 						 						 
 						 <cfif workflow neq "" and url.mode neq "Portal">
 					 
@@ -430,7 +430,7 @@
 							  
 						</cfif>	 						 
 						 
-						   <td width="24" align="center" style="padding-left:5px;padding-top:2px;padding-right:3px">
+						   <td align="center" style="padding-top:2px">
 						  						  
 						   <cfif url.mode eq "standard" or url.mode eq "staffing">
 						  
@@ -446,7 +446,7 @@
 						 
 					       </td>	
 					   	   <TD>#PositionDescription# <cfif PositionDescription neq FunctionDescription><font color="0080C0">(#FunctionDescription#)</cfif></TD>
-						   <td style="padding-left:3px">
+						   <td>
 						    	<cfif accessOwner eq "EDIT" or accessOwner eq "ALL">
 						        <a href="javascript:EditPosition('#Mission#','#Mandateno#','#PositionNo#')">
 						    	<cfif SourcePostNumber neq "">#SourcePostNumber#<cfelse>#PositionParentId#</cfif>
@@ -456,20 +456,20 @@
 								</cfif>
 								
 						   </td>
-						   <TD style="padding-left:3px">#PostGrade#</TD>
+						   <TD>#PostGrade#</TD>
 						   <TD>#LocationCode#</TD>		
 						   
 						   <cfset compare = dateAdd("d","1",dte)>
-						   <td style="padding-left:2px"><cfif compare neq dateeffective and currentrow neq "1"><font color="FF0000"></cfif>#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
+						   <td><cfif compare neq dateeffective and currentrow neq "1"><font color="FF0000"></cfif>#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
 					       <td>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>		
 						   <cfif url.mode neq "Portal">					  			   
-						   <TD style="padding-left:2px">#AssignmentClass#</TD>	
-						   <td style="padding-left:5px;padding-right:15px"><cfif AssignmentStatus eq "0"><font color="FF0000"><cf_tl id="Pending"><cfelse><cf_tl id="Cleared"></cfif></td>
+						   <TD>#AssignmentClass#</TD>	
+						   <td><cfif AssignmentStatus eq "0"><font color="FF0000"><cf_tl id="Pending"><cfelse><cf_tl id="Cleared"></cfif></td>
 						   </cfif>					   
-						   <TD style="padding-right:4px">#Incumbency#%</TD>	
+						   <TD>#Incumbency#%</TD>	
 						   <cfif url.mode neq "Portal">					   
-						   <td style="padding-right:4px">#OfficerLastName#</td>
-						   <td style="padding-right:4px">#Dateformat(Created, CLIENT.DateFormatShow)#</td>	
+						   <td>#OfficerLastName#</td>
+						   <td>#Dateformat(Created, CLIENT.DateFormatShow)#</td>	
 						   <cfelse>
 						   <td></td>	
 						   <td></td>
@@ -477,7 +477,7 @@
 						 </tr>
 						 					 
 						 <cfif len(Remarks) gte "20" and not find("FPMS",remarks) and (url.mode eq "standard" or url.mode eq "staffing")>
-							 <TR bgcolor="#color#" style="height:15px" class="navigation_row_child labelmedium">
+							 <TR bgcolor="#color#" style="height:15px" class="navigation_row_child labelmedium2">
 							 	<td colspan="2"></td>
 								<td colspan="12">#Remarks#</td>
 							 </tr>

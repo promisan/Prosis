@@ -167,7 +167,7 @@
 
 <cfoutput>
 			
-	<table width="100%" height="100%" style="min-width:800;min-height:300" class="navigation_table">		
+	<table width="100%" height="100%" style="min-height:300" class="navigation_table">		
 			
 		<cfquery name="Totals" dbtype="query">
 				SELECT   '#get.Currency#' as Currency, 
@@ -184,7 +184,7 @@
 				<td align="right">
 				<table width="100%">
 					<tr class="labelmedium2" style="background-color:ffffff;height:26px;border-bottom:1px solid silver;">
-						<td width="40%" align="left" style="padding:2px">
+						<td align="left" style="padding:2px">
 							<table cellspacing="0" cellpadding="0">
 							<tr class="labelmedium2">
 							<cfif mode eq "edit">
@@ -241,13 +241,13 @@
 	
 					<table width="100%">			
 					
-						<tr class="line labelmedium2 fixrow">
+						<tr class="line labelmedium2 fixrow fixlengthlist">
 						
-							<td colspan="2" style="height:40px;font-size:16px;padding-left:6px">
+							<td colspan="2" style="height:40px;font-size:16px">
 							
 							</td>
 														
-							<td style="width:100%"><cf_tl id="Item">
+							<td><cf_tl id="Item">
 							
 							 <cfif mode eq "edit">
 							      <cf_tl id="Add" var="1">
@@ -256,47 +256,47 @@
 							
 							</td>								
 							<cfif line.ServiceType eq "WorkOrder">	
-							<td style="min-width:120px"><cf_tl id="Color"></td>				
+							<td><cf_tl id="Color"></td>				
 							<cfelse>
-							<td style="min-width:140px"><cf_tl id="Code"></td>	
+							<td><cf_tl id="Code"></td>	
 							</cfif>			
-							<td style="min-width:70px"><cf_tl id="UoM"></td>								
-							<td style="min-width:50px"><cf_tl id="BOM"></td>								
-							<td style="min-width:80px"><cf_tl id="Cost">#Application.BaseCurrency#</td>
+							<td><cf_tl id="UoM"></td>								
+							<td><cf_tl id="BOM"></td>								
+							<td><cf_tl id="Cost">#Application.BaseCurrency#</td>
 							
-							<td style="min-width:70px;padding-left:2px;padding-right:2px" align="right"><cf_tl id="Order"></td>	
-							<td style="min-width:80px;padding-left:2px;padding-right:2px" align="right"><cf_tl id="Price"></td>						
-							<td style="min-width:80px;padding-left:2px;padding-right:2px" align="right"><cf_tl id="Total">#get.Currency#</td>		
+							<td align="right"><cf_tl id="Order"></td>	
+							<td align="right"><cf_tl id="Price"></td>						
+							<td align="right"><cf_tl id="Total">#get.Currency#</td>		
 							
 							<cfif line.ServiceType eq "WorkOrder" or Line.ServiceType eq "Sale">
-							<td style="min-width:70px;padding-left:2px;padding-right:2px" align="center"><cf_tl id="Outsourced"></td>
+							<td align="center"><cf_tl id="Outsource"></td>
 							</cfif>							
-							<td style="min-width:70px;padding-left:2px;padding-right:2px" align="center"><cf_tl id="InStock"></td>
+							<td align="center"><cf_tl id="InStock"></td>
 						
-							<td style="min-width:70px;;padding-left:2px;padding-right:2px;cursor:pointer" align="right"><cf_UIToolTip  tooltip="Available earmarked stock"><cf_tl id="Earmarked"></cf_UIToolTip><cf_space spaces="15"></td>
+							<td align="right"><cf_UIToolTip  tooltip="Available earmarked stock"><cf_tl id="Earmarked"></cf_UIToolTip><cf_space spaces="15"></td>
 											
-							<td style="min-width:70px;;padding-left:2px;padding-right:2px" align="center"><cf_tl id="To ship"></td>
+							<td align="center"><cf_tl id="To ship"></td>
 							
 							<cfif line.pointerSale eq "1">
-								<td style="min-width:70px;padding-left:2px;padding-right:2px" align="center"><cf_tl id="Shipped"></td>
+								<td align="center"><cf_tl id="Shipped"></td>
 							<cfelse>
-								<td style="min-width:70px;padding-left:2px;padding-right:2px" align="center"><cf_tl id="Freed"></td>
+								<td align="center"><cf_tl id="Freed"></td>
 							</cfif>
 							
-							<td style="min-width:70px;padding-left:2px;padding-right:2px" align="center"><cf_tl id="Pending"></td>
-							<td style="min-width:70px;padding-left:2px;padding-right:2px" align="center"><cf_tl id="Returns"></td>
+							<td align="center"><cf_tl id="Pending"></td>
+							<td align="center"><cf_tl id="Returns"></td>
 							
 						</tr>					
 																						
 						<cfloop query="ItemFinished">
 						
-							<tr class="navigation_row line labelmedium" style="height:22px">
+							<tr class="navigation_row line labelmedium fixlengthlist" style="height:22px">
 							
 								<td style="height:15px">
 								
 									<cfif mode eq "edit">
 									
-										<table width="40">
+										<table>
 											<tr>
 												<td style="padding-top:2px" onclick="editFinalProduct('#url.WorkOrderId#','#url.WorkOrderLine#','#workorderitemid#');">												
 													<cf_img icon="open" onclick="editFinalProduct('#url.WorkOrderId#','#url.WorkOrderLine#','#workorderitemid#');" navigation="yes">													
@@ -319,8 +319,8 @@
 								
 								</td>		
 								
-								<td align="right" style="padding-right:4px">#currentrow#.</td>													
-								<td style="padding-left:3px;min-width:300px;">
+								<td align="right">#currentrow#.</td>													
+								<td title="#itemDescription#">
 								<cfif SaleType eq "Promotion"><font color="800040">P:
 								<cfelseif SaleType eq "Discount"><font color="008000">D:
 								</cfif>#ItemDescription#</td>
@@ -328,12 +328,12 @@
 								<td>#ItemColor#</td>		
 								<cfelse>
 									<cfif itembarcode neq "">								
-									<td style="padding-right:3px"><a href="javascript:item('#itemno#','','#get.mission#')">#ItemBarcode#</a></td>
+									<td><a href="javascript:item('#itemno#','','#get.mission#')">#ItemBarcode#</a></td>
 									<cfelse>
-									<td style="padding-right:3px"><a href="javascript:item('#itemno#','','#get.mission#')">#ItemNoExternal#</a></td>
+									<td><a href="javascript:item('#itemno#','','#get.mission#')">#ItemNoExternal#</a></td>
 									</cfif>
 								</cfif>		
-								<td style="padding-right:2px">#UoMDescription#</td>												
+								<td>#UoMDescription#</td>												
 								
 								<td bgcolor="FFBC9B">	
 								
@@ -354,16 +354,15 @@
 									   
 								</td>		
 															
-								<td align="right" bgcolor="ffbc9b" style="background-color:##ffbc9b80;border-left:1px solid gray;padding-right:5px">#numberformat(Cost,',.__')#</td>																	
-								<td bgcolor="A8EFF2" style="background-color:##A8EFF280;border-left:1px solid gray;padding-right:5px" align="right">#numberformat(Quantity,'__')#</td>								
+								<td align="right" bgcolor="ffbc9b" style="background-color:##ffbc9b80;border-left:1px solid gray">#numberformat(Cost,',.__')#</td>																	
+								<td bgcolor="A8EFF2" style="background-color:##A8EFF280;border-left:1px solid gray" align="right">#numberformat(Quantity,'__')#</td>								
 								
-								<td style="border-left:1px solid gray;padding-right:3px" align="right"><cfif BillingMode neq "None">#numberformat(SalePrice,',.___')#</cfif></td>	
-								<td style="border-left:1px solid gray;padding-right:3px" align="right"><cfif BillingMode neq "None">#numberformat(SaleAmountIncome,',')#</cfif></td>
-								
-																
+								<td style="border-left:1px solid gray" align="right"><cfif BillingMode neq "None">#numberformat(SalePrice,',.___')#</cfif></td>	
+								<td style="border-left:1px solid gray" align="right"><cfif BillingMode neq "None">#numberformat(SaleAmountIncome,',')#</cfif></td>
+																								
 								<cfif line.ServiceType eq "WorkOrder" or line.serviceType eq "Sale">
 								
-									<td bgcolor="D0FBD6" style="background-color:##D0FBD680;border-left:1px solid gray;padding-right:2px">
+									<td bgcolor="D0FBD6" style="background-color:##D0FBD680;border-left:1px solid gray;">
 									
 										<table width="100%">
 										
@@ -379,9 +378,9 @@
 												   
 												</td>
 																												
-												<td style="min-width:40px" id="request_#WorkOrderItemId#" align="right">#numberformat(Outsourced,'__')#</td>	
+												<td id="request_#WorkOrderItemId#" style="width:100%" align="right">#numberformat(Outsourced,'__')#</td>	
 												
-												<td>
+												<td align="right">
 												
 												<cfset bal = quantity-shipped>
 																														
@@ -400,11 +399,11 @@
 								
 								</cfif>
 																
-								<td bgcolor="D0FBD6" align="right" style="background-color:##D0FBD680;border-left:1px solid gray;padding-right:2px">#instock#</td>								
+								<td bgcolor="D0FBD6" align="right" style="background-color:##D0FBD680;border-left:1px solid gray">#instock#</td>								
 																
-								<td style="padding-right:3px;border-left:1px solid gray;padding-left:5px'background-color:##ffffaf" align="right" bgcolor="ffffcf">
+								<td style="padding-right:3px;border-left:1px solid gray;background-color:##ffffaf" align="right">
 								
-									<table width="100%" cellspacing="0" cellpadding="0">
+									<table width="100%">
 										
 											<tr class="labelmedium" style="height:20px">																				
 											<td width="20">	
@@ -423,7 +422,7 @@
 								
 								</td>
 															
-								<td style="padding-right:3px;;border-left:1px solid gray;padding-left:1px;background-color:##f1f1f180" align="right" bgcolor="f1f1f1">
+								<td style="border-left:1px solid gray;padding-left:1px;background-color:##f1f1f180" align="right">
 								
 									<table width="100%">
 										
@@ -452,22 +451,22 @@
 								
 								<cfif BillingMode eq "None">
 								
-									<td align="right" colspan="2" style="padding-right:3px"></td>
+									<td align="right" colspan="2"></td>
 									
 								<cfelse>
 								
-									<td align="right" bgcolor="e1e1e1" style="background-color:##e1e1e180;padding-right:3px;border-left:1px solid gray;padding-left:5px">#Shipped#</td>
+									<td align="right" bgcolor="e1e1e1" style="background-color:##e1e1e180;border-left:1px solid gray">#Shipped#</td>
 																	
 									<cfset bal = quantity-shipped>
 									<cfif bal gt 0>
-									<td style="background-color:##ffffaf80;padding-right:3px;border-left:1px solid gray;padding-left:5px" align="right">#bal#</b></td>
+									<td style="background-color:##ffffaf80;border-left:1px solid gray" align="right">#bal#</b></td>
 									<cfelse>
 									<td align="center" style="font-size:10px;background-color:green;color:white;border-left:1px solid gray"><cf_tl id="complete"></td>
 									</cfif>
 									
 								</cfif>
 								
-								<td align="right" bgcolor="E3E8C6" style="background-color:##E3E8C680;padding-right:3px;border-left:1px solid gray;padding-left:5px;border-right:1px solid silver;">
+								<td align="right" style="background-color:##E3E8C680;border-left:1px solid gray;border-right:1px solid silver;">
 								<cfif Returns gt "0">
 								#numberformat(Returns,'__')#
 								<cfelse>

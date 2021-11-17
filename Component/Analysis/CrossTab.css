@@ -1,0 +1,202 @@
+TD.ctTop {  	
+	border:1px;
+	font-size : 13pt; 
+	background :  #f1f1f1; 	
+	color : black;  
+	border-left: 1px solid #d7d7d7; 
+    border-bottom: 1px solid #d7d7d7; 
+	} 	
+	
+TD.ctTopSub {  	
+	border:1px;
+	font-size : 13pt; 	
+	color : black;  
+	border-top: 1px solid #d7d7d7;
+	border-left: 1px solid #d7d7d7; 
+	border-bottom: 1px solid #d7d7d7;
+	} 				
+
+td.ctHeader {	
+	border-left: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
+	font-size: 16px;
+	background-image : url(../../Images/background_grayfade3.JPG);
+   }
+   
+td.blank {	
+	border-left: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
+	background-color : #f6f6f6;
+}
+	
+td.ctGrp {	
+	border-left: 1px solid #e6e6e6;
+	border-bottom: 0px solid #e6e6e6;
+	background-color : #ffffcf;
+	font-size: 16px;
+}
+	
+td.ctCol {	
+	border-left: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
+	background-color : #f8f8f8;
+	font-size: 16px;
+	cursor:pointer
+	}
+	
+td.ctColSel	{	
+	border:1px;
+	border-left: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
+	background-color : #66CCFF;
+	font-size: 16px;
+	cursor:pointer
+	}
+	
+td.ctCellSel	{	
+	border-left: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
+	background-color : #66CCFF;
+	font-size: 16px;
+	text-align : center;
+	cursor:pointer
+	}
+		
+td.ctHdr {	
+	border-left: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
+	background-color : #e6fafb;
+	font-size: 16px;
+	}
+	
+td.cell {	
+	font-size: 14px;
+	text-align: right;
+	height: 15px;
+	padding-right:2px;
+	cursor:pointer
+}	
+	
+td.cell_0 {		
+		border-left: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+		background-color : #FFFFFF;
+		font-size: 15px;
+		text-align : right;		
+	}
+    
+td.cell_1 {		
+		border-left: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+		background-color : #FFFFFF;
+		font-size: 15px;
+		text-align : right;
+	}
+	
+td.cell_2 {		
+		border-left: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+		background-color : #FFFFeF;
+		font-size: 15px;
+		text-align : right;
+	}
+	
+td.cell_3 {		
+		border-left: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+		background-color : #FFFFeF;
+		font-size: 15px;
+		text-align : right;
+	}
+	
+td.cellH {		
+		border-left: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+		background-color : #ffffcf;
+		font-size: 15px;
+		text-align : right;
+	}
+	
+td.cellT_B {		
+		border-left: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+		background-color : #FFFFeF;
+		text-align : right;
+		font-size: 15px;
+	}
+
+td.cellT {		
+		border-left: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+		background-color : #FFFFdF;
+		text-align : right;
+		font-size: 15px;	
+}
+	
+td.cellT2_B {		
+		border-left: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+		background-color : #F6FFFF;
+		text-align : right;
+		font-size: 15px;	
+}
+	
+td.cellT2 {		
+		border-left: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+		background-color : #F0FFFE;
+		text-align : right;
+		font-size: 15px;			
+}
+	
+td.cellT3_B	{		
+		border-left: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+		background-color : #F6FFFF;
+		text-align : right;
+		font-size: 15px;	
+}
+	
+td.cellT3 {		
+		border-left: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+		background-color : #F0FFFE;
+		text-align : right;
+		font-size: 15px;	
+}
+	
+td.cellTT {		
+		border-left: 1px solid #e6e6e6;
+		border-bottom: 1px solid #c7c7c7;
+		background-color : #e9e9e9;
+		text-align : right;
+		height : 20;		
+		font-size: 15px;	
+}
+		
+td.valuePlain {		
+		font-size: 15px;
+		background-color : #FFFFFF;
+		text-align : right;
+}
+	
+td.value {
+		font-family : verdana;
+		font-size: xx-small;
+		text-align : right;
+		cursor : pointer;
+}
+	
+td.valueH {		
+		font-size: 15px;
+		text-align : right;	
+		cursor : pointer;
+}
+	
+td.valueH2 {
+		font-size: 15px;
+		text-align : right;	
+		color: red;
+		cursor : pointer;
+}
+	

@@ -43,7 +43,6 @@
      	WHERE ApplicantNo 	 = '#Attributes.ApplicantNo#'
  </cfquery>
 
-
 <cfif getSubmission.recordcount eq 0>
 
 	<cfset Caller.years  = 0>
@@ -76,31 +75,30 @@
 		 </cfif>	 
 		
 	</cfif>
+		
+	<cfquery name="qCheck" 
+	datasource="AppsSelection" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		 
+	    SELECT TOP 1 *
+		FROM   ApplicantSubmission S
 	
-<cfquery name="qCheck" 
-datasource="AppsSelection" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	 
-    SELECT TOP 1 *
-	FROM   ApplicantSubmission S
-
-	 <cfif attributes.IDFunction neq "">
-	 
-	 		INNER JOIN ApplicantFunction AF
-				ON S.ApplicantNo = AF.ApplicantNo AND AF.FunctionId = '#Attributes.IDFunction#'
-			INNER JOIN ApplicantFunctionSubmission AFS
-				ON AF.ApplicantNo = AF.ApplicantNo AND AF.FunctionId = AFS.FunctionId
-			WHERE S.PersonNo ='#URL.PersonNo#'
-	 <cfelse>
-		WHERE 	1=0
-	 </cfif>	
-	  
-</cfquery>
-
-
+		 <cfif attributes.IDFunction neq "">
+		 
+		 		INNER JOIN ApplicantFunction AF
+					ON S.ApplicantNo = AF.ApplicantNo AND AF.FunctionId = '#Attributes.IDFunction#'
+				INNER JOIN ApplicantFunctionSubmission AFS
+					ON AF.ApplicantNo = AF.ApplicantNo AND AF.FunctionId = AFS.FunctionId
+				WHERE S.PersonNo ='#URL.PersonNo#'
+		 <cfelse>
+			WHERE 	1=0
+		 </cfif>	
+		  
+	</cfquery>
 	
 	<cfif Attributes.IDFunction neq "" and qCheck.recordcount neq 0>
+	
 		<cfquery name="Work" 
 	    datasource="AppsSelection" 
 	    username="#SESSION.login#" 
@@ -127,22 +125,22 @@ password="#SESSION.dbpw#">
 		         S.SubmissionId  
 
 	    </cfquery>
-
-
-
+				
 	<cfelse>
+		
 		<cfquery name="Work" 
 	    datasource="AppsSelection" 
 	    username="#SESSION.login#" 
 	    password="#SESSION.dbpw#">
 			SELECT E.ExperienceClass, B.ExperienceId, E.ExperienceFieldId, B.ExperienceStart, B.ExperienceEnd
-			FROM   ApplicantBackground B LEFT OUTER JOIN ApplicantBackgroundField BF ON B.ExperienceId = BF.ExperienceId 
-						LEFT OUTER JOIN Ref_Experience E ON E.ExperienceFieldId = BF.ExperienceFieldId
+			FROM   ApplicantBackground B 
+			       LEFT OUTER JOIN ApplicantBackgroundField BF ON B.ApplicantNo = BF.ApplicantNo AND B.ExperienceId      = BF.ExperienceId 
+				   LEFT OUTER JOIN Ref_Experience E            ON E.ExperienceFieldId = BF.ExperienceFieldId
 			WHERE  B.ApplicantNo         = '#Attributes.ApplicantNo#'
 			AND    B.ExperienceCategory  = 'Employment'
 			AND    B.Status IN ('0','1')
 			<cfif Attributes.ExperienceClass neq "">
-				AND    E.ExperienceClass     = '#Attributes.ExperienceClass#'
+			AND    E.ExperienceClass     = '#Attributes.ExperienceClass#'
 			</cfif>
 			<cfif Attributes.Reviewed eq "Yes">
 			AND    EXISTS (SELECT 'X' FROM ApplicantReviewBackground ARB 
@@ -152,6 +150,8 @@ password="#SESSION.dbpw#">
 	   </cfquery>	
 	
 	</cfif>
+		
+	
 	<cfset durT = 0>
 	
 	<cfloop query = "Work">
@@ -163,7 +163,7 @@ password="#SESSION.dbpw#">
 		<cfelse>
 		  <cfset end = ExperienceEnd>
 		</cfif>
-	
+			
 		<!--- KRW 10/11/06: adding in case days are part of dates: 
 		Business rule: 20 days over a whole month counts as extra month
 		Less than 20 days remainder counts as one less month --->
@@ -184,69 +184,77 @@ password="#SESSION.dbpw#">
 		  <cfset span = (st+dur-1)>
 		  
 	          <!---  <cfloop index="m" from="#st#" to="#ed#">   --->
-	          <!---  KRW 10/11/06: eliminates the adding of 1 extra month per history record --->
+	          <!---  KRW 10/11/06: eliminates the adding of 1 extra month per history record --->			  
+			  
 		   
 		   <cfloop index="m" from="#st#" to="#span#">	
 		   
 		   		<cfif ExperienceFieldId neq "">
 				
-					  <cflock scope="Session" 
-		    		timeout="10" type ="Exclusive">		
+					<cflock scope="Session" timeout="10" type ="Exclusive">		
+					
 		    			<cfif Attributes.IDFunction neq "" and qCheck.recordcount neq 0>
+												
 						  <cfquery name="Insert" 
 					       	datasource="AppsSelection" 
 					       	username="#SESSION.login#" 
 					       	password="#SESSION.dbpw#">
 					       	INSERT INTO skBackgroundCount
 						   	(ApplicantNo, ExperienceId, ExperienceFieldId, ExperienceClass, MonthNo)
+							
 						   	SELECT 	ApplicantNo,
 						   			AFS.SubmissionId,
 						   			ExperienceFieldId,
-						   			'#ExperienceClass#',	
-						   			#m#
-						   	FROM ApplicantFunctionSubmissionField ABF INNER JOIN ApplicantFunctionSubmission AFS ON ABF.SubmissionId = AFS.SubmissionId
+						   			'#ExperienceClass#',#m#
+									
+						   	FROM    ApplicantFunctionSubmissionField ABF INNER JOIN ApplicantFunctionSubmission AFS ON ABF.SubmissionId = AFS.SubmissionId
 
-						    WHERE AFS.ApplicantNo 	 = '#Attributes.ApplicantNo#'
-				       		AND AFS.SubmissionId 	 = '#ExperienceId#' 
-				       		AND ExperienceFieldId    = '#ExperienceFieldId#'
-				       		AND NOT EXISTS
-				       		(
+						    WHERE   AFS.ApplicantNo 	 = '#Attributes.ApplicantNo#'
+				       		AND     AFS.SubmissionId 	 = '#ExperienceId#' 
+				       		AND     ExperienceFieldId    = '#ExperienceFieldId#'
+							
+				       		AND NOT EXISTS (
 				       			
 				       			SELECT 'X'
-							    FROM skBackgroundCount
+							    FROM  skBackgroundCount
 							    WHERE ApplicantNo 	  = AFS.ApplicantNo
-							    AND ExperienceId 	  = ABF.SubmissionId
-							    AND ExperienceFieldId = ABF.ExperienceFieldId
-							    AND MonthNo           = '#m#'   
+							    AND   ExperienceId 	  = ABF.SubmissionId
+							    AND   ExperienceFieldId = ABF.ExperienceFieldId
+							    AND   MonthNo           = '#m#'   
 				       		)
+							
 					      </cfquery>
 
 					     <cfelse>
+						 						 						 
 						  <cfquery name="Insert" 
 					       	datasource="AppsSelection" 
 					       	username="#SESSION.login#" 
 					       	password="#SESSION.dbpw#">
 					       	INSERT INTO skBackgroundCount
-						   	(ApplicantNo, ExperienceId, ExperienceFieldId, ExperienceClass, MonthNo)
+						         	(ApplicantNo, ExperienceId, ExperienceFieldId, ExperienceClass, MonthNo)
 						   	SELECT 	ApplicantNo,
 						   			ExperienceId,
 						   			ExperienceFieldId,
 						   			'#ExperienceClass#',	
 						   			#m#
-						   	FROM ApplicantBackgroundField ABF
-						    WHERE ApplicantNo 	 = '#Attributes.ApplicantNo#'
-				       		AND ExperienceId 	 = '#ExperienceId#' 
-				       		AND ExperienceFieldId = '#ExperienceFieldId#'
-				       		AND NOT EXISTS
-				       		(
+						   	FROM   ApplicantBackgroundField ABF
+						    WHERE  ApplicantNo 	     = '#Attributes.ApplicantNo#'
+				       		AND    ExperienceId 	 = '#ExperienceId#' 
+				       		AND    ExperienceFieldId = '#ExperienceFieldId#'
+							
+				       		AND NOT EXISTS (
 				       			
 				       			SELECT 'X'
-							    FROM skBackgroundCount
-							    WHERE ApplicantNo 	  = ABF.ApplicantNo
-							    AND ExperienceId 	  = ABF.ExperienceId
-							    AND ExperienceFieldId = ABF.ExperienceFieldId
-							    AND MonthNo           = '#m#'   
+							    FROM   skBackgroundCount
+							    WHERE  ApplicantNo 	     = ABF.ApplicantNo
+							    AND    ExperienceId 	 = ABF.ExperienceId
+							    AND    ExperienceFieldId = ABF.ExperienceFieldId
+							    AND    MonthNo           = '#m#'  
+								 
 				       		)
+							
+							
 					      </cfquery>
 
 					     </cfif>
@@ -254,20 +262,21 @@ password="#SESSION.dbpw#">
 					</cflock>	
 				
 				<cfelse>
-				
+								
 					  <cfquery name="qCheck" 
 				       datasource="AppsSelection" 
 				       username="#SESSION.login#" 
 				       password="#SESSION.dbpw#">
-				       SELECT * 
-				       FROM skBackgroundCount
-				       WHERE ApplicantNo 	 = '#Attributes.ApplicantNo#'
-				       AND ExperienceId 	 = '#ExperienceId#'
-				       AND ExperienceFieldId = '#ExperienceFieldId#'
-				       AND MonthNo           = '#m#'   
+					       SELECT * 
+					       FROM  skBackgroundCount
+					       WHERE ApplicantNo 	   = '#Attributes.ApplicantNo#'
+					       AND   ExperienceId 	   = '#ExperienceId#'
+					       AND   ExperienceFieldId = '#ExperienceFieldId#'
+					       AND   MonthNo           = '#m#'   
 					  </cfquery>
 					  
 					  <cfif qCheck.recordCount eq 0> 
+					  
 							  <cfquery name="Insert" 
 					       	datasource="AppsSelection" 
 					       	username="#SESSION.login#" 

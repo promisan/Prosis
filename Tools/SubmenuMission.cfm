@@ -494,13 +494,14 @@
 						        <td width="98%" align="left" title="#MissionName#">																	
 																									
 									<table width="100%" border="0">
-									<tr>
+									<tr class="fixlengthlist">
 														
 									  <cfparam name="SystemModule.systemFunctionid" default="">
 																  				
 									  <td style="paddong-left:12px;font-size:28px;font-weight:340" class="tSearch labelmedium" 
 									  onClick="modulelog('#SystemModule.systemFunctionId#','#missel#');loadform('#MenuTemplate#?systemfunctionid=#SystemModule.systemFunctionId#&mission=#missel#&module=#vModuleId#','#sel#');">								  				  															  
-									    <a>#Mission#</a>&nbsp;<cfif MissionName neq Mission><font size="2" color="808080">#MissionName#</cfif>									
+									    <a>#Mission#</a>&nbsp;<cfif MissionName neq Mission><font size="2" color="808080">#MissionName#</cfif>	
+																
 									  </td>										
 									 </tr> 
 									 <cfif license neq 1>	

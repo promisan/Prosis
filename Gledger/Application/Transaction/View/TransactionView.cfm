@@ -40,6 +40,7 @@
 </cfif>	
 
 
+
 <!--- --------Hanno : 5/1/2015----------------------------- --->
 <!--- -------move this one into a batch as sometimes------- --->
 <!--- -------it is not in balance-------------------------- --->
@@ -126,9 +127,14 @@ password="#SESSION.dbpw#">
 		 ptoken.navigate("TransactionInvoice.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");		
 	}
 	
-	function PrintTaxReceivable() {		
+	function PrintTaxReceivable(id,scope) {		
 		ProsisUI.createWindow('wsettle', 'Invoice', '',{x:100,y:100,width:860,height:document.body.clientHeight-75,resizable:false,modal:true,center:true})
-		ptoken.navigate("TransactionTaxInvoice.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");
+		ptoken.navigate("TransactionTaxInvoice.cfm?scope="+scope+"&journal=#url.journal#&journalSerialNo=#url.journalSerialNo#&actionid="+id, "wsettle");
+	}
+	
+	function RePrintReceivable(batchid) {
+		  ProsisUI.createWindow('wreprint', 'Re-Print', '',{x:100,y:100,width:870,height:620,resizable:false,modal:true,center:true})		
+		  ptoken.navigate('#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoiceRePrint.cfm?batchid='+batchid,'wreprint');		
 	}
 	
 	function recalcline(field) {

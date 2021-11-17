@@ -38,26 +38,25 @@ password="#SESSION.dbpw#">
 			
 	 <cfoutput query="Item"> 
 	 
-	  <tr class="labelmedium2">
+	  <tr class="labelmedium2 fixlengthlist">
         <td width="15%"><cf_tl id="No">:</td>
         <td width="35%">#ItemNo#</td>
 		<td width="15%"><cf_tl id="Category">:</td>
         <td width="35%">#Category# #Cat.Description# #sub.CategoryItemName#</td>
 	 </tr>		
 	 	 	
-	 <tr class="labelmedium2">
+	 <tr class="labelmedium2 fixlengthlist">
         <td><cf_tl id="Description">:</b></td>
         <td>#ItemDescription#</td>
 		<td><cf_tl Id="External">:</td>
         <td>#ItemNoExternal#</td>
       </tr>
 	  	  
-	  <tr class="labelmedium2">
+	  <tr class="labelmedium2 fixlengthlist">
 	  
 	  	<td><cf_tl id="Generic name">:</td>
-        <td>#ItemDescriptionExternal#</td>
-       
-		<td><cf_tl id="Standard cost">#APPLICATION.BaseCurrency#</td>
+        <td>#ItemDescriptionExternal#</td>       
+		<td><cf_tl id="UoM">:</td>
         <td>
 		
 		<cfquery name="UoMSelect" 
@@ -74,11 +73,11 @@ password="#SESSION.dbpw#">
 		
 			<table>
 			<cfloop query = "UoMSelect">
-			<tr class="labelmedium2">		  
+			<tr class="labelmedium2 fixlengthlist">		  
 				<td>#UoMDescription#</td>
 				<td style="padding-left:5px">#UoMMultiplier#</td>		
-				<td style="padding-left:5px">#ItemBarCode#</td>				   
-			    <td style="padding-left:5px" align="right">#numberFormat(StandardCost,",.__")#</td>
+				<td title="Barcode" style="padding-left:5px">#ItemBarCode#</td>				   
+			    <td style="padding-left:5px" align="right">#APPLICATION.BaseCurrency# #numberFormat(StandardCost,",.__")#</td>
 			</tr>
 			</cfloop>
 			</table>
@@ -212,8 +211,13 @@ password="#SESSION.dbpw#">
 	 
 	 <tr>
 	  <td id="detail" valign="top">	  
+	 
+	   <cftry>
 	   <cfset url.itemNo = item.ItemNo>
 	   <cfinclude template="Transaction/TransactionListing.cfm">	
+	   <cfcatch></cfcatch>	  
+	   </cftry>
+	 
 	   
 	  <!--- ajax box for showing result values --->
 	  </td>

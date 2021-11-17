@@ -54,7 +54,7 @@
 	</td></tr>
 </table>	
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="100%" align="center"  class="formpadding">
 	
 	<tr><cfset drag = drag + 1>
 	
@@ -74,7 +74,7 @@
 				
 				 <td style="padding-left:2px; padding-right:2px" height="31px">
 				   
-						<table width="100%" height="100%" cellspacing="0" cellpadding="0" bgcolor="green">
+						<table width="100%" height="100%" bgcolor="green">
 							<tr id="d#drag#">
 							    <!--- background="#SESSION.root#/images/decisiongreen.jpg" --->
 								<td align="center" id="bd#drag#" style="background-color:00C600;">
@@ -98,8 +98,7 @@
 							</tr>
 						</table>
 					
-				 </td>
-				 
+				 </td>			 
 				 
 			 </tr>
 				 				 
@@ -109,8 +108,7 @@
 	   			 		<tr><td height="10" width="3" bgcolor="green"></td></tr>
 			    	</table>
 				 </td>
-			 </tr>	
-			 
+			 </tr>	 
 						 	
 			 <cfset tree  = "YES#lvl#">
 			 <cfset branch = "regular">

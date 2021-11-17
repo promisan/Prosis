@@ -251,17 +251,17 @@ password="#SESSION.dbpw#">
 			  
 			  <cfoutput>
 						  
-			  <TR class="labelmedium2 line fixrow">
-			        <TD width="40" style="padding-left:4px"><cf_tl id="Type"></TD>	
-				    <td style="min-width:20px" align="center"></td>
-					<td style="min-width:10px" align="center"></td>
-				    <td style="width:70%"><cf_tl id="Leave Class"></td>
-					<TD style="width:20%"><cf_tl id="Officer"></TD>											
-					<TD style="width:95;min-width:95px"><cf_tl id="Effective"></TD>
-					<TD style="width:95;min-width:95px"><cf_tl id="Expiration"></TD>					
-					<TD style="min-width:55px" align="right"><cf_tl id="Days"></TD>			
-					<TD style="min-width:55px" align="right"><cf_tl id="Taken"></TD>		
-					<TD style="min-width:55px;padding-right:3px" align="right"><cf_tl id="Calc"></TD>									
+			  <TR class="labelmedium2 line fixrow fixlengthlist">
+			        <TD><cf_tl id="Type"></TD>	
+				    <td align="center"></td>
+					<td align="center"></td>
+				    <td><cf_tl id="Leave Class"></td>
+					<TD><cf_tl id="Officer"></TD>											
+					<TD><cf_tl id="Effective"></TD>
+					<TD><cf_tl id="Expiration"></TD>					
+					<TD align="right"><cf_tl id="Days"></TD>			
+					<TD align="right"><cf_tl id="Taken"></TD>		
+					<TD align="right"><cf_tl id="Calc"></TD>									
 				</TR>
 			  
 			  </cfoutput>
@@ -278,9 +278,9 @@ password="#SESSION.dbpw#">
 			
 			<cfset display="">
 			
-			<tr class="labelit fixrow2">
+			<tr class="labelit fixrow2 fixlengthlist">
 						
-			    <td bgcolor="ffffff" style="height:35px;font-size:21px;padding-top:0px;padding-left:4px" colspan="10" align="left">
+			    <td bgcolor="ffffff" style="height:35px;font-size:21px;padding-top:0px" colspan="10" align="left">
 				 
 			     <cfswitch expression="#Status#">
 				 
@@ -319,10 +319,10 @@ password="#SESSION.dbpw#">
 						<td colspan="10" style="padding-left:8px">
 													
 							<table width="100%" height="100%">
-							  <tr>
-							  <td class="labelmedium" style="height:20px;font-size:23px" valign="top">#LeaveYear#</td>
+							  <tr class="labelmedium2 fixlengthlist">
+							  <td style="height:20px;font-size:23px" valign="top">#LeaveYear#</td>
 							 
-								  <td align="right" style="width:400px">
+								  <td align="right">
 								  
 									  <table width="100%" bgcolor="e4e4e4" style="border:0px solid silver">
 									  
@@ -349,7 +349,7 @@ password="#SESSION.dbpw#">
 									  <cfloop query="leavestatus">		
 									   <cfset cnt = cnt+1>
 									    <cfif cnt eq "1">	
-										  <tr class="<cfif currentrow neq recordcount>line</cfif> labelmedium" style="height:25px">		
+										  <tr class="<cfif currentrow neq recordcount>line</cfif> labelmedium2 fixlengthlist" style="height:25px">		
 									    </cfif>						 
 									  	<td align="center" style="min-width:110px;border-left:1px solid silver;padding-left:4px">#ClassName#</td>							
 										<td align="right" bgcolor="DBFFFF" style="min-width:50;border-left:1px solid silver;border-right:1px solid silver;padding-right:3px;">#NumberFormat(Taken,"__.__")#</td>								 
@@ -386,7 +386,7 @@ password="#SESSION.dbpw#">
 						<cfoutput>		
 																				
 							<tr style="display:#display#;height:23px" name="status_#status#" bgcolor="#cl#" 
-								  class="labelmedium navigation_row <cfif memo eq '' or transactionType eq 'External'>line</cfif>">
+								  class="fixlengthlist labelmedium2 navigation_row <cfif memo eq '' or transactionType eq 'External'>line</cfif>">
 							
 	      						   <td style="padding-left:14px;padding-right:4px"><cfif TransactionType eq "Manual"><cf_tl id="BackOffice"><cfelseif TransactionType eq "Request"><cf_tl id="Portal"><cfelse>#TransactionType#</cfif></td>																
 																	
@@ -397,7 +397,7 @@ password="#SESSION.dbpw#">
 									   					   								
 									<cfif workflowid neq "">
 								 
-									 <td align="center" style="cursor:pointer; padding-left:5px;" onclick="workflowdrill('#workflowid#','box_#workflowid#')" >
+									 <td align="center" style="cursor:pointer" onclick="workflowdrill('#workflowid#','box_#workflowid#')" >
 																 
 									 	<cfif Status eq "1" and session.acc eq officerUserId>
 										
@@ -443,7 +443,7 @@ password="#SESSION.dbpw#">
 										
 									<cfelse>
 									
-									<td align="center" style="padding-left:4px;">	
+									<td align="center">	
 									  
 									</cfif>	 
 									
@@ -451,7 +451,7 @@ password="#SESSION.dbpw#">
 									
 									<cfset edt = "0">		
 									
-									<td align="center" style="padding-right:3px">
+									<td align="center">
 																			
 									 	 <cfif access eq "ALL">		
 										 	 									 
@@ -478,27 +478,27 @@ password="#SESSION.dbpw#">
 									<cfif LeaveTypeClassDescription neq "" and LeaveTypeClassDescription neq Description>:&nbsp;<font color="008000">#LeaveTypeClassDescription#</cfif>
 									<cfif LeaveClassGroupDescription neq ""><font color="8000FF">:&nbsp;#LeaveClassGroupDescription#</cfif>							
 									</td>														
-									<td style="font-size:12px;padding-left:5px"><cfif TransactionType neq "External">#OfficerLastName#&nbsp;#DateFormat(Created,CLIENT.DateFormatShow)#</cfif></td>
-									<td align="left" style="border-left:1px solid silver;padding-left:5px">#Dateformat(DateEffective, CLIENT.DateFormatShow)# <font size="1"><cfif DateEffectiveFull eq "0"><cfif DateEffectiveHour eq "6">AM<cfelse>PM</cfif><cfelse>...</cfif></font></td>
-									<td align="left" style="border-left:1px solid silver;padding-left:5px;padding-right:3px"><cfif dateeffective neq dateexpiration>#Dateformat(DateExpiration, CLIENT.DateFormatShow)# <font size="1"><cfif DateExpirationFull eq "0"><cfif DateEffectiveHour eq "12">PM<cfelse>AM</cfif><cfelse>...</cfif></cfif></font></td>							
-									<td align="right" style="border-left:1px solid silver;padding-left:4px;padding-right:3px;">#NumberFormat(DaysLeave,".__")#</TD>		
+									<td><cfif TransactionType neq "External">#OfficerLastName#&nbsp;#DateFormat(Created,CLIENT.DateFormatShow)#</cfif></td>
+									<td style="border-left:1px solid silver">#Dateformat(DateEffective, CLIENT.DateFormatShow)# <font size="1"><cfif DateEffectiveFull eq "0"><cfif DateEffectiveHour eq "6">AM<cfelse>PM</cfif><cfelse>...</cfif></font></td>
+									<td style="border-left:1px solid silver"><cfif dateeffective neq dateexpiration>#Dateformat(DateExpiration, CLIENT.DateFormatShow)# <font size="1"><cfif DateExpirationFull eq "0"><cfif DateEffectiveHour eq "12">PM<cfelse>AM</cfif><cfelse>...</cfif></cfif></font></td>							
+									<td align="right" style="border-left:1px solid silver">#NumberFormat(DaysLeave,".__")#</TD>		
 									<cfif LeaveAccrual eq "0" and WorkdaysOnly eq "0">
 									
-									<td align="right" style="cursor:pointer;border:1px solid silver;background-color:ffffff;padding-left:3px;padding-right:3px;">
+									<td align="right" style="cursor:pointer;border:1px solid silver;background-color:ffffff">
 										#NumberFormat(DaysDeduct,".__")#
 									</td>
 									<cfelse>
 									
 										<cfif leavedeductdetail gte "0" and edt eq "1">																				
-										<td align="right" onclick="deduction('#leaveid#')" style="cursor:pointer;border:1px solid silver;background-color:##ffffaf50;padding-left:3px;padding-right:3px;" id="deduct_#leaveid#">
+										<td align="right" onclick="deduction('#leaveid#')" style="cursor:pointer;border:1px solid silver;background-color:##ffffaf50" id="deduct_#leaveid#">
 										#NumberFormat(LeaveDeductDetail,".__")#
 										</td>
 										<cfelseif leavedeductdetail gt "0">
-										<td align="right" id="deduct_#leaveid#" style="background-color:##DAF9FC50;border:1px solid silver;padding-left:3px;padding-right:5px;" id="deduct_#leaveid#">	
+										<td align="right" id="deduct_#leaveid#" style="background-color:##DAF9FC50;border:1px solid silver" id="deduct_#leaveid#">	
 										#NumberFormat(LeaveDeductDetail,".__")#
 										</td>					
 										<cfelse>
-										<td align="right" id="deduct_#leaveid#" style=";background-color:##DAF9FC50;border:1px solid silver;padding-left:3px;padding-right:5px;" id="deduct_#leaveid#">	
+										<td align="right" id="deduct_#leaveid#" style=";background-color:##DAF9FC50;border:1px solid silver" id="deduct_#leaveid#">	
 										#NumberFormat(DaysDeduct,".__")#
 										</td>
 										</cfif>										
@@ -506,7 +506,7 @@ password="#SESSION.dbpw#">
 									</cfif>		
 									
 									<td align="right"
-									style="cursor:pointer;border:1px solid silver;background-color:##ffffff50;padding-left:3px;padding-right:3px;">
+									style="cursor:pointer;border:1px solid silver;background-color:##ffffff50">
 									
 									<cfif LeaveAccrual eq "0" and WorkdaysOnly eq "0">
 									
@@ -543,9 +543,9 @@ password="#SESSION.dbpw#">
 											<cfelse>
 											
 												<table style="width:100%">
-													<tr>
+													<tr class="fixlengthlist">
 													<td align="left"><input style="width:50px;height:20px" onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('setTaken.cfm?leaveid=#leaveid#','deduct_#leaveid#')" class="button10g" type="button" value="Apply"></td>
-													<td align="right" style="background-color:red;padding-left:3px;padding-right:3px;color:white">#NumberFormat(Days,".__")#</td>
+													<td align="right" style="background-color:red;color:white">#NumberFormat(Days,".__")#</td>
 													</tr>
 												</table>
 											
@@ -561,7 +561,7 @@ password="#SESSION.dbpw#">
 															
 								<tr style="display:#display#;height:15px" name="status_#status#" class="labelmedium navigation_row_child line">
 								    <td></td><td></td>
-									<td colspan="8" style="font-size:16px;padding-right:2px;padding-bottom:1px">#Memo#</td>
+									<td colspan="8" style="font-size:15px;padding-right:2px;padding-bottom:1px">#Memo#</td>
 								</tr>
 															
 							</cfif>

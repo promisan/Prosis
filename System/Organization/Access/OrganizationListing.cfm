@@ -220,7 +220,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 	<table width="100%" border="0">
 	<tr>
 	
-	<td class="labellarge" style="font-size:29px;padding-left:10px">
+	<td class="fixlength labellarge" style="font-size:29px;padding-left:10px">
   	<cfoutput>
 	      #URL.Mission#	  
 	      <cfif URL.ID3 neq ""><font style="font-size:18px">[#URL.ID3#]</cfif>		  
@@ -231,12 +231,12 @@ This is not how it intended, solution prevent check box if this was inherited by
 	  </cfoutput>
 	 </td> 
 	 
-	 <td align="right" valign="top" style="padding-right:10px">
+	 <td align="right" valign="top" style="padding-right:8px">
 	 
 		 <table>
 		 <tr>
 		 		 		 
-		 <td align="right" height="35" valign="top" style="padding-top:3px">
+		 <td align="right" valign="top" style="padding-top:3px;min-width:200px">
 			  
 			    <cfselect name="selectrole" 
 				   id="selectrole" 
@@ -247,8 +247,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 				   style="height:28px;font-size:18px;border:0px;background-color:AAD5FF"
 				   class="regularxl" 
 				   group="SystemFunction" 
-				   onChange="reloadForm(this.value,selectuser.value)">		    
-			    </cfselect>
+				   onChange="reloadForm(this.value,selectuser.value)"/>		    
 				
 			   </td>
 			   
@@ -274,7 +273,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 
 <table width="100%" align="center" class="navigation_table">
 
-  <tr class="labelmedium2">
+  <tr class="labelmedium2 fixlengthlist">
       <td colspan="9" align="center" style="border:1px solid silver;background-color:ffffaf">
       The highest granted access level will dominate, unless user group access is reverted
 	  </td>
@@ -321,7 +320,7 @@ This is not how it intended, solution prevent check box if this was inherited by
    
 </tr>
  
-<TR class="labelmedium2 line" height="20">
+<TR class="labelmedium2 line fixlengthlist" height="20">
    
 	<td colspan="2" style="width:20px;padding-left:1px;padding-right:4px">
 	   <cfoutput>
@@ -345,7 +344,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 	<TD><cfoutput>#Role.Parameter#</cfoutput></TD>   
 	<td></td>
 	<TD><cf_tl id="Created"></TD>
-	<td height="15" width="50"></td>
+	<td height="15"></td>
 </TR>
 
   
@@ -366,7 +365,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 
    <cfset box = box+1> 
    	
-    <tr class="labelmedium line">
+    <tr class="labelmedium line fixlengthlist">
 	
       <td colspan="9">
 	  
@@ -411,8 +410,8 @@ This is not how it intended, solution prevent check box if this was inherited by
 				
 				<cfif AccountType eq "Group">
 				
-				<tr bgcolor="ffffff" class="navigation_row labelmedium2 line" style="height:22px">		
-				  <td width="30" align="center" style="padding-top:1px">		 
+				<tr bgcolor="ffffff" class="navigation_row labelmedium2 line fixlengthlist" style="height:22px">		
+				  <td width="30" align="center" style="padding-top:3px">		 
 				 	 <cf_img icon="open" navigation="Yes" onclick="process('#URLEncodedFormat(Account)#')">			    
 				   </td>			  	   
 				   <td style="width:20px"></td>
@@ -420,7 +419,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 				<cfelseif left(type,1) eq "3" >
 				
 				 <!--- 3. denied --->
-				 <tr bgcolor="F39E89" class="navigation_row labelmedium line" style="height:22px">
+				 <tr bgcolor="F39E89" class="navigation_row labelmedium line fixlengthlist" style="height:22px">
 				
 				 <td width="30" align="center"></td>	
 				 <td></td>
@@ -429,7 +428,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 				
 				<!--- inherited --->
 				
-				<tr bgcolor="ECF5FF" class="navigation_row labelmedium line" style="height:22px">
+				<tr bgcolor="ECF5FF" class="navigation_row labelmedium line fixlengthlist" style="height:22px">
 				
 				 <td align="center" style="width:30px;padding-top:1px">	 
 				     <cf_img icon="open" navigation="Yes" onclick="process('#URLEncodedFormat(Account)#')">			   
@@ -443,22 +442,22 @@ This is not how it intended, solution prevent check box if this was inherited by
 				
 					<!--- inherited from entity --->  
 				
-					 <tr bgcolor="ffffdf" class="navigation_row labelmedium2 line" style="height:22px">
+					 <tr bgcolor="ffffdf" class="navigation_row labelmedium2 line fixlengthlist" style="height:22px">
 				
-					 <td width="30" align="center"></td>	
+					 <td align="center"></td>	
 					 <td></td>	
 				   
 				<cfelse>
 				
-					<tr class="navigation_row labelmedium2 line">
+					<tr class="navigation_row labelmedium2 line fixlengthlist">
 					
-					<td width="30" align="center" style="padding-top:1px">
+					<td align="center" style="padding-top:1px">
 					
 					   <cf_img icon="edit" navigation="Yes" onclick="process('#URLEncodedFormat(Account)#')">
 						   
 				    </td>	
 				   
-				    <td style="padding-top:1px">
+				    <td style="padding-top:3px">
 					
 					  <cf_img icon="expand" toggle="Yes" onclick="drilldown('#account#','#box#_#account#','tree','#url.mission#','','#url.id4#','#orgunit#')">
 				      
@@ -466,13 +465,13 @@ This is not how it intended, solution prevent check box if this was inherited by
 					
 				</cfif>
 			   
-				<td width="30%">
-				   <a title="Access User Profile"  href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#LastName#, #FirstName#</font></a>
+				<td>
+				   <a title="Access User Profile"  href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#LastName#, #FirstName#</a>
 			    </td>
 				
 				<cfif AccountType eq "Group">
 				
-				 	 <td style="padding-right:4px" align="right">
+				 	 <td align="right">
 					
 				    	<img src="#SESSION.root#/Images/arrowright.gif" alt="" 
 							name="#currentrow#Exp" id="#currentrow#Exp" 
@@ -487,20 +486,20 @@ This is not how it intended, solution prevent check box if this was inherited by
 							onClick="more('#Account#','#currentRow#')">
 					 </td>
 					 
-					  <TD width="20%">
+					  <TD>
 					  <a href="javascript:more('#Account#','#currentRow#')">#account#</a>
 					  </TD>
 				 <cfelse>
 				 
 				  <td></td>   
-				  <TD width="20%">#account#</TD>
+				  <TD>#account#</TD>
 					  	  		
 			     </cfif>	
 				
 				 <cfif ClassParameter eq "Default" and Role.Parameter eq "">
 				 
-				 	 <TD width="12%">#ClassParameter#</TD>
-					 <TD width="10%">
+				 	 <TD>#ClassParameter#</TD>
+					 <TD>
 				      
 						  <cfset lbl = ListToArray(Role.AccessLevelLabelList)>
 						  <cftry>
@@ -512,19 +511,19 @@ This is not how it intended, solution prevent check box if this was inherited by
 				 
 				 <cfelse>
 				 
-					 <td width="20%" colspan="2">
+					 <td colspan="2">
 					 <cfif Type neq "3. Denied">
 					      
-					      <a class="navigation_action" href="javascript:process('#URLEncodedFormat(Account)#')">Set multiple...</a> 
+					      <a class="navigation_action" href="javascript:process('#URLEncodedFormat(Account)#')">Set multiple</a> 
 			 
 					 </cfif>
 					 </td>
 					 
 				 </cfif>
 				 
-				 <TD width="100">#DateFormat(Created, CLIENT.DateFormatShow)#&nbsp;</TD>	
+				 <TD>#DateFormat(Created, CLIENT.DateFormatShow)#&nbsp;</TD>	
 				 
-				 <td width="40" style="padding-top:3px" align="center">	 
+				 <td style="padding-top:3px" align="center">	 
 				     <cfif Type neq "3. Denied">
 				     	<input type="checkbox" name="Account" id="Account" value="'#Account#'" onClick="hl(this,this.checked,'1')">&nbsp;
 					 </cfif>
@@ -562,7 +561,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 					<table width="100%">
 						<cfloop query="Denied">
 						<tr class="labelmedium2">
-						<td><a href="javascript:reinstate('#url.id4#','#url.id5#','#accessid#')">Reinstate</a></td>
+						<td><a href="javascript:reinstate('#url.id4#','#url.id5#','#accessid#')"><cf_tl id="Reinstate"></a></td>
 						<td>#ClassParameter#</td>
 						<td>#GroupParameter#</td>
 						<td>
@@ -599,7 +598,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 				  id      = "Broadcast" 
 				  value   = "Broadcast" 
 				  class   = "button10g" 
-				  style   = "width:130;height:24" 
+				  style   = "width:140px;height:25px" 
 				  onClick = "broadcast('#URL.ID4#','#URL.Mission#')">
 				
 		  <input  type    = "submit" 
@@ -607,7 +606,7 @@ This is not how it intended, solution prevent check box if this was inherited by
 				  id      = "Purge" 
 				  value   = "Revoke" 
 				  class   = "button10g" 
-				  style   = "width:130;height:24" 
+				  style   = "width:140px;height:25px" 
 				  onClick = "return Process('remove')">
 		  
 	  </cfoutput>

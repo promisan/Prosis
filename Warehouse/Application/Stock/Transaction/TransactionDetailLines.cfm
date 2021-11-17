@@ -171,7 +171,7 @@ password="#SESSION.dbpw#">
 	
 	<tr class="xxxhide"><td height="4" id="processlines"></td></tr>
 	
-	<tr class="labelmedium fixrow line">
+	<tr class="labelmedium fixrow line fixlengthlist">
 	  <td width="1"></td>
 	  <td></td>
       <TD></TD>	 
@@ -185,16 +185,16 @@ password="#SESSION.dbpw#">
 		  </cfif>
 	  	   
 	  <cfif presentation eq "log">	
-	  	  <TD width="20%"><cf_tl id="Make/Barcode"></TD>
-  	      <td width="20%"><cf_tl id="Project"></td>		
-	      <td width="120"><cf_tl id="Date/Time"></td>			     
-	      <TD width="20%"><cf_tl id="Unit"></TD>		     	      
+	  	  <TD><cf_tl id="Make/Barcode"></TD>
+  	      <td><cf_tl id="Project"></td>		
+	      <td><cf_tl id="Date/Time"></td>			     
+	      <TD><cf_tl id="Unit"></TD>		     	      
 	  <cfelse>
 	  	  <TD><cf_tl id="Location"></TD>
 	  	  <td colspan="2"><cf_tl id="Product"></td>		         
 	      <td><cf_tl id="Category"></td>			 
 	  </cfif>	 	 
-	  <td width="120" colspan="3"><cf_tl id="Quantity"></td>	 	  
+	  <td colspan="3"><cf_tl id="Quantity"></td>	 	  
 	  <cfif presentation eq "price">	 
 	    <TD align="right"><cf_tl id="Cost"></TD>   
     	<TD align="right" style="padding-right:4px"><cf_tl id="Total"></TD>	 	   
@@ -253,9 +253,9 @@ password="#SESSION.dbpw#">
 		      style      = "cursor : pointer;"
 			  id         = "line_#transactionid#"
 			  name       = "line_#transactionid#"
-			  class      = "clsTransaction labelmedium navigation_row">
+			  class      = "clsTransaction labelmedium navigation_row fixlengthlist">
 			  			  
-			   <td style="width:20px;padding-left:10px;padding-right:3px">			
+			   <td style="width:20px">			
 			  
 			    <cfif url.mode eq "workorder" or mode eq "sale" or URL.mode eq "ExternalSale" or transactiontype eq "9">
 			 
@@ -265,9 +265,9 @@ password="#SESSION.dbpw#">
 				</cfif>	 
 				
 			   </td>				  			  
-			   <td style="width:20px;padding-left:3px">#recordcount-currentrow+1#.</td>		
+			   <td style="padding-left:3px">#recordcount-currentrow+1#.</td>		
 			         
-			   <td style="width:20px;height:20px;padding-right:7px">		       
+			   <td style="height:20px">		       
 			   			 
 				 <table class="formpadding"><tr>
 				 
@@ -425,9 +425,9 @@ password="#SESSION.dbpw#">
 			   
 			   </cfif>
 			   
-			   <td width="60" align="right"><cfif qty lt 0><font color="FF0000"></cfif>#NumberFormat(qty,'(,__._)')#</td>
-			   <td width="80" align="right"  style="padding-left:4px;padding-right:4px">#UoMDescription#</td>
-			   <td width="3%" align="center" style="padding-top:2px">
+			   <td align="right"><cfif qty lt 0><font color="FF0000"></cfif>#NumberFormat(qty,'(,__._)')#</td>
+			   <td align="right"  style="padding-left:4px;padding-right:4px">#UoMDescription#</td>
+			   <td align="center" style="padding-top:2px">
 			   
 				   <cfif billingmode eq "external">
 				     <img src="#SESSION.root#/images/money.png" height="10" width="12" alt="External Billing" border="0">
@@ -438,14 +438,14 @@ password="#SESSION.dbpw#">
 			   </td>
 			   
 			   <cfif presentation eq "price">	
-				   <td width="70" align="right">#NumberFormat(TransactionCostPrice,',.__')#</td>
-				   <td width="80" align="right">#NumberFormat(val,',.__')#</td>	
+				   <td align="right">#NumberFormat(TransactionCostPrice,',.__')#</td>
+				   <td align="right">#NumberFormat(val,',.__')#</td>	
 				   <cfif salesprice eq "">	
-				   <td width="70" align="right" style="padding-right:2px">--</td>
-				   <td width="80" align="right" style="padding-right:4px">--</td>  
+				   <td align="right" style="padding-right:2px">--</td>
+				   <td align="right" style="padding-right:4px">--</td>  
 				   <cfelse>				   
-				   <td width="70" align="right" style="padding-right:2px">#NumberFormat(SalesPrice,',.__')#</td>
-				   <td width="80" align="right" style="padding-right:4px">#NumberFormat(SalesPrice*qty,',.__')#</td>
+				   <td align="right" style="padding-right:2px">#NumberFormat(SalesPrice,',.__')#</td>
+				   <td align="right" style="padding-right:4px">#NumberFormat(SalesPrice*qty,',.__')#</td>
 				   </cfif>
 			   </cfif>
 			   
@@ -496,7 +496,7 @@ password="#SESSION.dbpw#">
 							   
 							       <td colspan="2">
 							   
-									    <table width="100%" cellspacing="0" cellpadding="0">
+									    <table width="100%">
 										
 										   <cfloop from="1" to="5" index="k">
 										   		<cfset vMetric 		= Evaluate("AssetMetric#k#")>
@@ -643,7 +643,7 @@ password="#SESSION.dbpw#">
 		      			  
 			   <td colspan="2"></td>
 			   <td colspan="8" bgcolor="yellow" class="labelit" style="height:23;padding-left:10px;border:1px solid silver">							     
-					 <b>Attention</b> : Asset was issued already #numberformat(abs(IssuedThisBatch-IssuedOtherBatch),"__,__._")# for the same day.  						 
+					 <b>Attention</b> : Asset was issued already #numberformat(abs(IssuedThisBatch-IssuedOtherBatch),",._")# for the same day.  						 
 			   </td>
 			   <td></td>   
 			   
@@ -727,7 +727,7 @@ password="#SESSION.dbpw#">
 		<!--- we show this in the total bottom banner --->	
 		<script language="JavaScript">
 		   if (document.getElementById("logtotals")) {
-		   ColdFusion.navigate('../Transaction/TransactionLogSheetTotal.cfm?systemfunctionid=#url.systemfunctionid#&tratpe=#url.tratpe#&mode=#url.mode#&warehouse=#url.warehouse#&location=#url.location#&itemNo=#url.itemno#&UoM=#url.uom#','logtotals')			
+		   ptoken.navigate('../Transaction/TransactionLogSheetTotal.cfm?systemfunctionid=#url.systemfunctionid#&tratpe=#url.tratpe#&mode=#url.mode#&warehouse=#url.warehouse#&location=#url.location#&itemNo=#url.itemno#&UoM=#url.uom#','logtotals')			
 		   }
 		</script>
 			
@@ -782,21 +782,21 @@ password="#SESSION.dbpw#">
 			<cfif presentation eq "price">	
 			
 			<td colspan="11" align="right">#Total.Lines#</td>			 
-			<td align="right" style="padding-right:4px">#NumberFormat(cst,'_____,__.__')#</td>
+			<td align="right" style="padding-right:4px">#NumberFormat(cst,',.__')#</td>
 			<td></td>
-			<td align="right" style="padding-right:4px">#NumberFormat(sal,'_____,__.__')#</td>
+			<td align="right" style="padding-right:4px">#NumberFormat(sal,',.__')#</td>
 			
 			<cfelseif presentation eq "log">	
 			
 			<td colspan="5"></td>		
 				<td colspan="1" align="right">(#Total.Lines#)</td>				
-				<td align="right">#NumberFormat(qty,'_____,__._')#</td>
+				<td align="right">#NumberFormat(qty,',._')#</td>
 			<td></td>
 							
 			<cfelse>
 					 
 			<td colspan="7" align="right">(#Total.Lines#)</td>		
-			<td align="right" style="padding-right:2px">#NumberFormat(qty,'_____,__.__')#</td>		
+			<td align="right" style="padding-right:2px">#NumberFormat(qty,',.__')#</td>		
 					
 			</cfif>
 	

@@ -94,13 +94,13 @@ password="#SESSION.dbpw#">
 	  
 		  <table class="formpadding navigation_table" width="94%" align="center">
 				
-			<TR class="labelmedium line fixrow">
-			    <td style="min-width:60px" height="20" align="center"></td>
-				<TD width="60%"><cf_tl id="Document"></TD>		    	
-				<td style="min-width:120px"><cf_tl id="Issued"></td>
-			    <td style="min-width:90px"><cf_tl id="Effective"></td>
-				<TD style="min-width:90px"><cf_tl id="Expiration"></TD>			
-				<TD style="min-width:150px"><cf_tl id="Officer"></TD>	
+			<TR class="labelmedium2 line fixrow fixlengthlist">
+			    <td height="20" align="center"></td>
+				<TD><cf_tl id="Document"></TD>		    	
+				<td><cf_tl id="Issued"></td>
+			    <td><cf_tl id="Effective"></td>
+				<TD><cf_tl id="Expiration"></TD>			
+				<TD><cf_tl id="Officer"></TD>	
 			</TR>
 			
 		<cfset last = '1'>
@@ -146,7 +146,7 @@ password="#SESSION.dbpw#">
 			
 			<cfif DateExpiration lt now() and DateExpiration neq "">
 			
-				<tr bgcolor="FAE2DA" class="navigation_row labelmedium line">
+				<tr bgcolor="FAE2DA" class="navigation_row labelmedium line fixlengthlist">
 				<td align="center" style="padding-top:3px">
 				
 					<cfif enableRemove eq "1">
@@ -170,10 +170,10 @@ password="#SESSION.dbpw#">
 					</cfif>	
 				
 				</td>	
-			
+							
 			<cfelse>
 			
-			<TR class="navigation_row labelmedium line" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F9F9F9'))#">
+			<TR class="navigation_row labelmedium line fixlengthlist" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F9F9F9'))#">
 			
 				<td align="center" style="padding-top:3px">	
 							

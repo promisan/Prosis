@@ -209,5 +209,5 @@
 		excelShow      = "Yes"
 		drillmode      = "tab"	
 		drillargument  = "890;1060;true;true"	
-		drilltemplate  = "Warehouse/Application/Customer/View/CustomerEditTab.cfm?drillid="
+		drilltemplate  = "Warehouse/Application/Customer/View/CustomerEditTab.cfm?scope=listing&drillid="
 		drillkey       = "CustomerId">

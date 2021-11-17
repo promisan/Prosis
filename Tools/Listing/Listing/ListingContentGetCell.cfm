@@ -2,8 +2,7 @@
 <cfset cnt = 0>	
 <cfparam name  = "rowshow" default="1">
 
-	<cfoutput> 		
-	
+	<cfoutput> 	
 					
 		<cfloop array="#attributes.listlayout#" index="current">	
 														
@@ -491,8 +490,8 @@
 						
 						<!--- to test for text value only : white-space: nowrap;overflow: hidden;text-overflow: ellipsis; --->
 																																		
-						<td id="f#box#_#dkey#_#rowshow#_#cnt#" <cfif current.align neq "left">align="#current.align#"</cfif> class="#attributes.classcell#" 
-						colspan="#current.colspan#" style="#cellstyle#;#current.style#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#
+						<td id="f#box#_#dkey#_#rowshow#_#cnt#" <cfif current.align neq "left">align="#current.align#"</cfif> class="#attributes.classcell# fixlengthlist" 
+						colspan="#current.colspan#" title="#inner#" style="#cellstyle#;#current.style#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#
 						
 						</td>																			
 												
@@ -509,7 +508,7 @@
 							} else {
 						     myclick = "" 
 							} 
-						 boxcontent[cnt] = "<td id='f#box#_#dkey#_#rowshow#_#cnt#' class='#attributes.classcell#' colspan='#current.colspan#' align='#current.align#' style='#cellstyle#;#current.style#' #myclick#>#inner#</td>"
+						 boxcontent[cnt] = "<td id='f#box#_#dkey#_#rowshow#_#cnt#' class='#attributes.classcell# fixlengthlist' title='#inner#' colspan='#current.colspan#' align='#current.align#' style='#cellstyle#;#current.style#' #myclick#>#inner#</td>"
 						 						 										
 						</cfscript>		
 					 							

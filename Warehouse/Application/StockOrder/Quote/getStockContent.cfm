@@ -1,14 +1,16 @@
 
-<cfparam name="form.priceschedule"    default="3">
-<cfparam name="Form.Category"         default="">
-<cfparam name="Form.SettingOnHand"    default="">
-<cfparam name="Form.SettingPromotion" default="">
-<cfparam name="Form.FilterMake"       default="">
+<cfparam name="form.priceschedule"      default="3">
+<cfparam name="Form.Category"           default="">
+<cfparam name="Form.CategoryItem"       default="">
+<cfparam name="Form.SettingOnHand"      default="">
+<cfparam name="Form.SettingPromotion"   default="">
+<cfparam name="Form.SettingReservation" default="">
+<cfparam name="Form.FilterMake"         default="">
+
+<cfset make = "">
 
 <cfif Form.filterMake neq "">
-
-	<cfset make = "">
-	
+		
 	<cfloop index="itm" list="#form.FilterMake#" delimiters="|">
 		
 		<cfif make eq "">
@@ -21,12 +23,11 @@
 
 </cfif>
 
-
 <cfparam name="Form.FilterSubCat"     default="">
 
-<cfif Form.FilterSubCat neq "">
+<cfset subcat = "">
 
-	<cfset subcat = "">
+<cfif Form.FilterSubCat neq "">
 	
 	<cfloop index="itm" list="#form.FilterSubCat#" delimiters="|">
 		
@@ -39,7 +40,6 @@
 	</cfloop> 
 
 </cfif>
-
 
 <cfquery name="Topics" 
 		 datasource="appsMaterials" 
@@ -55,152 +55,73 @@
 		AND        TopicClass = 'Category'	
 		AND        ValueClass IN ('List','Text','Lookup')		   
 	</cfquery>	
-			
-	
+
+		
+<cfset classify = "">
+<cfset claslist = "">	
+
 <cfloop query = "topics">
-     <cfparam name="Form.Filter#code#"     default="">
+
+     <cfparam name="Form.Filter#code#" default="">	 
+	 <cfset content = evaluate("Form.Filter#code#")>	
+	 	 
+	 <cfset val = "">
+	 <cfloop index="itm" list="#content#" delimiters=",|">	 
+		 <cfif val eq "">
+		 	<cfset val = "'#itm#'">
+		 <cfelse>
+		    <cfset val = "#val#,'#itm#'">
+		 </cfif>
+		  <cfset claslist = "#claslist#|#code#:#itm#">
+	 </cfloop>
+		 
+	 <cfif val neq "">	 
+	 
+	    <cfif classify eq "">		
+			 <cfset classify  = " SELECT ItemNo FROM Materials.dbo.ItemClassification             WHERE Topic = '#code#' AND ListCode IN (#preserveSingleQuotes(val)#)"> 		
+		<cfelse>		     
+			 <cfset classify  = " SELECT #Code#.ItemNo FROM (#preserveSingleQuotes(classify)#) as #Code# INNER JOIN Materials.dbo.ItemClassification V ON #Code#.ItemNo = V.ItemNo WHERE Topic = '#code#' AND ListCode IN (#preserveSingleQuotes(val)#)"> 		
+		</cfif>	 	 
+		
+	 </cfif>	
+	 
 </cfloop>	
 
-
-
-<cfquery name="Warehouse" 
-	 datasource="appsMaterials" 
-	 username="#SESSION.login#" 
-	 password="#SESSION.dbpw#">
-	   SELECT    *
-	   FROM      Warehouse
-	   WHERE     Mission = '#form.mission#'
-	   AND       Warehouse IN (SELECT Warehouse FROM itemTransaction)
-	   AND       Operational = 1  	   
-	</cfquery>
-
-<cfquery name="get" 
-		datasource="appsMaterials" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">		
-		
-		SELECT     TOP 400 Mission, Warehouse, WarehouseName, ItemPrecision,
-		           ItemNo, ItemNoExternal, ItemDescription, Category, CategoryName, UoM, UoMName, MinReorderQuantity,
-				   
-				   (SELECT TOP 1 ImagePath FROM ItemImage WHERE ItemNo = D.ItemNo) as ImagePath,			  
-						   
-				   PriceSchedule, PriceScheduleDescription, Promotion, Currency, SalesPrice, PriceDate, LastSold,
-				   QuantityForSale, 
-				   QuantityReserved,
-				   QuantityRequested 
-				   
-		FROM       (SELECT        DISTINCT 
-		                          L.Mission, W.Warehouse, N.WarehouseName, L.ItemNo, I.ItemDescription, I.ItemNoExternal, 
-								  L.Category, C.Description as CategoryName,
-								  L.UoM, 
-								  L.UoMName, 
-								  I.ItemPrecision,
-								  L.PriceSchedule, L.PriceScheduleDescription, 
-								  L.Promotion, L.Currency, L.SalesPrice, L.PriceDate,
-		                          MinReorderQuantity,
-								  
-								 (SELECT     MIN(TransactionDate)
-                                   FROM       ItemTransaction
-                                   WHERE      Mission = L.Mission AND Warehouse = W.Warehouse AND ItemNo = L.ItemNo AND TransactionUoM = L.UoM AND TransactionType = '2') AS LastSold,								
-		
-                                  (SELECT     ISNULL(SUM(TransactionQuantity),0) AS stockOnHand
-                                   FROM       ItemTransaction
-                                   WHERE      Mission = L.Mission AND Warehouse = W.Warehouse AND ItemNo = L.ItemNo AND TransactionUoM = L.UoM AND WorkOrderId IS NULL) AS QuantityForSale,
-								   
-                                  (SELECT     ISNULL(SUM(TransactionQuantity),0) AS stockOnHand
-                                   FROM       ItemTransaction AS ItemTransaction_1
-                                   WHERE      Mission = L.Mission AND Warehouse = W.Warehouse AND ItemNo = L.ItemNo AND TransactionUoM = L.UoM AND WorkOrderId IS NOT NULL) AS QuantityReserved,
-								   
-								   (SELECT   ISNULL(SUM(TransactionQuantity),0)
-								    FROM     vwCustomerRequest
-								    WHERE    ItemNo          = L.ItemNo
-								    AND      TransactionUoM  = L.UoM
-								    AND      Warehouse       = W.Warehouse
-								    AND      BatchNo IS NULL 
-								    AND      RequestClass = 'QteReserve' 
-								    AND      ActionStatus = '1') as QuantityRequested 
-								   
-                    FROM           skMissionItemPrice AS L INNER JOIN
-                                   ItemWarehouse AS W ON L.ItemNo = W.ItemNo AND L.UoM = W.UoM INNER JOIN
-								   Item I ON L.ItemNo = I.ItemNo INNER JOIN
-								   Warehouse N ON W.Warehouse = N.Warehouse INNER JOIN
-								   Ref_Category C ON L.Category = C.Category
-					
-					WHERE          N.Mission = '#Form.Mission#'		
-					AND            L.Mission = '#form.Mission#'   
-                    <cfif form.warehouse neq "">
-					AND            W.Warehouse = '#form.Warehouse#'
-					</cfif>
-					
-					<cfif form.priceschedule neq "">
-					AND            L.PriceSchedule = '#form.priceschedule#' 
-					<cfelse>
-					AND            L.PriceSchedule = '3' 					
-					</cfif>			
-					
-					<cfif form.category neq "">
-					AND            I.Category = '#form.Category#'
-					</cfif>
-					
-					<cfif form.filterSubCat neq "">
-						AND        I.ItemNo IN (SELECT ItemNo FROM Item WHERE CategoryItem IN (#preservesinglequotes(subcat)#))
-					</cfif>
-					
-					<cfif Form.filterMake neq "">
-					AND            I.Make IN (#preservesinglequotes(make)#) 		
-					</cfif>
-					
-					<cfif Form.itemNo neq "">
-										
-					AND            (I.ItemNo LIKE '%#form.ItemNo#' OR I.ItemNoExternal LIKE '%#form.ItemNo#%')
-					</cfif>
-					
-					<!--- apply the fuzzy search for the name and apply support for spanish sign --->						
-					<cfif Form.itemName neq "">
-					
-					AND  <cf_softlike left="I.ItemDescription" right="#form.ItemName#" language="#client.languageId#">
-					
-					</cfif>			
-					
-					AND            W.Warehouse IN (#quotedvalueList(warehouse.warehouse)#)		
-					AND            W.Operational   = 1 
-												
-					AND            I.Operational   = 1 ) AS D
-					
-		WHERE      1=1
-		AND        QuantityForSale IS NOT NULL
-		<cfif Form.SettingOnHand eq "1">
-		AND        QuantityForSale > 0
-		</cfif>
-		<cfif Form.SettingPromotion eq "1">
-		AND        Promotion > 1
-		</cfif>
-		<cfif form.warehouse eq ""> 
-		ORDER BY    ItemDescription, ItemNo, Warehouse
-		<cfelse>
-		ORDER BY    ItemDescription, ItemNo, Warehouse				
-		</cfif>		
-		
-</cfquery>
+<cfinvoke component = "Service.Process.Materials.Stock"  
+   method              = "getStockListing"
+   Content             = "Searcher" 
+   Mission             = "#Form.Mission#"
+   Warehouse           = "#Form.Warehouse#"
+   PriceSchedule       = "#form.PriceSchedule#"
+   Make                = "#Make#"
+   Category            = "#Form.Category#"   
+   CategoryItem        = "#SubCat#"
+   ItemName            = "#Form.ItemName#"
+   ItemNo              = "#Form.ItemNo#"
+   Classify            = "#Classify#"
+   SettingOnHand       = "#Form.SettingOnHand#"
+   SettingPromotion    = "#Form.SettingPromotion#"
+   SettingReservation  = "#Form.SettingReservation#"
+   returnvariable      = "get">	 
+   
 
 <table style="width:97%" class="formpadding navigation_table">
 		
 		<cfoutput>
 		
-		<tr class="labelmedium2 fixrow">	
+		<tr class="labelmedium2 fixrow fixlengthlist">	
 		    
-			<td style="padding-left:4px;min-width:170px"><cf_tl id="Store"></td>
+			<td><cf_tl id="Store"></td>			
+			<td align="right"><cf_tl id="Box"></td>
+			<td align="right"><cf_tl id="Price"></td>
+			<td align="right"><cf_tl id="Promotion"></td>
 			
-			<td style="min-width:60px;max-width:100px;white-space: nowrap; overflow: hidden;text-overflow: ellipsis;" align="right"><cf_tl id="Sale UoM"></td>
-			<td style="min-width:80px" align="right"><cf_tl id="Price"></td>
-			<td style="min-width:80px" align="right"><cf_tl id="Promotion"></td>
-			
-			<td style="min-width:60px" align="right"><cf_tl id="UoM"></td>	
-			<td style="min-width:60px" align="right"><cf_tl id="Sold"></td>
-			<td style="min-width:100px;padding-right:4px;" align="right"><cf_tl id="Available"></td>		
-			<td style="min-width:70px;padding-right:4px" align="right"><cf_tl id="Reserved"></td>
-			<td style="min-width:70px;padding-right:4px" align="right"><cf_tl id="Requested"></td>	
-			<td style="min-width:70px;padding-right:4px" align="right"><cf_tl id="Exhibition"></td>
+			<td align="right"><cf_tl id="UoM"></td>	
+			<td align="right"><cf_tl id="Sold"></td>
+			<td align="right"><cf_tl id="Available"></td>		
+			<td align="right"><cf_tl id="Reserved"></td>
+			<td align="right"><cf_tl id="Requested"></td>	
+			<td align="right"><cf_tl id="Exhibition"></td>
 			<!---
 			<td style="min-width:70px;padding-right:4px" align="right"><cf_tl id="Disposed"></td>		
 			--->			
@@ -224,10 +145,9 @@
 			
 				<cfif form.warehouse eq "">		
 							
-					<tr class="fixrow2 line"><td colspan="10" style="padding-top:10px;padding-bottom:4px">
+					<tr class="fixrow2 line fixlengthlist"><td colspan="10" style="padding-top:10px;padding-bottom:4px">
 
-					<table style="width:100%">
-					
+					<table style="width:100%">					
 					<tr>
 										
 					<td style="min-width:160px;padding-left:8px" align="center">
@@ -237,7 +157,7 @@
 				           <div style="float: left;">
 				              <a href="#session.rootDocument#/#ImagePath#"
 					             class='lightview'
-				               	 data-lightview-group='Items'
+				               	 data-lightview-group='Items#ItemNo#'
 					             data-lightview-title="#ItemNo#<br>(#ItemNoExternal#)"
 					             data-lightview-caption="#ItemDescription#<br>#Mission#"
 				                 data-lightview-options="skin: 'mac'">
@@ -250,24 +170,55 @@
 						 
 					</td>
 													
-					<td valign="top" style="width:100%;border-radius:6px;padding-left:13px;padding-bottom:3px">
+					<td valign="top" style="width:100%;padding-left:13px;padding-bottom:3px">
+					
 						<table style="width:100%">
-						<tr>
-						<td style="color:xwhite;font-size:18px"><cfif itemNoExternal neq ""><b>#ItemNoExternal#</b><cfelse>#ItemNo#</cfif> : #ItemDescription#</td>
-						</tr>
-						<tr>
-						<td style="color:xwhite;gray;width:20%;padding-right:4px;font-size:15px">#CategoryName#</td>
-						</tr>
-						<cf_tl id="Add" var="1">
-						<tr>
-						   <td  style="padding-top:4px;padding-left:10px">
-						   <input type="button" value="#lt_text#" class="button10g" style="width:170px;border:1px solid silver" 
-							onClick="additem('#warehouse#','#itemno#','#uom#','#currency#','#priceschedule#')">
-						   </td>																				
-						</tr>
+						
+						    <!--- stange --->
+							<tr><td style="font-size:18px"><cfif itemNoExternal neq ""><b>#ItemNoExternal#</b><cfelse>#ItemNo#</cfif>: #ItemDescription#</td></tr>
+							<tr><td style="font-size:18px"><cfif itemNoExternal neq ""><b>#ItemNoExternal#</b><cfelse>#ItemNo#</cfif><span style="font-size:15px">: #ItemDescription#</span></td></tr>
+														
+							<tr><td style="color:gray;width:20%;padding-right:4px;font-size:14px">#CategoryName#</td></tr>
+							
+							<tr><td style="color:xwhite;gray;width:20%;padding-right:4px;font-size:13px">
+							
+								<cfquery name="class" 
+								datasource="appsMaterials" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">							
+									SELECT     R.Code, R.TopicLabel, R.Description, C.ListCode, C.TopicValue
+									FROM       ItemClassification AS C INNER JOIN Ref_Topic AS R ON C.Topic = R.Code
+									WHERE      R.TopicClass = 'Category' 
+									AND        Code IN (SELECT Code FROM Ref_TopicCategory WHERE Category = '#form.category#')
+									AND        C.ItemNo     = '#ItemNo#'
+									ORDER BY   R.ListingOrder, R.Code						
+								</cfquery>
+														
+								<cfloop query="class"><font size="1">#topiclabel#:&nbsp;</font>
+								
+								<cfif findNoCase("#Code#:#ListCode#",claslist)>
+									<span style="color:green;font-weight:bold;padding-right:4px;">#topicvalue#</span>
+								<cfelse>
+									<span style="font-weight:bold;padding-right:4px">#topicvalue#</span>
+								</cfif>
+								
+								</cfloop>
+								
+							</td>	
+							</tr>		
+							
+							<cf_tl id="Add" var="1">
+							<tr>
+							   <td  style="padding-top:4px;padding-left:10px">
+							   <input type="button" value="#lt_text#" 
+									class="button10g" 
+									style="width:170px;border:1px solid silver" 
+									onClick="additem('#warehouse#','#itemno#','#uom#','#currency#','#priceschedule#')">
+							   </td>																				
+							</tr>
 						
 						</table>
-						</td>						
+					</td>						
 					</tr>					
 										
 					</table>
@@ -280,59 +231,55 @@
 				
 				<cf_precision precision="#ItemPrecision#">
 											
-				<tr class="labelmedium2 line navigation_row">	
+				<tr class="labelmedium2 line navigation_row fixlengthlist">	
 				   
 	   			    <cfif form.warehouse eq "">						
 					<td style="font-size:15px;background-color:##f1f1f150;padding-left:18px">#WarehouseName#</td>						
 					<cfelse>
 					<td style="background-color:##f1f1f150;padding-left:3px">
 					<table>
-					<tr>
-					<td style="padding-right:4px">
-					<input type="button" value="#lt_text#" class="button10g" style="border-radius:3px;width:67px;border:1px solid silver" 
-						onClick="additem('#warehouse#','#itemno#','#uom#','#priceschedule#','#currency#')">
-					</td>
-					<td>
-					<cfif itemNoExternal neq "">#ItemNoExternal#<cfelse>#ItemNo#</cfif>: #ItemDescription#
-					</td>
-					</tr>
+						<tr>
+						<td>
+						<input type="button" value="#lt_text#" class="button10g" style="border-radius:3px;width:67px;border:1px solid silver" 
+							onClick="additem('#warehouse#','#itemno#','#uom#','#priceschedule#','#currency#')">
+						</td>
+						<td><cfif itemNoExternal neq "">#ItemNoExternal#<cfelse>#ItemNo#</cfif>: #ItemDescription#</td>
+						</tr>
 					</table>
 					</td>	
 					</cfif>
-					<td style="background-color:##B0D8FF50;padding-right:3px" align="right">#MinReorderQuantity#</td>
-					<td style="background-color:##B0D8FF50;padding-right:3px" align="right">#numberformat(SalesPrice,',.__')#</td>
-					
-					<td style="background-color:##B0D8FF50;padding-right:3px;font-weight:bold" align="right">
-					<cfif promotion eq "0">--<cfelse>#numberformat(SalesPrice,',.__')#</cfif></td>		
-					<td style="padding-right:3px" align="right">#UoM#</td>		
-					<td style="background-color:##ffffaf50;font-size:12px;padding-left:7px;padding-right:7px" align="right">
+					<td style="background-color:##B0D8FF50" align="right">#MinReorderQuantity#</td>
+					<td style="background-color:##B0D8FF50" align="right">#numberformat(SalesPrice,',.__')#</td>					
+					<td style="background-color:##B0D8FF50;font-weight:bold" align="right">
+					<cfif promotion eq "0">--<cfelse>#numberformat(SalesPrice,',.__')#</cfif>
+					</td>		
+					<td align="right">#UoM#</td>		
+					<td style="background-color:##ffffaf50;font-size:12px" align="right">
 					#dateformat(LastSold,client.dateformatshow)#</td>
 					<cfif QuantityForSale eq "0">
-						<td style="font-size:13px;background-color:##f1f1f150;padding-right:3px" align="right">--</td>
-						<cfelse>				
-						<td style="font-size:16px;background-color:##80FF8050;padding-right:3px" align="right">
-						#numberformat(QuantityForSale,'#pformat#')#
-						</td>
-						</cfif>	
+						<td style="font-size:13px;background-color:##f1f1f150" align="right">--</td>
+					<cfelse>				
+						<td style="font-size:16px;background-color:##80FF8050" align="right">#numberformat(QuantityForSale,'#pformat#')#</td>
+					</cfif>	
 																						
 					<cfif quantityreserved eq "0">
-						<td style="font-size:14px;background-color:##e1e1e1;padding-right:3px;" align="right">--</td>
+						<td style="font-size:14px;background-color:##e1e1e1" align="right">--</td>
 					<cfelse>					
-						<td style="font-size:15px;background-color:008080;padding-right:3px;" align="right">
+						<td style="font-size:15px;background-color:008080" align="right">
 						<a style="color:white" href="javascript:stockreserve('#warehouse#','#itemno#','#uom#','reserve')">
 						#numberformat(quantityreserved,'#pformat#')#</a>
 						</td>
 					</cfif>
 					
-					<td style="backgtround-color:##ffffaf50;padding-right:3px" align="right">
-					
+					<td style="backgtround-color:##ffffaf50" align="right">					
 					   <cfif QuantityRequested eq "0">--<cfelse>
 					   <a href="javascript:stockreserve('#warehouse#','#itemno#','#uom#','request')">
 					   #numberformat(QuantityRequested,'#pformat#')#
 					   </a>
 					   </cfif> 
 					</td>
-					<td style="background-color:##ffffaf50;padding-right:3px" align="right">				
+					
+					<td style="background-color:##ffffaf50" align="right">				
 					<!--- <cfif stockdisposed eq "0">--<cfelse>#numberformat(StockDisposed,',.__')#</cfif> --->				
 					</td>								
 				</tr>

@@ -106,26 +106,26 @@
 			<input name="doPost"     type="hidden" value="yes">
 			<table align="center" width="98%">
 				<cfset thisClass = "labelmedium">
-				<tr><td height="20px" colspan="2" ></td></tr>
+				<tr><td height="20px" colspan="2"></td></tr>
 				<tr><td height="20"></td></tr>
 				<cfif currentMisc.recordCount gte 1>
 					<tr><td colspan="2">
 					<table width="90%">
-						<tr>
-							<td class="labelit">Document Date</td>
-							<td class="labelit">PayrollItem</td>
-							<td class="labelit">Type</td>
-							<td class="labelit">Amount</td>
-							<td class="labelit">Keep</td>
+						<tr class="fixlengthlist labelmedium">
+							<td>Document Date</td>
+							<td>PayrollItem</td>
+							<td>Type</td>
+							<td>Amount</td>
+							<td>Keep</td>
 						</tr>
 						<cfloop query="currentMisc">
 							<cfoutput>
-								<tr>
-									<td class="labelit">#CurrentMisc.DocumentDate#</td>
-									<td class="labelit">#CurrentMisc.PayrollItemName#</td>
-									<td class="labelit">#CurrentMisc.EntitlementClass#</td>
-									<td class="labelit">#CurrentMisc.Amount#</td>
-									<td class="labelit"><input type="checkbox" name="SelectedPM_#CurrentMisc.cost_#" id="SelectedPM_#CurrentMisc.cost_#" value="1" checked> </td>
+								<tr  class="fixlengthlist labelmedium">
+									<td>#CurrentMisc.DocumentDate#</td>
+									<td>#CurrentMisc.PayrollItemName#</td>
+									<td>#CurrentMisc.EntitlementClass#</td>
+									<td>#CurrentMisc.Amount#</td>
+									<td><input type="checkbox" name="SelectedPM_#CurrentMisc.cost_#" id="SelectedPM_#CurrentMisc.cost_#" value="1" checked> </td>
 								</tr>
 							</cfoutput>
 						</cfloop>

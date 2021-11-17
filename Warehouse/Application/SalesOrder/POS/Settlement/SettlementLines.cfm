@@ -371,16 +371,32 @@
 					<cfif getWarehouseJournal.TransactionMode eq "2">
 					
 						<cfif getSale.sTotal neq "0">
+
+							<cfquery name="getTaxUnit"
+									datasource="AppsMaterials"
+									username="#SESSION.login#"
+									password="#SESSION.dbpw#">
+									SELECT TaxOrgUnitEDI
+									FROM WarehouseTerminal
+									WHERE TerminalName='#url.terminal#'
+							</cfquery>
+
 							<cfquery name="qSeriesCheck"
 									datasource="AppsOrganization"
 									username="#SESSION.login#"
 									password="#SESSION.dbpw#">
 									SELECT  *
 									FROM    OrganizationTaxSeries
-									WHERE   UserKey IS NOT NULL
+									WHERE   OrgUnit = '#getTaxUnit.TaxOrgUnitEDI#'
+									AND     SeriesType = 'Invoice'
+									AND     Operational = 1
+									ORDER BY Created DESC
 							</cfquery>
 
-							<cfif qSeriesCheck.recordcount neq 0>
+							<cfif qSeriesCheck.SubmissionMode eq "2">
+							
+								<!--- legacy layout based on IransactionLineShipping --->
+							
 								<cf_button2
 									text		 = "#label4#"
 									subtext		 = "#label1#"
@@ -392,8 +408,12 @@
 									width		 = "200px"
 									textColor	 = "##F2F2F2"
 									borderRadius = "5px"
-									onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','3','#url.addressid#','#url.requestno#')">
+									onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','2','#url.addressid#','#url.requestno#')">
+									
 							<cfelse>
+							
+								<!--- we take new default mode --->
+
 								<cf_button2
 										text		 = "#label2#"
 										subtext		 = "#label1#"
@@ -405,7 +425,7 @@
 										width		 = "200px"
 										textColor	 = "##F2F2F2"
 										borderRadius = "5px"
-										onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','2','#url.addressid#','#url.requestno#')">
+										onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','3','#url.addressid#','#url.requestno#')">
 							</cfif>
 
 						</cfif>

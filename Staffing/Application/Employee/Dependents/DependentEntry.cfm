@@ -470,9 +470,11 @@ password="#SESSION.dbpw#">
 				  </td>
 				  
 				  <td align="right" style="padding-left:3px;padding-right:3px;width:80px">
+				  
 				  <cfif itm eq "insurance">
 					  <input type="checkbox" style="cursor:pointer" class="radiol" name="EntitlementSubsidy#tag#_#line#" title="If not CHECKED no subsidy is calculated" checked value="1">
 				  </cfif>
+				  
 				  </td>
 				  
 				  </tr>
@@ -502,7 +504,7 @@ password="#SESSION.dbpw#">
 					
 				</TD>
 				<TD class="hide" name="Remarks#tag#b" id="Remarks#tag#b">
-			    	<input type="text" name="Remarks#tag#_#line#" size="20" style="width:99%" maxlength="30" class="regularxl"> 
+			    	<input type="text" name="Remarks#tag#_#line#" size="20" style="font-size:14px;padding:4px;width:99%" maxlength="30" class="regularxl"> 
 				</TD>
 					
 			</tr>

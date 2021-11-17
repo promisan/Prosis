@@ -63,7 +63,7 @@ password="#SESSION.dbpw#">
 	
 	<table width="97%" align="center" class="navigation_table">
 	
-	<tr class="labelmedium2 fixrow">
+	<tr class="labelmedium2 fixrow fixlengthlist">
 	    <td></td>
 		<td><cf_tl id="Code"></td>
 		<td><cf_tl id="Description"></td>
@@ -79,9 +79,9 @@ password="#SESSION.dbpw#">
 		<cfoutput>     
 			
 			<cfif operational eq "0">	
-				<tr style="height:15px" bgcolor="f2f2f2" class="labelmedium2 line navigation_row"> 
+				<tr style="height:15px" bgcolor="f2f2f2" class="labelmedium2 line navigation_row fixlengthlist"> 
 			<cfelse>
-				<tr style="height:15px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('ffffff'))#" class="labelmedium2 line navigation_row"> 
+				<tr style="height:15px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('ffffff'))#" class="labelmedium2 line navigation_row fixlengthlist"> 
 			</cfif>     
 				<td width="6%" align="center" style="padding-top:1px;">
 					  <cf_img icon="open" navigation="Yes" onclick="recordedit('#SalaryTrigger#')">

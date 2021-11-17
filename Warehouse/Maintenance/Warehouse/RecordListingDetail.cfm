@@ -40,14 +40,14 @@ password="#SESSION.dbpw#">
 	
 	<table class="navigation_table" width="100%" align="center">
 			
-		<tr class="fixrow labelmedium2 line">
+		<tr class="fixrow labelmedium2 line fixlengthlist">
 			<td style="display:none;"></td>        
-		    <TD style="padding-left:3px"><cf_tl id="Description"></TD>	
+		    <TD><cf_tl id="Description"></TD>	
 			<TD height="20"></TD>
 			<TD><cf_tl id="Code"></TD>
 		    <TD><cf_tl id="Class"></TD>	
-			<td align="right" style="padding-right:20px"><cf_tl id="Locs"></td>
-			<td align="center" style="padding-right:20px">S</td>			
+			<td align="center"><cf_tl id="Locs"></td>
+			<td align="center">S</td>			
 		    <TD><cf_tl id="Unit"></TD>	
 			<TD><cf_tl id="Entered"></font></TD>	
 		</TR>

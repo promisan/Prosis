@@ -1,8 +1,8 @@
 
 <cfparam name="attributes.Presentation" default="">
-<cfparam name="attributes.Color"        default="efefef">
+<cfparam name="attributes.Color"        default="##eaeaea80">
 <cfparam name="attributes.FontSize"     default="13">
-<cfparam name="attributes.Height"       default="20">
+<cfparam name="attributes.Height"       default="26">
 <cfparam name="attributes.GroupField"   default="">
 <cfparam name="attributes.GroupValue"   default="">
 <cfparam name="attributes.Filter1Field" default="">
@@ -95,11 +95,12 @@
 			
 			<cfset vDetailClassFn = ".clsGroupDetail_#attributes.baseid#_#vAccountGroupId#">
 													
-			<TR bgcolor="#attributes.color#" class="labellarge line navigation_row clsParentDetail_#attributes.baseid#" 
+			<TR class="fixlengthlist labelmedium2 line navigation_row clsParentDetail_#attributes.baseid#" 
 			     onclick="toggleSection('#vDetailClassFn#');" style="#attributes.visible#;height:#attributes.height#px">		
 			
-			 <td style="font-size:#attributes.fontsize#;padding-left:20px;padding-right:3px">#attributes.GroupValue#</b></td>
-			 <td style="font-size:#attributes.fontsize#;padding-left:2px;padding-right:3px">#attributes.GroupName#</td>
+			 <td colspan="2" style="background-color:#attributes.color#;padding-left:20px;font-size:#attributes.fontsize#">#attributes.GroupValue# #attributes.GroupName#
+			 			 
+			 </td>
 			
 			 <cfif attributes.showperiod eq "1">
 			 
@@ -125,7 +126,7 @@
 						AND     Panel = '#attributes.panel#' 
 				  </cfquery>
 			   			
-				<td align="right" style="border-right:1px solid silver;padding-right:3px;background-color:#attributes.color#;font-size:#attributes.fontsize#">
+				<td align="right" style="border-right:1px solid silver;background-color:#attributes.color#;font-size:#attributes.fontsize#">
 						<font color="808080">		
 							
 						<cfif data.total eq "">
@@ -186,11 +187,11 @@
 			
 			<cfset vDetailClassFn = ".clsGroupDetail_#attributes.baseid#_#vAccountGroupId#">
 															
-			<TR bgcolor="#attributes.color#" class="labellarge line navigation_row clsParentDetail_#attributes.baseid#" 
-			     onclick="toggleSection('#vDetailClassFn#');" style="#attributes.visible#;height:#attributes.height#px">		
+			<TR class="fixlengthlist labelmedium2 line navigation_row clsParentDetail_#attributes.baseid#" 
+			     onclick="toggleSection('#vDetailClassFn#');" style="background-color:#attributes.color#;#attributes.visible#;height:#attributes.height#px">		
 			
-			 <td style="font-size:#attributes.fontsize#;padding-left:20px;padding-right:3px">#attributes.GroupValue#</b></td>
-			 <td style="font-size:#attributes.fontsize#;padding-left:0px;padding-right:3px" ><cfif attributes.groupname eq ""><cf_tl id="No costcenter set"><cfelse>#attributes.GroupName#</cfif></td>
+			 <td style="font-size:#attributes.fontsize#">#attributes.GroupValue#</b></td>
+			 <td style="font-size:#attributes.fontsize#" ><cfif attributes.groupname eq ""><cf_tl id="No costcenter set"><cfelse>#attributes.GroupName#</cfif></td>
 					
 			 <cfif attributes.showperiod eq "1">
 			
@@ -278,11 +279,11 @@
 			
 			<cfset vDetailClassFn = ".clsGroupDetail_#attributes.baseid#_#vAccountGroupId#">
 													
-			<TR bgcolor="#attributes.color#" class="labellarge line navigation_row clsParentDetail_#attributes.baseid#" 
-			     onclick="toggleSection('#vDetailClassFn#');" style="#attributes.visible#;height:#attributes.height#px">		
+			<TR class="fixlengthlist labelmedium2 line navigation_row clsParentDetail_#attributes.baseid#" 
+			     onclick="toggleSection('#vDetailClassFn#');" style="background-color:#attributes.color#;#attributes.visible#;height:#attributes.height#px">		
 			
-			 <td style="font-size:#attributes.fontsize#;padding-left:20px;padding-right:3px">#attributes.GroupValue#</b></td>
-			 <td style="font-size:#attributes.fontsize#;padding-left:2px;padding-right:3px">#attributes.GroupName#</td>
+			 <td style="font-size:#attributes.fontsize#">#attributes.GroupValue#</b></td>
+			 <td style="font-size:#attributes.fontsize#">#attributes.GroupName#</td>
 			
 			 <cfif attributes.showperiod eq "1">
 			
@@ -381,12 +382,11 @@
 			
 			<cfset vDetailClassFn = ".clsGroupDetail_#attributes.baseid#_#vAccountId#">
 													
-			<TR bgcolor="#attributes.color#" class="labellarge line navigation_row clsParentDetail_#attributes.baseid#" 
-			     onclick="toggleSection('#vDetailClassFn#');" style="#attributes.visible#;height:#attributes.height#px">		
+			<TR class="fixlengthlist labelmedium2 line navigation_row clsParentDetail_#attributes.baseid#" 
+			     onclick="toggleSection('#vDetailClassFn#');" style="background-color:#attributes.color#;#attributes.visible#;height:#attributes.height#px">		
 				 
-			 <td style="font-size:#attributes.fontsize#;padding-left:20px;padding-right:3px">#attributes.GroupValue#</b></td>
-			 <td style="font-size:#attributes.fontsize#;padding-left:2px;padding-right:3px">#attributes.GroupName#</td>	 
-					
+			 <td colspan="2" style="padding-left:20px;font-size:#attributes.fontsize#">#attributes.GroupValue# #attributes.GroupName#</td>
+								
 			 <cfif attributes.showperiod eq "1">
 			
 			   <cfloop index="per" list="#attributes.periodlist#" delimiters=",">

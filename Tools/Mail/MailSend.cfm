@@ -8,6 +8,7 @@
  	SELECT  *
 	FROM    Parameter
  </cfquery>	
+  	
 
 <cfparam name="Attributes.Class"         default="">
 <cfparam name="Attributes.ClassId"       default="">
@@ -96,6 +97,7 @@
 <cfif attributes.mailsend eq "No" or Attributes.To eq "">
 	<cfset mailstatus = "9">
 </cfif>
+	
 
 <cfif attributes.MailSend eq "Yes" and Attributes.To neq "">
 	
@@ -107,8 +109,7 @@
 	    type="all"
 	    listinfo="name">			
 						
-     <cfif Attributes.Savemail eq "1">
-	 
+     <cfif Attributes.Savemail eq "1">	 
 	 	 
 		  <cftry>
 			   <cffile action = "delete" 
@@ -122,7 +123,7 @@
 			      output = "<cfoutput>#Attributes.BodyContent#</cfoutput>"
 			      addNewLine = "Yes"> 		
 		     	
-		  <cftry> 			 
+		  <cftry> 			  
 		    
 			<cfmail TO     = "#Attributes.To#"
 			   CC          = "#attributes.cc#"

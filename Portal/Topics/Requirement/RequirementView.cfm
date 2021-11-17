@@ -46,7 +46,7 @@ and layout :  program / orgunit --->
 			<tr>			
 				<td>						
 							
-					<cfdiv id="divRequirementDetail_#mission#" bind="url:#session.root#/Portal/Topics/Requirement/RequirementContent.cfm?mission=#mission#&period=#url.period#&orgunit=#url.orgunit#&reviewcycle=#Cycle.CycleId#&layout=Org">
+					<cf_securediv id="divRequirementDetail_#mission#" bind="url:#session.root#/Portal/Topics/Requirement/RequirementContent.cfm?mission=#mission#&period=#url.period#&orgunit=#url.orgunit#&reviewcycle=#Cycle.CycleId#&layout=Org">
 				 
 				</td>
 			</tr>

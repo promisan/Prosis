@@ -44,17 +44,17 @@ password="#SESSION.dbpw#">
 
 <cf_screentop label="#lt_text#" height="100" html="No" layout="webapp" user="no" banner="gray">
 
-<cfform method="POST" enablecab="Yes" name="outputform">
+<cfform method="POST" name="outputform" style="99%">
 
 <cfoutput>
 
-<table width="100%" height="100%" bgcolor="white" cellspacing="0" cellpadding="0">
+<table width="100%" height="97%" bgcolor="white" cellspacing="0" cellpadding="0">
 
     <tr><td height="5"></td></tr>
 	
 	<tr><td valign="top">
 	
-	<table width="93%" class="formpadding formspacing" cellspacing="0" cellpadding="0" align="center">
+	<table width="93%" class="formpadding formspacing"  align="center">
 	
 	<cfquery name="Category" 
 		datasource="AppsProgram" 
@@ -73,7 +73,7 @@ password="#SESSION.dbpw#">
 	  	  
 		  <tr><td width="80" style="padding-top:4px" valign="top" class="labelmedium"><cf_tl id="Output">:</td>	
 		  <td class="labelmedium" width="80%">	
-		  <select name="ProgramCategory" id="programcategory"  class="enterastab regularxl">
+		  <select name="ProgramCategory" id="programcategory"  class="enterastab regularxxl">
 		  	<option value="">n/a</option>
 		  	<cfloop query="Category">
 			<option <cfif code eq output.programcategory>selected</cfif> value="#Code#">#code# #Description#</option></cfloop>
@@ -117,7 +117,7 @@ password="#SESSION.dbpw#">
 						FieldName="activityoutputdate" 
 						Default="#Dateformat(Output.ActivityOutputDate, CLIENT.DateFormatShow)#"
 						AllowBlank="True"
-						class="regularxl enterastab">	
+						class="regularxxl enterastab">	
 														  
 				   </td></tr>
 				   
@@ -136,7 +136,7 @@ password="#SESSION.dbpw#">
 				   value="#Output.Reference#" 
 				   size="10" 
 				   maxlength="10" 
-				   class="regularxl enterastab">
+				   class="regularxxl enterastab">
 		</td>
 		
 	  </tr>					

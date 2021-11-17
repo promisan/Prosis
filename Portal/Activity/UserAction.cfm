@@ -69,7 +69,7 @@ datasource="AppsSystem">
 <table width="98%" align="center" style="height:100%">
 
 <tr>
-    <td valign="top" style="height:5px">   
+    <td valign="top" style="height:5px;padding-left:10px">   
 	<cfinclude template="UserActionHeader.cfm">	
     </td>
 </tr>

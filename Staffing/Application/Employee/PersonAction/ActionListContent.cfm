@@ -15,13 +15,12 @@
          module    = "Payroll" 
 		 Warning   = "No">
 		 
-<cfset FileNo = round(Rand()*10)>		 
-		 
-<CF_DropTable dbName="AppsQuery" tblName="tmp#SESSION.acc#StaffingLog_#fileno#">	 
+<cfif url.init eq "1">
+			 
+	<cfset FileNo = round(Rand()*100)>		 
+			 
+	<CF_DropTable dbName="AppsQuery" tblName="tmp#SESSION.acc#StaffingLog">	 
 
-<!---
-<cftry> 
---->
 
 	<cfsavecontent variable="queryselect">
 	
@@ -159,7 +158,7 @@
 		 
 		 SELECT #preserveSingleQuotes(queryselect)#	
 	    
-		 INTO   userQuery.dbo.tmp#SESSION.acc#StaffingLog_#fileno#
+		 INTO   userQuery.dbo.tmp#SESSION.acc#StaffingLog
 						
 		    FROM    EmployeeAction A INNER JOIN
 		            Ref_Action R ON A.ActionCode = R.ActionCode			
@@ -189,8 +188,8 @@
 		 password="#SESSION.dbpw#">
 		 
 		 SELECT  #preserveSingleQuotes(queryselect)#	
-	    
-		 INTO    userQuery.dbo.tmp#SESSION.acc#StaffingLog_#fileno#
+	   
+		 INTO    userQuery.dbo.tmp#SESSION.acc#StaffingLog
 						
 		 FROM    Person P 
 			     INNER JOIN EmployeeAction A ON P.PersonNo = A.ActionPersonNo
@@ -251,10 +250,12 @@
 
 --->
 
+</cfif>
+
 <cfoutput>
 <cfsavecontent variable="myquery">
    SELECT *, LastProcessed, ActionDate, Created 
-   FROM   tmp#SESSION.acc#StaffingLog_#fileno# R
+   FROM   tmp#SESSION.acc#StaffingLog R
 </cfsavecontent>
 </cfoutput>
 

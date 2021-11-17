@@ -1530,6 +1530,8 @@
 				    FROM      Accounting.dbo.Ref_ParameterMission
 					WHERE     Mission = '#Warehouse.Mission#'
 			 </cfquery> 
+			 
+			 <cfparam name="attributes.AccountPeriod" default="#Parameter.CurrentAccountPeriod#">
 			  
 			  <!--- this entity posts by parent  --->
 			
@@ -1668,7 +1670,7 @@
 						TransactionSource     = "#Attributes.TransactionSource#"
 						TransactionSourceId   = "#Attributes.GLTransactionSourceId#"
 						TransactionSourceNo   = "#Attributes.GLTransactionSourceNo#"
-						AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
+						AccountPeriod         = "#Attributes.AccountPeriod#"
 						TransactionCategory   = "#Attributes.TransactionCategory#"
 						JournalTransactionNo  = "#Attributes.GLTransactionNo#"
 						MatchingRequired      = "0"
@@ -1699,7 +1701,7 @@
 								Journal               = "#Journal.Journal#"
 								JournalNo             = "#JournalTransactionNo#"
 								JournalTransactionNo  = "#Attributes.GLTransactionNo#"
-								AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
+								AccountPeriod         = "#Attributes.AccountPeriod#"
 								Currency              = "#Attributes.TransactionCurrency#"
 								CurrencyDate          = "#cdt#"
 													
@@ -1738,7 +1740,7 @@
 								Journal               = "#Journal.Journal#"
 								JournalNo             = "#JournalTransactionNo#"
 								JournalTransactionNo  = "#Attributes.GLTransactionNo#"
-								AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
+								AccountPeriod         = "#Attributes.AccountPeriod#"
 								Currency              = "#Attributes.TransactionCurrency#"
 								CurrencyDate          = "#cdt#"
 													
@@ -1861,7 +1863,7 @@
 								TransactionSource     = "#Attributes.TransactionSource#"
 								TransactionSourceId   = "#Attributes.GLTransactionSourceId#"
 								TransactionSourceNo   = "#Attributes.GLTransactionSourceNo#"
-								AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
+								AccountPeriod         = "#Attributes.AccountPeriod#"
 								TransactionCategory   = "#Attributes.TransactionCategory#"
 								TransactionDate       = "#Attributes.TransactionDate#"
 								JournalTransactionNo  = "#Attributes.GLTransactionNo#"
@@ -1886,7 +1888,7 @@
 									Journal               = "#Journal.Journal#"
 									JournalNo             = "#JournalTransactionNo#"
 									JournalTransactionNo  = "#Attributes.GLTransactionNo#"
-									AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
+									AccountPeriod         = "#Attributes.AccountPeriod#"
 									Currency              = "#Attributes.SalesCurrency#"
 									LogTransaction		  = "No"
 																											
@@ -1973,7 +1975,7 @@
 									Journal               = "#Journal.Journal#"
 									JournalNo             = "#JournalTransactionNo#"
 									JournalTransactionNo  = "#Attributes.GLTransactionNo#"
-									AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
+									AccountPeriod         = "#Attributes.AccountPeriod#"
 									Currency              = "#Attributes.SalesCurrency#"
 									LogTransaction		  = "Yes"
 																											
@@ -2030,7 +2032,7 @@
 									Journal               = "#Journal.Journal#"
 									JournalNo             = "#JournalTransactionNo#"
 									JournalTransactionNo  = "#Attributes.GLTransactionNo#"
-									AccountPeriod         = "#Parameter.CurrentAccountPeriod#"
+									AccountPeriod         = "#Attributes.AccountPeriod#"
 									Currency              = "#Attributes.SalesCurrency#"
 									LogTransaction		  = "No"
 																											

@@ -57,6 +57,7 @@
 			</cfif>
 			TaxExemption,
 			ThresholdCredit,
+			SettleCode,
 			Operational,
 			OfficerUserId,
 			OfficerLastName,
@@ -90,12 +91,18 @@
 			</cfif>
 			#Form.TaxExemption#,
 			'#crd#',
+			'#Form.SettleCode#',
 			#Form.Operational#,
 			'#SESSION.acc#',
 			'#SESSION.last#',
 			'#SESSION.first#'
 		)
 	</cfquery>
+	
+	<!--- save details --->
+	
+	<cfset customerid = form.customerid>	
+	<cfinclude template="CustomerSubmitTopic.cfm">
 	
 	<cfquery name="get" 
 		datasource="AppsMaterials" 
@@ -184,30 +191,38 @@
 			   eMailAddress    = '#Form.eMailAddress#',
 			   ThresholdCredit = '#crd#', 
 			   Memo		       = '#Form.Memo#',
+			   SettleCode      = '#Form.SettleCode#',
 			   TaxExemption    =  #Form.TaxExemption#,
 			   Operational     =  #Form.Operational#
 		WHERE CustomerId       = '#Form.CustomerId#'
 		AND   Mission          = '#Form.Mission#'
 	</cfquery>
+	
+	<cfset customerid = form.customerid>	
+	<cfinclude template="CustomerSubmitTopic.cfm">
+	
+	<!--- save details --->
 
 	<cfoutput>
 	
-		<cfif url.scope eq "listing">
+		<cfif form.scope eq "listing">
 				
 			<script>	
-				    Prosis.busy('no')						
+				    Prosis.busy('no')										
 				    try {	
-						parent.opener.applyfilter('0','','#Form.Customerid#')										
+					
+						parent.opener.applyfilter('0','','#Form.Customerid#')																
 					} catch(e) {}    	
 		    </script>	
 		
 	    <cfelse>
 	
 			<script>	
-				    Prosis.busy('no')	  
-				    try {	
-					   									
-						alert('refresh the search with the new customer')	
+				    Prosis.busy('no')	
+					 
+				    try {						   									
+						// alert('refresh the search with the new customer')	
+						
 						parent.ProsisUI.closeWindow('addcustomer')					
 						}
 						
@@ -215,8 +230,10 @@
 		    </script>	
 	
 		</cfif>	
+		
+		<cfset url.scope = form.scope>
 			
-		<cfset url.drillid = "#Form.CustomerId#">		
+		<cfset url.drillid = Form.CustomerId>		
 		<cfinclude template="CustomerEdit.cfm">
 	
 	</cfoutput>

@@ -212,7 +212,7 @@
 
 <tr class="hide"><td id="modulelog"></td></tr>
 
-<tr><td style="padding-left:15px;padding-right:15px" valign="top">
+<tr><td style="width:100%;padding-left:15px;padding-right:15px" valign="top">
 
 <table width="100%" valign="top" align="center" bgcolor="white">
 
@@ -248,7 +248,6 @@
 
 </cfif>
 
-
 	<cfoutput query="searchresult" group="#grp#">	
 				
 		<cfif grp eq "ModuleOrder">		
@@ -261,7 +260,7 @@
 						<td width="100%" height="18">
 							<table border="0" cellspacing="0" cellpadding="0">
 							  <tr><td class="labelit" style="padding-left:20px;font-weight:340;font-size:20px">
-							  #ModuleDescription#  
+							  #ModuleDescription# 
 							  </td></tr>
 						    </table>
 					    </td>
@@ -276,7 +275,7 @@
 			   	
 		<cfelseif not find("Mission",class)>
 									
-		   <cfif Heading neq "">			   
+		   <cfif Heading neq "">				     
 		      	  
 			   <tr id="m#heading#1" class="hide"><td height="5"></td></tr>			   
 			   <tr class="hide" id="m#heading#2"><td colspan="6">		   
@@ -309,14 +308,14 @@
 			</cfquery>
 					   
 		    <tr style="display:block;">
-			  <td colspan="6" style="padding-top:14px">
-			 			 			  	
+			  <td colspan="8" style="padding-top:14px">
+			 			 		  	
 				  <table width="100%">						
-					  <tr>					  
+					  <tr class="fixlengthlist">					  
 					    <cfif getAdministrator("#Heading#") eq "1">
-						 <td style="font-size:28px;font-weight:340" class="labelmedium tSearch"><a href="javascript:editentity('#heading#')">#Heading#</a> <font size="2" color="808080"><cfif MissionHeader.MissionName neq Heading>#MissionHeader.MissionName#</cfif></td>
+						 <td style="font-size:28px;font-weight:340" class="labelmedium tSearch"><a href="javascript:editentity('#heading#')">#Heading#</a> <span title="#MissionHeader.MissionName#" style="font-size:13px"><cfif MissionHeader.MissionName neq Heading>#MissionHeader.MissionName#</span></cfif></td>
 						<cfelse>
-						 <td style="font-size:28px;font-weight:340" class="labelmedium tSearch">#Heading# <cfif MissionHeader.MissionName neq Heading><font size="2" color="808080">#MissionHeader.MissionName#</cfif></td>
+						 <td style="font-size:28px;font-weight:340" class="labelmedium tSearch">#Heading# <cfif MissionHeader.MissionName neq Heading><span title="#MissionHeader.MissionName#" style="font-size:13px" color="808080">#MissionHeader.MissionName#</span></cfif></td>
 						</cfif>
 					  </tr>						  
 				  </table>
@@ -513,8 +512,9 @@
 									<cfinclude template="SubmenuImages.cfm">					
 						   	    </td>	
 								
-								<td align="left" class="labelmedium" style="font-weight:340;height:18px;font-size:20px" valign="middle" onclick="<cfif License eq 1>#go#</cfif>">
-																 								 
+								<td align="left" class="labelmedium fixlength" style="font-weight:340;height:18px;font-size:20px" valign="middle" 
+								 onclick="<cfif License eq 1>#go#</cfif>">
+																 																											 
 								   <!--- determine if we take another label here driven by the mission/entity --->
 								    
 								   <cfquery name="Alternate" 
@@ -611,7 +611,7 @@
 							  						    
 							  <tr bgcolor="<cfif license eq 0>FFCACA</cfif>">
 
-						        <td class="labelit" align="left" valign="middle" style="padding-left:8px" onclick="<cfif License eq 1>#go#</cfif>">
+						        <td class="labelit fixlength" align="left" valign="middle" style="padding-left:8px" onclick="<cfif License eq 1>#go#</cfif>">
 																
 								<cfif st neq "">
 								<font size="2">#st#</font><br>

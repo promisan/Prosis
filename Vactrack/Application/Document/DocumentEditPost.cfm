@@ -33,7 +33,7 @@ ORDER BY  P.SourcePostNumber
 	  
 	  <table width="99%" align="center" class="formpadding">
 	  
-	  <TR class="labelmedium line">
+	  <TR class="labelmedium line fixlengthlist">
 	    <td width="33"></td>
 	    <TD><cf_tl id="Post">##</TD>
 	    <TD><cf_tl id="Function"></TD>
@@ -71,9 +71,9 @@ ORDER BY  P.SourcePostNumber
 		</cfquery>
 	
 		<cfif Person.recordcount eq 0 or Person.DateExpiration lt now()>
-		     <tr class="regular line labelmedium">
+		     <tr class="regular line labelmedium fixlengthlist">
 		<cfelse>
-		     <tr class="highLight4 line labelmedium">
+		     <tr class="highLight4 line labelmedium fixlengthlist">
 		</cfif> 
 		
 		<td height="18"></td>  	  

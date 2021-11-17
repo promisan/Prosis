@@ -130,23 +130,23 @@
 			
 				<table width="100%">			
 				
-					<tr class="labelmedium2 line fixrow240">
+					<tr class="labelmedium2 line fixrow240 fixlengthlist">
 					
-						<td width="5%"></td>
-						<td style="width:30"></td>
+						<td></td>
+						<td></td>
 						<td><cf_tl id="Code"></td>
 						<td><cf_tl id="Description"></td>		
 						<td><cf_tl id="Color"></td>							
 						<td><cf_tl id="UoM"></td>					
 						<td align="right"><cf_tl id="Ordered"></td>													
 						<td align="right"><cf_tl id="InStock"></td>		
-						<td align="right" style="min-width:100px"><cf_tl id="Reserved"></td>																		
+						<td align="right"><cf_tl id="Reserved"></td>																		
 						<cfif line.pointerSale eq "1">
-							<td align="right" style="min-width:100px"><cf_tl id="Shipped"></td>
+							<td align="right"><cf_tl id="Shipped"></td>
 						<cfelse>
-							<td align="right" style="min-width:100px"><cf_tl id="Freed"></td>
+							<td align="right"><cf_tl id="Freed"></td>
 						</cfif>
-						<td align="right" style="min-width:100px"><cf_tl id="Pending"></td>
+						<td align="right"><cf_tl id="Pending"></td>
 						
 					</tr>					
 																					
@@ -154,7 +154,7 @@
 					
 						<cfset bal = quantity-shipped>
 													
-						<tr class="navigation_row line labelmedium2">
+						<tr class="navigation_row line labelmedium2 fixlengthlist">
 						
 							<td align="center">							    
 								
@@ -173,19 +173,20 @@
 							
 							<td>#currentrow#.</td>					
 							<td>#Classification#</td>
-							<td>#ItemDescription#</td>
+							<td title="#ItemDescription#">#ItemDescription#</td>
 							<td>#ItemColor#</td>
 							<td>#uoMDescription#</td>																															
-							<td bgcolor="A8EFF2" style="padding-right:5px" align="right">#numberformat(Quantity,'__')#</td>																
-							<td bgcolor="e3e3e3" style="padding-right:5px" align="right">#numberformat(InStock,'__')#</td>
+							<td bgcolor="A8EFF2" align="right">#numberformat(Quantity,'__')#</td>																
+							<td bgcolor="e3e3e3" align="right">#numberformat(InStock,'__')#</td>
 							
-							<td style="padding-right:3px" align="right" bgcolor="ffffcf">
+							<td align="right" bgcolor="ffffcf">
 							
 								<table width="100%">
 									
 									<tr class="labelmedium">																				
 									<td width="20" style="padding-top:8px;padding-left:5px">											
-									<cf_img icon="expand" 
+									
+									       <cf_img icon="expand" 
 											   id="ear_#WorkOrderItemId#" 
 											   toggle="Yes" 
 											   onclick="toggleobjectbox('earmarkbox_#WorkOrderItemId#','earmark_#WorkOrderItemId#','#session.root#/Workorder/Application/Assembly/Items/FinalProduct/getDetailLines.cfm?WorkOrderId=#URL.WorkOrderId#&drillid=#WorkOrderItemId#')">										
@@ -199,13 +200,13 @@
 														
 							<cfif BillingMode eq "None">
 							
-								<td align="right" colspan="2" style="padding-right:3px"></td>
+								<td align="right" colspan="2"></td>
 								
 							<cfelse>
-								<td align="right" bgcolor="e1e1e1" style="padding-right:3px">#Shipped#</td>
+								<td align="right" bgcolor="e1e1e1">#Shipped#</td>
 																
 								<cfif bal gt 0>
-								<td bgcolor="ffffaf" style="padding-right:3px" align="right">#bal#</td>
+								<td bgcolor="ffffaf" align="right">#bal#</td>
 								<cfelse>
 								<td align="center" bgcolor="00FF40"><cf_tl id="Completed"></td>
 								</cfif>

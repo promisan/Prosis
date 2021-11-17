@@ -78,7 +78,7 @@
 			   
 			    <cfelse>
 				
-					(SELECT   SUM(Amount) 
+					(SELECT  ISNULL(SUM(Amount),0)
 				    FROM     WorkorderBaseLine WB, WorkOrderBaseLineDetail WL
 					WHERE    WB.TransactionId = WL.TransactionId
 					AND      WB.TransactionId IN (SELECT TOP 1 TransactionId 
@@ -98,7 +98,7 @@
 					AND    (DateExpiration >= getDate()	or DateExpiration is NULL) 					
 					AND    Operational = 1) as Lines,
 					
-				   (SELECT sum(Amount) 
+				   (SELECT ISNULL(SUM(Amount),0)
 			    	FROM   skWorkOrderCharges 
 					WHERE  WorkOrderId = W.WorkorderId
 					AND    SelectionDate >= '01/01/#year(now())#' 
@@ -250,10 +250,10 @@
 <cf_tl id="Description" var="vDescription">		
 			
 <cfset fields[itm] = {label       = "#vDescription#",                    
-			field       = "ServiceDescription", 	
-			filtermode  = "2",	
-			searchfield = "Description",									
-			search      = "text"}>	
+					field       = "ServiceDescription", 	
+					filtermode  = "2",	
+					searchfield = "Description",									
+					search      = "text"}>	
 
 <cfif Mode.ServiceMode eq "WorkOrder">	
 

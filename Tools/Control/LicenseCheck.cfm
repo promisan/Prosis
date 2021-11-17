@@ -58,16 +58,18 @@
 		<cfinvokeargument name="adminPassword" value="#vPass#"/>
 	</cfinvoke>
 		
+
 	<cftry>
-		<cfinvoke component="CFIDE.adminapi.datasource" method="getDatasources" returnvariable="getDatasourcesRet"/>
-	<cfcatch>
-		<cf_message Message = "Please Upgrade your server License  - 1042, contact your network administrator" return="no">			
-		<cfabort>
-	</cfcatch>	
-	</cftry>	
+			<cfinvoke component="CFIDE.adminapi.datasource" method="getDatasources" returnvariable="getDatasourcesRet"/>
+		<cfcatch>
+			<cf_message Message = "Please Upgrade your server License  - 1042, contact your network administrator" return="no">
+			<cfabort>
+		</cfcatch>
+	</cftry>
+
 				
 	<cfset SESSION.SystemHost = "#getDataSourcesRet['AppsSystem']['urlmap']['host']#">		
-	
+		
 </cfif>
 
 <cfset vHost = SESSION.SystemHost>		
@@ -79,14 +81,16 @@
 	<!---- Now, checking for the database server License --->
 	<cfloop index="yr" from="#Year(now())#" to="#Year(now())+3#" step="1">
 	
+		
 		 <cfset from = 1>
 		 <cfif yr eq year(now())>
 		 	<cfset from = quarter(now())>
 		 </cfif>
 	
 		  <cfloop index="q" from="#from#" to="4" step="1">
+		  
 				<cfset dbLicense = oLicense.getDatabaseLicense("#vHost#", yr, q)>
-				
+								
 				<cfif dbLicense eq Parameter.DatabaseServerLicenseId>
 				
 					<cfif attributes.mode eq "Server">
@@ -96,12 +100,13 @@
 						 <cfexit>
 					<cfelse>
 						 <cfset _ALLOW_DB_SERVER = TRUE>
+						 
 						 <cfbreak>
 					</cfif>
 				</cfif>			 
 		  </cfloop>
 	</cfloop>
-	
+		
 <cfelse>
 
 	<cf_message Message = "Please Upgrade your server License  - 1043, contact your network administrator" return="no">		
@@ -226,6 +231,8 @@
 	
 <cfif caller.license eq "0" and Attributes.Message eq "Yes">
 
-	<cf_message Message = "License for: <b>#Attributes.Module#</b> has expired. <p></p>Please contact your Promisan representative." return="no">
+    <cfoutput>
+	<span class="labelmedium2">License <b>#Attributes.Module#</b> expired. Contact your provider to apply one.</span>
+	</cfoutput>
 
 </cfif>

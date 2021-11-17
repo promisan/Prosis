@@ -50,8 +50,8 @@
       datasource="AppsLedger"
       username="#SESSION.login#"
       password="#SESSION.dbpw#">
-            SELECT * 
-			FROM   TransactionHeaderAction WHERE ActionId = '#url.actionid#'			          
+        SELECT * 
+		FROM   TransactionHeaderAction WHERE ActionId = '#url.actionid#'			          
 </cfquery>  	
 
 <cfif getAction.ActionMode eq "2">
@@ -62,15 +62,12 @@
 	
 	<tr><td height="100%" style="padding:15px;">	
 	  	
-		<!--- show the invoice information from the custom template --->
+		<!--- show the invoice information from the CUSTOM template in an iframe --->
 		<cfif getJournal.recordCount eq 1 and trim(getJournal.TransactionTemplate2) neq "">
+		
 			<iframe src="#SESSION.root#/#getJournal.TransactionTemplate2#?actionid=#url.actionid#&journal=#url.journal#&journalserialno=#url.journalserialno#&terminal=#url.terminal#" 
-			  name="print" 
-			  id="print" 
-			  width="100%" 
-			  height="100%" 
-			  scrolling="yes" 
-			  frameborder="0"></iframe>
+			  name="print" id="print" width="100%" height="100%" scrolling="yes" frameborder="0"></iframe>
+			  
 		<cfelse>
 			<table width="100%">
 				<tr>
@@ -93,13 +90,13 @@
 			
 				<cf_tl id="Print" var="1">
 				
-				 <input type="button" 
-				      class="button10g" 
-				      onclick="alert('print again')" 
-				      style="height:28;width:150;font-size:13px" 					  
-					  name="save" 
-					  id="save"
-					  value="#lt_text#">
+				 <input type   = "button" 
+				      class    = "button10g" 
+				      onclick  = "alert('print again')" 
+				      style    = "height:28px;width:150;font-size:13px;border:1px solid silver" 					  
+					  name     = "save" 
+					  id       = "save"
+					  value    = "#lt_text#">
 					  
 		    </td>				
 
@@ -108,7 +105,7 @@
 				<input type      = "text" 
 						id       = "eMailAddress" 
 					    value    = "#getAction.eMailAddress#"
-						class    = "regular" 
+						class    = "regularxxl" 
 						style    = "width:200;height:28px;font-size:15px" 
 						onChange = "ptoken.navigate('#session.root#/GLedger/Application/Transaction/Invoice/setEMailAddress.cfm?email='+this.value+'&actionid=#url.actionid#','mailbox')">
 						
@@ -116,20 +113,18 @@
 			</td> 					
 			
 			<td align="center" id="mailbox" width="100%">
-				
-								
+												
 				<cfif isValid("email","#getAction.eMailAddress#")>		
 					
 					<cf_tl id="eMail" var="1">
 						
-					 <input type="button" 
-					      class="button10g" 
-					      onclick="ptoken.navigate('#session.root#/GLedger/Application/Transaction/Invoice/doInvoiceMail.cfm?actionid=#url.actionid#','mailbox')" 
-					      style="height:28;width:120;font-size:13px" 
-						  class="regular" 
-						  name="save" 
-						  id="save" 
-						  value="#lt_text#">
+					 <input type    = "button" 
+					      class     = "button10g" 
+					      onclick   = "ptoken.navigate('#session.root#/GLedger/Application/Transaction/Invoice/doInvoiceMail.cfm?actionid=#url.actionid#','mailbox')" 
+					      style     = "height:28;width:120;font-size:13px;border:1px solid silver" 
+						  class     = "regular" 
+						  name      = "save" id="save" 
+						  value     = "#lt_text#">
 						  
 				</cfif>
 				
@@ -161,16 +156,7 @@
 	<tr><td></td></tr>
 	
 	<tr><td height="100%" style="padding:15px;">
-		<cfif session.acc eq "administrator">
-		
-		 <!---
-		 <cfoutput>
-		 	#SESSION.root#/#getWarehouseJournal.TransactionTemplateMode1#?batchid=#url.batchid#&terminal=#url.terminal#
-		 </cfoutput>	 	
-		 --->
-		 
-		</cfif> 
-		 
+				 
 		<cfif getWarehouseJournal.recordCount eq 1 and trim(getWarehouseJournal.TransactionTemplateMode1) neq "">
 			<iframe src="#SESSION.root#/#getWarehouseJournal.TransactionTemplateMode1#?batchid=#url.batchid#&terminal=#url.terminal#" 
 			  name="print" id="print" width="100%" height="100%" scrolling="yes" frameborder="0" style="border:1px dashed silver"></iframe>

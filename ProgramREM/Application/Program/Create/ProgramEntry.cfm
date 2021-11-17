@@ -215,7 +215,7 @@ function setprogram(val,scope,org) {
 <cf_screentop layout="webapp" banner="gray" bannerheight="55" jquery="Yes"
    height="100%" label="#Action# #Parameter.TextLevel0#" html="#html#" band="no" scroll="yes">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
 
   <tr class="hide"><td id="target"></td></tr>	
   
@@ -223,7 +223,7 @@ function setprogram(val,scope,org) {
     
   <tr><td>
          
-  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+  <table width="100%" align="center">
   
   <tr><td height="3"></td></tr>
      
@@ -253,7 +253,7 @@ function setprogram(val,scope,org) {
 		
 		   <!--- top menu --->
 					
-			<table width="100%" border="0" align="center" class="formspacing" cellspacing="0" cellpadding="0">		  		
+			<table width="100%" align="center" class="formspacing">		  		
 							
 				<cfset ht = "48">
 				<cfset wd = "48">
@@ -263,7 +263,7 @@ function setprogram(val,scope,org) {
 				<cfset itm = 1>		
 				<cf_tl id="Name and Descriptive" var="vName">
 				<cf_menutab item       = "#itm#" 
-			            iconsrc    = "Logos/Program/Benefit.png" 
+			            iconsrc    = "Logos/System/Notes.png" 
 						iconwidth  = "#wd#" 
 						iconheight = "#ht#" 									
 						class      = "highlight1"
@@ -273,8 +273,8 @@ function setprogram(val,scope,org) {
 				
 					<cfset itm = itm+1>
 					<cf_tl id="Goal and Objective" var="vGoal">
-					<cf_menutab item       = "#itm#" 
-			            iconsrc    = "Logos/Program/Goal.png" 
+					<cf_menutab item  = "#itm#" 
+			            iconsrc    = "Logos/System/SubActivity.png" 
 						iconwidth  = "#wd#" 
 						iconheight = "#ht#" 														
 						name       = "#vGoal#">	
@@ -285,7 +285,7 @@ function setprogram(val,scope,org) {
 				<cf_tl id="Settings" var="vSettings">										
 											
 				<cf_menutab item       = "#itm#" 
-			            iconsrc    = "Logos/Program/Indicator.png" 
+			            iconsrc    = "Logos/System/Settings.png" 
 						iconwidth  = "#wd#" 
 						iconheight = "#ht#" 				
 						name       = "#vSettings#">			
@@ -311,13 +311,109 @@ function setprogram(val,scope,org) {
 		
 		<cf_menucontainer item="1" class="regular">
 			
-			<table width="96%" class="formpadding" cellspacing="0" cellpadding="0" align="center">
+			<table width="96%" class="formpadding" align="center">
 			
 		    <!--- Field: Program Name --->
 			<TR><TD height="10"></TD></TR>
 			
+			
+			<TR>
+	
+			    <TD class="labelmedium2" style="cursor:pointer">
+					<cf_UItooltip tooltip="The code of the project as used by external system, such as indicator measurement source">
+						<cf_tl id="Short Name">:
+					</cf_UItooltip>
+				</TD>
+			    <td colspan="5">
+					<cfoutput>
+						<input type="text" class="regularxxl enterastab" name="ProgramNameShort" value="#EditProgram.ProgramNameShort#" size="35" maxlength="50">
+					</cfoutput>			
+				</td>
+						
+			</tr>	
+	
+			<cfif Parameter.EnableGlobalProgram eq "0">
+			
+		    	<input type="hidden" name="ProgramScope" id="ProgramScope" value="Unit">
+				<cfset scope = "Unit">
+				
+			<cfelse>
+			
+				<cfif EditProgram.ProgramScope neq "">
+				 <cfset scope = "#EditProgram.ProgramScope#">
+				<cfelse>
+				 <cfset scope = "Unit">
+				</cfif>
+			
+				<TR>	
+				
+				<TD class="labelmedium2"><cf_tl id="Scope">:</TD>
+				
+			    <TD class="labelmedium">
+				
+						<cfif scope eq "Global" and editProgram.recordcount eq "1">
+							<cfset dis = "disabled">				
+						<cfelse>
+						    <cfset dis = "">  				
+						</cfif>
+					
+					   <input class="radiol" class="radiol" type="radio" name="ProgramScope" value="Global" 
+					    <cfif Scope eq "Global">Checked</cfif> 
+						onClick="javascript:scope('global')"><cf_tl id="Global">
+													
+						   <input class="radiol" class="radiol" type="radio" name="ProgramScope" #dis# value="Parent" 
+						    <cfif Scope eq "Parent">Checked</cfif> 				
+						    onClick="javascript:scope('parent')"><cf_tl id="Parent">				   
+						   
+							<cfif scope eq "Parent" and editProgram.recordcount eq "1">
+								<cfset dis = "disabled">				
+							<cfelse>
+							    <cfset dis = "">  				
+							</cfif>				   
+						   
+						   <input class="radiol" class="radiol" type="radio" name="ProgramScope" #dis# value="Unit" 
+						    <cfif Scope eq "Unit">Checked</cfif> 
+						    onClick="javascript:scope('unit')"><cf_tl id="Unit">
+		
+			   		</td>
+				
+				</tr>
+				
+			    <!--- Field: Program Organization --->
+									
+				<cfquery name="Parent" 
+			     datasource="AppsOrganization" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+				     SELECT   DISTINCT TreeOrder, OrgUnitName, OrgUnit, OrgUnitCode  
+				     FROM     #CLIENT.LanPrefix#Organization O
+				     WHERE    (ParentOrgUnit = '' OR ParentOrgUnit IS NULL or Autonomous = 1)
+					 AND      O.Mission     = '#Mandate.Mission#'
+				     AND      O.MandateNo   = '#Mandate.MandateNo#'  
+					 ORDER BY TreeOrder
+			    </cfquery>
+					    
+			    <!--- Field: Organization (only top level orgunits)  --->
+				
+			    <TR id="par" class="<cfif #scope# eq 'parent'>regular<cfelse>hide</cfif>">
+			    
+					<TD class="labelmedium2"><cf_tl id="Managed by">:</TD>
+				    <TD class="labelmedium">
+				
+			    	<select name="OrgUnitParent" class="regularxl enterastab">
+				    <cfoutput query="Parent">
+					<option value="#OrgUnit#" <cfif ParentOrg.OrgUnit eq OrgUnit> SELECTED</cfif>>#OrgUnitName#</option>
+					</cfoutput>
+				   	</select>
+				
+					</TD>
+				</TR>	
+				
+			 </cfif>
+			
+					
 		    <TR>
-		    <TD valign="top" class="labelmedium" style="padding-top:4px"><cf_tl id="Name">:</TD>
+		    <TD valign="top" class="labelmedium2" style="padding-top:4px"><cf_tl id="Name">:</TD>
 		    <TD>
 			
 			<cf_LanguageInput

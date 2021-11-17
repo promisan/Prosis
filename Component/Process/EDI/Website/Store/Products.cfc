@@ -265,6 +265,7 @@
 			products = structnew("ordered");
 			products.products = result;
 			msg = SerializeJSON(products);
+			msg = replace(msg,"//","","one");
 			cfthread(action:"run",name:threadName,message:msg) {
 				WsPublish("prosis",attributes.message);
 			}
@@ -388,6 +389,7 @@
 			categories = structnew("ordered");
 			categories.categories = result;			
 			msg = SerializeJSON(categories);
+			msg = replace(msg,"//","","one");
 			cfthread(action:"run",name:threadName,message:msg){
 				WsPublish("prosis",attributes.message);
 			}
@@ -466,6 +468,7 @@
 			credentials = structnew("ordered");
 			credentials = result;
 			msg = SerializeJSON(credentials);
+			msg = replace(msg,"//","","one");
 			cfthread(action:"run",name:threadName,message:msg){
 				WsPublish("prosis",attributes.message);
      		}
@@ -539,6 +542,7 @@
 			credentials = structnew("ordered");
 			credentials = result;
 			msg = SerializeJSON(credentials);
+			msg = replace(msg,"//","","one");
 			cfthread(action:"run",name:threadName,message:msg){
 				WsPublish("prosis",attributes.message);
 			}
@@ -625,6 +629,7 @@
 				credentials = structnew("ordered");
 				credentials = result;
 				msg = SerializeJSON(credentials);
+				msg = replace(msg,"//","","one");
 				cfthread(action:"run",name:threadName,message:msg){
 					WsPublish("prosis",attributes.message);
 			    }
@@ -677,6 +682,7 @@
 			credentials = structnew("ordered");
 			credentials = result;
 			msg = SerializeJSON(credentials);
+			msg = replace(msg,"//","","one");
 			cfthread(action:"run",name:threadName,message:msg){
 				WsPublish("prosis",attributes.message);
 			}
@@ -723,6 +729,7 @@
 			credentials = structnew("ordered");
 			credentials = result;
 			msg = SerializeJSON(credentials);
+			msg = replace(msg,"//","","one");
 			cfthread(action:"run",name:threadName,message:msg){
 				WsPublish("prosis",attributes.message);
 			}
@@ -781,6 +788,7 @@
 			credentials.result = result;
 
 			msg = SerializeJSON(credentials);
+			msg = replace(msg,"//","","one");
 
 			cfthread(action:"run",name:threadName,message:msg) {
 				WsPublish("prosis",attributes.message);

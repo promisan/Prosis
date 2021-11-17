@@ -2,8 +2,8 @@
 <table width="98%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
 
 <tr><td height="6"></td></tr>		
-		<tr><td colspan="1" class="labelmedium">Report Library Files</font></td></tr>
-		<tr><td colspan="1" height="1" class="linedotted"></td>
+		<tr class="line"><td colspan="1" class="labelmedium2">Report Library Files</font></td></tr>
+		
 		<tr><td height="6"></td></tr>		
 
 <tr><td>

@@ -70,21 +70,21 @@ password="#SESSION.dbpw#">
 
 	<cfif log.recordCount eq 0>
 		<tr>
-			<td class="labelmedium" style="padding:10px; color:red;" align="center">
+			<td class="labelmedium2" style="padding:10px; color:red;" align="center">
 				[ <cf_tl id ="No log records to show"> ]
 			</td>
 		</tr>
 	</cfif>
 	
 	<cfoutput query="log">
-		<tr class="labelmedium2 navigation_row clsFilterRow line" style="height:14px;">  
-		<td width="5%"></td>
-		<td width="5%">#CurrentRow#.</td> 	
-		<td width="15%" class="ccontent">#SystemModule#</td>			   	   	   			
-		<td width="30%" class="ccontent">#FunctionName# [#FunctionClass#]</td>		
-		<td width="10%" class="ccontent">#Mission#</td>	
-		<td width="20%" class="ccontent"><cfif ActionObject eq "">#ActionDescription#<cfelse>#ActionObject#:#ActionObjectKeyValue1#</cfif></td>		   
-		<td width="20%" class="ccontent">#DateFormat(ActionTimeStamp,CLIENT.DateFormatShow)# #TimeFormat(ActionTimeStamp,"HH:MM:SS")#</td>		   
+		<tr class="labelmedium2 navigation_row clsFilterRow line fixlengthlist" style="height:14px;">  
+		<td></td>
+		<td>#CurrentRow#.</td> 	
+		<td class="ccontent">#SystemModule#</td>			   	   	   			
+		<td class="ccontent">#FunctionName# [#FunctionClass#]</td>		
+		<td class="ccontent">#Mission#</td>	
+		<td class="ccontent"><cfif ActionObject eq "">#ActionDescription#<cfelse>#ActionObject#:#ActionObjectKeyValue1#</cfif></td>		   
+		<td class="ccontent">#DateFormat(ActionTimeStamp,CLIENT.DateFormatShow)# #TimeFormat(ActionTimeStamp,"HH:MM:SS")#</td>		   
 		</tr>				
 	</cfoutput>
 	

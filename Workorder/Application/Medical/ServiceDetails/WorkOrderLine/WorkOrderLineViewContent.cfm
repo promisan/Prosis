@@ -120,7 +120,7 @@
 	
 	<table width="100%">
 				
-	<tr><td>
+	<tr class="fixrow"><td>
 		<table width="100%"><tr><td style="width:20px;padding-top:5px">
 		<img src="<cfoutput>#session.root#</cfoutput>/images/go.png" height="23" width="25" alt="" border="0">
 		</td>
@@ -144,11 +144,11 @@
 		</table>
 	</td></tr>				
 						
-	<tr class="labelmedium"><td style="padding-top:2px;padding-left:30px">
+	<tr class="labelmedium"><td style="padding-top:2px;padding-left:10px">
 		 	
 	<table width="100%" class="navigation_table">
 	
-		<tr class="labelmedium">
+		<tr class="labelmedium fixlengthlist">
 		    <td style="width:1%">&nbsp;</td>
 			<td><cf_tl id="StartDate"></td>
 			<td><cf_tl id="Responsible"></td>
@@ -214,8 +214,8 @@
 				
 				<cfif Line.Operational eq "1">
 				
-					<tr class="labelit navigation_row">
-					    <td width="20" align="right" style="height:20px;padding-top:3px;border-bottom:0px">								
+					<tr class="labelmedium2 navigation_row fixlengthlist">
+					    <td width="20" align="right" style="height:20px;border-bottom:0px">								
 						<cfif editmode eq "Edit">
 							<cf_img icon="select" navigation="Yes"  onclick="lineopen('#line.workorderlineid#')">
 						</cfif>
@@ -235,8 +235,6 @@
 			</cfif>			
 		
 		</cfloop>
-		
-		
 						
 		<!--- ---------------------------------- --->
 		<!--- ----------- THIS LINE ------------ --->
@@ -268,7 +266,7 @@
 				
 		<cfoutput>		
 					   			
-			<tr class="labelmedium">	
+			<tr class="labelmedium fixlengthlist">	
 					
 			    <td style="height:26px;padding-left:7px">	
 		
@@ -333,8 +331,8 @@
 							<cfloop query="Topics">							
 								<cfset row = row+1>
 								<cfif row eq "1"><tr></cfif>						
-									<td bgcolor="e4e4e4" class="labelit" style="border:1px solid silver;padding-left:7px;padding-right:5px">#Description#:</td>
-								    <td bgcolor="white" class="labelmedium" style="border:1px solid silver;height:20px;padding-left:20px;padding-right:40px">#TopicValue#</td>										
+									<td bgcolor="e4e4e4" class="labelmedium2" style="border:1px solid silver;padding-left:7px;padding-right:5px">#Description#:</td>
+								    <td bgcolor="white" class="labelmedium2" style="border:1px solid silver;height:20px;padding-left:20px;padding-right:40px">#TopicValue#</td>										
 								<cfif row eq "2"></tr><cfset row="0"></cfif>													
 							</cfloop>
 						</table>						
@@ -360,7 +358,7 @@
 				 
 			  </td>
 			</tr>				
-			<tr><td height="3"></td></tr>			
+				
 			<!--- ------------------------------------- --->
 					
 		</cfoutput>
@@ -404,7 +402,7 @@
 				
 					<cfif line.operational eq "1">
 					
-						<tr class="labelit navigation_row">
+						<tr class="labelmedium2 navigation_row fixlengthlist">
 						    <td align="right" width="20" style="height:20px;padding-top:3px;border-bottom:0px"><cf_img icon="select" navigation="Yes" onclick="lineopen('#Line.workorderlineid#')"></td>
 						    <td style="color: gray; padding-left: 3px;">#dateformat(Line.DateEffective,client.dateformatshow)#</td>
 						    <td style="color: gray; padding-left: 3px;">#Line.LastName#</td>
@@ -488,7 +486,7 @@
 	
 	<cfif getTopics.recordcount gte "1">
 									
-	<tr><td>
+	<tr class="fixrow"><td>
 		<table><tr><td style="padding-top:5px">
 		<img src="<cfoutput>#session.root#</cfoutput>/images/go.png" height="23" width="25px" alt="" border="0">
 		</td>
@@ -499,7 +497,7 @@
 	
 	<!--- custom fields and saving --->			
 		
-	<tr><td height="30" style="padding-left:20px; padding-right:20px">
+	<tr><td height="30" style="padding-left:4px; padding-right:20px">
 	
 		<cfoutput>
 	
@@ -507,11 +505,11 @@
 		
 		<table width="100%">	
 				
-			<tr><td>
+			<tr><td style="padding-top:10px">
 			<table width="100%" border="0" class="formpadding">
 														
 			    <cfset url.mode = editmode>
-				<cfset url.inputclass = "regularxl">
+				<cfset url.inputclass = "regularxxl">
 				<cfset url.topicclass = "request">
 				<cfset url.style      = "min-width:400px;padding-left:65px;height:28px">
 				<cfset url.serviceitem = get.ServiceItem>
@@ -563,12 +561,10 @@
 						
 			<table width="100%">
 			
-				<tr>
+				<tr class="fixrow">
 					<td width="10" style="padding-top:5px"><img src="<cfoutput>#session.root#</cfoutput>/images/go.png" height="23" width="25px" alt="" border="0"></td>
-					<td style="font-weight:200;padding-left:10px;padding-top:3px;height:40px;font-size:30px" class="labellarge"><font color="0080C0"><cf_tl id="Provisioning"></td>
-					<td width="90%"></td>
-				</tr>
-				
+					<td colspan="2" style="font-weight:200;padding-left:10px;padding-top:3px;height:40px;font-size:30px" class="labellarge"><font color="0080C0"><cf_tl id="Provisioning"></td>					
+				</tr>				
 				
 				<tr><td colspan="3" style="padding-left:35px;"><cfinclude template="WorkOrderPayer.cfm"></td></tr>			
 						
@@ -595,7 +591,7 @@
 		<cfif accessbiller eq "EDIT" or accessbiller eq "ALL">
 				
 			<tr>	
-			   <td align="center" style="padding-top:7px" class="labelmedium" id="applycharges">
+			   <td align="center" style="padding-top:7px;padding-bottom:4px" class="labelmedium" id="applycharges">
 			  				  			
 			   <cf_tl id="Prepare Charges and Post Stock Consumption" var="1">
 			
@@ -603,8 +599,8 @@
 			   				   
 			   		  				   
 			   		<input type="button"
-					      onclick="ptoken.navigate('setCharges.cfm?workorderlineid=#url.drillid#','posting')" 
-						  style="font-size:14px;width:470;height:30px" 
+					      onclick="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('setCharges.cfm?workorderlineid=#url.drillid#','posting')" 
+						  style="font-size:14px;width:470;height:30px;border:1px solid silver" 
 						  name="close" 								  
 						  value="#lt_text#" 
 						  class="button10g">							  						
@@ -636,13 +632,13 @@
 				
 		<cfif getCharge.recordcount gte "0">
 		
-			<tr><td class="labelmedium">	
+			<tr class="fixrow"><td class="labelmedium">	
 							
 			   <table>
 			    <tr><td style="padding-top:5px">
 					<img src="<cfoutput>#session.root#</cfoutput>/images/go.png" height="23" width="25px" alt="" border="0">
 					</td>
-					<td style="font-weight:200;padding-left:10px;padding-top:3px;height:45px;font-size:25px" class="labellarge">
+					<td style="font-weight:200;padding-left:10px;padding-top:3px;height:45px;font-size:28px" class="labellarge">
 						<font color="0080C0"><cf_tl id="Charges"><cf_tl id="in"><cfoutput>#get.Currency#</cfoutput>
 					</td>
 				</tr>
@@ -652,7 +648,6 @@
 			</tr>
 			
 			<tr><td colspan="2" style="padding-left:30px;"><cfinclude template="WorkOrderPayer.cfm"></td></tr>			
-
 				
 			<tr>
 				<td colspan="2" id="posting" style="padding-left:20px;padding-right:1px">		

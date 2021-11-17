@@ -2,7 +2,7 @@
 <cfparam name="pages" default="0">
 <cfparam name="embed" default="0">
 <cfparam name="header" default="1">
-<cfparam name="URL.ID" default="Journal">
+<cfparam name="URL.grouping" default="Journal">
 
 <!--- provision --->
 <cfif URL.ID eq "PO">
@@ -32,8 +32,7 @@
 		
 	<cfelse>
 	
-		<cfinclude template="TransactionListingLinesContent.cfm">
-	
+		<cfinclude template="TransactionListingLinesContent.cfm">	
 	
 	</cfif>	
 	

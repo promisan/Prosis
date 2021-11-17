@@ -328,14 +328,14 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-<tr class="labelmedium line">
+<tr class="labelmedium2 line fixlengthlist">
 <td></td>
-	<td width="20%"><cf_tl id="Service"><cf_space spaces="100"></td>
-	<td><cf_tl id="Frequency"><cf_space spaces="10"></td>
-	<td><cf_tl id="Charge"><cf_space spaces="10"></td>
+	<td><cf_tl id="Service"></td>
+	<td><cf_tl id="Frequency"></td>
+	<td><cf_tl id="Charge"></td>
 	<td align="center"><cf_tl id="Quantity"></td>	
 	<td align="right" colspan="2"><cf_tl id="Rate"></td>	
-	<td align="right"><cf_space spaces="40"><cf_tl id="Total"></td>	
+	<td align="right"><cf_tl id="Total"></td>	
 	<td align="right" class="clsNoPrint">
 	
 		<cfif billingedit eq "1" and  (access eq "EDIT" or access eq "ALL")>
@@ -346,7 +346,7 @@ password="#SESSION.dbpw#">
 	<td></td>
 </tr>
 
-<tr class="labelit line">
+<tr class="labelmedium2 line fixlengthlist">
 <td></td>
 	<td width="20%"></td>
 	<td></td>
@@ -384,7 +384,7 @@ password="#SESSION.dbpw#">
   
   	<tr><td height="6"></TD></TR>
 	
-	  <tr class="line">	  
+	  <tr class="line fixlengthlist">	  
 	  
 	  <cfif Domain.AllowConcurrent eq "0">
 	  	  
@@ -436,7 +436,7 @@ password="#SESSION.dbpw#">
 	  	      	 
 	      <table width="100%">
 		  		  
-		  <tr class="labelmedium">
+		  <tr class="labelmedium fixlengthlist">
 		  		  		  	  
 		  <cfif OrgUnit neq "">
 		  
@@ -732,7 +732,7 @@ password="#SESSION.dbpw#">
 				
 			<cfset row = row+1>
 			
-			<tr class="labelmedium line">
+			<tr class="labelmedium2 line fixlengthlist">
 			
 			    <td width="20" valign="top" style="padding-left:20px">	
 				    &nbsp;				
@@ -760,7 +760,7 @@ password="#SESSION.dbpw#">
 					
 				 	<cfif serviceitem.fundingmode eq "1">			 
 						<cfif access eq "ALL">
-						  <a href="javascript:ColdFusion.navigate('#SESSION.root#/workorder/application/workorder/Funding/FundingLine.cfm?tabno=1&row=#row#&WorkOrderId=#URL.WorkOrderId#&billingdetailid=#billingdetailid#&ID2=new','funding_#row#')"><cf_tl id="funding"></a>		
+						  <a href="javascript:ptoken.navigate('#SESSION.root#/workorder/application/workorder/Funding/FundingLine.cfm?tabno=1&row=#row#&WorkOrderId=#URL.WorkOrderId#&billingdetailid=#billingdetailid#&ID2=new','funding_#row#')"><cf_tl id="funding"></a>		
 						</cfif>					  
 					</cfif>
 					
@@ -790,7 +790,7 @@ password="#SESSION.dbpw#">
 				<tr><td colspan="9">
 					<table width="100%" cellspacing="0" cellpadding="0" align="right">
 						<tr><td>	
-						<cfdiv id="funding_#row#" 
+						<cf_securediv id="funding_#row#" 
 						      bind="url:#SESSION.root#/workorder/application/workorder/Funding/Fundingline.cfm?tabno=1&row=#row#&WorkOrderId=#url.workorderid#&billingdetailid=#billingdetailid#">	
 						</td></tr>
 					</table>	  
@@ -820,12 +820,12 @@ password="#SESSION.dbpw#">
 		
 	<cfif Total.recordcount gte "1" and Total.lines gt "1">
 	
-	<tr class="line"><td style="padding-left:20px" class="labelmedium"></td>
+	<tr class="line"><td style="padding-left:20px" class="labelmedium2"></td>
 	    <td colspan="7" align="right">
 			<table>
 			<cfoutput query="Total">
 			<tr>	    
-				<td align="right" class="labelmedium" style="padding-right:0px"><font size="2" color="008040">#currency# #numberformat(Total,",.__")#</font> </td>	
+				<td align="right" class="labelmedium2" style="padding-right:0px"><font size="2" color="008040">#currency# #numberformat(Total,",.__")#</font> </td>	
 			</tr>
 			</cfoutput>
 			</table>
@@ -856,7 +856,7 @@ password="#SESSION.dbpw#">
 </cfquery>		
 	
 <cfif Total.recordcount gte "1">
-<tr><td style="padding-left:20px" class="labelmedium"><cf_tl id="Total"></td>
+<tr><td style="padding-left:20px" class="labelmedium2"><cf_tl id="Total"></td>
     <td colspan="7" align="right">
 		<table>
 		<cfoutput query="Total">

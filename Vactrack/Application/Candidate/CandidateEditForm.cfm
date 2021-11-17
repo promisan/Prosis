@@ -352,7 +352,6 @@
 					AllowBlank="False">	
 						
 			</td>
-			
 				
 			
 		</cfif>	
@@ -530,7 +529,7 @@
 			
 		</td>
 		<td height="15" valign="top" style="padding-top:4px;padding-right:4px" class="labelit"><cf_tl id="Memo">:</b></td>
-	    <TD colspan="7" style="padding-bottom:4px;padding-top:4px;padding-right:10px">
+	    <TD colspan="7" style="padding-bottom:4px;padding-top:4px;padding-right:0px">
 		
 		<cfif Doc.Status eq "9" or GetCandidateStatus.Status eq "9">
 		
@@ -543,9 +542,9 @@
 			
 			<cfif AccessHeader eq "EDIT" or AccessHeader eq "ALL">
 				<textarea 			 
-				 rows="2" 
+				 rows="3" 
 				 name="Remarks" 
-				 style="width:100%;padding:5px;background-color:ffffcf;font-size:13px;height:40px"
+				 style="width:100%;padding:5px;background-color:f1f1f1;border:0px;font-size:14px;height:40px"
 				 class="regular" 
 				 onchange="ptoken.navigate('CandidateEditSubmit.cfm','result','','','POST','candidateedit')"><cfoutput>#GetCandidateStatus.Remarks#</cfoutput></textarea>
 			<cfelse>
@@ -559,10 +558,72 @@
 		</cfif>	
 		</td>
 		</tr>
-										
-		<tr style="border-top:0px solid silver">
-			<td height="1" colspan="12"></td>
-		</tr>
+					
+			<cfquery name="Staffing" 
+			datasource="AppsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+     			SELECT   P.PositionNo, 
+				         P.PositionParentId, 
+						 P.Mission, 
+						 P.MandateNo,
+						 P.OrgUnitOperational, 
+						 P.PostGrade, 
+						 P.PostType, 
+						 P.SourcePostNumber, 
+						 PA.DateEffective, 
+						 PA.DateExpiration,
+						 PA.Incumbency,
+						 O.OrgUnitName,
+						 PA.PersonNo,
+						 PA.AssignmentNo,
+						 M.MissionOwner
+				FROM     PersonAssignment AS PA INNER JOIN
+                         Position AS P ON PA.PositionNo = P.PositionNo INNER JOIN
+                         Organization.dbo.Organization AS O ON P.OrgUnitOperational = O.OrgUnit	INNER JOIN
+						 Organization.dbo.Ref_Mission M ON P.Mission = M.Mission	 
+                
+                WHERE        (PA.SourceId = '#url.id#') 
+				AND      PA.AssignmentStatus IN ('0', '1') 
+				AND      PA.SourcePersonNo = '#url.id1#' 
+				AND      PA.AssignmentType = 'Actual'
+                ORDER BY PA.DateEffective
+			 </cfquery>	
+			 
+			 <cfif staffing.recordcount gte "1">
+			 
+			 <tr style="border:1px solid silver;background-color:ffffaf;" class="fixrow">
+			 <td height="1" colspan="12" style="border:1px solid silver;background-color:ffffaf;padding:4px">
+			     <cfoutput query="staffing">
+				 
+				    <cfinvoke component="Service.Access"  
+					   method="owner" 
+					   owner="#MissionOwner#" 
+					   returnvariable="accessOwner">	
+				 
+				 <table width="100%">
+				 <tr class="labelmedium2 fixlengthlist fixrow">
+				    <td style="background-color:ffffaf;padding:4px">
+					  <cfif accessOwner eq "EDIT" or accessOwner eq "ALL">	
+					  <cf_img icon="open" navigation="Yes" onClick="EditAssignment('#PersonNo#','#AssignmentNo#')">	
+					  </cfif>
+					</td>
+				    <td style="background-color:ffffaf;padding:4px">#Mission#&nbsp;:&nbsp;#OrgUnitName#</td>
+				    <td style="background-color:ffffaf;padding:4px"><a href="javascript:EditPosition('#mission#','#mandateno#','#positionno#')">#SourcePostNumber#</a></td>					
+					<td style="background-color:ffffaf;padding:4px">#PostGrade#</td>
+					<td style="background-color:ffffaf;padding:4px">#PostType#</td>
+					<td style="background-color:ffffaf;padding:4px">#Incumbency#</td>
+					<td style="background-color:ffffaf;padding:4px">#dateformat(DateEffective,client.dateformatshow)#</td>
+					<td style="background-color:ffffaf;padding:4px">#dateformat(DateExpiration,client.dateformatshow)#</td>
+				 </tr>
+				 </table>	
+				 </cfoutput>
+			 		
+			</td>
+			</tr>	 
+			 
+			 </cfif>
+			
 			
 			<cf_actionListingScript>
 			<cf_FileLibraryScript>

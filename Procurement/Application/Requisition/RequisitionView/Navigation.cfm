@@ -4,7 +4,7 @@
 <cf_PageCountN count= "#counted#">
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr class="line">
+<tr class="line fixlengthlist">
 	<td style="height:35px" class="labelmedium">
 	 <cf_tl id="Record"> <b>#First#</b> <cf_tl id="to"> <b><cfif Last gt Counted>#Counted#<cfelse>#Last#</cfif></b> of <b>#Counted#</b> <cf_tl id="selected requisition lines">
 	</td>

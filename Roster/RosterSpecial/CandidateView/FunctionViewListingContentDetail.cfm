@@ -13,23 +13,23 @@
 		<cfif url.print eq "1">
 			<cf_PageCountN count="#Searchresult.recordcount#" show="3000">
 		<cfelse>
-			<cf_PageCountN count="#Searchresult.recordcount#" show="50">
+			<cf_PageCountN count="#Searchresult.recordcount#" show="250">
 		</cfif>
-		<cfset per = URL.Page*50-50>
+		<cfset per = URL.Page*250-250>
 		<cfset perT = "">
 
-    <table width="98.5%" class="navigation_table" >	
+    <table width="97.5%" class="navigation_table">	
 					
 	<tr class="fixrow"><td colspan="14" colspan="#col#"><cfinclude template="Navigation.cfm"></td></tr>
 	
-	<TR class="labelmedium2 fixrow2 line">
-	    <td colspan="4"></td>	   		
+	<TR class="labelmedium2 fixrow2 line fixlengthlist">
+	    <td style="max-width:50px" colspan="4"></td>	   		
 		<TD><cf_tl id="Name"></TD>
 		<TD><cfoutput>#client.IndexNoName#</cfoutput></TD>
 		<td></td>
 		<TD></TD>
 		<TD style="padding-right:20px"><cf_tl id="Grade"></TD>		
-		<TD align="center"><cf_tl id="Gender"></TD>
+		<TD title="Gender" align="center"><cf_tl id="G"></TD>
 		<TD><cf_tl id="Birth date"></TD>	
 	    <TD><cf_tl id="Nat"></TD>
 		<td><cf_tl id="Profile"></td>
@@ -190,12 +190,12 @@
 												
 					<cfif currrow gte first and currrow lte last>
 											 
-						<tr id="#ApplicantNo#" class="line labelmedium2 navigation_row">
+						<tr id="#ApplicantNo#" class="line labelmedium2 navigation_row fixlengthlist">
 						    
 							<cfif mission eq "">
-						    <td align="center" style="width:20px;padding-right:5px;padding-left:5px">
+						    <td align="center">
 							<cfelse>
-							<td align="center" style="width:20px;padding-right:5px;padding-left:5px">
+							<td align="center">
 							</cfif>						
 							
 							<cfif PerT neq PersonNo>
@@ -211,9 +211,9 @@
 							</td>							
 							--->
 													
-							<td align="center" style="background-color:f4f4f4;padding-left:4px;padding-top:3px;border-right:0px solid silver;border-left:1px solid silver">					
+							<td align="center" style="border-right:0px solid silver;border-left:1px solid silver">					
 							
-								<i class="fas fa-user-edit" style="color: ##c83702;font-size: 14px;position: relative;top:-1px;"
+								<i class="fas fa-user-edit" title="Maintain submission profile" style="color: ##c83702;font-size: 14px;position: relative;top:-1px;"
                                    onclick="ShowFunction('#ApplicantNo#','#FunctionId#','#URL.tab#','#url.box#','#url.owner#','#url.process#','#day#','#status#','#url.level#','#url.processmeaning#','#meaning#','#url.total#','#url.page#','php')">
                                 </i>
 								   
@@ -245,18 +245,18 @@
 							
 							--->	
 							
-							<td align="center" style="background-color:f4f4f4;padding-left:4px;padding-top:3px;border-right:0px solid silver;">							
+							<td align="center">							
 								<cfif eMailAddress is not ''>
-								    <i class="fas fa-envelope" style="color: ##c83702;font-size: 14px;" onClick="email('#eMailAddress#','','','','Applicant','#PersonNo#')"></i>								 
+								    <i class="fas fa-envelope" title="Send mail" style="color: ##c83702;font-size: 14px;" onClick="email('#eMailAddress#','','','','Applicant','#PersonNo#')"></i>								 
 								</cfif>							
 							</td>		
 							
-							<td align="center" style="background-color:f4f4f4;padding-left:6px;padding-right:6px;padding-top:3px;border-right:0px solid silver">
+							<td align="center">
 							
 							    <cfif url.print eq "0">
 												
 									<cfif Access1 eq "EDIT" or Access2 eq "EDIT">										
-									    <i class="fas fa-comment-alt-lines" style="color: ##c83702;font-size: 14px;position: relative;top: 1px;" onClick="memoshow('memo#url.tab##CurrentRow#','show','#ApplicantNo#','#FunctionId#','#url.filter##CurrentRow#')">
+									    <i class="fas fa-comment-alt-lines" title="Maintain comment" style="color: ##c83702;font-size: 14px;position: relative;top: 1px;" onClick="memoshow('memo#url.tab##CurrentRow#','show','#ApplicantNo#','#FunctionId#','#url.filter##CurrentRow#')">
                                         </i>
 									</cfif>	
 								
@@ -265,7 +265,7 @@
 							</td>																	
 							
 							<!--- background-color:<cfif (currentRow MOD 2 EQ 0)>e9e9e9<cfelse>ffffff</cfif> --->
-							<td style="padding-left:4px;">
+							<td>
 								<a href="javascript:ShowFunction('#ApplicantNo#','#FunctionId#','#URL.tab#','#url.box#','#url.owner#','#url.process#','#day#','#status#','#url.level#','#url.processmeaning#','#meaning#','#url.total#','#url.page#','process')">
 								#LastName#, #FirstName#</a>
 							</td>
@@ -290,9 +290,9 @@
 							</cfif>
 							</TD>
 							
-						    <TD style="padding-right:4px" align="center">#Gender#</TD>							
-						    <TD style="padding-right:4px">#DateFormat(DOB, CLIENT.DateFormatShow)#</TD>								
-						    <TD style="padding-right:4px"><cfif Nationality eq ""><font color="FF0000">N/A</font><cfelse>#Nationality#</cfif></TD>							
+						    <TD align="center">#Gender#</TD>							
+						    <TD>#DateFormat(DOB, CLIENT.DateFormatShow)#</TD>								
+						    <TD><cfif Nationality eq ""><font color="FF0000">N/A</font><cfelse>#Nationality#</cfif></TD>							
 							<td style="border-right:1px solid d4d4d4">
 							
 								<table class="formspacing">
@@ -314,7 +314,7 @@
 								
 							</td>
 							
-							<td style="padding-left:6px;padding-right:9px">#dateformat(LastRosterAction,client.dateformatshow)#</td>							
+							<td>#dateformat(LastRosterAction,client.dateformatshow)#</td>							
 							<td align="center"></td>						
 											
 						</TR>

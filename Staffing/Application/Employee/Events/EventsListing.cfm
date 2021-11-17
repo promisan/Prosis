@@ -74,7 +74,7 @@
 
 		<table width="100%" align="center" class="formpadding navigation_table"">
 					
-		<TR class="line labelmedium2 fixrow">
+		<TR class="line labelmedium2 fixrow fixlengthlist">
 			<td></td>
 			<td></td>
   		    <td><cf_tl id="Entity"></td>
@@ -83,7 +83,7 @@
 			<td><font color="808080"><cf_tl id="Effective"></td>  			
 			<td><font color="808080"><cf_tl id="Expiration"></td>
 			<td><cf_tl id="Officer"></td>
-			<td width="5%"></td>			
+			<td></td>			
 		</TR>
 		
 		<!--- define mission --->
@@ -168,9 +168,9 @@
 					 		 		
 					<cfloop query="EventsAll">
 					
-					<TR class="labelmedium2 navigation_row">		   
+					<TR class="labelmedium2 navigation_row  fixlengthlist">		   
 										
-						   <td style="padding-top:0px;padding-left:2px">
+						   <td>
 						   		<cfif ActionStatus eq "0" or ActionStatus eq "1">
 								
 							   		<cf_img icon="edit" 
@@ -194,7 +194,7 @@
 							    </cfif>
 						   </td>
 						
-						   <td style="width:20px;padding-top:8px">
+						   <td style="padding-top:8px">
 						   
 						   	<cfif EntityClass neq "">
 						   			
@@ -210,12 +210,12 @@
 												   
 						   </td>
 						   
-						   <td width="10%">#Mission#</td>
-						   <td width="10%">						   
+						   <td>#Mission#</td>
+						   <td>						   
 						   <a href="javascript:ViewPosition('#PositionNo#')">
 						   <cfif SourcePostNumber neq "">#SourcePostNumber#<cfelse>#PositionParentId#</cfif>
 						   </a></td>
-			               <TD width="50%" colspan="3">
+			               <TD colspan="3">
 			               		<font color="808080">#TriggerDescription#:&nbsp;</font>#EventDescription#
 			               		<cfif ReasonDescription neq "">
 									&nbsp;-&nbsp;#ReasonDescription#									               			
@@ -225,7 +225,7 @@
 								</cfif>
 			               	</TD>
 							<td>#officerLastName#</td>		               	
-							<td width="5%">
+							<td>
 			
 								<cfinvoke component="Service.Access"  
 							      method="org" 

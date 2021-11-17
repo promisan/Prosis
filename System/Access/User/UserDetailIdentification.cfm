@@ -56,13 +56,14 @@ password="#SESSION.dbpw#">
         background-color: #033F5D!important;
     }
 </style>
-<table width="95%" align="center" border="0" cellspacing="0" style="min-width:1000px">
-  <tr class="labemedium2 line">
+<table width="95%" align="center">
+  <tr class="labemedium2 line fixlengthlist">
     <cfoutput>	
     <td align="left" valign="middle" style="height:58px;padding-top:6px;">
 	
         <table>
-		<tr><td valign="top" style="padding-right:5px">		
+		<tr>
+		<td valign="top" style="padding-right:5px">		
 		
 		<cfif user.accounttype eq "Group">
 			<img style="position: relative;left:2px;" src="#SESSION.root#/Images/User-Group.png" height="79" width="79" alt="" border="0">
@@ -72,10 +73,8 @@ password="#SESSION.dbpw#">
 		
 		</td>
 		
-		<td>
-		
-           <span style="font-size:34px;"> <cfif User.AccountType eq "Individual">#User.FirstName# </cfif> #User.LastName#</span><br><span style="padding-left:10px;font-size: 16px;position: relative;top:-6px;">- #User.Account# -</span></h2>
-			
+		<td style="min-width:300px">		
+           <span style="font-size:34px;"> <cfif User.AccountType eq "Individual">#User.FirstName# </cfif> #User.LastName#</span><br><span style="padding-left:10px;font-size: 16px;position: relative;top:-6px;">- #User.Account# -</span></h2>			
 		</td>
 		</tr>
 		</table> 		
@@ -108,7 +107,7 @@ password="#SESSION.dbpw#">
   
    <tr>
      
-    <td colspan="1" valign="top">
+    <td colspan="1" valign="top" style="padding-left:10px">
 	
 	    <table width="99%">
 	
@@ -116,8 +115,8 @@ password="#SESSION.dbpw#">
 		 
 		    <tr><td height="5"></td></tr>		 
 	
-	        <tr class="labemedium2" style="height:20px">	       
-			    <td width="20%" ><cf_tl id="Account">:</td>
+	        <tr class="labelmedium2 fixlengthlist" style="height:20px">	       
+			    <td ><cf_tl id="Account">:</td>
 			    <td colspan="2" >#User.Account# [#User.Source#]</td>
 			    <td ><cf_tl id="Operational Entity">:</td>
 			    <td colspan="2" >#AccountMission#&nbsp;				
@@ -130,7 +129,7 @@ password="#SESSION.dbpw#">
 		  
 		   <cfif User.AccountType eq "Individual">
 		  					
-		      <tr class="labemedium2" style="height:20px">
+		      <tr class="labelmedium2 fixlengthlist" style="height:20px">
 	    	    <td><cf_tl id="Name">:</td>
 	        	<td colspan="2" >#FirstName# #LastName#</td>
 				
@@ -140,9 +139,9 @@ password="#SESSION.dbpw#">
 				
 			  </tr>
 			  
-		      <tr class="labemedium2" style="height:20px">
+		      <tr class="labelmedium2  fixlengthlist" style="height:20px">
 		        <td><cf_tl id="IndexNo">:</td>
-				<td  colspan="2"><cfif IndexNo neq ""><A HREF ="javascript:EditPerson('#IndexNo#')"><font color="0080C0">#IndexNo#</a>
+				<td  colspan="2"><cfif IndexNo neq ""><A HREF ="javascript:EditPerson('#IndexNo#')">#IndexNo#</a>
 				<cfelse><font color="FF0000">Not defined</font>
 				</cfif>
 		     	</td>	
@@ -158,11 +157,11 @@ password="#SESSION.dbpw#">
 			  		  
 		   <cfelse>
 		  							
-		      <tr class="labemedium2" style="height:20px">
+		      <tr class="labelmedium2 fixlengthlist" style="height:20px">
 	    	    <td><cf_tl id="Name">:</td>
 		        <td  colspan="2">#LastName#</td>
 				<td  colspan="2">
-					<cfif Last.LastConnection eq ""><font color="FF0000"><b><cf_tl id="Never"></b>
+					<cfif Last.LastConnection eq ""><font color="FF0000"><b><cf_tl id="Never">
 					<cfelse>#DateFormat(Last.LastConnection, CLIENT.DateFormatShow)# at #TimeFormat(Last.LastConnection, "HH:mm")#
 					</cfif>
 				 </td>
@@ -170,17 +169,17 @@ password="#SESSION.dbpw#">
 			 	  		  	  
 		   </cfif>	  
 		  				  
-		   <tr class="labemedium2" style="height:20px">
+		   <tr class="labelmedium2 fixlengthlist" style="height:20px">
 	        <td><cf_tl id="Group">:</td>
 	        <td colspan="2" >#AccountGroup#</td>
 			<td ><cf_tl id="Account Owner">:</td>
 	        <td colspan="2" ><cfif AccountOwner neq "">#AccountOwner#<cfelse><font color="gray">Not defined</font></cfif></td>
 	       </tr>
 		  			  
-		   <tr class="labemedium2" style="height:20px">
+		   <tr class="labelmedium2 fixlengthlist" style="height:20px">
 	        <td><cf_tl id="eMail">:</td>
 	       	<td colspan="2" ><cfif eMailAddress neq "">
-			    <a href="javascript:email('#eMailAddress#','','','','User','#Account#')"><font color="0080C0">#eMailAddress#
+			    <a href="javascript:email('#eMailAddress#','','','','User','#Account#')">#eMailAddress#
 			 <cfelse>
 				<font color="FF0000">n/a</font>
 			 </cfif>
@@ -188,19 +187,19 @@ password="#SESSION.dbpw#">
 			 
 			 <td><cf_tl id="eMail2">:</td>
 	       	 <td colspan="2"><cfif eMailAddressExternal neq "">
-			    <a href="javascript:email('#eMailAddressExternal#','','','','User','#Account#')"><font color="0080C0">#eMailAddressExternal#
+			    <a href="javascript:email('#eMailAddressExternal#','','','','User','#Account#')">#eMailAddressExternal#
 			 <cfelse>
 			 	<font color="ff0000">n/a</font>
 			 </cfif>
 			 </td>			
 	      </tr>
 		  			  
-		  <tr class="labemedium2" style="height:20px">
+		  <tr class="labelmedium2 fixlengthlist" style="height:20px">
 	        <td><cf_tl id="IP">:</td>
 	        <td colspan="2"><cfif NodeIP neq "">#NodeIP#<cfelse><font color="gray"><cf_tl id="Not determined"></font></cfif></td>
 	      </tr>
 		 
-		  <tr class="labemedium2" style="height:20px">
+		  <tr class="labelmedium2 fixlengthlist" style="height:20px">
 	        <td><cf_tl id="Account Status">:</td>
 	        <td colspan="2" style="font-size:14px;cursor:pointer">
 						
@@ -208,12 +207,12 @@ password="#SESSION.dbpw#">
 			
 				<cfdiv id="userstatus">		    
 					<cfif Disabled eq "0">					
-					<a style="font-size:14px" title="Press to disable" href="javascript:ColdFusion.navigate('UserStatus.cfm?account=#url.id#&status=1','userstatus')">
+					<a style="font-size:14px" title="Press to disable" href="javascript:ptoken.navigate('UserStatus.cfm?account=#url.id#&status=1','userstatus')">
 					<font color="green"><cf_tl id="Active"></a>
 					<cfelse>
-					<a title="Press to activate" href="javascript:ColdFusion.navigate('UserStatus.cfm?account=#url.id#&status=0','userstatus')">
+					<a style="font-size:14px" title="Press to activate" href="javascript:ptoken.navigate('UserStatus.cfm?account=#url.id#&status=0','userstatus')">
 					<font color="FF0000"><cf_tl id="Disabled"></font>
-					</a> &nbsp;&nbsp;&nbsp;<font color="gray">
+					</a><font color="gray">
 						 <cf_UIToolTip tooltip="This applies for Backoffice only. User might still access a Portal.">( Backoffice only )</cf_UIToolTip></font>
 					</cfif>
 				</cfdiv>
@@ -228,8 +227,7 @@ password="#SESSION.dbpw#">
 			
 			</cfif>
 			
-			</td>
-			
+			</td>			
 			<td><cf_tl id="Source">:</td>
 			<td>#Source#</td>
 			
@@ -242,8 +240,7 @@ password="#SESSION.dbpw#">
 	 
 	<cfoutput query="User"> 
 	  
-		<td  style="padding-top:4px" valign="top" align="right">
-			
+		<td  style="padding-top:4px" valign="top" align="right">			
 			<cf_tl id="Change user picture" var="1">
 			<cf_userProfilePicture acc="#URL.ID#" height="130px" width="auto" title="#lt_text#">
 			   
@@ -257,7 +254,7 @@ password="#SESSION.dbpw#">
  	 <cfif url.mode eq "Menu">
 		  <tr><td colspan="3" height="1" class="line"></td></tr>  
 		  <tr><td colspan="3" height="30" align="center">
-		    <a href="../../Organization/Access/UserAccessListing.cfm?ID=#URL.ID#"><font color="0080FF"><cf_tl id="Authorization Profile"></a></td></tr>
+		    <a href="../../Organization/Access/UserAccessListing.cfm?ID=#URL.ID#"><cf_tl id="Authorization Profile"></a></td></tr>
 		  <tr><td colspan="3" height="1" class="line"></td></tr>  
 	  </cfif> 
   </cfoutput>

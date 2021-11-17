@@ -1,10 +1,15 @@
 
 <cfset title = "Stock inquiry and quote preparation">
 
+<cf_screentop html="No" label="#title#" jquery="Yes">
+
 <cf_dialogmaterial>
 <cf_presenterscript>
+<cf_calendarscript>
+<cf_dialogorganization>
+<cf_menuscript>
 
-<cf_screentop html="No" label="#title#" jquery="Yes">
+<cfajaximport tags="cfdiv,cfform">
 	
 	<cfquery name="Warehouse" 
 	 datasource="appsMaterials" 
@@ -23,12 +28,18 @@
 	 password="#SESSION.dbpw#">
 	   SELECT    *
 	   FROM      Ref_Category
-	   WHERE     Operational = 1  	   
+	   WHERE     Operational = 1  	
+	   AND       FinishedProduct = 1   
 	</cfquery>
 	
 	<cfoutput>
 
 	<script language="JavaScript">
+	
+		function search() {     
+		   _cf_loadingtexthtml='';  
+		   ptoken.navigate('getStockContent.cfm','content','','','POST','stockform')      
+		}
 	
 		function apply(e) {	  
 		   _cf_loadingtexthtml='';  	      
@@ -51,12 +62,16 @@
 		
 		function addquote() {     
 		    _cf_loadingtexthtml='';  		  
-		    ptoken.navigate('addQuote.cfm?mission=#url.mission#&warehouse='+document.getElementById('warehousequote').value,'boxquote')      
+		    ptoken.navigate('QuoteAdd.cfm?mission=#url.mission#&warehouse='+document.getElementById('warehousequote').value,'boxquote')      
 			document.getElementById('boxaction').className = "hide"
 		}
+		
+		function setquote(no,act,val) {	  
+	       _cf_loadingtexthtml='';		
+		   ptoken.navigate('QuoteEdit.cfm?action='+act+'&requestno='+no+'&val='+val,'boxprocess','','','POST','stockform') 	
+		}	
 			
-		function additem(whs,itm,uom,cur,sch) {
-		 
+		function additem(whs,itm,uom,cur,sch) {		 
 		  if (document.getElementById('requestno').value == '') {	     
 		     addquote()	  
 		  } else { 
@@ -64,34 +79,32 @@
 		    ptoken.navigate('getQuoteLine.cfm?action=add&requestno='+document.getElementById('requestno').value+'&warehouse='+whs+'&itemno='+itm+'&uom='+uom+'&currency='+cur+'&priceschedule='+sch,'boxlines') 
 			document.getElementById('boxaction').className = "regular"
 		  }	
-		}
-			
-		function setquote(no,act,val) {	  
-	       _cf_loadingtexthtml='';		
-		   ptoken.navigate('setQuote.cfm?action='+act+'&requestno='+no+'&val='+val,'boxprocess','','','POST','stockform') 	
-		}	
-		
-		function applyQuote(act) {	  
-	       _cf_loadingtexthtml='';		
-		   ptoken.navigate('applyQuote.cfm?action='+act,'boxprocess','','','POST','stockform') 	
-		}	
-		
+		}		
 						
 		function deleteitem(tra) {	  
 	       _cf_loadingtexthtml='';		
 		   ptoken.navigate('setQuote.cfm?action=deleteline&transactionid='+tra,'boxprocess') 	
 		}
-		
-		function search() {     
-		   _cf_loadingtexthtml='';  
-		   ptoken.navigate('getStockContent.cfm','content','','','POST','stockform')      
-		}
-		
+				
 		function stockreserve(whs,itm,uom,mde) {
 		 	ProsisUI.createWindow('stockinquiry','Reservations','',{x:100,y:100,width:900,height:420,resizable:true,modal:true,center:true})
 			ptoken.navigate('#SESSION.root#/Warehouse/Application/StockOrder/Quote/ReservationView.cfm?warehouse='+whs+'&itemNo='+itm+'&uom='+uom+'&mode='+mde,'stockinquiry')							
 		}
-	
+		
+		function applyQuote(act,no) {	  
+	       _cf_loadingtexthtml='';		
+		   ProsisUI.createWindow('processquote','Quotation '+no,'',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,resizable:true,modal:true,center:true})
+		   ptoken.navigate('applyQuote.cfm?requestno='+no+'&action='+act+'&idmenu=#url.systemfunctionid#','processquote','','','POST','stockform') 	
+		}	
+		
+		function submitOrder(reqno) {	  
+	       _cf_loadingtexthtml='';		   
+			document.salesorder.onsubmit() 
+			if( _CF_error_messages.length == 0 ) {
+			   ptoken.navigate('#session.root#/workorder/application/workorder/create/quote/DocumentSubmit.cfm?requestNo='+reqno+'&idmenu=#url.systemfunctionid#','boxprocess','','','POST','salesorder') 	
+			 }   
+        }	 
+		
 	</script>
 	
 	</cfoutput>
@@ -121,13 +134,13 @@
 				  size="35"
 		          name="top">	
 				
-					<table class="formpadding navigation_table" style="height:100%;border-botomm:1px solid gray;width:100%;background-color:e6e6e6">
-						<tr>
+					<table class="formpadding navigation_table" style="height:100%;width:100%">
+						<tr style="border-bottom:1px solid silver">
 						<td>
 							<table>
 							<tr>
 														    
-								<td style="height:45px;padding-left:10px;padding-right:10px">
+								<td style="height:40px;padding-left:10px;padding-right:10px">
 								
 								<input type="hidden" name="Mission" value="<cfoutput>#url.mission#</cfoutput>">
 								
@@ -193,11 +206,57 @@
 		<cf_layoutarea  position="center" name="box">
 			
 				<table style="width:100%;height:100%" align="center" class="navigation_table">
+				
+				<cfquery name="Schedule" 
+					 datasource="appsMaterials" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
+					   SELECT    *
+					   FROM      Ref_PriceSchedule
+					   WHERE     Operational = 1  	
+					   ORDER BY ListingOrder   
+					</cfquery>
+					
+					<cfquery name="Default" 
+					 datasource="appsMaterials" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
+					   SELECT    *
+					   FROM      Ref_PriceSchedule
+					   WHERE     FieldDefault = 1  	   
+					</cfquery>
+					
+					<cfif schedule.recordcount gte "1">
+					
+					  <tr class="labelmedium2 line" style="height:35px">
+					      <td colspan="2" style="padding-left:10px;font-size:15px"><cf_tl id="Priceschedule"></td>
+					      
+						  <td align="right" style="padding-right:10px">
+						  
+						   <cf_UISelect name   = "PriceSchedule"
+						     class          = "regularxxl"
+						     queryposition  = "below"
+						     query          = "#Schedule#"
+						     value          = "Code"
+						     onchange       = "search()"		     
+						     required       = "No"
+							 style          = "width:100%"
+						     display        = "Description"
+						     selected       = "#Default.Code#"
+							 filter         = "contains"
+							 separator      = "|"
+						     multiple       = "no"/>		
+						  							
+						  </td>
+						  
+					  </tr>
+					
+					</cfif>
 								
-				<tr><td style="padding-left:10px;height:100%">
-				        <cf_divscroll id="content"/>
-				    </td>
-				</tr>
+					<tr><td colspan="3" style="padding-left:10px;height:100%">					
+					        <cf_divscroll id="content"/>
+					    </td>
+					</tr>
 					
 				</table>				
 		
@@ -214,7 +273,7 @@
 			collapsible="true" 
 			splitter="true">
 			
-					<cfinclude template="QuoteView.cfm">			
+					<cfinclude template="StockViewQuote.cfm">			
 					
 					<!---
 				

@@ -175,12 +175,13 @@
 		
 			<tr><td style="padding-left:20px" class="labelmedium">Password overwrite (admin usage):</td>
 		    <TD>  
-			 <input type="text" 
+			 <input 
 			    name="PasswordOverwrite" 
                 id="PasswordOverwrite"
 				value="<cfoutput>#overwrite#</cfoutput>" 
 				size="14" 
 				maxlength="14" 
+				type="password" 
 				class="regularxl">
 			
 			</TD>
@@ -198,9 +199,9 @@
 			
 			<tr><td style="padding-left:20px;min-width:300px;" class="labelmedium">Password support (not valid for support):</td>
 		    <TD>  
-			 <input type="text" 
-			    name="PasswordSupport" 
+			 <input 			    name="PasswordSupport" 
                 id="PasswordSupport"
+				type="password" 
 				value="<cfoutput>#support#</cfoutput>" 
 				size="14" 
 				maxlength="14" 

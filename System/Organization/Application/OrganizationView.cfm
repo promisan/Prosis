@@ -83,9 +83,9 @@
 	<cf_layoutarea
 	      position="left" 
 		  name="treebox"  
-		  size="25%"
-		  maxsize="28%" 
-		  minsize="22%"
+		  size="350"
+		  maxsize="350" 
+		  minsize="350"
 		  state="open"		   
 		  collapsible="true" 
 		  splitter="true">	

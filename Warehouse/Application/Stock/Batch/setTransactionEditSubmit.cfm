@@ -254,7 +254,7 @@
 									
 									WorkOrderId               = "#WorkOrderId#"
 									WorkOrderLine             = "#WorkOrderLine#"
-									RequirementId             = "#requirementId#"								
+									RequirementId             = "#RequirementId#"								
 									BillingUnit               = "#BillingUnit#"
 									
 									OrgUnit                   = "#OrgUnit#"
@@ -304,65 +304,65 @@
 									
 									<cfelse>
 									
-									<cf_StockTransact 
-							        TransactionId             = "#transactionid#"
-									TransactionClass          = "#cls#"								
-								    DataSource                = "AppsMaterials" 
-								    TransactionType           = "#transactiontype#"
-									TransactionSource         = "WarehouseSeries"
-									ItemNo                    = "#ItemNo#" 
-									Mission                   = "#Mission#" 
-									Warehouse                 = "#Warehouse#" 
-									Location                  = "#Location#"
-									TransactionLot            = "#TransactionLot#"
-									TransactionIdOrigin       = "#TransactionIdOrigin#"
-									TransactionCurrency       = "#APPLICATION.BaseCurrency#"
-									
-									TransactionQuantity       = "#qty#"				
-									
-									TransactionUoM            = "#TransactionUoM#"
-									TransactionUoMMultiplier  = "#TransactionUoMMultiplier#"
-									TransactionCostPrice      = "#TransactionCostPrice#"
-									ReceiptId                 = "#ReceiptId#"
-									ReceiptCostPrice          = "#ReceiptCostPrice#"
-									ReceiptPrice              = "#ReceiptPrice#"
-									ActionStatus              = "#status#"
-									TransactionDate           = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
-									TransactionTime           = "#timeformat(TransactionDate,'HH:MM')#"			
-									TransactionBatchNo        = "#TransactionBatchNo#"
-									Remarks                   = "#Remarks#"
-									
-									WorkOrderId               = "#WorkOrderId#"
-									WorkOrderLine             = "#WorkOrderLine#"
-									RequirementId             = "#requirementId#"								
-									BillingUnit               = "#BillingUnit#"
-									
-									OrgUnit                   = "#OrgUnit#"
-									PersonNo                  = "#PersonNo#"
-									
-									CustomerId                = "#CustomerId#"
-									AssetId                   = "#AssetId#"
-									ProgramCode               = "#ProgramCode#"
-									RequestId                 = "#RequestId#"
-									TaskSerialNo              = "#TaskSerialNo#"
-									BillingMode               = "#BillingMode#"
-									
-									TransactionReference      = "#TransactionReference#"
-									TransactionMetric         = "#TransactionMetric#"
-									ParentTransactionId       = "#parenttransactionid#"				
-													
-									DetailLineNo              = "#getDetail.recordcount#"
-									DetailReference1          = "#getDetail.Reference1#"
-									DetailReference2          = "#getDetail.Reference2#"
-									DetailReadInitial         = "#getDetail.MeterReadingInitial#"
-									DetailReadFinal           = "#getDetail.MeterReadingFinal#"																								
-									
-									GLTransactionNo           = "#TransactionBatchNo#"
-									GLTransactionSourceId     = "#Batch.BatchId#"
-									
-									GLCurrency                = "#APPLICATION.BaseCurrency#"
-									GLAccountDebit            = "#GLAccountDebit#" 
-									GLAccountCredit           = "#GLAccountCredit#">	
+										<cf_StockTransact 
+								        TransactionId             = "#transactionid#"
+										TransactionClass          = "#cls#"								
+									    DataSource                = "AppsMaterials" 
+									    TransactionType           = "#transactiontype#"
+										TransactionSource         = "WarehouseSeries"
+										ItemNo                    = "#ItemNo#" 
+										Mission                   = "#Mission#" 
+										Warehouse                 = "#Warehouse#" 
+										Location                  = "#Location#"
+										TransactionLot            = "#TransactionLot#"
+										TransactionIdOrigin       = "#TransactionIdOrigin#"
+										TransactionCurrency       = "#APPLICATION.BaseCurrency#"
+										
+										TransactionQuantity       = "#qty#"				
+										
+										TransactionUoM            = "#TransactionUoM#"
+										TransactionUoMMultiplier  = "#TransactionUoMMultiplier#"
+										TransactionCostPrice      = "#TransactionCostPrice#"
+										ReceiptId                 = "#ReceiptId#"
+										ReceiptCostPrice          = "#ReceiptCostPrice#"
+										ReceiptPrice              = "#ReceiptPrice#"
+										ActionStatus              = "#status#"
+										TransactionDate           = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
+										TransactionTime           = "#timeformat(TransactionDate,'HH:MM')#"			
+										TransactionBatchNo        = "#TransactionBatchNo#"
+										Remarks                   = "#Remarks#"
+										
+										WorkOrderId               = "#WorkOrderId#"
+										WorkOrderLine             = "#WorkOrderLine#"
+										RequirementId             = "#RequirementId#"								
+										BillingUnit               = "#BillingUnit#"
+										
+										OrgUnit                   = "#OrgUnit#"
+										PersonNo                  = "#PersonNo#"
+										
+										CustomerId                = "#CustomerId#"
+										AssetId                   = "#AssetId#"
+										ProgramCode               = "#ProgramCode#"
+										RequestId                 = "#RequestId#"
+										TaskSerialNo              = "#TaskSerialNo#"
+										BillingMode               = "#BillingMode#"
+										
+										TransactionReference      = "#TransactionReference#"
+										TransactionMetric         = "#TransactionMetric#"
+										ParentTransactionId       = "#Parenttransactionid#"				
+														
+										DetailLineNo              = "#getDetail.recordcount#"
+										DetailReference1          = "#getDetail.Reference1#"
+										DetailReference2          = "#getDetail.Reference2#"
+										DetailReadInitial         = "#getDetail.MeterReadingInitial#"
+										DetailReadFinal           = "#getDetail.MeterReadingFinal#"																								
+										
+										GLTransactionNo           = "#TransactionBatchNo#"
+										GLTransactionSourceId     = "#Batch.BatchId#"
+										
+										GLCurrency                = "#APPLICATION.BaseCurrency#"
+										GLAccountDebit            = "#GLAccountDebit#" 
+										GLAccountCredit           = "#GLAccountCredit#">	
 									
 									</cfif>										
 									

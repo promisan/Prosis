@@ -54,7 +54,6 @@
 </cfoutput>
 
 <cfset fields=ArrayNew(1)>
-
 			
 <cfset fields[1] = {label      = "Subject", 					
 					field      = "MailSubject",
@@ -81,13 +80,11 @@
 <cfset fields[6] = {label      = "Time",    					
 					field      = "MailDateSent",
 					formatted  = "timeformat(MailDateSent,'HH:MM')"}>					
-					
-					
-<cfparam name="Client.Header" default="Mail Listing">
+		
 							
 <cf_listing
-	    header        = "#client.header#"
-	    box           = "userdetail"
+	    header        = "User Error mail"
+	    box           = "usererrordetail"
 		link          = "#SESSION.root#/System/Access/User/Audit/ListingMail.cfm?id=#url.id#"
 	    html          = "No"
 		tableheight   = "100%"

@@ -494,10 +494,10 @@ password="#SESSION.dbpw#">
 
 	<table width="99%" align="center" class="navigation_table">
 	   
-	   <tr class="line labelmedium2 fixrow">
+	   <tr class="line labelmedium2 fixrow fixlengthlist">
 	   
-	      <TD style="width:20px" height="20"></TD>
-	      <TD style="width:20px"></TD>
+	      <TD height="20"></TD>
+	      <TD></TD>
 		  <td><cf_tl id="PAP"></td>	
 	      <TD><cf_tl id="Acc"></TD>		
 	      <td><cf_tl id="Name"></td>	
@@ -510,23 +510,23 @@ password="#SESSION.dbpw#">
 	  	
 	   <cfoutput query="Contra">
 	   
-		   <cfset color = "f4f4f4">
+		   <cfset color = "ffffaf">
 		         
-		   <tr bgcolor="#color#" class="labelmedium2 line navigation_row">
+		   <tr bgcolor="#color#" class="labelmedium2 line navigation_row fixlengthlist">
 		      
 			   <td height="20" align="center" valign="middle"></td>	   
 			   <td></td>
-			   <td style="padding-left:2px;padding-right:8px">#year(pap)#<cfif month(pap) lt 10>0</cfif>#month(pap)#</td>
-			   <td width="80"><cfif accountLabel neq "">#AccountLabel#<cfelse>#GLAccount#</cfif></td>
-			   <td width="25%">#Description#</td>
+			   <td>#year(pap)#<cfif month(pap) lt 10>0</cfif>#month(pap)#</td>
+			   <td><cfif accountLabel neq "">#AccountLabel#<cfelse>#GLAccount#</cfif></td>
+			   <td>#Description#</td>
 			   <td style="border-right: 1px solid Silver;"></td>
-			   <td align="right" style="border-right: 1px solid Silver;;padding-right:2px;">
+			   <td align="right" style="border-right: 1px solid Silver;">
 			   <cfif AmountDebit is not "">#NumberFormat(AmountDebit,',.__')#</cfif></td>
-			   <td align="right" bgcolor="fafafa" style=";padding-right:2px;border-right: 1px solid Silver;">
+			   <td align="right" style="background-color:##fafafa80;border-right: 1px solid Silver;">
 			   <cfif AmountBaseDebit is not ""><font color="C0C0C0">#NumberFormat(AmountBaseDebit,',.__')#</cfif></td>
-			   <td align="right" style="border-right: 1px solid Silver;;padding-right:2px;">
+			   <td align="right" style="border-right: 1px solid Silver;">
 			   <cfif AmountCredit is not "">#NumberFormat(AmountCredit,',.__')#</cfif></td>	  
-			   <td align="right" bgcolor="fafafa" style="padding-right:2px;">
+			   <td align="right" style="background-color:##fafafa80">
 			   <cfif AmountBaseCredit is not ""><font color="C0C0C0">#NumberFormat(AmountBaseCredit,',.__')#</cfif></td>   
 		   
 		   </TR>
@@ -537,9 +537,9 @@ password="#SESSION.dbpw#">
 	       
 	   <cfoutput query="Line">
 		   
-		   <tr id="d#TransactionSerialNo#" class="navigation_row labelmedium2 line" style="height:25px">
+		   <tr id="d#TransactionSerialNo#" class="navigation_row labelmedium2 line fixlengthlist" style="height:25px">
 		      
-		   <td width="5%" align="center">  
+		   <td  align="center">  
 		   		  		 
 			 <cfif amountbasedebit gt 0>
 			     <cfset md = "debit">
@@ -568,7 +568,7 @@ password="#SESSION.dbpw#">
 				 
 				 <tr class="labelmedium2">
 				 
-				 <td style="width:20;padding-left:2px;padding-right:1px" onClick="maximize('#serialno#')">		
+				 <td onClick="maximize('#serialno#')">		
 				 			 									 
 			        <img src="#SESSION.root#/Images/arrowright.gif" alt="" 
 						id="t_#serialno#_Exp" border="0" class="regular" 
@@ -603,10 +603,9 @@ password="#SESSION.dbpw#">
 				   			<cfset debcre = "Credit">
 					   </cfif>
 				 
-	 			   <td style="width:20;padding-top:1px;padding-left:2px"
-				   onClick="editline('#journalserialno#','#accountperiod#','#dateformat(transactiondate,client.dateformatshow)#','#headerselect.transactioncategory#','#transactiontype#','#debcre#','#reference#','#md#','#glaccount#','#transactioncurrency#','#TransactionAmount#','#TransactionTaxCode#','#Memo#','#OrgUnit#','#ProgramCode#','#programCodeProvider#','#contributionlineid#','#TransactionSerialNo#','#fund#','#objectcode#','#warehouse#','#warehouseitemno#','#warehouseitemuom#','#warehousequantity#','#parentlineid#','#parenttransactionid#','#exchangerate#','#exchangeratebase#')">
-				   	     
-				   				   
+	 			   <td style="padding-top:1px"
+				      onClick="editline('#journalserialno#','#accountperiod#','#dateformat(transactiondate,client.dateformatshow)#','#headerselect.transactioncategory#','#transactiontype#','#debcre#','#reference#','#referencename#','#glaccount#','#transactioncurrency#','#TransactionAmount#','#TransactionTaxCode#','#Memo#','#OrgUnit#','#ProgramCode#','#programCodeProvider#','#contributionlineid#','#TransactionSerialNo#','#fund#','#objectcode#','#warehouse#','#warehouseitemno#','#warehouseitemuom#','#warehousequantity#','#parentlineid#','#parenttransactionid#','#exchangerate#','#exchangeratebase#')">
+				   	     				   				   
 				    	<cf_img icon="open"	navigation="yes">
 				     				
 					 <cfset prior = TransactionSerialNo>
@@ -615,11 +614,11 @@ password="#SESSION.dbpw#">
 					
 				  <cfelse>
 				
-					 <td style="width:20;padding-left:4px"></td>	
+					 <td></td>	
 				
 				  </cfif>
 				
-				  <td style="width:20;padding-top:2px;padding-left:0px;padding-right:2px">				
+				  <td style="padding-top:2px">				
 					<cf_img icon="delete" onClick="deleteline('#TransactionSerialNo#')">				
 				   </td>	
 				   
@@ -643,8 +642,8 @@ password="#SESSION.dbpw#">
 							 
 		   </td>
 				
-		   <td style="min-width:40px;padding-left:2px;padding-right:2px">#TransactionSerialNo#</td>
-		   <td style="padding-left:2px;padding-right:8px">
+		   <td>#TransactionSerialNo#</td>
+		   <td>
 		   <cfif transactiondate eq "">	   
 		   #year(pap)#<cfif month(pap) lt 10>0</cfif>#month(pap)#
 		   <cfelse>
@@ -657,9 +656,9 @@ password="#SESSION.dbpw#">
 		   <cfset sl = glaccount>
 		   </cfif>
 		   
-		   <td style="min-width:#len(sl)*10#">#sl#</td>
-		   <td style="width:50%">#Description#</td>
-		   <td style="border-right: 1px solid Silver;WIDTH:50%;min-width:100px">
+		   <td>#sl#</td>
+		   <td>#Description#</td>
+		   <td style="border-right: 1px solid Silver">
 		       <cfif TraCat is "Payment">
 			       #Memo#
 			       <!---
@@ -669,13 +668,13 @@ password="#SESSION.dbpw#">
 			   </cfif>
 		   </td>
 		   	   	   	   		
-		   <td align="right" style="min-width:100px;border-right: 1px solid Silver;border-bottom: 1px solid Silver;padding-right:2px;">
+		   <td align="right" style="width:100px;max-width:100px;min-width:100px;border-right: 1px solid Silver;border-bottom: 1px solid Silver;padding-right:2px;">
 			   <cfif AmountDebit is not "">#NumberFormat(AmountDebit,',.__')#</cfif></td>
-		   <td align="right" style="background-color:##fafafa80;min-width:100px;border-right: 1px solid Silver;border-bottom: 1px solid Silver;padding-right:2px;"><i>
+		   <td align="right" style="width:100px;max-width:100px;background-color:##fafafa80;min-width:100px;border-right: 1px solid Silver;border-bottom: 1px solid Silver;padding-right:2px;"><i>
 			   <cfif AmountBaseDebit is not ""><font color="C0C0C0">#NumberFormat(AmountBaseDebit,',.__')#</cfif></td>   
-		   <td align="right" style="min-width:100px;border-right: 1px solid Silver;border-bottom: 1px solid Silver;padding-right:2px;">
+		   <td align="right" style="width:100px;max-width:100px;min-width:100px;border-right: 1px solid Silver;border-bottom: 1px solid Silver;padding-right:2px;">
 			   <cfif AmountCredit is not "">#NumberFormat(AmountCredit,',.__')#</cfif></td>	  
-		   <td align="right" style="background-color:##fafafa80;min-width:100px;border-bottom: 1px solid Silver;;padding-right:2px;"><i>
+		   <td align="right" style="width:100px;max-width:100px;background-color:##fafafa80;min-width:100px;border-bottom: 1px solid Silver;;padding-right:2px;"><i>
 			   <cfif AmountBaseCredit is not ""><font color="C0C0C0">#NumberFormat(AmountBaseCredit,',.__')#</cfif></td>   
 		   </TR>
 	
@@ -865,15 +864,15 @@ password="#SESSION.dbpw#">
 		
 	    <cfif line.recordcount gte "1">
 			
-		    <tr style="height:25px" class="labelmedium2">
-		    <td align="center" style="width:100%;padding-right:2px;border-right:0px solid Silver;"></td>
+		    <tr style="height:25px" class="labelmedium2 fixlengthlist">
+		    <td align="center" style="width:100%;border-right:0px solid Silver;"></td>
 			<cfoutput query="total">
-			<td align="right" style="background-color:f1f1f1;font-size:14px;min-width:100px;padding-right:2px;border-left: 1px solid Silver;"><b>#NumberFormat(db,',.__')#</b></td>	
-			<td align="right" style="font-size:14px;min-width:100px;padding-right:2px;border-left: 1px solid Silver;"><i>#NumberFormat(bdb,',.__')#</b></td>	
-			<td align="right" style="background-color:f1f1f1;font-size:14px;min-width:100px;padding-right:2px;border-left: 1px solid Silver;"><b>#NumberFormat(cd,',.__')#</b></td>		
-			<td align="right" style="font-size:14px;min-width:100px;padding-right:2px;border-left: 1px solid Silver;"><i>#NumberFormat(bcd,',.__')#</b></td>	
+			<td align="right" style="min-width:99px;background-color:f1f1f1;font-size:14px;border-left: 1px solid Silver;"><b>#NumberFormat(db,',.__')#</b></td>	
+			<td align="right" style="min-width:99px;font-size:14px;border-left: 1px solid Silver;"><i>#NumberFormat(bdb,',.__')#</i></td>	
+			<td align="right" style="min-width:99px;background-color:f1f1f1;font-size:14px;border-left: 1px solid Silver;"><b>#NumberFormat(cd,',.__')#</b></td>		
+			<td align="right" style="min-width:99px;font-size:14px;border-left: 1px solid Silver;"><i>#NumberFormat(bcd,',.__')#</i></td>	
 			</cfoutput>
-			<td style="min-width:10px"></td>
+			<td style="width:10px"></td>
 	    </TR>	
 		
 		 <tr style="height:35px" class="labelmedium2">
@@ -896,7 +895,7 @@ password="#SESSION.dbpw#">
 					FROM   #SESSION.acc#GLedgerLine_#client.sessionNo#_#session.mytransaction#
 				  </cfquery>	
 				  				  
-				  <cfif abs(total.diff) lt "0.001" and abs(total.diffB) lt "0.01" and (Verify.recordcount gte "2" or getJournal.SystemJournal eq "Distribution")>			  
+				 <cfif abs(total.diff) lt "0.001" and abs(total.diffB) lt "0.01" and (Verify.recordcount gte "2" or getJournal.SystemJournal eq "Distribution")>			  
 				 		  
 				  	<table><tr>			
 					

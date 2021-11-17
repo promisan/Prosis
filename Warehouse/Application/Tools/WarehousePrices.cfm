@@ -201,6 +201,7 @@
 					
 					AND    IU.EnablePortal = '1'
 					AND    Warehouse is NULL
+					AND    S.Operational = 1
 					AND    MP.Mission is not NULL
 					
 					GROUP BY MP.Mission, 
@@ -241,7 +242,7 @@
 	datasource="appsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	SELECT * FROM Ref_PriceSchedule WHERE FieldDefault = 0
+	SELECT * FROM Ref_PriceSchedule WHERE FieldDefault = 0 AND Operational = 1
 </cfquery>
 
 <cfif Default.recordcount eq "1">

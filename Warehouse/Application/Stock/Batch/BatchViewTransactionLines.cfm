@@ -90,7 +90,19 @@ password="#SESSION.dbpw#">
 	               T.Location, 	
 				   W.LocationClass,
 				   W.ListingOrder,	
-				   W.Description as LocationDescription,				    
+				   W.Description as LocationDescription,		
+				   
+				   <cfif url.modality eq "1">
+				   
+			       ( SELECT Journal 
+				     FROM   Accounting.dbo.TransactionHeader R
+					 WHERE  R.ReferenceId = T.TransactionId) as JournalCOGS,	
+					 
+				   ( SELECT JournalSerialNo 
+				     FROM   Accounting.dbo.TransactionHeader R
+					 WHERE  R.ReferenceId = T.TransactionId) as JournalSerialNoCOGS,		 	 		    
+					 
+				   </cfif>	 
 				  
 				   ( SELECT Reference 
 				     FROM   Request R
@@ -141,7 +153,6 @@ password="#SESSION.dbpw#">
 				   (SELECT SalesTotal 
 				    FROM   ItemTransactionShipping 
 					WHERE  TransactionId = T.TransactionId) as Sales,
-						
 					
 				   (SELECT Journal 
 				    FROM   ItemTransactionShipping 
@@ -278,9 +289,9 @@ password="#SESSION.dbpw#">
 		   </cfif>	   
 		   
 		   <cfif searchresult.recordcount gte "1">
-		  	  		   
-			   <cfif url.mode eq "process" or url.mode eq "undefined">
-			   
+		   		  	  		  
+			   <cfif url.mode eq "process" or url.mode eq "undefined" or url.mode eq "" or getAdministrator("*") eq "1">
+			   			   			   
 				   <tr class="line"><td colspan="12">
 				   
 					   	  <table>
@@ -304,22 +315,37 @@ password="#SESSION.dbpw#">
 							   method           = "Journal" 
 							   journal          = "#SearchResult.Journal#"
 							   returnvariable   = "access">	  
-							   
+														   
 							<!--- we showuld margin information only to finance officers --->   
 												
 							<cfif SearchResult.Journal neq "" and access neq "NONE">  
-							
+														
 								<td style="padding:4px">|</td>		
 																						
 								<td>		
 								<input type="radio" class="radiol" name="modality" value="9" <cfif url.modality eq "9">checked</cfif> onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BatchViewTransactionLines.cfm?systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#&mode=process&modality=9','main')">
 								</td>		
-								<td style="font-size:16px;padding-left:3px"><cf_tl id="Hide Sales Margin"></td>	
+								<td style="font-size:15px;padding-left:3px"><cf_tl id="Hide Sales Margin"></td>	
 								<td style="padding-left:7px">		
 								<input type="radio" class="radiol" name="modality" value="1" <cfif url.modality eq "1">checked</cfif> onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BatchViewTransactionLines.cfm?systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#&mode=process&modality=1','main')">
 								</td>
-								<td style="font-size:16px;padding-left:3px"><cf_tl id="Show Sales Margin"></td>			
-								<td style="padding:4px">|</td>									
+								<td style="font-size:15px;padding-left:3px"><cf_tl id="Show Sales Margin"></td>			
+								<td style="padding:4px">|</td>	
+								
+							<cfelseif access neq "NONE">
+							
+							    <td style="padding:4px">|</td>		
+																						
+								<td>		
+								<input type="radio" class="radiol" name="modality" value="9" <cfif url.modality eq "9">checked</cfif> onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BatchViewTransactionLines.cfm?systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#&mode=process&modality=9','main')">
+								</td>		
+								<td style="font-size:15px;padding-left:3px"><cf_tl id="Quantities"></td>	
+								<td style="padding-left:7px">		
+								<input type="radio" class="radiol" name="modality" value="1" <cfif url.modality eq "1">checked</cfif> onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BatchViewTransactionLines.cfm?systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#&mode=process&modality=1','main')">
+								</td>
+								<td style="font-size:15px;padding-left:3px"><cf_tl id="Quantities and Value"></td>			
+								<td style="padding:4px">|</td>	
+																							
 							</cfif>
 							
 							<cfif url.mode neq "embed" and searchresult.recordcount gte "30">																
@@ -359,50 +385,50 @@ password="#SESSION.dbpw#">
 			
 			<cfoutput>
 			
-			<tr class="labelmedium line fixrow">
-			    <td style="min-width:20px"></td>
-			    <td style="min-width:20px"></td>  				
+			<tr class="labelmedium line fixrow fixlengthlist">
+			    <td></td>
+			    <td></td>  				
 					 
 				<cfif URL.id neq "">
 				
-				    <TD style="min-width:100px"><cf_tl id="Type"></TD>				
-					<TD style="min-width:80px"><cf_tl id="Reference"></TD>
-					<TD style="min-width:100px"><cf_tl id="Voucher"></TD>			
-					<TD style="min-width:150px"><cfif searchresult.assetid neq ""><cf_tl id="Make">/<cf_tl id="Id"><cfelseif searchresult.workorderid neq ""><cf_tl id="Workorder"><cfelse><cf_tl id="Beneficiary"></cfif></TD>
+				    <TD><cf_tl id="Type"></TD>				
+					<TD><cf_tl id="Reference"></TD>
+					<TD><cf_tl id="Voucher"></TD>			
+					<TD><cfif searchresult.assetid neq ""><cf_tl id="Make">/<cf_tl id="Id"><cfelseif searchresult.workorderid neq ""><cf_tl id="Workorder"><cfelse><cf_tl id="Beneficiary"></cfif></TD>
 					
 				<cfelseif Batch.BatchDescription eq "Receipt Distribution">
 							   
-				    <TD style="width:100%" colspan="4"><cf_tl id="Product"></TD>				
+				    <TD colspan="4"><cf_tl id="Product"></TD>				
 					
 				<cfelse>	
 										
 					<cfif batch.transactiontype eq "9">
-					<TD style="width:100%" colspan="3"><cf_tl id="Product"></TD>
-					<td style="min-width:100px"></td>
+					<TD colspan="3"><cf_tl id="Product"></TD>
+					<td></td>
 					<cfelse>	
-					<TD style="width:100%" colspan="2"><cf_tl id="Product"></TD>
-					<TD style="min-width:100px"><cf_tl id="Voucher"></TD>			
-					<TD style="min-width:150px"><cfif searchresult.assetid neq ""><cf_tl id="Make">/<cf_tl id="Id"><cfelseif searchresult.workorderid neq ""><cf_tl id="Workorder"><cfelse><cf_tl id="Beneficiary"></cfif></TD>
+					<TD colspan="2"><cf_tl id="Product"></TD>
+					<TD><cf_tl id="Voucher"></TD>			
+					<TD><cfif searchresult.assetid neq ""><cf_tl id="Make">/<cf_tl id="Id"><cfelseif searchresult.workorderid neq ""><cf_tl id="Workorder"><cfelse><cf_tl id="Beneficiary"></cfif></TD>
 					</cfif>
 				   				
 				</cfif>	  				
 				
 				<cfif Batch.TransactionType neq "5">
-				<td style="padding-right:4px;min-width:60px">
+				<td>
 					<cfif param.LotManagement eq "1">
 						<cf_tl id="Lot">
 					<cfelse>
 						<cf_tl id="Metric">
 					</cfif>
 				</td>		
-				<TD style="min-width:100px"><cf_tl id="Request"></TD>			
+				<TD><cf_tl id="Request"></TD>			
 				<cfelse>
-				<TD style="min-width:100px" colspan="2"><cf_tl id="Stock amendment"></TD>					
+				<TD colspan="2"><cf_tl id="Stock amendment"></TD>					
 				</cfif>
-				<TD style="min-width:90px"><cf_tl id="Date"></TD>						
-				<TD align="right" style="min-width:70px;padding-left:3px"><cf_tl id="UoM"></TD>
-			    <TD align="right" style="padding-right:3px;min-width:100px"><cf_tl id="Quantity"></TD>				
-				<TD style="padding-left:3px;min-width:36px">
+				<TD><cf_tl id="Date"></TD>						
+				<TD align="right"><cf_tl id="UoM"></TD>
+			    <TD align="right"><cf_tl id="Quantity"></TD>				
+				<TD>
 					<cf_UIToolTip tooltip="Accounts Payable for outsourced transaction"><cf_tl id="AP"></cf_UIToolTip>
 				</TD>	
 			
@@ -420,7 +446,7 @@ password="#SESSION.dbpw#">
 							<table height="100%">
 							<tr class="labelmedium">
 							    <td style="min-width:12px"></td>
-							    <td style="width:100%;border-right:1px solid silver;padding-right:4px" align="right"></td>
+							    <td style="border-right:1px solid silver;padding-right:4px" align="right"></td>
 								<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Price"></td>															
 								<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Net Sale"></td>								
 								<td style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Tax"></td>
@@ -581,14 +607,14 @@ password="#SESSION.dbpw#">
 						
 				  		<cf_precision number="#ItemPrecision#">
 																													
-						<tr id="r#currentrow#" class="clsTransaction navigation_row line labelmedium" style="height:20px;cursor:pointer;">							
+						<tr id="r#currentrow#" class="clsTransaction navigation_row line labelmedium fixlengthlist" style="height:20px;cursor:pointer;">							
 							
-									<td style="padding-left:4px" width="1%">
+									<td width="1%">
 									
 										<table>
 										<tr class="labelmedium" style="height:20px">		
-											<td style="padding-left:5px;width:35px;height:20px;padding-right:5px">#row#.</td>							
-											<td align="center" style="width:40px;padding:2px">
+											<td style="padding-left:5px;height:20px;width:30px;">#row#.</td>							
+											<td align="center" style="padding:2px">
 											<img onclick="batchtransaction('#transactionid#','#url.systemfunctionid#','process')" 
 											  height="15" width="16" 
 											  src="#session.root#/images/TransactionType/#transactionType#.png" alt="" border="0">
@@ -601,7 +627,7 @@ password="#SESSION.dbpw#">
 									
 									<td class="hide ccontent">#Description# #ItemNoExternal# #ItemBarcode# #ItemDescription# #Make# #Model# #TransactionReference# #RequestReference# #assetBarcode# #serialNo# #AssetDecalNo#</td>
 														
-									<td id="status_#transactionid#" style="padding-left:4px;padding-right:3px" width="2%">
+									<td id="status_#transactionid#">
 									
 									    <!--- ------------------------------------ --->
 									    <!--- defined the process mode to be shown --->
@@ -721,8 +747,10 @@ password="#SESSION.dbpw#">
 																													
 									<cfif Batch.BatchDescription eq "Receipt Distribution">
 									
-									<TD colspan="3" style="padding-right:3px">
-										<a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">#LocationDescription# #ItemDescription#</a>																												
+									<td style="background-color:e1e1e1;border-left:1px solid silver">#LocationDescription#</td>		
+									
+									<TD colspan="2" title="#LocationDescription# #ItemDescription#">
+										<a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">#ItemDescription#</a>																												
 									</TD>			
 									<td>#ItemBarCode#</td>							
 									
@@ -730,25 +758,27 @@ password="#SESSION.dbpw#">
 									
 									<cfif batch.transactiontype eq "9">
 									
-											<TD colspan="3" style="padding-right:3px">
+									        <td style="background-color:e1e1e1;border-left:1px solid silver">#LocationDescription#</td>		
+									
+											<TD colspan="2">
 												<a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">																						
-												#LocationDescription# #ItemNo# #ItemDescription#												
+												#ItemNo# #ItemDescription#												
 												</a>																				
 											</TD>												
 											<td>#ItemBarCode#</td>
 									
-									<cfelse>												
+									<cfelse>	
 									
-											<TD colspan="2" style="padding-right:3px;min-width:300px">
+									    	<td class="fixlength" style="width:100px;background-color:e1e1e1;border-left:1px solid silver">#LocationDescription#</td>										
+																				
+											<TD colspan="1">
 											
-												<table align="left" style="height:100%">
-													<tr class="labelmedium" style="height:20px">
-													    <td style="background-color:e1e1e1;border-left:1px solid silver;padding-right:4px;padding-left:3px">#LocationDescription#</td>
-														<td style="padding-left:3px" align="left">
-														   <a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">															
-															#ItemDescription#  <!--- <cfif itembarcode neq "">-&nbsp;#ItemBarCode#</cfif> --->															
-														   </a>
-														   #ItemNoExternal#
+												<table align="left" style="width:100%;height:100%">
+													<tr class="labelmedium fixlengthlist" style="height:20px">													    
+														<td align="left" title="#itemDescription# #ItemNoExternal#">														   
+														   <a class="navigation_action" href="javascript:item('#itemno#','','#mission#')">		
+														    <b>#ItemNoExternal#</b> #ItemDescription#  <!--- <cfif itembarcode neq "">-&nbsp;#ItemBarCode#</cfif> --->															
+														   </a>														   
 														</td>
 													</tr>
 													
@@ -796,7 +826,7 @@ password="#SESSION.dbpw#">
 												</table>	
 											</TD>	
 											
-											<td style="padding-right:3px;border-left:1px solid silver;padding-left:1px" width="60" id="reference_#transactionid#">
+											<td style="border-left:1px solid silver" id="reference_#transactionid#">
 											
 												<cfif batch.actionStatus eq "0" or 
 												   (batch.actionstatus eq "1" and getAdministrator(batch.mission) eq "1")>
@@ -804,7 +834,7 @@ password="#SESSION.dbpw#">
 												<table width="100%">
 												<tr class="labelmedium" style="height:20px">
 											    	
-													<td style="padding-left:3px"><cfif len(TransactionReference) gt 10>#left(TransactionReference,10)#..<cfelse>#TransactionReference#</cfif></td>
+													<td style="padding-left:3px">#TransactionReference#</td>
 													
 													<cfif (TransactionType eq "2" and FullAccess eq "GRANTED")>
 													
@@ -826,7 +856,7 @@ password="#SESSION.dbpw#">
 																				
 											</td>											
 												
-											<TD style="border-left:1px solid silver;padding-left:3px">	
+											<TD style="border-left:1px solid silver">	
 																				
 												<cfif assetid neq "">
 												
@@ -890,7 +920,7 @@ password="#SESSION.dbpw#">
 									
 									<cfif Batch.TransactionType neq "5">
 									
-										<td style="padding-right:5px" id="metric_#transactionid#">
+										<td id="metric_#transactionid#">
 										  <cfif Param.LotManagement eq "1">
 										  	#TransactionLot#									 
 										  <cfelseif MetricValue neq "0">										  
@@ -940,7 +970,7 @@ password="#SESSION.dbpw#">
 																		
 									</cfif>							
 																						
-									<TD class="cdate" style"padding-right:2px">
+									<TD class="cdate">
 									
 										<cfif dateformat(Batch.TransactionDate,CLIENT.DateFormatShow) neq Dateformat(TransactionDate,"#CLIENT.DateFormatShow#")>
 											#Dateformat(TransactionDate,"DD/MM/YY")#
@@ -950,9 +980,9 @@ password="#SESSION.dbpw#">
 																			
 									</TD>																
 									
-									<td style="padding-right:4px" align="right" class="cuom">#UoMDescription#</td>			
+									<td align="right" class="cuom">#UoMDescription#</td>			
 									
-									<td id="quantity_#transactionid#" align="right" style="padding-right:2px; padding-left:3px">
+									<td id="quantity_#transactionid#" align="right">
 									
 									    <table width="100%" height="100%">
 										
@@ -979,7 +1009,7 @@ password="#SESSION.dbpw#">
 										
 										</td>		
 										
-										<td style="width:30;padding-left:3px;padding-right:4px;border:0px solid silver">
+										<td>
 																		
 										<!--- allow editing --->
 										
@@ -1085,7 +1115,7 @@ password="#SESSION.dbpw#">
 										
 									</td>																										
 																		
-									<TD style="padding-left:6px;padding-right:2px">		
+									<TD>		
 									
 									    <cfif url.mode neq "embed" and url.stockorderid eq "">			
 									
@@ -1139,7 +1169,13 @@ password="#SESSION.dbpw#">
 									<td align="right" style="background-color:DAF9FC;min-width:90px;border-right:1px solid silver;padding-right:4px">#numberformat(shipping.SalesTax,",.__")#</td>
 									<td align="right" style="background-color:DAF9FC;min-width:90px;border-right:1px solid silver;padding-right:4px">#numberformat(shipping.SalesTotal,",.__")#</td>
 									<td bgcolor="f1f1f1" style="min-width:90px;border-right:1px solid silver;padding-right:4px" align="right">#Application.BaseCurrency#</td>
-									<td bgcolor="f1f1f1" style="min-width:110px;border-right:1px solid silver;padding-right:4px" align="right">#numberformat(TransactionValue*-1,",.__")#</b></td>
+									<td bgcolor="f1f1f1" style="min-width:110px;border-right:1px solid silver;padding-right:4px" align="right">
+									<cfif url.modality eq "1" and journalCOGS neq "">
+									<a href="javascript:ShowTransaction('#JournalCOGS#','#JournalSerialNoCOGS#','','tab','')">#numberformat(TransactionValue*-1,",.__")#</a>									
+									<cfelse>
+									#numberformat(TransactionValue*-1,",.__")#
+									</cfif>
+									</td>
 									<td bgcolor="f1f1f1" style="min-width:110px;border-right:1px solid silver;padding-right:4px" align="right">#numberformat(shipping.SalesBaseAmount,",.__")#</b></td>
 									<cfset margin = shipping.SalesBaseAmount + TransactionValue>
 									<cfif margin gte "0">									
@@ -1431,17 +1467,17 @@ password="#SESSION.dbpw#">
 					<tr bgcolor="fafafa" style="border-top:1px solid silver">
 						  	<td align="center"></td>
 							<td colspan="10" align="right"  style="padding-right:30px;padding-top:4px">
-							    <table style="background-color:ffffaf">
+							    <table style="background-color:yellow;border:1px solid silver">
 								<tr class="labelmedium2">
 								<td style="padding-left:10px;font-size:14px">
 							    <cf_tl id="Lines">
 								</td>
-								<td style="padding-left:5px;font-size:14px;">#searchresult.recordcount#</td>
+								<td style="padding-left:5px;font-size:14px;padding-right:4px;border-right:1px solid silver">#searchresult.recordcount#</td>
 								
 								<td style="padding-left:10px;font-size:14px">
 							    <cf_tl id="Quantity">
 								</td>
-								<td style="padding-left:5px;font-size:14px;padding-right:5px">								    						        								
+								<td style="padding-left:5px;font-size:14px;padding-right:4px;border-right:1px solid silver">								    						        								
 								<cfif searchresult.transactiontype eq "2">
 									#NumberFormat(-tot,'#pformat#')#
 								<cfelseif batch.transactiontype eq "8">		
@@ -1454,9 +1490,11 @@ password="#SESSION.dbpw#">
 								<cfif url.modality eq "1">
 								
 								 <cfquery name="getTotal" dbtype="query">
-								 		SELECT sum(Sales) as Total
+								 		SELECT sum(Sales) as Total, sum(TransactionValue*-1) as COGS
 										FROM   SearchResult</cfquery>		
 								
+								<td style="padding-left:5px;font-size:14px;padding-right:5px"><cf_tl id="COGS"></td>
+								<td style="padding-left:5px;padding-right:4px;border-right:1px solid silver">#numberformat(getTotal.COGS,",.__")#</td>
 								<td style="padding-left:5px;font-size:14px;padding-right:5px"><cf_tl id="Sale"></td>
 								<td style="padding-left:5px;padding-right:5px">#numberformat(getTotal.total,",.__")#</td>
 								</cfif>

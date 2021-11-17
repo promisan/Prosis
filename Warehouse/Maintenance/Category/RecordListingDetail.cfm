@@ -10,12 +10,12 @@ password="#SESSION.dbpw#">
 	ORDER BY StockControlMode, Category
 </cfquery>	
 
-<table width="98%" align="center" class="navigation_table">
+<table width="98%" class="navigation_table">
 
-	<tr class="fixrow labelmedium2">
+	<tr class="fixrow labelmedium2 fixlengthlist">
 	   
 	    <td height="20" width="5%"></TD>
-	    <td style="padding-left:4px" width="100"><cf_tl id="Code"></TD>		
+	    <td style="padding-left:4px"><cf_tl id="Code"></TD>		
 		<td><cf_tl id="Description"></TD>
 		<td><cf_tl id="Mode"></TD>
 		<td align="center"><cf_tl id="Tab"></td>
@@ -33,7 +33,7 @@ password="#SESSION.dbpw#">
 		<tr class="line  labelmedium2"><td style="height:40px;font-size:25px" colspan="11">#StockControlMode#</td></tr>
 	    
 		<cfoutput>
-	    <TR class="navigation_row line labelmedium2"> 	
+	    <TR class="navigation_row line labelmedium2 fixlengthlist"> 	
 			
 		<td>
 			  		

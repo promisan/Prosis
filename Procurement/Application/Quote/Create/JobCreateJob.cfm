@@ -2,8 +2,6 @@
 <cfparam name="SESSION.reqNo" default="">
 <cfset url.selected = SESSION.reqNo>
 
-
-
 <cfif url.selected eq "">
 	<cfabort>
 </cfif>
@@ -45,10 +43,9 @@
   ORDER BY 	 J.OrderClass, J.CaseNo 
 </cfquery>
 
-
 <cfform method="POST" name="jobform">  
 
-<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" class="formpadding">
 	
 	<tr><td height="8" id="result"></td></tr>
 	<tr>
@@ -58,23 +55,25 @@
 		   <table><tr><td class="labelmedium" style="padding-left:5px;cursor: pointer;" onclick="selectme[0].click()">
 		   <input type="radio" class="radiol" name="selectme" id="selectme" value="add" checked onClick="show('add');selectjob.value='add'"><cf_tl id="New Job">
 		   </td>
+		   
 		   <cfif Active.recordcount neq "0">
+		   
 		   <td style="padding-left:5px;cursor: pointer;" class="labelmedium" onclick="selectme[1].click()">
 		   <input type="radio" class="radiol" name="selectme" id="selectme" value="exist" onClick="show('exist');selectjob.value='exist'"><cf_tl id="Add to Existing Job">
 		   </td>
 		   <td>&nbsp;</td>
 		   <td id="exist" class="hide">
 		   		   
-		    <select name="JobNo" id="JobNo" class="regularxl">
+		    <select name="JobNo" id="JobNo" class="regularxxl">
 			  <cfoutput query="Active">
 			     <option value="#JobNo#">#JobNo# : #CaseNo# </option>
 			  </cfoutput>
 		    </select>
 					   
-		   </td> 
-		   
+		   </td> 		   
 		   
 		   </cfif>
+		   
 		   </td></tr></table>
 	   </td>
 	</tr>
@@ -85,7 +84,7 @@
 	
 	  <td colspan="2">
 	  
-		<table width="93%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+		<table width="93%" align="center" class="formpadding">
 		
 		<tr><td height="1" colspan="2" class="linedotted"></td></tr>
 				
@@ -165,7 +164,7 @@
 		<tr>
 		   <td class="labelmedium"><cf_tl id="Authorization Group">:<font color="FF0000">*</font>&nbsp;</b></td>
 		   <td class="labelmedium">
-		   <select name="JobCategory" id="JobCategory" class="regularxl">
+		   <select name="JobCategory" id="JobCategory" class="regularxxl">
 			   <cfoutput query="JobGroup">
 			   <option value="#Code#">#Description#</option>
 			   </cfoutput>
@@ -177,21 +176,21 @@
 		<tr>
 		   <td class="labelmedium"><cf_tl id="<cfoutput>#Parameter.JobReferenceName#</cfoutput>">:<font color="FF0000">*</font></td>
 		   <td class="labelmedium">
-		       <input class="regularxl" type="text" name="CaseNo" id="CaseNo" size="20" maxlength="20">
+		       <input class="regularxxl" type="text" name="CaseNo" id="CaseNo" size="20" maxlength="20">
 		   </td>
 		</tr>
 				
 		<tr>
 		   <td class="labelmedium"><cf_tl id="Description">:&nbsp;<font color="FF0000">*</font></b></td>
 		   <td>
-		       <input class="regularxl" type="text" name="Description" id="Description" size="80" maxlength="100">
+		       <input class="regularxxl" type="text" name="Description" id="Description" size="80" maxlength="100">
 		   </td>
 		</tr>
 		
 		<tr>
 		   <td class="labelmedium"><cf_tl id="Unit">:</td>
 		   <td class="labelmedium">
-		       <input class="regularxl" type="text" id="CaseName" name="CaseName" size="80" maxlength="100">
+		       <input class="regularxxl" type="text" id="CaseName" name="CaseName" size="80" maxlength="100">
 		   </td>
 		</tr>
 		
@@ -297,7 +296,7 @@
 		
 	<tr><td height="4" colspan="2">
 	
-		<cfdiv bind="url:SelectLines.cfm?mode=#url.mode#&mission=#url.mission#&period={period}">	
+		<cf_securediv bind="url:SelectLines.cfm?mode=#url.mode#&mission=#url.mission#&period={period}">	
 	
 	</td></tr>
 	

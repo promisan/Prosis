@@ -203,25 +203,25 @@ password="#SESSION.dbpw#">
 
 		<table width="98%" border="0" cellspacing="0" cellpadding="0" class="navigation_table" align="center">
 		
-		<TR class="labelmedium line fixrow">
+		<TR class="labelmedium line fixrow fixlengthlist">
 		
 		    <TD></TD>
 			<TD></TD>
 			
-		    <TD style="min-width:100px"><cf_tl id="Name"></TD>	
+		    <TD><cf_tl id="Name"></TD>	
 			<!---		
 		    <TD style="min-width:90px"><cf_tl id="First name"></TD>
 			<TD style="min-width:70px"><cf_tl id="Middle"></TD>
 			--->
-			<td style="min-width:65px"><cf_tl id="No"></td>
-			<TD style="min-width:90px"><cf_tl id="IndexNo"></TD>		    
-		    <td style="min-width:20px"><cf_tl id="S"></td>
-		    <TD style="min-width:80px"><cf_tl id="DOB"></TD>
+			<td><cf_tl id="No"></td>
+			<TD><cf_tl id="IndexNo"></TD>		    
+		    <td><cf_tl id="S"></td>
+		    <TD><cf_tl id="DOB"></TD>
 			<TD><cf_tl id="Nationality"></TD>
-		    <TD style="min-width:50px"><cf_tl id="Entity"></TD>	
+		    <TD><cf_tl id="Entity"></TD>	
 			<TD></TD>
-			<TD style="min-width:40px"><cf_tl id="Level"></TD>		
-		    <TD style="min-width:200px"><cf_tl id="Post title"></TD>			
+			<TD><cf_tl id="Level"></TD>		
+		    <TD><cf_tl id="Post title"></TD>			
 		    <TD><cf_tl id="Source"></TD>
 		
 		</TR>
@@ -253,37 +253,37 @@ password="#SESSION.dbpw#">
 		   <cfif currentrow-first lt rows>		
 			   
 			   <TR bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('e7e7e7'))#" 
-			       class="navigation_row labelmedium <cfif URL.Lay neq 'Contract'>line</cfif>" style="height:23px">
+			       class="navigation_row  fixlengthlist labelmedium <cfif URL.Lay neq 'Contract'>line</cfif>" style="height:23px">
 				   	
 				   <cfif assignment gte "1">
-				   <td bgcolor="FF7837" style="padding-left:2px;padding-right:2px">&nbsp;</td>
+				   <td bgcolor="FF7837">&nbsp;</td>
 				   <cfelse>
-				   <TD style="padding-left:4px" align="center"></TD>
+				   <TD align="center"></TD>
 				   </cfif>	
-				   <td width="3%" align="center" style="padding-top:2px" class="navigation_action" onclick="EditPerson('#PersonNo#')">			   
+				   <td align="center" style="padding-top:2px" class="navigation_action" onclick="EditPerson('#PersonNo#')">			   
 				     <cf_img icon="select">						     
 				   </td>		
 				  
-				   <TD style="padding-left:3px">#FullName#</TD>				  
+				   <TD title="#fullname#">#FullName#</TD>				  
 				   <!---
 				   <TD style="padding-left:1px">#FirstName#</TD>
 				   <TD style="padding-left:1px">#MiddleName#</TD>
 				   --->
-				   <TD style="padding-left:1px">#PersonNo#</TD>
-				   <TD style="padding-left:1px">#IndexNo#</TD>				   
-				   <TD style="padding-left:1px">#Gender#</TD>
-				   <TD style="padding-left:1px">#DateFormat(BirthDate, CLIENT.DateFormatShow)#</TD>
-				   <TD style="padding-left:1px">#Name#</TD>
-				   <TD style="padding-left:1px">#Mission#</TD>	
-				   <TD style="padding-left:4px" align="center">
+				   <TD>#PersonNo#</TD>
+				   <TD>#IndexNo#</TD>				   
+				   <TD>#Gender#</TD>
+				   <TD>#DateFormat(BirthDate, CLIENT.DateFormatShow)#</TD>
+				   <TD>#Name#</TD>
+				   <TD>#Mission#</TD>	
+				   <TD align="center">
 				   <cfif pendingAction gte "1">
 				     <cf_img icon="open" onclick="workflowaction('#personNo#','#Mission#')">	 				   
 				   </cfif>		
 				   </TD>		
-				   <TD style="padding-left:2px">#ContractLevel#</TD>		   
-				   <TD style="padding-left:2px">
+				   <TD>#ContractLevel#</TD>		   
+				   <TD title="#FunctionDescription#">
 				   <cfif PositionNo neq ""><a href="javascript:EditPosition('','','#PositionNo#')">#FunctionDescription#</a></cfif></TD>				   
-				   <TD style="padding-left:2px">#Source#</TD>
+				   <TD>#Source#</TD>
 			   </TR>
 			      
 			   <cfif URL.Lay eq "Contract">			   
@@ -315,11 +315,11 @@ password="#SESSION.dbpw#">
 						     <td></td>
 							 <td></td>							 
 						     <td style="padding-left:3px;border-bottom :1px solid silver" bgcolor="ffffbf">#Mission#</td>  
-							 <td style="border-bottom :1px solid silver" bgcolor="ffffbf" align="left">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
-						     <td style="border-bottom :1px solid silver" bgcolor="ffffbf" align="left">#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
-						     <TD style="border-bottom :1px solid silver" bgcolor="ffffbf" align="left" colspan="5">#ContractType#  #ContractFunctionDescription#</TD>
-						     <TD style="border-bottom :1px solid silver" bgcolor="ffffbf" align="left">#SalarySchedule#</TD>
-						     <td style="border-bottom :1px solid silver" bgcolor="ffffbf" colspan="4" align="left">#ServiceLocation# &nbsp;#ContractLevel#/#ContractStep#</td>
+							 <td style="border-bottom :1px solid silver" bgcolor="ffffbf">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
+						     <td style="border-bottom :1px solid silver" bgcolor="ffffbf">#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
+						     <TD style="border-bottom :1px solid silver" bgcolor="ffffbf" colspan="5">#ContractType#  #ContractFunctionDescription#</TD>
+						     <TD style="border-bottom :1px solid silver" bgcolor="ffffbf">#SalarySchedule#</TD>
+						     <td style="border-bottom :1px solid silver" bgcolor="ffffbf" colspan="4" >#ServiceLocation# &nbsp;#ContractLevel#/#ContractStep#</td>
 					     </tr>
 				     
 				   </cfloop> 

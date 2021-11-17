@@ -3,7 +3,7 @@
 
 <table width="100%" height="100%">
 
-	<tr><td height="100%" align="center" style="border-right:1px solid silver">
+	<tr class="fixlengthlist"><td height="100%" align="center" style="border-right:1px solid silver">
 		
 		<cfquery name="Summary" 
 		datasource="AppsSystem" 
@@ -82,8 +82,8 @@
 		<table style="width:95%" valign="top" class="navigation_table">
 		
 				
-		<tr class="labelmedium2 line">
-			<td style="font-size:30px;min-width:120px;" rowspan="2"><cf_tl id="Host"><font size="1"><a href="javascript:refresh()"><cf_tl id="Refresh"></a></td>
+		<tr class="labelmedium2 line fixlengthlist">
+			<td style="font-size:27px;min-width:120px;" rowspan="2"><cf_tl id="Host"><font size="1"><a href="javascript:refresh()"><br><cf_tl id="Refresh"></a></td>
 			<td colspan="3" style="border-left:1px solid gray;" align="center">
 			<input type="hidden" id="mode" value="current">
 			<cf_tl id="Current">
@@ -102,7 +102,7 @@
 			<td colspan="1" align="center" style="width:45;border-left:1px solid gray;padding-right:2px"><cf_UItooltip tooltip="30 days">30d</cf_UItooltip></td>
 		</tr>	
 		
-		<tr class="labelmedium2 line">	    
+		<tr class="labelmedium2 line fixlengthlist">	    
 			<td style="border-left:1px solid gray;padding:0px" align="center">
 			<input type="button" style="border:0px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Usr" onclick="reloadForm('current','usr','action')">						
 			</td>
@@ -145,16 +145,16 @@
 				WHERE     ApplicationServer = '#applicationserver#'	
 			</CFQUERY>
 			
-			<tr class="labelmedium linedotted navigation_row" style="height:21px">
-			    <td style="padding-left:5px;padding-right:14px"><cfif ApplicationServer eq "">undefined<cfelse>#ApplicationServer#</cfif></td>
-				<td style="border-left:1px solid gray;padding-right:2px;background-color:##f2ffff80" height="15" align="right" bgcolor="F2FFFF"><cfif sessionuser eq "0">-<cfelse>#SessionUser#</cfif></td>
-				<td style="padding-right:2px"  align="right"><cfif session eq "0">-<cfelse>#Session#</cfif></td>
-				<td style="padding-right:2px"  align="right"><cfif error eq "0">-<cfelse>#Error#</cfif></td>
-				<td style="border-left:1px solid gray;padding-right:2px;background-color:##f2ffff80" align="right"><cfif sessionrecentuser eq "0">-<cfelse>#SessionRecentUser#</cfif></td>
-				<td style="padding-right:2px"  align="right"><cfif sessionrecent eq "0">-<cfelse>#SessionRecent#</cfif></td>
-				<td style="padding-right:2px"  align="right"><cfif errorrecent eq "0">-<cfelse>#ErrorRecent#</cfif></td>
-				<td bgcolor="ffffcf" style="background-color:##ffffaf80;border-left:1px solid gray;padding-right:2px" align="right">#LastWeek.Total#</td>
-				<td bgcolor="f1f1f1" style="background-color:##f1f1f180;border-left:1px solid gray;padding-right:2px" align="right">#Last30.Total#</td>
+			<tr class="labelmedium linedotted navigation_row fixlengthlist" style="height:21px">
+			    <td style="padding-right:14px"><cfif ApplicationServer eq "">undefined<cfelse>#ApplicationServer#</cfif></td>
+				<td style="border-left:1px solid gray;background-color:##f2ffff80" height="15" align="right" bgcolor="F2FFFF"><cfif sessionuser eq "0">-<cfelse>#SessionUser#</cfif></td>
+				<td align="right"><cfif session eq "0">-<cfelse>#Session#</cfif></td>
+				<td align="right"><cfif error eq "0">-<cfelse>#Error#</cfif></td>
+				<td style="border-left:1px solid gray;background-color:##f2ffff80" align="right"><cfif sessionrecentuser eq "0">-<cfelse>#SessionRecentUser#</cfif></td>
+				<td align="right"><cfif sessionrecent eq "0">-<cfelse>#SessionRecent#</cfif></td>
+				<td align="right"><cfif errorrecent eq "0">-<cfelse>#ErrorRecent#</cfif></td>
+				<td bgcolor="ffffcf" style="background-color:##ffffaf80;border-left:1px solid gray" align="right">#LastWeek.Total#</td>
+				<td bgcolor="f1f1f1" style="background-color:##f1f1f180;border-left:1px solid gray" align="right">#Last30.Total#</td>
 			</tr>
 			
 		</cfloop>
@@ -170,15 +170,15 @@
 			FROM       UserStatus S	
 		</cfquery>
 			
-		<tr class="linedotted labelmedium2">
+		<tr class="linedotted labelmedium2 fixlengthlist">
 		
 			<td><cf_tl id="Total"></td>
-			<td style="border-left:1px solid gray;padding-right:2px" align="right" bgcolor="F2FFFF">#Total.SessionUser#</td>
-			<td style="padding-right:2px" align="right">#Total.Session#</td>
-			<td style="padding-right:2px" align="right"></td>
-			<td style="border-left:1px solid gray;padding-right:2px" align="right" bgcolor="F2FFFF">#Total.SessionRecentUser#</td>
-			<td style="padding-right:2px" align="right">#Total.SessionRecent#</td>		
-			<td style="padding-right:2px" align="right"></td>
+			<td style="border-left:1px solid gray" align="right" bgcolor="F2FFFF">#Total.SessionUser#</td>
+			<td align="right">#Total.Session#</td>
+			<td align="right"></td>
+			<td style="border-left:1px solid gray" align="right" bgcolor="F2FFFF">#Total.SessionRecentUser#</td>
+			<td align="right">#Total.SessionRecent#</td>		
+			<td align="right"></td>
 			
 			<!--- last 7 days --->
 			<cfquery name="LastWeek" dbtype="query">
@@ -192,8 +192,8 @@
 			    FROM      getLast30		
 			</cfquery>
 			
-			<td bgcolor="ffffcf" style="border-left:1px solid gray;padding-right:2px" align="right">#LastWeek.Total#</td>
-			<td bgcolor="f1f1f1" style="border-left:1px solid gray;padding-right:2px" align="right">#Last30.Total#</td>
+			<td bgcolor="ffffcf" style="border-left:1px solid gray" align="right">#LastWeek.Total#</td>
+			<td bgcolor="f1f1f1" style="border-left:1px solid gray" align="right">#Last30.Total#</td>
 				
 		</tr>
 			

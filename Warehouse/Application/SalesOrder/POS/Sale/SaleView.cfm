@@ -137,7 +137,7 @@ password="#SESSION.dbpw#">
 										   FROM Parameter
 										   WHERE HostName = '#CGI.HTTP_HOST#'  
 					                   </cfquery>
-								
+
 					                   <cfif find(":",getLogo.logopath)>
 					                       <cfimage
 					                           action = "write"
@@ -533,7 +533,7 @@ password="#SESSION.dbpw#">
 										
 								  		<cf_selectlookup
 										    box          = "salelines"
-											title        = "CustomerInvoice"
+											title        = "Customer Invoice"
 											icon         = "Logos/Search.png"
 											link		 = "#link#"
 											des1		 = "CustomerIdInvoice"
@@ -625,7 +625,7 @@ password="#SESSION.dbpw#">
 						<tr class="labelmedium2">
 						
 						<td style="padding-right:10px; color:000000;min-width:70px"><cf_tl id="Sale"></td>
-						<td style="min-width:120px;border-left:0px solid gray" id="personbox">
+						<td style="min-width:160px;border-left:0px solid gray" id="personbox">
 						
 						<!--- get people that have an active assignment in the mission and in the orgunit of the warehouse --->
 																
@@ -651,7 +651,7 @@ password="#SESSION.dbpw#">
 						<table style="height:100%">
 						<tr class="labelmedium2">						
 						<td style="padding-right:10px; color:##000000;min-width:90px"><cf_tl id="Schedule"></td>
-						<td style="min-width:100px;border-left:0px solid gray" id="schedulebox">
+						<td style="min-width:130px;border-left:0px solid gray" id="schedulebox">
 						
 						<cfinclude template="getSchedule.cfm">					
 						

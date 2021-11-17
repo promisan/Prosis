@@ -1,10 +1,11 @@
-<cfform action="InvoiceMatchSubmit.cfm?ID=#URL.ID#&html=#url.html#" style="min-width:1200px" method="POST" name="invoice">
 
-<table style="width:1200px" width="100%" align="center">
+<cfform action="InvoiceMatchSubmit.cfm?ID=#URL.ID#&html=#url.html#" method="POST" name="invoice">
 
-<tr><td style="padding-top:4px;padding-left:10px;padding-right:10px;min-width:920"></td>
+<table width="100%" align="center">
 
-		<table width="98%" align="center">
+<tr><td style="padding-top:4px;padding-left:20px;padding-right:15px">
+
+		<table width="98%" align="left">
 						  
 		  <tr>
 		   <td colspan="5">
@@ -360,6 +361,7 @@
 				
 						<cfinclude template="InvoiceMatchReceiptLines.cfm">
 				
+				
 				</cfif>
 				
 			<cfelse>
@@ -371,7 +373,7 @@
 				   recorded issuances (mode external) 
 				   
 				   In this mode the invoice will be associated and paid from a single purcahse --->
-			      
+			     
 				   <cfinclude template="InvoiceMatchWarehouseLines.cfm">		  	   
 				   </td>
 			   </tr>
@@ -416,8 +418,7 @@
 							</table>
 							</td></tr>	
 												
-						</cfif>
-							
+						</cfif>							
 										
 					</cfif>
 								
@@ -431,7 +432,7 @@
 			
 			<td colspan="6" style="padding-top:8px;padding-left:20px"> 
 			
-				    <table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+				    <table width="99%" align="center">
 			
 					<tr>
 						<td class="labelmedium2">
@@ -439,28 +440,18 @@
 						<cfoutput>
 						
 						   <img src="#SESSION.root#/Images/arrowright.gif" alt="Expand" onclick="javascript:more('#url.id#')" 
-						     align="absmiddle" 
-							 border="0" 
-							 style="cursor: pointer;"
-							 class="show" 
-							 id="vExp">
+						     align="absmiddle" border="0" style="cursor: pointer;" class="show" id="vExp">
 							 
 						   <img src="#SESSION.root#/Images/arrowdown.gif" 
 						      alt="Record and view additional comments and remarks" 
 							  onclick="javascript:more('#url.id#')" 
-							  border="0" 
-							  height="9" width="9"
-							  style="cursor: pointer;"
-							  class="hide" 
-							  id="vMin">
+							  border="0" height="9" width="9" style="cursor: pointer;" class="hide" id="vMin">
 							  
 							 </td>
 							 
-							 <td class="labelmedium2" style="font-weight:200;font-size:20px"> 
+							 <td class="labelmedium2" style="font-size:20px"> 
 							  
-							  <a href="javascript:more('#url.id#')" title="Record and view additional comments and remarks">
-							  <font color="0080C0"><cf_tl id="Additional Comments and Remarks"></font>	
-							  </a>
+							  <a href="javascript:more('#url.id#')" title="Record and view additional comments and remarks"><cf_tl id="Additional Comments and Remarks"></a>
 							  
 							 </td> 
 							  					
@@ -517,7 +508,7 @@
 						<input type="hidden" 
 				               name="workflowlinkprocess_#url.id#" 
 							   id="workflowlinkprocess_#url.id#"
-							   onclick="ColdFusion.navigate('InvoiceMatchDetail.cfm?id=#url.id#','invoicedetail')">
+							   onclick="ptoken.navigate('InvoiceMatchDetail.cfm?id=#url.id#','invoicedetail')">
 		        			  
 						</cfoutput>	  
 		 
@@ -626,8 +617,6 @@
 				<cfif HeaderLedger.Amount eq HeaderLedger.AmountOutstanding 
 				     and invoice.historicInvoice eq "0" 
 					 and (AccessReq eq "EDIT" or AccessReq eq "ALL")>
-					
-					<cfform action="InvoiceMatchSubmit.cfm?ID=#URL.ID#&html=#url.html#" method="POST" name="invoice">
 									
 					<table cellspacing="0" cellpadding="0" class="formspacing">				
 					<tr>				
@@ -640,9 +629,7 @@
 						
 					</tr>				
 					</table>
-					
-					</cfform>
-					
+										
 				</cfif>				
 			
 		    </td>
@@ -655,7 +642,7 @@
 	</td>
 	</tr>
 	
+	
 </table>
-
 
 </cfform>

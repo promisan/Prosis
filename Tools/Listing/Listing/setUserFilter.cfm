@@ -1,7 +1,7 @@
 
 <cfparam name="attributes.mode" default="single">
 
-<cfif attributes.systemfunctionid neq "">
+<cfif attributes.systemfunctionid neq "" and attributes.systemfunctionid neq "00000000-0000-0000-0000-000000000000">
 	
 	<cfquery name="getValue" 
 		datasource="AppsSystem" 

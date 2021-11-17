@@ -52,13 +52,17 @@
 		templates name	--->
 		
 		<cfset l = len(URL.DocumentTemplate)>		
-	    <cfset path = left(URL.DocumentTemplate,l-4)>			   
+	    <cfset path = left(URL.DocumentTemplate,l-4)>	
+		
+		 <!--- load functions to be used --->
+		<cftry>
+		 <cfinclude template="strFunctions.cfm">	
+		 <cfcatch></cfcatch>
+		</cftry>		   
 				
 		<cftry>		
 			
-		      <!--- load functions to be used --->
-			 <cfinclude template="strFunctions.cfm">	
-			 
+		    						 
 			 <cfinclude template="../../../#path#_#vFormat#.cfm">	
 			 						 				     					 
 			 <cfcatch type="MissingInclude">

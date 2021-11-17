@@ -450,7 +450,7 @@ password="#SESSION.dbpw#">
 	    <TR>
 	    <TD class="labelmedium"><cf_tl id="Blood type">:</TD>
 	    <TD colspan="5">	
-			<INPUT type="text" name="Bloodtype" class="regularxl enterastab" value="#Person.Bloodtype#" maxLength="3" size="3">
+			<INPUT type="text" name="Bloodtype" class="regularxl enterastab" value="#Person.Bloodtype#" maxLength="4" size="4">
 			
 		</TD>
 		</TR>

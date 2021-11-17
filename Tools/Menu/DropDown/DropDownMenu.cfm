@@ -5,9 +5,9 @@
 <!--- JM added this on 02/02/2010 in order to allow closing for a particular Id --->
 <cfparam name="Attributes.AjaxId"    default="">
 
-<div style="position:absolute; width:280px; background-color: F6F6F6; z-index:999999; border: 1px ridge silver; ">
+<div style="position:absolute; width:280px; background-color: F6F6F6; z-index:99999; border: 1px ridge silver; ">
 
-	<table width="100%" cellspacing="0" cellpadding="0">
+	<table width="100%" class="navigation_table">
 		
 	<tr><td>
 	
@@ -30,9 +30,11 @@
 		</table>	
 		
 	</cfif>
+	
+	</td></tr>
 		
 	<cfloop index="No" from="#Attributes.MenuStart#" to="#Attributes.MenuRows#" step="1">
-
+	
 		<cfparam name="Attributes.MenuShow#No#" default="Show">
 		<cfset Status   = Evaluate("Attributes.MenuStatus" & #No#)>
 		<cfset Name     = Evaluate("Attributes.MenuName" & #No#)>
@@ -44,6 +46,9 @@
 		<cfset Line     = Evaluate("Attributes.MenuLine" & #No#)>		  	  
 		
 		<cfif Show eq "Show">
+		
+			<tr class="line navigation_row">
+			<td>
 	
 			<table width="100%" 				
 				align="center" 
@@ -51,24 +56,25 @@
 				onMouseOver="hl(this,true,'#Status#')" 
 				onMouseOut="hl(this,false,'')"
 				class="formpadding">
-				<cfif line eq "Yes">
-				<tr><td height="1" colspan="2" class="line"></td></tr>
-				</cfif>
-				<tr style="height:30px"> 
-				  <td align="center" style="padding-left:4px;width:40px" height="23">
-				  <img src="#Icon#" style="height:26px;width:26px" border="0" align="middle">
+				
+				<tr style="height:37px"> 
+				  <td align="center" style="padding-left:4px;width:40px" height="23">				  
+				  <img src="#Icon#" style="height:22px;width:22px" border="0" align="middle">
 				  </td>
-				  <td class="labelit" style="padding-left:4px">#Name#</td>
+				  <td class="labelmedium2" style="padding-left:4px">#Name#</td>
 				</tr>
 			</table>
 			
+			</td></tr>
+			
 		</cfif>
-
+		
 	</cfloop> 
-	
-	</td></tr>
+		
 	</table>
 
 </div>
+
+<cfset ajaxonload("doHighlight")>
 
 </cfoutput>	 

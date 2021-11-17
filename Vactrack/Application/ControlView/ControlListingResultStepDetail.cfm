@@ -11,28 +11,7 @@
 			          EntityClass,
 					  DocumentNo
 	  </cfquery>
-	  
-	  <!---
-	   
-	   <cfif details.recordcount gte "1">
-	   
-		   <tr class="line labelmedium">
-		   <td style="min-width:40"></td>
-		   <td style="min-width:80"><cf_tl id="Class"></td>
-		   <td style="min-width:100"><cf_tl id="Track"></td>
-		   <td style="min-width:100"><cf_tl id="Due"></td>
-		   <td style="min-width:70"><cf_tl id="VA"></td>
-		   <td style="width:100%"><cf_tl id="Grade"></td>
-		   <td style="min-width:160"><cf_tl id="Position">		     
-		   <td style="min-width:200"><cf_tl id="Title"></td>
-		   <td style="min-width:120"><cf_tl id="Office"></td>	   
-		   <td style="min-width:120"><cf_tl id="Officer"></td>	   
-		   </tr>
-			   
-	   </cfif>
-	   
-	   --->
-					
+	 					
 	   <cfoutput query="Details" group="ActionCode">
 	   
 	   <cfif Status eq "9">
@@ -41,23 +20,23 @@
 		   <cfset cl = "white">
 	   </cfif>	   	 
 	   
-	   <tr class="labelmedium cls#URL.Mission##row#" style="display:none;">
+	   <tr class="labelmedium fixlengthlist cls#URL.Mission##row#" style="display:none;">
 	   		<td align="left" colspan="6" style="padding-left:24px;font-weight:bold" class="labelmedium">#ActionDescription#</td>
 	   </tr>
 	 	 		   	   
 		   <cfoutput>
 	
-			   <tr bgcolor="#cl#" class="navigation_row line labelmedium cls#URL.Mission##row#" style="height:20px; display:none;">
+			   <tr bgcolor="#cl#" class="navigation_row line fixlengthlist labelmedium cls#URL.Mission##row#" style="height:20px; display:none;">
 			      <td style="padding-left:24px">#CurrentRow#</td> 
-				  <td style="padding-right:3px">#EntityClass#</td>
+				  <td>#EntityClass#</td>
 				 
-			      <td style="padding-left:2px;padding-right:3px"><a href="javascript:showdocument('#DocumentNo#','')">#DocumentNo#</a> </td>	
-				  <td style="padding-right:3px">#dateformat(duedate,client.dateformatshow)#</td>		  
-				  <td style="padding-left:2px;padding-right:3px">#left(VAReferenceNo,6)#</td>
+			      <td><a href="javascript:showdocument('#DocumentNo#','')">#DocumentNo#</a> </td>	
+				  <td>#dateformat(duedate,client.dateformatshow)#</td>		  
+				  <td>#left(VAReferenceNo,6)#</td>
 				 
-				  <td style="padding-right:3px">#Postgrade#</td>
+				  <td>#Postgrade#</td>
 				  
-				  <td align="left"  style="padding-right:3px">
+				  <td align="left">
 				  									
 						 <cfquery name = "qPosition"
 					       datasource = "AppsVacancy"
@@ -107,13 +86,11 @@
 						</cfloop>	
 						  
 					    </table>	
-						
-								  			 
-					    
+						   
 				  </td>			
-				  <td style="padding-right:3px">#FunctionalTitle#</td>		
-				  <td style="padding-right:3px">#OrgUnitNameShort#</td>
-				  <td style="padding-right:3px">#OfficerUserLastName#</td>				
+				  <td>#FunctionalTitle#</td>		
+				  <td>#OrgUnitNameShort#</td>
+				  <td>#OfficerUserLastName#</td>				
 			   </tr>  
 				
 		   </cfoutput>
@@ -129,39 +106,18 @@
 			FROM    DetailsCandidate
 			WHERE   ParentCode = '#Code#'
 	  </cfquery>
-	  
-	  <!---
-		
-	   <cfif details.recordcount gte "1">	
-	   
-	   	  <tr class="line labelmedium">
-		   <td style="min-width:40"></td>
-		   <td style="min-width:80"><cf_tl id="Class"></td>
-		   <td style="min-width:100"><cf_tl id="Track"></td>
-		   <td style="min-width:100"><cf_tl id="Due"></td>
-		   <td style="min-width:70"><cf_tl id="VA"></td>
-		   <td style="width:100%"><cf_tl id="Candidate"></td>
-		   <td style="min-width:160"><cf_tl id="Position"></td>		       
-		   <td style="min-width:200"><cf_tl id="Title"></td>
-		   <td style="min-width:120"><cf_tl id="Office"></td>	   
-		   <td style="min-width:120"><cf_tl id="Officer"></td>	   
-		   </tr>		
-	   
-	   </cfif>
-	   
-	   --->
-	   
+	 	   
 	   <cfoutput query="Details"> 
 	   
-		   <tr class="navigation_row line labelmedium cls#URL.Mission##row#" style="height:20px; display:none;">
+		   <tr class="navigation_row line fixlengthlist labelmedium cls#URL.Mission##row#" style="height:20px; display:none;">
 		      <td style="padding-left:24px">#CurrentRow#</td> 
 		      <td>#EntityClass#</td>			  
-		      <td style="padding-left:2px"><a href="javascript:showdocument('#DocumentNo#','')">#DocumentNo#</a></td>	
-			  <td style="padding-right:3px">#dateformat(duedate,client.dateformatshow)#</td>		 
+		      <td><a href="javascript:showdocument('#DocumentNo#','')">#DocumentNo#</a></td>	
+			  <td>#dateformat(duedate,client.dateformatshow)#</td>		 
 			  
-			  <td style="padding-left:2px">#left(VAReferenceNo,6)#</td>						     
-			  <td style="padding-left:3px"><a href="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#')">#FirstName# #LastName#</a></td>			 			  
-			  <td align="left" style="padding-right:3px">
+			  <td>#left(VAReferenceNo,6)#</td>						     
+			  <td><a href="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#')">#FirstName# #LastName#</a></td>			 			  
+			  <td align="left">
 			  
 			   <cfquery name = "qPosition"
 				       datasource = "AppsVacancy"
@@ -211,9 +167,9 @@
 			  </table>	  
 			  		  
 			  </td>				
-			  <td style="padding-right:3px">#FunctionalTitle#</td>	  
-			  <td style="padding-right:3px">#OrgUnitNameShort#</td>				 		  
-			  <td style="padding-right:3px">#OfficerUserLastName#</td>		
+			  <td>#FunctionalTitle#</td>	  
+			  <td>#OrgUnitNameShort#</td>				 		  
+			  <td>#OfficerUserLastName#</td>		
 			  			
 			</tr>
 					

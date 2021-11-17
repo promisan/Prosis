@@ -364,7 +364,7 @@ function processdata(txt,per,role) {
 			   	
 				   <cfform name="req" method="post" style="height:100%">		   
 				   			 
-					   <cfdiv bind="url:RequisitionFundingPending.cfm?role=#url.role#&mission=#url.mission#&period=#url.period#" id="contentbox1">						
+					   <cf_securediv bind="url:RequisitionFundingPending.cfm?role=#url.role#&mission=#url.mission#&period=#url.period#" id="contentbox1">						
 						 
 					</cfform>
 					

@@ -159,13 +159,13 @@ password="#SESSION.dbpw#">
 							</td>
 							<td style="padding-left:8px">
 							
-								<select name="#SalaryTrigger#_Period" class="regularxxl" style="width:99%;border:0px">
-									 <option value="DAY"     <cfif Check.Period eq "DAY">selected</cfif>><cf_tl id="Daily"></option>
+								<select name="#SalaryTrigger#_Period" class="regularxxl" style="width:99%;border:0px">									 
+									 <option value="MONTHW"  <cfif Check.Period eq "MONTHW" or Check.Period eq "">selected</cfif>><cf_tl id="Month"> -/- [slwop + suspend]</option>										 
 									 <option value="WORKDAY" <cfif Check.Period eq "WORKDAY">selected</cfif>><cf_tl id="Workdays"></option>
 									 <option value="MONTHF"  <cfif Check.Period eq "MONTHF">selected</cfif>><cf_tl id="Month">: fixed</option>
 									 <option value="MONTH"   <cfif Check.Period eq "MONTH" or check.Period eq "">selected</cfif>><cf_tl id="Month"></option>
 									 <option value="MONTHN"  <cfif Check.Period eq "MONTHN">selected</cfif>><cf_tl id="Month"> -/- slwop</option>
-									 <option value="MONTHW"  <cfif Check.Period eq "MONTHW">selected</cfif>><cf_tl id="Month"> -/- [slwop + suspend]</option>			 
+									 <option value="DAY"     <cfif Check.Period eq "DAY">selected</cfif>><cf_tl id="Daily"></option>
 								</select>
 							</td>
 							

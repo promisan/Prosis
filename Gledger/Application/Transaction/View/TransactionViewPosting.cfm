@@ -270,7 +270,7 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 			<!---
 			AND     H.Journal = '#Transaction.Journal#'
 			--->		
-			AND     (T.AmountDebit <> 0 or T.AmountCredit <> 0)					
+			AND     (T.AmountDebit <> 0 or T.AmountCredit <> 0	or H.DocumentAmount = 0)				
 			AND     T.TransactionLineId IN (#preservesingleQuotes(Lines)#)
 
 							
@@ -469,7 +469,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 
 				</tr>
 
-				<tr class="labelmedium line fixrow" style="height:26px;border-top:1px solid silver">
+				<tr class="labelmedium line fixrow fixlengthlist" style="height:26px;border-top:1px solid silver">
 
 				<TD style="min-width:35;padding-right:4px" height="20" align="center">
 
@@ -510,12 +510,12 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 				</cfif>
 
 				</td>
-				<TD style="min-width:55;padding-right:4px"><cf_tl id="Period"></TD>
-				<TD style="min-width:70;padding-right:4px"><cf_tl id="Date"></TD>
-				<TD style="min-width:70;padding-right:4px"><cf_tl id="Posted"></TD>
-				<TD style="width:30%;min-width:100;padding-right:4px"><cf_tl id="Reference"></TD>
-				<TD style="width:50%;min-width:260;padding-right:4px"><cf_tl id="GLAccount"></TD>
-				<TD style="min-width:110;padding-right:4px" colspan="2"><cf_tl id="Document"></TD>
+				<TD><cf_tl id="Period"></TD>
+				<TD><cf_tl id="Date"></TD>
+				<TD><cf_tl id="Posted"></TD>
+				<TD><cf_tl id="Reference"></TD>
+				<TD><cf_tl id="GLAccount"></TD>
+				<TD colspan="2"><cf_tl id="Document"></TD>
 				<TD align="right"></TD>
 				<TD style="min-width:88" align="right"><cf_tl id="Debit"></TD>
 				<TD style="min-width:88" align="right"><cf_tl id="Credit"></TD>

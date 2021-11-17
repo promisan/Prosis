@@ -1,0 +1,683 @@
+
+<!--- recalculate average price --->
+
+<cffunction name="redoIssuanceTransaction"
+        access="public"
+        returntype="any"
+        displayname="Source an issuance transaction and revaluate and post the amounts">
+			
+		<cfargument name="Datasource"    type="string" 	default="AppsMaterials" required="yes">						
+		<cfargument name="Mode"          type="string" 	default="Standard" required="yes">	
+		<cfargument name="filterMission" type="string" 	default=""         required="yes">
+		<cfargument name="filterItemNo"  type="string" 	default=""         required="yes">	
+		<cfargument name="revaluation"   type="string" 	default="0"        required="yes">	
+		<cfargument name="initialStatus" type="numeric" default="0"        required="yes">	
+		<cfargument name="finalStatus"   type="numeric" default="1"        required="yes">
+			
+		<!--- general variables --->
+		
+		<cfset price   = "0.0">
+		<cfset stock   = "0">
+		
+		<!--- luck day correction --->
+		
+		<cfquery name="Purchase" 
+			datasource="#Datasource#" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">		
+			SELECT     MIN(TransactionDate) AS myDate
+	        FROM       ItemValuation
+	        WHERE      Mission   = '#filtermission#'
+	        AND        ItemNo    = '#filterItemNo#'
+	        AND        (TransactionReference LIKE 'D-%' OR TransactionReference LIKE 'OC%')
+		</cfquery>		
+		
+		<cfquery name="Sale" 
+			datasource="#Datasource#" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">		
+			SELECT     MIN(TransactionDate) AS myDate
+	        FROM       ItemValuation
+	        WHERE      Mission   = '#filtermission#'
+	        AND        ItemNo    = '#filterItemNo#'
+	        AND        (TransactionReference LIKE 'TRA%' OR TransactionReference LIKE 'OV%')
+		</cfquery>
+		
+		<cfif Sale.myDate lte Purchase.myDate and Sale.mydate neq "" and Purchase.mydate neq "">
+		
+			<cfquery name="Update" 
+				datasource="#Datasource#" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				UPDATE     ItemValuation
+				SET        TransactionDate = '#purchase.mydate#'
+		        WHERE      Mission         = '#filtermission#'
+		        AND        ItemNo          = '#filterItemNo#'
+		        AND        (TransactionReference LIKE 'TRA%' OR TransactionReference LIKE 'OV%') 
+				AND        TransactionDate < '#purchase.mydate#'
+								
+				
+			</cfquery>
+				
+		</cfif>
+		
+		<!--- check in more detail --->
+		
+		<cfquery name="transaction" 
+			datasource="#Datasource#" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+								
+				SELECT      *
+				FROM        ItemValuation
+				WHERE       Mission   = '#filtermission#'
+				AND         ItemNo    = '#filterItemNo#'
+				AND         TransactionQuantity <> 0
+				ORDER BY TransactionDate, LEFT(TransactionReference, 2), TransactionQuantity DESC			
+																
+		</cfquery>		
+		
+		<cfset qty  = 0>
+		<cfset omit = "">
+		
+		<cfloop query="transaction">
+		
+		  <cfif not find(transactionid,omit)>
+		
+			  <cfset qty = qty + TransactionQuantity>
+			
+			  <cfif qty lt 0>
+			  
+			    <!--- we find the next purchase and put this purchase on top --->
+				
+				<cfloop condition="#qty# lt 0">
+				
+					<cfquery name="NextProc" 
+					datasource="#Datasource#" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">	
+							SELECT    TOP 1 *
+						    FROM      ItemValuation
+						    WHERE     Mission   = '#filtermission#'
+						    AND       ItemNo    = '#filterItemNo#'
+							AND       TransactionDate >  '#transactiondate#'
+						    AND       (TransactionReference LIKE 'D-%' OR TransactionReference LIKE 'OC%')
+							<cfif omit neq "">
+							AND       TransactionId not in (#preservesinglequotes(omit)#)
+							</cfif>
+							ORDER BY  TransactionDate ASC <!--- removed as it was taking the wrong comprass DESC --->
+					</cfquery>	
+					
+					<cfif nextproc.recordcount eq "1">		
+						
+						<cfset qty = qty + nextProc.transactionQuantity>			
+					
+						<cfquery name="reset" 
+							datasource="#Datasource#" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">	
+							    UPDATE 	ItemValuation
+								SET     TransactionDate = '#transactiondate#'
+								WHERE   TransactionId   = '#nextproc.transactionid#'														
+						</cfquery>	
+											
+						<cfif omit neq "">
+						     <cfset omit = "#omit#,'#nextproc.transactionid#'">	
+						<cfelse>
+						     <cfset omit = "'#nextproc.transactionid#'">
+						</cfif>
+						
+					<cfelse>
+					
+						<cfbreak>
+					
+					</cfif>
+				
+				</cfloop>
+		 
+		     </cfif>
+			 
+		  </cfif>	 
+		
+		</cfloop>		
+		
+		<!--- start with valuation --->
+		
+		<cfquery name="transaction" 
+			datasource="#Datasource#" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+								
+				SELECT      *
+				FROM        ItemValuation
+				WHERE       Mission   = '#filtermission#'
+				AND         ItemNo    = '#filterItemNo#'
+				AND         TransactionQuantity <> 0
+				ORDER BY    TransactionDate, TransactionReference  <!--- first the receipts --->				
+																
+		</cfquery>	
+		
+		<cfset init = "1">	
+		
+		<cfoutput query="Transaction">
+		
+			<cfif TransactionType neq "4">
+			
+				<cfset init = "0">
+				
+			</cfif>
+				
+			<!--- we set the initial price --->		
+		
+		    <cfif Transactionquantity gt "0" 
+			     and TransactionType eq "4"
+				 and (init eq "1" or price eq 0) <!--- we only apply this mode if it is at the beginning as initial stock, otherwise we apply avg cost for them ---> 
+				 and TransactionValue neq 0>		
+			
+			     <cfset val    = (stock * price) + TransactionValue>	
+				 <cfset stock  = stock + TransactionQuantity>
+				 
+			     <cfset prict  = round( TransactionValue * 100000 / TransactionQuantity ) / 100000>	
+				 
+				 <cfif stock neq "0">
+				 
+					 <cfset price  = round( val * 100000 / stock)/100000>
+				 
+				 <cfelse>
+				 
+				 	<!--- no change --->
+				 
+				 </cfif>
+			
+			     <cfquery name="transaction" 
+						datasource="#Datasource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+											
+							UPDATE      ItemValuation
+							SET         TransactionCostPrice = '#prict#' 
+							WHERE       TransactionId = '#TransactionId#'									
+																			
+					</cfquery>	
+					
+					<cfif price neq "0">
+					
+						<cfquery name="check" 
+						datasource="#Datasource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT      *
+							FROM        ItemCostPrice
+							WHERE       Mission           = '#filtermission#'
+							AND         ItemNo            = '#filterItemNo#'
+							AND         SelectionDate     = '#transactiondate#'
+						</cfquery>
+						
+						<cfif check.recordcount eq "1">
+						
+							<cfquery name="update" 
+							datasource="#Datasource#" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								UPDATE      ItemCostPrice
+								SET         CostPrice     = '#price#', 
+								            Created       = getDate()
+								WHERE       Mission       = '#filtermission#'
+								AND         ItemNo        = '#filterItemNo#'
+								AND         SelectionDate = '#transactiondate#'
+							</cfquery>					
+						
+						<cfelse>
+						
+							<cfquery name="addprice" 
+							datasource="#Datasource#" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								INSERT INTO ItemCostPrice
+								(Mission,ItemNo,SelectionDate,CostPrice)
+								VALUES
+								('#filtermission#','#filterItemNo#','#transactiondate#','#price#')
+							</cfquery>	
+						
+						</cfif>
+					
+					</cfif>				
+		
+			<cfelseif Transactionquantity gt "0" 
+			         and TransactionType eq "3" 
+					 and TransactionValue neq 0>
+			
+					<!--- we take the current stock * price + value of the purchase receipt
+					 determine the new price for this date after the added quantity is added --->
+			
+					<cfset val    = (stock * price) + TransactionValue>					
+					<cfset stock  = stock + TransactionQuantity>
+				
+				    <!--- new price --->	
+					<cfset prict  = round( TransactionValue * 100000 / TransactionQuantity ) / 100000>
+					
+					<!--- new price after receipt --->	
+					<cfif stock neq "0">
+					    <cfset price  = round( val * 100000 / stock)/100000>
+					<cfelse>
+					    <cfset price = "0">
+					</cfif>
+					
+					<cfif price neq "0">
+					
+						<cfquery name="check" 
+						datasource="#Datasource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT      *
+							FROM        ItemCostPrice
+							WHERE       Mission           = '#filtermission#'
+							AND         ItemNo            = '#filterItemNo#'
+							AND         SelectionDate     = '#transactiondate#'
+						</cfquery>
+						
+						<cfif check.recordcount eq "1">
+						
+							<cfquery name="update" 
+							datasource="#Datasource#" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								UPDATE      ItemCostPrice
+								SET         CostPrice     = '#price#', 
+								            Created       = getDate()
+								WHERE       Mission       = '#filtermission#'
+								AND         ItemNo        = '#filterItemNo#'
+								AND         SelectionDate = '#transactiondate#'
+							</cfquery>					
+						
+						<cfelse>
+						
+							<cfquery name="addprice" 
+							datasource="#Datasource#" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								INSERT INTO ItemCostPrice
+								(Mission,ItemNo,SelectionDate,CostPrice)
+								VALUES
+								('#filtermission#','#filterItemNo#','#transactiondate#','#price#')
+							</cfquery>	
+						
+						</cfif>
+					
+					</cfif>
+					
+					<cfquery name="transaction" 
+						datasource="#Datasource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+											
+							UPDATE      ItemValuation
+							SET         TransactionCostPrice = '#prict#' 
+							WHERE       TransactionId = '#TransactionId#'									
+																			
+					</cfquery>						
+												
+					<!--- Attention : also store price in a table --->
+								 
+			<cfelse>
+						
+					<cfset stock      = stock + Transactionquantity> 
+					<cfset value      = Transactionquantity * price>
+					
+					<cfquery name="transaction" 
+						datasource="#Datasource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+											
+							UPDATE      ItemValuation
+							SET         TransactionValue     = '#Value#',
+							            TransactionCostPrice = '#price#'
+							WHERE       TransactionId = '#TransactionId#'									
+																			
+					</cfquery>						
+										
+					<cfquery name="check" 
+						datasource="#Datasource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						
+							SELECT      *
+							FROM        ItemCostPrice
+							WHERE       Mission           = '#filtermission#'
+							AND         ItemNo            = '#filterItemNo#'	
+													
+					</cfquery>
+						
+					<cfif check.recordcount eq "0">
+																		
+							<cfquery name="addprice" 
+							datasource="#Datasource#" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							
+								INSERT INTO ItemCostPrice
+								(Mission,ItemNo,SelectionDate,CostPrice)
+								VALUES
+								('#filtermission#','#filterItemNo#','#transactiondate#','#price#')
+								
+							</cfquery>	
+						
+					</cfif>						
+					
+		
+			</cfif>				
+		
+		</cfoutput>			
+		
+</cffunction>	
+
+<cffunction name="getStock"
+        access="public"
+        returntype="struct"
+        displayname="1a get the status on the item/uom into a struct variable">
+						
+		<cfargument name="Mission"          type="string"  required="true"   default="">						
+		<cfargument name="Warehouse"        type="string"  required="true"   default="">		
+		<cfargument name="Location"         type="string"  required="true"   default="">	
+		<cfargument name="TransactionLot"   type="string"  required="true"   default="">		
+		<cfargument name="ItemNo"           type="string"  required="true"   default="">
+		<cfargument name="UoM"              type="string"  required="true"   default="">
+		<cfargument name="ExcludeBatchNo"   type="string"  required="true"   default="">
+				
+		<cfset stock.onhand       = "0">
+		<cfset stock.earmarked    = "0">	
+		<cfset stock.reserved     = "0">
+		
+		<!---  get this stock live 
+		
+		<cfargument name="Datasource"      type="string" 	default="AppsMaterials" required="yes">								
+		<cfargument name="filterMission"   type="string" 	default="Mariscal"      required="no">
+		<cfargument name="filterWarehouse" type="string" 	default=""              required="no">
+		<cfargument name="filterItemNo"    type="string" 	default="001962"        required="yes">	
+		
+		<!--- we get the stock levels per warehouse --->		
+		
+		<cfquery name="transaction" 
+			datasource="hubEnterprise" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">			
+			
+			SELECT    TOP 100 PERCENT newid() as TransactionId,
+			          TransactionDate,
+					  TransactionReference,
+					  TransactionType,
+					  ItemNo,
+					  Warehouse,
+					  Status,
+			          
+					  B.CustAccount, B.SalesName, B.InvoiceDate, B.SalesStatus,-- sale
+			
+					  (SELECT TOP 1 SalesStatus
+					   FROM DB01.DISMARAX.dbo.SALESLINE 
+					   WHERE SalesId = A.TransactionReference and ItemId = A.ItemNo) as SalesLineStatus,
+					   		  
+					  -- T.TRANSFERSTATUS as TransferStatus, T.SHIPDATE as FromDate, 
+					  -- T.RECEIVEDATE as ToDate, 
+					  -- T.FROMADDRESSNAME as FromStore, 
+					  T.TOADDRESSNAME as ToStore,			
+			          D.Description,
+			
+			                sum([StockOnHand])         as [StockOnHand],
+							sum([Reserved])            as [Reserved],                
+			                sum([TransactionQuantity]) as [TransactionQuantity],                
+							sum([PedidoTotal])         as [Pedido],
+			                sum([Quoted])              as [Quoted],
+							sum([Requested])           as [Requested]
+			
+			FROM    DB01.DISMARAX.dbo.vwStockInformation A
+					LEFT OUTER JOIN DB01.DISMARAX.dbo.SALESTABLE B ON A.TransactionReference = B.SalesId 
+					LEFT OUTER JOIN DB01.DISMARAX.dbo.INVENTTRANSFERTABLE T ON A.TransactionReference = T.TransferId 
+					LEFT OUTER JOIN DB01.DISMARAX.dbo.INVENTJOURNALTABLE D  ON A.TransactionReference = D.JournalId 
+			   
+			WHERE   ItemNo    = '#filteritemno#' 
+			 -- AND    Warehouse = '#filterwarehouse#'
+			 
+			 AND    TransactionQuantity <> 0 <!--- only real and reservations --->
+			 AND    TransactionType NOT IN ('7','201','202') -- internal work actions in warehouse always 0
+			 
+			 -- AND TransactionType = '26' -- Danado, to be excluded and as such added to the stock but then set in DIFFERENT COLUMN and to be THEN from the available stock
+			 -- AND DocumentReference IN (SELECT SALESID FROM DB01.DISMARAX.dbo.SALESTABLE WHERE SALESSTATUS > '1')
+			  
+			GROUP BY TransactionDate ,TransactionReference,TransactionType, 
+					 ItemNo,Warehouse,Status,
+			         B.CustAccount, B.SalesName, B.InvoiceDate, B.SalesStatus,
+					 T.TRANSFERSTATUS, T.SHIPDATE, T.RECEIVEDATE, T.FROMADDRESSNAME, T.TOADDRESSNAME, D.Description			
+			
+			<!--- the sorting D- then OC and within this first pos quantities --->		 
+			ORDER BY TransactionDate, LEFT(TransactionReference, 2), TransactionQuantity DESC
+
+		</cfquery>		
+		
+		<cfset tme = transaction>
+		
+		<cfreturn tme>		
+		
+		
+		--->
+		
+		
+		
+		
+		<cfquery name="getOnHand" 
+				datasource="hubEnterprise" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">	
+			    SELECT SUM(StockOnSale) as Total
+				FROM (
+				SELECT    S.StockAvailable-S.StockExhibited-S.StockDisposed as StockOnSale
+				FROM      ItemStock S
+				WHERE     1=1
+				<cfif Mission neq "">
+				AND       Mission        = '#mission#' 
+				</cfif>
+				<cfif Warehouse neq "">
+				AND       Warehouse      = '#warehouse#'
+				</cfif>
+				<cfif Location neq "">
+				AND       Location       = '#location#'
+				</cfif>
+				<cfif TransactionLot neq "">
+				AND       TransactionLot = '#transactionlot#'
+				</cfif>
+								
+				AND       ItemNo         = '#itemNo#' 
+				
+				<!--- 
+				AND       TransactionUoM = '#UoM#'		
+				--->
+				
+				<!--- Hanno 10/7/2019 
+						likely we need to be more granular based on the transactiontype 
+						and the actionstatus of the transaction to be included 
+						receipt likely best to be status = '1'
+						issuance / transfer/ variation like best to be 0 and 1
+				--->		
+				) as B
+				WHERE 1=1				
+				
+				
+			</cfquery>	
+			
+			<cfif getOnHand.Total neq "">
+			    <cfset stock.onhand  = "#getOnHand.total#">
+			</cfif>
+					
+		<cfreturn stock>	
+		
+	</cffunction>
+
+<cffunction name="getStockListing"
+        access="public"
+        returntype="query"
+        displayname="1b. get a listing of items with their current stock levels">
+					
+			<cfargument name="Mission"             type="string"  required="true"   default="">						
+			<cfargument name="Warehouse"           type="string"  required="false"  default="">		
+			<cfargument name="Location"            type="string"  required="false"  default="">		
+			
+			<cfargument name="PriceSchedule"       type="string"  required="false"  default="Consumidor final"> 
+			
+			<cfargument name="Make"                type="string"  required="true"   default="">
+			<cfargument name="Category"            type="string"  required="true"   default="">
+			
+			<cfargument name="ItemName"            type="string"  required="true"   default="">
+			<cfargument name="ItemNo"              type="string"  required="true"   default="">
+			<cfargument name="UoM"                 type="string"  required="true"   default="">
+			<cfargument name="Classify"            type="string"  required="true"   default="">
+			
+			<cfargument name="SettingOnHand"       type="string"  required="false"  default=""> 
+			<cfargument name="SettingPromotion"    type="string"  required="false"  default=""> 
+			<cfargument name="SettingReservation"  type="string"  required="false"  default="">
+			
+			<cfargument name="Mode"           type="string"  required="true"   default="Table">
+			<cfargument name="Table"          type="string"  required="false"  default="#SESSION.acc#Stock">	
+		
+			
+			<cfquery name="stock" 
+				datasource="hubEnterprise" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">		
+						
+				SELECT TOP 100 *
+				
+				FROM (			
+			
+				SELECT     TOP 500 I.Mission, 
+				           T.ItemNo,
+						   T.ItemNoExternal,
+							
+							(SELECT TOP 1 ImagePath 
+							 FROM Materials.dbo.ItemImage 
+							 WHERE ItemNo = T.ItemNo) as ImagePath,	
+							
+							I.ItemName, 
+							I.ItemCategory, 
+							I.ItemBrand, 
+							I.ItemClass, 
+							I.ItemUoM, 
+							I.ItemDetail, 	
+							<!---			
+							I.ItemCreated,
+							--->
+							
+							P.PriceSchedule,
+							P.Currency,
+							 
+							P.Price,
+							P.PriceMin as PriceSaleMin, 
+							P.PriceMax as PriceSaleMax, 
+							
+							I.PriceMultiplier,
+							I.UsageMultiplier,
+							
+					            (SELECT   TOP (1) Price
+					             FROM     ItemPromotion
+					             WHERE    Mission = I.Mission 
+								 AND      ItemNo  = I.ItemNo 
+								 AND      DateExpiration >= CAST(GETDATE() AS Date)
+					             ORDER BY DateExpiration DESC) AS PromotionPrice, 
+								 
+							 I.Operational, 
+							 T.ItemPrecision,
+							 W.Warehouse,
+							 W.WarehouseName, 
+							 
+							 (SELECT   TOP (1) W.Warehouse
+							  FROM     Employee.dbo.Person AS P INNER JOIN
+                                       Employee.dbo.PersonAssignment AS PA ON P.PersonNo = PA.PersonNo INNER JOIN
+                                       Organization.dbo.Organization AS O ON PA.OrgUnit = O.OrgUnit INNER JOIN
+                                       Materials.dbo.Warehouse AS W ON O.MissionOrgUnitId = W.MissionOrgUnitId INNER JOIN
+                                       System.dbo.UserNames AS U ON P.PersonNo = U.PersonNo
+                              WHERE    U.Account = '#session.acc#') as WarehouseDefault,
+							 							 
+							 S.StockCounted, 
+							 S.StockAvailable, 
+							 S.StockAvailable-S.StockExhibited-S.StockDisposed as StockOnSale, 
+							 S.StockReserved, 
+							 S.StockExhibited, 
+							 S.StockDisposed, 
+							 S.StockOnOrder,
+							 S.Created
+							 
+				FROM        Item AS I INNER JOIN
+				            ItemStock AS S ON I.Mission = S.Mission AND I.ItemNo = S.ItemNo INNER JOIN
+				            Warehouse AS W ON S.Mission = W.Mission AND S.Warehouse = W.Warehouse INNER JOIN	
+							Materials.dbo.Item T ON I.ItemNo = T.ItemNoExternal INNER JOIN		
+												
+								(SELECT    T.*
+								 FROM      ItemPriceSale T INNER JOIN 
+								           (  SELECT     Mission, ItemNo, Currency, PriceSchedule, MAX(DateEffective) AS DateEffective
+											  FROM       ItemPriceSale
+								              WHERE      PriceSchedule = '#Priceschedule#'
+											  AND        Currency = 'GTQ'
+								              GROUP BY   Mission, ItemNo, Currency, PriceSchedule
+								            ) as S ON T.Mission = S.Mission 
+												   AND  T.ItemNo        = S.ItemNo 
+												   AND  T.PriceSchedule = S.PriceSchedule 
+												   AND  T.Currency      = S.Currency 
+												   AND  T.DateEffective = S.DateEffective
+								) as P ON P.Mission = W.Mission 
+								     AND P.ItemNo = I.ItemNo
+									  AND PriceSchedule = '#Priceschedule#'									
+							
+				WHERE       I.Mission = '#mission#' 
+				AND         S.SelectionDate = CAST(GETDATE() AS Date) 
+				
+				<cfif warehouse neq "">
+				AND         W.Warehouse = '#Warehouse#'
+				</cfif>		
+				<cfif itemNo neq "">
+				AND         I.ItemNo LIKE '%#ItemNo#' 
+				</cfif>
+				<cfif Make neq "">
+				AND         I.ItemBrand IN (#preservesinglequotes(make)#) 		
+				</cfif>
+				<cfif Category neq "">
+				AND         I.ItemCategory LIKE '%#Category#' 
+				</cfif>				
+				
+				<cfif classify neq "">					
+				AND         T.ItemNo IN ( #preserveSingleQuotes(classify)# )					
+				</cfif>		
+				
+				<cfif ItemName neq "">
+										
+						AND ( 
+						<cf_softlike left="I.ItemName" right="#ItemName#" language="#client.languageId#">
+						OR  (I.ItemNo LIKE '%#ItemName#' OR I.ItemNo LIKE '%#ItemName#%')
+						)
+										
+				</cfif>		
+				
+				AND        I.Operational = 1 
+				AND        W.Operation   = 1		
+				
+				) as D
+				
+				WHERE 1 = 1
+				
+				<cfif SettingOnHand eq "1">
+				AND        StockOnSale   > 0
+				</cfif>
+				
+				<cfif SettingReservation eq "1">
+				AND        StockReserved > 0
+				</cfif>
+				
+				<cfif SettingPromotion eq "1">
+				AND        PromotionPrice > 0
+				</cfif>
+				
+				ORDER BY ItemName, WarehouseName
+				
+															
+			</cfquery>			
+							
+			<cfreturn stock>	
+		
+	</cffunction>

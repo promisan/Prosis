@@ -61,7 +61,7 @@
 			 separator      = "|"
 		     multiple       = "yes"/>						
 				
-	</td></tr> 
+	</td></tr>
 	
 	<cfquery name="Topics" 
 		 datasource="appsMaterials" 
@@ -72,11 +72,15 @@
          WHERE      Code IN
                       (SELECT    Code
                        FROM      Ref_TopicCategory
-                       WHERE     Category = '#url.category#')
+                       WHERE     Category = '#url.category#'
+					   AND       Operational = 1)
 		AND        Operational = 1
 		AND        TopicClass = 'Category'	
-		AND        ValueClass IN ('List','Text','Lookup')		   
-	</cfquery>				   
+		AND        Parent = 'Product'
+		AND        ValueClass IN ('List','Text','Lookup')	
+		ORDER BY ListingOrder	   
+	</cfquery>			 
+		   
 	
 	<cfoutput query="topics">
 	
@@ -85,14 +89,15 @@
 	<cfif ValueClass eq "List">
 				
 		<cfquery name="GetList" 
-			datasource="AppsMaterials" 
+			datasource="appsMaterials" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-				SELECT	T.*
-				FROM 	Ref_TopicList T
-				WHERE 	T.Code = '#Code#'  
-				AND 	T.Operational = 1
-				ORDER BY T.ListOrder ASC
+				SELECT	   T.*
+				FROM 	   Ref_TopicList T
+				WHERE 	   T.Code = '#Code#'  
+				AND 	   T.Operational = 1
+				AND     EXISTS (SELECT 'X' FROM ItemClassification WHERE Topic = '#Code#' and ListCode = T.ListCode)
+				ORDER BY   T.ListOrder ASC, T.ListCode
 		</cfquery>
 		
 		<cfif getList.recordcount lte "6">

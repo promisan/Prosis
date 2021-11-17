@@ -1,11 +1,22 @@
 
-
 <cfparam name="URL.PHP"         default="Roster">
 <cfparam name="URL.ID"    		default="0">  <!--- experience record id to show the values --->
 <cfparam name="URL.ID1"   		default="Employment">
 <cfparam name="URL.Owner" 		default="">
 <cfparam name="URL.Box"   		default="">
 <cfparam name="URL.Candidate"   default="1">
+
+<cfif url.candidate eq "1">
+
+	<cfset val = "range">
+	<cfset req = "yes">
+		
+<cfelse>
+
+	<cfset val = "">	
+	<cfset req = "no">
+
+</cfif>
 
 <cf_keywordEntryScript>
   
@@ -152,8 +163,7 @@ password="#SESSION.dbpw#">
 		
 		<cfif total eq "">
 			<cfset total = 0>
-		</cfif>	
-		
+		</cfif>			
 									  
 		    <cfinput type="Text"
 			        name="clCount_#Parent#"
@@ -161,10 +171,8 @@ password="#SESSION.dbpw#">
 			       	range="#min#,#max#"
 		       		width="2"
 		       		message="#count.KeywordsMessage#"
-		       		validate="range"
-		       		required="Yes"
-		       		visible="Yes"
-		       		enabled="Yes"
+		       		validate="#val#"
+		       		required="#req#"		       		
 			   		class="regular3"
 			   		onError="show_error"
 			   		readonly
@@ -245,9 +253,9 @@ password="#SESSION.dbpw#">
 			 		 
 			 </cfif>
 							
-			   <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+			   <table width="100%" height="100%">
 			  				  
-			   <tr style="cursor: pointer;" class="line" id="line_#url.box#_#ar#">
+			   <tr style="cursor: pointer;" class="line fixlengthlist" id="line_#url.box#_#ar#">
 			   
 			      <td width="50" bgcolor="white" align="center" style="padding:2px">
 				  							  			   
@@ -334,17 +342,15 @@ password="#SESSION.dbpw#">
 						<cf_tl id="Attention: Choose at least #ClassMin#, but no more than #ClassMax# of #ClassDesc#" var="1">							
 						
 						<cfif classmin neq "0" and classmax neq "0">
-																		
+																	
 					    	<cfinput type="Text"
 								 name="dtCount_#vID#_#URL.AR#"
 								 value="#total_class#"
 								 range="#ClassMin#,#ClassMax#"
 								 message="#lt_text#"
-								 validate="range"
+								 validate="#val#"
 								 width="2"
-								 required="Yes"
-								 visible="Yes"
-								 enabled="Yes"
+								 required="#req#"								 								 
 								 class="regular3"
 								 style="font-size:14px;text-align : center; width:20px"
 								 size="1"

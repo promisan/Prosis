@@ -1,7 +1,7 @@
 
 <!--- provision to clean OrganizationObject records that have no linkage anymore for that document --->
 
-<!--- this was moved to a daily batch to be run API/WorkflowIntegrity
+<!--- Attention : this was moved to a daily batch to be run API/WorkflowIntegrity
 
 <cfif Entity.EnableIntegrityCheck eq "1">
 

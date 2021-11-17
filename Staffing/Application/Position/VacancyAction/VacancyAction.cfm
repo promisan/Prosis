@@ -44,7 +44,7 @@ ORDER BY D.Created DESC
    </tr>
    <tr>
   <td width="100%" colspan="2">
-  <table border="0" cellpadding="0" cellspacing="0" bordercolor="#111111" width="100%">
+  <table width="100%">
 	
     <cfset last = '1'>
 	

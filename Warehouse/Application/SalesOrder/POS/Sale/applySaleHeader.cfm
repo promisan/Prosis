@@ -124,7 +124,7 @@
 						WHERE    RequestNo = '#url.RequestNo#'						
 				</cfquery>
 				
-				<!--- apply the customer invoice id as for the lines --->
+				<!--- apply the customer invoice id no longers updates the lines 
 				
 				<cfloop query="getLines"> 	
 										
@@ -163,6 +163,8 @@
 										
 				</cfloop>
 				
+				--->
+								
 				<cfinclude template="SaleViewLines.cfm">
 				<cfinclude template="setTotal.cfm">
 			

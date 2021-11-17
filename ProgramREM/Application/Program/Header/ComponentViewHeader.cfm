@@ -138,15 +138,16 @@ password="#SESSION.dbpw#">
 		
 </cfif>
 
-<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="99%" align="center">
 
 <tr><td height="1"></td></tr>
 
 <tr>
 
-	<td height="24" style="padding-left:4px" class="clsNoPrint">
-	
-	<cfoutput>
+    <cfoutput>
+	 
+	<td height="24" class="clsNoPrint">
+		
 	<cfif url.output eq "">
 	<a href="javascript:EditProgram('#ParentProgram.ProgramCode#','#URL.Period#','#ParentProgram.ProgramClass#')">
 		<img src="#SESSION.root#/Images/up2.gif" alt="Click here to go to #ParentProgram.ProgramName#" border="0" align="absmiddle">
@@ -154,28 +155,19 @@ password="#SESSION.dbpw#">
 	</cfif>
 	</td>
 		
-	<td style="padding-left:2px" class="labelmedium">
+	<td style="font-size:16px;padding-left:2px" class="labelmedium2 fixlength" title="#ParentProgram.ProgramName#">
 	
-		<a href="javascript:EditProgram('#ParentProgram.ProgramCode#','#URL.Period#','#ParentProgram.ProgramClass#')">	
-				
-		<font color="0080C0">		
-		<cfif Len(ParentProgram.ProgramName) gt 60>
-		#Left(ParentProgram.ProgramName, 60)#...
-		<cfelse>
-		#ParentProgram.ProgramName#
-		</cfif>
-		</b></font>
-		</cfoutput>
-		</a>
+		<a href="javascript:EditProgram('#ParentProgram.ProgramCode#','#URL.Period#','#ParentProgram.ProgramClass#')">#ParentProgram.ProgramName#</a>
 		
 	</td>
+	
+	</cfoutput>
 		
 	<!--- Header buttons ---->
 
-	<td colspan="1" align="right" height="26" style="padding-left:10px" class="clsNoPrint">
-	
-	
-	<table cellspacing="0" cellpadding="0" class="formpadding">
+	<td align="right" height="26" style="padding-left:10px" class="clsNoPrint">
+		
+	<table class="formpadding">
 	
 	<tr>
 	
@@ -214,9 +206,9 @@ password="#SESSION.dbpw#">
 			<cfoutput>
 			
 				<a href="javascript:ptoken.navigate('#SESSION.root#/ProgramREM/Application/Program/Header/ProgramEditAllotment.cfm?programcode=#program.programcode#','enforcedetail')">		
-				<font color="6688aa"><u>		
+						
 					<cfif Program.EnforceAllotmentRequest eq "1"> <cf_tl id="Enforce Request Details"> <cfelse> <cf_tl id="Default"> </cfif>		
-				</font>
+				
 				</a>
 				
 			</cfoutput>
@@ -252,7 +244,7 @@ password="#SESSION.dbpw#">
 				<td>
 					<cf_tl id="Stall" var="1">
 					<button name="Delete" 
-					 style="width:160;height:27" 
+					 style="width:160px;height:27" 
 					 value="Deactivate" 
 					 class="button10g"
 					 onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/ProgramRem/Application/Program/setProgramStatus.cfm?status=8&programcode=#url.programcode#&period=#URL.Period#','recordstatus')">#lt_text# : #url.period#</button>		
@@ -260,7 +252,7 @@ password="#SESSION.dbpw#">
 				<cfif CheckAllotment.recordCount eq "0">
 					<td>
 					<button name="Delete" 
-					 style="width:160;height:27" 
+					 style="width:160px;height:27" 
 					 value="#vDeactivate#" 
 					 class="button10g"
 					 onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/ProgramREM/Application/Program/setProgramStatus.cfm?status=9&programcode=#Program.ProgramCode#&period=#URL.Period#','recordstatus')">#vDeactivate# : #url.period#</button>
@@ -272,7 +264,7 @@ password="#SESSION.dbpw#">
 				<cf_tl id="Reinstate" var="vReinstate">
 				<td>
 					<button name="Reinstate" 
-					 style="width:260;height:27" 
+					 style="width:260px;height:27" 
 					 value="#vReinstate#" 
 					 class="button10g" 
 					 onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/ProgramREM/Application/Program/setProgramStatus.cfm?status=1&programcode=#Program.ProgramCode#&period=#URL.Period#','recordstatus')">#vReinstate# : #url.period#</button>
@@ -281,7 +273,7 @@ password="#SESSION.dbpw#">
 				<cfif CheckAllotment.recordCount eq "0">	 
 					<td>
 					<button name="Delete" 
-						 style="width:160;height:27" 
+						 style="width:160px;height:27" 
 						 value="#vDeactivate#" 
 						 class="button10g"
 						 onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/ProgramREM/Application/Program/setProgramStatus.cfm?status=9&programcode=#Program.ProgramCode#&period=#URL.Period#','recordstatus')">#vDeactivate# : #url.period#</button>
@@ -293,7 +285,7 @@ password="#SESSION.dbpw#">
 				<td>		
 				<cf_tl id="Reinstate" var="1">
 				<button name="Delete" 
-				 style="width:160;height:27" 
+				 style="width:160px;height:27" 
 				 value="Deactivate" 
 				 class="button10g"
 				 onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/ProgramRem/Application/Program/setProgramStatus.cfm?status=1&programcode=#url.programcode#&period=#URL.Period#','recordstatus')">#lt_text# : #url.period#</button>
@@ -302,7 +294,7 @@ password="#SESSION.dbpw#">
 				<td>				 
 				<cf_tl id="Stall" var="1">
 				<button name="Delete" 
-				 style="width:160;height:27" 
+				 style="width:160px;height:27" 
 				 value="Deactivate" 
 				 class="button10g"
 				 onClick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/ProgramRem/Application/Program/setProgramStatus.cfm?status=8&programcode=#url.programcode#&period=#URL.Period#','recordstatus')">#lt_text# : #url.period#</button>

@@ -58,7 +58,7 @@
 	<cfdefaultcase>
 		
 		<cfloop index="att" list="#attachment#" delimiters=","> 			
-			   <cfmailparam remove="no" file = "#SESSION.rootPath#/CFRStage/User/#SESSION.acc#/#Att#">
+			   <cfmailparam remove="no" file = "#SESSION.rootdocumentpath#\CFRStage\User\#SESSION.acc#\#Att#">
 		</cfloop>   
 	
 	</cfdefaultcase>	

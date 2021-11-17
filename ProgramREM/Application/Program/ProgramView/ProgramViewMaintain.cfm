@@ -224,7 +224,7 @@
 	
 	<tr>
 	 
-	<td colspan="2" height="100%" valign="top" class="formpadding">
+	<td colspan="2" height="100%" valign="top">
 						
 		   <cfif url.lay eq "Listing">			
 		   

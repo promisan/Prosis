@@ -235,16 +235,15 @@
 		 
 		function present(mode) {
 			     		  		  
-		  w = #CLIENT.width# - 100;
-		  h = #CLIENT.height# - 140;
-		  
-		  docid = document.getElementById("printdocumentid").value
+		    w = #CLIENT.width# - 100;
+		    h = #CLIENT.height# - 140;		  
+		    docid = document.getElementById("printdocumentid").value
 		  		  		  
-		  if (docid != "") {			   
-			  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
-		  } else {
-		      ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?templatepath=#tmp#&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")		 
-		  }	  
+		    if (docid != "") {			   
+			   ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?docid="+docid+"&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=900, height=700, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
+		    } else {
+		       ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?templatepath=#tmp#&id="+mode+"&id1=#URL.ID1#","_blank", "left=30, top=30, width=900, height=700, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")		 
+		    }	  
 		  
 	  	} 	
 			
@@ -321,7 +320,7 @@
 		</td>
 
 	    <td align="right" style="background-color:white">
-		  	<select name="sort" id="sort" size="1" class="regularxl" onChange="reloadForm('<cfoutput>#URL.Mode#</cfoutput>',this.value,'yes')">
+		  	<select name="sort" id="sort" style="border:0px;background-color:f1f1f1" size="1" class="regularxxl" onChange="reloadForm('<cfoutput>#URL.Mode#</cfoutput>',this.value,'yes')">
    	  		    <option value="Line" <cfif URL.Sort eq "Line">selected</cfif>><cf_tl id="Default">
 			    <option value="GL"   <cfif URL.Sort eq "GL">selected</cfif>><cf_tl id="Show Ledger Transaction">
 		 	</select>
@@ -342,20 +341,20 @@
 			     <tr>
 				 <td>|</td>
 				 <td>
-			 	 <button onClick="Prosis.busy('yes');refresh()" type="button" class="button3">
-				     <img src="#SESSION.root#/Images/refresh.gif" alt="Refresh" border="0" align="absmiddle" style="height:15px;width:18px" >
+			 	 <button onClick="Prosis.busy('yes');refresh()" type="button" style="width:40px" class="button10g">
+				     <img src="#SESSION.root#/Images/refresh.gif" alt="Refresh" border="0" align="absmiddle" style="height:14px;width:18px" >
 				 </button>
 				 </td>
 				 <td>|</td>
 				 <td>
-				 <button onClick="present('mail')" type="button" class="button3">
-				     <img src="#SESSION.root#/Images/mail.png" alt="Send eMail" border="0" align="absmiddle" style="height:20px;width:20px">
+				 <button onClick="present('mail')" type="button" style="width:40px" class="button10g">
+				     <img src="#SESSION.root#/Images/mail.png" alt="Send eMail" border="0" align="absmiddle" style="height:26px;width:26px">
 				 </button>
 				 </td>
 				 <td>|</td>
 				 <td>
-				 <button onClick="present('pdf')" type="button" class="button3">
-				    <img src="#SESSION.root#/Images/pdf.png" alt="Print" border="0" style="height:15px;width:17px" align="absmiddle">
+				 <button onClick="present('pdf')" type="button" style="width:40px" class="button10g">
+				    <img src="#SESSION.root#/Images/pdf.png" alt="Print" border="0" style="height:18px;width:20px" align="absmiddle">
 				 </button>
 				 </td>
 				
@@ -586,7 +585,6 @@
 </td></tr>
 </table>
 
-	
 
 <!--- --------------------------------------- --->
 <!--- ----------Purchase Lines tab ---------- --->
@@ -647,9 +645,7 @@
 	       <tr class="fixrow"><td height="24" style="cursor: pointer;">
 		   	  
 			   <table width="100%" border="0">
-			   
-			  
-			   
+			   			   
 			   		<cfoutput>
 					
 					    <tr class="line">
@@ -977,9 +973,7 @@
 					</tr>
 			  </table>
 			  </td></tr>		  
-			  
-			  
-				
+			  				
 				<cf_tl id="REQ046" var="1">
 				<cfset vReq046=#lt_text#>		
 						

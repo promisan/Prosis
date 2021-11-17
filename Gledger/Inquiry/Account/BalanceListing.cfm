@@ -57,7 +57,7 @@
 <!--- pass the view --->
 
 	<cfsavecontent variable="myquery">  
-			SELECT *
+		SELECT *
 		FROM (	SELECT   #preserveSingleQuotes(sqlselect)#					 	
 				FROM     #preserveSingleQuotes(sqlbody)#			
 				GROUP BY H.Mission,
@@ -77,6 +77,25 @@
 		--condition		
 					
 	</cfsavecontent>	
+	
+	SELECT *
+		FROM (	SELECT   #preserveSingleQuotes(sqlselect)#					 	
+				FROM     #preserveSingleQuotes(sqlbody)#			
+				GROUP BY H.Mission,
+				         <cfif url.orgunit neq ""> 
+				         H.OrgUnitOwner,
+						 </cfif>
+						 G.AccountGroup, 
+				         G.Description, 
+						 R.GLAccount, 
+						 R.Description, 
+						 R.AccountType, 
+						 R.AccountClass, 
+						 R.AccountCategory, 
+						 R.ForceCurrency, 
+						 R.MonetaryAccount ) as B
+		WHERE 1=1
+		--condition		
 		  
 </cfoutput>
 

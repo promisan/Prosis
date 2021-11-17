@@ -51,10 +51,10 @@
 <td colspan="1">
  
  <table width="89%" align="center" border="0" class="formpadding formspacing">
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 		<td width="200"><cf_tl id="IndexNo"></td><td>#Person.IndexNo#</td>
 	</tr>
-	<tr class="labelmedium">
+	<tr class="labelmedium2">
 		<td><cf_tl id="Name"></td><td>#Person.FirstName# #Person.LastName#</td>
 	</tr>		
 	</table>
@@ -88,7 +88,7 @@
 
 		<table width="90%" align="center" border="0" class="navigation_table">
 		
-		<tr class="labelmedium line">
+		<tr class="labelmedium2 line">
 		   <td><cf_tl id="Position"></td>
 		   <td><cf_tl id="Unit"></td>
 		   <td><cf_tl id="Owner"></td>
@@ -155,20 +155,20 @@
 			   <td valign="top" style="width:15%">
 			     
 			   <table class="formspacing formpadding">	  
-				   <tr class="labelmedium">
+				   <tr class="labelmedium2">
 				      <td colspan="3">
 					  <table>
 					  
-						  <tr class="labelmedium">
+						  <tr class="labelmedium2">
 							  <td><cf_img icon="select" onclick="ShowPost('#positionid#')"></td>
-							  <td><a href="javascript:ShowPost('#PositionId#')"><font color="0080C0">#positionid#</font></a> / #PostGrade#</td>
+							  <td><a href="javascript:ShowPost('#PositionId#')">#positionid#</a> / #PostGrade#</td>
 						  </tr>				  
-						  <tr class="labelmedium">
+						  <tr class="labelmedium2">
 							  <td></td>
 						      <td colspan="1">#PostTypeName#</td>
 						  </tr>	
 						  
-						  <tr class="labelmedium">
+						  <tr class="labelmedium2">
 						  	  <td></td>
 						      <td colspan="1"><cfif DateExpirationFund neq "9999/12/31"><font size="2">until:</font> #DateExpirationFund#</cfif></td>
 						  </tr>	
@@ -190,10 +190,10 @@
 			   <td valign="top" style="width:25%;border-left:1px solid silver;padding-left:10px">
 			   
 			    <table width="90%" class="formpadding">	  
-				   <tr class="labelmedium">
+				   <tr class="labelmedium2">
 				      <td colspan="3">#Owner.OrgUnitNameShort#</td>
 					</tr>
-					<tr class="labelit">
+					<tr class="labelmedium2">
 				      <td colspan="3">#Owner.JobDescription#</td>
 					</tr>	  
 					
@@ -213,10 +213,12 @@
 					 <table style="border:1px solid gray" width="100%" >
 					
 					<cfloop query="Funding">
-					<tr style="border-bottom:1px solid black" bgcolor="FFBD9D"><td style="padding-left:6px" colspan="3">#CBFund#-#CBFunctionalArea#-#CBCostCenter#<cfif CBWBse neq "">-#CBWBse#</cfif></td>					     
+					<tr style="border-bottom:1px solid silver" class="labelmedium2"
+					     bgcolor="FFBD9D">
+						 <td style="padding-left:6px" colspan="3">#CBFund#-#CBFunctionalArea#-#CBCostCenter#<cfif CBWBse neq "">-#CBWBse#</cfif></td>					     
 						
 					 </tr> 
-					<tr bgcolor="FFBD9D"><td align="center">#CBPercentage#%</td>
+					<tr class="labelmedium2" bgcolor="FFBD9D"><td align="center">#CBPercentage#%</td>
 					     <td align="center">#dateformat(DateEffective,client.dateformatshow)#</td>
 						 <td align="center">#dateformat(DateExpiration,client.dateformatshow)#</td>
 					 </tr> 
@@ -370,6 +372,7 @@
 					                    Ref_ContractType AS R ON PA.AppointmentType = R.AppointmentType
 							    WHERE   PA.IndexNo           = '#IndexNo#' 
 								AND     PA.TransactionStatus = '1' 
+								AND     PA.TransactionLevel  = '1'
 								AND     PA.DateEffective    <= '#dts#' 
 								AND     PA.DateExpiration   >  '#dte#'
 							</cfquery>
@@ -463,7 +466,6 @@
 							</tr>						
 						
 						</cfloop>   
-					   
 					   
 					   </cfloop>
 					   </table>   

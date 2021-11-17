@@ -18,7 +18,7 @@
 	   
 	    <table cellspacing="0" cellpadding="0">
 		<tr>
-		<td style="padding-left:3px">						
+		<td class="labelit fixlength" style="padding-left:3px">						
 		<cf_tl id="TODAY">:		
 		<td>
 		<td style="border: 0px solid Silver;">
@@ -41,8 +41,8 @@
 	   <cfif CriteriaDatePeriod eq "1" and CriteriaType eq "Date">
 	   
 	   	</td>
-		<td class="labelit" style="padding-left:3px" width="8" align="center"><cf_tl id="until"></td>
-		<td class="labelit" style="padding-left:3px">						
+		<td class="labelit fixlength" style="padding-left:3px" width="8" align="center"><cf_tl id="until"></td>
+		<td class="labelit fixlength" style="padding-left:3px">						
 		<cf_tl id="TODAY">:		
 		<td>
 		

@@ -57,34 +57,43 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 		 
 	UPDATE Ref_ModuleControlDetailField
-	  SET 
-      ListingOrder 		   = '#FORM.ListingOrder#',
-      FieldIsKey 		   = '#FORM.FieldIsKey#',
-	  FieldNameSort        = '#FORM.FieldNameSort#',
-      FieldIsAccess 	   = '#FORM.FieldIsAccess#',
-      FieldInGrid 		   =  #displayInGrid#,
-      FieldHeaderLabel     = '#FORM.FieldHeaderLabel#',
-      FieldAlignment 	   = '#FORM.FieldAlignment#',
-      FieldWidth 		   = '#FORM.FieldWidth#',
-	  FieldRow             = '#FORM.FieldRow#',
-      FieldSort			   = '#FORM.FieldSort#',
-	  FieldColumn          = '#FORM.FieldColumn#',
-	  FieldColspan         = '#FORM.FieldColspan#',
-	  FieldFilterForce     = '#form.FieldFilterForce#',
-	  FieldFilterLabel     = '#form.FieldFilterLabel#',
-      FieldOutputFormat    = '#FORM.FieldOutputFormat#',
-      FieldFilterClass     = '#FORM.FieldFilterClass#',
-      FieldFilterClassMode = '#FORM.FieldFilterClassMode#',
-      FieldEditMode 	   = '#FORM.FieldEditMode#',
-      FieldEditInputType   = '#FORM.FieldEditInputType#',
-	  <cfif FORM.FieldEditTemplate neq "">
-      FieldEditTemplate    = '#FORM.FieldEditTemplate#',
-	  <cfelse>
-	  FieldEditTemplate    = NULL,
-	  </cfif>
-      FieldTree = #displayInTree#
+	
+		  SET 
+	      ListingOrder 		    = '#FORM.ListingOrder#',
+	      FieldIsKey 		    = '#FORM.FieldIsKey#',
+		  FieldNameSort         = '#FORM.FieldNameSort#',
+	      FieldIsAccess 	    = '#FORM.FieldIsAccess#',
+	      FieldInGrid 		    =  #displayInGrid#,
+	      FieldHeaderLabel      = '#FORM.FieldHeaderLabel#',
+	      FieldAlignment 	    = '#FORM.FieldAlignment#',
+	      FieldWidth 		    = '#FORM.FieldWidth#',
+		  FieldRow              = '#FORM.FieldRow#',
+	      FieldSort			    = '#FORM.FieldSort#',
+		  FieldColumn           = '#FORM.FieldColumn#',
+		  FieldColspan          = '#FORM.FieldColspan#',
+		  FieldFilterForce      = '#form.FieldFilterForce#',
+		  FieldFilterLabel      = '#form.FieldFilterLabel#',
+	      FieldOutputFormat     = '#FORM.FieldOutputFormat#',
+	      FieldFilterClass      = '#FORM.FieldFilterClass#',
+	      FieldFilterClassMode  = '#FORM.FieldFilterClassMode#',
+		  FieldFunction         = '#FORM.FieldFunction#', 
+		  <cfif FieldFunction neq "">	 	  
+		      FieldFunctionField      = '#FORM.FieldFunctionField#',  	   
+			  FieldFunctionCondition  = '#FORM.FieldFunctionCondition#', 	  	  
+		  <cfelse>
+		      FieldFunctionField      = '', 
+		      FieldFunctionCondition  = '', 
+		  </cfif>
+	      FieldEditMode 	    = '#FORM.FieldEditMode#',
+	      FieldEditInputType    = '#FORM.FieldEditInputType#',
+		  <cfif FORM.FieldEditTemplate neq "">
+	      FieldEditTemplate     = '#FORM.FieldEditTemplate#',
+		  <cfelse>
+		  FieldEditTemplate     = NULL,
+		  </cfif>
+	      FieldTree             = #displayInTree#
 	  
-	WHERE  FieldId = '#FORM.FieldId#'
+	WHERE  FieldId          = '#FORM.FieldId#'
 	AND    SystemFunctionId = '#FORM.FunctionId#'
     AND    FunctionSerialNo = '#FORM.SerialNo#'
 	

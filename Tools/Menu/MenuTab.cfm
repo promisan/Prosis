@@ -127,7 +127,7 @@
 
 	<table style="width:100%" align="center" style="<cfif attributes.border eq 'yes'>border:1px solid silver</cfif>">
 	
-	<tr>
+	<tr class="fixlengthlist">
 					
 	<td class="#attributes.class#" id="#base##item#" name="#base##item#" 		
 		style="width:100%;cursor:pointer; padding-top:#attributes.padding#px;padding-bottom:2px;" 
@@ -142,10 +142,9 @@
 						<img width="#icwd#" height="#icht#" src="#SESSION.root#/Images/#icon#" id="imenu#tabid#" name="imenu#tabid#">						
 					</td></tr>
 				</cfif>
-				<tr class="labelmedium">
-				<td align="center" name="menu#tabid#_text" id="menu#tabid#_text" style="font-size:15px;color:#attributes.fontcolor#;padding-top:4px">
-				#Name#				
-				<td></tr>
+				<tr class="labelmedium fixlengthlist">
+				<td align="center" name="menu#tabid#_text" id="menu#tabid#_text" style="font-size:15px;color:#attributes.fontcolor#;padding-top:4px">#Name#<td>
+				</tr>
 				
 		  	</table>
 			
@@ -156,9 +155,9 @@
 				 style="cursor:pointer">
 				 				 				 							
 			  		<tr><td align="center" width="100%" style="padding-bottom:1px">
-															
+																				
 						<table align="center">
-							<tr class="labelmedium">
+							<tr class="labelmedium fixlenghtlist">
 								<cfif icon neq "">
 								<td align="right" style="padding-right:5px">
 								<img width="#icwd#" align="absmiddle" height="#icht#" src="#SESSION.root#/Images/#icon#">
@@ -183,7 +182,5 @@
 	</cfif>
 	
 </td>
-
-
 
 </cfoutput>

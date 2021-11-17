@@ -433,15 +433,32 @@ password="#SESSION.dbpw#">
 							SELECT  *
 							FROM    WarehouseBatchAction
 							WHERE   BatchNo = '#Batch.BatchNo#'
-							-- AND     ActionCode = 'Deny'
+							AND     ActionCode = 'Deny'
 							ORDER BY Created 
 						</cfquery>	
 						
 						<cfif check.recordcount gte "1">
 						
-						<td style="padding-left:5px;color:FF0000">
-						was cancelled before on #dateformat(Check.ActionDate,CLIENT.DateFormatShow)# by #Check.OfficerFirstName# #check.officerLastName#
-						</td>
+							<td style="padding-left:5px;color:FF0000">
+							was cancelled before on #dateformat(Check.ActionDate,CLIENT.DateFormatShow)# by #Check.OfficerFirstName# #check.officerLastName#
+							</td>
+						
+						</cfif>
+						
+						<cfquery name="Check"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							SELECT  *
+							FROM    ItemTransactionDeny
+							WHERE   TransactionBatchNo = '#Batch.BatchNo#'							
+						</cfquery>	
+						
+						<cfif check.recordcount gte "1">
+						
+							<td style="padding-left:5px;color:FF0000">
+							has one or more lines that were either cancelled or adjusted.
+							</td>
 						
 						</cfif>
 					
@@ -456,7 +473,7 @@ password="#SESSION.dbpw#">
 					
 					<td id="iconfirm"></td>
 						
-						<td colspan="1" height="30" align="right">
+						<td colspan="1" height="30" align="right" style="padding-right:4px">
 							<cfif Batch.ReportTemplate neq "">
 							
 								<cfset vPrintoutPath = Batch.ReportTemplate>
@@ -481,9 +498,8 @@ password="#SESSION.dbpw#">
 				</tr>
 				
 				<cfif Batch.ActionMemo neq "">
-				
-					<tr><td height="5"></td></tr>											
-					<tr class="line"><td class="labelit" colspan="5">#Batch.ActionMemo#</td></tr>							
+																			
+					<tr class="line"><td class="labelmedium2" style="padding-left:10px" colspan="5">#Batch.ActionMemo#</td></tr>							
 									
 				</cfif>
 				

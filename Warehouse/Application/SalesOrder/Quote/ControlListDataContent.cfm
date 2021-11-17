@@ -52,6 +52,8 @@
 						   
 			FROM           CustomerRequest AS CR INNER JOIN Customer AS C ON CR.CustomerId = C.CustomerId
 			WHERE          CR.Warehouse = '#url.warehouse#' 
+			<!--- has turned into a sales order quote --->			
+			AND            NOT EXISTS (SELECT 'X' FROM WorkOrder.dbo.WorkorderLine WHERE Source = 'Quote' and SourceNo = CR.RequestNo)
 			-- AND            CR.BatchNo IS NULL 
 			AND            CR.ActionStatus <> '9' 
 			<!--- to exclude temporary loaded records to amend --->

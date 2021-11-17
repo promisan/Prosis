@@ -354,35 +354,33 @@
 		
 		<cfif attributes.rowlabel eq "Yes">
 		
-			<tr class="labelmedium fixrow">
-			   <td colspan="2" style="min-width:380px;padding-left:10px"><cf_tl id="Status"><cfif refr eq "1">##</cfif></td>		  
-			   <td style="min-width:60px"><cf_tl id="Action by"></td>
-			   <td style="width:70%"><cf_tl id="Actor"></td>	
+			<tr class="labelmedium fixlengthlist line">
+			   <td colspan="2" style="padding-left:10px"><cf_tl id="Status"><cfif refr eq "1">##</cfif></td>		  
+			   <td><cf_tl id="Action by"></td>
+			   <td><cf_tl id="Actor"></td>	
 			   <!---	  
 			   <td width="120"><cf_tl id="Processed"></td>
 			   --->
-			   <td style="min-width:60px"><cf_tl id="Leadtime"></td>
-			   <td style="min-width:80px"><cf_tl id="Action Date"></td>
+			   <td><cf_tl id="Leadtime"></td>
+			   <td><cf_tl id="Action Date"></td>
 			   <td width="10"></td>
 			   <td width="10"></td>
 			</tr>	
 		
 		<cfelse>
 		
-			<tr>
-			   <td colspan="2" style="min-width:380px;padding-left:10px"></td>		  
-			   <td style="min-width:60px"></td>
-			   <td style="min-width:120px"></td>		  		  
-			   <td style="min-width:60px"></td>
-			   <td style="min-width:80px"></td>
+			<tr class="line">
+			   <td colspan="2" style="padding-left:10px"></td>		  
+			   <td></td>
+			   <td></td>		  		  
+			   <td></td>
+			   <td></td>
 			   <td width="10"></td>
 			   <td width="10"></td>
 			</tr>	
 		
 		</cfif>
-		
-		<tr><td colspan="<cfoutput>#col#</cfoutput>" class="line"></td></tr>
-		
+				
 	</cfif>	
 		
 	<!--- here start the records to be listed --->

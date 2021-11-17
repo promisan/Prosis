@@ -126,12 +126,11 @@ password="#SESSION.dbpw#">
 		<cfelse>
 		  
 			<tr class="line fixrow2">
-			<td height="34" colspan="10" align="center">		
+			<td height="39" colspan="10" align="center" style="background-color:e1e1e1">		
 						
-				<table width="100%">				
-				  <tr style="background-color:e6e6e6">
-				   <td style="padding-left:10px"></td>
-				   <td align="right" id="total" style="padding-right:2px" class="labelmedium2"></td>					   
+				<table width="95%" height="90%" align="center" style="border:1px solid silver;background-color:e1e1e1">				
+				  <tr>				   
+				   <td align="right" id="total" style="padding-right:2px"></td>					   
 				  </tr>				   
 			   </table>
 					   
@@ -309,12 +308,12 @@ password="#SESSION.dbpw#">
 					<TD><a class="navigation_action" href="javascript:ShowTransaction('#Journal#','#JournalSerialNo#')">#JournalTransactionNo#</a></TD>
 					<TD>#TransactionReference#</TD>
 					<cfif url.id1 neq "ReferenceName">
-					    <TD style="min-width:240px;padding-right:3px;">#ReferenceName#</TD>
+					    <TD class="fixlength" title="#ReferenceName#" style="padding-left:3px;min-width:240px;padding-right:3px;">#ReferenceName#</TD>
 					<cfelse>
 						<td>#Dateformat(ActionBefore, "#CLIENT.DateFormatShow#")#</td>	
 					</cfif>
-					<TD>#Description#</TD>
-					<TD>#Dateformat(TransactionDate, "#CLIENT.DateFormatShow#")#</TD>					
+					<TD class="fixlength" style="padding-left:3px;padding-right:3px;max-width:250px;background-color:##e1e1e180" title="#Description#">#Description#</TD>
+					<TD style="padding-left:3px">#Dateformat(TransactionDate, "#CLIENT.DateFormatShow#")#</TD>					
 				    <TD align="left">#Currency#</TD>
 					<td align="right" style="padding-right:1px">
 										

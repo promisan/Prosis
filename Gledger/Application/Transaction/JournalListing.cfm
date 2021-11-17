@@ -14,11 +14,11 @@
 	    
 		  <tr style="height:20px" class="noprint line">
 		  
-		   <td style="padding-left:8px" class="labellarge clsNoPrint">
+		   <td style="padding-left:8px;min-width:400px" class="labellarge clsNoPrint">
 	
 		    <cfif url.journal neq "">
 			
-			  	<table>											
+			  	<table style="width:100%">											
 					<tr><td><cfinclude template="JournalTopMenu.cfm"></td></tr>						
 				</table>
 			
@@ -51,7 +51,7 @@
 					
 			<cfif Batch.recordcount gte "1">
 			
-				<select name="journalbatchno" id="journalbatchno" style="font-size:18px;height:35px;border:0px;" 
+				<select name="journalbatchno" id="journalbatchno" style="background-color:f1f1f1;font-size:18px;height:35px;border:0px;" 
 				class="regularxl" onchange="reloadForm(page.value,document.getElementById('idstatus').value)">
 				<option value=""><cf_tl id="All Batch periods"></option>
 				<cfoutput query="Batch">
@@ -87,7 +87,7 @@
 			<td style="border-right:1px solid right">
 			
 			<select name="period" id="period"
-			    size="1" style="font-size:18px;height:35px;;border:0px"
+			    size="1" style="background-color:f1f1f1;font-size:16px;height:35px;;border:0px"
 				class="regularxl"
 				onChange="reloadForm(page.value,document.getElementById('idstatus').value)">
 				<option value=""><cf_tl id="All"></option>
@@ -215,7 +215,7 @@
 						<td style="padding-left:7px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'Pending')">  				
 						<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="Pending" <cfif URL.IDStatus eq "Pending">checked</cfif>>
 						</td>
-						<td style="padding-left:5px;padding-right:10px">
+						<td class="fixlength">
 						<cf_tl id="Pending for Clearance">
 						</td>
 						
@@ -304,7 +304,7 @@
 		
 		<tr>
 	
-		<td colspan="2" valign="top" style="height:10px;min-width:1200px">
+		<td colspan="2" valign="top" style="height:10px">
 					
 			  <table width="100%" align="center" class="navigation_table">			  
 					
@@ -338,7 +338,7 @@
 					
 		<tr class="line">
 		
-			<td colspan="2" class="clsPrintContent" id="journalcontent" valign="top" style="padding-left:10px;min-width:1200px;height:100%">	
+			<td colspan="2" class="clsPrintContent" id="journalcontent" valign="top" style="padding-left:10px;height:100%">	
 			
 			<!---    <cfinclude template="JournalListingContent.cfm">		--->
 			

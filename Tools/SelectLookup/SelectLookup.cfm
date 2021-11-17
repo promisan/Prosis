@@ -843,6 +843,59 @@
 			</cfif>	
 		
 		</cfcase>
+		
+		<cfcase value="Quote">	
+		
+			<CFParam name="Attributes.height"     default="600">
+			<CFParam name="Attributes.width"      default="640">	
+			<CFParam name="Attributes.pFunction"   default="">		
+						
+			<cfset jvlink = "#pfunction#;try { ProsisUI.createWindow('dialog#box#') } catch(e) { ProsisUI.createWindow('dialog#box#','#Attributes.title#','',{x:100,y:100,height:document.body.clientHeight-70,width:document.body.clientWidth-90,modal:#attributes.modal#,center:true}) };ptoken.navigate('#SESSION.root#/Tools/SelectLookup/StockOrder/Quote.cfm?module=#attributes.module#&width='+document.body.clientWidth+'&close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#','dialog#box#')">		
+						
+			<cfif attributes.button eq "cfbutton">
+								
+				<cf_button2
+					text        = "#Attributes.title#" 
+                    subText     = "#Attributes.buttonlayout.subText#"
+                    image       = "#attributes.buttonlayout.image#"  
+                    onclick		= "#preservesinglequotes(jvlink)#" 	
+                    width       = "#attributes.buttonlayout.width#" 
+					textcolor   = "#attributes.buttonlayout.textcolor#"
+					textsize    = "#attributes.buttonlayout.textsize#"	
+                    height      = "#attributes.buttonlayout.height#"
+					bgColor     = "#attributes.buttonlayout.bgColor#"
+					borderColor = "#attributes.buttonlayout.borderColor#"
+					borderRadius= "#attributes.buttonlayout.borderRadius#"
+                    imageHeight = "#attributes.buttonlayout.imageHeight#"
+                    imagePos    = "#attributes.buttonlayout.imagePos#"
+					title       = "#attributes.title#">
+				
+			<cfelseif attributes.button eq "No">
+						
+			   <table cellspacing="0" cellpadding="0">
+			   <tr><td>
+			   
+		    	<img src="#CLIENT.virtualdir#/images/#attributes.icon#" width="#attributes.iconwidth#" height="#attributes.iconheight#" 
+				    alt="" border="0" align="absmiddle"
+					onclick="#preservesinglequotes(jvlink)#" style="cursor: pointer;">
+					</td>
+					
+					<cfif attributes.title neq "">
+					<td style="padding-left:8px">
+				 	<a href="javascript:#preservesinglequotes(jvlink)#"><font  face="Calibri" size="2">#Attributes.title#</a>
+					</td></cfif>
+					
+					</td></tr>
+				</table>
+				
+			<cfelse>
+			
+				 <input type="button" value="#Attributes.title#" class="button10s"
+				    style="#attributes.style#;width:120px" onClick="#preservesinglequotes(jvlink)#">	
+										 		
+			</cfif>	
+		
+		</cfcase>
 	
 		<cfcase value="Asset">	
 		

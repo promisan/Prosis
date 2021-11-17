@@ -6,7 +6,7 @@
 <cf_DialogStaffing>
 
 <cf_tl id="Submit Requests" var="vSubmit">
-<cf_screentop height="100%" close="parent.parent.ColdFusion.Window.destroy('mysubmit',true)" label="#vSubmit#" jquery="Yes" line="no" banner="gray" layout="webapp" scroll="Yes" html="no">
+<cf_screentop height="100%" label="#vSubmit#" jquery="Yes" line="no" banner="gray" layout="webapp" scroll="Yes" html="no">
 
 <cfoutput>
 
@@ -45,7 +45,7 @@
 
 <tr><td valign="top">
 	
-	<table width="96%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="96%" align="center" class="formpadding">
 	
 	    <cfif url.status eq "1">
 		

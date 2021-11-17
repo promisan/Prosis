@@ -11,7 +11,7 @@
 
 <cfoutput>
 	
-		<tr style="height:24px" class="navigation_row_child">	
+		<tr style="height:24px" class="navigation_row_child fixlengthlist">	
 		
 		<td></td>	
 		
