@@ -170,9 +170,11 @@
 								'#url.id#',
 								'#code#',	
 								<cfif valueClass eq "List">	
-								'#vValue#',					
-								</cfif>	
-								'#vValue#',
+								'#vValue#',	
+								'#qTopicList.ListValue#'	
+								<cfelse>
+								'#vValue#',			
+								</cfif>									
 								'#SESSION.acc#',
 								'#SESSION.last#',
 								'#SESSION.first#'
@@ -186,9 +188,12 @@
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 						UPDATE #tbcl#
-						SET	   TopicValue = '#vValue#'
-						       <cfif valueClass eq "List">
-							   , ListCode = '#vValue#'</cfif>
+						SET	   <cfif valueClass eq "List">
+							    ListCode = '#vValue#',
+								TopicValue = '#qTopicList.ListValue#'
+							   <cfelse>
+							    TopicValue = '#vValue#'
+							   </cfif>
 						WHERE  ItemNo     = '#url.id#'
 						AND    Topic      = '#getTopics.code#'
 				</cfquery>

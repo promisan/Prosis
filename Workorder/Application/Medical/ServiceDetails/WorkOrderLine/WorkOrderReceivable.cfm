@@ -3,7 +3,7 @@
 			
 	<table width="98%" align="center">
 			
-		<tr class="labelmedium line">	   	   
+		<tr class="labelmedium2 line fixlengthlist">	   	   
 		    <td><cf_tl id="Issued to"></td>
 			<td><cf_tl id="Currency"></td>
 			<td><cf_tl id="Invoice"></td>
@@ -15,7 +15,7 @@
 		
 		<cfif ARsearchresult.recordcount eq "0">
 		
-		<tr><td class="labelmedium" align="center" colspan="6"><font color="gray"><cf_tl id="There are no records found to be shown"></td></tr>
+		<tr><td class="labelmedium2" align="center" colspan="6"><font color="gray"><cf_tl id="There are no records found to be shown"></td></tr>
 		
 		</cfif>
 	
@@ -25,15 +25,23 @@
 			
 		    <cfoutput>
 			
-		    <tr class="navigation_row line labelmedium">			
+		    <tr class="navigation_row line labelmedium2 fixlengthlist">			
 				<td>#ReferenceName#</td>
 				<td>#Currency#</td>
 				<td>
-				<a style="color:black;" href="#SESSION.root#/Gledger/Application/Transaction/View/TransactionView.cfm?id=#TransactionId#" target="_blank" >#TransactionReference#</a>
+				<cfif TransactionReference eq "">
+				<a href="#SESSION.root#/Gledger/Application/Transaction/View/TransactionView.cfm?id=#TransactionId#" target="_blank" >#JournalTransactionNo#</a>
+				<cfelse>
+				<a href="#SESSION.root#/Gledger/Application/Transaction/View/TransactionView.cfm?id=#TransactionId#" target="_blank" >#TransactionReference#</a>
+				</cfif>
 				</td>
 				<td>#TransactionSource#</td>
 				<td>
-				<a style="color:black;" href="WorkOrderLineView.cfm?drillid=#ReferenceId#" target="_blank" >#DateFormat(DocumentDate,CLIENT.DateFormatShow)# </a>
+				<cfif transactionsourceid neq url.drillid>
+				<a href="javascript:ptoken.open('WorkOrderLineView.cfm?drillid=#TransactionSourceId#','_blank')">#DateFormat(DocumentDate,CLIENT.DateFormatShow)# </a>
+				<cfelse>
+				<cf_tl id="this encounter">
+				</cfif>
 				</td>
 				<td>#DateFormat(ActionBefore,CLIENT.DateFormatShow)#</td>			
 				<td align="right">#numberFormat(AmountOutstanding,',.__')#</td>			

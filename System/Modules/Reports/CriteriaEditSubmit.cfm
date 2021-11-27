@@ -583,7 +583,11 @@ WHERE   ControlId = '#Form.ControlId#'
 	</cfcatch>
 	
 	</cftry>
-		
+	
+	<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	<cfset mid = oSecurity.gethash()/>   
+	
+			
 	<script language="JavaScript">
 		
 		<cfoutput>
@@ -597,9 +601,9 @@ WHERE   ControlId = '#Form.ControlId#'
 				 window.close()
 				<!--- opener.location = "Criteria.cfm?id=#Form.ControlID#&status=#url.status#" --->
 			 <cfelseif  url.option eq "ClearMe">
-			     ColdFusion.navigate('CriteriaEditForm.cfm?id1=&id=#Form.ControlID#&status=#url.status#','fields')			  
+			     ptoken.location('CriteriaEdit.cfm?id1=&id=#Form.ControlID#&status=#url.status#&mid=#mid#')			  
 			 <cfelse>			    
-			     ColdFusion.navigate('CriteriaEditForm.cfm?id1=#form.criterianame#&id=#Form.ControlID#&status=#url.status#','fields')			  
+			     ptoken.location('CriteriaEdit.cfm?id1=#form.criterianame#&id=#Form.ControlID#&status=#url.status#&mid=#mid#')			  
 			 </cfif>
 						 
 		</cfoutput>	 

@@ -1,5 +1,5 @@
 
-<cf_screentop height="100%" html="No">
+<cf_screentop height="100%" html="No" jquery="Yes">
 
 <cfparam name="URL.ID2" default="">
 
@@ -19,10 +19,10 @@ password="#SESSION.dbpw#">
 datasource="AppsSystem" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-    SELECT *
-    FROM  Ref_ReportControlCriteriaList
-	WHERE ControlId = '#URL.ID#'
-	AND CriteriaName = '#URL.ID1#'
+    SELECT   *
+    FROM     Ref_ReportControlCriteriaList
+	WHERE    ControlId = '#URL.ID#'
+	AND      CriteriaName = '#URL.ID1#'
 	ORDER BY ListOrder
 </cfquery>
 
@@ -34,15 +34,15 @@ password="#SESSION.dbpw#">
 	    
 	  <tr>
 	    <td width="100%" class="regular">
-	    <table width="100%" class="formpadding">
+	    <table width="100%" class="formpadding navigation_table">
 			
-	    <TR class="labelmedium2 line fixrow">
-		   <td width="28%">Value</td>
-		   <td width="58%">Description</td>
-		   <td>Sort</td>
-		   <td width="10%" align="center">Enable</td>
-		   <td style="width:20px"></td>
-		   <td style="width:20px"></td>
+	    <TR class="labelmedium2 line fixlengthlist">
+		   <td><cf_tl id="Value"></td>
+		   <td><cf_tl id="Description"></td>
+		   <td><cf_tl id="Sort"></td>
+		   <td align="center"><cf_tl id="Enable"></td>
+		   <td style="max-width:30px"></td>
+		   <td style="max-width:30px"></td>
 	    </TR>	
 		
 		<cfoutput>
@@ -57,8 +57,8 @@ password="#SESSION.dbpw#">
 		
 		    <input type="hidden" name="ListValue" id="ListValue" value="<cfoutput>#nm#</cfoutput>">
 												
-			<TR class="line labelmedium2">
-			   <td>&nbsp;#nm#</td>
+			<TR class="line labelmedium2 navigation_row fixlengthlist">
+			   <td>#nm#</td>
 			   <td>
 			   	   <cfinput type="Text" value="#de#" name="ListDisplay" message="You must enter a description" required="Yes" size="30" maxlength="30" class="regularxl">
 	           </td>
@@ -80,19 +80,19 @@ password="#SESSION.dbpw#">
 					
 		<cfelse>
 		
-			<TR  class="line labelmedium2">
+			<TR  class="line labelmedium2 navigation_row fixlengthlist">
 			   <td>#nm#</td>
 			   <td>#de#</td>
 			   <td>#od#</td>
 			   <td align="center"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
-			   <td style="padding-left:5px">
+			   <td align="center">
 			     <cfif URL.Status eq "0" or SESSION.isAdministrator eq "Yes">				  
 			     <A href="CriteriaList.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#nm#">
 				 <img src="#SESSION.root#/Images/edit.gif" alt=""  border="0">
 				 </a>
 				 </cfif>
 			   </td>
-			   <td style="padding-left:5px">
+			   <td align="center">
 			    <cfif URL.Status eq "0" or SESSION.isAdministrator eq "Yes">
 			    <A href="CriteriaListPurge.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#nm#">
 				<img src="#SESSION.root#/Images/delete5.gif" alt="" border="0">
@@ -109,7 +109,7 @@ password="#SESSION.dbpw#">
 						
 		<cfif URL.ID2 eq "" and (URL.Status eq "0" or SESSION.isAdministrator eq "Yes")>
 					
-			<TR  class="line labelmedium">
+			<TR  class="line labelmedium fixlengthlist">
 			<td>
 			   <cfinput type="Text" name="ListValue" message="You must enter a value" required="Yes" size="20" maxlength="20" class="regularxl">			
 			</td>
@@ -138,7 +138,7 @@ password="#SESSION.dbpw#">
 			    
 			</TR>	
 			
-			<cfset cnt = cnt + 20>
+			<cfset cnt = cnt + 25>
 								
 		</cfif>	
 		
@@ -155,7 +155,7 @@ password="#SESSION.dbpw#">
 	{
 	
 	frm  = parent.document.getElementById("ilist");
-	he = 28+#cnt#+#detail.recordcount*22#;
+	he = 35+#cnt#+#detail.recordcount*25#;
 	frm.height = he
 	}
 	

@@ -16,7 +16,7 @@
 	
 	<!--- lets add an option to select a quote no as well --->
 	
-	<!--- defined price --->
+	<!--- defined price --->	
 			
 	<cfinvoke component  = "Service.Process.Materials.POS"  
 		   method            = "getPrice" 
@@ -121,7 +121,8 @@
 						--->
 						PriceSchedule,
 						SalesCurrency, 
-						SchedulePrice, 
+						SchedulePrice,
+						
 						SalesPrice, 
 						TaxCode,
 						TaxPercentage, 
@@ -130,10 +131,8 @@
 						SalesUnitPrice,
 						SalesAmount, 
 						SalesTax, 			           
-						PersonNo,
-						<!---
+						PersonNo,						
 						SalesPersonNo,
-						--->
 						OfficerUserId,
 						OfficerLastName,
 						OfficerFirstName )  
@@ -164,6 +163,7 @@
 						'#sale.amount#', 
 						'#sale.amounttax#', 			           
 						'#client.PersonNo#',
+						'#client.PersonNo#',
 						<!---
 						'#url.salespersonno#',
 						--->
@@ -173,7 +173,7 @@
 						
 				</cfquery>
 				
-</cfif>	
+	</cfif>	
 
 <!--- add item --->
 
@@ -314,5 +314,12 @@
 </tr>
 
 </table>
+
+<!--- refresh the schedule selector with the correct default value --->
+<cfoutput>
+	<script>		    
+	     ptoken.navigate('getQuoteSchedule.cfm?requestNo=#url.requestNo#','priceschedule')
+	</script>
+</cfoutput>
 
 <cfset ajaxonload("doHighlight")>

@@ -61,6 +61,11 @@ function EditTransaction(jrn, ser) {
 	ptoken.open(root + "/Gledger/Application/Transaction/Standard/TransactionEdit.cfm?Journal=" + jrn + "&JournalSerialNo=" + ser + "&h=" + h,"tra"+ser,"height="+h+",width="+w+",scrollbar=no,status=yes,center=yes,resizable=yes");	
 }
 
+function PrintTaxReceivable(id,scope) {		
+	ProsisUI.createWindow('wsettle', 'Invoice', '',{x:100,y:100,width:860,height:document.body.clientHeight-75,resizable:false,modal:true,center:true})
+	ptoken.navigate("#session.root#/Gledger/Application/Transaction/View/TransactionTaxInvoice.cfm?scope="+scope+"&actionid="+id, "wsettle");
+}
+
 function editCustomer(customerId){
 	ptoken.open("#SESSION.root#/warehouse/application/customer/view/CustomerEditTab.cfm?drillid="+customerId, "EditCustomer");
 }

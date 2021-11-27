@@ -70,7 +70,7 @@
 			   rw = 0
 			   while (se[rw]) {				     
 			      if (val == true) {					
-				  se[rw].className = "regular"
+				  se[rw].className = "regular fixlengthlist"
 				  } else {					 
 			      se[rw].className = "hide"
 				  }		

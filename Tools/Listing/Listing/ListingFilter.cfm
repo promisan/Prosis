@@ -248,9 +248,9 @@
 						
 						<cfset cnt=cnt+1>
 					
-						<cfif cnt eq "1"><tr></cfif>
+						<cfif cnt eq "1"><tr class="fixlengthlist"></cfif>
 						
-						<td height="12" style="min-width:140px<cfif cnt neq '1'>;padding-left:10px</cfif>" class="labelmedium">#Current.LabelFilter#: <cfif current.filtermode eq "4"></cfif>
+						<td style="<cfif cnt neq '1'>;padding-left:10px</cfif>" class="labelmedium">#Current.LabelFilter#: <cfif current.filtermode eq "4"></cfif>
 						<cfif current.filterforce eq "1"><font color="FF0000">*)</font></cfif>
 						</td>
 																				

@@ -1,5 +1,7 @@
 
+
 <cfif url.class eq "Deduction" and url.transactionId neq "">
+
 	
 	<cfquery name="Advance" 
 		datasource="AppsLedger" 

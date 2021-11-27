@@ -102,7 +102,7 @@
    SettingOnHand       = "#Form.SettingOnHand#"
    SettingPromotion    = "#Form.SettingPromotion#"
    SettingReservation  = "#Form.SettingReservation#"
-   returnvariable      = "get">	 
+   returnvariable      = "get">	
    
 
 <table style="width:97%" class="formpadding navigation_table">
@@ -113,8 +113,10 @@
 		    
 			<td><cf_tl id="Store"></td>			
 			<td align="right"><cf_tl id="Box"></td>
+			<!---
 			<td align="right"><cf_tl id="Price"></td>
 			<td align="right"><cf_tl id="Promotion"></td>
+			--->
 			
 			<td align="right"><cf_tl id="UoM"></td>	
 			<td align="right"><cf_tl id="Sold"></td>
@@ -128,23 +130,20 @@
 		</tr>
 		
 		</cfoutput>
+				
 		
-		<cfif form.warehouse eq "">
+		<cfif get.recordcount eq "0">
 		
-		   <cfset gr = "ItemNo">
-		
-		<cfelse>
-		
-		   <cfset gr = "Warehouse">
+		<tr class="labelmedium2"><td style="color:red;padding-top:30px;font-size:18px" colspan="9" align="center"><cf_tl class="message" id="no records"></td></tr>
 		
 		</cfif>
 		
 		<cf_tl id="Add" var="1">
 					
-			<cfoutput query="get" group="#gr#">	
+			<cfoutput query="get" group="ItemNo">	
 			
-				<cfif form.warehouse eq "">		
-							
+				<cfoutput group="UoM">	
+			
 					<tr class="fixrow2 line fixlengthlist"><td colspan="10" style="padding-top:10px;padding-bottom:4px">
 
 					<table style="width:100%">					
@@ -178,7 +177,17 @@
 							<tr><td style="font-size:18px"><cfif itemNoExternal neq ""><b>#ItemNoExternal#</b><cfelse>#ItemNo#</cfif>: #ItemDescription#</td></tr>
 							<tr><td style="font-size:18px"><cfif itemNoExternal neq ""><b>#ItemNoExternal#</b><cfelse>#ItemNo#</cfif><span style="font-size:15px">: #ItemDescription#</span></td></tr>
 														
-							<tr><td style="color:gray;width:20%;padding-right:4px;font-size:14px">#CategoryName#</td></tr>
+							<tr>
+							<td style="color:gray;width:20%;padding-right:4px;font-size:17px">
+							
+							<font size="1">#Currency#&nbsp;</font>
+							<cfif promotion eq "1">
+							<font size="4" color="FF0000"><b>#numberformat(SalesPrice,',.__')#</font>
+							<cfelse>
+							<font size="4" color="0080C0">#numberformat(SalesPrice,',.__')#</font>
+							</cfif>
+							&nbsp;#CategoryName#</td>
+							</tr>
 							
 							<tr><td style="color:xwhite;gray;width:20%;padding-right:4px;font-size:13px">
 							
@@ -224,17 +233,16 @@
 					</table>
 					
 					</td></tr>
-				
-				</cfif>
-							
+											
 				<cfoutput>
 				
 				<cf_precision precision="#ItemPrecision#">
 											
 				<tr class="labelmedium2 line navigation_row fixlengthlist">	
 				   
-	   			    <cfif form.warehouse eq "">						
-					<td style="font-size:15px;background-color:##f1f1f150;padding-left:18px">#WarehouseName#</td>						
+	   			    <!--- <cfif form.warehouse neq "999999"> --->
+					<td style="font-size:15px;background-color:##f1f1f150;padding-left:18px">#WarehouseName#</td>	
+					<!---					
 					<cfelse>
 					<td style="background-color:##f1f1f150;padding-left:3px">
 					<table>
@@ -248,14 +256,17 @@
 					</table>
 					</td>	
 					</cfif>
+					--->
 					<td style="background-color:##B0D8FF50" align="right">#MinReorderQuantity#</td>
+					<!--- moved up
 					<td style="background-color:##B0D8FF50" align="right">#numberformat(SalesPrice,',.__')#</td>					
 					<td style="background-color:##B0D8FF50;font-weight:bold" align="right">
 					<cfif promotion eq "0">--<cfelse>#numberformat(SalesPrice,',.__')#</cfif>
-					</td>		
-					<td align="right">#UoM#</td>		
-					<td style="background-color:##ffffaf50;font-size:12px" align="right">
-					#dateformat(LastSold,client.dateformatshow)#</td>
+					</td>
+					--->		
+					<td align="right">#UoMName#</td>		
+					<td style="background-color:##ffffaf50;" align="right">
+					#dateformat(LastSold,"MMM-YY")#</td>
 					<cfif QuantityForSale eq "0">
 						<td style="font-size:13px;background-color:##f1f1f150" align="right">--</td>
 					<cfelse>				
@@ -283,6 +294,8 @@
 					<!--- <cfif stockdisposed eq "0">--<cfelse>#numberformat(StockDisposed,',.__')#</cfif> --->				
 					</td>								
 				</tr>
+				
+				</cfoutput>
 				
 				</cfoutput>
 			

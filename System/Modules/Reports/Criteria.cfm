@@ -11,7 +11,7 @@
 	
 	function purge(rl) {
 		if (confirm("Do you want to remove parameter: [" + rl + "] from this report ?")) {
-		  window.location = "CriteriaPurge.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1="+rl	     
+		  ptoken.location('CriteriaPurge.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1='+rl)	     
 		}  
 	}
 		
@@ -46,7 +46,7 @@ password="#SESSION.dbpw#">
 	    
 	  <tr>
 	    <td width="100%">
-	    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="navigation_table">
+	    <table width="100%" lass="navigation_table">
 		
 		<cf_distributer>
 		
@@ -63,7 +63,7 @@ password="#SESSION.dbpw#">
 				
 		<cfif criteria.recordcount gt "0">
 		
-		    <TR class="labelmedium line fixrow">
+		    <TR class="labelmedium line fixrow fixlengthlist">
 			   <td></td>
 			   <td>Parent</td>
 			   <td>Name</td>
@@ -84,16 +84,16 @@ password="#SESSION.dbpw#">
 		<cfset cnt = cnt + 36>
 		<cfoutput>
 						
-		<TR class="navigation_row line labelmedium" style="height:22px">
+		<TR class="navigation_row line labelmedium2 fixlengthlist" style="height:22px">
 			  
-		   <td align="center" style="padding-left:4px;padding-top:5px">		     
+		   <td align="center" style="padding-left:4px;padding-top:2px">		     
 			 <cf_img icon="select" navigation="Yes" onclick="javascript:criteria('#CriteriaName#')">		     		   
 		   </td>
 		   <td>#CriteriaNameParent#</td>
 		   <td>#CriteriaName#</td>
 		   <td>#CriteriaCluster#</td>
 		   <td>#CriteriaDescription#</td>
-		   <td>#CriteriaType#<cfif LookupTable neq "">:#LookupTable#</cfif></td>
+		   <td><b>#CriteriaType#&nbsp;</b><cfif LookupTable neq "">:#LookupTable#</cfif></td>
 		   <td>#CriteriaOrder#</td>	
 		   
 		   <cfquery name="Default" 

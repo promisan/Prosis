@@ -314,7 +314,7 @@
 					
 	</cfif>	
 		
-	<cfset cl     = "regular labelit">
+	<cfset cl     = "regular labelmedium2 fixlengthlist">
 	<cfset clline = "regular">
 						
 	<cfif selected eq "0" and url.parent eq "regular">			
@@ -326,12 +326,13 @@
 	</cfif>		
 					
 	<tr id="box_#url.parent#" class="#cl#" style="height:20px;padding-left:4px">	
-			
+					
 		<input type="hidden" name="#unitclass#_costid_#currentrow#" id="#unitclass#_costid_#currentrow#" value="#CostId#">					
 	
 		<cfif url.parent neq "">
 						
 			<td style="padding-left:16px;padding-right:6px;width:2%">																
+			
 				<input type    = "checkbox" 
 				       name    = "#unitclass#_unit_#currentrow#"
                        id      = "#unitclass#_unit_#currentrow#" 
@@ -363,13 +364,12 @@
 				
 		<cfif ItemWarehouse neq "">
 				
-			<td style="font-size:13px;height:25px;padding-left:7px;padding-right:4px;width:40%" class="labelmedium">
-			<a href="javascript:item('#itemwarehouse#','#url.mission#')"><font color="000000">#UnitDescription#</a></td>	
+			<td style="font-size:13px;height:25px;min-width:240px" class="labelmedium fixlength">
+			<a href="javascript:item('#itemwarehouse#','','#url.mission#')">#UnitDescription#</a></td>	
 		
 		<cfelse>
 				
-			<td style="font-size:13px;height:25px;padding-left:7px;padding-right:4px;width:40%" class="labelmedium">
-			#UnitDescription#</td>	
+			<td style="font-size:13px;height:25px;;min-width:240px" class="labelmedium fixlength">#UnitDescription#</td>	
 		
 		</cfif>
 				
@@ -387,7 +387,7 @@
 		   <cfset stock = "0">
 		</cfif>   
 									
-		<td style="padding-left:2px;width:60;font-size:14px;" align="right" class="#clline#" id="qty_#unitclass#_#currentrow#">
+		<td style="padding-left:2px;font-size:14px;" align="right" class="#clline#" id="qty_#unitclass#_#currentrow#">
 				
 			<table align="right">
 			<tr>
@@ -403,13 +403,13 @@
 						<table><tr>					
 						<td>																																											
 						<input type="text" 
-						    style="width:25px;text-align:center" 
+						    style="width:25px;text-align:center;border-top:0px;border-bottom:0px" 
 							name="#unitclass#_UnitQuantityStock_#currentrow#" 
 		                    id="#unitclass#_UnitQuantityStock_#currentrow#"
 							onkeydown="if (event.keyCode==13) {event.keyCode=9; return event.keyCode}"							
 							value="#stock#" 
 							class="regularxl enterastab">							
-						</td><td><cf_inputInteger id="#unitclass#_UnitQuantityStock_#currentrow#" height="9" width="16"></td>				
+						</td><td style="padding-left:3px;padding-right:3px"><cf_inputInteger id="#unitclass#_UnitQuantityStock_#currentrow#" height="9" width="16"></td>				
 						</tr>
 						</table>	
 												
@@ -452,14 +452,14 @@
 					<tr>					
 						<td>																								
 						<input type="text" 
-						    style="width:25px;text-align:center" 
+						    style="width:25px;text-align:center;border-top:0px;border-bottom:0px" 
 							name="#unitclass#_UnitQuantity_#currentrow#" 
 		                    id="#unitclass#_UnitQuantity_#currentrow#"
 							onkeydown="if (event.keyCode==13) {event.keyCode=9; return event.keyCode}"
 							onchange="calc('#unitclass#','#currentrow#',this.value,document.getElementById('#unitclass#_StandardCost_#currentrow#').value)"
 							value="#qt#" 
 							class="regularxl enterastab">														
-						</td><td><cf_inputInteger id="#unitclass#_UnitQuantity_#currentrow#" height="9" width="16"></td>		
+						</td><td style="padding-left:3px;padding-right:3px"><cf_inputInteger id="#unitclass#_UnitQuantity_#currentrow#" height="9" width="16"></td>		
 					
 					</tr>					
 					</table>					
@@ -489,11 +489,11 @@
 			<cfset cllineu = clline>
 		</cfif>	
 				
-		<td style="padding-left:7px;padding-right:4px;" id="curr_#unitclass#_#currentrow#" class="#cllineu#">#Rate.currency#</font></td>
+		<td id="curr_#unitclass#_#currentrow#" class="#cllineu#">#Rate.currency#</font></td>
 		
 		<!--- cost price --->
 		
-		<td align="right" style="font-size:14px;padding-left:3px;padding-right:5px" id="cost_#unitclass#_#currentrow#" class="#cllineu#">
+		<td align="right" style="font-size:14px" id="cost_#unitclass#_#currentrow#" class="#cllineu#">
 			 
 		     <cfif Rate.standardcost eq "0">
 			    n/a
@@ -514,7 +514,7 @@
 				
 		<!--- actual price --->
 					
-		<td align="right" style="font-size:14px;padding-left:3px;padding-right:0px" class="#cllineu#" id="price_#unitclass#_#currentrow#">
+		<td align="right" style="font-size:14px" class="#cllineu#" id="price_#unitclass#_#currentrow#">
 			
 			<font face="Calibri" size="2">			  				
 			<cfif url.accessmode eq "edit">
@@ -522,7 +522,7 @@
 				<cfif Rate.enableEditRate eq "0">			
 									
 				<input type="hidden" 
-					    style="width:70px;text-align:right;padding-right:2px" 
+					    style="width:70px;text-align:right;padding-right:2px;border-top:0px;border-bottom:0px" 
 						name="#unitclass#_StandardCost_#currentrow#" 
 	                    id="#unitclass#_StandardCost_#currentrow#"
 						onchange="calc('#unitclass#','#currentrow#',document.getElementById('#unitclass#_UnitQuantity_#currentrow#').value,this.value)"
@@ -535,7 +535,7 @@
 																		
 				
 				<input type="text" 
-					    style="width:70px;text-align:right;padding-right:2px" 
+					    style="width:70px;text-align:right;padding-right:2px;border-top:0px;border-bottom:0px" 
 						name="#unitclass#_StandardCost_#currentrow#" 
 	                    id="#unitclass#_StandardCost_#currentrow#"
 						onchange="calc('#unitclass#','#currentrow#',document.getElementById('#unitclass#_UnitQuantity_#currentrow#').value,this.value)"
@@ -554,13 +554,13 @@
 													
 		</td>		
 								
-		<td align="right" style="font-size:14px;padding-top:0px;padding-left:1px;padding-right:2px" width="80" class="#cllineu#" id="charge_#unitclass#_#currentrow#">
-						<cf_space spaces="20">							
+		<td align="right" style="font-size:14px;padding-top:0px" class="#cllineu#" id="charge_#unitclass#_#currentrow#">
+												
 			<cfif url.accessmode eq "edit">
 			
 				<cfif Rate.enableEditCharged eq "1">
 							
-					<select name="#unitclass#_charged_#currentrow#" id="#unitclass#_charged_#currentrow#" class="regularxl enterastab">
+					<select name="#unitclass#_charged_#currentrow#" id="#unitclass#_charged_#currentrow#" class="regularxl enterastab" style="border-top:0px;border-bottom:0px">
 					    <cfif url.mode eq "workorder">
 						<option value="0" <cfif unitused.charged eq "0">selected</cfif>><cf_tl id="No"></option>
 						</cfif>
@@ -585,10 +585,10 @@
 		
 		</td>							
 		
-		<td align="right" style="font-size:14px;padding-right:6px;padding-left:3px;">
-				  			<cf_space spaces="27">
-			<table cellspacing="0" cellpadding="0">
-			<tr class="labelit">
+		<td align="right" style="font-size:14px">
+				  			
+			<table>
+			<tr class="labelmedium2">
 			<td id="total_#unitclass#_#currentrow#" class="#clline#" style="font-size:14px;padding-left:2px">
 					
 			<cfif UnitUsed.recordcount gte "1">
@@ -645,9 +645,9 @@
 	
 	<cfif unitspecification neq "">
 				
-		<tr>
+		<tr style="border-top:1px solid silver;background-color:ffffcf">
 			<td></td>
-			<td colspan="8" style="padding-top:3px;padding-bottom:3px;padding-left:30px" class="labelmedium"><font size="2" color="808080">#unitspecification#</font></td>				
+			<td colspan="8" style="padding-top:3px;padding-bottom:3px;padding-left:30px" class="labelmedium"><font size="2" color="black">#unitspecification#</font></td>				
 		</tr>				
 		
 	</cfif>	

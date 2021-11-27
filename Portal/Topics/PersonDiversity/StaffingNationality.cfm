@@ -4,13 +4,13 @@
 	<cfoutput>
 	
 		<tr class="line">		   
-			<td colspan="1" class="labelmedium" align="center"><cf_tl id="Distribution">
+			<td class="labelmedium2" align="center"><cf_tl id="Distribution">
 			    <a 	href="#session.root#/Portal/Topics/PersonDiversity/StaffingMap.cfm?systemFunctionId=#url.systemFunctionId#&mission=#url.mission#&orgunit=#url.orgunit#&cstf=#url.cstf#&postclass=#url.postclass#&category=#category#&authorised=#authorised#&period=#url.period#" 
 			 		target="_blank">(<cf_tl id="Show in full Map">)</a>
 			
 			</td>			
-		    <td colspan="1" class="labelmedium" align="center"><cf_tl id="Summary by order"></td>
-			<td colspan="1" class="labelmedium" align="center"><cf_tl id="Quantities"></td>
+		    <td class="labelmedium2" align="center"><cf_tl id="Summary by order"></td>
+			<td class="labelmedium2" align="center"><cf_tl id="Quantities"></td>
 		</tr>
 		
 	</cfoutput>
@@ -37,32 +37,32 @@
 				
 		<tr>
 		
-		<td width="30%" align="center" style="padding:5px">
-  			<div id="mymap" style="height:200px; width:100%;"></div>
+		<td align="center" style="padding:5px;width:200px;max-width:300px;width:300px">
+  			<div id="mymap" style="height:200px; width:300px;max-width:300px;"></div>
 		</td>
 		
-		<td width="30%" style="height:200px;min-width:420px;padding:7px">
+		<td style="height:200px;padding:7px;width:30%">
 		    
 			<cf_divscroll overflowy="scroll">	
 			
-			<table style="width:97%" align="left">
+			<table align="left" style="width:100%">
 			
-				<tr class="labelmedium fixrow" style="background-color:e4e4e4">
+				<tr class="labelmedium fixrow fixlengthlist" style="background-color:e4e4e4">
 					<cfoutput>
-				 	<td colspan="1" style="width:100%;padding-left:3px;"><cf_tl id="Nationality"></td>
+				 	<td colspan="1"><cf_tl id="Nationality"></td>
 				 	</cfoutput>
 					<cfoutput query="Parent">
-					<td style="min-width:33;padding-right:2px" align="center">#ContractLevelParent#</td>
+					<td align="center">#ContractLevelParent#</td>
 					</cfoutput>		
-					<td style="background-color:efefef;min-width:43px;padding-right:2px" align="center"><cf_tl id="Sum"></td>						
-					<td style="min-width:20px"></td>
+					<td style="background-color:efefef;" align="center"><cf_tl id="Sum"></td>						
+					<td style="min-width:20px;max-width:20px"></td>
 				</tr>												
 				
 				<cfoutput query="summary">		
-					<tr class="labelmedium navigation_row">
-					    <td style="padding-left:4px;width:100%;min-width:175px;">#currentrow# #NationalityName#</td>														
+					<tr class="labelmedium navigation_row fixlengthlist" style="height:20px">
+					    <td style="padding-left:4px;">#currentrow# #NationalityName#</td>														
 						<cfloop query="Parent">
-							<td align="right" style="min-width:33;padding-right:2px">						
+							<td align="right">						
 							  <cfquery name="getContent" dbtype="query">
 							  	 SELECT  *
 							 	 FROM    CellContent
@@ -72,16 +72,16 @@
 							  #getContent.Total#						
 							</td>
 						</cfloop>																			
-						<td align="right" style="padding-right:2px;background-color:eaeaea;min-width:43px">#Total#</td>
+						<td align="right" style="background-color:##eaeaea80;min-width:43px">#Total#</td>
 					</tr>		
 				</cfoutput>
 																								
-				<tr class="labelmedium" style="background-color:f1f1f1">
+				<tr class="labelmedium fixlengthlist" style="background-color:f1f1f1">
 					<cfoutput>
-				 	<td colspan="1" style="width:100%;padding-left:3px;"><cf_tl id="Total"></td>
+				 	<td colspan="1"><cf_tl id="Total"></td>
 				 	</cfoutput>
 					<cfoutput query="Parent">
-					<td style="min-width:33;padding-right:2px" align="right">
+					<td align="right">
 					
 					 <cfquery name="getContent" dbtype="query">
 						  	 SELECT  SUM(Total) as Total
@@ -93,7 +93,7 @@
 					</cfoutput>	
 					
 					<cfoutput>	
-					<td style="background-color:efefef;min-width:43px;padding-right:2px" align="right">					
+					<td style="background-color:efefef" align="right">					
 					 <cfquery name="getContent" dbtype="query">
 						  	 SELECT  SUM(Total) as Total
 						 	 FROM    CellContent																 					  	
@@ -189,16 +189,16 @@
 				 
 				     <cfoutput>				 
 					 
-						 <tr class="labelmedium" style="background-color:e6e6e6">
-						 	<td style="width:50%;padding-left:3px;padding-right:4px"><cf_tl id="Category"></td>					
-							<td style="min-width:35;padding-right:3px" align="right"><cf_tl id="Nat"></td>						
-							<td style="min-width:35;padding-right:4px" align="right"><cf_tl id="Total"></td>	 
+						 <tr class="labelmedium fixlengthlist" style="background-color:e6e6e6">
+						 	<td><cf_tl id="Category"></td>					
+							<td align="right"><cf_tl id="Nat"></td>						
+							<td align="right"><cf_tl id="Total"></td>	 
 						 </tr>
 						 
 						 <cfloop query="Parent">
-							 <tr class="labelmedium navigation_row">
-							 	<td style="padding-left:2px">#ContractLevelParent#</td>							
-								<td align="right" style="padding-right:3px">						
+							 <tr class="labelmedium navigation_row fixlengthlist">
+							 	<td>#ContractLevelParent#</td>							
+								<td align="right">						
 								  <cfquery name="nat" dbtype="query">
 								  	 SELECT  *
 								 	 FROM    NatContent
@@ -206,7 +206,7 @@
 							  	  </cfquery>	
 								  #nat.Total#						
 								</td>							
-								<td align="right" style="padding-right:3px">#total#</td>
+								<td align="right">#total#</td>
 							 </tr>			 
 						 </cfloop>
 						 
@@ -215,16 +215,16 @@
 						 	FROM    GetStaff			  	
 						</cfquery>	
 						 
-						 <tr bgcolor="f1f1f1" class="labelmedium">
-						 	<td style="padding-left:2px;width:70%"><cf_tl id="Total"></td>					
-							<td style="min-width:35;padding-right:3px" align="right">
+						 <tr bgcolor="f1f1f1" class="labelmedium fixlengthlist">
+						 	<td><cf_tl id="Total"></td>					
+							<td align="right">
 							 <cfquery name="nat" dbtype="query">
 								 SELECT   COUNT(DISTINCT Nationality) as Total
 					 			 FROM     GetStaff			  								  	
 						  	  </cfquery>	
 							  #nat.Total#					
 							</td>						
-							<td style="min-width:35;padding-right:3px" align="right">#Summary.Total#</td>	 
+							<td align="right">#Summary.Total#</td>	 
 						 </tr>		
 					 	 
 				     </cfoutput>

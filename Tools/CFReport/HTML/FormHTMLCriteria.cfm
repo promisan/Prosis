@@ -229,7 +229,7 @@
 								 								  									 			  								 				   
 										   <table height="100%" class="formspacing">
 										   					  					  					   
-										   <tr><td width="23" align="center" style="height;27;padding:3px">
+										   <tr><td width="23" align="center" style="height:27;padding:3px">
 
 										 	<cfquery name="validateLayoutFilter" 
 											 datasource="AppsSystem" 
@@ -434,46 +434,38 @@
 										</cfif>
 							
 									<tr>																																																		 
-										<td valign="top" style="height:100%;height:30px;padding-top:2px;padding-left:4px;cursor:pointer;background-color:<cfif CriteriaClass eq 'Layout'>C1E0FF<cfelse>e1e1e1</cfif>;border:0px solid silver">										  
+										<td valign="top" style="min-width:240px;height:100%;height:30px;padding-top:6px;padding-left:4px;cursor:pointer;background-color:<cfif CriteriaClass eq 'Layout'>C1E0FF<cfelse>e1e1e1</cfif>;border:0px solid silver">										  
 																															 																											
-										    <table>
+										    <table style="width:100%">
 											
-											<tr>
-											
-												<td valign="top">											   
-																							 
-													<table>
-													<tr class="labelmedium2">
-													<td style="min-width:260px" title="#tt#">		
-																																																				
-														<cfif findNoCase("?",Parameter.CriteriaDescription)>
-														 <cfset sign = "">
-														<cfelse>
-														 <cfset sign = ":">	  													 
-														</cfif>		
-														<cf_tl id="#Parameter.CriteriaDescription#" var="1">
-														<cfif Parameter.CriteriaObligatory eq "1">
-															<cfset lbl = "#lt_text# #sign#&nbsp;<font color='800000'>*</font>">
-														<cfelse>
-														    <cfset lbl = "#lt_text# #sign#">
-														</cfif>
-														#lbl#														
-																																			
-													</td>
-													</tr>
-													</table>
-																										
-												</td>
+												<tr class="fixlengthlist">
 												
-											</tr>
-											
-											<cfif Parameter.CriteriaInterface eq "Combo">
-												<tr class="hide">
-													<td align="center" height="10">
-														<input type="text" name="#CriteriaName#search" id="#CriteriaName#search" size="10" maxlength="30" readonly style="width: 140;" class="search">
+													<td valign="top" title="#tt#">																						 
+																																																																		
+															<cfif findNoCase("?",Parameter.CriteriaDescription)>
+															 <cfset sign = "">
+															<cfelse>
+															 <cfset sign = ":">	  													 
+															</cfif>		
+															<cf_tl id="#Parameter.CriteriaDescription#" var="1">
+															<cfif Parameter.CriteriaObligatory eq "1">
+																<cfset lbl = "#lt_text# #sign#&nbsp;<font color='800000'>*</font>">
+															<cfelse>
+															    <cfset lbl = "#lt_text# #sign#">
+															</cfif>
+															#lbl#														
+																																								
 													</td>
+													
 												</tr>
-											</cfif>
+												
+												<cfif Parameter.CriteriaInterface eq "Combo">
+													<tr class="hide">
+														<td align="center" height="10">
+															<input type="text" name="#CriteriaName#search" id="#CriteriaName#search" size="10" maxlength="30" readonly style="width: 140;" class="search">
+														</td>
+													</tr>
+												</cfif>
 											
 											</table>																				
 																				
@@ -644,7 +636,7 @@
 					  AND    Operational = '1' 
 				</cfquery>
 				 
-				<cf_securediv id="i#currentrow#"						    	    
+				<cfdiv id="i#currentrow#"						    	    
 				    bind="url:HTML/FormHTMLExtList.cfm?row=#currentrow#&width=#width.FieldWidth#&mult=#LookupMultiple#&init=1&controlid=#controlid#&reportid=#reportid#&CriteriaName=#criterianame#">
 													
 				</td>

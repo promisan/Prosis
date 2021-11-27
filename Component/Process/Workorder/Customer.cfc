@@ -46,7 +46,7 @@
 					   SELECT * 
 					   FROM   Customer
 					   WHERE  PersonNo = '#get.PersonNo#'			   
-					   AND    Mission = #get.Mission#'
+					   AND    Mission = '#get.Mission#'
 					</cfquery>
 					
 					<cfif check.recordcount eq "1">
@@ -62,7 +62,7 @@
 						   SELECT * 
 						   FROM   Customer
 						   WHERE  OrgUnit = '#get.OrgUnit#'			   
-						   AND    Mission = #get.Mission#'
+						   AND    Mission = '#get.Mission#'
 						</cfquery>
 						
 						<cfif check.recordcount eq "1">

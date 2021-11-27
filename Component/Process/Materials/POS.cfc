@@ -3558,7 +3558,7 @@
 								<cfif Journal neq "" AND JournalSNo neq "">
 								AND    Journal 			= '#Journal#'
 								AND    JournalSerialNo 	= '#JournalSNo#'
-								</cfif>
+								</cfif>								
 						</cfquery>	
 												
 						<!--- post the tax action --->
@@ -3569,26 +3569,28 @@
 									datasource="AppsMaterials" 
 									username="#SESSION.login#" 
 									password="#SESSION.dbpw#">					
-									SELECT  A.*
-									FROM    Accounting.dbo.TransactionHeader H
-											INNER JOIN Accounting.dbo.TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo=A.JournalSerialNo
-									WHERE   TransactionSourceId = '#batchid#'
-									AND     TransactionCategory  = 'Receivables'	
-									ORDER BY A.Created DESC									
+									SELECT   H.Mission, A.*
+									FROM     Accounting.dbo.TransactionHeader H
+											 INNER JOIN Accounting.dbo.TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo=A.JournalSerialNo
+									WHERE    TransactionSourceId = '#batchid#'
+									AND      TransactionCategory  = 'Receivables'	
+									AND      ActionCode = 'Invoice'
+									ORDER BY A.Created DESC																	
+									
 							   	</cfquery>		
 							   
 							    <cfif getAction.recordcount gt "0" and getAction.ActionStatus eq "1">
 								
 								   	<cfif getAction.ActionMode eq "2">
-											
+																				
 										<cfinvoke component = "Service.Process.EDI.Manager"  
 											   method           = "SaleVoid" 
 											   Datasource       = "AppsMaterials"
-											   Mission          = "#getBatch.Mission#"
+											   Mission          = "#getAction.Mission#"
 											   Terminal			= "#Terminal#"	
 											   BatchId			= "#BatchId#"
 											   returnvariable	= "stResponse">
-
+											   
 										<cfif stResponse.Status neq "OK">
 											<cftransaction action="rollback"/>
 											<cfoutput>
@@ -3624,7 +3626,7 @@
 					</cfif>
 					
 			   </cftransaction>
-						 
+			 						 
 	</cffunction>
 
 	<cffunction name="getSalesByDate"
@@ -3751,6 +3753,7 @@
 				INNER JOIN Ref_Category C    ON C.Category = I.Category					
 				INNER JOIN Customer CU       ON WB.CustomerId = CU.CustomerId										
 				INNER JOIN Warehouse W       ON WB.Warehouse = W.Warehouse	
+				INNER JOIN Ref_PriceSchedule PS ON PS.Code = S.PriceSchedule
 				LEFT OUTER JOIN Employee.dbo.Person P ON P.PersonNo = S.SalesPersonNo					
 					
 			WHERE 	WB.Mission = '#mission#' 		

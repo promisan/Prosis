@@ -7,8 +7,6 @@ password="#SESSION.dbpw#">
 	FROM 	Ref_Contact
 </cfquery>
 
-
-
 <cf_screentop html="No" jquery="Yes">
 
 <table width="98%" align="center" height="100%">
@@ -24,11 +22,11 @@ password="#SESSION.dbpw#">
 <script language = "JavaScript">
 
 function recordadd(grp) {
-          window.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 475, height= 270, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+          ptoken.open("RecordAdd.cfm?idmenu=#url.idmenu#", "Add", "left=80, top=80, width= 475, height= 270, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 function recordedit(id1) {
-          window.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 475, height= 270, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+          ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width= 475, height= 270, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 }
 
 </script>	
@@ -42,7 +40,7 @@ function recordedit(id1) {
 	<table width="97%" align="center" class="formpadding navigation_table">
 	
 	<thead>
-		<tr class="labelmedium2 line">
+		<tr class="labelmedium2 line fixlengthlist">
 		    <td></td>
 		    <td>Code</td>
 			<td>Description</td>	
@@ -54,7 +52,7 @@ function recordedit(id1) {
 	
 	<tbody>
 		<cfoutput query="SearchResult">
-			<tr class="navigation_row labelmedium2 line">
+			<tr class="navigation_row labelmedium2 line fixlengthlist">
 				<td width="5%" align="center">
 				  <cf_img icon="open" onclick="recordedit('#Code#')" navigation="Yes">
 				</td>	

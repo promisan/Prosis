@@ -69,7 +69,7 @@
 			 
 			 <cfif BatchId neq "">
 			 
-			 	<!--- passed the sale no instead --->
+			 	<!--- passed the sale instead --->
 			 
 				 <cfquery name="GetTransaction"
 					datasource="#ARGUMENTS.Datasource#"
@@ -239,14 +239,19 @@
 		        		          '#Status#',     <!--- process completed 1 or 9 --->
 								  '#eMailAddress#',
 		                	      '#SESSION.acc#',
-		                          '#SESSION.last#',
+		                          '#SESSION.last#',								  
 				                  '#SESSION.first#')  
 								                 
 		            </cfquery>  				
 	
 				</cfif>		
 				
-				<cfset EDIResult.Status   = "OK">												
+				<cfif EDIResult.Status eq "9">
+			         <cfset EDIResult.Status   = "FALSE">	
+				<cfelse>
+				     <cfset EDIResult.Status   = "OK">																
+				</cfif>
+				
 				<cfset EDIResult.ActionId = rowguid>				
 
 			<cfelse>
@@ -298,7 +303,7 @@
 			  password="#SESSION.dbpw#">
 				    SELECT  *
 					FROM   Organization.dbo.Ref_Mission
-					WHERE  Mission = '#Mission#'	 							   
+					WHERE  Mission = '#Mission#'					   
 			</cfquery>
 			
 			
@@ -314,9 +319,10 @@
 			      returnvariable      = "EDIResult">
 				  
 				  <cfparam name="EDIResult.log" default="1">
+					 
 				  				  
 				  <cfif EDIResult.Log eq "1">
-				  				  		  
+				  				  				  		  
 					  <!--- record action --->
 					  
 					    <cf_assignId>	
@@ -367,9 +373,11 @@
 										'#SESSION.acc#',
 										'#SESSION.last#',
 										'#SESSION.first#')
+										
 						</cfquery>
 				  
 				  </cfif>
+				  
 				 
 			<cfelse>
 			

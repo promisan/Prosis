@@ -3,6 +3,21 @@
 
 <table width="100%" height="100%">
 
+<!--- by default open the warehouse where this person is working / assigned --->
+
+<cfquery name="Default" 
+		 datasource="appsMaterials" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+         SELECT   TOP (1) W.Warehouse
+	     FROM     Employee.dbo.Person AS P INNER JOIN
+                  Employee.dbo.PersonAssignment AS PA ON P.PersonNo = PA.PersonNo INNER JOIN
+                  Organization.dbo.Organization AS O ON PA.OrgUnit = O.OrgUnit INNER JOIN
+                  Materials.dbo.Warehouse AS W ON O.MissionOrgUnitId = W.MissionOrgUnitId INNER JOIN
+                  System.dbo.UserNames AS U ON P.PersonNo = U.PersonNo
+         WHERE    U.Account = '#session.acc#'
+</cfquery>
+
 <tr><td style="padding:5px">
 
 	<table width="100%" height="100%">
@@ -11,20 +26,19 @@
 		  <td style="padding-left:10px;font-size:15px"><cf_tl id="Store"></td>
 		  <td id="storebox">
 		  		  
-		<select id="warehousequote" name="warehousequote" style="width:100%;background-color:f5f5f5" class="regularxxl" 
-		   onchange="setquote(document.getElementById('requestno').value,'warehouse')">		
-		<cfoutput query="Warehouse">
-	     	<option value="#Warehouse#">#WarehouseName#</option>
-		</cfoutput>	
-		</select>
+			<select id="warehousequote" name="warehousequote" style="width:100%;background-color:f5f5f5" class="regularxxl" 
+			   onchange="setquote(document.getElementById('requestno').value,'warehouse')">		
+				<cfoutput query="Warehouse">
+			     	<option value="#Warehouse#" <cfif warehouse eq default.warehouse>selected</cfif>>#WarehouseName#</option>
+				</cfoutput>	
+			</select>
 		  
 		  </td>
 		</tr>
 		
 		<CFParam name="Attributes.height" default="660">
 		<CFParam name="Attributes.width"  default="980">	
-		<CFParam name="Attributes.Modal"  default="true">	
-	
+		<CFParam name="Attributes.Modal"  default="true">		
 	
 		<tr class="labelmedium2">
 		  
@@ -39,7 +53,7 @@
 			<input type="hidden" name="requestno" id="requestno" value="">
 			
 			</td>
-			<cfset link   = "#SESSION.root#/warehouse/application/stockorder/Quote/addQuote.cfm?mission=#url.mission#&">	 
+			<cfset link   = "#SESSION.root#/warehouse/application/stockorder/Quote/QuoteAdd.cfm?mission=#url.mission#&">	 
 			<cfset jvlink = "ProsisUI.createWindow('dialogquotebox','Quote','',{x:100,y:100,height:document.body.clientHeight-80,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/StockOrder/Quote.cfm?mission=#url.mission#&datasource=appsMaterials&close=Yes&class=Customer&box=boxquote&link=#link#&dbtable=&des1=requestno&filter1=mission&filter1value=#url.mission#&filter2=&filter2value=','dialogquotebox')">		
 			
 			<td style="width:50%" align="right"><input value="Find #mQuotation#" type="button" onclick="#jvlink#" class="button10g" style="width:100%;border:1px solid silver" class="button10g">

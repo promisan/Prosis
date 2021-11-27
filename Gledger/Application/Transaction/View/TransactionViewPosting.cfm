@@ -84,7 +84,13 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 </cfquery>
 
 <cfif parent.recordcount gte "1">
-	<cfset lines = "#lines#,#quotedvaluelist(parent.TransactionLineId)#">
+
+    <cfif lines neq ""> 
+	   <cfset lines = "#lines#,#quotedvaluelist(parent.TransactionLineId)#">
+	<cfelse>
+	   <cfset lines = "#quotedvaluelist(parent.TransactionLineId)#">
+	</cfif> 
+		
 </cfif>
 
 <cfif proc eq "1" and (JournalList.TransactionCategory is "Payables" or JournalList.TransactionCategory is "DirectPayment")>
@@ -105,7 +111,13 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 	</cfquery>
 	
 	<cfif presetsupply.recordcount gte "1">
-		<cfset lines = "#lines#,#quotedvaluelist(presetsupply.TransactionLineId)#">
+	
+	     <cfif lines neq ""> 
+			   <cfset lines = "#lines#,#quotedvaluelist(presetsupply.TransactionLineId)#">
+		  <cfelse>
+			   <cfset lines = "#quotedvaluelist(presetsupply.TransactionLineId)#">
+		  </cfif> 
+		
 	</cfif>
 	
 	<!--- item as assets --->
@@ -126,7 +138,13 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 	</cfquery>
 	
 	<cfif presetasset.recordcount gte "1">
-		<cfset lines = "#lines#,#quotedvaluelist(presetasset.TransactionLineId)#">
+	
+	      <cfif lines neq ""> 
+			   <cfset lines = "#lines#,#quotedvaluelist(presetasset.TransactionLineId)#">
+		  <cfelse>
+			   <cfset lines = "#quotedvaluelist(presetasset.TransactionLineId)#">
+		  </cfif>
+		    
 	</cfif>
 
 </cfif>
@@ -148,7 +166,13 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 		</cfquery>
 		
 		<cfif presetCOGS.recordcount gte "1">
-			<cfset lines = "#lines#,#quotedvaluelist(presetCOGS.TransactionLineId)#">
+		
+		     <cfif lines neq ""> 
+			   <cfset lines = "#lines#,#quotedvaluelist(presetCOGS.TransactionLineId)#">
+			<cfelse>
+			   <cfset lines = "#quotedvaluelist(presetCOGS.TransactionLineId)#">
+			</cfif>
+			
 		</cfif>
 		
 	</cfif>	
@@ -189,7 +213,12 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 	</cfquery>
 	
 	 <cfif presetSale.recordcount gte "1">
-			<cfset lines = "#lines#,#quotedvaluelist(presetSale.TransactionLineId)#">
+	        <cfif lines neq ""> 
+			   <cfset lines = "#lines#,#quotedvaluelist(presetSale.TransactionLineId)#">
+			<cfelse>
+			   <cfset lines = "#quotedvaluelist(presetSale.TransactionLineId)#">
+			</cfif>
+			
 	 </cfif>
 
 </cfif>
@@ -270,8 +299,10 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 			<!---
 			AND     H.Journal = '#Transaction.Journal#'
 			--->		
-			AND     (T.AmountDebit <> 0 or T.AmountCredit <> 0	or H.DocumentAmount = 0)				
+			AND     (T.AmountDebit <> 0 or T.AmountCredit <> 0	or H.DocumentAmount = 0)			
+			<cfif lines neq "">	
 			AND     T.TransactionLineId IN (#preservesingleQuotes(Lines)#)
+			</cfif>
 
 							
 			GROUP BY H.Created,

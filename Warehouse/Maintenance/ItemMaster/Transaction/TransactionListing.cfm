@@ -1,16 +1,34 @@
 
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#_ItemTransaction_item"> 
+
+<cfoutput>
+	<cfsavecontent variable="data">
+					
+		SELECT 'Active' as ClassMode,*
+		FROM  ItemTransaction TD
+		WHERE      TD.Mission    = '#URL.Mission#'	
+		AND        TD.ItemNo     = '#URL.ItemNo#'  
+		UNION
+		SELECT 'Denied',*
+		FROM  ItemTransactionDeny TD
+		WHERE      TD.Mission    = '#URL.Mission#'	
+		AND        TD.ItemNo     = '#URL.ItemNo#'  		
+				
+ 	</cfsavecontent>
+</cfoutput>	
+		
 	
 <cfoutput>
 	<cfsavecontent variable="sqlbody">
-	FROM       ItemTransaction T 
-	           INNER JOIN Warehouse W ON T.Warehouse = W.Warehouse 
-			   INNER JOIN WarehouseLocation L ON T.Warehouse = L.Warehouse AND T.Location = L.Location 
-			   INNER JOIN Ref_TransactionType R ON T.TransactionType = R.TransactionType 
-			   INNER JOIN ItemUoM I ON T.ItemNo = I.ItemNo AND T.TransactionUoM = I.UoM 
-			   LEFT OUTER JOIN WarehouseBatch B ON T.TransactionBatchNo = B.BatchNo
-	WHERE      T.Mission    = '#URL.Mission#'	
-	AND        T.ItemNo     = '#URL.ItemNo#'  		
+	
+		
+		FROM       (#preservesinglequotes(data)#) as T 
+		           INNER JOIN Warehouse W ON T.Warehouse = W.Warehouse 
+				   INNER JOIN WarehouseLocation L ON T.Warehouse = L.Warehouse AND T.Location = L.Location 
+				   INNER JOIN Ref_TransactionType R ON T.TransactionType = R.TransactionType 
+				   INNER JOIN ItemUoM I ON T.ItemNo = I.ItemNo AND T.TransactionUoM = I.UoM 
+				   LEFT OUTER JOIN WarehouseBatch B ON T.TransactionBatchNo = B.BatchNo	
+	
     </cfsavecontent>
 </cfoutput>
 
@@ -24,6 +42,7 @@
 	password="#SESSION.dbpw#">
 	
 	SELECT     T.TransactionId, 
+	           T.ClassMode,
 	           T.Mission, 
 			   T.Warehouse, 
 			   W.WarehouseName,

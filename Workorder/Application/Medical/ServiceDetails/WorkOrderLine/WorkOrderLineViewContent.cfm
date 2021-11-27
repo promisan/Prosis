@@ -50,7 +50,7 @@
 						
 <table width="100%">
 
-	<tr><td style="padding-left:20px;padding-right:20px;padding-bottom:20px">
+	<tr><td style="padding-left:10px;padding-right:10px;padding-bottom:20px">
 	
 	<table width="100%">
 		
@@ -72,6 +72,8 @@
 								   FROM     Materials.dbo.Customer
 								   WHERE    PersonNo = '#get.CustomerPersonNo#' )										
 	    AND       AmountOutstanding > 0.05
+		AND       ActionStatus IN ('0','1') 
+		AND       RecordStatus != '9'
 		ORDER BY  Created DESC 	
 		
 	</cfquery>								  
@@ -90,14 +92,14 @@
 			
 		</cfoutput>
 
-		<tr><td class="labelmedium" style="padding-left:16px;cursor:pointer;font-size:25px">						
-				<a href="javascript:$('.clsReceivablesDetail').toggle()">
-				<cf_tl id="Outstanding">						
-				</a>
+		<tr><td class="labelmedium" style="padding-left:16px;cursor:pointer;font-size:22px">						
+				<a href="javascript:$('.clsReceivablesDetail').toggle()"><cf_tl id="Outstanding"></a>
 				<font color = "red"><cfoutput>#StringToShow#</cfoutput></font>
 			</td>
 		</tr>
-		<tr class="clsReceivablesDetail" style="display:none;"><td style="padding-left:6px;padding-top:1px"><cfinclude template="WorkOrderReceivable.cfm"></td></tr>
+		<tr class="clsReceivablesDetail" style="display:none;">
+		    <td style="padding-left:6px;padding-top:1px"><cfinclude template="WorkOrderReceivable.cfm"></td>
+		</tr>
 		
 	</cfif>			
 	
@@ -124,7 +126,7 @@
 		<table width="100%"><tr><td style="width:20px;padding-top:5px">
 		<img src="<cfoutput>#session.root#</cfoutput>/images/go.png" height="23" width="25" alt="" border="0">
 		</td>
-		<td style="padding-left:10px;padding-top:3px;height:50px;font-size:30px;font-weight:200" class="labellarge"><font color="0080C0">
+		<td style="padding-left:10px;padding-top:3px;height:50px;font-size:30px;font-weight:200" class="labellarge">
 		<cf_tl id="Medical Encounter">
 		</td>
 		<td align="right" class="labelmedium">
@@ -490,7 +492,7 @@
 		<table><tr><td style="padding-top:5px">
 		<img src="<cfoutput>#session.root#</cfoutput>/images/go.png" height="23" width="25px" alt="" border="0">
 		</td>
-		<td style="font-weight:200;padding-left:10px;padding-top:3px;height:45px;font-size:30px" class="labellarge"><font color="0080C0"><cf_tl id="Subjective Information"></td>
+		<td style="font-weight:200;padding-left:10px;padding-top:3px;height:45px;font-size:30px" class="labellarge"><cf_tl id="Subjective Information"></td>
 		</tr>
 		</table>
 	</td></tr>	
@@ -563,7 +565,7 @@
 			
 				<tr class="fixrow">
 					<td width="10" style="padding-top:5px"><img src="<cfoutput>#session.root#</cfoutput>/images/go.png" height="23" width="25px" alt="" border="0"></td>
-					<td colspan="2" style="font-weight:200;padding-left:10px;padding-top:3px;height:40px;font-size:30px" class="labellarge"><font color="0080C0"><cf_tl id="Provisioning"></td>					
+					<td colspan="2" style="font-weight:200;padding-left:10px;padding-top:3px;height:40px;font-size:30px" class="labellarge"><cf_tl id="Provisioning"></td>					
 				</tr>				
 				
 				<tr><td colspan="3" style="padding-left:35px;"><cfinclude template="WorkOrderPayer.cfm"></td></tr>			
@@ -639,7 +641,7 @@
 					<img src="<cfoutput>#session.root#</cfoutput>/images/go.png" height="23" width="25px" alt="" border="0">
 					</td>
 					<td style="font-weight:200;padding-left:10px;padding-top:3px;height:45px;font-size:28px" class="labellarge">
-						<font color="0080C0"><cf_tl id="Charges"><cf_tl id="in"><cfoutput>#get.Currency#</cfoutput>
+						<cf_tl id="Charges"><span style="font-size:13px"><cf_tl id="in"><cfoutput>#get.Currency#</cfoutput></span>
 					</td>
 				</tr>
 				</table>

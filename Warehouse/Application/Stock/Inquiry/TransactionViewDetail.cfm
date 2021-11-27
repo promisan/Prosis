@@ -99,7 +99,7 @@ password="#SESSION.dbpw#">
 <tr><td colspan="2" style="height:50px;font-size:30px;" class="labellarge">#Bat.BatchDescription#</td></tr>
 <tr><td colspan="4" style="border-top:1px dotted gray"></td></tr>
 
-<tr class="labelmedium linedotted">
+<tr class="labelmedium linedotted fixlengthlist">
    <td class="labelmedium" style="padding-left:10px" width="130"><cf_tl id="Mission">:</td>
    <td width="30%">#get.Mission#</td>
    <td class="labelmedium" width="130"><cf_tl id="Warehouse">:</td>
@@ -121,7 +121,7 @@ password="#SESSION.dbpw#">
    </td>
 </tr>
 
-<tr class="labelmedium linedotted">
+<tr class="labelmedium linedotted fixlengthlist">
    <td class="labelmedium" style="padding-left:10px"><cf_tl id="Location">:</td>
    <td>
    
@@ -142,7 +142,7 @@ password="#SESSION.dbpw#">
    <td>#Loc.LocationClass#</td>
 </tr>
 
-<tr class="labelmedium linedotted">
+<tr class="labelmedium linedotted fixlengthlist">
    <td style="padding-left:10px"><cf_tl id="Transaction Type">:</td>
    <td>
    
@@ -214,7 +214,7 @@ password="#SESSION.dbpw#">
 			  AND    W.WorkOrderLine = '#get.WorkOrderLine#'
        </cfquery>    
 	   	   
-			<tr class="labelmedium linedotted">
+			<tr class="labelmedium linedotted fixlengthlist">
 			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="WorkOrder">:</td>
 			   <td><a href="javascript:workorderview('#getLine.WorkOrderLineId#','medical')">#qWorkOrder.Reference#</a></td>
 			   <td class="labelmedium"></td>
@@ -223,7 +223,7 @@ password="#SESSION.dbpw#">
 			
 		<cfelse>
 		
-			<tr class="labelmedium linedotted">
+			<tr class="labelmedium linedotted fixlengthlist">
 			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="WorkOrder">:</td>
 			   <td><a href="javascript:workorderview('#qWorkOrder.WorkOrderId#','production')">#qWorkOrder.Reference#</a></td>
 			   <td class="labelmedium"></td>
@@ -236,17 +236,17 @@ password="#SESSION.dbpw#">
 
 
 
-<tr class="labelmedium linedotted">
-   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Item">:</td>
+<tr class="labelmedium linedotted fixlengthlist">
+   <td style="padding-left:10px"><cf_tl id="Item">:</td>
    <td><a href="javascript:item('#get.itemNo#','','#get.mission#')">#get.ItemNo#</a></td>
-   <td class="labelmedium"><cf_tl id="Name">:</td>
+   <td><cf_tl id="Name">:</td>
    <td>#get.ItemDescription#</td>
 </tr>
 
-<tr class="labelmedium">
-   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Category">:</td>
+<tr class="labelmedium fixlengthlist">
+   <td style="padding-left:10px"><cf_tl id="Category">:</td>
    <td>#get.ItemCategory#</td>
-   <td class="labelmedium"><cf_tl id="UoM">:</td>
+   <td><cf_tl id="UoM">:</td>
    <td>
    
    <cfquery name="UoM" 
@@ -269,9 +269,9 @@ password="#SESSION.dbpw#">
 <!--- ----------- --->
 
 <tr><td height="10"></td></tr>
-<tr><td colspan="2" class="labellarge" style="height:50px;font-size:30px;"><font color="008000"><cf_tl id="Transaction Details"></td></tr>
+<tr><td colspan="6" class="labellarge fixlength" style="height:50px;font-size:30px;"><font color="008000"><cf_tl id="Transaction Details"></td></tr>
 
-<tr class="labelmedium linedotted">
+<tr class="labelmedium linedotted fixlengthlist">
    <td class="labelmedium" style="padding-left:10px"><cf_tl id="Date">:</td>
    <td>
    
@@ -335,7 +335,7 @@ password="#SESSION.dbpw#">
    
 </tr>
 
-<tr class="labelmedium linedotted">
+<tr class="labelmedium linedotted fixlengthlist">
    <td class="labelmedium" style="padding-left:10px"><cf_tl id="Reference">:</td>
    <td>
     <cfif url.accessmode eq "View">
@@ -367,7 +367,7 @@ password="#SESSION.dbpw#">
 
 <cfif Parameter.LotManagement eq "1">
 
-<tr class="labelmedium">
+<tr class="labelmedium fixlengthlist">
    <td class="labelmedium" style="padding-left:10px"><cf_tl id="Production Lot">:</td>
    <td>
     <cfif url.accessmode eq "View">
@@ -413,8 +413,8 @@ password="#SESSION.dbpw#">
 
 <cf_precision number="#itemPrecision#">
 
-<tr class="labelmedium">
-   <td class="labelmedium" style="<cfif accessmode eq 'edit'>height:23</cfif>;padding-left:10px"><cf_tl id="Quantity">:</td>
+<tr class="labelmedium fixlengthlist">
+   <td style="<cfif accessmode eq 'edit'>height:23</cfif>;padding-left:10px"><cf_tl id="Quantity">:</td>
    <td>
    
    <cfif url.accessmode eq "view">
@@ -449,7 +449,7 @@ password="#SESSION.dbpw#">
    </td>
 </tr>
 
-<tr class="labelmedium">
+<tr class="labelmedium fixlengthlist">
    <td style="<cfif accessmode eq 'edit'>height:23</cfif>;padding-left:10px"><cf_tl id="Price">:</td>
    <td>#numberformat(get.ReceiptCostPrice,",.____")#</td>
    <td><cf_tl id="Transaction Value">:</td>   
@@ -462,7 +462,7 @@ password="#SESSION.dbpw#">
    </td>
 </tr>
 
-<tr class="labelmedium">
+<tr class="labelmedium fixlengthlist">
    <td class="labelmedium" valign="top" style="padding-top:2px;padding-left:10px"><cf_tl id="Remarks">:</td>
    <td colspan="3">
    
@@ -502,14 +502,14 @@ password="#SESSION.dbpw#">
 				WHERE     (PR.ReceiptId = '#get.ReceiptId#')
 			</cfquery>
 	 	 	
-			<tr class="labelmedium">
+			<tr class="labelmedium fixlengthlist">
 			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Vendor">:</td>
 			   <td>#rct.Vendor#</td>
 			   <td class="labelmedium"><cf_tl id="PurchaseNo">:</td>
 			   <td><a href="javascript:ProcPOEdit('#rct.PurchaseNo#')">#rct.PurchaseNo#</a></td>
 			</tr>
 			
-			<tr class="labelmedium">
+			<tr class="labelmedium fixlengthlist">
 			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="ReceiptNo">:</td>
 			   <td><a href="javascript:receipt('#rct.receiptno#')">#rct.ReceiptNo#</a></td>
 			   <td class="labelmedium"><cf_tl id="Delivery">:</td>
@@ -540,14 +540,13 @@ password="#SESSION.dbpw#">
 						WHERE    ProgramCode = '#get.ProgramCode#'				
 				</cfquery>
 			
-			<tr>
-			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Program"></td>			  
-			   <td class="labelmedium">#prg.ProgramName#</td>	  			   
-			   <td class="labelmedium"><cf_tl id="Mission"></td>
-			   <td class="labelmedium">#prg.Mission#</td>
+			<tr class="fixlengthlist labelmedium line">
+			   <td style="padding-left:10px"><cf_tl id="Program"></td>			  
+			   <td>#prg.ProgramName#</td>	  			   
+			   <td><cf_tl id="Mission"></td>
+			   <td>#prg.Mission#</td>
 			</tr>
-			<tr><td colspan="4" style="border-top:1px dotted silver"></td></tr>
-		
+			
 		</cfif>
 		
 		<cfif get.WorkOrderId neq "">
@@ -565,7 +564,7 @@ password="#SESSION.dbpw#">
 			
 			<cfif findNoCase("medical",qWorkOrder.CustomForm)>
 			
-			<tr class="labelmedium linedotted">
+			<tr class="labelmedium linedotted fixlengthlist">
 			   <td style="padding-left:10px"><cf_tl id="WorkOrder">:</td>
 			   <td><a href="javascript:workorderview('#getLine.WorkOrderLineId#','medical')">#wrk.Description#</a></td>
 			   <td><cf_tl id="Customer">:</td>
@@ -574,7 +573,7 @@ password="#SESSION.dbpw#">
 						
 			<cfelse>
 			
-			<tr class="labelmedium linedotted">
+			<tr class="labelmedium linedotted fixlengthlist">
 			   <td style="padding-left:10px"><cf_tl id="WorkOrder">:</td>
 			   <td><a href="javascript:workorderview('#get.workorderid#')">#wrk.Description#</a></td>
 			   <td><cf_tl id="Customer">:</td>
@@ -605,28 +604,28 @@ password="#SESSION.dbpw#">
 					WHERE    ItemNo = '#ass.ItemNo#'				
 			</cfquery>
 			
-			<tr>
-			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="BarCode">:</td>
+			<tr class="labelmedium fixlengthlist">
+			   <td style="padding-left:10px"><cf_tl id="BarCode">:</td>
 			   <td><font size="2">#ass.AssetBarCode#</td>	
-			   <td class="labelmedium"><cf_tl id="Name"></td>   
+			   <td><cf_tl id="Name"></td>   
 			   <td><a href="javascript:AssetDialog('#get.assetid#')">#ass.Description#</a></td>
 			</tr>
-			<tr>
-			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Item Generic">:</td>
+			<tr class="labelmedium fixlengthlist">
+			   <td  style="padding-left:10px"><cf_tl id="Item Generic">:</td>
 			   <td><font size="2">#Item.ItemDescription#</td>
-			    <td class="labelmedium"><cf_tl id="Category"></td>
+			    <td><cf_tl id="Category"></td>
 			   <td><font size="2">#item.Category#</td>
 			</tr>
-			<tr>
-			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="DecalNumber">:</td>
+			<tr class="labelmedium fixlengthlist">
+			   <td style="padding-left:10px"><cf_tl id="DecalNumber">:</td>
 			   <td><font size="2">#ass.AssetDecalNo#</td>
-			   <td class="labelmedium"><cf_tl id="SerialNo"></td>
+			   <td><cf_tl id="SerialNo"></td>
 			   <td><font size="2">#ass.SerialNo#</td>
 			</tr>
-			<tr>
-			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Make">:</td>
+			<tr class="labelmedium fixlengthlist">
+			   <td style="padding-left:10px"><cf_tl id="Make">:</td>
 			   <td><font size="2">#ass.Make#</td>
-			   <td class="labelmedium"><cf_tl id="Model">:</td>
+			   <td><cf_tl id="Model">:</td>
 			   <td><font size="2">#ass.Model#</td>
 			</tr>
 			
@@ -635,25 +634,23 @@ password="#SESSION.dbpw#">
 		<cfif getAction.recordcount gte "1">
 		
 			<cfloop query="getAction">
-			<tr>
-			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Log">:</td>
+			<tr class="labelmedium fixlengthlist linedotted">
+			   <td style="padding-left:10px"><cf_tl id="Log">:</td>
 			   <td>#Description#</td>
-			   <td class="labelmedium"><cf_tl id="#Metric#">:</td>   
+			   <td><cf_tl id="#Metric#">:</td>   
 			   <td>  
 			   <b>#numberformat(MetricValue,",__")# 
 			   </td>
 			</tr>
 			</cfloop>
 			
-			<tr><td colspan="4" style="border-top:1px dotted silver"></td></tr>
-		
 		</cfif>
 		
 		<cfif get.OrgUnit neq "">
-		<tr>
-		   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Unit">:</td>
+		<tr class="labelmedium fixlengthlist">
+		   <td style="padding-left:10px"><cf_tl id="Unit">:</td>
 		   <td><font size="2">#get.OrgUnitCode#</td>
-		   <td class="labelmedium"><cf_tl id="UnitName">:</td>
+		   <td><cf_tl id="UnitName">:</td>
 		   <td><font size="2">#get.OrgUnitName#</td>
 		</tr>
 		</cfif>
@@ -669,8 +666,8 @@ password="#SESSION.dbpw#">
 						WHERE    PersonNo = '#get.PersonNo#'				
 				</cfquery>
 			
-			<tr>
-			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Officer">:</td>
+			<tr class="labelmedium fixlengthlist">
+			   <td style="padding-left:10px"><cf_tl id="Officer">:</td>
 
 			   <cfif getAdministrator(get.mission) eq "1">
 			   <td><a href="javascript:EditPerson('#PersonNo#')"><font size="2">#per.firstName# #per.LastName#</a></td>
@@ -678,13 +675,13 @@ password="#SESSION.dbpw#">
 			   <td><font size="2">#per.firstName# #per.LastName#</td>	  
 			   </cfif>
 			   
-			   <td class="labelmedium"><cf_tl id="IndexNo">:</td>
-			   <td class="labelmedium"><font size="2">#per.IndexNo#</td>
+			   <td><cf_tl id="IndexNo">:</td>
+			   <td><font size="2">#per.IndexNo#</td>
 			</tr>
-			<tr>
-			   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Reference">:</td>			  
+			<tr class="labelmedium fixlengthlist">
+			   <td style="padding-left:10px"><cf_tl id="Reference">:</td>			  
 			   <td><font size="2"><cfif per.reference eq "">n/a<cfelse>#per.Reference#</cfif></td>	  			 
-			   <td class="labelmedium"><cf_tl id="Nationality">:</td>
+			   <td ><cf_tl id="Nationality">:</td>
 			   <td><font size="2">#per.Nationality#</td>
 			</tr>
 			<tr><td colspan="4" style="border-top:1px dotted silver"></td></tr>
@@ -706,7 +703,7 @@ password="#SESSION.dbpw#">
 	<!--- Financials- --->
 	<!--- ----------- --->
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium fixlengthlist">
 	   <td style="padding-left:10px"><cf_tl id="GL Debit"></td>   
 	   
 		<cfquery name="gla" 
@@ -742,7 +739,7 @@ password="#SESSION.dbpw#">
 		WHERE    ReferenceId = '#get.Transactionid#'
 	</cfquery>	
 	
-	<tr class="labelmedium linedotted">
+	<tr class="labelmedium linedotted fixlengthlist">
 	   <td style="padding-left:10px"><cf_tl id="Journal">:</td>   
 	      
 		<cfinvoke component = "Service.Access"  
@@ -777,7 +774,7 @@ password="#SESSION.dbpw#">
 	
 		<table width="100%">
 		
-			<tr class="labelmedium line" style="height:20px">						
+			<tr class="labelmedium line fixlengthlist" style="height:20px">						
 				<td colspan="2"><cf_tl id="Account"></td>				
 				<td><cf_tl id="Fiscal Year"></td>
 				<td><cf_tl id="Period"></td>
@@ -787,7 +784,7 @@ password="#SESSION.dbpw#">
 		
 		<cfloop query="line">
 		
-			<tr class="labelmedium" style="height:20px">						
+			<tr class="labelmedium fixlengthlist" style="height:20px">						
 				<td>#AccountLabel#</td>
 				<td style="width:40%">#Description#</td>
 				<td>#AccountPeriod#</td>
@@ -808,7 +805,7 @@ password="#SESSION.dbpw#">
 	
 	<tr><td colspan="2" style="height:50px;font-size:30px;" class="labellarge"><font color="800080"><b><cf_tl id="Sourcing"></td></tr>
 	
-	<tr><td colspan="4">
+	<tr><td colspan="4" class="fixlengthlist">
 	<cfquery name="sourcelist" 
 		datasource="appsMaterials" 
 		username="#SESSION.login#" 
@@ -826,7 +823,7 @@ password="#SESSION.dbpw#">
 	
 	<cfloop query="SourceList">
 	
-	<tr class="line labelmedium">
+	<tr class="line labelmedium fixlengthlist">
 		  <td style="padding-left:10px">#TransactionBatchNo#</td>	
 	      <td>#TransactionType# #Description#</td>
 		  <td>#WarehouseName#</td>
@@ -853,11 +850,11 @@ password="#SESSION.dbpw#">
 <tr><td colspan="2" style="height:50px;font-size:30px;" class="labellarge"><font color="0080C0"><cf_tl id="Amendment History"></td></tr>
 <tr><td colspan="4" style="border-top:1px dotted gray"></td></tr>
 
-<tr>
-   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Officer">:</td>
-   <td class="labelmedium">#get.OfficerFirstName# #get.OfficerLastName#</td>
-   <td class="labelmedium"><cf_tl id="Recorded">:</td>
-   <td class="labelmedium">#dateformat(get.created,CLIENT.DateFormatShow)# #timeformat(get.created,"HH:MM:SS")#</td>
+<tr class="labelmedium fixlengthlist">
+   <td style="padding-left:10px"><cf_tl id="Officer">:</td>
+   <td>#get.OfficerFirstName# #get.OfficerLastName#</td>
+   <td><cf_tl id="Recorded">:</td>
+   <td>#dateformat(get.created,CLIENT.DateFormatShow)# #timeformat(get.created,"HH:MM:SS")#</td>
 </tr>
 
 <!--- history --->
@@ -874,11 +871,11 @@ password="#SESSION.dbpw#">
 
 <cfloop query="log">
 
-<tr>
-   <td class="labelmedium" style="padding-left:10px"><cf_tl id="Officer">:</td>
-   <td class="labelmedium">#log.OfficerFirstName# #log.OfficerLastName#</td>
-   <td class="labelmedium"><cf_tl id="Recorded">:</td>
-   <td class="labelmedium">#dateformat(log.created,CLIENT.DateFormatShow)# #timeformat(log.created,"HH:MM:SS")#</td>
+<tr class="fixlengthlist labelmedium">
+   <td style="padding-left:10px"><cf_tl id="Officer">:</td>
+   <td>#log.OfficerFirstName# #log.OfficerLastName#</td>
+   <td><cf_tl id="Recorded">:</td>
+   <td>#dateformat(log.created,CLIENT.DateFormatShow)# #timeformat(log.created,"HH:MM:SS")#</td>
 </tr>
 
 </cfloop>

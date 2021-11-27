@@ -471,9 +471,7 @@
 			<cfset object_op = 1>		
 			
 			<!--- container for show of interval check --->	
-			
-			
-																				
+																			
 			<cfinclude template="ActionListingView.cfm"> 
 								
 		</cfif>
@@ -538,7 +536,4 @@
 <!---
 </cftransaction>
 --->
-
-
-
 

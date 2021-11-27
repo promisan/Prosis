@@ -779,14 +779,14 @@ password="#SESSION.dbpw#">
 						<tr><td align="right" style="padding-right:2px;padding-top:2px">	
 																		
 						  <cf_img icon="edit" 
-						  onclick="_cf_loadingtexthtml='';ColdFusion.navigate('#session.root#/WorkOrder/Application/WorkOrder/ServiceDetails/Action/WorkActionListing.cfm?tabno=#url.tabno#&WorkOrderId=#url.WorkOrderId#&workorderline=#url.workorderline#&workactionid=#workactionid#&actionstatus=#url.actionstatus#&entrymode=#url.entrymode#','actioncontent')">
+						  onclick="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/WorkOrder/Application/WorkOrder/ServiceDetails/Action/WorkActionListing.cfm?tabno=#url.tabno#&WorkOrderId=#url.WorkOrderId#&workorderline=#url.workorderline#&workactionid=#workactionid#&actionstatus=#url.actionstatus#&entrymode=#url.entrymode#','actioncontent')">
 						</td>
 						<td style="padding-top:2px">
 																	
 						<cfif wfStatus eq "open" 
 						   or wfexist eq "0"
 						   or (DateTimePlanningWorkPlan eq "" and ActionFulfillment eq "Schedule")>		
-						   <cf_img icon="delete" onclick="_cf_loadingtexthtml='';ColdFusion.navigate('#session.root#/WorkOrder/Application/WorkOrder/ServiceDetails/Action/WorkActionListing.cfm?tabno=#url.tabno#&WorkOrderId=#url.WorkOrderId#&workorderline=#url.workorderline#&workactionid=#workactionid#&action=delete&actionstatus=#url.actionstatus#&entrymode=#url.entrymode#','actioncontent')" border="0">				
+						   <cf_img icon="delete" onclick="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/WorkOrder/Application/WorkOrder/ServiceDetails/Action/WorkActionListing.cfm?tabno=#url.tabno#&WorkOrderId=#url.WorkOrderId#&workorderline=#url.workorderline#&workactionid=#workactionid#&action=delete&actionstatus=#url.actionstatus#&entrymode=#url.entrymode#','actioncontent')" border="0">				
 						</cfif>
 						</td>
 						</tr>

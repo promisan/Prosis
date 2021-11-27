@@ -215,13 +215,14 @@ password="#SESSION.dbpw#">
 			--->
 			<td><cf_tl id="No"></td>
 			<TD><cf_tl id="IndexNo"></TD>		    
-		    <td><cf_tl id="S"></td>
+		    <td></td>
 		    <TD><cf_tl id="DOB"></TD>
 			<TD><cf_tl id="Nationality"></TD>
 		    <TD><cf_tl id="Entity"></TD>	
 			<TD></TD>
 			<TD><cf_tl id="Level"></TD>		
-		    <TD><cf_tl id="Post title"></TD>			
+		    <TD><cf_tl id="Post title"></TD>	
+			<TD><cf_tl id="Expiry"></TD>		
 		    <TD><cf_tl id="Source"></TD>
 		
 		</TR>
@@ -282,7 +283,8 @@ password="#SESSION.dbpw#">
 				   </TD>		
 				   <TD>#ContractLevel#</TD>		   
 				   <TD title="#FunctionDescription#">
-				   <cfif PositionNo neq ""><a href="javascript:EditPosition('','','#PositionNo#')">#FunctionDescription#</a></cfif></TD>				   
+				   <cfif PositionNo neq ""><a href="javascript:EditPosition('','','#PositionNo#')">#FunctionDescription#</a></cfif></TD>	
+				   <TD>#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>			   
 				   <TD>#Source#</TD>
 			   </TR>
 			      
@@ -319,7 +321,7 @@ password="#SESSION.dbpw#">
 						     <td style="border-bottom :1px solid silver" bgcolor="ffffbf">#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
 						     <TD style="border-bottom :1px solid silver" bgcolor="ffffbf" colspan="5">#ContractType#  #ContractFunctionDescription#</TD>
 						     <TD style="border-bottom :1px solid silver" bgcolor="ffffbf">#SalarySchedule#</TD>
-						     <td style="border-bottom :1px solid silver" bgcolor="ffffbf" colspan="4" >#ServiceLocation# &nbsp;#ContractLevel#/#ContractStep#</td>
+						     <td style="border-bottom :1px solid silver" bgcolor="ffffbf" colspan="5" >#ServiceLocation# &nbsp;#ContractLevel#/#ContractStep#</td>
 					     </tr>
 				     
 				   </cfloop> 

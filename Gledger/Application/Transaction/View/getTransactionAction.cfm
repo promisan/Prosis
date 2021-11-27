@@ -148,18 +148,21 @@
 					
 					    <cfif get.TransactionSource eq "SalesSeries" and Action.recordcount eq "0">
 						    <!--- we go the POS mode for the sales series, unlike accounting and workorder series  ---> 
-						    <a href="javascript:PrintTaxReceivable('','pos')"><cf_tl id="Issue Electronic Invoice"></a>
+						    <a href="javascript:NewTaxReceivable('','pos')"><cf_tl id="Issue Electronic Invoice"></a>
 						<cfelse>
-						    <a href="javascript:PrintTaxReceivable('','finance')"><cf_tl id="Issue Electronic Invoice"></a>
+						    <a href="javascript:NewTaxReceivable('','finance')"><cf_tl id="Issue Electronic Invoice"></a>
 						</cfif>
 						
-					</td>		 
+					</td>		
+					
+					<cfif get.TransactionSource eq "SalesSeries"> 
 				    <td style="padding-left:10px;padding-right:10px">|</td>		  
 			  		<td class="labelmedium2" colspan="6">				  		
 			   			<a href="javascript:PrintReceivable()">
 				    	<cf_tl id="Invoice">
 						</a>				   		
 					</td>			
+					</cfif>
 				   </tr>	
 				   </table>
 			   </td>

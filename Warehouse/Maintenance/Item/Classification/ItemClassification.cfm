@@ -51,7 +51,7 @@
 		FROM     Ref_Topic T INNER JOIN Ref_TopicParent P ON T.Parent = P.Parent
 		WHERE    T.TopicClass = 'Details'
 		
-		ORDER BY T.TopicClass, P.SearchOrder, P.Description, T.ListingOrder ASC
+		ORDER BY T.Parent, T.TopicClass, T.ValueClass, P.SearchOrder, P.Description, T.ListingOrder ASC
 		
 		
 </cfquery>
@@ -124,112 +124,128 @@ password="#SESSION.dbpw#">
 		<cfabort>
 	</cfif>
 	
-	<cfoutput query="getTopics" group="Description">
+	<cfoutput query="getTopics" group="Parent">
 	
 		<tr class="line">
 			<td colspan="4" style="font-size:22px" class="labelmedium2">#Description#</td>			
 		</tr>	
 		
+		<cfoutput group="ValueClass">
+		
 		<cfset cnt = 0>
 	
-	    <cfoutput>
-		
-		<cfset cnt = cnt+1>
-
-		<cfif cnt eq "1"><tr></cfif>  
-		
-			<td width="80" height="23" class="labelmedium2">#TopicLabel#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
-			<td>
+		    <cfoutput>
 			
-			    <cfif TopicClass eq "Details">
-					<cfset tbcl = "ItemTopicValue">					
+			<cfset cnt = cnt+1>
+	
+			<cfif cnt eq "1"><tr></cfif>  
+			
+				<td width="80" height="23" class="labelmedium2">#TopicLabel#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
+				
+				<cfif valueclass eq "Text">
+											
+				<td colspan="3">
+				
 				<cfelse>
-					<cfset tbcl = "ItemClassification">
+				
+				<td>
+				
 				</cfif>
 				
-				<cfif ValueClass eq "List">
-				
-					<cfquery name="GetList" 
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							SELECT	T.*, 
-									P.ListCode as Selected
-							FROM 	Ref_TopicList T 
-									LEFT OUTER JOIN #tbcl# P ON P.Topic = T.Code AND P.ItemNo = '#Item.ItemNo#'
-							WHERE 	T.Code = '#Code#'  
-							AND 	T.Operational = 1
-							ORDER BY T.ListOrder ASC
-					</cfquery>
+				    <cfif TopicClass eq "Details">
+						<cfset tbcl = "ItemTopicValue">					
+					<cfelse>
+						<cfset tbcl = "ItemClassification">
+					</cfif>
 					
-					<select class="regularxxl" name="Topic_#Code#" ID="Topic_#Code#">
-						<cfif ValueObligatory eq "0">
-							<option value=""></option>
-						</cfif>
-						<cfloop query="GetList">
-							<option value="#GetList.ListCode#" <cfif GetList.Selected eq GetList.ListCode>selected</cfif>>#GetList.ListValue#</option>
-						</cfloop>
-					</select> 
+					<cfif ValueClass eq "List">
 					
-				<cfelseif ValueClass eq "Lookup">
-				
-					<cfquery name="GetList" 
-						  datasource="#ListDataSource#" 
-						  username="#SESSION.login#" 
-						  password="#SESSION.dbpw#">
-					
-							 SELECT     DISTINCT 
-							            #ListPK# as ListCode, 
-							            #ListDisplay# as ListValue,
-									    #ListOrder# as ListOrder,
-									    P.Value as Selected
-							  FROM      #ListTable# T LEFT OUTER JOIN 
-									   	(SELECT ItemNo, Topic, ListCode As Value 
-										 FROM   Materials.dbo.#tbcl# 
-										 WHERE  ItemNo='#Item.ItemNo#') P ON P.Topic = '#GetTopics.Code#' 
-							  WHERE     #PreserveSingleQuotes(ListCondition)#
-							  ORDER BY  #ListOrder#
-					
-					</cfquery>
+						<cfquery name="GetList" 
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT	T.*, 
+										P.ListCode as Selected
+								FROM 	Ref_TopicList T 
+										LEFT OUTER JOIN #tbcl# P ON P.Topic = T.Code AND P.ItemNo = '#Item.ItemNo#'
+								WHERE 	T.Code = '#Code#'  
+								AND 	T.Operational = 1
+								ORDER BY T.ListOrder ASC
+						</cfquery>
 						
-					<select class="regularxxl" name="Topic_#Code#" ID="Topic_#Code#">
-						<cfif ValueObligatory eq "0">
-							<option value=""></option>
-						</cfif>
-						<cfloop query="GetList">
-							<option value="#ListCode#" <cfif Selected eq ListCode>selected</cfif>>#ListValue#</option>
-						</cfloop>
-					</select> 	
-					   
-				<cfelseif ValueClass eq "Text">
-			
-						 <cfquery name="GetValue"  
-						  datasource="appsMaterials" 
-						  username="#SESSION.login#" 
-						  password="#SESSION.dbpw#">
-							  SELECT *
-							  FROM   #tbcl#
-							  WHERE  Topic  = '#Code#'		
-							  AND    ItemNo = '#Item.ItemNo#'				 
-						</cfquery>							
+						<select class="regularxxl" name="Topic_#Code#" ID="Topic_#Code#">
+							<cfif ValueObligatory eq "0">
+								<option value=""></option>
+							</cfif>
+							<cfloop query="GetList">
+								<option value="#GetList.ListCode#" <cfif GetList.Selected eq GetList.ListCode>selected</cfif>>#GetList.ListValue#</option>
+							</cfloop>
+						</select> 
 						
-						<cfinput type = "Text"
-					       name       = "Topic_#Code#"
-					       required   = "#ValueObligatory#"					     
-					       size       = "#valueLength#"
-						   class      = "regularxxl enterastab"
-						   message    = "Please enter a #Description#"
-						   value      = "#GetValue.TopicValue#"
-					       maxlength  = "#ValueLength#">   		
-				    
+					<cfelseif ValueClass eq "Lookup">
+					
+						<cfquery name="GetList" 
+							  datasource="#ListDataSource#" 
+							  username="#SESSION.login#" 
+							  password="#SESSION.dbpw#">
+						
+								 SELECT     DISTINCT 
+								            #ListPK# as ListCode, 
+								            #ListDisplay# as ListValue,
+										    #ListOrder# as ListOrder,
+										    P.Value as Selected
+								  FROM      #ListTable# T LEFT OUTER JOIN 
+										   	(SELECT ItemNo, Topic, ListCode As Value 
+											 FROM   Materials.dbo.#tbcl# 
+											 WHERE  ItemNo='#Item.ItemNo#') P ON P.Topic = '#GetTopics.Code#' 
+								  WHERE     #PreserveSingleQuotes(ListCondition)#
+								  ORDER BY  #ListOrder#
+						
+						</cfquery>
+							
+						<select class="regularxxl" name="Topic_#Code#" ID="Topic_#Code#">
+							<cfif ValueObligatory eq "0">
+								<option value=""></option>
+							</cfif>
+							<cfloop query="GetList">
+								<option value="#ListCode#" <cfif Selected eq ListCode>selected</cfif>>#ListValue#</option>
+							</cfloop>
+						</select> 	
+						   
+					<cfelseif ValueClass eq "Text">
+				
+							 <cfquery name="GetValue"  
+							  datasource="appsMaterials" 
+							  username="#SESSION.login#" 
+							  password="#SESSION.dbpw#">
+								  SELECT *
+								  FROM   #tbcl#
+								  WHERE  Topic  = '#Code#'		
+								  AND    ItemNo = '#Item.ItemNo#'				 
+							</cfquery>							
+							
+							<cfinput type = "Text"
+						       name       = "Topic_#Code#"
+						       required   = "#ValueObligatory#"					     
+						       size       = "#valueLength#"
+							   class      = "regularxxl enterastab"
+							   message    = "Please enter a #Description#"
+							   value      = "#GetValue.TopicValue#"
+						       maxlength  = "#ValueLength#">   		
+					    
+					</cfif>
+									
+				</td>
+				
+				<cfif valueclass eq "Text">
+				</tr>
+				<cfelse>
+				<cfif cnt eq "2"></tr><cfset cnt= 0></cfif>
 				</cfif>
-								
-			</td>
-			
-			<cfif cnt eq "2"></tr><cfset cnt= 0></cfif>
+					
+		    	</cfoutput>
 		
-		
-	    </cfoutput>
+		</cfoutput>
 
 	</cfoutput>
 		

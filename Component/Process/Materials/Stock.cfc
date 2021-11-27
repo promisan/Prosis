@@ -313,7 +313,20 @@
 						   AND       Warehouse IN (SELECT Warehouse FROM itemTransaction)
 						   AND       Operational = 1  	   
 					</cfquery>
-			
+					
+					<cfset searchstr = "">
+					
+					<cfloop index="itm" list="#ItemName#" delimiters=" ">
+					
+						<cf_softlike left="I.ItemDescription" right="#itm#" language="#client.languageId#" var="1">					
+						<cfif searchstr eq "">						
+						    <cfset searchstr = "#softstring#">						
+						<cfelse>						
+							<cfset searchstr = "#searchstr# AND #softstring#">										
+						</cfif>
+					
+					</cfloop>
+								
 					<cfquery name="stock" 
 						datasource="appsMaterials" 
 						username="#SESSION.login#" 
@@ -337,7 +350,7 @@
 							                     L.Mission, W.Warehouse, N.WarehouseName, L.ItemNo, I.ItemDescription, I.ItemNoExternal, 
 												 L.Category, C.Description as CategoryName,
 												 L.UoM, 
-												 L.UoMName, 
+												 L.UoMName, 												
 												 I.ItemPrecision,
 												 L.PriceSchedule, L.PriceScheduleDescription, 
 												 L.Promotion, L.Currency, L.SalesPrice, L.PriceDate,
@@ -373,7 +386,7 @@
 													   
 					                    FROM      skMissionItemPrice AS L 
 										          INNER JOIN ItemWarehouse AS W ON L.ItemNo = W.ItemNo AND L.UoM = W.UoM 
-												  INNER JOIN Item I         ON L.ItemNo = I.ItemNo 
+												  INNER JOIN Item I         ON L.ItemNo = I.ItemNo 												 		
 												  INNER JOIN Ref_Category C ON L.Category = C.Category
 												  INNER JOIN Warehouse N    ON W.Warehouse = N.Warehouse 												  
 										
@@ -414,8 +427,11 @@
 										<cfif ItemName neq "">
 										
 										AND ( 
-										<cf_softlike left="I.ItemDescription" right="#ItemName#" language="#client.languageId#">
-										OR  (I.ItemNo LIKE '%#ItemName#' OR I.ItemNoExternal LIKE '%#ItemName#%')
+										
+										(#preservesingleQuotes(searchstr)#)
+										
+										OR I.ItemNo         LIKE '%#ItemName#' 
+										OR I.ItemNoExternal LIKE '%#ItemName#%'
 										)
 										
 										</cfif>			
@@ -434,13 +450,13 @@
 							</cfif>
 							
 							<cfif SettingPromotion eq "1">
-							AND        Promotion > 1
+							AND        Promotion = 1
 							</cfif>
 							
 							<cfif warehouse eq ""> 
-							ORDER BY    ItemDescription, ItemNo, Warehouse
+							ORDER BY    ItemDescription, ItemNo, UoM, Warehouse
 							<cfelse>
-							ORDER BY    ItemDescription, ItemNo, Warehouse				
+							ORDER BY    ItemDescription, ItemNo, UoM, Warehouse				
 							</cfif>		
 														
 					</cfquery>

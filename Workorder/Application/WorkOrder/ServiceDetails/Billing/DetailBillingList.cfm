@@ -339,7 +339,7 @@ password="#SESSION.dbpw#">
 	<td align="right" class="clsNoPrint">
 	
 		<cfif billingedit eq "1" and  (access eq "EDIT" or access eq "ALL")>
-		<a href="javascript:linebillingdetail('#url.workorderid#','#url.workorderline#','')"><font color="0080FF">[<cf_tl id="add">]</font></a>
+		<a href="javascript:linebillingdetail('#url.workorderid#','#url.workorderline#','')">[<cf_tl id="add">]</a>
 		</cfif>
 	
 	</td>

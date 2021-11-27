@@ -2270,6 +2270,7 @@ body {
 .navbar-nav > li,
 .navbar-nav > li > a {
   height: 56px;
+  float: left;
 }
 .navbar-nav > li > a {
   padding: 15px 25px;

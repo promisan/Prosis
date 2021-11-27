@@ -72,7 +72,7 @@ password="#SESSION.dbpw#">
 
 <tr><td>
 
-<table width="96%" align="center" class="formpadding">
+<table width="99%" align="center" class="formpadding">
   
    <tr class="line">
     
@@ -213,7 +213,7 @@ password="#SESSION.dbpw#">
 		<td><INPUT type="radio" class="radiol" onclick="ptoken.navigate('showAdvance.cfm?transactionid=#Entitlement.SourceId#&class=payment&personno=#url.id#','ledger')"		
 		name="EntitlementClass" value="Payment" <cfif Entitlement.EntitlementClass eq "Payment">checked</cfif>></td>
 		<td style="padding-left:5px;padding-right:10px"><cf_tl id="Payment"></td>
-		<td><INPUT type="radio" class="radiol" onclick="ptoken.navigate('showAdvance.cfm?transactionid=#Entitlement.SourceId#&class=deduction&personno=#url.id#','ledger')"
+		<td><INPUT type="radio" class="radiol" onclick="ptoken.navigate('getAdvance.cfm?currency='+document.getElementById('currency').value+'&transactionid=#Entitlement.SourceId#&class=deduction&personno=#url.id#','ledger')"
 		name="EntitlementClass" value="Deduction" <cfif Entitlement.EntitlementClass eq "Deduction">checked</cfif>></td>
 		<td style="padding-left:5px;padding-right:10px"><cf_tl id="Deduction">
 				
@@ -255,12 +255,21 @@ password="#SESSION.dbpw#">
 	<cfif Entitlement.EntitlementClass eq "Deduction">	  
 	
 		<tr>			   	  
-		   <td colspan="2" id="ledger" style="padding-left:10px;padding-right:10px">	   
+		   <td colspan="2" id="ledger" style="padding-left:5px;padding-right:7px">	   
 	       <cfset url.class = Entitlement.EntitlementClass>
 		   <cfset url.transactionid = Entitlement.SourceId>
-		   <cfinclude template="showAdvance.cfm">	   
+		   <cfset url.currency = Entitlement.Currency>
+		   <cfinclude template="getAdvance.cfm">	   
 		   </td>
 		</tr>	
+		
+	<cfelse>
+	
+	     <tr>			   	  
+		   <td colspan="2" id="ledger" style="padding-left:5px;padding-right:7px">	   	       
+		   </td>
+		</tr>	
+		
 		
 	</cfif>
 
@@ -279,7 +288,7 @@ password="#SESSION.dbpw#">
 		
 		<cfif edit eq "1">
 		
-		  	<select name="Currency" size="1" class="regularxl">
+		  	<select name="Currency" id="currency" size="1" class="regularxl">
 			<cfoutput query="Currency">
 			<option value="#Currency#" <cfif Entitlement.Currency eq Currency>selected</cfif>>
 	    		#Currency#

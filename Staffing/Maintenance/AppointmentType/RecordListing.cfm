@@ -37,28 +37,28 @@ function recordedit(id1) {
 
 	<table width="95%" align="center" class="navigation_table">
 	
-		<tr class="labelmedium2 line">
+		<tr class="labelmedium2 line fixlengthlist">
 		    <td></td> 
-		    <td>Code</td>
-			<td>Description</td>
-			<td>Sort</td>
+		    <td><cf_tl id="Code"></td>
+			<td><cf_tl id="Description"></td>
+			<td><cf_tl id="Sort"></td>
 			<td>Op.</td>
-			<td>Enabled for</td>		
-			<td>Officer</td>
-			<td>Created</td>
+			<td><cf_tl id="Enabled for"></td>		
+			<td><cf_tl id="Officer"></td>
+			<td><cf_tl id="Created"></td>
 		</tr>
 	
 		<cfoutput query="SearchResult">
 			
-		    <tr height="20" class="labelmedium2 navigation_row line">
-				<td width="5%" align="center" style="padding-top:1px">
+		    <tr height="20" class="labelmedium2 navigation_row line fixlengthlist">
+				<td align="center" style="padding-top:1px">
 				 <cf_img icon="open" navigation="Yes" onclick="recordedit('#code#')">
 				</td>		
-				<td style="min-width:40px">#Code#</td>
-				<td width="20%">#Description#</td>
-				<td width="5%">#ListingOrder#</td>
-				<td width="5%">#Operational#</td>
-				<td width="30%">
+				<td>#Code#</td>
+				<td>#Description#</td>
+				<td>#ListingOrder#</td>
+				<td>#Operational#</td>
+				<td>
 					<cfquery name="MissionList" 
 						datasource="AppsEmployee" 
 						username="#SESSION.login#" 
@@ -79,8 +79,8 @@ function recordedit(id1) {
 					</cfif>
 					#vMissionList#
 				</td>
-				<td width="18%" style="padding-right:3px">#OfficerUserId#</td>
-				<td width="8%">#dateformat(created,client.dateformatshow)#</td>
+				<td>#OfficerUserId#</td>
+				<td>#dateformat(created,client.dateformatshow)#</td>
 		    </tr>
 	
 		</cfoutput>

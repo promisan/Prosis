@@ -631,7 +631,6 @@ will be put into different batches as they could have different process flows as
 									</cfif>		
 									
 							 </cfif>	
-							 				
 								
 							 <cf_assignid>
 						     <cfset newid = rowguid>
@@ -671,7 +670,23 @@ will be put into different batches as they could have different process flows as
 								GLTransactionNo      = "#batchNo#"
 								GLCurrency           = "#APPLICATION.BaseCurrency#"
 								GLAccountDebit       = "#AccountStock.GLAccount#"
-								GLAccountCredit      = "#AccountTask.GLAccount#">									
+								GLAccountCredit      = "#AccountTask.GLAccount#">		
+								
+								<!--- we set the sale price if the item has no prices set for 
+											the warehouse of this entity --->
+											
+								<cfif tratpe eq "1">			
+								
+									<cfinvoke component = "Service.Process.Materials.Item"  
+									   method           = "createItemUoMPrice" 
+									   mission          = "#getWarehouse.Mission#" 
+									   ItemNo           = "#ToItemNo#" 
+									   UoM              = "#ToUoM#"
+									   DateEffective    = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
+									   Cost             = "#TransactionCostPrice#"									   
+									   datasource       = "AppsMaterials">	 								
+								   
+								</cfif>    
 																
 								<cfquery name="getLocationTo"
 									datasource="AppsMaterials" 

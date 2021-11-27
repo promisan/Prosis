@@ -40,6 +40,7 @@ password="#SESSION.dbpw#">
 			</table>
 		</td>
 	</tr>	
+		
 	
 	<cfif get.CriteriaType eq "list">
 		<cfset cl = "regular"> 
@@ -54,6 +55,9 @@ password="#SESSION.dbpw#">
 	  <input type="radio" class="radiol" name="CriteriaInterface" id="CriteriaInterface" <cfoutput>#dis#</cfoutput> value="Checkbox" <cfif Get.CriteriaInterface eq "Checkbox">checked</cfif>>Checkbox/Radio
 	</TD>
     </TR>
+	
+	
+	
 	
 	<tr class="#cl#"><td height="2"></td></tr>
 	<TR class="#cl#">
@@ -112,6 +116,10 @@ password="#SESSION.dbpw#">
 	
 	</TD>
     </TR>
+	
+	
+	
+	
 			
 	<TR class="#cl#">
 	
@@ -153,6 +161,7 @@ password="#SESSION.dbpw#">
 		       size="60"
 		       maxlength="70"
 		       class="regularxl">
+			   
 		<cfelse>
 		
 			<cfoutput>
@@ -166,6 +175,11 @@ password="#SESSION.dbpw#">
 	</table>    
 	</TD>
     </TR>	
+	
+	<!---
+	zzzzzzzzzzzzzzzzzzzzzzzzz
+	<cfabort>
+	--->
 		
 	<cfif get.LookupMode eq "Table">
 	   <cfset vw = "hide">
@@ -215,7 +229,7 @@ password="#SESSION.dbpw#">
 	
 		<td></td>
 		<td> 
-		   <cfdiv id="lookup" 
+		   <cf_securediv id="lookup" 
 		       bind="url:CriteriaEditField.cfm?id=#URL.ID#&Status=#URL.Status#&ID1=#URL.ID1#&ID2={lookuptable}&multiple=#Get.LookupMultiple#&ds={lookupdatasource}">		
 		</td>
 		
@@ -241,7 +255,7 @@ password="#SESSION.dbpw#">
 		</table>
 		</td>
         <td>
-		<cfdiv id   = "isubfield" 
+		<cf_securediv id   = "isubfield" 
 		       bind = "url:CriteriaSubField.cfm?id=#URL.ID#&Status=#URL.Status#&ID1=#URL.ID1#&table={lookuptable}&multiple=#Get.LookupMultiple#&ds={lookupdatasource}&keyfld=#Get.LookupFieldValue#">
 
 	    </td>
@@ -337,7 +351,7 @@ password="#SESSION.dbpw#">
 
 	<td colspan="2">
 	
-	<table width="100%" cellspacing="0" cellpadding="0">
+	<table width="100%">
 	
 	<tr>
 	
@@ -354,7 +368,7 @@ password="#SESSION.dbpw#">
 	
 	<tr>
 		<td style="padding-left:20px">	
-		   <textarea style="font-size:13px;padding;2px;width:99%" <cfoutput>#dis#</cfoutput> rows="3" name="CriteriaValues" wrap="hard" class="regular"><cfoutput>#Get.CriteriaValues#</cfoutput></textarea>
+		   <textarea style="font-size:14px;padding;2px;width:99%" <cfoutput>#dis#</cfoutput> rows="6" name="CriteriaValues" wrap="hard" class="regular"><cfoutput>#Get.CriteriaValues#</cfoutput></textarea>
 	    </TD>	
 	</TR>
 	

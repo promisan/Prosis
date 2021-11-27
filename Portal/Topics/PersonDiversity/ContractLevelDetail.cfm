@@ -89,9 +89,9 @@
 </cfquery>	
 
 <table width="100%" align="center" class="formpadding">
-	<tr>
+	<tr class="fixlengthlist">
 		<cfoutput>
-		<td width="95%" style="font-weight:300;font-size:15px;padding-left:4px"><cf_tl id="Distribution by Contract Level, Post Funding and Appointment Type"></td>
+		<td width="95%" style="font-size:15px;padding-left:4px"><cf_tl id="Distribution by Contract Level, Post Funding and Appointment Type"></td>
 		<td align="right" class="labelit">
 			<span id="printTitle" style="display:none;">#url.mission# - <cf_tl id="Distribution by Contract Level, Post Funding and Appointment Type"></span>
 			<cf_tl id="Print" var="1">
@@ -106,7 +106,7 @@
 				printContent = ".clsContractLevelDetail">
 		</td>
 		<td align="right" style="padding-right:5px;" class="labelit" width="60px">
-			<a onclick="$('##detailArea').html('');" style="cursor:pointer;">[ <cf_tl id="Close"> ]</a>
+			<a onclick="$('##detailArea').html('');" style="cursor:pointer;">[<cf_tl id="Close">]</a>
 		</td>
 		</cfoutput>
 	</tr>

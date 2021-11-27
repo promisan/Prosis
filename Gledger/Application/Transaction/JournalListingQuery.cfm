@@ -265,6 +265,14 @@
 			--condition
 </cfquery>
 
+<cfset session.selectedrecords= "#quotedvalueList(TransactionListing.JournalSerialNo)#">
+
+<cfif session.selectedrecords eq "">
+	<cfset  session.selectedrecords = "'0'"> 
+	
+</cfif>
+
+
 <!---
 <cfif cfquery.executiontime gte "800">
 	<cfoutput>2:#cfquery.executiontime#</cfoutput>

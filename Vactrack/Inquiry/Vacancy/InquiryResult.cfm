@@ -112,14 +112,14 @@ password="#SESSION.dbpw#">
 
 	<table style="width:98.5%" class="navigation_table">
 	
-	<tr class="line labelmedium2 fixrow">
-	    <TD height="23" width="4%" align="center"></TD>
-	    <TD width="4%"></TD>
-	    <TD width="100"><cf_tl id="Track"></TD>
-		<td width="35%"><cf_tl id="Function"></td>
-		<TD width="15%"><cf_tl id="Grade"></TD>
-	    <TD width="10%"><cf_tl id="Entity"></TD>
-	    <TD width="12%"><cf_tl id="Position"></TD>
+	<tr class="line labelmedium2 fixrow fixlengthlist">
+	    <TD height="23" align="center"></TD>
+	    <TD></TD>
+	    <TD><cf_tl id="Track"></TD>
+		<td><cf_tl id="Function"></td>
+		<TD><cf_tl id="Grade"></TD>
+	    <TD><cf_tl id="Entity"></TD>
+	    <TD><cf_tl id="Position"></TD>
 		<td style="padding-right:3px"><cf_tl id="Reference"></TD>		
 	</TR>
 	
@@ -167,7 +167,7 @@ password="#SESSION.dbpw#">
 						 <cfset cl = "ffffff"> 
 						</cfif>		
 								
-					    <TR bgcolor="#cl#" style="height:24px" class="navigation_row labelmedium2">
+					    <TR bgcolor="#cl#" style="height:24px" class="navigation_row labelmedium2 fixlengthlist">
 						
 						<cfif DocumentStatus eq "9">
 							<td height="18" align="center">#currrow#.</td>
@@ -195,7 +195,7 @@ password="#SESSION.dbpw#">
 						   <a href="javascript:showdocument('#DocumentNo#','ZoomIn')" title="Go to recruitment track">#DocumentNo#</a>
 						</TD>
 						
-						<td style="padding-left:8px">#FunctionalTitle#</td>	
+						<td>#FunctionalTitle#</td>	
 						<td>#PostGrade#</TD>
 					    <td>#Mission#</TD>
 					    <td width="30%">											
@@ -208,7 +208,7 @@ password="#SESSION.dbpw#">
 								
 								<cfset c = 0>
 								<cfset cnt = 1>
-								<tr style="height:22px" class="labelmedium2">
+								<tr style="height:22px" class="labelmedium2 fixlengthlist"">
 								
 								<cfif Posts gt "1">
 								
@@ -241,7 +241,7 @@ password="#SESSION.dbpw#">
 							
 						</td>
 						
-						<TD style="padding-right:2px">#ReferenceNo#</TD>
+						<TD>#ReferenceNo#</TD>
 						
 					  </TR>
 						

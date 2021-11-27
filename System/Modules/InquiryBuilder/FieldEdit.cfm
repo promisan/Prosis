@@ -94,13 +94,13 @@ password="#SESSION.dbpw#">
 					<td colspan="2">
 						<table width="100%" class="formpadding">
 						
-							<tr>
-								<td style="width:200px" class="labelmedium2">
+							<tr class="fixlengthlist">
+								<td class="labelmedium2">
 									Display :
 								</td>
 								<td class="labelmedium2">
 								    <table>
-									<tr class="labelmedium2">
+									<tr class="labelmedium2 fixlengthlist">
 										<td><input style="width:18px;height:18px" type="radio" name="FieldDisplay" id="FieldDisplay" <cfif FieldInGrid eq "1">checked</cfif> onclick="form.ListingOrder.disabled=false" value="1"></td>
 										<td style="padding-left:3px">In Grid</td>
 										<td style="padding-left:6px"><input style="width:18px;height:18px" type="radio" name="FieldDisplay" id="FieldDisplay" <cfif FieldTree eq "1">checked</cfif> onclick="form.ListingOrder.disabled=true;" value="2"></td>
@@ -117,7 +117,7 @@ password="#SESSION.dbpw#">
 								<td>
 								
 									<table>
-									<tr>
+									<tr class="fixlengthlist">
 									<td>
 									<select id="FieldRow" style="width:48px" name="FieldRow" class="regularxxl">
 									 	<option value="1"  <cfif fieldrow eq "1">selected</cfif>>1</option> 
@@ -144,7 +144,7 @@ password="#SESSION.dbpw#">
 								</td>
 							</tr>
 							
-							<tr>
+							<tr class="fixlengthlist">
 								<td class="labelmedium2">Header label:</td>
 								<td>
 									<input type="text" name="FieldHeaderLabel" id="FieldHeaderLabel" maxlength="30" value="#FieldHeaderLabel#" class="regularxxl">
@@ -160,7 +160,7 @@ password="#SESSION.dbpw#">
 								</td>
 							</tr>
 							
-							<tr>
+							<tr class="fixlengthlist">
 								<td class="labelmedium2">Field sort by:</td>
 								<td colspan="1">
 								
@@ -177,10 +177,14 @@ password="#SESSION.dbpw#">
 								<!--- -------------------------- --->
 								<!--- preparation of the listing --->
 								<!--- -------------------------- --->
+								
+								<cfsilent>
 									
 								<cfset fileNo = "#get.DetailSerialNo#">					
 								<cfinclude template="QueryPreparation.cfm">				
 								<cfinclude template="QueryValidateReserved.cfm">
+								
+								</cfsilent>
 																										
 								<cfquery name="SelectQuery" 
 								datasource="#get.QueryDatasource#" 
@@ -189,8 +193,8 @@ password="#SESSION.dbpw#">
 								   #preservesinglequotes(sc)# 
 								</cfquery>									
 																	
-								<cfset col = SelectQuery.columnList>
-								<cfset colfields = "">
+								<cfset col = SelectQuery.columnList>								
+								<cfset colfields = "">																
 								
 								<cfloop index="fld" list="#col#">
 								
@@ -199,9 +203,9 @@ password="#SESSION.dbpw#">
 									     <cfif colfields eq "">
 										    <cfset colfields = "#fld#">
 										 <cfelse>
-										    <cfif findNoCase(fld,colfields)>
+										    <cfif findNoCase(fld,colfields)>											
 											  <!--- nada --->
-											<cfelse>
+											<cfelse>											
 										    <cfset colfields = "#colfields#,#fld#">	
 											</cfif>
 										 </cfif> 
@@ -219,34 +223,54 @@ password="#SESSION.dbpw#">
 								
 								</td>
 								
-								<td class="labelmedium2">Field function:</td>
-								<td colspan="1">
-								<table>
-								<tr>
+								<cfset col = SelectQuery.columnList>								
+								<cfset colfields = "">																
+								
+								<cfloop index="fld" list="#col#">								
+									
+								     <cfif colfields eq "">
+									    <cfset colfields = "#fld#">
+									 <cfelse>
+									    <cfif findNoCase(fld,colfields)>											
+										  <!--- nada --->
+										<cfelse>											
+									    <cfset colfields = "#colfields#,#fld#">	
+										</cfif>
+									 </cfif> 
+																	
+								</cfloop>
+								
+								
 								<td title="function available in the context of the listing">								
-									<input type="text" name="FieldFunction" id="FieldFunction" maxlength="30" value="#FieldFunction#" class="regularxxl">								
+									f:<input type="text" name="FieldFunction" id="FieldFunction" style="width:120px" maxlength="20" value="#FieldFunction#" class="regularxxl">								
 								</td>
+																
+								<td colspan="1">
+								
+								<table cellspacing="0" cellpadding="0">
+								
+								<tr>
 								 <td style="padding-left:2px" title="field content to be passed into function">
-								 <select name="fieldfunctionfield" id="fieldfunctionfield" class="regularxxl">		
+								 <select name="fieldfunctionfield" id="fieldfunctionfield" class="regularxxl" style="width:150px">		
 								     <option value=""><cf_tl id="same"></option>						 
 								     <cfloop index="col" list="#colfields#" delimiters=",">							      
 								  	     <option value="#col#" <cfif fieldfunctionfield eq col>selected</cfif>>#col#</option> 
 								     </cfloop>								
 								  </select>
 								  </td>
+								
 								  <td style="padding-left:2px" title="condition field to be passed">								
-									<input type="text" name="FieldFunctionCondition" id="FieldFunctionCondition" maxlength="20" value="#FieldFunctionCondition#" class="regularxxl">								
+									<input type="text" name="FieldFunctionCondition" id="FieldFunctionCondition" style="width:120px" maxlength="10" value="#FieldFunctionCondition#" class="regularxxl">								
 								</td>
 								
 								</tr>								
-								</table>
-								
+								</table>				
 								
 								</td>
 											
 							</tr>
 							
-							<tr>
+							<tr class="fixlengthlist">
 
 								<td class="labelmedium2">Content Format:</td>
 								<td>
@@ -275,7 +299,7 @@ password="#SESSION.dbpw#">
 								
 							</tr>
 						
-							<tr>
+							<tr class="fixlengthlist">
 								
 								<td class="labelmedium2">
 									Column width:
@@ -325,15 +349,12 @@ password="#SESSION.dbpw#">
 					
 						<table class="formapadding formspacing">
 						
-							<tr>					
-								
+							<tr class="fixlengthlist">													
 							
-								<td class="labelmedium2" style="min-width:200px">Label:</td>
+								<td class="labelmedium2">Label:</td>
 								<td>
 									<input type="text" name="FieldFilterLabel" id="FieldFilterLabel" value="#FieldFilterLabel#" width="60" maxlength="30" class="regularxxl">
-								</td>
-								
-								
+								</td>							
 								
 								<td class="labelmedium2" style="padding-left:6px">Modality:</td>
 								<td style="padding-left:3px">
@@ -404,8 +425,8 @@ password="#SESSION.dbpw#">
 								<td colspan="2" id="divEditable" <cfif FieldEditMode eq 0>style="display:none;"</cfif>>
 									<table width="100%" align="center">
 									
-										<tr>
-											<td class="labelmedium2" width="120px">
+										<tr class="fixlengthlist">
+											<td class="labelmedium2">
 												Input type :
 											</td>
 											<td>
@@ -463,8 +484,8 @@ password="#SESSION.dbpw#">
 					<td colspan="2">
 						<table width="95%" class="formpadding formspacing" align="center">
 						
-							<tr>
-								<td class="labelmedium2" style="min-width:100px">
+							<tr class="fixlengthlist">
+								<td class="labelmedium2">
 									is <b>Key</b> field :
 								</td>
 								<td class="labelmedium2">
@@ -472,7 +493,7 @@ password="#SESSION.dbpw#">
 								</td>
 							</tr>
 							 
-							<tr>
+							<tr class="fixlengthlist">
 								<td class="labelmedium2">
 									is <b>Access</b> field :
 								</td>

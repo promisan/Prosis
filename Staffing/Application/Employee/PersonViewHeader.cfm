@@ -564,7 +564,7 @@
                            <cfoutput query="group" maxrows=7>
                             			    
                               <tr>   
-                                 <td style="padding-top:1px" style="height:20px;font-size:14px" class="labelit"><font color="808080">#Topic#:</td>   
+                                 <td style="padding-top:1px" style="height:20px;font-size:14px" class="labelit fixlength"><font color="808080">#Topic#:</td>   
    	    	                     <td class="labelmedium" style="height:20px;font-size:14px">
 								 
 								 <table>

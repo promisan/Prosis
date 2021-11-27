@@ -12,7 +12,7 @@
 		ORDER BY ListingOrder Asc
 	</cfquery>
 	
-	<tr class="line">	
+	<tr>	
 			
 		<td colspan="2" style="padding-left:10px"> 
 		

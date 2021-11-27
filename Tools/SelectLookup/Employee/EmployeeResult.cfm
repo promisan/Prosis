@@ -266,7 +266,7 @@ password="#SESSION.dbpw#">
 				
 				<table width="100%">
 								
-				<TR class="labelmedium line fixrow">
+				<TR class="labelmedium line fixrow fixlengthlist">
 				    <td height="20"></td>		   
 					<TD><cf_tl id="Name"></TD>
 					<TD><cf_tl id="Function"></TD>
@@ -291,7 +291,7 @@ password="#SESSION.dbpw#">
 				 
 				<cfif currrow lte last and currrow gte first>		
 							
-					<TR class="navigation_row labelmedium" style="height:22px">
+					<TR class="navigation_row labelmedium fixlengthlist" style="height:22px">
 						
 						<TD width="30" align="center" style="padding-top:3px"
 						  class="navigation_action"

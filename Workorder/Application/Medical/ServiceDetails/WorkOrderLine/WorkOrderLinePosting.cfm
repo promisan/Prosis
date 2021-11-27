@@ -1,5 +1,4 @@
 
-
 <cfparam name="Post" default="0">
 
 <cfparam name="hasPostings" default="0">
@@ -24,6 +23,23 @@
 	AND      WorkOrderLine = '#get.WorkOrderLine#' 		  
 </cfquery>	
 
+<cfquery name="clean" 
+	datasource="AppsWorkOrder" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+    DELETE WorkOrderLineCharge
+	FROM      WorkOrderLineCharge C
+	WHERE     WorkOrderid   = '#get.WorkOrderid#' 
+	AND       WorkOrderLine = '#get.WorkOrderLine#' 
+	AND       Journal is not NULL
+	AND       NOT EXISTS (SELECT 'X' 
+	                      FROM Accounting.dbo.TransactionHeader 
+	                      WHERE Journal = C.Journal and JournalSerialNo = C.JournalSerialNo
+						  AND   ActionStatus IN ('0','1')
+						  AND   RecordStatus <> '9')
+	
+</cfquery>	
+
 <cfquery name="ListBilling" 
 	datasource="AppsWorkOrder" 
 	username="#SESSION.login#" 
@@ -34,9 +50,9 @@
 			 (SELECT OrgUnitName 
 			  FROM   Organization.dbo.Organization
 			  WHERE  OrgUnit = C.OrgUnitOwner) as OrgUnitOwnerName
+			  
 			 
-	FROM     WorkOrderLineCharge C INNER JOIN
-             Ref_UnitClass R ON C.UnitClass = R.Code
+	FROM     WorkOrderLineCharge C INNER JOIN Ref_UnitClass R ON C.UnitClass = R.Code
 	WHERE    WorkOrderid   = '#get.WorkOrderid#' 
 	AND      WorkOrderLine = '#get.WorkOrderLine#' 		
 	
@@ -97,9 +113,8 @@
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 					SELECT *
-  					FROM ServiceItemUnitMission
-  					WHERE        
-  						ServiceItemUnit = '#CheckAccount.Unit#'									  
+  					FROM   ServiceItemUnitMission
+  					WHERE  ServiceItemUnit = '#CheckAccount.Unit#'									  
 				</cfquery>		
 
 				<cfloop query="checkSIUM">
@@ -130,29 +145,28 @@
 	</cfif>
   					   
 	<tr>
-	   	<td align="center" colspan="2">
+	   	<td colspan="2">
 		    <table width="100%" align="center">
 			
-				<tr class="labelit" style="border-top:1px solid silver fixlengthlist">
+				<tr class="labelmedium2 fixlengthlist" style="height:20px;border-bottom:1px solid silver">
 					
 					<td style="padding-left:5px"><cf_tl id="Class"></td>
 					<td><cf_tl id="Unit"></td>	
-					<td style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Quantity"></td>	
-					<td style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Amount"></td>												
-					<td style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Amount"></td>										
-					<td style="border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Tax"></td>																	
-					<td style="border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Receivable"></td>
-				</tr>
-				
+					<td style="border-left:1px solid silver;border-right:1px solid silver align="right"><cf_tl id="Quantity"></td>	
+					<td style="border-left:1px solid silver;border-right:1px solid silver" align="right"><cf_tl id="Amount"></td>												
+					<td style="border-left:1px solid silver;border-right:1px solid silver" align="right"><cf_tl id="Amount"></td>										
+					<td style="border-right:1px solid silver" align="right"><cf_tl id="Tax"></td>																	
+					<td style="border-right:1px solid silver" align="right"><cf_tl id="Receivable"></td>
+				</tr>				
 								
-				<tr class="labelit line  fixlengthlist">								
+				<tr class="labelit line fixlengthlist" style="height:20px">								
 					<td></td>
 					<td></td>
-					<td style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Used">|<cf_tl id="Charged"></td>	
-					<td style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Cost"></td>	
-					<td style="border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"><cf_tl id="Income"></td>	
-					<td style="border-right:1px solid silver;padding-right:4px" align="right"></td>	
-					<td style="border-right:1px solid silver;padding-right:4px" align="right"></td>					
+					<td style="border-left:1px solid silver;border-right:1px solid silver" align="right"><cf_tl id="Used">|<cf_tl id="Charged"></td>	
+					<td style="border-left:1px solid silver;border-right:1px solid silver" align="right"><cf_tl id="Cost"></td>	
+					<td style="border-left:1px solid silver;border-right:1px solid silver" align="right"><cf_tl id="Income"></td>	
+					<td style="border-right:1px solid silver" align="right"></td>	
+					<td style="border-right:1px solid silver" align="right"></td>					
 				</tr>
 				
 				<cfquery name="Owner" dbtype="query">
@@ -169,10 +183,10 @@
 						</td>
 					
 						 <cfquery name="Owner" dbtype="query">
-							SELECT    SUM(CostAmount) as COSS, 
+							SELECT    SUM(CostAmount)       as COSS, 
 									  SUM(SaleAmountIncome) as Income, 
-							          SUM(SaleAmountTax) as Tax, 
-									  SUM(SalePayable) as Payable									
+							          SUM(SaleAmountTax)    as Tax, 
+									  SUM(SalePayable)      as Payable									
 							FROM      ListBilling							
 						 </cfquery>	
 						<td class="labellarge" style="border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;font-size:18px" align="right"><font color="808080">#numberformat(Owner.COSS,',.__')#</td>													
@@ -245,98 +259,50 @@
 									
 						<cfoutput group="TransactionDate">
 
-						<cfoutput group="InvoiceNo">							
-						
-						    <cfset vamt = 0>
-						    <cfset vtax = 0>
-							<cfif reference neq "#BillingReference# - #BillingName#">											
-							<tr class="line labelmedium  fixlengthlist">
-							<td colspan="7"  style="padding-left:10px;height:1px;">
-								<!--- we are hiding this now as it gave some confusion in the presentation 
-								#dateformat(TransactionDate,client.dateformatshow)#
-								--->																
-								<b>#BillingReference# - #BillingName#								
-								<cfset reference = "#BillingReference# - #BillingName#">								
-							</td></tr>
-							</cfif>
+							<cfoutput group="InvoiceNo">							
 							
-						<cfoutput group="UnitClassName">		
-						
-						<cfoutput>
-						
-							<tr class="labelmedium  fixlengthlist" style="height:20px;border-top:1px solid silver">							    														
-								<td style="padding-left:10px;border-bottom:1px solid silver"><cfif prior neq UnitClassName>#unitclassname#</cfif></td>
-								<td style="border-bottom:1px solid silver">#UnitDescription#</td>		
-								<td align="right" style="border-left:1px solid silver;border-right:1px solid silver"><cfif quantityCost gte "1">#QuantityCost#|</cfif>#Quantity#</td>																	
-								<td align="right" style="border-left:1px solid silver;border-right:1px solid silver"></td>
-								<td align="right" style="border-left:1px solid silver;border-right:1px solid silver">#numberformat(SaleAmountIncome,',__.__')#</td>		
-								<td align="right" style="border-right:1px solid silver">#numberformat(SaleAmountTax,',.__')#</td>									
-								<td align="right" style="border-right:1px solid silver">#numberformat(SalePayable,',.__')#</td>								
-							</tr>
-							
-							<cfset vamt = vamt + SaleAmountIncome>	
-							<cfset vtax = vtax + SaleAmountTax>		
-							<cfset prior = unitclassname>
-																	
-						</cfoutput>
-						
-						</cfoutput>
-																										
-						<tr class="labelmedium2  fixlengthlist" style="height:20px;background-color:f1f1f1">
-						    <td colspan="2" align="left" style="padding-left:20px"></td>
-							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" >
-														
-							<cfif journal neq "">
-							
-								<cfset haspostings = "1">
-
-								<table style="width:100%">
-									<tr class="labelmedium2 fixlengthlist">
+							    <cfset vamt = 0>
+							    <cfset vtax = 0>
+								<cfif reference neq "#BillingReference# - #BillingName#">											
+								<tr class="line labelmedium  fixlengthlist">
+								<td colspan="7"  style="padding-left:10px;height:1px;">
+									<!--- we are hiding this now as it gave some confusion in the presentation 
+									#dateformat(TransactionDate,client.dateformatshow)#
+									--->																
+									<b>#BillingReference# - #BillingName#								
+									<cfset reference = "#BillingReference# - #BillingName#">								
+								</td></tr>
+								</cfif>
+								
+								<cfoutput group="UnitClassName">		
+								
+									<cfoutput>
 									
-									<td style="width:20px;padding-left:10px;">
-											
-											<cfquery name="Document" 
-									         	  datasource="AppsOrganization" 
-								      			  username="#SESSION.login#" 
-								        	  	  password="#SESSION.dbpw#">
-								      			    SELECT * 
-										       		FROM   Ref_EntityDocument 
-								      				WHERE  EntityCode   = 'GLTransaction'
-													AND    DocumentType = 'document'																							 
-								      			</cfquery>
-
-							      			<cfif Document.recordcount eq "1">
-											
-												<cf_tl id="Print form" var="1">
-												
-												<cf_button2 
-													type="button" 
-													mode="icon" 
-													image="print_gray.png" 
-													height="22px" 
-													width="22px" 
-													imageHeight="20px" 
-													title="#lt_text#"
-													onclick="doPrintFormat('#journal#', '#journalserialNo#','#document.documentid#','#document.documenttemplate#');">											
-											
-											<cfelseif Document.recordCount gte 2>
-											
-												<cf_tl id="Print form" var="1">
-												
-												<cf_button2 
-													type="button" 
-													mode="icon" 
-													image="print_gray.png" 
-													height="22px" 
-													width="22px" 
-													imageHeight="20px" 
-													title="#lt_text#"
-													onclick="printFormSelected('#journal#', '#journalserialNo#','#workorder.serviceitem#');">									
-													
-													
-											</cfif>
-											
-										</td>
+										<tr class="labelmedium  fixlengthlist" style="height:20px;border-top:1px solid silver">							    														
+											<td style="padding-left:10px;border-bottom:1px solid silver"><cfif prior neq UnitClassName>#unitclassname#</cfif></td>
+											<td style="border-bottom:1px solid silver">#UnitDescription#</td>		
+											<td align="right" style="border-left:1px solid silver;border-right:1px solid silver"><cfif quantityCost gte "1">#QuantityCost#|</cfif>#Quantity#</td>																	
+											<td align="right" style="border-left:1px solid silver;border-right:1px solid silver"></td>
+											<td align="right" style="border-left:1px solid silver;border-right:1px solid silver">#numberformat(SaleAmountIncome,',__.__')#</td>		
+											<td align="right" style="border-right:1px solid silver">#numberformat(SaleAmountTax,',.__')#</td>									
+											<td align="right" style="border-right:1px solid silver">#numberformat(SalePayable,',.__')#</td>								
+										</tr>
+										
+										<cfset vamt = vamt + SaleAmountIncome>	
+										<cfset vtax = vtax + SaleAmountTax>		
+										<cfset prior = unitclassname>
+																				
+									</cfoutput>
+								
+								</cfoutput>
+																										
+								<tr class="labelmedium2  fixlengthlist" style="height:20px;background-color:f1f1f1">
+								    <td colspan="2" align="left" style="padding-left:20px"></td>
+									<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" >
+																
+									<cfif journal neq "">
+									
+										<cfset haspostings = "1">
 										
 										<cfquery name="header" 
 											datasource="AppsLedger" 
@@ -345,68 +311,160 @@
 											SELECT    *
 											FROM      TransactionHeader
 											WHERE     Journal         = '#journal#' 
-											AND       JournalSerialNo = '#journalserialno#' 			
+											AND       JournalSerialNo = '#journalserialno#' 		
+											AND       ActionStatus IN ('0','1') 
+											AND       RecordStatus != '9'	
 										</cfquery>	
 										
-										<td>
-										
-										   #DateFormat(header.DocumentDate,CLIENT.DateFormatShow)# :
-											<a href="javascript:ShowTransaction('#journal#', '#journalserialNo#','','window','workorderbiller')">
+										<cfif header.recordcount eq "1">
+		
+										<table style="width:100%">
+											<tr class="labelmedium2 fixlengthlist">
+											
+											<td style="width:20px;padding-left:10px;">
+											
+													<cfquery name="Invoice" 
+													datasource="AppsLedger" 
+													username="#SESSION.login#" 
+													password="#SESSION.dbpw#">
+														SELECT    *
+														FROM      TransactionHeaderAction
+														WHERE     Journal         = '#journal#' 
+														AND       JournalSerialNo = '#journalserialno#' 	
+														AND       ActionCode      = 'Invoice'
+														AND       ActionMode      = '2'		
+														AND       ActionStatus    = '1'
+														ORDER BY Created DESC
+												   </cfquery>	
+											
+												    <!--- check if we have indeed an electronic invoice --->
+											
+											        <cfif Invoice.recordcount eq "0">
+													
+														<cfquery name="Document" 
+												         	  datasource="AppsOrganization" 
+											      			  username="#SESSION.login#" 
+											        	  	  password="#SESSION.dbpw#">
+											      			    SELECT * 
+													       		FROM   Ref_EntityDocument 
+											      				WHERE  EntityCode   = 'GLTransaction'
+																AND    DocumentType = 'document'																							 
+											      			</cfquery>
+			
+										      			<cfif Document.recordcount eq "1">
+														
+															<cf_tl id="Print form" var="1">
+															
+															<cf_button2 
+																type="button" 
+																mode="icon" 
+																image="print_gray.png" 
+																height="22px" 
+																width="22px" 
+																imageHeight="20px" 
+																title="#lt_text#"
+																onclick="doPrintFormat('#journal#', '#journalserialNo#','#document.documentid#','#document.documenttemplate#');">											
+														
+														<cfelseif Document.recordCount gte 2>
+																									
+															<cf_tl id="Print form" var="1">
+															
+															<cf_button2 
+																type="button" 
+																mode="icon" 
+																image="print_gray.png" 
+																height="22px" 
+																width="22px" 
+																imageHeight="20px" 
+																title="#lt_text#"
+																onclick="printFormSelected('#journal#', '#journalserialNo#','#workorder.serviceitem#');">									
+																
+																
+														</cfif>
+													
+													<cfelse>
+													
+														<cf_tl id="Print form" var="1">
+															
+															<cf_button2 
+																type="button" 
+																mode="icon" 
+																image="print_gray.png" 
+																height="22px" 
+																width="22px" 
+																imageHeight="20px" 
+																title="#lt_text#"
+																onclick="PrintTaxReceivable('#Invoice.ActionId#', 'finance');">	
+													
+														<!--- open the view --->
+													
+													
+													</cfif>
+													
+												</td>
+												
+												<td>
+												
+												   #DateFormat(header.DocumentDate,CLIENT.DateFormatShow)# :
+													<a href="javascript:ShowTransaction('#journal#', '#journalserialNo#','','window','workorderbiller')">
+																					
+														 <cfif header.amountOutstanding gte "0.05"><font color="FF0000"></cfif>										
+													     <cfif InvoiceNo neq "">
+														 	#InvoiceSeries#-#InvoiceNo#</font>
+														 <cfelse>												 
+															#journal#-#journalserialNo#</font>
+														</cfif>
+																																					
+													</a>
 																			
-												 <cfif header.amountOutstanding gte "0.05"><font color="FF0000"></cfif>										
-											     <cfif InvoiceNo neq "">
-												 	#InvoiceSeries#-#InvoiceNo#</font>
-												 <cfelse>
-													#journal#-#journalserialNo#</font>
+													
+												</td>
+												
+												<cfif header.transactionSourceId neq "">
+												
+													<!--- if transaction has no separate 
+													   offset postings outside the stand we allow to remove it --->
+													
+													 <cfquery name="checkOffset" 
+														datasource="AppsLedger" 
+														username="#SESSION.login#" 
+														password="#SESSION.dbpw#">
+															SELECT   *
+															FROM     TransactionLine L, TransactionHeader H
+															WHERE    L.Journal             = H.Journal
+															AND      L.JournalSerialNo     = H.JournalSerialNo
+															AND      ParentJournal         = '#journal#' 
+															AND      ParentJournalSerialNo = '#journalserialno#' 		
+															AND      TransactionSourceId  != '#header.transactionsourceid#'  
+															AND      H.ActionStatus IN ('0','1') 
+															AND      H.RecordStatus != '9'
+													</cfquery>	
+																																	
+													<cfif checkOffset.recordcount eq "0" and listBilling.recordcount gte "1">
+													
+														<td align="right" style="padding-top:2px">
+																																		
+														 <cf_img icon="delete" 
+														     onclick="Prosis.busy('yes');ptoken.navigate('undoPosting.cfm?workorderlineid=#get.workorderlineid#&journal=#journal#&journalserialno=#journalserialno#','posting')">
+														 
+														</td>
+													
+													</cfif>
+												
 												</cfif>
-																																			
-											</a>
-																	
-											
-										</td>
-										
-										<cfif header.transactionSourceId neq "">
-										
-											<!--- if transaction has no offset postings we allow to remove it --->
-											
-											 <cfquery name="checkOffset" 
-												datasource="AppsLedger" 
-												username="#SESSION.login#" 
-												password="#SESSION.dbpw#">
-													SELECT   *
-													FROM     TransactionLine L, TransactionHeader H
-													WHERE    L.Journal             = H.Journal
-													AND      L.JournalSerialNo     = H.JournalSerialNo
-													AND      ParentJournal         = '#journal#' 
-													AND      ParentJournalSerialNo = '#journalserialno#' 		
-													AND      TransactionSourceId != '#header.transactionsourceid#'  
-													AND      H.ActionStatus IN ('0','1') 
-													AND      H.RecordStatus != '9'
-											</cfquery>	
-																															
-											<cfif checkOffset.recordcount eq "0" and listBilling.recordcount gte "1">
-											
-											<td align="right" style="padding-top:2px">
-																															
-											 <cf_img icon="delete" 
-											     onclick="Prosis.busy('yes');ptoken.navigate('undoPosting.cfm?workorderlineid=#get.workorderlineid#&journal=#journal#&journalserialno=#journalserialno#','posting')">
-											 
-											</td>
-											
-											</cfif>
+												
+											</tr>
+										</table>
 										
 										</cfif>
-										
-									</tr>
-								</table>
-
-								</cfif>
-							</td>
-							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"></td>							
-							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right">#numberformat(vamt,',.__')#</b></td>
-							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right">#numberformat(vtax,',.__')#</td>
-							<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-right:1px solid silver;padding-right:10px" align="right">#numberformat(vtax+vamt,',.__')#</td>			
-						</tr>	
+		
+									</cfif>
+									</td>
+									<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right"></td>							
+									<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-left:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right">#numberformat(vamt,',.__')#</b></td>
+									<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-right:1px solid silver;padding-right:4px" align="right">#numberformat(vtax,',.__')#</td>
+									<td style="border-bottom:1px solid silver;border-top:1px solid silver;border-right:1px solid silver;padding-right:10px" align="right">#numberformat(vtax+vamt,',.__')#</td>			
+								</tr>	
 																																										
 						<cfif post eq "1" and Journal eq "">
 							
@@ -414,34 +472,89 @@
 							
 								<cfset toPost = "1">
 								
-								<table width="100%" border="0" style="min-width:660;background-color:eaeaea;border:1px solid e0e0e0">
-								
-								     <tr><td colspan="2" style="height:5px"></td></tr>
+								<table width="100%" border="0" style="background-color:ffffff;border:1px solid silver">
+																		
+																									 
+									 <tr class="labelmedium2 line" style="background-color:AEFFAE">
+									 <TD style="width:20%;padding-left:20px;padding-right:4px;height:35px" colspan="2">
 									 
-									 <tr class="labelmedium" >
-									 <TD class="labelmedium" style="width:20%;padding-left:20px;padding-right:4px"><cf_tl id="Bill to">:</TD>
-									 <td>#BillingReference# #BillingName#</td>
-									 </tr>
-							      
-									 <TR>		  
-				  					 <TD class="labelmedium" style="padding-left:20px;padding-right:4px"><cf_tl id="Invoice/Reference"><cf_tl id="No">:</TD>
-							         <td style="padding-right:10px">	
-									 										   
-									   	   <cfset dte = DateTimeFormat(TransactionDate,"YYYYMMDD_HH_nn_ss")>
-									       <table>
-										   <tr>
-										    <td style="padding-left:0px">
-										   <input type="Text" style="background-color:ffffcf;padding-left:5px" class="regularxl enterastab"
-										   name="#orgunitOwner#_#orgunitCustomer#_#dte#_invoiceseries" value="" size="10" maxlength="10">
-										   </td>
-										   <td style="padding-left:3px">	
+										 <table>
+										 <tr class="labelmedium2">
+										   <td style="padding-left:10px;padding-top:2px"><cf_tl id="Bill to">:</TD>
+										   <td style="font-size:16px;padding-left:10px;padding-right:10px">#BillingReference# #BillingName#</td>
 										   
-										   <cf_tl id="Record an invoice no" var="inv">		   
-										   <input type="Text" style="background-color:ffffcf;" class="regularxl enterastab" 
-										   name="#orgunitOwner#_#orgunitCustomer#_#dte#_invoiceno" value="" size="15" maxlength="30"> 
-										   </td>
+										   <!--- we verify invoice mode for the associated journal --->
+										   
+										   <cfquery name="Parameter" 
+												datasource="AppsLedger" 
+												username="#SESSION.login#" 
+												password="#SESSION.dbpw#">
+												SELECT 	 TOP 1 *
+												FROM 	 Ref_ParameterMission
+												WHERE 	 Mission = '#workorder.mission#'		
+										    </cfquery>	
+											 
+										   <cfquery name="getJournal" 
+											datasource="AppsLedger" 
+											username="#SESSION.login#" 
+											password="#SESSION.dbpw#">
+												SELECT 	 TOP 1 *
+												FROM 	 Accounting.dbo.Journal
+												WHERE 	 Mission        = '#workorder.Mission#'
+												
+												<cfif Parameter.administrationLevel eq "Parent">
+												AND      OrgUnitOwner   = '#orgunitowner#'
+												</cfif>
+												
+												AND      Currency       = '#currency#'
+												AND      SystemJournal  = 'WorkOrder'				
+										   </cfquery>		
+										
+										  <cfset dte = DateTimeFormat(TransactionDate,"YYYYMMDD_HH_nn_ss")>
+										
+										  <cfif getJournal.OrgUnitTax eq "">		
+										   										   
+										   <td style="padding-left:20px;padding-right:4px;padding-top:2px"><cf_tl id="Invoice/Reference"><cf_tl id="No">:</TD>
+								           <td style="padding-left:10px">	
+										 												      
+											   <input type="Text" style="background-color:ffffcf;padding-left:5px" class="regularxxl enterastab"
+											   name="#orgunitOwner#_#orgunitCustomer#_#dte#_invoiceseries" value="" size="10" maxlength="10">
+											   </td>
+											   <td style="padding-left:6px">	
+											   
+											   <cf_tl id="Record an invoice no" var="inv">		   
+											   <input type="Text" style="background-color:ffffcf;" class="regularxxl enterastab" 
+											   name="#orgunitOwner#_#orgunitCustomer#_#dte#_invoiceno" value="" size="15" maxlength="30"> 
+											  </td>
+											  
+											<cfelse>
+											
+											<!--- show eMail ---> 											
+																					
+											<cfquery name="get" 
+													datasource="AppsWorkOrder" 
+													username="#SESSION.login#" 
+													password="#SESSION.dbpw#">
+													SELECT *, C.PersonNo as ApplicantNo
+													FROM    WorkOrder W, 
+													        WorkOrderLine WL,
+														    Customer C
+													WHERE  W.WorkOrderId   = WL.WorkOrderId
+													AND    WL.WorkOrderid   = '#get.WorkOrderid#' 
+	                                            	AND     WL.WorkOrderLine = '#get.WorkOrderLine#' 				
+													AND     C.CustomerId = W.CustomerId
+											</cfquery>	
+											
+											<td style="border-left:1px solid silver;padding-left:10px;padding-right:4px;padding-top:2px"><cf_tl id="eMail">:</TD>
+											<td style="padding-left:6px">	
+																																	   
+											   <input type="Text" style="background-color:ffffcf;text-align:center" class="regularxxl enterastab" 
+											   name="#orgunitOwner#_#orgunitCustomer#_#dte#_email" value="#get.EMailAddress#" size="40" maxlength="40">
+											   
+											 </td>  
+											 											  
+											</cfif>  
 										   </tr>
-										   										 
 										   </table>
 									 </td>						  
 									 </tr>
@@ -467,25 +580,26 @@
 									 
 										 <tr>
 											<cf_tl id="Record Settlement" var="1">
-											<td class="labelmedium" style="min-width:200;font-size:24px;padding-top:4px;padding-left:20px;padding-right:4px" colspan="1">		
-											<a href="javascript:dosettlement('#url.workorderlineid#','#orgunitowner#','#sdte#','#stme#')">[#lt_text#]</a>					
+											<td class="labelmedium" style="font-size:22px;padding-top:4px;padding-left:20px;padding-right:4px" colspan="1">		
+											<input class="button10g" type="button" value="#lt_text#" style="width:200px;border:1px solid silver"
+											  onclick="dosettlement('#url.workorderlineid#','#orgunitowner#','#sdte#','#stme#')">															
 											</td>					
 											
 											<td width="100%" valign="top" align="right" style="padding-top:1px;padding-right:30px">
-											 
+											 											 
 											    <table width="100%">
-												<tr><td id="#orgunitowner#_#dte#_settlement" width="100%" style="padding:5px">												
+												
+												<cfset dte = DateTimeFormat("#sdte#","YYYYMMDD")>
+												
+												<tr><td id="#orgunitowner#_#dte#_#stme#_settlement" width="100%" style="padding:5px">												
 													<cfinclude template="WorkOrderLineSettlement.cfm">							
 													</td></tr>
 												</table>	
 											
 											</td>
-										</tr>
-										
+										</tr>										
 						
-									</cfif>
-									
-									<tr><td colspan="2" style="height:5px"></td></tr>
+									</cfif>									
 																	 
 								</table>
 								

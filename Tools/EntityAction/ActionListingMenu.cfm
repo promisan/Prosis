@@ -138,7 +138,7 @@
 				</cfif>			
 			
 			</cfif>
-									
+												
 			<cfquery name="Check" 
 			 datasource="AppsOrganization"
 			 username="#SESSION.login#" 
@@ -154,10 +154,11 @@
 			
 			<cfif (SESSION.acc eq Actions.OwnerId or getAdministrator("#Object.Mission#") eq "1") and check.recordcount gte "1">
 			    <td style="padding-left:3px;padding-right:3px">|</td>
-			    <td class="labelit" style="cursor:pointer;padding-left:3px;padding-right:3px" onclick="res_att('#ObjectId#','1','#Actions.OwnerId#"  onMouseOver="this.className='labelit highlight2'"
+			    <td class="labelit" style="cursor:pointer;padding-left:3px;padding-right:3px" onclick="res_att('#ObjectId#','1','#Actions.OwnerId#" 
+				 onMouseOver="this.className='labelit highlight2'"
 				onMouseOut="this.className='labelit'"><cf_tl id="Reset Attachment"></td>
-			</cfif>				
-				
+			</cfif>			
+										
 			<cfinvoke component = "Service.Access"  
 				method         =   "RoleAccess" 
 				datasource     =   "appsOrganization"
@@ -173,7 +174,8 @@
 				role           =   "'#Entity.Role#'"
 				Parameter      =   "#Actions.ActionCode#"
 				level          =   "'1'"
-				returnvariable =   "RoleAccess">						
+				returnvariable =   "RoleAccess">		
+				
 										
 			<cfif SESSION.acc eq Actions.OwnerId 
 			     or getAdministrator("#Object.Mission#") eq "1" 
@@ -222,7 +224,9 @@
 		<!--- temp purpose only --->
 				
 		<tr><td colspan="9">
-		<cfdiv bind="url:#SESSION.root#/tools/entityAction/ActionListingPerformance.cfm?objectid=#objectid#" id="perf">	
+		
+		<cf_securediv bind="url:#SESSION.root#/tools/entityAction/ActionListingPerformance.cfm?objectid=#objectid#" id="perf">	
+		
 		</td></tr>
 	
 	</cfif>	

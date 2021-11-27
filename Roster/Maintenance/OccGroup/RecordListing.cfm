@@ -43,24 +43,24 @@ function recordedit(id1) {
 
 <table width="97%" align="center" class="navigation_table formpadding">
 
-	<tr class="fixrow labelmedium2 line">
+	<tr class="fixrow labelmedium2 line fixlengthlist">
 	    <td></td>
-	    <td>Code</td>
-		<td>Name</td>
-		<td>Name full</td>
-		<td>Order</td>
-		<td>Titles</td>
-		<td>Active</td>
-		<td>Officer</td>
-	    <td>Entered</td>
+	    <td><cf_tl id="Code"></td>
+		<td><cf_tl id="Name"></td>
+		<td><cf_tl id="Name full"></td>
+		<td><cf_tl id="Order"></td>
+		<td><cf_tl id="Titles"></td>
+		<td><cf_tl id="Active"></td>
+		<td><cf_tl id="Officer"></td>
+	    <td><cf_tl id="Entered"></td>
 	</tr>
 
 <cfoutput query="SearchResult">
 
 	<cfif Status neq "1">
-	<tr style="background-color:##FBE0D9" class="navigation_row labelmedium2 line">
+	<tr style="background-color:##FBE0D9" class="navigation_row labelmedium2 line fixlengthlist">
 	<cfelse>
-	<tr class="navigation_row labelmedium2 line">
+	<tr class="navigation_row labelmedium2 line fixlengthlist">
 	</cfif> 
 	<td width="5%" align="center">
 		  <cf_img icon="select" navigation="Yes" onclick="recordedit('#OccupationalGroup#')">
@@ -93,9 +93,9 @@ function recordedit(id1) {
 		
 		<tr><td height="1" colspan="9"></td></tr>
 		<cfif Status neq "1">
-		<tr style="background-color:##FBE0D9" class="navigation_row">
+		<tr style="background-color:##FBE0D9" class="navigation_row fixlengthlist">
 		<cfelse>
-		<tr class="navigation_row">
+		<tr class="navigation_row fixlengthlist">
 		</cfif> 
 		<td width="5%" align="center" style="padding-top:1px;">
 		 	<cf_img icon="open" onclick="recordedit('#OccupationalGroup#')">

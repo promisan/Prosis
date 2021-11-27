@@ -80,9 +80,12 @@
 	
 	<tr><td height="60" bgcolor="f4f4f4" align="center" style="padding-left:15px; padding-right:15px">
 		
+		
 		<table width="100%" class="formspacing">
 		
 		<tr>
+		
+			<cfif getAction.actionStatus eq "1">
 		
 			<td class="hide" id="process"></td>
 				  					
@@ -92,7 +95,7 @@
 				
 				 <input type   = "button" 
 				      class    = "button10g" 
-				      onclick  = "alert('print again')" 
+				      onclick  = "alert('--print again--')" 
 				      style    = "height:28px;width:150;font-size:13px;border:1px solid silver" 					  
 					  name     = "save" 
 					  id       = "save"
@@ -100,28 +103,28 @@
 					  
 		    </td>				
 
-			<td>
-					
+			<td align="right" title="Email address" style="padding-left:20px">
+				
 				<input type      = "text" 
 						id       = "eMailAddress" 
 					    value    = "#getAction.eMailAddress#"
 						class    = "regularxxl" 
-						style    = "width:200;height:28px;font-size:15px" 
+						style    = "width:240px;height:28px;font-size:15px;text-align:center"" 
 						onChange = "ptoken.navigate('#session.root#/GLedger/Application/Transaction/Invoice/setEMailAddress.cfm?email='+this.value+'&actionid=#url.actionid#','mailbox')">
 						
 				
 			</td> 					
 			
-			<td align="center" id="mailbox" width="100%">
+			<td id="mailbox" width="100%">
 												
 				<cfif isValid("email","#getAction.eMailAddress#")>		
 					
-					<cf_tl id="eMail" var="1">
+					<cf_tl id="Send" var="1">
 						
 					 <input type    = "button" 
 					      class     = "button10g" 
 					      onclick   = "ptoken.navigate('#session.root#/GLedger/Application/Transaction/Invoice/doInvoiceMail.cfm?actionid=#url.actionid#','mailbox')" 
-					      style     = "height:28;width:120;font-size:13px;border:1px solid silver" 
+					      style     = "height:28;width:100;font-size:13px;border:1px solid silver" 
 						  class     = "regular" 
 						  name      = "save" id="save" 
 						  value     = "#lt_text#">
@@ -130,6 +133,8 @@
 				
 						  
 		    </td>
+			
+			</cfif>
 										  					
 			<td align="center">
 			
@@ -138,7 +143,7 @@
 				 <input type  = "button" 
 				      class   = "button10g" 
 				      onclick = "ProsisUI.closeWindow('wsettle',true)" 
-				      style   = "height:28;width:120;font-size:13px" 
+				      style   = "height:28;width:120;font-size:13px;border:1px solid silver" 
 					  class   = "regular" 
 					  name    = "save" id="save"
 					  value   = "#lt_text#">
@@ -223,7 +228,7 @@
 					 <input type="button" 
 					      class="button10g" 
 					      onclick="ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/doInvoiceMail.cfm?batchid=#url.batchid#','mailbox')" 
-					      style="height:28;width:130;font-size:13px" 
+					      style="height:28;width:130;font-size:13px;border:1px solid silver" 
 						  class="regular" 
 						  name="save" 
 						  id="save" 

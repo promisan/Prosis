@@ -79,9 +79,15 @@ AND    CostId   = '#Form.CostId#'
 						  EntitlementClass   = '#Form.EntitlementClass#',
 						  <cfif form.EntitlementClass neq "Deduction">
 						  <!--- the user removed the option to process as deduction --->
-						  Source             = 'Manual',
-						  SourceId           = NULL,					  
-						  </cfif>
+							  Source             = 'Manual',
+							  SourceId           = NULL,							  	
+						  <cfelseif form.Ledger neq "">
+						  	  Source            = 'Ledger',								  
+							  SourceId           = '#Form.Ledger#',
+						  <cfelse>
+						  	  Source             = 'Manual',
+							  SourceId           = NULL,		
+     					  </cfif>						
 						  Currency           = '#Form.Currency#',
 						  Amount             = '#Form.Amount#',
 						  Remarks            = '#Remarks#'

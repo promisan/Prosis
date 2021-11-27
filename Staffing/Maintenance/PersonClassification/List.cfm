@@ -22,11 +22,11 @@ password="#SESSION.dbpw#">
 	
 <table width="100%">
 							
-	    <TR height="18" class="line labelmedium2">
-		   <td width="80">List</td>
-		   <td style="width:90%">Description</td>
-		   <td style="min-width:50px" align="center">S.</td>
-		   <td style="min-width:50px" align="center">A.</td>
+	    <TR class="line labelmedium2 fixlengthlist">
+		   <td>List</td>
+		   <td>Description</td>
+		   <td align="center">S.</td>
+		   <td align="center">A.</td>
 		   <td colspan="2" align="right">
 	       <cfoutput>
 			 <cfif URL.ID2 neq "new">

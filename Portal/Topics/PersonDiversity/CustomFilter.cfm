@@ -116,7 +116,7 @@
 			    <table width="100%">
 			    <tr class="labelmedium2" style="font-size:12px">				
 								
-				<td style="padding-top:2px;padding-left:10px" ><cf_tl id="Category"></td>
+				<td style="padding-top:2px;padding-left:10px" ><cf_tl id="Type"></td>
 											
 					<td class="label" style="color:gray;padding-left:4px">	
 										 
@@ -147,7 +147,7 @@
 					  </select>	
 				</td>		
 				
-				<td style="padding-top:2px;padding-left:10px"><cf_tl id="Incumbency"></td>
+				<td title="Incumbency" style="padding-top:2px;padding-left:10px"><cf_tl id="I"></td>
 				
 				<td class="label" style="color:gray;padding-left:4px">	
 					  <select  class="regularxb" id="fldcategorydiv_#url.mission#" 
@@ -158,7 +158,7 @@
 					  </select>	
 				</td>		
 				
-				<td style="padding-top:2px;padding-left:10px"><cf_tl id="Authorised"></td>
+				<td title="Authorised" style="padding-top:2px;padding-left:10px"><cf_tl id="Aut"></td>
 				
 				<td class="label" style="color:gray;padding-left:4px">	
 				       

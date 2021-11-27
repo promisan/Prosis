@@ -5,6 +5,22 @@
 <cfparam name="url.terminal"     default="">
 <cfparam name="url.actionid"     default="">
 
+<cfif url.actionid neq "">
+
+	<cfquery name="getAction"
+    datasource="AppsMaterials"
+    username="#SESSION.login#"
+    password="#SESSION.dbpw#">
+    	SELECT *
+	    FROM   Accounting.dbo.TransactionHeaderAction TH
+    	WHERE  ActionId = '#url.actionid#'		
+	</cfquery>
+
+	<cfset url.journal         = getAction.Journal>
+	<cfset url.journalSerialNo = getAction.JournalSerialNo>
+
+</cfif>
+
 <cfquery name="qHeader"
     datasource="AppsMaterials"
     username="#SESSION.login#"
@@ -98,7 +114,8 @@
 					   Terminal			= "#Terminal#"
 				       Mode 			= "#url.Mode#"  <!--- = 3 --->
 					   Journal          = "#url.journal#"
-					   JournalSerialNo  = "#url.journalSerialNo#"		
+					   JournalSerialNo  = "#url.journalSerialNo#"	
+					   eMailAddress     = "#qCheck.eMailAddress#"		
 					   ActionId         = "#url.actionid#"						    
 					   returnvariable	= "vInvoice">									   
 	
@@ -124,9 +141,9 @@
 			
 		    <script>
 		        ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#URL.BatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#", 'wsettle');
-				try {
-			    ptoken.navigate("#SESSION.root#/GLedger/Application/Transaction/View/getTransactionAction.cfm?journal=#URL.journal#&journalserialNo=#url.journalserialno#", 'invoiceactionbox');
-				} catch(e) {}
+				if (document.getElementById('invoiceactionbox')) {
+				    ptoken.navigate("#SESSION.root#/GLedger/Application/Transaction/View/getTransactionAction.cfm?journal=#URL.journal#&journalserialNo=#url.journalserialno#", 'invoiceactionbox');
+				} 
 		        try { window.opener.location.reload(); } catch(e) {}
 	       </script>
 			
@@ -211,8 +228,9 @@
 			  
 			    _cf_loadingtexthtml='';	
 		        ptoken.navigate("#SESSION.root#/GLedger/Application/Transaction/Invoice/SaleViewInvoice.cfm?actionid=#vActionId#&journal=#URL.journal#&journalserialNo=#url.journalserialno#&currency=#url.currency#&terminal=#url.terminal#", 'wsettle');
+				if (document.getElementById('invoiceactionbox')) {
 		        ptoken.navigate("#SESSION.root#/GLedger/Application/Transaction/View/getTransactionAction.cfm?journal=#URL.journal#&journalserialNo=#url.journalserialno#", 'invoiceactionbox');
-
+				}				
 		        try { window.opener.location.reload(); } catch(e) {}
 	          </script>	
 		   

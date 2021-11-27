@@ -106,7 +106,7 @@
 		
 	function addworkorder(mission,customerid,workorderid,workorderline,context) {			
 		try { ProsisUI.closeWindow('myorder',true) } catch(e) {}
-		ProsisUI.createWindow('myorder', 'Add Order', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    					
+		ProsisUI.createWindow('myorder', 'Add Order', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:true,center:true})    					
 		ptoken.navigate(root + '/WorkOrder/Application/WorkOrder/Create/WorkOrder.cfm?mission=' + mission + '&customerid=' + customerid + '&workorderid=' + workorderid + '&workorderline=' + workorderline+ '&context=' + context,'myorder') 	
 	}	
 	

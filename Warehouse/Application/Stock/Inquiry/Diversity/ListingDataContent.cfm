@@ -21,7 +21,7 @@
 <cfsavecontent variable="myquery">
 
 	<cfoutput>	   	
-		SELECT    *, LastTransaction  
+		SELECT    * --, LastTransaction  
 	    FROM      userQuery.dbo.#SESSION.acc#_Diversity I				
 	</cfoutput>	
 	

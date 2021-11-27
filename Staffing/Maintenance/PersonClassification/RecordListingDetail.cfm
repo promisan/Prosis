@@ -29,28 +29,25 @@ password="#SESSION.dbpw#">
 	WHERE ActionSource IN ('Person')	
 </cfquery>
 
+<cfform method="POST" name="mytopic" onsubmit="return false">
+
 <table width="95%" align="center" class="navigation_table">
 			
     <tr class="labelmedium2 line fixrow fixlengthlist">
-	   <td width="20"></td>
-	   <td width="10%">Code</td>
-	   <td width="30%">Description</td>
-	   <td width="10%">PA Action</td>
-	   <td width="10%">Context</td>
-	   <td width="5%">List</td>
-	   <td width="60">Oper.</b></td>
-	   <td width="20%">Officer</b></td>
-	   <td width="80" align="right">Created</b></td>		
-	   <td wisth="30"></td>			  	  
+	   <td></td>
+	   <td><cf_tl id="Code"></td>
+	   <td><cf_tl id="Description"></td>
+	   <td>PA Action</td>
+	   <td><cf_tl id="Context"></td>
+	   <td><cf_tl id="List"></td>
+	   <td>O</td>
+	   <td><cf_tl id="Officer"></td>
+	   <td align="right"><cf_tl id="Created"></td>		
+	   <td></td>			  	  
     </tr>	
 
 	<cfif URL.ID2 eq "new">
-	
-		<TR><TD colspan="10" style="height:35px">	
-		
-		<cfform method="POST" name="mytopic" onsubmit="return false">
-		
-		<TABLE width="100%">		
+				
 		<tr class="line" height="20" bgcolor="f4f4f4">		
 		<td></td>
 		<td height="25">
@@ -112,12 +109,7 @@ password="#SESSION.dbpw#">
 			</cfoutput>		
 		</td>			    
 		</tr>	
-			
-		</TABLE>		
 		
-		</cfform>
-		</TD>
-		</TR>				
 												
 	</cfif>						
 		
@@ -126,11 +118,7 @@ password="#SESSION.dbpw#">
 	<cfloop query="Listing">
 																								
 		<cfif URL.ID2 eq code>		
-			<TR><TD colspan="10" style="height:35px">
-
-			<cfform name="mytopic" onsubmit="return false">
 			
-				<TABLE width="100%">				
 			  
 			    <input type="hidden" name="Code" value="<cfoutput>#Code#</cfoutput>">
 																	
@@ -196,11 +184,6 @@ password="#SESSION.dbpw#">
 					</td>
 			    </tr>	
 							
-				
-				</TABLE>
-			</cfform>
-			</TD></TR>
-			
 			<tr><td colspan="1"></td><td colspan="8" id= "#code#_list">
 		   			
 				<cfset url.code = code>
@@ -236,7 +219,7 @@ password="#SESSION.dbpw#">
 				 <cf_img icon="open" navigation="Yes" onclick="ColdFusion.navigate('RecordListingDetail.cfm?ID2=#code#','listing')">
 			  </td>
 			   
-			   <td height="17" style="padding-left:4px">#code#</td>
+			   <td height="17">#code#</td>
 			   <td>#description#</td>
 			   <td>#ActionCode#</td>
 			   <td>#context#</td>
@@ -276,7 +259,9 @@ password="#SESSION.dbpw#">
 		
 	</cfoutput>													
 				
-</table>				
+</table>	
+
+</cfform>			
 
 <cfset AjaxOnLoad("doHighlight")>			
 

@@ -224,10 +224,10 @@
 		 <cfset qt = "1">
 	</cfif>		
 		
-	<tr style="border-top:1px solid silver">
+	<tr style="border-top:1px solid silver" class="fixlengthlist">
 	
-		<td>	
-												
+		<td style="padding-left:3px">	
+														
 			<input type="checkbox" 
 				   name="#UnitClass#_unit_0" 
 	               id="#UnitClass#_unit_0"
@@ -245,11 +245,11 @@
 		
 	</tr>
 			
-	<tr>	
+	<tr class="fixlengthlist">	
 		
-	<td width="42"></td>	  
+	<td width="32"></td>	  
 
-	<td colspan="1" id="#UnitClass#_unit" style="width:50%;padding-left:20px" class="#cl# labelit">			
+	<td id="#UnitClass#_unit" style="padding-left:20px" class="#cl# labelit fixlength">			
 	
 		<cfif url.accessmode eq "view">
 			
@@ -312,8 +312,8 @@
 				</cfloop>
 				<cf_uiselect name  = "#UnitClass#_costid_0"
 						id         = "#UnitClass#_costid_0"
-						style      = "width:600;border-radius:3px"
-						query 	  = "#qSelect#"
+						style      = "width:180px;border-radius:3px"
+						query 	   = "#qSelect#"
 						value      = "CostId"
 						selected   = "#vSelect#"
 						display    = "UnitDescription"
@@ -355,7 +355,7 @@
 		
 	</td>			
 	
-	<td id="#UnitClass#_quantity" style="padding-left:2px;width:60" class="labelit #cl#">
+	<td id="#UnitClass#_quantity" style="padding-left:2px;" class="labelit #cl#">
 	
 		<cfif UnitUsed.recordcount gte "1">				
 		
@@ -374,7 +374,7 @@
 	
 		<cfif url.accessmode eq "edit">
 		
-			<table width="100%" cellspacing="0" cellpadding="0">
+			<table width="100%">
 			
 			<cfif rate.enableEditQuantity eq "1">
 			      <cfset cla = "regular">
@@ -383,7 +383,7 @@
 			</cfif> 
 			
 			<tr>
-			<td id="#UnitClass#_quantity_box" style="padding-right:5px" align="right" class="#cla#">
+			<td id="#UnitClass#_quantity_box" align="right" class="#cla#">
 			
 			    <table>
 				<tr>
@@ -425,7 +425,7 @@
 		   <cfset clu = cl>
 	</cfif>	
 	
-	<td id="#UnitClass#_currency" style="padding-left:7px;padding-right:4px" class="labelit #clu#">
+	<td id="#UnitClass#_currency" class="labelit #clu#">
 	
 		<cfif UnitUsed.recordcount gte "1">				
 		   <cfset cu = unitused.currency>
@@ -436,7 +436,7 @@
 	
 	</td>
 			
-	<td id="#UnitClass#_stdprice" align="right" style="padding-left:3px;padding-right:5px;padding-top:1px" class="labelit #clu#">
+	<td id="#UnitClass#_stdprice" align="right" style="padding-top:1px" class="labelit #clu#">
 			
 	    <cf_space spaces="20">
 		  
@@ -449,7 +449,7 @@
 			<cfif Rate.standardcost eq "0">
 				 n/a
 			<cfelse>			
-				 <cfset qt = "#numberformat(Rate.StandardCost,'__,__.__')#">
+				 <cfset qt = "#numberformat(Rate.StandardCost,',.__')#">
 		 		 #qt#
 			</cfif>	 
 			
@@ -457,7 +457,7 @@
 	
 	</td>	
 		
-	<td id="#UnitClass#_price" class="#clu#" align="right" style="padding-left:2px;padding-right:0px">
+	<td id="#UnitClass#_price" class="#clu#" align="right">
 		
 	    <table cellspacing="0" cellpadding="0">
 		<tr>
@@ -503,7 +503,7 @@
 												
 	</td>	
 	
-	<td id="#UnitClass#_charged" align="right" style="padding-left:0px" class="labelit #clu#">
+	<td id="#UnitClass#_charged" align="right" class="labelit #clu#">
 	
 	<cfif url.accessmode eq "edit">	
 		
@@ -536,10 +536,10 @@
 		
 	<td align="right" id="#UnitClass#_total" class="#clu#">
 		
-		<table cellspacing="0" cellpadding="0">
+		<table>
 			<tr>
 			
-			<td id="total_#UnitClass#_0" class="labelmedium" style="font-size:14px;padding-right:6px;padding-top:1px" align="right">
+			<td id="total_#UnitClass#_0" class="labelmedium" style="font-size:14px" align="right">
 																											
 			<cfif UnitUsed.recordcount gte "1" and unitused.amount neq "">					
 			    <cf_precision number="#unitdetail.priceprecision#" amount="#unitused.amount#">	
@@ -554,15 +554,18 @@
 		</table>
 	
 	</td>	
-		
+	
+			
 </tr>
 
+<cfif unitselect.unitspecification neq "">
 <tr class="#cl#" id="#UnitClass#_specification" style="height:1px;padding:2px">
    <td></td>
-   <td colspan="8" style="height:0px;padding-left:25px;padding-top:2px;padding-bottom:2px;color:gray" id="#UnitClass#_specification_content" class="labelmedium">
+   <td colspan="8" style="height:0px;padding-left:25px;padding-top:2px;padding-bottom:2px;color:gray" id="#UnitClass#_specification_content" class="labelmedium">  
    #unitselect.unitspecification#
    </td>				
 </tr>	
+</cfif>
 
 <!---
 </cfif>	

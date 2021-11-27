@@ -724,8 +724,8 @@ AND       Journal is not NULL
 			
 				<table width="100%" align="center">
 				
-					<tr class="line">
-					   <td colspan="3" style="height:40px;padding-bottom:7px">
+					<tr>
+					   <td colspan="3" style="height:40px;padding-bottom:5px">
 					   						  
 						   <cfinclude template="doCOGS.cfm">			
 						   <cfset post = "1">			   				   				
@@ -737,15 +737,15 @@ AND       Journal is not NULL
 					<cfif toPost eq "1">				
 										
 					<tr>
-							<td style="height:40px;padding-right:2px" align="center" colspan="2">
+							<td style="padding-right:2px" align="center" colspan="2">
 								
 								<cfoutput>		
 								
 								<cf_tl id="Close and Post Receivable" var="1">
 													
 								<input type="button"
-						      		onclick="ptoken.navigate('doPosting.cfm?workorderlineid=#url.workorderlineid#','posting','','','post','BillingForm')" 
-							  		style="font-size:14px;width:450;height:35px" 
+						      		onclick="Prosis.busy('yes');ptoken.navigate('doPosting.cfm?workorderlineid=#url.workorderlineid#','posting','','','post','BillingForm')" 
+							  		style="font-size:14px;width:450;height:35px;border:1px solid silver" 
 							  		name="Post Income" 
 							  		value="#lt_text#" 
 							  		class="button10g">

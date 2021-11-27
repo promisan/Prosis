@@ -148,6 +148,7 @@
 			   	   ApplicationRoot       = '#Form.ApplicationRoot#',	
 				   ApplicationHome       = '#Form.ApplicationHome#',					  	 
 				   ApplicationRootPath   = '#Form.ApplicationRootPath#',	
+				   ListingRootPath       = '#Form.ListingRootPath#',
 				   		 
 				   DocumentRoot          = '#Form.DocumentRoot#',
 				   DocumentRootPath      = '#Form.DocumentRootPath#',	

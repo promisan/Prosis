@@ -100,7 +100,7 @@
 		
 	<cfif url.topic eq "">	
 		
-		<tr class="labelmedium">     
+		<tr class="labelmedium fixlengthlist">     
 					
 			<cfif ValueClass neq "Memo">	
 			

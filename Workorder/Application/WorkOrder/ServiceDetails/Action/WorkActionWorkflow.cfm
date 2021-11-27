@@ -78,8 +78,7 @@
 	</cfquery>	
 	
 	<cfset link = "WorkOrder/Application/WorkOrder/ServiceDetails/Action/WorkActionView.cfm?drillid=#url.ajaxid#">			
-	
-	
+		
 	<cf_stringtoformat value="#wfworkorderline.reference#" format="#domain.DisplayFormat#">	
 					
 	<cf_ActionListing 

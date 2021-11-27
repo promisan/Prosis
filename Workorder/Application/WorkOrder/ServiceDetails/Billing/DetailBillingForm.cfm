@@ -212,7 +212,7 @@ password="#SESSION.dbpw#">
 
 <cfform style="height:98%" id="billingform" name="billingform"  onsubmit="return false">
 
-<table width="100%" align="center" height="99%" cellspacing="0" cellpadding="0">
+<table width="100%" align="center" height="99%">
 	
 	<tr class="hide"><td colspan="5" id="ajaxbox"></td></tr>
 	<tr class="hide"><td colspan="5" id="process"></td></tr>
@@ -221,15 +221,16 @@ password="#SESSION.dbpw#">
 	
 	<tr class="line"><td  style="height:28px;padding-left:17px">
 	<table width="99%" align="center">
-	<tr class="labelmedium">
+	<tr class="labelmedium fixlengthlist">
 	<td>#Customer.CustomerName#  <cfif customer.city neq ""><font size="2">(#customer.city#)</cfif></td>
 	
 	<cfif customerpayer.recordcount gte "1">
 	
 			<td style="width:80px;padding-left:20px;height:40px" class="labelmedium"><cf_tl id="Payer">:</td>		
 			<td style="padding-left:10px;height:40px">		
-				<select name="PayerId" class="regularxl">
-						<option value="None" selected>None</option>
+			    <cf_tl id="Self" var="1">
+				<select name="PayerId" class="regularxl" style="width:200px">
+						<option value="None" selected>#lt_text#</option>
 					<cfloop query="CustomerPayer">
 						<option value="#PayerId#" <cfif lastBilling.PayerId eq PayerId>selected</cfif>>#OrgUnitName# (#AccountNo#)</option>		
 					</cfloop>
@@ -253,9 +254,9 @@ password="#SESSION.dbpw#">
 	<tr>
 	<td height="10" colspan="5" class="labellarge" style="height:30px;padding-left:20px;padding-right:10px">
 	
-		<table width="100%">
+		<table width="100%" style="border:1px solid silver">
 		
-		   <tr class="labelmedium" style="height:35px">	
+		   <tr class="labelmedium fixlengthlist" style="height:35px">	
 		   
 			  <cfquery name="check" 
 					datasource="AppsWorkOrder" 
@@ -270,9 +271,9 @@ password="#SESSION.dbpw#">
 			  			 			  
 			  <cfif check.total gte "1">
 			  			  
-			  	  <td style="padding-left:7px"><cf_tl id="Activity">:<cf_space spaces="36"></td>
+			  	  <td style="padding-left:7px"><cf_tl id="Activity">:</td>
 			  
-				  <td style="width:90%;padding-left:7px">
+				  <td style="padding-left:10px">
 				  
 					  <!--- domain activity ---> 
 					  	  					  
@@ -338,14 +339,14 @@ password="#SESSION.dbpw#">
 			  
 			   <td align="right" style="padding-right:15x">
 			   
-				   <table>
+				   <table style="min-width:400px">
 				   
 			   	   <tr class="labelmedium">
 				   
 				   <cfif customerpayer.recordcount gte "0">
 				   
-				   <td style="padding-left:10px;padding-right:4px">				   
-				      <cf_tl id="Owner">:<cf_space spaces="50">					  
+				   <td style="padding-left:10px;padding-right:4px;">				   
+				      <cf_tl id="Owner">:					  
 				   </td>	
 				   			   
 				   <td style="padding-right:10px">				   				   		
@@ -402,6 +403,7 @@ password="#SESSION.dbpw#">
 									maxlength="80" 
 									readonly>
 									
+									
 								</td>
 								<td style="padding-left:2px">
 								 								 
@@ -440,24 +442,16 @@ password="#SESSION.dbpw#">
 			  	 </td>  
 			   
 		   </tr>	   
-		</table>
-	
-	</td>
-	</tr>
-	
-	<tr><td colspan="5">
-	
-		<table>	
-			
-		<tr class="labelmedium" style="height:1px">		
-									
+					
+		<tr class="labelmedium " style="height:1px">	
+		
+											
 		<cfif Domain.AllowConcurrent eq "0">
 		  
 			<td align="right" style="padding-left:10px;height:35px;width:100"><cf_tl id="Effective">:</td>
-		    <td style="padding-left:6px;font-size:16px">
-						
-				  <cf_space spaces="30">
-						
+		    <td style="padding-left:6px;font-size:16px">	
+					
+				 
 				  <cfset sc = 0>
 				  								
 				  <!--- preset the effective to the line effective date --->
@@ -469,8 +463,7 @@ password="#SESSION.dbpw#">
 					  </cfoutput>
 					  <cfset date = dateformat(now(),CLIENT.DateFormatShow)>
 					 		  
-				  <cfelse>	
-				  		  				  		  
+				  <cfelse>					  		  				  		  
 				  
 				  	<cfif url.billingid neq "">
 													
@@ -498,9 +491,7 @@ password="#SESSION.dbpw#">
 						</cfif>
 						
 						<cfset sc = "1">
-						
-						<cf_space spaces="40">
-						
+												
 						<cf_intelliCalendarDate9
 								FieldName="dateeffective" 					
 								class="regularxl"	
@@ -547,7 +538,7 @@ password="#SESSION.dbpw#">
 						  						  			 	
 				 <cfif Domain.AllowConcurrent eq "0"> 		
 				 
-				    <td style="padding-left:21px;height:35px;width:120"><cf_tl id="Expiration">:<cf_space spaces="20"></td>
+				    <td style="padding-left:21px;height:35px;width:120"><cf_tl id="Expiration">:</td>
 				    <td style="padding-left:6px">	 
 					
 					      <cf_space spaces="40">	
@@ -574,7 +565,7 @@ password="#SESSION.dbpw#">
 					
 				 <cfelse>	
 				 
-				 	<td class="labelmedium" style="padding-left:6px">																
+				 																
 										
 					<cfif getLast.TransactionDate eq "">	
 					
@@ -596,8 +587,7 @@ password="#SESSION.dbpw#">
 							calendar ="noShow">					
 							
 					</cfif>		
-					
-					</td>							
+										
 									
 				 </cfif>
 								
@@ -621,20 +611,19 @@ password="#SESSION.dbpw#">
 			
 			<cfif Domain.AllowConcurrent eq "1">
 			
-				<td style="padding-left:21px;height:35px;width:137px;" class="labelmedium"><cf_tl id="Billing">:</td>
+				<td style="padding-left:8px;width:137px;" class="labelmedium"><cf_tl id="Billing">:</td>
 				
-				<td class="labelmedium" style="padding-left:6px">
+				<td class="labelmedium" style="padding-left:10px">
 				
 				  <table>
 				  <tr>
 				  
-				  <td id="payerbox"></td>
-			
+				  <td id="payerbox"></td>			
 				  
-				  <td class="labelmedium" style="padding-left:3px">		
+				  <td class="labelmedium">		
 				  <input type="text" name="BillingName" id="BillingName" value="#bnme#" size="40" maxlength="80" class="regularxl enterastab">					
 				  </td>			  			  
-				  <td style="padding-left:2px"><input type="text" class="regularxl enterastab" name="BillingReference" id="BillingReference"  size="12" maxlength="20"   value="#bref#"></td>			
+				  <td style="padding-left:4px"><input type="text" class="regularxl enterastab" name="BillingReference" id="BillingReference"  size="12" maxlength="20"   value="#bref#"></td>			
 				  
 				  <td style="padding-right:3px">
 				  																			
@@ -658,10 +647,12 @@ password="#SESSION.dbpw#">
 												
 				  </td>
 				  
-				  <td style="padding-left:2px"><input type="text" class="regularxl enterastab" name="BillingAddress" 	id="BillingAddress"   size="50" maxlength="100"  value="#badd#"></td>			
-				  
-				  
+				  <td style="padding-left:2px" title="Billing address"><input type="text" class="regularxl enterastab" name="BillingAddress" 	id="BillingAddress" maxlength="100"  value="#badd#">
+				  </td>			
+				 			  
 				  </tr>
+				  
+				  <tr><td style="height:3px"></td></tr>
 				  </table>
 						
 				</td>
@@ -696,6 +687,8 @@ password="#SESSION.dbpw#">
 		</table>
 		
 	</td></tr>
+	
+	
 		
 	<cfif Item.ServiceMode eq "WorkOrder">
 	
@@ -782,14 +775,14 @@ password="#SESSION.dbpw#">
 		
 		<!--- show actions --->
 		<tr><td style="padding-left:18px" colspan="4">
+		
 			<table>
-			<tr class="labelmedium">
+			<tr class="labelmedium fixlengthlist">
 			<td class="hide" id="processworkaction"></td>
 			
 			<cfoutput query="Actions">			
 		
-				 <td valign="top" style="padding-top:4px;padding-left:5px">
-								
+				 <td valign="top" style="padding-top:4px;padding-left:5px">								
 				 				 				 
 				 <cfif url.billingid eq "">
 				 
@@ -833,78 +826,10 @@ password="#SESSION.dbpw#">
 		</tr>
 			
 	</cfif>
-	
-	<tr><td width="100%" style="padding-left:25px">	
-	
-		<table width="97%" border="0" cellspacing="0" cellpadding="0" align="left">	  
-		
-			<!--- Header --->
-
-		  
-		   <tr bgcolor="e1e1e1" style="border-top:1px solid silver" class="labelmedium line">
-		       <td height="30" width="1"></td>
-		       <td width="99%" style="padding-left:4px">
-			   	<cf_space spaces="1">
-			    <cf_tl id="Item">
-			   </td>
-			   <td>
-			     <cf_space spaces="10">
-			     <cf_tl id="Freq">
-			   </td>
-			   <td align="right">
-			   <cf_space spaces="15">
-			   <cf_tl id="Qty">
-			   </td>
-			   
-			   <td><cf_space spaces="10"></td>
-			   
-			   <cfif url.context neq "portal">
-			   <td align="right">
-			   		<cf_space spaces="30">
-				    <cf_tl id="Cost">
-				</td>		  
-			   <td align="right">
-				   <cf_space spaces="30">
-				   <cf_tl id="Rate">
-			   </td>
-			   <td align="right">
-			   		<cf_space spaces="30">	
-				    <cf_tl id="Charge">
-			   </td>
-			   <td align="right" style="padding-right:9px">
-			   <cf_space spaces="30">	
-			   <cf_tl id="Total">
-			   </td>
-			   </cfif>
-			  
-		   </tr>
-		   
-		    <tr bgcolor="E3E8C6" class="line">
-			   <td colspan="3"></td>		      
-			   <td>
-				   <table>
-				   <tr class="labelit">
-				   <td style="padding-right:10px">
-				   	<cf_tl id="Out"><cf_space spaces="11">
-				   </td>
-				   <td style="padding-right:18px">
-				   	<cf_tl id="Usage"><cf_space spaces="11">
-				   </td>
-				   </tr>
-				   </table>			   
-			   </td>
-			   <td colspan="5"></td>	  
-		   </tr>
-		   
-		   <tr><td height="3"></td></tr>
-		   
-		   </table>
-	
-	</td></tr>
-			
+				
 	<tr><td height="99%" valign="top" colspan="5" width="100%" style="padding-bottom:4px;padding-left:25px;padding-right:15px">		
 			
-		<cf_divscroll style="width:100%" overflowy="Scroll">	
+		<cf_divscroll style="width:100%" overflowy="Scroll">			
 						
 		<cfif check.total gte "1">
 		

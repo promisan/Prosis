@@ -1,6 +1,7 @@
 <cf_screentop height="100%" 
   html="yes" 
   scroll="Yes" 
+  jquery="Yes"
   label="Edit Report Parameter Definition" 
   layout="webapp" 
   line="no"
@@ -10,15 +11,14 @@
 
 <cf_criteriascript>
 	
-<table width="99%"
-       border="0"
+<table width="99%"       
 	   align="center"
-	   height="100%"
-	   cellspacing="0"
-       cellpadding="0"
+	   height="100%"	  
 	   class="formpadding">
+	   
+<tr class="hide"><td id="fields"></td></tr>	   
 	
-<tr><td colspan="2" bgcolor="white" valign="top" id="fields">	
+<tr><td colspan="2" bgcolor="white" valign="top">	
 
   <cf_divscroll>   
 	

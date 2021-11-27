@@ -49,25 +49,25 @@ password="#SESSION.dbpw#">
 				   					 
 			 <cfif contract.recordcount neq "0">
 			 
-				 <TR class="line labelmedium">
+				 <TR class="line labelmedium fixlengthlist">
 				   
-				    <td style="padding-left:2px;min-width:100" height="17"><cf_tl id="Entity"></td>
-				    <td style="min-width:100px" height="17"><cf_tl id="Effective"></td>
-					<TD style="min-width:100px"><cf_tl id="Expiration"></TD>
-					<TD style="min-width:100px"><cf_tl id="Level"></TD>		
-					<TD width="50%"><cf_tl id="Type"></TD>																
-					<TD style="min-width:100px"><cf_tl id="Payroll"></TD>
-					<TD style="min-width:100px"><cf_tl id="Location"></TD>				   
-					<TD style="min-width:100px"><cf_tl id="Increase"></TD>													
+				    <td height="17"><cf_tl id="Entity"></td>
+				    <td height="17"><cf_tl id="Effective"></td>
+					<TD><cf_tl id="Expiration"></TD>
+					<TD><cf_tl id="Level"></TD>		
+					<TD><cf_tl id="Type"></TD>																
+					<TD><cf_tl id="Payroll"></TD>
+					<TD><cf_tl id="Location"></TD>				   
+					<TD><cf_tl id="Increase"></TD>													
 				</TR>
 							
 			</cfif>					
 		
 			<cfoutput query="Contract">
 			
-				<TR class="labelmedium navigation_row" style="height:20px">
-				<td style="padding-right:2px;padding-left:2px">#Mission# <cf_space spaces="29"></td>
-				<td style="padding-right:2px" height="20">
+				<TR class="labelmedium navigation_row fixlengthlist" style="height:20px">
+				<td>#Mission#</td>
+				<td height="20">
 				
 				<!--- if the leg is a step increase we show the orginal data as follows --->
 				
@@ -92,17 +92,17 @@ password="#SESSION.dbpw#">
 							
 				
 				</td>
-				<td style="padding-right:2px"><cfif Contract.DateExpiration eq ""><cf_tl id="Permanent"><cfelse>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</cfif></td>
-				<TD style="padding-right:2px">
+				<td><cfif Contract.DateExpiration eq ""><cf_tl id="Permanent"><cfelse>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</cfif></td>
+				<TD>
 				<cfif SalarySchedule eq "NoPay">
 				<font color="800040"><cf_tl id="Unfunded"></font>
 				<cfelse>
 				#ContractLevel#/#ContractStep#<cfif contracttime neq "100">&nbsp;:&nbsp;#ContractTime#</cfif>
 				</cfif>
 				</TD>				
-				<td style="padding-right:2px">#ContractFunctionDescription#</td>									
-				<TD style="padding-right:2px">#SalarySchedule#</TD>
-				<TD style="padding-right:2px">
+				<td>#ContractFunctionDescription#</td>									
+				<TD>#SalarySchedule#</TD>
+				<TD>
 				
 				<cftry>
 		
@@ -121,10 +121,10 @@ password="#SESSION.dbpw#">
 				</cftry>
 				
 				</TD>				
-				<td style="padding-right:4px">#Dateformat(StepIncreaseDate, "MM/YYYY")#</td>					
+				<td>#Dateformat(StepIncreaseDate, "MM/YYYY")#</td>					
 				</TR>	
 				
-				<TR class="line labelmedium navigation_row_child" style="height:20px">
+				<TR class="line labelmedium navigation_row_child fixlengthlist" style="height:20px">
 					<td></td>					
 					<td style="height:10px" colspan="3">#ContractDescription# <cfif ContractStatus eq "1">(Regularised)</cfif></TD>																									
 					<td style="padding-right:4px" colspan="4">#AppointmentDescription#<cfif AppointmentStatusMemo neq "">&nbsp;<i>#AppointmentStatusMemo#</cfif></td>					

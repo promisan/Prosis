@@ -540,8 +540,15 @@
 			<cfargument name="defaultDSAuth"   	type="string" required="false" default="0">	
 			<cfargument name="datasource"       type="string" default="AppsOrganization" required="yes">		
 			
+			<cfset vUserName = "">
+			<cfset vPwd = "">
+			<cfif defaultDSAuth eq "0">
+				<cfset vUserName = SESSION.login>
+				<cfset vPwd = SESSION.dbpw>
+			</cfif>		
+			
 			<cfquery name="param" 
-			datasource="#datasource#">
+			datasource="#datasource#" username="#vUserName#" password="#vPwd#">
 				SELECT  * 
 				FROM    Parameter.dbo.Parameter
 				WHERE   HostName = '#CGI.http_host#'				
@@ -572,7 +579,7 @@
 					    FROM     System.dbo.UserStatusController
 				    	WHERE    Account       = '#account#' 
 						AND      ControllerMID = '#url.mid#'	
-						AND      Created > getDate()-1	
+						AND      Created > getDate()-1							
 					</cfquery>	
 					
 					<cfif getMid.recordcount eq "1">	
@@ -589,6 +596,7 @@
 								AND       HostName      = '#CGI.http_host#'
 								and       HostSessionId = '#sessionid#'
 								ORDER BY  Created DESC
+								
 						</cfquery>	
 					
 						<cfif getactivity.recordcount eq "0">
@@ -603,9 +611,9 @@
 							  
 						<cfelseif getactivity.recordcount eq "1">	  
 						
-						   <cfset sec = datediff("s",getactivity.created,now())>
+						   <cfset hrs = datediff("h",getactivity.created,now())>
 						   
-						   <cfif sec gt "30">
+						   <cfif hrs gt "5">
 						   
 						      <table width="100%" height="100%" align="center">
 								 <tr><td align="center" class="labellarge" style="color:ff0000;font-size:18px;padding-top:10px">					 						   				   

@@ -126,12 +126,7 @@ password="#SESSION.dbpw#">
 	     ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:860,height:670,resizable:false,modal:true,center:true})		
 		 ptoken.navigate("TransactionInvoice.cfm?journal=#url.journal#&journalSerialNo=#url.journalSerialNo#", "wsettle");		
 	}
-	
-	function PrintTaxReceivable(id,scope) {		
-		ProsisUI.createWindow('wsettle', 'Invoice', '',{x:100,y:100,width:860,height:document.body.clientHeight-75,resizable:false,modal:true,center:true})
-		ptoken.navigate("TransactionTaxInvoice.cfm?scope="+scope+"&journal=#url.journal#&journalSerialNo=#url.journalSerialNo#&actionid="+id, "wsettle");
-	}
-	
+		
 	function RePrintReceivable(batchid) {
 		  ProsisUI.createWindow('wreprint', 'Re-Print', '',{x:100,y:100,width:870,height:620,resizable:false,modal:true,center:true})		
 		  ptoken.navigate('#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoiceRePrint.cfm?batchid='+batchid,'wreprint');		
@@ -160,6 +155,11 @@ password="#SESSION.dbpw#">
 		ProsisUI.createWindow('outstanding', 'Outstanding Balance breakdown', '',{x:100,y:100,width:870,height:510,resizable:false,modal:true,center:true})
 		ptoken.navigate('getTransactionOffset.cfm?transactionid='+id, 'outstanding');
 	}
+	
+	function NewTaxReceivable(id,scope) {		
+	ProsisUI.createWindow('wsettle', 'Invoice', '',{x:100,y:100,width:860,height:document.body.clientHeight-75,resizable:false,modal:true,center:true})
+	ptoken.navigate("#session.root#/Gledger/Application/Transaction/View/TransactionTaxInvoice.cfm?scope="+scope+"&journal=#url.journal#&journalserialNo=#url.journalserialno#&actionid="+id, "wsettle");
+    }
 	
 	function getSummary(id) {
 		ProsisUI.createWindow('outstanding', 'Contra account distribution', '',{x:100,y:100,width:870,height:510,resizable:false,modal:true,center:true})

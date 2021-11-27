@@ -7,24 +7,21 @@
 </cfsavecontent>
 
 <cfif unitdetail.recordcount gt "0">
-	<table width="97%" border="0" align="right" cellspacing="0" cellpadding="0">		
-		<tr><td id="box_<cfoutput>#unitclass#</cfoutput>" 
-			    align="right" style="padding-top:2px">									
-				<table width="100%" align="right">							   					   
-					   <tr>
-					    <td><cf_space spaces="10"></td>
-					   	<td style="width:99%"></td>
-						<td><cf_space spaces="15"></td>
-						<td><cf_space spaces="10"></td>
-						<td><cf_space spaces="15"></td>
-						<td><cf_space spaces="29"></td>
-						<td><cf_space spaces="30"></td>
-						<td><cf_space spaces="30"></td>
-						<td><cf_space spaces="30"></td>						
-					   </tr> 					   					   
+
+    <!--- 
+	<table width="100%">		
+		<tr><td id="box_<cfoutput>#unitclass#</cfoutput>" style="padding-top:2px;padding-left:30px">									
+				<table align="right">							   					   					  			   					   
 					   <cfoutput>#myfeature#</cfoutput>						  
 				</table>			
 			</td>
 		</tr>				
+	</table>
+	--->
+	
+	<table width="100%">	
+	    <span style="padding-right:1px">
+		<cfoutput>#myfeature#</cfoutput>						  						
+		</span>
 	</table>
 </cfif>

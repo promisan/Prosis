@@ -2,7 +2,7 @@
 <!--- sent mail --->
 
 <cfquery name="GetMail" 
-	datasource="AppsMaterials" 
+	datasource="AppsLedger" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">	
 	SELECT * 
@@ -11,7 +11,7 @@
 </cfquery>	
 
 <cfif GetMail.eMailTemplate neq "">
-	<cfinclude template="../../../../../#GetMail.emailTemplate#">
+	<cfinclude template="../../../../#GetMail.emailTemplate#">
 <cfelse>
 	<cf_receiptLedger actionid="#url.actionid#">	
 </cfif>

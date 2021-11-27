@@ -168,17 +168,17 @@ password="#SESSION.dbpw#">
 			    </TR>	
 				
 				<cfif LayoutTitle neq "">				
-					<tr class="labelmedium2 line">
+					<tr class="labelmedium2 line fixlengthlist">
 					<td></td>
-					<td>Title:</td>
+					<td><cf_tl id="Title">:</td>
 					<td colspan="6">#LayoutTitle#</td>
 					</tr>			
 				</cfif>
 				
 				<cfif LayoutSubTitle neq "">				
-					<tr class="labelmedium2 line">
+					<tr class="labelmedium2 line fixlengthlist">
 					<td></td>
-					<td>Subtitle:</td>
+					<td><cf_tl id="Subtitle">:</td>
 					<td colspan="6">#LayoutSubtitle#</td>
 					</tr>			
 				</cfif>
@@ -188,8 +188,8 @@ password="#SESSION.dbpw#">
 					<tr>
 					<td></td>
 					<td colspan="7">
-						<table style="width:400px" border="0" cellspacing="0" cellpadding="0">
-						<tr class="labelmedium2 line">
+						<table style="width:400px">
+						<tr class="labelmedium2 line fixlengthlist">
 							<td width="80" bgcolor="f4f4f4">Permissions:</td>
 							<td width="160"><cfif OutputPermission eq "">none<cfelse>#OutputPermission#</cfif></td>
 							<td width="100" bgcolor="f4f4f4">Encryption:</td>

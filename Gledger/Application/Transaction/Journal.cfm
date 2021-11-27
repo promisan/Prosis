@@ -37,6 +37,7 @@
 
 <!--- obtain the base data to show in header and lines --->
 <cfinclude template="JournalListingQuery.cfm">
+
 		
 <cfif TransactionListing.AccountPeriod eq "">
 	

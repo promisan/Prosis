@@ -36,13 +36,13 @@ password="#SESSION.dbpw#">
 	}
 </script>
 
-<cf_divscroll style="height:98%">
+<cf_divscroll style="height:98.5%">
 
 <cfform method="POST"  style="height:98%" name="customerform" onsubmit="return false">
 
 <table width="95%" class="formpadding formspacing" align="center">
 
-	<tr><td colspan="2" height="3" id="inputvalidation"></td></tr>
+	<tr class="hide"><td colspan="2" height="3" id="inputvalidation"></td></tr>
 	
 	<tr class="labelmedium2">
 	<td style="min-width:220px"><cf_tl id="Entity">:</td>
@@ -547,16 +547,14 @@ password="#SESSION.dbpw#">
 			    FROM   Ref_Settlement E
 			    WHERE  Operational = 1
 			</cfquery>			
-			
+									
 			   <select class="regularxxl" name="SettleCode" ID="SettleCode">					
 					<cfloop query="settle">
 						<option value="#Code#" <cfif Customer.SettleCode eq code>selected</cfif>>#Description#</option>
 					</cfloop>
 				</select> 			
 			
-			</td>
-			
-			
+			</td>		
 			
 			<td style="padding-left:20px"><cf_tl id="Tax Exemption"> :</td>
 			<td style="padding-left:0px"><input name="TaxExemption" class="radiol enterastab" type="radio" value="1" <cfif Customer.TaxExemption eq 1>checked</cfif>></td>
@@ -571,7 +569,7 @@ password="#SESSION.dbpw#">
 	<tr valign="top" style="padding-top:5px" class="labelmedium2">
 		<td ><cf_tl id="Memo">:</td>
 		<td>
-			<textarea name="Memo" style="height:50px;font-size:14px;padding:4px;width:95%" class="regular enterastab">#Customer.Memo#</textarea>
+			<textarea name="Memo" style="height:40px;font-size:14px;padding:4px;width:95%" class="regular enterastab">#Customer.Memo#</textarea>
 		</td>
 	</tr>
 				

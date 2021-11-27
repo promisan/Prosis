@@ -26,7 +26,7 @@
 			<cfinclude template="StaffingGender.cfm">				
 		</td>
 		
-		<td align="center" valign="top" style="padding-left:4px;width:50%;border:0px solid silver">
+		<td align="center" valign="top" style="padding-left:4px;border:0px solid silver">
 		    <cfinclude template="StaffingDutyStation.cfm">
 		</td>
 	
@@ -89,17 +89,17 @@
 	
 		<!--- we do a global view --->
 		
-		<tr><td colspan="2" class="line" style="font-weight:300;height:40px;font-size:24px" align="left"><cf_tl id="Person contract"></td></tr>
+		<tr><td colspan="2" class="line" style="height:20px;font-size:24px" align="left"><cf_tl id="Person contract"></td></tr>
 		
 		<tr><td colspan="2"><table width="100%">
 			
 			<tr style="border-top:1px solid silver">
 					
-				<td align="center" style="width:33%;border-right:1px solid silver;height:140px;padding:5px">
+				<td align="center" style="width:33%;border-right:1px solid silver;height:140px">
 				
 					<table width="100%" height="100%">
-						<tr class="line" style="height:20px">
-						    <td colspan="2" class="labelmedium" align="center"><cf_tl id="Newly appointed staff"><cfoutput>#url.mission#</cfoutput></td>
+						<tr class="line fixlenthlist" style="height:20px">
+						    <td colspan="2" class="labelmedium" style="height:22px" align="center"><cf_tl id="Newly appointed staff"><cfoutput>#url.mission#</cfoutput></td>
 						</tr>
 						<tr>
 							<td colspan="2" valign="top" align="center" style="height:160px">
@@ -172,9 +172,9 @@
 								<tr><td height="6"></td></tr>
 								
 								<cfoutput query="getSeparation">
-									<tr class="navigation_row labelmedium line" style="height:15px">
+									<tr class="navigation_row labelmedium line fixlengthlist" style="height:15px">
 									     <td>#currentrow#</td>
-										<td style="padding-left:4px;min-width:70"><a href="javascript:EditPerson(#PersonNo#,'','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a>&nbsp;#FullName#&nbsp;<font size="1">#ContractFunctionDescription#</font><cfif SalarySchedule eq "NoPay"><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>										
+										<td title="#fullname#" style="padding-left:4px;min-width:70"><a href="javascript:EditPerson(#PersonNo#,'','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a>&nbsp;#FullName#&nbsp;<font size="1">#ContractFunctionDescription#</font><cfif SalarySchedule eq "NoPay"><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>										
 										<td>#dateFormat(DateEffective, client.dateFormatShow)#</td>
 										<td style="padding-left:4px"><cfif actionStatus eq "0"><font color="FF0000"><cf_tl id="P"></cfif></td>
 									</tr>
@@ -222,9 +222,9 @@
 									<tr><td height="6"></td></tr>
 									
 									<cfoutput query="getOutgoing">
-										<tr class="navigation_row labelmedium line" style="height:15px">
+										<tr class="navigation_row labelmedium line fixlengthlist" style="height:15px">
 										     <td>#currentrow#</td>
-											<td style="padding-left:4px;min-width:70"><a href="javascript:EditPerson('#PersonNo#','','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a>&nbsp;#FullName#</td>											
+											<td title="#fullname#" style="padding-left:4px;min-width:70"><a href="javascript:EditPerson('#PersonNo#','','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a>&nbsp;#FullName#</td>											
 											<td style="min-width:50;padding-right:4px"><cfif SalarySchedule eq "NoPay"><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>										
 											<td>#dateFormat(DateEffective, client.dateFormatShow)#</td>											
 										</tr>
@@ -302,9 +302,9 @@
 								</cfquery>
 							
 							
-								<tr class="navigation_row labelmedium line" style="height:15px">
+								<tr class="navigation_row labelmedium line fixlengthlist" style="height:15px">
 								    <td style="min-width:30">#currentrow#</td>
-									<td style="min-width:70"><a href="javascript:EditPerson('#PersonNo#','','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a>#FullName#</td>									
+									<td title="#fullname#" style="min-width:70"><a href="javascript:EditPerson('#PersonNo#','','');" style="color:##0695C4;" title="#lblViewPerson#">#IndexNo#</a>#FullName#</td>									
 									<td><cfif getFrom.recordcount eq "0"><i><font color="808080"><cf_tl id="external"><cfelse>#getFrom.ParentOrgUnitName#</cfif></td>
 									<td style="min-width:50" style="padding-right:4px"><cfif SalarySchedule eq "NoPay"><font color="red"><cf_tl id="Unfunded"><cfelse>#ContractLevel#</cfif></td>
 									<td style="padding-left:4px">#dateFormat(DateEffective, client.dateFormatShow)#</td>

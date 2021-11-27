@@ -9,7 +9,7 @@
 		
 		<tr class="labelmedium">
 						
-		    <td valign="bottom" style="padding-left:3px;padding-bottom:2px;font-size:20px;width:60%;height:42px;font-weight:300"><cf_tl id="Distribution by Duty station"></td>
+		    <td valign="bottom" style="padding-left:3px;padding-bottom:2px;font-size:20px;width:60%;height:42px"><cf_tl id="Distribution by Duty station"></td>
 			
 			<td>
 			
@@ -83,7 +83,7 @@
 						
 		</td>
 	
-		<td style="width:300px; min-width:300px; max-width:300px; overflow:auto; padding-top:5px; border:1px solid silver;" valign="top">
+		<td style="width:300px; min-width:300px; max-width:300px; overflow:auto; padding-top:5px;" valign="top">
 							 		 						 
 	    	 <table style="width:95%">
 			 
@@ -122,24 +122,24 @@
 			 <table width="100%" class="navigation_table">
 			 
 			     <cfoutput>				 
-				 <tr class="labelmedium fixrow" style="background-color:##eaeaea80">
-				 	<td style="min-width:50;padding-left:3px;padding-right:4px; font-size:90%;">
+				 <tr class="labelmedium fixrow fixlengthlist" style="background-color:##eaeaea80">
+				 	<td style="padding-left:3px;padding-right:4px; font-size:90%;">
 				 		<a href="javascript:showFundingDetail('location','#url.mission#', '#url.orgunit#', '#url.cstf#', '#url.postclass#', '#url.category#', '#url.authorised#', '#url.period#', 'detailArea')">
 				 			<cf_tl id="Pivot">
 				 		</a>
 				 	</td>
 					<cfloop query="Location">
-					<td style="min-width:34px;padding-left:3px;padding-right:3px" align="center"><cfif LocationName neq "">#LocationName#<cfelse>#LocationCode#</cfif></td>
-					<td style="font-size:11px;min-width:15;padding-right:3px" align="right"></td>
+					<td align="center"><cfif LocationName neq "">#LocationName#<cfelse>#LocationCode#</cfif></td>
+					<td style="font-size:11px;min-width:15" align="right"></td>
 					</cfloop>		
-					<td style="min-width:45;padding-right:2px" align="center"><cf_tl id="Total"></td>
-					<td style="font-size:11px;min-width:23;padding-right:3px" align="right">+/-</td>	 
+					<td align="center"><cf_tl id="Total"></td>
+					<td style="font-size:11px;" align="right">+/-</td>	 
 				 </tr>
 				 
 				 <cfloop query="Parent">
 				 
-					 <tr class="labelmedium navigation_row">
-					 	<td style="padding-left:3px;">#ContractLevelParent#</td>
+					 <tr class="labelmedium navigation_row fixlengthlist">
+					 	<td>#ContractLevelParent#</td>
 						
 						<cfloop query="Location">
 						
@@ -155,7 +155,7 @@
 								<cfset vLink = "showDetail('location','#url.mission#', '#url.orgunit#', '#url.cstf#', '#url.postclass#', '#category#', '#authorised#', '#url.period#', '#Parent.ContractLevelParent#', '#LocationCode#', 'detailArea')">
 							</cfif>
 							
-							<td align="right" style="padding-right:3px" onclick="#vLink#">							
+							<td align="right" onclick="#vLink#">							
 							  <a>#getContent.Total#</a>					
 							</td>
 							
@@ -166,7 +166,7 @@
 								 AND     ContractLevelParent = '#Parent.ContractLevelParent#'						  	
 						  	</cfquery>
 							
-							<td align="right" style="background-color:##e4e4e480;padding-top:3px;font-size:70%;padding-right:3px">		
+							<td align="right" style="background-color:##e4e4e480;padding-top:3px;font-size:70%">		
 												
 							   <cfif getContent.Total neq "" and getContentPrior.Total neq "">
 								   <cfset variance = getContent.Total - getContentPrior.Total>
@@ -183,7 +183,7 @@
 						
 						<td 
 							align="right" 
-							style="padding-right:3px;cursor:pointer;" 
+							style="cursor:pointer;" 
 							onclick="showDetail('location','#url.mission#', '#url.orgunit#', '#url.cstf#', '#url.postclass#', '#category#', '#authorised#', '#url.period#', '#ContractLevelParent#', '', 'detailArea')">
 							<a>#total#</a>
 						</td>
@@ -194,7 +194,7 @@
 							 WHERE   ContractLevelParent = '#ContractLevelParent#'						  	
 					  	</cfquery>
 						
-						<td align="right" style="background-color:##e4e4e480;padding-top:3px;font-size:80%;padding-right:3px;">		
+						<td align="right" style="background-color:##e4e4e480;padding-top:3px;font-size:80%">		
 											
 						   <cfif total neq "" and getContentPriorTotal.Total neq "">
 							   <cfset variance = total - getContentPriorTotal.Total>
@@ -209,13 +209,13 @@
 					 </tr>			 
 				 </cfloop>
 				 
-				 <tr bgcolor="EaEaEa" class="labelmedium">
+				 <tr bgcolor="EaEaEa" class="labelmedium fixlengthlist">
 				 	
-					<td style="padding-left:2px;width:70%"><cf_tl id="Total"></td>
+					<td><cf_tl id="Total"></td>
 					
 					<cfloop query="Location">
 					
-					<td style="min-width:35;padding-right:3px;cursor:pointer;" align="right" 
+					<td style="cursor:pointer;" align="right" 
 					   onclick="showDetail('location','#url.mission#', '#url.orgunit#', '#url.cstf#', '#url.postclass#', '#category#', '#authorised#', '#url.period#', '', '#LocationCode#', 'detailArea')">
 					   <a>#Total#</a>
 					</td>
@@ -226,7 +226,7 @@
 							 WHERE   LocationCode    = '#LocationCode#' 													  	
 						</cfquery>
 						
-						<td align="right" style="font-size:80%;padding-top:3px;padding-right:3px">
+						<td align="right" style="font-size:80%;padding-top:3px">
 							
 							<cfif Location.Total neq "" and getContentPrior.Total neq "">
 								   <cfset variance = Location.Total - getContentPrior.Total>
@@ -243,7 +243,7 @@
 																								
 					</cfloop>	
 						
-					<td style="min-width:35;padding-right:3px;cursor:pointer;" align="right" 
+					<td style="cursor:pointer;" align="right" 
 					   onclick="showDetail('location','#url.mission#', '#url.orgunit#', '#url.cstf#', '#url.postclass#', '#category#', '#authorised#', '#url.period#', '', '', 'detailArea')">
 						<a>#Summary.Total#</a>
 					</td>	 
@@ -253,7 +253,7 @@
 					 	 FROM    CellContentPrior
 					</cfquery>
 					
-					<td align="right" style="padding-top:3px;padding-right:3px;;font-size:80%">
+					<td align="right" style="padding-top:3px;font-size:80%">
 						
 						<cfif Location.Total neq "" and getContentPriorGrandTotal.Total neq "">
 							   <cfset variance = Summary.Total - getContentPriorGrandTotal.Total>

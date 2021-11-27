@@ -10,8 +10,10 @@
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">	
-		SELECT   TOP 1 *
-		FROM     CustomerRequest
+		SELECT   TOP 1 *,   (SELECT TOP 1 PriceSchedule 
+				  FROM   CustomerRequestLine 
+				  WHERE  RequestNo = P.RequestNo) as PriceSchedule
+		FROM     CustomerRequest P
 		WHERE   RequestNo = '#url.requestNo#'				
 	</cfquery>
 
@@ -49,8 +51,13 @@
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">	
-		SELECT   TOP 1 *
-		FROM     CustomerRequest
+		SELECT   TOP 1 *, 
+		         (SELECT TOP 1 PriceSchedule 
+				  FROM   CustomerRequestLine 
+				  WHERE  RequestNo = P.RequestNo) as PriceSchedule
+		FROM     CustomerRequest P
+		WHERE    Warehouse     = '#url.warehouse#'
+		AND      OfficeruserId = '#session.acc#'
 		ORDER BY RequestNo DESC							
 	</cfquery>
 
@@ -69,7 +76,19 @@
 	  <cfset jvlink = "ProsisUI.createWindow('dialogquotebox','Quote','',{x:100,y:100,height:document.body.clientHeight-80,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/StockOrder/Quote.cfm?mission=#url.mission#&datasource=appsMaterials&close=Yes&class=Customer&box=boxquote&link=#link#&dbtable=&des1=requestno&filter1=mission&filter1value=#url.mission#&filter2=&filter2value=','dialogquotebox')">		
 
       <tr class="labelmedium2 line fixlengthlist">
-		  <td style="padding-left:10px;padding-top:3px"><cf_tl id="Number">:</td>
+		  <td style="padding-left:10px;padding-top:3px" id="priceschedule">
+		  
+		        <cfif getHeader.priceschedule neq "">
+		  
+		            <cfinclude template="getQuoteSchedule.cfm">
+				
+				<cfelse>
+				
+				    <cf_tl id="Number">:
+		  					
+				</cfif>
+						  
+		  </td>
 		  <td id="quotebox" style="padding-left:7px;font-size:20px">
 		  
 		  <cfif getHeader.recordcount gte "1">
@@ -78,7 +97,8 @@
 		  #getHeader.RequestNo#
 		  </cfif>
 		  </td>
-		  <td align="right"><button type="button" onclick="#jvlink#" class="button10g" style="width:40px">
+		  <td align="right">
+		  <button type="button" onclick="#jvlink#" class="button10g" style="width:40px">
 		  <img src="#SESSION.root#/Images/Search-R-Blue.png" width="26"></button></td>
 	  </tr>
 	  
@@ -88,7 +108,29 @@
 	  <tr class="labelmedium2 line fixlengthlist">
 		  <td valign="top" style="padding-top:4px;padding-left:10px;padding-top:5px"><cf_tl id="Customer">:</td>
 		  
-		  <td id="customerbox" style="padding-top:2px"></td>
+		  <td id="customerbox" style="padding-top:2px">
+		  
+		   <cfif getHeader.customerid neq "">				  
+							  
+				<cfquery name="getCustomer" 
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">	
+					SELECT   *
+					FROM     Customer
+					WHERE    CustomerId = '#getHeader.customerid#'					
+				</cfquery>
+				
+				<table>
+				<cfloop query="getCustomer">
+					<tr class="labelmedium2"><td>#CustomerSerialNo#</td></tr>
+					<tr class="labelmedium2"><td>#CustomerName#</td></tr>
+				</cfloop>
+				</table>
+			
+			</cfif>  
+		  
+		  </td>
 		  <td align="right">
 		    <button type="button" onclick="#jvlink#" class="button10g" style="width:40px">                                                       
 				<img src="#SESSION.root#/Images/Search-R-Blue.png" width="26"></button>				
@@ -138,13 +180,13 @@
 <script>
    document.getElementById('requestno').value    = "#getHeader.RequestNo#"
    document.getElementById('boxlines').innerHTML = ""
+   
+   <!--- refresh content --->
    <cfif getHeader.requestNo neq "">
-    ptoken.navigate('getQuoteLine.cfm?action=add&requestno=#getHeader.RequestNo#&warehouse=#getHeader.Warehouse#&action=view','boxlines') 			
-	<cfif getHeader.customerid neq "" and getHeader.customerid neq "00000000-0000-0000-0000-000000000000">		
-	   ptoken.navigate('#SESSION.root#/warehouse/application/stockorder/Quote/applyCustomer.cfm?requestno=#getHeader.RequestNo#&customerid=#getHeader.customerId#','customerbox')
-	</cfif>
-	document.getElementById('boxaction').className = "regular"
+       ptoken.navigate('getQuoteLine.cfm?action=add&requestno=#getHeader.RequestNo#&warehouse=#getHeader.Warehouse#&action=view','boxlines') 				
+	   document.getElementById('boxaction').className = "regular"
    </cfif>
+   
 </script>
 
 </cfoutput>

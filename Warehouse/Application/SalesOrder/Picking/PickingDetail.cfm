@@ -82,6 +82,7 @@ password="#SESSION.dbpw#">
             T.TransactionId, 
             T.ItemNo, 
             T.ItemDescription, 
+			I.ItemNoExternal,
             T.TransactionQuantity, 
             T.TransactionUoM, 
             U.UoMDescription, 
@@ -182,6 +183,8 @@ password="#SESSION.dbpw#">
             INNER JOIN ItemUoM AS U WITH (NOLOCK)
                 ON T.TransactionUoM = U.UoM
                 AND T.ItemNo = U.ItemNo
+		    INNER JOIN Item AS I WITH (NOLOCK)
+                ON  T.ItemNo = I.ItemNo		
             INNER JOIN WarehouseBatch AS B WITH (NOLOCK)
                 ON T.TransactionBatchNo = B.BatchNo 
                 AND T.Warehouse = B.Warehouse
@@ -254,7 +257,7 @@ password="#SESSION.dbpw#">
                                         <cfif session.acc eq "administrator">
                                             <i class="fas fa-undo" style="padding-right:5px; cursor:pointer;" title="#lblReset#" onclick="resetStatus('#batchno#','#transactionid#','currentStatus_#vSubmitId#');"></i>
                                         </cfif>
-                                        <span style="width:100%;">#LocationDescription# - <span class="htext font-extra-bold">#ItemBarCode#</span></span>
+                                        <span style="width:100%;">#LocationDescription# - <span class="htext font-extra-bold">#ItemNoExternal#</span></span>
                                         <span id="divSubmit_#vSubmitId#"></span>
                                         <input type="hidden" id="currentStatus_#vSubmitId#" value="#LatestActionActionStatus#" />
                                     </td>
@@ -278,7 +281,7 @@ password="#SESSION.dbpw#">
                                         <cfif trim(TransactionReference) neq "">
                                             <small style="font-weight:bold;">#trim(ucase(TransactionReference))#<br></small>
                                         </cfif>
-                                        <small>I:#itemNo#, U:#TransactionUoM#, B:#ItemBarCode#, L:#Location#, LC:#LocationClass#</small>
+                                        <small>I:#itemNoExternal#, U:#TransactionUoM#, B:#ItemBarCode#, L:#Location#, LC:#LocationClass#</small>
                                     </td>
                                     <td width="40%" align="right" style="padding-right:10px;">
                                         <h1 class="htext no-margins font-extra-bold #vStatusClass#" style="font-size:325%;">#numberFormat(TransactionQuantity*-1, ",")#</h1>

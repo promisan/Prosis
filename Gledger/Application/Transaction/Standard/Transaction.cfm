@@ -1081,32 +1081,7 @@ function togglebox(val) {
 				  
 				</tr>		
 				
-				<!--- ------------- --->
-				<!--- custom fields --->
-				<!--- ------------- --->
-						
-				<cf_customField 
-				     mode="edit" 
-					 stylelabel=""
-					 stylefield=""
-				     TopicClass="header"
-				     journal="#HeaderSelect.Journal#" 
-					 journalserialno="#HeaderSelect.JournalSerialNo#">		
-					 
-				<!--- ----------------------------------------------------------------- --->
-				<!--- action fields : if fields are populated then we show them as edit --->
-				<!--- ----------------------------------------------------------------- --->
 				
-				<!---		
-				<cf_actionField 
-				     mode="edit" 
-					 stylelabel=""
-					 stylefield=""
-				     TopicClass="header"
-				     journal="#HeaderSelect.Journal#" 
-					 journalserialno="#HeaderSelect.JournalSerialNo#">						 			 		
-					 
-					 --->
 				
 				<tr>  
 				
@@ -1282,6 +1257,34 @@ function togglebox(val) {
 		            <input type="hidden" name="actiondiscountdays" value="">				
 					
 				</cfif>		
+				
+				<!--- ------------- --->
+				<!--- custom fields --->
+				<!--- ------------- --->
+						
+				<cf_customField 
+				     mode="edit" 
+					 colspan="6"
+					 stylelabel=""
+					 stylefield=""
+				     TopicClass="header"
+				     journal="#HeaderSelect.Journal#" 
+					 journalserialno="#HeaderSelect.JournalSerialNo#">		
+					 
+				<!--- ----------------------------------------------------------------- --->
+				<!--- action fields : if fields are populated then we show them as edit --->
+				<!--- ----------------------------------------------------------------- --->
+				
+				<!---		
+				<cf_actionField 
+				     mode="edit" 
+					 stylelabel=""
+					 stylefield=""
+				     TopicClass="header"
+				     journal="#HeaderSelect.Journal#" 
+					 journalserialno="#HeaderSelect.JournalSerialNo#">						 			 		
+					 
+					 --->
 				
 				
 			<!--- ---------------------------------- --->

@@ -12,7 +12,7 @@
  
  	<cfif ActionStatus eq "0" and EntityAccess eq "EDIT" and Action eq "1">		
 				 
-		<td id="quick#ActionId#" name="quick#ActionId#">				
+		<td id="quick#ActionId#" name="quick#ActionId#" class="fixlength">				
 		<cfif attributes.hideprocess eq "0" and actionTrigger eq "" and object_op is 1>		
 			<input type="checkbox" class="radiol" name="confirmwf" id="confirmwf" style="display:none;" value="#ActionId#" checked onclick="toggleaction('#ActionId#')">		
 		    <a class="Procets" id="d#ActionId#" href="javascript:submitwfquick('#ActionId#','#attributes.ajaxid#')">#proctext#</a>  			
@@ -25,7 +25,7 @@
   				
 	 <cfif object_op is 1 and Action eq "1" and (EntityAccess eq "EDIT" or EntityAccess eq "READ")>	 			
 	 
-		 <td align="center">			 		
+		 <td align="center" class="fixlength">			 		
 			<cfif attributes.hideprocess eq "0" and actionTrigger eq "" and showaction is 1>		
 			    <cfif Dialog.DocumentMode eq "Popup" and DisableStandardDialog eq "1" >				
 				   <cfif EntityAccess eq "EDIT">

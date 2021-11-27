@@ -14,8 +14,8 @@ password="#SESSION.dbpw#">
 		
 <table width="100%" align="center">
 		
-	<tr class="labelmedium line" style="border-top:1px solid silver;height:18px">	   	   
-	    <td style="padding-left:4px"><cf_tl id="Insurance"></td>
+	<tr class="labelmedium line fixlengthlist" style="border-top:1px solid silver;height:18px">	   	   
+	    <td><cf_tl id="Insurance"></td>
 		<td><cf_tl id="Policy"></td>
 		<td><cf_tl id="Certification"></td>
 		<td><cf_tl id="Effective"></td>
@@ -30,8 +30,8 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput query="SearchResult">
 	    
-	    <tr class="navigation_row labelmedium" style="height:22px">			
-			<td style="padding-left:4px">#OrgUnitName#</td>
+	    <tr class="navigation_row labelmedium2 fixlengthlist line" style="height:22px">			
+			<td>#OrgUnitName#</td>
 			<td>#AccountNo#</td>		
 			<td>#Reference#</td>
 			<td>#DateFormat(DateEffective,CLIENT.DateFormatShow)#</td>

@@ -224,6 +224,10 @@
 	<cfelse>	
 		
 		<cfset rep=replace(url.templatepath,"/","\","ALL")>
+		
+		
+		<cfset vspath=replace(vspath,"//","/","ALL")>
+		<cfset vspath=replace(vspath,"\\","\","ALL")>
 
 		<cfreport 
 		   template     = "#SESSION.rootPath##rep#" 

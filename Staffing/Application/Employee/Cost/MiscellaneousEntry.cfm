@@ -87,7 +87,7 @@ password="#SESSION.dbpw#">
 	   <input type="hidden" name="IndexNo"  value="#URL.ID1#">
 	</cfoutput>
 	
-		<table width="98%" frame="hsides" border="0" cellspacing="0" cellpadding="0" align="center">
+		<table width="100%" align="center">
 		  <tr>
 		    <td width="100%" style="font-size:30px;height:50px;font-weight:200" align="left" valign="middle" class="labellarge">
 			<cfoutput>	   
@@ -141,8 +141,7 @@ password="#SESSION.dbpw#">
 				</table>
 						
 			</TD>
-			</TR>
-				
+			</TR>				
 			
 			<TR class="labelmedium2">
 		    <TD><cf_tl id="Reference">:</TD>

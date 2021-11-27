@@ -25,12 +25,14 @@
 
 <cfparam name="attributes.stylelabel" default="padding-left:15px">
 <cfparam name="attributes.stylefield" default="padding-left:5px">
+<cfparam name="attributes.colspan"    default="1">
 
 <cfoutput query="GetTopics">
 
-<tr>    
-	   <td class="labelmedium" bgcolor="fafafa" style="#attributes.stylelabel#">#Description# :</td>
-	   <td class="cellborder labelmedium" style="#attributes.stylefield#">
+<tr class="labelmedium2">    
+	   <td style="#attributes.stylelabel#">#Description# :</td>
+	   <td class="cellborder" colspan="#attributes.colspan#" style="#attributes.stylefield#">
+	   
 	    			   
 	   <cfif attributes.Mode eq "view">
 	   
@@ -161,7 +163,11 @@
 				   message="Please enter a #Description#"
 				   value="#Current.TopicValue#"
 			       maxlength="#ValueLength#">
-								
+				   
+			<cfelseif ValueClass eq "Memo">
+			
+				<cftextarea name="Topic_#Code#" style="padding:3px;font-size:15px;width:95%;height:50px">#Current.TopicValue#</cftextarea>
+											
 			<cfelseif ValueClass eq "Boolean">
 						
 				<input type="Checkbox" class="radiol enterastab"

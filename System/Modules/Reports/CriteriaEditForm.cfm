@@ -44,7 +44,7 @@ password="#SESSION.dbpw#">
 	AND CriteriaName = '#URL.ID1#'
 </cfquery>
 
-<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding"> 
+<table width="95%" align="center" class="formpadding"> 
 
 <tr><td height="2"></td></tr>
 
@@ -54,7 +54,7 @@ password="#SESSION.dbpw#">
 	 onsubmit="return false"
 	 name="dialog">
 
-<table width="100%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="100%" align="center" class="formpadding">
 	 
 <input type="hidden" name="ControlId" id="ControlId" value="<cfoutput>#URL.ID#</cfoutput>">
 
@@ -358,7 +358,8 @@ password="#SESSION.dbpw#">
 	  </cfif>	  
 	
 	</TD>
-	</TR>			
+	</TR>		
+		
 		
 <cfinclude template="CriteriaEditFormType.cfm">
 	  

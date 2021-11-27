@@ -2,7 +2,7 @@
 
 <table width="100%" height="100%">
 		
-		<tr class="line" style="height:20px"><td colspan="2" style="height:35px;font-weight:300;font-size:20px" class="labelmedium"><cf_tl id="Distribution by gender"></td></tr>
+		<tr class="line" style="height:20px"><td colspan="2" style="height:35px;font-size:20px" class="labelmedium"><cf_tl id="Distribution by gender"></td></tr>
 	
 		<tr><td width="6%" style="padding-left:5px;padding-top:15px;padding-right:4px">
 
@@ -75,20 +75,21 @@
 			  	GROUP BY  Gender,ContractLevelParent
 		  	</cfquery>				
 			 			
-			 <table width="100%" class="navigation_table">
+			 <table width="100%" style="min-width:270px" class="navigation_table">
 			 
-			     <cfoutput>				 
-				 <tr class="labelmedium">
-				 	<td style="width:50%;padding-left:3px;padding-right:8px"></td>
+			     <cfoutput>		
+				 		 
+				 <tr class="labelmedium fixlengthlist">
+				 	<td></td>
 					<cfloop query="Sex">
-					<td style="min-width:45;padding-right:3px;background-color:<cfif gender eq 'F'>##E08FE080<cfelse>##0B8EDD80</cfif>" colspan="2" align="center">#Gender#</td>					
+					<td style="background-color:<cfif gender eq 'F'>##E08FE080<cfelse>##0B8EDD80</cfif>" colspan="2" align="center">#Gender#</td>					
 					</cfloop>		
-					<td style="background-color:##f1f1f180;min-width:40" align="center"><cf_tl id="Total"></td>	 
+					<td style="background-color:##f1f1f180" align="center"><cf_tl id="Total"></td>	 
 				 </tr>
 				 
 					 <cfloop query="Parent">
 						 <tr class="labelmedium navigation_row">
-						 	<td style="min-width:40;padding-left:4px">#ContractLevelParent#</td>
+						 	<td>#ContractLevelParent#</td>
 							<cfloop query="Sex">
 								<cfquery name="getContent" dbtype="query">
 								  	 SELECT  *
@@ -101,36 +102,36 @@
 								<cfif Total neq "" AND Parent.Total neq "" and getContent.Total neq "" and Parent.Total neq "0">
 									<cfset vLink = "showDetail('gender','#url.mission#', '#url.orgunit#', '#url.cstf#', '#url.postclass#', '#category#', '#authorised#', '#url.period#', '#Parent.ContractLevelParent#', '#gender#', 'detailArea')">
 								</cfif>
-								<td align="right" style="min-width:26px;padding-right:3px" onclick="#vLink#">
+								<td align="right" onclick="#vLink#">
 								  <a>#getContent.Total#</a>					
 								</td>
-								<td align="right" bgcolor="E6E6E6" style="background-color:##e6e6e680;min-width:47px;padding-right:3px">
+								<td align="right" bgcolor="E6E6E6" style="background-color:##e6e6e680">
 								<cfif Parent.Total neq "" and getContent.Total neq "" and Parent.Total neq "0">
 								    <cfset ratio = (getContent.Total*100)/Parent.Total>						
 									#numberformat(ratio,'._')#%
 								</cfif>
 								</td>
 							</cfloop>		
-							<td align="right" style="padding-right:2px;padding-right:3px;cursor:pointer;" onclick="showDetail('gender','#url.mission#', '#url.orgunit#', '#url.cstf#', '#url.postclass#', '#category#', '#authorised#', '#url.period#', '#ContractLevelParent#', '', 'detailArea')"><a>#total#</a></td>
+							<td align="right" style="cursor:pointer;" onclick="showDetail('gender','#url.mission#', '#url.orgunit#', '#url.cstf#', '#url.postclass#', '#category#', '#authorised#', '#url.period#', '#ContractLevelParent#', '', 'detailArea')"><a>#total#</a></td>
 						 </tr>			 
 					 </cfloop>
 					 
 				 <tr bgcolor="E6E6E6" class="labelmedium">
-				 	<td style="padding-left:4px;width:70%"><b><cf_tl id="Total"></td>
+				 	<td style="padding-left:4px"><b><cf_tl id="Total"></td>
 					<cfloop query="Sex">
-						<td style="cursor:pointer;min-width:35;padding-right:3px;background-color:<cfif gender eq 'F'>##E08FE080<cfelse>##96F5F380</cfif>" 
+						<td style="cursor:pointer;background-color:<cfif gender eq 'F'>##E08FE080<cfelse>##96F5F380</cfif>" 
 							align="right"
 							onclick = "showDetail('gender','#url.mission#', '#url.orgunit#', '#url.cstf#', '#url.postclass#', '#category#', '#authorised#', '#url.period#', '', '#gender#', 'detailArea')">
 								<a>#Total#</a>
 						</td>
 						<td align="right" 
 							bgcolor="E6E6E6" 
-							style="padding-right:3px;cursor:pointer;background-color:<cfif gender eq 'F'>##E08FE080<cfelse>##96F5F380</cfif>">
+							style="cursor:pointer;background-color:<cfif gender eq 'F'>##E08FE080<cfelse>##96F5F380</cfif>">
 						<cfset ratio = (Total*100)/Summary.Total>			
 						#numberformat(ratio,'._')#%
 						</td>
 					</cfloop>		
-					<td style="min-width:35;padding-right:3px;cursor:pointer" align="right" onclick="showDetail('gender','#url.mission#', '#url.orgunit#', '#url.cstf#', '#url.postclass#', '#category#', '#authorised#', '#url.period#', '', '', 'detailArea')"><a>#Summary.Total#</a></td>	 
+					<td style="cursor:pointer" align="right" onclick="showDetail('gender','#url.mission#', '#url.orgunit#', '#url.cstf#', '#url.postclass#', '#category#', '#authorised#', '#url.period#', '', '', 'detailArea')"><a>#Summary.Total#</a></td>	 
 				 </tr>			 
 			     </cfoutput>
 				 

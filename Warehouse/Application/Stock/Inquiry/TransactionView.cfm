@@ -76,12 +76,12 @@ password="#SESSION.dbpw#">
  function doit(action) {    	
     
 		if (confirm("Do you want to update this transaction ?")) {	
-        ColdFusion.navigate('TransactionSubmit.cfm?action='+action+'&drillid=#get.transactionid#&systemfunctionid=#url.systemfunctionid#','process','','','POST','transactionform')
+        ptoken.navigate('TransactionSubmit.cfm?action='+action+'&drillid=#get.transactionid#&systemfunctionid=#url.systemfunctionid#','process','','','POST','transactionform')
 		}	
   }	 
     
  function printme(id) { 
-		window.open("TransactionView.cfm?print=1&drillid="+id,"print","width=800,height=600,status=yes,toolbar=no,scrollbars=no,resizable=yes") 
+		ptoken.open("TransactionView.cfm?print=1&drillid="+id,"print","width=800,height=600,status=yes,toolbar=no,scrollbars=no,resizable=yes") 
   }
  
 </script>

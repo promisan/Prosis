@@ -177,10 +177,12 @@
 	</cfif>
 
 </cfif>
- 
+
+<!--- was throwing an error 
 <script>
 	resetSettlement();
 </script>
+--->
 
 <cfset url.close = "1">
 <cfinclude template="SettlementLines.cfm">

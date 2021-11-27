@@ -232,11 +232,7 @@
 			
 			<cfset FEL.ExchangeRate    = "1">		
 			<cfset FEL.vUoM            = "UND">
-			
-			<!---							
-			<cfset vNitGFACE =   GetWarehouseSeries.GFACEId>
-			--->
-			
+						
 			<cfset FEL.VendorReference = "#GetTaxSeries.Reference#">  <!--- GetWarehouseDevice.Reference --->
 			<cfset FEL.VendorMail      = "#GetTaxSeries.UserEMail#">  <!--- GetWarehouseDevice.UserMail --->
 			<cfset FEL.VendorNIT       = "#GetTaxSeries.EFACEId#">	   <!--- #vNitEFACE# ---> 					
@@ -249,9 +245,9 @@
 				password="#SESSION.dbpw#">
 				SELECT     OA.AddressType, OA.TelephoneNo, OA.MobileNo, R.Address,R.AddressCity, R.AddressPostalCode,
 				           R.State, R.Country, R.eMailAddress, O.Source, O.SourceCode
-				FROM       OrganizationAddress AS OA 
+				FROM       Organization.dbo.OrganizationAddress AS OA 
 				           INNER JOIN System.dbo.Ref_Address AS R ON OA.AddressId = R.AddressId 
-						   INNER JOIN Organization AS O ON OA.OrgUnit = O.OrgUnit
+						   INNER JOIN Organization.dbo.Organization AS O ON OA.OrgUnit = O.OrgUnit
 				WHERE      <cfif getTransaction.OrgUnitSource eq ""> 1=0 <cfelse> OA.OrgUnit     = '#getTransaction.OrgUnitSource#' </cfif>
 				AND        OA.AddressType = 'Invoice' 
 				AND        OA.Operational = 1
@@ -442,7 +438,7 @@
 						username="#SESSION.login#"
 						password="#SESSION.dbpw#">
 						SELECT   R.Address, R.AddressCity, R.AddressPostalCode, R.State, R.Country, R.eMailAddress
-						FROM     OrganizationAddress AS OA INNER JOIN
+						FROM     Organization.dbo.OrganizationAddress AS OA INNER JOIN
                                  System.dbo.Ref_Address AS R ON OA.AddressId = R.AddressId
 						WHERE    OA.OrgUnit = '#Customer.OrgUnit#' 
 						AND      OA.AddressType = 'Invoice'
@@ -589,13 +585,12 @@
 							 
 							 TL.TransactionTaxCode  AS TaxCode,
 							 TL.ReferenceQuantity   AS SaleQuantity, 
-							 'C/U'                  AS SaleUoM, 
+							 'C/U'                  AS SaleUoM,
+							 TL.TransactionCurrency AS TransactionCurrency,
+							 TL.TransactionAmount   AS TransactionAmount, 
 							 TL.Currency            AS SaleCurrency, 
 							 TL.AmountCredit        AS AmountSale, 
-							 
-							 ROUND(TL.AmountCredit * #FEL.TaxPercentage#,  6)  AS AmountTax, 
-                             ROUND(TL.AmountCredit * #1+FEL.TaxPercentage#, 6) AS AmountTotal, 
-							 
+							 							 
 							 TL.TransactionTaxCode, 
 							 TH.OrgUnitSource
 							 
@@ -609,27 +604,28 @@
                  					           WHERE    TaxAccount = 0) <!--- we exclude lines that reflect tax as this is about Guate tax --->
 					AND      TL.AmountCredit > 0    <!--- only positive amounts to be reflected     --->
 					ORDER BY TL.TransactionSerialNo <!--- sorting of the lines in order of creation --->
-										
+															
 			</cfquery>	
 				
 			<!--- ------------------------- --->	
 			<!--- --------4 of 4 Totals---- --->		
 			<!--- ------------------------- --->
 			
-			<!--- sum the lines --->
+			<!--- Hanno : 23/11/2021 sum the lines no longer needed : rethink the dicount application --->
 			
 			<cfquery name="GetTotal" dbtype="query">
 					SELECT   SUM(AmountSale) as Amount
 					FROM     getLines
+					
 			</cfquery>		
 			
 			<cfset FEL.Sale   = getTotal.Amount>	
 			
-			<!--- correction if the amount like IO has already tax in it --->
-			<cfif getLines.TaxCode eq "00" and getTransaction.TransactionSource neq "SalesSeries">								     
+			<!--- Hanno special correction if the amount like IO has already tax in it --->
+			<cfif getLines.TaxCode eq "00" and getTransaction.TransactionSource eq "AccountSeries">								     
 				 <cfset FEL.Sale = FEL.Sale * 100/112>			      
-			</cfif>		
-								
+			</cfif>	
+											
 			<!--- remove the discount (negative) as found in the posting line --->	
 				
 			<cfquery name="GetDiscount"
@@ -723,6 +719,12 @@
 							
 			</cfif>
 			
+			<!---
+			<cfoutput>
+			CorreoReceptor="#FEL.CustomereMail#"
+			</cfoutput>
+			--->
+			
 			<cfxml variable="XmlDTE">
 			<cfoutput>
 				<?xml version="1.0" encoding="utf-8"?>
@@ -747,7 +749,7 @@
 								</dte:DireccionEmisor>
 							</dte:Emisor>
 														
-							<dte:Receptor CorreoReceptor="#FEL.CustomereMail#" IDReceptor="#FEL.customerNIT#" NombreReceptor="#FEL.CustomerName#">
+							<dte:Receptor CorreoReceptor="" IDReceptor="#FEL.customerNIT#" NombreReceptor="#FEL.CustomerName#">
 								
 									<dte:DireccionReceptor>
 										<dte:Direccion>#FEL.CustomerAddress#</dte:Direccion>
@@ -766,7 +768,6 @@
 										<dte:Frase CodigoEscenario="#FEL.Phrase1#" TipoFrase="#FEL.Phrase2#"></dte:Frase>
 									</cfif>
 							</dte:Frases>
-
 								
 							<dte:Items>
 							
@@ -777,8 +778,10 @@
 								<cfset totax = 0>							 
 							
 								<cfloop query="GetLines">
-																
-										<cfif salequantity lt 0>
+												
+										<cfif salequantity eq "">
+										    <cfset quantity = 1>						
+										<cfelseif salequantity lt 0>
 											<cfset quantity = abs(salequantity)>
 										<cfelse>
 											<cfset quantity = salequantity>
@@ -793,28 +796,37 @@
 												<cfset v_ItemDescription = replace(v_ItemDescription,"&","&amp;","all")>
 												<cfset v_ItemDescription = replace(v_ItemDescription,"'","&apos;","all")>
 												
-											<dte:Descripcion>#ItemNo#|#v_ItemDescription#</dte:Descripcion>			
+											<dte:Descripcion>#ItemNo#|#v_ItemDescription#</dte:Descripcion>		
 											
-											<!--- correction to lower the amount as tax would be added --->
-											<cfif getLines.TaxCode eq "00"  and getTransaction.TransactionSource neq "SalesSeries">
-											    <cfset amt = AmountSale * 100/112>										   
+											<cfif TransactionAmount lte AmountSale>	
+											
+												<!--- correction to lower the amount as tax would be added --->
+												<cfif getLines.TaxCode eq "00"  and getTransaction.TransactionSource eq "AccountSeries">
+												    <cfset amt = AmountSale * 100/112>										   
+												<cfelse>
+												 	<cfset amt = AmountSale>	   
+												</cfif>		
+																							
+												<cfset amt        = round(amt*10000)/10000>											
+																																		
+												<!--- calculate ratio --->
+												<cfset discount   = FEL.Ratio * amt>
+												<!--- Rethink for workorder with discount recorded : Hanno --->
+												<cfset taxable    = amt - discount>
+																							
+												<!--- calculate price with tax --->
+												<cfset vSalesPrice = taxable*(1+FEL.TaxPercentage)/Quantity>
+												<!--- round to 2 digits --->
+												
+												<cfset vSalesPrice = round(vSalesPrice*100000)/100000>	
+												
 											<cfelse>
-											 	<cfset amt = AmountSale>	   
-											</cfif>		
-																						
-											<cfset amt        = round(amt*10000)/10000>
 											
-																																	
-											<!--- calculate ratio --->
-											<cfset discount   = FEL.Ratio * amt>
-											<!--- Rethink for workorder with discount recorded : Hanno --->
-											<cfset taxable    = amt - discount>
-																						
-											<!--- calculate price with tax --->
-											<cfset vSalesPrice = taxable*(1+FEL.TaxPercentage)/Quantity>
-											<!--- round to 2 digits --->
+											    <cfset discount   = FEL.Ratio * TransactionAmount>
+												<cfset vSalesPrice = TransactionAmount/Quantity>
+												<cfset vSalesPrice = round(vSalesPrice*100000)/100000>
 											
-											<cfset vSalesPrice = round(vSalesPrice*100000)/100000>	
+											</cfif>	
 											
 											<!---
 											<cfset vSalesPrice = round(vSalesPrice*100)/100>																					
@@ -866,8 +878,7 @@
 										<dte:TotalImpuesto NombreCorto="IVA" TotalMontoImpuesto="#trim(numberformat(totax,"__.____"))#"></dte:TotalImpuesto>
 								</dte:TotalImpuestos>
 								<dte:GranTotal>#trim(numberformat(total,"__.____"))#</dte:GranTotal>
-							</dte:Totales>
-																		
+							</dte:Totales>																		
 								
 							<cfif FEL.InvoiceType eq "FCAM">
 								<dte:Complementos>
@@ -886,13 +897,22 @@
 							</dte:DatosEmision>
 						
 						</dte:DTE>
-					
+						<dte:Adenda>
+							<Codigo_cliente>CODIGO11</Codigo_cliente>
+							<Observaciones>PACIENTE : XXXXXXXXX</Observaciones>
+						</dte:Adenda>
+
 					</dte:SAT>
 				
 				</dte:GTDocumento>
 				
 			</cfoutput>
 		</cfxml>
+
+<!---
+	after DTE
+
+--->
 							
 		<cfset StringDTE = toString(XmlDTE)>
 		

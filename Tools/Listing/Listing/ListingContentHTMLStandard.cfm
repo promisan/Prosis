@@ -239,7 +239,7 @@
 					  <cfelse>
 					  <td></td>
 					  </cfif>
-				      <td align="center" style="padding:4px" id="c#divId#" colspan="#cols+1#">box#divId#</td>
+				      <td align="center" style="padding:4px" id="c#divId#" colspan="#cols+1#"></td>
 				</tr>
 			
 		</cfif>								

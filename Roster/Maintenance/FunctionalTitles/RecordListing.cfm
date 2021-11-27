@@ -123,7 +123,7 @@ password="#SESSION.dbpw#">
 
 </cfoutput>
 
-<table width="94%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="94%" height="100%" align="center">
 
 <tr><td height="24">
 
@@ -161,7 +161,7 @@ password="#SESSION.dbpw#">
      <td colspan="12" height="40" style="padding-left:6px">
 	 
 	 <table class="formspacing">
-	 <tr>
+	 <tr class="fixlengthlist">
 	  		 	 
 		 <cfoutput>
 	 
@@ -212,11 +212,10 @@ password="#SESSION.dbpw#">
 		 </td>		 
 		 
 		 <td style="padding-left:8px"><input type="radio" class="radiol" name="view" id="view" value="title" <cfif URL.view eq "title">checked</cfif> onClick="reloadForm(page.value,'title','#url.mode#')"></td>
-		 <td style="padding-left:3px" class="labelmedium" onClick="reloadForm(page.value,'title','#url.mode#')">Title Description</td>
+		 <td style="padding-left:3px" class="labelmedium" onClick="reloadForm(page.value,'title','#url.mode#')"><cf_tl id="Title"></td>
 		 <td style="padding-left:8px"><input type="radio" class="radiol" ame="view" id="view" value="grade" <cfif URL.view eq "grade">checked</cfif> onClick="reloadForm(page.value,'grade','#url.mode#')"></td>
 	     <td style="padding-left:3px; padding-right:20px" class="labelmedium" onClick="reloadForm(page.value,'grade','#url.mode#')">Grade&nbsp;<b>(bucket)</b></td>
-				
-			 
+				 
 		 </cfoutput>
 	 		 
 	 </tr>
@@ -233,7 +232,7 @@ password="#SESSION.dbpw#">
 	
 		<table width="100%" class="navigation_table">
 			
-		<tr class="labelmedium line fixrow">
+		<tr class="labelmedium line fixrow fixlengthlist">
 		    <td colspan="2" style="padding-left:4px"><cf_tl id="No"></td>		
 			<td><cf_tl id="Class"></td>
 			<td width="2%">R.</td>
@@ -275,21 +274,22 @@ password="#SESSION.dbpw#">
 						
 					    <!--- <tr bgcolor="#IIf(Currentrow Mod 2, DE('FFFFFF'), DE('ffffcf'))#"> --->
 						<cfif FunctionOperational eq "0">
-						<tr bgcolor="FBB5AA" style="height:20px" class="navigation_row labelmedium linedotted">
+						<tr bgcolor="FBB5AA" style="height:20px" class="navigation_row labelmedium linedotted fixlengthlist">
 						<cfelseif Bucket eq "0">
-						<tr bgcolor="ffffff" style="height:20px" class="navigation_row labelmedium linedotted">
+						<tr bgcolor="ffffff" style="height:20px" class="navigation_row labelmedium linedotted fixlengthlist">
 						<cfelse>
-						<tr style="height:20px" class="navigation_row labelmedium linedotted">
+						<tr style="height:20px" class="navigation_row labelmedium linedotted fixlengthlist">
 						</cfif>
 						
-						<td width="50" style="font-size:12px;padding-left:5px;height:20px" class="navigation_action"><a href="javascript:recordedit('#FunctionNo#','#currentrow#')">#FunctionNo#</a></td>	
+						<td width="50" style="font-size:12px;padding-left:5px;height:20px" class="navigation_action">
+						  <a href="javascript:recordedit('#FunctionNo#','#currentrow#')">#FunctionNo#</a>
+						</td>	
 																
 						<cfif Bucket neq "0">
 						
-								<td width="50" style="padding-left:4px">								
-								<cf_img icon="expand" toggle="Yes" onclick="listing('#Currentrow#','#FunctionNo#','#GradeDeployment#')">
-																
-								</td>	
+							<td width="50" style="padding-left:4px">								
+							<cf_img icon="expand" toggle="Yes" onclick="listing('#Currentrow#','#FunctionNo#','#GradeDeployment#')">																
+							</td>	
 							
 						<cfelse>
 							

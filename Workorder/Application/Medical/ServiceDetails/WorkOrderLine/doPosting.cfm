@@ -62,9 +62,10 @@
 		
 <cfif getService.recordcount eq "0">
 	
-		<table><tr><td class="labelmedium">Receivable posting has been disabled for this service. Please contact your administrator</td></tr></table>
-		
-		<cfabort>
+	  <table>
+		  <tr><td class="labelmedium">Receivable posting has been disabled for this service. Please contact your administrator</td></tr>
+	   </table>
+	   <cfabort>
 	
 </cfif>		
 
@@ -120,11 +121,11 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			
-		UPDATE    WorkOrder.dbo.WorkOrderLineCharge						
-		SET       Journal         = 'InProcess'								  
-		WHERE     WorkOrderid     = '#get.WorkOrderid#' 
-		AND       WorkOrderLine   = '#get.WorkOrderLine#' 				
-		AND       Journal is NULL		
+			UPDATE    WorkOrder.dbo.WorkOrderLineCharge						
+			SET       Journal         = 'InProcess'								  
+			WHERE     WorkOrderid     = '#get.WorkOrderid#' 
+			AND       WorkOrderLine   = '#get.WorkOrderLine#' 				
+			AND       Journal is NULL		
 					
 	</cfquery>	
 
@@ -155,7 +156,9 @@
 			<cfif getJournal.recordcount eq "0">
 				
 				<cfoutput>
-				<table align="center"><tr><td align="center" class="labelmedium2">A Journal has not been set for this currency (#currency#) and owner (#orgunitowner#). Please contact your administrator</td></tr></table>		
+				<table align="center">
+				   <tr><td align="center" class="labelmedium2">A Journal has not been set for this currency (#currency#) and owner (#orgunitowner#). Please contact your administrator</td></tr>
+				</table>		
 				</cfoutput>
 				
 				<cfabort>
@@ -186,8 +189,7 @@
 			<cfset vBatchDate= createDate(year(get.DateEffective),month(get.DateEffective),daysinmonth(get.DateEffective))>		
 			
 			<!--- we check if for this customer	and for this batch date we already have an entry if
-			we have an entry we update the record and add
-			--->
+			we have an entry we update the record and add lines --->
 			
 			<cfif orgunitcustomer neq "0">
 			
@@ -238,7 +240,8 @@
 						   WC.BillingReference,
 						   WC.BillingName,
 						   SUM(WC.SaleAmountIncome) AS Income, 
-						   SUM(WC.SaleAmountTax) AS Tax
+						   SUM(WC.SaleAmountTax) AS Tax,
+						   SUM(WC.SalePayable) AS Amount
 				FROM       Workorder.dbo.WorkOrderLineCharge WC INNER JOIN
 	                       WorkOrder.dbo.Ref_UnitClass R ON WC.UnitClass = R.Code
 				WHERE      WorkOrderid        = '#get.WorkOrderid#' 
@@ -280,11 +283,19 @@
 				<!-----<cfset dte = dateformat(TransactionDate,"YYYYMMDD")> ----->
 				<cfset dte = DateTimeFormat(TransactionDate,"YYYYMMDD_HH_nn_ss")>
 				
-				<cfparam name="Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceseries" default="">
-				<cfparam name="Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceno" default="">
-				
-				<cfset ser = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceseries")>
+				<cfparam name="Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceseries"  default="">
+				<cfparam name="Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceno"      default="">
+				<cfparam name="Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_email"          default="">
+								
 				<cfset inv = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceno")>
+				<cfset ser = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceseries")>
+				<cfset mai = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_email")>
+											
+				<cfif inv eq "">
+					<cfset actionCode = "">
+				<cfelse>
+				    <cfset actionCode = "Invoice">
+				</cfif>
 				
 				<cfif ser neq "">
 					<cfset trano = "#ser#-#inv#">
@@ -296,6 +307,7 @@
 				    DataSource            = "AppsLedger"
 					Mission               = "#get.Mission#"
 					OrgUnitOwner          = "#OrgunitOwner#"
+					OrgUnitSource         = "#OrgunitOwner#"
 					OrgUnitTax            = "#getJournal.OrgUnitTax#"
 					AccountPeriod         = "#getPeriod.AccountPeriod#"
 					Journal               = "#getJournal.journal#"	
@@ -322,11 +334,15 @@
 					TransactionDate       = "#DateFormat(now(),CLIENT.DateFormatShow)#"
 					JournalBatchDate      = "#DateFormat(vBatchDate,CLIENT.DateFormatShow)#"
 					DocumentAmount        = "#Total#"
-					ActionCode            = "Invoice"
+					ActionCode            = "#actioncode#"
 					ActionReference1      = "#ser#"
 					ActionReference2      = "#inv#">	
 					
 			<cfelse>
+							
+				<cfparam name="Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_email"          default="">
+								
+				<cfset mai = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_email")>
 			
 				<!--- Header for Insurance portion--->
 			
@@ -367,7 +383,7 @@
 				Amount1               = "#total#">		
 	
 				<cfloop query="Lines">
-	
+					
 					<!--- Lines for each Unit clas.--->
 					<cf_GledgerEntryLine
 					    DataSource            = "AppsLedger"
@@ -380,6 +396,7 @@
 
 						Currency              = "#getJournal.Currency#"										
 						TransactionSerialNo1  = "1"
+						TransactionAmount1    = "#amount#"
 						Class1                = "Credit"
 						Reference1            = "Charges"       
 						ReferenceName1        = "#getService.description#"
@@ -409,7 +426,8 @@
 					
 						<!--- 10/4/2016 obtain the tax account for received taxes --->
 							
-						<!--- Lines for each Unit class/glaccount/cost center --->
+						<!--- Lines for each Unit class/glaccount/cost center --->					
+						
 						
 						<cf_GledgerEntryLine
 						    DataSource            = "AppsLedger"
@@ -421,7 +439,7 @@
 							TransactionPeriod	  =	"#ThisTransactionPeriod#"
 
 							Currency              = "#getJournal.Currency#"										
-							TransactionSerialNo1  = "1"
+							TransactionSerialNo1  = "1"							
 							Class1                = "Credit"
 							Reference1            = "Sales Tax"       
 							ReferenceName1        = "#getService.description#"
@@ -439,7 +457,8 @@
 				
 				<!--- we are posting the Tax here --->
 				
-				<cfif getJournal.OrgUnitTax neq "">
+								
+				<cfif getJournal.OrgUnitTax neq "" and abs(total) gte "0.05">   <!--- exclude very small postings like coutersy --->
 				
 					<cfinvoke component = "Service.Process.EDI.Manager"
 						   method           = "SaleIssue" 
@@ -448,16 +467,24 @@
 					       Mode 			= "3"  <!--- = 3 --->
 						   Journal          = "#getJournal.journal#"
 						   JournalSerialNo  = "#JournalTransactionNo#"		
-						   eMailAddress     = "#get.eMailAddress#"					  					    
+						   eMailAddress     = "#mai#"					  					    
 						   returnvariable	= "vInvoice">	
-						   
-						   <cfif vInvoice.Status eq "OK">
+						   						   
+						   <cfif vInvoice.Status eq "OK">						   					   
 						   
 						       <!--- this template triggers the correct custom template for print and mail to appear ---> 
 						   
 						       <!--- this has nowe to show into a kendo dialog with content on the fly ---> 
 							   
+							   <cfoutput>
+							   <script>
+							   alert('#vInvoice.status#: show mail option now ?')
+							   </script>
+							   </cfoutput>
+							  
+							   <!--- 
 						       <cfinclude template="../../../../../Gledger/Application/Transaction/Invoice/SaleViewInvoice.cfm">
+							   --->
 						   
 							   <!--- Hanno : based on the result of vInvoice we 
 					                  directly send a mail 
@@ -465,11 +492,19 @@
 						   
 						   <cfelse>
 						   
+						       <cfoutput>
+						       <script>
+							   	   alert('#vInvoice.ErrorDescription#')
+							   </script>
+							   </cfoutput>
+							   					    
+						   
 							   <!--- error message : advise to open the transaction, reissue and if not success contact provider --->
 						   						   
 						   </cfif>
 								
-				</cfif>					   
+				</cfif>		
+					   
 				
 				<!--- ---------------------------- --->
 													   
@@ -722,4 +757,8 @@
 		 </td>
 		</tr>
 		
-</table>		
+</table>	
+
+<script>
+	Prosis.busy('no')
+</script>	

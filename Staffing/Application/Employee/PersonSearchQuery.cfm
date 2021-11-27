@@ -418,7 +418,34 @@
 							   <cfif missionselect neq "">
 							   AND      Mission = '#missionselect#'
 							   </cfif>
-                               ORDER BY DateEffective DESC)) as ContractLevel,			   
+                               ORDER BY DateEffective DESC)) as ContractLevel,			 
+							   
+				(SELECT       DateEffective
+				FROM         PersonContract AS PS
+				WHERE        ContractId IN
+                             (SELECT    TOP (1) ContractId
+                               FROM     PersonContract 
+                               WHERE    PersonNo = PE.PersonNo 
+							   AND      ActionStatus IN ('0', '1') 
+							   AND      DateEffective < GETDATE()
+							   <cfif missionselect neq "">
+							   AND      Mission = '#missionselect#'
+							   </cfif>
+                               ORDER BY DateEffective)) as DateEffective,					   
+							   
+			    <!--- last contract  --->
+			   (SELECT       DateExpiration
+				FROM         PersonContract AS PS
+				WHERE        ContractId IN
+                             (SELECT    TOP (1) ContractId
+                               FROM     PersonContract 
+                               WHERE    PersonNo = PE.PersonNo 
+							   AND      ActionStatus IN ('0', '1') 
+							   AND      DateEffective < GETDATE()
+							   <cfif missionselect neq "">
+							   AND      Mission = '#missionselect#'
+							   </cfif>
+                               ORDER BY DateEffective DESC)) as DateExpiration,					     
 			
 			
 		       (SELECT 		COUNT(*) 

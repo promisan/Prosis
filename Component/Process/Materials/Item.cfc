@@ -1037,8 +1037,7 @@
 				
 				<cfset Category = Item.Category>
 			
-			</cfif>				
-										
+			</cfif>												
 
 		    <cfquery name="checkWarehouse" 
 				datasource="#datasource#" 
@@ -1299,8 +1298,6 @@
 			</cfif>	
 									
 			<cfreturn vCost>			
-			
-			--->
 			
 	</cffunction>	
 	

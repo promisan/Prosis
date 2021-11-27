@@ -40,25 +40,25 @@
 
 <table style="width:98%" class="navigation_table" class="formpadding">
 		   	
-	 <TR class="fixrow labelmedium2 line">
-		<td width="10"></td>
-		<td width="20">S</td>
-		<td width="5%">Code</td>
-		<td width="18%">Label</td>	  
-		<td width="28%">Description</td>
-		<td width="10%">
+	 <TR class="fixrow labelmedium2 line fixlengthlist">
+		<td></td>
+		<td>S</td>
+		<td><cf_tl id="Code"></td>
+		<td><cf_tl id="Label"></td>	  
+		<td><cf_tl id="Description"></td>
+		<td>
 			<cfif systemmodule neq "Roster">
-				Entity
+				<cf_tl id="Entity">
 			</cfif>
 		</td>	
-		<td width="10%">Type</td>
-		<td width="40">Oblig.</td>
-		<td width="30">Ena.</td>
+		<td><cf_tl id="Type"></td>
+		<td><cf_tl id="Force"></td>
+		<td><cf_tl id="Enabled"></td>
 		<!---
 		<td width="15%" class="labelit">Officer</td>
 		--->
-		<td width="80"  align="right">Created</td>		
-		<td width="30"></td>			  	  
+		<td align="right"><cf_tl id="Created"></td>		
+		<td></td>			  	  
     </TR>			
 			
 	<cfoutput query="Listing" group="TopicClass">
@@ -110,7 +110,7 @@
 	   		
 	    <cfoutput>
 								
-			<TR class="navigation_row line labelmedium2">			
+			<TR class="navigation_row line labelmedium2  fixlengthlist">			
 			  			   
 			   <td align="center" style="height:21px" width="30"> 
 			   

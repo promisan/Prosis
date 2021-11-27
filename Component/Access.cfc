@@ -79,8 +79,7 @@
 <cfcomponent>
 
     <cfproperty name="name" type="string">
-    <cfset this.name = "User authorization">
-	
+    <cfset this.name = "User authorization">	
 	
 	<!--- 1.0 GENERAL ACCESS TO A MENU FUNCTION --->
 	

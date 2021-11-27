@@ -54,9 +54,7 @@
 		        WHERE      Mission         = '#filtermission#'
 		        AND        ItemNo          = '#filterItemNo#'
 		        AND        (TransactionReference LIKE 'TRA%' OR TransactionReference LIKE 'OV%') 
-				AND        TransactionDate < '#purchase.mydate#'
-								
-				
+				AND        TransactionDate < '#purchase.mydate#'			
 			</cfquery>
 				
 		</cfif>
@@ -66,15 +64,13 @@
 		<cfquery name="transaction" 
 			datasource="#Datasource#" 
 			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-								
+			password="#SESSION.dbpw#">								
 				SELECT      *
 				FROM        ItemValuation
 				WHERE       Mission   = '#filtermission#'
 				AND         ItemNo    = '#filterItemNo#'
 				AND         TransactionQuantity <> 0
-				ORDER BY TransactionDate, LEFT(TransactionReference, 2), TransactionQuantity DESC			
-																
+				ORDER BY TransactionDate, LEFT(TransactionReference, 2), TransactionQuantity DESC																			
 		</cfquery>		
 		
 		<cfset qty  = 0>
@@ -469,7 +465,7 @@
 				password="#SESSION.dbpw#">	
 			    SELECT SUM(StockOnSale) as Total
 				FROM (
-				SELECT    S.StockAvailable-S.StockExhibited-S.StockDisposed as StockOnSale
+				SELECT    S.StockAvailable-S.StockExhibited-S.StockVendor-S.StockDisposed as StockOnSale
 				FROM      ItemStock S
 				WHERE     1=1
 				<cfif Mission neq "">
@@ -486,6 +482,8 @@
 				</cfif>
 								
 				AND       ItemNo         = '#itemNo#' 
+				
+				AND       SelectionDate = CAST(GETDATE() AS Date)
 				
 				<!--- 
 				AND       TransactionUoM = '#UoM#'		
@@ -520,7 +518,7 @@
 			<cfargument name="Warehouse"           type="string"  required="false"  default="">		
 			<cfargument name="Location"            type="string"  required="false"  default="">		
 			
-			<cfargument name="PriceSchedule"       type="string"  required="false"  default="Consumidor final"> 
+			<cfargument name="PriceSchedule"       type="string"  required="false"  default="CFI"> 
 			
 			<cfargument name="Make"                type="string"  required="true"   default="">
 			<cfargument name="Category"            type="string"  required="true"   default="">
@@ -547,13 +545,23 @@
 				
 				FROM (			
 			
-				SELECT     TOP 500 I.Mission, 
-				           T.ItemNo,
-						   T.ItemNoExternal,
+				SELECT      TOP 500 I.Mission, 
+				            I.ItemNo,
 							
+							<!--- Prosis linkage --->
+				            T.ItemNo as ItemNoPrice,
+							T.ItemNoExternal,
+														
 							(SELECT TOP 1 ImagePath 
 							 FROM Materials.dbo.ItemImage 
 							 WHERE ItemNo = T.ItemNo) as ImagePath,	
+							 
+							(SELECT TOP 1 UoM
+							 FROM Materials.dbo.ItemUoM 
+							 WHERE ItemNo = T.ItemNo
+							 AND  Operational = 1) as ItemUoMPrice,	
+							 
+							<!--- end prosis linkage ---> 
 							
 							I.ItemName, 
 							I.ItemCategory, 
@@ -561,16 +569,13 @@
 							I.ItemClass, 
 							I.ItemUoM, 
 							I.ItemDetail, 	
-							<!---			
-							I.ItemCreated,
-							--->
-							
+														
 							P.PriceSchedule,
 							P.Currency,
 							 
-							P.Price,
-							P.PriceMin as PriceSaleMin, 
-							P.PriceMax as PriceSaleMax, 
+							P.Price*PriceMultiplier as Price,
+							P.PriceMin*PriceMultiplier as PriceSaleMin, 
+							P.PriceMax*PriceMultiplier as PriceSaleMax, 
 							
 							I.PriceMultiplier,
 							I.UsageMultiplier,
@@ -597,17 +602,18 @@
 							 							 
 							 S.StockCounted, 
 							 S.StockAvailable, 
-							 S.StockAvailable-S.StockExhibited-S.StockDisposed as StockOnSale, 
+							 S.StockAvailable-S.StockVendor-S.StockExhibited-S.StockDisposed as StockOnSale, 
 							 S.StockReserved, 
-							 S.StockExhibited, 
+							 S.StockExhibited+S.StockVendor as StockExhibited, 
 							 S.StockDisposed, 
 							 S.StockOnOrder,
 							 S.Created
 							 
-				FROM        Item AS I INNER JOIN
-				            ItemStock AS S ON I.Mission = S.Mission AND I.ItemNo = S.ItemNo INNER JOIN
-				            Warehouse AS W ON S.Mission = W.Mission AND S.Warehouse = W.Warehouse INNER JOIN	
-							Materials.dbo.Item T ON I.ItemNo = T.ItemNoExternal INNER JOIN		
+				FROM        Item AS I 
+				            INNER JOIN ItemStock AS S ON I.Mission = S.Mission AND I.ItemNo = S.ItemNo
+							INNER JOIN Warehouse AS W ON S.Mission = W.Mission AND S.Warehouse = W.Warehouse 
+							INNER JOIN Materials.dbo.Item T ON I.ItemNo = T.ItemNoExternal 
+							INNER JOIN		
 												
 								(SELECT    T.*
 								 FROM      ItemPriceSale T INNER JOIN 
@@ -616,16 +622,19 @@
 								              WHERE      PriceSchedule = '#Priceschedule#'
 											  AND        Currency = 'GTQ'
 								              GROUP BY   Mission, ItemNo, Currency, PriceSchedule
-								            ) as S ON T.Mission = S.Mission 
-												   AND  T.ItemNo        = S.ItemNo 
-												   AND  T.PriceSchedule = S.PriceSchedule 
-												   AND  T.Currency      = S.Currency 
-												   AND  T.DateEffective = S.DateEffective
-								) as P ON P.Mission = W.Mission 
-								     AND P.ItemNo = I.ItemNo
-									  AND PriceSchedule = '#Priceschedule#'									
+								            ) as S 
+											
+								 ON T.Mission = S.Mission 
+									AND  T.ItemNo        = S.ItemNo 
+									AND  T.PriceSchedule = S.PriceSchedule 
+									AND  T.Currency      = S.Currency 
+									AND  T.DateEffective = S.DateEffective
+												   
+												   
+								) as P ON P.Mission = W.Mission AND P.ItemNo = I.ItemNo AND PriceSchedule = '#Priceschedule#'									
 							
 				WHERE       I.Mission = '#mission#' 
+				AND         I.Operational = 1
 				AND         S.SelectionDate = CAST(GETDATE() AS Date) 
 				
 				<cfif warehouse neq "">

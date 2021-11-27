@@ -342,10 +342,10 @@
 					or
 				    (Actions.EnableTopMenu eq "1" and Actions.OwnerId eq SESSION.acc) 
 					or
-					(Actions.EnableTopMenu eq "3" and Attributes.toolbar neq "hide")>
+					(Actions.EnableTopMenu eq "3" and Attributes.toolbar neq "hide")>			
 			
 			   <cfinclude template="ActionListingMenu.cfm">		
-			
+			 			
 			</cfif>
 		
 		</cfif>

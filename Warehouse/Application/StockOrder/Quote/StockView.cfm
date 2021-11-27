@@ -65,12 +65,7 @@
 		    ptoken.navigate('QuoteAdd.cfm?mission=#url.mission#&warehouse='+document.getElementById('warehousequote').value,'boxquote')      
 			document.getElementById('boxaction').className = "hide"
 		}
-		
-		function setquote(no,act,val) {	  
-	       _cf_loadingtexthtml='';		
-		   ptoken.navigate('QuoteEdit.cfm?action='+act+'&requestno='+no+'&val='+val,'boxprocess','','','POST','stockform') 	
-		}	
-			
+					
 		function additem(whs,itm,uom,cur,sch) {		 
 		  if (document.getElementById('requestno').value == '') {	     
 		     addquote()	  
@@ -79,11 +74,20 @@
 		    ptoken.navigate('getQuoteLine.cfm?action=add&requestno='+document.getElementById('requestno').value+'&warehouse='+whs+'&itemno='+itm+'&uom='+uom+'&currency='+cur+'&priceschedule='+sch,'boxlines') 
 			document.getElementById('boxaction').className = "regular"
 		  }	
-		}		
+		}	
+		
+		function setpriceschedule(schedule,no) {
+		     ptoken.navigate('applySchedule.cfm?priceschedule='+schedule+'&requestno='+document.getElementById('requestno').value,'process') 		
+		}	
+		
+		function setquote(no,act,val) {	  
+	       _cf_loadingtexthtml='';		
+		   ptoken.navigate('QuoteEdit.cfm?action='+act+'&requestno='+no+'&val='+val,'boxprocess','','','POST','stockform') 	
+		}	
 						
 		function deleteitem(tra) {	  
 	       _cf_loadingtexthtml='';		
-		   ptoken.navigate('setQuote.cfm?action=deleteline&transactionid='+tra,'boxprocess') 	
+		   ptoken.navigate('QuoteEdit.cfm?action=deleteline&transactionid='+tra,'boxprocess') 	
 		}
 				
 		function stockreserve(whs,itm,uom,mde) {
@@ -229,9 +233,10 @@
 					<cfif schedule.recordcount gte "1">
 					
 					  <tr class="labelmedium2 line" style="height:35px">
-					      <td colspan="2" style="padding-left:10px;font-size:15px"><cf_tl id="Priceschedule"></td>
 					      
-						  <td align="right" style="padding-right:10px">
+						  <cf_tl id="Priceschedule" var="1">
+					      
+						  <td colspan="3" style="padding-left:10px;padding-right:10px" title="<cfoutput>#lt_text#</cfoutput>">
 						  
 						   <cf_UISelect name   = "PriceSchedule"
 						     class          = "regularxxl"
@@ -240,6 +245,7 @@
 						     value          = "Code"
 						     onchange       = "search()"		     
 						     required       = "No"
+							 tooltip        = "#lt_text#"
 							 style          = "width:100%"
 						     display        = "Description"
 						     selected       = "#Default.Code#"
@@ -252,6 +258,8 @@
 					  </tr>
 					
 					</cfif>
+					
+					<tr class="hidexx"><td id="process"></td></tr>
 								
 					<tr><td colspan="3" style="padding-left:10px;height:100%">					
 					        <cf_divscroll id="content"/>

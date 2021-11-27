@@ -111,14 +111,17 @@
 	<cf_actionListingScript>
 	<cf_FileLibraryScript>
 	<cf_picturescript>
-	<cf_KeyPadScript>
+	<cf_KeyPadScript>	
 	<cf_dialogSettlement>
+
 	<cf_dialogMaterial>
 	<cf_dialogWorkOrder>
 	<cf_dialogOrganization>
 	<cf_DialogSystem>
 	<cf_DialogLedger>
 	<cf_DialogStaffing>
+
+	
 
 	<cfajaximport tags="cfform,cfdiv">
 	<cf_textareascript>
@@ -210,7 +213,7 @@
 	}
 		
 	function editForm(wli) {	   	
-       	ProsisUI.createWindow('wEditForm', '<cfoutput>#vLabelForm#</cfoutput>', '',{x:100,y:100,width:500,height:300,resizable:false,modal:true,center:true})		
+       	ProsisUI.createWindow('wEditForm', '<cfoutput>#vLabelForm#</cfoutput>', '',{x:100,y:100,width:500,height:360,resizable:false,modal:true,center:true})		
 	   	ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/WorkOrder/Application/Medical/ServiceDetails/WorkOrderLine/WorkOrderLineEdit.cfm?workorderlineid='+wli,'wEditForm');		
 	}
 			  

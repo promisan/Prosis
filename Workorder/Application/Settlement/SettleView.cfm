@@ -53,17 +53,13 @@
 
 <cf_tl id="Settlement" var="set">
 
-<!---
-<cf_screentop height="100%" label="#set#" banner="blue" layout="webapp" close="ColdFusion.Window.destroy('wsettle',true)" jquery="No">
---->
-
 <cfform id="salesdetails" name="salesdetails" method="POST" style="height:98%;padding-right:6px">
 
 	<table width="100%" height="100%" bgcolor="FFFFFF">
 	
 	<tr>
 	
-	<td width="320" valign="top" style="padding-left:17px;padding-top:10px;border-right:0px solid silver">
+	<td colspan="2" valign="top" style="padding-left:17px">
 		
 		<cfquery name="qType" 
 		  datasource="AppsWorkOrder" 
@@ -78,7 +74,7 @@
 			 ORDER BY  ListingOrder Asc
 		</cfquery>
 			
-		<table cellpadding="0" cellspacing="0">
+		<table>
 				
 		<input type="hidden" id="settlement"     name="settlement"     value="<cfoutput>#qType.code#</cfoutput>"> 		   
 		<input type="hidden" id="btn_settlement" name="btn_settlement" value="tdm<cfoutput>#qType.code#</cfoutput>"> 
@@ -87,7 +83,7 @@
 		
 			<td colspan="2"> 
 			
-				<table width="100%"  cellpadding="0" cellspacing="0" class="formspacing">
+				<table width="100%" class="formspacing">
 				
 					<tr>
 					
@@ -95,23 +91,30 @@
 						
 						<cfoutput query="qType">
 						
-							<cfset vClass = "">
+						    <cfset vClass = "">
 							<cfif currentrow eq 1>
 								<cfset vType = qType.Code>
 								<cfset vClass = "active_color">									
 							</cfif>
 							
-							<td height="50px" style="padding:0px">
-								
-									<table cellpadding="0" cellspacing="0" width="100%" height="100%">
-										<tr>
-											<td onmouseover="mouseover(this)" onmouseout="mouseout(this)" 
-											onclick="setmode('#mode#','#code#')" id="tdm#code#" name="tdm#code#" class="tdmmenu #vClass#" align="center" 
-											style="border-radius:3px;border:1px solid gray;padding:5px" valign="center"><cf_tl id="#Description#"></td>	
-										</tr>
-									</table>
-														
-							</td>												
+	                        <style>
+	                            .tdmmenu, .clear_color{ background: ##ffffff;color:##333333!important;}
+	                            .active_color, .over_color, .over_color p{
+	                                background: ##f1f1f1!important;
+	                                color:##333333!important;
+	                            }
+	                        </style>
+													
+							<td onmouseover="mouseover(this)" onmouseout="mouseout(this)" 
+								onclick="setmode('#mode#','#code#')" style="width:140px !important; height:80px; border:1px solid ##cccccc;">
+									
+									<table width="100%" height="100%" align="center">
+									<tr><td align="center"><i class="fas stlmnt-md#lcase(mode)# stlmnt"></i></td></tr>
+									<tr class="labelmedium">
+									<td id="tdm#code#" name="tdm#code#" class="tdmmenu #vClass#" style="padding-bottom:4px;font-size:14px" valign="bottom"><cf_tl id="#Description#"></td></tr>
+									</table>									
+									
+							</td>															
 							
 						</cfoutput>
 						
@@ -122,160 +125,162 @@
 			</td>  
 		
 		</tr>
-			
-		<tr>	
 		
-		    <td width="100%" style="padding-left:10px;padding-right:2px;padding-top:1px">
+		</table>
+		
+	</td>
+	
+	</tr>	
 			
-				<table width="100%" width="100%">			
+	<tr>			
+			    <td width="320" style="padding-left:10px;padding-right:2px;padding-top:1px">
 				
-					<tr>
-						<td height="10" 
-						  align="center" 
-						  colspan="2" 			 
-						  bgcolor="white"  
-						  id="additional" 
-						  name="additional" 
-						  class="settlement_details" 
-						  style="border:0px solid gray;height:115;padding-right:10px;padding-left:18px">			  
-						  
-						      <cfset url.mode     = qType.mode>				
-							  <cfinclude template = "SettlementDetails.cfm">			  
+					<table width="100%" width="100%">			
+					
+						<tr>
+							<td height="10" 
+							  align="center" 
+							  colspan="2" 			 
+							  bgcolor="white"  
+							  id="additional" 
+							  name="additional" 
+							  class="settlement_details" 
+							  style="border:0px solid gray;height:115;padding-right:10px;padding-left:18px">			  
 							  
-						</td>
-					</tr>
-					
-				</table>
-				
-			 </td>
-		</tr>
-			
-		<cfquery name="qCurrency" 
-		  datasource="AppsWorkOrder" 
-		  username="#SESSION.login#" 
-		  password="#SESSION.dbpw#">
-		  
-			SELECT   DISTINCT Currency
-			FROM     WorkOrder
-			WHERE    WorkOrderid = '#WorkOrder.WorkorderId#'
-					
-		</cfquery>
-		
-		<tr>
-		
-			<td colspan="2" style="padding-right:0px"> 
-			
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formspacing">
-				
-					<tr>
-					
-					<input type="hidden" id="currency" name="currency" value="<cfoutput>#workorder.Currency#</cfoutput>"> 
-					<input type="hidden" id="btn_currency" name="btn_currency" value="tdc<cfoutput>#workorder.Currency#</cfoutput>"> 
-										
-					<cfoutput query="qCurrency">	
-					
-						<cfif workorder.Currency eq currency>					
-							<cfset vClass = "active_color">			
-						<cfelse>
-							<cfset vClass = "">							
-						</cfif>			
+							      <cfset url.mode     = qType.mode>				
+								  <cfinclude template = "SettlementDetails.cfm">			  
+								  
+							</td>
+						</tr>
+						
+						<cfquery name="qCurrency" 
+						  datasource="AppsWorkOrder" 
+						  username="#SESSION.login#" 
+						  password="#SESSION.dbpw#">
+						  
+							SELECT   DISTINCT Currency
+							FROM     WorkOrder
+							WHERE    WorkOrderid = '#WorkOrder.WorkorderId#'
 									
-						<td height="30px" style="padding:0px" onclick="setcurrency('#currency#')">
+						</cfquery>
+						
+						<tr>
+						
+							<td colspan="2" style="padding-right:0px"> 
 							
-								<table cellpadding="0" cellspacing="0" width="100%" height="100%">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formspacing">
+								
 									<tr>
-										<td align="center"id="tdc#Currency#" name="tdc#Currency#" class="labelit #vclass#" 									 
-									     onmouseover="javascript:mouseover(this)" onmouseout="javascript:mouseout(this)"
-										   valign="center" style="cursor:pointer;border-radius:3px;border:1px solid gray">#Currency#</td>
+									
+									<input type="hidden" id="currency" name="currency" value="<cfoutput>#workorder.Currency#</cfoutput>"> 
+									<input type="hidden" id="btn_currency" name="btn_currency" value="tdc<cfoutput>#workorder.Currency#</cfoutput>"> 
+														
+									<cfoutput query="qCurrency">	
+									
+										<cfif workorder.Currency eq currency>					
+											<cfset vClass = "active_color">			
+										<cfelse>
+											<cfset vClass = "">							
+										</cfif>			
+													
+										<td height="30px" style="padding:0px" onclick="setcurrency('#currency#')">
+											
+												<table cellpadding="0" cellspacing="0" width="100%" height="100%">
+													<tr>
+														<td align="center"id="tdc#Currency#" name="tdc#Currency#" class="labelit #vclass#" 									 
+													     onmouseover="javascript:mouseover(this)" onmouseout="javascript:mouseout(this)"
+														   valign="center" style="cursor:pointer;border-radius:3px;border:1px solid gray">#Currency#</td>
+													</tr>
+												</table>
+											
+										</td>		
+										
+									</cfoutput>	
+									
+									</tr>
+								
+								</table>
+								
+							</td>
+						
+						</tr>
+						
+						<tr><td height="5"></td></tr>
+					
+						<tr>
+							<td colspan="2">
+								<table cellpadding="0" cellspacing="0" width="100%">
+									<tr>
+									   					
+										<td align="left" width="50%" style="padding-left:3px">
+										
+										<cfoutput>
+										
+											<input type="Text" 
+												  id   = "line_amount_number" 
+												  name = "line_amount_number" 
+												  maxlength="9" 
+												  size="13" 
+												  value="#getSale.sTotal#"
+												  style="text-align:right;height:30px;border:1px solid gray;border-radius:4px;padding-right:4px"
+												  class="regularxxl" 
+												  onKeyUp="saveenter()"
+												  onfocus="setFocusPOS(this,'yes')">
+												  
+												  </cfoutput>
+												  
+												  
+										</td>
+										
+										<td align="right" width="50%" style="padding-left:7px;padding-right:1px">
+										
+											<cfparam name="url.terminal" default="">
+										 
+										    <cf_tl id="Save" var="1">
+											
+											<cfoutput>
+											
+												<input class="button10g"  
+												   style="width:95%;height:31;font-size:15" 
+												   type="button" 
+												   name="Update" 
+												   id="Update" 
+												   value="#lt_text#" 							   
+												   onClick="settlementlineadd('#url.workorderlineid#','#url.orgunitowner#','#url.terminal#','#url.transactiondate#','#url.transactiontime#')">	
+												   
+											</cfoutput>	
+											
+										</td>
 									</tr>
 								</table>
+							</td>
+						</tr>
 							
-						</td>		
+						<tr>
+							<td colspan="2" bgcolor="white" align="center" id="dkeypad" name="dkeypad" style="padding-top:3px">
+								<cf_keypad type="numeric" buttonwidth="84" buttonheight="68">		
+							</td>
+						</tr>
 						
-					</cfoutput>	
+						
+					</table>
 					
-					</tr>
-				
-				</table>
-				
-			</td>
-		
-		</tr>
-		
-		<tr><td height="5"></td></tr>
-	
-		<tr>
-			<td colspan="2">
-				<table cellpadding="0" cellspacing="0" width="100%">
-					<tr>
-					   					
-						<td align="left" width="50%" style="padding-left:3px">
-						
-						<cfoutput>
-						
-							<input type="Text" 
-								  id   = "line_amount_number" 
-								  name = "line_amount_number" 
-								  maxlength="9" 
-								  size="13" 
-								  value="#getSale.sTotal#"
-								  style="text-align:right;font-size:22px;height:30px;border:1px solid gray;border-radius:4px;padding-right:4px"
-								  class="regularxl" 
-								  onKeyUp="saveenter()"
-								  onfocus="setFocus(this,'yes')">
-								  
-								  </cfoutput>
-								  
-								  
-						</td>
-						
-						<td align="right" width="50%" style="padding-left:7px;padding-right:1px">
-						
-							<cfparam name="url.terminal" default="">
-						 
-						    <cf_tl id="Save" var="1">
-							
-							<cfoutput>
-							
-								<input class="button10g"  
-								   style="width:100%;height:31;font-size:15" 
-								   type="button" 
-								   name="Update" 
-								   id="Update" 
-								   value="#lt_text#" 							   
-								   onClick="settlementlineadd('#url.workorderlineid#','#url.orgunitowner#','#url.terminal#','#url.transactiondate#','#url.transactiontime#')">	
-								   
-							</cfoutput>	
-							
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
+		 </td>
+				 
 			
-		<tr>
-			<td colspan="2" bgcolor="white" align="center" id="dkeypad" name="dkeypad" style="padding-top:3px">
-				<cf_keypad type="numeric" buttonwidth="84" buttonheight="68">		
-			</td>
-		</tr>
+		<td valign="top" style="padding-top:6px;padding-left:10px;">
 		
-		</table>
-	
-	</td>
-	
-	<td valign="top" style="padding-top:6px;padding-left:10px;">
-	
-		<table height="100%">
-								
-			<tr>	
-				<td valign="top" style="border-left:1px solid silver;width:500;padding-left:24px;padding-top:5px;padding-bottom:16px;padding-right:10px" id="dlines">					
-					<cfinclude template="SettlementLines.cfm">		
-				</td>	
-			</tr>
-		
-		</table>
-		
-	</td>
+			<table height="100%">
+									
+				<tr>	
+					<td valign="top" style="border-left:1px solid silver;width:500;padding-left:24px;padding-top:5px;padding-bottom:16px;padding-right:10px" id="dlines">					
+						<cfinclude template="SettlementLines.cfm">		
+					</td>	
+				</tr>
+			
+			</table>
+			
+		</td>
 	</tr>
 	
 	</table>
@@ -283,3 +288,6 @@
 </cfform>
 
 <cfset AjaxOnload("initPOS")>
+<script>
+	initPOS();
+</script>

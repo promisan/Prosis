@@ -13,11 +13,11 @@ function viewscript(val) {
 }  
 
 function copy(crit,mod) {
-    ColdFusion.navigate('CriteriaBorrow.cfm?status=#url.status#&id=#URL.ID#&id1='+crit+'&id2='+mod,'fields')
+    ptoken.navigate('CriteriaBorrow.cfm?status=#url.status#&id=#URL.ID#&id1='+crit+'&id2='+mod,'fields')
 }
 
 function doCreateView(id,status,id1,mul) {	
-	ColdFusion.navigate('CriteriaEditViewCreate.cfm?id='+id+'&Status='+status+'&ID1='+id1+'&multiple='+mul,'viewresult','','','POST','dialog');		
+	ptoken.navigate('CriteriaEditViewCreate.cfm?id='+id+'&Status='+status+'&ID1='+id1+'&multiple='+mul,'viewresult','','','POST','dialog');		
 }
 
 function today(val) {
@@ -51,12 +51,9 @@ function show(mde,old) {
 	}	
 	}
 
-function check(nm,des)
-{
+function check(nm,des) {
 se = document.getElementById("criteriatype")
-if ((nm == "") || (des == "")) 
-
-     { 
+if ((nm == "") || (des == "")) { 
 	   se.disabled = true }
 else { se.disabled = false }
 }  
@@ -70,24 +67,25 @@ function ask() {
 
 function showtable(id1,table,mul,ds) {
 
-   window.open("CriteriaEditField.cfm?ts="+new Date().getTime()+"&ID=#URL.ID#&ID1="+id1+"&ID2="+table+"&ds="+ds, "ifield"); 
+   ptoken.open("CriteriaEditField.cfm?ts="+new Date().getTime()+"&ID=#URL.ID#&ID1="+id1+"&ID2="+table+"&ds="+ds, "ifield"); 
    
    try {
    if (mul == true) {
-     window.open("CriteriaSubField.cfm?ts="+new Date().getTime()+"&Status=#URL.Status#&ID=#URL.ID#&ID1="+id1+"&ID3="+table+"&multiple=0&ds="+ds, "isubfield");  			
+     ptoken.open("CriteriaSubField.cfm?ts="+new Date().getTime()+"&Status=#URL.Status#&ID=#URL.ID#&ID1="+id1+"&ID3="+table+"&multiple=0&ds="+ds, "isubfield");  			
    } else {
-     window.open("CriteriaSubField.cfm?ts="+new Date().getTime()+"&Status=#URL.Status#&ID=#URL.ID#&ID1="+id1+"&ID3="+table+"&multiple=1&ds="+ds, "isubfield");  			
+     ptoken.open("CriteriaSubField.cfm?ts="+new Date().getTime()+"&Status=#URL.Status#&ID=#URL.ID#&ID1="+id1+"&ID3="+table+"&multiple=1&ds="+ds, "isubfield");  			
    } } catch(e) {}
 }
   
 function extended(id1,table,mul,ds,fld) {    
-   ColdFusion.navigate('CriteriaSubField.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1='+id1+'&table='+table+'&multiple='+mul+'&ds='+ds+'&keyfld='+fld,'isubfield');		
+   ptoken.navigate('CriteriaSubField.cfm?Status=#URL.Status#&ID=#URL.ID#&ID1='+id1+'&table='+table+'&multiple='+mul+'&ds='+ds+'&keyfld='+fld,'isubfield');		
 }
 
 function save(val) {
 	document.dialog.onsubmit();	
-	if( _CF_error_messages.length == 0 ) {
-		ColdFusion.navigate('CriteriaEditSubmit.cfm?id1=#url.id1#&status=#URL.status#&option='+val,'target','','','POST','dialog')
+	if( _CF_error_messages.length == 0 ) {	  	
+	    Prosis.busy('yes')    
+		ptoken.navigate('CriteriaEditSubmit.cfm?id1=#url.id1#&status=#URL.status#&option='+val,'fields','','','POST','dialog')
 	 }   
 }	 
  

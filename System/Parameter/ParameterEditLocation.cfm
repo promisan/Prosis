@@ -53,8 +53,7 @@ datasource="AppsInit">
 			<cfinput class="regularxl" type="Text" name="ApplicationRootPath" value="#ApplicationRootPath#" message="Please enter the correct URL" required="Yes" size="40" maxlength="50">
 		</cfoutput>	 	   
     </TD>
-	</TR>
-	
+	</TR>	
 		
 	<!--- Field: Prosis Document Root Path--->
 	<TR>
@@ -65,6 +64,7 @@ datasource="AppsInit">
 		</cfoutput>	 	   
     </TD>
 	</TR>
+	
     <TR>
     <td style="padding-left:10px;" class="labelit" width="160">Default Attachment Path:</td>
     <TD colspan="2">
@@ -75,6 +75,18 @@ datasource="AppsInit">
 	</TR>	
 	
 	<tr><td></td><td><i>This is standard path used for attachments if this is not overwritten for a specific attachment directory under [Attachment Settings]</td></tr>
+						
+	<TR>
+    <td style="padding-left:10px;" class="labelit" width="160">Listing Preparation Path:</td>
+    <TD colspan="2">
+        <cfoutput query="get">
+			<cfinput class="regularxl" type="Text" name="ListingRootPath" value="#ListingRootPath#" message="Please enter the correct URL" required="Yes" size="40" maxlength="50">
+		</cfoutput>	 	   
+    </TD>
+	</TR>
+		
+	<tr><td></td><td><i>This is standard path used for storing listing custom queries</td></tr>
+	
 			
 	<tr><td style="height:45px;font-size:22px;font-weight:200;padding-left:10px" height="3" class="labellarge" colspan="2">Document Management Xythos Server</td></tr>
 			

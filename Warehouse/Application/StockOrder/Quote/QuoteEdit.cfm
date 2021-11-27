@@ -146,8 +146,7 @@
 		document.getElementById('qteamount').innerHTML = "#numberformat(get.Amount,',.__')#"   	
 		document.getElementById('qtetax').innerHTML    = "#numberformat(get.Tax,',.__')#" 
 		document.getElementById('qtetotal').innerHTML  = "#numberformat(get.Total,',.__')#" 	
-		ptoken.navigate('doStockCheck.cfm?id=#transactionid#','box#transactionid#')	
-		alert('a')
+		ptoken.navigate('doStockCheck.cfm?id=#transactionid#','box#transactionid#')			
 	</script>
 	
 	</cfoutput>

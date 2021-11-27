@@ -236,8 +236,7 @@
 		<cfparam name="Attributes.GlAccount#Ln#" default="">
 		<cfset glaccount         =  evaluate("Attributes.GLAccount#Ln#")>
 		<cfset class             =  evaluate("Attributes.Class#Ln#")>
-		<cfset amount            =  evaluate("Attributes.Amount#Ln#")>
-		
+		<cfset amount            =  evaluate("Attributes.Amount#Ln#")>		
 		
 		<cfparam name="Attributes.TransactionAmount#Ln#" default="#amount#">
 		<cfset transactionamount =  evaluate("Attributes.TransactionAmount#Ln#")>

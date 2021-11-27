@@ -63,12 +63,13 @@
 			FROM   TransactionHeader T
 							
 			WHERE  T.Journal = '#url.journal#'
-			AND    T.JournalSerialNo IN (SELECT T.JournalSerialNo
-			                             FROM  #preservesinglequotes(session.SelectedId)#)
+			AND    T.JournalSerialNo IN (#preservesinglequotes(session.Selectedrecords)#)
 					
 			ORDER BY T.Journal,T.JournalSerialNo
+			
 								
 		</cfquery>
+
 		
 		<cfquery name="TransactionListing"
 		datasource="AppsLedger" 
@@ -134,7 +135,7 @@
                     Ref_Account ON L.GLAccount = Ref_Account.GLAccount
 			
 			WHERE   L.Journal = '#url.journal#'
-			AND     L.JournalSerialNo IN (SELECT  T.JournalSerialNo FROM #preservesinglequotes(session.SelectedId)#)
+			AND     L.JournalSerialNo IN (#preservesinglequotes(session.SelectedRecords)#)
 			
 			ORDER BY H.Journal, H.JournalSerialNo, L.TransactionSerialNo		
 							

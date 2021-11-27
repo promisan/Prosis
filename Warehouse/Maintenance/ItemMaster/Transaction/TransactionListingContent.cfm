@@ -146,7 +146,16 @@
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "UoMDescription",					
 						alias       = "",																			
-						search      = "text"}>								
+						search      = "text",
+						filtermode  = "3"}>			
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Class" var = "1"> 		
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "ClassMode",					
+						alias       = "",																			
+						search      = "text",
+						filtermode  = "3"}>											
 	
 	<!---					
 	<cfset itm = itm+1>

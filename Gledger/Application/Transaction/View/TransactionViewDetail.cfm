@@ -626,6 +626,8 @@
 			  
 			    <cf_customField 
 				     mode="view" 
+					 colspan="3"
+					 stylelabel="padding-left:15px;background-color:fafafa"
 				     TopicClass="header"
 				     journal="#URL.Journal#" 
 					 journalserialno="#URL.JournalSerialNo#">

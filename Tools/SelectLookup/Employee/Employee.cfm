@@ -31,7 +31,7 @@
 			<!--- Field: Staff.LastName=CHAR;40;FALSE --->
 			<INPUT type="hidden" name="Crit2_FieldName" id="Crit2_FieldName" value="FullName">
 			<INPUT type="hidden" name="Crit2_FieldType" id="Crit2_FieldType" value="CHAR">
-			<TR>
+			<TR class="fixlengthlist">
 			<td width="100" align="left" class="labelmedium"><cf_tl id="Name">:</td>
 					
 			<TD>
@@ -70,7 +70,7 @@
 			
 			<INPUT type="hidden" name="Crit1_FieldName" id="Crit1_FieldName" value="IndexNo">	
 			<INPUT type="hidden" name="Crit1_FieldType" id="Crit1_FieldType" value="CHAR">
-			<TR>
+			<TR class="fixlengthlist">
 			<TD align="left" class="labelmedium"><cfoutput>#client.IndexNoName#</cfoutput>:</TD>
 			<TD>
 			<table cellspacing="0" cellpadding="0">
@@ -90,7 +90,7 @@
 			<INPUT type="hidden" name="Crit3_FieldName" id="Crit3_FieldName" value="Reference">	
 			<INPUT type="hidden" name="Crit3_FieldType" id="Crit3_FieldType" value="CHAR">
 			
-			<TR>
+			<TR class="fixlengthlist">
 			
 				<TD class="labelmedium"><cf_tl id="ExternalReference">:</TD>
 				<TD>
@@ -132,13 +132,13 @@
 			
 			<cfelse>
 			
-				<tr>
+				<tr class="fixlengthlist">
 				
 				<td height="20" align="left" class="labelmedium"><cf_tl id="Contract">: </TD>
 				<td>
 				  
 					   <table cellspacing="0" cellpadding="0">
-					   <tr>				   
+					   <tr class="fixlengthlist">				   
 						   <td><input type="checkbox" name="Contract" id="Contract" value="1"></td>
 						   <td style="padding-left:5px" class="labelmedium"><cf_tl id="Required"></td>
 						   <td width="20" style="padding-right:10px"></td>

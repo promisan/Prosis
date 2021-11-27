@@ -77,6 +77,7 @@ password="#SESSION.dbpw#">
 	GROUP BY  Currency 
 </cfquery> 
 
+
 <cfif getSale.sTotal eq "0">
 	
 	<script>
@@ -87,7 +88,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 
-<table id="tsettlement" name="tsettlement" align="center" height="100%" border="0" class="navigation_table">
+<table id="tsettlement" name="tsettlement" align="center" height="100%" class="navigation_table">
 
 <tr><td colspan="7">
 
@@ -111,7 +112,7 @@ password="#SESSION.dbpw#">
 		<td height="20" style="padding-right:4px"><cf_tl id="TaxReference">:</td>
 		<td>
 		
-		<input type="text" onchange="ColdFusion.navigate('#session.root#/workorder/application/settlement/setPayer.cfm?orgunitowner=#url.orgunitowner#&workorderlineid=#url.workorderlineid#','taxpay','','','POST','salesdetails')" 
+		<input type="text" onchange="ptoken.navigate('#session.root#/workorder/application/settlement/setPayer.cfm?orgunitowner=#url.orgunitowner#&workorderlineid=#url.workorderlineid#','taxpay','','','POST','salesdetails')" 
 		   name="SettleReference" id="SettleReference" value="#ref#" size="20" maxlength="20" class="enterastab regularxl">	
 		   
 		</td>
@@ -144,7 +145,7 @@ password="#SESSION.dbpw#">
 		<td height="20" ><cf_tl id="Name">:</td>
 		
 		<td colspan="3">
-		<input type="text" onchange="ColdFusion.navigate('#session.root#/workorder/application/settlement/setPayer.cfm?orgunitowner=#url.orgunitowner#&workorderlineid=#url.workorderlineid#','taxpay','','','POST','salesdetails')"  
+		<input type="text" onchange="ptoken.navigate('#session.root#/workorder/application/settlement/setPayer.cfm?orgunitowner=#url.orgunitowner#&workorderlineid=#url.workorderlineid#','taxpay','','','POST','salesdetails')"  
 		 name="SettleCustomerName" id="SettleCustomerName" value="#nme#" style="width:100%" maxlength="80" class="enterastab regularxl">	
 		</td>
 	</tr>
@@ -159,115 +160,116 @@ password="#SESSION.dbpw#">
 
 <tr><td height="100%" colspan="7" valign="top">
 
-<table width="100%">
-
-<tr class="settlement_title labelit">
+	<table width="100%">
 	
-	<td class="line" width="3%"></td>
-	<td class="line" width="5%"></td>
-	<td class="line" width="35%"><cf_tl id="Type"></td>	
-	<td class="line" align="right"></td>
-	<td class="line" width="15%" align="right"><cf_tl id="Amount"></td>
-	<td class="line" width="15%" align="right">#getSale.Currency#</td>
-	<td class="line" width="2%"></td>		
-</tr>
-
-<cfset vTotal = 0>
-<cfset vTotal_Cash = 0>
-
-<cfloop query = "getSettle">
-
-	<tr class="line_details navigation_row labelmedium">
-			
-		<td class="line" style="padding-left:10px;padding-right:7px;height:35px">#currentrow#.</td>
-		<td class="line" style="padding-right:7px">
+	<tr class="settlement_title labelit fixlengthlist line">
 		
-		<img src="#SESSION.root#/images/delete5.gif" 
-						     alt="#lt_text#" 
-							 border="0" 
-							 width="15" height="15"
-							 style="cursor:pointer" 
-							 class="navigation_action"
-						     onclick="_cf_loadingtexthtml='';settlementlinedelete('#workordersettleid#','#url.workorderlineid#','#url.orgunitowner#','#url.terminal#','#url.transactiondate#','#url.transactiontime#')">
+		<td></td></td>
+		<td></td>
+		<td><cf_tl id="Type"></td>	
+		<td align="right"></td>
+		<td align="right"><cf_tl id="Amount"></td>
+		<td align="right">#getSale.Currency#</td>
+		<td></td>		
+	</tr>
+	
+	<cfset vTotal = 0>
+	<cfset vTotal_Cash = 0>
+	
+	<cfloop query = "getSettle">
+	
+		<tr class="line_details navigation_row labelmedium fixlengthlist line">
+				
+			<td style="padding-left:4px;height:35px">#currentrow#.</td>
+			<td>
+			
+			<img src="#SESSION.root#/images/delete5.gif" 
+							     alt="#lt_text#" 
+								 border="0" 
+								 width="15" height="15"
+								 style="cursor:pointer" 
+								 class="navigation_action"
+							     onclick="_cf_loadingtexthtml='';settlementlinedelete('#workordersettleid#','#url.workorderlineid#','#url.orgunitowner#','#url.terminal#','#url.transactiondate#','#url.transactiontime#')">
+						
+				
+			</td>
+			<td>#Description#</td>
+			<td align="right" style="font-size:13px">#SettleCurrency#</td>
+			<td align="right" style="padding-left:5px;font: large Calibri;">#NumberFormat(SettleAmount, ',.__')# </td>
+			<td align="right">
+		 
+				<cfif SettleCurrency neq getSale.Currency>
+				
+				    <!--- this will not happen as the currency is set the workorder currency --->
 					
-			
-		</td>
-		<td class="line">#Description#</td>
-		<td class="line" align="right" style="font-size:13px">#SettleCurrency#</td>
-		<td class="line" align="right" style="padding-left:5px;font: large Calibri;">#NumberFormat(SettleAmount, ',.__')# </td>
-		<td class="line" align="right">
-	 
-			<cfif SettleCurrency neq getSale.Currency>
-			
-			    <!--- this will not happen as the currency is set the workorder currency --->
+					<cfset exc = 0.00>
+					<cf_exchangerate CurrencyFrom = "#SettleCurrency#" CurrencyTo = "#getSale.Currency#">
+					<cfset vConverted_Amount = round(SettleAmount/exc * 100 )/ 100>		
+					
+				<cfelse>
+					<cfset vConverted_Amount = SettleAmount>	
+				</cfif>	
 				
-				<cfset exc = 0.00>
-				<cf_exchangerate CurrencyFrom = "#SettleCurrency#" CurrencyTo = "#getSale.Currency#">
-				<cfset vConverted_Amount = round(SettleAmount/exc * 100 )/ 100>		
+				<cfif Mode eq "Cash">
+					<cfset vTotal_Cash = vTotal_Cash + vConverted_Amount>
+				</cfif>
 				
-			<cfelse>
-				<cfset vConverted_Amount = SettleAmount>	
-			</cfif>	
-			
-			<cfif Mode eq "Cash">
-				<cfset vTotal_Cash = vTotal_Cash + vConverted_Amount>
-			</cfif>
-			
-			#NumberFormat(vConverted_Amount, ',.__')#	
-			<cfset vTotal = vTotal + vConverted_Amount>		
-			
-		</td>
-		<td class="line"></td>
-	
-	</tr>
-	
-	<cfswitch expression="#Mode#">
-	
-		<cfcase value="Gift">
-			<tr height="20">
-			<td></td>
-			<td colspan="6" class="labelmedium">#PromotionCardNo#</td>
-			</tr>
-		</cfcase>
-		
-		<cfcase value="Credit">
-			<tr height="20">
-			<td></td>
-			<td colspan="6">
-			<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
-				<tr class="labelmedium line_details"><td style="padding-left:10px">#CreditCardNo# &nbsp;&nbsp;Expiry: #ExpirationMonth#/#ExpirationYear# &nbsp;&nbsp;&nbsp;Approval: #ApprovalCode#</td></tr>									
-			</table>
+				#NumberFormat(vConverted_Amount, ',.__')#	
+				<cfset vTotal = vTotal + vConverted_Amount>		
+				
 			</td>
-			</tr>
-		</cfcase>
-		
-		<cfcase value="Check">
-			<tr height="20">
 			<td></td>
-			<td colspan="6">
-			<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
-				<tr class="labelmedium line_details"><td style="padding-left:10px">#BankName# &nbsp;&nbsp;Check No.: #ApprovalReference#  &nbsp;&nbsp;Approval: #ApprovalCode#</td></tr>									
-			</table>
-			</td>
-			</tr>
-		</cfcase>
 		
-	</cfswitch>
-	
-	</td>		
-	</tr>
+		</tr>
+		
+		<cfswitch expression="#Mode#">
+		
+			<cfcase value="Gift">
+				<tr height="20">
+				<td></td>
+				<td colspan="6" class="labelmedium">#PromotionCardNo#</td>
+				</tr>
+			</cfcase>
 			
-</cfloop>
+			<cfcase value="Credit">
+				<tr height="20">
+				<td></td>
+				<td colspan="6">
+				<table width="100%" class="formpadding">
+					<tr class="labelmedium line_details"><td style="padding-left:10px">#CreditCardNo# &nbsp;&nbsp;Expiry: #ExpirationMonth#/#ExpirationYear# &nbsp;&nbsp;&nbsp;Approval: #ApprovalCode#</td></tr>									
+				</table>
+				</td>
+				</tr>
+			</cfcase>
+			
+			<cfcase value="Check">
+				<tr height="20">
+				<td></td>
+				<td colspan="6">
+				<table width="100%" class="formpadding">
+					<tr class="labelmedium line_details"><td style="padding-left:10px">#BankName# &nbsp;&nbsp;Check No.: #ApprovalReference#  &nbsp;&nbsp;Approval: #ApprovalCode#</td></tr>									
+				</table>
+				</td>
+				</tr>
+			</cfcase>
+			
+		</cfswitch>
+		
+		</td>		
+		</tr>
+				
+	</cfloop>
+	
+	</table>
+	</td>
+	</tr>
 
-</table></td></tr>
-
-	 <cfset dte = DateTimeFormat("#url.TransactionDate# #transtime#","YYYYMMDD_HH_nn_ss")>
-
-
+	<cfset dte = DateTimeFormat("#url.TransactionDate# #transtime#","YYYYMMDD_HH_nn_ss")>
+	
 	<script language="JavaScript">					
 		settlementview('#url.workorderlineid#','#url.orgunitowner#','#url.transactiondate#','#url.orgunitowner#_#dte#') 		
-	</script>
-	
+	</script>	
+		
 	<cfquery name="getDiscounted" dbtype="query">
 		SELECT 	SUM(SettleAmount) as SettleAmount
 		FROM 	getSettle
@@ -312,7 +314,7 @@ password="#SESSION.dbpw#">
 			
 		</cfif>
 						
-		<tr height="45">
+		<tr>
 		    <td colspan="3"></td>
 			<td colspan="2" style="padding-left:10px;padding-right:20px" class="labelmedium"><cf_tl id="Total Due"><cf_space spaces="40"></td>
 			<td align="right" class="labellarge" style="border-top:1px solid gray;width:400px;font-size:21px;color:gray">#NumberFormat(getSale.sTotal, ',.__')# </td>
@@ -397,166 +399,27 @@ password="#SESSION.dbpw#">
 				</cfif>	 
 						
 				<tr><td colspan="7" class="line"></td></tr>	
-				<tr height="50">
+				<tr>
 					<td colspan="5" align="left" style="padding-left:20px" class="labellarge"><cf_tl id="Cash back"><cf_space spaces="50"></td>
 					<td align="right" style="font-size:34px"><font color="0080C0">#NumberFormat(vRemaining, ',.__')#</td>
 					<td></td>
 				</tr>	
 			
 			</cfif>
-			
-			<tr><td height="20"></td></tr>
-			
+						
 		<cfelseif url.close eq "1">
 		
 			<script>
 				ProsisUI.closeWindow('wsettle',true)
 			</script>	
 			
-		</cfif>	
-		
-		<!---
-		
-		<cfif getSettle.recordcount gte "1">
-		
-		<tr class="settlement_title" height="100%">
-				
-			<td colspan="7" align="center" valign="bottom" style="padding-top:6px">
-					
-			<cf_tl id="Tender" var="1">	
-		
-			<cf_button2
-				text		 = "#lt_text#" 
-				subtext		 = "#lt_text#"
-				id			 = "printsettlement"  
-				bgColor		 = "##a0a0a0"
-				textsize	 = "26px" 
-				subtextsize	 = "15px" 
-				height		 = "60px"
-				width		 = "200px"							
-				textColor	 = "##F2F2F2"
-				borderRadius = "5px">
-						
-			</td>			
-			
-		</tr>	
-					
 		</cfif>		
-		
-		--->	
-		
-		<!--- not relevant here as we post from the main screen 
-		
-		<cfif NumberFormat(vTotal, '_____.__') gte NumberFormat(getSale.sTotal, '_____.__')>
-		
-			<tr><td colspan="7" class="line"></td></tr>				
-			<tr><td colspan="7" height="10"></td></tr>	
-				
-			<tr class="settlement_title" height="100%">
-				
-					<td colspan="7" align="center" valign="bottom" style="padding-bottom:10px">
-										
-					<cf_tl id="Invoice"    var="label1">
-					<cf_tl id="Electronic" var="label2">		
-					<cf_tl id="Manual"     var="label3">						
-								
-					<cfquery name="getInvoiceSale"
-					 datasource="AppsTransaction" 
-					 username="#SESSION.login#" 
-					 password="#SESSION.dbpw#">
-					 	SELECT  R.*
-						FROM    Sale#url.warehouse# R
-						WHERE   CustomerIdInvoice IN (SELECT CustomerId FROM Materials.dbo.Customer WHERE CustomerId = R.CustomerIdInvoice)
-						AND     CustomerId = '#URL.CustomerId#'
-					</cfquery> 
-					
-					<cfif getInvoiceSale.recordcount gte "1">
-								
-						<cfset customeridinvoice = getInvoiceSale.CustomerIdInvoice>
-						
-					<cfelse>
-					
-						<cfset customeridinvoice = url.customerid>
-						
-					</cfif>					
-										
-					<cfquery name="getWarehouseJournal"
-						 datasource="AppsMaterials" 
-						 username="#SESSION.login#" 
-						 password="#SESSION.dbpw#">
-						 	SELECT  *
-							FROM    WarehouseJournal
-							WHERE   Warehouse = '#url.warehouse#'
-							AND		Area      = 'SETTLE'
-							AND		Currency  = '#getSale.SalesCurrency#'
-					</cfquery> 
-					
-					<cfif getWarehouseJournal.TransactionMode eq "2">
-					
-						<cfif getSale.sTotal neq "0">
-						
-							<cf_button2
-								text		 = "&nbsp;&nbsp;#label2#" 
-								subtext		 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#label1#"
-								id			 = "postsettlementbutton1"  
-								bgColor		 = "##3C5AAB"
-								textsize	 = "26px" 
-								subtextsize	 = "15px" 
-								height		 = "60px"
-								width		 = "200px"							
-								textColor	 = "##F2F2F2"
-								borderRadius = "5px"
-								onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','2')">
-							
-						</cfif>
-						
-							<cf_button2
-								text		 = "&nbsp;&nbsp;&nbsp;#label3#" 
-								subtext		 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#label1#"
-								id			 = "postsettlementbutton2"  
-								bgColor		 = "##a0a0a0"
-								textsize	 = "26px" 
-								subtextsize	 = "15px" 
-								height		 = "60px"
-								width		 = "200px"							
-								textColor	 = "##F2F2F2"
-								borderRadius = "5px"
-								onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','1')">
-														
-					
-					<cfelse>		
-							
-							<cf_tl id="Tender" var="1">	 
-							
-							<cf_button2
-								text		 = "&nbsp;&nbsp;#label1#" 
-								subtext		 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#lt_text#"
-								id			 = "postsettlementbutton"  
-								bgColor		 = "##a0a0a0"
-								textsize	 = "26px" 
-								subtextsize	 = "15px" 
-								height		 = "60px"
-								width		 = "200px"							
-								textColor	 = "##F2F2F2"
-								borderRadius = "5px"
-								onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','1')">
-								
-					</cfif>		
-											   
-					</td>
-			 </tr>					
-			 <tr class="hide"><td colspan="settlementprocessbox"></td></tr>	
-			 
-		<cfelse>
-		
-			<tr><td height="100%"></td></tr>	 
-		 
-		 </cfif>
-		 
-		 --->
-			
+		 			
 </table>
+
 
 </cfoutput>
 
 <cfset ajaxonload("doHighlight")>
+
+
