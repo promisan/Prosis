@@ -310,6 +310,7 @@
 						<cfset vSelect = getRate.CostId>
 					</cfif>
 				</cfloop>
+				
 				<cf_uiselect name  = "#UnitClass#_costid_0"
 						id         = "#UnitClass#_costid_0"
 						style      = "width:180px;border-radius:3px"
@@ -320,6 +321,7 @@
 						filter     = "contains"
 						class      = "provision regularxl enterastab"
 						onchange   = "unitshow('#unitclass#',this.value(),'#qt#');showfeature('#unitclass#',this.value(),'#url.workorderid#','#url.workorderline#','#url.requestid#','#url.mode#','#url.billingid#','#url.orgunitowner#','#url.date#')">
+						
 				</cf_uiselect>
 			
 			</cfif>
@@ -355,7 +357,7 @@
 		
 	</td>			
 	
-	<td id="#UnitClass#_quantity" style="padding-left:2px;" class="labelit #cl#">
+	<td id="#UnitClass#_quantity" align="right" style="width:65px;min-width:65px;" class="labelit #cl#">
 	
 		<cfif UnitUsed.recordcount gte "1">				
 		
@@ -400,8 +402,8 @@
 										
 					</td>
 					
-					<td>								
-						<cf_inputInteger id="#UnitClass#_unitquantity_0" height="9" width="16">							
+					<td style="padding-left:3px;padding-right:3px">								
+						<cf_inputInteger id="#UnitClass#_unitquantity_0" height="10" width="16">							
 			        </td>
 					
       			</tr>
@@ -425,7 +427,7 @@
 		   <cfset clu = cl>
 	</cfif>	
 	
-	<td id="#UnitClass#_currency" class="labelit #clu#">
+	<td id="#UnitClass#_currency" class="labelit #clu#" style="width:60px;min-width:60px;">
 	
 		<cfif UnitUsed.recordcount gte "1">				
 		   <cfset cu = unitused.currency>
@@ -436,10 +438,8 @@
 	
 	</td>
 			
-	<td id="#UnitClass#_stdprice" align="right" style="padding-top:1px" class="labelit #clu#">
-			
-	    <cf_space spaces="20">
-		  
+	<td id="#UnitClass#_stdprice" align="right" style="width:100px;min-width:100px;padding-top:1px" class="labelit #clu#">
+			  
 		<cfif UnitUsed.recordcount gte "1">	
 		
 			<!--- no value --->
@@ -457,7 +457,7 @@
 	
 	</td>	
 		
-	<td id="#UnitClass#_price" class="#clu#" align="right">
+	<td id="#UnitClass#_price" style="width:100px;min-width:100px;" class="#clu#" align="right">
 		
 	    <table cellspacing="0" cellpadding="0">
 		<tr>
@@ -503,7 +503,7 @@
 												
 	</td>	
 	
-	<td id="#UnitClass#_charged" align="right" class="labelit #clu#">
+	<td id="#UnitClass#_charged" style="width:100px;min-width:100px;" align="right" class="labelit #clu#">
 	
 	<cfif url.accessmode eq "edit">	
 		
@@ -534,7 +534,7 @@
 	
 	</td>	
 		
-	<td align="right" id="#UnitClass#_total" class="#clu#">
+	<td align="right" style="width:100px;min-width:100px;" id="#UnitClass#_total" class="#clu#">
 		
 		<table>
 			<tr>
@@ -558,14 +558,15 @@
 			
 </tr>
 
-<cfif unitselect.unitspecification neq "">
 <tr class="#cl#" id="#UnitClass#_specification" style="height:1px;padding:2px">
    <td></td>
    <td colspan="8" style="height:0px;padding-left:25px;padding-top:2px;padding-bottom:2px;color:gray" id="#UnitClass#_specification_content" class="labelmedium">  
+   <cfif unitselect.unitspecification neq "">
    #unitselect.unitspecification#
+   </cfif>
    </td>				
 </tr>	
-</cfif>
+
 
 <!---
 </cfif>	

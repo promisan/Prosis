@@ -260,6 +260,7 @@ function onhandfiltermain(mis,whs,id) {
 }
 
 function pricefiltermain(mis,whs,id) {
+    Prosis.busy('yes')
 	url = "../../SalesOrder/Pricing/Pricing.cfm?"+
 				"&height="+document.body.offsetHeight+
 	            "&warehouse="+whs+

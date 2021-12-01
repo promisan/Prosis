@@ -67,8 +67,6 @@
 
 <!-- <cfform name="dummy"> -->
 
-
-
 	<cf_setCalendarDate name="DatePlanning#url.code#"
 	    id="DatePlanning#url.code#"
 		key1="result#url.Code#" <!--- button to validate --->		
@@ -83,8 +81,7 @@
 		dialog="Yes"	
 		pfunction="workplanverify"
 		pfunctionselect="function(d){ workplanverify(d,'','','#url.applyid#');}"	
-		mode="datetime">	
-		
+		mode="datetime">		
 			
 	
 <!-- </cfform> -->

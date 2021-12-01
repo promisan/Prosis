@@ -80,7 +80,7 @@
 		function addworkplan(mission,org,personno,date) {				  
 			w = screen.width-270
 		    h = screen.height-200	 
-			ptoken.open('#session.root#/WorkOrder/Application/Medical/ServiceDetails/WorkPlan/Create/PatientListing.cfm?mission=' + mission + '&orgunit=' + org + '&personno=' + personno+ '&date=' + date,'_blank')			
+			ptoken.open('#session.root#/WorkOrder/Application/Medical/ServiceDetails/WorkPlan/Create/PatientListing.cfm?mission=' + mission + '&orgunit=' + org + '&personno=' + personno+ '&date=' + date,'contact')			
 		}		
 
 		function toggleCalendar(dte) {

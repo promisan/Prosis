@@ -3,9 +3,7 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT	'Class' as Unit, S.unitClass as Parent, U.Description as Description
-		FROM	ServiceItemUnit S,
-				Ref_UnitClass U
-		WHERE	S.unitClass  = U.code
+		FROM	ServiceItemUnit S INNER JOIN Ref_UnitClass U ON S.unitClass  = U.code
 		AND		ServiceItem  = '#URL.ID1#'
 		AND 	UnitClass   != 'regular'
 		
@@ -20,7 +18,7 @@
 		AND     UnitParent is NULL or UnitParent = ''
 </cfquery>
 
-<select name="unitParent" id="unitParent" class="regularxl">
+<select name="unitParent" id="unitParent" class="regularxl" style="width:280px">
 	<option value="">N/A</option>
 	<cfoutput query="getLookup">
 	  <option value="#Parent#" <cfif Parent eq URL.unitParent>selected</cfif>>#Description# (#Parent#)</option>

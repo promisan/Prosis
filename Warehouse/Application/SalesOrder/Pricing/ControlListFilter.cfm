@@ -68,26 +68,26 @@
 					
 	<td>		
 	
-	<table width="95%" class="formspacing"  align="center">
+	<table width="98%" class="formspacing"  align="center">
 	
 		<tr>
 			<td height="5"></td>
 		</tr>
 		
-		<tr class="labelmedium">
-			<TD style="width:190px"><cf_tl id="Program">:</TD>
-	        <td align="left">
+		<tr class="labelmedium fixlengthlist">
+			<TD><cf_tl id="Program">:</TD>
+	        <td align="left" style="padding-left:6px">
 			   			
-			    <select name="programcode" id="programcode" style="width:300px;" class="regularxxl">
+			    <select name="programcode" id="programcode" class="regularxxl" style="width:240px">
 					<option value=""><cf_tl id="Any"></option>
 					<cfoutput query="Program">
 					<option value="#ProgramCode#">#ProgramName#</option>
 					</cfoutput>
 				</select>
 		  	</td>	
-			<TD style="width:190px"><cf_tl id="Price schedule">:</TD>
-			<td>
-			 <select name="priceSchedule" id="priceSchedule" style="width:300px;" class="regularxxl">
+			<TD><cf_tl id="Price schedule">:</TD>
+			<td style="padding-left:6px">
+			 <select name="priceSchedule" id="priceSchedule" class="regularxxl">
 					<option value=""><cf_tl id="Any"></option>
 					<cfoutput query="PriceSchedule">
 					<option value="#Code#">#Description#</option>
@@ -98,9 +98,9 @@
 			</td>
 		</tr>	
 		
-	    <tr class="labelmedium">
-			<td width="15%"><cf_tl id="Category">:</td>
-			<td>	
+	    <tr class="labelmedium fixlengthlist">
+			<td><cf_tl id="Category">:</td>
+			<td style="padding-left:6px">	
 			    <select name="category" id="category" size="1" class="regularxxl">	
 					<option value=""><cf_tl id="Any"></option>			
 				    <cfoutput query="CategoryList">
@@ -109,11 +109,11 @@
 			    </select>								
 			</td>	
 			
-			<td width="15%"><cf_tl id="In Stock">:</td>
+			<td><cf_tl id="In Stock">:</td>
 			<td>
 			<table>
-			<tr class="labelmedium">
-			<td>
+			<tr class="labelmedium fixlengthlist">
+			<td style="padding-left:3px">
 			 <select name="InStock" id="InStock" size="1" class="regularxxl">	
 					<option value=""><cf_tl id="N/A"></option>	
 					<option value="1"><cf_tl id="Has stock"></option>				
@@ -121,8 +121,8 @@
 					<option value="9"><cf_tl id="No movement"></option>				   
 			    </select>		
 			</td>
-			<td style="padding-left:30px;min-width:70px"><cf_tl id="Has a Price">:</td>
-			<td style="padding-left:20px">
+			<td><cf_tl id="Has a Price">:</td>
+			<td>
 			    <select name="Hasprice" id="HasPrice" size="1" class="regularxxl">						
 					<option value="1" selected><cf_tl id="Yes"></option>				
 					<option value="0"><cf_tl id="No"></option>						   
@@ -131,14 +131,14 @@
 			
 		</tr>
 		
-		<tr class="labelmedium">
+		<tr class="labelmedium fixlengthlist">
 			<td><cf_tl id="Sale Currency">:</td>
-			<td>	
+			<td style="padding-left:6px">	
 			  	<cf_securediv id="divPriceCurrency" bind="url:../../SalesOrder/Pricing/Currency.cfm?warehouse=#url.warehouse#&category={category}">			
 			</td>
-			<TD style="width:190px"><cf_tl id="Tax code">:</TD>
-			<td>
-			<select name="taxcode" id="taxcode" style="width:300px;" class="regularxxl">
+			<TD style="padding-left:3px"><cf_tl id="Tax code">:</TD>
+			<td style="padding-left:6px">
+			<select name="taxcode" id="taxcode" class="regularxxl">
 					<option value=""><cf_tl id="Any"></option>
 					<cfoutput query="Tax">
 					<option value="#TaxCode#">#Description#</option>
@@ -147,7 +147,7 @@
 			</td>
 		</tr>
 		
-		<tr class="labelmedium">
+		<tr class="labelmedium fixlengthlist">
 			<td><cf_tl id="Price Effective date">:</td>
 			<td>	
 				 <cf_intelliCalendarDate9

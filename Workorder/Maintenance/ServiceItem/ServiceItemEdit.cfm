@@ -16,14 +16,14 @@ password="#SESSION.dbpw#">
 
 <CFFORM action="RecordSubmit.cfm?loadcolor=#url.loadcolor#" method="post" name="editform" onsubmit="return false">
 
-<table width="94%" class="formpadding" cellspacing="0" cellpadding="0" align="center">
+<table width="94%" class="formpadding" align="center">
 
 	<cfoutput>
 	
 	<tr><td height="5"></td></tr>
 	
 	<TR>
-	 <TD class="labelmedium" height="23"><cf_tl id="Code">:</TD>  
+	 <TD class="labelmedium2" height="23"><cf_tl id="Code">:</TD>  
 	    <td>
 		
 		<table>
@@ -38,7 +38,7 @@ password="#SESSION.dbpw#">
 		</cfif>
 		<cfinput type="hidden" name="CodeOld" value="#get.Code#">
 		
-		<td style="padding-left:25px" class="labelmedium">Operational:</TD>	
+		<td style="padding-left:25px" class="labelmedium2"><cf_tl id="Operational">:</TD>	
 		<td style="padding-left:10px" colspan="#col#" class="labelmedium">
 	        <table cellspacing="0" cellpadding="0">
 			<tr>
@@ -56,7 +56,7 @@ password="#SESSION.dbpw#">
 	</TR>
 		
     <TR valign="top">
-    <TD class="labelmedium">Description *:&nbsp;</TD>
+    <TD class="labelmedium2"><cf_tl id="Description"> *:&nbsp;</TD>
     <TD colspan="#col#">
 		<cf_LanguageInput
 			TableCode		= "ServiceItem"
@@ -70,13 +70,13 @@ password="#SESSION.dbpw#">
 			Message         = "Please enter a description"
 			MaxLength       = "50"
 			Size            = "50"
-			Class           = "regularxl">
+			Class           = "regularxxl">
     </TD>
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium">Mode:</TD>
-    <TD colspan="#col#" class="labelmedium">
+    <TD class="labelmedium2"><cf_tl id="Mode">:</TD>
+    <TD colspan="#col#" class="labelmedium2">
 	    <table cellspacing="0" cellpadding="0">
 		<tr>
 		<td style="height:24"><input type="radio" class="radiol" name="ServiceMode" id="ServiceMode" value="Service" <cfif Get.ServiceMode eq "Service">checked</cfif>></td><td class="labelmedium" style="padding-left:4px">Continuing service (car maintenance, phone service, IT hosting, cleaning service) </td>
@@ -100,10 +100,10 @@ password="#SESSION.dbpw#">
 	
 			
     <TR>
-    <TD class="labelmedium">Class:&nbsp;</TD>
+    <TD class="labelmedium2"><cf_tl id="Class">:</TD>
     <TD colspan="#col#">
 	
-	<select name="ServiceClass" id="ServiceClass" class="regularxl">
+	<select name="ServiceClass" id="ServiceClass" class="regularxxl">
 		
 		<cfloop query="qServiceClass">
 		<option value="#Code#" <cfif get.serviceclass eq code>selected</cfif>>#Code# - #Description#</option>
@@ -123,10 +123,10 @@ password="#SESSION.dbpw#">
 	</cfquery>	
 		
     <TR>
-    <TD class="labelmedium">Service Item (Domain):&nbsp;</TD>
+    <TD class="labelmedium2">Service Item (Domain):&nbsp;</TD>
     <TD colspan="#col#">
 	
-	<select name="ServiceDomain" id="ServiceDomain" class="regularxl">		
+	<select name="ServiceDomain" id="ServiceDomain" class="regularxxl">		
 		<cfloop query="Domain">
 		<option value="#Code#" <cfif get.servicedomain eq code>selected</cfif>>#Code# - #Description#</option>
 		</cfloop>		
@@ -136,7 +136,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium" width="30%">Presentation Order *:&nbsp;</TD>
+    <TD class="labelmedium2" width="30%">Presentation Order *:&nbsp;</TD>
     <TD colspan="#col#">
 	
 	    <table><tr><td>
@@ -145,7 +145,7 @@ password="#SESSION.dbpw#">
 			   required="Yes" 
 			   size="2" 
 			   maxlength="3" 
-			   class="regularxl" 
+			   class="regularxxl" 
 			   style="text-align:center">	
 			   
 		</td>
@@ -165,16 +165,27 @@ password="#SESSION.dbpw#">
 	</TR>	
 
     <TR>
-    <TD class="labelmedium">Custom Form for new workorder:</TD>
+    <TD class="labelmedium2" style="cursor:pointer" title="Please enter a relative directory WorkOrder/Application/WorkOrder/Create/">Custom Form for new workorder:</TD>
     <TD colspan="#col#">
-		<cfinput type="Text" name="CustomForm" value="#get.customform#" message="Please enter a relative directory" class="regularxl" required="No" size="50" maxlength="80">		
+		<cfinput type="Text" name="CustomForm" value="#get.customform#" 
+		       message="Please enter a relative directory" class="regularxl" required="No" size="50" maxlength="80">		
+			   
+	</TD>
+	</TR>
+	
+	<TR>
+    <TD class="labelmedium2" style="cursor:pointer" title="Please enter a relative directory WorkOrder/Application/WorkOrder/Custom/">Custom Form for billing summary:</TD>
+    <TD colspan="#col#" title="Use this template to collect information to be posted into TransactionHeaderTopic.Topic:Billing">
+		<cfinput type="Text" name="CustomFormBilling" value="#get.customformBilling#" 
+		       message="Please enter a relative directory" class="regularxl" required="No" size="50" maxlength="80">		
+			   
 	</TD>
 	</TR>
 	
 	<tr><td style="height:40px" class="labellarge">Workorder line settings</td></tr>
 	
 	<TR>
-    <TD class="labelmedium" style="padding-left:10px;padding-right:3px">Set responsible <b>Person</b>:&nbsp;</TD>
+    <TD class="labelmedium2" style="padding-left:10px;padding-right:3px">Set responsible <b>Person</b>:&nbsp;</TD>
     <TD colspan="#col#" class="labelmedium">
 	    <table cellspacing="0" cellpadding="0">
 		<tr>
@@ -186,8 +197,8 @@ password="#SESSION.dbpw#">
 	</TR>	
 	
 	<TR>
-    <TD class="labelmedium" style="padding-left:10px;padding-right:3px">Set <b>Customer unit</b>:</TD>
-    <TD class="labelmedium" colspan="#col#">
+    <TD class="labelmedium2" style="padding-left:10px;padding-right:3px">Set <b>Customer unit</b>:</TD>
+    <TD class="labelmedium2" colspan="#col#">
 	     <table cellspacing="0" cellpadding="0">
 		<tr>
 		<td><input type="radio" class="radiol" name="EnableOrgUnit" id="EnableOrgUnit" value="0" <cfif Get.EnableOrgUnit neq "1">checked</cfif>></td><td class="labelmedium" style="padding-left:4px">No</td>
@@ -198,8 +209,8 @@ password="#SESSION.dbpw#">
 	</TR>	
 	
 	<TR>
-    <TD class="labelmedium" style="padding-left:10px;padding-right:3px">Set <b>Implementing unit</b>:</TD>
-    <TD class="labelmedium" colspan="#col#">
+    <TD class="labelmedium2" style="padding-left:10px;padding-right:3px">Set <b>Implementing unit</b>:</TD>
+    <TD class="labelmedium2" colspan="#col#">
 	    <table cellspacing="0" cellpadding="0">
 		<tr>
 		<td><input type="radio" class="radiol" name="EnableOrgUnitWorkOrder" id="EnableOrgUnitWorkOrder" value="0" <cfif Get.EnableOrgUnitWorkOrder neq "1">checked</cfif>></td><td class="labelmedium" style="padding-left:4px">No</td>

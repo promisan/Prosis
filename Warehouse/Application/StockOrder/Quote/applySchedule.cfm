@@ -34,7 +34,7 @@ password="#SESSION.dbpw#">
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			UPDATE CustomerRequestLine 
-			SET     PriceSchedule      = '#url.priceschedule#',
+			SET    PriceSchedule      = '#url.priceschedule#',
 				  <!---	SalesCurrency,  --->
 					SchedulePrice     = '#sale.scheduleprice#', 
 					SalesPrice        = '#sale.price#', 

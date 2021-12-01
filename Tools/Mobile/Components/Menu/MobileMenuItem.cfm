@@ -1,10 +1,11 @@
-<cfparam name="attributes.active"		default="0">
-<cfparam name="attributes.parent"		default="0">
-<cfparam name="attributes.reference"	default="##">
-<cfparam name="attributes.description"	default="--">
-<cfparam name="attributes.badge"		default="">
-<cfparam name="attributes.style"		default="">
-<cfparam name="attributes.badgeColor"	default="label-success">
+<cfparam name="attributes.active"				default="0">
+<cfparam name="attributes.parent"				default="0">
+<cfparam name="attributes.reference"			default="##">
+<cfparam name="attributes.description"			default="--">
+<cfparam name="attributes.badge"				default="">
+<cfparam name="attributes.style"				default="">
+<cfparam name="attributes.systemfunctionid"		default="">
+<cfparam name="attributes.badgeColor"			default="label-success">
 
 
 <cfset vActive = "">
@@ -18,7 +19,13 @@
 	
 		<li class="#vActive#" style="#attributes.style#">
 		
-		<a href="#attributes.reference#">
+		<cfset vLogFunction = "">
+		<cfif attributes.systemfunctionid neq "">
+			<cfset vLogFunction = "ptoken.navigate('#session.root#/tools/mobile/components/menu/mobileMenuItemLog.cfm?systemfunctionId=#attributes.systemfunctionid#', 'divLogTarget')">
+		</cfif>
+		<div id="divLogTarget" name="divLogTarget" style="display:none;"></div>
+
+		<a href="#attributes.reference#" onclick="#vLogFunction#">
 			<cfif trim(lcase(attributes.Parent)) eq "1" or trim(lcase(attributes.Parent)) eq "yes">
 				<span class="nav-label">#attributes.description#</span><span class="fa arrow"></span>
 			<cfelse>

@@ -1,4 +1,5 @@
-<cf_screentop height="100%" close="parent.ColdFusion.Window.destroy('myrate',true)" label="Unit Rate: <b>#url.id3#</b>" title="Unit Rate #url.id3#" scroll="Yes" layout="webapp" banner="gray" jquery="yes">
+<cf_screentop height="100%" label="Unit Rate: <b>#url.id3#</b>" 
+ title="Unit Rate #url.id3#" scroll="Yes" layout="webapp" banner="gray" jquery="yes" html="No">
 
 <cf_calendarscript>
 <cf_dialogOrganization>
@@ -26,8 +27,7 @@
 		ptoken.navigate('OrgUnitOwnerPurge.cfm?orgUnit='+orgunit+'&costId='+costId,'divOrgUnitOwnerList');
 	}
 	
-	function applyunit(org)
-	{
+	function applyunit(org) {
 		ptoken.navigate('OrgUnitOwnerList.cfm?orgUnit='+org+'&costId=#url.id1#','divOrgUnitOwnerList');
 	}
 
@@ -245,7 +245,7 @@
 	<tr class="labelmedium">
 	<td align="right" style="padding-right:10px">Warehouse:</td>
 	<td>	
-		  <cfdiv bind="url:getWarehouse.cfm?mission={mission}&selected=#get.warehouse#&itemmno=#get.ItemNo#&ItemUoM=#get.ItemUoM#" id="warehouse">	
+		  <cf_securediv bind="url:getWarehouse.cfm?mission={mission}&selected=#get.warehouse#&itemmno=#get.ItemNo#&ItemUoM=#get.ItemUoM#" id="warehouse">	
 	
 	</td>
 	</tr>
@@ -263,11 +263,11 @@
 		<table>
 		<tr>
 		<td id="itembox">		
-			<cfdiv bind="url:getWarehouseItem.cfm?warehouse=#get.warehouse#&itemno=#get.ItemNo#&ItemUoM=#get.ItemUoM#">		
+			<cf_securediv bind="url:getWarehouseItem.cfm?warehouse=#get.warehouse#&itemno=#get.ItemNo#&ItemUoM=#get.ItemUoM#">		
 		</td>
 		
 		<td id="itemuom" style="padding-left:4px">		
-			<cfdiv bind="url:getWarehouseItemUoM.cfm?warehouse=#get.warehouse#&itemno=#get.ItemNo#&ItemUoM=#get.ItemUoM#">			
+			<cf_securediv bind="url:getWarehouseItemUoM.cfm?warehouse=#get.warehouse#&itemno=#get.ItemNo#&ItemUoM=#get.ItemUoM#">			
 		</td>
 		
 		</tr>
@@ -325,15 +325,17 @@
 	</TR>
 
 	<tr class="labelmedium">
-		<td valign="top" style="padding-top:5px;" width="150">Remuneration:</td>
+		<td valign="top" style="padding-top:5px;" title="Internal payroll payment" width="150">Remuneration:</td>
 		<td valign="top" style="padding-top:2px;">
-			<cfdiv bind="url:#session.root#/WorkOrder/maintenance/unitRate/ItemUnitMissionRemunerationListing.cfm?costid=#get.costid#&mission={mission}">
+			<cf_securediv id="divRemuneration" bind="url:#session.root#/WorkOrder/maintenance/unitRate/Cost/ItemUnitMissionRemunerationListing.cfm?costid=#get.costid#&mission={mission}">
 		</td>
 	</tr>	 	 	
 	 	 
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
 		<td>Sale Price:&nbsp;</td>
 		<td>
+		<table>
+		<tr><td>
 		<cfinput type="Text" 
 	         value="#get.price#" 
 			 name="price" 
@@ -345,10 +347,7 @@
 			 validate="numeric"
 			 class="regularxl">
 		</td>
-	</TR>	
-	
-	<TR class="labelmedium">
-		<td>Tax code:<font color="FF0000">*</font>&nbsp;</td>
+		<td style="padding-left:10px">Tax code:<font color="FF0000">*</font>&nbsp;</td>
 		<td>
 		<cfquery name="getTax" 
 			datasource="AppsLedger" 
@@ -373,7 +372,9 @@
 			<cfloop query="getTax">
 			  <option value="#TaxCode#" <cfif taxcode eq cde>selected</cfif>>#description#</option>
 		  	</cfloop>
-		</select>		
+		</select>	
+		
+		</td></tr></table>	
 		
 		</td>		
 	</TR> 					
@@ -389,13 +390,13 @@
 		</td>
 	</TR>	 
 	
-	<tr><td class="labelmedium" valign="top" style="padding-top:5px">Provisioning line:</td>
+	<tr><td class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Provisioning line">:</td>
 	
 	    <td>
 		
 		<table class="formpadding" cellspacing="0" cellpadding="0">
 						
-			<TR class="labelmedium line">
+			<TR class="labelmedium2 fixlengthlist" style="background-color:f1f1f1">
 				<td style="padding-right:10px">Selected by default:</td>
 				<td style="padding-left:0px"><input type="radio" class="radiol" name="enableSetDefault" id="enableSetDefault" value="0" <cfif get.enableSetDefault eq "0">checked</cfif>></td>
 				<td style="padding-left:4px">No</td>
@@ -404,7 +405,7 @@
 				
 			</TR>	 	 	 	
 			 	 	 
-			<TR class="labelmedium line">
+			<TR class="labelmedium2 fixlengthlist">
 				<td>Quantity:</td>
 				<td style="padding-left:0px"><input type="radio" class="radiol" name="enableEditQuantity" id="enableEditQuantity" value="0" <cfif get.enableEditQuantity eq "0">checked</cfif>></td>
 				<td style="padding-left:4px">Default</td>
@@ -412,7 +413,7 @@
 				<td style="padding-left:4px">Edit</td>
 			</TR>	
 			
-			<TR class="labelmedium line">
+			<TR class="labelmedium2 fixlengthlist" style="background-color:f1f1f1">
 				<td>Amend Charge:</td>
 				<td><input type="radio" class="radiol" name="enableEditCharged" id="enableEditCharged" value="0" <cfif get.enableEditCharged eq "0">checked</cfif>></td>
 				<td style="padding-left:4px">No</td>
@@ -420,7 +421,7 @@
 				<td style="padding-left:4px">Yes</td>
 			</TR>	  	 	
 			 	 
-			<TR class="labelmedium">
+			<TR class="labelmedium2 fixlengthlist">
 				<td>Rate:</td>
 				<td><input type="radio" class="radiol" name="enableEditRate" id="enableEditRate" value="0" <cfif get.enableEditRate eq "0">checked</cfif>></td>
 				<td style="padding-left:4px">Default</td>
@@ -433,28 +434,27 @@
 	</tr>
 	
 	<tr class="labelmedium" style="height:25px">
-		<td>Cost Owner:</td>
+		<td><cf_tl id="Cost Owner">:</td>
 		<td colspan="3">
-			<cfdiv id="divCostOwner" bind="url:setOrgUnitOwner.cfm?mission={mission}&costId=#url.id1#">
+			<cf_securediv id="divCostOwner" bind="url:setOrgUnitOwner.cfm?mission={mission}&costId=#url.id1#">
 		</td>
 	</tr>	
 
 	<tr class="labelmedium" style="height:1px">
 		<td></td>
 		<td colspan="3">
-			<cfdiv id="divOrgUnitOwnerList" bind="url:OrgUnitOwnerList.cfm?orgUnit=&costId=#url.id1#">
+			<cf_securediv id="divOrgUnitOwnerList" bind="url:OrgUnitOwnerList.cfm?orgUnit=&costId=#url.id1#">
 		</td>
 	</tr>
 
 	<cfif url.id1 neq "">
 		<tr class="labelmedium">
-			<td valign="top" style="padding-top:5px;">Charge:</td>
+			<td valign="top" style="padding-top:5px;"><cf_tl id="Charge">:</td>
 			<td colspan="3" valign="top">
-				<cfdiv id="divCharge" bind="url:ItemUnitMissionCharge.cfm?costId=#url.id1#&mission={mission}">
+				<cf_securediv id="divCharge" bind="url:ItemUnitMissionCharge.cfm?costId=#url.id1#&mission={mission}">
 			</td>
 		</tr>
-	</cfif>
-	 
+	</cfif>	 
 	   
    <tr><td height="2"></td></tr>
    <tr><td height="1" colspan="4" class="line"></td></tr>
@@ -463,8 +463,8 @@
 	<cfif url.id1 eq "">
 		<input class="button10g" type="submit" name="Save" id="Save" value=" Save ">	
 	<cfelse>
-		<input class="button10g" type="submit" name="Delete" id="Delete" value=" Delete " onclick="return ask()">	
-		<input class="button10g" type="submit" name="Update" id="Update" value=" Update ">
+		<input class="button10g" type="submit" name="Delete"    id="Delete"    value=" Delete " onclick="return ask()">	
+		<input class="button10g" type="submit" name="Update"    id="Update"    value=" Update ">
 		<input class="button10g" type="submit" name="SaveAsNew" id="SaveAsNew" value=" Save As New ">
 	</cfif>		
 	

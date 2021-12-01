@@ -21,27 +21,27 @@ password="#SESSION.dbpw#">
 	<tr>
 		<td colspan="11">
 			<cfoutput>
-			<input class="button10s" style="width:160" type="Button" name="AddRecord" id="AddRecord" value=" Add New "  onclick="showunit('#URL.ID1#','')">
+			<input class="button10g" style="width:160" type="Button" name="AddRecord" id="AddRecord" value=" Add New "  onclick="showunit('#URL.ID1#','')">
 			</cfoutput>
 		</td>
 	</tr>
 
 	<tr><td height="7"></td></tr> 
 
- 	<TR class="labelmedium line" height="18">	 	
+ 	<TR class="labelmedium line fixlengthlist" height="18">	 	
 	   <td width="2"></td>
-	    <td width="20"></td>
+	   <td></td>
 	   <td><cf_tl id="Unit"></td>	  
 	   <td><cf_tl id="Code"></td>
 	   <td><cf_tl id="GlAccount"></td>
-	   <td width="40%"><cf_tl id="Description"></td>
+	   <td><cf_tl id="Description"></td>
 	   <td><cf_tl id="Parent"></td>	
 	   <td><cf_tl id="Frequency"></td>
 	   <td><cf_tl id="Mode"></td>
 	   <td><cf_tl id="Ope."></td>
-	   <td width="15%"><cf_tl id="Officer"></td>
+	   <td><cf_tl id="Officer"></td>
 	   <td><cf_tl id="Created"></td>	  
-	   <td style="width:10px"></td>
+	   <td></td>
     </TR>	
 	
 <cfoutput query="Unit" group="unitClass">	
@@ -60,21 +60,21 @@ password="#SESSION.dbpw#">
    <cfoutput>   
    
 	   <cfif UnitParent eq "">
-		   <tr style="height:22px" class="labelmedium line navigation_row" bgcolor="ffffdf">
+		   <tr style="height:22px" class="labelmedium line navigation_row fixlengthlist" bgcolor="ffffdf">
 	   <cfelse>
-		   <tr style="height:22px" class="labelmedium line navigation_row" bgcolor="FFFFFF">
+		   <tr style="height:22px" class="labelmedium line navigation_row fixlengthlist" bgcolor="FFFFFF">
 	   </cfif>
 		
 		<td height="20"></td>
 		
-		<td valign="middle" align="center" style="padding-right:8px">
+		<td align="center" style="padding-right:8px">
 			<cf_img icon="edit"	navigation="Yes" onclick="showunit('#URL.ID1#','#unit#')">
 		</td>
 		
 		<td>#unit#</td>	  
 		<td>#unitCode#</td>
    		<td>#GlAccount#</td>
-		<td>#unitDescription#</td>		
+		<td title="#unitdescription#">#unitDescription#</td>		
 		<td>#unitparent#</td>		
 		<td>#frequency#</td>
 		<td>#billingMode#</td>		

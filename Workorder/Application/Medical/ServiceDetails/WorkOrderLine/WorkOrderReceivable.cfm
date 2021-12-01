@@ -26,13 +26,13 @@
 		    <cfoutput>
 			
 		    <tr class="navigation_row line labelmedium2 fixlengthlist">			
-				<td>#ReferenceName#</td>
+				<td>#ReferenceName# #ReferenceNo#</td>
 				<td>#Currency#</td>
 				<td>
 				<cfif TransactionReference eq "">
-				<a href="#SESSION.root#/Gledger/Application/Transaction/View/TransactionView.cfm?id=#TransactionId#" target="_blank" >#JournalTransactionNo#</a>
+				<a href="#SESSION.root#/Gledger/Application/Transaction/View/TransactionView.cfm?id=#TransactionId#" target="_blank">#JournalTransactionNo#</a>
 				<cfelse>
-				<a href="#SESSION.root#/Gledger/Application/Transaction/View/TransactionView.cfm?id=#TransactionId#" target="_blank" >#TransactionReference#</a>
+				<a href="#SESSION.root#/Gledger/Application/Transaction/View/TransactionView.cfm?id=#TransactionId#" target="_blank">#TransactionReference#</a>
 				</cfif>
 				</td>
 				<td>#TransactionSource#</td>

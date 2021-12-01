@@ -100,6 +100,19 @@
 					AND    JournalSerialNo = '#JournalSerialNo#'
 			</cfquery>
 			
+			<!--- we obtain added comments about this transaction --->
+			
+			<cfquery name="GetTransactionContent"
+				datasource="#datasource#"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+					SELECT *
+					FROM   Accounting.dbo.TransactionHeaderTopic
+					WHERE  Journal         = '#journal#'
+					AND    JournalSerialNo = '#JournalSerialNo#'
+					AND    Topic = 'Billing'
+			</cfquery>
+									
 			<cfif GetTransaction.OrgUnitTax eq "0">
 			
 			    <!--- we look into the journal --->
@@ -286,8 +299,7 @@
 			<!--- --------------------------- --->
 			
 			<!--- context specific correction information --->
-			
-												
+															
 			<cfswitch expression="#getTransaction.TransactionSource#">
 			
 				<cfcase value="SalesSeries">
@@ -342,11 +354,11 @@
 						datasource="#datasource#"
 						username="#SESSION.login#"
 						password="#SESSION.dbpw#">
-						SELECT   R.Address, R.AddressCity, R.AddressPostalCode, R.State, R.Country, R.eMailAddress
-						FROM     Materials.dbo.CustomerAddress AS OA INNER JOIN
-                                 System.dbo.Ref_Address AS R ON OA.AddressId = R.AddressId
-						WHERE    OA.CustomerId = '#GetBatch.CustomerId#' 
-						ORDER BY OA.Created DESC
+						SELECT     R.Address, R.AddressCity, R.AddressPostalCode, R.State, R.Country, R.eMailAddress
+						FROM       Materials.dbo.CustomerAddress AS OA INNER JOIN
+                                   System.dbo.Ref_Address AS R ON OA.AddressId = R.AddressId
+						WHERE      OA.CustomerId = '#GetBatch.CustomerId#' 
+						ORDER BY   OA.Created DESC
 					</cfquery>	
 										
 					<!--- Get Warehouse information --->
@@ -354,9 +366,9 @@
 						datasource="#datasource#"
 						username="#SESSION.login#"
 						password="#SESSION.dbpw#">
-							SELECT   *
-							FROM     Materials.dbo.Warehouse
-							WHERE    Warehouse = '#GetBatch.Warehouse#'
+							SELECT  *
+							FROM    Materials.dbo.Warehouse
+							WHERE   Warehouse = '#GetBatch.Warehouse#'
 					</cfquery>					
 										
 					<!--- Get Warehouse and Series Information --->
@@ -364,12 +376,12 @@
 						datasource="#datasource#"
 						username="#SESSION.login#"
 						password="#SESSION.dbpw#">
-							SELECT T.*, O.OrgUnitName
-							FROM   Organization.dbo.OrganizationTaxSeries T
-								   INNER JOIN Organization.dbo.Organization O ON T.OrgUnit = O.OrgUnit
-							WHERE  T.OrgUnit     = '#FEL.OrgUnitTax#'
-							AND    T.SeriesType  = 'Invoice'
-							AND    T.Operational = 1
+							SELECT  T.*, O.OrgUnitName
+							FROM    Organization.dbo.OrganizationTaxSeries T
+								    INNER JOIN Organization.dbo.Organization O ON T.OrgUnit = O.OrgUnit
+							WHERE   T.OrgUnit     = '#FEL.OrgUnitTax#'
+							AND     T.SeriesType  = 'Invoice'
+							AND     T.Operational = 1
 					</cfquery>													
 
 					<cfset FEL.CustomerName       = "#Replace(Customer.CustomerName,"&","")#">  <!--- #Replace(GetInvoice.CustomerName,"&","")# --->
@@ -397,13 +409,14 @@
 				          <cfset FEL.CustomerCountry    = "GT">
 				    </cfif>  
 																
-					<!--- <cfquery name	= "qPostalCodeCheck"
-										datasource	="#datasource#"
-										username  	="#SESSION.login#"
-										password  	="#SESSION.dbpw#">
-										SELECT 		*
-										FROM 		System.dbo.PostalCode
-										WHERE 		PostalCode = '#GetInvoice.CustomeraddressPostalCode#' or PostalCode = '#GetInvoice.PostalCode#'
+					<!--- 
+					       <cfquery name	= "qPostalCodeCheck"
+								datasource	="#datasource#"
+								username  	="#SESSION.login#"
+								password  	="#SESSION.dbpw#">
+								SELECT 		*
+								FROM 		System.dbo.PostalCode
+								WHERE 		PostalCode = '#GetInvoice.CustomeraddressPostalCode#' or PostalCode = '#GetInvoice.PostalCode#'
 							</cfquery>
 					--->
 					
@@ -413,69 +426,97 @@
 				
 					<!--- get customer --->
 					
-				    <cfquery name="Customer"
-						datasource="#datasource#"
-						username="#SESSION.login#"
-						password="#SESSION.dbpw#">
-							SELECT   *
-							FROM     WorkOrder.dbo.Customer							
-							WHERE    CustomerId        = '#getTransaction.ReferenceId#'								
-					</cfquery>
+					<cfif getTransaction.TransactionSourceNo eq "Medical">
 					
-					<cfset FEL.CustomerName       = "#Replace(Customer.CustomerName,"&","")#">
+					    <!--- customer information is recorded differently --->
 					
-					<cfset vNIT = Customer.Reference>
-					<cfset vNit = Replace(vNIT," ","","ALL")>
-					<cfif vNIT eq "C/F" OR vNIT eq "C-F" or vNIT eq "">
-						<cfset vNIT = "CF">
-					</cfif>			
-					<cfset vNit = Replace(vNIT,"-","","ALL")>
-					
-					<cfset FEL.CustomerNIT        = "#vNit#">		
-					
-					<cfquery name="Address"
-						datasource="#datasource#"
-						username="#SESSION.login#"
-						password="#SESSION.dbpw#">
-						SELECT   R.Address, R.AddressCity, R.AddressPostalCode, R.State, R.Country, R.eMailAddress
-						FROM     Organization.dbo.OrganizationAddress AS OA INNER JOIN
-                                 System.dbo.Ref_Address AS R ON OA.AddressId = R.AddressId
-						WHERE    OA.OrgUnit = '#Customer.OrgUnit#' 
-						AND      OA.AddressType = 'Invoice'
-						ORDER BY OA.Created DESC
-					</cfquery>		
-					
-					<cfif Address.Recordcount gte "1">
-					
-						<cfset FEL.CustomereMail      = "#Address.eMailAddress#">
-						<cfset FEL.CustomerAddress    = "#Address.Address#">
-						<cfset FEL.CustomerPostalCode = "#Address.AddressPostalCode#">
-						<cfset FEL.CustomerCity       = "#Address.AddressCity#">
-						<cfset FEL.CustomerState      = "#Address.State#"> 
+					    <cfset FEL.CustomerName       = "#getTransaction.ReferenceName#">
 						
-						<cfif Address.Country eq "GUA">
-					          <cfset FEL.CustomerCountry    = "GT">
-	     				<cfelseif Address.Country neq "">
-					          <cfset FEL.CustomerCountry    = "#Address.Country#">
-					    <cfelse>
-					          <cfset FEL.CustomerCountry    = "GT">
-					    </cfif>  
-				
-				    <cfelse>
-					
-						<cfset FEL.CustomereMail      = "#Customer.eMailAddress#">
-						<cfset FEL.CustomerAddress    = "#Customer.Address#">
-						<cfset FEL.CustomerPostalCode = "#Customer.PostalCode#">
-						<cfset FEL.CustomerCity       = "#Customer.City#">
-						<cfset FEL.CustomerState      = ""> <!--- hardcoded --->
+						<cfset vNIT = getTransaction.ReferenceNo>
+						<cfset vNIT = ucase(vNit)>
+						<cfset vNit = Replace(vNIT," ","","ALL")>
+						<cfif vNIT eq "C/F" OR vNIT eq "C-F" or vNIT eq "">
+							<cfset vNIT = "CF">
+						</cfif>			
+						<cfset vNit = Replace(vNIT,"-","","ALL")>
+						<cfset FEL.CustomerNIT        = "#vNit#">	
 						
-						<cfif Customer.Country eq "GUA">
-					          <cfset FEL.CustomerCountry    = "GT">
-	     				<cfelseif Customer.Country neq "">
-					          <cfset FEL.CustomerCountry    = "#Customer.Country#">
+						<cfset FEL.CustomereMail      = "">								
+						<cfset FEL.CustomerAddress    = "">
+						<cfset FEL.CustomerPostalCode = "">
+						<cfset FEL.CustomerCity       = "">
+						<cfset FEL.CustomerState      = "">		
+						
+						<cfset FEL.CustomerCountry    = "GT">			
+					
+					<cfelse>
+											
+					    <cfquery name="Customer"
+							datasource="#datasource#"
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+								SELECT   *
+								FROM     WorkOrder.dbo.Customer							
+								WHERE    CustomerId        = '#getTransaction.ReferenceId#'								
+						</cfquery>
+						
+						<cfset FEL.CustomerName       = "#Replace(Customer.CustomerName,"&","")#">
+						
+						<cfset vNIT = Customer.Reference>
+						<cfset vNIT = ucase(vNit)>
+						<cfset vNit = Replace(vNIT," ","","ALL")>
+						<cfif vNIT eq "C/F" OR vNIT eq "C-F" or vNIT eq "">
+							<cfset vNIT = "CF">
+						</cfif>			
+						<cfset vNit = Replace(vNIT,"-","","ALL")>
+						
+						<cfset FEL.CustomerNIT        = "#vNit#">							
+						
+						<cfquery name="Address"
+							datasource="#datasource#"
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT   R.Address, R.AddressCity, R.AddressPostalCode, R.State, R.Country, R.eMailAddress
+							FROM     Organization.dbo.OrganizationAddress AS OA INNER JOIN
+	                                 System.dbo.Ref_Address AS R ON OA.AddressId = R.AddressId
+							WHERE    OA.OrgUnit = '#Customer.OrgUnit#' 
+							AND      OA.AddressType = 'Invoice'
+							ORDER BY OA.Created DESC
+						</cfquery>		
+						
+						<cfif Address.Recordcount gte "1">
+						
+							<cfset FEL.CustomereMail      = "#Address.eMailAddress#">
+							<cfset FEL.CustomerAddress    = "#Address.Address#">
+							<cfset FEL.CustomerPostalCode = "#Address.AddressPostalCode#">
+							<cfset FEL.CustomerCity       = "#Address.AddressCity#">
+							<cfset FEL.CustomerState      = "#Address.State#"> 
+							
+							<cfif Address.Country eq "GUA">
+						          <cfset FEL.CustomerCountry    = "GT">
+		     				<cfelseif Address.Country neq "">
+						          <cfset FEL.CustomerCountry    = "#Address.Country#">
+						    <cfelse>
+						          <cfset FEL.CustomerCountry    = "GT">
+						    </cfif>  
+					
 					    <cfelse>
-					          <cfset FEL.CustomerCountry    = "GT">
-					    </cfif>  
+						
+							<cfset FEL.CustomereMail      = "#Customer.eMailAddress#">
+							<cfset FEL.CustomerAddress    = "#Customer.Address#">
+							<cfset FEL.CustomerPostalCode = "#Customer.PostalCode#">
+							<cfset FEL.CustomerCity       = "#Customer.City#">
+							<cfset FEL.CustomerState      = ""> <!--- hardcoded --->
+							
+							<cfif Customer.Country eq "GUA">
+						          <cfset FEL.CustomerCountry    = "GT">
+		     				<cfelseif Customer.Country neq "">
+						          <cfset FEL.CustomerCountry    = "#Customer.Country#">
+						    <cfelse>
+						          <cfset FEL.CustomerCountry    = "GT">
+						    </cfif>  
+							
+						</cfif>	
 						
 					</cfif>	
 												
@@ -497,6 +538,7 @@
 					<cfset FEL.CustomerName       = "#OrgUnit.OrgUnitName#">
 					
 					<cfset vNIT = OrgUnit.SourceCode>
+					<cfset vNIT = ucase(vNit)>
 					<cfset vNit = Replace(vNIT," ","","ALL")>
 					<cfif vNIT eq "C/F" OR vNIT eq "C-F" or vNIT eq "">
 						<cfset vNIT = "CF">
@@ -708,7 +750,7 @@
 					<cfif datediff("d",  getLines.TransactionDate,  now()) gte 6> 	
 						<cfset dts = dateAdd("d",  -5,  now())>
 					<cfelse>
-					    <cfset dts = dateAdd("d",  0,  getLine.TransactionDate)>					    
+					    <cfset dts = dateAdd("d",  0,  getLines.TransactionDate)>					    
 					</cfif>
 				
 				<cfelse>
@@ -798,43 +840,40 @@
 												
 											<dte:Descripcion>#ItemNo#|#v_ItemDescription#</dte:Descripcion>		
 											
-											<cfif TransactionAmount lte AmountSale>	
+											<cfif TransactionAmount gte AmountSale>	
 											
-												<!--- correction to lower the amount as tax would be added --->
+											    <!--- we store now here the billable amount --->
+											
+											    <cfset discount   = FEL.Ratio * TransactionAmount>
+												<cfset vSalesPrice = TransactionAmount/Quantity>
+											
+											<cfelse>
+											
+												<!--- special correction to lower the amount as tax will be added later, this
+												was for IO posting --->
+												
 												<cfif getLines.TaxCode eq "00"  and getTransaction.TransactionSource eq "AccountSeries">
 												    <cfset amt = AmountSale * 100/112>										   
 												<cfelse>
 												 	<cfset amt = AmountSale>	   
 												</cfif>		
-																							
-												<cfset amt        = round(amt*10000)/10000>											
-																																		
-												<!--- calculate ratio --->
+												
+												<!--- calculate ratio --->											
+												<cfset amt        = round(amt*10000)/10000>		
 												<cfset discount   = FEL.Ratio * amt>
-												<!--- Rethink for workorder with discount recorded : Hanno --->
-												<cfset taxable    = amt - discount>
-																							
-												<!--- calculate price with tax --->
-												<cfset vSalesPrice = taxable*(1+FEL.TaxPercentage)/Quantity>
-												<!--- round to 2 digits --->
-												
-												<cfset vSalesPrice = round(vSalesPrice*100000)/100000>	
-												
-											<cfelse>
-											
-											    <cfset discount   = FEL.Ratio * TransactionAmount>
-												<cfset vSalesPrice = TransactionAmount/Quantity>
-												<cfset vSalesPrice = round(vSalesPrice*100000)/100000>
-											
+												<!--- Rethink for workorder with discount recorded : Hanno --->																							
+												<!--- calculate price with default tax included  --->
+												<cfset vSalesPrice = (amt - discount) * (1+FEL.TaxPercentage) /Quantity>
+																																		
 											</cfif>	
 											
-											<!---
-											<cfset vSalesPrice = round(vSalesPrice*100)/100>																					
-											<!--- this caused cents difference --->
-											<cfset vSalesPrice = round(vSalesPrice*10000)/10000>											
-											--->
+											<cfset vSalesPrice = round(vSalesPrice*10000)/10000>
 											
-											<cfset amount  = vSalesPrice * Quantity>
+											<!--- billable amount --->																						
+											<cfset amount   = vSalesPrice * Quantity>
+											<cfset amount   = round(amount*100)/100>		
+											<cfset tax      = amount * (FEL.TaxPercentage / (1+FEL.TaxPercentage))>
+											<cfset taxable  = amount - tax>		
 																							
 											<dte:PrecioUnitario><cfif SaleQuantity neq 0>#trim(numberformat(ABS(vSalesPrice),"__._______"))#<cfelse>0</cfif></dte:PrecioUnitario>
 											<dte:Precio>#trim(numberformat(amount,"__._______"))#</dte:Precio>				
@@ -845,11 +884,7 @@
 																						
 											<!--- we are not reading the tax line in the sale but we assume it by default
 												to prevent issues  --->											
-																					
-											<cfset tax      = amount * (FEL.TaxPercentage / (1+FEL.TaxPercentage))>
-											<cfset taxable  = amount - tax>																																
 																																
-											<cfset amount = round(amount*100)/100>												
 											<dte:Impuestos>
 												<dte:Impuesto>
 													<dte:NombreCorto>IVA</dte:NombreCorto>
@@ -897,10 +932,13 @@
 							</dte:DatosEmision>
 						
 						</dte:DTE>
-						<dte:Adenda>
-							<Codigo_cliente>CODIGO11</Codigo_cliente>
-							<Observaciones>PACIENTE : XXXXXXXXX</Observaciones>
-						</dte:Adenda>
+						
+						<cfif GetTransactionContent.recordcount eq "1">
+							<dte:Adenda>
+								<Codigo_cliente></Codigo_cliente>
+								<Observaciones>#GetTransactionContent.TopicValue#</Observaciones>
+							</dte:Adenda>
+						</cfif>
 
 					</dte:SAT>
 				

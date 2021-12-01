@@ -4,7 +4,7 @@
 <cfparam name="attributes.mission"            default = "">
 <cfparam name="attributes.orgunit"            default = "">
 <cfparam name="attributes.personno"           default = "">
-<cfparam name="attributes.personno"           default = "">
+<cfparam name="attributes.slots"              default = "1">
 
 <cfparam name="attributes.serviceitem"        default = "">
 <cfparam name="attributes.actionfulfillment"  default = "">
@@ -20,7 +20,6 @@
 <cfparam name="attributes.date"               default = "#dateformat(now(),client.dateformatshow)#">
 <cfparam name="attributes.time"               default = "No">
 <cfparam name="attributes.padding"            default = "5">
-
 
 <cfquery name="GetAction" 
   datasource="AppsWorkOrder" 
@@ -69,14 +68,12 @@
 					<td class="labelmedium" valign="top" style="padding-top:6px;padding-left:#attributes.padding#px">#Description#
 									
 					<cfif ActionFulFillment eq "Standard"><cf_tl id="completed by"><cfelseif ActionFulFillment eq "Schedule"><cf_tl id="requested for"><cfelse><cf_tl id="on"></cfif>:
-					
-					<cf_space spaces="46">
-									
+														
 					</td>
 				
 					<td style="z-index:#99-currentrow#; position:relative;padding-left:0px">
 				
-					<table cellspacing="0" cellpadding="0">
+					<table>
 					
 					<tr>
 										
@@ -152,7 +149,7 @@
 					
 					<tr class="labelmedium" style="height:15px">
 					
-						<td align="right" style="padding-right:7px;min-width:10px">
+						<td align="right" style="padding-right:7px;min-width:25px">
 																		
 							<cfif row gte "2">
 								<input type="checkbox" 
@@ -170,11 +167,10 @@
 						
 						<td style="min-width:20px;padding-right:5px">#row#</td>
 										
-						<td class="labelmedium row#code#_#row# #cl#" style="min-width:100px;font-size:15px;padding-right:10px;padding-right:10px">		
+						<td class="labelmedium row#code#_#row# #cl#" style="min-width:139px;font-size:15px;padding-right:10px;padding-right:10px">		
 												   																	
 							<cfset val = evaluate("Action.DateTimeRequested")>
-							
-														
+																					
 							<cfif attributes.mode eq "View">
 					
 								#dateformat(val,client.dateformatshow)#
@@ -303,7 +299,7 @@
 								
 								</cfif>	
 																					
-								<select class="regularxl" name="PositionNo#Code#_#row#" id="PositionNo#Code#_#row#" onchange="<cfif attributes.time eq 'Yes'>document.getElementById('result#Code#_#row#').click()</cfif>">
+								<select class="regularxl" name="PositionNo#Code#_#row#" id="PositionNo#Code#_#row#" onchange="<cfif attributes.time eq 'Yes'>_cf_loadingtexthtml='';document.getElementById('result#Code#_#row#').click()</cfif>">
 									<cfloop query="Position">
 										<option value="#PositionNo#" <cfif attributes.personno eq personno>selected</cfif>>#LastName#, #FirstName#</option>					
 									</cfloop>
@@ -313,9 +309,8 @@
 						
 						</td>
 						
-						<td class="labelmedium row#code#_#row# #cl#" style="min-width:100px;font-size:15px;padding-right:6px">
-						
-						  																				
+						<td class="labelmedium row#code#_#row# #cl#" style="font-size:15px;padding-right:6px;min-width:139px">
+												  																				
 						    <!--- ---------------------------------------------- ---> 
 						    <!--- attention this field has to be sync with
 							
@@ -339,7 +334,7 @@
 																																																	
 								<cfif attributes.time eq "Yes">
 																								
-									<cfdiv id="_woaf_datetime#code#_#row#" 
+									<cf_securediv id="_woaf_datetime#code#_#row#" 
 									  bind="url:#session.root#/tools/process/workOrder/WorkOrderActionFields_Datetime.cfm?applyid=result#Code#_#row#&code=#code#_#row#&val=#stDT#&positionNo={PositionNo#Code#_#row#}">
 								
 								<cfelseif attributes.calendar eq "8">	
@@ -363,7 +358,31 @@
 							</cfif>		
 						
 						</td>
+																		
+						<cfif attributes.time eq "Yes">
 						
+							<td title="Slots to be set" class="labelmedium row#code#_#row# #cl#">
+							
+							<select class="regularxl" name="Slots#Code#_#row#" id="Slots#Code#_#row#" onchange="<cfif attributes.time eq 'Yes'>_cf_loadingtexthtml='';document.getElementById('result#Code#_#row#').click()</cfif>">
+								<cfloop index="itm" from="1" to="24">
+									<option value="#itm#" <cfif attributes.slots eq itm>selected</cfif>>#itm#</option>					
+								</cfloop>
+							</select>								
+							
+							</td>
+						
+							<td style="padding-left:3px" class="labelmedium row#code#_#row# #cl#">		
+							
+							 <cf_tl id="Check" var="1"> 
+																						
+							<input type="button" value="#lt_text#" style="width:70px"
+							   class="button10g" id="result#Code#_#row#" 
+							   onclick="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/Tools/Process/WorkOrder/validateWorkplanInit.cfm?customerid=#attributes.customerid#&mission=#attributes.mission#&code=#Code#_#row#','result#Code#_#row#_content')">
+							</td>		
+										
+							<td id="result#Code#_#row#_content" style="min-width:25px;padding-left:3px;padding-right:3px" class="labelmedium row#code#_#row# #cl#"></td>
+						
+						</cfif>			
 												
 						<!--- PlanOrder --->
 						<cfquery name="PlanOrder" 
@@ -427,18 +446,7 @@
 						
 						</td>
 						
-						<cfif attributes.time eq "Yes">
-						
-							<td style="padding-left:8px" class="labelmedium row#code#_#row# #cl#">		
-																						
-							<input type="button" value="check" style="width:50px"
-							   class="button10g" id="result#Code#_#row#" 
-							   onclick="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/Tools/Process/WorkOrder/validateWorkplanInit.cfm?customerid=#attributes.customerid#&mission=#attributes.mission#&code=#Code#_#row#','result#Code#_#row#_content')">
-							</td>		
-										
-							<td id="result#Code#_#row#_content" style="width:50px" class="labelmedium row#code#_#row# #cl#"></td>
-						
-						</cfif>												
+															
 					
 					</tr>
 									

@@ -18,17 +18,18 @@
 			document.getElementById(cl+'_unit').className         = "regular" } catch(e) {}
 			
 			if (show != '0') {
+			
 		  	document.getElementById(cl+'_frequency').className      = "regular"		
 			document.getElementById(cl+'_quantity').className       = "regular"		
 			document.getElementById(cl+'_quantity').value           = "1"	
-			<cfif url.context neq "portal">
+			<cfif url.context neq "portal">			
 			document.getElementById(cl+'_currency').className       = "regular"
 			document.getElementById(cl+'_price').className          = "regular"		
 			document.getElementById(cl+'_stdprice').className       = "regular"				
 			document.getElementById(cl+'_charged').className        = "regular"		
 			document.getElementById(cl+'_total').className          = "regular"		
-			</cfif>
-			document.getElementById(cl+'_specification').className  = "regular"	
+			</cfif>			
+			document.getElementById(cl+'_specification').className  = "regular"				
 			} else {
 			document.getElementById(cl+'_quantity').value           = "1"				
 			}
@@ -37,6 +38,7 @@
 		  
 		    try {
 			document.getElementById(cl+'_unit').className         = "hide" } catch(e) {}
+			
 		    document.getElementById(cl+'_frequency').className      = "hide"		
 			document.getElementById(cl+'_quantity').className       = "hide"	
 			document.getElementById(cl+'_quantity').value           = "0"		
@@ -118,20 +120,19 @@
 	  
 	  function calc(unitclass,row,qty,rate) {
 	      _cf_loadingtexthtml="";	
-	      ColdFusion.navigate('#SESSION.root#/workorder/application/workorder/servicedetails/billing/DetailBillingTotal.cfm?quantity='+qty+'&rate='+rate,'total_'+unitclass+'_'+row)
+	      ptoken.navigate('#SESSION.root#/workorder/application/workorder/servicedetails/billing/DetailBillingTotal.cfm?quantity='+qty+'&rate='+rate,'total_'+unitclass+'_'+row)
 		  _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";
 	  }
 	  
 	  function unitshow(unitclass,costid,qty) {
-	      _cf_loadingtexthtml="";	
-	     ColdFusion.navigate('#SESSION.root#/workorder/application/workorder/servicedetails/billing/getUnit.cfm?unitclass='+unitclass+'&costid='+costid+'&quantity='+qty,'ajaxbox')
-	  }
+	      _cf_loadingtexthtml="";			 
+	      ptoken.navigate('#SESSION.root#/workorder/application/workorder/servicedetails/billing/getUnit.cfm?unitclass='+unitclass+'&costid='+costid+'&quantity='+qty,'ajaxbox')
+ 	  }
 	  
 	  function showfeature(unitclass,costid,wid,wol,req,mode,bid,org,date) {
-	       _cf_loadingtexthtml="";			 		  
-	      ColdFusion.navigate('#SESSION.root#/workorder/application/workorder/servicedetails/billing/DetailBillingFormEntryRegularAjax.cfm?mode='+mode+'&requestid='+req+'&workorderid='+wid+'&workorderline='+wol+'&billingid='+bid+'&date='+date+'&costid='+costid+'&unitclass='+unitclass+'&orgunitowner='+org,'features_'+unitclass)	
-	  }  
-	  
+	       _cf_loadingtexthtml="";			 		  		 
+	      // ptoken.navigate('#SESSION.root#/workorder/application/workorder/servicedetails/billing/DetailBillingFormEntryRegularAjax.cfm?mode='+mode+'&requestid='+req+'&workorderid='+wid+'&workorderline='+wol+'&billingid='+bid+'&date='+date+'&costid='+costid+'&unitclass='+unitclass+'&orgunitowner='+org,'features_'+unitclass)	
+	  }   
 
 	
 	</script>

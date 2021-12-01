@@ -51,7 +51,8 @@
 	<cfoutput>
 	
 	<table cellspacing="0" cellpadding="0">
-	<tr><td title="#Attributes.ToolTip#" style="cursor:pointer">
+	<tr class="fixlengthlist">
+	<td title="#Attributes.ToolTip#" style="cursor:pointer">
 		
 	<cfif attributes.inline eq "true">
 	

@@ -426,7 +426,7 @@
 									  AND    ActionStatus != '9') <!--- action is valid --->
 																						
 				</cfquery>	
-								
+												
 				<cfif checkworkplan.recordcount gte "1">
 				
 					<cfif getWorkSchedule.MultipleActions eq "0">			

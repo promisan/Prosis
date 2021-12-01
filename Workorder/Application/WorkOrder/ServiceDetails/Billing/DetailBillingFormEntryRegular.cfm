@@ -331,7 +331,7 @@
 	
 		<cfif url.parent neq "">
 						
-			<td style="padding-left:16px;padding-right:6px;width:2%">																
+			<td style="padding-left:16px;padding-right:6px;max-width:30px;width:30px">																
 			
 				<input type    = "checkbox" 
 				       name    = "#unitclass#_unit_#currentrow#"
@@ -346,8 +346,8 @@
 		
 		<cfelse>
 		
-			<td style="width:2%">				
-																							
+			<td style="padding-left:16px;padding-right:6px;;max-width:30px;width:30px">				
+																					
 				<input type    = "checkbox" 
 				       name    = "#unitclass#_unit_#currentrow#" 
 					   id      = "#unitclass#_unit_#currentrow#"
@@ -355,8 +355,7 @@
 					   style   = "color:yellow"
 					   onkeydown="if (event.keyCode==13) {event.keyCode=9; return event.keyCode}"
 					   onclick = "selectunit('#unitclass#','#currentrow#',document.getElementById('#unitclass#_UnitQuantity_#currentrow#').value,document.getElementById('#unitclass#_StandardCost_#currentrow#').value,this.checked)"
-					   value   = "#Unit#" <cfif selected eq "1">checked</cfif> <cfif url.accessmode eq "view">disabled</cfif>>		
-										   
+					   value   = "#Unit#" <cfif selected eq "1">checked</cfif> <cfif url.accessmode eq "view">disabled</cfif>>										   
 						
 			</td>
 		
@@ -364,16 +363,17 @@
 				
 		<cfif ItemWarehouse neq "">
 				
-			<td style="font-size:13px;height:25px;min-width:240px" class="labelmedium fixlength">
-			<a href="javascript:item('#itemwarehouse#','','#url.mission#')">#UnitDescription#</a></td>	
+			<td style="font-size:13px;height:25px;min-width:240px;width:100%" class="labelmedium fixlength">			
+			<a href="javascript:item('#itemwarehouse#','','#url.mission#')">#UnitDescription#</a>
+			</td>	
 		
 		<cfelse>
 				
-			<td style="font-size:13px;height:25px;;min-width:240px" class="labelmedium fixlength">#UnitDescription#</td>	
+			<td style="font-size:13px;height:25px;;min-width:240px;width:100%" class="labelmedium fixlength">#UnitDescription#</td>	
 		
 		</cfif>
 				
-		<td class="labelit #clline#" style="font-size:14px" id="freq_#unitclass#_#currentrow#"><cfif Rate.Frequency neq "Once">#Rate.Frequency#</cfif></td>
+		<td class="labelit #clline#" style="width:60px;min-width:60px;font-size:14px" id="freq_#unitclass#_#currentrow#"><cfif Rate.Frequency neq "Once">#Rate.Frequency#</cfif></td>
 				
 		<cfif UnitUsed.recordcount gte "1">				
 		   <cfset qt = unitused.quantity>
@@ -387,7 +387,7 @@
 		   <cfset stock = "0">
 		</cfif>   
 									
-		<td style="padding-left:2px;font-size:14px;" align="right" class="#clline#" id="qty_#unitclass#_#currentrow#">
+		<td style="padding-left:2px;font-size:14px;width:60px;min-width:60px;" align="right" class="#clline#" id="qty_#unitclass#_#currentrow#">
 				
 			<table align="right">
 			<tr>
@@ -442,13 +442,13 @@
 			
 			</cfif>
 						
-			<td style="padding-left:1px;" align="right">			
+			<td style="width:60px;min-width:60px;padding-left:8px" align="right">			
 									
 			<cfif url.accessmode eq "edit">
 										
 				<cfif Rate.enableEditQuantity eq "1">				  
 				
-					<table>
+					<table style="width:100%">
 					<tr>					
 						<td>																								
 						<input type="text" 
@@ -459,7 +459,10 @@
 							onchange="calc('#unitclass#','#currentrow#',this.value,document.getElementById('#unitclass#_StandardCost_#currentrow#').value)"
 							value="#qt#" 
 							class="regularxl enterastab">														
-						</td><td style="padding-left:3px;padding-right:3px"><cf_inputInteger id="#unitclass#_UnitQuantity_#currentrow#" height="9" width="16"></td>		
+						</td><td style="padding-left:3px;padding-right:3px">						
+						<cf_inputInteger id="#unitclass#_UnitQuantity_#currentrow#" height="10" width="16">
+						
+						</td>		
 					
 					</tr>					
 					</table>					
@@ -489,11 +492,11 @@
 			<cfset cllineu = clline>
 		</cfif>	
 				
-		<td id="curr_#unitclass#_#currentrow#" class="#cllineu#">#Rate.currency#</font></td>
+		<td id="curr_#unitclass#_#currentrow#" style="width:60px;min-width:60px;" class="#cllineu#">#Rate.currency#</td>
 		
 		<!--- cost price --->
 		
-		<td align="right" style="font-size:14px" id="cost_#unitclass#_#currentrow#" class="#cllineu#">
+		<td align="right" style="width:100px;min-width:100px;font-size:14px" id="cost_#unitclass#_#currentrow#" class="#cllineu#">
 			 
 		     <cfif Rate.standardcost eq "0">
 			    n/a
@@ -514,15 +517,15 @@
 				
 		<!--- actual price --->
 					
-		<td align="right" style="font-size:14px" class="#cllineu#" id="price_#unitclass#_#currentrow#">
-			
+		<td align="right" style="width:100px;min-width:100px;font-size:14px" class="#cllineu#" id="price_#unitclass#_#currentrow#">
+						
 			<font face="Calibri" size="2">			  				
 			<cfif url.accessmode eq "edit">
 			
 				<cfif Rate.enableEditRate eq "0">			
 									
 				<input type="hidden" 
-					    style="width:70px;text-align:right;padding-right:2px;border-top:0px;border-bottom:0px" 
+					    style="border:0px;width:100%;background-color:ffffaf;text-align:right" 
 						name="#unitclass#_StandardCost_#currentrow#" 
 	                    id="#unitclass#_StandardCost_#currentrow#"
 						onchange="calc('#unitclass#','#currentrow#',document.getElementById('#unitclass#_UnitQuantity_#currentrow#').value,this.value)"
@@ -535,7 +538,7 @@
 																		
 				
 				<input type="text" 
-					    style="width:70px;text-align:right;padding-right:2px;border-top:0px;border-bottom:0px" 
+					    style="border:0px;width:100%;background-color:ffffaf;text-align:right;" 
 						name="#unitclass#_StandardCost_#currentrow#" 
 	                    id="#unitclass#_StandardCost_#currentrow#"
 						onchange="calc('#unitclass#','#currentrow#',document.getElementById('#unitclass#_UnitQuantity_#currentrow#').value,this.value)"
@@ -554,7 +557,7 @@
 													
 		</td>		
 								
-		<td align="right" style="font-size:14px;padding-top:0px" class="#cllineu#" id="charge_#unitclass#_#currentrow#">
+		<td align="right" style="font-size:14px;width:100px;min-width:100px;" class="#cllineu#" id="charge_#unitclass#_#currentrow#">
 												
 			<cfif url.accessmode eq "edit">
 			
@@ -585,7 +588,7 @@
 		
 		</td>							
 		
-		<td align="right" style="font-size:14px">
+		<td align="right" style="font-size:14px;width:100px;min-width:100px;">
 				  			
 			<table>
 			<tr class="labelmedium2">
@@ -645,7 +648,7 @@
 	
 	<cfif unitspecification neq "">
 				
-		<tr style="border-top:1px solid silver;background-color:ffffcf">
+		<tr style="border-top:1px solid silver;background-color:ffffcf;height:0px;">
 			<td></td>
 			<td colspan="8" style="padding-top:3px;padding-bottom:3px;padding-left:30px" class="labelmedium"><font size="2" color="black">#unitspecification#</font></td>				
 		</tr>				
@@ -653,10 +656,7 @@
 	</cfif>	
 		
 	<cfparam name="embed" default="0">
-	
-	<cfif currentrow neq recordcount>		
-		<tr><td colspan="9" class="line"></td></tr>		
-	</cfif>
+		
 		
 </cfoutput>	
 

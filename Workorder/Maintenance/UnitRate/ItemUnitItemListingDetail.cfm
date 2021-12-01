@@ -16,7 +16,7 @@ password="#SESSION.dbpw#">
 	<table width="100%" cellspacing="2" cellpadding="2"  align="center">
 				
 		<TR class="line">
-			<TD style="height:40px" colspan="2" class="labellarge">Equipment Item associated to service unit</TD>	
+			<TD style="height:40px;font-weight:bold" colspan="2" class="labellarge">Equipment associated to service unit</TD>	
 		
 			<td align="right" colspan="3" class="labelit">
 				

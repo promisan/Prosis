@@ -675,7 +675,16 @@ will be put into different batches as they could have different process flows as
 								<!--- we set the sale price if the item has no prices set for 
 											the warehouse of this entity --->
 											
-								<cfif tratpe eq "1">			
+								<cfif tratpe eq "1" and traid neq "">		
+								
+									<cfquery name="Parent"
+										datasource="AppsMaterials" 
+										username="#SESSION.login#" 
+										password="#SESSION.dbpw#">
+								   		SELECT       *
+										FROM         ItemTransaction
+										WHERE        TransactionId = '#traid#' 										
+									</cfquery>	
 								
 									<cfinvoke component = "Service.Process.Materials.Item"  
 									   method           = "createItemUoMPrice" 
@@ -683,7 +692,7 @@ will be put into different batches as they could have different process flows as
 									   ItemNo           = "#ToItemNo#" 
 									   UoM              = "#ToUoM#"
 									   DateEffective    = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
-									   Cost             = "#TransactionCostPrice#"									   
+									   Cost             = "#Parent.TransactionCostPrice#"									   
 									   datasource       = "AppsMaterials">	 								
 								   
 								</cfif>    

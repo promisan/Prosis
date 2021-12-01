@@ -133,19 +133,25 @@ password="#SESSION.dbpw#">
 									
 			 		</td>
 				
- 					<td id="details" style="padding-left:10px" width="45%">
+ 					<td id="details" style="padding-left:10px">
 					
- 					<table border="0" cellpadding="0" cellspacing="0" width="100%">
- 							<tr>
- 								<td width="35%" valign="top" style="padding-top:7px">
+ 					      <table border="0" width="100%">
+ 							
+							<tr class="fixlengthlist">
+							
+ 								<td colspan="2" valign="top" style="padding-top:7px">
 								
- 										<table width="100%" cellspacing="0" cellpadding="0" class="formPadding">													
+ 									<table width="100%" class="formPadding">													
  												
- 												<tr class="labelmedium" style="height:22px"> 																								   
-		  										<td colspan="2" style="min-width:480px" class="labelmedium">																								
-												<table>
-												<tr>																																																
-												<td class="labelmedium" style="font-size:21px">												
+ 										<tr class="labelmedium fixlenthlist" style="height:22px"> 																								   
+		  								<td colspan="2" style="min-width:480px" class="labelmedium">																								
+												
+												<table width="100%">
+												<tr class="labelmedium">	
+												<cfif AccessRoster eq "EDIT" or AccessRoster eq "ALL">												
+													<td valign="top" style="padding-top:6px;padding-left:4px;padding-right:5px"><cf_img icon="edit" onclick="EditApplicant('#Candidate.PersonNo#')"></td>													
+												</cfif>																																																
+												<td class="labelmedium" style="min-width:300px;font-size:21px">												
 												<cfif AccessRoster neq "NONE" and (url.drillid neq "" or url.id neq "")>
 													<a href="javascript:ShowCandidate('#Candidate.PersonNo#')">
 														#Candidate.LastName#, #Candidate.LastName2# #Candidate.FirstName# #Candidate.MiddleName#&nbsp;<font size="3">#Candidate.PersonNo#</font> 
@@ -154,30 +160,27 @@ password="#SESSION.dbpw#">
 													#Candidate.LastName#, #Candidate.LastName2# #Candidate.FirstName# #Candidate.MiddleName#&nbsp;<font size="3">#Candidate.PersonNo#</font> 													
 												</cfif>																									
 												</td>													
-												<cfif AccessRoster eq "EDIT" or AccessRoster eq "ALL">												
-													<td valign="top" style="padding-top:6px;padding-left:4px;padding-right:5px"><cf_img icon="edit" onclick="EditApplicant('#Candidate.PersonNo#')"></td>													
-												</cfif>									   					   																								
-												</tr>
-												
-										</table>
+																				   					   																								
+												</tr>												
+												</table>
 																						
-									</td>
-								</tr>
-																
+										</td>
+									</tr>
+																			
 								
 								<cfif DocumentReference neq "" and ApplicantClass eq "4"> 	
 													
 								    <!--- special provision for patient file reference --->											
-									<tr class="labelmedium" style="height:22px">
-									<td width="19%" style="min-width:140px"><font color="808080"><cf_tl id="Document Reference">:</td>	 													
+									<tr class="labelmedium fixlengthlist" style="height:22px">
+									<td><font color="808080"><cf_tl id="Document Reference">:</td>	 													
 									<td>#DocumentReference#</td>
 									</tr>
 								
 								</cfif> 		
 																												
-								<tr class="labelmedium" style="height:22px">
-									<td width="19%" style="min-width:100px"><font color="808080">#client.indexNoName#:</td>
-									<td width="70%" colspan="1">   
+								<tr class="labelmedium fixlengthlist" style="height:22px">
+									<td><font color="808080">#client.indexNoName#:</td>
+									<td colspan="1">   
 									  															
 										<cfif Employee.PersonNo neq "">
 									
@@ -204,17 +207,17 @@ password="#SESSION.dbpw#">
 									</td>
 								</tr>
 									
-								<tr class="labelmedium" style="height:22px">
+								<tr class="labelmedium fixlengthlist" style="height:22px">
 									<td><font color="808080"><cf_tl id="Gender">:</td>
 									<td><cfif Candidate.Gender eq "M"><cf_tl id="Male"><cfelse><cf_tl id="Female"></cfif></td>
 								</tr>
 									
-								<tr class="labelmedium" style="height:22px">
+								<tr class="labelmedium fixlengthlist" style="height:22px">
 										<td><font color="808080"><cf_tl id="DOB">:</td>
 										<td>#Dateformat(Candidate.DOB, CLIENT.DateFormatShow)# (#INT(dateDiff('m', Candidate.DOB, now())/12.0)#)</td>
 								</tr>
 									
-								<tr class="labelmedium" style="height:22px">
+								<tr class="labelmedium fixlengthlist" style="height:22px">
 										<td><font color="808080"><cf_tl id="Nationality">:</td>
 										<td>
 																																		
@@ -232,7 +235,7 @@ password="#SESSION.dbpw#">
 								
 								<cfif NationalityAdditional neq "">
 								
-								<tr class="labelmedium" style="height:22px">
+								<tr class="labelmedium fixlengthlist" style="height:22px">
 										<td><font color="808080"><cf_tl id="Nationality">:</td>
 										<td>
 																																		
@@ -270,7 +273,7 @@ password="#SESSION.dbpw#">
 																																					
 								<cfif check.operational is "1" and source.entityClass neq "">
 								
-									<tr class="labelmedium" style="height:22px">
+									<tr class="labelmedium fixlengthlist" style="height:22px">
 											<td><font color="808080"><cf_tl id="Status">:</td>
 											<td>
 																																			
@@ -279,6 +282,8 @@ password="#SESSION.dbpw#">
 											<cfelse>
 											<cf_tl id="Cleared">
 											</cfif>
+											
+											</td>
 										
 									</tr>
 									
@@ -300,27 +305,27 @@ password="#SESSION.dbpw#">
  							</table>
  						</td>
 		
- 						<td width="45%" valign="top" style="padding-left:20px">
+ 						<td valign="top" style="padding-left:20px">
  							<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
 							<tr><td height="37"></td></tr>
 			
-							<tr class="labelmedium" style="height:22px">
- 									<td class="labelmedium" width="140"><font color="808080"><cf_space spaces="40"><cf_tl id="Birth City">:</td>
- 									<td class="labelmedium"><cfif birthcity eq "">N/A<cfelse>#BirthCity#</cfif></td>
+							<tr class="labelmedium fixlengthlist" style="height:22px">
+ 									<td><font color="808080"><cf_tl id="Birth City">:</td>
+ 									<td><cfif birthcity eq "">N/A<cfelse>#BirthCity#</cfif></td>
  							</tr>
 				
-							<tr class="labelmedium" style="height:22px">
- 									<td class="labelmedium"><font color="808080"><cf_tl id="eMail">:</td>
- 									<td class="labelmedium"><cfif Candidate.EMailAddress eq ""><cf_tl id="N/A">
+							<tr class="labelmedium  fixlengthlist" style="height:22px">
+ 									<td><font color="808080"><cf_tl id="eMail">:</td>
+ 									<td><cfif Candidate.EMailAddress eq ""><cf_tl id="N/A">
 								  	<cfelse>
 										<a href="javascript:email('#Candidate.EMailAddress#','','','','Applicant','#Candidate.PersonNo#')">#Candidate.EMailAddress#</a>
 									</cfif>
  									</td>
  							</tr>
 							
-							<tr class="labelmedium" style="height:22px">
- 									<td class="labelmedium"><font color="808080"><cf_tl id="Mobile">:</td>
- 									<td class="labelmedium"><cfif Candidate.MobileNumber eq ""><cf_tl id="N/A">
+							<tr class="labelmedium fixlengthlist" style="height:22px">
+ 									<td><font color="808080"><cf_tl id="Mobile">:</td>
+ 									<td><cfif Candidate.MobileNumber eq ""><cf_tl id="N/A">
 								  	<cfelse>#Candidate.MobileNumber#</cfif>
  									</td>
  							</tr>
@@ -338,12 +343,12 @@ password="#SESSION.dbpw#">
 							   ORDER BY Created DESC															
 	  					    </cfquery>		
 				
-						<tr class="labelmedium" style="height:22px">
+						<tr class="labelmedium  fixlengthlist" style="height:22px">
 							<td><font color="808080"><cf_tl id ="User account">:</td>
 							<td>
 							
 							<cfif User.Account neq "">		
-								<table cellspacing="0" cellpadding="0">
+								<table>
 							    <cfloop query="User">											
 								<tr><td><a href="javascript:ShowUser('#User.account#')">#User.Account#</a><cfif user.recordcount gt "1">;</cfif></td></tr>		
 								</cfloop>
@@ -357,7 +362,7 @@ password="#SESSION.dbpw#">
  							</td>
  						</tr>
  										
-						<tr class="labelmedium" style="height:22px">
+						<tr class="labelmedium fixlengthlist" style="height:22px">
 						<td><font color="808080"><cf_tl id="Marital Status">:</td>
  						<td>
 						
@@ -374,7 +379,7 @@ password="#SESSION.dbpw#">
 						</td>
 						</tr>		
 						
-						<tr class="labelmedium" style="height:22px">
+						<tr class="labelmedium fixlengthlist" style="height:22px">
 						<td><font color="808080"><cf_tl id="Last Viewed">:</td>
  						<td>
 						
@@ -407,7 +412,7 @@ password="#SESSION.dbpw#">
 						 
 						 <cfif Last.Updated neq "">                              
 													
-							<tr class="labelmedium" style="height:22px">
+							<tr class="labelmedium fixlengthlist" style="height:22px">
 	 								<td><font color="808080"><cf_tl id="Profile Updated">:</td>
 	 								<td><cfif Last.Updated neq "">
 								     #dateformat(Last.Updated,CLIENT.DateFormatShow)#
@@ -421,13 +426,13 @@ password="#SESSION.dbpw#">
 					</table>
 			</td>
 						
-			<td valign="top" width="29%" style="padding-right:12px">
+			<td valign="top" style="padding-right:12px">
 										
 			    <!--- pending the definition of being able to view --->
 				
 				<table cellpadding="0" width="100%" class="formpadding">
 				
-	  				<tr><td height="5"></td></tr>
+	  				<tr class="labelmedium fixlengthlist"><td height="5"></td></tr>
 						
 						<cfquery name="StatusAssessment" 
 					       datasource="AppsSelection" 

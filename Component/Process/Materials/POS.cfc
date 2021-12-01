@@ -1102,8 +1102,7 @@
 			  password="#SESSION.dbpw#">
 				SELECT  *
 				FROM   Warehouse
-				WHERE  Warehouse = '#warehouse#'	   							   
-				
+				WHERE  Warehouse = '#warehouse#'				
 			</cfquery>						
 				
 			<cfset OrgUnitOwner = "0">
@@ -1199,7 +1198,7 @@
 			
 			<cfif getBatch.recordCount eq 1>				
 				   
-				    <cfset BatchNo = getBatch.BatchNo>	
+				    <cfset BatchNo    = getBatch.BatchNo>	
 				    <cfset setbatchid = getBatch.BatchId>						
 			
 					<cfquery name="customer"
@@ -1218,7 +1217,7 @@
 						SELECT  *
 	 					FROM    Accounting.dbo.TransactionHeader TH 
  						WHERE   TransactionSourceId = '#setbatchid#' 
-						AND     TransactionSource = 'SalesSeries'
+						AND     TransactionSource   = 'SalesSeries'
 					</cfquery>							
 							
 					<cfset parentJournal          = qHeader.Journal>
@@ -1313,7 +1312,9 @@
 					</cfif>	
 					
 					<cfloop query="getSettle">
+					
 						<cfset iCounter = iCounter + 1>
+						
 						<!--- update WarehouseBatchSettlment --->					
 							<cfquery name="Add"
 	                          datasource="AppsMaterials"
@@ -1655,7 +1656,7 @@
 				FROM    Customer
 				WHERE   CustomerId = '#customerid#'
 			</cfquery>	
-			
+									
 			<cfquery name="getLines"
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
@@ -2303,6 +2304,43 @@
 				</cfquery>		
 				
 				<!--- ReferenceOrgUnit      = "#Customer.OrgUnit#"	removed as we have already the id, instead the warehouse --->
+				
+				<cfif customerId neq customerIdInvoice and customeridInvoice neq "">
+				
+					<cfquery name="customerinvoice"
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT  *
+							FROM    Customer
+							WHERE   CustomerId = '#customerIdInvoice#'
+					</cfquery>		
+				
+				     <cfset relate   = customeridinvoice>
+					 <cfset relnme   = CustomerInvoice.CustomerName>
+					 <cfset relref   = CustomerInvoice.Reference>
+					 
+					 <!--- capture the beneficiary --->
+					 <cf_tl id="Customer" var="1">
+			         <cfoutput>
+			              	<cfsavecontent variable="addcontent">#lt_text#: #Customer.CustomerName#</cfsavecontent>
+			         </cfoutput>
+					 
+				<cfelse>
+				
+					 <cfset relate   = customerid>	
+					 <cfset relnme   = Customer.CustomerName>
+					 <cfset relref   = Customer.Reference> 
+					 
+					  <!--- capture the beneficiary --->
+					 <cf_tl id="Customer" var="1">
+			         <cfoutput>
+			              	<cfsavecontent variable="addcontent">#lt_text#: #Customer.CustomerName#</cfsavecontent>
+			         </cfoutput>
+				
+				</cfif>
+				
+				<!--- the header contains the customer tax reference, and the lines the customer reference --->
 						
 				<cf_GledgerEntryHeader
 					    DataSource            = "AppsMaterials"
@@ -2322,15 +2360,53 @@
 						ActionStatus          = "1"
 						workflow              = "#workflow#"
 						Reference             = "Receivables"   
-						ReferenceOrgUnit      = "#Customer.OrgUnit#"    
-						ReferenceName         = "#Customer.CustomerName#"
-						ReferenceId           = "#CustomerId#"
-						ReferenceNo           = ""						
+						ReferenceOrgUnit      = "#Customer.OrgUnit#"    						
+						ReferenceId           = "#relate#"
+						ReferenceName         = "#relnme#"
+						ReferenceNo           = "#relref#"						
 						ReferencePersonNo     = "#getLines.SalesPersonNo#"
 						DocumentCurrency      = "#Currency#"					
 						DocumentAmount        = "#tot#"
 						ActionBefore          = "#dateformat(TraDate,CLIENT.DateFormatShow)#"	
 						AmountOutstanding     = "#tot#">	
+						
+						<!--- store relevant information --->
+						
+						<cfif addcontent neq "">
+						
+							<cfset topic = "BILLING">
+					
+							<cfquery name="check" 
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT * 
+								FROM   Accounting.dbo.Ref_Topic
+								WHERE  Code = '#topic#' <!--- hardcoded --->
+							</cfquery>
+					
+							<cfif check.recordcount eq "1">
+							
+								<cfquery name="Topic" 
+								datasource="AppsMaterials" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">				
+									INSERT INTO  Accounting.dbo.TransactionHeaderTopic
+											(Journal, 
+											 JournalSerialNo, 
+											 Topic,  TopicValue, 
+											 OfficerUserId, OfficerLastName, OfficerFirstName )
+									VALUES  ('#getJournal.journal#',
+									         '#JournalTransactionNo#',
+											 '#topic#','#addcontent#',
+											 '#session.acc#',
+											 '#session.last#',
+											 '#session.first#')
+							    </cfquery>	
+							
+							</cfif>					
+										
+				        </cfif>		
 						
 						<!--- contra account for receivables --->
 						<cfset Receivable_Journal    = "#getJournal.Journal#">
@@ -2349,12 +2425,12 @@
 								
 							TransactionSerialNo1  = "0"
 							Class1                = "Debit"
-							Reference1            = "Sales Receivable"      							
-							ReferenceName1        = "#Customer.CustomerName#"
+							Reference1            = "Sales Receivable"      														
 							Description1          = "Sale"
 							GLAccount1            = "#receivable#"
 							Costcenter1           = "#Org.OrgUnit#"						
 							ReferenceId1          = "#Customerid#"						
+							ReferenceName1        = "#Customer.CustomerName#"
 							TransactionType1      = "Contra-account"
 							Amount1               = "#tot#">		
 									
@@ -2406,6 +2482,7 @@
 									
 								TransactionSerialNo1  = "#ln+1#"
 								Class1                = "Credit"
+								TransactionAmount1    = "#SalesTotal#"   
 								Reference1            = "Sales Income"   									
 								ReferenceName1        = "#left(Itemdescription,100)#"
 								Description1          = "Sale"
@@ -2428,7 +2505,7 @@
 								ReferenceQuantity2    = "#TransactionQuantity#"							
 								TransactionType2      = "Standard"
 								TransactionTaxCode2   = "#TaxCode#"
-								Amount2               = "#SalesTax#">																		
+								Amount2               = "#SalesTax#">																									
 			
 							<cfset ln = ln+1>
 							

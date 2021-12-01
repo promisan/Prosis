@@ -15,35 +15,33 @@ password="#SESSION.dbpw#">
 <table width="100%" align="center" class="navigation_table formpadding">
 		
 	<TR class="line">
-		<TD valign="middle" style="height:40px" colspan="6" class="labellarge">Rate Card</TD>	
+		<TD valign="middle" style="height:40px;font-weight:bold" colspan="6" class="labellarge"><cf_tl id="Rate Card"></TD>	
 	
 		<td align="right" colspan="8">
 			<cfoutput>
-			<input class="button10s" style="font-size:11px;width:160px;height:25" type="Button" name="AddRecord" id="AddRecord" value="Add Rate Card"
+			<input class="button10g" style="font-size:11px;width:160px;height:25" type="Button" name="AddRecord" id="AddRecord" value="Add Rate Card"
 			 onclick="showunitMission('', '#URL.ID1#', '#URL.ID2#')">	
 			</cfoutput>
 		</td>
 	</tr>
 						
-    <TR valign="middle">	
+    <TR valign="middle" class="fixlengthlist labelmedium2 line">	
 	   <td></td>   
-	   <td class="labelit" align="center">Effective</td>
-	   <td class="labelit" align="center">Expiration</td>	  
-	   <td class="labelit" align="center">Currency</td>
-	   <td class="labelit" align="right">Cost</td>
-	   <td class="labelit" align="right">Price</td>	   
-	   <td class="labelit" align="center">Manual</td>
-	   <td class="labelit" align="center">Edit Charged</td>
-	   <td class="labelit" align="center">Edit Qty</td>
-	   <td class="labelit" align="center">Edit Rate</td>
-	   <td class="labelit" align="center">Units</td>
-	   <td class="labelit" align="center">Ope.</td>	   
+	   <td align="center"><cf_tl id="Effective"></td>
+	   <td align="center"><cf_tl id="Expiration"></td>	  
+	   <td align="center"><cf_tl id="Currency"></td>
+	   <td align="right"><cf_tl id="Cost"></td>
+	   <td align="right"><cf_tl id="Price"></td>	   
+	   <td align="center"><cf_tl id="Manual"></td>
+	   <td align="center"><cf_tl id="Edit Charged"></td>
+	   <td align="center"><cf_tl id="Edit Qty"></td>
+	   <td align="center"><cf_tl id="Edit Rate"></td>
+	   <td align="center"><cf_tl id="Units"></td>
+	   <td align="center" title="Operational"><cf_tl id="O"></td>	   
 	   <td></td>
 	   <td></td>
     </TR>	
 	
-	<tr><td colspan="14" class="line"></td></tr>
-
 	<cfoutput query="qListing" group="Mission">
 	<!---
 	<tr><td height="20" colspan="12" class="labelmedium" style="padding-left:7px"><b>#Mission#</td></tr>
@@ -51,7 +49,7 @@ password="#SESSION.dbpw#">
 	--->
 	<cfset row = 1>
 	<cfoutput>		
-			<TR class="labelit navigation_row line">			
+			<TR class="labelmedium navigation_row line fixlengthlist">			
 			    <td style="padding-left:4px"><cfif row eq "1">#Mission#</cfif></td>	  
 				<td align="center">#Dateformat(dateEffective, "#CLIENT.DateFormatShow#")#</td>
 				<td align="center">#Dateformat(dateExpiration, "#CLIENT.DateFormatShow#")#</td>				
@@ -69,7 +67,7 @@ password="#SESSION.dbpw#">
 				</td>				
 				<td align="center">
 					<!--- onClick="window.open('itemUnitMissionEdit.cfm?ID1=#costId#&mode=Edit', 'EditItemUnitMission', 'left=80, top=80, width=1024, height=370, toolbar=no, status=yes, scrollbars=no, resizable=yes');"> --->
-					<cf_img icon="delete" onclick="if (confirm('Do you want to remove this record ?')) ColdFusion.navigate('#SESSION.root#/workorder/maintenance/unitRate/ItemUnitMissionPurge.cfm?ID1=#URL.ID1#&ID2=#URL.ID2#&URL.ID3=#costId#','listing')">
+					<cf_img icon="delete" onclick="if (confirm('Do you want to remove this record ?')) ptoken.navigate('#SESSION.root#/Workorder/Maintenance/UnitRate/Cost/ItemUnitMissionPurge.cfm?ID1=#URL.ID1#&ID2=#URL.ID2#&URL.ID3=#costId#','ratelisting')">
 				</td>		  					 							   		   
 		   </tr>	
 		   <cfset row = row+1>		  

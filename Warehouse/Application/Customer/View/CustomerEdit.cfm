@@ -567,7 +567,7 @@ password="#SESSION.dbpw#">
 	</tr>
 	
 	<tr valign="top" style="padding-top:5px" class="labelmedium2">
-		<td ><cf_tl id="Memo">:</td>
+		<td ><cf_tl id="Observations">:</td>
 		<td>
 			<textarea name="Memo" style="height:40px;font-size:14px;padding:4px;width:95%" class="regular enterastab">#Customer.Memo#</textarea>
 		</td>

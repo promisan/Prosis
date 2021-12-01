@@ -162,8 +162,8 @@
 			
 			<cfelse>
 			
-			<td>		
-															
+			<td class="fixlength">	
+																		
 				<cfif attributes.future eq "No">
 																			
 					<cf_intelliCalendarDate9

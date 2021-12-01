@@ -89,7 +89,7 @@
 				</cfif>
 						  
 		  </td>
-		  <td id="quotebox" style="padding-left:7px;font-size:20px">
+		  <td id="quotebox" style="padding-left:7px;font-size:18px;padding-top:3px" valign="top">
 		  
 		  <cfif getHeader.recordcount gte "1">
 		  <a href="javascript:stockquote('#getHeader.RequestNo#','')">#getHeader.RequestNo#</a>
@@ -100,6 +100,15 @@
 		  <td align="right">
 		  <button type="button" onclick="#jvlink#" class="button10g" style="width:40px">
 		  <img src="#SESSION.root#/Images/Search-R-Blue.png" width="26"></button></td>
+	  </tr>
+	  
+	  <tr class="labelmedium2 line fixlengthlist">
+		  <td valign="top" style="padding-top:3px;padding-left:10px"><cf_tl id="Name">:</td>
+		  <td colspan="2" id="boxmail">
+		    <textarea onchange="setquote('#getHeader.RequestNo#','remarks')" class="regularxl" type="text" 
+		    id="remarks" name="remarks" 
+		    style="font-size:14px;height:42px;padding:4px;width:100%;background-color:f1f1f1;border:0px"></textarea>
+			</td>
 	  </tr>
 	  
 	  <cfset link   = "#SESSION.root#/warehouse/application/stockorder/Quote/applyCustomer.cfm?requestno=#getHeader.RequestNo#&">			

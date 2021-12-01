@@ -62,7 +62,6 @@ password="#SESSION.dbpw#">
 <cfelseif url.entryScope eq "Portal"> 
  	<cfset Access = "ALL"> 	
 </cfif>
-
  
 <cfif URL.Topic neq "All">  
 
@@ -74,7 +73,7 @@ password="#SESSION.dbpw#">
 
 	<table width="96%" align="center">
 		
-		<cfif URL.Topic neq "All">
+		<cfif URL.Topic neq "All" and url.entryScope eq "Backoffice">
 		
 		<tr><td style="font-size:28px;padding-top:8px;height:46px;padding-left:5px" class="labellarge"><cf_tl id="Languages"></td></tr>
 		
@@ -89,21 +88,21 @@ password="#SESSION.dbpw#">
 			
 			<table width="100%" align="center" class="formpadding navigation_table">
 			
-			<TR class="labelmedium2 line">
-			    <td height="20" width="20%" style="padding-left:40px" align="left"><cfif url.entryScope eq "Backoffice"><cf_tl id="Name"></cfif></td>
-				<TD width="11%"  align="center"><cf_tl id="Native"></TD>
-			    <TD width="8%"   align="center"><cf_tl id="Prof."></TD>
+			<TR class="labelmedium2 line fixlengthlist">
+			    <td height="20" style="padding-left:40px" align="left"><cfif url.entryScope eq "Backoffice"><cf_tl id="Name"></cfif></td>
+				<TD align="center"><cf_tl id="Native"></TD>
+			    <TD align="center"><cf_tl id="Prof."></TD>
 			   
-				<TD width="11%"  align="center"><cf_tl id="Read"></TD>
-				<TD width="11%"  align="center"><cf_tl id="Write"></TD>
-				<TD width="11%"  align="center"><cf_tl id="Speak"></TD>
-				<TD width="11%"  align="center"><cf_tl id="Understand"></TD>
+				<TD align="center"><cf_tl id="Read"></TD>
+				<TD align="center"><cf_tl id="Write"></TD>
+				<TD align="center"><cf_tl id="Speak"></TD>
+				<TD align="center"><cf_tl id="Understand"></TD>
 				<cfif url.entryScope eq "Backoffice">
-			    <TD width="8%"  align="center"><cf_tl id="Clearance"></TD>
-				<TD width="10%" align="center"><cf_tl id="Source"></TD>
+			    <TD align="center"><cf_tl id="Clearance"></TD>
+				<TD align="center"><cf_tl id="Source"></TD>
 				<cfelse>
-				<TD width="8%"  align="center"><cf_tl id="Source"></TD>
-				<TD width="8%"  align="center"></TD>
+				<TD align="center"><cf_tl id="Source"></TD>
+				<TD align="center"></TD>
 				</cfif>
 			</TR>
 				
@@ -123,7 +122,7 @@ password="#SESSION.dbpw#">
 									
 					<cfif URL.ID4 eq LanguageId and URL.source eq Source>
 					
-					<tr class="navigation_row linedotted labelmedium2" style="height:35px">
+					<tr class="navigation_row linedotted labelmedium2 fixlengthlist" style="height:35px">
 					<TD style="padding-left:45px">#LanguageName#</TD>
 					<TD align="center" class="regular">
 							<INPUT type="checkbox" class="radiol" name="Mothertongue" value="1" <cfif MotherTongue eq "1">checked</cfif>>
@@ -186,7 +185,7 @@ password="#SESSION.dbpw#">
 					    <cfset cl = "">
 					</cfif>
 					
-					<tr bgcolor="#cl#" class="navigation_row labelmedium2 line">
+					<tr bgcolor="#cl#" class="navigation_row labelmedium2 line fixlengthlist">
 						<TD style="height:24px;padding-left:45px">#LanguageName#</TD>
 						<TD align="center" style="border-left:1px solid gray"><cfif MotherTongue eq "1"><cf_tl id="Yes"></cfif></TD>
 						<td align="center" style="border-left:1px solid gray"><cfif Proficiency eq "1"><cf_tl id="Yes"></cfif></td>					
@@ -253,7 +252,7 @@ password="#SESSION.dbpw#">
 						</cfif>
 						
 						</td>
-						<td align="left" style="padding-left:6px;padding-right:5px;padding-top:2px">
+						<td align="left" style="padding-left:6px;padding-right:5px;padding-top:3px">
 																
 						<cfif url.source eq source or getAdministrator("*") eq "1">
 											
@@ -295,9 +294,8 @@ password="#SESSION.dbpw#">
 							    SELECT *
 							    FROM   Ref_Language
 								WHERE  LanguageId NOT IN (SELECT L.LanguageId
-										                  FROM   ApplicantSubmission S, ApplicantLanguage L
+										                  FROM   ApplicantSubmission S INNER JOIN ApplicantLanguage L ON S.ApplicantNo = L.ApplicantNo
 											              WHERE  S.PersonNo  = '#URL.ID#'
-											              AND    S.ApplicantNo = L.ApplicantNo
 											              AND    S.Source 	  = '#url.source#')
 								ORDER BY ListingOrder, LanguageName			
 							</cfquery>
@@ -416,7 +414,7 @@ password="#SESSION.dbpw#">
 				    <cfset cl = "transparant">
 				</cfif>
 				
-				<tr bgcolor="#cl#" class="labelmedium2">
+				<tr bgcolor="#cl#" class="labelmedium2 fixlengthlist">
 					<TD style="height:35px;padding-left:4px"><b>#LanguageName#</TD>					
 					<TD align="center"><cfif MotherTongue eq "1">#yes#</cfif></TD>
 					<td align="center"><cfif Proficiency eq "1">#yes#</cfif></td>

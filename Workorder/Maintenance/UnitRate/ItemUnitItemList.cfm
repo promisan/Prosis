@@ -50,22 +50,21 @@
 datasource="AppsWorkOrder" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-    SELECT 	I.*,
-			(SELECT ItemDescription FROM Materials.dbo.Item WHERE ItemNo = I.ItemNo) as ItemDescription
-	FROM   	ServiceItemUnitItem I
-	WHERE 	I.ServiceItem = '#URL.ID1#'
-	AND 	I.Unit = '#URL.ID2#'
+    SELECT   I.*, (SELECT ItemDescription FROM Materials.dbo.Item WHERE ItemNo = I.ItemNo) as ItemDescription
+	FROM   	 ServiceItemUnitItem I
+	WHERE 	 I.ServiceItem = '#URL.ID1#'
+	AND 	 I.Unit = '#URL.ID2#'
 	ORDER BY I.ItemNo
 </cfquery>
 	
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
 
-	<tr class="labelit line" height="25" valign="middle">	   
-	   <td align="center" width="15%">Code</td>
-	   <td>Description</td>	  
-	   <td align="center" width="10%">Operational</td>	   
-	   <td width="2%"></td>
-	   <td width="2%"></td>
+	<tr class="labelmedium2 line fixlengthlist" height="25" valign="middle">	   
+	   <td align="center"><cf_tl id="Code"></td>
+	   <td><cf_tl id="Description"></td>	  
+	   <td align="center" width="10%"><cf_tl id="Operational"></td>	   
+	   <td></td>
+	   <td></td>
     </tr>
 						
 	<cfif List.recordcount eq "0">
@@ -74,7 +73,7 @@ password="#SESSION.dbpw#">
 					
 	<cfoutput query="List">			
 			
-		<TR style="height:20px" class="navigation_row line labelit">
+		<TR style="height:20px" class="navigation_row line labelmedium2 fixlengthlist">
 		   <td align="center" height="17">#ItemNo#</td>
 		   <td>#ItemDescription#</td>
 		   <td align="center"><cfif operational eq 1>Yes<cfelse><b>No</b></cfif></td>			 
@@ -82,7 +81,7 @@ password="#SESSION.dbpw#">
 				<cf_img icon="edit" navigation="Yes" onclick="showItemUnitItem('#ItemNo#', '#URL.ID1#', '#URL.ID2#')">
 		   </td>				
 		   <td align="center">
-				<cf_img icon="delete" onclick="if (confirm('Do you want to remove this item ?')) ColdFusion.navigate('ItemUnitItemList.cfm?action=delete&id1=#url.id1#&id2=#url.id2#&ItemNo=#itemno#','ItemUnitItemList');">
+				<cf_img icon="delete" onclick="if (confirm('Do you want to remove this item ?')) ptoken.navigate('ItemUnitItemList.cfm?action=delete&id1=#url.id1#&id2=#url.id2#&ItemNo=#itemno#','ItemUnitItemList');">
 		   </td>					
 		</TR>	
 													

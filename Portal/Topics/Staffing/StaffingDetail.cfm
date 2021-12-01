@@ -213,7 +213,7 @@
 					 WHERE  Code = '#Person.Nationality#' 		 
 			</cfquery>
 	   	  	   
-		   <tr class="labelmedium2 navigation_row linedotted fixlengthlist" style="height:20px">
+		   <tr class="labelmedium2 navigation_row linedotted fixlengthlist">
 		   	   <td style="padding-left:4px">#currentrow#.</td>
 		       <td style="padding-left:4px">
 			   <a href="javascript:EditPosition('','','#PositionNo#')"><cfif sourcePostNumber neq "">#SourcePostNumber#<cfelse>#PositionParentId#</cfif></a>
@@ -224,14 +224,14 @@
 			   <cfif Person.PersonNo neq "">
 			   <td style="padding-right:7px">
 				   <table>
-				   <tr class="labelmedium" style="height:20px">
-				        <td><img src="#session.root#/images/logos/staffing/iconperson.png" alt="" border="0"></td>
+				   <tr class="labelmedium2" style="height:20px">
+				        <td><img src="#session.root#/images/logos/staffing/iconperson.png" height="15" alt="" border="0"></td>
 				        <td style="padding-left:4px" ><a href="javascript:EditPerson('#personno#')">#Person.IndexNo#</a></td>
 				   </tr>
 				   </table>
 			   </td>
 			   <td>#Incumbency#</td>	
-		       <td style="padding-right:5px">#Person.FirstName# #Person.LastName#</td>	
+		       <td>#Person.FirstName# #Person.LastName#</td>	
 			   <td>#Nation.Name#</td>		  
 			   <cfelse>
 			   <td colspan="3" bgcolor="E6E6E6" style="padding-left:5px"><cf_tl id="Vacant"></td>

@@ -171,7 +171,7 @@
 								'#code#',	
 								<cfif valueClass eq "List">	
 								'#vValue#',	
-								'#qTopicList.ListValue#'	
+								'#qTopicList.ListValue#',	
 								<cfelse>
 								'#vValue#',			
 								</cfif>									

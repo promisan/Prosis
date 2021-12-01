@@ -37,7 +37,7 @@ function show(par) {
 	se = document.getElementsByName("g"+par)
 	cnt = 0
 
-	if (se2.className == "regular navigation_row") {
+	if (se2.className == "labelmedium2 navigation_row line fixlengthlist") {
 	 	 
 		se1.className = "regular"
 		se2.className = "hide"	 
@@ -46,8 +46,8 @@ function show(par) {
 	} else  {	 
 
 	    se1.className = "hide"
-		se2.className = "regular navigation_row"
-		while (se[cnt]) { se[cnt].className = "regular line navigation_row"; cnt++ }
+		se2.className = "labelmedium2 navigation_row line fixlengthlist"
+		while (se[cnt]) { se[cnt].className = "labelmedium2 navigation_row line fixlengthlist"; cnt++ }
 		 
 	}	 
 	

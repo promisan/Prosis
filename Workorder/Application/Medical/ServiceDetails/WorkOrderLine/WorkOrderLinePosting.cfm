@@ -397,8 +397,7 @@
 																onclick="PrintTaxReceivable('#Invoice.ActionId#', 'finance');">	
 													
 														<!--- open the view --->
-													
-													
+														
 													</cfif>
 													
 												</td>
@@ -439,8 +438,17 @@
 															AND      H.ActionStatus IN ('0','1') 
 															AND      H.RecordStatus != '9'
 													</cfquery>	
+																								
+																											
+											 	  <cfinvoke component="Service.Access"  
+												      method    = "journal"  
+													  journal   = "#Journal#" 
+													  orgunit   = "#header.OrgUnitOwner#"
+													  returnvariable="access">			  
 																																	
-													<cfif checkOffset.recordcount eq "0" and listBilling.recordcount gte "1">
+													<cfif checkOffset.recordcount eq "0" 
+													      and listBilling.recordcount gte "1"
+														  and (access eq "EDIT" or access eq "ALL")>
 													
 														<td align="right" style="padding-top:2px">
 																																		

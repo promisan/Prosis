@@ -1,12 +1,14 @@
 
-<cfajaximport tags="cfdiv,cfform,cfinput-autosuggest,cfwindow">
+<cfajaximport tags="cfdiv,cfform,cfinput-autosuggest">
+
+<cf_screentop htmp="No" jquery="Yes" html="No">
 
 <cfoutput>
 
 <script>
 
 function cancel() {
-   ColdFusion.navigate('itemUnitItemListingDetail.cfm?ID1=#URL.ID1#&ID2=#URL.ID2#','listingItem')
+   ptoken.navigate('itemUnitItemListingDetail.cfm?ID1=#URL.ID1#&ID2=#URL.ID2#','listingItem')
 }
 
 function saveDetail(code) {
@@ -20,21 +22,21 @@ function saveDetail(code) {
 function showItemUnitItem(itemNo, serviceItem, serviceItemUnit) {
      var wd = 500;
      var ht = 225;     
-      
-	try { ColdFusion.Window.destroy('mydialog',true) } catch(e) {}
-	ColdFusion.Window.create('mydialog', 'Unit', '',{x:100,y:100,height:ht,width:wd,modal:true,resizable:false,center:true})    					
-	ColdFusion.navigate('itemUnitItem.cfm?ID1=' + itemNo + '&ID2='+ serviceItem + '&ID3=' + serviceItemUnit,'mydialog') 
+     
+	
+	ProsisUI.createWindow('mydialog', 'Unit', '',{x:100,y:100,height:ht,width:wd,modal:true,resizable:false,center:true})    					
+	ptoken.navigate('itemUnitItem.cfm?ID1=' + itemNo + '&ID2='+ serviceItem + '&ID3=' + serviceItemUnit,'mydialog') 
 }
 
 function showItemUnitRefresh(itm,unit) {
-    ColdFusion.navigate('itemUnitItemListingDetail.cfm?ID1='+ itm + '&ID2=' + unit,'listingItem');
+    ptoken.navigate('itemUnitItemListingDetail.cfm?ID1='+ itm + '&ID2=' + unit,'listingItem');
 }  
 
 </script>
 
 </cfoutput>
 			
-<table width="100%" border="0" cellspacing="0" cellpadding="1" align="center" frame="hsides">
+<table width="100%" align="center" frame="hsides">
 
 	<tr>	
 	    <td width="100%">

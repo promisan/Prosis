@@ -24,29 +24,22 @@
 
 <!-- <cfform> -->
 		
-	<table width="94%" class="formpadding" cellspacing="0" cellpadding="0" align="center">
+	<table width="94%" class="formpadding" align="center">
 					
 		 <cfoutput>
 		 
+		 		 
 		 <cfinput type="Hidden" name="serviceItem" value="#URL.ID1#">		 
 			
 		 <!--- Field: Unit --->
 		 
-		 <tr><td height="8px"></td></tr>
-		 <TR>
-			 <TD class="labelmedium">Unit Id:<font color="FF0000">*</font><cf_space spaces="50"></TD>  
-			 <cfif URL.ID2 eq "">
-				 <TD>
-				  <cfinput type="Text" name="unit" value="#get.unit#" message="Please enter a Unit Id" required="Yes" size="10" maxlength="10" class="regularxl">
-				 </TD>
-			 <cfelse>
-			 	<cfinput type="Hidden" name="unit" value="#URL.ID2#">
-				 <TD class="labelmedium">#URL.ID2#<cf_space spaces="60"></TD>
-			 </cfif>			   			 
+		 <tr><td height="10px"></td></tr>
+		 <TR>			 		  			 
 			 
 			 <!--- Field: UnitDescription --->
-			 <TD  class="labelmedium" valign="top" style="padding-top:7px" rowspan="3">Description:<cf_space spaces="50"></TD>
-		     <TD rowspan="3"><cf_space spaces="60">
+			 <TD  class="labelmedium" valign="top" style="padding-top:7px" rowspan="3"><cf_tl id="Name">:</TD>
+		     <TD rowspan="3" valign="top" style="min-width:300px;padding-top:4px;padding-right:5px;padding-left:3px">
+			 
 				<cf_LanguageInput
 					TableCode		= "ServiceItemUnit"
 					Mode            = "Edit"
@@ -59,14 +52,25 @@
 					Required        = "Yes"
 					Message         = "Please enter a Unit Description"
 					MaxLength       = "80"
-					Size            = "50"
+					Size            = "45"
 					Class           = "regularxl">
-		     </TD>			 			 
+		     </TD>		
+			 
+			 <TD style="padding-left:3px" class="labelmedium">Unit Id:<font color="FF0000">*</font><cf_space spaces="50"></TD>  
+			 <cfif URL.ID2 eq "">
+				 <TD>
+				  <cfinput type="Text" name="unit" value="#get.unit#" message="Please enter a Unit Id" required="Yes" size="10" maxlength="10" class="regularxl">
+				 </TD>
+			 <cfelse>
+			 	<cfinput type="Hidden" name="unit" value="#URL.ID2#">
+				 <TD class="labelmedium">#URL.ID2#</TD>
+			 </cfif>	
+			 	 			 
 		 </TR>
 		 
-		 <tr>
-		 	<TD class="labelmedium"><cf_UIToolTip tooltip="The class set the lowest billing level, units that belong to the same class will be billed together.">Provision Class: <font color="FF0000">*</font>&nbsp;</cf_UIToolTip></td>
-			<td>
+		 <tr class="fixlengthlist">
+		 	<TD class="labelmedium" style="cursor:pointer" title="The class set the lowest billing level, units that belong to the same class will be billed together.">Billing Class: <font color="FF0000">*</font>&nbsp;</td>
+			<td style="min-width:280px">
 			
 				<cfquery name="getLookup" 
 				datasource="AppsWorkorder" 
@@ -77,8 +81,8 @@
 				  ORDER BY Description ASC
 				</cfquery>
 				
-				<select name="unitClass" id="unitClass" class="regularxl" 
-					onchange="ColdFusion.navigate('ItemUnitEdit_UnitParent.cfm?ID1=#URL.ID1#&ID2=#URL.ID2#&unitParent=#get.UnitParent#&unitClass='+this.value,'unitParentDiv')">
+				<select name="unitClass" id="unitClass" class="regularxl" style="width:280px"
+					onchange="ptoken.navigate('ItemUnitEdit_UnitParent.cfm?ID1=#URL.ID1#&ID2=#URL.ID2#&unitParent=#get.UnitParent#&unitClass='+this.value,'unitParentDiv')">
 					<cfset selectedUnitClass = "#getLookup.code#">
 					<cfloop query="getLookup">
 					  <option value="#getLookup.code#" <cfif getLookup.code eq get.unitClass>selected <cfset selectedUnitClass = "#getLookup.code#"> </cfif>>#getLookup.description# (#getLookup.Code#)</option>
@@ -88,18 +92,18 @@
 			</td>
 		 </tr>
 		 
-		 <TR>
+		 <TR  class="fixlengthlist">
 			 <!--- need an ajax filter on the selected class here --->
 			 <TD class="labelmedium">Present under Unit Id:</TD>
 			 <TD class="labelmedium">
-				 <cfdiv id="unitParentDiv"
+				 <cf_securediv id="unitParentDiv"
 				   bind="url:ItemUnitEdit_UnitParent.cfm?ID1=#URL.ID1#&ID2=#URL.ID2#&unitParent=#get.UnitParent#&unitClass=#selectedUnitClass#">
 		 	</TD>	
 			
 		</TR>		 
 		
 		<!--- Field: Label Rate, Listing order --->
-		<tr>
+		<tr class="fixlengthlist">
 			
 			<TD class="labelmedium">Listing Order:<font color="FF0000">*</font></TD>
 		    <TD>
@@ -137,7 +141,7 @@
 		</TR>						
 		
 		<!--- Field: Frequency, Billing Mode --->
-		<tr>
+		<tr class="fixlengthlist">
 			<td class="labelmedium">Billing Frequency:</td>
 			<td>
 			
@@ -188,7 +192,7 @@
 		</TR>		
 		
 		<cfif get.BillingMode eq "Detail">
-			<cfset cl = "regular">
+			<cfset cl = "regular fixlengthlist">
 		<cfelse>
 			<cfset cl = "Hide">
 		</cfif>
@@ -226,7 +230,7 @@
 		</tr>							
 		
 				 
-	    <TR>
+	    <TR class="fixlengthlist">
 			<!--- Field: UnitCode --->
 			 <TD class="labelmedium">Billing Code:</TD>  
 			 <TD>
@@ -254,16 +258,14 @@
 			<cf_verifyOperational 
                  module    = "Payroll" 
    				Warning   = "No">
- 
-			
 			
 		</TR>	 
 			 
-	    <TR>
+	    <TR class="fixlengthlist">
 			<td class="labelmedium">
-			Income GL Account:
+			<cf_tl id="Income GL Account">:
 			</td>
-			<td class="labelmedium">
+			<td class="labelmedium" style="padding-right:10px">
 			
 			<cfquery name="getLookup" 
 				datasource="AppsLedger" 
@@ -275,7 +277,7 @@
 					AND    AccountClass = 'Result'
 			</cfquery>
 			
-			<select name="GLAccount" id="GLAccount" class="regularxl" style="width:240">
+			<select name="GLAccount" id="GLAccount" class="regularxl" style="width:100%">
 				<option value=""></option>
 				<cfloop query="getLookup">
 				  <option value="#getLookup.glAccount#" <cfif getLookup.glAccount eq get.glAccount>selected</cfif>>#getLookup.glAccount# - #getLookup.description#</option>
@@ -285,7 +287,7 @@
 			
 			<cfif operational eq "1">
 
-				<TD class="labelmedium">Payroll Item:</TD>
+				<TD class="labelmedium"><cf_tl id="Payroll Item">:</TD>
 			    <TD class="labelmedium">
 					<cfquery name="getLookup" 
 					datasource="AppsPayroll" 
@@ -311,7 +313,7 @@
 		</TR>
 		
 		<!--- Field: Operational, GLAccount --->
-	    <TR>
+	    <TR class="fixlengthlist">
 			<TD class="labelmedium" width="15%"><cf_UIToolTip tooltip="This item is enabled for SLA provisioning definition in a preset billing">Enable for SLA:</cf_UIToolTip></TD>
 		    <TD class="labelmedium">
 			   <table class="formspacing"><tr>
@@ -338,7 +340,7 @@
 				
 				
 		<!--- Field: Unit Specification --->
-		<tr>
+		<tr class="fixlengthlist">
 		    <TD class="labelmedium" valign="top" style="padding-top:4px">Specification Memo:&nbsp;</TD>
 		    <TD colspan="3">
 			  
@@ -391,13 +393,17 @@
 		</cfif>		
 		
 		</td></tr>
-		<tr><td height="1" colspan="4" class="line"></td></tr> 
-		
+				
 	</cfoutput>
 
 	<tr>
 	<td colspan="4" style="padding:7px;border:0px solid silver">
-		<cfinclude template="ItemUnitMissionListing.cfm">
+		<cfinclude template="Cost/ItemUnitMissionListing.cfm">
+	</td></tr>
+	
+	<tr>
+	<td colspan="4" style="padding:7px;border:0px solid silver">
+		<cfinclude template="Service/ItemUnitServiceListing.cfm">
 	</td></tr>
 	
 	<tr>

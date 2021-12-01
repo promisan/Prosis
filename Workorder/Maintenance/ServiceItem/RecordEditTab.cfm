@@ -96,7 +96,7 @@
 								iconwidth  = "#wd#" 
 								targetitem = "2"
 								iconheight = "#ht#" 
-								name       = "Accounts Receivable"
+								name       = "Batch Billing Services"
 								source 	   = "FinancialsListing.cfm?ID1=#URL.ID1#">								
 																
 								

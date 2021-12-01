@@ -139,7 +139,7 @@ password="#SESSION.dbpw#">
 		    try {
 			parent.parent.showunitMissionrefresh('#Form.serviceItem#','#Form.serviceItemUnit#')
 			} catch(e) {}
-		    parent.parent.ColdFusion.Window.destroy('myrate',true)		            
+		    parent.parent.ProsisUI.closeWindow('myrate',true)		            
 		</script> 
 		
 		</cfoutput>
@@ -227,7 +227,7 @@ password="#SESSION.dbpw#">
 		    try {
 			parent.parent.showunitMissionrefresh('#Form.serviceItem#','#Form.serviceItemUnit#')
 			} catch(e) {}
-		    parent.parent.ColdFusion.Window.destroy('myrate',true)		            
+		    parent.parent.ProsisUI.closeWindow('myrate',true)		            
 		</script>
 		</cfoutput> 	
 			
@@ -265,7 +265,7 @@ password="#SESSION.dbpw#">
 		    try {			
 			parent.parent.showunitMissionrefresh('#Form.serviceItem#','#Form.serviceItemUnit#')
 			} catch(e) {}
-		    parent.parent.ColdFusion.Window.destroy('myrate',true)		            
+		    parent.parent.ProsisUI.closeWindow('myrate',true)		            
 		</script> 
 	</cfoutput>	
 		

@@ -508,14 +508,13 @@
 	
 	</cfif>
 	
-	<tr>
-		<td style="padding-left:4px" class="labelmedium"><cf_tl id="Responsible Specialist">:</td>
+	<tr class="labelmedium">
+		<td style="padding-left:4px"><cf_tl id="Responsible Specialist">:</td>
+		
 		<td>
 		
 		      <table cellspacing="0" cellpadding="0">
 					<tr>
-					
-					
 					
 					<td id="member">
 					
@@ -535,8 +534,8 @@
 						    box        = "member"
 							button     = "yes"
 							icon       = "search.png"
-							iconwidth  = "25"
-							iconheight = "25"
+							iconwidth  = "24"
+							iconheight = "24"
 							title      = "#lt_text#"
 							link       = "#link#"						
 							close      = "Yes"
@@ -550,7 +549,7 @@
 		</td>
 	</tr>
 	
-	<tr><td style="padding-left:4px" height="34" class="labelmedium"><cf_tl id="Activity">:</td>
+	<tr class="labelmedium"><td style="padding-left:4px" height="34"><cf_tl id="Activity">:</td>
 		
 		<cfquery name="ServiceArea" 
 			datasource="AppsWorkOrder" 
@@ -609,21 +608,14 @@
 				--->
 							   	
 			<cfelse>
-			
-				 <table  cellspacing="0" cellpadding="0">
-				 <tr><td>
-																					
+																								
 				<select name="ServiceReference" id="ServiceReference" class="regularxl enterastab">
 				<cfoutput query="ServiceArea">
 				   <cf_tl id="#Description#" var="1">
 				   <option value="#Reference#" <cfif lastReference eq Reference>selected</cfif>>#lt_text#</option>
 				</cfoutput>					
 				</select>
-				
-				</td>
-				</tr>
-				</table>
-											
+															
 			</cfif>
 																		
 		</td>			
@@ -718,7 +710,7 @@
 				 <tr>
 				 
 				 <td style="min-width:400px">
-				    <cfdiv bind="url:#session.root#/WorkOrder/Application/WorkOrder/Create/Medical/getCustomField.cfm?mission=#url.mission#&serviceitem=#url.serviceitem#&domainclass={ServiceDomainClass}">		
+				    <cf_securediv id="custombox" bind="url:#session.root#/WorkOrder/Application/WorkOrder/Create/Medical/getCustomField.cfm?mission=#url.mission#&serviceitem=#url.serviceitem#&domainclass={ServiceDomainClass}">		
 				 </td>
 				 </tr>
 				 
@@ -738,7 +730,7 @@
 	</tr>
 	
 	<tr class="line">
-		<td  height="34" colspan="2" style="padding-left:4px;height:30px;font-size:16px" class="labelmedium" width="15%"><cf_tl id="Planned actions"></td>
+		<td  height="34" colspan="2" style="padding-left:4px;height:30px;font-size:16px;font-weight:bold" class="labelmedium2" width="15%"><cf_tl id="Planned actions"></td>
 	</tr>
 			
 	<!--- Note for the file : Hanno 10/10/2016 ------------------------------------------------------- --->
@@ -747,9 +739,9 @@
 	<!--- -------------------------------------------------------------------------------------------- --->	 
 		
 	<cfif url.schedule eq "1">	
-										
+											
 		<cfset datemode = "Planning">
-						
+								
 		<cf_WorkOrderActionFields
 	       mission           = "#url.mission#" 
 	       serviceitem       = "#url.serviceitem#" 
@@ -769,9 +761,9 @@
 		 
 				   
 	<cfelse>
-						
+	
 		<cfset datemode = "Request">	
-			
+				
 		<cf_WorkOrderActionFields
 	       mission        = "#url.mission#" 
 	       serviceitem    = "#url.serviceitem#" 

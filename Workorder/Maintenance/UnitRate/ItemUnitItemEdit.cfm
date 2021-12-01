@@ -1,15 +1,16 @@
-<cf_screentop height="100%" label="Item for Unit <b>#url.id3#</b>"
-    close="parent.ColdFusion.Window.destroy('mydialog',true)"
-    title="Unit #url.id3#" scroll="No" jquery="Yes" layout="webapp" banner="gray">
+
+<cf_screentop height="100%" label="Item for Unit <b>#url.id3#</b>"    
+    title="Unit #url.id3#" html="No" scroll="No" jquery="Yes" layout="webapp" banner="gray">
+
 
 <script language="JavaScript">
-
-function ask() {
-	if (confirm("Do you want to remove this item ?")) {	
-	return true 	
+	
+	function ask() {
+		if (confirm("Do you want to remove this item ?")) {	
+		return true 	
+		}	
+		return false	
 	}	
-	return false	
-}	
 
 </script>
 
@@ -35,7 +36,7 @@ function ask() {
 
 	<cfform name="fDetailUnitItem" action="ItemUnitItemSubmit.cfm" method="POST" target="processUnitItem">		
 	
-	<table width="94%" cellspacing="2" cellpadding="1" align="center">
+	<table width="94%" align="center">
 	
 	<tr class="hide"><td><iframe name="processUnitItem" id="processUnitItem" frameborder="0"></iframe></td></tr>
 	
@@ -74,8 +75,8 @@ function ask() {
 		</cfif>			 						
 		 	 
 		<TR>	
-			<td class="labelmedium" width="15%">Item:<font color="FF0000">*</font>&nbsp;</td>
-			<td  class="labelmedium">	
+			<td class="labelmedium2" width="15%"><cf_tl id="Item">:<font color="FF0000">*</font>&nbsp;</td>
+			<td  class="labelmedium2">	
 			
 			<cfif url.id1 eq "">
 			
@@ -118,8 +119,8 @@ function ask() {
 		</TR>	 	 	
 		 	
 		<TR>
-			<td class="labelmedium">Operational:&nbsp;</td>
-			<td colspan="3" class="labelmedium">
+			<td class="labelmedium2"><cf_tl id="Operational"></td>
+			<td colspan="3" class="labelmedium2">
 				<input type="radio" class="radiol" name="operational" id="operational" value="1" <cfif get.operational eq "1" or url.id1 eq "">checked</cfif>>Yes
 				<input type="radio" class="radiol" name="operational" id="operational" value="0" <cfif get.operational eq "0">checked</cfif>>No
 			</td>												

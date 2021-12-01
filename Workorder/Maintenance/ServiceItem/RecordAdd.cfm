@@ -10,6 +10,7 @@
 			  systemfunctionid="#url.idmenu#">
 
 <cfoutput>
+
 	<cf_ColorScript>
 
 	<script>
@@ -17,7 +18,7 @@
 		function validate() {
 			document.editform.onsubmit() 
 			if( _CF_error_messages.length == 0 ) {        
-				ColdFusion.navigate('RecordSubmit.cfm?action=save','addItemDiv','','','POST','editform')
+				ptoken.navigate('RecordSubmit.cfm?action=save','addItemDiv','','','POST','editform')
 			 }   
 		}	
 	

@@ -11,8 +11,8 @@
 <!--- refresh the screen and sets the new customer --->
 
 <script>  
-	try { ColdFusion.Window.destroy('settlement',true)} catch(e){};	
-	window.open("#SESSION.root#/warehouse/application/salesorder/pos/settlement/SaleInvoice.cfm?batchid=#url.batchid#&ts="+new Date().getTime(), "_blank", "left=30, top=30, width=800, height=800, status=yes, toolbar=no, scrollbars=no, resizable=yes");		
+	// try { ColdFusion.Window.destroy('settlement',true)} catch(e){};	
+	ptoken.open("#SESSION.root#/warehouse/application/salesorder/pos/settlement/SaleInvoice.cfm?batchid=#url.batchid#, "_blank", "left=30, top=30, width=800, height=800, status=yes, toolbar=no, scrollbars=no, resizable=yes");		
     ptoken.navigate('#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#','customerbox')
 </script>
 

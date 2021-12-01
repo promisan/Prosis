@@ -52,7 +52,8 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT 	  M.*,
-				  S.Description 
+				  S.Description,
+				  S.CustomFormBilling 
 		FROM      ServiceItem S INNER JOIN ServiceItemMission M ON M.ServiceItem = S.Code  		
 		WHERE     M.ServiceItem = '#get.ServiceItem#'
 		AND 	  M.Mission     = '#get.mission#'		
@@ -69,7 +70,20 @@
 	
 </cfif>		
 
-<!--- Generate billing --->
+<!--- Generate BILLING --->
+
+<!--- 
+
+we determine relevant header information on the context of this billing into the table TransactionHeaderTopic ARFEL 
+which is beyond the line information 
+
+--->
+
+<cf_tl id="Patient"      var="qperson">
+<cf_tl id="Consult"      var="qvisit">
+<cf_tl id="Date"         var="qdate">
+<cf_tl class="message" id="billingMaterial"   var="qmaterials">
+<cf_tl class="message" id="billingHonorarium" var="qhonorarium">
 
 <cftransaction>
 
@@ -93,28 +107,30 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		
-		SELECT    Currency,
-		          OrgUnitOwner, 
-		          OrgUnitCustomer, 
-				  TransactionDate,
-				  ROUND(SUM(SalePayable),2) AS Total
-				  
-		FROM      WorkOrder.dbo.WorkOrderLineCharge C
-		WHERE     C.WorkOrderid   = '#get.WorkOrderid#' 
-		AND       C.WorkOrderLine = '#get.WorkOrderLine#' 
-		AND       C.Journal   is NULL
-		AND       EXISTS (SELECT 'X' 
-		                  FROM   Accounting.dbo.Ref_Account 
-						  WHERE  GLAccount = C.GLAccountCredit)
-						  
-		GROUP BY  Currency,
-		          OrgUnitOwner, 
-				  OrgUnitCustomer,
-				  TransactionDate	
-				  
-		HAVING    ROUND(SUM(SalePayable),2) != 0	
-		 	 	
+			SELECT    Currency,
+			          OrgUnitOwner, 
+			          OrgUnitCustomer, 
+					  TransactionDate,
+					  ROUND(SUM(SalePayable),2) AS Total
+					  
+			FROM      WorkOrder.dbo.WorkOrderLineCharge C
+			WHERE     WorkOrderid   = '#get.WorkOrderid#' 
+			AND       WorkOrderLine = '#get.WorkOrderLine#' 
+			AND       Journal is NULL <!--- Important !!  prevent double charge, see below --->
+			AND       EXISTS (SELECT 'X' 
+			                  FROM   Accounting.dbo.Ref_Account 
+							  WHERE  GLAccount = C.GLAccountCredit)
+							  
+			GROUP BY  Currency,
+			          OrgUnitOwner, 
+					  OrgUnitCustomer,
+					  TransactionDate	
+					  
+			HAVING    ROUND(SUM(SalePayable),2) != 0	
+					 	 	
 	</cfquery>	
+	
+	<!--- prevent double charge by setting the value <> NULL --->
 	
 	<cfquery name="crossBilling" 
 		datasource="AppsLedger" 
@@ -136,6 +152,25 @@
 	</cfif>	
 
 	<cfloop query="ListBilling">
+	
+	         <!--- we bill for each combination --->	
+						
+			<cfif getService.CustomFormBilling neq "">
+				
+				<cfoutput>
+				
+					<cfset url.workorderid     = get.WorkOrderId>
+					<cfset url.workorderline   = get.WorkOrderLine>
+					<cfset url.transactiondate = TransactionDate>
+					<cfset url.orgunitOwner    = OrgUnitOwner>
+					
+					<cfsavecontent variable="mycontent">
+					       <cfinclude template="../../../WorkOrder/Custom/#getService.CustomFormBilling#">
+					</cfsavecontent>
+				
+				</cfoutput>
+			
+			</cfif>
 						
 			<cfquery name="getJournal" 
 				datasource="AppsLedger" 
@@ -232,6 +267,8 @@
 				password="#SESSION.dbpw#">
 			
 				SELECT     WC.UnitClass, 
+				           WC.UnitDescription,
+						   WC.Unit,
 				           R.Description, 
 						   WC.GLAccountCredit, 
 						   WC.OrgUnit,
@@ -239,9 +276,10 @@
 						   WC.TaxCode,
 						   WC.BillingReference,
 						   WC.BillingName,
+						   SUM(WC.Quantity)         AS Quantity, 
 						   SUM(WC.SaleAmountIncome) AS Income, 
-						   SUM(WC.SaleAmountTax) AS Tax,
-						   SUM(WC.SalePayable) AS Amount
+						   SUM(WC.SaleAmountTax)    AS Tax,
+						   SUM(WC.SalePayable)      AS Amount
 				FROM       Workorder.dbo.WorkOrderLineCharge WC INNER JOIN
 	                       WorkOrder.dbo.Ref_UnitClass R ON WC.UnitClass = R.Code
 				WHERE      WorkOrderid        = '#get.WorkOrderid#' 
@@ -253,6 +291,8 @@
 				AND        WC.Journal = 'InProcess'
 												
 	            GROUP BY   WC.UnitClass, 
+				           WC.UnitDescription,
+						   WC.Unit,
 				           WC.GLAccountCredit, 
 						   WC.TransactionDate,
 						   R.Description,
@@ -290,7 +330,8 @@
 				<cfset inv = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceno")>
 				<cfset ser = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceseries")>
 				<cfset mai = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_email")>
-											
+								
+				<!--- this is the old mode in which invoice info was recorded --->							
 				<cfif inv eq "">
 					<cfset actionCode = "">
 				<cfelse>
@@ -328,7 +369,8 @@
 					Reference             = "#get.Reference#"       
 					ReferenceId           = "#get.CustomerId#"			
 					ReferencePersonNo     = "#get.ApplicantNo#"		
-					ReferenceName         = "#get.customername#"
+					ReferenceNo           = "#Lines.BillingReference#"
+					ReferenceName         = "#Lines.BillingName#"
 					DocumentCurrency      = "#Currency#"			
 					DocumentDate          = "#DateFormat(now(),CLIENT.DateFormatShow)#" 
 					TransactionDate       = "#DateFormat(now(),CLIENT.DateFormatShow)#"
@@ -337,6 +379,39 @@
 					ActionCode            = "#actioncode#"
 					ActionReference1      = "#ser#"
 					ActionReference2      = "#inv#">	
+														
+					<cfset topic = "BILLING">
+					
+					<cfquery name="check" 
+					datasource="AppsLedger" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT * 
+						FROM   Ref_Topic
+						WHERE  Code = '#topic#' <!--- hardcoded --->
+					</cfquery>
+					
+					<cfif check.recordcount eq "1" and getService.CustomFormBilling neq "">
+					
+						<cfquery name="Topic" 
+						datasource="AppsLedger" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">				
+							INSERT INTO TransactionHeaderTopic
+									(Journal, 
+									 JournalSerialNo, 
+									 Topic,  TopicValue, 
+									 OfficerUserId, OfficerLastName, OfficerFirstName )
+							VALUES  ('#getJournal.journal#',
+							         '#JournalTransactionNo#',
+									 '#topic#','#mycontent#',
+									 '#session.acc#',
+									 '#session.last#',
+									 '#session.first#')
+									 
+					    </cfquery>	
+					
+					</cfif>					
 					
 			<cfelse>
 							
@@ -350,11 +425,11 @@
 					datasource="AppsLedger" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-					UPDATE    TransactionHeader
-					SET       DocumentAmount    = DocumentAmount + '#total#', 
-					          Amount            = Amount+'#total#', 
-							  AmountOutstanding = AmountOutstanding + '#total#'					
-					WHERE     TransactionId     = '#check.transactionid#'
+					UPDATE  TransactionHeader
+					SET     DocumentAmount    = DocumentAmount + '#total#', 
+					        Amount            = Amount+'#total#', 
+							AmountOutstanding = AmountOutstanding + '#total#'					
+					WHERE   TransactionId     = '#check.transactionid#'
 			    </cfquery> 
 			
 				<cfset JournalTransactionNo = check.JournalSerialNo>
@@ -398,8 +473,9 @@
 						TransactionSerialNo1  = "1"
 						TransactionAmount1    = "#amount#"
 						Class1                = "Credit"
-						Reference1            = "Charges"       
-						ReferenceName1        = "#getService.description#"
+						Reference1            = "Charges"   
+						ReferenceQuantity1    = "#Quantity#"    
+						ReferenceName1        = "#UnitDescription#"
 						ReferenceId1          = "#get.WorkOrderLineId#"
 						ReferenceNo1          = "#UnitClass#"						
 						GLAccount1            = "#GLAccountCredit#"
@@ -426,9 +502,8 @@
 					
 						<!--- 10/4/2016 obtain the tax account for received taxes --->
 							
-						<!--- Lines for each Unit class/glaccount/cost center --->					
-						
-						
+						<!--- Lines for each Unit class/glaccount/cost center --->	
+											
 						<cf_GledgerEntryLine
 						    DataSource            = "AppsLedger"
 							Lines                 = "1"
@@ -455,9 +530,8 @@
 					
 				</cfloop>
 				
-				<!--- we are posting the Tax here --->
-				
-								
+				<!--- we are posting the FEL Tax here --->
+												
 				<cfif getJournal.OrgUnitTax neq "" and abs(total) gte "0.05">   <!--- exclude very small postings like coutersy --->
 				
 					<cfinvoke component = "Service.Process.EDI.Manager"

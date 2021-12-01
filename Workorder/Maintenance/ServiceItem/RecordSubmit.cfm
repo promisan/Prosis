@@ -243,6 +243,7 @@ password="#SESSION.dbpw#">
 					SET    Description        		= '#Form.Description#',
 						   ListingOrder        		= '#Form.ListingOrder#',
 						   CustomForm          		= '#Form.CustomForm#',
+						   CustomFormBilling        = '#Form.CustomFormBilling#',
 						   ServiceMode              = '#Form.ServiceMode#',
 						   ServiceClass        		= '#Form.ServiceClass#', 
 						   ServiceDomain       		= '#Form.ServiceDomain#',

@@ -15,10 +15,13 @@
 	 
 <cfif status eq "9">
 	<cfset cl = "red">
+	<cfset title = "Spot is occupied">
 <cfelseif status eq "7">
 	<cfset cl = "yellow">
+	<cfset title = "Spot is possible but in parallel">
 <cfelse>
-	<cfset cl = "green">		
+	<cfset cl = "green">	
+	<cfset title = "Spot is available">	
 </cfif>	 
 
 <cfset dateValue = "">
@@ -28,12 +31,23 @@
 <cfoutput>
 
 	<table>
-	<tr>
-		<td style="height:24px;border:1px solid black;background-color:#cl#;width:20px" 
-		onclick="ptoken.navigate('#session.root#/Workorder/Application/Medical/Servicedetails/Workplan/Agenda/ActivityList.cfm?mission=#url.mission#&size=embed&positionno=#url.positionno#&selecteddate=#dateformat(dte,client.dateSQL)#','helpercontent');expandArea('mybox','helpercontent')">					
-	</td>
-	</tr>
-	</table>		
+		<tr>
+			<td title   = "#Title#" 
+			    style   = "cursor:pointer;height:24px;border:1px solid black;background-color:#cl#;width:20px" 
+			    onclick = "ptoken.navigate('#session.root#/Workorder/Application/Medical/Servicedetails/Workplan/Agenda/ActivityList.cfm?mission=#url.mission#&size=embed&positionno=#url.positionno#&selecteddate=#dateformat(dte,client.dateSQL)#','helpercontent');expandArea('mybox','helpercontent')">	
+		    </td>
+		</tr>
+	</table>	
+	
+	<script>
+	    if (document.getElementById('helpercontent')) {
+		// is already open 
+		} else {
+		ProsisUI.createWindow('helpercontent', 'Schedule', '', { height:document.body.clientHeight-89,width:560,resizable:false,center:false,modal:false, position:{top:40, left:document.body.clientWidth-595}, animation:{ open: { effects: "slideIn:up" }, close: { effects: "slideIn:up", reverse: true} }});
+		}
+	  	ptoken.navigate('#session.root#/Workorder/Application/Medical/Servicedetails/Workplan/Agenda/ActivityList.cfm?mission=#url.mission#&size=embed&positionno=#url.positionno#&selecteddate=#dateformat(dte,client.dateSQL)#','helpercontent')
+		// expandArea('mybox','helpercontent')
+	</script>	
 
 </cfoutput>   
 

@@ -41,6 +41,7 @@
 	
 	<cf_mobileMenuItem 
 		description="#FunctionMemo#"
+		systemfunctionId = "#attributes.functionId#"
 		reference="javascript:ptoken.navigate('#vURL#','mainContainer');">
 	</cf_mobileMenuItem>
 

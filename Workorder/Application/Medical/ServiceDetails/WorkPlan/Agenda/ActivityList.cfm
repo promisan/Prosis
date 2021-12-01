@@ -554,7 +554,7 @@
 						<tr>		
 						<cfoutput>			
 						<td align="center" style="padding-left:3px;padding-right:5px;cursor:pointer" class="clsNoPrint">						
-						 <cf_tl id="Add contact" var="lbl">		
+						 <cf_tl id="Add contact" var="lbl">								
 						 <input style="width:120;height:24px" type="button" value="#lbl#" class="button10g" onclick="addworkplan('#org.mission#','#url.orgunit#','#url.personno#','#dateformat(url.selecteddate,client.dateFormatShow)#')" >				
 						</td>	
 						</cfoutput>			

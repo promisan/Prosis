@@ -59,25 +59,23 @@ password="#SESSION.dbpw#">
 <tr><td height="7px"></td></tr>		   
 <tr><td colspan="14" class="line"></td></tr> 
 
- <TR height="18px">
-	   <td width="5px"></td>	  
-	   <td width="40px" class="labelit">Code</td>	  
-	   <td width="22px" class="labelit">Name</td>
-	   <td width="10px" class="labelit">Entity</td>
-	   <td width="10px" class="labelit">Class</td>
-	   <td width="40px" class="labelit">Context</td>
-	   <td width="10px" class="labelit">Type</td>
-	   <td width="50px" class="labelit">Default</td>	   
-	   <td width="10px"  class="labelit">Ob.</td>
-	   <td width="10px"  class="labelit">E.</td>	  
-	   <td width="10px"  class="labelit" align="right">Created</td>		
-	   <td width="25px"  class="labelit" align="left"></td>			   
-	   <td width="25px"  class="labelit" align="left"></td>			   	   
-	   <td width="40px"></td>			  	  
+ <TR height="18px" class="fixrow line labelmedium2 fixlengthlist">
+	   <td></td>	  
+	   <td>Code</td>	  
+	   <td>Name</td>
+	   <td>Entity</td>
+	   <td>Class</td>
+	   <td>Context</td>
+	   <td>Type</td>
+	   <td>Default</td>	   
+	   <td>Ob.</td>
+	   <td>E.</td>	  
+	   <td align="right">Created</td>		
+	   <td></td>			   
+	   <td></td>			   	   
+	   <td></td>			  	  
     </TR>	
-	
-	<tr><td class="line" colspan="14"></td></tr>
-	
+		
 	<cfif Topic.recordcount eq "0">
 	
 	<tr><td colspan="14" height="22" align="center" class="labelmedium" style="padding-top:10px"><font color="808080">There are no custom fields defined</td></tr>
@@ -88,9 +86,9 @@ password="#SESSION.dbpw#">
 
 	<cfif URL.code neq Code>
 
-	<TR class="navigation_row cellcontent line">						  			   
+	<TR class="navigation_row cellcontent line fixlengthlist" style="height:27px">						  			   
 	   <td align="center" ></td>	  	      
-	   <td >#code#</td>	  
+	   <td>#code#</td>	  
 	   <td>#description#</td>
 	   <td><cfif mission eq "">any<cfelse>#Mission#</cfif></td>
 	   <td>#topicclass#</td>	   
@@ -115,22 +113,21 @@ password="#SESSION.dbpw#">
 	   </td>				
 	   <td align="right">
 	   	<cf_img icon="delete" onclick="deleteItemTopic('#Code#', '#URL.ID1#')">				
-	   </td>				
-	   
-	   <td align="center" width="40px"></td>  	   		   
+	   </td>		   
+	   <td align="center""></td>  	   		   
    </TR>	
    
    <cfelse>
    
 		<!--- it is an edit --->
-		<TR bgcolor="FFFFFF">						  			   
+		<TR bgcolor="FFFFFF" class="line fixlengthlist" style="height:35px">						  			   
 		   <td align="center" height="20"></td>	  	      
 		   <td height="17">#code#</td>	  
 		   <td>#description#</td>
 		   <td><cfif mission eq "">any<cfelse>#Mission#</cfif></td>
 		   <td>#topicclass#</td>	   
 		   <td>
-			    <select style="font:10px" name="#Code#_Context" id="#Code#_Context" class="enterastab">
+			    <select name="#Code#_Context" id="#Code#_Context" class="enterastab regularxl">
 					<option value="Any" <cfif ShowInContext eq "Any">selected</cfif>>Any</option>
 					<option value="BackOffice" <cfif ShowInContext eq "BackOffice">selected</cfif>>BackOffice</option>
 					<option value="Portal" <cfif ShowInContext eq "Portal">selected</cfif>>Portal</option>					
@@ -141,13 +138,13 @@ password="#SESSION.dbpw#">
 		   <td>
 		   		<cfswitch expression="#ValueClass#">
 					<cfcase value="Boolean">
-					    <select style="font:10px" name="#Code#_Default" id="#Code#_Default" class="enterastab">
+					    <select name="#Code#_Default" id="#Code#_Default" class="enterastab regularxl">
 								<option value="0" <cfif FieldDefault eq 0>selected</cfif>>No</option>
 								<option value="1" <cfif FieldDefault eq 1>selected</cfif>>Yes</option>
 						</select>								
 					</cfcase>
 					<cfcase value="Text">
-						<input type="text" id="#Code#_Default" name="#Code#_Default" value="#FieldDefault#">
+						<input type="text" id="#Code#_Default" name="#Code#_Default" class="regularxl" value="#FieldDefault#">
 					</cfcase>
 					<cfcase value="List">
 
@@ -161,7 +158,7 @@ password="#SESSION.dbpw#">
 							  ORDER BY ListOrder
 						</cfquery>		
 
-					    <select style="font:10px" name="#Code#_Default" id="#Code#_Default" class="enterastab">
+					    <select style="font:10px" name="#Code#_Default" id="#Code#_Default" class="regularxl enterastab">
 							<option value=""></option>
 							
 							<cfloop query="GetList">					  
@@ -172,7 +169,7 @@ password="#SESSION.dbpw#">
 										
 					</cfcase>					
 					<cfdefaultcase>
-						<input type="text" id="#Code#_Default" name="#Code#_Default" value="#FieldDefault#">
+						<input type="text" id="#Code#_Default" name="#Code#_Default" class="regularxl" value="#FieldDefault#">
 					</cfdefaultcase>
 				
 				</cfswitch>
@@ -191,24 +188,21 @@ password="#SESSION.dbpw#">
 		   </td>
 		   <td><cfif operational eq "0"><b>No</b><cfelse>Yes</cfif></td>	  
 		   <td align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>
-		   <td align="right">
-					<a href="##" onclick="saveItemTopic('#Code#', '#URL.ID1#')"><img src="#CLIENT.root#/images/save.png"></a>
+		   <td>
+				<a href="##" onclick="saveItemTopic('#Code#', '#URL.ID1#')"><img style="height:16px" src="#CLIENT.root#/images/save.png"></a>
 		   </td>				
-		   <td></td>
-		   
+		   <td></td>		   
 		   <td align="center" width="40px"></td>  	   		   
 	   </TR>	
 	   		
    </cfif>
-   
-   <tr><td colspan="13" class="line"></td></tr>
-   
+      
 </cfoutput>
 
 	<tr><td colspan="14 "height="30"></td></tr>
 	
 	<TR>		
-		<td colspan="14" class="labellarge">Actions</b></td>	  		
+		<td colspan="14" class="labellarge"><cf_tl id="Actions"></td>	  		
    	</tr>
 	
   	<tr><td height="7"></td></tr>	

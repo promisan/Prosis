@@ -8,7 +8,7 @@
 
 <cfif unitdetail.recordcount gt "0">
 
-    <!--- 
+    <!---
 	<table width="100%">		
 		<tr><td id="box_<cfoutput>#unitclass#</cfoutput>" style="padding-top:2px;padding-left:30px">									
 				<table align="right">							   					   					  			   					   
@@ -17,11 +17,11 @@
 			</td>
 		</tr>				
 	</table>
-	--->
 	
-	<table width="100%">	
-	    <span style="padding-right:1px">
-		<cfoutput>#myfeature#</cfoutput>						  						
-		</span>
+	--->
+		
+	<table width="100%" style="background-color:fafafa" id="box_<cfoutput>#unitclass#</cfoutput>">			  	
+		<cfoutput>#myfeature#</cfoutput>						  					
+		
 	</table>
 </cfif>

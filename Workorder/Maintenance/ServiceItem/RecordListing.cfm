@@ -56,17 +56,17 @@ function recordedit(id1) {
 
 	<table width="97%" align="center" class="navigation_table">
 	
-	<tr class="labelmedium2 line">
+	<tr class="labelmedium2 line fixlengthlist">
 	   
 		<TD width="5%">&nbsp;</TD>
-	    <TD>Code</TD>
-		<TD>Description</TD>	
+	    <TD><cf_tl id="Code"></TD>
+		<TD><cf_tl id="Description"></TD>	
 		<TD>S</TD>	
-		<td>Interface</td>
+		<td><cf_tl id="Interface"></td>
 		<td align="center">Cl</td>
-		<td>Oper.</td>
-		<TD>Mission</TD>
-	    <TD>Entered</TD>
+		<td title="Operational"><cf_tl id="Active"></td>
+		<TD><cf_tl id="Entity"></TD>
+	    <TD><cf_tl id="Entered"></TD>
 	  
 	</TR>
 	<cfoutput query="SearchResult" group="ServiceClassOrder">
@@ -77,7 +77,7 @@ function recordedit(id1) {
 	
 		<cfset row = currentrow>
 		
-	    <TR class="navigation_row line labelmedium2"> 
+	    <TR class="navigation_row line labelmedium2 fixlengthlist"> 
 		
 			<TD align="center" style="padding-top:1px;" class="navigation_action" onClick="javascript:recordedit('#Code#')">
 				<cf_img icon="edit">					  
@@ -93,8 +93,8 @@ function recordedit(id1) {
 					</tr>
 				</table>
 			</td>
-			<td style="padding-left:4px"><cfif operational eq "No">No<cfelse>Yes</cfif></td>
-			<TD style="width:30%">
+			<td><cfif operational eq "No">No<cfelse>Yes</cfif></td>
+			<TD>
 			
 				<cfquery name="Mission" 
 				datasource="AppsWorkOrder" 
@@ -106,7 +106,7 @@ function recordedit(id1) {
 				</cfquery>
 				
 				<cfloop query="Mission">
-				    #Mission#&nbsp;
+				    #Mission#<cfif currentrow neq recordcount>|</cfif>
 				</cfloop>			
 			
 			</TD>

@@ -28,7 +28,7 @@ password="#SESSION.dbpw#">
 			 
 			 <table width="100%" class="navigation_table">
 			
-			  <TR class="labelmedium2 line">
+			  <TR class="labelmedium2 line fixlengthlist">
 			  	  <td></td>
 				  <td height="19"><cf_tl id="Date submission"></td>
 				  <TD><cf_tl id="Source"></TD>
@@ -43,7 +43,7 @@ password="#SESSION.dbpw#">
 			  
 			  <cfoutput query="Submission">		
 			  
-				  <tr class="labelmedium2 navigation_row">
+				  <tr class="labelmedium2 navigation_row fixlengthlist">
 				  	  <td>
 
 					   <cfif EntityClass neq "" >
@@ -63,7 +63,7 @@ password="#SESSION.dbpw#">
 				   	  </cfif>
 					  
 					  </td>
-					  <TD style="height:23px;padding-left:3px">#DateFormat(SubmissionDate, CLIENT.DateFormatShow)#</TD>
+					  <TD style="height:23px">#DateFormat(SubmissionDate, CLIENT.DateFormatShow)#</TD>
 					  <TD>#Source#</TD>
 					  <TD>
 					  

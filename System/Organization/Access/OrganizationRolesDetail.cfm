@@ -1,5 +1,5 @@
 
-<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<table width="98%" align="center" class="navigation_table">
 
 <tr><td height="4"></td></tr>
 
@@ -107,18 +107,18 @@
 			<cfset row = row + 1>
 			
 			<cfif url.scope eq "System">
-				<tr id="g#SystemModule#" name="g#SystemModule#" class="regular labelmedium navigation_row line">
+				<tr id="g#SystemModule#" name="g#SystemModule#" class="regular labelmedium2 navigation_row line fixlengthlist">
 			<cfelse>
-				<tr id="g#SystemModule#" name="g#SystemModule#" class="hide labelmedium navigation_row line">
+				<tr id="g#SystemModule#" name="g#SystemModule#" class="hide labelmedium2 navigation_row line fixlengthlist">
 			</cfif>
 			 
 			  <td height="18"></td>
-			  <td style="width:25px" align="center">#row#.</td>
-			  <td style="width:30px;padding-top:3px" align="center">
+			  <td align="center">#row#.</td>
+			  <td style="padding-top:3px" align="center">
 			  	<cf_img icon="select" navigation="yes" onclick="javascript:show#scope#role('#Role#')">
 			  </td>
-			  <td class="labelit" style="width:100%;cursor:pointer" title="#rolememo#">#Description# (#Role#)</td>
-			  <td style="min-width:200px">
+			  <td style="cursor:pointer" title="#rolememo#">#Description# (#Role#)</td>
+			  <td>
 				  <table>
 				  <tr><td height="18" width="30">
 				  
@@ -140,28 +140,28 @@
 				  </tr>
 				  </table>  
 			  </td>
-			  <td width="20"><cfif Parameter eq "Entity"><font color="2CBAD8">WF</cfif></td>
-			  <td style="min-width:100px">#RoleOwner#</td>
-			  <td style="min-width:200px">#AccessLevelLabelList#</td>
+			  <td><cfif Parameter eq "Entity"><font color="2CBAD8">WF</cfif></td>
+			  <td>#RoleOwner#</td>
+			  <td>#AccessLevelLabelList#</td>
 			</tr>
 			
 			<cfif RoleMemo neq "">
 			
-			<tr class="hide" id="#scope#_t#currentrow#">
-				<td colspan="1"></td>
-				<td colspan="7" align="left">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" id="g#SystemModule#" name="g#SystemModule#">
-					<tr>
-				    <td width="30" align="center"><img src="#SESSION.root#/Images/join.gif" alt="" border="0"></td>
-				    <td>
-					<table border="0" cellspacing="0" cellpadding="0" bgcolor="FFFFCF" class="formpadding">
-						<tr><td class="labelit">#RoleMemo#</td></tr>
-					</table>
+				<tr class="hide" id="#scope#_t#currentrow#">
+					<td colspan="1"></td>
+					<td colspan="7" align="left">
+						<table width="100%" id="g#SystemModule#" name="g#SystemModule#">
+						<tr>
+					    <td width="30" align="center"><img src="#SESSION.root#/Images/join.gif" alt="" border="0"></td>
+					    <td>
+						<table bgcolor="FFFFCF" class="formpadding">
+							<tr><td class="labelit">#RoleMemo#</td></tr>
+						</table>
+						</td>
+						</tr>
+						</table>
 					</td>
-					</tr>
-					</table>
-				</td>
-			</tr>
+				</tr>
 			
 			</cfif>
 		

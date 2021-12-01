@@ -364,24 +364,24 @@
 	
 		<table width="100%" class="navigation_table">	
 				
-		<TR class="labelmedium line fixrow">
-			    <td style="min-width:20px"></td>
-				<td style="min-width:100px"><cf_tl id="Receipt"></td>	
-				<td style="min-width:70px"><cf_tl id="Status"></td>			
-				<td style="min-width:100px"><cf_tl id="Purchase"></td>
-				<td style="width:100%"><cf_tl id="Vendor"></td>
-				<td style="min-width:150px"><cf_tl id="Packingslip"></td>
-				<td style="min-width:100px"><cf_tl id="Date"></td>
+		<TR class="labelmedium line fixrow fixlengthlist">
+			    <td></td>
+				<td><cf_tl id="Receipt"></td>	
+				<td><cf_tl id="Status"></td>			
+				<td><cf_tl id="Purchase"></td>
+				<td><cf_tl id="Vendor"></td>
+				<td><cf_tl id="Packingslip"></td>
+				<td><cf_tl id="Date"></td>
 				<cfif Custom.ReceiptReference1 neq "">
-				<td style="min-width:80px"><cfoutput>#Custom.ReceiptReference1#</cfoutput></td>
+				<td><cfoutput>#Custom.ReceiptReference1#</cfoutput></td>
 				</cfif>
 				<cfif Custom.ReceiptReference2 neq "">
-				<td style="min-width:80px"><cfoutput>#Custom.ReceiptReference2#</cfoutput></td>		
+				<td><cfoutput>#Custom.ReceiptReference2#</cfoutput></td>		
 				</cfif>
-				<td style="min-width:250px"><cf_tl id="Officer"></td>
-				<td style="min-width:50px"><cf_tl id="Lines"></td>			
-				<td align="right" style="min-width:80px"><cf_tl id="Value"></td>			
-				<td style="min-width:20px"></td>
+				<td><cf_tl id="Officer"></td>
+				<td><cf_tl id="Lines"></td>			
+				<td align="right"><cf_tl id="Value"></td>			
+				<td></td>
 		</TR>
 			
 		<cfif searchresult.recordcount eq "0">
@@ -426,7 +426,7 @@
 									
 				<cfif currrow gte first and currrow lte last>
 					
-					<tr class="navigation_row line labelmedium2" bgcolor="<cfif actionstatus eq '9'>FF8000<cfelseif url.id1 neq 'Locate'>EFFBFB</cfif>" >
+					<tr class="navigation_row line labelmedium2 fixlengthlist" bgcolor="<cfif actionstatus eq '9'>FF8000<cfelseif url.id1 neq 'Locate'>EFFBFB</cfif>" >
 					    <TD width="20" 
 						     style="height:29px;padding-left:2px;padding-right:5px;padding-top:2px;padding-bottom:2px">
 						
@@ -458,7 +458,7 @@
 							
 						</td>
 						
-					    <TD style="padding-left:2px">
+					    <TD>
 						   <cfif URL.ID1 eq "Pending">
 						   #ReceiptNo#
 						   <cfelse>				   
@@ -467,14 +467,14 @@
 						</td>		
 						<td><cfif receiptstatus eq "2"><cf_tl id="Matched"><cfelseif receiptstatus eq "1"><cf_tl id="Posted"></cfif></td>					  
 						<TD>#PurchaseNo#</TD>
-						<TD class="fixlength" style="padding-left:3px;padding-right:3px;max-width:250px;background-color:##e1e1e180" title="#beneficiary#">#beneficiary#</TD>
-						<TD style="padding-right:2px;">#PackingSlipNo#</TD>
-						<TD style="padding-right:2px;">#DateFormat(ReceiptDate, CLIENT.DateFormatShow)#</td>
+						<TD style="background-color:##e1e1e180" title="#beneficiary#">#beneficiary#</TD>
+						<TD>#PackingSlipNo#</TD>
+						<TD>#DateFormat(ReceiptDate, CLIENT.DateFormatShow)#</td>
 						<cfif Custom.ReceiptReference1 neq "">
-						<TD style="padding-right:2px;">#ReceiptReference1#</TD>
+						<TD>#ReceiptReference1#</TD>
 						</cfif>
 						<cfif Custom.ReceiptReference2 neq "">
-						<TD style="padding-right:2px;">#ReceiptReference2#</TD>									
+						<TD>#ReceiptReference2#</TD>									
 						</cfif>
 					    <TD>#OfficerLastName# : #DateFormat(Created, "dd/mm/yy")#</TD>				
 						<TD align="right">#Lines#</TD>	

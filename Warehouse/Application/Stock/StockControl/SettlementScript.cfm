@@ -32,7 +32,7 @@
 	}
 	
 	function postsettlement(whs,cus,inv,cur,bat,ter,td,th,tm,mode,addr,req) {	        	    
-		ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/pos/settlement/saleposting.cfm?scope=#url.scope#&currency='+cur+'&warehouse='+whs+'&terminal='+ter+'&customerid='+cus+'&customeridinvoice='+inv+'&batchid='+bat+'&td='+td+'&th='+th+'&tm='+tm+'&mode='+mode+'&addressid='+addr+'&requestno='+req,'dlines','','','POST','#url.formName#')		
+		ptoken.navigate('#SESSION.root#/warehouse/application/salesorder/pos/settlement/doPosting.cfm?scope=#url.scope#&currency='+cur+'&warehouse='+whs+'&terminal='+ter+'&customerid='+cus+'&customeridinvoice='+inv+'&batchid='+bat+'&td='+td+'&th='+th+'&tm='+tm+'&mode='+mode+'&addressid='+addr+'&requestno='+req,'dlines','','','POST','#url.formName#')		
 	}   	
 
 	function editCustomer(customerId){

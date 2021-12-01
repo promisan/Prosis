@@ -94,42 +94,19 @@
 <CF_DateConvert Value="#url.date#">
 <cfset STR = dateValue>
 
-<table width="100%" border="1">	  
+<table width="100%" border="0" style="width:950px">	  
 
       <tr bgcolor="e1e1e1" style="height:40px;border-top:1px solid silver" class="labelmedium line fixrow fixlengthlist">
        <td height="30" width="1"></td>
-       <td style="padding-left:4px">
-	   	<cf_space spaces="1">
-	    <cf_tl id="Item">
-	   </td>
-	   <td>
-	     <cf_space spaces="10">
-	     <cf_tl id="Freq">
-	   </td>
-	   <td align="right">
-	   <cf_space spaces="15">
-	   <cf_tl id="Qty">
-	   </td>
-	   
-	   <td><cf_space spaces="10"></td>
-	   
+       <td style="padding-left:4px"><cf_tl id="Item"></td>
+	   <td><cf_tl id="Freq"></td>
+	   <td align="right"><cf_tl id="Qty"></td>	   
+	   <td><cf_space spaces="10"></td>	   
 	   <cfif url.context neq "portal">
-	   <td align="right">
-	   		<cf_space spaces="30">
-		    <cf_tl id="Cost">
-		</td>		  
-	   <td align="right">
-		   <cf_space spaces="30">
-		   <cf_tl id="Rate">
-	   </td>
-	   <td align="right">
-	   		<cf_space spaces="30">	
-		    <cf_tl id="Charge">
-	   </td>
-	   <td align="right" style="padding-right:9px">
-	   <cf_space spaces="30">	
-	   <cf_tl id="Total">
-	   </td>
+	   <td align="right"><cf_tl id="Cost"></td>		  
+	   <td align="right"><cf_tl id="Rate"></td>
+	   <td align="right"><cf_tl id="Charge"></td>
+	   <td align="right" style="padding-right:9px"><cf_tl id="Total"></td>
 	   </cfif>
 	  
    </tr>

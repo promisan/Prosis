@@ -6,19 +6,19 @@
 <table width="95%" align="center" class="formpadding" cellspacing="0" cellpadding="0" class="navigation_table">
 
 <tr><td height="15"></td></tr>
-	<tr class="labelit line">
+	<tr class="labelmedium2 line fixlengthlist">
 	  <td>Name &nbsp;</td>
-	  <td align="center"><cf_UIToolTip tooltip="Operational">O</cf_UIToolTip></td>
-	  <td align="center"><cf_UIToolTip tooltip="Show Expired Lines">S</cf_UIToolTip></td>
-	  <td align="center"><cf_UIToolTip tooltip="Expiration Days">Exp.Days</cf_UIToolTip></td>
+	  <td align="center" style="cursor:pointer" title="Operational">O</td>
+	  <td align="center" style="cursor:pointer" title="Show Expired Lines">S</td>
+	  <td align="center" style="cursor:pointer" title="Expiration Days">Exp.Days</td>
 	  <!---
 	  <td>Journal</td>
 	  --->
-	  <td><cf_UIToolTip tooltip="Define the date charges will be recalculated for this services for each batch run">Charges Calc. Date</cf_UIToolTip></td>
-	  <td><cf_UIToolTip tooltip="Define the date as of which financial posting should commence for this service">Posting Start Date</cf_UIToolTip></td>
-	  <td><cf_UIToolTip tooltip="Define the date as of which financial posting should calculate for this service">Posting Calc. Date</cf_UIToolTip></td>
-	  <td><cf_UIToolTip tooltip="Define the date as of which portal tagging should commence for this service">Portal Proc. Date</cf_UIToolTip></td>
-	  <td align="center">Posting Details</td>
+	  <td style="cursor:pointer" title="Define the date charges will be recalculated for this services for each batch run">Charges Calculate</td>
+	  <td style="cursor:pointer" title="Define the date as of which financial posting should commence for this service">Posting Start</td>
+	  <td style="cursor:pointer" title="Define the date as of which financial posting should calculate for this service">Posting Calculate</td>
+	  <td style="cursor:pointer" title="Define the date as of which portal tagging should commence for this service">Portal date</td>
+	  <td style="cursor:pointer" align="center">Posting Details</td>
 	</tr>
 		
 	 <cfquery name="Mis" 
@@ -42,7 +42,7 @@
 			AND    Mission = '#mission#'
 		</cfquery>
 			
-		<tr class="navigation_row line">
+		<tr class="navigation_row line fixlengthlist">
 	     	<td class="labelmedium" height="27">#Mission#</td>	
 			
 		    <td align="center">

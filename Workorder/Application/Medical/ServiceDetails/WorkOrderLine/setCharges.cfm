@@ -60,6 +60,8 @@ AND       Journal is not NULL
  
 </cfquery>
 
+<!--- logging as this is considered an action taken on the line that is worth tracking 
+similar to opening the FEL for example --->
 
 <cfquery name="Insert" 
 	datasource="AppsWorkOrder" 
@@ -76,7 +78,7 @@ AND       Journal is not NULL
 		VALUES
 		   ('#get.WorkOrderId#',
 		    '#get.WorkOrderLine#',					
-			'closing',
+			'Closing',
 			#now()#,					
 			'#SESSION.acc#',
 			'#SESSION.last#',

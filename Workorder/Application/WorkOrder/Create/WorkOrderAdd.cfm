@@ -195,11 +195,14 @@
 						<cfset go = "0">	
 													
 						<tr class="<cfoutput>#cl#</cfoutput>">		   
-						   <td colspan="2" class="labelmedium" style="padding-left:20px;font-size:20px;height:45px">
+						   <td colspan="2" class="labelmedium" style="padding-top:6px;padding-left:20px">
+						   
+						   <table class="formpadding" style="border:1px solid silver">
+						   <tr><td style="background-color:f1f1f1">
 						   
 						   <select name="serviceitemselect" 
 						           id="serviceitemselect" 
-								   style="font-size:22px;height:35px" 
+								   style="font-size:22px;height:38px;border:0px;background-color:f1f1f1" 
 								   class="regularxxl">   
 						   	  
 							   <cfoutput query="ServiceitemList">
@@ -226,10 +229,16 @@
 							   
 						   </select>
 						   
+						   </td>
+						   
 						   <cfif customer.recordcount eq "1">	
-							<cfoutput>		
-								#Customer.CustomerName#		
-						    </cfoutput>	
+						      <td style="background-color:f1f1f1;padding-left:20px;padding-right:20px;font-size:20px;height:45px">
+							  <cfoutput>		
+								| #Customer.CustomerName#		
+						      </cfoutput>	
+							  </td>
+							  
+							 </tr></table>
 							
 							 </td>
 							
@@ -363,7 +372,8 @@
 		</cf_divscroll>
 		
 	</cf_layoutarea>
-						
+	
+	<!---					
 	<cf_layoutarea 
 	    position="right" 
 		name="helpercontent" 
@@ -377,6 +387,7 @@
 		splitter="true">
 	
 	</cf_layoutarea>	
+	--->
 						
 </cf_layout>				
 		

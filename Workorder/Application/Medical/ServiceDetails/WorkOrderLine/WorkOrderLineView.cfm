@@ -213,7 +213,7 @@
 	}
 		
 	function editForm(wli) {	   	
-       	ProsisUI.createWindow('wEditForm', '<cfoutput>#vLabelForm#</cfoutput>', '',{x:100,y:100,width:500,height:360,resizable:false,modal:true,center:true})		
+       	ProsisUI.createWindow('wEditForm', '<cfoutput>#vLabelForm#</cfoutput>', '',{x:100,y:100,width:500,height:460,resizable:false,modal:true,center:true})		
 	   	ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/WorkOrder/Application/Medical/ServiceDetails/WorkOrderLine/WorkOrderLineEdit.cfm?workorderlineid='+wli,'wEditForm');		
 	}
 			  

@@ -331,11 +331,11 @@
 	  	datasource="AppsMaterials" 
 	  	username="#SESSION.login#" 
 	  	password="#SESSION.dbpw#">				
-			SELECT * 
-			FROM   Accounting.dbo.TransactionHeaderAction
-			WHERE  Journal	       = '#getAction.Journal#'
-			AND    JournalSerialNo = '#getAction.JournalSerialNo#'
-			AND    ActionCode      = 'Invoice'	
+			SELECT   * 
+			FROM     Accounting.dbo.TransactionHeaderAction
+			WHERE    Journal	     = '#getAction.Journal#'
+			AND      JournalSerialNo = '#getAction.JournalSerialNo#'
+			AND      ActionCode      = 'Invoice'	
 			ORDER BY Created DESC		
 		</cfquery>		
 		
@@ -353,8 +353,6 @@
 			   returnvariable     = "vInvoice">
 			
 			<cfset vActionId = vInvoice.ActionId>
-
-
 			
 		<cfelse>
 		

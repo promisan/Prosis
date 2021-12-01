@@ -1011,8 +1011,7 @@
 	<cffunction name="createItemUoMPrice"
              access="public"
 	         returntype="numeric"			 
-             displayname="Suggested selling price routine for the item | if it does not exist it creates it">
-			 
+             displayname="Suggested selling price routine for the item | if it does not exist it creates it">			 
 			
 			<cfargument name = "Currency"    	type="string"  required="true"   default="USD">					
 			<cfargument name = "Mission"    	type="string"  required="true"   default="">					
@@ -1054,13 +1053,14 @@
 									  FROM   Materials.dbo.Warehouse 
 									  WHERE  Mission = '#Mission#'
 									  AND    Operational = 1 )
+				  AND  PriceSchedule IN (SELECT Code FROM Materials.dbo.Ref_PriceSchedule WHERE Operational = 1) 					  
 				  AND  Operational = '1'
 				  AND  Category    = '#Category#'		  
 			</cfquery>			
 									
 			<cfset dateValue = "">
 		    <CF_DateConvert Value="#DateEffective#">
-			<cfset eff = dateeffective>				
+			<cfset eff = dateValue>				
 			
 			<cfset vCost = 0>
 			
@@ -1242,6 +1242,8 @@
 										   ,'#SESSION.acc#'
 								    	   ,'#SESSION.last#'		  
 					  	                   ,'#SESSION.first#' )
+										   
+										   
 								</cfquery>	
 								
 							</cfif>							

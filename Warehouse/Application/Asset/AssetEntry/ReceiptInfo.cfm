@@ -1,4 +1,3 @@
-<cf_screentop html="no">
 		  
 <cf_DialogProcurement>
 <cf_dialogOrganization>
@@ -13,13 +12,13 @@
 	function mail()	{
 	  w = #CLIENT.width# - 100;
 	  h = #CLIENT.height# - 140;
-	  window.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?Id=Mail&ID1=#Receipt.ReceiptNo#&ID0=Procurement/Application/Receipt/ReceiptEntry/ReceiptPrint.cfm","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
+	  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?Id=Mail&ID1=#Receipt.ReceiptNo#&ID0=Procurement/Application/Receipt/ReceiptEntry/ReceiptPrint.cfm","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
   	}
 		
 	function print() {
 	  w = #CLIENT.width# - 100;
 	  h = #CLIENT.height# - 140;
-	  window.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?Id=Print&ID1=#Receipt.ReceiptNo#&ID0=Procurement/Application/Receipt/ReceiptEntry/ReceiptPrint.cfm","_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
+	  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepare.cfm?Id=Print&ID1=#Receipt.ReceiptNo#&ID0=Procurement/Application/Receipt/ReceiptEntry/ReceiptPrint.cfm","_blank", "left=30, top=30, width=" + w + ", height= " + h + ", toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=yes")
   	} 
 
 </script>
@@ -70,7 +69,7 @@
  
  <tr><td height="24">
   
-	  <table width="98%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+	  <table width="98%" align="center" class="formpadding">
 	   <tr>
 	   
 	    <td height="24" class="labellarge">
@@ -114,40 +113,40 @@
    
  <tr><td style="padding:10px">
  
-  <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding"> 
-  <tr>
-    <td class="labelmedium" width="200"><cf_tl id="Purchase No">:</td>
-	<td class="labelmedium"><a href="javascript:ProcPOEdit('#PO.PurchaseNo#','view')"><font color="0080FF">#PO.PurchaseNo#</a></td>
-	<td class="labelmedium" width="150"><cf_tl id="Ordertype">:</td>
-	<td class="labelmedium">#PO.OrderTypeDescription#</td>
+  <table width="95%" align="center" class="formpadding"> 
+  <tr class="labelmedium2">
+    <td width="200"><cf_tl id="Purchase No">:</td>
+	<td><a href="javascript:ProcPOEdit('#PO.PurchaseNo#','view')">#PO.PurchaseNo#</a></td>
+	<td width="150"><cf_tl id="Ordertype">:</td>
+	<td>#PO.OrderTypeDescription#</td>
   </tr>	
-  <tr>
-    <td class="labelmedium" width="200"><cf_tl id="Vendor">:</td>
-	<td class="labelmedium"><a href="javascript:viewOrgUnit('#PO.OrgUnitVendor#')"><font color="0080FF">#PO.OrgUnitName#</a></td>
+  <tr class="labelmedium2">
+    <td width="200"><cf_tl id="Vendor">:</td>
+	<td><a href="javascript:viewOrgUnit('#PO.OrgUnitVendor#')">#PO.OrgUnitName#</a></td>
   </tr>	
-  <tr>
-    <td class="labelmedium" width="200"><cf_tl id="Order date">:</td>
-	<td class="labelmedium">#DateFormat(PO.OrderDate,CLIENT.DateFormatShow)#</td>
+  <tr class="labelmedium2">
+    <td width="200"><cf_tl id="Order date">:</td>
+	<td>#DateFormat(PO.OrderDate,CLIENT.DateFormatShow)#</td>
   </tr>	
    
   <tr><td class="linedotted" colspan="4"></td></tr>
 	  	  
-	  <tr>
-	    <td class="labelmedium" width="200"><cf_tl id="Packingslip No">:</td>
-		<td class="labelmedium"><cfif Receipt.PackingslipNo eq "">n/a<cfelse>#Receipt.PackingslipNo#</cfif>
+	  <tr class="labelmedium2">
+	    <td width="200"><cf_tl id="Packingslip No">:</td>
+		<td><cfif Receipt.PackingslipNo eq "">n/a<cfelse>#Receipt.PackingslipNo#</cfif>
 			
-		<td class="labelmedium"><cf_tl id="Receipt date">:</td>
-		<td class="labelmedium">#Dateformat(Receipt.ReceiptDate, CLIENT.DateFormatShow)#
+		<td><cf_tl id="Receipt date">:</td>
+		<td>#Dateformat(Receipt.ReceiptDate, CLIENT.DateFormatShow)#
 	  </tr>
 	  
 	  <cfif Receipt.ReceiptReference1 neq "" and Receipt.ReceiptReference2 neq "">
 	  
-	  <tr>
-		<td class="labelmedium">#CustomFields.ReceiptReference1#:</td>
-		<td class="labelmedium">#Receipt.ReceiptReference1#</td>
+	  <tr class="labelmedium2">
+		<td>#CustomFields.ReceiptReference1#:</td>
+		<td>#Receipt.ReceiptReference1#</td>
 		
-	  	<td class="labelmedium">#CustomFields.ReceiptReference2#:</td>
-		<td class="labelmedium">#Receipt.ReceiptReference2#
+	  	<td>#CustomFields.ReceiptReference2#:</td>
+		<td>#Receipt.ReceiptReference2#
 	
 	  </tr>	
 	  
@@ -155,9 +154,9 @@
 	  
 	  <cfif Receipt.ReceiptReference3 neq "" and Receipt.ReceiptReference4 neq "">
 	 	  
-	  <tr>	
-		<td class="labelmedium">#CustomFields.ReceiptReference3#:</td>
-		<td class="labelmedium">#Receipt.ReceiptReference3#
+	  <tr class="labelmedium2">	
+		<td>#CustomFields.ReceiptReference3#:</td>
+		<td>#Receipt.ReceiptReference3#
 	 	<td>#CustomFields.ReceiptReference4#:</td>
 		<td>#Receipt.ReceiptReference4#</td>
 	  </tr>
@@ -166,42 +165,40 @@
 	  
 	  </cfif>
 	   
-	   <tr>	
-		<td class="labelmedium"><cf_tl id="Item">:</td>
-		<td class="labelmedium" style="width:300">#Receipt.ReceiptItem#
-	 	<td class="labelmedium"><cf_tl id="Quantity">:</td>
-		<td class="labelmedium">#Receipt.ReceiptQuantity#</td>
+	   <tr class="labelmedium2">	
+		<td><cf_tl id="Item">:</td>
+		<td style="width:300">#Receipt.ReceiptItem#
+	 	<td><cf_tl id="Quantity">:</td>
+		<td>#Receipt.ReceiptQuantity#</td>
 	  </tr>
 	  
-	  <tr>	
-		<td class="labelmedium"><cf_tl id="Unit price in #APPLICATION.BaseCurrency#">:</td>
-		<td class="labelmedium"><cfset amount = round((Receipt.ReceiptAmountBaseCost/Receipt.ReceiptQuantity) * 100)>
+	  <tr class="labelmedium2">	
+		<td><cf_tl id="Unit price in #APPLICATION.BaseCurrency#">:</td>
+		<td><cfset amount = round((Receipt.ReceiptAmountBaseCost/Receipt.ReceiptQuantity) * 100)>
 			<cfset amount = amount/100>
-			#numberformat(amount,"__,__.__")#
-	 	<td class="labelmedium"><cf_tl id="Tax">:</td>
-		<td class="labelmedium">
+			#numberformat(amount,",.__")#
+	 	<td><cf_tl id="Tax">:</td>
+		<td>
 		<cfset amount = round((Receipt.ReceiptAmountBaseTax/Receipt.ReceiptQuantity) * 100)>
 		<cfset amount = amount/100>
-		#numberformat(amount,"__,__.__")#</td>
+		#numberformat(amount,",.__")#</td>
 	  </tr> 
 	  <cfif Receipt.ReceiptRemarks neq "">
-	   <tr>	
-		<td class="labelmedium"><cf_tl id="Remarks">:</td>
-		<td class="labelmedium" colspan="3">#Receipt.ReceiptRemarks#</td>
+	   <tr class="labelmedium2">	
+		<td ><cf_tl id="Remarks">:</td>
+		<td colspan="3">#Receipt.ReceiptRemarks#</td>
 	  </tr>
 	  </cfif>
 	  
 	   <tr><td colspan="4" class="linedotted"></td></tr>
 	  	  
-	   <tr>	
-		<td class="labelmedium"><cf_tl id="Officer">:</td>
-		<td colspan="1" class="labelmedium">#Receipt.OfficerFirstName# #Receipt.OfficerLastName#</td>
-		<td class="labelmedium"><cf_tl id="Registered on">:</td>
-		<td class="labelmedium">#DateFormat(Receipt.Created, CLIENT.DateFormatShow)#</td>	 	
+	   <tr class="labelmedium2">	
+		<td ><cf_tl id="Officer">:</td>
+		<td colspan="1">#Receipt.OfficerFirstName# #Receipt.OfficerLastName#</td>
+		<td ><cf_tl id="Registered on">:</td>
+		<td >#DateFormat(Receipt.Created, CLIENT.DateFormatShow)#</td>	 	
 	  </tr>
   	  </table>
 	  </td></tr>
 	  
 	 </cfoutput>
-
- </body>

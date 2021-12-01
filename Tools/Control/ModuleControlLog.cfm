@@ -18,6 +18,8 @@
 <cf_assignid>
 
 <cfif attributes.systemfunctionid neq "">
+
+	<cfset url.idmenu = attributes.systemfunctionid>
 	
 	<cfquery name="get" 
 		datasource="#attributes.datasource#"

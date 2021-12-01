@@ -47,7 +47,7 @@ password="#SESSION.dbpw#">
 		<cfoutput>
 		<script language="JavaScript">   		    
 		    parent.parent.showItemUnitRefresh('#Form.serviceItem#','#Form.serviceItemUnit#')
-			parent.parent.ColdFusion.Window.destroy('mydialog',true)	            
+			parent.parent.ProsisUI.closeWindow('mydialog',true)	            
 		</script> 
 	    </cfoutput>
 		
@@ -71,7 +71,7 @@ password="#SESSION.dbpw#">
 	<cfoutput>
 	<script language="JavaScript">   		    
 	    parent.parent.showItemUnitRefresh('#Form.serviceItem#','#Form.serviceItemUnit#')
-		parent.parent.ColdFusion.Window.destroy('mydialog',true)	            
+		parent.parent.ProsisUI.closeWindow('mydialog',true)	            
 	</script> 
 	</cfoutput>
 
@@ -92,7 +92,7 @@ password="#SESSION.dbpw#">
 	<cfoutput>
 	<script language="JavaScript">   		    
 	    parent.parent.showItemUnitRefresh('#Form.serviceItem#','#Form.serviceItemUnit#')
-		parent.parent.ColdFusion.Window.destroy('mydialog',true)	            
+		parent.parent.ProsisUI.closeWindow('mydialog',true)	            
 	</script> 
 	</cfoutput>
 	

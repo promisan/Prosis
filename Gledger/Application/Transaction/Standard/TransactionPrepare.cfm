@@ -312,7 +312,7 @@ Tthe field ParentLineId is populated with
 		[TransactionPeriod] [varchar] (30) NULL ,
 		[TransactionType] [varchar] (30) NULL ,
 		[Reference] [varchar] (100) NULL ,
-		[ReferenceName] [varchar] (80) NULL ,
+		[ReferenceName] [varchar] (200) NULL ,
 		[ReferenceNo] [varchar] (30) NULL ,
 		[ReferenceId] uniqueidentifier NULL ,
 		[Warehouse] [varchar] (20) NULL ,

@@ -81,7 +81,7 @@
 	
 	<cf_divscroll>
 	
-	<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="97%" align="center">
 	
 	<tr><td height="100%">
 	
@@ -97,7 +97,7 @@
 
 	<cf_divscroll>
 	
-	<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="97%" align="center">
 	
 	<tr><td height="1"></td></tr>
 		
@@ -134,7 +134,7 @@
 	
 	<cfelse>
 		
-		<table width="98%" border="0" class="formspacing" cellspacing="0" cellpadding="0" align="center">	
+		<table width="98%" border="0" class="formspacing" align="center">	
 		
 		<cfif url.mode eq "Direct">
 		
