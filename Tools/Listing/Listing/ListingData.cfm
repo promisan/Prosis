@@ -69,7 +69,6 @@
 </cfoutput>		
 
 
-
 <cfif url.ajaxid eq "append">
 
 	<!--- better to store this based on the box --->

@@ -1377,8 +1377,6 @@ password="#SESSION.dbpw#">
     extended receipt in lines like fuel	
 	
 	--->			
-
-	
 	 
 	<TR>
 	    <TD class="labelmedium" valign="top" style="min-width:120px;padding-top:5px;padding-left:10px"><cf_tl id="Product Code">:</TD>
@@ -1576,15 +1574,21 @@ password="#SESSION.dbpw#">
 						<!---
 						<td class="labelmedium" style="padding-left:14px;padding-right:4px"><cf_tl id="Stock"></td>
 						--->
-						<td style="padding-left:3px">
+						<td style="padding-left:3px" title="UoM of the stock requisition">
 						<input type="text"   name="uomname"          id="uomname"         value="#ItemUoM.UoMDescription#" size="10"  class="regularxl" readonly style="background-color:eaeaea;padding-left:2px;text-align: left;">
 						</td>
 						<td style="padding-left:3px">
 						
+						      <cfif Line.WarehouseCurrency neq "">							 
+							  	<cfset cur = Line.WarehouseCurrency>
+							  <cfelse>							
+							  	<cfset cur = application.baseCurrency>	
+							  </cfif>
+																		
 							<select name="warehousecurrency" id="warehousecurrency" class="regularxl enterastab"
 							    size="1" onchange="setstockline('1','#Line.RequisitionNo#',document.getElementById('WarehouseReceiptUoM').value,document.getElementById('receiptquantity').value,document.getElementById('warehouseprice').value,'editcurrency','#itemUoM.UoM#',this.value)">					
 							    <cfloop query="currency">
-									<option value="#Currency#" <cfif Currency eq Line.WarehouseCurrency>selected</cfif>>
+									<option value="#Currency#" <cfif Currency eq cur>selected</cfif>>
 						    		#Currency#
 								</option>
 								</cfloop>
@@ -1596,7 +1600,7 @@ password="#SESSION.dbpw#">
 						<cfif vWarehousePrice eq "">
 							<cfset vWarehousePrice = 0> 
 						</cfif>
-						<td style="padding-left:3px">
+						<td style="padding-left:3px" title="Stock value cost price: use only if you need to overwrite the procurement calculated cost price">
 						<input type="text"   name="warehouseprice"          id="warehouseprice"         value="#vWarehousePrice#" size="10"  class="regularxl" style="text-align: right;"
 						onchange="setstockline('1','#Line.RequisitionNo#',document.getElementById('WarehouseReceiptUoM').value,document.getElementById('receiptquantity').value,this.value,'editprice','#itemUoM.UoM#',document.getElementById('warehousecurrency').value)">
 						</td>
@@ -1606,13 +1610,13 @@ password="#SESSION.dbpw#">
 												
 						<td style="padding-left:3px" class="labelmedium2">##</td>
 						
-						<td style="padding-left:3px" class="labelmedium2">
+						<td style="padding-left:3px" title="Quantity to Warehouse" class="labelmedium2">
 							<input type="text"   name="warehousequantity"   readonly   id="warehousequantity"   value="#Line.ReceiptWarehouse#" size="7"  class="regularxl" style="background-color:f1f1f1;text-align: right;">						
 						</td>
 						
 						<td style="padding-left:3px;padding-right:4px" class="labelmedium2"><cf_tl id="$"></td>
 						
-						<td style="padding-left:3px">
+						<td style="padding-left:3px" title="Calculated stock value">
 						<input type="text"   name="warehousetotal"   readonly   id="warehousetotal"         value="#numberformat(wto,",.__")#" size="10"  class="regularxl" style="background-color:f1f1f1;text-align: right;">
 						</td>
 						

@@ -555,7 +555,7 @@ password="#SESSION.dbpw#">
 							  name="img2_#currentrow#"
 							  height="13" width="13"
 							  style="cursor:pointer"
-							  onclick="ColdFusion.navigate('#SESSION.root#/workorder/application/workorder/Funding/FundingLine.cfm?tabno=1&row=#row#&WorkOrderId=#URL.WorkOrderId#&billingdetailid=#billingid#&ID2=new','funding_#row#')"
+							  onclick="ptoken.navigate('#SESSION.root#/workorder/application/workorder/Funding/FundingLine.cfm?tabno=1&row=#row#&WorkOrderId=#URL.WorkOrderId#&billingdetailid=#billingid#&ID2=new','funding_#row#')"
 						      onMouseOver="document.img2_#currentrow#.src='#SESSION.root#/Images/button.jpg'" 
 	    				      onMouseOut="document.img2_#currentrow#.src='#SESSION.root#/Images/fund1.gif'"
 						      alt="Funding" align="absmiddle" border="0">
@@ -641,7 +641,7 @@ password="#SESSION.dbpw#">
 		<tr><td colspan="9" style="height:0px;border:0px solid silver">
 				<table width="96%" align="right">
 					<tr><td>	
-					<cfdiv id="funding_#row#" 
+					<cf_securediv id="funding_#row#" 
 					      bind="url:#SESSION.root#/workorder/application/workorder/Funding/Fundingline.cfm?tabno=1&row=#row#&WorkOrderId=#url.workorderid#&billingdetailid=#billingid#">	
 					</td></tr>
 				</table>	  

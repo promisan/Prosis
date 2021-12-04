@@ -157,9 +157,9 @@
 	 	 
 	<TR class="labelmedium">
 		<td>Effective:<font color="FF0000">*</font>&nbsp;</td>
-		<td colspan="2">	
+		<td colspan="2" style="padding-left:0px">	
 		
-		<table><tr><td>
+		<table><tr><td style="padding-left:0px">
 		    
 		<cf_intelliCalendarDate9
 			FieldName="dateEffective" 
@@ -183,12 +183,11 @@
 			</table>			 						 					 
        </td>
 	</TR>	 	 	
-		 
 		
 		
 	<!--- Field: Frequency, Billing Mode inherited --->
 		<tr class="labelmedium">
-			<td>Frequency:<font color="FF0000">*</font>&nbsp;</td>
+			<td><cf_tl id="Frequency">:<font color="FF0000">*</font>&nbsp;</td>
 			<td>
 			
 			<cfquery name="getLookup" 
@@ -238,12 +237,52 @@
 			</TD>
 	</TR>	
 	
-	<tr class="labelmedium">
-	<td colspan="2">Unit Materials connector <font size="1">issues the quantity recorded</font></td>	
+	
+	
+	<tr class="fixlengthlist"><td class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Provisioning line">:</td>
+	
+	    <td>
+		
+		<table class="formpadding">
+						
+			<TR class="labelmedium2 fixlengthlist" style="">
+				<td style="padding-right:10px;background-color:f1f1f1">Preselect:</td>
+				<td style="padding-left:0px"><input type="radio" class="radiol" name="enableSetDefault" id="enableSetDefault" value="0" <cfif get.enableSetDefault eq "0">checked</cfif>></td>
+				<td style="padding-left:4px">No</td>
+				<td style="padding-left:7px"><input type="radio" class="radiol" name="enableSetDefault" id="enableSetDefault" value="1" <cfif get.enableSetDefault eq "1" or url.id1 eq "">checked</cfif>></td>
+				<td style="padding-left:4px">Yes</td>
+			
+				<td style="padding-left:20px;background-color:f1f1f1">Quantity:</td>
+				<td style="padding-left:0px"><input type="radio" class="radiol" name="enableEditQuantity" id="enableEditQuantity" value="0" <cfif get.enableEditQuantity eq "0">checked</cfif>></td>
+				<td style="padding-left:4px">Default</td>
+				<td style="padding-left:7px"><input type="radio" class="radiol" name="enableEditQuantity" id="enableEditQuantity" value="1" <cfif get.enableEditQuantity eq "1" or url.id1 eq "">checked</cfif>></td>
+				<td style="padding-left:4px">Edit</td>
+			</TR>	
+			
+			<TR class="labelmedium2 fixlengthlist">
+				<td style="padding-right:10px;background-color:f1f1f1">Amend Cost Price:</td>
+				<td style="padding-left:0px"><input type="radio" class="radiol" name="enableEditCharged" id="enableEditCharged" value="0" <cfif get.enableEditCharged eq "0">checked</cfif>></td>
+				<td style="padding-left:4px">No</td>
+				<td style="padding-left:7px"><input type="radio" class="radiol" name="enableEditCharged" id="enableEditCharged" value="1" <cfif get.enableEditCharged eq "1" or url.id1 eq "">checked</cfif>></td>
+				<td style="padding-left:4px">Yes</td>
+			
+				<td style="padding-left:20px;background-color:f1f1f1">Amend Sales price / charge:</td>
+				<td style="padding-left:0px"><input type="radio" class="radiol" name="enableEditRate" id="enableEditRate" value="0" <cfif get.enableEditRate eq "0">checked</cfif>></td>
+				<td style="padding-left:4px">Default</td>
+				<td style="padding-left:7px"><input type="radio" class="radiol" name="enableEditRate" id="enableEditRate" value="1" <cfif get.enableEditRate eq "1" or url.id1 eq "">checked</cfif>></td>
+				<td style="padding-left:4px">Edit</td>
+			</TR>				
+		
+		</table>
+		</td>
+	</tr>
+	
+	<tr class="labelmedium2">
+	<td colspan="2">Materials connector <font size="1">issues the quantity recorded also as stock consumption</font></td>	
 	</tr>
 	
 	<tr class="labelmedium">
-	<td align="right" style="padding-right:10px">Warehouse:</td>
+	<td align="right" style="padding-right:10px"><cf_tl id="Warehouse">:</td>
 	<td>	
 		  <cf_securediv bind="url:getWarehouse.cfm?mission={mission}&selected=#get.warehouse#&itemmno=#get.ItemNo#&ItemUoM=#get.ItemUoM#" id="warehouse">	
 	
@@ -257,7 +296,7 @@
 	</cfif>	
 	
 	<tr id="itemline" class="#cl#">
-	<td class="labelit" align="right" style="padding-right:10px">Item:</td>
+	<td class="labelit" align="right" style="padding-right:10px"><cf_tl id="Item">:</td>
 	<td class="labelmedium" colspan="3">
 	
 		<table>
@@ -276,9 +315,20 @@
 		
 	</td>
 	</tr>
+	
+	<TR class="labelmedium">
+		<td class="labelit" align="right" style="padding-right:10px">Stock deduction :</td>
+		<td>
+			<table><tr class="labelmedium">
+			<td><input type="radio" class="radiol" name="enableUsageEntry" id="enableUsageEntry" value="0" <cfif get.enableUsageEntry eq "0">checked</cfif>></td><td style="padding-left:3px">Same as service quantity</td>
+			<td style="padding-left:10px"><input type="radio" class="radiol" name="enableUsageEntry" id="enableUsageEntry" value="1" <cfif get.enableUsageEntry eq "1" or url.id1 eq "">checked</cfif>></td><td style="padding-left:3px">Explicitly set</td>
+			</tr>
+			</table>	
+		</td>
+	</TR>	 
 		
 	<TR>
-		<td class="labelmedium">Currency:<font color="FF0000">*</font>&nbsp;</td>
+		<td class="labelmedium"><cf_tl id="Currency">:<font color="FF0000">*</font>&nbsp;</td>
 		<td>
 		<cfquery name="getLookup" 
 			datasource="AppsLedger" 
@@ -379,59 +429,7 @@
 		</td>		
 	</TR> 					
 	
-	<TR class="labelmedium">
-		<td>Allow entry of usage:<font color="FF0000">*</font>&nbsp;</td>
-		<td>
-			<table><tr class="labelmedium">
-			<td><input type="radio" class="radiol" name="enableUsageEntry" id="enableUsageEntry" value="0" <cfif get.enableUsageEntry eq "0">checked</cfif>></td><td style="padding-left:3px">No</td>
-			<td style="padding-left:10px"><input type="radio" class="radiol" name="enableUsageEntry" id="enableUsageEntry" value="1" <cfif get.enableUsageEntry eq "1" or url.id1 eq "">checked</cfif>></td><td style="padding-left:3px">Yes</td>
-			</tr>
-			</table>	
-		</td>
-	</TR>	 
 	
-	<tr><td class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Provisioning line">:</td>
-	
-	    <td>
-		
-		<table class="formpadding" cellspacing="0" cellpadding="0">
-						
-			<TR class="labelmedium2 fixlengthlist" style="background-color:f1f1f1">
-				<td style="padding-right:10px">Selected by default:</td>
-				<td style="padding-left:0px"><input type="radio" class="radiol" name="enableSetDefault" id="enableSetDefault" value="0" <cfif get.enableSetDefault eq "0">checked</cfif>></td>
-				<td style="padding-left:4px">No</td>
-				<td style="padding-left:7px"><input type="radio" class="radiol" name="enableSetDefault" id="enableSetDefault" value="1" <cfif get.enableSetDefault eq "1" or url.id1 eq "">checked</cfif>></td>
-				<td style="padding-left:4px">Yes</td>
-				
-			</TR>	 	 	 	
-			 	 	 
-			<TR class="labelmedium2 fixlengthlist">
-				<td>Quantity:</td>
-				<td style="padding-left:0px"><input type="radio" class="radiol" name="enableEditQuantity" id="enableEditQuantity" value="0" <cfif get.enableEditQuantity eq "0">checked</cfif>></td>
-				<td style="padding-left:4px">Default</td>
-				<td style="padding-left:7px"><input type="radio" class="radiol" name="enableEditQuantity" id="enableEditQuantity" value="1" <cfif get.enableEditQuantity eq "1" or url.id1 eq "">checked</cfif>></td>
-				<td style="padding-left:4px">Edit</td>
-			</TR>	
-			
-			<TR class="labelmedium2 fixlengthlist" style="background-color:f1f1f1">
-				<td>Amend Charge:</td>
-				<td><input type="radio" class="radiol" name="enableEditCharged" id="enableEditCharged" value="0" <cfif get.enableEditCharged eq "0">checked</cfif>></td>
-				<td style="padding-left:4px">No</td>
-				<td style="padding-left:7px"><input type="radio" class="radiol" name="enableEditCharged" id="enableEditCharged" value="1" <cfif get.enableEditCharged eq "1" or url.id1 eq "">checked</cfif>></td>
-				<td style="padding-left:4px">Yes</td>
-			</TR>	  	 	
-			 	 
-			<TR class="labelmedium2 fixlengthlist">
-				<td>Rate:</td>
-				<td><input type="radio" class="radiol" name="enableEditRate" id="enableEditRate" value="0" <cfif get.enableEditRate eq "0">checked</cfif>></td>
-				<td style="padding-left:4px">Default</td>
-				<td style="padding-left:7px"><input type="radio" class="radiol" name="enableEditRate" id="enableEditRate" value="1" <cfif get.enableEditRate eq "1" or url.id1 eq "">checked</cfif>></td>
-				<td style="padding-left:4px">Edit</td>
-			</TR>				
-		
-		</table>
-		</td>
-	</tr>
 	
 	<tr class="labelmedium" style="height:25px">
 		<td><cf_tl id="Cost Owner">:</td>

@@ -20,7 +20,7 @@
 	
 	--->
 		
-	<table width="100%" style="background-color:fafafa" id="box_<cfoutput>#unitclass#</cfoutput>">			  	
+	<table width="100%" style="background-color:fafafa" class="formspacing" id="box_<cfoutput>#unitclass#</cfoutput>">			  	
 		<cfoutput>#myfeature#</cfoutput>						  					
 		
 	</table>

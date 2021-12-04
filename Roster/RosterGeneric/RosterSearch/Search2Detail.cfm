@@ -202,7 +202,7 @@ password="#SESSION.dbpw#">
 	
 	<table style="width:98.5%" class="navigation_table">
 	
-	<TR height="23" class="labelmedium2 fixrow line">
+	<TR height="23" class="labelmedium2 fixrow line fixlengthlist">
 	    <TD style="padding-left:4px"><cf_tl id="Grade">/<cf_tl id="Functional title"></TD>
 		<TD><cf_tl id="Area"></TD>
 		<cfloop query="steps">		
@@ -234,7 +234,7 @@ password="#SESSION.dbpw#">
 	
 	<cfset g = "0">
 	
-	<tr class="labelmedium2 line"><td height="30" style="padding-top:5px;font-size:19px" colspan="#col#">#GradeDescription# <cfif gradedescription neq gradedeployment>[#GradeDeployment#]</cfif></td></tr>
+	<tr class="labelmedium2 line fixlengthlist"><td height="35" style="font-size:19px" colspan="#col#">#GradeDescription# <cfif gradedescription neq gradedeployment>[#GradeDeployment#]</cfif></td></tr>
 		
 	<cfoutput>
 		
@@ -263,7 +263,7 @@ password="#SESSION.dbpw#">
 			
 			</cfif>  		  
 				
-		<TR class="labelmedium2 line navigation_row" bgcolor="<cfif selected eq '1' or pre eq "1">ffffcf</cfif>">
+		<TR class="labelmedium2 line navigation_row fixlengthlist" bgcolor="<cfif selected eq '1' or pre eq "1">ffffcf</cfif>">
 		    <TD style="font-size:15px;padding-left:10px"><a href="javascript:gjp('#FunctionNo#','#GradeDeployment#')" title="Review description">#FunctionDescription#</a></TD>
 		    <TD>#OrganizationDescription#</TD>
 			<cfloop index="status" list="#st#" delimiters=",">

@@ -83,8 +83,8 @@
 	
 	<cfif Broadcast.BroadcastStatus eq "0">
 		
-		<tr>
-			<td class="labelmedium2" height="20">Schedule:</td>
+		<tr class="fixlengthlist">
+			<td class="labelmedium2" height="20"><cf_tl id="Schedule">:</td>
 			<td>
 				
 			<table cellspacing="0" cellpadding="0"><tr><td class="labelmedium2">
@@ -104,7 +104,7 @@
 		
 	</cfif>
 	
-	<tr>
+	<tr  class="fixlengthlist">
 		<td class="labelmedium2" height="20" width="120">Sent by:</td>
 		<td height="20" width="80%" class="labelmedium2">
 		
@@ -153,7 +153,7 @@
 		</td>
 	</tr>
 	
-	<tr>
+	<tr  class="fixlengthlist">
 		<td class="labelmedium2">Reply address:</td>
 		<td height="20" class="labelmedium2">
 		 <cfif Broadcast.BroadcastStatus eq "0">
@@ -175,7 +175,8 @@
 		  </cfif> 
 		</td>
 	</tr>
-	<tr>
+	
+	<tr class="fixlengthlist">
 		<td class="labelmedium2">Fail to:</td>
 		<td height="20" class="labelmedium2">
 		 <cfif Broadcast.BroadcastStatus eq "0">
@@ -198,7 +199,7 @@
 		   </td>
 	</tr>
 	
-	<tr>
+	<tr class="fixlengthlist">
 		<td class="labelmedium2">Priority:</td>
 		<td height="20" class="labelmedium2">
 		<cfif Broadcast.BroadcastStatus eq "0">
@@ -221,7 +222,8 @@
 		
 		</td>
 	</tr>
-	<tr>
+	
+	<tr class="fixlengthlist">
 		<td class="labelmedium2">Mailer Id:</td>
 		<td height="20" class="labelmedium2">
 		<cfif Broadcast.BroadcastStatus eq "0">
@@ -233,7 +235,7 @@
 		</td>
 	</tr>
 	
-	<tr>
+	<tr class="fixlengthlist">
 		<td class="labelmedium2">Recipients:</td>
 		<td class="labelmedium2" style="height:30px">
 		
@@ -251,7 +253,7 @@
 		</td>
 	</tr>
 	
-	<tr>
+	<tr class="fixlengthlist">
 		<td class="labelmedium2" height="20" style="padding-right:40px">eMail Confirmation:</td>
 		<td class="labelmedium2">
 		<cfif Broadcast.BroadcastStatus eq "0">
@@ -263,7 +265,7 @@
 	</tr>
 	
 	
-	<tr>
+	<tr class="fixlengthlist">
 		<td class="labelmedium2" height="20">Additional CC address:</td>
 		<td height="20" class="labelmedium2">
 		
@@ -287,7 +289,7 @@
 		</td>
 	</tr>
 	
-	<tr>
+	<tr class="fixlengthlist">
 		<td class="labelmedium2" height="20">Memo:</td>
 		<td class="labelmedium2">
 		<cfif Broadcast.BroadcastStatus eq "0">
@@ -298,10 +300,10 @@
 		</td>
 	</tr>
 	
-	<tr>
+	<tr class="fixlengthlist">
 		<td valign="top" style="padding-top:6px" class="labelmedium2" height="25">Attachments:</td>
 		<td class="labelmedium2">
-		<cfdiv bind="url:BroadcastAttachment.cfm?id=#url.id#">	
+		<cf_securediv bind="url:BroadcastAttachment.cfm?id=#url.id#">	
 		</td>
 		
 	</tr>

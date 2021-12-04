@@ -5,12 +5,13 @@
 	<cfquery name="ListIssuances" 
 		datasource="AppsLedger" 
 		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		
+		password="#SESSION.dbpw#">		
 		SELECT   
 		/*C.*,I.Category*/  
-				C.WorkOrderChargeId,C.WorkOrderID,C.WorkOrderLine,
-	   			--special for Surgeries, must count if 1 planned action, must decrease stock on this date, if not then take the TransactionDate for the billing
+
+			C.WorkOrderChargeId,C.WorkOrderID,C.WorkOrderLine,
+   			--special for Surgeries, must count if 1 planned action, must decrease stock on this date, if not then take the TransactionDate for the billing
+
 		 	CASE WHEN (SELECT COUNT(wla1.DateTimeplanning) 
 				    FROM WorkORder.dbo.WorkOrderLineAction as wla1
 					   INNER JOIN WorkOrder.dbo.WorkPlanDetail  as wpd1
@@ -25,22 +26,22 @@
 					AND wla1.ActionClass = 'Contact'
     				WHERE wla1.WorkORderId =C.WorkORderID
 					AND wla1.WorkOrderLine = C.WorkOrderLine)
-			 ELSE 
-		  		C.TransactionDate 
+			 ELSE 	C.TransactionDate 
 		  	END AS TransactionDate
 	   				,C.OrgUnit, C.OrgUnitOwner, C.OrgUnitCustomer,C.BillingReference,
 	   				C.BillingName, C.InvoiceSeries, C.InvoiceNo, C.Unit, C.UnitDescription, C.UnitClass, C.Warehouse, C.ItemNo, C.ItemUoM, C.QuantityCost, C.Quantity,
 	   				C.CostPrice, C.CostAmount, C.Currency, C.SalePrice, C.SaleTax, C.TaxCode, C.TaxIncluded, C.TaxExemption, C.SaleAmountDiscount, C.SaleAmountIncome,
 	   				C.SaleAmountTax,C.SalePayable, C.GLAccountCredit, C.Journal, C.JournalSerialNo, C.OfficerUserId, C.OfficerLastName, C.OfficerFirstName
-					, I.Category
+					,I.Category
+					
 		FROM      WorkOrder.dbo.WorkOrderLineCharge C, 
 		          Materials.dbo.Item I, 
 				  Materials.dbo.ItemUoM U
 		WHERE     C.WorkOrderid   = '#get.WorkOrderid#' 
 		AND       C.WorkOrderLine = '#get.WorkOrderLine#' 
-		AND       C.ItemNo      = I.ItemNo
-		AND       C.ItemNo      = U.ItemNo
-		AND       C.ItemUoM     = U.UoM
+		AND       C.ItemNo        = I.ItemNo
+		AND       C.ItemNo        = U.ItemNo
+		AND       C.ItemUoM       = U.UoM
 		AND       C.QuantityCost > 0
 		AND       C.Warehouse is not NULL
 		--AND       C.Journal   is NULL
@@ -114,7 +115,6 @@
 				</cfif>	
 				
 				<cf_assignid>
-
 								
 				<cfquery name="Insert" 
 				datasource="AppsLedger" 
@@ -153,8 +153,7 @@
 				
 			</cfif>	
 			
-		   <cfoutput>
-			
+		   <cfoutput>			
 			   		
 			    <!--- create issuance transaction --->
 				

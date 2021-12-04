@@ -121,7 +121,7 @@ password="#SESSION.dbpw#">
 	<tr><td colspan="2" align="center">
 	
 	<cfinput type="Submit" 
-	       class="button10s" 
+	       class="button10g" 
 		   style="width:140"
 		   value="Save"
 	       name="Update" 

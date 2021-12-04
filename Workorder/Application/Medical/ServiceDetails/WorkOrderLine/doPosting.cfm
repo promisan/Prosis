@@ -85,7 +85,7 @@ which is beyond the line information
 <cf_tl class="message" id="billingMaterial"   var="qmaterials">
 <cf_tl class="message" id="billingHonorarium" var="qhonorarium">
 
-<cftransaction>
+
 
 	<!--- reprocess the COGS --->
 
@@ -150,8 +150,11 @@ which is beyond the line information
 	<cfelse>
 		<cfset ThisTransactionPeriod = "#year(now())#0#month(now())#">
 	</cfif>	
+	
 
 	<cfloop query="ListBilling">
+	
+			<cftransaction>
 	
 	         <!--- we bill for each combination --->	
 						
@@ -531,10 +534,12 @@ which is beyond the line information
 				</cfloop>
 				
 				<!--- we are posting the FEL Tax here --->
+				
+				 <cfset notification = "0"> 
 												
 				<cfif getJournal.OrgUnitTax neq "" and abs(total) gte "0.05">   <!--- exclude very small postings like coutersy --->
 				
-					<cfinvoke component = "Service.Process.EDI.Manager"
+					<cfinvoke component     = "Service.Process.EDI.Manager"
 						   method           = "SaleIssue" 
 						   Datasource       = "AppsLedger"
 						   Mission          = "#get.Mission#"					   
@@ -545,41 +550,37 @@ which is beyond the line information
 						   returnvariable	= "vInvoice">	
 						   						   
 						   <cfif vInvoice.Status eq "OK">						   					   
-						   
-						       <!--- this template triggers the correct custom template for print and mail to appear ---> 
-						   
+						   						    
 						       <!--- this has nowe to show into a kendo dialog with content on the fly ---> 
+							   							   
+							   <cfif getService.InvoiceMode eq "1" and vInvoice.actionid neq "">
 							   
-							   <cfoutput>
-							   <script>
-							   alert('#vInvoice.status#: show mail option now ?')
-							   </script>
-							   </cfoutput>
-							  
-							   <!--- 
-						       <cfinclude template="../../../../../Gledger/Application/Transaction/Invoice/SaleViewInvoice.cfm">
-							   --->
-						   
-							   <!--- Hanno : based on the result of vInvoice we 
-					                  directly send a mail 
-									  but the print option is in the interface --->
-						   
+							        <cfset notification = "1"> 
+							   		
+							   <cfelse>
+							   
+								   <cfoutput>
+									   <script>
+										   alert('Invoice was generated and is ready for notfication')
+									   </script>
+								   </cfoutput>
+							   							   
+							   </cfif>	   
+							 						   
 						   <cfelse>
 						   
 						       <cfoutput>
 						       <script>
-							   	   alert('#vInvoice.ErrorDescription#')
+							   	   alert('Invoice was generated but an error occurred : #vInvoice.ErrorDescription#')
 							   </script>
-							   </cfoutput>
-							   					    
+							   </cfoutput>							   					    
 						   
 							   <!--- error message : advise to open the transaction, reissue and if not success contact provider --->
 						   						   
 						   </cfif>
 								
 				</cfif>		
-					   
-				
+					   				
 				<!--- ---------------------------- --->
 													   
 				
@@ -766,10 +767,35 @@ which is beyond the line information
 										
 				</cfif>		
 				
-			</cfif>									
+			</cfif>		
+			
+			</cftransaction>						
+				
+			<cfif notification eq "1">
+			
+					<cfquery name="GetMail" 
+						datasource="AppsLedger" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">	
+							SELECT * 
+							FROM   Journal 
+							WHERE  Journal IN (SELECT Journal
+						    FROM   TransactionHeaderAction 
+						    WHERE  ActionId = '#vInvoice.actionid#')					 						 				 
+					</cfquery>	
+												
+					<cfset url.actionid = vInvoice.actionid>
+												
+					<cfif GetMail.eMailTemplate neq "">
+						<cfinclude template = "../../../../../#GetMail.emailTemplate#">
+					<cfelse>
+						<cf_receiptLedger actionid="#url.actionid#">	
+					</cfif>				
+					
+			</cfif>								
 				
 	</cfloop>
-		
+			
 	<!--- --------------------------------- --->	
 	<!--- now we continue making the offset --->
 	<!--- --------------------------------- --->
@@ -807,7 +833,10 @@ which is beyond the line information
 	
 	</cfif>
 	
-</cftransaction>	
+	
+
+<!--- send electronic invoice --->
+
 
 <!--- Close the line so next time it will show the charges and the posted amounts --->
 

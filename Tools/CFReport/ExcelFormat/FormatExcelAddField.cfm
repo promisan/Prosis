@@ -20,8 +20,6 @@
 
 <cfif URL.Name neq "">
 
-
-
     <cfif URL.class neq "Detail">
 
 		<cfquery name="delete" 
@@ -47,24 +45,29 @@
 		<cfelse>
 		 <cfset for = "None"> 
 		</cfif>
+		
+		<cfoutput>
+		<script>
+		alert('#url.format#')
+		</script>
+		</cfoutput>
 					
 	    <cftry>
-						
-		<cfquery name="Insert" 
-		 datasource="appsSystem">
-		 INSERT INTO UserReportOutput 
-		 (UserAccount, OutputId, OutputClass, FieldName,OutputHeader,FieldNameOrder,GroupFormula,OutputFormat)
-		 VALUES
-		 ('#SESSION.acc#','#URL.ID#','#URL.class#','#URL.Name#','#URL.Name#','#mx#','#for#','#url.format#')
-		</cfquery>
-		
-		
+							
+			<cfquery name="Insert" 
+			 datasource="appsSystem">
+			 INSERT INTO UserReportOutput 
+			 (UserAccount, OutputId, OutputClass, FieldName,OutputHeader,FieldNameOrder,GroupFormula,OutputFormat)
+			 VALUES
+			 ('#SESSION.acc#','#URL.ID#','#URL.class#','#URL.Name#','#URL.Name#','#mx#','#for#','#url.format#')
+			</cfquery>
+				
 			<cfcatch>
 						
 			<cfquery name="update" 
 			 datasource="appsSystem">
 			 UPDATE UserReportOutput 
-			 SET     OutputShow = 1
+			 SET     OutputShow = 1, OutputFormat = '#url.format#'
 			 WHERE    UserAccount = '#SESSION.acc#'
 			 AND      OutputId    = '#URL.id#'
 			 AND      OutputClass = '#URL.class#' 
@@ -74,8 +77,6 @@
 			</cfcatch>
 			
 		</cftry>
-		
-				
 		
 		<cfif URL.class neq "Detail">
 		

@@ -634,19 +634,19 @@ password="#SESSION.dbpw#">
 			
 			<cfif Funding.recordcount gte "1">
 			
-				<tr class="line labelmedium2">
-					<td width="60"><cf_tl id="Per"><cf_space spaces="15"></td>			
-					<td width="50"><cf_tl id="Fund"></td>			
+				<tr class="line labelmedium2 fixlengthlist">
+					<td><cf_tl id="Per"></td>			
+					<td><cf_tl id="Fund"></td>			
 					<cfif Parameter.EnforceProgramBudget eq "1">		
-					<td width="25%" style="padding-right:2px"><cf_tl id="Project"></td>
+					<td><cf_tl id="Project"></td>
 					<cfelse>
 					<td></td>
 					</cfif>
-					<td width="25%"><cf_tl id="Object of Expenditure"></td>
-					<td width="70">Perc.<cf_space spaces="20"></td>
-					<td align="right" width="10%"><cf_tl id="Amount"></td>
-					<td width="100" align="right"><cf_tl id="Date"></td>
-					<td width="40"><cf_space spaces="15"></td>
+					<td><cf_tl id="Object of Expenditure"></td>
+					<td>Perc.<cf_space spaces="20"></td>
+					<td align="right"><cf_tl id="Amount"></td>
+					<td align="right"><cf_tl id="Date"></td>
+					<td><cf_space spaces="15"></td>
 				</tr>			
 			
 			</cfif>
@@ -659,7 +659,7 @@ password="#SESSION.dbpw#">
 														
 			<cfif URL.fundingid eq FundingId>
 												
-				<TR style="height:34px" class="line">
+				<TR style="height:34px" class="line fixlengthlist">
 				
 				   <td style="padding-left:4px">
 				   
@@ -765,9 +765,9 @@ password="#SESSION.dbpw#">
 			<cfelse>
 			
 						
-				<TR class="labelmedium navigation_row line">
-				    <td width="50" style="padding-left:3px">#ProgramPeriod#</td>
-				    <td width="50" style="padding-left:3px">#Fund#</td>
+				<TR class="labelmedium navigation_row line fixlengthlist">
+				    <td>#ProgramPeriod#</td>
+				    <td>#Fund#</td>
 										
 					 <cfquery name="Program" 
 						datasource="AppsProgram" 
@@ -801,12 +801,12 @@ password="#SESSION.dbpw#">
 						 
 					</td>					
 					
-					<td style="padding-left:3px"><cfif CodeDisplay neq "">#CodeDisplay#<cfelse>#ObjectCode#</cfif> #Description# </td>
-					<td style="padding-left:3px" width="50">#numberformat(Percentage*100,"._")#%</td>
+					<td><cfif CodeDisplay neq "">#CodeDisplay#<cfelse>#ObjectCode#</cfif> #Description# </td>
+					<td>#numberformat(Percentage*100,"._")#%</td>
 															
 					<cfset amt = requisition.requestamountbase*percentage>
 					
-					<td align="right" style="padding-left:3px">
+					<td align="right">
 						<table>
 							<tr>					
 							<cfif Parameter.EnforceProgramBudget eq "1">		
@@ -818,8 +818,8 @@ password="#SESSION.dbpw#">
 							</tr>
 						</table>
 					</td>
-					<td style="padding-left:6px" align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>
-					<td align="center" style="padding-left:3px">
+					<td align="right">#dateformat(created,CLIENT.DateFormatShow)#</td>
+					<td align="center">
 																									   
 						 <table class="formpadding">
 						   
@@ -907,7 +907,7 @@ password="#SESSION.dbpw#">
 													
 					<tr><td height="3"></td></tr>
 							
-					<TR>
+					<TR class="fixlengthlist">
 					
 					   <td>
 					   

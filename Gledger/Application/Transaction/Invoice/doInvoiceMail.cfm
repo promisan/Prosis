@@ -1,5 +1,5 @@
 
-<!--- sent mail --->
+<!--- send mail --->
 
 <cfquery name="GetMail" 
 	datasource="AppsLedger" 

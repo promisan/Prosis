@@ -117,7 +117,7 @@ password="#SESSION.dbpw#">
 
 <cfelse>
 
-<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" onLoad="javascript: reset()">
+<body onLoad="javascript: reset()">
 
 </cfif>
 
@@ -140,9 +140,9 @@ password="#SESSION.dbpw#">
 			 
 			 	 		 	
 			 if (fld != false){		
-			 itm.className = "highLight2";
+			 itm.className = "highLight2 labelmedium2 line fixlengthlist";
 			 }else{		
-		     itm.className = "regular";		
+		     itm.className = "labelmedium2 line fixlengthlist";		
 			 }
 		  }
 		  

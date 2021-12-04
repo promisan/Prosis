@@ -363,7 +363,7 @@ password="#SESSION.dbpw#">
 
 <table style="width:98.5%" class="navigation_table">
 
-<tr class="line fixrow labelmedium2">
+<tr class="line fixrow labelmedium2 fixlengthlist">
 	<td width="5%"></td>
 	<td><cf_tl id="Vendor"></td>
 	<td><cf_tl id="Purchase No"></td>
@@ -388,7 +388,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="ResultSet" group="PurchaseNo">
 		
-	<tr id="#currentrow#" class="navigation_row line labelmedium2" style="height:24px">
+	<tr id="#currentrow#" class="navigation_row line labelmedium2 fixlengthlist" style="height:24px">
 		
 	<td style="height:16" width="5%" align="center">
 		    	
@@ -422,9 +422,9 @@ password="#SESSION.dbpw#">
 	<td>#OrderTypeDescription#</td>
 	<td>#ActionDescription#&nbsp;<cfif ActionStatus eq "3">&nbsp;[<u>#DateFormat(OrderDate, CLIENT.DateFormatShow)#</u>]</cfif></td>
 	<td></td>	
-	<td width="50">#currency#</td>
-	<td width="100" align="right">#NumberFormat(TotalOrderAmount,",__.__")#</td>
-	<td style="min-width:60px" align="center">
+	<td>#currency#</td>
+	<td align="right">#NumberFormat(TotalOrderAmount,",__.__")#</td>
+	<td align="center">
 	
 	     <cf_img icon="add" navigation="yes" onClick="invoiceentry('#orgunitvendor#','#PurchaseNo#','#PersonNo#')">
 		 			

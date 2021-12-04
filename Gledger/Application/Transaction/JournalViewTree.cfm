@@ -44,7 +44,7 @@ function updateoption(per,subperiod) {
 
 <tr><td height="100%" valign="top">
 
-	<table width="96%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+	<table width="96%" height="100%" align="center">
 						
 			<cfquery name="Parameter" 
 			  datasource="AppsLedger" 
@@ -142,7 +142,12 @@ function updateoption(per,subperiod) {
 	  	  		
 		<cfset url.glcategory = "Actuals">
 		<cfset url.period     = "#Parameter.CurrentAccountPeriod#">
-		<cfinclude template   = "JournalViewTreeShow.cfm">
+		
+		<cf_LedgerTreeData 
+		     glcategory="#URL.GLCategory#" 
+			 mission="#URL.Mission#"
+			 period="#url.period#">
+		
 		
 	  </cf_divscroll>	
 		

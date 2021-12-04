@@ -231,7 +231,7 @@
 	    <td style="padding-left:20px" class="labelmedium">User session expiration:</td>
 	    <TD class="labelmedium">
 	  	 
-			<cfinput type="Text" class="regularxl" name="SessionExpiration" style="text-align: center;" value="#Get.SessionExpiration#" range="1,120" size="2" validate="integer" tooltip="Please enter the number of minutes" required="No" visible="Yes" enabled="Yes">  minutes</td>
+			<cfinput type="Text" class="regularxl" name="SessionExpiration" style="text-align: center;" value="#Get.SessionExpiration#" range="1,1000" size="2" validate="integer" tooltip="Please enter the number of minutes" required="No" visible="Yes" enabled="Yes">  minutes</td>
 			
 	    </TD>
 		</TR>

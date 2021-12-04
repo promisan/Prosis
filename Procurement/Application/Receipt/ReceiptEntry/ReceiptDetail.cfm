@@ -861,7 +861,7 @@ password="#SESSION.dbpw#">
 			  
 			        <cfset insert = "1">
 										
-				    <table  cellspacing="0" cellpadding="0">			   
+				    <table>			   
 				     <tr>
 					 				 
 						  <td style="padding-top:3px;padding-left: <cfif url.taskid eq "">5<cfelse>100</cfif>px;padding-top:3px">

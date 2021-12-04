@@ -375,6 +375,7 @@
 	
 		<table style="width:100%">
 		  
+		  
 		<cfinvoke component="Service.Access"
 			   Method="procRI"
 			   OrgUnit="#PO.OrgUnit#"
@@ -593,11 +594,12 @@
 					
 				<td style="padding-left:4px"><cf_tl id="Receipt date">:</td>
 				<td>
+				
 					 <cfif EditMode eq "edit">
 						
 							<cf_intelliCalendarDate9
 							 class="regularxl enterastab"
-								FieldName="ReceiptDate" 
+								FieldName="receiptdate" 
 								Default="#Dateformat(Receipt.ReceiptDate, CLIENT.DateFormatShow)#"
 								DateValidEnd="#Dateformat(now(), 'YYYYMMDD')#"
 								AllowBlank="False">	

@@ -59,8 +59,7 @@
 				  OfficerUserId, 
 				  OfficerLastName, 
 				  OfficerFirstName)
-				VALUES
-				(
+				VALUES(
 				<cfif url.billingid eq "">
 				 '#url.workorderid#',
 				 '#url.workorderline#',

@@ -120,6 +120,7 @@ the requisition orgunit, parent --->
 	
 <!--- create PO --->
 
+<cf_tl id="Box" var="mybox">	
 		
 <cftransaction>
 
@@ -486,9 +487,8 @@ the requisition orgunit, parent --->
 			<cfif getPrice.OfferMinimumQuantity neq "0">		
 				
 				<cfset OrderMultiplier = getPrice.OfferMinimumQuantity>	
-				<cfset Price = Price * OrderMultiplier> 	
-				<cf_tl id="Box" var="1">				
-				<cfset UoM                  = "#lt_text# #OrderMultiplier#">	
+				<cfset Price = Price * OrderMultiplier> 								
+				<cfset UoM                  = "#mybox# #OrderMultiplier#">	
 				<cfset Volume               = getPrice.OfferMinimumVolume>
 				
 			<cfelse>			

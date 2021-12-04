@@ -52,12 +52,12 @@
 		
 			<cfset grp = "#grp#,#AccountGroup#">
 									
-			<tr class="labelmedium2 line navigation_row">
+			<tr class="labelmedium2 line navigation_row fixlengthlist">
 			
-			   <td style="height:20px;padding-left:4px"><a href="javascript:ShowUser('#AccountGroup#')">#LastName# [<font size="1">#AccountGroup#]</a></td>			  
-			   <td style="padding-left:4px;min-width:100px">#AccountMission#</td>
-			   <td style="width:40%">#Remarks# <font size="1" color="8000FF">[#GroupLastName# #dateformat(GroupCreated, CLIENT.DateFormatShow)#]</td>
-			   <td style="padding-left:4px">#OfficerLastName#&nbsp;#dateformat(Created, CLIENT.DateFormatShow)#</td>
+			   <td style="height:20px"><a href="javascript:ShowUser('#AccountGroup#')">#LastName# [<font size="1">#AccountGroup#]</a></td>			  
+			   <td>#AccountMission#</td>
+			   <td>#Remarks# <font size="1" color="8000FF">[#GroupLastName# #dateformat(GroupCreated, CLIENT.DateFormatShow)#]</td>
+			   <td>#OfficerLastName#&nbsp;#dateformat(Created, CLIENT.DateFormatShow)#</td>
 			   <td>
 			   
 				    <cfinvoke component="Service.Access"  

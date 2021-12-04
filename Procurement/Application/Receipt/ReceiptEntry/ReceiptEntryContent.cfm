@@ -290,9 +290,9 @@
    
 	  <table width="100%" align="center" style="background-color:f1f1f1">	 
 	  		  
-	  <tr class="labelmedium2">
-	    <td style="min-width:250px;padding-left:10px"><cf_tl id="Purchase No">:</td>
-		<td width="203">
+	  <tr class="labelmedium2 fixlengthlist">
+	    <td><cf_tl id="Purchase No">:</td>
+		<td>
 		
 			<table>
 			
@@ -329,14 +329,14 @@
 					 
 						
 		</td>
-		<td width="150"><cf_tl id="Type of Order">:</td>
+		<td><cf_tl id="Type of Order">:</td>
 		<td>#PO.OrderTypeDescription#</td>				
 		<td align="right"></td>		
 	  </tr>	
 	  	  
-	  <tr class="labelmedium2">
-	    <td style="padding-left:10px"><cf_tl id="Vendor">:</td>
-		<td style="min-width:300px"><a href="javascript:viewOrgUnit('#PO.OrgUnitVendor#')">#PO.OrgUnitName#</a></td>
+	  <tr class="labelmedium2 fixlengthlist">
+	    <td><cf_tl id="Vendor">:</td>
+		<td><a href="javascript:viewOrgUnit('#PO.OrgUnitVendor#')">#PO.OrgUnitName#</a></td>
 	    <td><cf_tl id="Order Date">:</td>
 		<td>#DateFormat(PO.OrderDate,CLIENT.DateFormatShow)#</td>
 		<td><cf_tl id="Class">:</td>
@@ -362,7 +362,7 @@
 			
 			<cfif workorder.recordcount gte "1">			
 		  
-		    <tr class="labelmedium2">
+		    <tr class="labelmedium2 fixlengthlist">
 		    <td valign="top" style="padding-top:5px;padding-left:10px;padding-top:4px"><cf_tl id="Workorder">:</td>
 			<td colspan="3" style="padding-top:4px">
 			
@@ -399,7 +399,7 @@
 			WHERE    RT.TaskId = '#url.taskid#'
 		 </cfquery>	
 	   
-	   <tr bgcolor="B1E7F5" class="labelmedium2">
+	   <tr bgcolor="B1E7F5" class="labelmedium2  fixlengthlist">
 	    <td style="height:24;padding-left:20px"><cf_tl id="Task Order">:</td>
 		<td>#Task.Reference#</td>
 	    <td><cf_tl id="Date Issued">:</td>
@@ -474,8 +474,13 @@
 								AllowBlank="False">	
 						  <cfelse>
 						    #Dateformat(getReceipt.ReceiptDate, CLIENT.DateFormatShow)#
-						  </cfif>	
 							
+							<cfoutput>
+							<input type="hidden" id="receiptdate" value="#Dateformat(getReceipt.ReceiptDate, CLIENT.DateFormatShow)#">
+							</cfoutput>
+							
+						  </cfif>	
+													
 					  </tr>
 					 				  
 					  <cfif CustomFields.ReceiptReference1 neq "" or CustomFields.ReceiptReference2 neq "">

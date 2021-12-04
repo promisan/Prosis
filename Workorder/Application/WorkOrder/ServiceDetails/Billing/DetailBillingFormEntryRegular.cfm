@@ -325,7 +325,7 @@
 		 <cfset clline = "hide">
 	</cfif>		
 					
-	<tr id="box_#url.parent#" class="#cl#" style="height:20px;padding-left:4px">	
+	<tr id="box_#url.parent#" class="#cl#" style="padding-left:4px">	
 					
 		<input type="hidden" name="#unitclass#_costid_#currentrow#" id="#unitclass#_costid_#currentrow#" value="#CostId#">					
 	
@@ -396,35 +396,37 @@
 			
 				<td style="padding-right:3px">
 			
-				<cfif url.accessmode eq "edit">
-				
-					<cfif Rate.enableEditQuantity eq "1">
+					<cfif url.accessmode eq "edit">
 					
-						<table><tr>					
-						<td>																																											
-						<input type="text" 
-						    style="width:25px;text-align:center;border-top:0px;border-bottom:0px" 
-							name="#unitclass#_UnitQuantityStock_#currentrow#" 
-		                    id="#unitclass#_UnitQuantityStock_#currentrow#"
-							onkeydown="if (event.keyCode==13) {event.keyCode=9; return event.keyCode}"							
-							value="#stock#" 
-							class="regularxl enterastab">							
-						</td><td style="padding-left:3px;padding-right:3px"><cf_inputInteger id="#unitclass#_UnitQuantityStock_#currentrow#" height="9" width="16"></td>				
-						</tr>
-						</table>	
-												
+						<cfif Rate.enableEditQuantity eq "1">
+						
+							<table><tr>					
+							<td title="Warehouse transaction quantity">		
+																																																
+							<input type   = "text" 
+							    style     = "width:25px;text-align:center" 
+								name      = "#unitclass#_UnitQuantityStock_#currentrow#" 
+			                    id        = "#unitclass#_UnitQuantityStock_#currentrow#"
+								onkeydown = "if (event.keyCode==13) {event.keyCode=9; return event.keyCode}"							
+								value     = "#stock#" 
+								class     = "regularxl enterastab">							
+								
+							</td><td style="padding-left:3px;padding-right:3px"><cf_inputInteger id="#unitclass#_UnitQuantityStock_#currentrow#" height="9" width="16"></td>				
+							</tr>
+							</table>	
+													
+						<cfelse>
+						
+							<!--- value is always 1 --->
+							<input type="hidden" name="#unitclass#_UnitQuantityStock_#currentrow#" id="#unitclass#_UnitQuantityStock_#currentrow#" value="1">				
+						
+						</cfif>	
+											
 					<cfelse>
-					
-						<!--- value is always 1 --->
-						<input type="hidden" name="#unitclass#_UnitQuantityStock_#currentrow#" id="#unitclass#_UnitQuantityStock_#currentrow#" value="0">				
+								
+						#stock# :
 					
 					</cfif>	
-										
-				<cfelse>
-							
-					#stock# :
-				
-				</cfif>	
 				
 				</td>
 			
@@ -432,12 +434,17 @@
 			
 			<cfif ItemWarehouse neq "" and UnitDetail.EnableUsageEntry eq 0>
 			
+			xxxx
+						
 				<!--- value is always 1 --->
 				<input type="hidden" name="#unitclass#_QuantityIsStock_#currentrow#" id="#unitclass#_QuantityIsStock_#currentrow#" value="1">
 				
 			<cfelse>
 			
-				<!--- value is always 1 --->
+			
+			ppppp
+			
+				<!--- value is always 0 --->
 				<input type="hidden" name="#unitclass#_QuantityIsStock_#currentrow#" id="#unitclass#_QuantityIsStock_#currentrow#" value="0">
 			
 			</cfif>
@@ -450,9 +457,10 @@
 				
 					<table style="width:100%">
 					<tr>					
-						<td>																								
+						<td title="Usage quantity">		
+																											
 						<input type="text" 
-						    style="width:25px;text-align:center;border-top:0px;border-bottom:0px" 
+						    style="width:25px;text-align:center;" 
 							name="#unitclass#_UnitQuantity_#currentrow#" 
 		                    id="#unitclass#_UnitQuantity_#currentrow#"
 							onkeydown="if (event.keyCode==13) {event.keyCode=9; return event.keyCode}"
@@ -525,7 +533,7 @@
 				<cfif Rate.enableEditRate eq "0">			
 									
 				<input type="hidden" 
-					    style="border:0px;width:100%;background-color:ffffaf;text-align:right" 
+					    style="width:100%;background-color:ffffaf;text-align:right" 
 						name="#unitclass#_StandardCost_#currentrow#" 
 	                    id="#unitclass#_StandardCost_#currentrow#"
 						onchange="calc('#unitclass#','#currentrow#',document.getElementById('#unitclass#_UnitQuantity_#currentrow#').value,this.value)"
@@ -538,7 +546,7 @@
 																		
 				
 				<input type="text" 
-					    style="border:0px;width:100%;background-color:ffffaf;text-align:right;" 
+					    style="width:100%;background-color:ffffaf;text-align:right;" 
 						name="#unitclass#_StandardCost_#currentrow#" 
 	                    id="#unitclass#_StandardCost_#currentrow#"
 						onchange="calc('#unitclass#','#currentrow#',document.getElementById('#unitclass#_UnitQuantity_#currentrow#').value,this.value)"

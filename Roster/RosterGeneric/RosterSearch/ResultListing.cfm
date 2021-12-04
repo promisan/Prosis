@@ -36,8 +36,7 @@
        cellspacing = "0"
        cellpadding = "0"
 	   class       = "formpadding"
-	   style       = "height:100%;padding-top:4px;padding-right:6px"
-       align       = "right">
+	   style       = "height:100%;padding-top:4px;padding-right:6px">
  
 <input type="hidden" name="lay" id="lay" value="<cfoutput>#URL.Lay#</cfoutput>">
 
@@ -125,6 +124,8 @@
 	<cfelse>
 		<cfset rows    = ceiling((url.height-230)/20)>
 	</cfif>	
+	
+	<cfset rows = "200">
 	
 	<cfif rows lte "0">
 	    <cfset rows = "20">
@@ -277,9 +278,9 @@
   <tr>
   <td width="100%" height="100%" colspan="2" valign="top">
   
-  <cf_divscroll style="height:100%;padding-right:10px">
+  <cf_divscroll style="height:100%">
   
-	  <table width="99%" border="0" class="navigation_table">
+	  <table style="width:98.5%" class="navigation_table">
 	
 		<cfif URL.Page eq "1">
 	
@@ -298,13 +299,13 @@
 	  
 		</cfif>		
 					
-		<tr class="labelmedium2 line fixrow">
+		<tr class="labelmedium2 line fixrow fixlengthlist">
 			<td style="padding-left:5px" >
 			  <cfif url.print eq "0">
 				<input type="checkbox" name="selectall" value="" onClick="selall(this,this.checked);selected('',this.checked)" class="clsNoPrint">
 			  </cfif>	
 			</td> 
-			<td width="30%"><cf_tl id="Name"></td>
+			<td><cf_tl id="Name"></td>
 			<td><cf_tl id="DOB"></td>
 			<td align="center"><cf_tl id="S"></td>
 			<td><cf_tl id="Nat"></b></td>
@@ -374,11 +375,11 @@
 			     <cfif (SearchAction.SearchCategory neq "Vacancy" and Status eq "0") or 
 			    	   (SearchAction.SearchCategory eq "Vacancy" and Status eq "")>
 	
-				      <TR class="navigation_row line labelmedium2">
+				      <TR class="navigation_row line labelmedium2 fixlengthlist">
 						
 				 <cfelse>
 				 
-				      <TR class="navigation_row line labelmedium2">
+				      <TR class="navigation_row line labelmedium2 fixlengthlist">
 						
 				 </cfif>
 				

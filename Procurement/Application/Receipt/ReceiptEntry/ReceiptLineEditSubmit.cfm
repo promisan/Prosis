@@ -221,7 +221,7 @@
 							 UoMTo     = "#form.ItemUoM#">
 							 
 														 
-		<cfset StockMultiplier  = UoMMultiplier>
+		<cfset StockMultiplier  = UoMMultiplier*OrderMultiplier>
 		<cfset ReceiptQty       = Form.ReceiptQuantity>
 												
 	</cfif>		 

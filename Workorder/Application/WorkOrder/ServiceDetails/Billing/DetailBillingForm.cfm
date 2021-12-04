@@ -256,7 +256,7 @@ password="#SESSION.dbpw#">
 	
 		<table width="100%" style="border:1px solid silver">
 		
-		   <tr class="labelmedium fixlengthlist" style="height:35px">	
+		   <tr class="labelmedium" style="height:35px">	
 		   
 			  <cfquery name="check" 
 					datasource="AppsWorkOrder" 
@@ -271,7 +271,7 @@ password="#SESSION.dbpw#">
 			  			 			  
 			  <cfif check.total gte "1">
 			  			  
-			  	  <td style="padding-left:7px"><cf_tl id="Activity">:</td>
+			  	  <td class="fixlength" style="padding-left:7px"><cf_tl id="Activity">:</td>
 			  
 				  <td style="padding-left:10px">
 				  
@@ -337,15 +337,15 @@ password="#SESSION.dbpw#">
 			  
 			  </cfif>
 			  
-			   <td align="right" style="padding-right:15x">
+			   <td align="right" style="padding-right:10px">
 			   
-				   <table style="min-width:400px">
+				   <table>
 				   
-			   	   <tr class="labelmedium">
+			   	   <tr class="fixlength labelmedium">
 				   
 				   <cfif customerpayer.recordcount gte "0">
 				   
-				   <td style="padding-left:10px;padding-right:4px;">				   
+				   <td class="fixlength" style="padding-left:10px;padding-right:4px;">				   
 				      <cf_tl id="Owner">:					  
 				   </td>	
 				   			   
@@ -448,7 +448,7 @@ password="#SESSION.dbpw#">
 											
 		<cfif Domain.AllowConcurrent eq "0">
 		  
-			<td align="right" style="padding-left:10px;height:35px;width:100"><cf_tl id="Effective">:</td>
+			<td align="right" class="fixlength" style="padding-left:10px;height:35px;width:100"><cf_tl id="Effective">:</td>
 		    <td style="padding-left:6px;font-size:16px">	
 					
 				 
@@ -564,8 +564,7 @@ password="#SESSION.dbpw#">
 					 </td>		
 					
 				 <cfelse>	
-				 
-				 																
+				 														
 										
 					<cfif getLast.TransactionDate eq "">	
 					
@@ -613,7 +612,7 @@ password="#SESSION.dbpw#">
 			
 				<td style="padding-left:8px;width:137px;" class="labelmedium"><cf_tl id="Billing">:</td>
 				
-				<td class="labelmedium" style="padding-left:10px">
+				<td class="labelmedium" colspan="3" style="padding-left:10px">
 				
 				  <table>
 				  <tr>

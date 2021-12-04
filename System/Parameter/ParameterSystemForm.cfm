@@ -30,7 +30,7 @@ password="#SESSION.dbpw#">
 
 <tr><td height="3"></td></tr>
 
-<tr class="hide"><td colspan="5" height="300">
+<tr class="xxxxhide"><td colspan="5" height="300">
 	<iframe name="myresult" id="myresult" width="100%" height="500" scrolling="no" frameborder="0"></iframe>
 </td></tr>
 

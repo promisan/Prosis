@@ -182,7 +182,6 @@
 				<cf_divscroll>									
 					
 				<table width="100%" align="center">
-						
 																		
 				<cfset cls = "regular">	
 				
@@ -194,7 +193,7 @@
 								
 				<tr class="<cfoutput>#cls#</cfoutput>">
 				
-					<td align="center">
+					<td align="center" style="padding-top:6px">
 					
 				<cfif ShowEdition.recordcount eq "0">
 					
@@ -203,24 +202,28 @@
 					<cfelse>
 						
 					<table width="96%" align="center" class="formpadding navigation_table fixrow">
-					  <tr class="labelmedium2 line">
-					  <td>&nbsp;</td>
-					  <td colspan="2"><cf_tl id="Roster edition"></td>
-					  <td><cf_tl id="Buckets"></td>
-					  <td><cf_tl id="Owner"></td>
-					  <td><cf_tl id="Expiration"></td>
-					  <td></td>
-				    </tr>
 					
-				    <cfoutput query="ShowEdition" group="ExerciseClass"> 
+					  <tr class="labelmedium2">
+						  <td colspan="7" style="height:45px;font-size:25px">Please select the roster edition you need to search</td>					  
+						  <tr class="labelmedium2 line fixlengthlist">
+						  <td>&nbsp;</td>
+						  <td colspan="2"><cf_tl id="Roster edition"></td>					  
+						  <td><cf_tl id="Owner"></td>
+						  <td><cf_tl id="Expiration"></td>
+						  <td><cf_tl id="Buckets"></td>
+						  <td></td>
+				      </tr>
+					
+				      <cfoutput query="ShowEdition" group="ExerciseClass"> 
 					
 					    <cfset cl = ExerciseClass>
 					  
 						<cfoutput> 
-					    	<TR class="navigation_row line labelmedium2">
+						
+					    	<TR class="navigation_row line labelmedium2 fixlengthlist">
 							     <td>&nbsp;</td>
 					   			 <td colspan="2" align="left"><cfif cl eq "#ExerciseClass#">#ExerciseClass#/</cfif>#EditionDescription#</td>
-					      		 <td>#Buckets#</td>
+					      		 
 								 
 								 <cfquery name="Own" 
 									datasource="AppsOrganization" 
@@ -234,6 +237,8 @@
 								 <TD>#Own.Description#</TD>
 								 
 								 <td>#dateformat(dateexpiration,CLIENT.DateFormatShow)#</td>
+								 
+								 <td align="right">#Buckets#</td>
 								
 						    	 <!---  <TD class="regular">&nbsp;#EditionDescription#&nbsp;&nbsp;</TD> --->
 					    	     <TD align="center">
@@ -266,7 +271,7 @@
 			
 			<td height="40" colspan="1" align="center">
 				  <button type="submit" name="Next" 
-				  value="Select Buckets" class="button10g" style="width:330;height:32px;font-size:13px">
+				  value="Select Buckets" class="button10g" style="width:330;height:32px;font-size:13px" onclick="Prosis.busy('yes')">
 				  Continue Selecting Roster Buckets <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/next.gif" border="0" align="absmiddle"> 
 				  </button>
 			</td>

@@ -24,6 +24,9 @@ password="#SESSION.dbpw#">
 	<cfparam name="Form.#Mission#_DatePostingStart"      default="">
 	<cfparam name="Form.#Mission#_DatePostingCalculate"  default="">
 	<cfparam name="Form.#Mission#_DatePortalProcessing"  default="">
+	<cfparam name="Form.#Mission#_Journal"               default="">
+	<cfparam name="Form.#mission#_InvoiceMode"           default="">
+	<cfparam name="Form.#mission#_eMailAddress"          default="">
 	
 	<cfset ope = 0>
 	<cfif isDefined("Form.#Mission#_Operational")>
@@ -46,6 +49,9 @@ password="#SESSION.dbpw#">
 	<cfset posC = evaluate("Form.#Mission#_DatePostingCalculate")>
 	<cfset por  = evaluate("Form.#Mission#_DatePortalProcessing")>
 	
+	<cfset mde = evaluate("Form.#Mission#_InvoiceMode")>
+	<cfset mai = evaluate("Form.#Mission#_eMailAddress")>
+			
 	<cfset dateValue = "">
 	<cf_DateConvert Value="#chg#">
 	<cfset vCharges = dateValue>
@@ -80,6 +86,8 @@ password="#SESSION.dbpw#">
 				<cfif por neq "">DatePortalProcessing, </cfif>
 				SettingDaysExpiration,
 				SettingShowExpiredLines,
+				InvoiceMode,
+				eMailAddress,
 				Operational, 
 				officerUserId,
 				OfficerLastName,
@@ -96,6 +104,8 @@ password="#SESSION.dbpw#">
 				<cfif por neq "">#vPortal#, </cfif>
 				'#expDays#',
 				'#showExp#',
+				'#mde#',
+				'#mai#',
 				'#ope#',
 				'#SESSION.acc#',
 				'#SESSION.last#',
@@ -122,12 +132,14 @@ password="#SESSION.dbpw#">
 		UPDATE 	ServiceItemMission
 		SET 	Operational = #ope#,
 				SettingShowExpiredLines = #showExp#,
-				DateChargesCalculate = <cfif chg neq "">#vCharges#<cfelse>null</cfif>,
-				DatePostingStart = <cfif posS neq "">#vPostingStart#<cfelse>null</cfif>,
-				DatePostingCalculate = <cfif posC neq "">#vPostingCalculate#<cfelse>null</cfif>,
-				DatePortalProcessing = <cfif por neq "">#vPortal#<cfelse>null</cfif>,
-				<!--- Journal = '#jrn#', --->
-				SettingDaysExpiration = #expDays#
+				DateChargesCalculate    = <cfif chg neq "">#vCharges#<cfelse>null</cfif>,
+				DatePostingStart        = <cfif posS neq "">#vPostingStart#<cfelse>null</cfif>,
+				DatePostingCalculate    = <cfif posC neq "">#vPostingCalculate#<cfelse>null</cfif>,
+				DatePortalProcessing    = <cfif por neq "">#vPortal#<cfelse>null</cfif>,
+				Journal                 = '#jrn#', 
+				InvoiceMode             = '#mde#',
+				EMailAddress            = '#mai#',
+				SettingDaysExpiration   = #expDays#
 		WHERE 	ServiceItem = '#url.id1#'	
 		AND   	Mission = '#mission#'
 	</cfquery>
@@ -136,6 +148,6 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 	<script>
-		ColdFusion.navigate('FinancialsListing.cfm?id1=#url.id1#','contentbox2');
+		ptoken.navigate('FinancialsListing.cfm?id1=#url.id1#','contentbox2');
 	</script>
 </cfoutput>

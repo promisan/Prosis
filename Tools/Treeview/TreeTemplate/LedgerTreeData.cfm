@@ -210,95 +210,14 @@ password="#SESSION.dbpw#">
 					
 			</cfif>							
 						
-			<cfif Attributes.GLCategory eq "Actuals">
-											
-					 <cf_tl id="Views" var="vLedgerViews">
-					
-					 <cf_UItreeitem value="views"
-					        display="<span style='font-size:18px;padding-top:5px;font-weight:bold' class='labelit'>#vLedgerViews#</span>"						
-							parent="root"							
-					        expand="Yes">		
-										
-					  <cfquery name="Currency" 
-					  datasource="AppsLedger" 
-					  username="#SESSION.login#" 
-					  password="#SESSION.dbpw#">
-					      SELECT   DISTINCT Currency 
-					      FROM     Journal
-						  WHERE    Mission = '#Attributes.Mission#'		  					  
-					  </cfquery>					 
-				
-					<cfloop query="Currency">
-				
-						 	<cfset cur = currency.currency>
-							
-							<cf_UItreeitem value="vw_#Currency#"
-						        display="<span style='font-size:15px;padding-top:5px;' class='labelit'>#Currency#</span>"
-								parent="views"											
-								target="right"
-						        expand="No">		
-								
-							<cfinvoke component = "Service.Authorization.Function"  
-				  			 method           = "AuthorisedFunctions" 
-							 mode             = "View"			 
-							 mission          = "#attributes.mission#" 
-							 orgunit          = ""
-				   			 Role             = ""
-							 SystemModule     = "'Accounting'"
-							 FunctionClass    = "'Inquiry'"
-							 MenuClass        = "'Journal'"
-							 Except           = "''"
-				   			 Anonymous        = ""
-							 returnvariable   = "listaccess">		
-							 
-							<cfloop query="listaccess"> 	
-							
-								<cfif FunctionName eq "Staff Advances">
-								
-									<cfquery name="Area" 
-									  datasource="AppsLedger" 
-									  username="#SESSION.login#" 
-									  password="#SESSION.dbpw#">
-									      SELECT * 
-									      FROM   Employee.dbo.Ref_AreaGLedger	
-										  WHERE Area = 'Advance'					 
-									</cfquery>	
-									
-									<cfif area.recordcount eq "1">
-									
-									 <cf_UItreeitem value="#cur#_#left(systemfunctionid,8)#"
-								      	    display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
-											parent="vw_#cur#"
-											href="../../../#FunctionDirectory#/#FunctionPath#?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&currency=#cur#&area=Advance"							
-											target="right"																					
-									        expand="No">	
-									
-									</cfif>
-								
-								<cfelse>
-								
-									 <cf_UItreeitem value="#cur#_#left(systemfunctionid,8)#"
-							      	    display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
-										parent="vw_#cur#"	
-										href="../../../#FunctionDirectory#/#FunctionPath#?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&currency=#cur#"							
-										target="right"																					
-								        expand="No">		
-										
-								</cfif>								
-										
-							</cfloop>							
-					
-					</cfloop>	
-				
-							
-			</cfif>		
+			
 					
 	<cfelse>	
 			
 		  <cf_tl id="Actions" var="vEvents">
 			  
 		  <cf_UItreeitem value="journal"
-		        display="<span style='padding-bottom:5px' class='labellarge'>#vEvents#</span>"						
+		        display="<span style='padding-bottom:0px' class='labelmedium'>#vEvents#</span>"						
 				href="JournalViewOpen.cfm?ID=EVE&ID1=0&Mission=#Attributes.Mission#"				
 				parent="root"		
 				target="right"					
@@ -371,6 +290,13 @@ password="#SESSION.dbpw#">
 		 <cfelse>
 		 	<cfset show = "No">
 		 </cfif>
+		 
+		 <cf_tl id="Administration" var="1">
+		 
+		 <cf_UItreeitem value="owner"
+			        display="<span style='padding-bottom:4px;padding-top:4px;font-size:20px;font-weight:bold' class='labelit'>#lt_text#</span>"
+					parent="root"							
+			        expand="Yes">	
 		 		 	 	    
 		 <cfloop query="level01">
 		 
@@ -378,8 +304,8 @@ password="#SESSION.dbpw#">
 			<cfset MissionOrgUnitId = "#Level01.MissionOrgUnitId#">
 		 
 		  	<cf_UItreeitem value="#OrgUnit#"
-			        display="<span style='padding-bottom:4px;padding-top:4px;font-size:17px;font-weight:bold' class='labelit'>#Level01.OrgUnitNameShort#</span>"
-					parent="Root"							
+			        display="<span style='padding-bottom:4px;padding-top:4px;font-size:17px;font-weight:zbold' class='labelit'>#Level01.OrgUnitNameShort#</span>"
+					parent="owner"							
 			        expand="#show#">		     
 		 
 		      <cfquery name="Category" 
@@ -425,7 +351,7 @@ password="#SESSION.dbpw#">
 			  <cf_tl id="Journal" var="vJournals">
 			  
 			  <cf_UItreeitem value="journal#OrgUnit#"
-			        display="<span style='font-size:18px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labellarge'>#vJournals#</span>"						
+			        display="<span style='font-size:18px;font-weight:bold;padding-top:5px;padding-bottom:5px;' class='labelit'>#vJournals#</span>"						
 					parent="#OrgUnit#"							
 			        expand="Yes">	
 			  
@@ -443,12 +369,7 @@ password="#SESSION.dbpw#">
 			  
 			  	<cfset ct = currentrow>
 				
-				<cf_tl id="#Description#" var="1">
-			  		  
-			    <cf_UItreeitem value="journal#OrgUnit#_#ct#"
-			        display="<span style='font-size:15px;padding-top:3px;padding-bottom:2px;color:6688aa;font-weight:bold' class='labelit'>#lt_text#</span>"
-					parent="journal#OrgUnit#"											
-			        expand="No">	
+				
 			  				  
 			        <cfquery name="Journal" 
 		             datasource="AppsLedger" 
@@ -485,26 +406,37 @@ password="#SESSION.dbpw#">
 					 
 					 								
 					 </cfquery>
-													 			   
-		             <cfloop query="Journal">
 					 
-						<cf_UItreeitem value="#OrgUnit#_#ct#_#Journal#"
-				         display  = "<span style='font-size:13.5px' class='labelit'>#Description#</span>"
-						 parent   = "journal#OrgUnit#_#ct#"								
-						 href     = "JournalViewOpen.cfm?systemfunctionid=#url.systemfunctionid#&ID=PEN&ID1=#OrgUnit#&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
-						 target   = "right"
-				         expand   = "No">	
+					<cf_tl id="#Description#" var="1">
+					 
+					<cfif Journal.recordcount gte "1">
+			  		  
+					    <cf_UItreeitem value="journal#OrgUnit#_#ct#"
+					        display="<span style='font-size:15px;color:6688aa' class='labelit'>#lt_text#</span>"
+							parent="journal#OrgUnit#"											
+					        expand="No">	
+														 			   
+			             <cfloop query="Journal">
 						 
-						 <cf_tl id="All Documents" var="vAll">
-								
-							<cf_UItreeitem value="#OrgUnit#_#ct#_#Journal#_0"
-						        display="<span style='font-size:13.5px' class='labelit'>#Description#</span>"
-								parent="#OrgUnit#_#ct#_#Journal#"																	
-								href="JournalViewOpen.cfm?systemfunctionid=#url.systemfunctionid#&ID=JOU&ID1=#OrgUnit#&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
-								target="right"
-						        expand="No">		
+							<cf_UItreeitem value="#OrgUnit#_#ct#_#Journal#"
+					         display  = "<span style='font-size:13.5px' class='labelit'>#Description#</span>"
+							 parent   = "journal#OrgUnit#_#ct#"								
+							 href     = "JournalViewOpen.cfm?systemfunctionid=#url.systemfunctionid#&ID=PEN&ID1=#OrgUnit#&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
+							 target   = "right"
+					         expand   = "No">	
+							 
+							 <cf_tl id="All Documents" var="vAll">
+									
+								<cf_UItreeitem value="#OrgUnit#_#ct#_#Journal#_0"
+							        display="<span style='font-size:13.5px' class='labelit'>#Description#</span>"
+									parent="#OrgUnit#_#ct#_#Journal#"																	
+									href="JournalViewOpen.cfm?systemfunctionid=#url.systemfunctionid#&ID=JOU&ID1=#OrgUnit#&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
+									target="right"
+							        expand="No">		
+						
+						</cfloop>
 					
-					</cfloop>
+					</cfif>
 					 				 	  	  
 			  </cfloop>		
 			  
@@ -521,7 +453,7 @@ password="#SESSION.dbpw#">
 				   <cf_tl id="GLAccount" var="vAccount">
 				  
 				  <cf_UItreeitem value="account#OrgUnit#"
-				        display="<span style='font-size:18px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labellarge'>#vAccount#</span>"						
+				        display="<span style='font-size:18px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelit'>#vAccount#</span>"						
 						parent="#OrgUnit#"							
 				        expand="Yes">							
 							
@@ -544,6 +476,89 @@ password="#SESSION.dbpw#">
 		  </cfloop>	  	
 		  		  	
 	</cfif>
+	
+	<cfif Attributes.GLCategory eq "Actuals">
+											
+			 <cf_tl id="Views" var="vLedgerViews">
+			
+			 <cf_UItreeitem value="views"
+			        display="<span style='color:green;font-size:20px;padding-top:5px;font-weight:bold' class='labelit'>#vLedgerViews#</span>"						
+					parent="root"							
+			        expand="Yes">		
+								
+			  <cfquery name="Currency" 
+			  datasource="AppsLedger" 
+			  username="#SESSION.login#" 
+			  password="#SESSION.dbpw#">
+			      SELECT   DISTINCT Currency 
+			      FROM     Journal
+				  WHERE    Mission = '#Attributes.Mission#'		  					  
+			  </cfquery>					 
+		
+			<cfloop query="Currency">
+		
+				 	<cfset cur = currency.currency>
+					
+					<cf_UItreeitem value="vw_#Currency#"
+				        display="<span style='font-size:15px;padding-top:5px;' class='labelit'>#Currency#</span>"
+						parent="views"											
+						target="right"
+				        expand="No">		
+						
+					<cfinvoke component = "Service.Authorization.Function"  
+		  			 method           = "AuthorisedFunctions" 
+					 mode             = "View"			 
+					 mission          = "#attributes.mission#" 
+					 orgunit          = ""
+		   			 Role             = ""
+					 SystemModule     = "'Accounting'"
+					 FunctionClass    = "'Inquiry'"
+					 MenuClass        = "'Journal'"
+					 Except           = "''"
+		   			 Anonymous        = ""
+					 returnvariable   = "listaccess">		
+					 
+					<cfloop query="listaccess"> 	
+					
+						<cfif FunctionName eq "Staff Advances">
+						
+							<cfquery name="Area" 
+							  datasource="AppsLedger" 
+							  username="#SESSION.login#" 
+							  password="#SESSION.dbpw#">
+							      SELECT * 
+							      FROM   Employee.dbo.Ref_AreaGLedger	
+								  WHERE Area = 'Advance'					 
+							</cfquery>	
+							
+							<cfif area.recordcount eq "1">
+							
+							 <cf_UItreeitem value="#cur#_#left(systemfunctionid,8)#"
+						      	    display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
+									parent="vw_#cur#"
+									href="../../../#FunctionDirectory#/#FunctionPath#?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&currency=#cur#&area=Advance"							
+									target="right"																					
+							        expand="No">	
+							
+							</cfif>
+						
+						<cfelse>
+						
+							 <cf_UItreeitem value="#cur#_#left(systemfunctionid,8)#"
+					      	    display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
+								parent="vw_#cur#"	
+								href="../../../#FunctionDirectory#/#FunctionPath#?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&currency=#cur#"							
+								target="right"																					
+						        expand="No">		
+								
+						</cfif>								
+								
+					</cfloop>							
+			
+			</cfloop>	
+		
+							
+		</cfif>		
 
 </cf_UItree>
 

@@ -29,17 +29,32 @@
 	<tr class="line labelmedium" style="height:20px">
 		<td><cf_tl id="Position Grade"></td>
 		<td style="padding-right:10px;" align="right"><cf_tl id="Amount"></td>
+		<td><cf_tl id="Position Grade"></td>
+		<td style="padding-right:10px;" align="right"><cf_tl id="Amount"></td>
+		<td><cf_tl id="Position Grade"></td>
+		<td style="padding-right:10px;" align="right"><cf_tl id="Amount"></td>
 	</tr>	
+	<cfset i = 1>
 	<cfoutput query="getGrades">
-		<tr class="navigation_row labelmedium">			
-			<td style="padding-left:15px; padding-right:10px;min-width:170px">#PostGradeDisplay#</td>
+	    
+	    <cfif i eq "1">
+		<tr class="navigation_row labelmedium fixlengthlist">				
+		</cfif>
+			
+			<td style="padding-left:15px; padding-right:10px">#PostGradeDisplay#</td>
 			<td style="border:1PX SOLID SILVER">
 				<cfset vPostGradeId = trim(replace(Postgrade," ","_","ALL"))>
 				<cfset vPostGradeId = replace(vPostGradeId,"-","_","ALL")>
 				<cfinput type="text" name="postgrade_#vPostGradeId#" id="postgrade_#vPostGradeId#" 
 				 validate="numeric" value="#Remuneration#" class="regularxl" style="border:0px;width:75px; background-color:##f1f1f180;text-align:right; padding-right:5px;">
 			</td>
+			
+		<cfif i eq "3">	
 		</tr>
+		<cfset i = 1>
+		<cfelse>
+		<cfset i = i+1>
+		</cfif>
 	</cfoutput>
 </table>
 <!-- </cfform> -->

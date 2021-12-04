@@ -108,6 +108,7 @@
       username="#SESSION.login#" 
        password="#SESSION.dbpw#">
 	   
+	   
        SELECT DISTINCT S.PersonNo
        INTO  userQuery.dbo.tmp#SESSION.acc#_#fileNo#_FunSelect
        FROM  ApplicantFunction F, 

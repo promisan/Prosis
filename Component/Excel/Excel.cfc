@@ -269,12 +269,12 @@
 					
 				<cfset SpreadsheetAddRow(theSheet,"#evaluate(groupbyone)# [#sectiondata.recordcount# records]","#rowstart#",1)> 	
 								
-				<cfset formatCel.fgcolor    = "lemon_chiffon">  
-				<cfset formatCel.alignment  = "center"> 	
-				<cfset formatCel.color      = "black"> 
-				<cfset formatCel.fontsize   = "14"> 
-				<cfset formatCel.topbordercolor    = "blue_grey"> 
-				<cfset formatCel.topborder         = "thin"> 			
+				<cfset formatCel.fgcolor          = "lemon_chiffon">  
+				<cfset formatCel.alignment        = "center"> 	
+				<cfset formatCel.color            = "black"> 
+				<cfset formatCel.fontsize         = "14"> 
+				<cfset formatCel.topbordercolor   = "blue_grey"> 
+				<cfset formatCel.topborder        = "thin"> 			
 										
 				<cfset SpreadsheetSetRowHeight(theSheet,rowstart,30)>
 																			
@@ -545,15 +545,17 @@
 							
 							<cfif vError eq 0>
 							
-							<cfif cols[fld][2] eq "date" or cols[fld][2] eq "datetime" or findNoCase("date",fld)> 
+							<cfif cols[fld][2] eq "date" 
+							       or cols[fld][2] eq "datetime" 
+								   or findNoCase("date",fld)> 
 														 													
 								 <cftry>
 							     	<cfset val = dateformat(val,CLIENT.DateFormatShow)>	
-								 <cfcatch>
-								 </cfcatch>
+								 <cfcatch></cfcatch>
 								 </cftry>
 								 
 								 <cfif len(val) gt 10>
+
 									 <cfset valStr = getCleanHTML(val)>
 									 
 									 <cfset SpreadsheetSetCellValue(theSheet, "#valStr#", "#row+currentrow#", "#fld+1#")>	
@@ -577,6 +579,7 @@
 							
 								 <cfset valStr = getCleanHTML(val)>								 
 								 <cfset SpreadsheetSetCellValue(theSheet, "#valStr#", "#row+currentrow#", "#fld+1#")>	
+								 
 								 <cfif len(val) gt 50>
 								 	
 								 	<cfif ArrayFind(aWrap, "#fld+1#") eq 0>

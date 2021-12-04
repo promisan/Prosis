@@ -6,6 +6,7 @@
 	password="#SESSION.dbpw#">
 		SELECT 	*
 		FROM 	Ref_PriceSchedule
+		WHERE   Operational=1
 </cfquery>
 
 <cfquery name="Currency" 
@@ -26,6 +27,7 @@
 		FROM 	WarehouseCategoryPriceSchedule 
 		WHERE 	Warehouse = '#url.warehouse#'
 		AND		Category = '#url.category#'
+		AND     PriceSchedule IN (SELECT Code FROM Ref_PriceSchedule WHERE Operational=1)
 </cfquery>
 
 <cfform name="frmItemPriceSchedule" 
@@ -58,7 +60,7 @@
 					SELECT 	*
 					FROM 	qWHPriceSchedule
 					WHERE	PriceSchedule = '#Schedule.code#'
-					AND		Currency = '#Currency.Currency#'
+					AND		Currency = '#Currency.Currency#'					
 				</cfquery>
 				
 				<cfset vSelected = 0>
@@ -90,7 +92,7 @@
 								</cfif>
 								<td id="td_details_#Schedule.code#_#Currency.Currency#" style="padding-left:5px;" class="#vClass#">
 									<table class="formspacing">
-										<tr>
+										<tr class="fixlengthlist">
 											<td style="font-size:10px;"><cf_tl id="Multiplier">:</td>
 											<td>
 												<cfset vCostPriceMultiplier = lqWHPriceSchedule.CostPriceMultiplier>
@@ -109,7 +111,7 @@
 														 validate="numeric"
 														 message="Please enter a valid numeric multiplier for #Schedule.description#, #Currency.Currency#" 
 														 required="Yes" 
-														 size="1" 
+														 size="3" 
 														 maxlength="5">
 												</cfif>
 											</td>
@@ -130,10 +132,10 @@
 														 style="text-align:right; padding-right:2px;"
 														 name="CostPriceCeiling_#Schedule.code#_#Currency.Currency#"  
 														 value="#vCostPriceCeiling#" 
-														 validate="integer"
+														 validate="numeric"
 														 message="Please enter a valid integer ceiling for #Schedule.description#, #Currency.Currency#" 
 														 required="Yes" 
-														 size="1"
+														 size="3"
 														 maxlength="4">
 												</cfif>
 											</td>

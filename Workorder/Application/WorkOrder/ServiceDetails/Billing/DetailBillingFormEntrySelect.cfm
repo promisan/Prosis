@@ -389,7 +389,7 @@
 			
 			    <table>
 				<tr>
-				<td>
+				<td title="Usage quantity">
 												   		
 				<input type   = "text" 
 				    style     = "width:25px;text-align:center" 

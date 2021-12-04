@@ -21,6 +21,7 @@
 				  WHERE  Speedtype = '#Journal.Speedtype#')
   AND    Operational = 1
   AND    TopicClass = '#Attributes.TopicClass#'
+  ORDER BY ListingOrder
 </cfquery>
 
 <cfparam name="attributes.stylelabel" default="padding-left:15px">

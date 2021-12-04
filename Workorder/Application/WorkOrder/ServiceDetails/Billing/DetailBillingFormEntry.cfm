@@ -94,7 +94,7 @@
 <CF_DateConvert Value="#url.date#">
 <cfset STR = dateValue>
 
-<table width="100%" border="0" style="width:950px">	  
+<table width="100%" border="0" style="width:950px" class="formpadding">	  
 
       <tr bgcolor="e1e1e1" style="height:40px;border-top:1px solid silver" class="labelmedium line fixrow fixlengthlist">
        <td height="30" width="1"></td>
@@ -116,10 +116,10 @@
 	   <td>
 		   <table>
 		   <tr class="labelit">
-		   <td align="right" style="padding-right:10px">
+		   <td align="right" style="padding-right:60px">
 		   	<cf_tl id="Out">
 		   </td>
-		   <td align="right" style="padding-right:18px">
+		   <td align="right" style="padding-right:25px">
 		   	<cf_tl id="Usage">
 		   </td>
 		   </tr>

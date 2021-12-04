@@ -27,10 +27,10 @@ function hl(itm,fld){
 	 	 	 		 	
 	 if (fld != false){
 		
-	 itm.className = "highLight2";
+	 itm.className = "highLight2 navigation_row line labelmedium2 fixlengthlist";
 	 }else{
 		
-     itm.className = "regular";		
+     itm.className = "navigation_row line labelmedium2 fixlengthlist";		
 	 }
  }
  
@@ -237,7 +237,7 @@ password="#SESSION.dbpw#">
 	    <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/prev.gif" align="absmiddle" alt="" border="0"><cf_tl id="Back">
 	</button>
 			
-	<button name="Prios" id="Prios" style="width: 160px;height:27" 
+	<button name="Prios" id="Prios" style="width: 160px;height:27" onclick="Prosis.busy('yes')" 
 	    class="button10g" value="Prior" type="submit"><cf_tl id="Search Criteria">
 	    <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/next.gif" border="0" align="absmiddle"> 
 	</button>

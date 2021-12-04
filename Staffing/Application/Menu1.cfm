@@ -1,8 +1,6 @@
 
 <cf_submenutop>
 
-<cf_screentop html="No" jquery="Yes">
-
 <cf_submenuLogo module="Staffing" selection="Application">
 
 <cfparam name="URL.Operational" default="1">

@@ -224,85 +224,85 @@
 								
 								<cfif shipping eq "Yes">					
 																							  				  
-							    <cf_StockTransact 
-							        TransactionId             = "#transactionid#"
-									TransactionClass          = "#cls#"								
-								    DataSource                = "AppsMaterials" 
-								    TransactionType           = "#transactiontype#"
-									TransactionSource         = "WarehouseSeries"
-									ItemNo                    = "#ItemNo#" 
-									Mission                   = "#Mission#" 
-									Warehouse                 = "#Warehouse#" 
-									Location                  = "#Location#"
-									TransactionLot            = "#TransactionLot#"
-									TransactionIdOrigin       = "#TransactionIdOrigin#"
-									TransactionCurrency       = "#APPLICATION.BaseCurrency#"
+								    <cf_StockTransact 
+								        TransactionId             = "#transactionid#"
+										TransactionClass          = "#cls#"								
+									    DataSource                = "AppsMaterials" 
+									    TransactionType           = "#transactiontype#"
+										TransactionSource         = "WarehouseSeries"
+										ItemNo                    = "#ItemNo#" 
+										Mission                   = "#Mission#" 
+										Warehouse                 = "#Warehouse#" 
+										Location                  = "#Location#"
+										TransactionLot            = "#TransactionLot#"
+										TransactionIdOrigin       = "#TransactionIdOrigin#"
+										TransactionCurrency       = "#APPLICATION.BaseCurrency#"
+										
+										TransactionQuantity       = "#qty#"				
+										
+										TransactionUoM            = "#TransactionUoM#"
+										TransactionUoMMultiplier  = "#TransactionUoMMultiplier#"
+										TransactionCostPrice      = "#TransactionCostPrice#"
+										ReceiptId                 = "#ReceiptId#"
+										ReceiptCostPrice          = "#ReceiptCostPrice#"
+										ReceiptPrice              = "#ReceiptPrice#"
+										ActionStatus              = "#status#"
+										TransactionDate           = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
+										TransactionTime           = "#timeformat(TransactionDate,'HH:MM')#"			
+										TransactionBatchNo        = "#TransactionBatchNo#"
+										Remarks                   = "#Remarks#"
+										
+										WorkOrderId               = "#WorkOrderId#"
+										WorkOrderLine             = "#WorkOrderLine#"
+										RequirementId             = "#RequirementId#"								
+										BillingUnit               = "#BillingUnit#"
+										
+										OrgUnit                   = "#OrgUnit#"
+										PersonNo                  = "#PersonNo#"
+										
+										CustomerId                = "#CustomerId#"
+										AssetId                   = "#AssetId#"
+										ProgramCode               = "#ProgramCode#"
+										RequestId                 = "#RequestId#"
+										TaskSerialNo              = "#TaskSerialNo#"
+										BillingMode               = "#BillingMode#"
+										
+										TransactionReference      = "#TransactionReference#"
+										TransactionMetric         = "#TransactionMetric#"
+										ParentTransactionId       = "#parenttransactionid#"				
+														
+										DetailLineNo              = "#getDetail.recordcount#"
+										DetailReference1          = "#getDetail.Reference1#"
+										DetailReference2          = "#getDetail.Reference2#"
+										DetailReadInitial         = "#getDetail.MeterReadingInitial#"
+										DetailReadFinal           = "#getDetail.MeterReadingFinal#"
+										
+										Shipping                  = "#shipping#"
+										
+										SchedulePrice             = "#ship.SchedulePrice#"	
+										SalesUoM                  = "#Ship.SalesUoM#"       <!--- as recorded in the sale POS --->	 
+										SalesQuantity             = "#qty*-1#"              <!--- as recorded in the sale POS --->	
+										
+										SalesPersonNo             = "#ship.SalesPersonNo#"
+										SalesCurrency             = "#ship.SalesCurrency#"
+										TaxCode                   = "#ship.TaxCode#"
+										SalesPrice                = "#ship.SalesPrice#"
+										SalesTotal				  = "#ship.SalesPrice*qty*-1#"
+										TaxPercentage             = "#ship.TaxPercentage#"
+										TaxExemption              = "#ship.TaxExemption#"
+										TaxIncluded               = "#ship.TaxIncluded#"
+										InvoiceId                 = "#ship.InvoiceId#"
+										ARJournal                 = "#ship.Journal#"
+										ARJournalSerialNo         = "#ship.JournalSerialNo#"																
+										
+										GLTransactionNo           = "#TransactionBatchNo#"
+										GLTransactionSourceId     = "#Batch.BatchId#"
+										
+										GLCurrency                = "#APPLICATION.BaseCurrency#"
+										GLAccountDebit            = "#GLAccountDebit#" 
+										GLAccountCredit           = "#GLAccountCredit#">		
 									
-									TransactionQuantity       = "#qty#"				
-									
-									TransactionUoM            = "#TransactionUoM#"
-									TransactionUoMMultiplier  = "#TransactionUoMMultiplier#"
-									TransactionCostPrice      = "#TransactionCostPrice#"
-									ReceiptId                 = "#ReceiptId#"
-									ReceiptCostPrice          = "#ReceiptCostPrice#"
-									ReceiptPrice              = "#ReceiptPrice#"
-									ActionStatus              = "#status#"
-									TransactionDate           = "#dateformat(TransactionDate,CLIENT.DateFormatShow)#"
-									TransactionTime           = "#timeformat(TransactionDate,'HH:MM')#"			
-									TransactionBatchNo        = "#TransactionBatchNo#"
-									Remarks                   = "#Remarks#"
-									
-									WorkOrderId               = "#WorkOrderId#"
-									WorkOrderLine             = "#WorkOrderLine#"
-									RequirementId             = "#RequirementId#"								
-									BillingUnit               = "#BillingUnit#"
-									
-									OrgUnit                   = "#OrgUnit#"
-									PersonNo                  = "#PersonNo#"
-									
-									CustomerId                = "#CustomerId#"
-									AssetId                   = "#AssetId#"
-									ProgramCode               = "#ProgramCode#"
-									RequestId                 = "#RequestId#"
-									TaskSerialNo              = "#TaskSerialNo#"
-									BillingMode               = "#BillingMode#"
-									
-									TransactionReference      = "#TransactionReference#"
-									TransactionMetric         = "#TransactionMetric#"
-									ParentTransactionId       = "#parenttransactionid#"				
-													
-									DetailLineNo              = "#getDetail.recordcount#"
-									DetailReference1          = "#getDetail.Reference1#"
-									DetailReference2          = "#getDetail.Reference2#"
-									DetailReadInitial         = "#getDetail.MeterReadingInitial#"
-									DetailReadFinal           = "#getDetail.MeterReadingFinal#"
-									
-									Shipping                  = "#shipping#"
-									
-									SchedulePrice             = "#ship.SchedulePrice#"	
-									SalesUoM                  = "#Ship.SalesUoM#"       <!--- as recorded in the sale POS --->	 
-									SalesQuantity             = "#qty*-1#"              <!--- as recorded in the sale POS --->	
-									
-									SalesPersonNo             = "#ship.SalesPersonNo#"
-									SalesCurrency             = "#ship.SalesCurrency#"
-									TaxCode                   = "#ship.TaxCode#"
-									SalesPrice                = "#ship.SalesPrice#"
-									SalesTotal				  = "#ship.SalesPrice*qty*-1#"
-									TaxPercentage             = "#ship.TaxPercentage#"
-									TaxExemption              = "#ship.TaxExemption#"
-									TaxIncluded               = "#ship.TaxIncluded#"
-									InvoiceId                 = "#ship.InvoiceId#"
-									ARJournal                 = "#ship.Journal#"
-									ARJournalSerialNo         = "#ship.JournalSerialNo#"																
-									
-									GLTransactionNo           = "#TransactionBatchNo#"
-									GLTransactionSourceId     = "#Batch.BatchId#"
-									
-									GLCurrency                = "#APPLICATION.BaseCurrency#"
-									GLAccountDebit            = "#GLAccountDebit#" 
-									GLAccountCredit           = "#GLAccountCredit#">		
-									
-									<cfelse>
+								<cfelse>
 									
 										<cf_StockTransact 
 								        TransactionId             = "#transactionid#"
@@ -364,7 +364,7 @@
 										GLAccountDebit            = "#GLAccountDebit#" 
 										GLAccountCredit           = "#GLAccountCredit#">	
 									
-									</cfif>										
+								</cfif>										
 									
 									<!--- we restore actions as well maybe best to pass this into the component as well
 									19/8/2019 --->

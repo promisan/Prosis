@@ -41,12 +41,12 @@
 	</tr>
 	<tr class="hide"><td height="100" id="processmanual"></td></tr>
 	<tr>	
-		<td align="center">
+		<td align="center" style="padding-left:10px;padding-right:10px">
 		
 			<iframe src="" 
 			    name="detail"
 				id="detail"
-		        width="98%"
+		        width="99%"
 		        height="97%"
 		        align="middle"
 		        scrolling="no"

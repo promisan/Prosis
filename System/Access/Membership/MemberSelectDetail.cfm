@@ -86,18 +86,16 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="select">
 	
-	<tr class="labelmedium2 line navigation_row" id="#AccountOwner#_#AccountMission#_#currentrow#">
-  	   <td style="padding-left:4px" align="center"><input type="checkbox" style="height:14px;width:14px" name="Member" id="Member" value="#Account#" onClick="mhl(this,this.checked,'#AccountOwner#_#AccountMission#_#currentrow#')"></td>
+	<tr class="labelmedium2 line navigation_row fixlengthlist" id="#AccountOwner#_#AccountMission#_#currentrow#">
+  	   <td style="width:30px;" align="center"><input type="checkbox" style="height:14px;width:14px" name="Member" id="Member" value="#Account#" onClick="mhl(this,this.checked,'#AccountOwner#_#AccountMission#_#currentrow#')"></td>
 	   <!---
 	   <td style="padding-top:2px" align="center"><cf_img icon="select" onClick="javascript:ShowUser('#Account#')"></td>
 	   --->
 	   <td style="padding-left:10px">
-	       <a href="javascript:ShowUser('#Account#')">#LastName#</a> (#Account#)
-	   </td>	   
-	   <td>#AccountMission#</td>	  
-	   <td>#OfficerLastName#</td>
-	   <td>#dateformat(Created, CLIENT.DateFormatShow)#</td>
-	   <td></td>
+	      #AccountMission# <a href="javascript:ShowUser('#Account#')">#LastName#</a> (#Account#) 
+	   </td>	   	    	   
+	   <td align="right">#OfficerLastName# #dateformat(Created, CLIENT.DateFormatShow)#</td>
+	  
 	</tr>
 	
 	<cfif Remarks neq "">

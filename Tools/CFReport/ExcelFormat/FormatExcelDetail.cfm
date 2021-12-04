@@ -266,8 +266,10 @@
 							   <cfset format = "numeric">
 							<cfelseif userType eq "12">
 							   <cfset format = "date"> 
-							 <cfelseif userType eq "0">
+							<!---   
+							<cfelseif userType eq "0">
 							   <cfset format = "date">   
+							   --->
 							<cfelse>
 							   <cfset format = "default">   	
 							</cfif>

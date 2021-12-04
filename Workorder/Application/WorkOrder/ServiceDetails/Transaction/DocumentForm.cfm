@@ -103,15 +103,15 @@
 
 	<tr><td height="10"></td></tr>
 				
-	<tr class="labelmedium"><td height="15">Customer:</td><td>#Customer.CustomerName#</td></tr>
-	<tr class="labelmedium"><td height="15">Service:</td><td>#ServiceItem.Description#</td></tr>
-	<tr class="labelmedium"><td height="15">Service Tag:</td><td>#Line.Reference#</td></tr>
-	<tr class="labelmedium"><td height="15">User:</td><td>#Person.Firstname# #Person.LastName#</td></tr>
+	<tr class="labelmedium"><td height="15"><cf_tl id="Customer">:</td><td>#Customer.CustomerName#</td></tr>
+	<tr class="labelmedium"><td height="15"><cf_tl id="Service">:</td><td>#ServiceItem.Description#</td></tr>
+	<tr class="labelmedium"><td height="15"><cf_tl id="Service Tag">:</td><td>#Line.Reference#</td></tr>
+	<tr class="labelmedium"><td height="15"><cf_tl id="User">:</td><td>#Person.Firstname# #Person.LastName#</td></tr>
 	
 			
 	<tr><td height="4"></td></tr>
 	<tr class="labelmedium">
-	    <td>Unit:</td>
+	    <td><cf_tl id="Unit">:</td>
 		<td height="23">		
 														
 		<cfquery name="Unit" 

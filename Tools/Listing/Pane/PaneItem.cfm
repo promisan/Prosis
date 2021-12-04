@@ -215,7 +215,7 @@
 											value          = "OrgUnit"
 											display        = "OrgUnitName">
 											
-										<cfif attributes.units eq "0" or attributes.units eq "" and attributes.OrgUnitsMultiple neq "multiple">									
+										<cfif attributes.units eq "0" or attributes.units eq "" and attributes.UnitsMultiple neq "multiple">									
 											 <option value="">All</option>
 										</cfif> 
 									

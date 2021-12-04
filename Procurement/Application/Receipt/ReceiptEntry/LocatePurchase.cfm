@@ -92,7 +92,7 @@
 	      AND     R.Period       = M.Period 
 		</cfquery>
 	
-		<tr>
+		<tr class="fixlengthlist">
 		<TD class="labelmedium2"><cf_tl id="Period">:</TD>
 				
 		<td align="left">
@@ -110,7 +110,7 @@
 		</TD>
 		</tr>
 			
-		<TR>
+		<TR class="fixlengthlist">
 		<TD class="labelmedium2"><cf_tl id="Order No">:</TD>
 		<td colspan="1">	
 		<input type="text" class="regularxxl" name="purchaseno" id="purchaseno" value="" size="10">
@@ -127,7 +127,7 @@
 		
 		</TR>
 			
-		<TR>
+		<TR class="fixlengthlist">
 		<TD class="labelmedium2"><cf_tl id="Order type">:</TD>
 				
 		<td align="left" valign="top">
@@ -154,7 +154,7 @@
 		</TR>
 		
 		<!--- Field: Pur_head.VendorName=CHAR;80;FALSE --->
-		<TR>
+		<TR class="fixlengthlist">
 		<TD class="labelmedium2"><cf_tl id="Vendor code">:</TD>
 				
 		<td align="left" valign="top">
@@ -173,7 +173,7 @@
 			
 		</tr>
 		
-		<TR>
+		<TR class="fixlengthlist">
 		<TD class="labelmedium2"><cf_tl id="Order amount"> <cfoutput>#APPLICATION.BaseCurrency#</cfoutput>:</TD>
 		<TD><table><tr><td>
 		<SELECT name="amountoperator" id="amountoperator" class="regularxxl">
@@ -193,7 +193,7 @@
 		
 		</TR>
 			
-		<TR>
+		<TR class="fixlengthlist">
 		<TD class="labelmedium2"><cf_tl id="Purchase status">:</TD>
 		<td align="left" valign="top">
 		    <select name="actionstatus" id="actionstatus" size="1" class="regularxxl">

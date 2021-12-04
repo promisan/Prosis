@@ -33,7 +33,7 @@
 								targetitem = "1"
 								iconwidth  = "#wd#" 
 								iconheight = "#ht#" 
-								name       = "General Settings"
+								name       = "General"
 								class      = "highlight1"
 								source 	   = "ServiceItemEdit.cfm?ID1=#URL.ID1#&loadcolor=1">
 								
@@ -43,7 +43,7 @@
 								iconwidth  = "#wd#" 
 								targetitem = "2"
 								iconheight = "#ht#" 
-								name       = "Custom Fields & Actions"
+								name       = "Fields & Actions"
 								source 	   = "ServiceItemTopic.cfm?ID1=#URL.ID1#">	
 								
 					<cfif get.ServiceMode eq "Service">					
@@ -65,7 +65,7 @@
 								iconwidth  = "#wd#" 
 								targetitem = "2"
 								iconheight = "#ht#" 
-								name       = "Service Provisioning"
+								name       = "Provisioning"
 								source 	   = "#SESSION.root#/workorder/maintenance/unitRate/ItemUnitListing.cfm?ID1=#URL.ID1#">		
 					
 					<!--- show settings per entity for procurement, item --->
@@ -76,10 +76,19 @@
 								iconwidth  = "#wd#" 
 								targetitem = "2"
 								iconheight = "#ht#" 
-								name       = "Manufacturing Settings"
+								name       = "Manufacturing"
 								source 	   = "#SESSION.root#/workorder/maintenance/WorkOrderItem/EntityListing.cfm?ID1=#URL.ID1#">		
 										
-					</cfif>								
+					</cfif>			
+					
+					<cfset itm = itm+1>													
+					<cf_menutab item       = "#itm#" 
+					            iconsrc    = "Logos/WorkOrder/Accounts-Receivable.png" 
+								iconwidth  = "#wd#" 
+								targetitem = "2"
+								iconheight = "#ht#" 
+								name       = "Billing Settings"
+								source 	   = "FinancialsListing.cfm?ID1=#URL.ID1#">								
 								
 					<cfset itm = itm+1>													
 					<cf_menutab item       = "#itm#" 
@@ -90,14 +99,7 @@
 								name       = "Selfservice"
 								source 	   = "SelfService.cfm?ID1=#URL.ID1#">
 					
-					<cfset itm = itm+1>													
-					<cf_menutab item       = "#itm#" 
-					            iconsrc    = "Logos/WorkOrder/Accounts-Receivable.png" 
-								iconwidth  = "#wd#" 
-								targetitem = "2"
-								iconheight = "#ht#" 
-								name       = "Batch Billing Services"
-								source 	   = "FinancialsListing.cfm?ID1=#URL.ID1#">								
+									
 																
 								
 					<cfset itm = itm+1>						

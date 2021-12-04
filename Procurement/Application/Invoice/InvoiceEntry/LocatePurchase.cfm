@@ -98,16 +98,16 @@ password="#SESSION.dbpw#">
 <!--- Search form --->
 <cfform action="LocatePurchaseDetail.cfm?Mission=#URL.Mission#&Period=#URL.Period#" method="POST" target="detail"  name="locate">
 	
-<table width="97%" align="center" class="formpadding">
+<table width="99%" align="center" class="formpadding">
 
-<tr><td id="locatebox" class="regular">
+<tr><td id="locatebox" class="regular" style="padding-left:10px;padding-right:10px">
 
 <table width="97%" cellspacing="0" align="center" class="formpadding">
 	
-	<TR class="labelmedium2">
+	<TR class="labelmedium2 fixlengthlist">
 	<TD><cf_tl id="Purchase">:</TD>
-	<td colspan="1">	
-	<table cellspacing="0" cellpadding="0">
+	<td colspan="1" style="padding-left:0px">	
+	<table>
 	<tr class="labelmedium2">
 	<td><input type="text" class="regularxxl" name="purchaseno" id="purchaseno" value="" size="8"></td>
 	<td width="6"></td>
@@ -138,7 +138,7 @@ password="#SESSION.dbpw#">
 	</table>
 	</td>
 	<TD><cf_tl id="Issued after">:</TD>
-	<TD>	
+	<TD style="padding-left:0px">	
 	 <cf_intelliCalendarDate9
 		FieldName="orderdate" 
 		class="regularxxl"
@@ -149,7 +149,7 @@ password="#SESSION.dbpw#">
 	
 	</TR>
 	
-	<TR class="labelmedium2">
+	<TR class="labelmedium2 fixlengthlist">
 	<TD><cf_tl id="Requisition">:</TD>
 	<TD><input type="text" name="requisitionno" id="requisitionno" class="regularxxl" value="" size="20"></TD>	
 	<TD><cf_tl id="Period">:</TD>
@@ -164,12 +164,13 @@ password="#SESSION.dbpw#">
 	</td>						
 	</tr>
 		
-	<TR class="labelmedium2">
-	<td><cf_tl id="Program">/<cf_tl id="Project"></td>
-	<td>
+	<TR class="labelmedium2 fixlengthlist">
+	<td><cf_tl id="Program">/<cf_tl id="Project">:</td>
+	<td style="padding-left:0px">
 	  
 	  <cfoutput>
-	  <table>			  
+	  <table>		
+	  <tr >	  
 	  <td>
 	  <input type="text" name="programdescription" id="programdescription" class="regularxxl" value="" size="40" maxlength="80" readonly 
 	  onclick="this.value='';programcode.value=''">
@@ -214,7 +215,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	
-	<TR class="labelmedium2">
+	<TR class="labelmedium2 fixlengthlist">
 	<TD title="Vendor Code" style="cursor:pointer"><cf_tl id="Vendor Code">:</TD>
 			
 	<td align="left"> 
@@ -248,7 +249,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif employee.recordcount gte "1">
 	
-		<TR class="labelmedium2">
+		<TR class="labelmedium2 fixlengthlist">
 		<TD><cf_tl id="IndexNo">:</TD>
 				
 		<td align="left"> 
@@ -269,14 +270,14 @@ password="#SESSION.dbpw#">
 	
 	</cfif>
 			
-	<TR class="labelmedium2">
+	<TR class="labelmedium2 fixlengthlist">
 	<TD><cf_tl id="Order amount">:</TD>
-	<TD><SELECT name="amountoperator" id="amountoperator" class="regularxxl">
+	<TD><SELECT name="amountoperator" id="amountoperator" class="regularxxl" style="width:90px">
 			<OPTION value="="><cf_tl id="is">
 			<option value=">=" selected><cf_tl id="greater than">
 			<OPTION value="<="><cf_tl id="smaller than">
 		</SELECT>
-		<input type="text" name="amount" id="amount" class="regularxxl" value="0" size="10" style="text-align: right;">
+		<input type="text" name="amount" id="amount" class="regularxxl" value="0" size="7" style="text-align: right;">
 		<cfoutput>#APPLICATION.BaseCurrency#</cfoutput>
 	</TD>
 	
@@ -291,7 +292,7 @@ password="#SESSION.dbpw#">
 	
 	</TR>
 		
-	<TR class="labelmedium2">
+	<TR class="labelmedium2 fixlengthlist">
 	<TD><cf_tl id="Obligation Status">:</TD>
 	<td align="left" valign="top" class="labelmedium2">
 	    <cfif Parameter.InvoicePriorIssue eq "1">
@@ -310,7 +311,8 @@ password="#SESSION.dbpw#">
 		</cfoutput>
 	    </select>
 		</cfif>
-		<font size="2" color="808080">---> <cf_tl id="Closed Obligations may not be selected"></font>
+		<br>
+		<font size="2" color="808080"><cf_tl id="Closed Obligations may not be selected"></font>
 	</td>	
 	<TD class="labelmedium2"><cf_tl id="Delivery Status">:</TD>
 	<TD><SELECT name="deliverystatus" id="deliverystatus" class="regularxxl">

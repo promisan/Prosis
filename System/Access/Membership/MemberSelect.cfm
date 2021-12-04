@@ -78,7 +78,7 @@ password="#SESSION.dbpw#">
 		
 			<cfoutput group="AccountMission">
 			
-				<tr class="line labelmedium fixrow2">
+				<tr class="line labelmedium fixrow2 fixlengthlist">
 				
 					<td>
 														 
