@@ -51,11 +51,12 @@
 
 <table style="width:98.5%" class="navigation_table">
 	
-	<TR class="line fixrow"><td width="6%" height="20"></td>
+	<TR class="line fixrow fixlengthlist">
+	    <td width="6%" height="20"></td>
 	
-	    <TD class="labelit"><cf_tl id="Code" var="1"><cf_space spaces="30" label="#lt_text#"></TD>
+	    <TD class="labelit"><cf_tl id="Code" var="1"><cfoutput>#lt_text#</cfoutput></TD>
 		
-		<td colspan="3" width="80%" class="labelit" style="border-right: 1px solid Silver;"><cf_tl id="Program Name"></td>
+		<td colspan="3" class="labelit" style="border-right: 1px solid Silver;"><cf_tl id="Program Name"></td>
 		
 		<cfloop query="Resource">
 			<cfoutput>	    
@@ -128,7 +129,7 @@
 	   	  	 		   
 	   	   <cfif SearchResult.Total neq "" or url.filter eq "all">
 		  		   		       
-		   <tr class="line" style="background-color:D3E9F8">
+		   <tr class="line fixlengthlist" style="background-color:D3E9F8">
 		   
 		     <cfif spaces eq "1">
 			     				 

@@ -158,7 +158,7 @@ password="#SESSION.dbpw#">
 <tr class="hide"><td height="60"><iframe name="process" id="process" width="100%" height="100%"></iframe></td></tr>
    
   <tr>
-    <td width="100%">
+    <td width="100%" style="padding-left:20px">
 		
 	<cfform action="AssignmentEntrySubmit.cfm?Box=#URL.Box#&Caller=#URL.Caller#&Source=#URL.Source#&ApplicantNo=#URL.ApplicantNo#&PersonNo=#URL.PersonNo#&RecordId=#URL.RecordId#&DocumentNo=#URL.DocumentNo#" 
 		   method="POST" 
@@ -249,7 +249,7 @@ password="#SESSION.dbpw#">
 		</tr>	
 						 
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Arrival date">:</TD>
+	    <TD style="min-width:200px" class="labelmedium"><cf_tl id="Arrival date">:</TD>
 	    <TD>	
 		
 			<table cellspacing="0" cellpadding="0">

@@ -307,9 +307,22 @@
 			FROM   SalaryScheduleServiceLevel P, 
 			       Employee.dbo.Ref_PostGrade R
 			WHERE  P.ServiceLevel = R.PostGrade		
-			AND    P.SalarySchedule = '#url.schedule#'
+			AND    P.SalarySchedule = '#url.schedule#'			
 			ORDER BY R.PostOrder
 		</cfquery>
+		
+		<cfquery name="Delete"
+			datasource="AppsPayroll" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">			
+				DELETE FROM SalaryScaleLine
+				WHERE  ScaleNo       = '#Form.ScaleNo#'
+				AND    ServiceLevel NOT IN (SELECT ServiceLevel 
+				                            FROM   SalaryScheduleServiceLevel
+											WHERE  SalarySchedule = '#url.schedule#'	
+											AND    Operational = 1)	
+				
+		 </cfquery>
 	
 		<cfoutput query="Grade">
 				
@@ -431,8 +444,22 @@
 			       Employee.dbo.Ref_PostGrade R
 			WHERE  P.ServiceLevel = R.PostGrade		
 			AND    P.SalarySchedule = '#url.schedule#'
+			AND    P.Operational = 1
 			ORDER BY R.PostOrder
 		</cfquery>
+		
+		<cfquery name="Delete"
+			datasource="AppsPayroll" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">			
+				DELETE FROM SalaryScaleLine
+				WHERE  ScaleNo       = '#Form.ScaleNo#'
+				AND    ServiceLevel NOT IN (SELECT ServiceLevel 
+				                            FROM   SalaryScheduleServiceLevel
+											WHERE  SalarySchedule = '#url.schedule#'	
+											AND    Operational = 1)	
+				
+		 </cfquery>
 	
 		<cfoutput query="Grade">
 				

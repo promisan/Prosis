@@ -278,7 +278,7 @@
 		       <input type="input"  
 			       class="button3" 
 				   readonly 
-				   style="padding-top:2px;text-align:center;width:100%" 
+				   style="font-size:13px;padding-top:2px;text-align:center;width:100%" 
 				   id="rtotal_#row#" 
 				   name="rtotal_#row#" 
 				   value="<cfoutput>#getTotal.Total#</cfoutput>">
@@ -309,10 +309,10 @@
 			 </cfquery>	
 
 		     <input type="text" readonly 
-				 style  = "border:0px;padding-top:2px;padding-right:2px;text-align:right;width:98%" 
+				 style  = "background-color:transparent;height:25px;font-size:14px;border:0px;padding-top:2px;padding-right:2px;text-align:right;width:98%" 
 				 name   = "overalltotal" 
 				 id     = "overalltotal" 
-				 value  = "#numberformat(getTotal.total,'__,__')#"
+				 value  = "#numberformat(getTotal.total,',__')#"
 				 class  = "regular">
 			 
 	  </td>

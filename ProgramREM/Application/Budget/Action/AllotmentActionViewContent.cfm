@@ -1,4 +1,4 @@
-<table width="93%" align="center" cellspacing="0" cellpadding="0" class="formspacing">
+<table width="93%" align="center" class="formspacing">
 
 	<cfquery name="AllotmentAction"
 	datasource="AppsProgram" 
@@ -34,7 +34,7 @@
 	<cfoutput query="allotmentaction">
 	
 		<tr><td height="8"></td></tr>
-		<tr  style="height:20px" class="labelmedium">
+		<tr  style="height:20px" class="labelmedium fixlengthlist">
 		    <td width="80"  style="height:20px;padding-right:30px"><cf_tl id="Document">:</td>
 			<td width="35%" style="height:20px" id="tdReference">
 				<cfinclude template="AllotmentActionReferenceEdit.cfm">
@@ -43,21 +43,21 @@
 			<td width="45%" style="height:20px">#dateformat(ActionDate,CLIENT.dateformatshow)#</td>		
 		</tr>
 		
-		<tr style="height:20px" class="labelmedium">
+		<tr style="height:20px" class="labelmedium fixlengthlist">
 		    <td><cf_tl id="Reference">:</td>
 			<td>#Reference#</td>
 			<td><cf_tl id="Name">:</td>
 			<td>#ProgramName#</td>		
 		</tr>
 		
-		<tr style="height:20px" class="labelmedium">
+		<tr style="height:20px" class="labelmedium fixlengthlist">
 		    <td><cf_tl id="Edition">:</td>
 			<td>#EditionDescription#</td>
 			<td><cf_tl id="Period">:</td>
 			<td>#Period#</td>		
 		</tr>
 		
-		<tr style="height:20px" class="labelmedium">
+		<tr style="height:20px" class="labelmedium fixlengthlist">
 		    <td><cf_tl id="Transaction">:</td>
 			<td>#ActionDescription#</td>
 			<td><cf_tl id="Status">:</td>
@@ -69,7 +69,7 @@
 			</td>		
 		</tr>
 		
-		<tr style="height:20px" class="labelmedium line">
+		<tr style="height:20px" class="labelmedium line fixlengthlist">
 		    <td><cf_tl id="Officer">:</td>
 			<td>#OfficerFirstName# #OfficerLastName#</td>
 			<td style="padding-right:30px"><cf_tl id="Recorded">:</td>
@@ -77,7 +77,7 @@
 		</tr>
 			
 		<cfif ActionMemo neq "">
-		<tr style="height:20px" class="labelmedium line">
+		<tr style="height:20px" class="labelmedium line fixlengthlist">
 		    <td><cf_tl id="Memo">:</td>
 			<td colspan="3">#ActionMemo#</td>		
 		</tr>

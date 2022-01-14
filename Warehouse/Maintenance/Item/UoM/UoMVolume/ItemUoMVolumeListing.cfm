@@ -10,8 +10,8 @@
 	
 	<table width="80%" class="navigation_table">	
 	<cfoutput>
-	<tr class="line labelmedium2">	    		
-		<td height="25" align="center"><a title="Add new temperature" href="javascript:uomvolumeedit('#URL.ID#', '#URL.UoM#', '')">New Temperature</font></a></td>		
+	<tr class="line labelmedium2 fixlengthlist">	    		
+		<td height="25" align="center"><a title="Add new temperature" href="javascript:uomvolumeedit('#URL.ID#', '#URL.UoM#', '')"><cf_tl id="Add"></font></a></td>		
 		<td align="center"><cf_tl id="Temperature"></td>
 		<td align="center"><cf_tl id="Volume Ratio"></td>
 		<td align="center"><cf_tl id="Officer"></td>
@@ -19,14 +19,14 @@
 	</tr>
 	
 	<cfif UoMVolume.recordCount eq 0>
-	<tr><td colspan="5" align="center" height="30" valign="middle" class="labelmedium" style="color:808080;">[<cf_tl id="No temperatures recorded">]</td></tr>	
+	<tr><td colspan="5" align="center" height="60" valign="middle" class="labelmedium" style="padding-top:10px;color:808080;">[<cf_tl id="No temperatures recorded">]</td></tr>	
 	</cfif>
 	
 	</cfoutput>	
 	
 	<cfoutput query="UoMVolume">	
 	
-	<tr class="navigation_row line labelmedium2">
+	<tr class="navigation_row line labelmedium2 fixlenthlist">
 	  <td align="center" height="20" style="padding-top:1px">
 	  
 	    <table>
@@ -46,8 +46,7 @@
 	  <td align="center">#dateformat(Created,client.dateformatshow)#</td>
 	</tr>  	
 	</cfoutput>
-	
-	
+		
 	<tr><td height="7" colspan="3"></td></tr>
 	
 	</table>

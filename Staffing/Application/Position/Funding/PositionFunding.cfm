@@ -235,16 +235,16 @@ password="#SESSION.dbpw#">
 		
 			<tr><td height="4"></td></tr>
 		
-			<tr class="line labelmedium">
+			<tr class="line labelmedium2">
 			
-				<td style="min-width:100px;padding-left:8px;"><cf_tl id="Effective"></td>		
-				<td style="min-width:100px;padding-left:8px;"><cf_tl id="Expiration"></td>			
-				<td style="padding-left:8px;"><cf_tl id="Center"></td>
-				<td style="padding-left:8px;"><cf_tl id="Class"></td>
-				<td style="padding-left:8px;"><cf_tl id="Fund"></td>				
-				<td style="padding-left:8px;"><cf_tl id="Program/Project"></td>
-				<td colspan="1" align="right" style="padding-left:18px;">%</td>								
-				<td style="padding-left:12px;"><cf_tl id="Object of Expenditure"></td>
+				<td style="min-width:100px;padding-left:4px;"><cf_tl id="Effective"></td>		
+				<td style="min-width:100px;padding-left:4px;"><cf_tl id="Expiration"></td>			
+				<td style="padding-left:4px;"><cf_tl id="Center"></td>
+				<td style="padding-left:4px;"><cf_tl id="Class"></td>
+				<td style="padding-left:4px;"><cf_tl id="Fund"></td>				
+				<td style="padding-left:4px;"><cf_tl id="Program/Project"></td>
+				<td colspan="1" align="right" style="padding-left:10px;">%</td>								
+				<td style="padding-left:5px;"><cf_tl id="Object of Expenditure"></td>
 				<td></td>
 				<cfif url.fundingid eq "" and url.access eq "edit">
 				
@@ -286,9 +286,9 @@ password="#SESSION.dbpw#">
 																
 			<cfif URL.fundingid eq FundingId>
 												
-				<TR class="navigation_row labelmedium line">
+				<TR class="navigation_row labelmedium2 line">
 				
-				   <td style="padding-left:8px;height:35px">
+				   <td style="padding-left:4px;height:35px">
 
 						<input type="hidden" value="#dateformat(dateeffective,CLIENT.DateFormatShow)#" name="dateeffective" id="dateeffective">
 						#dateformat(dateeffective,CLIENT.DateFormatShow)#
@@ -310,9 +310,9 @@ password="#SESSION.dbpw#">
 										
 				   </td>
 
-				   <td style="padding-left:8px;">#Org.OrgUnitCode#</td>
+				   <td style="padding-left:4px;">#Org.OrgUnitCode#</td>
 				   
-				     <td style="padding-left:8px;">
+				     <td style="padding-left:4px;">
 				   		
 					   	   <select name="fundclass" id="fundclass" class="regularxl" style="width:99%">								 			   				   
 					           <cfloop query="ClassList">
@@ -322,7 +322,7 @@ password="#SESSION.dbpw#">
 					  
 				   </td>
 
-				   <td style="padding-left:8px;">
+				   <td style="padding-left:4px;">
 				   		<cfif getFundingCluster.recordCount lt 2>
 					   	   <select name="fund" id="fund" class="regularxl" style="width:99%">	
 							   <option value="#fd#" selected>#fd#</option>					   				   
@@ -367,7 +367,7 @@ password="#SESSION.dbpw#">
 						
 					  </cfif>	
 					  
-					  <td class="labelit" style="padding-left:8px;">	
+					  <td style="padding-left:4px;">	
 
 					  	  <cfif getFundingCluster.recordCount lt 2>
 					 
@@ -409,9 +409,9 @@ password="#SESSION.dbpw#">
 					 					 
 				   </td>
 
-				   <td align="right" style="padding-left:8px;">#numberformat(percentage*100, ",")#</td>				 				 
+				   <td align="right" style="padding-left:4px;">#numberformat(percentage*100, ",")#</td>				 				 
 					   
-				   <td style="padding-left:15px;">
+				   <td style="padding-left:12px;">
 				   
 					   <select name="objectcde" id="objectcode" class="regularxl" style="width:99%">
 					   <option value="">[Defined through Payroll Lines]</option>
@@ -432,9 +432,9 @@ password="#SESSION.dbpw#">
 				
 			<cfelse>
 			
-				<TR class="navigation_row labelmedium line" style="height:30px">
-				   <td style="padding-left:8px;">#Dateformat(dateeffective,CLIENT.DateFormatShow)#</td>	
-				   <td style="padding-left:8px;">
+				<TR class="navigation_row labelmedium2 line" style="height:30px">
+				   <td style="padding-left:4px;">#Dateformat(dateeffective,CLIENT.DateFormatShow)#</td>	
+				   <td style="padding-left:4px;">
 				  				   
 				   <cfif DateExpiration gte DateEffective 
 				       and DateExpiration LT PositionParent.DateExpiration>
@@ -449,9 +449,9 @@ password="#SESSION.dbpw#">
 				  
 				   </cfif>
 				   </td>					   				  
-				   <td style="padding-left:8px;">#Org.OrgUnitCode#</td>
-				   <td style="padding-left:8px;">#FundClass#</td>  		
-				   <td style="padding-left:8px;">#Fund#</td>				   	   
+				   <td style="padding-left:4px;">#Org.OrgUnitCode#</td>
+				   <td style="padding-left:4px;">#FundClass#</td>  		
+				   <td style="padding-left:4px;">#Fund#</td>				   	   
 					   
 					    <!--- check if project is valid --->
 				
@@ -498,7 +498,7 @@ password="#SESSION.dbpw#">
 					  
 					  <cfif prg.recordcount gte "1">
 					  
-					   <td style="#cl#;padding-left:8px;">#Prg.Reference#&nbsp;#Prg.ProgramName#
+					   <td style="#cl#;padding-left:4px;">#Prg.Reference#&nbsp;#Prg.ProgramName#
 					  
 					  <cfelse>
 					  
@@ -511,7 +511,7 @@ password="#SESSION.dbpw#">
 					      WHERE  P.ProgramCode = '#ProgramCode#'						  				
 					    </cfquery>	
 						
-						<td style="#cl#;padding-left:8px;">#Prg.ProgramName# 
+						<td style="#cl#;padding-left:4px;">#Prg.ProgramName# 
 											  
 					  </cfif>	
 					  
@@ -537,7 +537,7 @@ password="#SESSION.dbpw#">
 				   </td>
 				   				   
 
-				   <td style="padding-left:15px;">
+				   <td style="padding-left:12px;">
 					   <cfif ObjectCode eq "">
 					   [defined through Payroll]
 					   <cfelse>
@@ -545,7 +545,7 @@ password="#SESSION.dbpw#">
 					   </cfif> 
 				   </td>
 				   
-				   <td align="center" style="padding-left:8px;">
+				   <td align="center" style="padding-left:4px;">
 				   
 				   	   <cfif RequisitionNo eq "">
 				   
@@ -557,7 +557,7 @@ password="#SESSION.dbpw#">
 					  
 				   </td>
 				   
-				   <td align="center" style="padding-right:5px">
+				   <td align="center" style="padding-right:2px">
 				   
 				   	<cfif URL.Access eq "Edit">
 					
@@ -608,15 +608,15 @@ password="#SESSION.dbpw#">
 					    </cfquery>	
 						
 					  </cfif>
-					  <tr class="labelmedium" style="height:15px">
-				    	<td width="60px" style="padding-left:8px;"></td>		
-						<td width="60px" style="padding-left:8px;"></td>			
-						<td style="padding-left:8px;"></td>
-						<td style="padding-left:8px;"></td>
-						<td style="padding-left:8px;">#Fund#</td>
-						<td style="padding-left:8px;"><cfif isDefined("prg.reference")>#Prg.Reference#<cfelse>#Prg.ProgramCode#</cfif> #Prg.ProgramName#</td>
+					  <tr class="labelmedium2" style="height:15px">
+				    	<td width="60px" style="padding-left:4px;"></td>		
+						<td width="60px" style="padding-left:4px;"></td>			
+						<td style="padding-left:4px;"></td>
+						<td style="padding-left:4px;"></td>
+						<td style="padding-left:4px;">#Fund#</td>
+						<td style="padding-left:4px;"><cfif isDefined("prg.reference")>#Prg.Reference#<cfelse>#Prg.ProgramCode#</cfif> #Prg.ProgramName#</td>
 						<td align="right" style="width:40px">#percentage*100#</td>
-						<td style="padding-left:12px;"></td>
+						<td style="padding-left:8px;"></td>
 						<td></td>
 						<td></td>
 					  </tr>
@@ -643,7 +643,7 @@ password="#SESSION.dbpw#">
 															
 			<tr><td height="3"></td></tr>
 							
-			<TR class="clsAddNewPositionFunding line" style="display:none;">		
+			<TR class="clsAddNewPositionFunding line labelmedium2" style="display:none;">		
 				   <td style="padding-left:8px;min-width:150px">
 				   	
 					   	<cf_intelliCalendarDate9
@@ -665,7 +665,7 @@ password="#SESSION.dbpw#">
 				   		</cfoutput>
 				   </td>
 
-				   <td class="labelmedium" style="padding-left:8px;"><cfoutput>#Org.OrgUnitCode#</cfoutput></td>
+				   <td style="padding-left:8px;"><cfoutput>#Org.OrgUnitCode#</cfoutput></td>
 				   
 				     <td style="padding-left:8px;">
 				   		

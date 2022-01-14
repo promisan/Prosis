@@ -120,9 +120,7 @@ password="#SESSION.dbpw#">
 	ORDER BY Area, SearchOrder
 </cfquery>
 
-<table width="99%"
-	   cellspacing="0"
-       cellpadding="0"	   
+<table width="99%" 
        align="center"    
 	   id="structured">
 	   
@@ -142,7 +140,7 @@ password="#SESSION.dbpw#">
 		<tr><td height="5"></td></tr>		
 				
 		<cfoutput>
-			<tr class="linedotted">
+			<tr class="linedotted labelmedium2">
 			
 				<cfif Area eq "skills">
 					<cfset vLink = "editTopic('#id#','','#parent#','','b#parent#_#currentRow#');">
@@ -151,7 +149,7 @@ password="#SESSION.dbpw#">
 				</cfif>
 			
 				<cfif Access eq "EDIT" or Access eq "ALL"> 
-				<td width="10" height="18" align="right" style="cursor: pointer;padding-top:7px;padding-right:4px">
+				<td width="10" height="18" align="right" style="cursor: pointer;padding-right:4px">
 	   		    	<cf_img icon="add" onclick="#vLink#">				
 				</td>
 				<cfelse>

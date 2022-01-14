@@ -26,7 +26,7 @@
 	   </cfif>
 	  
 	    				
-		<tr class="navigation_row line" bgcolor="#color#">		
+		<tr class="navigation_row line fixlengthlist" bgcolor="#color#">		
 				
 			<td class="#Class#" align="right">			
 			
@@ -267,7 +267,7 @@
   	 
 			<cfif EntryMethod neq "">
 			
-			<tr bgcolor="CCFFCC" class="navigation_row line" style="height:15px">
+			<tr bgcolor="CCFFCC" class="navigation_row line fixlengthlist" style="height:15px">
 				
 				<cfset ComClass = "regular">
 			
@@ -279,11 +279,11 @@
 			    	<cfset ComClass = "Regular">						
 			   </cfif>			
 			   	   
-			<tr bgcolor="FFFFFF" class="navigation_row line" style="height:15px">
+			<tr bgcolor="FFFFFF" class="navigation_row line fixlengthlist" style="height:15px">
 			   
 			</cfif>			
 						
-			<td class="#ComClass#" 
+			<td class="#ComClass#  fixlengthlist" 
 				align="left" style="height:16;padding-left:20px;">
 				
 				<table width="100%" cellspacing="0" cellpadding="0">
@@ -357,7 +357,7 @@
 				</table> 
 					
 			</td>
-			<td width="16%" class="#ComClass# cellcontent">
+			<td class="#ComClass# cellcontent">
 			
 			    <cfif Reference neq "">
 				
@@ -373,7 +373,7 @@
 				 			
 				<cfelseif ReferenceBudget1 neq "">	
 				
-				  <table cellspacing="0" cellpadding="0">
+				  <table>
 					  <tr class="labelit"  style="height:20px">
 					  <td style="width:35px">#ReferenceBudget1#</td>
 						<cfif ReferenceBudget2 neq "">

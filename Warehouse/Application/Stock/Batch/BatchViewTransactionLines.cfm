@@ -350,8 +350,8 @@ password="#SESSION.dbpw#">
 							
 							<cfif url.mode neq "embed" and searchresult.recordcount gte "30">																
 												  
-								<td class="labelmedium" style="font-size:16px">				
-									<a href="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BatchViewTransactionListing.cfm?systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#','main')"><font color="0080C0"><cf_tl id="Show as grid"></font></a>																		
+								<td class="labelmedium" style="font-size:16px;padding-left:20px">				
+									<a href="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BatchViewTransactionListing.cfm?systemfunctionid=#url.systemfunctionid#&batchno=#url.batchno#','main')"><font color="0080C0"><cf_tl id="Show as grid">| Excel</font></a>																		
 								</td>
 								</cfif>
 							
@@ -462,44 +462,7 @@ password="#SESSION.dbpw#">
 				</tr>
 			
 			</cfif>
-			
-			<!--- no longer needed 	
-						
-			<tr style="height:1px">
-			    <td style="min-width:20px"></td>
-			    <td style="min-width:20px"></td>  					 
-				<cfif URL.id neq "">			
-				    <TD style="min-width:100px"></TD>				
-					<TD style="min-width:80px"></TD>
-					<TD style="min-width:100px"></TD>			
-					<TD style="min-width:150px"></TD>				
-				<cfelseif Batch.BatchDescription eq "Receipt Distribution">						   
-				    <TD style="width:100%" colspan="4"></TD>								
-				<cfelse>										
-					<cfif batch.transactiontype eq "9">
-					<TD style="width:100%" colspan="3"></TD>
-					<td style="min-width:100px"></td>
-					<cfelse>	
-					<TD style="width:100%" colspan="2"></TD>
-					<TD style="min-width:100px"></TD>			
-					<TD style="min-width:150px"></TD>
-					</cfif>			   				
-				</cfif>	  				
-				
-				<cfif Batch.TransactionType neq "5">
-				<td style="min-width:60px"></td>		
-				<TD style="min-width:150px"></TD>			
-				<cfelse>
-				<TD style="min-width:150px" colspan="2"></TD>					
-				</cfif>
-				<TD style="min-width:100px"></TD>								
-				<TD style="min-width:70px"></TD>
-			    <TD style="min-width:100px"></TD>				
-				<TD style="min-width:35px"></TD>				
-		    </tr>
-			
-			--->
-						
+												
 			<!--- ---------------------------------------- --->
 			<!--- ------------- LISTING ------------------ --->
 			<!--- ---------------------------------------- --->
@@ -1149,20 +1112,52 @@ password="#SESSION.dbpw#">
 							datasource="AppsMaterials" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">						
-								SELECT * FROM ItemTransactionShipping 
+								SELECT *, (SELECT LastName FROM Employee.dbo.Person WHERE PersonNo = S.SalesPersonNo) as SalesOfficerName
+								FROM   ItemTransactionShipping S
 								WHERE  TransactionId = '#transactionid#'
 							</cfquery>
 							
-							<tr class="#cl# clsTransaction line" style="height:20px">
+							<tr class="#cl# clsTransaction line fixlengthlist" style="height:20px">
 							<td class="hide ccontent">#ItemBarcode#  #ItemDescription# #Make# #Model# #TransactionReference# #RequestReference# #assetBarcode# #serialNo# #AssetDecalNo#</td>							
-							<td></td>	
-							<td></td>						
+						
+							<cfset link = "#SESSION.root#/Warehouse/Application/Stock/Batch/setSalesPerson.cfm?transactionid=#transactionid#">	
+														
+							<td style="background-color:yellow">
+								<table>
+									<tr>
+									<td>
+									
+									 <cf_selectlookup
+										    class      = "Employee"
+										    box        = "#transactionid#salesperson"
+											button     = "no"						
+											title      = "#lt_text#"
+											link       = "#link#"						
+											close      = "Yes"
+											des1       = "PersonNo">
+									
+									</td>
+									
+									<td id="#transactionid#salesperson">
+									
+									 <cfif shipping.SalesOfficerName eq "">
+									      <cf_tl id="Not defined">
+									 <cfelse>							
+											#shipping.salesofficername#
+											
+									 </cfif>	
+										
+									</td>
+									
+									</tr>
+								</table>	
+							</td>												
 													
 							<td colspan="9" align="right">
 							
 								<table height="100%">
 								
-								<tr class="labelmedium" style="height:20px">								    								    
+								<tr class="labelmedium fixlengthlist" style="height:20px">								    								    
 								    <td style="width:100%;border-right:1px solid silver;padding-right:4px" align="right">#shipping.salesCurrency#</td>
 									<td align="right" style="background-color:DAF9FC;min-width:90px;border-right:1px solid silver;padding-right:4px">#numberformat(shipping.salesPrice,",.__")#</td>
 									<td align="right" style="background-color:DAF9FC;min-width:90px;border-right:1px solid silver;padding-right:4px">#numberformat(shipping.SalesAmount,",.__")#</b></td>																											

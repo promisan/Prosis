@@ -205,11 +205,11 @@
 			AND       Currency     = '#Currency#' 									
 			<!--- price schedule found, take last schedule --->
 			AND       PriceSchedule = '#PriceSchedule#'		
+			<!--- check also if the quantiy qualifies for the pricequantity of the rate : 8/1/2022  --->
+			
 			ORDER BY  DateEffective DESC
 		</cfquery>	
-		
-		
-						
+								
 		<cfif getPrice.recordcount eq "1">
 		
 			<cfset sale.priceschedule = getPrice.PriceSchedule>
@@ -2305,38 +2305,50 @@
 				
 				<!--- ReferenceOrgUnit      = "#Customer.OrgUnit#"	removed as we have already the id, instead the warehouse --->
 				
-				<cfif customerId neq customerIdInvoice and customeridInvoice neq "">
+				<cfset addcontent = "">
 				
-					<cfquery name="customerinvoice"
-						datasource="AppsMaterials" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							SELECT  *
-							FROM    Customer
-							WHERE   CustomerId = '#customerIdInvoice#'
-					</cfquery>		
-				
-				     <cfset relate   = customeridinvoice>
-					 <cfset relnme   = CustomerInvoice.CustomerName>
-					 <cfset relref   = CustomerInvoice.Reference>
-					 
-					 <!--- capture the beneficiary --->
-					 <cf_tl id="Customer" var="1">
-			         <cfoutput>
-			              	<cfsavecontent variable="addcontent">#lt_text#: #Customer.CustomerName#</cfsavecontent>
-			         </cfoutput>
-					 
+				<cfif customer.orgunit eq "">
+								
+					<cfif customerId neq customerIdInvoice and customeridInvoice neq "">
+					
+						<cfquery name="customerinvoice"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT  *
+								FROM    Customer
+								WHERE   CustomerId = '#customerIdInvoice#'
+						</cfquery>		
+					
+					     <cfset relate   = customeridinvoice>
+						 <cfset relnme   = CustomerInvoice.CustomerName>
+						 <cfset relref   = CustomerInvoice.Reference>
+						 
+						 <!--- capture the beneficiary --->
+						 <cf_tl id="Customer" var="1">
+				         <cfoutput>
+				              	<cfsavecontent variable="addcontent">#lt_text#: #Customer.CustomerName#</cfsavecontent>
+				         </cfoutput>
+						 
+					<cfelse>
+					
+						 <cfset relate   = customerid>	
+						 <cfset relnme   = Customer.CustomerName>
+						 <cfset relref   = Customer.Reference> 
+						 
+						  <!--- capture the beneficiary --->
+						 <cf_tl id="Customer" var="1">
+				         <cfoutput>
+				              	<cfsavecontent variable="addcontent">#lt_text#: #Customer.CustomerName#</cfsavecontent>
+				         </cfoutput>
+					
+					</cfif>
+					
 				<cfelse>
 				
-					 <cfset relate   = customerid>	
-					 <cfset relnme   = Customer.CustomerName>
-					 <cfset relref   = Customer.Reference> 
-					 
-					  <!--- capture the beneficiary --->
-					 <cf_tl id="Customer" var="1">
-			         <cfoutput>
-			              	<cfsavecontent variable="addcontent">#lt_text#: #Customer.CustomerName#</cfsavecontent>
-			         </cfoutput>
+					<cfset relate   = customerid>	
+					<cfset relnme   = Customer.CustomerName>
+					<cfset relref   = Customer.Reference> 				
 				
 				</cfif>
 				
@@ -3106,6 +3118,15 @@
 			<cfargument name="Terminal"    		  type="string"  required="false"   default="">	
 			<cfargument name="Mode"      		  type="string"  required="false"   default="1">
 			
+			<cfquery name="customer"
+			 datasource="AppsMaterials" 
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+			 	SELECT  *
+				FROM    Customer
+				WHERE   CustomerId   = '#customerid#'				
+			</cfquery> 		
+			
 			<cfquery name="get"
 			 datasource="AppsLedger" 
 			 username="#SESSION.login#" 
@@ -3168,8 +3189,6 @@
 								 '#session.acc#',
 								 '#session.last#',
 								 '#session.first#')
-								 
-						
 																							
 					</cfquery>		
 					
@@ -3197,8 +3216,6 @@
 						AND		Operational  = 1										
 						<!--- AND	((InvoiceCurrent < InvoiceEnd) <cfif Mode eq "3" > OR (UserKey IS NOT NULL)</cfif>) --->
 					</cfquery>
-
-
 
 					<cfif getSeries.recordCount eq "0">
 					
@@ -3266,6 +3283,7 @@
 									   Mission          = "#get.Mission#"
 									   Terminal			= "#Terminal#"
 								       Mode 			= "#Mode#"
+									   eMailAddress     = "#customer.eMailAddress#"	
 									   BatchId			= "#BatchId#"
 									   returnvariable	= "stResponse">								
 		
@@ -3282,6 +3300,7 @@
 											   Terminal			= "#Terminal#"
 											   Mode 			= "#Mode#"
 											   BatchId			= "#BatchId#"
+											   eMailAddress     = "#customer.eMailAddress#"	
 											   RetryNo			= "#rtNo#"
 											   returnvariable	= "stResponse">		
 								

@@ -29,10 +29,10 @@
 	<table width="90%" class="navigation_table" class="formpadding">	
 	
 	<cfoutput>
-	<tr class="line labelmedium2">	    		
+	<tr class="line labelmedium2 fixlengthlist">	    		
 		<td align="center" height="20">
 		<cfif check.recordcount gte "1">
-		<a href="javascript:uommissionedit('#URL.ID#', '#URL.UoM#', '')"><cf_tl id="New Entity"></a>
+		<a href="javascript:uommissionedit('#URL.ID#', '#URL.UoM#', '')"><cf_tl id="Add"></a>
 		</cfif>
 		</td>		
 		<td><cf_tl id="Entity"></td>
@@ -51,7 +51,7 @@
 	
 	<cfoutput query="UoMMission">	
 	
-	<tr class="navigation_row line labelmedium2">
+	<tr class="navigation_row line labelmedium2 fixlengthlist">
 	  <td width="80" height="18" align="center">
 	  
 	  	<table class="formspacing">

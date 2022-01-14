@@ -122,7 +122,7 @@ function updateoption(per,subperiod) {
 							     onclick="_cf_loadingtexthtml='';ptoken.navigate('JournalViewTreeShow.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&glcategory=#GLCategory#&Period=' + document.getElementById('Period').value,'treeshow')"
 							     value="#GLCategory#" <cfif GLCategory eq "Actuals">checked</cfif>>
 						  	  </td>
-							  <td style="padding-left:4px;font-size:16px;font-weight:200;cursor:pointer" onclick="glcategory[#currentrow-1#].click()"><cf_tl id="#GLCategory#"></td>
+							  <td style="padding-left:4px;font-size:16px;cursor:pointer" onclick="glcategory[#currentrow-1#].click()"><cf_tl id="#GLCategory#"></td>
 							   
 					  </cfloop>
 					  
@@ -146,8 +146,7 @@ function updateoption(per,subperiod) {
 		<cf_LedgerTreeData 
 		     glcategory="#URL.GLCategory#" 
 			 mission="#URL.Mission#"
-			 period="#url.period#">
-		
+			 period="#url.period#">		
 		
 	  </cf_divscroll>	
 		

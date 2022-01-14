@@ -26,7 +26,7 @@
 		<div style="font-size:125%; width:100%; text-align:center; margin-top:50px; color:#808080;">
 		
 			<p>
-				<cf_tl id="You are using an older version of Internet Explorer that is not supported.">&nbsp;&nbsp;<cf_tl id="To continue, we recommend you to download the latest version of Internet Explorer.">
+				<cf_tl id="You are using an older version of Internet Explorer which is no longer supported."><br><cf_tl id="To continue, we recommend to use either Google Chrome or Microsoft Edge.">
 			</p>   
 					
 			<cf_tl id="Your browser: ">

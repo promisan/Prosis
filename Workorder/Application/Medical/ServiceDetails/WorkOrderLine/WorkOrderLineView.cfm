@@ -119,9 +119,7 @@
 	<cf_dialogOrganization>
 	<cf_DialogSystem>
 	<cf_DialogLedger>
-	<cf_DialogStaffing>
-
-	
+	<cf_DialogStaffing>	
 
 	<cfajaximport tags="cfform,cfdiv">
 	<cf_textareascript>

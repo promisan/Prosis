@@ -85,8 +85,6 @@ which is beyond the line information
 <cf_tl class="message" id="billingMaterial"   var="qmaterials">
 <cf_tl class="message" id="billingHonorarium" var="qhonorarium">
 
-
-
 	<!--- reprocess the COGS --->
 
 	<cfinclude template="doCOGS.cfm">
@@ -151,7 +149,6 @@ which is beyond the line information
 		<cfset ThisTransactionPeriod = "#year(now())#0#month(now())#">
 	</cfif>	
 	
-
 	<cfloop query="ListBilling">
 	
 			<cftransaction>
@@ -168,7 +165,7 @@ which is beyond the line information
 					<cfset url.orgunitOwner    = OrgUnitOwner>
 					
 					<cfsavecontent variable="mycontent">
-					       <cfinclude template="../../../WorkOrder/Custom/#getService.CustomFormBilling#">
+					       <cfinclude template="../../../WorkOrder/Custom/#getService.CustomFormBilling#">						   
 					</cfsavecontent>
 				
 				</cfoutput>
@@ -329,11 +326,13 @@ which is beyond the line information
 				<cfparam name="Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceseries"  default="">
 				<cfparam name="Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceno"      default="">
 				<cfparam name="Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_email"          default="">
+				<cfparam name="Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoicemode"    default="1">		
 								
 				<cfset inv = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceno")>
 				<cfset ser = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoiceseries")>
 				<cfset mai = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_email")>
-								
+				<cfset mde = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoicemode")>	
+												
 				<!--- this is the old mode in which invoice info was recorded --->							
 				<cfif inv eq "">
 					<cfset actionCode = "">
@@ -417,9 +416,13 @@ which is beyond the line information
 					</cfif>					
 					
 			<cfelse>
-							
+			
+			    <cfset dte = DateTimeFormat(TransactionDate,"YYYYMMDD_HH_nn_ss")> 
+			
+			    <cfparam name="Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoicemode"    default="1">							
 				<cfparam name="Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_email"          default="">
-								
+					
+				<cfset mde = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_invoicemode")>				
 				<cfset mai = evaluate("Form.#orgunitOwner#_#OrgUnitCustomer#_#dte#_email")>
 			
 				<!--- Header for Insurance portion--->
@@ -535,9 +538,11 @@ which is beyond the line information
 				
 				<!--- we are posting the FEL Tax here --->
 				
-				 <cfset notification = "0"> 
-												
-				<cfif getJournal.OrgUnitTax neq "" and abs(total) gte "0.05">   <!--- exclude very small postings like coutersy --->
+				<cfset notification = "0"> 
+																				
+				<cfif getJournal.OrgUnitTax neq "" 
+				     and mde eq "2"
+				     and abs(total) gte "0.05">   <!--- exclude very small postings like coutersy --->
 				
 					<cfinvoke component     = "Service.Process.EDI.Manager"
 						   method           = "SaleIssue" 
@@ -581,8 +586,7 @@ which is beyond the line information
 								
 				</cfif>		
 					   				
-				<!--- ---------------------------- --->
-													   
+				<!--- ---------------------------- --->													   
 				
 				<cfquery name="crossBilling" 
 					datasource="AppsLedger" 

@@ -39,32 +39,43 @@ password="#SESSION.dbpw#">
 			  menuAccess="Yes" 
 			  systemfunctionid="#url.idmenu#">
 
-<cfajaximport tags="cfwindow">
 <cf_tl id="Do you want to remove this group ?" var="lblRemove">
 
 <cfoutput>
+
 	<script>
 
-	function ask() {
-		if (confirm("Do you want to remove this Code?")) {	
-		return true 	
+		function ask() {
+			if (confirm("Do you want to remove this Code?")) {	
+			return true 	
+			}	
+			return false	
 		}	
-		return false	
-	}	
-
-	function editGroup(SalaryTrigger, EntitlementGroup) {
-		try { ColdFusion.Window.destroy('weditgroup',true) } catch(e) {}
-		ColdFusion.Window.create('weditgroup', 'Payroll Trigger Group', '',{x:100,y:100,height:400,width:500,modal:true,resizable:false,center:true});	
-		ptoken.navigate('#session.root#/payroll/Maintenance/Trigger/PayrollTriggerGroup/RecordView.cfm?SalaryTrigger='+SalaryTrigger+'&EntitlementGroup='+EntitlementGroup,'weditgroup')
-	}
-
-	function removeGroup(SalaryTrigger, EntitlementGroup) {
-		if (confirm('#lblRemove#')) {
-			ptoken.navigate('#session.root#/payroll/Maintenance/Trigger/PayrollTriggerGroupPurge.cfm?SalaryTrigger='+SalaryTrigger+'&EntitlementGroup='+EntitlementGroup,'divPayrollTriggerGroup')
+	
+		function editGroup(SalaryTrigger, EntitlementGroup) {		
+			ProsisUI.createWindow('weditgroup', 'Payroll Trigger Group', '',{x:100,y:100,height:400,width:500,modal:true,resizable:false,center:true});	
+			ptoken.navigate('#session.root#/payroll/Maintenance/Trigger/PayrollTriggerGroup/RecordView.cfm?SalaryTrigger='+SalaryTrigger+'&EntitlementGroup='+EntitlementGroup,'weditgroup')
 		}
-	}
+		
+		function editContract(SalaryTrigger, Contract) {		
+			ProsisUI.createWindow('weditcontract', 'Payroll Trigger Contract', '',{x:100,y:100,height:400,width:500,modal:true,resizable:false,center:true});	
+			ptoken.navigate('#session.root#/payroll/Maintenance/Trigger/Contract/RecordView.cfm?SalaryTrigger='+SalaryTrigger+'&ContractType='+Contract,'weditcontract')
+		}
+	
+		function removeGroup(SalaryTrigger, EntitlementGroup) {
+			if (confirm('#lblRemove#')) {
+				ptoken.navigate('#session.root#/payroll/Maintenance/Trigger/PayrollTriggerGroup/RecordPurge.cfm?SalaryTrigger='+SalaryTrigger+'&EntitlementGroup='+EntitlementGroup,'divPayrollTriggerGroup')
+			}
+		}
+		
+		function removeContract(SalaryTrigger, Contract) {
+			if (confirm('#lblRemove#')) {
+				ptoken.navigate('#session.root#/payroll/Maintenance/Trigger/Contract/RecordPurge.cfm?SalaryTrigger='+SalaryTrigger+'&ContractType='+Contract,'divPayrollTriggerContract')
+			}
+		}
 
 	</script>
+	
 </cfoutput>
 
 <!--- edit form --->
@@ -271,7 +282,16 @@ password="#SESSION.dbpw#">
 		<tr>
 			<TD class="labelmedium" valign="top" style="padding-top:5px;"><cf_tl id="Entitlement Grouping">:</TD>
 			<td valign="top" style="padding-top:3px;">
-				<cfdiv id="divPayrollTriggerGroup" bind="url:#session.root#/Payroll/Maintenance/Trigger/PayrollTriggerGroup/RecordListing.cfm?payrollTrigger=#url.id1#">
+				<cf_securediv id="divPayrollTriggerGroup" bind="url:#session.root#/Payroll/Maintenance/Trigger/PayrollTriggerGroup/RecordListing.cfm?payrollTrigger=#url.id1#">
+			</td>
+		</tr>
+	</cfif>
+	
+	<cfif trim(url.id1) neq "">
+		<tr>
+			<TD class="labelmedium" valign="top" style="padding-top:5px;"><cf_tl id="Enabled for contract">:</TD>
+			<td valign="top" style="padding-top:3px;">
+				<cf_securediv id="divPayrollTriggerContract" bind="url:#session.root#/Payroll/Maintenance/Trigger/Contract/RecordListing.cfm?payrollTrigger=#url.id1#">
 			</td>
 		</tr>
 	</cfif>

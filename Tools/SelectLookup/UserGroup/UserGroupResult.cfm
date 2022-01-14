@@ -61,7 +61,7 @@ password="#SESSION.dbpw#">
 	AND    AccountType != 'Individual'	
 </cfquery>
 
-<cf_pagecountN show="17" 
+<cf_pagecountN show="14" 
                count="#Total.Total#">
 			   
 <cfset counted  = total.total>		
@@ -81,12 +81,10 @@ password="#SESSION.dbpw#">
 	   method="useradmin" 
 	   returnvariable="access">	
    
-<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" bordercolor="e4e4e4">
+<table width="99%" align="center">
   
-<tr><td height="14" colspan="3">
-						 
-	 <cfinclude template="UserGroupNavigation.cfm">
-	 				 
+<tr><td height="14" colspan="3">						 
+	 <cfinclude template="UserGroupNavigation.cfm">	 				 
 </td></tr>  
 
 <tr>
@@ -95,16 +93,17 @@ password="#SESSION.dbpw#">
 	
 		<table width="100%">
 		
+			<tr>
+		
 			<td colspan="2">
 			
 			<table width="100%" align="center" class="navigation_table">
 			
-			<TR class="labelmedium line">
+			<TR class="labelmedium line fixlengthlist">
 			    <td style="max-width:30px"></td>
 				<TD><cf_tl id="Group name"></TD>
 			    <TD><cf_tl id="Account"></TD>			   
-			    <TD>eMail</TD>
-			    <TD></TD>	  
+			    <TD><cf_tl id="eMail"></TD>			   
 			</TR>
 			
 			<cfset currrow = 0>
@@ -116,8 +115,8 @@ password="#SESSION.dbpw#">
 			   				 
 				   <cfswitch expression = #URL.IDSorting#>
 				     <cfcase value = "AccountGroup">
-					 <tr class="labelmedium line" height="20" bgcolor="f3f3f3">
-				     <td colspan="5"><b>#AccountGroup#</b></font></td>
+					 <tr class="labelmedium line fixlengthlist" height="20" bgcolor="f3f3f3">
+				     <td colspan="4"><b>#AccountGroup#</b></font></td>
 					 </tr>
 				     </cfcase>
 				     <cfcase value = "LastName">
@@ -128,7 +127,7 @@ password="#SESSION.dbpw#">
 				     </cfcase>
 				     <cfdefaultcase>
 					 <tr bgcolor="E8E8CE">
-				    	 <td class="labelmedium" colspan="7"><b>#AccountGroup#<b></td>
+				    	 <td class="labelmedium" colspan="4"><b>#AccountGroup#<b></td>
 					 </tr>
 				     </cfdefaultcase>
 				   </cfswitch>
@@ -141,31 +140,27 @@ password="#SESSION.dbpw#">
 			   				
 				   <cfif currrow lte last and currrow gte first>				   
 					  					
-					   <TR class="navigation_row line labelmedium" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('fbfbfb'))#">
+					   <TR class="navigation_row line labelmedium fixlengthlist" style="height:20px" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('fbfbfb'))#">
 					  
 						   <td style="height:20px;padding-top:1px" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#account#','#url.box#','','','POST','')">					   
 						       <cf_img icon="select">						   
 						   </td>							
 						  
-						   <TD width="40%">#LastName#</TD>
-						   
-						   <TD width="20%">
-						   
+						   <TD>#LastName#</TD>						   
+						   <TD>						   
 							   <cfif Access eq "EDIT" or Access eq "ALL">
 							   		<a href="javascript:ShowUser('#URLEncodedFormat(Account)#')" title="Open profile">#Account#</a>
 							   <cfelse>
 								    #Account# 
-						       </cfif>
-						   
-						   </TD>						   
-						   
-						   <TD width="25%">
-						   <cfif eMailAddress neq "">
-						   <a href="javascript:email('#eMailAddress#','','','','User','#Account#')"></cfif>
-						   #eMailAddress#
-						   </TD>	
-						   				   
-						   <TD></TD>			   
+						       </cfif>						   
+						   </TD>								   
+						   <TD>
+							   <cfif eMailAddress neq "">
+							   <a href="javascript:email('#eMailAddress#','','','','User','#Account#')">#eMailAddress#</a>
+							   <cfelse>
+							   #eMailAddress#
+							   </cfif>						   
+						   </TD>					   		   
 										          
 					   </TR>
 			  		     
@@ -178,7 +173,9 @@ password="#SESSION.dbpw#">
 		</TABLE>
 		</td>
 		</tr>
+		
 		</TABLE>
+		
 	</td>
 </tr>	
 
@@ -187,6 +184,5 @@ password="#SESSION.dbpw#">
 </td></tr>
 
 </table>
-
 
 <cfset AjaxOnLoad("doHighlight")>

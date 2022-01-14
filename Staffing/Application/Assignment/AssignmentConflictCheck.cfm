@@ -163,7 +163,7 @@
 	password="#SESSION.dbpw#">
 		SELECT PositionNo, PersonNo, AssignmentNo, DateEffective
 		FROM   PersonAssignment PO
-		WHERE  PositionNo = '#Form.PositionNo#' 
+		WHERE  PositionNo       = '#Form.PositionNo#' 
 		  AND  DateExpiration  >= #STR#
 		  AND  DateEffective   <= #END#
 		  AND  AssignmentClass  = '#Form.AssignmentClass#'

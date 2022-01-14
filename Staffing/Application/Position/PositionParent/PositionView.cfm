@@ -4,10 +4,6 @@
 <cfparam name="URL.box"         default="">
 <cfparam name="URL.source"      default="Backoffice">
 
-<cfif url.source eq "olapDrill">
-	<cfset url.id2 = url.id>
-</cfif>
-
 <cfquery name="Position" 
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
@@ -27,7 +23,27 @@
 		password="#SESSION.dbpw#">
 		  SELECT *
 		  FROM   Position
-		  WHERE  SourcePositionNo  = '#URL.ID2#'	 			 
+		  WHERE  SourcePositionNo  = '#URL.ID2#'			  		 
+	</cfquery>	
+	
+	<cfif Position.recordcount gte "1">
+		<cfset url.id2 = Position.PositionNo>
+	</cfif>
+  
+</cfif>
+
+<cfif Position.Recordcount eq "0">
+
+	<!--- position had migrated to a different instance --->
+	
+	<cfquery name="Position" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		  SELECT TOP 1 *
+		  FROM   Position
+		  WHERE  SourcePostNumber  = '#URL.ID2#'	  		 
+		  ORDER BY DateEffective DESC
 	</cfquery>	
 	
 	<cfset url.id2 = Position.PositionNo>
@@ -67,23 +83,22 @@
 <cf_dialogLedger>
 <cf_dialogProcurement>
 <cf_actionlistingscript>
+<cf_layoutScript>
 
 <cf_textareascript>
 <cfajaximport tags="cfdiv,cfform">
 
-<cf_screentop height="100%"
-	   scroll="yes" 
-	   bannerheight="60" 
-	   html="Yes"
-	   jQuery="Yes"
-	   SystemModule = "Staffing"	
+<cf_screentop height = "100%"
+	   scroll        = "yes" 	 
+	   html          = "Yes"
+	   jQuery        = "Yes"
+	   SystemModule  = "Staffing"	
 	   FunctionClass = "Window"
 	   FunctionName  = "Position Parent"	
-	   label="#vPosition#" 
-	   option="#vOption#" 
-	   layout="webapp" 
-	   banner="gray">
-
+	   label         = "#vPosition#" 
+	   option        = "#vOption#" 
+	   layout        = "webapp" 
+	   banner        = "gray">
 
 <cfset url.id  = Position.Mission>
 <cfset url.id1 = Position.MandateNo>
@@ -210,224 +225,199 @@
 
 </cfoutput>
 
-<table width="98%" height="100%" align="center">
+			
+<cf_layout type="border" id="mainLayout" width="100%">	
+
+<cf_layoutArea 
+			name="center" 
+			position="center">
+
+	<table width="98%" height="100%" align="center">
+			
+		<tr><td height="10"><table width="100%">
+		<tr class="line">
+	   
+	    <td style="height:35;padding-left:20px" align="left" valign="middle" class="labellarge">
+		   	   		
+			<cf_tl id="Initially recorded by">:
+			<cfoutput><b>#Position.OfficerFirstName# #Position.OfficerLastName# #DateFormat(Position.Created,CLIENT.DateFormatShow)#</cfoutput>
+			
+	    </td>
+			 
+	    <td height="16" align="right" class="labellarge">
+		    &nbsp;<cfoutput><b>#URL.ID#</b>&nbsp;|&nbsp;<cf_tl id="Period">: <b>#URL.ID1#</b>&nbsp;|&nbsp;<cf_tl id="Id">: <b><font color="800040"><cfif Position.SourcePostNumber eq "">#Position.PositionParentId#<cfelse>#Position.SourcePostNumber#</cfif></font></b>&nbsp;|&nbsp;<cf_tl id="Instance">: <a href="javascript:EditPost('#URL.ID2#')">#URL.ID2#</a></cfoutput></font>
+		</td>
 		
-	<tr><td height="10"><table width="100%">
-	<tr class="line">
-   
-    <td style="height:35;padding-left:20px" align="left" valign="middle" class="labellarge">
-	   	   		
-		<cf_tl id="Initially recorded by">:
-		<cfoutput><b>#Position.OfficerFirstName# #Position.OfficerLastName# #DateFormat(Position.Created,CLIENT.DateFormatShow)#</cfoutput>
-		
-    </td>
+		<td id="process"></td>
 		 
-    <td height="16" align="right" class="labellarge">
-	    &nbsp;<cfoutput><b>#URL.ID#</b>&nbsp;|&nbsp;<cf_tl id="Period">: <b>#URL.ID1#</b>&nbsp;|&nbsp;<cf_tl id="Id">: <b><font color="800040"><cfif Position.SourcePostNumber eq "">#Position.PositionParentId#<cfelse>#Position.SourcePostNumber#</cfif></font></b>&nbsp;|&nbsp;<font size="2"><cf_tl id="Instance">: <a href="javascript:EditPost('#URL.ID2#')">#URL.ID2#</a></cfoutput></font>
-	</td>
-	
-	<td id="process"></td>
-	 
-    </tr> 	
-	
-	</table>
-	</td></tr>
-	
-	<tr><td style="padding-left:10px;padding-right:10px">
+	    </tr> 	
 		
-	<input type="hidden" id="sourcepost" name="sourcepost">
+		</table>
+		</td></tr>
 		
-		<table width="100%" border="0" align="center">		  		
-	
-	        <cfset ht = "52">
-			<cfset wd = "52">			
-						
-			<cfinvoke component="Service.Access"  
-				  method         = "position" 
-				  orgunit        = "#Position.OrgUnitOperational#" 
-				  role           = "'HRLoaner'"
-				  posttype       = "#Position.PostType#"
-				  returnvariable = "accessLoaner">
-					
-			<tr>	
-						
-				<cfset itm = 1>			
-				<cf_tl id="Position Properties" var="vEditPost">
-				<cf_menutab item   = "#itm#" 
-				        iconsrc    = "Maintenance.png" 
-						iconwidth  = "#wd#" 
-						iconheight = "#ht#" 
-						targetitem = "1"
-						class      = "highlight1"
-						name       = "#vEditPost#"
-						iframe     = "position"
-						source     = "iframe:../Position/PositionEdit.cfm?action=view&box=#url.box#&ID=#url.id#&ID1=#url.id1#&ID2=#url.id2#">	
-						 
-				<cfset itm = itm+1>			
-				<cf_tl id="Funding/Workforce" var="vFunding">
-				<cf_menutab item       = "#itm#" 
-				    	iconsrc    = "Funding.png" 
-						iconwidth  = "#wd#" 
-						iconheight = "#ht#" 
-						targetitem = "2"
-						name       = "#vFunding#"
-						source     = "PositionSupply.cfm?ID=#Position.PositionNo#&ID2=#Position.PositionParentId#">		
-						
-				<cfinvoke component= "Service.Access"
-					Method         = "PayrollOfficer"
-					Role           = "PayrollOfficer"
-					Mission        = "#Position.mission#"
-					ReturnVariable = "PayrollAccess">		
-					
+		<tr><td style="padding-left:10px;padding-right:10px">
+			
+		<input type="hidden" id="sourcepost" name="sourcepost">
+			
+			<table width="100%" border="0" align="center">		  		
+		
+		        <cfset ht = "52">
+				<cfset wd = "52">			
+							
 				<cfinvoke component="Service.Access"  
-				  method         = "position" 
-				  orgunit        = "#Position.OrgUnitOperational#" 
-				  role           = "'HRPosition'"
-				  posttype       = "#Position.PostType#"
-				  returnvariable = "accessPosition">											
-											
-				<cfif PayrollAccess is "EDIT"  or PayrollAccess is "ALL" or accessPosition eq "EDIT" or accessPosition eq "ALL">	
-									
-					<cfset itm = itm+1>		
-					<cf_tl id="Payroll" var="vPayroll">
+					  method         = "position" 
+					  orgunit        = "#Position.OrgUnitOperational#" 
+					  role           = "'HRLoaner'"
+					  posttype       = "#Position.PostType#"
+					  returnvariable = "accessLoaner">
+						
+				<tr>	
+							
+					<cfset itm = 1>			
+					<cf_tl id="Position Properties" var="vEditPost">
 					<cf_menutab item   = "#itm#" 
-					        iconsrc    = "Logos/Staffing/Payroll.png" 
+					        iconsrc    = "Maintenance.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#" 
+							targetitem = "1"
+							class      = "highlight1"
+							name       = "#vEditPost#"
+							iframe     = "position"
+							source     = "iframe:../Position/PositionEdit.cfm?action=view&box=#url.box#&ID=#url.id#&ID1=#url.id1#&ID2=#url.id2#">	
+							 
+					<cfset itm = itm+1>			
+					<cf_tl id="Funding/Workforce" var="vFunding">
+					<cf_menutab item       = "#itm#" 
+					    	iconsrc    = "Funding.png" 
 							iconwidth  = "#wd#" 
 							iconheight = "#ht#" 
 							targetitem = "2"
-							name       = "#vPayroll#"
-							source     = "../Funding/PositionPayrollListing.cfm?systemfunctionid=#url.systemfunctionid#&positionno=#url.id2#">		
-
-				</cfif>
-												
-				<cfset itm = itm+1>		
-				<cf_tl id="Amendments" var="vAmendment">
-				<cf_menutab item   = "#itm#" 
-				        iconsrc    = "Logos/Staffing/Amendments.png" 
-						iconwidth  = "#wd#" 
-						iconheight = "#ht#" 
-						targetitem = "2"
-						name       = "#vAmendment#"
-						source     = "../Position/PositionLog.cfm?positionno=#url.id2#">	
+							name       = "#vFunding#"
+							source     = "PositionSupply.cfm?ID=#Position.PositionNo#&ID2=#Position.PositionParentId#">		
+							
+					<cfinvoke component= "Service.Access"
+						Method         = "PayrollOfficer"
+						Role           = "PayrollOfficer"
+						Mission        = "#Position.mission#"
+						ReturnVariable = "PayrollAccess">		
 						
-				<cfset itm = itm+1>		
-				<cf_tl id="Incumbency" var="vIncumbent">
-				<cf_menutab item   = "#itm#" 
-				        iconsrc    = "Logos/Staffing/Incumbent.png" 
-						iconwidth  = "#wd#" 
-						iconheight = "#ht#" 
-						targetitem = "3"
-						name       = "#vIncumbent#"
-						iframe     = "assignments"
-						source     = "iframe:../../Assignment/PostAssignment.cfm?caller=postdialog&id=#url.id2#">						
-						
-				<cfset itm = itm+1>		
-				<cf_tl id="Recruitment" var="vRecruitment">
-				<cf_menutab item   = "#itm#" 
-				        iconsrc    = "Logos/Staffing/Staffing.png" 
-						iconwidth  = "#wd#" 
-						iconheight = "#ht#" 
-						targetitem = "2"
-						name       = "#vRecruitment#"						
-						source     = "../Recruitment/PositionView.cfm?caller=postdialog&id=#url.id2#">			
-												
-				<cfinvoke component="Service.Access"  
+					<cfinvoke component="Service.Access"  
 					  method         = "position" 
 					  orgunit        = "#Position.OrgUnitOperational#" 
 					  role           = "'HRPosition'"
 					  posttype       = "#Position.PostType#"
-					  returnvariable = "accessPosition">	
-					  
-				<cfif  accessPosition eq "READ" or accessPosition eq "EDIT" or accessPosition eq "ALL" 
-				    or  accessloaner eq "READ" or accessloaner eq "EDIT" or accessloaner eq "ALL">  	 								
-				 
-					 <cfset itm = itm+1>			
-					 <cf_tl id="Classify and Loan" var="vLoan">
-					 <cf_menutab item       = "#itm#" 
-				        iconsrc    = "Logos/Staffing/Loan.png" 
-						iconwidth  = "#wd#" 
-						iconheight = "#ht#" 
-						targetitem = "2"
-						name       = "#vLoan#"
-						source     = "ParentHeader.cfm?ID2=#Position.PositionParentId#">							 
-						
-				 </cfif>
-				 
-				 <!---		
-					 <cfset itm = itm+1>	
-				 	 <cf_tl id="Memo" var="vMiscellaneous">
-					 <cf_menutab item       = "#itm#" 
-					        iconsrc    = "Logos/Staffing/Memo.png" 
+					  returnvariable = "accessPosition">											
+												
+					<cfif PayrollAccess is "EDIT"  or PayrollAccess is "ALL" or accessPosition eq "EDIT" or accessPosition eq "ALL">	
+										
+						<cfset itm = itm+1>		
+						<cf_tl id="Payroll" var="vPayroll">
+						<cf_menutab item   = "#itm#" 
+						        iconsrc    = "Logos/Staffing/Payroll.png" 
+								iconwidth  = "#wd#" 
+								iconheight = "#ht#" 
+								targetitem = "2"
+								name       = "#vPayroll#"
+								source     = "../Funding/PositionPayrollListing.cfm?systemfunctionid=#url.systemfunctionid#&positionno=#url.id2#">		
+	
+					</cfif>
+													
+					<cfset itm = itm+1>		
+					<cf_tl id="Amendments" var="vAmendment">
+					<cf_menutab item   = "#itm#" 
+					        iconsrc    = "Logos/Staffing/Amendments.png" 
 							iconwidth  = "#wd#" 
 							iconheight = "#ht#" 
 							targetitem = "2"
-							name       = "#vMiscellaneous#"
-							source     = "../Position/PositionMemo.cfm?positionno=#url.id2#">	
+							name       = "#vAmendment#"
+							source     = "../Position/PositionLog.cfm?positionno=#url.id2#">	
 							
-					--->			
-				 			
-				 
-				 <cf_verifyOperational module="WorkOrder" Warning="No">
-				 
-				 <cfif Operational eq "1" and Position.DateExpiration gte now() and PositionWorkSchedule.recordcount gte "1">
-							 
-					 <cfset itm = itm+1>		
-					 <cf_tl id="Workschedule" var="vWork">
-					 <cf_menutab item       = "#itm#" 
-					    iconsrc    = "Logos/Staffing/WorkSchedule.png" 
-						iconwidth  = "#wd#" 
-						iconheight = "#ht#" 
-						targetitem = "2"
-						name       = "#vWork#"
-						source     = "../../WorkSchedule/Position/WorkScheduleView.cfm?ID=#Position.PositionNo#&ID2=#Position.PositionParentId#">		
+					<cfset itm = itm+1>		
+					<cf_tl id="Incumbency" var="vIncumbent">
+					<cf_menutab item   = "#itm#" 
+					        iconsrc    = "Logos/Staffing/Incumbent.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#" 
+							targetitem = "3"
+							name       = "#vIncumbent#"
+							iframe     = "assignments"
+							source     = "iframe:../../Assignment/PostAssignment.cfm?caller=postdialog&id=#url.id2#">						
+							
+					<cfset itm = itm+1>		
+					<cf_tl id="Recruitment" var="vRecruitment">
+					<cf_menutab item   = "#itm#" 
+					        iconsrc    = "Logos/Staffing/Staffing.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#" 
+							targetitem = "2"
+							name       = "#vRecruitment#"						
+							source     = "../Recruitment/PositionView.cfm?caller=postdialog&id=#url.id2#">			
+													
+					<cfinvoke component="Service.Access"  
+						  method         = "position" 
+						  orgunit        = "#Position.OrgUnitOperational#" 
+						  role           = "'HRPosition'"
+						  posttype       = "#Position.PostType#"
+						  returnvariable = "accessPosition">	
+						  
+					<cfif  accessPosition eq "READ" or accessPosition eq "EDIT" or accessPosition eq "ALL" 
+					    or  accessloaner eq "READ" or accessloaner eq "EDIT" or accessloaner eq "ALL">  	 								
+					 
+						 <cfset itm = itm+1>			
+						 <cf_tl id="Classify and Loan" var="vLoan">
+						 <cf_menutab item       = "#itm#" 
+					        iconsrc    = "Logos/Staffing/Loan.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#" 
+							targetitem = "2"
+							name       = "#vLoan#"
+							source     = "ParentHeader.cfm?ID2=#Position.PositionParentId#">							 
+							
+					 </cfif>
+					 
+					 <!---		
+						 <cfset itm = itm+1>	
+					 	 <cf_tl id="Memo" var="vMiscellaneous">
+						 <cf_menutab item       = "#itm#" 
+						        iconsrc    = "Logos/Staffing/Memo.png" 
+								iconwidth  = "#wd#" 
+								iconheight = "#ht#" 
+								targetitem = "2"
+								name       = "#vMiscellaneous#"
+								source     = "../Position/PositionMemo.cfm?positionno=#url.id2#">	
 								
-					<!--- only if this is an active position for now but we can do this also historically now through
-						workorderlineactionPerson.PositionNo --->
+						--->			
+					 			
+					 
+					 <cf_verifyOperational module="WorkOrder" Warning="No">
+					 
+					 <cfif Operational eq "1" and Position.DateExpiration gte now() and PositionWorkSchedule.recordcount gte "1">
+								 
+						 <cfset itm = itm+1>		
+						 <cf_tl id="Workschedule" var="vWork">
+						 <cf_menutab item       = "#itm#" 
+						    iconsrc    = "Logos/Staffing/WorkSchedule.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#" 
+							targetitem = "2"
+							name       = "#vWork#"
+							source     = "../../WorkSchedule/Position/WorkScheduleView.cfm?ID=#Position.PositionNo#&ID2=#Position.PositionParentId#">		
 									
-					 <cfset itm = itm+1>		
-					 <cf_tl id="Scheduled Actions" var="vAction">
-					 <cf_menutab item       = "#itm#" 
-					    iconsrc    = "Logos/System/Schedule.png" 
-						iconwidth  = "#wd#" 
-						iconheight = "#ht#" 
-						targetitem = "2"
-						name       = "#vAction#"
-						source     = "../ScheduledTask/WorkScheduleListing.cfm?PositionNo=#Position.PositionNo#">		
-					
-				</cfif>	
-				
-				<cfquery name="Custom" 
-				    datasource="AppsSystem" 
-			    	username="#SESSION.login#" 
-				    password="#SESSION.dbpw#">		
-					
-					SELECT     L.SystemFunctionId, L.LanguageCode, L.Mission, L.Operational, L.FunctionName, L.FunctionMemo, L.OfficerUserId, L.Created, R.FunctionPath, 
-		                             R.FunctionCondition
-					FROM       Ref_ModuleControl_Language AS L INNER JOIN
-		                       Ref_ModuleControl AS R ON L.SystemFunctionId = R.SystemFunctionId
-					WHERE      R.FunctionName = 'stPosition' 
-					AND        R.SystemModule = 'Custom' 
-					AND        R.FunctionClass = 'Staffing' 
-					AND        L.LanguageCode = 'ENG'						
-		                  
-				</cfquery> 								
-						
-				<cfif Custom.recordcount eq "1" and Position.SourcePostNumber neq "" and IsNumeric(Position.SourcePostNumber)>
-								
-					<cfset itm = itm+1>			
-						<cf_tl id="#Custom.FunctionName#" var="vERP">
-						<cf_menutab item       = "#itm#" 
-						    iconsrc    = "Logos/Staffing/Umoja.png" 
+						<!--- only if this is an active position for now but we can do this also historically now through
+							workorderlineactionPerson.PositionNo --->
+										
+						 <cfset itm = itm+1>		
+						 <cf_tl id="Scheduled Actions" var="vAction">
+						 <cf_menutab item       = "#itm#" 
+						    iconsrc    = "Logos/System/Schedule.png" 
 							iconwidth  = "#wd#" 
 							iconheight = "#ht#" 
 							targetitem = "2"
-							name       = "#vERP#"
-							source     = "#SESSION.root#/#Custom.FunctionPath#?embed=1&id={sourcepost}">		
-							
-				</cfif>		
-		
-				<cftry>
-				
+							name       = "#vAction#"
+							source     = "../ScheduledTask/WorkScheduleListing.cfm?PositionNo=#Position.PositionNo#">		
+						
+					</cfif>	
+					
 					<cfquery name="Custom" 
 					    datasource="AppsSystem" 
 				    	username="#SESSION.login#" 
@@ -437,70 +427,122 @@
 			                             R.FunctionCondition
 						FROM       Ref_ModuleControl_Language AS L INNER JOIN
 			                       Ref_ModuleControl AS R ON L.SystemFunctionId = R.SystemFunctionId
-						WHERE      R.FunctionName = 'stPositionLegacy' 
+						WHERE      R.FunctionName = 'stPosition' 
 						AND        R.SystemModule = 'Custom' 
 						AND        R.FunctionClass = 'Staffing' 
 						AND        L.LanguageCode = 'ENG'						
 			                  
 					</cfquery> 								
 							
-					<cfif Custom.recordcount eq "1" and Position._SourcePostNumber neq "">
+					<cfif Custom.recordcount eq "1" and Position.SourcePostNumber neq "" and IsNumeric(Position.SourcePostNumber)>
 									
 						<cfset itm = itm+1>			
-							<cf_tl id="#Custom.FunctionName#" var="vIMIS">
+							<cf_tl id="#Custom.FunctionName#" var="vERP">
 							<cf_menutab item       = "#itm#" 
-							    iconsrc    = "Logos/Staffing/IMIS.png" 
+							    iconsrc    = "Logos/Staffing/Umoja.png" 
 								iconwidth  = "#wd#" 
 								iconheight = "#ht#" 
 								targetitem = "2"
-								name       = "#vIMIS#"
-								source     = "#SESSION.root#/#Custom.FunctionPath#?embed=1&id=#Position._SourcePostNumber#">		
+								name       = "#vERP#"
+								source     = "#SESSION.root#/#Custom.FunctionPath#?embed=1&id={sourcepost}">		
 								
-					</cfif>	
-				
-					<cfcatch></cfcatch>	
-				
-				</cftry>						
+					</cfif>		
+			
+					<cftry>
+					
+						<cfquery name="Custom" 
+						    datasource="AppsSystem" 
+					    	username="#SESSION.login#" 
+						    password="#SESSION.dbpw#">		
+							
+							SELECT     L.SystemFunctionId, L.LanguageCode, L.Mission, L.Operational, L.FunctionName, L.FunctionMemo, L.OfficerUserId, L.Created, R.FunctionPath, 
+				                             R.FunctionCondition
+							FROM       Ref_ModuleControl_Language AS L INNER JOIN
+				                       Ref_ModuleControl AS R ON L.SystemFunctionId = R.SystemFunctionId
+							WHERE      R.FunctionName = 'stPositionLegacy' 
+							AND        R.SystemModule = 'Custom' 
+							AND        R.FunctionClass = 'Staffing' 
+							AND        L.LanguageCode = 'ENG'						
+				                  
+						</cfquery> 								
+								
+						<cfif Custom.recordcount eq "1" and Position._SourcePostNumber neq "">
+										
+							<cfset itm = itm+1>			
+								<cf_tl id="#Custom.FunctionName#" var="vIMIS">
+								<cf_menutab item       = "#itm#" 
+								    iconsrc    = "Logos/Staffing/IMIS.png" 
+									iconwidth  = "#wd#" 
+									iconheight = "#ht#" 
+									targetitem = "2"
+									name       = "#vIMIS#"
+									source     = "#SESSION.root#/#Custom.FunctionPath#?embed=1&id=#Position._SourcePostNumber#">		
+									
+						</cfif>	
+					
+						<cfcatch></cfcatch>	
+					
+					</cftry>						
+			
+				</tr>
 		
-			</tr>
-	
-		</table>
-	
-	</td>
-	</tr>
+			</table>
+		
+		</td>
+		</tr>
+				
+		<cfoutput>
+				
+		<!--- UN only --->
+		
+		<cfinclude template="../../../../Vactrack/Application/Document/Dialog.cfm">
+		
+		<script>
+		// function ShowPA(Doc,Ind) {
+		//	ptoken.open('#SESSION.root#/DWarehouse/InquiryEmployee/PA_Detail.cfm?ID1=' + Doc + '&ID2=' + Ind, 'DialogPA', 'width=900, height=600, toolbar=yes, scrollbars=yes, resizable=yes');
+		// }
+		
+			function doProjectValidations() {
+				ptoken.navigate('#session.root#/Staffing/Application/Position/PositionParent/PositionViewValidation.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&PositionNo=#url.id2#', 'divValidations');
+			}
 			
-	<cfoutput>
-			
-	<!--- UN only --->
+	    </script>
+		
+		</cfoutput>
+		
+		<tr><td height="100%" bgcolor="white" style="padding-top:8px">
+		
+			<table width="100%" 	    
+			  height="100%"
+			  cellspacing="0" 
+			  cellpadding="0">	  
+			  
+			  <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+			  <cfset mid = oSecurity.gethash()/>   
+			  
+			  <cf_menucontainer item="1" class="regular" iframe="position" template="../Position/PositionEdit.cfm?action=view&box=#url.box#&ID=#url.id#&ID1=#url.id1#&ID2=#url.id2#&mid=#mid#"/>
+	  
+			  <cf_menucontainer item="2" class="hide">
+			   
+		      <cf_menucontainer item="3" class="hide" iframe="assignments">
+	  	 		
+			</table>
 	
-	<cfinclude template="../../../../Vactrack/Application/Document/Dialog.cfm">
+	</td></tr>
+	</table>		
 	
-	<script>
-	function ShowPA(Doc,Ind) {
-		ptoken.open('#SESSION.root#/DWarehouse/InquiryEmployee/PA_Detail.cfm?ID1=' + Doc + '&ID2=' + Ind, 'DialogPA', 'width=900, height=600, toolbar=yes, scrollbars=yes, resizable=yes');
-	}
-	</script>
-	
-	</cfoutput>
-	
-	<tr><td height="100%" bgcolor="white" style="padding-top:8px">
-	
-		<table width="100%" 	    
-		  height="100%"
-		  cellspacing="0" 
-		  cellpadding="0">	  
-		  
-		  <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
-		  <cfset mid = oSecurity.gethash()/>   
-		  
-		  <cf_menucontainer item="1" class="regular" iframe="position" template="../Position/PositionEdit.cfm?action=view&box=#url.box#&ID=#url.id#&ID1=#url.id1#&ID2=#url.id2#&mid=#mid#"/>
-  
-		  <cf_menucontainer item="2" class="hide">
-		   
-	      <cf_menucontainer item="3" class="hide" iframe="assignments">
-  	 		
-		</table>
+</cf_layoutArea>
 
-</td></tr></table>		
+<cf_layoutarea size="220"  position="right" name="validationbox" initcollapsed="Yes" collapsible="Yes">
+		
+		<cf_divscroll>
+			<cfdiv id="divValidations" style="margin:5px;"> 	  
+		</cf_divscroll>	
+					
+	</cf_layoutarea>	
+	
+</cf_layout>	
 
+<cfset AjaxOnLoad("function(){ doProjectValidations(); }")>	
+	
 <cf_screenbottom layout="webapp">

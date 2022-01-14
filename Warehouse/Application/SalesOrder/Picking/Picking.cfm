@@ -508,6 +508,8 @@
                 CONVERT(VARCHAR(8), CollectionDate, 112) as CollectionDateString
 		FROM (
 		
+		    <!--- POS sale --->
+		
 	        SELECT  B.BatchNo,
 	                B.BatchClass,
 	                B.BatchReference,
@@ -579,7 +581,7 @@
                         ON CA.AddressId = RA.AddressId
 						
 	            WHERE   B.Warehouse = '#url.warehouse#'
-	            AND     B.BatchClass = 'WhsSale'
+	            AND     B.BatchClass IN ('WhsSale','WOShip')
 	            AND     T.TransactionQuantity < 0		
 									
 	            AND     B.ActionStatus = '0'
@@ -604,6 +606,16 @@
                          RA.AddressPostalCode,
                          RA.State,
                          RA.Country
+						 
+						 
+				<!--- WorkOrder sale link on the workorder --->	
+				
+				
+				
+					 
+				
+				
+						 
 					 
 			) as C		
 			
@@ -833,7 +845,7 @@
             object           = "WarehouseBatchCenter" 	
 			ScopeMode        = "Picking"		
             ScopeId          = "#getWarehouse.MissionOrgUnitId#"
-            ScopeFilter      = "B.Warehouse=''#url.warehouse#'' AND B.BatchClass=''WhsSale'' AND B.ActionStatus=''0''"
+            ScopeFilter      = "B.Warehouse=''#url.warehouse#'' AND (B.BatchClass=''WhsSale'' OR B.BatchClass=''WOShip'') AND B.ActionStatus=''0''"
             ControllerNo     = "992"
             ObjectContent    = "#getData#"
             ObjectIdfield    = "batchno"

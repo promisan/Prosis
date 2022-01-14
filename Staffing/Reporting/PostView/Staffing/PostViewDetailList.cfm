@@ -374,7 +374,9 @@
 				<cfif Orgunit neq OrgUnitParent and Class eq "Used">
 						<cfset showpdte = 0>									
 				<cfelseif DateFormat(Mandate.DateExpiration, CLIENT.DateFormatShow) eq DateFormat(ParentExpiration, CLIENT.DateFormatShow)>					
-					    <cfset showpdte = 0>					
+					    <cfset showpdte = 0>							
+			    <cfelseif DateFormat(PostExpiration, CLIENT.DateFormatShow) eq DateFormat(ParentExpiration, CLIENT.DateFormatShow)>
+					    <cfset showpdte = 0>		 				
 				<cfelse>							
 					    <cfset showpdte = 1>					
 				</cfif>
@@ -487,7 +489,7 @@
 				 											
 					<td colspan="5" align="left" align="center" style="border-top:1px solid silver;">
 					
-					 <table width="100%" cellspacing="0" cellpadding="0">
+					 <table width="100%">
 					 <tr>
 					 <td class="cellcontent" align="center"><font color="FF0000"><b>--- #tVacant# ---</b></font></td>
 									 
@@ -501,15 +503,15 @@
 						 <cfif Param.AssignmentEntryDirect eq "1">
 						 	
 						 <td class="cellcontent">						 
-							 <A Title="Register recruitment request" 
-							    href ="javascript:AddAssignment('#PositionNo#','i#URL.Org#')"><font color="0080C0">#tIncumbent#</a>
+							 <A title="Register recruitment request" 
+							    href ="javascript:AddAssignment('#PositionNo#','i#URL.Org#')">#tIncumbent#</a>
 						 </td>	
 														
 						 </cfif>	
 								
 						 <td class="cellcontent" style="padding-left:5px">						
-							 <A Title="Register recruitment request" 
-							    href ="javascript:AddVacancy('#PositionNo#','i#URL.Org#')"><font color="0080C0">#tInitiateRecruitment#</a>
+							 <A title="Register recruitment request" 
+							    href ="javascript:AddVacancy('#PositionNo#','i#URL.Org#')">#tInitiateRecruitment#</a>
 						 </td>
 						 </tr>
 						 </table>
@@ -520,7 +522,7 @@
 					 					  
 					  	  <cfif AccessRecruit eq "EDIT" or AccessRecruit eq "ALL">			   
 						  <td class="cellcontent">						 	 
-						   	 <a title="Register recruitment request" HREF ="javascript:AddVacancy('#PositionNo#','i#URL.Org#')"><font color="0080C0"><cf_tl id="Initiate Recruitment"></a>							 
+						   	 <a title="Register recruitment request" HREF ="javascript:AddVacancy('#PositionNo#','i#URL.Org#')"><cf_tl id="Initiate Recruitment"></a>							 
 						   </td>
 						  </cfif> 
 										 				 	 
@@ -533,7 +535,7 @@
 							<cfif AccessStaffing eq "EDIT" or AccessStaffing eq "ALL" 
 							    or AccessRecruit eq "EDIT" or AccessRecruit eq "ALL">
 														
-								     <img src="#SESSION.root#/Images/Logos/Staffing/Track.png"
+								     <img src="#SESSION.root#/Images/Logos/Staffing/Review.png"
 									     title="Assignment review prior to creation of a recruitment track"
 									     border="0"
 										 height="17" width="17"
@@ -555,13 +557,17 @@
 					 
 				<cfelse>
 				
-					<td class="cellcontent" style="border-top:1px solid silver;"><a href="javascript:EditAssignment('#PersonNo#','#AssignmentNo#','#positionno#','i#URL.Org#')"><font color="0080C0">#FullName#</a></td>
-					<td class="cellcontent" style="border-top:1px solid silver;"><a href="javascript:EditPerson('#PersonNo#','i#URL.Org#')"><font color="0080C0"><cfif IndexNo eq ""><cfif Reference neq "">#Reference#<cfelse>No Index</cfif><cfelse>#IndexNo#</cfif></a></td>
+					<td class="cellcontent" style="border-top:1px solid silver;">
+					<a href="javascript:EditAssignment('#PersonNo#','#AssignmentNo#','#positionno#','i#URL.Org#')">#FullName#</a>
+					</td>
+					<td class="cellcontent" style="border-top:1px solid silver;">
+					<a href="javascript:EditPerson('#PersonNo#','i#URL.Org#')"><cfif IndexNo eq ""><cfif Reference neq "">#Reference#<cfelse>No Index</cfif><cfelse>#IndexNo#</cfif></a>
+					</td>
 					<td class="cellcontent" style="padding-left:4px;border-top:1px solid silver;">#Nationality#</td>
 					<td class="cellcontent" style="border-top:1px solid silver;padding-right:4px"><cfif ContractLevel neq "">#ContractLevel#/#ContractStep#<cfif ContractTime neq "100">:#ContractTime#%</cfif></cfif></td>
 					<td style="border-top:1px solid silver;">
 											
-					<table width="100%" cellspacing="0" cellpadding="0">
+					<table width="100%">
 					
 					<tr bgcolor="white" class="fixlengthlist">
 															
@@ -589,7 +595,7 @@
 						
 						</td>
 												
-						<td style="border:1px solid silver;padding:1px;min-width:24" align="center">
+						<td style="border:1px solid silver;padding:1px;min-width:24px" align="center">
 
 						<cfif EnableAssignmentReview eq 1>
 						
@@ -611,22 +617,22 @@
 												
 						<td style="border:1px solid silver;padding:1px;min-width:24" align="center">
 						
-						<cfif AccessStaffing eq "EDIT" or AccessStaffing eq "ALL" 
-						    or AccessRecruit eq "EDIT" or AccessRecruit eq "ALL">
-													
-						     <img src="#SESSION.root#/Images/Logos/Staffing/Recruit-Request.png"
-							     title="Register a Recruitment Request"
-							     border="0"
-								 height="18" width="21"
-							     align="absmiddle"
-							     style="cursor: pointer;"
-							     onClick="AddVacancy('#PositionNo#','i#url.org#')">
-														  
-						</cfif>		
+							<cfif AccessStaffing eq "EDIT" or AccessStaffing eq "ALL" 
+							    or AccessRecruit eq "EDIT" or AccessRecruit eq "ALL">
+														
+							     <img src="#SESSION.root#/Images/Logos/Staffing/Recruit-Request.png"
+									     title="Register a Recruitment Request"
+									     border="0"
+										 height="18" width="21"
+									     align="absmiddle"
+									     style="cursor: pointer;"
+									     onClick="AddVacancy('#PositionNo#','i#url.org#')">
+															  
+							</cfif>		
+						
 						</td>
 						
-						<td style="border:1px solid silver;padding:1px;min-width:24" align="center">
-						
+						<td style="border:1px solid silver;padding:1px;min-width:24" align="center">						
 						
 						<cfif ePASOperational eq "1" and EnablePAS eq "1">
 												
@@ -648,21 +654,22 @@
 						</cfif>	
 						</td>
 					</tr>
-					</table>  
-					
+					</table>  					
 					</td>
+					
 			    </cfif>	
+				
 				</tr>
 				
 				<!--- ---------------------------------------------------------- --->
-				<!--- -----------Line 5 of 12 : Varying Post dara--------------- --->
+				<!--- -----------Line 5 of 12 : Varying Post data--------------- --->
 				<!--- ---------------------------------------------------------- --->			
 					
 				<cfif showpdte eq 1 and Mission.MissionStatus eq "0">
-				<tr bgcolor="#cl#"  class="line optional_#url.org#">
+				<tr style="background-color:ffffcf;height:22px"  class="labelmedium2 line optional_#url.org#">
 				    <td colspan="2"></td>
-					<td colspan="2" style="min-width:200px;border-right:1px solid silver"><cf_tl id="Budget position">:</td>
-					<TD colspan="8" style="padding-left:5px" class="labelit"><font color="808000">#DateFormat(ParentEffective, CLIENT.DateFormatShow)# - #DateFormat(ParentExpiration, CLIENT.DateFormatShow)#</font></TD>
+					<td colspan="2" style="min-width:200px;border-right:1px solid silver"><cf_tl id="Budget Position Effective">:</td>
+					<TD colspan="8" style="padding-left:5px">#DateFormat(ParentEffective, CLIENT.DateFormatShow)# - #DateFormat(ParentExpiration, CLIENT.DateFormatShow)#</TD>
 					<TD></TD>
 				</tr>
 				</cfif>
@@ -674,7 +681,7 @@
 				<tr id="memo#rowguid#hdr" style="border-bottom:1px solid silver" class="<cfif Remarks eq "">hide<cfelse>regular</cfif>">
 					<td></td>
 					<td></td>
-					<td style="height:26px" class="labelit" id= "memo#rowguid#" colspan="12">#Remarks#</td>
+					<td style="height:26px" class="labelmedium2" id= "memo#rowguid#" colspan="12">#Remarks#</td>
 				</tr>
 											
 				<cfif sourceid neq "0">
@@ -727,7 +734,7 @@
 					
 					<cfif trackid neq "">
 				
-						<tr id="source#rowguid#hdr" style="background-color:yellow;border-bottom:1px solid silver">
+						<tr id="source#rowguid#hdr" class="labelmedium2" style="background-color:yellow;border-bottom:1px solid silver">
 							<td></td>
 							<td></td>				
 											
@@ -740,9 +747,9 @@
 								WHERE     DocumentNo = '#trackid#' 												
 							</cfquery>			
 												
-						    <td style="height:26px" class="labelit" id= "source#rowguid#" colspan="12">
-						
-						    <cf_tl id="Recruited under">&nbsp;<a href="javascript:showdocument('#TrackId#')" title="TrackNo">#Track.entityclassName#&nbsp;:&nbsp;<cfif fo.recordcount eq "1">#FO.ReferenceNo#<cfelse>#TrackId#</cfif><cf_tl id="on"> #dateFormat(dateEffective,client.dateformatshow)#</td>
+						    <td style="height:26px" id= "source#rowguid#" colspan="12">						
+						    <cf_tl id="Recruited under">&nbsp;<a href="javascript:showdocument('#TrackId#')" title="TrackNo">#Track.entityclassName#&nbsp;:&nbsp;<cfif fo.recordcount eq "1">#FO.ReferenceNo#<cfelse>#TrackId#</cfif><cf_tl id="on"> #dateFormat(dateEffective,client.dateformatshow)#
+							</td>
 					
 						</tr>
 					
@@ -763,12 +770,12 @@
 						
 							<table width="100%"><tr><td>
 							
-							<textarea style = "width:99%;padding:3px;font-size:14px" 
-							          rows  = "3" 
-									  name  = "remarks#left(rowguid,8)#" 
-									  id    = "remarks#left(rowguid,8)#" 
-									  class = "regular" 
-									  value = "#Remarks#">#remarks#</textarea> 
+								<textarea style = "width:99%;padding:3px;font-size:14px" 
+								          rows  = "3" 
+										  name  = "remarks#left(rowguid,8)#" 
+										  id    = "remarks#left(rowguid,8)#" 
+										  class = "regular" 
+										  value = "#Remarks#">#remarks#</textarea> 
 									  
 								</td>
 								</tr>
@@ -796,9 +803,9 @@
 										
 				<cfif URL.Mode neq "Only" and url.sort neq "Workschedule">
 				
-				    <tr class="line labelmedium optional_#url.org#" style="height:10px">
-						<td colspan="2"></td>
-						<td colspan="2" style="min-width:130px;padding-left:4px;background-color:f1f1f1;border-right:1px solid silver"><cf_tl id="Position title"></td>
+				    <tr class="line labelmedium2 optional_#url.org#">
+						<td colspan="2" style="background-color:f1f1f1"></td>
+						<td colspan="2" style="min-width:130px;background-color:f1f1f1;border-right:1px solid silver"><cf_tl id="Position title">:</td>
 						<td colspan="2" style="padding-left:4px;font-size:14px;border-right:1px solid silver">
 							<cfif FunctionDescription eq "undefined">
 								A function description is not on file
@@ -807,7 +814,7 @@
 							</cfif>
 						</td>
 						<td colspan="1" style="min-width:100px;background-color:f1f1f1;padding-left:4px;border-right:1px solid silver"><cf_tl id="Position effective"></td>
-						<td colspan="2" style="padding-left:4px;font-size:12px;border-right:1px solid silver">	
+						<td colspan="2" style="padding-left:4px;border-right:1px solid silver">	
 							#DateFormat(PostEffective, CLIENT.DateFormatShow)# - #DateFormat(PostExpiration, CLIENT.DateFormatShow)#
 						</td>	
 						<cfif DateEffective neq "">
@@ -1051,6 +1058,7 @@
 						 AND        C.DateExpiration >= '#Dateformat(DateEffective, CLIENT.DateSQL)#' 	
 						 AND        C.Mission     = '#url.Mission#' 
 						 AND        R.ClassStatus = 'Contract'
+						 ORDER BY C.DateEffective
 													
 					  </cfquery>	
 							  
@@ -1059,11 +1067,11 @@
 						<td colspan="2" bgcolor="E1F8FF" valign="top" style="padding-top:4px;padding-left:4px;border-right:1px solid silver"><cf_tl id="Appraisal">:</td>
 						<td colspan="9" bgcolor="E1F8FF" style="padding-left:4px">
 						
-							<table width="100%" cellspacing="0" cellpadding="0">
+							<table width="100%">
 										  
 							<cfloop query="ePasList">		  					
 												
-								<tr class="labelmedium <cfif currentrow neq recordcount>line</cfif>">								
+								<tr class="labelmedium2 <cfif currentrow neq recordcount>line</cfif>">								
 									<td width="60"><a href="javascript:pasdialog('#contractId#')">#ContractNo#</a></td>
 									<td width="60">#ContractClass#</td>
 									<td width="160">
@@ -1161,7 +1169,7 @@
 							SELECT  PersonNo, LastName, FirstName, StatusDate
 							FROM    DocumentCandidate P
 							WHERE   DocumentNo = '#DocumentNo#' 
-							  AND   Status = '2s'
+							  AND   Status IN ('2s','3')
 						</cfquery>	
 						
 						<cfset cpl = DateFormat(Candidate.StatusDate, CLIENT.DateFormatShow)>
@@ -1172,6 +1180,26 @@
 							<a href="javascript:ShowCandidate('#Candidate.PersonNo#')" title="selected candidate">#Candidate.FirstName# #Candidate.LastName#<cfif currentrow neq recordcount>;</cfif></a>&nbsp;
 							</cfloop>
 							- #cpl#
+							
+							<cfquery name="Assignment" 
+									datasource="AppsVacancy" 
+									username="#SESSION.login#" 
+									password="#SESSION.dbpw#">
+										SELECT  TOP 1 *
+										FROM    Employee.dbo.PersonAssignment P
+										WHERE   SourceId = '#DocumentNo#' 
+										AND     SourcePersonNo = '#Candidate.PersonNo#'
+										AND     AssignmentStatus IN ('0','1')
+										AND     AssignmentType = 'Actual'
+										ORDER BY DateEffective
+								</cfquery>	
+								
+								<cfif Assignment.recordcount eq "1">
+								
+								&nbsp;&nbsp;Reporting date : #dateformat(Assignment.DateEffective,client.dateformatshow)#
+								
+								</cfif>
+								
 							</td>
 						<cfelse>
 							<td style="min-width:200px;padding-left:3px;border-left:0px solid gray" colspan="6">#tNoCandidateInfo#</td>

@@ -1,5 +1,5 @@
 
-<cfajaximport tags="cfdiv,cfform,cfinput-autosuggest">
+<cfajaximport tags="cfdiv,cfform">
 
 <cfoutput>
 
@@ -16,11 +16,19 @@ function saveService(code) {
 	 }   	 
  }
  
-function showunitService(costId, serviceItem, serviceItemUnit) {    
+function edititemservice(usageid,itm,unt) {    
    
-	ProsisUI.createWindow('myrate', 'Rate', '',{x:0,y:0,height:document.body.clientHeight-30,width:document.body.clientWidth*0.75,modal:true,center:true})    				
-	ptoken.navigate('Service/ItemUnitServiceView.cfm?ID1=' + costId + '&ID2='+ serviceItem + '&ID3=' + serviceItemUnit,'myrate') 		
+	ProsisUI.createWindow('mysetting', 'Service activity', '',{x:0,y:0,height:400,width:570,modal:true,center:true})    				
+	ptoken.navigate('Service/ItemServiceEdit.cfm?ID1=' + usageid + '&ID2='+ itm + '&ID3=' + unt,'mysetting') 		
 
+}
+
+function edititemservicesubmit(id,itm,unt) {
+   
+    document.serviceaction.onsubmit() 	
+	if( _CF_error_messages.length == 0 ) {
+      	ptoken.navigate('Service/ItemServiceEditSubmit.cfm?ID=' + id + '&ID1='+ itm + '&ID2=' + unt,'processservice','','','POST','serviceaction')
+	}   
 }
 
 function showunitServicerefresh(serviceItem, serviceItemUnit) {

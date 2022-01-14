@@ -5,7 +5,7 @@
 
 <tr><td style="padding-left:15px">
 
-	<cf_SalaryScaleTreeData>
+	<cf_SalaryScaleTreeData mission="#url.mission#">
 	
 </td></tr>
 

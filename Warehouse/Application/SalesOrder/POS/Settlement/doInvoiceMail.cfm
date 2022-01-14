@@ -9,8 +9,9 @@
 	FROM   WarehouseJournal 
 	WHERE  Area = 'SETTLE'
 	AND    Warehouse = ( SELECT Warehouse
-						 FROM WarehouseBatch
-				         WHERE BatchId='#URL.batchid#')							 
+						 FROM   WarehouseBatch
+				         WHERE  BatchId = '#URL.batchid#')		
+						 		 
 						 				 
 </cfquery>	
 

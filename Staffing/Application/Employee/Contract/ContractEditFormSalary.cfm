@@ -5,7 +5,7 @@
 	
 	  	<TD style="padding-left:5px" class="labelmedium2 bcell">
 		<cfif mode eq "edit" or last eq "1">
-			<a href="javascript:selectscale('#url.id#','#contractsel.contractType#','#url.id1#')"><u><cf_tl id="Grade"> / <cf_tl id="Step"></a>:		
+			<a href="javascript:selectscale('#url.id#','#contractsel.contractType#','#url.id1#','#contractsel.mission#')"><u><cf_tl id="Grade"> / <cf_tl id="Step"></a>:		
 		<cfelse>
 			<cf_tl id="Grade"> / <cf_tl id="Step">
 		</cfif>

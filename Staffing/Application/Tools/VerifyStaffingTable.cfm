@@ -42,6 +42,7 @@ password="#SESSION.dbpw#">
 	WHERE  Mission IN (SELECT Mission 
                    FROM Ref_MissionModule 
 				   WHERE SystemModule = 'Staffing')
+	AND Operational = 1			   
 </cfquery>
 
 <!---
@@ -61,7 +62,7 @@ password="#SESSION.dbpw#">
 <cfoutput>
 <table width="95%" align="center" class="formpadding">
 	
-	<tr><td colspan="2" style="height:22px" class="labelmedium2">This function verifies a vaiety of staffing table inconsistencies (positions, contracts and assignments)</td></tr>
+	<tr><td colspan="2" style="height:22px" class="labelmedium2">This function verifies a variety of staffing table inconsistencies (positions, contracts and assignments)</td></tr>
 	<tr><td colspan="2" style="height:22px" class="labelmedium2" colspan="1"><font color="A0A0A0"><i>Results are logged in the table [Employee.dbo.AuditIncumbency]</i></td></tr>
 	<tr><td height="5"></td></tr>	
 	<tr><td colspan="2" height="1" class="line"></td></tr>
@@ -69,7 +70,7 @@ password="#SESSION.dbpw#">
 	<tr><td valign="top">
 	   <table cellspacing="0" cellpadding="0">
 	    <tr><td height="4"></td></tr>
-		<tr><td class="labelmedium2">&nbsp;&nbsp;Entity:</td></tr>
+		<tr><td class="labelmedium2">&nbsp;&nbsp;<cf_tl id="Entity">:</td></tr>
     	</table>
 	</td>
 	<td width="80%" valign="top">
@@ -81,18 +82,16 @@ password="#SESSION.dbpw#">
 				</cfloop>
 			</select>
 			</td>
-			<td style="padding-left:10px"><cfdiv bind="url:VerifyStaffingTableMandate.cfm?mission={mission}"></td>
+			<td style="padding-left:10px"><cf_securediv bind="url:VerifyStaffingTableMandate.cfm?mission={mission}"></td>
+			<td class="labelmedium2" style="padding-left:4px">Only current assignments</td>
+			<td class="labelmedium2" style="padding-left:4px">		  
+			<input type="checkbox" class="radiol" name="current" id="current" value="1" checked>
+			</td>
 			</tr>
 		</table>
-	</td></tr>
-	
-	<tr>	    
-		<td colspan="2" class="labelmedium2">
-		&nbsp;&nbsp;Only current assignments:&nbsp;
-		<input type="checkbox" class="radiol" name="current" id="current" value="1" checked>
-		</td>
+	</td>
 	</tr>
-	<tr><td colspan="2" height="1" class="line"></td></tr>
+		
 	<tr><td height="5"></td></tr>
 	<tr><td colspan="2" align="center" height="30">
 		<input type="button" name="validate" id="validate" style="width:190;height:25" onclick="validate()" class="button10g" value="Validate Now">

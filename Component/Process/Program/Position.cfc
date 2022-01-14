@@ -57,7 +57,7 @@
                                 (SELECT      PositionNo
                                  FROM        ProgramAllotmentRequest
                                  WHERE       EditionId = '#Editionid#' 
-						 		AND         PositionNo = E.PositionNo)
+						 		 AND         PositionNo = E.PositionNo)
 		 </cfquery>						
 										
 		<!--- add positions --->
@@ -101,6 +101,7 @@
                          WHERE    PositionParentId = P.PositionParentId 
 						 AND      DateEffective <= '#Period.DateEffective#'
                          ORDER BY DateEffective DESC) AS Fund
+						 
 			FROM         Position AS P INNER JOIN
                          Ref_PostGrade AS G ON P.PostGrade = G.PostGrade INNER JOIN
 						 PositionParent AS PP ON P.PositionParentId   = PP.PositionParentId

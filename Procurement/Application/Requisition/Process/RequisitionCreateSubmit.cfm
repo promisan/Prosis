@@ -96,8 +96,10 @@
 				<cfif Parameter.EnforceProgramBudget eq "0"> <!--- funding processing ala mozambique --->
 		    	    <!--- set status as funded as funding is not --->
 					<cfset st = "2f">
+				<cfelse>
+					<cfset st = "2f">
 				</cfif>
-		</cfif>	
+		</cfif>
 			
 		<cfif st eq "2f">
 				<cfif FlowSetting.EnableCertification eq "0">

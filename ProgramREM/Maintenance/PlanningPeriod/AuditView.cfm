@@ -1,6 +1,8 @@
 
 <cf_screentop scroll="Yes" html="No" jQuery="Yes">
 
+<cf_calendarscript>
+
 <cfajaximport tags="cfform">
 
 <cfoutput>

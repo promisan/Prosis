@@ -402,8 +402,8 @@
 										
 					</td>
 					
-					<td style="padding-left:3px;padding-right:3px">								
-						<cf_inputInteger id="#UnitClass#_unitquantity_0" height="10" width="16">							
+					<td style="padding-right:3px">								
+						<cf_inputInteger id="#UnitClass#_unitquantity_0" height="11" width="16">							
 			        </td>
 					
       			</tr>
@@ -459,7 +459,7 @@
 		
 	<td id="#UnitClass#_price" style="width:100px;min-width:100px;" class="#clu#" align="right">
 		
-	    <table cellspacing="0" cellpadding="0">
+	    <table>
 		<tr>
 		<td class="labelmedium">
 		
@@ -478,10 +478,10 @@
 		   <cfset qt = "0.00">				  	  		   			   
 		   <cfset qt = "#numberformat(Rate.StandardCost,',.__')#">
 		   		   
-		</cfif>   			
+		</cfif>  		
 			
 		<cfif url.accessmode eq "edit">
-																				
+																						
 			<input type="text" <cfif Rate.enableEditRate eq "0">readonly</cfif>
 			    style="width:70px;text-align:right" 				
 				id="#UnitClass#_standardcost_0" 
@@ -496,6 +496,7 @@
 			#qt#
 		
 		</cfif>	
+		
 		
 		</td>
 		</tr>
@@ -535,17 +536,17 @@
 	</td>	
 		
 	<td align="right" style="width:100px;min-width:100px;" id="#UnitClass#_total" class="#clu#">
-		
+						
 		<table>
 			<tr>
 			
 			<td id="total_#UnitClass#_0" class="labelmedium" style="font-size:14px" align="right">
-																											
-			<cfif UnitUsed.recordcount gte "1" and unitused.amount neq "">					
-			    <cf_precision number="#unitdetail.priceprecision#" amount="#unitused.amount#">	
+																															
+			<cfif UnitUsed.recordcount gte "1" and unitused.amount neq "0">					
+			    <cf_precision number="#unitdetail.priceprecision#" amount="#unitused.amount#">					
 				#numberformat("#unitused.amount#","#pformat#")#					
 			<cfelse>				
-			    <cf_precision number="#unitdetail.priceprecision#" amount="#Rate.StandardCost#">		
+			    <cf_precision number="#unitdetail.priceprecision#" amount="#Rate.StandardCost#">						
 				#numberformat("#rate.StandardCost#","#pformat#")#						  	
 			</cfif>	
 									

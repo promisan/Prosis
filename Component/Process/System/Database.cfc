@@ -2,13 +2,7 @@
 
     <cfproperty name="name" type="string">
     <cfset this.name = "Database utilities">
-	
-	<cfinvoke component = "Service.Process.System.UserController"  
-	   method           = "ValidateCFCAccess"
-	   datasource       = "#DataSource#" 
-	   sessionId        = "#session.sessionid#" 
-	   account          = "#session.acc#">	
-	
+		
 	<cffunction
 	    name 	    = "getTableFields"
 	    description = "Returns comma separated fields of a table (ignoring computed fields)"
@@ -20,6 +14,12 @@
 			 <cfargument name="ignoreFields" required="no" type="string">
  			 <cfargument name="frameworkFields" required="no" type="string" default="No">
 			 
+			 <cfinvoke component = "Service.Process.System.UserController"  
+	   			method           = "ValidateCFCAccess"
+			   datasource        = "#DataSource#" 
+			   sessionId         = "#session.sessionid#" 
+			   account           = "#session.acc#">	
+	   
 			 <cfif frameworkFields eq "Yes">
 			 
 			 	<cfif len(ignoreFields) eq 0>

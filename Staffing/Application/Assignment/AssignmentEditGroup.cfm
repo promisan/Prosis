@@ -103,8 +103,8 @@ function hl(itm,fld){
 			<table border="0" width="100%" cellspacing="0" cellpadding="0">
 								
 				<cfif PositionNo eq "">
-				          <TR class="regular">
-				<cfelse>  <TR class="regular">
+				          <TR class="regular fixlengthlist">
+				<cfelse>  <TR class="regular fixlengthlist">
 				</cfif>
 		   
 				<TD style="max-width:40px;padding-left:3px">
@@ -114,7 +114,7 @@ function hl(itm,fld){
 						<input type="checkbox" class="radiol" name="positiongroup" value="#GroupCode#" checked onClick="hl(this,this.checked)"></TD>
 				    </cfif>	
 				
-				<TD style="padding-left:3px" class="labelmedium">#Description#</TD>
+				<TD style="padding-left:3px" title="#Description#" class="labelmedium">#Description#</TD>
 				
 				</tr>
 			

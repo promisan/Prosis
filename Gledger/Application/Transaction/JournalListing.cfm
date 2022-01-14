@@ -215,7 +215,7 @@
 						<td style="padding-left:7px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'Pending')">  				
 						<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="Pending" <cfif URL.IDStatus eq "Pending">checked</cfif>>
 						</td>
-						<td class="fixlength">
+						<td class="fixlength" style="padding-left:5px">
 						<cf_tl id="Pending for Clearance">
 						</td>
 						
@@ -238,7 +238,7 @@
 						<td style="padding-left:4px;cursor: pointer;" onclick="reloadForm(document.getElementById('page').value,'All')">
 						<input type="radio" style="height:18px;width:18px" class="radiol" name="Status" value="All" <cfif URL.IDStatus eq "All" or URL.IDStatus eq "">Checked</cfif>>
 						</td>
-						<td style="padding-left:5px;padding-right:10px">
+						<td class="fixlength" style="padding-left:5px;padding-right:10px">
 						<cf_tl id="All Valid">
 						</td>
 						

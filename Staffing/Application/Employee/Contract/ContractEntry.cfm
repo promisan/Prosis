@@ -614,11 +614,11 @@
 					
 		<cfoutput>				
 		<tr>			
-	  	<TD class="labelmedium"><a id="contractselect" href="javascript:selectscale('#url.id#',document.getElementById('ContractType').value,'#url.id1#')"><cf_tl id="Grade">:</TD>
+	  	<TD class="labelmedium"><a id="contractselect" href="javascript:selectscale('#url.id#',document.getElementById('ContractType').value,'#url.id1#',document.getElementById('mission').value)"><cf_tl id="Grade">:</TD>
 		    <TD><input type="text" name="contractlevel" id="contractlevel" value="#lastcontract.contractlevel#" size="20" maxlength="20" readonly class="regularxxl" style="background-color: f4f4f4;"></TD> 
 		</tr>
 		<tr>
-		<TD class="labelmedium"><a href="javascript:selectscale('#url.id#',document.getElementById('ContractType').value,'#url.id1#')"><cf_tl id="Step">:</a></TD>
+		<TD class="labelmedium"><a href="javascript:selectscale('#url.id#',document.getElementById('ContractType').value,'#url.id1#',document.getElementById('Mission').value)"><cf_tl id="Step">:</a></TD>
 			<TD><input type="text" id="contractstep" name="contractstep" value="#lastcontract.contractstep#" style="background-color: f4f4f4;" class="regularxxl" size="4" maxlength="4" readonly></TD> 							
 		</tr>
 		</cfoutput>

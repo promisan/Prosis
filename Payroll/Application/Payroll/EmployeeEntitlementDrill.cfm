@@ -11,7 +11,7 @@
 				
 </cfif>				
 
-<table align="right">
+<table align="right" class=":navigation_table">
 	
 	<cfquery name="Entitlement" 
 	datasource="AppsPayroll" 
@@ -102,10 +102,16 @@
 		) as D
 	
 	GROUP BY EntitlementYear,
-	         EntitlementMonth,
-	         SalarySchedule,
+	         EntitlementMonth,	         
 		     Mission,			 
-	         PaymentCurrency		 		 
+	         PaymentCurrency,
+			 SalarySchedule		 
+			 
+	ORDER BY EntitlementYear,
+	         EntitlementMonth,	         
+		     Mission,			 
+	         PaymentCurrency,
+			 SalarySchedule				 		 
 			 
 	</cfquery>
 	
@@ -144,8 +150,8 @@
 		
 		<cfset c = "transparent">
 				
-		<tr bgcolor="#c#"  class="labelmedium line" style="height:21px">
-			<td style="width:20px;">
+		<tr bgcolor="#c#"  class="labelmedium line navigation_row" style="height:21px">
+			<td style="width:20px;padding-left:4px">
 				<cfif Entitlement.currentrow eq 1>
 					<cf_tl id="Toggle detail" var="1">
 					<img src="#session.root#/images/plus_green.png" 
@@ -155,6 +161,7 @@
 				</cfif>
 			</td>
 			<td style="width:40%;padding-left:5px;padding-right:15px"><cfif url.mode neq "Year">#EntitlementYear#</cfif> #MonthAsString(EntitlementMonth)#</td>				
+			<td align="right" style="max-width:45px;min-width:45px">#SalarySchedule#</td>
 			<td align="right" style="max-width:45px;min-width:45px"></td>
 			<td align="right" style="max-width:45px;min-width:45px"></td>
 			<td align="right" style="max-width:45px;min-width:45px"></td>	
@@ -243,14 +250,14 @@
 			 <cfloop query="Leg">			
 					
 			<tr bgcolor="ffffcf" class="labelmedium line clsEntitlementDrillDetail_#URL.ID#_#URL.Year#_#URL.Item#_#URL.Curr#" style="height:17px; display:none;">
-				<td bgcolor="ffffff" style="width:20px;"></td>
-				<td style="font-size:10px;border-left:1px solid silver;width:40%;padding-left:6px">#ServiceLocation# : #ServiceLevel#/#ServiceStep# : #ComponentName#</td>	
-				<td align="right" style="font-size:10px;max-width:40px;min-width:40px"><cfif entitlementPercentage neq "">#entitlementPercentage#%</cfif></td>				
-				<td align="right" style="font-size:10px;max-width:40px;min-width:40px">#SalaryDays#</td>
-				<td align="right" style="font-size:10px;max-width:40px;min-width:40px">#SalarySLWOP#</td>
-				<td align="right" style="font-size:10px;max-width:40px;min-width:40px">#SalarySUSPEND#</td>	
-				<td align="right" style="font-size:10px;max-width:40px;min-width:40px">#SalarySickLeave#</td>							
-				<td align="right" style="font-size:10px;padding-right:20px!important">
+				<td bgcolor="ffffff" style="width:20px;"></td>				
+				<td colspan="2" style="border-left:1px solid silver;min-width:40%;padding-left:6px">#ServiceLocation#: #ServiceLevel#/#ServiceStep#: #ComponentName#</td>	
+				<td align="right" style="max-width:40px;min-width:40px"><cfif entitlementPercentage neq "">#entitlementPercentage#%</cfif></td>				
+				<td align="right" title="Salary days" style="max-width:40px;min-width:40px">#SalaryDays#</td>
+				<td align="right" title="SLWOP" style="max-width:40px;min-width:40px">#SalarySLWOP#</td>
+				<td align="right" title="Suspend" style="max-width:40px;min-width:40px">#SalarySUSPEND#</td>	
+				<td align="right" title="Sickleave" style="max-width:40px;min-width:40px">#SalarySickLeave#</td>							
+				<td align="right" style="padding-right:20px!important">
 				<cfset am = round(EntitlementAmount*100)/100>					
 				#numberFormat(am,",.__")#
 				</td>
@@ -265,3 +272,5 @@
 	</cfoutput>
 		
 </table>
+
+<cfset ajaxOnload("doHighlight")>

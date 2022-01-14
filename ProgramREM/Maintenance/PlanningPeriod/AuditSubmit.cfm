@@ -40,12 +40,12 @@ WHERE  Period = '#URL.ID#'
 	
 	<cfquery name="Check" 
 		datasource="AppsProgram" 
-		username=#SESSION.login# 
-		password=#SESSION.dbpw#>
-		SELECT * 
-		FROM Ref_Audit  
-		WHERE AuditDate = #Dte#
-		and Period = '#URL.ID#'
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT  * 
+		FROM    Ref_Audit  
+		WHERE   AuditDate = #Dte#
+		AND     Period = '#URL.ID#'
 		</cfquery>		
 		
 		<cfif Check.recordcount eq "0">
@@ -77,8 +77,8 @@ WHERE  Period = '#URL.ID#'
 			
 			<cfquery name="Check" 
 			datasource="AppsProgram" 
-			username=#SESSION.login# 
-			password=#SESSION.dbpw#>
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
 			   SELECT * 
 	    	   FROM   Ref_Audit  
 			   WHERE  AuditDate = #Dte#
@@ -162,9 +162,11 @@ WHERE  Period = '#URL.ID#'
 	
 	</cfif>
 	
+	
 	<cfinclude template="../../Application/Tools/ZeroBaseRatio.cfm">	
-
+		
 	<cfinclude template="Audit.cfm">		  
+	
 		
 <cfelse>
 

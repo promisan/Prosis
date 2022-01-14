@@ -8,8 +8,8 @@ password="#SESSION.dbpw#">
 
 	SELECT   DISTINCT FO.SubmissionEdition, FO.ReferenceNo, FO.FunctionId, FO.OfficerUserId, FO.OfficerLastName, FO.OfficerFirstName, FO.Created
 	FROM     FunctionOrganization AS FO INNER JOIN
-             	     Vacancy.dbo.DocumentPost AS DP ON FO.DocumentNo = DP.DocumentNo INNER JOIN
-                		 Employee.dbo.Position AS P ON DP.PositionNo = P.PositionNo
+             Vacancy.dbo.DocumentPost AS DP ON FO.DocumentNo = DP.DocumentNo INNER JOIN
+             Employee.dbo.Position AS P ON DP.PositionNo = P.PositionNo
 	WHERE    P.SourcePostNumber IN (SELECT SourcePostNumber 
 	                                FROM   Employee.dbo.PositionParent 
 									WHERE  PositionParentid = '#url.id#')
@@ -18,6 +18,38 @@ password="#SESSION.dbpw#">
 
 </cfquery>
 
+
+<cfif history.recordcount eq "0">
+
+	<cfquery name="get"
+		datasource="AppsSelection" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		SELECT * 
+	    FROM   Employee.dbo.PositionParent 
+		WHERE  PositionParentid = '#url.id#'
+	</cfquery>	
+	
+	<!--- we look for whide --->
+	
+	<cfquery name="history"
+	datasource="AppsSelection" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	
+		SELECT       DISTINCT TOP (3) FO.SubmissionEdition, FO.ReferenceNo, FO.FunctionId, FO.OfficerUserId, FO.OfficerLastName, FO.OfficerFirstName, FO.Created
+		FROM         FunctionOrganization AS FO INNER JOIN
+		             Vacancy.dbo.DocumentPost AS DP ON FO.DocumentNo = DP.DocumentNo
+		WHERE        FO.FunctionNo = '#get.FunctionNo#' 
+		AND          FO.FunctionId IN (SELECT FunctionId FROM FunctionOrganizationNotes) 
+		AND          FO.GradeDeployment = '#get.PostGrade#'
+		ORDER BY     FO.Created DESC
+	
+	</cfquery>
+
+</cfif>
+
+
 <cfform name="profile#url.languagecode#">
 	
 	<table width="100%">
@@ -25,8 +57,6 @@ password="#SESSION.dbpw#">
 		<cfif url.accessmode eq "view">
 			
 			<tr><td colspan="2" class="linedotted"></td></tr>
-			
-			
 			
 			<tr class="line">
 			

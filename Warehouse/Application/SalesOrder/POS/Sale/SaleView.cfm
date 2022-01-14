@@ -113,7 +113,7 @@ password="#SESSION.dbpw#">
 			
 			<table height="100%" width="100%" border="0">			
 			
-			<tr id="header" class="<cfif url.scope eq 'POS'>regular<cfelse>hide</cfif>" style="border-bottom:1px solid gray">
+			<tr id="header" class="<cfif url.scope eq 'POS'>regular<cfelse>hide</cfif>">
 																		
 			    <td width="100%" style="height:63px;border-bottom-left-radius:0px;background-image: linear-gradient(to bottom,##ffffff,##d6d6d6);">
 												  											
@@ -125,7 +125,7 @@ password="#SESSION.dbpw#">
 													
 						  <cf_getWarehouseTime warehouse="#url.warehouse#">	
 																			
-						  <table>
+						  <table style="height:100%">
 						  
 					        <tr>
 							
@@ -137,7 +137,7 @@ password="#SESSION.dbpw#">
 										   FROM Parameter
 										   WHERE HostName = '#CGI.HTTP_HOST#'  
 					                   </cfquery>
-
+								
 					                   <cfif find(":",getLogo.logopath)>
 					                       <cfimage
 					                           action = "write"
@@ -148,13 +148,13 @@ password="#SESSION.dbpw#">
 					                   <cfelse>
 					                       <cfset vLogoSource="#SESSION.root#/#getLogo.logopath#/#getLogo.logofilename#">
 					                   </cfif>
-					                   <img style="border:1px solid silver;border-radius:5px;height:48px" src="#vLogoSource#">
+					                   <img style="border:0px solid silver;border-radius:5px;height:42px" src="#vLogoSource#">
 									   &nbsp;
 					                </td>
 					            
-	                            <td align="left" style="padding-top:14px:padding-left:8px;font-size:32px">
+	                            <td valign="bottom" align="left" class="fixlength" style="min-width:500px;padding-left:8px;font-size:28px">
 	                                    #get.WarehouseName#
-	                                    <span style="padding-left:8px;font-size:13px">#get.Address#</span>						  
+	                                    <span title="#get.Address#" style="padding-left:8px;font-size:13px">#get.Address#</span>						  
 								 </td>  
 					        </tr>		
 														
@@ -533,7 +533,7 @@ password="#SESSION.dbpw#">
 										
 								  		<cf_selectlookup
 										    box          = "salelines"
-											title        = "Customer Invoice"
+											title        = "CustomerInvoice"
 											icon         = "Logos/Search.png"
 											link		 = "#link#"
 											des1		 = "CustomerIdInvoice"
@@ -582,7 +582,7 @@ password="#SESSION.dbpw#">
 						
 			<table height="100%" align="left">
 									
-			<tr style="height:32px;">
+			<tr style="height:32px;fixlengthlist">
 								
 					<td style="border:0px solid silver;min-width:60px;font-size:20px" id="trarequestno" align="center">					
 					<cfinclude template="getCustomerRequest.cfm">					
@@ -592,7 +592,7 @@ password="#SESSION.dbpw#">
 					<!--- CURRENCY SELECT --->
 					<!--- --------------- --->		
 			
-					<td style="border:0px solid silver;border-bottom:0px solid gray;height:20px;padding-right:4px;min-width:80px;padding-left:15px; color:##000000;"><cf_tl id="currency"></td>
+					<td style="border:0px solid silver;border-bottom:0px solid gray;height:20px;padding-right:4px;padding-left:15px; color:##000000;"><cf_tl id="currency"></td>
 					<td style="min-width:70px;border-bottom:0px solid gray">				
 									
 					<cfquery name="currencylist" 
@@ -619,13 +619,13 @@ password="#SESSION.dbpw#">
 					<!--- ---Commision--- --->
 					<!--- --------------- --->		
 					
-					<td align="right" style="padding-left:15px;border-top:0px solid gray;border-right:0px solid gray">
+					<td align="right" style="padding-left:10px;border-top:0px solid gray;border-right:0px solid gray">
 					
 						<table style="height:100%">
 						<tr class="labelmedium2">
 						
-						<td style="padding-right:10px; color:000000;min-width:70px"><cf_tl id="Sale"></td>
-						<td style="min-width:160px;border-left:0px solid gray" id="personbox">
+						<td style="padding-right:10px; color:000000"><cf_tl id="Sale"></td>
+						<td style="min-width:120px;border-left:0px solid gray" id="personbox">
 						
 						<!--- get people that have an active assignment in the mission and in the orgunit of the warehouse --->
 																
@@ -646,12 +646,12 @@ password="#SESSION.dbpw#">
 					<!--- SCHEDULE SELECT --->
 					<!--- --------------- --->				
 					
-					<td align="left" style="padding-left:15px;;border-top:0px solid gray;border-right:0px solid gray">
+					<td align="left" style="padding-left:10px;;border-top:0px solid gray;border-right:0px solid gray">
 					
 						<table style="height:100%">
 						<tr class="labelmedium2">						
-						<td style="padding-right:10px; color:##000000;min-width:90px"><cf_tl id="Schedule"></td>
-						<td style="min-width:130px;border-left:0px solid gray" id="schedulebox">
+						<td style="padding-right:10px; color:##000000"><cf_tl id="Schedule"></td>
+						<td style="min-width:100px;border-left:0px solid gray" id="schedulebox">
 						
 						<cfinclude template="getSchedule.cfm">					
 						
@@ -670,7 +670,7 @@ password="#SESSION.dbpw#">
 						
 						<tr class="labelmedium2">
 						
-						<td style="padding-left:15px;padding-right:10px; color:##000000;"><cf_tl id="Discount"></td>
+						<td style="padding-left:10px;padding-right:10px; color:##000000;"><cf_tl id="Discount"></td>
 						<td style="border-left:0px solid gray;border-right:0px solid gray;" id="discountbox">
 						
 						<cfinclude template="getDiscount.cfm">

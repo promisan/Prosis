@@ -221,7 +221,7 @@
 			   	   
 			   <tr class="line">
 			   			   			  
-				   <td width="<cfoutput>#w#</cfoutput>" height="35" style="padding-left:9px" class="labelmedium"><cf_tl id="Other attachment(s)">:</td>
+				   <td width="<cfoutput>#w#</cfoutput>" height="35" style="padding-left:9px" class="fixlength labelmedium"><cf_tl id="Other attachment(s)">:</td>
 				   <td style="width:90%">
 			       <table width="97%" cellspacing="0" cellpadding="0">
 				   <tr><td>

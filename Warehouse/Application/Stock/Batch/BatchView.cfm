@@ -284,7 +284,7 @@ password="#SESSION.dbpw#">
 							<tr>
 												
 								<td width="20">
-																														
+																																														
 								<cfif fullAccess eq "GRANTED" or editAccess eq "GRANTED">
 																																					
 								    <cfdiv id="iconfirm">
@@ -299,15 +299,15 @@ password="#SESSION.dbpw#">
 												AND      ActionStatus = '0'
 										</cfquery>																										
 																								
-										<cfif enforcelines eq "0" or check.recordcount eq "0">	
+										<cfif enforcelines eq "0" or check.recordcount gte "0">	
 																						   
 												<cf_button onclick="batchdecision('confirm')" 
-												    mode="greenlarge" 
-													name="Confirm" 
-													id="Confirm" 
-													label="Confirm" 
-													label2="transaction" 
-													icon="images/selectDocument.gif">													
+												    mode   = "greenlarge" 
+													name   = "Confirm" 
+													id     = "Confirm" 
+													label  = "Confirm" 
+													label2 = "transaction" 
+													icon   = "images/selectDocument.gif">													
 																				
 										</cfif>
 														
@@ -317,7 +317,7 @@ password="#SESSION.dbpw#">
 								
 					    		</td>	
 								
-								<td align="center" style="padding-left:25px">		
+								<td align="center" style="padding-left:25px" class="fixlength">		
 											
 																								
 								<!--- validate of the transactions of the batch were already sourced --->
@@ -355,7 +355,7 @@ password="#SESSION.dbpw#">
 									
 								<cfelse>
 								
-								    Has been collected : <cfoutput>#check.recordcount#</cfoutput>	
+								    <b>Has been collected: <cfoutput>#check.recordcount#</cfoutput></b>	
 									
 								</cfif>	
 								

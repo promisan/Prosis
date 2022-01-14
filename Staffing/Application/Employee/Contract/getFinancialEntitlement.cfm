@@ -37,13 +37,15 @@
 		                            FROM   Ref_PayrollTriggerContractType
 									WHERE  ContractType = '#url.contracttype#'
 									AND    Operational = 1)
+									
+									
 		</cfif>							
 									
 		AND      ( SalaryTrigger IN (
 		                            SELECT  RC.SalaryTrigger
 									FROM    SalaryScheduleComponent SC INNER JOIN
 					                        Ref_PayrollComponent RC ON SC.ComponentName = RC.Code
-									WHERE   SC.SalarySchedule = '#url.salarySchedule#'
+									WHERE   SC.SalarySchedule = '#url.salarySchedule#' 
 									)  	
 									
 			OR 

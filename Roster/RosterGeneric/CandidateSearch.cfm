@@ -153,7 +153,7 @@ function list(page) {
 										SELECT   * 
 										FROM     Ref_ApplicantClass
 										WHERE    ApplicantClassId = '#url.class#'					
-									</cfquery>			
+									</cfquery>		
 														
 																				
 									<cfif url.class neq "">:&nbsp;<b>#Class.Description#</b>
@@ -213,7 +213,7 @@ function list(page) {
 				
 				<td height="20" name="search">				
 								
-					<table width="90%" align="center" class="formspacing">
+					<table width="98%" align="center" class="formspacing">
 							   						
 						<tr class="labelmedium2">
 							

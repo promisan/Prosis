@@ -72,17 +72,17 @@ function ask() {
 	<cfinput type="hidden" name="UoM" value="#url.uom#">
 	<cfinput type="hidden" name="TemperatureOld" value="#url.temperature#">		
 	
-    <TR>
-    <TD class="labelit" width="20%">Temperature:</TD>
+    <TR class="fixlengthlist labelmedium2">
+    <TD width="20%">Temperature:</TD>
     <TD>
-   		<cfinput type="text" name="Temperature" value="#get.Temperature#" size="10" required="yes" message="Please, enter a valid numeric temperature" validate="numeric" maxlength="20" style="text-align:right; padding-right:2px;" class="regularxl">	
+   		<cfinput type="text" name="Temperature" value="#get.Temperature#" size="10" required="yes" message="Please, enter a valid numeric temperature" validate="numeric" maxlength="20" style="text-align:right; padding-right:2px;" class="regularxxl">	
     </TD>
 	</TR>	
 	
-	<TR>
-    <TD class="labelit"><cf_tl id="Volume Ratio">:</TD>
+	<TR class="fixlengthlist labelmedium2">
+    <TD><cf_tl id="Volume Ratio">:</TD>
     <TD>
-  	   <cfinput type="text" name="VolumeRatio" value="#get.volumeRatio#" size="10" required="yes" message="Please, enter a valid numeric volume ratio" validate="numeric" maxlength="20" style="text-align:right; padding-right:2px;" class="regularxl">
+  	   <cfinput type="text" name="VolumeRatio" value="#get.volumeRatio#" size="10" required="yes" message="Please, enter a valid numeric volume ratio" validate="numeric" maxlength="20" style="text-align:right; padding-right:2px;" class="regularxxl">
     </TD>
 	</TR>
 		

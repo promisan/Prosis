@@ -171,7 +171,7 @@
 	  		 		 				 		 	  	     
 	     <cfif ActionDescription eq "">
 
-			 <table id="ad#drag#"  height="100%" align="center" cellpadding="0" cellspacing="0">
+			 <table id="ad#drag#"  height="100%" align="center">
 		  	 <tr><td align="center" bgcolor="transparent" style="width:170px;padding-top:2px;padding-bottom:2px">STOP 
 			 			 			 							  
 		 <cfelseif Check.ActionOrder neq "" and URL.Connector eq "INIT">
@@ -338,9 +338,9 @@
 					<cfset first = "YES">
 					<cfloop query="Branch">
 						<tr style="cursor: pointer;" 
-					    onMouseOver="javascript:showaction('#drag#','#Branch.ProcessActionCode#','clsFlowActionHighlight labelit','clsFlowActionHighlight labelit')"
-						onMouseOut="javascript:showaction('#drag#','#Branch.ProcessActionCode#','labelit','labelit')">
-							<td colspan="3" style="height:20px" align="right" bgcolor="FDDCAA" id="#Branch.ProcessActionCode##drag#">
+					    onMouseOver="javascript:showaction('#drag#','#Branch.ProcessActionCode#','clsFlowActionHighlight labelmedium','clsFlowActionHighlight labelmedium')"
+						onMouseOut="javascript:showaction('#drag#','#Branch.ProcessActionCode#','labelit','labelmedium')">
+							<td colspan="3" style="height:15px;padding-right:4px" class="labelmedium" align="right" bgcolor="FDDCAA" id="#Branch.ProcessActionCode##drag#">
 							<cfif first eq "YES">
 								<cfswitch expression="#sendback#">
 									<cfcase Value = '1'><img src="#SESSION.root#/images/SendDown.gif" alt="" border="0" style="cursor: pointer;"></cfcase>
@@ -349,7 +349,7 @@
 								</cfswitch>
 								<cfset First = "NO">
 							</cfif>
-							<font size="1">#Branch.ProcessActionCode#</font>
+							#Branch.ProcessActionCode#
 							</td>
 						</tr> 
 					</cfloop>

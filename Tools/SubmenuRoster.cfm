@@ -80,7 +80,7 @@
 	 
      <cfif row eq "1"><TR class="line"></cfif>
 
-     <td width="50%" colspan="3" align="center">
+     <td width="50%" colspan="3" align="center" style="padding-left:20px">
 	 	 	 
 	 <cfset condition = FunctionCondition>
 	 	 
@@ -98,12 +98,12 @@
 	  	  
 	  </cfif>
 	 	 	 	 
-	    <tr style="cursor:pointer">
+	    <tr style="cursor:pointer" class="fixlengthlist">
 	        <td style="min-width:50px" align="center">       
 			  <cfinclude template="submenuImages.cfm">		
 			</td>
 			<td width="100%" style="padding-left:7px;font-size:16px" class="labelmedium">#FunctionName#</td>   
-			<td style="font-size:12px;min-width:20%;padding-right:5px;padding-top:2px" align="right" valign="top">#FunctionMemo#</td>
+			<td style="font-size:12px;min-width:20%;padding-right:5px;padding-top:7px" align="right" valign="top">#FunctionMemo#</td>
 			
         </tr>
 				       
@@ -134,6 +134,8 @@
       onMouseOver="hl(this,true,'#FunctionName#')" onMouseOut="hl(this,false,'')">
 	  	  	  
 	  </cfif>
+	  
+	   <tr style="cursor:pointer" class="fixlengthlist">
      	 	   
      <td style="width:20px;" align="center">	      
     	 <cfinclude template="submenuImages.cfm">    
@@ -143,8 +145,7 @@
 	 <td align="right" style="padding-right:10px">#FunctionMemo#</td>
     	    
      </tr> 
-  
-    	 	    
+      	 	    
      </table>
     
      </td></tr> 

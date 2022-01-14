@@ -269,14 +269,11 @@ password="#SESSION.dbpw#">
 				<TR class="labelmedium line fixrow fixlengthlist">
 				    <td height="20"></td>		   
 					<TD><cf_tl id="Name"></TD>
-					<TD><cf_tl id="Function"></TD>
-					<!---
-				    <TD><cf_tl id="Nat."></TD>
-					--->
-					<TD style="min-width:30px"><cf_tl id="S"></TD>
+					<TD><cf_tl id="Function"></TD>					
+					<TD><cf_tl id="S"></TD>
 					<TD><cf_tl id="Index No"></TD>	
 					<cfif accessstaffing neq "NONE">								
-					<TD style="min-width:70px"><cf_tl id="Id"></TD>
+					<TD><cf_tl id="Id"></TD>
 					</cfif>
 					<!---
 					<TD><cf_tl id="DOB"></TD>

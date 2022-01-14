@@ -36,7 +36,7 @@
 		</cfquery>
 			
 	    <td height="40" align="center" class="labelit"
-	    style="border-left: 1px solid Silver; border-right: 1px solid Silver;"><b><cfif Edit.Period eq "">#Edit.Description#<cfelse>#Per.Description#</cfif></b> <cfif Parameter.BudgetAmountMode eq "1"><br>($'000)</cfif></td>
+	    style="border-left: 1px solid Silver; border-right: 1px solid Silver;"><b><cfif Edit.Period eq "">#Edit.Description#<cfelse>#Per.Description#</cfif></b> <cfif Parameter.BudgetAmountMode eq "1"><br>(#Parameter.BudgetCurrency#'000)</cfif></td>
 	      
 	  </cfloop>
   

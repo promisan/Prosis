@@ -295,7 +295,7 @@ password="#SESSION.dbpw#">
 									</td>
 									</tr>
 								
-									<tr>								
+									<tr class="fixlengthlist">								
 										<td style="padding-left:14px;padding-right:4px">						
 										#Dateformat(Created, "DD/MM/YY")# :
 										<cfif menuclass eq "Builder">					
@@ -303,7 +303,7 @@ password="#SESSION.dbpw#">
 										<cfelse>				
 											<cfif FunctionPath eq ""><b>jv:</b>&nbsp;#ScriptName#
 											<cfelse>
-												<cfif len(FunctionPath) gt 44>#left(FunctionPath,30)#...<cfelse>#FunctionPath#</cfif>
+												#FunctionPath#
 											</cfif>						
 										</cfif>						
 										</td>								
@@ -317,14 +317,14 @@ password="#SESSION.dbpw#">
 							   <cfif Operational eq "0"><font color="FF0000">D</font><cfelse></cfif>
 						    </TD>	
 							
-							<TD id="role#SystemFunctionId#">
+							<TD id="role#SystemFunctionId#" style="padding-left:5px;padding-right:5px">
 							    <cfif systemmodule neq "selfservice" or systemmodule eq "pmobile">
 									<cfset url.id = "#SystemFunctionId#">
 									<cfinclude template="RecordListingGroup.cfm">		
 								</cfif>
 							</TD>
 								
-							<TD id="role#SystemFunctionId#">
+							<TD id="role#SystemFunctionId#" style="padding-left:5px;padding-right:5px">
 							    <cfif systemmodule neq "selfservice" or systemmodule eq "pmobile">
 									<cfset url.id = "#SystemFunctionId#">
 									<cfinclude template="RecordListingRole.cfm">		

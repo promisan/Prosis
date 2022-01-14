@@ -9,11 +9,9 @@ password="#SESSION.dbpw#">
 	DELETE FROM AuditIncumbency
 </cfquery>
 
-
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#PositionParent">
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#PersonAssignment">
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#PersonContract">
-
 
 <cfquery name="getBaseSet" 
 datasource="AppsEmployee" 
@@ -119,11 +117,10 @@ password="#SESSION.dbpw#">
 		SELECT PersonNo
 		FROM   UserQuery.dbo.#SESSION.acc#PersonAssignment
 	)
-	AND  HistoricContract = '0'
+	-- AND  HistoricContract = '0'
 </cfquery>
 
 <cfinclude template="VerifyStaffingInconsistencies.cfm">
-
 
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
@@ -161,10 +158,9 @@ password="#SESSION.dbpw#">
 		
 		<cfoutput>
 	
-			<cfif AuditElement eq "Position">	
+			<cfif AuditElement eq "Position">			    
 			    
-			    
-				<tr class="labelmedium2 line navigation_row">
+				<tr class="labelmedium2 line navigation_row fixlengthlist">
 				    <td style="padding-left:20px;">#currentrow#.</td>
 				    <td style="padding-left:4px">
 					   <cf_img navigation="Yes" icon="edit"
@@ -175,11 +171,11 @@ password="#SESSION.dbpw#">
 					<td style="padding-left:4px;padding-right:4px">#OrgUnitName#</td>
 					<td style="padding-left:4px;padding-right:4px">#FunctionDescription#</td>
 					<td style="padding-left:4px;padding-right:4px">#PostGrade#</td>
-					<td style="background-color:##ffffaf80;padding-left:4px;font-size:12px">#Observation#</td>
+					<td title="#observation#" style="background-color:##ffffaf80;padding-left:4px;font-size:12px">#Observation#</td>
 				</tr>
 				
 			<cfelseif AuditElement eq "Person">
-				<tr class="labelmedium2 line navigation_row">
+				<tr class="labelmedium2 line navigation_row fixlengthlist">
 				    <td style="padding-left:20px;">#currentrow#.</td>
 				    <td style="padding-left:4px"> <a href="javascript:EditPerson('#AuditPersonNo#')">#AuditPersonNo#</a></td>
 					<td style="padding-left:4px;padding-right:4px">#IndexNo#</td>
@@ -187,7 +183,7 @@ password="#SESSION.dbpw#">
 					<td style="padding-left:4px;padding-right:4px">#DateFormat(BirthDate, CLIENT.DateFormatShow)#</td>
 					<td style="padding-left:4px;padding-right:4px">#Gender#</td>
 					<td style="padding-left:4px;padding-right:4px">#Nationality#</td>
-					<td style="background-color:##ffffaf80;padding-left:4px;font-size:12px">#Observation#</td>
+					<td title="#observation#" style="background-color:##ffffaf80;padding-left:4px;font-size:12px">#Observation#</td>
 				</tr>
 			</cfif>
 					
@@ -202,10 +198,7 @@ password="#SESSION.dbpw#">
 
 </table>
 
-
-
 <cfset ajaxonload("doHighlight")>
-
 
 <!--- employee verification
 

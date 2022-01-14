@@ -145,7 +145,7 @@ password="#SESSION.dbpw#">
 
 <cfif currentrow gte first>
 
-	<tr class="navigation_row line labelmedium" style="height:21px">
+	<tr class="navigation_row line labelmedium fixlengthlist" style="height:21px">
 		  
 	    <td width="35" style="padding-top:2px;padding-left:5px;padding-right:6px" class="navigation_action" 
 		 onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#taxcode#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			  

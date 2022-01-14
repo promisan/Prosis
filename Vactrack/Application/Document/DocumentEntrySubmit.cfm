@@ -229,18 +229,22 @@ password="#SESSION.dbpw#">
 	<cfif url.box neq "" and url.box neq "undefined">
 			
 		<script>
+		
 			try {
 				parent.ProsisUI.closeWindow('mydialog')
 			} catch(ex) {
 				ProsisUI.closeWindow('mydialog')
 			}
+			
 	    	<cfif url.box eq "isearch">
 	    		parent.document.getElementById("gosearch").click();	    	
 			<cfelse>
 				try {
 		   	   		parent.document.getElementById("refresh_#url.box#").click();
-				} catch(e) {
+				} catch(e) {				
+				    try {
 					document.getElementById("refresh_#url.box#").click();
+					} catch(e) {}
 				}
 		   	</cfif>
 			

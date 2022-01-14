@@ -7,6 +7,7 @@
 	<cf_tl id = "Item Details"        var = "vDetails">
 	<cf_tl id = "Sales Pricing"       var = "vPricing">
 	<cf_tl id = "Barcode"             var = "vBarcode">
+	<cf_tl id = "Labels"              var = "vLabels">
 	<cf_tl id = "Entity & Cost Price" var = "vCost">
 	<cf_tl id = "Temperature"         var = "vTemp">
 	
@@ -36,6 +37,17 @@
 					padding    = "2"
 					name       = "#vBarcode#"
 					source     = "UoMBarcode/ItemUoMBarcode.cfm?ID=#URL.ID#&UoM=#URL.UoM#">
+		
+		<cfset itm = itm+1>
+		
+		<cf_menutab item       = "#itm#" 
+		            iconsrc    = "Barcode.png" 
+					iconwidth  = "#wd#" 
+					iconheight = "#ht#"
+					targetitem = "2"
+					padding    = "2"
+					name       = "#vLabels#"
+					source     = "UoMLabel/ItemUoMLabel.cfm?ID=#URL.ID#&UoM=#URL.UoM#">
 					
 		<cfset itm = itm+1>			
 		

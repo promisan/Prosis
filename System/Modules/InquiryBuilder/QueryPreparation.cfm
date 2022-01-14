@@ -1,15 +1,24 @@
 
-<cfparam name="functionserialNo" default="1">
+<cfquery name="Module" 
+	datasource="AppsSystem" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT * 
+	FROM    Ref_ModuleControlDetail
+	WHERE   SystemFunctionId = '#systemfunctionid#' 
+	AND     FunctionSerialNo = '#functionserialno#'
+</cfquery>  
 
-<cfquery name="Module"
-		datasource="AppsSystem"
-		username="#SESSION.login#"
-		password="#SESSION.dbpw#">
-		SELECT  *
-		FROM    Ref_ModuleControlDetail
-		WHERE   SystemFunctionId = '#systemfunctionid#'
-	    AND     FunctionSerialNo = '#functionserialno#'
-</cfquery>
+
+
+<cfquery name="Param" 
+	datasource="AppsInit" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT * 
+	FROM Parameter
+	WHERE HostName = '#CGI.HTTP_HOST#' 	
+</cfquery> 
 
 <cfinclude template="QueryPreparationVars.cfm">
 
@@ -20,37 +29,34 @@
 
 <cfif Module.preparationscript neq "">
 
-	<cffile action="WRITE"
-			file="#SESSION.rootDocumentpath#\CFRStage\user\#SESSION.acc#\Listing.cfm"
-			output="#Module.preparationscript#"
-			addnewline="Yes"
-			fixnewline="No">
-
+	<cf_getmid>
+	<cffile action="WRITE" 
+	    file="#Param.ListingRootPath#\Listing#mid#.cfm" 
+		output="#Module.preparationscript#" 
+		addnewline="Yes" 
+		fixnewline="No">
+			
 	<cfloop index="t" from="1" to="20">
-		<cfset tbl  = Evaluate("Answer" & #t#)>
-		<cfif tbl neq "">
-			<CF_DropTable dbName="appsQuery" tblName="#tbl#" timeout="6">
-		</cfif>
+		 <cfset tbl  = Evaluate("Answer" & #t#)>
+		 <cfif tbl neq "">
+			 <CF_DropTable dbName="appsQuery" tblName="#tbl#" timeout="6"> 
+		 </cfif>
 	</cfloop>
-
+	
 	<cfparam name="url.mission" default="">
-
+		
 	<cftry>
-
-		<cftransaction isolation="read_uncommitted">
-			<cfoutput>
-				#Module.preparationscript#
-			</cfoutput>
+	
+		<cftransaction isolation="read_uncommitted">	
+			<cfinclude template="/Listing/Listing#mid#.cfm">
 		</cftransaction>
-
-		<cfcatch>
-
-			<cfoutput>
-				#Module.preparationscript#
-			</cfoutput>
-
-		</cfcatch>
+	
+	<cfcatch>
+	
+	<cfinclude template="/Listing/Listing#mid#.cfm">
+	
+	</cfcatch>
 	</cftry>
 
-</cfif>
+</cfif> 
 

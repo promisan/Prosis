@@ -11,7 +11,7 @@
 			SET      EMailAddress = '#email#'
 			WHERE    ActionId = '#url.actionid#'       
 	</cfquery>
-	
+			
 	<cfoutput>
 	
 		<cf_tl id="eMail" var="1">

@@ -77,10 +77,11 @@ The output of the reports has 3 variations
 
 <cfset vPath = "#SESSION.rootDocumentPath#\CFRStage\User\#SESSION.acc#\">
 <cfset vPath = Replace(vPath,"\\","\","all")>
+<cfset vPath = Replace(vPath,"//","/","all")>
+
 <cfif not DirectoryExists("#vPath#")>
 
-	<cfdirectory action="CREATE"
-			directory="#vPath#">
+	<cfdirectory action="CREATE" directory="#vPath#">
 
 </cfif>
 
@@ -129,7 +130,7 @@ The output of the reports has 3 variations
 
 		<cfoutput>
 			<script>
-				ptoken.location ("#p#?controlid=#controlid#&reportid=#reportid#&table1=#URL.Table1#&table2=#URL.Table2#&table3=#URL.Table3#&table4=#URL.Table4#&table5=#URL.Table5#&table6=#URL.Table6#&&table7=#URL.Table7#&&table8=#URL.Table8#&table9=#URL.Table9#&table10=#URL.Table10#&variable1=#URL.var1#&variable2=#URL.var2#&variable3=#URL.var3#&variable4=#URL.var4#&variable5=#URL.var5#&variable6=#URL.var6#&variable7=#URL.var7#&variable8=#URL.var8#&variable9=#URL.var9#&variable10=#URL.var10#")
+				ptoken.location("#p#?controlid=#controlid#&reportid=#reportid#&table1=#URL.Table1#&table2=#URL.Table2#&table3=#URL.Table3#&table4=#URL.Table4#&table5=#URL.Table5#&table6=#URL.Table6#&&table7=#URL.Table7#&&table8=#URL.Table8#&table9=#URL.Table9#&table10=#URL.Table10#&variable1=#URL.var1#&variable2=#URL.var2#&variable3=#URL.var3#&variable4=#URL.var4#&variable5=#URL.var5#&variable6=#URL.var6#&variable7=#URL.var7#&variable8=#URL.var8#&variable9=#URL.var9#&variable10=#URL.var10#")
 			</script>
 		</cfoutput>
 		
@@ -137,7 +138,7 @@ The output of the reports has 3 variations
 	    
 	  	<cfoutput>
 	  		<script>			
-				ptoken.location ("#p#?controlid=#controlid#&reportid=#reportid#&table1=#URL.Table1#&table2=#URL.Table2#&table3=#URL.Table3#&table4=#URL.Table4#&table5=#URL.Table5#&table6=#URL.Table6#&&table7=#URL.Table7#&&table8=#URL.Table8#&table9=#URL.Table9#&table10=#URL.Table10#&variable1=#URL.var1#&variable2=#URL.var2#&variable3=#URL.var3#&variable4=#URL.var4#&variable5=#URL.var5#&variable6=#URL.var6#&variable7=#URL.var7#&variable8=#URL.var8#&variable9=#URL.var9#&variable10=#URL.var10#")
+				ptoken.location("#p#?controlid=#controlid#&reportid=#reportid#&table1=#URL.Table1#&table2=#URL.Table2#&table3=#URL.Table3#&table4=#URL.Table4#&table5=#URL.Table5#&table6=#URL.Table6#&&table7=#URL.Table7#&&table8=#URL.Table8#&table9=#URL.Table9#&table10=#URL.Table10#&variable1=#URL.var1#&variable2=#URL.var2#&variable3=#URL.var3#&variable4=#URL.var4#&variable5=#URL.var5#&variable6=#URL.var6#&variable7=#URL.var7#&variable8=#URL.var8#&variable9=#URL.var9#&variable10=#URL.var10#")
 			</script>
 		</cfoutput>
 		
@@ -168,8 +169,7 @@ The output of the reports has 3 variations
 		
 		<cfset format = "#URL.FileFormat#">
 			   
-		<cfswitch expression="#URL.FileFormat#">
-			 <cfcase value="FlashPaper"><cfset suffix = "swf"></cfcase>
+		<cfswitch expression="#URL.FileFormat#">			
 			 <cfcase value="PDF">       <cfset suffix = "pdf"></cfcase>
 			 <cfcase value="RTF">       <cfset suffix = "rtf"></cfcase>
 			 <cfcase value="Excel">     <cfset suffix = "xls"></cfcase>
@@ -198,6 +198,7 @@ The output of the reports has 3 variations
 
 	<!--- KHERRERA Oct 08, 2012:  Added to get the client's timestamp --->
 	<cfset vClientTimeStamp = createDateTime(url.tscYear,url.tscMonth,url.tscDay,url.tscHours,url.tscMinutes,url.tscSeconds)>
+		
 							
 	<cfreport template  = "#reppath#" 
 	   format    = "#format#" 
@@ -249,7 +250,7 @@ The output of the reports has 3 variations
 		<cfreportparam name = "ReportSubTitle"  value="#UserReport.LayoutSubTitle#">			
 
 	</cfreport>		
-	
+		
 	<!--- --------------------------------------------------- --->
 	<!--- as report is generated we can now remove the tables --->
 	<!--- --------------------------------------------------- --->

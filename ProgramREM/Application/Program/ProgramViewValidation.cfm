@@ -1,9 +1,10 @@
-<cfinvoke component 	= "Service.Validation.Controller"  
-   method           	= "Control" 
-   systemFunctionId 	= "#url.systemfunctionid#"		
-   mission          	= "#url.mission#"	  
-   object           	= "Program"
-   objectKeyValue1  	= "#url.ProgramId#"
-   target           	= "validationbox"
-   notificationLayout 	= "mainLayout"
+<cfinvoke component 	  = "Service.Validation.Controller"  
+   method           	  = "Control" 
+   systemFunctionId 	  = "#url.systemfunctionid#"		
+   mission          	  = "#url.mission#"	  
+   object           	  = "Position"
+   objectKeyValue1  	  = "#url.PositionNo#"
+   target           	  = "validationbox"
+   notificationLayout 	  = "mainLayout"
    notificationLayoutArea = "right">
+   

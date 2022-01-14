@@ -299,9 +299,15 @@ password="#SESSION.dbpw#">
 			</tr>
 			
 		</cfif>
-						
-		<cfset vPending = getSale.sTotal - vTotal>
+				
+		<cfif getSale.sTotal eq "">			
+			<cfset sTotal = 0>
+		<cfelse>
+		    <cfset sTotal = getSale.sTotal>
+		</cfif>			
 		
+		<cfset vPending = sTotal - vTotal>		
+				
 		<cfif vPending gt 0.005>		
 			
 			<tr height="45">
@@ -317,16 +323,16 @@ password="#SESSION.dbpw#">
 		<tr>
 		    <td colspan="3"></td>
 			<td colspan="2" style="padding-left:10px;padding-right:20px" class="labelmedium"><cf_tl id="Total Due"><cf_space spaces="40"></td>
-			<td align="right" class="labellarge" style="border-top:1px solid gray;width:400px;font-size:21px;color:gray">#NumberFormat(getSale.sTotal, ',.__')# </td>
+			<td align="right" class="labellarge" style="border-top:1px solid gray;width:400px;font-size:21px;color:gray">#NumberFormat(sTotal, ',.__')# </td>
 			<td></td>
 		</tr>
 		
 		<tr><td colspan="7" class="line"></td></tr>
 		
-		<cfif ABS(vTotal-getSale.sTotal) gte 0.01>
+		<cfif ABS(vTotal-sTotal) gte 0.01>
 				
 			<cfif getSale.recordcount gt 0>
-				<cfset vRemaining = vTotal_Cash - (getSale.sTotal - (vTotal - vTotal_Cash) ) >
+				<cfset vRemaining = vTotal_Cash - (sTotal - (vTotal - vTotal_Cash) ) >
 			<cfelse>
 				<cfset vRemaining = 0>
 			</cfif>		

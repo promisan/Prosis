@@ -22,7 +22,10 @@
 
 <!--- 2. Assignment Date Expiration vs. Contract Date Expiration --->
 
-<cfquery name="Insert"  datasource="AppsEmployee"  username="#SESSION.login#"  password="#SESSION.dbpw#">
+<cfquery name="Insert"  
+    datasource="AppsEmployee"  
+	username="#SESSION.login#"  
+	password="#SESSION.dbpw#">
 
 	INSERT  INTO AuditIncumbency(AuditElement,AuditPersonNo,Observation)
 	SELECT 'Person', 
@@ -41,7 +44,10 @@
 
 <!--- 3. Contract gaps --->
 
-<cfquery name="Insert"  datasource="AppsEmployee"  username="#SESSION.login#"  password="#SESSION.dbpw#">
+<cfquery name="Insert"  
+    datasource="AppsEmployee" 
+	username="#SESSION.login#"  
+	password="#SESSION.dbpw#">
 
 	INSERT  INTO AuditIncumbency(AuditElement,AuditPersonNo,Observation)
 

@@ -119,7 +119,7 @@ password="#SESSION.dbpw#">
 <script>
 
 function mail2(mode,id) {
-	  window.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id="+mode+"&ID1="+id+"&ID0=#Parameter.RequisitionTemplateMultiple#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
+	  ptoken.open("#SESSION.root#/Tools/Mail/MailPrepareOpen.cfm?id="+mode+"&ID1="+id+"&ID0=#Parameter.RequisitionTemplateMultiple#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
 }	
 	
 function openreference(id) {
@@ -225,6 +225,8 @@ function openreference(id) {
 			</cfif>			
 						
 		</tr>
+		
+		
 		
 		<cfif Batch.BatchMemo neq "">
 		
@@ -422,13 +424,45 @@ function openreference(id) {
 					</cfquery>
 																				
 						#dateformat(getTra.Created,client.dateformatshow)#
-						#timeformat(getTra.Created,"HH:MM")#
-						#getTra.officerLastName#
+						#timeformat(getTra.Created,"HH:MM")#<br>
+						<font size="1">#getTra.officerLastName#</font>
 					
 					
 			</td>	
 		
 		</tr>	
+		
+		<cfif batch.AddressId neq "">
+				
+		<tr  class="labelmedium">	
+		        <td></td>
+				
+				<cfquery name="customer" 
+				datasource="appsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				    SELECT *
+				    FROM  Customer
+					WHERE Customerid = '#Batch.CustomerId#'
+				</cfquery>
+				
+		        <td style="background-color:ffffaf;font-size:16px;border:1px solid silver;padding:4px">#Customer.CustomerName#</td>		    		   
+		    	<td style="border:0px solid silver;padding-left:20px"><cf_tl id="Address">:</td>
+				
+				<cfquery name="Address"
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					SELECT        *
+					FROM            System.dbo.Ref_Address
+					WHERE Addressid = '#batch.AddressId#'
+				</cfquery>
+				
+			    <td colspan="3" style="background-color:ffffaf;font-size:16px;border:1px solid silver;padding:4px">#Address.AddressCity# / #Address.Country#</td>		    					
+			</tr>
+		
+		
+		</cfif>
 		
 		<cfif Batch.BatchReference neq "" or actors.recordcount gte "1">				
 			

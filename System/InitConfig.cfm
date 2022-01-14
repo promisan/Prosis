@@ -38,7 +38,9 @@
 <!--- integrity checks --->
 	<cfinclude template="Modules/Functions/ModuleControl/IntegrityCheck.cfm">
 	
-<!--- remove selfservice report instances for excel generated report instances --->
+     <!--- remove selfservice report instances for excel generated report instances 
+	 
+	 15/12/2021 : taken out as this deleted the report field selections 
     
 	<cfquery name="clean" 
 		datasource="AppsSystem" 
@@ -61,6 +63,9 @@
 		</cfquery>			
 
 	</cfloop>
+	
+	--->
+	 
 <!--- registration of application system functions, tested and reviewed --->
 
 <cf_ScheduleLogInsert

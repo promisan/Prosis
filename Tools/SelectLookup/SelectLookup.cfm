@@ -13,9 +13,9 @@
 <CFParam name="Attributes.modal"        default="true">
 <CFParam name="Attributes.close"        default="No">
 <CFParam name="Attributes.button"       default="No">
-<CFParam name="Attributes.icon"         default="locate.gif">
-<CFParam name="Attributes.iconheight"   default="15">
-<CFParam name="Attributes.iconwidth"    default="15">
+<CFParam name="Attributes.icon"         default="search.png">
+<CFParam name="Attributes.iconheight"   default="18">
+<CFParam name="Attributes.iconwidth"    default="18">
 <CFParam name="Attributes.style"        default="">
 <CFParam name="Attributes.dbtable"      default="">
 <CFParam name="Attributes.des1"         default="">
@@ -236,25 +236,25 @@
 			<CFParam name="Attributes.height" default="640">
 			<CFParam name="Attributes.width" default="760">	
 			
-			<cfset jvlink = "try { ProsisUI.closeWindow('dialog#box#',true)} catch(e){};ProsisUI.createWindow('dialog#box#', 'Find Employee', '',{x:100,y:100,height:document.body.clientHeight-90,width:#Attributes.width#,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Employee/Employee.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
+			<cfset jvlink = "try { ProsisUI.closeWindow('dialog#box#',true)} catch(e){};ProsisUI.createWindow('dialog#box#', 'Find Employee', '',{x:100,y:100,height:document.body.clientHeight-90,width:#Attributes.width#,resizable:true,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Employee/Employee.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			
 				  <img src="#SESSION.root#/images/#attributes.icon#" name="icon#box#" id="icon#box#" 
-					   style="#attributes.style#" 
-					   alt="Select Person" 
+					   style="#attributes.style#;cursor:pointer" 
+					   title="Select Person" 
 					   border="0" 
 					   align="absmiddle"
 					   onMouseOver="document.icon#box#.src='#SESSION.root#/Images/contract.gif'" 
 					   width="#attributes.iconwidth#"
 				       height="#attributes.iconheight#"
 					   onMouseOut="document.icon#box#.src='#SESSION.root#/Images/#icon#'"				   
-					   onclick="#preservesinglequotes(jvlink)#" style="cursor:pointer">		
+					   onclick="#preservesinglequotes(jvlink)#">		
 						
 			<cfelse>
 			
 				 <img src="#SESSION.root#/Images/#icon#"
-				      alt=""
+				      title="Select Person"
 				      name="icon#box#"
 				      id="icon#box#"
 				      width="#attributes.iconwidth#"
@@ -274,7 +274,7 @@
 			<CFParam name="Attributes.height" default="640">
 			<CFParam name="Attributes.width" default="760">	
 			
-			<cfset jvlink = "try { ProsisUI.closeWindow('dialog#box#',true)} catch(e){};ProsisUI.createWindow('dialog#box#', 'Natural Person', '',{x:100,y:100,height:document.body.clientHeight-90,width:#Attributes.width#,resizable:false,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Applicant/Person.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
+			<cfset jvlink = "try { ProsisUI.closeWindow('dialog#box#',true)} catch(e){};ProsisUI.createWindow('dialog#box#', 'Natural Person', '',{x:100,y:100,height:document.body.clientHeight-90,width:#Attributes.width#,resizable:true,modal:true,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/Applicant/Person.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
 				
 			<cfif attributes.button eq "No">
 			

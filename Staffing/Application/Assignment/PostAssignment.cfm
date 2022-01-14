@@ -205,15 +205,16 @@
 			
 			<cfoutput query="AssignmentPrior">
 			
-				<TR class="line labelmedium fixlengthlist" style="background-color:e1e1e1">
-			   	   <td class="labelit" align="center" style="padding-left:4px">	   			  
-				     <!---
+				<TR class="line labelmedium2 fixlengthlist" style="background-color:e1e1e1">
+			   	   <td align="center" style="padding-left:4px">	   			  
+				    <cfif mission eq Position.MissionOperational>
 				     <cf_img icon="edit" navigation="Yes" onclick="EditAssignment('#PersonNo#','#AssignmentNo#','','position')">	 
-					 --->
+					</cfif> 
+					
 				   </td>	
 			       <td><A HREF="javascript:EditPerson('#PersonNo#','#IndexNo#')">#IndexNo#</A></td>
 			       <td>#LastName#, #FirstName#</TD>
-			   	   <td>#Mission# #FunctionDescription#</TD>
+			   	   <td><cfif mission neq Position.MissionOperational>#Mission#</cfif> #FunctionDescription#</TD>
 				   <td>#LocationName#</td>
 				   <td colspan="2">#AssignmentDescription#</TD>
 				   <!---
@@ -224,6 +225,10 @@
 			       <td>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
 				   <td style="min-width:120px">#Dateformat(Created, CLIENT.DateFormatShow)# #Timeformat(Created, "HH:MM")#</td>
 			    </tr>
+				<cfif Remarks neq "">
+			     <TR class="navigation_row_child Line">
+			     <td colspan="2"></td><td colspan="9" align="left" class="labelit">#Remarks#</td></tr>
+			    </cfif>
 						
 			</cfoutput>
 	  	  

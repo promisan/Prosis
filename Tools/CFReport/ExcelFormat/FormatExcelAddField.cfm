@@ -45,13 +45,7 @@
 		<cfelse>
 		 <cfset for = "None"> 
 		</cfif>
-		
-		<cfoutput>
-		<script>
-		alert('#url.format#')
-		</script>
-		</cfoutput>
-					
+						
 	    <cftry>
 							
 			<cfquery name="Insert" 

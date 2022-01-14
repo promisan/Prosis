@@ -206,7 +206,7 @@ password="#SESSION.dbpw#">
 				   name="invoiceseries" 
 				   value="#Inv.InvoiceSeries#" 
 				   required="No" 
-				   size="2" 
+				   size="8" 
 				   maxlength="10"> 
 				   
 			  </td>

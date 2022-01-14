@@ -14,6 +14,7 @@
 				  UoMName, 
 				  PriceSchedule, 
 				  PriceScheduleDescription, 
+				  PriceQuantity,
 				  FieldDefault, 
 				  ListingOrder, 
 				  Promotion,
@@ -32,6 +33,7 @@
 				   UoMDescription as UoMName, 
 				   PriceSchedule, 
 				   PriceScheduleDescription, 
+				   PriceQuantity,
 				   FieldDefault, 
 				   ListingOrder,
 				   Promotion,
@@ -50,7 +52,7 @@
 							   MP.ItemNo, 
 						       IU.UoMDescription,
 							   MP.UoM, 
-						       PriceSchedule, 
+						       PriceSchedule, 							  
 						       MP.Currency, 
 							   
 							    ( SELECT TOP (1) Promotion 
@@ -106,14 +108,14 @@
 								) AS SalesPrice, 
 								
 							  ( SELECT TOP (1) LP.DateEffective AS Expr1
-							    FROM  ItemUoMPrice AS LP INNER JOIN	( SELECT ItemNo, 
-																                 UoM, 
-																	         PriceSchedule, 
-																	 		 MAX(DateEffective) AS LastDate
-																	  FROM   ItemUoMPrice AS P
-																	  WHERE  Mission = MP.Mission
-																	  AND    Currency = MP.Currency
-																	  AND    DateEffective <= GETDATE()
+							    FROM  ItemUoMPrice AS LP INNER JOIN	( SELECT   ItemNo, 
+																               UoM, 
+																	           PriceSchedule, 
+																	 		   MAX(DateEffective) AS LastDate
+																	  FROM     ItemUoMPrice AS P
+																	  WHERE    Mission = MP.Mission
+																	  AND      Currency = MP.Currency
+																	  AND      DateEffective <= GETDATE()
 																	  GROUP BY ItemNo, 
 																				UoM, 
 																				PriceSchedule ) AS L_1 
@@ -132,6 +134,34 @@
 									            ORDER BY DateEffective DESC
 												
 								) AS PriceDate, 
+								
+								( SELECT TOP (1) LP.PriceQuantity AS Expr1
+							      FROM  ItemUoMPrice AS LP INNER JOIN ( SELECT   ItemNo, 
+																               UoM, 
+																	           PriceSchedule, 
+																	 		   MAX(DateEffective) AS LastDate
+																	  FROM     ItemUoMPrice AS P
+																	  WHERE    Mission = MP.Mission
+																	  AND      Currency = MP.Currency
+																	  AND      DateEffective <= GETDATE()
+																	  GROUP BY ItemNo, 
+																				UoM, 
+																				PriceSchedule ) AS L_1 
+																		
+											ON L_1.ItemNo            = LP.ItemNo
+												AND L_1.UoM           = LP.UoM
+												AND L_1.PriceSchedule = LP.PriceSchedule
+												AND L_1.LastDate      = LP.DateEffective
+												
+												AND LP.ItemNo         = MP.ItemNo
+												AND LP.UoM            = MP.UoM
+												AND LP.PriceSchedule  = MP.PriceSchedule
+												AND LP.Mission        = MP.Mission
+												AND LP.Currency       = MP.Currency
+												
+									            ORDER BY DateEffective DESC
+												
+								) AS PriceQuantity, 
 								
 								
 								(	SELECT TOP (1) ROUND(LP.SalesPrice, 2) AS Expr1
@@ -210,7 +240,7 @@
 							 MP.UoM,
 							 IU.UoMDescription, 							 
 							 I.Category,
-							 MP.PriceSchedule, 
+							 MP.PriceSchedule, 							
 							 S.Description, 
 							 S.FieldDefault,
 							 S.ListingOrder

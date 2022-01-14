@@ -32,7 +32,7 @@ color:#666666;
 				<td style="height:32px;padding-top:9px">
 					<table class="gray">
 						<tr>						
-							<td style="padding-left:5px;font-size:18px" class="labelmedium">														
+							<td title="#customer.customername#" style="max-width:280px;padding-left:5px;font-size:18px" class="fixlength labelmedium">														
 								<cfif url.customerid neq "00000000-0000-0000-0000-000000000000">
 									<a href="javascript:editCustomer('#url.customerid#')">#Customer.CustomerName#</a>
 								<cfelse>

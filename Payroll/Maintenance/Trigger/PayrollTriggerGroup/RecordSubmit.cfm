@@ -52,7 +52,7 @@
 		<cfoutput>
 			<script>
 				parent.parent.ptoken.navigate('#session.root#/Payroll/Maintenance/Trigger/PayrollTriggerGroup/RecordListing.cfm?payrollTrigger=#url.SalaryTrigger#','divPayrollTriggerGroup');
-				parent.parent.ColdFusion.Window.destroy('weditgroup',true);
+				parent.parent.ProsisUI.closeWindow('weditgroup',true);
 			</script>
 		</cfoutput>
 
@@ -74,20 +74,20 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			UPDATE 	Ref_PayrollTriggerGroup
-			SET 	EntitlementName = '#trim(form.EntitlementName)#',
+			SET 	EntitlementName     = '#trim(form.EntitlementName)#',
 					EntitlementPriority = '#trim(form.EntitlementPriority)#',
-					ApplyMode = '#trim(form.ApplyMode)#',
-					ApplyRangeFrom = '#trim(form.ApplyRangeFrom)#',
-					ApplyRangeTo = '#trim(form.ApplyRangeTo)#',
-					ListingOrder = '#trim(form.ListingOrder)#'
-			WHERE  	SalaryTrigger = '#URL.SalaryTrigger#'
-			AND 	EntitlementGroup = '#URL.EntitlementGroup#'
+					ApplyMode           = '#trim(form.ApplyMode)#',
+					ApplyRangeFrom      = '#trim(form.ApplyRangeFrom)#',
+					ApplyRangeTo        = '#trim(form.ApplyRangeTo)#',
+					ListingOrder        = '#trim(form.ListingOrder)#'
+			WHERE  	SalaryTrigger       = '#URL.SalaryTrigger#'
+			AND 	EntitlementGroup    = '#URL.EntitlementGroup#'
 	</cfquery>
 
 	<cfoutput>
 		<script>
 			parent.parent.ptoken.navigate('#session.root#/Payroll/Maintenance/Trigger/PayrollTriggerGroup/RecordListing.cfm?payrollTrigger=#url.SalaryTrigger#','divPayrollTriggerGroup');
-			parent.parent.ColdFusion.Window.destroy('weditgroup',true);
+			parent.parent.ProsisUI.closeWindow('weditgroup',true);
 		</script>
 	</cfoutput>
 

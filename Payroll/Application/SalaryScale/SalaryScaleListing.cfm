@@ -33,6 +33,7 @@ password="#SESSION.dbpw#">
 	WHERE       S.ScaleNo = L.ScaleNo
     AND         S.SalarySchedule  = '#URL.ID#'
 	AND         ServiceLocation   = '#URL.ID1#'
+	AND         S.Mission         = '#url.mission#'
 	AND         S.SalarySchedule = G.SalarySchedule
 	AND         L.ComponentName IN (
 	                                SELECT   Code
@@ -72,14 +73,15 @@ password="#SESSION.dbpw#">
 
 </CFOUTPUT>
 
-<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="98%" align="center">
 
 <tr><td>
 
-<table  width="100%" class="navigation_table">
+<table width="100%" class="navigation_table">
 
-<TR class="line labelmedium">
-    <td height="20"></td>
+<tr><td colspan="6" style="font-size:20px" class="labelmedium2"><cfoutput>#url.mission#</cfoutput></TD></tr>
+
+<TR class="line labelmedium2 fixlengthlist">    
     <TD><cf_tl id="Schedule"></TD>
 	<TD><cf_tl id="Location"></TD>
 	<TD></TD>
@@ -90,30 +92,29 @@ password="#SESSION.dbpw#">
  
 <cfoutput query="SearchResult" group="SalarySchedule">
 
-<tr><td colspan="6" class="labelmedium">#SalarySchedule# #SalaryScheduleName# (#PaymentCurrency#)</TD></tr>
+<tr><td colspan="6" style="padding-left:4px" class="labelmedium">#SalarySchedule# #SalaryScheduleName# (#PaymentCurrency#)</TD></tr>
 
 	<cfoutput group="ServiceLocation">
 	
-	<tr class="line"><td colspan="1"></td>
-	    <td></td>
-	    <td colspan="5" class="labelmedium">#ServiceLocation# #Description#</td>
+	<tr class="line">	  
+	    <td colspan="6" style="padding-left:7px" class="labelmedium2">#ServiceLocation# #Description#</td>
 	</tr>
 	
 		<cfoutput group="ServiceLevel">
 		
 			<cfoutput group="ServiceStep">
 			
-			<TR class="navigation_row line">
-				<td colspan="1"></td>
+			<TR class="navigation_row line fixlengthlist labelmedium2">
+				
 				<td align="center" style="padding-top:5px">
 						<cf_img icon="select" navigation="Yes" 
 						 onclick="selected('#scaleno#','#ServiceLevel#','#ServiceStep#','#PaymentCurrency#','#url.contractid#')"> 		
 				</td>
 				<td></td>
-				<td class="labelit">#dateformat(SalaryEffective,client.dateformatshow)#</td>
-				<td align="center" class="labelit">#ServiceLevel#</td>
-				<td align="center" class="labelit">#ServiceStep#</td>
-				<td align="right" style="padding-right:10px" class="labelit">#numberformat(BasePayroll,"__,__.__")#</td>
+				<td>#dateformat(SalaryEffective,client.dateformatshow)#</td>
+				<td align="center">#ServiceLevel#</td>
+				<td align="center">#ServiceStep#</td>
+				<td align="right" style="padding-right:10px">#numberformat(BasePayroll,",.__")#</td>
 			</TR>
 						
 			</cfoutput>

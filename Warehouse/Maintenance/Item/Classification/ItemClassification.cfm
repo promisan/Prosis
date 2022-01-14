@@ -1,4 +1,4 @@
-
+ 
 <!--- stock item --->
 
 <cfquery name="Item" 
@@ -26,10 +26,10 @@
 		
 		SELECT	 P.Description,P.SearchOrder, T.*
 		FROM     Ref_Topic T INNER JOIN Ref_TopicEntryClass C ON T.Code = C.Code
-					AND C.EntryClass   = '#ItemMaster.EntryClass#'
-					AND T.Operational  = 1 
-					AND C.ItemPointer != 'UoM' <!--- reserved for ItemUoM --->
-					AND  ValueClass IN ('List','Lookup')
+					AND   C.EntryClass   = '#ItemMaster.EntryClass#'
+					AND   T.Operational  = 1 
+					AND   C.ItemPointer != 'UoM' <!--- reserved for ItemUoM --->
+					AND   ValueClass IN ('List','Lookup')
 					INNER JOIN Ref_TopicParent P ON T.Parent = P.Parent
 		WHERE    T.TopicClass = 'EntryClass'	
 		
@@ -79,7 +79,7 @@ password="#SESSION.dbpw#">
  
 <cfform name="frmTopics" onsubmit="return false" id="frmTopics">
  
-<table width="95%" align="center" class="formpadding">
+<table width="95%" border="0" align="center" class="formpadding">
 
  	<tr><td height="5"></td></tr>
 	
@@ -87,14 +87,14 @@ password="#SESSION.dbpw#">
 	
 	<TR class="labelmedium2">
     <td width="140"><cf_tl id="Class">:</td>
-    <TD colspan="3" width="80%">#Cls.Description#
+    <TD colspan="4">#Cls.Description#
     </td>
     </tr>
 	
 	<cfif item.Classification neq "">
 	    <TR class="labelmedium2">
 		    <TD><cf_tl id="Code">:</TD>
-		    <TD colspan="3">#item.Classification#</TD>
+		    <TD colspan="4">#item.Classification#</TD>
 		</TR>
 	</cfif>
 	
@@ -105,20 +105,17 @@ password="#SESSION.dbpw#">
 	</TR>
 	--->	
 	
-	<tr><td class="line" colspan="4" height="1"></td></tr>
 	
-	<tr class="labelmedium2">
-	<td colspan="4" height="40" style="color:gray">
+	<tr class="labelmedium2 line">
+	<td colspan="6" height="40">
 	<cf_tl id="Only change if you are absolutely certain on the effect this might have" class="message">
 	<cf_tl id="for item price and stock management" class="message">		
 	</td></tr>
 	
-	<tr><td class="line" colspan="4"></td></tr>
-		
 	</cfoutput>
 	
 	<cfif getTopics.recordCount eq 0>
-		<tr><td height="30" align="center" colspan="4"><font face="Calibri" size="2"><i>
+		<tr><td height="30" align="center" colspan="6"><font face="Calibri" size="2"><i>
 			<cf_tl id="No topics recorded for this item" class="message">.<br><cf_tl id="Please check the Procurement Item Master for this Item" class="message">.
 			</b></i></td></tr>
 		<cfabort>
@@ -127,7 +124,7 @@ password="#SESSION.dbpw#">
 	<cfoutput query="getTopics" group="Parent">
 	
 		<tr class="line">
-			<td colspan="4" style="font-size:22px" class="labelmedium2">#Description#</td>			
+			<td colspan="6" style="font-size:22px" class="labelmedium2">#Description#</td>			
 		</tr>	
 		
 		<cfoutput group="ValueClass">
@@ -140,24 +137,38 @@ password="#SESSION.dbpw#">
 	
 			<cfif cnt eq "1"><tr></cfif>  
 			
-				<td width="80" height="23" class="labelmedium2">#TopicLabel#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
+				<cfif TopicClass eq "Details">
+				    <cfset tbch = "ItemTopic">
+					<cfset tbcl = "ItemTopicValue">					
+				<cfelse>
+					<cfset tbch = "ItemClassification">
+					<cfset tbcl = "ItemClassification">
+				</cfif>  
+			
+				<td style="border:1px solid silver;max-width:230px;width:200px;padding-left:3px" class="fixlength labelmedium2">#TopicLabel#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
 				
+				<cfquery name="GetHeader" 
+					datasource="AppsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					    	SELECT	*
+							FROM 	#tbch# 
+							WHERE 	ItemNo = '#URL.ID#'
+							AND     Topic   = '#Code#'  								
+				</cfquery>
+				
+				<td style="border:1px solid silver;max-width:30px;width:30px"><input type="checkbox" class="radiol" name="Topic_#Code#_Oper" ID="Topic_#Code#_Oper" value="1" <cfif getHeader.Operational eq "1">checked</cfif>></td>
+								
 				<cfif valueclass eq "Text">
 											
-				<td colspan="3">
+				<td colspan="4" style="width:40%;border:1px solid silver;padding-left:4px">
 				
 				<cfelse>
 				
-				<td>
+				<td style="width:40%;border:1px solid silver;padding-left:4px">
 				
 				</cfif>
-				
-				    <cfif TopicClass eq "Details">
-						<cfset tbcl = "ItemTopicValue">					
-					<cfelse>
-						<cfset tbcl = "ItemClassification">
-					</cfif>
-					
+									
 					<cfif ValueClass eq "List">
 					
 						<cfquery name="GetList" 
@@ -232,6 +243,28 @@ password="#SESSION.dbpw#">
 							   message    = "Please enter a #Description#"
 							   value      = "#GetValue.TopicValue#"
 						       maxlength  = "#ValueLength#">   		
+							   
+					  <cfelseif ValueClass eq "Numeric">
+				
+							 <cfquery name="GetValue"  
+							  datasource="appsMaterials" 
+							  username="#SESSION.login#" 
+							  password="#SESSION.dbpw#">
+								  SELECT *
+								  FROM   #tbcl#
+								  WHERE  Topic  = '#Code#'		
+								  AND    ItemNo = '#Item.ItemNo#'				 
+							</cfquery>							
+							
+							<cfinput type = "Text"
+						       name       = "Topic_#Code#"
+						       required   = "#ValueObligatory#"					     
+						       size       = "#valueLength#"
+							   validate   = "float"
+							   class      = "regularxxl enterastab"
+							   message    = "Please enter a #Description#"
+							   value      = "#GetValue.TopicValue#"
+						       maxlength  = "#ValueLength#">   				   
 					    
 					</cfif>
 									

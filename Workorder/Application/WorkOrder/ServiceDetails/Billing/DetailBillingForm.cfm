@@ -219,15 +219,16 @@ password="#SESSION.dbpw#">
 	
 	<cfoutput>
 	
-	<tr class="line"><td  style="height:28px;padding-left:17px">
+	<tr class="line"><td  style="padding-left:17px">
+	
 	<table width="99%" align="center">
 	<tr class="labelmedium fixlengthlist">
 	<td>#Customer.CustomerName#  <cfif customer.city neq ""><font size="2">(#customer.city#)</cfif></td>
 	
 	<cfif customerpayer.recordcount gte "1">
 	
-			<td style="width:80px;padding-left:20px;height:40px" class="labelmedium"><cf_tl id="Payer">:</td>		
-			<td style="padding-left:10px;height:40px">		
+			<td style="width:80px;padding-left:20px;height:30px" class="labelmedium"><cf_tl id="Payer">:</td>		
+			<td style="padding-left:10px;height:30px">		
 			    <cf_tl id="Self" var="1">
 				<select name="PayerId" class="regularxl" style="width:200px">
 						<option value="None" selected>#lt_text#</option>
@@ -248,13 +249,11 @@ password="#SESSION.dbpw#">
 	</tr></table>	
 	
 	</cfoutput>
-	
-	<tr><td height="5"></td></tr>
-		
+			
 	<tr>
-	<td height="10" colspan="5" class="labellarge" style="height:30px;padding-left:20px;padding-right:10px">
+	<td colspan="5" class="labellarge" style="height:30px;padding-left:20px;padding-right:10px">
 	
-		<table width="100%" style="border:1px solid silver">
+		<table width="100%" style="border-bottom:1px solid silver">
 		
 		   <tr class="labelmedium" style="height:35px">	
 		   
@@ -646,7 +645,7 @@ password="#SESSION.dbpw#">
 												
 				  </td>
 				  
-				  <td style="padding-left:2px" title="Billing address"><input type="text" class="regularxl enterastab" name="BillingAddress" 	id="BillingAddress" maxlength="100"  value="#badd#">
+				  <td style="padding-left:2px" class="hide" title="Billing address"><input type="text" class="regularxl enterastab" name="BillingAddress" 	id="BillingAddress" maxlength="100"  value="#badd#">
 				  </td>			
 				 			  
 				  </tr>

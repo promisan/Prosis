@@ -4,24 +4,24 @@
 <table width="100%" align="center" class="navigation_table formpadding">
 		
 	<TR class="line">
-		<TD valign="middle" style="height:40px;font-weight:bold" colspan="3" class="labellarge"><cf_tl id="Usage"></TD>	
+		<TD valign="middle" style="height:40px;font-weight:bold" colspan="5" class="labellarge"><cf_tl id="Usage"></TD>	
 	
 		<td align="right" colspan="3">
 			<cfoutput>
 			<input class="button10g" style="font-size:11px;width:160px;height:25" type="Button" name="AddRecord" id="AddRecord" value="Add Usage"
-			 onclick="showunitService('', '#URL.ID1#', '#URL.ID2#')">	
+			 onclick="edititemservice('', '#URL.ID1#', '#URL.ID2#')">	
 			</cfoutput>
 		</td>
 	</tr>
 						
-    <TR valign="middle" class="fixlengthlist labelmedium2 line">	
+    <TR class="fixlengthlist labelmedium2 line">	
 	   <td><cf_tl id="Entity"></td>
-	   <td><cf_tl id="Service Domain"></td>
-	   
-	  
+	   <td><cf_tl id="Service Domain"></td>  
 	   <td align="center"><cf_tl id="Sort"></td>
 	   <td align="right"><cf_tl id="Preset"></td>
-	   <td align="right"><cf_tl id="Created"></td>	   	 
+	   <td align="right"><cf_tl id="Created"></td>	  
+	   <td align="right"></td>	
+	   <td align="right"></td>	 	 
     </TR>	
 			
 	<cfquery name="qListing" 
@@ -32,7 +32,7 @@
 		FROM     ServiceItemUnitWorkorderService S
 		WHERE    S.ServiceItem    = '#URL.ID1#'
 		AND      S.Unit           = '#URL.ID2#'
-		ORDER BY S.Mission
+		ORDER BY S.Mission, ListingOrder
 	</cfquery>
 	
 	<cfoutput query="qListing" group="Mission">
@@ -50,15 +50,14 @@
 			<td align="right"><cfif enablesetdefault eq "1"><b><cf_tl id="Yes"></b><cfelse>--</cfif></td>
 			<td align="right">#dateformat(Created,client.dateformatshow)#</td>
 						   			   				 
-			<td align="center">
-			
-				<cf_img icon="edit" navigation="Yes" onclick="showserviceMission('#usageId#', '#URL.ID1#', '#URL.ID2#')">
+			<td align="center" style="width:20px">			
+				<cf_img icon="edit" navigation="Yes" onclick="edititemservice('#usageId#', '#URL.ID1#', '#URL.ID2#')">
 			
 			</td>				
-			<td align="center">
+			<td align="center" style="width:20px">
 				<!--- onClick="ptoken.open('ItemUnitServiceEdit.cfm?ID1=#costId#&mode=Edit', 'EditItemUnitMission', 'left=80, top=80, width=1024, height=370, toolbar=no, status=yes, scrollbars=no, resizable=yes');"> --->
 				
-				<cf_img icon="delete" onclick="if (confirm('Do you want to remove this record ?')) ptoken.navigate('#SESSION.root#/workorder/maintenance/unitRate/Service/ItemUnitServicePurge.cfm?ID1=#URL.ID1#&ID2=#URL.ID2#&URL.ID3=#usageid#','servicelisting')">
+				<cf_img icon="delete" onclick="if (confirm('Do you want to remove this record ?')) ptoken.navigate('#SESSION.root#/workorder/maintenance/unitRate/Service/ItemServicePurge.cfm?ID1=#URL.ID1#&ID2=#URL.ID2#&URL.ID=#usageid#','servicelisting')">
 				
 			</td>		  					 							   		   
 	   </tr>	

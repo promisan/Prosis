@@ -94,7 +94,11 @@
 		</cfquery>
 				
 	</cfif>	
-		
+	
+	<cfparam name="Form.Topic_#getTopics.Code#_Oper" default="0">
+
+	<cfset oper = evaluate("Form.Topic_#getTopics.Code#_Oper")>
+			
 	<cfif isDefined("Form.Topic_#getTopics.Code#")>
 	
 		<cfset vValue = Evaluate("Form.Topic_#getTopics.Code#")>
@@ -136,13 +140,15 @@
 						password="#SESSION.dbpw#">
 							INSERT INTO ItemTopic (
 									ItemNo,
-									Topic,																
+									Topic,		
+									Operational,														
 									OfficerUserId,
 									OfficerLastName,
 									OfficerFirstName
 								) VALUES (
 									'#url.id#',
-									'#getTopics.code#',															
+									'#getTopics.code#',
+									'#oper#',															
 									'#SESSION.acc#',
 									'#SESSION.last#',
 									'#SESSION.first#'
@@ -157,12 +163,15 @@
 					password="#SESSION.dbpw#">
 					
 						INSERT INTO #tbcl# (
-								ItemNo,
+								ItemNo,								
 								Topic,	
 								<cfif valueClass eq "List">		
 								ListCode,					
 								</cfif>
 								TopicValue,
+								<cfif TopicClass neq "Details">	
+								Operational,
+								</cfif>
 								OfficerUserId,
 								OfficerLastName,
 								OfficerFirstName
@@ -174,7 +183,10 @@
 								'#qTopicList.ListValue#',	
 								<cfelse>
 								'#vValue#',			
-								</cfif>									
+								</cfif>		
+								<cfif TopicClass neq "Details">
+								'#oper#',					
+								</cfif>	
 								'#SESSION.acc#',
 								'#SESSION.last#',
 								'#SESSION.first#'
@@ -182,13 +194,31 @@
 				</cfquery>
 	
 			<cfelse>
+			
+				<cfif TopicClass eq "Details">	
+				
+					<cfquery name="Update" 
+					datasource="appsMaterials" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						UPDATE ItemTopic
+						SET	   Operational = '#oper#'
+						WHERE  ItemNo      = '#url.id#'
+						AND    Topic       = '#getTopics.code#'
+				    </cfquery>			
+																				
+				</cfif>
 						
 				<cfquery name="Update" 
 					datasource="appsMaterials" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 						UPDATE #tbcl#
-						SET	   <cfif valueClass eq "List">
+						SET	  <cfif TopicClass neq "Details">	
+								Operational = '#oper#',								
+							   </cfif>
+						
+						       <cfif valueClass eq "List">
 							    ListCode = '#vValue#',
 								TopicValue = '#qTopicList.ListValue#'
 							   <cfelse>

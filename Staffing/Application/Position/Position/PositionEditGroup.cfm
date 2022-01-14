@@ -46,18 +46,13 @@ function hl(itm,fld){
     password="#SESSION.dbpw#">
 	SELECT   F.*, S.PositionNo, S.Status AS Status
 	FROM     PositionGroup S RIGHT OUTER JOIN
-             Ref_Group F ON S.PositionGroup = F.GroupCode AND S.Status <> '9' AND S.PositionNo = '#URL.ID2#'
-	WHERE    F.GroupCode IN
-                    (SELECT   GroupCode
-                     FROM     Ref_Group
-                     WHERE    GroupDomain = '#URL.Domain#'
-					 AND      GroupCode IN (SELECT GroupCode 
-					                        FROM   Ref_GroupMission 
-											WHERE  Mission = '#url.id#')
-					)					 
+             Ref_Group F ON S.PositionGroup = F.GroupCode AND S.Status <> '9' AND S.PositionNo = '#URL.ID2#' INNER JOIN 
+			 Ref_GroupMission M ON F.GroupCode = M.GroupCode AND Mission = '#url.id#'			 
+	WHERE    GroupDomain = '#URL.Domain#'
+	AND      Operational = 1		
+	ORDER BY ListingOrder							 
+	
 </cfquery>
-
-<!---
 
 <cfif groupAll.recordcount eq "0">	
 	
@@ -68,21 +63,15 @@ function hl(itm,fld){
 		SELECT   F.*, S.PositionNo, S.Status AS Status
 		FROM     PositionGroup S RIGHT OUTER JOIN
 	             Ref_Group F ON S.PositionGroup = F.GroupCode AND S.Status <> '9' AND S.PositionNo = '#URL.ID2#'
-		WHERE    F.GroupCode IN
-	                    (SELECT   GroupCode
-	                     FROM     Ref_Group
-	                     WHERE    GroupDomain = '#URL.Domain#'
-						 AND      Operational = 1					
-						)					 
+		WHERE    GroupDomain = '#URL.Domain#'
+		AND      Operational = 1				
 	</cfquery>
 
 </cfif>
 
---->
-
 <cfif GroupAll.recordcount eq "0">
 
-<font style="color:gray">No position categorizations  enabled for entity</font>
+<font style="color:gray">No position categorizations enabled for entity</font>
 
 </cfif>
   
@@ -107,13 +96,13 @@ function hl(itm,fld){
 					    </cfif>							
 						</td>																												   
 					</CFIF>														
-					<TD class="labelit" style="padding-left:3px;background-color:f1f1f1;height:14px;padding-right:10px">
+					<TD class="labelit fixlength" title="#description#" style="padding-left:3px;background-color:f1f1f1;height:14px;padding-right:10px">
 					<cfif PositionNo neq ""><cfelse><CFIF AccessPosition eq "EDIT" OR AccessPosition eq "ALL"><cfelse><font color="c8c8c8"></cfif></cfif>#Description#</TD>					
 					<td style="width:4px"></td>
 				</tr>					
 			</table>
 		</td>			
-		<cfif row eq "3">
+		<cfif row eq "4">
 		 <cfset row = 0>
 		    </tr>
 		</cfif>						

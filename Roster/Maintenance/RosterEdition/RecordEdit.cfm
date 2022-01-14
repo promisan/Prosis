@@ -68,6 +68,8 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
+<cfoutput>
+
 <script language="JavaScript">
 
 function ask() {
@@ -78,21 +80,21 @@ function ask() {
 }	
 	   
 function assreview(postno) {
-    window.open("#SESSION.root#/Staffing/Application/Assignment/Review/AssignmentView.cfm?ID1=" + postno + "&Caller=edition", window, "unadorned:yes; edge:raised; status:yes; dialogHeight:799px; dialogWidth:940px; help:no; scroll:yes; center:yes; resizable:yes");	
+    ptoken.open("#SESSION.root#/Staffing/Application/Assignment/Review/AssignmentView.cfm?ID1=" + postno + "&Caller=edition", window, "unadorned:yes; edge:raised; status:yes; dialogHeight:799px; dialogWidth:940px; help:no; scroll:yes; center:yes; resizable:yes");	
 }
 
-function editeditionposition(pos,edition,idmenu) {
-	
-	try { ColdFusion.Window.destroy('EditEditionPosition',true) } catch(e) {}
-	ColdFusion.Window.create('EditEditionPosition', 'Edit title', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true,resizable:false});	    						
-	ColdFusion.navigate("#SESSION.root#/Roster/Maintenance/RosterEdition/Position/PositionEditionView.cfm?idmenu="+idmenu+"&positionno="+pos+"&submissionedition="+edition,"EditEditionPosition")	
+function editeditionposition(pos,edition,idmenu) {		
+	ProsisUI.createWindow('EditEditionPosition', 'Edit title', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true,resizable:false});	    						
+	ptoken.navigate("#SESSION.root#/Roster/Maintenance/RosterEdition/Position/PositionEditionView.cfm?idmenu="+idmenu+"&positionno="+pos+"&submissionedition="+edition,"EditEditionPosition")	
 }
 
 function referenceapply(edition,mission,grade) {
-	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Position/setReference.cfm?op=update&id='+edition+'&mission='+mission+'&grade='+grade,'dresult','', '','POST','fReferences'); 	
+	ptoken.navigate('#SESSION.root#/Roster/Maintenance/RosterEdition/Position/setReference.cfm?op=update&id='+edition+'&mission='+mission+'&grade='+grade,'dresult','', '','POST','fReferences'); 	
 }	
 
 </script>
+
+</cfoutput>
 
 
 <table width="97%" height="100%" align="center">

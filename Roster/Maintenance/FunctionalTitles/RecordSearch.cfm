@@ -65,7 +65,7 @@ password="#SESSION.dbpw#">
 			<tr class="line">
 			<TD colspan="2" class="labellarge">
 			<table><tr>
-			   <td style="font-size:29px" class="labellarge"><cf_tl id="Functional title criteria"></b></td>
+			   <td style="font-size:29px" class="labellarge"><cf_tl id="Functional title criteria"></td>
 			   <td><cf_helpfile systemfunctionid = "#url.idmenu#"></td>
 				</tr>
 			</table>
@@ -190,13 +190,13 @@ password="#SESSION.dbpw#">
 			</TD>
 			</TR>
 			
-			<TR class="line">
+			<TR>
 				<td style="padding-left:20px;padding-top:5px" class="labellarge"><cf_tl id="Function Network">:</td><td>
 			</tr>	
 		  
 			<TR class="line">
 						
-			<TD width="90%" colspan="2" align="center" style="padding-left:40px">
+			<TD width="99%" colspan="2" align="center" style="padding-left:20px">
 			
 				<table width="100%" align="center" class="navigation_table">
 				  	  
@@ -228,7 +228,7 @@ password="#SESSION.dbpw#">
 					  <cfoutput>
 					 
 					  <cfset row = row + 1>
-				  	  <cfif row eq 1><tr class="navigation_row"></cfif> 
+				  	  <cfif row eq 1><tr class="navigation_row fixlengthlist"></cfif> 
 					
 					  <td width="20" style="padding-left:5px">
 					    <input type="checkbox"  class="radiol"  name="OccupationalGroup" value="'#OccupationalGroup#'">

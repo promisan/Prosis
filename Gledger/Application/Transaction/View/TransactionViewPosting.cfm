@@ -372,15 +372,17 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 				  MAX(TransactionId)   as TransactionId,     <!--- also this one we roll up --->
 				  MAX(JournalSerialNo) as JournalSerialNo,  <!--- we need to lump up stock transactions as otherwise the are repeated by posting --->
 				  ActionStatus,
+				  JournalTransactionNo,
 				  RecordStatus,
 				  WorkFlowId,
 				  Mission,
 				  OrgUnitOwner,
 				  ParentJournal,
-				  ParentJournalSerialNo,
+				  ParentJournalSerialNo,				  
 				  TransactionDate,
 				  TransactionPeriodHeader,
 				  DocumentDate,
+				  GLAccount,
 				  GLDescription,
 				  AccountLabel,
 				  AccountClass,
@@ -436,12 +438,14 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 				  GLAccount		
 				 
 	</cfquery>	
-	
+			
 	<!--- not more than 100 out of 1000 (1 second)
 	<cfoutput>---#cfquery.executiontime#---</cfoutput>
 	--->
 
 </cfif>
+
+
 
 <table width="100%"	  
 	   class="navigation_table"
@@ -464,8 +468,9 @@ Armin 10/4/2013: Very important query as it combines child/parent transactions. 
 
 <!--- check if this object has a workflow --->
 
-<cfif TransactionSource eq "AccountSeries">			
-<!--- always a workflow  <cfif TransactionSource eq "AccountSeries" or TransactionSource eq "ReconcileSeries"> --->
+			<cfif TransactionSource eq "AccountSeries">		
+				
+			<!--- always a workflow  <cfif TransactionSource eq "AccountSeries" or TransactionSource eq "ReconcileSeries"> --->
 				<cfset workflowshow = "1">
 				<cfelseif Workflowid neq "">
 <!--- Attention 26/5/2013 : if you want workflow for other series like sales series or purchase series
@@ -503,9 +508,9 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 				<tr class="labelmedium line fixrow fixlengthlist" style="height:26px;border-top:1px solid silver">
 
 				<TD style="min-width:35;padding-right:4px" height="20" align="center">
-
-				<cfif workflowshow eq "1">
-
+				
+				<cfif workflowshow eq "1">				
+				
 					<cfset cl = "regular">
 
 					<cfif actionStatus eq "1">
@@ -602,13 +607,12 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 						<cfif actionStatus eq "1">
 
 							<img src="#SESSION.root#/Images/icon_expand.gif" alt=""
-								id="#JournalTransactionNo#Exp" name="#JournalTransactionNo#Exp" border="0" class="show"
-																			 align="absmiddle" style="cursor: pointer;"
+								id="#JournalTransactionNo#Exp" name="#JournalTransactionNo#Exp" border="0" class="show" align="absmiddle" style="cursor: pointer;"
 								onClick="more('#JournalTransactionNo#')">
 
 								<img src="#SESSION.root#/Images/icon_collapse.gif"
 								id="#JournalTransactionNo#Min" name="#JournalTransactionNo#Min" alt="" border="0"
-																								align="absmiddle" class="hide" style="cursor: pointer;"
+								align="absmiddle" class="hide" style="cursor: pointer;"
 								onClick="more('#JournalTransactionNo#')">
 
 							<cfset cl = "hide">
@@ -618,7 +622,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 							<img src="#SESSION.root#/Images/icon_expand.gif"								
 								id="#JournalTransactionNo#Exp" name="#JournalTransactionNo#Max"
 								border="0" class="hide"	align="absmiddle" style="cursor: pointer;"
-								onClick="more('#JournalTransactionNo#')">
+								onClick="more('#Transaction.JournalTransactionNo#')">
 
 							<img src="#SESSION.root#/Images/icon_collapse.gif"
 								id="#JournalTransactionNo#Min" name="#JournalTransactionNo#Min"								

@@ -165,6 +165,7 @@
 					   P.PositionParentId,
 					   P.MandateNo,
 					   O.Mission, 
+					   O.OrgUnitCode,
 					   O.OrgUnitName, 
 					   M.MissionOwner, 
 					   
@@ -210,24 +211,24 @@
 		  <tr>
 		  <td width="100%" colspan="2">
 		  		  
-		  <table border="0" cellpadding="0" cellspacing="0" width="100%" class="navigation_table">
+		  <table width="100%" class="navigation_table">
 		  
 		  <cfif PersonAssignment.recordcount neq "0">
 		  						  
-			   <TR class="line labelmedium2 fixrow fixlengthlist" height="18">
+			   <TR class="line labelmedium2 fixrow fixlengthlist">
 				    <td align="center"></td>
 					<td align="center"></td>
 					<TD><cf_tl id="Function"> </TD>
 					<TD><cf_tl id="Post"></TD>
 					<TD><cf_tl id="Grade"></TD>
-					<td colspan="1"><cf_tl id="Duty"></td>		
+					<td><cf_tl id="Duty"></td>		
 					<TD><cf_tl id="Effective"></TD>	
 					<TD><cf_tl id="Expiration"></TD>	
 					<cfif url.mode neq "Portal">				
 				    <TD><cf_tl id="Class"></TD>														
 					<td><cf_tl id="Status"></td>
 					</cfif>
-					<TD>Inc.</TD>	
+					<TD title="Encumbency">Enc.</TD>	
 					<cfif url.mode neq "Portal">	
 					<TD><cf_tl id="Officer"></TD>	
 					<TD><cf_tl id="Recorded"></TD>	
@@ -246,11 +247,12 @@
 		  <cfoutput query="PersonAssignment" group="MissionOwner">   
 		  
 				<cfif url.mode eq "standard" or url.mode eq "staffing">
-				<tr class="line"><td height="23"  style="font-size:20px;font-weight:300" class="labelmedium" colspan="13" align="left"><font size="2"><cf_tl id="Owner">:&nbsp;</font>#MissionOwnerName#</b></td></tr>					
+				<tr class="line"><td style="height:30px;font-size:20px;" class="labelmedium" colspan="13" align="left"><font size="2"><cf_tl id="Owner">:&nbsp;</font>#MissionOwnerName#</b></td></tr>					
 				</cfif>
 				
 				<cfset prior    = "">	
-				<cfset priororg = "">	
+				<cfset priorOrg = "">	
+				<cfset priorMis = "">	
 				
 				<cfset dte = "01/01/1900">
 				
@@ -263,19 +265,19 @@
 					--->
 					
 					<cfoutput group="OrgUnit">
-								
-					<cfset validwork = "1">
-														
+																					
 					<cfoutput>
+					
+					<cfset validwork = "1">
 										
 					<cfif DateEffective lte dte and incumbency eq "100">						
 					<cfset validwork = "0">
-					<tr class="line labelmedium2" style="font-weight:200px"><td colspan="13" height="30" style="font-weight:200px" align="center" bgcolor="yellow"><font color="black">Attention: Assignment effective period overlaps with prior record</td></tr>					
+					<tr class="line labelmedium2"><td colspan="13" height="30" align="center" bgcolor="yellow"><font color="black">Attention: Assignment effective period overlaps with prior record</td></tr>					
 					</cfif>
 					
 					<cfif DateEffective gt DateExpiration and Incumbency eq "100">						
 					<cfset validwork = "0">
-					<tr class="line labelmedium2" style="font-weight:200px;border-top:1px solid gray"><td colspan="13" height="30"  align="center" bgcolor="FF0000"><font color="white">Attention: Incorrect assignment. Please contact administrator to remove record.</td></tr>					
+					<tr class="line labelmedium2" style="border-top:1px solid gray"><td colspan="13" height="30"  align="center" bgcolor="FF0000"><font color="white">Attention: Incorrect assignment. Please contact administrator to remove record.</td></tr>					
 					</cfif>
 														
 				    <cfinvoke component="Service.Access"  
@@ -297,19 +299,23 @@
 						 </cfif>							 										
 						 
 						 <cfif Mission neq Prior>
-						 							 
-						 	<tr><td colspan="13" height="30" class="labelmedium" style="padding-top:3px;font-size:21px;color:green;padding-left:4px"><b>#Mission#</td></tr>
+						 	
+							<!---						 
+						 	<tr><td colspan="13" height="30" class="labelmedium" style="font-size:21px;padding-left:4px"><b>#Mission#</td></tr>
 							<cfset prior = mission>
+							--->
 						 
 						 </cfif>		
 						 
-						 <cfif OrgUnit neq priorOrg>						 	
+						 <cfif OrgUnitCode neq priorOrg or mission neq priorMis>						 	
 						 						 
-							 <tr class="labelmedium2 fixrow2 ">
+							 <tr class="labelmedium2 fixrow2 line" style="height:30px;background-color:f0f0f0">
+							 						 
+							 <td colspan="3" style="padding-left:6px;background-color:e6e6e6;border-right:1px solid silver;font-size:15px">							 
+							 #Mission# 
+							 </td>
 							 
-							 <td></td>
-							 
-							 <td valign="bottom" colspan="12" style="font-size:15px;height:31px">
+							 <td colspan="10" style="padding-left:4px">
 							 								 
 							  <cfquery name="Parent" 
 								    datasource="AppsOrganization" 
@@ -362,7 +368,7 @@
 												
 								</cfloop>		
 								
-								<b>#OrgUnitName#</b><cfif struct neq ""> <span style="font-size:12px">/ #struct#</span></cfif>  		
+								#OrgUnitName#<cfif struct neq ""> <span style="font-size:12px">/ #struct#</span></cfif>  		
 								
 								<cfif Parent.HierarchyRootUnit neq "">
 								
@@ -387,15 +393,14 @@
 						 
 						 </cfif>
 						 
-						 <cfset priorOrg = OrgUnit>
+						 <cfset priorOrg = OrgUnitCode>
+						 <cfset priorMis = Mission>
 						
-						 <TR bgcolor="#color#" class="labelmedium2 line navigation_row fixlengthlist" style="padding-top:3px;height:21px">
+						 <TR bgcolor="#color#" class="labelmedium line navigation_row fixlengthlist" style="padding-top:3px;height:22px">
 						 						 
 						 <cfif workflow neq "" and url.mode neq "Portal">
 					 
-							 <td height="20"
-								    align="center" 
-									style="cursor:pointer;padding-left:4px" 
+							 <td align="center" style="cursor:pointer;padding-left:4px" 
 									onclick="workflowdrill('#workflow#','box_#workflow#')" >
 									
 								<cf_wfActive entitycode="Assignment" objectkeyvalue1="#AssignmentNo#">	
@@ -433,8 +438,9 @@
 						   <td align="center" style="padding-top:2px">
 						  						  
 						   <cfif url.mode eq "standard" or url.mode eq "staffing">
-						  
+						   						  
 						   	 <cfif assignmentNo neq URL.ID1>
+														
 							 							 
 							   	<cfif accessOwner eq "EDIT" or accessOwner eq "ALL">								
 								    <cf_img icon="open" navigation="Yes" onClick="EditAssignment('#PersonNo#','#AssignmentNo#')">																			 
@@ -479,7 +485,7 @@
 						 <cfif len(Remarks) gte "20" and not find("FPMS",remarks) and (url.mode eq "standard" or url.mode eq "staffing")>
 							 <TR bgcolor="#color#" style="height:15px" class="navigation_row_child labelmedium2">
 							 	<td colspan="2"></td>
-								<td colspan="12">#Remarks#</td>
+								<td colspan="11" style="padding-left:2px;height:15px">#Remarks#</td>
 							 </tr>
 						 </cfif>
 						 
@@ -630,9 +636,11 @@
 							
 						</cfif>
 						
-						<cfset dte = dateformat(DateExpiration,client.dateSQL)>		
+						<cfif incumbency neq "0">
+						     <cfset dte = dateformat(DateExpiration,client.dateSQL)>		
+						</cfif>
 						
-						<cfif validwork eq "1">
+						<cfif validwork eq "1">						
 						   <cfif assignlist eq "">
 						    <cfset assignlist = "#assignmentno#">
 						   <cfelse>
@@ -643,77 +651,74 @@
 					</cfoutput>		
 					
 					</cfoutput>	
-				<!---     
+				
+				    <!---     
 					</cfoutput> 
 					--->
 			
-			</cfoutput> 
-						
+			</cfoutput> 						
 	
 			</TABLE>
 			
 		</td>
 		
-		</tr>
-		
+		</tr>		
 		
 		<cfif url.mode neq "Portal">
 				
 			<cfif assignlist neq "">
 			
-			<cfquery name="Experience" 
-				datasource="AppsEmployee" 
-				username="#SESSION.login#" 
-			    password="#SESSION.dbpw#">
-	
-				SELECT      Mission, PostGrade, PostOrder, SUM(Months) AS Months
-				FROM        (
-				             SELECT  P.Mission, 
-							         R.PostGrade, 
-									 R.PostOrder,
-									 DATEDIFF(month, PA.DateEffective, PA.DateExpiration) AS Months
-                		     FROM    PersonAssignment AS PA INNER JOIN
-                                     Position AS P ON PA.PositionNo = P.PositionNo INNER JOIN Ref_PostGrade R ON P.PostGrade = R.PostGrade
-                             WHERE   PA.AssignmentNo IN (#assignlist#) ) AS B
-			    GROUP BY Mission, PostGrade, PostOrder
-				ORDER BY Mission,PostOrder DESC
-				
-			</cfquery>	
-						
-			
-			<tr><td style="padding-top:10px"></td></tr>
-			<tr class="labelmedium">
-			     <td style="padding-left:5px;font-size:20px"><cf_tl id="Work assignment summary"></td>
-			</tr>
-			
-			<tr><td style="padding-left:30px;padding-top:6px;background-color:f1f1f1">
-			
-				<table class="formpadding formpacing"> 	
+				<cfquery name="Experience" 
+					datasource="AppsEmployee" 
+					username="#SESSION.login#" 
+				    password="#SESSION.dbpw#">
+		
+					SELECT      Mission, PostGrade, PostOrder, SUM(Months) AS Months
+					FROM        (
+					             SELECT  P.Mission, 
+								         R.PostGrade, 
+										 R.PostOrder,
+										 DATEDIFF(month, PA.DateEffective, PA.DateExpiration) AS Months
+	                		     FROM    PersonAssignment AS PA INNER JOIN
+	                                     Position AS P ON PA.PositionNo = P.PositionNo INNER JOIN Ref_PostGrade R ON P.PostGrade = R.PostGrade
+	                             WHERE   PA.AssignmentNo IN (#assignlist#) ) AS B
+				    GROUP BY Mission, PostGrade, PostOrder
+					ORDER BY Mission,PostOrder DESC
 					
-				<cfset pr = "">	
-					
-				<cfoutput query="Experience">
+				</cfquery>		
+							
+			
+				<tr><td style="padding-top:10px"></td></tr>
+				<tr class="labelmedium">
+				     <td style="padding-left:5px;font-size:16px"><cf_tl id="Work assignment summary"></td>
+				     <td align="right" style="padding-top:6px;padding-right:5px">
 				
-				     <cfif mission neq pr>
-						<tr class="line labelmedium2">	
-						<td style="padding-right:9px">#Mission#</td>
-						<cfset pr = mission>	
-					</cfif>
+					<table class="formpadding formpacing"> 	
 						
-						<td style="padding-right:9px">#PostGrade#&nbsp;:</td>
-						<cfset years = int(Months/12)>
-						<cfif years gt "0">
-							<cfset mnths = months - (years*12)>
-						<cfelse>
-							<cfset mnths = months> 	
+					<cfset pr = "">	
+						
+					<cfoutput query="Experience">
+					
+					     <cfif mission neq pr>
+							<tr class="line labelmedium2">	
+							<td style="padding-right:9px">#Mission#</td>
+							<cfset pr = mission>	
 						</cfif>
-						<td style="width:140px"><cfif years neq "0">#years# yr<cfif years gt "1">s</cfif></cfif> <cfif mnths gt"0">#mnths# mth<cfif mnths gt "1">s</cfif></cfif></td>											
-									
-				</cfoutput>				
-				
-				</table>
-				
-			</td></tr>
+							
+							<td style="padding-right:9px">#PostGrade#&nbsp;:</td>
+							<cfset years = int(Months/12)>
+							<cfif years gt "0">
+								<cfset mnths = months - (years*12)>
+							<cfelse>
+								<cfset mnths = months> 	
+							</cfif>
+							<td style="width:140px"><cfif years neq "0">#years# yr<cfif years gt "1">s</cfif></cfif> <cfif mnths gt"0">#mnths# mth<cfif mnths gt "1">s</cfif></cfif></td>											
+										
+					</cfoutput>				
+					
+					</table>
+					
+				</td></tr>
 				
 			</cfif>
 		

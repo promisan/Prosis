@@ -113,8 +113,8 @@
 					
 				<cfoutput group="FunctionName">
 				
-				<tr class="line labelmedium2" style="height:30px">
-				<td colspan="7" style="font-size:17px;padding-left:15px"><font color="gray">#FunctionName#</font></td>
+				<tr class="line labelmedium2 fixlengthlist" style="height:30px">
+				<td colspan="7" style="font-size:17px"><font color="gray">#FunctionName#</font></td>
 				<td colspan="6" align="right"><cfif FunctionAbout neq "">
 				<button type="button" class="button3" onClick="javascript:reportabout('#ControlId#')"
 				onmouseover="javascript:tooltip('About this report')" onmouseout="javascript:tooltip('')">
@@ -150,7 +150,7 @@
 							
 					</cfif>
 							
-					<TR id="#currentrow#1" class="navigation_row labelmedium2 line">
+					<TR id="#currentrow#1" class="navigation_row labelmedium2 line fixlengthlist">
 								
 					<td align="center" style="padding-left:5px"
 					    onClick="more('#reportId#','show','#Currentrow#','prior')">
@@ -169,7 +169,7 @@
 										
 					</td>
 					
-					<td width="32" style="padding-left:4px" align="center">
+					<td align="center">
 						  
 					<CFIF access is "GRANTED"> 
 					
@@ -192,7 +192,7 @@
 					
 					<CFIF access is "GRANTED"> 
 					
-						<td id="mail#reportid#" width="20" align="center">
+						<td id="mail#reportid#" align="center">
 						
 						<cfset l = len(reportPath)>
 									
@@ -215,13 +215,13 @@
 						
 						</td>
 						
-						<td width="20" align="center" style="padding-top:3px">
+						<td align="center" style="padding-top:3px">
 										
 						<cf_img icon="open" tooltip="open report variant" onClick="schedule('#ReportId#')">				
 									  
 						</td>
 							
-						<td width="20" align="center">
+						<td align="center">
 						
 						<cfif ShowPopular eq "0">
 						
@@ -242,8 +242,8 @@
 						
 					</cfif>
 					
-					<td style="padding-left:4px"><a href="javascript:more('#reportId#','show','#Currentrow#')"><cfif TemplateReport eq "Excel">Excel data<cfelse>#LayoutName#</cfif></a></td>
-					<TD width="20%">#DistributionSubject#</TD>
+					<td><a href="javascript:more('#reportId#','show','#Currentrow#')"><cfif TemplateReport eq "Excel">Excel data<cfelse>#LayoutName#</cfif></a></td>
+					<TD>#DistributionSubject#</TD>
 					<TD><cfif DistributionPeriod neq "Manual">#DistributionPeriod# <cfif #DistributionPeriod# eq "Weekly">[#DistributionDOW#]</cfif></cfif></TD>
 					<TD><cfif TemplateReport neq "Excel">#FileFormat#<cfelse>Analysis ROLAP</cfif></TD>
 					<TD><!--- #Dateformat(DateEffective, CLIENT.DateFormatShow)# - ---> #Dateformat(DateExpiration, CLIENT.DateFormatShow)#</TD>					 
@@ -251,11 +251,11 @@
 					<cfif LastDate lt now() - 30 >
 					<img src="#SESSION.root#/Images/caution.gif" alt="Report was never launched" border="0"> 
 					<b>Never</b><cfelse>last:#Dateformat(LastDate, CLIENT.DateFormatShow)#</cfif></TD>								
-					<td width="5%" align="center">
+					<td align="center">
 						<input type="checkbox" class="radiol" name="selected" id="selected" value="'#ReportId#'">
 					</td>	
 					
-					<td width="2%" align="center">
+					<td align="center">
 						
 						 <cfinvoke component="Service.AccessReport"  
 					          method="editreport"  

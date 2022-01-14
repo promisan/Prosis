@@ -1,5 +1,5 @@
 
-<cfset vTopN = 9>
+<cfset vTopN = 12>
 <cfset vSelectedMonths = 3>
 
 <cfif url.salarySchedule neq "">
@@ -10,7 +10,7 @@
 		 datasource="AppsPayroll" 
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
-			 SELECT   *
+			 SELECT   *, left(Source,1)+':'+left(PayrollItemName, 200) as PayrollItemNameS
 			 FROM     Ref_PayrollItem PI
 			 WHERE    PayrollItem IN (SELECT PayrollItem 
 			                         FROM   EmployeeSettlementLine ESL
@@ -119,8 +119,7 @@
 		</tr>
 		<tr>
 			<td class="labellarge" colspan="2" style="padding:5px">
-			
-				 
+							 
 				 <cf_UIselect name = "PayrollItem"					
 					size           = "1"
 					class          = "regularXXL"
@@ -209,6 +208,7 @@
 				
 				<cfset vCols = 3>
 				<table width="100%">
+				
 					<tr class="fixlengthlist">
 						<cfset vCnt = 0>
 						<cfoutput query="getDates">
@@ -229,7 +229,7 @@
 							<cfif vCnt eq vCols>
 								<cfset vCnt = 0>
 								</tr>
-								<tr>
+								<tr class="fixlengthlist">
 							</cfif>
 
 						</cfoutput>

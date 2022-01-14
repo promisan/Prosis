@@ -31,7 +31,7 @@
 				<td style="width:100px" align="right"><cf_tl id="Last Receipt"></td>
 				<td style="width:100px" align="right"><cf_tl id="Last Order"></td>
 				<td style="width:100px" align="right"><cf_tl id="Last Cost"></td>
-				<td style="width:100px;padding-right:5px" align="right"><cf_tl id="Proposed"></td>
+				<td style="width:100px;padding-right:5px" title="Minimum quantity" align="right"><cf_tl id="Quantity"></td>				
 				<td style="width:100px;padding-right:5px" align="right"><cf_tl id="Price"></td>
 				<td align="right"><cf_tl id="Tax"></td>
 				<td></td>
@@ -266,8 +266,20 @@
 						
 						</td>
 						
-						<td style="padding-left:3px;padding-right:6px" align="right">
-						----
+						<td style="padding-left:3px;" align="right">
+						
+							<cfinput type="Text" 
+							   name="#w#_#measure#_#Schedule.code#_#currency#_PriceQuantity" 
+							   value="#numberFormat(Line.PriceQuantity,",")#" 
+							   message="Enter a valid price" 
+							   validate="float" 
+							   class="regularxl"
+							   required="No" 
+							   size="10" 
+							   maxlength="12" 
+							   style="background-color:D9ECFF;text-align: right;border:0px;border-left:1px solid silver;padding-right:3px">
+					
+						
 						</td>
 								
 												

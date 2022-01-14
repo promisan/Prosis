@@ -16,7 +16,7 @@
 			any datafix has to be applied to the Program/Project, Supply chain and/or Financials datastore</font></td></tr>
 				
 			<tr><td style="height:10px"></td></tr>								
-			<tr class="line labelmedium2">
+			<tr class="line labelmedium2 fixlengthlist">
 			<td>Entity</td>				
 			<td>Staffing Period</td>						
 			<td>Plan Period</td>	
@@ -63,7 +63,7 @@
 			
 			<input type="hidden" name="mission_#ln#" value="#Mission#">				
 																				
-			<tr class="navigation_row <cfif currentrow neq recordcount>line</cfif> labelmedium2">
+			<tr class="fixlengthlist navigation_row <cfif currentrow neq recordcount>line</cfif> labelmedium2">
 			   <td style="padding-left:3px">#Mission#</td>
 			  				   
 			   <cfif used.recordcount gte "1">
@@ -122,7 +122,7 @@
 					
 					<cfif PlanningList.recordcount eq "0">
 					
-						<td colspan="3">
+						<td colspan="3" title="Record at least one (1) program/project for #Mission#">
 						 
 					      <font color="black">Record at least one (1) program/project for #Mission#.</font>
 						  
@@ -171,7 +171,7 @@
 						 		
 					   <td id="budget_#ln#" style="padding-left:2px">
 					   
-						   <table cellspacing="0" cellpadding="0">
+						   <table>
 
 						   <tr class="labelmedium2">
 							   <td>

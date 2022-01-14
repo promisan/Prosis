@@ -52,6 +52,16 @@
 	  <td>PersonNo</td>
 </tr>
 
+
+<tr class="fixlengthlist navigation_row line labelmedium2" style="height:15px">
+
+  <cfset v = "Staffing/Application/Assignment/AssignmentEdit.cfm?id1=">
+      <td><cf_img icon="select" onClick="closeme('#v#')" navigation="Yes"></td>
+      <td><a href="javascript:closeme('#v#')">Assignment</a></td>
+      <td><font size="2"  color="gray">#v#</td>
+	  <td>AssignmentNo</td>
+</tr>
+
 <tr class="fixlengthlist navigation_row line labelmedium2" style="height:15px">
 
   <cfset v = "Staffing/Application/Position/PositionParent/PositionView.cfm?id2=">
@@ -174,9 +184,10 @@
 </tr>
 
 <cfquery name="GetCustom" datasource="AppsSystem">
-	SELECT * FROM Ref_ModuleControl
-	Where SystemModule = 'Portal'
-	AND FunctionClass = 'Custom'
+	SELECT * 
+	FROM   Ref_ModuleControl
+	WHERE  SystemModule = 'Portal'
+	AND    FunctionClass = 'Custom'
 </cfquery>
 
 <cfloop query="GetCustom">

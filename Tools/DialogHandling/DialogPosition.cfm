@@ -134,9 +134,9 @@ function selectfunction(formname, fldfunctionno, fldfunctiondescription, owner,p
 			
 } 
   
-function selectscale(personno,contracttype,contractid) {
-	 ProsisUI.createWindow('mydialog', 'Salary scale', '',{x:100,y:100,height:document.body.clientHeight-100,width:document.body.clientWidth-100,modal:true,center:true})    	 		 	
-	 ptoken.navigate(root + '/Payroll/Application/SalaryScale/SalaryScaleView.cfm?personno='+personno+'&contracttype='+contracttype+'&contractid='+contractid,'mydialog') 			
+function selectscale(personno,contracttype,contractid,mis) {
+	 ProsisUI.createWindow('mydialog', 'Salary scale '+mis, '',{x:100,y:100,height:document.body.clientHeight-100,width:870,modal:true,center:true})    	 		 	
+	 ptoken.navigate(root + '/Payroll/Application/SalaryScale/SalaryScaleView.cfm?personno='+personno+'&contracttype='+contracttype+'&mission='+mis+'&contractid='+contractid,'mydialog') 			
 }
 
 function scaleapply(org) {    

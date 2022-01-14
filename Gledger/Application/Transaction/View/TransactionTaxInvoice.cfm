@@ -157,62 +157,89 @@
 		</cfoutput>   	   
 		
 	<cfelse>
+	
+			 <cfquery name="qCheck"
+	            datasource="AppsMaterials"
+	            username="#SESSION.login#"
+	            password="#SESSION.dbpw#">
+			        SELECT   TOP 1 *
+			        FROM     Accounting.dbo.TransactionHeaderAction
+			        WHERE    Journal	     = '#URL.Journal#'
+				    AND      JournalSerialNo = '#URL.JournalSerialNo#'
+				    AND      ActionCode      = 'Invoice'
+				    AND      ActionReference1 IS NOT NULL
+				    AND      ActionReference2 IS NOT NULL
+				    AND      ActionReference3 IS NOT NULL
+				    ORDER BY Created DESC			
+						
+		    </cfquery>
 			
 		    <!--- accounting and workorder sales --->
-				
-			<cfinvoke component = "Service.Process.EDI.Manager"
-					   method           = "SaleIssue" 
-					   Datasource       = "AppsOrganization"
-					   Mission          = "#qHeader.Mission#"
-					   Terminal			= "#Terminal#"
-				       Mode 			= "#url.Mode#"  <!--- = 3 --->
-					   Journal          = "#url.journal#"
-					   JournalSerialNo  = "#url.journalSerialNo#"		
-					   ActionId         = "#url.actionid#"					    
-					   returnvariable	= "stResponse">
+			
+			
+			 <cfif url.actionid eq "">						
+			 					
+				<cfinvoke component = "Service.Process.EDI.Manager"
+						   method           = "SaleIssue" 
+						   Datasource       = "AppsOrganization"
+						   Mission          = "#qHeader.Mission#"
+						   Terminal			= "#Terminal#"
+					       Mode 			= "#url.Mode#"  <!--- = 3 --->
+						   Journal          = "#url.journal#"
+						   JournalSerialNo  = "#url.journalSerialNo#"		
+						   ActionId         = "#url.actionid#"					    
+						   returnvariable	= "stResponse">
 					
-			<cfif stResponse.Status neq "OK">	
-				 
-				<!--- 10 retries--->							
-				
-				<cfloop index="rtNo" from="1" to="10">	
-												
-					<cfinvoke component = "Service.Process.EDI.Manager"  
-							   method           = "SaleIssue" 
-							   Datasource       = "AppsOrganization"
-							   Mission          = "#qHeader.Mission#"
-							   Terminal			= "#Terminal#"
-							   Mode 			= "#url.Mode#"		
-							   Journal          = "#url.journal#"
-							   JournalSerialNo  = "#url.journalSerialNo#"		
-							   ActionId         = "#url.actionid#"								   
-							   RetryNo			= "#rtNo#"
-							   returnvariable	= "stResponse">		
-				
-					<cfif stResponse.Status eq "OK">
-						<cfbreak>
-					</cfif>
+					<cfif stResponse.Status neq "OK">	
+						 
+						<!--- 10 retries--->							
 						
-				</cfloop> 	
-
-				<cfif stResponse.Status neq "OK">	
-												   					
-					 <!--- manual 5/7/2021 by Armin	<cfset Invoice.Mode = "1"> --->
-					 <cfset Invoice.Status = "9">
-					 <cfset Invoice.ErrorDescription = stResponse.ErrorDescription>
-					 <cfif StructKeyExists(stResponse,"ErrorDetail")>
-						 <cfset Invoice.ErrorDetail = stResponse.ErrorDetail>
-					 </cfif>
-					 
-				</cfif>
-				
-				<cfset vActionId = stResponse.ActionId>
-				
-			<cfelse>
+						<cfloop index="rtNo" from="1" to="10">	
+														
+							<cfinvoke component = "Service.Process.EDI.Manager"  
+									   method           = "SaleIssue" 
+									   Datasource       = "AppsOrganization"
+									   Mission          = "#qHeader.Mission#"
+									   Terminal			= "#Terminal#"
+									   Mode 			= "#url.Mode#"		
+									   Journal          = "#url.journal#"
+									   JournalSerialNo  = "#url.journalSerialNo#"		
+									   ActionId         = "#url.actionid#"								   
+									   RetryNo			= "#rtNo#"
+									   returnvariable	= "stResponse">		
+						
+							<cfif stResponse.Status eq "OK">
+								<cfbreak>
+							</cfif>
+								
+						</cfloop> 	
+		
+						<cfif stResponse.Status neq "OK">	
+														   					
+							 <!--- manual 5/7/2021 by Armin	<cfset Invoice.Mode = "1"> --->
+							 <cfset Invoice.Status = "9">
+							 <cfset Invoice.ErrorDescription = stResponse.ErrorDescription>
+							 <cfif StructKeyExists(stResponse,"ErrorDetail")>
+								 <cfset Invoice.ErrorDetail = stResponse.ErrorDetail>
+							 </cfif>
+							 
+						</cfif>
+						
+						<cfset vActionId = stResponse.ActionId>
+						
+					<cfelse>
+					
+						<cfset vActionId = stResponse.ActionId>	
+					
+					</cfif> 	
+						
+		    <cfelse>
 			
-				<cfset vActionId = stResponse.ActionId>	
-			
-			</cfif>	  	
+				<!--- a record was found, so we show what we have already --->
+		
+		        <cfset vActionId = qCheck.ActionId>
+		
+		    </cfif>		
 			
 			<cfif url.actionid neq "">
 			

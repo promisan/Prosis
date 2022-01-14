@@ -123,107 +123,95 @@
 
 <form name="formInspector" id="formInspector">
 
-<table width="100%"
-       cellspacing="0"    
-	   cellpadding="0"    
+<table width="100%"   
        align="center">
 
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" class="labelit" style="padding-left:5px" width="55%">Code</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" class="labelmedium" style="padding-left:5px" width="55%">Code</td>
 <td width="45%" style="padding-left:5px"><a href="javascript:stepedit('#URL.EntityCode#','#URL.EntityClass#','#URL.actionCode#','#URL.PublishNo#')"><strong>#ActionCode#</strong></a></td>
 </tr>
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" class="labelit" style="padding-left:5px">Action Type</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" class="labelmedium" style="padding-left:5px">Action Type</td>
 <td style="padding-left:5px">#ActionType#</td>
 </tr>
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" class="labelit" style="padding-left:5px">Actor</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" class="labelmedium" style="padding-left:5px">Actor</td>
 <td style="padding-left:5px">#ActionReference#</td>
 </tr>
 
+<tr class="line labelmedium"><td colspan="2" style="padding-left:2px;"><b>Process</td></tr>
 
-
-
-<tr class="line labelit"><td colspan="2" style="padding-left:2px;"><b>Process</td></tr>
-
-<tr class="labelit line" style="height:15px"><td  style="padding-top:3px;padding-left:5px" bgcolor="f4f4f4">Quick Process</td>
+<tr class="labelmedium line" style="height:20px"><td  style="padding-left:5px" bgcolor="f4f4f4">Quick Process</td>
 <cfset Toggle = "enableQuickProcess">
 
 <cfinclude template="WorkflowInspectToggle.cfm">
 
-<tr class="labelit line" style="height:15px"><td  bgcolor="f4f4f4" style="padding-left:5px">Custom Dialog</td>
+<tr class="labelmedium line" style="height:20px"><td  bgcolor="f4f4f4" style="padding-left:5px">Custom Dialog</td>
 	<td><cfif ActionDialog neq "">#DocumentDescription# [#DocumentMode#]<cfelse>None</cfif></td>
 </tr>
 
-<tr class="labelit line" style="height:15px"><td  bgcolor="f4f4f4" style="padding-left:5px">Passtru Parameter</td>
+<tr class="labelmedium line" style="height:20px"><td  bgcolor="f4f4f4" style="padding-left:5px">Passtru Parameter</td>
 	<td><cfif ActionDialog neq ""><cfif ActionDialogParameter neq "">#ActionDialogParameter#</b><cfelse>None</cfif><cfelse>N/A</cfif></td>
 </tr>
 
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" style="padding-left:5px" style="padding-left:4px">Attach Document</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-left:5px" style="padding-left:4px">Attach Document</td>
 	<cfset Toggle = "EnableAttachment">
 	<cfinclude template="WorkflowInspectToggle.cfm">
 	
-<tr class="labelit line" style="height:15px"><td style="padding-left:5px"  bgcolor="f4f4f4">Notes</td>
+<tr class="labelmedium line" style="height:20px"><td style="padding-left:5px"  bgcolor="f4f4f4">Notes</td>
 	<cfset Toggle = "EnableTextArea">
 	<cfinclude template="WorkflowInspectToggle.cfm">
 
-<tr class="labelit line" style="height:15px"><td style="padding-left:5px"  bgcolor="f4f4f4">Rich Text Editor</td>
+<tr class="labelmedium line" style="height:20px"><td style="padding-left:5px"  bgcolor="f4f4f4">Rich Text Editor</td>
 	<cfset Toggle = "EnableHTMLEdit">
 	<cfinclude template="WorkflowInspectToggle.cfm">
 
-<tr class="labelit line" style="height:15px"><td style="padding-left:5px"  bgcolor="f4f4f4">My Clearances</td>
+<tr class="labelmedium line" style="height:20px"><td style="padding-left:5px"  bgcolor="f4f4f4">My Clearances</td>
 	<cfset Toggle = "EnableMyClearances">
 	<cfinclude template="WorkflowInspectToggle.cfm">
 	
-<tr class="labelit line" style="height:15px"><td style="padding-left:5px"  bgcolor="f4f4f4">Mail Notification</td>
+<tr class="labelmedium line" style="height:20px"><td style="padding-left:5px"  bgcolor="f4f4f4">Mail Notification</td>
 	<cfset Toggle = "EnableNotification">
 	<cfinclude template="WorkflowInspectToggle.cfm">
 
-<tr class="labelit line" style="height:15px"><td  style="padding-left:5px" bgcolor="f4f4f4">Mail Confirmation</td>
+<tr class="labelmedium line" style="height:20px"><td  style="padding-left:5px" bgcolor="f4f4f4">Mail Confirmation</td>
 	<cfset Toggle = "NotificationManual">
 	<cfinclude template="WorkflowInspectToggle.cfm">
 
-<tr class="labelit line" style="height:15px"><td style="padding-left:5px" bgcolor="f4f4f4">Custom mail</td>
+<tr class="labelmedium line" style="height:20px"><td style="padding-left:5px" bgcolor="f4f4f4">Custom mail</td>
 	<td><cfif DueMailCode neq "">Yes</b><cfelse>No</cfif></td></tr>
-
-	
-	
 		
-<tr class="line labelit"><td colspan="2" style="padding-left:2px;"><b>Authorization</td></tr>
+<tr class="line labelmedium"><td colspan="2" style="padding-left:2px;"><b>Authorization</td></tr>
 
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" style="padding-top:3px;padding-left:5px" >Access Delegated</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-left:5px" >Access Delegated</td>
 	<td><cfif ActionAccess neq "">Yes</b><cfelse>No</cfif></td></tr>
 
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" style="padding-left:5px" >Limit Delegation</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-left:5px" >Limit Delegation</td>
 	<td><cfif ActionAccessUserGroup neq "">#ActionAccessUserGroup#</b><cfelse>No</cfif></td></tr>
 
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" style="padding-left:5px" >Perform by Holder</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-left:5px" >Perform by Holder</td>
 	<cfset Toggle = "PersonAccess">
 	<cfinclude template="WorkflowInspectToggle.cfm">
 
-<tr class="line labelit"><td colspan="2" style="padding-left:2px;"><b>Workflow</td></tr>
+<tr class="line labelmedium"><td colspan="2" style="padding-left:2px;"><b>Workflow</td></tr>
 
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" style="padding-left:5px" >Go To Mode</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-left:5px" >Go To Mode</td>
 	<td><cfif ActionGoTo eq 0>Disabled<cfelseif ActionGoTo eq "1">Pending steps<cfelseif ActionGoTo eq "2">Performed<cfelse>All</cfif></td>
 </tr>
 
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" style="padding-left:5px" >No of steps</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-left:5px" >No of steps</td>
 	<td><cfif ActionGoTo eq 0>0<cfelse><cfif GoTo.Recordcount eq "0">All<cfelse>#GoTo.Recordcount#</cfif></cfif></td>
 </tr>
 
+<tr class="line labelmedium"><td colspan="2" style="padding-left:2px;"><b>Embedded</td></tr>
 
-
-<tr class="line labelit"><td colspan="2" style="padding-left:2px;"><b>Embedded</td></tr>
-
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" style="padding-left:5px" >Reports</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-left:5px" >Reports</td>
 	<td>#Report.recordcount#</td></tr>
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" style="padding-left:5px" >Custom Fields</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-left:5px" >Custom Fields</td>
 	<td>#Field.recordcount#</td></tr>
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" style="padding-left:5px" >Attachments</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-left:5px" >Attachments</td>
 	<td>#Attach.Recordcount#</td></tr>
 
-	
-	
-<tr class="line labelit"><td colspan="2" style="padding-left:2px;"><b>Mail</td></tr>
+<tr class="line labelmedium"><td colspan="2" style="padding-left:2px;"><b>Mail</td></tr>
 
-<tr class="labelit line" style="height:12px"><td bgcolor="f4f4f4" style="padding-left:5px">Due Mail</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-left:5px">Due Mail</td>
 	<td><cfif PersonMailCode neq "">
 	
 	<cfquery name="Object" 
@@ -239,7 +227,7 @@
 	
 	#Object.DocumentDescription#</b><cfelse>No</cfif></td></tr>
 	
-<tr class="labelit line" style="height:12px!force">
+<tr class="labelmedium line" style="height:20px">
    <td bgcolor="f4f4f4" style="padding-left:5px" >Action Mail</td>
 	<td><cfif PersonMailAction neq "">
 	
@@ -256,57 +244,52 @@
 
 	#Object.DocumentDescription#</b><cfelse>No</cfif></td></tr>
 
-<tr class="labelit line" style="height:12px">
+<tr class="labelmedium line" style="height:20px">
     <td bgcolor="f4f4f4" style="padding-left:5px" >Attach Reports</td>
 	<td><cfif PersonMailActionAttach eq "1">Yes</b><cfelse>No</cfif></td>
 </tr>
 
-
-
-<tr class="line labelit"><td colspan="2" style="padding-left:2px;"><b>Miscellaneous</td></tr>
-<tr class="labelit line" style="height:18px"><td style="padding-top:4px;padding-left:5px" bgcolor="f4f4f4">Lead time</td>
-	<td class="labelit line" style="height:18px">
+<tr class="line labelmedium"><td colspan="2" style="padding-left:2px;"><b>Miscellaneous</td></tr>
+<tr class="labelmedium line" style="height:20px"><td style="padding-left:5px" bgcolor="f4f4f4">Lead time</td>
+	<td class="labelmedium line" style="height:20px">
 	<input type="text" 
        name="ActionLeadTime" 
 	   id="ActionLeadTime"
 	   value="#ActionLeadTime#" 
 	   size="1" 
-	   style="text-align:center;height:15px"
+	   style="text-align:center;height:20px;border-top:0px;border-bottom:0px"
 	   maxlength="3"
-	   class="regular"
+	   class="regularxl"
 	   onchange="toggleParam('ActionLeadTime',this.value,'#URL.EntityCode#','#URL.EntityClass#','#URL.ActionCode#','#URL.PublishNo#','Yes')">&nbsp;day
 	</td></tr>
 
-<tr class="labelit line" style="height:18px"><td bgcolor="f4f4f4" style="padding-left:5px">Action within</td>
-<td style="height:18px">
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-left:5px">Action within</td>
+<td style="height:20px">
 <input type="text" 
        name="ActionTakeAction" 
 	   id="ActionTakeAction"
 	   value="#ActionTakeAction#" 
 	   size="1" 
 	   maxlength="3"
-	   style="text-align:center;height:15px"
-	   class="regular"
+	   style="text-align:center;height:20px;border-top:0px;border-bottom:0px"
+	   class="regularxl"
 	   onchange="toggleParam('ActionTakeAction',this.value,'#URL.EntityCode#','#URL.EntityClass#','#URL.ActionCode#','#URL.PublishNo#','Yes')">&nbsp;hr	
 </td></tr>
 
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" style="padding-left:5px">Show Reference</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-left:5px">Show Reference</td>
 	<cfset Toggle = "ActionReferenceShow">
 	<cfinclude template="WorkflowInspectToggle.cfm">
+	
+<tr class="line labelmedium"><td colspan="2" style="padding-left:2px;"><b>Events</td></tr>
 
-	
-	
-	
-<tr class="line labelit"><td colspan="2" style="padding-left:2px;"><b>Events</td></tr>
-
-<tr class="labelit line" style="height:15px"><td bgcolor="f4f4f4" style="padding-top:4px;padding-left:5px">Due status</td>
+<tr class="labelmedium line" style="height:20px"><td bgcolor="f4f4f4" style="padding-top:4px;padding-left:5px">Due status</td>
 	<td><cfif DueEntityStatus eq "">N/A<cfelse>#DueEntityStatus#</cfif></td></tr>
 
 	<cfif Script.recordcount gte "1">		
-		<tr class="line labelit"><td colspan="2" style="padding-left:2px;"><b>Event Script</td></tr>		
+		<tr class="line labelmedium"><td colspan="2" style="padding-left:2px;"><b>Event Script</td></tr>		
 	<cfloop query="Script">
 		<cfif len(MethodScript) gt "5" or documentId neq "">
-			<tr class="labelit line" style="height:12px">
+			<tr class="labelmedium line" style="height:20px">
 			<td style="padding-left:5px" bgcolor="f4f4f4">#Method#</td>
 			<td><cfif len(MethodScript) gt "5" or documentId neq "">Yes<cfif documentId neq "">&nbsp;(scriptfile)</cfif></b><cfelse>-</cfif></td>
 			</tr>

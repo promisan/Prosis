@@ -31,8 +31,39 @@
 	<cfset URL.mode = "Write">
 </cfif>
 
+
+<!--- 15/7/2013 Hanno correct for strange situation
+   provision to correct the missionoperational --->
+
+<cfquery name="resetPosition" 
+datasource="AppsEmployee" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    UPDATE Position
+	SET    MissionOperational = (SELECT Mission 
+	                             FROM   Organization.dbo.Organization 
+								 WHERE  OrgUnit = P.OrgUnitOperational)
+	FROM   Position P
+	WHERE  PositionNo = '#URL.ID2#' 
+</cfquery>
+
+<cfquery name="Position" 
+datasource="AppsEmployee" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+    SELECT *
+    FROM   Position
+	WHERE  PositionNo = '#URL.ID2#' 
+</cfquery>
+
 <cfoutput>
+
 <script>
+
+  function AddVacancy(postno,box) {
+			ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:600,width:840,modal:true,center:true});	
+			ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?box='+box+'&portal=1&Mission=#Position.Mission#&ID1=' + postno + '&Caller=Listing','mydialog');	
+		}
 
 function owner(act,text) {
    ptoken.location('PositionEdit.cfm?box=#url.box#&Action='+act+'&ActionText='+text+'&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#')
@@ -73,6 +104,8 @@ function Selected(no,description) {
 </script>
 
 </cfoutput>
+
+<cfajaximport tags="cfform">
 
 <!--- feature to clean positions that are obviosuly wrong --->
 <cfquery name="qCandidates" 
@@ -152,31 +185,6 @@ function Selected(no,description) {
 
 </cfloop>
 </cftransaction>
-
-
-<!--- 15/7/2013 Hanno correct for strange situation
-   provision to correct the missionoperational --->
-
-<cfquery name="resetPosition" 
-datasource="AppsEmployee" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    UPDATE Position
-	SET    MissionOperational = (SELECT Mission 
-	                             FROM   Organization.dbo.Organization 
-								 WHERE  OrgUnit = P.OrgUnitOperational)
-	FROM   Position P
-	WHERE  PositionNo = '#URL.ID2#' 
-</cfquery>
-
-<cfquery name="Position" 
-datasource="AppsEmployee" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-    SELECT *
-    FROM   Position
-	WHERE  PositionNo = '#URL.ID2#' 
-</cfquery>
 
 <cfif Position.Recordcount eq "0">
 
@@ -522,7 +530,7 @@ password="#SESSION.dbpw#">
 	  
   <cfset c = "ffffff">
   
-  <tr style="border-top:1px solid silver">
+  <tr>
     <td width="100%" colspan="2" style="height:100%">
 	
 	<cf_divscroll>
@@ -542,27 +550,106 @@ password="#SESSION.dbpw#">
 	</cfif>	   
 					
 	<tr bgcolor="#c#" class="line">
-	   <td class="labelmedium2" style="height:30px;background-color:ffffcf;width:150px;padding-left:6px"><cf_space spaces="65"><cf_tl id="Owner">|<cf_tl id="Budget Title">|<cf_tl id="Grade">|<cf_tl id="Period"></td>
-	   <td class="labelmedium2" style="padding-left:10px">		   
+	   <td class="labelmedium2 fixlength" style="height:30px;background-color:ffffcf;min-width:299px;padding-left:6px"><cf_tl id="Owner">|<cf_tl id="Budget Title">|<cf_tl id="Grade">|<cf_tl id="Period"></td>
+	   <td class="labelmedium2" style="padding-left:10px">	
+	   
+	   <table style="width:100%;height:100%">
+	   <tr class="labelmedium2"><td class="fixlength">   
 		      #PositionParent.OrgUnitName# | #PositionParent.FunctionDescription# | #PositionParent.PostGrade# | #DateFormat(PositionParent.DateEffective,CLIENT.DateFormatShow)#&nbsp;-</font>&nbsp;#DateFormat(PositionParent.DateExpiration,CLIENT.DateFormatShow)#</b>
 	   &nbsp;
 	   <cfif Position.PositionStatus eq "1">
 	   <img src="#SESSION.root#/Images/check_mark.gif" align="absmiddle" alt="" border="0">
 	   <font color="008080"><cf_tl id="Locked"> <cfelse>
-	   <font color="0080FF">[<cf_tl id="Staffing period Pending clearance">]</font></cfif>			
+	   <font color="0080FF">[<cf_tl id="Staffing period Pending clearance">]</font>
+	   </cfif>		
+	   </td>
+	   
+	   <cfquery name="LaterPosition" 
+	     datasource="AppsEmployee" 
+	     username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+			 SELECT *
+			 FROM   Position
+			 WHERE  PositionNo      != '#URL.ID2#'
+			 AND    PositionParentId = '#Position.PositionParentid#'
+			 AND    DateEffective  > '#DateFormat(Position.DateExpiration,client.dateSQL)#'
+		</cfquery>	
+	   
+	    <cfif LaterPosition.recordcount eq "0">
+	   
+		   <td class="labelmedium2 fixlength" style="background-color:f1f1f1;width:170px;font-size:18px;padding-left:4px;padding-right:4px" align="center">
+		   
+		        <!--- likely we need to tune this a bit to capture 0 percent and 
+				 multiple assignments --->
+				 
+				 <cfquery name="Post" 
+			     datasource="AppsEmployee" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+					 SELECT *
+					 FROM   PersonAssignment
+					 WHERE  PositionNo      = '#URL.ID2#'
+					 AND    AssignmentStatus IN ('0','1')
+					 AND    AssignmentType   = 'Actual'					 
+					 AND    Incumbency       = 100
+					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
+					 and    DateExpiration >= CAST(GETDATE() AS Date)				
+					 AND    DateEffective  < '#DateFormat(Position.DateExpiration,client.dateSQL)#'
+				</cfquery>	
+				
+				
+				<cfquery name="PostStatus" 
+			     datasource="AppsEmployee" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+					 SELECT *
+					 FROM   PersonAssignment
+					 WHERE  PositionNo      = '#URL.ID2#'
+					 AND    AssignmentStatus IN ('0','1')
+					 AND    AssignmentType   = 'Actual'
+					 AND    AssignmentClass  = 'Regular'
+					 AND    Incumbency       = 100
+					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
+					 and    DateExpiration >= CAST(GETDATE() AS Date)				
+					 AND    DateEffective  < '#DateFormat(Position.DateExpiration,client.dateSQL)#'
+				</cfquery>	
+				 
+				 <cfquery name="PostLien" 
+			     datasource="AppsEmployee" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+					 SELECT *
+					 FROM   PersonAssignment
+					 WHERE  PositionNo      = '#URL.ID2#'
+					 AND    AssignmentStatus IN ('0','1')
+					 AND    AssignmentType = 'Actual'
+					 AND    Incumbency = 0
+					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
+					 and    DateExpiration >= CAST(GETDATE()-60 AS Date)		<!--- 60 days threshold --->		
+					 AND    DateEffective  < '#DateFormat(Position.DateExpiration,client.dateSQL)#'
+				</cfquery>	
+		   
+						
+				<cfif Post.recordcount eq "0">				
+					<font color="FF0000"><cf_tl id="Vacant"></font>					
+				<cfelseif PostStatus.recordcount gte "1" and PostHolder.recordcount eq "0">				
+					<cf_tl id="Encumbered by holder">					
+				<cfelse>				
+					<font color="gray"><cf_tl id="Encumbered"></font>						
+				</cfif>  
+				 
+		   </td>
+		   
+		   <td style="width:15px"></td>
+	   
+	   </cfif>
+	   
+	   </tr>
+	   </table>		
 	   </td>
 	</tr>
 		
-	<cfquery name="LaterPosition" 
-     datasource="AppsEmployee" 
-     username="#SESSION.login#" 
-     password="#SESSION.dbpw#">
-		 SELECT *
-		 FROM   Position
-		 WHERE  PositionNo      != '#URL.ID2#'
-		 AND    PositionParentId = '#Position.PositionParentid#'
-		 AND    DateEffective  > '#DateFormat(Position.DateExpiration,client.dateSQL)#'
-	</cfquery>	
+	
 	
 	<cfif url.action neq "view">
 	
@@ -1492,7 +1579,7 @@ password="#SESSION.dbpw#">
 					
 					</cfif>
 				
-				   	<select name="posttype" id="posttype" size="1" style="width:150px" class="regularxxl">
+				   	<select name="posttype" id="posttype" size="1" style="width:250px" class="regularxxl">
 				    <cfoutput query="PostType">
 					<option value="#PostType#" <cfif Posttype eq Position.Posttype>selected</cfif>>
 			    		#Description#
@@ -1513,7 +1600,7 @@ password="#SESSION.dbpw#">
 				<TD style="padding-left:20px;min-width:100px" class="labelmedium2"><cf_tl id="Grade">:<font color="FF0000">*</font></TD>
 			    <TD>
 					<table cellspacing="0" cellpadding="0">
-					<tr><td class="labelmedium2">
+					<tr><td class="labelmedium2 fixlength">
 						
 						<cfif (Position.PositionStatus eq "0" AND AccessPosition eq "EDIT") OR (AccessPosition eq "ALL")>
 							
@@ -1538,11 +1625,11 @@ password="#SESSION.dbpw#">
 				    	</cfif>	
 					
 					</td>
-					<td style="padding-left:10px" class="labelit">
+					<td style="padding-left:10px" class="labelmedium2 fixlength">
 					
 					<cfoutput>
 					
-						<a href="javascript:gjp('#Position.functionNo#','#Position.postgrade#')"><cf_tl id="Open Job profile for Grade and Title"></a>
+						<a href="javascript:gjp('#Position.functionNo#','#Position.postgrade#')"><cf_tl id="Job profile"></a>
 						</cfoutput>
 							
 					</TD>
@@ -1581,7 +1668,7 @@ password="#SESSION.dbpw#">
 			<cfif (AccessPosition eq "EDIT" OR AccessPosition eq "ALL")
 				OR (Position.PositionStatus eq "1" AND (AccessLoaner eq "EDIT" or AccessLoaner eq "ALL"))>
 				
-			   	<select name="PostClass" class="regularxxl" style="width:150px">
+			   	<select name="PostClass" class="regularxxl" style="width:250px">
 			    <cfoutput query="PostClass">
 				<cfif PostClass.accessLevel eq "2">
 					<cfif AccessPosition eq "ALL" or AccessLoaner eq "ALL">
@@ -1656,15 +1743,15 @@ password="#SESSION.dbpw#">
 	
 		<table cellspacing="0" cellpadding="0">
 		
-		<tr class="labelmedium">
+		<tr class="labelmedium2">
 		
 		<cfif (Position.PositionStatus eq "0" AND AccessPosition eq "EDIT")	OR (AccessPosition eq "ALL")>
 		
-			<td class="labelmedium2">
+			<td>
 		    <INPUT type="radio" class="radiol" name="Classified" value="0" <cfif PositionParent.ApprovalPostGrade eq "">checked</cfif>  onclick="measuresource('hide')">
 			</td>
 			<td style="padding-left:3px;padding-top:1px"><cf_tl id="Non classified"></td>
-			<td class="labelmedium2" style="padding-left:15px">
+			<td style="padding-left:15px">
 			<INPUT type="radio" class="radiol" name="Classified" value="1" <cfif PositionParent.ApprovalPostGrade neq "">checked</cfif> onclick="measuresource('regular')">
 			</td>
 			<td style="padding-left:3px;padding-top:1px"><cf_tl id="Classified"></td>
@@ -1679,15 +1766,17 @@ password="#SESSION.dbpw#">
 									
 				<table cellspacing="0" cellpadding="0">
 				
-				    <tr><td>as :</td><td style="padding-left:3px">
+				    <tr class="labelmedium2">
+					 <td>as</td>
+					 <td style="padding-left:3px">
 				
 					<cf_securediv id="approvalpostgrade" 
 					  bind="url:PositionGradeSelect.cfm?field=ApprovalPostGrade&posttype={posttype}&presel=#Position.PostGrade#&mission=#url.id#&functionno=#Position.FunctionNo#"/>				
 								  
 					</td>
 					 
-					<TD style="padding-left:9px" class="labelmedium2"><cf_tl id="Reference No">:</TD>
-				    <TD style="padding-left:4px" class="labelmedium2">					
+					<TD style="padding-left:9px"><cf_tl id="Reference"></TD>
+				    <TD style="padding-left:4px">					
 											
 							<cfoutput>
 						        <input type="text" 
@@ -1704,14 +1793,14 @@ password="#SESSION.dbpw#">
 			
 			<cfelse>			
 				
-				<td class="labelmedium2">
+				<td>
 				<cfoutput>
 				<cfif PositionParent.ApprovalPostGrade eq ""><cf_tl id="Non classified"><cfelse>#PositionParent.ApprovalPostGrade#</cfif>
 				<input type="hidden" name="approvalpostgrade" value="#PositionParent.ApprovalPostGrade#">
 				</cfoutput>
 				</td>
-				<TD style="padding-left:9px" class="labelmedium2"><cf_tl id="Reference No">:</TD>
-				<TD class="labelmedium2">
+				<TD style="padding-left:9px"><cf_tl id="Reference No">:</TD>
+				<TD style="padding-left:3px">
 					<cfif PositionParent.ApprovalReference eq "">N/A<cfelse><cfoutput>#PositionParent.ApprovalReference#</cfoutput></cfif>
 				</td>
 			
@@ -1722,21 +1811,24 @@ password="#SESSION.dbpw#">
 	   </table>	
 	   
     </td>
-   </tr>
-	  
+   </tr>	  
    			   
 	<TR class="labelmedium2">
-        <td valign="top" style="background-color:f1f1f1;border-bottom:1px solid silver;padding-top:6px;padding-left:6px;height:30px"><cf_tl id="Categorization">:</td>
+        <td valign="top" style="background-color:f1f1f1;border-bottom:1px solid silver;padding-top:6px;padding-left:6px;height:30px">
+		<cf_tl id="Post functional classification">:
+		</td>
         <td style="padding-left:10px">
 		   <cfinclude template="PositionEditGroup.cfm">
 		</td>
-		</TR>
+	</TR>
 		
 	<cfif AccessPosition eq "EDIT" OR AccessPosition eq "ALL" OR URL.Action eq "Loan" OR AccessStaffing eq "EDIT" or AccessStaffing eq "ALL">	
 		   
 	    <TR class="labelmedium2">
 	    <TD style="background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="Vacancy class">:<font color="FF0000">*</font> </TD>
 	    <TD style="padding-left:10px">
+		
+		     <table><tr class="labelmedium2"><td>
 		
 		  	<select name="vacancyActionClass" size="1" class="regularxxl">
 			   
@@ -1747,6 +1839,15 @@ password="#SESSION.dbpw#">
 				</cfoutput>
 		    </select>
 			
+			</td>
+			
+			<td style="padding-left:5px" id="recruitment">		
+			     <cfset add = "1">	
+			     <cfinclude template="getRecruitment.cfm">			
+			</td>
+			
+			</tr></table>
+			
 		</TD>
 		</TR>
 	
@@ -1755,6 +1856,8 @@ password="#SESSION.dbpw#">
 		<TR class="labelmedium2" bgcolor="ffffff">
 	    <TD style="height:30px;background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="Vacancy class"> </TD>
 	    <TD style="padding-left:10px">
+		
+		  <table><tr class="labelmedium2"><td>
 		
 		  <cfquery name="VacancyClass" 
 			datasource="AppsEmployee" 
@@ -1769,6 +1872,14 @@ password="#SESSION.dbpw#">
 		  <cfoutput>#VacancyClass.Description#</cfoutput>	
 		  
 		  <input type="hidden" name="VacancyActionClass" value="<cfoutput>#Position.VacancyActionClass#</cfoutput>">
+		  
+		  </td>
+			
+			<td style="padding-left:5px" id="recruitment">			
+			     <cfinclude template="getRecruitment.cfm">			
+			</td>
+			
+			</tr></table>
 			
 		</TD>
 		</TR>
@@ -2212,4 +2323,3 @@ password="#SESSION.dbpw#">
 </TABLE>  
 
 </CFFORM> 
-

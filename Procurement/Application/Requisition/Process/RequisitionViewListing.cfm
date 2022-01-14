@@ -270,7 +270,7 @@ function mail2(mode,id) {
 						<td colspan="2"></td>											
 						<td colspan="6" align="center" bgcolor="EEFDF1" style="border:1px solid silver;">
 							<table width="100%">
-							<tr class="labelmedium2">							  
+							<tr class="labelmedium2 fixlengthlist">							  
 							   <td style="padding-left:3px" width="10%">#Fund#</td>
 							   <td style="padding-left:3px" width="10%">#ProgramPeriod#</td>
 							   <td width="10%">

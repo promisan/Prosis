@@ -17,12 +17,12 @@
 	<cfset crow = "0">
 	
 	<cfif group.recordcount eq "0">
-	    <tr class="labelmedium2"><td colspan="3" class="fixlength" style="background-color:ffffcf;padding-left:4px">[ No group set ]</td></tr>	
+	    <tr class="labelmedium2"><td colspan="3" align="center" class="fixlength" style="background-color:##ffffaf80;padding-left:4px">[ No group set ]</td></tr>	
 	</cfif>
 	
 	<cfloop query="group">
 		
-	 <tr class="labelmedium2 fixlengthlist" bgcolor="FFC488">
+	 <tr class="labelmedium2 fixlengthlist" style="height:18px;background-color:##FFC48880">
 		 <td colspan="3" style="padding-left:3px">
 		     <cfset crow = crow+1>#crow#.&nbsp;&nbsp;&nbsp;&nbsp;#LastName# 
 		 </td>		 		

@@ -59,7 +59,7 @@
 			</td>
 		</tr>	
 		<tr><td class="line" colspan="<cfoutput>#columns#</cfoutput>"></td></tr>
-		<tr class="line labelmedium">	
+		<tr class="line labelmedium fixlengthlist">	
 			<td height="23" width="25"></td>	
 			<td><cf_tl id="UoM"></td>
 			<td><cf_tl id="Item No."></td>
@@ -72,14 +72,14 @@
 		
 		<cfif get.recordCount gt 0>
 		<cfoutput query="get" group="VendorName">
-			<tr class="line">			
+			<tr class="line fixlengthlist">			
 				<td colspan="#columns#" class="labellarge">
 					<a href="javascript: showVendorInfo('#orgUnitVendor#');">#VendorName#</a>
 				</td>
 			</tr>
 			<cfoutput>
 				
-				<tr class="navigation_row labelmedium line">	
+				<tr class="navigation_row labelmedium line fixlengthlist">	
 				
 					<td></td>			
 					<td>#UoMDescription#</td>
@@ -140,11 +140,9 @@
 						
 						<table class="formspacing">
 							<tr>
-								<td>
-									<cf_img icon="edit" navigation="Yes" onclick="editvendor('#url.mission#','#url.id#','#UoM#','#orgUnitVendor#');">
-								</td>
+								<td><cf_img icon="edit" navigation="Yes" onclick="editvendor('#url.mission#','#url.id#','#UoM#','#orgUnitVendor#');"></td>
 								<td style="padding-left:4px">
-									<cf_img icon="delete" onclick="if (confirm('Do you want to remove this vendor/uom ?')) {ColdFusion.navigate('#SESSION.root#/Warehouse/Maintenance/ItemMaster/vendors/vendorPurge.cfm?mission=#url.mission#&id=#url.id#&uom=#uom#&orgunitvendor=#orgunitvendor#','divVendorListing');}">
+									<cf_img icon="delete" onclick="if (confirm('Do you want to remove this vendor/uom ?')) {ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/ItemMaster/vendors/vendorPurge.cfm?mission=#url.mission#&id=#url.id#&uom=#uom#&orgunitvendor=#orgunitvendor#','divVendorListing');}">
 								</td>
 							</tr>
 						</table>

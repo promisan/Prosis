@@ -13,7 +13,6 @@
 
 <cf_calendarscript>
 
-
 <cfparam name="URL.Mission" default="">
 
 <cfparam name="URL.drillid" default="">
@@ -247,7 +246,7 @@ password="#SESSION.dbpw#">
 		</cfquery>	
 				
 		<tr class="line labelmedium">
-			<td colspan="12" style="height:50px;font-size:25px">#getWarehouse.WarehouseName# (#Warehouse#)</td>
+			<td colspan="13" style="height:50px;font-size:25px">#getWarehouse.WarehouseName# (#Warehouse#)</td>
 		</tr>	
 			
 	    <cfset w = warehouse>		
@@ -258,7 +257,7 @@ password="#SESSION.dbpw#">
 		
 	</cfoutput>
 		
-	<tr><td colspan="12" height="34" align="center">
+	<tr><td colspan="13" height="34" align="center">
 	<input type="button" onclick="applyform()" class="button10g" style="width:250px;height:25px" name="Save" id="Save" value="Save">
 	</td></tr>
 	

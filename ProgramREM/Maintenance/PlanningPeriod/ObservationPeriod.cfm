@@ -28,7 +28,7 @@ FROM Ref_SubPeriod
    <CF_DateConvert Value="#DateFormat(Period.DateEffective, CLIENT.DateFormatShow)#">
    <cfset sel = dateValue>
                       
-   <cfset per = #Period.Period#>
+   <cfset per = Period.Period>
    	   
    <cfloop query="Sub">
 		

@@ -26,7 +26,7 @@
 			  AND    T.UnitOfMeasure  = IT.TransactionUoM ) as OnHand
 	
 	FROM   Transfer#URL.Whs#_#SESSION.acc# T
-	WHERE  TransferQuantity > 0 			
+	WHERE  TransferQuantity > 0 	xxxxxx		
 
 </cfquery>
 
@@ -43,8 +43,7 @@
 	<cfoutput>
 		<script language="JavaScript">
 			alert('#vNegative1#. #vNegative2#.');
-			Prosis.busy('no')
-			
+			Prosis.busy('no')			
 			stocktransfer('','#url.systemfunctionid#','#url.stockorderid#');
 		</script>
 	</cfoutput>

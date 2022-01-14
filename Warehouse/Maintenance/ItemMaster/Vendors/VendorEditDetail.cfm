@@ -42,7 +42,7 @@
 	<tr><td height="1" colspan="<cfoutput>#dColumns#</cfoutput>" class="line"></td></tr>
 	<tr><td height="2"></td></tr>
 	
-	<tr class="labelmedium2">
+	<tr class="labelmedium2 fixlengthlist">
 		<td width="40"></td>
 		<td><cf_tl id="Location"></td>		
 		<td align="right"><cf_tl id="Currency"></td>
@@ -62,7 +62,7 @@
 	
 		<cfoutput query="getOffers" group="dateEffective">
 			<cfset passDate = Dateformat(dateEffective, 'yyyy-mm-dd')>
-			<tr onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='FFFFFF'" bgcolor="FFFFFF">
+			<tr onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor='FFFFFF'" bgcolor="FFFFFF" class="fixlengthlist">
 				<td class="labelmedium2" style="font-size:17px" colspan="#dColumns - 1#" align="left" onClick="javascript: editvendorofferperdate('#offerid#','#mission#','#itemno#','#uom#','#orgunitvendor#','#passDate#');" style="cursor: pointer;" class="label">
 					<b>#mission#</b> #Dateformat(dateEffective, "#CLIENT.DateFormatShow#")# - #lsNumberFormat(OfferMinimumQuantity, ",.__")# #UoMDescription#s minimum
 				</td>
@@ -85,7 +85,7 @@
 			</tr>
 			<tr><td height="3"></td></tr>
 			<cfoutput>
-			<tr class="labelmedium2">	
+			<tr class="labelmedium2 fixlengthlist">	
 				<td></td>		
 				<td>#LocationName# <font size="1">[#LocationCode#]</font></td>
 				<td align="right">#currency#</td>

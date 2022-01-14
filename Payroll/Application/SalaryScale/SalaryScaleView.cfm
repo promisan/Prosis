@@ -1,13 +1,9 @@
 
 <cfoutput>
 
-<!--- not needed
-<cf_screentop height="100%" user="no" layout="webapp" banner="gray" scroll="Yes" title="Salary Schedule and Grade" label="Select: <b>Salary Scale">
---->
-
-<table width="100%" height="99%" cellspacing="0" cellpadding="0">
+<table width="100%" height="99%">
 	<tr><td height="100%" width="320">
-	<iframe src="#session.root#/Payroll/Application/SalaryScale/SalaryScaleTree.cfm?contractid=#url.contractid#"
+	<iframe src="#session.root#/Payroll/Application/SalaryScale/SalaryScaleTree.cfm?mission=#url.mission#&contractid=#url.contractid#"
         width="100%"
         height="99%"
         scrolling="no"

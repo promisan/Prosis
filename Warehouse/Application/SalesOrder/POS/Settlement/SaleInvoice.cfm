@@ -133,7 +133,7 @@
 					    value    = "#Header.eMailAddress#"
 						class    = "regularxl" 
 						style    = "width:99%;height:28px;font-size:15px;text-align:center" 
-						onChange = "ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/setEMailAddress.cfm?email='+this.value+'&customeridInvoice=#Header.CustomerIdInvoice#&batchid=#url.batchid#','mailbox')">
+						onChange = "ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/setEMailAddress.cfm?email='+this.value+'&customeridInvoice=#Header.CustomerIdInvoice#&batchid=#url.batchid#&actionid=#url.actionid#','mailbox')">
 				
 			</td> 					
 			
@@ -145,7 +145,7 @@
 						
 					 <input type="button" 
 					      class="button10g" 
-					      onclick="ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/doInvoiceMail.cfm?batchid=#url.batchid#','mailbox')" 
+					      onclick="ptoken.navigate('#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/doInvoiceMail.cfm?batchid=#url.batchid#&actionid=#url.actionid#','mailbox')" 
 					      style="border:1px solid silver;height:28;width:120;font-size:13px" 						 
 						  name="save" id="save" 
 						  value="#lt_text#">

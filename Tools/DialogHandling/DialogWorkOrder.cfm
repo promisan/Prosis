@@ -10,7 +10,7 @@
 	function linebillingdetail(wid,lid,bid) {       
 	
 	   try { ProsisUI.closeWindow('myprovision',true) } catch(e) {}		
-	   ProsisUI.createWindow('myprovision', 'Provisioning', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true,resizable:true})    	   					
+	   ProsisUI.createWindow('myprovision', 'Provisioning', '',{x:100,y:100,height:document.body.clientHeight-80,width:1150,modal:true,center:true,resizable:true})    	   					
 	   ptoken.navigate('#session.root#/workorder/application/workorder/ServiceDetails/Billing/DetailBillingDialog.cfm?mode=workorder&workorderid='+wid+'&workorderline='+lid+'&billingid='+bid,'myprovision') 		 
 	}
 

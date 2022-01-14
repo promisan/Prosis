@@ -97,11 +97,12 @@
 						    WHERE     Mission   = '#filtermission#'
 						    AND       ItemNo    = '#filterItemNo#'
 							AND       TransactionDate >  '#transactiondate#'
-						    AND       (TransactionReference LIKE 'D-%' OR TransactionReference LIKE 'OC%')
+						    AND       ((TransactionReference LIKE 'D-%' AND TransactionQuantity > 0) OR TransactionReference LIKE 'OC%')
 							<cfif omit neq "">
 							AND       TransactionId not in (#preservesinglequotes(omit)#)
 							</cfif>
 							ORDER BY  TransactionDate ASC <!--- removed as it was taking the wrong comprass DESC --->
+							
 					</cfquery>	
 					
 					<cfif nextproc.recordcount eq "1">		
@@ -149,7 +150,7 @@
 				WHERE       Mission   = '#filtermission#'
 				AND         ItemNo    = '#filterItemNo#'
 				AND         TransactionQuantity <> 0
-				ORDER BY    TransactionDate, TransactionReference  <!--- first the receipts --->				
+				ORDER BY    TransactionDate, TransactionReference  <!--- always first the receipts and d-transactions if postivie --->			
 																
 		</cfquery>	
 		
@@ -316,10 +317,24 @@
 					<!--- Attention : also store price in a table --->
 								 
 			<cfelse>
-						
-					<cfset stock      = stock + Transactionquantity> 
-					<cfset value      = Transactionquantity * price>
+			
+					<cfif price eq "0" and TransactionValue neq 0>
 					
+						<!--- this a correcion in case the very first line is negative Lucia 8/1/2022 : 008240 --->
+					
+						<cfset price = round(TransactionValue*100000/TransactionQuantity)/100000>
+					
+						<cfset stock      = stock + Transactionquantity> 
+					    <cfset value      = Transactionquantity * price> 
+						
+						
+					<cfelse>
+					
+						<cfset stock      = stock + Transactionquantity> 
+						<cfset value      = Transactionquantity * price>
+					
+					</cfif>
+										
 					<cfquery name="transaction" 
 						datasource="#Datasource#" 
 						username="#SESSION.login#" 
@@ -383,81 +398,7 @@
 		<cfset stock.onhand       = "0">
 		<cfset stock.earmarked    = "0">	
 		<cfset stock.reserved     = "0">
-		
-		<!---  get this stock live 
-		
-		<cfargument name="Datasource"      type="string" 	default="AppsMaterials" required="yes">								
-		<cfargument name="filterMission"   type="string" 	default="Mariscal"      required="no">
-		<cfargument name="filterWarehouse" type="string" 	default=""              required="no">
-		<cfargument name="filterItemNo"    type="string" 	default="001962"        required="yes">	
-		
-		<!--- we get the stock levels per warehouse --->		
-		
-		<cfquery name="transaction" 
-			datasource="hubEnterprise" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">			
-			
-			SELECT    TOP 100 PERCENT newid() as TransactionId,
-			          TransactionDate,
-					  TransactionReference,
-					  TransactionType,
-					  ItemNo,
-					  Warehouse,
-					  Status,
-			          
-					  B.CustAccount, B.SalesName, B.InvoiceDate, B.SalesStatus,-- sale
-			
-					  (SELECT TOP 1 SalesStatus
-					   FROM DB01.DISMARAX.dbo.SALESLINE 
-					   WHERE SalesId = A.TransactionReference and ItemId = A.ItemNo) as SalesLineStatus,
-					   		  
-					  -- T.TRANSFERSTATUS as TransferStatus, T.SHIPDATE as FromDate, 
-					  -- T.RECEIVEDATE as ToDate, 
-					  -- T.FROMADDRESSNAME as FromStore, 
-					  T.TOADDRESSNAME as ToStore,			
-			          D.Description,
-			
-			                sum([StockOnHand])         as [StockOnHand],
-							sum([Reserved])            as [Reserved],                
-			                sum([TransactionQuantity]) as [TransactionQuantity],                
-							sum([PedidoTotal])         as [Pedido],
-			                sum([Quoted])              as [Quoted],
-							sum([Requested])           as [Requested]
-			
-			FROM    DB01.DISMARAX.dbo.vwStockInformation A
-					LEFT OUTER JOIN DB01.DISMARAX.dbo.SALESTABLE B ON A.TransactionReference = B.SalesId 
-					LEFT OUTER JOIN DB01.DISMARAX.dbo.INVENTTRANSFERTABLE T ON A.TransactionReference = T.TransferId 
-					LEFT OUTER JOIN DB01.DISMARAX.dbo.INVENTJOURNALTABLE D  ON A.TransactionReference = D.JournalId 
-			   
-			WHERE   ItemNo    = '#filteritemno#' 
-			 -- AND    Warehouse = '#filterwarehouse#'
-			 
-			 AND    TransactionQuantity <> 0 <!--- only real and reservations --->
-			 AND    TransactionType NOT IN ('7','201','202') -- internal work actions in warehouse always 0
-			 
-			 -- AND TransactionType = '26' -- Danado, to be excluded and as such added to the stock but then set in DIFFERENT COLUMN and to be THEN from the available stock
-			 -- AND DocumentReference IN (SELECT SALESID FROM DB01.DISMARAX.dbo.SALESTABLE WHERE SALESSTATUS > '1')
-			  
-			GROUP BY TransactionDate ,TransactionReference,TransactionType, 
-					 ItemNo,Warehouse,Status,
-			         B.CustAccount, B.SalesName, B.InvoiceDate, B.SalesStatus,
-					 T.TRANSFERSTATUS, T.SHIPDATE, T.RECEIVEDATE, T.FROMADDRESSNAME, T.TOADDRESSNAME, D.Description			
-			
-			<!--- the sorting D- then OC and within this first pos quantities --->		 
-			ORDER BY TransactionDate, LEFT(TransactionReference, 2), TransactionQuantity DESC
-
-		</cfquery>		
-		
-		<cfset tme = transaction>
-		
-		<cfreturn tme>		
-		
-		
-		--->
-		
-		
-		
+						
 		
 		<cfquery name="getOnHand" 
 				datasource="hubEnterprise" 
@@ -524,6 +465,8 @@
 			<cfargument name="Category"            type="string"  required="true"   default="">
 			
 			<cfargument name="ItemName"            type="string"  required="true"   default="">
+						
+			<cfargument name="ItemMode"            type="string"  required="true"   default="">
 			<cfargument name="ItemNo"              type="string"  required="true"   default="">
 			<cfargument name="UoM"                 type="string"  required="true"   default="">
 			<cfargument name="Classify"            type="string"  required="true"   default="">
@@ -533,7 +476,20 @@
 			<cfargument name="SettingReservation"  type="string"  required="false"  default="">
 			
 			<cfargument name="Mode"           type="string"  required="true"   default="Table">
-			<cfargument name="Table"          type="string"  required="false"  default="#SESSION.acc#Stock">	
+			<cfargument name="Table"          type="string"  required="false"  default="#SESSION.acc#Stock">				
+			
+			<cfset searchstr = "">
+					
+			<cfloop index="itm" list="#ItemName#" delimiters=" ">
+			
+				<cf_softlike left="I.ItemName" right="#itm#" language="#client.languageId#" var="1">					
+				<cfif searchstr eq "">						
+				    <cfset searchstr = "#softstring#">						
+				<cfelse>						
+					<cfset searchstr = "#searchstr# AND #softstring#">										
+				</cfif>
+			
+			</cfloop>
 		
 			
 			<cfquery name="stock" 
@@ -611,7 +567,7 @@
 							 
 				FROM        Item AS I 
 				            INNER JOIN ItemStock AS S ON I.Mission = S.Mission AND I.ItemNo = S.ItemNo
-							INNER JOIN Warehouse AS W ON S.Mission = W.Mission AND S.Warehouse = W.Warehouse 
+							INNER JOIN Warehouse AS W ON S.Mission = W.Mission AND S.Warehouse = W.Warehouse AND W.Operation = 1 
 							INNER JOIN Materials.dbo.Item T ON I.ItemNo = T.ItemNoExternal 
 							INNER JOIN		
 												
@@ -629,19 +585,24 @@
 									AND  T.PriceSchedule = S.PriceSchedule 
 									AND  T.Currency      = S.Currency 
 									AND  T.DateEffective = S.DateEffective
-												   
+										   
 												   
 								) as P ON P.Mission = W.Mission AND P.ItemNo = I.ItemNo AND PriceSchedule = '#Priceschedule#'									
 							
 				WHERE       I.Mission = '#mission#' 
 				AND         I.Operational = 1
+				AND         W.Operation = 1
 				AND         S.SelectionDate = CAST(GETDATE() AS Date) 
 				
 				<cfif warehouse neq "">
 				AND         W.Warehouse = '#Warehouse#'
 				</cfif>		
 				<cfif itemNo neq "">
+				<cfif itemMode eq "exact">
+				AND         I.ItemNo LIKE '#ItemNo#' 
+				<cfelse>
 				AND         I.ItemNo LIKE '%#ItemNo#' 
+				</cfif>
 				</cfif>
 				<cfif Make neq "">
 				AND         I.ItemBrand IN (#preservesinglequotes(make)#) 		
@@ -654,14 +615,14 @@
 				AND         T.ItemNo IN ( #preserveSingleQuotes(classify)# )					
 				</cfif>		
 				
-				<cfif ItemName neq "">
-										
-						AND ( 
-						<cf_softlike left="I.ItemName" right="#ItemName#" language="#client.languageId#">
-						OR  (I.ItemNo LIKE '%#ItemName#' OR I.ItemNo LIKE '%#ItemName#%')
-						)
-										
-				</cfif>		
+				<!--- apply the fuzzy search for the name and apply support for spanish sign --->						
+				<cfif ItemName neq "">							
+				AND ( 				
+				(#preservesingleQuotes(searchstr)#)				
+				OR I.ItemNo         LIKE '%#ItemName#' 				
+				)
+				
+				</cfif>			
 				
 				AND        I.Operational = 1 
 				AND        W.Operation   = 1		
@@ -683,10 +644,33 @@
 				</cfif>
 				
 				ORDER BY ItemName, WarehouseName
-				
+							
 															
 			</cfquery>			
 							
 			<cfreturn stock>	
 		
 	</cffunction>
+	
+	<cffunction name="IssueSale"
+        access="public"
+        returntype="any"
+        displayname="Issue a sale transaction">
+		
+    </cffunction>	
+	
+	<cffunction name="AmendSale"
+        access="public"
+        returntype="any"
+        displayname="Amend sale transaction">
+		
+    </cffunction>	
+	
+	<cffunction name="CancelSale"
+        access="public"
+        returntype="any"
+        displayname="Cancel sale transaction">
+		
+    </cffunction>	
+	
+		

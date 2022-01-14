@@ -21,7 +21,7 @@
 	<cfset row = "0">
 	
 	<cfif roles.recordcount eq "0">
-	     <tr><td colspan="3" style="background-color:ffffcf;" class="labelmedium2 fixlength">[<cf_tl id="No role set">]</td></tr>	
+	     <tr><td colspan="3" style="background-color:##ffffaf80;" align="center" class="labelmedium2 fixlength">[<cf_tl id="No role set">]</td></tr>	
 	</cfif>
 				
 	<cfloop query="roles">
@@ -68,8 +68,7 @@
 		 
 	 </tr>
 		 
-	</cfloop>
-	
+	</cfloop>	
 	  	  
  </table>
  

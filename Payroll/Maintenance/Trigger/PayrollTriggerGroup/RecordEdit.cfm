@@ -5,6 +5,7 @@
 			  title="Trigger Group" 			  
 			  label="Trigger Group" 
 			  line="no"
+			  html="No"
 			  jquery="yes" user="no">
 
 <cfquery name="get"

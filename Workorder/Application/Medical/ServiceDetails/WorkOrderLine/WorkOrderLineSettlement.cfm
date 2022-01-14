@@ -29,7 +29,7 @@
 
 <cfelse>
 
-	<table width="100%" cellspacing="0" cellpadding="0" class="navigation_table">
+	<table width="100%" class="navigation_table">
 	
 		<tr class="labelmedium line">			
 			<td style="padding-left:15px;"><cf_tl id="Name"></td>	
@@ -39,8 +39,7 @@
 		</tr>
 		
 		<cfoutput query = "Settlement">		
-			<tr class="labelmedium navigation_row line" style="height:23px">
-			   
+			<tr class="labelmedium navigation_row line" style="height:23px">			   
 			   <td style="padding-left:15px">#SettleCustomerName#</td>		
 			   <td style="padding-left:15px"><cfif SettleReference eq "">n/a<cfelse>#SettleReference#</cfif></td>		
 			   <td style="padding-left:15px">#SettleCode#</td>			  

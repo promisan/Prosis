@@ -188,6 +188,8 @@
 					AND      ActionStatus IN ('1','5')									
 					ORDER BY Created DESC								
 			</cfquery>
+			
+			<cfset eMailTo = "">
 					
 			<cfif GetPrevious.ActionStatus eq 5>
 				<!--- It is a re-attempt to post the SAME sales order which was cancelled
@@ -211,6 +213,8 @@
 				    <!--- we make sure we take the action which opened --->
 					<cfset vUniqueId = getAction.ActionSource1>	
 				</cfif>	
+				
+				<cfset eMailTo = GetAction.eMailAddress>
 			
 			<cfelse>
 			
@@ -218,6 +222,10 @@
 				
 			</cfif>
 			
+			<!---
+			<cfoutput>#vUniqueid#</cfoutput>
+			--->
+						
 			<!--- ------------------------- --->
 			<!--- 1 of 4 Vendor information --->
 			<!--- ------------------------- --->
@@ -286,7 +294,7 @@
 			
 				<!--- fall back --->
 				<cfset FEL.VendoreMail      = "#GetVendorAddress.eMailAddress#"> 
-				<cfset FEL.VendorAddress    = "CUIDAD">
+				<cfset FEL.VendorAddress    = "CIUDAD">
 				<cfset FEL.VendorPostalCode = "01001">	
 				<cfset FEL.VendorCity       = "GUATEMALA">
 				<cfset FEL.VendorState      = "GUATEMALA">
@@ -326,7 +334,7 @@
 					
 					<!--- fall back --->
 					
-					<cfif FEL.VendorAddress eq "CUIDAD">
+					<cfif FEL.VendorAddress eq "CIUDAD">
 					
 						<cfset FEL.VendoreMail      = "#GetWarehouse.Contact#"> 
 						<cfset FEL.VendorAddress    = "#GetWarehouse.Address#">
@@ -408,18 +416,7 @@
 				    <cfelse>
 				          <cfset FEL.CustomerCountry    = "GT">
 				    </cfif>  
-																
-					<!--- 
-					       <cfquery name	= "qPostalCodeCheck"
-								datasource	="#datasource#"
-								username  	="#SESSION.login#"
-								password  	="#SESSION.dbpw#">
-								SELECT 		*
-								FROM 		System.dbo.PostalCode
-								WHERE 		PostalCode = '#GetInvoice.CustomeraddressPostalCode#' or PostalCode = '#GetInvoice.PostalCode#'
-							</cfquery>
-					--->
-					
+										
 				</cfcase>
 			
 				<cfcase value="WorkOrderSeries">
@@ -427,7 +424,7 @@
 					<!--- get customer --->
 					
 					<cfif getTransaction.TransactionSourceNo eq "Medical">
-					
+										    					
 					    <!--- customer information is recorded differently --->
 					
 					    <cfset FEL.CustomerName       = "#getTransaction.ReferenceName#">
@@ -441,13 +438,46 @@
 						<cfset vNit = Replace(vNIT,"-","","ALL")>
 						<cfset FEL.CustomerNIT        = "#vNit#">	
 						
-						<cfset FEL.CustomereMail      = "">								
-						<cfset FEL.CustomerAddress    = "">
-						<cfset FEL.CustomerPostalCode = "">
-						<cfset FEL.CustomerCity       = "">
-						<cfset FEL.CustomerState      = "">		
+						<cfset FEL.CustomereMail      = "#eMailTo#">		
 						
-						<cfset FEL.CustomerCountry    = "GT">			
+						<!--- we obtain possible NIT information --->
+						
+						<cfquery name="GetAddress"
+						datasource="#datasource#"
+						username="#SESSION.login#"
+						password="#SESSION.dbpw#">
+							SELECT      R.Address, R.Address2, 
+							            R.AddressCity, R.AddressRoom, 
+										R.AddressPostalCode, R.State, R.Country, 
+										R.Source, R.Remarks
+	                        FROM        System.dbo.CountryTaxCode AS T INNER JOIN
+	                                    System.dbo.Ref_Address AS R ON T.AddressId = R.AddressId
+	                        WHERE       T.TaxCode = '#getTransaction.ReferenceNo#'							
+						</cfquery>
+						
+						<cfif getAddress.recordcount eq "1" 
+						      and getTransaction.ReferenceNo neq "C/F" 
+							  and getTransaction.ReferenceNo neq "CF">
+																			
+							<cfset FEL.CustomerAddress    = "#GetAddress.Address# #GetAddress.Address2#">
+							<cfset FEL.CustomerPostalCode = "#GetAddress.AddressPostalCode#">
+							<cfif FEL.CustomerPostalCode eq "">
+								<cfset FEL.CustomerPostalCode = "01001">
+							</cfif>
+							<cfset FEL.CustomerCity       = "#GetAddress.AddressCity#">
+							<cfset FEL.CustomerState      = "#GetAddress.State#">								
+							<cfset FEL.CustomerCountry    = "#GetAddress.Country#">		
+							
+						<cfelse>
+																			
+							<cfset FEL.CustomerAddress    = "">
+							<cfset FEL.CustomerPostalCode = "">
+							<cfset FEL.CustomerPostalCode = "">	
+							<cfset FEL.CustomerCity       = "">
+							<cfset FEL.CustomerState      = "">								
+							<cfset FEL.CustomerCountry    = "">					
+						
+						</cfif>
 					
 					<cfelse>
 											
@@ -590,9 +620,9 @@
 			
 			<cfif FEL.CustomerAddress eq "" or FEL.CustomerPostalCode eq "">
 						
-					<cfset FEL.CustomerAddress    = "Cuidad">				
+					<cfset FEL.CustomerAddress    = "Ciudad">
 					<cfset FEL.CustomerPostalCode = "01001">
-					<cfset FEL.CustomerCity       = "Cuidad">
+					<cfset FEL.CustomerCity       = "Ciudad">
 					<cfset FEL.CustomerState      = "Guatemala"> 
 					<cfset FEL.CustomerCountry    = "GT">
 						
@@ -621,10 +651,7 @@
 							 TL.Reference, 
                              TL.ReferenceName       AS ItemName, 
 							 TL.ReferenceNo         AS ItemNo, 
-							 
-							 <!--- adjust the query --->
-							 'B'                    AS  ItemType,
-							 
+														 
 							 TL.TransactionTaxCode  AS TaxCode,
 							 TL.ReferenceQuantity   AS SaleQuantity, 
 							 'C/U'                  AS SaleUoM,
@@ -781,7 +808,11 @@
 															
 							<dte:DatosEmision ID="DatosEmision">
 										<dte:DatosGenerales CodigoMoneda="#FEL.Currency#" FechaHoraEmision="#DateFormat(dts,"YYYY-MM-DD")#T#TimeFormat(dts,"hh:mm:ssXXX")#" Tipo="#FEL.InvoiceType#"></dte:DatosGenerales>
-										<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#FEL.VendorReference#" CorreoEmisor="#FEL.VendorMail#" NITEmisor="#FEL.VendorNIT#" NombreComercial="#FEL.VendorName#" NombreEmisor="#FEL.VendorEntity#">
+										<cfif FEL.VendorName eq "DR. JORGE MANUEL ALDANA SAENZ">
+											<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#FEL.VendorReference#" CorreoEmisor="#FEL.VendorMail#" NITEmisor="#FEL.VendorNIT#" NombreComercial="#FEL.VendorName#" NombreEmisor="#FEL.VendorName#">
+										<cfelse>
+											<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#FEL.VendorReference#" CorreoEmisor="#FEL.VendorMail#" NITEmisor="#FEL.VendorNIT#" NombreComercial="#FEL.VendorName#" NombreEmisor="#FEL.VendorEntity#">
+										</cfif>
 								<dte:DireccionEmisor>
 								<dte:Direccion>#FEL.VendorAddress#</dte:Direccion>
 									<dte:CodigoPostal>#FEL.VendorPostalCode#</dte:CodigoPostal>
@@ -828,6 +859,26 @@
 										<cfelse>
 											<cfset quantity = salequantity>
 										</cfif>		
+										
+										<!--- ItemClass --->
+										
+										<cfquery name="Item"
+											datasource="#datasource#"
+											username="#SESSION.login#"
+											password="#SESSION.dbpw#">
+												SELECT   *
+												FROM     Materials.dbo.Item
+												WHERE    ItemNo = '#itemNo#'																			
+										</cfquery>
+										
+										<cfif item.recordcount eq "0">										
+											<cfset itemtype = "S">											
+										<cfelseif Item.ItemClass eq "Service">										
+											<cfset itemtype = "S">												
+										<cfelse>										
+											<cfset itemtype = "B">											
+										</cfif>									
+										
 																													
 										<dte:Item BienOServicio="#ItemType#" NumeroLinea="#currentrow#">
 											<dte:Cantidad>#Quantity#</dte:Cantidad>
@@ -837,10 +888,24 @@
 												<cfset v_ItemDescription = ItemName>
 												<cfset v_ItemDescription = replace(v_ItemDescription,"&","&amp;","all")>
 												<cfset v_ItemDescription = replace(v_ItemDescription,"'","&apos;","all")>
-												
-											<dte:Descripcion>#ItemNo#|#v_ItemDescription#</dte:Descripcion>		
 											
-											<cfif TransactionAmount gte AmountSale>	
+											<!--- 	
+											<dte:Descripcion>#ItemNo#|#v_ItemDescription#</dte:Descripcion>		
+											--->
+											<dte:Descripcion>#v_ItemDescription#</dte:Descripcion>		
+											
+											<cfif TransactionAmount eq AmountSale>	
+											
+												<!--- prior mode in which 
+												will disappear as we store differently : just precaution --->
+												
+												<cfset discount   = "0">
+																																		
+											    <!--- calculate price with tax --->
+											    <cfset vSalesPrice = AmountSale*(1+FEL.TaxPercentage)/Quantity>											    
+												<cfset vSalesPrice = round(vSalesPrice*100000)/100000>	
+											
+											<cfelseif TransactionAmount gt AmountSale>
 											
 											    <!--- we store now here the billable amount --->
 											
@@ -946,11 +1011,6 @@
 				
 			</cfoutput>
 		</cfxml>
-
-<!---
-	after DTE
-
---->
 							
 		<cfset StringDTE = toString(XmlDTE)>
 		
@@ -1512,7 +1572,11 @@
 							
 							<dte:DatosEmision ID="DatosEmision">
 										<dte:DatosGenerales CodigoMoneda="#vCurrency#" FechaHoraEmision="#DateFormat(now(),"YYYY-MM-DD")#T#TimeFormat(now(),"hh:mm:ssXXX")#" Tipo="#vInvoiceType#"></dte:DatosGenerales>
-										<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetWarehouseSeries.OrgUnitName#" NombreEmisor="#GetMission.MissionName#">
+										<cfif GetWarehouseSeries.OrgUnitName eq "DR. JORGE MANUEL ALDANA SAENZ">
+											<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetWarehouseSeries.OrgUnitName#" NombreEmisor="#GetWarehouseSeries.OrgUnitName#">
+										<cfelse>
+											<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetWarehouseSeries.OrgUnitName#" NombreEmisor="#GetMission.MissionName#">
+										</cfif>
 								<dte:DireccionEmisor>
 								<dte:Direccion>#GetInvoice.Address#</dte:Direccion>
 									<dte:CodigoPostal>01001</dte:CodigoPostal>
@@ -1861,16 +1925,16 @@
 			
 			    <!--- we look into the journal --->
 			
-				<cfquery name="Journal"
+				<cfquery name="getJournal"
 					datasource="#datasource#"
 					username="#SESSION.login#"
 					password="#SESSION.dbpw#">
 						SELECT *
-						FROM   Journal
+						FROM   Accounting.dbo.Journal
 						WHERE  Journal         = '#getTransaction.journal#'											
 				</cfquery>
 				
-				<cfset FEL.OrgUnitTax = Journal.OrgUnitTax>		
+				<cfset FEL.OrgUnitTax = getJournal.OrgUnitTax>		
 				
 		<cfelse>
 			
@@ -1900,7 +1964,6 @@
 				AND    Operational = 1
 		</cfquery>
 
-
 		<cfquery name="GetInvoiceToCancel"
 			datasource="#datasource#"
 			username="#SESSION.login#"
@@ -1915,8 +1978,10 @@
 			AND     A.ActionStatus    = '1'
 			AND     A.ActionMode      = '2'
 			ORDER BY A.Created DESC
-									
+												
 		</cfquery>
+		
+		
 
 		<cfif GetInvoiceToCancel.recordcount neq 0>
 		
@@ -1961,56 +2026,57 @@
 	
 				<cfset vNormalizedNit = Replace(vNIT,"-","","ALL")>
 				<cfset vNormalizedNit = Replace(vNormalizedNit,"C/F","CF","ALL")>			
-	
-				<cfif GetInvoiceToCancel.ActionReference5 eq "">
-				
-					<!--- void of GFACE : remove --->
-					
-				<cfelse>
-	
+									
 				<cfxml variable="XmlDTE">
 					<cfoutput>
 						<?xml version="1.0" encoding="UTF-8"?>
 								<dte:GTAnulacionDocumento xmlns:ds="http://www.w3.org/2000/09/xmldsig##" xmlns:dte="http://www.sat.gob.gt/dte/fel/0.1.0" xmlns:n1="http://www.altova.com/samplexml/other-namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="0.1" xsi:schemaLocation="http://www.sat.gob.gt/dte/fel/0.1.0 C:\Users\User\Desktop\FEL\Esquemas\GT_AnulacionDocumento-0.1.0.xsd">
 					<dte:SAT>
 					<dte:AnulacionDTE ID="DatosCertificados">
-							<dte:DatosGenerales FechaEmisionDocumentoAnular="#GetInvoiceToCancel.ActionReference3#" FechaHoraAnulacion="#DateFormat(now(),'YYYY-MM-DD')#T#TimeFormat(now(),'HH:MM:SS')#-06:00" ID="DatosAnulacion" IDReceptor="#vNormalizedNit#" MotivoAnulacion="ANULACION" NITEmisor="#vNitEFACE#" NumeroDocumentoAAnular="#GetInvoiceToCancel.ActionReference1#"></dte:DatosGenerales>
+						<dte:DatosGenerales FechaEmisionDocumentoAnular="#GetInvoiceToCancel.ActionReference3#" 
+						    FechaHoraAnulacion="#DateFormat(now(),'YYYY-MM-DD')#T#TimeFormat(now(),'HH:MM:SS')#-06:00" ID="DatosAnulacion" 
+							IDReceptor="#vNormalizedNit#" 
+							MotivoAnulacion="ANULACION" 
+							NITEmisor="#vNitEFACE#" 
+							NumeroDocumentoAAnular="#GetInvoiceToCancel.ActionReference1#"></dte:DatosGenerales>
 					</dte:AnulacionDTE>
 					</dte:SAT>
 					</dte:GTAnulacionDocumento>
 					</cfoutput>
 				</cfxml>
-	
+						
+		
 				<cfset StringDTE = toString(XmlDTE)>
 	
 				<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetTransaction.JournalTransactionNo#.txt" output="#StringDTE#">
 				<cfset Base64DTE = ToBase64(StringDTE) />
 	
 				<cfset stToSign =
-				{ "llave": "#GetWarehouseSeries.PrivateKey#",
+				{   "llave": "#GetWarehouseSeries.PrivateKey#",
 					"archivo": "#Base64DTE#",
-					"codigo": "#GetTransaction.JournalTransactionNo#",
+					"codigo": "#GetInvoiceToCancel.ActionSource1#",
 					"alias": "#GetWarehouseSeries.Alias#",
-					"es_anulacion": "S"
-				}>
+					"es_anulacion": "S" }>
 	
 				<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetTransaction.JournalTransactionNo#_To_Sign.txt" output="#serializeJSON(stToSign)#">
 	
 				<cfhttp url="https://signer-emisores.feel.com.gt/sign_solicitud_firmas/firma_xml" method="post" result="httpResponse" timeout="60">
-					<cfhttpparam type="header" name="Content-Type" value="application/json" />
+					<cfhttpparam type="header" name="Content-Type" value="application/json"/>
 					<cfhttpparam type="body" value="#Replace(serializeJSON(stToSign),"//","")#">
 				</cfhttp>
 	
 				<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetTransaction.JournalTransactionNo#_Response_Signature.txt" output="#httpResponse.fileContent#">
 	
 				<cfset jSonDTE = deserializeJSON(httpResponse.fileContent)>
+				
 				<cfif jsonDTE.resultado neq "NO">
 				
 					<cfset revBase64DTE =  ToString(ToBinary(jSONDTE.archivo)) />
 	
 					<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetTransaction.JournalTransactionNo#_Response_Signature_decoded.txt" output="#revBase64DTE#">
 					<cfsavecontent variable="SignedXml"><?xml version="1.0" encoding="utf-8"?>
-						<cfoutput>#revBase64DTE#</cfoutput></cfsavecontent>
+						<cfoutput>#revBase64DTE#</cfoutput>
+					</cfsavecontent>
 	
 					<cfset Base64SignedXML = ToBase64(toString(SignedXml)) />
 	
@@ -2022,7 +2088,7 @@
 	
 					<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetTransaction.JournalTransactionNo#_To_Certify.txt" output="#serializeJSON(stToCertify)#">
 					
-					<cfset vSerialNo = GetTransaction.JournalTransactionNo>
+					<cfset vSerialNo = GetInvoiceToCancel.ActionSource1>
 	
 					<cfhttp url="https://certificador.feel.com.gt/fel/anulacion/v2/dte/" method="post" result="httpResponse" timeout="60">
 						<cfhttpparam type="header" name="usuario"       value="#GetWarehouseSeries.UserName#" />
@@ -2050,7 +2116,6 @@
 					<cfset stError = "">
 				</cfif>
 	
-			</cfif>
 	
 			<cfset EFACEResponse = structnew()>
 			
@@ -2107,8 +2172,6 @@
 						
 				<cfelse>
 				
-				
-	
 					<cfset EFACEResponse.Status     = "false">
 					<cfset EFACEResponse.Cae        = "">
 					<cfset EFACEResponse.DocumentNo = "">
@@ -2127,7 +2190,7 @@
 				
 			</cfif>
 			
-		<cfelse>
+	    <cfelse>
 				
 			<!--- FEL was never posted, no record in transaction header, hence we allow to continue --->
 			
@@ -2137,8 +2200,7 @@
 			<cfset EFACEResponse.Dte        = "">
 			<cfset EFACEResponse.ErrorDescription = "Nothing to revert in FEL">
 			
-		</cfif>
-				
+	    </cfif>				
 	
 	<cfreturn EFACEResponse>
 	

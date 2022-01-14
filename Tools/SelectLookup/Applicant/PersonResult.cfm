@@ -166,7 +166,7 @@ password="#SESSION.dbpw#">
 			 <cfinclude template="PersonNavigation.cfm">
 		</td></tr>
 		
-		<TR class="fixrow labelmedium line">
+		<TR class="fixrow labelmedium line fixlengthlist">
 		    <td height="20"></td>		   
 			<TD><cf_tl id="Name"></TD>
 			<td><cf_tl id="User"></td>
@@ -187,7 +187,7 @@ password="#SESSION.dbpw#">
 		 
 		<cfif currrow lte last and currrow gte first>				
 					
-			<TR class="navigation_row labelmedium line">				
+			<TR class="navigation_row labelmedium line fixlengthlist">				
 				<TD width="30" align="center" style="height:18;padding-top:2px"
 				  class="navigation_action"
 				  onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#personno#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">			

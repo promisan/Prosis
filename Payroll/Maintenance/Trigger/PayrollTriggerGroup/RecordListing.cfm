@@ -9,20 +9,20 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <table width="100%" class="navigation_table">
-	<tr class="line">
-		<td class="labelit" align="center" width="2%"></td>
-		<td class="labelmedium" style="padding-left:10px;"><cf_tl id="Group"></td>
-		<td class="labelmedium"><cf_tl id="Name"></td>
-		<td class="labelmedium"><cf_tl id="Priority"></td>
-		<td class="labelmedium"><cf_tl id="Mode"></td>
-		<td class="labelmedium"><cf_tl id="Range"></td>
+	<tr class="line labelmedium2">
+		<td align="center" width="2%"></td>
+		<td style="padding-left:10px;"><cf_tl id="Group"></td>
+		<td><cf_tl id="Name"></td>
+		<td><cf_tl id="Priority"></td>
+		<td><cf_tl id="Mode"></td>
+		<td><cf_tl id="Range"></td>
 	</tr>
 	<cfoutput query="GetGroups">
 		<tr class="navigation_row">
 			<td>
 				<table width="100%">
-					<tr>
-						<td style="padding-left:5px;padding-top:4px">
+					<tr class="labelmedium2">
+						<td style="padding-left:5px;padding-top:2px">
 							<cf_img icon="edit" navigation="yes" onclick="editGroup('#url.payrollTrigger#', '#EntitlementGroup#');">
 						</td>
 						<td style="padding-left:5px;">
@@ -55,11 +55,11 @@ password="#SESSION.dbpw#">
 					</tr>
 				</table>
 			</td>
-			<td class="labelmedium" style="padding-left:10px;">#EntitlementGroup#</td>
-			<td class="labelmedium">#EntitlementName#</td>
-			<td class="labelmedium">#EntitlementPriority#</td>
-			<td class="labelmedium">#ApplyMode#</td>
-			<td class="labelmedium">#ApplyRangeFrom# - #ApplyRangeTo#</td>
+			<td style="padding-left:10px;">#EntitlementGroup#</td>
+			<td>#EntitlementName#</td>
+			<td>#EntitlementPriority#</td>
+			<td>#ApplyMode#</td>
+			<td>#ApplyRangeFrom# - #ApplyRangeTo#</td>
 		</tr>
 	</cfoutput>
 </table>

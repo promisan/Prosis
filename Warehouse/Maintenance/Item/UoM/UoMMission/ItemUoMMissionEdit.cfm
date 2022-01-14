@@ -58,7 +58,7 @@ password="#SESSION.dbpw#">
 	<cfinput type="hidden" name="UoM" value="#url.uom#">
 	<cfinput type="hidden" name="MissionOld" value="#url.mission#">		
 	
-    <TR>
+    <TR class="fixlengthlist">
     <TD width="25%" class="labelmedium"><cf_tl id="Entity">:</TD>
     <TD class="regular">
 
@@ -85,7 +85,7 @@ password="#SESSION.dbpw#">
     </TD>
 	</TR>	
 	
-    <TR>
+    <TR class="fixlengthlist">
     <TD width="25%" class="labelmedium"><cf_tl id="Transaction UoM">:</TD>
     <TD class="regular">
 
@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
     </TD>
 	</TR>	
 	
-	<TR>
+	<TR class="fixlengtthlist">
     <TD class="labelmedium"><cf_tl id="Standard Cost Price">:</TD>
     <TD>
   	   <cfinput type   = "text"
@@ -123,7 +123,7 @@ password="#SESSION.dbpw#">
     </TD>
 	</TR>
 	
-	<TR>
+	<TR class="fixlengthlist">
 		<TD class="labelmedium"><cf_tl id="Selfservice">:</TD>
 	    <TD class="labelmedium">
 		   <table>
@@ -135,8 +135,8 @@ password="#SESSION.dbpw#">
 	    </TD>
 	</TR>
 	
-	<TR>
-		<TD class="labelmedium"><cf_tl id="Enable Stock Level definition">:</TD>
+	<TR class="fixlengthlist">
+		<TD class="labelmedium"><cf_tl id="Stock Level definition">:</TD>
 	    <TD class="labelmedium">
 		 <table>
 			   <tr class="labelmedium">
@@ -147,7 +147,7 @@ password="#SESSION.dbpw#">
 	    </TD>
 	</TR>	
 		
-	<TR>
+	<TR class="fixlengthlist">
 		<TD class="labelmedium"><cf_tl id="Operational">:</TD>
 	    <TD class="labelmedium">
 		<table>
@@ -160,7 +160,7 @@ password="#SESSION.dbpw#">
 	</TR>	
 	
 	<cfif url.mission neq "">
-		<tr>
+		<tr class="fixlengthlist">
 			<TD class="labelmedium" valign="top" style="padding-top:3px;"><cf_tl id="Lots">:</TD>
 			<td valign="top" style="padding-top:3px;">
 				<cfinclude template="ItemUoMMissionLot.cfm">

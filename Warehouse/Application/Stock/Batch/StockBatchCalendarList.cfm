@@ -38,7 +38,7 @@
 	
 		<cfoutput>
 		
-		<tr class="line labelmedium2 fixrow fixlengthlist">
+		<tr class="line labelmedium fixrow fixlengthlist">
 		    <td style="width:40"></td>
 		    <td height="17"><cf_tl id="Batch"></td>	
 			<TD><cf_tl id="Time"></TD>		
@@ -84,7 +84,7 @@
 						
 						</cfif>
 						
-						<tr bgcolor="#cl#" class="navigation_row labelmedium2 line fixlengthlist" style="height:20px">
+						<tr bgcolor="#cl#" class="navigation_row labelmedium line fixlengthlist" style="height:20px">
 											    	
 							<td height="19">#row#</td>
 							
@@ -100,9 +100,11 @@
 							<TD><cf_tl id="#BatchDescription#"></TD>
 							<td>#LocationDescription#</td>							
 							<TD>#Category#</TD>
-							<TD>#OfficerFirstName# #OfficerLastName#</TD>
+							<TD>#OfficerLastName#</TD>
 							<TD align="left">
-							<cfif ContraWarehouse neq "" and ContraWarehouse neq getWarehouse.WarehouseName>#ContraWarehouse# to #getWarehouse.WarehouseName#<cfelse>#ContraWarehouse#</cfif>
+							<cfif ContraWarehouse neq "- internal -" and ContraWarehouse neq getWarehouse.WarehouseName>
+							#ContraWarehouse# -> #getWarehouse.WarehouseName#<cfelse>#ContraWarehouse#
+							</cfif>
 							</TD> 							
 							<td align="right" style="padding-top:2px">
 									

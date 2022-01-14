@@ -17,7 +17,6 @@
 		</cfif>
 </cfquery>
 
-
 <cfif getTransaction.recordcount neq 0>
 	<cfset URL.addressId = getTransaction.AddressId>
 </cfif>	
@@ -45,6 +44,7 @@
 </cfif>
 
 <cfif url.Mission eq "" or url.MissionOrgUnitID eq "">
+
 	<cfquery name="getMiandOrg" 
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
@@ -54,10 +54,40 @@
 			WHERE    Warehouse  = '#URL.Warehouse#'
 			ORDER BY CREATED DESC
 	</cfquery>
+	
 	<cfif getMiandOrg.recordCount gte 1>
 		<cfset url.Mission 			=  getMiandOrg.mission>
 		<cfset url.MissionOrgUnitId	=  getMiandOrg.MissionOrgUnitId>
 	</cfif>
+	
+</cfif>
+
+<cfset hasStaff = "0">  
+
+<cfif url.MissionOrgUnitId neq "">
+	
+	<cfquery name="check" 
+	  datasource="AppsEmployee" 
+	  username="#SESSION.login#" 
+	  password="#SESSION.dbpw#">
+		   SELECT    PA.PersonNo
+			FROM     PersonAssignment PA INNER JOIN
+	                 Position P ON PA.PositionNo = P.PositionNo
+			WHERE    PA.DateEffective  < GETDATE() 
+			AND      PA.DateExpiration > GETDATE() 
+			AND      P.Mission = '#URL.mission#' 		
+			AND      P.OrgUnitOperational IN (SELECT OrgUnit 
+			                                   FROM   Organization.dbo.Organization
+											   WHERE  MissionOrgUnitId = '#URL.MissionOrgUnitId#')
+											   
+			AND      PA.AssignmentStatus IN ('0', '1') 
+			AND      PA.Incumbency > 0																			 	   							   
+	</cfquery>
+	
+	<cfif check.recordcount gte "1">	
+	   <cfset hasStaff = "1">
+	</cfif>   
+  
 </cfif>
 
 <cfquery name="personlist" 
@@ -72,7 +102,7 @@
 							WHERE     PA.DateEffective  < GETDATE() 
 							AND       PA.DateExpiration > GETDATE() 
 							AND       P.Mission = '#URL.mission#' 
-							<cfif URL.MissionOrgUnitId neq "">
+							<cfif URL.MissionOrgUnitId neq "" and hasStaff eq "1">
 							AND       P.OrgUnitOperational IN (SELECT OrgUnit 
 							                                   FROM   Organization.dbo.Organization
 															   WHERE  MissionOrgUnitId = '#URL.MissionOrgUnitId#')
@@ -85,6 +115,7 @@
 																		 	   							   
 </cfquery>
 
+
 <cfoutput>
 
 <select name="#URL.saleid#" id="#URL.saleid#" style="background-color:f1f1f1;font-size:16px;height:100%;width:100%;border:0px;" class="regularXXL"
@@ -92,8 +123,7 @@
 	<option value="">--<cf_tl id="Unassigned">--</option>
 	<cfloop query="personlist">
 		<option value="#PersonNo#" <cfif URL.SalesPersonNo eq PersonNo>selected</cfif>>#FirstName# #LastName#</option>
-	</cfloop>
-	
+	</cfloop>	
 </select>
 
 </cfoutput>										

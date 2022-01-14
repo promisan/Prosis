@@ -217,7 +217,7 @@ password="#SESSION.dbpw#">
 		  <cf_tl id="Actions" var="vEvents">
 			  
 		  <cf_UItreeitem value="journal"
-		        display="<span style='padding-bottom:0px' class='labelmedium'>#vEvents#</span>"						
+		        display="<span style='font-size:18px;font-weight:bold' class='labelit'>#vEvents#</span>"						
 				href="JournalViewOpen.cfm?ID=EVE&ID1=0&Mission=#Attributes.Mission#"				
 				parent="root"		
 				target="right"					
@@ -227,10 +227,10 @@ password="#SESSION.dbpw#">
 		  datasource="AppsOrganization" 
 		  username="#SESSION.login#" 
 		  password="#SESSION.dbpw#">
-		      SELECT   DISTINCT MandateNo, Description, DateEffective, DateExpiration 
-		      FROM     Ref_Mandate
+		      SELECT    DISTINCT MandateNo, Description, DateEffective, DateExpiration 
+		      FROM      Ref_Mandate
 		   	  WHERE     Mission = '#Attributes.Mission#' 
-			  ORDER BY DateEffective DESC
+			  ORDER BY  DateEffective DESC
 		</cfquery>
 		 	
 		 <cfif getAdministrator(attributes.mission) eq "Yes">
@@ -245,6 +245,7 @@ password="#SESSION.dbpw#">
 			   	  WHERE (ParentOrgUnit is NULL OR ParentOrgUnit = '' OR Autonomous = 1)
 				  AND Mission     = '#Mission#'
 				  AND MandateNo   = '#Mandate.MandateNo#'
+				  AND   OrgUnit IN (SELECT OrgUnitOwner FROM Accounting.dbo.Journal WHERE Mission = '#Mission#' AND GLCategory = '#Attributes.GLCategory#')
 				  ORDER BY TreeOrder, OrgUnitName
 			 </cfquery>
 			 
@@ -270,6 +271,8 @@ password="#SESSION.dbpw#">
 			   	  WHERE (ParentOrgUnit is NULL OR ParentOrgUnit = '' OR Autonomous = 1)
 				  AND   Mission     = '#Mission#'
 				  AND   MandateNo   = '#Mandate.MandateNo#'
+				  
+				  AND   OrgUnit IN (SELECT OrgUnitOwner FROM Accounting.dbo.Journal WHERE Mission = '#Mission#' AND GLCategory = '#Attributes.GLCategory#')
 				  AND (OrgUnit in (SELECT OrgUnit 
 				                   FROM   OrganizationAuthorization 
 				                   WHERE  UserAccount = '#SESSION.acc#' 
@@ -325,9 +328,9 @@ password="#SESSION.dbpw#">
 			      	    							 WHERE   Journal IN (SELECT ClassParameter 
 																         FROM   Organization.dbo.OrganizationAuthorization
 																         WHERE  UserAccount = '#SESSION.acc#' 
-													                     AND   Role = 'Accountant'
-																		 AND   Mission = '#Attributes.Mission#'
-																		 AND   OrgUnit is NULL
+													                     AND    Role = 'Accountant'
+																		 AND    Mission = '#Attributes.Mission#'
+																		 AND    OrgUnit is NULL
 																	    )
 													)				    
 																	  
@@ -368,8 +371,6 @@ password="#SESSION.dbpw#">
 		      <cfloop query="Category">
 			  
 			  	<cfset ct = currentrow>
-				
-				
 			  				  
 			        <cfquery name="Journal" 
 		             datasource="AppsLedger" 
@@ -440,7 +441,7 @@ password="#SESSION.dbpw#">
 					 				 	  	  
 			  </cfloop>		
 			  
-			  <cfinvoke component = "Service.Access"  
+			  <cfinvoke component   = "Service.Access"  
 				 method             = "RoleAccess" 		
 				 mission            = "#Attributes.Mission#"   
 				 role               = "'Accountant'" 		  
@@ -448,7 +449,7 @@ password="#SESSION.dbpw#">
 				 unit               = "#orgunit#"		 
 				 returnvariable     = "access">			
 			 
-			   <cfif access eq "granted"> 			
+			   <cfif access eq "granted" and Attributes.GLCategory eq "Actuals"> 			
 			  
 				   <cf_tl id="GLAccount" var="vAccount">
 				  

@@ -77,7 +77,7 @@ password="#SESSION.dbpw#">
 	<tr><td></td></tr>
 	
 	<tr class="labelmedium2">
-	<td style="padding-left:15px">Edition</td>
+	<td style="padding-left:15px"><cf_tl id="Edition">:</td>
 	<td>
 		
 		<cfquery name="GetEdition" 
@@ -87,12 +87,12 @@ password="#SESSION.dbpw#">
 			SELECT    SubmissionEdition, 
 			          EditionDescription
 			FROM      Ref_SubmissionEdition
-			WHERE     Owner = '#Object.Owner#' 
+			WHERE     1=1 <!--- Owner = '#Object.Owner#' --->
 			AND       Operational  = '1' 
 			AND       ActionStatus = '0'
+			ORDER BY Created DESC
 		</cfquery>
-
-	
+					
 		<select name="EditionSelect" class="regularxxl">
 		<cfoutput query="getEdition">
 	   		<option value="#SubmissionEdition#" <cfif Get.SubmissionEdition eq getEdition.SubmissionEdition>selected</cfif>>#getEdition.EditionDescription#</option>
@@ -101,9 +101,7 @@ password="#SESSION.dbpw#">
 		
 	</td>
 	</tr>
-	
-	<tr><td></td></tr>
-	
+		
 	<!----
 	<tr>
 	<td width="10%"></td>
@@ -118,7 +116,7 @@ password="#SESSION.dbpw#">
 	---->
 	
 	<tr class="labelmedium2">
-	<td style="padding-left:15px">Mode</td>
+	<td style="padding-left:15px"><cf_tl id="Mode">:</td>
 	<td>
 		<select name="ModeSelect"  class="regularxxl">
 			<option value="1">Published</option>

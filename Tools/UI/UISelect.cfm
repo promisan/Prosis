@@ -117,10 +117,19 @@
 				
                 <cfloop query="attributes.query">
                     <cfset valueField = Evaluate("#Attributes.Value#")>
+					<cfset valueField = Replace(valueField,chr(13),'','all')>
+					<cfset valueField = Replace(valueField,chr(10),'','all')>
+					<cfset valueField = Replace(valueField,chr(9),'','all')>
                     <cfif vDefault eq 0 and Attributes.selected eq "">
                         <cfset Attributes.Selected = "#Replace(valueField,"'","\'","ALL")#">
                     </cfif>
                     <cfset textField = Evaluate("#Attributes.Display#")>
+					
+					<cfset textField = Replace(textField,chr(13),'','all')>
+					<cfset textField = Replace(textField,chr(10),'','all')>
+					<cfset textField = Replace(textField,chr(9),'','all')>
+					
+					
                     <cfif Attributes.group neq "">
                         <cfset vGroup = Evaluate("#Attributes.group#")>
                     </cfif>
@@ -359,6 +368,3 @@
     <cfreturn LOCAL.Tag />
 	
 </cffunction>
-
-
-

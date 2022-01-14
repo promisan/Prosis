@@ -44,7 +44,7 @@
 <cfelse>
 
 	 <cf_screentop height="100%"    
-        scroll="no" 
+        scroll="yes" 
 		layout="webapp" 
 	    jquery="Yes" 
 		html="No"		
@@ -54,7 +54,7 @@
 		<TITLE>Workflow Preview</TITLE>
 	</HEAD>
 		
-	<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" onLoad="window.focus()">
+	<body onLoad="window.focus()">
 	<link href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="../../../../print.css" media="print">
 	

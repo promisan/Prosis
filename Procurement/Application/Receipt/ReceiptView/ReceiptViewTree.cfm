@@ -82,9 +82,10 @@
 		</cfquery>					
 		
 	  <cfif receiptCheck.recordcount gte 1>
-		<tr class="line"><td class="labelmedium" style="padding-left:4px"><font color="FF0000">Alter posted but cancelled receipts. <br>Contact your administrator</font></td></tr>			
+		<tr class="line"><td class="labelmedium2" style="padding-left:4px;padding-bottom:5px"><font color="FF0000"><b><u>Attention</u></b><br>Prosis found [#ReceiptCheck.recordcount#] posted stock transaction that relate to cancelled receipts. <br><br>Contact your administrator to resolve this with you.</font></td></tr>			
 	  </cfif>
-				
+	  
+	  <tr><td style="height:1px"></td></tr>			
 	  <tr>
 	     <td height="20" style="padding-left:4px;font-size:16px" class="labelmedium2"><a href="javascript:newreceipt();"><cf_tl id="Record new receipts"></a></td>
 	  </tr>					  

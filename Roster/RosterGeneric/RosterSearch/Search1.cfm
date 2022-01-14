@@ -213,11 +213,11 @@ password="#SESSION.dbpw#">
 		
 		<tr><td height="20">
 				
-			 <table width="100%" cellspacing="0" cellpadding="0">
+			 <table width="100%">
 			 <tr>
 					 
-			 	<cfset ht = "64">
-				<cfset wd = "64">
+			 	<cfset ht = "54">
+				<cfset wd = "54">
 				
 				<cfset tabNo = 0>
 				
@@ -380,7 +380,9 @@ password="#SESSION.dbpw#">
 						iframe     = "candidateadd"
 						source     = "iframe:../../Candidate/Details/Applicant/ApplicantEntry.cfm?header=0&next=#url.mode#&id=#url.docno#">											
 							
-				</cfif>			
+				</cfif>		
+				
+				<td style="width:10%"></td>	
 							 
 			 </tr>
 			 </table>

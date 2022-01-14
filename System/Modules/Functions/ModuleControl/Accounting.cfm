@@ -68,7 +68,7 @@
 <cf_ModuleInsertSubmit
    SystemModule      = "Accounting" 
    FunctionClass     = "Inquiry"
-   FunctionName      = "Pending Sale Declaration" 
+   FunctionName      = "Pending Tax Declaration" 
    MenuClass         = "Journal"
    MenuOrder         = "2"
    MainMenuItem      = "0"
@@ -87,12 +87,34 @@
    FunctionDirectory = "GLedger/Inquiry/"
    FunctionPath      = "Purchase/PurchaseBook.cfm">    
    
+ <cf_ModuleInsertSubmit
+   SystemModule      = "Accounting" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Account Receivables Receipts" 
+   MenuClass         = "Journal"
+   MenuOrder         = "4"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquiry Purchases"
+   FunctionDirectory = "GLedger/Inquiry/"
+   FunctionPath      = "ARReceipt/Listing.cfm">  
+   
+ <cf_ModuleInsertSubmit
+   SystemModule      = "Accounting" 
+   FunctionClass     = "Inquiry"
+   FunctionName      = "Account Payables Payments" 
+   MenuClass         = "Journal"
+   MenuOrder         = "5"
+   MainMenuItem      = "0"
+   FunctionMemo      = "Inquiry Purchases"
+   FunctionDirectory = "GLedger/Inquiry/"
+   FunctionPath      = "APPayment/Listing.cfm">        
+   
 <cf_ModuleInsertSubmit
    SystemModule      = "Accounting" 
    FunctionClass     = "Inquiry"
    FunctionName      = "Interoffice transactions" 
    MenuClass         = "Journal"
-   MenuOrder         = "3"
+   MenuOrder         = "9"
    MainMenuItem      = "0"
    FunctionMemo      = "Inquiry Interoffice transaction"
    FunctionDirectory = "GLedger/Inquiry/"

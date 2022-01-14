@@ -21,8 +21,7 @@
 	label="#label#" 
 	jquery="Yes"
 	menuaccess="context"
-	option="#sublabel#">  
-		
+	option="#sublabel#">  		
 
 <cf_FileLibraryScript>
 
@@ -33,6 +32,32 @@
 	<proDes>Translated</proDes>
 	<proCom></proCom>
 </cfsilent>
+
+
+<cfquery name="getAssignment" 
+datasource="AppsEmployee" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT  A.*, O.OrgUnitName, 
+    	    OrgUnitCode, 
+			OrgUnitClass, 
+			FunctionNo,
+			FunctionDescription,
+			O.Mission, 
+			O.MandateNo, 
+			P.LastName, 
+			P.FirstName, 
+			P.IndexNo
+    FROM  	PersonAssignment A, 
+		    Organization.dbo.Organization O, 
+		    Person P
+	WHERE   A.OrgUnit      = O.OrgUnit
+	AND     P.PersonNo     = A.PersonNo
+	AND     A.AssignmentNo = '#URL.ID1#' 
+</cfquery>
+
+<cfparam name="URL.ID" default="#getAssignment.PersonNo#">
+
 
 <cfoutput>
 
@@ -72,9 +97,9 @@
 	}	 
 	
 	function Selected(no,description) {									
-			  document.getElementById('functionno').value = no
-			  document.getElementById('functiondescription').value = description					 
-			  ProsisUI.closeWindow('myfunction')
+		  document.getElementById('functionno').value = no
+		  document.getElementById('functiondescription').value = description					 
+		  ProsisUI.closeWindow('myfunction')
 		 }		
 	
 	function preview() {
@@ -116,28 +141,6 @@
 <cf_CalendarScript>
 <cf_dialogOrganization>
 <cf_dialogPosition>
-
-<cfquery name="getAssignment" 
-datasource="AppsEmployee" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	SELECT  A.*, O.OrgUnitName, 
-    	    OrgUnitCode, 
-			OrgUnitClass, 
-			FunctionNo,
-			FunctionDescription,
-			O.Mission, 
-			O.MandateNo, 
-			P.LastName, 
-			P.FirstName, 
-			P.IndexNo
-    FROM  	PersonAssignment A, 
-		    Organization.dbo.Organization O, 
-		    Person P
-	WHERE   A.OrgUnit      = O.OrgUnit
-	AND     P.PersonNo     = A.PersonNo
-	AND     A.AssignmentNo = '#URL.ID1#' 
-</cfquery>
 
 <cfquery name="Parameter" 
 datasource="AppsEmployee" 
@@ -270,7 +273,7 @@ password="#SESSION.dbpw#">
 <cfif Position.recordcount eq "0">
 
 	<table align="center">
-	<tr><td align="center" style="height:100" class="labelmedium2"><font color="FF0000">Detected an invalid orgunit, please contact your administrator.</font></td></tr>
+	<tr><td align="center" style="height:100px" class="labelmedium2"><font color="FF0000">Detected an invalid orgunit, please contact your administrator.</font></td></tr>
 	</table>
 	<cfabort>
 
@@ -284,14 +287,12 @@ password="#SESSION.dbpw#">
    mission="#position.mission#" 
    mandateno="#position.MandateNo#" 
    personno="#getAssignment.PersonNo#">
-  
-		   
+  		   
 <cf_AssignmentContractCheck 
    mission="#position.mission#" 
    mandateno="#position.MandateNo#" 
    personno="#getAssignment.PersonNo#">	
  
-
 <cfquery name="PositionParent" 
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
@@ -384,7 +385,7 @@ password="#SESSION.dbpw#">
             
 <cf_divscroll>   	
 			   
-	<table width="98%" align="center">
+	<table width="100%" align="center">
 		
 	<tr><td>  	  
 		
@@ -399,14 +400,14 @@ password="#SESSION.dbpw#">
 		
 	</td></tr>	
 	
-	<tr><td style="padding-left:5px;padding-right:5px">	
+	<tr><td style="padding-left:8px;padding-right:8px">	
 			
 		<cfform action = "AssignmentEditSubmit.cfm?source=#url.source#&box=#URL.Box#&Caller=#URL.Caller#" 
 	        method = "POST" 
 			target = "process"		
 		    name   = "AssignmentEdit">
 				  
-			<table width="96%" align="center" class="formpadding">
+			<table width="99%" align="center" class="formpadding">
 			
 				<tr class="hide">
 					<td height="60"><iframe name="process" id="process" width="100%" height="100%"></iframe></td>
@@ -1505,7 +1506,7 @@ password="#SESSION.dbpw#">
 			    <cfinclude template="AssignmentEditTopic.cfm">							
 							   
 				<TR class="labelmedium2" style="height:24px" id="classification">
-			        <td valign="top" style="padding-top:6px"><cf_tl id="Classification">:</td>
+			        <td class="fixlength" valign="top" style="padding-top:6px"><cf_tl id="Incumbency Classification">:</td>
 			        <TD>
 					   <cfinclude template="AssignmentEditGroup.cfm">
 					</td>

@@ -29,6 +29,7 @@
 		         Employee.dbo.Ref_PostGrade R
 		WHERE    P.ServiceLevel   = R.PostGrade		
 		AND      P.SalarySchedule = '#url.schedule#'
+		AND      P.Operational = 1
 		ORDER BY R.PostOrder
 	</cfquery>			
 

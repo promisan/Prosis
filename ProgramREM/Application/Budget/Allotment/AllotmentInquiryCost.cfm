@@ -10,7 +10,8 @@
 		password="#SESSION.dbpw#">
 			SELECT *
 			FROM   Program
-			WHERE ProgramAllotment = '9'						
+			WHERE ProgramAllotment = '9'
+			AND ProgramCode = '#url.programCode#'
    	 </cfquery>	
 
 	 <cfquery name="qGetSupcode" 

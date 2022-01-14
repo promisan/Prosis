@@ -20,12 +20,12 @@
 
 	function changeReference(id) {
 	   _cf_loadingtexthtml='';	
-		ColdFusion.navigate('#SESSION.root#/ProgramREM/Application/Budget/Action/AllotmentActionReferenceEdit.cfm?editreference=1&id='+id, 'tdReference');
+		ptoken.navigate('#SESSION.root#/ProgramREM/Application/Budget/Action/AllotmentActionReferenceEdit.cfm?editreference=1&id='+id, 'tdReference');
 	}
 	
 	function submitActionReference(id) {
 	    _cf_loadingtexthtml='';	
-		ColdFusion.navigate('#SESSION.root#/ProgramREM/Application/Budget/Action/AllotmentActionReferenceEditSubmit.cfm?id='+id, 'tdReference','','','POST','editreference');	
+		ptoken.navigate('#SESSION.root#/ProgramREM/Application/Budget/Action/AllotmentActionReferenceEditSubmit.cfm?id='+id, 'tdReference','','','POST','editreference');	
 	}
 
 </script>

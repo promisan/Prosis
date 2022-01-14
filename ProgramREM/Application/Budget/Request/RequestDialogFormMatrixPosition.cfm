@@ -134,7 +134,7 @@
 <cfif list.recordcount eq "0">
 	
 	<cfoutput>
-	<tr><td colspan="#dates.recordcount+4#" align="center" style="height:40px" class="labelit"><font color="green">There are no more positions for this organization element  that are pending your submission.<br><font color="FF0000">Contact your administrator if this is not correct.</font></td></tr>
+	<tr><td colspan="#dates.recordcount+4#" align="center" style="height:40px" class="labelmedium2"><font color="green">There are no more positions for this organization element  that are pending your submission.<br><font color="FF0000">Contact your administrator if this is not correct.</font></td></tr>
 	</cfoutput>
 	
 <cfelse>	
@@ -219,7 +219,7 @@
 			 <td style="height:12px;min-width:370px;border-top:1px solid silver;border-left:0px dotted silver;padding-left:10px">
 			 
 				 <table width="100%">
-				 <tr class="labelit" style="height:13px">
+				 <tr class="labelmedium" style="height:23px">
 				 <td style="width:36px">#PostGradeBudget#</td>
 				 <td style="width:36px">
 					 <a href="javascript:EditPosition('#getUnit.mission#','#getUnit.mandateno#','#PositionNo#')">
@@ -243,7 +243,7 @@
 							WHERE  PersonNo = '#PersonNo#'
 					  </cfquery>		
 					 <td style="padding-left:4px;padding-right:5px" align="right">					 
-					 <font color="0080C0"><a href="javascript:EditPerson('#personno#')" class="navigation_action">#getPerson.LastName#</a></font>
+					 <a href="javascript:EditPerson('#personno#')" class="navigation_action">#getPerson.LastName#</a>
 					 </td>
 					 
 				 </cfif>
@@ -263,22 +263,22 @@
 			   
 			   <cfif find(auditid, covered)> 	
 			   	
-			     <td bgcolor="e2e2e2" style="border-top:1px solid silver;border-left:1px solid silver">				
+			     <td style="background-color:##e1e1e180;border-top:1px solid silver;border-left:1px solid silver">				
 				  <input type="hidden" value="0" name="c#row#_#col#" id= "c#row#_#col#">				  
 				  </td>
 				   <cfif currentrow eq "1">
-				    <td align="center" bgcolor="f4f4f4" style="cursor:pointer;padding-right:1px;border-top:1px solid silver;border-left:1px solid silver"></td>
+				    <td align="center" style="background-color:##f1f1f180;cursor:pointer;padding-right:1px;border-top:1px solid silver;border-left:1px solid silver"></td>
 				   </cfif>
 				   
 			   <cfelse>
 			   
 			   	  <cfset cov = "0">  
 			   			   
-			      <td bgcolor="white" style="border-top:1px solid silver;border-left:1px solid silver">
+			      <td style="background-color:##ffffff80;border-top:1px solid silver;border-left:1px solid silver">
 				  
 				   <input type = "text"
 				      onchange = "ptoken.navigate('RequestDialogFormMatrixScript.cfm?row=#row#&col=#col#&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')" 
-					  style    = "padding-top:2px;width:100%;text-align:center" 
+					  style    = "font-size:13px;padding-top:2px;width:100%;text-align:center" 
 					  onclick  = "if (this.value != '1') { this.value = '1' } else { this.value = '0'};ptoken.navigate('RequestDialogFormMatrixScript.cfm?row=#row#&col=#col#&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')"
 					  name     = "c#row#_#col#"
 					  id       = "c#row#_#col#"
@@ -318,7 +318,7 @@
 			   <input type= "hidden" 
 				    class   = "button3" 
 				 	readonly 
-					style   = "padding-top:2px;text-align:right;padding-right:2px;;width:100%"
+					style   = "font-size:13px;padding-top:2px;text-align:right;padding-right:2px;;width:100%"
 					name    = "requestQuantity_#row#" 
 					id      = "requestQuantity_#row#" 
 					value   = "0"> 	 
@@ -331,10 +331,10 @@
 			     <input type= "input" 
 				    class   = "button3" 
 				 	readonly 
-					style   = "padding-top:2px;text-align:right;padding-right:2px;;width:100%"
+					style   = "font-size:13px;padding-top:2px;text-align:right;padding-right:2px;;width:100%"
 					name    = "requestQuantity_#row#" 
 					id      = "requestQuantity_#row#" 
-					value   = "#numberformat(total,'__,__')#"> 	 
+					value   = "#numberformat(total,',__')#"> 	 
 			  
 			  </td>
 			  <td  align="center" style="padding-top:5px;padding-left:4px;border-top:1px solid silver;border-left:1px solid silver">
@@ -416,7 +416,7 @@
 															
 					     <input type="input"  
 						  onchange= "ptoken.navigate('RequestDialogFormMatrixScript.cfm?row=#row#&col=0&rows=#list.recordcount#&cols=#dates.recordcount#','ctotal')"
-						  class="regularh" style="border:0px;padding-top:2px;text-align:right;width:96%" id="requestPrice_#row#" name="requestPrice_#row#" value="#numberformat(rate,',__')#">  	  
+						  class="regularh" style="font-size:13px;border:0px;padding-top:2px;text-align:right;width:96%" id="requestPrice_#row#" name="requestPrice_#row#" value="#numberformat(rate,',__')#">  	  
 					
 					<cfelse>
 					
@@ -424,10 +424,10 @@
 				     <cfif mode.BudgetForceStandardCost eq "1">										
 						<input type="input"  
 						  readonly
-						  class="regularh" style="border:0px;padding-top:2px;text-align:right;width:96%" id="requestPrice_#row#" name="requestPrice_#row#" value="0">  	  							  
+						  class="regularh" style="font-size:13px;border:0px;padding-top:2px;text-align:right;width:96%" id="requestPrice_#row#" name="requestPrice_#row#" value="0">  	  							  
 					 <cfelse>
 					    <input type="input"
-						  class="regularh" style="border:0px;padding-top:2px;text-align:right;width:96%" id="requestPrice_#row#" name="requestPrice_#row#" value="0">  	
+						  class="regularh" style="font-size:13px;border:0px;padding-top:2px;text-align:right;width:96%" id="requestPrice_#row#" name="requestPrice_#row#" value="0">  	
 					 </cfif>	  
 						  
 					</cfif>			   	  

@@ -9,7 +9,6 @@
 			  systemfunctionid="#url.idmenu#">
 
 <cf_dialogPosition>
-<cfajaximport tags="cftooltip">
 
 <cfparam name="URL.view"      default="title">
 <cfparam name="URL.mode"      default="regular">

@@ -52,7 +52,7 @@
 	
 	<table cellspacing="0" cellpadding="0">
 	<tr class="fixlengthlist">
-	<td title="#Attributes.ToolTip#" style="cursor:pointer">
+	<td title="#Attributes.ToolTip#" style="cursor:pointer;padding-left:0px">
 		
 	<cfif attributes.inline eq "true">
 	

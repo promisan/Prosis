@@ -155,7 +155,7 @@
 				
 		<cfoutput query="Requested">
 					
-				<tr class="navigation_row line">		
+				<tr class="navigation_row line fixlengthlist">		
 						
 				<cfif actionstatus eq "0">
 					<cfset dec = "label blocked">
@@ -163,7 +163,8 @@
 				    <cfset dec = "labelmedium">
 				</cfif>
 								
-				<td id="#requirementid#_exe" style="width:35px;padding-left:17px" align="center">		
+				<td id="#requirementid#_exe" style="width:35px;padding-left:17px" align="center">
+				
 						
 					<cfif ExecutionStatus eq "0">
 					
@@ -218,7 +219,7 @@
 				</td>
 													
 				<td><cf_space id="#requirementid#_off" spaces="40" label="#officerLastName#" class="#dec#"></td>
-				<td width="7%" id="#requirementid#_dte" align="center" class="#dec#"><cfif RequestDue neq "">#month(RequestDue)#/#year(RequestDue)#</cfif></td>				
+				<td id="#requirementid#_dte" align="center" class="#dec#"><cfif RequestDue neq "">#month(RequestDue)#/#year(RequestDue)#</cfif></td>				
 				<td align="right"><cf_space spaces="22" id="#requirementid#_qty" class="#dec#" padding="0" align="right" label="#numberformat(RequestQuantity,'__')#"></td>	
 				<td align="right"><cf_space spaces="22" id="#requirementid#_prc" class="#dec#" padding="0" align="right" label="#numberformat(RequestPrice,'__,__')#"></td>
 				<td align="right" style="padding-right:10px"><cf_space spaces="22" id="#requirementid#_amt" class="#dec#" padding="0" align="right" label="#numberformat(RequestAmountBase,"__,__")#"></td>						
@@ -234,8 +235,7 @@
 				<cfif actionstatus neq "9" and url.mode neq "list">				
 								
 					<td colspan="2" align="right" style="padding-left:35px" width="4%">
-										
-						<cf_space spaces="55">
+											
 					
 						<cfif requested.ActionStatus eq "1">
 						   <cfset cl = "regular">
@@ -243,7 +243,7 @@
 						   <cfset cl = "hide">						  
 						</cfif>      
 											
-						<table cellspacing="0" cellpadding="0" style="height:20;padding:0px">
+						<table style="height:20;padding:0px">
 						
 							<tr>
 							
@@ -336,8 +336,6 @@
 									</cfif>	
 									
 								<cfelse>
-								
-										
 								
 								</cfif>
 																

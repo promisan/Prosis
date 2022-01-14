@@ -12,7 +12,6 @@
 </cfif>	
 
 --->
-
 	
 <cfif url.content eq "1">
 

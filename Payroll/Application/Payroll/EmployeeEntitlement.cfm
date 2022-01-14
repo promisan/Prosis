@@ -67,8 +67,8 @@ password="#SESSION.dbpw#">
 			ORDER BY  ES.PayRollStart DESC
 		</cfquery>
 	
-		<tr class="line labelmedium fixrow">
-		<td style="background-color:white;height:35px;font-size:25px;font-weight:200;padding-left:2px" colspan="5" align="left">		
+		<tr class="line labelmedium fixrow fixlengthlist min-width:300px">
+		<td title="#Mission# #EntitlementYear# - #dateformat(Last.PayrollStart,'MMMM')#" style="background-color:white;height:35px;font-size:22px;padding-left:2px" colspan="5" align="left">		
 		<b>#Mission# #EntitlementYear# <font size="2">(<cf_tl id="until">#dateformat(Last.PayrollStart,"MMMM")# )</font></b>	
 		</td>
 		

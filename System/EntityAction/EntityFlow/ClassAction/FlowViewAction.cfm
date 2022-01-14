@@ -108,14 +108,12 @@
 	}
 </style>	
 
-	<cf_tableround  mode="flat" startcolor="E4E4E4" endcolor="E4E4E4" totalwidth="#w#" totalheight="#h*Action.Recordcount#">
-	
-	<table width="100%"
-		       height="100%"				      
-			   class="formpadding"
+
+	<table width="#w#" style="border:1px solid silver"
+		       height="#h*Action.Recordcount#"
 			   align="center">
 	   
-	  <tr><td align="center" class="labelit" bgcolor="silver"><cf_tl id="Concurrent"></td></tr>
+	     <tr><td align="center" class="labelmedium" bgcolor="silver"><cf_tl id="Concurrent"></td></tr>
 	
 		<cfset p   = "">
 		<cfset tpe = "">
@@ -130,9 +128,9 @@
 			
 			<cfset drag = drag + 1>
 			<!---width="#w-6#"--->
-			<table style="width:200px" height="#h-4#" id="d#drag#">		
+			<table style="width:170px;" height="#h-4#" id="d#drag#">		
 			   			  		   
-				<tr style="background-color:ffffaf">
+				<tr style="background-color:ffffaf;border-top:1px solid silver">
 				   <td height="1" style="padding-left:3px" class="labelit" width="40%" id="b#Action.ActionCode#">
 				   
 					<cfif (accessWorkflow eq "EDIT" or accessWorkflow eq "ALL")>			
@@ -158,7 +156,7 @@
 
 			  <cfif (accessWorkflow eq "EDIT" or accessWorkflow eq "ALL") or url.scope eq "Object">
 		   						
-			   <tr style="cursor: pointer;" class="line labelmedium fixlengthlist" 
+			   <tr style="cursor: pointer;" class="labelmedium fixlengthlist" 
 				 onClick="stepinspect('#Action.ActionCode#','#URL.PublishNo#')">
 				 <!---#Boxcolor#--->
 			     <td colspan="3" title="#ActionDescription#" align="center" bgcolor="#Boxcolor#" id="bd#drag#"> 	
@@ -197,7 +195,7 @@
 		</cfloop>
 	
 		</table>
-		</cf_tableround>
+		
 
 <cfelse>		   
     
@@ -230,7 +228,7 @@
 		</cfif>  
 		
 		<table style="width:170px" height="100%" align="center">
-									
+											
 			<cfif action.showasBranch eq "0" 
 			       or action.actiontype eq "Action" 
 				   or url.connector eq action.actionparent>
@@ -294,22 +292,22 @@
 														
 						<tr style="cursor: pointer;" class="labelmedium fixlengthlist" onClick="stepinspect('#Action.ActionCode#','#URL.PublishNo#')"
 						    id="b#Action.ActionCode#">
-							 <!---#Boxcolor#--->
+							
 						    <td colspan="3" align="center" bgcolor="#Boxcolor#" id="bd#drag#">
-														
+																					
 							 <table align="center" style="width;100%">
 							  <tr class="fixlengthlist">
 							  <td align="center" title="#Action.ActionDescription#" style="max-width:150px"><cfif Action.ActionType eq "Decision"><font color="FFFFFF"></cfif>#Action.ActionDescription#</td></tr>
 							  <cfif Action.ActionReference neq "">
 							  <tr><td align="center"><font size="1">[#Action.ActionReference#]</td></tr>
 							  </cfif>
-							  </table>								
+							 </table>								
 						
 						    </td>
 							
 							<input type="hidden" name="action#drag#" id="action#drag#" value="#Action.ActionCode#">
-							<input type="hidden" name="type#drag#" id="type#drag#" value="Action">
-							<input type="hidden" name="leg#drag#" id="leg#drag#" value="">
+							<input type="hidden" name="type#drag#"   id="type#drag#"   value="Action">
+							<input type="hidden" name="leg#drag#"    id="leg#drag#"    value="">
 							
 						</tr>
 					
@@ -320,7 +318,7 @@
 					<cfif Action.ActionType eq "Decision">
 							
 						<tr>
-						    <td colspan="3" class="labelit" align="center" style="word-wrap: break-word;" 
+						    <td colspan="3" class="labelit fixlength" align="center" 
 							  background="#SESSION.root#/images/decisionblue.jpg" id="b#Action.ActionCode#">
 						    #Action.ActionDescription#
 						    </td>
@@ -329,7 +327,7 @@
 					<cfelse>
 									
 						<tr id="b#Action.ActionCode#">
-						    <td colspan="3" class="labelit" align="center" style="word-wrap: break-word;" bgcolor="#Boxcolor#" id="bd#drag#">
+						    <td colspan="3" class="labelit fixlength" align="center" bgcolor="#Boxcolor#" id="bd#drag#">
 							#Action.ActionDescription#
 						    </td>
 							
@@ -364,10 +362,10 @@
 					<cfif Branch.RecordCount gt 0> 
 						<cfset first = "YES">
 						<cfloop query="Branch">
-							<tr style="cursor: pointer;height:20px" 
-						    onMouseOver="javascript:showaction('#drag#','#Branch.ProcessActionCode#','clsFlowActionHighlight labelit','clsFlowActionHighlight labelit')"
-							onMouseOut="javascript:showaction('#drag#','#Branch.ProcessActionCode#','labelit','labelit')">
-								<td colspan="3" align="right" class="labelit" bgcolor="FDDCAA" id="#Branch.ProcessActionCode##drag#">
+							<tr style="cursor: pointer;height:15px" 
+						    onMouseOver="javascript:showaction('#drag#','#Branch.ProcessActionCode#','clsFlowActionHighlight labelmedium','clsFlowActionHighlight labelmedium')"
+							onMouseOut="javascript:showaction('#drag#','#Branch.ProcessActionCode#','labelit','labelmedium')">
+								<td colspan="3" align="right" style="height:15px;font-size:13px;padding-right:3px" class="labelmedium" bgcolor="FDDCAA" id="#Branch.ProcessActionCode##drag#">
 								<cfif first eq "YES">
 									<cfswitch expression="#Action.ActionGoTo#">
 										<cfcase Value = '1'><img src="#SESSION.root#/images/SendDown.gif"  alt="" border="0" style="cursor: pointer;"></cfcase>
@@ -376,7 +374,7 @@
 									</cfswitch>
 									<cfset First = "NO">
 								</cfif>
-								<font size="1">#Branch.ProcessActionCode#</font>
+								#Branch.ProcessActionCode#
 								</td>
 							</tr> 
 						</cfloop>
@@ -410,11 +408,10 @@
 			
 			<tr>
 			<td style="padding:2px">			
-				<table cellspacing="0" cellpadding="0">
+				<table>
 				<tr>
-				<cfif Check.DueEntityStatus neq "">						
-							
-					<td bgcolor="gray" align="center" class="labelit" style="height:15px;font-size:9px;color:white;width:20;border:1px solid gray">#Check.DueEntityStatus#</td>								
+				<cfif Check.DueEntityStatus neq "">									
+					<td bgcolor="gray" align="center" title="[Due] sets document status to [#Check.DueEntityStatus#] through embedded option" class="labelit" style="height:15px;font-size:9px;color:white;width:20;border:1px solid gray">#Check.DueEntityStatus#</td>								
 				</cfif>
 				<cfloop query="scripts">			
 				    <cfif method eq "due">

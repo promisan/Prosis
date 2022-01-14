@@ -3,7 +3,7 @@
 	
 	<tr>
 	<td align="center" class="labellarge">
-		<cfdiv id="dBarcode" bind="url:UoMBarCode/getBarCode.cfm?id=#url.id#&uom=#url.uom#&whs={sWarehouse}">
+		<cf_securediv id="dBarcode" bind="url:UoMBarCode/getBarCode.cfm?id=#url.id#&uom=#url.uom#&whs={sWarehouse}">
 	</td>		
 	</tr>
 	
@@ -55,7 +55,7 @@
 						<cf_tl id="Lot">:
 					</td>
 					<td class="labelmedium" style="padding-left:8px;">					
-						<cfdiv bind="url:UoMBarCode/getTransactionLot.cfm?id=#url.id#&uom=#url.uom#&warehouse=#qWarehouse.Mission#">												
+						<cf_securediv bind="url:UoMBarCode/getTransactionLot.cfm?id=#url.id#&uom=#url.uom#&warehouse=#qWarehouse.Mission#">												
 					</td>
 				</tr>	
 				
@@ -91,10 +91,10 @@
 					
 					<td  width="100%" align="center">
 						<div style="display:#vshow_btn1#">
-							<cfdiv id="buttonPrint" bind="url:UoMBarCode/ButtonPrint.cfm?itemno=#url.id#&uom=#url.uom#&labels=1&whs={sWarehouse}">
+							<cf_securediv id="buttonPrint" bind="url:UoMBarCode/ButtonPrint.cfm?itemno=#url.id#&uom=#url.uom#&labels=1&whs={sWarehouse}">
 						</div>						
 						<div style="padding-top:4px;display:#vshow_btn2#">						
-							<cfdiv id="buttonPrintEPL" bind="url:UoMBarCode/ButtonPrintEPL.cfm?itemno=#url.id#&uom=#url.uom#&labels=1&whs={sWarehouse}">
+							<cf_securediv id="buttonPrintEPL" bind="url:UoMBarCode/ButtonPrintEPL.cfm?itemno=#url.id#&uom=#url.uom#&labels=1&whs={sWarehouse}">
 						</div>		
 					</td>
 				</tr>	

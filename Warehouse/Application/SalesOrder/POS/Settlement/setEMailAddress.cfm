@@ -11,6 +11,15 @@
 			SET      EMailAddress = '#email#'
 			WHERE    CustomerId = '#url.customeridinvoice#'       
 	</cfquery>
+		
+	<cfquery name="Customer" 
+	   datasource="AppsLedger" 
+	   username="#SESSION.login#" 
+	   password="#SESSION.dbpw#">
+			UPDATE   TransactionHeaderAction
+			SET      EMailAddress = '#email#'
+			WHERE    ActionId = '#url.actionid#'       
+	</cfquery>
 	
 	<cfoutput>
 	

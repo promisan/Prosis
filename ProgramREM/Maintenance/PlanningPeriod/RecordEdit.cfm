@@ -50,7 +50,7 @@ function ask() {
     <cfoutput>
 	
     <TR class="labelmedium2">
-    <TD>Code:</TD>
+    <TD><cf_tl id="Code">:</TD>
     <TD colspan="2" class="regular">
   	   <input type="text" disabled name="Period" value="#get.Period#" size="10" maxlength="10" class="regularxxl">
 	   <input type="hidden" name="periodOld" value="#get.Period#" size="10" maxlength="10" class="regular">
@@ -59,9 +59,11 @@ function ask() {
 		
 	<cf_calendarscript>	
 	<TR class="labelmedium2">
-    <TD>Period:</TD>
-    <TD colspan="2">
-		<table cellspacing="0" cellpadding="0"><tr><td>
+    <TD><cf_tl id="Period">:</TD>
+    <TD colspan="2" style="padding-left:0px">
+		<table cellspacing="0" cellpadding="0">
+		 <tr>
+		 <td style="padding-left:0px">
 		 <cf_intelliCalendarDate9
 			FieldName="DateEffective" 
 			class="regularxxl"
@@ -79,7 +81,7 @@ function ask() {
 	</TR>
 	
 	<TR class="labelmedium2">
-    <TD>Class:</TD>
+    <TD><cf_tl id="Class">:</TD>
     <TD colspan="2">
 	  <table><tr><td>
 	 <cfinput type="text" name="PeriodClass" value="#get.PeriodClass#" message="Please enter a class" required="yes" size="10"
@@ -121,7 +123,8 @@ function ask() {
 	<table>
 	 <tr class="labelmedium2">
 	  <td>
-      <input type="radio" class="radiol" name="isPlanningPeriod" value="1" <cfif Get.isPlanningPeriod eq "1">checked</cfif> onclick="document.getElementById('planperiod').className='regular'"></td><td class="labelmedium">Execution- AND Plan Period </td>
+      <input type="radio" class="radiol" name="isPlanningPeriod" value="1" <cfif Get.isPlanningPeriod eq "1">checked</cfif> onclick="document.getElementById('planperiod').className='regular'"></td>
+	  <td class="labelmedium fixlength">Execution- AND Plan Period </td>
 	  <td>&nbsp;</td>
 	  <cfif get.isPlanningPeriod eq "1">
 	   <cfset cl = "regular">	   
@@ -132,7 +135,7 @@ function ask() {
 	  
 		  <table cellspacing="0" cellpadding="0">
 		  <tr class="labelmedium2">
-		     <td class="labelmedium" style="padding-right:10px">covering entry for periods until:</td>
+		     <td class="labelmedium fixlength" style="padding-right:10px">covering periods until:</td>
 		  	 <td>
 			  <cf_intelliCalendarDate9
 				FieldName="isPlanningPeriodExpiry" 
@@ -143,7 +146,7 @@ function ask() {
 			<td style="padding-left:10px" class="labelmedium">
 	  	    <input type="radio" class="radiol" name="isPlanningPeriod" value="0" <cfif Get.isPlanningPeriod eq "0">checked</cfif> onclick="document.getElementById('planperiod').className='hide'">
 			</td>
-		    <td class="labelmedium">Execution only</td>	
+		    <td class="labelmedium fixlength">Execution only</td>	
 		  </tr>
 		  </table>
 	  

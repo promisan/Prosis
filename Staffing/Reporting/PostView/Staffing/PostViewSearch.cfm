@@ -11,7 +11,7 @@
 						
 						<tr >
 						
-						  <td class="labelmedium" style="font-size:16px;padding-left:10px"><cf_tl id="Find">:</td>
+						  <td class="labelmedium" style="font-size:15px;padding-left:10px"><cf_tl id="Find">:</td>
 						  
 						    <td style="padding-left:4px">
 						  
@@ -28,8 +28,8 @@
 						 </td> 	
 												 						 
 						 <td class="cellcontent" style="padding-left:3px">
-							<input type="text" id="fieldsearch" size="15" class="regularxxl" maxlength="40" style="border:0px;background-color:f1f1f1;padding-top:2px;height:32px;font-size:18px" 
-							  class="regular" onKeyUp= "quicksearch(event)">
+							<input type="text" id="fieldsearch" size="15" class="regularxxl" maxlength="40" style="padding-left:4px;border:0px;background-color:f1f1f1;padding-top:2px;height:32px;font-size:19px" 
+							  onKeyUp= "quicksearch(event)">
 						 </td>
 						  				 
 						 

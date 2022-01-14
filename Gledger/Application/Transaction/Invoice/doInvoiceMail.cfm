@@ -10,6 +10,15 @@
 	WHERE  Journal IN (SELECT Journal FROM TransactionHeaderAction WHERE ActionId = '#url.actionid#')					 						 				 
 </cfquery>	
 
+<cfquery name="Customer" 
+	   datasource="AppsLedger" 
+	   username="#SESSION.login#" 
+	   password="#SESSION.dbpw#">
+		UPDATE   TransactionHeaderAction
+		SET      EMailAddress = '#email#'
+		WHERE    ActionId = '#url.actionid#'       
+</cfquery>
+
 <cfif GetMail.eMailTemplate neq "">
 	<cfinclude template="../../../../#GetMail.emailTemplate#">
 <cfelse>

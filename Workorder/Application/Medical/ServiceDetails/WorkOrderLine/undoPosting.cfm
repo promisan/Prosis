@@ -64,12 +64,22 @@
 	   <!--- we cancel the invoice --->
 	   <cfset triggerEDI = "Yes">
 	   
+	   	<cfinvoke component = "Service.Process.EDI.Manager"
+				method           = "SaleVoid"
+				Datasource       = "AppsMaterials"
+				Mission          = "#get.Mission#"
+				Terminal		 = "TransactionView"
+				Journal          = "#url.Journal#"
+				JournalSerialNo  = "#url.JournalSerialNo#"					
+				returnvariable	 = "stResponse">
+	   
    <cfelse>
    
    	   <cfset triggerEDI = "No">
    
    </cfif>
-		
+  
+	<!---	delete me 
 	<cfinvoke component = "Service.Process.Materials.POS"  
 		   method           = "purgeTransaction" 
 		   mode             = "void"
@@ -78,6 +88,8 @@
 		   triggerEDI       = "#triggerEDI#"
 		   Journal			= "#url.Journal#"
 		   JournalSNo	    = "#url.JournalSerialNo#">				   
+		   
+		   --->
 	
 	<!--- ----- remove billing made for this workorder line ----- --->
 

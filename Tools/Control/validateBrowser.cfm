@@ -1,4 +1,4 @@
-<cfparam name="Attributes.minIE"         	default="11">	 
+<cfparam name="Attributes.minIE"         	default="12">	 
 <cfparam name="Attributes.minDocumentmode"  default="#Attributes.minIE#">
 <cfparam name="Attributes.minFF"        	default="60">
 <cfparam name="Attributes.minChrome"     	default="60">

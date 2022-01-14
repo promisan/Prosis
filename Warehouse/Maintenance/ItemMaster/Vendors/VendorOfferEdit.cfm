@@ -58,21 +58,21 @@
 
 <cfform name="frmeditvendoroffer" method="POST" target="processeditvendoroffer" action="vendors/vendorOfferSubmit.cfm?itemno=#url.itemno#&mission=#url.mission#&uom=#url.uom#&orgunitvendor=#url.orgunitvendor#&offerid=#url.offerid#">
 
-<table width="90%" align="center" class="formpadding formspacing">
+<table width="90%" align="center" class="formpadding formspacing>
 	<tr><td height="5"></td></tr>
-	<tr>
+	<tr class="fixlengthlist">
 		<td style="height:25px" width="25%" class="labelmedium"><cf_tl id="Item">:</td>
 		<td class="labelmedium">#getHeader.ItemDescription#</td>
 	</tr>
-	<tr>
+	<tr class="fixlengthlist">
 		<td style="height:25px" class="labelmedium"><cf_tl id="UoM">:</td>
 		<td class="labelmedium">#getHeader.UoMDescription#</td>
 	</tr>
-	<tr>
+	<tr class="fixlengthlist">
 		<td style="height:25px" class="labelmedium"><cf_tl id="Vendor">:</td>
 		<td class="labelmedium">#getHeader.VendorName#</td>
 	</tr>
-	<tr>
+	<tr class="fixlengthlist">
 		<td class="labelmedium" ><cf_tl id="Location">:</td>
 		<td class="labelmedium">
 		
@@ -98,7 +98,7 @@
 						selected="#get.LocationId#"/>
 		</td>
 	</tr>
-	<tr>
+	<tr class="fixlengthlist">
 		<td ><cf_tl id="Effective">:</td>
 		<td class="labelmedium">
 		
@@ -116,7 +116,7 @@
 		</td>
 	</tr>
 	
-	<tr>
+	<tr class="fixlengthlist">
 		<td class="labelmedium" ><cf_tl id="Minimum Qty">:</td>
 		<td>
 		<table>
@@ -142,7 +142,7 @@
 		</td>
 	</tr> --->
 	
-	<tr>
+	<tr class="fixlengthlist">
 		<td class="labelmedium" ><cf_tl id="Price">:</td>
 		<td>
 			<cfquery name="getLookup" 
@@ -175,7 +175,7 @@
 		</td>
 	</tr>
 	
-	<tr>
+	<tr class="fixlengthlist">
 		<td  class="labelmedium"><cf_tl id="Tax Included">:</td>
 		<td class="labelmedium">
 			<input type="radio" name="taxIncluded" id="taxIncluded" value="0" <cfif get.taxIncluded eq "0" or url.offerid eq "">checked</cfif>>No
@@ -189,8 +189,7 @@
 	
 	<tr>
 		<td colspan="2" align="center">
-			<input 
-				class       = "button10g"
+			<input class    = "button10g"
 				value       = "Save" 
 				type        = "Submit"
 				id          = "save"					

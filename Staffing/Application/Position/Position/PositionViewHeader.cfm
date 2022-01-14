@@ -207,18 +207,18 @@ password="#SESSION.dbpw#">
 		   	<cfset cl = "ffffff">	
 		   </cfif>	
 	   	   
-	       <TR class="labelmedium2 line" style="background-color:#cl#">		   		   	  
-	          <td style="padding-top:2px;min-width:100px;padding-left:#indent#px">
+	       <TR class="labelmedium2 line fixlengthlist" style="background-color:#cl#">		   		   	  
+	          <td style="padding-top:2px;padding-left:#indent#px">
 			  <cfif currentrow eq recordcount>
 			  <img src="#SESSION.root#/Images/bullet.gif" height="20"  border="0" align="absmiddle">	          
 			  <cfelse>
 			  <img src="#SESSION.root#/Images/bullet.gif" height="16"  border="0" align="absmiddle">		  
 			  </cfif>
 	       </td>
-	       <td width="40%"><cfif currentrow eq "1">#mission#&nbsp;-&nbsp;</cfif>#OrgUnitName#</td>
-	       <TD width="10%">#OrgUnitCode#</TD>
-	       <TD width="30%">#OrgUnitClass#</TD>
-		   <TD width="10%">#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>	 
+	       <td title="#OrgUnitName#"><cfif currentrow eq "1">#mission#&nbsp;-&nbsp;</cfif>#OrgUnitName#</td>
+	       <TD>#OrgUnitCode#</TD>
+	       <TD>#OrgUnitClass#</TD>
+		   <TD>#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>	 
 	       </TR>
 		   
 		   <cfset Indent = indent+20>

@@ -1173,11 +1173,13 @@
 	       <!--- 
 		   <cfif (Transaction.ActionStatus eq "0" and action.recordcount gte "1") or action.recordcount eq 0>
 		   --->
-		
-			   <tr><td colspan="2" height="20" id="invoiceactionbox" style="padding-top:2px">
+		   
+			
+			   <tr><td colspan="2" height="20" id="invoiceactionbox" style="padding-top:2px">			  
 			      <cfinclude template="getTransactionAction.cfm">
 				 </td>
 			   </tr>	
+			
 	
 		   <!---	   	
 		   </cfif> 
@@ -1185,9 +1187,10 @@
 		
   </cfif>	    
  
-  <tr class="NoPrint clsNoPrint">
-    <td width="100%" height="20" colspan="2">
-         <table width="100%" class="formpadding">
+  <tr class="NoPrint clsNoPrint" style="height:1px">
+    <td width="100%" colspan="2">
+	
+         <table width="100%" class="formpadding" style="border-left:1px solid silver;border-right:1px solid silver">
 				 
 		 <cfset adv = 0>		 
 		 
@@ -1198,7 +1201,7 @@
 					 <tr><td colspan="3" height="1" class="line"></td></tr>
 				  	 <tr><td colspan="3" style="height:40px">
 					 
-					   <table cellspacing="0" cellpadding="0">
+					   <table>
 						<tr><td class="labelmedium2">	
 				  
 				      <cfquery name="CurPeriod"
@@ -1840,10 +1843,8 @@
 <cfif URL.Show eq "show">
 
   <tr>
-  <td width="100%" colspan="2" id="postinglines">  
-     
-	     <cf_securediv bind="url:TransactionViewPosting.cfm?journal=#url.journal#&JournalSerialno=#url.JournalSerialno#&mode=#url.mode#&summary=#url.summary#" id="content">	  	
-	 
+  <td width="100%" colspan="2" id="postinglines">       
+	     <cf_securediv bind="url:TransactionViewPosting.cfm?journal=#url.journal#&JournalSerialno=#url.JournalSerialno#&mode=#url.mode#&summary=#url.summary#" id="content">	  		 
  </td>
  </tr>
  

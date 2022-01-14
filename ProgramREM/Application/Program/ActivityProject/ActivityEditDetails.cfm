@@ -108,37 +108,54 @@
 	</tr>	
 		
 	<!--- remove possible empty entries --->
-	
-	<cfquery name="LocationList" 
-		datasource="AppsPayroll" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		SELECT   N.Code,N.Name,L.LocationCode,L.Description,N.Continent,LocationDefault
-		FROM     Ref_PayrollLocation L, 
-		         System.dbo.Ref_Nation N,
-				 Ref_PayrollLocationMission M
-		WHERE    L.LocationCountry = N.Code
-		AND      M.LocationCode = L.LocationCode
-		AND      M.Mission = '#EditActivity.Mission#'	
-		AND      M.BudgetPreparation = 1	
-		AND      N.Code != 'UUU'			
-		ORDER BY N.Name,L.LocationCode,L.Description
-	</cfquery>	
-	
-	<cfif LocationList.recordcount eq "0">
-	
-		<cfquery name="LocationList" 
-			datasource="AppsPayroll" 
-			username="#SESSION.login#" 
+	<cf_verifyOperational
+			datasource= "AppsProgram"
+			module    = "Payroll"
+			Warning   = "No">
+
+	<cfif ModuleEnabled eq "1">
+
+		<cfquery name="LocationList"
+			datasource="AppsPayroll"
+			username="#SESSION.login#"
 			password="#SESSION.dbpw#">
-			SELECT   Code,Name,LocationCode,L.Description,Continent,'' as LocationDefault
-			FROM     Ref_PayrollLocation L, System.dbo.Ref_Nation N
-			WHERE    L.LocationCountry = N.Code		
-			AND      N.Code != 'UUU'			
-			ORDER BY Name, LocationCode,Description
-		</cfquery>		
-		
+			SELECT   N.Code,N.Name,L.LocationCode,L.Description,N.Continent,LocationDefault
+			FROM     Ref_PayrollLocation L,
+					 System.dbo.Ref_Nation N,
+					 Ref_PayrollLocationMission M
+			WHERE    L.LocationCountry = N.Code
+			AND      M.LocationCode = L.LocationCode
+			AND      M.Mission = '#EditActivity.Mission#'
+			AND      M.BudgetPreparation = 1
+			AND      N.Code != 'UUU'
+			ORDER BY N.Name,L.LocationCode,L.Description
+		</cfquery>
+
+		<cfif LocationList.recordcount eq "0">
+
+			<cfquery name="LocationList"
+				datasource="AppsPayroll"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+				SELECT   Code,Name,LocationCode,L.Description,Continent,'' as LocationDefault
+				FROM     Ref_PayrollLocation L, System.dbo.Ref_Nation N
+				WHERE    L.LocationCountry = N.Code
+				AND      N.Code != 'UUU'
+				ORDER BY Name, LocationCode,Description
+			</cfquery>
+
+		</cfif>
+	<cfelse>
+		<cfquery name="LocationList"
+				datasource="AppsProgram"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+			SELECT   Code,Name,Code as LocationCode,Name as Description,Continent,'' as LocationDefault
+			FROM     System.dbo.Ref_Nation N
+			ORDER BY Name, Code
+		</cfquery>
 	</cfif>
+
 	
 	<cfquery name="Locations" 
 	datasource="AppsProgram" 

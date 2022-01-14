@@ -945,7 +945,7 @@
 	</script>
 	
 	<!--- check the browser version --->
-	<cf_validateBrowser minIE="10" setDocumentMode="1">
+	<cf_validateBrowser minIE="12" setDocumentMode="1">
 
 	<cfif clientbrowser.pass eq 0>
 		<cfoutput>

@@ -109,31 +109,26 @@
 	 
 	<td style="padding-left:3px">
 	 			 
-	  <select name="OrgUnitOwner" id="OrgUnitOwner" class="regularxxl" style="width: 200px;">				     
+	    <select name="OrgUnitOwner" id="OrgUnitOwner" class="regularxxl" style="width: 200px;">				     
 	    <cfloop query="Owner">
    		   	  <option value="#OrgUnit#">#OrgUnitName#</option>
-       	    </cfloop>  
-            </select>	
+       	</cfloop>  
+        </select>	
 	  
 	</td>	
 	
 	</tr>
 	
-	<tr>
-	
-	<td width="90" ><cf_tl id="Issued InvoiceNo">:</td>
-	<td style="padding-left:3px">
-	 	
-		<input type="text" name="ActionReference2" value="" class="regularxl" style="width:35"  maxlength="4">
-		<input type="text" name="ActionReference1" value="" class="regularxl" style="width:160" maxlength="14">
-			  
-	</td>
-							
-	<td width="60"><cf_tl id="Memo">:</td>
-	<td colspan="3" style="padding-left:3px">
-	<input type="text" name="Memo" value="" class="regularxxl" style="width:100%" maxlength="100">
-	</td>
-	
+	<tr>	
+		<td width="90" ><cf_tl id="Issued InvoiceNo">:</td>
+		<td style="padding-left:3px">	 	
+			<input type="text" name="ActionReference2" value="" class="regularxl" style="width:100"  maxlength="10">
+			<input type="text" name="ActionReference1" value="" class="regularxl" style="width:160"  maxlength="14">			  
+		</td>							
+		<td width="60"><cf_tl id="Memo">:</td>
+		<td colspan="3" style="padding-left:3px">
+		<input type="text" name="Memo" value="" class="regularxxl" style="width:100%" maxlength="100">
+		</td>	
      </tr>
 	 
 	 <tr><td height="5"></td></tr>

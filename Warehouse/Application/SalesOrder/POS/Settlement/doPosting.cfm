@@ -263,7 +263,7 @@
 	</cfquery>
 	
 	<script>
-		alert("<cf_tl id="Sale updated"> \n\n <cf_tl id="No Invoice was (re-)issued">.")
+		alert("<cf_tl id="Sale updated">\n<cf_tl id="No Invoice was (re-)issued">.")
 		try { ProsisUI.closeWindow('wsettle',true)} catch(e){};
 		ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#",'customerbox')		
 	</script>

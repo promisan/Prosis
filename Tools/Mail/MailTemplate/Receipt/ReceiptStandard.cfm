@@ -91,9 +91,9 @@
 		<cfloop query="Header">
 		
 		<table style="min-width:500px">
-		<tr><td colspan="2" style="padding-left:10px;font-size:30px;font-family: Calibri;">#MissionName# #WarehouseName#</td></tr>
-		<tr><td colspan="2" style="padding-left:10px;font-size:23px;font-family: Calibri;">#City# #Address#</td></tr>
-		<tr><td colspan="2" style="padding-left:10px;font-size:19px;font-family: Calibri;">#Telephone#</td></tr>
+		<tr><td colspan="2" style="padding-left:10px;font-size:27px;font-family: Calibri;">#MissionName# #WarehouseName#</td></tr>
+		<tr><td colspan="2" style="padding-left:10px;font-size:22px;font-family: Calibri;">#City# #Address#</td></tr>
+		<tr><td colspan="2" style="padding-left:10px;font-size:18px;font-family: Calibri;">#Telephone#</td></tr>
 		<tr><td colspan="2" style="height:20"></td></tr>
 		<tr>
 			<td style="padding-left:10px;font-size:20px;font-family: Calibri; font-size: medium;">#CustomerName# #Reference#</td>

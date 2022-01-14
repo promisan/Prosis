@@ -325,7 +325,7 @@
 		 <cfset clline = "hide">
 	</cfif>		
 					
-	<tr id="box_#url.parent#" class="#cl#" style="padding-left:4px">	
+	<tr id="box_#url.parent#" class="#cl#" style="height:20px;padding-left:4px">	
 					
 		<input type="hidden" name="#unitclass#_costid_#currentrow#" id="#unitclass#_costid_#currentrow#" value="#CostId#">					
 	
@@ -363,13 +363,13 @@
 				
 		<cfif ItemWarehouse neq "">
 				
-			<td style="font-size:13px;height:25px;min-width:240px;width:100%" class="labelmedium fixlength">			
+			<td style="font-size:13px;min-width:240px;width:100%" title="#UnitDescription#" class="labelmedium fixlength">			
 			<a href="javascript:item('#itemwarehouse#','','#url.mission#')">#UnitDescription#</a>
 			</td>	
 		
 		<cfelse>
 				
-			<td style="font-size:13px;height:25px;;min-width:240px;width:100%" class="labelmedium fixlength">#UnitDescription#</td>	
+			<td style="font-size:13px;;min-width:240px;width:100%" title="#UnitDescription#" class="labelmedium fixlength">#UnitDescription#</td>	
 		
 		</cfif>
 				
@@ -424,7 +424,7 @@
 											
 					<cfelse>
 								
-						#stock# :
+						#stock#:
 					
 					</cfif>	
 				
@@ -433,17 +433,12 @@
 			</cfif>
 			
 			<cfif ItemWarehouse neq "" and UnitDetail.EnableUsageEntry eq 0>
-			
-			xxxx
-						
+									
 				<!--- value is always 1 --->
 				<input type="hidden" name="#unitclass#_QuantityIsStock_#currentrow#" id="#unitclass#_QuantityIsStock_#currentrow#" value="1">
 				
 			<cfelse>
-			
-			
-			ppppp
-			
+						
 				<!--- value is always 0 --->
 				<input type="hidden" name="#unitclass#_QuantityIsStock_#currentrow#" id="#unitclass#_QuantityIsStock_#currentrow#" value="0">
 			
@@ -526,8 +521,8 @@
 		<!--- actual price --->
 					
 		<td align="right" style="width:100px;min-width:100px;font-size:14px" class="#cllineu#" id="price_#unitclass#_#currentrow#">
-						
-			<font face="Calibri" size="2">			  				
+							
+					  				
 			<cfif url.accessmode eq "edit">
 			
 				<cfif Rate.enableEditRate eq "0">			
@@ -561,7 +556,6 @@
 			
 			</cfif>				
 			
-			</font>
 													
 		</td>		
 								
@@ -599,7 +593,7 @@
 		<td align="right" style="font-size:14px;width:100px;min-width:100px;">
 				  			
 			<table>
-			<tr class="labelmedium2">
+			<tr class="labelmedium2" style="height:20px">
 			<td id="total_#unitclass#_#currentrow#" class="#clline#" style="font-size:14px;padding-left:2px">
 					
 			<cfif UnitUsed.recordcount gte "1">

@@ -569,7 +569,7 @@
 			</cfquery>
 			
 			
-			<tr class="linedotted labelmedium2">
+			<tr class="linedotted labelmedium2 fixlengthlist">
 			
 				<td style="padding-right:13px;height:20px;">#Description#:</td>
 			
@@ -672,7 +672,7 @@
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 		
 	<tr><td height="4"></td></tr>
-	<tr class="line">
+	<tr class="line fixlengthlist">
 	   <td style="height:20px;font-weight:360"><cf_tl id="Application Received">:</td>
 	   <td colspan="1" style="height:20px;font-weight:360"><cf_tl id="Limit result to VA"></td> 
 	   <td colspan="1" style="height:20px;font-weight:360"><cf_tl id="Specific Candidate"></td> 
@@ -891,7 +891,7 @@
 	
 		<table cellspacing="0" cellpadding="0">
 	
-		<tr><td style="padding-left:10px;height:20px;font-weight:bold" class="labelmedium"><cf_tl id="Class">:</td>
+		<tr class="fixlengthlist labelmedium"><td style="padding-left:10px;height:20px;font-weight:bold"><cf_tl id="Class">:</td>
 		
 		<cfquery name="Class" 
 		datasource="AppsSelection" 
@@ -937,8 +937,8 @@
 		  </cfif>
 		  
 		  <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
-		   <tr>
-		   	<td class="labelit">
+		   <tr class="fixlengthlist labelmedium">
+		   	<td>
 			   <table>
 				   <tr class="labelmedium">
 				   <td>		
@@ -971,7 +971,7 @@
 	<td>
 	  <table cellspacing="0" cellpadding="0">
 	
-	  <tr><td class="labelmedium" style="height:40px;font-weight:bold"><cf_tl id="Age">:</td>
+	  <tr class="fixlengthlist labelmedium"><td style="height:40px;font-weight:bold"><cf_tl id="Age">:</td>
 	  
 	  <cfquery name="AgeFrom" 
 	        datasource="AppsSelection" 
@@ -1042,11 +1042,9 @@
 	      <cfset SelectId = Check.SelectId>  
 	  </cfif>
 	  
-	  <td class="labelmedium" style="height:20px;font-weight:bold" colspan="2">
-	  
-	  <cf_tl id="Experience in years">:</b>
-	 
-	   <cfinput type="Text" name="WorkYears" value="#SelectId#" range="1,40" message="Select a correct no of years 0 - 40 " validate="range" required="No" visible="Yes" style="width:30;text-align: center;" class="regularxl"> or more
+	  <td class="labelmedium fixlength" style="height:20px;font-weight:bold" colspan="2">	  
+	  <cf_tl id="Minimum Experience">:	 
+       <cfinput type="Text" name="WorkYears" value="#SelectId#" range="1,40" message="Select a correct no of years 0 - 40 " validate="range" required="No" visible="Yes" style="width:30;text-align: center;" class="regularxl"> Years 
 	  </td>
 	
 	</TR>	
@@ -1306,7 +1304,7 @@
 	   
 	   <tr><td height="4"></td></tr>
 	   
-	   <TR>  
+	   <TR class="fixlengthlist labelmedium">  
 	   <td colspan="2" height="21">
 	   
 	   <table border="0" cellspacing="0" cellpadding="0" class="formpadding">
@@ -1361,7 +1359,7 @@
 					
 			<td valign="top" style="padding-left:10px">
 			
-				<table cellspacing="0" cellpadding="0" class="formpadding">
+				<table class="formpadding">
 																											  						
 					<tr>
 					
@@ -1400,10 +1398,10 @@
 						datasource="AppsSelection" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-					    SELECT * 
-					    FROM   RosterSearchLine L
-						WHERE  L.SearchId = '#URL.ID#'
-						AND    L.SearchClass = '#item#'
+						    SELECT * 
+						    FROM   RosterSearchLine L
+							WHERE  L.SearchId = '#URL.ID#'
+							AND    L.SearchClass = '#item#'
 						</cfquery>
 						
 						<cfset selected = "">
@@ -1466,17 +1464,17 @@
 								<cfoutput>						   				   
 								    <button class="button3" type="button"
 									   onClick="combomulti('#item#','#alias#','#table#','#pk#','#desc#','#order#','No')">
-									   <img src="#SESSION.root#/Images/Search.png" 
-									    onMouseOver="document.img0_#item#.src='#SESSION.root#/Images/Search1.gif'"
-			     						onMouseOut="document.img0_#item#.src='#SESSION.root#/Images/Search.png'"
-										id="img0_#item#"
-										name="img0_#item#"
-									    alt="Search" 
-									    border="0" 
-									    height="16"
-									    width="16"
-									    align="absmiddle" 
-									    style="cursor: pointer;">
+										   <img src="#SESSION.root#/Images/Search.png" 
+										    onMouseOver="document.img0_#item#.src='#SESSION.root#/Images/Search1.gif'"
+				     						onMouseOut="document.img0_#item#.src='#SESSION.root#/Images/Search.png'"
+											id="img0_#item#"
+											name="img0_#item#"
+										    alt="Search" 
+										    border="0" 
+										    height="16"
+										    width="16"
+										    align="absmiddle" 
+										    style="cursor: pointer;">
 								    </button>
 								</cfoutput>
 															  					   
@@ -1501,7 +1499,7 @@
 	
 	<tr><td>
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 	
 	<!---
 	<cfif Search.SearchCategory eq "Roster" or Search.SearchCategory eq "Function">
@@ -1538,7 +1536,7 @@
 			</TR> 
 			
 			<tr><td colspan="6">
-					<table width="90%" border="0" cellspacing="0" cellpadding="0" align="left" class="formpadding">
+					<table width="90%" align="left" class="formpadding">
 									
 					<cfoutput query="FunctionTopic">
 					
@@ -1679,7 +1677,7 @@
 			<textarea style="width:95%" class="regular" rows="2" name="Background"><cfoutput query = Keyword>#SelectId#;</cfoutput></textarea></td></tr>
 			</td></tr>
 			<tr><td id="cluster" class="<cfoutput>#cl#</cfoutput>">
-			<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+			<table width="100%" class="formpadding">
 			
 			<cfloop index="itm" from="1" to="3">
 			 

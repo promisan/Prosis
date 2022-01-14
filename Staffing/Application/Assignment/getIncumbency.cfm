@@ -26,7 +26,7 @@
   	try{
 
      se = document.getElementsByName("incumbency")
-	 se[5].checked = true
+	 se[1].checked = true
 	}
 	catch(e)
 	{
@@ -40,7 +40,7 @@
 	<script>
 		try {
 			se = document.getElementsByName("incumbency")
-			se[10].checked = true
+			se[2].checked = true
 		}
 		catch(e)
 		{

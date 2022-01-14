@@ -48,7 +48,7 @@ password="#SESSION.dbpw#">
 	}
 	
 	function recordedit(id1) {
-	     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit", "left=80, top=80, width=840, height=870, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+	     ptoken.open("RecordEdit.cfm?idmenu=#url.idmenu#&ID1=" + id1, "Edit");
 	}
 
 </script>	
@@ -62,11 +62,11 @@ password="#SESSION.dbpw#">
 
 		<table width="93%" align="center" class="navigation_table">
 			
-			<tr class="labelmedium2 line">
+			<tr class="labelmedium2 line fixlengthlist">
 			    <td></td>
 				<td></td>
-			    <td width="50"><cf_tl id="Code"></td>
-				<td style="width:20%"><cf_tl id="Description"></td>		
+			    <td><cf_tl id="Code"></td>
+				<td><cf_tl id="Description"></td>		
 				<td><cf_tl id="Post type"></td>
 				<td><cf_tl id="Default status"></td>
 				<td><cf_tl id="Track"></td>
@@ -90,7 +90,7 @@ password="#SESSION.dbpw#">
 				
 				<cfoutput group="ExerciseClass">
 				
-					<tr class="labelmedium2 line">
+					<tr class="labelmedium2 line fixlengthlist">
 						<td  width="15"></td>
 						<td colspan="3" style="font-size:19px;height:34">#ExerciseClass#</td>
 						<td colspan="7" valign="bottom"  align="right"><cfif Roster eq "1"><font color="0080C0">All Editions under this class are included in [Generic Roster Search] unless disabled</font></cfif></td>
@@ -98,7 +98,7 @@ password="#SESSION.dbpw#">
 								
 					<cfoutput>
 					  	
-					    <tr class="labelmedium2 navigation_row line"> 
+					    <tr class="labelmedium2 navigation_row line fixlengthlist"> 
 							<td height="18"></td>
 							<td width="6%" align="center"><cf_img icon="edit" onclick="recordedit('#SubmissionEdition#')" navigation="Yes"></td>		
 							<td style="padding-left:4px">

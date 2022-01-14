@@ -16,9 +16,9 @@ function saveDetail(code) {
 	 }   	 
  }
  
-function showunitMission(costId, serviceItem, serviceItemUnit) {     
+function showunitMission(costId, itm, unt) {     
 	ProsisUI.createWindow('myrate', 'Rate', '',{x:0,y:0,height:document.body.clientHeight-30,width:document.body.clientWidth*0.75,modal:true,center:true})    					
-	ptoken.navigate('#session.root#/workorder/maintenance/UnitRate/Cost/ItemUnitMissionView.cfm?ID1=' + costId + '&ID2='+ serviceItem + '&ID3=' + serviceItemUnit,'myrate') 		
+	ptoken.navigate('#session.root#/workorder/maintenance/UnitRate/Cost/ItemUnitMissionView.cfm?ID1=' + costId + '&ID2='+ itm + '&ID3=' + unt,'myrate') 		
 }
 
 function showunitMissionrefresh(serviceItem, serviceItemUnit) {

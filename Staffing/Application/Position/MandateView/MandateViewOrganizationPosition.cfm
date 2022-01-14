@@ -190,6 +190,27 @@
 											<a href="javascript:ShowCandidate('#Candidate.PersonNo#')">
 										</cfif>
 										#Candidate.FirstName# #Candidate.LastName# - #cpl#</a>
+										
+										<cfquery name="Assignment" 
+											datasource="AppsVacancy" 
+											username="#SESSION.login#" 
+											password="#SESSION.dbpw#">
+												SELECT  TOP 1 *
+												FROM    Employee.dbo.PersonAssignment P
+												WHERE   SourceId = '#DocumentNo#' 
+												AND     SourcePersonNo = '#PersonNo#'
+												AND     AssignmentStatus IN ('0','1')
+												AND     AssignmentType = 'Actual'
+												ORDER BY DateEffective
+										</cfquery>	
+										
+										<cfif Assignment.recordcount eq "1">
+										
+										&nbsp;&nbsp;Reporting date : #dateformat(Assignment.DateEffective,client.dateformatshow)#
+										
+										</cfif>
+										
+										
 									</cfloop>
 									</td>
 								<cfelse>

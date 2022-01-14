@@ -206,7 +206,7 @@ ORDER BY ItemNo
 	<tr><td height="26" colspan="7" align="center" class="labelmedium"><font color="FF0000">No items to show in this view</font></td></tr>
 <cfelse>
 
-<tr class="line labelmedium" style="height:18px">
+<tr class="line labelmedium fixlengthlist" style="height:18px">
     <td></td>
     <td><cf_tl id="Item"></td>
 	<td><cf_tl id="External"></td>
@@ -260,12 +260,13 @@ ORDER BY ItemNo
 			
 		<cfset link    = replace(url.link,"||","&","ALL")>
 
-		<tr class="navigation_row line labelmedium" style="height:22px">
+		<tr class="navigation_row line labelmedium  fixlengthlist" style="height:22px">
 		
-		  <td width="30" class="navigation_action" style="padding-left:4px;padding-top:2px" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#itemNo#','#url.box#');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>"><cf_img icon="select"></td>
+		  <td class="navigation_action" style="padding-top:2px"
+		      onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#itemNo#','#url.box#');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>"><cf_img icon="select"></td>
 			<td>#ItemNo#</td>
 			<td>#ItemNoExternal#</td>
-			<TD style="width:50%">#ItemDescription#</TD>
+			<TD>#ItemDescription#</TD>
 											
 			<cfquery name="UoM" 
 			datasource="AppsMaterials" 
@@ -297,12 +298,12 @@ ORDER BY ItemNo
 	 	 			 	 
 	     <cfset setlink = "#SESSION.root#/Tools/SelectLookup/Item/ItemStock.cfm?link=#link#&close=#url.close#&filter1value=#url.filter1value#">	
 			 
-		 <tr class="navigation_action navigation_row line labelmedium"		    
+		 <tr class="navigation_action navigation_row line labelmedium fixlengthlist"		    
 			onclick="_cf_loadingtexthtml='';ptoken.navigate('#setlink#&action=insert&des1=#url.des1#&#url.des1#=#itemno#&box=#url.box#','dlist')">
 		 
-		   <td width="30" style="padding-left:4px;padding-top:3px"><cf_img icon="select"></td>
-		   <td style="min-width:80">#ItemNo#</td>
-		   <TD width="85%">#ItemDescription#</TD>			
+		   <td style="padding-top:2px"><cf_img icon="select"></td>
+		   <td>#ItemNo#</td>
+		   <TD>#ItemDescription#</TD>			
 		</tr>
 	 		 
 	 </cfif> 

@@ -279,6 +279,7 @@
 						  <option value="Lookup" selected>Lookup</option>
 						  <option value="List">List</option>						 				 
 					   	  <option value="Text">Text</option>
+						  <option value="Numeric">Numeric</option>
 						  <option value="Date">Date</option>	
 						  <option value="DateTime">DateTime</option>	
 						  <option value="Time">Time</option>	

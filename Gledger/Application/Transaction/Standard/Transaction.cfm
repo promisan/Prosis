@@ -268,7 +268,7 @@ function doSubmit(element) {
     Prosis.busy('yes')
 	element.disabled = true;	
 	document.getElementById('transactionheader').onsubmit() 	
-	ptoken.navigate('TransactionSubmit.cfm?journal=#URL.Journal#','resultbox','','','POST','transactionheader');		
+	ptoken.navigate('TransactionSubmit.cfm?journal=#URL.Journal#&closewindow=1','resultbox','','','POST','transactionheader');		
 }
 
 function doSubmitContinue(element) {

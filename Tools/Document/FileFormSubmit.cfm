@@ -102,6 +102,8 @@
 						(not IsImageFile("#rt##Dir#\#URL.ID#\#filename.ClientFile#")
 						 and
 						 not IsPdfFile("#rt##Dir#\#URL.ID#\#filename.ClientFile#")
+				         and
+				         findNoCase(".zip",filename.ClientFile) eq 0
 						)
 					>
 

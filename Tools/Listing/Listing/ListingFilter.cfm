@@ -252,9 +252,11 @@
 						
 						<td style="<cfif cnt neq '1'>;padding-left:10px</cfif>" class="labelmedium">#Current.LabelFilter#: <cfif current.filtermode eq "4"></cfif>
 						<cfif current.filterforce eq "1"><font color="FF0000">*)</font></cfif>
+						
+						
 						</td>
 																				
-						<td style="width:40%;padding:2px;z-index:#40-row#; position:relative;">	
+						<td style="width:40%;padding:1px;padding-left:0px;z-index:#40-row#; position:relative;">	
 																									
 						<cfset val = evaluate("form.filter#current.field#")>
 						
@@ -353,6 +355,7 @@
 										<cfif lookupdata.recordcount lte "200">
 																																
 											<cfif current.LookupGroup eq "">
+											
 
 												<cfif LookupData.recordcount gt 10>
 													<cfset vFilter = "contains">
@@ -393,6 +396,7 @@
 													</cfif>
 													
 												</cf_UIselect>
+												
 											
 											<cfelse>
 											
@@ -554,7 +558,7 @@
 							<cfcase value="number">		
 							
 							    <table cellspacing="0" cellpadding="0">
-							  <tr><td>										
+							  <tr><td style="padding-left:4px">										
 							
 							   <cfinput type="text" 
 								      name="filter#current.field#" 
@@ -598,7 +602,7 @@
 							<cfcase value="amount">		
 							
 							    <table cellspacing="0" cellpadding="0">
-							  <tr><td>										
+							  <tr><td style="padding-left:4px">										
 							
 							   <cfinput type="text" 
 								      name="filter#current.field#" 
@@ -655,8 +659,8 @@
 													
 							<cfcase value="date">
 							
-							  <table cellspacing="0" cellpadding="0">
-							  <tr><td style="min-width:140px">
+							  <table>
+							  <tr><td style="padding-left:0px;min-width:140px">
 							  						 
 							  <cfparam name="form.filter#current.field#_from" default="">	
 							  <cfset val = evaluate("form.filter#current.field#_from")>		
@@ -675,7 +679,7 @@
 							   </td>
 							   
 							   <td style="padding-left:4px;padding-right:4px">-</td>
-							   <td style="min-width:140px">					   				   
+							   <td style="padding-left:0px;min-width:140px">					   				   
 							   															
 								  <cfparam name="form.filter#current.field#_to" default="">	
 								  <cfset val = evaluate("form.filter#current.field#_to")>	
@@ -707,13 +711,19 @@
 				</cfif>
 					
 			</cfloop>	
-																		 			
+			
+																						 			
 			<cfif annotation neq "">
 						  
 				<tr><td class="labelmedium"><cf_tl id="Flagged">:</td>
-				<td colspan="3" style="padding-left:0px"><cf_annotationfilter></td></tr>
+				<td colspan="3" style="padding-left:0px">
+							
+				<cf_annotationfilter>
+				
+				</td></tr>
 			
-			</cfif>
+			</cfif>			
+			
 						
 			<cfif show eq "1">
 						
@@ -722,6 +732,7 @@
 				
 					<table class="formspacing">
 					<tr>
+					
 					<!--- needs rework
 					<td>		
 						 <cf_tl id="Reset" var="1">
@@ -729,6 +740,7 @@
 						   style="border-radius:3px;font-size:12px;border:1px solid gray;height:25px;width:120px" onClick= "#reset#">    						 
 					</td>			
 					--->
+					
 					<td style="padding-left:2px">
 						 <cf_tl id="Apply" var="1">
 						 <input type="button" name="apply" id="apply" value="#lt_text#" class="button10g" 
