@@ -42,20 +42,20 @@
 	
 	<tr><td style="padding:20px">
 	
-	<table width="100%" class="navigation_table" border="0" cellspacing="0" cellpadding="0">
+	<table width="100%" class="navigation_table">
 	
-	<tr class="labelmedium line">
+	<tr class="labelmedium2 line fixlengthlist">
 		
-		<td width="10%"><cf_tl id="Class"></td>		
-		<td width="30%"><cf_tl id="Name"></td>			
-		<td width="10%"><cf_tl id="Mode"></td>					
-		<td width="20%"><cf_tl id="Last rec date"></td>
-		<td width="10%"><cf_tl id="Officer"></td>	
-		<td width="10%"><cf_tl id="Created"></td>	
-		<td width="10%" style="padding-right:5px;" align="right">
+		<td><cf_tl id="Class"></td>		
+		<td><cf_tl id="Name"></td>			
+		<td><cf_tl id="Mode"></td>					
+		<td><cf_tl id="Last rec date"></td>
+		<td><cf_tl id="Officer"></td>	
+		<td><cf_tl id="Created"></td>	
+		<td style="padding-right:5px;" align="right">
 		 <cfif accessPosition eq "ALL">
 			<cfoutput>
-				<a href="javascript:editWorkSchedule('#URL.Mission#', '#url.mandate#', '');" style="color:0080FF;">
+				<a href="javascript:editWorkSchedule('#URL.Mission#', '#url.mandate#', '');">
 					[<cf_tl id="Add">]
 				</a>
 			</cfoutput>
@@ -66,7 +66,7 @@
 	<cfoutput query="get" group="Class">	
 
 	<tr class="line">	
-	<td class="labelmedium ccontent" colspan="5" style="height:26;padding-left:3px">#Class#</b></td>
+	<td class="labelmedium2 ccontent" colspan="8" style="height:26;padding-left:3px">#Class#</b></td>
 	</tr>
 	
 	<cfoutput>
@@ -74,14 +74,14 @@
 	<tr class="clsWarehouseRow">
 		<td colspan="7">
 			<table width="100%">
-				<tr class="labelmedium navigation_row">
+				<tr class="labelmedium2 navigation_row fixlengthlist">
 	  
 				  <td bgcolor="white" style="padding-left:3px" width="10%"></td>	  
 				  <td style="padding-left:4px" class="ccontent" width="30%">#Description# (#code#)</td>	
-				  <td width="10%">#Hourmode#</td>  	 	 
-				  <td width="20%">#DateFormat(LastDate,client.dateformatshow)#</td>
-				  <td width="10%">#OfficerLastName#</td>
-				  <td width="10%">#DateFormat(created,client.dateformatshow)#</td>	
+				  <td>#Hourmode#</td>  	 	 
+				  <td>#DateFormat(LastDate,client.dateformatshow)#</td>
+				  <td>#OfficerLastName#</td>
+				  <td>#DateFormat(created,client.dateformatshow)#</td>	
 				  
 				  <td style="padding-top:2px; padding-right:5px;" align="right" width="10%">
 				  	<table>
@@ -125,7 +125,7 @@
 						   <td bgcolor="white"></td>			  
 						   <td></td>			 	 
 						    <td></td>
-						   <td class="labelit ccontent" colspan="5"><font color="808080">#MandateNo# <cfif ParentName neq "">#ParentName#/</cfif>#OrgUnitName#</td>
+						   <td class="labelmedium2 ccontent" colspan="5"><font color="808080">#MandateNo# <cfif ParentName neq "">#ParentName#/</cfif>#OrgUnitName#</td>
 						</tr>	
 					</cfloop>
 					

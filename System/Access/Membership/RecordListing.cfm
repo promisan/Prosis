@@ -96,7 +96,7 @@
 		ptoken.open("#SESSION.root#/System/Organization/Access/OrganizationRolesView.cfm?Mission=" + mission + "&Class=" + role, role)
 	}
 	
-	function sync(grp,row) {
+	function syncgroup(grp,row) {
 	    Prosis.busy('yes')
 	    document.getElementById("sync"+grp).disabled = true 	
 		ptoken.navigate('MemberSynchronize.cfm?reload=0&role=' + grp ,'a'+grp)

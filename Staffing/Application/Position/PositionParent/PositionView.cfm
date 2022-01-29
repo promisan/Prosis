@@ -234,21 +234,102 @@
 
 	<table width="98%" height="100%" align="center">
 			
-		<tr><td height="10"><table width="100%">
-		<tr class="line">
+		<tr><td height="10">
+		<table width="100%" border="0">
+		<tr class="line labelmedium2 fixlengthlist">
 	   
-	    <td style="height:35;padding-left:20px" align="left" valign="middle" class="labellarge">
+	    <td style="height:35;padding-left:20px" align="left" valign="middle">
 		   	   		
 			<cf_tl id="Initially recorded by">:
 			<cfoutput><b>#Position.OfficerFirstName# #Position.OfficerLastName# #DateFormat(Position.Created,CLIENT.DateFormatShow)#</cfoutput>
 			
 	    </td>
 			 
-	    <td height="16" align="right" class="labellarge">
+	    <td height="16" align="right">
 		    &nbsp;<cfoutput><b>#URL.ID#</b>&nbsp;|&nbsp;<cf_tl id="Period">: <b>#URL.ID1#</b>&nbsp;|&nbsp;<cf_tl id="Id">: <b><font color="800040"><cfif Position.SourcePostNumber eq "">#Position.PositionParentId#<cfelse>#Position.SourcePostNumber#</cfif></font></b>&nbsp;|&nbsp;<cf_tl id="Instance">: <a href="javascript:EditPost('#URL.ID2#')">#URL.ID2#</a></cfoutput></font>
 		</td>
 		
-		<td id="process"></td>
+		
+		<cfquery name="getPosition" 
+	     datasource="AppsEmployee" 
+	     username="#SESSION.login#" 
+	     password="#SESSION.dbpw#">
+			 SELECT *
+			 FROM   Position
+			 WHERE  PositionParentId = '#Position.PositionParentid#'
+			 ORDER BY DateEffective DESC			
+		</cfquery>
+											   
+	    <cfif getPosition.recordcount gte "1">
+	   	      
+		   <td style="width:100px;padding-left:4px">|<cf_tl id="Incumbency">:</td>
+		   <td class="labelmedium2" style="width;150px;font-weight:bold;padding-right:4px">
+		  		   
+		        <!--- likely we need to tune this a bit to capture 0 percent and 
+				 multiple assignments --->
+				 
+				 <cfquery name="Post" 
+			     datasource="AppsEmployee" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+					 SELECT *
+					 FROM   PersonAssignment
+					 WHERE  PositionNo      = '#getPosition.PositionNo#'
+					 AND    AssignmentStatus IN ('0','1')
+					 AND    AssignmentType   = 'Actual'					 
+					 AND    Incumbency       = 100
+					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
+					 and    DateExpiration >= CAST(GETDATE() AS Date)				
+					 AND    DateEffective  < '#DateFormat(getPosition.DateExpiration,client.dateSQL)#'
+				</cfquery>	
+				
+				
+				<cfquery name="PostStatus" 
+			     datasource="AppsEmployee" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+					 SELECT *
+					 FROM   PersonAssignment
+					 WHERE  PositionNo      = '#getPosition.PositionNo#'
+					 AND    AssignmentStatus IN ('0','1')
+					 AND    AssignmentType   = 'Actual'
+					 AND    AssignmentClass  = 'Regular'
+					 AND    Incumbency       = 100
+					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
+					 and    DateExpiration >= CAST(GETDATE() AS Date)				
+					 AND    DateEffective  < '#DateFormat(getPosition.DateExpiration,client.dateSQL)#'
+				</cfquery>	
+				 
+				 <cfquery name="PostLien" 
+			     datasource="AppsEmployee" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+					 SELECT *
+					 FROM   PersonAssignment
+					 WHERE  PositionNo      = '#getPosition.PositionNo#'
+					 AND    AssignmentStatus IN ('0','1')
+					 AND    AssignmentType = 'Actual'
+					 AND    Incumbency = 0
+					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
+					 and    DateExpiration >= CAST(GETDATE()-60 AS Date)		<!--- 60 days threshold --->		
+					 AND    DateEffective  < '#DateFormat(getPosition.DateExpiration,client.dateSQL)#'
+				</cfquery>	
+		   
+						
+				<cfif Post.recordcount eq "0">				
+					<font color="FF0000"><cf_tl id="Vacant"></font>					
+				<cfelseif PostStatus.recordcount gte "1" and PostLien.recordcount eq "0">				
+					<font color="008000"><cf_tl id="Encumbered by holder">					
+				<cfelse>				
+					<font color="gray"><cf_tl id="Encumbered"></font>						
+				</cfif>  
+				
+				 
+		 </td>
+		
+		</cfif>		  	
+		
+		<td class="hide" id="process"></td>
 		 
 	    </tr> 	
 		

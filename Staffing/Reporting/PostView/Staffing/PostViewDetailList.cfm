@@ -1107,11 +1107,11 @@
 					   																			
 					<cfloop query="Tracks">	
 					
-						<tr bgcolor="C0F1C1" class="labelmedium optional_#url.org#" style="border-top:1px solid silver;height:22px">
+						<tr bgcolor="C0F1C1" class="labelmedium2 optional_#url.org#" style="border-top:1px solid silver;height:22px">
 					
 						 <td colspan="2"></td>					
-						 <td colspan="2" style="border-right:1px solid silver">#tRecruitment#</td>					
-						 <td colspan="5" style="padding-left:4px;font-size:12px;">#EntityClassNameShort#:
+						 <td colspan="2" style="border-right:1px solid silver">#tRecruitment#:</td>					
+						 <td colspan="5" style="padding-left:4px;">#EntityClassNameShort#:
 							
 							<cfif tracks.FunctionId neq "">
 							

@@ -30,9 +30,12 @@
  password="#SESSION.dbpw#">
 	 SELECT F.*, 
 	        Fo.*, 
-			R.Owner, 
+			R.Owner, 			
+			( SELECT TOP 1  Description FROM Organization.dbo.Ref_AuthorizationRoleOwner WHERE Code = R.Owner) as OwnerDescription,
 			R.EnableManualEntry, 
-			R.EditionDescription, R.ActionStatus as SubmissionStatus, ExerciseClass
+			R.EditionDescription, 
+			R.ActionStatus as SubmissionStatus, 
+			ExerciseClass
 	 FROM   FunctionTitle F, 
 	        FunctionOrganization Fo, 
 		    Ref_SubmissionEdition R
@@ -317,7 +320,7 @@
 	
 	    <cf_tl id="Bucket processing" var="1">
 		
-		<cf_ViewTopMenu label="#lt_text# #Function.Owner#" background="linesBlue">
+		<cf_ViewTopMenu label="#lt_text# #Function.OwnerDescription#" background="linesBlue">
 	
 	</cf_layoutarea>	
 		

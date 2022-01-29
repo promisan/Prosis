@@ -7,15 +7,13 @@
 	
 	var root = "#root#";
 		
-	function linebillingdetail(wid,lid,bid) {       
-	
+	function linebillingdetail(wid,lid,bid) {      	
 	   try { ProsisUI.closeWindow('myprovision',true) } catch(e) {}		
 	   ProsisUI.createWindow('myprovision', 'Provisioning', '',{x:100,y:100,height:document.body.clientHeight-80,width:1150,modal:true,center:true,resizable:true})    	   					
 	   ptoken.navigate('#session.root#/workorder/application/workorder/ServiceDetails/Billing/DetailBillingDialog.cfm?mode=workorder&workorderid='+wid+'&workorderline='+lid+'&billingid='+bid,'myprovision') 		 
 	}
 
-	function resetlinebillingdetail(wid,lid,bid) {       
-		
+	function resetlinebillingdetail(wid,lid,bid) {  		
 	   ptoken.navigate('#session.root#/workorder/application/workorder/ServiceDetails/Billing/resetBilling.cfm?workorderid='+wid+'&workorderline='+lid,'resetlinebill');
 	   window.location.reload();		 
 	}
@@ -33,7 +31,7 @@
 	function linebillingdelete(wid,lid,bid) {  
 	   _cf_loadingtexthtml='';   
 	   ptoken.navigate('#session.root#/workorder/application/workorder/ServiceDetails/Billing/DetailBillingList.cfm?action=delete&billingid='+bid+'&workorderid='+wid+'&workorderline='+lid ,'billingdata')
-	}  
+	}  	
 	
 	function workplan(wla,mode) {
 	

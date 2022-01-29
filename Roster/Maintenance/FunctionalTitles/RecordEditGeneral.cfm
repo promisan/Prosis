@@ -106,6 +106,8 @@ password="#SESSION.dbpw#">
 	    <TR>
 	    <TD valign="top" style="padding-top:4px" class="labelmedium"><cf_tl id="Name">:</TD>
 	    <TD>
+		
+		
 	    	<cf_LanguageInput
 					TableCode       = "FunctionTitle" 
 					Mode            = "Edit"
@@ -123,7 +125,7 @@ password="#SESSION.dbpw#">
 		</TR>
 	    <TR>
 		
-		<tr><td class="labelmedium"><cf_tl id="Title">:</td><td>
+		<tr><td style="min-width:200px" class="labelmedium"><cf_tl id="Title">:</td><td>
 		
 		<table cellspacing="0" cellpadding="0" class="formspacing">
 		
@@ -134,9 +136,9 @@ password="#SESSION.dbpw#">
 		    </tr>
 				
 			<TR>
-			    <TD><cfinput type="Text" name="FunctionPrefix" value="#Get.FunctionPrefix#" required="No" size="30" maxlength="30" class="regularxl"></TD>
-				<TD style="padding-left:3px"><cfinput type="Text" name="FunctionKeyword" value="#Get.FunctionKeyword#" required="No" size="80" maxlength="100" class="regularxl"></TD>
-				<TD style="padding-left:3px"><cfinput type="Text" name="FunctionSuffix" value="#Get.FunctionSuffix#" required="No" size="30" maxlength="30" class="regularxl"></TD>
+			    <TD><cfinput type="Text" name="FunctionPrefix" value="#Get.FunctionPrefix#" required="No" size="20" maxlength="30" class="regularxl"></TD>
+				<TD style="padding-left:3px"><cfinput type="Text" name="FunctionKeyword" value="#Get.FunctionKeyword#" required="No" size="60" maxlength="100" class="regularxl"></TD>
+				<TD style="padding-left:3px"><cfinput type="Text" name="FunctionSuffix" value="#Get.FunctionSuffix#" required="No" size="20" maxlength="30" class="regularxl"></TD>
 			</TR>
 		
 		</table>
@@ -145,7 +147,7 @@ password="#SESSION.dbpw#">
 		<tr><td class="labelmedium"><cf_tl id="Occupational Group">:</TD>
 		<TD>
 		   
-			<select name="OccGroup" class="regularxl">
+			<select name="OccGroup" class="regularxxl">
 			 <cfloop query="Occ"> 
 			 <option value="#Occ.OccupationalGroup#" <cfif #Occ.OccupationalGroup# eq #Get.OccupationalGroup#>selected</cfif>>#Occ.Description#</option>
 			 </cfloop>
@@ -162,24 +164,34 @@ password="#SESSION.dbpw#">
 			datasource="AppsSelection" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			    SELECT *
+			    SELECT *, Code + ' ' + Description as CodeDescription
 				FROM Ref_FunctionClassification
 				ORDER BY Code,Description
 			</cfquery>
+						
+			<cf_UIselect name   = "FunctionClassification"
+			    class           = "regularxxl" 
+				queryposition   = "below"
+				query           = "#Classification#"
+				value           = "CODE"
+				required        = "yes"				
+				message         = "Please select a Classification"
+				display         = "CodeDescription"
+				filter          = "contains"
+				selected        = "#Get.FunctionClassification#"																																															
+				style           = "width:90%;">
+								
+				  <option value="" selected>n/a</option>
+								
+			</cf_UIselect>
 			
-			<cfselect name="FunctionClassification" class="regularxl" required="Yes">
-				<option value="">n/a</option>
-				<cfloop query="Classification">
-				<option value="#Code#" <cfif Get.FunctionClassification eq code>selected</cfif>>#Code# #Description#</option>
-				</cfloop>
-			</cfselect>
-	
+			
 	    	</TD>
 		</TR>
 		
 	    <TD class="labelmedium"><cf_tl id="Usage Class">:</TD>
 	    <TD>  
-	    	<select name="FunctionClass" required="Yes" class="regularxl">
+	    	<select name="FunctionClass" required="Yes" class="regularxxl">
 				<cfloop query="FunctionClass">
 					<option value="#FunctionClass.FunctionClass#" <cfif Get.FunctionClass eq "#FunctionClass.FunctionClass#">selected</cfif>>#FunctionClass#</option>
 				</cfloop>
@@ -208,7 +220,7 @@ password="#SESSION.dbpw#">
 					 id="functionaltitle" 
 					 value="#Parent.FunctionDescription#" 
 					 ondblclick="this.value='';document.getElementById('functionno').value=''" 				 
-					 class="regularxl" 
+					 class="regularxxl" 
 					 size="60" 
 					 maxlength="100" readonly> 
 		   
@@ -216,20 +228,20 @@ password="#SESSION.dbpw#">
 		   
 		   <td>
 		   
-		   <table border="1" bordercolor="silver">
+		   <table>
 		   <tr>
-		   <td style="height:24px;width:23px" align="center">
+		   <td style="height:27px;width:32px;border:1px solid silver;border-left:0px" align="center">
 		   
 		     <img src="#SESSION.root#/Images/locate3.gif"
 			     alt="Search for title"
-			     width="12"
-			     height="12"  
+			     width="20"
+			     height="20"  
 			     align="absmiddle"
 			     onClick="selectfunction('webdialog','functionno','functionaltitle','')">	
 		   
 		   </td>
 		   
-		   <td style="height:24px;width:23px" align="center">
+		   <td style="height:24px;width:32px;border:1px solid silver" align="center">
 		   
 			   <img src="#CLIENT.Root#/images/css/delete.png" onclick="document.getElementById('functionaltitle').value=''; document.getElementById('functionno').value='';">
 			   

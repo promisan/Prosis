@@ -277,6 +277,7 @@
 		<TR class="labelmedium2">
 	    <td style="padding-left:5px"><cf_tl id="Procurement Master">: <font color="FF0000">*</font></b></td>   
 		    <td>
+			
 				<cf_securediv id="bItemMaster" bind="url:getItemMaster.cfm?itemmaster=#Item.ItemMaster#&mission={mission}">
 		    </td>
 	    </tr>

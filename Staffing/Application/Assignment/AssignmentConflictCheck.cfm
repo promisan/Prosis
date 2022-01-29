@@ -58,13 +58,27 @@
 	    FROM  Ref_ParameterMission
 		WHERE Mission   = '#Form.Mission#'
 </cfquery>
+
+ <cfquery name="assignment" 
+	datasource="AppsEmployee" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT     B.AssignmentClass
+        FROM       Ref_AssignmentClass AS A INNER JOIN
+                   Ref_AssignmentClass AS B ON A.ClassParent = A.ClassParent
+        WHERE      A.AssignmentClass = '#Form.AssignmentClass#' 
+		AND        B.Incumbency > 0 
+		AND        A.Operational = 1
+</cfquery>
+		
+<cfset assclass = quotedValueList(assignment.assignmentclass)>
 			
 <cfif Parameter1.AssignmentClear eq "1">
-			
+  			
 	<!--- closed mandate --->
 	  		
 	<cfif Mandate.MandateStatus eq "1">
-	
+		
 	    <!--- verify if there is a NOT approved assignment record for this PERSON --->
 	
 		<cfquery name="PersonVerify0" 
@@ -77,7 +91,7 @@
 		  AND  PA.PersonNo = '#Form.PersonNo#' 
 		  AND  PA.DateExpiration  >= #STR#
 		  AND  PA.DateEffective   <= #END#
-		  AND  PA.AssignmentClass = '#Form.AssignmentClass#'
+		  AND  PA.AssignmentClass IN (#preservesingleQuotes(assclass)#)
 		  AND  PA.Incumbency      != 0 
 		  AND  PA.AssignmentNo    != #Form.AssignmentNo# 
 		  AND  PA.AssignmentStatus = '0'
@@ -99,7 +113,7 @@
 		  AND PA.PositionNo       = '#Form.PositionNo#' 
 		  AND PA.DateExpiration  >= #STR#
 		  AND PA.DateEffective   <= #END#
-		  AND PA.AssignmentClass  = '#Form.AssignmentClass#'
+		  AND PA.AssignmentClass  IN (#preservesingleQuotes(assclass)#))
 		  AND PA.Incumbency      != 0
 		  AND PA.AssignmentNo    != #Form.AssignmentNo#
 		  AND PA.AssignmentStatus = '0'
@@ -143,7 +157,7 @@
 		  
 		  AND  PA.DateEffective  <= #END# 
 		  		  
-		  AND  PA.AssignmentClass = '#Form.AssignmentClass#'
+		  AND  PA.AssignmentClass IN (#preservesingleQuotes(assclass)#)
 		  AND  PA.Incumbency     != 0
 		  AND  PA.AssignmentNo     <> #Form.AssignmentNo#
 		  AND  PA.AssignmentStatus < '#Parameter.AssignmentShow#'
@@ -166,7 +180,7 @@
 		WHERE  PositionNo       = '#Form.PositionNo#' 
 		  AND  DateExpiration  >= #STR#
 		  AND  DateEffective   <= #END#
-		  AND  AssignmentClass  = '#Form.AssignmentClass#'
+		  AND  AssignmentClass  IN (#preservesingleQuotes(assclass)#)
 		  AND  Incumbency      != 0
 		  AND  AssignmentNo     <> #Form.AssignmentNo#
 		  AND  AssignmentStatus < '#Parameter.AssignmentShow#' 
@@ -203,6 +217,8 @@
 	</cfif>	 	
 	
 	<cfif handle eq "1">
+	
+	    <cftransaction>
 	
 	   <!--- a pointer to first make correction based on the selected option of HANDLING of conflicst
 	    terminate existing assigment of the SAME person --->
@@ -286,6 +302,75 @@
 					      WHERE  AssignmentNo = '#AssignmentNo#'
 						  
 					    </cfquery>
+						
+						<cfquery name="getAssignment" 
+					    datasource="AppsEmployee" 
+					    username="#SESSION.login#" 
+					    password="#SESSION.dbpw#">
+						   	 SELECT   * 
+							 FROM     PersonAssignment
+							 WHERE    AssignmentNo = '#AssignmentNo#'					   	 
+					    </cfquery>
+												
+						<cfquery name="Class" 
+					    datasource="AppsEmployee" 
+					    username="#SESSION.login#" 
+					    password="#SESSION.dbpw#">
+						   	 SELECT   * 
+							 FROM     Ref_AssignmentClass
+							 WHERE    AssignmentClass = '#getAssignment.AssignmentClass#'					   	 
+					    </cfquery>
+					
+						<cfif class.PositionOwner eq "1">
+						
+							<!--- New : add in case of owner assignment a 0 percent record as well --->
+										
+							<cfquery name="InsertAssignmentLien" 
+						     datasource="AppsEmployee" 
+						     username="#SESSION.login#" 
+						     password="#SESSION.dbpw#">
+							     INSERT INTO PersonAssignment
+								         (PersonNo,
+										 PositionNo,
+										 DateEffective,
+										 DateExpiration,
+										 OrgUnit,
+										 LocationCode,
+										 FunctionNo,
+										 FunctionDescription, 
+										 AssignmentStatus,
+										 ActionReference,
+										 AssignmentClass,
+										 AssignmentType,
+										 Incumbency,
+										 Remarks,
+										 SourceId,
+										 OfficerUserId,
+										 OfficerLastName,
+										 OfficerFirstName)
+								  SELECT PersonNo, 
+								         PositionNo, 
+										 #STR#,
+									     DateExpiration,
+									     OrgUnit, 
+										 LocationCode, 
+										 FunctionNo,
+									     FunctionDescription, 
+										 '#clr#', 
+										 #NoAct#, 
+										 AssignmentClass, 
+										 AssignmentType, 
+										 '0', 
+										 'Check Lien assignment', 
+										 '#Form.AssignmentNo#',
+									     '#SESSION.acc#', 
+										 '#SESSION.last#', 
+										 '#SESSION.first#'
+								  FROM  PersonAssignment
+							      WHERE AssignmentNo = '#AssignmentNo#'
+						    </cfquery>
+														
+						</cfif>						
 					
 					</cfif>
 			      
@@ -390,6 +475,75 @@
 						  FROM  PersonAssignment
 					      WHERE AssignmentNo = '#AssignmentNo#'
 					    </cfquery>
+						
+						<cfquery name="getAssignment" 
+					    datasource="AppsEmployee" 
+					    username="#SESSION.login#" 
+					    password="#SESSION.dbpw#">
+						   	 SELECT   * 
+							 FROM     PersonAssignment
+							 WHERE    AssignmentNo = '#AssignmentNo#'					   	 
+					    </cfquery>
+												
+						<cfquery name="Class" 
+					    datasource="AppsEmployee" 
+					    username="#SESSION.login#" 
+					    password="#SESSION.dbpw#">
+						   	 SELECT   * 
+							 FROM     Ref_AssignmentClass
+							 WHERE    AssignmentClass = '#getAssignment.AssignmentClass#'					   	 
+					    </cfquery>
+					
+						<cfif class.PositionOwner eq "1">
+						
+							<!--- New : add in case of owner assignment a 0 percent record as well --->
+										
+							<cfquery name="InsertAssignmentLien" 
+						     datasource="AppsEmployee" 
+						     username="#SESSION.login#" 
+						     password="#SESSION.dbpw#">
+							     INSERT INTO PersonAssignment
+								         (PersonNo,
+										 PositionNo,
+										 DateEffective,
+										 DateExpiration,
+										 OrgUnit,
+										 LocationCode,
+										 FunctionNo,
+										 FunctionDescription, 
+										 AssignmentStatus,
+										 ActionReference,
+										 AssignmentClass,
+										 AssignmentType,
+										 Incumbency,
+										 Remarks,
+										 SourceId,
+										 OfficerUserId,
+										 OfficerLastName,
+										 OfficerFirstName)
+								  SELECT PersonNo, 
+								         PositionNo, 
+										 #STR#,
+									     DateExpiration,
+									     OrgUnit, 
+										 LocationCode, 
+										 FunctionNo,
+									     FunctionDescription, 
+										 '#clr#', 
+										 #NoAct#, 
+										 AssignmentClass, 
+										 AssignmentType, 
+										 '0', 
+										 'Lien assignment', 
+										 '#Form.AssignmentNo#',
+									     '#SESSION.acc#', 
+										 '#SESSION.last#', 
+										 '#SESSION.first#'
+								  FROM  PersonAssignment
+							      WHERE AssignmentNo = '#AssignmentNo#'
+		  					    </cfquery>
+							
+						</cfif>	
 					
 						<!--- wildcard : delete same day assignments --->
 						
@@ -434,6 +588,8 @@
 			   </cfif>
 		
 		</cfloop>
+		
+		</cftransaction>
 	        
 	</cfif> 
 

@@ -324,14 +324,14 @@ password="#SESSION.dbpw#">
 					  					  
 					  <tr class="labelmedium navigation_row" style="border-top:1px solid silver">
 					   <td height="18" width="10%" style="padding-left:4px"><a href="javascript:EditPerson('#PersonNo#')">#IndexNo#</a></td>
-					   <td width="25%"><a href="javascript:EditPerson('#PersonNo#')">#FirstName# #LastName#</a></td>
+					   <td width="25%"  class="fixlength"><a href="javascript:EditPerson('#PersonNo#')">#FirstName# #LastName#</a></td>
 					   <td width="4%">#Gender#</td>
 					   <td width="5%" style="padding-right:4px">#Nationality#</td>
-					   <td width="5%" style="padding-right:6px">#AssignmentClass#</td>
+					   <td width="20%" class="fixlength" style="padding-right:6px">#Description#</td>
 					   <td width="5%" style="padding-right:6px">#Incumbency#</td>
-					   <td width="10%">#dateFormat(Assignment.DateEffective,CLIENT.DateFormatShow)#</td>
-					   <td width="10%">#dateFormat(Assignment.DateExpiration,CLIENT.DateFormatShow)#</td>
-					   <td width="15%">#Assignment.OfficerLastName# (#dateFormat(Assignment.Created,CLIENT.DateFormatShow)#)</td>
+					   <td width="7%">#dateFormat(Assignment.DateEffective,CLIENT.DateFormatShow)#</td>
+					   <td width="7%">#dateFormat(Assignment.DateExpiration,CLIENT.DateFormatShow)#</td>
+					   <td width="10%" class="fixlength">#Assignment.OfficerLastName# (#dateFormat(Assignment.Created,CLIENT.DateFormatShow)#)</td>
 					  </tr>
 					  
 					  <cfif Assignment.OrgUnit neq PositionChild.OrgUnitOperational>

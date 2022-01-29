@@ -73,7 +73,7 @@
 		}
 	
 		function AddVacancy(postno) {
-			ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:600,width:640,modal:true,center:true});	
+			ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:document.body.clientHeight-90,width:900,modal:true,center:true});	
 			ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntry.cfm?mission=#URL.Mission#&ID1='+postno+'&Caller=Listing','mydialog')	
 		}
 		
@@ -129,7 +129,7 @@
 				 se1.className = "hide"
 			 	 
 			 	url = "#SESSION.root#/Staffing/Application/Authorization/Staffing/TransactionListing.cfm?positionparentid="+par;	
-			    ColdFusion.navigate(url,'i'+id)		
+			    ptoken.navigate(url,'i'+id)		
 				
 			  }  
 			
@@ -139,7 +139,7 @@
 
 				 row = document.getElementById("row_"+id).value		 
 				 url = "#SESSION.root#/Staffing/Application/Position/MandateView/MandateViewMaintainRefresh.cfm?row="+row+"&id="+id+"&act="+act+"&no="+no;		 
-				 ColdFusion.navigate(url,id)	 	   
+				 ptoken.navigate(url,id)	 	   
 			}  	
 			
 		function movePositions(mission,mandate){
@@ -167,7 +167,7 @@
 			 
 			 try { ProsisUI.closeWindow('mybox'); } catch(e) {}
 			 ProsisUI.createWindow('mybox', 'Move Positions', '', {height:600,width:980,modal:true,closable:true,center:true});
-			 ColdFusion.navigate('#SESSION.root#/staffing/application/position/PositionParent/MovePositions/MoveForm.cfm?positions='+positions+'&mission='+mission+'&mandateno='+mandate,'mybox')			    
+			 ptoken.navigate('#SESSION.root#/staffing/application/position/PositionParent/MovePositions/MoveForm.cfm?positions='+positions+'&mission='+mission+'&mandateno='+mandate,'mybox')			    
 			//	window.open('#SESSION.root#/staffing/application/position/PositionParent/MovePositions/MoveForm.cfm?positions='+positions+'&mission='+mission+'&mandateno='+mandate, 'CopyPositions', 'left=200, top=80, width= 800, height= 600, toolbar=no, status=yes, scrollbars=no, resizable=no')
 			 }	
 			 

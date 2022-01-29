@@ -303,11 +303,11 @@
 		<table>
 		<tr>
 		<td id="itembox">		
-			<cf_securediv bind="url:getWarehouseItem.cfm?warehouse=#get.warehouse#&itemno=#get.ItemNo#&ItemUoM=#get.ItemUoM#">		
+			<cf_securediv id="item" bind="url:getWarehouseItem.cfm?warehouse=#get.warehouse#&itemno=#get.ItemNo#&ItemUoM=#get.ItemUoM#">		
 		</td>
 		
 		<td id="itemuom" style="padding-left:4px">		
-			<cf_securediv bind="url:getWarehouseItemUoM.cfm?warehouse=#get.warehouse#&itemno=#get.ItemNo#&ItemUoM=#get.ItemUoM#">			
+			<cf_securediv id="uom" bind="url:getWarehouseItemUoM.cfm?warehouse=#get.warehouse#&itemno=#get.ItemNo#&ItemUoM=#get.ItemUoM#">			
 		</td>
 		
 		</tr>

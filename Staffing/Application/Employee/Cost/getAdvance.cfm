@@ -1,5 +1,6 @@
 
 <cfparam name="url.currency" default="">
+<cfparam name="url.transactionid" default="">
 
 <cfif url.class eq "Deduction">
 	

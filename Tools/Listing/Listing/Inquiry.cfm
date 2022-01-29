@@ -86,6 +86,7 @@
 <cf_listingscript>
 <cf_dialogmaterial>
 <cf_dialogstaffing>
+<cf_dialogposition>
 
 <cf_layoutScript>
 

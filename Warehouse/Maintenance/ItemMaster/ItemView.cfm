@@ -7,6 +7,23 @@ password="#SESSION.dbpw#">
 	FROM   Item
 	WHERE  ItemNo = '#URL.ID#' 
 </cfquery>
+
+<cfif Item.recordcount eq "0">
+
+	<cfquery name="Item" 
+	datasource="appsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+	    FROM   Item
+	    WHERE  ItemNo = (SELECT ItemNo
+						FROM   ItemUoM
+						WHERE  ItemUoMId = '#URL.ID#' )
+	</cfquery>
+		
+	<cfset url.id = Item.ItemNo>
+	
+</cfif>
  
 <cfparam name="url.ID"       default="0000">
 <cfparam name="url.Mission"  default="#Item.Mission#">

@@ -119,7 +119,7 @@
 	
 	function selectmas(flditemmaster,mis,per,reqno) {        
 		
-		ProsisUI.createWindow('mymaster', 'Procurement Master', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:false,resizable:false,center:true})    							
+		ProsisUI.createWindow('mymaster', 'Procurement Master', '',{x:100,y:100,height:document.body.clientHeight-90,width:800,modal:true,resizable:false,center:true})    							
 		ptoken.navigate('#SESSION.root#/Procurement/Application/Requisition/Item/ItemSearchView.cfm?mission='+mis+'&flditemmaster= ' + flditemmaster, 'mymaster');	       			
 		
    }

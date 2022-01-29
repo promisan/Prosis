@@ -1,7 +1,6 @@
 <cf_dialogPosition>
 <cf_dialogOrganization>
 
-
 <cfparam name="Form.DateArrival"   default="">
 <cfparam name="Form.DateDeparture" default="">
 
@@ -45,16 +44,14 @@ password="#SESSION.dbpw#">
 			  
 <cf_systemscript>	
  
-
 <cf_divscroll>
-
 			  
 <cfform action="Assignment#URL.Call#Submit.cfm?box=#URL.box#&Caller=#URL.Caller#&Source=#URL.Source#&RecordId=#URL.RecordId#&ApplicantNo=#URL.ApplicantNo#" 
     method="POST" name="AssignmentEntry" target="process"> 
 
-	<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+	<table width="98%" align="center" class="formpadding">
 	
-		<tr class="hide"><td height="60"><iframe name="process" id="process" width="100%" height="100%"></iframe></td></tr>
+		<tr class="xxxxxhide"><td colspan="2" height="160"><iframe name="process" id="process" width="100%" height="100%"></iframe></td></tr>
 	      
 		<tr><td colspan="2">
 			<cfinclude template="../Position/Position/PositionViewHeader.cfm">
@@ -62,7 +59,7 @@ password="#SESSION.dbpw#">
 	   
 	  <tr>
 	    <td width="100%" colspan="2">
-	    <table border="0" cellpadding="0" cellspacing="0" width="98%" align="center" class="formpadding">
+	    <table width="98%" align="center" class="formpadding">
 		
 		<!---				
 		<TR>
@@ -76,7 +73,7 @@ password="#SESSION.dbpw#">
 		<cfif Assignment.DateArrival neq "" and Assignment.DateDeparture neq "">
 		
 		<TR>
-	    <TD width="180"  class="labelmedium"><cf_tl id="Assignment Period">:</TD>
+	    <TD style="min-width:184px"  class="labelmedium"><cf_tl id="Assignment Period">:</TD>
 	    <TD><table cellspacing="0" cellpadding="0">
 		   <tr><td>
 		
@@ -189,7 +186,7 @@ password="#SESSION.dbpw#">
 		</cfoutput>
 				
 		<TR>
-	    <TD class="labelmedium">Location:</TD>
+	    <TD class="labelmedium"><cf_tl id="Duty station">:</TD>
 	    <TD class="labelmedium">
 		   	<select name="LocationCode" size="1" class="regularxl">
 		    <cfoutput query="Location">
@@ -202,7 +199,7 @@ password="#SESSION.dbpw#">
 		</TR>
 		    
 	    <TR>
-	    <TD class="labelmedium">Parent Office:</TD>
+	    <TD class="labelmedium"><cf_tl id="Parent Office">:</TD>
 	    <TD class="labelmedium">
 		
 		 <cfoutput>
@@ -223,7 +220,7 @@ password="#SESSION.dbpw#">
 		</TR>
 		
 		<TR>
-	    <TD class="labelmedium">Incumbency:</TD>
+	    <TD class="labelmedium"><cf_tl id="Incumbency">:</TD>
 	    <TD class="labelmedium">
 	    	<cfoutput>
 			<INPUT type="radio" name="Incumbency" value="100" <cfif #Assignment.Incumbency# eq "100">checked</cfif>> 100%
@@ -235,22 +232,14 @@ password="#SESSION.dbpw#">
 		</TR>
 			
 		<TR>
-	    <TD class="labelmedium">Assignment type/class:</TD>
+	    <TD class="labelmedium"><cf_tl id="Assignment type"> | <cf_tl id="Assignment class">:</TD>
 		
 		 <TD>	
 				
-			<table border="0" cellspacing="0" cellpadding="0"><tr>
+			<table><tr>
 			
 			<td>
 			
-			<cfquery name="AssignmentClass" 
-			datasource="AppsEmployee" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			    SELECT * 
-			    FROM Ref_AssignmentClass
-				ORDER BY ListingOrder
-			</cfquery>
 			
 			<cfquery name="AssignmentType" 
 			datasource="AppsEmployee" 
@@ -271,12 +260,23 @@ password="#SESSION.dbpw#">
 			
 			</td>
 			
-			<td>
+			<cfquery name="AssignmentClass" 
+			datasource="AppsEmployee" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT   * 
+			    FROM     Ref_AssignmentClass
+				WHERE    Operational = 1
+				ORDER BY ListingOrder
+			</cfquery>
+					
+			
+			<td style="padding-left:4px">
 	   
 			   	<select name="assignmentclass" size="1" class="regularxl" onChange="hidepost();">
 			    <cfoutput query="AssignmentClass">
 				<option value="#AssignmentClass#" <cfif Assignment.AssignmentClass eq AssignmentClass>selected</cfif>>
-		    		#AssignmentClass#
+		    		#Description#
 				</option>
 				</cfoutput>
 			    </select>
@@ -290,7 +290,7 @@ password="#SESSION.dbpw#">
 		</TR>
 			   
 		<TR>
-	        <td valign="top" style="padding-top:2px" class="labelmedium">Remarks:</td>
+	        <td valign="top" style="padding-top:2px" class="labelmedium"><cf_tl id="Remarks">:</td>
 	        <TD><textarea class="regular" style="width:90%;padding:3px;font-size:14px" rows="2" name="Remarks"><cfoutput>#Assignment.Remarks#</cfoutput></textarea> </TD>
 		</TR>
 		
@@ -300,7 +300,7 @@ password="#SESSION.dbpw#">
 		
 		<tr><td height="4"></td></tr>	
 		<TR>
-	        <td class="labelmedium">Classification:</td>
+	        <td class="labelmedium"><cf_tl id="Incumbency Classification">:</td>
 	        <TD>		
 			  <cfinclude template="AssignmentEditGroup.cfm">		
 			</td>
@@ -384,7 +384,7 @@ password="#SESSION.dbpw#">
 	  <td width="100%">
 	  <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
 		
-	    <TR class="labelmedium">
+	    <TR class="labelmedium2">
 	       <td height="20" width="4%" align="center"></td>
 	       <td width="8%">IndexNo</td>
 	       <TD width="15%">Name</TD>

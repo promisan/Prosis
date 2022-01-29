@@ -217,8 +217,8 @@
 	
 		<cf_divscroll>
 		 		    
-		 <table width="100%" align="center" class="formpadding">
-		 <tr class="labelmedium2 line">
+		 <table width="98%" align="left" class="formpadding">
+		 <tr class="labelmedium2 line fixrow fixlengthlist">
 			 <td width="5%">&nbsp;</td>
 			 <td><cf_tl id="Name"></td>
 			 <td><cf_tl id="Last logon"></td>

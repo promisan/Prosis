@@ -75,52 +75,54 @@
 <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
 <tr><td bgcolor="E6E6E6" style="padding:7px;border:1px solid silver">
 		  
-<table width="100%" cellspacing="0" cellpadding="0">
-
-<cfif Period.recordcount eq "0">
+	<table width="100%">
 	
-	<cfif Check.FunctionNo neq url.FunctionNo 
-			                  OR
-		          Check.OrgUnit neq url.OrgUnit
-				   			  OR
-		          Check.LocationCode neq url.LocationCode
-							  OR
-		          Check.AssignmentClass neq url.AssignmentClass
-				   			  OR
-		          Check.Incumbency neq url.Incumbency>
+	<cfif Period.recordcount eq "0">
 		
-	<tr>
-		<td align="center" class="labelmedium">Your action generates a NEW assignment starting #url.DateEffective# and <br>expires the existing assignment per the same date.</td>
-	</tr>
-
-	<cfelse>
-
-	<tr>
-		<td align="center" class="labelmedium">Your action overwrites the existing assignment record and <br> a copy of the old record is logged.</td>
-	</tr>
+		<cfif Check.FunctionNo neq url.FunctionNo 
+				                  OR
+			          Check.OrgUnit neq url.OrgUnit
+					   			  OR
+			          Check.LocationCode neq url.LocationCode
+								  OR
+			          Check.AssignmentClass neq url.AssignmentClass
+					   			  OR
+			          Check.Incumbency neq url.Incumbency>
+			
+		<tr class="labelmedium2">
+			<td align="center" >Your action generates a NEW assignment starting #url.DateEffective# and <br>expires the existing assignment per the same date.</td>
+		</tr>
 	
+		<cfelse>
+	
+		<tr class="labelmedium2">
+			<td align="center">Your action overwrites the existing assignment record and <br> a copy of the old record is logged.</td>
+		</tr>
+		
+		</cfif>
+		
+	<cfelse>
+	
+		<tr class="labelmedium2">
+			<td align="center">Your changes will overwrite the existing assignment record.</td>
+		</tr>
+		
 	</cfif>
 	
-<cfelse>
-
 	<tr>
-		<td align="center" class="labelmedium">Your changes will overwrite the existing assignment record.</td>
+		<td align="center" height="34">
+		 <!---
+	 	 <cf_tl id="Close" var="1">
+	     <input class="button10g" style="width:140" type="reset" name="Close" value="<cfoutput>#lt_text#</cfoutput>" onclick="window.close()">	
+		 --->
+		 <cf_tl id="Apply Now" var="1">
+		 <input class="button10g" style="border:1px solid silver;width:140" type="submit" name="Submit" value="<cfoutput>#lt_text#</cfoutput>">
+		</td>
 	</tr>
 	
-</cfif>
-
-<tr>
-	<td align="center" height="34">
-	 <!---
- 	 <cf_tl id="Close" var="1">
-     <input class="button10g" style="width:140" type="reset" name="Close" value="<cfoutput>#lt_text#</cfoutput>" onclick="window.close()">	
-	 --->
-	 <cf_tl id="Apply Now" var="1">
-	 <input class="button10g" style="width:140" type="submit" name="Submit" value="<cfoutput>#lt_text#</cfoutput>">
-	</td>
+	</table>	
+	
 </tr>
-
 </table>	
-
 
 </cfoutput>

@@ -120,7 +120,7 @@ ORDER BY Mission
 
 	<TR class="labelmedium2">
 	
-	<td><cf_tl id="Track No">:</td>
+	<td><cfoutput>#session.welcome#</cfoutput><cf_tl id="Track No">:</td>
 	
 	<INPUT type="hidden" name="Crit3_FieldName" value="V.DocumentNo">
 	<INPUT type="hidden" name="Crit3_FieldType" value="CHAR">
@@ -144,7 +144,7 @@ ORDER BY Mission
 	</tr>
 		
 	<tr class="labelmedium2">	
-	<td colspan="1"><cf_tl id="Track Reference No">:</td>	    
+	<td colspan="1"><cf_tl id="External Reference No">:</td>	    
 	<td colspan="3">		
 		<INPUT class="regularxxl" type="text" name="ReferenceNo" size="28">   	
 	</td>
@@ -249,7 +249,7 @@ ORDER BY Mission
 	
 			 <cf_intelliCalendarDate9
 				FieldName="Start" 
-				Default="#Dateformat(Now()-300, CLIENT.DateFormatShow)#"
+				Default="#Dateformat(Now()-900, CLIENT.DateFormatShow)#"
 				Class="regularxxl">
 			
 			</td>
@@ -278,7 +278,7 @@ ORDER BY Mission
 		
 	<tr>
 	
-	<td valign="top" colspan="1" class="labelmedium"><cf_tl id="Candidate status">:</td>
+	<td class="labelmedium2"><cf_tl id="Candidate status">:</td>
 	
 	<td colspan="3">
 	   <cf_uiselect name="CandidateStatus" class="regularxxl"
@@ -289,7 +289,7 @@ ORDER BY Mission
 	</tr>
 			
 	<tr class="labelmedium2">	
-	<td colspan="1" style="padding-top:6px"><cf_tl id="Candidate Track">:</td>	
+	<td colspan="1"><cf_tl id="Candidate Track">:</td>	
 	<td colspan="3">	
 	    <cf_securediv bind="url:InquiryFormTrack.cfm?officeruserid=#session.acc#&mission={mission}" id="flow">	
 	</td>	

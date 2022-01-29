@@ -178,7 +178,7 @@
 		
 		</cfif>
 				
-		<!--- -check if transaction is voided and still has payments active --->
+		<!--- check if transaction is voided and still has payments active --->
 		
 		<cfif get.RecordStatus eq "9">
 		

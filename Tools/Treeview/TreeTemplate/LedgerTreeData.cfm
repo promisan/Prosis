@@ -79,6 +79,8 @@ password="#SESSION.dbpw#">
 			  	 <cfoutput>			 
 				 			 
 				 <cf_tl id="#Description#" var="1">
+				 
+				 <!--- transaction journals --->
 				 			  
 				 <cf_UItreeitem value="jr_#currency#_#LEFT(Description,5)#"
 			        display="<span style='font-size:15px' class='labelit'>#lt_text#</span>"						
@@ -117,7 +119,7 @@ password="#SESSION.dbpw#">
 					 		<cfif JournalType eq "General">
 					 					 													 
 							<cf_UItreeitem value="#Journal#"
-						        display="<span style='font-size:13px' class='labelit'>#Journal# - #Description#</span>"
+						        display="<span style='color:000000;font-size:13px' class='labelit'>#Journal# - #Description#</span>"
 								parent="jr_#currency#_#cat#"									
 								href="JournalViewOpen.cfm?ID=PEN&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
 								target="right"
@@ -126,7 +128,7 @@ password="#SESSION.dbpw#">
 							<cfelse>
 							
 							<cf_UItreeitem value="#Journal#"
-						        display="<span style='font-size:13px' class='labelit'>#Journal# - #Description# <span style='color:red;font-size: 10px; vertical-align: super;'>#Ucase(left(JournalType,3))#</span></span>"
+						        display="<span style='color:000000;font-size:13px' class='labelit'>#Journal# - #Description# <span style='color:red;font-size: 10px; vertical-align: super;'>#Ucase(left(JournalType,3))#</span></span>"
 								parent="jr_#currency#_#cat#"									
 								href="JournalViewOpen.cfm?ID=PEN&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
 								target="right"
@@ -138,14 +140,14 @@ password="#SESSION.dbpw#">
 							
 							<cfif findNoCase(TransactionCategory,'Receivables,Payment,DirectPayment,Payables,Advances')>
 							
-							<cf_tl id="Open documents" var="vDocuments">
-								
-							<cf_UItreeitem value="#Journal#_doc"
-						        display="<span style='font-size:12px'>#vDocuments#</span>"
-								parent="#Journal#"																	
-								href="JournalViewOpen.cfm?ID=OPE&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
-								target="right"
-						        expand="No">	
+								<cf_tl id="Open documents" var="vDocuments">
+									
+								<cf_UItreeitem value="#Journal#_doc"
+							        display="<span style='font-size:12px'>#vDocuments#</span>"
+									parent="#Journal#"																	
+									href="JournalViewOpen.cfm?ID=OPE&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
+									target="right"
+							        expand="No">	
 								
 							</cfif>																																				
 															
@@ -168,9 +170,49 @@ password="#SESSION.dbpw#">
 						        expand="No">	
 																	
 					</cfloop>		
-																
-									
-				</cfoutput>
+										
+				<!--- associated transactions --->
+							
+					<cfinvoke component = "Service.Authorization.Function"  
+		  			 method           = "AuthorisedFunctions" 
+					 mode             = "View"			 
+					 mission          = "#attributes.mission#" 
+					 orgunit          = ""
+		   			 Role             = ""
+					 SystemModule     = "'Accounting'"
+					 FunctionClass    = "'Inquiry'"
+					 MenuClass        = "'#TransactionCategory#'"							
+		   			 Anonymous        = ""
+					 returnvariable   = "listaccess">	
+					 
+					 <cfif listaccess.recordcount gte "1">
+					 
+					 <cf_UItreeitem value="supporting"
+			      	    display=""
+						parent="jr_#Category.currency#_#LEFT(Category.Description,5)#"	
+						target="right"																					
+				        expand="No">						
+						
+					 </cfif>										 
+										
+					 <cfloop query="listaccess">
+					 					 					 									 
+					  <cf_UItreeitem value="supporting_#left(systemfunctionid,8)#"
+			      	    display="<span style='font-weight:bold;font-size:13px' class='labelit'>#FunctionName#</span>"
+						parent="jr_#Category.currency#_#LEFT(Category.Description,5)#"	
+						href="../../../#FunctionDirectory#/#FunctionPath#?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&currency=#Category.Currency#"							
+						target="right"																					
+				        expand="No">								 
+					 
+					 </cfloop>
+					 
+					  <cf_UItreeitem value="supporting"
+			      	    display=""
+						parent="jr_#Category.currency#_#LEFT(Category.Description,5)#"	
+						target="right"																					
+				        expand="No">			
+					 
+					 </cfoutput>
 				
 			</cfoutput>		
 			
@@ -209,8 +251,7 @@ password="#SESSION.dbpw#">
 				        expand="No">	
 					
 			</cfif>							
-						
-			
+				
 					
 	<cfelse>	
 			
@@ -240,12 +281,12 @@ password="#SESSION.dbpw#">
 			  datasource="AppsOrganization" 
 			  username="#SESSION.login#" 
 			  password="#SESSION.dbpw#">
-			      SELECT DISTINCT TreeOrder, OrgUnitName, OrgUnit, OrgUnitCode, OrgUnitNameShort, MissionOrgUnitId 
-			      FROM #Client.LanPrefix#Organization
-			   	  WHERE (ParentOrgUnit is NULL OR ParentOrgUnit = '' OR Autonomous = 1)
-				  AND Mission     = '#Mission#'
-				  AND MandateNo   = '#Mandate.MandateNo#'
-				  AND   OrgUnit IN (SELECT OrgUnitOwner FROM Accounting.dbo.Journal WHERE Mission = '#Mission#' AND GLCategory = '#Attributes.GLCategory#')
+			      SELECT   DISTINCT TreeOrder, OrgUnitName, OrgUnit, OrgUnitCode, OrgUnitNameShort, MissionOrgUnitId 
+			      FROM     #Client.LanPrefix#Organization
+			   	  WHERE    (ParentOrgUnit is NULL OR ParentOrgUnit = '' OR Autonomous = 1)
+				  AND      Mission     = '#Mission#'
+				  AND      MandateNo   = '#Mandate.MandateNo#'
+				  AND      OrgUnit IN (SELECT OrgUnitOwner FROM Accounting.dbo.Journal WHERE Mission = '#Mission#' AND GLCategory = '#Attributes.GLCategory#')
 				  ORDER BY TreeOrder, OrgUnitName
 			 </cfquery>
 			 
@@ -426,15 +467,40 @@ password="#SESSION.dbpw#">
 							 target   = "right"
 					         expand   = "No">	
 							 
-							 <cf_tl id="All Documents" var="vAll">
+							 
+							 <!--- only shown for Payable and receivables --->
+							
+							<cfif findNoCase(TransactionCategory,'Receivables,Payment,DirectPayment,Payables,Advances')>
+							
+								<cf_tl id="Open documents" var="vDocuments">
 									
-								<cf_UItreeitem value="#OrgUnit#_#ct#_#Journal#_0"
-							        display="<span style='font-size:13.5px' class='labelit'>#Description#</span>"
+								<cf_UItreeitem value="#OrgUnit#_#ct#_#Journal#_doc"
+							        display="<span style='font-size:12px'>#vDocuments#</span>"
+									parent="#OrgUnit#_#ct#_#Journal#"																	
+									href="JournalViewOpen.cfm?ID=OPE&ID1=#OrgUnit#&ID2=#Journal.Journal#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
+									target="right"
+							        expand="No">	
+									
+							 </cfif>																																				
+																
+								<cf_tl id="All Documents" var="vAll">
+									
+								<cf_UItreeitem value="#OrgUnit#_#ct#_#Journal#_all"
+							        display="<span style='font-size:12px'>#vAll#</span>"
 									parent="#OrgUnit#_#ct#_#Journal#"																	
 									href="JournalViewOpen.cfm?systemfunctionid=#url.systemfunctionid#&ID=JOU&ID1=#OrgUnit#&ID2=#Journal.Journal#&Mission=#Attributes.Mission#"							
 									target="right"
-							        expand="No">		
-						
+							        expand="No">								
+															
+								<cf_tl id="Postings lines" var="vPostings">
+									
+								<cf_UItreeitem value="#OrgUnit#_#ct#_#Journal#_pos"
+							        display="<span style='font-size:12px'>#vPostings#</span>"
+									parent="#OrgUnit#_#ct#_#Journal#"														
+									href="JournalViewOpen.cfm?ID=TRA&ID1=#OrgUnit#&ID2=#Journal.Journal#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
+									target="right"
+							        expand="No">								
+																					
 						</cfloop>
 					
 					</cfif>
@@ -451,21 +517,21 @@ password="#SESSION.dbpw#">
 			 
 			   <cfif access eq "granted" and Attributes.GLCategory eq "Actuals"> 			
 			  
-				   <cf_tl id="GLAccount" var="vAccount">
+				  <cf_tl id="GLAccount" var="vAccount">
 				  
 				  <cf_UItreeitem value="account#OrgUnit#"
 				        display="<span style='font-size:18px;padding-top:5px;padding-bottom:5px;font-weight:bold' class='labelit'>#vAccount#</span>"						
 						parent="#OrgUnit#"							
 				        expand="Yes">							
 							
-					<cf_UItreeitem value="vw_Balance"
+				  <cf_UItreeitem value="vw_Balance"
 					        display="<span style='font-size:15px;padding-top:2px;padding-bottom:2px' class='labelit'>Trial Balance</span>"
 							parent="account#OrgUnit#"	
 							href="../../../GLedger/Inquiry/Account/BalanceListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&glcategory=#Attributes.GLCategory#&Orgunit=#orgunit#"										
 							target="right"
 					        expand="No">			
 							
-					<cf_UItreeitem value="vw_Result"
+				  <cf_UItreeitem value="vw_Result"
 					        display="<span style='font-size:15px;padding-top:2px;padding-bottom:2px' class='labelit'>Results</span>"
 							parent="account#OrgUnit#"	
 							href="../../../GLedger/Inquiry/Account/ResultListing.cfm?systemfunctionid=#url.systemfunctionid#&mission=#Attributes.Mission#&period=#attributes.Period#&glcategory=#Attributes.GLCategory#&OrgUnit=#orgunit#"										

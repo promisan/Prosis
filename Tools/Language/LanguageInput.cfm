@@ -44,22 +44,24 @@
 		FROM      System.dbo.LanguageSource
 		WHERE     TableCode = '#Attributes.TableCode#' 
 	</cfquery>
-				
+	
+							
 	<cfif Source.recordcount neq "1">
 			
 		<!--- do nothing, this will throw an error --->
 		
 		<CFSET Caller.lt_content    = "not found">
+		
 			
 	<cfelse>
-	
+		
 			<cfset key1   = "#Source.KeyFieldName#">
 			<cfset key2   = "#Source.KeyFieldName2#">
 			<cfset key3   = "#Source.KeyFieldName3#">
 			<cfset key4   = "#Source.KeyFieldName4#">
 			<cfset ds     = "#Source.DataSource#">
 			<cfset table  = "#Source.TableName#">
-			
+						
 			<cfif Attributes.mode eq "get">
 			
 				<cftry>
@@ -130,7 +132,7 @@
 					</cftry>
 											
 			<cfelseif Attributes.mode neq "save">	
-												
+															
 					<cfquery name="TextLanguage" 
 					datasource="#ds#" 
 					username="#SESSION.login#" 

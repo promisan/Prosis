@@ -1,4 +1,6 @@
 
+<cfajaxproxy cfc="Service.Process.EDI.Manager" jsclassname="EDI" />
+
 <cfinclude template="DetailBillingFormScript.cfm">
 
 <cfquery name="WorkOrder" 
@@ -616,12 +618,21 @@ password="#SESSION.dbpw#">
 				  <table>
 				  <tr>
 				  
-				  <td id="payerbox"></td>			
-				  
-				  <td class="labelmedium">		
+				  <td id="payerbox"></td>				  
+				  <td>
+				  <input type  = "text" 
+				     class     = "regularxl enterastab" 
+					 name      = "BillingReference" 
+					 id        = "BillingReference" 
+					 onchange  = "getBillingName('#workorder.mission#')" 
+					 size      = "12" 
+					 maxlength = "20" 
+					 value     = "#bref#">
+				  </td>			
+				 
+				  <td class="labelmedium" style="padding-left:4px">		
 				  <input type="text" name="BillingName" id="BillingName" value="#bnme#" size="40" maxlength="80" class="regularxl enterastab">					
 				  </td>			  			  
-				  <td style="padding-left:4px"><input type="text" class="regularxl enterastab" name="BillingReference" id="BillingReference"  size="12" maxlength="20"   value="#bref#"></td>			
 				  
 				  <td style="padding-right:3px">
 				  																			

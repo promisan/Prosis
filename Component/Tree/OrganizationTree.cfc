@@ -1,6 +1,8 @@
 <cfcomponent>
 
 <cfproperty name="OrganizationTree" type="string" displayname="Organization Tree">
+ 
+ <!---
   
 <cffunction name="getNodes" access="remote" returntype="array">
 
@@ -667,6 +669,8 @@
    
 </cffunction>
 
+--->
+
 <cffunction name="getNodesV2" access="remote"  returnFormat="json" output="false" secureJSON = "yes" verifyClient = "yes">
 
 		<cfargument name="path"       type="String" required="false" default=""/>
@@ -1200,12 +1204,12 @@
 				</cfif>
 
 				<!--- default --->
-				<cfset cl = "black">
+				<cfset cl = "transparent">
 
 				<cfif entity.missionstatus eq "0">
 					<cfif selectiondate neq "">
 						<cfif DateEffective lte sdte and DateExpiration gte sdte>
-							<cfset cl = "black">
+							<cfset cl = "transparent">
 						<cfelse>
 							<cfset cl = "red">
 						</cfif>
@@ -1253,7 +1257,7 @@
 					<cfif len(orgLabel) gt "42">
 						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' title='#orgLabel#'>#left(orgLabel,38)# ...</span>">
 					<cfelse>
-						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' class='fixlength' title='#orgLabel#'>#orgLabel#</span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;' class='fixlength' title='#orgLabel#'>#orgLabel#</td></span>">
 					</cfif>
 
 				</cfif>

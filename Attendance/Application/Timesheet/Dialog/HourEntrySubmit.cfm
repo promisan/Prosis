@@ -11,6 +11,7 @@
 3. refresh entry details
 --->
 
+
 <cfset dateValue = "">
 <CF_DateConvert Value="#url.date#">
 <cfset dte = dateValue>
@@ -379,6 +380,8 @@
 	
 </cftransaction>
 
+
+
 <!--- calculate summary --->
 
 <cf_summaryCalculation
@@ -407,15 +410,15 @@
 
 </cfoutput>
 
+
 <cfif url.act eq "exit">
-
+   
 	<script language="JavaScript">		
-		parent.document.getElementById('timebox').style.display = 'none';		
+		parent.ProsisUI.closeWindow('tsentry')
 	</script>	
-
+		
 <cfelse>
 
 	<cfinclude template="HourEntryForm.cfm">
-
+	
 </cfif>
-

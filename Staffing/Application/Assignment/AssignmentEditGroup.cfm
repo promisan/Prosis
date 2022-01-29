@@ -53,6 +53,8 @@ function hl(itm,fld){
 
 <cfif groupAll.recordcount eq "0">	
 
+
+
 	<cfquery name="GroupAll" 
     datasource="AppsEmployee" 
     username="#SESSION.login#" 
@@ -82,11 +84,11 @@ function hl(itm,fld){
 
 </cfif>							
   
-<table width="90%" border="0" cellspacing="0" cellpadding="0" align="left">
+<table width="90%" align="left">
 
 <tr><td>
 	
-	<table border="0" width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+	<table border="0" width="100%" class="formpadding">
 	
 	<cfset row = 0>
 					

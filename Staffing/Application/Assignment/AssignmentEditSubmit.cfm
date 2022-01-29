@@ -784,6 +784,66 @@
 						  AND DateEffective < #STR#-1 <!--- prevent creating records with 0 dates --->
 				    </cfquery>
 					
+					<cfquery name="Class" 
+					    datasource="AppsEmployee" 
+					    username="#SESSION.login#" 
+					    password="#SESSION.dbpw#">
+					   	 SELECT   * 
+						 FROM     Ref_AssignmentClass
+						 WHERE    AssignmentClass = '#Position.AssignmentClass#'					   	 
+					</cfquery>
+					
+					<cfif class.PositionOwner eq "1">
+					
+						<!--- New : add in case of owner assignment a 0 percent record as well --->
+									
+						<cfquery name="InsertAssignmentLien" 
+					     datasource="AppsEmployee" 
+					     username="#SESSION.login#" 
+					     password="#SESSION.dbpw#">
+						     INSERT INTO PersonAssignment
+						         (PersonNo,
+								 PositionNo,
+								 DateEffective,
+								 DateExpiration,
+								 OrgUnit,
+								 LocationCode,
+								 FunctionNo,
+								 FunctionDescription, 
+								 AssignmentStatus,
+								 ActionReference,
+								 AssignmentClass,
+								 AssignmentType,
+								 Incumbency,
+								 Remarks,
+								 SourceId,
+								 OfficerUserId,
+								 OfficerLastName,
+								 OfficerFirstName)
+							  SELECT PersonNo, 
+							         PositionNo, 
+									 #STR#,
+								     #END#,
+								     OrgUnit, 
+									 LocationCode, 
+									 FunctionNo,
+								     FunctionDescription, 
+									 '#st#', 
+									 #NoAct#, 
+									 AssignmentClass, 
+									 AssignmentType, 
+									 '0', 
+									 'Lien assignment', 
+									 '#Form.AssignmentNo#',
+								     '#SESSION.acc#', 
+									 '#SESSION.last#', 
+									 '#SESSION.first#'
+							  FROM  PersonAssignment
+						      WHERE AssignmentNo = '#Form.AssignmentNo#'						
+					    </cfquery>
+						
+					</cfif>	
+					
 					<!--- create record for period for new date --->
 				   
 				    <cfquery name="InsertAssignment2" 

@@ -235,16 +235,16 @@ password="#SESSION.dbpw#">
 		
 			<tr><td height="4"></td></tr>
 		
-			<tr class="line labelmedium2">
+			<tr class="line labelmedium2 fixlengthlist">
 			
-				<td style="min-width:100px;padding-left:4px;"><cf_tl id="Effective"></td>		
-				<td style="min-width:100px;padding-left:4px;"><cf_tl id="Expiration"></td>			
-				<td style="padding-left:4px;"><cf_tl id="Center"></td>
-				<td style="padding-left:4px;"><cf_tl id="Class"></td>
-				<td style="padding-left:4px;"><cf_tl id="Fund"></td>				
-				<td style="padding-left:4px;"><cf_tl id="Program/Project"></td>
-				<td colspan="1" align="right" style="padding-left:10px;">%</td>								
-				<td style="padding-left:5px;"><cf_tl id="Object of Expenditure"></td>
+				<td style="min-width:100px"><cf_tl id="Effective"></td>		
+				<td style="min-width:100px"><cf_tl id="Expiration"></td>			
+				<td><cf_tl id="Center"></td>
+				<td><cf_tl id="Class"></td>
+				<td><cf_tl id="Fund"></td>				
+				<td><cf_tl id="Program/Project"></td>
+				<td align="right" style="padding-left:5px;">%</td>								
+				<td><cf_tl id="Object of Expenditure"></td>
 				<td></td>
 				<cfif url.fundingid eq "" and url.access eq "edit">
 				
@@ -286,16 +286,16 @@ password="#SESSION.dbpw#">
 																
 			<cfif URL.fundingid eq FundingId>
 												
-				<TR class="navigation_row labelmedium2 line">
+				<TR class="navigation_row labelmedium2 line fixlengthlist">
 				
-				   <td style="padding-left:4px;height:35px">
+				   <td style="height:35px">
 
 						<input type="hidden" value="#dateformat(dateeffective,CLIENT.DateFormatShow)#" name="dateeffective" id="dateeffective">
 						#dateformat(dateeffective,CLIENT.DateFormatShow)#
 						
 				   </td>
 				   
-				    <td style="padding-left:8px;">
+				    <td>
 				   
 					   	<input type="hidden" value="#dateformat(DateExpiration,CLIENT.DateFormatShow)#" name="dateexpiration" id="dateexpiration">
 						<cfif DateExpiration gte DateEffective and DateExpiration lt PositionParent.DateExpiration>
@@ -310,9 +310,9 @@ password="#SESSION.dbpw#">
 										
 				   </td>
 
-				   <td style="padding-left:4px;">#Org.OrgUnitCode#</td>
+				   <td>#Org.OrgUnitCode#</td>
 				   
-				     <td style="padding-left:4px;">
+				     <td>
 				   		
 					   	   <select name="fundclass" id="fundclass" class="regularxl" style="width:99%">								 			   				   
 					           <cfloop query="ClassList">
@@ -322,7 +322,7 @@ password="#SESSION.dbpw#">
 					  
 				   </td>
 
-				   <td style="padding-left:4px;">
+				   <td>
 				   		<cfif getFundingCluster.recordCount lt 2>
 					   	   <select name="fund" id="fund" class="regularxl" style="width:99%">	
 							   <option value="#fd#" selected>#fd#</option>					   				   
@@ -367,11 +367,11 @@ password="#SESSION.dbpw#">
 						
 					  </cfif>	
 					  
-					  <td style="padding-left:4px;">	
+					  <td>	
 
 					  	  <cfif getFundingCluster.recordCount lt 2>
 					 
-						  <table cellspacing="0" cellpadding="0">
+						  <table>
 						  
 							  <tr>
 								  <td>
@@ -409,9 +409,9 @@ password="#SESSION.dbpw#">
 					 					 
 				   </td>
 
-				   <td align="right" style="padding-left:4px;">#numberformat(percentage*100, ",")#</td>				 				 
+				   <td align="right">#numberformat(percentage*100, ",")#</td>				 				 
 					   
-				   <td style="padding-left:12px;">
+				   <td style="padding-left:8px;">
 				   
 					   <select name="objectcde" id="objectcode" class="regularxl" style="width:99%">
 					   <option value="">[Defined through Payroll Lines]</option>
@@ -432,28 +432,31 @@ password="#SESSION.dbpw#">
 				
 			<cfelse>
 			
-				<TR class="navigation_row labelmedium2 line" style="height:30px">
-				   <td style="padding-left:4px;">#Dateformat(dateeffective,CLIENT.DateFormatShow)#</td>	
-				   <td style="padding-left:4px;">
+				<TR class="navigation_row labelmedium2 line fixlengthlist" style="height:30px">
+				   <td>#Dateformat(DateEffective,CLIENT.DateFormatShow)#</td>	
+				   
+				   <td>
 				  				   
 				   <cfif DateExpiration gte DateEffective 
 				       and DateExpiration LT PositionParent.DateExpiration>
+					   
 					   #dateformat(DateExpiration,CLIENT.DateFormatShow)#
+					   
 				   <cfelse>
-				   <font color="808080"><i>
-				   <cfif currentrow eq recordcount>
+				   
+				        <font color="808080"><i>
+				        <cfif currentrow eq recordcount>
 							<cf_tl id="End of position">
-						<cfelse>
-							--
-						</cfif>	
+						<cfelse>--</cfif>	
 				  
 				   </cfif>
+				   
 				   </td>					   				  
-				   <td style="padding-left:4px;">#Org.OrgUnitCode#</td>
-				   <td style="padding-left:4px;">#FundClass#</td>  		
-				   <td style="padding-left:4px;">#Fund#</td>				   	   
+				   <td>#Org.OrgUnitCode#</td>
+				   <td>#FundClass#</td>  		
+				   <td>#Fund#</td>				   	   
 					   
-					    <!--- check if project is valid --->
+					<!--- check if component/project is enabled for the period --->
 				
 					<cfquery name="Periods"
 					    datasource="AppsProgram" 
@@ -486,19 +489,18 @@ password="#SESSION.dbpw#">
 				          username="#SESSION.login#" 
 				          password="#SESSION.dbpw#">
 				          SELECT *
-					      FROM   Program P, ProgramPeriod Pe
-					      WHERE  P.ProgramCode = '#ProgramCode#'
-						  AND    P.ProgramCode = Pe.ProgramCode
-						  AND    Pe.Period IN (SELECT TOP 1 Period 
-						                       FROM   Organization.dbo.Ref_MissionPeriod 
-											   WHERE  Mission    = '#PositionParent.mission#'
-											   AND    MandateNo  = '#PositionParent.mandateno#'
+					      FROM   Program P INNER JOIN ProgramPeriod Pe ON P.ProgramCode = Pe.ProgramCode
+					      WHERE  P.ProgramCode = '#ProgramCode#'						  
+						  AND    Pe.Period IN (SELECT   TOP 1 Period 
+						                       FROM     Organization.dbo.Ref_MissionPeriod 
+											   WHERE    Mission    = '#PositionParent.mission#'
+											   AND      MandateNo  = '#PositionParent.mandateno#'
 											   ORDER BY DefaultPeriod DESC)
 					  </cfquery>	
 					  
 					  <cfif prg.recordcount gte "1">
 					  
-					   <td style="#cl#;padding-left:4px;">#Prg.Reference#&nbsp;#Prg.ProgramName#
+					   <td title="component or project enabled for periods" style="#cl#;padding-left:4px;">#Prg.Reference#&nbsp;#Prg.ProgramName#
 					  
 					  <cfelse>
 					  
@@ -511,7 +513,7 @@ password="#SESSION.dbpw#">
 					      WHERE  P.ProgramCode = '#ProgramCode#'						  				
 					    </cfquery>	
 						
-						<td style="#cl#;padding-left:4px;">#Prg.ProgramName# 
+						<td title="component or project enabled for periods" style="#cl#;padding-left:4px;">#Prg.ProgramName# 
 											  
 					  </cfif>	
 					  
@@ -625,8 +627,7 @@ password="#SESSION.dbpw#">
 
 				  <cfset cntRows = cntRows + 1>
 
-		    </cfoutput>
-			
+		    </cfoutput>			
 			
 			</cfoutput>
 			
@@ -686,15 +687,13 @@ password="#SESSION.dbpw#">
 						   </cfoutput>
 				   	   </select>
 					   
-				   </td>
-				  				  
+				   </td>				  				  
 					   
 				   <td style="padding-left:8px;">			   
 				   
 				   	<table cellspacing="0" cellpadding="0"><tr><td>
 				   
-				  		<cfoutput>		
-												  
+				  		  <cfoutput>												  
 												
 					  		<img src="#SESSION.root#/Images/search.png" 
 							  alt="Select Program" 

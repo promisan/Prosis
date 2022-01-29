@@ -124,7 +124,7 @@
 	 	
 	function setcolor() {
 	     _cf_loadingtexthtml='';	
-	     ColdFusion.navigate('setHourColor.cfm','process','','','POST','sheet')	
+	     ptoken.navigate('setHourColor.cfm','process','','','POST','sheet')	
 	}
 		 
 	function save(act) {
@@ -133,16 +133,11 @@
 		lo  = document.getElementById("locationcode").value		
 		me  = document.getElementById("memo").value
 		cde = document.getElementById("actioncode").value
-
 			
-		if (cl == "") {
-		
-		   alert("There is no activity class selected.")
-		   
-		} else {  	
-
-		   ColdFusion.navigate('HourEntrySubmit.cfm?context=#url.context#&act='+act+'&id=#url.id#&date=#url.date#&cls='+cl+'&cde='+cde+'&loc='+lo+'&mem='+me+'&parenthour=#url.hour#','entrydialog','','','POST','sheet');
-
+		if (cl == "") {		
+		   alert("There is no activity class selected.")		   
+		} else {  
+		   ptoken.navigate('HourEntrySubmit.cfm?context=#url.context#&act='+act+'&id=#url.id#&date=#url.date#&cls='+cl+'&cde='+cde+'&loc='+lo+'&mem='+me+'&parenthour=#url.hour#','entrydialog','','','POST','sheet');
 		   if (act != 'refresh') {
 		   	try {parent.document.getElementById('modalbg').style.display = 'none';} catch (e){}			
 			}			
@@ -156,19 +151,23 @@
 
 <cfset option = "Timesheet for #dayOfWeekAsString(dayOfWeek(date))#, #dateformat(thedate,'MMMM DD YYYY')#">
 
-<cf_screentop height="100%" jquery="yes"  html="No" layout="webapp" banner="gray" bannerheight="50" label="#option#" title="Timesheet for #dayOfWeekAsString(dayOfWeek(date))# #dateformat(thedate,CLIENT.DateFormatShow)#" scroll="Yes">
+<cf_screentop height="100%" jquery="yes" html="No" 
+    layout="webapp" 
+	banner="gray" 
+	label="#option#" 
+	title="Timesheet for #dayOfWeekAsString(dayOfWeek(date))# #dateformat(thedate,CLIENT.DateFormatShow)#" scroll="Yes">
 				
 <cfoutput>
 
 <form name="sheet" id="sheet" style="height:98%;width:100%">
 		
-	<table width="100%" height="100%" border="0">
+	<table width="100%" height="100%">
 	
-	<tr class="line">
+	<tr>
 		
 		<td valign="top">
 		
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">				
+			<table width="100%" class="formpadding">				
 			    <tr><td width="90%" align="center" valign="top" id="entrydialog">						    
 					<cfinclude template="HourEntryForm.cfm"> 
 					</td>											
@@ -179,44 +178,44 @@
 		
 	</tr>
 	
-	<tr class="line"><td colspan="2">
+	<tr><td colspan="2">
 	
 	<table width="95%" align="center" class="formpadding">			
 	
-	<tr class="labelmedium"><td style="width:14%" ><cf_tl id="Modality"></td>
-	    <td>
-		
-		<cfquery name="Modality" 
-				datasource="AppsPayroll" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				SELECT    * 
-				FROM      Ref_PayrollTrigger
-				WHERE     TriggerGroup = 'Overtime'
-				and       Description NOT LIKE '%Differential%'
-		</cfquery>		
-						 
-		 	<select name="BillingMode" class="regularxxl">
-				<option value="Contract"><cf_tl id="Contract"></option>
-				<cfloop query="modality">
-				<option value="#SalaryTrigger#" <cfif last.BillingMode eq salarytrigger>selected</cfif>>#Description#</option>
-				</cfloop>
-			</select>		
+		<tr class="labelmedium"><td style="width:14%" ><cf_tl id="Modality"></td>
+		    <td>
 			
-		</td>
-	</tr>
-	
-	<tr valign="top" style="padding-top:3px" class="labelmedium"><td><cf_tl id="Memo">		 
-		<td>
-		  <textarea style="background-color:ffffbf;width:99%;height:60;font-size:15px;padding:4px" 
-		    onkeyup="return ismaxlength(this)" 
-		    totlength="200" class="regular" name="memo" id="memo"><cfoutput>#Last.ActionMemo#</cfoutput></textarea>			
-		</td>
-	</tr>
+			<cfquery name="Modality" 
+					datasource="AppsPayroll" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					SELECT    * 
+					FROM      Ref_PayrollTrigger
+					WHERE     TriggerGroup = 'Overtime'
+					and       Description NOT LIKE '%Differential%'
+			</cfquery>		
+							 
+			 	<select name="BillingMode" class="regularxxl">
+					<option value="Contract"><cf_tl id="Contract"></option>
+					<cfloop query="modality">
+					<option value="#SalaryTrigger#" <cfif last.BillingMode eq salarytrigger>selected</cfif>>#Description#</option>
+					</cfloop>
+				</select>		
+				
+			</td>
+		</tr>
+		
+		<tr valign="top" style="padding-top:3px" class="labelmedium"><td><cf_tl id="Memo">		 
+			<td>
+			  <textarea style="background-color:ffffbf;width:99%;height:45;font-size:15px;padding:4px" 
+			    onkeyup="return ismaxlength(this)" 
+			    totlength="200" class="regular" name="memo" id="memo"><cfoutput>#Last.ActionMemo#</cfoutput></textarea>			
+			</td>
+		</tr>
 	
 	</table>
-	</td>
-	</tr>
+	
+	</td></tr>
 	
 	<tr><td align="center" colspan="2" style="padding-top:4px">
 	
@@ -263,8 +262,7 @@
 			     	onClick="save('exit')">		
 				</cfif>
 			
-			</cfif>  
-		  
+			</cfif>  	  
 					  
 		</td>
 	</tr>	

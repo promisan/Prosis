@@ -22,13 +22,12 @@
 <cfif first.startdate eq "">
 
 <cfoutput>
-<table height="100%" width="100%">
-<tr class="labelmedium"><td align="center" style="font-size:20px;padding-top:40px" valign="top">No tax declarations found for #url.mission# and #url.currency#</td></tr>
-</table>	
+    <table height="100%" width="100%">
+       <tr class="labelmedium"><td align="center" style="font-size:20px;padding-top:40px" valign="top">No tax declarations found for #url.mission# and #url.currency#</td></tr>
+    </table>	
 </cfoutput>
 
 <cfelse>
-
 
 <cfsavecontent variable="myquery">
 
@@ -127,8 +126,6 @@
 					align   = "right",
 					formatted  = "numberformat(AmountOutstanding,',.__')"}>
 					
-<table height="100%" width="100%">
-<tr><td valign="top">	
 														
 	<cf_listing
 	    header           = "PendingDeclaration"
@@ -152,8 +149,6 @@
 		drilltemplate    = "Gledger/Application/Transaction/View/TransactionView.cfm?id="
 		drillkey         = "TransactionId">
 		
-</td></tr>
-</table>	
 
 </cfif>	
 		

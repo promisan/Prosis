@@ -14,7 +14,7 @@
 	
 	<tr>	
 			
-		<td colspan="2" style="padding-left:10px"> 
+		<td colspan="2" style="padding-left:10px;padding-bottom:4px"> 
 		
 			<table>
 						
@@ -236,8 +236,10 @@
 				</tr>
 				<tr>
 				<td>
-				<input type="text" name="transactionmemo" id="transactionmemo" maxlength="100" class="regularxl" 
-				   style="font-size:20px;height:30px;width:98%;background-color:ffffcf">
+				<input type  = "text" 
+				       name  = "transactionmemo" id="transactionmemo" 
+					   maxlength = "100" class="regularxl" 
+				       style = "font-size:20px;height:30px;width:98%;background-color:ffffcf">
 				</td>		
 				</tr>
 				</table>

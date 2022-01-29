@@ -322,10 +322,7 @@ RELOAD : enforces the left menu to be reloades upon launching of the template.
 			
 			      <cfif Attributes.Table eq "Yes">
 			  
-				  <table class="noprint" 
-				         border="0" 
-						 cellspacing="0" 
-						 cellpadding="0"						 
+				  <table class="noprint" 				        				 
 						 align="#Attributes.Align#">					  
 				 					  
 				  <tr>

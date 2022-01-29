@@ -2,8 +2,6 @@
 
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
 
-<cf_wait1>
-
 <CFSET Criteria = ''>
 	
 <cfparam name="Form.Crit3_FieldName" default="">
@@ -31,17 +29,26 @@
 <cfoutput>
 
 <cfparam name="Form.Start" default="01/01/1900">
-<cfset dateValue = "">
-<CF_DateConvert Value="#Form.Start#">
-<cfset dtes = #dateValue#>
+
+<cfif form.start neq "">
+
+	<cfset dateValue = "">
+	<CF_DateConvert Value="#Form.Start#">
+	<cfset dtes = dateValue>
+	<CFSET Criteria = #Criteria#&" AND (V.DueDate >= "&#dtes#&")"> 
+	
+</cfif>
 
 <cfparam name="Form.End" default="01/01/2099">
-<cfset dateValue = "">
-<CF_DateConvert Value="#Form.End#">
-<cfset dtee = #dateValue#>
 
-<CFSET Criteria = #Criteria#&" AND (V.DueDate <= "&#dtee#&")"> 
-<CFSET Criteria = #Criteria#&" AND (V.DueDate >= "&#dtes#&")"> 
+<cfif form.end neq "">
+	<cfset dateValue = "">
+	<CF_DateConvert Value="#Form.End#">
+	<cfset dtee = dateValue>
+	<CFSET Criteria = #Criteria#&" AND (V.DueDate <= "&#dtee#&")"> 
+</cfif>	
+
+
 
 <cfif Form.Mission IS NOT 'All'>
      <CFSET Criteria = "#Criteria# AND V.Mission IN ( #PreserveSingleQuotes(Form.Mission)# )">
@@ -54,7 +61,7 @@
 </cfif>
 
 <cfif FORM.Post neq "">
-	<CFSET Criteria = "#Criteria# AND (V.PositionNo LIKE ('%#Form.Post#%') OR V.PositionNO IN ( SELECT PositionNo FROM Employee.dbo.Position WHERE SourcePostNumber LIKE ('%#Form.Post#%') ))">
+	<CFSET Criteria = "#Criteria# AND (V.PositionNo LIKE ('%#Form.Post#%') OR V.DocumentNo IN ( SELECT DocumentNo FROM DocumentPost WHERE PositionNo IN (SELECT PositionNo FROM Employee.dbo.Position WHERE SourcePostNumber LIKE ('%#Form.Post#%'))))">
 </cfif>
 
 <cfif Form.Class IS NOT 'All'>

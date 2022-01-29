@@ -7,7 +7,7 @@
 	
 	  function provisionload(mis,wid,wol,itm,req,bid,org,date,context,mode) {
 	    _cf_loadingtexthtml="";	
-	    ColdFusion.navigate('#SESSION.root#/workorder/application/workorder/servicedetails/billing/DetailBillingFormEntry.cfm?mission='+mis+'&serviceitem='+itm+'&mode='+mode+'&requestid='+req+'&workorderid='+wid+'&workorderline='+wol+'&billingid='+bid+'&date='+date+'&orgunitowner='+org,'boxprovision')		
+	    ptoken.navigate('#SESSION.root#/workorder/application/workorder/servicedetails/billing/DetailBillingFormEntry.cfm?mission='+mis+'&serviceitem='+itm+'&mode='+mode+'&requestid='+req+'&workorderid='+wid+'&workorderline='+wol+'&billingid='+bid+'&date='+date+'&orgunitowner='+org,'boxprovision')		
 	  }
 	
 	  function toggle(cl,val,show) {
@@ -132,7 +132,21 @@
 	  function showfeature(unitclass,costid,wid,wol,req,mode,bid,org,date) {
 	       _cf_loadingtexthtml="";			 		  		 
 	      // ptoken.navigate('#SESSION.root#/workorder/application/workorder/servicedetails/billing/DetailBillingFormEntryRegularAjax.cfm?mode='+mode+'&requestid='+req+'&workorderid='+wid+'&workorderline='+wol+'&billingid='+bid+'&date='+date+'&costid='+costid+'&unitclass='+unitclass+'&orgunitowner='+org,'features_'+unitclass)	
-	  }   
+	  } 
+	  
+	  function getBillingName(mis) {
+	   var validator = new EDI();
+	   validator.setSyncMode()
+	   try{
+	      vReference = $('##BillingReference').val()
+	      var vreturn = validator.CustomerValidate(mis,'1',vReference,'appsOrganization');	      
+	      if (vreturn.STATUS=="OK") {
+	         $('##BillingName').val(vreturn.NAME)
+	      }
+	   }catch(ex) {
+	      console.log(ex);
+	   }
+      }	  
 
 	
 	</script>

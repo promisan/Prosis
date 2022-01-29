@@ -266,7 +266,7 @@
    <cfreturn result/>
 </cffunction>
 
-	<cffunction name="getListingNodesV2" access="remote" returntype="void">
+	<cffunction name="getListingNodesV2" access="remote" returnFormat="json" output="false" secureJSON = "yes" verifyClient = "yes">
 
 		<cfargument name="path"                type="String" required="false" default=""/>
 		<cfargument name="value"               type="String" required="true" default=""/>
@@ -536,7 +536,8 @@
 			cfthread(action:"run",name:threadName,message:msg){
 				WsPublish("prosis","tree node ");
 		}
-				writeOutput(msg);
+				//writeOutput(msg);
+			return msg;
 		</cfscript>
 
 	</cffunction>
@@ -544,7 +545,7 @@
 
 
 
-	<cffunction name="getNodesV2" access="remote"  returnType="void">
+	<cffunction name="getNodesV2" access="remote"  returnFormat="json" output="false" secureJSON = "yes" verifyClient = "yes">
 
 		<cfargument name="path"       type="String" required="false" default=""/>
 		<cfargument name="value"      type="String" required="true" default=""/>

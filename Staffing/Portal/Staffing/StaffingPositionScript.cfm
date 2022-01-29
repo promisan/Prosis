@@ -29,7 +29,7 @@
 		}
 		
 		function AddVacancy(postno,box) {
-			ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:600,width:840,modal:true,center:true});	
+			ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:document.body.clientHeight-90,width:900,modal:true,center:true});	
 			ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?box='+box+'&portal=1&Mission=#URL.Mission#&ID1=' + postno + '&Caller=Listing','mydialog');	
 		}
 		

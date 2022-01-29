@@ -8,6 +8,11 @@
 <cf_screenTop height="100%" jquery="Yes"order="0" html="No" title="#lt_text# #URL.Mission#" scroll="no" TreeTemplate="Yes">
 <cf_layoutscript>
 <cf_calendarscript>
+
+<cfset session.mandateorg         = "">
+<cfset session.mandatefilter      = "">
+<cfset session.mandatefiltervalue = "">
+
 	 
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>
 

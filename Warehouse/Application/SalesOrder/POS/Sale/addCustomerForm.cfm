@@ -26,16 +26,15 @@
 		 if (ref.length<($('##reference').val().length/2)) {
 			 $('##reference').val('');
 			 $('##name').val(original);
-	 		 $('##reference').focus();		 
+	 		 $('##reference').focus();
 		 } else {
+			getReferenceName();
 	  		 $('##name').focus();
 		 }
 	});
-	
-	
-	
+		
 	function show_error_reference(form, ctrl, value, msg) {
-	       Prosis.notification.show('Error', msg, 'error', 2500); //error, success, information       
+	    Prosis.notification.show('Error', msg, 'error', 2500); //error, success, information       
 	}  
 	
 	function check_reference(form, ctrl, value) {
@@ -43,10 +42,8 @@
 		 var validator = new EDI();
 		 validator.setSyncMode()
 		 try{
-		 	var vreturn = validator.CustomerValidate('#url.mission#','1',value,'appsOrganization');
-		 	
-		 	console.log(vreturn);
-		 	
+		 	var vreturn = validator.CustomerValidate('#url.mission#','1',value,'appsOrganization');		 	
+		 	// console.log(vreturn);		 	
 		 	if (vreturn.STATUS=="OK")
 			 	return true;
 		 	else
@@ -54,9 +51,24 @@
 		}catch(ex) {
 			alert(ex.message);	
 		}		
-	}      
+	}
+
+	function getReferenceName() {
+		var validator = new EDI();
+		validator.setSyncMode()
+		try{
+			vReference = $('##reference').val()
+			var vreturn = validator.CustomerValidate('#url.mission#','1',vReference,'appsOrganization');
+			console.log(vreturn);
+			if (vreturn.STATUS=="OK") {
+				$('##name').val(vreturn.NAME)
+			}
+		}catch(ex) {
+			console.log(ex);
+		}
+	}
 	
-	function validatecustomer(mis,whs,mde) {
+    function validatecustomer(mis,whs,mde) {
 		document.formcustomer.onsubmit() 
 		if(!_CF_error_exists) {
 	    	ptoken.navigate('#SESSION.root#/warehouse/application/SalesOrder/POS/Sale/addCustomerSubmit.cfm?mode='+mde+'&mission='+mis+'&warehouse='+whs,'customerresult','','','POST','formcustomer')
@@ -103,7 +115,8 @@ password="#SESSION.dbpw#">
 		   message="#lt_text# #CLIENT.IndexNoName#"		
 		   onError="show_error_reference"  
 		   onvalidate="check_reference"
-	       size="10"
+		   onChange="getReferenceName()"
+		   size="10"
 	       maxlength="10">
 		
 	</TD>

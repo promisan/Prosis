@@ -440,8 +440,7 @@
 															AND      TransactionSourceId  != '#header.transactionsourceid#'  
 															AND      H.ActionStatus IN ('0','1') 
 															AND      H.RecordStatus != '9'
-													</cfquery>	
-																								
+													</cfquery>																								
 																											
 											 	  <cfinvoke component="Service.Access"  
 												      method    = "journal"  
@@ -530,49 +529,55 @@
 										   
 										   <td style="width:20px;cursor:pointer" 
 										        onclick="setaddress('#TaxCode.AddressId#','Taxcode','#billingreference#')" title="Maintain address information">
-										   <cfif TaxCode.recordcount eq "1">										   
-										     <img src="#session.root#/images/home.png" style="height:25px;width:25px" alt="" border="0">
-										   </cfif>
+												
+										        <cfif TaxCode.recordcount eq "1">										   
+										          <img src="#session.root#/images/home.png" style="height:25px;width:25px" alt="" border="0">
+										        </cfif>
+										   
 										   </td>
+										   
 										   <td style="font-size:16px;padding-left:10px;padding-right:10px">#BillingReference# #BillingName#</td>					
 										   
 										   <cfset dte = DateTimeFormat(TransactionDate,"YYYYMMDD_HH_nn_ss")>
 										   
+										   <cfquery name="Tax" 
+											  datasource="AppsSystem" 
+											  username="#SESSION.login#" 
+											  password="#SESSION.dbpw#">
+												    SELECT *
+													FROM   Organization.dbo.Ref_Mission
+													WHERE  Mission = '#workorder.Mission#'												   
+										   </cfquery>
 										   
-										   <cfif getJournal.OrgUnitTax neq "">	
+										   <cfif Tax.EDIMethod neq "" and getJournal.OrgUnitTax neq "">	
 										   
-										   <td style="width:20px" class="fixlength" align="right"><cf_tl id="Tax submission">:</td>
-										   <td style="width:20px" aslign="right">	
-										   										   										   									   
-										   <input type="checkbox" checked class="radiol" name="#orgunitOwner#_#orgunitCustomer#_#dte#_invoicemode" value="2">
-										   </td>									  
+										      <td style="width:20px" class="fixlength" align="right"><cf_tl id="Tax submission">:</td>
+										      <td style="width:20px" aslign="right">											   										   										   									   
+       										   <input type="checkbox" checked class="radiol" name="#orgunitOwner#_#orgunitCustomer#_#dte#_invoicemode" value="2">										  
+										      </td>									  
 										   
-											   <!--- show eMail ---> 											
+											  <!--- show eMail ---> 											
 																						
 												<cfquery name="get" 
 														datasource="AppsWorkOrder" 
 														username="#SESSION.login#" 
 														password="#SESSION.dbpw#">
-														SELECT *, C.PersonNo as ApplicantNo
+														SELECT  *, C.PersonNo as ApplicantNo
 														FROM    WorkOrder W, 
 														        WorkOrderLine WL,
 															    Customer C
-														WHERE  W.WorkOrderId   = WL.WorkOrderId
-														AND    WL.WorkOrderid   = '#get.WorkOrderid#' 
-		                                            	AND     WL.WorkOrderLine = '#get.WorkOrderLine#' 				
-														AND     C.CustomerId = W.CustomerId
+														WHERE   W.WorkOrderId     = WL.WorkOrderId
+														AND     WL.WorkOrderid    = '#get.WorkOrderid#' 
+		                                            	AND     WL.WorkOrderLine  = '#get.WorkOrderLine#' 				
+														AND     C.CustomerId      = W.CustomerId
 												</cfquery>	
-												
-												<!---
-												<td style="border-left:1px solid silver;padding-left:10px;padding-right:4px;padding-top:2px"><cf_tl id="eMail">:</TD>
-												--->
-												
+																								
 												<td style="padding-right:6px;width:200px" align="right" title="eMail Address">	
 																																		   
 												   <input type="Text" style="width:100%;background-color:ffffcf;text-align:center" class="regularxxl enterastab" 
 												   name="#orgunitOwner#_#orgunitCustomer#_#dte#_email" value="#get.EMailAddress#">
 												   
-												 </td>  										   
+												</td>  										   
 										   									   
 										   <cfelse>
 										
@@ -581,13 +586,14 @@
 											   <td style="padding-left:20px;padding-right:4px;padding-top:2px"><cf_tl id="Invoice/Reference"><cf_tl id="No">:</TD>
 									           <td style="padding-left:10px">	
 											 												      
-												   <input type="Text" style="background-color:ffffcf;padding-left:5px" class="regularxxl enterastab"
+												   <input type="Text" title="Invoice series" style="width:100%;background-color:ffffcf;padding-left:5px" class="regularxxl enterastab"
 												   name="#orgunitOwner#_#orgunitCustomer#_#dte#_invoiceseries" value="" size="10" maxlength="10">
 												   </td>
-												   <td style="padding-left:6px">	
+												   
+												   <td style="padding-left:2px">	
 												   
 												   <cf_tl id="Record an invoice no" var="inv">		   
-												   <input type="Text" style="background-color:ffffcf;" class="regularxxl enterastab" 
+												   <input type="Text" title="Invoice No" style="background-color:ffffcf;" class="regularxxl enterastab" 
 												   name="#orgunitOwner#_#orgunitCustomer#_#dte#_invoiceno" value="" size="15" maxlength="30"> 
 												  </td>
 												  

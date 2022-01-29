@@ -52,7 +52,7 @@ password="#SESSION.dbpw#">
 
 	<table width="100%" class="navigation_table">
 	
-		<tr class="line labelmedium">
+		<tr class="line labelmedium fixlengthlist">
 		   <td style="padding-left:5px"><cf_tl id="Period"></td>
 		   <td><cf_tl id="Plan period"></td>		   
 		   <td><cf_tl id="Fund"></td>		   
@@ -66,7 +66,7 @@ password="#SESSION.dbpw#">
 		
 		<cfoutput query="Funding">
 		
-			<tr class="<cfif currentrow neq recordcount>line</cfif> labelmedium navigation_row">
+			<tr class="<cfif currentrow neq recordcount>line</cfif> fixlengthlist labelmedium navigation_row">
 			<td style="padding-left:5px">#EditionName#</td>
 			<td>#Period#</td>		
 			<td>#Fund#</td>		

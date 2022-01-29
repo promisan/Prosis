@@ -515,7 +515,7 @@
 									
 								   <cfset ope = evaluate("form.filter#current.field#_operator")>	
 								   								  									
-								   <table><tr><td>
+								   <table><tr><td style="padding-left:0px">
 								   
 								   <select name="filter#current.field#_operator" class="regularxl" style="height:28px">
 		
@@ -558,7 +558,7 @@
 							<cfcase value="number">		
 							
 							    <table cellspacing="0" cellpadding="0">
-							  <tr><td style="padding-left:4px">										
+							  <tr><td style="padding-left:0px">										
 							
 							   <cfinput type="text" 
 								      name="filter#current.field#" 
@@ -625,15 +625,15 @@
 							     <cfparam name="form.filter#current.field#_to" default="">	
 								  <cfset val = evaluate("form.filter#current.field#_to")>	
 							   
-							     <cfinput type="text" 
-								      name="filter#current.field#_to" 
-									  value="#val#" 
-									  validate="float"
-									  style="text-align:right"
-									  required="#oblig#" 
-									  class="regularxxl enterastab" 
-									  message="Incorrect numeric value #Current.LabelFilter#"
-									  size="8" 
+							     <cfinput type = "text" 
+								      name     = "filter#current.field#_to" 
+									  value    = "#val#" 
+									  validate = "float"
+									  style    = "text-align:right"
+									  required = "#oblig#" 
+									  class    = "regularxxl enterastab" 
+									  message  = "Incorrect numeric value #Current.LabelFilter#"
+									  size     = "8" 
 									  maxlength="20">
 									  
 							   <cfset reset =  "#reset#;document.getElementById('filter#current.field#_to').value=''">	 

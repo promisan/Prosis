@@ -268,6 +268,7 @@ which is beyond the line information
 			
 				SELECT     WC.UnitClass, 
 				           WC.UnitDescription,
+						   WC.ItemNo,
 						   WC.Unit,
 				           R.Description, 
 						   WC.GLAccountCredit, 
@@ -293,6 +294,7 @@ which is beyond the line information
 	            GROUP BY   WC.UnitClass, 
 				           WC.UnitDescription,
 						   WC.Unit,
+						   WC.ItemNo,
 				           WC.GLAccountCredit, 
 						   WC.TransactionDate,
 						   R.Description,
@@ -409,8 +411,7 @@ which is beyond the line information
 									 '#topic#','#mycontent#',
 									 '#session.acc#',
 									 '#session.last#',
-									 '#session.first#')
-									 
+									 '#session.first#')									 
 					    </cfquery>	
 					
 					</cfif>					
@@ -464,6 +465,19 @@ which is beyond the line information
 				Amount1               = "#total#">		
 	
 				<cfloop query="Lines">
+				
+					<!--- Hanno 19/1/2022 if the charge is for an item, we pass the itemNo 
+					          as the reference instead --->
+					
+					<cfif ItemNo neq "">
+					
+						<cfset ref = ItemNo>
+						
+					<cfelse>
+					
+						<cfset ref = UnitClass>
+					
+					</cfif>
 					
 					<!--- Lines for each Unit clas.--->
 					<cf_GledgerEntryLine
@@ -483,7 +497,7 @@ which is beyond the line information
 						ReferenceQuantity1    = "#Quantity#"    
 						ReferenceName1        = "#UnitDescription#"
 						ReferenceId1          = "#get.WorkOrderLineId#"
-						ReferenceNo1          = "#UnitClass#"						
+						ReferenceNo1          = "#ref#"						
 						GLAccount1            = "#GLAccountCredit#"
 						Description1          = "#BillingReference# #BillingName#"
 						Costcenter1           = "#OrgUnit#"
@@ -525,7 +539,7 @@ which is beyond the line information
 							Reference1            = "Sales Tax"       
 							ReferenceName1        = "#getService.description#"
 							ReferenceId1          = "#get.WorkOrderLineId#"
-							ReferenceNo1          = "#UnitClass#"										
+							ReferenceNo1          = "#ref#"										
 							GLAccount1            = "#taxaccount#"
 							Description1          = "#BillingReference# #BillingName#"
 							Costcenter1           = "#OrgUnit#"									

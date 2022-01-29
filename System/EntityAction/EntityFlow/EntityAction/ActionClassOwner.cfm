@@ -52,7 +52,7 @@ password="#SESSION.dbpw#">
 			<TR bgcolor="ffffcf"><td>
 			
 			  <table>
-				   <tr class="labelmedium" style="height:20px;">			  
+				   <tr class="labelit fixlengthlist">			  
 				   <cfoutput query="List">
 				   
 				    <cfset nm = Code>
@@ -63,7 +63,7 @@ password="#SESSION.dbpw#">
 				   <td style="padding-left:3px;padding-right:3px">
 				   
 					   <cfset vCode = URLEncodedFormat(code)>
-				       <A href="javascript:ColdFusion.navigate('ActionClassOwner.cfm?action=delete&entitycode=#url.entitycode#&entityclass=#url.entityclass#&owner=#vCode#','#url.entityclass#_owner')">
+				       <A href="javascript:_cf_loadingtexthtml='';ptoken.navigate('ActionClassOwner.cfm?action=delete&entitycode=#url.entitycode#&entityclass=#url.entityclass#&owner=#vCode#','#url.entityclass#_owner')">
 						   <img src="#SESSION.root#/Images/delete5.gif" height="9" width="9" title="Delete #nm#" border="0" align="absmiddle">
 					   </a>
 					   <cfif currentrow neq recordcount>,</cfif>

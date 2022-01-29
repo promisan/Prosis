@@ -133,8 +133,8 @@
 			 </tr>
 		    </cfif>
 			<cfif Remarks neq "">
-		     <TR class="navigation_row_child Line">
-		     <td colspan="2"></td><td colspan="9" align="left" class="labelit">#Remarks#</td></tr>
+		     <TR class="navigation_row_child Line fixlengthlist">
+		     <td colspan="2"></td><td colspan="9" align="left">#Remarks#</td></tr>
 		    </cfif>
 		    	
 			<cfquery name="GroupAll" 
@@ -226,8 +226,8 @@
 				   <td style="min-width:120px">#Dateformat(Created, CLIENT.DateFormatShow)# #Timeformat(Created, "HH:MM")#</td>
 			    </tr>
 				<cfif Remarks neq "">
-			     <TR class="navigation_row_child Line">
-			     <td colspan="2"></td><td colspan="9" align="left" class="labelit">#Remarks#</td></tr>
+			     <TR class="navigation_row_child Line fixlengthlist">
+			     <td colspan="2"></td><td colspan="9" align="left" class="labelmedium">#Remarks#</td></tr>
 			    </cfif>
 						
 			</cfoutput>

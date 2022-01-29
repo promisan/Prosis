@@ -13,9 +13,12 @@
 
 <cfif User.AccountType eq "Group">
 
-	<tr>
-	   <td height="20" align="center" class="labelit">User Groups may not be associated to another group (recurrent membership)</b></td>
+    <tr>
+	<td height="100%" valign="top" style="padding-left:4px;padding-right:4px">		
+		<cf_securediv style="height:100%" bind="url:#SESSION.root#/System/Access/Membership/RecordListingDetail.cfm?mod=#URL.id#&row=member" id="member">	
+	</td>
 	</tr>
+
 
 <cfelse>
 			

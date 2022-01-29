@@ -58,27 +58,26 @@ password="#SESSION.dbpw#">
 			<tr bgcolor="f1f1f1">
 			<td>
 			   <table>
-				   <tr class="labelmedium" style="height:20px">			  
+				   <tr class="labelit fixlengthlist">			  
 				   <cfoutput query="List">
 				   
 				    <cfset row = row+1>
 				   
 				    <cfset mis = Mission>
 					<cfset nme = MissionName>
-			
-				   <td style="padding-left:6px">#mis#</td>			     	  
-				   <td style="min-width:30px;padding-left:2px">
+			     	  
+				   <td style="padding-left:6px">
 
 				   	   <cfset vMission = URLEncodedFormat(mission)>
 				          <img src="#SESSION.root#/Images/delete5.gif" 
-						   onclick="ColdFusion.navigate('ActionClassMission.cfm?action=delete&entitycode=#url.entitycode#&entityclass=#url.entityclass#&mission=#vMission#','#url.entityclass#_entity')"
+						   onclick="_cf_loadingtexthtml='';	ptoken.navigate('ActionClassMission.cfm?action=delete&entitycode=#url.entitycode#&entityclass=#url.entityclass#&mission=#vMission#','#url.entityclass#_entity')"
 						   height="9" width="9" title="Delete #mis#" border="0" align="absmiddle">
-					   
-					   <cfif currentrow neq recordcount>,</cfif>
+					  
 											  
 				    </td>
+					<td class="fixlength" style="padding-left:2px">#mis#</td>	
 					<cfif row eq "5">
-					</tr><tr>
+					</tr><tr class="labelit fixlengthlist">	
 					<cfset row = 0>
 					</cfif>
 					</cfoutput>						

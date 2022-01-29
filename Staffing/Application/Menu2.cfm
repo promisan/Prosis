@@ -19,3 +19,10 @@
 <cfset class = "'Builder'">
 
 <cfinclude template="../../Tools/Submenu.cfm">
+
+<cf_tl id="Audit views" var="lblAuditViews">
+<cfset heading = "#lblAuditViews#">
+<cfset selection = "'Inquiry'">
+<cfset class = "'Audit'">
+
+<cfinclude template="../../Tools/Submenu.cfm">

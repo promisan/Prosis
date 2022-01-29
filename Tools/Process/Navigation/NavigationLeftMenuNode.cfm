@@ -130,10 +130,8 @@
 	  
 	  <cfif showDescription eq 1>
 	  	<tr>
-			<td class="labelit" align="center" style="color:##48617C; font-size:12px; line-height: 15px; padding-bottom:10px;">
-			
-				#description#
-                
+			<td class="labelmedium2" align="center" style="font-size:16px; line-height: 19px; padding-bottom:4px;">			
+				#description#                
 			</td>
 		</tr>
 	  </cfif>

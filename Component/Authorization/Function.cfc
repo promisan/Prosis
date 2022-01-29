@@ -24,7 +24,8 @@
 		<cfquery name="mySearchResult" 
 			datasource="AppsSystem" 
 			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
+			password="#SESSION.dbpw#">			
+			
 			   SELECT  *
 			   FROM    Ref_ModuleControl
 			   WHERE   SystemModule = #PreserveSingleQuotes(systemmodule)#
@@ -35,7 +36,7 @@
 			   <cfif anonymous neq "">
 			   AND     EnableAnonymous = '#anonymous#' 
 			   </cfif>	
-			   ORDER BY MenuClass, MenuOrder  		
+			   ORDER BY MenuClass, MenuOrder  				   	
 			      			   
 		</cfquery>				
 		
@@ -102,11 +103,12 @@
 			<cfreturn listaccess>
 			
 	<cfelse>
-	
+		
 		<cfquery name="SearchResult" 
 		datasource="AppsSystem" 
 		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
+		password="#SESSION.dbpw#">		
+		 
 			   SELECT   *
 			   FROM     xl#Client.languageId#_Ref_ModuleControl
 			   <cfif listaccess neq "" and listaccess neq "''">
@@ -115,6 +117,7 @@
 			   WHERE   1=0
 			   </cfif>
 			   ORDER BY MenuClass, MenuOrder  
+			   		
 		</cfquery>
 		
 		<cfreturn SearchResult>

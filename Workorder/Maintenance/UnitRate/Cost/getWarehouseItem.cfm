@@ -29,8 +29,9 @@
 	
 	<cfoutput>
 	
-	<select style="width:250" name="ItemNo" class="regularxl" 
-	     onchange="_cf_loadingtexthtml='';ColdFusion.navigate('getWarehouseItemUoM.cfm?warehouse=#url.warehouse#&itemno='+this.value,'itemuom')">	
+	
+	<select style="width:320px" name="ItemNo" class="regularxl" 
+	     onchange="_cf_loadingtexthtml='';ptoken.navigate('getWarehouseItemUoM.cfm?warehouse=#url.warehouse#&itemno='+this.value,'itemuom')">	
 	   	<cfloop query="getItem">
 			<option value="#ItemNo#" <cfif url.itemno eq itemno>selected</cfif>>#ItemNo# - #ItemDescription#</option>
 			
@@ -43,7 +44,7 @@
 	
 	
 	<script>
-		ColdFusion.navigate('getWarehouseItemUoM.cfm?warehouse=#url.warehouse#&itemno=#itm#&itemuom=#url.itemuom#','itemuom')		
+		ptoken.navigate('getWarehouseItemUoM.cfm?warehouse=#url.warehouse#&itemno=#itm#&itemuom=#url.itemuom#','itemuom')		
 	</script>	
 	
 	</cfoutput>

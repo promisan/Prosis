@@ -53,17 +53,17 @@ password="#SESSION.dbpw#">
 		
 	    <table width="100%">
 			
-	    <TR class="line labelmedium2 fixrow">
+	    <TR class="line labelmedium2 fixrow fixlengthlist">
 		   
-		   <td width="80"><cf_space spaces="34">Code</b>		   
-		   <td width="45%">Description</td>
-		   <td width="15%">Posttype</td>		  
-		   <td width="8%" align="center">Embed</td>
-		   <td width="8%" align="center">Active</td>
-		   <td width="8%" align="center">Mail</td>
-		   <td width="8%" align="center"><cf_tl id="Refresh"></td>
-		   <td width="20"></td>
-		   <td style="width:30px" colspan="2" align="right">
+		   <td><cf_tl id="Code"></td>		   
+		   <td><cf_tl id="Description"></td>
+		   <td><cf_tl id="Posttype"></td>		  
+		   <td align="center">Embed</td>
+		   <td align="center">Active</td>
+		   <td align="center">Mail</td>
+		   <td align="center"><cf_tl id="Refresh"></td>
+		   <td></td>
+		   <td colspan="2" align="right">
 		     <cfoutput>
 			 <cfif URL.ID2 neq "new">
 			     <A href="javascript:ptoken.navigate('ActionClass.cfm?EntityCode=#URL.EntityCode#&ID2=new','icls')"><cf_tl id="add"></a>
@@ -202,7 +202,7 @@ password="#SESSION.dbpw#">
 				   
 			    <cfif Detail.recordcount eq "0">
 				
-				   <cf_img icon="delete" onClick="javascript:ColdFusion.navigate('ActionClassPurge.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','icls')">
+				   <cf_img icon="delete" onClick="javascript:ptoken.navigate('ActionClassPurge.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','icls')">
 			 	   
 				</cfif>
 				
@@ -223,11 +223,13 @@ password="#SESSION.dbpw#">
 				
 					<tr>
 					
-						<td style="width:30%;background-color:ffffcf">
+						<td  valign="top" style="width:30%;background-color:ffffcf">
 						
 							<table width="100%">
 							
-								<tr style="height:20px;" class="labelmedium navigation_row_child"><td style="min-width:60px;padding-right:3px;padding-left:15px">
+								<tr style="height:20px;" class="labelmedium navigation_row_child">
+																
+								  <td valign="top" style="min-width:60px;padding-right:3px;padding-left:15px">
 						
 								     <cfset link = "ActionClassOwner.cfm?entitycode=#entitycode#&entityclass=#entityclass#">		
 									      						 
@@ -253,12 +255,12 @@ password="#SESSION.dbpw#">
 						
 						</td>
 						
-						<td style="width:70%'background-color:f1f1f1">
+						<td style="width:70%;background-color:f1f1f1">
 												
 							<table width="100%">
 							
 								<tr style="height:20px;" class="labelmedium navigation_row_child">
-									  <td style="min-width;60px;padding-right:3px;padding-left:15px">
+									  <td valign="top" style="min-width;60px;padding-right:3px;padding-left:15px">
 									
 									     <cfset link = "ActionClassMission.cfm?entitycode=#entitycode#&entityclass=#entityclass#">		
 						

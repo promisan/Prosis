@@ -5,8 +5,17 @@
 <cfparam name="attributes.width"				default="300px">
 <cfparam name="attributes.dots"					default="30.0">
 <cfparam name="attributes.responsive"			default="yes">
+<cfparam name="attributes.animation"			default="true">
 <cfparam name="attributes.grids"				default="true">
 <cfparam name="attributes.stacked"				default="false">
+<cfparam name="attributes.xAxisVisible"			default="true">
+<cfparam name="attributes.yAxisVisible"			default="true">
+<cfparam name="attributes.yAxisFontSize"		default="12">
+<cfparam name="attributes.yAxisFontColor"		default="##808080">
+<cfparam name="attributes.xAxisFontSize"		default="12">
+<cfparam name="attributes.xAxisFontColor"		default="##808080">
+<cfparam name="attributes.paddingLeft"			default="10">
+<cfparam name="attributes.paddingRight"			default="10">
 <cfparam name="attributes.legend"				default="false">
 <cfparam name="attributes.legendFont"			default="12">
 <cfparam name="attributes.legendPosition"		default="bottom">
@@ -109,7 +118,7 @@
 								if (!meta.hidden) {
 									meta.data.forEach(function(element, index) {
 										// Draw the text in black, with the specified font
-										ctx.fillStyle = 'rgb(70,99,99)';
+										ctx.fillStyle = 'rgb(20, 20, 20)';
 
 										var fontSize = #attributes.legendFont*0.8#;
 										var fontStyle = 'normal';
@@ -256,13 +265,14 @@
 					</cfif>
 					layout: {
 			            padding: {
-			                left: 10,
-			                right: 10,
+			                left: #attributes.paddingLeft#,
+			                right: #attributes.paddingRight#,
 			                top: 10,
 			                bottom: 10
 			            }
 			        },
 					responsive: true,
+					animation: #attributes.animation#,
 					maintainAspectRatio: false,
 					legend: { display:#vLegend#, position:'#attributes.legendPosition#', labels: { fontSize: #attributes.legendFont# } },
 					<cfif attributes.type neq "pie" AND attributes.type neq "doughnut" AND attributes.type neq "polarArea" AND vShowGrids>
@@ -272,6 +282,9 @@
 					            	stacked: true,
 				            	</cfif>
 				                ticks: {
+									display: #attributes.yAxisVisible#,
+									fontSize: #attributes.yAxisFontSize#,
+									fontColor: '#attributes.yAxisFontColor#',
 				                    callback: function(value, index, values) {
 				                        return formatLabels(value, #attributes.labelDecimals#, #vThousands#, '#attributes.labelPrepend#', '#attributes.labelAppend#');
 				                    }
@@ -282,6 +295,9 @@
 					            	stacked: true,
 				            	</cfif>
 				                ticks: {
+									display: #attributes.xAxisVisible#,
+									fontSize: #attributes.xAxisFontSize#,
+									fontColor: '#attributes.xAxisFontColor#',
 				                    callback: function(value, index, values) {
 				                        return formatLabels(value, #attributes.labelDecimals#, #vThousands#, '#attributes.labelPrepend#', '#attributes.labelAppend#');
 				                    }

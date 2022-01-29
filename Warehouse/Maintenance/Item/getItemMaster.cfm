@@ -68,7 +68,7 @@ password="#SESSION.dbpw#">
    SELECT * 
    FROM   ItemMaster
    WHERE  Code    = '#URL.ItemMaster#' 	
-   AND    Mission = '#URL.Mission#'	   
+   -- AND    Mission = '#URL.Mission#'	   
 </cfquery>
 
 <cfoutput>

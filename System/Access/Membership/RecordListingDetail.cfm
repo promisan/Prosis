@@ -106,7 +106,9 @@
 					<td align="right" style="padding-left:5px;padding-right:5px" title="Re-synchronize role authorization of members with user group role profile">
 						<img src="#SESSION.root#/Images/sweeper3_sm.gif" id="sync#URL.Mod#" alt="" border="0" align="absmiddle">
 					</td>
-					<td align="left" class="labelmedium2" title="Re-synchronize role authorization of members with user group role profile"><a href="javascript:sync('#URL.Mod#','#url.row#')"><cf_tl id="Synchronize"></a></td>
+					<td align="left" class="labelmedium2" title="Re-synchronize role authorization of members with user group role profile">
+					<a href="javascript:syncgroup('#URL.Mod#','#url.row#')"><cf_tl id="Synchronize"></a>
+					</td>
 	
 			</cfoutput>
 					
@@ -122,8 +124,8 @@
 	
 		</cfif>
 		
-		<cfif profileassigned.recordcount gte "1">
-		
+		<cfif profileassigned.recordcount gte "1" and url.row neq "member">
+				
 			<tr>
 			<td id="#URL.Mod#Profile" class="regular">
 	
@@ -220,7 +222,7 @@
 
 		</td></tr>
 
-	<cfif url.mode eq "Full">
+	<cfif url.mode eq "Full" and url.row neq "member">
 
 		<tr><td><cf_tableToggle size="100%" line="0" border="0" color="ffffff" mode="regular" header="Roles and Functions assigned to group" id="#URL.Mod#Roles" class="regular"></td></tr>
 	

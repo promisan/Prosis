@@ -156,7 +156,10 @@ function more(bx) {
 	                Ref_EntityGroup EG ON E.EntityCode = EG.EntityCode 
 						    AND EG.Operational = 1 
 							<cfif ownerlist neq "">
+							<!---
 							AND (EG.Owner IN (#preservesinglequotes(ownerlist)#) or EG.Owner is NULL)
+							--->
+							AND EG.Owner IN (#preservesinglequotes(ownerlist)#) 
 							</cfif>
 					
 			WHERE   E.Role = '#URL.ID#'		
@@ -208,6 +211,7 @@ function more(bx) {
 						)	
 			</cfif>													
 			AND     EA.Operational = 1 
+			
 								
 	  </cfquery>		  
  	 	  	     	
@@ -269,8 +273,8 @@ function more(bx) {
 					</tr>
 					</table>
 				</td>				
-			</tr>			
-
+			</tr>		
+			
 			<cfoutput group="EntityGroup">
 						
 			<cfset row = row+1>
@@ -314,14 +318,15 @@ function more(bx) {
 			 
 			</cfif>
 			
+					
 			<!--- ---------------------------------------------------------- --->
 			<!--- this option can be hidden upon opening and loaded via ajax --->
 			<!--- ---------------------------------------------------------- --->
-			
-			<cfif show eq "1">			
-									
+								
+			<cfif show eq "1">		
+						    									
 				<cfif EntityGroup neq "">
-																							
+								   																							
 					<tr class="line">
 					<td width="60%" colspan="4">
 					
@@ -367,35 +372,37 @@ function more(bx) {
 					</tr>
 					
 					<cfset cl = "hide">
-					
+										
 				<cfelse>	
-				
-				<tr>
-						
-				<td colspan="2" id="s#url.mission##row#" style="padding-left:20px" class="labelmedium">
 																
-					<cfif Role.GrantAllTrees eq "0">
-						
-						<cfif URL.Access eq "">
-						    <a href="javascript:showaccess('1','#url.mission##row#')">Grant all steps</a>
-						<cfelse>
-							<a href="javascript:showaccess('0','#url.mission##row#')">Revoke all steps</a>
+					<tr>
+							
+					<td colspan="2" id="s#url.mission##row#" style="padding-left:20px" class="labelmedium">
+																	
+						<cfif Role.GrantAllTrees eq "0">
+							
+							<cfif URL.Access eq "">
+							    <a href="javascript:showaccess('1','#url.mission##row#')">Grant all steps</a>
+							<cfelse>
+								<a href="javascript:showaccess('0','#url.mission##row#')">Revoke all steps</a>
+							</cfif>
+							
 						</cfif>
-						
-					</cfif>
-				
-				</td>
-				</tr>
-				
-				<cfset cl = "regular">
+					
+					</td>
+					</tr>
+									
+					<cfset cl = "regular">
 				   
 				</cfif>
-			
-				<cfoutput>		
-																						
+								
+						
+				<cfoutput>	
+				
+																																					
 				<input type="hidden" name="#ms#_classparameter_#CurrentRow#" id="#ms#_classparameter_#CurrentRow#" value="#ActionCode#">
 				<input type="hidden" name="#ms#_groupparameter_#CurrentRow#" id="#ms#_groupparameter_#CurrentRow#" value="#EntityGroup#">
-				
+																				
 				<cfset accesslvl = AccessLevel>
 																				 				 
 				 <cfif accesslvl neq "">
@@ -445,14 +452,17 @@ function more(bx) {
 				  
 				  <cfset cnt=cnt+1>
 					  			 
-				</tr>		
-																	
+				</tr>	
+							
+																									
 				</cfoutput>
-				
-			</cfif>
+							
+			</cfif>					
 				
 			</cfoutput>
+						
 			</cfoutput>
+			
 		    </table>
 						
 			<cfset class = AccessList.recordcount>
@@ -490,32 +500,8 @@ function more(bx) {
 				WHERE   E.Role = '#URL.ID#'		
 				AND     EA.Operational = 1		
 		  </cfquery>	
-		  
-		  <!---	3/1 not needed based on a observation of Nery 	 
-		 		  
-		  <cfquery name="getGroup" 
-			datasource="AppsOrganization" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#"> 
-		    SELECT *
-			FROM   Ref_EntityGroup 
-			WHERE  EntityCode IN (SELECT EntityCode FROM Ref_Entity WHERE Role = '#URL.ID#')
-			AND    Operational = 1
-		  </cfquery>
-		   
-		  <cfif getGroup.recordcount gte "1">	
-		   
-		      <cfset class = Entity.recordcount*getGroup.recordcount>	
-		  
-		  <cfelse>
-		   
-		   	  <cfset class = Entity.recordcount>	
-		   
-		  </cfif>
-		   
-		  --->
-		   
-		    <cfset class = Entity.recordcount>		   
+		
+		   <cfset class = Entity.recordcount>		   
 				 	  
 	  </cfif>		
 				

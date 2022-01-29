@@ -123,7 +123,7 @@ password="#SESSION.dbpw#">
 													
 			<cfif URL.ID1 eq Role>
 										
-				<TR class="labelmedium line" bgcolor="ffffcf">				   		       					   						 						  
+				<TR class="labelmedium line fixlengthlist" bgcolor="ffffcf">				   		       					   						 						  
 				   <td style="padding-left:4px" height="25" width="25%">#Role#<input type="hidden" name="Role" id="Role" value="#Role#"></td>
 				   <td width="50%">
 				   
@@ -172,11 +172,11 @@ password="#SESSION.dbpw#">
 						
 				<TR class="labelmedium2 line navigation_row">
 								
-				   <td width="40%" height="20" style="padding-left:4px;<cfif op eq '0'>background-color:##ff808080<cfelse>background-color:##80ff8050</cfif>;padding-left: 4px">#rl#</td>
-				   <td width="20%" style="padding-left:4px">				   
+				   <td height="20" style="padding-left:4px;<cfif op eq '0'>background-color:##ff808080<cfelse>background-color:##80ff8050</cfif>;padding-left: 4px">#rl#</td>
+				   <td style="padding-left:4px" class="fixlength">				   
 				   
-					  <table cellspacing="0" cellpadding="0">
-					  <tr>		
+					  <table>
+					  <tr class="fixlengthlist">		
 					  
 					  	 <cfif accesslevels eq "2">
 						 
@@ -201,14 +201,15 @@ password="#SESSION.dbpw#">
 					  </tr>
 					  </table>	   
 				   
-				   </td>															
-				  
-				    				   
-				   <td  colspan="3" align="right">		
-					   <table cellspacing="0" cellpadding="0">
-					    <tr class="labelmedium2">
+				   </td>		
+				   
+				   <td style="min-width:40px" title="operational"><cfif op eq "0">No</cfif></td>													
+				  				   
+				   <td colspan="3" align="right" style="min-width:80px">		
+					   <table align="right">
+					    <tr class="labelmedium2 fixlengthlist">
 						   	<td style="padding-left:3px;padding-right:8px"><cfdiv id="divRoleMission_#URL.ID#_#Role#" bind="url:#SESSION.root#/System/Modules/Functions/Role_Mission.cfm?ID=#URL.ID#&role=#role#"></td>
-							<td align="right">#OfficerUserId#&nbsp;(#dateformat(created,CLIENT.DateFormatShow)#)<cf_space spaces="40"></td>				 
+							<td align="right">#OfficerUserId#&nbsp;(#dateformat(created,CLIENT.DateFormatShow)#)</td>				 
 						   	<td style="padding-left:7px;padding-right:3px">
 								<table cellspacing="0" cellpadding="0">
 									<tr>
@@ -226,7 +227,7 @@ password="#SESSION.dbpw#">
 					   </table>
 				  </td>		
 				  
-				  <td style="min-width:40px"><cfif op eq "0">No</cfif></td>
+				  
 				 		   
 			    </TR>	
 			

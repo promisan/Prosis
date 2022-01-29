@@ -27,6 +27,17 @@
 <cfoutput>
 
 	<script>
+	
+	    function broadcast(grp) {	     
+		  ptoken.open("#SESSION.root#/Tools/Mail/Broadcast/BroadCastUsergroup.cfm?group="+grp, "broadcast", "status=yes, height=850px, width=920px, center=yes, scrollbars=no, toolbar=no, resizable=no");
+		}
+		
+		function syncgroup(grp,row) {
+	  		Prosis.busy('yes')			
+		    document.getElementById("sync"+grp).disabled = true 	
+			ptoken.navigate('#session.root#/system/access/Membership/MemberSynchronize.cfm?reload=0&role=' + grp ,'a'+grp)
+			document.getElementById("sync"+grp).disabled = false			
+      	}  	
 		
 		function formvalidate(id) {
 			document.userfunction.onsubmit() 
@@ -68,6 +79,7 @@
 
 <cf_menuScript>
 <cf_layoutScript>
+<cf_dialogStaffing>
 <cf_pictureProfileStyle>
 
 <table width="100%" height="100%" class="hide">

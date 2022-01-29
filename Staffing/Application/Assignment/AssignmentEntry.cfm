@@ -20,7 +20,7 @@
 	<cf_screentop scroll="Yes" 
 	    layout     = "webapp" 
 		label      = "#vPosition#" 
-		close      = "parent.ColdFusion.Window.hide('myarrival',true)"
+		close      = "parent.ProsisUI.closeWindow('myarrival',true)"
 		menuaccess = "context" 
 		banner     = "yellow"
 		height     = "100%"
@@ -149,7 +149,7 @@ password="#SESSION.dbpw#">
 
 <cf_divscroll>
 
-<table width="97%" border="0" class="formpadding" align="center">
+<table width="97%" class="formpadding" align="center">
 
 <tr><td style="padding:7px">
 	<cfinclude template="../Position/Position/PositionViewHeader.cfm">
@@ -171,7 +171,7 @@ password="#SESSION.dbpw#">
 		   <input type="hidden" name="AssignmentNo" value="0">
 	    </cfoutput>   
 	   
-	    <table width="95%" border="0" class="formpadding" align="center">
+	    <table width="95%" class="formpadding" align="center">
 		 	 	
 		<TR>
 	    <TD class="labelmedium" style="width:170px"><cf_tl id="Incumbent">:</TD>
@@ -192,28 +192,30 @@ password="#SESSION.dbpw#">
 					   		
 			<cfset link = "#SESSION.root#/staffing/application/Assignment/getEmployee.cfm?PositionNo=#url.id#&insert=yes">	
 		
-			<table cellspacing="0" cellpadding="0">
-			<tr><td>
-			
-			   <cf_selectlookup
-				    box        = "employee"
-					link       = "#link#"
-					button     = "Yes"
-					icon       = "Search.png"
-					iconheight = "25"
-					iconwidth  = "25"
-					close      = "Yes"
-					type       = "employee"
-					des1       = "Selected">
+			<table>
+				<tr><td>
 				
-			</td>		
-			<td>&nbsp;</td>
-			<td width="500" style="border:1px solid silver">
-						   
-			   <cf_securediv bind="url:#link#" id="employee">
-			   
-			</td>
-			<td width="30%"></td>
+				   <cf_selectlookup
+					    box        = "employee"
+						link       = "#link#"
+						button     = "Yes"
+						icon       = "Search.png"
+						iconheight = "25"
+						iconwidth  = "25"
+						close      = "Yes"
+						type       = "employee"
+						des1       = "Selected">
+					
+				</td>		
+				<td>&nbsp;</td>
+				
+				<td width="500" style="border:1px solid silver">						   
+				   <cf_securediv bind="url:#link#" id="employee">			   
+				</td>
+				
+				<td width="30%"></td>
+				
+			   </tr>	
 			</table>
 			
 		<cfelse>

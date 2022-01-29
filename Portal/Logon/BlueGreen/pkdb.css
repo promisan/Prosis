@@ -907,6 +907,14 @@ td.fixlength {
 	padding-right:3px;
 }
 
+span.fixlength {
+	text-overflow: ellipsis;
+	white-space: nowrap;	
+	overflow: hidden; 
+	max-width:200px;
+	padding-right:3px;
+}
+
 td.fixlengthlist {
 	text-overflow: ellipsis;
 	white-space: nowrap;	

@@ -61,7 +61,7 @@ password="#SESSION.dbpw#">
 <script>
 
   function AddVacancy(postno,box) {
-			ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:600,width:840,modal:true,center:true});	
+			ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:document.body.clientHeight-60,width:900,modal:true,center:true});	
 			ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?box='+box+'&portal=1&Mission=#Position.Mission#&ID1=' + postno + '&Caller=Listing','mydialog');	
 		}
 
@@ -564,6 +564,7 @@ password="#SESSION.dbpw#">
 	   </cfif>		
 	   </td>
 	   
+	   	   
 	   <cfquery name="LaterPosition" 
 	     datasource="AppsEmployee" 
 	     username="#SESSION.login#" 
@@ -575,81 +576,13 @@ password="#SESSION.dbpw#">
 			 AND    DateEffective  > '#DateFormat(Position.DateExpiration,client.dateSQL)#'
 		</cfquery>	
 	   
-	    <cfif LaterPosition.recordcount eq "0">
-	   
-		   <td class="labelmedium2 fixlength" style="background-color:f1f1f1;width:170px;font-size:18px;padding-left:4px;padding-right:4px" align="center">
-		   
-		        <!--- likely we need to tune this a bit to capture 0 percent and 
-				 multiple assignments --->
-				 
-				 <cfquery name="Post" 
-			     datasource="AppsEmployee" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
-					 SELECT *
-					 FROM   PersonAssignment
-					 WHERE  PositionNo      = '#URL.ID2#'
-					 AND    AssignmentStatus IN ('0','1')
-					 AND    AssignmentType   = 'Actual'					 
-					 AND    Incumbency       = 100
-					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
-					 and    DateExpiration >= CAST(GETDATE() AS Date)				
-					 AND    DateEffective  < '#DateFormat(Position.DateExpiration,client.dateSQL)#'
-				</cfquery>	
-				
-				
-				<cfquery name="PostStatus" 
-			     datasource="AppsEmployee" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
-					 SELECT *
-					 FROM   PersonAssignment
-					 WHERE  PositionNo      = '#URL.ID2#'
-					 AND    AssignmentStatus IN ('0','1')
-					 AND    AssignmentType   = 'Actual'
-					 AND    AssignmentClass  = 'Regular'
-					 AND    Incumbency       = 100
-					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
-					 and    DateExpiration >= CAST(GETDATE() AS Date)				
-					 AND    DateEffective  < '#DateFormat(Position.DateExpiration,client.dateSQL)#'
-				</cfquery>	
-				 
-				 <cfquery name="PostLien" 
-			     datasource="AppsEmployee" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
-					 SELECT *
-					 FROM   PersonAssignment
-					 WHERE  PositionNo      = '#URL.ID2#'
-					 AND    AssignmentStatus IN ('0','1')
-					 AND    AssignmentType = 'Actual'
-					 AND    Incumbency = 0
-					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
-					 and    DateExpiration >= CAST(GETDATE()-60 AS Date)		<!--- 60 days threshold --->		
-					 AND    DateEffective  < '#DateFormat(Position.DateExpiration,client.dateSQL)#'
-				</cfquery>	
-		   
-						
-				<cfif Post.recordcount eq "0">				
-					<font color="FF0000"><cf_tl id="Vacant"></font>					
-				<cfelseif PostStatus.recordcount gte "1" and PostHolder.recordcount eq "0">				
-					<cf_tl id="Encumbered by holder">					
-				<cfelse>				
-					<font color="gray"><cf_tl id="Encumbered"></font>						
-				</cfif>  
-				 
-		   </td>
-		   
-		   <td style="width:15px"></td>
-	   
-	   </cfif>
-	   
+	    
+	   	   
 	   </tr>
 	   </table>		
 	   </td>
 	</tr>
 		
-	
 	
 	<cfif url.action neq "view">
 	
@@ -1818,6 +1751,7 @@ password="#SESSION.dbpw#">
 		<cf_tl id="Post functional classification">:
 		</td>
         <td style="padding-left:10px">
+		
 		   <cfinclude template="PositionEditGroup.cfm">
 		</td>
 	</TR>
@@ -1825,12 +1759,91 @@ password="#SESSION.dbpw#">
 	<cfif AccessPosition eq "EDIT" OR AccessPosition eq "ALL" OR URL.Action eq "Loan" OR AccessStaffing eq "EDIT" or AccessStaffing eq "ALL">	
 		   
 	    <TR class="labelmedium2">
-	    <TD style="background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="Vacancy class">:<font color="FF0000">*</font> </TD>
-	    <TD style="padding-left:10px">
+		
+		<TD style="background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px">
+		
+		<table style="height:100%">
+		<tr class="labelmedium2" style="height:30px">
+				
+			<cfif LaterPosition.recordcount eq "0">
+		   
+			   <td class="fixlength" style="border-right:1px;background-color:ffffaf;padding-left;6px;padding-right:4px" align="center">
+			   
+			        <!--- likely we need to tune this a bit to capture 0 percent and 
+					 multiple assignments --->
+					 
+					 <cfquery name="Post" 
+				     datasource="AppsEmployee" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">
+						 SELECT *
+						 FROM   PersonAssignment
+						 WHERE  PositionNo      = '#URL.ID2#'
+						 AND    AssignmentStatus IN ('0','1')
+						 AND    AssignmentType   = 'Actual'					 
+						 AND    Incumbency       = 100
+						 AND    DateEffective  <= CAST(GETDATE() AS Date) 
+						 and    DateExpiration >= CAST(GETDATE() AS Date)				
+						 AND    DateEffective  < '#DateFormat(Position.DateExpiration,client.dateSQL)#'
+					</cfquery>	
+					
+					
+					<cfquery name="PostStatus" 
+				     datasource="AppsEmployee" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">
+						 SELECT *
+						 FROM   PersonAssignment
+						 WHERE  PositionNo      = '#URL.ID2#'
+						 AND    AssignmentStatus IN ('0','1')
+						 AND    AssignmentType   = 'Actual'
+						 AND    AssignmentClass  = 'Regular'
+						 AND    Incumbency       = 100
+						 AND    DateEffective  <= CAST(GETDATE() AS Date) 
+						 and    DateExpiration >= CAST(GETDATE() AS Date)				
+						 AND    DateEffective  < '#DateFormat(Position.DateExpiration,client.dateSQL)#'
+					</cfquery>	
+					 
+					 <cfquery name="PostLien" 
+				     datasource="AppsEmployee" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">
+						 SELECT *
+						 FROM   PersonAssignment
+						 WHERE  PositionNo      = '#URL.ID2#'
+						 AND    AssignmentStatus IN ('0','1')
+						 AND    AssignmentType = 'Actual'
+						 AND    Incumbency = 0
+						 AND    DateEffective  <= CAST(GETDATE() AS Date) 
+						 and    DateExpiration >= CAST(GETDATE()-60 AS Date)		<!--- 60 days threshold --->		
+						 AND    DateEffective  < '#DateFormat(Position.DateExpiration,client.dateSQL)#'
+					</cfquery>	
+			   
+							
+					<cfif Post.recordcount eq "0">				
+						<font color="FF0000"><cf_tl id="Vacant"></font>					
+					<cfelseif PostStatus.recordcount gte "1" and PostLien.recordcount eq "0">				
+						<cf_tl id="Encumbered by holder">					
+					<cfelse>				
+						<font color="gray"><cf_tl id="Encumbered"></font>						
+					</cfif>  
+					 
+			   </td>
+			   		   	   
+	  	    </cfif>
+			
+		    <td style="padding-left:6px"><cf_tl id="Vacancy class">:<font color="FF0000">*</font> </TD>
+			
+		</tr>
+		</table>
+		</td>
+		
+		<TD style="padding-left:10px">
 		
 		     <table><tr class="labelmedium2"><td>
 		
-		  	<select name="vacancyActionClass" size="1" class="regularxxl">
+		  	<select name="vacancyActionClass" size="1" class="regularxxl" 
+			onchange="_cf_loadingtexthtml='';ptoken.navigate('getRecruitment.cfm?class='+this.value+'&id2=#url.id2#','recruitment')">
 			   
 				<cfoutput query="VacancyClass">
 				<option value="#Code#" <cfif Code eq Position.VacancyActionClass> selected </cfif>>
@@ -1841,8 +1854,8 @@ password="#SESSION.dbpw#">
 			
 			</td>
 			
-			<td style="padding-left:5px" id="recruitment">		
-			     <cfset add = "1">	
+			<td style="padding-left:5px" id="recruitment">
+			    <cfset url.class = 	Position.VacancyActionClass>			    
 			     <cfinclude template="getRecruitment.cfm">			
 			</td>
 			

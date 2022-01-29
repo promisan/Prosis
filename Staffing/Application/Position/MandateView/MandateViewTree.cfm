@@ -409,8 +409,10 @@ password="#SESSION.dbpw#">
 				</td></tr> 		
 			
 			</cfif>
-						
+			
+			<!---			
 			<tr class="line"><td style="color:8365AB;font-size:16px;height:32;" ><cf_tl id="Views and Quick listings"></td></tr>				
+			--->
 						
 						
 			<tr><td colspan="2" align="center" style="padding-top:4px">

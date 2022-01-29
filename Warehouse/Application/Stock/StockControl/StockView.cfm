@@ -108,7 +108,7 @@
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>
 
 <cf_layout attributeCollection="#attrib#" script="No">
-
+	
 	<cfif url.scope neq "portal">
 	
 		<cf_layoutArea size="50" position="header" name="theHeader">	
@@ -139,7 +139,7 @@
 		
 					
 	</cf_layoutarea>			
-		
+			
 </cf_layout>
 
 <cfparam name="client.stmenu" default="">	

@@ -188,9 +188,9 @@
 						  
 						  <cfif (workdate.actionstatus eq "0" OR workdate.recordCount eq 0) and url.mode eq "View" and url.edit eq "1">
 					  					  
-							  <td align="right" class="labelmedium2" style="padding-left:4px;padding-right:4px;font-size:17px">
+							  <td align="right" class="labelmedium2 fixlength" style="padding-left:4px;padding-right:4px;font-size:17px">
 							  <a href="javascript:entryhour('#url.id#',document.getElementById('datefield').value,document.getElementById('monthfield').value,document.getElementById('yearfield').value,'')">
-							  <cf_tl id="Record additional slots"></a>
+							  <cf_tl id="Record slots"></a>
 							  </td>
 						  
 						  </cfif>
@@ -206,7 +206,7 @@
 						  <cfif assign.recordcount eq "0">		  
 				    
 							  <td>|</td>
-							  <td align="right" class="labelmedium" style="font-size:15px">
+							  <td align="right" class="labelmedium2 fixlength" style="font-size:15px">
 								  <cf_space spaces="30">
 							      <img src="#Client.VirtualDir#/Images/Alert-Red.png" height="24" width="24" border="0" style="position:relative;top:2px;left:4px">
 							      <span style="color:red;position:relative;top:-4px;"><cf_tl id="Assignment"></span>
@@ -219,12 +219,10 @@
 						      <cfif (workdate.actionstatus eq "0" OR workdate.recordCount eq 0) and url.mode eq "View" and url.edit eq "1">
 							  
 								  <td style="padding-left:4px;padding-right:4px">|</td>
-								  <td align="right" class="labelmedium" style="padding-left:4px;padding-right:4px;font-size:17px">
-								  <cf_UITooltip tooltip="Removes all recorded time for this date">
+								  <td align="right" class="labelmedium2 fixlength" title="Removes all recorded time for this date" style="padding-left:4px;padding-right:4px;font-size:17px">								 
 								  	<a href="javascript:hourdel('#URL.ID#','#url.date#','','','day')">
 								  	<font color="red"><cf_tl id="Undo scheduling"></font>
-								  	</a>
-								  </cf_UITooltip>
+								  	</a>								  
 								  </td>
 							  
 							  </cfif>	

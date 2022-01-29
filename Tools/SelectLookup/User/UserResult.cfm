@@ -252,7 +252,7 @@ password="#SESSION.dbpw#">
 				   				
 					   <TR class="navigation_row labelmedium line fixlengthlist" style="height:20px">
 					  
-						   <td  height="18" width="30" align="center" style="padding-top:4px;padding-right:7px"
+						   <td  height="18" align="center" style="padding-top:1px;padding-right:7px"
 								class="navigation_action"  
 						   	    onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#account#','#url.box#','','','POST','#url.form#');<cfif url.close eq 'Yes'>ProsisUI.closeWindow('dialog#url.box#')</cfif>">
 						        <cf_img icon="select">					   
@@ -268,7 +268,7 @@ password="#SESSION.dbpw#">
 						   <td colspan="3"><font color="FF0080">ug:&nbsp;</font>#LastName#</td>		
 						   </cfif>
 						  					   
-						    <td style="padding-top:3px">
+						    <td style="padding-top:2px">
 							   <cfif Access eq "EDIT" or Access eq "ALL">
 							   <cf_img icon="open" onclick="javascript:ShowUser('#URLEncodedFormat(Account)#')">
 							   </cfif>

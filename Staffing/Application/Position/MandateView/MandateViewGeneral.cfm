@@ -57,6 +57,8 @@
 	<cf_calendarscript>
 			
 	<cfinclude template="MandateViewGeneralScript.cfm">
+	
+	<!--- disabled, not clear how it is still used
 		
 	<cfif CGI.HTTPS eq "off">
 		<cfset tpe = "http">
@@ -65,6 +67,8 @@
 	</cfif>
 	
 	<cfset client.link = "#tpe#://" & CGI.HTTP_HOST & CGI.SCRIPT_NAME & "?" & CGI.QUERY_STRING>
+	
+	--->
 		
 	<cf_customLink
 		FunctionClass = "Staffing"
@@ -77,7 +81,10 @@
 		<tr><td align"center" id="list" style="height:99%;padding-left:5px">	
 				
 		    <cf_divscroll>
-					
+			<script>
+			Prosis.busy('yes')
+			_cf_loadingtexthtml='';		
+			</script>								
 		    <cf_securediv style="height:98.5%" bind="url:MandateViewList.cfm?#cgi.query_string#&lay=listing">	
 			
 			</cf_divscroll>			

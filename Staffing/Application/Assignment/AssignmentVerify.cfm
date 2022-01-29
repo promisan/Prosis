@@ -74,6 +74,21 @@ password="#SESSION.dbpw#">
 								        Remarks       = 'Effective date correction by system check'
 								WHERE   AssignmentNo  = '#AssignmentNo#'
 							</cfquery>
+							
+							<!--- record the action --->
+							
+							<cfset action = "Effective #dateformat(Effective,client.dateformatshow)# to #dateformat(def,client.dateformatshow)#">
+					
+							<cfquery name="set" 
+							   datasource="AppsEmployee">
+							   INSERT INTO PersonAssignmentAction	
+							   (PersonNo, PositionNo, AssignmentNo, ActionCode, ActionMemo, OfficerUserId, OfficerLastName, OfficerFirstName)
+							   VALUES
+							   ('#PersonNo#','#PositionNo#','#AssignmentNo#',
+							   'Verify',
+							   '#action#',
+							   '#session.acc#','#session.last#','#session.first#')	       
+							</cfquery> 	
 						
 						<cfelse>
 						
@@ -86,6 +101,21 @@ password="#SESSION.dbpw#">
         								Remarks       = 'Assignment deactivate by system check'
 								WHERE   AssignmentNo = '#AssignmentNo#'
 							</cfquery>
+							
+							<cfset action = "Overlap oversed disabled record">
+					
+							<cfquery name="set" 
+							   datasource="AppsEmployee">
+							   INSERT INTO PersonAssignmentAction	
+							   (PersonNo, PositionNo, AssignmentNo, ActionCode, ActionMemo, OfficerUserId, OfficerLastName, OfficerFirstName)
+							   VALUES
+							   ('#PersonNo#','#PositionNo#','#AssignmentNo#',
+							   'Verify',
+							   '#action#',
+							   '#session.acc#','#session.last#','#session.first#')	       
+							</cfquery> 	
+							
+							<!--- record the action --->
 								
 						</cfif>
 						

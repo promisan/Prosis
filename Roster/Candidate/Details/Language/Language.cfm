@@ -296,6 +296,9 @@ password="#SESSION.dbpw#">
 								WHERE  LanguageId NOT IN (SELECT L.LanguageId
 										                  FROM   ApplicantSubmission S INNER JOIN ApplicantLanguage L ON S.ApplicantNo = L.ApplicantNo
 											              WHERE  S.PersonNo  = '#URL.ID#'
+														  <cfif url.applicantno neq "0">
+														  AND    S.ApplicantNo     = '#url.applicantno#'
+														  </cfif>
 											              AND    S.Source 	  = '#url.source#')
 								ORDER BY ListingOrder, LanguageName			
 							</cfquery>

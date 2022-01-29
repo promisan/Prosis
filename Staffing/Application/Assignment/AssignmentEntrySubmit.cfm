@@ -102,7 +102,6 @@ password="#SESSION.dbpw#">
 
 </cfoutput>
 
-
 <CF_DateConvert Value="#Form.DateEffective#">
 <cfset STR = dateValue>
 <cfif STR lt Check.DateEffective>
@@ -203,7 +202,7 @@ password="#SESSION.dbpw#">
 		<cfcatch>
 		
 		    <cfoutput>
-				<cf_message message="Assignment action could not be completed. Please try again later.<br>#CFCatch.Message# - #CFCATCH.Detail#" return="back">
+				<cf_message message="Assignment action could not be completed. Please try again later.<br>#CFCatch.Message# - #CFCATCH.Detail#">
 			</cfoutput>
 			<cfabort>
 			
@@ -246,8 +245,7 @@ password="#SESSION.dbpw#">
 						 DateDeparture,
 						 OfficerUserId,
 						 OfficerLastName,
-						 OfficerFirstName,	
-						 Created)
+						 OfficerFirstName)
 		      VALUES ('#Form.PersonNo#',
 			     	  '#Form.PositionNo#',
 					  #STR#,
@@ -273,8 +271,7 @@ password="#SESSION.dbpw#">
 					  #DEP#,
 					  '#SESSION.acc#',
 			    	  '#SESSION.last#',		  
-				  	  '#SESSION.first#',
-					  getDate())
+				  	  '#SESSION.first#')
 				</cfquery>
 				
 				<cfquery name="getRecord" 
@@ -371,8 +368,7 @@ password="#SESSION.dbpw#">
 						 DateDeparture,
 						 OfficerUserId,
 						 OfficerLastName,
-						 OfficerFirstName,	
-						 Created)
+						 OfficerFirstName)
 			      VALUES ('#Form.PersonNo#',
 				     	  '#Form.PositionNo#',
 					      #STR#,
@@ -392,8 +388,7 @@ password="#SESSION.dbpw#">
 						  #DEP#,
 						  '#SESSION.acc#',
 				    	  '#SESSION.last#',		  
-					  	  '#SESSION.first#',
-						  getDate())
+					  	  '#SESSION.first#')
 			  </cfquery>
 			
 		</cfif>	 
@@ -494,12 +489,12 @@ password="#SESSION.dbpw#">
 	     datasource="AppsOrganization" 
 	     username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">
-			  SELECT   * 
-			  FROM     OrganizationObject
-	          WHERE    ObjectKeyValue1 = '#URL.RecordId#'
-				 AND   ObjectKeyValue2 = '#URL.ApplicantNo#'
-				 AND   EntityCode = 'VacCandidate'
-				 AND   Operational  = 1			
+			  SELECT  * 
+			  FROM    OrganizationObject
+	          WHERE   ObjectKeyValue1 = '#URL.RecordId#'
+			  AND     ObjectKeyValue2 = '#URL.ApplicantNo#'
+			  AND     EntityCode = 'VacCandidate'
+			  AND     Operational  = 1			
 		 </cfquery> 
 		 
 		 <!--- check for step method and perform method ---> 
@@ -543,9 +538,7 @@ password="#SESSION.dbpw#">
 			
 			<cfif GetScript.recordcount eq "1">
 			
-				<!--- this script will usually perform a closing of the steps, candidate doc and 
-				document --->
-			
+				<!--- this script will usually perform a closing of the steps, candidate doc and document --->			
 				<cfinclude template="../../../#GetScript.DocumentTemplate#">
 				
 			</cfif>
@@ -559,12 +552,12 @@ password="#SESSION.dbpw#">
 			     username="#SESSION.login#" 
 			     password="#SESSION.dbpw#">
 					 UPDATE OrganizationObjectAction
-					  SET ActionStatus      = '2',
-					      OfficerUserId     = '#SESSION.acc#',
-						  OfficerLastName   = '#SESSION.last#',
-						  OfficerFirstName  = '#SESSION.first#',
-						  OfficerDate       = getDate(),
-						  TriggerActionType = 'Arrival'	 
+					  SET   ActionStatus      = '2',
+					        OfficerUserId     = '#SESSION.acc#',
+						    OfficerLastName   = '#SESSION.last#',
+						    OfficerFirstName  = '#SESSION.first#',
+						    OfficerDate       = getDate(),
+						    TriggerActionType = 'Arrival'	 
 					  WHERE ObjectId IN (SELECT ObjectId 
 					                     FROM   OrganizationObject
 			                      		 WHERE  ObjectKeyValue1 = '#Object.ObjectKeyValue1#'

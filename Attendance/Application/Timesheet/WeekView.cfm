@@ -106,13 +106,13 @@
 <cfoutput>
 
 
-<table width="100%" cellspacing="0" cellpadding="0" align="center">
+<table width="100%" align="center">
 
 <tr><td height="15"></td></tr>
 
 <tr><td>
 
-	<table width="95%" cellspacing="0" cellpadding="0" align="center" style="border:0px solid silver">
+	<table width="95%" align="center" style="border:0px solid silver">
 		
 	<tr class="line">
 		
@@ -125,7 +125,7 @@
 				  <img src="#Client.VirtualDir#/Images/Back.png" height="32" width="32" style="cursor:pointer" alt="" border="0" onclick="gotoweek('#URL.ID#','#day(dd)#','#Month(dd)#','#Year(dd)#','1')">	
 					  
 			</td>
-			<td class="labelmedium" style="padding-left:8px;padding-right:8px;width:90%" align="center">		  
+			<td class="labelmedium fixlength" style="padding-left:8px;padding-right:8px;width:90%" align="center">		  
 				 <font color="6688aa"><b>Week <font size="6">#Week(st)#</font></b> &nbsp; #DateFormat(st,client.dateformatshow)# - #DateFormat(ed,client.dateformatshow)#
 			</td>
 			<td align="right" style="padding-right:10px;">
@@ -262,7 +262,7 @@
 	
 	<cfoutput query="getList">
 	
-	<tr class="labelmedium">
+	<tr class="labelmedium fixlengthlist">
 		<td style="padding-left:20px;border-right:1px dotted gray;background-color:###viewColor#4D;padding:4px">#ActionDescription#</b></td>
 			
 			<cfloop index="wk" from="1" to="7">

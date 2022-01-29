@@ -275,7 +275,7 @@
 				
 				<td colspan="15">
 				    <table cellspacing="0" cellpadding="0">
-					<tr class="labelmedium" style="height:22px">
+					<tr class="labelmedium2" style="height:22px">
 					
 						<td height="16">
 						<cfif URL.PDF eq 0><a href="javascript:showdocument('#DocumentNo#')"></cfif>

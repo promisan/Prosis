@@ -61,7 +61,7 @@
 					</cfif>									
 					<tr class="labelmedium2">					
 						<td width="150"><cf_tl id="Job Title">:</td>
-						<td>
+						<td style="padding-right:4px">
 						
 							#Function.GradeDeployment# 
 							<cfif Function.AnnouncementTitle neq "">#Function.AnnouncementTitle#<cfelse>#Function.FunctionDescription#</cfif> 
@@ -82,7 +82,7 @@
 						
 						</td>			
 						<td width="10%"><cf_tl id="Owner">:</td>
-					    <td>#Function.Owner#</td>						
+					    <td>#Function.OwnerDescription#</td>						
 					   
 					</tr>		
 					  

@@ -24,7 +24,8 @@ password="#SESSION.dbpw#">
 	
 	<cf_UItreeitem value="Root"
 	        display="<span style='font-size:15px;padding-top:1px;;padding-bottom:1px;font-weight:500' class='labelit'>#lt_text#</span>"
-			parent="base"							
+			parent="base" target="right"		
+			href="MandateViewOpen.cfm?ID=&ID1=&ID2=#Attributes.Mission#&ID3=#MandateDefault#"					
 	        expand="No">	
 	
   <cfquery name="Level01" 
@@ -44,7 +45,8 @@ password="#SESSION.dbpw#">
 	
 	 <cf_UItreeitem value="location"
 	        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
-			parent="Root"							
+			href="MandateViewOpen.cfm?ID=Loc&ID1=&ID2=#Attributes.Mission#&ID3=#MandateDefault#"
+			parent="Root" target="right"							
 	        expand="No">	
 				
 	  <cfloop query="level01">
@@ -63,7 +65,8 @@ password="#SESSION.dbpw#">
 	
   <cf_UItreeitem value="function"
 	        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
-			parent="Root"							
+			parent="Root" target="right"		
+			href="MandateViewOpen.cfm?ID=OCG&ID1=&ID2=#Attributes.Mission#&ID3=#MandateDefault#"					
 	        expand="No">	
     
   <cfquery name="Level01" 
@@ -89,7 +92,8 @@ password="#SESSION.dbpw#">
 	
   <cf_UItreeitem value="grade"
         display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
-		parent="Root"							
+		parent="Root"		
+		href="MandateViewOpen.cfm?ID=GRP&ID1=&ID2=#Attributes.Mission#&ID3=#MandateDefault#"					
         expand="No">	  
  
   <cfquery name="Level01" 
@@ -150,7 +154,8 @@ password="#SESSION.dbpw#">
 	
 	  <cf_UItreeitem value="vacclass"
         display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
-		parent="Root"							
+		parent="Root" target="right"		
+		href="MandateViewOpen.cfm?ID=vcl&ID1=&ID2=#Attributes.Mission#&ID3=#MandateDefault#"					
         expand="No">	
 	
 	  <cfloop query="level01">
@@ -169,7 +174,8 @@ password="#SESSION.dbpw#">
 	
  <cf_UItreeitem value="posttype"
         display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
-		parent="Root"							
+		parent="Root" target="right"		
+		href="MandateViewOpen.cfm?ID=ptp&ID1=&ID2=#Attributes.Mission#&ID3=#MandateDefault#"					
         expand="No">	
      
   <cfquery name="Level01" 
@@ -198,9 +204,7 @@ password="#SESSION.dbpw#">
 			  href="MandateViewOpen.cfm?ID=PTP&ID1=#Posttype#&ID2=#Attributes.Mission#&ID3=#MandateDefault#">	  
 	     
   </cfloop>
-  
-    
-			
+  		
   <cfquery name="Level01" 
   datasource="AppsEmployee" 
   username="#SESSION.login#" 
@@ -232,7 +236,8 @@ password="#SESSION.dbpw#">
 	
 	  <cf_UItreeitem value="group"
         display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
-		parent="Root"							
+		parent="Root" target="right"	
+		href="MandateViewOpen.cfm?ID=PGP&ID1=&ID2=#Attributes.Mission#&ID3=#MandateDefault#"						
         expand="No">	
 
 	  <cfloop query="level01">
@@ -267,7 +272,8 @@ password="#SESSION.dbpw#">
 	
 	  <cf_UItreeitem value="group"
         display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
-		parent="Root"							
+		parent="Root" target="right"	
+		href="MandateViewOpen.cfm?ID=GRD&ID1=&ID2=#Attributes.Mission#&ID3=#MandateDefault#"						
         expand="No">	   
    
 	   <cfloop query="loan">
@@ -335,7 +341,8 @@ password="#SESSION.dbpw#">
    
       <cf_UItreeitem value="bo#PostGrade#"
 		        display="<span style='font-size:13px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#PostGrade#</span>"
-				parent="borrow"							
+				parent="borrow"		
+				href="MandateViewOpen.cfm?ID=BOR&ID1=&ID4=#Attributes.Mission#&ID2=#Mission.Mission#&ID3=#BorrowDefault.MandateNo#"					
 	 	        expand="No">	   
     
 	      <cfquery name="Mission" 
@@ -552,14 +559,16 @@ password="#SESSION.dbpw#">
   
     <cf_UItreeitem value="contract"
         display="<span style='font-size:15px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
-		parent="view"							
+		parent="view"	
+		href="../../Contract/ContractListing.cfm?header=1&ID=PAR&ID1=&Mission=#Attributes.Mission#&MandateNo=#MandateDefault#"						
         expand="No">	
 		
 	<cf_tl id="Category" var="1">	   
 		
 	 <cf_UItreeitem value="appcat"
         display="<span style='font-size:13px;padding-top:1px;;padding-bottom:1px;' class='labelit'>#lt_text#</span>"
-		parent="contract"							
+		parent="contract"	
+		href="../../Contract/ContractListing.cfm?header=1&ID=PAR&ID1=&Mission=#Attributes.Mission#&MandateNo=#MandateDefault#"						
         expand="No">		   
 			
 	   <cfquery name="Parent" 
@@ -598,7 +607,8 @@ password="#SESSION.dbpw#">
 		
 	 <cf_UItreeitem value="appspec"
         display="<span style='font-size:13px;padding-top:1px;;padding-bottom:1px;' class='labelit'>#lt_text#</span>"
-		parent="contract"							
+		parent="contract"	
+		href="../../Contract/ContractExpiration.cfm?ID=&ID2=#Attributes.Mission#&ID3=#MandateDefault#"						
         expand="No">	
 		
 		  <cf_UItreeitem value="appexp1"

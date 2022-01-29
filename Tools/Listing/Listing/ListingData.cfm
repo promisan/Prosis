@@ -510,21 +510,21 @@
 		
 	<cfif attributes.refresh eq "0" 
 	      and url.ajaxid eq "content" 
-		  and conditioncheck eq session.listingdata[attributes.box]['sqlcondition']>	
+		  and conditioncheck eq session.listingdata[box]['sqlcondition']>	
 		 		 				
-		<!-- obtain the cache --->
+		<!--- obtain the cache --->
 		
-		<cflock timeout="20" throwontimeout="No" name="mysession" type="EXCLUSIVE">
+		<cflock timeout="1" throwontimeout="No" name="mysession" type="EXCLUSIVE">
 		    <cfset session.listingdata[box]['pagecnt']  = attributes.show>	         <!--- page count 1 of 20 from 300 1: --->
 			<cfset session.listingdata[box]['recshow']  = attributes.show>	         <!--- page count 1 of 20 from 300 2: --->
-			<cfset searchresult = session.listingdata[attributes.box]['dataset']>	
+			<cfset searchresult = session.listingdata[box]['dataset']>	
 			<cfset session.listingdata[box]['dataprep']  = "-1">  <!--- cached --->
 		</cflock>
 		<cfset applycache = "1">	
 																	
 		<!--- only to apply if indeed the sorting had changed this will gain a bit --->
-										
-		<cfif not findNoCase("#listsorting#",session.listingdata[attributes.box]['sqlsorting'])>
+												
+		<cfif not findNoCase("#listsorting#",session.listingdata[box]['sqlsorting'])>
 								
 		    <cfoutput>
 			
@@ -535,28 +535,32 @@
 					ORDER BY					
 					<!--- grouping --->				
 					<cfif url.listgroup neq "">											
-						#url.listgroupsort# #url.listgroupdir# 		
+						#url.listgroupsort# #url.listgroupdir#		
 						<cfif url.listorder neq "" and url.listorder neq url.listgroup>,</cfif>	
 					</cfif>		    					
 					<!--- sorting --->							
 					<cfif url.listorder neq "" and url.listorder neq url.listgroup>																
-						#url.listorder# #url.listorderdir# 			
+						#url.listorder# #url.listorderdir#		
 					</cfif>							
 				
 				</cfif>
 			
 			    </cfsavecontent>			
-			
+													
 			<cfquery name="searchResult" dbtype="query">
-					SELECT * FROM Searchresult #listsortingcache#								
-			</cfquery>	
+				SELECT * FROM Searchresult WHERE 1=1 #listsortingcache# 					
+			</cfquery>						
 			
 			</cfoutput> 		
 			
-			<cflock timeout="20" throwontimeout="No" name="mysession" type="EXCLUSIVE">					
-				<cfset session.listingdata[box]['sqlsorting']   = listsorting>		
+			<cflock timeout="1" throwontimeout="No" name="mysession" type="EXCLUSIVE">						    	
+						
 				<cfset session.listingdata[box]['dataprepsort'] = "#cfquery.executiontime#">	
-				<cfset session.listingdata[box]['dataset']      = searchresult>			
+				<!--- Hanno 20/1/2022 the below was giving an error in NY, I disabled it, effectively this did not mean that
+				sorting would not work 
+				<cfset session.listingdata[box]['sqlsorting']   = listsorting>			
+				<cfset session.listingdata[box]['dataset']      = searchresult> 	
+				--->		
 			</cflock>
 					
 		</cfif>
@@ -613,9 +617,7 @@
 				
 				</cfcatch>
 			</cftry>	
-			
-			
-														
+																
 		<cfelse>			   
 		
 			<cftry>					
@@ -756,8 +758,6 @@
 					</cfquery>		
 				
 				</cfif>
-							
-			
 			
 				<cfoutput>		
 				<table width="80%" align="center" class="formpadding">
@@ -838,12 +838,9 @@
 	<!--- to help clearing cache during development 
 	<cfset applycache = "0">
 	--->
-	
-	
-						
-	<cfif applycache eq "0" or (session.listingdata[box]['sqlsorting'] neq listsorting and sc neq "")>			
-	
 								
+	<cfif applycache eq "0" or (session.listingdata[box]['sqlsorting'] neq listsorting and sc neq "")>			
+									
 		<cfparam name="session.listingdata['#box#']['recordsinit']" default="-1">  	
 						
 		<!--- ---------------------------------------------------------------------- --->

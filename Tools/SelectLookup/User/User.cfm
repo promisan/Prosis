@@ -119,7 +119,7 @@
 						   value="<cfoutput>#lt_text#</cfoutput>" 
 						   onclick="ptoken.navigate('#SESSION.root#/tools/selectlookup/User/UserResult.cfm?form=#url.form#&height='+document.body.clientHeight+'&close=#url.close#&box=#box#&link=#link#&des1=#des1#&filter1=#filter1#&filter1value=#filter1value#&filter2=#filter2#&filter2value=#filter2value#&filter3=#filter3#&filter3value=#filter3value#','resultuser#box#','','','POST','selectuser#box#')"
 						   class="button10g"
-						   style="height:24px;width:160px">
+						   style="border:1px solid silver;height:24px;width:160px">
 						   
 					   </td>
 						   
@@ -149,7 +149,7 @@
 			</tr>		
 			
 			<tr>
-				<td colspan="2" align="center" style="height:100%;min-height:200px;" id="resultuser#box#"></td>
+				<td colspan="2" valign="top" align="center" style="height:100%;min-height:200px;" id="resultuser#box#"></td>
 			</tr>
 			
 			</table>

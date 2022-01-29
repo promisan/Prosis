@@ -52,10 +52,11 @@ password="#SESSION.dbpw#">
 datasource="AppsEmployee" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
-    SELECT   O.OrgUnitCode, OrgUnitName, A.*, P.*
+    SELECT   O.OrgUnitCode, OrgUnitName, A.*, P.*, R.Description
     FROM     PersonAssignment A INNER JOIN
 	         Person P ON A.PersonNo = P.PersonNo INNER JOIN
-			 Organization.dbo.Organization O ON O.OrgUnit = A.OrgUnit
+			 Organization.dbo.Organization O ON O.OrgUnit = A.OrgUnit INNER JOIN
+			 Ref_AssignmentClass R ON A.AssignmentClass = R.AssignmentClass
     WHERE    PositionNo = '#PositionChild.PositionNo#' 	
 	AND      A.AssignmentStatus IN ('0','1') 	
 	ORDER BY DateExpiration DESC, DateEffective DESC

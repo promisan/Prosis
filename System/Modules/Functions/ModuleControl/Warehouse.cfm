@@ -92,53 +92,66 @@
 <!--- internal supply request --->	     
 	 	    
 <cf_ModuleInsertSubmit
-	   SystemModule="Warehouse" 
-	   FunctionClass = "Application"
-	   FunctionName = "Requisition Clearance" 
-	   MenuClass = "Mission"
-	   MenuOrder = "4"
-	   MainMenuItem = "1"   
-	   FunctionMemo = "Batch Clearance Warehouse Requisitions"
+	   SystemModule      = "Warehouse" 
+	   FunctionClass     = "Application"
+	   FunctionName      = "Requisition Clearance" 
+	   MenuClass         = "Mission"
+	   MenuOrder         = "4"
+	   MainMenuItem      = "1"   
+	   FunctionMemo      = "Batch Clearance Warehouse Requisitions"
 	   FunctionDirectory = "Warehouse/Application"
-	   FunctionPath = "Process/Clearance/Listing.cfm"
-	   AccessUserGroup = "0">
+	   FunctionPath      = "Process/Clearance/Listing.cfm"
+	   AccessUserGroup   = "0">
 	   
 <!--- main workhorse --->	   
     
 <cf_ModuleInsertSubmit
-	   SystemModule="Warehouse" 
-	   FunctionClass = "Application"
-	   FunctionName = "Stock Control" 
-	   MenuClass = "Mission"
-	   MenuOrder = "5"
-	   MainMenuItem = "1"
-	   FunctionMemo = "Warehouse Stock Processing and Management"
-	   ScriptName = "stock"
-	   AccessUserGroup = "0">      
+	   SystemModule      = "Warehouse" 
+	   FunctionClass     = "Application"
+	   FunctionName      = "Stock Control" 
+	   MenuClass         = "Mission"
+	   MenuOrder         = "5"
+	   MainMenuItem      = "1"
+	   FunctionMemo      = "Warehouse Stock Processing and Management"
+	   ScriptName        = "stock"
+	   AccessUserGroup   = "0">      
 
 <cf_ModuleInsertSubmit
-	   SystemModule="Warehouse" 
-	   FunctionClass = "Application"
-	   FunctionName = "Maintain Physical Locations" 
-	   MenuClass = "Mission"
-	   MenuOrder = "6"
-	   MainMenuItem = "1"
-	   FunctionMemo = "Maintain asset locations"
-	   ScriptName = "assetlocation"
-	   AccessUserGroup = "0">  
+	   SystemModule      = "Warehouse" 
+	   FunctionClass     = "Application"
+	   FunctionName      = "Maintain Physical Locations" 
+	   MenuClass         = "Mission"
+	   MenuOrder         = "6"
+	   MainMenuItem      = "1"
+	   FunctionMemo      = "Maintain asset locations"
+	   ScriptName        = "assetlocation"
+	   AccessUserGroup   = "0">  
    
 <cf_ModuleInsertSubmit
-	   SystemModule="Warehouse" 
-	   FunctionClass = "Application"
-	   FunctionName = "Customer" 
-	   MenuClass = "Mission"
-	   MenuOrder = "7"
-	   MainMenuItem = "1"
-	   FunctionMemo = "Maintain Customer Profile"
+	   SystemModule      = "Warehouse" 
+	   FunctionClass     = "Application"
+	   FunctionName      = "Customer" 
+	   MenuClass         = "Mission"
+	   MenuOrder         = "7"
+	   MainMenuItem      = "1"
+	   FunctionMemo      = "Maintain Customer Profile"
 	   FunctionDirectory = "Warehouse/Application"
-	   FunctionPath = "Customer/View/CustomerView.cfm"   	   
-	   AccessUserGroup = "0"
-	   Operational="0">   	   
+	   FunctionPath      = "Customer/View/CustomerView.cfm"   	   
+	   AccessUserGroup   = "0"
+	   Operational       = "0">   	
+	   
+<cf_ModuleInsertSubmit
+	   SystemModule      = "Warehouse" 
+	   FunctionClass     = "Application"
+	   FunctionName      = "Stock On Hand" 
+	   MenuClass         = "Mission"
+	   MenuOrder         = "1"
+	   MainMenuItem      = "1"
+	   FunctionMemo      = "Inquiry item and stock on hand"
+	   FunctionDirectory = "Warehouse/Application"
+	   FunctionPath      = "Stock/Inquiry/OnHandMission/ListingData.cfm"   	  
+	   AccessUserGroup   = "1"
+	   Operational       = "1"> 		      
 	   
 	   <!--- FunctionCondition="dsn=AppsMaterials" --->
 

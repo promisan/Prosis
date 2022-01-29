@@ -73,7 +73,7 @@
 	</cfif>
 
 	<TR  class="labelmedium2" style="height:27px">
-		<td width="130">Module:</td>
+		<td width="130"><cf_tl id="Module">:</td>
 	<TD width="80%">
 	<cfoutput>
 		#Line.SystemModule#
@@ -82,7 +82,7 @@
 	</TR>
 
 	<TR class="labelmedium2" style="height:27px">
-		<td>Function class:</td>
+		<td><cf_tl id="Function class">:</td>
 	<TD>
 	<cfoutput>
 		#Line.FunctionClass#
@@ -92,7 +92,7 @@
 
 	<cfif Line.FunctionClass eq "SelfService">
 			<TR class="labelmedium2">
-				<td  style="height:23">Background image:</td>
+				<td  style="height:23"><cf_tl id="Background image">:</td>
 			<TD>
 			<cfoutput>
 					<input type="text"
@@ -111,7 +111,7 @@
 
 	<cfif Line.FunctionClass eq "SelfService">
 			<TR class="labelmedium2">
-				<td style="height:23">Enforce Host:</td>
+				<td style="height:23"><cf_tl id="Enforce Host">:</td>
 			<TD>
 			<cfoutput>
 
@@ -132,15 +132,15 @@
 	</cfif>
 
 	<TR class="labelmedium2">
-		<td style="height:24">Menu class:</td>
+		<td style="height:24"><cf_tl id="Menu class">:</td>
 	<TD>
 
 	<table><tr><td>
 	<cfoutput>
 		<cfif Line.MenuClass eq "Builder">
-			<cfinput type="Text" name="MenuClass" value="#Line.MenuClass#" message="Please enter a menu class" validate="noblanks" required="Yes" visible="Yes" readonly enabled="Yes" size="20" maxlength="20" class="regularxl">
+			<cfinput type="Text" name="MenuClass" value="#Line.MenuClass#" message="Please enter a menu class" validate="noblanks" required="Yes" visible="Yes" size="20" maxlength="20" class="regularxl">
 		<cfelse>
-			<cfinput type="Text" name="MenuClass" value="#Line.MenuClass#" message="Please enter a menu class" validate="noblanks" required="Yes" visible="Yes" enabled="Yes" size="20" maxlength="20" class="regularxl">
+			<cfinput type="Text" name="MenuClass" value="#Line.MenuClass#" message="Please enter a menu class" validate="noblanks" required="Yes" visible="Yes" size="20" maxlength="20" class="regularxl">
 		</cfif>
 		</td>
 
@@ -158,7 +158,7 @@
 	</TR>
 
 	<TR class="labelmedium2">
-		<TD style="height:24">Menu Name:</TD>
+		<TD style="height:24"><cf_tl id="Menu Name">:</TD>
 
 	<td>
 

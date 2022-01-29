@@ -240,8 +240,7 @@
 			   Org.OrgUnitName, 
 			   
 		   	   <cfif CheckVacancy.recordcount eq "0">
-				   0 as RecruitmentTrack,
-				  
+				   0 as RecruitmentTrack,				  
 			   <cfelse>
 				
 				  <!--- select track occurence --->
@@ -254,42 +253,40 @@
 														
 									(
 									
-									SELECT    D.*							
-									FROM      Vacancy.dbo.DocumentPost as Track INNER JOIN
-				      			              Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-						                      Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-						                      Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo
-									WHERE     SP.PositionNo = P.PositionNo 
-									AND       D.EntityClass IS NOT NULL 
-									AND       D.Status = '0'
+										SELECT     D.DocumentNo							
+										FROM       Vacancy.dbo.DocumentPost as Track INNER JOIN
+					      			               Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
+							                       Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
+							                       Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo
+										WHERE      SP.PositionNo = P.PositionNo 
+										AND        D.EntityClass IS NOT NULL 
+										AND        D.Status = '0'
 									
 									UNION
 										
 										<!--- position has an upcoming track assignment --->  
 										
-										SELECT      PA.SourceId
-                                        FROM        PersonAssignment AS PA 
-                                        WHERE       PA.Source = 'vac' 
-										AND         PA.PositionNo = P.PositionNo
-										AND         PA.AssignmentStatus IN ('0', '1') 
-										AND         PA.AssignmentType = 'Actual' 
-										AND         PA.DateEffective >= GETDATE() 
+										SELECT     PA.SourceId
+                                        FROM       PersonAssignment AS PA 
+                                        WHERE      PA.Source = 'vac' 
+										AND        PA.PositionNo = P.PositionNo
+										AND        PA.AssignmentStatus IN ('0', '1') 
+										AND        PA.AssignmentType = 'Actual' 
+										AND        PA.DateEffective >= GETDATE() 
 																							
 									UNION 
 																					
 									<!--- first position in the next mandate --->			
 									
-									SELECT     D.* 
-									
-									FROM       Vacancy.dbo.DocumentPost as Track INNER JOIN
-						                       Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
-							                   Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
-							                   Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
-						                       Position PN ON SP.PositionNo = PN.SourcePositionNo
-											   
-									WHERE      PN.PositionNo = P.PositionNo
-									AND        D.EntityClass IS NOT NULL 
-									AND        D.Status = '0' 
+										SELECT     D.DocumentNo 										
+										FROM       Vacancy.dbo.DocumentPost as Track INNER JOIN
+							                       Position PM ON Track.PositionNo = PM.PositionNo INNER JOIN
+								                   Position SP ON PM.PositionParentId = SP.PositionParentId INNER JOIN
+								                   Vacancy.dbo.Document D ON Track.DocumentNo = D.DocumentNo INNER JOIN
+							                       Position PN ON SP.PositionNo = PN.SourcePositionNo												   
+										WHERE      PN.PositionNo = P.PositionNo
+										AND        D.EntityClass IS NOT NULL 
+										AND        D.Status = '0' 
 									
 									) as DerrivedTable 
 													
@@ -370,7 +367,7 @@
 					AND 	C.ContactCode IN ('Office', 'Extension')
 				) as AddressRoom
 				
-				<!-----/rfuentes added on ruys request 13-May-2019 ------>
+				<!--- /rfuentes added on ruys request 13-May-2019 --->
 			   
 		INTO  userQuery.dbo.#SESSION.acc#Position_#url.box#	   
 		

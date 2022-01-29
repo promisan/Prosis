@@ -91,23 +91,23 @@
    SystemModule      = "Accounting" 
    FunctionClass     = "Inquiry"
    FunctionName      = "Account Receivables Receipts" 
-   MenuClass         = "Journal"
-   MenuOrder         = "4"
+   MenuClass         = "Receivables"
+   MenuOrder         = "1"
    MainMenuItem      = "0"
-   FunctionMemo      = "Inquiry Purchases"
+   FunctionMemo      = "Inquiry Sales receipts"
    FunctionDirectory = "GLedger/Inquiry/"
-   FunctionPath      = "ARReceipt/Listing.cfm">  
+   FunctionPath      = "ARReceipt/ReceiptListing.cfm">  
    
  <cf_ModuleInsertSubmit
    SystemModule      = "Accounting" 
    FunctionClass     = "Inquiry"
    FunctionName      = "Account Payables Payments" 
-   MenuClass         = "Journal"
+   MenuClass         = "Payables"
    MenuOrder         = "5"
-   MainMenuItem      = "0"
-   FunctionMemo      = "Inquiry Purchases"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Inquiry Purchase payments"
    FunctionDirectory = "GLedger/Inquiry/"
-   FunctionPath      = "APPayment/Listing.cfm">        
+   FunctionPath      = "APPayment/PaymentListing.cfm">        
    
 <cf_ModuleInsertSubmit
    SystemModule      = "Accounting" 
@@ -169,16 +169,17 @@
   AccessUserGroup = "0">  
   
 <cf_ModuleInsertSubmit
-   SystemModule   = "Accounting" 
-   FunctionClass  = "Reporting"
-   FunctionName   = "Budget Execution" 
-   MenuClass      = "Main"
-   MenuOrder      = "2"
-   MainMenuItem   = "1"
-   FunctionMemo   = "Review Budget Execution"
+   SystemModule      = "Accounting" 
+   FunctionClass     = "Reporting"
+   FunctionName      = "Budget Execution" 
+   MenuClass         = "Main"
+   MenuOrder         = "2"
+   MainMenuItem      = "1"
+   FunctionMemo      = "Review Budget Execution"
    FunctionDirectory = "Procurement/Application/"
-   FunctionPath   = "Funding/FundingExecution.cfm"
-   FunctionIcon   = "Option">    
+   FunctionPath      = "Funding/FundingExecution.cfm"
+   FunctionIcon      = "Option">   
+   
    
   <cf_ModuleInsertSubmit
    SystemModule       = "Accounting" 

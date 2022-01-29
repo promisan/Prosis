@@ -506,7 +506,7 @@
 	<tr><td style="font-size:20px;height:40px" class="labellarge">Ticklers/Notification</font></td></tr>
 	
 	<tr>				
-   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer"><cf_uitooltip tooltip="Once this action is due, the action will be presented for the actor under the [My Clearances] function">My Clearances</cf_uitooltip></td>
+   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer" title="Once this action is due, the action will be presented for the actor under the [My Clearances] function">My Clearances</td>
 	 <TD>
 	   <INPUT type="checkbox" class="radiol" name="EnableMyClearances" id="EnableMyClearances" value="1" <cfif Get.EnableMyClearances eq "1">checked</cfif>> 
 	 </td>			
@@ -519,9 +519,8 @@
 	</cfif> 
 	
 	<tr>				
-   	 <td class="labelmedium" style="padding-top:4px;padding-left:10px;cursor:pointer" valign="top">
-	  <cf_uitooltip tooltip="Actor Mail. Mail or Exchange Task Action will not be sent once the user disabled mail and/or exchange notification in his/her preferences">
-	  Mail / Exchange Task</cf_uitooltip>	
+   	 <td class="labelmedium" style="padding-top:4px;padding-left:10px;cursor:pointer" valign="top" title="Actor Mail. Mail or Exchange Task Action will not be sent once the user disabled mail and/or exchange notification in his/her preferences">
+	  Mail / Exchange Task	
 	 </td>
 	 	 
 	 <td valign="top">
@@ -530,17 +529,17 @@
 		<td style="padding-top:1px" valign="top" ><input onClick="javascript:show('email',this.checked)" style="padding-left:8px;" class="radiol" type="checkbox" name="enableNotification" id="enableNotification" value="1" <cfif Get.enableNotification eq "1">checked</cfif>></td>	
 		<td class="#cl#" style="padding-left:3px;" id="email" valign="top">
 		
-		<table cellspacing="0" cellpadding="0">
+		<table>
 		
 			<tr>	
 					
 					<td colspan="2" width="100%">
-						<table cellspacing="0" cellpadding="0">
+						<table>
 							<tr>
 								<!--- <td class="labelmedium" style="min-width:70px;padding-top:2px;padding-left:9px" valign="top"></td> --->
-								<td class="labelmedium" style="min-width:80px;padding-left:3px;padding-right:5px;min-width:140px">Actors On-the-fly:</td>
-								<td style="padding-left:6px;"><input type="checkbox" class="radiol" name="NotificationFly" id="NotificationFly" value="1" <cfif Get.NotificationFly eq "1">checked</cfif>></td>											
-								<td class="labelmedium" style="min-width:80px;padding-left:13px;padding-right:5px"><cf_uitooltip tooltip="Users that have been preset with access to this step">Role enabled actors:</cf_uitooltip></td>
+								<td class="labelmedium fixlength" style="min-width:80px;padding-left:3px;padding-right:5px">Actors On-the-fly:</td>
+								<td style="padding-left:0px;"><input type="checkbox" class="radiol" name="NotificationFly" id="NotificationFly" value="1" <cfif Get.NotificationFly eq "1">checked</cfif>></td>											
+								<td class="labelmedium fixlength" style="min-width:80px;padding-left:13px;padding-right:5px" title="Users that have been preset with access to this step">Role enabled actors:</td>
 								<td><input type="checkbox" class="radiol" name="NotificationGlobal" id="NotificationGlobal" value="1" <cfif Get.NotificationGlobal eq "1">checked</cfif>> </td>
 							</tr>	
 						</table>
@@ -548,18 +547,18 @@
 			</tr>
 			
 			<tr>
-	 			<td class="labelmedium" style="padding-left:8px;;min-width:140px">Apply Step jump:</TD>
+	 			<td class="labelmedium fixlength" style="padding-left:3px;">Apply Step jump:</TD>
 				<td style="padding-left:6px;"><input type="checkbox" class="radiol" name="notificationondue" id="notificationondue" value="1" <cfif Get.NotificationDueOnJump eq "1">checked</cfif>></td>	 
 			</tr>	
 			
 			<tr>
-	 			<td class="labelmedium" style="padding-left:8px;min-width:140px">Show explicit dialog:</TD>
+	 			<td class="labelmedium fixlength" style="padding-left:3px">Show explicit dialog:</TD>
 				<td style="padding-left:6px;"><input type="checkbox" class="radiol" <cfif Get.enableQuickProcess eq "1">disabled</cfif> name="notificationmanual" id="notificationmanual" value="1" <cfif Get.NotificationManual eq "1">checked</cfif>></td>	 
 			</tr>
 			
 			<tr>
 				<td class="labelmedium" style="padding-left:3px;" width="10%"><cf_tl id="Content"></td>
-				<td width="200" style="padding-left:6px">
+				<td style="padding-left:6px">
 				
 					<table cellspacing="0" cellpadding="0">
 						<tr>
@@ -574,14 +573,14 @@
 				 			</cfloop>
 						</select>				
 						</td>
-						<td class="labelmedium" style="padding-left:5px;min-width:80px"><cf_tl id="Open step"></td>
+						<td class="labelmedium fixlength" style="padding-left:5px"><cf_tl id="Open step"></td>
 							
 						<td style="padding-left:4px">
 						  <input type="checkbox" class="radiol" name="NotificationTarget" id="NotificationTarget" value="1" <cfif Get.NotificationTarget eq "1">checked</cfif>> </td>								
 						</td>
 						
 						<cfif entity.DocumentPathName neq "">
-							<td width="10%" class="labelmedium" style="padding-left:13px"><cf_uitooltip tooltip="Include source object attachments"><cf_tl id="Attachments">:</cf_uitooltip></td>
+							<td width="10%" class="labelmedium" style="padding-left:13px" title="Include source object attachments"><cf_tl id="Attachment"></td>
 							<td width="5%"><input type="checkbox" class="radiol" name="NotificationAttachment" id="NotificationAttachment" value="1" <cfif Get.NotificationAttachment eq "1">checked</cfif>> </td>		
 						</cfif>
 						

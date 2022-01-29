@@ -940,7 +940,8 @@ password="#SESSION.dbpw#">
 											
 								</cfoutput>	
 							
-							<cfelse>					
+							<cfelse>		
+								
 															
 								<cfif Prior.dateExpiration neq "">
 															

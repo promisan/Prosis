@@ -29,7 +29,10 @@
 	        FROM       ItemValuation
 	        WHERE      Mission   = '#filtermission#'
 	        AND        ItemNo    = '#filterItemNo#'
-	        AND        (TransactionReference LIKE 'D-%' OR TransactionReference LIKE 'OC%')
+			AND        (TransactionReference LIKE 'OC%' 
+			                     OR (TransactionReference LIKE 'D-%' and TransactionValue > 100))
+	        -- AND     (TransactionReference LIKE 'D-%' OR TransactionReference LIKE 'OC%')
+			
 		</cfquery>		
 		
 		<cfquery name="Sale" 
@@ -40,26 +43,58 @@
 	        FROM       ItemValuation
 	        WHERE      Mission   = '#filtermission#'
 	        AND        ItemNo    = '#filterItemNo#'
-	        AND        (TransactionReference LIKE 'TRA%' OR TransactionReference LIKE 'OV%')
+	        AND        (TransactionReference LIKE 'TRA%' 
+			                OR TransactionReference LIKE 'OV%' 
+							OR TransactionReference LIKE 'D%')
+							
 		</cfquery>
 		
-		<cfif Sale.myDate lte Purchase.myDate and Sale.mydate neq "" and Purchase.mydate neq "">
+		<cfif Sale.myDate lte Purchase.myDate 
+		   and Sale.mydate     neq "" 
+		   and Purchase.mydate neq "">	   
+		   
+		   <cfset purdte = dateadd("D",1,Purchase.myDate)>
 		
+		    <!--- correct one --->
+			
 			<cfquery name="Update" 
 				datasource="#Datasource#" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
+				
 				UPDATE     ItemValuation
-				SET        TransactionDate = '#purchase.mydate#'
+				SET        TransactionDate = '#dateformat(purdte,client.dateSQL)#'
 		        WHERE      Mission         = '#filtermission#'
 		        AND        ItemNo          = '#filterItemNo#'
 		        AND        (TransactionReference LIKE 'TRA%' OR TransactionReference LIKE 'OV%') 
 				AND        TransactionDate < '#purchase.mydate#'			
 			</cfquery>
+			
+			<!--- correction 2 --->
+								
+			<cfquery name="Update" 
+				datasource="#Datasource#" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				
+				UPDATE     ItemValuation
+				SET        TransactionDate = '#dateformat(purdte,client.dateSQL)#'
+		        WHERE      Mission         = '#filtermission#'
+		        AND        ItemNo          = '#filterItemNo#'
+		        AND        TransactionReference LIKE 'D%' 
+				AND        TransactionDate <= '#purchase.mydate#'			
+				AND        TransactionQuantity < 0
+				
+			</cfquery>
 				
 		</cfif>
 		
-		<!--- check in more detail --->
+		<!--- check in more detail 
+		
+		Added a correction to put D- transaction that are negative (exceptional
+		    in quantity after the date of the first receipt. 
+		
+		--->
 		
 		<cfquery name="transaction" 
 			datasource="#Datasource#" 
@@ -536,12 +571,24 @@
 							I.PriceMultiplier,
 							I.UsageMultiplier,
 							
+							<!---
+							
 					            (SELECT   TOP (1) Price
 					             FROM     ItemPromotion
 					             WHERE    Mission = I.Mission 
 								 AND      ItemNo  = I.ItemNo 
 								 AND      DateExpiration >= CAST(GETDATE() AS Date)
-					             ORDER BY DateExpiration DESC) AS PromotionPrice, 
+					             ORDER BY DateEffective DESC) AS PromotionPrice, 
+								 
+								 --->
+								 
+							(   SELECT TOP (1) Price
+								FROM    EnterpriseHub.dbo.ItemPromotion IP INNER JOIN (SELECT  TOP (1) Mission, ItemNo, DateEffective
+								FROM    EnterpriseHub.dbo.ItemPromotion
+								WHERE   Mission = I.Mission and ItemNo = I.ItemNo
+								ORDER BY DateEffective  DESC) as D ON IP.Mission = D.Mission AND IP.ItemNo = D.ItemNo and IP.DateEffective = D.DateEffective
+								WHERE IP.DateExpiration >= getDate()
+								ORDER BY Price ) as PromotionPrice,	 							 
 								 
 							 I.Operational, 
 							 T.ItemPrecision,

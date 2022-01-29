@@ -157,7 +157,7 @@
 						
 						    <table cellspacing="0" cellpadding="0">
 							<tr>
-							<td class="linedotted labelit" style="padding-left:3px">
+							<td class="linedotted labelmedium2" style="padding-left:3px">
 							
 							<cfif URL.PDF eq 0>
 								<a href="javascript:showdocument('#DocumentNo#')">
@@ -183,7 +183,7 @@
 								<cfset cpl = DateFormat(Candidate.StatusDate, CLIENT.DateFormatShow)>
 																						
 								<cfif Candidate.recordcount gte "1">
-									<td bgcolor="D6FED9" class="labelit" style="padding-left:4px">
+									<td bgcolor="D6FED9" style="padding-left:4px">
 									<cfloop query = "Candidate">
 										
 										<cfif URL.PDF eq 0>
@@ -215,7 +215,7 @@
 									</td>
 								<cfelse>
 								
-									<td class="labelit" style="padding-left:4px"> - #tNoCandidateInfo# -</td>
+									<td style="padding-left:4px"> - #tNoCandidateInfo# -</td>
 									
 								</cfif>
 							</tr>

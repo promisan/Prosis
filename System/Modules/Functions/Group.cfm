@@ -77,8 +77,7 @@ password="#SESSION.dbpw#">
 	    <td valign="center" width="100%" class="regular">
 	    <table width="100%">
 		
-		<cfoutput>
-		
+		<cfoutput>		
 		
 		<cfloop query="Detail">
 		
@@ -88,13 +87,13 @@ password="#SESSION.dbpw#">
 												
 		<cfif URL.ID1 eq Account>
 									
-			<TR class="navigation_row labelmedium2">
+			<TR class="navigation_row labelmedium2 finxlengthlist">
 					
-		       <td width="10%">#Detail.AccountMission#<input type="hidden" name="Group" id="Group" value="#rl#"></td>		    					   						 						  
-			   <td width="20%">#Detail.Account#</td>
-			   <td width="60%" colspan="2">#Detail.LastName#</td>					   
+		       <td>#AccountMission#<input type="hidden" name="Group" id="Group" value="#rl#"></td>		    					   						 						  
+			   <td><a href="javascript:ShowUser('#Account#')">#Account#</a></td>
+			   <td colspan="2">#LastName#</td>					   
 			   <td align="center">
-			      <input type="checkbox" name="Operational" id="Operational" value="1" <cfif "1" eq Detail.Operational>checked</cfif>>
+			      <input type="checkbox" name="Operational" id="Operational" value="1" <cfif "1" eq Operational>checked</cfif>>
 			   </td>			   
 			   <td colspan="2" style="padding-right:3px" align="right"><input type="submit" class="button10s" style="width:40;height:20" value="Save" ></td>
 
@@ -102,21 +101,19 @@ password="#SESSION.dbpw#">
 					
 		<cfelse>
 		
-			<TR bgcolor="ffffff" class="navigation_row labelmedium2">
-			   <td width="10%" style="padding-left:3px" height="25">#Detail.accountMission#</td>
-			   <td width="52%" colspan="2">#Detail.LastName# (#rl#)</td>			  
-			   <td width="30%" align="right">#OfficerUserId# (#dateformat(created,CLIENT.DateFormatShow)#)</td>
-			   <td width="40" align="center"><cfif op eq "0"><b>No</b></cfif></td>
-			   <td colspan="2" width="40" align="right">
+			<TR bgcolor="ffffff" class="navigation_row labelmedium2 fixlengthlist">
+			   <td style="padding-left:3px" height="25">#accountMission#</td>
+			   <td colspan="2">#LastName# <a href="javascript:ShowUser('#Account#')">(#rl#)</a></td>			  
+			   <td align="right">#OfficerUserId# (#dateformat(created,CLIENT.DateFormatShow)#)</td>
+			   <td align="center"><cfif op eq "0"><b>No</b></cfif></td>
+			   <td colspan="2" align="right">
 				   <table>
-				   <tr>
-				   <td>	
-					<cf_img icon="open" navigation="Yes" onclick="ptoken.navigate('#SESSION.root#/System/Modules/Functions/Group.cfm?ID=#URL.ID#&ID1=#account#','igroup')">
-				   </td>
-				   <td style="padding-left:6px;padding-right:5px;">
-					 <cf_img icon="delete" onclick="ptoken.navigate('#SESSION.root#/System/Modules/Functions/GroupPurge.cfm?ID=#URL.ID#&ID1=#account#','igroup')">
-				   </td>			   
-				   </tr>
+					   <tr>
+					   <td><cf_img icon="open" navigation="Yes" onclick="ptoken.navigate('#SESSION.root#/System/Modules/Functions/Group.cfm?ID=#URL.ID#&ID1=#account#','igroup')"></td>
+					   <td style="padding-left:6px;padding-right:5px;">
+						 <cf_img icon="delete" onclick="ptoken.navigate('#SESSION.root#/System/Modules/Functions/GroupPurge.cfm?ID=#URL.ID#&ID1=#account#','igroup')">
+					   </td>			   
+					   </tr>
 				   </table>
 			   </td>
 		    </TR>	

@@ -21,6 +21,34 @@
 			<cfset Customer.Status = "OK">
 		<cfelse>
 
+			<cfquery name="GetUser"
+					datasource="#datasource#"
+					username="#SESSION.login#"
+					password="#SESSION.dbpw#">
+				SELECT *
+				FROM   Organization.dbo.OrganizationTaxSeries
+				WHERE  SeriesType  = 'Invoice'
+				AND    Operational = 1
+			</cfquery>
+
+
+			<cfset stToSign =
+			{   "emisor_codigo": "#GetUser.UserName#",
+				"emisor_clave": "#GetUser.UserKey#",
+				"nit_consulta": "#NIT#"}>
+
+			<cfhttp url="https://consultareceptores.feel.com.gt/rest/action" method="post" result="httpResponse" timeout="60">
+				<cfhttpparam type="header" name="Content-Type" value="application/json"/>
+				<cfhttpparam type="body" value="#Replace(serializeJSON(stToSign),"//","")#">
+			</cfhttp>
+
+			<cfset jSonNIT = deserializeJSON(httpResponse.fileContent)>
+
+			<cfif jsonNIT.nombre neq "">
+				<cfset Customer.Name = jsonNIT.nombre>
+			</cfif>
+
+
 			<cfset pos = len(NIT)-1>
 
 			<cfset vNitbody = left(NIT,LEN(NIT)-1)>
@@ -136,7 +164,7 @@
 					
 			<cfset FEL.JournalTransactionNo = "#getTransaction.JournalTransactionNo#">
 			
-			<!--- Get entity Information --->
+			<!--- get entity Information --->
 			<cfquery name="GetMission"
 			datasource="#datasource#"
 			username="#SESSION.login#"
@@ -258,7 +286,34 @@
 			<cfset FEL.VendorMail      = "#GetTaxSeries.UserEMail#">  <!--- GetWarehouseDevice.UserMail --->
 			<cfset FEL.VendorNIT       = "#GetTaxSeries.EFACEId#">	   <!--- #vNitEFACE# ---> 					
 			<cfset FEL.VendorName      = "#GetTaxSeries.OrgUnitName#"> <!--- commercial name ---> 
-			<cfset FEL.VendorEntity    = "#getMission.MissionName#">   <!--- formal name --->												
+			
+			<cfquery name="param"
+				datasource="#datasource#"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+					SELECT *
+					FROM   Accounting.dbo.Ref_ParameterMission
+					WHERE  Mission = '#getTransaction.Mission#'
+			</cfquery>			
+						
+			<cfif param.AdministrationLevel eq "Parent">
+			
+				<cfquery name="GetParent"
+				datasource="#datasource#"
+				username="#SESSION.login#"
+				password="#SESSION.dbpw#">
+					SELECT *
+					FROM   Organization.dbo.Organization
+					WHERE  OrgUnit = '#getTransaction.OrgUnitOwner#'
+			    </cfquery>			
+			
+			     <cfset FEL.VendorEntity    = "#getParent.OrgUnitName#">   <!--- formal name --->	
+				 
+			<cfelse>
+			
+			     <cfset FEL.VendorEntity    = "#getMission.MissionName#">   <!--- formal name --->												
+				 
+			</cfif>
 			
 			<cfquery name="GetVendorAddress"
 				datasource="#datasource#"
@@ -808,11 +863,7 @@
 															
 							<dte:DatosEmision ID="DatosEmision">
 										<dte:DatosGenerales CodigoMoneda="#FEL.Currency#" FechaHoraEmision="#DateFormat(dts,"YYYY-MM-DD")#T#TimeFormat(dts,"hh:mm:ssXXX")#" Tipo="#FEL.InvoiceType#"></dte:DatosGenerales>
-										<cfif FEL.VendorName eq "DR. JORGE MANUEL ALDANA SAENZ">
-											<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#FEL.VendorReference#" CorreoEmisor="#FEL.VendorMail#" NITEmisor="#FEL.VendorNIT#" NombreComercial="#FEL.VendorName#" NombreEmisor="#FEL.VendorName#">
-										<cfelse>
-											<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#FEL.VendorReference#" CorreoEmisor="#FEL.VendorMail#" NITEmisor="#FEL.VendorNIT#" NombreComercial="#FEL.VendorName#" NombreEmisor="#FEL.VendorEntity#">
-										</cfif>
+										<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#FEL.VendorReference#" CorreoEmisor="#FEL.VendorMail#" NITEmisor="#FEL.VendorNIT#" NombreComercial="#FEL.VendorName#" NombreEmisor="#FEL.VendorEntity#">										
 								<dte:DireccionEmisor>
 								<dte:Direccion>#FEL.VendorAddress#</dte:Direccion>
 									<dte:CodigoPostal>#FEL.VendorPostalCode#</dte:CodigoPostal>
@@ -877,8 +928,7 @@
 											<cfset itemtype = "S">												
 										<cfelse>										
 											<cfset itemtype = "B">											
-										</cfif>									
-										
+										</cfif>											
 																													
 										<dte:Item BienOServicio="#ItemType#" NumeroLinea="#currentrow#">
 											<dte:Cantidad>#Quantity#</dte:Cantidad>
