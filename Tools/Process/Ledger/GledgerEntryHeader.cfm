@@ -522,6 +522,7 @@
 							  ActionReference3,
 							  ActionReference4,
 							  ActionDate,
+							  ActionStatus,
 							  OfficerUserId,
 							  OfficerLastName,
 							  OfficerFirstName )
@@ -533,6 +534,7 @@
 							  '#Attributes.ActionReference3#',
 							  '#Attributes.ActionReference4#',
 							  getDate(),
+							  '1',
 							  '#attributes.officerUserId#',
 						      '#attributes.officerLastName#',
 						      '#attributes.officerFirstName#' )	   

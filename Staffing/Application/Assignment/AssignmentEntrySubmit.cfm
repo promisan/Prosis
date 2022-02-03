@@ -102,6 +102,8 @@ password="#SESSION.dbpw#">
 
 </cfoutput>
 
+
+
 <CF_DateConvert Value="#Form.DateEffective#">
 <cfset STR = dateValue>
 <cfif STR lt Check.DateEffective>
@@ -196,19 +198,21 @@ password="#SESSION.dbpw#">
 	<!--- perform the conflict check or handling --->
 	
 	<cftry>
-		
-		<cfinclude template="AssignmentConflictCheck.cfm"> 
+			
+		<cfinclude template="AssignmentConflictCheck.cfm"> 		
+	
 	
 		<cfcatch>
 		
 		    <cfoutput>
-				<cf_message message="Assignment action could not be completed. Please try again later.<br>#CFCatch.Message# - #CFCATCH.Detail#">
+				<cf_alert message="Assignment action could not be completed. Please try again later.<br>#CFCatch.Message# - #CFCATCH.Detail#">
 			</cfoutput>
 			<cfabort>
 			
 		</cfcatch>
 	
 	</cftry>
+	
 	
 	<!--- no conflict is found --->
 	
@@ -425,12 +429,13 @@ password="#SESSION.dbpw#">
 		</cfif>
 		
 		<cfset dateValue = "">
-				<cfif Form.DateDeparture neq ''>
-					<CF_DateConvert Value="#Form.DateDeparture#">
-					<cfset DEP = dateValue>
-				<cfelse>
-				    <cfset DEP = END>
-				</cfif>		
+		
+		<cfif Form.DateDeparture neq ''>
+				<CF_DateConvert Value="#Form.DateDeparture#">
+				<cfset DEP = dateValue>
+		<cfelse>
+			    <cfset DEP = END>
+		</cfif>		
 		
 		<cfif mandate.DateExpiration lte DEP>
 		

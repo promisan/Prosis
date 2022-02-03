@@ -26,7 +26,7 @@
 			  AND    T.UnitOfMeasure  = IT.TransactionUoM ) as OnHand
 	
 	FROM   Transfer#URL.Whs#_#SESSION.acc# T
-	WHERE  TransferQuantity > 0 	xxxxxx		
+	WHERE  TransferQuantity > 0 			
 
 </cfquery>
 

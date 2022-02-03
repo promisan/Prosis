@@ -57,13 +57,10 @@
 											
 		<cfset vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#vPhoto#.jpg">	
 		
-		--->		
-		
-		<cfset vPhoto = "#SESSION.rootDocumentpath#\EmployeePhoto\#vPhoto#.jpg">	
-		
-				
-		<cfset vPhoto = "getFile.cfm?id=00628942.jpg&mode=EmployeePhoto">		
-							
+		--->
+
+		<cfset vPhoto = "#SESSION.root#/CFRStage/getFile.cfm?id=#vPhoto#.jpg&mode=EmployeePhoto">
+
 		<cfif attributes.printmode eq 0>
 			<div><img src="#vPhoto#" style="#attributes.style#" class="img-circle clsRoundedPicture #attributes.class#"></div>
 		<cfelse>

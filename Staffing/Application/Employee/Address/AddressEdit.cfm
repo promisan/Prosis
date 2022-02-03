@@ -91,7 +91,7 @@ password="#SESSION.dbpw#">
    
 <cfform name="personaddressform" onsubmit="return false">
 
-<table width="98%" align="center" border="0" bordercolor="silver" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="98%" align="center" class="formpadding">
 
 <tr><td id="addressprocess"></td></tr>
 
@@ -117,7 +117,7 @@ password="#SESSION.dbpw#">
 	
 </cfoutput>
 
-<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="99%" align="center">
   
   <cfif url.drillid eq "">  
   		 
@@ -137,7 +137,7 @@ password="#SESSION.dbpw#">
     
 	<td width="95%" style="padding-left:20px" align="center" colspan="2">
 	
-    <table border="0" cellpadding="0" cellspacing="0" width="96%" align="center" class="formpadding">
+    <table width="96%" align="center" class="formpadding">
 	    
 	<cfoutput>
 	
@@ -278,18 +278,18 @@ password="#SESSION.dbpw#">
 	</cfquery>	
 	
 	<TR class="fixlengthlist">
-	<td valign="top" class="labelmedium " style="min-width:109px;padding-left:5px;padding-top:7px"><cf_tl id="Contact Information">:</td>
+	<td valign="top" class="labelmedium" style="padding-left:5px;padding-top:7px"><cf_tl id="Contact Information">:</td>
     <TD colspan="1">
 	
-		<table cellspacing="0" cellpadding="0" class="formspacing">
+		<table class="formpadding">
 		
 		<cfset row = 0>
 		
 			<cfloop query="Contact">
 			
 				<cfset row = row+1>
-				<cfif row eq "1"><tr class="fixlengthlist"></cfif>		
-					<td style="height:21;padding-right:4px" class="labelit"><font color="808080"><cf_tl id="#Description#">:</td>				
+				<cfif row eq "1"><tr></cfif>		
+					<td style="height:21;padding-right:4px" class="labelit fixlength"><font color="808080"><cf_tl id="#Description#">:</td>				
 				    <td style="padding-right:12px" class="labelmedium">
 					
 					<cfif url.mode eq "edit">

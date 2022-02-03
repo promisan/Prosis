@@ -22,7 +22,10 @@ password="#SESSION.dbpw#">
 			  datasource="AppsLedger" 
 		      username="#SESSION.login#" 
 		      password="#SESSION.dbpw#">
-			      SELECT DISTINCT R.TransactionCategory, R.Description, R.OrderListing, Currency
+			      SELECT DISTINCT R.TransactionCategory, 
+				         R.Description, 
+						 R.OrderListing, 
+						 Currency
 			      FROM   Ref_TransactionCategory R, Journal J
 				  WHERE  R.TransactionCategory = J.TransactionCategory
 			 	  AND    J.Mission     = '#Attributes.Mission#'
@@ -39,7 +42,7 @@ password="#SESSION.dbpw#">
 																  AND   OrgUnit is NULL )
 											       )							  
 				  </cfif>									 
-				  ORDER BY Currency,OrderListing
+				  ORDER BY Currency,OrderListing, Description
 			  </cfquery>
 			  
 			  <cfif category.recordcount eq "0">

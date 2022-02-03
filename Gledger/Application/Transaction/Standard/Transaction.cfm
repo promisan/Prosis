@@ -501,7 +501,7 @@ function togglebox(val) {
 						        <table border="0" style="border:1px solid silver;background-color:f1f1f1">
 								    <tr>
 																	   
-									  <td class="labelmedium2" style="min-width:250px;height:27px;padding-left:4px;color:6688aa;font-size:15px;padding-right:9px">#glaccdes#
+									  <td class="labelmedium2" style="min-width:250px;height:27px;padding-left:4px;font-size:15px;padding-right:9px">#glaccdes#
 							          	 <input type="hidden" name="glaccount"       id="glaccount"     value="#HeaderSelect.ContraGLAccount#" size="12" style="text-align: center;" readonly class="disabled">
 						         		 <input type="hidden" name="gldescription"   id="gldescription" value="#glaccdes#" size="40" style="text-align: center;" readonly class="disabled">
 										 <input type="hidden" name="debitcredit"     id="debitcredit"   value="#HeaderSelect.ContraGLAccountType#" size="8" style="text-align: center;" readonly class="disabled">
@@ -1355,7 +1355,7 @@ function togglebox(val) {
 </table>
 
 <script>
-	<cfif tracat is "Payment" or  tracat is "DirectPayment">
+	<cfif tracat is "Payment">
 		try {document.getElementById('menu2').click();} catch(e) {}
 	</cfif>
 </script>

@@ -2351,6 +2351,21 @@
 					<cfset relref   = Customer.Reference> 				
 				
 				</cfif>
+												
+				<cfif addressid neq "" and addressid neq "00000000-0000-0000-0000-000000000000">
+				
+				      <cfquery name="Address" 
+					  datasource="AppsMaterials" 
+					  username="#SESSION.login#" 
+					  password="#SESSION.dbpw#">
+						SELECT * 
+						FROM   System.dbo.Ref_Address
+						WHERE  AddressId = '#AddressId#'				
+					 </cfquery>						  
+
+					 <cfset relnme   = "#Customer.CustomerName# #Address.AddressCity#">					  					 
+				
+				</cfif>
 				
 				<!--- the header contains the customer tax reference, and the lines the customer reference --->
 						

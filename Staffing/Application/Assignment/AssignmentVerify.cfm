@@ -98,11 +98,11 @@ password="#SESSION.dbpw#">
 							password="#SESSION.dbpw#">
 								UPDATE  PersonAssignment
 								SET     AssignmentStatus = '9',
-        								Remarks       = 'Assignment deactivate by system check'
+        								Remarks       = 'Assignment deactivated by system check'
 								WHERE   AssignmentNo = '#AssignmentNo#'
 							</cfquery>
 							
-							<cfset action = "Overlap oversed disabled record">
+							<cfset action = "Overlap record disabled">
 					
 							<cfquery name="set" 
 							   datasource="AppsEmployee">

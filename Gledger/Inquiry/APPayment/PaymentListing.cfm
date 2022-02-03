@@ -1,5 +1,6 @@
 
 <cfparam name="url.mission"     default="">
+<cfparam name="url.OrgUnit"     default="">
 
 <cf_screenTop jQuery="Yes" height="100%" border="0" html="No" scroll="no">
 <cf_listingscript>
@@ -56,6 +57,9 @@
 	AND           TH.TransactionCategory = 'Payables'
 	AND           TH.Mission             = '#url.mission#'
 	AND           TH.AccountPeriod       = '#url.Period#'
+	<cfif url.orgunit neq "">
+	AND           TH.OrgUnitOwner        = '#url.OrgUnit#'
+	</cfif>
 	AND           TH.Currency            = '#url.currency#' 
 
 </cfsavecontent>
@@ -135,7 +139,6 @@
 					field      = "Journal",
 					search     = "text",
 					filtermode = "2"}>
-
 				
 <cfset itm = itm+1>
 <cf_tl id="Document" var="vDocDate">
@@ -145,10 +148,17 @@
 					search     = "date"}>
 
 <cfset itm = itm+1>
-<cf_tl id="Receivable" var="vCheckNo">
+<cf_tl id="Invoice" var="vCheckNo">
 <cfset fields[itm] = {label    = "#vCheckNo#",
 					field      = "JournalTransactionNo",
+					filtermode = "2",
 					search     = "text"}>	
+					
+<cfset itm = itm+1>
+<cf_tl id="Reference" var="vReference">
+<cfset fields[itm] = {label    = "#vReference#",
+					field      = "ReferenceName",
+					search     = "text"}>						
 					
 <cfset itm = itm+1>							
 <cf_tl id="Amount" var="vAmount">		
@@ -157,13 +167,15 @@
 					align      = "right",
 					formatted  = "numberformat(Amount,',.__')",
 					search     = "number"}>
-					
+
+<!---					
 <cfset itm = itm+1>							
 <cf_tl id="Outstanding" var="vDocAmount">		
 <cfset fields[itm] = {label    = "#vDocAmount#", 					
 					field      = "DocumentAmount",
 					align      = "right",
 					formatted  = "numberformat(AmountOutstanding,',.__')"}>		
+--->					
 					
 <cfset itm = itm+1>		
 <cf_tl id="Settlement" var="vSettlement">
@@ -174,8 +186,8 @@
 					filtermode = "2"}>	
 					
 <cfset itm = itm+1>
-<cf_tl id="Offset No" var="vOffset">
-<cfset fields[itm] = {label    = "#vOffset#",
+<cf_tl id="Offset No" var="vOffNo">
+<cfset fields[itm] = {label    = "#vOffNo#",
 					field      = "OffsetTransactionNo",
 					search     = "text"}>	
 					
@@ -188,64 +200,40 @@
 					search     = "date"}>	
 					
 <cfset itm = itm+1>							
+<cf_tl id="Currency" var="vCurrency">		
+<cfset fields[itm] = {label    = "#vCurrency#", 					
+					field      = "OffsetCurrency",
+					align      = "right"}>	
+					
+<cfset itm = itm+1>							
 <cf_tl id="Amount" var="vAmount">		
+<cfset fields[itm] = {label     = "#vAmount#", 					
+					field       = "AmountCredit",
+					align       = "right",					
+					formatted   = "numberformat(AmountDebit,',.__')"}>											
+					
+<cfset itm = itm+1>							
+<cf_tl id="Offset" var="vOffset">		
 <cfset fields[itm] = {label    = "#vAmount#", 					
-					field      = "Amount",
+					field      = "AmountDebitOffset",
 					align      = "right",
 					aggregate   = "sum", 
-					formatted  = "numberformat(AmountCreditOffset,',.__')",
+					formatted  = "numberformat(AmountDebitOffset,',.__')",
 					search     = "number"}>
 					
 <cfset itm = itm+1>							
-<cf_tl id="Offset Balance" var="vRunning">		
+<cf_tl id="Running Balance" var="vRunning">		
 <cfset fields[itm] = {label    = "#vRunning#", 					
 					field      = "Amount",
 					align      = "right",
 					formatted  = "numberformat(RunningBalance,',.__')"}>																											
 										
-<!---					
-
-<cfset itm = itm+1>
-<cf_tl id="Date" var="vSaleDate">
-<cfset fields[itm] = {label      = "#vSaleDate#", 					
-					field      = "TransactionDate",
-					formatted  = "dateformat(TransactionDate,CLIENT.DateFormatShow)",
-					search     = "date"}>
-
-<cfset itm = itm+1>
-<cf_tl id="Customer" var="vPayee">
-<cfset fields[itm] = {label      = "#vPayee#",
-					field      = "ReferenceName",
-					search     = "text"}>
-					
-<cfset itm = itm+1>
-<cf_tl id="Exception" var="vExcept">
-<cfset fields[itm] = {label      = "#vExcept#",
-					field      = "TaxException",
-					search     = "text"}>					
-
-<cfset itm = itm+1>							
-<cf_tl id="Amount" var="vAmount">		
-<cfset fields[itm] = {label   = "#vAmount#", 					
-					field   = "Amount",
-					align   = "right",
-					formatted  = "numberformat(Amount,',.__')",
-					search  = "number"}>
-
-<cfset itm = itm+1>							
-<cf_tl id="Outstanding" var="vDocAmount">		
-<cfset fields[itm] = {label   = "#vDocAmount#", 					
-					field   = "DocumentAmount",
-					align   = "right",
-					formatted  = "numberformat(AmountOutstanding,',.__')"}>
---->
-
 			
 														
 	<cf_listing
-	    header           = "ReceiptOnReceivables"
-	    box              = "receiptonreceivables"
-		link             = "#SESSION.root#/Gledger/Inquiry/ARReceipt/ReceiptListing.cfm?mission=#url.mission#&currency=#url.currency#&period=#url.period#&systemfunctionid=#url.systemfunctionid#"
+	    header           = "PaymentOnPayables_#url.mission#"
+	    box              = "PaymentOnPayables_#url.mission#"
+		link             = "#SESSION.root#/Gledger/Inquiry/APPayment/PaymentListing.cfm?mission=#url.mission#&currency=#url.currency#&period=#url.period#&systemfunctionid=#url.systemfunctionid#"
 		systemfunctionid = "#url.systemfunctionid#"
 	    html             = "No"	
 		datasource       = "AppsLedger"

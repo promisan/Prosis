@@ -36,7 +36,7 @@ password="#SESSION.dbpw#">
   
 <cfoutput><input type="hidden" name="PersonNo" id="PersonNo" value="#URL.ID#" class="regular"></cfoutput>
 
-<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="99%" align="center">
   
   <cfoutput>
       
@@ -201,7 +201,7 @@ password="#SESSION.dbpw#">
 		
 		<cfoutput query="Contact">
 			<cfset row = row+1>
-			<cfif row eq "1"><tr></cfif>		
+			<cfif row eq "1"><tr class="fixlengthlist"></cfif>		
 				<td style="height:21;padding-right:10px" class="labelit"><cf_tl id="#Description#">:</td>				
 			    <TD style="height:21;padding-left:5px;padding-right:15px"><input type="Text" name="Contact_#currentrow#" value="" size="13" maxlength="20" class="regularxl enterastab"></TD>
 			<cfif row eq "3"></tr><cfset row = 0></cfif>	

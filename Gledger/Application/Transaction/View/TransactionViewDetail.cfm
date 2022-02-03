@@ -799,9 +799,25 @@
 						FROM   WarehouseBatch
 						WHERE  BatchId = '#TransactionSourceId#'				
 					  </cfquery>	
-				
+					  				
 					<td class="cellborder labelmedium2" style="padding-left:5px">
 					<a href="javascript:batch('#getBatch.BatchNo#')">#getBatch.BatchNo#</a>
+					
+					<cfif getBatch.AddressId neq "">
+					
+					 <cfquery name="Address" 
+					  datasource="AppsSystem" 
+					  username="#SESSION.login#" 
+					  password="#SESSION.dbpw#">
+						SELECT * 
+						FROM   Ref_Address
+						WHERE  AddressId = '#getBatch.Addressid#'				
+					  </cfquery>	
+					  
+					  <cfoutput>#Address.AddressCity#</cfoutput>
+					
+					</cfif>
+					
 					</td>
 				
 			     <cfelse>
@@ -1496,6 +1512,7 @@
 					                      Warehouse AS w ON wb.Warehouse = w.Warehouse
 								WHERE     wb.BatchId = '#Transaction.TransactionSourceId#'
 							</cfquery>
+							
 														
 					  		<!--- Cash and carry with receivable mode --->
 							

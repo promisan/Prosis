@@ -218,12 +218,15 @@
 		</td>		
 				
 		<tr name="timebox" class="<cfoutput>#cl#</cfoutput>">
-	    <TD class="labelmedium">Interval:</TD>
+	    <TD class="labelmedium"><cf_tl id="Interval">:</TD>
 		<TD class="labelit">
 		<select name="ScheduleInterval" id="ScheduleInterval" class="regularxl" onchange="ColdFusion.navigate('setTime.cfm?schedule='+this.value,'schedulebox')">
-		<option value="600" <cfif "600" eq Line.ScheduleInterval>selected</cfif>>every 10 mins</option>
-		<option value="900" <cfif "900" eq Line.ScheduleInterval>selected</cfif>>every 15 mins</option>
+		<option value="600" <cfif "600" eq Line.ScheduleInterval>selected</cfif>>Every 10 mins</option>
+		<option value="900" <cfif "900" eq Line.ScheduleInterval>selected</cfif>>Every 15 mins</option>
 		<option value="3600" <cfif "3600" eq Line.ScheduleInterval>selected</cfif>>Hourly</option>
+		<option value="7200" <cfif "7200" eq Line.ScheduleInterval>selected</cfif>>Every 2 hours</option>
+		<option value="10800" <cfif "10800" eq Line.ScheduleInterval>selected</cfif>>Every 3 hours</option>
+		<option value="21600" <cfif "21600" eq Line.ScheduleInterval>selected</cfif>>Every 6 hours</option>
 		<option value="Once" <cfif "Once" eq Line.ScheduleInterval>selected</cfif>>Once</option>
 		<option value="Daily" <cfif "Daily" eq Line.ScheduleInterval or URL.ID eq "">selected</cfif>>Daily</option>
 		<option value="Weekly" <cfif "Weekly" eq Line.ScheduleInterval>selected</cfif>>Weekly</option>

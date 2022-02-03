@@ -46,6 +46,8 @@ ORDER BY  P.SourcePostNumber
 	  <cfif Post.recordcount eq "0">
 	   <tr><td height="1" colspan="9" align="center" class="labelmedium" bgcolor="red"><font color="FFFFFF">Problem: Recruitment track is not associated to a valid position (anymore)</font></td></tr>	  
 	  </cfif>
+	  
+	  <cfset pos = "">
 	
 	  <cfoutput query="Post"> 
 	  	  	  
@@ -53,11 +55,13 @@ ORDER BY  P.SourcePostNumber
 		datasource="appsEmployee" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT   TOP 1 *
+			SELECT   *
 			FROM     PersonAssignment A, Person P
 			WHERE    A.PositionNo = '#PositionNo#'
-			AND      A.PersonNo = P.PersonNo
+			AND      A.PersonNo   = P.PersonNo
 			AND      A.AssignmentStatus IN ('0','1')
+			AND      A.AssignmentType = 'Actual'
+			AND      A.DateExpiration >= getDate()
 			ORDER BY A.DateExpiration DESC 
 		</cfquery>
 		
@@ -69,26 +73,32 @@ ORDER BY  P.SourcePostNumber
 			FROM     Organization
 			WHERE    OrgUnit = '#OrgUnitOperational#'		
 		</cfquery>
-	
-		<cfif Person.recordcount eq 0 or Person.DateExpiration lt now()>
-		     <tr class="regular line labelmedium fixlengthlist">
-		<cfelse>
-		     <tr class="highLight4 line labelmedium fixlengthlist">
-		</cfif> 
 		
-		<td height="18"></td>  	  
-	  
-	    <TD><a href="javascript:EditPosition('#Mission#','#MandateNo#','#PositionNo#')"><cfif sourcePostNumber eq "">#PositionParentId#<cfelse>#SourcePostNumber#</cfif></a></TD>
-		<TD>#FunctionDescription#</TD>
-		<TD>#PostGrade#</TD>
-		<cfif Org.recordcount eq 1>
-		<td><a href="javascript:maintain('#Org.orgunitCode#','#Org.mission#','#Org.MandateNo#')">#Org.OrgUnitName#</td>
-		<cfelse>
-		<td>Unit not defined</td>		
-		</cfif>		
-	    <TD>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</TD>
-		<TD><a href="javascript:EditPerson('#Person.PersonNo#')">#Person.IndexNo#</a> #Person.FirstName# #Person.LastName# #Dateformat(Person.DateExpiration, CLIENT.DateFormatShow)#</TD>
-	</TR>
+		<cfloop query="Person">	
+	
+			<cfif Person.DateExpiration lt now()>
+			     <tr class="regular line labelmedium fixlengthlist">
+			<cfelse>
+			     <tr class="highLight4 line labelmedium fixlengthlist">
+			</cfif> 
+			
+			<td height="18"></td>  	 		  
+		    <TD><a href="javascript:EditPosition('#Position.Mission#','#Position.MandateNo#','#PositionNo#')"><cfif Position.sourcePostNumber eq "">#Position.PositionParentId#<cfelse>#Position.SourcePostNumber#</cfif></a></TD>
+			<TD><cfif pos neq positionno>#Position.FunctionDescription#</cfif></TD>
+			<TD><cfif pos neq positionno>#Position.PostGrade#</cfif></TD>
+			<cfif Org.recordcount eq 1>
+			<td><a href="javascript:maintain('#Org.orgunitCode#','#Org.mission#','#Org.MandateNo#')"><cfif pos neq positionno>#Org.OrgUnitName#</cfif></td>
+			<cfelse>
+			<td>Unit not defined</td>		
+			</cfif>		
+		    <TD><cfif pos neq positionno>#Dateformat(Position.DateExpiration, CLIENT.DateFormatShow)#</cfif></TD>
+			<TD><a href="javascript:EditPerson('#PersonNo#')">#IndexNo#</a> #FirstName# #LastName# #Dateformat(DateExpiration, CLIENT.DateFormatShow)# #Incumbency#%</TD>
+	
+			</TR>
+			
+			<cfset pos = positionno>
+			
+		</cfloop>	
 
 	</CFOUTPUT>
 	

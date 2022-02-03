@@ -10,8 +10,8 @@
 	  <tr>
 	  
 	  	<cf_tl id="Print Quote" var="1">
-		<cfset wd = "58">
-		<cfset ht = "58">
+		<cfset wd = "68">
+		<cfset ht = "68">
 		<cfset itm = "1">
 			 			
 		<cf_menutab item       = "#itm#" 
@@ -48,6 +48,22 @@
 					 			
 		<cf_menutab item       = "#itm#" 
 		            iconsrc    = "Logos/System/Whatsapp.png?id=1" 
+					iconwidth  = "#wd#" 
+					iconheight = "#ht#" 
+					padding    = "4"					
+					targetitem = "1"
+					name       = "#lt_text#"
+					source     = "">		
+							
+		</tr>	
+		
+		<tr>
+	  
+	  	<cf_tl id="SalesForce" var="1">
+		<cfset itm = itm+1>
+					 			
+		<cf_menutab item       = "#itm#" 
+		            iconsrc    = "Logos/System/SalesForce.png?id=3" 
 					iconwidth  = "#wd#" 
 					iconheight = "#ht#" 
 					padding    = "4"					

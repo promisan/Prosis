@@ -131,6 +131,9 @@
 	
 </cfif>	
 
+
+
+
 <!--- verify if a record exists for employee with the same assignment class --->
 
 <cfif Status eq "Go">
@@ -158,16 +161,17 @@
 		  AND  PA.DateEffective  <= #END# 
 		  		  
 		  AND  PA.AssignmentClass IN (#preservesingleQuotes(assclass)#)
-		  AND  PA.Incumbency     != 0
+		  AND  PA.Incumbency       = '#Form.Incumbency#'
 		  AND  PA.AssignmentNo     <> #Form.AssignmentNo#
 		  AND  PA.AssignmentStatus < '#Parameter.AssignmentShow#'
 		  <!--- all units of the same owner --->
 		  AND  PO.OrgUnitOperational IN (SELECT OrgUnit 
 			                             FROM   userQuery.dbo.#SESSION.acc#OrgScope
 										 WHERE  OrgUnit = PO.OrgUnitOperational)
-								  
+										 
 								  
 	</cfquery>
+	
 	
 	<!--- check if post in this mission/mandate has a conflict with this assignment  --->
 	
@@ -181,7 +185,7 @@
 		  AND  DateExpiration  >= #STR#
 		  AND  DateEffective   <= #END#
 		  AND  AssignmentClass  IN (#preservesingleQuotes(assclass)#)
-		  AND  Incumbency      != 0
+		  AND  Incumbency      = '#Form.Incumbency#'
 		  AND  AssignmentNo     <> #Form.AssignmentNo#
 		  AND  AssignmentStatus < '#Parameter.AssignmentShow#' 
 		  AND  PersonNo         <> '#Form.PersonNo#' 
@@ -217,114 +221,158 @@
 	</cfif>	 	
 	
 	<cfif handle eq "1">
-	
-	    <cftransaction>
+		
+	   <cftransaction>
 	
 	   <!--- a pointer to first make correction based on the selected option of HANDLING of conflicst
 	    terminate existing assigment of the SAME person --->
 	   
-	   <cfloop query = "PersonVerify"> 
+	   <cfloop query = "PersonVerify"> 	 
 	      			
-			   <cfquery name="MandateVerify" 
-					datasource="AppsEmployee" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-					SELECT * 
-					FROM   Organization.dbo.Ref_Mandate
-					WHERE  Mission   = '#Mission#'
-					AND    MandateNo = '#MandateNo#'
-			   </cfquery>	
+		   <cfquery name="MandateVerify" 
+				datasource="AppsEmployee" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT * 
+				FROM   Organization.dbo.Ref_Mandate
+				WHERE  Mission   = '#Mission#'
+				AND    MandateNo = '#MandateNo#'
+		   </cfquery>		
 			      
-			   <cfif MandateVerify.MandateStatus eq "1">
-			   
-				     <!--- set current record to status = 9 --->
-					 <cfquery name="UpdateAssignment" 
-				         datasource="AppsEmployee" 
-				         username="#SESSION.login#" 
-				         password="#SESSION.dbpw#">
-				    	 UPDATE PersonAssignment
-				    	 SET    AssignmentStatus = '9',
-						        ActionReference  = #NoAct# 
-				    	 WHERE  AssignmentNo     = '#AssignmentNo#' 
-				    </cfquery>	
+		   <cfif MandateVerify.MandateStatus eq "1">
+		   
+			     <!--- set current record to status = 9 --->
+				 
+				 <cfquery name="UpdateAssignment" 
+			         datasource="AppsEmployee" 
+			         username="#SESSION.login#" 
+			         password="#SESSION.dbpw#">
+			    	 UPDATE PersonAssignment
+			    	 SET    AssignmentStatus = '9',
+					        ActionReference  = #NoAct# 
+			    	 WHERE  AssignmentNo     = '#AssignmentNo#' 
+			    </cfquery>	
+									
+				<cfset maction = "Disable current record">					
+
+				<!--- was throwing an error because of value = 0 --->
+				
+				<cfquery name="setdata" 
+				   datasource="AppsEmployee" 
+			       username="#SESSION.login#" 
+			       password="#SESSION.dbpw#">
+				   INSERT INTO PersonAssignmentAction	
+				          (PersonNo, 
+						   PositionNo, 
+						   AssignmentNo, 
+						   ActionCode, 
+						   ActionMemo, 
+						   OfficerUserId, OfficerLastName, OfficerFirstName)
+						   
+				   VALUES ('#PersonNo#',
+				           '#PositionNo#',
+						   '#AssignmentNo#',
+						   'Verify',
+						   '#maction#',
+       					   '#session.acc#','#session.last#','#session.first#')	       
+				</cfquery> 	
 					
-					<cfif STR lte DateEffective>
+				<cfif STR lte DateEffective>
+				
+				    <!--- do nothing here as the transaction is obsolete, this is the charles scenario of future transaction  --->
+				
+				<cfelse>
+				
+				    <!--- create a new record for the existing record before the new assignment --->
+				 						
+					<cfquery name="InsertAssignment0" 
+				     datasource="AppsEmployee" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">
+					 
+				     INSERT INTO PersonAssignment
+					         (PersonNo,
+							 PositionNo,
+							 DateEffective,
+							 DateExpiration, 
+							 OrgUnit,
+							 LocationCode,
+							 FunctionNo,
+							 FunctionDescription,
+							 AssignmentStatus,
+							 ActionReference,
+							 AssignmentClass,
+							 AssignmentType,
+							 Incumbency,
+							 Remarks,
+							 Source,
+							 OfficerUserId,
+							 OfficerLastName,
+							 OfficerFirstName)
+					  SELECT PersonNo, 
+					         PositionNo, 
+							 DateEffective, 
+							 #STR#-1, 
+							 OrgUnit, 
+							 LocationCode, 
+							 FunctionNo,
+					         FunctionDescription, 
+							 '#clr#', 
+							 #NoAct#, 
+							 AssignmentClass, 
+							 AssignmentType, 
+							 Incumbency, 
+							 Remarks, 
+							 'CHECK',
+							 '#SESSION.acc#',
+					         '#SESSION.last#', 
+							 '#SESSION.first#'
+					  FROM   PersonAssignment
+				      WHERE  AssignmentNo = '#AssignmentNo#'
+					  
+				    </cfquery>
 					
-					    <!--- do nothing here as the transaction is obsolete, this is the charles scenario of future transaction  --->
-					
-					<cfelse>
-					
-					    <!--- create a new record for the existing record before the assignment --->
-					 						
-						<cfquery name="InsertAssignment0" 
-					     datasource="AppsEmployee" 
-					     username="#SESSION.login#" 
-					     password="#SESSION.dbpw#">
+					<cfquery name="getAssignment" 
+				    datasource="AppsEmployee" 
+				    username="#SESSION.login#" 
+				    password="#SESSION.dbpw#">
+					   	 SELECT   * 
+						 FROM     PersonAssignment
+						 WHERE    AssignmentNo = '#AssignmentNo#'									 			   	 
+				    </cfquery>
+											
+					<cfquery name="Class" 
+				    datasource="AppsEmployee" 
+				    username="#SESSION.login#" 
+				    password="#SESSION.dbpw#">
+					   	 SELECT   * 
+						 FROM     Ref_AssignmentClass
+						 WHERE    AssignmentClass = '#getAssignment.AssignmentClass#'					   	 
 						 
-					     INSERT INTO PersonAssignment
-						         (PersonNo,
-								 PositionNo,
-								 DateEffective,
-								 DateExpiration, 
-								 OrgUnit,
-								 LocationCode,
-								 FunctionNo,
-								 FunctionDescription,
-								 AssignmentStatus,
-								 ActionReference,
-								 AssignmentClass,
-								 AssignmentType,
-								 Incumbency,
-								 Remarks,
-								 Source,
-								 OfficerUserId,
-								 OfficerLastName,
-								 OfficerFirstName)
-						  SELECT PersonNo, 
-						         PositionNo, 
-								 DateEffective, 
-								 #STR#-1, 
-								 OrgUnit, 
-								 LocationCode, 
-								 FunctionNo,
-						         FunctionDescription, 
-								 '#clr#', 
-								 #NoAct#, 
-								 AssignmentClass, 
-								 AssignmentType, 
-								 Incumbency, 
-								 Remarks, 
-								 'CHECK',
-								 '#SESSION.acc#',
-						         '#SESSION.last#', 
-								 '#SESSION.first#'
-						  FROM   PersonAssignment
-					      WHERE  AssignmentNo = '#AssignmentNo#'
-						  
-					    </cfquery>
+				    </cfquery>				
+	
+					<cfif class.PositionOwner eq "1">
+					
+						<!--- New : check if the person has a 0 assignment around the start date already
+						 assignmentadd in case of owner assignment a 0 percent record as well --->
 						
-						<cfquery name="getAssignment" 
+						<cfquery name="checkAssignment" 
 					    datasource="AppsEmployee" 
 					    username="#SESSION.login#" 
 					    password="#SESSION.dbpw#">
 						   	 SELECT   * 
 							 FROM     PersonAssignment
-							 WHERE    AssignmentNo = '#AssignmentNo#'					   	 
+							 WHERE    PersonNo   = '#getAssignment.PersonNo#'					   	 
+							 -- AND      PositionNo = '#getAssignment.PositionNo#'
+							 AND      Incumbency      = '0'
+							 AND      AssignmentStatus IN ('0','1')
+							 AND      DateEffective  <= #STR#
+							 AND      DateExpiration >= #STR#
+							 
 					    </cfquery>
-												
-						<cfquery name="Class" 
-					    datasource="AppsEmployee" 
-					    username="#SESSION.login#" 
-					    password="#SESSION.dbpw#">
-						   	 SELECT   * 
-							 FROM     Ref_AssignmentClass
-							 WHERE    AssignmentClass = '#getAssignment.AssignmentClass#'					   	 
-					    </cfquery>
-					
-						<cfif class.PositionOwner eq "1">
 						
-							<!--- New : add in case of owner assignment a 0 percent record as well --->
-										
+						<cfif checkassignment.recordcount eq "0">
+									
 							<cfquery name="InsertAssignmentLien" 
 						     datasource="AppsEmployee" 
 						     username="#SESSION.login#" 
@@ -369,43 +417,47 @@
 								  FROM  PersonAssignment
 							      WHERE AssignmentNo = '#AssignmentNo#'
 						    </cfquery>
-														
-						</cfif>						
-					
-					</cfif>
-			      
-			   <cfelse>	
-			   
-				   <!--- open mandate --->
-				        
-				   <cfif STR lte DateEffective>
-				   
-				      <cfquery name="Delete" 
-				      datasource="AppsEmployee" 
-				      username="#SESSION.login#" 
-				      password="#SESSION.dbpw#">
-				      	  DELETE FROM PersonAssignment
-						  WHERE AssignmentNo = '#AssignmentNo#'
-				      </cfquery>
-				      
-				   <cfelse>
+							
+						</cfif>	
+													
+					</cfif>						
 				
-				     <cfquery name="Update" 
-				      datasource="AppsEmployee" 
-				      username="#SESSION.login#" 
-				      password="#SESSION.dbpw#">
-				      	  UPDATE PersonAssignment
-					   	  SET    DateExpiration = #STR#-1
-					      WHERE  AssignmentNo = '#AssignmentNo#'
-				     </cfquery>
-				   
-				   </cfif>
-			     
+				</cfif>
+		      
+		   <cfelse>	
+		   
+			   <!--- open mandate --->
+			        
+			   <cfif STR lte DateEffective>
+			   
+			      <cfquery name="Delete" 
+			      datasource="AppsEmployee" 
+			      username="#SESSION.login#" 
+			      password="#SESSION.dbpw#">
+			      	  DELETE FROM PersonAssignment
+					  WHERE  AssignmentNo = '#AssignmentNo#'
+			      </cfquery>
+			      
+			   <cfelse>
+			
+			     <cfquery name="Update" 
+			      datasource="AppsEmployee" 
+			      username="#SESSION.login#" 
+			      password="#SESSION.dbpw#">
+			      	  UPDATE PersonAssignment
+				   	  SET    DateExpiration = #STR#-1
+				      WHERE  AssignmentNo = '#AssignmentNo#'
+			     </cfquery>
+			   
 			   </cfif>
+		     
+		   </cfif>
 	   
 	   </cfloop>
+	  	
 	   
 	   <!--- position conflict --->
+	  
 	 
 	   <cfloop query = "PostVerify"> 
 	 
@@ -419,8 +471,8 @@
 				         password="#SESSION.dbpw#">
 					     UPDATE PersonAssignment
 					     SET    AssignmentStatus = '9',
-						        ActionReference = #NoAct# 
-					     WHERE  AssignmentNo = '#AssignmentNo#' 
+						        ActionReference  = '#NoAct#' 
+					     WHERE  AssignmentNo     = '#AssignmentNo#' 
 				    </cfquery>	
 					
 					<cfif STR lte DateEffective>
@@ -483,7 +535,7 @@
 						   	 SELECT   * 
 							 FROM     PersonAssignment
 							 WHERE    AssignmentNo = '#AssignmentNo#'					   	 
-					    </cfquery>
+					    </cfquery>		
 												
 						<cfquery name="Class" 
 					    datasource="AppsEmployee" 
@@ -496,55 +548,74 @@
 					
 						<cfif class.PositionOwner eq "1">
 						
-							<!--- New : add in case of owner assignment a 0 percent record as well --->
-										
-							<cfquery name="InsertAssignmentLien" 
-						     datasource="AppsEmployee" 
-						     username="#SESSION.login#" 
-						     password="#SESSION.dbpw#">
-							     INSERT INTO PersonAssignment
-								         (PersonNo,
-										 PositionNo,
-										 DateEffective,
-										 DateExpiration,
-										 OrgUnit,
-										 LocationCode,
-										 FunctionNo,
-										 FunctionDescription, 
-										 AssignmentStatus,
-										 ActionReference,
-										 AssignmentClass,
-										 AssignmentType,
-										 Incumbency,
-										 Remarks,
-										 SourceId,
-										 OfficerUserId,
-										 OfficerLastName,
-										 OfficerFirstName)
-								  SELECT PersonNo, 
-								         PositionNo, 
-										 #STR#,
-									     DateExpiration,
-									     OrgUnit, 
-										 LocationCode, 
-										 FunctionNo,
-									     FunctionDescription, 
-										 '#clr#', 
-										 #NoAct#, 
-										 AssignmentClass, 
-										 AssignmentType, 
-										 '0', 
-										 'Lien assignment', 
-										 '#Form.AssignmentNo#',
-									     '#SESSION.acc#', 
-										 '#SESSION.last#', 
-										 '#SESSION.first#'
-								  FROM  PersonAssignment
-							      WHERE AssignmentNo = '#AssignmentNo#'
-		  					    </cfquery>
+							<!--- New : add in case of owner assignment a 0 percent record as well if this does not exist
+							yet --->
 							
+							<cfquery name="checkAssignment" 
+						    datasource="AppsEmployee" 
+						    username="#SESSION.login#" 
+						    password="#SESSION.dbpw#">
+							   	 SELECT   * 
+								 FROM     PersonAssignment
+								 WHERE    PersonNo   = '#getAssignment.PersonNo#'					   	 
+								 -- AND      PositionNo = '#getAssignment.PositionNo#'
+								 AND      Incumbency      = '0'
+								 AND      AssignmentStatus IN ('0','1')
+								 AND      DateEffective  <= #STR#
+								 AND      DateExpiration >= #STR#
+						    </cfquery>
+							
+							<cfif checkassignment.recordcount eq "0">
+																	
+								<cfquery name="InsertAssignmentLien" 
+							     datasource="AppsEmployee" 
+							     username="#SESSION.login#" 
+							     password="#SESSION.dbpw#">
+								     INSERT INTO PersonAssignment
+									         (PersonNo,
+											 PositionNo,
+											 DateEffective,
+											 DateExpiration,
+											 OrgUnit,
+											 LocationCode,
+											 FunctionNo,
+											 FunctionDescription, 
+											 AssignmentStatus,
+											 ActionReference,
+											 AssignmentClass,
+											 AssignmentType,
+											 Incumbency,
+											 Remarks,
+											 SourceId,
+											 OfficerUserId,
+											 OfficerLastName,
+											 OfficerFirstName)
+									  SELECT PersonNo, 
+									         PositionNo, 
+											 #STR#,
+										     DateExpiration,
+										     OrgUnit, 
+											 LocationCode, 
+											 FunctionNo,
+										     FunctionDescription, 
+											 '#clr#', 
+											 #NoAct#, 
+											 AssignmentClass, 
+											 AssignmentType, 
+											 '0', 
+											 'AUTO LIEN', 
+											 '#Form.AssignmentNo#',
+										     '#SESSION.acc#', 
+											 '#SESSION.last#', 
+											 '#SESSION.first#'
+									  FROM  PersonAssignment
+								      WHERE AssignmentNo = '#AssignmentNo#'
+			  					    </cfquery>
+									
+								</cfif>
+								
 						</cfif>	
-					
+										
 						<!--- wildcard : delete same day assignments --->
 						
 						<cfquery name="Clean" 
@@ -553,7 +624,7 @@
 					     password="#SESSION.dbpw#">
 							 DELETE FROM PersonAssignment
 							 WHERE DateEffective = DateExpiration
-							 AND   PersonNo = '#Form.PersonNo#'				 
+							 AND   PersonNo = '#PersonNo#'				 
 						</cfquery> 			
 				
 					</cfif>
@@ -588,12 +659,14 @@
 			   </cfif>
 		
 		</cfloop>
-		
+			
 		</cftransaction>
 	        
 	</cfif> 
 
 </cfif>  
+
+   
 	
 <!--- store the proposed transaction --->
 
@@ -632,6 +705,8 @@ password="#SESSION.dbpw#">
 		[Remarks] [varchar] (100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL 	
 	) ON [PRIMARY]
 </cfquery>
+
+		
 
 <cfquery name="Person" 
 	  datasource="AppsEmployee" 
@@ -707,10 +782,12 @@ password="#SESSION.dbpw#">
          and handle eq "0") or status eq "NotApproved">		   
    		
 	  <cfoutput>
-	
-		<script language="JavaScript">		 		
+	 	
+		<script language="JavaScript">						
 		 parent.AssignmentConflict('#Call#','#URL.Caller#','#Status#','#URL.Source#','#URL.RecordId#','#URL.ApplicantNo#','#url.id#','#url.box#')
 		</script>
+		
+	
 		
   	 </cfoutput>	
 		
@@ -721,4 +798,5 @@ password="#SESSION.dbpw#">
 	<cfset conflict = "0">	
 	
 </cfif>	
+
 

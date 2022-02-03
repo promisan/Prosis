@@ -105,25 +105,27 @@
 	</cfif>
 		
 	<td align="center">
-			
-		<cfquery name="Locations" 
-		datasource="AppsProgram" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			SELECT   L.Description as LocationName	        
-			FROM     ProgramActivityLocation P ,Payroll.dbo.Ref_PayrollLocation L
-			WHERE    ProgramCode    = '#ProgramCode#'
-			AND      ActivityPeriod = '#ActivityPeriod#'
-			AND      ActivityID     = '#ActivityID#'  		
-			AND      P.LocationCode = L.LocationCode
-		</cfquery>
-	
-		<table>
-		<cfloop query="Locations">	
-			<tr class="labelmedium"><td>#LocationName#</td></tr>	
-		</cfloop>
-		</table>
-			
+		<cf_verifyOperational module="Payroll" Warning="No">
+		<cfif operational eq "1">
+			<cfquery name="Locations"
+			datasource="AppsProgram"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+				SELECT   L.Description as LocationName
+				FROM     ProgramActivityLocation P ,Payroll.dbo.Ref_PayrollLocation L
+				WHERE    ProgramCode    = '#ProgramCode#'
+				AND      ActivityPeriod = '#ActivityPeriod#'
+				AND      ActivityID     = '#ActivityID#'
+				AND      P.LocationCode = L.LocationCode
+			</cfquery>
+
+			<table>
+			<cfloop query="Locations">
+				<tr class="labelmedium"><td>#LocationName#</td></tr>
+			</cfloop>
+			</table>
+		</cfif>
+
 	</td>
 							
 	<td align="center" style="width:100px">#DateFormat(ActivityDateStart, CLIENT.DateFormatShow)#</td>

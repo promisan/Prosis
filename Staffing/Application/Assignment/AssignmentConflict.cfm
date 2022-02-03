@@ -35,9 +35,15 @@ password="#SESSION.dbpw#">
 	  AND  M.Mission     = Man.Mission
 </cfquery>
 
-<cf_screentop layout="webapp"               
-			  bannerheight="50" 
+<cfif url.source eq "vac">
+	 <cfset html = "No">
+<cfelse>
+	 <cfset html = "Yes">	 
+</cfif>
+
+<cf_screentop layout="webapp"               			  
 			  line="No"
+			  html="#html#"
 			  banner="gray"
 			  jquery="Yes"
 			  label="Assignment Action" height="100%" scroll="Yes">
@@ -51,7 +57,7 @@ password="#SESSION.dbpw#">
 
 	<table width="98%" align="center" class="formpadding">
 	
-		<tr class="xxxxxhide"><td colspan="2" height="160"><iframe name="process" id="process" width="100%" height="100%"></iframe></td></tr>
+		<tr class="hide"><td colspan="2" height="160"><iframe name="process" id="process" width="100%" height="100%"></iframe></td></tr>
 	      
 		<tr><td colspan="2">
 			<cfinclude template="../Position/Position/PositionViewHeader.cfm">
@@ -60,14 +66,7 @@ password="#SESSION.dbpw#">
 	  <tr>
 	    <td width="100%" colspan="2">
 	    <table width="98%" align="center" class="formpadding">
-		
-		<!---				
-		<TR>
-	    <TD width="130" class="labelmedium">PositionNo:</TD>
-	    <TD width="83%" height="20" class="labelmedium"><cfoutput>#Assignment.PositionNo#</cfoutput></TD>
-		</TR>
-		--->
-		
+				
 		<cf_calendarscript>
 		
 		<cfif Assignment.DateArrival neq "" and Assignment.DateDeparture neq "">
@@ -102,15 +101,21 @@ password="#SESSION.dbpw#">
 			 
 	    <TR>
 	    <TD class="labelmedium"><cf_tl id="Staffing Period">:</TD>
-	    <TD><table cellspacing="0" cellpadding="0">
-		   <tr><td>
+	    <TD>
+		
+		    <table cellspacing="0" cellpadding="0">
+		   
+		    <tr><td>
 		
 			  <cf_intelliCalendarDate9
 			FieldName="DateEffective" 
 			class="regularxl"
 			Default="#Dateformat(Assignment.DateEffective, CLIENT.DateFormatShow)#"
 			AllowBlank="False">	
-			</td><td>-</td>
+			
+			</td>
+			
+			<td>-</td>
 			
 			<td>
 			  <cf_intelliCalendarDate9
@@ -119,7 +124,10 @@ password="#SESSION.dbpw#">
 			Default="#Dateformat(Assignment.DateExpiration, CLIENT.DateFormatShow)#"
 			AllowBlank="True">	
 			
-			</td></tr></table>
+			</td>
+			</tr>
+			</table>
+			
 		</TD>
 		</TR>
 		
@@ -151,19 +159,19 @@ password="#SESSION.dbpw#">
 			
 	    <TD class="labelmedium"><cfoutput>	
 		
-		  <img src="#SESSION.root#/Images/search.png" alt="Select authorised unit" name="img0" 
-						  onMouseOver="document.img0.src='#SESSION.root#/Images/contract.gif'" 
-						  onMouseOut="document.img0.src='#SESSION.root#/Images/search.png'"
-						  style="cursor: pointer;" alt="" width="23" height="23" border="0" align="absmiddle" 
-						  onClick="selectorgmis('webdialog','orgunit','orgunitcode','mission','orgunitname','orgunitclass',mission.value, mandateno.value)">
+		    <img src="#SESSION.root#/Images/search.png" alt="Select authorised unit" name="img0" 
+			  onMouseOver="document.img0.src='#SESSION.root#/Images/contract.gif'" 
+			  onMouseOut="document.img0.src='#SESSION.root#/Images/search.png'"
+			  style="cursor: pointer;" width="23" height="23" border="0" align="absmiddle" 
+			  onClick="selectorgmis('webdialog','orgunit','orgunitcode','mission','orgunitname','orgunitclass',mission.value, mandateno.value)">
 		
-		<input type="text"   name="orgunitname"  id="orgunitname"  value="#Assignment.OrgUnitName#" class="regularxl" size="40" maxlength="70" readonly style="text-align: center;">
-		<input type="hidden" name="orgunitcode"  id="orgunitcode"  value="#Assignment.OrgUnitCode#" size="5" maxlength="5" readonly style="text-align: center;">
-		<input type="hidden" name="mandateno"    id="mandateno"    value="#Assignment.MandateNo#">
-		<input type="hidden" name="orgunit"      id="orgunit"      value="#Assignment.OrgUnit#"> 
-		<input type="hidden" name="mission"      id="mission"      value="#Assignment.Mission#">
-		<input type="hidden" name="orgunitclass" id="orgunitclass" value="#Assignment.OrgUnitClass#" class="disabled" size="20" maxlength="20" readonly style="text-align: center;"> 
-		
+			<input type="text"   name="orgunitname"  id="orgunitname"  value="#Assignment.OrgUnitName#" class="regularxl" size="40" maxlength="70" readonly style="text-align: center;">
+			<input type="hidden" name="orgunitcode"  id="orgunitcode"  value="#Assignment.OrgUnitCode#" size="5" maxlength="5" readonly style="text-align: center;">
+			<input type="hidden" name="mandateno"    id="mandateno"    value="#Assignment.MandateNo#">
+			<input type="hidden" name="orgunit"      id="orgunit"      value="#Assignment.OrgUnit#"> 
+			<input type="hidden" name="mission"      id="mission"      value="#Assignment.Mission#">
+			<input type="hidden" name="orgunitclass" id="orgunitclass" value="#Assignment.OrgUnitClass#" class="disabled" size="20" maxlength="20" readonly style="text-align: center;"> 
+			
 		
 		</td>
 		</TR>	
@@ -223,9 +231,9 @@ password="#SESSION.dbpw#">
 	    <TD class="labelmedium"><cf_tl id="Incumbency">:</TD>
 	    <TD class="labelmedium">
 	    	<cfoutput>
-			<INPUT type="radio" name="Incumbency" value="100" <cfif #Assignment.Incumbency# eq "100">checked</cfif>> 100%
-			<INPUT type="radio" name="Incumbency" value="50" <cfif #Assignment.Incumbency# eq "50">checked</cfif>> 50%
-			<INPUT type="radio" name="Incumbency" value="0" <cfif #Assignment.Incumbency# eq "0">checked</cfif>> 0%
+			<INPUT type="radio" name="Incumbency" value="100" <cfif Assignment.Incumbency eq "100">checked</cfif>> 100%
+			<INPUT type="radio" name="Incumbency" value="50" <cfif Assignment.Incumbency eq "50">checked</cfif>> 50%
+			<INPUT type="radio" name="Incumbency" value="0" <cfif Assignment.Incumbency eq "0">checked</cfif>> 0%
 		    </cfoutput>	
 			
 		</TD>
@@ -305,11 +313,7 @@ password="#SESSION.dbpw#">
 			  <cfinclude template="AssignmentEditGroup.cfm">		
 			</td>
 		</TR>
-		
-		<tr><td height="3"></td></tr>		
-		
-		<tr><td colspan="2" class="linedotted"></td></tr>
-				
+							
 		<tr>
 		<td colspan="2">
 		
@@ -321,88 +325,101 @@ password="#SESSION.dbpw#">
 		 	SELECT * 
 		    FROM Parameter
 		 </cfquery>
+			 		 
+	 <cfquery name="getlist" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		    SELECT     B.AssignmentClass
+	        FROM       Ref_AssignmentClass AS A INNER JOIN
+	                   Ref_AssignmentClass AS B ON A.ClassParent = A.ClassParent
+	        WHERE      A.AssignmentClass = '#Assignment.AssignmentClass#' 
+			AND        B.Incumbency > 0 
+			AND        A.Operational = 1
+	</cfquery>
+			
+	<cfset assclass = quotedValueList(getlist.assignmentclass)>
 	
 		<cfquery name="SearchResult" 
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT DISTINCT 
-			    A.PositionNo, 
-			    A.PersonNo, 
-				A.AssignmentStatus, 
-				A.DateEffective, 
-				A.DateExpiration, 
-				A.Incumbency, 
-				A.AssignmentType, 
-				A.Remarks, 
-				A.AssignmentNo, 
-				A.Created,
-			    P.LastName, 
-				P.FirstName, 
-				P.IndexNo, 
-				S.PostGrade, 
-				A.FunctionDescription, 
-				O.OrgUnitName, 
-				O.Mission, 
-				S.SourcePostNumber, 
-				M.MandateStatus
-		FROM 	PersonAssignment A, 
-			    Person P, 
-				Position S, 
-				Organization.dbo.Organization O, 
-				Organization.dbo.Ref_Mandate M
-		WHERE (A.PersonNo = '#Assignment.PersonNo#' or A.PositionNo = '#Assignment.PositionNo#')
-		  AND A.PersonNo           = P.PersonNo
-		  AND A.PositionNo         = S.PositionNo
-		  AND S.OrgUnitOperational = O.OrgUnit
-		  AND A.Incumbency        != 0
-		  AND A.DateExpiration    >= '#DateFormat(Assignment.DateEffective,client.dateSQL)#'
-		  AND A.DateEffective     <= '#DateFormat(Assignment.DateExpiration,client.dateSQL)#'
-		  AND A.AssignmentClass    = '#Assignment.AssignmentClass#'
-		  AND A.AssignmentNo      <> #Assignment.AssignmentNo#
-		  AND A.AssignmentStatus  IN ('0','1')
-		  AND M.Mission           = O.Mission
-		  AND M.MandateNo         = O.MandateNo 
-		  AND S.OrgUnitOperational IN (SELECT OrgUnit 
-			                      FROM userQuery.dbo.#SESSION.acc#OrgScope)
+			SELECT DISTINCT 
+				    A.PositionNo, 
+				    A.PersonNo, 
+					A.AssignmentStatus, 
+					A.DateEffective, 
+					A.DateExpiration, 
+					A.Incumbency, 
+					A.AssignmentType, 
+					A.Remarks, 
+					A.AssignmentNo, 
+					A.Created,
+				    P.LastName, 
+					P.FirstName, 
+					P.IndexNo, 
+					S.PostGrade, 
+					A.FunctionDescription, 
+					O.OrgUnitName, 
+					O.Mission, 
+					S.SourcePostNumber, 
+					M.MandateStatus
+			FROM 	PersonAssignment A, 
+				    Person P, 
+					Position S, 
+					Organization.dbo.Organization O, 
+					Organization.dbo.Ref_Mandate M
+			WHERE (A.PersonNo = '#Assignment.PersonNo#' or A.PositionNo = '#Assignment.PositionNo#')
+			  AND A.PersonNo           = P.PersonNo
+			  AND A.PositionNo         = S.PositionNo
+			  AND S.OrgUnitOperational = O.OrgUnit
+			  AND A.Incumbency        = '#Assignment.Incumbency#'
+			  AND A.DateExpiration    >= '#DateFormat(Assignment.DateEffective,client.dateSQL)#'
+			  AND A.DateEffective     <= '#DateFormat(Assignment.DateExpiration,client.dateSQL)#'
+			  AND A.AssignmentClass    IN (#preservesingleQuotes(assclass)#)
+			  AND A.AssignmentNo      <> #Assignment.AssignmentNo#
+			  AND A.AssignmentStatus  IN ('0','1')
+			  AND M.Mission           = O.Mission
+			  AND M.MandateNo         = O.MandateNo 
+			  AND S.OrgUnitOperational IN (SELECT OrgUnit 
+				                      FROM userQuery.dbo.#SESSION.acc#OrgScope)
 		</cfquery>  
 	
-	  <table width="100%" bgcolor="ffffef" style="border:1px dotted silver"
-	     cellspacing="0" cellpadding="0" align="center">
-		  
+	  <table width="100%" bgcolor="ffffef" style="border:1px dotted silver" align="center">
+	  	
+		<cfif searchResult.recordcount eq "0">	  
 		<tr>
 		<td align="center" bgcolor="yellow" height="35">
 			
 			<font face="Calibri" size="3" color="#FF0000">
 			<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/alert.gif" align="absmiddle" height="20" width="20" alt="" border="0">
-			A Conflict is detected with the following existing assignment(s)
+			A conflict is detected with the following existing assignment(s)
 			
 		</td>
 		</tr>  
+		</cfif>
 	  
 	  <tr>
 	  <td width="100%">
-	  <table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
+	  <table width="100%" align="center">
 		
-	    <TR class="labelmedium2">
-	       <td height="20" width="4%" align="center"></td>
-	       <td width="8%">IndexNo</td>
-	       <TD width="15%">Name</TD>
-		   <TD width="10%">Tree</TD>
-		   <TD width="15%">PostNumber</TD>
-		   <TD width="5%">Grade</TD>
-	       <TD width="6%">Type</TD>
-		   <TD width="6%">Inc.</TD>
-		   <TD width="8%">Effective</TD>	
-		   <TD width="8%">Expiration&nbsp;</TD>	
-	    </TR>
-		
-		<tr><td colspan="10" class="linedotted"></td></tr>
+	    <TR class="labelmedium2 line fixlengthlist">
+	       <td height="20" align="center"></td>
+	       <td>IndexNo</td>
+	       <TD>Name</TD>
+		   <TD>Tree</TD>
+		   <TD>PostNumber</TD>
+		   <TD>Grade</TD>
+	       <TD>Type</TD>
+		   <TD>Inc.</TD>
+		   <TD>Effective</TD>	
+		   <TD>Expiration</TD>	
+	    </TR>		
 	
 	    <cfset last = '1'>
 		
 		<cfif searchResult.recordcount eq "0">
-		    <tr><td colspan="10" align="center" class="labelmedium">No more conflicts found, please press submit to post your transaction!</b></td></tr>
+		    <tr class="labelmedium2 fixlengthlist"><td colspan="10" align="center">No (more) conflicts found, please press submit to post your transaction!</b></td></tr>
 		</cfif>
 		
 	    <cfoutput query="SearchResult">
@@ -411,24 +428,24 @@ password="#SESSION.dbpw#">
 		   <tr><td colspan="6" style="padding-left:5px" class="labelmedium"><b><font color="FF0000">Pending approval</b></td></tr>
 		</cfif>
 	   
-		<TR bgcolor="<cfif #AssignmentStatus# eq "0">FFFFdF<cfelse>#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F6F6F6'))#</cfif>">
+		<TR class="labelmedium2 fixlengthlist" bgcolor="<cfif #AssignmentStatus# eq "0">FFFFdF<cfelse>#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F6F6F6'))#</cfif>">
 	       <td valign="top" style="padding-top:6px" rowspan="2" align="center">
 		       <cf_img icon="edit" onclick="EditAssignment('#PersonNo#','#AssignmentNo#','P','err')">	      
 	       </td>	
-	       <td style="padding-left:5px" height="25" class="labelmedium"><A HREF ="javascript:EditPerson('#PersonNo#')">#IndexNo#</A></td>
-	       <TD class="labelmedium"><A HREF ="javascript:EditPerson('#PersonNo#')">#LastName#, #FirstName#</A></TD>
-	   	   <TD class="labelmedium">#Mission#</TD>
-		   <TD class="labelmedium">#SourcePostNumber# [#PositionNo#]</TD>
-		   <TD class="labelmedium">#PostGrade#</TD>
-		   <TD class="labelmedium">#AssignmentType#</TD>
-		   <TD class="labelmedium">#Incumbency#%</TD>
-		   <td class="labelmedium">#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
-	       <td class="labelmedium">#Dateformat(DateExpiration, CLIENT.DateFormatShow)#&nbsp;</td>
+	       <td height="25"><A HREF ="javascript:EditPerson('#PersonNo#')">#IndexNo#</A></td>
+	       <TD><A HREF ="javascript:EditPerson('#PersonNo#')">#LastName#, #FirstName#</A></TD>
+	   	   <TD>#Mission#</TD>
+		   <TD>#SourcePostNumber# [#PositionNo#]</TD>
+		   <TD>#PostGrade#</TD>
+		   <TD>#AssignmentType#</TD>
+		   <TD>#Incumbency#%</TD>
+		   <td>#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
+	       <td>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
 		 </tr>
 		 
-		 <TR bgcolor="<cfif #AssignmentStatus# eq "0">FFFFdF<cfelse>#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F6F6F6'))#</cfif>">
-		   <TD class="labelmedium" colspan="4">#OrgUnitName#</TD>
-	       <td class="labelmedium" colspan="3">#FunctionDescription#</td>
+		 <TR class="labelmedium2 fixlengthlist" bgcolor="<cfif #AssignmentStatus# eq "0">FFFFdF<cfelse>#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('F6F6F6'))#</cfif>">
+		   <TD colspan="4">#OrgUnitName#</TD>
+	       <td colspan="3">#FunctionDescription#</td>
 		   <td></td>
 	       <td></td>
 	     </tr>

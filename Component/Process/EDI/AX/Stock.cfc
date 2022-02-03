@@ -719,5 +719,3 @@
         displayname="Cancel sale transaction">
 		
     </cffunction>	
-	
-		

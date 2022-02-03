@@ -282,8 +282,14 @@
 		
 		<cfif ScheduleInterval eq "Manual">
 		-
+		<cfelseif ScheduleInterval eq "21600">
+		6hr
+		<cfelseif ScheduleInterval eq "10800">
+		3hr
+		<cfelseif ScheduleInterval eq "7200">
+		2hr
 		<cfelseif ScheduleInterval eq "3600">
-		60"
+		60" 
 		<cfelseif ScheduleInterval eq "900">
 		15"
 		<cfelseif ScheduleInterval eq "600">
