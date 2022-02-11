@@ -69,6 +69,20 @@
 					   
 					   </td>
 					   
+					    <td style="padding-left:10px;">Disable cache:</td>
+					   
+					   <td style="padding-left:10px">
+					   	
+						   <table cellspacing="0" cellpadding="0">
+						   <tr class="labelmedium2">
+						   <cfparam name="val[7]" default="false">
+						   <td><input type="radio" name="CacheDisable" id="CacheDisable" value="true" <cfif val[7] eq "true">checked</cfif>></td><td style="padding-left:4px">Yes</td>
+						   <td style="padding-left:4px"><input type="radio" name="CacheDisable" id="CacheDisable" value="false" <cfif val[7] neq "true">checked</cfif>></td><td style="padding-left:4px">No</td>
+						   </tr>
+						   </table>
+					   
+					   </td>
+					   
 					    <td style="padding-left:20px">Scroll:</td>
 					   
 					   <td style="padding-left:10px">

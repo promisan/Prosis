@@ -151,6 +151,7 @@
  </cfquery>
   
  <!--- header is pending and actionstatus <> '1' --->
+ 
 	 
  <cfif Last.actionStatus neq "1" or Last.recordcount eq "0">
  
@@ -270,6 +271,7 @@
 			<td align="right" style="padding-right:3px"> 
 			   #dateformat(Created,CLIENT.DateFormatShow)# #timeformat(Created,"HH:MM")#
 			</td>
+			
 			
 			<cfif currentrow eq "1">
 			

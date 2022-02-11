@@ -143,11 +143,9 @@
 			   method           = "getTrackPosition" 
 			   positionNo       = "#PositionNo#"
 			   returnvariable   = "doc">					
-			  
-								
+			  								
 				<cfloop query="doc">	
-				
-								
+												
 					<tr bgcolor="<cfif class eq 'future'>DFBFFF<cfelse>yellow</cfif>">
 					
 						<td align="center"><img src="#SESSION.root#/Images/pointer.gif" alt="Recruitment action" width="9" height="9" border="0" align="middle" style="cursor: pointer;" onClick="javascript:showdocument('#DocumentNo#')">

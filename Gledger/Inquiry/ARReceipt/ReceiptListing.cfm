@@ -56,6 +56,8 @@
 	AND           TH.TransactionCategory = 'Receivables'
 	AND           TH.Mission             = '#url.mission#'
 	AND           TH.AccountPeriod       = '#url.Period#'
+	AND           TH.ActionStatus != '9'
+	AND           TH.RecordStatus <> '9' 		
 	<cfif url.orgunit neq "">
 	AND           TH.OrgUnitOwner        = '#url.OrgUnit#'
 	</cfif>

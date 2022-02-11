@@ -83,15 +83,15 @@ ORDER BY  P.SourcePostNumber
 			</cfif> 
 			
 			<td height="18"></td>  	 		  
-		    <TD><a href="javascript:EditPosition('#Position.Mission#','#Position.MandateNo#','#PositionNo#')"><cfif Position.sourcePostNumber eq "">#Position.PositionParentId#<cfelse>#Position.SourcePostNumber#</cfif></a></TD>
-			<TD><cfif pos neq positionno>#Position.FunctionDescription#</cfif></TD>
-			<TD><cfif pos neq positionno>#Position.PostGrade#</cfif></TD>
+		    <TD><a href="javascript:EditPosition('#Position.Mission#','#Position.MandateNo#','#PositionNo#')"><cfif Post.sourcePostNumber eq "">#Post.PositionParentId#<cfelse>#Post.SourcePostNumber#</cfif></a></TD>
+			<TD><cfif pos neq positionno>#Post.FunctionDescription#</cfif></TD>
+			<TD><cfif pos neq positionno>#Post.PostGrade#</cfif></TD>
 			<cfif Org.recordcount eq 1>
 			<td><a href="javascript:maintain('#Org.orgunitCode#','#Org.mission#','#Org.MandateNo#')"><cfif pos neq positionno>#Org.OrgUnitName#</cfif></td>
 			<cfelse>
 			<td>Unit not defined</td>		
 			</cfif>		
-		    <TD><cfif pos neq positionno>#Dateformat(Position.DateExpiration, CLIENT.DateFormatShow)#</cfif></TD>
+		    <TD><cfif pos neq positionno>#Dateformat(Post.DateExpiration, CLIENT.DateFormatShow)#</cfif></TD>
 			<TD><a href="javascript:EditPerson('#PersonNo#')">#IndexNo#</a> #FirstName# #LastName# #Dateformat(DateExpiration, CLIENT.DateFormatShow)# #Incumbency#%</TD>
 	
 			</TR>

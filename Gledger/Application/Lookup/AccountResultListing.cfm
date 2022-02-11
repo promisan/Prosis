@@ -778,7 +778,7 @@
 			  <!---
 			  <cfset lines = quotedValueList(SearchResult.TransactionLineId)>
 			  selectedid  = "#lines#"
-			  --->
+			  --->			  
 					 					
 					  <cfinvoke component="Service.Analysis.CrossTab"  
 							  method      = "ShowInquiry"
@@ -793,7 +793,7 @@
 							  reportName  = "Execution Report"
 							  table1Name  = "Ledger Transactions"						 		
 							  data        = "1"
-							  ajax        = "0"				 
+							  ajax        = "1"				 
 							  olap        = "0" 
 							  excel       = "1"> 	
 									

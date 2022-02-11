@@ -74,13 +74,13 @@
 				
 	</cfquery>	
 		
-     <table width="98%" border="0" cellspacing="0" cellpadding="0" class="navigation_table">
-	 <TR class="line labelmedium fixrow"> 
-       <td width="8%" height="19" ></td>
-       <TD width="20%"><cf_tl id="Account"></TD>
-       <TD width="50%"><cf_tl id="Description"></TD>
-	   <TD width="8%"><cf_tl id="Type"></TD>
-	   <TD width="8%"><cf_tl id="Class"></TD>	  
+     <table width="98%" class="navigation_table">
+	 <TR class="line labelmedium fixrow fixlengthlist"> 
+       <td height="19" ></td>
+       <TD><cf_tl id="Account"></TD>
+       <TD><cf_tl id="Description"></TD>
+	   <TD><cf_tl id="Type"></TD>
+	   <TD><cf_tl id="Class"></TD>	  
      </TR>
 			 
 	 <cfoutput query="Ledger" group="AccountGroup">
@@ -93,7 +93,7 @@
 	 
 		 <cfset des = replace(description,"'","","ALL")>
 			 
-		 <TR class="navigation_row line labelmedium" style="height:15px">
+		 <TR class="navigation_row line labelmedium fixlengthlist" style="height:15px">
 		     <cfif url.mode eq "cfwindow">
 			 <TD class="navigation_action"
 			   onclick="setvalue('#GLAccount#')" style="padding-top:4px;padding-left:20px"><cf_img icon="select"></td>			 							  

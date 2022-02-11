@@ -1,16 +1,17 @@
 <cfoutput>
 
-	<script>
+	<script>		
 		//Load jQuery if it isn't loaded
+		/*
 		if (!window.jQuery) {
 	        var script = document.createElement("script");
 	        script.type = "text/javascript";
 	        script.src = "#session.root#/Scripts/jQuery/jquery.js";
 	        document.body.appendChild(script);
 	    }
+		*/
 		
 		var _array_customToggleLayout_script = new Array();
-		
 	</script>
 
 	<cfset vAuto = "auto">
@@ -24,7 +25,7 @@
 	<cfif find("MSIE 7","#CGI.HTTP_USER_AGENT#")>
 		<cfset vRowShow = "block">
 	</cfif>	
-	
+
 	<script type="text/javascript" charset="utf-8" src="#session.root#/Scripts/jQuery/jqueryeffects.js"></script>
 	<script type="text/javascript" charset="utf-8" src="#session.root#/Scripts/Modernizr/modernizr.js"></script>
 

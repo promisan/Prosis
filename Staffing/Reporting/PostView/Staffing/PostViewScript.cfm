@@ -50,10 +50,8 @@ function tree(mis,man,tree,dte) {
 
 function facttabledetailxls1(control,format,box) {  
     // pass to a client variable, I am not longer using this 4/9/2013          
-    // ColdFusion.Ajax.submitForm('form_'+box,'PostViewDetailSelect.cfm?box='+box)	
-	w = #CLIENT.width# - 80;
-    h = #CLIENT.height# - 110;	
-	ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?ts="+new Date().getTime()+"&box="+box+"&data=1&controlid="+control+"&mission=#URL.Mission#&Mandate=#URL.Mandate#&format="+format, "facttable");
+    // ColdFusion.Ajax.submitForm('form_'+box,'PostViewDetailSelect.cfm?box='+box)		
+	ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?box="+box+"&data=1&controlid="+control+"&mission=#URL.Mission#&Mandate=#URL.Mandate#&format="+format, "facttable");
 }		
 
 function submenu(category,menusel,len) {

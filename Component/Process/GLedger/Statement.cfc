@@ -70,14 +70,12 @@
 								ON G.AccountGroup = G1.AccountGroup
 							INNER JOIN Accounting#Suffix#.dbo.#Client.LanPrefix#Ref_AccountParent G2
 								ON G1.AccountParent = G2.AccountParent
+							INNER JOIN Accounting.dbo.Journal J 
+								ON J.Journal = H.Journal 
+								AND J.GLCategory = 'Actuals' 
+								AND J.JournalType = 'General'
 							
 					 WHERE   H.Mission         = '#Mission#'
-										 
-					 AND     H.Journal IN (SELECT Journal 
-					                       FROM   Journal
-					                       WHERE  Journal       = H.Journal
-										   AND    GLCategory    = 'Actuals'	
-										   AND    JournalType   = 'General')
 					    
 					 <!--- added to exclude supporting journal --->
 										 
@@ -136,13 +134,13 @@
 				ORDER BY OrgUnitOwner,
 						 AccountPeriod		
 						 
-						
-						 
+											 
 			</cfquery>
 			
-			<!---			
+				<!---	
 			<cfoutput>#cfquery.executiontime#</cfoutput>
 			--->
+			
 					
 		
 		</cftransaction>					

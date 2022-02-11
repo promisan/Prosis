@@ -183,11 +183,11 @@ password="#SESSION.dbpw#">
 							         <cfif customer.customerid neq "">
 							         (SELECT ListCode 
 									  FROM CustomerTopic 
-									  WHERE Topic = T.Code 
+									  WHERE Topic    = T.Code 
 									  AND CustomerId = '#Customer.CustomerId#') as Selected 							      
 									 <cfelse> '' as Selected </cfif>									 
 							FROM 	 Ref_TopicList T 
-							WHERE 	 T.Code = '#Code#'  
+							WHERE 	 T.Code        = '#Code#'  
 							AND      ListCodeParent is NULL
 							AND 	 T.Operational = 1
 							ORDER BY T.ListOrder ASC

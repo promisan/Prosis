@@ -583,8 +583,7 @@
     </td>
   </tr>
     
-  <!--- show actions with regards to the header --->
-        
+  <!--- show actions with regards to the header --->       
  
 
   <cfoutput query="Transaction">

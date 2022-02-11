@@ -453,7 +453,19 @@ password="#SESSION.dbpw#">
 		
 	<cfoutput>
 	
+	<!--- capture the selected values --->
+		<form method="post" name="formselectedid" id="formselectedid">		
+			<input type="hidden" name="fieldselectedid" id="fieldselectedid" value="0">
+		</form>
+	
+	<cfset fileNo = "1">
+	
 	<script>
+	
+	    function facttablexls1(control,format,box) {  
+        	ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?id=#url.mde#&account=#URL.Account#&box="+box+"&data=1&controlid="+control+"&format="+format, "facttable");
+        }	
+		
 		
 		var acc = "#URL.Account#";
 		

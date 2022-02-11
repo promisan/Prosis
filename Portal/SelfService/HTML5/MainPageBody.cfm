@@ -97,18 +97,18 @@
 								autocomplete="off">
 									<p  <cfif SystemParameter.ApplicationLogon neq ""> style="margin-left:-85px" </cfif> >
 									
-										<cfif SystemParameter.ApplicationLogon neq "">
-											<span style="font-size: 20px; width: 200px; display: inline-block; text-align: right;  margin-right:12px;">
-											<img style="vertical-align:middle" src="#SESSION.root#/#SystemParameter.ApplicationLogon#" width="36px">
+										<span style="font-size: 20px; width: 200px; display: inline-block; text-align: right;  margin-right:12px;">
+											<cfif SystemParameter.ApplicationLogon neq "">
+												<img style="vertical-align:middle" src="#SESSION.root#/#SystemParameter.ApplicationLogon#" width="36px">
+											</cfif>
 											<cfif SystemParameter.ApplicationLogonLabel neq "">
 												<cf_tl id="#SystemParameter.ApplicationLogonLabel#" var="1">
 											<cfelse>
 												<cf_tl id="User name" var="1"> 
 											</cfif>
 											#lt_text# :
-											</span>
-										</cfif>
-
+										</span>
+										
 										<input 
 											type="text" 
 											class="clsTxtLogin" 

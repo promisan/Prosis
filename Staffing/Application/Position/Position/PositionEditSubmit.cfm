@@ -316,29 +316,29 @@
 			
 	<!--- save the position grouping on the parent level --->
 	
-	<cfquery name="ResetTopic" 
-	datasource="AppsEmployee" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		DELETE FROM PositionParentGroup
-		WHERE PositionParentId = '#Form.PositionParentId#' 
-	</cfquery>
+	
 	
 	<cfquery name="Topic" 
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-	  SELECT  *
-	  FROM  Ref_PositionParentGroup
-	  WHERE Code IN (SELECT GroupCode 
-	                 FROM   Ref_PositionParentGroupList)
-	</cfquery>
-	  
+		SELECT  *
+		FROM  Ref_PositionParentGroup
+		WHERE Code IN (SELECT GroupCode 
+		               FROM   Ref_PositionParentGroupList)
+	    AND  Code IN  (SELECT GroupCode 
+		               FROM   Ref_PositionParentGroupMission
+			           WHERE  Mission = '#PositionParent.Mission#' )    
+	</cfquery>			   
+		  
 	<cfloop query="topic">
 	
+			
 	     <cfparam name="Form.ListCode_#Code#" default="">
-				        
-	     <cfset ListCode  = Evaluate("Form.ListCode_#Code#")>
+		 <cfparam name="Form.ListCodeSub_#Code#" default="">		        
+		 
+	     <cfset ListCode     = Evaluate("Form.ListCode_#Code#")>
+		 <cfset ListCodeSub  = Evaluate("Form.ListCodeSub_#Code#")>
 		 
 		 <cfif ListCode neq "">
 		 		 
@@ -348,7 +348,7 @@
 			     password="#SESSION.dbpw#">
 					 SELECT *
 					 FROM  PositionParentGroup
-					 WHERE PositionParentId = '#Form.PositionParentId#' 
+					 WHERE PositionParentId = '#Form.PositionParentId#' 					
 					 AND   GroupCode = '#Code#'
 			</cfquery>			 
 			 
@@ -364,6 +364,9 @@
 						 (PositionParentId,
 						  GroupCode,
 						  GroupListCode, 
+						  <cfif ListCodeSub neq "">
+						  GroupListCodeSub,
+						  </cfif>
 						  OfficerUserId,
 						  OfficerLastName,
 						  OfficerFirstName)
@@ -371,6 +374,9 @@
 						 ('#Form.PositionParentId#', 
 						  '#Code#', 
 						  '#ListCode#', 
+						  <cfif ListCodeSub neq "">
+						  '#ListCodeSub#',
+						  </cfif>
 						  '#SESSION.acc#', 
 						  '#SESSION.last#', 
 						  '#SESSION.first#')
@@ -379,6 +385,29 @@
 					<cfcatch></cfcatch>
 				
 				</cftry>
+				
+			 <cfelse>
+			 
+			    <cfif CheckGroup.GroupListCode neq ListCode or CheckGroup.GroupListCodeSub neq ListCodeSub>
+			 
+				    <cfquery name="Update" 
+						 datasource="AppsEmployee" 
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+						 UPDATE PositionParentGroup
+						 SET   GroupListCode = '#ListCode#',
+						       <cfif ListCodeSub neq "">
+							   GroupListCodeSub = '#ListCodeSub#',
+							   </cfif>
+							   OfficerUserId    = '#SESSION.acc#',
+							   OfficerLastName  = '#SESSION.last#',
+							   OfficerFirstName = '#SESSION.first#',
+							   Created = getDate()
+						 WHERE PositionParentId = '#Form.PositionParentId#' 					
+					     AND   GroupCode = '#Code#'	 
+					  </cfquery>
+					  
+				 </cfif>	  
 				
 			 </cfif>	
 			

@@ -747,11 +747,20 @@
 						  style="font-size:12px;height:25px;border:1px solid gray;border-radius:3px;width:120px" onClick= "applyfilter('',1,'content')">  														
 					</td>
 					
+					<cfif attributes.cachedisable eq "true">
+					
+					<td style="padding-left:8px"><input type="radio" checked class="radiol" name="useCache" id="useCache" value="0"></td>					
+					<td class="labelmedium" style="padding-top:3px;padding-bottom:2px;padding-left:2px"><cf_tl id="Reload"></td>
+					
+					<cfelse>
+					
 					<td style="padding-left:8px"><input type="radio" checked class="radiol" name="useCache" id="useCache" value="1"></td>					
 					<td class="labelmedium" style="padding-top:3px;padding-bottom:2px;padding-left:2px"><cf_tl id="Cache"></td>
 					
 					<td style="padding-left:8px"><input type="radio" class="radiol" name="useCache" id="useCache" value="0"></td>					
 					<td class="labelmedium" style="padding-top:3px;padding-bottom:2px;padding-left:2px"><cf_tl id="Reload"></td>
+					
+					</cfif>
 					
 					<cfif url.systemfunctionid neq "">
 					

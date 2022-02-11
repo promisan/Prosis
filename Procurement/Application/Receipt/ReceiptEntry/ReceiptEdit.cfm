@@ -24,7 +24,8 @@ password="#SESSION.dbpw#">
 			bannerforce   = "Yes" 
 			layout        = "webapp" 
 			line          = "no" 
-			html          = "no" 
+			html          = "no"
+			jquery		  = "yes"
 			menuAccess    = "Context"
 			systemmodule  = "Procurement"
 			FunctionClass = "Window"
@@ -37,21 +38,24 @@ password="#SESSION.dbpw#">
 
 		<cfparam name="url.summary" default="1">
 		
+					
+		
 		<cf_layout attributeCollection="#attrib#">
 
 			<cf_layoutarea 
 		          position="header"
 				  size="50"
 		          name="controltop">	
-				  
+				  				  
 				<cf_ViewTopMenu label="#lt_text# #url.id#" menuaccess="context" background="blue">
 						
 			</cf_layoutarea>		 
 		
+		    			
 			<cf_layoutarea  position="center" name="box">
 			
 				<table width="100%" height="100%"><tr><td>	
-		
+										
 					<cfoutput>		
 					<iframe src="ReceiptEditContent.cfm?id=#url.id#&mode=#url.mode#&idmenu=&mid=#url.mid#&header=0" width="100%" height="100%" frameborder="0"></iframe> 
 					</cfoutput>
@@ -78,13 +82,13 @@ password="#SESSION.dbpw#">
 					</cf_divscroll>
 					
 			</cf_layoutarea>	
+			
 							
-		</cf_layout>				
-	
-	
-	
+		</cf_layout>	
+							
+		
 	<cfelse>
-	
+			
 		<cf_screentop height="100%"   
 			label         = "#lt_text# #url.id#" 
 			title         = "#url.id#"
@@ -98,7 +102,7 @@ password="#SESSION.dbpw#">
 			systemmodule  = "Procurement"
 			FunctionClass = "Window"
 			FunctionName  = "Receipt Document">
-	
+				
 		<!--- #cgi.query_string# --->		
 		
 		<table width="100%" height="100%"><tr><td>	

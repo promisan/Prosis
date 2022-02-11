@@ -234,7 +234,7 @@ password="#SESSION.dbpw#">
 			<TR>
 		        <td class="labelmedium2" valign="top" style="padding-top:6px;"><cf_tl id="Pay through">:</td>
 		        <TD valign="top" style="padding-top:0px;">
-		        	<cfdiv id="divAccountMission" bind="url:AccountMission.cfm?PersonNo=#url.id#&AccountId=">
+		        	<cf_securediv id="divAccountMission" bind="url:AccountMission.cfm?PersonNo=#url.id#&AccountId=">
 		        </TD>
 			</TR>
 					   

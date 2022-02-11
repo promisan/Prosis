@@ -523,7 +523,7 @@
 				</cfif>
 				w = #CLIENT.width# - 100;
 			    h = #CLIENT.height# - 110;	
-			    ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?dsn="+dsn+"&fileno=#fileno#&controlid="+controlid+"&"+qry+"&filter="+filter+"&data=#data#&format="+format+"&ts="+new Date().getTime(), "ExcelExport");
+			    ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?dsn="+dsn+"&fileno=#fileno#&controlid="+controlid+"&"+qry+"&filter="+filter+"&data=#data#&format="+format, "ExcelExport");
 			}
 						
 		</script>
@@ -535,9 +535,9 @@
 	<!--- --------------- --->
 	<!--- button for OLAP --->
 	<!--- --------------- --->
-	
+		
 	<cfif selectedid neq "">
-		<!--- capture the selected values --->
+			<!--- capture the selected values --->
 		<form method="post" name="formselectedid" id="formselectedid">		
 			<input type="hidden" name="fieldselectedid" id="fieldselectedid" value="#selectedid#">
 		</form>

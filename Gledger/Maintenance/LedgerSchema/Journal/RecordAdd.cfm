@@ -101,7 +101,7 @@ function formvalidate() {
 	<tr><td height="10"></td></tr>	
 	
 	<TR class="labelmedium2">
-    <TD><cf_tl id="Entity">:</TD>
+    <TD class="fixlength labelmedium2"><cf_tl id="Entity">:</TD>
     <TD>
 	 
   	    <select name="mission" id="mission" class="regularxxl" onChange="javascript:system()">
@@ -114,7 +114,7 @@ function formvalidate() {
 	</TR>
 	
 	<TR>
-    <TD class="labelmedium2"><cf_tl id="Ledger Class">:</TD>
+    <TD class="fixlength labelmedium2"><cf_tl id="Ledger Class">:</TD>
     <TD>
   	    <select name="GLCategory" class="regularxxl" onChange="glclass(this.value)">
      	   <cfoutput query="GLCategory">
@@ -141,7 +141,7 @@ function formvalidate() {
 	</cfoutput>
 
     <TR class="labelmedium2">
-    <TD><cf_tl id="Category">:</TD>
+    <TD class="fixlength labelmedium2"><cf_tl id="Category">:</TD>
     <TD id="categorybox">
 	
   	    <select name="transactioncategory" id="transactioncategory" class="regularxxl" onChange="system()">
@@ -157,7 +157,7 @@ function formvalidate() {
 	
 	
     <TR class="labelmedium2">
-    <TD><cf_tl id="Journal Code">:</TD>
+    <TD class="fixlength labelmedium2"><cf_tl id="Journal Code">:</TD>
     <TD>
   	   <cfinput type="Text"
 	       name="Journal"
@@ -172,7 +172,7 @@ function formvalidate() {
 	</TR>
 	
 	<TR class="labelmedium2">
-    <TD><cf_tl id="Description">:</TD>
+    <TD class="fixlength labelmedium2"><cf_tl id="Description">:</TD>
     <TD>
   	    <cfinput type="Text"
 	       name="Description"
@@ -204,7 +204,7 @@ function formvalidate() {
 	
 	
 	<TR class="labelmedium2">
-    <TD><cf_tl id="System Journal for">:</TD>
+    <TD class="fixlength labelmedium2"><cf_tl id="System Journal for">:</TD>
     <TD id="systembox">	 
 	     
 		<cfquery name="Preset" 
@@ -233,7 +233,7 @@ function formvalidate() {
 	
 	<tr class="labelmedium2">
 	
-		<td><cf_UItooltip tooltip="Workflow associated to transactions under this journal"><cf_tl id="Workflow Class">:</cf_UItooltip></td>
+		<td class="fixlength labelmedium2" style="cursor:pointer" title="Workflow associated to transactions under this journal"><cf_tl id="Workflow Class">:</td>
 		<td>		
 		 <select name="EntityClass" class="regularxxl">
 	     	   <cfoutput query="Workflow">
@@ -244,7 +244,7 @@ function formvalidate() {
 	</tr>
 	      	
 	<TR class="labelmedium2">
-    <TD><cf_tl id="Type">:</TD>
+    <TD class="fixlength labelmedium2"><cf_tl id="Type">:</TD>
      <TD>
   	    <select name="journaltype" class="regularxxl">
      	   <cfoutput query="type">
@@ -261,7 +261,7 @@ function formvalidate() {
 	</cfif>
 			
 	<TR class="labelmedium2">
-    <TD><cf_tl id="Journal Currency">:</TD>
+    <TD class="fixlength labelmedium2"><cf_tl id="Journal Currency">:</TD>
      <TD>
   	    <select name="currency" class="regularxxl">
      	   <cfoutput query="currency">
@@ -273,7 +273,7 @@ function formvalidate() {
 	</TR>
 	
 	<TR id="bank" class="<cfoutput>#cl#</cfoutput>">
-    <TD class="labelmedium2"><cf_UItooltip  tooltip="Bank account"><cf_tl id="Pay Through">:</cf_UItooltip>:</TD>
+    <TD class="fixlength labelmedium2" style="cursor:pointer" title="<cf_tl id='Pay Through'>":</TD>
     <TD>
   	      <select name="bankid" class="regularxxl">
 		    <option value="">Any</option>
@@ -286,7 +286,7 @@ function formvalidate() {
 	</TR>	
 		
 	<TR class="labelmedium2">
-    <TD style="cursor: pointer;"><cf_UItooltip  tooltip="Contra-Book transactions recorded for this journal on the selected account"><cf_tl id="Contra-account">:</cf_UItooltip></TD>
+    <TD class="fixlength labelmedium2" style="cursor: pointer;" title="Contra-Book transactions recorded for this journal on the selected account"><cf_tl id="Contra-account">:</TD>
     <TD>
 	    <cfoutput>	 
 		   <table><tr><td>
@@ -310,7 +310,7 @@ function formvalidate() {
 	</TR>
 	
 	<tr class="labelmedium2">
-	<td style="cursor: pointer;"><cf_UItooltip  tooltip="Allow to schedule transactions for this journal"><cf_tl id="Schedule Transactions">:</cf_UItooltip></td>
+	<td class="fixlength labelmedium2" style="cursor: pointer;" title="Allow to schedule transactions for this journal"><cf_tl id="Schedule Transactions">:</td>
 	<TD><table>
 	    <tr class="labelmedium2">
 		    <td><input type="radio" class="radiol" name="EnableScheduler" value="1"></td>
@@ -323,7 +323,7 @@ function formvalidate() {
 	</tr>	
 	
 	<tr class="labelmedium2">
-    <td valign="top" style="padding-top:5px"><cf_tl id="Transaction Sub period">:</td>
+    <td class="fixlength labelmedium2" valign="top" style="padding-top:5px"><cf_tl id="Transaction Sub period">:</td>
     <td>
 	
 	  <table cellspacing="0" cellpadding="0" class="formspacing">
@@ -373,7 +373,7 @@ function formvalidate() {
 	</TR>
 			
 	<TR class="labelmedium2">
-    <TD><cf_tl id="Speedtype">:</TD>
+    <TD class="fixlength labelmedium2"><cf_tl id="Speedtype">:</TD>
     <TD>
 	
   	    <select name="speedtype" class="regularxxl">

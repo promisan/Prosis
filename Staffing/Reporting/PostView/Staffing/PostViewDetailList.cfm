@@ -684,7 +684,7 @@
 					<td style="height:26px" class="labelmedium2" id= "memo#rowguid#" colspan="12">#Remarks#</td>
 				</tr>
 											
-				<cfif sourceid neq "0">
+				<cfif sourceid neq "0" and source eq "vac">
 				
 					<cfset trackid = "">
 				
@@ -1147,7 +1147,8 @@
 									password="#SESSION.dbpw#">
 										SELECT  TOP 1 *
 										FROM    Employee.dbo.PersonAssignment P
-										WHERE   SourceId = '#DocumentNo#' 
+										WHERE   Source = 'vac'
+										AND     SourceId = '#DocumentNo#' 
 										AND     SourcePersonNo = '#PersonNo#'
 										AND     AssignmentStatus IN ('0','1')
 										AND     AssignmentType = 'Actual'
@@ -1156,7 +1157,7 @@
 								
 								<cfif Assignment.recordcount eq "1">
 								
-								&nbsp;&nbsp;Reporting date : #dateformat(Assignment.DateEffective,client.dateformatshow)#
+								&nbsp;&nbsp;<cf_tl id="Reporting date">: #dateformat(Assignment.DateEffective,client.dateformatshow)#
 								
 								</cfif>
 							
@@ -1169,26 +1170,35 @@
 							SELECT  PersonNo, LastName, FirstName, StatusDate
 							FROM    DocumentCandidate P
 							WHERE   DocumentNo = '#DocumentNo#' 
-							  AND   Status IN ('2s','3')
+							AND     Status IN ('2s','3')
 						</cfquery>	
 						
-						<cfset cpl = DateFormat(Candidate.StatusDate, CLIENT.DateFormatShow)>
+						<cfset cpl = DateFormat(StatusDate, CLIENT.DateFormatShow)>
 																				
 						<cfif Candidate.recordcount gte "1">
+						
 							<td colspan="6" bgcolor="e1e1e1" style="min-width:200px;padding-left:3px;border-left:1px solid gray">
-							<cfloop query = "Candidate">
-							<a href="javascript:ShowCandidate('#Candidate.PersonNo#')" title="selected candidate">#Candidate.FirstName# #Candidate.LastName#<cfif currentrow neq recordcount>;</cfif></a>&nbsp;
-							</cfloop>
-							- #cpl#
 							
-							<cfquery name="Assignment" 
+							<table>
+							
+							<cfloop query = "Candidate">
+							   <tr class="labelmedium2" style="<cfif candidate.recordcount gt '1'>height:20px</cfif>">
+							    <td>
+							    <a href="javascript:ShowCandidate('#Candidate.PersonNo#')" title="selected candidate">
+								#Candidate.FirstName# #Candidate.LastName#<cfif currentrow neq recordcount>;</cfif></a>
+								
+								<cfset cpl = DateFormat(StatusDate, CLIENT.DateFormatShow)>
+								- #cpl#
+								
+								<cfquery name="Assignment" 
 									datasource="AppsVacancy" 
 									username="#SESSION.login#" 
 									password="#SESSION.dbpw#">
 										SELECT  TOP 1 *
 										FROM    Employee.dbo.PersonAssignment P
-										WHERE   SourceId = '#DocumentNo#' 
-										AND     SourcePersonNo = '#Candidate.PersonNo#'
+										WHERE   Source        = 'vac'
+										AND     SourceId      = '#Tracks.DocumentNo#' 
+										AND     SourcePersonNo = '#PersonNo#'
 										AND     AssignmentStatus IN ('0','1')
 										AND     AssignmentType = 'Actual'
 										ORDER BY DateEffective
@@ -1196,9 +1206,17 @@
 								
 								<cfif Assignment.recordcount eq "1">
 								
-								&nbsp;&nbsp;Reporting date : #dateformat(Assignment.DateEffective,client.dateformatshow)#
+								&nbsp;&nbsp;<cf_tl id="Reporting date"> : #dateformat(Assignment.DateEffective,client.dateformatshow)#
 								
 								</cfif>
+								
+								</td>
+								</tr>
+								
+							</cfloop>
+							
+							</table>
+													
 								
 							</td>
 						<cfelse>

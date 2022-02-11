@@ -284,6 +284,57 @@
 			 	   						 				
 	</cffunction>
 	
+	<cffunction name    = "LienConflict" 
+		    access      = "remote" 
+		    returntype  = "any" 
+		    displayname = "Check Lien overlap" 
+		    output      = "true">	
+					
+			 <cfparam name="SystemFunctionId"   type="string"  default="">				
+			 <cfparam name="Object"             type="string"  default="Position">	
+			 <cfparam name="ObjectKeyValue1"    type="string"  default="">	
+			 <cfparam name="ValidationCode"     type="string"  default="">	
+			 
+			 <cfset result.pass = "OK">
+			 
+			 <cfquery name="Lien"
+				datasource="AppsEmployee" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT   TOP 1 *
+				FROM     PersonAssignment PA
+                WHERE    Incumbency = 0 
+				AND      AssignmentStatus IN ('0', '1')
+				AND      PositionNo = '#ObjectKeyValue1#'
+				ORDER BY DateEffective DESC
+			 </cfquery>								 
+			 
+			 <cfquery name="Encumbency"
+				datasource="AppsEmployee" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT   TOP 1 *
+				FROM     PersonAssignment PA
+                WHERE    Incumbency = 100 
+				AND      AssignmentStatus IN ('0', '1')
+				AND      PositionNo = '#ObjectKeyValue1#'
+				AND      DateExpiration >= getDate()
+				AND      PersonNo != '#Lien.PersonNo#'
+				ORDER BY DateEffective DESC					
+			</cfquery>				
+																															
+			<cfif Lien.recordcount gte "1" and Encumbency.DateExpiration gt Lien.DateExpiration>
+					
+				<cfinvoke method    = "getValidationStruct" 					   
+				   ValidationCode   = "#ValidationCode#"
+				   PassCode			= "No"
+				   returnvariable   = "result">					   
+			
+			</cfif>			
+			
+			<cfreturn result>
+			 	   						 				
+	</cffunction>	
 	
 					
 		

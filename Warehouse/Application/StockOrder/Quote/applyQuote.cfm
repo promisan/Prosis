@@ -69,7 +69,7 @@
 					padding    = "4"					
 					targetitem = "1"
 					name       = "#lt_text#"
-					source     = "">		
+					source     = "applyQuoteGo.cfm?requestno=#url.requestno#&action=sf&idmenu=#url.idmenu#">		
 							
 		</tr>	
 		

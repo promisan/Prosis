@@ -764,8 +764,9 @@
 						AND      TL.TransactionSerialNo <> 0 <!--- contra-line --->
 						AND      TL.GLAccount  IN  (SELECT   GLAccount
 					                                FROM     Accounting.dbo.Ref_Account
-	                 					            WHERE    TaxAccount = 1) <!--- we exclude lines that reflect tax --->
-						AND      TL.AmountCredit < 0    <!--- negative amounts to be reflected to be equally divided --->					
+	                 					            WHERE    TaxAccount != 1) <!--- we exclude lines that reflect tax --->
+						AND      TL.AmountCredit < 0    <!--- negative amounts to be reflected to be equally divided --->	
+															
 				</cfquery>		
 			
 			<!--- Overall total --->
@@ -828,12 +829,18 @@
 			
 				<cfif month(getLines.TransactionDate) neq month(now())>
 				
+				    <cfset dts = now()>
+					
+					<!--- I discussed with Ana and this is not the desired effect 
+				
 			    	<!--- FEL allows up to 5 days correction --->	
 					<cfif datediff("d",  getLines.TransactionDate,  now()) gte 6> 	
 						<cfset dts = dateAdd("d",  -5,  now())>
 					<cfelse>
 					    <cfset dts = dateAdd("d",  0,  getLines.TransactionDate)>					    
 					</cfif>
+					
+					--->
 				
 				<cfelse>
 				 
@@ -939,16 +946,17 @@
 												<cfset v_ItemDescription = replace(v_ItemDescription,"&","&amp;","all")>
 												<cfset v_ItemDescription = replace(v_ItemDescription,"'","&apos;","all")>
 											
-											<!--- 	
+											
 											<dte:Descripcion>#ItemNo#|#v_ItemDescription#</dte:Descripcion>		
-											--->
+											
+											<!---											
 											<dte:Descripcion>#v_ItemDescription#</dte:Descripcion>		
+											--->
 											
-											<cfif TransactionAmount eq AmountSale>	
+											<cfif TransactionAmount eq AmountSale and TransactionDate lt "01/01/2022">	
 											
-												<!--- prior mode in which 
-												will disappear as we store differently : just precaution --->
-												
+												<!--- an legacy stoage that will now disappear as now we store differently : just precaution --->
+																								
 												<cfset discount   = "0">
 																																		
 											    <!--- calculate price with tax --->
@@ -966,13 +974,13 @@
 											
 												<!--- special correction to lower the amount as tax will be added later, this
 												was for IO posting --->
-												
+																								
 												<cfif getLines.TaxCode eq "00"  and getTransaction.TransactionSource eq "AccountSeries">
-												    <cfset amt = AmountSale * 100/112>										   
-												<cfelse>
+												    <cfset amt = AmountSale * 100/112>																							   
+												<cfelse>												
 												 	<cfset amt = AmountSale>	   
 												</cfif>		
-												
+																																				
 												<!--- calculate ratio --->											
 												<cfset amt        = round(amt*10000)/10000>		
 												<cfset discount   = FEL.Ratio * amt>
@@ -1652,8 +1660,8 @@
 				
 										<cfif qPostalCodeCheck.recordcount neq 0>
 										
-												<dte:DireccionReceptor>
-												<dte:Direccion>#GetInvoice.Customeraddress#</dte:Direccion>
+											<dte:DireccionReceptor>
+											<dte:Direccion>#GetInvoice.Customeraddress#</dte:Direccion>
 											<dte:CodigoPostal>#qPostalCodeCheck.PostalCode#</dte:CodigoPostal>
 											<dte:Municipio>#GetInvoice.CustomeraddressCity#</dte:Municipio>
 											<dte:Departamento>#GetInvoice.CustomeraddressState#</dte:Departamento>

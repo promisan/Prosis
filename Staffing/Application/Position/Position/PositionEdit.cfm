@@ -1755,19 +1755,28 @@ password="#SESSION.dbpw#">
 		   <cfinclude template="PositionEditGroup.cfm">
 		</td>
 	</TR>
-		
-	<cfif AccessPosition eq "EDIT" OR AccessPosition eq "ALL" OR URL.Action eq "Loan" OR AccessStaffing eq "EDIT" or AccessStaffing eq "ALL">	
 		   
-	    <TR class="labelmedium2">
+	<TR class="labelmedium2">
 		
 		<TD style="background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px">
 		
 		<table style="height:100%">
 		<tr class="labelmedium2" style="height:30px">
-				
-			<cfif LaterPosition.recordcount eq "0">
+									
+		    <td style="padding-left:6px"><cf_tl id="Vacancy class">:<font color="FF0000">*</font> </TD>
+			
+		</tr>
+		</table>
+		</td>
+		
+	    <TD style="padding-left:10px">
+		
+		  <table>
+		  <tr class="labelmedium2">
+		
+		<cfif LaterPosition.recordcount eq "0">
 		   
-			   <td class="fixlength" style="border-right:1px;background-color:ffffaf;padding-left;6px;padding-right:4px" align="center">
+			   <td class="fixlength" style="border:1px solid silver;padding-left:5px;background-color:ffffaf;padding-right:5px" align="center">
 			   
 			        <!--- likely we need to tune this a bit to capture 0 percent and 
 					 multiple assignments --->
@@ -1831,16 +1840,10 @@ password="#SESSION.dbpw#">
 			   </td>
 			   		   	   
 	  	    </cfif>
-			
-		    <td style="padding-left:6px"><cf_tl id="Vacancy class">:<font color="FF0000">*</font> </TD>
-			
-		</tr>
-		</table>
-		</td>
 		
-		<TD style="padding-left:10px">
-		
-		     <table><tr class="labelmedium2"><td>
+		<cfif AccessPosition eq "EDIT" OR AccessPosition eq "ALL" OR URL.Action eq "Loan" OR AccessStaffing eq "EDIT" or AccessStaffing eq "ALL">	
+							 
+			 <td style="padding-left:4px">
 		
 		  	<select name="vacancyActionClass" size="1" class="regularxxl" 
 			onchange="_cf_loadingtexthtml='';ptoken.navigate('getRecruitment.cfm?class='+this.value+'&id2=#url.id2#','recruitment')">
@@ -1853,24 +1856,15 @@ password="#SESSION.dbpw#">
 		    </select>
 			
 			</td>
-			
+					
 			<td style="padding-left:5px" id="recruitment">
 			    <cfset url.class = 	Position.VacancyActionClass>			    
 			     <cfinclude template="getRecruitment.cfm">			
 			</td>
+				
+	   <cfelse>
 			
-			</tr></table>
-			
-		</TD>
-		</TR>
-	
-	<cfelse>
-	
-		<TR class="labelmedium2" bgcolor="ffffff">
-	    <TD style="height:30px;background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="Vacancy class"> </TD>
-	    <TD style="padding-left:10px">
-		
-		  <table><tr class="labelmedium2"><td>
+	      <td style="padding-left:4px">
 		
 		  <cfquery name="VacancyClass" 
 			datasource="AppsEmployee" 
@@ -1888,16 +1882,19 @@ password="#SESSION.dbpw#">
 		  
 		  </td>
 			
-			<td style="padding-left:5px" id="recruitment">			
+		  <td style="padding-left:5px" id="recruitment">		
+			<cfset url.class = 	Position.VacancyActionClass>		
 			     <cfinclude template="getRecruitment.cfm">			
-			</td>
-			
-			</tr></table>
-			
-		</TD>
-		</TR>
+		  </td>
+						
+	    </cfif>
 		
-	</cfif>
+		</tr>
+			</table>
+			
+		</TD>		
+		
+	</TR>	
 		
 	<TR class="labelmedium2">
     <TD style="height:30px;background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px"><cf_tl id="Source Post number">:</TD>
@@ -2015,7 +2012,7 @@ password="#SESSION.dbpw#">
 			<tr>
 				<td class="labelmedium2" style="height:30px;background-color:f1f1f1;border-bottom:1px solid silver;padding-left:6px">#Description#: <font color="FF0000">*</font></td>
 				<td style="padding-left:10px" class="labelmedium2">
-				
+												
 				<cfquery name="Group" 
 				datasource="AppsEmployee" 
 				username="#SESSION.login#" 
@@ -2024,11 +2021,16 @@ password="#SESSION.dbpw#">
 				  FROM  PositionParentGroup
 				  WHERE PositionParentId  = '#Position.PositionParentID#'
 				  AND   GroupCode = '#Code#'
-			    </cfquery>				
+			    </cfquery>		
 				
-				<cfif (Position.PositionStatus eq "0" AND AccessPosition eq "EDIT") 	
+				<table>
+				<tr><td>		
+				
+			<cfif (Position.PositionStatus eq "0" AND AccessPosition eq "EDIT") 	
 				OR (AccessPosition eq "ALL") 
 				OR (Position.PositionStatus eq "1" AND (AccessStaffing eq "EDIT" or AccessStaffing eq "ALL"))>
+				
+				
 														
 				<cfquery name="List" 
 				datasource="AppsEmployee" 
@@ -2037,36 +2039,72 @@ password="#SESSION.dbpw#">
 				  SELECT  *
 				     FROM  Ref_PositionParentGroupList
 					 WHERE GroupCode = '#Code#'
+					 AND   ListCodeParent is NULL
 					 ORDER BY GroupListOrder, GroupListCode
 				</cfquery>				
-								
-				<select name="ListCode_#Code#" required="No" class="regularxxl">
+																
+				<select name="ListCode_#Code#" required="No" class="regularxxl" onchange="_cf_loadingtexthtml='';ptoken.navigate('getSubList.cfm?cde=#Code#&val='+this.value+'&sel=#Group.GroupListCodeSub#','boxListCode_#Code#')">
 					<cfloop query="List">
-					<option value="#GroupListCode#" <cfif #Group.GroupListCode# eq "#GroupListCode#">selected</cfif>>#Description#</option>
+					<option value="#GroupListCode#" <cfif Group.GroupListCode eq GroupListCode>selected</cfif>>#Description#</option>
 					</cfloop>
 				</select>
+								
+				</td>							
+				<td id="boxListCode_#Code#" style="padding-left:4px">
 				
-				<cfelse>
+				<cfset url.cde = Code>
+				<cfset url.val = Group.GroupListCode>
+				<cfset url.sel = Group.GroupListCodeSub>
 				
-				<cfquery name="List" 
-				datasource="AppsEmployee" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				  SELECT  *
-				     FROM  Ref_PositionParentGroupList
-					 WHERE GroupCode = '#Code#'
-					 AND   GroupListCode = '#Group.GroupListCode#'					
-				</cfquery>
+				<cfinclude template="getSubList.cfm">					
 				
-				<cfif List.recordcount eq "0">
-				undefined
-				<cfelse>
-				#List.Description#
-				</cfif>								
+				</td>				
+							
 				
-				</cfif>
+			<cfelse>
 				
-				</td>
+				<td>
+				
+					<cfquery name="List" 
+					datasource="AppsEmployee" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					  SELECT  *
+					     FROM  Ref_PositionParentGroupList
+						 WHERE GroupCode = '#Code#'
+						 AND   GroupListCode = '#Group.GroupListCode#'					
+					</cfquery>
+					
+					<cfif List.recordcount eq "0">
+					undefined
+					<cfelse>
+					#List.Description#
+					</cfif>		
+				
+				</td>		
+				
+				<cfif Group.GroupListCodeSub neq "">
+					
+					<cfquery name="GetList" 
+						datasource="AppsEmployee" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT	 *	         							 
+							FROM 	 Ref_PositionParentGroupList T 
+							WHERE 	 GroupCode = '#Code#'  
+							AND      GroupListCode = '#Group.GroupListCodeSub#'
+					</cfquery>	
+					
+					<td style="padding-left:3px">#getList.Description#</td>
+					
+				</cfif>			
+				
+			</cfif>
+								
+			</tr>
+			
+			</table>
+			</td>
 			</tr>
 		
 		</cfoutput>

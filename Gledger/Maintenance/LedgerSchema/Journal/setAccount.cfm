@@ -13,10 +13,10 @@
 <cfoutput>
 		
 	<script>	
-		document.getElementById("sglaccount").value     = '#get.GLAccount#'		
-		document.getElementById("sgldescription").value = '#get.Description#'		
+		document.getElementById("glaccount").value     = '#get.GLAccount#'		
+		document.getElementById("gldescription").value = '#get.Description#'		
 		try {
-		document.getElementById("sdebitcredit").value   = '#get.AccountType#' } catch(e) {}
+		document.getElementById("debitcredit").value   = '#get.AccountType#' } catch(e) {}
 	</script>	
 
 </cfoutput>

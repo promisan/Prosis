@@ -57,6 +57,8 @@
 	AND           TH.TransactionCategory = 'Payables'
 	AND           TH.Mission             = '#url.mission#'
 	AND           TH.AccountPeriod       = '#url.Period#'
+	AND           TH.ActionStatus != '9'
+	AND           TH.RecordStatus <> '9' 	
 	<cfif url.orgunit neq "">
 	AND           TH.OrgUnitOwner        = '#url.OrgUnit#'
 	</cfif>
@@ -150,7 +152,7 @@
 <cfset itm = itm+1>
 <cf_tl id="Invoice" var="vCheckNo">
 <cfset fields[itm] = {label    = "#vCheckNo#",
-					field      = "JournalTransactionNo",
+					field      = "TransactionReference",
 					filtermode = "2",
 					search     = "text"}>	
 					
@@ -158,6 +160,7 @@
 <cf_tl id="Reference" var="vReference">
 <cfset fields[itm] = {label    = "#vReference#",
 					field      = "ReferenceName",
+					filtermode = "2",
 					search     = "text"}>						
 					
 <cfset itm = itm+1>							

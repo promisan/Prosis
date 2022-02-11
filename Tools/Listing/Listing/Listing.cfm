@@ -114,7 +114,7 @@
 
 <!--- drillmode and edit mode --->
 <cfparam name="attributes.drillmode"          default="">
-<cfparam name="attributes.drillargument"      default="1040;1040;false;false;true;paging">  <!--- height, width, modal, centered, excel drill --->
+<cfparam name="attributes.drillargument"      default="1040;1040;false;false;true;paging;false">  <!--- height, width, modal, centered, excel drill --->
 <cfparam name="attributes.drilltemplate"      default="">
 <cfparam name="attributes.drillstring"        default="">
 <cfparam name="attributes.drillkeyalias"      default="">
@@ -171,6 +171,8 @@
 <cfparam name="setting[6]"                 default="paging">
 <cfparam name="attributes.navigation"      default="#setting[6]#">
 
+<cfparam name="setting[7]"                 default="false">
+<cfparam name="attributes.cachedisable"    default="#setting[7]#">
 
 <!--- those variables come from the interface when selecting sorting and tree on the fly and
 we keep them in form field for easy pickup and are in listingshow.cfm --->
@@ -1068,7 +1070,7 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 	<cfset url.datacell1formula = "SUM">
 </cfif>
 
-<cfif url.contentmode eq "5">
+<cfif url.contentmode eq "5" or attributes.cachedisable eq "true">
 	
 		<!--- we force refresh as we want to see new records --->
 		<cfset attributes.refresh = "1">	

@@ -341,16 +341,24 @@
 								
 						    </cfoutput>
 							 					 
-							<!--- to be replace with new VA document 
-							<cfquery name="VAtext" 
+							<cftry>
+							<cfquery name="CrossReference" 
 							datasource="AppsVacancy" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
 							    SELECT TOP 1 *
-							    FROM stAnnouncement
-								WHERE VacancyNo = '#JO.ReferenceNo#'
+							    FROM  MergeData.dbo.IMP_ISPVacancy
+								WHERE Job_Opening_ID = '#JO.ReferenceNo#'
 							</cfquery>
-							--->
+							
+							<cfif CrossReference.recordcount eq "1">
+							    <td style="border:1px solid silver;padding-left:4px;background-color:yellow">Track connected</td>							
+							</cfif>
+							
+							<cfcatch></cfcatch>
+							
+							</cftry>
+							
 										     											
 					   </cfif>	
 					   
