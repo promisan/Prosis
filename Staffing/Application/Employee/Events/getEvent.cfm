@@ -29,6 +29,20 @@
 		 ORDER BY Created DESC
 </cfquery>	 
 
+<cfquery name="getAssignment" 
+	 datasource="AppsEmployee" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+		 SELECT   * 
+		 FROM     PersonAssignment
+		 WHERE    PersonNo = '#URL.PersonNo#'
+		 AND      Incumbency = '100'
+		 AND      AssignmentStatus NOT IN ('8','9')
+		 AND      DateEffective < getDate()
+		 AND      DateExpiration > getDate()
+		 ORDER BY Created DESC
+</cfquery>	
+
 <cfif URL.eventId neq "">
 
 	<cfquery name="qEvent" 
@@ -108,7 +122,7 @@
 	<select name="eventcode" id="eventcode" class="regularxxl" style="width:95%"
     	onchange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?mission=#url.mission#&triggercode='+document.getElementById('triggercode').value+'&eventcode='+this.value+'&eventid='+'&preason=#url.preason#','dReason')">
 </cfoutput>
-	<cfif qEvent.recordcount eq "0" and qEvents.recordcount gt "1">
+	<cfif qEvent.recordcount eq "0" and qEvents.recordcount gte "1">
 	<option value=""><cf_tl id="Please select">...</option>
 	</cfif>
 	<cfoutput query="qEvents">
@@ -120,8 +134,27 @@
 
 <cfif getTrigger.entitycode eq "PersonContract" and getContract.dateExpiration neq "">
 	
-	<script>
+	<script>		
 		document.getElementById('ActionDateEffective').value = "#dateformat(getContract.DateExpiration+1,client.dateformatshow)#"
+		// datePickerController.setSelectedDate('ActionDateEffective',"#dateformat(getContract.DateExpiration+1,'yyyymmdd')#");
+		datePickerController.setDateFromInput('ActionDateEffective')
+		document.getElementById('ActionDateExpiration').value = "#dateformat(getContract.DateExpiration+1,client.dateformatshow)#"
+		// datePickerController.setSelectedDate('ActionDateEffective',"#dateformat(getContract.DateExpiration+1,'yyyymmdd')#");
+		datePickerController.setDateFromInput('ActionDateExpiration')
+				
+	</script>
+
+</cfif>
+
+<cfif getTrigger.entitycode eq "VacCandidate" and getContract.dateExpiration neq "" and getAssignment.DateExpiration neq "">
+	
+	<script>
+		document.getElementById('ActionDateEffective').value = "#dateformat(getAssignment.DateExpiration+1,client.dateformatshow)#"
+		// datePickerController.setSelectedDate('ActionDateEffective',"#dateformat(getAssignment.DateExpiration+1,'yyyymmdd')#");
+		datePickerController.setDateFromInput('ActionDateEffective')
+		document.getElementById('ActionDateExpiration').value = "#dateformat(getAssignment.DateExpiration+1,client.dateformatshow)#"
+		// datePickerController.setSelectedDate('ActionDateEffective',"#dateformat(getContract.DateExpiration+1,'yyyymmdd')#");
+		datePickerController.setDateFromInput('ActionDateExpiration')
 	</script>
 
 </cfif>
@@ -164,6 +197,3 @@
 </cfoutput>	
 
 <cfset AjaxOnLoad("checkreason")>
-
-
-

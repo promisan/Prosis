@@ -31,6 +31,7 @@ password="#SESSION.dbpw#">
 <cfparam name="Address.RecordCount" default="0">
 
 <cfif Address.recordCount gte 1> 
+
 	<cf_tl id="You entered an existing address record. Operation not allowed." var="1">
    <cf_alert message = "#lt_text#">
 

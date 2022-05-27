@@ -1,4 +1,3 @@
-
 	
 	<CF_DropTable dbName="AppsQuery"  tblName="StockBatch_#SESSION.acc#"> 
 		
@@ -105,6 +104,7 @@
 	 WHERE 1=1 	 
 	 
 	</cfquery>
+	
 		
 	
 	

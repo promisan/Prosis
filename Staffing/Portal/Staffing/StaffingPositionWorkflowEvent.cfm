@@ -72,9 +72,8 @@ password="#SESSION.dbpw#">
 
 	<cfif personno eq client.personno>
 	
-		<cf_uitooltip tooltip="Please ask focal point to request on your behalf">	
-			<cfoutput>
-			<table  style="width:100%"><tr><td class="labelmedium" style="background-color:silver;font-size:12px" align="center">
+		<cfoutput>
+			<table  style="width:100%"><tr><td class="labelmedium" style="background-color:silver;font-size:12px" align="center" title="Please ask focal point to request on your behalf">
 			<cfif mde eq "spa">
 				<cf_tl id="Request SPA">
 			<cfelseif mde eq "ass">
@@ -83,30 +82,36 @@ password="#SESSION.dbpw#">
 				<cf_tl id="Request Appointment Extension">
 			</cfif>	
 			</td></tr></table>	
-			</cfoutput>
-		</cf_uitooltip>
-		
+		</cfoutput>
+				
 	<cfelse>
 	
-	<table style="width:100%">
-		<tr class="labelmedium">
-		<cfoutput>
-		<td style="padding-left:4px;width:25px;padding-right:5px;">
-		<img src="#client.root#/images/finger.png" height="20" width="20" alt="" border="0">
-		</td>
-		<td style="padding-left:14px">			
-			<a style="width:100%;font-size:12px" href="javascript:AddEvent('#PersonNo#','#Parent.PositionNo#','#url.ajaxid#','#url.trigger#','#url.code#')">
-			<cfif mde eq "spa">
-				<cf_tl id="Request SPA">
-			<cfelseif mde eq "ass">
-				<cf_tl id="Extend Assignment">	
-			<cfelse>
-				<cf_tl id="Extend Appointment">
-			</cfif>		
-			</a> 
-		</cfoutput>
-		</tr>
-	</table>
+	<cfif mde eq "spa">
+	
+	<cfelse>
+	
+		<table style="width:100%">
+			<tr class="labelmedium">
+			<cfoutput>
+			<td style="padding-left:4px;width:25px;padding-right:5px;">
+			<img src="#client.root#/images/finger.png" height="20" width="20" alt="" border="0">
+			</td>
+			<td style="padding-left:14px">		
+			
+				<a style="width:100%;font-size:12px" href="javascript:AddEvent('#PersonNo#','#Parent.PositionNo#','#url.ajaxid#','#url.trigger#','#url.code#','#thisorgunit#')">
+				<cfif mde eq "spa">
+					<cf_tl id="Request SPA">
+				<cfelseif mde eq "ass">
+					<cf_tl id="Extend Assignment">	
+				<cfelse>
+					<cf_tl id="Extend Appointment">
+				</cfif>		
+				</a> 
+			</cfoutput>
+			</tr>
+		</table>
+	
+	</cfif>
 	
 	</cfif>
 

@@ -37,6 +37,23 @@
   
   <!--- Mission standard cost --->
   
+  <cfquery name="MissionSelect" 
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT    DISTINCT Mission
+		FROM      Warehouse
+		-- WHERE     Mission = '#form.mission#'
+		WHERE     Operational = 1	
+		<cfif form.Warehouse eq "">
+		AND       1 = 0
+		<cfelse>
+		AND       Warehouse IN (#preservesingleQuotes(form.warehouse)#)
+		</cfif>					
+</cfquery>	
+
+<cfloop query="MissionSelect">
+  
   <cfquery name="UoMMission" 
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
@@ -51,12 +68,14 @@
 		        OfficerFirstName)
 		VALUES ('#No#',
 		        '#UoM#',
-		        '#Form.Mission#',
+		        '#Mission#',
 			    '#Form.StandardCost#', 
 				'#SESSION.acc#',
 				'#SESSION.last#',
 				'#SESSION.first#')				
 	</cfquery>
+	
+</cfloop>	
 
 <cfif Mis.BundleUoM neq "" and Mis.BundleUoM neq UoM>	
 	

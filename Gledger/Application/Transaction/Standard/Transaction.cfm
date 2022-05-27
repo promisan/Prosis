@@ -472,8 +472,7 @@ function togglebox(val) {
 							<TD class="labelmedium2"><cf_tl id="Contra-Account">:</TD>	
 					   														       	   
 		    			    <td colspan="4">	
-							
-										   
+																	   
 						        <table style="border:1px solid silver;;background-color:f1f1f1">
 								    <tr>
 																	   
@@ -1080,8 +1079,6 @@ function togglebox(val) {
 				  </cfif>	
 				  
 				</tr>		
-				
-				
 				
 				<tr>  
 				

@@ -33,10 +33,7 @@ function editEntitlement(persno, no) {
     <cfset END = 'NULL'>
 </cfif>	
 
-
-
 <!--- verify if record exist --->
-
 
  <cfquery name="PayrollItem" 
     datasource="AppsPayroll" 
@@ -108,6 +105,8 @@ function editEntitlement(persno, no) {
 				 <cf_assignid>	
 				 
 				 <cfparam name="Form.Ledger" default="">
+				 
+				 <cfset amt = replace("#amt#",",","","ALL")>
 				
 			     <cfquery name="InsertEntitlement" 
 				     datasource="AppsPayroll" 

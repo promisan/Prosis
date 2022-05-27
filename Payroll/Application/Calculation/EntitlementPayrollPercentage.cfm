@@ -171,7 +171,6 @@ password="#SESSION.dbpw#">
 		
 	ORDER BY PersonNo 
 	
-	
 			
 </cfquery>
 
@@ -429,8 +428,7 @@ have percentages in the result --->
 						
 		<cfinclude template="EntitlementCalculationBase.cfm">
 			
-		<!--- update the base amount in the temp calculation base set --->
-		
+		<!--- update the base amount in the temp calculation base set --->		
 					
 		<cfquery name="SetAmountBase" 
 		datasource="AppsPayroll" 

@@ -32,12 +32,9 @@
 </script>
 
 <cfif URL.action eq "0">
-	<a href="javascript:showaccess('1','#url.box#')"><font color="0080C0">Grant all steps</font></a>
+	<a href="javascript:showaccess('1','#url.box#')">Grant all steps</a>
 <cfelse>
-	<a href="javascript:showaccess('0','#url.box#')"><font color="0080C0">Revoke all steps</font></a>
+	<a href="javascript:showaccess('0','#url.box#')">Revoke all steps</a>
 </cfif>
 
 </cfoutput>
-
-
-<cf_compression>

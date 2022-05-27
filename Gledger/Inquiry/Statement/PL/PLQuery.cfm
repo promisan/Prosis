@@ -78,7 +78,6 @@
 
 <CF_DropTable dbName="AppsQuery" tblName="#SESSION.acc#PL#FileNo#">
 
-
 <cfinvoke component   = "Service.Process.GLedger.Statement"  
    method             = "getIncomeStatement" 
    mission            = "#url.mission#"   

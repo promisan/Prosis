@@ -16,7 +16,7 @@
 	
 	<table style="width:97%" align="center" class="navigation_table">
 	
-	<tr class="fixrow line labelmedium2">
+	<tr class="fixrow line labelmedium2 fixlengthlist">
 	   <td><cf_tl id="Entity"></td>
 	   <td><cf_tl id="OrgUnit"></td>
 	   <td><cf_tl id="Code"></td>
@@ -26,14 +26,14 @@
 	
 	<cfoutput query="AccessDetail" group="OrgUnitCode">
 	
-		<tr class="line labelmedium2 navigation_row">
+		<tr class="line labelmedium2 navigation_row fixlengthlist">
 		   <td style="padding-left:5px">#mission#</td>
-		   <td>#OrgUnitName#</td>
+		   <td title="#OrgUnitName#">#OrgUnitName#</td>
 		   <td>#orgUnitCode#</td>
 		   <td>
 		   <cfoutput>#classParameter# #groupparameter#;&nbsp;</cfoutput>
 		   </td>		   
-		   <td align="center">#dateformat(created,client.dateformatshow)#</td>   
+		   <td>#dateformat(created,client.dateformatshow)#</td>   
 		</tr>
 		
 		<cfoutput></cfoutput>

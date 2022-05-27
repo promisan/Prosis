@@ -85,11 +85,8 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">		  
 		  
-			SELECT   DISTINCT 
-			         PPF.DateEffective, 
-					 PPF.DateExpiration, 
-					 O.OrgUnitName, 
-					 PPF.Fund, 
+			SELECT   DISTINCT 			        
+					 O.OrgUnitName, 					
 					 Pers.PersonNo,
 					 Pers.IndexNo, 
 					 Pers.LastName, 
@@ -101,34 +98,45 @@
 					 PA.DateExpiration AS AssignmentEnd, 
 					 PA.Incumbency, 
 					 P.PositionNo,
+					 (SELECT MAX(DateExpiration) 
+                      FROM   PositionParentFunding PPF 
+                      WHERE  PPF.PositionParentId = PP.PositionParentId) as DateExpiration,
+					 
 					 P.PostGrade,
 					 R.PostOrder,
 					 P.FunctionDescription,
 					 P.SourcePostNumber,
 					 P.PositionParentId
-			FROM     PositionParentFunding AS PPF INNER JOIN
-			         PositionParent AS PP ON PPF.PositionParentId = PP.PositionParentId INNER JOIN
+			FROM     PositionParent AS PP INNER JOIN
 			         Position AS P ON PP.PositionParentId = P.PositionParentId INNER JOIN
 					 Ref_PostGrade AS R ON P.PostGrade = R.PostGrade INNER JOIN
 			         PersonAssignment AS PA ON P.PositionNo = PA.PositionNo INNER JOIN
 			         Person AS Pers ON PA.PersonNo = Pers.PersonNo INNER JOIN
 			         Organization.dbo.Organization AS O ON P.OrgUnitOperational = O.OrgUnit
-			WHERE    PP.Mission      = '#Program.Mission#' 
-			AND      PPF.ProgramCode = '#URL.ProgramCode#' 
+			WHERE    PP.Mission      = '#Program.Mission#' 			
 			AND      PA.AssignmentStatus IN ('0','1') 
 			
 			<cfif url.staffmode eq "current">
 			
-			AND      PPF.DateEffective <= GETDATE() 
-			AND      (PPF.DateExpiration IS NULL OR PPF.DateExpiration > GETDATE()) 
-			
+			AND      PP.PositionParentId IN (SELECT PositionParentId 
+			                              FROM   PositionParentFunding PPF 
+			                              WHERE  PPF.DateEffective <= GETDATE() 
+		                                  -- AND    PPF.DateExpiration IS NULL OR PPF.DateExpiration >= GETDATE() 
+										  AND    PPF.ProgramCode = '#URL.ProgramCode#' 
+										  )
+											
 			AND      PA.DateEffective   <= GETDATE() 
 			AND      PA.DateExpiration  >= GETDATE()
 									
 			<cfelse>
-						
-			AND      (PA.DateEffective   <= PPF.DateExpiration or PPF.DateExpiration IS NULL)
-			AND      PA.DateExpiration  >= PPF.DateEffective
+			
+			AND      PP.PositionParentId IN (SELECT PositionParentNo 
+			                              FROM   PositionParentFunding PPF 
+			                              WHERE  PPF.DateEffective <= PA.DateExpiration 
+		                                  AND    PPF.DateExpiration IS NULL OR PA.DateEffective   <= PPF.DateExpiration 
+										  AND    PPF.ProgramCode = '#URL.ProgramCode#' 
+										  )		
+			
 						
 			</cfif>
 			
@@ -172,7 +180,7 @@
 			  <td>#FirstName# #LastName#</td>
 			  <td>#Gender#</td>
 			  <td>#DateFormat(AssignmentStart,CLIENT.DateFormatShow)# - #DateFormat(AssignmentEnd,CLIENT.DateFormatShow)#</td>
-			  <td colspan="1"><a href="javascript:EditPost('#positionno#')"><font color="6688aa"><cfif SourcePostNumber neq "">#SourcePostNumber#<cfelse>#PositionParentId#</cfif></a></td>	 
+			  <td colspan="1"><a href="javascript:EditPost('#positionno#')"><cfif SourcePostNumber neq "">#SourcePostNumber#<cfelse>#PositionParentId#</cfif></a>&nbsp;#DateFormat(DateExpiration,CLIENT.DateFormatShow)#</a></td>	 
 			  <td colspan="1">#FunctionDescription#</td>	
 		   </tr> 	  
 		   	  

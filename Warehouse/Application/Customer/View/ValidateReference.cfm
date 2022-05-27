@@ -28,7 +28,17 @@
 		</font>
 		<input type="hidden" value="1" name="validateReference" id="validateReference">
 	</cfif>
+	
+	<script>
+	 document.getElementById('ReferenceDefault').checked = false
+	</script>
 
 <cfelse>
 		<input type="hidden" value="0" name="validateReference" id="validateReference">
+		
+	 <script>
+     	 document.getElementById('ReferenceDefault').checked = true
+	 </script>
+	 
 </cfif>
+

@@ -507,11 +507,11 @@
 	<!--- check listing --->
 				
 	<cfparam name="session.listingdata['#box#']['sqlcondition']" default="x">
-		
+			
 	<cfif attributes.refresh eq "0" 
 	      and url.ajaxid eq "content" 
 		  and conditioncheck eq session.listingdata[box]['sqlcondition']>	
-		 		 				
+		 		 		 				
 		<!--- obtain the cache --->
 		
 		<cflock timeout="1" throwontimeout="No" name="mysession" type="EXCLUSIVE">
@@ -568,7 +568,7 @@
 	<!--- preparation of a standard recorded listing --->	
 			
 	<cfelseif listclass eq "Listing">
-				
+					
 		<!--- outputting --->
 						
 		<cfquery name="Header" 
@@ -580,9 +580,9 @@
 			WHERE  SystemFunctionId = '#URL.SystemFunctionId#'
 			AND    FunctionSerialNo = '1'
 		</cfquery>
-														
-		<cfif attributes.refresh eq "1" or url.content eq "0">
-		
+																	
+		<cfif attributes.refresh eq "0" or url.content eq "0">
+						
 			<cfset fileNo = "#Header.DetailSerialNo#">	
 			
 			<!--- run the preparation queries with temp tables --->
@@ -618,8 +618,8 @@
 				</cfcatch>
 			</cftry>	
 																
-		<cfelse>			   
-		
+		<cfelse>	
+		  		
 			<cftry>					
 							
 				<cfset fileNo = Header.DetailSerialNo>							
@@ -699,7 +699,7 @@
 		<cfset ts = cfquery.executiontime>
 				
 	<cfelse>
-			
+				
 		<!--- outputting of an in the application embedded listing which does not have a prequery as this can be embedded --->			
 										
 		<cftry>
@@ -713,9 +713,10 @@
 		    <cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">		
 																
 			<cftry>
-						
+									
 				<cftransaction isolation="read_uncommitted">	
-											
+				
+															
 					<cfquery name="SearchResult" 
 						datasource="#attributes.datasource#" 
 						username="#SESSION.login#" 
@@ -837,7 +838,7 @@
 		
 	<!--- to help clearing cache during development 
 	<cfset applycache = "0">
-	--->
+	--->	
 								
 	<cfif applycache eq "0" or (session.listingdata[box]['sqlsorting'] neq listsorting and sc neq "")>			
 									
@@ -883,8 +884,7 @@
 		</cflock>	
 		
 	<cfelse>
-	
-		
+			
 		
 	</cfif>	
 	

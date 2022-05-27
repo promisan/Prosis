@@ -886,9 +886,12 @@ password="#SESSION.dbpw#">
 									AND     DateEffective < '#getAssignment.DateEffective#'
 									AND     AssignmentStatus IN ('0','1')
 									AND     AssignmentNo != '#getAssignment.AssignmentNo#'
+									AND     Incumbency = '#getAssignment.Incumbency#'
 									AND     PositionNo IN (SELECT PositionNo 
 									                       FROM   Position
 														   WHERE  Mission = '#PositionParent.Mission#')
+									ORDER BY DateEffective DESC					   
+														   
 							</cfquery>	
 							
 							
@@ -940,11 +943,12 @@ password="#SESSION.dbpw#">
 											
 								</cfoutput>	
 							
-							<cfelse>		
-								
-															
+							<cfelse>	
+							
+							
+																						
 								<cfif Prior.dateExpiration neq "">
-															
+										
 									<cf_intelliCalendarDate9
 										FieldName="dateexpiration" 
 										Manual="True"	

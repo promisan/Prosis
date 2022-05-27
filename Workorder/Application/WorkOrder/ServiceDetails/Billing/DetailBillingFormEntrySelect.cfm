@@ -226,8 +226,8 @@
 		
 	<tr style="border-top:1px solid silver" class="fixlengthlist">
 	
-		<td style="padding-left:3px">	
-														
+		<td style="padding-left:16px;padding-top:5px">	
+												
 			<input type="checkbox" 
 				   name="#UnitClass#_unit_0" 
 	               id="#UnitClass#_unit_0"
@@ -239,7 +239,7 @@
 				
 		</td>		   
 				   
-		<td style="padding-left:8px;padding-top:2px;padding-bottom:2px;cursor:pointer" 
+		<td style="padding-left:4px;padding-top:5px;padding-bottom:2px;cursor:pointer" 
 		    class="labelmedium" colspan="8"
 			onclick="document.getElementById('#UnitClass#_unit_0').click()">#ClassDescription#</td>
 		

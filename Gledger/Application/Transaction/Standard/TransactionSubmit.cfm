@@ -151,7 +151,7 @@ password="#SESSION.dbpw#">
 <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
 <cfset mid = oSecurity.gethash()/>
 
-<cfif url.closewindow eq 0>
+<cfif url.closewindow eq 1>
 	<script language='JavaScript'>
 		try {parent.opener.document.getElementById('apply').click();} catch(e) {
 			try {parent.opener.history.go();} catch(e) {}

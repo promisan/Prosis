@@ -128,7 +128,7 @@
 		<body style="background:##f1f1f1;">
 		
 		    <table><tr><td height="20"></td></tr></table>
-			<table width="500" align="center" border="0" cellspacing="0" cellpadding="0" style="margin:auto;background: ##ffffff;font-family:Helvetica,sans-serif;color:##555555;font-size:15px;">	  
+			<table width="550" align="center" border="0" cellspacing="0" cellpadding="0" style="margin:auto;background: ##ffffff;font-family:Helvetica,sans-serif;color:##555555;font-size:15px;">	  
 				<tr>
 					<td colspan="2" style="padding-top:8px">
 						<table width="100%" height="50px" style="border-bottom:1px solid ##cccccc;padding:10px 20px 20px;">								
@@ -155,24 +155,24 @@
 		        <tr height="10"><td></td></tr>
 		 		<tr>
 					<td valign="top" style="padding-top:8px">						
-						<table width="96%"  cellspacing="0" cellpadding="0" align="center">
+						<table width="96%" align="center">
 							<tr><td height="20" align="center" class="header" colspan="2"><h3><cf_tl id="Requested by"></h3></td></tr>
-							<tr><td height="20" align="right" width="49%"><b><cf_tl id="Name">: </b></td><td height="20" align="left" width="49%">&nbsp; #Last.OfficerFirstName# #Last.OfficerLastName#</td></tr>
-							<tr><td height="20" align="right"><b><cf_tl id="On">: </b></td><td height="20" align="left">&nbsp; #dateformat(now(),"#CLIENT.DateFormatShow#")# #timeformat(now(),"HH:MM")# <td></tr>
+							<tr><td height="20" align="right" width="39%"><b><cf_tl id="Name">: </b></td><td height="20" style="padding-left:10px" width="59%">#Last.OfficerFirstName# #Last.OfficerLastName#</td></tr>
+							<tr><td height="20" align="right"><b><cf_tl id="On">: </b></td><td height="20" style="padding-left:10px">#dateformat(now(),"#CLIENT.DateFormatShow#")# #timeformat(now(),"HH:MM")# <td></tr>
 							<!---
 							<tr>
 								<td height="20" align="right"><b><cf_tl id="UserId">: </b></td><td height="20" align="left">&nbsp; #Last.OfficerUserId#</td>
 							</tr>
 							--->
-							<tr><td height="20" align="right"><b><cf_tl id="eMail">: </b> </td><td height="20" align="left">&nbsp; <a href = "mailto:#Mail.eMailAddress#">#Mail.eMailAddress#</a></td></tr>
-							<tr><td height="20" align="right"><b><cf_tl id="Report problems to">: </b></td><td height="20" align="left">&nbsp; <a href = "mailto:#Parameter.SystemContactEMail#">#Parameter.SystemContactEMail#</a></td></tr>								
+							<tr><td height="20" align="right"><b><cf_tl id="eMail">: </b> </td><td height="20" style="padding-left:10px"><a href = "mailto:#Mail.eMailAddress#">#Mail.eMailAddress#</a></td></tr>
+							<tr><td height="20" align="right"><b><cf_tl id="Report problems to">: </b></td><td height="20" style="padding-left:10px"><a href = "mailto:#Parameter.SystemContactEMail#">#Parameter.SystemContactEMail#</a></td></tr>								
 							<tr><td height="20"></td></tr>							
 							<tr><td height="20" colspan="2" align="center"><h3><cf_tl id="Action details"></h3></td></tr>
 							<tr><td class="line" colspan="2"></td></tr>							
-							<tr><td height="20" align="right"><b><cf_tl id="Subject">: </b></td><td height="20" align="left">&nbsp; #qObject.EntityDescription#</td></tr>					
-							<tr><td height="20" align="right"><b><cf_tl id="Action">: </b></td><td height="20" align="left">&nbsp; #ucase(Action.ActionDescription)#</td></tr>
-							<tr><td height="20" align="right"><b><cf_tl id="Reference">: </b></td><td height="20" align="left">&nbsp; #qObject.ObjectReference#</td></tr>
-							<tr><td height="20" align="right"><b><cf_tl id="Subject">: </b></td><td height="20" align="left">&nbsp; #qObject.ObjectReference2#</td></tr>
+							<tr><td height="20" align="right"><b><cf_tl id="Subject">: </b></td><td height="20" style="padding-left:10px">#qObject.EntityDescription#</td></tr>					
+							<tr><td height="20" align="right"><b><cf_tl id="Action">: </b></td><td height="20" style="padding-left:10px">#ucase(Action.ActionDescription)#</td></tr>
+							<tr><td height="20" align="right"><b><cf_tl id="Reference">: </b></td><td height="20" style="padding-left:10px">#qObject.ObjectReference#</td></tr>
+							<tr><td height="20" align="right"><b><cf_tl id="Subject">: </b></td><td height="20" style="padding-left:10px">#qObject.ObjectReference2#</td></tr>
 		                    <tr style="height:40px"><td></td></tr>
 							
 							<!---

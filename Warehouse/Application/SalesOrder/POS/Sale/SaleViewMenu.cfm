@@ -123,40 +123,41 @@
 	 
 					<cfset link = "#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/getSalesOrder.cfm?mission=#url.mission#&warehouse=#url.warehouse#&">		
 					
-					<cf_tl id="sales orders" var="1">
-					
-					<cfset buttonlayout = {
-						subtext      = "#lt_text#",
-						id         	 = "buttonday",
-						image        = "Logos/Search.png",
-						height		 = "#vHeight#",
-						textcolor  	 = "##000000",
-						width        = "#vWidth#",
-						bgColor		 = "##f1f1f1",
-						textsize     = "#vFontSize#",
-						borderColor  = "##FFFFFF",
-						borderRadius = "#vBorderRadius#",
-                        imageHeight  = "42px",
-                        imagepos     = "right"}>
-					
-					<cf_tl id="Search" var="1">	 
-					
-					<cf_selectlookup
-					    box          = "search"
-						link         = "#link#"													
-						button       = "cfbutton"						
-						buttonlayout = "#buttonlayout#"
-						close        = "Yes"	
-						title        = "#lt_text#"		
-						module       = "materials"				
-						formname     = "saleform"
-						class        = "salesorder"  				
-						filter1      = "warehouse"
-						filter1value = "#url.warehouse#"						
-						des1         = "BatchId"
-                        fontsize     = "#vFontSize#" 
-                        width        = "#vWidth#" >	
-                        
+
+					<cfif getAdministrator("*") eq "1">
+						<cf_tl id="sales orders" var="1">
+						<cfset buttonlayout = {
+							subtext      = "#lt_text#",
+							id         	 = "buttonday",
+							image        = "Logos/Search.png",
+							height		 = "#vHeight#",
+							textcolor  	 = "##000000",
+							width        = "#vWidth#",
+							bgColor		 = "##f1f1f1",
+							textsize     = "#vFontSize#",
+							borderColor  = "##FFFFFF",
+							borderRadius = "#vBorderRadius#",
+							imageHeight  = "42px",
+							imagepos     = "right"}>
+
+							<cf_tl id="Search" var="1">
+
+							<cf_selectlookup
+								box          = "search"
+								link         = "#link#"
+								button       = "cfbutton"
+								buttonlayout = "#buttonlayout#"
+								close        = "Yes"
+								title        = "#lt_text#"
+								module       = "materials"
+								formname     = "saleform"
+								class        = "salesorder"
+								filter1      = "warehouse"
+								filter1value = "#url.warehouse#"
+								des1         = "BatchId"
+								fontsize     = "#vFontSize#"
+								width        = "#vWidth#" >
+					</cfif>
        </td>
 	   <td style="#vCellStyle# padding:5px;" align="center">		
 	   						

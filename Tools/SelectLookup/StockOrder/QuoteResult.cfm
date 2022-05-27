@@ -51,7 +51,6 @@
 
 <cfparam name="Form.ObjectUsage" default="">
 
-
 <cfquery name="SearchResult" 
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
@@ -88,6 +87,8 @@ password="#SESSION.dbpw#">
 	 
 	 <cfif criteria neq "">
 	WHERE  #preserveSingleQuotes(criteria)# 	
+	<cfelse>
+	WHERE  OfficerUserId = '#session.acc#'
 	</cfif>		
 	 
 	 ORDER BY CR.Created DESC
@@ -136,47 +137,52 @@ password="#SESSION.dbpw#">
 					
 					<TD><cf_tl id="Officer"></TD>		
 					<TD><cf_tl id="Source"></TD>		
-					<TD><cf_tl id="Status"></TD>					
+					<TD><cf_tl id="Status"></TD>	
+					<td style="width:45px"></td>				
 				</tr>  		 
 					
 				<cfoutput query="SearchResult">
 						
-				<cfif currentrow gte first>
-						
+					<cfif currentrow gte first>
+							
 						<cfif actionStatus eq "9">
 						   <cfset cl = "FAA0AE">
 						   <cf_tl id="Voided" var="1">
 						<cfelseif actionStatus eq "0">   
 						   <cfset cl = "FFFF00">
 						   <cf_tl id="In preparation" var="1">
-					    <cfelse>
+						<cfelse>
 						   <cfset cl = "FFFFFF">
 						   <cf_tl id="Prepared" var="1">
 						</cfif>
-								
-					<tr class="navigation_row labelmedium2 line fixlengthlist">		  
-					    <td align="center" style="padding-bottom:2px;padding-top:2px;background-color:###cl#80">	
 									
-						   <!--- sales that relate to issuance/inventory/issuance batch can not be edited here, we support opening the batch --->
-						   
-						   <input type="button" class="button10g" style="border:1px solid silver;width:60px;height:23px" value="#RequestNo#"
-						   onclick="window['fnCBDialogSaleClose'] = function(){ ProsisUI.closeWindow('dialog#url.box#') }; ptoken.navigate('#link#&action=insert&#url.des1#=#RequestNo#','#url.box#','fnCBDialogSaleClose','','POST','');" >
-						   
-						</td>
+						<tr class="navigation_row labelmedium2 line fixlengthlist" id="r#requestNo#">		  
+						    <td id="c#requestno#" align="center" style="padding-bottom:2px;padding-top:2px;background-color:###cl#80">	
+										
+							   <!--- sales that relate to issuance/inventory/issuance batch can not be edited here, we support opening the batch --->
+							   
+							   <input type="button" class="button10g" style="border:1px solid silver;width:60px;height:23px" value="#RequestNo#"
+							   onclick="window['fnCBDialogSaleClose'] = function(){ ProsisUI.closeWindow('dialog#url.box#') }; ptoken.navigate('#link#&action=insert&#url.des1#=#RequestNo#','#url.box#','fnCBDialogSaleClose','','POST','');" >
+							   
+							</td>
+							
+							<td>#RequestClass#</td>							
+							<td>#dateformat(Created,CLIENT.DateFormatShow)#</td>		
+							<td><cfif CustomerName eq ""><i><cf_tl id="Anonymous"><cfelse>#CustomerName#</cfif> </td>
+							<td>#CustomerSerialNo#</td>
+							<td>#WarehouseName#</td>															
+							<td>#OfficerLastName#</td>
+							<td>#Source#</td>
+							<td style="padding-left:4px;background-color:###cl#80">#lt_text#</td>	
+							<td>
+							<cfif (actionStatus eq "0" and session.acc eq OfficerUserid) or 
+								   (actionstatus neq "1" and getAdministrator eq "1")>
+							     <cf_img icon="delete" onclick="ptoken.navigate('#session.root#/tools/selectLookup/stockorder/setQuote.cfm?id=#requestNo#&action=delete','c#requestno#')">
+							</cfif>						
+							</td>
+						</tr>
 						
-						<td>#RequestClass#</td>
-						
-						<td>#dateformat(Created,CLIENT.DateFormatShow)#</td>		
-						<td><cfif CustomerName eq ""><i><cf_tl id="Anonymous"><cfelse>#CustomerName#</cfif> </td>
-						<td>#CustomerSerialNo#</td>
-						<td>#WarehouseName#</td>								
-						
-						<td>#OfficerLastName#</td>
-						<td>#Source#</td>
-						<td style="padding-left:4px;background-color:###cl#80">#lt_text#</td>	
-					</tr>
-					
-				</cfif>	
+					</cfif>	
 						     
 				</CFOUTPUT>
 			

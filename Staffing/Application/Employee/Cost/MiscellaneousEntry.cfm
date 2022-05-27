@@ -39,16 +39,16 @@ password="#SESSION.dbpw#">
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-    SELECT TOP 1 L.*, 
-           R.Description as ContractDescription, 
-	       A.Description as AppointmentDescription
-    FROM   PersonContract L, 
-	       Ref_ContractType R,
-		   Ref_AppointmentStatus A
-	WHERE  L.PersonNo          = '#url.id#'
-	AND    L.ContractType      = R.ContractType
-	AND    L.AppointmentStatus = A.Code
-	AND    L.ActionStatus     != '9'
+    SELECT   TOP 1 L.*, 
+             R.Description as ContractDescription, 
+	         A.Description as AppointmentDescription
+    FROM     PersonContract L, 
+	         Ref_ContractType R,
+		     Ref_AppointmentStatus A
+	WHERE    L.PersonNo          = '#url.id#'
+	AND      L.ContractType      = R.ContractType
+	AND      L.AppointmentStatus = A.Code
+	AND      L.ActionStatus     != '9'
 	ORDER BY L.DateEffective DESC 
 </cfquery>	
 
@@ -59,6 +59,7 @@ password="#SESSION.dbpw#">
     SELECT   *
     FROM     Ref_PayrollItem
 	WHERE    Source IN ('Miscellaneous','Deduction')
+	AND      Operational = 1
 	ORDER BY Source DESC
 	<!---
 	AND  PayrollItem IN (SELECT PayrollItem

@@ -156,18 +156,26 @@ datasource="AppsInit">
 
 	  <cfset text = replace("#DocumentContent#", "@pb", "<p style='page-break-after:always;'>&nbsp;</p>", "ALL")>	
 	 
+	  <cftry>		
+		<cfdirectory action="CREATE" directory="#SESSION.rootDocumentPath#\CFRStage\User\#Session.acc#\">
+		<cfcatch></cfcatch>
+   	  </cftry>	 
+	 
 	  <cffile action="WRITE" 
-	        file="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#DocumentName#.htm" 
+	        file="#SESSION.rootDocumentPath#\CFRStage\User\#Session.acc#\#DocumentName#.htm" 
 		    output="#text#" 
 			addnewline="Yes" 
 		    fixnewline="No">										 
 
 	  <!--- NEW on-the-fly converter of htm content to pdf --->  
-      <cf_htm_pdf fileIn="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#DocumentName#">
+      <cf_htm_pdf fileIn="#SESSION.rootDocumentPath#\CFRStage\User\#Session.acc#\#DocumentName#">
 		
+ 	  <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+	  <cfset mid = oSecurity.gethash()/>		
+	  
 	  <cfoutput>
 		<script>		
-			window.open('#SESSION.root#/CFRStage/User/#SESSION.acc#/#DocumentName#.pdf','_top')
+			window.open('#SESSION.root#/CFRStage/getFile.cfm?File=#DocumentName#.pdf&mid=#mid#','_top')
 		</script>
 	  </cfoutput>		 
 
@@ -264,5 +272,3 @@ datasource="AppsInit">
 </cfif>	
 
 </cfoutput>
-
-

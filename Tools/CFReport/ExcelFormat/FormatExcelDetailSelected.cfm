@@ -67,8 +67,7 @@
 		<td></td>
 		<td><cf_tl id="Field name"></td>	
 		<td align="center"></td>	
-		<td><cf_tl id="Label"></td>
-		<td align="center"></td>	
+		<td><cf_tl id="Label"></td>		
 		<td><cf_tl id="Sort"></td>
 		<td><cf_tl id="Sum"></td>	
 		</tr>		
@@ -175,13 +174,13 @@
 		</td>	
 		
 		<td id="formula#currentrow#">
-		
-			<cfif userType eq "8">
+				
+			<cfif userType eq "8" or userType eq "7">
 			
 				<cfif GroupFormula eq "None" or GroupFormula eq "">
-				   <a href="javascript:update('formula','#fieldName#','SUM','#url.id#','formula#currentrow#','#url.table#')">Yes</a>&nbsp;|&nbsp;<font color="0080FF">No</font>
+				   <a href="javascript:update('formula','#fieldName#','SUM','#url.id#','formula#currentrow#','#url.table#')"><cf_tl id="Yes"></a>&nbsp;|&nbsp;<cf_tl id="No">
 				<cfelseif GroupFormula eq "SUM">
-				   <font color="0080FF">Yes&nbsp;|&nbsp;</font><a href="javascript:update('formula','#fieldName#','None','#url.id#','formula#currentrow#','#url.table#')">No</a>
+				   <cf_tl id="Yes">&nbsp;|&nbsp;</font><a href="javascript:update('formula','#fieldName#','None','#url.id#','formula#currentrow#','#url.table#')"><cf_tl id="No"></a>
 				</cfif>
 				
 			</cfif>

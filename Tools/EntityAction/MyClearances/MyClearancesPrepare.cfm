@@ -31,6 +31,20 @@
 
 <cftransaction isolation="READ_UNCOMMITTED">
 
+<!--- get relevant entity codes to be shown--->
+
+<cfquery name="getEntity" 
+ datasource="AppsOrganization"
+ username="#SESSION.login#" 
+ password="#SESSION.dbpw#">
+    SELECT EntityCode
+    FROM   System.dbo.UserEntitySetting
+    WHERE  Account = '#session.acc#'
+	AND    EnableMyClearances = 1
+</cfquery>	
+
+<cfset entitycode = quotedValueList(getEntity.EntityCode)>
+	
 <cfquery name="Due" 
  datasource="AppsOrganization"
  username="#SESSION.login#" 
@@ -39,15 +53,15 @@
            MIN(ActionFlowOrder) AS ActionFlowOrder
  INTO      userQuery.dbo.#SESSION.acc#First_#FileNo#
  FROM      OrganizationObjectAction OA
- WHERE     Objectid IN (SELECT Objectid 
-                        FROM   OrganizationObject
-						WHERE  Operational = 1
-						AND  (EntityStatus != '9' or EntityStatus is NULL))
- AND       ActionStatus = '0' 
- AND       ObjectId IN (SELECT ObjectId 
+ WHERE     ObjectId IN (SELECT ObjectId 
                         FROM   OrganizationObject 
 						WHERE  ObjectId = OA.ObjectId
+						AND    Mission IN (SELECT Mission FROM Ref_Mission WHERE Operational = 1)
+						<cfif EntityCode neq "">
+						AND    EntityCode IN (#preserveSingleQuotes(entitycode)#) 
+						</cfif>
 						AND    ObjectStatus = '0'
+						AND    (EntityStatus != '9' or EntityStatus is NULL)
 						AND    Operational = 1
 						<!--- ----------------------- --->
 						<!--- filter by object entity --->
@@ -56,8 +70,8 @@
 						AND    EntityCode = '#attributes.entity#'
 						</cfif>
 						)
- 					
- GROUP BY ObjectId 
+ AND       ActionStatus = '0'  					
+ GROUP BY  ObjectId 
 </cfquery>
 
 <!---
@@ -83,7 +97,7 @@
 	 WHERE    O.Operational  = 1	
 	 AND      O.ObjectStatus = 0 	
  </cfquery>
- 
+
  <!---
  <cfoutput>b1.#cfquery.executiontime#</cfoutput>
  --->
@@ -129,7 +143,6 @@
 	<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Action">	
 </cfif>
 
-
 <cftransaction isolation="READ_UNCOMMITTED">
 
 	<cfsavecontent variable="lastaction">
@@ -141,9 +154,9 @@
 	</cfsavecontent>			 
 				 
 	<cfif SESSION.isAdministrator eq "Yes">
-			
+				
 		<cfif attributes.role eq "1">		
-			
+		
 			<cfquery name="Action" 
 			 datasource="AppsOrganization"
 			 username="#SESSION.login#" 
@@ -154,7 +167,7 @@
 						#preservesinglequotes(lastaction)#	
 						
 				<cfif attributes.mode eq "Table">
-				INTO    userQuery.dbo.#SESSION.acc#Action
+				INTO    userQuery.dbo.#SESSION.acc#Action				
 				</cfif>		
 				FROM    userQuery.dbo.#SESSION.acc#Current_#FileNo# OA
 					
@@ -169,10 +182,10 @@
 			            userQuery.dbo.#SESSION.acc#Current_#FileNo# OA ON AA.ObjectId = OA.ObjectId and AA.ActionCode = OA.ActionCode
 				WHERE   AA.AccessLevel >= '0'  	  
 				 								
-			</cfquery>	
-						
-		<cfelse>
-				
+			</cfquery>				
+			
+									
+		<cfelse>				
 		
 			<cfquery name="Action" 
 			 datasource="AppsOrganization"
@@ -193,7 +206,7 @@
 			</cfquery>	
 					
 		</cfif>	
-					
+							
 		<!---
 		<cfoutput>e.#cfquery.executiontime#</cfoutput>
 		--->
@@ -201,7 +214,7 @@
 	<cfelse>
 	
 		<cfif attributes.role eq "1">
-		
+				
 			<cfquery name="Action" 
 			 datasource="AppsOrganization"
 			 username="#SESSION.login#" 
@@ -268,15 +281,15 @@
 			</cfquery>	
 			
 			<cfquery name="ResultListing" 
-		 datasource="AppsOrganization"
-		 username="#SESSION.login#" 
-		 password="#SESSION.dbpw#">
-			 SELECT     *
-			 FROM       userQuery.dbo.#SESSION.acc#Current_#FileNo#  			 
-		</cfquery>
+			 datasource="AppsOrganization"
+			 username="#SESSION.login#" 
+			 password="#SESSION.dbpw#">
+				 SELECT     *
+				 FROM       userQuery.dbo.#SESSION.acc#Current_#FileNo#  			 
+			</cfquery>					
 					
 		<cfelse>
-						
+								
 			<cfquery name="Action" 
 			 datasource="AppsOrganization"
 			 username="#SESSION.login#" 
@@ -339,9 +352,7 @@
 	
 </cfif>	
 
-
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#First_#FileNo#">	
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Current_#FileNo#">	
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Base_#FileNo#">	
-
 

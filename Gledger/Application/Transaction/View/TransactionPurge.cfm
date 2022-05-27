@@ -25,6 +25,9 @@ password="#SESSION.dbpw#">
 
 	<!--- Batch Settlement --->
 	<cfif Header.TransactionSource eq "SalesSeries">
+	
+		<cftry>
+			<!---  Needed this as ReferenceNo can be a huge integer and SettleSErialNo is a tiny int, hence.. an error was found 15-Feb-2022 ---->
 		<cfquery name="qCheckBatchSettlement"
 				datasource="AppsLedger"
 				username="#SESSION.login#"
@@ -45,6 +48,10 @@ password="#SESSION.dbpw#">
 				AND    SettleSerialNo = '#Header.ReferenceNo#'
 			</cfquery>
 		</cfif>
+		
+		<cfcatch></cfcatch>		
+		</cftry>
+		
 	</cfif>
 
 		<!--- -------------------------------------- --->		

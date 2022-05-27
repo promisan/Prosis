@@ -210,33 +210,32 @@
 	
 	<tr>	
 	
-	<cfloop query="dates">
-	 
-	  <td align="center" bgcolor="e4e4e4" style="padding-top:0px;font-size:10px;border-top:1px solid silver" class="labelit">#dateformat(AuditDate,"MMM")#
-	    <cf_space spaces="4">   
-	  </td>
-	  
-	  <cfif currentrow eq "1">
-	  <td style="border-top:1px solid silver" bgcolor="f4f4f4" ></td>
-	  </cfif>
-	  
-	</cfloop>
-	 
-	<td style="border-top:1px solid silver;font-size:10px" bgcolor="ffffaf" align="center" class="labelit">
-	   <cf_space spaces="7"><cf_tl id="Sum">
-	</td>
-	<td style="border-top:1px solid silver;font-size:10px" height="17" colspan="2" bgcolor="ffffaf" align="center" class="labelit">
-	  <cf_space spaces="31">
-	  <cf_tl id="Base Cost">
-	</td>
+		<cfloop query="dates">
+		 
+		  <td align="center" bgcolor="e4e4e4" style="padding-top:0px;font-size:10px;border-top:1px solid silver" class="labelit">#dateformat(AuditDate,"MMM")#
+		    <cf_space spaces="4">   
+		  </td>
+		  
+		  <cfif currentrow eq "1">
+		  <td style="border-top:1px solid silver" bgcolor="f4f4f4" ></td>
+		  </cfif>
+		  
+		</cfloop>
+		 
+		<td style="border-top:1px solid silver;font-size:10px" bgcolor="ffffaf" align="center" class="labelit">
+		   <cf_space spaces="7"><cf_tl id="Sum">
+		</td>
+		<td style="border-top:1px solid silver;font-size:10px" height="17" colspan="2" bgcolor="ffffaf" align="center" class="labelit">
+		  <cf_space spaces="31">
+		  <cf_tl id="Base Cost">
+		</td>
 		
 	</tr>
-
 		
-	<cfif mode.BudgetEntryPosition eq "0">		
-			<cfinclude template="RequestDialogFormMatrixItemMaster.cfm">		
-	<cfelse>		
-		<cfinclude template="RequestDialogFormMatrixPosition.cfm">	
+	<cfif mode.BudgetEntryPosition eq "1">		
+	    <cfinclude template = "RequestDialogFormMatrixPosition.cfm">			
+	<cfelse>			  
+		<cfinclude template = "RequestDialogFormMatrixItemMaster.cfm">					
 	</cfif>	
 		
 	<!--- ------------ --->

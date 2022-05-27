@@ -97,18 +97,18 @@
 								autocomplete="off">
 									<p  <cfif SystemParameter.ApplicationLogon neq ""> style="margin-left:-85px" </cfif> >
 									
-										<span style="font-size: 20px; width: 200px; display: inline-block; text-align: right;  margin-right:12px;">
-											<cfif SystemParameter.ApplicationLogon neq "">
-												<img style="vertical-align:middle" src="#SESSION.root#/#SystemParameter.ApplicationLogon#" width="36px">
-											</cfif>
+										<cfif SystemParameter.ApplicationLogon neq "">
+											<span style="font-size: 20px; width: 200px; display: inline-block; text-align: right;  margin-right:12px;">
+											<img style="vertical-align:middle" src="#SESSION.root#/#SystemParameter.ApplicationLogon#" width="36px">
 											<cfif SystemParameter.ApplicationLogonLabel neq "">
 												<cf_tl id="#SystemParameter.ApplicationLogonLabel#" var="1">
 											<cfelse>
 												<cf_tl id="User name" var="1"> 
 											</cfif>
 											#lt_text# :
-										</span>
-										
+											</span>
+										</cfif>
+
 										<input 
 											type="text" 
 											class="clsTxtLogin" 
@@ -567,7 +567,7 @@
 				<div class="clsMainMenuContainer" id="mainMenuClearances">
 					<img src="#imageDirectory#/clearances.png" class="clsAnimate">
 					<div class="clsMainMenuContainerText">
-						<cf_tl id="Clearances">
+						<cf_tl id="Pending Actions">
 					</div>
 				</div>
 			</cfif>
@@ -945,7 +945,7 @@
 	</script>
 	
 	<!--- check the browser version --->
-	<cf_validateBrowser minIE="12" setDocumentMode="1">
+	<cf_validateBrowser minIE="10" setDocumentMode="1">
 
 	<cfif clientbrowser.pass eq 0>
 		<cfoutput>

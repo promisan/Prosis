@@ -24,13 +24,14 @@ password="#SESSION.dbpw#">
 		   U.OfficerLastName, 
 		   U.OfficerFirstName, 
 		   U.Created
-	FROM  UserNames U
-	WHERE U.AccountType = 'Group'
-	AND   (AccountMission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1) or AccountMission = 'Global')
+	FROM   UserNames U
+	WHERE  U.AccountType = 'Group'
+	AND    U.Disabled = 0 <!--- added --->
+	AND    (AccountMission IN (SELECT Mission FROM Organization.dbo.Ref_Mission WHERE Operational = 1) or AccountMission = 'Global')
 	<cfif grp neq "">
-	AND   U.Account NOT IN (#preserveSingleQuotes(filter)#) 
+	AND    U.Account NOT IN (#preserveSingleQuotes(filter)#) 
 	</cfif>
-	AND   U.AccountOwner is not NULL
+	AND    U.AccountOwner is not NULL
 	<cfif SESSION.isAdministrator eq "No">  
 	AND (
 			 U.AccountOwner IN (SELECT ClassParameter 
@@ -56,24 +57,31 @@ password="#SESSION.dbpw#">
 
 	<table height="100" width="100%" align="center">		   
 				
-		<!---
-		
-		<tr>
+		<!---		
+		<tr class="fixlengthlist labelmedium2">
 		  <td height="20" width="40"></td>
-		  <td class="labelit" width="40%">Group Name</td>
-		  <td class="labelit" width="10%">Account</td>
-		  <td class="labelit" width="10%">Mission</td>
-		  <td class="labelit" width="20%">Officer</td>
-		  <td class="labelit" width="10%">Date</td>
-		  <td class="labelit" width="5%">Select</td>
+		  <td>Group Name</td>
+		  <td>Account</td>
+		  <td>Mission</td>
+		  <td>Officer</td>
+		  <td>Date</td>
+		  <td>Select</td>
 		</tr>
-		
 		--->
-					
+		
 		<cfoutput query="groupNew" group="AccountOwner">
 		
-			<tr class="fixrow labelmedium2">
-			<td colspan="7" style="font-size:18px;height:25px;padding-left:3px">#AccountOwner#</td>
+		    <cfquery name="Owner" 
+				datasource="AppsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT *
+					FROM   Ref_AuthorizationRoleOwner
+					WHERE Code = '#AccountOwner#'	
+				</cfquery>
+		
+			<tr class="fixrow labelmedium2 fixlengthlist">
+			   <td colspan="7" style="font-size:18px;height:25px;padding-left:3px">#Owner.Description#</td>
 			</tr>
 		
 			<cfoutput group="AccountMission">
@@ -83,20 +91,14 @@ password="#SESSION.dbpw#">
 					<td>
 														 
 					<img src="#SESSION.root#/Images/icon_close.gif"
-					     border="0"
-						 id="#currentrow#_exp"
-						 align="absmiddle"
-					     class="regular"
-					     style="cursor:pointer"
+					     border="0" id="#currentrow#_exp" align="absmiddle" class="regular" style="cursor:pointer"
 					     onClick="javascript:document.getElementById('#currentrow#_exp').className='hide';ptoken.navigate('#SESSION.root#/system/access/membership/MemberSelectDetail.cfm?owner=#accountowner#&mission=#AccountMission#&grp=#grp#','#AccountOwner#_#AccountMission#')">
 						
 					</td>
-					<td height="24" colspan="6" style="padding-left:3px;font-size:16px;width:100%;height:21">
-							
+					<td height="24" colspan="6" style="padding-left:3px;font-size:16px;width:100%;height:21">							
 						<a href="javascript:document.getElementById('#currentrow#_exp').className='hide';ptoken.navigate('#SESSION.root#/system/access/membership/MemberSelectDetail.cfm?owner=#accountowner#&mission=#AccountMission#&grp=#grp#','#AccountOwner#_#AccountMission#')">
 						<cfif AccountMission eq "">&nbsp;<cf_tl id="Global"><cfelse>&nbsp;#AccountMission#</cfif>
-						</a>
-						
+						</a>						
 					</td>
 					
 				</tr>		

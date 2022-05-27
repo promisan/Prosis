@@ -3,6 +3,7 @@
 
 <cfparam name="Form.UnitConfirmation" default="0">
 <cfparam name="Form.TaxManagement" default="1">
+<cfparam name="Form.PriceManagement" default="1">
 
 <cfset dateValue = "">
 <CF_DateConvert Value="#Form.RevaluationCutoff#">
@@ -28,6 +29,7 @@ UPDATE Ref_ParameterMission
 			RequestSerialNo          = '#Form.RequestSerialNo#',
 			LotManagement            = '#Form.LotManagement#',
 			TaxManagement            = '#Form.TaxManagement#',
+			PriceManagement          = '#Form.PriceManagement#',
 			RevaluationCutoff        = #dte#,			
 			<cfif form.ReceiptDevice eq "">
 			ReceiptDevice            = NULL,

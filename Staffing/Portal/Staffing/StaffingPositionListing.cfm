@@ -1,4 +1,5 @@
 
+
 <cfinclude template="StaffingPositionPrepare.cfm">
 
 <cfif Position.recordCount eq 0>
@@ -33,7 +34,7 @@
     <cfset vCnt = 0>
 
     <cf_mobileRow class="clsUnitContainer">
-	
+		
 		<cfquery name="Level00" 
           datasource="AppsEmployee" 
           username="#SESSION.login#" 
@@ -52,7 +53,9 @@
 		<cfelse>
 		  <cfset List = "'#Level00.OrgUnitCode#'"> 
 		</cfif>  
-	      
+		
+		<!--- no longer needed, it goes too many unit information
+					      
 	    <cfloop condition="Parent neq ''">
 				
 		    <cfquery name="LevelUp" 
@@ -64,8 +67,9 @@
 	          WHERE  OrgUnitCode = '#Parent#'
 			    AND  Mission     = '#Mission#'
 			    AND  MandateNo   = '#MandateNo#'
-		   </cfquery>	    
-		   
+		   </cfquery>	
+		   	   
+		   		   
 		   <cfif LevelUp.ParentOrgUnit neq "">
 			   <cfset List = "#list#,'#LevelUp.ParentOrgUnit#'">			   
 		   </cfif>		
@@ -73,7 +77,9 @@
 		   <cfset Parent = LevelUp.ParentOrgUnit>
 		
 		</cfloop>
-				
+		
+		--->
+						
 		 <cfquery name="Org" 
           datasource="AppsEmployee" 
           username="#SESSION.login#" 
@@ -85,18 +91,26 @@
 	          AND      OrgUnitCode IN (#preservesinglequotes(List)#)
 			  ORDER BY HierarchyCode DESC
 	   </cfquery>
-
-        <div class="clsUnit">
+	   
+	   <div class="clsUnit">
+	   
 		<cfset spaces = "">
+		
+		<span style="font-weight:bold">#spaces##OrgUnitName# - #OrgUnitNameShort#<br></span>
+		
+		<!---
+		
 		<cfloop query="Org">
 			
 			<cfif currentrow neq "1">
-			<span style="font-size:12px">&nbsp;#OrgUnitName# - #OrgUnitNameShort#</span>&nbsp;<cfif currentrow neq recordcount>|</cfif>
-			<cfelse>
-			#spaces##OrgUnitName# - #OrgUnitNameShort#<br>
+			<span style="font-size:12px;font-weight:normal;padding-left:10px;padding-right:5px">#OrgUnitName# - #OrgUnitNameShort#</span><cfif currentrow neq recordcount>|</cfif>
+			<cfelse>					
+			<span style="font-weight:bold">#spaces##OrgUnitName# - #OrgUnitNameShort#<br></span>
 			</cfif>
 			<cfset spaces = "#spaces#&nbsp;">
 		</cfloop>
+		
+		--->
 		
 		<!---
 		<a href>Record Position</a>
@@ -104,9 +118,13 @@
 		
 		</div>
 		
-		<div onclick="toggleActions('#OrgUnitOperational#');" class="actionsHeader clsSearchable">
-			<i class="fa fa-plus-circle actionsIcon actionsIcon_#OrgUnitOperational#" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<cf_tl id="Events recorded for unit">
-		</div>
+		<cfif url.content eq "unit">
+		
+			<div onclick="toggleActions('#OrgUnitOperational#');" class="actionsHeader clsSearchable">
+				<i class="fa fa-plus-circle actionsIcon actionsIcon_#OrgUnitOperational#" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<cf_tl id="Events recorded for unit">
+			</div>
+		
+		</cfif>
 		
 		<div class="actionsContainer actions_#OrgUnitOperational#" style="display:none;" id="events_#OrgUnitOperational#"></div>
 
@@ -117,14 +135,17 @@
             </cfif>
 
             <cf_MobileCell style="#vLeftBorder#" class="clsPosition clsPosition#PositionNo# clsSearchable toggleScroll-y col-xs-12 col-md-6 col-lg-#INT(12/vCols)#">
+			    <cfset thisOrgUnit = OrgUnitOperational>
+				
                 <cfinclude template="StaffingPositionContainer.cfm">	
+				
             </cf_MobileCell>
 
             <cfset vCnt = vCnt + 1>
         </cfoutput>
 
     </cf_mobileRow>
-
+		
 </cfoutput>	
 
 <script>

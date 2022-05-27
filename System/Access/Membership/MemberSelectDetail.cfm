@@ -28,6 +28,7 @@ password="#SESSION.dbpw#">
 		   U.Created
 	FROM  UserNames U
 	WHERE U.AccountType = 'Group'
+	AND   U.Disabled = 0 <!--- added --->
 	<cfif grp neq "">
 	AND   U.Account NOT IN (#preserveSingleQuotes(filter)#)  
 	</cfif>

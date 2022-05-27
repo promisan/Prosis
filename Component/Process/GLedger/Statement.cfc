@@ -239,6 +239,47 @@
 								
 				<!--- Query returning search results initial approval --->
 				
+				<cfoutput>
+				<cfsavecontent variable="condition">				
+											   
+					 H.Mission         = '#Mission#'
+										 
+					 AND    H.Journal IN (SELECT Journal 
+					                       FROM   Accounting#Suffix#.dbo.Journal
+					                       WHERE  Journal       = H.Journal
+										   AND    GLCategory    = 'Actuals'	
+										   AND    JournalType   = 'General')	
+										   
+					<cfif History eq "AccountPeriod">					 					 
+					 	AND   H.AccountPeriod IN (#preservesinglequotes(AccountPeriod)#)												  												 
+					<cfelse>					
+						AND   H.AccountPeriod  = #preserveSingleQuotes(AccountPeriod)#																				 
+					</cfif>					      
+										
+					AND    H.RecordStatus    IN ( '1')
+					AND    H.ActionStatus IN ('0','1')
+											
+					<cfif Program neq "">
+					    AND   T.ProgramCode = '#Program#'
+					</cfif>
+															
+					<cfif OrgUnit neq "">					  
+						 AND   T.OrgUnit IN (#preservesingleQuotes(orgunit)#)		 
+					</cfif>
+					
+					<cfif OrgUnitOwner neq "">
+					     AND   H.OrgUnitOwner IN (#preservesinglequotes(orgunitowner)#) 	 
+					</cfif>
+										
+					<!--- PL accounts --->
+					AND    G.AccountClass        = 'Result'														
+				
+				</cfsavecontent>
+				</cfoutput>
+				
+				<cfset session.statementcondition = condition>
+				
+				
 				<cftransaction isolation="READ_UNCOMMITTED">
 					
 				<cfquery name="Extract"
@@ -280,6 +321,7 @@
 					--->
 					
 					SELECT (CASE WHEN G.AccountType = 'Debit' THEN 'Debit' ELSE 'Credit' END) as Panel,
+					      
 					       H.AccountPeriod,
 						   
 						   <cfif Mode eq "economic">						  
@@ -337,40 +379,10 @@
 							INNER JOIN Accounting#Suffix#.dbo.#Client.LanPrefix#Ref_AccountParent G2
 								ON G1.AccountParent = G2.AccountParent	 				
 											   
-					WHERE   H.Mission         = '#Mission#'
-										 
-					 AND    H.Journal IN (SELECT Journal 
-					                       FROM   Accounting#Suffix#.dbo.Journal
-					                       WHERE  Journal       = H.Journal
-										   AND    GLCategory    = 'Actuals'	
-										   AND    JournalType   = 'General')	
-										   
-					<cfif History eq "AccountPeriod">					 					 
-					 	AND   H.AccountPeriod IN (#preservesinglequotes(AccountPeriod)#)												  												 
-					<cfelse>					
-						AND   H.AccountPeriod  = #preserveSingleQuotes(AccountPeriod)#																				 
-					</cfif>					      
+					WHERE   #preservesinglequotes(condition)#
 										
-					AND    H.RecordStatus    IN ( '1')
-					AND    H.ActionStatus IN ('0','1')
-											
-					<cfif Program neq "">
-					    AND   T.ProgramCode = '#Program#'
-					</cfif>
-															
-					<cfif OrgUnit neq "">					  
-						 AND   T.OrgUnit IN (#preservesingleQuotes(orgunit)#)		 
-					</cfif>
-					
-					<cfif OrgUnitOwner neq "">
-					     AND   H.OrgUnitOwner IN (#preservesinglequotes(orgunitowner)#) 	 
-					</cfif>
-										
-					<!--- PL accounts --->
-					AND    G.AccountClass        = 'Result'						
-					
-					
-					GROUP BY H.AccountPeriod,
+					GROUP BY 
+							 H.AccountPeriod,
  							 <cfif Mode eq "economic">
 							 T.TransactionPeriod,
 							 <cfelse>
@@ -427,15 +439,17 @@
 							 AccountGroupOrder,
 							 AccountGroupType,
 							 AccountParent,
-							 AccountParentDescription	
+							 AccountParentDescription							 
 							 								
 				</cfquery>				
 				
 				</cftransaction>				
 				
+				
 				<!---
 				<cfoutput>#cfquery.executiontime#</cfoutput>		
 				--->
+				
 				
 				
 				<cfif History neq "AccountPeriod">
@@ -564,8 +578,7 @@
 								
 				<!--- Query returning search results initial approval --->
 				
-				<cftransaction isolation="READ_UNCOMMITTED">
-				
+				<cftransaction isolation="READ_UNCOMMITTED">				
 	
 				<cfquery name="Extract"
 					datasource="AppsLedger" 

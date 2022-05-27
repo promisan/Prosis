@@ -229,7 +229,9 @@
 						  INNER JOIN ItemUoM IU ON IU.ItemNo = MP.ItemNo AND IU.UoM = MP.UoM
 						  INNER JOIN Item I ON I.ItemNo = MP.ItemNo
 					
+					<!---
 					AND    IU.EnablePortal = '1'
+					--->
 					AND    Warehouse is NULL
 					AND    S.Operational = 1
 					AND    MP.Mission is not NULL

@@ -121,11 +121,13 @@
 	
 	    <cfset ent = replace(entityCode,"-","","ALL")> 
 	
-		<cfparam name="Form.Mail_#ent#" default="0">
-		<cfparam name="Form.Task_#ent#" default="0">
+	    <cfparam name="Form.Clear_#ent#" default="0"> 
+		<cfparam name="Form.Mail_#ent#"  default="0">
+		<cfparam name="Form.Task_#ent#"  default="0">
 		
-		<cfset mail = evaluate("Form.Mail_#ent#")>
-		<cfset task = evaluate("Form.Task_#ent#")>
+		<cfset mail  = evaluate("Form.Mail_#ent#")>
+		<cfset task  = evaluate("Form.Task_#ent#")>
+		<cfset clear = evaluate("Form.Clear_#ent#")>		
 	
 		<cfquery name="Check" 
 		datasource="AppsSystem" 
@@ -144,8 +146,8 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				INSERT  UserEntitySetting
-				        (Account,EntityCode,EnableMailNotification,EnableExchangeTask)
-				VALUES  ('#SESSION.acc#','#EntityCode#','#mail#','#task#')
+				        (Account,EntityCode,EnableMailNotification,EnableExchangeTask,EnableMyClearances)
+				VALUES  ('#SESSION.acc#','#EntityCode#','#mail#','#task#','#clear#')
 			</cfquery>		
 		
 		<cfelse>		
@@ -156,9 +158,10 @@
 			password="#SESSION.dbpw#">
 				UPDATE  UserEntitySetting
 				SET     EnableMailNotification = '#mail#',
-				        EnableExchangeTask = '#task#'
-				WHERE   Account = '#SESSION.acc#'
-				AND     EntityCode = '#EntityCode#'
+				        EnableExchangeTask     = '#task#',
+						EnableMyClearances     = '#clear#'
+				WHERE   Account                = '#SESSION.acc#'
+				AND     EntityCode             = '#EntityCode#'
 			</cfquery>		
 		
 		</cfif>

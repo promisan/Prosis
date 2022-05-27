@@ -10,8 +10,11 @@
 
 <cfparam name="url.mission" default="">
 <!--- mission added 29/7/2013 --->		
-<cfset sc = replaceNoCase("#sc#","@mission","#url.mission#","ALL")> 							
-
+<cfif url.mission neq "">
+	<cfset sc = replaceNoCase("#sc#","@mission","#url.mission#","ALL")> 	
+<cfelse>
+    <cfset sc = replaceNoCase("#sc#","@mission","","ALL")>   
+</cfif>
 
 <!--- today --->
 <cfloop index="itm" from="1" to="30">

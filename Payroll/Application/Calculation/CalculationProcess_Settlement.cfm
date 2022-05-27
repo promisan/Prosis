@@ -322,8 +322,10 @@ password="#SESSION.dbpw#">
 		     I.settlement,
 		     I.SettlementMonth  	
 						
+		
 						 			 		 
 </cfquery>
+
 
 
 <!--- ----------------------------------------------------------------------------------------- --->
@@ -389,7 +391,10 @@ password="#SESSION.dbpw#">
 	
 </cfquery>
 
-<!--- not sure what below was used for in reality --->
+
+<!--- not sure what below was used for in reality, 
+disabled Hanno 24/2/2021 as we had cents correction in the payroll calculation
+which is wrong effect 
 
 <cfquery name="qCeiling1" 
 datasource="AppsPayroll" 
@@ -399,13 +404,15 @@ password="#SESSION.dbpw#">
 	SET      PaymentAmount = CeilingPaymentAmount
 	WHERE    AllowSplit = '2'
 	AND      ABS(PaymentAmount-CeilingPaymentAmount) <= 0.05	
-	
+		
 	UPDATE   userTransaction.dbo.sal#SESSION.thisprocess#SettleEntitlement
 	SET      CalculatedAmount = CeilingCalculatedAmount
 	WHERE    AllowSplit = '2'
 	AND      ABS(CalculatedAmount-CeilingCalculatedAmount) <= 0.05
 	
 </cfquery>	
+
+--->
 	
 <cfquery name="SettlementPrior" 
 datasource="AppsPayroll" 
@@ -514,6 +521,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 
+
 <CF_DropTable dbName="AppsQuery" tblName="sal#SESSION.thisprocess#SettleEntitlement">	
 <CF_DropTable dbName="AppsQuery" tblName="sal#SESSION.thisprocess#Settled">	
 
@@ -533,6 +541,9 @@ password="#SESSION.dbpw#">
 	SET      DiffCalc = round(CalculatedAmount - Calculation,2),
 	         DiffPay  = round(PaymentAmount - Payment,2)
 </cfquery>
+
+
+
 
 <!--- now record new settlements for IN-cycle processing 
       only if person is INDEED assigned in the period of the designated settlement date --->

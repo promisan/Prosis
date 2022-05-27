@@ -1,8 +1,12 @@
 
+<cfparam name="url.scope" default="backoffice">
+
 <!--- full summary --->
-<cf_myClearancesPrepare mode="table" role="1">
 
 <cftry>
+
+<cf_myClearancesPrepare mode="table" role="1" scope="#url.scope#">
+
 <cfquery name="getAction" 
  datasource="AppsOrganization"
  username="#SESSION.login#" 
@@ -18,7 +22,10 @@
 	  AND       O.Operational = 1  
 	  AND       E.ProcessMode != '9'		
 	  <!--- hide concurrent actions that were completed --->
-	  AND       OA.ActionStatus != '2'		  	 
+	  AND       OA.ActionStatus != '2'		
+	    <cfif scope eq "portal">
+		  AND       E.EnablePortal = 1
+		  </cfif>		  	 
 </cfquery>
 
 <cfquery name="Roles" 
@@ -65,9 +72,9 @@
 	 <table style="border:0px solid silver;font-size:20px">
 		<tr>		
 		<td style="color:#cl#;font-size:20px">
-		<cfif getAction.recordcount eq "0"><cf_tl id="No"> <cfelse>#getAction.recordcount#</cfif>
+		<font size="8"><cfif getAction.recordcount eq "0"><cf_tl id="No"> <cfelse>#getAction.recordcount#</cfif></font>
 		<cfif getAction.recordcount eq "1"><cf_tl id="action"><cfelse><cf_tl id="actions"></cfif><cf_tl id="and">
-		<cfif tot eq "0"><cf_tl id="No"><cfelse>#tot#</cfif>
+		<font size="8"><cfif tot eq "0"><cf_tl id="No"><cfelse>#tot#</cfif></font>
 		<cfif tot eq "1"><cf_tl id="Batch clearance"><cfelse><cf_tl id="Batch clerances"></cfif>
 		</td>
 	</tr>	

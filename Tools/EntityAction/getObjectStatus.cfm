@@ -2,6 +2,7 @@
 <cfparam name="url.objectid" default="">
 <cfparam name="session.authent" default="">
 
+
 <cfif session.authent neq "1">
 
     <cfoutput>

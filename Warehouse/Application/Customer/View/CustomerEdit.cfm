@@ -112,23 +112,48 @@ password="#SESSION.dbpw#">
 			<cfelse>
 			
 					<table>
-					   <tr>
+					   <tr>			  					   
+					    						 						 
 					     <td>
+						 
+						    <cfif Parameter.CustomerDefaultReference eq Customer.Reference>
+								<cfset ref = "">
+							<cfelse>
+							    <cfset ref = Customer.Reference> 
+							</cfif>
 						   
 						    <cfinput name="Reference" 
+							     id="Reference" 
 								 type="text" 
-								 value="#Customer.Reference#" 
+								 value="#ref#" 
 								 size="10" 
 								 maxlength="20"
-								 class="regularxxl enterastab"
-								 required="Yes"
+								 class="regularxxl enterastab"								 
 								 onKeyUp ="_cf_loadingtexthtml='';	ptoken.navigate('ValidateReference.cfm?customerid=#CustomerId#&reference='+this.value+'&mission=#url.mission#','id_validateReference');"
 								 message="Please enter Reference.">									 
 								 
 						 </td>
-						 <td id="id_validateReference" style="padding-left:15px;">
+						 
+						  <td id="id_validateReference" style="padding-left:5px;">
 						 	<input type="hidden" value="1" name="validateReference" id="validateReference">
-						 </td>
+						  </td>
+						 
+						  <td style="padding-left:5px">#Parameter.CustomerDefaultReference#:</td>
+						 
+						  <td style="padding-left:3px">
+						 
+						  <input type="checkbox" 
+							  name="ReferenceDefault" 
+							  id="ReferenceDefault" 
+							  checked
+							  value="#Parameter.CustomerDefaultReference#" 
+							  class="radiol enterastab" 
+							  onclick="document.getElementById('Reference').value=''"
+							  onKeyUp="_cf_loadingtexthtml='';	ptoken.navigate('ValidateReference.cfm?customerid=#CustomerId#&reference='+this.value+'&mission=#url.mission#','id_validateReference');" message="Please enter Reference.">		
+							 
+						 </td>  
+						 
+						 
 		 			   </tr>
 					</table>
 			

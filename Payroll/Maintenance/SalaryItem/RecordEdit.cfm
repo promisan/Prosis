@@ -45,7 +45,7 @@ password="#SESSION.dbpw#">
 
 <cfform action="RecordSubmit.cfm?idMenu=#url.idmenu#" method="POST" name="dialog">
 
-<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="95%" align="center" class="formpadding">
 	
     <cfoutput>
 	
@@ -68,6 +68,21 @@ password="#SESSION.dbpw#">
   	   <cfinput type="text" name="PayrollItem" value="#get.PayrollItem#" message="Please enter a code" required="Yes" size="10" maxlength="30" class="regularxl">
        <input type="hidden" name="PayrollItemOld" value="#get.PayrollItem#" class="regular">
     </TD>
+	</TR>
+	
+	 <TR>
+    <TD class="labelmedium"><cf_tl id="Operational">:</TD>
+    <TD style="padding-left:5px">
+			
+		    <table><tr class="labelmedium2">
+			<td><input type="radio" class="radiol" name="Operational" id="Operational" <cfif get.Operational eq "1" or url.id1 eq "">checked</cfif> value="1"></td>
+			<td><cf_tl id="Active"></td>
+			<td style="padding-left:5px"><input type="radio" class="radiol" name="Operational" id="Operational" <cfif get.Operational eq "0">checked</cfif> value="0"></td>
+			<td><cf_tl id="Disabled"></td>
+			</tr>
+			</table>
+				
+		</td>
 	</TR>
 	
    <TR>
@@ -108,14 +123,14 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>
 							
-	<tr class="line"><td height="20" class="labelmedium"  style="font-size:20px;font-weight:200" colspan="2">Presentation on Pay slip:</td></tr>
+	<tr class="line"><td height="20" class="labelmedium"  style="font-size:20px" colspan="2">Presentation on Pay slip:</td></tr>
 	<tr><td height="3"></td></tr>		
 	
 				<TR>
 			    <TD class="labelmedium" style="padding-right:4px"><cf_tl id="Print Group">:</TD>
 			    <TD class="regular">
 				
-				<table cellspacing="0" cellpadding="0"><tr><td>
+				<table><tr><td>
 				
 					<select name="PrintGroup" class="regularxl">
 			     	   <cfloop query="Section">
@@ -197,7 +212,7 @@ password="#SESSION.dbpw#">
 				</TD>
 		</TR>	
 		<tr><td height="3"></td></tr>				
-		<tr class="line"><td height="20" colspan="2" style="font-size:20px;font-weight:200" class="labelmedium">Settlement Settings:</td></tr>
+		<tr class="line"><td height="20" colspan="2" style="font-size:20px" class="labelmedium">Settlement Settings:</td></tr>
 		<tr><td height="3"></td></tr>	
 
 				<TR>
@@ -320,8 +335,8 @@ password="#SESSION.dbpw#">
 	<tr><td height="5"></td></tr>
 	<tr><td colspan="2" align="center" height="30">
 
-	<cfif url.id1 eq "">
-    	<input class="button10g" type="submit" name="Insert" value=" Save ">
+	<cfif url.id1 eq "">	
+    	<input class="button10g" type="submit" name="Insert" value="Save">
 	<cfelse>
 	    <input class="button10g" type="submit" name="Update" value="Save">
 	</cfif>

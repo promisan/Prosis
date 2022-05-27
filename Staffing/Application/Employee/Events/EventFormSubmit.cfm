@@ -28,12 +28,32 @@
 
 <cfset vDocumentNo =0>
 
+<!--- Position will rule the orgunit --->
+
+<cfif FORM.PositionNo neq "">
+	
+	<cfquery name="Position" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT *
+			FROM   Position
+			WHERE  PositionNo = '#form.PositionNo#'
+	</cfquery>	
+	
+	<cfset org = Position.OrgUnitOperational>
+	
+<cfelse>
+
+    <cfset org = FORM.OrgUnit>
+
+</cfif>			 
+	
 <cfif URL.eventid eq "">
 
 	<!---- before we have used : form.eventId --->
 
-	<cf_assignId>
-	
+	<cf_assignId>	
 	
 	<cfquery name="qInsert" 
 			 datasource="AppsEmployee" 
@@ -54,7 +74,7 @@
 			           		ConditionCode,
 			           		ConditionListCode,
 			            </cfif>	
-					    <cfif FORM.OrgUnit neq "">
+					    <cfif org neq "">
 					    OrgUnit,
 					    </cfif>
 					    <cfif FORM.PositionNo neq "">
@@ -87,8 +107,8 @@
 					 '#FORM.GroupConditionCode#',
 			         '#FORM.ConditionCode#',
 					 </cfif>
-					 <cfif FORM.OrgUnit neq "">
-					     '#FORM.OrgUnit#',
+					 <cfif Org neq "">
+					     '#org#',
 					 </cfif>	
 					 <cfif FORM.PositionNo neq "">
 				         '#FORM.PositionNo#',

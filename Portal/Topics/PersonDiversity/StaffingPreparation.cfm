@@ -58,11 +58,13 @@
 
 <cftransaction isolation="READ_UNCOMMITTED">
 
-<cfset today = dateformat(now(),"YYYY/MM/DD")>
+<!--- issue in CF2018
+<cfset tod = dateformat(now(),"YYYY/MM/DD")>
+--->
 
 <cfif url.period eq "today">
 
-	<cfset dt = dateAdd("d",0,today)>
+	<cfset dt = dateAdd("d",0,now())>
 	
 <cfelse>
 	
@@ -72,7 +74,7 @@
 	<cfset dt = dateAdd("d",dim,dt)>	
 	
 	<cfif month(dt) eq month(now()) and year(dt) eq year(now())>
-			<cfset dt = dateAdd("d",0,today)>	
+			<cfset dt = dateAdd("d",0,now())>	
 	</cfif>
 		
 </cfif>

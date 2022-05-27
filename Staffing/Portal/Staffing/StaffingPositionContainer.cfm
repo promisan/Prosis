@@ -24,7 +24,7 @@
 			
 		  	  <!--- position header --->
 							
-			  <tr style="border-bottom:0px solid black">
+			  <tr>
 			  
 			  <td colspan="3">
 			  
@@ -87,17 +87,21 @@
 							datasource="AppsEmployee" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">						  
-						        SELECT  PG.PositionNo, PG.PositionGroup, R.Description
+						        SELECT  PG.PositionNo, PG.PositionGroup, R.Description, R.ShowAsImage
 								FROM    Ref_Group AS R INNER JOIN
 								        PositionGroup AS PG ON R.GroupCode = PG.PositionGroup
 								WHERE   R.GroupDomain = 'Position' 
 								AND     R.ShowInView = 1 
 								AND     PG.PositionNo = '#PositionNo#'
 						</cfquery>
-			  
+															  
 						<cfif getGroup.recordcount gte "1">						  
 						  	<td align="center" style="padding-left:3px;padding-right:3px;background-color:##FFDBB780">						  
-							  <cfloop query="getGroup">#PositionGroup#</cfloop>							  
+							  <cfloop query="getGroup">
+							  	<cfif showasImage neq "">
+								  <img src="#session.root#/images/#showasImage#" height="20" width="20" alt="" border="0">
+								<cfelse>#PositionGroup#</cfif>
+							  </cfloop>							  
 							</td>	
 							<td>|</td>						
 						</cfif>		
@@ -126,6 +130,7 @@
 		
 		<!--- position classification --->
 		
+				
 		<tr class="labelmedium2 clsBig fixlengthlist">				   
 			  
 			  <cfif ApprovalPostGrade neq "" or ApprovalPostGrade neq "">		
@@ -150,7 +155,7 @@
 				 </td>	
 			  <cfelse>
 			    <td align="center" 
-				  style="background-color:##ffb3b3;font-size:13px;padding-left:3px;padding-right:4px">	
+				  style="height:34px;background-color:##ffb3b3;font-size:13px;padding-left:3px;padding-right:4px">	
 			  		<cf_tl id="Not classified">	
 				 </td>						
 			  </cfif>					 
@@ -175,7 +180,8 @@
 				  
 				      <cf_tl id="Request new Classification" var="1">
 				      <input title="Click to initiate a new classification request for this position" 
-					  type="button" value="#lt_text#" class="button10g" onclick="javascript:AddClassification('#positionparentid#','#url.ajaxid#')" style="border-radius:10px;width:100%;border:1px solid silver">			  
+					  type="button" value="#lt_text#" class="button10g" disabled onclick="javascript:AddClassification('#positionparentid#','#url.ajaxid#')" 
+					  style="border-radius:2px;width:100%;border:1px solid silver">			  
 					  
 					  <!--- 
 					   <a title="Click to initiate a new classification request for this position" href="javascript:AddClassification('#positionparentid#','#url.ajaxid#')">
@@ -205,7 +211,8 @@
 				 WHERE  Code = '#VacancyActionClass#'		
 			</cfquery>
 		
-		  <td class="fixlength" title="#VacancyClass.Description#" style="min-width:100px;max-width:100px;background-color:#vacancyClass.PresentationColor#;padding:3px" align="center">#VacancyClass.Description#</td>
+		  <td class="fixlength" title="#VacancyClass.Description#" style="cursor:pointer;min-width:100px;max-width:100px;background-color:#vacancyClass.PresentationColor#;padding:3px" 
+		   align="center">#VacancyClass.Description#</td>
 			  
 		    <cfset url.ajaxid = "recruit_#PositionParentId#">
 		
@@ -221,14 +228,12 @@
 				   id="workflowcondition_#url.ajaxid#" 		   
 				   value="?positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#">	
 		
-			<td align="center" style="width:100%;height:100%"  id="#url.ajaxid#">	
-					
-				<cfinclude template="StaffingPositionWorkflowRecruit.cfm">						
-			
+			<td align="center" style="width:100%;height:100%"  id="#url.ajaxid#">					
+				<cfinclude template="StaffingPositionWorkflowRecruit.cfm">					
 			</td>
 			
 		</tr>
-	
+			
 		<cfquery name="AssignDetail" dbtype="query">
 			SELECT     *
 			FROM       Assignment
@@ -244,7 +249,7 @@
 				<td colspan="2" style="height:100px;width:100%">
 			     <table style="width:100%;height:100%">
 					 <tr>					
-					 <td style="font-size:27px;font-weight:bold;padding-top:64px;text-align:center;color:green;width:100%">
+					 <td style="font-size:27px;padding-top:64px;text-align:center;color:green;width:100%">
 					 	<cf_tl id="Vacant">
 					 </td>		  								 
 					 </tr>
@@ -269,6 +274,7 @@
 			</tr>	
 		
 		</cfif>	
+	
 		
 		<cfquery name="AssignDetail" dbtype="query">
 			SELECT     *
@@ -364,6 +370,7 @@
 		
 	<tr><td style="height:100%">	
 	
+		
 	<cf_divscroll>
 	<table width="100%">	
 		
@@ -373,6 +380,7 @@
 			
 		<cfloop query="AssignDetail" startrow="1" endrow="2">
 		
+		   		
 			<cfquery name="getContract" 
 				datasource="AppsEmployee" 
 				username="#SESSION.login#" 
@@ -392,7 +400,7 @@
 				AND        ActionStatus IN ('0','1')
 				-- AND        DateEffective <= '#url.selection#'
 				ORDER BY   DateEffective DESC					
-			</cfquery>	
+			</cfquery>				
 			
 			<cfquery name="getContractAdjustment" 
 				datasource="AppsEmployee" 
@@ -410,7 +418,7 @@
 				AND        DateExpiration >= '#url.selection#'
 				ORDER BY   DateEffective DESC					
 			</cfquery>
-			  
+									  
 			<cfif currentrow eq "1">
 			  	<cfset vDisplay= "">
 			<cfelse>
@@ -419,12 +427,13 @@
 			
 			<tr class="clsBig">
 				<td colspan="2" class="clsAssignment_#PositionNo# clsAssignment_#AssignmentNo#" valign="top" 
-				  style="height:100%;width:100%;padding-right:13px; #vDisplay#" id="ass#AssignmentNo#">		
-				  		  		     
-					<cfinclude template="StaffingPositionIncumbent.cfm">							 
-					
+				  style="height:100%;width:100%;padding-right:13px; #vDisplay#" id="ass#AssignmentNo#">					  		  		     
+					<cfinclude template="StaffingPositionIncumbent.cfm">							 					
 				</td>					 
 			</tr>
+			
+			
+			<cfset vDisplay = "">
 
 			<cfset vSmallStyleBG = "">
 			<cfset vSmallStyleText = "">
@@ -470,13 +479,13 @@
 		</cfloop>
 	
 	</cfif>	
-	
-	</table>
-	
-	</cf_divscroll>
 		
-	</td></tr>	
+	</table>
 			
+	</cf_divscroll>
+					
+	</td></tr>	
+				
 	
 </table>
 
@@ -490,7 +499,12 @@
 	#PostType#
 	#PostClass#
 	<cfif hasworkflow eq "1">Pending</cfif>
+	<cfif AssignDetail.recordcount eq "0">Vacant<cfelse>
+		<cfif extendctr eq "1" or extendass eq "1">Extend</cfif>		
+	</cfif>	
+	
 	<cfloop query="getGroup">#PositionGroup# </cfloop>	
 </div>
+
 
 </cfoutput>

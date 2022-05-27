@@ -10,8 +10,8 @@
 		password="#SESSION.dbpw#">
 			SELECT *
 			FROM   Program
-			WHERE ProgramAllotment = '9'
-			AND ProgramCode = '#url.programCode#'
+			WHERE  ProgramCode = '#url.ProgramCode#'    
+			AND    ProgramAllotment = '9'						
    	 </cfquery>	
 
 	 <cfquery name="qGetSupcode" 
@@ -101,7 +101,8 @@
 			      <!--- -------------------------------- --->
 			  	  <!--- determine the access for editing --->
 				  <!--- -------------------------------- --->		  
-				  		 						  	
+				 
+				 				  		 						  	
 				  <cfif Edit.BudgetEntryMode eq "0">
 				  		  		  		  	 	  	  
 					   <!--- Hanno 2/1/2009 -------------------------------------------- --->
@@ -135,10 +136,10 @@
 						  ProgramCode    = "#URL.Program#"
 						  Period         = "#PlanPeriod#"					
 						  Role           = "#role#"
-						  ReturnVariable = "BudgetAccess">				
-										
-						<cfif (BudgetAccess eq "EDIT" or BudgetAccess eq "ALL") and qLock.LockEntry neq "1">										
-			
+						  ReturnVariable = "BudgetAccess">			
+						  						  																
+						<cfif (BudgetAccess eq "EDIT" or BudgetAccess eq "ALL") and qLock.LockEntry neq "1">	
+								
 						    <!--- enforce direct entry here --->
 							<cfif Program.EnforceAllotmentRequest eq "1">					
 							    <cfparam name="e#edition#mode" default="2">		
@@ -176,13 +177,14 @@
 					   <cfparam name="e#edition#percentage" default="#qLock.supportPercentage#">		
 					   	    					  
 					   <cfif Edit.Status eq "3" or Edit.Status eq "9">
-					   		  
+					  					   		  
 					     <!--- ONLY BUDGET MANAGER HAS ACCESS IF EDITION = LOCKED --->
 					  
 					  	 <cfset role = "'BudgetManager'">
-						 
+												 
 					   <cfelse>
-					   			  
+					   					    
+					   					   			  
 					  	 <cfset role = "'BudgetManager','BudgetOfficer'">	  
 						 
 					   </cfif>	 
@@ -193,20 +195,25 @@
 						Period         = "#PlanPeriod#"	
 						EditionId      = "#Edition#" 
 						ReturnVariable = "RequirementLock">			
-								 
+							 
 					   <cfinvoke component="Service.Access"  
 							Method         = "budget"
 							ProgramCode    = "#URL.Program#"
 							Period         = "#PlanPeriod#"	
 							EditionId      = "#Edition#"  
 							Role           = "#role#"
-							ReturnVariable = "BudgetAccess">						
+							ReturnVariable = "BudgetAccess">	
+															
 																	
-					   <cfif (BudgetAccess eq "EDIT" or BudgetAccess eq "ALL") and RequirementLock eq "0">
-						    <cfparam name="e#edition#mode" default="2">					  	
-					   <cfelseif (BudgetAccess eq "READ" or BudgetAccess eq "EDIT" or BudgetAccess eq "ALL")>									    			   
-						    <cfparam name="e#edition#mode" default="1">																			
-					   <cfelse>
+					   <cfif (BudgetAccess eq "EDIT" or BudgetAccess eq "ALL") and RequirementLock eq "0">	
+					   				   
+						    <cfparam name="e#edition#mode" default="2">			
+									  	
+					   <cfelseif (BudgetAccess eq "READ" or BudgetAccess eq "EDIT" or BudgetAccess eq "ALL")>		
+					   							    			   					  
+						    <cfparam name="e#edition#mode" default="1">		
+																								
+					   <cfelse>					   
 						    <cfparam name="e#edition#mode" default="0">					
 					   </cfif>				 
 							  
@@ -216,16 +223,14 @@
 				 		  
 				  <td>
 				  
-				  <table cellpadding="0" width="100%" cellspacing="0" border="0">
+				  <table cellpadding="0" width="100%">
 				  	<tr>
 					<td style="padding-left:3px;">
 				  
-				  <table width="100%" cellspacing="0" cellpadding="0">
+				  <table width="100%">
 				  
 				    <tr>		
-					  	  	
-					<td height="25" width="100%" class="labelmedium" style="padding-left:3px">
-				  		  	  
+					  	  
 					  	<cf_tl id="Mode" var="1">
 						<cfset vMode=lt_text>
 				
@@ -234,20 +239,18 @@
 						
 						<cf_tl id="Direct Entry" var="1">
 						<cfset vDirect=lt_text>
-						
-						<cf_space spaces="40">
-						
+												
 					    <cfif Edit.BudgetEntryMode eq '1'>
-					    	<cfset md = "<b>#vMode#:</b> #Edit.Version# - #Edit.EntryMethod# | #vRequirement#">
+					    	<cfset md = "#vMode#: #Edit.Version# - #Edit.EntryMethod# | #vRequirement#">
 						<cfelse>
-							<cfset md = "<b>#vMode#:</b> #Edit.Version# - #Edit.EntryMethod# | #vDirect#">
+							<cfset md = "#vMode#: #Edit.Version# - #Edit.EntryMethod# | #vDirect#">
 						</cfif>
-			
-						<cf_UItooltip tooltip="#md#">
+						
+						<td height="25" width="100%" class="labelmedium fixlength" style="cursor:pointer;padding-left:3px" title="#md#">
+									
 						   	<cfoutput><cfif Edit.Period eq "">#Edit.Description#<cfelse><font face="Verdana" size="2">#Edit.Description#</font></cfif></cfoutput>
-						</cf_UItooltip>
-					
-					</td>		
+										
+     					</td>		
 									
 					</tr>		
 					
@@ -264,30 +267,29 @@
 						   
 							<td class="clsNoPrint">
 							
-								<table cellspacing="0" cellpadding="0" class="formspacing">
+								<table class="formspacing">
 								
 									<tr>
 									
-									<td id="setting#edition#" width="20" align="center" style="padding-top:2px">
+									<td id="setting#edition#" width="20" align="center" style="padding-top:2px" title="Allotment settings">
 									
 										 <button type="button" 				 
 									 	  class="button10g" 
-										  style="width:30px;height:20;border-radius:3px" 
+										  style="width:30px;height:20;border-radius:3px;border:1px solid silver" 
 										  onClick="allotdetailopen('#url.program#','#PlanPeriod#','#edition#','#url.mode#')"> 					
-											 <img src="#SESSION.root#/images/setting.png" height="12" width="12" alt="Allotment Settings" border="0">												 		   
+											 <img src="#SESSION.root#/images/setting.png" height="12" width="12" border="0">												 		   
 										</button>	   
 									  		 
 									</td>
 								
-									<td id="validate#edition#" width="20" align="center" style="padding-top:2px">
+									<td id="validate#edition#" width="20" align="center" style="padding-top:2px" title="Validate amounts">
 														
 										 <button type="button" 				 
 									 	  class="button10g" 
 										  id="verify#edition#"
-										  style="width:30px;height:20;border-radius:3px" 
-										  onClick="ColdFusion.navigate('AllotmentVerify.cfm?mode=full&programcode=#url.programcode#&period=#PlanPeriod#&edition=#edition#','validate#edition#')"> 					
-										   	  <img src="#SESSION.root#/images/validate.gif" align="absmiddle" style="cursor:pointer"
-												   height="12" width="12" alt="Validate amounts" border="0">					
+										  style="width:30px;height:20;border-radius:3px;border:1px solid silver" 
+										  onClick="ptoken.navigate('AllotmentVerify.cfm?mode=full&programcode=#url.programcode#&period=#PlanPeriod#&edition=#edition#','validate#edition#')"> 					
+										   	  <img src="#SESSION.root#/images/validate.gif" align="absmiddle" style="cursor:pointer" height="12" width="12" border="0">					
 										</button>	   
 									  		 
 									</td>
@@ -300,13 +302,13 @@
 									 
 									    <cfif url.execution eq "hide">
 									 
-										<td style="padding-top:2px">								
+										<td style="padding-top:2px" title="Show execution amounts">								
 																								
 										 <button type="button" 				 
 									 	  class="button10g" 
-										  style="width:30px;height:20;cursor:pointer" 
+										  style="width:30px;height:20;cursor:pointer;border:1px solid silver" 
 										  onClick="Prosis.busy('yes');ptoken.location('AllotmentInquiry.cfm?mode=#url.mode#&execution=show&program=#url.programcode#&period=#PlanPeriod#&editionid=#edition#')"> 					
-										   	  <img src="#SESSION.root#/images/calculate.gif" height="12" width="12" alt="Show execution amounts" border="0">					
+										   	  <img src="#SESSION.root#/images/calculate.gif" height="12" width="12" border="0">					
 										</button>	 
 										
 										 <input type="hidden" id="exec_#edition#" value="hide">  
@@ -315,14 +317,14 @@
 										
 										<cfelse>
 										
-										<td style="padding-top:2px">
+										<td style="padding-top:2px" title="Show execution amounts">
 																
 										 <button type="button" 				 
 									 	  class="button10g" 
-										  style="width:30px;height:20;border-radius:3px" 
+										  style="width:30px;height:20;border-radius:3px;border:1px solid silver" 
 										  onClick="Prosis.busy('yes');ptoken.location('AllotmentInquiry.cfm?mode=#url.mode#&execution=hide&program=#url.programcode#&period=#PlanPeriod#&editionid=#edition#')"> 					
 										   	  <img src="#SESSION.root#/images/condition.gif" align="absmiddle" style="cursor:pointer"
-												   height="12" width="12" alt="Show execution amounts" border="0">					
+												   height="12" width="12" border="0">					
 										</button>	   
 										
 										<input type="hidden" id="exec_#edition#" value="show">  
@@ -334,13 +336,13 @@
 									 
 									 </cfif>
 																						  
-								    <td id="movebutton#edition#" class="hide" width="20" style="padding-top:2px">
+								    <td id="movebutton#edition#" class="hide" width="20" style="padding-top:2px" title="Move selected requirements">
 													
 									 <button type="button" 				 
 									 	  class="button10g" 
 										  style="width:30px;height:20" 
 										  onClick="movedetailopen('#url.program#','#PlanPeriod#','#edition#')"> 
-										  	  <img src="#SESSION.root#/images/move.gif" height="12" width="12" alt="Move selected requirements" border="0">					
+										  	  <img src="#SESSION.root#/images/move.gif" height="12" width="12" border="0">					
 									 </button>
 										
 								    </td>						
@@ -1043,7 +1045,8 @@
 			   <cfif ParentCode eq "">
 			   
 				   <cfset c = "ffffff">
-			   	
+				   
+				   			   	
 				   <!--- ------------------------------------------------ --->
 				   <!--- 1. LINE FOR REGULAR CODE NO PARENT AND NO CHILD- --->
 				   <!--- ------------------------------------------------ --->
@@ -1082,9 +1085,10 @@
 										<cfset col = "ffffaf">
 									
 									<cfelse>
-																								
+																																	
 										<cfif RequirementEnable eq "1" or (RequirementEnable eq "2" and (BudgetManagerAccess eq "EDIT" or BudgetManagerAccess eq "ALL"))>
-																							
+																																	
+											
 											<cfif evaluate("e#edition#mode") eq "2">
 											
 												<div class="clsNoPrint">
@@ -1133,9 +1137,10 @@
 					</cfif> 				 
 			
 			   <cfelse>
+			
 				   
 			   	   <cfif url.view neq "Parent">
-			     	   
+				   				     
 			   	   <!--- -------------------------------------------- --->
 				   <!--- -2.----------LINE FOR CHILD CODE ----------- --->
 				   <!--- -------------------------------------------- --->	
@@ -1150,9 +1155,10 @@
 							 </tr>					
 						 </table>
 					 </td>
-					
-					 <cfloop index="Edition" list="#EditionList#" delimiters="' ,">
 					 
+					 					  					
+					 <cfloop index="Edition" list="#EditionList#" delimiters="' ,">
+					 					 
 			   		    <cfset col = "ffffff">
 						
 					 	<td align="center" width="20" style="padding-top:2px;padding-left:3px;padding-right:3px;border-left: 1px solid Silver;">	
@@ -1160,17 +1166,18 @@
 							<cfset supp       = evaluate("e#edition#support")>
 							<cfset perc       = evaluate("e#edition#percentage")>
 							<cfset planPeriod = evaluate("e#edition#planperiod")>
-																	
+																								
 							<cfif supp eq code and perc gt "0">
 							
 							     <cf_UItooltip tooltip="Support account"><font color="808080"> <cf_tl id="SA"></font></cf_UItooltip>
 								 <cfset col = "ffffaf">
 							   
-							<cfelse>						
-													
-								  <cfif RequirementEnable eq "1" or (RequirementEnable eq "2" and (BudgetManagerAccess eq "EDIT" or BudgetManagerAccess eq "ALL"))>							  
-								 																
+							<cfelse>	
+																																		
+								  <cfif RequirementEnable eq "1" or (RequirementEnable eq "2" and (BudgetManagerAccess eq "EDIT" or BudgetManagerAccess eq "ALL"))>							  								 											
+																																				
 									<cfif evaluate("e#edition#mode") eq "2">
+									
 									<div class="clsNoPrint">
 										<cf_img icon="open" onclick="alldetinsert('#edition#_#code#','#edition#','#code#','','view','','#url.programcode#','#PlanPeriod#')"> 
 									</div>
@@ -1226,7 +1233,7 @@
 			<!--- ------------------------------------- --->
 			<!--- -3. ---LINE FOR PARENT CODE --------- --->
 			<!--- ------------------------------------- --->	
-			
+						
 			<cfif url.view eq "Parent">
 				<cfset c = "ffffff">
 			<cfelse>
@@ -1243,11 +1250,11 @@
 							 </tr>					
 						 </table>
 				</td>	
-			  	   
+							  	   
 			    <cfloop index="Edition" list="#EditionList#" delimiters="' ,">
-				
+								
 					  <cfset planPeriod = evaluate("e#edition#planperiod")> 	
-				
+					  
 					  <td align="center" width="20" style="padding-top:2px;padding-left:3px;padding-right:3px;border-left: 1px solid Silver;">	
 					   
 					        <cfif RequirementEnable eq "1" or (RequirementEnable eq "2" and (BudgetManagerAccess eq "EDIT" or BudgetManagerAccess eq "ALL"))>
@@ -1343,5 +1350,3 @@
 </table>
 
 </cf_divscroll>
-
-

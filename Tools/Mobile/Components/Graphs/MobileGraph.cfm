@@ -118,7 +118,7 @@
 								if (!meta.hidden) {
 									meta.data.forEach(function(element, index) {
 										// Draw the text in black, with the specified font
-										ctx.fillStyle = 'rgb(20, 20, 20)';
+										ctx.fillStyle = 'rgb(0, 0, 0)';
 
 										var fontSize = #attributes.legendFont*0.8#;
 										var fontStyle = 'normal';
@@ -151,8 +151,13 @@
 										if (element._chart.controller.config.type == 'pie') {
 											xPosition = position.x - 10;
 										}
+
+										var yPosition = position.y - (fontSize / 2) - padding;
+										if (element._chart.controller.config.type == 'line') {
+											yPosition = position.y + fontSize * 1.3;
+										}
 										
-										ctx.fillText(dataString, xPosition, position.y - (fontSize / 2) - padding);
+										ctx.fillText(dataString, xPosition, yPosition);
 									});
 								}
 							});

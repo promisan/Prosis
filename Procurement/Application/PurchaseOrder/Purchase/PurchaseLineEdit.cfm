@@ -230,6 +230,15 @@ password="#SESSION.dbpw#">
 							name        = "Amendment Log"
 							source      = "PurchaseLineEditLog.cfm?requisitionno={selectline}">
 							
+				<cf_menutab item        = "3" 
+				            iconsrc     = "Logos/Procurement/Travel.png" 								
+							type        = "Vertical"
+							targetitem  = "1"
+							iconwidth   = "#wd#"
+							iconheight  = "#ht#"
+							name        = "Transit Log"
+							source      = "PurchaseLineEditTransit.cfm?requisitionno={selectline}">			
+							
 					
 			
 		</tr>

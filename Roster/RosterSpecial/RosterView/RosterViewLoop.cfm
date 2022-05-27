@@ -33,7 +33,19 @@
 <cf_filelibraryscript>
 <cf_dialogPosition>
 
-<cf_screentop label="#Edition.EditionDescription# #URL.Owner#"
+   
+<cfquery name="Owner" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT  *
+	FROM    Ref_AuthorizationRoleOwner
+	WHERE   Code = '#URL.Owner#'
+	</cfquery>
+
+	<TITLE><cfoutput>#Owner.Description#</cfoutput></TITLE>
+	
+<cf_screentop label="#Edition.EditionDescription# : #Owner.Description#"
      band="no"  
 	 height="100%" 	
 	 line="no"
@@ -48,7 +60,6 @@
 	 bannerforce="yes"
 	 scroll="Yes">	 
 	 
-
 <!-- provision to add acdess to general roster --->
 <cfinclude template="RosterViewAccess.cfm">  
 

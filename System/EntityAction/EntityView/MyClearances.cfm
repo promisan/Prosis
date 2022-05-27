@@ -69,7 +69,7 @@
 
 	<cfoutput>
 		<div style="height:#URL.height#%;padding-left:15px;padding-right:15px" class="toggleScroll-y">
-			<cfset vParameters = "mode=#url.mode#&EntityGroup=#URL.EntityGroup#&Mission=#URL.Mission#&Owner=#URL.Owner#&me=#url.me#&search=#url.search#">
+			<cfset vParameters = "mode=#url.mode#&EntityGroup=#URL.EntityGroup#&Mission=#URL.Mission#&Owner=#URL.Owner#&me=#url.me#&search=#url.search#&scope=#url.scope#">
 			<cfdiv style       = "position:sticky; top:0px; z-index:1; background-color:##FFFFFF; padding-bottom:0px; back" bind="url:#SESSION.root#/system/entityaction/entityview/MyClearancesFilters.cfm?#vParameters#" id="head"/>
 			<cf_securediv bind = "url:#SESSION.root#/system/entityaction/entityview/MyClearancesDetail.cfm?#vParameters#" id="listing">
 		</div>

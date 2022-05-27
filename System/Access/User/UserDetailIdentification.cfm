@@ -173,7 +173,20 @@ password="#SESSION.dbpw#">
 	        <td><cf_tl id="Group">:</td>
 	        <td colspan="2" >#AccountGroup#</td>
 			<td ><cf_tl id="Account Owner">:</td>
-	        <td colspan="2" ><cfif AccountOwner neq "">#AccountOwner#<cfelse><font color="gray">Not defined</font></cfif></td>
+	        <td colspan="2">
+			
+				<cfquery name="Owner" 
+				datasource="AppsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT *
+					FROM   Ref_AuthorizationRoleOwner
+					WHERE Code = '#AccountOwner#'	
+				</cfquery>
+				
+				<cfif AccountOwner neq "">#Owner.Description#<cfelse><font color="gray">Not defined</font></cfif>
+			
+			</td>
 	       </tr>
 		  			  
 		   <tr class="labelmedium2 fixlengthlist" style="height:20px">

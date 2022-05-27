@@ -128,7 +128,7 @@ password="#SESSION.dbpw#">
 	
 	<cfsavecontent variable="mycustomer">
 	
-		SELECT CustomerId, PersonNo, Reference,CustomerName,PhoneNumber,eMailAddress,OrgUnit, CustomerSerialNo, Mission
+		SELECT CustomerId, PersonNo, Reference,CustomerName,MobileNumber, PhoneNumber,eMailAddress,OrgUnit, CustomerSerialNo, Mission
 		FROM Customer
 		
 	</cfsavecontent>
@@ -137,10 +137,10 @@ password="#SESSION.dbpw#">
 
 	<cfsavecontent variable="mycustomer">
 	
-		SELECT  CustomerId,Reference,PersonNo,CustomerName,PhoneNumber,eMailAddress,OrgUnit,CustomerSerialNo, Mission
+		SELECT  CustomerId,Reference,PersonNo,CustomerName,MobileNumber, PhoneNumber,eMailAddress,OrgUnit,CustomerSerialNo, Mission
 		FROM    Customer		
 		UNION
-		SELECT  CustomerId,Reference,PersonNo,CustomerName,PhoneNumber,eMailAddress, OrgUnit,CustomerSerialNo, Mission
+		SELECT  CustomerId,Reference,PersonNo,CustomerName,MobileNumber, PhoneNumber,eMailAddress, OrgUnit,CustomerSerialNo, Mission
 		FROM    WorkOrder.dbo.Customer
 		
 				

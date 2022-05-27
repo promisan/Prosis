@@ -1,22 +1,20 @@
 
 <cfparam name="url.mission" default="">
 
-
-
 <cfquery name="Warehouse" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		SELECT    *
 		FROM      Warehouse
-		WHERE     Mission = '#url.mission#'
-		AND       Operational = 1	
+		-- WHERE     Mission = '#url.mission#'
+		WHERE     Operational = 1	
 		ORDER BY  WarehouseName
 </cfquery>	
 
 <table width="90%">
 
-<tr class="labelmedium line">
+<tr class="labelmedium line fixlenghtlist">
 	<td><cf_tl id="Warehouse"></td>
 	<td><cf_tl id="Enable"></td>
     <td align="right"><cf_tl id="Min"></td>
@@ -37,43 +35,43 @@
 
 <cfset row = trim(warehouse)>
 
-<tr class="line labelmedium" style="height:20px">
+<tr class="line labelmedium  fixlenghtlist" style="height:20px">
 
-  <td>#WarehouseName#</td>
+  <td>#Mission# / #WarehouseName#</td>
   
   <td>
   
-		<input type="checkbox" 
-			name="Warehouse"
-			class="radiol"
-			value="'#warehouse#'" checked>  
+		<input type = "checkbox" 
+			name    = "Warehouse"
+			class   = "radiol"
+			value   = "'#warehouse#'" <cfif mission eq url.mission>checked</cfif>>  
   
   </td>
   <td align="right">
   
-  		<input type="Text" 
-			name="MinimumStock_#row#" 
-			message="Please enter a numeric value"
-			value="0"
-			class="regularxl"				
-			required="Yes"
-			style="padding-right:3px;text-align:right;width:50;border-top:0px;border-bottom:0px"				
-			visible="Yes" 
-			enabled="Yes">  
+  		<input type  = "Text" 
+			name     = "MinimumStock_#row#" 
+			message  = "Please enter a numeric value"
+			value    = "0"
+			class    = "regularxl"				
+			required = "Yes"
+			style    = "padding-right:3px;text-align:right;width:50;border-top:0px;border-bottom:0px"				
+			visible  = "Yes" 
+			enabled  = "Yes">  
   
   </td>
   
    <td align="right">
   
-  		<input type="Text" 
-			name="MaximumStock_#row#" 
-			message="Please enter a numeric value"
-			value="1"
-			class="regularxl"				
-			required="Yes"
-			style="padding-right:3px;text-align:right;width:50;border-top:0px;border-bottom:0px"				
-			visible="Yes" 
-			enabled="Yes">  
+  		<input type  = "Text" 
+			name     = "MaximumStock_#row#" 
+			message  = "Please enter a numeric value"
+			value    = "1"
+			class    = "regularxl"				
+			required = "Yes"
+			style    = "padding-right:3px;text-align:right;width:50;border-top:0px;border-bottom:0px"				
+			visible  = "Yes" 
+			enabled  = "Yes">  
   
   </td>
   

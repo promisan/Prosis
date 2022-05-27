@@ -173,26 +173,7 @@
 	AND   EntityClass = '#URL.EntityClass#'
 	AND   ActionOrder > '0'
 	</cfquery>
-	
-	<!--- create action document (fields, mail, dialog, function etc.) for elements 
-	defined on the STEP itself --->
-	
-	<cfquery name="Insert" 
-	datasource="AppsOrganization" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	INSERT INTO Ref_EntityActionPublishDocument
-	           (ActionPublishNo, ActionCode, DocumentId)
-	SELECT      #pub#, ActionCode, DocumentId
-	FROM        Ref_EntityActionDocument
-	WHERE       ActionCode IN (SELECT ActionCode 
-	                           FROM  Ref_EntityActionPublish
-							   WHERE  ActionPublishNo = '#pub#')	                            
-	AND         DocumentId IN (SELECT DocumentId 
-	                           FROM   Ref_EntityDocument
-							   WHERE  EntityCode = '#URL.EntityCode#')
-	</cfquery>
-	
+		
 	<!--- create action document (fields, mail, dialog, function etc.) for elements
 	 defined on the STEP/Workflow itself --->
 	 	
@@ -201,8 +182,8 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 		INSERT INTO Ref_EntityActionPublishDocument
-		           (ActionPublishNo, ActionCode, DocumentId,ObjectFilter,ForceDocument,ListingOrder)
-		SELECT      DISTINCT #pub#, ActionCode, DocumentId,ObjectFilter,ForceDocument,ListingOrder
+		           (ActionPublishNo, ActionCode, DocumentId,DocumentLanguageCode,ObjectFilter,ForceDocument,ListingOrder)
+		SELECT      DISTINCT #pub#, ActionCode, DocumentId,DocumentLanguageCode,ObjectFilter,ForceDocument,ListingOrder
 		FROM        Ref_EntityClassActionDocument
 		WHERE       EntityCode  = '#URL.EntityCode#'
 		AND         EntityClass = '#URL.EntityClass#'
@@ -215,6 +196,43 @@
 								   WHERE  ActionPublishNo = '#pub#')
 	</cfquery>
 	
+	<!--- create action document (fields, mail, dialog, function etc.) for elements 
+	defined on the STEP itself --->
+	
+	<cfquery name="getRecords" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT *
+		FROM Ref_EntityActionPublishDocument
+		WHERE ActionPublishNo = '#pub#'
+	</cfquery>	
+	
+	<cfif getRecords.recordcount eq "0">
+	
+	    <!--- if we have already record we are not going to add more --->
+	
+		<cfquery name="Insert" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+		INSERT INTO Ref_EntityActionPublishDocument
+		           (ActionPublishNo, ActionCode, DocumentId)
+		SELECT      #pub#, ActionCode, DocumentId
+		FROM        Ref_EntityActionDocument
+		WHERE       ActionCode IN (SELECT ActionCode 
+		                           FROM  Ref_EntityActionPublish
+								   WHERE  ActionPublishNo = '#pub#')	                            
+		AND         DocumentId IN (SELECT DocumentId 
+		                           FROM   Ref_EntityDocument
+								   WHERE  EntityCode = '#URL.EntityCode#')
+								   
+		AND         DocumentId NOT IN (SELECT DocumentId 
+			                           FROM   Ref_EntityActionPublishDocument
+									   WHERE  ActionPublishNo = '#pub#')						   
+		</cfquery>
+		
+	</cfif>
 	
 	<!--- Labels --->
 	
@@ -314,6 +332,3 @@
 		window.location = "FlowView.cfm?PublishNo=#pub#&EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&mid=#mid#"
 	</script>
 </cfoutput>
-
-
-

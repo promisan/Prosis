@@ -17,7 +17,17 @@
 
 <cfelse>
 
-	<TITLE><cfoutput>#URL.Owner#</cfoutput></TITLE>
+    
+<cfquery name="Owner" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT  *
+	FROM    Ref_AuthorizationRoleOwner
+	WHERE   Code = '#URL.Owner#'
+	</cfquery>
+
+	<TITLE><cfoutput>#Owner.Description#</cfoutput></TITLE>
 
 </cfif>
 

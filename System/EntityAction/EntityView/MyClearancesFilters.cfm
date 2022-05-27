@@ -46,7 +46,7 @@
         UNION
         SELECT DISTINCT Mission
         FROM rCheck_#Role# 
-    </cfloop>						
+    </cfloop>							
     ORDER BY Mission
 </cfquery>
 
@@ -78,18 +78,21 @@
                 <cf_tl id="Summary">:
             </td>
 			--->
-			<td style="height:35px;font-weight:280;font-size:24px;width:100%" id="summary">
+			<td style="padding-left:15px;padding-top:5px;height:35px;font-size:24px;width:100%" id="summary">
             <cfif ResultListing.recordcount eq "0">
                 <cfset cl = "##59C25B">
             <cfelse>
                 <cfset cl = "##EF5555">   
             </cfif>
-            <cfif ResultListing.recordcount eq "0"><cf_tl id="No"><cfelse><span style="color:#cl#">#ResultListing.recordcount#</span></cfif>
-            <cfif ResultListing.recordcount eq "1">
-                    <cf_tl id="pending"> <cf_tl id="action">
-            <cfelse>
-                    <cf_tl id="pending"> <cf_tl id="actions">
-            </cfif>
+            <cfif ResultListing.recordcount eq "0">
+			     <cf_tl id="Excellent, you have no pending actions"><cfelse>
+				 <span style="color:#cl#"><font size="8">#ResultListing.recordcount#</font></span>
+	            <cfif ResultListing.recordcount eq "1">
+	                    <cf_tl id="pending"> <cf_tl id="action">
+	            <cfelse>
+	                    <cf_tl id="pending"> <cf_tl id="actions">
+	            </cfif>
+			</cfif>
     
 	        <!---
             <cf_tl id="and"> <span id="batch"></span>
@@ -106,7 +109,7 @@
 		    <cfif qMission.recordcount gt "1">
            
 			    <cf_mobilecell class="#vColClass#">
-	                <select id="sMission" name="sMission" class="form-control" onchange="doRefresh(document.getElementById('sEntityGroup').value,this.value,document.getElementById('sOwner').value,document.getElementById('sUser').checked,'1')">
+	                <select id="sMission" name="sMission" class="form-control" onchange="doRefresh(document.getElementById('sEntityGroup').value,this.value,document.getElementById('sOwner').value,document.getElementById('sUserFly').checked,'1')">
 	                    <option value="" <cfif url.EntityGroup eq "">selected</cfif>><cf_tl id="All Entities"></option>
 	                    <cfloop query="qMission">
 	                        <option value="#qMission.Mission#" <cfif url.Mission eq qMission.Mission>selected</cfif>>#qMission.Mission#</option>
@@ -123,7 +126,7 @@
             
             <cfif qEntityGroup.recordcount gt 1>
                 <cf_mobilecell class="#vColClass#">
-                    <select id="sEntityGroup" name="sEntityGroup" class="form-control" onchange="doRefresh(this.value,document.getElementById('sMission').value,document.getElementById('sOwner').value,document.getElementById('sUser').checked,'1')">
+                    <select id="sEntityGroup" name="sEntityGroup" class="form-control" onchange="doRefresh(this.value,document.getElementById('sMission').value,document.getElementById('sOwner').value,document.getElementById('sUserFly').checked,'1')">
                         <option value="" <cfif url.EntityGroup eq "">selected</cfif>><cf_tl id="All Groups"></option>
                         <cfloop query="qEntityGroup">
                             <option value="#qEntityGroup.EntityGroup#" <cfif url.EntityGroup eq qEntityGroup.EntityGroup>selected</cfif>>#qEntityGroup.EntityGroup#</option>
@@ -136,7 +139,7 @@
 
             <cfif qOwner.recordcount gt 1>
                 <cf_mobilecell class="#vColClass#">
-                    <select id="sOwner" name="sOwner" class="form-control" onchange="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,this.value,'1')">
+                    <select id="sOwner" name="sOwner" class="form-control" onchange="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,this.value,document.getElementById('sUserFly').checked,'1')">
                         <option value="" <cfif url.Owner eq "">selected</cfif>><cf_tl id="All Owners"></option>
                         <cfloop query="qOwner">
                             <option value="#qOwner.Owner#" <cfif url.Owner eq qOwner.Owner>selected</cfif>>#qOwner.Owner#</option>
@@ -150,15 +153,15 @@
 	        <cf_mobilecell class="#vColClass#" style="align:right;min-width:260px;padding-top:2px">
 				
 					<table>
-					<tr class="labelmedium2">
+					<tr class="<cfif url.scope eq 'portal'>hide<cfelse>labelmedium2</cfif>">
 					<td>
-				    <input type="radio" id="sUser" name="sUser" class="radiol" value="false" checked onclick="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,'false','1')">
+				    <input type="radio" id="sUserRole" name="sUser" class="radiol" value="false" checked onclick="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,'false','1')">
 					</td>
-					<td style="padding-left:4px"><cf_tl id="Role"></td>
+					<td style="padding-left:6px;padding-top:3px"><cf_tl id="Role"></td>
 					<td style="padding-left:8px">
-					<input type="radio" id="sUser" name="sUser" class="radiol" value="true" onclick="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,'true','1')">
+					<input type="radio" id="sUserFly" name="sUser" class="radiol" value="true" onclick="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,'true','1')">
 					</td>
-					<td style="padding-left:4px"><cf_tl id="Explicitly assigned"></td>
+					<td style="padding-left:6px;padding-top:3px"><cf_tl id="Explicitly assigned"></td>
 	               </tr>
 				   </table>
 				   <!---
@@ -167,8 +170,7 @@
 	                    <option value="true" <cfif url.me eq "true">selected</cfif>><cf_tl id="Only me"></option>
 	                </select>	
 					--->
-	        </cf_mobilecell>
-					
+	        </cf_mobilecell>					
 
 			<!---
             <cfif getAdministrator("*") eq "1">
@@ -177,7 +179,6 @@
                 </cf_mobilecell>
             </cfif>		
 			--->
-
 
         </cf_mobilerow>
                 
@@ -218,13 +219,13 @@
    object           = "actioncenter"
    scopeid          = "#get.SystemFunctionid#"   
    objectcontent    = "#Roles#"  
-   delay            = "40">	  
+   delay            = "20">	  
 
 <!--- button to be clicked once it was determined that underlying data for this user has changed ---> 
 
 <cfoutput>   
 
-<input type="hidden" id="actioncenter_refresh" onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/getSummary.cfm','summary')">  
+<input type="hidden" id="actioncenter_refresh" onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/getSummary.cfm?scope=#url.scope#','summary')">  
 
 </cfoutput> 
 

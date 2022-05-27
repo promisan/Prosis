@@ -164,6 +164,27 @@
 		
 		</TD>
 		</TR>
+
+<!--- Field: Item.ItemNoExternal=CHAR;100;FALSE --->
+		<INPUT type="hidden" name="Crit6_FieldName" id="Crit6_FieldName" value="I.ItemNoExternal">
+
+		<INPUT type="hidden" name="Crit6_FieldType" id="Crit6_FieldType" value="CHAR">
+		<TR height="10">
+		<TD class="labelmedium"><cf_tl id="ExternalNo">:</TD>
+		<TD><SELECT name="Crit6_Operator" id="Crit6_Operator" class="regularxl">
+
+			<OPTION value="CONTAINS"><cfoutput>#vcontains#</cfoutput>
+			<OPTION value="BEGINS_WITH"><cfoutput>#vbegins#</cfoutput>
+			<OPTION value="ENDS_WITH"><cfoutput>#vends#</cfoutput>
+			<OPTION value="EQUAL"><cfoutput>#vis#</cfoutput>
+			<OPTION value="NOT_EQUAL"><cfoutput>#visnot#</cfoutput>
+
+		</SELECT>
+		</TD>
+		<TD>
+			<INPUT type="text" name="Crit6_Value" id="Crit6_Value" size="20" class="regularxl">
+		</TD>
+		</TR>
 		
 		
 		<!--- Field: Item.ItemDescriptionExternal=CHAR;100;FALSE --->

@@ -153,6 +153,16 @@ password="#SESSION.dbpw#">
 	FROM    Ref_Tax
 </cfquery>	
 
+
+<cfquery name="Parameter"
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT  *
+	FROM    Ref_ParameterMission
+	WHERE Mission = '#url.mission#'
+</cfquery>	
+
 <cf_divscroll id="process">		
 
 <cfform method="POST" name="inputform" id="inputform" onsubmit="return false">
@@ -229,6 +239,8 @@ password="#SESSION.dbpw#">
 					
 	<cfset w = "">				
 	<cfinclude template="PricingDataContent.cfm">
+	
+	<cfif parameter.PriceManagement eq "1">
 				
 	<tr><td height="5"></td></tr>
 		
@@ -256,6 +268,8 @@ password="#SESSION.dbpw#">
 		<tr><td height="5"></td></tr>
 		
 	</cfoutput>
+	
+	</cfif>
 		
 	<tr><td colspan="13" height="34" align="center">
 	<input type="button" onclick="applyform()" class="button10g" style="width:250px;height:25px" name="Save" id="Save" value="Save">

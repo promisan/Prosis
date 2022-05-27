@@ -94,7 +94,7 @@ insurance dialog.
 	   <cfset showProcess = "1">
 	  	   	   
 	   <cfif embed.documentMode neq "Ajax">
-	  	  	   				   
+	   	  	  	   				   
 		  	<cfform onsubmit="return false" method= "POST" name= "formembed" style="height:99%">				
 			    		   	   		
 				<table style="height:100%;width:100%">
@@ -102,15 +102,17 @@ insurance dialog.
 				   <!--- traditional form which can be submitted directly or as part of the submit process --->
 				  		 			 
 					  <tr><td id="submit_formembed" height="1"></td></tr>
-					 
+					 					 
 					  <tr>
 						<td colspan="2" valign="top" style="height:100%">	
 						
 							<cfdiv id="dialog" style="height:100%">
 									
 							     <cfset url.WParam = Action.ActionDialogParameter>
-								 <cfset tempvaraction = URL.ID>						 						 
+								 <cfset tempvaraction = URL.ID>			
+								 		 						 
 							     	<cfinclude template="../../#Embed.DocumentTemplate#"> 														
+									
 								 <cfset url.id = tempvaraction>		
 								 
 							</cfdiv>	  
@@ -126,7 +128,7 @@ insurance dialog.
 													 				 										 		 
 							    <input type = "button" 
 								class       = "button10g" 
-								style       = "width:260px;height:29px;font-size:14px"
+								style       = "width:260px;height:35px;font-size:15px;background-color:1A8CFF;color:white;"
 								name        = "EmbedSave" 
 								id          = "EmbedSave"
 								value       = "#mytext#" 
@@ -182,7 +184,7 @@ insurance dialog.
 					   					   					   					   					   					 		 
 					    <input type = "button" 
 						class       = "button10g" 
-						style       = "width:210px;height:29px;font-size:14px;"
+						style       = "width:260px;height:35px;font-size:15px;background-color:1A8CFF;color:white;"
 						name        = "EmbedSave" 
 						id          = "EmbedSave"
 						value       = "Next" 
@@ -193,11 +195,6 @@ insurance dialog.
 				 
 			 </cfoutput>	
 			 
-		 </table>	 
-		
+		 </table>	 		
 				  
-	  </cfif>	 
-	  
-  
-	
-
+	  </cfif>	

@@ -1966,7 +1966,11 @@
 									   <cfset act1 = "Credit">
 									   <cfset ref1 = "IO">
 									   <cfset ref2 = "Stock">
-								</cfif>	 												
+								</cfif>	 		
+								
+								
+								<cfoutput>#Journal.Journal# #totGl# #totCredit# #taxCOGS#</cfoutput>
+																	
 							
 								<cf_GledgerEntryLine
 								    DataSource            = "#Attributes.DataSource#"

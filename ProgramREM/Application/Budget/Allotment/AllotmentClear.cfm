@@ -235,14 +235,13 @@ password="#SESSION.dbpw#">
 				           name   = "Clear" 
 						   class  = "radiol"
 						   value  = "#Editionid#"
-				           onclick= "ColdFusion.navigate('#SESSION.root#/ProgramREM/Application/Budget/Allotment/AllotmentClearanceSubmit.cfm?programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#','box#url.editionid#')">
+				           onclick= "ptoken.navigate('#SESSION.root#/ProgramREM/Application/Budget/Allotment/AllotmentClearanceSubmit.cfm?programcode=#url.programcode#&period=#url.period#&editionid=#url.editionid#','box#url.editionid#')">
 						   
 						   </td></tr>
 						   </table>
 				</cfoutput>			 
 					
-				<cfelse>
-				
+				<cfelse>				
 												
 					<cfquery name="Clear" 
 				     datasource="AppsProgram" 
@@ -269,7 +268,7 @@ password="#SESSION.dbpw#">
 						 <input type="checkbox" 
 						   name="LockEdition" 
 						   class  = "radiol"
-						   onclick="ColdFusion.navigate('#SESSION.root#/ProgramREM/Application/Budget/Allotment/AllotmentLock.cfm?ProgramCode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&lock='+this.checked,'lock#url.editionid#')"
+						   onclick="ptoken.navigate('#SESSION.root#/ProgramREM/Application/Budget/Allotment/AllotmentLock.cfm?ProgramCode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&lock='+this.checked,'lock#url.editionid#')"
 						   value="1" <cfif check.LockEntry eq "1">checked</cfif>>						 						 
 						 </td>
 						 <td style="padding-left:4px"><cf_tl id="Lock"></td>
@@ -351,21 +350,19 @@ password="#SESSION.dbpw#">
 						 
 					    <cfoutput>
 						
-						 <table width="100%" height="100%" cellspacing="0" cellpadding="0" class="formpadding">
-						 <tr><td align="center" class="labelit">
+						 <table width="100%" height="100%" class="formpadding">
+						 
+						 <tr>
+						 <td align="center" class="labelit">
 					     <cf_tl id="Cleared">: <font color="008080">#DateFormat(Clear.Created, CLIENT.DateFormatShow)#
 						 </td>
-						 <td style="padding-left:4px" align="center" class="labelit">
-						 
-							 <cf_UItooltip tooltip="Lock/unlock data entry for financial requirements by Project Officers if relevant">
-							 
-							 <input type="checkbox" 
-							   name="LockEdition" 
-							   class  = "radiol"							   
-							   onclick="ColdFusion.navigate('#SESSION.root#/ProgramREM/Application/Budget/Allotment/AllotmentLock.cfm?ProgramCode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&lock='+this.checked,'lock#url.editionid#')"
-							   value="1" <cfif check.LockEntry eq "1">checked</cfif>>				
-							   
-							 </cf_UItooltip>
+						 <td style="padding-left:4px" align="center" class="labelit" title="Lock/unlock data entry for financial requirements by Project Officers if relevant">
+						 							 
+							 <input type    = "checkbox" 
+							        name    = "LockEdition" 
+							        class   = "radiol"							   
+							        onclick = "ptoken.navigate('#SESSION.root#/ProgramREM/Application/Budget/Allotment/AllotmentLock.cfm?ProgramCode=#url.programcode#&period=#url.period#&editionid=#url.editionid#&lock='+this.checked,'lock#url.editionid#')"
+							        value   = "1" <cfif check.LockEntry eq "1">checked</cfif>>							
 							 
 						 </td>						
 						 <td style="padding-left:4px" class="labelit"><cf_tl id="lock"></td>
@@ -379,19 +376,19 @@ password="#SESSION.dbpw#">
 					 
 					  <cfoutput>
 					 
-					 	 <table width="100%" height="100%" cellspacing="0" cellpadding="0" class="formpadding">
+					 	 <table width="100%" height="100%" class="formpadding">
 						 <tr>
 						 <td align="center">
 						 
 				  		  <cf_tl id="Allocate" var="1">
 						  						  
-						   <input type="button" 
-						       name="clear" 
-							   class="button10g"
-							   id="drill" 
-							   value="#lt_text#" 
-							   style="width:120px;font-size:13px" 
-							   onClick="allotdrill('#URL.ProgramCode#','#url.period#','#url.Editionid#')"> 						 
+						   <input type = "button" 
+						       name    = "clear" 
+							   class   = "button10g"
+							   id      = "drill" 
+							   value   = "#lt_text#" 
+							   style   = "width:120px;font-size:13px" 
+							   onClick = "allotdrill('#URL.ProgramCode#','#url.period#','#url.Editionid#')"> 						 
 						
 						 	</td>
 						 </tr>
@@ -422,30 +419,28 @@ password="#SESSION.dbpw#">
 				</td>
 				<td align="center">|</td>	
 				</cfif>
-				<td align="center">			
+					
 					<cfif edition.status eq "3" or edition.status eq "9">
-					   <cf_UItooltip tooltip="Edition is CLOSED">
+					   <td align="center" title="Edition is CLOSED">							   
 					        <cf_tl id="Closed">
-					   </cf_UItooltip>
+					   </td>							   
 					<cfelse>
-					   <cf_UItooltip tooltip="Edition is OPEN for authorised data entry/amendments">
+					   <td align="center" title="Edition is OPEN for authorised data entry/amendments">					   
 		        			<cf_tl id="Open">
-				       </cf_UItooltip>
+				       </td>	
 					</cfif>
 				</td>	
-				<td align="center">|</td>	
-				<td align="center">
-					<cfif check.LockEntry eq "1">
-					   <cf_UItooltip tooltip="This program is CLOSED for requirement definition">
-					   		<cf_tl id="Locked">
-					   </cf_UItooltip>
-					<cfelse>
-					    <cf_UItooltip tooltip="This program is ENABLED (open) for requirement definition.">
-					         <cf_tl id="Enabled">
-					   </cf_UItooltip>
-				   </cfif>		
-				</td>
-			    </tr>
+				<td align="center">|</td>				   
+				<cfif check.LockEntry eq "1">					  
+				    <td align="center" title="This program is CLOSED for requirement definition">
+				   	    <cf_tl id="Locked">					  
+					</td>
+				<cfelse>
+				    <td align="center" title="This program is ENABLED (open) for requirement definition">					    
+				         <cf_tl id="Enabled">
+				    </td>  
+			   </cfif>						
+			   </tr>
 				
 			</table>
 			

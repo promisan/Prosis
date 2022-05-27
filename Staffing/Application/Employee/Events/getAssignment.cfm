@@ -27,7 +27,7 @@
 
 <table width="100%" class="navigation_table">
 
-	<tr class="labelmedium line">
+	<tr class="labelmedium line fixlengthlist">
 		<td><cf_tl id="IndexNo"></td>		
 		<td><cf_tl id="LastName"></td>
 		<td><cf_tl id="FirstName"></td>
@@ -38,8 +38,14 @@
 	</tr>
 
 	<cfoutput query="Assignment">
-	<tr class="labelmeium navigation_row line" style="height:20px">
-		<td style="padding-left:2px"><a href="javascript:EditPerson('#PersonNo#')">#Indexno#</a></td>
+	<tr class="labelmedium navigation_row line fixlengthlist" style="height:20px">
+		<td style="padding-left:2px">
+		<cfif getAdministrator("*") eq "1">
+		<a href="javascript:EditPerson('#PersonNo#')">#Indexno#</a>
+		<cfelse>
+		#Indexno#
+		</cfif>
+		</td>
 		<td>#LastName#</td>
 		<td>#FirstName#</td>
 		<td>#dateformat(DateEffective,client.dateformatshow)#</td>

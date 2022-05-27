@@ -1,6 +1,8 @@
 <cfparam name="URL.eventid" default="">
 <cfparam name="URL.preason" default="">
 <cfparam name="URL.mission" default="">
+<cfparam name="URL.eventCode" default="">
+<cfparam name="URL.triggerCode" default="">
 
 <cfif URL.eventId neq "">
 
@@ -43,7 +45,8 @@
 		FROM   Ref_PersonEventTrigger
 		WHERE  EventCode    = '#URL.eventcode#'
 		AND    EventTrigger = '#URL.triggercode#'
-</cfquery>		 
+</cfquery>		
+	
 
 <cfquery name="qReasons" 
 	datasource="AppsEmployee" 

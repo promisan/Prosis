@@ -108,9 +108,10 @@ password="#SESSION.dbpw#">
 				SELECT  TOP 1 *
 				FROM Ref_SubmissionEditionProfile
 				WHERE ActionId = '#url.actionid#'
-			AND LanguageCode = '#Language.LanguageCode#'
-			AND TextAreaCode = '#getPrevious.TextAreaCode#'
-			AND ActionStatus = '0'
+				AND LanguageCode = '#Language.LanguageCode#'
+				AND TextAreaCode = '#getPrevious.TextAreaCode#'
+				AND ActionStatus = '0'
+				ORDER BY Created DESC
 			</cfquery>
 
 
@@ -121,10 +122,10 @@ password="#SESSION.dbpw#">
 						password="#SESSION.dbpw#">
 					UPDATE Ref_SubmissionEditionProfile
 					SET EditionNotes = '#getPrevious.EditionNotes#'
-				WHERE ActionId = '#url.actionid#'
-				AND LanguageCode = '#Language.LanguageCode#'
-				AND TextAreaCode = '#getPrevious.TextAreaCode#'
-				AND ActionStatus = '0'
+					WHERE ActionId = '#url.actionid#'
+					AND LanguageCode = '#Language.LanguageCode#'
+					AND TextAreaCode = '#getPrevious.TextAreaCode#'
+					AND ActionStatus = '0'
 				</cfquery>
 			</cfif>
 		</cfif>

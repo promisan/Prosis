@@ -247,7 +247,9 @@
 		  <cfoutput query="PersonAssignment" group="MissionOwner">   
 		  
 				<cfif url.mode eq "standard" or url.mode eq "staffing">
-				<tr class="line"><td style="height:30px;font-size:20px;" class="labelmedium" colspan="13" align="left"><font size="2"><cf_tl id="Owner">:&nbsp;</font>#MissionOwnerName#</b></td></tr>					
+				<tr class="line">
+				<td style="height:30px;font-size:20px;" class="labelmedium" colspan="13" align="left"><font size="2"><cf_tl id="Owner">:&nbsp;</font>#MissionOwnerName#</td>
+				</tr>					
 				</cfif>
 				
 				<cfset prior    = "">	
@@ -309,13 +311,17 @@
 						 
 						 <cfif OrgUnitCode neq priorOrg or mission neq priorMis>						 	
 						 						 
-							 <tr class="labelmedium2 fixrow2 line" style="height:30px;background-color:f0f0f0">
-							 						 
-							 <td colspan="3" style="padding-left:6px;background-color:e6e6e6;border-right:1px solid silver;font-size:15px">							 
-							 #Mission# 
-							 </td>
+							 <tr class="labelmedium2 fixrow2 line" style="height:26px;background-color:f0f0f0">
 							 
-							 <td colspan="10" style="padding-left:4px">
+							 <cfif mission neq priorMis>						 
+							 <td colspan="3" style="font-weight:bold;padding-left:20px;border-right:1px solid silver;font-size:17px">							 
+							 #Mission#
+							 </td>
+							 <cfelse>
+							 <td colspan="3"></td>
+							 </cfif>
+							 
+							 <td colspan="10" style="padding-left:4px;background-color:e6e6e6">
 							 								 
 							  <cfquery name="Parent" 
 								    datasource="AppsOrganization" 
@@ -686,12 +692,13 @@
 					ORDER BY Mission,PostOrder DESC
 					
 				</cfquery>		
-							
-			
+										
 				<tr><td style="padding-top:10px"></td></tr>
 				<tr class="labelmedium">
+				     <!---
 				     <td style="padding-left:5px;font-size:16px"><cf_tl id="Work assignment summary"></td>
-				     <td align="right" style="padding-top:6px;padding-right:5px">
+					 --->
+				     <td style="padding-top:6px;padding-right:5px;padding-left:4px">
 				
 					<table class="formpadding formpacing"> 	
 						
@@ -725,12 +732,3 @@
 		</cfif>
 				
 	</table>
-
-</td>
-
-</tr>
-
-</table>
-
-<cfset ajaxonload("doHighlight")>
-

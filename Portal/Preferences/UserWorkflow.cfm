@@ -23,16 +23,16 @@ password="#SESSION.dbpw#">
 		
 		<cfset link="UserEditDelegate.cfm?">
 		
-						<cf_selectlookup
-						    box          = "sAccountDelegation"
-						    link         = "#link#"
-							title        = "<font color='6688aa'>Delegate [my Clearances] to:</font>"
-							button       = "No"
-							iconheight   = "25"
-							icon         = "finger.gif"
-							close        = "Yes"
-							class        = "user"
-							des1         = "accountdelegate">	
+			<cf_selectlookup
+			    box          = "sAccountDelegation"
+			    link         = "#link#"
+				title        = "Delegate [my Clearances]:"
+				button       = "No"
+				iconheight   = "25"
+				icon         = "finger.gif"
+				close        = "Yes"
+				class        = "user"
+				des1         = "accountdelegate">	
 						
 		</TD>
 	    <TD>
@@ -146,38 +146,32 @@ password="#SESSION.dbpw#">
 	<td colspan="2" style="padding-left:10px">
 	
 	<table width="760">
-		<tr class="line">
-		<td>
-			<table>
-			<tr class="labelmedium">			
-			<td style="padding-left:10px;min-width:280px">Document</td>
-			<td align="right" style="cursor:pointer"><cf_space spaces="10"><cf_UItooltip tooltip="Enable mail Notification">Mail</cf_UItooltip></td>
-			<td style="cursor:pointer;padding-left:2px"><cf_space spaces="10"><cf_UItooltip tooltip="Show action in MS-Exchange task List">Task</cf_UItooltip></td>
-			</tr>
-			</table>
-		</td>
-		<td>
-		<table>
-			<tr class="labelmedium">			
-			<td style="padding-left:10px;min-width:280px">Document</td>
-			<td align="right" style="cursor:pointer"><cf_space spaces="10"><cf_UItooltip tooltip="Enable mail Notification">Mail</cf_UItooltip></td>
-			<td style="cursor:pointer;padding-left:2px"><cf_space spaces="10"><cf_UItooltip tooltip="Show action in Exchange task List">Task</cf_UItooltip></td>
-			</tr>
-			</table>
-		</td>	
+		<tr class="line fixlengthlist">
 		
+		    <cfloop index="itm" from="1" to="2">
+						
+				<td style="padding-left:10px;min-width:280px">Document</td>
+				<td align="right" style="cursor:pointer" title="Show in My Clearances">Clear</td>
+				<td align="right" style="cursor:pointer" title="Enable mail Notification">Mail</td>
+				<td style="cursor:pointer;padding-left:2px" title="Show action in MS-Exchange task List">Task</td>		
+			
+			</cfloop>
+							
 		</tr>
-		<tr><td colspan="2" class="linedotted" height="1"></td></tr>
-	    
+			    
 		<cfoutput query="Get" group="SystemModule">
 		
-			<tr class="line"><td colspan="2" style="height:35" class="labelmedium2">#ModuleDescription#</td></tr>
-			
-			<tr><td class="linedotted" colspan="2"></td></tr>
-			
+			<tr class="line fixlengthlist">
+			<td colspan="8" style="height:35" class="labelmedium2">#ModuleDescription#</td>
+			</tr>
+						
 			<cfset i = 0>
 			
 				<cfoutput>
+				
+				<cfif i eq "0">
+				<tr class="fixlengthlist">
+				</cfif>
 				
 				<cfquery name="Check" 
 					datasource="AppsSystem" 
@@ -188,34 +182,23 @@ password="#SESSION.dbpw#">
 					WHERE  Account = '#SESSION.acc#'
 					AND    EntityCode = '#entityCode#' 
 				</cfquery>
+											
+				<cfset i = i+1>
+									
+				 <cfset ent = replace(entityCode,"-","","ALL")> 
+															
+							<td style="padding-left:10px" class="labelit">#EntityDescription# #EntityCode#</td>
+							<td align="center"><input type="checkbox" onclick="task(this.checked,'clear_#entitycode#')" name="clear_#ent#" value="1" <cfif Check.EnableMyClearances neq "0">checked</cfif>></td>
+							<td align="center"><input type="checkbox" onclick="task(this.checked,'task_#entitycode#')" name="mail_#ent#" value="1" <cfif Check.EnableMailNotification neq "0">checked</cfif>></td>
+							<td align="center"><input type="checkbox" name="task_#ent#" value="1" <cfif Check.EnableMailNotification eq "0">disabled<cfelseif Check.EnableExchangeTask eq "1">checked</cfif>></td>
+											
+				<cfif i eq "2">
+					<cfset i = 0>
+					</tr>
+				</cfif>
 			
-				<cfif i eq "0"><tr></cfif>
-				
-					<cfset i = i+1>
-					
-					<td>
-					
-					 <cfset ent = replace(entityCode,"-","","ALL")> 
-					
-						<table width="350" cellspacing="0" cellpadding="0">
-							<tr>							
-							<td width="300" style="padding-left:10px" class="labelit">#EntityDescription# #EntityCode#</td>
-							<td>					
-							<input type="checkbox" onclick="task(this.checked,'task_#entitycode#')" name="mail_#ent#" value="1" <cfif Check.EnableMailNotification neq "0">checked</cfif>>
-							</td>
-							<td>					
-							<input type="checkbox" name="task_#ent#" value="1" <cfif Check.EnableMailNotification eq "0">disabled<cfelseif Check.EnableExchangeTask eq "1">checked</cfif>>
-							</td>
-							</tr>
-						</table>
-					</td>
-					
-					<cfif i eq "2">
-						<cfset i = 0></tr>
-					</cfif>
-			
-			</cfoutput>
-		
+			    </cfoutput>
+						
 		</cfoutput>
 		
 	</table>
@@ -224,10 +207,10 @@ password="#SESSION.dbpw#">
 	</cfif>
 		
 	<tr><td height="3"></td></tr>
-	<tr><td height="1" colspan="2" class="line"></td></tr>
+	<tr><td height="1" colspan="8" class="line"></td></tr>
 	<tr><td height="3"></td></tr>
 	
-	<tr><td height="1" colspan="2">
+	<tr><td height="1" colspan="8">
 	
 	<cf_tl id="Save" var="vSave">
 	

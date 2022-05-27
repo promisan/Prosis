@@ -114,7 +114,7 @@
 					 	<cfinput type="Text"
 					       name="StartAfterDays#ActivityId#"
 					       value="#d#"
-					       range="1,20"
+					       range="1,90"
 						   onchange="setstartdate('#activityid#')"
 					       validate="integer"
 					       required="No"

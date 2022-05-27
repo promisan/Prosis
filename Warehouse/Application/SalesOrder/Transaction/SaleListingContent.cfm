@@ -100,10 +100,26 @@
 				  T.ItemDescription, 
 				  T.TransactionUoM, 
 				  T.TransactionDate, 
+				  T.TransactionCostPrice,
 				  - (1 * T.TransactionQuantity) AS Quantity, 
 				  - (1 * T.TransactionValue) AS COGS, 
+				  S.SalesPrice,
+				  S.TaxPercentage,
+				  S.TaxExemption,
 				  S.SalesBaseAmount AS Sale, 
+				  S.SalesBaseTax as SaleTax, 
+				  S.SalesBaseTotal as SaleTotal,
 				  S.SalesBaseAmount + T.TransactionValue AS GrossMargin,
+				  
+				  (SELECT   TOP (1) ActionReference1
+                   FROM     Accounting.dbo.TransactionHeaderAction
+                   WHERE    Journal = S.Journal 
+				   AND      JournalSerialNo = S.JournalSerialNo 
+				   AND      ActionCode = 'Invoice' 
+				   AND      ActionStatus = '1'
+                   ORDER BY Created DESC) AS Invoice,
+
+				  
 				  #now()# as Created
 				  
 				  
@@ -147,10 +163,25 @@
 				  T.ItemDescription, 
 				  T.TransactionUoM, 
 				  T.TransactionDate, 
+				  T.TransactionCostPrice,
 				  - (1 * T.TransactionQuantity) AS Quantity, 
 				  - (1 * T.TransactionValue) AS COGS, 
+				  S.SalesPrice,
+				  S.TaxPercentage,
+				  S.TaxExemption,
 				  S.SalesBaseAmount AS Sale, 
+				  S.SalesBaseTax as SaleTax, 
+				  S.SalesBaseTotal as SaleTotal,
 				  S.SalesBaseAmount + T.TransactionValue AS GrossMargin,
+				  
+				  (SELECT   TOP (1) ActionReference1
+                   FROM     Accounting.dbo.TransactionHeaderAction
+                   WHERE    Journal         = S.Journal 
+				   AND      JournalSerialNo = S.JournalSerialNo 
+				   AND      ActionCode      = 'Invoice' 
+				   AND      ActionStatus    = '1'
+                   ORDER BY Created DESC) AS Invoice,
+							  
 				  #now()# as Created
 				  
 		FROM      ItemTransaction T INNER JOIN

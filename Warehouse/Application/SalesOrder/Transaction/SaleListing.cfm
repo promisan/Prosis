@@ -31,6 +31,8 @@
   
 <table width="100%" height="100%">
 
+    <!---
+	
 	<cf_LanguageInput
 		TableCode       = "Ref_ModuleControl" 
 		Mode            = "get"
@@ -78,6 +80,8 @@
 	  
 	  </td>
 	</tr>		
+	
+	--->
 		
 	<tr><td width="100%"><cfinclude template="SaleListingContent.cfm"></td></tr>				
 		

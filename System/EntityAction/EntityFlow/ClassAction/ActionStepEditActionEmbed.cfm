@@ -152,16 +152,16 @@
 	
 	<table width="100%" class="navigation_table">
 		
-    <TR class="labelmedium line">
-	   <td height="17" style="min-width:60px">Code</td>
-	   <td style="width:100%">Name</td>
-	   <td style="min-width:60px" width="6%">Mode</td>
-	   <td style="min-width:160px" width="40%">Template</td>
-	   <td style="min-width:60px">Language</td>
-	   <td style="min-width:40px" align="center" style="padding-left:4px">Passtru</td>
-	   <td style="min-width:40px" align="center" style="padding-left:4px">Force</td>
-	   <td style="min-width:40px" align="center" style="padding-left:4px">Sort</td>
-	   <td style="min-width:60px" style="padding-left:4px">Enabled</td>
+    <TR class="labelmedium line fixlengthlist">
+	   <td height="17" style="min-width:50px"><cf_tl id="Code"></td>
+	   <td><cf_tl id="Name"></td>
+	   <td width="6%"><cf_tl id="Mode"></td>
+	   <td><cf_tl id="Template"></td>
+	   <td><cf_tl id="Language"></td>
+	   <td align="center" style="padding-left:4px"><cf_tl id="Passtru"></td>
+	   <td align="center" style="padding-left:4px"><cf_tl id="Force"></td>
+	   <td align="center" style="padding-left:4px"><cf_tl id="Sort"></td>
+	   <td><cf_tl id="Enabled"></td>
     </TR>	
 			
 	<cfif detail.recordcount eq "0">
@@ -185,12 +185,12 @@
 							
 		<cfelse>
 		
-			<TR class="line labelmedium navigation_row" style="height:20px">
+			<TR class="line labelmedium navigation_row fixlengthlist" style="height:20px">
 			   <td style="padding-left:3px">#cd#</td>			   
 			   <td>#DocumentDescription#</td>			   
-			   <td>#DocumentMode#</td>				   
-			   <td style="word-break: break-all;padding-right:10px">
-			   		<cfset vDocumentTemplate = replace(DocumentTemplate,"\","\\","ALL")>
+			   <td>#DocumentMode#</td>	
+			   <cfset vDocumentTemplate = replace(DocumentTemplate,"\","\\","ALL")>			   
+			   <td title="#vDocumentTemplate#" style="padding-right:10px">			   		
 			   		<a href="javascript:template('#vDocumentTemplate#')">#DocumentTemplate#</a>
 			   	</td>					   	
 			   <td>
@@ -232,7 +232,7 @@
 			      
 			   <td align="center" style="padding-left:4px">#DocumentStringList#</td>
 			   
-			   <td align="center" style="padding-left:4px">
+			   <td align="center" style="padding-left:4px;bo4der-left:1px solid silver">
 			   
 			   	 <table><tr><td class="#cl#">
 			   

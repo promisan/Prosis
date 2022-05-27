@@ -3,7 +3,7 @@
  
 
 <tr>
-<td colspan="7" style="padding-top:5px;padding-left:13px;padding-right:10px">
+<td colspan="7" style="padding-top:5px;padding-left:6px;padding-right:6px">
 	 
 <table width="100%" align="center">
 
@@ -61,7 +61,7 @@
 			   <cfif Parameter1.InvoiceMatchPriceActual neq "0">
 			   <td colspan="3" align="left"><cf_tl id="On Invoice"></td>						   						  
 			   </cfif>
-			   <td width="1%"></td>
+			   <td width="1%" style="border-right:1px solid silver"></td>
 				  
 		</tr>	
 			
@@ -80,7 +80,7 @@
 			   <td align="right"  style="border:1px solid silver"><cf_tl id="Tax"></td>
 			   <td align="right"  style="border:1px solid silver"><cf_tl id="Amount"></td>
 			   </cfif>
-			   <td></td>
+			   <td style="border:1px solid silver"></td>
 				  
 		</tr>
 						
@@ -290,7 +290,7 @@
 						</cfif>
 
 				    	<td height="18"></td>
-						<td>#currentrow#.</td>
+						<td style="border-left:1px solid silver">#currentrow#.</td>
 						<td style="border-left:1px solid silver">
 						   #DateFormat(DeliveryDate,CLIENT.DateFormatShow)# / #PurchaseNo# <cfif PackingSlipNo eq "">/ <a href="javascript:receipt('#ReceiptNo#','view')">#ReceiptNo#</a><cfelse>/ #PackingslipNo#</cfif>
 						</td>
@@ -329,7 +329,7 @@
 						</cfif>								
 						
 						</td>								
-						<td style="border-left:1px solid silver">#ReceiptItem#</td>
+						<td style="border-left:1px solid silver" title="#ReceiptItem#">#ReceiptItem#</td>
 						<td style="border-left:1px solid silver">#ReceiptItemNo#</td>
 					    <td align="right" style="border-left:1px solid silver">#numberformat(ReceiptQuantity,',__')#</td>
 						<td style="border-left:1px solid silver" align="center">#Invoice.DocumentCurrency#</td>

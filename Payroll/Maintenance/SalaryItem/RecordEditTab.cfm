@@ -13,7 +13,7 @@
 
 <cfparam name="URL.ID1" default="">
 
-<cfajaximport tags="cfform,cfdiv,cfwindow">
+<cfajaximport tags="cfform,cfdiv">
 <cf_dialogLedger>
 <cf_menuscript>
 
@@ -21,11 +21,11 @@
 <script language="JavaScript">
 
 function validate() {
-    Prosis.busy('yes')
+    Prosis.busy('yes')	
 	document.getElementById('formschedule').onsubmit() 
 	if( _CF_error_messages.length == 0 ) {    	    	    
 		_cf_loadingtexthtml='';	
-		ColdFusion.navigate('PayrollScheduleSubmit.cfm?idMenu=#url.idmenu#','contentbox1','','','POST','formschedule')
+		ptoken.navigate('PayrollScheduleSubmit.cfm?idMenu=#url.idmenu#','contentbox1','','','POST','formschedule')
 	 }   
 }	 
 
@@ -47,7 +47,7 @@ function removeLiability(row) {
 }
 
 function applyaccount(acc,scope,fld) {
-   ptoken.navigate('#session.root#/Payroll/Maintenance/SalaryItem/setAccount.cfm?field='+fld+'&account='+acc+'&scope='+scope,'processaccount')
+     ptoken.navigate('#session.root#/Payroll/Maintenance/SalaryItem/setAccount.cfm?field='+fld+'&account='+acc+'&scope='+scope,'processaccount')
 }  
 
 </script>
@@ -55,11 +55,8 @@ function applyaccount(acc,scope,fld) {
 </cfoutput>
 
 <table width="99%"
-       border="0"
 	   height="100%"
-	   align="center"
-	   cellspacing="0"
-       cellpadding="0">
+	   align="center">
 
 	<tr>
 		<td align="center" valign="top" style="padding:1px">
@@ -102,7 +99,7 @@ function applyaccount(acc,scope,fld) {
 	<tr>
 	<td height="100%" valign="top">
 	   <cf_divscroll>
-	   <table width="100%" height="100%" cellspacing="0" cellpadding="0">
+	   <table width="100%" height="100%">
 		<cf_menucontainer item="1" class="regular">
 			 <cfinclude template="RecordEdit.cfm"> 
 	 	<cf_menucontainer>	

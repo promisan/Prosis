@@ -246,11 +246,13 @@
                 <cf_mobilecell class="col-md-8 col-sm-12">
                     
 					<div style="font-size:17px">
-                        <cfif PersonNo neq "">
-                            <cf_tl id="Click to view person details" var="1">
-                            <span style="color:##0080C0;" onclick="localShowPerson(event,'#PersonNo#')" title="#lt_text#">
-                        </cfif>							
-                        #ObjectReference# 
+					    <cfif url.scope neq "portal">
+	                        <cfif PersonNo neq "">
+	                            <cf_tl id="Click to view person details" var="1">
+	                            <span style="color:##0080C0;" onclick="localShowPerson(event,'#PersonNo#')" title="#lt_text#">
+	                        </cfif>							
+						</cfif>
+                        <cfif ObjectReference neq "">#ObjectReference#:</cfif>
                         #ObjectReference2#
                         <cfif PersonNo neq "">
                             </span>
@@ -297,7 +299,7 @@
 							<td style="padding-right:4px" id="process_#objectid#">		
 							<cf_tl id="Disable" var="1">	
 						    <input type="button" name="Disable" value="#lt_text#" class="button10g" 
-							  onclick="_cf_loadingtexthtml='';ptoken.navigate('setObjectOperational.cfm?objectid=#objectid#','process_#objectid#')" style="height:20px;width:76px">
+							  onclick="_cf_loadingtexthtml='';ptoken.navigate('setObjectOperational.cfm?objectid=#objectid#','process_#objectid#')" style="height:20px;width:86px">
 							</td>
 						</cfif>
 						
@@ -312,7 +314,7 @@
                         Width      = "200"
                         Height     = "100"
                         Duration   = "300">
-						 #InceptionFirstName# #InceptionLastName# (#dateformat(InceptionDate,CLIENT.DateFormatShow)#)
+						<cf_tl id="Requested by">: #InceptionFirstName# #InceptionLastName# (#dateformat(InceptionDate,CLIENT.DateFormatShow)#)
                         <cfif missionowner neq "">[#MissionOwner#]</cfif>						
 						</cf_UIToolTip>
 						

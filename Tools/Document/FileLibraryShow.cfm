@@ -200,7 +200,7 @@
 		<cfif insert eq "yes" and attachdialog  neq "no" and maxfiles gt getFiles.recordcount>
 								
 			<td valign="top" style="padding:2px 0 5px;border-bottom: 1px dotted silver">								
-				<cfinclude template="FileLibraryMenu.cfm">								  
+				<cfinclude template="FileLibraryMenu.cfm">												  
 			</td>  
 								
 		<cfelse>
@@ -232,8 +232,11 @@
 				</cfif>
 				
 			</cfif>		
-						
+								
 			<cfset contextmode = mode>
+			<cfif contextmode eq "portal">
+				<cfset contextmode = "attachment">
+			</cfif>	
 						  
 			<cfset attlist = ""> 			
 									
@@ -366,7 +369,7 @@
 									<cfelseif FindNoCase(".pdf", "#NameShow#") and pdfscript neq "" and pdfscript neq "undefined"> 
 									
 										<td colspan="2" class="labelheader">	
-																			
+																		
 										<button type="button" class="button10g" onClick="#pdfscript#('#name#')">
 											<img src="#SESSION.root#/Images/pdf_small1.gif" alt="Upload file" border="0" align="absmiddle">&nbsp;<font color="gray">#NameShow#
 										</button>
@@ -460,12 +463,11 @@
 											   </table>											  
 										   </td>    	               
 										
-										<cfelse>
-																				
+										<cfelse>																				
 										
 											<td height="22" style="padding-left:4px" 
 											 onclick="embedfile('#contextmode#','#attachment.attachmentid#','show','#attachment.attachmentid#')">		
-											 
+											 								 
 											 											  									  		
 												<cfif FindNoCase(".flv", "#NameShow#") or DocumentServerIsOp eq "1">						
 	
@@ -525,9 +527,8 @@
 										</td>	
 																																										
 										<cfif DocumentServerIsOp eq "0">			
-											<td width="50%" class="cellcontent" style="padding-left:10px" 
-											    onclick="showfile('#contextmode#','#openas#','#attachment.attachmentid#')">												
-												<a href="##">#Nameshow#</a>												
+											<td width="50%" class="cellcontent" style="padding-left:10px">												
+												<a href="javascript:showfile('#contextmode#','#openas#','#attachment.attachmentid#')">#Nameshow#</a>												
 											</td>
 										<cfelse>
 
@@ -547,7 +548,8 @@
 										    <cfset vName = Replace(vName,"#Filter#_","","all")>
 										    <cfset vUrl  = Replace(Attachment.FileName,"#Filter#_","","all")>
 
-											<td width="50%" class="cellcontent" style="padding-left:10px" >
+											<td width="50%" class="cellcontent" style="padding-left:10px">
+											
 												<a href="#vURl#" target="new">#vName#</a>
 											</td>
 

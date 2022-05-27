@@ -1,7 +1,9 @@
 
 
+<cfparam name="URL.init"              default="1">
 <cfparam name="URL.id"                default="0000">
 <cfparam name="URL.mission"           default="">
+
 
 <cfparam name="URL.Group"             default="TransactionDate">
 <cfparam name="URL.page"              default="1">
@@ -19,15 +21,69 @@
      <cfset suff = "">  
 </cfif>
 
-<cfinclude template="StockBatchPrepare.cfm">
-
 <cfoutput>
 <cfsavecontent variable="myquery">
-
-	SELECT    *, TransactionDate
-	FROM      StockBatch_#SESSION.acc# B
-	WHERE     1=1 
 	
+	SELECT BatchNo, BatchReference,  TransactionType, Description, 	DeliveryMode, Category, LocationDescription, BatchDescription, TransactionDate, TransactionStatusDate,
+      	   ActionStatus, ContraWarehouse, CustomerId,CustomerName, Quantity, Lines, Cleared, Amount, OfficerUserId, OfficerLastName, OfficerFirstName,
+		   Created
+	
+	       , CASE WHEN Lines > Cleared THEN '0' ELSE '1' END as ProcessStatus
+		  
+	
+	FROM (
+	
+		SELECT     B.BatchNo, 
+		           B.BatchReference,
+		           R.TransactionType, 
+				   R.Description, 	
+				   B.DeliveryMode,	
+				   	
+				   (SELECT  Description FROM Ref_Category WHERE Category = B.Category) as Category,   					   
+				   (SELECT  Description FROM WarehouseLocation WHERE warehouse = '#URL.Warehouse#' AND Location = B.Location) as LocationDescription,	
+				   
+				   B.BatchDescription, 
+				   
+				   B.TransactionDate,
+				   			   		   
+				   (CASE WHEN B.ActionOfficerDate is NULL THEN B.TransactionDate ELSE B.ActionOfficerDate END) as TransactionStatusDate,
+				  				   
+				   B.ActionStatus,		
+				   
+				   (ISNULL((SELECT  TOP 1 TW.WarehouseName
+				    FROM    ItemTransaction AS T WITH (NOLOCK) INNER JOIN Warehouse AS TW ON T.Warehouse = TW.Warehouse
+				    WHERE   T.TransactionBatchNo = B.BatchNo AND T.Warehouse <> '#url.warehouse#'),'- Internal -')) as ContraWarehouse,
+				   	   
+				   B.CustomerId,
+				   
+				   (SELECT CustomerName FROM Customer WHERE CustomerId = B.CustomerId) as CustomerName,			   
+				  
+				   (SELECT  SUM(TransactionQuantity) FROM ItemTransaction#suff# WITH (NOLOCK) WHERE TransactionBatchNo = B.BatchNo) as Quantity,			   			    
+				   (SELECT  count(*)                 FROM ItemTransaction#suff# WITH (NOLOCK) WHERE TransactionBatchNo = B.BatchNo) as Lines,	
+				   (SELECT  count(*)                 FROM ItemTransaction#suff# WITH (NOLOCK) WHERE TransactionBatchNo = B.BatchNo and ActionStatus='1') as Cleared,				  			   	   
+				   (SELECT  SUM(TransactionValue)    FROM ItemTransaction#suff# WITH (NOLOCK) WHERE TransactionBatchNo = B.BatchNo) as Amount,
+				 
+	          	   B.OfficerUserId, 
+				   B.OfficerLastName, 
+	               B.OfficerFirstName,
+				   B.Created
+				   			   
+	     FROM      WarehouseBatch B WITH (NOLOCK) INNER JOIN
+	               Ref_TransactionType R ON B.TransactionType = R.TransactionType 
+		 WHERE     (B.Warehouse     = '#URL.Warehouse#' OR B.BatchWarehouse = '#url.warehouse#')			
+		 AND       B.ActionStatus  = '#URL.Status#' 
+		
+		 AND       B.BatchNo IN (SELECT TransactionBatchNo 
+		                         FROM   ItemTransaction#suff# WITH (NOLOCK) 
+								 WHERE  TransactionBatchNo = B.BatchNo)
+						 
+	 ) as B
+	 
+	 WHERE 1=1 	 
+	 
+	 --condition
+	 
+	 	
 </cfsavecontent>
 </cfoutput>
 
@@ -74,7 +130,6 @@
 					  searchfield	= "BatchReference",
   					  filtermode    = "0",
 					  search		= "text"}>							  
-
 					  
 <cfset itm = itm+1>		
 <cf_tl id="Location" var="vLocation">
@@ -90,9 +145,7 @@
 					  field         = "DeliveryMode",
 					  searchfield	= "DeliveryMode",
   					  filtermode    = "2",
-					  search		= "text"}>		
-					  
-				  					  						  
+					  search		= "text"}>				  					  						  
 
 <cfset itm = itm+1>		
 <cf_tl id="Name" var="vFirst">
@@ -117,7 +170,7 @@
 <cf_tl id="Status Date" var = "1">				
 <cfset fields[itm] = {label     	= "#lt_text#",                    
      				field       	= "TransactionStatusDate",					
-					column          = "month",	
+					
 					align       	= "center",		
 					formatted   	= "dateformat(TransactionStatusDate,CLIENT.DateFormatShow)",																	
 					search      	= "date"}>						  
@@ -174,8 +227,9 @@
 	link           = "#session.root#/warehouse/application/stock/batch/stockbatchlisting.cfm?status=#url.status#&warehouse=#url.warehouse#&systemfunctionid=#url.systemfunctionid#"
     html           = "Yes"
 	show           = "40"
-	datasource     = "AppsQuery"
+	datasource     = "AppsMaterials"
 	listquery      = "#myquery#"		
+	navigation     = "auto"
 	listorderalias = ""	
 	listorder      = "BatchNo"
 	listorderdir   = "DESC"

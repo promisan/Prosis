@@ -223,7 +223,7 @@
 	
 		<!--- container for show of interval check --->	
 		<tr class="hide">
-			<td colspan="<cfoutput>#col#</cfoutput>" id="communicate_#objectid#"></td>
+			<td colspan="<cfoutput>#col#</cfoutput>" id="communicate_#objectid#">testing</td>
 		</tr>
 		
 		<tr class="hide">
@@ -256,17 +256,18 @@
 		<script language="JavaScript">					
 			<!--- reset any backoffice scripts that might be still running --->
 			try { clearInterval ( workflowrefresh_#left(objectid,8)# ) } catch(e) {}													
-		</script>		
-		
-		<cfif checkStatus.recordcount gte "1"> <!--- the workflow has at least one (1) pending action --->
-			
+		</script>	
+								
+		<cfif object_op	eq "1" and checkStatus.recordcount gte "1"> <!--- the workflow has at least one (1) pending action --->
+					
 			<cfif Actions.enableRefresh eq "1" and Actions.refreshInterval gt "0">	
-			
+						
 				<cfset refr = "1">
 						
-				<script>												
-					<cfset milsec = Actions.refreshInterval*1000>		
-					workflowrefresh_#left(objectid,8)# = setInterval('objectstatus("#checklastaction.officerDate#","#objectid#","#attributes.ajaxid#")',#milsec#) 																
+				<script>	
+				    											
+					<cfset milsec = Actions.refreshInterval*1000>							
+					workflowrefresh_#left(objectid,8)# = setInterval('objectstatus("#checklastaction.officerDate#","#objectid#","#attributes.ajaxid#")',#milsec#) 																					
 				</script>
 			
 			</cfif>

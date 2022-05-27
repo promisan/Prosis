@@ -17,6 +17,7 @@
 <cfset show  = 0>
 <cfset group = "No">
 
+
 <cfoutput>	
 	
 	<cfset appliedfilter = "1">
@@ -66,12 +67,12 @@
 			
 			<cftry>						
 				<cfif fil gt ini>								
-			      <cfset filterselect = searchresult>
+			      <cfset filterselect = searchresult>				 
 				<cfelse>								
-				  <cfset filterselect = session.listingdata[attributes.box]['datasetinit']>	
+				  <cfset filterselect = session.listingdata[attributes.box]['datasetinit']>					  
 				</cfif>	  		
-			<cfcatch>			
-				<cfset filterselect = searchresult>			
+			<cfcatch>						
+				<cfset filterselect = searchresult>							
 			</cfcatch>
 			</cftry>	
 			
@@ -99,12 +100,12 @@
 			
 			--->
 												
-			<cfset reset = "">			
-																	
+			<cfset reset = "">					
+																				
 			<cfloop array="#attributes.listlayout#" index="current">	
 						
 				<cfset row=row+1>
-					  								
+									  								
 				<cfparam name="current.label"                    default="">	
 				<cfparam name="current.labelfilter"              default="#current.label#">	
 				<cfparam name="current.search"                   default="">	
@@ -170,11 +171,12 @@
 							</cfquery>								
 						
 						<cfelse>	
-																		
+						
+						   																		
 							<cftry>		
-																				
+																											
 								<cfif current.lookupgroup eq "">	
-																																																				
+																																																												
 								 	<cfquery name="lookupdata" dbtype="query">
 									    SELECT   DISTINCT 
 										         #srh# AS CODE, 
@@ -190,7 +192,7 @@
 									--->												
 																				
 								<cfelse>
-								
+																
 									<cfquery name="lookupdata" dbtype="query">
 									
 									    SELECT   DISTINCT 
@@ -204,7 +206,7 @@
 								    </cfquery>		
 								
 								</cfif>		
-															
+																							
 							<cfcatch>
 							
 								<cfset fld  = current.field>	
@@ -233,14 +235,14 @@
 							</cftry>
 						
 						</cfif>
-						
+												
 						<cfif lookupdata.recordcount gte "2">						
-							<cfset showfield = "1">		
+							<cfset showfield = "1">									
 						</cfif>									
 																	
 					<cfelse>		
 
-						 <cfset showfield = "1">						
+						 <cfset showfield = "1">							 		
 				
 					</cfif>
 											
@@ -257,7 +259,7 @@
 						</td>
 																				
 						<td style="width:40%;padding:1px;padding-left:0px;z-index:#40-row#; position:relative;">	
-																									
+																																					
 						<cfset val = evaluate("form.filter#current.field#")>
 						
 						<cfset fld = current.field>		
@@ -288,8 +290,8 @@
 								  
 							</cfcase>		
 											
-							<cfcase value="text">								
-														
+							<cfcase value="text">		
+																				
 								<cfif current.filtermode eq "0" or current.filtermode eq "">									
 																																
 								   <cfinput type="text" 
@@ -351,11 +353,10 @@
 									   <cfset reset =  "#reset#;document.getElementById('filter#current.field#').value=''">	 
 									  
 								<cfelseif current.filtermode eq "2">	
-																																			
+																																											
 										<cfif lookupdata.recordcount lte "200">
 																																
-											<cfif current.LookupGroup eq "">
-											
+											<cfif current.LookupGroup eq "">											
 
 												<cfif LookupData.recordcount gt 10>
 													<cfset vFilter = "contains">
@@ -397,7 +398,6 @@
 													
 												</cf_UIselect>
 												
-											
 											<cfelse>
 											
 												<cfquery name="checkDropdown" 
@@ -451,7 +451,7 @@
 										<cfset group = "Yes">
 										
 								<cfelseif current.filtermode eq "3">
-																	   								
+																									   								
 								        <!--- adjust val so we can ensure we find a value not as a subvalue --->
 																																														
 									 	<cfquery name="lookupdata" dbtype="query">

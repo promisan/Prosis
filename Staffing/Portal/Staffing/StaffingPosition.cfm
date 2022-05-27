@@ -9,9 +9,9 @@
 <cfset vLayout = "webapp">
 
 <cfif url.header eq "1">
-	<cfset html = "Yes">
+	<cfset html = "Yes">	
 <cfelse>
-	<cfset html = "No">
+	<cfset html = "No">	
 </cfif>
 	
 <cf_screentop jquery="yes" bootstrap="yes" html="#html#" layout="webapp" banner="gray" label="#vMainLabel#">
@@ -104,13 +104,14 @@
 
 		.clsUnit {
 			font-size: 200%; 
+			
 			padding-bottom: 0px; 
 			padding-left: 15px; 
 			background-color: #ffffff;
 			position: sticky;
 			top: 40px;
 			z-index:99;
-			border-top:10px solid #FFFFFF;
+			border-top:3px solid #FFFFFF;
 		}
 
 		.clsUnitContainer {
@@ -143,7 +144,7 @@
 		}
 
 		.clsPosition {
-			height: 400px; 
+			height: 380px; 
 			overflow: auto;
 			border-bottom: 0px solid #EAEAEA; 
 			border-right: 1px solid #EAEAEA;

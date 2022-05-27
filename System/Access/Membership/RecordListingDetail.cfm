@@ -200,7 +200,7 @@
 					<cfif LastConnection eq ""><font color="FF0000">Never</font><cfelse>#Dateformat(LastConnection, "#CLIENT.DateFormatShow#")#</cfif>
 					</TD>
 					<TD align="center" style="padding-left:4px;padding-right:4px">
-					<cfif Denials gte "1"><font color="FF0000">Yes<cfelse>--</font></cfif>
+					<cfif Denials gte "1"><font title="Has one or more corrections on the granted access through a usergroup" color="FF0000">Yes<cfelse>--</font></cfif>
 					</TD>
 					<TD align="center" style="padding-left:4px;padding-right:4px">
 					<cfif Disabled eq "1"><font color="FF0000">No</font><cfelse></cfif>

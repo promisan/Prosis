@@ -66,6 +66,8 @@ AND    CostId   = '#Form.CostId#'
 		
 		<cfif check.recordcount eq "1">
 		
+			<cfset amt = replace("#Form.Amount#",",","","ALL")>
+		
 			 <cfquery name="EditEntitlement" 
 			   datasource="AppsPayroll" 
 			   username="#SESSION.login#" 
@@ -89,7 +91,7 @@ AND    CostId   = '#Form.CostId#'
 							  SourceId           = NULL,		
      					  </cfif>						
 						  Currency           = '#Form.Currency#',
-						  Amount             = '#Form.Amount#',
+						  Amount             = '#amt#',
 						  Remarks            = '#Remarks#'
 				   WHERE  PersonNo           = '#Form.PersonNo#' 
 				   AND    CostId             = '#Form.CostId#' 

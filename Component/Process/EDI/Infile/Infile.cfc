@@ -455,7 +455,8 @@
 						<cfset vNIT = "CF">
 					</cfif>		
 					<cfset vNit = Replace(vNIT,"-","","ALL")>
-					
+					<cfset vNit = UCASE(vNit)>
+										
 					<cfset FEL.CustomerNIT        = "#vNit#">  <!--- #vNormalizedNIT# --->
 					
 					<cfset FEL.CustomereMail      = "#Customer.eMailAddress#">
@@ -745,10 +746,15 @@
 			
 			<cfset FEL.Sale   = getTotal.Amount>	
 			
-			<!--- Hanno special correction if the amount like IO has already tax in it --->
+			<!--- ------------------------------------------------------------ --->
+			<!--- Hanno correction if the amount like IO has already tax in it --->
+			<!--- ------------------------------------------------------------ --->
+			
 			<cfif getLines.TaxCode eq "00" and getTransaction.TransactionSource eq "AccountSeries">								     
 				 <cfset FEL.Sale = FEL.Sale * 100/112>			      
 			</cfif>	
+			
+			<!--- ------------------------------------------------------------ --->
 											
 			<!--- remove the discount (negative) as found in the posting line --->	
 				
@@ -831,7 +837,7 @@
 				
 				    <cfset dts = now()>
 					
-					<!--- I discussed with Ana and this is not the desired effect 
+					<!--- 7/2/2022 I discussed with Ana and this is not the desired effect 
 				
 			    	<!--- FEL allows up to 5 days correction --->	
 					<cfif datediff("d",  getLines.TransactionDate,  now()) gte 6> 	
@@ -850,7 +856,7 @@
 							
 			</cfif>
 			
-			<!---
+			<!--- this control a direct eMail from Infile
 			<cfoutput>
 			CorreoReceptor="#FEL.CustomereMail#"
 			</cfoutput>
@@ -929,10 +935,11 @@
 												WHERE    ItemNo = '#itemNo#'																			
 										</cfquery>
 										
-										<cfif item.recordcount eq "0">										
-											<cfset itemtype = "S">											
-										<cfelseif Item.ItemClass eq "Service">										
-											<cfset itemtype = "S">												
+										<cfif TaxCode eq "00" and getTransaction.TransactionSource eq "AccountSeries">
+										    <!--- inter office provision : this is not ideal --->
+										    <cfset itemtype = "B">	 
+										<cfelseif item.recordcount eq "0" or Item.ItemClass eq "Service">										
+											<cfset itemtype = "S">																															
 										<cfelse>										
 											<cfset itemtype = "B">											
 										</cfif>											

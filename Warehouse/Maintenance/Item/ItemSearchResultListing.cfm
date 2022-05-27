@@ -19,8 +19,8 @@
 		FROM
 			(
 				SELECT 	I.ItemNo, 
-				        I.ItemDescription, 
-						I.ItemNoExternal,
+				        I.ItemDescription,
+						''''+CAST(I.ItemNoExternal AS VARCHAR) AS ItemNoExternal,
 						Make, Model, ProgramCode, ItemMaster,  
                         Classification, 
 						Destination, 

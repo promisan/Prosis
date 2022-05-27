@@ -174,6 +174,7 @@
 <cfparam name="setting[7]"                 default="false">
 <cfparam name="attributes.cachedisable"    default="#setting[7]#">
 
+
 <!--- those variables come from the interface when selecting sorting and tree on the fly and
 we keep them in form field for easy pickup and are in listingshow.cfm --->
 
@@ -1131,12 +1132,12 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 					<cfif getListLog.LogStamp gt session.listingdata[attributes.box]['timestamp']>		
 					   <cfset session.listingdata[box]['recordsinit']   = 0> 		
 					   <cfset attributes.refresh = "1">		
-					<cfelse>				
+					<cfelse>									
 				       <cfset attributes.refresh = "0"> 	 		  							  	
 					</cfif>			
 					
 				<cfelse>	
-				
+								
 					<cfset attributes.refresh = "0">
 				
 			    </cfif>							

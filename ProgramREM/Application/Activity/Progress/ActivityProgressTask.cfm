@@ -191,7 +191,7 @@
 					    <cfif dependent gte "1">
 												
 							<tr>
-							<td height="10" class="connector" onclick="showdep('#activityid#','dep#activityid#')"><td>												
+							<td height="10" class="#color#" onclick="showdep('#activityid#','dep#activityid#')"><td>
 							</tr>
 							
 						<cfelse>
@@ -205,7 +205,7 @@
 							
 							<tr>											
 							<td height="10"
-								class="connector"  onclick="showdep('#activityid#','dep#activityid#')">																												
+								class="#color#"  onclick="showdep('#activityid#','dep#activityid#')">
 							</td>						
 							</tr>
 							

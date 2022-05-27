@@ -1,5 +1,12 @@
 
 <cfparam name="form.scope" default="listing">
+<cfparam name="form.ReferenceDefault" default="">
+
+<cfif form.referenceDefault neq "">
+    <cfset ref = form.ReferenceDefault>
+<cfelse>
+	<cfset ref = form.Reference>	
+</cfif>
 
 <cfif form.action eq "add">
 	
@@ -36,10 +43,8 @@
 			OrgUnit,
 			</cfif>
 			CustomerName,
-			CustomerDOB,
-			<cfif Form.Reference neq "">
-			Reference,
-			</cfif>
+			CustomerDOB,			
+			Reference,			
 			<cfif Form.PhoneNumber neq "">
 			PhoneNumber,
 			</cfif>
@@ -70,10 +75,8 @@
 			'#Form.OrgUnit#',
 			</cfif>
 			'#Form.CustomerName#',
-			#DOB#,
-			<cfif Form.Reference neq "">
-			'#Form.Reference#',
-			</cfif>
+			#DOB#,			
+			'#ref#',
 			<cfif Form.PhoneNumber neq "">
 			'#Form.PhoneNumber#',
 			</cfif>
@@ -181,7 +184,7 @@
 		SET    CustomerName    = '#Form.CustomerName#',
 			   CustomerDOB     =  #DOB#,
 			   PersonNo        = '#Form.PersonNo#',
-			   Reference       = '#Form.Reference#',
+			   Reference       = '#ref#',
 			   <cfif form.OrgUnit neq "">
 			   OrgUnit		   = '#Form.OrgUnit#',
 			   </cfif>

@@ -51,7 +51,7 @@
 	 <table class="formpadding"><tr><td>
      <!--- <img src="#SESSION.root#/Images/alert_stop.gif" alt="" border="0" align="absmiddle">	--->
 	 </td><td class="labelmedium2">
-	 <font color="FF0000">Invalid</font>	
+	 <font color="FF0000"><cf_tl id="Invalid"></font>	
 	 </td></tr>
 	 </table>
 	 </cfoutput>		

@@ -92,68 +92,82 @@
 	 <cfdirectory action="CREATE" directory="#SESSION.rootPath#\CFRStage\Signature\">
 	 <cfcatch></cfcatch>
 	</cftry> 
-
-	<table width="400" height="90">
-
-	<tr><td align="center">
-
-	 <cfif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.png")>	
-	 
-	 	<cffile action="COPY" 
-			source="#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.png" 
-	    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">  	
-			
-		 <cfimage name="vSignature" action="read" source="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg"/> 
-		 				
-	 <cfelseif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg")>	 
-	 		 
-	 	  <cffile action="COPY" 
-			source="#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg" 
-	    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">   	
-			
-		  <cfimage name="vSignature" action="read" source="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg"/>
-	 			 
-  	 <cfelse>	
-	 
-	 	  <cfimage name="vSignature" action="read" source="#SESSION.root#/Images/image-not-found.gif"/>		 
-						  
-	 </cfif>
-	 
-	 <img src="data:image/*;base64,#toBase64(vSignature)#"	align="absmiddle" height="#attributes.imageheight#" width="#attributes.imagewidth#">
 	
-	 </td></tr>
+	<table style="width:100%" border="0"><tr><td style="padding-left:15px">
+
+		<table style="width:500px" height="90">
+			 
+		 <cfif header neq "">
+		 <tr class="labelmedium"><td style="font-size:16px">#header#</td></tr>
+		 </cfif>		 		  
+		 <cfif action neq "">
+		 <tr class="labelmedium"><td style="font-size:16px">#action#:</td></tr>
+		 </cfif>		 
+		 <tr class="labelmedium"><td style="font-size:16px">#first# #ucase(last)#, #title#</td></tr>		 	 	 
+		 <cfif memo neq "">
+		 <tr class="labelmedium"><td style="font-size:16px">#memo#</td></tr>
+		 </cfif>				 
+		 <cfif unit neq "">
+		 <tr class="labelmedium"><td style="font-size:16px">#unit#</td></tr>
+		 </cfif>		 
+		 <tr class="labelmedium"><td><font size="1" ><cf_tl id="Signed on">
+		 <cfif attributes.date eq "auto" or attributes.date eq "yes">
+		 #dateformat(now(),client.dateformatshow)# <cf_tl id="at"> #timeformat(now(),"kk:mm tt")#
+		 <cfelse>
+		 #dateformat(attributes.date,client.dateformatshow)# <cf_tl id="at"> #timeformat(attributes.date,"kk:mm tt")#
+		 </cfif>	
+		 </td>
+		 </tr>	
+		 
+		</table>	
+	
+	</td>
+	
+	<td>
+	
+		<table>
+		
+		<tr><td style="width:100%" valign="top">
+	
+		 <cfif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.png")>	
+		 
+		 	<cffile action="COPY" 
+				source="#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.png" 
+		    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">  	
+				
+			 <cfimage name="vSignature" action="read" source="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg"/> 
+			 				
+		 <cfelseif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg")>	 
+		 		 
+		 	  <cffile action="COPY" 
+				source="#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg" 
+		    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">   	
+				
+			  <cfimage name="vSignature" action="read" source="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg"/>
+		 			 
+	  	 <cfelse>	
+		 
+		 	  <cfimage name="vSignature" action="read" source="#SESSION.root#/Images/image-not-found.gif"/>		 
+							  
+		 </cfif>
+		 
+		 <img src="data:image/*;base64,#toBase64(vSignature)#"	align="absmiddle" height="#attributes.imageheight#" width="#attributes.imagewidth#">
+		
+		 </td></tr>
+		 
+		 <cfif attributes.id neq "">
+		 <tr class="labelmedium"><td align="center"><font size="1" color="0080FF">id: #attributes.id#</font></td></tr>
+		 </cfif>
+		 
+		 </table>
 	 
-	 <cfif header neq "">
-	 <tr class="labelmedium"><td align="center" style="font-size:16px">#header#</td></tr>
-	 </cfif>
-	 
-	 <tr class="labelmedium"><td align="center" style="font-size:16px"><cfif action neq "">#action# </cfif>#first# #last#</td></tr>
-	 	 	 
-	 <cfif memo neq "">
-	 <tr class="labelmedium"><td align="center" style="font-size:16px">#memo#</td></tr>
-	 </cfif>
-	 
-	 <cfif title neq "">
-	 <tr class="labelmedium"><td align="center" style="font-size:16px">#title#</td></tr>
-	 </cfif>
-	 
-	 <cfif unit neq "">
-	 <tr class="labelmedium"><td align="center" style="font-size:16px">#unit#</td></tr>
-	 </cfif>
-	 
-	 <tr class="labelmedium"><td align="center" style="font-size:16px"><cf_tl id="Signed on">
-	 <cfif attributes.date eq "auto" or attributes.date eq "yes">
-	 #dateformat(now(),client.dateformatshow)# <cf_tl id="at"> #timeformat(now(),"kk:mm tt")#
-	 <cfelse>
-	 #dateformat(attributes.date,client.dateformatshow)# <cf_tl id="at"> #timeformat(attributes.date,"kk:mm tt")#
-	 </cfif>	
-	 </td></tr>
-	 
-	<cfif attributes.id neq "">
-	 <tr class="labelmedium"><td align="center"><font size="1" color="0080FF">id: #attributes.id#</font></td></tr>
-	 </cfif>
-	 
-	</table>	
+	</td>
+	
+	</tr>
+	
+	<tr><td colspan="2"><hr noshade style="height:1px;background-color:silver"></td></tr>
+	
+	</table>
 	 
 </cfoutput>	 	 
  

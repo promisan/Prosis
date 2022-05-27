@@ -6,6 +6,80 @@
     <cfproperty name="name" type="string">
     <cfset this.name = "Presentation Functions">
 	
+	<cffunction name="PendingAction" access="public" returntype="struct" displayname="VerifyPending">		
+		
+	    <cfargument name="Scope"   default="backoffice">
+		<cfargument name="Batches" default="0"> 
+		
+		<cf_myClearancesPrepare mode="table" role="1" scope="#scope#">
+		
+		<cfquery name="getAction" 
+		 datasource="AppsOrganization"
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+		  
+			 SELECT     OA.ActionId
+			 FROM       OrganizationObjectAction OA 
+			            INNER JOIN    OrganizationObject O                ON OA.ObjectId  = O.ObjectId 
+						INNER JOIN    userQuery.dbo.#SESSION.acc#Action D  ON OA.ActionId  = D.ActionId 
+						INNER JOIN    Ref_Entity E                        ON O.EntityCode = E.EntityCode 
+						INNER JOIN    Ref_EntityActionPublish P           ON OA.ActionPublishNo = P.ActionPublishNo AND OA.ActionCode = P.ActionCode 				
+			 WHERE      P.EnableMyClearances = 1 
+			  AND       O.ObjectStatus       = 0
+			  AND       O.Operational        = 1  
+			  AND       E.ProcessMode != '9'		
+			  <cfif scope eq "portal">
+		      AND       E.EnablePortal = 1
+		      </cfif>	
+			  <!--- hide concurrent actions that were completed --->
+			  AND       OA.ActionStatus     != '2'		  	 
+		</cfquery>
+		
+		<cfset pending.workflow = getAction.recordcount>
+		
+		<cfif batches eq "1">
+		
+			<cfquery name="Roles" 
+				 datasource="AppsOrganization"
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">
+					SELECT   *
+					FROM     Ref_AuthorizationRole
+					WHERE    Role IN ('ProcReqCertify','ProcReqObject','ProcReqReview','ProcReqApprove','ProcReqBudget','ProcManager','ProcBuyer')	
+					ORDER BY ListingOrder
+				</cfquery>	
+				
+				<cfset tot = 0>
+				
+				<cfloop query="Roles">
+					
+					<cfinvoke component = "Service.PendingAction.Check"  
+					   	method           = "#Role#"
+					   	returnvariable   = "batch">
+							
+					<cfquery name="getBatch" dbtype="query">
+						SELECT   SUM(Total) as Total
+						FROM     batch
+					</cfquery>	
+								
+					<cfif getBatch.total neq "">			
+						<cfset tot = tot+getBatch.Total>
+					</cfif>
+				
+				</cfloop>
+				
+				<cfset pending.batch = tot>		
+				
+		<cfelse>
+		
+				<cfset pending.batch = "">		
+		
+		</cfif>
+		
+		<cfreturn pending>
+				
+	</cffunction>
+	
 	<!--- 0.9 Requisitioner --->	
 		
 	<cffunction access="public" 

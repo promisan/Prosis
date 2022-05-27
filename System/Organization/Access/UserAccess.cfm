@@ -195,6 +195,7 @@ password="#SESSION.dbpw#">
 SELECT *
 FROM    Ref_AuthorizationRole
 WHERE   Role = '#URL.ID#' 
+
 </cfquery>
 
 <cfif URL.ID1 neq "Object">
@@ -212,11 +213,11 @@ WHERE   Role = '#URL.ID#'
 <table width="98%" height="100%" align="center">
              
 	<tr><td height="100%">
-		
+			
 	<cfform action="#link#?box=#url.box#&Mission=#URL.Mission#&ID=#URL.ID#&ACC=#URL.ACC#&ID2=#URL.ID2#&ID4=#URL.ID4#&requestid=#url.requestid#" 
-	   method="POST" name="formaccess" target="resulting" style="height:100%">
-		
-		<cfoutput>
+	   method="POST" name="formaccess" target="resulting" style="height:100%">	
+	   
+	 	<cfoutput>
 		<table width="100%" height="100%" align="center">
 		
 		<tr class="line">
@@ -494,10 +495,8 @@ WHERE   Role = '#URL.ID#'
 						
 							<tr id="#mission#selected" class="labelmedium2 navigation_row line">
 						
-							  <td colspan="2" height="20" class="labelmedium2" style="padding-left:14px">
-							  												
-							  		<a href="javascript:show('s_#mission#')">#Mission#</a>&nbsp;<cfif MissionStatus eq "1"><font color="gray">:<i>static</i></cfif> 
-								
+							  <td colspan="2" height="20" class="labelmedium2" style="padding-left:14px">							  												
+							  		<a href="javascript:show('s_#mission#')">#Mission#</a>&nbsp;<cfif MissionStatus eq "1"><font color="gray">:<i>static</i></cfif> 								
 							 </td>
 							 <td align="right" colspan="2">#MissionName#</td>		
 													
@@ -539,7 +538,7 @@ WHERE   Role = '#URL.ID#'
 												
 						    <!--- present the input screen which is driven by the parameter --->						
 							<cfset missionname = mission>		
-																					
+																																			
 							<cfinclude template="UserAccessLocation.cfm">							
 							
 							<cfif class gt setclass>
@@ -745,7 +744,7 @@ WHERE   Role = '#URL.ID#'
 				
 				<tr><td height="100%" valign="top" colspan="4" id="s_<cfoutput>#URL.Mission#</cfoutput>" 
 				  style="padding:1px">
-											  			
+				  															  			
 				   <cfinclude template="UserAccessLocation.cfm">
 				   				   		  								
 				   <cfif AccessList.RecordStatus eq "5">
@@ -827,11 +826,11 @@ WHERE   Role = '#URL.ID#'
 			<tr><td align="center" id="accessresults" class="line" style="padding-top:3px">
 			    <table>
 			    <tr><td>
-			    
-				<cfif URL.ID1 neq "Object">				
+											    
+				<cfif URL.ID1 neq "Object" and url.id1 neq "Tree">												
 				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="try {parent.parent.ProsisUI.closeWindow('myaccess') } catch(e) { parent.ProsisUI.closeWindow('myaccess') }">
-				<cfelse>				
-				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="try {parent.parent.ProsisUI.closeWindow('userdialog') } catch(e) { parent.parent.ProsisUI.closeWindow('userdialog') }">
+				<cfelse>											
+				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="try {parent.parent.ProsisUI.closeWindow('userdialog') } catch(e) { parent.ProsisUI.closeWindow('userdialog') }">
 				</cfif>
 				
 				</td><td style="padding-left:2px">

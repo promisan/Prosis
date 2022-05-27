@@ -47,23 +47,24 @@
 				AND        GroupListCode = '#event.ReasonListCode#'
 		</cfquery>	
 	
-	
 	<tr class="labelmedium">
-		<td style="width:100px;padding-left:20px"><cf_tl id="Event">:</td>
+		<td style="width:100px;padding-left:20px;font-size:15px"><cf_tl id="Event">:</td>
+		<cfif event.actionstatus eq "9">
+		<td colspan="2" style="color:red;font-size:15px">#Event.Mission# #Event.Description# #Reason.Description# [<cf_tl id="Cancelled">]</td>
+		<cfelse>
 		<td colspan="2" style="font-size:15px">#Event.Mission# #Event.Description# #Reason.Description#</td>
+		</cfif>
 	</tr>
 	
 	<cfif event.ActionDateEffective neq "">
 	<tr class="labelmedium">
-		<td style="padding-left:20px"><cf_tl id="Effective">:</td>
+		<td style="padding-left:20px;font-size:15px"><cf_tl id="Effective">:</td>
 		<td colspan="2" style="font-size:15px">#dateformat(Event.ActionDateEffective,client.dateformatshow)# <cfif Event.ActionDateExpiration gte Event.ActionDateEffective>- #dateformat(Event.ActionDateExpiration,client.dateformatshow)#</cfif></td>			
 	</tr>	
-	</cfif>
-	
-	
+	</cfif>	
 	
 	<tr class="labelmedium">
-		<td style="padding-left:20px"><cf_tl id="Due date">:</td>
+		<td style="padding-left:20px;font-size:15px"><cf_tl id="Due date">:</td>
 		<td colspan="2" style="font-size:16px">
 		<cfif Event.actionStatus lt "3">
 			<cfif now() gte Event.DateEventDue>
@@ -89,7 +90,7 @@
 		</cfquery>	
 	
 		<tr class="labelmedium">
-			<td style="padding-left:20px"><cf_tl id="Position">:</td>
+			<td style="padding-left:20px;font-size:15px"><cf_tl id="Position">:</td>
 			<td colspan="2" style="font-size:15px"><cfif Position.SourcePostNumber neq "">#Position.SourcePostNumber#<cfelse>#Position.ParentPositionId#</cfif></td>			
 		</tr>
 		
@@ -103,16 +104,16 @@
 	</cfif>
 	
 	<tr class="labelmedium">
-		<td style="padding-left:20px"><cf_tl id="Requested">:</td>
+		<td style="padding-left:20px;font-size:15px"><cf_tl id="Requested">:</td>
 		<td colspan="2" style="font-size:15px">#dateformat(Event.DateEvent,client.dateformatshow)# #Event.OfficerFirstName# #Event.OfficerLastName#</td>
 	</tr>
 	
 	<cfif event.remarks neq "">
 	
-	<tr class="labelmedium">
-		<td valign="top" style="padding-top:5px;padding-left:20px"><cf_tl id="Memo">:</td>
-		<td colspan="2" valign="top" style="padding-top:5px">#Event.Remarks#</td>
-	</tr>
+		<tr class="labelmedium">
+			<td valign="top" style="padding-top:5px;padding-left:20px"><cf_tl id="Memo">:</td>
+			<td colspan="2" valign="top" style="padding-top:5px">#Event.Remarks#</td>
+		</tr>
 	
 	</cfif>
 	

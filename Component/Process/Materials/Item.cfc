@@ -1064,6 +1064,16 @@
 			
 			<cfset vCost = 0>
 			
+					
+			<cfquery name="Parameter"
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT     *
+					FROM       Ref_ParameterMission
+					WHERE      Mission = '#mission#'								
+			</cfquery>	
+			
 			<cfquery name="CheckItem" 
 				datasource="#datasource#" 
 				username="#SESSION.login#" 
@@ -1074,7 +1084,7 @@
 					AND	   UoM            = '#UoM#'
 					AND	   Mission        = '#Mission#'		
 					AND    DateEffective  = #eff#							
-			</cfquery>
+			</cfquery>							
 			
 			<cfif checkItem.recordcount eq "0">
 				
@@ -1128,9 +1138,11 @@
 						
 							<cfset vTaxCode = ChecktaxCode.TaxCode>
 							
-						<cfelse>
-							
-							<!--- last chance to determine the tax code --->
+						</cfif>
+						
+						<!--- last chance to determine the tax code --->
+						
+						<cfif vTaxCode eq "00">																						
 							
 							<cfquery name="CheckTaxCode" 
 							datasource="#datasource#" 
@@ -1152,12 +1164,12 @@
 						<cfif Price eq 0>
 							
 							<cfset vSalesPrice = CalculateSuggestedPrice(
-													Cost         = Cost,
-													TaxCode      = vTaxCode,
-													Multiplier   = CostPriceMultiplier, 
-													PriceCeiling = CostPriceCeiling,
-													CurrencyTo   = checkWarehouse.Currency,
-													Datasource   = datasource)>													
+									Cost         = Cost,
+									TaxCode      = vTaxCode,
+									Multiplier   = CostPriceMultiplier, 
+									PriceCeiling = CostPriceCeiling,
+									CurrencyTo   = checkWarehouse.Currency,
+									Datasource   = datasource)>													
 																										
 						<cfelse>
 						
@@ -1178,11 +1190,12 @@
 							password="#SESSION.dbpw#">
 							    SELECT *
 							    FROM   Materials.dbo.Warehouse 
-							    WHERE  Warehouse = '#Warehouse#' 
-																
+							    WHERE  Warehouse = '#Warehouse#' 																
 						</cfquery>			
 						
-						<cfif getWarehouse.SupplyWarehouse eq "">
+						<!---
+						<cfif getWarehouse.SupplyWarehouse eq ""> before we updated the entity price only if received by top warehouse, this has been removed
+						--->
 						
 							<!--- entity price --->
 							
@@ -1197,7 +1210,7 @@
 									AND	   PriceSchedule = '#checkWarehouse.PriceSchedule#'
 									AND    DateEffective = #eff#
 									AND    Mission       = '#Mission#'
-									AND    Warehouse  IS NULL
+									AND    Warehouse IS NULL
 									AND	   Currency      = '#checkWarehouse.Currency#'
 							</cfquery>
 							
@@ -1236,62 +1249,67 @@
 										   <cfif vTaxCode neq "">
 											   ,'#vTaxCode#'
 										   </cfif>
-								           ,'Generated'
+								           ,'Price component'
 								           ,NULL
 								           ,'0'
 										   ,'#SESSION.acc#'
 								    	   ,'#SESSION.last#'		  
-					  	                   ,'#SESSION.first#' )
-										   
+					  	                   ,'#SESSION.first#' )									   
 										   
 								</cfquery>	
 								
 							</cfif>							
 						
+						<!---
 						</cfif>	
+						--->
 						
-						<cfquery name="CheckPrice" 
-							datasource="#datasource#" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">		
+						<cfif Parameter.priceManagement eq "1">
+						
+							<cfquery name="CheckPrice" 
+								datasource="#datasource#" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">		
+								
+									INSERT INTO Materials.dbo.ItemUoMPrice
+							           (ItemNo
+							           ,UoM
+							           ,PriceSchedule
+							           ,Mission
+							           ,Warehouse
+							           ,Currency
+							           ,DateEffective
+							           ,SalesPrice
+			   						   <cfif vTaxCode neq "">
+										   ,TaxCode
+									   </cfif>	   
+							           ,CalculationMode
+							           ,CalculationClass
+							           ,CalculationPointer
+							           ,OfficerUserId
+							           ,OfficerLastName
+							           ,OfficerFirstName )
+							     VALUES (
+								       '#ItemNo#'
+							           ,'#UoM#' 
+							           ,'#checkWarehouse.PriceSchedule#'
+							           ,'#Mission#'
+							           ,'#checkWarehouse.Warehouse#'
+							           ,'#checkWarehouse.Currency#'
+							           ,#eff#
+							           ,'#vSalesPrice#'
+									   <cfif vTaxCode neq "">
+										   ,'#vTaxCode#'
+									   </cfif>
+							           ,'Price component'
+							           ,NULL
+							           ,'0'
+									   ,'#SESSION.acc#'
+							    	   ,'#SESSION.last#'		  
+				  	                   ,'#SESSION.first#' )
+							</cfquery>	
 							
-								INSERT INTO Materials.dbo.ItemUoMPrice
-						           (ItemNo
-						           ,UoM
-						           ,PriceSchedule
-						           ,Mission
-						           ,Warehouse
-						           ,Currency
-						           ,DateEffective
-						           ,SalesPrice
-		   						   <cfif vTaxCode neq "">
-									   ,TaxCode
-								   </cfif>	   
-						           ,CalculationMode
-						           ,CalculationClass
-						           ,CalculationPointer
-						           ,OfficerUserId
-						           ,OfficerLastName
-						           ,OfficerFirstName )
-						     VALUES (
-							       '#ItemNo#'
-						           ,'#UoM#' 
-						           ,'#checkWarehouse.PriceSchedule#'
-						           ,'#Mission#'
-						           ,'#checkWarehouse.Warehouse#'
-						           ,'#checkWarehouse.Currency#'
-						           ,#eff#
-						           ,'#vSalesPrice#'
-								   <cfif vTaxCode neq "">
-									   ,'#vTaxCode#'
-								   </cfif>
-						           ,'generated'
-						           ,NULL
-						           ,'0'
-								   ,'#SESSION.acc#'
-						    	   ,'#SESSION.last#'		  
-			  	                   ,'#SESSION.first#' )
-						</cfquery>							
+						</cfif>							
 					
 					</cfif>
 				

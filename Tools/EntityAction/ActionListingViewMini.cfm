@@ -116,7 +116,7 @@
 			
 			</cfif>
 																									
-			<tr bgcolor="#cl#" style="border:1px solid gray">
+			<tr bgcolor="#cl#" style="border:1px solid silver">
 			
 				<cfquery name="Dialog" 
 				 datasource="AppsOrganization"
@@ -131,21 +131,19 @@
 				<cfif attributes.subflow eq "No" and showaction eq "1">
 				
 					<cfset ln = "5">														
-                    <td>
+                    <td style="width:100%;height:100%;padding-left:0px;padding-right:0px">
 														
 				<cfelse>
 	
 					<cfset ln = "2">							
-                    <td align="right">
+                    <td style="width:100%;height:100%;padding-left:0px;padding-right:0px" align="right">
 																			
 				</cfif>
-									
-					<table style="width:100%;height:100%">
-																						
+													
+					<table style="width:105%;height:100%">
+																											
 					<cfif Action eq "1" and (EntityAccess eq "EDIT" OR EntityAccess eq "READ" OR EntityAccess eq "ALL")>
-					
-					 <cfset vSquareStyle     = "padding:0px 0 0;border-radius:8px 0 0 8px;max-width:100%">		  
-										
+											  										
 						<cfif attributes.hideprocess eq "0" and ActionTrigger eq "">
 						    <cfif attributes.subflow eq "No">
 						    <cfset pr = "javascript:process('#ActionId#','#attributes.preventProcess#','#attributes.ajaxid#','#ProcessMode#')">
@@ -178,7 +176,7 @@
 								 AND   DocumentCode = '#ActionDialog#'
 						</cfquery>													
 													
-							<tr style="height:25px;font-size:10px" class="labelmedium">
+							<tr style="height:25px" class="labelmedium">
 																							
 								<cfparam name="ActionProcess" default="Do it">
 								
@@ -193,7 +191,8 @@
 								 
 								 	<cfif ActionStatus eq "0" and EntityAccess eq "EDIT" and Action eq "1">		
 												 
-										<td id="quick#ActionId#" style="padding-left:3px" name="quick#ActionId#">				
+										<td id="quick#ActionId#" style="padding-left:3px" name="quick#ActionId#">	
+												
 										<cfif attributes.hideprocess eq "0" and actionTrigger eq "" and object_op is 1>		
 											<input type="checkbox" class="radiol" name="confirmwf" id="confirmwf" style="display:none;" value="#ActionId#" checked onclick="toggleaction('#ActionId#')">		
 										    <a id="d#ActionId#" href="javascript:submitwfquick('#ActionId#','#attributes.ajaxid#')">#ActionDescription#</a>  			
@@ -208,7 +207,7 @@
 									 
 									   <cfif Dialog.DocumentMode eq "Popup" and Object_op eq 1>	
 									   									 						
-											<td class="labelmedium" style="height:100%;cursor: pointer;">
+											<td class="labelmedium" style="height:100%;cursor: pointer;">											
 												<cf_img icon="select" onclick="#Dialog.DocumentTemplate#('#actioncode#','#actionId#','#url.ajaxid#')">						  
 										    </td>										  								
 											
@@ -243,7 +242,7 @@
 																
 					<cfelse>
 					
-						<cfset vSquareStyle     = "padding:5px 0 0;border-radius:8px;max-width:95%">   
+						<cfset vSquareStyle     = "padding:0px 0 0;border-radius:2px;max-width:100%">   
 					
 						<cfif ActionDialogContent neq "">
 						    <cfset pr = "javascript:actionlog('#ActionId#')">
@@ -260,8 +259,8 @@
 						</cfif>							
 					
 						<tr>
-						<td class="fixlength" style="padding-left:5px;height:25px;max-width:360px;background-color:#boxend#;cursor: pointer;color:white;" align="center">																																
-															
+						<td class="fixlength" title="#ActionReference#: #ActionDescription#" style="padding-left:0px;height:25px;background-color:#boxend#;cursor: pointer;color:white;" align="center">																																
+																						
 								<cfparam name="ActionCompleted" default="">
 								<cfparam name="ActionDenied"    default="">
 								
@@ -283,12 +282,12 @@
 				<cfif getAdministrator("#Object.mission#") eq "1">
 				
 					<td align="center" style="height:100%;min-width:25px;max-width:25px;color:white;background-color:silver">								
-					   <cf_img icon="open" onclick="object('#objectid#')">	
+					   <cf_img icon="open" onclick="object('#objectid#')">						   
 					</td>
 					
 				</cfif>
 					
-				<td align="center" style="border-left:1px solid gray;padding-top:2px;height:100%;min-width:25px;max-width:25px;color:white;background-color:silver">		
+				<td align="center" style="border-left:1px solid gray;padding-top:2px;height:100%;min-width:30px;max-width:30px;color:white;background-color:silver">		
 				     <img src="#client.root#/images/chat.png" style="width:16px;height:16px" alt="Messenger" border="0" onclick="workflowchat('#objectid#')">											 
 				</td>				
 												

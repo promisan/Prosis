@@ -360,9 +360,9 @@ function more(bx) {
 							<cfif Role.GrantAllTrees eq "0">
 							
 								<cfif URL.Access eq "">
-								    <a href="javascript:showaccess('1','#url.mission##row#');more('i#url.mission##row#')"><font color="0080C0"><cf_tl id="Grant all steps"></font></a>
+								    <a href="javascript:showaccess('1','#url.mission##row#');more('i#url.mission##row#')"><cf_tl id="Grant all steps"></a>
 								<cfelse>
-									<a href="javascript:showaccess('0','#url.mission##row#')"><font color="0080C0"><cf_tl id="Revoke all steps"></font></a>
+									<a href="javascript:showaccess('0','#url.mission##row#')"><cf_tl id="Revoke all steps"></a>
 								</cfif>
 																
 							</cfif>
@@ -382,9 +382,9 @@ function more(bx) {
 						<cfif Role.GrantAllTrees eq "0">
 							
 							<cfif URL.Access eq "">
-							    <a href="javascript:showaccess('1','#url.mission##row#')">Grant all steps</a>
+							    <a href="javascript:showaccess('1','#url.mission##row#')"><cf_tl id="Grant all steps"></a>
 							<cfelse>
-								<a href="javascript:showaccess('0','#url.mission##row#')">Revoke all steps</a>
+								<a href="javascript:showaccess('0','#url.mission##row#')"><cf_tl id="Revoke all steps"></a>
 							</cfif>
 							
 						</cfif>
@@ -416,10 +416,10 @@ function more(bx) {
 				 </cfif>
 				 				 								
 				  <td class="labelmedium linedotted" style="padding-left:10px"></td>
-				  <td class="labelmedium linedotted" valign="top" style="padding-top:4px;padding-right:8px"><cfif actiontype neq "Action"><font color="green"></cfif>#ActionType#</font>: #ActionDescription# <font size="1">(#ActionCode#)</font></td>				 			  
+				  <td class="labelmedium linedotted" valign="top" style="padding-top:4px;padding-right:8px">#ActionCode#:&nbsp;<cfif actiontype neq "Action"><font color="008000" style="font-weight:bold">#ActionType#</cfif></font> #ActionDescription#</td>				 			  
 				  <td class="labelmedium linedotted" style="padding:1px;padding-right:3px">
 				  
-					   <table width="100%" bgcolor="ffffff" cellspacing="0" cellpadding="0" style="border:1px solid gray">
+					   <table width="100%" style="border:1px solid gray">
 											  
 					   <cfquery name="Used" 
 							datasource="AppsOrganization" 

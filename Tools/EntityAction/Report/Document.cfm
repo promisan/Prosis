@@ -60,7 +60,7 @@ password="#SESSION.dbpw#">
 		<tr>
 		</cfif>  			    	  
 		
-		<td style="height:100px;border:1px solid silver;border-radius:5px">
+		<td style="height:100px;border:0px solid silver">
 		
 		    <table style="width:96%;height:100%" align="center">
 				    		  		   
@@ -88,7 +88,7 @@ password="#SESSION.dbpw#">
 					<table>
 					<tr>
 					<td style="padding-left:5px;padding-right:8px"><img src="#session.root#/images/documentedit.png" style="height:30px;width:30px" alt="" border="0"></td>
-					<td style="padding-top:7px;font-weight:normal;font-size:17px">#DocumentDescription#</td>
+					<td style="padding-top:0px;font-weight:normal;font-size:17px">#DocumentDescription#</td>
 					</tr>
 					</table>					
 					</td>					

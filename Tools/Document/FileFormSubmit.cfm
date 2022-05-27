@@ -97,15 +97,20 @@
 			
 			<cfif 	(not findNoCase(suf,att.AttachExtensionFilter)
 			      		and att.AttachExtensionFilter neq "NONE"
-				  		and len(att.AttachExtensionFilter) gte 3)
-					or
+				  		and len(att.AttachExtensionFilter) gte 3)>
+						
+						
+						<!--- the below was removed instead we control it through the original issue
+												
+     					or
 						(not IsImageFile("#rt##Dir#\#URL.ID#\#filename.ClientFile#")
 						 and
 						 not IsPdfFile("#rt##Dir#\#URL.ID#\#filename.ClientFile#")
 				         and
 				         findNoCase(".zip",filename.ClientFile) eq 0
 						)
-					>
+						
+						--->
 
 						<cffile action="DELETE"
 								 file="#rt##Dir#\#URL.ID#\#filename.ClientFile#">

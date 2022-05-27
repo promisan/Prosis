@@ -7,10 +7,10 @@
 	
 	<table width="100%" height="100%">	
 		<tr>					
-			<td>	
+			<td class="fixlength" style="width:100%">	
 							
 				 <table>
-				 <tr class="labelmedium" style="height:30px;font-size:17px;font-weight:390"> 			
+				 <tr class="labelmedium" style="height:30px;font-size:17px"> 			
 				 				 
 				 <cfif navmode neq "manual">
 
@@ -32,25 +32,25 @@
 					
 					 </cfif>					
 					
-					 <td style="padding-top:1px;padding-left:4px"><cf_tl id="Record"></td>
-					 <td style="padding-top:1px;padding-left:2px;"><cfif countedrows eq "0">0<cfelse>#first#</cfif></b></td>
-					 <td style="padding-top:1px;padding-left:2px;"><cf_tl id="to"></td>
-					 <td style="padding-top:1px;padding-left:2px;" name="#attributes.box#_rowshown"><cfif Last gt CountedRows>#CountedRows#<cfelse>#Last#</cfif></td>
-					 <td style="padding-top:1px;padding-left:2px;"><cf_tl id="of"></td>
-					 <td style="padding-top:1px;padding-left:2px;">#CountedRows#</td>
+					 <td class="fixlength" style="padding-top:1px"><cf_tl id="Record"></td>
+					 <td class="fixlength" style="padding-top:1px"><cfif countedrows eq "0">0<cfelse>#first#</cfif></b></td>
+					 <td class="fixlength" style="padding-top:1px"><cf_tl id="to"></td>
+					 <td class="fixlength" style="padding-top:1px" name="#attributes.box#_rowshown"><cfif Last gt CountedRows>#CountedRows#<cfelse>#Last#</cfif></td>
+					 <td class="fixlength" style="padding-top:1px"><cf_tl id="of"></td>
+					 <td class="fixlength" style="padding-top:1px">#CountedRows#</td>
 					 
 				 
 				 <cfelse>
 				 				 
-					 <td style="padding-top:1px;padding-left:4px"><cf_tl id="Group"></td>
-					 <td style="padding-top:1px;padding-left:2px;">#currrow#</td>
-					 <td style="padding-top:1px;padding-left:2px;"><cf_tl id="generated from"></td>
-					 <td style="padding-top:1px;padding-left:2px;" name="#attributes.box#_rowshown">#session.listingdata[box]['recordsinit']#</td>	
-					  <td style="padding-top:1px;padding-left:2px;"><cf_tl id="records"></td>			
+					 <td class="fixlength" style="padding-top:1px"><cf_tl id="Group"></td>
+					 <td class="fixlength" style="padding-top:1px">#currrow#</td>
+					 <td class="fixlength" style="padding-top:1px"><cf_tl id="generated from"></td>
+					 <td class="fixlength" style="padding-top:1px" name="#attributes.box#_rowshown">#session.listingdata[box]['recordsinit']#</td>	
+					 <td class="fixlength" style="padding-top:1px"><cf_tl id="records"></td>			
 								
 				 </cfif>	
 				 
-				 <td style="padding-top:1px;padding-left:10px;"><cfif attributes.isFiltered eq "Yes"><a href="javascript:listingshow('locate#attributes.box#')"><font color="FF8040">[<cf_tl id="result is filtered">]</a></i></font></cfif></td>
+				 <td style="padding-top:1px;padding-left:10px;"><cfif attributes.isFiltered eq "Yes"><a href="javascript:listingshow('locate#attributes.box#')"><font color="FF8040">[<cf_tl id="result is filtered">]</a></font></cfif></td>
 				 <td style="padding-top:1px;padding-left:2px;" id="#attributes.box#_performance"></td>		
 				 
 				</tr>

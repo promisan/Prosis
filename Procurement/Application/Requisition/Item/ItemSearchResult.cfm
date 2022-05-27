@@ -34,8 +34,13 @@
     FieldName="#Form.Crit5_FieldName#"
     FieldType="#Form.Crit5_FieldType#"
     Operator="#Form.Crit5_Operator#"
-    Value="#Form.Crit5_Value#">		
-	
+    Value="#Form.Crit5_Value#">
+<CF_Search_AppendCriteria
+		FieldName="#Form.Crit6_FieldName#"
+		FieldType="#Form.Crit6_FieldType#"
+		Operator="#Form.Crit6_Operator#"
+		Value="#Form.Crit6_Value#">
+
 </cfif>	
 	
 <!--- <cfoutput>#PreserveSingleQuotes(Criteria)#</cfoutput> ---> 
@@ -71,7 +76,9 @@ password="#SESSION.dbpw#">
 	AND    EXISTS (SELECT 'X' FROM ItemUoMMission WHERE ItemNo = U.ItemNo and UoM = U.UoM and Mission = '#url.mission#')
 	</cfif>	
 	<cfif checkMaster.recordcount gte "1">	
-    AND    I.ItemMaster = '#Form.ItemMaster#' 
+    	AND    I.ItemMaster = '#Form.ItemMaster#'
+	<cfelse>
+		AND 1 = 0
 	</cfif>
 	<cfif Criteria neq "">
 	AND    #PreserveSingleQuotes(Criteria)# 

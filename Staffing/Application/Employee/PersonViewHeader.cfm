@@ -153,7 +153,7 @@
 							  
 							   <td class="labelit" style="padding-top:1px"><font color="808080">#client.indexNoName#:<cf_space spaces="30"></td>   
                                <td class="labelmedium fixlength" style="height:20px;font-size:16px" colspan="1">
-							   <cfif url.refer eq "backoffice">
+							   <cfif url.refer eq "backoffice" or url.refer eq "workflow">
 							   #Employee.IndexNo#
 							   <cfelse>
 							   <a href="javascript:EditPerson('#Employee.PersonNo#')">#Employee.IndexNo#</a>
@@ -178,7 +178,7 @@
 									 incumbency="0"
 									 returnvariable="access000">
 																 
-		                           <cfif (access100 eq "EDIT" or access100 eq "ALL" or access000 eq "EDIT" or access000 eq "ALL") and url.scope eq "BackOffice">
+		                           <cfif (access100 eq "EDIT" or access100 eq "ALL" or access000 eq "EDIT" or access000 eq "ALL") and url.refer neq "workflow">
         	                       	  <cfoutput>
         	                       	  	<span class="clsNoPrint">&nbsp;[<a href="javascript:personedit(<cfoutput>'#PersonNo#'</cfoutput>);" style="color:0080C0;"><cf_tl id="Edit"></a>]</span>
 	                    	 	      </cfoutput>

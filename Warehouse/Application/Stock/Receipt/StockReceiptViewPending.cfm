@@ -151,7 +151,7 @@
 			
 			<table width="98%" border="0" align="center" class="navigation_table">
 			
-				<tr class="labelmedium line fixrow">
+				<tr class="labelmedium line fixrow fixlengthlist">
 						
 						<td style="min-width:20"></td>
 						<td style="min-width:40"></td>
@@ -186,7 +186,7 @@
 											
 				<cfoutput query="getListing" group="category">
 				
-					<tr class="clsHeader line fixrow2">
+					<tr class="clsHeader line fixrow2 fixlengthlist">
 											
 						<td colspan="13" height="30" class="headerCategoryDescription" style="font-size:18px; font-family:Calibri;">
 							<cfquery name="qGetSelected" dbtype="query">
@@ -209,7 +209,7 @@
 										
 					<cfoutput>
 					
-						<tr class="clsDetail navigation_row labelmedium line">
+						<tr class="clsDetail navigation_row labelmedium line fixlengthlist">
 							
 							<td class="ccategorydescription" style="visibility:hidden; height:21;font-size:1px;">#categoryDescription#</td>
 							

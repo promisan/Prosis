@@ -353,8 +353,8 @@ This is not how it intended, solution prevent check box if this was inherited by
 
 <cfoutput query="SearchResult" group="AccountType">
 
- <tr class="labelmedium fixrow">
-    <td colspan="9" style="padding-left:5px;height:40px;font-size:21px">
+ <tr class="labelmedium fixrow" style="background-color:white">
+    <td colspan="9" style="padding-left:5px;height:40px;font-size:21px;background-color:white">
 	<cfif accounttype eq "Group"><cf_tl id="User Group"><cfelse><cf_tl id="Individual User Account"></cfif>
 	</td>
  </tr>
@@ -367,29 +367,23 @@ This is not how it intended, solution prevent check box if this was inherited by
    	
     <tr class="labelmedium line fixlengthlist">
 	
-      <td colspan="9">
+      <td colspan="9" class="labelmedium" style="font-weight:bold;font-size:19px;height:35px">
 	  
 		  <cfif type eq "1. Manual">
 		  
-		    <h2 style="font-size: 15px;margin-bottom: 0px;">
-			<img width="24" src="#SESSION.root#/images/select.png" align="absmiddle" alt="" border="0" style="position: relative;top: -1px;"> 
 			Recorded / Amended</h2>
 			
 		  <cfelseif type eq "2. Inherited">
-		    
-            <h2 style="font-size: 15px;margin-bottom: 0px;">
-			<img width="24" src="#SESSION.root#/images/Access-Granted.png" align="absmiddle" alt="" border="0" style="position: relative;top: -1px;">
+			
 			Inherited access through user group(s)</h2>
            			
 		  <cfelseif Type eq "3. Denied">
-	        <h2 style="font-size: 15px;margin-bottom: 0px;">
-			<img width="24" src="#SESSION.root#/images/workflow_denied.png" align="absmiddle" alt="" border="0" style="position: relative;top: -1px;"> 
+	    	
 			<span color="808080">Denied</span>
 		    One or more rights inherited from a usergroup were revoked on the individual user level</h2>
 	 	 
 		  <cfelseif left(type,1) eq "0">
-		    <h2 style="font-size: 15px;margin-bottom: 0px;">
-			<img width="24" src="#SESSION.root#/images/select.png" align="absmiddle" alt="" border="0" style="position: relative;top: -1px;"> 
+			
 			Inherited through Global #url.mission# access</h2>
 		  			
 		  </cfif>
@@ -405,8 +399,10 @@ This is not how it intended, solution prevent check box if this was inherited by
 		<cfoutput group="UserAccount">
 		
 				<cfif not find(":#useraccount#",showaccount) or type eq "3. Denied">
-			
-			    <cfset showaccount = "#showaccount#:#useraccount#">
+				
+				<cfif type neq "1. Manual">			
+					    <cfset showaccount = "#showaccount#:#useraccount#">				
+				</cfif>
 				
 				<cfif AccountType eq "Group">
 				

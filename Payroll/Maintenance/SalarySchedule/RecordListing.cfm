@@ -3,7 +3,7 @@
 
 <cf_screentop height="100%" html="No" scroll="Yes" jQuery="Yes">
 
-<table width="100%" height="100%" style="min-width:1200px" align="center" >
+<table width="100%" height="100%" align="center" >
 <tr><td colspan="2" height="10">
 
 <cfset Page         = "0">
@@ -81,12 +81,12 @@ password="#SESSION.dbpw#">
 
 </cfoutput>
 	
-<tr><td colspan="2" style="Padding-top:5px">
+<tr><td colspan="2" style="padding-top:5px">
 
-	<table width="97%" height="100%" cellspacing="0" cellpadding="0" border="0" align="center" class="navigation_table">
+	<table width="97%" height="100%" align="center" class="navigation_table">
 	
-	 <tr><td height="30" class="labellarge" style="padding-left:6px;font-size:30px;height:50px">Salary schedule and Rates</td>
-		 <td align="right">
+	 <tr><td class="labellarge" style="padding-left:6px;font-size:30px;height:50px">Salary schedule and Rates</td>
+		 <td align="right" style="padding-right:6px">
 		   <input class="button10g" style="width:150px" type="button" name="Init" value="Initialise" onclick="reloadForm()">		
 		 </td>
 	</tr>
@@ -98,23 +98,21 @@ password="#SESSION.dbpw#">
 	
 		<table width="98%">
 		 
-			<tr class="line fixrow labelmedium" style="height:20px;">
-		    <td width="4%" align="center"></td>
-		    <td width="10%"><cf_tl id="Code"></td>
-			<td width="20%"><cf_tl id="Name"></td>
-			<td><cf_tl id="Period"></td>
-			<td><cf_tl id="Currency"></td>
-			<td><cf_tl id="Base Salary"></td>	
+			<tr class="line labelmedium fixlengthlist" style="height:20px;">
+		    <td align="center"></td>
+		    <td><cf_tl id="Code"></td>
+			<td><cf_tl id="Name"></td>
+			<td><cf_tl id="Modality"></td>			
 			</tr>					
 		
 		<cfoutput query="SearchResult" group="SalarySchedule"> 		    
 			
-		    <tr class="labelmedium navigation_row line">
+		    <tr class="labelmedium navigation_row line fixlengthlist">
 				<td style="height:30px" align="center">
 					<cf_img icon="edit" navigation="Yes" onclick="recordedit('#SalarySchedule#')">
 				</td>
-				<td style="min-width:150px;font-size:19px">#SalarySchedule#</td>
-				<td style="min-width:300px">#Description#</td>
+				<td style="font-size:19px">#SalarySchedule#</td>
+				<td>#Description#</td>
 				<td>
 				<cfif SalaryCalculationPeriod eq "MONTH">
 				<cfif SalaryBasePeriodDays eq "30">Actual Calendar Days (28-31)
@@ -122,14 +120,15 @@ password="#SESSION.dbpw#">
 				<cfelse>Average Working days (21.75)
 				</cfif>
 				</cfif>
+				#PaymentCurrency#
+				(<cfif SalaryBaseRate eq "1">Rate<cfelse>Negotiated Amount</cfif>)
 				</td>
-				<td>#PaymentCurrency#</td>
-				<td><cfif SalaryBaseRate eq "1">Rate<cfelse>Negotiated Amount</cfif></td>		
+				
 			</tr>	
 			
 			<cfoutput group="Mission"> 		
 			
-				<tr class="labelmedium line">
+				<tr class="labelmedium line fixlengthlist">
 				
 				<td></td>
 										

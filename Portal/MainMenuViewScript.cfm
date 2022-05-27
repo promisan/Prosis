@@ -59,15 +59,11 @@
 			catch(e){}
 			</cfif>
 		}
-		
-		<cfoutput>
-		
+				
 		function dotimeout () {
-				<!---ColdFusion.navigate('#SESSION.root#/system/entityaction/entityview/MyClearancesCount.cfm','myclearancescount','',ajaxerrorhandler);--->
 				ColdFusion.navigate('Widgets/Weather/weather.cfm','dweatherwid','',ajaxerrorhandler);
-				}
-		</cfoutput>
-		
+		}
+				
 		$(document).ready(function() {				
 			
 

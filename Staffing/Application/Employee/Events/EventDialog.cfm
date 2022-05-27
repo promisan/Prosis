@@ -15,10 +15,9 @@
 		AND    Operational = 1
 </cfquery>
 
-
 <cfif Object.recordcount eq "1">
 
-	<cfset url.ajaxid = Object.ObjectId>
+	<cfset url.object = Object.ObjectId>
 	
 	<cfif Object.ObjectKeyValue4 neq "">
 		
@@ -60,8 +59,8 @@
 		AND    Operational = 1
 	</cfquery>
 		
-	<cfset url.ajaxid = Object.ObjectId>
-		
+	<cfset url.object = Object.ObjectId>
+			
 	<cfquery name="Get" 
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
@@ -103,10 +102,11 @@
 	<cf_layoutarea  position="center" name="box">
 		
 	     <cf_divscroll style="height:99%">
-		 						
-			<cfset url.ajaxid = url.id>
-			
+		 				
+			<cfset url.ajaxid = url.id>				
+						
 			<table width="97%" align="center">
+			
 				<tr><td style="padding-top:5px;padding-left:5px;padding-right:5px"><cfinclude template="EventDialogView.cfm"></td></tr>
 				
 				<cfset wflnk = "#session.root#/Staffing/Application/Employee/Events/EventWorkflow.cfm">			
@@ -115,7 +115,8 @@
 		          id="workflowlink_#url.ajaxid#" 
         		  value="#wflnk#">  
 								
-				<tr><td style="padding-left:10px;padding-right:10px" id="#url.ajaxid#"><cfinclude template="EventWorkFlow.cfm"></td></tr>			
+				<tr><td style="padding-left:10px;padding-right:10px" id="#url.ajaxid#"><cfinclude template="EventWorkFlow.cfm"></td></tr>	
+						
 			</table>
 			
 		</cf_divscroll>	
@@ -124,10 +125,10 @@
 	
 	<cf_layoutarea 
 	    position="right" name="commentbox" minsize="20%" maxsize="30%" size="390" overflow="yes" collapsible="true" splitter="true">
-	
+				
 		<cf_divscroll style="height:99%">
-			<cf_commentlisting objectid="#eventid#"  ajax="No">		
-		</cf_divscroll>
+			<cf_commentlisting objectid="#url.object#"  ajax="No">		
+		</cf_divscroll>	
 		
 	</cf_layoutarea>		
 		

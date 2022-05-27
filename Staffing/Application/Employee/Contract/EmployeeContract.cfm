@@ -773,7 +773,7 @@ password="#SESSION.dbpw#">
 					<cfelse>
 						<cfset ecl = "white">
 					</cfif>
-					<td style="background-color:#ecl#;border:1px solid gray;height:10px;width:10px;font-size:7px"><cf_UIToolTip tooltip="#description#">&nbsp;</cf_UIToolTip></td>
+					<td style="background-color:#ecl#;border:1px solid gray;height:10px;width:10px;font-size:7px" title="#description#">&nbsp;</td>
 				    </cfloop>
 					</tr>
 				</table>

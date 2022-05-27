@@ -53,6 +53,19 @@
     </tr>	
 	
 	<TR>
+    <td class="labelmedium2">Sales Price setting:</b></td>
+    <TD class="labelmedium2">
+	<table>
+		<tr class="labelmedium2">
+		<td style="padding-left:0px"><input type="radio" class="radiol" name="PriceManagement" id="PriceManagement" <cfif PriceManagement eq "1">checked</cfif> value="1"></td>
+		<td style="padding-left:3px">Define on level store</td>
+		<td style="padding-left:6px"><input type="radio" class="radiol" name="PriceManagement" id="PriceManagement" <cfif PriceManagement eq "0">checked</cfif> value="0"></td>
+		<td style="padding-left:3px">Entity level</td>
+		</tr>
+	</table>
+    </tr>			
+	
+	<TR>
     <td class="labelmedium2">Sales Tax Mode COGS:</b></td>
     <TD class="labelmedium2">
 	<table>

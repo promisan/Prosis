@@ -85,7 +85,7 @@ password="#SESSION.dbpw#">
 					    <!---
 						<td class="labelit" valign="top" width="50" style="padding-top:5px;padding-left:14px;padding-right:10px"><font color="0080C0">#currentrow#.<font color="0080C0"></b></td>
 						--->
-					    <td width="95%" style="padding-left:4px">
+					    <td width="95%" style="padding-left:4px;padding-bottom:4px">
 						 
 							 <table style="width:100%">
 							 <tr>
@@ -286,11 +286,11 @@ password="#SESSION.dbpw#">
 										<td valign="top" class="ccontent" id="commentListingMailBodyContainer_#currentrow#" 
 										 style="border-radius:4px;background-color:<cfif officerUserId eq session.acc>##462C94<cfelse>##e3e3e3</cfif>;padding:2px;border:1px solid d1d1d1;#vPriorityColor#">
 																				
-											<div style="padding:6px;padding-top:10px;font-size:13px;color:<cfif officerUserId eq session.acc>white<cfelse>black</cfif>">#left(vMailBody,vMaxChars)# <cfif len(get.mailBody) gt vMaxChars>...</cfif></div>
+											<div style="padding:3px;padding-top:3px;font-size:13px;color:<cfif officerUserId eq session.acc>white<cfelse>black</cfif>">#left(vMailBody,vMaxChars)# <cfif len(get.mailBody) gt vMaxChars>...</cfif></div>
 											
 											<cfif len(get.mailBody) gt vMaxChars>
 												<cf_tl id="more" var="1">
-												<a id="commentListingMailBodyTwistie_#currentrow#" style="font-size:10px"													
+												<a id="commentListingMailBodyTwistie_#currentrow#" style="font-size:10px;<cfif officerUserId eq session.acc>color:white</cfif>"													
 													onclick="toggleCommentLength('##commentListingMailBodyContent_#currentrow#','##commentListingMailBodyContainer_#currentrow#','##commentListingMailBodyToggler_#currentrow#','##commentListingMailBodyTwistie_#currentrow#',#vMaxChars#);"> 
 													 #lt_text#
 												</a>

@@ -55,7 +55,7 @@
 			$('.clsHeader_'+ent).addClass('boldText');
 			$('.clsRow_'+ent).slideDown(100);
 			window['fnTextSearch'] = toggleTextSearch;			
-			ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/Actions.cfm?entityCode='+ent+'&EntityGroup='+eg+'&Mission='+miss+'&Owner='+owner+'&me='+me, 'container_'+ent, 'fnTextSearch');
+			ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/Actions.cfm?scope=#url.scope#&entityCode='+ent+'&EntityGroup='+eg+'&Mission='+miss+'&Owner='+owner+'&me='+me, 'container_'+ent, 'fnTextSearch');
 		}
 	}
 

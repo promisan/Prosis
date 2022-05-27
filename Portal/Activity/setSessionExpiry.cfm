@@ -1,7 +1,8 @@
 
 <cfquery name="get" 
 datasource="AppsSystem">
-	SELECT * FROM UserStatus	
+	SELECT  * 
+	FROM    UserStatus	
 	WHERE   UserStatusId  = '#URL.ID#'		
 </cfquery>
 
@@ -16,18 +17,21 @@ datasource="AppsSystem">
 	<cfset tracker = CreateObject("java", "coldfusion.runtime.SessionTracker")>
 	<cfset sessions = tracker.getSessionCollection(application.applicationName)>
 	
-	<cftry>
+	<cftry>	
 	
-		<cfset targetSession = sessions[ application.applicationName & '_' & get.HostSessionId]>
-		<cfset StructClear(targetSession)>
-			
+    	<cfset targetSession = sessions[ application.applicationName & '_' & get.HostSessionId]>
+	
 		<cfcatch>
 		
-		<script>alert('Jorge check')</script>
-				
-		</cfcatch>
+			<script>
+				alert('Session information was not found on this server and could not be terminated')
+			</script>
 		
+		</cfcatch>
+	
 	</cftry>
+	
+	<cfset StructClear(targetSession)>		
 	
 	<cfoutput>
 	

@@ -1121,8 +1121,7 @@
 				    </cfquery>		
 										
 					<!--- base currency compare --->
-				    <cfset cst = ReceiptAmountBaseCost/ReceiptWarehouse>		
-									   
+				    <cfset cst = ReceiptAmountBaseCost/ReceiptWarehouse>											   
 																								
 					<cfif getTransaction.Quantity         			 neq ReceiptWarehouse 					   
 						   or getTransaction.TransactionLot          neq TransactionLot
@@ -1627,9 +1626,7 @@
 									GLAccountCredit       = "#GLReceipt.GLAccount#">
 									
 									<!--- we set the sale price if the item has no prices set for 
-									the warehouse of this entity --->
-									
-									
+									the warehouse of this entity --->				
 									
 									<cfinvoke component = "Service.Process.Materials.Item"  
 									   method           = "createItemUoMPrice" 

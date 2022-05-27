@@ -92,7 +92,8 @@
 				  ActionStatus         = "9"
 				  UserAccount          = "#URL.ACC#"
 				  Condition            = "#condition#"
-				  DeleteCondition      = "Source = 'Manual' AND OrgUnit is not NULL">					 
+				  DeleteCondition      = "Source = 'Manual' AND OrgUnit is not NULL">		
+				   
 			  			  
 		<cfelse>
 		
@@ -104,7 +105,7 @@
 				  UserAccount          = "#URL.ACC#"
 				  Condition            = "#condition#"
 				  DeleteCondition      = "Source = 'Manual'">	
-				  	 
+				  				  	 
 		</cfif>	 
 																	
 		<!--- check for remaining entries = group that MATCH the manual entry --->
@@ -116,13 +117,14 @@
 			SELECT *
 			FROM   OrganizationAuthorization 
 			WHERE  #PreserveSingleQuotes(condition)# 
+			AND    Source = 'Manual'
 			<!--- removed on 26/1/2011 for the requestid processing of a global role --->
 			<cfif Role.OrgUnitLevel eq "Global">
 			<cfelse>
 			AND   AccessLevel = '#AccessLevel#'
 			</cfif>			
 		</cfquery>
-						
+												
 		<!--- make an insert if needed --->					
 
 		<cfif Check.recordcount eq "0"> <!--- and CheckManual.recordcount eq "0"> --->
@@ -185,10 +187,10 @@
 				
 			</cfif>	
 										
-					<cfquery name="Insert" 
-					datasource="AppsOrganization" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
+			<cfquery name="Insert" 
+				datasource="AppsOrganization" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
 					
 					INSERT INTO OrganizationAuthorization  
 					         (<cfif Role.OrgUnitLevel neq "Global" or Role.MissionasParameter eq "1">
@@ -231,11 +233,11 @@
 						  '#SESSION.first#', 
 						  getDate()) 				  
 						  
-					</cfquery>		
+			</cfquery>		
 											
-			</cfif>		
-											
-			<cfif orgunit eq "">
+		</cfif>		
+										
+		<cfif orgunit eq "">
 			
 			   <!--- ----------------------------------------------------------------------------------------------------- --->
 			   <!--- since access was now granted on a tree level, we can remove safely any entries on the unit level here --->
@@ -263,7 +265,7 @@
 				  AddDeny              = "1"
 				  AddDenyCondition     = "Source != 'Manual'">	 					
 										
-			</cfif>
+		</cfif>
 							
 </cfif>
 
@@ -336,7 +338,7 @@
 		 --->
 		 
 		 <cfloop index="item" from="1" to="1">
-
+		 
 		 		<cfif cnt gt 15>
 					<cfset cnt = 0>
 				</cfif>
@@ -361,7 +363,7 @@
 				<cfelse> 
 				
 				<!--- should have access, so check if higher group record exist in database --->
-
+				
 					<cfquery name="GroupEntry" 
 					datasource="AppsOrganization" 
 					username="#SESSION.login#" 
@@ -390,8 +392,9 @@
 													
 					</cfif>							
 										
-					<!--- check for any remaining (group) entries that match --->					
+					<!--- check for any remaining (group) entries that match --->		
 					
+										
 					<cfquery name="RemoveInheritedEntry" 
 					datasource="AppsOrganization" 
 					username="#SESSION.login#" 
@@ -416,9 +419,9 @@
 					</cfquery>		
 					
 					--->
-							
+																	
 					<cfif Check.recordcount eq "0">
-					
+										
 						<cfquery name="Insert" 
 						datasource="AppsOrganization" 
 						username="#SESSION.login#" 
@@ -453,7 +456,8 @@
 									'#SESSION.last#',
 									'#SESSION.first#' 
 							FROM   Organization
-							WHERE  OrgUnit IN (#preservesingleQuotes(units)#)						
+							WHERE  OrgUnit IN (#preservesingleQuotes(units)#)			
+									
 						</cfquery>							
 												
 					</cfif>
@@ -464,6 +468,7 @@
 	</cfif>		
 		
 </cfif>
+
 
 </cfoutput>
 

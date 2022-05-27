@@ -59,11 +59,11 @@ password="#SESSION.dbpw#">
 		
 	    <table width="100%" border="0" class="navigation_table">
 			
-	    <TR class="labelmedium line fixrow">
-		   <td style="width:100%;padding-left:3px;font-size:19px;font-weight:200" colspan="2"><cf_tl id="Grant access to the following USER GROUPS"></td>
-		   <td style="min-width:200;cursor:pointer"><cf_UIToolTip tooltip="Delegate security access to users assigned to this group">Delegation</cf_UIToolTip></td>
-		   <td style="min-width:80">Active</td>
-		   <td colspan="1" style="min-width:200"></td>		
+	    <TR class="labelmedium2 line fixlengthlist">
+		   <td style="padding-left:3px;font-size:19px;" colspan="2"><cf_tl id="Grant access to the following USER GROUPS"></td>
+		   <td style="cursor:pointer"><cf_UIToolTip tooltip="Delegate security access to users assigned to this group"><cf_tl id="Delegation"></cf_UIToolTip></td>
+		   <td>Active</td>
+		   <td colspan="1"></td>		
 		  
 	    </TR>			
 		
@@ -87,24 +87,28 @@ password="#SESSION.dbpw#">
 						
 			<cfelse>
 			
-				<TR class="labelmedium navigation_row line">
+				<TR class="labelmedium navigation_row line fixlengthlist">
 				   <td colspan="2" height="20" style="padding-left:4px"><a href="javascript:ShowUser('#URLEncodedFormat(Account)#')">#Account# : #LastName#</a></td>
 				   
 				   <td><cfif detail.delegation eq "0"><font color="red">No<cfelse>Yes</cfif></td>
 				   <td><cfif op eq "0">No<cfelse>Yes</cfif></td>
 				   
-				   <td colspan="2"><table align="center">
-				   <tr class="labelmedium">
-				   <cfif URL.status eq "0">
-				     <td align="center">				 
-					    <cf_img icon="edit" onclick="ColdFusion.navigate('Group.cfm?status=#url.status#&ID=#URL.ID#&ID1=#Account#','groupbox')">											
-					 </td>
-					 <td style="padding-left:4px;padding-right:24px;padding-top:1px">				   
-					   <cf_img icon="delete" onclick="ptoken.navigate('GroupPurge.cfm?status=#url.status#&ID=#URL.ID#&ID1=#Account#','groupbox')">				   					
-					 </td>			   				  
-				   </cfif>	
-				   </tr>	
-				   </table></td>	   
+				   <td colspan="2">
+				   
+					   <table align="center">
+					   <tr class="labelmedium">
+					   <cfif URL.status eq "0">
+					     <td align="center">				 
+						    <cf_img icon="edit" onclick="ColdFusion.navigate('Group.cfm?status=#url.status#&ID=#URL.ID#&ID1=#Account#','groupbox')">											
+						 </td>
+						 <td style="padding-left:4px;padding-right:24px;padding-top:1px">				   
+						   <cf_img icon="delete" onclick="ptoken.navigate('GroupPurge.cfm?status=#url.status#&ID=#URL.ID#&ID1=#Account#','groupbox')">				   					
+						 </td>			   				  
+					   </cfif>	
+					   </tr>	
+					   </table>
+				   
+				   </td>	   
 			    </TR>	
 			
 			</cfif>

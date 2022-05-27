@@ -55,14 +55,14 @@
 <!--- filter fields to be shown --->
 <cfset attributes.listlayout = session.listingdata[url.box]['listlayout']>
 
+<cfset attributes.cachedisable = "false">
+
 <!-- <cfform> -->
 <!--- now we render the filter again --->
 <cfinclude template="ListingFilter.cfm">
-
 <!-- </cfform> -->
 
 <cfset ajaxOnLoad("doCalendar")>
-
 
 <script>
   applyfilter('1','','content')

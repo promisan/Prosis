@@ -293,8 +293,8 @@ password="#SESSION.dbpw#">
 				password="#SESSION.dbpw#">
 					SELECT    *
 					FROM      Warehouse
-					WHERE     Mission = '#form.mission#'
-					AND       Operational = 1	
+					-- WHERE     Mission = '#form.mission#'
+					WHERE     Operational = 1	
 					<cfif form.Warehouse eq "">
 					AND       1 = 0
 					<cfelse>
@@ -488,9 +488,9 @@ password="#SESSION.dbpw#">
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				UPDATE ItemUoM
-				SET		ItemBarcode = '#vBarCode#'
-				WHERE 	ItemNo   = '#ItemNo#'
-				AND		UoM      = '#uom#'
+				SET		ItemBarcode  = '#vBarCode#'
+				WHERE 	ItemNo       = '#ItemNo#'
+				AND		UoM          = '#uom#'
 				AND     (ItemBarCode is NULL or ItemBarCode = '')
 			</cfquery>
 		

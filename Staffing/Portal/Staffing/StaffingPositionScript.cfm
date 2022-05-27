@@ -12,10 +12,10 @@
 
 	<script language="JavaScript">
 	
-		function doFilter() {
+		function doFilter(content) {
 			var vUnits = $('.clsFilterUnit:checked').map(function() {return this.value;}).get().join(',');		
 			// Prosis.busyRegion('yes','main');		
-			ptoken.navigate('StaffingPositionListing.cfm?mission=#url.mission#&selection=#url.selection#&unit='+vUnits, 'main');
+			ptoken.navigate('StaffingPositionListing.cfm?content='+content+'&systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&selection=#url.selection#&unit='+vUnits, 'main');
 		}
 		
 		function ViewPosition(pos) {
@@ -24,12 +24,14 @@
 		}
 						
 		function AddClassification(pos,ajaxid) {
-			ProsisUI.createWindow('classify', 'Record Classification', '',{x:100,y:100,height:600,width:840,modal:true,center:true});	
+		    if (document.body.clientHeight-60 >= 680) { ht = 680 } else { ht = document.body.clientHeight-40 } 
+			ProsisUI.createWindow('classify', 'Record Classification', '',{x:100,y:100,height:ht,width:840,modal:true,center:true});	
 			ptoken.navigate('#SESSION.root#/Staffing/Portal/Staffing/StaffingPositionClassification.cfm?positionparentid='+pos+'&ajaxid='+ajaxid+'&portal=1&init=1','classify')		
 		}
 		
 		function AddVacancy(postno,box) {
-			ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:document.body.clientHeight-90,width:900,modal:true,center:true});	
+		    if (document.body.clientHeight-60 >= 750) { ht = 750 } else { ht = document.body.clientHeight-40 } 
+			ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:ht,width:900,modal:true,center:true});	
 			ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?box='+box+'&portal=1&Mission=#URL.Mission#&ID1=' + postno + '&Caller=Listing','mydialog');	
 		}
 		
@@ -47,9 +49,10 @@
 		    ptoken.open("#SESSION.root#/Roster/RosterGeneric/RosterSearch/Search1ShortList.cfm?mode=vacancy&wActionId="+actionid, "search"+ajaxid, "left=35, top=35, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=yes")	
 	    }
 			
-		function AddEvent(per,pos,box,trg,cde) {    		   		   
-			ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:100,y:100,height:600,width:690,modal:true,resizable:false,center:true})    					
-		   	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?box='+box+'&portal=1&personNo='+per+'&positionno='+pos+'&trigger='+trg+'&code='+cde,'evdialog')		 	
+		function AddEvent(per,pos,box,trg,cde,org) {    		
+		    if (document.body.clientHeight-60 >= 600) { ht = 600 } else { ht = document.body.clientHeight-40 }    		   
+			ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:100,y:100,height:ht,width:690,modal:true,resizable:false,center:true})    					
+		   	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?box='+box+'&portal=1&personNo='+per+'&positionno='+pos+'&orgunit='+org+'&trigger='+trg+'&code='+cde,'evdialog')		 	
 		}
 		
 		function checkevent() {
@@ -87,23 +90,23 @@
 			ebx = document.getElementById('expirybox');		
 			
 			if (pos.value=='' && pbx.className!= 'hide') {		   
-				Ext.Msg.alert('Position', 'Please specify a position.');			
+				alert('Please specify a position.');			
 			} else if (tc.value  == '')   {		   
-				Ext.Msg.alert('Trigger', 'Please specify an event trigger.');
+				alert('Please specify an event trigger.');
 			} else if (doc.value  == '' && dbx.className!= 'hide')   {		    
-				Ext.Msg.alert('Document', 'Please specify a Recruitment Document.');	
+				alert('Please specify a Recruitment Document.');	
 			} else if (req.value=='' && rbx.className!='hide'){		    
-				Ext.Msg.alert('Requisition', 'Please specify Requisition No.');
+				alert('Please specify Requisition No.');
 			} else if (ev.value  == '')   {		    
-				Ext.Msg.alert('Event', 'Please specify an event action.');		
+				alert('Please specify an event action.');		
 			} else if (de.value  == '')   {		    
-				Ext.Msg.alert('Effective date', 'Please specify Event Date.');
+				alert('Please specify Event Date.');
 			} else if (ded.value == '')  {		    
-				Ext.Msg.alert('Expiration date', 'Please specify Due Date.');
+				alert('Please specify Due Date.');
 			} else if (eff.value == '')  {		    
-				Ext.Msg.alert('Effective date', 'Please specify Action effective Date.');	
+				alert('Please specify Action effective Date.');	
 			} else if (exp.value == '' && ebx.className!= 'hide') {		    
-				Ext.Msg.alert('Effective date', 'Please specify Action expiration Date.');		
+				alert('Please specify Action expiration Date.');		
 			} else{		
 	    		ptoken.navigate('#SESSION.root#/Staffing/Application/employee/events/EventFormSubmit.cfm?box='+box+'&eventid='+id,'process','','','POST','eventform')		
 			}

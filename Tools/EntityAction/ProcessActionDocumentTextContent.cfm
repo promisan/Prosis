@@ -25,96 +25,92 @@ on March 12th 2011--->
 		<tr style="height:30px;">
 		<td width="160" height="20" style="padding-left:0px;padding-right:0px">
 
-		<table>
-		<tr>
-		<td>
+			<table>
+			<tr>
+			<td>
+					<button type="button"
+					name="Save#No#" id="Save#No#"
+							style="width:227;height:26"
+							class="button10g"
+				onclick="updateTextArea();saveoutput('save','#url.MemoActionid#','#url.documentId#','document#no#',document.getElementById('element#no#').value);">
+			<cf_tl id="Save Content"></button>
+		   </td>
+	
+		   <td style="padding-left:3px">
 				<button type="button"
-				name="Save#No#" id="Save#No#"
-						style="width:227;height:26"
+				name="Clean#No#" id="Clean#No#"
+						style="width:137;height:26"
 						class="button10g"
-			onclick="updateTextArea();saveoutput('save','#url.MemoActionid#','#url.documentId#','document#no#',document.getElementById('element#no#').value);">
-		<cf_tl id="Save Content"></button>
-	</td>
+				onclick="ptoken.navigate('ProcessActionDocumentTextElement.cfm?save=1&no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&frm=document#no#&element='+document.getElementById('element#no#').value,'boxFieldDoc#no#','','','POST','document#no#')">
+				<img src="#SESSION.root#/Images/refresh.gif" align="absmiddle" alt="Removes invalid characters from the text" border="0"><cf_tl id="Cleanse Text"></button>
+		    </td>
+			<td class="hide" style="padding-left:4px" id="myboxes"></td>
+		    </tr>
+		    </table>
 
-	<td style="padding-left:3px">
-			<button type="button"
-			name="Clean#No#" id="Clean#No#"
-					style="width:137;height:26"
-					class="button10g"
-			onclick="ptoken.navigate('ProcessActionDocumentTextElement.cfm?save=1&no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&frm=document#no#&element='+document.getElementById('element#no#').value,'boxFieldDoc#no#','','','POST','document#no#')">
-			<img src="#SESSION.root#/Images/refresh.gif" align="absmiddle" alt="Removes invalid characters from the text" border="0"><cf_tl id="Cleanse Text"></button>
-	</td>
-		<td class="xxxhide" style="padding-left:4px" id="myboxes"></td>
-	</tr>
-	</table>
-
-	</td>
+	    </td>
 
 		<cfoutput>
 
-				<td>
-
-						<input type="hidden" name="element#no#"   id="element#no#"   value="documentcontent">
-					<input type="hidden" name="margintop#no#" id="margintop#no#" value="#doc.DocumentMarginTop#">
-
+			<td>
+			<input type="hidden" name="element#no#"   id="element#no#"   value="documentcontent">
+			<input type="hidden" name="margintop#no#" id="margintop#no#" value="#doc.DocumentMarginTop#">
 			<table><tr>
 				<cfloop index="itm" list="documentcontent,documentheader">
-
 						<td class="labelmedium" style="padding-left:10px">
 								<input type="radio" name="ele#no#" id="ele#no#" class="radiol" value="#itm#" <cfif itm eq "documentcontent">checked</cfif>
 						onClick="document.getElementById('Save#No#').click();document.getElementById('element#no#').value='#itm#';ptoken.navigate('ProcessActionDocumentTextElement.cfm?no=#no#&memoactionid=#url.MemoActionID#&documentid=#url.documentid#&element=#itm#','boxFieldDoc#no#')">
-
 						<cfif itm eq "documentcontent">Body
 							<cfelseif itm eq "documentheader">Header/Footer
 						</cfif>
 						</td>
 				</cfloop>
-
 				</tr>
-				</table>
-
-				</td>
+			</table>
+			</td>
 
 		</cfoutput>
 
 		<td align="right">
 
 		<table>
-
-		<tr><td>
+		<tr><td style="padding-left:4px">
 
 				<button type="button"
 						name="Mail" id="Mail"
-						style="width:41;height:25"
+						style="width:41;height:41"
 						class="button10g"
 				onclick="saveoutput('mail','#url.MemoActionid#','#url.documentId#','document#no#',document.getElementById('element#no#').value)">
 			<img src="#SESSION.root#/Images/mail_new.gif" align="absmiddle" alt="Send eMail" border="0">
-	</button>
+	            </button>
 
-	</td>
-	<td style="padding-left:4px">
+     	</td>
+    	<td style="padding-left:4px">
 
 			<button type="button"
 					name="Print" id="Print"
-					style="width:41;height:25"
+					style="width:41;height:41"
 					class="button10g"
 			onclick="saveoutput('pdf','#url.MemoActionid#','#url.documentId#','document#no#',document.getElementById('element#no#').value)">
 			<img src="#SESSION.root#/Images/pdf_small.gif" align="absmiddle" alt="PDF" border="0">
-	</button>
+	        </button>
 
-	</td>
-	<td style="padding-left:4px">
+    	</td>
+		
+		<!---
+	    <td style="padding-left:4px">
 
 			<button type="button"
 					name="Print" id="Print"
-					style="width:41;height:25"
+					style="width:41;height:41"
 					class="button10g" onclick="saveoutput('print','#URL.MemoActionid#','#url.documentId#','document#no#',document.getElementById('element#no#').value)">
-			<img src="#SESSION.root#/Images/print.gif" align="absmiddle" alt="Print" border="0">
-	</button>
+			      <img src="#SESSION.root#/Images/print.gif" align="absmiddle" alt="Print" border="0">
+        	</button>
 
-	</td>
-	</tr>
-	</table>
+      	</td>
+		--->
+     	</tr>
+    	</table>
 
 	</td>
 	</tr>
@@ -124,9 +120,9 @@ on March 12th 2011--->
 		<cfif url.textmode eq "read">
 
 				<div align="left" style="height:100%; width:100%; position:absolute; overflow: auto; border-top: 0px solid Silver;">
-				<cfset text = replace(doc.DocumentContent,"<script","<disable","all")>
-						 <cfset text = replace(text,"<iframe","<disable","all")>
-						 <cf_paragraph>#text#</cf_paragraph>
+				  <cfset text = replace(doc.DocumentContent,"<script","<disable","all")>
+				  <cfset text = replace(text,"<iframe","<disable","all")>
+				  <cf_paragraph>#text#</cf_paragraph>
 				</div>
 
 			<cfelseif Doc.DocumentMode eq "AsIs" or url.textmode eq "prior">
@@ -143,7 +139,7 @@ on March 12th 2011--->
  --->
 
 				<iframe src="#session.root#\Tools\EntityAction\ProcessActionDocumentTextContentAsIs.cfm?memoactionid=#url.memoactionid#&documentid=#url.documentid#"
-					width="100%" height="100%" frameborder="0"></iframe>
+					width="99%" height="100%" frameborder="0"></iframe>
 
 		<cfelse>
 
@@ -152,7 +148,7 @@ on March 12th 2011--->
 				<form id="document#no#" name="document#no#" style="height:100%;padding-right:2px">
 				<cfdiv id="boxFieldDoc#no#">
 						<cfinclude template="ProcessActionDocumentTextElement.cfm">
-					</cfdiv>
+				</cfdiv>
 				</form>
 
 		</cfif>
@@ -192,71 +188,72 @@ on March 12th 2011--->
 
 	<cfelse>
 
-		<form name="document#no#" id="document#no#" style="height:100%">
+	<form name="document#no#" id="document#no#" style="height:100%">
 
 	<table border="0" height="100%" width="100%">
 
 	<tr class="line">
 
-	<td align="left" colspan="3" height="26" style="padding-top:3px;padding-left:1px">
+	<td align="left" colspan="3" height="26" style="padding-left:1px">
 
-	<table class="formspacing">
-
-	<tr>
-
-<!--- this option is disabled
-
-<cfif url.textmode neq "read">
-
-     <td style="height:30px" class="labelit">Header Margin:&nbsp;
-
-    <select name="margintop" id="margintop" class="regularxl"
-     onChange="ColdFusion.Ajax.submitForm('doc#no#','ProcessActionDocumentSubmit.cfm?documentid=#url.documentid#')">
-     <cfloop index="m" from="0.0" to="5" step="0.5">
-         <option value="#m#"
-         <cfif doc.DocumentMarginTop eq m>selected</cfif>>#m#</option>
-      </cfloop>
-      </select>
-
-     </td>
-
-    <td width="10">&nbsp;</td>
-
-</cfif>
-
---->
-
-		<td align="right" style="width:20;height:30px">
+		<table class="formspacing">
+	
+		<tr>
+	
+	<!--- this option is disabled
+	
+	<cfif url.textmode neq "read">
+	
+	     <td style="height:30px" class="labelit">Header Margin:&nbsp;
+	
+	    <select name="margintop" id="margintop" class="regularxl"
+	     onChange="ColdFusion.Ajax.submitForm('doc#no#','ProcessActionDocumentSubmit.cfm?documentid=#url.documentid#')">
+	     <cfloop index="m" from="0.0" to="5" step="0.5">
+	         <option value="#m#"
+	         <cfif doc.DocumentMarginTop eq m>selected</cfif>>#m#</option>
+	      </cfloop>
+	      </select>
+	
+	     </td>
+	
+	    <td width="10">&nbsp;</td>
+	
+	</cfif>
+	
+	--->
+	
+			<td align="right">
+					<button type="button"
+							name="Mail" id="Mail"
+							style="width:41px;height:31px"
+							class="button10g" onclick="docoutput('mail','#URL.MemoActionid#','#url.documentId#')">
+				<img src="#SESSION.root#/Images/mail_new.gif" align="absmiddle" alt="Send eMail" border="0">
+			</button>
+			</td>
+	
+			<td align="right">
 				<button type="button"
-						name="Mail" id="Mail"
-						style="width:41;height:25"
-						class="button10g" onclick="docoutput('mail','#URL.MemoActionid#','#url.documentId#')">
-			<img src="#SESSION.root#/Images/mail_new.gif" align="absmiddle" alt="Send eMail" border="0">
-	</button>
-	</td>
-
-	<td align="right"  style="width:20;height:30px">
-			<button type="button"
-					name="PDF"  id="PDF"
-					style="width:41;height:25"
-					class="button10g" onclick="docoutput('pdf','#URL.MemoActionid#','#url.documentId#')">
-			<img src="#SESSION.root#/Images/pdf_small.gif" align="absmiddle" alt="PDF" border="0">
-	</button>
-	</td>
-
-
-	<td align="right"  style="width:20;height:30px">
-			<button type="button"
-					name="Print" id="Print"
-					style="width:41;height:25"
-					class="button10g" onclick="docoutput('print','#URL.MemoActionid#','#url.documentId#')">
-			<img src="#SESSION.root#/Images/print.gif" align="absmiddle" alt="Print" border="0">
-	</button>
-	</td>
-		<td width="2"></td>
-
-	</tr>
-	</table>
+						name="PDF"  id="PDF"
+						style="width:41px;height:31px"
+						class="button10g" onclick="docoutput('pdf','#URL.MemoActionid#','#url.documentId#')">
+				<img src="#SESSION.root#/Images/pdf_small.gif" align="absmiddle" alt="PDF" border="0">
+				</button>
+			</td>
+	
+	        <!---
+			<td align="right">
+				<button type="button"
+						name="Print" id="Print"
+						style="width:41;height:31"
+						class="button10g" onclick="docoutput('print','#URL.MemoActionid#','#url.documentId#')">
+				<img src="#SESSION.root#/Images/print.gif" align="absmiddle" alt="Print" border="0">
+				</button>
+			</td>
+			--->
+			<td width="2"></td>
+	
+		</tr>
+		</table>
 
 	</td></tr>
 
@@ -266,7 +263,7 @@ on March 12th 2011--->
 
 		<cfif url.textmode eq "read">
 
-				<div align="left" style="height:290px; width:100%; position:absolute; overflow: auto; border-top: 0px solid Silver;">
+				<div align="left" style="height:290px; width:99.5%; position:absolute; overflow: auto; border-top: 0px solid Silver;">
 				<cfset text = replace(doc.DocumentContent,"<script","<disable","all")>
 				 <cfset text = replace(text,"<iframe","<disable","all")>
 				 <cf_paragraph>#text#</cf_paragraph>
@@ -274,8 +271,7 @@ on March 12th 2011--->
 
 			<cfelseif Doc.DocumentMode eq "AsIs" or url.textmode eq "prior">
 
-				<iframe
-						src="#session.root#\Tools\EntityAction\ProcessActionDocumentTextContentAsIs.cfm?memoactionid=#url.memoactionid#&documentid=#url.documentid#"
+				<iframe	src="#session.root#\Tools\EntityAction\ProcessActionDocumentTextContentAsIs.cfm?memoactionid=#url.memoactionid#&documentid=#url.documentid#"
 					width="100%"
 					height="100%"
 					scrolling="yes"

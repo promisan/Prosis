@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
 		<cfset l = len(DocumentDescription)>
 		<cfset w = l*8>
 				
-		<tr class="line">
+		<tr class="linedotted">
 		    <td width="9"></td>					
 		   	<td style="min-width:320px;max-width:420px;width:420px;padding-left:10px" class="labelmedium">#DocumentDescription# <cfif FieldRequired eq "1"><font color="FF0000">*</font></cfif> :</td>
 			<td style="height:100%" valign="top">
@@ -131,6 +131,4 @@ password="#SESSION.dbpw#">
 
 </td</tr>
 	
-</cfif>   	   	
-
-
+</cfif>   

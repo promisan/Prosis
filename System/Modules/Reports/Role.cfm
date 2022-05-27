@@ -65,20 +65,20 @@ password="#SESSION.dbpw#">
 <table width="100%" lign="center" class="formpadding">
     <tr><td>
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+	<table width="100%" align="center" class="navigation_table">
 	    
 	  <tr>
 	    <td width="100%">
 		
-	    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+	    <table width="100%">
 			
-	    <TR class="line labelmedium">
-		   <td style="width:100%;padding-left:3px;font-size:19px;font-weight:200">Grant access to the following ROLES</td>
-		   <td style="min-width:100;cursor:pointer;"><cf_UIToolTip tooltip="Limit access to users with the owner assigned for the selected<br>Note:</b>Mostly for system roles">Owner</cf_UIToolTip></td>
-		   <td style="min-width:100;cursor:pointer;"><cf_UIToolTip tooltip="Limit access to users with the mission assigned for the selected role"><cf_tl id="Entity"></cf_UIToolTip></td>
-		   <td style="min-width:200;cursor:pointer;"><cf_UIToolTip tooltip="Delegate the option to grant security access for this report to users assigned to this role"><cf_tl id="Delegation"></cf_UIToolTip></td>
-		   <td style="min-width:80;color:909090;">Active</td>
-		   <td style="min-width:200" align="center" colspan="2">
+	    <TR class="line labelmedium2 fixlengthlist">
+		   <td style="padding-left:3px;font-size:19px">Grant access to the following ROLES</td>
+		   <td style="cursor:pointer;"><cf_UIToolTip tooltip="Limit access to users with the owner assigned for the selected<br>Note:</b>Mostly for system roles">Owner</cf_UIToolTip></td>
+		   <td style="cursor:pointer;"><cf_UIToolTip tooltip="Limit access to users with the mission assigned for the selected role"><cf_tl id="Entity"></cf_UIToolTip></td>
+		   <td style="cursor:pointer;"><cf_UIToolTip tooltip="Delegate the option to grant security access for this report to users assigned to this role"><cf_tl id="Delegation"></cf_UIToolTip></td>
+		   <td style="color:909090;">Active</td>
+		   <td align="center" colspan="2">
 		   		<cfoutput>
 		   		<a title="Add Role" href="javascript:editrole('#url.status#','#url.id#','');">					
 					[<cf_tl id="Add role">]					
@@ -95,7 +95,7 @@ password="#SESSION.dbpw#">
 													
 		<cfif URL.ID1 eq Role>
 									
-			<TR class="navigation_row line labelmedium">
+			<TR class="navigation_row line labelmedium fixlengthlist">
 						    					   						 						  
 			   <td height="20" style="padding-left:3px!important"">#Role# - #Description#</td>
 			   <td width="80">

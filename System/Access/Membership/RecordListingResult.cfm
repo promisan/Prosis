@@ -67,6 +67,8 @@
 				       Ref_AccountGroup R ON R.AccountGroup = U.AccountGroup
 					   
 				WHERE  U.AccountType = 'Group'
+				
+				AND    U.Disabled = 0
 								
 				<cfif url.mission neq "">		
 				AND    U.AccountMission = '#url.mission#'
@@ -84,6 +86,8 @@
 								)						  
 										
 				</cfif>
+				
+				<!--- we filter usergroups based on the access --->
 				
 				<cfif SESSION.isAdministrator eq "No"> 
 				
@@ -126,6 +130,7 @@
 	<tr class="labellarge line fixrow fixlengthlist">
 	    <td></td>
 	    <TD><cf_tl id="Group"></TD>
+		<TD><cf_tl id="Usage"></TD>
 		<TD><cf_tl id="Account"></TD>		
 		<TD align="center">M</TD>
 		<TD><cf_tl id="Officer"></TD>
@@ -135,7 +140,7 @@
 		
 	<cfif searchresult.recordcount eq "0">
 	
-	     <tr><td align="center" colspan="7" class="labellarge" style="font-weight:200;padding-top:10px"><cf_tl id="There are no records to show in this view"></td></tr>
+	     <tr><td align="center" colspan="7" class="labellarge" style="padding-top:10px"><cf_tl id="There are no records to show in this view"></td></tr>
 	
 	</cfif>
 	
@@ -146,8 +151,7 @@
 		<cfoutput group = "AccountMission">		
 		
 			<tr>
-			<td class="labellarge" style="padding-top:16px;font-size:24px;height:38px;padding-left:22px;font-weight:200" 
-			colspan="8">
+			<td class="labellarge" style="padding-top:16px;font-size:24px;height:38px;padding-left:22px;font-weight:200" colspan="8">
 			
 			 <cfif url.search neq "">
 				<cfset ref = replaceNoCase(AccountOwnerName, url.search,"<u><font color='red'>#url.search#</font></u>", "ALL")> 
@@ -170,40 +174,45 @@
 		<cfoutput group = "HierarchyCode">	
 		
 		 <cfif entities.recordcount lte "10">	
+		 
 			<tr style="background-color:white">
-				<td colspan="8" style="height:42px;padding-top:5px;padding-left:25px;font-size:26px">
-						   		
-				<cfif orgunitname eq ""><cf_tl id="Multiple"><cfelse>#OrgUnitName#</cfif>		
-				
+				<td colspan="9" style="height:42px;padding-top:5px;padding-left:25px;font-size:26px">						   		
+				<cfif orgunitname eq ""><cf_tl id="Multiple"><cfelse>#OrgUnitName#</cfif>						
 				</td>
 			</tr>	
+			
 		 </cfif>	
 				
 		<cfoutput group = "AccountGroupName">		
 			
 			<tr class="fixrow2 navigation_row labelmedium2 fixlengthlist">
 			
-			<td colspan="8" title="#AccountGroupName#" style="height:31px;padding-top:5px;padding-left:27px;font-size:16px;">#AccountGroupName#</td></tr>						
+			   <td colspan="8" title="#AccountGroupName#" style="height:31px;padding-top:5px;padding-left:27px;font-size:16px;">#AccountGroupName#</td>
+			
+			</tr>						
 												
-				<cfoutput>
+			<cfoutput>
 												
-				<TR bgcolor="white" class="navigation_row line labellarge fixlengthlist">
+				<TR bgcolor="white" class="navigation_row line labelmedium fixlengthlist">
 					<td align="center" style="padding-left:40px;padding-top:8px">				
 					    <cf_img icon="expand" toggle="yes" onclick="more('#Account#','#currentRow#')">														
 					</td>
 	
-					<TD style="padding-left:10px">
-					<a class="navigation_action" href="javascript:ShowUser('#URLEncodedFormat(Account)#')">					
-					<cfif url.search neq "">
-						<cfset ref = replaceNoCase(LastName, url.search,"<u><font color='6688aa'>#url.search#</font></u>", "ALL")> 
-					<cfelse>
-					    <cfset ref = LastName>	
-					</cfif>										
-														
-					<span title="#ref#">#ref#</span>				
+					<TD style="padding-left:3px">
 					
-					</a>
+						<a class="navigation_action" href="javascript:ShowUser('#URLEncodedFormat(Account)#')">					
+						
+							<cfif url.search neq "">
+								<cfset ref = replaceNoCase(LastName, url.search,"<u><font color='6688aa'>#url.search#</font></u>", "ALL")> 
+							<cfelse>
+							    <cfset ref = LastName>	
+							</cfif>																	
+							<span title="#LastName#">#ref#</span>				
+						
+						</a>
+					
 					</TD>
+					<td title="#remarks#">#remarks#</td>
 					
 					<cfif url.search neq "">
 							<cfset sub = replaceNoCase(Account, url.search,"<u><font color='6688aa'>#url.search#</font></u>", "ALL")> 
@@ -211,29 +220,31 @@
 						    <cfset sub = Account>	
 						</cfif>		
 										
-					<TD style="padding-right:4px">#sub#</TD>
-					<td align="center" style="padding-right:8px">#Members#</td>
-					<TD style="font-size:13px">#OfficerLastName#</TD>
-					<TD style="font-size:13px">#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
-					<TD style="padding-top:2px;padding-left:3px">	
+					<TD>#sub#</TD>
+					<td align="center">#Members#</td>
+					<TD>#OfficerLastName#</TD>
+					<TD>#Dateformat(Created, "#CLIENT.DateFormatShow#")#</TD>
+					<TD style="padding-top:2px">	
 						<cf_img icon="delete" onclick="purgegroup('#account#')">		   			
 					</TD>
 				</TR>	
 				
-				<cfif remarks neq "">
+				<!---
 				
-				<tr class="fixrow2 navigation_row_child labelmedium2"><td colspan="7">#remarks#</td></tr>
-				
+				<cfif remarks neq "">				
+				<tr class="fixrow2 navigation_row_child labelmedium2"><td colspan="7">#remarks#</td></tr>				
 				</cfif>
 				
+				--->				
 					
 				<tr id="#CurrentRow#" class="hide">
-				        <td></td>
-						<td colspan="6"><cfdiv id="s#CurrentRow#"/></td>
-						<td></td>
+				     <td></td>
+					 <td colspan="7"><cfdiv id="s#CurrentRow#"/></td>
+					 <td></td>
 				</tr>	
 													
-				</cfoutput>						
+			</cfoutput>						
+			
 				</cfoutput>	
 			</cfoutput>				
 		</cfoutput>

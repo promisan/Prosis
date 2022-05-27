@@ -2,6 +2,7 @@
 <cfparam name="URL.ID" 			default="">
 <cfparam name="URL.PersonNo" 	default="">
 <cfparam name="URL.PositionNo" 	default="">
+<cfparam name="URL.OrgUnit" 	default="">
 <cfparam name="URL.Portal" 	    default="0">
 <cfparam name="URL.Scope" 	    default="">
 <cfparam name="URL.box"			default="">
@@ -125,8 +126,7 @@
 						ORDER BY Mission		
 					</cfif>
 					
-				</cfquery>				
-				
+				</cfquery>					
 				 
 				 <cfif url.positionNo eq ""> 	
 				 
@@ -266,10 +266,13 @@
 			
 				<td width="20%" style="padding-left:3px"><cf_tl id="Unit">:</td>								
 				<td>	
-				<cfif url.positionNo eq "">			
-					<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?selected=#qEvent.orgunit#&mission={mission}"/>							
-				<cfelse>
-				   	<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?selected=#Position.OrgUnitOperational#&mission={mission}"/>											
+				<cfif qEvent.orgunit neq "">							
+					<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?personno=#url.personno#&selected=#qEvent.orgunit#&mission={mission}"/>							
+				<cfelseif url.orgunit neq "">					
+					<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?personno=#url.personno#&selected=#url.orgunit#&mission={mission}"/>											
+				<cfelse>				
+				    <cfparam name="Position.OrgUnitOperational" default="0">
+				   	<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?personno=#url.personno#&selected=#Position.OrgUnitOperational#&mission={mission}"/>											
 				</cfif>	
 				</td>				
 			</tr>					
@@ -374,14 +377,59 @@
 				</td>						
 			</tr>
 			
-			<tr name="VacCandidate" id="documentbox" class="hide">
-				<td style="padding-left:3px" width="20%">
-					<cf_tl id="Recruitment JO No">:
-				</td>				
-				<td>				
-				<cfinput type="text" mask="999999" id="documentno" name="DocumentNo" value="#qEvent.DocumentNo#" style="width:90" class="regularxxl">											  
-		  		</td>						
-			</tr>				
+			<!--- obtain a relevant JO No --->
+			
+			<cfquery name="qTrack" 
+				 datasource="AppsEmployee" 
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">			
+	     		SELECT    TOP (1) FO.DocumentNo, FO.ReferenceNo
+                FROM      Vacancy.dbo.[Document] AS D INNER JOIN
+                          Applicant.dbo.FunctionOrganization AS FO ON D.FunctionId = FO.FunctionId
+                WHERE     D.DocumentNo IN
+                             (SELECT     TOP (1) SourceId
+                               FROM      PersonAssignment
+                               WHERE     PersonNo = '#url.PersonNo#' 
+							   <!--- made this process a bit more leniet as it did not always work for Giorgia 
+							   AND       PositionNo IN (
+							   
+														    SELECT      DP.PositionNo
+															FROM        Vacancy.dbo.DocumentPost AS DP INNER JOIN
+															            Position AS P ON DP.PositionNo = P.PositionNo INNER JOIN
+															            Position AS PP ON P.PositionParentId = PP.PositionParentId
+															WHERE       PP.PositionNo = '#url.positionno#'
+															
+														)	
+														--->
+											
+                 			   AND       Source = 'VAC'
+                               ORDER BY DateEffective DESC)
+							  							   
+			</cfquery>	
+			
+			<cfif qEvent.DocumentNo neq "">					   
+			
+				<tr name="VacCandidate" id="documentbox" class="hide">
+					<td style="padding-left:3px" width="20%">
+						<cf_tl id="Recruitment JO No">:
+					</td>				
+					<td>				
+					<cfinput type="text" mask="999999" id="documentno" name="DocumentNo" value="#qEvent.DocumentNo#" style="width:90" class="regularxxl">											  
+			  		</td>						
+				</tr>				
+			
+			<cfelse>
+										
+				<tr name="VacCandidate" id="documentbox" class="hide">
+					<td style="padding-left:3px" width="20%">
+						<cf_tl id="Recruitment JO No">:
+					</td>				
+					<td>				
+					<cfinput type="text" mask="999999" id="documentno" name="DocumentNo" value="#qTrack.ReferenceNo#" style="width:90" class="regularxxl">											  
+			  		</td>						
+				</tr>	
+						
+			</cfif>
 
 			<tr name="Requisition" id="requisitionbox" class="hide">
 				<td style="padding-left:3px" width="20%">
@@ -421,7 +469,7 @@
 					<cf_space spaces="38">	
 						
 					<cfif URL.Id eq "">
-						<cfset vDate = "">
+						<cfset vDate = "">												
 					<cfelse>					
 						<cfset vDate = qEvent.ActionDateEffective>
 					</cfif>	
@@ -444,7 +492,7 @@
 					<cf_space spaces="38">	
 						
 					<cfif URL.Id eq "">
-						<cfset vDate = "">
+						<cfset vDate = "">						
 					<cfelse>
 						<cfset vDate = qEvent.ActionDateExpiration>
 					</cfif>	

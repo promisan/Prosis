@@ -9,7 +9,12 @@
 	AND   FunctionSerialNo = '#url.FunctionSerialNo#'	
 </cfquery>
 
-<cfset queryscript = urldecode(form.QueryScript)>
+
+<!---
+<cfset queryscript = urldecode(form.QueryScript)> : this remove the + sign and that was not good for Field + field2 queries
+--->
+<cfset queryscript = form.QueryScript>
+
 
 <cfif len(QueryScript) gte 10>
 			

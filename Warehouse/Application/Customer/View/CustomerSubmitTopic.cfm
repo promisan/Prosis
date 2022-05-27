@@ -54,8 +54,7 @@
 		<cfparam name="Form.TopicSub_#getTopics.Code#" default="">
 		
 		<cfset sValue = Evaluate("Form.TopicSub_#getTopics.Code#")>
-		<cfoutput>#svalue#</cfoutput>
-				
+						
 		<cfquery name="qItemClassification" dbtype="query">
 			SELECT 	*
 			FROM 	Classification

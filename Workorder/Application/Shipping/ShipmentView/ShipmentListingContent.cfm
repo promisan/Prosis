@@ -97,6 +97,8 @@
 	AND         YEAR(T.TransactionDate) = #year(now())#	
 	<cfelseif url.id1 eq "lastyear">
 	AND         YEAR(T.TransactionDate) = #year(now())-1#	
+	<cfelseif url.id1 eq "year2">
+	AND         YEAR(T.TransactionDate) = #year(now())-2#	
 	</cfif>
 	
 	) D

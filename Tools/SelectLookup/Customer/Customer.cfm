@@ -45,13 +45,13 @@
 		<INPUT type="hidden" name="Crit2_FieldName" id="Crit2_FieldName" value="Reference">		
 		<INPUT type="hidden" name="Crit2_FieldType" id="Crit2_FieldType" value="CHAR">
 		<TR>
-		<TD style="height:27px;padding:2px" class="labelmedium"><cf_tl id="Customer Code">:</TD>
+		<TD style="height:27px;padding:2px" class="labelmedium"><cf_tl id="Tax Code">:</TD>
 		<TD><SELECT name="Crit2_Operator" id="Crit2_Operator" class="regularxl">#SelectOptions#</SELECT>			
 		<INPUT type="text" name="Crit2_Value" id="Crit2_Value" size="20" class="regularxl" onKeyUp= "#myscript#"> 		
 		</TD>
 		</TR>		
 					
-		<INPUT type="hidden" name="Crit3_FieldName" id="Crit3_FieldName" value="PhoneNumber">		
+		<INPUT type="hidden" name="Crit3_FieldName" id="Crit3_FieldName" value="MobileNumber">		
 		<INPUT type="hidden" name="Crit3_FieldType" id="Crit3_FieldType" value="CHAR">
 		<TR>
 		<TD style="height:27px;padding:2px" class="labelmedium"><cf_tl id="Number">:</TD>

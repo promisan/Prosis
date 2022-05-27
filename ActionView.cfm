@@ -40,9 +40,13 @@
 		<cfif url.target eq "0">
 		
 			    <cfset client.refer = "workflow">
-																					
+				
+				<cfparam name="hashvalue" default="">
+																											
 			    <cfinvoke component="Service.Process.System.Security" method="passtru" returnvariable="hashvalue"/>		
-																												
+				
+				<cfset hashvalue = "">
+																																				
 			    <cfif find("myclentity=",Object.ObjectURL)>				
 				     <!--- prevent duplication --->
 					<cflocation url="#SESSION.root#/#Object.ObjectURL#?mid=#hashvalue#" addtoken="No"> 
@@ -54,7 +58,9 @@
 				
 		<cfelse>
 		
-		        <cflocation  url="#session.root#/portal/selfservice/public.cfm?id=actionprocess&objectid=#object.objectid#&actioncode=#url.actionCode#">
+				<cfset client.processPortalObjectId = object.objectid>
+				<cfset client.processPortalActionCode = url.actionCode>
+		        <cflocation  url="#session.root#/portal/selfservice/public.cfm?id=actionprocess">
 		
 		</cfif>			
 		
@@ -64,10 +70,10 @@
 	<cf_screentop html="No" title="Problem">
 	
 	<table width="90%" height="90" class="formpadding" cellspacing="0" cellpadding="0">
-	<tr><td align="center" style="font-size:20px" class="labelmedium">
+	<tr><td align="center" style="font-size:23px;color:red" class="labelmedium">
 
 	<cfif Object.ObjectURL eq "">			
-		<b>Attention:</b> Document could not be redirected. Please contact your administrator		
+		<b>Attention:</b> Document could not be redirected.<br><font size="2">(Please contact your administrator)		
 	<cfelse>	
   		<b>Attention:</b> Requested document has been processed already or does not longer exist.	
 	</cfif>
@@ -82,8 +88,8 @@
 	<cf_screentop html="No" title="Problem">
 	
 	<table width="90%" height="100" cellspacing="2" cellpadding="2">
-	<tr><td align="center" style="color:red;" class="labelmedium">
-	  Requested action could not be retrieved. <p>Please contact your administrator if the problem persists.	
+	<tr><td align="center" style="padding-top:28px;color:red;font-size:23px" class="labelmedium">
+	  Requested action could not be retrieved. <br><font size="2">(Please contact your administrator if the problem persists).</font>	
 	</td></tr></table>
 
 </cfcatch>

@@ -786,11 +786,17 @@ password="#SESSION.dbpw#">
 		<tr><td style="padding-left:18px" colspan="4">
 		
 			<table>
-			<tr class="labelmedium fixlengthlist">
-			<td class="hide" id="processworkaction"></td>
 			
-			<cfoutput query="Actions">			
-		
+			<cfset cnt = 0>
+						
+			<cfoutput query="Actions">	
+			
+			     <cfif cnt eq "0">
+			      <tr class="labelmedium fixlengthlist">				  
+				 </cfif> 
+				 
+				 <cfset cnt = cnt+1>
+			
 				 <td valign="top" style="padding-top:4px;padding-left:5px">								
 				 				 				 
 				 <cfif url.billingid eq "">
@@ -815,22 +821,26 @@ password="#SESSION.dbpw#">
 					  <tr style="height:15px" class="labelmedium">
 						 <td>				 												   
 						 <cfif DateTimeScheduled neq "">
-						   <font color="F24F00">#dateformat(DateTimeScheduled,client.dateformatshow)# <font size="2">#timeformat(DateTimeScheduled,"HH:MM")#</font> 
+						   <font color="F24F00">#dateformat(DateTimeScheduled,"DD/MM")# <font size="2">#timeformat(DateTimeScheduled,"HH:MM")#</font> 
 						 <cfelse>
-						   <font color="0080C0">#dateformat(DateTimePlanning,client.dateformatshow)# <font size="2">#timeformat(DateTimePlanning,"HH:MM")#</font>
+						   <font color="0080C0">#dateformat(DateTimePlanning,"DD/MM")# <font size="2">#timeformat(DateTimePlanning,"HH:MM")#</font>
 						 </cfif>					 
 						 </td>						
 					 
 					 </tr>
 				 </table>
 				 </td>
+				 
+				 <cfif cnt eq "8">
+					 <cfset cnt = "0">				 
+					 </tr>
+				 </cfif>
 			
 			</cfoutput>
-			
-			</tr>
 					 
 		 </table>
-		 </td>		
+		 </td>	
+		 <td class="hide" id="processworkaction"></td>	
 		
 		</tr>
 			

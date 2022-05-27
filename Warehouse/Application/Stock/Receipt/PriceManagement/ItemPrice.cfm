@@ -55,7 +55,14 @@
 		WHERE      Warehouse = '#url.destinationWarehouse#'								
 </cfquery>	
 
-	
+<cfquery name="Parameter"
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT     *
+		FROM       Ref_ParameterMission
+		WHERE      Mission = '#url.mission#'								
+</cfquery>	
 
 <table style="width:100%;min-width:600px">
 	
@@ -67,9 +74,21 @@
 		
 		<tr>
 			<td class="labelmedium" style="font-size:17px" colspan="2">
+			
+			    <cfif parameter.priceManagement eq "1">
+				
 				<cfoutput>
 					<cf_tl id="Apply to">: <b>#url.destinationWarehouse# #getLine.DestinationWarehouseName#
 				</cfoutput>
+				
+				<cfelse>
+				
+				<cfoutput>
+					<cf_tl id="Apply to">: <b>#url.mission#
+				</cfoutput>
+				
+				</cfif>
+				
 			</td>
 		</tr>
 		
@@ -121,7 +140,7 @@
 							<cfset cntCurrency = cntCurrency + 1>
 							<cfset cntTotal = cntTotal + 1>
 							
-							<tr onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''" bgcolor="" class="labelmedium">
+							<tr onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''" bgcolor="" class="labelmedium2">
 								<td style="<cfif cntCurrency neq CurrencyList.recordCount>border-bottom:1px dotted #C0C0C0;</cfif>  padding-left:3px;" title="<cfoutput>#Description#</cfoutput>"><cfoutput>#Currency#</cfoutput></td>
 								<td style="<cfif cntCurrency neq CurrencyList.recordCount>border-bottom:1px dotted #C0C0C0;</cfif>  padding-left:15px;">
 		
@@ -144,7 +163,7 @@
 									
 										<cfloop query="qPriceList" startrow="1" endrow="1">
 										
-										<tr class="labelmedium">
+										<tr class="labelmedium2">
 																				
 											<cfset vZIndex = 10000-(1000*url.row)-cntTotal>
 											
@@ -212,6 +231,8 @@
 											</td>
 											<td width="45" style="padding-left:4px;padding-right:4px" id="<cfoutput>processReceiptItemPrice_#url.id#_#ScheduleList.code#_#CurrencyList.currency#</cfoutput>">
 											
+											<cfif parameter.priceManagement eq "1">
+											
 											<td><cf_tl id="Global for Entity"></td>
 											<td>
 												<cf_tl id="check to apply to whole entity" var="1">
@@ -227,6 +248,18 @@
 													
 												</cfoutput>
 											</td>
+											
+											<cfelse>
+											
+											<td class="hide">
+											<input type="Checkbox" 
+													id="inherit_#url.id#_#ScheduleList.code#_#CurrencyList.currency#" 
+													name="inherit_#url.id#_#ScheduleList.code#_#CurrencyList.currency#" 
+													title="#lt_text#" 
+													class="radiol">
+											</td>
+											
+											</cfif>
 											
 											</td>
 										</tr>

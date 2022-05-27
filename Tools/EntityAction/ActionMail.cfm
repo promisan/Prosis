@@ -12,6 +12,15 @@ datasource="AppsInit">
 
 <cfparam name="documentpagesize" default="Letter">
 
+<cfquery name="Object" 
+	 datasource="AppsOrganization">
+	 SELECT *
+	 FROM   OrganizationObject
+	 WHERE  ObjectId IN (SELECT ObjectId FROM organizationObjectAction WHERE Actionid = '#url.id#')	
+</cfquery>
+
+<cfset Subject = "#Object.ObjectReference2#: #Object.ObjectReference#">
+
 <cfif url.docid eq "">
 	
 	<cfquery name="Action" 
@@ -257,34 +266,42 @@ datasource="AppsInit">
 		--->
 		
 		<cfset text = replace("#DocumentContent#", "@pb", "<p style='page-break-after:always;'>&nbsp;</p>", "ALL")>
-		
-		<cffile action="WRITE" 
-          file="#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#fileName#.htm" 
-		  output="#text#" 
-		  addnewline="Yes" 
-		  fixnewline="No">		
+				
+		  <cftry>		
+			<cfdirectory action="CREATE" directory="#SESSION.rootDocumentPath#\CFRStage\User\#Session.acc#\">
+			<cfcatch></cfcatch>
+	   	  </cftry>	 
 		 
-		<!--- on-the-fly converter of htm content to pdf --->  
-		<cf_htm_pdf fileIn= "#SESSION.rootPath#\CFRStage\User\#SESSION.acc#\#fileName#">
+		  <cffile action="WRITE" 
+		        file="#SESSION.rootDocumentPath#\CFRStage\User\#Session.acc#\#fileName#.htm" 
+			    output="#text#" 
+				addnewline="Yes" 
+			    fixnewline="No">										 
+	
+		  <!--- NEW on-the-fly converter of htm content to pdf --->  
+	      <cf_htm_pdf fileIn="#SESSION.rootDocumentPath#\CFRStage\User\#Session.acc#\#fileName#">
+		
+	 	  <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+		  <cfset mid = oSecurity.gethash()/>			
 		
 	<cfelse>
 	
 		<cfset text = replace("#DocumentContent#", "@pb", "<tr style='page-break-after: always;'><p></p></tr>", "ALL")>	
 		<cfsavecontent variable="mailfile">#Text#</cfsavecontent>
 	
-	<cftry>
+		<cftry>
+		
+			<cffile action="DELETE" file="#SESSION.rootPath#/CFRStage/User/#SESSION.acc#/#fileName#">
+		
+		<cfcatch></cfcatch>
+		
+		</cftry>
 	
-		<cffile action="DELETE" file="#SESSION.rootPath#/CFRStage/User/#SESSION.acc#/#fileName#">
-	
-	<cfcatch></cfcatch>
-	
-	</cftry>
-	
-	<cffile action="WRITE"
-	   file="#SESSION.rootPath#/CFRStage/User/#SESSION.acc#/#fileName#" 
-	   output="#mailfile#" 
-	   addnewline="Yes" 
-	   fixnewline="No">	   
+		<cffile action="WRITE"
+		   file="#SESSION.rootPath#/CFRStage/User/#SESSION.acc#/#fileName#" 
+		   output="#mailfile#" 
+		   addnewline="Yes" 
+		   fixnewline="No">	   
 		
 	</cfif>	
 
@@ -296,7 +313,7 @@ datasource="AppsInit">
 <cfoutput>
 
 	<script language="JavaScript">
-			window.location = "#SESSION.root#/Tools/Mail/Mail.cfm?ID1=#ActionFlow.ActionDescription#&ID2=#attach#&Source=Action&Sourceid=#URL.ID#&Mode=Dialog&GUI=HTML&mid=#mid#"
+			window.location = "#SESSION.root#/Tools/Mail/Mail.cfm?ID1=#subject#&ID2=#attach#&Source=Action&Sourceid=#URL.ID#&Mode=Dialog&GUI=HTML&mid=#mid#"
 	</script>
 
 </cfoutput>

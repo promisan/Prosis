@@ -20,7 +20,7 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
 <table style="width:100%">
-	<tr style="height:20px">
+	<tr style="height:20px" class="labelmedium2">
 	
 	<cfparam name="hasTrack" default="1"> 
 	
@@ -28,12 +28,11 @@ password="#SESSION.dbpw#">
 			
 		<td style="width:100%"> 
 		
-		   <cf_tl id="Initiate recruitment" var="1">
-	      <input title="Click to initiate a recruitment process for this position" disabled
-		  type="button" value="#lt_text#" class="button10g" onclick="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')" style="border-radius:10px;width:100%;border:1px solid silver">			  
-			<!---		
-		    <a title="Click to initiate a recruitment process for this position" href="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')"><cf_tl id="Initiate recruitment"></a> 	
-			--->
+		  <cf_tl id="Initiate recruitment" var="1">
+	      <input title="Click to initiate a recruitment process for this position" 
+		  type="button" value="#lt_text#" class="button10g" DISABLED onclick="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')" 
+		  style="border-radius:2px;width:100%;border:1px solid silver">			  
+			
 		</td>		
 	
 	<cfelse>
@@ -82,7 +81,7 @@ password="#SESSION.dbpw#">
 			<cfset hasworkflow = 1>				
 			
 			<td style="width:100%">	
-							
+										
 				<cf_ActionListing 
 				    ReadMode         = "read_uncommitted"     
 				    TableWidth       = "100%"
@@ -104,7 +103,7 @@ password="#SESSION.dbpw#">
 					
 		<cfelse>
 		
-			<td align="center" bgcolor="FFB0FF" style="background-color:FFB0FF"><cf_tl id="Selection completed"></td>
+			<td bgcolor="FFB0FF" style="padding-left:4px;background-color:FFB0FF"><cf_tl id="Selection completed"></td>
 		
 		</cfif>
 		
@@ -113,8 +112,8 @@ password="#SESSION.dbpw#">
 		<cfif Candidate.recordcount neq "0">
 		
 			<cfloop query="candidate">		
-			<tr class="line" style="padding-top:2px">
-			     <td align="center">#Candidate.FirstName# #Candidate.LastName# (<cfif IndexNo eq "">No indexNo<cfelse></cfif>#IndexNo#)</td>
+			<tr class="line labelmedium">
+			     <td style="padding-left:4px;font-size:14px">#Candidate.FirstName# #Candidate.LastName# <cfif IndexNo eq "">[No indexNo]<cfelse></cfif>#IndexNo#</td>
 		    </tr>			
 			</cfloop>
 		

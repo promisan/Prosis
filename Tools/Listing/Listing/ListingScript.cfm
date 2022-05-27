@@ -12,6 +12,7 @@
 <cfparam name="attributes.classsub"     default="labelnormal line">
 <cfparam name="attributes.mode"         default="extended">
 <cfparam name="attributes.gadgets"      default="No">
+<cfparam name="url.mission"             default="">
 
 <cfif attributes.mode eq "Extended">
 
@@ -68,12 +69,12 @@ function isAt(position) {
 		
 	}
 
-	var limit = vTable.height();
+	var limit = vNavigationTable.height()-5;
 	console.log('limit', limit);
 	
 	
 	if (position == 'bottom') {
-		var currentPosition = vDiv.scrollTop() + vDiv.height() + 1;
+		var currentPosition = vDiv.scrollTop() + vDiv.height();
 		console.log('current', currentPosition);
 		return currentPosition > limit;
 	}
@@ -87,6 +88,8 @@ function isAt(position) {
 	return false;
 }
 
+var counter_down = 0;
+
 function doScroll() {
 
 	$("##_divContentFields").on('scroll',function(){
@@ -95,22 +98,25 @@ function doScroll() {
 		nav = document.getElementById('navigation').value
 
 		if (isAt('bottom'))	{
-			// going to next page			
-			pg = document.getElementById('page').value					
-			if (nav == 'auto') {	
-			    if (pg == pga) {  //nada				
-				} else {				
-				applyfilter('1','','append');			
+			// going to next page
+			counter_down = counter_down + 1;
+			if (counter_down == 2) {
+				counter_down = 0;
+				pg = document.getElementById('page').value
+				if (nav == 'auto') {
+					if (pg == pga) {  //nada
+					} else {
+						applyfilter('1', '', 'append');
+					}
+				} else {
+					if (pg == pga || nav == 'manual') {
+						// nada
+					} else {
+						document.getElementById('page').value = pg++;
+						applyfilter('', pg++, 'content') //the last page down will trigger a next page, then we highlight the first row.
+					}
 				}
-			} else {							
-				if (pg == pga || nav == 'manual') { 				    
-				     // nada 					 
-				} else {			
-					document.getElementById('page').value = pg++;			
-					applyfilter('',pg++,'content') //the last page down will trigger a next page, then we highlight the first row.
-				}				
 			}
-			
     	} else if (isAt('top'))	{
 			//going to previous page
 			pg = document.getElementById('page').value
@@ -189,7 +195,7 @@ function gofilter(e) {
   
 function resetfilter(id,ser,box) {
     Prosis.busyRegion('yes','_divSubContent');  
-    ptoken.navigate('#SESSION.root#/tools/listing/listing/initListing.cfm?box='+box+'&systemfunctionid='+id+'&functionserialno='+ser,'locate'+box)	
+    ptoken.navigate('#SESSION.root#/tools/listing/listing/initListing.cfm?mission=#url.mission#&box='+box+'&systemfunctionid='+id+'&functionserialno='+ser,'locate'+box)	
 	
 } 
 
@@ -207,6 +213,9 @@ function filtergroup(box,opt) {
 
 function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1value) {	
 
+		treefld = document.getElementById("treefield").value
+		treeval = document.getElementById("treevalue").value		  
+	   
        	_cf_loadingtexthtml='';																				
 		try { document.getElementById("treerefresh").click();} catch(e) {}	
 						
@@ -247,9 +256,9 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 				   sfld  = document.getElementById('selectedfields').value	 					    			 		 
 				   if (lkf == "") {					   
 				   	  window['__printListingCallback'] = function(){ if (callback) callback(); };								 						  	  											  
-				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'__printListingCallback','','POST','listfilter')				  
+				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&treefield='+treefld+'&treevalue='+treeval+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'__printListingCallback','','POST','listfilter')				  
 				   } else {						   				         	      		   			 						  
-				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'','','POST',lkf)		  						  
+				       ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&treefield='+treefld+'&treevalue='+treeval+'&groupvalue1='+groupvalue1+'&grouptarget='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'','','POST',lkf)		  						  
 				   }		   
 				}	
 							  
@@ -290,9 +299,9 @@ function applyfilter(md,mypage,ajaxid,callback,groupvalue1,grouptarget,col1,col1
 		   if (target != "") {
 		   		   		        		   
 			   	if (lkf == "") {			  	 			
-			     	ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'','','POST','listfilter')
+			      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&treefield='+treefld+'&treevalue='+treeval+'&groupvalue1='+groupvalue1+'&grouptarget1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'','','POST','listfilter')
 			   	} else {			
-			      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&groupvalue1='+groupvalue1+'&grouptarget1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'','','POST',lkf)
+			      ptoken.navigate(lk+'page='+pg+'&ajaxid='+ajaxid+'&treefield='+treefld+'&treevalue='+treeval+'&groupvalue1='+groupvalue1+'&grouptarget1='+grouptarget+'&col1='+col1+'&col1value='+col1value+'&selfld='+sfld+'&content=1&contentmode='+md,target,'','','POST',lkf)
 			   	}
 		   } else { Prosis.busyRegion('no','_divSubContent');
 	 } }

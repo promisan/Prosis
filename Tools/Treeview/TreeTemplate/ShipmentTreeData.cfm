@@ -166,7 +166,16 @@
 				parent="Listing"			
 				href="#attributes.destination#?systemfunctionid=#attributes.systemfunctionid#&ID1=LASTYEAR&ID=STA&Mission=#Attributes.Mission#"							
 				target="right"
-		        expand="No">													
+		        expand="No">	
+				
+		<cfset last = last-1>
+				
+		 <cf_UItreeitem value="Month24"
+		        display="<span style='font-size:14px' class='labelit'>#pShipped# in #last# </span>"
+				parent="Listing"			
+				href="#attributes.destination#?systemfunctionid=#attributes.systemfunctionid#&ID1=YEAR2&ID=STA&Mission=#Attributes.Mission#"							
+				target="right"
+		        expand="No">														
 		
 		 <cf_tl id="Billed" var="pBilled">
 	

@@ -7,6 +7,10 @@
 <!--- Instatiating license object--->
 <cfset oLicense = CreateObject("component","Service.Process.System.License")/>
 
+<cfset caller.license = "1">
+
+<!---
+
 <cfset caller.license  = "0">
 <cfset caller.vyear    = "">
 <cfset caller.vquarter = "">
@@ -236,3 +240,5 @@
 	</cfoutput>
 
 </cfif>
+
+--->

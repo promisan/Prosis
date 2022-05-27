@@ -357,7 +357,7 @@
 						</td>
 						
 						<td align="right" style="width:80px;">
-							<cfif rowcnt eq 1>
+							<cfif rowcnt eq 1 and parameter.PriceManagement eq "1">
 							<table>
 								<tr>
 									<td>

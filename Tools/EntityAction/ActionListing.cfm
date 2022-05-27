@@ -363,15 +363,15 @@
 
 <cfif Attributes.Show neq "No" and attributes.subflow eq "No">
 
-	<table width="<cfoutput>#attributes.Tablewidth#</cfoutput>" align="center">
+	<table width="<cfoutput>#attributes.Tablewidth#</cfoutput>" align="center" border="<cfif attributes.show eq 'mini'>1<cfelse>0</cfif>">
 	<tr>
-	<td>
-			
+	<td style="padding-left:0px;padding-right:0px">
+				
 	<table width="100%" align="center" style="border:0px solid silver">			
-	<tr><td colspan="2">
+	<tr><td colspan="2" style="padding-left:0px;padding-right:0px">
 
-	<table width="100%" border="0">
-			
+	<table width="100%">
+				
 </cfif>
 
 <!--- current workflow --->
@@ -471,7 +471,7 @@
 			<cfset object_op = 1>		
 			
 			<!--- container for show of interval check --->	
-																			
+																
 			<cfinclude template="ActionListingView.cfm"> 
 								
 		</cfif>
@@ -483,8 +483,7 @@
 
 <cfif Attributes.Show eq "Yes"> 
 	
-	<cfif entity.showhistory gte "1">
-							
+	<cfif entity.showhistory gte "1">							
 				
 		<!--- Prior workflow --->
 		
@@ -509,10 +508,9 @@
 		    	<cfset object_op = 0>
 				<cfset attributes.subflow = "No">
 				<cfset condition = "AND O.ObjectId = '#ObjectId#'">
-						
+										
 				 <cfinclude template="ActionListingView.cfm">	 
-				 			
-					
+									
 		</cfoutput>
 				
 	</cfif>	

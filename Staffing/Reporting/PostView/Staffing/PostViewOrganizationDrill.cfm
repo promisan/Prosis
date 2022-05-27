@@ -122,13 +122,13 @@
 						</cfif> 
 									
 																						
-						<td rowspan="#span#" id="cell#HierarchyCode#" valign="top" style="width:100%">		
+						<td rowspan="#span#" id="cell#HierarchyCode#" valign="top" style="padding-left:2px;width:100%;">		
 							 																																																				
-							<table height="90" width="96%" class="formpadding">
+							<table height="90" width="96%" style="border:1px solid gray;">
 														
 								<tr>			
 								
-								<td valign="top"  style="height:80px;background-color:##FED7CF80;border:1px solid gray;border-right:0px;min-width:30px;padding-top:7px; padding-right:2px;padding-left:10px;">
+								<td valign="top"  style="height:99%;background-color:##FED7CF80;min-width:30px;padding-top:7px; padding-right:6px;padding-left:12px;">
 																		
 									<cfif Check.Total gt "1">
 									
@@ -164,7 +164,7 @@
 								
 								</td>	
 																
-								<td valign="top" style="min-width:276px;max-width:273px;cursor:pointer;border:1px solid gray;border-left:0px" onclick="hidenode('#HierarchyCode#','#Spaces#')">
+								<td valign="top" style="min-width:276px;max-width:273px;cursor:pointer;border-left:0px" onclick="hidenode('#HierarchyCode#','#Spaces#')">
 																								
 								    <table style="width:100%">
 									
@@ -305,8 +305,8 @@
 									  	<cfset bgc = "FFF4F4">
 									  </cfif>
 										  		  
-						          <td style="height:22px;font-size:12px;padding-left:2px;cursor:pointer;min-width:42;border-bottom:1px solid gray">
-								  								 								   					  							  
+						          <td style="font-size:12px;padding-left:2px;cursor:pointer;min-width:42;border-bottom:1px solid gray">
+								  								  								 								   					  							  
 									   <cfif Client.LanguageId eq "ESP">
 									   
 										  		<cfswitch expression="#Left(class, 1)#">

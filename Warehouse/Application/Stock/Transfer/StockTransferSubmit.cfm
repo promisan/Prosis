@@ -99,7 +99,7 @@ will be put into different batches as they could have different process flows as
 		AND      TransferLocation IN (SELECT Location 
 		                              FROM   Materials.dbo.WarehouseLocation 
 									  WHERE  Warehouse = S.TransferWarehouse) 
-		AND      TransferQuantity IS NOT NULL		
+		AND      TransferQuantity IS NOT NULL				
 	</cfquery>	
 	
 	<cfset tot = tot + getBatch.Recordcount>	
@@ -159,7 +159,7 @@ will be put into different batches as they could have different process flows as
 				<!--- no filter --->
 				</cfif>				
 				and      TransferQuantity is not NULL AND TransferQuantity <> 0
-				ORDER BY TransactionDate DESC		
+				ORDER BY TransactionDate DESC						
 			</cfquery>		
 						
 			<cfif Lines.ItemClearanceMode eq "">
@@ -401,7 +401,7 @@ will be put into different batches as they could have different process flows as
 					<!--- Pending 31/12/2011 also save the additional actor details at this point --->
 							
 					<cfloop query="Lines">
-					
+										
 						<cfset qty = -1*TransferQuantity>	
 						<cfset tratpe = url.tpe>								
 										
@@ -765,8 +765,8 @@ will be put into different batches as they could have different process flows as
 						  									
 						  </cfif>
 						  		
-					</cfloop>	
-					
+					</cfloop>
+									
 				</cftransaction>
 				
 				<cfloop query="Lines">		

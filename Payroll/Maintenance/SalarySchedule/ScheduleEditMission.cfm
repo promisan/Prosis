@@ -1,7 +1,7 @@
 
 <!--- mission --->
 
- <cf_calendarscript>
+<cf_calendarscript>
 
 <cfquery name="MissionSelect" 
 	datasource="AppsOrganization" 
@@ -12,7 +12,6 @@
 		WHERE SystemModule = 'Payroll' 
 </cfquery>	
 
-
 <table width="93%" align="center">
 	
 	<tr>	
@@ -20,17 +19,17 @@
 		
 				<table width="98%" align="center" class="formpadding">
 				
-				<tr><td height="8" colspan="5" ></td></tr>		
+				<tr><td height="8" colspan="5"></td></tr>		
 				
-				<tr class="labelmedium2 line">
-					<td>Op</td>		
-					<td>Entity</td>							
-					<td>Effective</td>
-					<td>Posting Level</td>	
-					<td>Posting Journal</td>			
-					<td align="center">Post unit</td>
-					<td align="center">Settlement handling</td>																	
-					<td>Person Liability</td>							
+				<tr class="labelmedium2 line fixlengthlist">
+					<td><cf_tl id="Op"></td>		
+					<td><cf_tl id="Entity"></td>							
+					<td><cf_tl id="Effective"></td>
+					<td><cf_tl id="Posting Level"></td>	
+					<td><cf_tl id="Posting Journal"></td>			
+					<td align="center"><cf_tl id="Post unit"></td>
+					<td align="center"><cf_tl id="Settlement handling"></td>																				
+					<td><cf_tl id="Person Liability<"></td>							
 				</tr>				
 									
 				<cfset ln="0">	
@@ -63,7 +62,7 @@
 												
 				<cfset ln = ln + 1>
 													
-				<tr class="labelmedium2 line">
+				<tr class="labelmedium2 line fixlengthlist">
 				
 					 <cfif used.recordcount gte "1">		  
 				   
@@ -136,6 +135,7 @@
 						   	WHERE   Mission  =  '#mission#'				
 							AND     TransactionCategory IN ('Payables','DirectPayment','Memorial')
 							AND 	Currency = (SELECT Paymentcurrency FROM Payroll.dbo.SalarySchedule WHERE SalarySchedule = '#URL.ID1#')
+							AND     SystemJournal = 'Payroll'
 						</cfquery>
 						
 						<select name="journal_#ln#" style="width:280px;" class="regularxl">
@@ -168,11 +168,8 @@
 					   </tr>
 					   </table>
 				   
-				   </td>				   
-				   
-				   
-				   
-					 
+				   </td>	
+				   				 
 				   <td style="width:200px;">
 				   
 				   <cfquery name="Account" 
@@ -190,13 +187,13 @@
 					<cfif Account.recordcount eq "0">
 					
 						  <cfquery name="Account" 
-					datasource="AppsLedger" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						SELECT *
-					    FROM   Ref_Account 
-					   	WHERE  AccountType = 'Credit' and AccountClass = 'Balance'					
-					</cfquery>
+							datasource="AppsLedger" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT *
+							    FROM   Ref_Account 
+							   	WHERE  AccountType = 'Credit' and AccountClass = 'Balance'					
+							</cfquery>
 										
 					</cfif>
 					
@@ -215,7 +212,6 @@
 				
 			</table>
 			
-	</td></tr>
-	
+	</td></tr>	
 			
 </table>			

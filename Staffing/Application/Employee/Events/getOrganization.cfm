@@ -31,14 +31,14 @@
 	 	 SELECT    *
 		 FROM      Organization
 		 WHERE     Mission         = '#url.mission#'
-		 AND       MandateNo       = '#getMandate.Mandateno#'
+		 AND       MandateNo       = '#getMandate.Mandateno#'		
 		 ORDER BY  HierarchyCode
 </cfquery>
 
-<select name="OrgUnit" class="regularxl" style="width:450px">
+<select name="OrgUnit" class="regularxxl" style="width:95%">
 
 	<cfoutput query="getOrganization">
-		<option value="#orgunit#" <cfif url.selected eq orgunit>selected</cfif>>#OrgUnitName#</option>
+		<option value="#orgunit#" <cfif url.selected eq orgunit>selected</cfif>>#HierarchyCode# #OrgUnitName#</option>
 	</cfoutput>
 
 </select>

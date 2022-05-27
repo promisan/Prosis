@@ -1,5 +1,7 @@
 
 
+
+
 <cfajaximport tags="cfdiv">
 
 <cfset CLIENT.init = "No">	
@@ -25,7 +27,7 @@
 	
 	<cfset client.browser = thisbrowser.name>		
 	
-<html><head>
+<html><head>	   			
 
 		<cfif not isDefined("stylePath")>
 			<cfif thisbrowser.name eq "Explorer" and thisbrowser.release LT "10">
@@ -266,7 +268,7 @@
 					<div id="menu">
 					
 					    <!--- container for the menu --->
-						   
+						
 						
 						<cfif backOfficeStyle eq "HTML5">
 						
@@ -283,6 +285,7 @@
                     
 					<div id="quicklinks">
 						<div class="menuheader"><cf_tl id="Quick Links"></div>
+						
 						<ul class="ql-ca-menu">
 							
 							<li class="qlmenutitle" onclick="toggleqlmenu(this); favorite()">
@@ -309,8 +312,10 @@
 							
 							</cfif>					
 
-							<li class="qlmenutitle" onclick="toggleqlmenu(this); clearance()">
-								<cf_tl id="Pending for Action"> <span id="myclearancescount"></span>		
+							<li class="qlmenutitle" onclick="toggleqlmenu(this); clearance()">								 
+								<span id="myclearance" style="width:80px;border-radius: 50%;font-size: 12px; padding:3px; color: ffffff; text-align: center; background-color: 000000"></span>									
+								<span style="padding-left:3px"></span>
+								<cf_tl id="Pending for Action">
 							</li>
 							
 							<li class="qlmenutitle" onclick="toggleqlmenu(this); report()">
@@ -342,6 +347,45 @@
 							
 							--->
 						</ul>
+						
+						<!--- pending clearances --->
+						
+						<cf_verifyOperational 
+							    datasource= "AppsOrganization"
+							    module    = "Procurement" 
+							    Warning   = "No">
+							
+							<cfquery name="Roles" datasource="AppsOrganization">
+							    SELECT   *
+							    FROM     Ref_AuthorizationRole
+							    WHERE    Role IN ('ProcReqCertify','ProcReqObject','ProcReqReview','ProcReqApprove','ProcReqBudget','ProcManager','ProcBuyer')	
+							    <cfif operational eq 0>
+							        AND 1=0
+							    </cfif>	
+							    ORDER BY ListingOrder
+							</cfquery>	
+																					
+							<cfquery name="get" 
+							 datasource="AppsSystem"
+							 username="#SESSION.login#" 
+							 password="#SESSION.dbpw#">
+								SELECT   TOP 1 * 
+								FROM     Ref_ModuleControl
+								ORDER BY Created DESC					
+							</cfquery>	
+																					
+							<cfinvoke component = "Service.Connection.Connection"  
+							   method           = "setconnection"   
+							   object           = "actioncenter"
+							   scopeid          = "#get.SystemFunctionid#"   
+							   objectcontent    = "#Roles#"  
+							   delay            = "20">	 
+														   
+							<cfoutput>   							
+							<input type="hidden" id="actioncenter_refresh" 
+							    onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/getAction.cfm?scope=backoffice','myclearance')">  							
+							</cfoutput> 
+						
 					</div>
 
 					<cfif backOfficeStyle eq "Standard">
@@ -375,7 +419,6 @@
 					</cfif>
 
 				</div>
-
 	
 				<div id="dtopics" style="margin-top:0%">
 				
@@ -401,7 +444,6 @@
 					</iframe>
 					
 				</div>
-
 
 				<div id="contentviewmaximize">
 					<cfoutput>
@@ -655,3 +697,7 @@
 		</div>
 	</body>
 	</html>
+	
+	<script>
+	  document.getElementById('actioncenter_refresh').click()
+	</script>

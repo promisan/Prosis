@@ -52,6 +52,7 @@ password="#SESSION.dbpw#">
  	SELECT   * 
 	FROM     Ref_PayrollItem
 	WHERE    Source IN ('Miscellaneous','Deduction')
+	AND      (Operational = 1 or PayrollItem = '#Entitlement.PayrollItem#')
 	ORDER BY Source DESC
 </cfquery>
 

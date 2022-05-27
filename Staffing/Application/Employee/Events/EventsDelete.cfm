@@ -15,6 +15,19 @@
 		SET    ActionStatus = 9
 		WHERE  EventId = '#URL.EventId#'		 
 </cfquery>
+
+<!--- close the workflow with an indicator --->
+	
+<cfset show = "No">   		    
+<cfset enf  = "Yes">
+    
+<cf_ActionListing 
+    EntityCode       = "PersonEvent"				
+	EntityGroup      = ""
+	EntityStatus     = ""				
+	ObjectKey4       = "#URL.EventId#"				
+	Show             = "#show#"				
+	CompleteCurrent  = "#enf#">	 
 	
 <cfoutput>
 <cfif url.scope eq "portal">

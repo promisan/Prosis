@@ -227,7 +227,7 @@
 						
        </cfif>		
 	   
-	   <cfif entityaccess eq "EDIT">	
+	   <cfif entityaccess eq "EDIT" or entityaccess eq "ALL">	
 		   	
 		   <tr><td id="stepflyaccess" colspan="2">
 		   

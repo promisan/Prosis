@@ -65,7 +65,7 @@
 	password="#SESSION.dbpw#">
 	    SELECT     B.AssignmentClass
         FROM       Ref_AssignmentClass AS A INNER JOIN
-                   Ref_AssignmentClass AS B ON A.ClassParent = A.ClassParent
+                   Ref_AssignmentClass AS B ON A.ClassParent = B.ClassParent
         WHERE      A.AssignmentClass = '#Form.AssignmentClass#' 
 		AND        B.Incumbency > 0 
 		AND        A.Operational = 1
@@ -80,7 +80,8 @@
 	<cfif Mandate.MandateStatus eq "1">
 		
 	    <!--- verify if there is a NOT approved assignment record for this PERSON --->
-	
+		
+			
 		<cfquery name="PersonVerify0" 
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
@@ -107,38 +108,38 @@
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		SELECT PA.AssignmentNo, PO.Mission, PO.MandateNo
-		FROM  PersonAssignment PA, Position Po
-		WHERE PA.PositionNo = PO.PositionNo
-		  AND PA.PositionNo       = '#Form.PositionNo#' 
-		  AND PA.DateExpiration  >= #STR#
-		  AND PA.DateEffective   <= #END#
-		  AND PA.AssignmentClass  IN (#preservesingleQuotes(assclass)#))
-		  AND PA.Incumbency      != 0
-		  AND PA.AssignmentNo    != #Form.AssignmentNo#
-		  AND PA.AssignmentStatus = '0'
-		  AND PA.PersonNo        != '#Form.PersonNo#'  
-		  AND PO.OrgUnitOperational IN (SELECT OrgUnit 
-		                                FROM   userQuery.dbo.#SESSION.acc#OrgScope
-							            WHERE  OrgUnit = PO.OrgUnitOperational)
-		</cfquery>  
+			SELECT PA.AssignmentNo, PO.Mission, PO.MandateNo
+			FROM   PersonAssignment PA, Position Po
+			WHERE  PA.PositionNo = PO.PositionNo
+			  AND  PA.PositionNo       = '#Form.PositionNo#' 
+			  AND  PA.DateExpiration  >= #STR#
+			  AND  PA.DateEffective   <= #END#
+			  AND  PA.AssignmentClass  IN (#preservesingleQuotes(assclass)#))
+			  AND  PA.Incumbency      != 0
+			  AND  PA.AssignmentNo    != #Form.AssignmentNo#
+			  AND  PA.AssignmentStatus = '0'
+			  AND  PA.PersonNo        != '#Form.PersonNo#'  
+			  AND  PO.OrgUnitOperational IN (SELECT OrgUnit 
+			                                 FROM   userQuery.dbo.#SESSION.acc#OrgScope
+								             WHERE  OrgUnit = PO.OrgUnitOperational)
+		 </cfquery>  
 		
-		   <cfif PersonVerify0.recordcount gte "1" or PostVerify0.recordcount gte "1">
+		 <cfif PersonVerify0.recordcount gte "1" or PostVerify0.recordcount gte "1">
 			    <cfset status = "NotApproved">
-		   </cfif>
+		 </cfif>
 		   
 	</cfif>
 	
 </cfif>	
-
-
-
 
 <!--- verify if a record exists for employee with the same assignment class --->
 
 <cfif Status eq "Go">
 	
 	<!--- check if person itself has a conflict with the new assignment in any mission --->
+	
+	
+	
 	
 	<cfquery name="PersonVerify" 
 	datasource="AppsEmployee" 
@@ -171,8 +172,7 @@
 										 
 								  
 	</cfquery>
-	
-	
+		
 	<!--- check if post in this mission/mandate has a conflict with this assignment  --->
 	
 	<cfquery name="PostVerify" 
@@ -665,9 +665,7 @@
 	</cfif> 
 
 </cfif>  
-
-   
-	
+   	
 <!--- store the proposed transaction --->
 
 <cfquery name="CreateTable"
@@ -676,8 +674,8 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 	CREATE TABLE UserQuery.dbo.#SESSION.acc#AssignmentConflict (
 		[PersonNo] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
-		[LastName] [varchar] (40) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
-		[FirstName] [varchar] (30) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+		[LastName] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+		[FirstName] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
 		[IndexNo] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
 		[ParentOffice] [varchar] (80) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
 		[ParentLocation] [varchar] (80) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
@@ -785,9 +783,7 @@ password="#SESSION.dbpw#">
 	 	
 		<script language="JavaScript">						
 		 parent.AssignmentConflict('#Call#','#URL.Caller#','#Status#','#URL.Source#','#URL.RecordId#','#URL.ApplicantNo#','#url.id#','#url.box#')
-		</script>
-		
-	
+		</script>		
 		
   	 </cfoutput>	
 		

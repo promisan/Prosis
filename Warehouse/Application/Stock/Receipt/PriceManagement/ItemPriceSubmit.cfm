@@ -16,8 +16,7 @@
 	
 	<script>
 		document.getElementById('salesPrice_#url.id#_#url.schedule#_#url.currency#').value = '#vSalesPrice#';
-	</script>
-	
+	</script>	
 	
 </cfoutput>
 

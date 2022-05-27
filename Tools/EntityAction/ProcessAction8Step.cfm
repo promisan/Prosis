@@ -203,7 +203,7 @@
 			
 		   </td></tr>
 		  						
-		   <cfif entityaccess eq "EDIT">	
+		    <cfif entityaccess eq "EDIT" or entityaccess eq "ALL">	
 		   
 			   <cfset url.objectid = action.ObjectId>
 			   	

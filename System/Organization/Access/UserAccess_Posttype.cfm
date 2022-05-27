@@ -1,6 +1,6 @@
          	
 	<cfif tree eq "1">
-	
+		
 	 	<cfquery name="AccessList" 
 		datasource="AppsEmployee" 
 		username="#SESSION.login#" 
@@ -14,17 +14,21 @@
 			  ON    R.PostType = A.ClassParameter 
 			<cfif Role.GrantAllTrees eq "0">
 			AND     A.Mission = '#URL.Mission#'	
+			AND     R.PostType IN (SELECT PostType FROM Position WHERE Mission = '#url.mission#')
 			</cfif>
 			ORDER BY R.PostType	
 		</cfquery>
 	
 	<cfelse>
-		
+			
 	   <cfquery name="AccessList" 
 		datasource="AppsOrganization" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT DISTINCT R.PostType, 
+		
+		   SELECT DISTINCT *
+		   FROM (
+			SELECT  TOP 100 R.PostType, 
 			                A.ClassParameter, 						
 							max(A.AccessLevel) as AccessLevel, 
 							max(A.RecordStatus) as RecordStatus,
@@ -37,16 +41,24 @@
 			    OR (A.OrgUnit is NULL and A.Mission is NULL)) 
 			  AND     A.UserAccount = '#URL.ACC#' 
 			  AND     A.Role = '#URL.ID#'		
+			  
 			GROUP BY R.PostType, A.ClassParameter		
 			ORDER BY R.PostType		
+			
+			) as B
+			<cfif url.mission neq "">
+			WHERE  PostType IN (SELECT PostType FROM Employee.dbo.Position WHERE Mission = '#url.mission#')		
+			</cfif>
+			
 		</cfquery>	
+		
 	
 	</cfif>
 		
-	<table width="95%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+	<table width="100%" align="center" class="formpadding">
 		    
-		<tr>
-			<td height="25" class="labelmedium"><cf_tl id="Post type"></td>
+		<tr class="fixrow labelmedium">
+			<td style="padding-left:3px"><cf_tl id="Post type"></td>
 			<cfinclude template="UserAccessSelectLabel.cfm">
 		</tr>	
 				

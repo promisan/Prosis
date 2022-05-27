@@ -233,8 +233,7 @@ to be processed earlier (affecting the exchange rate) we clean it
 						 '#Schedule.PaymentCurrency#',
 						 '#SESSION.acc#', 
 						 '#SESSION.last#', 
-						 '#SESSION.first#') 
-						 
+						 '#SESSION.first#') 						 
 						
 			     </cfquery>
 			 

@@ -469,16 +469,16 @@ password="#SESSION.dbpw#">
 							   </td>
 							   
 							   <td colspan="8" align="right" style="paddig-left:4px;<cfif CalculationStatus neq "0">background-color:##f3f3f380;border:1px solid silver;</cfif>padding-right:5px;min-width:400px" class="labelit">
-							   							   							   					   
+							   							   							   							   					   
 							        <table class="formpadding" style="width:100%">
 									
 											<tr>				
 												
-												<td id="st#calculationid#" class="labelmedium" style="width:100%;padding-left:4px;padding-right:4px">
-																						   		
+												<td id="st#calculationid#" class="labelmedium" style="width:100%;padding-left:4px;padding-right:4px">											
+																																		   		
 												<table style="width:100%;" class="formpspacing">
 												
-												<tr class="labelmedium2">
+												<tr class="labelmedium2">																							
 																			   				
 									   			<cfif CalculationStatus eq "0">
 																									
@@ -507,7 +507,7 @@ password="#SESSION.dbpw#">
 														
 															<cfif CalculationStatus eq "1" and transactionCount gte "0" and accessPayroll eq "ALL">
 														
-																<td align="center" style="border-right:0px solid silver;">
+																<td align="center" style="border-right:0px solid silver;padding-left:3px">
 																<!--- initial mode not enabled --->
 															    <a href="javascript:lock('#CalculationId#','2')" title="Lock and Record Advance">
 																<cf_tl id="Post Advance to Ledger"></a>
@@ -519,7 +519,7 @@ password="#SESSION.dbpw#">
 																											
 															<cfif CalculationStatus eq "1" and transactionCount gte "0" and accessPayroll eq "ALL">
 														
-																<td style="border-right:1px solid silver;">
+																<td style="border-right:1px solid silver;padding-left:3px">
 																<!--- initial mode not enabled --->
 															    <a href="javascript:lock('#CalculationId#','3')" title="Lock and Record Final Settlement">
 																<cf_tl id="Post to Ledger">
@@ -528,7 +528,7 @@ password="#SESSION.dbpw#">
 																
 															<cfelse>
 															
-																<td style="align:center;border-right:0px solid silver;">																														    
+																<td style="align:center;border-right:0px solid silver;padding-left:3px">																														    
 																<cf_tl id="Calculate">																
 																<td>	
 																									
@@ -537,7 +537,7 @@ password="#SESSION.dbpw#">
 														</cfif>							
 												
 												    <cfelse>
-													
+																										
 														<!---
 													
 														<cfif CalculationStatus eq "1" and transactionCount gte "0" and accessPayroll eq "ALL">
@@ -553,8 +553,8 @@ password="#SESSION.dbpw#">
 													
 													</cfif>
 												
-												<cfelseif CalculationStatus eq "2">							
-												
+												<cfelseif CalculationStatus eq "2">		
+																								
 												    <td style="border-right:1px solid silver;padding-right:4px;padding-left:4px" align="center" class="labelmedium2">					
 													<cfif TransactionPayment neq "0">								
 													<cf_tl id="Advance"> 
@@ -571,7 +571,8 @@ password="#SESSION.dbpw#">
 														 --->
 														 
 													 <cfelse>
-													 												 	
+													 
+													 													 												 	
 														 <cfif PostingLink neq "">
 														 
 															<cfquery name="Header"
@@ -582,14 +583,14 @@ password="#SESSION.dbpw#">
 																FROM     TransactionHeader
 																WHERE    ReferenceId = '#PostingLink#'		
 																AND 	 Journal in (
-																		SELECT Journal FROM Accounting.dbo.Journal WHERE SystemJournal ='Payroll' AND TransactionCategory != 'Payables'
+																		SELECT Journal FROM Accounting.dbo.Journal WHERE SystemJournal ='Payroll'
+																		  AND TransactionCategory != 'Payables'
 																	)
 															</cfquery>	
 															
-															 <td style="width:33%;padding-left:5px;border-right:1px solid silver;" align="center" class="labelmedium2">															 	
+															 <td style="width:33%;padding-left:5px;border-right:1px solid silver;" align="center" class="labelmedium2">		
 																														 
-															 <cfloop query="Header">	
-															
+															 <cfloop query="Header">															
 															
 																 <a href="javascript:ShowTransaction('#Header.Journal#','#Header.JournalSerialNo#','1','tab')">
 																 #Header.Journal#-#Header.JournalSerialNo#</a>
@@ -709,16 +710,16 @@ password="#SESSION.dbpw#">
 												
 												</td>
 												
-												 <td align="center" style="min-width:30px;;padding-left:10px;padding-right:5px">
+												<td align="center" style="min-width:30px;;padding-left:10px;padding-right:5px">
 													       <cfif DateEffectivePosting lte PayrollEnd>
 														      <input type="checkbox" class="radiol" name="calculate" value="'#CalculationId#'">	
 														   </cfif>
-							   </td>
+							                    </td>
 												 
-											   <td style="min-width:30px;padding-left:4px">
-											   											  
+											    <td style="min-width:30px;padding-left:4px">
+																																			   											  
 												   	<cfif transactioncount gt "0">
-												
+																									
 													<img src="#SESSION.root#/Images/Expand.png" alt="" width="18" height="16"
 														id="#CalculationId#Exp" border="0" class="regular" 
 														align="absmiddle" style="cursor: pointer;" 
@@ -732,7 +733,7 @@ password="#SESSION.dbpw#">
 													</cfif>	
 													
 												
-												</td>
+												 </td>
 												
 												 <cfif CalculationStatus lte "2" and CalculationStatus gt "0">			
 											   		<td style="width:30px">				  
