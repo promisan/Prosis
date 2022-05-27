@@ -31,7 +31,7 @@
 						<cfset pict = "">      
 				  </cfif>	
 				  
-				  <!---			 
+				 			 
 				  
 				  <cf_UITooltip
 					id         = "#assignDetail.AssignmentNo#"
@@ -42,9 +42,7 @@
 					ShowOn     = "click"
 					Height     = "200"
 					Duration   = "300">
-					
-					--->
-									  
+														  
 				  <cfif pict neq "">
 				  
 				  	  <cfif FileExists("#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg")>				  
@@ -79,9 +77,9 @@
 					  
 				  </cfif>		
 				  
-				  <!---					  
+				  		  
 					  </cf_UItooltip>						  
-				  --->				 				   
+				  				 				   
 				  			  
 			      </td>
 				  </tr>

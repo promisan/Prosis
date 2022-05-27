@@ -28,19 +28,20 @@
 	<tr>
 	
 	<td style="padding:4px">
-		
-
-		  <cfif URL.pict neq "">				  	  
-			  	<cfset  vPhoto = "#SESSION.rootDocument#\EmployeePhoto\#pict#.jpg?id=1">								
-		  <cfelse>				  					  
+	
+	      <cfif FileExists("#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg")>				  
+			   <cf_getMid>
+		  	   <cfset vPhoto = "#SESSION.root#\CFRStage\getFile.cfm?id=#pict#.jpg&mode=EmployeePhoto&mid=#mid#">						  						   
+	      <cfelse>
 			  <cfif qPerson.Gender eq "Female">
 				  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-female.png">
 			  <cfelse>
 				  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-male.png">
-			  </cfif>				  
-		  </cfif>	
-		  <cfset size = "130px">	
-		  <img src="#vPhoto#" class="img-circle clsRoundedPicture" style="height:#size#; width:#size#;">
+			  </cfif>
+		  </cfif> 	
+		
+		  <cfset size = "130px">					
+		  <img src="#vPhoto#" class="img-circle clsRoundedPicture" style="cursor:pointer;height:#size#; width:#size#;">				
 									  
 	</td>								  
 	<td style="width:100%" valign="top">

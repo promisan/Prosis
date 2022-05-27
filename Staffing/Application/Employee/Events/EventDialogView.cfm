@@ -91,7 +91,7 @@
 	
 		<tr class="labelmedium">
 			<td style="padding-left:20px;font-size:15px"><cf_tl id="Position">:</td>
-			<td colspan="2" style="font-size:15px"><cfif Position.SourcePostNumber neq "">#Position.SourcePostNumber#<cfelse>#Position.ParentPositionId#</cfif></td>			
+			<td colspan="2" style="font-size:15px"><cfif Position.SourcePostNumber neq "">#Position.SourcePostNumber#<cfelse>#Position.PositionParentId#</cfif></td>			
 		</tr>
 		
 		<tr><td></td><td colspan="2" style="padding-right:30px">
