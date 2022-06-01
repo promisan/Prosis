@@ -39,7 +39,7 @@
         </cf_mobilerow>
         <cfoutput group="entitycode">
             <cfset vGroups = vGroups + 1>
-            <cf_mobilerow class="rowHighlight clsActionGroup" onclick="toggleGroup('#entityCode#', '#url.entitygroup#', '#url.mission#', '#url.owner#', '#url.me#');" style="cursor:pointer; padding-left:20px;">
+            <cf_mobilerow class="rowHighlight clsActionGroup" onclick="toggleGroup('#entityCode#', '#url.entitydue#','#url.entitygroup#', '#url.mission#', '#url.owner#', '#url.me#');" style="cursor:pointer; padding-left:20px;">
                 <cf_mobilecell class="col-xs-8 subGroupTitle clsHeader clsHeader_#entityCode#">
                     #EntityDescription#
                 </cf_mobilecell>	

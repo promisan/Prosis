@@ -11,6 +11,8 @@
 	<cf_dropTable tblname="#Session.acc#_ActionResultDataset" dbname="AppsQuery">
 	
 	<cftransaction isolation="READ_UNCOMMITTED">
+	
+	        <cfset due = dateAdd("d","30",now())>
 						
 			<cfquery name="ResultListing" 
 			 datasource="AppsOrganization"
@@ -46,6 +48,9 @@
 				 WHERE      P.EnableMyClearances = 1 
 				  AND       O.ObjectStatus       = 0
 				  AND       O.Operational        = 1  
+				  <cfif url.EntityDue eq "Due">
+				  AND       (O.ObjectDue is NULL or O.ObjectDue <= #due#)
+				  </cfif>
 				  <cfif url.scope eq "portal">
 				  AND       E.EnablePortal = 1 AND  EC.EnablePortal = 1
 				  </cfif>	  
@@ -53,7 +58,7 @@
 				  <!--- hide concurrent actions that were completed --->
 				  AND       OA.ActionStatus     != '2'			 
 			</cfquery>
-							
+										
 	</cftransaction>	
 
 <cfcatch>

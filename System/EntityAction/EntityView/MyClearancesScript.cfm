@@ -14,8 +14,8 @@
 
 <script>
 	
-	function doRefresh(eg,miss,owner,me,mode) {	
-		ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/MyClearancesDetail.cfm?scope=#url.scope#&refresh='+mode+'&EntityGroup='+eg+'&Mission='+miss+'&Owner='+owner+'&me='+me,'listing');					
+	function doRefresh(due,eg,miss,owner,me,mode) {	
+		ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/MyClearancesDetail.cfm?scope=#url.scope#&refresh='+mode+'&EntityDue='+due+'&EntityGroup='+eg+'&Mission='+miss+'&Owner='+owner+'&me='+me,'listing');					
 	}	
 		
 	function process(id) {
@@ -43,7 +43,7 @@
 		e.stopPropagation();
 	}
 
-	function toggleGroup(ent, eg, miss, owner, me) {
+	function toggleGroup(ent, due, eg, miss, owner, me) {
 		if ($('.clsRow_'+ent).first().is(':visible')) {
 			$('.entityIcon_'+ent).removeClass('fa-minus').addClass('fa-plus');
 			$('.clsHeader_'+ent).removeClass('boldText');
@@ -55,7 +55,7 @@
 			$('.clsHeader_'+ent).addClass('boldText');
 			$('.clsRow_'+ent).slideDown(100);
 			window['fnTextSearch'] = toggleTextSearch;			
-			ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/Actions.cfm?scope=#url.scope#&entityCode='+ent+'&EntityGroup='+eg+'&Mission='+miss+'&Owner='+owner+'&me='+me, 'container_'+ent, 'fnTextSearch');
+			ptoken.navigate('#SESSION.root#/System/EntityAction/EntityView/Actions.cfm?scope=#url.scope#&entityDue='+due+'&entityCode='+ent+'&EntityGroup='+eg+'&Mission='+miss+'&Owner='+owner+'&me='+me, 'container_'+ent, 'fnTextSearch');
 		}
 	}
 

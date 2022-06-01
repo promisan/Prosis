@@ -3,6 +3,7 @@
 <cfparam name="URL.EntityGroup" 	default="">
 <cfparam name="URL.Mission" 		default="">
 <cfparam name="URL.Owner" 			default="">
+<cfparam name="URL.EntityDue" 	  	default="due">
 <cfparam name="URL.Me" 				default="false">
 <cfparam name="URL.mode" 			default="">
 <cfparam name="URL.search" 			default="">
@@ -69,7 +70,7 @@
 
 	<cfoutput>
 		<div style="height:#URL.height#%;padding-left:15px;padding-right:15px" class="toggleScroll-y">
-			<cfset vParameters = "mode=#url.mode#&EntityGroup=#URL.EntityGroup#&Mission=#URL.Mission#&Owner=#URL.Owner#&me=#url.me#&search=#url.search#&scope=#url.scope#">
+			<cfset vParameters = "mode=#url.mode#&EntityGroup=#URL.EntityGroup#&Mission=#URL.Mission#&Owner=#URL.Owner#&entityDue=#url.EntityDue#&me=#url.me#&search=#url.search#&scope=#url.scope#">
 			<cfdiv style       = "position:sticky; top:0px; z-index:1; background-color:##FFFFFF; padding-bottom:0px; back" bind="url:#SESSION.root#/system/entityaction/entityview/MyClearancesFilters.cfm?#vParameters#" id="head"/>
 			<cf_securediv bind = "url:#SESSION.root#/system/entityaction/entityview/MyClearancesDetail.cfm?#vParameters#" id="listing">
 		</div>

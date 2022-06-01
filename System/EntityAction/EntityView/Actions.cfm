@@ -68,6 +68,8 @@
 
 <CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Action">	
 
+<cfset due = dateAdd("d","30",now())>
+
 <cfquery name="Search" 
  datasource="AppsOrganization"
  username="#SESSION.login#" 
@@ -134,6 +136,14 @@
 	 <!--- hide concurrent action that was completed --->
 	AND     OA.ActionStatus != '2'		
 	AND     E.EntityCode = '#URL.EntityCode#' 
+	
+    <cfif url.scope eq "portal">
+		  AND       E.EnablePortal = 1 AND  EC.EnablePortal = 1
+    </cfif>
+	<cfif url.EntityDue eq "Due">
+		  AND       (O.ObjectDue is NULL or O.ObjectDue <= #due#)
+	</cfif>
+	
 	<cfif url.sorting eq "overdue">
 	ORDER BY Due DESC, O.Created 
 	<cfelseif url.sorting eq "submitted">
@@ -164,15 +174,15 @@
             </cf_mobileCell>
 
             <cf_mobilecell class="col-md-1 col-sm-12 text-center" style="color:##808080;">
-                <cf_tl id="Action Overdue (h)">
+                <cf_tl id="Action Overdue (hr)">
             </cf_mobileCell>
 
             <cf_mobilecell class="col-md-1 col-sm-12 text-center" style="color:##808080;">
-                <cf_tl id="Workflow Overdue (d)">
+                <cf_tl id="Workflow Overdue (day)">
             </cf_mobileCell>
 
             <cf_mobilecell class="col-md-1 col-sm-12 text-center" style="color:##808080;">
-                <cf_tl id="Document Overdue (d)">
+                <cf_tl id="Document Overdue (day)">
             </cf_mobileCell>
 			
         </cf_mobileRow>
@@ -231,12 +241,16 @@
                                         <cf_tl id="Action overdue" var="1">
                                         <i class="fas fa-exclamation-triangle" onclick="process('#ObjectId#')" title="#lt_text#" style="font-size:150%; color:#vWarningColor#;"></i>
                                                         
-                                    <cfelse>  						
-                                        <cf_img mode="open" onclick="process('#ObjectId#')">																					
+                                    <cfelse>  
+															
+                                        <cf_img mode="open" onclick="process('#ObjectId#')">	
+										
                                     </cfif>
                                     
-                                <cfelse>						
-                                    <cf_img mode="open" onclick="process('#ObjectId#')">				 																
+                                <cfelse>
+														
+                                    <cf_img mode="open" onclick="process('#ObjectId#')">	
+									
                                 </cfif>
                                 
                             </cfif>					
@@ -362,19 +376,24 @@
                         <cfif DateLast neq "">               
                             <cfset x = DateDiff("d", "#DateLast#", "#now()#")>
                             <cfif x gt ActionLeadTime>
-                                <cf_tl id="Workflow Overdue (d)">: <span style="color:#vWarningColor#;;font-size:16px">#numberformat(x-ActionLeadTime, ',')#</span>
+                                <cf_tl id="Workflow Overdue (day)">: <span style="color:#vWarningColor#;;font-size:16px">#numberformat(x-ActionLeadTime, ',')#</span>
                             </cfif>
                         </cfif>
                     </cfif>
                 </cf_mobileCell>
 
                 <cf_mobilecell class="col-md-1 col-sm-12 hidden-xs hidden-sm text-center">
-                    <cfif ObjectDue neq "">				
+                    <cfif ObjectDue neq "">
+									
                         <cfif due gt 0>
 							<span style="color:#vWarningColor#;;font-size:16px">
                             #numberformat(due, ',')#
 							</span>
-                        </cfif>
+						<cfelse>
+						   <span style="color:6688aa;font-size:14px">
+						    #dateformat(ObjectDue,client.dateformatshow)#	
+							</span>
+                        </cfif>					
                     </cfif>
                 </cf_mobileCell>
 
@@ -382,7 +401,7 @@
                     <cfif ObjectDue neq "">				
                         <cfif due gt 0>
 							<span style="color:#vWarningColor#;;font-size:16px">
-                            <cf_tl id="Document Overdue (d)">: #numberformat(due, ',')#
+                            <cf_tl id="Document Overdue (day)">: #numberformat(due, ',')#
 							</span>
                         </cfif>
                     </cfif>

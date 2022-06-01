@@ -212,31 +212,33 @@ function editEntitlement(persno, no) {
 								  					  
 								  </cfloop>
 							  
-							 </cfif>				
-											 	
-							<cfset link = "Staffing/Application/Employee/Cost/MiscellaneousView.cfm?id=#form.personno#&id1=#rowguid#">
+							 </cfif>	
+							 										 	
+							 <cfset link = "Staffing/Application/Employee/Cost/MiscellaneousView.cfm?id=#form.personno#&id1=#rowguid#">
+								
+							 <cf_ActionListing 
+								    EntityCode       = "EntCost"
+									EntityClass      = "#ecl#"
+									EntityGroup      = ""
+									EntityStatus     = ""
+									Mission 		 = "#form.Mission#"
+									PersonNo         = "#Person.PersonNo#"
+									ObjectReference  = "#Entitlement.PayrollItem#"
+									ObjectReference2 = "#Person.FirstName# #Person.LastName#" 
+									ObjectKey1       = "#Form.PersonNo#"
+									ObjectKey4       = "#rowguid#"
+									ObjectDue        = "#dateformat(STR,client.dateSQL)#"
+									ObjectURL        = "#link#"
+									FlyActor         = "#Pactor[1]#"
+									FlyActorAction   = "#Paction[1]#"
+									FlyActor2        = "#Pactor[2]#"
+									FlyActor2Action  = "#Paction[2]#"	
+									FlyActor3        = "#Pactor[3]#"
+									FlyActor3Action  = "#Paction[3]#"									
+									Show             = "No"
+									CompleteFirst    = "No">
 							
-							<cf_ActionListing 
-							    EntityCode       = "EntCost"
-								EntityClass      = "#ecl#"
-								EntityGroup      = ""
-								EntityStatus     = ""
-								Mission 		 = "#form.Mission#"
-								PersonNo         = "#Person.PersonNo#"
-								ObjectReference  = "#Entitlement.PayrollItem#"
-								ObjectReference2 = "#Person.FirstName# #Person.LastName#" 
-								ObjectKey1       = "#Form.PersonNo#"
-								ObjectKey4       = "#rowguid#"
-								ObjectURL        = "#link#"
-								FlyActor         = "#Pactor[1]#"
-								FlyActorAction   = "#Paction[1]#"
-								FlyActor2        = "#Pactor[2]#"
-								FlyActor2Action  = "#Paction[2]#"	
-								FlyActor3        = "#Pactor[3]#"
-								FlyActor3Action  = "#Paction[3]#"									
-								Show             = "No"
-								CompleteFirst    = "No">
-							
+														
 					  </cfif>	
 					  
 				</cfif>	  

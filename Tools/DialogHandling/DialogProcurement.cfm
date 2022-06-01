@@ -123,7 +123,7 @@
 	}
 	
 	function ProcRcptLineEdit(rcptid,reqno,mode,action,box,taskid,dte) {
-	   ProsisUI.createWindow('receiptdialog', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-150,width:document.body.clientWidth-100,modal:true,resizable:false,center:true})    	   			
+	   ProsisUI.createWindow('receiptdialog', 'Receipt', '',{x:100,y:100,height:document.body.clientHeight-40,width:document.body.clientWidth-40,modal:true,resizable:false,center:true})    	   			
 	   ptoken.navigate(root + '/Procurement/Application/Receipt/ReceiptEntry/ReceiptLineView.cfm?date='+dte+'&mode=' + mode + '&rctid='+rcptid+'&reqno=' + reqno + '&action=' + action + '&taskid=' + taskid,'receiptdialog') 			   
 	}     	
 	

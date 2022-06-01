@@ -102,7 +102,7 @@ function hl(itm,fld){
 				</tr>					
 			</table>
 		</td>			
-		<cfif row eq "4">
+		<cfif row eq "3">
 		 <cfset row = 0>
 		    </tr>
 		</cfif>						

@@ -51,7 +51,7 @@ function EditParentPosition(mission,mandate,posno) {
 	}
 
 function AddPosition(mission,mandate,org,fun,tpe,grd,loc,adm,pos) {
-  ProsisUI.createWindow('addposition', 'Add Position', '',{x:100,y:100,height:document.body.clientHeight-120,width:900,modal:true,resizable:false,center:true})    					
+  ProsisUI.createWindow('addposition', 'Add Position', '',{x:100,y:100,height:document.body.clientHeight-70,width:document.body.clientWidth-70,modal:true,resizable:false,center:true})    					
   ptoken.navigate(root + '/Staffing/Application/Position/Position/PositionEntryView.cfm?ID=' + mission + '&ID1=' + mandate + '&ID2=' + org + '&ID3=' + fun + '&ID4=' + tpe + '&ID5=' + grd + '&ID6=' + loc + '&ID7=' + adm + '&ID8=' + pos,'addposition');
 }
 

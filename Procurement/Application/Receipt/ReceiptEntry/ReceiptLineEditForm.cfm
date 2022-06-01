@@ -581,7 +581,7 @@ password="#SESSION.dbpw#">
 						
 		<tr>
 				 
-			<td class="labelmedium" width="146" style="padding-left:10px"><cf_tl id="Delivery date">:<font color="FF0000">*</font></td>
+			<td class="labelmedium" style="min-width:170px;padding-left:10px"><cf_tl id="Delivery date">:<font color="FF0000">*</font></td>
 				
 			<td colspan="3">
 				

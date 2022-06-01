@@ -120,22 +120,22 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfinvoke 
-  component= "Service.Access"  
-  method   = "position" 
-  mission  = "#url.id#"
-  orgunit  = "#URL.ID2#" 
-  posttype = "#URL.ID4#"
-  role     = "'HRPosition'"
-  returnvariable="accessPosition">
+  component      = "Service.Access"  
+  method         = "position" 
+  mission        = "#url.id#"
+  orgunit        = "#URL.ID2#" 
+  posttype       = "#URL.ID4#"
+  role           = "'HRPosition'"
+  returnvariable = "accessPosition">
   
 <cfinvoke 
-  component= "Service.Access"  
-  method   = "staffing" 
-  mission  = "#url.id#"
-  orgunit  = "#URL.ID2#" 
-  posttype = "#URL.ID4#"
-  role     = "'HROfficer'"
-  returnvariable="accessStaffing">  
+  component      = "Service.Access"  
+  method         = "staffing" 
+  mission        = "#url.id#"
+  orgunit        = "#URL.ID2#" 
+  posttype       = "#URL.ID4#"
+  role           = "'HROfficer'"
+  returnvariable = "accessStaffing">  
   
 <cfif (Mandate.MandateStatus eq "0" and (AccessPosition eq "EDIT" or AccessStaffing eq "EDIT"))	or (AccessPosition eq "ALL" or AccessStaffing eq "ALL")>
 	
@@ -147,7 +147,7 @@ password="#SESSION.dbpw#">
 	    FROM Organization
 		WHERE OrgUnit = '#URL.ID2#'
 	</cfquery>
-	
+		
 	<cfif OrgUnit.recordcount eq "0">
 	
 		<cfquery name="OrgUnit" 
@@ -354,7 +354,7 @@ password="#SESSION.dbpw#">
 			</TR>	
 						
 			<TR>
-		    <TD class="labelmedium"><cf_tl id="Function">: <font color="FF0000">*</font></TD>
+		    <TD style="min-width:180px" class="labelmedium"><cf_tl id="Function">: <font color="FF0000">*</font></TD>
 				
 		    <TD>
 			<table cellspacing="0" cellpadding="0">

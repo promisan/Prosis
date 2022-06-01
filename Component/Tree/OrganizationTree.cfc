@@ -1255,9 +1255,9 @@
 				<cfelse>
 
 					<cfif len(orgLabel) gt "42">
-						<cfset s.display   = "<span style='font-size:#orgsize#;color: #cl#;' title='#orgLabel#'>#left(orgLabel,38)# ...</span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;' class='fixlength' title='#orgLabel#'>#left(orgLabel,38)# ...</span>">
 					<cfelse>
-						<cfset s.display   = "<span style='font-size:#orgsize#;' class='fixlength' title='#orgLabel#'>#orgLabel#</td></span>">
+						<cfset s.display   = "<span style='font-size:#orgsize#;' class='fixlength' title='#orgLabel#'>#orgLabel#</span>">
 					</cfif>
 
 				</cfif>

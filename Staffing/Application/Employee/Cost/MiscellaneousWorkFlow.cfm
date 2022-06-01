@@ -69,6 +69,7 @@ password="#SESSION.dbpw#">
 	ObjectReference2 = "#Person.FirstName# #Person.LastName#" 
 	ObjectKey1       = "#Person.PersonNo#"
 	ObjectKey4       = "#url.ajaxid#"
+	ObjectDue        = "#dateformat(get.DateEffective,client.dateSQL)#"
 	AjaxId           = "#url.ajaxid#"
 	ObjectURL        = "#link#"
 	Show             = "Yes"

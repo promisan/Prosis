@@ -1066,11 +1066,11 @@
 			
 					
 			<cfquery name="Parameter"
-				datasource="AppsMaterials" 
+				datasource="#datasource#" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 					SELECT     *
-					FROM       Ref_ParameterMission
+					FROM       Materials.dbo.Ref_ParameterMission
 					WHERE      Mission = '#mission#'								
 			</cfquery>	
 			

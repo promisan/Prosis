@@ -123,8 +123,12 @@
 	 
 					<cfset link = "#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/getSalesOrder.cfm?mission=#url.mission#&warehouse=#url.warehouse#&">		
 					
+					<!---
 
 					<cfif getAdministrator("*") eq "1">
+					
+					--->
+					
 						<cf_tl id="sales orders" var="1">
 						<cfset buttonlayout = {
 							subtext      = "#lt_text#",
@@ -157,7 +161,10 @@
 								des1         = "BatchId"
 								fontsize     = "#vFontSize#"
 								width        = "#vWidth#" >
+								
+					<!---			
 					</cfif>
+					--->
        </td>
 	   <td style="#vCellStyle# padding:5px;" align="center">		
 	   						

@@ -79,37 +79,47 @@
             </td>
 			--->
 			<td style="padding-left:15px;padding-top:5px;height:35px;font-size:24px;width:100%" id="summary">
-            <cfif ResultListing.recordcount eq "0">
-                <cfset cl = "##59C25B">
-            <cfelse>
-                <cfset cl = "##EF5555">   
-            </cfif>
-            <cfif ResultListing.recordcount eq "0">
-			     <cf_tl id="Excellent, you have no pending actions"><cfelse>
-				 <span style="color:#cl#"><font size="8">#ResultListing.recordcount#</font></span>
-	            <cfif ResultListing.recordcount eq "1">
-	                    <cf_tl id="pending"> <cf_tl id="action">
+			
+	            <cfif ResultListing.recordcount eq "0">
+	                <cfset cl = "##59C25B">
 	            <cfelse>
-	                    <cf_tl id="pending"> <cf_tl id="actions">
+	                <cfset cl = "##EF5555">   
 	            </cfif>
-			</cfif>
-    
-	        <!---
-            <cf_tl id="and"> <span id="batch"></span>
-			--->
+				
+	            <cfif ResultListing.recordcount eq "0">
+				     <cf_tl id="Excellent, you have no pending actions"><cfelse>
+					 <span style="color:#cl#"><font size="8">#ResultListing.recordcount#</font></span>
+		            <cfif ResultListing.recordcount eq "1">
+		                 <cf_tl id="pending"> <cf_tl id="action">
+		            <cfelse>
+		                 <cf_tl id="pending"> <cf_tl id="actions">
+		            </cfif>
+				</cfif>
+	    
+		        <!---
+	            <cf_tl id="and"> <span id="batch"></span>
+				--->
+				
+				<span id="batch" class="hide"></span>
 			
-			<span id="batch" class="hide"></span>
-			
-			</td></tr>			
+			</td>
+			</tr>			
 			</table>
 		</cf_mobilerow>
         
         <cf_mobilerow>
 		
+			<cf_mobilecell class="#vColClass#">
+                   <select id="sEntityDue" name="sEntityDue" class="form-control" onchange="doRefresh(this.value,document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,document.getElementById('sUserFly').checked,'1')">
+                        <option value="Due" <cfif url.EntityDue eq "Due">selected</cfif>><cf_tl id="Document due"></option>
+						<option value="All" <cfif url.EntityDue eq "All">selected</cfif>><cf_tl id="All documents"></option>                      
+                    </select>	
+            </cf_mobilecell>    
+		
 		    <cfif qMission.recordcount gt "1">
            
 			    <cf_mobilecell class="#vColClass#">
-	                <select id="sMission" name="sMission" class="form-control" onchange="doRefresh(document.getElementById('sEntityGroup').value,this.value,document.getElementById('sOwner').value,document.getElementById('sUserFly').checked,'1')">
+	                <select id="sMission" name="sMission" class="form-control" onchange="doRefresh(document.getElementById('sEntityDue').value,document.getElementById('sEntityGroup').value,this.value,document.getElementById('sOwner').value,document.getElementById('sUserFly').checked,'1')">
 	                    <option value="" <cfif url.EntityGroup eq "">selected</cfif>><cf_tl id="All Entities"></option>
 	                    <cfloop query="qMission">
 	                        <option value="#qMission.Mission#" <cfif url.Mission eq qMission.Mission>selected</cfif>>#qMission.Mission#</option>
@@ -122,11 +132,13 @@
 				<input type="hidden" id="sMission" name="sMission" value="#qMission.Mission#">
 				
 			</cfif>
+			
+     		
 
             
             <cfif qEntityGroup.recordcount gt 1>
                 <cf_mobilecell class="#vColClass#">
-                    <select id="sEntityGroup" name="sEntityGroup" class="form-control" onchange="doRefresh(this.value,document.getElementById('sMission').value,document.getElementById('sOwner').value,document.getElementById('sUserFly').checked,'1')">
+                    <select id="sEntityGroup" name="sEntityGroup" class="form-control" onchange="doRefresh(document.getElementById('sEntityDue').value,this.value,document.getElementById('sMission').value,document.getElementById('sOwner').value,document.getElementById('sUserFly').checked,'1')">
                         <option value="" <cfif url.EntityGroup eq "">selected</cfif>><cf_tl id="All Groups"></option>
                         <cfloop query="qEntityGroup">
                             <option value="#qEntityGroup.EntityGroup#" <cfif url.EntityGroup eq qEntityGroup.EntityGroup>selected</cfif>>#qEntityGroup.EntityGroup#</option>
@@ -139,7 +151,7 @@
 
             <cfif qOwner.recordcount gt 1>
                 <cf_mobilecell class="#vColClass#">
-                    <select id="sOwner" name="sOwner" class="form-control" onchange="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,this.value,document.getElementById('sUserFly').checked,'1')">
+                    <select id="sOwner" name="sOwner" class="form-control" onchange="doRefresh(document.getElementById('sEntityDue').value,document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,this.value,document.getElementById('sUserFly').checked,'1')">
                         <option value="" <cfif url.Owner eq "">selected</cfif>><cf_tl id="All Owners"></option>
                         <cfloop query="qOwner">
                             <option value="#qOwner.Owner#" <cfif url.Owner eq qOwner.Owner>selected</cfif>>#qOwner.Owner#</option>
@@ -155,11 +167,11 @@
 					<table>
 					<tr class="<cfif url.scope eq 'portal'>hide<cfelse>labelmedium2</cfif>">
 					<td>
-				    <input type="radio" id="sUserRole" name="sUser" class="radiol" value="false" checked onclick="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,'false','1')">
+				    <input type="radio" id="sUserRole" name="sUser" class="radiol" value="false" checked onclick="doRefresh(document.getElementById('sEntityDue').value,document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,'false','1')">
 					</td>
 					<td style="padding-left:6px;padding-top:3px"><cf_tl id="Role"></td>
 					<td style="padding-left:8px">
-					<input type="radio" id="sUserFly" name="sUser" class="radiol" value="true" onclick="doRefresh(document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,'true','1')">
+					<input type="radio" id="sUserFly" name="sUser" class="radiol" value="true" onclick="doRefresh(document.getElementById('sEntityDue').value,document.getElementById('sEntityGroup').value,document.getElementById('sMission').value,document.getElementById('sOwner').value,'true','1')">
 					</td>
 					<td style="padding-left:6px;padding-top:3px"><cf_tl id="Explicitly assigned"></td>
 	               </tr>

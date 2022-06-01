@@ -3,7 +3,7 @@
 
 <table width="99%">
 
-	<tr class="line labelmedium">
+	<tr class="line labelmedium fixrow">
 	<td align="center" style="border-top:1px solid silver;border-bottom:1px solid silver;border-left:1px solid silver;"><cf_tl id="No"></td>
 	<td align="center" style="border-top:1px solid silver;border-bottom:1px solid silver;border-left:1px solid silver;"><cf_tl id="Description"></td>
 	<td align="center" style="border-top:1px solid silver;border-bottom:1px solid silver;border-left:1px solid silver;"><cf_tl id="Reference"></td>

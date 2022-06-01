@@ -52,8 +52,9 @@
 	<cfparam name="session.mandatefiltervalue" default="">
 		
 	<cfif url.id eq "org">
-	
-		<cfset session.mandateorg = url.id1>
+	    <cfset session.mandatefilter      = url.id>
+		<cfset session.mandateorg         = url.id1>
+		<cfset session.mandatefiltervalue = url.id1>
 		
 	<cfelseif url.id1 eq "">
 	
@@ -66,6 +67,7 @@
 		<cfset session.mandatefiltervalue = url.id1>
 			
 	</cfif>		
+	
 		
 	<cfif URL.ID eq "Locate">
 	
