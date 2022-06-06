@@ -400,14 +400,14 @@ password="#SESSION.dbpw#">
 		
 	</td></tr>	
 	
-	<tr><td style="padding-left:8px;padding-right:8px">	
+	<tr><td style="padding-left:1px;padding-right:1px">	
 			
 		<cfform action = "AssignmentEditSubmit.cfm?source=#url.source#&box=#URL.Box#&Caller=#URL.Caller#" 
 	        method = "POST" 
 			target = "process"		
 		    name   = "AssignmentEdit">
 				  
-			<table width="99%" align="center" class="formpadding">
+			<table width="100%" align="center" class="formpadding">
 			
 				<tr class="hide">
 					<td height="60"><iframe name="process" id="process" width="100%" height="100%"></iframe></td>

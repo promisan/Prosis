@@ -21,6 +21,7 @@
 	<tr>
 		<td style="width:100px" class="labelmedium"><cf_tl id="Warehouse">:</td>
 		<td>
+		
 			<select class="regularxl" name="lwarehouse" id="lwarehouse">
 				<cfoutput query="wh">
 					<option value="#warehouse#">#warehouse# - #warehouseName#

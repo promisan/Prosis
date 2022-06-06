@@ -1,6 +1,4 @@
 
-
-
 <cfparam name="url.mode" default="">
 <cfparam name="url.id1" default="">
 
@@ -41,39 +39,38 @@
 	</cfif>
 	FROM     ScheduleLog
 	WHERE    ScheduleId = '#URL.ID#' and actionStatus != '0' 
+	
 </cfquery>
-
-
 
 <cfif searchResult.recordcount gte "1">
 		
-	<table width="98%" align="center" class="table_navigation">
-	
-	<tr><td height="6"></tr></tr>	
-	<tr class="labelmedium line" bgcolor="white">
-	    <TD width="30"></TD>
-	    <TD width="120">Run at</TD>
-		<TD width="120">Result</TD>
-	    <TD width="120">Duration</TD>
-		<TD width="120">IP/Host</TD>
-		<TD width="120">eMail</TD>
-		<TD width="120" align="right">
+	<table width="99%" align="left" class="table_navigation">
+		
+	<tr class="labelmedium line fixlengthlist fixrow">
+	    <TD style="padding-left:3px"></TD>
+	    <TD><cf_tl id="Run at"></TD>
+		<TD><cf_tl id="Result"></TD>
+	    <TD><cf_tl id="Duration"></TD>
+		<TD>IP/Host</TD>
+		<TD><cf_tl id="eMail"></TD>
+		<TD align="right">
 			<cfoutput>
-				<cf_img icon="delete" onclick="ColdFusion.navigate('ScheduleLog.cfm?id=#URL.ID#&id1=all','detail#URL.ID#')">
+				<cf_img icon="delete" onclick="ptoken.navigate('ScheduleLog.cfm?id=#URL.ID#&id1=all','detail#URL.ID#')">
 			 </cfoutput>
 		</TD>
 	</TR>
 		
 	<cfoutput query="SearchResult">
 	
-	    <tr class="navigation_row labelmedium line" style="height:15px;font-size:14px">
-			<td style="padding-left:3px">#currentrow#.</td>
+	    <tr class="navigation_row labelmedium line fixlengthlist" style="height:15px;font-size:14px">
+			
+			<td style="padding-left:5px">#currentrow#.</td>
+			
 			<td class="navigation_action">
-				<a href="javascript:schedulelogdetail('#ScheduleRunId#')"><font color="6688aa">
-				#DateFormat(ProcessStart,CLIENT.DateFormatShow)# #TimeFormat(ProcessStart,"HH:MM")#</font>
-				</a>
+				<a href="javascript:schedulelogdetail('#ScheduleRunId#')">#DateFormat(ProcessStart,CLIENT.DateFormatShow)# #TimeFormat(ProcessStart,"HH:MM")#</a>
 			</td>
-			<td width="130">
+			
+			<td>
 			
 			<cfif actionStatus eq "9">
 			    <font color="FF0000">Interrupted</font>	 
@@ -86,6 +83,7 @@
 				<font color="green">Successful!</font>
 				</a>
 				</cfif>
+				
 			</td>
 			
 			<TD>
@@ -115,8 +113,9 @@
 		
 		</TR>
 		<cfif actionStatus eq "9">
-		<tr><td class="labelit" colspan="7" bgcolor="ffffcf">#ScriptError#</td></tr>
+		    <tr><td class="labelit" colspan="7" bgcolor="ffffcf">#ScriptError#</td></tr>
 		</cfif>
+		
 		<tr><td colspan="7" id="log#ScheduleRunId#" class="hide"></td></tr>
 				
 	</CFOUTPUT>
@@ -126,3 +125,5 @@
 	</TABLE>
 	
 </cfif>
+
+<cfset ajaxonLoad("doHighlight")>

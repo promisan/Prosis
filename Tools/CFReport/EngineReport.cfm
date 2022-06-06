@@ -110,28 +110,25 @@
 	</cfquery>
 	
 	<cfset row = 0>
-	
-	
+		
 	<table width="96%" border="0" align="center" class="navigation_table">
-	   <tr><td>&nbsp;</td></tr>
-	   <tr class="labelmedium2 line">
-	      <td width="5%" height="20" style="padding-left:5px"><cf_tl id="No"></td>
-	      <td width="10%"><cf_tl id="Account"></td>
-		  <td width="20%"><cf_tl id="Name"></td>
-		  <td width="10%"><cf_tl id="Mode"></td>
-		  <td width="20%"><cf_tl id="eMail"></td>
-		  <td width="20%"><cf_tl id="Report"></td>
-		  <td width="15%"><cf_tl id="Stamp"></td>
+	
+	   <tr><td style="padding-top:10px"></td></tr>
+	   
+	   <tr class="labelmedium2 line fixlengthlist">
+	      <td style="padding-left:5px"><cf_tl id="No"></td>
+	      <td><cf_tl id="Account"></td>
+		  <td><cf_tl id="Name"></td>
+		  <td><cf_tl id="Mode"></td>
+		  <td><cf_tl id="eMail"></td>
+		  <td><cf_tl id="Report"></td>
+		  <td><cf_tl id="Stamp"></td>
 	   </tr>
 	  
 	   <cfif Batch.recordcount eq "0">
 	   <tr><td colspan="7" height="1" align="center"><font color="FF0000"><cf_tl id="No reports to be distributed"></font></td></tr>  
 	   </cfif>
-	      
-	</table>
-	
-	<cfflush>
-	
+		
 	<cf_assignId>   
 	
 	<cfquery name="Log" 
@@ -227,19 +224,18 @@
 					<cfparam name="Form.LayoutId"   default="00000000-0000-0000-0000-000000000000">
 					<cfparam name="Form.FileFormat" default = "PDF">
 						
-					<cfset serial = row+99>   <!--- counting from 100 --->
-					
-					<table width="96%" border="0" align="center">				
-				     <tr class="labelmedium2 line">
-					    <td width="5%" style="padding-left:5px">#serial#</td>
-					    <td width="10%">#Account#</td>
-						<td width="20%">#DistributionName#</td>
-						<td width="10%">#DistributionMode#</td>
-						<td width="20%"><cfloop index="itm" list="#DistributioneMail#">#itm#<br></cfloop></td>
-					    <td width="20%">#FunctionName#</td>		
-						<td width="15%">#dateformat(now(),CLIENT.DateFormatShow)# #timeformat(now(),"HH:MM:SS")#</td>		
+					<cfset serial = row+99>   <!--- counting from 100 --->					
+							
+				     <tr class="labelmedium2 line fixlengthlist">
+					    <td style="padding-left:5px">#serial#</td>
+					    <td>#Account#</td>
+						<td>#DistributionName#</td>
+						<td>#DistributionMode#</td>
+						<td><cfloop index="itm" list="#DistributioneMail#">#itm#<br></cfloop></td>
+					    <td>#FunctionName#</td>		
+						<td>#dateformat(now(),CLIENT.DateFormatShow)# #timeformat(now(),"HH:MM:SS")#</td>		
 					 </tr>
-					 </table>	
+					
 						
 					<cfset answer1      = "t#Serial#Answer1">
 					<cfset answer2      = "t#Serial#Answer2">
@@ -443,14 +439,12 @@
 									Description    = "#Account# - #FunctionName#"
 									StepStatus     = "9"
 									StepException  = "Problem with report : #CFCATCH.Detail#">
-							
-								<table width="96%" border="0" align="center">
+															
 								      <tr>				
-									  <td>
+									  <td colspan="6">
 									  	<td class="labelmedium linedotted"><font color="FF0000">Problem with report. Report was skipped</font></td>
 									  </tr>
-								<table>
-							
+															
 							</cfcatch>
 					
 						</cftry>
@@ -485,9 +479,13 @@
 									
 			</cfif>
 					
-		</cfif>	
+		</cfif>			
 	
 	</cfoutput>
+	
+	</table>
+	
+	<cfflush>
 			
 	<cfif batch.recordcount gte 1>
 		<cfset Status = "Completed">

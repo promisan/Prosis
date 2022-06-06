@@ -124,7 +124,7 @@ password="#SESSION.dbpw#">
 	<cfoutput query="getTopics" group="Parent">
 	
 		<tr class="line">
-			<td colspan="6" style="font-size:22px" class="labelmedium2">#Description#</td>			
+			<td colspan="6" style="height:40px;font-size:22px;font-weight:bold" class="labelmedium2">#Description#</td>			
 		</tr>	
 		
 		<cfoutput group="ValueClass">
@@ -145,7 +145,7 @@ password="#SESSION.dbpw#">
 					<cfset tbcl = "ItemClassification">
 				</cfif>  
 			
-				<td style="border:1px solid silver;max-width:230px;width:200px;padding-left:3px" class="fixlength labelmedium2">#TopicLabel#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
+				<td style="border-bottom:1px;max-width:230px;width:200px;padding-left:3px" class="fixlength labelmedium2">#TopicLabel#: <cfif ValueObligatory eq "1"><font color="ff0000">*</font></cfif></td>
 				
 				<cfquery name="GetHeader" 
 					datasource="AppsMaterials" 
@@ -157,41 +157,63 @@ password="#SESSION.dbpw#">
 							AND     Topic   = '#Code#'  								
 				</cfquery>
 				
-				<td style="border:1px solid silver;max-width:30px;width:30px"><input type="checkbox" class="radiol" name="Topic_#Code#_Oper" ID="Topic_#Code#_Oper" value="1" <cfif getHeader.Operational eq "1">checked</cfif>></td>
+				<td style="border-bottom:1px;solid silver;max-width:30px;width:30px"><input type="checkbox" class="radiol" name="Topic_#Code#_Oper" ID="Topic_#Code#_Oper" value="1" <cfif getHeader.Operational eq "1">checked</cfif>></td>
 								
 				<cfif valueclass eq "Text">
 											
-				<td colspan="4" style="width:40%;border:1px solid silver;padding-left:4px">
+				<td colspan="4" style="width:40%;border-bottom:1px;padding-left:4px">
 				
 				<cfelse>
 				
-				<td style="width:40%;border:1px solid silver;padding-left:4px">
+				<td style="width:40%;border-bottom:1px;;padding-left:4px">
 				
 				</cfif>
 									
 					<cfif ValueClass eq "List">
 					
+						<table><tr>
+						
+						<td>
+						
 						<cfquery name="GetList" 
 							datasource="AppsMaterials" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
-								SELECT	T.*, 
-										P.ListCode as Selected
-								FROM 	Ref_TopicList T 
-										LEFT OUTER JOIN #tbcl# P ON P.Topic = T.Code AND P.ItemNo = '#Item.ItemNo#'
-								WHERE 	T.Code = '#Code#'  
-								AND 	T.Operational = 1
+								SELECT	 T.*, 
+										 P.ListCode as Selected
+								FROM 	 Ref_TopicList T 
+										 LEFT OUTER JOIN #tbcl# P ON P.Topic = T.Code AND P.ItemNo = '#Item.ItemNo#'
+								WHERE 	 T.Code = '#Code#'  
+								AND      T.ListCodeParent is NULL
+								AND 	 T.Operational = 1
 								ORDER BY T.ListOrder ASC
 						</cfquery>
 						
-						<select class="regularxxl" name="Topic_#Code#" ID="Topic_#Code#">
+						<select class="regularxxl" name="Topic_#Code#" ID="Topic_#Code#" onchange="dosub('#Code#',this.value,'#GetList.Selected#')">
 							<cfif ValueObligatory eq "0">
 								<option value=""></option>
 							</cfif>
 							<cfloop query="GetList">
-								<option value="#GetList.ListCode#" <cfif GetList.Selected eq GetList.ListCode>selected</cfif>>#GetList.ListValue#</option>
+								<option value="#GetList.ListCode#" <cfif left(GetList.Selected,2) eq GetList.ListCode>selected</cfif>> #GetList.ListValue#</option>
 							</cfloop>
 						</select> 
+						
+						</td>					
+						
+						<td style="padding-left:2px" id="sub_#Code#">
+				
+						<cfset url.cde = Code>
+						<cfset url.val = left(GetList.Selected,2)>
+						<cfset url.sel = GetList.Selected>
+						
+						<cfinclude template="getSubList.cfm">
+										
+						</td>
+						
+						</tr>
+						
+						</table>			
+						
 						
 					<cfelseif ValueClass eq "Lookup">
 					

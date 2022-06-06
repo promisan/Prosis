@@ -73,8 +73,7 @@
 					title="#Description#" 
 					id="td_#currency#" 
 					bgcolor="D9FFDC" 
-					style="border:1px solid C0C0C0;">
-					#Currency#
+					style="border:1px solid C0C0C0;">#Currency# 
 				</td>
 			</cfoutput>
 			<cfset totalCols = Currency.recordCount + 1>
@@ -84,7 +83,7 @@
 			<tr>
 				<cfoutput>
 				<td bgcolor="D9FFDC" style="border:1px solid C0C0C0;">
-					#Description#
+					#Description# 
 				</td>
 				</cfoutput>
 				<cfloop query="Currency">
@@ -106,8 +105,7 @@
 					<td align="center" 
 						id="td_#Schedule.code#_#Currency.Currency#" 
 						style="border:1px solid C0C0C0; <cfif vSelected eq 1>background-color:'FFFFCF'; </cfif>" 
-						onMouseOver="this.bgColor='FFFFCF'" 
-						onMouseOut="this.bgColor=''" 
+						onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''" 
 						bgcolor="">
 						
 						<input 	type="Checkbox" 

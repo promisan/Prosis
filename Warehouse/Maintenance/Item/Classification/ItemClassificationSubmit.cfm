@@ -77,7 +77,8 @@
 			password="#SESSION.dbpw#">
 				SELECT 	*
 				FROM 	ItemTopicValue C
-				WHERE 	ItemNo = '#URL.ID#'				
+				WHERE 	ItemNo = '#URL.ID#'			
+					
 		</cfquery>
 		
 	<cfelse>
@@ -103,6 +104,10 @@
 	
 		<cfset vValue = Evaluate("Form.Topic_#getTopics.Code#")>
 		
+		<!--- sub topics --->
+		<cfparam name="Form.TopicSub_#getTopics.Code#" default="">		
+		<cfset sValue = Evaluate("Form.TopicSub_#getTopics.Code#")>
+		
 		<cfquery name="qItemClassification" dbtype="query">
 			SELECT 	*
 			FROM 	Classification
@@ -113,7 +118,11 @@
 			SELECT 	*
 			FROM 	TopicList
 			WHERE 	Code     = '#Code#'
+			<cfif sValue neq "">
+			AND 	ListCode = '#sValue#'
+			<cfelse>
 			AND 	ListCode = '#vValue#'
+			</cfif>			
 		</cfquery>
 				
 		<cfif trim(vValue) eq "">
@@ -179,10 +188,10 @@
 								'#url.id#',
 								'#code#',	
 								<cfif valueClass eq "List">	
-								'#vValue#',	
-								'#qTopicList.ListValue#',	
+									<cfif sValue neq "">'#sValue#'<cfelse>'#vValue#'</cfif>,			
+									'#qTopicList.ListValue#',	
 								<cfelse>
-								'#vValue#',			
+									<cfif sValue neq "">'#sValue#'<cfelse>'#vValue#'</cfif>,						
 								</cfif>		
 								<cfif TopicClass neq "Details">
 								'#oper#',					
@@ -219,10 +228,10 @@
 							   </cfif>
 						
 						       <cfif valueClass eq "List">
-							    ListCode = '#vValue#',
+							    ListCode = <cfif sValue neq "">'#sValue#'<cfelse>'#vValue#'</cfif>,
 								TopicValue = '#qTopicList.ListValue#'
 							   <cfelse>
-							    TopicValue = '#vValue#'
+							    TopicValue = <cfif sValue neq "">'#sValue#'<cfelse>'#vValue#'</cfif>
 							   </cfif>
 						WHERE  ItemNo     = '#url.id#'
 						AND    Topic      = '#getTopics.code#'

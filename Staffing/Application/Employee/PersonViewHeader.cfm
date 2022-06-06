@@ -385,15 +385,22 @@
 								
 							   </cfif>
 							   
-								   <cfif user.mailserveraccount neq "">
-								     <font size="1">ldap</font>: #user.mailserveraccount# / <font size="1">#SESSION.welcome#</font>: #user.account#
-								   <cfelseif user.accountno neq "">
-									 <font size="1">ldap</font>: #user.accountno# /<font size="1">#SESSION.welcome#</font>: #user.account#
-								   <cfelse>	 
-								     <font size="1">#SESSION.welcome#</font>: #user.account#
-								   </cfif>	 	
-								   							
-							   </font>							   								   
+							        <table>
+									<tr class="labelmedium fixlengthlist">
+									<cfif user.mailserveraccount neq "">
+									<td style="font-size:10px">ldap:</td>
+									<td>#user.mailserveraccount#</td>
+									</cfif>
+									<cfif user.accountno neq "">
+									<td style="font-size:10px">id:</td>
+									<td>#user.accountno#</td>
+									</cfif>
+									<td style="font-size:10px">#SESSION.welcome#:</td>
+									<td>#user.account#</td>
+									</tr>
+									
+									</table>
+							   						   								   
 						   
 						   </cfif>	                         
                              

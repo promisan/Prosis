@@ -1,6 +1,7 @@
 
 <!--- check action --->
 
+<cftry>
 
 <cfparam name="url.scope" default="backoffice">
 <cfparam name="url.object" default="">
@@ -33,4 +34,8 @@
 	</cfif>	
 	
 </cfoutput>		
+
+<cfcatch></cfcatch>
+
+</cftry>
 

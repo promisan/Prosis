@@ -183,9 +183,9 @@ password="#SESSION.dbpw#">
 		   <td><cf_tl id="Description"></td>
 		   <td>S</td>
 		   <td><cf_tl id="Class"></td>
-		   <td><cf_UIToolTip tooltip="The presentation of the action in the browser"><cf_tl id="Window"></cf_UIToolTip></td>
-		   <td align="center"><cf_UIToolTip tooltip="Allow Object Owner to grant access to users for this step on the object level">Fly.</cf_UIToolTip></td>
-		   <td align="center"><cf_UIToolTip tooltip="Enabled for embediding in new worflows">Op.</cf_UIToolTip></td>
+		   <td title="The presentation of the action in the browser"><cf_tl id="Window"></td>
+		   <td align="center" title="Allow Object Owner to grant access to users for this step on the object level">Fly.</td>
+		   <td align="center" title="Enabled for embediding in new worflows">Op.</td>
 		   <td align="right" colspan="4">
 	         
 			 <cfoutput>			 
@@ -204,7 +204,7 @@ password="#SESSION.dbpw#">
 			
 			<td width="2"></td>
 			<td height="24"><cf_space spaces="24">
-			  <table cellspacing="0" cellpadding="0"><tr><td class="labelit"><cfoutput>#Entity.EntityAcronym#</cfoutput></td>
+			  <table><tr><td class="labelit"><cfoutput>#Entity.EntityAcronym#</cfoutput></td>
 				<td>-</td>
 				<td>
 				
@@ -218,11 +218,7 @@ password="#SESSION.dbpw#">
 				   
 				</td>
 				
-				<td id="codecheck" align="center" style="min-width:20px;">
-				
-				
-				
-				</td>
+				<td id="codecheck" align="center" style="min-width:20px;"></td>
 				
 				</tr>
 				</table> 
@@ -273,11 +269,11 @@ password="#SESSION.dbpw#">
 			
 			<td align="center" style="padding-left:3px;border-left:1px solid silver">
 				<select name="ProcessMode" id="ProcessMode" class="regularxl" style="width:99%;border:0px">				
-					<option value="0">Single Dialog (legacy)</option>									
+					<option value="0">Single Dialog [legacy]</option>	
+					<option value="1" selected>Modal Dialog (Kendo)</option>								
 					<option value="2">Window</option>		
 					<option value="3">Browser Tab</option>		
-					<option value="4">Browser Tab with right panel</option>		
-					<option value="1">Modal Dialog (Kendo)</option>
+					<option value="4">Browser Tab with right panel</option>							
 				</select>
 				
 			</td>

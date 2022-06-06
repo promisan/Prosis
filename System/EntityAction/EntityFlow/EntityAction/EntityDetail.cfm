@@ -202,7 +202,7 @@ function hl(itm,fld){
       
   <tr><td colspan="2">
   
-   <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+   <table width="100%" align="center">
 		
 		<cfloop query="SearchResult">
 	

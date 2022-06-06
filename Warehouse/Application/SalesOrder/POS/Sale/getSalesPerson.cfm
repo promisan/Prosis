@@ -77,8 +77,8 @@
 			AND      PA.DateExpiration > GETDATE() 
 			AND      P.Mission = '#URL.mission#' 		
 			AND      P.OrgUnitOperational IN (SELECT OrgUnit 
-			                                   FROM   Organization.dbo.Organization
-											   WHERE  MissionOrgUnitId = '#URL.MissionOrgUnitId#')
+			                                  FROM   Organization.dbo.Organization
+											  WHERE  MissionOrgUnitId = '#URL.MissionOrgUnitId#')
 											   
 			AND      PA.AssignmentStatus IN ('0', '1') 
 			AND      PA.Incumbency > 0																			 	   							   
@@ -94,6 +94,7 @@
   datasource="AppsEmployee" 
   username="#SESSION.login#" 
   password="#SESSION.dbpw#">
+  
 	    SELECT *
 		FROM   Person
 		WHERE  PersonNo IN (SELECT    PA.PersonNo
@@ -102,7 +103,7 @@
 							WHERE     PA.DateEffective  < GETDATE() 
 							AND       PA.DateExpiration > GETDATE() 
 							AND       P.Mission = '#URL.mission#' 
-							<cfif URL.MissionOrgUnitId neq "" and hasStaff eq "1">
+							<cfif URL.MissionOrgUnitId neq "" and hasStaff eq "1">							
 							AND       P.OrgUnitOperational IN (SELECT OrgUnit 
 							                                   FROM   Organization.dbo.Organization
 															   WHERE  MissionOrgUnitId = '#URL.MissionOrgUnitId#')

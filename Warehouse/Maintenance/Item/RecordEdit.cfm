@@ -69,6 +69,7 @@
 <cf_dialogOrganization>
 <cf_PresenterScript>
 <cf_filelibraryscript>
+<cf_ActionListingScript>
 	
 <cfoutput>
 
@@ -282,6 +283,13 @@
 	    ht = 500;
 	 	ptoken.open("#SESSION.root#/Warehouse/Inquiry/Item/ItemSelect.cfm?itemclass=supply&itmbox="+itm+"&openerbox="+box+"&ts="+new Date().getTime(),null, "left=100, top=100, width="+wd+", height="+ht+",menubar=no, toolbar=no, status=yes, scrollbars=no, resizable=yes");
 	}
+	
+	function dosub(cde,val,sel) {
+	    _cf_loadingtexthtml='';		
+	   	ptoken.navigate('#SESSION.root#/Warehouse/Maintenance/Item/Classification/getSubList.cfm?cde='+cde+'&val='+val+'&sel='+sel,'sub_'+cde);
+
+	
+	}
  
 </script>
 
@@ -319,8 +327,8 @@
 		<table width="100%">
 		<tr>
 		
-			<cfset wd = "74">
-			<cfset ht = "74">		
+			<cfset wd = "50">
+			<cfset ht = "50">		
 			
 			<cfset itm = "1">
 
@@ -360,22 +368,20 @@
 							padding    = "0"
 							name       = "#lt_text#"
 							source     = "Attachment/ItemAttachment.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#">
-			
-			<!---
+													
 			<cfset itm = itm+1>
-			<cf_tl id = "UoM" var = "uom">
-			<cf_tl id = "and" var = "vAnd">
-			<cf_tl id = "Entities" var = "usage">
+			<cf_tl id = "Status" var = "sta">
+		
 			<cf_menutab item       = "#itm#" 
-			            iconsrc    = "UoM.png" 
+			            iconsrc    = "Logos/User/WorkFlow.png" 
 						iconwidth  = "#wd#" 
 						iconheight = "#ht#"
 						targetitem = "2" 
 						padding    = "0"
-						name       = "#uom# #vAnd# #usage#"
-						source     = "UoM/ItemUoM.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#">		
+						name       = "#sta#"
+						source     = "Workflow/ItemBaseWorkflow.cfm?id=#url.id#&idmenu=#url.idmenu#">		
 						
-			--->		
+				
 			
 			<cfset itm = itm+1>
 			<cf_tl id = "Photo" var = "1">

@@ -1923,6 +1923,11 @@
 
 <cfif Operational eq "1">	
 
+    <cf_insertRoles   Role="WhsItem"      		Area="Material Management" 
+					  SystemModule="Warehouse" 		SystemFunction="Warehouse"
+					  OrgUnitLevel="All"   			Description="Process Item Classification" 
+					  Parameter="Entity"			Memo="Initiates or Process item classification">	
+
 	<cf_insertRoles   Role="WhsRequirement"   		Area="Material Management" 
 					  SystemModule="Warehouse" 		SystemFunction="Warehouse"
 					  OrgUnitLevel="All"   			Description="Process Item Authorization Requirement" 
@@ -1951,6 +1956,13 @@
 					  Parameter="LocationClass">				  
 	
 	<!--- Warehouse roles for extended types of request --->
+	
+	 <cf_insertEntity  Code="WhsItem"   
+	                  Description="Item Definition" 
+					  Role="WhsItem"
+					  EntityTableName="Materials.dbo.Item"
+					  EntityKeyField4="ItemNo"
+					  EntityAcronym="WIT"> 
 	
 	<cf_insertEntity  Code="WhsRequirement"   
 	                  Description="Item Authorization" 

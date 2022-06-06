@@ -1,5 +1,4 @@
-
-<cfquery name="get" 
+<cfquery name="get"
 datasource="AppsSystem">
 	SELECT  * 
 	FROM    UserStatus	

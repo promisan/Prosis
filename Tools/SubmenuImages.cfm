@@ -65,7 +65,7 @@
 			 <cfelseif FunctionIcon eq "Parameter">
 	             <img src="#client.virtualdir#/Images/Setting.png" height="26" width="26" #att#>
 			 <cfelseif FunctionIcon eq "Workflow">
-			      <img src="#client.virtualdir#/Images/workflow1.png" height="34" width="34" #att#>				
+			      <img src="#client.virtualdir#/Images/Logos/User/WorkFlow.png" height="34" width="34" #att#>				
 			 <cfelseif FunctionIcon eq "Manual">
 			      <img src="#client.virtualdir#/Images/manual.png" #att# height="34" width="34" #att#>	
 			 <cfelseif FunctionIcon eq "Attachment">	

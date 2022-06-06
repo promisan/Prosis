@@ -501,8 +501,7 @@ that carry this item and that are enabled --->
 											
 											--->
 											   
-										<cfelseif ValueClass eq "Text">
-																																								
+										<cfelseif ValueClass eq "Text">																																								
 											
 											<cfinput type = "Text"
 										       name       = "Topic_#row#_#Code#_#src#"
@@ -513,6 +512,19 @@ that carry this item and that are enabled --->
 											   message    = "Please enter a #Description#"
 											   value      = "#GetValue.TopicValue#"
 										       maxlength  = "#ValueLength#">   
+											   
+										<cfelseif ValueClass eq "Numeric">											
+											
+											<cfinput type = "Text"
+										       name       = "Topic_#row#_#Code#_#src#"
+										       required   = "#ValueObligatory#"					     
+										       size       = "#valueLength#"
+											   style      = "width:99%;text-align:right;padding-right:4px;<cfif src eq 'System'>background-color:eaeaea<cfelse>background-color:ffffff</cfif>"											 
+											   validate   = "float"
+											   class      = "regularxxl enterastab"
+											   message    = "Please enter a #Description#"
+											   value      = "#GetValue.TopicValue#"
+										       maxlength  = "#ValueLength#">   				   
 											  										    
 										</cfif>
 														

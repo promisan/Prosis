@@ -220,6 +220,7 @@
 					<td align="center"></td>
 					<TD><cf_tl id="Function"> </TD>
 					<TD><cf_tl id="Post"></TD>
+					<TD><cf_tl id="Track"></TD>
 					<TD><cf_tl id="Grade"></TD>
 					<td><cf_tl id="Duty"></td>		
 					<TD><cf_tl id="Effective"></TD>	
@@ -248,7 +249,7 @@
 		  
 				<cfif url.mode eq "standard" or url.mode eq "staffing">
 				<tr class="line">
-				<td style="height:30px;font-size:20px;" class="labelmedium" colspan="13" align="left"><font size="2"><cf_tl id="Owner">:&nbsp;</font>#MissionOwnerName#</td>
+				<td style="height:30px;font-size:20px;" class="labelmedium" colspan="14" align="left"><font size="2"><cf_tl id="Owner">:&nbsp;</font>#MissionOwnerName#</td>
 				</tr>					
 				</cfif>
 				
@@ -314,14 +315,14 @@
 							 <tr class="labelmedium2 fixrow2 line" style="height:26px;background-color:f0f0f0">
 							 
 							 <cfif mission neq priorMis>						 
-							 <td colspan="3" style="font-weight:bold;padding-left:20px;border-right:1px solid silver;font-size:17px">							 
+							 <td colspan="3" style="font-weight:bold;padding-left:14px;border-right:1px solid silver;font-size:17px">							 
 							 #Mission#
 							 </td>
 							 <cfelse>
 							 <td colspan="3"></td>
 							 </cfif>
 							 
-							 <td colspan="10" style="padding-left:4px;background-color:e6e6e6">
+							 <td colspan="11" style="padding-left:4px;background-color:e6e6e6">
 							 								 
 							  <cfquery name="Parent" 
 								    datasource="AppsOrganization" 
@@ -445,8 +446,7 @@
 						  						  
 						   <cfif url.mode eq "standard" or url.mode eq "staffing">
 						   						  
-						   	 <cfif assignmentNo neq URL.ID1>
-														
+						   	 <cfif assignmentNo neq URL.ID1>														
 							 							 
 							   	<cfif accessOwner eq "EDIT" or accessOwner eq "ALL">								
 								    <cf_img icon="open" navigation="Yes" onClick="EditAssignment('#PersonNo#','#AssignmentNo#')">																			 
@@ -468,6 +468,7 @@
 								</cfif>
 								
 						   </td>
+						   <td><cfif source eq "vac"><a href="javascript:showdocument('#sourceid#')">#sourceId#</a></cfif></td>
 						   <TD>#PostGrade#</TD>
 						   <TD>#LocationCode#</TD>		
 						   
@@ -491,7 +492,7 @@
 						 <cfif len(Remarks) gte "20" and not find("FPMS",remarks) and (url.mode eq "standard" or url.mode eq "staffing")>
 							 <TR bgcolor="#color#" style="height:15px" class="navigation_row_child labelmedium2">
 							 	<td colspan="2"></td>
-								<td colspan="11" style="padding-left:2px;height:15px">#Remarks#</td>
+								<td colspan="12" style="padding-left:2px;height:15px">#Remarks#</td>
 							 </tr>
 						 </cfif>
 						 
@@ -519,7 +520,7 @@
 								
 									<TR bgcolor="#color#" style="height:15px" class="labelmedium line">
 									 	<td colspan="2"></td>
-										<td colspan="11">
+										<td colspan="12">
 										<table>
 										<tr class="labelmedium" style="height:20px">
 										<td><cf_tl id="Performance Appraisal">:</td>
@@ -578,7 +579,7 @@
 								
 									<TR bgcolor="#color#" style="height:15px" class="labelmedium line">
 									 	<td colspan="2"></td>
-										<td colspan="11">
+										<td colspan="12">
 										<table>
 										<tr class="labelmedium">																										
 										<td style="padding-left:0px"><a href="javascript:setpas('#AssignmentNo#')"><cf_tl id="Initiate appraisal record"></a></td>																									
@@ -607,7 +608,7 @@
 					
 							<tr class="line"><td></td>
 							    <td></td>
-								<td colspan="11" class="navigation_row_child labelit">
+								<td colspan="12" class="navigation_row_child labelit">
 							   <cfloop query="GroupAll">
 							    [#GroupAll.Description#]
 							   </CFLOOP>
@@ -625,7 +626,7 @@
 							
 								    <td colspan="2"></td>
 								 
-								    <td colspan="11" id="#workflow#">
+								    <td colspan="12" id="#workflow#">
 									
 									<cfif wfstatus eq "open">
 									
