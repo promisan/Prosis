@@ -86,7 +86,7 @@ password="#SESSION.dbpw#">
 			
 			<cfoutput query="get">
 				<tr class="line labelmedium2 fixlengthlist" style="height:40px">
-				    <td><cfif sourcePostNumber neq "">#sourcePostNumber#<cfelse>#PositonNo#</cfif></td>
+				    <td><cfif sourcePostNumber neq "">#sourcePostNumber#<cfelse>#PositionNo#</cfif></td>
 					<td>#PostGrade#	</td>
 					<td>#FunctionDescription#</td>
 					<td>#dateformat(dateEffective,client.dateformatshow)#</td>

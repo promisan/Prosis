@@ -57,6 +57,8 @@
 							
 		</tr>	
 		
+		<!---
+		
 		<tr>
 	  
 	  	<cf_tl id="SalesForce" var="1">
@@ -72,6 +74,8 @@
 					source     = "applyQuoteGo.cfm?requestno=#url.requestno#&action=sf&idmenu=#url.idmenu#">		
 							
 		</tr>	
+		
+		--->
 		
 		<tr>
 	  

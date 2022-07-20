@@ -44,42 +44,9 @@
 <cf_tl id = "Max"            var ="vMax">
 <cf_tl id = "Item Code"      var ="vItemNoExternal">
 
-<cfinvoke component  = "Service.Access"  
-	   method            = "RoleAccess" 
-	   mission           = "#url.mission#" 	  
-	   anyUnit           = "No"
-	   role              = "'WhsPick'"
-	   parameter         = "#url.systemfunctionid#"
-	   accesslevel       = "'0','1','2'"
-	   returnvariable    = "globalmission">	
-	   
-<cfif globalmission neq "Granted">	
 
-	<!--- check access on the level of the mission --->
-			
-	<cfinvoke component  = "Service.Access"  
-	   method            = "RoleAccessList" 
-	   role              = "'WhsPick'"
-	   mission           = "#url.mission#" 	  		  
-	   parameter         = "#url.systemfunctionid#"
-	   accesslevel       = "'0','1','2'"
-	   returnvariable    = "accesslist">	
-		   
-	<cfif accessList.recordcount eq "0">
-	
-		<table width="100%" border="0" height="100%" align="center">
-			   <tr><td align="center" style="padding-top:70;" valign="top" class="labelmedium"><i>
-			    <font color="FF0000">
-				<cf_tl id="You have <b>NOT</b> been granted any access to this inquiry function" class="Message">
-				</font>
-				</td>
-			   </tr>
-		</table>	
-		<cfabort>
-	
-	</cfif>		 
-		   
-</cfif>		
+<cfset globalmission = "granted">
+
 
 <cfquery name="Warehouse" 
 	datasource="AppsMaterials" 

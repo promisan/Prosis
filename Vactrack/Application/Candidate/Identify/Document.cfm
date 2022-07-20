@@ -7,7 +7,8 @@
 
 <table style="width:100%">
 <tr><td style="padding:5px" align="center">
-<input type="button" name="Identify" onclick="rostersearch('#Action.actioncode#','#Action.actionId#','urldetail1')" value="#lt_text#" class="button10g" style="height:26px;font-size:15px;width:260px"></td>
+
+<input type="button" name="Identify" onclick="rostersearch('#Action.actioncode#','#Action.actionId#','urldetail1')" value="#lt_text#" class="button10g" style="height:30px;font-size:16px;width:360px"></td>
 </tr>
 
 <!--- refresh button --->

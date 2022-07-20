@@ -76,7 +76,7 @@
 					
 					    </td>
 																								
-						<td style="padding-left:4px" width="76%">#RequisitionPurpose#</td>
+						<td class="fixlength" title="#RequisitionPurpose#" style="padding-left:4px" width="76%">#RequisitionPurpose#</td>
 											
 					</tr>					
 									
@@ -203,6 +203,7 @@
 		<cfset des = Items.Description>  
 		
 		<td>
+		
 			<table>
 			<tr class="labelmedium" style="height:18px">
 			
@@ -336,7 +337,7 @@
 		</TD>
 		
 		<td>#left(RequestType,1)#</td>
-		<td>
+		<td class="fixlength">
 		
 		<cfif PurchaseNo gte "a" and PurchaseStatus neq "9">
 		   <a href="javascript:ProcPOEdit('#Purchaseno#','view')">#PurchaseNo#</a>		   
@@ -409,7 +410,7 @@
 		<cfif orgunit neq orgunitimplement>
 		--->
 		
-			<tr class="navigation_row_child" style="height:18px">
+			<tr class="navigation_row_child">
 			    <td></td>
 			    <td colspan="9">
 				
@@ -466,12 +467,17 @@
 				
 				</cfif>
 				
+				<cfif Org.OrgUnitName neq "" or IMP.OrgUnitName neq "">
+				
 				<table width="100%">
 					<tr class="labelmedium" style="height:18px">
 					<td width="30%">#Org.OrgUnitName#</td>
 					<td width="30%"><cfif Imp.OrgUnitName eq ""><font color="FF0000">UNDEFINED</font><cfelse>#imp.OrgUnitName#</cfif></td>
 					</tr>
 				</table>
+				
+				</cfif>
+				
 				</td>
 			</tr>
 		

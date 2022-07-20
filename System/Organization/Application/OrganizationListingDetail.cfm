@@ -1,11 +1,10 @@
 
+
 <cfoutput>
-
-      <cf_assignid>
-
-	  <cfif attributes.action eq "Edit">
-	  	<tr style="height:20px;background-color:###attributes.color#50" class="navigation_row clsSearchrow line fixlengthlist" onContextMenu="cmexpand('mymenu','#rowguid#','')">
-	  <cfelse>
+     
+	  <cfif attributes.action eq "Edit">	  
+	  	<tr style="height:20px;background-color:###attributes.color#50" class="navigation_row clsSearchrow line fixlengthlist" onContextMenu="cmexpand('mymenu','#attributes.orgunit#','')">
+	  <cfelse>	  
 	  	<tr style="height:20px;background-color:###attributes.color#50" class="navigation_row clsSearchrow line fixlengthlist">
 	  </cfif>
 
@@ -39,8 +38,9 @@
 					 <table>
 		
 					  <tr class="labelmedium2" style="height:21px">
-						<td name="mymenu#rowguid#" id="mymenu#rowguid#">
-		
+						<td name="mymenu#attributes.orgunit#" id="mymenu#attributes.orgunit#">
+						
+								
 						  <cf_tl id="Edit" 		   var="vEdit">
 						  <cf_tl id="Edit details" var="vEditDetails">
 						  <cf_tl id="Add Node" 	   var="vAddNode">
@@ -48,10 +48,11 @@
 						  <cf_tl id="Maintain organization information" var="vMantainOrganization">
 		
 					      <cf_dropDownMenu
-						     name		= "menu"
-					   	     headerName = "Node"
-						     menuRows	= "3"
-							 AjaxId		= "mymenu"
+						     name		 = "menu"
+					   	     headerName  = "Node"
+						     menuRows	 = "3"
+							 AjaxId		 = "mymenu"
+							 Navigation  = "0"
 		
 						     menuName1   = "#vEdit#"
 						     menuAction1 = "javascript:editOrgUnit('#Attributes.OrgUnit#','','base')"
@@ -67,6 +68,7 @@
 						     menuAction3 = "javascript:viewOrgUnit('#Attributes.OrgUnit#')"
 						     menuIcon3   = "#SESSION.root#/Images/details.gif"
 						     menuStatus3 = "#vMantainOrganization#">
+							 
 		
 						 </td>
 		
@@ -115,6 +117,6 @@
 			 	<cf_img icon="open" navigation="Yes" onclick="viewOrgUnit('#Attributes.OrgUnit#')">
 		   </td>
 
-	    </TR>
+	    </TR>		
 				
 </cfoutput>		

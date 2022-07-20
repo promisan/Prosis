@@ -107,7 +107,7 @@ password="#SESSION.dbpw#">
     </TD>
 	</TR>	
 	
-	<TR class="fixlengtthlist">
+	<TR class="fixlengthlist">
     <TD class="labelmedium"><cf_tl id="Standard Cost Price">:</TD>
     <TD>
   	   <cfinput type   = "text"
@@ -118,6 +118,20 @@ password="#SESSION.dbpw#">
 			 message   = "Please, enter a standard cost" 
 			 validate  = "numeric" 
 			 style     = "text-align:right;padding-right:2px" 
+			 maxlength = "20" 
+			 class     = "regularxxl">
+    </TD>
+	</TR>
+	
+	<TR class="fixlengthlist">
+    <TD class="labelmedium"><cf_tl id="Reference">:</TD>
+    <TD>
+  	   <cfinput type   = "text"
+	         name      = "Reference" 
+			 value     = "#get.Reference#" 
+			 size      = "10" 
+			 required  = "no" 			
+			 style     = "text-align:center;padding-right:2px" 
 			 maxlength = "20" 
 			 class     = "regularxxl">
     </TD>

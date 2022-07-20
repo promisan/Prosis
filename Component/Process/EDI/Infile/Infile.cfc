@@ -397,6 +397,10 @@
 						<cfset FEL.VendorCity       = "GUATEMALA">
 						<cfset FEL.VendorState      = "GUATEMALA">
 						<cfset FEL.VendorCountry    = "#GetWarehouse.Country#">
+						
+						<cfif FEL.VendorCountry eq "GUA">
+						      <cfset FEL.VendorCountry    = "GT">
+						</cfif>  
 					
 					</cfif>
 					
@@ -710,7 +714,7 @@
 														 
 							 TL.TransactionTaxCode  AS TaxCode,
 							 TL.ReferenceQuantity   AS SaleQuantity, 
-							 'C/U'                  AS SaleUoM,
+							 TL.ReferenceUoM        AS SaleUoM,
 							 TL.TransactionCurrency AS TransactionCurrency,
 							 TL.TransactionAmount   AS TransactionAmount, 
 							 TL.Currency            AS SaleCurrency, 

@@ -35,9 +35,7 @@
 		</cfquery>
 			
 		<cfset go = "1">
-		
-		zzzz
-	
+			
 	<cfcatch>
 	
 		<cfset go = "0">

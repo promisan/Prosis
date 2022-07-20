@@ -9,9 +9,9 @@ datasource="AppsOrganization"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	SELECT *
-	FROM Ref_Mandate
-	WHERE Mission = '#Attributes.Mission#'
-	AND MandateNo = '#Attributes.MandateDefault#'
+	FROM   Ref_Mandate
+	WHERE  Mission = '#Attributes.Mission#'
+	AND    MandateNo = '#Attributes.MandateDefault#'
 </cfquery>
 
 <cf_UItree
@@ -32,10 +32,10 @@ password="#SESSION.dbpw#">
   datasource="AppsEmployee" 
   username="#SESSION.login#" 
   password="#SESSION.dbpw#">
-      SELECT DISTINCT P.LocationCode, L.LocationName, L.ListingOrder 
-      FROM    userQuery.dbo.#SESSION.acc#Post P, 
-	          Location L
-	  WHERE P.LocationCode = L.LocationCode
+      SELECT   DISTINCT P.LocationCode, L.LocationName, L.ListingOrder 
+      FROM     userQuery.dbo.#SESSION.acc#Post P, 
+	           Location L
+	  WHERE    P.LocationCode = L.LocationCode
 	  ORDER BY ListingOrder, LocationName
   </cfquery>
     
@@ -271,10 +271,10 @@ password="#SESSION.dbpw#">
    	   <cf_tl id="Interoffice Loan" var="1">     
 	
 	  <cf_UItreeitem value="group"
-        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
-		parent="Root" target="right"	
-		href="MandateViewOpen.cfm?ID=GRD&ID1=&ID2=#Attributes.Mission#&ID3=#MandateDefault#"						
-        expand="No">	   
+	        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
+			parent="Root" target="right"	
+			href="MandateViewOpen.cfm?ID=GRD&ID1=&ID2=#Attributes.Mission#&ID3=#MandateDefault#"						
+	        expand="No">	   
    
 	   <cfloop query="loan">
 	   
@@ -341,8 +341,7 @@ password="#SESSION.dbpw#">
    
       <cf_UItreeitem value="bo#PostGrade#"
 		        display="<span style='font-size:13px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#PostGrade#</span>"
-				parent="borrow"		
-				href="MandateViewOpen.cfm?ID=BOR&ID1=&ID4=#Attributes.Mission#&ID2=#Mission.Mission#&ID3=#BorrowDefault.MandateNo#"					
+				parent="borrow"				
 	 	        expand="No">	   
     
 	      <cfquery name="Mission" 

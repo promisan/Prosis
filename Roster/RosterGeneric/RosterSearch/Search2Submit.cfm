@@ -2,6 +2,7 @@
 
 <cfparam name="Form.OccupationalGroup" default="">
 <cfparam name="URL.DocNo"  default="">
+<cfparam name="URL.Scope"  default="">
 
 <!---
 <cfif Form.OccupationalGroup eq "">
@@ -15,7 +16,7 @@
 </cfif>
 --->
 
-<cfif url.mode eq "ssa">
+<cfif url.mode eq "ssa" or url.scope eq "roster">
 
 	<cfset exerciseclass = "">
 	<cfparam name="getAssociatedBucket.RosterSearchMode" default="9">
@@ -57,6 +58,7 @@ password="#SESSION.dbpw#">
 	 FROM Ref_ParameterOwner
 	 WHERE Owner = '#URL.Owner#'
 </cfquery>
+
 
 <cfquery name="Clear" 
  datasource="AppsSelection" 
@@ -146,7 +148,7 @@ password="#SESSION.dbpw#">
 		     datasource="AppsSelection" 
 		     username="#SESSION.login#" 
 		     password="#SESSION.dbpw#">
-			 
+			 			 
 		     INSERT INTO RosterSearchLine
 
 		         (SearchId,
@@ -161,12 +163,18 @@ password="#SESSION.dbpw#">
 								 F.FunctionDescription+' ['+F1.GradeDeployment+']',  
 								 '2'
 								 						
-				 FROM   FunctionOrganization F1, FunctionTitle F
+				 FROM   FunctionOrganization F1 INNER JOIN FunctionTitle F ON F1.FunctionNo = F.FunctionNo
+				 
 				 WHERE  
 				 
 				 <cfif getAssociatedBucket.RosterSearchMode eq "0">
+					
 					1=0 <!--- this will not likely happen --->
+					
 				<cfelseif getAssociatedBucket.RosterSearchMode eq "1">
+				
+				<!--- attention this mode should not kick-in the moment you do a global roster search --->
+				
 					F1.DocumentNo = '#url.DocNo#' 
 					<!--- correction made 11/10/2014 --->
 					AND    F1.FunctionId NOT IN (SELECT SelectId
@@ -174,8 +182,9 @@ password="#SESSION.dbpw#">
 												 WHERE  SearchId    = '#URL.ID#' 
 												 AND    SearchClass = 'Function'
 												 AND    SelectId    = F1.FunctionId)
+												 
 				<cfelseif getAssociatedBucket.RosterSearchMode eq "2" and exerciseclass neq "">
-					
+				
 					<!--- correction made 11/10/2014 --->
 					F1.FunctionId NOT IN (SELECT SelectId
 					                             FROM   RosterSearchLine 
@@ -189,7 +198,7 @@ password="#SESSION.dbpw#">
 											 							  FROM   Ref_SubmissionEdition 
 											                              WHERE  ExerciseClass = '#exerciseclass#')
 											  )							 							 
-				<cfelse>	
+				<cfelse>					
 					
 					F1.FunctionNo       = '#FunctionNo#' 
 					AND    F1.OrganizationCode = '#Org#' 
@@ -212,9 +221,7 @@ password="#SESSION.dbpw#">
 								   AND    SearchClass = 'Edition')
 					 </cfif>	
 				 
-				  </cfif>				 
-				 
-				 AND    F1.FunctionNo = F.FunctionNo 
+				  </cfif>				
 				 
 		    </cfquery>
 								

@@ -1,7 +1,7 @@
 
-<!--- --compression-- --->
+<!--- --compression-- 
 <cf_compression>
-<!--- --------------- --->
+--------------- --->
 
 <cfif URL.ID eq "Abort">
 
@@ -10,21 +10,20 @@
     <cfquery name="AbortRequest" 
      datasource="AppsSystem">
 	 INSERT INTO stReportStatus
-	    (ControlId,OfficerUserId)
+	     (ControlId,OfficerUserId)
 	 VALUES
 	    ('#URL.ID1#','#SESSION.acc#')
     </cfquery>
 	
 	<cfoutput>
-		<table cellspacing="0" cellpadding="0"><tr><td>
-		<img src="#SESSION.root#/Images/busy4s.gif" id="stopping" border="0" align="absmiddle">
-		</td>
-		<td style="padding-left:5px" class="labelmedium">
-		<font color="FF0000">Stopping</font>
-		</td></tr>
+		<table>
+		<tr>
+		<td><img src="#SESSION.root#/Images/busy4s.gif" id="stopping" border="0" align="absmiddle"></td>
+		<td style="padding-left:5px" class="labelmedium2"><font color="FF0000">Stopping</font></td>
+		</tr>
 		</table>
 	</cfoutput>
-
+	
 <cfelse>
 
 	<!--- resuming --->

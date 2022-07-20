@@ -404,6 +404,22 @@ password="#SESSION.dbpw#">
 	</cfif>
 </cfquery>		
 
+<cfquery name="ResetOvertime" 
+datasource="AppsPayroll" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+
+	UPDATE  PersonOvertime
+	SET     Status = '3'
+	FROM    PersonOvertime T	
+	WHERE   OvertimeId NOT IN (SELECT ReferenceId 
+	                           FROM   EmployeeSalaryLine
+							   WHERE  ReferenceId = T.OvertimeId)
+	AND     Status = '5'
+	AND     OvertimePayment = 1
+			
+</cfquery>
+
 </cftransaction>
 
 <!--- ---- STEP 4 of 4 ---- --->

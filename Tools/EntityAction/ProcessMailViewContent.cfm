@@ -79,7 +79,7 @@
 
 <form action="ProcessMailViewSubmit.cfm" target="submit" method="post" style="height:100%">
 	
-<table width="91%" height="100%" align="center"  class="formpadding">
+<table width="98%" height="100%" align="center" class="formpadding formspacing">
 	
 	<cfif Layout.recordcount eq "1">
 	
@@ -93,12 +93,10 @@
 		
 	<tr><td></td></tr>		
 	<tr>
-	<td height="25" class="labelmedium" style="padding-left:5px;font-weight:200">
-	  Actors defined for step:</font>&nbsp;&nbsp;<b>#Action.ActionDescription#&nbsp;</font>
-	</td>
-	<td align="right">
-	
-	</td>
+		<td height="25" class="labelmedium" style="padding-left:5px;font-weight:200">
+		  Actors defined for step:</font>&nbsp;&nbsp;<b>#Action.ActionDescription#&nbsp;</font>
+		</td>
+		<td align="right"></td>
 	</tr>
 	
 	<input type="hidden" name="Text"            id="Text" value="#URL.Text#">
@@ -217,14 +215,14 @@
 	
 		<cf_divscroll>
 		 		    
-		 <table width="98%" align="left" class="formpadding">
+		 <table width="100%" class="formpadding">
 		 <tr class="labelmedium2 line fixrow fixlengthlist">
-			 <td width="5%">&nbsp;</td>
+			 <td></td>
 			 <td><cf_tl id="Name"></td>
-			 <td><cf_tl id="Last logon"></td>
-			 <td><cf_tl id="Last alert">:</td>
+			 <td><cf_tl id="Logon"></td>
+			 <td><cf_tl id="Last alert"></td>
 			 <td><cf_tl id="EMail address"></td>
-			 <td align="center">
+			 <td align="center" style="padding-right:4px">
 				 <input type="checkbox" name="account" id="account" value="" <cfif potential.recordcount lte "4">checked</cfif> onClick="check(this.checked)">
 			 </td>
 		 </tr>	 
@@ -303,15 +301,15 @@
 			  
 				    <cfif Potential.eMailAddress neq "">
 					   <cfset row = row+1>
-				       <tr class="labelmedium2 highlight1 line" id="d#row#">
+				       <tr class="fixlengthlist labelmedium2 highlight1 line" id="d#row#">
 					<cfelse>
-					   <tr class="labelmedium2 line">
+					   <tr class="fixlengthlist labelmedium2 line">
 					</cfif>
 					<td style="padding-left:7px">#currentRow#</td>
 					<td>#Potential.FirstName# #Potential.LastName#</td>
 					<td>
 						<cfif Last.Created eq ""><font color="FF0000"><b><cf_tl id="Never"></b>
-						<cfelse>#DateFormat(Last.Created, CLIENT.DateFormatShow)#
+						<cfelse>#DateFormat(Last.Created, CLIENT.DateFormatShow)# #TimeFormat(Last.Created, "HH:MM")#
 						</cfif>
 					</td>
 					
@@ -323,7 +321,7 @@
 						</cfif>								
 					</td>
 					<td>#Potential.emailAddress#</td>
-					<td height="25" align="center">
+					<td align="center" style="padding-right:4px">
 						<cfif Potential.eMailAddress neq "">
 					    	<input type="checkbox" name="account" class="radiol" id="account" value="'#Account#'" <cfif potential.recordcount lte "4">checked</cfif> onClick="hl(this,this.checked)">
 						<cfelse>
@@ -348,21 +346,21 @@
 	 
 	 <cfif Potential.recordcount gte "1">
 	 
-	 <tr>
-	 	<td height="45" align="center" colspan="2">
-		 <input type="button" name="Cancel" id="Cancel" value="Close" class="button10g" onClick="javascript:parent.ProsisUI.closeWindow('wMailDialog')">
-		 <input type="submit" class="button10g" name="Send" id="Send" value="Send Mail">
-		 </td>
-	 </tr>
-	 
-	 <cfif getAdministrator("*") eq "1">
-	  <tr class="hide">	
-		 <td><iframe name="submit" id="submit" width="100%" height="100" scrolling="yes" frameborder="0"></iframe></td>
-	 </tr>
-	 <cfelse>
-	  <tr class="hide">	
-		 <td><iframe name="submit" id="submit" width="100%" height="100" scrolling="yes" frameborder="0"></iframe></td>
-	 </tr>
+		 <tr>
+		 	<td height="45" align="center" colspan="2">
+			 <input type="button" name="Cancel" id="Cancel" value="Close" class="button10g" onClick="javascript:parent.ProsisUI.closeWindow('wMailDialog')">
+			 <input type="submit" class="button10g" name="Send" id="Send" value="Send Mail">
+			 </td>
+		 </tr>
+		 
+		 <cfif getAdministrator("*") eq "1">
+		  <tr class="hide">	
+			 <td><iframe name="submit" id="submit" width="100%" height="100" scrolling="yes" frameborder="0"></iframe></td>
+		 </tr>
+		 <cfelse>
+		  <tr class="hide">	
+			 <td><iframe name="submit" id="submit" width="100%" height="100" scrolling="yes" frameborder="0"></iframe></td>
+		 </tr>
 	 
 	 </cfif>
 			

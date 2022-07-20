@@ -1214,7 +1214,7 @@
 									AND	   Currency      = '#checkWarehouse.Currency#'
 							</cfquery>
 							
-							<cfif checkPrice.recordcount eq "0">
+							<cfif checkPrice.recordcount eq "0" and vSalesPrice neq "0">
 						
 								<cfquery name="CheckPrice" 
 									datasource="#datasource#" 
@@ -1264,7 +1264,7 @@
 						</cfif>	
 						--->
 						
-						<cfif Parameter.priceManagement eq "1">
+						<cfif Parameter.priceManagement eq "1" and vSalesPrice neq "0">
 						
 							<cfquery name="CheckPrice" 
 								datasource="#datasource#" 
@@ -1354,7 +1354,7 @@
 			    
 				<cfset vConverted_Amount = round(vCost/exc * 100 )/ 100>
 								
-				<cfif PriceCeiling neq "">
+				<cfif PriceCeiling neq "" and PriceCeiling neq "0">
 				
 					<cfset amt = vConverted_Amount / PriceCeiling>
 					

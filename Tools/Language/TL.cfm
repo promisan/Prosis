@@ -10,6 +10,8 @@
 <cfparam name="Attributes.Id"            default  = "#url.clsid#">
 <cfparam name="url.var"                  default  = "0">
 <cfparam name="Attributes.var"           default  = "#url.var#">
+<cfparam name="url.present"              default  = "">
+<cfparam name="Attributes.present"       default  = "">
 
 <cfoutput>
 	
@@ -79,7 +81,12 @@
 	<cfelse>
 	
 	    <!--- regular mode --->	
-		<cfoutput>#Caller.lt_text#</cfoutput>
+		<cfif attributes.present eq "HTML">
+		   <cfoutput>#EncodeForHTML(Caller.lt_text)#</cfoutput>
+		<cfelse>
+		   <cfoutput>#Caller.lt_text#</cfoutput>
+		</cfif>
+		
 	
 	</cfif>
 	

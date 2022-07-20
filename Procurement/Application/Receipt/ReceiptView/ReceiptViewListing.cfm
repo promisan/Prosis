@@ -119,7 +119,7 @@
 			     AND    OrgUnit IN (SELECT O.OrgUnit
 								    FROM   Materials.dbo.Warehouse W INNER JOIN
 					                       Organization.dbo.Organization O ON W.MissionOrgUnitId = O.MissionOrgUnitId
-								    WHERE  Warehouse = PR.Warehouse
+								    WHERE  Warehouse = W.Warehouse
 								   )  	
 				)				 
 		)		

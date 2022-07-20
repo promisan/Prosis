@@ -427,7 +427,7 @@
 					  MenuClass eq "Special"                                        or
 					  MenuClass eq "Audit"                                          or
 					  (FunctionClass eq "Application" and SystemModule is "Roster") or
-					  MenuClass eq "Builder"                                        or
+					  SystemModule eq "Accounting"                                  or
 					  Find("Mission",class)                                         or 
 					  Find("Detail",class)                                          or
 					  Presentation eq "2"                                           or
@@ -1124,24 +1124,25 @@
 					  			  
 				     <td width="75%" onclick="#go#">
 					 
-					     <table  class="formpadding">
+					     <table class="formpadding">
 						 <tr>
 						 <td class="labelmedium" style="font-weight:340;height:20px;font-size:19px"><a>#FunctionName#</a></td>
 						 </tr>
 						 
 						 <cfif functionMemo neq "">
 						 
-						 <tr><td style="padding-left:8px;font-weight:340;">
-							 <font size="2" color="808080">#FunctionMemo#</font>
-							 </td>
-						 </tr>		 					 
-						  <cfif MenuClass eq "Builder">					 																				  
-							<cfif Log neq "">							
-							<tr><td class="cellcontent">
-							<font color="0080FF" size="2">Last updated on: #DateFormat(ActionTimeStamp, CLIENT.DateFormatShow)# - </font>	
-							</td></tr>								
-							</cfif>					
-						  </cfif>
+							 <tr><td style="padding-left:8px;font-weight:340;">
+								 <font size="2">#FunctionMemo#</font>
+								 </td>
+							 </tr>		
+							  					 
+							  <cfif MenuClass eq "Builder">					 																				  
+								<cfif Log neq "">							
+								<tr><td class="cellcontent" style="padding-left:8px">
+								<font size="2">Last updated on: #DateFormat(Log, CLIENT.DateFormatShow)# - </font>	
+								</td></tr>								
+								</cfif>					
+							  </cfif>
 							 
 						 </cfif>
 						 

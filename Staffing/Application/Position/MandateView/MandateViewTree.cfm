@@ -368,7 +368,7 @@ password="#SESSION.dbpw#">
 							
 						<cf_UItree name="idtree1" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
 					     <cf_UItreeitem
-						  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedefault#','../../Staffing/Application/Position/MandateView/MandateViewOpen.cfm','ORA','#lt_text#','#admin.treeadministrative#','P001')">
+						  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedefault#','#session.root#/Staffing/Application/Position/MandateView/MandateViewOpen.cfm','ORA','#lt_text#','#admin.treeadministrative#','P001')">
 					    </cf_UItree>
 						
 					</td></tr>
@@ -400,7 +400,7 @@ password="#SESSION.dbpw#">
 						<cf_UITree name="idtree2" font="tahoma"  fontsize="11" bold="No" format="html" required="No">
 						
 					     <cf_UITreeitem
-						  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedefault#','../../Staffing/Application/Position/MandateView/MandateViewOpen.cfm','ORF','Functional Structure','#funct.treefunctional#','P001')">
+						  bind="cfc:service.Tree.OrganizationTree.getNodesV2({cftreeitempath},{cftreeitemvalue},'#url.mission#','#mandatedefault#','#session.root#/Staffing/Application/Position/MandateView/MandateViewOpen.cfm','ORF','Functional Structure','#funct.treefunctional#','P001')">
 						  
 					    </cf_UITree>
 						

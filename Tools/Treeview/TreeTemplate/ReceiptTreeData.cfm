@@ -53,29 +53,28 @@
 			
 		<cfif Period.dateexpiration gte now()>	
 						
-			<cf_tl id="Received" var="vReceivedOn">
+			
 			<cf_tl id="Today" var="vToday">
 								
 			<cf_UItreeitem value="Today"
-		        display="<span style='font-size:14px' class='labelit'>#vReceivedOn# #vToday#</span>"
+		        display="<span style='font-size:14px' class='labelit'>#vToday#</span>"
 				parent="Listing" target="right"
 				href="ReceiptViewOpen.cfm?ID1=TODAY&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#">			  
-				
-			<cf_tl id="Received" var="vReceived">
+						
 			<cf_tl id="This Week" var="vThisWeek">
 				
 			<cf_UItreeitem value="Week"
-		        display="<span style='font-size:14px' class='labelit'>#vReceived# #vThisWeek#</span>"
+		        display="<span style='font-size:14px' class='labelit'>#vThisWeek#</span>"
 				parent="Listing" target="right"
 				href="ReceiptViewOpen.cfm?ID1=WEEK&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#">			
 				
 		</cfif>	
-    		  
-		<cf_tl id="Received" var="vReceived">
+    	  
+		
 		<cf_tl id="Period" var="vPeriod">
 				
 		<cf_UItreeitem value="Year"
-	        display="<span style='font-size:14px' class='labelit'>#vReceived# #url.period#</span>"
+	        display="<span style='font-size:14px' class='labelit'>#url.period#</span>"
 			parent="Listing" target="right"
 			href="ReceiptViewOpen.cfm?ID1=YEAR&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#">			
 

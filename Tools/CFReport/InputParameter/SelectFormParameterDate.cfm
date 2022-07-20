@@ -16,20 +16,21 @@
 	    <cfset rel = "#CriteriaDefault#">  	
 	   </cfif>
 	   
-	    <table cellspacing="0" cellpadding="0">
+	   <cf_tl id="Enter a relative deviation from today's date varying from -100 and +100" var="vRelDate">
+	   
+	    <table>
 		<tr>
-		<td class="labelit fixlength" style="padding-left:3px">						
+		<td class="labelmedium2 fixlength" title="#vRelDate#">						
 		<cf_tl id="TODAY">:		
-		<td>
-		<td style="border: 0px solid Silver;">
-
-			 <cf_tl id="Enter a relative date between today-500 and today+500" var="vRelDateErrMess">
+		</td>
 		
+		<td style="border: 0px solid Silver;" title="#vRelDate#">
+				
 			 <cfinput type="Text"
 		       name="#CriteriaName#"				   
 		       value="#rel#"
-		       range="-500,500"
-		       message="#vRelDateErrMess#"
+		       range="-100,100"
+		       message="#vRelDate#"
 		       required="No"
 		       size="2"				   
 			   style="text-align: center;border:1px solid silver"
@@ -41,12 +42,10 @@
 	   <cfif CriteriaDatePeriod eq "1" and CriteriaType eq "Date">
 	   
 	   	</td>
-		<td class="labelit fixlength" style="padding-left:3px" width="8" align="center"><cf_tl id="until"></td>
-		<td class="labelit fixlength" style="padding-left:3px">						
-		<cf_tl id="TODAY">:		
-		<td>
+		<td class="labelmedium2 fixlength" style="padding-left:7px;padding-right:6px" title="#vRelDate#" align="center"><cf_tl id="until">:</td>
 		
 		<td style="border: 0px solid Silver;">
+		
 	   	  <cfset relt = "#DefaultValueEnd#">
 		   
 		  <cfif CriteriaDefault eq "today">
@@ -55,13 +54,11 @@
 			    <cfset rel = "#DefaultValueEnd#">  	
 		  </cfif>
 	   
-	      <cf_tl id="Enter a relative date between today-500 and today+500" var="vRelDateErrMess">
-
 	   	  <cfinput type = "Text"
 	       name         = "#CriteriaName#_end"
 	       value        = "#rel#"
 	       range        = "-500,500"
-	       message      = "#vRelDateErrMess#"
+	       message      = "#vRelDate#"
 	       required     = "No"
 	       size         = "2"			   
 		   style        = "text-align: center;border:1px solid silver"

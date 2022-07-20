@@ -131,7 +131,7 @@
 	
 	<table width="100%" height="100%" bgcolor="ffffef" align="center" id="shortlist">
 		 <tr>
-		 <td align="center" class="labelmedium2" style="width:100%;height:40px;font-size:20px">No candidates were listed for this recruitment track.</td>
+		 <td align="center" class="labelmedium2" style="width:100%;height:40px;font-size:17px">No candidates were listed for this recruitment track.</td>
 		 </tr>
 	</table>		 
 	

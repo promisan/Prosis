@@ -7,12 +7,12 @@
         displayname="Source an issuance transaction and revaluate and post the amounts">
 			
 		<cfargument name="Datasource"    type="string" 	default="AppsMaterials" required="yes">						
-		<cfargument name="Mode"          type="string" 	default="Standard" required="yes">	
-		<cfargument name="filterMission" type="string" 	default=""         required="yes">
-		<cfargument name="filterItemNo"  type="string" 	default=""         required="yes">	
-		<cfargument name="revaluation"   type="string" 	default="0"        required="yes">	
-		<cfargument name="initialStatus" type="numeric" default="0"        required="yes">	
-		<cfargument name="finalStatus"   type="numeric" default="1"        required="yes">
+		<cfargument name="Mode"          type="string" 	default="Standard"      required="yes">	
+		<cfargument name="filterMission" type="string" 	default=""              required="yes">
+		<cfargument name="filterItemNo"  type="string" 	default=""              required="yes">	
+		<cfargument name="revaluation"   type="string" 	default="0"             required="yes">	
+		<cfargument name="initialStatus" type="numeric" default="0"             required="yes">	
+		<cfargument name="finalStatus"   type="numeric" default="1"             required="yes">
 			
 		<!--- general variables --->
 		
@@ -45,8 +45,7 @@
 	        AND        ItemNo    = '#filterItemNo#'
 	        AND        (TransactionReference LIKE 'TRA%' 
 			                OR TransactionReference LIKE 'OV%' 
-							OR TransactionReference LIKE 'D%')
-							
+							OR TransactionReference LIKE 'D%')							
 		</cfquery>
 		
 		<cfif Sale.myDate lte Purchase.myDate 
@@ -60,8 +59,7 @@
 			<cfquery name="Update" 
 				datasource="#Datasource#" 
 				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				
+				password="#SESSION.dbpw#">				
 				UPDATE     ItemValuation
 				SET        TransactionDate = '#dateformat(purdte,client.dateSQL)#'
 		        WHERE      Mission         = '#filtermission#'
@@ -75,8 +73,7 @@
 			<cfquery name="Update" 
 				datasource="#Datasource#" 
 				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				
+				password="#SESSION.dbpw#">				
 				UPDATE     ItemValuation
 				SET        TransactionDate = '#dateformat(purdte,client.dateSQL)#'
 		        WHERE      Mission         = '#filtermission#'
@@ -232,7 +229,7 @@
 																			
 					</cfquery>	
 					
-					<cfif price neq "0">
+					<cfif price neq "0" and price lte "1000000">
 					
 						<cfquery name="check" 
 						datasource="#Datasource#" 
@@ -246,7 +243,7 @@
 						</cfquery>
 						
 						<cfif check.recordcount eq "1">
-						
+												
 							<cfquery name="update" 
 							datasource="#Datasource#" 
 							username="#SESSION.login#" 
@@ -257,10 +254,11 @@
 								WHERE       Mission       = '#filtermission#'
 								AND         ItemNo        = '#filterItemNo#'
 								AND         SelectionDate = '#transactiondate#'
-							</cfquery>					
+							</cfquery>	
+								
 						
 						<cfelse>
-						
+												   						
 							<cfquery name="addprice" 
 							datasource="#Datasource#" 
 							username="#SESSION.login#" 
@@ -270,7 +268,7 @@
 								VALUES
 								('#filtermission#','#filterItemNo#','#transactiondate#','#price#')
 							</cfquery>	
-						
+													
 						</cfif>
 					
 					</cfif>				
@@ -295,7 +293,7 @@
 					    <cfset price = "0">
 					</cfif>
 					
-					<cfif price neq "0">
+					<cfif price neq "0" and price lte "1000000">
 					
 						<cfquery name="check" 
 						datasource="#Datasource#" 
@@ -439,6 +437,7 @@
 				datasource="hubEnterprise" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">	
+				
 			    SELECT SUM(StockOnSale) as Total
 				FROM (
 				SELECT    S.StockAvailable-S.StockExhibited-S.StockVendor-S.StockDisposed as StockOnSale
@@ -476,10 +475,12 @@
 				
 				
 			</cfquery>	
-			
-			<cfif getOnHand.Total neq "">
-			    <cfset stock.onhand  = "#getOnHand.total#">
-			</cfif>
+					
+			<cfif getOnHand.Total neq "">			
+			    <cfset stock.onhand  = getOnHand.total>
+			<cfelse>
+			   <cfset stock.onHand = 0>			
+			</cfif>		
 					
 		<cfreturn stock>	
 		
@@ -531,7 +532,7 @@
 				datasource="hubEnterprise" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">		
-						
+										
 				SELECT TOP 100 *
 				
 				FROM (			
@@ -555,6 +556,13 @@
 							<!--- end prosis linkage ---> 
 							
 							I.ItemName, 
+							(SELECT Reference 
+							 FROM   Materials.dbo.ItemUoMMission
+							 WHERE  ItemNo = T.ItemNo
+							 AND    UoM    <> 'M2'
+							 AND    Mission = '#Mission#') as ItemReference,
+							 
+							
 							I.ItemCategory, 
 							I.ItemBrand, 
 							I.ItemClass, 
@@ -570,18 +578,7 @@
 							
 							I.PriceMultiplier,
 							I.UsageMultiplier,
-							
-							<!---
-							
-					            (SELECT   TOP (1) Price
-					             FROM     ItemPromotion
-					             WHERE    Mission = I.Mission 
-								 AND      ItemNo  = I.ItemNo 
-								 AND      DateExpiration >= CAST(GETDATE() AS Date)
-					             ORDER BY DateEffective DESC) AS PromotionPrice, 
-								 
-								 --->
-								 
+																						 
 							(   SELECT TOP (1) Price
 								FROM    EnterpriseHub.dbo.ItemPromotion IP INNER JOIN (SELECT  TOP (1) Mission, ItemNo, DateEffective
 								FROM    EnterpriseHub.dbo.ItemPromotion
@@ -602,7 +599,7 @@
                                        Materials.dbo.Warehouse AS W ON O.MissionOrgUnitId = W.MissionOrgUnitId INNER JOIN
                                        System.dbo.UserNames AS U ON P.PersonNo = U.PersonNo
                               WHERE    U.Account = '#session.acc#') as WarehouseDefault,
-							 							 
+														 							 
 							 S.StockCounted, 
 							 S.StockAvailable, 
 							 S.StockAvailable-S.StockVendor-S.StockExhibited-S.StockDisposed as StockOnSale, 
@@ -636,7 +633,7 @@
 												   
 								) as P ON P.Mission = W.Mission AND P.ItemNo = I.ItemNo AND PriceSchedule = '#Priceschedule#'									
 							
-				WHERE       I.Mission = '#mission#' 
+				WHERE       S.Mission = '#mission#' 
 				AND         I.Operational = 1
 				AND         W.Operation = 1
 				AND         S.SelectionDate = CAST(GETDATE() AS Date) 
@@ -644,17 +641,11 @@
 				<cfif warehouse neq "">
 				AND         W.Warehouse = '#Warehouse#'
 				</cfif>		
-				<cfif itemNo neq "">
-				<cfif itemMode eq "exact">
-				AND         I.ItemNo LIKE '#ItemNo#' 
-				<cfelse>
-				AND         I.ItemNo LIKE '%#ItemNo#' 
-				</cfif>
-				</cfif>
+				
 				<cfif Make neq "">
 				AND         I.ItemBrand IN (#preservesinglequotes(make)#) 		
 				</cfif>
-				<cfif Category neq "">
+				<cfif Category neq "" and itemNo eq "">
 				AND         I.ItemCategory LIKE '%#Category#' 
 				</cfif>				
 				
@@ -676,7 +667,13 @@
 				
 				) as D
 				
-				WHERE 1 = 1
+				<cfif itemNo neq "">				
+					<cfif itemMode eq "exact">
+					WHERE      (ItemNo LIKE '#ItemNo#' OR ItemReference LIKE '#ItemNo#') 
+					<cfelse>
+					WHERE      (ItemNo LIKE '%#ItemNo#' OR ItemReference LIKE '%#ItemNo#') 
+					</cfif>
+				</cfif>
 				
 				<cfif SettingOnHand eq "1">
 				AND        StockOnSale   > 0
@@ -691,8 +688,7 @@
 				</cfif>
 				
 				ORDER BY ItemName, WarehouseName
-							
-															
+																			
 			</cfquery>			
 							
 			<cfreturn stock>	

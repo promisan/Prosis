@@ -62,6 +62,7 @@
 		ORDER BY HierarchyCode, OrgUnit, OrgUnitName, ListOrder, ViewOrder, PostOrderBudget, PostGradeBudget 
 	
     </cfquery>
+	
 						
 	<cfoutput query="SearchResult" group="HierarchyCode">
 							
@@ -124,7 +125,7 @@
 				<cfset span="4">										
 			</cfif> 
 											
-			<td rowspan="#span#" id="cell#HierarchyCode#" valign="top" align="left" style="padding-left:2px;padding-top:1px;">
+			<td rowspan="#span#" id="cell#HierarchyCode#" valign="top" align="left" style="height:100%;width:100%;padding-left:2px;padding-top:1px;;padding-right:6px">
 										    
 					<table height="90" width="96%" class="formpadding">
 										
@@ -132,8 +133,7 @@
 					
 					<td width="100%" valign="top" 
 					   style="background-color:##e1e1e180;min-width:50px;width:50px;padding-top:5px;padding-right:2px;padding-left:2px;border:1px solid gray;border-right:0px">
-									
-														
+																							
 						<cfif Check.recordcount gt "1">		
 										
 							
@@ -159,13 +159,13 @@
 					     <cfset indent = indent+1>
 					</cfloop>
 										
-					<td height="100%" valign="top" style="border:1px solid gray;silver;border-left:0px">
+					<td height="100%" valign="top" style="height:100%;width:100%;border:1px solid gray;silver;border-left:0px">
 																								
 						<table style="width:100%">
 												
 						<tr>
 						
-						<td valign="top" style="line-break: strict;font-size:16px;padding-right:20px" class="labelmedium">
+						<td valign="top" style="line-break: strict;font-size:16px;padding-right:20px;min-width:268px;max-width:268px" class="labelmedium">
 						
 						    <cfif url.tree eq "Operational">
 														

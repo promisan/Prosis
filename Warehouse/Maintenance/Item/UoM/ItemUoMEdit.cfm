@@ -85,7 +85,7 @@ password="#SESSION.dbpw#">
 					   
 				  	   <cfinput type="Text"
 					       name="StandardCost"
-					       value="#numberformat(itemUoM.StandardCost,'__.__')#"
+					       value="#numberformat(itemUoM.StandardCost,'.__')#"
 					       validate="numeric"
 					       required="Yes"
 						   message="#vEnterCost#"

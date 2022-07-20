@@ -156,7 +156,7 @@
 			<TR class="#attributes.styleclass#">
 		    <TD style="padding-left:5px"><cf_tl id="Address">: <font color="FF0000">*</font></TD>
 		    <TD><cfif url.mode eq "edit">
-			    	<cfinput class="regularxl enterastab" onchange="#maplink#" type="Text" id="address" name="address" value="#getAddress.Address#" message="Please enter an address" required="Yes" size="50" maxlength="100">							
+			    	<cfinput class="regularxl enterastab" onchange="#maplink#" type="Text" id="address" name="address" value="#getAddress.Address#" message="Please enter an address" required="Yes" size="80" maxlength="100">							
 				<cfelse>
 					<b>#getAddress.Address#
 				</cfif>	
@@ -166,7 +166,7 @@
 		    <TR class="#attributes.styleclass#">
 		    <TD style="padding-left:5px"><cf_tl id="Address additional">:</TD>
 		    <TD><cfif url.mode eq "edit">
-				<cfinput class="regularxl enterastab" type="Text" name="address2" value="#getAddress.Address2#" message="Please enter an address" required="No" size="50" maxlength="100">
+				<cfinput class="regularxl enterastab" type="Text" name="address2" value="#getAddress.Address2#" message="Please enter an address" required="No" size="80" maxlength="100">
 				<cfelse>
 					<b>#getAddress.Address2#
 				</cfif>

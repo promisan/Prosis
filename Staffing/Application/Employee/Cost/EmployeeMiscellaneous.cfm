@@ -11,30 +11,32 @@
 <cfparam name="URL.sort"   default="doc">
 
 <cfoutput>
+
 <script language="JavaScript">
-
-function entitlement(persno) {
-    ptoken.location("MiscellaneousEntry.cfm?ID=" + persno);
-}
-
-function reloadForm() {
-    Prosis.busy('yes');
-	fil = document.getElementById('filter').value
-	srt = document.getElementById('sort').value
-	ptoken.location('EmployeeMiscellaneous.cfm?ID=#URL.ID#&status=' + fil + '&sort=' + srt);
-}
-
-function recordedit(id) {
-    ptoken.open("MiscellaneousEdit.cfm?ID=#URL.ID#&ID1="+id+"&status=#URL.Status#", "_self", "left=80, top=80, width=560, height=500, toolbar=no, status=yes, scrollbars=no, resizable=no");
-}
-
-function workflowdrill(key,box,mode) {
-		
+	
+	function entitlement(persno) {
+	    ptoken.location("MiscellaneousEntry.cfm?ID=" + persno);
+	}
+	
+	function reloadForm() {
+	    Prosis.busy('yes');
+		fil = document.getElementById('filter').value
+		srt = document.getElementById('sort').value
+		ptoken.location('EmployeeMiscellaneous.cfm?ID=#URL.ID#&status=' + fil + '&sort=' + srt);
+	}
+	
+	function recordedit(id) {
+	    ptoken.open("MiscellaneousEdit.cfm?ID=#URL.ID#&ID1="+id+"&status=#URL.Status#", "_self", "left=80, top=80, width=560, height=500, toolbar=no, status=yes, scrollbars=no, resizable=no");
+	}
+	
+	function workflowdrill(key,box,mode) {
+			
 	    se = document.getElementById(box)
 		ex = document.getElementById("exp"+key)
 		co = document.getElementById("col"+key)
 			
-		if (se.className == "hide") {		
+		if (se.className == "hide") {	
+			
 		   se.className = "regular" 		   
 		   co.className = "regular"
 		   ex.className = "hide"			   
@@ -43,9 +45,8 @@ function workflowdrill(key,box,mode) {
 		} else {  se.className = "hide"
 		          ex.className = "regular"
 		   	      co.className = "hide" 
-	    } 		
+	    } 				
 	}		
-
 
 </script>
 </cfoutput>
@@ -168,7 +169,7 @@ password="#SESSION.dbpw#">
 	<cfoutput query="SearchResult" group="PayrollItem">
 	
 	<TR class="line labelmedium2 fixrow2">
-        <td colspan="12" style="font-weight:bold;padding-left:6px;font-size:21px;height:35px">#PayrollItem# #PayrollItemName#
+        <td colspan="12" style="font-weight:bold;padding-left:6px;font-size:21px;height:45px">#PayrollItem# #PayrollItemName#
 	</td></tr>
 	
 	<cfset docdte = "">
@@ -261,7 +262,9 @@ password="#SESSION.dbpw#">
 		</td>	
 		
 		<td><cfif documentdate neq docdte>#Dateformat(DocumentDate, CLIENT.DateFormatShow)#</cfif></td>
-		<td id="status_#workflow#"><cfif Status eq "2"><font color="008000"><cf_tl id="Cleared"><cfelseif Status eq "3"><font color="008000"><cf_tl id="Cleared"><cfelseif Status eq "5"><font color="008000">In Payroll</font><cfelse>Pending</cfif></td>
+		<td id="status_#workflow#"><cfif Status eq "2"><font color="008000"><cf_tl id="Cleared">
+		    <cfelseif Status eq "3"><font color="008000"><cf_tl id="Cleared">
+		    <cfelseif Status eq "5"><font color="008000" style="cursor:hand" onclick="document.getElementById('id#costid#').className='regular'">In Payroll</font><cfelse>Pending</cfif></td>
 		<td><cfif documentreference neq docref>#DocumentReference#</cfif></TD>
 		<td>#OfficerLastName#</TD>
 		<td>
@@ -294,10 +297,10 @@ password="#SESSION.dbpw#">
 	
 	<cfif Payroll.recordcount gte "1">
 		
-		<tr>
+		<tr id="id#costid#" class="hide">
 		<td colspan="2" style="width:10px" align="right"></td>
 		
-		<td colspan="10" align="left" style="padding-bottom:1px">
+		<td colspan="8" align="left" style="padding-bottom:1px">
 		
 			<table width="100%" bgcolor="ffffaf" cellspacing="0" cellpadding="0" style="border:1px solid silver">
 			    <tr class="labelmediuum2" style="height:20px">				    

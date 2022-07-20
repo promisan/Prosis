@@ -35,7 +35,7 @@
 	
 	    <cfoutput>
 		<script language="JavaScript">
-			parent.ColdFusion.navigate('BroadCastSend.cfm?BroadcastId=#URL.BroadcastId#&mode=#url.mode#&sourcepath=#URL.sourcepath#','boxsend')			
+			parent.ptoken.navigate('BroadCastSend.cfm?BroadcastId=#URL.BroadcastId#&mode=#url.mode#&sourcepath=#URL.sourcepath#','boxsend')			
 		</script>
 		</cfoutput>
 		

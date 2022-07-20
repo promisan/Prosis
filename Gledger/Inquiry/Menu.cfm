@@ -3,21 +3,34 @@
 
 <cf_submenuLogo module="Accounting" selection="Inquiry">
 
-<cfset heading = "Statements">
-<cfset module = "'Accounting'">
+<cfset heading   = "Statements">
+<cfset module    = "'Accounting'">
 <cfset selection = "'Reporting'">
-<cfset class = "'Main'">
+<cfset class     = "'Main'">
 
 <cfinclude template="../../Tools/Submenu.cfm">
 
-<cfset heading = "Standard Views">
-<cfset selection = "'Inquiry','Reporting'">
-<cfset class = "'Builder'">
+<cfquery name="ClassList"
+	datasource="AppsSystem" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT      DISTINCT MenuClass
+	FROM        Ref_ModuleControl
+	WHERE       SystemModule = 'Accounting' 
+	AND         FunctionClass IN ('Inquiry', 'Reporting') 
+	AND         Operational = 1 
+	AND         MenuClass NOT IN ('Main','Journal', 'Payables', 'Receivables')
+	ORDER BY MenuClass
+</cfquery>
 
-<cfinclude template="../../Tools/Submenu.cfm">
+<cfoutput query="ClassList">
+	
+	<cfset heading = "#menuclass# Views">
+	<cfset selection = "'Inquiry','Reporting'">
+	<cfset class = "'#menuclass#'">		
+	
+	<cfinclude template="../../Tools/Submenu.cfm">
 
-<cfset heading = "Extended Search (Collection)">
-<cfset selection = "'Search','Listing'">
-<cfset class = "'Collection'">
-<cfinclude template="../../Tools/Submenu.cfm">
+</cfoutput>
+
 

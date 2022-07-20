@@ -2492,6 +2492,16 @@
 							    SELECT    *
 							    FROM      Accounting.dbo.Ref_Tax
 								WHERE     TaxCode = '#TaxCode#'
+							</cfquery> 		
+							
+							<cfquery name="UoM" 
+						    datasource="AppsMaterials" 
+						    username="#SESSION.login#" 
+						    password="#SESSION.dbpw#">
+							    SELECT    *
+							    FROM      ItemUoM
+								WHERE     Itemno = '#ItemNo#'
+								AND       UoM    = '#TransactionUoM#'
 							</cfquery> 									
 
 							<cfparam name="Attributes.TransactionPeriod"        default="#TransactionPeriod#">															
@@ -2516,6 +2526,7 @@
 								GLAccount1            = "#getSale.GLAccount#"
 								Costcenter1           = "#Org.OrgUnit#"
 								ReferenceNo1          = "#ItemNo#"		
+								ReferenceUoM1         = "#UoM.UoMDescription#"
 								ReferenceQuantity1    = "#TransactionQuantity#"						
 								TransactionType1      = "Standard"
 								TransactionTaxCode1    = "#TaxCode#"
@@ -2529,6 +2540,7 @@
 								GLAccount2            = "#Tax.GLAccountReceived#"
 								Costcenter2           = "#Org.OrgUnit#"
 								ReferenceNo2          = "#ItemNo#"		
+								ReferenceUoM2         = "#UoM.UoMDescription#"
 								ReferenceQuantity2    = "#TransactionQuantity#"							
 								TransactionType2      = "Standard"
 								TransactionTaxCode2   = "#TaxCode#"

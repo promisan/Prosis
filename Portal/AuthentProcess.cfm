@@ -806,6 +806,9 @@
    </cfif>
     
    <!--- do not allow for default password unless the authorization is not used through LDAP, then we accept  --->
+   
+   <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+   <cfset mid = oSecurity.gethash()/>   
       
    <cfif System.EnforcePassword eq "1" 
         and SearchResult.PasswordResetForce eq "1" 
@@ -816,7 +819,7 @@
 			<cfset prosisLoginResult = 103>
 		<cfelse>
 	       	<cfset SESSION.authent = "1">			
-   		   	<cflocation URL="../System/UserPassword.cfm?id=expire" addtoken="No">
+   		   	<cflocation URL="../System/UserPassword.cfm?id=expire&mid=#mid#" addtoken="No">
 		</cfif>
 		
    </cfif>

@@ -13,7 +13,7 @@ password="#SESSION.dbpw#">
 <script language="JavaScript">
 	
 	function rostersearch(action,actionid,ajaxid) {  
-		ProsisUI.createWindow('mycandidate', 'Identify Candidates', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,resizable:false,center:true})    					
+		ProsisUI.createWindow('mycandidate', 'Identify Candidates', '',{x:100,y:100,height:document.body.clientHeight-20,width:document.body.clientWidth-20,modal:true,resizable:false,center:true})    					
 	    ptoken.navigate('#SESSION.root#/Vactrack/Application/Candidate/Identify/DocumentCandidate.cfm?mode=vacancy&wActionId='+actionid+'&docno=#Doc.DocumentNo#&functionno=#Doc.FunctionNo#','mycandidate')
 	}
 	

@@ -279,6 +279,7 @@
 										
 										Shipping                  = "#shipping#"
 										
+										PriceSchedule             = "#ship.PriceSchedule#"	
 										SchedulePrice             = "#ship.SchedulePrice#"	
 										SalesUoM                  = "#Ship.SalesUoM#"       <!--- as recorded in the sale POS --->	 
 										SalesQuantity             = "#qty*-1#"              <!--- as recorded in the sale POS --->	
@@ -447,35 +448,46 @@
 										
 										<cfif check.recordcount eq "0">
 										
-											    <cfquery name="Update"
+										    <cfquery name="Update"
+											datasource="AppsMaterials" 
+											username="#SESSION.login#" 
+											password="#SESSION.dbpw#">
+												UPDATE WarehouseBatch
+												SET    ActionStatus           = '9', 
+												       ActionOfficerUserId    = '#SESSION.acc#',
+												       ActionOfficerLastName  = '#SESSION.last#',
+													   ActionOfficerFirstName = '#SESSION.first#',
+													   ActionOfficerDate      = getDate(),
+													   ActionMemo             = 'Voided transaction'
+												WHERE  BatchNo                = '#prior.TransactionBatchNo#'
+											</cfquery>
+											
+											<!--- logging --->
+		
+											<cfquery name="set"
 												datasource="AppsMaterials" 
 												username="#SESSION.login#" 
 												password="#SESSION.dbpw#">
-													UPDATE WarehouseBatch
-													SET    ActionStatus           = '9', 
-													       ActionOfficerUserId    = '#SESSION.acc#',
-													       ActionOfficerLastName  = '#SESSION.last#',
-														   ActionOfficerFirstName = '#SESSION.first#',
-														   ActionOfficerDate      = getDate(),
-														   ActionMemo             = 'Voided transaction'
-													WHERE  BatchNo                = '#prior.TransactionBatchNo#'
-												</cfquery>
-													
-												<cftry>
-											
-													<cfquery name="Clear"
-													datasource="AppsMaterials" 
-													username="#SESSION.login#" 
-													password="#SESSION.dbpw#">
-														DELETE FROM UserQuery.dbo.StockBatch_#SESSION.acc#	
-														WHERE  BatchNo     = '#prior.TransactionBatchNo#'
-													</cfquery>
+													INSERT INTO Materials.dbo.WarehouseBatchAction
+								     				    	(BatchNo,ActionCode,ActionDate,ActionStatus,OfficerUserId,OfficerLastName,OfficerFirstName)
+													VALUES 	('#prior.TransactionBatchNo#','Deny',getdate(),'1','#session.acc#','#session.last#','#session.first#')							
+											</cfquery>		
 												
-													<cfcatch></cfcatch>
+											<cftry>
+										
+												<cfquery name="Clear"
+												datasource="AppsMaterials" 
+												username="#SESSION.login#" 
+												password="#SESSION.dbpw#">
+													DELETE FROM UserQuery.dbo.StockBatch_#SESSION.acc#	
+													WHERE  BatchNo     = '#prior.TransactionBatchNo#'
+												</cfquery>
 											
-												</cftry>
+												<cfcatch></cfcatch>
+										
+											</cftry>
 																				
-											  <script>alert("This batch has been denied.")</script>
+											<script>alert("This batch has been revoked but the Financials are still active.")</script>
 										
 										</cfif>								
 										

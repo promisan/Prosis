@@ -317,9 +317,7 @@ password="#SESSION.dbpw#">
 					<cfset debit       = 0>
 					<cfset creditbase  = amtB>
 					<cfset debitbase   = 0> 
-					<cfset accounttype = "Credit"> 
-					
-				
+					<cfset accounttype = "Credit"> 				
 							
 					<!--- offset transaction entry --->
 									
@@ -395,8 +393,7 @@ password="#SESSION.dbpw#">
 				
 			</cfif>	
 			
-		</cfif>	
-		
+		</cfif>			
 		
 		<cfset fld = left(TransactionId,8)>		
 		
@@ -570,8 +567,7 @@ password="#SESSION.dbpw#">
 		  </cfif>
 		
 		</cfif> 
-		
-		
+				
 				
 		<cfif ActionDiscountDate gte now() and abs(amtdis) gt 0>
 		

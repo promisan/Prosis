@@ -191,10 +191,9 @@
 							
 					<cfif SESSION.acc neq AnonymousUserId>	
 								
-					<tr class="line"><td colspan="1" class="labelmedium" style="HEIGHT:45;padding-left:5px;font-size:25px;font-weight:200;">
-					<cf_tl id="Variant Subscription">
-					
-					</td></tr>																 								
+					<tr class="line">
+					<td class="labelmedium" style="height:45px;padding-left:5px;font-size:25px"><cf_tl id="Variant Subscription"></td>
+					</tr>																 								
 					<tr><td><cfinclude template="FormHTMLSchedule.cfm"></td></tr>
 					
 					</cfif>

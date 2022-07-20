@@ -564,7 +564,7 @@
 			</cfoutput>
 									
 			</td>
-			<td class="labellarge" style="padding-left:3px;font-size:24px;height:50px;color:0080C0"><cf_tl id="Funding"></td>
+			<td class="labellarge" style="background-color:white;padding-left:3px;font-size:24px;height:50px;color:0080C0"><cf_tl id="Funding"></td>
 			</tr>
 		  </table>
 	  	</td></tr>

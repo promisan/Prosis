@@ -19,6 +19,8 @@ datasource="AppsSystem">
 	<cftry>	
 	
     	<cfset targetSession = sessions[ application.applicationName & '_' & get.HostSessionId]>
+		    
+	    <cfset StructClear(targetSession)>	
 	
 		<cfcatch>
 		
@@ -29,8 +31,7 @@ datasource="AppsSystem">
 		</cfcatch>
 	
 	</cftry>
-	
-	<cfset StructClear(targetSession)>		
+		
 	
 	<cfoutput>
 	

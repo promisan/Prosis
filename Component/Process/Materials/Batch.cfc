@@ -12,7 +12,8 @@
 			datasource="#datasource#" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-				SELECT * FROM Materials.dbo.WarehouseBatch				
+				SELECT * 
+				FROM   Materials.dbo.WarehouseBatch				
 				WHERE  BatchNo = '#BatchNo#'
 			</cfquery>
 						

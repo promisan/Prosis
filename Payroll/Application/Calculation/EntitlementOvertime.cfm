@@ -1,21 +1,26 @@
 
 <CF_DropTable dbName="AppsTransaction" tblName="sal#SESSION.thisprocess#Overtime">	
 
-<cfquery name="Update" 
+<!--- not a good idea we only do this in the begiining _init
+
+<cfquery name="ResetOvertime" 
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 
 	UPDATE  PersonOvertime
-	SET     Status = '3'
+	SET     Status   = '3'
 	FROM    PersonOvertime T	
 	WHERE   OvertimeId NOT IN (SELECT ReferenceId 
 	                           FROM   EmployeeSalaryLine
 							   WHERE  ReferenceId = T.OvertimeId)
-	AND     Status IN ('5')
+	AND     Status   = '5'
 	AND     OvertimePayment = 1
-	
+			
 </cfquery>
+
+--->
+
 
 <!--- --------------------------------- --->
 <!--- 1 of 2 overtime records as a rate --->
@@ -28,6 +33,7 @@ datasource="AppsPayroll"
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
 	UPDATE  PersonOvertime
+	
 	SET     OvertimeDate = WorkFlow.DateApproval
 
 	FROM    PersonOvertime AS O INNER JOIN
@@ -98,7 +104,12 @@ password="#SESSION.dbpw#">
 	AND    Ovt.OvertimePeriodEnd   <= Pay.DateExpiration 
 	
 	<!--- has been cleared and not processed yet in a prior month = not paid, we changed this from 2 into 3 9/17/2020  --->
-	AND    Ovt.Status          = '3' 
+	AND    Ovt.Status          IN ('3','5') 
+	
+	AND    Ovt.OvertimeId NOT IN (SELECT ReferenceId 
+	                              FROM   EmployeeSalaryLine
+					    		  WHERE  ReferenceId = Ovt.OvertimeId)
+								  
 	<!--- is defined to be payable --->
 	AND    OvtD.BillingPayment = 1	
 	AND    (OvtD.OvertimeHours > 0 OR OvtD.OvertimeMinutes > 0)
@@ -259,7 +270,13 @@ password="#SESSION.dbpw#">
 	AND    R.SalarySchedule    = Pay.ContractScheduleSPA 
 	AND    (R.ServiceLocation  = Pay.ContractLocationSPA OR R.ServiceLocation = 'All')
 	
-	<!--- we look at the overtime date to determine what to select STL provision
+	AND    Ovt.OvertimePeriodEnd   >= Pay.DateEffective  <!--- 25/5/07 had to be added for correct rate determination, retro calc --->	
+	AND    Ovt.OvertimePeriodEnd   <= Pay.DateExpiration 
+	<!--- sometime overtime is paid in the next month, so May overtime needs to be paid in June, in that case this will do it --->
+	AND    OvertimeDate    <=  #CALCEND#	
+	
+		
+	<!--- we look at the overtime date to determine what to select STL provision 
 			
 	AND    CASE WHEN ovt.OvertimeDate < '2018-02-01' THEN
 	         Ovt.OvertimeDate ELSE Ovt.OvertimePeriodEnd
@@ -271,15 +288,16 @@ password="#SESSION.dbpw#">
 	--->	   	   
 		
 	<!--- has been cleared and not processed yet in a prior month = not paid --->
-	AND    Ovt.Status          = '3' 
+	AND    Ovt.Status          IN ('3','5') 
+	
+	AND    Ovt.OvertimeId NOT IN (SELECT ReferenceId 
+	                              FROM   EmployeeSalaryLine
+					    		  WHERE  ReferenceId = Ovt.OvertimeId)
+								  
 	<!--- is defined on the detailed level now as dominant factor --->
 	AND    OvtD.BillingPayment = 1
-	AND    (OvtD.OvertimeHours > 0 or  OvtD.OvertimeMinutes > 0)
-	
-	<!--- which has been if needed adjusted by the workflow field --->
-	AND    OvertimeDate    <=  #CALCEND#	
-	
-		
+	AND    (OvtD.OvertimeHours > 0 or OvtD.OvertimeMinutes > 0)
+			
 </cfquery>
 
 <cfquery name="Base" 
@@ -308,9 +326,9 @@ password="#SESSION.dbpw#">
 	
 	SELECT    *, 1 as OrderProcess
 	FROM      Ref_CalculationBase
-	WHERE     Code IN ( SELECT      SP.CalculationBase
-						FROM        SalaryScaleComponent AS SC INNER JOIN
-			                        SalaryScalePercentage AS SP ON SC.ScaleNo = SP.ScaleNo AND SC.ComponentName = SP.ComponentName
+	WHERE     Code IN ( SELECT SP.CalculationBase
+						FROM   SalaryScaleComponent AS SC INNER JOIN
+			                   SalaryScalePercentage AS SP ON SC.ScaleNo = SP.ScaleNo AND SC.ComponentName = SP.ComponentName
 						WHERE  SC.SalaryTrigger IN (SELECT SalaryTrigger 
 					                               FROM   userTransaction.dbo.sal#SESSION.thisprocess#OvertimePercent) )
 						
@@ -321,7 +339,9 @@ password="#SESSION.dbpw#">
 					   WHERE  S.SalarySchedule = '#Form.Schedule#'
 					  )	
 	
-	ORDER BY 	OrderProcess			   
+	ORDER BY 	OrderProcess	
+	
+		   
 </cfquery>
 
 <cfset mySchedule = Form.Schedule>
@@ -349,7 +369,12 @@ password="#SESSION.dbpw#">
 		        userTransaction.dbo.sal#SESSION.thisprocess#CalculationBase#code# S
 		WHERE   S.PersonNo            = T.PersonNo
 		-- AND     S.AmountCalculation <> 0
+		<cfif BaseAmount eq "1">
+		AND     S.PayrollCalcNo       = 1	
+		AND     S.PayrollCalcNo       = T.Line	  
+		<cfelse> 
 		AND     S.PayrollCalcNo       = T.Line	  		<!--- adjusted 23/12/2017 ronmell observation that we took the wrong calcNo --->
+		</cfif>
 		AND     T.CalculationBase     = '#code#' 		
 	</cfquery>
 	
@@ -359,33 +384,34 @@ password="#SESSION.dbpw#">
 datasource="AppsPayroll" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
+
 	INSERT INTO EmployeeSalaryLine
 	
-		(SalarySchedule,
-		 PersonNo, 
-		 PayrollStart, 
-		 Mission,
-		 PayrollCalcNo,
-		 PayrollItem, 
-		 EntitlementSalarySchedule,
-		 EntitlementPeriod, 
-		 EntitlementPeriodUoM, 
-		 Currency, 
-		 AmountCalculation, 
-		 AmountCalculationWork,
-		 AmountCalculationBase,
-		 AmountCalculationDays,
-		 AmountCalculationFull,
-		 AmountPayroll, 
-		 PaymentCurrency, 
-		 PaymentCalculation, 
-		 PaymentAmount, 
-	     Reference, 
-		 ReferenceId, 
-		 CalculationSource,
-		 OfficerUserId, 
-		 OfficerLastName, 
-		 OfficerFirstName)
+			(SalarySchedule,
+			 PersonNo, 
+			 PayrollStart, 
+			 Mission,
+			 PayrollCalcNo,
+			 PayrollItem, 
+			 EntitlementSalarySchedule,
+			 EntitlementPeriod, 
+			 EntitlementPeriodUoM, 
+			 Currency, 
+			 AmountCalculation, 
+			 AmountCalculationWork,
+			 AmountCalculationBase,
+			 AmountCalculationDays,
+			 AmountCalculationFull,
+			 AmountPayroll, 
+			 PaymentCurrency, 
+			 PaymentCalculation, 
+			 PaymentAmount, 
+		     Reference, 
+			 ReferenceId, 
+			 CalculationSource,
+			 OfficerUserId, 
+			 OfficerLastName, 
+			 OfficerFirstName)
 	 
 	SELECT   '#Form.Schedule#',
 			 PersonNo, 
@@ -417,11 +443,9 @@ password="#SESSION.dbpw#">
 	
 	WHERE EXISTS (SELECT 'X' 
 	              FROM  EmployeeSalary
-			      WHERE PersonNo = P.PersonNo
-				  AND   PayrollCalcNo  = P.Line
-				  AND   SalarySchedule = '#Form.Schedule#'
-				  AND   PayrollStart   = #SALSTR#)	
+			      WHERE PersonNo        = P.PersonNo
+				  AND   PayrollCalcNo   = P.Line
+				  AND   SalarySchedule  = '#Form.Schedule#'
+				  AND   PayrollStart    = #SALSTR#)	
+				  
 </cfquery>
-
-
-

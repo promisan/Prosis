@@ -188,6 +188,25 @@
 									   WHERE  Category = R.Category)
 				ORDER BY TabOrder					     
 			</cfquery>			
+			
+			<cfif Cat.recordcount eq "0">
+			
+				<cfquery name="Cat" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+					SELECT  *
+					FROM    #CLIENT.LanPrefix#Ref_Category R	
+					WHERE 	1 = 1
+					
+					<!--- has subitems defined --->
+					AND		R.Category IN (SELECT Category 
+					                       FROM   Ref_CategoryItem 
+										   WHERE  Category = R.Category)
+					ORDER BY TabOrder					     
+				</cfquery>			
+			
+			</cfif>
 		
 		<cfelse>
 		
@@ -275,9 +294,8 @@
 	    </tr>
 		
 		<TR class="labelmedium2">
-	    <td style="padding-left:5px"><cf_tl id="Procurement Master">: <font color="FF0000">*</font></b></td>   
-		    <td>
-			
+	    <td class="fixlength" style="padding-left:5px"><cf_tl id="Procurement Master">: <font color="FF0000">*</font></b></td>   
+		    <td>			
 				<cf_securediv id="bItemMaster" bind="url:getItemMaster.cfm?itemmaster=#Item.ItemMaster#&mission={mission}">
 		    </td>
 	    </tr>
@@ -1107,6 +1125,8 @@
 		
 			<table width="100%">	
 			
+			<tr>
+			
 			<cfoutput>
 			
 			<cfif url.id neq "">
@@ -1132,6 +1152,8 @@
 				</td>	
 				
 			</cfif>	
+			
+			</tr>
 			
 			</cfoutput>
 			

@@ -168,6 +168,11 @@ password="#SESSION.dbpw#">
 	 			      AND     S.SupplyItemUoM = T.TransactionUoM
 					) as Capacity,		
 					
+				    ( SELECT  count(*)
+		              FROM    Materials.dbo.ItemTransactionDeny S
+					  WHERE   ParentTransactionId = T.TransactionId 	                 
+					) as Amendment,			
+					
 				   T.ReceiptId, 									 
 							  			   
 				   ( SELECT P.ReceiptNo 
@@ -219,7 +224,9 @@ password="#SESSION.dbpw#">
 				   P.Reference,
 				   
 				   T.Remarks, 
-				   T.ActionStatus,				  				  
+				   T.ActionStatus,		
+				   T.OfficerLastName,
+				   T.OfficerFirstName,		  				  
 				   T.Created
 				   
 		FROM      <cfif batch.actionStatus neq "9">ItemTransaction<cfelse>ItemTransactionDeny</cfif> T 
@@ -428,9 +435,7 @@ password="#SESSION.dbpw#">
 				<TD><cf_tl id="Date"></TD>						
 				<TD align="right"><cf_tl id="UoM"></TD>
 			    <TD align="right"><cf_tl id="Quantity"></TD>				
-				<TD>
-					<cf_UIToolTip tooltip="Accounts Payable for outsourced transaction"><cf_tl id="AP"></cf_UIToolTip>
-				</TD>	
+				<TD title="Accounts Payable for outsourced transaction"><cf_tl id="AP"></TD>	
 			
 			</tr>
 			
@@ -1067,6 +1072,15 @@ password="#SESSION.dbpw#">
 													
 												   </table>	
 												
+											</cfif>	
+											
+										<cfelse>
+								
+										
+											<cfif Amendment gt "0">
+											   <table><tr><td title="Changes applied by #OfficerFirstName# #OfficerLastName# on #dateformat(Created,client.dateformatshow)# #timeformat(Created,'')# " style="border-right:1px solid silver;width:10px;height:10px;color:808080">
+											   <input type="button" onclick="history('#transactionid#')" class="'button10g" style="height:15px;width:15px">											   
+											   </td></tr></table>											   
 											</cfif>	
 										
 										</cfif>

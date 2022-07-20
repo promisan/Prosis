@@ -19,7 +19,7 @@
 
 <cf_divscroll>
 
-	<table width="100%" height="100%" cellspacing="0" cellpadding="0" bgcolor="white">
+	<table width="100%" height="100%" bgcolor="white">
 	
 	<tr><td bgcolor="white" valign="top">
 	

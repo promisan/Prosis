@@ -4,6 +4,10 @@
 <cfparam name="Form.TransactionLot"   default="">		
 <cfparam name="Form.Category"         default="">		
 
+<cfset globalmission = "granted">
+
+<!---
+
 <cfinvoke component  = "Service.Access"  
 	   method            = "RoleAccess" 
 	   mission           = "#url.mission#" 	  
@@ -12,6 +16,7 @@
 	   parameter         = "#url.systemfunctionid#"
 	   accesslevel       = "'0','1','2'"
 	   returnvariable    = "globalmission">	
+	   
 	   
 <cfif globalmission neq "Granted">	
 
@@ -28,7 +33,7 @@
 	<cfif accessList.recordcount eq "0">
 	
 		<table width="100%" border="0" height="100%" align="center">
-			   <tr><td align="center" style="padding-top:70;" valign="top" class="labelmedium"><i>
+			   <tr><td align="center" style="padding-top:70;" valign="top" class="labelmedium">
 			    <font color="FF0000">
 				<cf_tl id="You have <b>NOT</b> been granted any access to this inquiry function" class="Message">
 				</font>
@@ -40,6 +45,8 @@
 	</cfif>		 
 		   
 </cfif>		
+
+--->
 
 <cfquery name="PriceSchedule" 
 	datasource="AppsMaterials" 

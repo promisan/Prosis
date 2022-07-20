@@ -101,11 +101,11 @@
 	</cfif>
 		
 	<cfform action="Search1Submit.cfm?wparam=#url.wparam#&mode=#URL.Mode#&Owner=#URL.Owner#&Status=#URL.Status#&DocNo=#URL.DocNo#" 
-				method="post" style="height:98%"
+				method="post" style="height:97.5%"
 				target="_self" 
 				name="search1">
 	
-	<table width="99%" height="100%" align="center">
+	<table style="width:98.5%;height:98.0%" align="center">
 		   		
 	    <TR style="height:95%" class="line">
 						
@@ -204,7 +204,7 @@
 					<table width="96%" align="center" class="formpadding navigation_table fixrow">
 					
 					  <tr class="labelmedium2">
-						  <td colspan="7" style="height:45px;font-size:25px">Please select the roster edition you need to search</td>					  
+						  <td colspan="7" align="center" style="height:45px;font-size:18px">Please select the roster edition you need to search</td>					  
 						  <tr class="labelmedium2 line fixlengthlist">
 						  <td>&nbsp;</td>
 						  <td colspan="2"><cf_tl id="Roster edition"></td>					  

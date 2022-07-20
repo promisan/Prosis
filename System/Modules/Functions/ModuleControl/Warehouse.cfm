@@ -775,7 +775,19 @@
    MainMenuItem    = "0"
    FunctionMemo    = "Resupply Request"
    ScriptName      = "itmonorder"
-   AccessUserGroup = "0">     
+   AccessUserGroup = "0">  
+   
+<cf_ModuleInsertSubmit
+   SystemModule    = "Warehouse" 
+   FunctionClass   = "Acquisition"
+   FunctionName    = "Acquisition Settings" 
+   MenuClass       = "Inquiry"
+   MenuOrder       = "3"
+   MainMenuItem    = "0"
+   FunctionMemo    = "Resupply Request"
+   ScriptName      = "itmacquisition"
+   AccessUserGroup = "0">   
+       
              
 <cf_ModuleInsertSubmit
    SystemModule    = "Warehouse" 

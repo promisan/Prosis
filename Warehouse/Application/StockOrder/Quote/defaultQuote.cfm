@@ -85,19 +85,19 @@ password="#SESSION.dbpw#">
 		   <td style="border:0px solid silver;padding:5px;width:48%;height:100px;background-color:##BFECFB">
 		   	   
 		        <table class="formspacing">
-				    <tr class="labelmedium"><td style="background-color:##BFECFE;height:21px;padding-left:5px">#Mission.MissionName#</td></tr>
-					<tr class="labelmedium"><td style="background-color:##BFECFE;height:21px;padding-left:5px">#Warehouse.WarehouseName#</td></tr>
-					<tr class="labelmedium"><td style="background-color:##BFECFE;height:21px;padding-left:5px">#Warehouse.Address#</td></tr>
-					<tr class="labelmedium"><td style="background-color:##BFECFE;height:21px;padding-left:5px">#Warehouse.Contact# #Warehouse.EMailAddress#</td></tr>
+				    <tr class="labelmedium"><td style="font-size:15px;background-color:##BFECFE;height:21px;padding-left:5px">#Mission.MissionName#</td></tr>
+					<tr class="labelmedium"><td style="font-size:15px;background-color:##BFECFE;height:21px;padding-left:5px">#Warehouse.WarehouseName#</td></tr>
+					<tr class="labelmedium"><td style="font-size:15px;background-color:##BFECFE;height:21px;padding-left:5px">#Warehouse.Address#</td></tr>
+					<tr class="labelmedium"><td style="font-size:15px;background-color:##BFECFE;height:21px;padding-left:5px">#Warehouse.Contact# #Warehouse.EMailAddress#</td></tr>
 				</table>
 		   </td>
 		   <td style="width:4%"></td>
 		   <td style="border:0px solid silver;padding:5px;width:48%;height:100px;background-color:##e1e1e1">   
 		        <table>
-				    <tr class="labelmedium"><td style="height:25px;padding-left:5px"><cfif customer.customername neq "">#Customer.CustomerName#<cfelse><cf_tl id="On request"></cfif></td></tr>
-					<tr class="labelmedium"><td style="height:25px;padding-left:5px">#Customer.PostalCode#</td></tr>
-					<tr class="labelmedium"><td style="height:25px;padding-left:5px">#Customer.MobileNumber#</td></tr>
-					<tr class="labelmedium"><td style="height:25px;padding-left:5px">#get.CustomerMail#</td></tr>
+				    <tr class="labelmedium"><td style="font-size:15px;height:25px;padding-left:5px"><cfif customer.customername neq "">#Customer.CustomerName#<cfelse><cf_tl id="On request"></cfif></td></tr>
+					<tr class="labelmedium"><td style="font-size:15px;height:25px;padding-left:5px">#Customer.PostalCode#</td></tr>
+					<tr class="labelmedium"><td style="font-size:15px;height:25px;padding-left:5px">#Customer.MobileNumber#</td></tr>
+					<tr class="labelmedium"><td style="font-size:15px;height:25px;padding-left:5px">#get.CustomerMail#</td></tr>
 				</table>
 		   </td>
 	   
@@ -111,7 +111,7 @@ password="#SESSION.dbpw#">
 	      
 		   <table style="width:100%">
 		     			 
-		     <tr class="line labelit" style="background-color:##eaeaea">
+		     <tr class="line labelit" style="font-size:13px;background-color:##eaeaea">
 			        <td style="height:30px;padding-left:4px"><cf_tl id="No"></td>
 				    <td style="padding-left:4px"><cf_tl id="Item"></td>
 					<td style="width:200px"><cf_tl id="Description"></td>
@@ -197,9 +197,9 @@ password="#SESSION.dbpw#">
 			 
 				 <cfif scheduleprice neq salesprice>
 					<tr class="labelit" style="border-bottom:1px solid gray;font-size:14px;">							
-						<td colspan="3" align="right" style="background-color:##D02032;color:white;width:100px;padding-right:4px"><cf_tl id="Your price"></td>									
-						<td style="background-color:##BFECFE;color:white;text-align:right;padding-right:4px">#numberformat(SalesUnitPrice,',.__')#</td>			
-						<td style="background-color:##BFECFE;color:white;text-align:right;padding-right:4px">#numberformat(SalesAmount,',.__')#</td>				
+						<td colspan="3" align="right" style="background-color:##D02032;color:white;width:100px;padding-right:4px;padding-top:2px"><cf_tl id="Your price"></td>									
+						<td style="background-color:##BFECFE;color:white;text-align:right;padding-right:4px;padding-top:2px">#numberformat(SalesUnitPrice,',.__')#</td>			
+						<td style="background-color:##BFECFE;color:white;text-align:right;padding-right:4px;padding-top:2px">#numberformat(SalesAmount,',.__')#</td>				
 					</tr>	
 				</cfif>				 
 							 
@@ -311,7 +311,7 @@ password="#SESSION.dbpw#">
    <tr class="labelmedium">
        <td align  = "center" 
 	       valign = "middle" 
-           style  = "padding-top:8px;border-top:1px solid silver;height:#pdiscla#px;font-size:13px">#disclaimertext#</td>
+           style  = "padding-top:8px;border-top:1px solid silver;height:#pdiscla#px;font-size:13px">#EncodeForHTML(disclaimertext)#</td>
    </tr>
 
 </table>

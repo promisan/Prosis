@@ -10,7 +10,7 @@
 	  SELECT *
 	  FROM  Broadcast
 	  WHERE OfficerUserId = '#SESSION.acc#'
-	  ORDER BY BroadCastStatus, Created DESC
+	  ORDER BY Created DESC
 </cfquery>
 
 <cfparam name="URL.page" default="1">
@@ -24,12 +24,13 @@
 <table width="94%" align="center" class="navigation_table">
  <tr><td height="7" id="select"></td></tr>
  <tr><td colspan="7"><cfinclude template="BroadCastNavigation.cfm"></td></tr>
- <tr height="20" class="labelmedium2 line">
+ <tr height="20" class="labelmedium2 line fixlengthlist">
      <td width="20" align="center"></td>
      <td align="center">No.</td>
      <td>Audience</td>
 	 <td>Description</td>
 	 <td>Subject</td>
+	 <td>Initiated</td>
 	 <td>Sent</td>
 	 <td width="20"></td>
  </tr>
@@ -46,7 +47,7 @@
    <cfset color = "transparent">  
  </cfif>
  
- <tr bgcolor="#color#" id="r#currentrow#" class="labelmedium2 navigation_row line">
+ <tr bgcolor="#color#" id="r#currentrow#" class="labelmedium2 navigation_row line fixlengthlist">
 	
 	<td width="25" align="center">
 		<cfif broadcaststatus eq "0" and url.id neq broadcastid>
@@ -59,10 +60,11 @@
 	<TD>#BroadcastRecipient#</TD>
 	<TD>#BroadcastReference#</TD>
 	<TD>#BroadcastSubject#</TD>
+	<TD>#dateformat(Created,client.dateformatshow)#</TD>
 	<td><cfif broadcaststatus eq "1">
 	      #dateformat(broadcastSent,CLIENT.DateFormatShow)# #timeformat(broadcastSent,"HH:MM:SS")#
 	    <cfelse>
-	      <font color="6688aa">Pending
+	      <font color="gray">Pending</font>
 	    </cfif></td>
 	<td align="right" style="padding-right:4px;padding-top:3px">
 	<!---

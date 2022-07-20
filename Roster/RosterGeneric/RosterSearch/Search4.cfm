@@ -15,6 +15,15 @@
 	<cf_screentop jquery="Yes" graphic="No" html="No" label="Roster Search Criteria" height="100%" scroll="Yes" systemModule="Roster" functionClass="Window" FunctionName="Roster Search">
 </cfif>
 
+<cfquery name="Owner" 
+		     datasource="AppsOrganization" 
+		     username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
+		     SELECT * 
+			 FROM  Ref_AuthorizationRoleOwner
+			 WHERE Code = '#url.Owner#'			
+	</cfquery>
+
 <cfif url.mode eq "new" or url.mode eq "reset">
 
 	<!--- create a new instance of the search --->
@@ -295,7 +304,7 @@
 	
 		<table width="100%" align="center">
 		<tr><td class="labellarge" style="font-size:25px;font-weight:300">
-		  <cfoutput>#Search.Owner#: <font size="4" color="808080"><cf_tl id="Select one or more criteria to filter on Candidates"></cfoutput>		
+		  <cfoutput>#Owner.Description#: <font size="4" color="808080"><cf_tl id="Select one or more criteria to filter on Candidates"></cfoutput>		
 		</td>
 		<td align="right" height="25">
 			<input type="button" class="button10g" value="Reset" style="height:23;width:90px" onclick="javascript:Prosis.busy('yes');reload()">		
@@ -624,40 +633,41 @@
 					
 			<cfoutput>
 					
-			<tr>
-			<td style="padding-right:2px" class="labelit"><cf_tl id="Interview">:</td>
-			
-				<td id="Int_Initial_1" style="padding-left:8px" class = "<cfif #Reference.SelectId# eq "">highlight1</cfif> labelit">
-				      <table><tr><td>
-			         <input type="radio" 
-			           name="Int_Initial" style="height:15px;width:15px"
-					   onclick = "chk('Int_Initial','1')"
-					   value="" <cfif Reference.SelectId eq "">checked</cfif>>
+				<tr class="linedotted labelmedium2 fixlengthlist">
+				<td style="padding-right:13px;height:20px;" class="labelit"><cf_tl id="Interview">:</td>
+				
+					<td id="Int_Initial_1" style="padding-left:8px;padding-right:5px" class = "<cfif #Reference.SelectId# eq "">highlight1</cfif> labelit">
+					      <table><tr><td>
+				         <input type="radio" 
+				           name="Int_Initial" style="height:15px;width:15px"
+						   onclick = "chk('Int_Initial','1')"
+						   value="" <cfif Reference.SelectId eq "">checked</cfif>>
+						</td>
+						<td style="padding-left:6px" class="labelit">N/A</td>
+						</table>
 					</td>
-					<td style="padding-left:6px" class="labelit">N/A</td>
-					</table>
-				</td>
-				<td id="Int_Initial_2" style="padding-left:8px" class = "<cfif #Reference.SelectId# eq 'Int_Initial' and #Reference.SelectParameter# eq "1">highlight1</cfif> labelit">		
-				    <table><tr><td>
-					<input type="radio" 
-			           name="Int_Initial" style="height:15px;width:15px"
-					   onclick = "chk('Int_Initial','2')"
-					   value="1" <cfif Reference.SelectId eq "Int_Initial" and Reference.SelectParameter eq "1">checked</cfif>>
-					 </td>
-					<td style="padding-left:6px" class="labelit">#tCleared#</td>
-					</table>  
-				</td>
-				<td id="Int_Initial_3" style="padding-left:8px" class="<cfif #Reference.SelectId# eq 'Int_Initial' and #Reference.SelectParameter# eq "0">highlight1</cfif> labelit">
-				    <table><tr><td>
-					<input type="radio" 
-			           name="Int_Initial" style="height:15px;width:15px"
-					   onclick = "chk('Int_Initial','3')"
-					   value="0" <cfif Reference.SelectId eq "Int_Initial" and #Reference.SelectParameter# eq "0">checked</cfif>>
-					 </td>
-					<td style="padding-left:6px" class="labelit">#tDenied#</td>
-					</table>  
-				</td>
-			</tr>
+					<td id="Int_Initial_2"  style="padding-left:8px;padding-right:5px" class = "<cfif #Reference.SelectId# eq 'Int_Initial' and #Reference.SelectParameter# eq "1">highlight1</cfif> labelit">		
+					    <table><tr><td>
+						<input type="radio" 
+				           name="Int_Initial" style="height:15px;width:15px"
+						   onclick = "chk('Int_Initial','2')"
+						   value="1" <cfif Reference.SelectId eq "Int_Initial" and Reference.SelectParameter eq "1">checked</cfif>>
+						 </td>
+						<td style="padding-left:6px" class="labelit">#tCleared#</td>
+						</table>  
+					</td>
+					<td id="Int_Initial_3"  style="padding-left:8px;padding-right:5px" class="<cfif #Reference.SelectId# eq 'Int_Initial' and #Reference.SelectParameter# eq "0">highlight1</cfif> labelit">
+					    <table><tr><td>
+						<input type="radio" 
+				           name="Int_Initial" style="height:15px;width:15px"
+						   onclick = "chk('Int_Initial','3')"
+						   value="0" <cfif Reference.SelectId eq "Int_Initial" and #Reference.SelectParameter# eq "0">checked</cfif>>
+						 </td>
+						<td style="padding-left:6px" class="labelit">#tDenied#</td>
+						</table>  
+					</td>
+				</tr>
+				
 			</cfoutput>
 		
 		</table>
@@ -669,13 +679,13 @@
 	
 	</table>
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 		
 	<tr><td height="4"></td></tr>
 	<tr class="line fixlengthlist">
-	   <td style="height:20px;font-weight:360"><cf_tl id="Application Received">:</td>
-	   <td colspan="1" style="height:20px;font-weight:360"><cf_tl id="Limit result to VA"></td> 
-	   <td colspan="1" style="height:20px;font-weight:360"><cf_tl id="Specific Candidate"></td> 
+	   <td style="height:20px"><cf_tl id="Application Received">:</td>
+	   <td colspan="1" style="height:20px"><cf_tl id="Limit result to VA"></td> 
+	   <td colspan="1" style="height:20px"><cf_tl id="Specific Candidate"></td> 
 	</tr>
 	
 	<TR>  
@@ -767,12 +777,12 @@
 					   WHERE  SearchId = '#URL.ID#'
 				   	    AND   SearchClass = 'VA'
 				</cfquery>
-				
+								
 				<select name="ReferenceNo" style="width:120px" class="regularxl">
-				  <option>
+				  <option value="" selected>N/A</option>
 				  <cfoutput query="VA">
 				  <cfif ReferenceNo neq "Direct">
-					  <option  value="#FunctionId#" <cfif check.selectid eq FunctionId or VA.recordcount eq 1>selected</cfif>>#ReferenceNo#</option>
+					  <option  value="#FunctionId#" <cfif check.selectid eq FunctionId>selected</cfif>>#ReferenceNo#</option>
 				  </cfif>
 				  </cfoutput>			
 				</select>

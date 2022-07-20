@@ -545,15 +545,15 @@ password="#SESSION.dbpw#">
 				
 				<td align="right" id="box_#TransactionLineId#_3" style="width:75px;max-width:75px;min-width:75;border-left:1px solid silver;" class="xxhide">
 																
-					<input type="text" 
-						 name="val_#fld#" 
-						 id="val_#fld#"
-						 value="#NumberFormat(val/erate,',.__')#" 
-						 size="10" 
-						 maxlength="12" 
-						 onchange="recalcline('#TransactionLineId#','#fld#')"
-						 class="hide" 
-						 style="background-color:f1f1f1;height:100%;width:100%;text-align:right;padding-top:0px">
+					<input type    =  "text" 
+						 name      =  "val_#fld#" 
+						 id        =  "val_#fld#"
+						 value     =  "#NumberFormat(val/erate,',.__')#" 
+						 size      =  "10" 
+						 maxlength = "12" 
+						 onchange  = "recalcline('#TransactionLineId#','#fld#')"
+						 class     = "hide" 
+						 style     = "background-color:f1f1f1;height:100%;width:100%;text-align:right;padding-top:0px">
 				 						 
 				</td>	
 										
@@ -561,29 +561,29 @@ password="#SESSION.dbpw#">
 				
 				<cfif currency eq headerselect.currency>
 																		
-					<input type="text" 
-						 name="exc_#fld#" 
-						 id="exc_#fld#"
-						 value="#NumberFormat(1,',.__')#" 
-						 size="10" 								 
-						 maxlength="10" 
+					<input type    = "text" 
+						 name      = "exc_#fld#" 
+						 id        = "exc_#fld#"
+						 value     = "#NumberFormat(1,',._____')#" 
+						 size      = "10" 								 
+						 maxlength ="10" 
 						 readonly
-						 tabindex="9999"
-						 class="hide" 
-						 style="background-color:f1f1f1;text-align: right;padding-top:0px;height:100%;width:100%;">
+						 tabindex  = "9999"
+						 class     = "hide" 
+						 style     = "background-color:f1f1f1;text-align: right;padding-top:0px;height:100%;width:100%;">
 					 
 				<cfelse>
 																						
-					 <input type="text" 
-						 name="exc_#fld#" 
-						 id="exc_#fld#"
-						 value="#NumberFormat(erate,',.__')#" 
-						 size="10" 			
-						 onchange="recalcline('#TransactionLineId#','#fld#')"				 
-						 tabindex="9999"
-						 maxlength="10" 							 
-						 class="hide" 
-						 style="background-color:f1f1f1;text-align: right;padding-top:0px;height:100%;width:100%;">
+					 <input type  = "text" 
+						 name     = "exc_#fld#" 
+						 id       = "exc_#fld#"
+						 value    = "#NumberFormat(erate,',.____')#" 
+						 size     = "10" 			
+						 onchange = "recalcline('#TransactionLineId#','#fld#')"				 
+						 tabindex = "9999"
+						 maxlength= "10" 							 
+						 class    = "hide" 
+						 style    = "background-color:f1f1f1;text-align: right;padding-top:0px;height:100%;width:100%;">
 				 
 				</cfif>
 				</td>						

@@ -184,6 +184,16 @@ password="#SESSION.dbpw#">
 				<td style="padding-left:4px;background-color:###cl#80">#lt_text#</td>	
 			</tr>
 			
+			<cfif BatchMemo neq "">
+			
+			<tr class="navigation_row_child labelmedium2 line fixlengthlist">		  
+			    <td colspan="2" align="center" style="padding-top:2px;background-color:###cl#80"></td>
+				<td colspan="7">#BatchMemo#</td>				
+			</tr>
+			
+			
+			</cfif>
+			
 			<cfif ParentBatchNo neq "">
 			
 				<cfquery name="detail" 

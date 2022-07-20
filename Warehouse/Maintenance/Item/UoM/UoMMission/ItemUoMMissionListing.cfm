@@ -37,6 +37,7 @@
 		</td>		
 		<td><cf_tl id="Entity"></td>
 		<td><cf_tl id="Transaction UoM"></td>
+		<td align="center"><cf_tl id="Reference"></td>
 		<td align="center"><cf_tl id="Selfservice"></td>	
 		<td align="center"><cf_tl id="Stock Classification"></td>					
 		<td align="right"><cf_tl id="Standard Cost"></td>		
@@ -44,7 +45,7 @@
 	</tr>
 		
 	<cfif UoMMission.recordCount eq 0>
-	<tr><td colspan="6" align="center"><font color="808080"><cf_tl id="No entities recorded"></font></td></tr>	
+	<tr><td colspan="7" align="center"><font color="808080"><cf_tl id="No entities recorded"></font></td></tr>	
 	</cfif>
 	
 	</cfoutput>	
@@ -68,6 +69,7 @@
 	  </td>
 	  <td>#Mission#</td>	 
 	  <td><cfif TransactionUoMDescription eq ""><cf_tl id="Standard"><cfelse>#TransactionUoMDescription#</cfif></td> 
+	  <td align="center">#Reference#</td>
 	  <td align="center"><cfif Selfservice eq 1>Yes<cfelse><b>No</b></cfif></td>
 	  <td align="center"><cfif EnableStockClassification eq 1><b>Yes</b><cfelse>No</cfif></td>	  
 	  <td align="right" style="padding-right:4px">#LSNumberFormat(StandardCost, ",.__")#</td>
@@ -75,7 +77,7 @@
 	</tr>  	
 	</cfoutput>
 	
-	<tr><td height="7" colspan="6"></td></tr>
+	<tr><td height="7" colspan="7"></td></tr>
 		
 	</table>
 	

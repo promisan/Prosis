@@ -376,15 +376,15 @@
 		
 			<table width="98%" class="navigation_table">	
 				
-			<TR class="labellarge line fixrow">
-			    <td height="20" style="width:40px"></td>
-			    <td width="40%" colspan="2"><cf_tl id="Classification"></td>		    
-			    <td width="10%"><cf_tl id="Date"></td>
-				<TD width="15%"><cfif URL.ID eq "STA" and URL.ID1 eq "2k"><cf_tl id="Buyer"><cfelse><cf_tl id="Last seen by"></cfif></TD>
-			    <td width="3%">T</td>
-				<td width="20%"><cfif URL.ID eq "STA"><cf_tl id="#url.lay#"><cfelse><cf_tl id="Status"></cfif></td>
-			    <td width="60"><cf_tl id="Quantity"></td>
-			    <td width="12%" align="right"><cf_tl id="Amount"><cfoutput>(#APPLICATION.BaseCurrency#)</cfoutput></td>
+			<TR class="labellarge line fixrow fixlengthlist">
+			    <td height="20"></td>
+			    <td colspan="2"><cf_tl id="Classification"></td>		    
+			    <td><cf_tl id="Date"></td>
+				<TD><cfif URL.ID eq "STA" and URL.ID1 eq "2k"><cf_tl id="Buyer"><cfelse><cf_tl id="Last seen by"></cfif></TD>
+			    <td>T</td>
+				<td><cfif URL.ID eq "STA"><cf_tl id="#url.lay#"><cfelse><cf_tl id="Status"></cfif></td>
+			    <td><cf_tl id="Quantity"></td>
+			    <td align="right"><cf_tl id="Amount"><cfoutput>(#APPLICATION.BaseCurrency#)</cfoutput></td>
 				<td width="30"></td>
 			</TR>
 											

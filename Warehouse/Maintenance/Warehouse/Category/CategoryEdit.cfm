@@ -37,9 +37,9 @@ password="#SESSION.dbpw#">
 	   
 		<cfif url.id2 eq "">
 			
-		   <TR>
-	   		<td width="80" class="labelmedium2"><cf_tl id="Category">:</td>
-		    <TD class="labelmedium2">
+		   <TR class="labelmedium2">
+	   		<td style="min-width:150px"><cf_tl id="Category">:</td>
+		    <TD>
 	
 			<cfquery name="getLookup" 
 				datasource="AppsMaterials" 

@@ -172,6 +172,13 @@ password="#SESSION.dbpw#">
 				 		 
 		}
 		
+		function history(id) {
+    		ProsisUI.createWindow('history', 'History', '',{x:100,y:100,width:860,height:document.body.clientHeight-75,resizable:false,modal:true,center:true})
+         	ptoken.navigate("#session.root#/Warehouse/Application/Stock/Batch/BatchLog.cfm?id="+id, "history");
+
+		
+		}
+		
 		function lineassetedit(sid,id) {		
     		_cf_loadingtexthtml="";	
 			ptoken.navigate('#SESSION.root#/warehouse/application/stock/batch/StockTransactionEditAsset.cfm?systemfunctionid='+sid+'&id='+id,'editbox')

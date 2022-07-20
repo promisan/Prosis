@@ -25,7 +25,7 @@
 	<cfsavecontent variable="queryselect">
 	
 		 <cfoutput>
-			
+		 			
 				<cfif url.mode neq "Person">		
 					P.PersonNo,
 					P.LastName,
@@ -123,23 +123,30 @@
 				
 					 CASE   A.ActionSource
 					
-					 WHEN 'Contract'    THEN ' : ' + (SELECT   R.Description
+					 WHEN 'Contract'   THEN ': ' + (SELECT   R.Description
 										      FROM     PersonContract PC INNER JOIN Ref_PersonGroupList R ON PC.GroupCode = R.GroupCode AND PC.GroupListCode = R.GroupListCode
 										      WHERE    A.ActionSourceId = PC.ContractId										 
 										      AND      PC.PersonNo      = <cfif url.mode eq "person">'#url.id#'<cfelse>A.ActionPersonNo</cfif>)
 											
-					 WHEN 'Dependent'   THEN ' : ' + (SELECT   R.Description
+					 WHEN 'Dependent'   THEN ': ' + (SELECT   R.Description
 										      FROM     PersonDependent PD INNER JOIN Ref_PersonGroupList R ON PD.GroupCode = R.GroupCode AND PD.GroupListCode = R.GroupListCode
 										      WHERE    A.ActionSourceId = PD.DependentId										  
 										      AND      PD.PersonNo      = <cfif url.mode eq "person">'#url.id#'<cfelse>A.ActionPersonNo</cfif>)	
-											
+											  
+					 WHEN 'Entitlement' THEN ': ' + (SELECT  TOP 1   R.PayrollItemName
+											  FROM     Payroll.dbo.PersonEntitlement AS PE INNER JOIN
+											           Payroll.dbo.Ref_PayrollItem AS R ON PE.PayrollItem = R.PayrollItem
+											  WHERE    A.ActionSourceId = PE.EntitlementId				   
+											  AND      PE.PersonNo = <cfif url.mode eq "person">'#url.id#'<cfelse>A.ActionPersonNo</cfif>)							  
+										
 					 ELSE ''
 					 END ,'') as PersonnelAction,
 				
 				A.OfficerUserId, 
-				(SELECT U.LastName+', '+U.FirstName
-				 FROM System.dbo.UserNames U
-				 WHERE Account = A.OfficerUserId) as Officer,
+					(SELECT U.LastName+', '+U.FirstName
+					 FROM   System.dbo.UserNames U
+					 WHERE  Account = A.OfficerUserId) as Officer,
+					 
 				UPPER(A.OfficerLastName) as OfficerLastName, 
 				A.OfficerFirstName
 				

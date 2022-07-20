@@ -7,7 +7,6 @@
 --->	
 
 
-
 <cfif SESSION.isAdministrator eq "Yes">
 
 	<cfset missionaccessfilter = "">	
@@ -340,7 +339,7 @@
 				</cfselect>
 				
 				<cfelse>
-				
+								
 				<cf_UIselect name = "#CriteriaName#"
 							selected       = "#DefaultValue#"
 							size           = "1"
@@ -367,7 +366,7 @@
 			<cfelse>
 			
 				<cfset qValues = evaluate("query#CriteriaName#")> 
-	
+					
 				<cf_UIselect name = "#CriteriaName#"
 					selected       = "#DefaultValue#"
 			    	size           = "1" 
@@ -392,7 +391,6 @@
 			</cfif>		
 		
 		<cfelse>		
-
 		   		   
 		   <cfset qValues = evaluate("query#CriteriaName#")> 
 		   		   					
@@ -529,7 +527,6 @@
 	</cfif>
 															
 <cfelse>	
-
 
 	<cfif CriteriaInterface neq "Combo">	
 							
@@ -704,7 +701,7 @@
 			
 			<table style="width:100%" id="#fldid#_box" class="#cl#">
 			 
-		 	<tr><td style="width:100%">
+		 	<tr><td style="width:100%" title="#CriteriaMemo#">
 															
 			<cfif ajax eq "0">
 			
@@ -734,6 +731,7 @@
 				<cfset ht = s*20+10>
 				
 				--->
+				
 				
 				<cfset qValues = evaluate("query#CriteriaName#")> 
 								
@@ -770,23 +768,22 @@
 				<cfset ht = s*20+10>	
 				
 				--->
-																				
-				 <cf_UIToolTip  tooltip="#CriteriaMemo#">
-				 
-				 		<cfset qValues = evaluate("query#CriteriaName#")> 
-																		
-						 <cf_UIselect
-							 name           = "#CriteriaName#"							 						 
-							 multiple       = "yes"
-							 query          = "#qValues#"
-							 style          = "min-width:100%"
-							 queryposition  = "below"
-							 class          = "regularXXL"
-							 selected       = "#defaultValue#"
-							 value          = "PK"
-							 display        = "Display"/>
 				
-				</cf_UIToolTip>
+					
+			 		<cfset qValues = evaluate("query#CriteriaName#")> 
+																	
+					 <cf_UIselect
+						 name           = "#CriteriaName#"							 						 
+						 multiple       = "yes"
+						 query          = "#qValues#"
+						 style          = "min-width:100%"
+						 queryposition  = "below"
+						 tooltip        = "#CriteriaMemo#"
+						 class          = "regularXXL"
+						 selected       = "#defaultValue#"
+						 value          = "PK"
+						 display        = "Display"/>
+				
 										
 			</cfif>
 																

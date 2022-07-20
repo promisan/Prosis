@@ -73,7 +73,7 @@
 		
 			document.passwordform.onsubmit() 
 			if( _CF_error_messages.length == 0 ) {
-          		ColdFusion.navigate('UserPasswordSubmit.cfm?portalid=#URL.portalid#&mission=#URL.mission#','dprocess','','','POST','passwordform')
+          		ptoken.navigate('UserPasswordSubmit.cfm?portalid=#URL.portalid#&mission=#URL.mission#','dprocess','','','POST','passwordform')
 			}   	
 		}
 				

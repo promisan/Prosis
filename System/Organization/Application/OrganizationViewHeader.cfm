@@ -2,7 +2,7 @@
 <cfparam name="url.header" default="0">
 
 <cfif url.header eq "1">
-	<cf_screenTop height="100%" html="No" title="Tree Settings" scroll="Yes" bannerheight="1">
+	<cf_screenTop height="100%" html="No" title="Tree Settings" scroll="Yes">
 </cfif>
 
 <cf_dialogOrganization>
@@ -62,30 +62,35 @@ AND (ParentOrgUnit NOT IN
 ORDER BY Mission, TreeOrder
 </cfquery>
 
-
 <script language="JavaScript">
 
 function hierar(mis) {
  	
 	    Prosis.busy('yes');
 	    url = "OrganizationHierarchy.cfm?mission="+mis
-		ColdFusion.navigate(url,'process')		
+		ptoken.navigate(url,'process')		
  }	
  
  </script>	
 
 <table width="100%">
 
-  <tr class="noprint line">
+  <tr class="noprint fixlengthlist">
   	<cfoutput>	
-    <td width="60%" style="height:35" class="labellarge">
+    <td style="height:49px">
 	<table>
 		<tr>	
 			<td><img src="#SESSION.root#/Images/tree3.gif" alt="" border="0"></td>
-			<td class="labellarge">#Mission.Mission# [#URL.ID3#]</td>
+			<td style="font-size:25px" class="labellarge">#Mission.Mission# [#URL.ID3#]</td>
 		</tr>
 	</table>
     </td>
+	
+	<td style="font-weight:bold">
+	<cfif Check.recordcount eq "0">
+	<font color="008000"><cf_tl id="Structure is ok, no orphans" class="message"></font>
+	</cfif>
+	</td>
 	
 	<td align="right" id="process" colspan="2">
 		<button name="Edit" id="Edit" style="width;190px" class="button10g" type="button" onClick="hierar('#Mission.Mission#')">
@@ -98,39 +103,38 @@ function hierar(mis) {
    
   <tr>
     <td width="100%" colspan="3">
-    <table width="100%" class="formpadding">
+    <table width="100%">
 
 	 <cfoutput query="Mission"> 
 	 	 		  
        <tr class="labelmedium line">
-        <td width="16%" style="padding-left:20px" height="17"><cf_tl id="Acronym">:</td>
-        <td colspan="1">#Mission.Mission# (#Mission.MissionPrefix#)</td>
-	    <td height="17" style="padding-left:10"><cf_tl id="Effective">:</td>
-        <td colspan="1">#DateFormat(Mission.DateEffective, CLIENT.DateFormatShow)#
+        <td style="padding-left:20px" height="17"><cf_tl id="Acronym">:</td>
+        <td>#Mission.Mission# (#Mission.MissionPrefix#)</td>
+	    <td style="padding-left:10px"><cf_tl id="Effective">:</td>
+        <td>#DateFormat(Mission.DateEffective, CLIENT.DateFormatShow)#
 		<cfif Mission.DateExpiration eq ""><cf_tl id="undefined">
 			<cfelse>
-			#DateFormat(Mission.DateExpiration, CLIENT.DateFormatShow)#
+			- #DateFormat(Mission.DateExpiration, CLIENT.DateFormatShow)#
 			</cfif>
 		
 		</td>	
        </tr>			
 	   
-       <tr class="labelmedium line">
-        <td height="17" style="padding-left:20"><cf_tl id="Name">:</td>
-        <td width="40%" colspan="3">#Mission.MissionName#</td>
+       <tr class="labelmedium2 line">
+        <td style="padding-left:20"><cf_tl id="Name">:</td>
+        <td colspan="3">#Mission.MissionName#</td>
 	   </tr>
 	  	   		  
-	   <tr class="labelmedium line">
-        <td height="17" style="padding-left:20px"><cf_tl id="Type">:</td>
+	   <tr class="labelmedium2">
+        <td style="padding-left:20px"><cf_tl id="Type">:</td>
         <td>#Mission.MissionType#</td>
-        <td height="17" style="font-size:14px;padding-left:10"><cf_tl id="Recorded by">:</td>
+        <td style="padding-left:10px"><cf_tl id="Recorded by">:</td>
         <td>#Mission.OfficerFirstName# #Mission.OfficerLastName#</td>
        </tr>
 	 		  
 	  <cfif Check.recordcount gt "0">
-		 
-				 
-		 <tr><td colspan="4" align="center" class="labelmedium"> 
+		 				 
+		 <tr><td colspan="4" align="center" class="labelmedium2" style="font-size:16px"> 
 			  <img src="#SESSION.root#/Images/caution.gif" alt="" border="0" align="absmiddle"> 
 			  <a href="OrganizationListing.cfm?ID1=NULL&ID2=#Mission.Mission#&ID3=#URL.ID3#&ID4=#URL.ID4#">
 			  <cf_tl id="Problem"> : <font color="FF0000"> #Check.recordcount#
@@ -142,18 +146,8 @@ function hierar(mis) {
 			   </font>
 			  </a>
 	  		</td>
-		 </tr>
-	  
-	  <cfelse>
-	  
-		   <tr class="labelmedium">
-	        <td style="padding-left:20px"><cf_tl id="Validation">:</td>
-	        <td colspan="3">	 
-				  <img height="15" src="#SESSION.root#/Images/checkmark.png" align="absmiddle" alt="" border="0"> 
-				  <font color="008000"><cf_tl id="Structure is ok, no units orphaned found" class="message">.</font>
-			</td>
-		  </tr>
-	  	   
+		 </tr>	  
+	 	  	   
 	  </cfif>
 	     						 	  	  
 	  </cfoutput>

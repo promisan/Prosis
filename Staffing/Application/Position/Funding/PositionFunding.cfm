@@ -401,9 +401,23 @@ password="#SESSION.dbpw#">
 						  </table> 
 
 						  <cfelse>
-
-						  	<input type="hidden" name="programcode" id="programcode" value="#Funding.ProgramCode#">
-					   		<cfif isDefined("prg.reference")>#Prg.Reference#<cfelse>#Prg.ProgramCode#</cfif> #Prg.ProgramName#
+						 
+						 						  
+						    <cfparam name="Prg.Period" default="">
+							
+							<input type="hidden" name="programcode" id="programcode" value="#Funding.ProgramCode#">
+							
+							<cfif Prg.Period neq "">
+													  	
+								<a href="javascript:ViewProgram('#Prg.ProgramCode#','#Prg.Period#','#Prg.ProgramClass#')">
+						   		<cfif isDefined("prg.reference")>#Prg.Reference#<cfelse>#Prg.ProgramCode#</cfif> #Prg.ProgramName#
+								</a>
+							
+							<cfelse>
+																			
+						   		<cfif isDefined("prg.reference")>#Prg.Reference#<cfelse>#Prg.ProgramCode#</cfif> #Prg.ProgramName#
+														
+							</cfif>
 
 						  </cfif>				
 					 					 
@@ -500,8 +514,13 @@ password="#SESSION.dbpw#">
 					  
 					  <cfif prg.recordcount gte "1">
 					  
-					   <td title="component or project enabled for periods" style="#cl#;padding-left:4px;">#Prg.Reference#&nbsp;#Prg.ProgramName#
-					  
+					   <td title="component or project enabled for periods" style="#cl#;padding-left:4px;">
+					   					        													  	
+								<a href="javascript:ViewProgram('#Prg.ProgramCode#','#Prg.Period#','#Prg.ProgramClass#')">
+						   		<cfif isDefined("prg.reference")>#Prg.Reference#<cfelse>#Prg.ProgramCode#</cfif> #Prg.ProgramName#
+								</a>
+						   					   
+					   					  
 					  <cfelse>
 					  
 					    <cfquery name="Prg"

@@ -622,6 +622,7 @@ AND   OfficerUserId = '#SESSION.acc#'
 					window.location = "#SESSION.root#/Tools/CFReport/OutputMessage.cfm?msg=#url.statusMessage#"
 			</script>
 		</cfoutput>
+		
 		<cf_wait text      = "Stopping report.."
 				controlid = "#ControlId#"
 				last      = "1">
@@ -660,7 +661,6 @@ AND   OfficerUserId = '#SESSION.acc#'
 <!--- ----------------------------------- --->
 
 						<script language="JavaScript">
-
 
 						try {
 

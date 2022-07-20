@@ -97,7 +97,7 @@ on March 12th 2011--->
 
     	</td>
 		
-		<!---
+		
 	    <td style="padding-left:4px">
 
 			<button type="button"
@@ -108,7 +108,7 @@ on March 12th 2011--->
         	</button>
 
       	</td>
-		--->
+		
      	</tr>
     	</table>
 
@@ -240,7 +240,7 @@ on March 12th 2011--->
 				</button>
 			</td>
 	
-	        <!---
+	        
 			<td align="right">
 				<button type="button"
 						name="Print" id="Print"
@@ -249,7 +249,7 @@ on March 12th 2011--->
 				<img src="#SESSION.root#/Images/print.gif" align="absmiddle" alt="Print" border="0">
 				</button>
 			</td>
-			--->
+			
 			<td width="2"></td>
 	
 		</tr>

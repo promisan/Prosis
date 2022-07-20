@@ -202,16 +202,16 @@
 </cfif>
 
 <cfoutput>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table formpadding">
+<table width="100%" align="center" class="navigation_table formpadding">
        
-    <TR class="labelit line" height="19">
+    <TR class="labelit line fixlengthlist" height="19">
 	  
 	   <td width="30"></td>
 	   <td><cf_tl id="Fund"></td>
        <td><cf_tl id="Period"></td>
 	   <td colspan="2"><cf_tl id="Program">/<cf_tl id="Activity"></td>
-	   <td width="200"><cf_tl id="Object"></td>	  	   
-	   <td align="right" style="padding-right:8px"><cf_tl id="Amount">#Param.BaseCurrency#</td>	  
+	   <td><cf_tl id="Object"></td>	  	   
+	   <td align="right"><cf_tl id="Amount">#Param.BaseCurrency#</td>	  
 	 
 	 </TR> 
 			 
@@ -258,7 +258,7 @@
 						
 		<cfif Lines.recordcount eq "0">
 
-			 <tr><td height="30" colspan="8" align="center" class="labelmedium"><font color="FF0000"><i>Problem, Purchase Order has not been funded.  Please contact your administrator</td></tr>  
+			 <tr><td height="30" colspan="8" align="center" class="labelmedium2"><font color="FF0000">Problem, Purchase Order has not been funded.  Please contact your administrator</td></tr>  
  
 		<cfelse>		
 		
@@ -296,28 +296,28 @@
 					   
 		   </cfif>
 								
-			<tr class="navigation_row line">
+			<tr class="navigation_row line fixlengthlist labelmedium2">
 						
-				<td class="labelit" height="19" align="center">#CurrentRow#.</td>
-				<td class="labelit">#Fund#</td>
-				<td class="labelit">#Period#</td>
+				<td align="center">#CurrentRow#.</td>
+				<td>#Fund#</td>
+				<td>#Period#</td>
 				<cfif act eq "">
-					<td colspan="2" class="labelit"><cfif Period.recordcount eq "1"><a href="javascript:EditProgram('#ProgramCode#','#PO.Period#','project')"><font color="0080C0">#Period.Reference# #ProgramName#</a><cfelse>n/a</cfif></td>					
+					<td colspan="2"><cfif Period.recordcount eq "1"><a href="javascript:EditProgram('#ProgramCode#','#PO.Period#','project')"><font color="0080C0">#Period.Reference# #ProgramName#</a><cfelse>n/a</cfif></td>					
 				<cfelse>
 					<td colspan="2">
 					<table>
-					  <tr class="labelit" style="height:15px">
+					  <tr class="labelmedium2" style="height:15px">
 					  <td style="height:15px"><cfif Period.recordcount eq "1"><a href="javascript:EditProgram('#ProgramCode#','#PO.Period#','project')"><font color="0080C0">#Period.Reference# #ProgramName#</a><cfelse>n/a</cfif></td>					
 					  </tr>				  
-					  <tr style="height:15px" class="labelit"><td style="height:15px" colspan="1">#act#</td></tr>				  
+					  <tr style="height:15px" class="labelmedium2"><td style="height:15px" colspan="1">#act#</td></tr>				  
 				    </table>
 					</td>
 				
 				</cfif>	
 
-				<td class="labelit">#ObjectCode# #Description#</td>
+				<td>#ObjectCode# #Description#</td>
 				
-				<td align="right" class="labelit" style="padding-right:8px">#NumberFormat(Amount,",__.__")#</td>
+				<td align="right">#NumberFormat(Amount,",.__")#</td>
 											
            	</tr>
 									

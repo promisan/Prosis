@@ -76,6 +76,7 @@
 		se = document.getElementById("stopping").className 
 		if (se) { se.className = "hide"; }
 		document.getElementById("stop").className     = "regular";
+		
 		ptoken.navigate('#SESSION.root#/Tools/Control/Abort.cfm?id=resume&id1=#controlid#&ts='+new Date().getTime(),'stopping')									
 		}
 
@@ -90,9 +91,12 @@
 		if (se)	{se.className = "regular"}
 	
 		se  = report.document.getElementById("requestabort");
-		if (se)	{se.className = "regular";}
-				
-		ptoken.navigate('#SESSION.root#/Tools/Control/Abort.cfm?id=abort&id1=#controlid#&ts='+new Date().getTime(),'stopping')									
+		if (se)	{se.className = "regular";}	
+	   			
+		ptoken.navigate('#SESSION.root#/Tools/Control/Abort.cfm?id=abort&id1=#controlid#','stopping')		
+		
+		// added by Hanno		
+		printmenu()					
 					
 	}
 	

@@ -57,6 +57,9 @@ password="#SESSION.dbpw#">
 
 <cfparam name="URL.docNo" default="">
 
+
+<cfoutput>-----#url.wparam#-----</cfoutput>
+
 <cfif URL.mode eq "Vacancy" and url.wparam neq "FULL">
 	
 	<cfquery name="DefineOcc" 
@@ -161,33 +164,30 @@ password="#SESSION.dbpw#">
 	<cfset Fun = DefineOcc.FunctionNo>
 
 </cfif>   
+
  
-<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" onLoad="javascript: try {document.forms.functionselect.occupationalgroup.focus()} catch(e) {};">
+<body leftmargin="0" onLoad="javascript: try {document.forms.functionselect.occupationalgroup.focus()} catch(e) {};">
 
 <cf_screentop html="No" label="Roster Bucket Select" jquery="Yes" height="100%" scroll="Yes">
 
-<cfform action="Search2Submit.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&mode=#URL.Mode#&status=#url.status#" 
-   method="POST" 
-   name="functionselect" 
-   style="height:97%">
+<cfform action="Search2Submit.cfm?docno=#url.docno#&ID=#URL.ID#&Owner=#URL.Owner#&mode=#URL.Mode#&status=#url.status#&scope=roster" 
+   method="POST" name="functionselect" style="height:97%">
 
-<table width="98%" height="100%" align="center" class="formpadding">
+<table width="98%" height="98%" align="center" class="formpadding">
 
 <tr><td valign="top" height="100%">
 
 	<table height="100%" width="100%" align="center">
 	 
 	 <tr>
-	    <td height="31" valign="top">		
+	    <td height="31" valign="top" style="padding-top:5px">		
 				
 			<cfif occgroup.recordcount gte "2">
 			
-		    	<select id="occupationalgroup" name="occupationalgroup" size="1" style="height:35px;font-size:20px;border:0px;background-color:f1f1f1;" class="regularxxl">
+		    	<select id="occupationalgroup" name="occupationalgroup" size="1" style="height:35px;font-size:18px;border:0px;background-color:f1f1f1;" class="regularxxl">
 				<!--- <option value="" selected>All groups</option> --->
 			    <cfoutput query="OccGroup">
-				<option value="#OccupationalGroup#" <cfif initocc eq OccupationalGroup>selected</cfif>>
-		    		#Description# 
-				</option>
+				<option value="#OccupationalGroup#" <cfif initocc eq OccupationalGroup>selected</cfif>>#Description#</option>
 				</cfoutput>
 			    </select>			
 							
@@ -198,9 +198,8 @@ password="#SESSION.dbpw#">
 			</cfif>	
 		  
 		</td>
-		<td align="right">
-		<input type="reset"  value="Reset" class="button10s" style="height:25px;width:130px">	
-		</td>
+		<td align="right"><input type="reset"  value="Reset" class="button10s" style="height:25px;width:130px"></td>
+		
 	 </tr> 	
 	 
 	 <tr class="labelmedium2 line"><td colspan="2" align="left" style="height:40px;font-size:18px;color:gray;padding-left:5px">
@@ -237,8 +236,7 @@ password="#SESSION.dbpw#">
 	    <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/prev.gif" align="absmiddle" alt="" border="0"><cf_tl id="Back">
 	</button>
 			
-	<button name="Prios" id="Prios" style="width: 160px;height:27" onclick="Prosis.busy('yes')" 
-	    class="button10g" value="Prior" type="submit"><cf_tl id="Search Criteria">
+	<button name="Prios" id="Prios" style="width: 160px;height:27" onclick="Prosis.busy('yes')" class="button10g" value="Prior" type="submit"><cf_tl id="Search Criteria">
 	    <img src="<cfoutput>#SESSION.root#</cfoutput>/Images/next.gif" border="0" align="absmiddle"> 
 	</button>
 		

@@ -32,6 +32,7 @@
 		          (ItemNo,
 		           UoM,
 		           Mission,
+				   Reference,
 				   TransactionUoM,
 				   Selfservice,
 				   EnableStockClassification,
@@ -44,6 +45,7 @@
 		           ('#Form.ItemNo#',
 		           '#Form.UoM#',
 				   '#Form.Mission#',
+				   '#Form.Reference#',
 				   <cfif Form.TransactionUoM neq "">
 				   '#Form.TransactionUoM#',
 				   <cfelse>
@@ -109,6 +111,7 @@
 				   <cfelse>
 				   	   TransactionUoM        = NULL,
 				   </cfif>
+				   Reference                 = '#Form.Reference#',
 				   StandardCost              = #StandardCost#,
 				   Selfservice               = '#Form.Selfservice#',
 				   EnableStockClassification = '#Form.EnableStockClassification#',

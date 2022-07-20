@@ -1,4 +1,7 @@
 
+
+<cfparam name="url.refer"  default="">
+<cfparam name="url.mode"   default="#url.refer#">
 <cfparam name="URL.Status" default="9">
 <cfparam name="URL.Header" default="1">
 
@@ -31,7 +34,11 @@ password="#SESSION.dbpw#">
 
 <!--- adjust to check also for the role of contract manager create --->
 
-<cfif getAdministrator("#Entitlement.Mission#") eq "999" 
+<cfif url.refer eq "workflow">
+
+      <cfset edit = "0">	
+
+<cfelseif getAdministrator("#Entitlement.Mission#") eq "1" 
       or  Entitlement.Status eq "0" 
 	  or (Status eq "2" and EntityClass eq "")>
 	  
@@ -55,6 +62,8 @@ password="#SESSION.dbpw#">
 	AND      (Operational = 1 or PayrollItem = '#Entitlement.PayrollItem#')
 	ORDER BY Source DESC
 </cfquery>
+
+
 
 <cf_divscroll>
 
@@ -380,8 +389,21 @@ password="#SESSION.dbpw#">
 			
 	</TD>
 	</TR>	
+	
+	<cfif url.refer eq "workflow">
+	   
+   	<tr><td colspan="2" class="line"></td></tr> 
+		 	 	
+		<tr><td colspan="2" align="center" height="35">
+		  <cfoutput>
+	   	   <cf_tl id="Close" var="1">
+		   <input type="button" name="cancel" value="#lt_text#" style="width:200px;height:25px" class="button10g" onClick="window.close()">		 
+		  </cfoutput>
+		  
+	   </td>
+	   </tr>
 		
-	<cfif edit eq "1">
+	<cfelseif edit eq "1">
 	
 		<tr><td colspan="2" class="line"></td></tr> 
 		 	 	
@@ -409,9 +431,7 @@ password="#SESSION.dbpw#">
 		  </cfoutput>
 		  
 	   </td>
-	   </tr>
-   
-   	   
+	   </tr>  	   
    
    </cfif>
       		
@@ -430,7 +450,7 @@ password="#SESSION.dbpw#">
 		          id="workflowlink_#url.ajaxid#" 
         		  value="#wflnk#">  
 			  
-			<table width="99%" align="center">
+			<table width="100%" align="center">
 				<tr><td style="padding-left:1px;padding-right:1px" id="#url.ajaxid#"><cfinclude template="MiscellaneousWorkFlow.cfm"></td></tr>			
 			</table>
 			

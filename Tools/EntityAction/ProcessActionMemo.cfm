@@ -40,7 +40,7 @@
 					 <img src="#SESSION.root#/Images/pdf_small.gif" align="absmiddle" alt="PDF" border="0">
 				  </button>							  
 				  </td>
-				  <!---
+				  
 				  <td align="right" width="20">				 			 
 				  <button type="button" 
 				     name="Print" id="Print"	
@@ -49,7 +49,7 @@
 					 <img src="#SESSION.root#/Images/print.gif" align="absmiddle" alt="Print" border="0">
 				  </button>					
      			</td>		
-				--->
+				
 			</tr>	 
 									  
 		   </cfif>	  	

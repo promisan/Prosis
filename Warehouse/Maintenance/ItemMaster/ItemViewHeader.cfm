@@ -211,7 +211,7 @@ password="#SESSION.dbpw#">
 	 
 	 <tr>
 	  <td id="detail" valign="top">	  
-	 
+	  	 
 	   <cftry>
 	   <cfset url.itemNo = item.ItemNo>
 	   <cfinclude template="Transaction/TransactionListing.cfm">	

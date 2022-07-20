@@ -48,12 +48,12 @@
 	    <cfset client.os = "Other">
 	</cfif> 
 	
-	<cfset SESSION.authent= "1">
+	<cfset SESSION.authent = "1">
 		
-	<cfset SESSION.acc    =  "#Parameter.AnonymousUserid#">
-	<cfset SESSION.first  =  "Anonymous">
-	<cfset SESSION.last   =  "User">
-	<cfset CLIENT.eMail  =  "">
+	<cfset SESSION.acc     =  "#Parameter.AnonymousUserid#">
+	<cfset SESSION.first   =  "Batch">
+	<cfset SESSION.last    =  "Agent">
+	<cfset CLIENT.eMail    =  "#Parameter.DefaultEMail#">
 			
 	<cfset CLIENT.SessionNo =  "0">
 	

@@ -141,6 +141,8 @@ password="#SESSION.dbpw#">
 						  <td style="padding-left:5px">#Parameter.CustomerDefaultReference#:</td>
 						 
 						  <td style="padding-left:3px">
+						  
+						  <cfif ref eq "">
 						 
 						  <input type="checkbox" 
 							  name="ReferenceDefault" 
@@ -150,6 +152,19 @@ password="#SESSION.dbpw#">
 							  class="radiol enterastab" 
 							  onclick="document.getElementById('Reference').value=''"
 							  onKeyUp="_cf_loadingtexthtml='';	ptoken.navigate('ValidateReference.cfm?customerid=#CustomerId#&reference='+this.value+'&mission=#url.mission#','id_validateReference');" message="Please enter Reference.">		
+							  
+						  <cfelse>
+						  
+						   <input type="checkbox" 
+							  name="ReferenceDefault" 
+							  id="ReferenceDefault" 							  
+							  value="#Parameter.CustomerDefaultReference#" 
+							  class="radiol enterastab" 
+							  onclick="document.getElementById('Reference').value=''"
+							  onKeyUp="_cf_loadingtexthtml='';	ptoken.navigate('ValidateReference.cfm?customerid=#CustomerId#&reference='+this.value+'&mission=#url.mission#','id_validateReference');" message="Please enter Reference.">		
+							
+						  
+						  </cfif>	  
 							 
 						 </td>  
 						 

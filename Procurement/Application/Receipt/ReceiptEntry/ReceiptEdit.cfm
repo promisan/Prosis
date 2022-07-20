@@ -37,8 +37,7 @@ password="#SESSION.dbpw#">
 		<cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	  
 
 		<cfparam name="url.summary" default="1">
-		
-					
+							
 		
 		<cf_layout attributeCollection="#attrib#">
 

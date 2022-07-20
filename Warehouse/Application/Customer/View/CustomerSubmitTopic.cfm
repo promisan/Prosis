@@ -106,11 +106,13 @@
 							) VALUES (
 								'#customerid#',
 								'#code#',	
-								<cfif sValue neq "">
-								'#sValue#'
-								<cfelse>
-								'#vValue#'
-								</cfif>								
+								<cfif valueClass eq "List">		
+									<cfif sValue neq "">
+									'#sValue#',
+									<cfelse>
+									'#vValue#',
+									</cfif>							
+								</cfif>	
 								'#qTopicList.ListValue#',
 								'#SESSION.acc#',
 								'#SESSION.last#',

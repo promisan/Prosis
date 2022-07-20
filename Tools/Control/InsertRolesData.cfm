@@ -1961,7 +1961,7 @@
 	                  Description="Item Definition" 
 					  Role="WhsItem"
 					  EntityTableName="Materials.dbo.Item"
-					  EntityKeyField4="ItemNo"
+					  EntityKeyField1="ItemNo"
 					  EntityAcronym="WIT"> 
 	
 	<cf_insertEntity  Code="WhsRequirement"   

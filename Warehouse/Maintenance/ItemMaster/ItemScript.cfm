@@ -42,6 +42,17 @@
 		ptoken.navigate(url,'detail');
 	}		
 	
+	function itmacquisition(s,sid) {
+	    
+		mis = document.getElementById('mission').value		
+	 	document.getElementById("filter").className = "hide";
+		document.getElementById('optionselect').value = sid		
+		url = "StockLevel/ItemUoM.cfm?id=#URL.ID#&mission="+mis+"&systemfunctionid="+sid
+		_cf_loadingtexthtml='';	
+		ptoken.navigate(url,'detail');
+	
+	}
+	
 	 function itmonorder(s,sid) {	    
 	 
 	    mis = document.getElementById('mission').value		
@@ -113,6 +124,13 @@
 	   mis = document.getElementById('mission').value
 	   url = "StockLevel/StockMinMaxSubmit.cfm?id=#URL.ID#&mission="+mis	  
 	   ptoken.navigate(url,'detail','','','POST','inputform')
+	
+	}
+	
+	function itmtopicsubmit() {
+	   mis = document.getElementById('mission').value
+	   url = "StockLevel/ItemUoMTopicSubmit.cfm?id=#URL.ID#&mission="+mis	  
+	   ptoken.navigate(url,'detail','','','POST','uomform')
 	
 	}
 		

@@ -464,7 +464,7 @@
                      <table width="100%">   
 					 
 					 	 <cfif employee.eMailaddress eq "">
-					 	 <tr>   
+					 	 <tr class="fixlengthlist">   
            
                               <td class="labelit"><font color="808080"><cf_tl id="Corporate mail">:</td>              
                               <td class="labelmedium" style="height:20px;font-size:14px">
@@ -474,7 +474,7 @@
                         </tr>   
 						</cfif>   
 					 
-					 	 <tr>   
+					 	 <tr class="fixlengthlist">   
            
                               <td class="labelit"><font color="808080"><cf_tl id="Parent Office">:</td>   
            
@@ -490,7 +490,7 @@
 						   		    		  	      	     	                              
                         <cfif Param.EnablePersonGroup neq "0">                           											
                          	   
-                           <tr style="height:20px">   
+                           <tr style="height:20px" class="fixlengthlist">   
            
                               <td class="labelit"><font color="808080"><cf_tl id="Marital Status">:</td>   
            
@@ -570,17 +570,13 @@
 						   						                                			
                            <cfoutput query="group" maxrows=7>
                             			    
-                              <tr>   
+                              <tr class="fixlengthlist">   
                                  <td style="padding-top:1px" style="height:20px;font-size:14px" class="labelit fixlength"><font color="808080">#Topic#:</td>   
    	    	                     <td class="labelmedium" style="height:20px;font-size:14px">
 								 
 								 <table>
 								  <tr class="labelmedium" style="height:20px;font-size:14px">
-								  <td>
-								   							  
-	                                #value#
-									 
-									 </td>
+								  <td class="fixlength">#value#</td>
 									 
 									 <cfquery name="Prior" 
 								      datasource="AppsEmployee" 
@@ -597,7 +593,7 @@
 									 </cfquery>
 								  
 								   <cfif Prior.recordcount gte "1">							  
-									  <td style="padding-left:4px">(#Prior.ActionFieldValue# <i><cf_tl id="until">:</i> #dateformat(Prior.ActionDate,client.dateformatshow)#)</td>							  
+									  <td class="fixlength" style="padding-left:4px">(#Prior.ActionFieldValue# <i><cf_tl id="until">:</i> #dateformat(Prior.ActionDate,client.dateformatshow)#)</td>							  
 								  </cfif>
 								  
 								  </tr>
@@ -616,9 +612,7 @@
 					
                   </td>   
 				  
-				  <!--- Contact cell --->
-				  
-				  
+				  <!--- Contact cell --->			  
 				  
 				  <td valign="top" style="padding:4px;padding-right:10px">
 				  				  
@@ -667,27 +661,27 @@
 					 </cfquery>
 				 
 					 <cfloop query="ContactNo">					 
-						 <tr style="height:20px">
+						 <tr style="height:20px" class="fixlengthlist">
 						 	<td style="padding-top:1px" class="labelit"><font color="808080"><cf_tl id="#Description#">:</td>
 							<td style="height:20px;font-size:14px" class="labelmedium"><cfif callsign eq "">-<cfelse>#CallSign#</cfif></td>
 						 </tr>					 
 					 </cfloop>					 
 					
-					 <tr style="height:20px">
+					 <tr style="height:20px" class="fixlengthlist">
 					 	<td style="padding-top:1px" class="labelit"><font color="808080"><cf_tl id="Room">:</td>
-						<td style="height:20px;font-size:14px" class="labelmedium"><cfif Address.AddressRoom eq "">--<cfelse>#Address.AddressRoom#</cfif></td>
+						<td style="height:20px;font-size:14px" title="#Address.AddressRoom#" class="labelmedium"><cfif Address.AddressRoom eq "">--<cfelse>#Address.AddressRoom#</cfif></td>
 					 </tr>		
 					
 					 <cfif access100 eq "EDIT" or access100 eq "ALL" or access000 eq "EDIT" or access000 eq "ALL" or url.mode eq "workflow">  
 										 
-						 <tr style="height:20px">
+						 <tr style="height:20px" class="fixlengthlist">
 						 	<td style="padding-top:1px" class="labelit"><font color="808080"><cf_tl id="Address additional">:</td>
-							<td style="height:20px;font-size:14px" class="labelmedium"><cfif Address.Address2 eq "">--<cfelse>#Address.Address2#</cfif></td>
+							<td style="height:20px;font-size:14px" title="#Address.Address2#" class="labelmedium"><cfif Address.Address2 eq "">--<cfelse>#Address.Address2#</cfif></td>
 						 </tr>		
 						 
 					</cfif>
 						 
-					 <tr>
+					 <tr class="fixlengthlist">
 					 	<td style="padding-top:1px" class="labelit"><font color="808080"><cf_tl id="Postal code">:</td>
 						<td style="height:20px;font-size:14px" class="labelmedium">#Address.AddressPostalCode#</td>
 					 </tr>	

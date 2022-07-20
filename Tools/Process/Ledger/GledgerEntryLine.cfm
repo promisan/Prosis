@@ -290,6 +290,8 @@
 		
 		<cfparam name="Attributes.ReferenceNo#Ln#" default="">
 		<cfset referenceNo      =  evaluate("Attributes.ReferenceNo"&#Ln#)>
+		<cfparam name="Attributes.ReferenceUoM#Ln#" default="">
+		<cfset referenceUoM      =  evaluate("Attributes.ReferenceUoM"&#Ln#)>
 		<cfparam name="Attributes.ReferenceId#Ln#" default="{00000000-0000-0000-0000-000000000000}">
 		<cfset referenceId      =  evaluate("Attributes.ReferenceId"&#Ln#)>
 		<cfparam name="Attributes.ReferenceIdParam#Ln#" default="">
@@ -400,6 +402,7 @@
 					      Reference, 
 						  ReferenceName,
 						  ReferenceNo,
+						  ReferenceUoM,
 						  ReferenceQuantity,
 						  warehouseItemNo,		
 						  <cfif referenceid neq "">
@@ -465,6 +468,7 @@
 				      '#Reference#',
 					  '#rn#',
 					  '#ReferenceNo#',
+					  '#ReferenceUoM#',
 					  <cfif ReferenceQuantity neq "">
 					  '#ReferenceQuantity#',
 					  <cfelse>

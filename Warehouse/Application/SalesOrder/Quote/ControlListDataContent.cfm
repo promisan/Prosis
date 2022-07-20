@@ -1,6 +1,8 @@
 
 <!--- control list data content --->
 
+<cf_verifyOperational Module="WorkOrder">
+
 <cfoutput>
 <cfsavecontent variable="myquery">
 		
@@ -52,8 +54,10 @@
 						   
 			FROM           CustomerRequest AS CR INNER JOIN Customer AS C ON CR.CustomerId = C.CustomerId
 			WHERE          CR.Warehouse = '#url.warehouse#' 
-			<!--- has turned into a sales order quote --->			
+			<!--- has turned into a sales order quote --->		
+			<cfif operational eq "1">
 			AND            NOT EXISTS (SELECT 'X' FROM WorkOrder.dbo.WorkorderLine WHERE Source = 'Quote' and SourceNo = CR.RequestNo)
+			</cfif>
 			-- AND            CR.BatchNo IS NULL 
 			AND            CR.ActionStatus <> '9' 
 			<!--- to exclude temporary loaded records to amend --->

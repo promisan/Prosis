@@ -305,18 +305,24 @@ password="#SESSION.dbpw#">
 	<cfinclude template="../../../Tools/SubmenuLeft.cfm">	
 	
 	</td></tr>
+	
+	<cf_verifyOperational module="Payroll" Warning   = "No">
+	
+	<cfif operational eq "1">	
+	
+		<tr><td>	
 		
-	<tr><td>	
-	
-	<cf_tl id="Payroll" var="1">
-	<cfset heading      = "#LT_Text#">
-	<cfset module       = "'Payroll'">
-	<cfset selection    = "'Employee'">
-	<cfset menuclass    = "'Payroll'">
-	<cfset titlecolor   = vColor>
-	<cfinclude template = "../../../Tools/SubmenuLeft.cfm">
-	
-	</td></tr>
+		<cf_tl id="Payroll" var="1">
+		<cfset heading      = "#LT_Text#">
+		<cfset module       = "'Payroll'">
+		<cfset selection    = "'Employee'">
+		<cfset menuclass    = "'Payroll'">
+		<cfset titlecolor   = vColor>
+		<cfinclude template = "../../../Tools/SubmenuLeft.cfm">
+		
+		</td></tr>
+		
+	</cfif>
 		
 	<tr><td>	
 	<cf_tl id="Learning" var="1">

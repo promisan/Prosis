@@ -230,7 +230,7 @@ password="#SESSION.dbpw#">
 			
 			<table width="98.5%" class="formpadding">
 						
-			<TR style="padding-left:6px" class="labelmedium2 line fixrow">
+			<TR style="padding-left:6px" class="labelmedium2 line fixrow fixlengthlist">
 			    <td height="23"><cf_tl id="Area"></td>
 			    <TD><cf_tl id="Function"></TD>
 			    <TD><cf_tl id="Level"></TD>
@@ -248,7 +248,7 @@ password="#SESSION.dbpw#">
 				<cfset rowClass= rowClass & " highLight2">
 			</cfif>
 			
-			<TR class="#rowClass# line" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#">
+			<TR class="#rowClass# line fixlengthlist" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#">
 			
 			    <TD style="padding-left:6px">#OrganizationDescription#</TD>
 			    <TD>#FunctionDescription#</TD>

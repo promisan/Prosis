@@ -158,9 +158,7 @@
 	  
 		  <cfoutput>
 		  
-		  <table width="99%" border="0" 
-		  	cellspacing="0" 
-			cellpadding="0" 
+		  <table width="99%" 
 			align="center" 
 			class="formpadding">
 		  
@@ -173,7 +171,7 @@
 					   name    = "SendAgain" 
 					   id      = "SendAgain" class="button10g"
 					   value   = "Send Again" style="width:180;height:25"					  
-					   onclick = "parent.ColdFusion.navigate('BroadCastSend.cfm?BroadcastId=#URL.id#&mode=#url.mode#&sourcepath=#URL.sourcepath#','boxsend')">			  
+					   onclick = "parent.ptoken.navigate('BroadCastSend.cfm?BroadcastId=#URL.id#&mode=#url.mode#&sourcepath=#URL.sourcepath#','boxsend')">			  
 					  
 			  </td>
 			</tr>			

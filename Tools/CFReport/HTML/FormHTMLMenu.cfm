@@ -76,14 +76,14 @@
 
 	</cfif>
 	
-	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" onDblClick="printmenu()">	
+	<table width="100%" height="100%" align="center" onDblClick="printmenu()">	
 		
 		<tr class="line">		
 			<td height="100%">	
-				<table height="100%" border="0" cellspacing="0" cellpadding="0">	
+				<table height="100%">	
 					<tr>	
 						<td style="padding:1px" colspan="2" height="100%">	
-							<table height="100%" cellspacing="0" cellpadding="0">
+							<table height="100%">
 								<tr>	
 																   
 									<td style="padding-left:4px">										
@@ -114,12 +114,11 @@
 									<cfif ShowReport.recordcount gte "1" and Control.Operational eq "1">	
 										<cfoutput>
 										<cf_tl id="Select another report to which you have been granted access" Class="Message" var="1"> 
-										
-										<cf_UIToolTip tooltip="<table><tr><td>#lt_text#</td></tr></table>">
-										
+																														
 										<select name="myreport" 
 										    id="myreport"
 											class="regularxl" 
+											title="#lt_text#"
 											style="border:0px;background-color:f1f1f1;font-size:18px;height:36px;width:400px"
 											onChange="Prosis.busy('yes');reload(this.value,'#url.portal#')">	
 
@@ -141,9 +140,7 @@
 												
 											</cfloop>	
 										</select>	
-										
-										</cf_UIToolTip>
-										
+																				
 										</cfoutput>
 										
 									</cfif>	
@@ -155,6 +152,7 @@
 					</tr>
 				</table>	
 			</td>	
+			
 			
 			<td height="100%" id="stopping" class="labelit"></td>	
 			
