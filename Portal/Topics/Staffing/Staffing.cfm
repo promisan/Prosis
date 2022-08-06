@@ -65,7 +65,7 @@
 <cftransaction isolation="READ_UNCOMMITTED">
 
 <cfif url.period eq "today">
-	<cfset dt = dateformat(now(),"YYYY/MM/DD")>
+	<cfset dt = dateformat(now(),"yyyy/mm/dd")>
 <cfelse>
 	<cfset dt = url.period>	
 </cfif>
@@ -326,7 +326,7 @@
 						showborder="no" 
 						fontsize="12" 						
 						show3d="no" 
-						showlegend="yes"
+						showlegend="no"
 						xaxistitle="" 				 
 						yaxistitle="Tracks" 						
 						rotated="no" 
@@ -338,8 +338,8 @@
 					   	chartwidth="500">	
 											
 						   <cfchartseries type="pie"
-					             query="Summary"
-				    	         							 							 
+					             query="Summary"	
+								 datalabelstyle="columnlabel"									     	         							 							 
 					             serieslabel=""
 							     colorlist="##2574A9,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"
 				        	     markerstyle="circle">	

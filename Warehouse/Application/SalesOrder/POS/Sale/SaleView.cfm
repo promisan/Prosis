@@ -729,6 +729,7 @@ password="#SESSION.dbpw#">
 						<tr style="border-bottom:1px solid silver;">
 													
 						    <td height="100%" width="100%" valign="top" style="background-color:f9f9f9"> 		
+							
 						    <cf_divscroll id="salelines" overflowy="scroll">																
 							   <cfinclude template="SaleViewLines.cfm">								
 							</cf_divscroll>   							

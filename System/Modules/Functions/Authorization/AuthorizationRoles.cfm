@@ -23,73 +23,54 @@ password="#SESSION.dbpw#">
 <CFFORM action="AuthorizationRolesSubmit.cfm" method="post" name="editauthorizationform" onsubmit="return false">
 
 <br>
-<table style="border:1px dotted silver" height="95%" width="96%" align="center"><tr>
-<td height="100%" valign="top" style="padding:4px">
+<table style="border:1px solid silver" width="96%" align="center"><tr>
 
-<table width="100%"  border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+<td valign="top" style="padding:4px">
+
+<table width="100%" align="center" class="navigation_table">
 
 	<cfif URL.mode neq "new">
 	
-		<tr>
+		<tr class="line">
 			
-			<td colspan="8" class="labelmedium" style="padding-left:4px;height:25"><i>
+			<td colspan="9" class="labelmedium" style="padding-left:4px;height:25">
 				<cfif URL.mode eq "active">
-		   		<a href="##" onclick="javascript:showAndHide('#URL.ID#','expired')" title="Click to add a new section">
-					<font color="0080FF">
-						[Show all]
-					</font>
-				</a>			
+		   		<a href="##" onclick="javascript:showAndHide('#URL.ID#','expired')" title="Click to add a new section">Show all</a>			
 				<cfelse>
-			   		<a href="##" onclick="javascript:showAndHide('#URL.ID#','active')" title="Click to add a new section">
-						<font color="0080FF">
-							[Show only active]
-						</font>
-					</a>								
+			   		<a href="##" onclick="javascript:showAndHide('#URL.ID#','active')" title="Click to add a new section">Show only active</a>								
 				</cfif>				
-				&nbsp;&nbsp;
-		   		<a href="##" onclick="javascript:addAuthorizationCode('#URL.ID#')" title="Click to add a new section">
-					<font color="0080FF">
-						[Add new]
-					</font>
-				</a>
+				&nbsp;|&nbsp;
+		   		<a href="##" onclick="javascript:addAuthorizationCode('#URL.ID#')" title="Click to add a new section">Add new</a>
 
 			</td>
 			
 		</tr>
-		
-		<tr><td colspan="9" class="linedotted"></td></tr>
-		
+				
 	<cfelse>
-	
-		<tr height="20">
-			<td colspan="9"></td>
-		</tr>	
-		
+			
 	</cfif>
-	<tr class="labelit">
+	<tr class="labelmedium fixlengthlist line">
 		<td style="height:20" width="1%"></td>		
-		<td width="10%" class="labelit">Mission</td>		
-		<td width="5%"></td>		
-		<td width="10%" class="labelit">Account</td>	
-		<td width="25%" class="labelit">Date Effective</td>				
-		<td style="padding-left:7px" width="25%" class="labelit">Date Expiration</td>			
-		<td width="10%" class="labelit">Level</td>
-		<td width="15%" colspan="2" class="labelit">Authorization Code</td>
+		<td>Mission</td>		
+		<td></td>		
+		<td>Account</td>	
+		<td>Date Effective</td>				
+		<td style="padding-left:7px">Date Expiration</td>			
+		<td>Level</td>
+		<td colspan="2">Authorization Code</td>
 		
 	</tr>	
-	
-	<tr><td colspan="9" class="linedotted"></td></tr>
-	
+		
 <cfloop query="Lines">
-	<tr class="navigation_row">
+	<tr class="navigation_row fixlengthlist labelmedium2 linedotted">
 		<td></td>		
-		<td class="labelmedium">#Mission#</td>	
+		<td>#Mission#</td>	
 		<td></td>
-		<td class="labelmedium"><cfif Account eq "">Any<cfelse>#Account#</cfif></td>				
-		<td class="labelmedium">#dateformat(DateEffective,CLIENT.DateFormatShow)# #TimeFormat(DateEffective,"HH:MM")#</td>				
-		<td class="labelmedium" style="padding-left:7px">#dateformat(DateExpiration,CLIENT.DateFormatShow)# #TimeFormat(DateExpiration,"HH:MM")#</td>			
-		<td class="labelmedium" style="padding-left:5px">#AuthorizationLevel#</td>
-		<td class="labelmedium"><b><font color="0080C0">#AuthorizationCode#</b></td>
+		<td><cfif Account eq "">Any<cfelse>#Account#</cfif></td>				
+		<td>#dateformat(DateEffective,CLIENT.DateFormatShow)# #TimeFormat(DateEffective,"HH:MM")#</td>				
+		<td style="padding-left:7px">#dateformat(DateExpiration,CLIENT.DateFormatShow)# #TimeFormat(DateExpiration,"HH:MM")#</td>			
+		<td style="padding-left:5px">#AuthorizationLevel#</td>
+		<td><b><font color="0080C0">#AuthorizationCode#</b></td>
 		<td></td>
 	</tr>
 </cfloop>
@@ -165,11 +146,8 @@ password="#SESSION.dbpw#">
 	<tr height="40">
 		<td></td>
 		<td colspan="7" class="labelit" align="center">
-		   		<a href="##" onclick="javascript:submitAuthorizationCode('#URL.ID#')" title="Click to add a new section">
-					<font color="0080FF">
-						[Save]
-					</font>
-				</a>
+		     <input type="button" value="Save" name="Save" class="button10g" onclick="javascript:submitAuthorizationCode('#URL.ID#')">
+		   	
 		</td>
 		<td></td>
 	</tr>

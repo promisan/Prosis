@@ -11,9 +11,9 @@
 						
 						<tr >
 						
-						  <td class="labelmedium" style="font-size:15px;padding-left:10px"><cf_tl id="Find">:</td>
+						  <td class="labelmedium2" style="padding-left:10px"><cf_tl id="Search for">:</td>
 						  
-						    <td style="padding-left:4px">
+						  <td style="padding-left:4px">
 						  
 						  <select name="scope" id="scope" style="border:0px;background-color:f1f1f1;width:350px;font-size:16px;height:32px" class="regularxxl">
 						  
@@ -28,7 +28,7 @@
 						 </td> 	
 												 						 
 						 <td class="cellcontent" style="padding-left:3px">
-							<input type="text" id="fieldsearch" size="15" class="regularxxl" maxlength="40" style="padding-left:4px;border:0px;background-color:f1f1f1;padding-top:2px;height:32px;font-size:19px" 
+							<input type="text" id="fieldsearch" size="20" class="regularxxl" maxlength="45" style="text-align:center;border:0px;background-color:f1f1f1;padding-top:2px;height:32px;font-size:20px" 
 							  onKeyUp= "quicksearch(event)">
 						 </td>
 						  				 
@@ -36,7 +36,7 @@
 						 <td style="padding-left:4px">
 							<input type="checkbox" class="radiol" id="option" value="1" checked>
 						 </td>
-						 <td style="padding-left:4px" class="labelit"><cf_tl id="Use word variants"></td>						    	
+						 <td style="padding-left:4px" class="labelmedium"><cf_tl id="Use word variants"></td>						    	
 							  					 				  
 						  
 						 <td class="labelmedium hide" style="padding-left:10px"><cf_tl id="Sort">:
@@ -51,7 +51,7 @@
 						 <td colspan="4" style="padding-left:10px">
 							<cfoutput>
 						    <cf_tl id="Search" var="1">
-    					    <input type="button" id="gosearch" name="gosearch" value="#lt_text#" class="button10g" style="font-size:17px;height:32px;width:190px;" onClick="search(document.getElementById('scope').value,document.getElementById('snapshot').value)">
+    					    <input type="button" id="gosearch" name="gosearch" value="#lt_text#" class="button10g" style="font-size:15px;height:32px;width:190px;" onClick="search(document.getElementById('scope').value,document.getElementById('snapshot').value)">
 						    </cfoutput>
 							</td>
 						 						  

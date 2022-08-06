@@ -13,6 +13,7 @@
 <cf_presentationscript>
 --->
 
+<cf_AuthorizationScript>
 <cf_AnnotationScript>
 <cf_dialogSettlement>
 <cf_dialogstaffing>

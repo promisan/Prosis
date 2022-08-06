@@ -2832,7 +2832,7 @@
 			 password="#SESSION.dbpw#">
 			 	SELECT  *
 				FROM    WarehouseBatch
-				WHERE   BatchId = '#batchid#'				
+				WHERE   BatchId = '#batchid#'		
 			 </cfquery> 	
 			 
 			 <cfquery name="customer"

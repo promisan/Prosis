@@ -309,14 +309,14 @@
 			<cfelseif last.actionStatus eq "2">
 			<a title="Completed with errors" href="javascript:output('#Last.ScheduleRunId#')">
 			<font color="FF8040">
-			#dateFormat(Last.ProcessEnd,"DD/MM/YY")# - #timeFormat(Last.ProcessEnd,"HH:MM")#
+			#dateFormat(Last.ProcessEnd,"dd/mm/yy")# - #timeFormat(Last.ProcessEnd,"HH:MM")#
 			</font>
 			</a>
 			</font>	
 			<cfelse>
 			<a title="Completed" href="javascript:output('#Last.ScheduleRunId#')">
 			<font color="green">		
-			#dateFormat(Last.ProcessEnd,"DD/MM/YY")# - #timeFormat(Last.ProcessEnd,"HH:MM")#
+			#dateFormat(Last.ProcessEnd,"dd/mm/yy")# - #timeFormat(Last.ProcessEnd,"HH:MM")#
 			</font>
 			</a>
 			</cfif>

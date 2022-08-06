@@ -109,8 +109,8 @@
 					  formatted     = "timeformat(OfficerDate,'HH:MM')"}>						  
 			
 	   
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
-<tr><td style="padding:10px">	
+<table width="100%" height="100%">
+<tr><td>	
 		
 	<cf_listing
 	    header         = "Actions"

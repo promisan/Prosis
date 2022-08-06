@@ -201,7 +201,8 @@ password="#SESSION.dbpw#">
 		   
 			   <tr>
 		       <td align="right" style="border:0px solid silver;padding-left:5px;padding-right:5px">
-			  
+			 
+			 
 				   <cfif fileExists("#SESSION.rootpath#/Portal/Topics/#FunctionPath#/TopicEdit.cfm")>
 				       <cf_img icon="edit_large" onclick="loadedit('#FunctionPath#/TopicEdit.cfm','#currentrow#','#SystemFunctionId#')">
 				   </cfif>

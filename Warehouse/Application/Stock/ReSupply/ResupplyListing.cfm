@@ -10,7 +10,7 @@ password="#SESSION.dbpw#">
 	FROM   #dest# D, Materials.dbo.#CLIENT.LanPrefix#Ref_CategoryItem C
 	WHERE  D.CategoryItem = C.CategoryItem
 	AND    D.Category     = C.Category		
-	AND    Operational    = 1
+	AND    D.Operational    = 1
 	<!--- 
 	WHERE  ToBeRequested > 0 
 	--->
@@ -21,6 +21,7 @@ password="#SESSION.dbpw#">
 	<cfelse>
 	ORDER BY D.Category,CategoryItemOrder, D.CategoryItem,ItemDescription,UoM
 	</cfif>
+	
 	
 </cfquery>
 

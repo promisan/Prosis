@@ -6,6 +6,7 @@
 <cf_dialogmaterial>
 <cf_presenterscript>
 <cf_calendarscript>
+<cf_authorizationscript>
 <cf_dialogorganization>
 <cf_menuscript>
 
@@ -93,6 +94,11 @@
 		function stockreserve(whs,itm,uom,mde) {
 		 	ProsisUI.createWindow('stockinquiry','Reservations','',{x:100,y:100,width:900,height:420,resizable:true,modal:true,center:true})
 			ptoken.navigate('#SESSION.root#/Warehouse/Application/StockOrder/Quote/ReservationView.cfm?warehouse='+whs+'&itemNo='+itm+'&uom='+uom+'&mode='+mde,'stockinquiry')							
+		}
+		
+		function stocktransit(whs,itm,uom,mde) {
+		 	ProsisUI.createWindow('stockinquiry','In Transit','',{x:100,y:100,width:900,height:420,resizable:true,modal:true,center:true})
+			ptoken.navigate('#SESSION.root#/Procurement/Application/Receipt/ReceiptInquiry/ReceiptViewItem.cfm?warehouse='+whs+'&itemNo='+itm+'&uom='+uom+'&mode='+mde,'stockinquiry')							
 		}
 		
 		function applyQuote(act,no) {	  
@@ -273,9 +279,9 @@
 		<cf_layoutarea 
 		    position="right" 
 			name="commentbox" 
-			minsize="380" 
-			maxsize="380" 
-			size="380" 
+			minsize="400" 
+			maxsize="400" 
+			size="400" 
 			overflow="yes" 
 			
 			collapsible="true" 

@@ -234,7 +234,7 @@ password="#SESSION.dbpw#">
 	<!--- pricing globally --->
 	
 	<tr class="line labelmedium">
-			<td colspan="12" height="50" style="font-size:28px"><cf_tl id="#URL.Mission#"></td>
+			<td colspan="13" height="50" style="font-size:28px"><cf_tl id="#URL.Mission#"></td>
 	</tr>	
 					
 	<cfset w = "">				
@@ -280,3 +280,6 @@ password="#SESSION.dbpw#">
 </cfform>
 
 </cf_divscroll>
+
+<cfset ajaxonload("doCalendar")>
+

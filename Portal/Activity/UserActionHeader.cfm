@@ -80,8 +80,7 @@
 		</CFQUERY>
 				
 		<table style="width:95%" valign="top" class="navigation_table">
-		
-				
+						
 		<tr class="labelmedium2 line fixlengthlist">
 			<td style="font-size:27px;min-width:120px;" rowspan="2"><cf_tl id="Host"><font size="1"><a href="javascript:refresh()"><br><cf_tl id="Refresh"></a></td>
 			<td colspan="3" style="border-left:1px solid gray;" align="center">
@@ -98,30 +97,30 @@
 			--->
 			
 			</td>
-			<td colspan="1" align="center" style="width:45;border-left:1px solid gray;padding-right:2px"><cf_UItooltip tooltip="7 days">7d</cf_UItooltip></td>
-			<td colspan="1" align="center" style="width:45;border-left:1px solid gray;padding-right:2px"><cf_UItooltip tooltip="30 days">30d</cf_UItooltip></td>
+			<td colspan="1" align="center" style="width:45;border-left:1px solid gray;padding-right:2px" title="7 days">7d</td>
+			<td colspan="1" align="center" style="width:45;border-left:1px solid gray;padding-right:2px" title="30 days">30d</td>
 		</tr>	
 		
-		<tr class="labelmedium2 line fixlengthlist">	    
-			<td style="border-left:1px solid gray;padding:0px" align="center">
-			<input type="button" style="border:0px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Usr" onclick="reloadForm('current','usr','action')">						
+		<tr class="labelmedium2 line fixlengthlist" style="height:28px">	    
+			<td align="center">
+			<input type="button" style="width:100%;height:23px" class="button10g" id="btncurrent" value="Usr" onclick="reloadForm('current','usr','action')">						
 			</td>
-			<td style="padding:0px" align="center">
-			<input type="button" style="border:0px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Ses" onclick="reloadForm('current','ses','action')">								
+			<td align="center">
+			<input type="button" style="width:100%;height:23px" class="button10g" id="btncurrent" value="Ses" onclick="reloadForm('current','ses','action')">								
 			</td>
-			<td style="padding:0px" align="center">
-			<input type="button" style="border:0px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Err" onclick="reloadForm('current','ses','error')">										
+			<td align="center">
+			<input type="button" style="width:100%;height:23px" class="button10g" id="btncurrent" value="Err" onclick="reloadForm('current','ses','error')">										
 	<!---		<input type="button" style="border:1px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Err" onclick="reloadForm('current','ses')">  --->								
 			</td>
 			
-			<td style="border-left:1px solid gray;padding:0px" align="center">
-			<input type="button" style="border:0px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Usr" onclick="reloadForm('24hour','usr','action')">						
+			<td align="center">
+			<input type="button" style="width:100%;height:23px" class="button10g" id="btncurrent" value="Usr" onclick="reloadForm('24hour','usr','action')">						
 			</td>
-			<td  style="padding:0px" align="center">
-			<input type="button" style="border:0px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Ses" onclick="reloadForm('24hour','ses','action')">								
+			<td align="center">
+			<input type="button" style="width:100%;height:23px" class="button10g" id="btncurrent" value="Ses" onclick="reloadForm('24hour','ses','action')">								
 			</td>	
-			<td style="padding:0px" align="center">
-			<input type="button" style="border:0px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Err" onclick="reloadForm('24hour','ses','error')">								
+			<td align="center">
+			<input type="button" style="width:100%;height:23px" class="button10g" id="btncurrent" value="Err" onclick="reloadForm('24hour','ses','error')">								
 		
 		<!---		<input type="button" style="border:1px solid silver;width:100%;height:22px" class="button10g" id="btncurrent" value="Err" onclick="reloadForm('current','ses')">  --->								
 			</td>	

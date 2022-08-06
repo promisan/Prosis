@@ -113,7 +113,7 @@ password="#SESSION.dbpw#">
 			
 		     </script>	
 				
-	<TR class="labelmedium">
+	<TR class="labelmedium fixlengthlist">
     <TD><cf_tl id="Period covered">:</TD>
     <TD>	
 	<table cellspacing="0" cellpadding="0">
@@ -124,7 +124,7 @@ password="#SESSION.dbpw#">
 			<cfelse>
 				  <cf_intelliCalendarDate9
 					FieldName    = "OvertimePeriodStart" 
-					Class        = "regularxl enterastab"
+					Class        = "regularxxl enterastab"
 					DateValidEnd = "#dateformat(now()+1,'YYYYMMDD')#"
 					Default      = "#Dateformat(Get.OvertimePeriodStart, CLIENT.DateFormatShow)#"
 					AllowBlank   = "No">	
@@ -139,7 +139,7 @@ password="#SESSION.dbpw#">
 			
 				  <cf_intelliCalendarDate9
 					FieldName="OvertimePeriodEnd" 
-					class="regularxl enterastab"
+					class="regularxxl enterastab"
 					DateValidEnd="#dateformat(now()+20,'YYYYMMDD')#"
 					Default="#Dateformat(Get.OvertimePeriodEnd, CLIENT.DateFormatShow)#"
 					scriptdate   = "selectiondate"
@@ -155,13 +155,13 @@ password="#SESSION.dbpw#">
 	</TD>
 	</TR>		
 	   	
-	<TR class="labelmedium">
+	<TR class="labelmedium  fixlengthlist">
     <TD><cf_tl id="Document reference">:</TD>
     <TD>
 	<cfif get.status gte "3" and access neq "all">
 			 <cfif Get.DocumentReference eq "">--<cfelse>#Get.DocumentReference#</cfif>
 		<cfelse>
-			<INPUT type="text" class="regularxl enterasiab" name="DocumentReference" value="#Get.DocumentReference#" maxLength="30" size="30">
+			<INPUT type="text" class="regularxxl enterasiab" name="DocumentReference" value="#Get.DocumentReference#" maxLength="30" size="30">
 		</cfif>	
 		
 	</TD>
@@ -169,7 +169,7 @@ password="#SESSION.dbpw#">
 
 	<cf_embedHeaderFields entitycode="EntOvertime" entityid="#get.Overtimeid#" style="height:26px">
 
-    <TR class="labelmedium">
+    <TR class="labelmedium  fixlengthlist">
     <TD><cf_tl id="Mode">:</TD>
     <TD>
 		
@@ -226,13 +226,13 @@ password="#SESSION.dbpw#">
 			AND     BillingPayment = '0'
 		</cfquery>
 		
-		<tr class="labelmedium">
+		<tr class="labelmedium  fixlengthlist">
 		  <td><cf_tl id="Deduct Time"></td>
 		  <td style="font-size:16px">		 
 		  <cfif get.status gte "3" and access neq "all">
 		  #numberformat(time.overtimehours,"()")#
 		  <cfelse>
-		  <input type="text" size="4" style="text-align:right" class="enterastab regularxl" value="#time.overtimehours#">		  
+		  <input type="text" size="4" style="text-align:right" class="enterastab regularxxl" value="#time.overtimehours#">		  
 		  </cfif>
 		  hr</td>
 		</tr>
@@ -253,14 +253,14 @@ password="#SESSION.dbpw#">
 		<cfif get.status gte "3" and access neq "all">
 		   #pay.overtimehours#
 		<cfelse>
-		  <input type="text" size="4" value="#pay.overtimehours#" style="text-align:right" class="enterastab regularxl" name="Pay">
+		  <input type="text" size="4" value="#pay.overtimehours#" style="text-align:right" class="enterastab regularxxl" name="Pay">
 		</cfif>
 		hr</td>
 		</tr>
 		
 	<cfelse>
 		
-	<tr class="labelmedium">						
+	<tr class="labelmedium  fixlengthlist">						
 	    <TD valign="top" style="padding-top:4px"><cf_tl id="Overtime">(HH:MM):</TD>
 	    <TD valign="top">
 		  <cfif get.status gte "2">
@@ -274,7 +274,7 @@ password="#SESSION.dbpw#">
 	
 	</cfif>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium  fixlengthlist">
         <td valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
         <TD>
 		<cfif get.status gte "3" and access neq "all">
@@ -284,7 +284,7 @@ password="#SESSION.dbpw#">
 		</cfif>	
 	</TR>
 			
-	<tr class="labelmedium">
+	<tr class="labelmedium  fixlengthlist">
 		<td><cf_tl id="Attachment">:</td>
 		<td><cf_securediv bind="url:OvertimeAttachment.cfm?id=#get.overtimeid#" id="att"></td>			
 	</tr>	
@@ -334,8 +334,7 @@ password="#SESSION.dbpw#">
 <tr><td></td></tr>
 
 <tr><td class="line"></td></tr>  
-
-			
+		
 	
  <cfif (Get.Status lte "2" and URL.Mode neq "") or access eq "all">
  

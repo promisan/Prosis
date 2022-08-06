@@ -350,13 +350,12 @@ WHERE   Role = '#URL.ID#'
 				<input type="hidden" name="ClassIsAction" id="ClassIsAction" value="1">
 			<cfelse>
 			    <input type="hidden" name="ClassIsAction" id="ClassIsAction" value="0">
-			</cfif>			
-																
+			</cfif>		
+																			
 			<cfif (Role.OrgUnitLevel eq "Tree" OR Role.OrgUnitLevel eq "Parent" OR Role.OrgUnitLevel eq "All") 
 				 AND Role.GrantAllTrees eq "0" 
 				 AND URL.ID1 eq "Global">	
-				 
-				 				 				 			 												 
+								 				 				 			 												 
 				 <!--- triggered through global, but tree is part of role scope --->
 		
 				<cfquery name="Mission" 
@@ -372,7 +371,7 @@ WHERE   Role = '#URL.ID#'
 							   
 						FROM   Ref_Mission M LEFT OUTER JOIN
 				               OrganizationAuthorization R ON M.Mission = R.Mission AND  R.UserAccount = '#URL.ACC#' 
-																					AND  R.Role = '#URL.ID#'
+																					AND  R.Role        = '#URL.ID#'
 																					AND  R.Mission is not NULL 
 																					AND  R.OrgUnit is NULL 		
 						WHERE   M.Mission IN (SELECT Mission 
@@ -402,7 +401,9 @@ WHERE   Role = '#URL.ID#'
 												  WHERE  Role        = 'OrgUnitManager'
 												  AND    UserAccount = '#SESSION.acc#')					  
 												  
-								)				  
+								)		
+								
+										  
 						</cfif>		
 						
 						<!--- ------------------------------------------------------ --->
@@ -416,7 +417,7 @@ WHERE   Role = '#URL.ID#'
 						</cfif>
 						
 						ORDER BY MissionType, MissionName	
-								
+														
 				</cfquery>	
 						
 										
@@ -470,8 +471,8 @@ WHERE   Role = '#URL.ID#'
 				
 					<!--- ---------------------- --->
 					<!--- show mission selection --->
-					<!--- ---------------------- --->
-										
+					<!--- ---------------------- --->					
+															
 						 <cfif Role.Parameter neq "Entity">
 						 
 						 	<tr id="#mission#selected"  class="labelmedium navigation_row line" style="height:22px">
@@ -525,25 +526,21 @@ WHERE   Role = '#URL.ID#'
 						   AND      UserAccount = '#get.account#'					   				
 					   </cfquery>		
 					   					   					   
-					    <cfif AccessGranted.recordcount gte "1">
-						
-						<td colspan="4" id="s_#mission#" class="labelmedium2" style="padding-left:6px" width="93%" align="right">
-												
-						<cfelse>
-						
-						<td colspan="4" id="s_#mission#" class="hide" style="padding-left:6px" width="93%" align="right">
-						
-						
+					    <cfif AccessGranted.recordcount gte "1">						
+						<td colspan="4" id="s_#mission#" class="labelmedium2" style="padding-left:6px" align="right">																								
+						<cfelse>						
+						<td colspan="4" id="s_#mission#" class="hide" style="padding-left:6px" align="right">												
 						</cfif>
 												
 						    <!--- present the input screen which is driven by the parameter --->						
 							<cfset missionname = mission>		
-																																			
+																																	
 							<cfinclude template="UserAccessLocation.cfm">							
 							
 							<cfif class gt setclass>
 								<cfset setclass = class>						   
-							</cfif>						
+							</cfif>		
+										
 							
 						</td>	
 						
@@ -695,7 +692,8 @@ WHERE   Role = '#URL.ID#'
 							
 							<cfset cnt = 0>		
 																							
-							<cfoutput query="MissionList">					
+							<cfoutput query="MissionList">		
+							
 											     
 								<cfset ms = currentrow>		
 										 
@@ -834,7 +832,7 @@ WHERE   Role = '#URL.ID#'
 				</cfif>
 				
 				</td><td style="padding-left:2px">
-				   	<input type="submit" class="button10g"  style="height:25px;width:200px" value="Apply" onclick="Prosis.busy('yes');">			
+				   	<input type="submit" class="button10g"  style="height:27px;width:200px" value="Apply" onclick="Prosis.busy('yes');">			
 					</td>
 				</tr>
 				</table>				

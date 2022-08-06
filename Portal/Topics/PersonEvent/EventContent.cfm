@@ -187,12 +187,10 @@
 				       format="png"
 				       chartheight="350" 
 					   chartwidth="540"    			  
-				       seriesplacement="default"	 
-					   showborder="No"
+				       seriesplacement="default"	 					   
 					   show3d="no"
-					   fontsize="12" 
-					   scaleFrom = "0"  					   
-					   showlegend="yes"
+					   fontsize="12" 					  				   
+					   showlegend="no"
 					   pieslicestyle="solid"
 					   showxgridlines="yes"
 				       sortxaxis="yes">	
@@ -202,8 +200,7 @@
 			             query="Summary"				 
 			             itemcolumn="EventTriggerName"
 			             valuecolumn="Counted"
-						 datalabelstyle="value"
-			             serieslabel="Events by Trigger"						
+						 datalabelstyle="columnlabel"			             					
 						 seriescolor = "EB974E" 				 			 
 					     colorlist="#vColorlist#"/>			
 					 
@@ -229,22 +226,19 @@
 				       seriesplacement="default"	 
 					   showborder="No"
 					   show3d="no"
-					   fontsize="12" 
-					   scaleFrom = "0"  					   
+					   fontsize="12" 					  				   
 					   showlegend="no"
 					   pieslicestyle="solid"
 					   showxgridlines="yes"
-				       sortxaxis="yes">	
-														
+				       sortxaxis="yes">														
 						 
 						  <cfchartseries
-			             type="bar"
-			             query="Summary"				 
-			             itemcolumn="Source"
-			             valuecolumn="Counted"						 
-			             serieslabel="Events by Source"						
-						 seriescolor = "EB974E" 				 			 
-					     colorlist="#vColorlist#"/>		 
+				             type="bar"
+				             query="Summary"				 
+				             itemcolumn="Source"
+				             valuecolumn="Counted"						 			    	        			
+							 seriescolor = "EB974E" 				 			 
+						     colorlist="#vColorlist#"/>		 
 						 
 				</cfchart>	
 				

@@ -3,7 +3,7 @@
 	
 	<cf_paneItem id="MyPendingActionsTopicPaneItem1" 
 				source="#SESSION.root#/Portal/Topics/MyActions/Action.cfm?systemfunctionid=#systemfunctionid#"
-				width="95%"
+				width="98%"
 				height="auto"									
 				Label="My workflow actions"
 				filterValue="Staffing">

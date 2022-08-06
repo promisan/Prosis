@@ -13,6 +13,8 @@
 		
 		<cf_myClearancesPrepare mode="table" role="1" scope="#scope#">
 		
+		 <cfset due = dateAdd("d","30",now())>
+		
 		<cfquery name="getAction" 
 		 datasource="AppsOrganization"
 		 username="#SESSION.login#" 
@@ -28,6 +30,7 @@
 			  AND       O.ObjectStatus       = 0
 			  AND       O.Operational        = 1  
 			  AND       E.ProcessMode != '9'		
+			  AND       (O.ObjectDue is NULL or O.ObjectDue <= #due#)
 			  <cfif scope eq "portal">
 		      AND       E.EnablePortal = 1
 		      </cfif>	
@@ -35,6 +38,7 @@
 			  AND       OA.ActionStatus     != '2'		  	 
 		</cfquery>
 		
+				
 		<cfset pending.workflow = getAction.recordcount>
 		
 		<cfif batches eq "1">

@@ -55,7 +55,7 @@
 		 	<td colspan="4" style="padding-left:8px" class="labelmedium">			
 			    <table style="width:100%">
 				<tr>
-				<td class="labelmedium" bgcolor="white" style="font-size:22px;min-width:200px;padding:3px;padding-left:7px;">
+				<td class="labelmedium fixlength" bgcolor="white" style="font-size:22px;min-width:200px;padding:3px;padding-left:7px;">
 				<cf_tl id="Received items and value"></td>
 				
 				<td>
@@ -92,11 +92,11 @@
 			<td align="right" style="padding-right:7px" colspan="1" class="labellarge">
 			   <table>
 			   <tr>
-			    <td><cf_tl id="Lines">:</td>
+			    <td class="fixlength"><cf_tl id="Lines">:</td>
 			   <td align="right" bgcolor="FFFFFF" class="labelmedium" id="volumedirect" style="font-size:18px;padding:3px;width:60">
 			   <cfoutput>#Volume.Lines#</cfoutput>
 			   </td>
-			   <td style="padding-left:10px"><cf_tl id="Volume">:</td>
+			   <td class="fixlength" style="padding-left:10px"><cf_tl id="Volume">:</td>
 			   <td align="right" bgcolor="FFFFFF" class="labelmedium" id="volumedirect" style="font-size:18px;padding:3px;width:100">
 			   <cfoutput>#numberformat(Volume.volume,",.__")#</cfoutput>
 			   </td>
@@ -114,7 +114,7 @@
 				<td align="right" style="padding-right:7px" class="labellarge">
 					<table>
 						   <tr>
-						   <td><cf_tl id="Current exchange rate">:</td>
+						   <td class="fixlength"><cf_tl id="Current exchange rate">:</td>
 						   
 						   <cfoutput query="Currency">
 						   
@@ -159,7 +159,7 @@
 			  
 			   <table>
 				   <tr class="labelmedium">
-				   <td><cf_tl id="Purchase">:</td>
+				   <td class="fixlength"><cf_tl id="Purchase">:</td>
 				   <td align="right" bgcolor="FFFFFF" id="totaldirect" style="width:140;border:0px solid silver">
 				    <cfoutput>#numberformat(DirectCost.total,",.__")#</cfoutput>
 				   </td>

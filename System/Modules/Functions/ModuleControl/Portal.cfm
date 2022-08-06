@@ -180,6 +180,17 @@
    
 <cf_ModuleInsertSubmit
    SystemModule    = "Portal" 
+   FunctionClass   = "Warehouse"
+   FunctionName    = "Sales Officer" 
+   MenuOrder       = "6"
+   MainMenuItem    = "0"
+   MenuClass       = "topic"
+   FunctionMemo    = "Sales by Sales Officer"
+   FunctionPath    = "SalesOfficer"
+   AccessUserGroup = "0">    
+   
+<cf_ModuleInsertSubmit
+   SystemModule    = "Portal" 
    FunctionClass   = "WorkOrder"
    FunctionName    = "WorkOrder Sales" 
    MenuOrder       = "6"

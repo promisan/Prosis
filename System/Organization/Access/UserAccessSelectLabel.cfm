@@ -18,7 +18,7 @@ password="#SESSION.dbpw#">
 	<cfset no = RoleScope.AccessLevels>
 	<cfset label = ListToArray(RoleScope.AccessLevelLabelList)>
 	<cfloop index="itm" from="1" to="#no#">
-		<td width="9%" align="center" class="labelit">
+		<td style="min-width:70px" align="center" class="labelit">
 		<cftry>
 		<font color="6688aa">
 		#label[itm]# <cfcatch>Level #itm#</cfcatch>

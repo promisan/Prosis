@@ -162,11 +162,11 @@ password="#SESSION.dbpw#">
 
 		<cfif mission eq "">
 		
-			<TR>
-		    <TD style="width:200px" class="labelmedium"><cf_tl id="Entity">:</TD>
+			<TR class="fixlengthlist labelmedium2">
+		    <TD style="width:200px"><cf_tl id="Entity">:</TD>
 		    <td>
 								
-				<select name="mission" id="mission" class="regularxl">
+				<select name="mission" id="mission" class="regularxxl">
 				    <cfoutput query="MissionList">
 					<option value="#Mission#">#Mission#</option>
 					</cfoutput>
@@ -177,9 +177,9 @@ password="#SESSION.dbpw#">
 		
 		<cfelse>
 		
-		    <TR>
-		    <TD class="labelmedium" height="22"><cf_tl id="Entity">:</TD>
-		    <td class="labelmedium">
+		    <TR class="fixlengthlist labelmedium2">
+		    <TD height="22"><cf_tl id="Entity">:</TD>
+		    <td>
 			   <cfoutput>#Mission#
 			   <INPUT type="hidden" name="mission" id="mission" value="#mission#">
 			   </cfoutput>
@@ -213,8 +213,8 @@ password="#SESSION.dbpw#">
 		<cfset dte = eod>			
 			
 				
-		<TR>
-		    <TD style="min-width:100px" class="labelmedium"><cf_tl id="Period covered">:</TD>
+		<TR class="fixlengthlist">
+		    <TD style="min-width:100px" class="labelmedium2"><cf_tl id="Period covered">:</TD>
 		    <TD>	
 			
 				<table cellspacing="0" cellpadding="0">
@@ -222,7 +222,7 @@ password="#SESSION.dbpw#">
 					
 					  <cf_intelliCalendarDate9
 							FieldName="OvertimePeriodStart" 
-							class="regularxl"
+							class="regularxxl"
 							Default="#Dateformat(now()-7, CLIENT.DateFormatShow)#"						
 							DateValidStart="#dateformat(dte,'YYYYMMDD')#"	
 							DateValidEnd="#dateformat(now()+7,'YYYYMMDD')#"
@@ -235,7 +235,7 @@ password="#SESSION.dbpw#">
 					
 					  <cf_intelliCalendarDate9
 							FieldName="OvertimePeriodEnd" 
-							class="regularxl"
+							class="regularxxl"
 							Default="#Dateformat(now(), CLIENT.DateFormatShow)#"
 							DateValidStart="#dateformat(dte,'YYYYMMDD')#"
 							DateValidEnd="#dateformat(now()+4,'YYYYMMDD')#"
@@ -251,25 +251,25 @@ password="#SESSION.dbpw#">
 				
 			</TD>
 		</TR>
-				
-		<TR>
-		    <td class="labelmedium" style="height:30px"><cf_tl id="Mode">:</TD>
-		    <td class="labelmedium">		
+						
+		<TR class="fixlengthlist labelmedium2">
+		    <td style="height:30px"><cf_tl id="Mode">:</TD>
+		    <td>		
 				<cf_securediv id="divMode" bind="url:getOvertimeMode.cfm?mission={mission}">					
 			</td>
 		</TR>
 		
-		<tr>						
-		    <td valign="top" style="padding-top:6px" class="labelmedium"><cf_tl id="Overtime">(HH:MM):</TD>
+		<TR class="fixlengthlist labelmedium2">					
+		    <td valign="top" style="padding-top:6px"><cf_tl id="Overtime">(HH:MM):</TD>
 		    <td valign="top">
 			  <cf_securediv id="overtimecontent" bind="url:setOvertime.cfm?payment=0&personno=#url.id#">	
 			</td>				
-		</tr>
+		</tr>		
 		
-		<TR>
-	    <TD class="labelmedium"><cf_tl id="Reference">:</TD>
+		<TR class="fixlengthlist labelmedium2">
+	    <TD><cf_tl id="Reference">:</TD>
 	    <TD>
-		<INPUT type="text" class="regularxl" name="DocumentReference" class="regularxl" maxLength="30" size="30">		
+		<INPUT type="text" class="regularxxl" name="DocumentReference" class="regularxl" maxLength="30" size="30">		
 		</TD>
 		</TR>
 		
@@ -280,13 +280,14 @@ password="#SESSION.dbpw#">
 		</TD>
 		</TR>
 		
-		<tr><td class="labelmedium"><cf_tl id="First review by">:<font color="FF0000">*</font></td>			  
+		<TR class="fixlengthlist labelmedium2">
+		    <td><cf_tl id="First review by">:<font color="FF0000">*</font></td>			  
 		    <td>		   
 		   	  <cf_securediv bind="url:#session.root#/Payroll/Application/Overtime/getReviewer.cfm?FieldName=FirstReviewerUserId&Id=#URL.ID#&mission={mission}" id="FirstReviewerUserId">
 		    </td>
   	    </tr>	
 		
-		<tr><td class="labelmedium"><cf_tl id="Second review by">:<font color="FF0000">*</font></td>			  
+		<TR class="fixlengthlist labelmedium2"><td><cf_tl id="Second review by">:<font color="FF0000">*</font></td>			  
 		    <td>		   
 		   	  <cf_securediv bind="url:#session.root#/Payroll/Application/Overtime/getReviewer.cfm?FieldName=SecondReviewerUserId&Id=#URL.ID#&mission={mission}" id="SecondReviewerUserId">
 		    </td>
@@ -294,15 +295,15 @@ password="#SESSION.dbpw#">
 														
 		<cf_embedHeaderFields entitycode="EntOvertime" entityid="#rowguid#" style="height:34px">
 					   
-		<TR>
-	        <td class="labelmedium" width="140" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
+		<TR class="fixlengthlist labelmedium2">
+	        <td width="140" valign="top" style="padding-top:4px"><cf_tl id="Remarks">:</td>
 	        <TD style="padding-right:0px"><textarea style="padding:3px;font-size:14px;width:100%" cols="50" class="regular" rows="3" name="Remarks" totlength="300" onkeyup="return ismaxlength(this)"></textarea> </TD>
 		</TR>
 		
 		<cf_filelibraryscript>
 			
-			<tr>
-				<td class="labelmedium"><cf_tl id="Attachment">:</td>
+			<TR class="fixlengthlist labelmedium2">
+				<td><cf_tl id="Attachment">:</td>
 				<td style="padding-right:42px"><cf_securediv bind="url:OvertimeAttachment.cfm?id=#rowguid#" id="att"></td>			
 			</tr>		
 						

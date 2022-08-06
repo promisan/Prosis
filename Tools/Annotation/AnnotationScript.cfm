@@ -6,7 +6,7 @@
 <script language="JavaScript">
 	
 	function editannotation(ent,key1,key2,key3,key4,box) {
-		ProsisUI.createWindow('annotationwindow', 'Annotation','',{x:100,y:100,height:600,width:750,modal:true,center:true})    
+		ProsisUI.createWindow('annotationwindow', 'Annotation','',{x:100,y:100,height:600,width:750,modal:true,center:true,resizable:false})    
         ptoken.navigate('#SESSION.root#/Tools/Annotation/AnnotationDialog.cfm?entity='+ent+'&key1='+key1+'&key2='+key2+'&key3='+key3+'&key4='+key4+'&box='+box, 'annotationwindow');	
 	}
 	

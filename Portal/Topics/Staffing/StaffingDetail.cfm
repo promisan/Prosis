@@ -34,7 +34,7 @@
 <cftransaction isolation="READ_UNCOMMITTED">
 
 <cfif url.period eq "today">
-	<cfset dt = dateformat(now(),"YYYY/MM/DD")>
+	<cfset dt = dateformat(now(),"yyyy/mm/dd")>
 <cfelse>
 	<cfset dt = url.period>	
 </cfif>

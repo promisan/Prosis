@@ -258,6 +258,122 @@
 
 </cfcase>
 
+<cfcase value="priceperc">
+
+	<cfset transactionid = url.requestno>
+
+    <cfset percent = url.val * -1>
+		
+	<cfif LSIsNumeric(percent)>
+	
+		<cfquery name="get"
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT * 
+			FROM   CustomerRequestLine
+			WHERE  TransactionId = '#transactionid#'					
+		</cfquery>	
+		
+		<cfquery name="warehouse" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			SELECT *
+			FROM   Warehouse
+			WHERE  Warehouse = (SELECT Warehouse FROM CustomerRequest WHERE RequestNo = '#get.requestno#')				
+		</cfquery>
+		
+	    <cfset schedule = get.scheduleprice>
+		<cfset percent  = get.salesDiscount + url.val> 				    			
+		<cfset qty      = get.TransactionQuantity>
+		<cfset tax      = get.TaxPercentage>
+		
+		<cfset prc = schedule - (schedule * percent/100)>
+						
+		<cfif get.TaxIncluded eq "0">
+								   
+			<cfset amountsle  = prc * qty>
+			<cfset amounttax  = (tax * prc) * qty>	
+				
+		<cfelse>				
+					
+			<cfset amounttax  = ((tax/(1+tax))*prc)*qty>	
+			<!--- <cfset amountsle = ((1/(1+tax))*price)*qty> --->
+			<!--- changed way of calculating amountsle as otherwise sometimes we have .01 data loss ---->
+			<cfset amountsle  = (prc * qty) - amounttax>	
+			
+		</cfif>
+		
+		<cfif prc neq "0">	
+			<cfset unitprice = amountsle / qty>
+		<cfelse>
+			<cfset unitprice = 0>
+		</cfif>
+		
+		<cfif get.TaxExemption eq "1">
+		  <cfset amounttax = 0>
+		</cfif>
+		
+		<cfset amounttot = amountsle + amounttax>
+		
+		<cfset saleprice = (amountsle+amounttax) / qty>
+	
+		<cfquery name="setLine"
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				UPDATE CustomerRequestLine 
+				SET    SalesDiscount       = '#percent#',
+				       SalesPrice          = '#saleprice#',
+					   SalesUnitPrice      = '#unitprice#',	
+				       SalesAmount         = '#amountsle#',
+					   SalesTax            = '#amounttax#'				   
+				WHERE  TransactionId       = '#transactionid#'		
+		</cfquery>
+		
+		<cfquery name="get" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">			
+				SELECT   sum(SalesAmount) as Amount,
+				         sum(SalesTax)    as Tax,
+						 sum(SalesTotal)  as Total				
+				FROM     CustomerRequestLine
+				WHERE    RequestNo       = '#get.RequestNo#'						
+		</cfquery>
+			
+		<!--- Set the total amount --->
+		
+		<cfoutput>
+		
+		<script>	 	    
+		    <cfif warehouse.ModeTax eq "exclusive">
+			    document.getElementById('prc#transactionid#').value = "#numberformat(unitprice,',.__')#"
+		        document.getElementById('value#transactionid#').innerHTML = "#numberformat(amountsle,',.__')#"        	   
+			<cfelse>
+			    document.getElementById('prc#transactionid#').value = "#numberformat(saleprice,',.__')#"
+			    document.getElementById('value#transactionid#').innerHTML = "#numberformat(amounttot,',.__')#"    
+			</cfif> 
+			
+			
+			<cfif Warehouse.SaleDiscount lte percent>
+			    document.getElementById('perc#transactionid#').className = "hide"
+			<cfelse>
+			    document.getElementById('perc#transactionid#').className = "regular"
+			</cfif>      	   
+			document.getElementById('qteamount').innerHTML = "#numberformat(get.Amount,',.__')#"   	
+			document.getElementById('qtetax').innerHTML    = "#numberformat(get.Tax,',.__')#" 
+			document.getElementById('qtetotal').innerHTML  = "#numberformat(get.Total,',.__')#" 	
+			ptoken.navigate('doStockCheck.cfm?id=#transactionid#','box#transactionid#')	
+		</script>
+		
+		</cfoutput>
+	
+	</cfif>
+
+</cfcase>
+
 <cfcase value="class">
 
 	<cfquery name="set"

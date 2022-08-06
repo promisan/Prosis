@@ -272,13 +272,13 @@
 	
 		<cfoutput>
 				
-		<tr class="fixlengthlist labelmedium">
+		<tr class="fixlengthlist labelmedium2">
 		<td colspan="2" style="padding-left:5px"><cf_tl id="Title">:</td>
 		<td colspan="8" title="#Layout.LayoutTitle#">#Layout.LayoutTitle#</td>
 		</tr>
 		
 		<cfif Layout.LayoutSubTitle neq "">
-		<tr class="fixlenthlist labelmedium">
+		<tr class="fixlengthlist labelmedium2">
 		<td colspan="2" style="padding-left:5px"><cf_tl id="Subtitle">:</td>
 		<td colspan="8" title="#Layout.LayoutSubtitle#">#Layout.LayoutSubTitle#</td>
 		</tr>	

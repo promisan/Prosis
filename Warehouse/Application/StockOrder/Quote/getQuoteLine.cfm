@@ -209,12 +209,12 @@
 	<cfoutput query="getLines">
 	
 	<tr class="line#transactionid#"><td style="height"></td></tr>
-	<tr class="line#transactionid# labelmedium line navigation_row">
+	<tr class="line#transactionid# line navigation_row">
 		<td colspan="4" style="padding-left:5px">
 		<table width="100%">
-		<tr class="fixlengthlist">
-		   <td class="labelmedium">#ItemNoExternal# #ItemDescription#</td>
-		   <td align="right" vaign="top" style="padding-top:3px;padding-right:3px;width:20px">
+		<tr class="fixlengthlist labelmedium2">
+		   <td title="#ItemDescription#">#ItemNoExternal# #ItemDescription#</td>
+		   <td align="right" style="padding-top:3px;padding-right:3px;min-width:25px">
 		   <cf_img icon="delete" onclick="javascript:deleteitem('#transactionid#')"></td>
 		</tr>
 		</table>
@@ -222,7 +222,7 @@
 	</tr>
 	<tr class="line#transactionid# labelmedium2">	
 	    
-		<td style="width:20%" align="center">	
+		<td style="min-width:20px;padding-right:4px" align="center">	
 					
 		  <cf_securediv id="box#transactionid#" bind="url:doStockCheck.cfm?id=#transactionid#">				  				
 		  
@@ -233,7 +233,7 @@
 			<table style="width:100%">
 			<tr class="labelmedium2">
 			<td style="cursor:pointer;font-size:15px;min-width:35px;background-color:silver" align="center" onclick="setquote('#transactionid#','mutation','-1')">
-			<input type="button" value="-" class="button10g" style="width:100%;height:100%">
+			<input type="button" value="-" class="button10g" style="border:0px;width:100%;height:100%">
 			</td>
 			
 			<td align="center">
@@ -241,28 +241,82 @@
 			  onchange="setquote('#transactionid#','mutation',this.value)" value="#numberformat(TransactionQuantity)#" class="regularxl">	
 			</td>
 			<td style="cursor:pointer;font-size:15px;min-width:35px;background-color:silver" align="center" onclick="setquote('#transactionid#','mutation','1')">
-			<input type="button" value="+" class="button10g" style="width:100%;height:100%">
+			<input type="button" value="+" class="button10g" style="border:0px;width:100%;height:100%">
 			</td>
 			</tr>
 			</table>
 		
 		</td>
 		
+		<cfif Warehouse.SaleDiscount lte SalesDiscount>
+			<cfset cl = "hide">
+		<cfelse>
+		    <cfset cl = "regular"> 	
+		</cfif>
+		
 		<cfif warehouse.ModeTax eq "exclusive">
 		
-			<td style="min-width:70px;border:1px solid silver;padding-right:3px" align="right">		
-			<input type="text" id="prc#transactionid#" style="width:60px;text-align:right;padding-right:3px;border:0px" 
-				  onchange="setquote('#transactionid#','price',this.value)" value="#numberformat(salesUnitPrice,',.__')#" class="regularxl">				
-			</td>		
-			<td style="min-width:90px;border:1px solid silver;padding-right:3px" id="value#transactionid#" align="right">#numberformat(salesAmount,',.__')#</td>
+		   <td style="min-width:78px;border:1px solid silver" align="right">		 
+		
+			   <table style="height:100%;width:100%">											
+					<tr class="labelmedium2">						
+						
+						<td style="padding-right:3px">		
+							<table><tr>						
+							 <td><cf_authorization mission="#warehouse.Mission#" functionname="Point of Sale" object="prc#transactionid#"></td>
+							 <td><input type="text" id="prc#transactionid#" readonly style="width:60px;text-align:right;padding-right:3px;border:0px" 
+								  onchange="setquote('#transactionid#','price',this.value)" value="#numberformat(salesUnitPrice,',.__')#" class="regularxl">									  		
+							 </td>	
+							</tr></table>	
+						</td>
+						
+						<td style="border:0px;border-left:1px solid silver;border-right:1px solid silver;cursor:pointer;font-size:15px;min-width:25px;background-color:silver" align="center" 
+						id="perc#transactionid#" class="#cl#" onclick="setquote('#transactionid#','priceperc','1')">
+							<input type="button" value="-"  class="button10g" style="border:0px;width:100%;height:100%">
+						</td>							
+						<td style="border:0px;cursor:pointer;font-size:15px;min-width:25px;background-color:silver" align="center" onclick="setquote('#transactionid#','priceperc','-1')">
+							<input type="button" value="+" class="button10g" style="border:0px;width:100%;height:100%">
+						</td>							
+						
+					</tr>						
+				</table> 
+			
+			</td>
+					
+			<td style="min-width:80px;border:1px solid silver;padding-right:3px" id="value#transactionid#" align="right">#numberformat(salesAmount,',.__')#</td>
 			
 		<cfelse>
 		
-			<td style="min-width:70px;border:1px solid silver;padding-right:3px" align="right">		
-			<input type="text" id="prc#transactionid#" style="width:60px;text-align:right;padding-right:3px;border:0px" 
-				  onchange="setquote('#transactionid#','price',this.value)" value="#numberformat(salesPrice,',.__')#" class="regularxl">				
-			</td>		
-			<td style="min-width:90px;border:1px solid silver;padding-right:3px" id="value#transactionid#" align="right">#numberformat(salesTotal,',.__')#</td>
+			<td style="min-width:70px;border:1px solid silver" align="right">		
+			
+				<table style="height:100%;width:100%">	
+														
+					<tr class="labelmedium2">
+					
+					<td style="padding-right:3px">		
+							<table><tr>						
+							 <td><cf_authorization mission="#warehouse.Mission#" functionname="Point of Sale" object="prc#transactionid#"></td>
+							 <td><input type="text" id="prc#transactionid#" readonly style="width:60px;text-align:right;padding-right:3px;border:0px" 
+							  onchange="setquote('#transactionid#','price',this.value)" value="#numberformat(salesPrice,',.__')#" class="regularxl">									  		
+							 </td>	
+							</tr></table>	
+					</td>					
+					
+					<td style="border:0px;border-left:1px solid silver;border-right:1px solid silver;cursor:pointer;font-size:15px;min-width:25px;background-color:silver" align="center" 
+						id="perc#transactionid#" class="#cl#" onclick="setquote('#transactionid#','priceperc','1')">
+						<input type="button" value="-"  class="button10g" style="border:0px;width:100%;height:100%">
+					</td>	
+											
+					<td style="border:0px;cursor:pointer;font-size:15px;min-width:25px;background-color:silver" align="center" onclick="setquote('#transactionid#','priceperc','-1')">
+						<input type="button" value="+" class="button10g" style="border:0px;width:100%;height:100%">
+					</td>	  
+				    </tr>						
+					
+				</table> 	  
+				  
+			</td>	
+			
+			<td style="min-width:80px;border:1px solid silver;padding-right:3px" id="value#transactionid#" align="right">#numberformat(salesTotal,',.__')#</td>
 			
 		</cfif>
 		

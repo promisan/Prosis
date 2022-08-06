@@ -264,10 +264,12 @@ function openreference(id) {
 					
 					<cfif checkProcess.recordcount eq "0">
 					
+								
 					    <!--- sid is to define a different context not for the approval screen (Fuel) --->
 						
 						<cfif fullaccess eq "GRANTED" and sid neq "" and url.stockorderid eq "">
 						
+												
 						<!--- added 15/4/2016 to prevent reverting a batch if the transaction has been shipped AND invoiced AR --->
 						
 							<cfquery name="checkPostingPOS"
@@ -432,7 +434,7 @@ function openreference(id) {
 		
 		</tr>	
 		
-		<cfif batch.AddressId neq "">
+		<cfif batch.AddressId neq "" and Batch.CustomerId neq "">
 				
 		<tr  class="labelmedium">	
 		        <td></td>

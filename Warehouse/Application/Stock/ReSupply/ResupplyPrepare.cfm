@@ -235,36 +235,36 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			INSERT INTO #dest# 
-			        (ItemNo,
-					 Category,
-					 CategoryItem,
-					 ItemDescription,
-					 ItemNoExternal,
-					 ItemDescriptionExternal,
-					 Currency,
-					 Price,
-					 StandardCost,
-					 ItemPrecision,
-					 UoM,
-					 UoMDescription,
-					 UoMMultiplier,
-					 ItemBarCode,
-				     Warehouse,
-					 Mission,
-					 MissionOrgUnitId,
-					 ProgramCode,
-					 ItemMaster,
-					 hasVendor,
-					 hasOccurence,
-					 ReorderAutomatic,
-				     MinimumStock,
-					 MaximumStock,
-					 MinReorderQuantity,
-					 OfficerUserId,
-					 OfficerLastName,
-					 OfficerFirstName,
-					 Selected,
-					 Operational)
+		        (ItemNo,
+				 Category,
+				 CategoryItem,
+				 ItemDescription,
+				 ItemNoExternal,
+				 ItemDescriptionExternal,
+				 Currency,
+				 Price,
+				 StandardCost,
+				 ItemPrecision,
+				 UoM,
+				 UoMDescription,
+				 UoMMultiplier,
+				 ItemBarCode,
+			     Warehouse,
+				 Mission,
+				 MissionOrgUnitId,
+				 ProgramCode,
+				 ItemMaster,
+				 hasVendor,
+				 hasOccurence,
+				 ReorderAutomatic,
+			     MinimumStock,
+				 MaximumStock,
+				 MinReorderQuantity,
+				 OfficerUserId,
+				 OfficerLastName,
+				 OfficerFirstName,
+				 Selected,
+				 Operational)
 			SELECT    I.ItemNo, 
 			          I.Category,
 			          I.CategoryItem,	
@@ -334,9 +334,9 @@
 			AND       W.Restocking    = '#URL.Restocking#'  
 			
 			AND       I.ItemClass     = 'Supply' <!--- only supply items --->	
-																		
+																							
 	</cfquery>
-		
+			
 </cfif>		
 
 	<cfquery name="clear" 
@@ -405,6 +405,8 @@
 			</cfif>
 							
 			)
+			
+			
 							
 	</cfquery>
 		
@@ -423,6 +425,8 @@
 	SELECT    TOP 1 ItemNo
 	FROM      #dest#	
 </cfquery>
+
+
 
 <!--- we start reviewing the CURRENT stock content to reflect accurate stock values --->
 
@@ -493,6 +497,7 @@ password="#SESSION.dbpw#">
 	FROM      #dest# I INNER JOIN tmp#SESSION.acc#ItemOnHand R 
 	          ON I.ItemNo = R.ItemNo AND I.UoM = R.UoM AND I.Warehouse = R.Warehouse
 </cfquery>
+
 
 <!---
 <cfoutput>#cfquery.executiontime#</cfoutput>
@@ -591,6 +596,8 @@ password="#SESSION.dbpw#">
 	AND       I.Warehouse = R.ShipToWarehouse	 
 			 
 </cfquery>
+
+
 
 <!--- 2.2 on procurement request --->
 
@@ -827,6 +834,8 @@ password="#SESSION.dbpw#">
 <cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemOnHandMission">
 
 <cfset url.offer = form.Offer>
+
+
 
 <cfinclude template="ResupplyListing.cfm">
 

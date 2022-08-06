@@ -109,24 +109,24 @@
 		
 		<cfoutput>
 		
-		<tr class="labelmedium2 fixrow fixlengthlist">	
+		<tr class="labelmedium2 fixrow fixlengthlist line">	
 		    
 			<td><cf_tl id="Store"></td>			
 			<td align="right"><cf_tl id="Box"></td>
 			<!---
 			<td align="right"><cf_tl id="Price"></td>
 			<td align="right"><cf_tl id="Promotion"></td>
-			--->
-			
+			--->			
 			<td align="right"><cf_tl id="UoM"></td>	
 			<td align="right"><cf_tl id="Sold"></td>
+			<td align="right" style="padding-right:4px"><cf_tl id="Transit"></td>
 			<td align="right"><cf_tl id="Available"></td>		
-			<td align="right"><cf_tl id="Reserved"></td>
-			<td align="right"><cf_tl id="Requested"></td>	
-			<td align="right"><cf_tl id="Exhibition"></td>
+			<td align="right" title="Reserved for sales order"><cf_tl id="Reserved"></td>
+			<td align="right" title="Serious quote"><cf_tl id="Requested"></td>			
 			<!---
 			<td style="min-width:70px;padding-right:4px" align="right"><cf_tl id="Disposed"></td>		
-			--->			
+			--->	
+					
 		</tr>
 		
 		</cfoutput>
@@ -180,13 +180,15 @@
 							<tr>
 							<td style="color:gray;width:20%;padding-right:4px;font-size:17px">
 							
-							<font size="1">#Currency#&nbsp;</font>
-							<cfif promotion eq "1">
-							<font size="4" color="FF0000"><b>#numberformat(SalesPrice,',.__')#</font>
-							<cfelse>
-							<font size="4" color="0080C0">#numberformat(SalesPrice,',.__')#</font>
-							</cfif>
-							&nbsp;#CategoryName#</td>
+								<font size="1">#Currency#&nbsp;</font>
+								<cfif promotion eq "1">
+								<font size="4" color="FF0000"><b>#numberformat(SalesPrice,',.__')#</font>
+								<cfelse>
+								<font size="4" color="0080C0">#numberformat(SalesPrice,',.__')#</font>
+								</cfif>
+								&nbsp;#CategoryName#
+							
+							</td>
 							</tr>
 							
 							<tr><td style="color:xwhite;gray;width:20%;padding-right:4px;font-size:13px">
@@ -265,34 +267,47 @@
 					</td>
 					--->		
 					<td align="right">#UoMName#</td>		
-					<td style="background-color:##ffffaf50;" align="right">
-					#dateformat(LastSold,"MMM-YY")#</td>
+					<td style="background-color:##ffffaf50;" align="right">#dateformat(LastSold,"MMM-YY")#</td>
+					
+					<cfif QuantityInTransit eq "0">
+					   <td style="font-size:14px;background-color:##e1e1e1" align="right">--</td>
+					<cfelse>
+					   <td style="backgtround-color:##ffffaf50" align="right">										   
+					   <a href="javascript:stocktransit('#warehouse#','#itemno#','#uom#','transit')">
+					   #numberformat(QuantityInTransit,'#pformat#')#
+					   </a>				   
+    				   </td>
+					</cfif> 	
+					
 					<cfif QuantityForSale eq "0">
 						<td style="font-size:13px;background-color:##f1f1f150" align="right">--</td>
 					<cfelse>				
-						<td style="font-size:16px;background-color:##80FF8050" align="right">#numberformat(QuantityForSale,'#pformat#')#</td>
+						<td style="font-size:16px;background-color:##80FF8050;border:1px solid silver" align="right">#numberformat(QuantityForSale,'#pformat#')#</td>
 					</cfif>	
 																						
 					<cfif quantityreserved eq "0">
 						<td style="font-size:14px;background-color:##e1e1e1" align="right">--</td>
 					<cfelse>					
-						<td style="font-size:15px;background-color:008080" align="right">
+						<td style="font-size:15px;background-color:008080;border:1px solid silver" align="right">
 						<a style="color:white" href="javascript:stockreserve('#warehouse#','#itemno#','#uom#','reserve')">
 						#numberformat(quantityreserved,'#pformat#')#</a>
 						</td>
 					</cfif>
 					
-					<td style="backgtround-color:##ffffaf50" align="right">					
-					   <cfif QuantityRequested eq "0">--<cfelse>
+					<cfif QuantityRequested eq "0">
+					    <td style="font-size:14px;background-color:##e1e1e1" align="right">--</td>
+					<cfelse>
+					   <td style="backgtround-color:##ffffaf50" align="right">			
+					   
 					   <a href="javascript:stockreserve('#warehouse#','#itemno#','#uom#','request')">
 					   #numberformat(QuantityRequested,'#pformat#')#
 					   </a>
-					   </cfif> 
-					</td>
+					   
+					   </td>
+					</cfif> 
 					
-					<td style="background-color:##ffffaf50" align="right">				
-					<!--- <cfif stockdisposed eq "0">--<cfelse>#numberformat(StockDisposed,',.__')#</cfif> --->				
-					</td>								
+									
+											
 				</tr>
 				
 				</cfoutput>

@@ -331,7 +331,7 @@
 						datasource="appsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">		
-													
+																			
 							SELECT     TOP 100 Mission, Warehouse, WarehouseName, ItemPrecision,
 							           ItemNo, ItemNoExternal, ItemDescription, 
 									   Category, CategoryName, 
@@ -344,7 +344,8 @@
 									   LastSold,
 									   QuantityForSale, 
 									   QuantityReserved,
-									   QuantityRequested 
+									   QuantityRequested,
+									   QuantityInTransit 
 									   
 							FROM       (SELECT   DISTINCT 
 							                     L.Mission, W.Warehouse, N.WarehouseName, L.ItemNo, I.ItemDescription, I.ItemNoExternal, 
@@ -382,7 +383,20 @@
 												  AND      Warehouse       = W.Warehouse
 												  AND      BatchNo IS NULL 
 												  AND      RequestClass = 'QteReserve' 
-												  AND      ActionStatus = '1') as QuantityRequested 
+												  AND      ActionStatus = '1') as QuantityRequested, 
+												  
+												  <!--- Transit --->
+												  
+												 (SELECT   ISNULL(SUM(ReceiptWarehouse),0)
+                                                  FROM     Purchase.dbo.PurchaseLineReceipt AS PLR INNER JOIN
+                                                           Purchase.dbo.Receipt AS R ON PLR.ReceiptNo = R.ReceiptNo
+                                                  WHERE    PLR.ActionStatus     = '0' 
+												  AND      R.Mission            = '#Mission#' 
+												  AND      PLR.Warehouse        = W.Warehouse
+												  AND      PLR.WarehouseItemNo  = L.ItemNo
+												  AND      PLR.WarehouseUoM     = L.UoM
+												  ) as QuantityInTransit
+												  
 													   
 					                    FROM      skMissionItemPrice AS L 
 										          INNER JOIN ItemWarehouse AS W ON L.ItemNo = W.ItemNo AND L.UoM = W.UoM 

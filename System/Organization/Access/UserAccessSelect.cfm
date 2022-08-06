@@ -11,7 +11,7 @@
       <cfset cl = "transparent">		 
    </cfif>
        
-   <td align="center" width="8%" id="d#ms#_#row#I" bgcolor="#cl#">           
+   <td align="center" style="min-width:70px" id="d#ms#_#row#I" bgcolor="#cl#">           
 	   <input class="radiol" type="radio" name="#ms#_AccessLevel_#row#" id="#ms#_AccessLevel_#row#" value=""  
 	   <cfif AccessLevel eq "">checked<cfelseif hasMissionGlobal neq "" and url.id2 neq "">disabled</cfif>
 	   onClick="ClearRow('d#ms#_#row#','I')">   
@@ -33,7 +33,7 @@
 	      <cfset al = lvl>	  
 	   </cfif>	
    
-	   <td align="center" width="8%" id="d#ms#_#row##al#" bgcolor="#cl#">
+	   <td align="center" style="min-width:70px" id="d#ms#_#row##al#" bgcolor="#cl#">
 	   	    
 		   <input class="radiol" 
 		          type="radio" 
@@ -86,7 +86,7 @@
 		  <cfset cl = "regular">
 		</cfif>
 	  
-	  	<td width="100" bgcolor="#cl#">
+	  	<td style="min-width:70px" bgcolor="#cl#">
 		
 		  <select style="width:100;font:10px" 
 		          class="regularxl" id="d#ms#_#Row#_mis" class="#cl#" 

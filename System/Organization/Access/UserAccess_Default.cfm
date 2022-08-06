@@ -35,16 +35,14 @@
 			
 </cfif>	    		  
 		  
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" class="formpadding">
 	
 	<cfif currentrow eq "1">
 	
-	<tr>
+	<tr class="line">
 		<td></td>
 		<cfinclude template="UserAccessSelectLabel.cfm">
 	</tr>
-	
-	<tr><td colspan="<cfoutput>#No+2#</cfoutput>" class="linedotted"></td></tr>
 	
 	</cfif>
 		
@@ -55,16 +53,19 @@
 		<input type="hidden" name="#ms#_classparameter_1" id="#ms#_classparameter_1" value="Default">
 				
 		<!--- hide the main selection screen for the entity as it is just need needed for this access level --->
-					  
+		
+		<!---			  
 		<script>
 		 try {
 		 document.getElementById('#Mission#selected').className = "hide" } catch(e) {}
 		</script>	
+		--->
+
 						
-		<tr>
-		  <td class="labelit" style="padding-left:10px">
+		<tr class="line labelmedium2">
+		  <td style="padding-left:20px;width:100%">
 		  <cfif mission eq "undefined">
-		  Select
+		  <cf_tl id="Select">
 		  <cfelse>
 		  #Mission#
 		  </cfif>

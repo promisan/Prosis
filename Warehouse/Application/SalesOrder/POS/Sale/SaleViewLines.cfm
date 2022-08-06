@@ -330,8 +330,10 @@ password="#SESSION.dbpw#">
 						<cfset cl = "ffffff">
 					</cfif>
 					
+					<table width="100%"><tr><td align="right">
+					
 					<input type="text" 
-					 style = "background-color:#cl#;width:85px;text-align:right;padding-right:2px;border:1px solid silver" 
+					 style = "background-color:#cl#;width:75px;text-align:right;padding-right:2px;border:1px solid silver" 
 					 id    = "SalesPrice_#currentrow#"
 					 class = "regularxxl enterastab SalesPrice_#transactionid#"
 					 <cfif vLast eq currentrow>
@@ -339,15 +341,24 @@ password="#SESSION.dbpw#">
 					 	<cfset tcounter = tcounter + 1>
 					 <cfelse>
 					 	tabindex = "0"
-					 </cfif>					 
+					 </cfif>	
+					 readonly				 
 					 value = "#numberformat(SalesPrice,'.__')#" 
 					 name  = "SalesPrice_#currentrow#"
 					 onchange="$('##SalesPrice_#currentrow#').attr('value', this.value); ptoken.navigate('#client.virtualdir#/warehouse/Application/SalesOrder/POS/Sale/setLine.cfm?warehouse=#url.warehouse#&line=#currentrow#&id=#transactionid#&action=price&value='+this.value,'processline')">
+					 
+					 </td>
+					 
+					 <td>
+					 <cf_authorization mission="#getLines.Mission#" functionname="Point of Sale" object="SalesPrice_#currentrow#">
+					 </td>
+					 
+					 </tr></table>
 
 					<div class="clsNoPrint clsDetailLineCell">
 						#numberformat(SchedulePrice,'.__')#
 					</div>
-
+				
 				</td>	
 					
 				<td valign="top" align="right" style="min-width:100px;padding-top:9px 0;padding-right:4px; width:10%;">

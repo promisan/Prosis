@@ -251,7 +251,7 @@ password="#SESSION.dbpw#">
 			
 		<tr><td id="actionbox" class="<cfoutput>#cl#</cfoutput>" align="center" style="padding-left:4px;padding-right:4px">
 										
-			<cfif batch.actionStatus eq "0" and url.mode eq "Process">				
+			<cfif batch.actionStatus eq "0" and (url.mode eq "Process" or getAdministrator("*") eq "1")>				
 															
 					<form method="post" name="batchform" id="batchform" style="border:0px solid silver; padding-left:5px;padding-right:5px">
 											
@@ -291,7 +291,7 @@ password="#SESSION.dbpw#">
 							<tr>
 												
 								<td width="20">
-																																														
+																																																						
 								<cfif fullAccess eq "GRANTED" or editAccess eq "GRANTED">
 																																					
 								    <cfdiv id="iconfirm">
