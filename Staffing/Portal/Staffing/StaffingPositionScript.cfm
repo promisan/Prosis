@@ -30,7 +30,7 @@
 		}
 		
 		function AddVacancy(postno,box) {
-		    if (document.body.clientHeight-60 >= 750) { ht = 750 } else { ht = document.body.clientHeight-40 } 
+		    if (document.body.clientHeight-60 >= 800) { ht = 800 } else { ht = document.body.clientHeight-40 } 
 			ProsisUI.createWindow('mydialog', 'Record Recruitment Track', '',{x:100,y:100,height:ht,width:900,modal:true,center:true});	
 			ptoken.navigate('#SESSION.root#/Vactrack/Application/Document/DocumentEntryPosition.cfm?box='+box+'&portal=1&Mission=#URL.Mission#&ID1=' + postno + '&Caller=Listing','mydialog');	
 		}

@@ -138,7 +138,7 @@
 	AND     E.EntityCode = '#URL.EntityCode#' 
 	
     <cfif url.scope eq "portal">
-		  AND       E.EnablePortal = 1 AND  EC.EnablePortal = 1
+		  AND       E.EnablePortal = 1 
     </cfif>
 	<cfif url.EntityDue eq "Due">
 		  AND       (O.ObjectDue is NULL or O.ObjectDue <= #due#)

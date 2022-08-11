@@ -38,6 +38,7 @@
 	SET FunctionNo        = '#Form.FunctionNo#',
 		FunctionalTitle   = '#Form.FunctionalTitle#', 
 		OrganizationUnit  = '#Form.OrganizationUnit#',
+		DocumentType      = '#form.DocumentType#',
 		Mission           = '#Form.Mission#',
 		DueDate           = #Due#,
 		PostGrade         = '#Form.PostGrade#',

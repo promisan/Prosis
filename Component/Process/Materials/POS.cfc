@@ -1945,10 +1945,21 @@
 							 AND       Warehouse   = '#Warehouse#'
 							 AND       Location   != '#getMission.LocationReceipt#'
 							 AND       Operational = 1 				 
-							 ORDER BY  PickingOrder <!--- sorts locations by required order --->								 
+							 ORDER BY  PickingOrder <!--- sorts locations by required order --->													 
+						</cfquery>
+						
+						<cfquery name="hasLocation" 
+					       datasource="AppsMaterials" 
+					       username="#SESSION.login#" 
+					       password="#SESSION.dbpw#">
+					         SELECT    Location
+					         FROM      ItemWarehouseLocation
+							 WHERE     ItemNo      = '#Itemno#'		
+							 AND       UoM         = '#TransactionUoM#'
+							 AND       Warehouse   = '#Warehouse#'									 
 						</cfquery>
 
-						<cfif tra gt "0" or itemLocation.recordcount eq "0">  <!--- negative, not found in any location except the default --->
+						<cfif tra gt "0" or (itemLocation.recordcount eq "0" and haslocation.recordcount gt "1")>  <!--- negative, not found in any location except the default --->
 						
 							<cfif GetSaleUoM.recordCount gt 0 and GetSaleUoM.TransactionUoM neq "">
 						
@@ -1961,7 +1972,7 @@
 								<cfset trauom =  TransactionUoM>	
 						
 							</cfif>
-						
+													
 							<!--- -------------------------------------------------------- --->						
 							<!--- make the COGS and create ItemTransactionShipping records --->
 							<!--- -------------------------------------------------------- --->		

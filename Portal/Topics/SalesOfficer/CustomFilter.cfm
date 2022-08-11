@@ -18,6 +18,7 @@
     <cfset org = url.orgunit>
 </cfif>
 
+
 <cfquery name="Base" 
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
@@ -26,7 +27,7 @@ password="#SESSION.dbpw#">
 	SELECT    TS.SalesPersonNo, P.IndexNo, P.LastName, P.FirstName
 	FROM      ItemTransaction AS T INNER JOIN
 	          ItemTransactionShipping AS TS ON T.TransactionId = TS.TransactionId INNER JOIN
-	           Employee.dbo.Person AS P ON TS.SalesPersonNo = P.PersonNo
+	          Employee.dbo.Person AS P ON TS.SalesPersonNo = P.PersonNo
 			   
 				  <!--- 
 					 <cfif url.OrgUnit neq "">				   
@@ -37,7 +38,8 @@ password="#SESSION.dbpw#">
 						--->
 			   
 			   
-	WHERE      Mission IN (#preserveSingleQuotes(mission)#)  AND  T.TransactionType = '2'
+	WHERE      Mission IN (#preserveSingleQuotes(mission)#)  
+	AND        T.TransactionType = '2'
 	
 	<cfif url.period eq "All">
 		AND    Year(T.TransactionDate) >= '2015'
@@ -45,6 +47,11 @@ password="#SESSION.dbpw#">
 		AND    Year(T.TransactionDate)  = '#url.period#' 
 	</cfif>
 	
+	<cfif getAdministrator("*") eq "0">
+	
+	AND    TS.SalesPersonNo IN (SELECT PersonNo FROM System.dbo.UserNames WHERE Account = '#session.acc#')	
+						
+	</cfif>
 	<!---
 	<cfif org neq "">	
 		AND    P.OrgUnit = '#url.orgunit#'				  					  
@@ -65,7 +72,7 @@ password="#SESSION.dbpw#">
 	WHERE  1=0
 	<cfelse>
 	WHERE  PersonNo IN (#quotedValueList(Base.SalesPersonNo)#)
-	</cfif>
+	</cfif>	
 	ORDER BY LastName
 </cfquery>
 
@@ -81,25 +88,25 @@ password="#SESSION.dbpw#">
 			    <tr class="fixlengthlist">
 				
 				<td class="labelit" style="color:gray;padding-left:3px;padding-right:10px"></td>
-				<td style="padding-left:7px;padding-right:4px" class="labelit">
+				<td style="padding-left:2px;padding-right:4px" class="labelit">
 					<input type="radio" class="radiol" name="layout_#thisDivName#" id="layout_#thisDivName#" value="Store" 
-						onclick="if ($('##divSalesOfficerDetail_#thisDivName#').length > 0) { ptoken.navigate('#link#&status='+$('##fldstatus_#thisDivName#').val()+'&actor='+$('##fldactor_#thisDivName#').val()+'&sort='+$('##fldsort_#thisDivName#').val()+'&stage='+$('##fldstage_#thisDivName#').val()+'&layout=Store','divSalesOfficerDetail_#thisDivName#');}"
+						onclick="if ($('##divSalesOfficerDetail_#thisDivName#').length > 0) { _cf_loadingtexthtml='';	ptoken.navigate('#link#&status='+$('##fldstatus_#thisDivName#').val()+'&actor='+$('##fldactor_#thisDivName#').val()+'&sort='+$('##fldsort_#thisDivName#').val()+'&stage='+$('##fldstage_#thisDivName#').val()+'&layout=Store','divSalesOfficerDetail_#thisDivName#');}"
 						checked></td>
 				<td class="labelmedium" style="padding-right:4px"><cf_tl id="Store"></td>
 				
-				<td style="padding-left:7px;padding-right:4px" class="labelit">
+				<td style="padding-left:2px;padding-right:4px" class="labelit">
 					<input type="radio" class="radiol" name="layout_#thisDivName#" id="layout_#thisDivName#" value="Category" 
-						onclick="if ($('##divSalesOfficerDetail_#thisDivName#').length > 0) { ptoken.navigate('#link#&status='+$('##fldstatus_#thisDivName#').val()+'&actor='+$('##fldactor_#thisDivName#').val()+'&sort='+$('##fldsort_#thisDivName#').val()+'&stage='+$('##fldstage_#thisDivName#').val()+'&layout=Category','divSalesOfficerDetail_#thisDivName#');}">
+						onclick="if ($('##divSalesOfficerDetail_#thisDivName#').length > 0) { _cf_loadingtexthtml='';	ptoken.navigate('#link#&status='+$('##fldstatus_#thisDivName#').val()+'&actor='+$('##fldactor_#thisDivName#').val()+'&sort='+$('##fldsort_#thisDivName#').val()+'&stage='+$('##fldstage_#thisDivName#').val()+'&layout=Category','divSalesOfficerDetail_#thisDivName#');}">
 				</td>
 				<td class="labelmedium" style="padding-right:4px"><cf_tl id="Category"></td>				
 				
-				<td style="padding-left:7px;padding-right:4px" class="labelit">
-					<input type="radio" class="radiol" name="layout_#thisDivName#" id="layout_#thisDivName#" value="Schedule" 
-						onclick="if ($('##divSalesOfficerDetail_#thisDivName#').length > 0) { ptoken.navigate('#link#&status='+$('##fldstatus_#thisDivName#').val()+'&actor='+$('##fldactor_#thisDivName#').val()+'&sort='+$('##fldsort_#thisDivName#').val()+'&stage='+$('##fldstage_#thisDivName#').val()+'&layout=PriceSchedule','divSalesOfficerDetail_#thisDivName#');}">
+				<td style="padding-left:2px;padding-right:4px" class="labelit">
+					<input type="radio" class="radiol" name="layout_#thisDivName#" id="layout_#thisDivName#" value="PriceSchedule" 
+						onclick="if ($('##divSalesOfficerDetail_#thisDivName#').length > 0) { _cf_loadingtexthtml='';	ptoken.navigate('#link#&status='+$('##fldstatus_#thisDivName#').val()+'&actor='+$('##fldactor_#thisDivName#').val()+'&sort='+$('##fldsort_#thisDivName#').val()+'&stage='+$('##fldstage_#thisDivName#').val()+'&layout=PriceSchedule','divSalesOfficerDetail_#thisDivName#');}">
 				</td>
 				<td class="labelmedium" style="padding-right:4px"><cf_tl id="Schedule"></td>	
 				
-				<td style="padding-left:10px" class="labelit"><cf_tl id="Content"></td>
+				<td style="padding-left:3px" class="labelit hide"><cf_tl id="Content"></td>
 								
 				<td class="labelit" style="color:gray;padding-left:12px">	
 				  <select class="regularxl" id="fldsort_#thisDivName#" onchange="doChangeSO('#link#','#URL.mission#',document.getElementById('fldactor_#thisDivName#'),this,document.getElementById('fldstage_#thisDivName#'),'#thisDivName#')">					 		
@@ -109,7 +116,7 @@ password="#SESSION.dbpw#">
 				  </select>	
 				</td>		
 				
-				<td style="padding-left:10px" class="labelit"><cf_tl id="Status"></td>
+				<td style="padding-left:3px" class="labelit"><cf_tl id="Status"></td>
 								
 				<td class="labelit" style="color:gray;padding-left:12px">	
 				  <select class="regularxl" id="fldstage_#thisDivName#" onchange="doChangeSO('#link#','#URL.mission#',document.getElementById('fldactor_#thisDivName#'),document.getElementById('fldsort_#thisDivName#'),this,'#thisDivName#');">					 		
@@ -119,7 +126,7 @@ password="#SESSION.dbpw#">
 				  </select>	
 				</td>	
 				
-				<td style="padding-left:10px" class="labelit"><cf_tl id="Seller"></td>									
+				<td style="padding-left:2px" class="hide labelit"><cf_tl id="Seller"></td>									
 										
 					<cfquery name="User" 
 					datasource="AppsSystem" 
@@ -127,14 +134,16 @@ password="#SESSION.dbpw#">
 					password="#SESSION.dbpw#">
 						SELECT * 
 						FROM   UserNames
-						WHERE  Account = '#session.acc#'	
+						WHERE  Account = '#session.acc#'							
 					</cfquery>
 											
 					<td class="label" style="color:gray;padding-left:12px">	
 					  <cf_tl id="Any" var="1">
 					  <select class="regularxl" id="fldactor_#thisDivName#" style="width:130px" 
 					      onchange="doChangeSO('#link#','#URL.mission#',this,document.getElementById('fldsort_#thisDivName#'),document.getElementById('fldstage_#thisDivName#'),'#thisDivName#')">					 		
+						  <cfif getAdministrator("*") eq "1">
 					       <option value="">-- #lt_text# --</option>
+						  </cfif>
 						  <cfloop query="Actor">				  
 						  	<option value="#PersonNo#" <cfif user.personno eq personno>selected</cfif>>#LastName#</option>					  
 						  </cfloop>

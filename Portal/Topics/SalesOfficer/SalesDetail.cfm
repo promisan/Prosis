@@ -16,7 +16,7 @@
 <cfparam name="url.orgunit"  default="">
 <cfparam name="url.period"   default="">
 <cfparam name="url.actor"    default="">
-<cfparam name="url.sort"     default="ActionEffective">
+<cfparam name="url.sort"     default="Margin">
 <cfparam name="url.month"    default="">
 <cfparam name="url.status"   default="">
 
@@ -67,7 +67,7 @@
 	FROM         (SELECT     Pe.Mission, 
 							 Pe.DateEvent,
 							 Pe.DateEventDue,
-							 <cfif url.sort eq "EventMonth">
+							 <cfif url.sort eq "Margin">
 								 YEAR(CASE WHEN Pe.DateEventDue  is NULL THEN Pe.DateEvent ELSE Pe.DateEventDue END) AS EventYear, 
 								 MONTH(CASE WHEN Pe.DateEventDue is NULL THEN Pe.DateEvent ELSE Pe.DateEventDue END) AS EventMonth,                      						
 							 <cfelse>

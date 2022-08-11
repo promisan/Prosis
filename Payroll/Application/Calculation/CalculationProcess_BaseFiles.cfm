@@ -1087,7 +1087,8 @@ password="#SESSION.dbpw#">
 		
 		<!--- we loop through the records and define all days covered by SLWOP, then we count the working
 		days not under SLWOP pay and then we do 21.75 - remainder = balance --->
-			
+		
+					
 			<cfoutput query="SpecialLeave" group="PersonNo">	
 			
 				<cfset end = "0">
@@ -1125,6 +1126,7 @@ password="#SESSION.dbpw#">
 						</cfif>
 										
 					</cfif>
+					
 													
 					<!--- we obtain the payroll legs for this person, this can be several continuous periods which stand by itself --->	
 					
@@ -1211,13 +1213,14 @@ password="#SESSION.dbpw#">
 									SET      PayrollSUSPEND = PayrollSUSPEND + #calcdays# 									
 									</cfif>							
 									WHERE    PersonNo      = '#PersonNo#'
-									AND      DateEffective = '#DateFormat(DateEffective,client.dateSQL)#'				
+									AND      DateEffective = '#DateFormat(DateEffective,client.dateSQL)#'	
+											
 						   </cfquery>					
 								  					   
 						</cfif>    
 											
 					</cfloop>
-					
+										
 					<!--- ----------------------------------------------------------------------------------------------------- --->
 					<!--- 30/1/2018 now we make a correction in case we have several legs for a person on the SLWOP calculation --->
 					<!--- ----------------------------------------------------------------------------------------------------- --->
@@ -1323,7 +1326,7 @@ password="#SESSION.dbpw#">
 												SET      PayrollSLWOP   = PayrollSLWOP + #diff#,
 														 PayrollDaysCorrectionPointer = '1'
 												<cfelseif itm eq "SUSPEND">
-												SET      PayrollSUSPEND = PayrollSUSPEND + #diff#, 
+												SET      PayrollSUSPEND = PayrollSUSPEND + #diff#,  
 													     PayrollDaysCorrectionPointer = '1'												 
 												</cfif>							
 												
@@ -1352,9 +1355,9 @@ password="#SESSION.dbpw#">
 				</cfoutput>				
 							
 			</cfoutput>
-					   							
+							   							
 		<cfelse>	
-				
+						
 			<cfoutput query="SpecialLeave" group="PersonNo">	
 						     
 				<cfset end = "0">
@@ -1505,20 +1508,19 @@ password="#SESSION.dbpw#">
 							  <cfset tot = thisdays>
 							  
 						   </cfif>							   							  
-							
+													
 						   <cfquery name="Days" 
 							datasource="AppsTransaction" 
 							username="#SESSION.login#" 
 							password="#SESSION.dbpw#">
-							
-							
+														
 								UPDATE   dbo.sal#SESSION.thisprocess#Payroll 
 								
 								<cfif itm eq "LWOP">
 								SET      PayrollSLWOP          = PayrollSLWOP + #tot#,
 										 PayrollDaysCorrectionPointer = '1'
 								<cfelseif itm eq "SUSPEND">
-								SET      PayrollSuspend        = PayrollSuspend + #tot#,
+								SET      PayrollSuspend        = PayrollSuspend + #tot#, 
 										 PayrollDaysCorrectionPointer = '1'	
 								<cfelse>
 								SET      PayrollSickLeave      = PayrollSickLeave + #tot#							
@@ -1531,11 +1533,41 @@ password="#SESSION.dbpw#">
 					     </cfif>
 								
 				     </cfloop>
-				
+							
 				</cfif>
 				
 				</cfoutput>
 				
+				 <cfif Schedule.SalaryBasePeriodDays eq "30fix">
+				
+					<cfquery name="Days" 
+						datasource="AppsTransaction" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+													
+							UPDATE   dbo.sal#SESSION.thisprocess#Payroll 
+							
+							<cfif itm eq "LWOP">
+							SET      PayrollSLWOP          = PayrollDays
+							<cfelseif itm eq "SUSPEND">
+							SET      PayrollSuspend        = PayrollDays
+							<cfelse>
+							SET      PayrollSickLeave      = PayrollDays					
+							</cfif>
+							
+							WHERE    PersonNo      = '#PersonNo#'
+							<cfif itm eq "LWOP">
+							AND      PayrollSLWOP > PayrollDays
+							<cfelseif itm eq "SUSPEND">
+							AND      PayrollSuspend > PayrollDays
+							<cfelse>
+							AND      PayrollSickLeave > PayrollDays
+							</cfif>							
+										
+					</cfquery>	
+				
+				</cfif>
+								
 			</cfoutput>
 					
 		</cfif>	
@@ -1983,7 +2015,7 @@ immediately based on the EUR schedule with respect ot the rates --->
 	AND        Sc.ScaleNo             = E.ScaleNo
 	AND        S.ComponentName        = E.ComponentName
 	AND        Sc.Operational         = 1
-	
+		
 </cfquery>		
 
 <!--- correct of percentage if defined for a 

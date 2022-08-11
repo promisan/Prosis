@@ -79,8 +79,11 @@ password="#SESSION.dbpw#">
 				
 	<cfset whs = "">
 	
-	<table width="100%">
-	<tr><td style="width:100%;padding:10px;padding-left:20px;padding-right:20px">
+	<table width="100%" height="98%">
+	
+	<tr>
+	
+	<td valign="top" style="height:90%;width:70%;padding:10px;padding-left:20px;padding-right:20px">
 	
 	<table width="100%">
 	
@@ -280,50 +283,112 @@ password="#SESSION.dbpw#">
 			
 			<cfoutput>
 			
-			<cfparam name="getTransfer.TransactionLocation" default="">
 			
-			<tr class="labelmedium" style="padding-top:5px;border-top:1px solid silver;border-bottom:1px solid silver">
-			    <td style="padding-left:20px;">
-				<cf_tl id="Requested Location for item to be transferred to">:
-				</td>
-				<td colspan="3" align="right" style="padding-right:0px">
+			
+			
+			
+			</cfoutput>
+		
+	</table>
+	
+	</td>
+	
+	<td style="width:30%;border-left:1px solid silver" valign="top">
+	
+		<cfoutput>
+	
+			<table width="100%" height="100%" style="background-color:f4f4f4;border:1px solid silver">
+		
+		       <cfparam name="getTransfer.TransactionLocation" default="">
 				
-				<cfquery name="warehouse"
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						SELECT * 
-						FROM   Warehouse 
-						WHERE  Warehouse = '#url.warehouse#'		
-				</cfquery>
-				
-				<!--- show relevant locations and if location has same order, the one with most stock first --->
-				
-				<cfquery name="LocationList"
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						SELECT    Warehouse, Location, Description, PickingOrder, Quantity
-						FROM      (SELECT IWL.Warehouse, IWL.Location, WL.Description, IWL.PickingOrder, WL.ListingOrder,
-                                              (SELECT    SUM(TransactionQuantity) AS Expr1
-                                               FROM      ItemTransaction AS T
-                                               WHERE     Warehouse      = WL.Warehouse 
-											   AND       Location       = WL.Location 
-											   AND       ItemNo         = IWL.ItemNo 
-											   AND       TransactionUoM = IWL.UoM) AS Quantity				
-									  FROM   ItemWarehouseLocation IWL INNER JOIN WarehouseLocation WL ON IWL.Warehouse = WL.Warehouse and IWL.Location = WL.Location
-									  WHERE  ItemNo         = '#get.ItemNo#'		
-									  AND    UoM            = '#get.TransactionUoM#'
-									  AND    WL.Warehouse   = '#url.warehouse#'
-									  AND    WL.Location   != '#warehouse.LocationReceipt#'
-								   	  AND    WL.Operational = 1
-								  ) as B									 	
-						ORDER BY PickingOrder, Quantity DESC, ListingOrder
-						
-				</cfquery>
-				
-				<cfif getTransfer.TransactionLocation neq "">
-				
+				<tr class="labelmedium2 line" style="background-color:e1e1e1">
+				    <td colspan="3" style="height:35px;font-size:16px;padding-left:5px">
+					<cf_tl id="Location to be transferred">:
+					</td>
+				 </tr>
+				 
+				 <tr>	
+					<td colspan="3" valign="top">
+					
+					<cf_divscroll>
+					
+					<cfquery name="warehouse"
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT * 
+							FROM   Warehouse 
+							WHERE  Warehouse = '#url.warehouse#'		
+					</cfquery>
+					
+					<!--- show relevant locations and if location has same order, the one with most stock first --->
+					
+					<cfquery name="LocationList"
+						datasource="AppsMaterials" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+							SELECT    Warehouse, Location, Description, PickingOrder, Quantity, LastDate
+							FROM      (SELECT IWL.Warehouse, IWL.Location, WL.Description, IWL.PickingOrder, WL.ListingOrder,
+	                                              (SELECT    SUM(TransactionQuantity) AS Expr1
+	                                               FROM      ItemTransaction AS T
+	                                               WHERE     Warehouse      = WL.Warehouse 
+												   AND       Location       = WL.Location 
+												   AND       ItemNo         = IWL.ItemNo 
+												   AND       WorkOrderid is NULL
+												   AND       TransactionUoM = IWL.UoM) AS Quantity,
+												  
+												    (SELECT    MAX(TransactionDate) AS Expr1
+	                                               FROM      ItemTransaction AS T
+	                                               WHERE     Warehouse      = WL.Warehouse 
+												   AND       Location       = WL.Location 
+												   AND       ItemNo         = IWL.ItemNo 
+												   AND       WorkOrderid is NULL
+												   AND       TransactionUoM = IWL.UoM) AS LastDate 
+												   				
+										  FROM   ItemWarehouseLocation IWL INNER JOIN WarehouseLocation WL ON IWL.Warehouse = WL.Warehouse and IWL.Location = WL.Location
+										  WHERE  ItemNo         = '#get.ItemNo#'		
+										  AND    UoM            = '#get.TransactionUoM#'
+										  AND    WL.Warehouse   = '#url.warehouse#'
+										  AND    WL.Location   != '#warehouse.LocationReceipt#'
+									   	  AND    WL.Operational = 1
+									  ) as B									 	
+							ORDER BY PickingOrder, LastDate DESC, Quantity DESC, ListingOrder
+							
+					</cfquery>
+					
+					<!---
+					
+					<cfif getTransfer.TransactionLocation neq "">
+					
+							<cfquery name="LocationList"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT * 
+								FROM   WarehouseLocation WL 
+								WHERE  Warehouse      = '#url.warehouse#'
+								AND    Operational = 1						
+								ORDER BY Listingorder
+							</cfquery>
+									
+						  <select name="LocationTo" class="regularxl" style="border-top:0px;border-bottom:0px;background-color:D3E9F8">
+						   <cfloop query="LocationList">
+						   	<option value="#Location#" <cfif getTransfer.TransactionLocation eq Location>selected</cfif>>#Location# #Description#</option>
+						   </cfloop>	
+						   <option value="#warehouse.LocationReceipt#" <cfif getTransfer.TransactionLocation eq warehouse.LocationReceipt>selected</cfif>>#warehouse.warehousename#<cf_tl id="Receipt location"></option>				   
+					   </select>
+					
+					<cfelseif locationList.recordcount gte "1">
+									
+					   <select name="LocationTo" class="regularxl" style="border-top:0px;border-bottom:0px;background-color:D3E9F8">
+						   <cfloop query="LocationList">
+						   	<option value="#Location#">#Location# #Description#</option>
+						   </cfloop>	
+						   <option value="#warehouse.LocationReceipt#">#warehouse.warehousename#<cf_tl id="Receipt location"></option>				   
+					   </select>				   
+					   
+					<cfelse>		
+					
 						<cfquery name="LocationList"
 						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
@@ -334,52 +399,70 @@ password="#SESSION.dbpw#">
 							AND    Operational = 1						
 							ORDER BY Listingorder
 						</cfquery>
-								
-					  <select name="LocationTo" class="regularxl" style="border-top:0px;border-bottom:0px;background-color:D3E9F8">
-					   <cfloop query="LocationList">
-					   	<option value="#Location#" <cfif getTransfer.TransactionLocation eq Location>selected</cfif>>#Location# #Description#</option>
-					   </cfloop>	
-					   <option value="#warehouse.LocationReceipt#" <cfif getTransfer.TransactionLocation eq warehouse.LocationReceipt>selected</cfif>>#warehouse.warehousename#<cf_tl id="Receipt location"></option>				   
-				   </select>
-				
-				<cfelseif locationList.recordcount gte "1">
-								
-				   <select name="LocationTo" class="regularxl" style="border-top:0px;border-bottom:0px;background-color:D3E9F8">
-					   <cfloop query="LocationList">
-					   	<option value="#Location#">#Location# #Description#</option>
-					   </cfloop>	
-					   <option value="#warehouse.LocationReceipt#">#warehouse.warehousename#<cf_tl id="Receipt location"></option>				   
-				   </select>				   
-				   
-				<cfelse>		
-				
-					<cfquery name="LocationList"
-					datasource="AppsMaterials" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-						SELECT * 
-						FROM   WarehouseLocation WL 
-						WHERE  Warehouse      = '#url.warehouse#'
-						AND    Operational = 1						
-						ORDER BY Listingorder
-					</cfquery>
+						
+						<select name="LocationTo" class="regularxl" style="border:0px;background-color:D3E9F8">
+						   <cfloop query="LocationList">
+						   	   <option value="#Location#" <cfif location eq warehouse.LocationReceipt>selected</cfif>>#Location# #Description#</option>
+						   </cfloop>					   
+					   </select>			
+					   
+					</cfif>	
 					
-					<select name="LocationTo" class="regularxl" style="border:0px;background-color:D3E9F8">
-					   <cfloop query="LocationList">
-					   	   <option value="#Location#" <cfif location eq warehouse.LocationReceipt>selected</cfif>>#Location# #Description#</option>
-					   </cfloop>					   
-				   </select>			
+					--->
+					
+					<table style="width:100%" class="navigation_table">
+					
+					    <tr class="fixrow fixlengthlist line labelmedium2">
+						  <td></td>
+						  <td><cf_tl id="Location"></td>
+						  <td></td>
+						  <td align="right" style="padding-right:4px"><cf_tl id="OnHand"></td>
+						</tr>
+						
+						<tr class="fixlengthlist labelmedium2 linedotted" style="height:27px">
+						    <td><input type="radio" name="LocationTo" class="radiol" value="#warehouse.LocationReceipt#" <cfif getTransfer.TransactionLocation eq warehouse.LocationReceipt>checked</cfif>></td>
+							<td style="padding-top:2px">Receipt location</td>
+							<td></td>
+							<td align="right" style="padding-right:4px"></td>
+						</tr>
+										
+						<cfloop query="LocationList">
+						<tr class="fixlengthlist labelmedium2 linedotted navigation_row" style="height:27px">
+						    <td>
+							<cfif getTransfer.TransactionLocation neq "">
+							<input type="radio" name="LocationTo" value="#location#" class="radiol" <cfif getTransfer.TransactionLocation eq warehouse.LocationReceipt>checked</cfif>>
+							<cfelse>
+							<input type="radio" name="LocationTo" value="#location#" class="radiol" <cfif currentrow eq "1">checked</cfif>>
+							</cfif>
+							</td>
+							<td style="padding-top:2px">#Description#</td>
+							<td style="padding-top:2px">#dateformat(lastdate,client.dateformatshow)#</td>
+							<td align="right" style="padding-right:4px;padding-top:2px">#quantity#</td>
+						</tr>
+						</cfloop>
+					
+					</table>	
+					
+					</cf_divscroll>						
+					
+					</td>
 				   
-				</cfif>								
-				
-				</td>
-			   
-			</tr>
-			
-			<tr>
+				</tr>
+		
+		</table>
+	
+	    </cfoutput>	
+	
+	</td>
+	
+	</tr>
+	
+	<cfoutput>
+	
+	        <tr>
 				<td colspan="4" align="center" style="padding-top:10px">
 					<cf_tl id="Issue stock transfer request" var="1">
-					<input type="button" value="#lt_text#" class="button10g" style="height:35px;width:400px;font-size:17px" onClick="javascript:doTransferStock('#URL.Warehouse#')">	
+					<input type="button" value="#lt_text#" class="button10g" style="height:35px;width:470px;font-size:17px" onClick="javascript:doTransferStock('#URL.Warehouse#')">	
 				</td>
 			</tr>
 			
@@ -389,12 +472,10 @@ password="#SESSION.dbpw#">
 				</td>
 			</tr>
 			
-			</cfoutput>
-		
-	</table>
-	
-	</td></tr>
+ 	</cfoutput>
 	
 	</table>
 	
-</cfform>	
+</cfform>
+
+<cfset ajaxonload("doHighlight")>	

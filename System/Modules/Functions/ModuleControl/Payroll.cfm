@@ -39,39 +39,51 @@
    AccessUserGroup = "0">  
    
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Application"
-   FunctionName = "Review Staff Entitlements" 
-   MenuClass = "Mission"
-   MenuOrder = "3"
-   MainMenuItem = "1"   
-   FunctionMemo = "Employee entitlements and obligations"
+   SystemModule    = "Payroll" 
+   FunctionClass   = "Application"
+   FunctionName    = "Review Staff Entitlements" 
+   MenuClass       = "Mission"
+   MenuOrder       = "3"
+   MainMenuItem    = "1"   
+   FunctionMemo    = "Employee entitlements and obligations"
    FunctionDirectory = "Payroll/Application"
-   FunctionPath = "Entitlements/EntitlementView.cfm"
+   FunctionPath    = "Entitlements/EntitlementView.cfm"
    AccessUserGroup = "0">     
    
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Application"
-   FunctionName = "Payroll Validation" 
-   MenuClass = "Mission"
-   MenuOrder = "4"
-   MainMenuItem = "1"   
-   FunctionMemo = "Payroll longitudinal analysis"
+   SystemModule    = "Payroll" 
+   FunctionClass   = "Application"
+   FunctionName    = "Sales Commission" 
+   MenuClass       = "Mission"
+   MenuOrder       = "4"
+   MainMenuItem    = "1"   
+   FunctionMemo    = "Review and calculate sales commission"
+   FunctionDirectory = "Payroll/Application"
+   FunctionPath    = "Commission/CommissionView.cfm"
+   AccessUserGroup = "0">   
+   
+<cf_ModuleInsertSubmit
+   SystemModule    = "Payroll" 
+   FunctionClass   = "Application"
+   FunctionName    = "Payroll Validation" 
+   MenuClass       = "Mission"
+   MenuOrder       = "5"
+   MainMenuItem    = "1"   
+   FunctionMemo    = "Payroll longitudinal analysis"
    FunctionDirectory = "Payroll/Inquiry"
-   FunctionPath = "Quality/QualityView.cfm"
+   FunctionPath    = "Quality/QualityView.cfm"
    AccessUserGroup = "0">         
    
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Application"
-   FunctionName = "Payroll Settlement dataset" 
-   MenuClass = "Mission"
-   MenuOrder = "5"
-   MainMenuItem = "1"   
-   FunctionMemo = "Dataset Payroll settlement"
+   SystemModule    = "Payroll" 
+   FunctionClass   = "Application"
+   FunctionName    = "Payroll Settlement dataset" 
+   MenuClass       = "Mission"
+   MenuOrder       = "6"
+   MainMenuItem    = "1"   
+   FunctionMemo    = "Dataset Payroll settlement"
    FunctionDirectory = "Payroll/Inquiry"
-   FunctionPath = "Settlement/SettlementView.cfm"
+   FunctionPath    = "Settlement/SettlementView.cfm"
    AccessUserGroup = "0">      
 
    

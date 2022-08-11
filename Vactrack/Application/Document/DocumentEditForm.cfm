@@ -178,7 +178,7 @@
 			<!--- Field: Unit --->
 		 
 			<tr><td height="1" colspan="4"></td></tr>
-			<tr class="labelmedium fixlengthlist">
+			<tr class="labelmedium">
 		    <td><cf_tl id="Unit">:</td>
 			<td style="padding-right:5px">
 			
@@ -193,7 +193,7 @@
 			</cfif>	
 			</td>
 			
-			<TD><cf_tl id="Due date">:</td>
+			<TD><cf_tl id="Expected onboarding by">:</td>
 		    <td>
 			<cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
 				<cfoutput><b>#Dateformat(Doc.Duedate, CLIENT.DateFormatShow)#
@@ -211,7 +211,7 @@
 			</td>	
 			</TR>			
 						
-			<TR class="labelmedium fixlengthlist">
+			<TR class="labelmedium">
 		    <td><cf_tl id="Functional title">:</td>
 		    <TD>
 				<cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
@@ -244,11 +244,13 @@
 		  	</TD>
 		    <td><cf_tl id="Grade">:</td>
 			<td>
+			<table><tr>
 			<cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
 				<cfoutput><b>#Doc.PostGrade# (#Doc.GradeDeployment#)
 				<input type="hidden" name="postgrade" value="#Doc.PostGrade#">
 				</cfoutput>
 			<cfelse>
+			   <td> 
 			   <select name="PostGrade" required="Yes" class="regularxl">
 				    <cfoutput query="Grade">
 						<option value="#PostGrade#" 
@@ -256,11 +258,31 @@
 						</option>
 					</cfoutput>
 			    </select>			
+				</td>		
+				
+				 <cfquery name="DocTpe" 
+						datasource="AppsVacancy" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">	
+					    SELECT   *
+						FROM     Ref_DocumentType
+						ORDER BY ListingOrder						
+	                  </cfquery>		
+				<td style="padding-left:3px">				
+				<select name="DocumentType" required="Yes" class="regularxl">
+				    <cfoutput query="DocTpe">
+						<option value="#Code#" 
+							<cfif Doc.DocumentType is Code>selected</cfif>>#Description#
+						</option>
+					</cfoutput>
+			    </select>			
+				</td>
 			</cfif>	
+			</tr></table>
 			</td>
 			</TR>	
 							
-			<TR class="labelmedium fixlengthlist">
+			<TR class="labelmedium">
 			
 		    <td valign="top" style="padding-top:5px"><cf_tl id="Remarks">:</td>
 			<TD colspan="3">
@@ -269,7 +291,7 @@
 							<input type="hidden" name="remarks" value="#Doc.Remarks#">					
 						</cfoutput>
 				<cfelse>
-					<textarea style="padding:4px;font-size:13px;width:90%;height:25" 				          
+					<textarea style="padding:4px;font-size:14px;width:95%;height:40px" 				          
 							  class="regular" 
 							  maxlength="250"
 							  onkeyup="return ismaxlength(this)"	

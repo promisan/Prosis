@@ -251,12 +251,12 @@
 					
 			<tr bgcolor="ffffcf" class="labelmedium line clsEntitlementDrillDetail_#URL.ID#_#URL.Year#_#URL.Item#_#URL.Curr#" style="height:17px; display:none;">
 				<td bgcolor="ffffff" style="width:20px;"></td>				
-				<td colspan="2" style="border-left:1px solid silver;min-width:40%;padding-left:6px">#ServiceLocation#: #ServiceLevel#/#ServiceStep#: #ComponentName#</td>	
-				<td align="right" style="max-width:40px;min-width:40px"><cfif entitlementPercentage neq "">#entitlementPercentage#%</cfif></td>				
+				<td colspan="2" class="fixlength" style="border-left:1px solid silver;min-width:40%;padding-left:6px">#ServiceLocation#: #ServiceLevel#/#ServiceStep#: #ComponentName#</td>	
+				<td align="right"                     style="max-width:40px;min-width:40px"><cfif entitlementPercentage neq "">#entitlementPercentage#%</cfif></td>				
 				<td align="right" title="Salary days" style="max-width:40px;min-width:40px">#SalaryDays#</td>
-				<td align="right" title="SLWOP" style="max-width:40px;min-width:40px">#SalarySLWOP#</td>
-				<td align="right" title="Suspend" style="max-width:40px;min-width:40px">#SalarySUSPEND#</td>	
-				<td align="right" title="Sickleave" style="max-width:40px;min-width:40px">#SalarySickLeave#</td>							
+				<td align="right" title="SLWOP"       style="max-width:40px;min-width:40px">#SalarySLWOP#</td>
+				<td align="right" title="Suspend"     style="max-width:40px;min-width:40px">#SalarySUSPEND#</td>	
+				<td align="right" title="Sickleave"   style="max-width:40px;min-width:40px">#SalarySickLeave#</td>							
 				<td align="right" style="padding-right:20px!important">
 				<cfset am = round(EntitlementAmount*100)/100>					
 				#numberFormat(am,",.__")#

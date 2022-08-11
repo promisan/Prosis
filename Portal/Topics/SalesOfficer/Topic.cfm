@@ -4,16 +4,17 @@
 
 	<script>
 	
-		function doChangeSO(link,mis,cactor,csort,cstage,miscont) {	
-		   				   		    
-			if ($('##divSalesOfficerDetail_'+miscont).length > 0) { 			
+		function doChangeSO(link,mis,cactor,csort,cstage,miscont) {			   				   		    
+			if ($('##divSalesOfficerDetail_'+miscont).length > 0) { 		
+			    _cf_loadingtexthtml='';			
 				ptoken.navigate(link+'&status='+$('##fldstatus_'+miscont).val()+'&actor='+cactor.value+'&sort='+csort.value+'&stage='+cstage.value+'&layout='+$('input[name=\'layout_'+miscont+'\']:checked').val(),'divSalesOfficerDetail_'+miscont);				
 			}		
 		}		
 	
-		function doPersonEvent(mis,org,per,srt,mth,act,fld,val,sts,miscont) {
-		    _cf_loadingtexthtml='';			
-			ptoken.navigate('SalesOfficer/SalesDetail.cfm?mission='+mis+'&orgunit='+org+'&period='+per+'&sort='+srt+'&month='+mth+'&actor='+act+'&field='+fld+'&value='+val+'&status='+sts,'PersonEventDetail_'+miscont);							
+		function doPersonDetail(mis,org,per,srt,mth,act,fld,val,sts,miscont) {
+		    alert('show details')
+		//    _cf_loadingtexthtml='';			
+		//	ptoken.navigate('SalesOfficer/SalesDetail.cfm?mission='+mis+'&orgunit='+org+'&period='+per+'&sort='+srt+'&month='+mth+'&actor='+act+'&field='+fld+'&value='+val+'&status='+sts,'PersonEventDetail_'+miscont);							
 		}
 		
 		function salesdialog(key) {
@@ -72,7 +73,7 @@ password="#SESSION.dbpw#">
 		       systemfunctionid  = "#systemfunctionid#"  
 			   source            = "#session.root#/Portal/Topics/SalesOfficer/SalesView.cfm?mission=#mis#"
 			   customFilter	     = "#session.root#/Portal/Topics/SalesOfficer/CustomFilter.cfm?mission=#mis#"
-			   width             = "98%"
+			   width             = "100%"
 			   height            = "auto"
 			   Mission           = "all"			   
 			   Period            = "All,#valuelist(PeriodList.Year)#"			   
@@ -110,7 +111,7 @@ password="#SESSION.dbpw#">
 		        systemfunctionid = "#systemfunctionid#"  
 				source           = "#session.root#/Portal/Topics/SalesOfficer/SalesView.cfm?mission=#mission#"
 				customFilter	 = "#session.root#/Portal/Topics/SalesOfficer/CustomFilter.cfm?mission=#mission#"
-				width            = "99%"
+				width            = "100%"
 				height           = "auto"
 				Mission          = "#mission#"
 				Option           = "Parent"
@@ -125,4 +126,5 @@ password="#SESSION.dbpw#">
 	</cf_pane>
 	
 </cfoutput>
+
 

@@ -145,22 +145,22 @@
 			SELECT * 
 			FROM   userTransaction.dbo.sal#SESSION.thisprocess#Payroll					
 			WHERE  PersonNo      = '#PersonNo#'						
-			ORDER BY LeaveId ASC	
+			ORDER BY LeaveId DESC	
 		</cfquery>			
-		 
-	
+		 	
 		<cfset diff = getTotal.days - Form.SalaryDays> 
 	
 		<cfquery name="getTotal" 
 			datasource="AppsQuery" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			UPDATE userTransaction.dbo.sal#SESSION.thisprocess#Payroll		
-			SET    PayrollDays   = PayrollDays - #diff#
-			WHERE  PersonNo      = '#PersonNo#'						
-			AND    Line = '#getLeg.Line#'		
-		</cfquery>				
+			UPDATE userTransaction.dbo.sal#SESSION.thisprocess#Payroll	
 			
+			SET    PayrollDays   = PayrollDays - #diff#						   
+			WHERE  PersonNo    = '#PersonNo#'						
+			AND    Line        = '#getLeg.Line#'		
+		</cfquery>		
+							
 	</cfif>			
 		
 	

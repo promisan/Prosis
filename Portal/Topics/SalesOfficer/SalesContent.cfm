@@ -20,11 +20,13 @@
 <cfelse>
 	<cfset unit = url.orgunit>	
 </cfif>
+
 <cfparam name="url.period"  default="">
 <cfparam name="url.actor"   default="">
 <cfparam name="url.layout"  default="Store">
-<cfparam name="url.sort"    default="ActionEffective">
+<cfparam name="url.sort"    default="Margin">
 <cfparam name="url.stage"   default="Pending">
+
 
 <cfif url.orgunit neq "">
 
@@ -60,7 +62,14 @@
 					(SELECT Description FROM Ref_PriceSchedule WHERE Code = TS.PriceSchedule) as PriceScheduleName,
 					T.ItemCategory, 
 					R.Description, 
-					ROUND(SUM(TS.SalesBaseAmount), 0) AS Total		
+					
+					<cfif url.sort eq "Margin">
+					   ROUND(SUM(TS.SalesBaseAmount+T.TransactionValue), 0) AS Total		
+					<cfelseif url.sort eq "Sales">
+					   ROUND(SUM(TS.SalesBaseAmount), 0) AS Total
+					<cfelse>
+					   COUNT(DISTINCT TransactionBatchNo) AS Total
+					</cfif>
 					
 	    FROM        ItemTransaction AS T INNER JOIN
 	                ItemTransactionShipping AS TS ON T.TransactionId = TS.TransactionId INNER JOIN
@@ -128,11 +137,12 @@
 	 
 	 	  <tr><td valign="top" style="padding-top:7px;">
 		  
-		  	<table><tr><cf_uichart style="border:0px solid silver">
+		  	<table>
 			
-			  <cfif url.layout eq "Store"> 
-		  				  
-				  <cfquery name="Summary" dbtype="query">
+			  <cf_uichart style="border:0px solid silver">
+			
+			 		  				  
+				  <cfquery name="SummaryStore" dbtype="query">
 					    SELECT     Warehouse      as FieldRow, 
 						           WarehouseName  as FieldRowName, 									           				 
 								   SUM(Total)     as Amount					   
@@ -144,9 +154,8 @@
 						ORDER BY   Description
 				  </cfquery>	
 			  
-			  <cfelseif url.layout eq "PriceSchedule">	
-		
-					<cfquery name="Summary" dbtype="query">
+			  		
+					<cfquery name="SummarySchedule" dbtype="query">
 					
 				        SELECT     PriceSchedule     as FieldRow, 
 						           PriceScheduleName as FieldRowName, 								   
@@ -159,9 +168,8 @@
 						           PriceScheduleName 
 					</cfquery>	
 		
-				<cfelse>
-				
-					<cfquery name="Summary" dbtype="query">
+								
+					<cfquery name="SummaryCategory" dbtype="query">
 				        SELECT     ItemCategory     as FieldRow, 
 						           Description      as FieldRowName, 								   
 								   SUM(Total)       as Amount	
@@ -172,26 +180,71 @@
 					    GROUP BY   ItemCategory, 
 						           Description
 					</cfquery>	
-				
-				</cfif>			  					
+				  					
 				
 			  <cfset vColorlist = "##D24D57,##52B3D9,##E08283,##E87E04,##81CFE0,##2ABB9B,##5C97BF,##9B59B6,##E08283,##663399,##4DAF7C,##87D37C">
 			  <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
+			  
+			  <cf_assignid>
+			  	  
 
 			  <cfif 1 eq 1>
+			  
+			  		<tr>
+			  
+			  		<td valign="top">
 
-					<cf_uichart name="graph1"
-								chartheight="380"
-								chartwidth="890">
-						<cf_uichartseries type="pie" query="#Summary#" itemcolumn="FieldRowName" valuecolumn="Amount" colorlist="#vColorList#"/>
+					<cf_uichart name="divSalesOfficerGraph_#divname#1"
+								chartheight="260"
+								chartwidth="270">
+						<cf_uichartseries type="pie"
+						    query="#SummaryStore#" 
+							itemcolumn="FieldRowName" 
+							valuecolumn="Amount" 
+							colorlist="#vColorList#"/>
 				  	</cf_uichart>
+					
+					</td>
+					
+					<td rowspan="2" style="padding-left:30px">
+					
+					<cf_uichart name="divSalesOfficerGraph_#divname#3"
+								chartheight="540"
+								chartwidth="620">
+						<cf_uichartseries type="pie"
+						    query="#SummaryCategory#" 
+							itemcolumn="FieldRowName" 
+							valuecolumn="Amount" 
+							colorlist="#vColorList#"/>
+				  	</cf_uichart>
+					
+					</td>
+					
+					</tr>
+					
+					<tr>
+					
+					<td valign="top">
+					<cf_uichart name="divSalesOfficerGraph_#divname#2"
+								chartheight="260"
+								chartwidth="270">
+						<cf_uichartseries type="pie"
+						    query="#SummarySchedule#" 
+							itemcolumn="FieldRowName" 
+							valuecolumn="Amount" 
+							colorlist="#vColorList#"/>
+				  	</cf_uichart>
+					
+					</td>
+					
+					</tr>
 
 			  <cfelse>
 
 				  <cfchart style = "#chartStyleFile#"
 						   format="jpg"
 						   chartheight="380"
-						   chartwidth="890"
+						   chartwidth="930"
 						   seriesplacement="percent"						   
 						   show3d="No"
 						   fontsize="12"
@@ -267,9 +320,9 @@
 	</tr>
 		
 	<cfif url.stage eq "">
-		<cfset width = "32">
+		<cfset width = "29">
 	<cfelse>
-		<cfset width = "55">	
+		<cfset width = "50">	
 	</cfif>
 				
 	<tr>
@@ -335,7 +388,7 @@
 					
 		<td valign="top" style="border-left:1px solid silver;border-bottom:1px solid silver;border-top:1px solid silver">
 			
-			<table width="100%" height="100%" align="center">
+			<table width="97%" height="100%">
 			
 			<cfif base.recordcount gte "800">
 			
@@ -435,7 +488,7 @@
 					  
 						  <table width="95%" align="right">
 						  <tr>
-						  	<td style="height:20px">													
+						  	<td style="height:20px" class="fixlength">													
 								<cfif prior neq FieldRowName>#FieldRowName#<cfset prior = fieldRowName></cfif>
 							</td>
 							<cfif url.period eq "All">
@@ -494,7 +547,7 @@
 								<cfif pend eq "0">																	
 									<td style="#trp#;min-width:#width#px" align="center">-</td>						
 								<cfelse>							
-									<td onclick="doPersonEvent('#url.mission#','#unit#','#eventyear#','#url.sort#','#mth#','#user#','#url.layout#','#fieldrow#','P','#thisDivName#')" 
+									<td onclick="doPersonDetail('#url.mission#','#unit#','#eventyear#','#url.sort#','#mth#','#user#','#url.layout#','#fieldrow#','P','#thisDivName#')" 
 									   style="#trp#;min-width:#width#px;cursor:pointer;background-color:##FFFF0050" align="right">#numberformat(pend,',')#</td>														
 								</cfif>
 							</cfif>
@@ -505,7 +558,7 @@
 								<cfif cmpl eq "0">																	
 									<td style="#trp#;min-width:#width#px" align="center">-</td>						
 								<cfelse>							
-									<td onclick="doPersonEvent('#url.mission#','#unit#','#eventyear#','#url.sort#','#mth#','#user#','#url.layout#','#fieldrow#','C','#thisDivName#')" 
+									<td onclick="doPersonDetail('#url.mission#','#unit#','#eventyear#','#url.sort#','#mth#','#user#','#url.layout#','#fieldrow#','C','#thisDivName#')" 
 									   style="#trp#;min-width:#width#px;cursor:pointer;background-color:##00FF4050" align="right">#numberformat(cmpl,',')#</td>														
 								</cfif>						
 							</cfif>
@@ -520,7 +573,7 @@
 						<cfif pend eq "0">																	
 							<td style="#trp#;min-width:#width#px" align="center">-</td>							
 						<cfelse>							
-							<td bgcolor="yellow" onclick="doPersonEvent('#url.mission#','#unit#','#eventyear#','#url.sort#','','#user#','#url.layout#','#fieldrow#','P','#thisDivName#')" 
+							<td bgcolor="yellow" onclick="doPersonDetail('#url.mission#','#unit#','#eventyear#','#url.sort#','','#user#','#url.layout#','#fieldrow#','P','#thisDivName#')" 
 							    style="#trp#;min-width:#width#px;cursor:pointer" align="right">#numberformat(pend,',')#</td>														
 						</cfif>
 					</cfif>
@@ -531,7 +584,7 @@
 						<cfif cmpl eq "0">						
 						<td align="center" style="#trp#;min-width:#width#px;border-left:1px solid silver;border-right:1px solid silver">-</td>			  						
 						<cfelse>
-						<td align="right" bgcolor="00FF40" onclick="doPersonEvent('#url.mission#','#unit#','#eventyear#','#url.sort#','','#user#','#url.layout#','#fieldrow#','C','#thisDivName#')" 
+						<td align="right" bgcolor="00FF40" onclick="doPersonDetail('#url.mission#','#unit#','#eventyear#','#url.sort#','','#user#','#url.layout#','#fieldrow#','C','#thisDivName#')" 
 						    style="min-width:#width#px;border-left:1px solid silver;border-right:1px solid silver">#numberformat(cmpl,',')#</td>			  												
 						</cfif>		
 					</cfif>				

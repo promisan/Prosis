@@ -4,8 +4,8 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
     SELECT *
-    FROM   Ref_ParameterMission
-	WHERE  Mission = '#URL.Mission#'
+    FROM Ref_ParameterMission
+	WHERE Mission = '#URL.Mission#'
 </cfquery>
 
 <cfparam name="URL.role" default="">
@@ -16,15 +16,24 @@
 <table width="95%" align="center">
    	 			
 	  <tr><td style="padding-top:17px; padding-left:5px">	
+	  
+	  Mandate.
+	  
+	  Unit (with warehouse connection) , Month (based on actual data)
+	  
+	  <!---
 	  	  	  	    	   
 		    <cf_EntitlementTreeData
 				 mission     = "#URL.Mission#"
 				 period      = "#URL.Period#"				 
 				 destination = "EntitlementViewOpen.cfm">
+				 
+				 --->
 			
 	 </td></tr>	
 		 		 
-</table>		 
+</table>	
+	 
 
 </cf_divscroll>
 

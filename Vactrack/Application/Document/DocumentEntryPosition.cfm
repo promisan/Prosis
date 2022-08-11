@@ -159,28 +159,20 @@
 			    <TR>
 			    
 			    <td class="labelmedium"><cf_tl id="Unit">:</td>
-				<td><input type="text" name="OrgUnit" style="background-color:f1f1f1" value="<cfoutput>#Position.OrgUnitName#</cfoutput>" readonly size="60" maxlength="80" class="regularxl">		
+				<td><input type="text" name="OrgUnit" style="background-color:f1f1f1" value="<cfoutput>#Position.OrgUnitName#</cfoutput>" readonly size="70" maxlength="80" class="regularxl">		
 				</td>
 				</TR>		
-							   			
-				<TR bgcolor="ffffff">
-			    <TD colspan="2" style="padding-right:15px">			
-				    <cf_tlhelp SystemModule = "Vacancy" Class = "General" HelpId = "recint" LabelId = "Instructions">			 			
-				</TD>	
 				
-				<!--- hidden by Hanno 24/11/2020 --->
+				<tr class="xxhide"> 		
 				
-				<tr class="hide"> 		
-				
-				<TD class="labelmedium"><cf_uitooltip tooltip="Due date on a recruitment request refers to the deadline that a department has to fullfill this vacancy"><cf_tl id="Due date">:</cf_uitooltip></td>
+				<TD class="labelmedium"><cf_uitooltip tooltip="Expected onboarding date refers to the deadline that a department has to fullfill this vacancy"><cf_tl id="Expected onboarding date">:</cf_uitooltip></td>
 			    
 				<td>
 					
 				  <cfset end = DateAdd("m",  2,  now())> 
 				
 				  <cf_intelliCalendarDate9
-						FieldName="DueDate"
-						ToolTip="Due Date" 	
+						FieldName="DueDate"							
 						Manual="False"		
 						Class="regularxl"	
 						Default="#Dateformat(end, CLIENT.DateFormatShow)#"
@@ -189,6 +181,15 @@
 					 	 
 				</td>
 				</TR>	
+							   			
+				<TR bgcolor="ffffff">
+			    <TD colspan="2" style="padding-right:15px">			
+				    <cf_tlhelp SystemModule = "Vacancy" Class = "General" HelpId = "recint" LabelId = "Instructions">			 			
+				</TD>	
+				
+				<!--- hidden by Hanno 24/11/2020 --->
+				
+				
 					
 				<cfquery name="Deployment" 
 				datasource="AppsSelection" 

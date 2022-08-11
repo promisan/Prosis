@@ -37,11 +37,9 @@
 		
 	</cfif>	 
 	
-
 <cf_verifyOperational module = "WorkOrder" Warning   = "No">	
 	
 <cftry>
-
 
 	<cfquery name="checkfile" 
 		datasource="AppsQuery" 
@@ -95,6 +93,7 @@
 				  C.Reference, 
 				  WB.BatchClass,
 				  WB.BatchDescription,
+				  WB.ActionStatus,
 				  T.ItemCategory, 
 				  T.ItemNo, 
 				  T.ItemDescription, 
@@ -158,6 +157,7 @@
 				  C.Reference, 
 				  WB.BatchClass,
 				  WB.BatchDescription,
+				  WB.ActionStatus,
 				  T.ItemCategory, 
 				  T.ItemNo, 
 				  T.ItemDescription, 
@@ -239,6 +239,16 @@
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "BatchNo",																							
 						search      = "text"}>		
+						
+	<cfset itm = itm+1>						
+	<cfset fields[itm] = {label   = "St", 	
+                    LabelFilter   = "Status",				
+					field         = "ActionStatus",					
+					filtermode    = "3",    
+					search        = "",
+					align         = "center",
+					formatted     = "Rating",
+					ratinglist    = "0=Yellow,1=Green"}>						
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Class" var = "1">
@@ -345,7 +355,7 @@
 		listorder           = "TransactionDate"		
 		listorderdir        = "ASC"
 		headercolor         = "ffffff"
-		show                = "20"		<!--- better to let is be set in the preferences --->
+		show                = "200"		<!--- better to let is be set in the preferences --->
 		menu                = "#menu#"
 		filtershow          = "Yes"
 		excelshow           = "Yes" 		

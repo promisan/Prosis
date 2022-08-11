@@ -1,4 +1,7 @@
+
+
 <cfset thisDivName	="#LEFT(REPLACE(url.mission,"__","","ALL"),25)#YKK"> <!----throwing an error when selecting more than 7 entities---->
+
 <cfoutput>
 			
 		<table width="100%" style="height:320;border:0px solid silver">
@@ -25,14 +28,14 @@
 									
 				</cfif>	
 				
-				<cfset sort = "ActionEffective">
+				<cfset sort = "Margin">
 				
 			    <cfif url.orgunit eq "0">
 					<cfset org ="">
 				<cfelse>
 				    <cfset org = url.orgunit>
 				</cfif>
-																																														
+																																																						
 				<cf_securediv id="divSalesOfficerDetail_#thisDivName#"
 					 bind="url:#session.root#/Portal/Topics/SalesOfficer/SalesContent.cfm?mission=#url.mission#&period=#url.period#&orgunit=#org#&actor=#actor#&sort=#sort#&divname=#thisDivName#">					
 																	 

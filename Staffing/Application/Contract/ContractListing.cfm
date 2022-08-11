@@ -32,23 +32,23 @@
 	</cfquery>
 
 	<cfif mandate.dateexpiration gte now()>
-	   <cfset eff = dateformat(now(),"YYYYMMDD")>  
-	   <cfset exp = dateformat(now(),"YYYYMMDD")>  
+	   <cfset eff = dateformat(now(),"yyyymmdd")>  
+	   <cfset exp = dateformat(now(),"yyyymmdd")>  
 	<cfelse>
-	   <cfset eff = dateformat(Mandate.DateExpiration,"YYYYMMDD")>
-	   <cfset exp = dateformat(Mandate.DateExpiration,"YYYYMMDD")>
+	   <cfset eff = dateformat(Mandate.DateExpiration,"yyyymmdd")>
+	   <cfset exp = dateformat(Mandate.DateExpiration,"YYYYmmdd")>
 	</cfif>
 	
 <cfelse>	
 
 	 <cfset date = "01/#url.month#/#url.year#">
 	 <CF_DateConvert Value="#date#">
-	 <cfset eff = dateformat(datevalue,"YYYYMMDD")> 
+	 <cfset eff = dateformat(datevalue,"yyyymmdd")> 
 	 
 	 <cfset date = "#daysInMonth(dateValue)#/#url.month#/#url.year#"> 
 	
 	 <CF_DateConvert Value="#date#">	 	 
-	 <cfset exp = dateformat(datevalue,"YYYYMMDD")>  
+	 <cfset exp = dateformat(datevalue,"yyyymmdd")>  
 	
 </cfif>	
 

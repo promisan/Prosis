@@ -2041,7 +2041,7 @@
 			SELECT 	TOP 1 *
 			FROM    Accounting.dbo.TransactionHeaderAction A
 					INNER JOIN Accounting.dbo.TransactionHeader H       ON H.Journal = A.Journal AND H.JournalSerialNo = A.JournalSerialNo
-					INNER JOIN Organization.dbo.OrganizationTaxSeries T ON T.OrgUnit = '#FEL.OrgUnitTax#' AND T.SeriesNo = A.ActionReference4
+					-- INNER JOIN Organization.dbo.OrganizationTaxSeries T ON T.OrgUnit = '#FEL.OrgUnitTax#' AND T.SeriesNo = A.ActionReference4
 			WHERE   H.Journal         = '#journal#'
 			AND     H.JournalSerialNo = '#journalserialNo#'
 			AND     A.ActionStatus    = '1'
@@ -2049,8 +2049,7 @@
 			ORDER BY A.Created DESC
 												
 		</cfquery>
-		
-		
+			
 
 		<cfif GetInvoiceToCancel.recordcount neq 0>
 		
@@ -2268,6 +2267,9 @@
 			<cfset EFACEResponse.DocumentNo = "">
 			<cfset EFACEResponse.Dte        = "">
 			<cfset EFACEResponse.ErrorDescription = "Nothing to revert in FEL">
+			<cfset EFACEResponse.source1       = "">			
+			<!--- customer NIT --->
+			<cfset EFACEResponse.source2       = "">			
 			
 	    </cfif>				
 	

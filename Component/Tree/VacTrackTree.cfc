@@ -22,12 +22,13 @@
 <!--- has vacancy enabled --->
 				AND    R.SystemModule = 'Vacancy'
 <!--- has indeed records --->
-				AND    M.Mission IN (SELECT Mission
-				FROM   Vacancy.dbo.Document
-				WHERE  Mission = M.Mission
-				AND    Status != '9')
-				AND    MissionType != 'Planning'
-				ORDER BY M.MissionType
+				AND    M.Mission IN (SELECT   Mission
+									 FROM     Vacancy.dbo.Document
+									 WHERE    Mission = M.Mission
+									 AND      Status != '9')
+									 AND      MissionType != 'Planning'
+									 ORDER BY M.MissionType
+								 
 			</cfquery>
 
 			<cfoutput query="MissionType">
@@ -60,7 +61,8 @@
 											<!--- has a track track --->
 											AND    D.DocumentNo IN (SELECT ObjectKeyValue1
 																	FROM   Organization.dbo.OrganizationObject
-																	WHERE  EntityCode = 'VacDocument')
+																	WHERE  EntityCode = 'VacDocument'
+																	AND    Operational = 1)
 											<!--- has at least one position associated to it --->
 											AND    D.DocumentNo IN (SELECT DocumentNo
 																	FROM   Vacancy.dbo.DocumentPost DP
@@ -69,7 +71,7 @@
 																							 FROM   Employee.dbo.Position
 																							 WHERE  PositionNo = DP.PositionNo)
 																	 )
-																	AND    Status IN ('0')
+											AND    D.Status IN ('0')
 											) as Total
 						FROM     Ref_Mission M, Ref_MissionModule R
 						WHERE    M.Mission    = R.Mission
@@ -82,6 +84,8 @@
 						    				   FROM   Vacancy.dbo.Document
 											   WHERE  Mission = M.Mission
 											   AND    Status != '9')
+						<!--- we better remove the module access --->					   
+						AND    M.Mission IN ('DPPA-DPO','OCT')						   
 						ORDER BY M.Mission
 				</cfquery>
 
@@ -279,6 +283,7 @@
 									AND    OO.Owner = RE.Owner
 									)
 						ORDER BY ListingOrder
+						
 				</cfquery>
 
 				<cfloop query="Parent">
@@ -309,8 +314,7 @@
 									WHERE OO.Mission = '#mis#'
 									AND RA.ParentCode = RE.Code
 									AND RA.EntityCode = RE.EntityCode
-									AND OO.Owner = RE.Owner
-						)
+									AND OO.Owner      = RE.Owner )
 					    ORDER BY ListingOrder
 				</cfquery>
 
@@ -351,15 +355,19 @@
 						FROM   Organization O
 						WHERE (O.ParentOrgUnit is NULL OR O.ParentOrgUnit = '')
 						AND   O.Mission = '#mis#'
+						<!---
 						AND   EXISTS (SELECT 'X'
-									FROM Vacancy.dbo.Document D 
-										INNER JOIN Vacancy.dbo.DocumentPost DP ON D.DocumentNo = DP.DocumentNo 
-										INNER JOIN Employee.dbo.Position P ON DP.PositionNo = P.PositionNo
-										INNER JOIN  Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
-										INNER JOIN Userquery.dbo.#SESSION.acc#Doc3_#CLIENT.FileNo# T  ON T.ObjectKeyValue1 = D.DocumentNo
-									WHERE D.Mission ='#mis#'
-									AND   O.HierarchyRootUnit = O2.HierarchyRootUnit
-									AND   D.Status != '9' )
+									  FROM Vacancy.dbo.Document D 
+										   INNER JOIN Vacancy.dbo.DocumentPost DP ON D.DocumentNo = DP.DocumentNo 
+										   INNER JOIN Employee.dbo.Position P ON DP.PositionNo = P.PositionNo
+										   INNER JOIN Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+										   INNER JOIN Userquery.dbo.#SESSION.acc#Doc3_#CLIENT.FileNo# T  ON T.ObjectKeyValue1 = D.DocumentNo
+									  WHERE D.Mission ='#mis#'
+									  AND   O.HierarchyRootUnit = O2.HierarchyRootUnit
+									  AND   D.Status != '9' )
+									  
+									  --->
+									  
 						AND   O.MandateNo = '#Mandate.MandateNo#'
 						ORDER BY TreeOrder, OrgUnitName
 				</cfquery>
@@ -422,6 +430,7 @@
 					FROM   Organization O
 					WHERE  ParentOrgUnit = '#hu#'
 					AND    O.Mission = '#mis#'
+					<!--- show all level 2 units
 					AND EXISTS	(
 								SELECT 'X'
 								FROM Vacancy.dbo.Document D 
@@ -436,6 +445,7 @@
 								AND   O2.HierarchyRootUnit = '#ou#'
 								AND   D.Status != '9'
 								)
+								--->
 					AND O.MandateNo = '#Mandate.MandateNo#'
 					ORDER BY TreeOrder, OrgUnitName
 				</cfquery>
@@ -443,7 +453,7 @@
 				<cfloop query="level02">
 
 					<cfquery datasource="AppsVacancy" name="qDocument">
-						SELECT Count(1) as Total
+						SELECT COUNT(1) as Total
 						FROM   Document D 
 								INNER JOIN DocumentPost DP ON D.DocumentNo = DP.DocumentNo 
 								INNER JOIN Employee.dbo.Position P ON DP.PositionNo = P.PositionNo
@@ -452,7 +462,7 @@
 						WHERE O2.HierarchyCode like '#Level02.HierarchyCode#%'
 						AND   D.Mission        ='#mis#'
 						AND   O2.MandateNo     = '#Mandate.MandateNo#'
-						AND   D.Status != '9'
+						AND   D.Status = '0'
 					</cfquery>
 
 					<cfset org2 = orgunit>
@@ -478,7 +488,6 @@
 			</cfif>
 
 		</cfif>
-
 
 		<cfscript>
 			treenodes = result;
