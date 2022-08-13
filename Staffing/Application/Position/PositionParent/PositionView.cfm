@@ -281,8 +281,7 @@
 					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
 					 and    DateExpiration >= CAST(GETDATE() AS Date)				
 					 AND    DateEffective  < '#DateFormat(getPosition.DateExpiration,client.dateSQL)#'
-				</cfquery>	
-				
+				</cfquery>					
 				
 				<cfquery name="PostStatus" 
 			     datasource="AppsEmployee" 
@@ -308,13 +307,13 @@
 					 FROM   PersonAssignment
 					 WHERE  PositionNo      = '#getPosition.PositionNo#'
 					 AND    AssignmentStatus IN ('0','1')
-					 AND    AssignmentType = 'Actual'
+					 AND    AssignmentType   = 'Actual'
+					 AND    AssignmentClass  = 'Regular' <!--- added --->
 					 AND    Incumbency = 0
 					 AND    DateEffective  <= CAST(GETDATE() AS Date) 
 					 and    DateExpiration >= CAST(GETDATE()-60 AS Date)		<!--- 60 days threshold --->		
 					 AND    DateEffective  < '#DateFormat(getPosition.DateExpiration,client.dateSQL)#'
-				</cfquery>	
-		   
+				</cfquery>			   
 						
 				<cfif Post.recordcount eq "0">				
 					<font color="FF0000"><cf_tl id="Vacant"></font>					

@@ -166,10 +166,10 @@
 						</cfif>					
 					    GROUP BY   PriceSchedule, 
 						           PriceScheduleName 
-					</cfquery>	
-		
+					</cfquery>			
 								
 					<cfquery name="SummaryCategory" dbtype="query">
+					  
 				        SELECT     ItemCategory     as FieldRow, 
 						           Description      as FieldRowName, 								   
 								   SUM(Total)       as Amount	
@@ -179,6 +179,8 @@
 						</cfif>					
 					    GROUP BY   ItemCategory, 
 						           Description
+						ORDER BY Amount DESC		  
+								   
 					</cfquery>	
 				  					
 				
@@ -196,7 +198,8 @@
 
 					<cf_uichart name="divSalesOfficerGraph_#divname#1"
 								chartheight="260"
-								chartwidth="270">
+								chartwidth="270"
+								url="javascript:alert($ITEMLABEL$)">
 						<cf_uichartseries type="pie"
 						    query="#SummaryStore#" 
 							itemcolumn="FieldRowName" 
@@ -209,14 +212,45 @@
 					<td rowspan="2" style="padding-left:30px">
 					
 					<cf_uichart name="divSalesOfficerGraph_#divname#3"
-								chartheight="540"
-								chartwidth="620">
-						<cf_uichartseries type="pie"
+						chartheight="540"
+						showlabel="No"
+						showvalue="No"
+						chartwidth="620">
+								
+						<cf_uichartseries type="bar"
 						    query="#SummaryCategory#" 
 							itemcolumn="FieldRowName" 
 							valuecolumn="Amount" 
-							colorlist="#vColorList#"/>
+							colorlist="##E87E04"/>
+							
 				  	</cf_uichart>
+					
+					<!---
+					 <cfchart style = "#chartStyleFile#"
+						   format="jpg"
+						   chartheight="380"
+						   chartwidth="930"						   					   
+						   show3d="No"
+						   fontsize="12"
+						   scaleFrom = "0"
+						   showlegend="no"
+						   showxgridlines="yes"
+						   sortxaxis="yes">
+
+						   <cfchartseries
+							 type="hbar"
+							 query="SummaryCategory"
+							 itemcolumn="FieldRowName"
+							 valuecolumn="Amount"
+							 datalabelstyle="columnlabel"
+							 colorlist="##81CFE0"
+							 seriescolor = "##E87E04"/>
+							 
+							 
+							
+					</cfchart>
+					
+					--->
 					
 					</td>
 					
@@ -367,7 +401,7 @@
 			</cfquery>	
 		
 		<cfelse>
-		
+				
 			<cfquery name="getList" dbtype="query">
 		        SELECT     ItemCategory       as FieldRow, 
 				           Description        as FieldRowName, 
@@ -382,6 +416,7 @@
 				           Description, 	
 						   EventYear,					    
 						   TransactionMonth   
+				ORDER BY Amount DESC		   
 			</cfquery>	
 		
 		</cfif>
@@ -450,7 +485,7 @@
 			<cfquery name="list" dbtype="query">
 			 	 SELECT   DISTINCT EventYear,FieldRow, FieldRowName
 				 FROM     getList
-				 ORDER BY FieldRowName,EventYear
+				 ORDER BY Amount DESC
 			 </cfquery>
 			 
 			 <cfset prior = "">
@@ -507,7 +542,7 @@
 							WHERE      FieldRow     = '#FieldRow#'													  								
 							AND        EventYear    = '#EventYear#'
 							<!--- 	-- AND        ActionStatus < '3' --->										       
-							GROUP BY   EventMonth
+							GROUP BY   EventMonth							
 					  </cfquery>	
 					  					
 					  <cfset arPending=arraynew(1)> 					

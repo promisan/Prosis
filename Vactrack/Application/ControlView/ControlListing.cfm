@@ -139,7 +139,7 @@
 <tr>
 	<td colspan="2" valign="top" id="dDetails" style="height:100%">		
 		<cfif url.mode neq "Portal">	
-	    <cf_divscroll>
+	    <cf_divscroll>		
 		<cfinclude template = "ControlListingResult.cfm">		
 		</cf_divscroll>
 		<cfelse>

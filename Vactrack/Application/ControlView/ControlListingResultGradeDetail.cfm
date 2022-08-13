@@ -1,5 +1,7 @@
 
-<table width="100%" border="0" cellpadding="0" align="center">
+<!--- pending : Hanno
+
+<table width="100%" align="center">
   			
 	<cfif URL.EntityCode eq "VacDocument">
 		
@@ -28,7 +30,7 @@
 			   					   
 			   <cf_tabletop size="100%" omit="true">
 			   				   				 
-				   <table width="100%" border="0" cellpadding="0" align="center">
+				   <table width="100%" align="center">
 				  
 				   <cfoutput>
 				   <tr bgcolor="#cl#" valign="top">
@@ -168,3 +170,4 @@
 				
 </table>
 
+--->

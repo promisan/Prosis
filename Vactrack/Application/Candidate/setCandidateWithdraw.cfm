@@ -6,11 +6,21 @@
 
 <cftransaction action="BEGIN">
 
-<cfquery name="Status" 
- datasource="AppsVacancy" 
+<cfquery name="Doc" 
+ datasource="AppsOrganization" 
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
-	 UPDATE DocumentCandidate
+	 SELECT *
+	 FROM   Vacancy.dbo.DocumentCandidate	
+	 WHERE  DocumentNo             = '#URL.ID#' 
+	 AND    PersonNo               = '#URL.ID1#'
+</cfquery>
+
+<cfquery name="Status" 
+ datasource="AppsOrganization" 
+ username="#SESSION.login#" 
+ password="#SESSION.dbpw#">
+	 UPDATE Vacancy.dbo.DocumentCandidate
 	 SET    Status = '9',
 	        StatusDate             = getDate(),
 			StatusOfficerUserId    = '#SESSION.acc#',
@@ -20,29 +30,39 @@
 	 AND    PersonNo               = '#URL.ID1#'
 </cfquery>
 
+ <cf_ActionListing 
+    EntityCode       = "VacCandidate"		
+	EntityClass      = "#Doc.EntityClass#"			
+	EntityGroup      = ""
+	EntityStatus     = ""					
+    ObjectKey1       = "#URL.ID#"		
+	ObjectKey2       = "#URL.ID1#"		
+	Show             = "No"				
+	CompleteCurrent  = "Yes">	 
+
 <cfquery name="Check1" 
- datasource="AppsVacancy" 
+ datasource="AppsOrganization" 
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
 	 SELECT count(*) as Candidates
-	 FROM   DocumentCandidate
+	 FROM   Vacancy.dbo.DocumentCandidate
 	 WHERE  DocumentNo  = '#URL.ID#' 
 	 AND    Status = '2s'
 </cfquery>
 
 <cfquery name="Check2" 
- datasource="AppsVacancy" 
+ datasource="AppsOrganization" 
  username="#SESSION.login#" 
  password="#SESSION.dbpw#">
 	 SELECT COUNT(*) as Posts
-	 FROM   DocumentPost
+	 FROM   Vacancy.dbo.DocumentPost
 	 WHERE  DocumentNo  = '#URL.ID#' 
 </cfquery>
 
 <cfif Check1.Candidates lt Check2.Posts>
 
 	<cfquery name="LastStep" 
-	 datasource="AppsVacancy" 
+	 datasource="AppsOrganization" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 		 SELECT TOP 1 O.ObjectId, max(ActionFlowOrder) as ActionFlowOrder
@@ -56,7 +76,7 @@
 	</cfquery>
 	
 	<cfquery name="Update" 
-	 datasource="AppsVacancy" 
+	 datasource="AppsOrganization" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
 		 UPDATE Organization.dbo.OrganizationObjectAction
@@ -67,10 +87,10 @@
 	</cfquery>
 	
 	<cfquery name="Update" 
-	 datasource="AppsVacancy" 
+	 datasource="AppsOrganization" 
 	 username="#SESSION.login#" 
 	 password="#SESSION.dbpw#">
-		 UPDATE Document
+		 UPDATE Vacancy.dbo.Document
 		 SET    Status                 = '0',
 		        StatusDate             = getDate(),
 				StatusOfficerUserId    = '#SESSION.acc#',
@@ -82,7 +102,6 @@
 </cfif>
 
 </cftransaction>
-
 
 <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
 <cfset mid = oSecurity.gethash()/>   

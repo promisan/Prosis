@@ -2,10 +2,22 @@
 <!--- shows the information for the date as to how many are pending for that date --->
 <!--- capture the selected warehouse --->
 
-<cf_screentop jquery="yes" html="No">
+  <cf_screentop jquery="yes" html="No">
 
-<cf_calendarscript>
-<cf_calendarviewscript>
+  <cf_calendarscript>
+  <cf_calendarviewscript>
+
+  <cfoutput>
+
+   <script>
+	
+	   function showdocument(vacno) {	
+		  ptoken.open('#session.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=' + vacno, 'track'+vacno);
+		}
+					
+	</script>
+	
+  </cfoutput>	
 
   <cfquery name="get" 
 	datasource="AppsOrganization" 
@@ -16,7 +28,7 @@
 	  WHERE  Mission = '#url.mission#'
   </cfquery>	  
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 			  
 	<tr><td valign="top" style="padding-left:10px;padding-right:10px">		
 	

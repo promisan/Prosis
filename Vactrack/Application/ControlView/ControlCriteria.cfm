@@ -1,4 +1,5 @@
 <!--- pending : limit on select mission, status document --->
+
  
 <cfinclude template="ControlGetTrack.cfm">
 
@@ -6,12 +7,38 @@
 
 <cfoutput>
 
+ 
+
 <cfform name="fCriteria" id="fCriteria" method="POST" onsubmit = "return false">
 
-<table width="95%" class="formpadding" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="95%" class="formpadding" align="center">
 
 	<cfif URL.Status eq "0" or URL.Status eq "9">
 	<tr>
+	
+		<td style="height:30" class="labelmedium"><cf_tl id="Track type">:</td>
+		<td>
+		
+		 <cfquery name="DocTpe" 
+						datasource="AppsVacancy" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">	
+					    SELECT   *
+						FROM     Ref_DocumentType
+						ORDER BY ListingOrder						
+	                  </cfquery>		
+							
+				<select name="DocumentType" required="Yes" class="regularxl">
+				    <option value=""><cf_tl id="All"></option>
+				    <cfloop query="DocTpe">
+						<option value="#Code#">#Description#</option>
+					</cfloop>
+			    </select>	
+				
+		</td>			
+		
+		<td>&nbsp;</td>
+		
 		<td style="height:30" class="labelmedium"><cf_tl id="Workflow">:</td>
 		<td>
 		
@@ -23,10 +50,10 @@
 				FROM    Ref_Entity E 
 						INNER JOIN Ref_EntityClass C ON E.EntityCode = C.EntityCode
 						INNER JOIN Ref_EntityClassOwner RCO ON RCO.EntityCode = E.EntityCode 
-						INNER JOIN (#preservesingleQuotes(SelectTracks)#) as T ON T.EntityCode = E.EntityCode
-						
+												
 				AND 	RCO.EntityClass = C.EntityClass 
-				WHERE 	E.EntityCode IN ('VacDocument','VacCandidate')		  
+				WHERE 	E.EntityCode IN ('VacDocument','VacCandidate')		
+					  
 				AND 	( RCO.EntityClassOwner IS NULL 
 				      		OR
 				      	  RCO.EntityClassOwner IN (
@@ -36,6 +63,8 @@
     					)
 				)
 			</cfquery>
+			
+		
 
 			<select name = "EntityCode" class="regularxl" 
 			    onchange = "do_restrict(this.options[this.selectedIndex].value)">
@@ -50,29 +79,7 @@
 			</select>
 
 		</td>
-		<td>&nbsp;</td>
-		<td class="labelmedium"><cf_tl id="Class"></td>
-		<td>
-				
-		<cfquery name="GetClass" 
-		   datasource = "AppsOrganization" 
-		   username="#SESSION.login#" 
-		   password="#SESSION.dbpw#">		
-				SELECT DISTINCT C.EntityClass,
-					   C.EntityClassName
-				FROM   Ref_Entity E
-				       INNER JOIN Ref_EntityClass C ON E.EntityCode = C.EntityCode					  
-					   INNER JOIN (#preservesingleQuotes(SelectTracks)#) as T ON T.EntityCode = E.EntityCode AND T.EntityClass = C.EntityClass				
-		</cfquery>
-
-		<select name = "EntityClass" class="regularxl">
-			<option value=""><cf_tl id="Any"></option>		
-		<cfloop query = "GetClass">
-			<option value="#GetClass.EntityClass#">#GetClass.EntityClassName#</option>		
-		</cfloop>
-		</select>
-		</td>
-
+        
 		
 	</tr>		
 
@@ -101,7 +108,9 @@
 									  )		
 		</cfquery>
 		
-		<select name = "Fund" class="regularxl">
+	
+		
+		<select name = "Fund" class="regularxxl">
 			<option value = ""><cf_tl id="Any"></option>		
 			<cfloop query = "GetFund">
 				<option value = "#Fund#">#Fund#</option>
@@ -110,6 +119,31 @@
 		
 		</td>
 		<td width="2%"></td>
+		
+		<td class="labelmedium"><cf_tl id="Class"></td>
+		<td>
+				
+		<cfquery name="GetClass" 
+		   datasource = "AppsOrganization" 
+		   username="#SESSION.login#" 
+		   password="#SESSION.dbpw#">		
+				SELECT C.EntityClass,
+					   C.EntityClassName
+				FROM   Ref_Entity E
+				       INNER JOIN Ref_EntityClass C ON E.EntityCode = C.EntityCode	
+				WHERE  C.EntityClass IN (SELECT EntityClass FROM (#preservesingleQuotes(SelectTracks)#) as D)	   					  
+		</cfquery>
+		
+	
+		<select name = "EntityClass" class="regularxxl">
+			<option value=""><cf_tl id="Any"></option>		
+		<cfloop query = "GetClass">
+			<option value="#GetClass.EntityClass#">#GetClass.EntityClassName#</option>		
+		</cfloop>
+		</select>
+		</td>
+		
+			
 	
 	</tr>
 	
@@ -128,7 +162,7 @@
 			</cfif>
 		</cfquery>
 
-		<select name = "FunctionNo" class="regularxl">
+		<select name = "FunctionNo" class="regularxxl">
 			<option value  = ""><cf_tl id="Any"></option>		
 			<cfloop query = "GetFunction">
 				<option value = "#GetFunction.FunctionNo#">#GetFunction.FunctionDescription#</option>
@@ -158,7 +192,7 @@
 				ORDER BY P.PostOrderBudget	
 		</cfquery>		
 
-		<select name= "PostGrade" class="regularxl">
+		<select name= "PostGrade" class="regularxxl">
 			<option value  = ""></option>		
 			<cfloop query = "GetGrade">
 				<option value = "#GetGrade.PostGrade#">#GetGrade.PostGrade#</option>
@@ -174,14 +208,14 @@
 	<tr>
 		<td style="height:30" class="labelmedium"><cf_tl id="Position No">:</td>
 		<td>
-		<input type="text" name="PositionNo" size="10" maxlength="10" class="regularxl">
+		<input type="text" name="PositionNo" size="10" maxlength="10" class="regularxxl">
 		</td>
 		<td>&nbsp;</td>
 		<td class="labelmedium">
 		<cf_tl id="Reference">:
 		</td>
 		<td>
-		<input type="text" name="ReferenceNo" size="10" maxlength="10" class="regularxl">
+		<input type="text" name="ReferenceNo" size="10" maxlength="10" class="regularxxl">
 		</td>					
 	</tr>
 
@@ -195,7 +229,7 @@
 			<cf_intelliCalendarDate9
 				FieldName="DateEffective" 
 				Manual="True"	
-				class="regularxl"				
+				class="regularxxl"				
 				Default=""
 				AllowBlank="True">	
 
@@ -207,7 +241,7 @@
 			<cf_intelliCalendarDate9
 				FieldName="DateExpiration" 
 				Manual="True"	
-				class="regularxl"				
+				class="regularxxl"				
 				Default=""
 				AllowBlank="True">	
 		</td>	

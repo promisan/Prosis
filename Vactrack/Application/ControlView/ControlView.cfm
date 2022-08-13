@@ -5,17 +5,12 @@
 
 <cf_layoutscript>
 
-<cfajaximport tags="cfform,cftree">
+<cfajaximport tags="cfform">
 <cf_calendarscript>
+<cf_listingscript>
 
 <cfset CLIENT.FileNo = round(rand()*20) >
-
-<cf_wfPending entityCode="VacDocument"
-      entityCode2="VacCandidate" 
-	  mailfields="No" 
-	  includeCompleted="No" 
-	  table="#SESSION.acc#Doc3_#CLIENT.FileNo#">
-
+	 
 <cfoutput>
 	
 <cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	
@@ -52,5 +47,10 @@
 </cf_layout>	
 
 </cfoutput>
+
+<!--- this data was needed for some queries in the tree but I decided not to use this naymore --->
+
+
+	  
 
 

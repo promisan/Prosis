@@ -5,19 +5,18 @@
 
 <cfoutput>
 
-<table width="98%" border="0">
+<table width="100%" border="0">
 
 	<tr class="line"><td colspan="3">
 		    <table width="100%">		
-			<tr class="labelmedium2">
-		    <td style="font-size:29px;padding-left:20px" align="left"><b>#count.total#</b> Tracks at <b>#Sum.Total#</b> different stages </td>
-			
-			<cfif url.mode neq "Portal" and url.mode neq "Print">
-			<td align="right" style="padding-right:2px"><a href="javascript:printme()">Printable Version</a></td>		
-			<cfelseif url.mode eq "Print">
-			<td align="right" style="padding-right:2px"><a href="javascript:window.print()">[Print]</a></td>				
-			</cfif>
-			</tr>
+				<tr class="labelmedium2">
+			    <td style="font-size:29px;padding-left:20px" align="left"><b>#count.total#</b> Tracks at <b>#Sum.Total#</b> different stages </td>			
+				<cfif url.mode neq "Portal" and url.mode neq "Print">
+				<td align="right" style="padding-right:2px"><a href="javascript:printme()">Printable Version</a></td>		
+				<cfelseif url.mode eq "Print">
+				<td align="right" style="padding-right:2px"><a href="javascript:window.print()">[Print]</a></td>				
+				</cfif>
+				</tr>
 			</table>
 	    </td>
 	</tr>
@@ -26,8 +25,7 @@
 		<cfset format = "PNG">
 	<cfelse>
 		<cfset format = "PNG">
-	</cfif>
-	
+	</cfif>	
 	
 	<cfif Summary.recordcount gte 1>
 	
@@ -36,10 +34,46 @@
 			<cfif Sum.Total gt 0>
 							
 			<td align="center" valign="bottom">
+						
+			<cfset vColorlist = "##D24D57,##52B3D9,##E08283,##E87E04,##81CFE0,##2ABB9B,##5C97BF,##9B59B6,##E08283,##663399,##4DAF7C,##87D37C">
+								
+					<cfif (URL.Status neq "1" and URL.Parent eq "All")>
+					
+						<cf_uichart name="graph1"
+							chartheight="480"
+							chartwidth="697">
 										
-			<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
+					      <cf_uichartseries type="pie" 
+						      query="#Summary#" 
+							  itemcolumn="Description" 
+							  valuecolumn="Counted" 
+							  colorlist="#vColorList#"/>
+							  
+							  </cf_uichart>
+					
+					<cfelse>
+					
+						<cf_uichart name="graph1"
+							chartheight="380"
+							chartwidth="597">
+										
+					      <cf_uichartseries type="bar" 
+						       query="#Summary#" 
+							   itemcolumn="PostGradeBudget" 
+							   valuecolumn="Counted" colorlist="##E08283"/>		
+							   
+						 </cf_uichart>	   			
+					
+					</cfif>
+										
+		  	
 			
-			<cfchart style = "#chartStyleFile#" format="#format#" 
+			
+			<!---
+			
+			    <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
+			
+			    <cfchart style = "#chartStyleFile#" format="#format#" 
 			         chartheight="340" 
 					 chartwidth="770" 
 					 scalefrom="0"
@@ -90,17 +124,60 @@
 					
 					</cfif>				
 					
-			</cfchart>
+				</cfchart>
+			
+			--->
 	
 			</td>
 						
 			<!--- ----------- --->
 			<!--- aging graph --->
-			<!--- ----------- --->
+			<!--- ----------- --->	
 			
-			<cfif URL.Mode neq "Portal" and URL.Mode neq "Dashboard"> 
 			
 				<td align="center"  valign="bottom">
+				
+				<table>
+				
+				<cfparam name="form.documenttype" default="">
+				
+				<cfif form.documenttype eq "">
+				<tr>				
+				<td>
+				
+				<cfset vColorlist = "##9B59B6,##E08283,##663399,##4DAF7C,##87D37C">
+				
+				<cf_uichart name="graph3"
+					chartheight="270"
+					chartwidth="430">			
+					
+					<cf_uichartseries type="pie" query="#DocumentType#" itemcolumn="TypeDescription" valuecolumn="Counted" colorlist="#vColorList#"/>
+														
+      		  	</cf_uichart>
+				
+				</td>
+				
+				</tr>
+				
+				</cfif>
+				
+				<tr><td>
+				
+				<cfset vColorlist = "##9B59B6,##E08283,##663399,##4DAF7C,##87D37C">
+				
+				<cf_uichart name="graph2"
+					chartheight="270"
+					chartwidth="430">			
+					
+					<cf_uichartseries type="pie" query="#Aging#" itemcolumn="Description" valuecolumn="Counted" colorlist="#vColorList#"/>
+														
+      		  	</cf_uichart>
+				
+				</td>
+				</tr>
+				</table>
+				
+				<!---
 											
 					<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 					
@@ -150,11 +227,11 @@
 						</cfif>	
 						
 					</cfchart>
+					
+					--->
 															
 				</td>
-									
-			</cfif>
-			
+							
 			<cfelse>
 			
 				<td colspan="3" class="labelmedium" align="center" height="400">		

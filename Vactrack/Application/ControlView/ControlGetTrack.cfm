@@ -1,13 +1,38 @@
 
+
+
+<cfquery name="Mission"
+	datasource="AppsOrganization"
+	username="#SESSION.login#"
+	password="#SESSION.dbpw#">
+	SELECT *
+	FROM   Ref_Mission
+	WHERE  Mission = '#url.mission#'
+</cfquery>
+
+<cf_wfPending 
+	     EntityCode           = "VacDocument" 
+		 EntityCodeIgnoreLast = "0"	
+		 entityCode2          = "VacCandidate" 
+		 mailfields           = "No" 
+		 includeCompleted     = "No" 	 
+		 Mission              = "#url.mission#"
+		 Mode                 = "table"
+		 table                = "#session.acc#_#mission.missionprefix#_VacancyTrack">		
+
+<!---			
+
 <cf_wfPending 
      EntityCode           = "VacDocument" 
-	 EntityCodeIgnoreLast = "1"	
+	 EntityCodeIgnoreLast = "0"	
 	 entityCode2          = "VacCandidate" 
 	 mailfields           = "No" 
 	 includeCompleted     = "No" 	 
 	 Mission              = "#url.mission#"
 	 Mode                 = "subquery">
-	 	 
+	 
+	 --->
+
 <!--- this will return the active step of the workflow, however the workflow is
 likely to be split over 2 entities as each workflow has one or more
 selected candidates which each have a track potentially assigned --->
@@ -16,10 +41,8 @@ selected candidates which each have a track potentially assigned --->
 
 <!--- 14/3/2014
   added a provision to cleanse wf flow tracks that do not relate to a record in the database anymore --->
-			
-<cfsavecontent variable="SelectTracks">
-
-	<!--- this can have several units accross mandates --->
+  
+<!--- this can have several units accross mandates --->
 	<cfquery name="getmandate"
 		datasource="AppsOrganization"
 		username="#SESSION.login#"
@@ -29,8 +52,10 @@ selected candidates which each have a track potentially assigned --->
 		WHERE    Mission = '#url.mission#'
 		AND      OrgUnitCode = '#url.hierarchyRootUnit#'
 	</cfquery>	
-		
-	<cfoutput>
+			
+<cfsavecontent variable="SelectTracks">
+	
+	<cfoutput>	
 
     <!--- ---------------------------------------------------------------------- --->
 	<!--- we get the tracks with the current status, if a track a one or more
@@ -39,6 +64,10 @@ selected candidates which each have a track potentially assigned --->
 	<!--- ---------------------------------------------------------------------- --->
 
 	SELECT   D.*, T.*,
+	
+	         (SELECT Description 
+			  FROM   Vacancy.dbo.Ref_DocumentType
+			  WHERE  Code = D.DocumentType)  as TypeDescription,
 	
 			 (SELECT ActionDescription 
 			  FROM   Organization.dbo.Ref_EntityActionPublish EA, 
@@ -56,7 +85,7 @@ selected candidates which each have a track potentially assigned --->
 		
 	FROM     Vacancy.dbo.Document D 
 	         <!--- if the track does not have a workflow it will render the tracks here as outer join --->
-	         INNER JOIN (#preserveSingleQuotes(WorkFlowSteps)#) as T ON D.DocumentNo = T.ObjectKeyValue1
+	         INNER JOIN userQuery.dbo.#session.acc#_#mission.missionprefix#_VacancyTrack as T ON D.DocumentNo = T.ObjectKeyValue1
 			
 	WHERE    D.Mission = '#URL.Mission#'							  	
 	 
@@ -70,7 +99,7 @@ selected candidates which each have a track potentially assigned --->
 													   
 													   <!--- filter by parent org unit --->	
 													   
-													   <cfif URL.HierarchyRootUnit neq "">
+													   <cfif url.HierarchyCode neq "">
 														
 															AND P.OrgUnitOperational IN (
 																														        																	
@@ -79,7 +108,7 @@ selected candidates which each have a track potentially assigned --->
 																	WHERE    Mission           = '#url.Mission#'
 																	<cfloop query="getMandate">
 																	AND      MandateNo         = '#MandateNo#'
-																	AND      HierarchyCode LIKE '#HierarchyCode#%'
+																	AND      HierarchyCode LIKE '#url.HierarchyCode#%'																	
 																	<cfif currentrow neq recordcount>
 																	UNION
 																	</cfif>
@@ -105,8 +134,14 @@ selected candidates which each have a track potentially assigned --->
 	 AND     T.ParentCode = '#URL.Parent#'
 	 </cfif> 
 	 
+	 
 	 </cfoutput>
-		
+	 		
 </cfsavecontent>
+
+
+	 	 
+
+
 
 

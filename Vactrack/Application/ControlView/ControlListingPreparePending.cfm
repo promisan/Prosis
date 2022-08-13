@@ -77,7 +77,17 @@
 		GROUP BY  EntityCode, Code, Description, ListingOrder 				  
 		
 		ORDER BY  ListingOrder 
-		
+				
+	</cfquery>		
+	
+	<cfquery name="DocumentType"
+	datasource="AppsQuery"
+	username="#SESSION.login#"
+	password="#SESSION.dbpw#">
+	    SELECT   TypeDescription,	        
+			     count(DISTINCT DocumentNo) as Counted   	   
+	    FROM     (#preservesingleQuotes(SelectedTracks)#) T     						  
+		GROUP BY TypeDescription					
 	</cfquery>	
 	
 	<!--- ---------------------- --->	
@@ -110,7 +120,6 @@
 	 <cfsavecontent variable="SelectedTracks">
   
      	<cfoutput>	
-	
 		SELECT   T.*, 			
 				 P.PostGradeBudget, 
 				 P.PostOrderBudget	
@@ -123,95 +132,7 @@
 				
 		</cfoutput>
 		
-	 </cfsavecontent>	
-		
-		<!---
-	
-		SELECT  T.*, '' as PersonNo, P.PostGradeBudget, P.PostOrderBudget 
-		INTO    dbo.#SESSION.acc#Doc3b_#CLIENT.FileNo#
-		FROM    dbo.#SESSION.acc#Doc3a_#CLIENT.FileNo# T,
-				Employee.dbo.Ref_PostGrade P, 
-				Employee.dbo.Ref_PostGradeParentMission PM
-		WHERE   T.EntityCode = 'VacDocument'
-		<!--- AND     P.PostGradeVactrack = '1'  --->
-		AND     T.PostGrade = P.PostGrade
-		AND     P.PostGradeParent = PM.PostGradeParent
-		AND     PM.Mission = T.Mission		
-		<cfif vCondition neq "">
-			#PreserveSingleQuotes(vCondition)#
-		</cfif>				
-		UNION ALL
-		SELECT  T.*, C.PersonNo, P.PostGradeBudget, P.PostOrderBudget 
-		FROM    dbo.#SESSION.acc#Doc3a_#CLIENT.FileNo# T, 
-		        Vacancy.dbo.DocumentCandidate C,
-				Employee.dbo.Ref_PostGrade P, 
-				Employee.dbo.Ref_PostGradeParentMission PM
-		WHERE   EntityCode = 'VacCandidate'
-		AND     ObjectKeyValue1 = C.DocumentNo
-		AND     ObjectKeyValue2 = C.PersonNo
-		<!--- AND     P.PostGradeVactrack = '1'  --->
-		AND     C.Status = '2s'
-		AND     T.PostGrade = P.PostGrade
-		AND     P.PostGradeParent = PM.PostGradeParent
-		AND     PM.Mission = '#URL.Mission#'	
-		<cfif vCondition neq "">
-			#PreserveSingleQuotes(vCondition)#
-		</cfif>				
-		ORDER BY P.PostOrderBudget
-		
-		--->
-			
-	<!---
-	
-	<cfquery name="check"
-		datasource="AppsQuery"
-		username="#SESSION.login#"
-		password="#SESSION.dbpw#">
-		SELECT * FROM dbo.#SESSION.acc#Doc3b_#CLIENT.FileNo#
-	</cfquery>	
-	
-	<cfif check.recordcount eq "0">
-	
-		<cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#Doc3b_#CLIENT.FileNo#">		
-	
-		<cfquery name="step3b"
-		datasource="AppsQuery"
-		username="#SESSION.login#"
-		password="#SESSION.dbpw#">
-		
-			SELECT  T.*, '' as PersonNo, P.PostGradeBudget, P.PostOrderBudget 
-			INTO    dbo.#SESSION.acc#Doc3b_#CLIENT.FileNo#
-			FROM    dbo.#SESSION.acc#Doc3a_#CLIENT.FileNo# T,
-					Employee.dbo.Ref_PostGrade P
-			WHERE   T.EntityCode = 'VacDocument'
-			<!--- AND     P.PostGradeVactrack = '1'  --->
-			AND     T.PostGrade = P.PostGrade		
-			<cfif vCondition neq "">
-				#PreserveSingleQuotes(vCondition)#
-			</cfif>		
-					
-			UNION ALL
-			
-			SELECT  T.*, C.PersonNo, P.PostGradeBudget, P.PostOrderBudget 
-			FROM    dbo.#SESSION.acc#Doc3a_#CLIENT.FileNo# T, 
-			        Vacancy.dbo.DocumentCandidate C,
-					Employee.dbo.Ref_PostGrade P
-			WHERE   EntityCode = 'VacCandidate'
-			AND     ObjectKeyValue1 = C.DocumentNo
-			AND     ObjectKeyValue2 = C.PersonNo
-			<!--- AND     P.PostGradeVactrack = '1'  --->
-			AND     C.Status = '2s'
-			AND     T.PostGrade = P.PostGrade		
-			<cfif vCondition neq "">
-				#PreserveSingleQuotes(vCondition)#
-			</cfif>				
-			ORDER BY P.PostOrderBudget
-						
-		</cfquery>		
-	
-	</cfif>
-	
-	--->
+	 </cfsavecontent>			
 	
 	<!--- summary by grade --->
 	
@@ -240,33 +161,40 @@
 		SELECT     SUM(counted) as Total
 		FROM       Summary
 	</cfquery>
-		
-		
+	
+	<cfquery name="DocumentType"
+	datasource="AppsQuery"
+	username="#SESSION.login#"
+	password="#SESSION.dbpw#">
+	    SELECT   TypeDescription,	        
+			     count(DISTINCT DocumentNo) as Counted   	   
+	    FROM     (#preservesingleQuotes(SelectedTracks)#) T     						  
+		GROUP BY TypeDescription					
+	</cfquery>	
+				
 </cfif>
 
-<cfif URL.Mode neq "Portal" and URL.Mode neq "Dashboard"> 
-
-	<cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#Subset_#CLIENT.FileNo#">
+<cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#Subset_#CLIENT.FileNo#">
 	
-	<cfquery name="subset"
+<cfquery name="subset"
 	datasource="AppsVacancy"
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
 		SELECT  *		
 		INTO UserQuery.dbo.#SESSION.acc#Subset_#CLIENT.FileNo#
 		FROM    (#preservesingleQuotes(SelectedTracks)#) as T	
-	</cfquery>	
+</cfquery>	
 	
-	<cfquery name="aging"
+<cfquery name="aging"
 	datasource="AppsVacancy"
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
 		SELECT   *
 		FROM     stAging
 		ORDER BY ListingOrder
-	</cfquery>
+</cfquery>
 	
-	<cfquery name="Aging"
+<cfquery name="Aging"
 		datasource="AppsQuery"
 		username="#SESSION.login#"
 		password="#SESSION.dbpw#">
@@ -287,9 +215,8 @@
 			  
 		ORDER BY ListingOrder	
 				
-	</cfquery>	
-				
-</cfif>	
+</cfquery>	
+		
 
 <!--- ------------------------ --->	
 <!--- detail views for vacancy --->
@@ -302,12 +229,13 @@
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
 	SELECT    D.*, 
+       	      T.TypeDescription,
 	          T.ParentCode,
 			  T.EntityClassName ,
  			  T.ActionCode,
  			  T.ActionDescription,
-			  F.ReferenceNo as VAReferenceNo,
-			  
+			  F.ReferenceNo as VAReferenceNo,			  
+			 
 			  (SELECT O.OrgUnitNameShort
 			  FROM   Organization.dbo.Organization O, Employee.dbo.Position P
 			  WHERE  P.OrgUnitOperational = O.OrgUnit
@@ -336,6 +264,7 @@
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
 	SELECT    V.*, 
+	          V.TypeDescription,
 	          A.IndexNo, 
 			  A.PersonNo, 
 			  A.LastName, 
@@ -359,8 +288,7 @@
 	<cfoutput>
 	DC : #cfquery.executiontime#		
 	</cfoutput>
-	--->
-	
+	--->	
 	
 <cfelse>
 
@@ -371,6 +299,7 @@
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
 	SELECT    D.*, 
+	          T.TypeDescription,
 	          T.EntityClassName, 
 			  T.ActionCode,
 			  T.PostGradeBudget, 
@@ -397,6 +326,7 @@
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
 	SELECT    DISTINCT V.*, 
+	          T.TypeDescription,
 	          A.IndexNo, 
 			  A.PersonNo, 
 			  A.LastName, 
@@ -417,82 +347,9 @@
 	          Vacancy.dbo.Document V ON D.DocumentNo = V.DocumentNo         INNER JOIN 
 	          (#preservesingleQuotes(SelectedTracks)#) as T  ON T.DocumentNo = V.DocumentNo INNER JOIN
 	          Applicant.dbo.Applicant A ON A.PersonNo = D.PersonNo LEFT OUTER JOIN
-			  Applicant.dbo.FunctionOrganization F ON V.FunctionId = F.FunctionId
+			  Applicant.dbo.FunctionOrganization F ON V.FunctionId = F.FunctionId	
 	
-	
-	</cfquery>
-
-	<!--- detail table 
-	
-	<cftry>
-
-	<cfquery name="details1"
-	datasource="AppsQuery"
-	username="#SESSION.login#"
-	password="#SESSION.dbpw#">
-	SELECT    D.*, 
-			  T.EntityClassName, 
-			  T.ActionCode, 
-			  T.ActionDescription,
-			  T.PostGradeBudget, 
-			  T.PostOrderBudget, 
-			  F.ReferenceNo as VAReferenceNo,
-			  
-			  (SELECT O.OrgUnitNameShort
-			  FROM   Organization.dbo.Organization O, Employee.dbo.Position P
-			  WHERE  P.OrgUnitOperational = O.OrgUnit
-			  AND    P.PositionNo = D.PositionNo) as OrgUnitNameShort 
-			  
-	INTO      dbo.#SESSION.acc#Doc41
-	FROM      Vacancy.dbo.Document D INNER JOIN 
-	          dbo.#SESSION.acc#Doc3b_#CLIENT.FileNo# T ON D.DocumentNo = T.DocumentNo LEFT OUTER JOIN 
-			  Applicant.dbo.FunctionOrganization F ON D.FunctionId = F.FunctionId
-	WHERE 1=1
-		 <cfif vCondition2 neq "">
-			#PreserveSingleQuotes(vCondition2)# 
-		 </cfif>
-					
 	</cfquery>	
-		
-	<!--- details candidate --->
-	
-	<cfquery name="details2"
-	datasource="AppsQuery"
-	username="#SESSION.login#"
-	password="#SESSION.dbpw#">
-	SELECT    V.*, 
-			  A.IndexNo, 
-			  A.PersonNo, 
-			  A.LastName, 
-			  A.FirstName, 
-			  A.Gender, 
-			  A.Nationality, 
-			  T.PostGradeBudget, 
-			  T.PostOrderBudget, 
-			  T.EntityClassName,
-			  F.ReferenceNo as VAReferenceNo,
-			  
-			  (SELECT O.OrgUnitNameShort
-			  FROM   Organization.dbo.Organization O, Employee.dbo.Position P
-			  WHERE  P.OrgUnitOperational = O.OrgUnit
-			  AND    P.PositionNo = V.PositionNo) as OrgUnitNameShort 
-			  
-	INTO      dbo.#SESSION.acc#Doc42
-	FROM      Vacancy.dbo.DocumentCandidate D INNER JOIN 
-	          Vacancy.dbo.Document V ON D.DocumentNo = V.DocumentNo INNER JOIN
-	          dbo.#SESSION.acc#Doc3b_#CLIENT.FileNo# T  ON D.DocumentNo = T.ObjectKeyValue1 AND D.PersonNo   = T.ObjectKeyValue2   INNER JOIN 
-	          Applicant.dbo.Applicant A  ON D.PersonNo = A.PersonNo   LEFT OUTER JOIN
-			  Applicant.dbo.FunctionOrganization F ON V.FunctionId = F.FunctionId
-	WHERE     D.Status = '2s' <!--- selected --->
-	</cfquery>	
-	
-	<cfcatch>	
-	
-	<cfabort></cfcatch>
-	
-	</cftry>
-	
-	--->
 		
 </cfif>
 

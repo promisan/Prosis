@@ -28,7 +28,7 @@
 	
 			   <tr bgcolor="#cl#" class="navigation_row line fixlengthlist labelmedium cls#URL.Mission##row#" style="height:20px; display:none;">
 			      <td style="padding-left:24px">#CurrentRow#</td> 
-				  <td>#EntityClass#</td>
+				  <td>#TypeDescription#</td>
 				 
 			      <td><a href="javascript:showdocument('#DocumentNo#','')">#DocumentNo#</a> </td>	
 				  <td>#dateformat(duedate,client.dateformatshow)#</td>		  

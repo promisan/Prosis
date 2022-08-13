@@ -3,8 +3,11 @@
 <cfparam name="Attributes.TitlePosition"  default="Bottom">
 <cfparam name="Attributes.chartheight"    default="">
 <cfparam name="Attributes.chartwidth"    default="">
+<cfparam name="Attributes.showlabel"     default="yes">
 <cfparam name="Attributes.showvalue"     default="No">
 <cfparam name="Attributes.transitions"   default="false">
+<cfparam name="Attributes.url"           default="">
+
 
 <cfif thisTag.executionmode is 'start'>
     <cfoutput>
@@ -36,12 +39,17 @@
                     },
                 seriesDefaults: {
                     labels: {
-                        visible: true,
-                        background: "transparent",
-                        <cfif Attributes.showvalue eq "Yes">
-                            template: "##= category ##: \n ##= kendo.format('{0:n0}',value)##"
-                        <cfelse>
+                        <cfif Attributes.showlabel eq "Yes">
+                            visible: true,
+                            background: "transparent",
                             template: "##= category ##"
+                        <cfelse>
+                            <cfif Attributes.showvalue eq "Yes">
+                                template: "##= kendo.format('{0:n0}',value)##"
+                            <cfelse>
+                                visible: false,
+                                background: "transparent"
+                            </cfif>
                         </cfif>
                     }
                 },
@@ -52,10 +60,12 @@
                         </cfloop>
                     </cfloop>
                 ],
+
                 series:[
                 <cfloop array="#Session.chartSeries#" index="itm">
                     {
                         type: "#itm.type#",
+                        categoryField: "category",
                         data:[
                             <cfloop query="itm.query">
                                 <cfset vCategoryField = Evaluate("#itm.categoryField#")>
@@ -82,6 +92,13 @@
                     e.sender.options.transitions = false;
 
                     e.dataItem.explode = true;
+
+                    <cfif Attributes.url neq "">
+                        <cfset vUrl = replace(Attributes.url,"javascript:","")>
+                        <cfset vUrl = replace(vUrl,"$ITEMLABEL$","e.dataItem.category")>
+                        #PreserveSingleQuotes(vUrl)#
+                    </cfif>
+
                     e.sender.refresh();
                 }
 
@@ -93,6 +110,7 @@
                 #kChart#
             </cf_logpoint>
             --->
+
             <cfset AjaxOnLoad("function(){#kChart#}")>
         </cfoutput>
 

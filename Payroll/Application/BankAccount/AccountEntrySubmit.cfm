@@ -174,8 +174,9 @@ password="#SESSION.dbpw#">
 	  	    
      <cfoutput>
 	
-	     <script>	 
-		   ptoken.location("EmployeeBankAccount.cfm?ID=#Form.PersonNo#");    
+	     <script>	
+		   ptoken.location("AccountEdit.cfm?ID=#Form.PersonNo#&Id1=#vAccountId#"); 
+	//	   ptoken.location("EmployeeBankAccount.cfm?ID=#Form.PersonNo#");    
 	     </script>	
 	 
 	 </cfoutput>	

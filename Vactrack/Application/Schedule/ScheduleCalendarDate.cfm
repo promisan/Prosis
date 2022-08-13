@@ -1,47 +1,58 @@
 	
-<!--- shows the information for the date as to how many are pending for that date 
+<!--- shows the information for the date as to how many are pending for that date --->
 	
 <cftry>
-	
-	<cfquery name="get"
-		datasource="AppsQuery" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-		SELECT    BatchDescription, count(*) as Counted
-		FROM      StockBatch_#SESSION.acc#
-		WHERE     TransactionDate = '#dateformat(url.calendardate,client.dateSQL)#'			
-		GROUP BY BatchDescription
-	</cfquery>
-	
-	<cfif url.Status eq "0">
-		<cfset cl = "yellow">
-	<cfelseif url.Status eq "9">	
-	    <cfset cl = "red">
-	<cfelse>
-	    <cfset cl = "lime">	
-	</cfif>	
-	
-	<cfif get.recordcount gte "1">
-	
-	<table width="98%" align="center">
 		
+		<table width="98%" align="center">
+		
+			<cfquery name="get"
+			datasource="AppsVacancy" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT    *
+				FROM      Document
+				WHERE     Mission = '#url.mission#'
+				AND       CAST(Created AS Date) = '#dateformat(url.calendardate,client.dateSQL)#'										
+			</cfquery>
+			
 			<cfoutput query="get">
-				<tr class="labelmedium" style="height:20px">
-				<td style="height:10px;padding-left:2px">#BatchDescription#:</td>			
-				<td align="right" style="height:10px;padding-left:2px;padding-right:4px;">#Counted#</td>
+				<tr class="labelit fixlengthlist" style="height:20px">	
+				<td style="min-width:5px;max-width:5px;background-color:yellow"></td>			
+				<td style="height:10px;padding-left:2px"><a href="javascript:showdocument('#DocumentNo#')">#DocumentNo#:</a></td>			
+				<td align="right" style="height:10px;padding-left:2px;padding-right:4px;">#officerUserLastName#</td>
+				</tr>			
+			</cfoutput>			
+			
+			<cfquery name="get"
+				datasource="AppsVacancy" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT    *
+				FROM      Document
+				WHERE     Mission = '#url.mission#'
+				AND       CAST(StatusDate AS Date) = '#dateformat(url.calendardate,client.dateSQL)#'							
+			</cfquery>
+			
+			<cfoutput query="get">
+				<tr class="labelit fixlengthlist" style="height:20px">	
+				    <cfif status eq "9">	
+				    <td style="min-width:5px;max-width:5px;background-color:red"></td>	
+					<cfelse>
+					<td style="min-width:5px;max-width:5px;background-color:green"></td>	
+					</cfif>
+					<td style="height:10px;padding-left:2px">					
+					<a href="javascript:showdocument('#DocumentNo#')">#DocumentNo#:</a>
+					</td>			
+					<td align="right" style="height:10px;padding-left:2px;padding-right:4px;">#StatusofficerLastName#</td>
 				</tr>			
 			</cfoutput>
-	
-	</table>	
 		
-	</cfif>
+		</table>			
 	
 	<cfcatch>
 	
-	<table><tr><td><font color="FF0000">problem</font></td></tr></table>
+	      <table><tr><td><font color="FF0000">problem</font></td></tr></table>
 	
 	</cfcatch>
 	
 </cftry>
-
---->

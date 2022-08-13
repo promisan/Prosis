@@ -26,7 +26,10 @@
 	</cfif>			
 	<cfif Form.EntityClass neq "">
 		<cfset vCondition = vCondition & " AND (T.EntityClass = '#FORM.EntityClass#')">
-	</cfif>			
+	</cfif>	
+	<cfif Form.DocumentType neq "">
+		<cfset vCondition = vCondition & " AND (T.DocumentType = '#FORM.DocumentType#')">
+	</cfif>				
 	<cfif Form.EntityCode neq "">
 		<cfset vCondition = vCondition & " AND (T.EntityCode = '#FORM.EntityCode#')">
 	</cfif>		
