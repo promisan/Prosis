@@ -114,7 +114,7 @@
 			  AND  PA.PositionNo       = '#Form.PositionNo#' 
 			  AND  PA.DateExpiration  >= #STR#
 			  AND  PA.DateEffective   <= #END#
-			  AND  PA.AssignmentClass  IN (#preservesingleQuotes(assclass)#))
+			  AND  PA.AssignmentClass  IN (#preservesingleQuotes(assclass)#)
 			  AND  PA.Incumbency      != 0
 			  AND  PA.AssignmentNo    != #Form.AssignmentNo#
 			  AND  PA.AssignmentStatus = '0'

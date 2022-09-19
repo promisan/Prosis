@@ -21,7 +21,7 @@ password="#SESSION.dbpw#">
 	FROM 	Ref_Tax	
 </cfquery>
 	
-	<table style="width:100%;padding-left:10px" border="0" class="formpadding">
+	<table style="width:100%;padding-left:10px" border="0">
 			
 	<tr><td valign="top">
 	
@@ -29,7 +29,7 @@ password="#SESSION.dbpw#">
 	
 	<!--- Entry form --->
 		
-	<table class="formpadding formspacing">
+	<table class="formpadding formspacing" style="width:100%">
 	
 		<cfoutput>
 	   
@@ -37,7 +37,7 @@ password="#SESSION.dbpw#">
 	   
 		<cfif url.id2 eq "">
 			
-		   <TR class="labelmedium2">
+		   <TR class="labelmedium2 linedotted">
 	   		<td style="min-width:150px"><cf_tl id="Category">:</td>
 		    <TD>
 	
@@ -68,24 +68,60 @@ password="#SESSION.dbpw#">
 		<input type="hidden" name="Warehouse" ID="Warehouse" value="<cfoutput>#url.id1#</cfoutput>">
 		
 		<!--- Field: Oversale --->
-	    <TR class="labelmedium2">
-	    <TD ><cf_tl id="Allow Oversale">:</TD>
+	    <TR class="labelmedium2 linedotted">
+	    <TD ><cf_tl id="Minimum Reorder mode">:</TD>
 	    <TD style="height:25px">		
 		
 		    <table>
 			<tr class="labelmedium2">
-			<td><input type="radio" class="radiol" name="Oversale" id="Oversale" <cfif Get.Oversale eq "1">checked</cfif> value="1"></td>
-			<td style="padding-left:4px">#vYes#</td>
-			<td style="padding-left:5px"><input type="radio" class="radiol" name="Oversale" id="Oversale" <cfif Get.Oversale eq "0"  or url.id2 eq "">checked</cfif> value="0"></td>
-			<td style="padding-left:4px">No</td>	
+			<td><input type="radio" class="radiol" name="MinReorderMode" <cfif Get.MinReorderMode eq "Default" or url.id2 eq "">checked</cfif> value="Default"></td>
+			<td style="padding-top:2px;min-width:90px;padding-left:4px">Default (1)</td>
+			<td style="padding-left:5px"><input type="radio" class="radiol" name="MinReorderMode" <cfif Get.MinReorderMode eq "Parent">checked</cfif> value="Parent"></td>
+			<td style="padding-top:2px;padding-left:4px">Parent warehouse</td>	
 			</tr>		
 			</table>
 			
 		</TD>
 		</TR>	
 		
-		<tr class="labelmedium2">
-			<td><cf_tl id="Discount Threshold"> :</td>
+		<!--- Field: Request Mode --->
+	    <TR class="labelmedium2 linedotted">
+	    <TD><cf_tl id="POL Request Mode">:</TD>
+	    <TD style="height:25px">		
+    		 <table>
+			<tr class="labelmedium2">
+			<td>
+			<input type="radio" class="radiol" name="RequestMode" id="RequestMode" <cfif Get.RequestMode eq "1" or url.id2 eq "">checked</cfif> value="1">
+			</td>
+			<td style="padding-top:2px;min-width:90px;padding-left:4px"><cf_tl id="Consolidated"></td>
+			<td style="padding-left:5px">			
+			<input type="radio" class="radiol" name="RequestMode" id="RequestMode" <cfif Get.RequestMode eq "0">checked</cfif> value="0"></td>
+			<td style="padding-top:2px;padding-left:4px"><cf_tl id="Not Consolidated"></td>	
+			</tr>		
+			</table>
+			
+		</TD>
+		</TR>	
+		
+		<!--- Field: Oversale --->
+	    <TR class="labelmedium2 linedotted">
+	    <TD ><cf_tl id="Allow Oversale">:</TD>
+	    <TD style="height:25px">		
+		
+		    <table>
+			<tr class="labelmedium2">
+			<td><input type="radio" class="radiol" name="Oversale" id="Oversale" <cfif Get.Oversale eq "1">checked</cfif> value="1"></td>
+			<td style="padding-top:2px;padding-left:4px">#vYes#</td>
+			<td style="padding-left:5px"><input type="radio" class="radiol" name="Oversale" id="Oversale" <cfif Get.Oversale eq "0"  or url.id2 eq "">checked</cfif> value="0"></td>
+			<td style="padding-top:2px;padding-left:4px">No</td>	
+			</tr>		
+			</table>
+			
+		</TD>
+		</TR>	
+		
+		<tr class="labelmedium2 linedotted">
+			<td><cf_tl id="Maximum Quote Discount"> :</td>
 			<td style="height:25px">
 			   <table><tr><td>
 				<cfinput type="Text"
@@ -97,7 +133,7 @@ password="#SESSION.dbpw#">
 			       visible="Yes"
 			       enabled="Yes"		       
 			       typeahead="No"
-			       class="regularxxl enterastab"
+			       class="regularxl enterastab"
 	         	   style="width:30;text-align:center;padding-right:4px">
 				   
 				</td>
@@ -107,37 +143,30 @@ password="#SESSION.dbpw#">
 		</tr>
 			
 		<!--- Field: Selfservice --->
-	    <TR class="labelmedium2">
-	    <TD><cf_tl id="Self-service">:</TD>
+	    <TR class="labelmedium2 linedotted">
+	    <TD><cf_tl id="WWW presentation">:</TD>
 	    <TD style="height:25px">	
 		
 		 <table>
 			<tr class="labelmedium2">
 			<td><input type="radio" class="radiol" name="Selfservice" id="Selfservice" <cfif Get.Selfservice eq "1" or url.id2 eq "">checked</cfif> value="1"></td>
-			<td style="padding-left:4px">#vYes#</td>
+			<td style="padding-top:2px;padding-left:4px">#vYes#</td>
 			<td style="padding-left:5px"><input type="radio" class="radiol" name="Selfservice" id="Selfservice" <cfif Get.Selfservice eq "0">checked</cfif> value="0"></td>
-			<td style="padding-left:4px">No</td>	
+			<td style="padding-top:2px;padding-left:4px">No</td>	
 			</tr>		
 			</table>
 			
 		</TD>
 		</TR>		
 		
-		<!--- Field: Request Mode --->
-	    <TR class="labelmedium2">
-	    <TD><cf_tl id="POL Request Mode">:</TD>
-	    <TD style="height:25px">		
-			<input type="radio" class="radiol" name="RequestMode" id="RequestMode" <cfif Get.RequestMode eq "1" or url.id2 eq "">checked</cfif> value="1"><cf_tl id="Consolidated">
-			<input type="radio" class="radiol" name="RequestMode" id="RequestMode" <cfif Get.RequestMode eq "0">checked</cfif> value="0"><cf_tl id="Not Consolidated">
-		</TD>
-		</TR>	
+		
 		
 		<!--- Field: TaxCode --->
-	    <TR class="labelmedium2">
-	    <TD><cf_tl id="Tax Code">:</TD>
+	    <TR class="labelmedium2 linedotted">
+	    <TD><cf_tl id="Default Tax Code">:</TD>
 	    <TD style="height:25px">		
 			
-			<select name="TaxCode" id="TaxCode" class="regularxxl">
+			<select name="TaxCode" id="TaxCode" class="regularxl">
 					<cfloop query="TaxCodes">
 						<option value="#TaxCode#" <cfif TaxCode eq Get.TaxCode>selected</cfif>>#Description#</option>
 					</cfloop>
@@ -147,7 +176,7 @@ password="#SESSION.dbpw#">
 		</TR>	 
 		
 		<!--- Field: Operational --->
-	    <TR class="labelmedium2">
+	    <TR class="labelmedium2 line">
 	    <TD><cf_tl id="Enabled">:</TD>
 	    <TD style="height:25px">		
 		
@@ -171,9 +200,7 @@ password="#SESSION.dbpw#">
 	</td>
 	
 	</tr>
-		
-	<tr><td colspan="2" class="line"></td></tr>
-		
+				
 	<tr><td colspan="2" height="25" align="center">
 		<cfoutput>	
 			<input type="button"

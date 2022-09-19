@@ -46,7 +46,7 @@
 		<cf_tl id="Debitor" var="vLabel">		
 	</cfif>
 	
-	<tr class="labelmedium2">
+	<tr class="labelmedium2 fixlengthlist">
 		<td style="border:1px solid silver" align="center"></td>
 		<td style="border:1px solid silver;padding-left:4px"><cf_tl id="#vLabel#"></td>		
 		<td style="border:1px solid silver" align="center"><cf_tl id="Curr"></td>
@@ -55,9 +55,9 @@
 	</tr>
 	
 	<cfoutput query="Payee">
-	<tr class="navigation_row linedotted labelmedium2" onclick="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=customer&value=#referencename#','listbox')">
+	<tr class="navigation_row linedotted labelmedium2 fixlengthlist" onclick="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('InquiryListing.cfm?mode=#url.mode#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&filter=customer&value=#referencename#','listbox')">
 	    <td align="center">#Currentrow#</td>
-	    <td style="height:19px;padding-left:4px">#left(ReferenceName,42)#</td>		
+	    <td style="height:19px;padding-left:4px" title="#referencename#">#ReferenceName#</td>		
 		<td style="min-width:40px;padding-right:3px" align="center">#Currency#</td>
 		<td style="min-width:70px;padding-right:3px" align="right">#numberformat(amount,',__')#</td>
 		<td style="min-width:70px;padding-right:3px" align="right">#numberformat(outstanding,',__')#</td>

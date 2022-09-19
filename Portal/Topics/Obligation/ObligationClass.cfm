@@ -72,7 +72,7 @@
 </cfquery>	
 
 
-<table width="100%" class="navigation_table">
+<table width="100%" style="background-color:white">
 
 <tr>
 
@@ -99,7 +99,7 @@
 	  </cfoutput>
 	  </tr>
 	   
-	  <tr><td valign="bottom">
+	  <tr><td>
 	
 	  <cfquery name="Summary" dbtype="query">
 		  SELECT     SUM(Amount) as Total, 
@@ -110,8 +110,25 @@
 	  </cfquery>	
 	
 	  <cfset vColorlist = "##D24D57,##52B3D9,##E08283,##E87E04,##81CFE0,##2ABB9B,##5C97BF,##9B59B6,##E08283,##663399,##4DAF7C,##87D37C">
-	  <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
+	    
+	  <cf_uichart name="divObligationGraph_1"
+			chartheight="220"
+			showlabel="No"
+			showvalue="No"
+			chartwidth="520">
+					
+			<cf_uichartseries type="bar"
+			    query="#Summary#" 
+				itemcolumn="Description" 
+				valuecolumn="Total" 
+				colorlist="##E87E04"/>
+				
+	  	</cf_uichart>
 
+	  <!---	  
+	  
+	  <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
+	  
 	  <cfchart 
 		  style = "#chartStyleFile#" 
 	 	  format      = "png"
@@ -132,6 +149,7 @@
 			     colorlist="#vColorlist#"></cfchartseries>			
 				 
 		</cfchart>
+		--->
 		
 		</td></tr></table>
 	
@@ -191,7 +209,5 @@
 </tr>
 
 <tr><td height="5"></td></tr>
-
-<cfset ajaxOnLoad("doHighlight")>
 
 </table>

@@ -25,22 +25,22 @@ password="#SESSION.dbpw#">
 		
 <cfform action="ActionGroupSubmit.cfm?EntityCode=#URL.EntityCode#&ID2=#URL.ID2#" method="POST" enablecab="Yes" name="action">
 
-	<table width="98%" border="0" cellspacing="0" cellpadding="0" align="right">
+	<table width="98%" align="right">
 	    
 	  <tr>
 	    <td width="100%">
-	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table formpadding">
+	    <table width="100%" class="navigation_table formpadding">
 			
-	    <TR class="linedotted">		   
-		   <td width="20%" class="labelit" height="20">Code</td>
-		   <td width="10%" class="labelit" height="20">Owner</td>
-		   <td width="48%" class="labelit">Description</td>
-		   <td width="10%" align="center" class="labelit">Op.</td>
-		   <td width="3%"></td>
-		   <td width="3%" align="right"  class="labelit">
+	    <TR class="linedotted fixlengthlist labelmedium2">		   
+		   <td><cf_tl id="Code"></td>
+		   <td><cf_tl id="Owner"></td>
+		   <td><cf_tl id="Description"></td>
+		   <td align="center" style="width:30px">Op.</td>
+		   <td style="width:30px"></td>
+		   <td align="right" style="width:30px">
 	         <cfoutput>
 			 <cfif URL.ID2 neq "new">
-			     <A href="javascript:ColdFusion.navigate('ActionGroup.cfm?EntityCode=#URL.EntityCode#&ID2=new','igrp')"><font color="0080FF">[add]</font></a>
+			     <A href="javascript:ptoken.navigate('ActionGroup.cfm?EntityCode=#URL.EntityCode#&ID2=new','igrp')">[add]</a>
 			 </cfif>
 			 </cfoutput>
 		   </td>
@@ -59,9 +59,9 @@ password="#SESSION.dbpw#">
 		
 		    <input type="hidden" name="EntityCode" id="EntityCode" value="<cfoutput>#cd#</cfoutput>">
 												
-			<TR>
+			<TR class="fixlengthlist">
 			   
-			   <td class="labelit">#nm#</td>
+			   <td>#nm#</td>
 			   <td>
 			      <select name="Owner" id="Owner" class="regularxl" style="width:100%">
 				   <option value="">All</option>
@@ -70,7 +70,7 @@ password="#SESSION.dbpw#">
 				   </cfloop>
 			   </select>					   
 			   </td>
-			   <td style="padding-left:2px"><cfinput type="Text" value="#de#" name="EntityGroupName" message="You must enter a description" required="Yes" size="50" maxlength="50" class="regularxl"></td>
+			   <td style="padding-left:2px"><cfinput type="Text" value="#de#" name="EntityGroupName" message="You must enter a description" required="Yes" style="width:100%" size="50" maxlength="50" class="regularxl"></td>
 			 
 			    <td align="center">
 			      <input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif "1" eq #op#>checked</cfif>>
@@ -81,15 +81,15 @@ password="#SESSION.dbpw#">
 					
 		<cfelse>
 		
-			<cfset edit = "javascript:ColdFusion.navigate('ActionGroup.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','igrp')">
+			<cfset edit = "javascript:ptoken.navigate('ActionGroup.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','igrp')">
 					
-			<TR class="navigation_row linedotted">
+			<TR class="navigation_row linedotted fixlengthlist">
 			    
-			    <td class="labelit" style="padding-left:3px" height="17">#nm#</td>
-				<td class="labelit">#ow#</td>
-			    <td class="labelit">#de#</td>
-				<td class="labelit" align="right"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
-			    <td class="labelit" align="right">
+			    <td>#nm#</td>
+				<td>#ow#</td>
+			    <td>#de#</td>
+				<td align="right"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
+			    <td align="right">
 				   <cf_img icon="edit" navigation="Yes" onclick="#edit#">			   
 			    </td>
 			    <td align="right" style="padding-right:3px">
@@ -106,7 +106,7 @@ password="#SESSION.dbpw#">
 				   </cfquery>
 					   
 				    <cfif Detail.recordcount eq "0">					
-						<cf_img icon="delete" navigation="Yes" onclick="ColdFusion.navigate('ActionGroupPurge.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','igrp')">					  
+						<cf_img icon="delete" navigation="Yes" onclick="ptoken.navigate('ActionGroupPurge.cfm?EntityCode=#URL.EntityCode#&ID2=#nm#','igrp')">					  
 					</cfif>
 					
 			  </td>
@@ -133,9 +133,7 @@ password="#SESSION.dbpw#">
 					   <option value="#Code#">#Code#</option>
 					   </cfoutput>
 				   </select>		
-				</td>
-				
-				
+				</td>			
 				
 				<td style="padding-left:3px">
 				   <cfinput type="Text" name="EntityGroupName" message="You must enter a description" required="Yes" size="50" maxlength="50" class="regularxl">

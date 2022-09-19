@@ -47,150 +47,169 @@
 	</cfquery>
 	
 	<cfif Selected.recordcount gte "1">
+	
+	    <form name="formselectedfields" id="formselectedfields">
 		
-		<table width="100%">
-		
-		<cfoutput>		
-		<tr class="line  fixlengthlist">
-		   <td colspan="7" style="font-size:16px;height:26px;padding-left:1px;" class="labelmedium2"><cf_tl id="Selected"></td>	   
-		   <td align="right" style="cursor:pointer;color:6688aa;padding-top:3px fixlength">   
-		   <a href="javascript:fielddelete('','#url.id#','#url.table#')"><cf_tl id="remove all"></a>	   
-		   </td>
-		</tr>
-		</cfoutput>
+			<table width="100%">
 			
-		<!--- container saving label --->
-		<tr class="hide"><td id="label"></td></tr>
-		
-		<tr class="labelmedium2 line fixlengthlist">
-		<td></td>
-		<td></td>
-		<td><cf_tl id="Field name"></td>	
-		<td align="center"></td>	
-		<td><cf_tl id="Label"></td>		
-		<td><cf_tl id="Sort"></td>
-		<td><cf_tl id="Sum"></td>	
-		</tr>		
-				
-		<cfoutput query="Selected">
-		
-		<tr style="height:15px" class="line labelmedium2 fixlengthlist">
-		
-		<td align="center">
-			
-			<cfquery name="Check" 
-			datasource="appsSystem">
-				SELECT   FieldName 
-			    FROM     UserReportOutput
-				WHERE    UserAccount = '#SESSION.acc#'
-				AND      OutputId    = '#id#'
-				AND      OutputClass LIKE 'Group%' 
-				AND      FieldName = '#FieldName#'
-			</cfquery>
-			
-			<cfif Check.recordcount gte "1">	
-				*		
-			<cfelse>	
-				<cf_img icon="delete" onClick="javascript:fielddelete('#Fieldname#','#url.id#','#url.table#')">				
-			</cfif>
-		
-		</td>
-		
-		<td align="center">#CurrentRow#</td>
-		
-		<td onmouseout="this.className='regular'" 
-			onmouseover="this.className='highlight1'" style="font-size:12px;padding-left:4px">#FieldName#
-		</td>
-			
-		<td align="right">
-			
-			<table><tr>
-			<td align="center" style="width:20px">
-			<cfif currentrow neq 1>			
-			
-				
-			    <button type="button" style="height:20px;width:20px" class="button10g" onclick="update('up','#fieldName#','','#url.id#','selectedfields','#url.table#','#url.ds#')">
-				
-				<img src="#SESSION.root#/images/up6.png" 							 
-							 width="8" 
-							 height="10" 
-							 alt="" 
-							 border="0">
-			
-				</button>
-								
-			</cfif>
-			
-			</td>
-
-		    <td align="center" style="width:20px">
-												
-			<cfif currentrow neq recordcount>				
-			
-				 <button type="button" style="height:20px;width:20px" class="button10g" onclick="update('down','#fieldName#','','#url.id#','selectedfields','#url.table#','#url.ds#')">
-				 
-				 <img src="#SESSION.root#/images/down6.png" 							 
-							 width="8" 
-							 height="10" 
-							 alt="" 
-							 border="0">
-			
-				</button>
-								
-			</cfif>
-			
-			</td>
-			
+			<cfoutput>		
+			<tr class="line  fixlengthlist">
+			   <td colspan="7" style="font-size:16px;height:26px;padding-left:1px;" class="labelmedium2"><cf_tl id="Selected">
+			   <a href="javascript:fielddelete('','#url.id#','#url.table#')">[<cf_tl id="remove all fields">]</a>	
+			   	   
+			   </td>
 			</tr>
-			</table>
-		</td>
-											
-		<td>
-			<input type="text" 
-			   name="label" 
-			   id="label"
-			   value="#OutputHeader#" 
-			   style="height:20px;width:100%;font-size:12px;padding:0px;padding-left:3px;padding-right:3px;background-color:ffffbf;border:0px;border-left:1px solid silver;border-right:1px solid silver"
-			   class="regularh" 
-			   onchange="update('label','#fieldName#',this.value,'#url.id#','label','#url.table#')">		
-		</td>	
-		
-		<td id="sorting#currentrow#">
-		
-			<cfif OutputSorting eq "">
-				   <a href="javascript:update('sorting','#fieldName#','ASC','#url.id#','sorting#currentrow#','#url.table#')">ASC</a>&nbsp;|
-				   <a href="javascript:update('sorting','#fieldName#','DESC','#url.id#','sorting#currentrow#','#url.table#')">DESC</a>&nbsp;|
-				   <font color="800000">NONE</font>
-			<cfelseif OutputSorting eq "ASC">
-				   <font color="800000">ASC</font>&nbsp;|			   
-				   <a href="javascript:update('sorting','#fieldName#','DESC','#url.id#','sorting#currentrow#','#url.table#')">DESC</a>&nbsp;|
-				   <a href="javascript:update('sorting','#fieldName#','','#url.id#','sorting#currentrow#','#url.table#')">NONE</a>		  
-			<cfelse>
-				   <a href="javascript:update('sorting','#fieldName#','ASC','#url.id#','sorting#currentrow#','#url.table#')">ASC</a>&nbsp;|
-				   <font color="800000">DESC</font>&nbsp;|			   
-				   <a href="javascript:update('sorting','#fieldName#','','#url.id#','sorting#currentrow#','#url.table#')">NONE</a>	  
-			</cfif>
-		
-		</td>	
-		
-		<td id="formula#currentrow#">
+			</cfoutput>
 				
-			<cfif userType eq "8" or userType eq "7">
+			<!--- container saving label --->
+			<tr class="hide"><td id="label"></td></tr>
 			
-				<cfif GroupFormula eq "None" or GroupFormula eq "">
-				   <a href="javascript:update('formula','#fieldName#','SUM','#url.id#','formula#currentrow#','#url.table#')"><cf_tl id="Yes"></a>&nbsp;|&nbsp;<cf_tl id="No">
-				<cfelseif GroupFormula eq "SUM">
-				   <cf_tl id="Yes">&nbsp;|&nbsp;</font><a href="javascript:update('formula','#fieldName#','None','#url.id#','formula#currentrow#','#url.table#')"><cf_tl id="No"></a>
+			<tr class="labelmedium2 line fixlengthlist">
+			<td></td>
+			<td style="width:30px"><cf_tl id="Sort"></td>
+			<td><cf_tl id="Field name"></td>	
+			<td align="center"></td>	
+			<td><cf_tl id="Label"></td>		
+			<td><cf_tl id="Sort"></td>
+			<td><cf_tl id="Sum"></td>	
+			</tr>		
+					
+			<cfoutput query="Selected">
+			
+			<tr style="height:15px" class="line labelmedium2 fixlengthlist">
+			
+			<td align="center">
+				
+				<cfquery name="Check" 
+				datasource="appsSystem">
+					SELECT   FieldName 
+				    FROM     UserReportOutput
+					WHERE    UserAccount = '#SESSION.acc#'
+					AND      OutputId    = '#id#'
+					AND      OutputClass LIKE 'Group%' 
+					AND      FieldName = '#FieldName#'
+				</cfquery>
+				
+				<cfif Check.recordcount gte "1">	
+					*		
+				<cfelse>	
+					<cf_img icon="delete" onClick="javascript:fielddelete('#Fieldname#','#url.id#','#url.table#')">				
+				</cfif>
+			
+			</td>
+			
+			<td align="center">
+			
+			<input type="text" name="Order_#fieldname#" onchange="document.getElementById('applysort').className='regular'" class="regular" style="background-color:e1e1e1;border:1px;text-align:center;width:40px" value="#currentrow#">
+			
+			</td>
+			
+			<td onmouseout="this.className='regular'" 
+				onmouseover="this.className='highlight1'" style="font-size:12px;padding-left:4px">#FieldName#
+			</td>
+				
+			<td align="right">
+				
+				<table><tr>
+				<td align="center" style="width:20px">
+				<cfif currentrow neq 1>			
+								
+				    <button type="button" style="border:1px;height:20px;width:20px" class="button10g" 
+					   onclick="update('up','#fieldName#','','#url.id#','selectedfields','#url.table#','#url.ds#')">
+					
+					<img src="#SESSION.root#/images/up6.png" 							 
+								 width="8" 
+								 height="10" 
+								 alt="" 
+								 border="0">
+				
+					</button>
+									
 				</cfif>
 				
-			</cfif>
+				</td>
+	
+			    <td align="center" style="width:20px">
+													
+				<cfif currentrow neq recordcount>				
+				
+					 <button type="button" style="border:1px;height:20px;width:20px" class="button10g" onclick="update('down','#fieldName#','','#url.id#','selectedfields','#url.table#','#url.ds#')">
+					 
+					 <img src="#SESSION.root#/images/down6.png" 							 
+								 width="8" 
+								 height="10" 
+								 alt="" 
+								 border="0">
+				
+					</button>
+									
+				</cfif>
+				
+				</td>
+				
+				</tr>
+				</table>
+			</td>
+												
+			<td>
+				<input type="text" 
+				   name="label" 
+				   id="label"
+				   value="#OutputHeader#" 
+				   style="height:20px;width:100%;font-size:12px;padding:0px;padding-left:3px;padding-right:3px;background-color:ffffbf;border:0px;border-left:1px solid silver;border-right:1px solid silver"
+				   class="regularh" 
+				   onchange="update('label','#fieldName#',this.value,'#url.id#','label','#url.table#')">		
+			</td>	
 			
-		</td>
+			<td id="sorting#currentrow#">
 			
-		</tr>
+				<cfif OutputSorting eq "">
+					   <a href="javascript:update('sorting','#fieldName#','ASC','#url.id#','sorting#currentrow#','#url.table#')">ASC</a>&nbsp;|
+					   <a href="javascript:update('sorting','#fieldName#','DESC','#url.id#','sorting#currentrow#','#url.table#')">DESC</a>&nbsp;|
+					   <font color="800000">NONE</font>
+				<cfelseif OutputSorting eq "ASC">
+					   <font color="800000">ASC</font>&nbsp;|			   
+					   <a href="javascript:update('sorting','#fieldName#','DESC','#url.id#','sorting#currentrow#','#url.table#')">DESC</a>&nbsp;|
+					   <a href="javascript:update('sorting','#fieldName#','','#url.id#','sorting#currentrow#','#url.table#')">NONE</a>		  
+				<cfelse>
+					   <a href="javascript:update('sorting','#fieldName#','ASC','#url.id#','sorting#currentrow#','#url.table#')">ASC</a>&nbsp;|
+					   <font color="800000">DESC</font>&nbsp;|			   
+					   <a href="javascript:update('sorting','#fieldName#','','#url.id#','sorting#currentrow#','#url.table#')">NONE</a>	  
+				</cfif>
+			
+			</td>	
+			
+			<td id="formula#currentrow#">
+					
+				<cfif userType eq "8" or userType eq "7">
+				
+					<cfif GroupFormula eq "None" or GroupFormula eq "">
+					   <a href="javascript:update('formula','#fieldName#','SUM','#url.id#','formula#currentrow#','#url.table#')"><cf_tl id="Yes"></a>&nbsp;|&nbsp;<cf_tl id="No">
+					<cfelseif GroupFormula eq "SUM">
+					   <cf_tl id="Yes">&nbsp;|&nbsp;</font><a href="javascript:update('formula','#fieldName#','None','#url.id#','formula#currentrow#','#url.table#')"><cf_tl id="No"></a>
+					</cfif>
+					
+				</cfif>
+				
+			</td>
+				
+			</tr>
+			
+			</cfoutput>
+			
+			<cfoutput>
+			
+			<tr id="applysort" class="hide"><td colspan="7" style="padding:2px;height:20px">
+			 <input type="button" value="Apply sort" style="height:23px" class="button10g" onclick="javascript:update('ap','','','#url.id#','selectedfields','#url.table#','#url.ds#')">			  
+			</td></tr>
+			
+			</cfoutput>
+			
+			
+			
+			
+			</table>
 		
-		</cfoutput>
-		
-		</table>
+		</form>
 	
 	</cfif>

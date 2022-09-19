@@ -1,6 +1,3 @@
-<cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#Doc3b_#CLIENT.FileNo#">
-<cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#Doc4_#CLIENT.FileNo#">
-<cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#Doc5_#CLIENT.FileNo#">
 
 <cfset vFund       = "">
 <cfset vCondition  = "">
@@ -16,47 +13,77 @@
 	</cfif>	
 	<cfif Form.Fund neq "">
 	
+	    <cfset val = ""> 		
+	    <cfloop index="itm" list="#form.Fund#" delimiters=",">
+		     <cfif val eq "">
+			     <cfset val = "'#itm#'">	
+			 <cfelse>
+		 	     <cfset val = "#val#,'#itm#'">		
+			 </cfif>	 
+		</cfloop>		
+	
 		<cfset vCondition = vCondition= " AND (T.DocumentNo IN ( SELECT DP.DocumentNo FROM Vacancy.dbo.Document AS D INNER JOIN Vacancy.dbo.DocumentPost AS DP INNER JOIN
                       Employee.dbo.Position AS P ON DP.PositionNo = P.PositionNo INNER JOIN
                       Employee.dbo.PositionParent AS PP ON P.PositionParentId = PP.PositionParentId ON D.DocumentNo = DP.DocumentNo
-					WHERE     PP.Fund = '#form.fund#' AND D.Mission = '#url.mission#'))">
+					WHERE     PP.Fund IN (#preservesinglequotes(val)#) AND D.Mission = '#url.mission#'))">
+					
 	</cfif>			
 	<cfif Form.PostGrade neq "">
-		<cfset vCondition = vCondition & " AND (T.PostGrade like '%#FORM.PostGrade#%')">
+	
+	 <cfset val = ""> 		
+	    <cfloop index="itm" list="#form.PostGrade#" delimiters=",">
+		     <cfif val eq "">
+			     <cfset val = "'#itm#'">	
+			 <cfelse>
+		 	     <cfset val = "#val#,'#itm#'">		
+			 </cfif>	 
+		</cfloop>	
+	
+		<cfset vCondition = vCondition & " AND (T.PostGrade IN (#preservesinglequotes(val)#))">
 	</cfif>			
 	<cfif Form.EntityClass neq "">
 		<cfset vCondition = vCondition & " AND (T.EntityClass = '#FORM.EntityClass#')">
 	</cfif>	
 	<cfif Form.DocumentType neq "">
-		<cfset vCondition = vCondition & " AND (T.DocumentType = '#FORM.DocumentType#')">
+	    <cfset val = ""> 		
+	    <cfloop index="itm" list="#form.DocumentType#" delimiters=",">
+		     <cfif val eq "">
+			     <cfset val = "'#itm#'">	
+			 <cfelse>
+		 	     <cfset val = "#val#,'#itm#'">		
+			 </cfif>	 
+		</cfloop>		
+		<cfset vCondition = vCondition & " AND (T.DocumentType IN (#preservesinglequotes(val)#))"> 
 	</cfif>				
-	<cfif Form.EntityCode neq "">
-		<cfset vCondition = vCondition & " AND (T.EntityCode = '#FORM.EntityCode#')">
+	
+	<cfif Form.ParentCode neq "">
+	
+	    <cfset val = ""> 		
+	    <cfloop index="itm" list="#Form.ParentCode#" delimiters=",">
+		     <cfif val eq "">
+			     <cfset val = "'#itm#'">	
+			 <cfelse>
+		 	     <cfset val = "#val#,'#itm#'">		
+			 </cfif>	 
+		</cfloop>	
+		
+		<cfset vCondition = vCondition & " AND (Left(T.OrgUnitHierarchy,2) IN (#preservesinglequotes(val)#))">
 	</cfif>		
+	
 	<cfif Form.ReferenceNo neq "">
 		<cfset vCondition = vCondition & " AND ( EXISTS (SELECT 'X' FROM Applicant.dbo.FunctionOrganization F WHERE F.ReferenceNo like '%#FORM.ReferenceNo#%' AND F.DocumentNo = T.DocumentNo) OR (T.ReferenceNo = '#FORM.ReferenceNo#' OR CAST(T.DocumentNo as varchar(10)) = '#Form.ReferenceNo#'))">
 	</cfif>		
 	<cfif Form.DateEffective neq "">
 	    <CF_DateConvert Value="#FORM.DateEffective#">		
-		<cfset vCondition2 = vCondition2 & " AND (F.DateEffective >= #datevalue#)">	
+		<cfset vCondition = vCondition & " AND (DatePosted >= #datevalue#)">	
 	</cfif>
 	<cfif Form.DateExpiration neq "">
 	    <CF_DateConvert Value="#FORM.DateExpiration#">	
-		<cfset vCondition2 = vCondition2 & " AND (F.DateExpiration <= #datevalue#)">	
+		<cfset vCondition = vCondition & " AND (DatePosted <= #datevalue#)">	
 	</cfif>	
 		
 </cfif>		
 
-<cfif (URL.Status eq "0" or URL.Status eq "9")>
-	 <cfinclude template="ControlListingPreparePending.cfm">	 	 
-<cfelse>	
-	<cfinclude template="ControlListingPrepareCompleted.cfm">		
-</cfif>
+
+<cfinclude template="ControlListingTrackQuery.cfm">	
 	
-<cfif CLIENT.width lte "768">
-	<cfset topics = "375">
-<cfelse>
-	<cfset topics = "700">
-</cfif>
-
-

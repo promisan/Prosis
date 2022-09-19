@@ -109,7 +109,7 @@
 		 	 <cf_UItreeitem value="Billing#currentrow#"
 		        display="<span style='font-size:14px' class='labelit'>#FunctionName#</span>"
 				parent="Billing"			
-				href="#FunctionPath#?ID1=Pending&systemfunctionid=#systemfunctionid#&Mission=#Attributes.Mission#&#FunctionCondition#"							
+				href="#FunctionPath#?systemfunctionid=#systemfunctionid#&Mission=#Attributes.Mission#&#FunctionCondition#"							
 				target="right"
 		        expand="No">		 
 		 			 

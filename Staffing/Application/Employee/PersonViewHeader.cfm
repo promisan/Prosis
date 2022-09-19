@@ -147,12 +147,12 @@
 					 
                         <cfoutput query="Employee">
                            
-                           <tr>   
+                           <tr class="fixlengthlist">   
 						   						                             							  
 							  <cfif employee.indexNo neq "">
 							  
-							   <td class="labelit" style="padding-top:1px"><font color="808080">#client.indexNoName#:<cf_space spaces="30"></td>   
-                               <td class="labelmedium fixlength" style="height:20px;font-size:16px" colspan="1">
+							   <td class="labelit" style="padding-top:1px"><font color="808080">#client.indexNoName#:</td>   
+                               <td class="labelmedium fixlength" style="height:20px;font-size:14px" colspan="1">
 							   <cfif url.refer eq "backoffice" or url.refer eq "workflow">
 							   #Employee.IndexNo#
 							   <cfelse>
@@ -188,7 +188,7 @@
                               <input type="hidden" name="person" value="#Employee.PersonNo#" id="personedit" onclick="personrefresh('#Employee.PersonNo#')">
                            </tr>   			
                          
-                           <tr>   
+                           <tr class="fixlengthlist">   
                               <td class="labelit" style="padding-top:1px"><font color="808080">
 							  <cf_tl id="Name">:
 							  <cf_space spaces="20">
@@ -196,26 +196,26 @@
                               <td class="labelmedium fixlength" style="height:20px;font-size:14px">#Employee.FullName#</td>   
                            </tr>   
                          
-                           <tr>   
+                           <tr class="fixlengthlist">   
                               <td class="labelit" style="padding-top:1px"><font color="808080"><cf_tl id="Gender">:</td>   
                               <td class="labelmedium" style="height:20px"><cfif Employee.Gender eq "M"><cf_tl id="Male"><cfelse><cf_tl id="Female"></cfif></td>   
                            </tr>   
 						                             
                            <cfif access100 eq "EDIT" or access100 eq "ALL" or access000 eq "EDIT" or access000 eq "ALL" or url.mode eq "workflow">                              
         	                                            
-                           <tr>   
+                           <tr class="fixlengthlist">    
                               <td class="labelit" style="padding-top:1px"><font color="808080"><cf_tl id="DOB">:</td>   
                               <td class="labelmedium" style="height:20px;font-size:14px">#Dateformat(Employee.BirthDate, CLIENT.DateFormatShow)# <cfif Employee.BirthDate neq "">(#datediff("yyyy",Employee.BirthDate,now())#)</cfif></td>   
                            </tr>   
                           
-                           <tr>   
+                           <tr class="fixlengthlist">   
                               <td class="labelit" style="padding-top:1px"><font color="808080"><cf_tl id="Nationality">:</td>   
                               <td class="labelmedium" style="height:20px;font-size:14px">
 							  <table>
 							  <tr class="labelmedium" style="height:20px;font-size:14px">
 							  <td>#Nationality.Name#</td>
 							  							  
-							   <cfquery name="Prior" 
+							  <cfquery name="Prior" 
 						      datasource="AppsEmployee" 
 							  maxrows="1" 
 							  username="#SESSION.login#" 
@@ -252,24 +252,23 @@
 						   
 						   <cfif Recruitment.Name neq "">
 						   
-							   <tr>   
+							   <tr class="fixlengthlist">   
 	                              <td class="labelit" style="padding-top:1px"><font color="808080"><cf_tl id="Recruitment">:</td>   
-	                              <td class="labelmedium" style="height:20px;font-size:14px">#Recruitment.Name# - #Employee.RecruitmentCity#</td>   
+	                              <td class="labelmedium" style="padding-left:3px;height:20px;font-size:14px">#Recruitment.Name# - #Employee.RecruitmentCity#</td>   
 	                           </tr>   
 						   
 						   </cfif>
                          
 						   <cfif lastgrade.contractlevel neq "">
-                           <tr>   
-                              <td class="labelit" style="padding-top:1px" width="30%"><font color="808080"><cf_tl id="Grade">:</td>   
-                              <td class="labelmedium" style="height:20px;font-size:14px">#LastGrade.ContractLevel# / #LastGrade.ContractStep#</td>                              
+                           <tr class="fixlengthlist">   
+                              <td class="labelit" style="padding-top:1px"><font color="808080"><cf_tl id="Grade">:</td>   
+                              <td class="labelmedium" style="padding-left:6px;height:20px;font-size:14px">#LastGrade.ContractLevel# / #LastGrade.ContractStep#</td>                              
                            </tr>  
-						   </cfif>
-						   
+						   </cfif>						   
 						   						   
 						   <cfif url.header eq "1">
 						   
-						   <tr>
+						   <tr class="fixlengthlist">
 						   <td class="labelit" style="padding-top:1px"><font color="808080"><cf_tl id="EOD">:</td>   
            
                            <td class="labelmedium" style="height:20px;font-size:14px">     
@@ -321,8 +320,8 @@
 											
 											<cfif Assignment.recordcount eq "0">
 											
-											<td style="padding-left:7px;font-size:14px;cursor:pointer;min-width:100px">
-											<cf_UItooltip tooltip="No assignment started on the same date as the EOD"><font color="red"><u><cf_tl id="Attention">!</u></cf_UItooltip>
+											<td style="padding-left:7px;font-size:14px;cursor:pointer;min-width:100px" title="No assignment started on the same date as the EOD">
+											<font color="red"><u><cf_tl id="Attention">!</u>
 											</td>
 											
 											</cfif>
@@ -345,7 +344,7 @@
 						   
 						   </cfif> 
 						   
-						   <tr>
+						   <tr class="fixlengthlist">
 						   <td class="labelit" style="padding-top:1px" width="80"><font color="808080"><cf_tl id="Login">:</td>              
                            <td class="labelmedium" style="height:20px;padding-top:1px">    
 						   
@@ -386,7 +385,7 @@
 							   </cfif>
 							   
 							        <table>
-									<tr class="labelmedium fixlengthlist">
+									<tr class="labelmedium">
 									<cfif user.mailserveraccount neq "">
 									<td style="font-size:10px">ldap:</td>
 									<td>#user.mailserveraccount#</td>
@@ -420,7 +419,7 @@
 							      </cfquery>	
 						   
 						   		  <cfif qIndex.recordcount neq 0>
-								   <tr valign="top">
+								   <tr valign="top" class="fixlengthlist">
 										<td class="labelit" style="padding-top:2px"><font color="6688aa"><cf_tl id="Alternate">:</td>
 										<td class="labelmedium" style="padding-top:1px;height:20px">
 											<cfset i = 0>

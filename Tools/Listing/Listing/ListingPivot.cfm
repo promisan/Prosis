@@ -47,7 +47,7 @@
 					</table>
 				 </td>
 				 
-				 <td style="padding-left:8px">  <!--- allow to hide and show --->
+				 <td style="padding-left:8px;border-right:1px solid silver;border-left:1px solid silver">  <!--- allow to hide and show --->
 				     <table id="#box#_group">
 					   <tr>
 					   <td><input type="checkbox" class="radiol" name="grouptotal" onclick="applyfilter('','1','content')" value="1" <cfif url.listgrouptotal eq "1">checked></cfif></td>
@@ -56,7 +56,7 @@
 				      </table>
 				 </td>
 				 				 				  				  		 		 
-				 <td style="padding-left:10px" id="#box#_column1">
+				 <td style="padding-left:8px;border-left:1px solid silver" id="#box#_column1">
 				 					 
 					 <cfparam name="url.listcolumn" default="">
 					 					
@@ -79,7 +79,7 @@
 					  
 				  <cfset agg = "0">
 					  
-					  <td style="padding-left:18px;padding-right:7px">
+					  <td style="padding-left:10px;padding-right:7px;border-left:1px solid silver">
 					   
 						   <table id="#box#_groupcell1">
 						      <tr class="labelmedium">
@@ -105,7 +105,7 @@
 					  	<cfset url.datacell1formula = "SUM">
 					  </cfif>				  				   
 					  
-					  <td style="padding-left:18px;padding-right:7px">
+					  <td style="padding-left:10px;padding-right:7px;border-left:1px solid silver;border-right:1px solid silver">
 					  
 					  	<table id="#box#_groupcell1formula">
 						      <tr class="labelmedium">

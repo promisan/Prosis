@@ -252,8 +252,8 @@
 		position      = "top"			
 		name          = "graph"
 		collapsible   = "true"
-        maxsize       = "360"
-        size          = "360">				
+        maxsize       = "220"
+        size          = "220">				
 				
 		<cfif fileExists("#SESSION.rootpath#\#base#\#path#\Graph.cfm")>
 			  <cfinclude template="#path#/Graph.cfm">																			

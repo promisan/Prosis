@@ -411,7 +411,7 @@
 																								
 						<tr>
 						
-							<td bgcolor="#attributes.headercolor#" colspan="2">
+							<td  colspan="2">  <!--- #attributes.headercolor# --->
 												
 								<table width="100%" align="right">							
 									<tr>																	

@@ -63,18 +63,83 @@
 		 AND    FieldName     = '#URL.Name#' 
 	</cfquery>
 	
+<cfelseif url.mode eq "ap">	
+
+	  <cfquery name="getfields" datasource="appsSystem">
+	     SELECT *
+		 FROM   UserReportOutput 		 
+		 WHERE  UserAccount   = '#SESSION.acc#'
+		 AND    OutputId      = '#URL.ID#'
+		 AND    OutputClass   = 'Detail'	
+		 ORDER BY FieldNameOrder DESC	 
+	  </cfquery>	
+	  
+      <cfloop query="getfields">
+	  
+	      <cfparam name="Form.Order_#fieldname#" default="">
+		  		  
+		  <cfset sort = evaluate("Form.Order_#fieldname#")>
+		  
+		  <cfif sort neq "">
+		  
+		      <cfif FieldNameOrder neq Sort>
+		  		  		  
+				  <cfquery name="Update" 
+					 datasource="appsSystem">
+						 UPDATE UserReportOutput 
+						 SET    FieldNameOrder = '#sort#',
+						        Created        = getDate()
+						 WHERE  UserAccount    = '#SESSION.acc#'
+						 AND    OutputId       = '#URL.ID#'
+						 AND    OutputClass    = 'Detail'
+						 AND    FieldName      = '#fieldname#' 
+					</cfquery>
+				
+				</cfif>
+			
+			</cfif>
+					    
+	  </cfloop>
+	  
+	   <cfquery name="getfieldorder" datasource="appsSystem">
+		     SELECT   *
+			 FROM     UserReportOutput 		 
+			 WHERE    UserAccount   = '#SESSION.acc#'
+			 AND      OutputId      = '#URL.ID#'
+			 AND      OutputClass   = 'Detail'	
+			 ORDER BY FieldNameOrder, Created DESC	 
+	  </cfquery>	
+	  
+	  <cfloop query="getfieldorder">
+	 	  
+	  	<cfquery name="Update" 
+			 datasource="appsSystem">
+				 UPDATE UserReportOutput 
+				 SET    FieldNameOrder = '#currentrow#',  
+				        Created        = getDate()
+				 WHERE  UserAccount    = '#SESSION.acc#'
+				 AND    OutputId       = '#URL.ID#'
+				 AND    OutputClass    = 'Detail'
+				 AND    FieldName      = '#fieldname#' 
+			</cfquery>
+	    
+	  </cfloop>
+	  
+	  <cfinclude template="FormatExcelDetailSelected.cfm">		
+	  
+	
 <cfelseif url.mode eq "up" or url.mode eq "down">
 
 	<!--- reset ordering --->
 	
 	<cfquery name="list" 
 	 datasource="appsSystem">
-		 SELECT *
-		 FROM   UserReportOutput 	 
-		 WHERE  UserAccount = '#SESSION.acc#'
-		 AND    OutputId    = '#URL.ID#'
-		 AND    OutputClass = 'Detail'
-		 AND    OutputShow = 1
+		 SELECT   *
+		 FROM     UserReportOutput 	 
+		 WHERE    UserAccount = '#SESSION.acc#'
+		 AND      OutputId    = '#URL.ID#'
+		 AND      OutputClass = 'Detail'
+		 AND      OutputShow = 1
 		 ORDER BY FieldNameOrder		
 	</cfquery>
 	

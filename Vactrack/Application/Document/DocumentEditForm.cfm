@@ -5,17 +5,17 @@
 		 	  
 	  <cfif ((Doc.Status is "0" or Doc.Status is "9") and AccessHeader eq "ALL") or getAdministrator("*") eq "1">
 	  
-		  	 <tr class="line"><td style="height:48px">
+		  	 <tr><td style="height:48px">
 			 
 				  <table width="100%" align="right" class="formpadding">
 				    
 				  <tr>
 										  
-				  <td class="fixlength" style="font-size:25px;padding-left:6px;padding-right:8px;font-weight:bold">
+				  <td class="fixlength" style="font-size:30px;padding-left:6px;padding-right:8px">
 				  
 				  <cfoutput>
 				  
-				  <cfif Doc.Status is "9"><font style="color: 8B0000;"><cf_tl id="Cancelled/Withdrawn"></font></cfif>
+				  <cfif Doc.Status is "9"><font style="color: 8B0000;"><cf_tl id="Cancelled/Withdrawn"><br><font size="2">on #dateformat(doc.StatusDate,client.dateformatshow)# #doc.StatusOfficerLastName#</font></font></cfif>
 				  <cfif Doc.Status is "1"><font color="green"><cf_tl id="Track closed"><br><font size="2">on #dateformat(doc.StatusDate,client.dateformatshow)# #doc.StatusOfficerLastName#</font></cfif></font>
 				  <cfif Doc.Status is "0"><font color="gray"><cf_tl id="Track in Process"></font></cfif>		
 				  
@@ -23,7 +23,7 @@
 				  
 				  </td>			
 				  
-				  <td class="labelmedium" style="padding-top:4px">
+				  <td class="labelmedium" style="padding-top:14px">
 				  				  
 					  <cfquery name="Placed" 
 						datasource="AppsEmployee" 
@@ -52,18 +52,18 @@
 				  				  
 			        <cfoutput>	
 					
-						<table style="border:1px solid silver;width:240px;">
-							<tr class="fixlengthlist labelit">
+						<table style="border:1px solid silver;">
+							<tr class="fixlengthlist labelit line" style="height:21px">
 							   <!--- 
 							   <td style="background-color:e1e1e1;"><cfif getPost.recordcount lt Placed.recordcount><font color="FF0000" title="More placements than openings"><cf_tl id="Attention"><font><cfelse><cf_tl id="Summary"></cfif></td>
 							   --->
 							   <td style="padding-right:7px;background-color:eaeaea;border-left:1px solid silver"><cf_tl id="Job opening"></td>
 							   <td style="min-width:20px" align="center">#getPost.recordcount#</td>
 							   <td style="padding-right:7px;background-color:eaeaea;border-left:1px solid silver"><cf_tl id="Selected"></td>
-							   <td style="min-width:20px" align="center"><cfif getCandidate.recordcount eq "0" and Doc.Status eq "1"><font title="No candidate found" color="FF0000"></cfif>#getCandidate.recordcount#</td>
-							   <td title="positions filled on the staffing table" style="padding-right:7px;background-color:ffffcf;border-left:1px solid silver"><cf_tl id="Placed"></td>
+							   <td style="min-width:20px" align="center"><cfif getCandidate.recordcount eq "0" and Doc.Status eq "1"><font title="No candidate found" color="FF0000"></cfif>#getCandidate.recordcount#</td>							 
+							   <td title="positions filled on the staffing table" style="padding-right:7px;background-color:ffffaf;border-left:1px solid silver"><cf_tl id="Placed"></td>
 							   <td style="min-width:20px" align="center"><cfif Placed.recordcount eq "0" and getCandidate.recordcount gte "1">><font title="No candidate placed" color="FF0000"></cfif>#Placed.Assignments#</td>
-							   <td title="currently serving placed staff" style="padding-right:7px;background-color:ffffcf;;border-left:1px solid silver"><cf_tl id="Serving"></td>
+							   <td title="currently serving placed staff" style="padding-right:7px;background-color:ffffaf;;border-left:1px solid silver"><cf_tl id="Serving"></td>
 							   <td style="min-width:20px" align="center">#OnBoard.Assignments#</td>					   
 							</tr>
 						</table>
@@ -82,11 +82,11 @@
 					
 						    <cfif Accessheader eq "ALL">
 							
-								<cfif GetCandidate.Recordcount eq "0">
+								<cfif GetCandidate.Recordcount gte "0">
 							
 								<td>
 							    <INPUT type    = "button"
-								       style   = "width:140;height:26" 								 
+								       style   = "width:140;height:42px" 								 
 									   value   = "Revoke Track"			
 									   class   = "button10g"					  
 									   name    = "Status" 
@@ -101,7 +101,7 @@
 											
 							<cfif GetCompleted.Recordcount eq "0" and Accessheader eq "ALL">
 								<td>
-							    <INPUT type="button" style="width:140;height:26" value="Reactivate Track" class="button10g"	name="Status" onClick="revoke('0')"> 
+							    <INPUT type="button" style="width:140;height:42" value="Reactivate Track" class="button10g"	name="Status" onClick="revoke('0')"> 
 								</td>
 								
 							</cfif>
@@ -119,15 +119,7 @@
 							</td>
 					   	
 					   </cfif>
-					
-					   <cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
-					     <!--- no button --->
-					   <cfelse>
-					       <td>
-						   <input type="button" style="width:120px;height:26px" name="Header" class="button10g"	onclick="ColdFusion.navigate('DocumentEditSubmit.cfm','result','','','POST','documentedit');" value="Update">
-						   </td>
-						</cfif>
-									
+														
 					<cfoutput>
 					
 					<cfif (Doc.Status eq "0" and accessheader eq "ALL") or (getAdministrator(Doc.Mission) eq "1" and getPost.recordcount neq GetCompleted.recordcount)>
@@ -136,7 +128,7 @@
 						
 						<td>
 						
-					   	<input style="width:130px;height:26px" 
+					   	<input style="width:130px;height:42px" 
 							   type="button" 
 							   class="button10g"	
 							   value="#ass#" 
@@ -165,9 +157,10 @@
 		
 	    <table width="100%" align="center">
 		
-		<tr class="fixrow"><td colspan="3">
+		<tr class="fixrow">
+		 <td colspan="3" style="border:1px solid silver">
 		
-			<table width="99%" align="center" class="formpadding">
+			<table width="99%" align="center" class="formpadding formspacing">
 			
 				<cfoutput>
 			       	<input type="hidden" name="postnumber" value="#Doc.PostNumber#", size="20" maxlength="20" class="disabled" readonly>
@@ -176,11 +169,10 @@
 		    	</cfoutput>
 			
 			<!--- Field: Unit --->
-		 
-			<tr><td height="1" colspan="4"></td></tr>
-			<tr class="labelmedium">
-		    <td><cf_tl id="Unit">:</td>
-			<td style="padding-right:5px">
+		 			
+			<tr class="labelmedium2 fixlengthlist line">
+		    <td style="width:100px"><cf_tl id="Unit">:</td>
+			<td style="padding-left:5px;padding-right:5px">
 			
 			<cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
 				<cfoutput><b>#Doc.OrganizationUnit#
@@ -193,8 +185,8 @@
 			</cfif>	
 			</td>
 			
-			<TD><cf_tl id="Expected onboarding by">:</td>
-		    <td>
+			<TD style="width:100px"><cf_tl id="Expected onboarding by">:</td>
+		    <td style="padding-left:5px">
 			<cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
 				<cfoutput><b>#Dateformat(Doc.Duedate, CLIENT.DateFormatShow)#
 				<input type="hidden" name="Duedate" value="#Dateformat(Doc.Duedate, CLIENT.DateFormatShow)#">
@@ -211,7 +203,7 @@
 			</td>	
 			</TR>			
 						
-			<TR class="labelmedium">
+			<TR class="labelmedium2 fixlengthlist line">
 		    <td><cf_tl id="Functional title">:</td>
 		    <TD>
 				<cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
@@ -222,7 +214,7 @@
 				<cfelse>
 			       <cfoutput>
 				   <table style="width:100%">
-				   <tr class="labelmedium">
+				   <tr class="labelmedium2 fixlengthlist">
 				   <td> 
 				   <input type="text" name="functionaltitle" id="functionaltitle" value="#Doc.FunctionalTitle#" class="regularxl" style="width:100%;background-color:f1f1f1" readonly> 
 	               </td>
@@ -244,8 +236,10 @@
 		  	</TD>
 		    <td><cf_tl id="Grade">:</td>
 			<td>
-			<table><tr>
+			<table><tr class="labelmedium2">
+			
 			<cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
+			    <td>
 				<cfoutput><b>#Doc.PostGrade# (#Doc.GradeDeployment#)
 				<input type="hidden" name="postgrade" value="#Doc.PostGrade#">
 				</cfoutput>
@@ -282,10 +276,10 @@
 			</td>
 			</TR>	
 							
-			<TR class="labelmedium">
+			<TR class="labelmedium  fixlengthlist line">
 			
-		    <td valign="top" style="padding-top:5px"><cf_tl id="Remarks">:</td>
-			<TD colspan="3">
+		    <td><cf_tl id="Remarks">:</td>
+			<TD colspan="3" style="padding-left:5px">
 			     <cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
 						<cfoutput><b><cfif Doc.Remarks eq "">n/a<cfelse>#Doc.remarks#</cfif>
 							<input type="hidden" name="remarks" value="#Doc.Remarks#">					
@@ -322,18 +316,28 @@
 							WHERE  VacancyNo = '#JO.ReferenceNo#'
 						</cfquery>
 						
-					 <tr class="labelmedium2">	
+					 <tr class="labelmedium2 fixlengthlist line">	
 				
 					 <td style="padding-left:3px"><cf_tl id="Recruitment bucket">:</td>
-				     <TD> 
+				     <TD colspan="3"> 
 					 <table><tr class="labelmedium2 fixlengthlist">
 					 				 
 					  <cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
 						
-							<cfif VAtext.VacancyNo eq "">							
+							<cfif VAtext.VacancyNo eq "">	
+							
+							    <cfoutput> 						
 								<td>
-								<cfoutput><A href="javascript:va('#JO.FunctionId#');">#JO.ReferenceNo#</a></cfoutput>
+								<A href="javascript:va('#JO.FunctionId#');">#JO.ReferenceNo#</a>
 								</td>
+								
+								<cfif JO.DateEffective gt "01/01/2000">
+								<td style="padding-left:4px">
+									#dateformat(JO.DateEffective,client.dateformatshow)# - #dateformat(JO.DateExpiration,client.dateformatshow)#
+								</td>	
+								</cfif>	
+								</cfoutput>
+								
 							</cfif>
 						
 					  <cfelse>
@@ -380,7 +384,6 @@
 							<cfcatch></cfcatch>
 							
 							</cftry>
-							
 										     											
 					   </cfif>	
 					   
@@ -392,6 +395,16 @@
 				  	  
 			</cfif> 
 			</TR>
+			
+			<cfif Doc.Status is "1" or Doc.Status is "9" or AccessHeader neq "ALL">
+				     <!--- no button --->
+			<cfelse>
+			   <tr>
+			      <td colspan="6" align="center">
+			      <input type="button" style="width:170px;height:25px" name="Header" class="button10g"	onclick="ptoken.navigate('DocumentEditSubmit.cfm','result','','','POST','documentedit');" value="Save">
+				  </td>
+			   </tr>
+			</cfif>
 									
 			</table>
 		
@@ -424,9 +437,8 @@
 		   onclick="ptoken.navigate('DocumentCandidateSelect.cfm?id=#url.id#','selectedme')">		   
 	   
 	</cfoutput>	   
-	
-			  	   	
-	<tr><td colspan="3" style="padding:8px">
+				  	   	
+	<tr><td colspan="3" style="padding:2px">
 		
 		<cf_securediv id="#doc.DocumentNo#" 
 		    bind="url:DocumentWorkflow.cfm?ajaxid=#Doc.DocumentNo#">   

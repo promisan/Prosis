@@ -1,5 +1,4 @@
-
-				
+			
 
 <cfif url.listgroupfield eq "" 
       or url.listgrouptotal eq "0" <!--- no summary requested --->
@@ -81,9 +80,7 @@
 						<table style="width:98%" class="navigation_table" id="#box#_table">
 																																												
 							<cfinclude template="ListingHeader.cfm">	
-							
-									
-																			
+																										
 							<cfset cols = session.listingdata[box]['columns']>									
 							
 							<cfif searchresult.recordcount eq "0">	

@@ -59,14 +59,12 @@
 		  <cfinclude template="../../../Staffing/Application/Employee/PersonViewHeaderToggle.cfm">		  
 		 </td>
 	</tr>	
-
-	      
+		      
    <tr><td height="100%">
 		
 		<table width="100%" 		     
 			  height="100%"			 
-			  align="center" 
-		      bordercolor="d4d4d4">	  
+			  align="center">	  
 		 		
 				<tr>
 				    <td  style="padding:20px 0 10px 30px;height:54px;" valign="top" height="100" id="result">

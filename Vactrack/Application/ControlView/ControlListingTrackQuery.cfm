@@ -1,4 +1,5 @@
 
+
 <!--- Pending
 
 0. Control prepare is used by the control tree as per Armin assesment 4/16/2011
@@ -14,36 +15,40 @@
 6.	Create detail/lookup tables	
 --->	
 	
-	<!--- pending : limit on select mission, status document --->
-	
-<cfparam name="SelectTracks" default="">	
-	
-<cfif URL.Parent eq "All">	<!--- show by stage --->	
+<!--- pending : limit on select mission, status document --->
 
-	<cfif vCondition eq "">	
+<cfquery name="Mission"
+	datasource="AppsOrganization"
+	username="#SESSION.login#"
+	password="#SESSION.dbpw#">
+	SELECT *
+	FROM   Ref_Mission
+	WHERE  Mission = '#url.mission#'
+</cfquery>
+
+<cfset pre = mission.missionPrefix>
 	
-		<cfset SelectedTracks = SelectTracks>
+<cfif URL.Parent eq "All" and url.status neq "1">	<!--- show by stage --->	
 			
-		<!--- no change and thus need to filter more --->
+	<cfsavecontent variable="session.selectedtracks_#pre#">
 	
-	<cfelse>
-		
-		<cfsavecontent variable="SelectedTracks">
-		
-			<cfoutput>		
-			    SELECT  *		
-				FROM    (#preservesingleQuotes(SelectTracks)#) as T				
-				<!--- added to make sure that some workflow were completed and might not be in the subtable --->									
-				WHERE   1=1 #PreserveSingleQuotes(vCondition)#						
-			</cfoutput>	
-		
-		</cfsavecontent>
-						
-	</cfif>
+		<cfoutput>		
+		    SELECT  *		
+			FROM    (#preservesingleQuotes(session.SelectTracks)#) as T				
+			<!--- added to make sure that some workflow were completed and might not be in the subtable --->									
+			WHERE   1=1 
+			<cfif vCondition neq "">
+			#PreserveSingleQuotes(vCondition)#						
+			</cfif>
+		</cfoutput>	
+	
+	</cfsavecontent>
 		
 	<!--- ---------------------- --->		
 	<!--- Summary Workflow stage --->
 	<!--- ---------------------- --->
+	
+	<cfset qryvar = evaluate("session.selectedtracks_#pre#")>
 	
 	<cfquery name="Summary"
 	datasource="AppsQuery"
@@ -63,10 +68,10 @@
 						  ISNULL(R.ListingOrder,0) as ListingOrder,
 						  COUNT(T.DocumentNo)  as Counted 				
 				
-				FROM      (#preservesingleQuotes(SelectedTracks)#) T LEFT OUTER JOIN Organization.dbo.Ref_EntityActionParent R 
+				FROM      (#preservesingleQuotes(qryvar)#) T LEFT OUTER JOIN Organization.dbo.Ref_EntityActionParent R 
 							  ON   T.EntityCode = R.EntityCode 
 							  AND  T.ParentCode = R.Code
-							  AND  R.EntityCode IN ('VacDocument','VacCandidate') 
+							  -- AND  R.EntityCode IN ('VacDocument','VacCandidate') <!--- not needed --->
 							  AND  T.Owner = R.Owner		
     
 				GROUP BY  T.EntityCode, 
@@ -78,16 +83,17 @@
 		
 		ORDER BY  ListingOrder 
 				
-	</cfquery>		
-	
+	</cfquery>	
+		
 	<cfquery name="DocumentType"
 	datasource="AppsQuery"
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
 	    SELECT   TypeDescription,	        
 			     count(DISTINCT DocumentNo) as Counted   	   
-	    FROM     (#preservesingleQuotes(SelectedTracks)#) T     						  
-		GROUP BY TypeDescription					
+	    FROM     (#preservesingleQuotes(qryvar)#) T     						  
+		GROUP BY TypeDescription	
+		ORDER BY count(DISTINCT DocumentNo) DESC				
 	</cfquery>	
 	
 	<!--- ---------------------- --->	
@@ -99,7 +105,7 @@
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
 		SELECT     COUNT(DISTINCT DocumentNo) as Total
-		FROM       (#preservesingleQuotes(SelectedTracks)#) as T
+		FROM       (#preservesingleQuotes(qryvar)#) as T
 	</cfquery>
 		
 	<!--- ---------------------- --->	
@@ -116,45 +122,45 @@
 	<!--- --------------------------------- --->
 	<!--- show for a selected step by grade --->
 	<!--- --------------------------------- --->
-
-	 <cfsavecontent variable="SelectedTracks">
+			
+	 <cfsavecontent variable="session.selectedtracks_#pre#">
   
      	<cfoutput>	
-		SELECT   T.*, 			
-				 P.PostGradeBudget, 
-				 P.PostOrderBudget	
-		FROM     (#preservesingleQuotes(SelectTracks)#) as T, 
-				 Employee.dbo.Ref_PostGrade P	
-		WHERE    T.PostGrade       = P.PostGrade 		
-		<cfif vCondition neq "">
-			#PreserveSingleQuotes(vCondition)#
-		</cfif>	
-				
+			SELECT   T.*, R.PostGradeBudget, R.PostOrderBudget
+			FROM     (#preservesingleQuotes(session.SelectTracks)#) as T  INNER JOIN Employee.dbo.Ref_PostGrade R ON  T.PostGrade = R.PostGrade
+			WHERE    1=1 		
+			<cfif vCondition neq "">
+				     #PreserveSingleQuotes(vCondition)#
+			</cfif>					
+			
 		</cfoutput>
 		
-	 </cfsavecontent>			
-	
+	 </cfsavecontent>	
+		 
+	 <cfset qryvar = evaluate("session.selectedtracks_#pre#")>	 
+	 	 	
 	<!--- summary by grade --->
 	
 	<cfquery name="Summary"
-		datasource="AppsQuery"
+		datasource="AppsEmployee"
 		username="#SESSION.login#"
-		password="#SESSION.dbpw#">
+		password="#SESSION.dbpw#">		
 		SELECT    PostGradeBudget, 
 				  PostOrderBudget,
 				  COUNT(T.documentNo) AS counted  		
-		FROM      (#preserveSingleQuotes(SelectedTracks)#) as T 
-		WHERE     1=1 <!--- P.PostGradeVactrack = '1' --->
+		FROM      (#preserveSingleQuotes(qryvar)#) as T <!--- P.PostGradeVactrack = '1' --->
+		WHERE      1=1
 		GROUP BY  PostGradeBudget, PostOrderBudget
 		ORDER BY  PostOrderBudget 
+		
 	</cfquery>		
 	
 	<cfquery name="Count"
-	datasource="AppsQuery"
+	datasource="AppsEmployee"
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
 		SELECT     COUNT(DISTINCT DocumentNo) as Total
-		FROM       (#preservesingleQuotes(SelectedTracks)#) as T
+		FROM       (#preservesingleQuotes(qryvar)#) as T
 	</cfquery>
 	
 	<cfquery name="Sum" dbtype="query">
@@ -163,29 +169,33 @@
 	</cfquery>
 	
 	<cfquery name="DocumentType"
-	datasource="AppsQuery"
+	datasource="AppsEmployee"
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
 	    SELECT   TypeDescription,	        
 			     count(DISTINCT DocumentNo) as Counted   	   
-	    FROM     (#preservesingleQuotes(SelectedTracks)#) T     						  
-		GROUP BY TypeDescription					
+	    FROM     (#preservesingleQuotes(qryvar)#) T     						  
+		GROUP BY TypeDescription						
 	</cfquery>	
-				
+					
 </cfif>
+	
+<cfoutput>
 
-<cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#Subset_#CLIENT.FileNo#">
+	<cfsavecontent variable="subset">
 	
-<cfquery name="subset"
-	datasource="AppsVacancy"
-	username="#SESSION.login#"
-	password="#SESSION.dbpw#">
-		SELECT  *		
-		INTO UserQuery.dbo.#SESSION.acc#Subset_#CLIENT.FileNo#
-		FROM    (#preservesingleQuotes(SelectedTracks)#) as T	
-</cfquery>	
+		SELECT  *				
+		FROM    (#preservesingleQuotes(qryvar)#) as T	
+		<!--- is posted --->
+		WHERE   DatePosted is not NULL
+		<!--- no selected candidate yet --->
+		AND     T.DocumentNo NOT IN (SELECT DocumentNo FROM DocumentCandidate WHERE Status IN ('2s','3'))
+		
+	</cfsavecontent>	
 	
-<cfquery name="aging"
+</cfoutput>
+		
+<cfquery name="agingBase"
 	datasource="AppsVacancy"
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
@@ -195,29 +205,33 @@
 </cfquery>
 	
 <cfquery name="Aging"
-		datasource="AppsQuery"
+		datasource="AppsVacancy"
 		username="#SESSION.login#"
 		password="#SESSION.dbpw#">
+		
 		SELECT *
 		FROM (		
 										
-			<cfloop query="Aging">
-				SELECT  '#Aging.Description#'   as Description, 
-						'#Aging.ListingOrder#' as ListingOrder,
-						 COUNT(ObjectKeyValue1) AS counted 
-				FROM    UserQuery.dbo.#SESSION.acc#Subset_#CLIENT.FileNo# as T
+			<cfloop query="AgingBase">
+				SELECT  '#Description#'         as Description, 
+						'#ListingOrder#'        as ListingOrder,
+						 COUNT(DISTINCT ObjectKeyValue1) as counted 
+				FROM    (#preserveSingleQuotes(subset)#) as T
 				WHERE   #Condition#
 				<cfif recordcount neq currentrow>
 				UNION
 				</cfif>
 			</cfloop>
-			  ) as D
+		 ) as D
+			  
+		WHERE  counted > 0	  
 			  
 		ORDER BY ListingOrder	
 				
 </cfquery>	
-		
+	
 
+	
 <!--- ------------------------ --->	
 <!--- detail views for vacancy --->
 <!--- ------------------------ --->
@@ -228,26 +242,40 @@
 	datasource="AppsQuery"
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
-	SELECT    D.*, 
-       	      T.TypeDescription,
-	          T.ParentCode,
-			  T.EntityClassName ,
- 			  T.ActionCode,
- 			  T.ActionDescription,
-			  F.ReferenceNo as VAReferenceNo,			  
-			 
-			  (SELECT O.OrgUnitNameShort
-			  FROM   Organization.dbo.Organization O, Employee.dbo.Position P
-			  WHERE  P.OrgUnitOperational = O.OrgUnit
-			  AND    P.PositionNo = D.PositionNo) as OrgUnitNameShort 
-		
-	FROM      Vacancy.dbo.Document D 
-	          INNER JOIN (#preservesingleQuotes(SelectedTracks)#) as T  ON D.DocumentNo = T.ObjectKeyValue1 
-			  LEFT OUTER JOIN Applicant.dbo.FunctionOrganization F ON D.FunctionId = F.FunctionId 
-	WHERE 1=1
-			 <cfif vCondition2 neq "">
-				#PreserveSingleQuotes(vCondition2)# 
-			 </cfif>
+	
+		SELECT    D.*, 
+	       	      T.TypeDescription,				  
+		          T.ParentCode,
+				  T.EntityClassName,
+	 			  T.ActionCode,
+	 			  T.ActionDescription,
+				  T.ActionDescriptionStep,
+				  
+				  (SELECT count(*)
+				   FROM   Vacancy.dbo.DocumentCandidate
+				   WHERE DocumentNo = D.DocumentNo
+				   AND   Status IN ('2s','3')) as Candidates,
+				   
+				  (SELECT DateEffective
+			  	   FROM   Applicant.dbo.FunctionOrganization
+				   WHERE  FunctionId = D.FunctionId) as DatePosted,
+				  
+				  (SELECT F.ReferenceNo 
+				   FROM Applicant.dbo.FunctionOrganization F 
+				   WHERE D.FunctionId = F.FunctionId) as VAReferenceNo,
+				 		 
+				  (SELECT O.OrgUnitNameShort
+				   FROM   Organization.dbo.Organization O, Employee.dbo.Position P
+				   WHERE  P.OrgUnitOperational = O.OrgUnit
+				   AND    P.PositionNo = D.PositionNo) as OrgUnitNameShort 
+			
+		FROM      Vacancy.dbo.Document D 
+		          INNER JOIN (#preservesingleQuotes(qryvar)#) as T  ON D.DocumentNo = T.ObjectKeyValue1 
+				  
+		WHERE     EntityCode = 'VacDocument'
+				  <cfif vCondition2 neq "">
+					#PreserveSingleQuotes(vCondition2)# 
+				  </cfif>
 			 
 	</cfquery>	
 	
@@ -263,32 +291,31 @@
 	datasource="AppsQuery"
 	username="#SESSION.login#"
 	password="#SESSION.dbpw#">
-	SELECT    V.*, 
-	          V.TypeDescription,
-	          A.IndexNo, 
-			  A.PersonNo, 
-			  A.LastName, 
-			  A.FirstName, 
-			  A.Gender, 
-			  A.Nationality, 			  
-			  F.ReferenceNo as VAReferenceNo,
+	
+		SELECT    V.*, 
+		          V.TypeDescription,
+		          A.IndexNo, 
+				  A.PersonNo, 
+				  A.LastName, 
+				  A.FirstName, 
+				  A.Gender, 
+				  A.Nationality, 
+				  			  
+				  (SELECT F.ReferenceNo 
+				   FROM   Applicant.dbo.FunctionOrganization F 
+				   WHERE  V.FunctionId = F.FunctionId) as VAReferenceNo,
+				  
+				  (SELECT O.OrgUnitNameShort
+				   FROM   Organization.dbo.Organization O, Employee.dbo.Position P
+				   WHERE  P.OrgUnitOperational = O.OrgUnit
+				   AND    P.PositionNo = V.PositionNo) as OrgUnitNameShort 
+			
+		FROM      Vacancy.dbo.DocumentCandidate D INNER JOIN 
+		         (#preservesingleQuotes(qryvar)#) as V  ON D.DocumentNo = V.ObjectKeyValue1 AND D.PersonNo = V.ObjectKeyValue2  INNER JOIN
+		          Applicant.dbo.Applicant A  ON D.PersonNo = A.PersonNo 
 			  
-			  (SELECT O.OrgUnitNameShort
-			   FROM   Organization.dbo.Organization O, Employee.dbo.Position P
-			   WHERE  P.OrgUnitOperational = O.OrgUnit
-			   AND    P.PositionNo = V.PositionNo) as OrgUnitNameShort 
-		
-	FROM      Vacancy.dbo.DocumentCandidate D INNER JOIN 
-	         (#preservesingleQuotes(SelectedTracks)#) as V  ON D.DocumentNo = V.ObjectKeyValue1 AND D.PersonNo = V.ObjectKeyValue2  INNER JOIN
-	          Applicant.dbo.Applicant A  ON D.PersonNo = A.PersonNo LEFT OUTER JOIN
-			  Applicant.dbo.FunctionOrganization F ON V.FunctionId = F.FunctionId
 	</cfquery>	
 	
-	<!---
-	<cfoutput>
-	DC : #cfquery.executiontime#		
-	</cfoutput>
-	--->	
 	
 <cfelse>
 
@@ -306,17 +333,23 @@
 			  T.PostOrderBudget,
 			  F.ReferenceNo as VAReferenceNo,
 			  
+			    (SELECT count(*)
+				   FROM  Vacancy.dbo.DocumentCandidate
+				   WHERE DocumentNo = D.DocumentNo
+				   AND   Status IN ('2s','3')) as Candidates,
+			  
 			  (SELECT O.OrgUnitNameShort
 			  FROM   Organization.dbo.Organization O, Employee.dbo.Position P
 			  WHERE  P.OrgUnitOperational = O.OrgUnit
 			  AND    P.PositionNo = D.PositionNo) as OrgUnitNameShort 
 			
 	FROM      Vacancy.dbo.Document D 
-	          INNER JOIN (#preservesingleQuotes(SelectedTracks)#) as T ON D.DocumentNo = T.DocumentNo 
+	          INNER JOIN (#preservesingleQuotes(qryvar)#) as T ON D.DocumentNo = T.DocumentNo 
 			  LEFT OUTER JOIN Applicant.dbo.FunctionOrganization F ON D.FunctionId = F.FunctionId 
-			<cfif vCondition2 neq "">
+			  <cfif vCondition2 neq "">
 				#PreserveSingleQuotes(vCondition2)#
-			</cfif>
+			  </cfif>
+	WHERE      T.EntityCode = 'VacDocument'		  
 	</cfquery>	
 		
 	<!--- details candidate --->
@@ -338,14 +371,14 @@
 			  T.EntityClassName,
 			  F.ReferenceNo as VAReferenceNo,
 			  
-			    (SELECT O.OrgUnitNameShort
-			  FROM   Organization.dbo.Organization O, Employee.dbo.Position P
-			  WHERE  P.OrgUnitOperational = O.OrgUnit
-			  AND    P.PositionNo = V.PositionNo) as OrgUnitNameShort 			  
+			  (SELECT O.OrgUnitNameShort
+			   FROM   Organization.dbo.Organization O, Employee.dbo.Position P
+			   WHERE  P.OrgUnitOperational = O.OrgUnit
+			   AND    P.PositionNo = V.PositionNo) as OrgUnitNameShort 			  
 	
 	FROM      Vacancy.dbo.DocumentCandidate D INNER JOIN  
 	          Vacancy.dbo.Document V ON D.DocumentNo = V.DocumentNo         INNER JOIN 
-	          (#preservesingleQuotes(SelectedTracks)#) as T  ON T.DocumentNo = V.DocumentNo INNER JOIN
+	          (#preservesingleQuotes(qryvar)#) as T  ON T.DocumentNo = V.DocumentNo INNER JOIN
 	          Applicant.dbo.Applicant A ON A.PersonNo = D.PersonNo LEFT OUTER JOIN
 			  Applicant.dbo.FunctionOrganization F ON V.FunctionId = F.FunctionId	
 	

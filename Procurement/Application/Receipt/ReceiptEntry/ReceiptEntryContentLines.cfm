@@ -10,20 +10,20 @@
 
 <table width="100%" style="min-width:1000px"align="center" class="navigation_table">
 	 
-	 <tr class="labelmedium line fixrow">
+	 <tr class="labelmedium line fixrow fixlengthlist">
 	 <td height="20"></td>
 	 <td></td>
-	 <td width="38%"><cf_tl id="Item"></td>
+	 <td><cf_tl id="Item"></td>
 	 <td></td>
-	 <td style="min-width:80px"><cf_tl id="UoM"></td>
-	 <td style="min-width:50px"><cf_tl id="Vol"></td>
-	 <td style="min-width:30px"><cf_tl id="Cur"></td>
-	 <td style="min-width:80px" align="right"><cf_tl id="Price"></td>
-	 <td style="min-width:60px" align="right"><cf_tl id="Disc"></td>
-	 <td style="min-width:60px" align="right"><cf_tl id="Qty"></td>
-	 <td style="min-width:100px" align="right"><cf_tl id="Total"></td>
-	 <td style="min-width:80px" align="right"><cf_tl id="Tax"></td>	
-	 <td style="min-width:80px" align="center"><cf_tl id="H"></td>	 
+	 <td><cf_tl id="UoM"></td>
+	 <td><cf_tl id="Vol"></td>
+	 <td><cf_tl id="Cur"></td>
+	 <td align="right"><cf_tl id="Price"></td>
+	 <td align="right"><cf_tl id="Disc"></td>
+	 <td align="right"><cf_tl id="Qty"></td>
+	 <td align="right"><cf_tl id="Total"></td>
+	 <td align="right"><cf_tl id="Tax"></td>	
+	 <td align="center"><cf_tl id="H"></td>	 
 			 
 	 <cfquery name="TaskOrder" 
 		 datasource="AppsMaterials"
@@ -147,7 +147,7 @@
 		   		
 			  <!--- Show task order lines to be recorded --->
 				
-			   <tr class="labelmedium2 line">			   
+			   <tr class="labelmedium2 line fixlengthlist">			   
 		       <td align="center"></td>				   
 			   <td height="18" align="center" style="padding-left:3px;padding-right:6px">#CurrentRow#.</td>
 			   <td>#OrderItem#</td>
@@ -203,7 +203,7 @@
 					   
 					   <cfif shiptodate neq seldate>
 					   
-					   	<tr class="labelmedium">
+					   	<tr class="labelmedium fixlengthlist">
 						<td></td><td colspan="3" style="padding-left:1px"><font size="2" color="gray"><cf_tl id="Pending External Task Orders"></font> <b>#dateformat(shiptodate,"DDDD #CLIENT.DateFormatShow#")#</b></td>
 						<cfif shiptowarehouse neq "">
 						<td class="labelit" align="right" colspan="10">#ShipToWarehouseName#/#ShipToLocation#</td>							
@@ -214,7 +214,7 @@
 												   
 					   </cfif>		
 					   							
-					   <tr class="labelmedium2">
+					   <tr class="labelmedium2 fixlengthlist">
 				   
 				       <td align="center"></td>					   
 					   <td style="padding-left:16p;padding-right:10px" align="center">#CurrentRow#.</td>
@@ -287,8 +287,8 @@
 							   method           = "getDeliveryStatus" 							   
 							   RequisitionNo    = "#RequisitionNo#"
 							   returnvariable   = "Delivery">		
-		   
-			   <tr class="navigation_row labelmedium2 linedotted" style="border-top:1px solid silver;<cfif Delivery.Status neq "3">height:26px</cfif>">
+		    
+			   <tr class="navigation_row labelmedium2 linedotted fixlengthlist" style="border-top:1px solid silver;<cfif Delivery.Status neq "3">height:26px</cfif>">
 			   
 				   <td align="center">				   
 				  				   				   					 				   
@@ -803,7 +803,7 @@
 							 							 
 							 </td>
 							 
-							 <td style="width:40" align="right"><cf_tl id="Qty">:</td>
+							 <td style="padding-left:4px;width:40" align="right"><cf_tl id="Qty"></td>
 							 
 							 <td style="width:70;padding-left:5px;padding-right:5px;border-right:1px solid gray"> 				 				
 									   
@@ -836,7 +836,7 @@
 							 
 							 </td>		
 							 
-							 <td style="width:50" align="right"><cf_tl id="Vol">:</td>		
+							 <td style="padding-left:4px;width:50" align="right"><cf_tl id="Vol"></td>		
 							 
 							 <td style="width:70;padding-left:5px;padding-right:5px;border-right:1px solid gray"> 				 				
 									   

@@ -72,7 +72,7 @@
 				AND     PriceSchedule = '#PriceSchedule#'
 				<cfelse>
 				AND 	PriceSchedule = (SELECT top 1 CODE FROM Materials.dbo.Ref_PriceSchedule WHERE FieldDefault = 1)
-				</cfif>
+				</cfif>							
 		</cfquery>	
 				
 		
@@ -98,11 +98,13 @@
 				WHERE    ItemNo      = '#ItemNo#' 
 				AND      UoM         = '#UoM#'
 				AND      DateEffective <= GETDATE() 
+				AND      Mission     = '#Mission#'					
 				<cfif lowest neq "">
-				AND       DateEffective >= #lowest#
-				</cfif>							
+				AND       DateEffective >= #lowest#				
+				</cfif>		
+								
 		</cfquery>		
-				
+								
 		<cfset sale.mission = getWarehouse.Mission>	
 		
 		<cfquery name="getCustomer" 
@@ -216,13 +218,15 @@
 			<cfset sale.scheduleprice = getPrice.SalesPrice>
 			<cfset sale.price         = getPrice.SalesPrice>
 			<cfset sale.taxcode       = getPrice.TaxCode>
+					
 			
 			<cfset sale.price = sale.price * (100-discount)/100>
 					
 		<!--- we check for a price in ANOTHER currency and convert it to the currency of selection --->
 		
 		<cfelse>
-				
+		
+						
 			<cfquery name="getPrice" maxrows=1 dbtype="query">
 				SELECT    *
 				FROM      getPriceData			   
@@ -246,7 +250,8 @@
 			<cfelse>	
 						
 			    <!--- get from any warehouse in the same mission --->
-			   
+				
+			   		   
 			    <cfquery name="getPrice" maxrows=1 dbtype="query">
 					SELECT    *
 					FROM      getPriceData			   
@@ -254,18 +259,21 @@
 					AND       Currency      = '#Currency#' 	
 					<!--- price schedule found, take last schedule --->
 					AND       PriceSchedule = '#PriceSchedule#'		
-					ORDER BY  DateEffective DESC
-					
-		        </cfquery>
-			   												
+					ORDER BY  DateEffective DESC																							
+		        </cfquery>		
+										
+				
+										   												
 				<cfif getPrice.recordcount eq "1">
-													
+						
+															
 					 <cfset sale.priceschedule = getPrice.PriceSchedule>
 					 <cfset sale.scheduleprice = getPrice.SalesPrice>
 					 <cfset sale.price         = getPrice.SalesPrice>
 					 <cfset sale.taxcode       = getPrice.TaxCode>				 
 					 					 
 				<cfelse>		
+				
 				
 					<cfquery name="getDefault" 
 						datasource="AppsMaterials" 
@@ -1958,8 +1966,22 @@
 							 AND       UoM         = '#TransactionUoM#'
 							 AND       Warehouse   = '#Warehouse#'									 
 						</cfquery>
+						
+						<cfquery name="Item" 
+					       datasource="AppsMaterials" 
+					       username="#SESSION.login#" 
+					       password="#SESSION.dbpw#">
+					         SELECT    *
+					         FROM      Item
+							 WHERE     ItemNo      = '#Itemno#'															 
+						</cfquery>
+						
+						<!--- tra > 0 means a return --->
 
-						<cfif tra gt "0" or (itemLocation.recordcount eq "0" and haslocation.recordcount gt "1")>  <!--- negative, not found in any location except the default --->
+						<cfif tra gt "0" or
+						      Item.ItemClass eq "Service" or
+						       (itemLocation.recordcount eq "0" and haslocation.recordcount gt "1")>  
+							   <!--- negative, service or not found in any location except the default --->
 						
 							<cfif GetSaleUoM.recordCount gt 0 and GetSaleUoM.TransactionUoM neq "">
 						
@@ -2179,7 +2201,7 @@
 								
 								<cfif vtotal_locqty eq 0>
 									<!--- Finishing without posting any transaction for this line--->
-									<cf_message message = "Stock was not available in any location for item : #ItemNo# (#trauom#)"
+									<cf_message message = "Stock is not available in any location for item : #ItemNo# (#trauom#)"
 					  				return = "no">
 					  				<cfabort>
 									

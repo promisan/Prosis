@@ -25,9 +25,9 @@
 	</tr>
 
 	<tr class="labelit line fixlengthlist">	   									
-		<td align="center" style="border-left:1px solid silver"><cf_tl id="Earmarked"><br><cf_tl id="This Order"></td>		
-		<td align="center" style="border-left:1px solid silver"><cf_tl id="Non"><br><cf_tl id="earmarked"></td>
-		<td align="center" style="border-left:1px solid silver"><cf_tl id="Earmarked Other"></td>		
+		<td align="center" style="width:10%;border-left:1px solid silver"><cf_tl id="Earmarked"><br><cf_tl id="This Order"></td>		
+		<td align="center" style="width:10%;border-left:1px solid silver"><cf_tl id="Non"><br><cf_tl id="earmarked"></td>
+		<td align="center" style="width:10%;border-left:1px solid silver"><cf_tl id="Earmarked"><br><cf_tl id="Other"></td>		
 	</tr>
 
 <!--- line filtering --->
@@ -189,14 +189,16 @@
 				<td>#UoMDescription#</td>
 				<td><cfif ItemBarCode neq "">#ItemBarCode#<cfelse>#Classification#</cfif></td>
 				<td style="padding-right:3px;border-left:1px solid silver" align="right">#numberformat(ordered,pformat)#</td>
-				<td id="#workorderitemid#_earmarked" style="padding-right:3px;border-left:1px solid silver" align="right">#numberformat(earmarked,pformat)#</td>
+				<td id="#workorderitemid#_earmarked" style="padding-right:3px;border-left:1px solid silver" align="right">
+				<cfif abs(earmarked) gte "0.01">#numberformat(earmarked,pformat)#<cfelse>--</cfif>
+				</td>
 				<td align="right" bgcolor="FAE7AB" style="padding-right:3px;border-left:1px solid silver">
 				
-				    <cfif OtherOnHand lte "0">
+				    <cfif OtherOnHand lte "0.01">
 					
 						<table cellspacing="0" cellpadding="0">
 							<tr>
-							<td class="labelmediumn2" id="#workorderitemid#_onhand"></td>					
+							<td class="labelmediumn2" id="#workorderitemid#_onhand">--</td>					
 							</tr>
 						</table>
 									
@@ -204,7 +206,7 @@
 					
 						<table>
 							<tr>
-							<td class="labelmediumn2" id="#workorderitemid#_onhand">#numberformat(otheronhand,pformat)#</td>
+							<td class="labelmediumn2" id="#workorderitemid#_onhand"><cfif abs(otheronhand) gte "0.01">#numberformat(otheronhand,pformat)#<cfelse>--</cfif></td>
 							<td style="padding-left:4px;padding-right:2px;cursor:pointer" onclick="earmarkstock('#url.warehouse#','#workorderitemid#','0')">
 							<img src="#session.root#/images/earmark.gif" alt="" border="0" width="14" height="14">
 							</td>
@@ -217,11 +219,11 @@
 				
 				<td align="right" bgcolor="FAE7AB" style="padding-right:3px;border-left:1px solid silver">
 				
-				    <cfif OtherEarmarked lte "0">
+				    <cfif OtherEarmarked lte "0.01">
 					
 						<table cellspacing="0" cellpadding="0">
 							<tr>
-							<td class="labelmediumn2" id="#workorderitemid#_other"></td>					
+							<td class="labelmediumn2" id="#workorderitemid#_other">--</td>					
 							</tr>
 						</table>
 									
@@ -229,7 +231,9 @@
 					
 						<table>
 							<tr>
-							<td class="labelmediumn2" id="#workorderitemid#_other">#numberformat(otherearmarked,pformat)#</td>
+							<td class="labelmediumn2" id="#workorderitemid#_other">
+							<cfif abs(otherearmarked) gte "0.01">#numberformat(otherearmarked,pformat)#<cfelse>--</cfif>							
+							</td>
 							<td style="padding-left:4px;padding-right:2px;cursor:pointer" onclick="earmarkstock('#url.warehouse#','#workorderitemid#','1')">
 							<img src="#session.root#/images/earmark.gif" alt="" width="14" height="14" border="0">
 							</td>
@@ -252,12 +256,11 @@
 			<tr>
 									
 				<td colspan="10">	
-												
+																
 				     <cfif Earmarked gt "0" or (hasIssuances gte "1" and getLines.PointerOverdraw eq "1")>	
-					 
-					     <cf_getMId>							 						 				 				 
-					     <cfdiv id="#workorderitemid#" 
-							  bind="url:ShipmentEntryDetailEarmarked.cfm?warehouse=#url.warehouse#&workorderitemid=#workorderitemid#&mid=#mid#">					   				  
+					 					     						 						 				 				 
+					     <cf_securediv id="#workorderitemid#" 
+							  bind="url:ShipmentEntryDetailEarmarked.cfm?warehouse=#url.warehouse#&workorderitemid=#workorderitemid#">					   				  
 							  
 					 <cfelse>			 
 					

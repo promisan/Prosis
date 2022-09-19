@@ -1,13 +1,16 @@
-<cfparam name="Attributes.Name"           default="">
-<cfparam name="Attributes.Title"          default="">
-<cfparam name="Attributes.TitlePosition"  default="Bottom">
-<cfparam name="Attributes.chartheight"    default="">
-<cfparam name="Attributes.chartwidth"    default="">
-<cfparam name="Attributes.showlabel"     default="yes">
-<cfparam name="Attributes.showvalue"     default="No">
-<cfparam name="Attributes.transitions"   default="false">
-<cfparam name="Attributes.url"           default="">
 
+<cfparam name="Attributes.Name"            default="">
+<cfparam name="Attributes.Title"           default="">
+<cfparam name="Attributes.TitlePosition"   default="Bottom">
+<cfparam name="Attributes.chartheight"     default="">
+<cfparam name="Attributes.chartwidth"      default="">
+<cfparam name="Attributes.showlabel"       default="yes">
+<cfparam name="Attributes.seriesplacement" default="">
+<cfparam name="Attributes.showvalue"       default="No">
+<cfparam name="Attributes.transitions"     default="false">
+<cfparam name="Attributes.url"             default="">
+<cfparam name="Attributes.legend"          default="No">
+<cfparam name="Attributes.fontsize"        default="14">
 
 <cfif thisTag.executionmode is 'start'>
     <cfoutput>
@@ -29,7 +32,7 @@
                     text: "#Attributes.Title#"
                     },
                 legend: {
-                    visible: false
+                    visible: <cfif Attributes.legend eq "No">false<cfelse>true</cfif>
                     },
                 chartArea: {
                     background: "",
@@ -38,45 +41,62 @@
                     margin:20
                     },
                 seriesDefaults: {
+                    <cfif Attributes.seriesplacement eq "stacked">
+                        stack: true,
+                    </cfif>
                     labels: {
+                        <cfif Attributes.fontsize neq "">
+                            font: "#Attributes.fontsize#px sans-serif",
+                        </cfif>
                         <cfif Attributes.showlabel eq "Yes">
                             visible: true,
                             background: "transparent",
                             template: "##= category ##"
                         <cfelse>
                             <cfif Attributes.showvalue eq "Yes">
+                                visible: true,
                                 template: "##= kendo.format('{0:n0}',value)##"
                             <cfelse>
                                 visible: false,
                                 background: "transparent"
                             </cfif>
-                        </cfif>
+                        </cfif>,
+
                     }
                 },
-                seriesColors: [
+
+                    <cfset vColorCount  = 0>
                     <cfloop array="#Session.chartSeries#" index="itm">
                         <cfloop list="#itm.seriesColor#" item='color'>
+                            <cfset vColorCount = vColorCount + 1>
+                            <cfif vColorCount eq 1>
+                                seriesColors: [
+                            </cfif>
                             "#color#",
                         </cfloop>
                     </cfloop>
-                ],
+                    <cfif vColorCount neq 0>
+                        ],
+                    </cfif>
+
 
                 series:[
                 <cfloop array="#Session.chartSeries#" index="itm">
                     {
                         type: "#itm.type#",
                         categoryField: "category",
+                        name:"#itm.serieslabel#",
                         data:[
                             <cfloop query="itm.query">
                                 <cfset vCategoryField = Evaluate("#itm.categoryField#")>
-                                <cfset vField = Evaluate("#itm.field#")>
+                                <cfset vField = VAL(Evaluate("#itm.field#"))>
                                 {
                                     category: "#vCategoryField#",
-                                    value : #NumberFormat(vField,'00000')#
+                                    value : #NumberFormat(vField,'______')#
                                 },
                             </cfloop>
                         ]
-                    }
+                    },
                 </cfloop>
                 ],
                 tooltip: {
@@ -95,6 +115,8 @@
 
                     <cfif Attributes.url neq "">
                         <cfset vUrl = replace(Attributes.url,"javascript:","")>
+						<cfset vUrl = replace(vUrl,"$ITEMLABEL$'","'+$ITEMLABEL$")>
+						<cfset vUrl = replace(vUrl,"$ITEMLABEL$&","'+$ITEMLABEL$")>
                         <cfset vUrl = replace(vUrl,"$ITEMLABEL$","e.dataItem.category")>
                         #PreserveSingleQuotes(vUrl)#
                     </cfif>
@@ -110,6 +132,7 @@
                 #kChart#
             </cf_logpoint>
             --->
+
 
             <cfset AjaxOnLoad("function(){#kChart#}")>
         </cfoutput>

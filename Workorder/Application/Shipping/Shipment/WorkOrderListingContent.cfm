@@ -60,8 +60,9 @@
 				--->
 	WHERE       W.Mission = '#URL.Mission#'
 	
+		
 	<cfif url.status eq "Pending">
-	AND         W.ActionStatus IN ('0','1')
+	AND         W.ActionStatus IN ('0','1') 
 	</cfif>	
 	
 	<cfif url.transactionlot neq "">
@@ -192,6 +193,7 @@
 <cf_tl id="Due" var="vDue">
 <cfset fields[itm] = {label     = "#vDue#",
 					field       = "DueDate", 		
+					alert       = "DueDate lt now()"
 					formatted   = "dateformat(DueDate,CLIENT.DateFormatShow)",		
 					align       = "center"}>																																	
 
@@ -248,7 +250,7 @@
 		listorderalias    = "W"		
 		listorderdir      = "ASC"
 		headercolor       = "ffffff"
-		show              = "35"				
+		show              = "400"				
 		filtershow        = "hide"
 		excelshow         = "Yes" 	
 		screentop         = "No"	

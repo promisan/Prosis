@@ -1,7 +1,6 @@
 
 <cfoutput>
 
-
 <!--- we obtain grouped data upfront to speed up the process --->
 <cfif url.listgroupfield neq "">
 	<cfinclude template="ListingDataGroup.cfm">
@@ -139,6 +138,7 @@
 			   <img style="cursor:pointer" id="col#dkey#" 
 			     class="hide" src="#client.VirtualDir#/Images/arrowdown.gif" align="absmiddle" height="10" width="9" alt="Hide" onclick="#cl#"> 							 
 				 --->
+				 
 			   </td>
 				 
 			<cfelse>						

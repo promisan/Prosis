@@ -8,7 +8,41 @@
   <cfparam name="fielddefault" default="">
   <cfparam name="fieldselectmultiple" default="0">
   
-  <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+  <table width="100%" class="formpadding">
+  
+       <cfif documentMode eq "Step" or documentMode eq "Header" or documentmode eq "-1">
+	   
+	   <tr class="labelmedium">
+	   <td width="200">Object usage:</td>
+	   <td>
+	   
+	   <cfquery name="ObjectList" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+			    SELECT *
+			    FROM  Ref_EntityUsage
+				WHERE EntityCode = '#URL.EntityCode#' 						
+		</cfquery>
+		
+		<cfparam name="ObjectUsage" default="">
+		<cfset val = ObjectUsage>
+		
+		<select name="ObjectUsage" type="text">
+		 <option value=""><cf_tl id="N/A"></option>
+		 <cfoutput query="ObjectList">
+		     <option value="#ObjectUsage#" <cfif ObjectUsage eq val>selected</cfif>>#ObjectUsageName#</option>
+		 </cfoutput>
+		</select>	   
+	   
+	   </td>
+	   </tr>
+	   
+	   <cfelse>
+	   
+	   <input type="hidden" name="ObjectUsage" value="">
+	   
+	   </cfif>
            
   	   <tr class="labelmedium">
 	   <td width="200">Validation:</td>
@@ -85,7 +119,7 @@
 	  <tr class="labelmedium">
 	    <td width="100">Lookup Table:</td>
 		<td>
-		<table cellspacing="0" cellpadding="0"><tr><td>
+		<table><tr><td>
 		
 		<cfset ds = "#LookupDataSource#">
 		
@@ -136,11 +170,11 @@
 		   <td class="labelmedium" style="padding-left:10px" id="fieldlookup2" class="<cfoutput>#cl#</cfoutput>">
 		   <input type="radio" class="radiol" name="LookupSelect" id="LookupSelect" value="0" <cfif lookupselect neq "1">checked</cfif>>
 		   </td>
-		   <td style="padding-left:4px">Auto complete (combo) </td>
+		   <td class="fixlength" style="padding-left:4px">Auto complete (combo) </td>
 		   <td style="padding-left:4px">
 		   <input type="radio" class="radiol" name="LookupSelect" id="LookupSelect" value="1" <cfif lookupselect eq "1">checked</cfif>>
 		   </td>
-		   <td style="padding-left:4px">Dropdown</td>
+		   <td class="fixlength" style="padding-left:4px">Dropdown</td>
 				   
 		   </tr>
 		   

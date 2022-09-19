@@ -1,7 +1,9 @@
 
 <cfparam name="url.scope" default="">
 
+<!---
 <cf_divscroll overflowy="scroll">
+--->
 
 <table width="93%" align="center" class="formpadding navigation_table">
 		
@@ -99,7 +101,7 @@
 					  WHERE  TH.TransactionSourceId = S.CalculationId 
 					  ) 						
 
-			<!--- only of the finance posting workflow is finished --->						
+		   <!--- only of the finance posting workflow is finished --->						
 			AND      NOT EXISTS (
 						
 						SELECT       'X'
@@ -110,6 +112,7 @@
 						AND          TH.TransactionCategory = 'Memorial' 
 						AND          OOA.ActionStatus       = '0' <!--- if pending steps it will not show --->
 						AND          OO.Operational         = 1 )
+						
 						
 									
 		<cfelse>
@@ -167,20 +170,20 @@
 	<tr class="line labelmedium2 fixrow fixlengthlist" style="background-color:white">
 	 <td align="right">C</td>
 	 <td></td>
-	 <td><cf_tl id="Period"></td>
-	 <td><cf_tl id="Entity"></td>	
-	 <td><cf_tl id="Schedule"></td>	 
-	 <td><cf_tl id="Prepared"></td>	 
-	 <td><cf_tl id="Updated"></td>	 
-	 <td><cf_tl id="Mode"></td>	 
-	 <td><cf_tl id="Status"></td>
-	 <td><cf_tl id="Phase"></td>
-	 <td><cf_tl id="Sent Slip"></td>	 
-	 <td colspan="2" align="right"><cf_tl id="Net Pay"></td>	
+	 <td style="background-color:white"><cf_tl id="Period"></td>
+	 <td style="background-color:white"><cf_tl id="Entity"></td>	
+	 <td style="background-color:white"><cf_tl id="Schedule"></td>	 
+	 <td style="background-color:white"><cf_tl id="Prepared"></td>	 
+	 <td style="background-color:white"><cf_tl id="Updated"></td>	 
+	 <td style="background-color:white"><cf_tl id="Mode"></td>	 
+	 <td style="background-color:white"><cf_tl id="Status"></td>
+	 <td style="background-color:white"><cf_tl id="Phase"></td>
+	 <td style="background-color:white"><cf_tl id="Sent Slip"></td>	 
+	 <td style="background-color:white" colspan="2" align="right"><cf_tl id="Net Pay"></td>	
 	 <cfif url.scope neq "portal">
-	 <td colspan="2" align="right"><cf_tl id="Net Pay"></td>		 
+	 <td style="background-color:white" colspan="2" align="right"><cf_tl id="Net Pay"></td>		 
 	 <cfelse>
-	 <td></td><td></td>
+	 <td style="background-color:white"></td><td></td>
 	 </cfif>
 	</tr>			
 		

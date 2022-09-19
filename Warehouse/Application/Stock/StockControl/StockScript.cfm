@@ -679,7 +679,7 @@ function possettlement(s,modid) {
     if (cus != '00000000-0000-0000-0000-000000000000' && $.trim(cus) != '') {
 		    
 	    try { ProsisUI.closeWindow('wsettle',true)} catch(e){};
-	    ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:1080,height:670,resizable:false,modal:true,center:true})		
+	    ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:1080,height:690,resizable:false,modal:true,center:true})		
 		ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Settlement/SettleView.cfm?RequestNo="+req+"&warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&batchid="+bat+"&td="+tr_d+"&th="+tr_h+"&tm="+tr_m+"&addressid="+addr,'wsettle');
 		
 	} else {  Ext.MessageBox.alert('Information', '#vValidCustomerMessage#'); }
@@ -1414,7 +1414,7 @@ function stockinventoryload(s,modid) {
 			
 	}		
 	
-function stockinventorydate(modid,dte,hr,mi) {	
+function stockinventorydate(modid,dte,hr,mi,par,lot) {	
 	
 	_cf_loadingtexthtml='';	
 	Prosis.busy("yes")			
@@ -1426,6 +1426,8 @@ function stockinventorydate(modid,dte,hr,mi) {
 				"&id=5"+
 				"&mission="+mis+
 				"&transaction_date="+dte+
+				"&parent="+par+
+				"&lot="+lot+
 				"&transaction_hour="+hr+
 				"&transaction_minute="+mi
 	ptoken.navigate(url,'content','','','POST','inventoryform')			
@@ -1828,7 +1830,7 @@ function toggleLocations() {
 	});
 }	 
 
-function locshow(loc,cat,catitm,box,sysid,enf,find,zero,pi,ear,ref) {
+function locshow(loc,cat,catitm,box,sysid,enf,find,zero,pi,ear,ref,lot) {
 		 		
 		mis  = document.getElementById("mission").value	
 	  	whs  = document.getElementById("warehouse").value				
@@ -1846,7 +1848,7 @@ function locshow(loc,cat,catitm,box,sysid,enf,find,zero,pi,ear,ref) {
 		     icE.className = "hide";
 			 se.className  = "regular";
 			 _cf_loadingtexthtml='';				 
-			 url = "../Inventory/InventoryViewList.cfm?box="+box+"&warehouse="+whs+"&location="+loc+"&category="+cat+"&categoryitem="+catitm+"&systemfunctionid=" + sysid + "&find=" + find + "&zero=" + zero + "&transaction_date=" + dte + "&transaction_hour=" + hour	+ "&transaction_minute=" + minu + "&parentItemNo=" + pi + "&earmark=" + ear	 + "&refresh=" + ref
+			 url = "../Inventory/InventoryViewList.cfm?box="+box+"&warehouse="+whs+"&location="+loc+"&category="+cat+"&categoryitem="+catitm+"&systemfunctionid=" + sysid + "&find=" + find + "&zero=" + zero + "&transaction_date=" + dte + "&transaction_hour=" + hour	+ "&transaction_minute=" + minu + "&parentItemNo=" + pi + "&earmark=" + ear	 + "&lot=" + lot + "&refresh=" + ref
 			 /*
 			 window['fnLocShowCB'] = function(){
 				 if ($('##filtersearchsearch').length == 1) {
@@ -2698,6 +2700,4 @@ function clearStockIssueEndFocus() {
 
  </style>		
 		
-</cfoutput>      
-
-                                                                                                                                    
+</cfoutput>                                                                                                                                         

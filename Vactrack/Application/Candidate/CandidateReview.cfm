@@ -289,26 +289,20 @@
 		ptoken.open("#SESSION.root#/cfrstage/getFile.cfm?file=php_"+script+".pdf&mid="+ uController.GetMid(),"php_"+script, "location=no, toolbar=no, scrollbars=yes, resizable=yes")
 
 	}
-	
-	ie = document.all?1:0
-	ns4 = document.layers?1:0
-	
-	function hl(itm,fld){
-	
-	     if (ie){
-	          while (itm.tagName!="TR")
-	          {itm=itm.parentElement;}
-	     }else{
-	          while (itm.tagName!="TR")
-	          {itm=itm.parentNode;}
-	     }
-	 	 		 	
-		 if (fld != false){
 			
+	function hl(itm,fld,row){
+	    
+	     while (itm.tagName!="TR")
+	     {itm=itm.parentNode;}
+		 	    	 	 		 	
+		 if (fld != false){			
 		 itm.className = "highLight2";
+		 document.getElementById('boxReviewDate_'+row).className = "regular"
 		 }else{			
-	     itm.className = "";		
+	     itm.className = "";	
+		 document.getElementById('boxReviewDate_'+row).className = "hide"		 	
 		 }
+		 
 	  }
 	
 	function assessment(bx,doc,per,act) {
@@ -521,6 +515,7 @@ password="#SESSION.dbpw#">
 				   A.Gender, 
 				   A.DOB, 
 				   R.ReviewMemo,
+				   R.ReviewDate,
 				   R.ReviewScore,	
 				   R.ReviewId			   
 		   FROM    DocumentCandidate DC 
@@ -542,21 +537,21 @@ password="#SESSION.dbpw#">
 
 <cfoutput>
  
- <tr class="labelmedium line">
+ <tr class="labelmedium2 line">
  	<td><cf_tl id="Unit">:</td>
 	<td bgcolor="white">#Doc.OrganizationUnit#</td>
 	<TD><cf_tl id="Due date"></td>
     <td bgcolor="white">#Dateformat(Doc.Duedate, CLIENT.DateFormatShow)#</td>
 </TR>	
 	
-<TR>
+<TR class="labelmedium2 line">
     <TD><cf_tl id="Functional title">:</TD>
     <TD>#Doc.FunctionalTitle#</TD>
 	<td><cf_tl id="Grade">:</td>
 	<td>#Doc.PostGrade#</td>
 </TR>	
 		
-<TR class="labelmedium line">
+<TR class="labelmedium2 line">
 	
 	<cfif doc.remarks neq "">
 	    <td><cf_tl id="Remarks">:</td>
@@ -582,6 +577,8 @@ password="#SESSION.dbpw#">
 		   n/a
 		   </cfif>
 		</td>
+		<td></td>
+		<td></td>
 		
 	</cfif>
 	
@@ -622,30 +619,30 @@ password="#SESSION.dbpw#">
 
 	<cf_divscroll>
 	
-	<table width="99%" class="navigation_table">
+	<table width="100%" class="navigation_table">
 	
-	    <TR class="labelmedium2 line fixrow" style="height:25px;">
+	    <TR class="labelmedium2 line fixrow fixlengthlist" style="height:25px;">
 		  <td style="width:10px"></td>	
 		  <cfif url.wParam neq "Score">	     	   	  	 
-	      <TD style="min-width:200px"><cf_tl id="Candidate"></TD>      
-		  <TD style="min-width:100px"><cf_tl id="IndexNo"></TD>	
-		  <TD style="min-width:100px"><cf_tl id="Nationality"></TD>
-		  <TD style="min-width:100px"><cf_tl id="DOB"></TD>
-	      <TD style="min-width:100px"><cf_tl id="Gender"></TD>
+	      <TD><cf_tl id="Candidate"></TD>      
+		  <TD><cf_tl id="IndexNo"></TD>	
+		  <TD><cf_tl id="Nationality"></TD>
+		  <TD><cf_tl id="DOB"></TD>
+	      <TD><cf_tl id="Gender"></TD>
 		  <TD style="max-width:10px;border-right:1px solid silver"></td>		  
-	   	  <TD style="background-color:ffffaf;padding-left:4px;min-width:100px;border-right:1px solid silver"><cf_tl id="Recruit status"></TD>	 
+	   	  <TD align="center" style="background-color:ffffaf;padding-left:4px;border-right:1px solid silver"><cf_tl id="Current Recruit status"></TD>	 
 		  <cfelse>
 		  <TD colspan="7" style="min-width:200px"><cf_tl id="Candidate"></TD>      		
 		  </cfif>		  
 		  	   
 		  <cfif dialog eq "Score"> 
-		  	<td style="width:60px;background-color:ffffaf"><cf_tl id="Score"></td>
+		  	<td align="center" style="width:60px;background-color:ffffaf"><cf_tl id="Score"></td>
 		  <cfelseif dialog eq "Interview">	
 		    <td align="center" style="width:30px;background-color:ffffaf;"><cf_tl id="I"></td>
 		  <cfelse>			 
 		  	<td style="width:1px;background-color:ffffaf"></td>
 		  </cfif>	  	
-		 <td style="min-width:10%;background-color:ffffaf"><cfoutput>#checkText#</cfoutput></td>
+		 <td align="center" style="background-color:ffffaf"><cfoutput>#checkText#</cfoutput></td>
 		  
 		</TR>	
 							
@@ -753,10 +750,10 @@ password="#SESSION.dbpw#">
 		   returnvariable   = "PreventSelection">		
 				
 		<cfif Status lt wfinal>
-	        <TR bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('ffffff'))#" class="line navigation_row labelmedium2" 
+	        <TR bgcolor="#IIf(CurrentRow Mod 2, DE('ffffff'), DE('ffffff'))#" class="line navigation_row labelmedium2 fixlengthlist" 
 			  style="font-size:18px;height:26px">		
 	    <cfelse> 	
-		    <TR class="line navigation_row labelmedium2" style="font-size:18px;height:26px;border-top:1px solid silver">		
+		    <TR class="line navigation_row labelmedium2 fixlengthlist" style="font-size:18px;height:26px;">		
 	    </cfif> 
 				
 		<cfset cla = "hide">
@@ -768,7 +765,7 @@ password="#SESSION.dbpw#">
 		
 			<table>
 			
-			<tr>
+			<tr style="height;30px">
 					
 			<cfif dialog eq "Interview">					
 		    <td style="padding-top:8px">	
@@ -833,7 +830,7 @@ password="#SESSION.dbpw#">
 		
 		<cfif url.wParam neq "Score">
 				
-		<td style="font-size:17px;font-weight:bold"><a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#, #FirstName#</a></td>	
+		<td style="font-size:16px"><a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#, #FirstName#</a></td>	
 		<td><cfif IndexNoA neq ""><a href ="javascript:EditPerson('#IndexNoA#','','contract')">#IndexNoA#</a><cfelse>[<cf_tl id="undefined">]</cfif></td>		
 		<td>#NationalityName#</td>
 		<td>#dateformat(DOB,client.dateformatshow)#</td>
@@ -846,7 +843,7 @@ password="#SESSION.dbpw#">
 			      <cf_img icon="open" onclick="personprofile('#doc.documentno#','#PersonNo#')">	
 			</cfif>		
 		</td>
-		<td id="status#PersonNo#" style="padding-left:3px;border-right:1px solid silver" class="<cfif Status gte wfinal>highlight</cfif>">#DescriptionStatus#</td>	
+		<td id="status#PersonNo#" align="center" style="width:200px;padding-left:3px;border-right:1px solid silver" class="<cfif Status gte wfinal>highlight</cfif>">#DescriptionStatus#</td>	
 				
 		<cfelse>
 		
@@ -935,7 +932,7 @@ password="#SESSION.dbpw#">
 							
 					</cfif>
 					
-					<td align="right" style="padding-left:4px;padding-right:7px;padding-top:1px">
+					<td align="right" style="padding-right:7px;padding-top:1px">
 															
 					<cfif TsInterviewStart neq "">
 					
@@ -1020,10 +1017,33 @@ password="#SESSION.dbpw#">
 									
 				 <cfif (PreventSelection.recordcount eq "0" or Validation.recordcount eq "1") and 
 				  (Selected.recordcount eq "0" or Status eq "9" or Selected.Status gte "2" or Selected.Status lte "2s")>
-			
-																								
-					<input onClick="hl(this,this.checked)" class="radiol" style="height:16px;width:16px" 
+					
+					<table style="width:150px">
+					<tr class="labelmedium2">
+					<td style="width:40px" align="left">																						
+					<input onClick="hl(this,this.checked,'#CurrentRow#')" class="radiol" style="height:15px;width:15px" 
 					type="checkbox" name="ReviewStatus_#CurrentRow#" id="ReviewStatus_#personno#" value="#wFinal#" <cfif Status gte wFinal>checked</cfif> style="cursor:pointer;">					
+					</td>
+					
+					<td style="padding-top:2px;min-width:140px" class="<cfif Status gte wFinal>regular<cfelse>hide</cfif>" id="boxReviewDate_#currentrow#">
+					
+						 <cfif now() gt ReviewDate>						 
+						    <cfset st = Dateformat(ReviewDate, CLIENT.DateFormatShow)>
+						 <cfelse> 						 
+						    <cfset st = Dateformat(now(), CLIENT.DateFormatShow)>
+						 </cfif>
+									
+						  <cf_intelliCalendarDate9
+								FieldName="ReviewDate_#CurrentRow#" 
+								Manual="True"		
+								class="regularxl"	
+								style="text-align:center;"												
+								Default="#st#"
+								AllowBlank="True">	
+					
+					</td>
+					</tr></table>
+					
 										
 				<cfelse>			
 					

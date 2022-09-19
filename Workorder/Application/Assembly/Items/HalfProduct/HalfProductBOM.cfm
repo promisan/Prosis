@@ -52,7 +52,7 @@
 		ORDER BY IR.OrgUnit
 </cfquery>	
 
-<table width="100%" cellspacing="0" cellpadding="0" >
+<table width="100%">
 
 	<tr>
 
@@ -63,8 +63,8 @@
 		</td>
 	
 		<td width="95%">
-		
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table"> 
+				
+			<table width="100%" class="navigation_table"> 
 			
 				<cfset total = 0>
 				
@@ -72,7 +72,7 @@
 					
 					<tr>
 						<td colspan="2"></td>
-						<td colspan="8" class="labelmediumcl">#OrgUnitName#</td>
+						<td colspan="8" class="labelmedium2">#OrgUnitName#</td>
 					</tr>	
 					
 					<cfoutput>
@@ -89,7 +89,7 @@
 						<cfset cl = "white">
 					</cfif> 				 
 										
-					<tr bgcolor="#cl#" class="navigation_row labelmedium line">
+					<tr bgcolor="#cl#" class="navigation_row labelmedium2 line">
 												
 						<td width="15" style="padding-left:4px;padding-top:1px">								
 						    <cf_img icon="open" onclick="editResourceSupply('#ItemFinished.workorderid#','#ItemFinished.workorderline#','#WorkOrderItemId#','#WorkOrderItemIdResource#','#ItemNo#','#UoM#');" navigation="yes">								
@@ -103,7 +103,7 @@
 						<td width="10%">#Reference#</td>
 						<td width="10%">#Classification#</td>						
 						<td width="10%" align="right" style="padding-left:3px">#dateformat(created,client.dateformatshow)#</td>																												
-						<td width="8%" align="right">#Quantity#</td>
+						<td width="8%"  align="right">#Quantity#</td>
 						<td width="10%" align="right">#numberformat(Price,",.__")#</td>
 						<td width="10%" align="right" style="padding-left:10px">#numberformat(Amount,",.__")#</td>	
 					</tr>	
@@ -129,9 +129,9 @@
 				
 				<cfoutput>
 				
-					<tr>
+					<tr class="labelmedium2">
 						<td colspan="2"></td>
-						<td colspan="7" align="right" class="labelit"><b>#numberformat(Total,",__.__")#</td>
+						<td colspan="7" align="right"><b>#numberformat(Total,",.__")#</td>
 					</tr>	
 					
 				</cfoutput>	

@@ -199,7 +199,7 @@ password="#SESSION.dbpw#">
 							source     = "../WarehouseLocation/RecordListing.cfm?idmenu=#url.idmenu#&warehouse=#URL.ID1#&box=contentbox2">		
 										
 				<cfset itm=itm+1>							
-				<cf_tl id = "Transaction Clearance" var = "vName1a">
+				<cf_tl id = "Clearance" var = "vName1a">
 				<cf_menutab item       = "#itm#" 
 				            iconsrc    = "Transaction.png" 
 							iconwidth  = "#wd#" 
@@ -237,7 +237,18 @@ password="#SESSION.dbpw#">
 							targetitem = "2"							
 							name       = "#vName3#"
 							source     = "Program/ProgramListing.cfm?warehouse=#URL.ID1#&box=contentbox2">
-					
+							
+				<cfset itm=itm+1>					
+				<cf_tl id = "Sales Target" var = "vTarget">
+				<cf_menutab item       = "#itm#" 
+				            iconsrc    = "Warehouse.png" 
+							iconwidth  = "#wd#" 
+							iconheight = "#ht#" 
+							targetitem = "2"													
+							name       = "#vTarget#"
+							source     = "Target/TargetView.cfm?idmenu=#url.idmenu#&warehouse=#URL.ID1#&box=contentbox2">					
+				
+				<!---	
 				<cfset itm=itm+1>					
 				<cf_tl id = "Strategic Stock" var = "vStock">
 				<cf_menutab item       = "#itm#" 
@@ -246,7 +257,9 @@ password="#SESSION.dbpw#">
 							iconheight = "#ht#" 
 							targetitem = "2"													
 							name       = "#vStock#"
-							source     = "StockLevels/StockLevelsListing.cfm?idmenu=#url.idmenu#&warehouse=#URL.ID1#&box=contentbox2">						
+							source     = "StockLevels/StockLevelsListing.cfm?idmenu=#url.idmenu#&warehouse=#URL.ID1#&box=contentbox2">		
+							
+							--->				
 				
 				<cfset itm=itm+1>	
 				<cf_tl id = "Statistics" var = "vName5">							

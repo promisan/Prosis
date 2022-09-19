@@ -455,6 +455,7 @@
 										 recordtime = "#timeformat(OfficerDate,'HH:MM:SS')#">					
 						
 						<!--- outputting --->
+						
 						#DateFormat(LocalTime,"#client.dateFormatShow#")#@#TimeFormat(LocalTime, "HH:MM")# <font style="font-size: xx-small;"><cfif timezone neq "0:00">[<cfif timezone gt 0>+</cfif>#timezone#]</cfif></font>
 					
 					</cfif>
@@ -548,6 +549,7 @@
 										 recordtime = "#timeformat(OfficerDate,'HH:MM:SS')#">					
 						
 						<!--- outputting --->
+						
 						#DateFormat(LocalTime, "#client.dateFormatShow#")#@#TimeFormat(LocalTime, "HH:MM")# <font style="font-size: xx-small; color:##333333;"><cfif timezone neq "0:00">[<cfif timezone gt 0>+</cfif>#timezone#]</cfif></font><br>
 					
 						<!--- officer submitted this step leaving the status as Pending --->

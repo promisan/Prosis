@@ -44,7 +44,7 @@ password="#SESSION.dbpw#">
 <!--- we refresh if no records found or it is disabled --->
 
 <cfif url.refresh eq "1" or check.recordcount eq "0">
-	<cfinclude template="getInventoryData.cfm">
+	<cfinclude template="getInventoryData.cfm">	
 </cfif>
 
 <cfif url.find eq "undefined">
@@ -78,8 +78,11 @@ password="#SESSION.dbpw#">
 	AND      Category     = '#url.category#'
 	AND      CategoryItem = '#url.categoryitem#'
 	<cfif URL.parentItemNo neq "">
-	AND      ParentItemNo = '#URL.parentItemNo#'
+	AND      ParentItemNo = '#URL.parentItemNo#' 
 	</cfif>	
+	<cfif URL.Lot neq "">
+	AND      TransactionLot = '#URL.lot#' 
+	</cfif>
 	<cfif url.earmark eq "false">
 	AND      RequirementId = '00000000-0000-0000-0000-000000000000'
 	</cfif>
@@ -98,8 +101,8 @@ password="#SESSION.dbpw#">
 	</cfif>
 	
 	<!--- prevent adding stock to receipt location --->
-	<cfif LocationReceipt eq "1">
-	AND     OnHand <> 0
+	<cfif LocationReceipt eq "1" and URL.Lot eq "">
+	AND     abs(OnHand) > 0.002 
 	</cfif>
 	
 	ORDER BY Category,
@@ -121,9 +124,9 @@ password="#SESSION.dbpw#">
 
 <table width="100%" style="padding:6px;border:0px solid silver" bgcolor="fbfbfb">
 
-	<tr><td style="padding:0px">
+	<tr><td>
 		
-	<table width="100%" align="center" class="navigation_table">
+	<table width="100%" border="0" align="center" class="navigation_table">
 
 		    <tr class="labelmedium2 fixrow3 clsFilterRow">
 			   <td style="min-width:26px;top:53px"></td>			  
@@ -133,9 +136,9 @@ password="#SESSION.dbpw#">
 			   <td style="min-width:20px;top:53px"></td>
 			   <td style="min-width:100px;top:53px"><cf_tl id="Mode"></td>  
 			   <td style="min-width:100px;top:53px"><cf_tl id="UoM"></td>   
-			   <td style="min-width:100px;top:53px" align="right"><cf_tl id="On Hand"><cf_space spaces="20"></td>
+			   <td style="min-width:100px;top:53px" align="right"><cf_tl id="On Hand"></td>
 			   <td style="min-width:100px;top:53px" align="right"><cf_tl id="Measurement"></td>
-			   <td style="width:25%;padding-right:5px;top:53px" align="right"><cf_tl id="Result"></td>				   
+			   <td style="min-width:100px;padding-right:5px;top:53px" align="right"><cf_tl id="Result"></td>				   
 			</tr>	
 							
 			<cf_tl id = "Standard"   var = "vStandard">
@@ -147,12 +150,12 @@ password="#SESSION.dbpw#">
 			
 			<cfoutput group="ItemNo">
 						
-			<tr bgcolor="f4f4f4" class="line clsFilterRow">
+			<tr bgcolor="e6e6e6" class="line clsFilterRow">
 			
 			<td colspan="10"><table>
-				<tr class="labelmedium">
-					<td style="font-size:15px;padding-left:40px;min-width:70px;"><a href="javascript:locationitem('#itemLocationId#')" class="ccontent">#ItemNo#</a></td>
-					<td style="height:26;font-size:15px">#ItemDescription# <cfif ItemNoExternal neq "">/ #itemNoExternal#</cfif></td>
+				<tr class="labelmedium2">
+					<td style="padding-left:10px;font-size:15px;min-width:60px;"><a href="javascript:locationitem('#itemLocationId#')" class="ccontent">#ItemNo#</a></td>
+					<td style="font-size:16px" class="ccontent">#ItemDescription# <cfif ItemNoExternal neq "">/ #itemNoExternal#</cfif> <font style="cursor:hand" title="parent item" size="1">#ParentItemNo#</font></td>
 					<td style="display:none;" class="ccontent">#ItemBarCode#</td>
 					<td style="display:none;" class="ccontent">#ItemDescription#</td>
 					<td style="display:none;" class="ccontent">#itemNoExternal#</td>
@@ -160,107 +163,108 @@ password="#SESSION.dbpw#">
 				</table>
 			</td></tr>
 										
-				<cfoutput group="TransactionLot">
+			<cfoutput group="TransactionLot">
+				
+					<cfif TransactionLot neq "0" and TransactionLot neq "">		
 					
-						<cfif TransactionLot neq "0" and TransactionLot neq "">		
+						<cfif url.earmark eq "false">
 						
-							<cfif url.earmark eq "false">
-							
-								<cfsavecontent variable="myLot">#TransactionLot#</cfsavecontent>
-							
-							<cfelse>
-													
-								<cfquery name="Lot"
-								datasource="AppsMaterials" 
-								username="#SESSION.login#" 
-								password="#SESSION.dbpw#">
-									SELECT   *, (SELECT OrgUnitName FROM Organization.dbo.Organization WHERE OrgUnit = L.OrgUnitVendor) as OrgUnitName
-									FROM     ProductionLot L
-									WHERE    Mission        = '#Warehouse.Mission#'		
-									AND      TransactionLot = '#TransactionLot#'
-								</cfquery>
-							
-								<tr class="labelmedium line clsFilterRow">						
-								<td style="padding-left:70px">
+							<cfsavecontent variable="myLot">#TransactionLot#</cfsavecontent>
+						
+						<cfelse>
+												
+							<cfquery name="Lot"
+							datasource="AppsMaterials" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT   *, (SELECT OrgUnitName FROM Organization.dbo.Organization WHERE OrgUnit = L.OrgUnitVendor) as OrgUnitName
+								FROM     ProductionLot L
+								WHERE    Mission        = '#Warehouse.Mission#'		
+								AND      TransactionLot = '#TransactionLot#'
+							</cfquery>
+						
+							<tr class="fixlengthlist labelmedium2 line clsFilterRow" style="height:20px;background-color:BCFAC7">						
+								<td colspan="10">
 								   <table>
-								   <tr>
-									   <td style="font-size:13px;font-weight:400;min-width:200px">#TransactionLot#</td>
-									   <td style="font-size:13px;font-weight:400;min-width:100px">#dateformat(Lot.TransactionLotDate,client.dateformatshow)#</td>
-									   <td style="font-size:13px;font-weight:400;min-width:100px">#Lot.OrgUnitName#</td>
+								   <tr class="labelmedium2 fixlengthlist" style="height:20px;background-color:BCFAC7">
+									   <td style="padding-left:8px"><b>LOT</b>:&nbsp;#TransactionLot#</td>
+									   <td>#dateformat(Lot.TransactionLotDate,client.dateformatshow)#</td>
+									   <td>#Lot.OrgUnitName#</td>
 								   </tr>
 								   </table>						  
 								</td>
 								<td class="ccontent hide">#ItemNo#</td>
-								<td class="ccontent hide">#ItemDescription#</td>						
-								</tr>
-							
-							</cfif>		
-																				
-							<cfoutput>	
-															
-								<!--- item --->										
-								<cfif onhand lt -0.005>
-									<cfset color = "FED7CF">
-								<cfelse>
-									<cfset color = "transparent">
-								</cfif>
-								
-								<cfif url.zero eq "true" and abs(onhand) lte "0.01">					
-								   <cfset cl="hide">					
-								<cfelse>					
-								   <cfset cl="regular">										
-								</cfif>			
-								
-							   <tr bgcolor="#color#" class="#cl# clsFilterRow navigation_row line <cfif abs(onhand) lte "0.02">zero<cfelse>standard</cfif>">											
-							       <cfinclude template="InventoryViewListLine.cfm"> 
-								   <td class="ccontent hide">#ItemNo#</td>
-								   <td class="ccontent hide">#ItemDescription#</td>
-								   <td class="ccontent hide">#ItemNoExternal#</td>	
-								</tr>	
-								
-								<tr id="locarc#url.box#_#currentrow#_box" class="hide">		
-								    <td id="locarc#url.box#_#currentrow#" class="hide" align="center" colspan="10"></td>
-								</tr>	
-								
-							</cfoutput>					
-							
-						<cfelse>
+								<td class="ccontent hide">#ItemDescription# #ItemBarCode# #itemNoExternal# #transactionlot#</td>						
+							</tr>
 						
-							<cfset mylot = "">
-						
-							<cfoutput>																	
-																
-								<!--- item --->										
-								<cfif onhand lt -0.005>
-									<cfset color = "FED7CF">
-								<cfelse>
-									<cfset color = "transparent">
-								</cfif>
-								
-								<cfif url.zero eq "true" and abs(onhand) lte "0.01">					
-								   <cfset cl="hide">					
-								<cfelse>					
-								   <cfset cl="regular">										
-								</cfif>			   
+						</cfif>		
+																			
+						<cfoutput>	
 														
-								<tr bgcolor="#color#" class="#cl# clsFilterRow navigation_row line <cfif abs(onhand) lte "0.02">zero<cfelse>standard</cfif>">																		  				
-								   <cfinclude template="InventoryViewListLine.cfm">	
-								   <td class="ccontent hide">#ItemNo#</td>			
-								   <td class="ccontent hide">#ItemNoExternal#</td>											   
-								   <td class="ccontent hide">#ItemDescription#</td>
-								</tr>		
-								
-								<tr id="locarc#url.box#_#currentrow#_box" class="hide">		
-								    <td id="locarc#url.box#_#currentrow#" class="hide" align="center" colspan="10"></td>
-								</tr>	
+							<!--- item --->										
+							<cfif onhand lt -0.005>
+								<cfset color = "FED7CF">
+							<cfelse>
+								<cfset color = "transparent">
+							</cfif>
+							
+							<cfif url.zero eq "true" and abs(onhand) lte "0.01">					
+							   <cfset cl="hide">					
+							<cfelse>					
+							   <cfset cl="regular">										
+							</cfif>			
+							
+						   <tr bgcolor="#color#" class="fixlengthlist #cl# clsFilterRow navigation_row line <cfif abs(onhand) lte "0.02">zero<cfelse>standard</cfif>">	
+						   								
+						       <cfinclude template="InventoryViewListLine.cfm"> 
+							   <td class="ccontent hide">#ItemNo#</td>
+							   <td class="ccontent hide">#ItemDescription#</td>
+							   <td class="ccontent hide">#ItemNoExternal# #transactionlot# #ItemBarCode#</td>	
+							</tr>	
+							
+							<tr id="locarc#url.box#_#currentrow#_box" class="hide">		
+							    <td id="locarc#url.box#_#currentrow#" class="hide" align="center" colspan="10"></td>
+							</tr>	
+							
+						</cfoutput>					
+						
+					<cfelse>
+					
+						<cfset mylot = "">
+					
+						<cfoutput>																	
+															
+							<!--- item --->										
+							<cfif onhand lt -0.005>
+								<cfset color = "FED7CF">
+							<cfelse>
+								<cfset color = "transparent">
+							</cfif>
+							
+							<cfif url.zero eq "true" and abs(onhand) lte "0.01">					
+							   <cfset cl="hide">					
+							<cfelse>					
+							   <cfset cl="regular">										
+							</cfif>			   
 													
-							</cfoutput>
-																				
-						</cfif>
-																				
-				</cfoutput>	
+							<tr bgcolor="#color#" class="fixlengthlist #cl# clsFilterRow navigation_row line <cfif abs(onhand) lte "0.02">zero<cfelse>standard</cfif>">																		  				
+							   <cfinclude template="InventoryViewListLine.cfm">	
+							   <td class="ccontent hide">#ItemNo#</td>			
+							   <td class="ccontent hide">#ItemNoExternal#</td>											   
+							   <td class="ccontent hide">#ItemDescription#</td>
+							</tr>		
+							
+							<tr id="locarc#url.box#_#currentrow#_box" class="hide">		
+							    <td id="locarc#url.box#_#currentrow#" class="hide" align="center" colspan="10"></td>
+							</tr>	
+												
+						</cfoutput>
+																			
+					</cfif>
+																			
+			</cfoutput>	
 				
-				</cfoutput>
+			</cfoutput>
 			
 			</cfoutput>
 							
@@ -268,7 +272,7 @@ password="#SESSION.dbpw#">
 			
 			<tr class="clsFilterRow"><td colspan="10" align="center">
 
-				<table width="100%" cellspacing="0" cellpadding="0" align="center">
+				<table width="100%" align="center">
 
 				<!--- kherrera (10/06/2020): allows show the submit button when searching --->
 				<tr style="display:none;">
@@ -330,7 +334,7 @@ password="#SESSION.dbpw#">
 				
 		          <td colspan="2" height="30" align="center" id="#url.box#_#url.location#">
 				  
-				    <table cellspacing="0" cellpadding="0">
+				    <table>
 					<tr>					
 					
 					<cfif getAdministrator(warehouse.mission) eq "1">				

@@ -14,27 +14,27 @@
 	 					
 	   <cfoutput query="Details" group="ActionCode">
 	   
-	   <cfif Status eq "9">
-	   	   <cfset cl = "FDDFDB">
-	   <cfelse>
-		   <cfset cl = "white">
-	   </cfif>	   	 
-	   
-	   <tr class="labelmedium fixlengthlist cls#URL.Mission##row#" style="display:none;">
-	   		<td align="left" colspan="6" style="padding-left:24px;font-weight:bold" class="labelmedium">#ActionDescription#</td>
-	   </tr>
+		   <cfif Status eq "9">
+		   	   <cfset cl = "FDDFDB">
+		   <cfelse>
+			   <cfset cl = "white">
+		   </cfif>	   	 
+		   
+		   <tr class="labelmedium2 fixlengthlist cls#URL.Mission##row#" style="display:none;">
+		   		<td align="left" colspan="6" style="padding-left:24px;font-weight:bold">#ActionDescriptionStep#</td>
+		   </tr>
 	 	 		   	   
 		   <cfoutput>
 	
 			   <tr bgcolor="#cl#" class="navigation_row line fixlengthlist labelmedium cls#URL.Mission##row#" style="height:20px; display:none;">
 			      <td style="padding-left:24px">#CurrentRow#</td> 
 				  <td>#TypeDescription#</td>
-				 
-			      <td><a href="javascript:showdocument('#DocumentNo#','')">#DocumentNo#</a> </td>	
-				  <td>#dateformat(duedate,client.dateformatshow)#</td>		  
-				  <td>#left(VAReferenceNo,6)#</td>
-				 
-				  <td>#Postgrade#</td>
+				  <td>#dateformat(Created,client.dateformatshow)#</td>
+				  <td>#dateformat(DatePosted,client.dateformatshow)#</td>
+			      <td><a href="javascript:showdocument('#DocumentNo#','')">
+				  <cfif VAReferenceNo neq "">#left(VAReferenceNo,8)#<cfelse>#DocumentNo#</cfif></a> </td>	
+				  <td title="Expected Onboarding date"><cfif duedate le now() and url.status eq "0"><font color="FF0000"></cfif>#dateformat(duedate,client.dateformatshow)#</td>		  				 				 
+				  <td>#Postgrade# <cfif candidates gt "0">[#Candidates#]</cfif></td>
 				  
 				  <td align="left">
 				  									
@@ -47,15 +47,20 @@
 									 P.MandateNo,
 									 P.PositionParentId,
 									 DP.PostNumber, 
-							         DP.PositionNo,								 
+							         DP.PositionNo,	
+									 DP.DateVacant							 
 									 
-									  <!--- take expiration date of the position(s) associated to the track prior to the creation --->
+									  <!--- take expiration date of the position(s) associated to the track prior to the creation 
 				 
 									 (SELECT     MAX(DateExpiration)
 									  FROM       Employee.dbo.PersonAssignment PA
 									  WHERE      PA.PositionNo = DP.PositionNo			 
 									  AND        PA.AssignmentStatus IN ('0','1') 
-									  AND        PA.DateExpiration <= '#Created#') as AssignmentExpiration								 
+									  AND        PA.Incumbency > 0
+									  AND        PA.AssignmentType = 'Actual'
+									  AND        PA.DateExpiration <= '#Created#') as AssignmentExpiration		
+									  
+									  --->						 
 									 
 							FROM     DocumentPost DP INNER JOIN 
 							         Employee.dbo.Position P ON DP.PositionNo = P.PositionNo INNER JOIN
@@ -77,8 +82,8 @@
 								</cfif>
 							</td>
 							
-							<td style="padding-left:3px">
-								#DateFormat(AssignmentExpiration,client.dateformatshow)#							
+							<td style="padding-left:3px" title="Vacant since">
+								#DateFormat(DateVacant,client.dateformatshow)#							
 							</td>
 							
 							</tr>					
@@ -111,11 +116,14 @@
 	   
 		   <tr class="navigation_row line fixlengthlist labelmedium cls#URL.Mission##row#" style="height:20px; display:none;">
 		      <td style="padding-left:24px">#CurrentRow#</td> 
-		      <td>#EntityClass#</td>			  
-		      <td><a href="javascript:showdocument('#DocumentNo#','')">#DocumentNo#</a></td>	
-			  <td>#dateformat(duedate,client.dateformatshow)#</td>		 
+		      <td>#TypeDescription#</td>	
+			  <td>#dateformat(Created,client.dateformatshow)#</td>		
+			  <td>#dateformat(DatePosted,client.dateformatshow)#</td>	  
+		       <td><a href="javascript:showdocument('#DocumentNo#','')">
+				  <cfif VAReferenceNo neq "">#left(VAReferenceNo,8)#<cfelse>#DocumentNo#</cfif></a> </td>	
+			  <td><cfif duedate le now() and url.status eq "0"><font color="FF0000"></cfif>#dateformat(duedate,client.dateformatshow)#</td>		 
 			  
-			  <td>#left(VAReferenceNo,6)#</td>						     
+			  					     
 			  <td><a href="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#')">#FirstName# #LastName#</a></td>			 			  
 			  <td align="left">
 			  
@@ -130,12 +138,15 @@
 						         DP.PositionNo,								 
 								 
 								  <!--- take expiration date of the position(s) associated to the track prior to the creation --->
-			 
-								 (SELECT     MAX(DateExpiration)
-								  FROM       Employee.dbo.PersonAssignment PA
-								  WHERE      PA.PositionNo = DP.PositionNo			 
-								  AND        PA.AssignmentStatus IN ('0', '1') 
-								  AND        PA.DateExpiration <= '#Created#') as AssignmentExpiration								 
+								  
+								   (SELECT     MAX(DateExpiration)
+									FROM       Employee.dbo.PersonAssignment PA
+									WHERE      PA.PositionNo = DP.PositionNo			 
+									AND        PA.AssignmentStatus IN ('0','1') 
+									AND        PA.Incumbency > 0
+									AND        PA.AssignmentType = 'Actual'
+									AND        PA.DateExpiration <= '#Created#') as AssignmentExpiration
+			 				 
 								 
 						FROM     DocumentPost DP INNER JOIN 
 						         Employee.dbo.Position P ON DP.PositionNo = P.PositionNo INNER JOIN
@@ -156,7 +167,7 @@
 						</cfif>
 					</td>
 					
-					<td style="padding-left:3px">
+					<td style="padding-left:3px" title="Assignment expiration">
 						#DateFormat(AssignmentExpiration,client.dateformatshow)#							
 					</td>
 					

@@ -155,7 +155,7 @@
 		try {
 			ProsisUI.closeWindow('__prosis_calendarJumpTo');
 		}catch(e){}		
-		ProsisUI.createWindow('__prosis_calendarJumpTo','Jump To',vlink,{height:335,width:295,modal:true,resizable:false,closable:true,center:true});
+		ProsisUI.createWindow('__prosis_calendarJumpTo','Jump To',vlink,{height:390,width:320,modal:true,resizable:false,closable:true,center:true});
 	}
 	
 	function calendarToday() {

@@ -60,13 +60,15 @@
 								 
 	 --->							 
 	 
-	 <!--- invoices are under rotation --->
+	 <!--- invoices are under rotation 
 
 	 AND        I.InvoiceId IN
                           (SELECT   ObjectKeyValue4
                             FROM    Organization.dbo.OrganizationObject
                             WHERE   EntityCode = 'ProcInvoice' 
 							AND     ObjectKeyValue4 = I.InvoiceId)
+							
+	 --->
 							
 	 <cfif url.orgunit neq "">
 	 
@@ -83,19 +85,17 @@
 	
 </cfquery>	
 
-
-<table width="100%" border="0" class="navigation_table">
-
+<table width="100%" style="background-color:white">
 
 <tr>
 
 	<td style="width:6px">&nbsp;&nbsp;</td>
 		
-	<td width="29%" style="padding:10px;border:0px solid silver">
+	<td width="29%">
 		
-	  <table height="100%" cellspacing="0" cellpadding="0" border="0">
+	  <table height="100%">
 	 
-	 	  <tr><td valign="top">
+	   <tr><td valign="top">
 				  
 	  <cfquery name="Summary" dbtype="query">
 		    SELECT     OrderTypeName, 		          				 
@@ -104,31 +104,21 @@
 		    FROM       getInvoices		
 		    GROUP BY   OrderTypeName	    
 	  </cfquery>	
-	
-	  <cfset vColorlist = "##D24D57,##52B3D9,##E08283,##E87E04,##81CFE0,##2ABB9B,##5C97BF,##9B59B6,##E08283,##663399,##4DAF7C,##87D37C">
-	  <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 	  
-	  <cfchart style = "#chartStyleFile#" 
-		       format="png"
-		       chartheight="220" 
-			   chartwidth="420"    
-			   font="Calibri" fontsize="16"
-		       seriesplacement="default"	  
-			   pieslicestyle="solid"
-			   showxgridlines="yes"
-		       sortxaxis="no">	
-								
-			   <cfchartseries
-	             type="bar"
-	             query="Summary"				 
-	             itemcolumn="OrderTypeName"
-	             valuecolumn="AmountPayable"
-	             serieslabel="Summary"
-				 seriescolor = "EB974E"
-			     colorlist="#vColorlist#"></cfchartseries>			
-				 
-		</cfchart>	
-		
+	   <cf_uichart name="divInvoiceGraph_1"
+			chartheight="220"
+			showlabel="No"
+			showvalue="No"
+			chartwidth="520">
+					
+			<cf_uichartseries type="bar"
+			    query="#Summary#" 
+				itemcolumn="OrderTypeName" 
+				valuecolumn="AmountPayable" 
+				colorlist="##E87E04"/>
+				
+	  	</cf_uichart>
+			 		
 		</td></tr>
 		</table>
 	
@@ -142,13 +132,11 @@
 				   SUM(BaseAmountMatched) as AmountPayable
 	    FROM       getInvoices			
 	    GROUP BY   OrderTypeName	    
-	</cfquery>	
+	</cfquery>		
 		
-	<td>&nbsp;</td>	
+	<td width="69%" valign="top" style="border:0px solid silver;padding:4px">
 	
-	<td width="69%" valign="top" bgcolor="f4f4f4" style="border:0px solid silver;padding:10px">
-	
-		<table width="100%" cellspacing="0" cellpadding="0" align="center">
+		<table width="100%" align="center">
 				
 		<cfquery name="Module" 
 			datasource="AppsSystem" 
@@ -161,7 +149,8 @@
 				AND      FunctionName  = 'Invoice Matching'
 		</cfquery>		
 						
-		<tr class="labelmedium line">
+		<tr class="labelmedium line fixlengthlist">
+		
 		<td style="padding-left:4px"><cf_tl id="Type"></td>		
 		<td colspan="2" align="right"><cf_tl id="YTD">000s</td>
 				
@@ -189,12 +178,12 @@
 				AND        OrderTypeName = '#OrderTypeName#'				       
 			</cfquery>	
 							
-			<tr class="navigation_row labelmedium line">
-			  <td width="40%" style="padding-left:4px">#OrderTypeName#</td>
+			<tr class="navigation_row labelmedium line fixlengthlist">
+			  <td style="padding-left:4px">#OrderTypeName#</td>
 			  <td align="right" style="padding-left:6px">#Counted#</td>
-			  <td align="right" style="padding-left:6px"><b>#numberFormat(AmountPayable,'__,__')#</td>
+			  <td align="right" style="padding-left:6px"><b>#numberFormat(AmountPayable,',__')#</td>
 			  <td align="right">#getPending.Counted#</td>
-			  <td align="right">#numberFormat(getPending.AmountPayable,'__,__')#</td>
+			  <td align="right">#numberFormat(getPending.AmountPayable,',__')#</td>
 			</tr>
 			
 			</cfoutput>	
@@ -203,12 +192,8 @@
 	
 	</td>
 	
-
-	
 </tr>
 
-<tr><td height="5"></td></tr>
+</table>
 
 <cfset ajaxOnLoad("doHighlight")>
-
-</table>

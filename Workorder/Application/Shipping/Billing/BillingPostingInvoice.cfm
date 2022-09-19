@@ -4,7 +4,8 @@
 <table width="97%" class="formspacing" align="center">
 
  <tr><td height="10"></td></tr>
- <tr class="labelmedium2">
+ 
+ <tr class="labelmedium2 fixlengthlist">
  
  	<cf_calendarscript>
 	
@@ -19,8 +20,8 @@
 
     </td>
 	
-	<td width="60" style="min-width:140px"><cf_tl id="Date">:</td>
-	<td style="padding-left:3px;min-width:120px">
+	<td style="width:100px"><cf_tl id="Date">:</td>
+	<td style="padding-left:3px">
 	 			 
 	 <cf_intelliCalendarDate9
 		FieldName="TransactionDate" 
@@ -31,7 +32,7 @@
 	</td>
 	</tr>	
 	
-	<tr class="labelmedium2">
+	<tr class="labelmedium2  fixlengthlist">
 	
 	<td width="60" style="min-width:100px"><cf_tl id="Account Period">:</td>
 	<td width="60" style="padding-left:3px">
@@ -54,12 +55,9 @@
 		 </cfloop>
 	</select>
 	
-	</td>
-	
-	
- 	
+	</td>	
 			
-	<td width="60"><cf_tl id="Owner">:</td>
+	<td><cf_tl id="Owner">:</td>
 						
 	<!--- show only the last parent org structure --->
  
@@ -119,15 +117,16 @@
 	
 	</tr>
 	
-	<tr>	
+	<tr class="fixlengthlist">	
 		<td width="90" ><cf_tl id="Issued InvoiceNo">:</td>
-		<td style="padding-left:3px">	 	
-			<input type="text" name="ActionReference2" value="" class="regularxl" style="width:100"  maxlength="10">
-			<input type="text" name="ActionReference1" value="" class="regularxl" style="width:160"  maxlength="14">			  
+		<td style="padding-left:3px;min-width:300px">	 	
+			<input type="text" name="ActionReference2" value="" class="regularxxl" style="width:130px"  maxlength="10">
+
+			<input type="text" name="ActionReference1" value="" class="regularxxl" style="width:130px"  maxlength="14">			  
 		</td>							
-		<td width="60"><cf_tl id="Memo">:</td>
-		<td colspan="3" style="padding-left:3px">
-		<input type="text" name="Memo" value="" class="regularxxl" style="width:100%" maxlength="100">
+		<td><cf_tl id="Memo">:</td>
+		<td style="padding-left:3px">
+		<input type="text" name="Memo" value="" class="regularxxl" style="width:90%" maxlength="100">
 		</td>	
      </tr>
 	 

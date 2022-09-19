@@ -1,4 +1,5 @@
 
+
 <cfparam name="url.showPrint" default="1">
 
 <cfquery name="warehouse" 
@@ -78,7 +79,7 @@
 												datasource="AppsMaterials" 
 												username="#SESSION.login#" 
 												password="#SESSION.dbpw#">
-													SELECT   	TOP 3 ItemNo, 
+													SELECT   	TOP 5 ItemNo, 
 													            ItemDescription, 
 																count(*)
 													FROM   	    ItemTransaction L 
@@ -108,16 +109,16 @@
 											HAVING    SUM(TransactionQuantity) > 0			
 																
 										</cfquery>
-										
+																				
 										<tr>
 											<td class="labelit" style="border-bottom:1px dotted ##C0C0C0;"><cf_tl id="Total value of stock">:</td>
 											<td class="labelit" style="border-bottom:1px dotted ##C0C0C0; border-left:1px dotted ##C0C0C0;">
 												<table>
-													<tr><td style="padding-left:4px" class="labelit">#numberFormat(getStock.TransactionValue,',__.__')#</td></tr>
+													<tr><td style="padding-left:4px" class="labelit">#numberFormat(getStock.TransactionValue,',.__')#</td></tr>
 												</table>
 											</td>
 										</tr>
-									
+																			
 										<tr>
 											<td class="labelit" style="border-bottom:1px dotted ##C0C0C0;"><cf_tl id="Assigned stock officers">:</td>
 											<td class="labelit" style="border-bottom:1px dotted ##C0C0C0; border-left:1px dotted ##C0C0C0;">
@@ -190,6 +191,8 @@
 	
 	<tr><td height="10"></td></tr>
 	
+	<!---
+	
 	<tr>
 	
 		<td colspan="2">
@@ -210,6 +213,8 @@
 		</td>
 
 	</tr>
+	
+	
 	
 	<tr><td height="10"></td></tr>
 	
@@ -238,6 +243,8 @@
 		</td>
 		
 	</tr>
+	
+	--->
 	
 	</table>
 	

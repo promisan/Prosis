@@ -17,7 +17,7 @@
 						  CR.Warehouse, 
 						  CR.BatchNo, 
 						  CR.Remarks, 
-						  CR.ActionStatus, 
+						  CR.ActionStatus, 						 
 						  CR.Source, 
 						  C.CustomerName,
 						  C.Reference, 
@@ -29,8 +29,9 @@
 						  (SELECT     Description
                            FROM       Ref_WarehouseBatchClass
                            WHERE      Code = CR.RequestClass) AS RequestClassName,
+						   
+						  (CASE WHEN ActionStatus = '0' THEN 'Draft' WHEN BatchNo is not NULL THEN 'Sold' ELSE 'Submitted' END) as QuoteStatus, 
 						  
-						  (CASE WHEN BatchNo is NULL THEN 'Open' ELSE 'Sold' END) as QuoteStatus,
 						  CR.OfficerLastName as Officer,
 						  
                           (SELECT     AddressCity
@@ -98,11 +99,22 @@
 						search      = "text"}>		
 						
 	<cfset itm = itm+1>
-	<cf_tl id="Stage" var = "1">
+	<cf_tl id="Class" var = "1">
 	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "RequestClass",											
+						alias       = "C",		
+						filtermode  = "2",																						
+						search      = "text"}>						
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Stage" var = "1">
+	<cfset fields[itm] = {labelfilter = "#lt_text#",                    
+	                    label       = "S",
 	     				field       = "QuoteStatus",											
 						alias       = "C",	
-						filtermode  = "3",																							
+						formatted  	= "Rating",
+						filtermode  = "2",
+					    ratinglist  = "Sold=Green,Submitted=Yellow,Draft=White",																												
 						search      = "text"}>		
 						
 	<cfset itm = itm+1>
@@ -131,20 +143,14 @@
 						searchalias = "C",
 						filtermode  = "2"}>							
 						
-	<cfset itm = itm+1>
-	<cf_tl id="Address" var = "1">
-	<cfset fields[itm] = {label     = "#lt_text#",                    
-	     				field       = "AddressCity",		
-						formatted   = "AddressCity",										
-						alias       = "C",																			
-						search      = "text",
-						filtermode  = "2"}>													
+											
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Date" var = "1">			
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "Created",	
 						column      = "month",
+						align       = "center",
 						formatted   = "dateformat(Created,client.dateformatshow)",					
 						alias       = "C",																			
 						search      = "date"}>		
@@ -153,6 +159,7 @@
 	<cf_tl id="Time" var = "1">			
 	<cfset fields[itm] = {label     = "#lt_text#",                    
 	     				field       = "Created",	
+						align       = "center",
 						formatted   = "timeformat(Created,'HH:MM')",					
 						alias       = "C"}>											
 												
@@ -226,8 +233,19 @@
 						field         = "Remarks",	
 						display       = "1",								
 						rowlevel      = "2",
-						Colspan       = "9",																																													
-						search        = "text"}>																																
+						Colspan       = "8",																																													
+						search        = "text"}>		
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Address" var = "1">
+	<cfset fields[itm] = {label     = "#lt_text#",                    
+	     				field       = "AddressCity",		
+						formatted   = "AddressCity",										
+						alias       = "C",			
+						rowlevel    = "2",
+						colspan     = "4",																
+						search      = "text",
+						filtermode  = "2"}>																																						
 							
 		
 	<cfset itm = itm+1>	

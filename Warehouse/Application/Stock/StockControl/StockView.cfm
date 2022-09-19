@@ -128,10 +128,9 @@
 	
 	<cf_layoutarea  position="center" name="right">	
 				
-				
-		<table width="100%" height="99%">			    
+		<table width="99%" height="100%">			    
 			<tr>											
-				<td width="100%" height="99%" valign="top" id="main" align="center">				   			
+				<td width="100%" height="100%" style="padding:4px;border:0px solid silver" valign="center" id="main" align="center">				   			
 					<cfinclude template="../../../../Tools/Treeview/TreeViewInit.cfm">				
 				</td>				
 			</tr>

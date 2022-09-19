@@ -4,47 +4,65 @@
 <cf_screenTop height="100%" title="#lt_text#" jQuery="Yes" html="No" banner="gray" bannerforce="Yes" scroll="no" validateSession="Yes">
 
 <cf_layoutscript>
-
-<cfajaximport tags="cfform">
-<cf_calendarscript>
-<cf_listingscript>
-
-<cfset CLIENT.FileNo = round(rand()*20) >
-	 
-<cfoutput>
 	
-<cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	
-
-<cf_layout attributeCollection="#attrib#">	
+	<cfajaximport tags="cfform">
+	<cf_calendarscript>
+	<cf_listingscript>
 	
-	<cf_layoutarea 
-	          position="header"
-			  size="60"
-	          name="controltop">	
-					  
-			<cf_ViewTopMenu label="#lt_text#">
-					 
-	</cf_layoutarea>
-
-	<cf_layoutarea  position="left" name="tree" maxsize="340" size="340" collapsible="true" splitter="true">
-		<cf_divScroll>
-			<cfinclude template="ControlTree.cfm">
-		</cf_divScroll>
-	</cf_layoutarea>
-
-	<cf_layoutarea  position="center" name="box">
-				
-		<iframe src="../../../Tools/Treeview/TreeViewInit.cfm"
-		        name="right"
-		        id="right"
-		        width="100%"
-		        height="100%"
-				scrolling="no"
-		        frameborder="0"></iframe>
-			
-	</cf_layoutarea>			
+	<cfoutput>
+	
+	<script>
+	
+	    function tracklisting(sid,mde,con,fil,mis) {	    
+		    ProsisUI.createWindow('tracklisting', 'Track listing', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})    	   					
+		    ptoken.navigate('#session.root#/Vactrack/Application/ControlView/ControlListingTrackContent.cfm?systemfunctionid=#url.systemfunctionid#&mission='+mis+'&mode='+mde+'&condition='+con+'&filter='+fil,'tracklisting') 			 
+		}
 		
-</cf_layout>	
+		function candidatetracklisting(sid,mde,con,fil,mis) {	    
+		    ProsisUI.createWindow('tracklisting', 'Track listing', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})    	   					
+		    ptoken.navigate('#session.root#/Vactrack/Application/ControlView/ControlListingCandidateContent.cfm?systemfunctionid=#url.systemfunctionid#&mission='+mis+'&mode='+mde+'&condition='+con+'&filter='+fil,'tracklisting') 			 
+		}
+			
+		function details(id) {
+		      ptoken.open("#SESSION.root#/Roster/RosterSpecial/CandidateView/FunctionViewLoop.cfm?IDFunction=" + id + "&status=1", id);
+	    }
+	
+	</script>
+	
+	<cfset CLIENT.FileNo = round(rand()*20) >
+		 	
+	<cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	
+
+	<cf_layout attributeCollection="#attrib#">	
+		
+		<cf_layoutarea 
+		          position="header"
+				  size="55"
+		          name="controltop">	
+						  
+				<cf_ViewTopMenu label="#lt_text#">
+						 
+		</cf_layoutarea>
+	
+		<cf_layoutarea  position="left" name="tree" maxsize="320" size="320" collapsible="true" splitter="true">
+			<cf_divScroll>
+				<cfinclude template="ControlTree.cfm">
+			</cf_divScroll>
+		</cf_layoutarea>
+	
+		<cf_layoutarea  position="center" name="box">
+					
+			<iframe src="../../../Tools/Treeview/TreeViewInit.cfm"
+			        name="right"
+			        id="right"
+			        width="100%"
+			        height="100%"
+					scrolling="no"
+			        frameborder="0"></iframe>
+				
+		</cf_layoutarea>			
+			
+	</cf_layout>	
 
 </cfoutput>
 

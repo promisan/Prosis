@@ -75,7 +75,7 @@
 						<cfif currentrow eq recordCount>
 							<cfset vLineTotal = "line">
 						</cfif>
-						<tr style="cursor: pointer; height:15px;" class="line navigation_row labelmedium2 #vLineTotal#" onclick="javascript:listing('#url.id#','#url.id1#','#url.id2#','#url.id3#','#PayrollItem#')">
+						<tr style="cursor: pointer; height:25px;" class="line navigation_row labelmedium2 #vLineTotal#" onclick="javascript:listing('#url.id#','#url.id1#','#url.id2#','#url.id3#','#PayrollItem#')">
 					        <td>&nbsp;</td>
 					        <td style="padding-right:8px;">#PayrollItem#</td>
 							<td width="50%">#PrintDescriptionLong#</td>
@@ -99,34 +99,34 @@
 			
 				<table width="100%">
 								
-				<tr><td align="center" valign="middle" style="padding-top:9px">
+				<tr><td valign="middle" style="padding-top:36px">
 				
-				<cfchart format="png"
-		           chartheight="250"
+				<cfset ht = component.recordcount * 25 + 62>
+				
+				<cf_uichart chartheight="#ht#"
 		           chartwidth="700"
 		           showygridlines="no"
 		           seriesplacement="default"
-		           font="Calibri"
-				   show3d="yes" 
-		           fontsize="14"			
-				   showlegend="No"
-				   showborder="no"   
-		           labelformat="number"
+		           font="Calibri"				   
+		           fontsize="14"							 		         
+				   showlabel="No"	
+				   showvalue="No"		
+				   Legend = "No"		   
 		           tipstyle="mouseOver"
 		           tipbgcolor="##ffffff"
 		           pieslicestyle="sliced"
 		           url="javascript:listing('#url.id#','#url.id1#','#url.id2#','#url.id3#','$ITEMLABEL$')">
 						   
-					<cfchartseries
-		             type="pyramid"
-		             query="Component"
+					<cf_uichartseries
+		             type="bar"
+		             query="#Component#"
 		             itemcolumn="PayrollItem"
 		             valuecolumn="Amount"
 		             serieslabel="Calculated amounts"	            
-				     seriescolor="40BC86"  
+				     seriescolor="6688aa"  
 		             markerstyle="circle"/>
 					 			
-				</cfchart>
+				</cf_uichart>
 				</td></tr>		
 				</table>
 				

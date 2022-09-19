@@ -74,9 +74,8 @@ function editField(reqid,reqline,par,val,box) {
 	document.getElementById('parent').value           = par		
 	document.getElementById('box').value              = box	
 	
-	ColdFusion.Window.create('mydialog', 'builder', '',{x:100,y:100,height:680,width:650,modal:true,center:true});    
-	ColdFusion.Window.show('mydialog'); 					
-	ColdFusion.navigate("#SESSION.root#/tools/combobox/Combo.cfm?fld=&alias=#alias#&table=#table#&pk=#pk#&desc=#desc#&order=#order#&filterstring=#filterstring#&filtervalue="+par+"&selected="+val+"&script=fieldApply","mydialog") 								
+	ProsisUI.createWindow('mydialog', 'builder', '',{x:100,y:100,height:680,width:650,modal:true,center:true});    
+	ptoken.navigate("#SESSION.root#/tools/combobox/Combo.cfm?fld=&alias=#alias#&table=#table#&pk=#pk#&desc=#desc#&order=#order#&filterstring=#filterstring#&filtervalue="+par+"&selected="+val+"&script=fieldApply","mydialog") 								
 }
 
 function fieldApply(val) {
@@ -85,7 +84,7 @@ function fieldApply(val) {
 	par   = document.getElementById('parent').value
 	box   = document.getElementById('box').value
 	_cf_loadingtexthtml='';	
-	ColdFusion.Window.hide('mydialog'); 	
+	ProsisUI.closeWindow('mydialog'); 	
 	ptoken.navigate('FunctionBuilder/applyField.cfm?box='+box+'&id='+id+'&line='+line+'&parentcode='+par+'&val='+val,box)	
 }
 
@@ -94,9 +93,8 @@ function editTopic(reqid,reqline,par,val,box) {
 	document.getElementById('parent').value           = par		
 	document.getElementById('box').value              = box	
 	
-	ColdFusion.Window.create('mytopic', 'builder', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true});    
-	ColdFusion.Window.show('mytopic'); 		
-    ColdFusion.navigate('FunctionBuilder/Topic/TopicView.cfm?ID=#URL.ID#&ID1=#URL.ID1#&box='+box+'&idmenu=#url.idmenu#&reqid='+reqid+'&reqline='+reqline+'&area='+par,'mytopic')
+	ProsisUI.createWindow('mytopic', 'builder', '',{x:100,y:100,height:document.body.clientHeight-80,width:document.body.clientWidth-80,modal:true,center:true});    
+	ptoken.navigate('FunctionBuilder/Topic/TopicView.cfm?ID=#URL.ID#&ID1=#URL.ID1#&box='+box+'&idmenu=#url.idmenu#&reqid='+reqid+'&reqline='+reqline+'&area='+par,'mytopic')
 }
 
 function setReqLineOperational(id, line, ctrl) {
@@ -105,9 +103,8 @@ function setReqLineOperational(id, line, ctrl) {
 		vOp = 1;
 	}
 	_cf_loadingtexthtml='';	
-	ColdFusion.navigate('#SESSION.root#/Roster/Maintenance/FunctionalTitles/FunctionBuilder/setRequirementLineOperational.cfm?reqId='+id+'&line='+line+'&value='+vOp,'op_'+id+'_'+line);
+	ptoken.navigate('#SESSION.root#/Roster/Maintenance/FunctionalTitles/FunctionBuilder/setRequirementLineOperational.cfm?reqId='+id+'&line='+line+'&value='+vOp,'op_'+id+'_'+line);
 }
-
 
 function do_submit(mode,id,id1,idmenu) {
 	document.gjp.onsubmit();
@@ -124,7 +121,7 @@ function fprint() {
 
 </cfoutput>
 
-<table width="95%" height="100%" align="center" cellspacing="0" cellpadding="0">
+<table width="95%" height="100%" align="center">
 	
 	<tr><td height="5"></td></tr>
 	
@@ -169,7 +166,7 @@ function fprint() {
 				<tr>
 				   <td class="labelmedium" height="25" width="100"></td>
 				   <td width="94%">
-					   <table cellspacing="0" cellpadding="0" class="formpadding">
+					   <table class="formpadding">
 					   <cfoutput>
 					   <tr>
 					      <td class="labellarge">#Grade.FunctionDescription# (#Grade.Description#)</b></td>						  
@@ -177,7 +174,7 @@ function fprint() {
 						   <td style="padding-left:4px">
 						   <select name="GradeDeployment" class="regularxl" onChange="javascript:reload(this.value)">
 						   <cfloop query="Grade">
-						     <option value="#GradeDeployment#" <cfif #GradeDeployment# eq "#URL.ID1#">selected</cfif>>#GradeDeployment# - #GradeDeploymentDescription#</option>
+						     <option value="#GradeDeployment#" <cfif GradeDeployment eq URL.ID1>selected</cfif>>#GradeDeployment# - #GradeDeploymentDescription#</option>
 						   </cfloop>
 						   </select>
 						   </td>
@@ -196,15 +193,17 @@ function fprint() {
 	
 	<tr>
 	<td height="100%" valign="top">
-	   <cf_divscroll style="height:100%">
-	   <table width="100%" height="100%" cellspacing="0" cellpadding="0">
 	   
+	   <cf_divscroll style="height:100%">	
+	      
+	   <table width="100%" height="100%">	   
 		<cf_menucontainer item="1" class="regular">
 			 <cf_securediv bind="url:FunctionGradeMinimum.cfm?ID=#URL.ID#&ID1=#URL.ID1#&idMenu=#url.idmenu#"> 
-	 	<cf_menucontainer>	
-		
+	 	<cf_menucontainer>			
 	   </table>	
+	   
 	   </cf_divscroll>
+	   
 	</td>
 	</tr>
 	

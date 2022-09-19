@@ -37,7 +37,7 @@
 	<cftry>
 	
 		<cfset fr = mid(Header.queryScript,  s+4,  e-(s+4))>
-		<select name="QueryTable" id="QueryTable" class="regularxl">
+		<select name="QueryTable" id="QueryTable" class="regularxl" style="border:0px">
 		
 			<option value="">Not applicable</option>
 		

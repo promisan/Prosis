@@ -45,7 +45,16 @@
 				
 			    <cfset cnt = cnt+1>
 														
-				<cfparam name="current.formatted"      default="#current.field#">		
+				<cfparam name="current.formatted"      default="#current.field#">	
+				<cfparam name="current.alert"          default="">	
+				<cfparam name="current.alertcolor"     default="red">
+				
+				<cfif current.alert neq "" and evaluate(current.alert)>
+				 <cfset fclr = "color:#current.alertcolor#">
+				<cfelse>
+				 <cfset fclr = "">
+				</cfif>
+				
 				<cfparam name="current.precision"      default="">					
 				<cfparam name="current.functionscript" default="">
 				<cfparam name="current.drilltemplate"  default="">
@@ -57,26 +66,21 @@
 											
 				<cfif findNoCase("[precision]",contentformat)>
 				
-					<cfif current.precision neq "">		
-																			
-						<cf_precision number="#evaluate(current.precision)#">
-										
+					<cfif current.precision neq "">																					
+						<cf_precision number="#evaluate(current.precision)#">										
 						<cfset contentformat = replaceNoCase("#contentformat#","[precision]","#pformat#")>
 										
-					<cfelse>
-					
-						<cfset contentformat = replaceNoCase("#contentformat#","[precision]",",")>
-						
+					<cfelse>					
+						<cfset contentformat = replaceNoCase("#contentformat#","[precision]",",")>						
 					</cfif>
 														
-				</cfif>
-				
+				</cfif>				
 				
 				<cfparam name="current.align" default="left">							
 						
 				<!--- edit field:  and evaluate(accesslevel) gte "1" --->		
 				
-				<cfif current.processmode neq "" and current.processtemplate neq "" >
+				<cfif current.processmode neq "" and current.processtemplate neq "">
 						  
 						<cfparam name="current.processstring" default="">
 				
@@ -387,7 +391,7 @@
 											
 					 <cfif url.ajaxid eq "content">																			
 		
-		<td <cfif currentalign neq "left">align="#current.align#"</cfif> class="#attributes.classcell#" <cfif colspan neq "left">colspan="#colspan#"</cfif> style="color:#fontcolor#;#current.style#"					   
+		<td <cfif currentalign neq "left">align="#current.align#"</cfif> class="#attributes.classcell#" <cfif colspan neq "left">colspan="#colspan#"</cfif> style="color:#fontcolor#;#current.style#;#fclr#"					   
 		id="f#box#_#dkey#_#rowshow#_#cnt#" onclick="toggledrill('#drillmode#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')">#evaluate(contentformat)#</td>					
 		
 					 <cfelseif url.ajaxid eq "append">
@@ -398,13 +402,14 @@
 						 
 						 <cfscript>
 					 
-						   inner = evaluate(contentformat)								   				 
+						   inner = evaluate(contentformat)		
+						   inner = URLEncodedFormat(inner)						   				 
 						   if (len(cellclick) gte "2") {
 							    myclick = "onclick=toggledrill('#drillmode#','box#dkey#','#drilltemplate#','#dkey#','#argument#','#drillbox#','#drillstring#')"
 							} else {	
 						 		myclick = ""
 							}							   									
-						   boxcontent[cnt] = "<td id='f#box#_#dkey#_#rowshow#_#cnt#' class='#attributes.classcell#' colspan='#current.colspan#' align='#current.align#' #myclick# style='color:#fontcolor#;#current.style#'>#inner#</td>"
+						   boxcontent[cnt] = "<td id='f#box#_#dkey#_#rowshow#_#cnt#' class='#attributes.classcell#' colspan='#current.colspan#' align='#current.align#' #myclick# style='color:#fontcolor#;#current.style#;#fclr#'>#inner#</td>"
 						  
 						 </cfscript>
 					
@@ -487,13 +492,9 @@
 						<cfif rowshow gte "2" and len(inner) gte "2">
 							<cfset hascontent = "Yes">															
 						</cfif>											
-						
-						<!--- to test for text value only : white-space: nowrap;overflow: hidden;text-overflow: ellipsis; --->
-																																		
+																																								
 						<td id="f#box#_#dkey#_#rowshow#_#cnt#" <cfif current.align neq "left">align="#current.align#"</cfif> class="#attributes.classcell# fixlengthlist" 
-						colspan="#current.colspan#" title="#inner#" style="#cellstyle#;#current.style#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#
-						
-						</td>																			
+						colspan="#current.colspan#" title="#inner#" style="#cellstyle#;#current.style#;#fclr#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#</td>																			
 												
 					 <cfelseif url.ajaxid eq "append">
 					 
@@ -501,14 +502,17 @@
 					 	<!--- APPEND ROW --->
 						<!--- ---------- --->
 						
+												
 						<cfscript>
+						
+						inner = URLEncodedFormat(inner)
 						 
 						 if (len(cellclick) gte '2') {
 							 myclick = "onclick=#cellclick#"
 							} else {
 						     myclick = "" 
 							} 
-						 boxcontent[cnt] = "<td id='f#box#_#dkey#_#rowshow#_#cnt#' class='#attributes.classcell# fixlengthlist' title='#inner#' colspan='#current.colspan#' align='#current.align#' style='#cellstyle#;#current.style#' #myclick#>#inner#</td>"
+						 boxcontent[cnt] = "<td id='f#box#_#dkey#_#rowshow#_#cnt#' class='#attributes.classcell# fixlengthlist' title='#inner#' colspan='#current.colspan#' align='#current.align#' style='#cellstyle#;#current.style#;#fclr#' #myclick#>#inner#</td>"
 						 						 										
 						</cfscript>		
 					 							

@@ -27,7 +27,6 @@
 <cfparam name="url.sort"    default="Margin">
 <cfparam name="url.stage"   default="Pending">
 
-
 <cfif url.orgunit neq "">
 
 	<cfquery name="get" 
@@ -39,6 +38,21 @@
 		 WHERE  OrgUnit = '#url.orgunit#' 
 	</cfquery>
 	
+</cfif>
+
+<cfquery name="check" 
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">	
+	    SELECT     TOP 1 *			   
+	    FROM       ItemTransactionShipping	
+		WHERE      SalesPersonNo = '#url.actor#'			
+</cfquery>	
+
+<cfif check.recordcount eq "0">
+	<cfset user = "">
+<cfelse>
+	<cfset user = url.actor>
 </cfif>
 
 <cfquery name="base" 
@@ -81,8 +95,8 @@
 				</cfif>			
 				--->
 		WHERE    Mission IN (#preserveSingleQuotes(mission)#)
-		<cfif url.actor neq "">
-		AND      SalesPersonNo = '#url.actor#'
+		<cfif user neq "">
+		AND      SalesPersonNo = '#user#' 
 		</cfif>					
 	   
 		AND      T.TransactionType = '2' 
@@ -113,20 +127,6 @@
 	
 </cfquery>
 
-<!--- check if actor has events recorded --->
-
-<cfquery name="check" dbtype="query">
-	    SELECT     *			   
-	    FROM       Base		
-		WHERE      SalesPersonNo = '#url.actor#'			
-</cfquery>	
-
-<cfif check.recordcount eq "0">
-	<cfset user = "">
-<cfelse>
-	<cfset user = url.actor>
-</cfif>
-
 <table width="100%" height="100%"  class="navigation_table" id="SalesOfficerMainContainer">
 
 <tr>
@@ -139,8 +139,7 @@
 		  
 		  	<table>
 			
-			  <cf_uichart style="border:0px solid silver">
-			
+			  <cf_uichart style="border:0px solid silver">			
 			 		  				  
 				  <cfquery name="SummaryStore" dbtype="query">
 					    SELECT     Warehouse      as FieldRow, 
@@ -152,8 +151,7 @@
 						</cfif>						
 					    GROUP BY   Warehouse,WarehouseName    
 						ORDER BY   Description
-				  </cfquery>	
-			  
+				  </cfquery>				  
 			  		
 					<cfquery name="SummarySchedule" dbtype="query">
 					
@@ -197,8 +195,8 @@
 			  		<td valign="top">
 
 					<cf_uichart name="divSalesOfficerGraph_#divname#1"
-								chartheight="260"
-								chartwidth="270"
+								chartheight="160"
+								chartwidth="470"
 								url="javascript:alert($ITEMLABEL$)">
 						<cf_uichartseries type="pie"
 						    query="#SummaryStore#" 
@@ -210,11 +208,12 @@
 					</td>
 					
 					<td rowspan="2" style="padding-left:30px">
-					
+
 					<cf_uichart name="divSalesOfficerGraph_#divname#3"
-						chartheight="540"
+						chartheight="340"
 						showlabel="No"
 						showvalue="No"
+						fontsize="10"
 						chartwidth="620">
 								
 						<cf_uichartseries type="bar"
@@ -224,34 +223,7 @@
 							colorlist="##E87E04"/>
 							
 				  	</cf_uichart>
-					
-					<!---
-					 <cfchart style = "#chartStyleFile#"
-						   format="jpg"
-						   chartheight="380"
-						   chartwidth="930"						   					   
-						   show3d="No"
-						   fontsize="12"
-						   scaleFrom = "0"
-						   showlegend="no"
-						   showxgridlines="yes"
-						   sortxaxis="yes">
-
-						   <cfchartseries
-							 type="hbar"
-							 query="SummaryCategory"
-							 itemcolumn="FieldRowName"
-							 valuecolumn="Amount"
-							 datalabelstyle="columnlabel"
-							 colorlist="##81CFE0"
-							 seriescolor = "##E87E04"/>
-							 
-							 
-							
-					</cfchart>
-					
-					--->
-					
+										
 					</td>
 					
 					</tr>
@@ -260,8 +232,8 @@
 					
 					<td valign="top">
 					<cf_uichart name="divSalesOfficerGraph_#divname#2"
-								chartheight="260"
-								chartwidth="270">
+								chartheight="160"
+								chartwidth="470">
 						<cf_uichartseries type="pie"
 						    query="#SummarySchedule#" 
 							itemcolumn="FieldRowName" 
@@ -710,7 +682,6 @@
 		</td>
 			
 	</tr>
-
 
 <cfset ajaxOnLoad("doHighlight")>
 

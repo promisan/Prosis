@@ -313,7 +313,7 @@
   <tr>
   
    <td width="100%" colspan="2" height="36">
-     <table border="0" cellpadding="0" width="100%">
+     <table width="100%">
       <tr class="labelmedium2">
         <td style="min-width:160px;padding-left:3px" bgcolor="fafafa"><cf_tl id="Transaction date">:</td>
 		<td style="min-width:140px;padding-left:3px" bgcolor="fafafa"><cf_tl id="Period">:</td>
@@ -359,8 +359,8 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 				SELECT *
-				FROM  Invoice 
-				WHERE InvoiceId = '#ReferenceId#'
+				FROM   Invoice 
+				WHERE  InvoiceId = '#ReferenceId#'
 			</cfquery>
 						
 			<cfif access eq "EDIT" or access eq "ALL">								
@@ -371,7 +371,7 @@
 			
 		<cfelseif operational eq "1" and Reference eq "Billing"  and TransactionSource is "WorkOrderSeries">	
 				
-			 <A HREF ="javascript:workorderview('#ReferenceId#')">#Reference# #ReferenceNo#</a>
+			 <A HREF ="javascript:workorderview('#TransactionSourceId#')">#Reference# #ReferenceNo#</a>
 		
 		<cfelseif operational eq "1" and ReferenceOrgUnit neq "">
 				
@@ -392,13 +392,13 @@
 			   <cfif JournalList.TransactionCategory neq "Payment" and JournalList.TransactionCategory neq "DirectPayment" and ReferenceName neq "">
 			   #Org.OrgUnitName#
 			   </cfif>
-			    #Description#
+			   #Description#
 			   
 		   <cfelse>
 		   	   <cfif JournalList.TransactionCategory neq "Payment" and JournalList.TransactionCategory neq "DirectPayment" and ReferenceName neq "">	
 			   #Org.OrgUnitName#
 		   	   </cfif>
-			    #Description#
+			   #Description#
 		   </cfif>
 		
 		<cfelse>				
@@ -459,7 +459,15 @@
       </tr>
 	   
 	   <tr class="labelmedium2 line">
-	   <td align="center" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">#dateformat(DocumentDate, CLIENT.DateFormatShow)#</td>    
+	   <td align="center" style="padding-left:7px;padding-right:4px;border-left:1px solid silver" id="documentdate">
+	   
+	   <table><tr class="labelmedium2"><td>#dateformat(DocumentDate, CLIENT.DateFormatShow)#</td>
+	   <cfif url.summary eq "9">
+	   <td style="padding-left:4px"><a href="javascript:ptoken.navigate('TransactionViewDetailEdit.cfm?journal=#journal#&journalserialno=#journalserialno#&fld=documentdate&selected=#dateformat(DocumentDate, CLIENT.DateFormatShow)#','documentdate')">[<cf_tl id="edit">]</a></td>
+	   </cfif>
+	   </tr></table>
+	   
+	   </td>    
        <td align="center" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">#dateformat(created, CLIENT.DateFormatShow)# #timeformat(created, "HH:MM")#</td>
 	   <td align="center" style="padding-left:7px;padding-right:4px;border-left:1px solid silver">#OfficerFirstName# #OfficerLastName# (#OfficerUserId#)</b></td>
 		
@@ -480,7 +488,7 @@
 		
 		</cfif>
 		
-		<td align="center" style="padding-left:7px;padding-right:4px;border-left:1px solid silver;;border-right:1px solid silver">
+		<td align="center" title="#referencename#" class="fixlength" style="padding-left:7px;padding-right:4px;border-left:1px solid silver;;border-right:1px solid silver">
 		
 		<cfif ReferenceId neq "">
 		
@@ -594,38 +602,35 @@
 		    <td width="100%" colspan="2" height="39">
 			
 		    <table border="0" style="border:0px dotted silver" bordercolor="e4e4e4" width="100%">
-		      <tr>
-		        <td width="50%" height="20" class="labelmedium2" bgcolor="fafafa" colspan="2" style="border-bottom:1px dotted silver;padding-left:5px">
-    			<cf_tl id="Customer">:				
-				</td>
-		        <td width="50%" class="labelmedium2" colspan="2" style="padding-left:2px;border-bottom:1px dotted silver" bgcolor="fafafa"><cf_tl id="Discount terms"></td>
+		      <tr class="fixlengthlist labelmedium2">
+		        <td height="20" colspan="2" style="width:50%;border-bottom:1px dotted silver"><cf_tl id="Customer">:</td>
+		        <td colspan="2" style="width:50%;border-bottom:1px dotted silver"><cf_tl id="Discount terms"></td>
 		      </tr>
 			  
-		      <tr>
-		        <td height="20" bgcolor="fafafa" width="25%" style="padding-left:15px;" class="labelmedium2"><cf_tl id="Name">:</td>
-		        <td width="25%" class="cellborder labelmedium2" style="padding-left:5px">																	
-					  <cfif referenceOrgUnit neq "0" and referenceOrgUnit neq ""><A HREF ="javascript:viewOrgUnit('#ReferenceOrgUnit#')"><font color="0080C0"></cfif>#ReferenceName#</a>			
+		      <tr class="fixlengthlist labelmedium2">
+		        <td height="20" bgcolor="fafafa"><cf_tl id="Name">:</td>
+		        <td class="cellborder">																	
+					  <cfif referenceOrgUnit neq "0" and referenceOrgUnit neq ""><A HREF ="javascript:viewOrgUnit('#ReferenceOrgUnit#')"></cfif>#ReferenceName#</a>			
 				</td>				
-		        <td width="25%" bgcolor="fafafa" style="padding-left:15px" class="labelmedium2"><cf_tl id="Days">:</td> 		
-		        <td width="25%" class="cellborder labelmedium2" style="padding-left:5px">#ActionDiscountDays#</b></td>
+		        <td bgcolor="fafafa"><cf_tl id="Days">:</td> 		
+		        <td class="cellborder">#ActionDiscountDays#</td>
 		      </tr>
-		      <tr>
-		        <td height="20" bgcolor="fafafa" width="25%" style="padding-left:15px" class="labelmedium2"><cf_tl id="Terms">:</td>
-				<td width="25%" class="cellborder labelmedium2" style="padding-left:5px">#ActionDescription#</b></td>
-				<td width="25%" bgcolor="fafafa" style="padding-left:15px" class="labelmedium2"><cf_tl id="Discount date">:</td>
-		 		<td width="25%" class="cellborder labelmedium2" style="padding-left:5px">#DateFormat(ActionDiscountDate, CLIENT.DateFormatShow)#</font></td> 		
+		      <tr class="fixlengthlist labelmedium2">
+		        <td height="20" bgcolor="fafafa"><cf_tl id="Terms">:</td>
+				<td class="cellborder">#ActionDescription#</b></td>
+				<td bgcolor="fafafa"><cf_tl id="Discount date">:</td>
+		 		<td  class="cellborder">#DateFormat(ActionDiscountDate, CLIENT.DateFormatShow)#</font></td> 		
 		      </tr>
-		      <tr>
-		        <td height="20" bgcolor="fafafa" width="25%" style="padding-left:15px" class="labelmedium2"><cf_tl id="Due date">:</td>
-		        <td width="25%" class="cellborder labelmedium2" style="padding-left:5px">#DateFormat(ActionBefore, CLIENT.DateFormatShow)#</b></td>		
-		        <td width="25%" bgcolor="fafafa" style="padding-left:15px" class="labelmedium2"><cf_tl id="Discount"> %:</td>
-		        <td width="25%" class="cellborder labelmedium2" style="padding-left:5px"><cfif ActionDiscount gt 0>#NumberFormat(ActionDiscount*100,'__._')#%</cfif></b>
-				</td>
+		      <tr class="fixlengthlist labelmedium2">
+		        <td height="20" bgcolor="fafafa"><cf_tl id="Due date">:</td>
+		        <td class="cellborder">#DateFormat(ActionBefore, CLIENT.DateFormatShow)#</b></td>		
+		        <td bgcolor="fafafa"><cf_tl id="Discount"> %:</td>
+		        <td class="cellborder" style="min-width:150px"><cfif ActionDiscount gt 0>#NumberFormat(ActionDiscount*100,'._')#%</cfif></b></td>
 		      </tr>
 			  
 			    <cf_customField 
 				     mode="view" 
-					 colspan="3"
+					 colspan="4"
 					 stylelabel="padding-left:15px;background-color:fafafa"
 				     TopicClass="header"
 				     journal="#URL.Journal#" 
@@ -1205,7 +1210,7 @@
   <tr class="NoPrint clsNoPrint" style="height:1px">
     <td width="100%" colspan="2">
 	
-         <table width="100%" class="formpadding" style="border-left:1px solid silver;border-right:1px solid silver">
+         <table width="100%" class="formpadding">
 				 
 		 <cfset adv = 0>		 
 		 
@@ -1318,7 +1323,7 @@
 					  
 						  <tr id="offset" class="hide"><td colspan="3" style="padding-left:15px">							  	
 							
-								<table width="100%" cellspacing="0" cellpadding="0">				
+								<table width="100%">				
 							
 								<tr><td>
 								

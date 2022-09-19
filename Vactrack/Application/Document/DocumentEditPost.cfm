@@ -31,7 +31,7 @@ ORDER BY  P.SourcePostNumber
     	  
 	  <tr><td>
 	  
-	  <table width="99%" align="center" class="formpadding">
+	  <table width="99.5%" align="center" class="formpadding">
 	  
 	  <TR class="labelmedium line fixlengthlist">
 	    <td width="33"></td>

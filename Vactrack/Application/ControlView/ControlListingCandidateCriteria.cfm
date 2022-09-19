@@ -1,20 +1,16 @@
 <!--- pending : limit on select mission, status document --->
 
- 
-<cfinclude template="ControlGetTrack.cfm">
 
 <cfparam name="URL.EntityCode" default = "">
 
 <cfoutput>
 
- 
-
-<cfform name="fCriteria" id="fCriteria" method="POST" onsubmit = "return false">
+<cfform name="fCriteria" id="fCriteria" method="POST" onsubmit= "return false">
 
 <table width="95%" class="formpadding" align="center">
 
 	<cfif URL.Status eq "0" or URL.Status eq "9">
-	<tr>
+	<tr class="fixlengthlist">
 	
 		<td style="height:30" class="labelmedium"><cf_tl id="Track type">:</td>
 		<td>
@@ -27,57 +23,60 @@
 						FROM     Ref_DocumentType
 						ORDER BY ListingOrder						
 	                  </cfquery>		
-							
-				<select name="DocumentType" required="Yes" class="regularxl">
-				    <option value=""><cf_tl id="All"></option>
-				    <cfloop query="DocTpe">
-						<option value="#Code#">#Description#</option>
-					</cfloop>
-			    </select>	
+					  
+				<cf_UISelect name   = "DocumentType"
+					     class          = "regularxl"
+					     queryposition  = "below"
+					     query          = "#doctpe#"
+					     value          = "Code"											     											     
+					     display        = "Description"											    
+						 separator      = ","
+					     multiple       = "yes"/>				
 				
 		</td>			
 		
 		<td>&nbsp;</td>
 		
-		<td style="height:30" class="labelmedium"><cf_tl id="Workflow">:</td>
+		<td style="height:30" class="labelmedium"><cf_tl id="Entiry">:</td>
 		<td>
 		
-			<cfquery name = "GetEntity" 
-			    datasource = "AppsOrganization" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-				SELECT 	DISTINCT E.EntityCode, E.EntityDescription
-				FROM    Ref_Entity E 
-						INNER JOIN Ref_EntityClass C ON E.EntityCode = C.EntityCode
-						INNER JOIN Ref_EntityClassOwner RCO ON RCO.EntityCode = E.EntityCode 
-												
-				AND 	RCO.EntityClass = C.EntityClass 
-				WHERE 	E.EntityCode IN ('VacDocument','VacCandidate')		
-					  
-				AND 	( RCO.EntityClassOwner IS NULL 
-				      		OR
-				      	  RCO.EntityClassOwner IN (
-								SELECT MissionOwner
-								FROM   Ref_Mission
-								WHERE  Mission = '#URL.Mission#' 
-    					)
-				)
-			</cfquery>
-			
+		<!--- default manadate, likely this does not change between mandates --->
 		
-
-			<select name = "EntityCode" class="regularxl" 
-			    onchange = "do_restrict(this.options[this.selectedIndex].value)">
-				<cfif GetEntity.recordcount neq 1>
-					<option value=""><cf_tl id="Any"></option>
-				<cfelse>
-					<cfset URL.EntityCode = GetEntity.EntityCode > 			
-				</cfif>	
-				<cfloop query = "GetEntity">
-					<option value= "#GetEntity.EntityCode#" <cfif url.EntityCode eq GetEntity.EntityCode>selected</cfif>>#GetEntity.EntityDescription#</option>		
-				</cfloop>
-			</select>
-
+		<cfquery name="Mandate"
+			datasource="AppsOrganization"
+			maxrows=1
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+			SELECT    *
+			FROM     Ref_Mandate
+			WHERE    Mission = '#url.mission#'
+			ORDER BY MandateDefault DESC, MandateNo DESC
+		</cfquery>
+	
+		
+		<cfquery name="Level01"
+			datasource="AppsOrganization"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+				SELECT *
+				FROM   Organization O
+				WHERE  (O.ParentOrgUnit is NULL OR O.ParentOrgUnit = '')
+				AND    O.Mission = '#url.mission#'							
+				AND    O.MandateNo = '#Mandate.MandateNo#'
+				ORDER BY TreeOrder, OrgUnitName
+		</cfquery>		
+				
+		<cf_UISelect name   = "ParentCode"
+			     class          = "regularxl"
+		         queryposition  = "below"
+				 query          = "#level01#"
+				 value          = "HierarchyCode"											     											     
+				 display        = "OrgUnitNameShort"											    
+				 separator      = ","
+				 multiple       = "yes"/>		
+				
+		
+		
 		</td>
         
 		
@@ -90,7 +89,7 @@
 		
 	</cfif>
 	
-	<tr>
+	<tr class="fixlengthlist">
 	<td style="height:30" class="labelmedium"><cf_tl id="Fund">:</td>
 		<td>
 		
@@ -104,19 +103,20 @@
                      Employee.dbo.Position AS P ON DP.PositionNo = P.PositionNo INNER JOIN
                      Employee.dbo.PositionParent AS PP ON P.PositionParentId = PP.PositionParentId
 			  WHERE DP.DocumentNo IN (  SELECT DocumentNo
-			                            FROM   (#preservesingleQuotes(SelectTracks)#) as T										
+			                            FROM   (#preservesingleQuotes(Session.SelectTracks)#) as T										
 									  )		
 		</cfquery>
 		
-	
-		
-		<select name = "Fund" class="regularxxl">
-			<option value = ""><cf_tl id="Any"></option>		
-			<cfloop query = "GetFund">
-				<option value = "#Fund#">#Fund#</option>
-			</cfloop>	
-		</select>
-		
+		<cf_UISelect name   = "Fund"
+		     class          = "regularxl"
+		     queryposition  = "below"
+		     query          = "#getFund#"
+		     value          = "Fund"											     											     
+		     display        = "Fund"											    
+			 separator      = ","
+		     multiple       = "yes"/>		  
+							
+				
 		</td>
 		<td width="2%"></td>
 		
@@ -131,9 +131,8 @@
 					   C.EntityClassName
 				FROM   Ref_Entity E
 				       INNER JOIN Ref_EntityClass C ON E.EntityCode = C.EntityCode	
-				WHERE  C.EntityClass IN (SELECT EntityClass FROM (#preservesingleQuotes(SelectTracks)#) as D)	   					  
-		</cfquery>
-		
+				WHERE  C.EntityClass IN (SELECT EntityClass FROM (#preservesingleQuotes(Session.SelectTracks)#) as D)	   					  
+		</cfquery>		
 	
 		<select name = "EntityClass" class="regularxxl">
 			<option value=""><cf_tl id="Any"></option>		
@@ -141,13 +140,13 @@
 			<option value="#GetClass.EntityClass#">#GetClass.EntityClassName#</option>		
 		</cfloop>
 		</select>
-		</td>
-		
-			
+		</td>	
 	
 	</tr>
 	
-	<tr>
+	<tr class="fixlengthlist">
+	
+	    <!---
 		<td style="height:30" class="labelmedium"><cf_tl id="Functional title">:</td>
 		<td>
 		
@@ -171,7 +170,11 @@
 		
 		</td>
 		<td width="2%"></td>
-		<td width="10%" class="labelmedium"><cf_tl id="Grade"></td>
+		--->
+		
+		<input type="hidden" name="FunctionNo">
+		
+		<td class="labelmedium"><cf_tl id="Grade"></td>
 		
 		<td>
 
@@ -183,7 +186,7 @@
 					   Employee.dbo.Ref_PostGrade P 
 				WHERE  EXISTS (
 							SELECT 'X'
-							FROM (#preservesingleQuotes(SelectTracks)#) as T
+							FROM (#preservesingleQuotes(Session.SelectTracks)#) as T
 							WHERE T.PostGrade = P.PostGrade
 							<cfif URL.EntityCode neq "" AND  (URL.Status eq "0" or URL.Status eq "9")>
 								AND EntityCode = '#URL.EntityCode#'
@@ -191,21 +194,52 @@
 						 )	
 				ORDER BY P.PostOrderBudget	
 		</cfquery>		
-
-		<select name= "PostGrade" class="regularxxl">
-			<option value  = ""></option>		
-			<cfloop query = "GetGrade">
-				<option value = "#GetGrade.PostGrade#">#GetGrade.PostGrade#</option>
-			</cfloop>	
-		</select>
 		
+		<cf_UISelect name   = "PostGrade"
+		     class          = "regularxl"
+		     queryposition  = "below"
+		     query          = "#getGrade#"
+		     value          = "PostGrade"											     											     
+		     display        = "PostGrade"											    
+			 separator      = ","
+		     multiple       = "yes"/>		
+				
 		</td>							
-		<td>
+		
+		<td></td>		
+		<td class="labelmedium"><cf_tl id="Posted">:</td>
+		
+		<td colspan="1">
+			<table cellspacing="0" cellpadding="0">
+			<tr>
+			<td style="min-width:140px">
+			
+				<cf_intelliCalendarDate9
+					FieldName="DateEffective" 
+					Manual="True"	
+					class="regularxxl"				
+					Default=""
+					AllowBlank="True">	
+	
+			</td>		
+			<td style="min-width:40px" class="labelmedium"><cf_tl id="To">:
+			</td>
+			<td style="min-width:140px">
+			   
+				<cf_intelliCalendarDate9
+					FieldName="DateExpiration" 
+					Manual="True"	
+					class="regularxxl"				
+					Default=""
+					AllowBlank="True">	
+			</td>	
+			</table>
+		
 		</td>
 		
 	</tr>	
 				
-	<tr>
+	<tr class="fixlengthlist hide">
 		<td style="height:30" class="labelmedium"><cf_tl id="Position No">:</td>
 		<td>
 		<input type="text" name="PositionNo" size="10" maxlength="10" class="regularxxl">
@@ -218,52 +252,13 @@
 		<input type="text" name="ReferenceNo" size="10" maxlength="10" class="regularxxl">
 		</td>					
 	</tr>
-
+			
 	<tr>
-		<td style="height:30" class="labelmedium"><cf_tl id="Effective">:</td>
-		<td colspan="3">
-		<table cellspacing="0" cellpadding="0">
-		<tr>
-		<td style="min-width:140px">
-		
-			<cf_intelliCalendarDate9
-				FieldName="DateEffective" 
-				Manual="True"	
-				class="regularxxl"				
-				Default=""
-				AllowBlank="True">	
-
-		</td>		
-		<td style="min-width:70px" class="labelmedium"><cf_tl id="Expiry">:
-		</td>
-		<td style="min-width:150px">
-		    <cf_space spaces="40">
-			<cf_intelliCalendarDate9
-				FieldName="DateExpiration" 
-				Manual="True"	
-				class="regularxxl"				
-				Default=""
-				AllowBlank="True">	
-		</td>	
-		</table>
-		</td>
-						
-	</tr>
-	
-	<tr><td height="4"></td></tr>
-	<tr><td colspan="5" class="linedotted"></td></tr>	
-	<tr><td height="4"></td></tr>
-	
-	<tr>
-		<td colspan="5" align="center">			
-			<input type="button" name="Save" value="Filter" class="button10g" style="font-size:13px;width:200px" onclick="do_search()">
+		<td colspan="5" align="left">			
+			<input type="button" name="Save" value="Filter" class="button10g" style="font-size:15px;width:260px" onclick="do_search()">
 		</td>
 	</tr>
-	
-	<tr><td height="4"></td></tr>
-	<tr><td colspan="5" class="linedotted"></td></tr>	
-	<tr><td height="4"></td></tr>
-	
+			
 </table>
 	
 </cfform>

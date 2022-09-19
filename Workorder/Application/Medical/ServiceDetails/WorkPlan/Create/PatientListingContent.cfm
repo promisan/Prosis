@@ -1,11 +1,10 @@
 <cfparam name="url.date" default="#DateFormat(now(), CLIENT.DateFormatShow)#">  
 	
-<CF_DropTable dbName="AppsQuery"  tblName="#SESSION.acc#Patient">  
+<cfoutput>
+<cfsavecontent variable="myquery">
 
-<cfquery name="Detail" 
-datasource="AppsSelection" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
+    SELECT TOP 30 *
+	FROM (
 
 	SELECT   A.PersonNo, 
 	         CustomerId,
@@ -45,7 +44,7 @@ password="#SESSION.dbpw#">
 			 DocumentReference,
 			 C.Created
 			  
-	INTO     userquery.dbo.#SESSION.acc#Patient		
+	
 	<!----  
 	FROM     Applicant A, Workorder.dbo.Customer C	
 	WHERE    A.PersonNo = C.PersonNo
@@ -58,11 +57,10 @@ password="#SESSION.dbpw#">
 				
 	
 	<!---  AND      A.ApplicantClass = '3' --->
-</cfquery>
-
-<cfoutput>
-<cfsavecontent variable="myquery">
-	SELECT TOP 24 * FROM userquery.dbo.#SESSION.acc#Patient
+	
+	) as D
+	WHERE 1=1
+	-- condition
 </cfsavecontent>
 </cfoutput>
 
@@ -175,13 +173,13 @@ password="#SESSION.dbpw#">
 	    html          = "No"		
 		tableheight   = "100%"
 		tablewidth    = "100%"
-		datasource    = "AppsQuery"
+		datasource    = "AppsSelection"
 		listquery     = "#myquery#"
 		listorderfield = "#sorting#"
 		listorder      = "#sorting#"
 		listorderdir   = "ASC"
 		headercolor   = "ffffff"
-		show          = "25"		
+		show          = "30"		
 		menu          = "#menu#"
 		filtershow    = "Yes"
 		excelshow     = "Yes" 		

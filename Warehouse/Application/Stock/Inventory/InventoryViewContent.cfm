@@ -1,4 +1,5 @@
 
+
 <cfquery name="Get" 
 datasource="appsMaterials" 
 username="#SESSION.login#" 
@@ -29,7 +30,6 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
-
 <cfquery name="parameter" 
 datasource="appsMaterials" 
 username="#SESSION.login#" 
@@ -39,7 +39,10 @@ password="#SESSION.dbpw#">
 	WHERE  Mission = '#get.Mission#'	
 </cfquery>
 
-<table width="98%" border="0" align="left" class="navigation_table">
+<table width="98%" class="navigation_table">
+
+<cfparam name="url.parent" default="0">
+<cfparam name="url.lot"    default="">
 
 <cftransaction isolation="read_uncommitted">
 	
@@ -48,13 +51,19 @@ password="#SESSION.dbpw#">
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		
-		    SELECT   DISTINCT 
-				     R.Code as ClassCode,
-				     R.Description as ClassName,								  
-			         I.Location,
+		    SELECT   			
+          			 <!--- location --->
+				     R.Code        as ClassCode,
+				     R.Description as ClassName,						 							  
+			         I.Location,					 
 			         WL.Description, 
 				     WL.ListingOrder,
 				     WL.StorageCode,
+					 
+					 <!--- fuel tank --->					  
+				     (SELECT SerialNo 
+					  FROM   AssetItem 
+					  WHERE  AssetId = WL.AssetId) as SerialNo,
 					 
 					 <!--- main category --->
 				     C.Category,
@@ -64,26 +73,30 @@ password="#SESSION.dbpw#">
 				     IT.CategoryItem,
 				     CI.CategoryItemName,
 					 
+					 <cfif url.parent eq "1">
+					 
 					 <!--- parent item --->
 				     IT.ParentItemNo,
 				     (SELECT ItemDescription 
 					  FROM   Item IP 
 					  WHERE  IP.ItemNo = IT.ParentItemNo) as ParentItemName,
 					  
-				     (SELECT SerialNo 
-					  FROM   AssetItem 
-					  WHERE  AssetId = WL.AssetId) as SerialNo,
-					 
+					  <cfelse>
+					  '' as ParentItemNo,
+					  '' as ParentItemName,				  					  
+					  </cfif>
+					  
+					
+					 <!--- has already some inventory entries made --->					 
 					 (SELECT  COUNT(*)
 					  FROM    userTransaction.dbo.StockInventory#URL.Warehouse#_#SESSION.acc#  
 					  WHERE   Warehouse    = '#url.warehouse#'
 					  AND     Location     = I.Location
-					  AND     Category     = IT.Category
+					  AND     Category     = C.Category
 					  AND     CategoryItem = IT.CategoryItem
 					  AND     Counted > 0) as Recorded  <!--- one or more items recorded --->
 						 
-			FROM     ItemWarehouseLocation I,   <!--- item is defined for the warehouse allows us to control what is shown here 
-			                                    for data entry !! --->
+			FROM     ItemWarehouseLocation I,   <!--- item is defined for the warehouse allows us to control what is shown here for data entry !! --->
 					 Item IT, 							         
 					 Ref_CategoryItem CI,
 					 #Client.LanPrefix#Ref_Category C,
@@ -110,14 +123,42 @@ password="#SESSION.dbpw#">
 			AND      IT.Category      = C.Category			
 			
 			<cfif Parameter.LotManagement eq "1">	
+									
+			<!--- 20/8/22 : we have a few individual transaction that do not have a transactionidorig anymore 
+			  and as such have a negative on the item level, and those are shown in the list, 
+			  but are not show in the inventory detail list as in inventory
+			  we apply based on the parentid --->
+			  
+			  <cfif url.lot neq "">
+			  
+			  AND  EXISTS (SELECT 'x'
+				             FROM   ItemTransaction
+				             WHERE  Warehouse      =  I.Warehouse
+							 AND    Location       =  I.Location
+							 AND    ItemNo         =  I.ItemNo
+							 AND    TransactionUoM =  I.UoM		 
+							 AND    TransactionLot = '#url.lot#'	
+											 
+							 )				  
+			  
+			  </cfif>
+			  
+			  <cfif url.parent eq "1">
 			
-			<!--- we check if the item has at least one transaction recorded --->
-			
-			AND  EXISTS (SELECT 'x'
-			             FROM   ItemTransaction
-			             WHERE  Warehouse      =  I.Warehouse
-						 AND    Location       =  I.Location
-						 AND    ItemNo         =  I.ItemNo)
+				AND  EXISTS (SELECT 'x'
+				             FROM   ItemTransaction
+				             WHERE  Warehouse      =  I.Warehouse
+							 AND    Location       =  I.Location
+							 AND    ItemNo         =  I.ItemNo
+							 AND    TransactionUoM =  I.UoM		
+							 -- and TransactionLot != '18190505'
+							 <cfif url.lot eq "">
+							 HAVING ABS(SUM(TransactionQuantity)) >= 0.02	
+							 </cfif>
+							 )	
+						 
+				</cfif>
+						 		
 						 
 			<cfelse>
 			
@@ -128,23 +169,49 @@ password="#SESSION.dbpw#">
 						 AND    Location       =  I.Location
 						 AND    ItemNo         =  I.ItemNo
 						 AND    TransactionUoM = I.UoM						
-						<cfif findNoCase(get.LocationReceipt,url.loc)>
-						HAVING ABS(SUM(TransactionQuantity)) >= 1)	
-						<cfelse>
-						HAVING ABS(SUM(TransactionQuantity)) >= 0)	
-						</cfif>
-		
+						 <cfif findNoCase(get.LocationReceipt,url.loc)>
+						 HAVING ABS(SUM(TransactionQuantity)) >= 1)							
+						 <cfelse>
+						 HAVING ABS(SUM(TransactionQuantity)) >= 0)	
+						 </cfif>		
 						 
-			</cfif>			        
+			</cfif>		
+			
+			GROUP BY R.Code, 
+			         WL.ListingOrder, 
+					 I.Location,					 					 
+					 C.Description,
+					 IT.CategoryItem,
+					 CI.CategoryItemName,
+					 <cfif url.parent eq "1">
+					 IT.ParentItemNo, 	
+					 </cfif>
+					 WL.Description, 
+				     WL.StorageCode,        
+					 WL.AssetId,
+					 R.Description,
+					 C.Category
+					
 						
 			ORDER BY R.Code, 
 			         WL.ListingOrder, 
-					 I.Location,
+					 I.Location,					 					 
 					 C.Description,
-					 CI.CategoryItemName 
+					 IT.CategoryItem,
+					 CI.CategoryItemName
+					 <cfif url.parent eq "1">
+					 ,IT.ParentItemNo 	
+					 </cfif>
+					
+										 
+					
 					 					 
 	</cfquery>		
 	
+	<!---
+	<cfoutput>#cfquery.executiontime#</cfoutput>
+	--->
+			
 	</cftransaction>
 		
 	<cfif LocationCategoryList.recordCount eq 0>
@@ -177,24 +244,25 @@ password="#SESSION.dbpw#">
 						  </table>					  
 					  </td>
 				  </tr>
-				  
-			<cfoutput group="ParentItemNo">	  
-				  				 					  
+				   				  				 					  
 				  <cfoutput group="CategoryName">
 				  
 				   <tr class="line clsFilterRow">								     
-					  <td colspan="3" style="font-size:19px;padding-top:2px;padding-left:4px;height:38" class="labellarge">#CategoryName# <cfif ParentItemNo neq "">/ #ParentItemNo# #ParentItemName#</cfif></td>								  										 
+					  <td colspan="3" style="font-size:19px;padding-top:2px;padding-left:4px;height:38px" class="labellarge">#CategoryName# #url.lot#</td>								  										 
 				   </tr>
-					 					 
-					 <!--- Category Item --->
-					 					  
+				   
+				   <cfoutput group="CategoryItem">	
+				   				   										 					  
 					 <cfoutput>
 					  
-					 <cfset apply = "locshow('#location#','#category#','#categoryitem#','box#currentrow#','#url.systemfunctionid#','','',document.getElementById('hidezero').checked,'#parentItemNo#',document.getElementById('ebox#currentrow#').checked,'1')">
+					 <cfset apply = "locshow('#location#','#category#','#categoryitem#','box#currentrow#','#url.systemfunctionid#','','',document.getElementById('hidezero').checked,'#parentItemNo#',document.getElementById('ebox#currentrow#').checked,'1','#url.lot#')">
 					  
-					  <tr class="navigation_row fixrow2 clsFilterRow">
+					  <tr class="navigation_row fixrow2 clsFilterRow line">
 					  
-					     <td class="navigation_action clsCategoryLine" data-value="#currentrow#" align="left" style="max-width:40px;min-width:40px;padding-top:3px;padding-left:5px"  onClick="#apply#">
+					     <td class="navigation_action clsCategoryLine" 
+						    data-value="#currentrow#" 
+							align="left" 
+							style="max-width:40px;min-width:40px;padding-top:3px;padding-left:5px"  onClick="#apply#">
 						 						  						   
 						   <cfif recorded eq "0">
 						
@@ -225,33 +293,50 @@ password="#SESSION.dbpw#">
 							 <table width="100%" style="height:100%">
 							 
 							 <tr class="clsFilterRow">
-								 <td onclick="#apply#" style="font-size:15px;height:23px;padding-top:3px;padding-left:4px">#CategoryItem# #CategoryItemName#</td>
+								 <td onclick="#apply#" style="font-size:14px;height:20px;padding-top:2px;padding-left:4px">#CategoryItem# #CategoryItemName# <font size="2" title="Parent Item"><cfif ParentItemNo neq "">/ #ParentItemNo# #ParentItemName#</cfif></font></td>
 								 
 								 <!--- filter box --->
 								 
 								 <td align="right" id="filterbox#currentrow#" class="#cl#">
 								 
 									  <table style="height:100%">									  
-									  <tr>									  
-									  <td class="labelit" style="font-size:14px;height:26px;"><cf_tl id="Earmarked">:</td>
+									  <tr style="fixlengthlist">									  
+									  <td class="labelit" style="font-size:13px;height:26px;"><cf_tl id="Include earmarked">:</td>
 									  <td style="padding-left:4px;padding-right:10px">
-									   <input class="radiol" type="checkbox" id="ebox#currentrow#" value="1">
+									   <input class="radiol" type="checkbox" id="ebox#currentrow#" value="1" checked onclick="document.getElementById('find#currentrow#').click()">
 									  </td>
 									  								  								   							 
-									  <td class="labelit" style="font-size:14px;height:26px;"><cf_tl id="Filter">:</td>
+									  <td class="labelit" style="font-size:13px;height:26px;"><cf_tl id="Filter">:</td>
 									  <td style="padding-left:4px">
+									
+									<!---  
+									  search(event,'#currentrow#')
+									  
+									  function search(e) {
+	  
+											   se = document.getElementById("find");	   
+											   keynum = event.keyCode ? event.keyCode : event.charCode;	   	 						
+											   if (keynum == 13) {
+											      document.getElementById("locate").click();
+											   }		
+														
+										    }
+											--->
 										
-									  <input type="text" id="fbox#currentrow#"  class="regularxl enterastab" 
-									   style="height:100%;width:140;border-left:1px solid silver;border-right:1px solid silver" value=""></td>
+									  <input type="text" 
+									   id        = "fbox#currentrow#"  
+									   class     = "regularxl enterastab" 
+									   onKeyUp   = "keynum = event.keyCode ? event.keyCode : event.charCode;val = this.value;if (val.length > 3) {document.getElementById('find#currentrow#').click()}"
+									   style     = "height:100%;width:120px;border-left:1px solid silver;border-right:1px solid silver" value=""></td>
 										   
 									  <td style="padding-left:3px;padding-right:4px">
 											
 										<input type="button" 
-										    name="Find" 
-											value="Find" 
+										    id="find#currentrow#" 
+											value="find" 
 											class="button10g"
 											style="width:50px;height:26px;" 
-											onclick="locshow('#location#','#category#','#categoryitem#','box#currentrow#','#url.systemfunctionid#','1',document.getElementById('fbox#currentrow#').value,document.getElementById('hidezero').checked,'#parentitemno#',document.getElementById('ebox#currentrow#').checked,'0')">
+											onclick="locshow('#location#','#category#','#categoryitem#','box#currentrow#','#url.systemfunctionid#','1',document.getElementById('fbox#currentrow#').value,document.getElementById('hidezero').checked,'#parentitemno#',document.getElementById('ebox#currentrow#').checked,'0','#url.lot#')">
 										
 									   </td>										
 									   </tr>
@@ -303,6 +388,8 @@ password="#SESSION.dbpw#">
 	</cfoutput>
 	
     </table>
+	
+	<cfset ajaxOnLoad("doHighlight")>
 	
 	<script>
 		Prosis.busy("no")

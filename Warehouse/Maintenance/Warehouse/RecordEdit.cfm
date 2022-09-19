@@ -483,7 +483,7 @@ password="#SESSION.dbpw#">
 			</td>
 	</tr>
 	
-	<tr> <TD class="labelmedium" style="padding-left:0px"><cf_UIToolTip tooltip="Preferred warehouse for transactional processing"><cf_tl id="Default Warehouse">:</cf_UIToolTip></TD>
+	<tr> <TD class="labelmedium" style="padding-left:0px" title="Preferred warehouse for transactional processing"><cf_tl id="Default Warehouse">:</TD>
 	   
 	   	<td colspan="1">
 	
@@ -498,9 +498,9 @@ password="#SESSION.dbpw#">
 	</tr>
 							  
 	<tr>
-		<td class="labelmedium"><cf_UIToolTip tooltip="This storage location can be used in a request direction process"><cf_tl id="Stock Distributor">:</cf_UIToolTip></td>
+		<td class="labelmedium" title="This storage location can be used in a request direction process"><cf_tl id="Stock Distributor">:</td>
 		<td>   
-		   <table cellspacing="0" cellpadding="0"><tr><td>	
+		   <table><tr><td>	
 		   <input type="checkbox" class="radiol" name="Distribution" id="Distribution" value="1" <cfif "1" eq get.Distribution>checked</cfif>>					
 		   </td>
 		   <td class="labelmedium" style="padding-left:15px">Enable initial stock option:</td>
@@ -512,11 +512,13 @@ password="#SESSION.dbpw#">
 		</tr>	
 		
 	    <TR>
-	    <TD class="labelmedium"><cf_tl id="Parent Facility">:</TD>
+	    <TD class="labelmedium"><cf_tl id="Internal Resupply">:</TD>
 		
-	    <TD id="supply">
+	    <TD id="supply" title="Stock replenish warehouse">
 		
-			<table><tr><td>
+			<table>
+			<tr>
+			<td>
 			
 			<cfquery name="Parent" 
 				datasource="AppsMaterials" 
@@ -527,12 +529,16 @@ password="#SESSION.dbpw#">
 					WHERE   Mission = '#get.Mission#' 
 					AND     SupplyWarehouse = '#get.Warehouse#' 								
 			</cfquery>	
+			
+			<!---
 						
 			<cfif parent.recordcount gte "1">
-			
+						
 				<input type="text" name="SupplyWarehouse" value="">
 			
 			<cfelse>
+			
+			--->
 			
 				<cfquery name="Supply" 
 				datasource="AppsMaterials" 
@@ -546,28 +552,35 @@ password="#SESSION.dbpw#">
 					ORDER BY City
 				</cfquery>		
 			
-				<cfselect name="SupplyWarehouse" class="regularxl" 
-				      group="City" 
+				<cfselect name="SupplyWarehouse" 
+				      class    = "regularxl" 
+				      group    = "City" 
 					  queryposition="below" 
-					  query="Supply" 
-					  value="warehouse" 
-					  display="warehouseName" 
-					  selected="#get.SupplyWarehouse#" 
-					  visible="Yes" 
-					  enabled="Yes" 
+					  query    = "Supply" 
+					  value    = "warehouse" 
+					  display  = "warehouseName" 
+					  selected = "#get.SupplyWarehouse#" 
+					  visible  = "Yes" 
+					  enabled  = "Yes" 
 					  id="SupplyWarehouse">
 					<option value="">N/A</option>			
 				</cfselect>
 			
+			<!---
 			</cfif>
+			--->
 			
 			</td>
+			
+			<!---
 					
 			<td class="labelmedium">
 			
-			<img src="<cfoutput>#SESSION.root#</cfoutput>/images/finger.gif" align="absmiddle" alt="" border="0"> Applies to Resupply request
+			<img src="<cfoutput>#SESSION.root#</cfoutput>/images/finger.gif" align="absmiddle" alt="" border="0"> Applies to Internal Resupply request
 			
-			</td></tr>
+			</td>
+			--->
+			</tr>
 			</table>
 					
 		</TD>
@@ -575,24 +588,24 @@ password="#SESSION.dbpw#">
 			
 				
 		<tr>
-		<td class="labelmedium"><cf_UIToolTip tooltip="Taskorder Sourcing"><cf_tl id="Tasking Mode"></cf_UIToolTip>:</td>
+		<td class="labelmedium" title="Taskorder Sourcing"><cf_tl id="Tasking Mode">:</td>
 		<td>   
-		   <table cellspacing="0" cellpadding="0">
+		   <table>
 		   <tr><td>
 		   <input type="radio" name="TaskingMode" value="0" <cfif "0" eq get.TaskingMode>checked</cfif>>		
-		   </td><td class="labelmedium" style="padding-left:3px;padding-right:4px">Internal</td>
+		   </td><td class="labelmedium" style="padding-top:2px;padding-left:3px;padding-right:4px">Internal</td>
 		   <td>
 		   <input type="radio" name="TaskingMode" value="1" <cfif "1" eq get.TaskingMode>checked</cfif>>	
-		   </td><td class="labelmedium" style="padding-left:3px;padding-right:4px">External and Internal</td>	  
+		   </td><td class="labelmedium" style="padding-top:2px;padding-left:3px;padding-right:4px">External and Internal</td>	  
 		   </tr></table>		
 		</td>
 		</tr>				
 				
-		<tr class="fixlengthlist">
-		<td height="20" class="labelmedium" title="Mode under which items to be transferred are transferred are accepted in this warehouse"><cf_tl id="Receipt Mode">:</td>
+		<tr>
+		<td height="20" class="labelmedium" title="Mode under which items to be transferred are transferred are accepted in this warehouse"><cf_tl id="Purchase Receipt Mode">:</td>
 		<td>   
 		   <table cellspacing="0" cellpadding="0">
-		   <tr><td>
+		   <tr class="fixlengthlist"><td style="padding-left:0px">
 		   <input type="radio" name="ModeSetItem" id="ModeSetItem" value="Always" <cfif "Always" eq get.ModeSetItem or get.ModeSetItem eq "Dispatch">checked</cfif>>		
 		   </td><td class="labelmedium" style="padding-left:3px;padding-right:4px">Always</td>
 		   <td>
@@ -606,7 +619,7 @@ password="#SESSION.dbpw#">
 		</tr>	
 		
 		<TR>
-		    <TD class="labelmedium"><cf_UIToolTip tooltip="Quotation settings"><cf_tl id="Quotations">:</cf_UIToolTip></TD>
+		    <TD class="labelmedium" title="Quotation settings"><cf_tl id="Quotations">:</TD>
 		    <td>
 				
 				<select name="QuotationMode" id="QuotationMode" class="regularxl">
@@ -622,7 +635,7 @@ password="#SESSION.dbpw#">
 	   </tr>
 		
 		<TR>
-		    <TD class="labelmedium"><cf_UIToolTip tooltip="Default Sale Currency"><cf_tl id="POS Sale Mode">:</cf_UIToolTip></TD>
+		    <TD class="labelmedium" title="POS Sale handling"><cf_tl id="POS Sale Mode">:</TD>
 		    <TD>
 			
 				<table cellspacing="0" cellpadding="0">
@@ -641,7 +654,7 @@ password="#SESSION.dbpw#">
 				
 				</td>
 				
-				<TD style="padding-left:0px"><cf_tl id="Maximum POS discount">:</TD>
+				<TD style="padding-left:5px"><cf_tl id="Maximum POS discount">:</TD>
 				<td style="padding-left:0px">
 					<cfinput class="regularxl" style="padding-left:3px;text-align:right" type="Text" name="SaleDiscount" id="SaleDiscount" value="#Get.SaleDiscount#" size="3" maxlength="3">%
 			    </td>
@@ -684,7 +697,7 @@ password="#SESSION.dbpw#">
 	    <TD valign="top" class="labelmedium" style="padding-top:4px"><cf_tl id="Stock Managed">:</TD>
 		</tr>
 		<tr>
-	    <TD colspan="4">
+	    <TD colspan="4" style="padding-left:5px;padding-right:10px;border:1px solid silver;border-radius:4px;background-color:f1f1f1">
 			<cf_securediv id="#url.id1#_list" bind="url:Category/CategoryListing.cfm?ID1=#url.id1#">
 		</TD>
 		</TR>	

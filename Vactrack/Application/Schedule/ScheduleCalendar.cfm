@@ -32,25 +32,26 @@
 			  
 	<tr><td valign="top" style="padding-left:10px;padding-right:10px">		
 	
-			<cfparam name="client.selecteddate" default="#now()#">
-			
-			<cfif client.selecteddate lt (now()-300)>
-			   <cfset client.selecteddate = now()>
-			</cfif>	
-			
-			<cfparam name="url.selecteddate" default="#client.selecteddate#">								
-								
-			<cf_calendarView 
-			   title          = "#get.MissionName#"	
-			   selecteddate   = "#url.selecteddate#"
-			   relativepath   =	"../../.."				
-			   autorefresh    = "0"				   
-			   preparation    = ""	    				  
-			   content        = "Vactrack/Application/Schedule/ScheduleCalendarDate.cfm"			  
-			   target         = "Vactrack/Application/Schedule/ScheduleCalendarList.cfm"
-			   condition      = "mission=#get.mission#&systemfunctionid=#url.systemfunctionid#"		   
-			   cellwidth      = "fit"
-			   cellheight     = "90">
+		<cfparam name="client.selecteddate" default="#now()#">
+		<cfparam name="url.hierarchycode" default="">
+		
+		<cfif client.selecteddate lt (now()-300)>
+		   <cfset client.selecteddate = now()>
+		</cfif>	
+		
+		<cfparam name="url.selecteddate" default="#client.selecteddate#">								
+							
+		<cf_calendarView 
+		   title          = "#get.MissionName#"	
+		   selecteddate   = "#url.selecteddate#"
+		   relativepath   =	"../../.."				
+		   autorefresh    = "0"				   
+		   preparation    = ""	    				  
+		   content        = "Vactrack/Application/Schedule/ScheduleCalendarDate.cfm"			   		  
+		   target         = "Vactrack/Application/Schedule/ScheduleCalendarSummary.cfm"
+		   condition      = "mission=#get.mission#&systemfunctionid=#url.systemfunctionid#&hierarchycode=#url.hierarchycode#"		   
+		   cellwidth      = "fit"
+		   cellheight     = "90">
 			
 	</td></tr> 
 

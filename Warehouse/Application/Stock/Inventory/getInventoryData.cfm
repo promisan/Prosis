@@ -156,7 +156,6 @@ password="#SESSION.dbpw#">
 		</cfquery>
 				
 <cfelse>
-
 		
 		<cfsavecontent variable="vwItemTransaction">
 		
@@ -220,8 +219,7 @@ password="#SESSION.dbpw#">
 					AND           T.Mission     = '#get.Mission#'				   
 				    AND           T.Location    = '#url.Location#'			 
 								  
-					AND           RequirementId IS NULL
-									
+					AND           RequirementId IS NULL									
 											
 			<cfelse>
 			
@@ -273,6 +271,7 @@ password="#SESSION.dbpw#">
 				   I.Category, 
 	               CI.CategoryItem, 
 				   CI.CategoryItemName, 
+				   I.ParentItemNo,
 				   U.UoM, 
 				   U.ItemBarCode, 
 				   U.UoMDescription, 
@@ -321,6 +320,9 @@ password="#SESSION.dbpw#">
 				   <cfif URL.parentItemNo neq "">
 				   AND        I.ParentItemNo = '#URL.parentItemNo#'
 				   </cfif>	
+				   <cfif URL.lot neq "">
+					AND L.TransactionLot = '#URL.lot#'
+				   </cfif>		
 									
 				   <!--- exclude in case the mode is not stock for individual items --->				
 				   AND        C.StockControlMode = 'Stock'
@@ -341,6 +343,7 @@ password="#SESSION.dbpw#">
 							   I.Category, 
 							   CI.CategoryItem, 
 		                       CI.CategoryItemName, 
+							   I.ParentItemNo,
 							   U.UoM, 
 							   U.ItemBarCode, 
 							   U.UoMDescription, 
@@ -365,7 +368,7 @@ password="#SESSION.dbpw#">
 					   L.Location, 
 					   L.ItemNo, 
 					   I.ItemNoExternal,
-					   'Individual',
+					   'Individual' as Class,
 					   L.WorkOrderId,
 					   L.WorkOrderLine,
 					   L.RequirementId,
@@ -373,7 +376,7 @@ password="#SESSION.dbpw#">
 					   I.ItemDescription, 
 					   I.ItemPrecision, 
 					   S.ItemLocationId, U.StandardCost, I.Classification, 
-	                   I.Category, CI.CategoryItem, CI.CategoryItemName, U.UoM, U.ItemBarCode, U.UoMDescription, 
+	                   I.Category, CI.CategoryItem, CI.CategoryItemName, I.ParentItemNo, U.UoM, U.ItemBarCode, U.UoMDescription, 
 					   
 					   (L.TransactionQuantity + (SELECT   ISNULL(SUM(TransactionQuantity), 0)
 					                             FROM     ItemTransaction
@@ -405,26 +408,30 @@ password="#SESSION.dbpw#">
 			 AND        WL.Operational  = 1 	
 			<cfif URL.parentItemNo neq "">
 				AND I.ParentItemNo = '#URL.parentItemNo#'
+			</cfif>		
+			<cfif URL.lot neq "">
+				AND L.TransactionLot = '#URL.lot#'
 			</cfif>							 	
 			
-			 AND        C.StockControlMode = 'Individual' 
-			 
+			 AND        C.StockControlMode = 'Individual' 			 
 			 AND        L.TransactionIdOrigin IS NULL 
 			 
 			 <!--- ----------------------------------------------------------------- --->
 			 <!--- added provision for Fomtex where the used for a while an old mode --->
-			 <!--- ----------------------------------------------------------------- --->
+			 <!--- ----------------------------------------------------------------- 
 			 
 			 AND        L.TransactionReference NOT IN
-                             (SELECT    sT.TransactionReference
-                               FROM     ItemTransaction AS sT INNER JOIN
-                                        Ref_Category AS sR ON sT.ItemCategory = sR.Category
-                               WHERE    sR.StockControlMode = 'Individual' 
-							   AND      sT.Mission = '#get.Mission#'
-                               GROUP BY sT.TransactionReference
-                               HAVING   (ABS(SUM(sT.TransactionQuantity)) < 0.02)) 
+                              (SELECT    sT.TransactionReference
+                               FROM      ItemTransaction AS sT INNER JOIN
+                                         Ref_Category AS sR ON sT.ItemCategory = sR.Category
+                               WHERE     sR.StockControlMode = 'Individual' 
+							   AND       sT.Mission = '#get.Mission#'
+                               GROUP BY  sT.TransactionReference
+                               HAVING    (ABS(SUM(sT.TransactionQuantity)) < 0.02)) 
 							   
-			 <!--- ----------------------------------------------------------------- --->				   
+			 <!--- ----------------------------------------------------------------- --->		
+			 --->
+			 		   
 			 
 			 </cfoutput>
 					
@@ -434,80 +441,76 @@ password="#SESSION.dbpw#">
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-		
+			
 			INSERT INTO  userTransaction.dbo.StockInventory#URL.Warehouse#_#SESSION.acc#
 			
-					       (TransactionIdOrigin,
-						    Warehouse,
-						    TransactionLot,
-							TransactionReference,
-						    Location,							
-							ItemNo,
-							ItemNoExternal,
-							ReservationClass,
-							WorkOrderId,
-							WorkOrderLine,
-							RequirementId,
-							
-							ItemDescription,
-							ItemPrecision,
-							ItemLocationId,
-							StandardCost,
-							Classification,
-							Category,
-							CategoryItem,
-							CategoryItemName,
-							UoM,
-							ItemBarCode,
-							UoMDescription,
-							OnHand,
-							Metric,
-							LocationLinked,
-							Strapping,
-							Counted,
-							ActualStock,
-							Status)
+				       (TransactionIdOrigin,
+					    Warehouse,
+					    TransactionLot,
+						TransactionReference,
+					    Location,							
+						ItemNo,
+						ItemNoExternal,
+						ReservationClass,
+						WorkOrderId,
+						WorkOrderLine,
+						RequirementId,
+						
+						ItemDescription,
+						ItemPrecision,
+						ItemLocationId,
+						StandardCost,
+						Classification,
+						Category,
+						CategoryItem,
+						CategoryItemName,							
+						ParentItemNo,
+						UoM,
+						ItemBarCode,
+						UoMDescription,
+						OnHand,
+						Metric,
+						LocationLinked,
+						Strapping,
+						Counted,
+						ActualStock,
+						Status)				
 								
 				SELECT     #preservesingleQuotes(getStock)#
 				
-				<!--- 20/10/2014 Hanno we only take items with a stock or items without stockremove but recently movements 
-			      in ItemTransaction over the last 30 days --->						   
-				  
+				<!--- 20/10/2014 Hanno we only take items with a stock or items without stockremove but recently movements in ItemTransaction over the last 30 days --->						  
+				
 				HAVING 	   SUM(round(L.TransactionQuantity,3)) <> 0		
-																				  
+																								  
 				UNION				 
 				
 				SELECT     #preservesingleQuotes(getStock)#		
 				
-				 <!--- no provision for earmaked stuff --->
-				 
+				 <!--- no provision for earmaked stuff --->				 
 						
-				<!--- 20/10/2014 Hanno we only take items with a stock or items without stockremove but recently movements 
-			      in ItemTransaction over the last 30 days --->
+				<!--- 20/10/2014 Hanno we only take items with a stock or items without stock but include recently movements in ItemTransaction over the last 30 days --->
 						   
-				HAVING 	   L.ItemNo IN (SELECT DISTINCT ItemNo 
+				HAVING 	   L.ItemNo IN (SELECT ItemNo 
 		                                FROM   ItemTransaction
 									    WHERE  Warehouse      = '#url.warehouse#' 
 									    AND    ItemNo         = L.ItemNo
 									    AND    TransactionUoM = U.UoM
-									    AND    TransactionDate > getdate()-30 )	AND L.WorkOrderId is NULL
-																  
+										AND    WorkOrderId is NULL
+									    AND    TransactionDate > getdate()-30 )	
+					
 											  
 				UNION     <!--- individual stock --->
+								
+				SELECT     *
+				FROM  (SELECT #preservesingleQuotes(getIndividual)#) as D
 				
-				SELECT     #preservesingleQuotes(getIndividual)#
-				
-				AND        abs(L.TransactionQuantity -
-	                           (SELECT    abs(ISNULL(SUM(TransactionQuantity), 0))
-	                            FROM      ItemTransaction
-	                            WHERE     TransactionIdOrigin = L.TransactionId)) > 0.02														  			 	   
-																									   
+				<!--- if you search for a lot it will always show that lot --->
+				<cfif URL.lot eq "">
+				WHERE ABS(Onhand) > 0.02																					  			 	   
+				</cfif>
+																								   
 				</cfquery>	
-				
-				<!---
-				<cfoutput>query ins: #cfquery.executiontime#</cfoutput>
-				--->
-												
+																					
 </cfif>		
 
 </cftransaction>
@@ -524,17 +527,24 @@ password="#SESSION.dbpw#">
 		AND    Status = '9'
 	</cfquery>
 	
-	<cfquery name="Clean"
-	datasource="AppsMaterials" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		DELETE FROM userTransaction.dbo.StockInventory#URL.Warehouse#_#SESSION.acc#
-		WHERE  Warehouse = '#URL.Warehouse#'
-		AND    Location  = '#URL.Location#'
-		AND    WorkOrderId is not NULL
-		AND    OnHand = 0
-	</cfquery>
-
+	
+	<!--- not sure if relevant --->
+	
+	<cfif URL.lot eq "">
+	
+		<cfquery name="Clean"
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			DELETE FROM userTransaction.dbo.StockInventory#URL.Warehouse#_#SESSION.acc#
+			WHERE  Warehouse = '#URL.Warehouse#'
+			AND    Location  = '#URL.Location#'
+			AND    WorkOrderId is not NULL <!--- earmarked but 0 --->
+			AND    OnHand = 0
+		</cfquery>
+	
+	</cfif>
+	
 	<cfcatch></cfcatch>
 	
 </cftry>	

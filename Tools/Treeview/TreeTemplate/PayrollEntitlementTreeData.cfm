@@ -1,59 +1,88 @@
 
 <cfoutput>
 
+<cfquery name="YearList" 
+  datasource="AppsPayroll" 
+  username="#SESSION.login#" 
+  password="#SESSION.dbpw#">
+      SELECT   DISTINCT YEAR(Created) as Year
+      FROM     SalarySchedulePeriod S
+	  WHERE    S.Mission = '#URL.Mission#'	 
+	  ORDER BY Year DESC	  	  
+</cfquery>
+
 	<cf_UItree id="root" title="<span style='font-size:17px;color:gray;padding-bottom:3px'>#URL.Mission#</span>" expand="Yes">
-		       
-	  <cfquery name="Period" 
-	  datasource="AppsPayroll" 
-	  username="#SESSION.login#" 
-	  password="#SESSION.dbpw#">
-		  SELECT   DISTINCT S.PayrollStart, S.PayrollEnd, S.CalculationId
-		  FROM     SalarySchedulePeriod S,
-		           EmployeeSalary L0 
-		  WHERE    S.SalarySchedule = '#URL.Schedule#' 
-		  AND      S.SalarySchedule  = L0.SalarySchedule
-		  AND      S.PayrollStart    = L0.PayrollStart
-		  AND      S.Mission = '#URL.Mission#'
-		  ORDER BY S.PayrollStart DESC
-	  </cfquery>
+	
+	  <cfloop query="YearList">	 
+		  
+		  <cfif YEAR(now()) eq YearList.Year>
+		      <cfset exp = "True">
+		  <cfelse>
+		      <cfset exp = "False"> 
+		  </cfif>
+		  
+		   <cf_UItreeitem value="#year#"
+		        display="<span style='font-size:18px;padding-top:5px;padding-bottom:2px;font-weight:bold' class='labelmedium'>#Year#</span>"														
+				parent="root"							
+		        expand="#exp#">	
+			
+	   <cfset yr = year>
+	   
+	    <cfquery name="Period" 
+		  datasource="AppsPayroll" 
+		  username="#SESSION.login#" 
+		  password="#SESSION.dbpw#">
+			  SELECT   DISTINCT S.PayrollStart, S.PayrollEnd, S.CalculationId
+			  FROM     SalarySchedulePeriod S,
+			           EmployeeSalary L0 
+			  WHERE    S.SalarySchedule = '#URL.Schedule#' 
+			  AND      S.SalarySchedule  = L0.SalarySchedule
+			  AND      S.PayrollStart    = L0.PayrollStart
+			  AND      S.Mission = '#URL.Mission#'
+			  AND      year(S.PayrollStart) = #yr#
+			  ORDER BY S.PayrollStart DESC
+		  </cfquery>	     
 	  
-	  <cfquery name="BaseParent" 
-	  datasource="AppsPayroll" 
-	  username="#SESSION.login#" 
-	  password="#SESSION.dbpw#">
-		  SELECT   DISTINCT S.CalculationId, R.PrintGroup, R.PrintGroupOrder
-		  FROM     SalarySchedulePeriod S, 
-		           EmployeeSalary L0, 
-				   EmployeeSalaryLine L, 
-				   Ref_PayrollItem C, 
-				   Ref_SlipGroup R
-		  WHERE    S.SalarySchedule  = L0.SalarySchedule
-		  AND      S.PayrollStart    = L0.PayrollStart
-		  AND      L0.PersonNo       = L.PersonNo
-		  AND      L0.PayrollStart   = L.PayrollStart
-		  AND      L0.PayrollCalcNo  = L.PayrollCalcNo
-		  AND      C.PayrollItem     = L.PayrollItem
-		  AND      R.PrintGroup      = C.PrintGroup
-		  AND      S.Mission         = '#URL.Mission#'
-		  AND      L0.Mission         = '#URL.Mission#'
-		  ORDER BY R.PrintGroupOrder 
-	  </cfquery>
 	  
-	  <cfquery name="BaseGrade" 
-	  datasource="AppsPayroll" 
-	  username="#SESSION.login#" 
-	  password="#SESSION.dbpw#">
-		  SELECT    DISTINCT S.CalculationId, R.PostOrderBudget, L1.ServiceLevel
-		  FROM      SalarySchedulePeriod S, 
-		            EmployeeSalary L1, 
-				    Employee.dbo.Ref_PostGradeBudget R
-		  WHERE     S.SalarySchedule  = L1.SalarySchedule
-		  AND       S.PayrollStart    = L1.PayrollStart
-		  AND       L1.ServiceLevel   = R.PostGradeBudget
-		  AND       S.Mission         = '#URL.Mission#'
-		  AND       L1.Mission         = '#URL.Mission#'
-		  ORDER BY  R.PostOrderBudget 
-	  </cfquery>
+		  <cfquery name="BaseParent" 
+		  datasource="AppsPayroll" 
+		  username="#SESSION.login#" 
+		  password="#SESSION.dbpw#">
+			  SELECT   DISTINCT S.CalculationId, R.PrintGroup, R.PrintGroupOrder
+			  FROM     SalarySchedulePeriod S, 
+			           EmployeeSalary L0, 
+					   EmployeeSalaryLine L, 
+					   Ref_PayrollItem C, 
+					   Ref_SlipGroup R
+			  WHERE    S.SalarySchedule  = L0.SalarySchedule
+			  AND      S.PayrollStart    = L0.PayrollStart
+			  AND      L0.PersonNo       = L.PersonNo
+			  AND      L0.PayrollStart   = L.PayrollStart
+			  AND      L0.PayrollCalcNo  = L.PayrollCalcNo
+			  AND      C.PayrollItem     = L.PayrollItem
+			  AND      R.PrintGroup      = C.PrintGroup
+			  AND      S.Mission         = '#URL.Mission#'
+			  AND      L0.Mission         = '#URL.Mission#'
+			  AND      year(S.PayrollStart) = #yr#
+			  ORDER BY R.PrintGroupOrder 
+		  </cfquery>
+	  
+		  <cfquery name="BaseGrade" 
+		  datasource="AppsPayroll" 
+		  username="#SESSION.login#" 
+		  password="#SESSION.dbpw#">
+			  SELECT    DISTINCT S.CalculationId, R.PostOrderBudget, L1.ServiceLevel
+			  FROM      SalarySchedulePeriod S, 
+			            EmployeeSalary L1, 
+					    Employee.dbo.Ref_PostGradeBudget R
+			  WHERE     S.SalarySchedule  = L1.SalarySchedule
+			  AND       S.PayrollStart    = L1.PayrollStart
+			  AND       L1.ServiceLevel   = R.PostGradeBudget
+			  AND       S.Mission         = '#URL.Mission#'
+			  AND       L1.Mission         = '#URL.Mission#'
+			  AND      year(S.PayrollStart) = #yr#
+			  ORDER BY  R.PostOrderBudget 
+		  </cfquery>
 	      
 		  <cfloop query = "Period">
 		  
@@ -61,7 +90,7 @@
 			
 			<cf_UItreeitem value="#Per#"
 		        display="<span style='font-size:16px;padding-bottom:3px;font-weight:bold' class='labelit'>#DateFormat(PayrollEnd, CLIENT.DateFormatShow)#</span>"												
-				parent="root" 
+				parent="#yr#" 
 				expand="No">
 				
 			<cf_UItreeitem value="#Per#_item"
@@ -112,6 +141,8 @@
 			  </cfloop> 		  
 		 		  
 		  </cfloop>
+		  
+		   </cfloop>
 	    
 	</cf_UItree>
      

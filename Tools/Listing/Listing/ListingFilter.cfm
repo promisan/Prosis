@@ -17,6 +17,7 @@
 <cfset show  = 0>
 <cfset group = "No">
 
+<cfparam name="attributes.autofilter" default="Auto">
 
 <cfoutput>	
 	
@@ -99,6 +100,16 @@
 			</cfif>	
 			
 			--->
+			
+			<cfif attributes.autofilter eq "auto">
+				<cfset filtertext = "gofilter('text',event)">
+				<cfset filterlist = "gofilter('list',event)">
+				<cfset filterclck = "gofilter('click',event)">
+			<cfelse>
+			    <cfset filtertext = "gofilter('text',event)">
+				<cfset filterlist = "">
+				<cfset filterclck = "">
+			</cfif>
 												
 			<cfset reset = "">					
 																				
@@ -297,7 +308,7 @@
 								   <cfinput type="text" 
 								      name      = "filter#current.field#" 
 									  value     = "#val#" 
-									  onkeyup   = "gofilter(event)"									 
+									  onkeyup   = "#filtertext#"									 
 									  class     = "regularxxl" 
 									  message   = "Please select a #Current.LabelFilter#"
 									  required  = "#oblig#"
@@ -316,18 +327,18 @@
 									
 									   <cfif getInit.VirtualDirectory eq "">					
 																		
-										   <cfinput type="text" 
-										      name="filter#current.field#" 
-											  value="#val#" 
-											  class="regularxxl" 
-											  size="20" 
-											  message="Please select a #Current.LabelFilter#"
-											  required="#oblig#"
-											  typeahead="#current.searchtypeahead#"
+										   <cfinput type    = "text" 
+										      name          = "filter#current.field#" 
+											  value         = "#val#" 
+											  class         = "regularxxl" 
+											  size          = "20" 
+											  message       = "Please select a #Current.LabelFilter#"
+											  required      = "#oblig#"
+											  typeahead     = "#current.searchtypeahead#"
 											  showautosuggestloadingicon="No"
 											  autosuggestminlength="2" 
-											  autosuggest = "cfc:component.reporting.presentation.getlistingsuggest('#datasource#','#qry#','#fld#','#url.systemfunctionid#','#url.functionserialno#',{cfautosuggestvalue},'10','combo','listing')"				      
-											  maxlength="20">
+											  autosuggest   = "cfc:component.reporting.presentation.getlistingsuggest('#datasource#','#qry#','#fld#','#url.systemfunctionid#','#url.functionserialno#',{cfautosuggestvalue},'10','combo','listing')"				      
+											  maxlength     = "20">
 											 										  
 									  <cfelse>
 									        
@@ -335,17 +346,17 @@
 											<cfdump var="#qry#">
 											--->
 									  
-										     <cfinput type="text" 
-										      name="filter#current.field#" 
-											  value="#val#" 
-											  class="regularxxl" 
-											  size="20"
-											  message="Please select a #Current.LabelFilter#"
-											  required="#oblig#" 
-											  typeahead="#current.searchtypeahead#"
+										     <cfinput type   = "text" 
+										      name           = "filter#current.field#" 
+											  value          = "#val#" 
+											  class          = "regularxxl" 
+											  size           = "20"
+											  message        = "Please select a #Current.LabelFilter#"
+											  required       = "#oblig#" 
+											  typeahead      = "#current.searchtypeahead#"
 											  showautosuggestloadingicon="No"
 											  autosuggestminlength="2" 
-											  autosuggest = "cfc:#getInit.VirtualDirectory#.component.reporting.presentation.getlistingsuggest('#datasource#','#qry#','#fld#','#url.systemfunctionid#','#url.functionserialno#',{cfautosuggestvalue},'10','combo','listing')"				      
+											  autosuggest    = "cfc:#getInit.VirtualDirectory#.component.reporting.presentation.getlistingsuggest('#datasource#','#qry#','#fld#','#url.systemfunctionid#','#url.functionserialno#',{cfautosuggestvalue},'10','combo','listing')"				      
 											  maxlength="20">
 											  									  								  
 									  </cfif>	 
@@ -381,7 +392,7 @@
 													query           = "#lookupdata#"
 													value           = "CODE"
 													required        = "#oblig#"
-													onchange        = "applyfilter('','1','content')"	
+													onchange        = "#filterlist#"	
 													message         = "Please select a #Current.LabelFilter#"
 													display         = "DISPLAY"
 													filter          = "#vFilter#"
@@ -413,7 +424,7 @@
 													query           = "#lookupdata#"
 													group           = "#current.LookupGroup#"
 													value           = "CODE"
-													onchange        = "applyfilter('','1','content')"
+													onchange        = "#filterlist#"
 													message         = "Please select a #Current.LabelFilter#"
 													required        = "#oblig#"
 													display         = "DISPLAY"
@@ -476,7 +487,8 @@
 											   <cfif pk neq "">												  
 											  	 <td><input class="radiol" type="checkbox" 
 													  id="filter#current.field#_#currentrow#" 
-													  name="filter#current.field#" onclick="applyfilter('','1','content')"
+													  name="filter#current.field#" 
+													  onclick="#filterclck#"
 													  value="#PK#|" <cfif findNoCase("#pk#|",val)>checked</cfif>></td>
 												 <td style="padding-top:2px;padding-left:3px;padding-right:10px" class="labelmedium2">#DISPLAY#</td>
 											   </cfif>
@@ -495,7 +507,7 @@
 											     queryposition  = "below"
 											     query          = "#lookupdata#"
 											     value          = "PK"
-											     onchange       = "applyfilter('','1','content')"
+											     onchange       = "#filterlist#"
 											     message        = "Please select a value for #Current.LabelFilter#"
 											     required       = "#oblig#"
 											     display        = "DISPLAY"
@@ -535,15 +547,15 @@
 								   
 								     <td style="padding-left:5px">
 									 										
-								     <cfinput type="text" 
-								      name="filter#current.field#" 
-									  value="#val#" 
-									  onkeyup="gofilter(event)"
-									  message="Please select a #Current.LabelFilter#"
-									  required="#oblig#" 
-									  class="regularxxl" 									  
-									  style="width:100%" 								 
-									  maxlength="100">	
+								     <cfinput type    = "text" 
+								      name            = "filter#current.field#" 
+									  value           = "#val#" 
+									  onkeyup         = "#filtertext#"
+									  message         = "Please select a #Current.LabelFilter#"
+									  required        = "#oblig#" 
+									  class           = "regularxxl" 									  
+									  style           = "width:100%" 								 
+									  maxlength       = "100">	
 									  
 									  <td>
 									  
@@ -557,19 +569,19 @@
 							
 							<cfcase value="number">		
 							
-							    <table cellspacing="0" cellpadding="0">
+							  <table>
 							  <tr><td style="padding-left:0px">										
 							
-							   <cfinput type="text" 
-								      name="filter#current.field#" 
-									  value="#val#" 
-									  validate="float"									  
-									  style="text-align:right"
-									  required="#oblig#" 
-									  message="Incorrect numeric value #Current.LabelFilter#"
-									  class="regularxxl enterastab" 
-									  size="8" 
-									  maxlength="20">
+							   <cfinput type     = "text" 
+								      name       = "filter#current.field#" 
+									  value      = "#val#" 
+									  validate   = "float"									  
+									  style      = "text-align:right"
+									  required   = "#oblig#" 
+									  message    = "Incorrect numeric value #Current.LabelFilter#"
+									  class      = "regularxxl enterastab" 
+									  size       = "8" 
+									  maxlength  = "20">
 									  
 							   <cfset reset =  "#reset#;document.getElementById('filter#current.field#').value=''">	 
 							   
@@ -581,16 +593,16 @@
 							     <cfparam name="form.filter#current.field#_to" default="">	
 								  <cfset val = evaluate("form.filter#current.field#_to")>	
 							   
-							     <cfinput type="text" 
-								      name="filter#current.field#_to" 
-									  value="#val#" 
-									  validate="float"
-									  style="text-align:right"
-									  required="#oblig#" 
-									  class="regularxxl enterastab" 
-									  message="Incorrect numeric value #Current.LabelFilter#"
-									  size="8" 
-									  maxlength="20">
+							     <cfinput type   = "text" 
+								      name       = "filter#current.field#_to" 
+									  value      = "#val#" 
+									  validate   = "float"
+									  style      = "text-align:right"
+									  required   = "#oblig#" 
+									  class      = "regularxxl enterastab" 
+									  message    = "Incorrect numeric value #Current.LabelFilter#"
+									  size       = "8" 
+									  maxlength  = "20">
 									  
 							   <cfset reset =  "#reset#;document.getElementById('filter#current.field#_to').value=''">	 
 							   							   							
@@ -601,19 +613,19 @@
 							
 							<cfcase value="amount">		
 							
-							    <table cellspacing="0" cellpadding="0">
-							  <tr><td style="padding-left:4px">										
+							  <table>
+							  <tr><td style="padding-left:0px">										
 							
-							   <cfinput type="text" 
-								      name="filter#current.field#" 
-									  value="#val#" 
-									  validate="float"									  
-									  style="text-align:right"
-									  required="#oblig#" 
-									  message="Incorrect numeric value #Current.LabelFilter#"
-									  class="regularxxl enterastab" 
-									  size="8" 
-									  maxlength="20">
+							   <cfinput type    = "text" 
+								      name      = "filter#current.field#" 
+									  value     = "#val#" 
+									  validate  = "float"									  
+									  style     = "text-align:right"
+									  required  = "#oblig#" 
+									  message   = "Incorrect numeric value #Current.LabelFilter#"
+									  class     = "regularxxl enterastab" 
+									  size      = "8" 
+									  maxlength = "20">
 									  
 							   <cfset reset =  "#reset#;document.getElementById('filter#current.field#').value=''">	 
 							   

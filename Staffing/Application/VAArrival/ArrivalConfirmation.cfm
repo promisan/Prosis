@@ -109,45 +109,45 @@ password="#SESSION.dbpw#">
 	
 	  <tr><td style="padding:10px">
 	
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+		<table width="100%" align="center">
 		
 		<TR>
 		<td colspan="2">
 		
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="navigation_table">
+		<table width="100%" align="center" class="navigation_table">
 		
-		<tr class="labelmedium linedotted">
-		    <TD></TD>
-		    <TD>Name</TD>
-			<TD align="left">IndexNo</TD>
-			<TD width="7%" align="left">Grade</TD>
-			<TD align="left">Track No</TD>
-			<TD width="40%" align="left">Functional title</TD>
-			<td align="right">Action</td>
-		</TR>
-				
-		<cfoutput query="SearchResult">
-		
-		<tr class="labelmedium navigation_row linedotted">
-		    <td height="20" style="padding-right:5px">#currentRow#.</td>
-		    <TD><a href="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#')"><font color="0080C0">#LastName#, #FirstName#</a></TD>
-			<TD align="left"><a href="javascript:ShowPerson('#IndexNo#')"><font color="0080C0">#IndexNo#</a></TD>					
-			<td colspan="1" align="left">
-			      <!--- #Level.ContractLevel#/#Level.ContractStep# ---> #PostGrade#
-		    </td>
-			<TD align="left"><a href="javascript:showdocument('#documentNo#')"><font color="0080C0">#DocumentNo#</a></TD>
-			<td colspan="1" align="left">#FunctionalTitle#</td>
-			<td align="right" style="padding-top:3px">	
+			<tr class="labelmedium linedotted fixlengthlist">
+			    <TD></TD>
+			    <TD>Name</TD>
+				<TD align="left">IndexNo</TD>
+				<TD width="7%" align="left">Grade</TD>
+				<TD align="left">Track No</TD>
+				<TD width="40%" align="left">Functional title</TD>
+				<td align="right">Action</td>
+			</TR>
+					
+			<cfoutput query="SearchResult">
 			
-			<cfif PositionLink neq "">
-			<cf_img icon="open" 
-			    navigation="Yes" 
-				onclick="selectposition('VAC','#URL.ID1#','0000','#PersonNo#','','#PersonNo#','#DocumentNo#')">	
-			</cfif>	
-			</td>
-		</TR>
+			<tr class="labelmedium navigation_row linedotted fixlengthlist">
+			    <td height="20" style="padding-right:5px">#currentRow#.</td>
+			    <TD><a href="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#')">#LastName#, #FirstName#</a></TD>
+				<TD align="left"><a href="javascript:ShowPerson('#IndexNo#')"><font color="0080C0">#IndexNo#</a></TD>					
+				<td colspan="1" align="left">
+				      <!--- #Level.ContractLevel#/#Level.ContractStep# ---> #PostGrade#
+			    </td>
+				<TD align="left"><a href="javascript:showdocument('#documentNo#')"><font color="0080C0">#DocumentNo#</a></TD>
+				<td align="left">#FunctionalTitle#</td>
+				<td align="right" style="padding-top:3px">	
 				
-		</CFOUTPUT>
+				<cfif PositionLink neq "">
+				<cf_img icon="open" 
+				    navigation="Yes" 
+					onclick="selectposition('VAC','#URL.ID1#','0000','#PersonNo#','','#PersonNo#','#DocumentNo#')">	
+				</cfif>	
+				</td>
+			</TR>
+					
+			</CFOUTPUT>
 		
 		</TABLE>
 		

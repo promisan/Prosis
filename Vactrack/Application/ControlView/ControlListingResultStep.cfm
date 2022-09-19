@@ -27,16 +27,17 @@
 </cfoutput>
 
 
-<table width="100%" class="navigation_table">
+<table style="width:98%" align="center" class="navigation_table">
 
- <tr class="line labelmedium fixrow fixlengthlist">
+ <tr class="line labelmedium fixrow fixlengthlist" style="border-top:1px solid silver">
    <td style="min-width:40"></td>
    <td><cf_tl id="Class"></td>
-   <td><cf_tl id="Track"></td>
-   <td><cf_tl id="Due"></td>
-   <td><cf_tl id="VA"></td>
+   <td><cf_tl id="Created"></td>
+   <td><cf_tl id="Posted"></td>
+   <td><cf_tl id="Reference"></td>
+   <td><cf_tl id="Expected"></td>   
    <td title="Grade / Candidate">G / P</td>
-   <td><cf_tl id="Position"></td>		       
+   <td><cf_tl id="Position">&nbsp;&nbsp;/&nbsp;&nbsp;<cf_tl id="Vacant since"></td>		       
    <td><cf_tl id="Title"></td>
    <td><cf_tl id="Office"></td>	   
    <td><cf_tl id="Officer"></td>	   

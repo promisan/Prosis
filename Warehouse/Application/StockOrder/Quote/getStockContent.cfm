@@ -288,9 +288,9 @@
 					<cfif quantityreserved eq "0">
 						<td style="font-size:14px;background-color:##e1e1e1" align="right">--</td>
 					<cfelse>					
-						<td style="font-size:15px;background-color:008080;border:1px solid silver" align="right">
-						<a style="color:white" href="javascript:stockreserve('#warehouse#','#itemno#','#uom#','reserve')">
-						#numberformat(quantityreserved,'#pformat#')#</a>
+						<td style="font-size:15px;background-color:008080;border:1px solid silver" align="right">						
+						<cfset link   = "#SESSION.root#/Warehouse/Application/StockOrder/Quote/QuoteAdd.cfm?mission=#form.mission#&">	 
+				        <a href="javascript:stockquote('#warehouse#','#itemno#','#uom#','request','#link#')">#numberformat(quantityreserved,'#pformat#')#</a>						
 						</td>
 					</cfif>
 					
@@ -298,9 +298,9 @@
 					    <td style="font-size:14px;background-color:##e1e1e1" align="right">--</td>
 					<cfelse>
 					   <td style="backgtround-color:##ffffaf50" align="right">			
-					   
-					   <a href="javascript:stockreserve('#warehouse#','#itemno#','#uom#','request')">
-					   #numberformat(QuantityRequested,'#pformat#')#
+					   <cfset link   = "#SESSION.root#/Warehouse/Application/StockOrder/Quote/QuoteAdd.cfm?mission=#form.mission#&">	 
+					   <a href="javascript:stockreserve('#warehouse#','#itemno#','#uom#','request','#link#')">
+					   <font color="000000">#numberformat(QuantityRequested,'#pformat#')#
 					   </a>
 					   
 					   </td>

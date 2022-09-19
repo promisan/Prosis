@@ -237,7 +237,7 @@ password="#SESSION.dbpw#">
 				<tr>
 				<td>
 				
-				<select class="regularxxl" name="Topic_#Code#" ID="Topic_#Code#" onchange="dosub('#Code#',this.value,'#GetList.Selected#')">
+				<select class="regularxxl enterastab" name="Topic_#Code#" ID="Topic_#Code#" onchange="dosub('#Code#',this.value,'#GetList.Selected#')">
 					<cfif ValueObligatory eq "0">
 						<option value=""></option>
 					</cfif>
@@ -267,7 +267,16 @@ password="#SESSION.dbpw#">
 			
 		</tr>	
 			
-	</cfloop>		
+	</cfloop>	
+	
+	
+	<tr class="labelmedium2" name="Individual">
+		<td><cf_tl id="Date of Birth"></td>
+		<td>
+			<cf_intelliCalendarDate9 FieldName="CustomerDOB"  class="regularxxl enterastab" Message="Please check the birth date"
+			Default="#dateformat(Customer.CustomerDOB,'#CLIENT.DateFormatShow#')#" AllowBlank="True">		
+		</td>
+	</tr>	
 	
 	<cfquery name="Person" 
 		datasource="AppsMaterials" 
@@ -280,7 +289,7 @@ password="#SESSION.dbpw#">
 	
 	<cfif Person.Recordcount eq "0">
 	
-		<tr class="labelmedium2">
+		<tr class="labelmedium2" name="Individual">
 			<td><cf_tl id="Individual">:</td>
 			<td>		
 					
@@ -332,7 +341,7 @@ password="#SESSION.dbpw#">
 	
 	<cfelse>
 	
-		<tr class="labelmedium2">
+		<tr class="labelmedium2" name="Individual">
 			<td><cf_tl id="Staff member">:</td>
 			<td>		
 					
@@ -389,7 +398,8 @@ password="#SESSION.dbpw#">
 		
 	</cfif>	
 	
-	<tr class="labelmedium2">
+	
+	<tr class="labelmedium2" name="Organization">
 		<td><cf_tl id="Organization">:</td>
 		<td>	
 				
@@ -441,13 +451,7 @@ password="#SESSION.dbpw#">
 		</td>
 	</tr>
 	
-	<tr class="labelmedium2">
-		<td><cf_tl id="Date of Birth"></td>
-		<td>
-			<cf_intelliCalendarDate9 FieldName="CustomerDOB"  class="regularxxl enterastab" Message="Please check the birth date"
-			Default="#dateformat(Customer.CustomerDOB,'#CLIENT.DateFormatShow#')#" AllowBlank="True">		
-		</td>
-	</tr>
+	
 	
 	<tr class="labelmedium2">
 		<td><cf_tl id="eMailAddress"> :</td>
@@ -462,6 +466,9 @@ password="#SESSION.dbpw#">
 	<tr class="labelmedium2">
 		<td><cf_tl id="Mobile Number"> :</td>
 		<td>
+		<table>
+		    <tr><td>
+			
 			<cfinput name="MobileNumber"
 			     id="mobilenumber_#mission#" 
 				 onKeyUp="applyCustomerData('#url.mission#','mobilenumber',this.value)" 
@@ -469,12 +476,11 @@ password="#SESSION.dbpw#">
 				 type="text" 
 				 value="#Customer.MobileNumber#" 
 				 size="15" maxlength="50" >
-		</td>
-	</tr>
-	
-	<tr class="labelmedium2">
-		<td><cf_tl id="Phone Number"> :</td>
-		<td>
+			</td>
+			
+			<td style="padding-left:10px"><cf_tl id="Phone Number"> :</td>
+
+  		<td style="padding-left:10px">
 			<cfinput name="PhoneNumber" 
 			  onKeyUp="applyCustomerData('#url.mission#','phonenumber',this.value)"
 			  id="phonenumber_#mission#" 
@@ -483,6 +489,10 @@ password="#SESSION.dbpw#">
 			  value="#Customer.PhoneNumber#" 
 			  size="15" 
 			  maxlength="50" >
+		</td>
+		</tr>
+		</table>	
+		
 		</td>
 	</tr>
 	
@@ -550,10 +560,11 @@ password="#SESSION.dbpw#">
 						<cfinput type="hidden" name="ThresholdCredit" value="#numberformat(customer.ThresholdCredit,',.__')#">
 					</cfif>
 				</td>
-				
-				<td style="padding-left:15px"><cf_tl id="Current outstanding">:</td>
+						
 				
 				<cfif url.drillid neq "">
+				
+				    <td style="padding-left:15px"><cf_tl id="Current outstanding">:</td>
 							
 					<cfinvoke component = "Service.Process.Materials.Customer"  
 					   method           = "CustomerReceivables" 
@@ -588,7 +599,7 @@ password="#SESSION.dbpw#">
 			    WHERE  Operational = 1
 			</cfquery>			
 									
-			   <select class="regularxxl" name="SettleCode" ID="SettleCode">					
+			   <select class="regularxxl  enterastab inputfocus" name="SettleCode" ID="SettleCode">					
 					<cfloop query="settle">
 						<option value="#Code#" <cfif Customer.SettleCode eq code>selected</cfif>>#Description#</option>
 					</cfloop>

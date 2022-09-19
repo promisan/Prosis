@@ -21,42 +21,42 @@
 </cfsavecontent>
 
 <cfset fields=ArrayNew(1)>
-
 			
-<cfset fields[1] = {label   = "Module",               
-					field   = "SystemModule",
-					search  = "text"}>
+<cfset fields[1] = {label       = "Module",               
+					field       = "SystemModule",
+					filtermode  = "3",
+					search      = "text"}>
 									
-<cfset fields[2] = {label   = "Name",               
-					field   = "FunctionName",
-					search  = "text"}>
+<cfset fields[2] = {label       = "Name",               
+					field       = "FunctionName",
+					search      = "text"}>
 
-<cfset fields[3] = {label      = "Date",    					
-					field      = "Created",
-					formatted  = "dateformat(Created,CLIENT.DateFormatShow)",
-					search     = "date"}>
+<cfset fields[3] = {label       = "Date",    					
+					field       = "Created",
+					formatted   = "dateformat(Created,CLIENT.DateFormatShow)",
+					search      = "date"}>
 					
-<cfset fields[4] = {label      = "Time",   					
-					field      = "Created",
-					formatted  = "timeformat(Created,'HH:MM')"}>			
+<cfset fields[4] = {label       = "Time",   					
+					field       = "Created",
+					formatted   = "timeformat(Created,'HH:MM')"}>			
 
 <cfset fields[5] = {label       = "MS",                    
 					field       = "Duration",
 					search      = "number",
 					searchfield = "DATEDIFF(ms, PreparationStart, PreparationEnd)"}>
-
 					
-<cfset fields[6] = {label   = "Layout",               
-					field   = "LayoutName",
-					search  = "text"}>
+<cfset fields[6] = {label       = "Layout",               
+					field       = "LayoutName",
+					filtermode  = "3",
+					search      = "text"}>
 					
-<cfset fields[7] = {label   = "Format", 					
-					field   = "FileFormat",
-					filtermode="2",
-					search  = "text"}>					
+<cfset fields[7] = {label       = "Format", 					
+					field       = "FileFormat",
+					filtermode  = "2",
+					search      = "text"}>					
 				
-<cfset fields[8] = {label   = "Mode", 					
-					field   = "DistributionCategory"}>		
+<cfset fields[8] = {label       = "Mode", 					
+					field       = "DistributionCategory"}>		
 														
 <cf_listing
     header        = "<b><font size='2'>Report Distribution Log</font></b>"

@@ -2,58 +2,65 @@
 1. set document status = 9	  
 --->
 
-<cfquery name="Doc" 
-	 datasource="AppsVacancy" 
-	 username="#SESSION.login#" 
-	 password="#SESSION.dbpw#">
-	 SELECT * 
-	 FROM   Document	
-	 WHERE  DocumentNo  = '#URL.ID#' 
-	</cfquery>
+<cfoutput>
 
-<cftransaction action="BEGIN">
+<!--- we check if a candidate is still active --->
 
-	<cfquery name="Status" 
-	 datasource="AppsOrganization" 
-	 username="#SESSION.login#" 
-	 password="#SESSION.dbpw#">
-	 UPDATE Vacancy.dbo.Document
-	 SET    Status                  = '#URL.Status#', 
-	        StatusDate              = getDate(), 
-			StatusOfficerUserid     = '#SESSION.acc#',
-			StatusOfficerLastName   = '#SESSION.last#',
-			StatusOfficerFirstName  = '#SESSION.first#'
-	 WHERE  DocumentNo  = '#URL.ID#' 
+<cfif url.status eq "9">
+	
+	<cfquery name="LogStatus" 
+		 datasource="AppsVacancy" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+	
+		SELECT       DC.DocumentNo
+		FROM         DocumentCandidate AS DC INNER JOIN
+		             Organization.dbo.OrganizationObject AS OO ON DC.DocumentNo = OO.ObjectKeyValue1 AND DC.PersonNo = OO.ObjectKeyValue2
+		WHERE        (OO.Operational = '1') AND (DC.DocumentNo = '#url.id#') AND (OO.EntityCode = 'VacCandidate')
 	</cfquery>
 	
-	<cfquery name="Status" 
-	 datasource="AppsOrganization" 
-	 username="#SESSION.login#" 
-	 password="#SESSION.dbpw#">	
-		UPDATE    OrganizationObject
-		SET       EntityStatus        = '#URL.Status#'
-		WHERE     EntityCode IN ('VacCandidate', 'VacDocument')
-		AND       ObjectKeyValue1    = '#URL.ID#'
-	</cfquery>	
-	
-   <cfif url.status eq "9">
-		 
-	   <cfset show = "No">   		    
-	   <cfset enf  = "Yes">
-	   
-	   <!--- finish the workflow --->
-	     
-	   <cf_ActionListing 
-		    EntityCode       = "VacDocument"		
-			EntityClass      = "#Doc.EntityClass#"			
-			EntityGroup      = ""
-			EntityStatus     = ""					
-		    ObjectKey1       = "#URL.ID#"			
-			Show             = "#show#"				
-			CompleteCurrent  = "#enf#">	 
+	<cfif LogStatus.recordcount gt "0">
 		
-	</cfif>	
-	     
-</cftransaction>
+		<table style="width:100%">
+		
+			<tr class="labelmedium"><td align="center" style="padding:35px;font-weight:bold">There are still one or more candidate flows open for this track. Please cancel those tracks with the yellow button on the left top first.</td></tr>
+		
+		</table>
+		
+	<cfelse>
+				
+	<form name="revokeform" id="revokeform">
+	
+	<table style="width:100%">
+		
+		<tr class="labelmedium2"><td><cf_tl id="Reason for cancellation"></td></tr>		
+		<tr><td style="padding:10px" align="center"><textarea style="font-size:15px;padding:4px;width:97%;height:100px"></textarea></td></tr>		
+		<tr><td align="center" style="padding:4px"><input type="button" value="Submit" class="button10g" name="Memo" onclick="revokesubmit('#url.status#')"></td></tr>
+	
+	</table>
+	
+	</form>	
+		
+	</cfif>
+	
+<cfelse>
+	
+	<form name="revokeform" id="revokeform">
+	
+	<table style="width:100%">
+		
+		<tr class="labelmedium2"><td><cf_tl id="Reason for reinstatement"></td></tr>						
+		<tr><td style="padding:10px" align="center"><textarea style="font-size:15px;padding:4px;width:97%;height:100px"></textarea></td></tr>		
+		<tr><td align="center" style="padding:4px"><input type="button" value="Submit" class="button10g" name="Memo" onclick="revokesubmit('#url.status#')"></td></tr>
+	
+	</table>
+	
+	</form>
 
-<cflocation url="DocumentEdit.cfm?ID=#URL.ID#" addtoken="No">
+</cfif>
+
+
+
+</cfoutput>
+
+

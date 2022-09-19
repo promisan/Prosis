@@ -106,9 +106,8 @@
 		<tr>
 		<td class="labelmedium" style="padding-left:10px">Default Mail attachment format: </td>	    
 		<td class="labelmedium">	
-			<input type="radio" class="radiol" name="DefaultFormat" id="DefaultFormat" value="HTML" <cfif "HTML" eq #Entity.DefaultFormat#>checked</cfif>>HTML	
-			<input type="radio" class="radiol" name="DefaultFormat" id="DefaultFormat" value="FlashPaper" <cfif "FlashPaper" eq #Entity.DefaultFormat#>checked</cfif>>FlashPaper
-			<input type="radio" class="radiol" name="DefaultFormat" id="DefaultFormat" value="PDF" <cfif "PDF" eq #Entity.DefaultFormat#>checked</cfif>>PDF
+			<input type="radio" class="radiol" name="DefaultFormat" id="DefaultFormat" value="HTML" <cfif "PDF" neq Entity.DefaultFormat>checked</cfif>>HTML	
+			<input type="radio" class="radiol" name="DefaultFormat" id="DefaultFormat" value="PDF" <cfif "PDF" eq Entity.DefaultFormat>checked</cfif>>PDF
 	    </td>
 		</TR>	
 		
@@ -143,9 +142,8 @@
 		</cfif>
 					
 		<tr>			
-		<td style="padding-top:3px;padding-left:10px;cursor:pointer" class="labelmedium" valign="top">
-		<cf_UIToolTip tooltip="Show / Hide the menu bar on top of the workflow object">Show Workflow toolbar:</cf_UIToolTip>
-		</td>	    
+		<td style="color:6688aa;padding-top:3px;padding-left:10px;cursor:pointer" class="labelmedium" 
+		 valign="top" title="Show / Hide the menu bar on top of the workflow object">Show Workflow toolbar:</td>	    
 		
 		   <td>
 			    <table cellspacing="0" cellpadding="0">
@@ -166,10 +164,8 @@
 		</TR>
 		
 		<tr>	
-		<td style="padding-left:20px" class="labelmedium" style="cursor:pointer">
-		<cf_UIToolTip tooltip="Allow users to change the selected workflow for the object">
-		Enable menu: <u>Change Workflow</u>:
-		</cf_UIToolTip>
+		<td style="padding-left:30px;cursor:pointer;color:6688aa" class="labelmedium" title="Allow users to change the selected workflow for the object">		
+		Enable menu: <u>Change Workflow</u>:		
 		</td>	    
 		   <td>
 		    <input type="checkbox" class="radiol" name="EnableClassSelect" id="EnableClassSelect" value="1" <cfif "1" eq Entity.EnableClassSelect>checked</cfif>>		
@@ -178,7 +174,7 @@
 		</TR>
 		
 		<tr>	
-		<td style="padding-left:20px" class="labelmedium" style="cursor:pointer" title="Allow change the selected authorization group for the workflow object">
+		<td style="padding-left:30px;cursor:pointer;color:6688aa" class="labelmedium" title="Allow change the selected authorization group for the workflow object">
 		Enable menu: <u>Change Authorization Group</u>:		
 		</td>	    
 		   <td>
@@ -215,11 +211,9 @@
 		</TR>
 		
 		<tr>	
-		<td class="labelmedium" style="padding-left:10px" style="cursor:pointer">
-		<cf_UIToolTip tooltip="Upon closing of the workflow allow the processor to reopen the last step">Reopen last step of the workflow:
-		</td>	    
-		</cf_UIToolTip>
-		   <td>
+		<td class="labelmedium" style="padding-left:10px;cursor:pointer;color:6688aa" title="Upon closing of the workflow allow the processor to reopen the last step">
+		Reopen last step of the workflow:</td>	    
+				   <td>
 		    <input type="checkbox" class="radiol" name="EnableReopen" id="EnableReopen" value="1" <cfif "1" eq Entity.EnableReopen>checked</cfif>>		
 		  </td>
 		</TR>
@@ -247,9 +241,8 @@
 		</script>
 		
 		<tr>	
-		<td valign="top" class="labelmedium" style="padding-top:5px;cursor:pointer;padding-left:10px"><cf_UIToolTip tooltip="Assign access to all workflow steps to owner of the workflow (initiator)">Inherit access to all steps to owner:</cf_UIToolTip></td>
-		   <td>
-		   		
+		<td valign="top" class="labelmedium" style="padding-top:5px;cursor:pointer;padding-left:10px;color:6688aa" title="Assign access to all workflow steps to owner of the workflow (initiator)">Inherit access to all steps to owner:</td>
+		   <td>		   		
 		   <table cellspacing="0" cellpadding="0">
 		
 		<cfoutput query="entityClass">

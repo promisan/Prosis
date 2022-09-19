@@ -50,8 +50,7 @@
 	</cfif>
 	<cfabort>
 
-</cfif>
-		   
+</cfif>		   
 
 <cfif Form.Selected neq "">
 
@@ -67,7 +66,24 @@
 	
 	<cfloop index="Item" 
 	           list="#Form.Selected#" 
-	           delimiters="' ,">
+	           delimiters="' ,">			   
+			   
+		<cfquery name="Assignment" 
+		datasource="AppsVacancy" 
+		username="#SESSION.login#"
+		password="#SESSION.dbpw#">		
+			SELECT    *						  
+			FROM      Employee.dbo.PersonAssignment PA 
+			WHERE     PA.PositionNo = '#item#'				
+			AND       Incumbency > 0
+			AND       AssignmentType = 'Actual'
+			AND       AssignmentStatus IN ('0','1') 
+			ORDER BY DateEffective DESC
+		</cfquery>		 
+			   
+		<cfparam name="Form.VacantSince_#item#" default="#dateformat(Assignment.DateExpiration,client.dateformatshow)#">	  
+		
+		<cfset dex = evaluate("Form.VacantSince_#item#")>			
 	
 		<cfquery name="Get" 
 		datasource="AppsVacancy" 
@@ -83,21 +99,22 @@
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 			SELECT * 
-			FROM DocumentPost 
+			FROM   DocumentPost 
 			WHERE  DocumentNo = '#FORM.DocumentNo#'
-			AND PositionNo = '#Item#'
+			AND   PositionNo = '#Item#'
 		</cfquery>
 		
 		<cfif Check.recordcount eq "0">
 			   		   
 			<cfquery name="Insert" 
 			datasource="AppsVacancy" 
-			username=#SESSION.login# 
-			password=#SESSION.dbpw#>
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
 				INSERT INTO DocumentPost 
 			         (DocumentNo, 
 					  PositionNo,
 					  Postnumber,
+					  DateVacant,
 					  OfficerUserId,
 					  OfficerLastName,
 					  OfficerFirstName,
@@ -105,6 +122,11 @@
 			  	VALUES ('#FORM.DocumentNo#', 
 			          '#Item#', 
 					  '#get.SourcePostNumber#',
+					  <cfif dex neq "">
+					  '#dateformat(dex,client.dateSQL)#',
+					  <cfelse>
+					  NULL,
+					  </cfif>
 					  '#SESSION.acc#',
 					  '#SESSION.last#',
 					  '#SESSION.first#',
@@ -118,7 +140,6 @@
 </cfif>
 
 </cftransaction>
-
 
 <!--- close window --->
 

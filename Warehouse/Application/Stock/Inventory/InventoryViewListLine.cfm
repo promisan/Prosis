@@ -1,7 +1,7 @@
 
 <cfoutput>
 	    		
-		<td align="right" valign="top" style="width:26px;padding-left:6px">#currentrow#.</td>					
+		<td style="width:26px;padding-left:26px">#currentrow#.</td>					
 		<td style="width:110px"><cfif transactionReference neq "">#TransactionReference#:</cfif></td>	
 				
 		<cfif url.earmark eq "false">
@@ -10,7 +10,7 @@
 		
 		<cfelse>
 				
-			<cfif requirementid neq "00000000-0000-0000-0000-000000000000">
+			<cfif requirementid neq "00000000-0000-0000-0000-000000000000" and workorderid neq "">
 			
 				<cfquery name="get"
 				datasource="AppsWorkOrder" 
@@ -35,19 +35,19 @@
 					AND PL.ActionStatus!='9'					
 				</cfquery>		
 
-				<td class="labelit" style="min-width:200">
-				<table width="100%">
-					<tr>
+				<td class="labelmedium fixlength">
+				<table>
+					<tr class="fixlengthlist">
 						<td>
 							<a href="javascript:workorderline('#get.WorkOrderLineid#','#url.systemfunctionid#','#get.WorkOrderLineid#')">#get.Reference#/#WorkOrderLine#</a>
 						</td>
-					</tr>
+					
 					<cfloop query="RelatedPOs">
-					<tr>
-						<td style="padding-left:30px">
-							<a href="javascript:ProcPOEdit('#RelatedPOs.PurchaseNo#','view')">#RelatedPOs.PurchaseNo#</a>								
+					
+						<td>
+							|&nbsp;<a href="javascript:ProcPOEdit('#RelatedPOs.PurchaseNo#','view')">#RelatedPOs.PurchaseNo#</a>								
 						</td>	
-					</tr>
+					
 					</cfloop>
 				</table>	
 				</td>
@@ -163,13 +163,13 @@
 							  
 		</cfif>	  		
 	   
-	   <td style="width:100px;min-width:200px">
+	   <td style="width:100px;min-width:100px">
 	  	     
 		   <table width="100%" height="100%">
 		      <tr>
 			  
 			  	<td id="f#TransactionId#" style="padding-left:1px" style="width:100%;min-width:170px">  
-				   
+								   
 				   <cfset url.id = transactionid> 
 				   <cfset itemlocationid = itemlocationid>
 				   <cf_tl id="Measured" var = "vMeasured">		
@@ -189,7 +189,7 @@
 				</cfif>
 						
 				<td id="f#TransactionId#_log" style="padding-left:3px;padding-right:3px" align="right" class="#cl#">
-				
+											
 					<cfif workorderid eq "">
 							
 			   		<input name="Save" 

@@ -13,6 +13,16 @@
 	
 </cfloop>
 
+
+<cfquery name="getMission"
+	datasource="AppsOrganization"
+	username="#SESSION.login#"
+	password="#SESSION.dbpw#">
+    	SELECT *
+	    FROM   Ref_Mission
+     	WHERE  Mission = '#url.mission#'
+</cfquery>
+
 <cfparam name="url.orgunit" default="">
 
 <cfif url.orgunit eq "0">
@@ -181,31 +191,13 @@
 			  </cfquery>				  					
 				
 			  <cfset vColorlist = "##D24D57,##52B3D9,##E08283,##E87E04,##81CFE0,##2ABB9B,##5C97BF,##9B59B6,##E08283,##663399,##4DAF7C,##87D37C">
-			  <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
-			  			  			  
-			  <cfchart style = "#chartStyleFile#" 
-				       format="png"
-				       chartheight="350" 
-					   chartwidth="540"    			  
-				       seriesplacement="default"	 					   
-					   show3d="no"
-					   fontsize="12" 					  				   
-					   showlegend="no"
-					   pieslicestyle="solid"
-					   showxgridlines="yes"
-				       sortxaxis="yes">	
-										
-					   <cfchartseries
-			             type="pie"
-			             query="Summary"				 
-			             itemcolumn="EventTriggerName"
-			             valuecolumn="Counted"
-						 datalabelstyle="columnlabel"			             					
-						 seriescolor = "EB974E" 				 			 
-					     colorlist="#vColorlist#"/>			
-					 
-				</cfchart>	
-				
+			  
+			  	<cf_uichart name="event1_#getmission.missionprefix#"
+								chartheight="310"
+								chartwidth="540">
+						<cf_uichartseries type="pie" query="#Summary#" itemcolumn="EventTriggerName" valuecolumn="Counted" colorlist="#vColorList#"/>
+				  	</cf_uichart>
+			  							
 				</td>
 				<td>			
 			  <cfquery name="Summary" dbtype="query">
@@ -218,30 +210,13 @@
 				    GROUP BY   Source   
 					ORDER BY   Source
 			  </cfquery>	
-				
-				 <cfchart style = "#chartStyleFile#" 
-				       format="png"
-				       chartheight="300" 
-					   chartwidth="350"    			  
-				       seriesplacement="default"	 
-					   showborder="No"
-					   show3d="no"
-					   fontsize="12" 					  				   
-					   showlegend="no"
-					   pieslicestyle="solid"
-					   showxgridlines="yes"
-				       sortxaxis="yes">														
-						 
-						  <cfchartseries
-				             type="bar"
-				             query="Summary"				 
-				             itemcolumn="Source"
-				             valuecolumn="Counted"						 			    	        			
-							 seriescolor = "EB974E" 				 			 
-						     colorlist="#vColorlist#"/>		 
-						 
-				</cfchart>	
-				
+			  
+			  <cf_uichart name="event2_#getmission.missionprefix#"
+			  		chartheight="290"
+					chartwidth="440">
+						<cf_uichartseries type="bar" query="#Summary#" itemcolumn="Source" valuecolumn="Counted" colorlist="#vColorList#"/>
+			  	</cf_uichart>
+								
 				</td></tr></table>
 										
 		</td></tr>

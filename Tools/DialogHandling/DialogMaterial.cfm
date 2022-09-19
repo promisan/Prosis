@@ -88,7 +88,7 @@
 	function addCustomer(mis,scope){		
 		    		
 		var vWidth  = 930;
-		var vHeight = 670;   			 	
+		var vHeight = document.body.clientHeight-90;   			 	
 		ProsisUI.createWindow('addcustomer', 'Customer', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true});    								  
        	ptoken.navigate('#SESSION.root#/Warehouse/Application/Customer/View/Customer.cfm?mission='+mis+'&scope='+scope,'addcustomer'); 			  		      
 	}

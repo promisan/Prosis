@@ -50,9 +50,9 @@
 								<cfloop index="itm" list="Year,Quarter,Month,Week">					
 									<cfset sc = "document.getElementById('listcolumn1_typemode').value='#itm#';applyfilter('','','content')">				
 									<cfif url.listcolumn1_typemode neq "#itm#">
-										<td style="padding:1px"><input onclick="#sc#" type="button" name="selectperiod" value="#itm#" class="button10g" style="height:25px;border-radius:5px;width:85px;border:1px solid gray"></td>
+										<td style="padding:1px"><input onclick="#sc#" type="button" name="selectperiod" value="#itm#" class="button10g" style="height:25px;border-radius:5px;width:75px;border:1px solid gray"></td>
 									<cfelse>
-									     <td align="center" style="width:80px;border:0x;font-weight:bold">#itm#</td>
+									     <td align="center" style="width:75px;border:0x;font-weight:bold">#itm#</td>
 									</cfif>						
 								</cfloop>	
 								

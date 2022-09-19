@@ -19,10 +19,7 @@
 				 ORDER BY Total DESC			  	
 		  	</cfquery>	
 					
-			  	<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
-				
-				<cfchart style = "#chartStyleFile#" 
-					format="png"				
+				<cf_uichart name="staffing#mission#01"				
 					scalefrom="0"					
 					showxgridlines="yes" 
 					showygridlines="yes"
@@ -43,15 +40,15 @@
 			       	chartheight="220" 
 				   	chartwidth="250">					
 																					
-					   <cfchartseries type="pie"
-				             query="Sex"
+					   <cf_uichartseries type="pie"
+				             query="#Sex#"
 			    	         itemcolumn="Gender"
 			        	     valuecolumn="Total"	
 							 datalabelstyle="pattern"
 				             markerstyle="rectangle"						 						 
-						     colorlist="##E08FE0,##0B8EDD"></cfchartseries>	
+						     colorlist="##E08FE0,##0B8EDD"></cf_uichartseries>	
 							 
-				</cfchart>
+				</cf_uichart>
 						
 		</td>
 	

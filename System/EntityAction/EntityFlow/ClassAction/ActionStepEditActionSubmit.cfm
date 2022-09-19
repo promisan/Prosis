@@ -67,6 +67,7 @@
 	SELECT Code as LanguageCode
 	FROM   Ref_SystemLanguage
 	WHERE  (Operational = '2') AND (SystemDefault = '0')
+
 </cfquery>
 	
 <cfif url.save eq "1" or url.save eq "2" or url.save eq "3">
@@ -395,7 +396,8 @@
 					    <cfelse>
 						WHERE  ActionPublishNo = '#URL.PublishNo#' 
 						</cfif> 
-						AND   ActionCode = '#Form.ActionCode#' 							   
+						AND   ActionCode = '#Form.ActionCode#' 		
+										   
 					 </cfquery>				
 			
 					 <cfif CLng.recordcount neq 0>
@@ -435,6 +437,7 @@
 								   </cfif> 
 								 	AND    ActionCode = '#Form.ActionCode#' 		
 									AND    LanguageCode = '#LanguageCode#'
+									<cfif LanguageCode eq "ESP">aaaa</cfif>
 								 </cfquery>			
 								 	
 						 </cfloop>

@@ -97,7 +97,7 @@ password="#SESSION.dbpw#">
 
 <tr><td colspan="4" height="20" class="labelmedium"><cf_tl id="Source of Running balance"><cfoutput>#Last.AccountPeriod#</cfoutput></td></tr>	
 
-<tr class="labelmedium" bgcolor="f4f4f4">
+<tr class="labelmedium fixlengthlist" bgcolor="f4f4f4">
     <td></td>
 	<td style="padding-left:4px;border:1px solid silver"><cf_tl id="No"></td>
 	<td style="padding-left:4px;border:1px solid silver"><cf_tl id="Account"></td>			
@@ -106,16 +106,16 @@ password="#SESSION.dbpw#">
 
 <cfoutput query="Accounts">
 	
-	<tr class="navigation_row navigation_action line labelmedium">
-	    <td style="padding-left:4px;padding-top:4px" onclick="gldetail('#glaccount#')">
+	<tr class="navigation_row navigation_action line labelmedium fixlengthlist">
+	    <td style="padding-top:4px" onclick="gldetail('#glaccount#')">
 		 <cf_img icon="open">
 		</td>
-	    <td width="25%" style="padding-left:4px"><a href="javascript:showledger('#url.mission#','0','#last.accountperiod#','#glaccount#')">#GLAccount# [#left(accounttype,1)#]</a></td>
-		<td width="45%" style="padding-left:4px">#Description#</td>		
+	    <td><a href="javascript:showledger('#url.mission#','0','#last.accountperiod#','#glaccount#')">#GLAccount# [#left(accounttype,1)#]</a></td>
+		<td>#Description#</td>		
 		<!---	
 		<td class="labelit" style="border:1px solid silver;padding-right:4px" align="right">#Currency# <cfif amountbase lt 0><font color="blue">(#numberformat(amount*-1,'__,__')#)</font><cfelse>#numberformat(amount,'__,__')#</cfif></td>			
 		--->
-		<td style="padding-right:4px" align="right"><cfif amountbase lt 0><font color="blue">(#numberformat(amountBase*-1,',.__')#)</font><cfelse>#numberformat(amountBase,',__.__')#</cfif></td>	
+		<td align="right"><cfif amountbase lt 0><font color="blue">(#numberformat(amountBase*-1,',.__')#)</font><cfelse>#numberformat(amountBase,',__.__')#</cfif></td>	
 	</tr>
 
 </cfoutput>

@@ -37,9 +37,22 @@
 				
 		<tr>
 		
-		<td align="center" style="padding:5px;width:200px;max-width:300px;width:300px">
-  			<div id="mymap" style="height:200px; width:300px;max-width:300px;"></div>
+		<cfoutput>
+								
+		<cfquery name="getMission"
+			datasource="AppsOrganization"
+			username="#SESSION.login#"
+			password="#SESSION.dbpw#">
+		    	SELECT *
+			    FROM   Ref_Mission
+		     	WHERE  Mission = '#mission#'
+		</cfquery>	
+		
+		<td align="center" style="padding:5px;width:200px;max-width:300px;width:300px">		
+  			<div id="staffbox_#getMission.MissionPrefix#" style="height:200px; width:300px;max-width:300px;"></div>
 		</td>
+				
+		</cfoutput>
 		
 		<td style="height:200px;padding:7px;width:30%">
 		    

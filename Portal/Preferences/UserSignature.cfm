@@ -23,7 +23,7 @@ password="#SESSION.dbpw#">
 	
 	   <iframe src="../Signature/Signature.cfm?account=#SESSION.acc#"
         width="100%"
-		style="height:170px"        
+		style="height:500px"
         frameborder="0">
 	   </iframe>
 	   

@@ -14,6 +14,7 @@
 <cfparam name="attributes.printWindowSizeChrome"	default="800">
 <cfparam name="attributes.allowLogout"				default="true">
 <cfparam name="attributes.loading"					default="<div class='text-center'><i class='fa fa-cog fa-spin fa-3x text-success'></i></div>">
+<cfparam name="Attributes.Signature"     	 		default="No">
 
 <cfquery name="getApplication" 
 	datasource="AppsSystem">		 
@@ -220,7 +221,59 @@
 				</cfif>
 			
 			</script>
-		
+
+		<cfif attributes.Signature eq "Yes">
+			<cf_UIGadgets TreeTemplate="No">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<script>
+					function getSignatureWidth()
+					{
+						let width = screen.width;
+
+						if (width <= 480)
+							document.getElementById("dCanvasMobile").style.display = "block";
+						else
+							document.getElementById("dCanvasDesktop").style.display = "block";
+
+						document.getElementById("bSign").style.display = "none";
+						document.getElementById("bClear").style.display = "block";
+						document.getElementById("bDone").style.display = "block";
+					}
+
+					function clearSignature()
+					{
+						let width = screen.width;
+						if (width <= 480)
+							surfaceMobile.clear();
+						else
+							surfaceDesktop.clear();
+					}
+
+					function saveSignature()
+					{
+						let width = screen.width;
+						if (width <= 480)
+						{
+							_saveSVGMobile();
+							document.getElementById("dCanvasMobile").style.display = "none";
+						}
+						else
+						{
+							_saveSVGDesktop();
+							document.getElementById("dCanvasDesktop").style.display = "none";
+						}
+						document.getElementById("bSign").style.display = "block";
+						document.getElementById("bClear").style.display = "none";
+						document.getElementById("bDone").style.display = "none";
+					}
+
+				</script>
+			<cf_UISignatureScript Mode = "Desktop">
+			<cf_UISignatureScript Mode = "Mobile">
+
+		</cfif>
+
+
 		</head>
 		<body class="#attributes.bodyClass#" style="#attributes.bodyStyle#">
 		

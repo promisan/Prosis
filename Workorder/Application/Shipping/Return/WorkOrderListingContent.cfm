@@ -26,7 +26,7 @@ FROM        WorkOrder W INNER JOIN
             Customer C ON W.CustomerId = C.CustomerId INNER JOIN
             ServiceItem S ON W.ServiceItem = S.Code
 WHERE       W.Mission = '#URL.Mission#'
-AND         W.ActionStatus IN ('0','1','3')
+AND         W.ActionStatus IN ('0','1','2')
 
 	<cfif url.transactionlot neq "">
 	AND        W.WorkorderId IN 
@@ -40,11 +40,13 @@ AND         W.ActionStatus IN ('0','1','3')
 
 <!--- original condition 
 
-a.	 show only workorders that issue / return lines that are NOT billed,
+a.	 Show only workorders that issue / return lines that are NOT billed,
 
-b.	Hanno 18/1/2016 consideration show in principle all workorders 
+b.	 Hanno 18/1/2016 consideration show in principle all workorders 
 
-c. Hanno 23/3/2014 : technically we sould also filter to take only WorkOrderLine that are meant for sale !!
+c.   Hanno 23/3/2014 : technically we sould also filter to take only WorkOrderLine that are meant for sale !!
+
+d.   Formally closed order are not shown 
 
 --->
 
@@ -88,9 +90,15 @@ WHERE 1=1
 <cfset itm = 0>
 
 <cfset fields=ArrayNew(1)>
+
+<cfset itm = itm+1>				
+<cf_tl id="Customer" var="vCustomer">
+<cfset fields[itm] = {label      = "#vCustomer#",                    
+    				field        = "CustomerName",	
+					filtermode   = "2",					
+					search       = "text"}>		
 								
 <cfset itm = itm+1>
-
 <cf_tl id="Reference" var="vReference">
 <cfset fields[itm] = {label     = "#vReference#",                    
     				field       = "Reference",	
@@ -104,17 +112,7 @@ WHERE 1=1
 <cfset fields[itm] = {label     = "#vDescription#",                    
     				field       = "Description",	
 					fieldsort    = "Description",																		
-					searchfield  = "Description",
-					search       = "text"}>			
-								
-
-					
-<cfset itm = itm+1>				
-<cf_tl id="Customer" var="vCustomer">
-<cfset fields[itm] = {label      = "#vCustomer#",                    
-    				field        = "CustomerName",	
-					filtermode   = "2",					
-					search       = "text"}>		
+					searchfield  = "Description"}>		
 					
 <cfset itm = itm+1>				
 <cf_tl id="City" var="vCity">
@@ -127,7 +125,8 @@ WHERE 1=1
 <cf_tl id="Status" var="vStatus">
 <cfset fields[itm] = {label      = "#vStatus#",                    
     				field        = "ActionStatus",	
-					filtermode   = "2",					
+					filtermode   = "2",	
+					align        = "center",				
 					search       = "text"}>									
 					
 <cfset itm = itm+1>					

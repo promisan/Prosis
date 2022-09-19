@@ -28,16 +28,6 @@
 
 <cf_dialogStaffing>	
 
-
-<cf_ProsisMap 
-	id="1" 
-	target="mymap" 
-	colorFrom="##E9D460"
-	colorTo="##1E824C"
-	showSmallMap="false"
-	autoZoom="false"
-	zoom="true"
-	home="false">
 			
 <cfquery name="MissionList" 
 datasource="AppsSystem" 
@@ -50,11 +40,34 @@ password="#SESSION.dbpw#">
 	ORDER BY ConditionValueAttribute1, ConditionValue
 </cfquery>
 
+
 <cfoutput query="MissionList">
-	
+
 	<!--- define relevant periods for the mission to pass --->
 	
 	<cfset mission = MissionList.ConditionValue>
+			
+	<cfquery name="getMission"
+		datasource="AppsOrganization"
+		username="#SESSION.login#"
+		password="#SESSION.dbpw#">
+	    	SELECT *
+		    FROM   Ref_Mission
+	     	WHERE  Mission = '#mission#'
+	</cfquery>	
+	
+	<cfset id = "#getMission.MissionPrefix#">
+	<cfset id = "1">
+			
+	<cf_ProsisMap 
+		id="#id#" 
+		target="staffbox_#getMission.MissionPrefix#" 
+		colorFrom="##E9D460"
+		colorTo="##1E824C"
+		showSmallMap="false"
+		autoZoom="false"
+		zoom="true"
+		home="false">			
 	
 	<cfquery name="PeriodList" 
 	datasource="AppsOrganization" 

@@ -12,6 +12,7 @@
 	<!--- AND     Account = '#session.acc#' --->
 	AND     DateEffective <= getDate() and DateExpiration >= getDate()
 	AND     AuthorizationCode = '#url.val#'	
+	
 </cfquery>	
 
 <cfoutput>

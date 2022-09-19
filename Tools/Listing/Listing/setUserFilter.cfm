@@ -48,7 +48,9 @@
 	
 	<cfif getValue.recordcount eq "0">
 			
-		<cfif attributes.value neq "">				
+		<cfif attributes.value neq "">		
+		
+		    <cftry>	
 				  		 			
 		    <cfquery name="setfilter" 
 			datasource="AppsSystem" 
@@ -66,6 +68,10 @@
 						'#attributes.field#',
 						'#attributes.value#')			
 			</cfquery>	
+			
+			<cfcatch></cfcatch>
+			
+			</cftry>
 		
 		</cfif>
 						

@@ -226,7 +226,7 @@
 						</TR>
 												
 					   																						
-					<tr class="line"><td height="5"></td></tr>
+					<tr class="line"><td colspan="3" height="5"></td></tr>
 															
 					<tr>
 					<td colspan="3" height="100%" style="padding-bottom:1px" valign="top">

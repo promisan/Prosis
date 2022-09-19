@@ -105,6 +105,7 @@ password="#SESSION.dbpw#">
 		INSERT INTO Document
 		         (DocumentNo,
 				 DocumentNoTrigger,
+				 DocumentType,
 				 Status,
 				 FunctionNo, 
 				 FunctionalTitle, 
@@ -123,6 +124,7 @@ password="#SESSION.dbpw#">
 				 OfficerUserFirstName)
 		  VALUES ('#LastNo.DocumentNo#',
 		          '#Form.DocumentNoTrigger#',
+				  '#Form.DocumentType#',
 		          '0',
 				  '#Form.FunctionNo#',
 		          '#Form.FunctionDescription#',

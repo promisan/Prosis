@@ -32,8 +32,6 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	
-	
-	
 		    SELECT     T.ItemNo,	          
 					   I.ItemDescription,
 					   C.StockControlMode,
@@ -116,7 +114,7 @@
 						   PL.TransactionLotSerialNo  
 			
 			<cfif class.PointerOverdraw eq "0">		   
-			HAVING 	 SUM(T.TransactionQuantity) > 0 	
+			HAVING 	 SUM(T.TransactionQuantity) > 0.01	
 			</cfif>
 		
 			ORDER BY I.ItemDescription,
@@ -166,9 +164,7 @@ if this item is carried by the warehouse select WarehouseItem --->
 							#TransactionLot# [#dateformat(TransactionLotDate,client.dateformatshow)#]
 						</cfif>
 					</td>									
-					<td width="9%" class="labelit" align="right" style="padding-right:10px">					
-					#numberformat(earmarked,pformat)#									
-					</td>
+					<td width="9%" class="labelit" align="right" style="padding-right:10px">#numberformat(earmarked,pformat)#</td>
 					<td width="9%" align="right" style="height:20;padding-right:3px">
 					
 					

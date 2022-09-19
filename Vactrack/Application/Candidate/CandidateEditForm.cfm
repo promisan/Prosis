@@ -1,5 +1,4 @@
-		
-	
+			
 <cfform action="CandidateEditSubmit.cfm" 
    method="POST" style="min-width:1000px" name="candidateedit">
    
@@ -124,15 +123,15 @@
 	   
 	  <tr><td colspan="2">
 	  	    
-	  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+	  <table width="100%" align="center">
 	     
 	  <tr>
 	  
 	    <td width="100%" colspan="2">
 			
-	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+	    <table width="100%">
 		
-		    <tr style="border-top:1px solid silver" class="line labelmedium">
+		    <tr style="border-top:1px solid silver;background-color:f1f1f1" class="line labelmedium">
 		
 			<cfoutput>					
 				<input type="hidden" name="mission"    value="#Doc.Mission#">
@@ -150,19 +149,19 @@
 				 </cfoutput>
 			</td>
 			
-		    <td height="15" style="min-width:100;padding-left:4px;border-right:1px solid silver"><cf_tl id="Nationality">:</td>
+		    <td height="15" style="min-width:100;padding-left:4px;border-right:0px solid silver"><cf_tl id="Nationality">:</td>
 			<td style="padding-left:3px;border-right:1px solid silver">
 			  	<cfoutput>
 		    	  #getCandidate.Nationality#
 				 </cfoutput>
 			</td>
 				
-		    <td height="15" style="min-width:60;padding-left:4px;;border-right:1px solid silver"><cf_tl id="DOB">:</td>
+		    <td height="15" style="min-width:60;padding-left:4px;;border-right:0px solid silver"><cf_tl id="DOB">:</td>
 			<td style="padding-left:3px;border-right:1px solid silver">
 			      <cfoutput>#DateFormat(getCandidate.DOB,CLIENT.DateFormatShow)#</cfoutput>
 			</td>
 			
-			<td height="15" style="padding-left:4px;;border-right:1px solid silver"><cf_tl id="Post">:</td>
+			<td height="15" style="padding-left:4px;;border-right:0px solid silver"><cf_tl id="Post">:</td>
 			<td style="padding-left:3px;border-right:1px solid silver">
 				
 			   	<cfif GetPost.recordcount eq "1">
@@ -186,7 +185,7 @@
 						
 			</td>
 			 				
-			<td height="15" style="min-width:50;color:gray;padding-left:4px;border-right:1px solid silver"><cf_tl id="TA">:</td>
+			<td height="15" style="min-width:50;color:gray;padding-left:4px;border-right:0px solid silver"><cf_tl id="TA">:</td>
 		    <td style="padding-left:3px;border-right:1px solid silver">
 			
 			    <cfif GetTravel.TANumber eq "">
@@ -238,7 +237,7 @@
 			
 		<cfif GetEmployee.recordcount eq "1" and GetEmployee.IndexNo neq "">
 								
-			<tr style="border-top:1px solid gray" class="line labelmedium">
+			<tr style="border-top:1px solid gray;background-color:f1f1f1" class="line labelmedium">
 						
 		    <td style="width:10%;padding-left:4px;border-right:1px solid silver"><cfoutput>#client.IndexNoName#:</cfoutput></td>
 			
@@ -261,30 +260,30 @@
 					  ORDER BY DateEffective DESC
 				  </cfquery>
 			
-			<td style="padding-left:4px;border-right:1px solid silver"><cf_tl id="Grade">:</b></td>
+			<td style="padding-left:4px;border-right:0px solid silver"><cf_tl id="Grade">:</b></td>
 			<td style="padding-left:4px;border-right:1px solid silver">
 			      <cfoutput>#Level.ContractLevel#<cfif Level.ContractStep neq "">/#Level.ContractStep#</cfif></cfoutput>
 			</td>
 			
 			<cfif getRelease.ParentOffice neq "">
 			
-		    <td style="padding-left:4px;border-right:1px solid silver"><cf_tl id="Parent Office">:</td>
+		    <td style="padding-left:4px;border-right:0px solid silver"><cf_tl id="Parent Office">:</td>
 		    <td style="padding-left:3px;border-right:1px solid silver">
 			      <cfoutput>#getRelease.ParentOffice# #getRelease.ParentLocation#</cfoutput>
 		    </td>
 		
 		<cfelse>
 		
-		 <td style="padding-left:4px;;border-right:1px solid silver"><cf_tl id="Status">:</td>
+		 <td style="padding-left:4px;;border-right:0px solid silver"><cf_tl id="Status">:</td>
 		 
 			<cfquery name="Assess" 
 				datasource="appsSelection" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
-			    SELECT *
-			    FROM  ApplicantAssessment
-				WHERE PersonNo = '#URL.ID1#' 
-				AND   Owner = '#Doc.Owner#'
+				    SELECT *
+				    FROM  ApplicantAssessment
+					WHERE PersonNo = '#URL.ID1#' 
+					AND   Owner    = '#Doc.Owner#'
 			</cfquery>
 					  			   
 		   <cfquery name="Status" 
@@ -292,8 +291,8 @@
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			SELECT *
-			    FROM Ref_PersonStatus
-			    WHERE Code = '#Assess.PersonStatus#' 
+			    FROM     Ref_PersonStatus
+			    WHERE    Code = '#Assess.PersonStatus#' 
 			</cfquery>
 			
 		   <cfoutput>
@@ -341,18 +340,34 @@
 		
 			<td style="padding-left:4px" colspan="3"><cf_tl id="Expected Arrival"></td>
 			
-			<td colspan="1" style="color:gray;padding-left:4px;border-left:1px solid silver;border-right:1px solid silver">
+			<td style="color:gray;padding-left:4px;border-left:0px solid silver;border-right:1px solid silver">
+			  
 			
+			    <cfif Doc.Status eq "9" or GetCandidateStatus.Status eq "9">				
+						
+				  #dateformat(GetCandidateStatus.DateArrivalExpected,client.dateformatshow)#"					
+				
+				<cfelse>
+				
+				<table><tr><td align="center">
+								  
 				<cf_intelliCalendarDate9
 					FieldName="DateArrivalExpected" 
 					Manual="True"		
 					class="regularxl"	
-					style="border:0px"													
+					style="border:0px;border-left:1px solid silver;border-right:1px solid silver;text-align:center;background-color:fafafa"													
 					Default="#dateformat(GetCandidateStatus.DateArrivalExpected,client.dateformatshow)#"
-					AllowBlank="False">	
-						
-			</td>
+					AllowBlank="False">		
+					
+					</td>
+					
+					<td><input type="button" name="Save"class="button10g" style="border:0px;border-right:1px solid silver;border-left:1px solid silver;height:25px;width:40px" 
+					   onclick="ptoken.navigate('CandidateEditSubmit.cfm','result','','','POST','candidateedit')" value="Save"></td>
+					</tr></table>				
+					
+				</cfif>		
 				
+			</td>				
 			
 		</cfif>	
 		</tr>
@@ -400,13 +415,13 @@
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 					SELECT * 
-				    FROM Ref_ParameterMission
-					WHERE Mission = '#doc.mission#'	
+				    FROM   Ref_ParameterMission
+					WHERE  Mission = '#doc.mission#'	
 				</cfquery>
 			
 			 	<cfoutput> 
 		        
-					<table style="border:0px solid silver" cellspacing="0" cellpadding="0">
+					<table style="border:0px solid silver">
 					<tr>
 					<td>
 	

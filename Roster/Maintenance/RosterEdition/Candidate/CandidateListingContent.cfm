@@ -17,8 +17,8 @@
 			   A.EMailAddress,
 			   A.MobileNumber,
 			   A.Nationality AS NationalityCode, 
-			   N.Name AS Nationality, 
-			   N.Name, 
+			   N.Name AS Nationality, 			   
+			   N.CountryGroup, 
 			   N.Continent,
 		  	   COUNT(*) AS Applications
 			   
@@ -62,6 +62,7 @@
 				 A.MobileNumber,
 				 A.Nationality, 
 				 N.Name, 
+				 N.CountryGroup,
 				 N.Continent
 				 
 			) as D
@@ -130,10 +131,10 @@
 					  search="text"}>
 
 <cfset itm = itm + 1>
-<cfset fields[itm] = {label="Continent", 
-                      field="Continent", 
+<cfset fields[itm] = {label="CountryGroup", 
+                      field="CountryGroup", 
 					  alias="D", 
-					  searchfield="Continent", 
+					  searchfield="CountryGroup", 
 					  column="common",
                       filtermode="2",
 					  display="No", 

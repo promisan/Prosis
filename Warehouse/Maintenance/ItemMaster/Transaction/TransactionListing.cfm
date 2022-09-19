@@ -19,8 +19,7 @@
 		
 	
 <cfoutput>
-	<cfsavecontent variable="sqlbody">
-	
+	<cfsavecontent variable="sqlbody">	
 		
 		FROM       (#preservesinglequotes(data)#) as T 
 		           INNER JOIN Warehouse W ON T.Warehouse = W.Warehouse 
@@ -49,7 +48,10 @@
 			   L.Description as LocationDescription,
 			   T.TransactionType, 
 			   B.BatchClass,
+			   B.ActionStatus as BatchStatus,
+			   
 			   (SELECT Description FROM Ref_WarehouseBatchClass WHERE Code = B.BatchClass) as BatchClassName,
+			   
 			   R.Description, 
 			   T.TransactionDate, 
 			   T.ItemNo, 
@@ -104,8 +106,7 @@
 					'' as TransactionReference,
 				
 				</cfif>		
-						  
-			   
+			 
 			         			   
 			   T.RequestId, 
 			   T.WorkOrderId,

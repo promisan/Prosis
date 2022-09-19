@@ -31,12 +31,14 @@
 	              Customer AS C ON vw.CustomerId = C.CustomerId INNER JOIN
 				  Item I ON vw.ItemNo = I.ItemNo
 	WHERE         vw.ItemNo         = '#url.itemno#'
+	<cfif url.uom neq "">
 	AND           vw.TransactionUoM = '#url.Uom#'
+	</cfif>
 	AND           vw.Warehouse      = '#url.warehouse#'
 	AND           vw.BatchNo IS NULL 
 	AND           vw.RequestClass = 'QteReserve' 
-	AND           vw.ActionStatus = '1'
-			
+	AND           vw.ActionStatus IN ('0','1')
+				
 	<!--- Hanno 10/9/2021 once the real workorder is reserved 
 	    we need to reset the quote to release the request --->
 	
@@ -44,7 +46,7 @@
 
 <table width="97%" align="center" class="navigation_table">
 
-<tr class="labelmedium2">
+<tr class="labelmedium2 fixlengthlist">
    <td><cf_tl id="Request"></td> 
    <td><cf_tl id="Customer"></td>
    <td><cf_tl id="Officer"></td>
@@ -54,12 +56,19 @@
 
 <tr class="labelmedium2"><td style="font-size:20px" colspan="5"><cf_tl id="Reservation"></td></tr>
 
-<tr class="labelmedium2"><td style="font-size:20px" colspan="5"><cf_tl id="Requested"></td></tr>
-
 <cfoutput query="myRequest">
 	
-	<tr class="labelmedium2 navigation_row line">
-	   <td style="padding-left:4px">#RequestNo#</td> 
+	<tr class="labelmedium2 navigation_row line fixlengthlist">
+	   <td style="padding-left:4px;padding-bottom:3px">
+
+	   <!---
+	   <a href="javascript:stockquote('#RequestNo#')">
+	   --->
+	    
+	     <input type="button" class="button10g" style="border:1px solid silver;width:60px;height:23px" value="#RequestNo#"
+							   onclick="window['fnCBDialogSaleClose'] = function(){ ProsisUI.closeWindow('quotationview') }; ptoken.navigate('#link#&action=insert&RequestNo=#RequestNo#','boxquote','fnCBDialogSaleClose','','POST','');" >
+			   
+	   </td> 
 	   <td>#CustomerName#</td>
 	   <td>#OfficerLastName#</td>
 	   <td>#dateformat(Created, client.dateformatshow)#</td>

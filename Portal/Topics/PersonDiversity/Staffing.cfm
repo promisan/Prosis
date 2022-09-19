@@ -8,6 +8,15 @@
 <cfparam name="url.authorised"  default="">
 <cfparam name="url.period"      default="">
 
+<cfquery name="getMission"
+	datasource="AppsOrganization"
+	username="#SESSION.login#"
+	password="#SESSION.dbpw#">
+    	SELECT *
+	    FROM   Ref_Mission
+     	WHERE  Mission = '#url.mission#'
+</cfquery>
+
 <cf_tl id="View Person" var="lblViewPerson">
 
 <cfinclude template="StaffingPreparation.cfm">
@@ -412,6 +421,9 @@
 <cf_tl id="Employees" var="vLblEmployee">
 <cf_tl id="out of" var="vLblOutOf">	
 
-<cfset ajaxOnLoad("function(){  resetMap_1('0', '#getMax.maxValue#', '<span style=\'font-size:14px;\'><b>[[title]]</b>: [[value]]/#getTotal.Total# #vLblEmployee#</span>', [#vDataList#]); }")>
+<cfset id = "#getMission.MissionPrefix#">
+<cfset id = "1">
+
+<cfset ajaxOnLoad("function(){  resetMap_#id#('0', '#getMax.maxValue#', '<span style=\'font-size:14px;\'><b>[[title]]</b>: [[value]]/#getTotal.Total# #vLblEmployee#</span>', [#vDataList#]); }")>
 
 <cfset ajaxOnLoad("doHighlight")>

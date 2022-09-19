@@ -150,14 +150,14 @@
 		<cfif rowdatatarget eq "r">
 							
 			<script>
-			 var markup = "<tr #listrow#>#tdcells#</tr>";			 
+			 var markup = "<tr #listrow#>#urldecode(tdcells)#</tr>";			 
 			 $('###attributes.box#_table').append(markup) 					 				 
 		    </script>
 			
 		<cfelse>	
 		
 			<script>										
-			 var markup = "<tr #listrow#>#tdcells#</tr>";	
+			 var markup = "<tr #listrow#>#urldecode(tdcells)#</tr>";	
 			 $('.#rowdatatarget#').closest('tr').before(markup) ;							 
 		    </script>
 								
@@ -219,14 +219,14 @@
 			<cfif rowdatatarget eq "r">
 			
 				<script>
-				 	var markup = "<tr class='hide' id='box#divId#' name='f#box#_#dkey#'>#tdcells#</tr>";
+				 	var markup = "<tr class='hide' id='box#divId#' name='f#box#_#dkey#'>#urldecode(tdcells)#</tr>";
 					 $('###attributes.box#_table').append(markup) 					 				 
 				</script>		
 			
 			<cfelse>
 			
 				<script>					    			    				 
-				 	var markup = "<tr class='hide #rowdatatarget#_data' id='box#divId#' name='f#box#_#dkey#'>#tdcells#<td></td></tr>";
+				 	var markup = "<tr class='hide #rowdatatarget#_data' id='box#divId#' name='f#box#_#dkey#'>#urldecode(tdcells)#<td></td></tr>";
 					$('.#rowdatatarget#').closest('tr').before(markup) ;							 				 				
 				</script>			
 			

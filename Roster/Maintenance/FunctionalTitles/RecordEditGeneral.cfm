@@ -96,7 +96,7 @@ password="#SESSION.dbpw#">
 	
 	<tr><td>
 	
-	<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+	<table width="100%" align="center">
 		
 		<tr><td height="5"></td></tr>
 		<tr><td colspan="2">
@@ -200,11 +200,9 @@ password="#SESSION.dbpw#">
 		
 		<tr>
 	    <TD class="labelmedium"><cf_tl id="Roster">:</TD>
-	    <TD style="cursor: pointer;height:25px" class="labelmedium">
-		    <cf_UIToolTip tooltip="Once disabled you may not process candidates nor perform <br> a roster search for the bucket that are associated to this title">
+	    <TD style="cursor: pointer;height:25px" class="labelmedium" title="Once disabled you may not process candidates / perform a roster search for the bucket associated to the title">		    
 		    <input type="radio" class="radiol" name="FunctionRoster" value="1" <cfif Get.FunctionRoster eq "1">checked</cfif>> Yes
-			<input type="radio" class="radiol" name="FunctionRoster" value="0" <cfif Get.FunctionRoster eq "0">checked</cfif>> No
-			</cf_UIToolTip>
+			<input type="radio" class="radiol" name="FunctionRoster" value="0" <cfif Get.FunctionRoster eq "0">checked</cfif>> No			
 		</TD>
 		</TR>
 					
@@ -230,21 +228,19 @@ password="#SESSION.dbpw#">
 		   
 		   <table>
 		   <tr>
-		   <td style="height:27px;width:32px;border:1px solid silver;border-left:0px" align="center">
+		   <td style="height:27px;width:32px;border:1px solid silver" align="center">
 		   
-		     <img src="#SESSION.root#/Images/locate3.gif"
-			     alt="Search for title"
-			     width="20"
-			     height="20"  
-			     align="absmiddle"
-			     onClick="selectfunction('webdialog','functionno','functionaltitle','')">	
+			     <img src="#SESSION.root#/Images/locate3.gif"
+				     alt="Search for title"
+				     width="20"
+				     height="20"  
+				     align="absmiddle"
+				     onClick="selectfunction('webdialog','functionno','functionaltitle','')">	
 		   
 		   </td>
 		   
-		   <td style="height:24px;width:32px;border:1px solid silver" align="center">
-		   
-			   <img src="#CLIENT.Root#/images/css/delete.png" onclick="document.getElementById('functionaltitle').value=''; document.getElementById('functionno').value='';">
-			   
+		   <td style="height:24px;width:32px;border:1px solid silver" align="center">		   
+			   <img src="#CLIENT.Root#/images/css/delete.png" onclick="document.getElementById('functionaltitle').value=''; document.getElementById('functionno').value='';">			   
 		   </td>
 		   </tr>
 		   </table>
@@ -261,32 +257,34 @@ password="#SESSION.dbpw#">
 		   <td class="labelmedium"><cf_tl id="Classification">:</td>
 		   <td style="padding-left:0px">
 			   
-			  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+			  <table width="100%" align="center">
 			 
 			  <cfset row = 1>
 		      <cfloop query="MissionClass"> 
 			   <cfif row eq 1><tr></cfif> 
 			  
 			       <td align="left" class="regular">
-				    <table width="100%" border="0"><tr><td class="labelmedium" style="padding-left:4px">
-					
-					  <cfquery name="check"
-		              datasource="AppsSelection" 
-		              username="#SESSION.login#" 
-		              password="#SESSION.dbpw#">
-			          	  SELECT   *
-				          FROM     FunctionMissionClass
-				          WHERE    MissionClass = '#MissionClass.MissionClass#'
-						  AND      FunctionNo = '#Get.FunctionNo#'
-		             </cfquery>
-					 <cfoutput>
-						 <input class="radiol" type="checkbox" name="clssel" value="#MissionClass.MissionClass#" <cfif check.recordcount neq "0">checked</cfif>>
-						 &nbsp;#MissionClass.MissionClass#
-					 </cfoutput>
-					 <!--- check --->
-					 		 		
-					</td>
-					</tr>
+				    <table width="100%" border="0">
+						<tr>
+							<td class="labelmedium" style="padding-left:4px">
+							
+							  <cfquery name="check"
+				              datasource="AppsSelection" 
+				              username="#SESSION.login#" 
+				              password="#SESSION.dbpw#">
+					          	  SELECT   *
+						          FROM     FunctionMissionClass
+						          WHERE    MissionClass = '#MissionClass.MissionClass#'
+								  AND      FunctionNo = '#Get.FunctionNo#'
+				             </cfquery>
+							 <cfoutput>
+								 <input class="radiol" type="checkbox" name="clssel" value="#MissionClass.MissionClass#" <cfif check.recordcount neq "0">checked</cfif>>
+								 &nbsp;#MissionClass.MissionClass#
+							 </cfoutput>
+							 <!--- check --->
+							 		 		
+							</td>
+						</tr>
 					</table>
 					<cfset row = row + 1>
 				    <cfif row eq "5">
@@ -318,11 +316,9 @@ password="#SESSION.dbpw#">
 		   
 		   <tr>	
 		    <TD><cf_tl id="Operational">:</TD>
-		    <TD style="height:25px"> 
-				<cf_UIToolTip tooltip="Once disabled you may no longer select this functional title for new Buckets and/or Positions anymore">
+		    <TD style="height:25px" title="Once disabled you may no longer select this functional title for new Buckets and/or Positions anymore"> 				
 			    <input type="radio" class="radiol" name="FunctionOperational" value="1" <cfif Get.FunctionOperational eq "1">checked</cfif>> Yes
-				<input type="radio" class="radiol" name="FunctionOperational" value="0" <cfif Get.FunctionOperational eq "0">checked</cfif>> No
-				</cf_UIToolTip>
+				<input type="radio" class="radiol" name="FunctionOperational" value="0" <cfif Get.FunctionOperational eq "0">checked</cfif>> No				
 			</TD>
 		
 		</TR>
@@ -355,17 +351,19 @@ password="#SESSION.dbpw#">
 			  role="FunctionAdmin" 
 			  returnvariable="Access">
 			  		
-		<tr><td colspan="3" height="30" align="center">
-		
-		<cfif Access eq "ALL" and countrec.recordcount eq "0">  
-		    <input class="button10g" style="width:136;height:27" type="submit" name="Delete" value="Delete" onclick="return ask()">
-		</cfif>
-		
-		<cfif Access eq "EDIT" or Access eq "ALL">  
-			<input class="button10g" style="width:136;height:27" type="button" name="UpdateC" value="Save" onclick="ptoken.navigate('RecordSubmit.cfm?action=save','result','','','POST','formentry')">
-		</cfif>
+		<tr>
+			<td colspan="3" height="30" align="center">
 			
-		</td></tr>
+			<cfif Access eq "ALL" and countrec.recordcount eq "0">  
+			    <input class="button10g" style="width:136;height:27" type="submit" name="Delete" value="Delete" onclick="return ask()">
+			</cfif>
+			
+			<cfif Access eq "EDIT" or Access eq "ALL">  
+				<input class="button10g" style="width:136;height:27" type="button" name="UpdateC" value="Save" onclick="ptoken.navigate('RecordSubmit.cfm?action=save','result','','','POST','formentry')">
+			</cfif>
+				
+			</td>
+		</tr>
 		
 		<tr><td id="result" colspan="3" align="center"></td></tr>
 			

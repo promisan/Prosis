@@ -1,7 +1,16 @@
 
+<cfparam name="SystemFunctionId" default="#URL.ID#">
+<cfparam name="URL.Mode" default="Portal">
+
+<cfoutput>
 
 <script>
-	
+   
+    function tracklisting(sid,mde,con,fil,mis) {
+	    ProsisUI.createWindow('tracklisting', 'Track listing', '',{x:100,y:100,height:document.body.clientHeight-90,width:document.body.clientWidth-90,modal:true,center:true})    	   					
+	    ptoken.navigate('#session.root#/Vactrack/Application/ControlView/ControlListingTrackContent.cfm?systemfunctionid=#url.systemfunctionid#&mission='+mis+'&mode='+mde+'&condition='+con+'&filter='+fil,'tracklisting') 			 
+	}
+			
 	function listing(mission,box,ent,code) {
 			
 		icM  = document.getElementById("d"+box+"Min")
@@ -22,12 +31,6 @@
 	  }
   
 </script>  
-
-<cfparam name="SystemFunctionId" default="#URL.ID#">
-<cfparam name="URL.Mode" default="Portal">
-
-<cfoutput>
-
 
 <cfquery name="cleanse"
 	datasource="AppsOrganization"
@@ -61,8 +64,8 @@ password="#SESSION.dbpw#">
 	<cf_pane id="Vacancy_#conditionvalue#" search="No">
 	
 	<cf_paneItem id="Vacancy_#conditionvalue#_1" 
-				source="#session.root#/Vactrack/Application/ControlView/ControlListing.cfm?mode=portal&mission=#conditionvalue#&detail=No"
-				width="95%"
+				source="#session.root#/Vactrack/Application/ControlView/ControlListingTrack.cfm?mode=portal&mission=#conditionvalue#&detail=No"
+				width="98%"
 				height="auto"
 				Mission="#conditionvalue#"											
 				Label="#conditionvalue# Outstanding Recruitment Tracks"

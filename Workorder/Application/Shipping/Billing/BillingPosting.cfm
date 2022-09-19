@@ -62,53 +62,20 @@
 		
 			<table width="100%">
 			
-			<tr><td width="67%" style="padding-left:20px;padding-bottom:4px;padding-top:4px;border-right:1px solid silver">
+			<tr>
 			
-			    <table width="100%">
-				
-					<tr><td><cfinclude template="BillingPostingInvoice.cfm"></td></tr>
-						
-					<tr>
-						<td align="center" style="padding:8px">
-							
-							<cfif url.id eq "STA">
-							 <cf_tl id="Prepare Receivable" var="1">
-							 <cfelse>
-							 <cf_tl id="Prepare Credit Note" var="1">
-							 </cfif>
-													
-							 <cfoutput>
-							 
-								  <input type="button" 
-									  class="button10g" 
-									  style="border:1px solid silver;font-size:13px;width:380px;height:32" 
-									  onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BillingEntrySubmit.cfm?workorderid=#url.workorderid#&systemfunctionid=#url.systemfunctionid#&id=#url.id#','processbox','','','POST','billingform')"
-									  name="Submit" 
-									  value="#lt_text#">
-							  
-							 </cfoutput>
-							  
-						</td>						
-						<td style="width:1px" id="processbox"></td>
-							
-					</tr>
-			
-				</table>
-			
-			</td>
-			
-			<td style="padding-right:20px">
+			<td style="padding-right:10px">
 			
 			    <cfoutput>
 				
 				<table width="100%" class="formspacing">				
 																				
-					<tr class="labelmedium2">
+					<tr class="labelmedium2 fixlengthlist">
 					   <td style="padding-left:20px"><cf_tl id="Goods and services"> #workorder.currency#:</td>			   
-					   <td colspan="1" align="right" style="padding-right:15px">
+					   <td colspan="1" align="right" style="padding-right:5px">
 				          <table><tr>
 						  <td id="totalbox">
-						   <input type="text" value="#numberformat(0,",.__")#" readonly id="saleamount" name="saleamount" class="regularxxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: AFEEEE;">				
+						   <input type="text" value="#numberformat(0,",.__")#" readonly id="saleamount" name="saleamount" class="regularxxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: e1e1e1;">				
 						   </td>
 						   <td id="sale"></td>
 				           </tr>
@@ -129,12 +96,12 @@
 					</cfquery>
 							 
 					<cfloop query="Entry">
-					     <tr class="labelmedium2">
+					     <tr class="labelit">
 						 <td style="padding-left:25px"><cf_tl id="#Description#"></td>
 						 <td colspan="1" align="right" id="xchargebox" style="padding-right:15px">						 
 							 <input type="text" name="Amount_#Area#" value="#numberformat(0,",.__")#" 
 							 onchange="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/WorkOrder/Application/Shipping/Billing/setTotal.cfm?workorderid=#url.workorderid#','sale','','','POST','billingform')"
-							 class="regularxxl enterastab" style="padding-right:4px;width:100px;text-align:right">
+							 class="regularl enterastab" style="border:1px solid silver;padding-right:4px;width:100px;text-align:right">
 						 </td>						
 						 </tr>
 					</cfloop> 
@@ -142,21 +109,21 @@
 					<tr class="labelmedium2">					   
 						<td style="padding-left:20px" colspan="1"><cf_tl id="Total">:</td>
 						<td align="right" style="padding-right:15px">
-						<input type="text" value="#numberformat(0,",.__")#" readonly id="totalamount" name="totalamount" class="regularxxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: AFEEEE;">				
+						<input type="text" value="#numberformat(0,",.__")#" readonly id="totalamount" name="totalamount" class="regularxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: AFEEEE;">				
 						</td>
 					</tr>
 								
-					<tr class="labelmedium2">					    
+					<tr class="labelit">					    
 						<td style="padding-left:20px" colspan="1"><cf_tl id="Tax">:</td>
 						<td align="right" style="padding-right:15px">
-						<input type="text" value="#numberformat(0,",.__")#" readonly id="taxamount" name="taxamount" class="regularxxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: f1f1f1;">				
+						<input type="text" value="#numberformat(0,",.__")#" readonly id="taxamount" name="taxamount" class="regularl enterastab" style="border:1px solid silver;padding-right:4px;width:100px;text-align:right;background-color: f1f1f1;">				
 						</td>
 					</tr>
 					
 					<tr class="labelmedium2">
 					    <td style="padding-left:20px" colspan="1"><cf_tl id="Payable">:</td>
 						<td align="right" id="overall" style="padding-right:15px">
-						<input type="text" value="#numberformat(0,",.__")#" readonly id="payableamount" name="payableamount" class="regularxxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: ffffaf;">				
+						<input type="text" value="#numberformat(0,",.__")#" readonly id="payableamount" name="payableamount" class="regularxl enterastab" style="padding-right:4px;width:100px;text-align:right;background-color: ffffaf;">				
 				        </td>
 					</tr>
 					
@@ -164,6 +131,43 @@
 				</cfoutput>
 			
 			</td>
+			
+			    <td width="67%" valign="top" style="padding-left:10px;padding-bottom:4px;padding-top:4px;border-left:1px solid silver">
+			
+			    <table width="100%">
+				
+					<tr><td><cfinclude template="BillingPostingInvoice.cfm"></td></tr>
+						
+					<tr>
+						<td align="center" style="padding:8px">
+							
+							<cfif url.id eq "STA">
+							 <cf_tl id="Prepare Receivable" var="1">
+							 <cfelse>
+							 <cf_tl id="Prepare Credit Note" var="1">
+							 </cfif>
+													
+							 <cfoutput>
+							 
+								  <input type="button" 
+									  class="button10g" 
+									  style="border:1px solid silver;font-size:13px;width:380px;height:42" 
+									  onclick="Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('BillingEntrySubmit.cfm?workorderid=#url.workorderid#&systemfunctionid=#url.systemfunctionid#&id=#url.id#','processbox','','','POST','billingform')"
+									  name="Submit" 
+									  value="#lt_text#">
+							  
+							 </cfoutput>
+							  
+						</td>						
+						<td style="width:1px" id="processbox"></td>
+							
+					</tr>
+			
+				</table>
+			
+			</td>
+			
+			
 			
 			</tr>
 						

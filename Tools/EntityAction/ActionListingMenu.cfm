@@ -190,7 +190,7 @@
 			
 			<td width="1" style="padding-left:3px;padding-right:3px">|</td>				
 			
-			<td align="right" class="labelit" style="padding-left:3px;padding-right:3px">#Actions.EntityClass#: #DateFormat(Actions.TrackEffective,"DD/MM/YY")#</td>	
+			<td align="right" class="labelit" style="padding-left:3px;padding-right:3px">#Actions.EntityClass#: #DateFormat(Actions.TrackEffective,"dd/mm/yy")#</td>	
 			
 			<td width="1" style="padding-left:3px;padding-right:3px">|</td>		
 			

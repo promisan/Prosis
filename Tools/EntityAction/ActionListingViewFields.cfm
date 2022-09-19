@@ -42,7 +42,7 @@
 				<cfif DocumentItem eq "amount">
 				
 				<cftry>			
-				   #numberformat(DocumentItemValue,"__,__.__")#
+				   #numberformat(DocumentItemValue,",.__")#
 				   <cfcatch>-----</cfcatch>			
 				</cftry>
 				

@@ -8,7 +8,7 @@
 	WHERE     Warehouse = '#url.Warehouse#' 
 </cfquery>	
 
-<cfquery name="checkHeader" 
+<cfquery name="getQuote" 
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
 password="#SESSION.dbpw#">
@@ -18,10 +18,14 @@ password="#SESSION.dbpw#">
 	AND      CustomerId      = '#url.customerid#'		
 	AND      AddressId       = '#url.addressid#'	
 	AND      BatchNo is NULL	
-	AND      ActionStatus = '0'	
+	<!--- entered directly or submitted as quote --->
+	AND      (
+		      (Source = 'Manual' AND ActionStatus IN ('0','1'))
+			   OR Source != 'Manual' AND ActionStatus = '1' <!--- web and quote --->
+			 )		
 </cfquery>		
 
-<cfif checkheader.recordcount eq "0">
+<cfif getQuote.recordcount eq "0">
 			
 	<cfquery name="InsertHeader" 
 		datasource="AppsMaterials" 
@@ -59,7 +63,7 @@ password="#SESSION.dbpw#">
 			AND      T.CustomerId      = '#url.customerid#'		
 			AND      T.AddressId       = '#url.addressid#'		
 			AND      T.ActionStatus    != '9'
-			ORDER BY RequestNo DESC
+			ORDER BY RequestNo DESC			
 	</cfquery>		
 	
 	<cfquery name="Customer" 

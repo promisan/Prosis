@@ -49,37 +49,25 @@
 			  	GROUP BY  LocationCode,
 				          LocationName							  
 		  	</cfquery>	
-					
-		  	<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
-			
-			<cfchart style = "#chartStyleFile#" 
-				format="png"				
-				scalefrom="0"										
-				gridlines="6" 
-				showborder="no" 
+						
+			<cf_uichart	name="staffing#mission#02"						
 				fontsize="14" 
 				fontbold="no" 
 				font="calibri"
-				fontitalic="no" 
-				show3d="no" 
-				xaxistitle="" 				 
-				yaxistitle="" 
-				rotated="no" 
-				sortxaxis="no" 				 
-				tipbgcolor="##000000" 					
+				fontitalic="no" 												
 				markersize="30" 
 				backgroundcolor="##ffffff"					
 		       	chartheight="220" 
 			   	chartwidth="250">	
 									
-				   <cfchartseries type="pie"
-			             query="Location"
-		    	         itemcolumn="LocationName"
+				   <cf_uichartseries type="pie"
+			             query="#Location#"
+		    	         itemcolumn="LocationCode"
 		        	     valuecolumn="Total"		
 						 datalabelstyle="pattern"					 					 				            
-					     colorlist="##5DB7E8,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"></cfchartseries>	
+					     colorlist="##5DB7E8,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"></cf_uichartseries>	
 						 
-			</cfchart>						 
+			</cf_uichart>						 
 						
 		</td>
 	

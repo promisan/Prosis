@@ -13,9 +13,9 @@
 		<cfcatch></cfcatch>
 	</cftry>
 
-	<cftry>
-		 
-		<cfif ParameterExists(Form.load)> 
+		<cfif ParameterExists(Form.load)>
+
+				
 		
 				<!--- upload file with unique name --->
 				<cffile action="UPLOAD"
@@ -47,23 +47,10 @@
 			
 			<script>	
 				   
-				parent.ColdFusion.navigate('SignatureView.cfm?account=#account#&mid=#mid#','signatureshow')
+				parent.ptoken.navigate('SignatureView.cfm?account=#account#&mid=#mid#','signatureshow')
 				
 			</script>
 			
 		</cfoutput>
 		
-	<cfcatch>
-		
-		<script>
-			alert("Nothing to associate to your account")
-		</script>
-				
-	</cfcatch>	
-	
-	</cftry>
-
 </cfif>
-
-
-

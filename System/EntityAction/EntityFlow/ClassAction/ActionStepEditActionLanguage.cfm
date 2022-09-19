@@ -11,6 +11,9 @@
 		WHERE  EntityCode    = '#URL.EntityCode#'
 		AND    EntityClass   = '#URL.EntityClass#'
 		AND    ActionCode    = '#URL.ActionCode#'
+		AND LanguageCode IN (SELECT Code as LanguageCode
+							 FROM   System.dbo.Ref_SystemLanguage
+                         	 WHERE  (Operational = '2') AND (SystemDefault = '0'))
 	</cfquery>
 	
 <cfelse>
@@ -22,13 +25,16 @@
 		SELECT  *
 		FROM    Ref_EntityActionPublish_Language
 		WHERE  	ActionCode    = '#URL.ActionCode#'
-		AND     ActionPublishNo  = '#URL.PublishNo#'		
+		AND     ActionPublishNo  = '#URL.PublishNo#'	
+		AND LanguageCode IN (SELECT Code as LanguageCode
+							 FROM   System.dbo.Ref_SystemLanguage
+                         	 WHERE  (Operational = '2') AND (SystemDefault = '0'))	
 	</cfquery>
 </cfif>
 
-<table width="92%" border="0" cellspacing="0" align="center" cellpadding="0">
+<table width="92%" align="center">
 		
-	<tr class="line"><td colspan="2" style="font-weight:200;font-size:11px">Action labels <cfif url.PublishNo neq ""><cfoutput>(#url.PublishNo#)</cfoutput></cfif></td></tr>
+	<tr class="line"><td colspan="2" style="font-weight:bold;font-size:16px;height:40px">Action labels <cfif url.PublishNo neq ""><cfoutput>(#url.PublishNo#)</cfoutput></cfif></td></tr>
 		
 	<tr class="line">
 		<td valign="top" style="padding-top:2px" class="labelmedium">Action descriptive</font>
@@ -120,7 +126,7 @@
 	</tr>					
 	
 	<tr><td height="30" align="center" colspan="2" style="height:30px">
-		<input class="button10g"  style="width:240;height:21" type="button" name="Update" id="Update" value="Apply" onClick="savequick()">
+		<input class="button10g"  style="width:240;height:27" type="button" name="Update" id="Update" value="Apply" onClick="savequick()">
 	</td></tr>	
 	
 </table>	

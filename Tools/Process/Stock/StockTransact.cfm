@@ -196,12 +196,12 @@
 		SELECT   ISNULL(SUM(TransactionQuantity),0) as Quantity
 		FROM     ItemTransaction
 		WHERE    (TransactionId = '#attributes.transactionidOrigin#' 
-		          OR TransactionIdOrigin = '#attributes.transactionidOrigin#')		
+		          OR TransactionIdOrigin = '#attributes.transactionidOrigin#')						 
 	</cfquery>
 	
 	<cfset diff =  - Attributes.TransactionQuantity>
-	
-	<cfif diff lt "1" and OnHand.Quantity gt "0">
+		
+	<cfif diff lt "0.01" and OnHand.Quantity gt "0">
 	
 		<cfset Attributes.TransactionQuantity = OnHand.Quantity>
 		
@@ -628,23 +628,58 @@
 	<cfif Receipt.ReceiptMultiplier gt "1">
 	
 		<!--- we set for this warehouse the receipt --->
-    
-	  	<cfquery name="Update" 
+		
+		<cfquery name="mode" 
 		   datasource="#Attributes.DataSource#" 
 		   username="#SESSION.login#" 
 		   password="#SESSION.dbpw#">
-		   UPDATE Materials.dbo.ItemWarehouse 
-		   SET    MinReorderQuantity = '#Receipt.ReceiptMultiplier#'
-		   WHERE  ItemNo    = '#Attributes.ItemNo#'
-		   AND    UoM       = '#Attributes.TransactionUoM#'
-		   AND    Warehouse = '#Attributes.Warehouse#'	  
+			SELECT     MinReorderMode
+            FROM       Materials.dbo.WarehouseCategory
+            WHERE      Warehouse = '#Attributes.Warehouse#' 
+			AND        Category IN (SELECT  Category
+                                    FROM    Item
+                                    WHERE   ItemNo = '#Attributes.ItemNo#')
 		</cfquery>
-	
+		
+		<cfif mode.MinReorderMode eq "Parent">
+    
+		  	<cfquery name="Update" 
+			   datasource="#Attributes.DataSource#" 
+			   username="#SESSION.login#" 
+			   password="#SESSION.dbpw#">
+				   UPDATE Materials.dbo.ItemWarehouse 
+				   SET    MinReorderQuantity = '#Receipt.ReceiptMultiplier#'
+				   WHERE  ItemNo    = '#Attributes.ItemNo#'
+				   AND    UoM       = '#Attributes.TransactionUoM#'
+				   AND    Warehouse IN (SELECT Warehouse 
+				                        FROM   Warehouse 
+										WHERE  Mission = '#Attributes.mission#')	  
+			</cfquery>
+		
+		<cfelse>
+		
+			<cfquery name="Update" 
+			   datasource="#Attributes.DataSource#" 
+			   username="#SESSION.login#" 
+			   password="#SESSION.dbpw#">
+				   UPDATE Materials.dbo.ItemWarehouse 
+				   SET    MinReorderQuantity = '#Receipt.ReceiptMultiplier#'
+				   WHERE  ItemNo    = '#Attributes.ItemNo#'
+				   AND    UoM       = '#Attributes.TransactionUoM#'
+				   AND    Warehouse = '#Attributes.Warehouse#'			    
+			</cfquery>
+		
+		</cfif>
+		
+		<!--- ATTENTIO : we also set this for ItemWarehouse that has set this as parent --->
+			
 	</cfif>
     
   </cfif>
 
 <cfelseif Check.recordCount eq "0">
+
+	<cfset min = "">	
 
 	<cfif attributes.receiptId neq "">
 
@@ -657,20 +692,45 @@
 		   WHERE  ReceiptId = '#attributes.receiptId#'    
 		</cfquery>
 		
-		<cfif Receipt.ReceiptMultiplier gt "1">
-		
-			<cfset min = Receipt.ReceiptMultiplier>
-			
-		<cfelse>
-		
-			<cfset min = "">	
-		
+		<cfif Receipt.ReceiptMultiplier gt "1">		
+			<cfset min = Receipt.ReceiptMultiplier>				
 		</cfif>	
 	
    <cfelse>
    
-   		<cfset min = "">	
-	
+        <!--- we check the parent warehouse --->
+		
+		<cfquery name="mode" 
+		   datasource="#Attributes.DataSource#" 
+		   username="#SESSION.login#" 
+		   password="#SESSION.dbpw#">
+			SELECT     MinReorderMode
+            FROM       Materials.dbo.WarehouseCategory
+            WHERE      Warehouse = '#Attributes.Warehouse#' 
+			AND        Category IN (SELECT  Category
+                                    FROM    Item
+                                    WHERE   ItemNo = '#Attributes.ItemNo#')
+		</cfquery>
+		
+		<cfif mode.MinReorderMode eq "Parent">
+		
+			<cfquery name="parent" 
+			   datasource="#Attributes.DataSource#" 
+			   username="#SESSION.login#" 
+			   password="#SESSION.dbpw#">
+					SELECT     *
+		            FROM       Materials.dbo.ItemWarehouse
+		            WHERE      Warehouse IN (SELECT SupplyWarehouse FROM Materials.dbo.Warehouse WHERE Warehouse = '#Attributes.Warehouse#') 
+					AND        ItemNo    = '#Attributes.ItemNo#'
+					AND        UoM       = '#Attributes.TransactionUoM#'
+			</cfquery>
+		
+		    <cfif parent.recordcount eq "1">		
+			    <cfset min = parent.MinReorderQuantity>						
+			</cfif>
+		
+		</cfif>			
+		
    </cfif>	
 
    <cfquery name="Insert" 

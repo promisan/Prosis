@@ -8,6 +8,7 @@
 <cf_dialogPosition>
 <cf_dialogStaffing>
 <cf_dialogREMProgram>
+<cf_listingscript>
 
 <cfinclude template="../../System/EntityAction/EntityView/MyClearancesScript.cfm">
 <cfinclude template="../../Vactrack/Application/Document/Dialog.cfm">

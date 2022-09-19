@@ -40,7 +40,8 @@ datasource="AppsInit">
 		
 	<cfparam name="Attributes.doctype"           default="HTML">	
 	<cfparam name="Attributes.doctypePortal"     default="No">
-	
+	<cfparam name="Attributes.Signature"     	 default="No">
+
 	<!--- ---------------------------- --->   
 	<!--- only relevant of HTML = YES  --->
 	<!--- ---------------------------- --->

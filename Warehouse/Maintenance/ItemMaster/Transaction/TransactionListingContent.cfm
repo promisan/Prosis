@@ -4,7 +4,7 @@
 
 	<cfoutput>
 	   
-		SELECT    *, TransactionDate
+		SELECT    * ,TransactionDate
 	    FROM      userQuery.dbo.#SESSION.acc#_ItemTransaction_item
 				
 	</cfoutput>	
@@ -28,29 +28,29 @@
 
 	<cfset itm = 1>
 	<cf_tl id="Facility" var = "1"> 
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "WarehouseName",					
-						alias         = "",																			
-						search        = "text",
-						filtermode    = "3"}>
+	<cfset fields[itm] = {label            = "#lt_text#",                    
+	     				field              = "WarehouseName",					
+						alias              = "",																			
+						search             = "text",
+						filtermode         = "3"}>
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Location" var = "1"> 								
-	<cfset fields[itm] = {label       = "#lt_text#",                    
-	     				field         = "Location",					
-						alias         = "",																			
-						search        = "text",
-						filtermode    = "3"}>							
+	<cfset fields[itm] = {label            = "#lt_text#",                    
+	     				field              = "Location",					
+						alias              = "",																			
+						search             = "text",
+						filtermode         = "3"}>							
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Purchase" var = "1"> 	
-	<cfset fields[itm] = {label         = "#lt_text#",                    
-	     				field           = "PurchaseNo",	
-						functionscript  = "ProcPOEdit",
-						functionfield   = "PurchaseNo",		
-						width           = "25",							
-						alias           = "",																			
-						search          = "text"}>	
+	<cfset fields[itm] = {label            = "#lt_text#",                    
+	     				field              = "PurchaseNo",	
+						functionscript     = "ProcPOEdit",
+						functionfield      = "PurchaseNo",	
+						functioncondition  = "tab",												
+						alias              = "",																			
+						search             = "text"}>	
 											
 	<cfset itm = itm+1>
 	<cf_tl id="BatchNo" var = "1"> 								
@@ -59,8 +59,21 @@
 						alias           = "",		
 						functionscript  = "batch",
 						functionfield   = "TransactionBatchNo",																		
+						align           = "center",
 						search          = "text",
-						filtermode      = "2"}>		
+						filtermode      = "2"}>	
+						
+	<cfset itm = itm+1>
+	<cf_tl id="Status" var = "1">						
+	<cfset fields[itm] = {label   = "St", 	
+                    LabelFilter   = "Status",				
+					field         = "BatchStatus",					
+					filtermode    = "3",    
+					search        = "",
+					align         = "center",
+					formatted     = "Rating",
+					ratinglist    = "0=Yellow,1=Green,9=red"}>														
+					
 															
 	<!---							
 	<cfif checkLocation.recordcount gte "1">		
@@ -217,8 +230,7 @@
 	    header              = "transactionlist"
 	    box                 = "listing"
 		link                = "#SESSION.root#/Warehouse/Maintenance/ItemMaster/Transaction/TransactionListingContent.cfm?systemfunctionid=#url.systemfunctionid#"
-	    html                = "No"		
-		tableheight         = "100%"
+	    html                = "No"				
 		tablewidth          = "100%"		
 		datasource          = "AppsQuery"
 		listquery           = "#myquery#"				
@@ -228,11 +240,12 @@
 		headercolor         = "ffffff"
 		show                = "100"		
 		menu                = "#menu#"
+		navigation          = "auto"
+		autofilter          = "auto"
 		filtershow          = "Hide"
 		excelshow           = "Yes" 		
 		listlayout          = "#fields#"
-		drillmode           = "window" 
+		drillmode           = "securewindow" 
 		drillargument       = "#client.height-90#;#client.width-90#;false;false"	
 		drilltemplate       = "Warehouse/Application/Stock/Inquiry/TransactionView.cfm?drillid="
-		drillkey            = "TransactionId"
-		drillbox            = "addaddress">	
+		drillkey            = "TransactionId">	

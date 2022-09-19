@@ -189,6 +189,8 @@
 							     
 																				
 						  </cfcase>
+						  
+						  <td></td>
 						
 						  <cfcase value="amount">
 							
@@ -200,6 +202,7 @@
 							   class      = "regularxxl"
 							   size       = "10"
 						       maxlength  = "20"
+							   style      = "text-align:right"
 							   message    = "Please enter a correct amount"
 							   validate   = "float">
 													

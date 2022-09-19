@@ -7,6 +7,15 @@
 <cfparam name="url.category"    default="All">
 <cfparam name="url.authorised"  default="">
 
+<cfquery name="getMission"
+	datasource="AppsOrganization"
+	username="#SESSION.login#"
+	password="#SESSION.dbpw#">
+    	SELECT *
+	    FROM   Ref_Mission
+     	WHERE  Mission = '#url.mission#'
+</cfquery>
+
 <cfquery name="Param" 
 	     datasource="AppsEmployee" 
 	     username="#SESSION.login#" 
@@ -312,103 +321,48 @@
 					  	GROUP BY  Code, Description, ViewOrder
 						ORDER BY  ViewOrder
 				  	</cfquery>	
-									
-							
-				  	<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
 					
-					<cfchart style = "#chartStyleFile#" 
-						format="png"						
-						scalefrom="0"
-						scaleto="50" 
-						showxgridlines="yes" 
-						showygridlines="yes"
-						gridlines="6" 
-						showborder="no" 
-						fontsize="12" 						
-						show3d="no" 
-						showlegend="no"
-						xaxistitle="" 				 
-						yaxistitle="Tracks" 						
-						rotated="no" 
-						sortxaxis="no" 				 
-						tipbgcolor="##000000" 
-						showmarkers="yes" 						
-						backgroundcolor="##ffffff"					
-				       	chartheight="279" 
-					   	chartwidth="500">	
-											
-						   <cfchartseries type="pie"
-					             query="Summary"	
-								 datalabelstyle="columnlabel"									     	         							 							 
-					             serieslabel=""
-							     colorlist="##2574A9,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"
-				        	     markerstyle="circle">	
-								 
-								 <cfloop query="summary">							 
-								    <cfif posttotal gt "4">
-								    <cfchartdata item="#Description#" value="#PostTotal#">
-									</cfif>
-								 </cfloop>
-								 								 
-								 </cfchartseries>							 
-								 
-					</cfchart>
-					
-					<!---			 
-					<cfset vImagePath = "#session.rootpath#\CFRStage\user\#session.acc#\_executiveSummaryWidgetGraph">
-					<cfset vImageURL = "#session.root#/CFRStage/user/#session.acc#/_executiveSummaryWidgetGraph">
-					
-					<cffile action="WRITE" file="#vImagePath#1.png" output="#myChart1#" nameconflict="OVERWRITE">
-						 
-					<cfoutput><img src="#vImageURL#1.png"></cfoutput>
-					
-					--->
-					
+					<cf_uichart name="staffing91_#getmission.missionprefix#"
+						chartheight="380"					
+						chartwidth="627">
+								
+				      <cf_uichartseries type="pie" 
+					      query="#Summary#" 
+						  itemcolumn="Description" 
+						  valuecolumn="PostTotal" 
+						  colorlist="##2574A9,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"/>
+					  
+				  </cf_uichart>			
+										
 					</td></tr>
-					
-					<!---
-					
-					<tr><td style="font-size:20px;height:26;padding-left:6px" class="labelmedium"><cf_tl id="Incumbents"></td></tr>						
-					
-					--->
 									
+					<tr class="line"><td style="font-size:20px;height:26;padding-left:6px" class="labelmedium"><cf_tl id="Incumbents"></td></tr>						
+								
 					<tr><td valign="bottom">
-										
-					<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
-					
-					<cfchart style = "#chartStyleFile#" 
-						format="png"						
-						scalefrom="0"						
-						showxgridlines="yes" 
-						showygridlines="yes"
-						gridlines="6" 
-						showborder="no" 
-						fontsize="13" 												 
-						showlegend="no"
-						xaxistitle="" 				 
-						yaxistitle="Incumbents" 						
-						rotated="no" 
-						sortxaxis="no" 				 
-						tipbgcolor="##000000" 
-						showmarkers="yes" 
-						markersize="30" 
-						backgroundcolor="##ffffff"					
-				       	chartheight="110" 
-					   	chartwidth="500">	
+														
+					<cf_uichart name="staffing95_#getmission.missionprefix#"														
+						fontsize="13" 												 						
+						xaxistitle="" 		
+						showvalue="yes"
+						showlabel="no"		 
+						yaxistitle="Incumbents" 														 						 									
+				       	chartheight="180" 
+					   	chartwidth="627">	
 											
-						   <cfchartseries type="bar"
-					             query="Summary"
+						   <cf_uichartseries type="column"
+					             query="#Summary#"								
 				    	         itemcolumn="Description"
-				        	     valuecolumn="IncumbencyTotal"								 							 
-					             serieslabel=""
-							     colorlist="##2574A9,##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"
-				        	     markerstyle="circle"></cfchartseries>							 
+				        	     valuecolumn="IncumbencyTotal"								 							 					            
+							     colorlist="##E8875D,##E8BC5D,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA"
+				        	     markerstyle="circle"></cf_uichartseries>							 
 								 
-					</cfchart>
+					</cf_uichart>
 										
-					</td></tr>					
+															
+					</td></tr>		
+													
 					</table>
-					
+								
 				
 			</td>
 								

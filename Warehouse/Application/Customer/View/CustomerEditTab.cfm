@@ -195,7 +195,7 @@
 									source 	   = "../Quote/QuoteListingContent.cfm?customerid=#url.drillid#&mission=#Customer.mission#">				
 									
 						<cfset itm = itm+1>		
-						<cf_tl id="Sales Orders" var="vHistory">
+						<cf_tl id="Sales and Receivables" var="vHistory">
 						<cf_menutab item       = "#itm#" 
 						            iconsrc    = "Sales-Orders.png" 
 									targetitem = "4"
@@ -204,6 +204,17 @@
 									iconheight = "#ht#" 
 									name       = "#vHistory#"
 									source 	   = "../History/RecordListing.cfm?customerid=#url.drillid#&mission=#Customer.mission#">
+									
+						<cfset itm = itm+1>		
+						<cf_tl id="Customer Advance" var="vAdvance">
+						<cf_menutab item       = "#itm#" 
+						            iconsrc    = "Logos/Payroll/Entitlement.png" 
+									targetitem = "4"
+									padding    = "5"
+									iconwidth  = "#wd#" 								
+									iconheight = "#ht#" 
+									name       = "#vAdvance#"
+									source 	   = "../../../../Gledger/Inquiry/Advance/ListingCustomer.cfm?customerid=#url.drillid#&mission=#Customer.mission#">			
 						
 						<cfset itm = itm+1>		
 						<cf_tl id="Beneficiaries" var="vBeneficiaries">

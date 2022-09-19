@@ -112,34 +112,46 @@ function toggle(val) {
 
 	switch (val) {
 	case "text":
-	  document.getElementById("text").className = "regular"
-	  document.getElementById("date").className = "hide"
-	  document.getElementById("area").className = "hide"
-	  document.getElementById("list").className = "hide"	  
+	  document.getElementById("text").className   = "regular"
+	  document.getElementById("date").className   = "hide"
+	  document.getElementById("amount").className = "hide"
+	  document.getElementById("area").className   = "hide"
+	  document.getElementById("list").className   = "hide"	  
 	  break;
+	case "amount":
+	  document.getElementById("amount").className = "regular"
+	  document.getElementById("date").className   = "hide"
+	  document.getElementById("text").className   = "hide"
+	  document.getElementById("area").className   = "hide"
+	  document.getElementById("list").className   = "hide"	  
+	  break;  
 	case "list":
-	  document.getElementById("list").className = "regular"
-  	  document.getElementById("text").className = "hide"
-	  document.getElementById("area").className = "hide"
-	  document.getElementById("date").className = "hide"	  
+	  document.getElementById("list").className   = "regular"
+  	  document.getElementById("text").className   = "hide"
+	  document.getElementById("amount").className = "hide"
+	  document.getElementById("area").className   = "hide"
+	  document.getElementById("date").className   = "hide"	  
 	  break;
 	case "date":
-	  document.getElementById("date").className = "regular"
- 	  document.getElementById("list").className = "hide"
-	  document.getElementById("area").className = "hide"
-	  document.getElementById("text").className = "hide"	
+	  document.getElementById("date").className   = "regular"
+ 	  document.getElementById("list").className   = "hide"
+	  document.getElementById("amount").className = "hide"
+	  document.getElementById("area").className   = "hide"
+	  document.getElementById("text").className   = "hide"	
 	  break;
 	case "area":
-	  document.getElementById("date").className = "hide"
- 	  document.getElementById("list").className = "hide"
-	  document.getElementById("area").className = "regular"
-	  document.getElementById("text").className = "hide"	
+	  document.getElementById("date").className   = "hide"
+ 	  document.getElementById("list").className   = "hide"
+	  document.getElementById("amount").className = "hide"
+	  document.getElementById("area").className   = "regular"
+	  document.getElementById("text").className   = "hide"	
 	  break;  
 	default:
-		document.getElementById("text").className = "hide"
-		document.getElementById("list").className = "hide"
-		document.getElementById("date").className = "hide"
-		document.getElementById("area").className = "hide"
+		document.getElementById("text").className   = "hide"
+		document.getElementById("list").className   = "hide"
+		document.getElementById("amount").className = "hide"
+		document.getElementById("date").className   = "hide"
+		document.getElementById("area").className   = "hide"
 	}	
 }
 
@@ -206,8 +218,8 @@ function hl(itm,fld){
 		
 		<cfloop query="SearchResult">
 	
-			<TR class="line labelmedium">
-		    <td height="24">
+			<TR class="line labelmedium2 fixlengthlist">
+		    <td height="24" style="font-size:17px">
 			<!---
 			&nbsp;
 			 <img src="#SESSION.root#/Images/folder_close.gif" alt="" name="img0_#currentrow#" 
@@ -217,10 +229,10 @@ function hl(itm,fld){
 				  onClick="recordedit('#EntityCode#')">
 				  --->
 			</td>
-		    <TD style="padding-left:10px">#EntityDescription#</TD>
-		    <TD>Code:&nbsp;#EntityCode#</TD>
-			<TD>Role:&nbsp;#Description#</TD>
-		    <TD align="right" style="padding-right:4px;padding-left:4px">#DateFormat(Created, "#CLIENT.DateFormatShow#")#</td>
+		    <TD style="padding-left:10px;font-size:17px">#EntityDescription#</TD>
+		    <TD style="font-size:17px"><b>Code:</b>&nbsp;#EntityCode#</TD>
+			<TD style="font-size:17px"><b>Role:</b>&nbsp;#Description#</TD>
+		    <TD align="right" style="font-size:17px;padding-right:4px;padding-left:4px">#DateFormat(Created, "#CLIENT.DateFormatShow#")#</td>
 		    </tr>
 					
 		</cfloop>
@@ -263,42 +275,58 @@ function hl(itm,fld){
 		
 		<cfcase value="group">
 		
-			<table width="97%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+			<table width="97%" align="center" class="formpadding">
 					
-			<tr><td height="8"></td></tr>								
-			<tr><td style="height:50px;font-size:25px" class="labellarge" colspan="5">
-			<img src="#SESSION.root#/images//users2.gif"
-					                     alt=""
-					                     border="0">&nbsp;&nbsp;Flow Action Workgroup</td></tr>
-			
-			<tr><td colspan="5" class="line"></td></tr>		
-			<tr><td height="4"></td></tr>		
-			
-			<tr><td height="5" colspan="5">
-			 <cfoutput>
-				 <cf_securediv id="igrp" bind="url:ActionGroup.cfm?entitycode=#URL.EntityCode#"> 
-			 </cfoutput>	
-			</td></tr>
-			
-			<cfif Searchresult.EnableStatus eq "1">
-			
-				<tr><td height="10"></td></tr>				
-				<tr><td height="20" class="labelmedium" style="font-size:20px">
-				<img src="#SESSION.root#/images/activity_start.gif"
+				<tr><td height="8"></td></tr>								
+				<tr><td style="height:50px;font-size:25px" class="labellarge" colspan="5">
+				<img src="#SESSION.root#/images//users2.gif"
 						                     alt=""
-						                     border="0"
-						                     align="absmiddle">&nbsp;&nbsp;Document Status</td></tr>
+						                     border="0">&nbsp;&nbsp;Flow Action Workgroup
+											 <br><font size="2">Used for associating a workflow object to a specific workgroup</font></td></tr>
 				
 				<tr><td colspan="5" class="line"></td></tr>		
-				<tr>
-					<td>  	   						   
-					 <cfoutput>
-					 	<cf_securediv name="ista" id="ista" bind="url:ObjectStatus.cfm?entitycode=#URL.EntityCode#"> 
-					 </cfoutput>						 
-					</td>
-				</tr>
-				 
-			</cfif>	 
+				<tr><td height="4"></td></tr>		
+				
+				<tr><td height="5" colspan="5">
+				 <cfoutput>
+					 <cf_securediv id="igrp" bind="url:ActionGroup.cfm?entitycode=#URL.EntityCode#"> 
+				 </cfoutput>	
+				</td></tr>
+				
+				<tr><td height="8"></td></tr>								
+				<tr><td style="height:50px;font-size:25px" class="labellarge" colspan="5">
+				<img src="#SESSION.root#/images//users2.gif"
+						                     alt=""
+						                     border="0">&nbsp;&nbsp;Object Usage
+											 <br><font size="2">Used for associating custom workflow field for a usage within the application of that object</font></td></tr>
+				
+				<tr><td colspan="5" class="line"></td></tr>		
+							
+				<tr><td colspan="5">
+				 <cfoutput>
+					 <cf_securediv id="iuse" bind="url:ActionUsage.cfm?entitycode=#URL.EntityCode#"> 
+				 </cfoutput>	
+				</td></tr>
+				
+				<cfif Searchresult.EnableStatus eq "1">
+				
+					<tr><td height="10"></td></tr>				
+					<tr><td height="20" class="labelmedium" style="font-size:20px">
+					<img src="#SESSION.root#/images/activity_start.gif"
+							                     alt=""
+							                     border="0"
+							                     align="absmiddle">&nbsp;&nbsp;Document Status</td></tr>
+					
+					<tr><td colspan="5" class="line"></td></tr>		
+					<tr>
+						<td>  	   						   
+						 <cfoutput>
+						 	<cf_securediv name="ista" id="ista" bind="url:ObjectStatus.cfm?entitycode=#URL.EntityCode#"> 
+						 </cfoutput>						 
+						</td>
+					</tr>
+					 
+				</cfif>	 
 					
 			</table>
 		
@@ -405,7 +433,8 @@ function hl(itm,fld){
 						 
 					 </tr>									 
 									 
-					 <tr><td colspan="3">  
+					 <tr><td colspan="3"> 
+					 
 					 
 					   <cf_securediv id="ifield" 
 					     bind="url:../../EntityObject/ObjectElement.cfm?entitycode=#URL.EntityCode#&type=field">

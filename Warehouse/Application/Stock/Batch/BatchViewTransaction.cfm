@@ -141,8 +141,10 @@ function openreference(id) {
 		<table width="100%" class="formpadding" align="center">
 		
 		<tr class="labelmedium">				    		   
-	    	<td width="10" style="padding:4px"><font color="808080"></td>
+	    	<td width="10" style="padding:4px"></td>
 			<td style="font-size:16px;border:1px solid silver;padding:4px">
+				
+						
 				
 				<cfif Batch.BatchClass eq "WhsSale">				
 				
@@ -154,12 +156,18 @@ function openreference(id) {
 						  FROM      Accounting.dbo.TransactionHeader
 						  WHERE     TransactionSourceId = '#Batch.BatchId#' 
 						  AND       TransactionCategory = 'Receivables'
-						  AND       RecordStatus = '1'
+						  -- AND       RecordStatus = '1'
 				    </cfquery>
 				
 					<cfif getHeader.recordcount eq "1">
+					
+					    <cfif getHeader.recordStatus eq "9">
+							<cfset cl = "red">
+						<cfelse>
+						    <cfset cl = "black">
+						</cfif>
 									
-						<a href="javascript:ShowTransaction('#getHeader.Journal#','#getHeader.JournalSerialNo#','','tab','')">#Batch.BatchNo#</a>
+						<a style="color:#cl#" title="Open Receivable" href="javascript:ShowTransaction('#getHeader.Journal#','#getHeader.JournalSerialNo#','','tab','')">#Batch.BatchNo#</a>
 						
 					<cfelse>
 					
@@ -173,6 +181,27 @@ function openreference(id) {
 				
 							
 				</cfif>
+				
+				<cfif Batch.ParentBatchNo neq "">
+				
+				[<a style="font-size:11px" href="javascript:batch('#batch.ParentBatchNo#')">#batch.ParentBatchNo#</a>]
+				
+				</cfif>
+				
+				<cfquery name="getBatchNext"
+					 datasource="AppsMaterials" 
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">			  
+						  SELECT    *	
+						  FROM      WarehouseBatch
+						  WHERE     ParentBatchNo = '#Batch.BatchNo#' 						
+			    </cfquery>	
+				
+				<cfif getBatchNext.recordcount eq "1">
+				
+				[<a title="Superseded by" style="font-size:11px" href="javascript:batch('#getBatchNext.BatchNo#')">#getBatchNext.BatchNo#</a>]
+				
+				</cfif>	
 				
 				/ #Batch.BatchDescription# <font size="2"><cfif Batch.DeliveryMode eq "1">[<cf_tl id="Delivery">]</cfif></font></b>
 				

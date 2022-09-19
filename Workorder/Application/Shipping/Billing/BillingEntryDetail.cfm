@@ -107,7 +107,7 @@
 						
 		<table width="99%">
 			
-		<tr class="labelmedium2 line fixrow">
+		<tr class="labelmedium2 line fixrow fixlengthlist">
 			<td width="30" align="left" style="padding-left:6px">
 				<input type="Checkbox" id="selectAll" class="radiol" name="selectAll" onclick="selectAllCB(this,'.clsCheckbox')">
 			</td>
@@ -134,8 +134,8 @@
 						
 			<cfoutput query="Lines" group="Warehouse">
 			
-				<tr class="labelmedium2">
-				<td style="height:30" colspan="12"><cf_tl id="Shipped from">:&nbsp;<b>#WarehouseName#</td>
+				<tr class="labelmedium2 fixlengthlist">
+				<td colspan="12"><cf_tl id="Shipped from">:&nbsp;<b>#WarehouseName#</td>
 				<td align="right">
 				
 				<img src="#session.root#/images/refresh.gif"
@@ -158,7 +158,7 @@
 			
 					<cfoutput>
 									
-					<tr class="labelmedium2 navigation_row line clsWarehouseRow">
+					<tr class="labelmedium2 navigation_row line clsWarehouseRow fixlengthlist">
 										
 						<td width="45" style="padding-left:4px">
 						

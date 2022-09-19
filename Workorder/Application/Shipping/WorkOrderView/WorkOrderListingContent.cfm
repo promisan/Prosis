@@ -26,6 +26,11 @@
                        FROM      WorkOrderLineItem
                        WHERE     WorkOrderId   = WL.WorkOrderId 
 					   AND       WorkOrderLine = WL.WorkOrderLine) AS AmountSale,
+					  
+					  <!---
+					  0 as AmountShipped,
+					  --->
+					  			 
 							 
                      ( SELECT    ISNULL(ROUND(SUM(TS.SalesAmount), 2), 0) 
                        FROM      Materials.dbo.ItemTransactionShipping AS TS INNER JOIN
@@ -33,6 +38,11 @@
                        WHERE     T.WorkOrderId   = WL.WorkOrderId 
 					   AND       T.WorkOrderLine = WL.WorkOrderLine 
 					   AND       T.TransactionType = '2') AS AmountShipped,
+					 
+					   <!---
+					    0 as AmountBilled
+						--->
+					   
 					   
                      ( SELECT    ISNULL(ROUND(SUM(TS.SalesAmount), 2), 0) 
                        FROM      Materials.dbo.ItemTransactionShipping AS TS INNER JOIN
@@ -47,6 +57,7 @@
 											  AND         ActionStatus <> '9')
 										  
 					   ) AS AmountBilled
+					   
 					   									   		   
 					  						 
 		FROM        WorkOrderLine AS WL INNER JOIN
@@ -56,9 +67,14 @@
 		            Ref_ServiceItemDomainClass AS R ON WL.ServiceDomain = R.ServiceDomain AND WL.ServiceDomainClass = R.Code
 					
 		WHERE       W.Mission = '#URL.Mission#' 
+		<cfif find("Pending",  url.id1)>
+		AND         W.ActionStatus IN ('0','1','2') 
+		<cfelse>
 		AND         W.ActionStatus IN ('0','1','2','3') 
+		</cfif>
 		AND         WL.Operational = 1 
-		AND         R.PointerSale = 1		
+		AND         R.PointerSale = 1	
+				
 		) as tab
 		
 		<cfif find("Pending",  url.id1)>
@@ -69,6 +85,9 @@
 		
 		WHERE 1=1 
 		--condition
+		
+		
+		
 	</cfoutput>	
 	
 </cfsavecontent>
@@ -180,7 +199,7 @@
 <cf_listing
 	    header              = "event"
 	    box                 = "eventlisting"
-		link                = "#SESSION.root#/WorkOrder/Application/Shipping/WorkOrderView/WorkOrderListingContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#"
+		link                = "#SESSION.root#/WorkOrder/Application/Shipping/WorkOrderView/WorkOrderListingContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&id1=#url.id1#"
 	    html                = "No"		
 		tableheight         = "100%"
 		tablewidth          = "100%"

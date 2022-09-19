@@ -258,18 +258,26 @@ function details(id) {
 function revoke(st) {
 
     if (st == '0') {
-		if (confirm("Do you want to reinstate this recruitment ?")) {
-			window.location = "DocumentCancel.cfm?ID=#URL.ID#&Status="+st;
-	    }
+		// if (confirm("Do you want to reinstate this recruitment ?")) {
+		    ProsisUI.createWindow('revoke', 'Reinstate recruitment Track', '',{x:100,y:100,height:300,width:500,modal:true,center:true}) 
+			ptoken.navigate('#session.root#/Vactrack/Application/Document/DocumentCancel.cfm?id=#URL.ID#&status=' + st,'revoke') 
+			//window.location = "DocumentCancel.cfm?ID=#URL.ID#&Status="+st;
+	    // }
 	} else {	
-		if (confirm("Do you want to withdraw this recruitment track ?")) {
-			window.location = "DocumentCancel.cfm?ID=#URL.ID#&Status="+st;
-		}	
+		// if (confirm("Do you want to withdraw this recruitment track ?")) {
+		    ProsisUI.createWindow('revoke', 'Cancel recruitment Track', '',{x:100,y:100,height:300,width:500,modal:true,center:true}) 
+			ptoken.navigate('#session.root#/Vactrack/Application/Document/DocumentCancel.cfm?id=#URL.ID#&status=' + st,'revoke') 
+			//window.location = "DocumentCancel.cfm?ID=#URL.ID#&Status="+st;
+		// }	
 	}
 	
 	return false
 	
 }		
+
+function revokesubmit(st) {
+   ptoken.navigate('#session.root#/Vactrack/Application/Document/DocumentCancelSubmit.cfm?id=#URL.ID#&status=' + st,'revoke','','','POST','revokeform') 
+}
 	
 
 function clearinit() {

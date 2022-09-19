@@ -1,5 +1,6 @@
 
 
+
 <cfquery name="Invent"
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
@@ -46,16 +47,16 @@
 	WHERE   TransactionId = '#URL.Id#'
 </cfquery>
 
-<cfif invent.ActualStock eq "" or Invent.Onhand eq "" or Invent.workorderid neq ""> 
+<cfif invent.ActualStock eq "" or Invent.Onhand eq ""> 
 
 	<cfif init eq "0">
 		<cfoutput>
-		<script>
+		<script>		
 			document.getElementById('f#url.id#_log').className = 'hide'
 		</script>
 		</cfoutput>
 	</cfif>
-
+	
 <cfelse>
 
 	<cfoutput>
@@ -64,9 +65,11 @@
 			document.getElementById('f#url.id#_log').className = 'regular'
 		</script>
 	</cfif>
-	</cfoutput>
 	
-	<cfset diff = abs(invent.ActualStock - invent.onhand)>
+	
+	<cfset diff = invent.ActualStock - invent.onhand>
+		
+	</cfoutput>	
 	
 	<cfset resulttotalloss = "">
 	
@@ -178,7 +181,8 @@
 	</cfif>  
 	
 	<cfoutput>
-		
+	
+			
 	<table height="100%" width="100%">
 		
 		<tr style="height:100%">
@@ -187,9 +191,9 @@
 				
 			<cfif mode eq "strapping">
 						
-				<td bgcolor="#color#" height="100%">
+				<td bgcolor="#color#" height="100%" align="center">
 				
-					<table height="100%">
+					<table height="100%" width="100%">
 						<tr class="labelmedium">
 						<td style="padding-right:5px"><font color="#ft#">#vMeasured#:&nbsp;&nbsp;</td>
 						<td width="60" align="right">
@@ -201,6 +205,7 @@
 						<tr class="labelmedium">
 						<td style="padding-right:5px"><font color="#ft#">#vVariance#:</td>
 						<td width="60" align="right">
+						
 						 <font color="#ft#">
 							 #numberformat(diff,"#pformat#")#
 						 </font>				
@@ -219,9 +224,9 @@
 			
 			<cfelse>
 			
-				<td bgcolor="#color#" 				  							
-					style="height:100%;padding-left:4px;padding-right:4px" class="labelmedium">		
-					
+				<td bgcolor="#color#" align="center"				  							
+					style="height:100%;padding-left:4px;padding-right:4px" class="labelmedium2">		
+															
 					<font color="#ft#">
 					<cfif get.HighestStock lt invent.ActualStock and get.HighestStock neq "0">
 					<font color="FFFFFF">

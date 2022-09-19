@@ -142,7 +142,7 @@
 	
 	<cfif access eq "ALL">
 	
-		<tr class="line">
+		<tr class="line fixrow">
 			<td class="labelmedium2" style="height:30;padding-left:10px">
 			<a href="javascript:showcustomer('','edit','#url.dsn#','#url.mission#')"><cf_tl id="Add Customer"></a>
 		    </td>
@@ -166,7 +166,7 @@
 			   style="padding-left:10px"   width="100%" id="box#customerid#" onclick="_cf_loadingtexthtml='';Prosis.busy('yes');ptoken.navigate('CustomerEdit.cfm?systemfunctionid=#url.systemfunctionid#&customerid=#CustomerId#&dsn=#url.dsn#','detail')">
 		
 			<table border="0" style="width:94%" align="left">
-				<tr class="cellcontent line labelmedium2">
+				<tr class="cellcontent line labelmedium2 fixlengthlist">
 				<td rowspan="2" width="20"><img src="#SESSION.root#/images/pointer.gif" height="9" alt="" border="0"></td>
 				
 				<cfif hasWorkOrder gte 1>		

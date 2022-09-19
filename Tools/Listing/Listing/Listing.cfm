@@ -40,13 +40,15 @@
 <cfparam name="attributes.printshowrows"      default="500">
 <cfparam name="attributes.printshowtitle"     default="">
 
-<!--- deprecated --->
+<!--- deprecated flash --->
 
 <cfparam name="attributes.AnalysisModule"     default="">
 <cfparam name="attributes.AnalysisReportname" default="">
 <cfparam name="attributes.AnalysisPath"       default="">
 <cfparam name="attributes.AnalysisTemplate"   default="">
 <cfparam name="attributes.QueryString"        default="">
+
+<!--- deprecated end --->
 
 <cfparam name="attributes.screentop"          default="No">
 <cfparam name="attributes.html"               default="No">
@@ -173,6 +175,9 @@
 
 <cfparam name="setting[7]"                 default="false">
 <cfparam name="attributes.cachedisable"    default="#setting[7]#">
+
+<cfparam name="setting[8]"                 default="auto">
+<cfparam name="attributes.autofilter"      default="#setting[8]#">
 
 
 <!--- those variables come from the interface when selecting sorting and tree on the fly and

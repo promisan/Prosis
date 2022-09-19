@@ -49,19 +49,19 @@
 		ORDER BY IR.OrgUnit
 </cfquery>	
 
-<table width="100%" cellspacing="0" cellpadding="0" >
+<table width="100%">
 
 	<tr>
 
-		<td style="width:50;padding-top:3px" valign="top" class="labelit">
+		<td style="width:50;padding-top:3px" valign="top" class="labelmedium2" title="Add bill of material item or service">
 		    <cfoutput>			
-			<a href="javascript:editResourceSupply('#ItemFinished.workorderid#','#ItemFinished.workorderline#','#URL.WorkOrderItemId#','','','');" style="color:4E79F2;">[<cf_tl id="Add">]</a>			
+			<a href="javascript:editResourceSupply('#ItemFinished.workorderid#','#ItemFinished.workorderline#','#URL.WorkOrderItemId#','','','');">[<cf_tl id="Add">]</a>			
 			</cfoutput>
 		</td>
 	
 		<td width="90%">
-		
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="navigation_table"> 
+				
+			<table width="100%" class="navigation_table"> 
 			
 				<cfset total = 0>
 				
@@ -80,12 +80,10 @@
 					    <cfset mode = "view">
 					</cfif> 	 				 
 										
-					<tr class="navigation_row labelit">
+					<tr class="navigation_row labelmedium2 line">
 												
-						<td style="width:20px;padding-left:4px;padding-top:3px">	
-							
-						    <cf_img icon="edit" onclick="editResourceSupply('#ItemFinished.workorderid#','#ItemFinished.workorderline#','#WorkOrderItemId#','#WorkOrderItemIdResource#','#ItemNo#','#UoM#');" navigation="yes">	
-							
+						<td style="width:20px;padding-left:4px;padding-top:1px">								
+						    <cf_img icon="edit" onclick="editResourceSupply('#ItemFinished.workorderid#','#ItemFinished.workorderline#','#WorkOrderItemId#','#WorkOrderItemIdResource#','#ItemNo#','#UoM#');" navigation="yes">								
      					</td>
 						
 						<td style="width:20px;padding-top:2px;padding-right:5px">		
@@ -96,16 +94,16 @@
 						  
 						</td>
 						
-						<td colspan="2" width="65%" class="line">#ItemDescription# : #UoMDescription# </td>																						
-						<td width="8%"  class="line" align="right">#Quantity#</td>
-						<td width="10%" class="line" align="right">#numberformat(Price,",__.__")#</td>
-						<td width="10%" class="line" align="right" style="padding-left:10px">#numberformat(Amount,",__.__")#</td>						
+						<td colspan="2" width="65%">#ItemDescription# : #UoMDescription# </td>																						
+						<td width="8%"  align="right">#Quantity#</td>
+						<td width="10%" align="right">#numberformat(Price,",.__")#</td>
+						<td width="10%" align="right" style="padding-left:10px">#numberformat(Amount,",.__")#</td>						
 						
 					</tr>	
 					
 					<cfif Reference neq "" or Classification neq "">
 					
-					<tr class="navigation_row_child">
+					<tr class="navigation_row_child labelmedium2">
 						<td></td>
 						<td></td>
 						<td>#Reference# #Classification#</td>
@@ -122,9 +120,9 @@
 				
 				<cfoutput>
 				
-					<tr>
+					<tr class="labelmedium2">
 						<td colspan="2"></td>
-						<td colspan="7" align="right" class="labelit"><b>#numberformat(Total,",__.__")#</td>
+						<td colspan="7" align="right" style="padding-left:10px"><b>#numberformat(Total,",.__")#</td>
 					</tr>	
 					
 				</cfoutput>	

@@ -689,6 +689,18 @@ password="#SESSION.dbpw#">
 	 
 <cfelseif url.source eq "VAC">	 
 
+     <!--- also tag the record in DocumentCandidate --->
+	 
+	 <cfquery name="InsertBoardingLink" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			UPDATE  Vacancy.dbo.DocumentCandidate
+			SET     PositionNo = '#Form.PositionNo#'
+			WHERE   DocumentNo = '#URL.RecordId#',						
+			AND     PersonNo   = '#URL.ApplicantNo#'
+	 </cfquery>
+	
 	 <script LANGUAGE = "JavaScript">
 		 parent.parent.ProsisUI.closeWindow('myarrival')
 		 parent.parent.arrivalrefresh()     	 

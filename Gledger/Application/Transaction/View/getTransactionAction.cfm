@@ -102,7 +102,7 @@
 		datasource="AppsLedger" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT   TOP 40
+			SELECT   TOP 10
 			         R.Code, 
 			         R.Description, 
 					 T.Journal,
@@ -161,14 +161,14 @@
 			
 	  <cfelse> 
 	  
-		   <tr class="line" style="background-color:BFFFBF;height:20px">
+		   <tr style="background-color:f1f1f1;height:32px">
 			   <td colspan="10" style="padding-left:5px">
 				   <table>
 				    <tr>
 					
 					<cfif Action.ActionStatus neq "1">
 				  	
-						<td class="labelmedium2" style="height:20px">				  
+						<td class="labelmedium2" style="height:20px;font-size:17px">				  
 						
 						    <cfif get.TransactionSource eq "SalesSeries" and Action.recordcount eq "0">
 							    <!--- we go the POS mode for the sales series, unlike accounting and workorder series  ---> 
@@ -185,7 +185,7 @@
 					
 					<cfif get.TransactionSource eq "SalesSeries"> 
 				      
-				  		<td class="labelmedium2" style="height:20px" colspan="6">				  		
+				  		<td class="labelmedium2" style="height:20px;font-size:17px" colspan="6">				  		
 				   			<a href="javascript:PrintReceivable()"><cf_tl id="Invoice"></a>				   		
 						</td>			
 					

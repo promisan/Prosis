@@ -59,7 +59,7 @@
 				
 			<cf_divscroll style="height:98%">
 			
-			    <table width="100%" class="formpadding formspacing">
+			    <table width="100%" class="formspacing">
 				
 				<cfquery name="Owner" 
 					datasource="AppsOrganization" 
@@ -87,7 +87,7 @@
 					<TR>
 				    <TD class="labelmedium"><cf_tl id="PositionNo">:</TD>
 				    <TD>
-						<input class="regularxl" style="background-color:f1f1f1" type="text" name="positionno" value="<cfoutput>#Position.PositionNo#</cfoutput>" size="8" maxlength="8" readonly style="text-align: center;">								
+						<input class="regularxl" style="background-color:f1f1f1;text-align: center;" type="text" name="positionno" value="<cfoutput>#Position.PositionNo#</cfoutput>" size="10" maxlength="10" readonly>								
 					    <input type="hidden" name="SourcePostnumber" value="<cfoutput>#Position.SourcePostNumber#</cfoutput>">								
 		
 					</td>
@@ -98,16 +98,38 @@
 					<TR>
 				    <TD style="min-width:120px" class="labelmedium"><cf_tl id="Position">:</TD>
 				    <TD>	
-					    <input class="regularxl" style="background-color:f1f1f1" type="text" name="SourcePostnumber" size="20" maxlength="20" value="<cfoutput>#Position.SourcePostNumber#</cfoutput>" readonly>								
+					    <input class="regularxl" style="background-color:f1f1f1;text-align: center;" type="text" name="SourcePostnumber" size="10" maxlength="20" value="<cfoutput>#Position.SourcePostNumber#</cfoutput>" readonly>								
 						<input type="hidden" name="positionno" value="<cfoutput>#Position.PositionNo#</cfoutput>">	
 					</td>
 					</TR>	
 				
-				</cfif>		
+				</cfif>	
+				
+				<TR>
+			    <TD class="labelmedium"><cf_tl id="Type">:</TD>
+			    
+				 <cfquery name="DocTpe" 
+						datasource="AppsVacancy" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">	
+					    SELECT   *
+						FROM     Ref_DocumentType
+						ORDER BY ListingOrder						
+	                  </cfquery>		
+				<td>				
+				<select name="DocumentType" required="Yes" class="regularxl">
+				    <cfoutput query="DocTpe">
+						<option value="#Code#">#Description#</option>
+					</cfoutput>
+			    </select>			
+				</td>
+				
+				</TR>		
 								
 				<TR>
 			    <TD class="labelmedium"><cf_tl id="Post grade">:</TD>
-			    <TD><input type="text" class="regularxl" style="background-color:f1f1f1" value="<cfoutput>#Position.PostGrade#</cfoutput>" name="postgrade" size="10" maxlength="10" readonly>
+			    <TD>
+				<input type="text" class="regularxl" style="background-color:f1f1f1;text-align: center;" value="<cfoutput>#Position.PostGrade#</cfoutput>" name="postgrade" size="10" maxlength="10" readonly>
 				</TD>
 				</TR>	
 						
@@ -159,7 +181,7 @@
 			    <TR>
 			    
 			    <td class="labelmedium"><cf_tl id="Unit">:</td>
-				<td><input type="text" name="OrgUnit" style="background-color:f1f1f1" value="<cfoutput>#Position.OrgUnitName#</cfoutput>" readonly size="70" maxlength="80" class="regularxl">		
+				<td><input type="text" name="OrgUnit" style="background-color:f1f1f1;text-align: center;" value="<cfoutput>#Position.OrgUnitName#</cfoutput>" readonly size="70" maxlength="80" class="regularxl">		
 				</td>
 				</TR>		
 				
@@ -181,9 +203,9 @@
 					 	 
 				</td>
 				</TR>	
-							   			
-				<TR bgcolor="ffffff">
-			    <TD colspan="2" style="padding-right:15px">			
+									   			
+				<TR bgcolor="ffffff" class="line">
+			    <TD colspan="2" style="padding-right:15px;padding-bottom:4px">			
 				    <cf_tlhelp SystemModule = "Vacancy" Class = "General" HelpId = "recint" LabelId = "Instructions">			 			
 				</TD>	
 				
@@ -249,7 +271,7 @@
 				</cfif>			
 			    
 			    <TR>
-			    <TD class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Recruitment modality">:</TD>
+			    <TD class="labelmedium" valign="top" style="padding-top:3px"><cf_tl id="Workflow modality">:</TD>
 			    <TD>   
 				
 					<cfset list = accesstrack.tracks>
@@ -258,10 +280,10 @@
 						<cfset row = "0">
 					    <cfoutput query="list">		
 						<cfset row = row+1>
-						<cfif row eq "1"><tr></cfif>
+						<cfif row eq "1"><tr style="height:16px"></cfif>
 						<td>
 						<input type="radio" name="EntityClass" class="radiol" value="#EntityClass#" <cfif currentRow eq "1">checked</cfif>>
-						</td><td class="labelmedium" style="padding-left:5px">#EntityClassName#</td>
+						</td><td class="labelmedium2" style="height:15px;padding-left:5px">#EntityClassName#</td>
 						<cfif row eq "1">
 						</tr>
 						<cfset row = "0">

@@ -251,7 +251,7 @@ password="#SESSION.dbpw#">
 		WHERE    AccessId = '#AccessId#'
 		</cfquery> 
 	   
-		<tr class="navigation_row line" bgcolor="<cfif type eq 'Denied'>FAD5CB<cfelse>ffffff</cfif>">
+		<tr class="navigation_row line fixlengthlist" bgcolor="<cfif type eq 'Denied'>FAD5CB<cfelse>ffffff</cfif>">
 			
 			<td width="6%" align="center" style="padding-right:5px" class="cellcontent">			  
 			
@@ -312,7 +312,7 @@ password="#SESSION.dbpw#">
 				</cfif>	  
 					  
 			</td>
-			<TD width="25%" colspan="2" class="cellcontent">
+			<TD style="width:300px" colspan="2" class="cellcontent">
 			
 			<cfif ClassIsAction eq "1">
 			
@@ -340,8 +340,7 @@ password="#SESSION.dbpw#">
 				WHERE SystemFunctionId = '#ClassParameter#'
 				</cfquery>
 				
-				#System.FunctionName#
-				
+				#System.FunctionName#				
 				
 				<cfelse>
 				
@@ -352,7 +351,7 @@ password="#SESSION.dbpw#">
 			</cfif>
 							
 			</TD>
-			<td width="50%" colspan="2" class="cellcontent">
+			<td colspan="2" class="cellcontent">
 			
 			<cfif OrgUnit neq "">					
 							

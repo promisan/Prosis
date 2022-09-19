@@ -58,7 +58,7 @@
 	   WHERE   EntityKeyField1 IN ('#CheckForKey.fieldName#') OR EntityKeyField4 IN ('#CheckForKey.fieldName#')
 	</cfquery>
 			
-	 <select name="EntityCode" id="EntityCode" class="regularxl">
+	 <select name="EntityCode" id="EntityCode" class="regularxl" style="border:0px">
 	    <option value="">Not applicable</option>					 
 			 <cfoutput query="entity">		
 			     <cfif CheckForKey.fieldName neq "">	 

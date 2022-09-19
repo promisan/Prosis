@@ -135,7 +135,7 @@ password="#SESSION.dbpw#">
 				<cfloop query = "GetHistory">
 						<tr>
 							<td style="height:15px" class="labelmedium">
-								#dateformat(GetHistory.PasswordExpiration, "MM/DD DDDD")# @ #dateformat(GetHistory.PasswordExpiration, "HH:mm")#
+								#dateformat(GetHistory.PasswordExpiration, "mm/dd YYYY")# @ #dateformat(GetHistory.PasswordExpiration, "HH:mm")#
 							</td>	
 						</tr>	
 				</cfloop>

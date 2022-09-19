@@ -132,10 +132,10 @@ password="#SESSION.dbpw#">
 </cfquery>
 	
 <table width="100%" height="100%">
-					
+				
 	<cfoutput>		
-					
-	<cfif URL.Mode eq "Listing" or url.mode eq "Budget" or URL.mode eq "Dialog" or URL.Mode eq "View" or URL.Mode eq "Portal" or URL.refer eq "Workflow">
+									
+	<cfif URL.Mode eq "Listing" or url.mode eq "WorkOrder" or url.mode eq "Budget" or URL.mode eq "Dialog" or URL.Mode eq "View" or URL.Mode eq "Portal" or URL.refer eq "Workflow">
 		
 		<tr><td height="20" style="padding-top:4px;padding-left:10px;padding-right:20px">
 						
@@ -145,34 +145,32 @@ password="#SESSION.dbpw#">
 			
 			<table width="100%">
 			
-				<tr>
-				<td style="height:28px;padding-left:10px" class="labelmedium">#Org.OrgUnitName#:&nbsp;<b>#Line.OfficerLastName#</td>								
-				<td style="padding-left:6px" class="labelit"><cf_tl id="Reference">:</td>
-				<td bgcolor="FDFEDE" class="labelmedium" align="center" style="padding-left:3px;border:1px solid silver"><cfif line.reference eq "">in Process<cfelse>#Line.Reference# (#Line.RequisitionNo#)</cfif></td>
+				<tr class="labelmedium2 fixlengthlist">
+				<td rowspan="2" valign="top" style="padding-top:2px;height:28px;padding-left:10px">#Org.OrgUnitName#:<br><b>#Line.OfficerLastName#&nbsp;
+
+				<cfif Line.source eq "Workflow">							
+				<a href="javascript:workflowobjectopen('#Line.RequirementId#')">[<cf_tl id="More">...]</a>				
+				</cfif>
+				
+				</td>								
+				<td style="padding-left:6px"><cf_tl id="Reference">:</td>
+				<td bgcolor="FDFEDE" align="center" style="padding-left:3px;border:1px solid silver"><cfif line.reference eq "">in Process<cfelse>#Line.Reference# (#Line.RequisitionNo#)</cfif></td>
 				<cfif Line.ParentRequisitionNo neq "">
-				<td style="padding-left:6px" class="labelit"><cf_tl id="Parent">:</td>
-				<td bgcolor="FDFEDE" class="labelmedium" align="center" style="border:1px solid silver"><a href="javascript:ProcReqEdit('#Line.ParentRequisitionNo#','#url.mode#','')">#Line.ParentRequisitionNo#</a></td>
+				<td style="padding-left:6px"><cf_tl id="Parent">:</td>
+				<td bgcolor="FDFEDE" align="center" style="border:1px solid silver"><a href="javascript:ProcReqEdit('#Line.ParentRequisitionNo#','#url.mode#','')">#Line.ParentRequisitionNo#</a></td>
 				</cfif>				
-				<td style="padding-left:6px" class="labelit"><cf_tl id="Initiated">:</td>
-				<td bgcolor="FDFEDE" class="labelmedium" align="center" style="border:1px solid silver">#dateformat(Line.Created, CLIENT.DateFormatShow)#</td>				
-				<td style="padding-left:6px" class="labelit"><cf_tl id="Status">:</td>				
-				<td bgcolor="FDFEDE" class="labelmedium" style="border:1px solid silver" align="center">
+				<td style="padding-left:6px"><cf_tl id="Initiated">:</td>
+				<td bgcolor="FDFEDE" align="center" style="border:1px solid silver">#dateformat(Line.Created, CLIENT.DateFormatShow)#</td>				
+				<td style="padding-left:6px"><cf_tl id="Status">:</td>				
+				<td bgcolor="FDFEDE"style="border:1px solid silver" align="center">
 				<cf_securediv bind="url:RequisitionEditStatus.cfm?requisitionno=#url.id#" id="reqstatus">		
 				</td>
 				</tr>	
 								
 				<!--- process details --->
 				
-				<tr class="labelmedium" style="height:1px">
-				
-				<td style="height:1px;padding-left:15px;font-size:17.5px">
-				
-				<cfif Line.source eq "Workflow">							
-				<a href="javascript:workflowobjectopen('#Line.RequirementId#')"><font color="800080">[<cf_tl id="More on this request">...]</a>				
-				</cfif>
-				
-				</td>
-				
+				<tr class="labelmedium2  fixlengthlist">
+					
 				
 				<cfif Line.JobNo neq "" or Line.actionStatus gte "2">
 		
@@ -188,11 +186,11 @@ password="#SESSION.dbpw#">
 					
 					<cfif buyer.recordcount gte "1">
 												
-						   <td style="padding-left:6px" height="23" class="labelit"><cf_tl id="Buyer">:</td>
+						   <td style="padding-left:6px" height="23" ><cf_tl id="Buyer">:</td>
 							
-							<td bgcolor="FDFEDE" class="labelmedium" style="padding-left:6px;border:1px solid silver">
-								<table align="center" cellspacing="0" cellpadding="0">				
-								<tr>
+							<td bgcolor="FDFEDE" style="padding-left:6px;border:1px solid silver">
+								<table align="center">				
+								<tr class="labelmedium2">
 								<cfloop query="Buyer">
 								<td style="height:15px" class="labelmedium">#LastName#;</td>
 								</cfloop>				
@@ -207,8 +205,8 @@ password="#SESSION.dbpw#">
 					
 				<cfif Line.JobNo neq "">		
 								
-					    <td style="padding-left:6px" height="23" class="labelit"><cf_tl id="Procurement Job">:</td>
-						<td bgcolor="FDFEDE" class="labelmedium" style="padding-left:3px;border:1px solid silver">	
+					    <td style="padding-left:6px" height="23"><cf_tl id="Procurement Job">:</td>
+						<td bgcolor="FDFEDE" style="padding-left:3px;border:1px solid silver">	
 							
 							<cfquery name="Job" 
 							datasource="AppsPurchase" 
@@ -220,7 +218,7 @@ password="#SESSION.dbpw#">
 							</cfquery>
 										
 							<a href="javascript:ProcQuote('#Line.JobNo#','view')">							
-								<font color="6688aa"><u><cfif job.caseNo neq "">#Job.CaseNo#<cfelse>#Job.JobNo#</cfif></font>				
+								<cfif job.caseNo neq "">#Job.CaseNo#<cfelse>#Job.JobNo#</cfif>				
 							</a>
 							
 							</td>
@@ -240,8 +238,8 @@ password="#SESSION.dbpw#">
 						
 				<cfif Proc.PurchaseNo neq "">
 					
-					<td style="padding-left:6px" height="23" class="labelit"><cf_tl id="Purchase No">:</td>
-					<td bgcolor="FDFEDE" align="center" class="labelmedium" style="padding-left:3px;border:1px solid silver" class="labelmedium">
+					<td style="padding-left:6px" height="23"><cf_tl id="Purchase No">:</td>
+					<td bgcolor="FDFEDE" align="center" style="padding-left:3px;border:1px solid silver" class="labelmedium">
 						<a href="javascript:ProcPOEdit('#Proc.PurchaseNo#','view')">#Proc.PurchaseNo#</a>
 						 <cfif Proc.OrderDate eq "">
 						   Pending
@@ -271,11 +269,13 @@ password="#SESSION.dbpw#">
 						 AND     W.WorkorderId = '#Line.workorderid#'
 					 </cfquery>	
 													
-				    <tr><td></td><td style="padding-left:3px;height:25;width:150px" class="labelit"><cf_tl id="WorkOrder">:</td>
-						<td bgcolor="FDFEDE" style="padding-left:3px;border:1px solid silver" class="labelmedium"><a href="javascript:workorderview('#Line.workorderid#')"><font color="0080C0">#workorder.Reference#</font></a></td>
+				    <tr class="labelmedium2  fixlengthlist">
+					    <td></td>
+						<td style="padding-left:6px;height:25"><cf_tl id="WorkOrder">:</td>
+						<td bgcolor="FDFEDE" style="padding-left:3px;border:1px solid silver" align="center"><a href="javascript:workorderview('#Line.workorderid#')">#workorder.Reference#</a></td>
 						
-						<td style="padding-left:6px" class="labelit"><cf_tl id="Customer">:</td>
-						<td bgcolor="FDFEDE" style="padding-left:3px;border:1px solid silver" class="labelmedium">#workorder.CustomerName#</td>
+						<td style="padding-left:6px"><cf_tl id="Customer">:</td>
+						<td bgcolor="FDFEDE" style="padding-left:3px;border:1px solid silver" align="center">#workorder.CustomerName#</td>
 						
 						<cfif line.requirementid neq "">
 						
@@ -296,8 +296,8 @@ password="#SESSION.dbpw#">
 							 
 							 <cfif getPrior.Total gte "1">
 							 
-							    <td style="padding-left:6px" class="labelit"><cf_tl id="Already requested">:</td>
-								<td bgcolor="FDFEDE" style="padding-left:3px;border:1px solid silver" class="labelmedium"><font color="FF0000">#getPrior.Total#</td>
+							    <td style="padding-left:6px"><cf_tl id="Already requested">:</td>
+								<td bgcolor="FDFEDE" style="padding-left:3px;border:1px solid silver"><font color="FF0000">#getPrior.Total#</td>
 							 
 							 </cfif>	
 						 
@@ -723,12 +723,7 @@ password="#SESSION.dbpw#">
 	</td></tr>
 		
 	</table>	
-
-	
-
 		
 <cfif url.header eq "1" or url.mode eq "workflow">
 	<cf_screenbottom layout="webapp">	
 </cfif>
-
-

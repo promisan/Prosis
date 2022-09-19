@@ -3,10 +3,9 @@
  
 <cfparam name="Form.row" default="0">
 
-<!--- don't save if user selects the send back option --->
+<!--- we don't save if user selects the send back option --->
 
-<cfif Form.actionStatus neq "1" and 
-     (form.Dialog neq "Interview")>
+<cfif (Form.actionStatus eq "2" or Form.actionStatus eq "2Y" or Form.actionStatus eq "0") and form.Dialog neq "Interview">
 
 		<cftransaction action="BEGIN">
 		
@@ -26,6 +25,7 @@
 			
 			<cfparam name="FORM.ReviewStatus_#Rec#" default="">
 			<cfparam name="FORM.EntityClass_#Rec#"  default="">
+			<cfparam name="FORM.ReviewDate_#Rec#"   default="">
 			<cfparam name="FORM.ReviewMemo_#Rec#"   default="">
 			<cfparam name="FORM.ReviewScore_#Rec#"  default="">
 			<cfparam name="FORM.ReviewId_#Rec#"     default="">
@@ -37,6 +37,18 @@
 			<cfset reviewScore = Evaluate("FORM.ReviewScore_" & #Rec#)>
 		    <cfset personNo    = Evaluate("FORM.PersonNo_" & #Rec#)>
 		    <cfset reviewId    = Evaluate("FORM.ReviewId_" & #Rec#)>
+			<cfset revdate     = Evaluate("FORM.ReviewDate_" & #Rec#)>
+			
+			<cfif revdate eq "">
+			
+				<cfset dte = now()>
+				
+			<cfelse>
+			
+				 <CF_DateConvert Value="#dateformat(revdate,client.dateformatshow)#">
+				 <cfset dte = dateValue>
+						
+			</cfif>
 														
 			<cfif status neq "" OR class neq "">
 					
@@ -52,7 +64,7 @@
 					password="#SESSION.dbpw#">
 						UPDATE DocumentCandidate
 						SET   Status                 = '#Form.ReviewStatus#',
-						      StatusDate             = getDate(),
+						      StatusDate             = #dte#,
 							  StatusOfficerUserId    = '#SESSION.acc#',
 							  StatusOfficerLastName  = '#SESSION.last#',
 							  StatusOfficerFirstName = '#SESSION.first#'
@@ -135,7 +147,7 @@
 						  <cfif reviewScore neq "">
 						  ReviewScore = '#reviewScore#',
 						  </cfif>
-					      ReviewDate = #now()#,
+					      ReviewDate = #dte#,
 						  ActionStatus = '#s#'
 					WHERE DocumentNo = '#Key1#'
 					AND   PersonNo   = '#PersonNo#'	 
@@ -171,7 +183,7 @@
 							  '#reviewSCore#',
 							  </cfif>
 							  '#memo#',
-							  #now()#,
+							  #dte#,
 							  '#s#',
 							  <cfif Form.Dialog neq "Interview">
 							  '#reviewId#',
@@ -187,10 +199,10 @@
 		
 		</cftransaction>
 			
-	<!--- generate canddiate track  --->		
+	<!--- generate canddiate track  --->	
 	
-	<cfif Form.ReviewStatus eq "Track">
-		
+	<cfif (Form.actionStatus eq "2" or Form.actionStatus eq "2Y") and Form.ReviewStatus eq "Track">	
+			
 	<cfloop index="Rec" from="1" to="#Form.Row#">
 		
 		<cfparam name="FORM.ReviewStatus_#Rec#" default="">

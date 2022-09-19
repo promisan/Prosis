@@ -124,6 +124,41 @@
 
 ---> 
 
+	<cftry>
+
+  <cfquery name="Drop"
+	datasource="appsEmployee">
+      if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[vwPosition]') 
+	 and OBJECTPROPERTY(id, N'IsView') = 1)
+     drop view [dbo].[vwIncumbent]
+  </cfquery>
+  
+	  <cfcatch></cfcatch>
+  
+  </cftry>
+
+  
+  <cfquery name="CreateView"
+	datasource="appsEmployee">		
+		
+	CREATE VIEW [dbo].[vwIncumbent]
+	AS
+	SELECT        'User' AS Modality, PA.PositionNo, P.PersonNo, P.IndexNo, P.LastName, P.FirstName, P.Gender, P.Nationality, (SELECT Name FROM System.dbo.Ref_Nation WHERE Code = P.Nationality) as NationalityName, 
+	(SELECT CountryGroup FROM System.dbo.Ref_Nation WHERE Code = P.Nationality) as CountryGroup, (SELECT TOP 1  ContractType FROM PersonContract WHERE PersonNo = P.PersonNo and actionStatus != '9' ORDER BY DateEffective DESC) as ContractType,
+	AssignmentClass, PA.AssignmentType, PA.DateExpiration
+	FROM          Person AS P INNER JOIN PersonAssignment AS PA ON P.PersonNo = PA.PersonNo
+	WHERE        (PA.DateEffective <= GETDATE()) AND (PA.DateExpiration > GETDATE()) AND (PA.AssignmentStatus IN ('0', '1')) AND (PA.Incumbency > 0) AND (PA.AssignmentType = 'Actual')
+	
+	UNION
+	
+	SELECT        'Lien' AS Modality, PA.PositionNo, P.PersonNo, P.IndexNo, P.LastName, P.FirstName, P.Gender, P.Nationality,  (SELECT Name FROM System.dbo.Ref_Nation WHERE Code = P.Nationality) as NationalityName, 
+	(SELECT CountryGroup FROM System.dbo.Ref_Nation WHERE Code = P.Nationality) as CountryGroup, (SELECT TOP 1 ContractType FROM PersonContract WHERE PersonNo = P.PersonNo and actionStatus != '9' ORDER BY DateEffective DESC) as ContractType,
+	PA.AssignmentClass, PA.AssignmentType, PA.DateExpiration
+	FROM         Person AS P INNER JOIN PersonAssignment AS PA ON P.PersonNo = PA.PersonNo
+	WHERE        (PA.DateEffective <= GETDATE()) AND (PA.DateExpiration > GETDATE()) AND (PA.AssignmentStatus IN ('0', '1'))  AND (PA.Incumbency = 0) AND (PA.AssignmentType = 'Actual')
+
+  </cfquery>		
+
   <cftry>
 
   <cfquery name="Drop"
@@ -136,6 +171,7 @@
 	  <cfcatch></cfcatch>
   
   </cftry>
+  
   
   <cfquery name="CreateView"
 	datasource="appsEmployee">

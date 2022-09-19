@@ -135,11 +135,11 @@
 	     
 		  <cfquery name="templates" 
 				datasource="AppsControl">
-					SELECT    top 20 REPLACE(substring(PathName, 2, 100), '\', '/')+'/'+FileName as myFile
-					FROM      Ref_Template
-					WHERE PathName <> '[root]'
+					SELECT   TOP 20 REPLACE(substring(PathName, 2, 100), '\', '/')+'/'+FileName as myFile
+					FROM     Ref_Template
+					WHERE    PathName <> '[root]'
 					GROUP BY PathName,FileName	
-					HAVING REPLACE(substring(PathName, 2, 100), '\', '/')+'/'+FileName LIKE '#search#%'
+					HAVING   REPLACE(substring(PathName, 2, 100), '\', '/')+'/'+FileName LIKE '#search#%'
 					ORDER BY PathName,FileName	 						
 		   </cfquery>  	
 		 		  		   

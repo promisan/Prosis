@@ -24,24 +24,26 @@ password="#SESSION.dbpw#">
 
 <table width="100%" class="navigation_table">
 
-<tr class="line labelit">
+<tr class="line labelmedium fixlengthlist">
     
     <td style="padding-left:2px"><cf_tl id="Category"></td>
     <td align="center"><label title="Operational"><cf_tl id="Op"></label></td>
 	<td align="center"><label title="Discount"><cf_tl id="Disc"></label></td>
 	<td align="center"><label title="Tax"><cf_tl id="Tax"></label></td>
-	<td align="center"><label title="Oversale"><cf_tl id="Oversale"></label></td>
-	<td align="center"><label title="Selfservice"><cf_tl id="Self"></label></td>
-	<td align="center"><label title="Request Mode"><cf_tl id="Req"></label></td>
+	<td align="center"><label title="Oversale"><cf_tl id="Os"></label></td>
+	<td align="center"><label title="Selfservice"><cf_tl id="WWW"></label></td>
+	<td align="center"><label title="Min order"><cf_tl id="Min"></label></td>
+	<td align="center"><label title="Request Mode Petrol Oil Lubricants"><cf_tl id="POL"></label></td>
 	<td></td>
 	
 	<td style="padding-left:2px"><cf_tl id="Category"></td>
     <td align="center"><label title="Operational"><cf_tl id="Op"></label></td>
 	<td align="center"><label title="Discount"><cf_tl id="Disc"></label></td>
 	<td align="center"><label title="Tax"><cf_tl id="Tax"></label></td>
-	<td align="center"><label title="Oversale"><cf_tl id="Oversale"></label></td>
-	<td align="center"><label title="Selfservice"><cf_tl id="Self"></label></td>
-	<td align="center"><label title="Request Mode"><cf_tl id="Req"></label></td>
+	<td align="center"><label title="Oversale"><cf_tl id="Os"></label></td>
+	<td align="center"><label title="Selfservice"><cf_tl id="WWW"></label></td>
+	<td align="center"><label title="Min order"><cf_tl id="Min"></label></td>
+	<td align="center"><label title="Request Mode Petrol Oil Lubricants"><cf_tl id="POL"></label></td>
 	
 	<td height="23" align="right" style="padding-left:20px">
 		<cfoutput>
@@ -63,7 +65,7 @@ password="#SESSION.dbpw#">
 		<cfset cnt = cnt+1>		
 		
 		<cfif cnt eq "1">
-		<tr class="navigation_row line labelmedium">
+		<tr class="navigation_row line labelit fixlengthlist" style="height:16px">
 		<cfelse>
 		   <cfset cnt = 0>
 		</cfif>
@@ -83,6 +85,7 @@ password="#SESSION.dbpw#">
 		<td align="center">#TaxCodes.Description#</td>
 		<td align="center"><cfif OverSale eq 1>#vYes#<cfelse><b>No</b></cfif></td>
 		<td align="center"><cfif SelfService eq 1>#vYes#<cfelse><b>No</b></cfif></td>
+		<td align="center">#MinReorderMode#</td>
 		<td align="center"><cfif RequestMode eq 1><label title="Consolidated">C</label><cfelse><label title="Not Consolidated">NC</label></cfif></td>
 		<td align="right" style="padding-top:1px; padding-left:10px;padding-right:10px;">
 			<table>

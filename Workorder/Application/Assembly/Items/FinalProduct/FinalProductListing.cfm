@@ -368,17 +368,17 @@
 										
 											<tr class="labelmedium" style="height:20px">						
 											
-												<td>			
-																				
+												<td>	
+																																
 												<cf_img icon = "expand" 
 												   id        = "req_#WorkOrderItemId#" 
 												   toggle    = "Yes" 
 												   onclick   = "toggleobjectbox('requestbox_#WorkOrderItemId#','request_#WorkOrderItemId#','../../Assembly/Items/FinalProduct/FinalProductRequisition.cfm?WorkOrderId=#URL.WorkOrderId#&WorkOrderItemId=#WorkOrderItemId#')"
-												   tooltip   = "See outsourcing for this quote.">
+												   tooltip   = "See outsourced requisitions for this quote.">
 												   
 												</td>
 																												
-												<td id="request_#WorkOrderItemId#" style="width:100%" align="right">#numberformat(Outsourced,'__')#</td>	
+												<td id="xxrequest_#WorkOrderItemId#" style="width:100%" align="right">#numberformat(Outsourced,'__')#</td>	
 												
 												<td align="right">
 												
@@ -407,12 +407,12 @@
 										
 											<tr class="labelmedium" style="height:20px">																				
 											<td width="20">	
-																					
+																																
 											<cf_img icon="expand" 
 													   id="ear_#WorkOrderItemId#" 
 													   toggle="Yes" 
 													   onclick="toggleobjectbox('earmarkbox_#WorkOrderItemId#','earmark_#WorkOrderItemId#','../../Assembly/Items/FinalProduct/getDetailLines.cfm?WorkOrderId=#URL.WorkOrderId#&drillid=#WorkOrderItemId#')"
-													   tooltip="See outsourcing for this quote.">
+													   tooltip="See earmarked stock for this quote.">
 											
 											</td>											
 											<td align="right">#numberformat(Earmarked,'__')#</td>													

@@ -13,11 +13,12 @@
 				WHERE 	IWx.ItemNo = UoM.ItemNo
 				AND  	IWx.UoM = UoM.UoM
 				AND 	IWx.Warehouse = (
-					SELECT	Wx.Warehouse
+					SELECT TOP 1 Wx.Warehouse
 					FROM	Warehouse Wx
 					WHERE	Wx.SupplyWarehouse IS NULL
 					AND		Wx.Mission = '#url.fmission#'
 					AND		Wx.Distribution = 1
+					ORDER BY Wx.Warehouse ASC
 				)
 			) AS CTN
 	FROM   	ItemUoM UoM 

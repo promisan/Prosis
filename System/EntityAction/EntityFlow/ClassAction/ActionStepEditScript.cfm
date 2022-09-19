@@ -4,7 +4,7 @@
 <script language="JavaScript">
 
 function showscript(id) {
-    	window.open("ActionStepEditViewScript.cfm?id="+id+"&ts="+new Date().getTime(), "showscript", "unadorned:yes; edge:raised; status:no; dialogHeight:800px; dialogWidth:1000px; status:yes;help:no; scroll:no; center:yes; resizable:yes");						
+   	ptoken.open("ActionStepEditViewScript.cfm?id="+id+"&ts="+new Date().getTime(), "showscript", "unadorned:yes; edge:raised; status:no; dialogHeight:800px; dialogWidth:1000px; status:yes;help:no; scroll:no; center:yes; resizable:yes");						
 }
 
 function toggle(sc,val) {
@@ -30,11 +30,11 @@ function toggleall(el,val) {
 }
 
 function template(file) {  
- 	window.open("../EntityAction/TemplateDialog.cfm?path="+file, "Template", "left=40, top=40, width=860, height= 732, toolbar=no, status=yes, scrollbars=yes, resizable=yes");
+ 	ptoken.open("../EntityAction/TemplateDialog.cfm?path="+file, "Template", "left=40, top=40, width=860, height= 732, toolbar=no, status=yes, scrollbars=yes, resizable=yes");
 }
 
 function showaction(step,insert) {     
-   	   ColdFusion.navigate('ActionStepEditAction.cfm?ajax=yes&entityCode=#URL.EntityCode#&entityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&Publishno=#url.publishno#','stepdata')	
+   	   ptoken.navigate('ActionStepEditAction.cfm?ajax=yes&entityCode=#URL.EntityCode#&entityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&Publishno=#url.publishno#','stepdata')	
 }
 	   
 function showflow() {
@@ -42,7 +42,7 @@ function showflow() {
 }	
 	   
 function showinstruction() {
-    ColdFusion.navigate('ActionStepMemo.cfm?PublishNo=#URL.PublishNo#&EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#URL.ActionCode#','stepdata')	
+    ptoken.navigate('ActionStepMemo.cfm?PublishNo=#URL.PublishNo#&EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#URL.ActionCode#','stepdata')	
 }	
 
 function saveform(mde) {	
@@ -51,12 +51,12 @@ function saveform(mde) {
 	ColdFusion.Layout.showTab('MethodList','verifytab')
 	ColdFusion.Layout.selectTab('MethodList','verifytab')
 	} else {
-    ColdFusion.navigate('ActionStepEditActionSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save='+mde,'stepdata','','','POST','actionform')
+    ptoken.navigate('ActionStepEditActionSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save='+mde,'stepdata','','','POST','actionform')
 	}	 	
 } 
 
 function savequick(mde) {	 
-     ColdFusion.navigate('ActionStepEditActionSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save=1','#URL.EntityClass#_#URL.actionCode#_result','','','POST','actionform')		 
+     ptoken.navigate('ActionStepEditActionSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save=1','#URL.EntityClass#_#URL.actionCode#_result','','','POST','actionform')		 
 }
 
 
@@ -74,7 +74,7 @@ function saveflow() {
 }	   
 
 function saveflowcondition(box,act,mde) {	      
-   ColdFusion.navigate('ActionStepFlowSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save='+mde+'&stepto='+act,'conditionresult'+act,'','','POST','form'+box);							    
+   ptoken.navigate('ActionStepFlowSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save='+mde+'&stepto='+act,'conditionresult'+act,'','','POST','form'+box);							    
 }	   
 
 function gotoselect(box,itm,fld,act){
@@ -89,10 +89,10 @@ function gotoselect(box,itm,fld,act){
  		 	 		 	
 	 if (fld != false){		
 	 itm.className = "highLight2";
-	 ColdFusion.navigate('ActionStepFlowSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save=2&stepto='+act+'&insert='+fld,'box'+box)					
+	 ptoken.navigate('ActionStepFlowSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save=2&stepto='+act+'&insert='+fld,'box'+box)					
 	 }else{		
      itm.className = "regular";					
-	 ColdFusion.navigate('ActionStepFlowSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save=2&stepto='+act+'&insert='+fld,'box'+box)						
+	 ptoken.navigate('ActionStepFlowSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save=2&stepto='+act+'&insert='+fld,'box'+box)						
 	 }			 
  }
  
@@ -109,16 +109,16 @@ function html(val) {
  
 function removeaction() {	
 	if (confirm("Do you want to remove this record ?")) {	 
-	ColdFusion.navigate('ActionStepEditActionSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save=9','stepdata','','','POST','actionform')	 
+	ptoken.navigate('ActionStepEditActionSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save=9','stepdata','','','POST','actionform')	 
 	}
 }		
 
 function gotocondition(box,step) {
-   	   ColdFusion.navigate('ActionStepFlowCondition.cfm?entityCode=#URL.EntityCode#&entityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&Publishno=#url.publishno#&stepto='+step,box)	
+     ptoken.navigate('ActionStepFlowCondition.cfm?entityCode=#URL.EntityCode#&entityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&Publishno=#url.publishno#&stepto='+step,box)	
 }
 	   
 function showparam(dlg) {
-	 ColdFusion.navigate('ActionStepEditActionParam.cfm?entityCode=#URL.EntityCode#&dialog='+dlg+'&dialogparameter=#get.actionDialogParameter#','parameter')		
+	 ptoken.navigate('ActionStepEditActionParam.cfm?entityCode=#URL.EntityCode#&dialog='+dlg+'&dialogparameter=#get.actionDialogParameter#','parameter')		
 }	   
 	   
 function tcl(c) {
@@ -150,7 +150,7 @@ function standard(st) {
 	}	
 	
 function mail(code,box) { 
-  ColdFusion.navigate('ActionStepEditActionRecipient.cfm?box='+box+'&entityCode=#url.entityCode#&entityclass=#url.entityclass#&documentcode='+code+'&actioncode=#url.actioncode#',box) 
+   ptoken.navigate('ActionStepEditActionRecipient.cfm?box='+box+'&entityCode=#url.entityCode#&entityclass=#url.entityclass#&documentcode='+code+'&actioncode=#url.actioncode#',box) 
 }		
 	
 function quick(chk) {
@@ -203,7 +203,7 @@ function decision(st) {
 
 function stepedit(action) {
 	if (action != "") {
-	     window.open("ActionStepEdit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode="+action+"&PublishNo=#URL.PublishNo#", "EditAction", "left=10, top=10, width=930, height=900, toolbar=no, status=yes, scrollbars=no, resizable=yes");
+	     ptoken.open("ActionStepEdit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode="+action+"&PublishNo=#URL.PublishNo#", "EditAction", "left=10, top=10, width=930, height=900, toolbar=no, status=yes, scrollbars=no, resizable=yes");
      }
    }
 

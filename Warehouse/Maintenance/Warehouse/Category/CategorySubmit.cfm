@@ -25,6 +25,7 @@
 						 Selfservice,
 						 Oversale,
 						 RequestMode,
+						 MinReorderMode,
 						 TaxCode,
 						 ThresholdDiscount,
 						 Operational,
@@ -36,6 +37,7 @@
 					  '#Form.Selfservice#',
 					  '#Form.OverSale#',
 					  '#Form.RequestMode#',
+					  '#Form.MinReorderMode#',
 					  '#Form.TaxCode#',
 					  '#Form.ThresholdDiscount#',
 					  #Form.Operational#,
@@ -83,7 +85,8 @@
 					Oversale          = '#Form.OverSale#', 
 					ThresholdDiscount = '#Form.ThresholdDiscount#',
 					TaxCode           = '#Form.TaxCode#',
-					RequestMode       = '#Form.RequestMode#'
+					RequestMode       = '#Form.RequestMode#',
+					MinReorderMode    = '#Form.MinReorderMode#'
 			 WHERE 	Warehouse         = '#Form.Warehouse#'
 			 AND	Category          = '#Form.CategoryOld#'
 		</cfquery>

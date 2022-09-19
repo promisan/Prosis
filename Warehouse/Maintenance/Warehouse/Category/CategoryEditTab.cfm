@@ -59,12 +59,12 @@ password="#SESSION.dbpw#">
 		<table width="98%" align="center">
 		<tr>
 		
-				<cfset wd = "48">
-				<cfset ht = "48">					
+				<cfset wd = "42">
+				<cfset ht = "42">					
 				<cfset itm = 0>
 				
 				<cfset itm = itm + 1>
-				<cf_tl id = "General Information" var = "vName1">
+				<cf_tl id = "General Settings" var = "vName1">
 				<cf_menutab item       = "#itm#" 
 				            iconsrc    = "Logos/Warehouse/General.png" 
 							iconwidth  = "#wd#" 
@@ -79,7 +79,7 @@ password="#SESSION.dbpw#">
 				<cfif url.id2 neq "">
 				
 					<cfset itm = itm + 1>		
-					<cf_tl id = "Sale Price Schedule" var = "vName2">
+					<cf_tl id = "Price Schedule" var = "vName2">
 					<cf_menutab item       = "#itm#" 
 					            iconsrc    = "Logos/Warehouse/UoMPricing.png" 
 								iconwidth  = "#wd#" 

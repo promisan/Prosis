@@ -34,7 +34,7 @@
 	</cfquery>
 	
 	<cfoutput>
-
+	
 	<script language="JavaScript">
 	
 		function search() {     
@@ -90,12 +90,13 @@
 	       _cf_loadingtexthtml='';		
 		   ptoken.navigate('QuoteEdit.cfm?action=deleteline&transactionid='+tra,'boxprocess') 	
 		}
-				
-		function stockreserve(whs,itm,uom,mde) {
-		 	ProsisUI.createWindow('stockinquiry','Reservations','',{x:100,y:100,width:900,height:420,resizable:true,modal:true,center:true})
-			ptoken.navigate('#SESSION.root#/Warehouse/Application/StockOrder/Quote/ReservationView.cfm?warehouse='+whs+'&itemNo='+itm+'&uom='+uom+'&mode='+mde,'stockinquiry')							
-		}
 		
+		function stockreserve(whs,itm,uom,mde,link) {
+		 	ProsisUI.createWindow('quotationview','Reservations','',{x:100,y:100,width:900,height:420,resizable:true,modal:true,center:true})
+			ptoken.navigate('#SESSION.root#/Warehouse/Application/StockOrder/Quote/ReservationView.cfm?warehouse='+whs+'&itemNo='+itm+'&uom='+uom+'&mode='+mde+'&link='+link,'quotationview')							
+		}
+			
+				
 		function stocktransit(whs,itm,uom,mde) {
 		 	ProsisUI.createWindow('stockinquiry','In Transit','',{x:100,y:100,width:900,height:420,resizable:true,modal:true,center:true})
 			ptoken.navigate('#SESSION.root#/Procurement/Application/Receipt/ReceiptInquiry/ReceiptViewItem.cfm?warehouse='+whs+'&itemNo='+itm+'&uom='+uom+'&mode='+mde,'stockinquiry')							
@@ -116,6 +117,9 @@
         }	 
 		
 	</script>
+	
+
+	
 	
 	</cfoutput>
 	

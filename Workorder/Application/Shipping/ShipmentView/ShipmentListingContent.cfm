@@ -12,7 +12,6 @@
 10. Sales totale
 --->
 
-
 <cfparam name="url.systemfunctionid"    default="">
 <cfparam name="url.mission"             default="">
 <cfparam name="url.status"              default="all">
@@ -73,8 +72,7 @@
 				TS.SalesPrice, 
 				TS.SalesAmount, 
 				TS.SalesTax, 
-				TS.SalesTotal
-				
+				TS.SalesTotal				
 					
 	FROM        ItemTransaction T 
 				INNER JOIN ItemTransactionShipping TS ON T.TransactionId = TS.TransactionId 
@@ -88,16 +86,22 @@
 	AND         T.TransactionType IN ('2','3') 
 	
 	<!--- pending transactions only --->
-	-- AND         B.ActionStatus    = '0'   
-	<cfif url.id1 eq "today">
+	<cfif url.id1 eq "pending">
+	AND         B.ActionStatus    = '0'   
+	<cfelseif url.id1 eq "today">
+	AND         B.ActionStatus    IN ('0','1') 
 	AND         T.TransactionDate > getDate()-1
 	<cfelseif url.id1 eq "week">
+	AND         B.ActionStatus    IN ('0','1') 
 	AND         T.TransactionDate > getDate()-30
 	<cfelseif url.id1 eq "year">
+	AND         B.ActionStatus    IN ('0','1') 
 	AND         YEAR(T.TransactionDate) = #year(now())#	
 	<cfelseif url.id1 eq "lastyear">
+	AND         B.ActionStatus    IN ('0','1') 
 	AND         YEAR(T.TransactionDate) = #year(now())-1#	
 	<cfelseif url.id1 eq "year2">
+	AND         B.ActionStatus    IN ('0','1') 
 	AND         YEAR(T.TransactionDate) = #year(now())-2#	
 	</cfif>
 	

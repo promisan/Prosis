@@ -38,7 +38,7 @@
 				<cfset s = StructNew()>
 				<cfset s.value   = "#MissionType#_type">
 				<cfset s.parent  = "">
-				<cfset s.display = "<span style='padding-bottom:6px;padding-top:6px;font-size:19px'>#MissionType#</span>">
+				<cfset s.display = "<span style='height:40px;padding-bottom:9px;padding-top:6px;padding-top:6px;font-size:20px;font-weight:bold'>#MissionType#</span>">
 				<cfset arrayAppend(result,s)/>
 				<cfset s.expand="true"/>
 				
@@ -56,7 +56,7 @@
 						datasource="AppsOrganization"
 						username="#SESSION.login#"
 						password="#SESSION.dbpw#">
-						SELECT  M.Mission, (SELECT count(*)
+						SELECT  M.Mission, M.MissionPrefix, (SELECT count(*)
 											FROM   Vacancy.dbo.Document D
 											WHERE  D.Mission = M.Mission
 											AND    EntityClass IS NOT NULL
@@ -105,9 +105,19 @@
 							method="vacancytree"
 							mission="#Mission#"
 							returnvariable="accessTree">
-
-					<cfset mis = Mission>
-
+							
+					<cfset mis = Mission>		
+							
+					<cf_wfPending 
+				     EntityCode           = "VacDocument" 
+					 EntityCodeIgnoreLast = "0"	
+					 entityCode2          = "VacCandidate" 
+					 mailfields           = "No" 
+					 includeCompleted     = "No" 	 
+					 Mission              = "#mis#"
+					 Mode                 = "table"
+					 table                = "#session.acc#_#missionprefix#_VacancyTrack">		
+				
 					<cfquery name="Mandate"
 							datasource="AppsOrganization"
 							maxrows=1
@@ -125,7 +135,7 @@
 						<cfset s.value   = "#mis#">
 						<cfset s.parent  = "root">
 						<cfset s.display = "<span class='labelit' style='padding-top:3px;padding-bottom:3px;font-size:17px'>#mis# [#total#]</span>">
-						<cfset s.href    = "ControlListing.cfm?ID=MIS&Mission=#Mis#&Status=0&Entity=Both&Parent=All">
+						<cfset s.href    = "ControlListingTrack.cfm?ID=MIS&Mission=#Mis#&Status=0&Entity=Both&Parent=All">
 						<cfset s.target  = "right">
 						<cfset arrayAppend(result,s)/>
 						<cfset s.expand = exp/>
@@ -136,402 +146,701 @@
 
 				<cfelseif find("_status",vmid) eq 0 and
 						find("_schedule",vmid) eq 0 and
+						find("_stage",vmid) eq 0 and
 						find("_org",vmid) eq 0 and
 						find("_parent",vmid) eq 0 and
+						find("_pos",vmid) eq 0 and						
+						find("_hier",vmid) eq 0 and
+						find("_can",vmid) eq 0 and
 						find("_pending",vmid) eq 0>
 					
 					<cfoutput>
 					
-					<cf_tl id="Tracks by Status and Stage" var="vTrack">	 
-				
-					<cfset s = StructNew()>
-					<cfset s.value   = "#vmid#_status">
-					<cfset s.parent  = "root">
-					<cfset s.display = "<span class='labelit' style='font-size:15px'>#vTrack#</span>">
-					<cfset s.expand   = "true"/>
-					<cfset s.leafnode = false/>
-					<cfset arrayAppend(result,s)/>
+						<cf_tl id="Track Status | Stage" var="vTrack">	 
 					
-					<cf_tl id="Main Track Actions" var="vSchedule">
-					
-					<cfset s = StructNew()>
-					<cfset s.value   = "#vmid#_schedule">
-					<cfset s.parent  = "root">
-					<cfset s.display = "<span class='labelit' style='font-size:15px'>#vSchedule#</span>">
-					<cfset s.href    =  "../Schedule/ScheduleCalendar.cfm?ID=SCH&Mission=#vmid#&systemfunctionid=#systemfunctionid#">
-					<cfset s.target   = "right">
-					<cfset s.expand   = "true"/>
-					<cfset s.leafnode = true/>
-					<cfset arrayAppend(result,s)/>		
-					
-					<cf_tl id="Active Tracks by Unit" var="vOrg">		
-	
-					<cfset s = StructNew()>
-					<cfset s.value   = "#vmid#_org">
-					<cfset s.parent  = "root">
-					<cfset s.display = "<span class='labelit' style='font-size:15px'>#vOrg#</span>">
-					<cfset s.expand="true"/>
-					<cfset s.leafnode=false/>
-					<cfset arrayAppend(result,s)/>
-					
-					<cf_tl id="Position Track status" var="vPos">		
-	
-					<cfset s = StructNew()>
-					<cfset s.value   = "#vmid#_pos">
-					<cfset s.parent  = "root">
-					<cfset s.display = "<span class='labelit' style='font-size:15px'>#vPos#</span>">
-					<cfset s.expand="true"/>
-					<cfset s.leafnode=false/>
-					<cfset arrayAppend(result,s)/>
+						<cfset s = StructNew()>
+						<cfset s.value    = "#vmid#_status">
+						<cfset s.parent   = "root">
+						<cfset s.display  = "<span class='labelit' style='font-size:15px'>#vTrack#</span>">
+						<cfset s.expand   = "true"/>
+						<cfset s.leafnode = false/>
+						<cfset arrayAppend(result,s)/>
+						
+						<cf_tl id="Track Process" var="vSchedule">
+						
+						<cfset s = StructNew()>
+						<cfset s.value    = "#vmid#_schedule">
+						<cfset s.parent   = "root">
+						<cfset s.display  = "<span class='labelit' style='font-size:15px'>#vSchedule#</span>">
+						<cfset s.href     =  "../Schedule/ScheduleCalendar.cfm?ID=SCH&Mission=#vmid#&systemfunctionid=#systemfunctionid#">
+						<cfset s.target   = "right">
+						<cfset s.expand   = "true"/>
+						<cfset s.leafnode = false/>
+						<cfset arrayAppend(result,s)/>		
+						
+						<cf_tl id="Post and Track" var="vPos">		
+		
+						<cfset s = StructNew()>
+						<cfset s.value    = "#vmid#_pos">
+						<cfset s.parent   = "root">
+						<cfset s.href     = "ControlListingPosition.cfm?ID=MIS&Mission=#vmid#&status=0&OrgUnitName=&HierarchyCode=&systemfunctionid=#systemfunctionid#">					
+						<cfset s.target   = "right">
+						<cfset s.display  = "<span class='labelit' style='font-size:15px'>#vPos#</span>">
+						<cfset s.expand   = "true"/>
+						<cfset s.leafnode = false/>
+						<cfset arrayAppend(result,s)/>
+						
+						<cf_tl id="Track Candidates" var="vCan">		
+		
+						<cfset s = StructNew()>
+						<cfset s.value     = "#vmid#_can">
+						<cfset s.parent    = "root">
+						<cfset s.href      = "ControlListingCandidate.cfm?ID=MIS&Mission=#vmid#&status=0&OrgUnitName=&HierarchyCode=&systemfunctionid=#systemfunctionid#">					
+						<cfset s.target    = "right">
+						<cfset s.display   = "<span class='labelit' style='font-size:15px'>#vCan#</span>">
+						<cfset s.expand    = "true"/>
+						<cfset s.leafnode  = false/>
+						<cfset arrayAppend(result,s)/>
 					
 					</cfoutput>
 
 				<cfelseif find("_status",vmid) neq 0>
 
-				<cfset mis = replace(vmid,"_status","")>
-
-				<cfquery name="Status"
-						datasource="AppsVacancy"
-						username="#SESSION.login#"
-						password="#SESSION.dbpw#">
-						SELECT  DISTINCT R.*,
-								(SELECT count(*)
-								 FROM   Vacancy.dbo.Document D
-								 WHERE  Status = R.Status
-								 <!---
-								 AND    D.DocumentNo IN (SELECT ObjectKeyValue1 FROM Organization.dbo.OrganizationObject WHERE EntityCode = 'VacDocument')
-								 --->
-								 AND    EntityClass IS NOT NULL
-								 AND    Mission = '#mis#'
-								 <!--- has a track track --->
-								 AND    D.DocumentNo IN (SELECT ObjectKeyValue1
-														 FROM   Organization.dbo.OrganizationObject
-														 WHERE  EntityCode = 'VacDocument')
-														 <!--- has at least one position associated to it --->
-														 AND    D.DocumentNo IN (SELECT DocumentNo
-																				 FROM   Vacancy.dbo.DocumentPost DP
-																				 WHERE  DP.DocumentNo = D.DocumentNo
-																				 AND    DP.PositionNo IN (SELECT PositionNo
-																										  FROM   Employee.dbo.Position
-																								  		  WHERE  PositionNo = DP.PositionNo)
-																			    )	
-								) as Total
-						FROM    Ref_Status R
-						WHERE   Class = 'Document'
-						ORDER BY R.Status
-				</cfquery>
-
-				<cfloop query="Status">
-
-					<cfset sta = Status.Status>
-					<cfswitch expression="#sta#">
-						<cfcase value="9">
-							<cfset  vcolor="FF0000">
-						</cfcase>
-						<cfcase value="1">
-							<cfset  vcolor="1EAB1B">
-						</cfcase>
-						<cfcase value="0">
-						</cfcase>
-					</cfswitch>
-
-					<cfif sta neq "0">
-
-						<cfset s = StructNew()>
-						<cfset s.value   = "#mis#_pending,#sta#">
-						<cfset s.parent  = "#mis#_status">
-						<cfset s.display = "<span class='labelit' style='font-size:14px;color:#vcolor#'>#Description#&nbsp;:&nbsp;#total#</span>">						
-						<cfset s.href    =  "ControlListing.cfm?ID=MIS&Mission=#mis#&Status=#Sta#&Entity=Both&Parent=All">
-						<cfset s.expand  = "false"/>
-						<cfset s.target  = "right">
-						<cfset s.leafnode = true/>
-						<cfset arrayAppend(result,s)/>
-
-					<cfelse>
-
-						<cfset s = StructNew()>
-						<cfset s.value   = "#mis#_pending,#sta#">
-						<cfset s.parent  = "#mis#_status">
-						<cfset s.display = "<span class='labelit' style='font-size:14px'>#Description#&nbsp;:&nbsp;#total#</span>">
-						<cfset s.href    = "ControlListing.cfm?ID=MIS&Mission=#mis#&Status=#Sta#&Entity=Both&Parent=All">
-						<cfset s.target  = "right">
-						<cfset s.expand  = "false"/>
-						<cfset s.leafnode = false/>
-						<cfset arrayAppend(result,s)/>
-
-					</cfif>
-
-				</cfloop>
+						<cfset mis = replace(vmid,"_status","")>
+		
+						<cfquery name="Status"
+								datasource="AppsVacancy"
+								username="#SESSION.login#"
+								password="#SESSION.dbpw#">
+								SELECT  DISTINCT R.*,
+										(SELECT count(*)
+										 FROM   Vacancy.dbo.Document D
+										 WHERE  Mission = '#mis#'
+										 AND    Status = R.Status		
+										 <!--- has a track --->
+										 AND    D.DocumentNo IN (SELECT ObjectKeyValue1
+																 FROM   Organization.dbo.OrganizationObject
+																 WHERE  EntityCode = 'VacDocument')
+										 <!--- has at least one position associated to it --->
+										 AND    D.DocumentNo IN (SELECT DocumentNo
+																 FROM   Vacancy.dbo.DocumentPost DP
+																 WHERE  DP.DocumentNo = D.DocumentNo
+																 AND    DP.PositionNo IN (SELECT PositionNo
+																						  FROM   Employee.dbo.Position
+																				  		  WHERE  PositionNo = DP.PositionNo)
+																					    )	
+										) as Total
+								FROM    Ref_Status R
+								WHERE   Class = 'Document'
+								ORDER BY R.Status
+						</cfquery>
+		
+						<cfloop query="Status">
+		
+							<cfset sta = Status.Status>
+							<cfswitch expression="#sta#">
+								<cfcase value="9">
+									<cfset  vcolor="FF0000">
+								</cfcase>
+								<cfcase value="1">
+									<cfset  vcolor="1EAB1B">
+								</cfcase>
+								<cfcase value="0">
+								</cfcase>
+							</cfswitch>
+		
+							<cfif sta neq "0">
+		
+								<cfset s = StructNew()>
+								<cfset s.value   = "#mis#_pending,#sta#">
+								<cfset s.parent  = "#mis#_status">
+								<cfset s.display = "<span class='labelit' style='font-size:15px;color:#vcolor#'>#Description#&nbsp;&nbsp;[#total#]</span>">						
+								<cfset s.href    =  "ControlListingTrack.cfm?ID=MIS&Mission=#mis#&Status=#Sta#&Entity=Both&Parent=All&systemfunctionid=#systemfunctionid#">
+								<cfset s.expand  = "false"/>
+								<cfset s.target  = "right">
+								<cfset s.leafnode = true/>
+								<cfset arrayAppend(result,s)/>
+		
+							<cfelse>
+		
+								<cfset s = StructNew()>
+								<cfset s.value   = "#mis#_pending">
+								<cfset s.parent  = "#mis#_status">
+								<cfset s.display = "<span class='labelit' style='font-size:15px'>#Description#&nbsp;&nbsp;[#total#]</span>">
+								<cfset s.href    = "ControlListingTrack.cfm?ID=MIS&Mission=#mis#&Status=#Sta#&Entity=Both&Parent=All&systemfunctionid=#systemfunctionid#">
+								<cfset s.target  = "right">
+								<cfset s.expand  = "false"/>
+								<cfset s.leafnode = false/>
+								<cfset arrayAppend(result,s)/>
+		
+							</cfif>
+		
+						</cfloop>
 
 				<cfelseif find("_pending",vmid) neq 0>
+				
+						<cfset mis = replace(vmid,"_pending","")>
+				
+						<cf_tl id="Track Process Stage" var="vStg">							
+		
+						<cfset s = StructNew()>
+						<cfset s.value   = "#mis#_stage,0">
+						<cfset s.parent  = "#mis#_pending">
+						<cfset s.display = "<span class='labelit' style='color:6688aa;font-size:15px'>#vStg#</span>">
+						<cfset s.expand="true"/>
+						<cfset s.leafnode=false/>
+						<cfset arrayAppend(result,s)/>
+																		
+						<cf_tl id="Track by Organization" var="vOrg">		
+		
+						<cfset s = StructNew()>
+						<cfset s.value   = "#mis#_org">
+						<cfset s.parent  = "#mis#_pending">
+						<cfset s.display = "<span class='labelit' style='color:6688aa;font-size:15px'>#vOrg#</span>">
+						<cfset s.expand="true"/>
+						<cfset s.leafnode=false/>
+						<cfset arrayAppend(result,s)/>						
+				
+				
+				<cfelseif find("_stage",vmid) neq 0>
 
-				<cfset clist = replace(vmid,"_pending","")>
-				<cfset i="1">
-
-				<cfloop list="#clist#" index="element" delimiters = ",">
-					<cfswitch expression="#i#">
-						<cfcase value="1">
-							<cfset mis = element>
-						</cfcase>
-						<cfcase value="2">
-							<cfset sta = element>
-						</cfcase>
-					</cfswitch>
-					<cfset i = i + 1>
-				</cfloop>
-
-				<cfquery name="Parent"
+						<cfset clist = replace(vmid,"_stage","")>
+						<cfset i="1">
+		
+						<cfloop list="#clist#" index="element" delimiters = ",">
+							<cfswitch expression="#i#">
+								<cfcase value="1">
+									<cfset mis = element>
+								</cfcase>
+								<cfcase value="2">
+									<cfset sta = element>
+								</cfcase>
+							</cfswitch>
+							<cfset i = i + 1>
+						</cfloop>
+		
+						<cfquery name="Parent"
+								datasource="AppsOrganization"
+								username="#SESSION.login#"
+								password="#SESSION.dbpw#">
+								SELECT *
+								FROM Organization.dbo.Ref_EntityActionParent RE
+								WHERE EntityCode = 'VacDocument'
+								AND EXISTS (SELECT *
+											FROM   OrganizationObject OO
+													INNER JOIN OrganizationObjectAction OA ON OA.ObjectId = OO.ObjectId
+													INNER JOIN Ref_EntityAction RA ON OA.ActionCode = RA.ActionCode
+											WHERE  OO.Mission = '#mis#'
+											AND    RA.ParentCode = RE.Code
+											AND    RA.EntityCode = RE.EntityCode
+											AND    OO.Owner = RE.Owner
+											)
+								ORDER BY ListingOrder
+								
+						</cfquery>
+		
+						<cfloop query="Parent">
+		
+							<cfset s = StructNew()>
+							<cfset s.value   = "#Description#">
+							<cfset s.parent  = "#vmid#_stage">
+							<cfset s.img     = "#SESSION.root#/Images/select.png">
+							<cfset s.display = "<span class='labelit' style='height:10px;font-size:12px'>#Description#</span>">
+							<cfset s.href    = "ControlListingTrack.cfm?ID=MIS&Mission=#mis#&Status=#Sta#&Entity=VacDocument&Parent=#Code#&systemfunctionid=#systemfunctionid#">
+							<cfset s.target  = "right">
+							<cfset s.expand="true"/>
+							<cfset s.leafnode=true/>
+							<cfset arrayAppend(result,s)/>
+		
+						</cfloop>
+		
+						<cfquery name="Parent"
+								datasource="AppsOrganization"
+								username="#SESSION.login#"
+								password="#SESSION.dbpw#">
+								SELECT *
+								FROM organization.dbo.Ref_EntityActionParent RE
+								WHERE EntityCode = 'VacCandidate'
+								AND EXISTS (SELECT * 
+											FROM OrganizationObject OO 
+												INNER JOIN OrganizationObjectAction OA ON OA.ObjectId = OO.ObjectId 
+												INNER JOIN Ref_EntityAction RA ON OA.ActionCode = RA.ActionCode
+											WHERE OO.Mission = '#mis#'
+											AND RA.ParentCode = RE.Code
+											AND RA.EntityCode = RE.EntityCode
+											AND OO.Owner      = RE.Owner )
+							    ORDER BY ListingOrder
+						</cfquery>
+		
+						<cfloop query="Parent">
+		
+							<cfset s = StructNew()>
+							<cfset s.value    = "#Description#">
+							<cfset s.parent   = "#vmid#_stage">
+							<cfset s.img      = "#SESSION.root#/Images/select.png">
+							<cfset s.display  = "<span class='labelit' style='font-size:12px'>#Description#</span>">
+							<cfset s.href     = "ControlListingTrack.cfm?ID=MIS&Mission=#Mis#&Status=#Sta#&Entity=VacCandidate&Parent=#Code#&systemfunctionid=#systemfunctionid#">
+							<cfset s.target   = "right">
+							<cfset s.expand   = "true"/>
+							<cfset s.leafnode = true/>
+							<cfset arrayAppend(result,s)/>
+		
+						</cfloop>
+				
+				<cfelseif find("_schedule",vmid) neq 0>
+				
+					<cfset mis = replace(vmid,"_schedule","")>
+					
+					<cfquery name="Mission"
 						datasource="AppsOrganization"
 						username="#SESSION.login#"
 						password="#SESSION.dbpw#">
 						SELECT *
-						FROM Organization.dbo.Ref_EntityActionParent RE
-						WHERE EntityCode = 'VacDocument'
-						AND EXISTS (SELECT *
-									FROM   OrganizationObject OO
-											INNER JOIN OrganizationObjectAction OA ON OA.ObjectId = OO.ObjectId
-											INNER JOIN Ref_EntityAction RA ON OA.ActionCode = RA.ActionCode
-									WHERE  OO.Mission = '#mis#'
-									AND    RA.ParentCode = RE.Code
-									AND    RA.EntityCode = RE.EntityCode
-									AND    OO.Owner = RE.Owner
-									)
-						ORDER BY ListingOrder
+						FROM   Ref_Mission
+						WHERE  Mission = '#mis#'
+					</cfquery>
+	
+					<cfquery name="Mandate"
+						datasource="AppsOrganization"
+						maxrows=1
+						username="#SESSION.login#"
+						password="#SESSION.dbpw#">
+						SELECT    *
+						FROM     Ref_Mandate
+						WHERE    Mission = '#mis#'
+						ORDER BY MandateDefault DESC, MandateNo DESC
+					</cfquery>
+	
+					<cfquery name="Level01"
+							datasource="AppsOrganization"
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT *
+							FROM   Organization O
+							WHERE (O.ParentOrgUnit is NULL OR O.ParentOrgUnit = '')
+							AND   O.Mission = '#mis#'							
+										  
+							AND   O.MandateNo = '#Mandate.MandateNo#'
+							ORDER BY TreeOrder, OrgUnitName
+					</cfquery>
+									
+					<cfloop query="level01">                  							
+	
+					    <cfquery datasource="AppsVacancy" name="qDocument">
+							SELECT COUNT(DISTINCT D.DocumentNo) as Total
+							FROM   Document D 
+								   INNER JOIN DocumentPost DP                  ON D.DocumentNo = DP.DocumentNo 
+								   INNER JOIN Employee.dbo.Position P          ON DP.PositionNo = P.PositionNo
+								   INNER JOIN Organization.dbo.Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+								   INNER JOIN userQuery.dbo.#session.acc#_#Mission.MissionPrefix#_VacancyTrack as T ON D.DocumentNo = T.ObjectKeyValue1
+							WHERE  O2.HierarchyCode like '#HierarchyCode#%'
+							AND    D.Mission        = '#mis#'
+							AND    O2.MandateNo     = '#Mandate.MandateNo#'
+							AND    D.Status = '0'
+						</cfquery>
 						
-				</cfquery>
-
-				<cfloop query="Parent">
-
-					<cfset s = StructNew()>
-					<cfset s.value   = "#Description#">
-					<cfset s.parent  = "#vmid#">
-					<cfset s.display = "<span class='labelit' style='font-size:12px'>#Description#</span>">
-					<cfset s.href    = "ControlListing.cfm?ID=MIS&Mission=#mis#&Status=#Sta#&Entity=VacDocument&Parent=#Code#">
-					<cfset s.target  = "right">
-					<cfset s.expand="true"/>
-					<cfset s.leafnode=true/>
-					<cfset arrayAppend(result,s)/>
-
-				</cfloop>
-
-				<cfquery name="Parent"
-						datasource="AppsOrganization"
-						username="#SESSION.login#"
-						password="#SESSION.dbpw#">
-						SELECT *
-						FROM organization.dbo.Ref_EntityActionParent RE
-						WHERE EntityCode = 'VacCandidate'
-						AND EXISTS (SELECT * 
-									FROM OrganizationObject OO 
-										INNER JOIN OrganizationObjectAction OA ON OA.ObjectId = OO.ObjectId 
-										INNER JOIN Ref_EntityAction RA ON OA.ActionCode = RA.ActionCode
-									WHERE OO.Mission = '#mis#'
-									AND RA.ParentCode = RE.Code
-									AND RA.EntityCode = RE.EntityCode
-									AND OO.Owner      = RE.Owner )
-					    ORDER BY ListingOrder
-				</cfquery>
-
-				<cfloop query="Parent">
-
-					<cfset s = StructNew()>
-					<cfset s.value    = "#Description#">
-					<cfset s.parent   = "#vmid#">
-					<cfset s.display  = "<span class='labelit' style='font-size:12px'>#Description#</span>">
-					<cfset s.href     = "ControlListing.cfm?ID=MIS&Mission=#Mis#&Status=#Sta#&Entity=VacCandidate&Parent=#Code#">
-					<cfset s.target   = "right">
-					<cfset s.expand   = "true"/>
-					<cfset s.leafnode = true/>
-					<cfset arrayAppend(result,s)/>
-
-				</cfloop>
+						<cfif OrgUnitNameShort eq "">
+							<cfset desc1 = OrgUnitName>
+						<cfelse>
+							<cfset desc1 = OrgUnitNameShort>
+						</cfif>
+	
+						<cfset s = StructNew()>
+						<cfset s.value    = "#mis#_parent,#OrgUnitCode#,#HierarchyRootUnit#">
+						<cfset s.parent   = "#mis#_schedule">
+						<cfset s.display  = "#desc1# [#qDocument.Total#]">
+						<cfset s.href     = "../Schedule/ScheduleCalendar.cfm?ID=SCH&Mission=#mis#&systemfunctionid=#systemfunctionid#&OrgUnitName=#OrgUnitName#&HierarchyCode=#HierarchyCode#">
+						<cfset s.target   = "right">
+						<cfset s.expand   = "false"/>
+						<cfset arrayAppend(result,s)/>
+	
+					</cfloop>								
 
 				<cfelseif find("_org",vmid) neq 0>
 
-				<cfset mis = replace(vmid,"_org","")>
+						<cfset mis = replace(vmid,"_org","")>
+						
+						<cfquery name="Mission"
+							datasource="AppsOrganization"
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT *
+							FROM   Ref_Mission
+							WHERE  Mission = '#mis#'
+						</cfquery>
+		
+						<cfquery name="Mandate"
+							datasource="AppsOrganization"
+							maxrows=1
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT    *
+							FROM     Ref_Mandate
+							WHERE    Mission = '#mis#'
+							ORDER BY MandateDefault DESC, MandateNo DESC
+						</cfquery>
+		
+						<cfquery name="Level01"
+								datasource="AppsOrganization"
+								username="#SESSION.login#"
+								password="#SESSION.dbpw#">
+								SELECT *
+								FROM   Organization O
+								WHERE (O.ParentOrgUnit is NULL OR O.ParentOrgUnit = '')
+								AND   O.Mission = '#mis#'
+								<!---
+								AND   EXISTS (SELECT 'X'
+											  FROM Vacancy.dbo.Document D 
+												   INNER JOIN Vacancy.dbo.DocumentPost DP ON D.DocumentNo = DP.DocumentNo 
+												   INNER JOIN Employee.dbo.Position P ON DP.PositionNo = P.PositionNo
+												   INNER JOIN Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+												   INNER JOIN Userquery.dbo.#SESSION.acc#Doc3_#CLIENT.FileNo# T  ON T.ObjectKeyValue1 = D.DocumentNo
+											  WHERE D.Mission ='#mis#'
+											  AND   O.HierarchyRootUnit = O2.HierarchyRootUnit
+											  AND   D.Status != '9' )
+											  
+											  --->
+											  
+								AND   O.MandateNo = '#Mandate.MandateNo#'
+								ORDER BY TreeOrder, OrgUnitName
+						</cfquery>
+										
+						<cfloop query="level01">                  							
+		
+						    <cfquery datasource="AppsVacancy" name="qDocument">
+								SELECT COUNT(DISTINCT D.DocumentNo) as Total
+								FROM   Document D 
+									   INNER JOIN DocumentPost DP                  ON D.DocumentNo = DP.DocumentNo 
+									   INNER JOIN Employee.dbo.Position P          ON DP.PositionNo = P.PositionNo
+									   INNER JOIN Organization.dbo.Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+									   INNER JOIN userQuery.dbo.#session.acc#_#Mission.MissionPrefix#_VacancyTrack as T ON D.DocumentNo = T.ObjectKeyValue1
+								WHERE  O2.HierarchyCode like '#HierarchyCode#%'
+								AND    D.Mission        = '#mis#'
+								AND    O2.MandateNo     = '#Mandate.MandateNo#'
+								AND    D.Status = '0'
+							</cfquery>
+							
+							<cfif OrgUnitNameShort eq "">
+								<cfset desc1 = OrgUnitName>
+							<cfelse>
+								<cfset desc1 = OrgUnitNameShort>
+							</cfif>
+		
+							<cfset s = StructNew()>
+							<cfset s.value    = "#mis#_parent,#OrgUnitCode#,#HierarchyRootUnit#">
+							<cfset s.parent   = "#mis#_pos">
+							<cfset s.display  = "#desc1# [#qDocument.Total#]">
+							<cfset s.href     = "ControlListingTrack.cfm?ID=MIS&Mission=#Mis#&HierarchyRootUnit=#HierarchyRootUnit#&OrgUnitName=#OrgUnitName#&HierarchyCode=#HierarchyCode#&systemfunctionid=#systemfunctionid#">
+							<cfset s.target   = "right">
+							<cfset s.expand   = "false"/>
+							<cfset arrayAppend(result,s)/>
+		
+						</cfloop>
+				
+				<cfelseif find("_pos",vmid) neq 0>
 
-				<cfquery name="Mandate"
-						datasource="AppsOrganization"
-						maxrows=1
-						username="#SESSION.login#"
-						password="#SESSION.dbpw#">
-					SELECT    *
-					FROM     Ref_Mandate
-					WHERE    Mission = '#mis#'
-				ORDER BY MandateDefault DESC, MandateNo DESC
-				</cfquery>
-
-				<cfquery name="Level01"
-						datasource="AppsOrganization"
-						username="#SESSION.login#"
-						password="#SESSION.dbpw#">
+					<cfset mis = replace(vmid,"_pos","")>
+					
+					<cfquery name="Mission"
+					datasource="AppsOrganization"
+					username="#SESSION.login#"
+					password="#SESSION.dbpw#">
 						SELECT *
-						FROM   Organization O
-						WHERE (O.ParentOrgUnit is NULL OR O.ParentOrgUnit = '')
-						AND   O.Mission = '#mis#'
-						<!---
-						AND   EXISTS (SELECT 'X'
-									  FROM Vacancy.dbo.Document D 
-										   INNER JOIN Vacancy.dbo.DocumentPost DP ON D.DocumentNo = DP.DocumentNo 
-										   INNER JOIN Employee.dbo.Position P ON DP.PositionNo = P.PositionNo
-										   INNER JOIN Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
-										   INNER JOIN Userquery.dbo.#SESSION.acc#Doc3_#CLIENT.FileNo# T  ON T.ObjectKeyValue1 = D.DocumentNo
-									  WHERE D.Mission ='#mis#'
-									  AND   O.HierarchyRootUnit = O2.HierarchyRootUnit
-									  AND   D.Status != '9' )
-									  
-									  --->
-									  
-						AND   O.MandateNo = '#Mandate.MandateNo#'
-						ORDER BY TreeOrder, OrgUnitName
-				</cfquery>
-				
-				<cf_wfPending 
-				     EntityCode           = "VacDocument" 
-					 EntityCodeIgnoreLast = "0"	
-					 entityCode2          = "VacCandidate" 
-					 mailfields           = "No" 
-					 includeCompleted     = "No" 	 
-					 Mission              = "#mis#"
-					 Mode                 = "subquery">	  
-
-				<cfloop query="level01">
-				
-				    <cfquery datasource="AppsVacancy" name="qDocument">
-						SELECT COUNT(DISTINCT D.DocumentNo) as Total
-						FROM   Document D 
-							   INNER JOIN DocumentPost DP                  ON D.DocumentNo = DP.DocumentNo 
-							   INNER JOIN Employee.dbo.Position P          ON DP.PositionNo = P.PositionNo
-							   INNER JOIN Organization.dbo.Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
-							   INNER JOIN (#preserveSingleQuotes(WorkFlowSteps)#) as T ON D.DocumentNo = T.ObjectKeyValue1
-						WHERE  O2.HierarchyCode like '#HierarchyCode#%'
-						AND    D.Mission        = '#mis#'
-						AND    O2.MandateNo     = '#Mandate.MandateNo#'
-						AND    D.Status = '0'
+						FROM   Ref_Mission
+						WHERE  Mission = '#mis#'
+				    </cfquery>
+	
+					<cfquery name="Mandate"
+							datasource="AppsOrganization"
+							maxrows=1
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT    *
+							FROM     Ref_Mandate
+							WHERE    Mission = '#mis#'
+							ORDER BY MandateDefault DESC, MandateNo DESC
 					</cfquery>
-
-					<cfif OrgUnitNameShort eq "">
-						<cfset desc1 = OrgUnitName>
-					<cfelse>
-						<cfset desc1 = OrgUnitNameShort>
-					</cfif>
-
-					<cfset s = StructNew()>
-					<cfset s.value    = "#mis#_parent,#OrgUnitCode#,#HierarchyRootUnit#">
-					<cfset s.parent   = "#mis#_org">
-					<cfset s.display  = "#desc1# [#qDocument.Total#]">
-					<cfset s.href     = "ControlListing.cfm?ID=MIS&Mission=#Mis#&HierarchyRootUnit=#HierarchyRootUnit#&OrgUnitName=#OrgUnitName#&HierarchyCode=#HierarchyCode#">
-					<cfset s.target   = "right">
-					<cfset s.expand   = "false"/>
-					<cfset arrayAppend(result,s)/>
-
-				</cfloop>
+	
+					<cfquery name="Level01"
+							datasource="AppsOrganization"
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT *
+							FROM   Organization O
+							WHERE (O.ParentOrgUnit is NULL OR O.ParentOrgUnit = '')
+							AND   O.Mission = '#mis#'
+							<!---
+							AND   EXISTS (SELECT 'X'
+										  FROM Vacancy.dbo.Document D 
+											   INNER JOIN Vacancy.dbo.DocumentPost DP ON D.DocumentNo = DP.DocumentNo 
+											   INNER JOIN Employee.dbo.Position P ON DP.PositionNo = P.PositionNo
+											   INNER JOIN Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+											   INNER JOIN Userquery.dbo.#SESSION.acc#Doc3_#CLIENT.FileNo# T  ON T.ObjectKeyValue1 = D.DocumentNo
+										  WHERE D.Mission ='#mis#'
+										  AND   O.HierarchyRootUnit = O2.HierarchyRootUnit
+										  AND   D.Status != '9' )
+										  
+										  --->
+										  
+							AND   O.MandateNo = '#Mandate.MandateNo#'
+							ORDER BY TreeOrder, OrgUnitName
+					</cfquery>
+						
+					<cfloop query="level01">
+					
+					    <!---
+						
+					    <cfquery datasource="AppsVacancy" name="qDocument">
+							SELECT COUNT(DISTINCT D.DocumentNo) as Total
+							FROM   Document D 
+								   INNER JOIN DocumentPost DP                  ON D.DocumentNo = DP.DocumentNo 
+								   INNER JOIN Employee.dbo.Position P          ON DP.PositionNo = P.PositionNo
+								   INNER JOIN Organization.dbo.Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+								   INNER JOIN (#preserveSingleQuotes(WorkFlowSteps)#) as T ON D.DocumentNo = T.ObjectKeyValue1
+							WHERE  O2.HierarchyCode like '#HierarchyCode#%'
+							AND    D.Mission        = '#mis#'
+							AND    O2.MandateNo     = '#Mandate.MandateNo#'
+							AND    D.Status = '0'
+						</cfquery>
+						
+						--->
+	
+						<cfif OrgUnitNameShort eq "">
+							<cfset desc1 = OrgUnitName>
+						<cfelse>
+							<cfset desc1 = OrgUnitNameShort>
+						</cfif>
+	
+						<cfset s = StructNew()>
+						<cfset s.value    = "#mis#_hier,#OrgUnitCode#,#HierarchyRootUnit#">
+						<cfset s.parent   = "#mis#_pos">
+						<cfset s.display  = "#desc1#">
+						<cfset s.href     = "ControlListingPosition.cfm?ID=MIS&Mission=#Mis#&HierarchyRootUnit=#HierarchyRootUnit#&OrgUnitName=#OrgUnitName#&HierarchyCode=#HierarchyCode#&systemfunctionid=#systemfunctionid#">
+						<cfset s.target   = "right">
+						<cfset s.expand   = "false"/>
+						<cfset arrayAppend(result,s)/>
+	
+					</cfloop>
 
 				<cfelseif find("_parent",vmid) neq 0>
 
-				<cfset clist = replace(vmid,"_parent","")>
-				<cfset i="1">
-
-				<cfloop list="#clist#" index="element" delimiters = ",">
-					<cfswitch expression="#i#">
-						<cfcase value="1">
-							<cfset mis = element>
-						</cfcase>
-						<cfcase value="2">
-							<cfset ou = element>
-						</cfcase>
-						<cfcase value="3">
-							<cfset hu = element>
-						</cfcase>
-					</cfswitch>
-					<cfset i = i + 1>
-				</cfloop>
-
-				<cfquery name="Mandate"
-						datasource="AppsOrganization"
-						maxrows=1
-						username="#SESSION.login#"
-						password="#SESSION.dbpw#">
-						SELECT *
-						FROM    Ref_Mandate
-						WHERE   Mission = '#mis#'
-						ORDER BY MandateDefault DESC, MandateNo DESC
-				</cfquery>
-
-				<cfquery name="Level02"
-						datasource="AppsOrganization"
-						username="#SESSION.login#"
-						password="#SESSION.dbpw#">
-						SELECT *
-						FROM   Organization O
-						WHERE  ParentOrgUnit = '#hu#'
-						AND    O.Mission = '#mis#'
-						<!--- show all level 2 units
-						AND EXISTS	(
-									SELECT 'X'
-									FROM Vacancy.dbo.Document D 
-										INNER JOIN Vacancy.dbo.DocumentPost DP ON D.DocumentNo = DP.DocumentNo 
-										INNER JOIN Employee.dbo.Position P ON DP.PositionNo = P.PositionNo
-										INNER JOIN  Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
-										INNER JOIN Userquery.dbo.#SESSION.acc#Doc3_#CLIENT.FileNo# T  ON T.ObjectKeyValue1 = D.DocumentNo
-									WHERE D.Mission ='#mis#'
-									AND   Left(O2.HierarchyCode,5) = O.HierarchyCode
-									AND   O2.ParentOrgUnit = O.ParentOrgUnit
-									AND   O2.MandateNo = '#Mandate.MandateNo#'
-									AND   O2.HierarchyRootUnit = '#ou#'
-									AND   D.Status != '9'
-									)
-									--->
-						AND O.MandateNo = '#Mandate.MandateNo#'
-						ORDER BY TreeOrder, OrgUnitName
-				</cfquery>
-								
-								
-				<cf_wfPending 
-				     EntityCode           = "VacDocument" 
-					 EntityCodeIgnoreLast = "0"	
-					 entityCode2          = "VacCandidate" 
-					 mailfields           = "No" 
-					 includeCompleted     = "No" 	 
-					 Mission              = "#mis#"
-					 Mode                 = "subquery">	  
-				
-				
-				<cfloop query="level02">
-
-				
-					<cfquery datasource="AppsVacancy" name="qDocument">
-						SELECT COUNT(DISTINCT D.DocumentNo) as Total
-						FROM   Document D 
-							   INNER JOIN DocumentPost DP                  ON D.DocumentNo = DP.DocumentNo 
-							   INNER JOIN Employee.dbo.Position P          ON DP.PositionNo = P.PositionNo
-							   INNER JOIN Organization.dbo.Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
-							   INNER JOIN (#preserveSingleQuotes(WorkFlowSteps)#) as T ON D.DocumentNo = T.ObjectKeyValue1
-						WHERE  O2.HierarchyCode like '#HierarchyCode#%'
-						AND    D.Mission        = '#mis#'
-						AND    O2.MandateNo     = '#Mandate.MandateNo#'
-						AND    D.Status = '0'
-					</cfquery>
+					<cfset clist = replace(vmid,"_parent","")>
+					<cfset i="1">
+	
+					<cfloop list="#clist#" index="element" delimiters = ",">
+						<cfswitch expression="#i#">
+							<cfcase value="1">
+								<cfset mis = element>
+							</cfcase>
+							<cfcase value="2">
+								<cfset ou = element>
+							</cfcase>
+							<cfcase value="3">
+								<cfset hu = element>
+							</cfcase>
+						</cfswitch>
+						<cfset i = i + 1>
+					</cfloop>
 					
-					<cfset org2 = orgunit>
-					<cfif OrgUnitNameShort eq "">
-						<cfset desc2 = OrgUnitName>
-					<cfelse>
-						<cfset desc2 = OrgUnitNameShort>
-					</cfif>
+					<cfquery name="Mission"
+						datasource="AppsOrganization"
+						username="#SESSION.login#"
+						password="#SESSION.dbpw#">
+						SELECT *
+						FROM   Ref_Mission
+						WHERE  Mission = '#mis#'
+					</cfquery>
+	
+					<cfquery name="Mandate"
+							datasource="AppsOrganization"
+							maxrows=1
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT *
+							FROM    Ref_Mandate
+							WHERE   Mission = '#mis#'
+							ORDER BY MandateDefault DESC, MandateNo DESC
+					</cfquery>
+	
+					<cfquery name="Level02"
+							datasource="AppsOrganization"
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT *
+							FROM   Organization O
+							WHERE  ParentOrgUnit = '#hu#'
+							AND    O.Mission = '#mis#'
+							<!--- show all level 2 units
+							AND EXISTS	(
+										SELECT 'X'
+										FROM Vacancy.dbo.Document D 
+											INNER JOIN Vacancy.dbo.DocumentPost DP ON D.DocumentNo = DP.DocumentNo 
+											INNER JOIN Employee.dbo.Position P ON DP.PositionNo = P.PositionNo
+											INNER JOIN  Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+											INNER JOIN Userquery.dbo.#SESSION.acc#Doc3_#CLIENT.FileNo# T  ON T.ObjectKeyValue1 = D.DocumentNo
+										WHERE D.Mission ='#mis#'
+										AND   Left(O2.HierarchyCode,5) = O.HierarchyCode
+										AND   O2.ParentOrgUnit = O.ParentOrgUnit
+										AND   O2.MandateNo = '#Mandate.MandateNo#'
+										AND   O2.HierarchyRootUnit = '#ou#'
+										AND   D.Status != '9'
+										)
+										--->
+							AND O.MandateNo = '#Mandate.MandateNo#'
+							ORDER BY TreeOrder, OrgUnitName
+					</cfquery>								
+										
+					<cfloop query="level02">
+					
+						<cfquery datasource="AppsVacancy" name="qDocument">
+							SELECT COUNT(DISTINCT D.DocumentNo) as Total
+							FROM   Document D 
+								   INNER JOIN DocumentPost DP                  ON D.DocumentNo = DP.DocumentNo 
+								   INNER JOIN Employee.dbo.Position P          ON DP.PositionNo = P.PositionNo
+								   INNER JOIN Organization.dbo.Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+								   INNER JOIN userQuery.dbo.#session.acc#_#Mission.MissionPrefix#_VacancyTrack as T ON D.DocumentNo = T.ObjectKeyValue1
+							WHERE  O2.HierarchyCode like '#HierarchyCode#%'
+							AND    D.Mission        = '#mis#'
+							AND    O2.MandateNo     = '#Mandate.MandateNo#'
+							AND    D.Status = '0'
+						</cfquery>
+						
+						<cfset org2 = orgunit>
+						<cfif OrgUnitNameShort eq "">
+							<cfset desc2 = OrgUnitName>
+						<cfelse>
+							<cfset desc2 = OrgUnitNameShort>
+						</cfif>
+	
+						<cfset s2 = StructNew()>
+						<cfset s2.value    = "#OrgUnit#">
+						<cfset s2.parent   = "#mis#_parent,#ou#,#hu#">
+						<cfset s2.display  = "#desc2# [#qDocument.Total#]">
+						<cfset s2.img      = "#SESSION.root#/Images/select.png">
+						<cfset s2.href     = "ControlListingTrack.cfm?ID=MIS&Mission=#Mis#&HierarchyRootUnit=#HierarchyRootUnit#&OrgUnitName=#desc2#&HierarchyCode=#HierarchyCode#&systemfunctionid=#systemfunctionid#">
+						<cfset s2.target   = "right">
+						<cfset s2.expand   = "false"/>
+						<cfset s2.leafnode = true/>
+						<cfset arrayAppend(result,s2)/>
+	
+					</cfloop>
+				
+			<cfelseif find("_hier",vmid) neq 0>
 
-					<cfset s2 = StructNew()>
-					<cfset s2.value    = "#OrgUnit#">
-					<cfset s2.parent   = "#mis#_parent,#ou#,#hu#">
-					<cfset s2.display  = "#desc2# [#qDocument.Total#]">
-					<cfset s2.img      = "#SESSION.root#/Images/select.png">
-					<cfset s2.href     = "ControlListing.cfm?ID=MIS&Mission=#Mis#&HierarchyRootUnit=#HierarchyRootUnit#&OrgUnitName=#desc2#&HierarchyCode=#HierarchyCode#">
-					<cfset s2.target   = "right">
-					<cfset s2.expand   = "false"/>
-					<cfset s2.leafnode = true/>
-					<cfset arrayAppend(result,s2)/>
+						<cfset clist = replace(vmid,"_hier","")>
+						<cfset i="1">
+		
+						<cfloop list="#clist#" index="element" delimiters = ",">
+							<cfswitch expression="#i#">
+								<cfcase value="1">
+									<cfset mis = element>
+								</cfcase>
+								<cfcase value="2">
+									<cfset ou = element>
+								</cfcase>
+								<cfcase value="3">
+									<cfset hu = element>
+								</cfcase>
+							</cfswitch>
+							<cfset i = i + 1>
+						</cfloop>
+		
+						<cfquery name="Mandate"
+								datasource="AppsOrganization"
+								maxrows=1
+								username="#SESSION.login#"
+								password="#SESSION.dbpw#">
+								SELECT *
+								FROM    Ref_Mandate
+								WHERE   Mission = '#mis#'
+								ORDER BY MandateDefault DESC, MandateNo DESC
+						</cfquery>
+		
+						<cfquery name="Level02"
+							datasource="AppsOrganization"
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT *
+							FROM   Organization O
+							WHERE  ParentOrgUnit = '#hu#'
+							AND    O.Mission = '#mis#'
+							<!--- show all level 2 units
+							AND EXISTS	(
+										SELECT 'X'
+										FROM Vacancy.dbo.Document D 
+											INNER JOIN Vacancy.dbo.DocumentPost DP ON D.DocumentNo = DP.DocumentNo 
+											INNER JOIN Employee.dbo.Position P ON DP.PositionNo = P.PositionNo
+											INNER JOIN  Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+											INNER JOIN Userquery.dbo.#SESSION.acc#Doc3_#CLIENT.FileNo# T  ON T.ObjectKeyValue1 = D.DocumentNo
+										WHERE D.Mission ='#mis#'
+										AND   Left(O2.HierarchyCode,5) = O.HierarchyCode
+										AND   O2.ParentOrgUnit = O.ParentOrgUnit
+										AND   O2.MandateNo = '#Mandate.MandateNo#'
+										AND   O2.HierarchyRootUnit = '#ou#'
+										AND   D.Status != '9'
+										)
+										--->
+							AND O.MandateNo = '#Mandate.MandateNo#'
+							ORDER BY TreeOrder, OrgUnitName
+						</cfquery>								
+					
+							<cfloop query="level02">
+							
+							    <!---
+							
+								<cfquery datasource="AppsVacancy" name="qDocument">
+									SELECT COUNT(DISTINCT D.DocumentNo) as Total
+									FROM   Document D 
+										   INNER JOIN DocumentPost DP                  ON D.DocumentNo = DP.DocumentNo 
+										   INNER JOIN Employee.dbo.Position P          ON DP.PositionNo = P.PositionNo
+										   INNER JOIN Organization.dbo.Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+										   INNER JOIN (#preserveSingleQuotes(WorkFlowSteps)#) as T ON D.DocumentNo = T.ObjectKeyValue1
+									WHERE  O2.HierarchyCode like '#HierarchyCode#%'
+									AND    D.Mission        = '#mis#'
+									AND    O2.MandateNo     = '#Mandate.MandateNo#'
+									AND    D.Status = '0'
+								</cfquery>
+								
+								--->
+								
+								<cfset org2 = orgunit>
+								<cfif OrgUnitNameShort eq "">
+									<cfset desc2 = OrgUnitName>
+								<cfelse>
+									<cfset desc2 = OrgUnitNameShort>
+								</cfif>
+			
+								<cfset s2 = StructNew()>
+								<cfset s2.value    = "#OrgUnit#">
+								<cfset s2.parent   = "#mis#_hier,#ou#,#hu#">
+								<cfset s2.display  = "#desc2# ">
+								<cfset s2.img      = "#SESSION.root#/Images/select.png">
+								<cfset s2.href     = "ControlListingPosition.cfm?ID=MIS&Mission=#Mis#&status=0&OrgUnitName=#desc2#&HierarchyCode=#HierarchyCode#&systemfunctionid=#systemfunctionid#">
+								<cfset s2.target   = "right">
+								<cfset s2.expand   = "false"/>
+								<cfset s2.leafnode = true/>
+								<cfset arrayAppend(result,s2)/>
+		
+						</cfloop>
+				
+			<cfelseif find("_can",vmid) neq 0>
 
-				</cfloop>
+				   <cfset mis = replace(vmid,"_can","")>
+				   
+				   <cfloop index="yr" list="2022,2021,2020,2019">		
+
+						<cfset s2 = StructNew()>
+						<cfset s2.value    = "#yr#">
+						<cfset s2.parent   = "#mis#_can">
+						<cfset s2.display  = "#yr#">
+						<cfset s2.img      = "#SESSION.root#/Images/select.png">
+						<cfset s2.href     = "ControlListingCandidate.cfm?ID=MIS&Mission=#mis#&status=0&OrgUnitName=&HierarchyCode=&systemfunctionid=#systemfunctionid#&year=#yr#">
+						<cfset s2.target   = "right">
+						<cfset s2.expand   = "false"/>
+						<cfset s2.leafnode = true/>
+						<cfset arrayAppend(result,s2)/>
+					
+					</cfloop>		
 
 			</cfif>
 

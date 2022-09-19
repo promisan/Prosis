@@ -46,7 +46,7 @@ password="#SESSION.dbpw#">
 <cf_assignid>
 <cfset documentid = rowguid>
 	
-<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="98%" align="center">
 
 	    <tr><td height="4"></td></tr>
 				
@@ -60,25 +60,23 @@ password="#SESSION.dbpw#">
 		
 		<cfform method="POST" name="myfield" onsubmit="#ret#">
 									
-	    <table width="100%" class="formpadding navigation_table">
+	    <table width="100%" class="navigation_table formpadding">
 			
 	    <TR class="labelmedium line fixrow" style="height:15px">
 		
-		   <td style="background-color:white;padding-left:4px;min-width:150px"><cf_tl id="Code"></td>
+		   <td class="fixlength" style="background-color:white;padding-left:4px"><cf_tl id="Code"></td>
 		   <cfif url.type neq "Attach" and url.type neq "Field"> 
-		   <td style="background-color:white" width="80%"><cf_tl id="Description"></td>
+		   <td class="fixlength" style="background-color:white" width="60%"><cf_tl id="Description"></td>
 		   <cfelse>
-		   <td style="background-color:white" width="80%"><cf_tl id="Name"></td>
+		   <td class="fixlength" style="background-color:white" width="60%"><cf_tl id="Name"></td>
 		   </cfif>
-		   <td style="cursor:pointer;background-color:white">
-		   	<cf_UIToolTip tooltip="Refer to Prosis Developer reference for instructions on how to define the mode based on the developed embedded form">
-			<font color="gray">
-			<cf_tl id="Usage"></cf_UIToolTip>
+		   <td style="cursor:pointer;background-color:white" title="Refer to Prosis Developer reference for instructions on how to define the mode based on the developed embedded form">
+		  	<cf_tl id="Usage">
 		   </td>		   
 		   <cfif url.type neq "Attach" and url.type neq "Field"> 
 		   <td style="background-color:white" width="4%"></td>
 		   <cfelseif url.type eq "Field">
-		   <td style="background-color:white;min-width:130px">
+		   <td style="padding-left:4px;background-color:white;min-width:130px">
 		   	<table>
 		   		<tr class="labelmedium">
 					<td style="background-color:white" width="40"><cf_tl id="Obl"></td>
@@ -88,7 +86,7 @@ password="#SESSION.dbpw#">
 		  	</table>
 		   </td>
 		   <cfelseif url.type eq "Attach">
-		   <td style="background-color:white;min-width:30px"><cf_tl id="Obl"></td>
+		   <td style="padding-left:4px;background-color:white;min-width:30px"><cf_tl id="Obl"></td>
 		   </cfif>
 		   <td style="background-color:white;min-width:30px">
 			   <cf_UIToolTip tooltip="Listing order"><font color="000000"><cf_tl id="Sort"></cf_UIToolTip>
@@ -117,25 +115,30 @@ password="#SESSION.dbpw#">
 											
 			<TR style="background-color:ffffff" class="line">
 			
-			<td style="height:100%;padding-left:4px;border-right:1px solid silver;border-left:1px solid silver;">		
+			<td style="height:100%;padding-right:4px;padding-left:4px;border-right:1px solid silver;border-left:1px solid silver;">		
 			
-				<table height="100%" width="100%">
-				<tr><td height="100%">
+				<table height="100%" width="98%">
+				
+				<tr><td height="100%" style="padding-right:4px">
 			
 			    <cfinput type="Text" 
 			         value="" 
 					 name="DocumentCode" 
-					 style="border:0px solid silver;background-color:f1f1f1;width:98%;height:100%"
+					 style="border:1px solid silver;background-color:f1f1f1;width:100%;height:100%;min-width:55px;text-align:center"
 					 message="You must enter a code" 
 					 required="Yes" 
 					 size="10" 
 					 maxlength="20" 
 					 onkeyUp="_cf_loadingtexthtml='';ptoken.navigate('#session.root#/System/EntityAction/EntityObject/getCodeCheck.cfm?entitycode=#url.entitycode#&value='+this.value,'codecheck')"
-					 class="regularxl">
-					 
+					 class="regularxl">	
+					 				 
 					</td>
-					<td id="codecheck" align="right" style="min-width:20px;padding-right:4px">
-					</tr></table>	 
+					
+					<td id="codecheck" align="center" style="border:1px solid silver;min-width:20px;border-radius:10px;">
+				
+				</tr>
+					
+				</table>	 
 					
 	        </td>	
 								   
@@ -151,7 +154,7 @@ password="#SESSION.dbpw#">
 					Required        = "Yes"
 					Message         = "Please enter a description"
 					MaxLength       = "80"
-					style           = "width:98%;border:0px;background-color:transparent"					
+					style           = "width:98%;border:1px dotted silver;background-color:transparent"					
 					Class           = "regularxl">		
 											
 			</td>
@@ -195,8 +198,8 @@ password="#SESSION.dbpw#">
 				  </select>       
 				<cfelseif URL.type eq "attach"> 				
 				 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:98%;background-color:transparent">
-				   <option value="Header" selected>Header</option>
-				   <option value="Step">Step</option>
+				   <option value="Header" selected>Entity Object Header</option>
+				   <option value="Step">Workflow step</option>
 				 </select>   
 				<cfelseif URL.type eq "script"> 				
 				 <select name="DocumentMode" id="DocumentMode" class="regularxl" style="border:0px;width:98%">
@@ -268,13 +271,14 @@ password="#SESSION.dbpw#">
 				
 			<cfelseif url.type eq "Field">
 			
-			   <td style="border-right:1px solid silver">
-			   	<table cellspacing="0" cellpadding="0">
+			   <td style="border-right:1px solid silver;height:100%">
+			   
+			   	<table style="height:100%;width:95%" align="center" border="1">
 		   		<tr><td style="padding-right:4px;padding-left:4px;border-right:1px solid silver">
 			      <input type="Checkbox" name="FieldRequired" class="radiol" id="FieldRequired" value="0">
 				  </td>
 				  
-				  <td style="padding-right:4px;padding-left:4px;background-color:transparent">
+				  <td style="background-color:transparent">
 				  <select name="fieldtype" id="fieldtype" class="regularxl" ONCHANGE="toggle(this.value)" style="border:0px;width:98%">
 				 	  <option value="list" selected>List</option>
 					  <option value="date">Date</option>
@@ -349,47 +353,46 @@ password="#SESSION.dbpw#">
 
 			<cfif url.type neq "Attach" and url.type neq "Field" and url.type neq "Question"> 		
 				 
-				<tr>
-					<td class="labelmedium" style="padding-left:20px;padding-right:5px">
-					
-					  <cf_UIToolTip tooltip="The relative path and file name under the root directory. Click on template name top view content.">
-					   &nbsp;<cfif url.type eq "Mail">Script&nbsp;file<cfelse>Path/File:</cfif>
-		   			  </cf_UIToolTip>
-					
+				
+				<tr class="fixlenthlist">
+					<td class="labelmedium" style="font:6688aa;padding-left:20px;padding-right:5px" title="The relative path and file name under the root directory. Click on template name top view content.">										  
+					   <cfif url.type eq "Mail">Script&nbsp;file<cfelse>Path / File:</cfif>		   			 					
 					</td>
+					
 				    <td colspan="7" width="100%">
 					
-				    <table cellspacing="0" cellpadding="0" border="0">
+				    <table style="width:100%">
 										
-					<tr class="labelmedium">
+					<tr class="labelmedium fixlengthlist">
 					
 					<td width="90%">
 					
 					   <cfif url.type eq "Mail">
 					  
-					   <cfinput type="Text" 
-					      name="DocumentTemplate" 
-						  required="No" 
-						  autosuggest="cfc:service.reporting.presentation.gettemplate({cfautosuggestvalue})"
+					   <cfinput type    = "Text" 
+					      name          = "DocumentTemplate" 
+						  required      = "No" 
+						  autosuggest   = "cfc:service.reporting.presentation.gettemplate({cfautosuggestvalue})"
 		       			  maxresultsdisplayed="30"
 				          showautosuggestloadingicon="no"
-					      typeahead = "no"
-						  style="width:700"						 
-						  maxlength = "100" class="regularxl">
+					      typeahead     = "no"
+						  style         = "width:100%"						 
+						  maxlength     = "100" 
+						  class         = "regularxxl">
 						  					 					  
-					   <cfelse>
-					   					  
-					     <cfinput type="Text" 
-					      name="DocumentTemplate" 
-						  message="You must enter a valid template absolute path and filename starting from the root" 
-						  autosuggest="cfc:service.reporting.presentation.gettemplate({cfautosuggestvalue})"
+					   <cfelse>					   		
+										  
+					     <cfinput type = "Text" 
+					      name         = "DocumentTemplate" 
+						  message      = "You must enter a valid template absolute path and filename starting from the root" 
+						  autosuggest  = "cfc:service.reporting.presentation.gettemplate({cfautosuggestvalue})"
 		       			  maxresultsdisplayed="30"
 				          showautosuggestloadingicon="no"
-					      typeahead = "no"
-						  required  ="Yes" 						
-						  style="width:700"
-						  maxlength="100" 
-						  class="regularxl">	
+					      typeahead    = "no"
+						  required     = "Yes" 						
+						  style        = "width:100%"
+						  maxlength    = "100" 
+						  class        = "regularxxl">	
 						  
 						  </td>
 						  <td width="20" align="center">						  
@@ -401,11 +404,9 @@ password="#SESSION.dbpw#">
 					   
 					   <cfif URL.type eq "dialog">
 							
-						    <td style="cursor:pointer;padding-left:4px" class="labelmeium">
-							
-								<cf_UIToolTip tooltip="Logs the content of the HTML generated in the dialog screen upon saving">
-								Log&nbsp;Content:
-								</cf_UIToolTip>
+						    <td style="cursor:pointer;padding-left:4px" class="labelmeium" title="Logs the content of the HTML generated in the dialog screen upon saving">
+															
+								Log&nbsp;Content:								
 
 							</td>
 	
@@ -431,28 +432,35 @@ password="#SESSION.dbpw#">
 									
 				<tr id="text" class="hide">
 				  <td></td>
-				  <td colspan="7">
+				  <td colspan="8">
 				  	  <cfinclude template="ObjectElementText.cfm">
+				   </td>
+				</tr>
+				
+				<tr id="amount" class="hide">
+				  <td></td>
+				  <td colspan="8">
+				  	  <cfinclude template="ObjectElementAmount.cfm">
 				   </td>
 				</tr>
 				
 				<tr id="area" class="hide">
 				  <td></td>
-				  <td colspan="7">
+				  <td colspan="8">
 				  	  <cfinclude template="ObjectElementTextArea.cfm">
 				   </td>
 				</tr>
 
 				<tr id="list" bgcolor="ffffff" class="#cl#">
 				  <td></td>
-				  <td colspan="7">
+				  <td colspan="8" style="height:35px">
 				  	  <cfinclude template="ObjectElementList.cfm">
 				   </td>
 				</tr>
 
 				<tr id="date" bgcolor="ffffff" class="hide">
 				  <td></td>
-				  <td colspan="7">
+				  <td colspan="8" style="height:35px">
 				  	  <cfinclude template="ObjectElementDate.cfm">
 				   </td>
 				</tr>
@@ -487,10 +495,10 @@ password="#SESSION.dbpw#">
 							
 							<cfelseif url.type eq "rule">
 											
-								<tr>
-								<td class="labelit" style="padding-left:10px">Message:</td>
-								<td><cfinput type  = "Text" 
-									class          = "regularxl" 
+								<tr class="fixlengthlist">
+								<td class="labelmedium2" style="padding-left:20px">Message:</td>
+								<td colspan="5"><cfinput type  = "Text" 
+									class          = "regularxxl" 
 									value          = "" 
 									name           = "MessageProcessor" 
 									required       = "No" 
@@ -499,10 +507,10 @@ password="#SESSION.dbpw#">
 								</td>
 								</tr>
 								
-								<tr>
-								<td class="labelit" style="padding-left:10px">Message color:</td>
-								<td><cfinput type  = "Text" 
-									class          = "regularxl" 
+								<tr class="fixlengthlist">
+								<td class="labelmedium2" style="padding-left:20px">Message color:</td>
+								<td colspan="5"><cfinput type  = "Text" 
+									class          = "regularxxl" 
 									value          = "Red" 
 									name           = "DocumentColor" 
 									required       = "No" 
@@ -511,10 +519,10 @@ password="#SESSION.dbpw#">
 								</td>
 								</tr>
 								
-								<tr>
-								<td class="labelit" style="padding-left:10px">Instruction auditor:</td>
-								<td><cfinput type  = "Text" 
-									class          = "regularxl" 
+								<tr class="fixlengthlist">
+								<td class="labelmedium2" style="padding-left:20px">Instruction auditor:</td>
+								<td colspan="5"><cfinput type  = "Text" 
+									class          = "regularxxl" 
 									value          = "" 
 									name           = "MessageAudit" 
 									required       = "No" 
@@ -1041,6 +1049,19 @@ password="#SESSION.dbpw#">
 					   </td>					
 					</tr>
 					
+					<cfif fieldtype eq "amount">
+					 <cfset cl = "regular">
+					<cfelse>
+					 <cfset cl = "hide"> 
+					</cfif>
+								
+					<tr id="text" bgcolor="ffffff" class="#cl#">
+					  <td></td>
+					  <td colspan="7">
+					  	  <cfinclude template="ObjectElementAmount.cfm">
+					   </td>					
+					</tr>
+					
 					<tr id="area" bgcolor="ffffff" class="#cl#">
 					  <td></td>
 					  <td colspan="7">
@@ -1056,7 +1077,7 @@ password="#SESSION.dbpw#">
 								
 					<tr id="list" bgcolor="ffffef" class="#cl#">
 					  <td></td>
-					  <td colspan="7">					  
+					  <td colspan="8" style="height:35px">					  
 					  	  <cfinclude template="ObjectElementList.cfm">
 					   </td>					
 					</tr>
@@ -1069,7 +1090,7 @@ password="#SESSION.dbpw#">
 					
 					<tr id="date" bgcolor="ffffff" class="#cl#">
 					  <td></td>
-					  <td colspan="7">
+					  <td colspan="8" style="height:35px">
 					  	  <cfinclude template="ObjectElementDate.cfm">
 					   </td>					
 					</tr>					
@@ -1337,7 +1358,7 @@ password="#SESSION.dbpw#">
 																											
 			<cfelse>
 			
-				<TR bgcolor="<cfif op eq '0'>E4E4E4</cfif>" class="labelmedium navigation_row line" style="height:15px">
+				<TR bgcolor="<cfif op eq '0'>E4E4E4</cfif>" class="labelmedium2 navigation_row line fixlengthlist" style="height:15px">
 								
 				   <td style="padding-left:4px">#nm#</td>
 				   <td>#de#</td>
@@ -1347,24 +1368,13 @@ password="#SESSION.dbpw#">
 					   </cfif>
 				   </td>
 				   <cfif url.type neq "Attach" and url.type neq "Field">  
-					   <td style="padding-left:3px">
+					   <td style="padding-left:3px" class="fixlength">
 					   <cfif not FileExists("#SESSION.rootpath#/#DocumentTemplate#") and left("#DocumentTemplate#","11") neq "javascript:">
-					     	 <font color="FF0000">
-							 <cfif len(documenttemplate) gt "20">
-							 	 #left(documenttemplate,20)#..
-							 <cfelse>
-							     #documenttemplate#
-							 </cfif>	 
+					     	 <font color="FF0000">#documenttemplate# 
 					   <cfelse> 	
 					       <cfset ln = replace(documenttemplate,"\","\\","ALL")>		 
-					         <a href="javascript:template('#ln#')" title="#documenttemplate#">
-							  <cfif len(documenttemplate) gt "20">
-							 	 #left(documenttemplate,20)#..
-							 <cfelse>
-							     #documenttemplate#
-							 </cfif>	
-							 </a>
-					       </cfif> 	 
+					         <a href="javascript:template('#ln#')" title="#documenttemplate#">#documenttemplate#</a>					     
+						</cfif>	 
 					   </td>
 					<cfelseif url.type eq "Field">
 					
@@ -1428,9 +1438,9 @@ password="#SESSION.dbpw#">
 						  </td>
 						  </cfif>
 						  
-						  <td width="20" style="padding-left:2px">
+						  <td width="20" style="padding-top:3px;padding-left:2px">
 						  
-						   <cf_img icon="open" navigation="Yes" onclick="#ajaxLink('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&Type=#URL.Type#&ID2=#nm#')#">
+						   <cf_img icon="open" navigation="Yes" onclick="javascript:ptoken.navigate('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&Type=#URL.Type#&ID2=#nm#','ifield')">
 						   
 						  </td>						  
 						  
@@ -1537,9 +1547,9 @@ password="#SESSION.dbpw#">
 				 
 					<tr id="#documentid#" class="hide">
 					<td colspan="8">
-						<table width="80%" align="center" cellspacing="0" cellpadding="0" class="formpadding">
+						<table width="80%" align="center" class="formpadding">
 						<tr><td>
-							<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+							<table width="100%" align="center" class="formpadding">
 								<tr><td>			
 								<iframe src="#SESSION.root#/system/entityaction/EntityObject/ElementList/ObjectList.cfm?documentid=#documentid#" name="frm_#documentid#" id="frm_#documentid#" width="100%" height="50" marginwidth="0" marginheight="0" hspace="0" vspace="0" align="left" scrolling="no" frameborder="0"></iframe>	
 								</td></tr>

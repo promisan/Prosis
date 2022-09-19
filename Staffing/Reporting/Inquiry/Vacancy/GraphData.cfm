@@ -29,7 +29,10 @@
 	</script>
 	</cfoutput>
 
+	<!---
+	
 	<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+		
 	<tr><td height="4"></td></tr></td>
 	<tr>
 		<td class="labelit">
@@ -50,39 +53,15 @@
 	</tr>
 	</table>	
 	
-<!---	
-		
-<cfelse>	
+	--->
 	
-	<table width="97%" align="center">
-	
-		<tr><td height="40" class="labellarge">
-		
-		<cfoutput>
-		Vacancies #Mission.mission# per #dateformat(now(), CLIENT.DateFormatShow)#
-		</cfoutput>
-		
-		</td></tr>
-		<tr><td height="1" class="line"></td></tr>
-		<tr><td height="15"</td></tr>
-		<tr class="noprint">
-		   <td class="labelit">Attention : use horizontal settings</td>
-	    </tr>
-	</table>	
-	
-	<script>window.print()</script>
-
-</cfif>	
-
---->
-
 
 <!--- does not have to be changed usually --->
 <cfparam name="url.Nationality"   default="">
 <cfparam name="url.OrgUnitOperational" default="">
 <cfparam name="url.OfficerUserId" default="">
 <cfparam name="url.Print"         default="0">
-<cfparam name="url.format"        default="Bar">
+<cfparam name="url.format"        default="Column">
 <cfparam name="url.item"          default="PostGradeBudget">
 
 <cfsavecontent variable="qry">
@@ -177,6 +156,8 @@
 
 <cfif url.format eq "Pie">
 
+<!---
+
 	<cfset w = w/2>
 	
    	<table cellspacing="0" cellpadding="0"><tr><td>
@@ -254,63 +235,72 @@
 	</td>
 	
 	</tr></table>   
-  
+	
+	--->
+	  
 <cfelse>
 
+    <!---
+     <cfdump var="#graph#">
+	 --->
+	
 	<CFIF url.format eq "bar" and url.scope eq "all">
 		<cfset st = "value">
 	<cfelse>
 		<cfset st = "value">	
 	</CFIF>
-
-	<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">	
 	
-	<cfchart style        = "#chartStyleFile#" 
-		  format          = "png"
-	      chartheight     = "250"
-	      chartwidth      = "#client.width-140#"
-	      showxgridlines  = "yes"
-		  showYGridlines  = "Yes"		
-		  fontsize        = "15"
-		  ScaleTo         = "#maxcount.total+4#" 
-		  gridlines       = "10"
-	      seriesplacement = "stacked"
-	      labelformat     = "number"		 
-	      yaxistitle      = "Post / Vacancy"
-	      show3d          = "no" 
-	      url             = "javascript:listener('$ITEMLABEL$')">
-		  
-	 <cfif url.scope eq "all" or url.scope eq "inc">  
-	
-		 <cfchartseries
-		      type           = "#url.format#"
-		      query          = "Graph"
-		      itemcolumn     = "#url.item#"
-		      valuecolumn    = "Occupied"
-		      serieslabel    = "Encumbered"	
-			  datalabelstyle = "#st#"		 
-		      seriescolor    = "5C97BF"
-		      paintstyle     = "raise"
-		      markerstyle    = "circle"/> 
-		  
-	</cfif>		
-	
-	<cfif url.scope eq "all" or url.scope eq "vac">    
-	   
-		 <cfchartseries
-		      type           = "#url.format#" 
-			  query          = "Graph"
-		      itemcolumn     = "#url.item#"
-		      valuecolumn    = "Vacant"
-		      serieslabel    = "Vacant"
-			  datalabelstyle = "#st#"
-			  seriescolor    = "EB974E"
-		      paintstyle     = "raise"
-		      markerstyle    = "circle"/> 
-		  
-    </cfif> 	
+	<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
+		
+	<cf_UIchart 			
+			name			= "fPostVacancy"
+			chartheight     = "190"
+			chartwidth      = "#client.width-140#"
+			showxgridlines  = "yes"
+			showYGridlines  = "Yes"
+			fontsize        = "12"
+			ScaleTo         = "#maxcount.total+4#"
+			showlabel	    = "No"
+			showvalue	    = "No"
+			legend		    = "Yes"
+			gridlines       = "12"
+			seriesplacement = "stacked"
+			labelformat     = "number"
+			yaxistitle      = "Post / Vacancy"			
+			url             = "javascript:listener('$ITEMLABEL$')">
 			
-	</cfchart>
+		<cfif url.scope eq "all" or url.scope eq "inc">
+
+			<cf_UIchartseries
+					type           = "#url.format#"
+					query          = "#Graph#"
+					itemcolumn     = "#url.item#"
+					valuecolumn    = "Occupied"
+					serieslabel    = "Encumbered"
+					datalabelstyle = "#st#"
+					seriescolor    = "##5C97BF"
+					paintstyle     = "raise"
+					markerstyle    = "circle"/>
+
+		</cfif>
+
+		<cfif url.scope eq "all" or url.scope eq "vac">
+
+			<cf_UIchartseries
+					type           = "#url.format#"
+					query          = "#Graph#"
+					itemcolumn     = "#url.item#"
+					valuecolumn    = "Vacant"
+					serieslabel    = "Vacant"
+					datalabelstyle = "#st#"
+					seriescolor    = "##EB974E"
+					paintstyle     = "raise"
+					markerstyle    = "circle"/>
+
+		</cfif>
+
+	</cf_UIchart>
+	
 	
 	<cfset vDefaultValueList = evaluate("Graph.#url.item#")>
 	<cfset ajaxonload("function() { listener('#vDefaultValueList#'); }")>

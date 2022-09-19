@@ -21,6 +21,7 @@
 <cfparam name="Form.FieldMask"           default="">
 <cfparam name="Form.FieldLayout"         default="">
 <cfparam name="Form.FieldValidation"     default="">
+<cfparam name="Form.ObjectUsage"         default="">
 <cfparam name="Form.FieldLength"         default="">
 <cfparam name="Form.FieldMultipleSelect" default="0">
 <cfparam name="Form.LookupSelect"        default="0">
@@ -71,7 +72,12 @@
 		  username="#SESSION.login#" 
 		  password="#SESSION.dbpw#">
 		  UPDATE Ref_EntityDocument
-		  SET    Operational         = '#Form.Operational#',
+		  SET    <cfif Form.ObjectUsage neq "">
+		  	  			ObjectUsage         = '#Form.ObjectUsage#',
+				 <cfelse>
+				 		ObjectUsage = NULL,
+				 </cfif>				
+		         Operational         = '#Form.Operational#',
 		         DocumentFramework   = '#Form.DocumentFramework#',
  		         DocumentDescription = '#Form.DocumentDescription#',
 				 DocumentTemplate    = '#Form.DocumentTemplate#',

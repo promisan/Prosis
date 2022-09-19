@@ -266,7 +266,7 @@ ORDER BY A.Mission, O.MandateNo, R.SystemModule, R.ListingOrder, A.Role, A.Class
 
 </cfquery>
 
-<table width="99%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="99%" align="center" class="navigation_table">
 
 <cfif Tree.recordcount eq "0">
 
@@ -312,7 +312,7 @@ ORDER BY A.Mission, O.MandateNo, R.SystemModule, R.ListingOrder, A.Role, A.Class
 		   systemmodule   = "#SystemModule#"
 		   returnvariable ="accessUserAdmin">
 		
-		<tr class="line">
+		<tr class="line fixlengthlist">
 		<td width="25" height="17" style="padding-top:1px">
 		
 			<cfset cnt = cnt+1>
@@ -349,13 +349,13 @@ ORDER BY A.Mission, O.MandateNo, R.SystemModule, R.ListingOrder, A.Role, A.Class
 			  
 			<cfoutput group="OrgUnitName">
 				
-				<tr class="line labelmedium">
+				<tr class="line labelmedium2 fixlengthlist navigation_row">
 				<td></td>
-				<td width="200" style="padding-left:10px">#Description#</td>
-				<td width="100">#Role#</td>
+				<td style="padding-left:10px">#Description#</td>
+				<td>#Role#</td>
 				<cfif HierarchyCode neq "Mission">
 				<td>#OrgUnitCode#</td>
-				<td width="30%"><cfif HierarchyCode neq "Mission">#OrgUnitName#</cfif></td>
+				<td><cfif HierarchyCode neq "Mission">#OrgUnitName#</cfif></td>
 				<cfelse>
 				<td colspan="2"></td>
 				</cfif>
@@ -378,3 +378,5 @@ ORDER BY A.Mission, O.MandateNo, R.SystemModule, R.ListingOrder, A.Role, A.Class
 </cfoutput>
 </cfoutput>
 </table>
+
+<cfset ajaxonload("doHighlight")>

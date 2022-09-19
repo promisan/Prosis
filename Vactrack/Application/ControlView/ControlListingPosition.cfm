@@ -7,7 +7,7 @@
 	password="#SESSION.dbpw#">
 	SELECT *
 	FROM   Ref_Mission
-	WHERE  Mission = '#mis#'
+	WHERE  Mission = '#url.mission#'
 </cfquery>
 
 <cf_wfPending 
@@ -20,14 +20,13 @@
 	 Mode                 = "table"
 	 Table                = "#session.acc#_#mission.MissionPrefix#_VacancyTrack">
 	 
-
 <cf_listingscript>
-
-<cf_screentop html="No" jquery="Yes" height="100%">
+<cf_dialogstaffing>
+<cf_layoutscript>
 
 <cfoutput>
+<script>
 
-	<script>
 	function showdocument(vacno) {	
 		  ptoken.open('#session.root#/Vactrack/Application/Document/DocumentEdit.cfm?ID=' + vacno, 'track'+vacno);
 		}
@@ -35,6 +34,90 @@
 	Prosis.busy('yes')
 	
 	</script>
+	
+</cfoutput>	
+
+<cf_screentop html="No" jquery="Yes" height="100%">
+
+<cfoutput>
+
+<cf_layoutscript>	
+	
+	<cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	
+		
+	<cf_layout attributeCollection="#attrib#">	
+	
+	    <!---
+		
+	    <cf_layoutarea  position="header" name="box11" collapsible = "false">
+		
+		   <table height="100%" width="100%" align="center">
+				
+			<tr>		
+			    <td style="height:10px">		
+				    <table width="100%">
+					
+						<tr>
+					    <td align="left" class="labellarge" style="padding-left:20px;height:40px;font-size:34px;padding-top:4px">
+									
+							    <cfif url.mode neq "Print">
+								<a href="javascript:show_box_search()">#URL.Mission# <img id="img_search" src="#SESSION.root#/images/arrow-down.gif" alt="" border="0" align="top"></a>													
+								<cfelse>
+								#URL.Mission#
+								</cfif>			
+								
+						<td align="right" class="fixlength" style="padding-left:20px;height:30px;font-size:26px;padding-top:4px">#url.orgunitname#</td>																		    				
+						</tr>						
+										
+					</table>			
+			    </td>			
+			</tr>	
+			
+			<tr id="dBox" class="hide">		
+				<td width="100%" colspan="3" id="dCriteria">
+					<cfinclude template="ControlCriteria.cfm">
+				</td>			
+			</tr>	
+			
+			</table>
+		
+		</cf_layoutarea>
+		
+		--->
+			
+		<cf_layoutarea  position="top" name="box" collapsible = "true">
+		
+		    <table height="100%" width="98%" align="center">			
+			<tr class="line">
+				<td colspan="3" valign="top" id="dDetails" style="height:100%">	
+			        <cfinclude template="ControlListingPositionResult.cfm">	
+				</td>
+			</tr>					
+			</table>					
+				
+		</cf_layoutarea>
+		
+		<cf_layoutarea  position="center" name="centerbox">		
+		    
+		      <table height="100%" width="98%" align="center"">					  
+				<tr>
+					<td colspan="2" valign="top" id="tracklistingcontent" style="height:100%">
+					<cfinclude template="ControlListingPositionContent.cfm">
+					</td>
+				</tr>				
+			  </table>			       			
+		
+		</cf_layoutarea>			
+			
+	</cf_layout>	
+
+</cfoutput>
+
+<!---
+
+<cfoutput>
+
+	
 		
 	<table style="width:100%;height:100%">	
 	<tr><td style="height:600px" valign="top">
@@ -46,3 +129,5 @@
 	</table>
 
 </cfoutput>
+
+--->

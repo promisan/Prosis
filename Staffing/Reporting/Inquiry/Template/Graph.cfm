@@ -56,20 +56,24 @@
 	
 	<input type="hidden" id="itemselected"    name="itemselected"    value="#client.graph#">
 	<input type="hidden" id="scopeselected"   name="scopeselected"   value="all">
-	<input type="hidden" id="formatselected"  name="formatselected"  value="bar">
-	
-	<td><input style="height:18px;width:18px" type="radio" id="format" name="format" value="Bar" checked onclick="document.getElementById('formatselected').value='bar';reload(document.getElementById('itemselected').value,'yes',document.getElementById('scopeselected').value)"></td><td style="padding-left:4px;padding-right:8px" class="labelit">Bar</td>
+	<input type="hidden" id="formatselected"  name="formatselected"  value="column">
+	<td><input style="height:18px;width:18px" type="radio" id="format" name="format" value="Bar" checked onclick="document.getElementById('formatselected').value='column';reload(document.getElementById('itemselected').value,'yes',document.getElementById('scopeselected').value)"></td><td style="padding-left:4px;padding-right:8px" class="labelit">Column</td>
+	<!---
+	<td><input style="height:18px;width:18px" type="radio" id="format" name="format" value="Bar"         onclick="document.getElementById('formatselected').value='bar';reload(document.getElementById('itemselected').value,'yes',document.getElementById('scopeselected').value)"></td><td style="padding-left:4px;padding-right:8px" class="labelit">Bar</td>
+	--->
 	<td><input style="height:18px;width:18px" type="radio" id="format" name="format" value="Line"        onclick="document.getElementById('formatselected').value='line';reload(document.getElementById('itemselected').value,'yes',document.getElementById('scopeselected').value)"></td><td style="padding-left:4px;padding-right:8px" class="labelit">Line</td>
+	<!---
 	<td><input style="height:18px;width:18px" type="radio" id="format" name="format" value="Pie"         onclick="document.getElementById('formatselected').value='pie';reload(document.getElementById('itemselected').value,'yes',document.getElementById('scopeselected').value)"></td><td style="padding-left:4px;padding-right:8px" class="labelit">Pie</td>
+	--->
 	
 	</cfoutput>
 
 </tr>
 
-<tr><td colspan="10" class="line"></td></tr>
+<tr><td colspan="11" class="line"></td></tr>
 
-<tr><td align="center" colspan="8" id="graphdata">	
-		<cfset url.format = "bar">	
+<tr><td align="center" colspan="11" id="graphdata">
+		<cfset url.format = "column">
 		<cfinclude template="../#path#/GraphData.cfm">	
 	</td>
 </tr>

@@ -84,6 +84,10 @@
 			</cfif>
 			
 		</cfoutput>
+		<cfif attributes.Signature eq "Yes">
+			<cf_UISignatureViewScript>
+		</cfif>
+
 	</cfif>
 
 	<cfoutput>
@@ -158,3 +162,4 @@
 
 		
 </HEAD>
+

@@ -4,7 +4,7 @@
 <cfparam name="url.reportid" default="">
 <cfparam name="url.mode" default="regular">
 
-<cfajaximport tags="cfprogressbar,cfform,cfdiv">
+<cfajaximport tags="cfprogressbar,cfdiv">
 
 <cfif url.reportId eq "" and url.mode eq "regular">
 	<cf_tl id="Export Data to MS Excel" var="1">
@@ -71,8 +71,7 @@
 		 
 		 function update(mode,name,action,id,box,tbl,ds) {
 		     _cf_loadingtexthtml='';	
-		 	 ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelUpdateField.cfm?ds='+ds+'&table='+tbl+'&mode='+mode+'&name='+name+'&action='+action+'&id='+id+'&box='+box,box)
-			
+		 	 ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelUpdateField.cfm?ds='+ds+'&table='+tbl+'&mode='+mode+'&name='+name+'&action='+action+'&id='+id+'&box='+box,box,'','','POST','formselectedfields')			
 		 }
 		 
 		 function fielddelete(name,id,tbl) {
@@ -85,15 +84,13 @@
 		     ptoken.navigate('#SESSION.root#/Tools/CFReport/ExcelFormat/FormatExcelSaveFilter.cfm?mode=#url.mode#&id='+id,'filterbox','','','POST','filterform')			  
 		 } 
 		 
-		 function openexcel(mode,id,tbl) {
-		 
+		 function openexcel(mode,id,tbl) {		 
 		 	if (mode == "open") {
 			    ptoken.open("#SESSION.root#/cfrstage/user/#SESSION.acc#/"+tbl+".xls?ts="+new Date().getTime(),"_blank")
 			} else {			  
 				ProsisUI.createWindow('maildialog', 'Mail Excel', '',{x:100,y:100,height:625,width:860,resizable:false,modal:true,center:true});
 				ptoken.navigate('FormatExcelMail.cfm?ID1=Extracts&ID2='+tbl+'.xls&Source=ReportExcel&Sourceid='+id+'&Mode=cfwindow&GUI=HTML','maildialog')		
-			}
-		 
+			}		 
 		 }
 		 
 		 function prepare(mode,id,tbl) {
@@ -118,12 +115,12 @@
 		 }
 		 
 		 function hideprogress() {		 
-		       ColdFusion.ProgressBar.hide('pBar')
-		       ColdFusion.ProgressBar.stop('pBar', true)			   			
+		     ColdFusion.ProgressBar.hide('pBar')
+		     ColdFusion.ProgressBar.stop('pBar', true)			   			
 		 }
 		 
 		 function mailclose() {		 
-		 	   ProsisUI.closeWindow('maildialog')
+		 	 ProsisUI.closeWindow('maildialog')
 		 }
 		 		
 </script>

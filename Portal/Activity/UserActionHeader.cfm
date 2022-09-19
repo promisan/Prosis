@@ -200,7 +200,7 @@
 			
 	</td>
 	
-	<td height="100%" align="right" style="min-width:580px;width:580px;padding-left:4px">
+	<td height="100%" align="right" style="min-width:370px;width:370px;padding-left:4px">
 	 
 		<cfquery name="Total" 
 			datasource="appsSystem" 
@@ -232,35 +232,23 @@
 	        
 	  <cfset seriesColours = ["Green","Yellow","Purple","Gray"]>
 	  <cfset seriesColour = 1>
-	    
-	  <cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
+	 
+	  <cfset vColor = "##5DB7E8,##E8875D,##E8BC5D,##E85DA2,##5DE8D8,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA">
 	  
-	  <cfchart  style="#chartStyleFile#" 
-	  		  	format="html"
-	           	chartheight="100"
-	           	chartwidth="550"
-	           	scalefrom="0"
-			   	showborder="0"		   
-			   	Title="Summary"     
-				font="calibri"
-				fontsize="12"     
-	           	seriesplacement="default"
-	           	labelformat="percent"
-			   	show3d="no"
-			   	url="javascript:_cf_loadingtexthtml='';ptoken.navigate('UserActionContent.cfm?systemfunctionid=#url.systemfunctionid#&mode='+document.getElementById('mode').value+'&filter=$ITEMLABEL$','content')"       
-	           	tipstyle="mouseOver"
-	           	showmarkers="No">	
-	  
-			   <cfchartseries type="bar" colorlist="##5DB7E8,##E8875D,##E8BC5D,##E85DA2,##5DE8D8,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA">
-				 
-				 <cfloop query="visits">   		 
-				 	 <cfset tot = "#counted#">
-					 <cfchartdata item="#Module#" value="#tot#">				 
-				 </cfloop>
-						 
-			   </cfchartseries>	 
-					  
-		</cfchart>  	
+	  <cf_uichart name="divUsage1"
+				chartheight="160"
+				chartwidth="370"
+				showlabel="No"
+				showvalue="No"
+				url="javascript:_cf_loadingtexthtml='';ptoken.navigate('UserActionContent.cfm?systemfunctionid=#url.systemfunctionid#&mode='+document.getElementById('mode').value+'&filter=$ITEMLABEL$','content')">
+		<cf_uichartseries type="bar"
+		    query="#visits#" 
+			itemcolumn="Module" 
+			valuecolumn="counted" 
+			colorlist="#vColor#"/>
+			
+  	</cf_uichart>
+	
 		
 	</td>
 	</tr>	

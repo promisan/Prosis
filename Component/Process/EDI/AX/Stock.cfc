@@ -108,6 +108,8 @@
 		<cfset qty  = 0>
 		<cfset omit = "">
 		
+		
+		
 		<cfloop query="transaction">
 		
 		  <cfif not find(transactionid,omit)>
@@ -168,7 +170,24 @@
 			 
 		  </cfif>	 
 		
-		</cfloop>		
+		</cfloop>	
+		
+		<!--- New we make a correction for the sorting of the NC of the sale as they are a quasi purchase and we want them in the correct order  --->	
+		
+		<cfquery name="transaction" 
+			datasource="#Datasource#" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+								
+				UPDATE      ItemValuation
+				SET         TransactionType = '7'
+				WHERE       Mission   = '#filtermission#'
+				AND         ItemNo    = '#filterItemNo#'
+				AND         TransactionQuantity > 0
+				AND         TransactionType = '0'
+																
+		</cfquery>	
+		
 		
 		<!--- start with valuation --->
 		
@@ -182,7 +201,7 @@
 				WHERE       Mission   = '#filtermission#'
 				AND         ItemNo    = '#filterItemNo#'
 				AND         TransactionQuantity <> 0
-				ORDER BY    TransactionDate, TransactionReference  <!--- always first the receipts and d-transactions if postivie --->			
+				ORDER BY    TransactionDate, TransactionType DESC  <!--- always first the receipts and d-transactions if postivie --->			
 																
 		</cfquery>	
 		
@@ -229,7 +248,7 @@
 																			
 					</cfquery>	
 					
-					<cfif price neq "0" and price lte "1000000">
+					<cfif prict neq "0" and prict lte "1000000">
 					
 						<cfquery name="check" 
 						datasource="#Datasource#" 
@@ -258,7 +277,7 @@
 								
 						
 						<cfelse>
-												   						
+																		   						
 							<cfquery name="addprice" 
 							datasource="#Datasource#" 
 							username="#SESSION.login#" 
@@ -277,22 +296,24 @@
 			         and TransactionType eq "3" 
 					 and TransactionValue neq 0>
 			
+			        <!--- purchases --->
+					 
 					<!--- we take the current stock * price + value of the purchase receipt
 					 determine the new price for this date after the added quantity is added --->
 			
 					<cfset val    = (stock * price) + TransactionValue>					
 					<cfset stock  = stock + TransactionQuantity>
 				
-				    <!--- new price --->	
+				    <!--- this purchase price --->	
 					<cfset prict  = round( TransactionValue * 100000 / TransactionQuantity ) / 100000>
 					
-					<!--- new price after receipt --->	
+					<!--- new calculated price after receipt --->	
 					<cfif stock neq "0">
 					    <cfset price  = round( val * 100000 / stock)/100000>
 					<cfelse>
 					    <cfset price = "0">
 					</cfif>
-					
+										
 					<cfif price neq "0" and price lte "1000000">
 					
 						<cfquery name="check" 
@@ -308,6 +329,8 @@
 						
 						<cfif check.recordcount eq "1">
 						
+						<!--- Edit : #transactiondate# #prict# #price#<br> --->
+						
 							<cfquery name="update" 
 							datasource="#Datasource#" 
 							username="#SESSION.login#" 
@@ -321,6 +344,8 @@
 							</cfquery>					
 						
 						<cfelse>
+						
+						<!--- Add : #transactiondate# #prict# #price#<br> --->
 						
 							<cfquery name="addprice" 
 							datasource="#Datasource#" 
@@ -349,7 +374,7 @@
 												
 					<!--- Attention : also store price in a table --->
 								 
-			<cfelse>
+			<cfelse>					
 			
 					<cfif price eq "0" and TransactionValue neq 0>
 					
@@ -360,15 +385,7 @@
 						<cfset stock      = stock + Transactionquantity> 
 					    <cfset value      = Transactionquantity * price> 
 						
-						
-					<cfelse>
-					
-						<cfset stock      = stock + Transactionquantity> 
-						<cfset value      = Transactionquantity * price>
-					
-					</cfif>
-										
-					<cfquery name="transaction" 
+						<cfquery name="transaction" 
 						datasource="#Datasource#" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
@@ -378,7 +395,28 @@
 							            TransactionCostPrice = '#price#'
 							WHERE       TransactionId = '#TransactionId#'									
 																			
-					</cfquery>						
+						</cfquery>									
+												
+					<cfelse>
+					
+					    <cfparam name="pricT" default="#price#">
+					
+						<cfset stock      = stock + Transactionquantity>										
+						<cfset value      = Transactionquantity * price>
+																		
+						<cfquery name="transaction" 
+						datasource="#Datasource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">		
+																					
+							UPDATE      ItemValuation
+							SET         TransactionValue     = '#Value#',
+							            TransactionCostPrice = '#price#'     
+							WHERE       TransactionId = '#TransactionId#'									
+																			
+					    </cfquery>		
+					
+					</cfif>											
 										
 					<cfquery name="check" 
 						datasource="#Datasource#" 
@@ -391,27 +429,30 @@
 							AND         ItemNo            = '#filterItemNo#'	
 													
 					</cfquery>
-						
+											
 					<cfif check.recordcount eq "0">
 																		
-							<cfquery name="addprice" 
-							datasource="#Datasource#" 
-							username="#SESSION.login#" 
-							password="#SESSION.dbpw#">
+						<cfquery name="addprice" 
+						datasource="#Datasource#" 
+						username="#SESSION.login#" 
+						password="#SESSION.dbpw#">
+						
+							INSERT INTO ItemCostPrice
+							(Mission,ItemNo,SelectionDate,CostPrice)
+							VALUES
+							('#filtermission#','#filterItemNo#','#transactiondate#','#price#')
 							
-								INSERT INTO ItemCostPrice
-								(Mission,ItemNo,SelectionDate,CostPrice)
-								VALUES
-								('#filtermission#','#filterItemNo#','#transactiondate#','#price#')
-								
-							</cfquery>	
+						</cfquery>	
 						
 					</cfif>						
-					
 		
-			</cfif>				
+			</cfif>		
+			
+			
 		
-		</cfoutput>			
+		</cfoutput>		
+		
+		
 		
 </cffunction>	
 
@@ -486,6 +527,44 @@
 		
 	</cffunction>
 
+<cffunction name="getSaleListing"
+        access="public"
+        returntype="query"
+        displayname="1b. get a listing of sale items with their current delivery status">
+		
+		<cfargument name="Mission"             type="string"  required="true"   default="">						
+		<cfargument name="Warehouse"           type="string"  required="false"  default="">		
+		<cfargument name="Customer"            type="string"  required="false"  default="">		
+		<cfargument name="SalesId"             type="string"  required="false"  default="">		
+		
+		<cfquery name="sale" 
+				datasource="hubEnterprise" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">		
+		
+			SELECT        S.Mission, S.SalesId, ST.SaleDate, S.CustomerId, C.CustomerName, C.MobilePhone, C.EMailAddress, S.Payment, S.PaymentMode, S.SalePerson, S.SaleWarehouse, S.InvoiceDate, S.InvoiceNo, 
+	                      S.InvoiceId, S.FELNo, S.FELCae, ST.ItemNo, ST.ItemName, ST.WarehouseQuantity, ST.SaleQuantity,
+	                      (SELECT    ISNULL(SUM(DeliveryQuantity), 0) AS Expr1
+	                       FROM      SaleTransactionFulfill
+	                       WHERE     Mission = ST.Mission 
+						   AND       SalesId = ST.SalesId 
+						   AND       ItemNo = ST.ItemNo 
+						   AND       SaleSerialNo = ST.SaleSerialNo) AS FulFilled
+	         FROM         Sale AS S INNER JOIN
+	                      SaleTransaction AS ST ON S.Mission = ST.Mission AND S.SalesId = ST.SalesId INNER JOIN
+	                      Customer AS C ON S.Mission = C.Mission AND S.CustomerId = C.CustomerId
+	         WHERE        ST.SaleStatus <> '3' 
+			 AND          S.Mission <> '#mission#'
+		 
+		 </cfquery>  
+		 
+		 				
+		<cfreturn stock>	
+		
+		
+</cffunction>		
+
+
 <cffunction name="getStockListing"
         access="public"
         returntype="query"
@@ -494,7 +573,7 @@
 			<cfargument name="Mission"             type="string"  required="true"   default="">						
 			<cfargument name="Warehouse"           type="string"  required="false"  default="">		
 			<cfargument name="Location"            type="string"  required="false"  default="">		
-			
+									
 			<cfargument name="PriceSchedule"       type="string"  required="false"  default="CFI"> 
 			
 			<cfargument name="Make"                type="string"  required="true"   default="">
@@ -526,6 +605,17 @@
 				</cfif>
 			
 			</cfloop>
+						
+			<cfquery name="get" 
+				datasource="hubEnterprise" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">		
+				SELECT    *
+                FROM      PriceSchedule
+                WHERE     FieldDefault = 1 AND Mission = '#mission#'
+			</cfquery>	
+			
+			<cfset PriceSchedule = get.PriceSchedule>
 		
 			
 			<cfquery name="stock" 
@@ -533,11 +623,11 @@
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">		
 										
-				SELECT TOP 100 *
+				SELECT TOP 800 *
 				
 				FROM (			
 			
-				SELECT      TOP 500 I.Mission, 
+				SELECT      TOP 10000 I.Mission, 
 				            I.ItemNo,
 							
 							<!--- Prosis linkage --->
@@ -556,12 +646,12 @@
 							<!--- end prosis linkage ---> 
 							
 							I.ItemName, 
-							(SELECT Reference 
+							
+							(SELECT TOP 1 Reference 
 							 FROM   Materials.dbo.ItemUoMMission
 							 WHERE  ItemNo = T.ItemNo
 							 AND    UoM    <> 'M2'
-							 AND    Mission = '#Mission#') as ItemReference,
-							 
+							 AND    Mission = '#Mission#') as ItemReference,							 
 							
 							I.ItemCategory, 
 							I.ItemBrand, 
@@ -582,7 +672,8 @@
 							(   SELECT TOP (1) Price
 								FROM    EnterpriseHub.dbo.ItemPromotion IP INNER JOIN (SELECT  TOP (1) Mission, ItemNo, DateEffective
 								FROM    EnterpriseHub.dbo.ItemPromotion
-								WHERE   Mission = I.Mission and ItemNo = I.ItemNo
+								WHERE   Mission = I.Mission 
+								AND     ItemNo  = I.ItemNo
 								ORDER BY DateEffective  DESC) as D ON IP.Mission = D.Mission AND IP.ItemNo = D.ItemNo and IP.DateEffective = D.DateEffective
 								WHERE IP.DateExpiration >= getDate()
 								ORDER BY Price ) as PromotionPrice,	 							 
@@ -607,6 +698,28 @@
 							 S.StockExhibited+S.StockVendor as StockExhibited, 
 							 S.StockDisposed, 
 							 S.StockOnOrder,
+							 
+							  <!--- Transit --->
+												  
+							 (SELECT   ISNULL(SUM(ReceiptWarehouse),0)
+                              FROM     Purchase.dbo.PurchaseLineReceipt AS PLR INNER JOIN
+                                       Purchase.dbo.Receipt AS R ON PLR.ReceiptNo = R.ReceiptNo
+                              WHERE    PLR.ActionStatus     = '0' 
+							  AND      R.Mission            = I.Mission 
+							  AND      PLR.Warehouse        = S.Warehouse 
+							  AND      PLR.WarehouseItemNo  = T.ItemNo
+							  -- AND      PLR.WarehouseUoM     = L.UoM  <!--- not relevant --->
+							  ) as StockInTransit,	
+							 												 	   
+							 (SELECT   ISNULL(SUM(TransactionQuantity),0)
+							  FROM     Materials.dbo.vwCustomerRequest
+							  WHERE    ItemNo          = T.ItemNo
+							  -- AND      TransactionUoM  = T.UoM
+							  AND      Warehouse       = S.Warehouse
+							  AND      BatchNo IS NULL 
+							  AND      RequestClass = 'QteReserve' 
+							  AND      ActionStatus in ('0','1')) as QuantityRequested, 							 
+							 
 							 S.Created
 							 
 				FROM        Item AS I 
@@ -631,7 +744,7 @@
 									AND  T.DateEffective = S.DateEffective
 										   
 												   
-								) as P ON P.Mission = W.Mission AND P.ItemNo = I.ItemNo AND PriceSchedule = '#Priceschedule#'									
+								) as P ON P.Mission = W.Mission AND P.ItemNo = I.ItemNo AND P.Mission = I.Mission AND PriceSchedule = '#Priceschedule#'									
 							
 				WHERE       S.Mission = '#mission#' 
 				AND         I.Operational = 1
@@ -658,23 +771,48 @@
 				AND ( 				
 				(#preservesingleQuotes(searchstr)#)				
 				OR I.ItemNo         LIKE '%#ItemName#' 				
-				)
+				)				
+				</cfif>	
 				
-				</cfif>			
+				<cfif mission eq "Mariscal">	
+				
+					<cfif itemNo neq "">				
+						<cfif itemMode eq "exact">
+						AND    I.ItemNo LIKE '#ItemNo#'
+						
+						<cfelse>
+						AND    I.ItemNo LIKE '%#ItemNo#' 
+						</cfif>
+					</cfif>
+				
+				<cfelse>
+				
+				<cfif itemNo neq "">				
+					<cfif itemMode eq "exact">
+					AND    (I.ItemNo LIKE '#ItemNo#' OR T.ItemNo IN (SELECT ItemNo
+					                                                FROM   Materials.dbo.ItemUoMMission IM 
+																	WHERE  Mission = '#mission#'
+																	AND    Reference LIKE '#ItemNo#'
+																	AND    UoM    <> 'M2'))
+					
+					<cfelse>
+					AND    (I.ItemNo LIKE '%#ItemNo#' OR T.ItemNo IN (SELECT ItemNo
+					                                                FROM   Materials.dbo.ItemUoMMission IM 
+																	WHERE  Mission = '#mission#'
+																	AND    Reference LIKE '%#ItemNo#'
+																	AND    UoM    <> 'M2'))
+					</cfif>
+				</cfif>
+				
+				</cfif>	
 				
 				AND        I.Operational = 1 
 				AND        W.Operation   = 1		
 				
 				) as D
 				
-				<cfif itemNo neq "">				
-					<cfif itemMode eq "exact">
-					WHERE      (ItemNo LIKE '#ItemNo#' OR ItemReference LIKE '#ItemNo#') 
-					<cfelse>
-					WHERE      (ItemNo LIKE '%#ItemNo#' OR ItemReference LIKE '%#ItemNo#') 
-					</cfif>
-				</cfif>
-				
+				WHERE 1=1
+								
 				<cfif SettingOnHand eq "1">
 				AND        StockOnSale   > 0
 				</cfif>
@@ -688,6 +826,8 @@
 				</cfif>
 				
 				ORDER BY ItemName, WarehouseName
+				
+				
 																			
 			</cfquery>			
 							

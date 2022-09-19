@@ -1066,6 +1066,7 @@
 					 AND      Mission        = '#Form.Mission#' 
 			</cfquery>
 			
+			<!---
 			<cfquery name="EntityClass" 
 			   datasource="AppsEmployee" 
 			   username="#SESSION.login#" 
@@ -1079,6 +1080,7 @@
 									 	 WHERE  EntityCode = 'PersonContract') 
 				  						 
 			</cfquery>
+			--->
 							  
 			<cfif CheckMission.WorkflowEnabled eq "0" 
 			      or CheckMission.recordcount eq "0" 
@@ -1130,7 +1132,7 @@
 				
 				  <cf_ActionListing 
 					    EntityCode       = "PersonContract"
-						EntityClass      = "#EntityClass.EntityClass#"
+						EntityClass      = "#Action.EntityClass#"
 						EntityGroup      = ""
 						EntityStatus     = ""
 						Mission          = "#Form.mission#"

@@ -383,7 +383,7 @@
 												  AND      Warehouse       = W.Warehouse
 												  AND      BatchNo IS NULL 
 												  AND      RequestClass = 'QteReserve' 
-												  AND      ActionStatus = '1') as QuantityRequested, 
+												  AND      ActionStatus IN ('0','1')) as QuantityRequested, 
 												  
 												  <!--- Transit --->
 												  
