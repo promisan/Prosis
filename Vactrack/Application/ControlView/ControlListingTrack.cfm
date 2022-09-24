@@ -166,13 +166,10 @@
 			
 		<cf_layoutarea  position="top" name="box" collapsible = "true">
 		
-		    <table height="100%" width="100%" align="center">
-			
+		    <table height="100%" width="100%" align="center">			
 			<tr>
-				<td colspan="3" valign="top" id="dDetails" style="height:100%">	
-				
-				   <cfinclude template = "ControlListingTrackResult.cfm">	
-				
+				<td colspan="3" valign="top" id="dDetails" style="height:100%">					
+				   <cfinclude template = "ControlListingTrackResult.cfm">					
 				</td>
 			</tr>
 					

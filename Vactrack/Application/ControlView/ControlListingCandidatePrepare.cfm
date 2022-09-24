@@ -22,12 +22,10 @@
 			 </cfif>	 
 		</cfloop>		
 	
-		<cfset vCondition = vCondition= " AND (T.DocumentNo IN ( SELECT DP.DocumentNo FROM Vacancy.dbo.Document AS D INNER JOIN Vacancy.dbo.DocumentPost AS DP INNER JOIN
-                      Employee.dbo.Position AS P ON DP.PositionNo = P.PositionNo INNER JOIN
-                      Employee.dbo.PositionParent AS PP ON P.PositionParentId = PP.PositionParentId ON D.DocumentNo = DP.DocumentNo
-					WHERE     PP.Fund IN (#preservesinglequotes(val)#) AND D.Mission = '#url.mission#'))">
+		<cfset vCondition = vCondition= " AND (T.PositionParentId IN ( SELECT PositionParentId FROM Employee.dbo.PositionParentFunding PPF WHERE PPF.PositionParentId = T.PositionParentId and PPF.Fund IN (#preservesinglequotes(val)#)))">
 					
 	</cfif>			
+	
 	<cfif Form.PostGrade neq "">
 	
 	 <cfset val = ""> 		
@@ -40,10 +38,13 @@
 		</cfloop>	
 	
 		<cfset vCondition = vCondition & " AND (T.PostGrade IN (#preservesinglequotes(val)#))">
-	</cfif>			
+	</cfif>		
+	
+	<!---	
 	<cfif Form.EntityClass neq "">
 		<cfset vCondition = vCondition & " AND (T.EntityClass = '#FORM.EntityClass#')">
 	</cfif>	
+	--->
 	<cfif Form.DocumentType neq "">
 	    <cfset val = ""> 		
 	    <cfloop index="itm" list="#form.DocumentType#" delimiters=",">
@@ -67,7 +68,7 @@
 			 </cfif>	 
 		</cfloop>	
 		
-		<cfset vCondition = vCondition & " AND (Left(T.OrgUnitHierarchy,2) IN (#preservesinglequotes(val)#))">
+		<cfset vCondition = vCondition & " AND (Left(T.HierarchyCode,2) IN (#preservesinglequotes(val)#))">
 	</cfif>		
 	
 	<cfif Form.ReferenceNo neq "">
@@ -84,4 +85,4 @@
 		
 </cfif>		
 
-<cfinclude template="ControlListingTrackQuery.cfm">		
+	

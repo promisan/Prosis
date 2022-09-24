@@ -18,13 +18,14 @@
 		FROM (
 	
 			SELECT *, (CASE WHEN IncumbentOwner >= 1 THEN 'Owner' WHEN Incumbent >= 1 THEN 'Temporary' ELSE 'Vacant' END) as IncumbentStatus,
-        			  (CASE WHEN TrackPosted is not NULL THEN datediff(DAY, TrackPosted, getdate()) ELSE -1 END)          as TrackPostedDays,
+        			  (CASE WHEN DatePosted      is not NULL THEN datediff(DAY, DatePosted, getdate()) ELSE -1 END)       as TrackPostedDays,
 					  (CASE WHEN TrackDateVacant is not NULL THEN TrackDateVacant ELSE NULL END)                          as DateVacant,
 					  (CASE WHEN TrackDateVacant is not NULL THEN datediff(DAY, TrackDateVacant, getdate()) ELSE -1 END)  as DateVacantDays 
 								
 			FROM (
 			
-			SELECT      DISTINCT S.PositionNo, count(*) over ( partition by S.PositionNo ) as PositionCount, 
+			SELECT      DISTINCT S.PositionNo, 
+			            count(*) over ( partition by S.PositionNo ) as PositionCount, 
 			            S.PositionParentId, S.Mission, S.MandateNo, S.OrgunitNameShort, S.HierarchyCode, 
 			            S.FunctionNo,  S.FunctionDescription, S.PostType, S.PostClass, S.VacancyActionClass, 
 		                S.ShowVacancy, S.SourcePostNumber, S.DateExpiration, S.PostGrade, S.Remarks, 
@@ -41,37 +42,36 @@
 						   FROM       Applicant.dbo.FunctionOrganization
 						   WHERE      FunctionId = H.FunctionId ) <> '' THEN  (SELECT TOP 1 LEFT(ReferenceNo,7)
 						   FROM       Applicant.dbo.FunctionOrganization
-						   WHERE      FunctionId = H.FunctionId ) ELSE CAST(H.DocumentNo as varchar)  END) as Reference, 
+						   WHERE      FunctionId = H.FunctionId ) ELSE CAST(H.DocumentNo as varchar) END) as Reference, 
 						  					
 						  (SELECT     TOP 1 DateEffective
 						   FROM       Applicant.dbo.FunctionOrganization
-						   WHERE      FunctionId = H.FunctionId )  as TrackPosted,    
-						   
+						   WHERE      FunctionId = H.FunctionId ) as DatePosted,   						   
 										   
 						  (SELECT     R.Description
 		                   FROM       PositionParentGroup AS PPG INNER JOIN
 		                              Ref_PositionParentGroupList AS R ON PPG.GroupCode = R.GroupCode AND PPG.GroupListCode = R.GroupListCode
 		                   WHERE      PPG.GroupCode = 'Status' and PPG.PositionParentId = S.PositionParentId) AS PostStatus,
 						   
-						  ( SELECT TOP 1 Fund
-						    FROM   PositionParentFunding
-						    WHERE  PositionParentId  = S.PositionParentId
-						    ORDER BY DateEffective DESC  ) as Fund, 
+						  (SELECT     TOP 1 Fund
+						   FROM       PositionParentFunding
+						   WHERE      PositionParentId  = S.PositionParentId
+						   ORDER BY   DateEffective DESC  ) as Fund, 
 							
-						  ( SELECT TOP 1 FunctionalArea
-						    FROM   PositionParentFunding
-						    WHERE  PositionParentId  = S.PositionParentId
-						    ORDER BY DateEffective DESC  ) as FunctionalArea, 	
+						  (SELECT     TOP 1 FunctionalArea
+						    FROM      PositionParentFunding
+						    WHERE     PositionParentId  = S.PositionParentId
+						    ORDER BY  DateEffective DESC  ) as FunctionalArea, 	
 										   
-						  ( SELECT count(DISTINCT PositionNo)
-						    FROM   PersonAssignment
-						    WHERE  PositionNo      = S.PositionNo
-						    AND    AssignmentStatus IN ('0','1')
-						    AND    AssignmentType   = 'Actual'					 
-						    AND    Incumbency       = 100
-						    AND    DateEffective  <= CAST(GETDATE() AS Date) 
-						    AND    DateExpiration >= CAST(GETDATE() AS Date)				
-						    AND    DateEffective  < S.DateExpiration ) as Incumbent,
+						  (SELECT     count(DISTINCT PositionNo)
+						    FROM      PersonAssignment
+						    WHERE     PositionNo      = S.PositionNo
+						    AND       AssignmentStatus IN ('0','1')
+						    AND       AssignmentType   = 'Actual'					 
+						    AND       Incumbency       = 100
+						    AND       DateEffective  <= CAST(GETDATE() AS Date) 
+						    AND       DateExpiration >= CAST(GETDATE() AS Date)				
+						    AND       DateEffective  < S.DateExpiration ) as Incumbent,
 						
 						  <!---	
 						  ( SELECT TOP 1 DateExpiration
@@ -176,17 +176,17 @@
 												   
 												   --->
 																					 
-		                               FROM         Vacancy.dbo.[Document] AS D INNER JOIN
-		                                            Vacancy.dbo.DocumentPost AS DP ON D.DocumentNo = DP.DocumentNo AND D.Status = '0' INNER JOIN
-		                                            Position AS P ON DP.PositionNo = P.PositionNo INNER JOIN
-													userQuery.dbo.#session.acc#_#Mission.MissionPrefix#_VacancyTrack T ON D.DocumentNo = T.ObjectKeyValue1
+		                               FROM        Vacancy.dbo.[Document] AS D INNER JOIN
+		                                           Vacancy.dbo.DocumentPost AS DP ON D.DocumentNo = DP.DocumentNo AND D.Status = '0' INNER JOIN
+		                                           Position AS P ON DP.PositionNo = P.PositionNo INNER JOIN
+												   userQuery.dbo.#session.acc#_#Mission.MissionPrefix#_VacancyTrack T ON D.DocumentNo = T.ObjectKeyValue1
 													
 													<!--- INNER JOIN 
 													(#preserveSingleQuotes(WorkFlowSteps)#) as T ON D.DocumentNo = T.ObjectKeyValue1
 													--->
 													
-		                               WHERE        D.Mission = '#url.mission#' 
-									   AND          D.Status = '0') AS H ON S.PositionParentId = H.PositionParentId
+		                               WHERE       D.Mission = '#url.mission#' 
+									   AND         D.Status = '0') AS H ON S.PositionParentId = H.PositionParentId
 									   									   
 									   LEFT OUTER JOIN vwIncumbent U ON S.PositionNo = U.PositionNo and U.Modality = 'User'
 									   
@@ -208,9 +208,7 @@
 		 ) as S
 		 
 		 WHERE 1=1
- 
-	    --condition 
-	
+     
 	 
 	 </cfoutput>	
 	 									
@@ -244,7 +242,7 @@
 	 
 	 </cfcase>
 	 
-	  <cfcase value="ParentNameShort">
+	 <cfcase value="ParentNameShort">
 	 
 	 	<cfquery name="Graph" 
 	    datasource="AppsEmployee" 
@@ -300,8 +298,7 @@
 	
 	<cf_UIchart 			
 			name			= "fPostVacancy"
-			chartheight     = "170"
-			chartwidth      = "#client.width-80#"
+			chartheight     = "140"			
 			showxgridlines  = "yes"
 			showYGridlines  = "Yes"
 			fontsize        = "12"			

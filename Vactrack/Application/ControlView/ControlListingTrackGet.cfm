@@ -37,8 +37,6 @@ selected candidates which each have a track potentially assigned --->
 		WHERE    Mission = '#url.mission#'
 		AND      OrgUnitCode = '#url.hierarchyRootUnit#' 
 	</cfquery>	
-	
-
 			
 <cfsavecontent variable="session.SelectTracks">
 	

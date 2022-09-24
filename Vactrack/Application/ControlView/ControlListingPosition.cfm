@@ -46,9 +46,7 @@
 	<cfset attrib = {type="Border",name="mybox",fitToWindow="Yes"}>	
 		
 	<cf_layout attributeCollection="#attrib#">	
-	
-	    <!---
-		
+		   		
 	    <cf_layoutarea  position="header" name="box11" collapsible = "false">
 		
 		   <table height="100%" width="100%" align="center">
@@ -58,33 +56,26 @@
 				    <table width="100%">
 					
 						<tr>
-					    <td align="left" class="labellarge" style="padding-left:20px;height:40px;font-size:34px;padding-top:4px">
-									
-							    <cfif url.mode neq "Print">
-								<a href="javascript:show_box_search()">#URL.Mission# <img id="img_search" src="#SESSION.root#/images/arrow-down.gif" alt="" border="0" align="top"></a>													
-								<cfelse>
-								#URL.Mission#
-								</cfif>			
-								
-						<td align="right" class="fixlength" style="padding-left:20px;height:30px;font-size:26px;padding-top:4px">#url.orgunitname#</td>																		    				
+					    <td align="left" class="labellarge" style="padding-left:20px;height:40px;font-size:34px;padding-top:4px">#URL.Mission#</td>							
+						<td align="right" class="fixlength" style="padding-right:20px;height:30px;font-size:22px;padding-top:4px">#url.orgunitname#</td>																		    				
 						</tr>						
 										
 					</table>			
 			    </td>			
 			</tr>	
 			
+			<!---
 			<tr id="dBox" class="hide">		
 				<td width="100%" colspan="3" id="dCriteria">
 					<cfinclude template="ControlCriteria.cfm">
 				</td>			
-			</tr>	
+			</tr>
+			--->	
 			
 			</table>
 		
 		</cf_layoutarea>
-		
-		--->
-			
+					
 		<cf_layoutarea  position="top" name="box" collapsible = "true">
 		
 		    <table height="100%" width="98%" align="center">			
@@ -116,8 +107,6 @@
 <!---
 
 <cfoutput>
-
-	
 		
 	<table style="width:100%;height:100%">	
 	<tr><td style="height:600px" valign="top">

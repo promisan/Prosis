@@ -21,7 +21,7 @@
 		AND        R.AccountType        = 'Credit' 
 		AND        R.AccountCategory    = 'Customer'
 		</cfif>	
-								 		   
+						 		   
 </cfquery>		
 
 <cfset selaccount = quotedvalueList(Accounts.GLAccount)> 

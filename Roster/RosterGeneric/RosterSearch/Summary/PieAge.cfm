@@ -121,7 +121,6 @@ password="#SESSION.dbpw#">
 
 <CF_DropTable dbName="AppsQuery" tblName="tmp#SESSION.acc#RosterAge">
 
-
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
 
 <tr><td align="center" class="labellarge" style="color:#808080;"><cf_tl id="By Age"></td></tr>
@@ -130,27 +129,26 @@ password="#SESSION.dbpw#">
 
 <cfif Age.recordcount gt 0>
 
-<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
-<cfchart style = "#chartStyleFile#" format="png" 
+<cf_uichart name="age" format="png" 
 	chartheight="300" 
-	chartwidth="460" 
+	chartwidth="260" 
 	scalefrom="0" 
 	fontsize="12"
 	scaleto="#Max.Total+1#" 
 	pieslicestyle="sliced" >
 	
-		<cfchartseries 
+		<cf_uichartseries 
 			type="bar" 
-			query="Age" 
+			query="#Age#" 
 			itemcolumn="Age" 
 			valuecolumn="Total" 
 			seriescolor="5DB7E8" 
 			paintstyle="raise" 
 			markerstyle="circle"
 			colorlist="#vColorlist#">
-		</cfchartseries>
+		</cf_uichartseries>
 		
-</cfchart>
+</cf_uichart>
 </cfif>
 
 </td>

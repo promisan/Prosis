@@ -30,6 +30,7 @@
 	   <cfoutput>	
 	   SELECT * --,duedate,created, dateposted
 	   FROM (  
+	   
 	       	<cfloop query="AgingBase">
 				SELECT  *,
 				        '#Description#'         as Aging, 
@@ -46,18 +47,16 @@
 		WHERE 1=1
 		
 		<cfif url.mode eq "status">
-		AND     ActionDescription = '#url.filter#' 
+		    AND     ActionDescription = '#url.filter#' 
 		<cfelseif url.mode eq "aging" and url.condition eq "0">
-		AND     Aging = '#url.filter#' 
-		
-		AND     DatePosted is not NULL
-		<!--- no selected candidate yet --->
-		AND     D.DocumentNo NOT IN (SELECT DocumentNo FROM Vacancy.dbo.DocumentCandidate WHERE Status IN ('2s','3'))
-		
+			AND     Aging = '#url.filter#' 		
+			AND     DatePosted is not NULL
+			<!--- no selected candidate yet --->
+			AND     D.DocumentNo NOT IN (SELECT DocumentNo FROM Vacancy.dbo.DocumentCandidate WHERE Status IN ('2s','3'))		
 		<cfelseif url.mode eq "postgrade">
-		AND     PostGradeBudget  = '#url.filter#' 
+		    AND     PostGradeBudget  = '#url.filter#' 
 		<cfelseif url.mode eq "aging">
-		AND     Aging = '#url.filter#'	
+		    AND     Aging = '#url.filter#'	
 		</cfif>
 		
 		</cfoutput>

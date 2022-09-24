@@ -79,6 +79,15 @@
 			<cfif GetAction.PersonMailActionAttach eq "1">Yes<cfelse>No</cfif>
 		</td>
 		</tr>	
+		<tr valign="top">
+		<td align="left">
+			<img src="<cfoutput>#SESSION.root#</cfoutput>/Images/join.gif" align="absmiddle"	alt="" border="0">
+			Attach "prior document" generated Documents:
+		</td>									
+		<td>
+			<cfif GetAction.PersonMailActionAttachPrior eq "1">Yes<cfelse>No</cfif>
+		</td>
+		</tr>	
 	</cfif>			
 </table>
 		

@@ -82,8 +82,8 @@
                 surface#Attributes.Mode#.draw(path#Attributes.Mode#);
 
             }).on("#vListenerUp#", function(e) {
-                updateSignature();
                 path#Attributes.Mode# = undefined;
+                updateSignature();
             });
 
             surface#Attributes.Mode# = draw#Attributes.Mode#.Surface.create($("##surface#Attributes.Mode#"));

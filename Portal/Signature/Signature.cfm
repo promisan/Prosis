@@ -118,31 +118,33 @@
 		 <CFFORM name      = "write" 
 	    	action    = "../Signature/SignatureWrite.cfm?account=#account#" 
 			method    = "post">
-			
-		<table width="100%">		
-		<tr>
-			<td colspan="2">	
-	            <!--- This is going to generate a field name SignatureContent --->                    
-	            <CF_UISignatureView class="button10g" buttons="No" width="450" height="100" style="background-color:f4f4f4;border:1px solid silver">
-		</td>	
-		</tr>	
+
+			 <cfquery name="GetLast"
+					 datasource="AppsSystem"
+					 username="#SESSION.login#"
+					 password="#SESSION.dbpw#">
+					 SELECT    *
+					 FROM      UserNames
+					 WHERE     Account = '#session.acc#'
+			 </cfquery>
+
+			 <table width="100%">
+			<tr>
+				<td colspan="2">
+					<!--- This is going to generate a field name SignatureContent --->
+					<CF_UISignatureView class="button10g" buttons="No" width="450" height="100" style="background-color:f4f4f4;border:1px solid silver" value="#GetLast.Signature#">
+			</td>
+			</tr>
 		
-			<cfquery name="GetLast" 
-			datasource="AppsSystem" 
-			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
-			SELECT    *
-			FROM      UserNames
-			WHERE     Account = '#session.acc#'
-		</cfquery>	
+
 		
-		<cfif getlast.SignatureModified neq "">
-		<tr class="labelmedium2"><td colspan="2">
-		
-		The above signature was last update on : #dateformat(GetLast.SignatureModified,client.dateformatshow)#
-					
-		</td></tr>
-		</cfif>
+			<cfif getlast.SignatureModified neq "">
+				<tr class="labelmedium2"><td colspan="2">
+
+				The above signature was last update on : #dateformat(GetLast.SignatureModified,client.dateformatshow)#
+
+				</td></tr>
+			</cfif>
 		
 		<tr>						
 							

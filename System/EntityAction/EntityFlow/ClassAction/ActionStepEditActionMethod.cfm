@@ -12,13 +12,13 @@
 	<cf_tl id="Step Due" var="1">
 			
 	<cf_layoutArea 
-		id 		= "stepDue" 
-		label 	= "#lt_text#"
-		labelHeight = "#vHeight#"
+		id 		        = "stepDue" 
+		label        	= "#lt_text#"
+		labelHeight     = "#vHeight#"
 		stateIconHeight = "#vTogglerSize#"
-		labelFontSize = "#vTextSize#">
+		labelFontSize   = "#vTextSize#">
 		
-			<table width="97%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+			<table width="97%" align="center" class="formpadding">
 			
 			<tr><td height="1"></td></tr>
 			
@@ -29,9 +29,18 @@
 				<td>&nbsp;&nbsp;</td>
 				<td><input type="checkbox" name="DueActorAuthenticate" id="DueActorAuthenticate" class="radiol" value="1" <cfif ScriptDue.ActorAuthenticate eq 1>checked</cfif>></td>		
 				<td>&nbsp;</td>
-				<td><img src="#SESSION.root#/images/authenticate.gif" alt="" align="absmiddle" border="0"></td>
+				<td><img src="#SESSION.root#/images/password.png" height="13" align="absmiddle" border="0"></td>
 				<td>&nbsp;</td>		
-				<td class="labelit">Action Requires authentication</td>
+				<td class="labelit">Requires password</td>
+				
+				<td>&nbsp;&nbsp;</td>
+				<td><input type="checkbox" name="DueActorSignature" id="DueActorSignature" class="radiol" value="1" <cfif ScriptDue.ActorSignature eq 1>checked</cfif>></td>		
+				<td>&nbsp;</td>
+				<td><img src="#SESSION.root#/images/signature.png" height="13" alt="" align="absmiddle" border="0"></td>
+				<td>&nbsp;</td>		
+				<td class="labelit">Requires signature</td>
+				
+				
 			</tr>
 			</table>
 			
@@ -191,8 +200,6 @@
 				</table>
 			</TD>
 		</TR>	
-		
-		
 							
 		<tr>
 		<td height="16" class="labelit" style="min-width:150px;cursor:pointer"><cf_UIToolTip tooltip="Associate a Condition script which must return a variable to be declared under [Return Variable]">Condition Script:</cf_UIToolTip></td>
@@ -304,7 +311,6 @@
 		<tr><td height="0"></td></tr>		
 		
 		
-		
 		<TR>
 	    <TD height="15" class="labelit" style="cursor:pointer;padding-right:10px">
 		<cf_UIToolTip tooltip="This is either a field or a variable return by the selected script">Return Variable:</cf_UIToolTip></TD>
@@ -352,11 +358,9 @@
 					
 			</td></tr>	
 						
-		</table>
-		
+		</table>		
 	
-	</cf_layoutArea>	
-	
+	</cf_layoutArea>		
 				
 	<!--- Decision --->
 	<cfif Get.ActionType eq "Decision">
@@ -390,9 +394,17 @@
 					<input type="checkbox" class="radiol" name="SubmissionActorAuthenticate" id="SubmissionActorAuthenticate" value="1" <cfif ScriptSubmission.ActorAuthenticate eq "1"> checked</cfif>>
 				</td>
 				<td>&nbsp;</td>
-				<td><img src="#SESSION.root#/images/authenticate.gif" alt="" align="absmiddle" border="0"></td>
+				<td><img src="#SESSION.root#/images/password.png" height="13" align="absmiddle" border="0"></td>
 				<td>&nbsp;</td>
-				<td class="labelit">Action Requires authentication</td>
+				<td class="labelit">Requires authentication</td>
+				
+				<td>&nbsp;&nbsp;</td>
+				<td><input type="checkbox" name="SubmissionActorSignature" id="SubmissionActorSignature" class="radiol" value="1" <cfif ScriptSubmission.ActorSignature eq 1>checked</cfif>></td>		
+				<td>&nbsp;</td>
+				<td><img src="#SESSION.root#/images/signature.png" height="13" align="absmiddle" border="0"></td>
+				<td>&nbsp;</td>		
+				<td class="labelit">Requires signature</td>
+				
 				</tr>
 				</table>
 			</TD>
@@ -413,9 +425,17 @@
 					<input type="checkbox" class="radiol" name="SubmissionActorAuthenticate" id="SubmissionActorAuthenticate" value="1" <cfif ScriptSubmission.ActorAuthenticate eq "1">checked</cfif>>
 				</td>
 				<td>&nbsp;</td>
-				<td><img src="#SESSION.root#/images/authenticate.gif" alt="" align="absmiddle" border="0"></td>
+				<td><img src="#SESSION.root#/images/password.png" height="13" align="absmiddle" border="0"></td>
 				<td>&nbsp;</td>
-				<td class="labelit">Action Requires authentication</td>
+				<td class="labelit">Requires authentication</td>
+				
+				<td>&nbsp;&nbsp;</td>
+				<td><input type="checkbox" name="SubmissionActorSignature" id="SubmissionActorSignature" class="radiol" value="1" <cfif ScriptSubmission.ActorSignature eq 1>checked</cfif>></td>		
+				<td>&nbsp;</td>
+				<td><img src="#SESSION.root#/images/signature.png" height="13" align="absmiddle" border="0"></td>
+				<td>&nbsp;</td>		
+				<td class="labelit">Requires signature</td>
+				
 				</tr>
 				</table>
 			</TD>
@@ -573,10 +593,17 @@
 						<input type="checkbox" class="radiol" name="DenyActorAuthenticate" id="DenyActorAuthenticate" value="1" <cfif ScriptDeny.ActorAuthenticate eq "1">checked</cfif>>
 					</td>
 					<td>&nbsp;</td>
-					<td><img src="#SESSION.root#/images/authenticate.gif" alt="" align="absmiddle" border="0"></td>
+					<td><img src="#SESSION.root#/images/password.png" height="13" align="absmiddle" border="0"></td>
 					<td>&nbsp;</td>
-					<td class="labelit">Action Requires authentication</td>
+					<td class="labelit">Requires authentication</td>
 					
+					<td>&nbsp;&nbsp;</td>
+					<td><input type="checkbox" name="DenyActorSignature" id="DenyActorSignature" class="radiol" value="1" <cfif ScriptDeny.ActorSignature eq 1>checked</cfif>></td>		
+					<td>&nbsp;</td>
+					<td><img src="#SESSION.root#/images/signature.png" height="13" align="absmiddle" border="0"></td>
+					<td>&nbsp;</td>		
+					<td class="labelit">Requires signature</td>
+										
 					</tr>						
 					</table>
 				</TD>	

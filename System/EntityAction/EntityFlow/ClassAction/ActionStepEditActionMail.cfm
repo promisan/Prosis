@@ -69,7 +69,7 @@
 									<option value="">--select--</option>
 								  	<cfloop query="Mail">
 									    <option value="#DocumentCode#"
-										 <cfif #DocumentCode# eq #Get.PersonMailAction#>selected</cfif>>
+										 <cfif DocumentCode eq Get.PersonMailAction>selected</cfif>>
 										 #DocumentDescription#</option>
 									</cfloop>
 								</select>
@@ -92,9 +92,18 @@
 				<tr class="#c1#" id="actionmail2">
 					<td align="left" style="padding-left:4px" class="labelmedium">
 					<img src="<cfoutput>#SESSION.root#</cfoutput>/images/join.gif" align="absmiddle"	alt="" border="0">
-					&nbsp;&nbsp;Add the "for this step" generated Documents:</td>								
+					&nbsp;&nbsp;Add "for this step" generated Documents:</td>								
 					<td>
 						<INPUT type="checkbox" class="Radiol" name="PersonMailActionAttach" id="PersonMailActionAttach" value="1" <cfif Get.PersonMailActionAttach eq "1">checked</cfif>>
+					</td>
+				</tr>	
+				
+				<tr class="#c1#" id="actionmail3">
+					<td align="left" style="padding-left:4px" class="labelmedium">
+					<img src="<cfoutput>#SESSION.root#</cfoutput>/images/join.gif" align="absmiddle"	alt="" border="0">
+					&nbsp;&nbsp;Add [Prior document] generated Documents:</td>								
+					<td>
+						<INPUT type="checkbox" class="Radiol" name="PersonMailActionAttachPrior" id="PersonMailActionAttachPrior" value="1" <cfif Get.PersonMailActionAttachPrior eq "1">checked</cfif>>
 					</td>
 				</tr>	
 				

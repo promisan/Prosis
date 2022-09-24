@@ -466,8 +466,8 @@
 	
 					
 	<TR>
-    <TD class="labelmedium" height="25" style="padding-right:15px;padding-left:10px;cursor:pointer"><cf_uitooltip  tooltip="Merge the [Notes/Memo] from previously completely step into the text input for this step">
-	  [TAB]&nbsp;Prior&nbsp;Document:</cf_uitooltip></b>
+    <TD class="labelmedium" height="25" style="padding-right:15px;padding-left:10px;cursor:pointer" title="Present generate content from previously completely step into this step for reference">
+	  [TAB]&nbsp;Prior&nbsp;Document:</b>
     </TD>
 	<TD>
 	  <table cellspacing="0" cellpadding="0">
@@ -476,12 +476,12 @@
 		    <option value="" selected></option>
 			<option value="Prior" <cfif Get.ActionViewMemo eq "Prior">selected</cfif>>Prior action</option>
 			<cfloop query="Access">
-			  <cfif len(Access.ActionDescription) gt 40>
-			    <cfset nm = left(Access.ActionDescription,40)>
-			  <cfelse>
-			     <cfset nm = Access.ActionDescription>	
-			  </cfif>
-			       <option value="#Access.ActionCode#" <cfif #Access.ActionCode# eq #Get.ActionViewMemo#>selected</cfif>>#Access.ActionCode# #nm#</option>
+				  <cfif len(Access.ActionDescription) gt 40>
+				    <cfset nm = left(Access.ActionDescription,40)>
+				  <cfelse>
+				     <cfset nm = Access.ActionDescription>	
+				  </cfif>
+			       <option value="#Access.ActionCode#" <cfif Access.ActionCode eq Get.ActionViewMemo>selected</cfif>>#Access.ActionCode# #nm#</option>
 			</cfloop>
 		</select>
 		</td>

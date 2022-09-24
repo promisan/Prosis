@@ -184,9 +184,7 @@
 	WHERE ActionPublishNo = '#URL.PublishNo#'
 	AND ActionCode = '#get.ActionParent#' 
 	</cfquery>
-	
-	
-	
+		
 	<cfloop index="itm" list="Due,Submission,Deny,Condition" delimiters=",">
 		
 		<cfquery name="Script#itm#" 

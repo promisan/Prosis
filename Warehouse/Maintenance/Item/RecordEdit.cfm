@@ -381,7 +381,16 @@
 						name       = "#sta#"
 						source     = "Workflow/ItemBaseWorkflow.cfm?id=#url.id#&idmenu=#url.idmenu#">		
 						
-				
+			<cfset itm = itm+1>
+			<cf_tl id = "UoM" var = "1">
+			<cf_menutab item       = "#itm#" 
+			            iconsrc    = "Logos/Procurement/Receipt-Inspect.png" 
+						iconwidth  = "#wd#" 
+						targetitem = "2"
+						padding    = "0"
+						iconheight = "#ht#" 
+						name       = "#lt_text#"
+						source     = "UoM/ItemUOM.cfm?id=#url.id#&mode=#url.mode#&idmenu=#url.idmenu#">		
 			
 			<cfset itm = itm+1>
 			<cf_tl id = "Photo" var = "1">

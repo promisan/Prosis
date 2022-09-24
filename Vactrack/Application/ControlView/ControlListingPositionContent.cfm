@@ -8,20 +8,55 @@
 	WHERE  Mission = '#url.mission#'
 </cfquery>
 
+<cfquery name="agingBase"
+	datasource="AppsVacancy"
+	username="#SESSION.login#"
+	password="#SESSION.dbpw#">
+		SELECT   *
+		FROM     stAging
+		ORDER BY ListingOrder
+</cfquery>
+
+<cfsavecontent variable="myPositionTracks">
+
+	   <cfoutput>	
+	   SELECT * 
+	   FROM (  
+	   
+	       	<cfloop query="AgingBase">
+				SELECT  *,
+				        '#Description#'         as Aging, 
+						'#ListingOrder#'        as AgingOrder
+				FROM    (#preservesingleQuotes(session.selecttracks)#) as D
+				WHERE   1=1									
+				AND     #Condition# <!--- only tracks without selection --->				
+				<cfif recordcount neq currentrow>
+				UNION ALL
+				</cfif>
+			</cfloop>
+			) as D
+							
+		WHERE 1=1
+				
+		</cfoutput>
+		
+		--condition
+	
+</cfsavecontent>
+
 <cfset itm = 0>
 		
 <cfset fields=ArrayNew(1)>
 
  <cfif URL.HierarchyCode eq "">
  
-	  <cfset itm = itm + 1>					
+   <cfset itm = itm + 1>					
    <cfset fields[itm] = {label      = "Entity", 					
 					  field      = "ParentUnit",										
 					  search     = "text",
 					  filtermode = "3"}>	
  
- <cfelse>
- 
+ <cfelse> 
  
    <cfset itm = itm + 1>					
    <cfset fields[itm] = {label      = "Unit", 					
@@ -145,9 +180,7 @@
 					  align      = "Center",										
 					  search     = "text", 
 					  filtermode = "3"}>	
-
-					  
-  
+ 
 <cfset itm = itm+1>	
 <cf_tl id="Select" var = "1">		
 <cfset fields[itm] = {label       = "S",                    
@@ -157,8 +190,7 @@
 					align         = "center",
 					rowlevel      = "1",
 					Colspan       = "1"}>	
-					
-										
+									
 <cfset itm = itm+1>	
 <cf_tl id="Expected" var = "1">		
 <cfset fields[itm] = {label       = "#lt_text#",                    
@@ -169,8 +201,6 @@
 					display       = "1",													
 					formatted     = "dateformat(ExpectedOnBoarding,'#CLIENT.DateFormatShow#')",																																												
 					search        = "date"}>							
-	 
-
 										  
 <cfset itm = itm+1>	
 <cf_tl id="Remarks" var = "1">		
@@ -204,7 +234,6 @@
 					rowlevel      = "2",
 					Colspan       = "3"}>							
 					
-
 <cfset itm = itm+1>	
 <cf_tl id="Action" var = "1">		
 <cfset fields[itm] = {label       = "#lt_text#",                    
@@ -214,16 +243,15 @@
 					display       = "1",	
 					rowlevel      = "2",
 					Colspan       = "5"}>										
-	
 
 <!--- embed|window|dialogajax|dialog|standard --->
 			
 <cf_listing header  = "PositionTrackDetail"
-    box             = "position_#url.mission#"
+    box             = "positiontrack_#url.mission#"
 	link            = "#SESSION.root#/Vactrack/Application/ControlView/ControlListingPositionContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&hierarchycode=#url.hierarchyCode#"
     html            = "No"		
 	datasource      = "AppsEmployee"
-	listquery       = "#session.selecttracks#"
+	listquery       = "#myPositionTracks#"
 	listorder       = "SourcePostNumber"
 	listorderalias  = ""
 	listorderdir    = "DESC"

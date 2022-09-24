@@ -3,7 +3,6 @@
 	<link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>"> 
 </head>
 
-
 <cfquery name="Object" 
  datasource="AppsOrganization"
  username="#SESSION.login#" 
@@ -34,6 +33,7 @@
 
 </cfif>
 
+
 <!--- process step : Custom Process Mail --->
 <cfparam name="FORM.ActionMemo"             default="">
 <cfparam name="FORM.ActionReferenceDate"    default="">
@@ -44,6 +44,7 @@
 <cfparam name="url.wf"                      default="1">
 <cfparam name="url.windowmode"              default="window">
 <cfparam name="url.submitaction"            default="">
+<cfparam name="url.actionstatus"            default="0">
 <cfparam name="processmailexecuted"         default="0">
 
 <cfif url.submitaction eq "saveaction">
@@ -53,7 +54,6 @@
 <cfif url.submitaction eq "embedsave">
 	 <cfparam name="Form.EmbedSave" default="Save">
 </cfif>
-
 
 <cfif url.wfmode eq "7">
 
@@ -81,7 +81,7 @@
     <!--- saves the custom fields from embedded classical dialog  --->
 			
 	<cfset t = URL.ID>
-	    <cfif Form.SaveCustom neq "">
+	    <cfif Form.SaveCustom neq ""> <!--- enabled for the submit method --->
 	        <cfinclude template="../../#Form.SaveCustom#">
 		</cfif>
 	<cfset url.id = t>	

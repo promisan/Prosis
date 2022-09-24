@@ -30,7 +30,7 @@
 	    <td class="labelmedium" style="height:25px;font-size:18px">
 		<table width="100%">
 		<tr>
-		<td style="font-size:18px"><a href="javascript:$('##filter').toggle();"><font size="2"><cf_tl id="Filter"></font></a>&nbsp;#lt_content#</td>		
+		<td class="labelmedium" style="font-size:18px"><a href="javascript:$('##filter').toggle();"><cf_tl id="Filter"></font></a>&nbsp;#lt_content#</td>		
 		</tr>
 		</table>
 		</td>
@@ -46,7 +46,7 @@
 			</cfquery>
 	        
 	  <tr id="filter">
-	    <td height="40"> 	 
+	    <td> 	 
 				
 		  <table width="100%" border="0" align="center" class="formpadding">
 		
@@ -69,7 +69,7 @@
 			 
 			<TD valign="top" style="padding-top:5px" class="labelmedium">
 			
-			<table border="0" class="formpadding formspacing">
+			<table border="0" class="formpadding">
 			
 			<tr class="line">
 			
@@ -120,19 +120,28 @@
 			
 			</cfif>
 					 
-	         <TD class="labelmedium">
+	         <TD class="labelmedium"  valign="top">
 				  <table>
-				  <tr class="line"><td style="font-size:10px"><cf_tl id="Category"></TD></tr>
+				  <tr class="line"><td style="width:300px;font-size:10px"><cf_tl id="Category"></TD></tr>
+				  
 				  <tr>
 		        
-		          <td align="left" valign="top" style="padding-left:3px;padding-top:3px">
-				    			
-				    <select name="category" id="category" style="border:0px;width:300px;height:105px" class="regularxl" multiple onchange="ptoken.navigate('#session.root#/Warehouse/Application/Stock/Resupply/getCategoryItem.cfm','subcategory','','','POST','criteria')">						
-						<cfloop query="CategorySelect">
-						<option value="'#Category#'" <cfif find(category,session.mysupply['category'])>selected</cfif>>#Description#</option>
-						</cfloop>
-					</select>
-					
+		          <td align="left" valign="top" style="width:300px;padding-left:3px;padding-top:2px">
+				  
+				        <cf_UISelect name   = "category"
+						     class          = "regularxxl"						     
+						     query          = "#CategorySelect#"
+						     value          = "Category"
+						     onchange       = "_cf_loadingtexthtml='';	ptoken.navigate('#session.root#/Warehouse/Application/Stock/Resupply/getCategoryItem.cfm','subcategory','','','POST','criteria')"
+						     message        = "Please select a category"						     
+						     display        = "Description"
+						     selected       = "#session.mysupply['category']#"
+							 filter         = "contains"
+							 style          = "width:200px"
+							 separator      = ","
+						     multiple       = "yes"/>		
+				    
+										
 			  	  </td>				
 				  </tr>
 				  </table>			
@@ -143,7 +152,7 @@
 				  <tr class="line"><td valign="top" style="height:10px;font-size:10px"><cf_tl id="Sub Category"></TD></tr>
 				  <tr>
 		        
-		          <td align="left" valign="top" style="width:310px;padding-left:3px;padding-top:3px" id="subcategory">
+		          <td align="left" valign="top" style="width:310px;padding-left:3px;padding-top:2px" id="subcategory">
 				    
 					<!---			
 				    <select name="category" id="category" style="width:300px;height:105px" class="regularxl" multiple 
@@ -161,19 +170,26 @@
 			 </td>  	
 			
 			 <cfif Program.recordcount gte "1" and get.SupplyWarehouse eq "">
-			<td>
+			<td  valign="top" style="padding-left:4px">
 			
 				<table>
-				<tr class="line"><td style="font-size:10px"><cf_tl id="Program"></TD></tr>
+				<tr class="line"><td style="width:300px;font-size:10px"><cf_tl id="Program"></TD></tr>
 				<tr>
-		        <td align="left" valign="top" style="padding-top:3px">
-				   			
-				    <select name="programcodesel" id="programcodesel" style="border:0px;width:300px;height:105px" multiple class="regularxl">
-						
-						<cfloop query="Program">
-						<option value="'#ProgramCode#'" <cfif find(programcode,session.mysupply['programcode'])>selected</cfif>>#ProgramName#</option>
-						</cfloop>
-					</select>
+		        <td align="left" valign="top" style="width:300px;padding-top:2px">
+				
+				    <cf_UISelect name   = "programcodesel"
+						     class          = "regularxxl"						     
+						     query          = "#Program#"
+						     value          = "ProgramCode"
+						     message        = "Please select a program"						     
+						     display        = "ProgramName"
+						     selected       = "#session.mysupply['programcode']#"
+							 filter         = "contains"
+							 style          = "width:200px"
+							 separator      = ","
+						     multiple       = "yes"/>		
+				    
+				  
 			  	</td>				
 				</tr>
 				</table>							
@@ -187,7 +203,7 @@
 			<td colspan="3" style="padding-left:4px">
 			 
 				 <table>
-					 <tr class="labelmedium2">	
+					 <tr class="labelmedium2 fixlengthlist">	
 					 
 					 <TD align="left"><cf_tl id="Restock through">:</TD>
 			         <td colspan="1" align="left" style="padding-left:3px">
@@ -197,12 +213,12 @@
 						<td>
 					    <input type="radio" name="restockingselect" id="restockingselect" value="Warehouse" checked class="radiol">
 						</td>
-						<td class="labelmedium" style="padding-left:4px"><cf_tl id="Internal"></td>
+						<td class="labelmedium" style="padding-left:4px;padding-top:2px;"><cf_tl id="Internal"></td>
 						<cfif get.SupplyWarehouse eq "">
 							<td style="padding-left:4px">			
 						    <input type="radio" name="restockingselect" id="restockingselect" value="Procurement" checked class="radiol">
 							</td>				
-							<td class="labelmedium" style="padding-left:4px"><cf_tl id="Procurement"></td>
+							<td class="labelmedium fixlength" style="padding-top:2px;padding-left:4px"><cf_tl id="Procurement">:</td>
 						</cfif>						
 						</tr>
 						</table>
@@ -219,8 +235,7 @@
 					<select name="offer" id="offer">
 						<option value="0">Last price offer to #url.mission#</option>
 						<option value="1">Last price offer to any entity</option>
-					</select>
-					
+					</select>					
 					</TD>		
 					
 					<td style="padding-left:10px;padding-top:3px">			
@@ -229,14 +244,9 @@
 						<input type="button" name="apply" style="width:200px;height:25px;font-size:13px" class="button10g" value="#lt_text#" onclick="resupply('s','#url.systemfunctionid#',document.getElementById('restocking').value)">
 					</cfoutput>				
 					</td>		
-					<td align="left" style="padding-left:5px"><input type="checkbox" name="refreshcontent" id="refreshcontent" value="1" class="radiol"></td>	
-					<TD style="padding-left:5px;padding-top:3px" class="labelmedium">
-					<cf_uitooltip tooltip="Refresh listing with NEW items that were recorded since"><cf_tl id="Refresh content"></cf_uitooltip>
-					</TD>	
-					<td align="left" style="padding-left:5px"><input type="checkbox" name="offer" id="offer" value="1" class="radiol"></td>	
-					   			
-				
-										 			 
+					<td align="left" style="padding-top:3px;padding-left:5px"><input type="checkbox" name="refreshcontent" id="refreshcontent" value="1" class="radiol"></td>						
+					<TD style="padding-left:5px;padding-top:3px" class="labelmedium" title="Refresh listing with NEW items that were recorded since"><cf_tl id="Refresh content"></TD>	
+															 			 
 					</tr>
 								
 				 </table>

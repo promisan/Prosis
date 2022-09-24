@@ -15,7 +15,8 @@
 		   				    	
 	    try {			    
 				   
-			document.getElementById(frm).onsubmit()					
+			document.getElementById(frm).onsubmit()		
+					
 			if( _CF_error_messages.length == 0 ) {	  			   
 	    	    <!--- [it passed Passed the CFFORM JS validation, now run a Ajax script to save] --->
 				ptoken.navigate('ProcessActionSubmit.cfm?myentity=#url.myentity#&windowmode=#url.windowmode#&submitaction=embedsave&process='+prc+'&wfmode=8&ID='+id+'&ajaxId='+ajax,target,'','','POST',frm)				  
@@ -91,24 +92,37 @@
 				   				   	
 				   <!--- ---------------------- ---> 	
 				   <!--- save the embedded form --->
-				   <!--- ---------------------- --->		
-				   
+				   <!--- ---------------------- --->					   
 				  				   								   				  
-				   if ( (document.getElementById('r0').checked == false) && (embed) ) {							           			  
-					  												   					   					      				      				      		   				       				      						       						   						     
+				   if ( (document.getElementById('r0').checked == false) && (embed) ) {
+				   
+				           actionstatus = '0'
+						   
+				           try { 
+						   
+						       if (document.getElementById('r2').checked == true )  {
+							      actionstatus = '2'  } 
+								  } catch(e) {}	
+							
+						   try {    
+							    if (document.getElementById('r2y').checked == true )  {
+							      actionstatus = '2' } 
+								  } catch(e) {}	
+						   						   							           			  							
+																   					   					      				      				      		   				       				      						       						   						     
 					       // saving the custom non ajax form, if this does not succeed we need to stop it THOUGH 1/9/2015						   						   
 						   try {
-						 						        		    				   
-								document.getElementById("formembed").onsubmit()																		
-								if( _CF_error_messages.length == 0 ) {	 
-								   											
+						 				
+																						       		    				   
+								document.getElementById("formembed").onsubmit()																																		
+								if( _CF_error_messages.length == 0 ) {	 															   											
 						    	    <!--- [it passed Passed the CFFORM JS validation, now run a Ajax script to save] --->
-									ptoken.navigate('ProcessActionSubmit.cfm?myentity=#url.myentity#&windowmode=#url.windowmode#&submitaction=process&process=#url.process#&wfmode=8&ID=#url.id#&ajaxId=#url.ajaxid#','actionprocessbox','','','POST','formembed')				  																																									
+									ptoken.navigate('ProcessActionSubmit.cfm?myentity=#url.myentity#&windowmode=#url.windowmode#&submitaction=process&actionstatus='+actionstatus+'&process=#url.process#&wfmode=8&ID=#url.id#&ajaxId=#url.ajaxid#','actionprocessbox','','','POST','formembed')	
 								}   							
 							} catch(e) {}					   
 														   	   						   			   
 				   } else { 				   				
-				   				   
+				   				 					  				 
 						   <!--- ---------------------- --->
 						   <!--- save the custom fields ---> 	
 						   <!--- ---------------------- --->	
@@ -120,7 +134,7 @@
 						   if (custo) {						   	 
 							
 						      document.formcustomfield.onsubmit()
-							 							  							  							  
+
 							   if( _CF_error_messages.length == 0 ) {
 								
 							     	try { ptoken.navigate('ProcessActionSubmitCustom.cfm?closemode=1&windowmode=#url.windowmode#&wfmode='+mode+'&process=#URL.Process#&ID=#URL.ID#&ajaxId=#url.ajaxid#','actionprocessbox',mycallBack(),'','POST','formcustomfield')  } catch (e) {}
@@ -131,7 +145,7 @@
 							   }
 							   							    	
 						   } else {  
-						   						       
+
 							     <!--- save the action directly --->								
 							     try { 	
 							  

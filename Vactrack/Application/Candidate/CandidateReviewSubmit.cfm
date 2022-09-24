@@ -2,10 +2,12 @@
 <link rel="stylesheet" type="text/css" href="<cfoutput>#SESSION.root#/#client.style#</cfoutput>">
  
 <cfparam name="Form.row" default="0">
+<cfparam name="url.actionstatus" default="0">
 
-<!--- we don't save if user selects the send back option --->
+<!--- url.action comes from the workflow to control if sumit is to be applied upon save or
+upon the descision : workflow create --->
 
-<cfif (Form.actionStatus eq "2" or Form.actionStatus eq "2Y" or Form.actionStatus eq "0") and form.Dialog neq "Interview">
+<cfif url.actionstatus eq "0" and form.Dialog neq "Interview">
 
 		<cftransaction action="BEGIN">
 		
@@ -14,15 +16,16 @@
 			datasource="AppsVacancy" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
-			UPDATE DocumentCandidate
-			SET    Status      = '#Form.ReviewReset#'  
-			WHERE  DocumentNo  = '#Key1#'
-			 AND   Status     >= '#Form.ReviewStatus#' 
-			 AND   EntityClass is NULL
+				UPDATE DocumentCandidate
+				SET    Status      = '#Form.ReviewReset#'  
+				WHERE  DocumentNo  = '#Key1#'
+				AND    Status     >= '#Form.ReviewStatus#' 
+				AND    EntityClass is NULL
 		</cfquery>	
 		
 		<cfloop index="Rec" from="1" to="#Form.Row#">
-			
+		
+					
 			<cfparam name="FORM.ReviewStatus_#Rec#" default="">
 			<cfparam name="FORM.EntityClass_#Rec#"  default="">
 			<cfparam name="FORM.ReviewDate_#Rec#"   default="">
@@ -67,7 +70,7 @@
 						      StatusDate             = #dte#,
 							  StatusOfficerUserId    = '#SESSION.acc#',
 							  StatusOfficerLastName  = '#SESSION.last#',
-							  StatusOfficerFirstName = '#SESSION.first#'
+							  StatusOfficerFirstName = '#SESSION.first#'     
 						WHERE DocumentNo   =  '#Key1#'
 						  AND PersonNo     =  '#PersonNo#'  
 						  AND Status < '3' or Status = '9' 
@@ -138,20 +141,21 @@
 			 
 			 <cfif Check.Recordcount eq "1">
 			 
-				 <cfquery name="Update" 
-					datasource="AppsVacancy" 
-					username="#SESSION.login#" 
-					password="#SESSION.dbpw#">
-					UPDATE DocumentCandidateReview
-					SET   ReviewMemo = '#memo#',
-						  <cfif reviewScore neq "">
-						  ReviewScore = '#reviewScore#',
-						  </cfif>
-					      ReviewDate = #dte#,
-						  ActionStatus = '#s#'
-					WHERE DocumentNo = '#Key1#'
-					AND   PersonNo   = '#PersonNo#'	 
-					AND   ActionCode = '#ActionCode#'	
+			    <cfquery name="Update" 
+				  datasource="AppsVacancy" 
+				  username="#SESSION.login#" 
+				  password="#SESSION.dbpw#">
+						UPDATE DocumentCandidateReview
+						SET   ReviewMemo = '#memo#',
+							  <cfif reviewScore neq "">
+							  ReviewScore = '#reviewScore#',
+							  </cfif>
+						      ReviewDate    = #dte#,
+							  ReviewStatus = '#Form.ReviewStatus#',
+							  ActionStatus = '#s#'
+						WHERE DocumentNo = '#Key1#'
+						AND   PersonNo   = '#PersonNo#'	 
+						AND   ActionCode = '#ActionCode#'	
 				</cfquery>
 			 
 			 <cfelse>
@@ -161,21 +165,22 @@
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
 					INSERT INTO DocumentCandidateReview
-							 (DocumentNo,
-							  PersonNo,		  
-							  ActionCode,
-							  <cfif ReviewScore neq "">
-							  ReviewScore,
-							  </cfif>
-							  ReviewMemo,
-							  ReviewDate, 
-							  ActionStatus,
-							  <cfif Form.Dialog neq "Interview">
-							  ReviewId,
-							  </cfif>
-							  OfficerUserId,
-							  OfficerLastName,
-							  OfficerFirstName)
+							  (DocumentNo,
+							   PersonNo,		  
+							   ActionCode,
+							   <cfif ReviewScore neq "">
+							   ReviewScore,
+							   </cfif>
+							   ReviewMemo,
+							   ReviewDate, 
+							   ReviewStatus,
+							   ActionStatus,
+							   <cfif Form.Dialog neq "Interview">
+							   ReviewId,
+							   </cfif>
+							   OfficerUserId,
+							   OfficerLastName,
+							   OfficerFirstName)
 					  VALUES ('#Key1#', 
 							  '#PersonNo#',		  
 							  '#ActionCode#',
@@ -184,6 +189,7 @@
 							  </cfif>
 							  '#memo#',
 							  #dte#,
+							  '#Form.ReviewStatus#',
 							  '#s#',
 							  <cfif Form.Dialog neq "Interview">
 							  '#reviewId#',
@@ -198,10 +204,12 @@
 			</cfloop>	
 		
 		</cftransaction>
+		
+</cfif>		
 			
-	<!--- generate canddiate track  --->	
-	
-	<cfif (Form.actionStatus eq "2" or Form.actionStatus eq "2Y") and Form.ReviewStatus eq "Track">	
+<!--- generate canddiate track if this action indeed comes from the workflow progress step  --->	
+				
+<cfif url.submitaction eq "process" and url.actionstatus eq "2" and Form.ReviewStatus eq "Track">	
 			
 	<cfloop index="Rec" from="1" to="#Form.Row#">
 		
@@ -254,8 +262,10 @@
 			password="#SESSION.dbpw#">
 			    SELECT TOP 1 *
 			    FROM   OrganizationObject
-				WHERE  ObjectKeyValue1 = '#Key1#'				
+				WHERE  ObjectKeyValue1 = '#Key1#'		
+				AND    EntityCode = 'VacDocument'  
 				AND    Operational     = 1
+				
 			</cfquery>
 		
 			<cf_ActionListing 
@@ -275,11 +285,11 @@
 				
 	</cfloop>	
 	
-	</cfif>		
+</cfif>		
 	
-	<!--- checking of last document step can be closed --->
+<!--- checking of last document step can be closed --->
 	
-	<cfif (Form.actionStatus eq "2" or Form.actionStatus eq "2Y") AND Form.ReviewStatus eq "Track">
+<cfif url.submitaction eq "process" and url.actionstatus eq "2" AND Form.ReviewStatus eq "Track">
 				
 		<cfquery name="Selected" 
 		 datasource="AppsVacancy" 
@@ -326,6 +336,5 @@
 		
 		</cfif>
 							
-	</cfif>
-	
 </cfif>
+

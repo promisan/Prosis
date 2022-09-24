@@ -637,7 +637,7 @@
             FROM       Materials.dbo.WarehouseCategory
             WHERE      Warehouse = '#Attributes.Warehouse#' 
 			AND        Category IN (SELECT  Category
-                                    FROM    Item
+                                    FROM    Materials.dbo.Item
                                     WHERE   ItemNo = '#Attributes.ItemNo#')
 		</cfquery>
 		
@@ -652,7 +652,7 @@
 				   WHERE  ItemNo    = '#Attributes.ItemNo#'
 				   AND    UoM       = '#Attributes.TransactionUoM#'
 				   AND    Warehouse IN (SELECT Warehouse 
-				                        FROM   Warehouse 
+				                        FROM   Materials.dbo.Warehouse 
 										WHERE  Mission = '#Attributes.mission#')	  
 			</cfquery>
 		
@@ -680,6 +680,20 @@
 <cfelseif Check.recordCount eq "0">
 
 	<cfset min = "">	
+	
+	 <!--- we check the parent warehouse --->
+		
+	<cfquery name="mode" 
+	   datasource="#Attributes.DataSource#" 
+	   username="#SESSION.login#" 
+	   password="#SESSION.dbpw#">
+		SELECT     MinReorderMode, TaxCode
+        FROM       Materials.dbo.WarehouseCategory
+        WHERE      Warehouse = '#Attributes.Warehouse#' 
+		AND        Category IN (SELECT  Category
+                                FROM    Materials.dbo.Item
+                                WHERE   ItemNo = '#Attributes.ItemNo#')
+	</cfquery>
 
 	<cfif attributes.receiptId neq "">
 
@@ -697,21 +711,7 @@
 		</cfif>	
 	
    <cfelse>
-   
-        <!--- we check the parent warehouse --->
-		
-		<cfquery name="mode" 
-		   datasource="#Attributes.DataSource#" 
-		   username="#SESSION.login#" 
-		   password="#SESSION.dbpw#">
-			SELECT     MinReorderMode
-            FROM       Materials.dbo.WarehouseCategory
-            WHERE      Warehouse = '#Attributes.Warehouse#' 
-			AND        Category IN (SELECT  Category
-                                    FROM    Item
-                                    WHERE   ItemNo = '#Attributes.ItemNo#')
-		</cfquery>
-		
+   		
 		<cfif mode.MinReorderMode eq "Parent">
 		
 			<cfquery name="parent" 
@@ -734,9 +734,9 @@
    </cfif>	
 
    <cfquery name="Insert" 
-   datasource="#Attributes.DataSource#" 
-   username="#SESSION.login#" 
-   password="#SESSION.dbpw#">
+	   datasource="#Attributes.DataSource#" 
+	   username="#SESSION.login#" 
+	   password="#SESSION.dbpw#">
 	   INSERT INTO  Materials.dbo.ItemWarehouse 
 		          (ItemNo,
 				   UoM,
@@ -746,6 +746,7 @@
 				   MinReorderQuantity
 				   </cfif>			   
 				   ReStocking,
+				   TaxCode,
 				   OfficerUserId,
 				   OfficerLastName,
 				   OfficerFirstName)
@@ -757,6 +758,7 @@
 				   '#min#',
 				   </cfif> 
 				   'Procurement', 
+				   '#mode.taxcode#',
 				   '#SESSION.acc#', 
 				   '#SESSION.last#', 
 				   '#SESSION.first#')

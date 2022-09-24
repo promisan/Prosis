@@ -34,6 +34,7 @@
 			  A.TriggerActionType, 
 			  A.TriggerActionId,
 			  R.PersonClass,
+			  AA.ActionViewMemo,
 			  AA.ActionDescription,
 			  AA.ActionCompleted,
 			  R.DocumentPathName,
@@ -721,16 +722,52 @@
 											   
 				<!--- atachment of the action --->
 		 
-		 	    <cfif attributes.sendAttDoc eq "1">
-		 				 						
+		 	    <cfif attributes.sendAttDoc eq "1" 
+				       or attributes.sendAttPrior eq "1">
+					   
+					<cfset att = "">
+					   
+				    <cfif attributes.sendAttDoc eq "1">
+						<cfset att = "'#Attributes.ActionId#'">
+		 			</cfif>	 
+					
+					<cfif attributes.sendAttPrior eq "1">					
+										
+						<cfquery name="Prior" 
+						 datasource="AppsOrganization"
+						 username="#SESSION.login#" 
+						 password="#SESSION.dbpw#">
+							 SELECT       TOP 1 ActionId
+		                     FROM         OrganizationObjectAction
+		                     WHERE        ObjectId   = '#Object.ObjectId#' 
+							 AND          ActionCode = '#Object.ActionViewMemo#'
+		                     ORDER BY     Created DESC
+						</cfquery> 
+					
+						<cfif prior.recordcount eq "1">
+						
+						    <cfset att = "'#Prior.ActionId#'">
+							
+						 <cfelse>
+						 
+						 	<cfset att = "#att#,'#Prior.ActionId#'">	
+							
+						 </cfif>	
+						
+					</cfif>
+											
 					<cfquery name="Document" 
 					 datasource="AppsOrganization"
 					 username="#SESSION.login#" 
 					 password="#SESSION.dbpw#">
-					 SELECT   *
-					 FROM     OrganizationObjectActionReport OAR 
-					          INNER JOIN Ref_EntityDocument R ON OAR.DocumentId = R.DocumentId
-					 WHERE    ActionId  = '#Attributes.ActionId#' 
+						 SELECT   *
+						 FROM     OrganizationObjectActionReport OAR 
+						          INNER JOIN Ref_EntityDocument R ON OAR.DocumentId = R.DocumentId
+						 <cfif att neq "">		  
+						 WHERE    ActionId  IN (#preserveSingleQuotes(att)#) 
+						 <cfelse>
+						 WHERE    1=0
+						 </cfif>
 					</cfquery>
 					
 					<cfoutput query="Document">

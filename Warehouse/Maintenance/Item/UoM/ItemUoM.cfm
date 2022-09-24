@@ -12,39 +12,37 @@ password="#SESSION.dbpw#">
 
 	 <cfoutput>
 
-    <!--- it is now embedded 
+    <cfif url.mode eq "workflow">
 	
-	<tr><td height="7"></td></tr>
-	
-	<cfquery name="Cls" 
-	datasource="AppsMaterials" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-		SELECT  *
-		FROM    Ref_ItemClass
-		WHERE 	Code = '#Item.ItemClass#'
-	</cfquery>
-	
-	<TR>
-    <td height="20" class="labelit" width="140"><cf_tl id="Class">:</b></td>
-    <TD width="80%"><font face="Calibri" size="3">#Cls.Description#
-    </td>
-    </tr>
-	
-    <TR>
-    <TD height="20" class="labelit"><cf_tl id="Code">:</TD>
-    <TD><font face="Calibri" size="3">#item.Classification#</TD>
-	</TR>
-	
-	<TR>
-    <TD height="20" class="labelit"><cf_tl id="Description">:</TD>
-    <TD><font face="Calibri" size="3">#item.ItemDescription#</TD>
-	</TR>	
+		<cfquery name="Cls" 
+		datasource="AppsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT  *
+			FROM    Ref_ItemClass
+			WHERE 	Code = '#Item.ItemClass#'
+		</cfquery>
 		
-	<tr><td class="line" colspan="2"></td></tr>
+		<TR class="labelmedium2">
+	    <td height="20" width="140"><cf_tl id="Class">:</b></td>
+	    <TD style="font-size:17px" width="80%">#Cls.Description#
+	    </td>
+	    </tr>
+		
+	    <TR class="labelmedium2">
+	    <TD height="20"><cf_tl id="Code">:</TD>
+	    <TD style="font-size:17px">#item.ItemNoExternal#</TD>
+		</TR>
+		
+		<TR class="labelmedium2">
+	    <TD height="20"><cf_tl id="Description">:</TD>
+	    <TD style="font-size:17px">#item.ItemDescription#</TD>
+		</TR>	
+			
+		<tr><td class="line" colspan="2"></td></tr>
 	
-	--->
-	
+	</cfif>
+		
 	<tr><td colspan="2" style="height:30px" class="labelit">
 	
 		<cf_tl id="The UoM defined for supply item represent the the actual level of the item as it kept in stock" class="message">.

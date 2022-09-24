@@ -12,6 +12,10 @@
 	WHERE  Mission = '#url.mission#'
 </cfquery>
 
+<cfset pre = mission.missionPrefix>
+
+<cfset qryvar = evaluate("session.selectedcandidates_#pre#")>
+
 <cfoutput>
 <cfsavecontent variable="SelectTracks">
 	   
@@ -19,7 +23,7 @@
 	   FROM (  
 	       	
 				SELECT  *
-				FROM    (#preservesingleQuotes(session.selectedcandidates)#) as V
+				FROM    (#preservesingleQuotes(qryvar)#) as V
 				WHERE   1=1		
 				
 			) as D

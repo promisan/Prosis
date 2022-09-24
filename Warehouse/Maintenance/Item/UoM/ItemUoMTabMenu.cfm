@@ -1,8 +1,8 @@
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr>
 
-	<cfset wd = "64">
-	<cfset ht = "64bill">		
+	<cfset wd = "50">
+	<cfset ht = "50">		
 	
 	<cf_tl id = "Item Details"        var = "vDetails">
 	<cf_tl id = "Sales Pricing"       var = "vPricing">

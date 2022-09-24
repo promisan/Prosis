@@ -24,6 +24,32 @@
 <cfparam name="Form.RefreshContent"    default="0">
 <cfparam name="Form.Offer"             default="0">
 
+<cfset cat = "">
+<cfloop index="itm" list="#form.Category#">
+	<cfif cat eq "">
+	   <cfset cat = "'#itm#'">
+	<cfelse>
+		<cfset cat = "#cat#,'#itm#'">
+	</cfif>
+</cfloop>
+
+<cfset cit = "">
+<cfloop index="itm" list="#form.CategoryItem#">
+	<cfif cit eq "">
+	   <cfset cit = "'#itm#'">
+	<cfelse>
+		<cfset cit = "#cit#,'#itm#'">
+	</cfif>
+</cfloop>
+
+<cfset prg = "">
+<cfloop index="itm" list="#form.ProgramCodeSel#">
+	<cfif prg eq "">
+	   <cfset prg = "'#itm#'">
+	<cfelse>
+		<cfset prg = "#prg#,'#itm#'">
+	</cfif>
+</cfloop>
 
 <cfquery name="get" 
 		datasource="AppsMaterials" 
@@ -83,14 +109,13 @@
 			
 		</cfif>
 		
-	<cfset category = quotedvalueList(CategorySelect.Category)>
- 		
-<cfelse>		
-					
-	<cfset category = form.category>
-
+	<cfset cat = quotedvalueList(CategorySelect.Category)>
+ 	
 </cfif>
 
+<cfset resupply.category    = cat>
+<cfset resupply.programcode = prg>
+<cfset session.mysupply = resupply>
 
 <cfif url.restocking eq "undefined">
 
@@ -384,17 +409,15 @@
 			<cfif URL.ItemNo neq "">
 			AND       I.ItemNo        = '#URL.Item#' 
 			<cfelseif Category neq "">
-			AND       R.Category      IN (#preserveSingleQuotes(Category)#)  	
-			</cfif>
-			
+			AND       R.Category      IN (#preserveSingleQuotes(cat)#)  	
+			</cfif>			
 			<cfif Form.CategoryItem neq "">
-			AND       I.CategoryItem IN (#preserveSingleQuotes(Form.CategoryItem)#)  
-			</cfif>
-			
+			AND       I.CategoryItem IN (#preserveSingleQuotes(cit)#)  
+			</cfif>			
 			<cfif Form.ProgramCodesel neq "">
-			AND       I.ProgramCode IN (#preserveSingleQuotes(Form.ProgramCodeSel)#)  
+			AND       I.ProgramCode IN (#preserveSingleQuotes(prg)#)  
 			</cfif>
-			
+						
 			<cfif Form.filter neq "">				
 			AND      (I.ItemDescription        LIKE '%#form.filter#%' 
 			      or I.ItemDescriptionExternal LIKE N'%#form.filter#%' 
@@ -405,16 +428,13 @@
 			</cfif>
 							
 			)
-			
-			
-							
+									
 	</cfquery>
 		
-
 <!--- capture for next time --->
 
-<cfset resupply.category    = category>
-<cfset resupply.programcode = form.programcodesel>
+<cfset resupply.category    = cat>
+<cfset resupply.programcode = prg>
 
 <cfset session.mysupply = resupply>
 
@@ -425,8 +445,6 @@
 	SELECT    TOP 1 ItemNo
 	FROM      #dest#	
 </cfquery>
-
-
 
 <!--- we start reviewing the CURRENT stock content to reflect accurate stock values --->
 
@@ -497,7 +515,6 @@ password="#SESSION.dbpw#">
 	FROM      #dest# I INNER JOIN tmp#SESSION.acc#ItemOnHand R 
 	          ON I.ItemNo = R.ItemNo AND I.UoM = R.UoM AND I.Warehouse = R.Warehouse
 </cfquery>
-
 
 <!---
 <cfoutput>#cfquery.executiontime#</cfoutput>
@@ -596,8 +613,6 @@ password="#SESSION.dbpw#">
 	AND       I.Warehouse = R.ShipToWarehouse	 
 			 
 </cfquery>
-
-
 
 <!--- 2.2 on procurement request --->
 
@@ -744,7 +759,6 @@ password="#SESSION.dbpw#">
 	 
 </cfquery>
 
-
 <!--- 3.2. earmarked from workorder 
 
 Deduct stock on hand for an item with has been earmarked to a workorder/line and thus is no longer
@@ -834,8 +848,6 @@ password="#SESSION.dbpw#">
 <cf_droptable dbname="AppsQuery" tblname="tmp#SESSION.acc#ItemOnHandMission">
 
 <cfset url.offer = form.Offer>
-
-
 
 <cfinclude template="ResupplyListing.cfm">
 

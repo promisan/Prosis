@@ -35,24 +35,24 @@ password="#SESSION.dbpw#">
 <cfif Gender.recordcount gt 0>
 	
 	<!--- url="../ResultListing.cfm?mode=#url.mode#&ID=GEN&ID1=#URL.ID1#&ID2=$ITEMLABEL$&ID3=NONE" --->
-	<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
-	<cfchart style = "#chartStyleFile#" format="png"
+	
+	<cf_uichart name="gender" format="png"
           chartheight="300"
-          chartwidth="500"
+          chartwidth="360"
           pieslicestyle="sliced">
 
-		<cfchartseries
+		<cf_uichartseries
             type="pie"
-            query="Gender"
+            query="#Gender#"
             itemcolumn="Gender"
             valuecolumn="Total"
             seriescolor="FFFFCC"
             paintstyle="raise"
             markerstyle="circle"
             colorlist="#vColorlist#">
-		</cfchartseries>
+		</cf_uichartseries>
 				 
-	</cfchart>
+	</cf_uichart>
 	
 </cfif>
 

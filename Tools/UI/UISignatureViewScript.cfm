@@ -1,10 +1,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<cfoutput>
+<cfset vLimit = 480>
 <script>
     function getSignatureWidth() {
 	
         let width = screen.width;
-        if (width <= 480)
+        if (width <= #vLimit#)
             document.getElementById("dCanvasMobile").style.display = "block";
         else
             document.getElementById("dCanvasDesktop").style.display = "block";
@@ -14,19 +15,26 @@
     }
 
     function clearSignature() {
-	
         let width = screen.width;
-        if (width <= 480)
+        if (width <= #vLimit#)
+        {
+            document.getElementById("surfaceMobile").style.display = "block";
+            document.getElementById("imageMobile").style.display = "none";
             surfaceMobile.clear();
+        }
         else
+        {
+            document.getElementById("surfaceDesktop").style.display = "block";
+            document.getElementById("imageDesktop").style.display = "none";
             surfaceDesktop.clear();
+        }
 			
     }
 
     function saveSignature() {
 	   
         let width = screen.width;
-        if (width <= 480) {
+        if (width <= #vLimit#) {
             _saveSVGMobile();
             document.getElementById("dCanvasMobile").style.display = "none";
         } else {
@@ -41,7 +49,7 @@
 
     function updateSignature() {
         let width = screen.width;
-        if (width <= 480) {
+        if (width <= #vLimit#) {
             _saveSVGMobile();
         } else {
             _saveSVGDesktop();
@@ -49,7 +57,7 @@
     }
 
 </script>
-
+</cfoutput>
 <cf_UISignatureScript Mode = "Desktop">
 <cf_UISignatureScript Mode = "Mobile">
 

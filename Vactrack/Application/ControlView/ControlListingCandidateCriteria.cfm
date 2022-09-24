@@ -12,7 +12,7 @@
 	<cfif URL.Status eq "0" or URL.Status eq "9">
 	<tr class="fixlengthlist">
 	
-		<td style="height:30" class="labelmedium"><cf_tl id="Track type">:</td>
+		<td style="width:100px;height:30" class="labelmedium"><cf_tl id="Track type">:</td>
 		<td>
 		
 		 <cfquery name="DocTpe" 
@@ -37,7 +37,7 @@
 		
 		<td>&nbsp;</td>
 		
-		<td style="height:30" class="labelmedium"><cf_tl id="Entiry">:</td>
+		<td style="width:100px;height:30" class="labelmedium"><cf_tl id="Entiry">:</td>
 		<td>
 		
 		<!--- default manadate, likely this does not change between mandates --->
@@ -51,8 +51,7 @@
 			FROM     Ref_Mandate
 			WHERE    Mission = '#url.mission#'
 			ORDER BY MandateDefault DESC, MandateNo DESC
-		</cfquery>
-	
+		</cfquery>	
 		
 		<cfquery name="Level01"
 			datasource="AppsOrganization"
@@ -70,12 +69,11 @@
 			     class          = "regularxl"
 		         queryposition  = "below"
 				 query          = "#level01#"
+				 style          = "width:80%"
 				 value          = "HierarchyCode"											     											     
 				 display        = "OrgUnitNameShort"											    
 				 separator      = ","
-				 multiple       = "yes"/>		
-				
-		
+				 multiple       = "yes"/>	
 		
 		</td>
         
@@ -120,6 +118,39 @@
 		</td>
 		<td width="2%"></td>
 		
+		<td class="labelmedium"><cf_tl id="Grade"></td>
+		
+		<td>
+
+		<cfquery name = "GetGrade" 
+		  datasource = "AppsEmployee" 
+		  username="#SESSION.login#" 
+		  password="#SESSION.dbpw#">
+				SELECT P.PostGrade FROM 
+					   Employee.dbo.Ref_PostGrade P 
+				WHERE  EXISTS (
+							SELECT 'X'
+							FROM (#preservesingleQuotes(Session.SelectTracks)#) as T
+							WHERE T.PostGrade = P.PostGrade
+							<cfif URL.EntityCode neq "" AND  (URL.Status eq "0" or URL.Status eq "9")>
+								AND EntityCode = '#URL.EntityCode#'
+							</cfif>
+						 )	
+				ORDER BY P.PostOrderBudget	
+		</cfquery>		
+		
+		<cf_UISelect name   = "PostGrade"
+		     class          = "regularxl"
+		     queryposition  = "below"
+		     query          = "#getGrade#"
+		     value          = "PostGrade"											     											     
+		     display        = "PostGrade"											    
+			 separator      = ","
+		     multiple       = "yes"/>		
+				
+		</td>					
+		
+		<!---
 		<td class="labelmedium"><cf_tl id="Class"></td>
 		<td>
 				
@@ -141,6 +172,7 @@
 		</cfloop>
 		</select>
 		</td>	
+		--->
 	
 	</tr>
 	
@@ -174,6 +206,8 @@
 		
 		<input type="hidden" name="FunctionNo">
 		
+		<!---
+		
 		<td class="labelmedium"><cf_tl id="Grade"></td>
 		
 		<td>
@@ -206,10 +240,12 @@
 				
 		</td>							
 		
-		<td></td>		
-		<td class="labelmedium"><cf_tl id="Posted">:</td>
+		--->
 		
-		<td colspan="1">
+		<td></td>		
+		<td class="labelmedium hide"><cf_tl id="Posted">:</td>
+		
+		<td class="hide">
 			<table cellspacing="0" cellpadding="0">
 			<tr>
 			<td style="min-width:140px">

@@ -3,7 +3,8 @@
 
 <table width="100%" height="100%">
 
-	<tr class="fixlengthlist"><td height="100%" align="center" style="border-right:1px solid silver">
+	<tr class="fixlengthlist">
+	<td height="100%" align="center" style="border-right:1px solid silver;width:60%">
 		
 		<cfquery name="Summary" 
 		datasource="AppsSystem" 
@@ -200,7 +201,7 @@
 			
 	</td>
 	
-	<td height="100%" align="right" style="min-width:370px;width:370px;padding-left:4px">
+	<td height="100%" align="right" style="width:40%;padding-left:4px">
 	 
 		<cfquery name="Total" 
 			datasource="appsSystem" 
@@ -229,25 +230,22 @@
 			ORDER BY  A.ListingOrder
 					
 	  </cfquery>	
-	        
-	  <cfset seriesColours = ["Green","Yellow","Purple","Gray"]>
-	  <cfset seriesColour = 1>
-	 
+	  	 
 	  <cfset vColor = "##5DB7E8,##E8875D,##E8BC5D,##E85DA2,##5DE8D8,##CCCA6A,##339AFA,##66AC6A,##999A9A,##FFFA9A,##996AFA">
 	  
 	  <cf_uichart name="divUsage1"
-				chartheight="160"
-				chartwidth="370"
-				showlabel="No"
-				showvalue="No"
-				url="javascript:_cf_loadingtexthtml='';ptoken.navigate('UserActionContent.cfm?systemfunctionid=#url.systemfunctionid#&mode='+document.getElementById('mode').value+'&filter=$ITEMLABEL$','content')">
+			chartheight="160"			
+			showlabel="No"
+			showvalue="No"
+			url="javascript:_cf_loadingtexthtml='';ptoken.navigate('UserActionContent.cfm?systemfunctionid=#url.systemfunctionid#&mode='+document.getElementById('mode').value+'&filter=$ITEMLABEL$','content')">
+				
 		<cf_uichartseries type="bar"
 		    query="#visits#" 
 			itemcolumn="Module" 
 			valuecolumn="counted" 
 			colorlist="#vColor#"/>
 			
-  	</cf_uichart>
+  	  </cf_uichart>
 	
 		
 	</td>

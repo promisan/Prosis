@@ -526,7 +526,10 @@ password="#SESSION.dbpw#">
 		  AND      DC.Status IN (#preserveSingleQuotes(required)#) 		  		 
 		  AND      S.Class       = 'Candidate' 
 		  <cfif url.wparam neq "Init">
-		  AND      DC.EntityClass is NULL
+		  AND      NOT EXISTS (SELECT 'X' 
+		                       FROM Organization.dbo.OrganizationObject 
+		                       WHERE objectKeyValue1= DC.DocumentNo 
+							   AND   ObjectKeyValue2 = DC.PersonNo and Operational = 1)
 		  </cfif>
 		 
 </cfquery>
@@ -830,7 +833,7 @@ password="#SESSION.dbpw#">
 		
 		<cfif url.wParam neq "Score">
 				
-		<td style="font-size:16px"><a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#, #FirstName#</a></td>	
+		<td style="font-size:16px; height:30px"><a href ="javascript:ShowCandidate('#PersonNo#')">#LastName#, #FirstName#</a></td>	
 		<td><cfif IndexNoA neq ""><a href ="javascript:EditPerson('#IndexNoA#','','contract')">#IndexNoA#</a><cfelse>[<cf_tl id="undefined">]</cfif></td>		
 		<td>#NationalityName#</td>
 		<td>#dateformat(DOB,client.dateformatshow)#</td>
@@ -1027,10 +1030,10 @@ password="#SESSION.dbpw#">
 					
 					<td style="padding-top:2px;min-width:140px" class="<cfif Status gte wFinal>regular<cfelse>hide</cfif>" id="boxReviewDate_#currentrow#">
 					
-						 <cfif now() gt ReviewDate>						 
+						 <cfif now() gt ReviewDate>											 
 						    <cfset st = Dateformat(ReviewDate, CLIENT.DateFormatShow)>
 						 <cfelse> 						 
-						    <cfset st = Dateformat(now(), CLIENT.DateFormatShow)>
+						     <cfset st = Dateformat(now(), CLIENT.DateFormatShow)>
 						 </cfif>
 									
 						  <cf_intelliCalendarDate9

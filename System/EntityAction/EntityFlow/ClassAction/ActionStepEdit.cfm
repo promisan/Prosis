@@ -60,7 +60,6 @@
 <cf_textareascript>
 <cf_LayoutScript>
 
-
 	
 <table style="height:100%" width="100%" align="center">
 
@@ -87,7 +86,7 @@
 
 <tr class="line"><td colspan="3" height="20">
 
-			 <table width="99%" align="center" cellspacing="0" cellpadding="0">
+			 <table width="99%" align="center">
 			 <tr>
 			 
 			 	<cfset ht = "54">
@@ -128,17 +127,13 @@
 <tr>
 <td style="padding-left:10px" colspan="3" height="100%" width="99%" valign="top" border="0" align="center" id="stepdata">	
 	
-		<cf_divscroll>
-		
-		<cfinclude template="ActionStepEditAction.cfm">
-		
+		<cf_divscroll>		
+		<cfinclude template="ActionStepEditAction.cfm">		
 		</cf_divscroll>
 	
 </td>
 </tr>
 
 </table>
-
-
 
 </cfoutput>

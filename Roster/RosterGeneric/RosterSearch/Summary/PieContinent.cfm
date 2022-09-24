@@ -38,23 +38,21 @@ password="#SESSION.dbpw#">
 
 <td align="center">
 
-<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
-<cfchart style = "#chartStyleFile#" format="png" 
+<cf_uichart name="Continent" format="png" 
 	 chartheight="300" 
-	 chartwidth="500" 
-	 pieslicestyle="sliced">
+	 chartwidth="600">
 	
-	<cfchartseries type="pie" 
-	  query="Graph" 
+	<cf_uichartseries type="pie" 
+	  query="#Graph#" 
 	  itemcolumn="Continent" 
 	  valuecolumn="Total" 
 	  seriescolor="##FFFFCC" 
 	  paintstyle="raise" 
 	  markerstyle="circle"
 	  colorlist="#vColorlist#">
-	</cfchartseries>
+	</cf_uichartseries>
 
-</cfchart>
+</cf_uichart>
 </td>
 
 </tr>

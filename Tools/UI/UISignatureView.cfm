@@ -2,6 +2,7 @@
 <cfparam name="Attributes.Width"   default="200">
 <cfparam name="Attributes.Height"  default="80">
 <cfparam name="Attributes.Buttons"  default="Yes">
+<cfparam name="Attributes.Value"   default="">
 <cfparam name="Attributes.Style"   default="border: 1px solid black;background-color:white">
 
 <cfoutput>
@@ -14,40 +15,40 @@
     </cfif>
 
     <tr>
-    <td>
-    <div style="padding-right:0px; display:#vHidden#">
-       <button type="button"  onclick="javascript:getSignatureWidth()" id="bSign" <cfif Attributes.class neq "">class="#Attributes.Class#"</cfif>><cf_tl id="Sign"></button>
-    </div>
-    </td>
-    <td>
-    <div style="padding-right:0px;">
-      <button type="button"  onclick="javascript:clearSignature()" id="bClear" <cfif Attributes.class neq "">class="#Attributes.Class#"</cfif> style="display:none"><cf_tl id="Reset"></button>
-    </div>
-    </td>
-    <td>
-    <div style="padding-right:0px; display:#vHidden#">
-      <button type="button"  onclick="javascript:saveSignature()" id="bDone" <cfif Attributes.class neq "">class="#Attributes.Class#"</cfif> style="display:none"><cf_tl id="Done"></button>
-    </div>
-    </td>
+        <td>
+            <div style="padding-right:0px; display:#vHidden#">
+               <button type="button"  onclick="javascript:getSignatureWidth()" id="bSign" <cfif Attributes.class neq "">class="#Attributes.Class#"</cfif>><cf_tl id="Sign"></button>
+            </div>
+        </td>
+        <td>
+            <div style="padding-right:0px;">
+              <button type="button"  onclick="javascript:clearSignature()" id="bClear" <cfif Attributes.class neq "">class="#Attributes.Class#"</cfif> style="display:none"><cf_tl id="Reset"></button>
+            </div>
+        </td>
+        <td>
+            <div style="padding-right:0px; display:#vHidden#">
+              <button type="button"  onclick="javascript:saveSignature()" id="bDone" <cfif Attributes.class neq "">class="#Attributes.Class#"</cfif> style="display:none"><cf_tl id="Done"></button>
+            </div>
+        </td>
     </tr>
 
 	<tr>
-	<td colspan="3">
+	    <td colspan="3">
 	
 	    <input type="hidden" id="SignatureContent" name="SignatureContent">
 	        <div id="dCanvasDesktop" style="display:none">
-	        <cf_UISignature mode="Desktop" Width="#attributes.Width#" height="#attributes.height#" Style="#Attributes.Style#">
+	        <cf_UISignature mode="Desktop" Width="#attributes.Width#" height="#attributes.height#" Style="#Attributes.Style#" value="#Attributes.Value#">
 	    </div>
 	
 	    <div id="dCanvasMobile" style="display:none">
-	        <cf_UISignature mode="Mobile"  Width="#attributes.Width#" height="#attributes.height#" Style="#Attributes.Style#">
+	        <cf_UISignature mode="Mobile"  Width="#attributes.Width#" height="#attributes.height#" Style="#Attributes.Style#" value="#Attributes.Value#">
 	    </div>
 	    <div id="dSave">
 	    </div>
 	
 	    </td>
 		
-	    </tr>
+	</tr>
     </table>
 </cfoutput>
 

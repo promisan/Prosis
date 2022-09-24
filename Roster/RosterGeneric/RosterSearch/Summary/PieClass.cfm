@@ -34,26 +34,24 @@ password="#SESSION.dbpw#">
 
 <cfif Class.recordcount gt 0>
 
-<cf_getChartStyle chartLocation="#GetCurrentTemplatePath()#">
-<cfchart 
-	style = "#chartStyleFile#" 
+<cf_uichart name="class"	
 	format="png" 
 	chartheight="300" 
-	chartwidth="480" 
+	chartwidth="490" 
 	pieslicestyle="sliced">
 
-		<cfchartseries 
+		<cf_uichartseries 
 			type="pie" 
-			query="Class" 
+			query="#Class#" 
 			itemcolumn="Description" 
 			valuecolumn="Total" 
 			seriescolor="FFFFCC" 
 			paintstyle="raise" 
 			markerstyle="circle" 
 			colorlist="#vColorlist#">
-		</cfchartseries>
+		</cf_uichartseries>
 		
-</cfchart>
+</cf_uichart>
 </cfif>
 
 </td>

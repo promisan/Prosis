@@ -25,6 +25,10 @@
 
         <cfoutput>
             <cfsavecontent variable="kChart">
+                $(window).on("resize", function() {
+                    $("##_#Attributes.Name#").data("kendoChart").redraw();
+                });
+
                 $("##_#Attributes.Name#").kendoChart({
                 transitions: #Attributes.transitions#,
                 title: {
@@ -36,8 +40,12 @@
                     },
                 chartArea: {
                     background: "",
-                    height:#attributes.chartheight#,
-                    width:#attributes.chartwidth#,
+                    <cfif attributes.chartheight neq "">
+                        height:#attributes.chartheight#,
+                    </cfif>
+                    <cfif attributes.chartwidth neq "">
+                        width:#attributes.chartwidth#,
+                    </cfif>
                     margin:20
                     },
                 seriesDefaults: {

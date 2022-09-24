@@ -14,7 +14,7 @@
 			 <!--- obtain the current value of AR for a warehouse POS customer ---> 
 		
 			<cfargument name="mission"          type="string"  required="true"      default="">		
-			<cfargument name="customerId"       type="guid"    required="true"      default="">			
+			<cfargument name="customerId"       type="string"  required="true"      default="">			
 			<cfargument name="balancecurrency"  type="string"  required="true"      default="#application.BaseCurrency#">
 			<cfargument name="amountcurrency"   type="string"  required="true"      default="#application.BaseCurrency#">
 			<cfargument name="amount"           type="string"  required="true"      default="0">

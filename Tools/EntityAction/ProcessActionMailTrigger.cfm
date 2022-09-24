@@ -256,6 +256,7 @@
 						sendText     = "#Form.ActionMailBody#"
 						sendAtt      = "#Form.ActionMailAttachment#"
 						sendAttDoc   = "#ThisAction.PersonMailActionAttach#"
+						sendAttPrior = "#ThisAction.PersonMailActionAttachPrior#"
 						sendAttObj   = "#ThisAction.PersonMailObjectAttach#">	
 					
 				</cfif>							

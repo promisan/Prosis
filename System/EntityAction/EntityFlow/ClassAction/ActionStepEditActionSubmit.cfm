@@ -36,6 +36,7 @@
 <cfparam name="Form.PersonMail"                default="0">
 <cfparam name="Form.PersonMail2"               default="0">
 <cfparam name="Form.PersonMailActionAttach"    default="0">
+<cfparam name="Form.PersonMailActionAttachPrior" default="0">
 <cfparam name="Form.PersonMailObjectAttach"    default="0">
 <cfparam name="Form.ActionAccess"              default="">
 <cfparam name="Form.ActionAccessUserGroup"     default="">
@@ -182,12 +183,14 @@
 					 PersonMailCode           = '',
 				 </cfif>
 				 <cfif Form.PersonMail2 eq "1">
-					 PersonMailAction         = '#Form.PersonMailAction#',
-					 PersonMailActionAttach   = '#Form.PersonMailActionAttach#',
-					 PersonMailObjectAttach   = '#Form.PersonMailObjectAttach#',
+					 PersonMailAction              = '#Form.PersonMailAction#',
+					 PersonMailActionAttach        = '#Form.PersonMailActionAttach#',
+					 PersonMailActionAttachPrior   = '#Form.PersonMailActionAttachPrior#',
+					 PersonMailObjectAttach        = '#Form.PersonMailObjectAttach#',
 				 <cfelse>
 					 PersonMailAction         = '',
 					 PersonMailActionAttach   = '0',
+					 PersonMailActionAttachPrior   = '0',
 					 PersonMailObjectAttach   = '0',
 				 </cfif>
 				 
@@ -297,6 +300,9 @@
 				 <cfparam name="Form.#Itm#ActorAuthenticate" default="0">
 			     <cfset authenticate  = evaluate("Form.#Itm#ActorAuthenticate")>	
 				 
+				  <cfparam name="Form.#Itm#ActorSignature" default="0">
+			     <cfset signature  = evaluate("Form.#Itm#ActorSignature")>	
+				 
 				 <cfparam name="Form.#Itm#Enable" default="1">
 			     <cfset enable      = evaluate("Form.#Itm#Enable")>				 															 
 				 
@@ -316,6 +322,7 @@
 							(ActionPublishNo, 
 							 ActionCode,
 							 ActorAuthenticate,
+							 ActorSignature,
 							 Method,
 							 MethodDataSource,
 							 DocumentId,
@@ -325,6 +332,7 @@
 							('#URL.PublishNo#',
 							'#Form.ActionCode#',
 							'#authenticate#',
+							'#signature#',
 							'#itm#',
 							'#datasource#',
 							#preservesingleQuotes(scriptfile)#, 
@@ -357,6 +365,7 @@
 								 EntityClass,
 								 ActionCode,
 								 ActorAuthenticate,
+								 ActorSignature,
 								 Method,
 								 MethodDataSource,
 								 DocumentId,
@@ -367,6 +376,7 @@
 								 '#URL.EntityClass#',
 								 '#Form.ActionCode#',
 								 '#authenticate#',
+								 '#signature#',
 								 '#Itm#',
 								 '#datasource#',
 								 #preservesingleQuotes(scriptfile)#,

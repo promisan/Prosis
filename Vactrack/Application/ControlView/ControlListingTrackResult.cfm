@@ -24,7 +24,8 @@
 					<a href="javascript:tracklisting('#url.systemfunctionid#','all','#url.status#','','#url.mission#')">#Sum.Total#</a>
 					<cfelse>
 					<a href="javascript:parent.tracklisting('#url.systemfunctionid#','all','#url.status#','','#url.mission#')">#Sum.Total#</a>
-					</cfif></b> different stages</font></td>								
+					</cfif></b> different stages</font>
+					</td>								
 					<cfif url.mode neq "Portal" and url.mode neq "Print">
 					<td align="right" style="padding-right:2px"><a href="javascript:printme()">Printable Version</a></td>		
 					<cfelseif url.mode eq "Print">
@@ -51,7 +52,7 @@
 				
 					<tr class="line"><td class="labelmedium2" style="padding-left:20px;font-size:19px"><cf_tl id="Tracks by process status"></td></tr> 
 						
-					<tr><td>		
+					<tr><td style="min-width:400px">		
 					
 					<cfif URL.Mode neq "Portal">
 					   <cfset sc = "parent.tracklisting('#url.systemfunctionid#','status','#url.status#','$ITEMLABEL$','#url.mission#')">
@@ -60,8 +61,7 @@
 					</cfif>
 					
 					<cf_uichart name="vacancygraph1_#mission.missionprefix#"
-						chartheight="420"					
-						chartwidth="597"
+						chartheight="420"											
 						url="javascript:#sc#">
 									
 					      <cf_uichartseries type="pie" 
@@ -82,8 +82,7 @@
 					<tr><td>	
 										
 					<cf_uichart name="vacancygraph2_#mission.missionprefix#"
-						chartheight="300"
-						chartwidth="430"
+						chartheight="300"						
 						url="javascript:tracklisting('#url.systemfunctionid#','postgrade','#url.parent#','$ITEMLABEL$')">
 									
 				      <cf_uichartseries type="bar" 
@@ -117,7 +116,7 @@
 							
 				<td align="center" valign="top">
 					
-					<table>
+					<table  width="100%">
 					
 					<cfif url.status eq "0" and agingtotal.counted gt 0>
 													
@@ -144,8 +143,7 @@
 								</cfif>
 														
 								<cf_uichart name="vacancygraph4_#mission.missionprefix#"
-									chartheight="240"
-									chartwidth="430"
+									chartheight="240"									
 									url="javascript:#sc#">			
 									
 									<cf_uichartseries type="pie" query="#Aging#" itemcolumn="Description" valuecolumn="Counted" colorlist="#vColorList#"/>
@@ -155,8 +153,7 @@
 							<cfelse>
 							
 								<cf_uichart name="vacancygraph4_#mission.missionprefix#"
-									chartheight="140"
-									chartwidth="430"
+									chartheight="140"									
 									url="javascript:tracklisting('#url.systemfunctionid#','aging','#url.parent#','$ITEMLABEL$')">			
 									
 									<cf_uichartseries type="pie" query="#Aging#" itemcolumn="Description" valuecolumn="Counted" colorlist="#vColorList#"/>
