@@ -128,30 +128,38 @@
 		<table>
 		
 		<tr><td style="width:100%" valign="top">
+		
+		 <cfif len(user.signature) gte "1000">
+		 
+		    <img src="#user.signature#"	align="absmiddle" height="#attributes.imageheight#" width="#attributes.imagewidth#">
+		 
+		 <cfelse>
 	
-		 <cfif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.png")>	
-		 
-		 	<cffile action="COPY" 
-				source="#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.png" 
-		    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">  	
-				
-			 <cfimage name="vSignature" action="read" source="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg"/> 
-			 				
-		 <cfelseif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg")>	 
-		 		 
-		 	  <cffile action="COPY" 
-				source="#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg" 
-		    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">   	
-				
-			  <cfimage name="vSignature" action="read" source="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg"/>
-		 			 
-	  	 <cfelse>	
-		 
-		 	  <cfimage name="vSignature" action="read" source="#SESSION.root#/Images/image-not-found.gif"/>		 
-							  
-		 </cfif>
-		 
-		 <img src="data:image/*;base64,#toBase64(vSignature)#"	align="absmiddle" height="#attributes.imageheight#" width="#attributes.imagewidth#">
+			 <cfif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.png")>	
+			 
+			 	<cffile action="COPY" 
+					source="#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.png" 
+			    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">  	
+					
+				 <cfimage name="vSignature" action="read" source="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg"/> 
+				 				
+			 <cfelseif FileExists("#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg")>	 
+			 		 
+			 	  <cffile action="COPY" 
+					source="#SESSION.rootDocumentPath#\User\Signature\#attributes.account#.jpg" 
+			    	destination="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg" nameconflict="OVERWRITE">   	
+					
+				  <cfimage name="vSignature" action="read" source="#SESSION.rootPath#\CFRStage\Signature\#attributes.account#.jpg"/>
+			 			 
+		  	 <cfelse>	
+			 
+			 	  <cfimage name="vSignature" action="read" source="#SESSION.root#/Images/image-not-found.gif"/>		 
+								  
+			 </cfif>
+			 
+			 <img src="data:image/*;base64,#toBase64(vSignature)#"	align="absmiddle" height="#attributes.imageheight#" width="#attributes.imagewidth#">
+			 
+		</cfif>	 
 		
 		 </td></tr>
 		 

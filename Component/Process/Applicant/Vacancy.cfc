@@ -58,6 +58,7 @@
 		<cfset days   = "#Param.SelectionDays#">
 		<cfset filter = "#Param.SelectionFilterScript#">
 		
+				
 		<cfset seldate = dateformat(now()-days,client.dateSQL)>
 		
 		<cfquery name="get" 
@@ -70,6 +71,7 @@
 					  D.PostGrade, 
 					  D.Mission, 
 			          D.FunctionalTitle, 
+					  DC.Status as ActionStatus,
 					  (  SELECT MAX(ReviewDate)
 						 FROM   DocumentCandidateReview
 						 WHERE  DocumentNo = DC.DocumentNo
@@ -119,7 +121,8 @@
 		                  DC.PersonNo, 
 						  D.PostGrade, 
 						  D.Mission, 
-				          D.FunctionalTitle, 					  
+				          D.FunctionalTitle, 	
+						  DC.Status as ActionStatus,				  
 						  ( SELECT MAX(ReviewDate)
 						    FROM   DocumentCandidateReview
 						    WHERE  DocumentNo = DC.DocumentNo

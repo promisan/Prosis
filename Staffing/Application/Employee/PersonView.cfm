@@ -113,8 +113,6 @@
 </cfif>
 
 
-
-
 <cf_screentop height="100%" 
 	  html="Yes" 
 	  scroll="No"
@@ -129,12 +127,23 @@
 	  menuaccess="context"
 	  systemmodule="Staffing"
 	  functionclass="Window"
-	  functionName="Employee Dialog"
+	  functionName="Employee Dialog"	  
 	  label="s:#Employee.LastName# [#Employee.PersonNo#]">
 	  
+
+<cfoutput>
+
+<script>
+				
+	function doStaffValidation() {
+		ptoken.navigate('#session.root#/Staffing/Application/Employee/PersonViewValidation.cfm?systemfunctionid=#url.systemfunctionid#&mission=&PersonNo=#employee.personNo#', 'divValidation');		
+	}
+				
+</script>
+
+</cfoutput>	  
   		  
 <cf_layoutScript>
-
 
 <cfif Employee.recordcount eq "0">
 
@@ -177,7 +186,17 @@
 			</cfoutput>
 			
 		</cf_layoutArea>
+		
+        <cf_layoutarea size="220"  position="right" name="validationbox" initcollapsed="Yes" collapsible="Yes">
+		
+		   <cf_divscroll>
+   			   <cfdiv id="divValidation" style="margin:5px;"> 	  
+	  	  </cf_divscroll>	
+					
+	     </cf_layoutarea>	
 	
 	</cf_layout>	
 
 </cfif>	
+
+<cfset AjaxOnLoad("function(){ doStaffValidation() }")>	

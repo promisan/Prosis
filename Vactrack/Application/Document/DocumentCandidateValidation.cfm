@@ -33,10 +33,8 @@
 	<cfelse>
 		
 	<tr><td height="20">	
-		 &nbsp;<a href="javascript:ptoken.navigate('#session.root#/Vactrack/Application/Document/DocumentCandidateValidation.cfm?documentNo=#url.documentno#','selectionvalidation')">
-		 <font color="2894FF">
-		 Press here to overwrite the candidate selection limitation
-		 </font>
+		 &nbsp;<a href="javascript:ptoken.navigate('#session.root#/Vactrack/Application/Document/DocumentCandidateValidation.cfm?documentNo=#url.documentno#','selectionvalidation')">		 
+		 Press here to overwrite the candidate selection limitation		 
 		 </a>
 		</td>
 	</tr>	

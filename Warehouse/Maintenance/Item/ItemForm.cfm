@@ -43,7 +43,7 @@
 
 	<tr><td>
 	 
-	<table width="100%" align="center" class="formspacing formpadding">
+	<table width="100%" align="center" class="formpadding">
 			
 	    <cfoutput>	
 		
@@ -317,14 +317,14 @@
 		
 			<cfif URL.ID neq "">
 			
-			<td style="padding-left:5px"><cf_tl id="Operational">:</b></td>
-		    <TD style="padding-left:5px">
+			<td style="padding-left:5px"><cf_tl id="Usage">:</td>
+		    <TD>
 			
 			    <table><tr class="labelmedium2">
 				<td><input type="radio" class="radiol" name="Operational" id="Operational" <cfif Item.Operational eq "1" or url.id eq "">checked</cfif> value="1"></td>
-				<td><cf_tl id="Active"></td>
+				<td style="padding-left:2px"><cf_tl id="Active"></td>
 				<td style="padding-left:5px"><input type="radio" class="radiol" name="Operational" id="Operational" <cfif Item.Operational eq "0">checked</cfif> value="0"></td>
-				<td><cf_tl id="Disabled"></td>
+				<td style="padding-left:2px"><cf_tl id="Disabled"></td>
 				</tr>
 				</table>
 		    </td>

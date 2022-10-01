@@ -126,7 +126,7 @@ password="#SESSION.dbpw#">
 	<td>#Nationality#</td>
 	<td><cfif Gender eq "F">Female<cfelse>Male</cfif></td>
 	<td>#dateFormat(DOB,CLIENT.DateFormatShow)# <cfif DocParameter.MaximumAge lt Age><font color="FF0000">alert&nbsp;</cfif>age:<b>#age#</b></font></td>
-	<td>#Description# (#status#) <cfif Status eq "2s" and CandidateClass eq ""><b>:Flow</b></cfif></td>
+	<td>#Description# (#status#) <cfif Status eq "2s" and CandidateClass eq ""><b>:&nbsp;<span style="color:green" title="No flow was set yet">Flow</span></b></cfif></td>
 	<td>#Dateformat(Created, CLIENT.DateFormatShow)#</td>
 	<td></td>
 	</tr>
@@ -161,12 +161,13 @@ password="#SESSION.dbpw#">
 	<cfif OtherCandidates.recordcount gte 1>
 	
 	<tr>
-	<td stle="height:40px"></td>
+	<td></td>
 	<td colspan="8">
 			
 	    <table border="0" width="99%" align="center">
 		
 		<cfloop query="OtherCandidates">
+		
 		<tr class="fixlengthlist labelmedium2">
 	
 		<cfswitch expression = Status>
@@ -188,14 +189,12 @@ password="#SESSION.dbpw#">
 		<a href="javascript:showdocument('#DocumentNo#','ZoomIn')">
 		
 		<cfif Status eq "Return" >
-		&nbsp;<font color="FF0000">Attention:</font> <font color="FFFFFF">Candidate was <b>#Status#ed</b> from assignment on #DateFormat(Othercandidates.ActionDate,CLIENT.DateFormatShow)#
+		&nbsp;<font color="FF0000"><cf_tl id="Attention">:</font> <font color="FFFFFF">Candidate was <b>#Status# <cfif actionstatus eq '3'>and Onboarded</cfif></b> from assignment on #DateFormat(Othercandidates.ActionDate,CLIENT.DateFormatShow)# [#documentNo#]
 		<cfelse>		
-		&nbsp;<font color="FF0000">Attention:</font> <font color="FFFFFF">Candidate was <b>#Status#</b> for
-		<b>#OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# &nbsp;#OtherCandidates.FunctionalTitle#
+		&nbsp;<font color="FF0000"><cf_tl id="Attention">:</font> <font color="FFFFFF">Candidate was <b>#Status#</b> <cfif actionstatus eq '3'>and Onboarded</cfif> for <b>#OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# &nbsp;#OtherCandidates.FunctionalTitle# [#DocumentNo#]
 		</b>
 		</cfif>	
 		
-		</font>
 		</a>
 	    </td>
 		</tr>

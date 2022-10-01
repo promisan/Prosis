@@ -4,6 +4,8 @@
 <cfparam name="URL.box"         default="">
 <cfparam name="URL.source"      default="Backoffice">
 
+
+
 <cfquery name="Position" 
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
@@ -99,6 +101,7 @@
 	   option        = "#vOption#" 
 	   layout        = "webapp" 
 	   banner        = "gray">
+	   
 
 <cfset url.id  = Position.Mission>
 <cfset url.id1 = Position.MandateNo>
@@ -578,14 +581,11 @@
 		<cfinclude template="../../../../Vactrack/Application/Document/Dialog.cfm">
 		
 		<script>
-		// function ShowPA(Doc,Ind) {
-		//	ptoken.open('#SESSION.root#/DWarehouse/InquiryEmployee/PA_Detail.cfm?ID1=' + Doc + '&ID2=' + Ind, 'DialogPA', 'width=900, height=600, toolbar=yes, scrollbars=yes, resizable=yes');
-		// }
 		
-			function doProjectValidations() {
-				ptoken.navigate('#session.root#/Staffing/Application/Position/PositionParent/PositionViewValidation.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&PositionNo=#url.id2#', 'divValidations');
-			}
-			
+      		function doProjectValidations() {
+		         ptoken.navigate('#session.root#/Staffing/Application/Position/PositionParent/PositionViewValidation.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&PositionNo=#url.id2#', 'divValidations');
+        	}
+						
 	    </script>
 		
 		</cfoutput>

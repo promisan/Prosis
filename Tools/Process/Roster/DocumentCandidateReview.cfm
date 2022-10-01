@@ -195,9 +195,9 @@
 			    id="<cfoutput>#attributes.personNo#</cfoutput>_review"
 			    style="width:95%;padding-left:10px;border: 0px solid silver;">
 		
-			<table width="99%" align="center" cellspacing="0" cellpadding="0">
+			<table width="99%" align="center">
 						
-			<tr class="labelmedium line">
+			<tr class="labelmedium line fixlengthlist">
 			    <td><cf_tl id="Description"></td>
 				<td><cf_tl id="Owner"></td>
 				<td><cf_tl id="Priority"></td>
@@ -208,7 +208,7 @@
 			</tr>
 						
 			<cfoutput query="review">
-			<tr class="labelmedium line">
+			<tr class="labelmedium line fixlengthlist" style="height:18px">
 			<td>#Description#</td>
 			<td>#Owner#</td>
 			<td>#PriorityCode#</td>
@@ -234,7 +234,7 @@
 			</cfquery>	
 					
 			<cfloop query="Detail">
-				<tr bgcolor="F4FBFD" class="labelmedium">
+				<tr bgcolor="F4FBFD" class="labelmedium fixlengthlist" style="height:18px">
 				<td style="padding-left:20px" colspan="3">#ExperienceDescription#</td>
 				<td colspan="2">#OrganizationName#</td>
 				<td>#Dateformat(ExperienceStart,CLIENT.DateFormatShow)# - #Dateformat(ExperienceEnd,CLIENT.DateFormatShow)#</td>		
@@ -259,7 +259,7 @@
 			
 		<table width="99%" align="center" class="formpadding">
 			
-			<TR class="labelmedium line">
+			<TR class="labelmedium line fixlengthlist">
 				<TD><cf_tl id="Track"></TD>
 			    <TD><cf_tl id="Mission"></TD>
 				<TD><cf_tl id="Function"></TD>
@@ -270,7 +270,7 @@
 							
 			<cfoutput query="Offer">
 								
-				<tr class="labelmedium">
+				<tr class="labelmedium fixlengthlist" style="height:20px">
 				<TD>
 				<cfif documentNo eq attributes.DocumentNo><b><font color="0080FF">This track</b><cfelse>
 					<A HREF ="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#')">#DocumentNo#</a>

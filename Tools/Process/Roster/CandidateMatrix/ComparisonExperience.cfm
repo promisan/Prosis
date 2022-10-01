@@ -401,7 +401,7 @@ password="#SESSION.dbpw#">
 		
 		</cfif>	
 		
-	<tr><td colspan="8" style="padding-left:23px;padding-right:5px">
+	<tr><td colspan="8" style="padding-left:23px;padding-right:5px">	
 		<cf_backgroundCount color="yellow" ApplicantNo = "#ApplicantNo#" ExperienceId="#Experienceid#">	
 	</td>
 	</tr>	

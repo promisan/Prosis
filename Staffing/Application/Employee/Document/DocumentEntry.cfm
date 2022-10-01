@@ -110,7 +110,19 @@ password="#SESSION.dbpw#">
 						class="regularxxl enterastab"
 						AllowBlank="True">				
 					</TD>
-					</TR>			
+					</TR>	
+					
+					<cfquery name="qMission" 
+					datasource="AppsOrganization" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					    SELECT *
+					    FROM   Ref_Mission
+						<!---
+						WHERE  Mission = '#attributes.mission#' 
+						--->
+						
+					</cfquery>		
 								
 					<cfquery name="Nation" 
 					datasource="AppsSystem" 
@@ -128,7 +140,7 @@ password="#SESSION.dbpw#">
 					   	<select name="country" class="regularxxl enterastab">
 							<option value=""></option>
 						    <cfoutput query="Nation">
-							<option value="#Code#">#Name#</option>
+							<option value="#Code#" <cfif qMission.Countrycode eq Code>selected</cfif>>#Name#</option>
 							</cfoutput>
 					   	</select>		
 					</TD>
@@ -143,7 +155,7 @@ password="#SESSION.dbpw#">
 					
 					<tr>
 						<td class="labelmedium"><cf_tl id="Attachment">:</td>
-						<td><cfdiv bind="url:#session.root#/Staffing/Application/Employee/Document/DocumentEntryAttachment.cfm?id=#url.id#&documentid=#rowguid#&documenttype={documenttype}" id="att"></td>			
+						<td><cf_securediv bind="url:#session.root#/Staffing/Application/Employee/Document/DocumentEntryAttachment.cfm?id=#url.id#&documentid=#rowguid#&documenttype={documenttype}" id="att"></td>			
 					</tr>			
 					
 					<tr><td height="5"></td></tr>		

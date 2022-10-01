@@ -36,7 +36,7 @@
 		  password="#SESSION.dbpw#">
 			    SELECT  *
 				FROM   Customer
-				WHERE  CustomerId = '#url.customerid#'	    							   
+				WHERE  CustomerId = '#url.customerid#'	    										   
 		</cfquery>	
 		
 		<cf_verifyOperational module="WorkOrder" Warning="No">
@@ -108,7 +108,7 @@
 			  password="#SESSION.dbpw#">
 				    SELECT  *
 					FROM   Customer
-					WHERE  CustomerId = '#url.customerid#'	    							   
+					WHERE  CustomerId = '#url.customerid#'	    										   
 			</cfquery>		
 														
 			<cfif url.batchid eq "">
@@ -141,7 +141,7 @@
 			  password="#SESSION.dbpw#">
 				  SELECT  A.*
 				  FROM   CustomerAddress CA INNER JOIN  System.dbo.Ref_Address A ON CA.AddressId = A.AddressId
-				  WHERE  CustomerId = '#url.customerid#'
+				  WHERE  CustomerId = '#url.customerid#'				 
 			</cfquery>			
 			
 			<cfquery name="qExisting"
@@ -154,6 +154,7 @@
 				AND    AddressId IS NOT NULL
 				AND    AddressId != '00000000-0000-0000-0000-000000000000'
 				AND    ActionStatus = '0'
+				
 			</cfquery> 						
 
 			<cfif url.batchid eq "">	
@@ -209,7 +210,7 @@
 						WHERE  Warehouse  = '#url.warehouse#'
 						AND    CustomerId = '#url.customerid#'		
 						AND    AddressId  = '#url.addressid#'			
-						AND    ActionStatus != '9'
+						AND    ActionStatus != '9' 				
 				</cfquery>							
 			
 			</cfif>

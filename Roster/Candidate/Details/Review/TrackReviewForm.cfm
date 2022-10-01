@@ -3,7 +3,7 @@
 
 <script>
 
-function selectall(chk) {
+function selectexperienceall(chk) {
 
 var count=1
 while (count < 30) {
@@ -35,14 +35,11 @@ function hl(itm,fld){
      }else{
           while (itm.tagName!="TR")
           {itm=itm.parentNode;}
-     }
-	 
+     }	 
 	 	 		 	
-	 if (fld != false){
-		
+	 if (fld != false){		
 	 itm.className = "highLight2";
-	 }else{
-		
+	 }else{		
      itm.className = "regular";		
 	 }
   }
@@ -102,12 +99,12 @@ password="#SESSION.dbpw#">
 		
 		<table width="99%" align="center" cellspacing="0" cellpadding="0">		
 		<tr class="hide"><td><iframe name="result" id="result" width="100%" height="50"></iframe></td></tr>
-		<tr><td>		
+		<tr class="line"><td>		
 			<cfinclude template="BackgroundDetail.cfm">		
 		</td></tr>		
 		<cfif Searchresult.recordcount gte "1">
-		<tr><td align="center" height="30" style="padding-bottom:10px">
-			<input class="button10g" style="width:120px" value="Request" name="savecustom" type="submit">
+		<tr><td align="center" height="35" style="padding-top:3px;padding-bottom:4px">
+			<input class="button10g" style="width:190px" value="Request" name="savecustom" type="submit">
 		</td></tr>
 		</cfif>		
 		</table>	

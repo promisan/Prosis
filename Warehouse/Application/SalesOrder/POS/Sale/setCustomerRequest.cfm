@@ -20,8 +20,7 @@ password="#SESSION.dbpw#">
 	AND      BatchNo is NULL	
 	<!--- entered directly or submitted as quote --->
 	AND      (
-		      (Source = 'Manual' AND ActionStatus IN ('0','1'))
-			   OR Source != 'Manual' AND ActionStatus = '1' <!--- web and quote --->
+		      (Source = 'Manual' AND ActionStatus = '0') OR (Source != 'Manual' AND ActionStatus = '1') <!--- web and quote --->
 			 )		
 </cfquery>		
 

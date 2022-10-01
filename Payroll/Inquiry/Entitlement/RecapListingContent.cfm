@@ -42,6 +42,7 @@
 
 <cfoutput>
 
+
 	<cfsavecontent variable="myquery">
 	
 	 SELECT  L1.ServiceLevel,   
@@ -60,22 +61,36 @@
 		     P.PersonNo, 
 			 C.PayrollItemName, 
 		     SUM(L2.PaymentAmount) as Amount
+			 
 	  FROM   SalarySchedulePeriod S, 
 	         EmployeeSalaryLine L2, 
 		     EmployeeSalary L1, 
 		     Ref_PayrollItem C, 
 		     Employee.dbo.Person P
-	  WHERE  S.CalculationId   = '#URL.ID2#' 
-	  AND    (C.PrintGroup     = '#URL.ID3#' or L1.ServiceLevel = '#URL.ID3#')
+	  WHERE  1=1
+	  
+	  <cfif url.id3 eq "" and url.id neq "Year">
+	  AND     S.CalculationId   = '#URL.ID2#' 
+	  AND    (C.PrintGroup     = '#URL.ID4#' or L1.ServiceLevel = '#URL.ID4#')	
+	  <cfelseif url.id eq "Year">
+	  
+	  AND    S.SalarySchedule = '#url.id1#'
+	  AND    year(L1.PayrollStart) = '#URL.ID2#'
+	   AND   month(L1.PayrollStart) = '#URL.ID4#'
+	  <cfelse>
+	  AND     S.CalculationId   = '#URL.ID2#'
+	  AND    (C.PrintGroup     = '#URL.ID3#' or L1.ServiceLevel = '#URL.ID3#')	  
 	  AND    (C.PayrollItem    = '#URL.ID4#' or C.PayrollItemName = '#url.id4#')
+	  </cfif>
 	  
 	  AND    S.SalarySchedule  = L1.SalarySchedule
 	  AND    S.PayrollStart    = L1.PayrollStart
 	  AND    S.Mission         = L1.Mission
 	  AND    L1.PersonNo       = L2.PersonNo
 	  AND    L1.PayrollStart   = L2.PayrollStart
-	  AND    L1.PersonNo       = P.PersonNo 
+	  AND    L1.PayrollCalcNo  = L2.PayrollCalcNo	  
 	  AND    C.PayrollItem     = L2.PayrollItem 
+	  AND    L1.PersonNo       = P.PersonNo 
 	      
 	  GROUP BY L1.ServiceLevel,           
 			   L1.ServiceStep, 
@@ -113,24 +128,30 @@
 					filtermode = "2",			
 					search     = "text"}>	
 					
-<cfset fields[4] = {label      = "PostType",                  
+<cfset fields[4] = {label      = "PayrollItemName",                  
+					field      = "PayrollItemName",						
+					filtermode = "3",						
+					search     = "text"}>															
+					
+					
+<cfset fields[5] = {label      = "PostType",                  
 					field      = "PostType",	
 					column     = "common",
 					filtermode = "3",						
 					search     = "text"}>															
 
-<cfset fields[5] = {label      = "Grade",                  
+<cfset fields[6] = {label      = "Grade",                  
 					field      = "ServiceLevel",
 					fieldsort  = "PostOrder",
 					column     = "common",
 					filtermode = "3",
 					search     = "text"}>		
 						
-<cfset fields[6] = {label      = "S", 					
+<cfset fields[7] = {label      = "S", 					
 					field      = "ServiceStep",										
 					search     = "text"}>		
 					
-<cfset fields[7] = {label      = "Amount",  					
+<cfset fields[8] = {label      = "Amount",  					
 					field      = "Amount",					
 					aggregate  = "sum",
 					align      = "right",
@@ -141,7 +162,7 @@
 <cf_listing
     header        = "Entitlement"
     box           = "entitlement"
-	link          = "#SESSION.root#/Payroll/Inquiry/Entitlement/RecapItemContent.cfm?ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID4=#url.id4#&systemfunctionid=#url.systemfunctionid#"
+	link          = "#SESSION.root#/Payroll/Inquiry/Entitlement/RecapListingContent.cfm?ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#&ID4=#url.id4#&systemfunctionid=#url.systemfunctionid#"
     html          = "No"
 	show          = "200"
 	datasource    = "AppsPayroll"

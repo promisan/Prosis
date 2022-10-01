@@ -3,19 +3,19 @@
 <script language="JavaScript">
 
 function refreshrole(id) {
-	ColdFusion.navigate('RecordListingRole.cfm?id='+id,'role'+id) 
+	ptoken.navigate('RecordListingRole.cfm?id='+id,'role'+id) 
 }
 
 function refreshstatus(id) {
-	ColdFusion.navigate('RecordListingStatus.cfm?id='+id,'status'+id)  
+	ptoken.navigate('RecordListingStatus.cfm?id='+id,'status'+id)  
 }
 
 function addportal(mod,mn,cls,fnd) {       
-    ptoken.open("#SESSION.root#/system/Modules/PortalBuilder/RecordEdit.cfm?systemmodule="+mod+"&functionclass=" + cls, "addportal", "status=yes, height=725px, width=950px, scrollbar=no, center=yes, resizable=yes");		
+    ptoken.open("#SESSION.root#/system/Modules/PortalBuilder/RecordEdit.cfm?systemmodule="+mod+"&functionclass=" + cls, "addportal");		
 }
 
 function addmanual(mod,mn,cls,fnd) {
-    ptoken.open("FunctionManuals/ManualAdd.cfm?systemmodule="+mod+"&functionclass=" + cls, "addmanual", "status=yes, height=450px, width=725px; scrollbar=no; center=yes; resizable=yes");		
+    ptoken.open("FunctionManuals/ManualAdd.cfm?systemmodule="+mod+"&functionclass=" + cls, "addmanual");		
 }
 
 function add(mod,mn,cls,fnd) {
@@ -48,7 +48,7 @@ function helpedit(mod,cde,cls,id) {
 function functionedit(id1,scope) {
 	w = #CLIENT.width# - 200;
 	h = #CLIENT.height# - 120;    
-    ptoken.open("RecordEdit.cfm?ID=" + id1 + "&scope=" + scope, "_blank", "left=40, top=40, width=" + w + ", height= " + h + ", toolbar=no, status=yes, scrollbars=yes, resizable=no")
+    ptoken.open("RecordEdit.cfm?ID=" + id1 + "&scope=" + scope, "_blank")
 }
 	
 function functionrefresh(id1) {
@@ -58,7 +58,7 @@ function functionrefresh(id1) {
 }	
     
 function portaledit(id1,module,functionClass) {
-	ptoken.open("../PortalBuilder/RecordEdit.cfm?ID=" + id1 + "&systemmodule=" + module + "&functionClass=" + functionClass, "portal", "status=yes, height=890px, width=1024px, scrollbar:no; center:yes; resizable:yes");
+	ptoken.open("../PortalBuilder/RecordEdit.cfm?ID=" + id1 + "&systemmodule=" + module + "&functionClass=" + functionClass, "portal");
 	// more('selfservice',1,'selfservice','')	
 }
 

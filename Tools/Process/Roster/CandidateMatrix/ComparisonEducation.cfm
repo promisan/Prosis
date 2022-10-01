@@ -107,14 +107,14 @@ password="#SESSION.dbpw#">
 	  
 	<cfoutput query="Detail" group="ExperienceId">
 		
-	<tr class="labelmedium2 navigation_row">
+	<tr class="labelmedium2 navigation_row fixlengthlist" style="height:20px">
 	<td width="5%">#currentrow#.</td>	
 	<td colspan="7"><b>#OrganizationName#</b></td>		
 	</tr>
 
 	<cfif OrganizationCity neq "">
 		
-		<tr class="navigation_row_child">
+		<tr class="navigation_row_child" style="height:15px">
 		<td></td>				
 						
 		<cfquery name="Nation" 
@@ -126,8 +126,10 @@ password="#SESSION.dbpw#">
 			WHERE Code = '#OrganizationCountry#'
 		</cfquery>
 		
-		<td class="labelit" colspan="7">
-		<table style="width:100%"><tr><td>#OrganizationCity# #Nation.Name#</td>
+		<td colspan="7" style="height:15px">
+		<table style="width:100%">
+		<tr class="labelit" style="height:15px">
+		<td style="padding-left:3px">#OrganizationCity# #Nation.Name#</td>
 		<td align="right">#DateFormat(ExperienceStart,"MM/YYYY")#
 		- <cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2030"><cf_tl id="Todate"><cfelse>#DateFormat(ExperienceEnd,"MM/YYYY")#</cfif>
 		</td>
@@ -139,41 +141,41 @@ password="#SESSION.dbpw#">
 	</cfif>
 		
 	<cfif Remarks neq "" and ExperienceDescription neq remarks>
-		<tr class="labelmedium2 navigation_row_child">
+		<tr class="labelit navigation_row_child" style="height:20px">
 		<td></td>
-		<td colspan="7">#Remarks#</td>
+		<td style="padding-left:3px" colspan="7">#Remarks#</td>
 		</tr>
 	</cfif>
 	
 	<cfif OrganizationAddress neq "">
-		<tr class="labelmedium2 navigation_row)_child">
+		<tr class="labelit navigation_row)_child" style="height:20px">
 		<td></td>
-		<td colspan="7">#OrganizationAddress#</td>
+		<td style="padding-left:3px" colspan="7">#OrganizationAddress#</td>
 		</tr>
 	</cfif>
 	
 	<cfif OrganizationTelephone neq "">
-		<tr class="labelmedium2 navigation_row_child">
+		<tr class="labelit navigation_row_child" style="height:20px">
 		<td></td>
-		<td colspan="7"><cf_tl id="Tel">:#OrganizationTelephone#</td>
+		<td style="padding-left:3px" colspan="7"><cf_tl id="Tel">:#OrganizationTelephone#</td>
 		</tr>
 	</cfif>
 	
 	<cfif Status neq "9">
 	
-	    <tr class="navigation_row_child">
+	    <tr class="navigation_row_child" style="height:20px">
 		
 	<cfelse>	
 	
-	    <tr bgcolor="red">	
+	    <tr bgcolor="red" style="height:20px">	
 		
 	</cfif>
 		
 		<td></td>
-		<td colspan="7">
+		<td colspan="7" style="padding-left:3px">
 		
-			<table cellspacing="0" cellpadding="0">
-			 <tr class="labelmedium2">		 
+			<table>
+			 <tr class="labelit" style="height:20px">		 
 			 <cfif OrganizationClass neq ""><td>#OrganizationClass#</b></td></cfif>
 			 <cfif ExperienceDescription neq ""><td>#ExperienceDescription#</b></td></cfif>
 			 </tr>
@@ -187,9 +189,9 @@ password="#SESSION.dbpw#">
 	
 	    <cfif TopicStatus eq "1">
 	
-			<tr bgcolor="ffffaf" class="labelmedium2 navigation_row" style="height:10px">
+			<tr bgcolor="ffffaf" class="labelit" style="height:10px">
 			<td bgcolor="white"></td>			  
-			<td colspan="6" style="padding-left:4px">#Description#</td>			
+			<td colspan="6" style="padding-left:3px">#Description#</td>			
 			<TD width="10%" align="right" style="padding-right:4px">
 			
 				<cfif CLIENT.submission neq "Skill">

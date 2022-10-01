@@ -193,7 +193,7 @@
 <cf_tl id="Due" var="vDue">
 <cfset fields[itm] = {label     = "#vDue#",
 					field       = "DueDate", 		
-					alert       = "DueDate lt now()"
+					alert       = "DueDate lt now()",
 					formatted   = "dateformat(DueDate,CLIENT.DateFormatShow)",		
 					align       = "center"}>																																	
 

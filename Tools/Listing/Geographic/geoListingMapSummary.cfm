@@ -221,7 +221,10 @@
         <cfset vSeries.query = "#getDataSummary#">
         <cfset vSeries.label = "SummaryField">
         <cfset vSeries.value = "Total">
-        <cfset vSeries.color = "orange">
+    
+        <cfset vSeries.colorMode = "custom">
+        <cfset vSeries.color = ['##00a8ff','##c23616','##44bd32','##fbc531','##8c7ae6','##ff9ff3','##1dd1a1','##ee5253', '##ff5252', '##474787', '##ffda79']>
+
         <cfset vSeries.transparency = 0.9>
         <cfset vSeriesArray[1] = vSeries>
 

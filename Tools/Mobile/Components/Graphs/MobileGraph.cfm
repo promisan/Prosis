@@ -277,7 +277,9 @@
 			            }
 			        },
 					responsive: true,
-					animation: #attributes.animation#,
+					<cfif trim(lcase(attributes.animation)) eq "false">
+						animation: #attributes.animation#,
+					</cfif>
 					maintainAspectRatio: false,
 					legend: { display:#vLegend#, position:'#attributes.legendPosition#', labels: { fontSize: #attributes.legendFont# } },
 					<cfif attributes.type neq "pie" AND attributes.type neq "doughnut" AND attributes.type neq "polarArea" AND vShowGrids>

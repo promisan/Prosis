@@ -451,6 +451,29 @@ password="#SESSION.dbpw#">
 		WHERE ItemNo       = '#URL.ID#'
 	</cfquery>
 	
+	<cfif select.operational neq form.Operational>
+	
+		<!--- we are logging this into action --->
+		
+		<cfif form.Operational eq "0">
+			<cfset st = "Disabled">
+		<cfelse>
+		    <cfset st = "Enabled">
+		</cfif>
+		
+		<cfquery name="Add" 
+		datasource="appsMaterials" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			INSERT INTO ItemAction
+			(ItemNo,ActionCode,ActionDate,OfficerUserid, OfficerLastName, OfficerFirstName,ActionStatus)
+			VALUES
+			('#URL.ID#','#st#',getdate(),'#session.acc#','#session.last#','#session.first#','1')
+		</cfquery>
+	
+	
+	</cfif>
+	
 	<!--- 0. Updating the Item, may mean that the itemBarcode should change for all itemUoMs --->
 	
 	<cfquery name="Check" 

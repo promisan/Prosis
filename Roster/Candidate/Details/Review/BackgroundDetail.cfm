@@ -12,14 +12,13 @@
 	<table width="98%" border="0">
 	
 	  <tr>
-	  	<td colspan="2" id="ExperienceSummary">
-			
+	  	<td colspan="2" id="ExperienceSummary">			
 			<cfset url.ApplicantNo=SearchResult.ApplicantNo>
 			<cfinclude template="BackgroundSummary.cfm">
 		</td>
 	  </tr>
 	  <tr>
-	  	<td width="100" style="height:40px;padding-left:10px" class="labelit"><b><cf_tl id="Priority">:</td>
+	  	<td width="100" style="height:40px;padding-left:10px" class="labelit"><cf_tl id="Priority">:</td>
 		<td width="90%">
 			<select name="PriorityCode" class="regularxl">
 			<cfoutput query="Priority">
@@ -40,9 +39,9 @@
 	  <tr>
 	    <td width="100%" colspan="2">
 		
-	    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	    <table width="100%">
 		
-	    <TR class="linedotted fixlengthlist labelmedium">
+	    <TR class="line fixlengthlist labelmedium fixrow">
 	       <td height="25" width="5%" align="center">
 			   <input type="checkbox" class="radiol" name="selected_all" id="selected_all" value="All" onClick="selectexperienceall(this.checked);">
 			   </td>
@@ -61,9 +60,9 @@
 		   <cfoutput>
 		      
 		   <cfif CurrentAssigned is ''>
-		      <tr class="linedotted labelmedium2" bgcolor="f8f8f8" id="line#currentrow#">
+		      <tr class="linedotted labelmedium2" bgcolor="f8f8f8" id="line#currentrow#" style="border-top:1px solid silver">
 		   <cfelse>
-		      <tr class="linedotted labelmedium" class="highLight1" id="line#currentrow#">
+		      <tr class="linedotted labelmedium" class="highLight1" id="line#currentrow#" style="border-top:1px solid silver">
 		   </cfif>   
 		   <td width="5%" align="center" style="padding:2px">
 		      <cfif CurrentAssigned is ''>
@@ -79,7 +78,7 @@
 		   </TR>
 		   
 		   <cfif OrganizationTelephone neq "">
-		   <tr class="labelmedium2">
+		   <tr class="labelmedium2" style="height:20px">
 		   		<td></td>
 				<td><cf_tl id="Phone">:</td>
 			    <td colspan="3"><font color="00A600">#OrganizationTelephone#</td>
@@ -87,7 +86,7 @@
 		   </cfif>
 		   
 		   <cfif supervisorname neq "">
-			   <tr class="labelmedium2">
+			   <tr class="labelmedium2" style="height:20px">
 			   		<td></td>
 					<td><cf_tl id="Supervisor">:</td>
 					<td colspan="3"><font color="blue">#SupervisorName#</td>    
@@ -95,14 +94,14 @@
 		   </cfif>
 		   
 		   <cfif Organizationemail neq "">
-		      <tr class="labelmedium2">
+		      <tr class="labelmedium2" style="height:20px">
 		   		<td></td>
 				<td><cf_tl id="Mail">:</td>
 		   		<td colspan="3"><font color="blue">#OrganizationeMail#</td>
 		      </tr>
 		   </cfif>
 		   
-		   <tr class="labelmedium2">
+		   <tr class="labelmedium2" style="height:20px">
 		   		<td></td>
 				<td><cf_tl id="Address">:</td>
 				<td colspan="3"><font color="00A600">#OrganizationAddress# #OrganizationZIP# #OrganizationCity# #OrganizationCountry#</td>

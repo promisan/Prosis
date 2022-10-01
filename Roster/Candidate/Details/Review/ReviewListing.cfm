@@ -89,12 +89,12 @@
 	<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
 						 
 	<tr><td width="100%" colspan="2">
-	
-	    <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+		
+	    <table width="100%" align="center" class="formpadding">
 	
 	<cfif URL.Topic neq "All">
 	
-		<tr class="labelmedium linedotted">
+		<tr class="labelmedium linedotted fixlengthlist">
 		    <td width="30"></td>
 			<td><cf_tl id="Description"></td>
 			<td><cf_tl id="Priority"></td>
@@ -135,7 +135,7 @@
 		<cfset cl = "FFC6C6">
 	</cfif>
 	
-	<TR bgcolor="#cl#"  class="linedotted">
+	<TR bgcolor="#cl#"  class="linedotted fixlengthlist labelmedium2">
 		
 		<td align="center" style="padding-left:10px" width="20">
 		
@@ -165,22 +165,21 @@
 					     								
 			</cfif>	
 		</td>
-	    <td style="height:20" class="labelit">
+	    <td style="height:20">
 		<cfif status eq "0" or Status eq "1" or Status eq "9">
-		<a href="javascript:more('#currentrow#');ColdFusion.navigate('#wflink#?ajaxid=#reviewid#','#reviewid#')">
-		<font color="0080C0">
+		<a href="javascript:more('#currentrow#');ptoken.navigate('#wflink#?ajaxid=#reviewid#','#reviewid#')">		
 		</cfif>
 		#Description#</a></td>
-		<td class="labelit">#PriorityName#</td>
-	    <td class="labelit">
+		<td>#PriorityName#</td>
+	    <td>
 			<cfswitch expression="#Status#">
 					<cfcase value="0"><cf_tl id="Pending"></cfcase>
 					<cfcase value="9"><font color="FF0000"><cf_tl id="Denied"></font></cfcase>
 					<cfcase value="1"><cf_tl id="Cleared"></cfcase>
 			</cfswitch>
 		</td>
-		<td class="labelit">#OfficerFirstName# #OfficerLastName#</td>
-		<td class="labelit">#DateFormat(Created, CLIENT.DateFormatShow)#</td>
+		<td>#OfficerFirstName# #OfficerLastName#</td>
+		<td>#DateFormat(Created, CLIENT.DateFormatShow)#</td>
 		<td style="padding-top:1px">
 		
 		<cfif access eq "ALL" or aReview eq "Edit">
@@ -202,7 +201,7 @@
 	</cfquery>	
 			
 	<cfloop query="Detail">
-	<tr bgcolor="F4FBFD" class="labelit">
+	<tr bgcolor="F4FBFD" class="labelmedium2 fixlengthlist">
 	<td bgcolor="white"></td>
 	<td>#ExperienceDescription#</td>
 	<td>#OrganizationName#</td>

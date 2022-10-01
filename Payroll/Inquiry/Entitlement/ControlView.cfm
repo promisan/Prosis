@@ -17,9 +17,8 @@
 
 <cf_tl id="Payroll entitlement review" var="1">
 
-<cf_screenTop height="100%" title="#lt_text#" 
-systemmodule="payroll" functionclass="portal" functionname="entitlement"
-jquery="Yes" html="yes" border="0" scroll="no" layout="webapp">
+<cf_screenTop height="100%" title="#lt_text#" systemmodule="payroll" functionclass="portal" functionname="entitlement"
+             jquery="Yes" html="yes" scroll="no" layout="webapp">
 
 <cf_layout type="border" id="mainLayout" width="100%">	
 			

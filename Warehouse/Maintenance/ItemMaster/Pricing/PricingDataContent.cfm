@@ -21,18 +21,18 @@
 						
 		<cfif whs.recordcount gte "1">
 												
-			<tr class="labelmedium2 line fixrow">
-				<td height="25" style="padding-left:3px">UoM:</td>
+			<tr class="labelmedium2 line fixrow fixlengthlist">
+				<td height="25">UoM:</td>
 				<td style="background-color:ffffaf">#UoMDescription# [#ItemBarCode#]</td>
 				<td style="padding-left:4px"><cf_tl id="Effective"></td>
 				<td></td>
 				<td><cf_tl id="Promo"></td>
 				<td><cf_tl id="Currency"></td>
-				<td style="width:100px" align="right"><cf_tl id="Last Receipt"></td>
-				<td style="width:100px" align="right"><cf_tl id="Last Order"></td>
-				<td style="width:100px" align="right"><cf_tl id="Last Cost"></td>
-				<td style="width:100px;padding-right:5px" title="Minimum quantity" align="right"><cf_tl id="Quantity"></td>				
-				<td style="width:100px;padding-right:5px" align="right"><cf_tl id="Price"></td>
+				<td align="right"><cf_tl id="Last Receipt"></td>
+				<td align="right"><cf_tl id="Last Order"></td>
+				<td align="right"><cf_tl id="Last Cost"></td>
+				<td title="Minimum quantity" align="right"><cf_tl id="Quantity"></td>				
+				<td align="right"><cf_tl id="Price"></td>
 				<td align="right"><cf_tl id="Tax"></td>
 				<td></td>
 			</tr>
@@ -64,7 +64,7 @@
 					
 			<cfloop query="Schedule">			
 				
-				<tr class="labelmedium line" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''">
+				<tr class="labelmedium line fixlengthlist" onMouseOver="this.bgColor='FFFFCF'" onMouseOut="this.bgColor=''">
 					
 					<td align="center">
 						
@@ -97,8 +97,8 @@
 											 AND    PriceSchedule = '#code#'
 											 AND    Operational = 1)
 					</cfquery>
-																														
-					<cfloop query="Currency">						
+																																			
+					<cfloop query="Currency">					
 																		
 						<cfquery name="line"
 						datasource="AppsMaterials" 
@@ -118,11 +118,12 @@
 							AND        Currency      = '#currency#'			
 							ORDER BY   DateEffective DESC
 						</cfquery>
+						
 													
 						<td style="min-width:100px">
 													
 						<cfif line.dateeffective eq "">
-																				
+																										
 							<cf_intelliCalendarDate9
 							    class="regularxl"
 								FieldName="#w#_#measure#_#Schedule.code#_#currency#_DateEffective" 
@@ -135,10 +136,10 @@
 						<cfelse>
 						
 							<cfif line.dateEffective lt now()>
-							
+														
 								<cf_intelliCalendarDate9
 									FieldName="#w#_#measure#_#Schedule.code#_#currency#_DateEffective" 
-									Default="#dateformat(now(),CLIENT.DateFormatShow)#"
+									Default="#dateformat(line.dateEffective,CLIENT.DateFormatShow)#"
 									message="Enter a valid price"
 									class="regularxl"
 									DateValidStart="#Dateformat(line.dateeffective, 'YYYYMMDD')#"
@@ -260,8 +261,11 @@
 							<cfif application.BaseCurrency eq Currency>												
 								#numberformat(Transaction.TransactionCostPrice,'.,___')#								
 							<cfelse>							
-								<cf_exchangeRate Currencyfrom="#application.BaseCurrency#" CurrencyTo="#currency#">
-								#numberformat(Transaction.TransactionCostPrice/exc,'.,___')#																	
+								
+								<!--- 
+								<cf_exchangeRate Currencyfrom="#application.BaseCurrency#" CurrencyTo="#currency#">								
+								#numberformat(Transaction.TransactionCostPrice/exc,'.,___')#						
+								--->											
 							</cfif>				
 						
 						</td>
@@ -396,3 +400,5 @@
 		</cfif>
 	
 </cfoutput>
+
+<cfset ajaxonload("doCalendar")>

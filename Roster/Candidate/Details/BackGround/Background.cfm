@@ -569,8 +569,9 @@ password="#SESSION.dbpw#">
 							
 				<cfif checking.recordcount gte "1">
 					
-					<tr class="navigation_row_child"><td colspan="8" align="center" style="padding-top:8px;padding-right:8px;padding-bottom:8px;padding-left:35px">
-									
+					<tr class="navigation_row_child">
+					   <td colspan="8" align="center" style="padding-top:8px;padding-right:8px;padding-bottom:8px;padding-left:35px">
+					   									
 						<table width="90%" style="border:1px solid gray;border-radius:6px" align="center" class="formpadding" bgcolor="ffffcf">
 							
 							<tr class="line labelmedium" bgcolor="ffffef">

@@ -21,44 +21,44 @@ WHERE DocumentType = '#URL.ID1#'
 
 <!--- edit form --->
 
-<table width="93%" cellspacing="0" cellpadding="0" align="center" class="formpadding formspacing">
+<table width="93%" align="center" class="formpadding formspacing">
 
     <tr><td></td></tr>
     <cfoutput>
-    <TR>
-    <TD class="labelmedium">Code:</TD>
-    <TD class="labelmedium">
+    <TR class="labelmedium2">
+    <TD><cf_tl id="Code">:</TD>
+    <TD>
   	   <input type="text" name="DocumentType" value="#get.DocumentType#" size="10" maxlength="10" class="regularxl">
 	   <input type="hidden" name="DocumentTypeOld" value="#get.DocumentType#" size="10" maxlength="10" readonly>
     </TD>
 	</TR>
 	
-	<TR>
-    <TD class="labelmedium">Description:</TD>
-    <TD class="labelmedium">
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Description">:</TD>
+    <TD>
   	   <cfinput type="Text" name="Description" value="#get.description#" message="Please enter a description" required="Yes" size="23" maxlength="40" class="regularxl">
     </TD>
 	</TR>
 	
-	<TR>
-    <td class="labelmedium">Enable removal:</b></td>
-    <TD class="labelmedium">  
+	<TR class="labelmedium2">
+    <td><cf_tl id="Enable removal">:</b></td>
+    <TD>  
 	  <input type="radio" name="EnableRemove" <cfif #Get.EnableRemove# eq "0">checked</cfif> value="0">No
 	  <input type="radio" name="EnableRemove" <cfif #Get.EnableRemove# eq "1">checked</cfif> value="1">Yes 
     </td>
     </tr>
 	
-	<TR>
-    <td class="labelmedium">Enable edit:</b></td>
-    <TD class="labelmedium">  
+	<TR class="labelmedium2">
+    <td><cf_tl id="Enable edit">:</b></td>
+    <TD>  
 	  <input type="radio" name="EnableEdit" <cfif #Get.EnableEdit# eq "0">checked</cfif> value="0">No
 	  <input type="radio" name="EnableEdit" <cfif #Get.EnableEdit# eq "1">checked</cfif> value="1">Yes 
     </td>
     </tr>
 	
-	<TR>
-    <td class="labelmedium">Mode:</b></td>
-    <TD class="labelmedium">  
+	<TR class="labelmedium2">
+    <td><cf_tl id="Mode">:</b></td>
+    <TD>  
 	  <input type="radio" name="VerifyDocumentNo" <cfif Get.VerifyDocumentNo eq "0">checked</cfif> value="0">Optional
 	  <input type="radio" name="VerifyDocumentNo" <cfif Get.VerifyDocumentNo eq "1">checked</cfif> value="1">Obligatory 
 	  <input type="radio" name="VerifyDocumentNo" <cfif Get.VerifyDocumentNo eq "2">checked</cfif> value="2">Validate 
@@ -67,11 +67,8 @@ WHERE DocumentType = '#URL.ID1#'
 	
 	</cfoutput>
 	
-	
 </TABLE>
 
 <cf_dialogBottom option="edit" delete="Document type">
 	
 </CFFORM>
-
-</BODY></HTML>

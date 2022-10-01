@@ -145,6 +145,7 @@ password="#SESSION.dbpw#">
     SELECT   *
     FROM     Location
 	WHERE    Mission = '#Organization.Mission#'
+	ORDER BY ListingOrder
 </cfquery>
 
 <cf_divscroll>
@@ -446,7 +447,7 @@ password="#SESSION.dbpw#">
 					<cfoutput>
 				    <cfloop query="Location">
 						<option value="#LocationCode#" <cfif Organization.locationCode eq LocationCode>selected</cfif>>
-				    		#LocationCode# #LocationName#
+				    		#LocationName#
 						</option>
 					</cfloop>
 					</cfoutput>

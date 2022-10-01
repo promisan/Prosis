@@ -30,34 +30,31 @@ password="#SESSION.dbpw#">
 <table width="100%" height="100%">
   
   <tr style="height:20px">
-    <td style="padding-left:6px;background-color:f1f1f1">
+    <td style="padding-left:6px;background-color:<cfif item.operational eq '0'>FAD7D1<cfelse>f1f1f1</cfif>">
 	
-	<cfform>
-  
-    <table border="0" align="center" width="100%">
+    <table align="center" width="97%" class="formpadding formspacing">
 			
 	 <cfoutput query="Item"> 
 	 
-	  <tr class="labelmedium2 fixlengthlist">
-        <td width="15%"><cf_tl id="No">:</td>
-        <td width="35%">#ItemNo#</td>
-		<td width="15%"><cf_tl id="Category">:</td>
-        <td width="35%">#Category# #Cat.Description# #sub.CategoryItemName#</td>
+	  <tr class="labelmedium2 fixlengthlist" style="height:20px">
+        <td><cf_tl id="No">:</td>
+        <td style="border:1px solid silver;height:15px;background-color:fafafa">#ItemNo#</td>
+		<td style="padding-left:15px"><cf_tl id="Category">:</td>
+        <td style="border:1px solid silver;height:15px;background-color:fafafa">#Category# <cfif category neq cat.Description>#Cat.Description#</cfif> #sub.CategoryItemName#</td>
 	 </tr>		
 	 	 	
-	 <tr class="labelmedium2 fixlengthlist">
+	 <tr class="labelmedium2 fixlengthlist" style="height:20px">
         <td><cf_tl id="Description">:</b></td>
-        <td>#ItemDescription#</td>
-		<td><cf_tl Id="External">:</td>
-        <td>#ItemNoExternal#</td>
+        <td style="border:1px solid silver;height:15px;background-color:fafafa">#ItemDescription#</td>
+		<td style="padding-left:15px"><cf_tl Id="External">:</td>
+        <td style="border:1px solid silver;height:15px;background-color:fafafa">#ItemNoExternal#</td>
       </tr>
 	  	  
-	  <tr class="labelmedium2 fixlengthlist">
-	  
+	  <tr class="labelmedium2 fixlengthlist" style="height:20px">	  
 	  	<td><cf_tl id="Generic name">:</td>
-        <td>#ItemDescriptionExternal#</td>       
-		<td><cf_tl id="UoM">:</td>
-        <td>
+        <td style="border:1px solid silver;height:15px;background-color:fafafa">#ItemDescriptionExternal#</td>       
+		<td style="padding-left:15px"><cf_tl id="UoM">:</td>
+        <td style="border:1px solid silver;height:15px;background-color:fafafa">
 		
 		<cfquery name="UoMSelect" 
 		datasource="appsMaterials" 
@@ -71,9 +68,9 @@ password="#SESSION.dbpw#">
 		
 		<cfif UOMSelect.recordcount lte "4">
 		
-			<table>
+			<table class="formspacing" style="width:90%">
 			<cfloop query = "UoMSelect">
-			<tr class="labelmedium2 fixlengthlist">		  
+			<tr class="labelit fixlengthlist" style="height:15px">		  
 				<td>#UoMDescription#</td>
 				<td style="padding-left:5px">#UoMMultiplier#</td>		
 				<td title="Barcode" style="padding-left:5px">#ItemBarCode#</td>				   
@@ -101,7 +98,7 @@ password="#SESSION.dbpw#">
 					<cfset ln = ln+1>
 				
 					<cfif ln eq "1">
-					<tr class="labelmedium line">		  
+					<tr class="labelmedium line fixlengthlist">		  
 					</cfif>
 						<td style="padding-left:20px">#UoMDescription#</td>
 						<td style="padding-left:10px">#UoMMultiplier#</td>		
@@ -121,13 +118,18 @@ password="#SESSION.dbpw#">
 	  <cfparam name="URL.Warehouse" default="">
 	  <cfparam name="URL.UoM" default="#UoMSelect.UoM#">
 	  
-	  <input type="hidden" name="topic" id="topic">	  
+	 
 	 	  
 	  <tr id="filter" class="hide line">
 	  
 	    <td colspan="4">
+		
+		<cfform>	  
 	  
+	     <input type="hidden" name="topic" id="topic">	  
+		 
 	  	<table width="100%" border="0" align="center" class="formpadding">
+		
 			<tr>
 			   
 			<cfquery name="Warehouse"
@@ -172,7 +174,7 @@ password="#SESSION.dbpw#">
 					<cf_intelliCalendarDate9
 					   FieldName="datestart" 
 					   Default=""
-					   Class="regularh"
+					   Class="regularxxl"
 					   AllowBlank="True">					
 					   
 					</td>
@@ -181,12 +183,14 @@ password="#SESSION.dbpw#">
 					 <cf_intelliCalendarDate9
 					 	FieldName="dateend" 
 					    Default=""
-					    Class="regularh"
+					    Class="regularxxl"
 					    AllowBlank="True">	
 						
 			        </td>
 					</tr>
-				</table>			
+				</table>	
+				
+				 </cfform>		
 			</td>
 						
 			</tr>			
@@ -204,7 +208,7 @@ password="#SESSION.dbpw#">
 	  	 
 	  </table>
 	 	 
- 	 </cfform>
+ 	
 	 	 
 	 </td>
 	 </tr>   	 	 

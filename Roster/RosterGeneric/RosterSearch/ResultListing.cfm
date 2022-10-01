@@ -1,5 +1,11 @@
-	
-<cf_screentop label="Roster Search Result" height="100%" jQuery="Yes" scroll="no" html="No">
+
+<cfparam name="url.back" default="1">
+
+<cfif url.back eq "1">	
+	<cf_screentop label="Roster Search Result" height="100%" jQuery="Yes" scroll="no" html="No">
+<cfelse>
+    <cf_screentop label="Roster Search Result" height="100%" jQuery="Yes" scroll="no" html="Yes" layout="webapp" >
+</cfif>	
 
 <cfparam name="url.print" default="0">
 <cfparam name="url.docno" default="">
@@ -28,13 +34,10 @@
 <tr><td style="width:100%;height:100%" class="clsPrintContent">
  
 <form action="<cfoutput>#SESSION.root#/roster/rostergeneric/RosterSearch/ResultShortList.cfm?mode=#url.mode#&docno=#url.docno#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&ID3=#URL.ID3#</cfoutput>" 
-	method="post" style="height:98%;padding-right:8px"
+	method="post" style="height:98%;padding-right:8px;padding-left:10px"
 	name="resultlist">
 
-<table width       = "98%"    
-       border      = "0"
-       cellspacing = "0"
-       cellpadding = "0"
+<table width       = "98%"         
 	   class       = "formpadding"
 	   style       = "height:100%;padding-top:4px;padding-right:6px">
  
@@ -176,7 +179,7 @@
 		  
 			  <cfoutput>			  
 			  
-			  <table><tr class="labelmedium"><td>
+			  <table><tr class="labelmedium2"><td>
 			
 			  <img src="#SESSION.root#/Images/arrowright.gif" alt="Show search" 
 					id="critMax" border="0" class="show" 
@@ -192,7 +195,7 @@
 				</td>
 				<td style="padding-left:5px">
 				<cfif url.mode neq "ssa" and url.mode neq "vacancy">
-				<a href="##" title="View criteria" class="clsNoPrint"><u>View criteria</u></a>
+				<a href="##" title="View criteria" class="clsNoPrint">View criteria</a>
 				</cfif>
 				</td>
 				
@@ -302,15 +305,16 @@
 		<tr class="labelmedium2 line fixrow fixlengthlist">
 			<td style="padding-left:5px" >
 			  <cfif url.print eq "0">
-				<input type="checkbox" name="selectall" value="" onClick="selall(this,this.checked);selected('',this.checked)" class="clsNoPrint">
+				<input type="checkbox" name="selectall" value=""
+				    onClick="selall(this,this.checked);selected('',this.checked)" class="clsNoPrint">
 			  </cfif>	
 			</td> 
 			<td><cf_tl id="Name"></td>
 			<td><cf_tl id="DOB"></td>
 			<td align="center"><cf_tl id="S"></td>
-			<td><cf_tl id="Nat"></b></td>
-			<td><cf_tl id="Index"></b></td>
-			<td><cf_tl id="Grade"></b></td>
+			<td><cf_tl id="Nat"></td>
+			<td><cf_tl id="Index"></td>
+			<td><cf_tl id="Grade"></td>
 			<td><!---<b>Expiration</b>---></td>
 			<td><!--- <b>Source</b> ---></td>
 			<td align="center"><cf_tl id="Mail"></td>			
@@ -583,75 +587,75 @@
 					 
 				     <tr><td width="100%">
 					 
-				     <table width="100%">
-					 
-					  <tr class="labelmedium line">
-					     <td>Status</td>
-						 <td>Bucket</td>
-						 <td>Level</td>
-						 <td>Area</td>					 
-						 <td style="padding-right:6px">Effective</td>
-						 <td>VA</td>		
-						 <td></td>		  
-					  </tr>
-					 
-					 <cfset st = "">				
-									 
-					 <cfloop query="Function">
-					 			  
-					    <cfif st neq Status and st neq "">
-						<tr><td colspan="7" class="labeldotted"></td></tr>
-						</cfif>
-						<cfif SearchId neq "">
-						<tr><td colspan="7" class="labeldotted"></td></tr>
-						
-						<cfelseif PostSpecific eq "1">
-							<TR class="labelmedium2" bgcolor="fcfcfc">
-						<cfelse>
-							<TR class="labelmedium2">
-						</cfif>
-						
-					    	 <td width="20%">#Meaning#</td>
-						     <TD width="35%">#FunctionDescription#</TD>
-				           	 <TD width="10%">#GradeDeployment#</TD>
-				             <td width="20%">#Description#</td>
-							 <td width="90">
-							 <cfif enableStatusDate eq "1">#dateformat(statusDate,CLIENT.DateFormatShow)#</cfif>
-							 </td>
-							 <TD width="10%" style="padding-left:4px">
-							       <a title="Review Announcement and Application" href="javascript:va('#FunctionId#','#ApplicantNo#');"><font color="0080C0">#ReferenceNo#</a>
-							 </TD>						 
-				             <TD style="padding-left:4px">
-							 
-							     <table><tr class="labelmedium"><td>
-							 
-								 <cfif SearchId neq ""><a href="##" title="Part of this roster search">*</a></cfif>
-								 
+					     <table width="100%">
+						 
+						  <tr class="labelmedium line">
+						     <td>Status</td>
+							 <td>Bucket</td>
+							 <td>Level</td>
+							 <td>Area</td>					 
+							 <td style="padding-right:6px">Effective</td>
+							 <td>VA</td>		
+							 <td></td>		  
+						  </tr>
+						 
+						 <cfset st = "">				
+										 
+						 <cfloop query="Function">
+						 			  
+						    <cfif st neq Status and st neq "">
+							<tr><td colspan="7" class="labeldotted"></td></tr>
+							</cfif>
+							<cfif SearchId neq "">
+							<tr><td colspan="7" class="labeldotted"></td></tr>
+							
+							<cfelseif PostSpecific eq "1">
+								<TR class="labelmedium2" bgcolor="fcfcfc">
+							<cfelse>
+								<TR class="labelmedium2">
+							</cfif>
+							
+						    	 <td width="20%">#Meaning#</td>
+							     <TD width="35%">#FunctionDescription#</TD>
+					           	 <TD width="10%">#GradeDeployment#</TD>
+					             <td width="20%">#Description#</td>
+								 <td width="90">
+								 <cfif enableStatusDate eq "1">#dateformat(statusDate,CLIENT.DateFormatShow)#</cfif>
 								 </td>
+								 <TD width="10%" style="padding-left:4px">
+								       <a title="Review Announcement and Application" href="javascript:va('#FunctionId#','#ApplicantNo#');"><font color="0080C0">#ReferenceNo#</a>
+								 </TD>						 
+					             <TD style="padding-left:4px">
 								 
-								 <td>
+								     <table><tr class="labelmedium"><td>
 								 
-								 <cfif PostSpecific eq "1">
-								  <a href="javascript:showdocument('#DocumentNo#')">#DocumentNo#</a>
-								 </cfif>
-								 
-								 </td></tr></table> 
-								 
-							 </TD>
-				   	    </TR>
-						<cfif SearchId neq "">
-						<tr><td colspan="7" class="line"></td></tr>
-						</cfif>
-						<cfif FunctionJustification neq "" or rosterGroupMemo neq "">
-					 	<tr>
-						   <td colspan="7" style="padding-left:6px"><font color="666666">#FunctionJustification# #RosterGroupMemo#</font></td>
-						</tr>
-				        </cfif>
-						<cfset st = "#Status#">
-						
-				     </cfloop>
-									
-				     </table>
+									 <cfif SearchId neq ""><a href="##" title="Part of this roster search">*</a></cfif>
+									 
+									 </td>
+									 
+									 <td>
+									 
+									 <cfif PostSpecific eq "1">
+									  <a href="javascript:showdocument('#DocumentNo#')">#DocumentNo#</a>
+									 </cfif>
+									 
+									 </td></tr></table> 
+									 
+								 </TD>
+					   	    </TR>
+							<cfif SearchId neq "">
+							<tr><td colspan="7" class="line"></td></tr>
+							</cfif>
+							<cfif FunctionJustification neq "" or rosterGroupMemo neq "">
+						 	<tr>
+							   <td colspan="7" style="padding-left:6px"><font color="666666">#FunctionJustification# #RosterGroupMemo#</font></td>
+							</tr>
+					        </cfif>
+							<cfset st = "#Status#">
+							
+					     </cfloop>
+										
+					     </table>
 				     </td>
 					 </tr>
 					 

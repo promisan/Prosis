@@ -106,7 +106,7 @@ password="#SESSION.dbpw#">
 	AND   M.MainMenuItem = '#URL.Main#' 
 	</cfif>	
 	<cfif FunctionClass eq "Inquiry">
-	ORDER BY M.Created DESC
+	ORDER BY M.MenuClass,M.MenuOrder, M.SystemFunctionId
 	<cfelse>
 	ORDER BY M.MenuClass,M.MenuOrder, M.SystemFunctionId 
 	</cfif>
@@ -116,14 +116,14 @@ password="#SESSION.dbpw#">
 
 <cf_divscroll style="height:100%">
 
-<table style="width:98.5%" align="center">
+<table style="width:98.5%">
 
 <cfoutput>
 <!--- added button to trigger a refresh --->
 <input class="hide" type="button" id="listing_refresh" onclick="more('#url.Module#','#url.main#','#url.functionClass#','#url.find#')">
 </cfoutput>
 
-<tr><td>
+<tr><td style="padding-left:4px">
 
 	<table width="100%" border="0" class="navigation_table">
 	
@@ -133,7 +133,7 @@ password="#SESSION.dbpw#">
 		   <td colspan="7" align="left" height="20">
 				<table class="formpadding">
 				  <tr><td height="4"></td></tr>
-				  <tr><td colspan="2" class="labellarge">
+				  <tr><td colspan="2" class="labellarge" style="font-size:22px">
 				  	<img onclick="addportal('#url.Module#','#url.main#','#url.functionClass#','#url.find#')" src="#SESSION.root#/Images/webportal.png" alt="" border="0" align="absmiddle">		
 					<cfset vTitleNew = "Portal"> 
 					<cfif lcase(url.module) eq "pmobile">
@@ -215,15 +215,14 @@ password="#SESSION.dbpw#">
 			</cfif>
 			
 			<cfif currentrow eq "1">	
-				<tr class="labelmedium2 fixrow line"> 
+				<tr class="labelmedium2 fixrow line fixlengthlist"> 
 				    <td width="20"></td>
-				    <TD style="min-width:250px"><cf_tl id="Name"></TD>			
-					<TD style="min-width:20px" align="center">O</TD>	
+				    <TD><cf_tl id="Name"></TD>								
 					<TD><cf_tl id="Usergroup"></TD>
 					<TD><cf_tl id="Role"></TD>				
 				</TR>		
 			</cfif>
-			
+			   
 				<cfoutput group="MainMenuItem">
 				
 					<cfoutput group="MenuClass">
@@ -242,11 +241,11 @@ password="#SESSION.dbpw#">
 						<cfoutput group="SystemFunctionId">					
 										
 						    <cfif Operational eq "0" and MenuClass neq "Builder">
-								<tr bgcolor="e4e4e4" class="navigation_row line labelmedium2">
+								<tr bgcolor="e4e4e4" class="navigation_row line labelmedium2 fixlengthlist">
 							<cfelseif MenuClass eq "Builder">	
-								<tr bgcolor="fafafa" id="line#SystemFunctionId#" class="navigation_row line labelmedium2">
+								<tr bgcolor="fafafa" id="line#SystemFunctionId#" class="navigation_row line labelmedium2 fixlengthlist">
 							<cfelse>
-								<tr bgcolor="white" class="navigation_row line labelmedium2">
+								<tr bgcolor="white" class="navigation_row line labelmedium2 fixlengthlist">
 							</cfif>			    
 								
 								<cfif systemmodule eq "selfservice" or systemmodule eq "pmobile">
@@ -282,7 +281,7 @@ password="#SESSION.dbpw#">
 							
 							<TD>
 							
-								<table>
+								<table style="width:100%">
 								
 									<tr class="labelmedium">
 									<td style="width:100%;font-size:16px;">						
@@ -295,8 +294,8 @@ password="#SESSION.dbpw#">
 									</td>
 									</tr>
 								
-									<tr class="fixlengthlist">								
-										<td style="padding-left:14px;padding-right:4px">						
+									<tr>								
+										<td style="padding-left:14px;padding-right:4px;font-size:10px">						
 										#Dateformat(Created, "DD/MM/YY")# :
 										<cfif menuclass eq "Builder">					
 											#OfficerLastname#						
@@ -305,7 +304,8 @@ password="#SESSION.dbpw#">
 											<cfelse>
 												#FunctionPath#
 											</cfif>						
-										</cfif>						
+										</cfif>		
+										 <cfif Operational eq "0"><font id="status#SystemFunctionId#" style="font-size:10px" color="FF0000"><b>Disabled</font><cfelse></cfif>				
 										</td>								
 									</tr>
 								
@@ -313,10 +313,7 @@ password="#SESSION.dbpw#">
 							
 							</TD>
 											
-							<TD style="min-width:20px;padding-right:5px" id="status#SystemFunctionId#" align="center">				
-							   <cfif Operational eq "0"><font color="FF0000">D</font><cfelse></cfif>
-						    </TD>	
-							
+														
 							<TD id="role#SystemFunctionId#" style="padding-left:5px;padding-right:5px">
 							    <cfif systemmodule neq "selfservice" or systemmodule eq "pmobile">
 									<cfset url.id = "#SystemFunctionId#">

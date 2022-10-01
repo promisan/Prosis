@@ -525,12 +525,14 @@ password="#SESSION.dbpw#">
 		  WHERE    DC.DocumentNo = '#Object.ObjectKeyValue1#'		 
 		  AND      DC.Status IN (#preserveSingleQuotes(required)#) 		  		 
 		  AND      S.Class       = 'Candidate' 
+		  <!---
 		  <cfif url.wparam neq "Init">
+		  --->
 		  AND      NOT EXISTS (SELECT 'X' 
 		                       FROM Organization.dbo.OrganizationObject 
 		                       WHERE objectKeyValue1= DC.DocumentNo 
 							   AND   ObjectKeyValue2 = DC.PersonNo and Operational = 1)
-		  </cfif>
+		  <!--- </cfif> --->
 		 
 </cfquery>
 

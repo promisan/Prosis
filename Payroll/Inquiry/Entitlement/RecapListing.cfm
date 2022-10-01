@@ -1,6 +1,7 @@
 
 <cfparam name="url.id" default="">
 
+
 <cfquery name="Component" 
   datasource="AppsPayroll" 
   username="#SESSION.login#" 
@@ -14,26 +15,36 @@
 					    L.PaymentCurrency, 
 					    SUM(L.PaymentAmount) as Amount
 	  FROM   	SalarySchedulePeriod S, 
-		        EmployeeSalary L0, 
+		        EmployeeSalary L1, 
 				EmployeeSalaryLine L, 
-				Ref_PayrollItem C
+				Ref_PayrollItem C, 
+		        Employee.dbo.Person P
 	  WHERE  	S.CalculationId   = '#URL.ID2#' 
-	  AND    	S.SalarySchedule  = L0.SalarySchedule
-	  AND    	S.PayrollStart    = L0.PayrollStart
-	  AND    	S.Mission         = L0.Mission
-	  AND    	L0.PersonNo       = L.PersonNo
-	  AND    	L0.PayrollStart   = L.PayrollStart
-	  AND    	L0.PayrollCalcNo  = L.PayrollCalcNo
+	  AND    	S.SalarySchedule  = L1.SalarySchedule
+	  AND    	S.PayrollStart    = L1.PayrollStart
+	  AND    	S.Mission         = L1.Mission
+	  AND    	L1.PersonNo       = L.PersonNo
+	  AND    	L1.PayrollStart   = L.PayrollStart
+	  AND    	L1.PayrollCalcNo  = L.PayrollCalcNo
 	  AND    	C.PayrollItem     = L.PayrollItem
+	  AND       L1.PersonNo       = P.PersonNo 
 	  
 	  <cfif url.id eq "TOT">
-	  AND        C.PrintGroup     = '#URL.ID3#' 
+	   AND       C.PrintGroup     = '#URL.ID3#'
 	  <cfelse>
-	  AND        L0.ServiceLevel  = '#URL.ID3#' 
+	   AND       L1.ServiceLevel  = '#URL.ID3#' 
 	  </cfif>
 	  
-	  GROUP BY   C.PrintOrder, C.ComponentOrder, C.Source, C.PayrollItem, C.PrintDescriptionLong,C.PrintDescription, L.PaymentCurrency
+	  GROUP BY   C.PrintOrder, 
+	             C.ComponentOrder, 
+				 C.Source, 
+				 C.PayrollItem, 
+				 C.PrintDescriptionLong,
+				 C.PrintDescription, 
+				 L.PaymentCurrency
+				 
 	  HAVING SUM(L.PaymentAmount) != 0
+	  
 	  ORDER BY   C.Source DESC,
 	             C.ComponentOrder,
 	             C.PrintDescription, 
@@ -44,7 +55,7 @@
 
 	<table width="98%" 
 	       height="100%" 		  
-		   align="center">	
+		   align="center">			   
 
 	<tr><td height="5"></td></tr>
 	<tr><td valign="top" style="border:0px solid silver">
@@ -52,13 +63,15 @@
 		<table width="100%" border="0" align="center">
 								
 		<tr>
-			<td align="center" width="75%" valign="top" style="min-width:400px;padding-right:10px; border-right:1px solid Silver;">
+			<td align="center" valign="top" style="min-width:400px;padding-right:10px; border-right:1px solid Silver;">
 			
 				<table width="95%" class="navigation_table formpadding"> 
 				
+				    <cfoutput> 
 					<tr>
-					<td colspan="5" class="labellarge" style="font-size:125%;"><cf_tl id="Amounts by item" var="1"> <cfoutput>#lt_text#: #url.id3#</cfoutput></td>
+					<td colspan="5" class="labellarge" style="font-size:125%;">#url.id3#:<b><cf_tl id="Payroll item" var="1">#lt_text#</td>
 					</tr>
+					</cfoutput>
 				
 					<tr class="line labelmedium2">
 					    <td>&nbsp;</td>
@@ -75,7 +88,8 @@
 						<cfif currentrow eq recordCount>
 							<cfset vLineTotal = "line">
 						</cfif>
-						<tr style="cursor: pointer; height:25px;" class="line navigation_row labelmedium2 #vLineTotal#" onclick="javascript:listing('#url.id#','#url.id1#','#url.id2#','#url.id3#','#PayrollItem#')">
+						<tr style="cursor: pointer; height:22px;" class="line navigation_row labelmedium #vLineTotal#" 
+						   onclick="javascript:listing('#url.id#','#url.id1#','#url.id2#','#url.id3#','#PayrollItem#')">
 					        <td>&nbsp;</td>
 					        <td style="padding-right:8px;">#PayrollItem#</td>
 							<td width="50%">#PrintDescriptionLong#</td>
@@ -95,26 +109,24 @@
 			
 			</td>
 							
-			<td align="center">
+			<td align="center" width="75%" style="min-width:500px">
 			
 				<table width="100%">
 								
-				<tr><td valign="middle" style="padding-top:36px">
+				<tr><td valign="middle" style="padding-top:36px;min-width:500px">
 				
-				<cfset ht = component.recordcount * 25 + 62>
+				<cfset ht = component.recordcount * 22 + 62>
 				
-				<cf_uichart chartheight="#ht#"
-		           chartwidth="700"
+				<cf_uichart chartheight="#ht#"		          
 		           showygridlines="no"
 		           seriesplacement="default"
-		           font="Calibri"				   
-		           fontsize="14"							 		         
-				   showlabel="No"	
-				   showvalue="No"		
-				   Legend = "No"		   
-		           tipstyle="mouseOver"
-		           tipbgcolor="##ffffff"
-		           pieslicestyle="sliced"
+		           font      = "Calibri"				   
+		           fontsize  = "14"							 		         
+				   showlabel = "No"	
+				   showvalue = "No"		
+				   Legend    = "No"		   
+		           tipstyle  = "mouseOver"		         
+		           
 		           url="javascript:listing('#url.id#','#url.id1#','#url.id2#','#url.id3#','$ITEMLABEL$')">
 						   
 					<cf_uichartseries
@@ -144,6 +156,7 @@
 </cfif>
 
 <cfset ajaxonload("doHighlight")>
+
 <script>
 	Prosis.busy('no')
 </script>

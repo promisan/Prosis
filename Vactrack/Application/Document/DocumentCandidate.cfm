@@ -160,7 +160,7 @@
 		
 	<cfif (RosterParameter.SelectionDaysOverwrite eq "1" and accessOverwrite eq "GRANTED") or Validation.recordcount eq "1" or getAdministrator("*") eq "1">
 		
-		<tr class="labelmedium2" style="height:35px;background-color:e4e4e4"><td>
+		<tr class="labelmedium2" style="height:30px;background-color:e4e4e4"><td>
 		
 			<cfoutput>
 			<table>
@@ -174,9 +174,9 @@
 					
 				<cfelse>
 					
-				<tr class="labelmedium2"><td height="20" style="height:25px;padding-left:20px" id="selectionvalidation">	
+				<tr class="labelmedium2"><td height="20" style="padding-left:20px" id="selectionvalidation">	
 					 <a href="javascript:ptoken.navigate('#session.root#/Vactrack/Application/Document/DocumentCandidateValidation.cfm?documentNo=#url.ajaxid#','selectionvalidation')">					 
-					 Press here</a> to overwrite the candidate selection limitation
+					 <b>Press here</b></a> to overwrite the candidate selection limitation which will allow you to select candidate that have been also selected for other tracks
 					</td>
 				</tr>	
 			
@@ -201,7 +201,8 @@
 	
 	<cfif Search.Recordcount gte "1">
 		
-		<tr class="labelmedium2" style="height:35px;background-color:F8B6F2">
+		
+		<tr class="labelmedium2" style="height:34px;background-color:9DDBE6">
 			<td style="padding-left:20px;padding-top:5px;font-weight:400">The below candidates were shortlisted through the following roster searches: <cfoutput query="Search">
 			<a href="javascript:searchview('#url.ajaxid#','#searchid#')">#searchid# (#OfficerlastName#)</a>
 			<cfif currentrow neq recordcount>,</cfif> </cfoutput></td>
@@ -305,15 +306,15 @@
 			</cfquery>
 		
 		<td>#Nat.Name#</td>
-		<td><cfif Gender eq "F">Female<cfelse>Male</cfif></td>
+		<td><cfif Gender eq "F"><cf_tl id="Female"><cfelse><cf_tl id="Male"></cfif></td>
 		<td>#dateFormat(DOB,CLIENT.DateFormatShow)# <cfif DocParameter.MaximumAge lt Age><font color="FF0000"></cfif><cf_tl id="Age">:<b>#age#</b></font></td>
-		<td>#Description#<cfif Status eq "2s" and CandidateClass eq "">&nbsp;<b>:&nbsp;Flow</b></cfif></td>
+		<td>#Description#<cfif Status eq "2s" and CandidateClass eq "">&nbsp;<b>:&nbsp;<span title="Has not been issued for processing yet">Flow</span></b></cfif></td>
 		<td width="30">
 		
 		<table width="100%">
 		<tr>
 		
-			<td style="padding-left:3px;border-right:1px solid silver">
+			<td style="padding-left:3px;border-right:1px solid silver;padding-bottom:2px">
 			
 			<cfif url.mode eq "step">						
 				 <cf_img icon="open" onclick="personprofile('#url.ajaxid#','#PersonNo#')">	
@@ -395,10 +396,13 @@
 		<td>		
 		
 		<cfif reviewInitiated eq "0">
+				
+		<table>
+		   <tr title="Attention: No profile background reviews were initiated for this candidate">
+		   <td width="10" height="12" bgcolor="FF0000" style="border:1px solid black"></td>
+		   </tr>
+		</table>
 		
-		<cf_UItooltip tooltip="Attention: No profile background reviews were initiated for this candidate">
-		<table><tr><td width="10" height="12" bgcolor="FF0000" style="border:1px solid black"></td></tr></table>
-		</cf_UITooltip>
 		
 		</cfif>
 		
@@ -419,11 +423,17 @@
 									
 				<cfparam name="dialogAccess" default="edit">	
 										
-				<cfif Status lte "2s">
+				<cfif Status lt "2s">
 						
 					<cfif (dialogAccess eq "EDIT" and Actions.ActionStatus eq "0") or getAdministrator("#doc.Mission#") eq "1">				 
 					   <cf_img icon="delete" onClick="personcancel('#URL.ajaxid#','#PersonNo#','#url.line#','#session.root#/Vactrack/Application/Document/DocumentCandidateDeleteSubmit.cfm')">				   			 
 				    </cfif>
+					
+				<cfelseif Status eq "2s" and CandidateClass eq "">
+						
+					<cfif (dialogAccess eq "EDIT" and Actions.ActionStatus eq "0") or getAdministrator("#doc.Mission#") eq "1">				 
+					   <cf_img icon="delete" onClick="personcancel('#URL.ajaxid#','#PersonNo#','#url.line#','#session.root#/Vactrack/Application/Document/DocumentCandidateDeleteSubmit.cfm')">				   			 
+				    </cfif>	
 				
 				<cfelseif Status eq "6" <!--- stalled ---> or Status eq "9" <!--- withdrawm --->>
 					

@@ -11,7 +11,7 @@
 	  ORDER BY Year DESC	  	  
 </cfquery>
 
-	<cf_UItree id="root" title="<span style='font-size:17px;color:gray;padding-bottom:3px'>#URL.Mission#</span>" expand="Yes">
+	<cf_UItree id="root" title="<span style='font-size:17px;color:black;padding-bottom:3px'>#URL.Mission# #URL.Schedule#</span>" expand="Yes">
 	
 	  <cfloop query="YearList">	 
 		  
@@ -23,7 +23,9 @@
 		  
 		   <cf_UItreeitem value="#year#"
 		        display="<span style='font-size:18px;padding-top:5px;padding-bottom:2px;font-weight:bold' class='labelmedium'>#Year#</span>"														
-				parent="root"							
+				parent="root"	
+				href="InquiryView.cfm?mission=#url.mission#&ID=year&ID1=#URL.Schedule#&ID2=#year#&ID3=&systemfunctionid=#url.systemfunctionid#"		
+				target="right"									
 		        expand="#exp#">	
 			
 	   <cfset yr = year>
@@ -38,10 +40,10 @@
 			  WHERE    S.SalarySchedule = '#URL.Schedule#' 
 			  AND      S.SalarySchedule  = L0.SalarySchedule
 			  AND      S.PayrollStart    = L0.PayrollStart
-			  AND      S.Mission = '#URL.Mission#'
+			  AND      S.Mission         = '#URL.Mission#'
 			  AND      year(S.PayrollStart) = #yr#
 			  ORDER BY S.PayrollStart DESC
-		  </cfquery>	     
+		  </cfquery>	  
 	  
 	  
 		  <cfquery name="BaseParent" 
@@ -71,17 +73,18 @@
 		  datasource="AppsPayroll" 
 		  username="#SESSION.login#" 
 		  password="#SESSION.dbpw#">
-			  SELECT    DISTINCT S.CalculationId, R.PostOrderBudget, L1.ServiceLevel
-			  FROM      SalarySchedulePeriod S, 
-			            EmployeeSalary L1, 
-					    Employee.dbo.Ref_PostGradeBudget R
-			  WHERE     S.SalarySchedule  = L1.SalarySchedule
-			  AND       S.PayrollStart    = L1.PayrollStart
-			  AND       L1.ServiceLevel   = R.PostGradeBudget
-			  AND       S.Mission         = '#URL.Mission#'
-			  AND       L1.Mission         = '#URL.Mission#'
-			  AND      year(S.PayrollStart) = #yr#
-			  ORDER BY  R.PostOrderBudget 
+			  SELECT     DISTINCT S.CalculationId, R.PostOrder, L1.ServiceLevel
+			  FROM       SalarySchedulePeriod S, 
+			             EmployeeSalary L1, 
+					     Employee.dbo.Ref_PostGrade R
+			  WHERE      S.SalarySchedule    = L1.SalarySchedule
+			  AND        S.PayrollStart      = L1.PayrollStart
+			  AND        L1.ServiceLevel     = R.PostGrade
+			  AND        S.Mission           = '#URL.Mission#'
+			  AND        L1.Mission          = '#URL.Mission#'
+			  AND        YEAR(S.PayrollStart) = #yr#
+			  ORDER BY   R.PostOrder 
+			  
 		  </cfquery>
 	      
 		  <cfloop query = "Period">
@@ -91,10 +94,14 @@
 			<cf_UItreeitem value="#Per#"
 		        display="<span style='font-size:16px;padding-bottom:3px;font-weight:bold' class='labelit'>#DateFormat(PayrollEnd, CLIENT.DateFormatShow)#</span>"												
 				parent="#yr#" 
+				href="InquiryView.cfm?mission=#url.mission#&ID=TOT&ID1=#URL.Schedule#&ID2=#Per#&ID3=&systemfunctionid=#url.systemfunctionid#"		
+				target="right"			
 				expand="No">
 				
 			<cf_UItreeitem value="#Per#_item"
-			        display="<span style='font-size:15px' class='labelit'>Item</span>"																	
+			        display="<span style='font-size:15px' class='labelit'>Item</span>"		
+					href="InquiryView.cfm?mission=#url.mission#&ID=TOT&ID1=#URL.Schedule#&ID2=#Per#&ID3=&systemfunctionid=#url.systemfunctionid#"		
+					target="right"																
 					parent="#Per#">						  		  		
 		 		    
 			  <cfquery name="Parent"
@@ -118,14 +125,16 @@
 			  </cfloop>
 			  
 			<cf_UItreeitem value="#Per#_grade"
-			        display="<span style='font-size:15px' class='labelit'>Grade</span>"																	
+			        display="<span style='font-size:15px' class='labelit'>Grade</span>"		
+					href="InquiryView.cfm?mission=#url.mission#&ID=LVL&ID1=#URL.Schedule#&ID2=#Per#&ID3=&systemfunctionid=#url.systemfunctionid#"		
+					target="right"														
 					parent="#Per#">	  
 		 		  
 			  <cfquery name="Grade" dbtype="query">
 					 SELECT   *
 					 FROM     BaseGrade 
 					 WHERE    CalculationId   = '#Per#' 
-					 ORDER BY PostOrderBudget
+					 ORDER BY PostOrder
 			  </cfquery>
 		  
 			  <cfloop query = "Grade">

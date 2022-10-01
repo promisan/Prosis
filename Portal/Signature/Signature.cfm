@@ -130,19 +130,19 @@
 
 			 <table width="100%">
 			<tr>
-				<td colspan="2">
+				<td colspan="2" style="background-color:f4f4f4;border:1px solid silver;padding:7px" align="center" valign="middle">
 					<!--- This is going to generate a field name SignatureContent --->
-					<CF_UISignatureView class="button10g" buttons="No" width="450" height="100" style="background-color:f4f4f4;border:1px solid silver" value="#GetLast.Signature#">
+					<table>
+					<tr><td style="border:1px solid silver">
+					<CF_UISignatureView class="button10g" buttons="No" width="280" height="90" 
+					   style="border:0px;background-color:white" value="#GetLast.Signature#">
+					</td></tr></table>
 			</td>
 			</tr>
-		
-
-		
+			
 			<cfif getlast.SignatureModified neq "">
 				<tr class="labelmedium2"><td colspan="2">
-
 				The above signature was last update on : #dateformat(GetLast.SignatureModified,client.dateformatshow)#
-
 				</td></tr>
 			</cfif>
 		
@@ -171,8 +171,3 @@
 	</cfoutput>	
 
 </TABLE>
-		
-
-
-
-	

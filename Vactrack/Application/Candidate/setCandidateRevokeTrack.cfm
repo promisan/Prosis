@@ -69,6 +69,7 @@
 				StatusOfficerLastName  = '#SESSION.last#',
 				StatusOfficerFirstName = '#SESSION.first#'
 		 WHERE  DocumentNo      = '#URL.ID#'
+		 AND    Status != '0'
 	</cfquery>
 
 </cftransaction>

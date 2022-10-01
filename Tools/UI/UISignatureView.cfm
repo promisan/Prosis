@@ -14,19 +14,19 @@
         <cfset vHidden = "none">
     </cfif>
 
-    <tr>
+    <tr style="border-bottom:1px solid silver">
         <td>
-            <div style="padding-right:0px; display:#vHidden#">
+            <div style="padding-left:3px; display:#vHidden#">
                <button type="button"  onclick="javascript:getSignatureWidth()" id="bSign" <cfif Attributes.class neq "">class="#Attributes.Class#"</cfif>><cf_tl id="Sign"></button>
             </div>
         </td>
         <td>
-            <div style="padding-right:0px;">
+            <div style="padding-left:3px;">
               <button type="button"  onclick="javascript:clearSignature()" id="bClear" <cfif Attributes.class neq "">class="#Attributes.Class#"</cfif> style="display:none"><cf_tl id="Reset"></button>
             </div>
         </td>
         <td>
-            <div style="padding-right:0px; display:#vHidden#">
+            <div style="padding-left:3px; display:#vHidden#">
               <button type="button"  onclick="javascript:saveSignature()" id="bDone" <cfif Attributes.class neq "">class="#Attributes.Class#"</cfif> style="display:none"><cf_tl id="Done"></button>
             </div>
         </td>
