@@ -823,8 +823,7 @@ caused an issue for small differences
 	WHERE    R.ReceiptEntry IN ('0','1')  <!--- exclude invoice only purchase orders in this respect --->
 	AND      PL.DeliveryStatus <> '0' 
 	AND      PL.Recordstatus = '1'
-	
-
+	ORDER BY DeliveryStatusDate
 			 		
 </cfquery>		
 

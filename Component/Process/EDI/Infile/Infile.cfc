@@ -707,6 +707,7 @@
 							 TH.TransactionSourceId, 
 							 TL.TransactionSerialNo, 							 
 							 TH.TransactionDate, 
+							 TH.DocumentDate,
 							 TH.DocumentAmount, 
 							 TL.Reference, 
                              TL.ReferenceName       AS ItemName, 
@@ -820,37 +821,37 @@
 			
 			<cfif getFirst.recordcount eq "1">								   
 							
-				<cfif month(getFirst.created) neq month(now())>
+				<cfif month(getFirst.created) neq month(now()) or month(getLines.DocumentDate) neq month(now())>
 				
 					<!--- FEL allows up to 5 days correction --->	
-					<cfif datediff("d",  getFirst.created,  now()) gte 6> 	
-						<cfset dts = dateAdd("d",  -5,  now())>
-					<cfelse>
-					    <cfset dts = dateAdd("d",  0,  getFirst.created)>					    
-					</cfif>
 					
+					<cfif datediff("d",  getLines.DocumentDate,  now()) lte 5> 	
+					    <cfset dts = dateAdd("d",  0,  getLines.DocumentDate)>								
+					<cfelseif datediff("d",  getFirst.created,  now()) lte 5> 	
+						 <cfset dts = dateAdd("d",  0,  getFirst.created)>							
+					<cfelse>
+					    <cfset dts = now()>				    						
+					</cfif>
+																
 				 <cfelse>
 				 
 				 	<cfset dts = now()>	
 					
 				</cfif>	
-				
+								
 			<cfelse>	
 			
-				<cfif month(getLines.TransactionDate) neq month(now())>
-				
-				    <cfset dts = now()>
-					
-					<!--- 7/2/2022 I discussed with Ana and this is not the desired effect 
+				<cfif month(getLines.DocumentDate) neq month(now())>
+								   					
+					<!--- 7/2/2022 I discussed with Ana and this is not the desired effect --->
 				
 			    	<!--- FEL allows up to 5 days correction --->	
-					<cfif datediff("d",  getLines.TransactionDate,  now()) gte 6> 	
-						<cfset dts = dateAdd("d",  -5,  now())>
+					<cfif datediff("d",  getLines.DocumentDate,  now()) lte 5> 	
+					    <cfset dts = dateAdd("d",  0,  getLines.DocumentDate)>		 						
 					<cfelse>
-					    <cfset dts = dateAdd("d",  0,  getLines.TransactionDate)>					    
-					</cfif>
-					
-					--->
+					    <cfset dts = now()>	
+					    			    
+					</cfif>					
 				
 				<cfelse>
 				 
@@ -859,7 +860,7 @@
 				</cfif>	
 							
 			</cfif>
-			
+						
 			<!--- this control a direct eMail from Infile
 			<cfoutput>
 			CorreoReceptor="#FEL.CustomereMail#"
@@ -879,7 +880,7 @@
 							<dte:DTE ID="DatosCertificados">
 															
 							<dte:DatosEmision ID="DatosEmision">
-										<dte:DatosGenerales CodigoMoneda="#FEL.Currency#" FechaHoraEmision="#DateFormat(dts,"YYYY-MM-DD")#T#TimeFormat(dts,"hh:mm:ssXXX")#" Tipo="#FEL.InvoiceType#"></dte:DatosGenerales>
+										<dte:DatosGenerales CodigoMoneda="#FEL.Currency#" FechaHoraEmision="#DateFormat(dts,"yyyy-mm-dd")#T#TimeFormat(dts,"hh:mm:ssXXX")#" Tipo="#FEL.InvoiceType#"></dte:DatosGenerales>
 										<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#FEL.VendorReference#" CorreoEmisor="#FEL.VendorMail#" NITEmisor="#FEL.VendorNIT#" NombreComercial="#FEL.VendorName#" NombreEmisor="#FEL.VendorEntity#">										
 								<dte:DireccionEmisor>
 								<dte:Direccion>#FEL.VendorAddress#</dte:Direccion>

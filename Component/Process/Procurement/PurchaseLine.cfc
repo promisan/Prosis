@@ -151,9 +151,10 @@
 				 username="#SESSION.login#" 
 				 password="#SESSION.dbpw#">				 
 					 UPDATE PurchaseLine
-					 SET    DeliveryStatus = '#st#' 
+					 SET    DeliveryStatus     = '#st#', 
+					        DeliveryStatusDate = getDate() 
 					 WHERE  RequisitionNo = '#RequisitionNo#'
-					 AND    DeliveryStatus != '#st#'
+					 -- AND    DeliveryStatus != '#st#'
 			</cfquery>		
 			
 		<cfelse>
@@ -166,9 +167,10 @@
 				 username="#SESSION.login#" 
 				 password="#SESSION.dbpw#">				
 					 UPDATE PurchaseLine
-					 SET    DeliveryStatus = '3' 
+					 SET    DeliveryStatus = '3', 
+					        DeliveryStatusDate = getDate()  
 					 WHERE  RequisitionNo = '#RequisitionNo#'
-					 AND    DeliveryStatus != '3'
+					 -- AND    DeliveryStatus != '3'
 			</cfquery>				
 		
 		</cfif>		
