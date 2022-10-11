@@ -1052,7 +1052,7 @@
 			<CFParam name="Attributes.height" default="625">
 			<CFParam name="Attributes.width"  default="620">		
 		
-			<cfset jvlink = "ColdFusion.Window.create('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/WorkOrder/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
+			<cfset jvlink = "ProsisUI.createWindow('dialog#box#', '#Attributes.title#', '',{x:100,y:100,height:#Attributes.height#,width:#Attributes.width#,modal:#attributes.modal#,center:true});ptoken.navigate('#SESSION.root#/Tools/SelectLookup/WorkOrder/Search.cfm?close=#attributes.close#&class=#class#&box=#box#&link=#link#&dbtable=#dbtable#&des1=#des1#&filter1=#fil1#&filter1value=#fval1#&filter2=#fil2#&filter2value=#fval2#&filter3=#fil3#&filter3value=#fval3#','dialog#box#')">		
 					
 			<cfif attributes.button eq "No">
 					

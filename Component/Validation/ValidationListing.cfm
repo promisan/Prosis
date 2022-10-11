@@ -31,14 +31,14 @@
 			 ORDER BY M.ListingOrder ASC
 			 
 			 
-		 </cfquery> 		 
-			 
+		 </cfquery> 			 
+					 
 		<cf_pane id="validationMonitor" search="No" height="95%">
 		
-			<div style="width:84%; background-color:#DEDEDE; padding:8px; margin-bottom:10px; font-size:125%;">
+			<div align="center" style="width:93%; border:1px solid silver;text-align:center;background-color:#DEDEDE; padding:4px; margin-bottom:2px; font-size:125%;">
 				<cfoutput>
 					<cf_tl id="Validations" var="1">
-					#ucase(lt_text)#
+					#lt_text#
 					<cf_tl id="Refresh all" var="1">
 					<img 
 						src="#session.root#/images/refresh_gray.png" 
@@ -46,13 +46,12 @@
 						onclick="parent.parent.doProjectValidations();"
 						title="#lt_text#">
 				</cfoutput>
-			</div>
+			</div>			
 						 	 			 
 			 <cfoutput query="getValidation">
-			 
-									 			 			 		
-				 <!--- <cftry>	--->
- 
+			 									 			 			 		
+				 <!--- <cftry>	--->			 
+				 
 				 	<cfinvoke component = "Service.Validation.#SystemModule#"  
 					   method           = "#ValidationMethod#" 					   
 					   mission          = "#Mission#" 
@@ -64,7 +63,7 @@
 					   ObjectKeyValue3  = "#ObjectKeyValue3#"
 					   ObjectKeyValue4  = "#ObjectKeyValue4#"
 					   Target			= "#target#"
-					   returnvariable   = "validationResult">	
+					   returnvariable   = "validationResult">						   				  
 					   
 					  <cfparam name="ValidationResult.pass" default="OK">
 					   
@@ -212,8 +211,8 @@
 						  		  						  						  				   				   
 					   	  <cf_paneItem id="#vPaneId#"  
 							source="#session.root#/Component/Validation/ValidationApply.cfm?ValidationActionId=#actionid#&target=#target#"								
-							style="margin-bottom:2px;"
-							headerStyle="padding-top:4px; padding-bottom:3px; height:26px; font-size:13px !important; cursor:pointer; #vPaneStyle#"
+							style="width:97%;margin-bottom:2px;border:1px solid silver"
+							headerStyle="padding-left:4px;padding-top:4px; padding-bottom:3px; height:26px; font-size:13px !important; cursor:pointer; #vPaneStyle#"
 							showSeparator="0"
 							systemfunctionid="#systemfunctionid#"
 							width="#url.width#"
@@ -266,7 +265,7 @@
 	
 <cfif url.notificationLayout neq "">
 
-	<cfquery name="getProgramValidations"
+	<cfquery name="getValidations"
 		datasource="AppsSystem"
 		username="#SESSION.login#"
 		password="#SESSION.dbpw#">
@@ -282,13 +281,14 @@
 			AND		VA.ValidationExpiration IS NULL
 			AND		MCV.Operational = '1'
 	</cfquery>
-	
+		
 	<cfoutput>
 		<cf_tl id="There are pending elements that require your attention" var="lblNotificationsMessage">
-		<cfif getProgramValidations.recordCount gt 0>
-			<script>
-				notifyBorderById('#url.notificationLayout#', '#url.notificationLayoutArea#', 'Logos/Info.png', '#lblNotificationsMessage#', 'validationsNotification');
-				expandArea('#url.notificationLayout#', '#url.target#');
+		<cfif getValidations.recordCount gt 0>
+		
+			<script>			    
+				notifyBorderById('#url.notificationLayout#', '#url.notificationLayoutArea#', 'Logos/Info.png', '#lblNotificationsMessage#', 'validationsNotification');				
+				expandArea('#url.notificationLayout#', '#url.target#');				
 			</script>
 		<cfelse>
 			<script>
@@ -297,5 +297,7 @@
 			</script>
 		</cfif>
 	</cfoutput>
+	
+	
 	
 </cfif>	

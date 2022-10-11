@@ -96,31 +96,19 @@
 							
 						</cfif>
 																										
-						<tr class="labelit navigation_row line" 
+						<tr class="labelmedium2 navigation_row line fixlengthlist" 
 						    id="rowselection_#OrgUnit#" 
 							name="rowselection_#OrgUnit#">
 							
-							<td class="navigation_pointer"></td>	
-							<td width="100%" style="padding-left:4px;height:19px;cursor:pointer">
+							<td class="navigation_pointer" style="min-width:18px;max-width:18px"></td>	
+							<td width="100%" title="#orgunitname#" style="height:19px;cursor:pointer">#orgunitname#</td>		
 							
-							   <cfif currentrow eq "1"><cf_space spaces="45"></cfif>
-							   
-							    <cf_UIToolTip tooltip="#orgunitname#">
-									<cfif len(orgunitname) gt "26">
-									#left(orgunitname,26)#..
-									<cfelse>
-									#orgunitname#
-									</cfif>									
-								</cf_UIToolTip>
-								
-							</td>		
+							<td><cf_img icon="edit" navigation="Yes"  onclick="viewOrgUnit('#orgunit#')"></td>								
 							
-							<td style="padding-right:4px"><cf_img icon="edit" navigation="Yes"  onclick="viewOrgUnit('#orgunit#')"></td>								
-							
-							<td align="right" style="padding:2px">
+							<td align="right" style="padding:3px">
 							
 								<table cellspacing="0">
-									<tr><td  bgcolor="#markercolor#" width="12" height="12" cellpadding="0" style="border-radius:2px;border:1px solid black">&nbsp;&nbsp;&nbsp;</td></tr>
+									<tr><td  bgcolor="#markercolor#" width="11" height="11" cellpadding="0" style="border-radius:2px;border:1px solid black">&nbsp;&nbsp;&nbsp;</td></tr>
 								</table>
 							
 							</td>		
@@ -138,7 +126,7 @@
 							<td colspan="3" id="planner_#orgunit#">
 							
 								<table>
-									<tr class="labelit">	
+									<tr class="labelmedium">	
 									<td align="right"  bgcolor="#cl#" style="padding-left:3px">#Requested#</td>	
 									<td align="center" bgcolor="#cl#" style="width:3px;padding-left:3px;padding-right:3px">|</td>			
 									<td align="left"   bgcolor="#cl#" style="padding-right:3px">#Planned#</td>	
@@ -161,7 +149,7 @@
 							
 									</td>
 									
-									<td style="padding-left:7px">
+									<td style="padding-left:7px;height:30px">
 									
 									<cfset cl = "FFFF00">
 									
@@ -192,8 +180,8 @@
 						
 						<tr class="hide" id="rowdetail_#OrgUnit#">
 						    <td id="rowdetail_#OrgUnit#_content" colspan="9"></td>
-						</tr>				
-											
+						</tr>	
+																	
 				</cfoutput>												
 																	
 				<cfinvoke component = "Service.Connection.Connection"  
@@ -208,8 +196,8 @@
 			
 				<cfif url.loadmode eq "full">
 								
-					<tr><td colspan="4" class="labelmedium" style="padding-left:16px"><b><cf_tl id="Driver"></td></tr>																
-					<tr><td height="100%" colspan="10" style="padding-bottom:4px" id="actor">						
+					<tr><td colspan="4" class="labelmedium" style="padding-left:25px"><b><cf_tl id="Driver"></td></tr>																
+					<tr><td height="100%" colspan="10" id="actor">						
 					    <cfinclude template="DeliveryViewActor.cfm">													
 					</td></tr>
 						

@@ -31,7 +31,7 @@
     
 	<td colspan="2" style="padding-left:10px;height:45px">   
 	
-    <table id="processblock"><tr>
+    <table id="processblock"><tr class="fixlengthlist">
 		
 	<input type="hidden" name="StatusOld" id="StatusOld" value="#ActionStatus#">  
 		

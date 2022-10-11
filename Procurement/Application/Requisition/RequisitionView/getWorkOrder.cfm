@@ -25,10 +25,10 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfoutput>
-<table cellspacing="0" cellpadding="0" height="18">
+<table width="100%" height="18">
 	<tr>
 		<td>
-		<input type="text" name="CustomerName" class="regularxl" size="30" maxlength="80" value="#get.CustomerName# #get.Reference#" readonly>
+		<input type="text" name="CustomerName" class="regularxxl" size="30" maxlength="80" value="#get.CustomerName# #get.Reference#" readonly>
 		<input type="hidden" name="workorderid" id="workorderid" size="40" maxlength="60" value="'#url.workorderid#'" readonly>		
 		</td>
 	</tr>		

@@ -1,6 +1,7 @@
 
 <cfoutput>
 
+
   <table style="width:100%;height:100%;<cfif incumbency eq "0">background-color:ffffaf</cfif>">
 					
 		 <tr>
@@ -31,8 +32,6 @@
 						<cfset pict = "">      
 				  </cfif>	
 				  
-				 			 
-				  
 				  <cf_UITooltip
 					id         = "#assignDetail.AssignmentNo#"
 					ContentURL = "PersonDialogView.cfm?assignmentNo=#AssignmentNo#&personNo=#PersonNo#&pict=#pict#"
@@ -43,43 +42,41 @@
 					Height     = "200"
 					Duration   = "300">
 														  
-				  <cfif pict neq "">
-				  
-				  	  <cfif FileExists("#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg")>				  
-						   <cf_getMid>
-					  	   <cfset vPhoto = "#SESSION.root#\CFRStage\getFile.cfm?id=#pict#.jpg&mode=EmployeePhoto&mid=#mid#">						  						   
-				      <cfelse>
+					  <cfif pict neq "">
+					  
+					  	  <cfif FileExists("#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg")>				  
+							   <cf_getMid>
+						  	   <cfset vPhoto = "#SESSION.root#\CFRStage\getFile.cfm?id=#pict#.jpg&mode=EmployeePhoto&mid=#mid#">						  						   
+					      <cfelse>
+							  <cfif Gender eq "Female">
+								  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-female.png">
+							  <cfelse>
+								  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-male.png">
+							  </cfif>
+						  </cfif> 	
+										
+							<img src="#vPhoto#" class="img-circle clsRoundedPicture" style="cursor:pointer;height:#size#; width:#size#;">		
+							
+							<!---
+												 				 
+	 						<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\EmployeePhoto/#pict#.jpg")>						
+						    <cfimage class="img-circle clsRoundedPicture" source="#myImage#" width="#size#" height="#size#" action="writeToBrowser">												
+							
+							--->
+					  
+					  <cfelse>
+						  					 					  
 						  <cfif Gender eq "Female">
 							  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-female.png">
 						  <cfelse>
 							  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-male.png">
 						  </cfif>
-					  </cfif> 	
-									
-						<img src="#vPhoto#" class="img-circle clsRoundedPicture" style="cursor:pointer;height:#size#; width:#size#;">		
-						
-						<!---
-											 				 
- 						<cfset myImage=ImageNew("#SESSION.rootDocumentpath#\EmployeePhoto/#pict#.jpg")>						
-					    <cfimage class="img-circle clsRoundedPicture" source="#myImage#" width="#size#" height="#size#" action="writeToBrowser">												
-						
-						--->
-				  
-				  <cfelse>
-					  					 					  
-					  <cfif Gender eq "Female">
-						  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-female.png">
-					  <cfelse>
-						  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-male.png">
-					  </cfif>
-					  					  
-					  <img src="#vPhoto#" class="img-circle clsRoundedPicture" style="cursor:pointer;height:#size#; width:#size#;">		
-					  
-				  </cfif>		
-				  
+						  					  
+						  <img src="#vPhoto#" class="img-circle clsRoundedPicture" style="cursor:pointer;height:#size#; width:#size#;">		
+						  
+					  </cfif>				  
 				  		  
-					  </cf_UItooltip>						  
-				  				 				   
+				  </cf_UItooltip>						  				  				 				   
 				  			  
 			      </td>
 				  </tr>
@@ -188,7 +185,7 @@
 						   
 						   	<tr>
 							 								   
-						     <cfset url.ajaxid = "spa_#PositionParentId#">
+						     <cfset url.ajaxid = "spa_#PositionParentId#_#currentrow#">
 	
 							 <input type="hidden" 
 								   name="workflowlink_#url.ajaxid#" 
@@ -200,7 +197,7 @@
 								   id="workflowcondition_#url.ajaxid#" 		   
 								   value="?personno=#Personno#&positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#&mde=spa&thisorgunit=#thisorgunit#">	
 						   
-							   <td id="#url.ajaxid#" colspan="3" align="center" style="padding:0px">
+							   <td id="#url.ajaxid#" colspan="3" align="center">
 								   <cfset mde = "spa">
 								   <cfinclude template="StaffingPositionWorkflowEvent.cfm">	
 							   </td>
@@ -249,12 +246,12 @@
 									   
 								   </td>
 							   </tr>
-							   
+							   							   							   
 							   <cfif PostGroup eq "Used" and getContract.AppointmentType neq "Permanent">
 							   
 							   <tr>									   
 							   
-							     <cfset url.ajaxid = "ctr_#PositionParentId#">
+							     <cfset url.ajaxid = "ctr_#PositionParentId#_#currentrow#">
 		
 								 <input type="hidden" 
 									   name="workflowlink_#url.ajaxid#" 
@@ -266,10 +263,11 @@
 									   id="workflowcondition_#url.ajaxid#" 		   
 									   value="?personno=#Personno#&positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#&mde=ctr&thisorgunit=#thisorgunit#">	
 							   
-							     <td colspan="3" id="#url.ajaxid#" align="center" style="padding:0px">
+							     <td colspan="3" id="#url.ajaxid#" align="center" style="padding:0px" onclick="workflowreload('#url.ajaxid#')">		
+													
 							     <cfset mde = "ctr">
 							     <cfinclude template="StaffingPositionWorkflowEvent.cfm">	
-								 </td>
+								 </td>							
 								 
 							   </tr>
 							   
@@ -293,7 +291,8 @@
 						FROM      PersonAssignment PA
 						WHERE     PersonNo = '#PersonNo#' 
 						AND       PositionNo IN (SELECT PositionNo FROM Position WHERE MissionOperational = '#mission#')
-						AND       AssignmentStatus IN ('0','1')						
+						AND       AssignmentStatus IN ('0','1')		
+						AND       Incumbency = '#Incumbency#'				
 						ORDER BY  DateExpiration DESC							
 					 </cfquery> 	
 					 
@@ -336,53 +335,66 @@
 					</cfif>	  	
 					
 					--->
-								
 					
-					<!--- special condition in UN hardcoded --->					
-					<cfif DateExpiration lt getContract.DateExpiration and assignmentclass neq "Regular" and assignmentclass neq "TmpAppt" and assignmentclass neq "Admin">
-					    <cfset extend = "1">						
-					</cfif>
+					<cfif posttype neq "INTERN" and Incumbency neq "0">
+					
+						<cfif assignmentclass eq "Admin" 
+								 or assignmentclass eq "Assignment" 
+								 or assignmentclass eq "TempE">
+						    <cfset extend = "1">	
+						<cfelseif DateExpiration lt getContract.DateExpiration and incumbency eq "0">		
+						    <cfset extend = "1">					
+						</cfif>
 										
-					<cfif (extend eq "1" and PostGroup eq "Used") or PostGroup eq "Float">
-					 
-					  <tr class="labelmedium2">
-					   <td style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;" colspan="2">
-					   <cfif getLastAssign.PositionNo neq PositionNo><b>*</b></cfif>	
-					   <cf_tl id="Assignment Expiry">					   				   
-					   </td>
-					   <td align="right" style="padding-right:5px">
-					   	  <cfif getLastAssign.DateExpiration neq "">
-							   <cfif dateDiff("d",now(),getLastAssign.DateExpiration) lte 50>						   
-							       <span style="color:##FF0000;">#dateformat(getLastAssign.DateExpiration,client.dateformatshow)#</span>		
-								   <cfset extendass = "1">					   
-							   <cfelse>						   
-							    #dateformat(getLastAssign.DateExpiration,client.dateformatshow)#							
-							   </cfif>
-						   </cfif>								   
-					   </td>							   
-					   </tr>
-					 							   
-					   <tr>							   
-					   <cfset url.ajaxid = "ass_#PositionParentId#">
-
-						 <input type="hidden" 
-							   name="workflowlink_#url.ajaxid#" 
-							   id="workflowlink_#url.ajaxid#" 		   
-							   value="StaffingPositionWorkflowEvent.cfm">		
-							   
-						 <input type="hidden" 
-							   name="workflowcondition_#url.ajaxid#" 
-							   id="workflowcondition_#url.ajaxid#" 		   
-							   value="?personno=#Personno#&positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#&mde=ass&thisorgunit=#thisorgunit#">	
-					   
-						 <td id="#url.ajaxid#" colspan="3" align="center" style="padding:0px">						 
-						   <cfset mde = "ass">
-						   <cfinclude template="StaffingPositionWorkflowEvent.cfm">	
-						 </td>
+						<!--- special condition in UN hardcoded 				
+						<cfif DateExpiration lt getContract.DateExpiration and assignmentclass neq "Regular" and assignmentclass neq "TmpAppt" and assignmentclass neq "Admin">
+						    <cfset extend = "1">	
+						<cfelseif DateExpiration lt getContract.DateExpiration and incumbency eq "0">		
+						    <cfset extend = "1">					
+						</cfif>
+						--->	
+																										
+						<cfif (extend eq "1" and PostGroup eq "Used") or PostGroup eq "Float">
 						 
-					   </tr>
+						  <tr class="labelmedium2">
+						   <td style="padding-left:4px;font-size:12px;background-color:f1f1f1;padding-right:5px;" title="#AssignmentClass#" colspan="2">
+						   <cfif getLastAssign.PositionNo neq PositionNo><b>*</b></cfif>	
+						   <cf_tl id="Assignment Expiry">					   				   
+						   </td>
+						   <td align="right" style="padding-right:5px">
+						   	  <cfif getLastAssign.DateExpiration neq "">
+								   <cfif dateDiff("d",now(),getLastAssign.DateExpiration) lte 50>						   
+								       <span style="color:##FF0000;">#dateformat(getLastAssign.DateExpiration,client.dateformatshow)#</span>		
+									   <cfset extendass = "1">					   
+								   <cfelse>										   			   
+								    #dateformat(getLastAssign.DateExpiration,client.dateformatshow)#							
+								   </cfif>
+							   </cfif>								   
+						   </td>							   
+						   </tr>
+						   					 							   
+						   <tr>							   
+						   <cfset url.ajaxid = "ass_#PositionParentId#_#currentrow#">
+	
+							 <input type="hidden" 
+								   name="workflowlink_#url.ajaxid#" 
+								   id="workflowlink_#url.ajaxid#" 		   
+								   value="StaffingPositionWorkflowEvent.cfm">		
+								   
+							 <input type="hidden" 
+								   name="workflowcondition_#url.ajaxid#" 
+								   id="workflowcondition_#url.ajaxid#" 		   
+								   value="?personno=#Personno#&positionparentid=#PositionParentid#&ajaxid=#url.ajaxid#&mde=ass&thisorgunit=#thisorgunit#">	
+						   
+							 <td id="#url.ajaxid#" colspan="3" align="center" style="padding:0px">						 
+							   <cfset mde = "ass">
+							   <cfinclude template="StaffingPositionWorkflowEvent.cfm">	
+							 </td>
+							 
+						   </tr>					   				   
+										   
+					   </cfif>
 				   
-									   
 				   </cfif>
 				   
 			 </table>

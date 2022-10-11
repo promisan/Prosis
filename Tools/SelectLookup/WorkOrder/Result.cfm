@@ -128,31 +128,29 @@ password="#SESSION.dbpw#">
 		 				 
 	</td></tr>
 	
-	<tr>
+	<tr class="fixlengthlist line labelmedium2">
 		<td></td>
-		<td class="labelit">Customer</td>		
-		<td class="labelit">Item</td>
-		<td class="labelit">Order</td>
-		<td class="labelit">Date</td>
+		<td>Customer</td>		
+		<td>Item</td>
+		<td>Order</td>
+		<td>Date</td>
 	</tr>
-	<tr><td colspan="5" class="linedotted"></td></tr>
-		
+			
 	<cfoutput query="SearchResult">
 	
 	<cfif currentrow gte first>
 	
-		<tr class="navigation_row">
+		<tr class="navigation_row fixlengthlist line labelmedium2">
 		  
 		    <td style="padding-left:4px" width="25" class="navigation_action" onclick="ptoken.navigate('#link#&action=insert&#url.des1#=#workorderid#','#url.box#','','','POST','');<cfif url.close eq 'Yes'>ColdFusion.Window.hide('dialog#url.box#')</cfif>">				  	
 				<cf_img icon="edit">				
 			</td>			
-			<TD class="labelit" width="30%" style="padding-left:3px;padding-right:3px">#CustomerName#</TD>
-			<td class="labelit" width="30%" style="padding-left:3px">#left(Item,30)#</td>
-			<TD class="labelit" width="80" style="padding-left:3px;padding-right:3px">#Reference#</TD>					
-			<TD class="labelit" width="80" style="padding-left:3px">#dateformat(OrderDate,client.dateformatshow)#</TD>		
+			<TD>#CustomerName#</TD>
+			<td>#left(Item,30)#</td>
+			<TD>#Reference#</TD>					
+			<TD>#dateformat(OrderDate,client.dateformatshow)#</TD>		
 		</tr>
-		<tr><td colspan="5" class="linedotted"></td></tr>	
-		
+				
 	</cfif>	
 			     
 	</CFOUTPUT>

@@ -1,5 +1,6 @@
 
 <!--- saving only --->
 
-<cfset client.selected = form.selectedlines>
-<cf_compression>
+<cfset session.selectedreqs = form.selectedlines>
+
+

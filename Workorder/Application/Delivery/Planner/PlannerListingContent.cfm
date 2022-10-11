@@ -134,7 +134,7 @@
 						      <cfset  co = "">
 						   </cfif>		
 						   
-						   <table width="100%" cellspacing="0" cellpadding="0" align="center">
+						   <table width="100%" align="center">
 							
 							   <tr>
 							   														   				   					
@@ -170,7 +170,7 @@
 									
 									    <cfif DateTimeActual eq "">													
 										    <cfset link = "_cf_loadingtexthtml='';ptoken.navigate('Planner/WorkPlan.cfm?action=apply&row=#currentrow#&workactionid=#workactionid#&workorderlineid=#workorderlineid#&dts=#url.dts#&mission=#url.mission#&positionno='+document.getElementById('positionno').value,'#workactionid#_workplan')">
-											<cf_img icon="edit" onclick="#link#">	   											
+											<cf_img icon="open" onclick="#link#">	   											
 										<cfelse>						
 											<font color="008080">#dateformat(DateTimeActual,client.dateformatshow)# #timeformat(DateTimeActual,"HH:MM")#</font>
 										</cfif>						
@@ -262,10 +262,10 @@
 										 
 										 <cfelse>
 									  																							  										  
-										  <table>
-											  <tr>
-												  <td class="labelmedium">#firstname# #lastName# <cfif schedule neq "">/</cfif> #ScheduleName#</td>
-												  <td style="padding-left:4px">
+										  <table style="width:100%">
+											  <tr class="fixlengthlist labelmedium2">
+												  
+												  <td>
 												  
 												  <cfset link = "_cf_loadingtexthtml='';ptoken.navigate('Planner/WorkPlanDelete.cfm?action=revert&personno=#personno#&workactionid=#workactionid#&dts=#url.dts#&mission=#url.mission#','#workactionid#_workplan')">					
 											
@@ -273,6 +273,8 @@
 											  		<cf_img icon="delete" onclick="#link#">						  	 
 												  </cfif>							  
 												  </td>
+												  
+												  <td>#firstname# #lastName# <cfif schedule neq "">/</cfif> #ScheduleName#</td>
 											  </tr>
 										  </table>		
 										  

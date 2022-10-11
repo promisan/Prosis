@@ -115,8 +115,8 @@
 							<td height="2" id="order" colspan="1" align="right" class="labellarge" style="padding-right:3px;border-top:0px solid gray"></td>	
 							<td style="padding-left:3px">
 							
-							<a href="javascript:ColdFusion.navigate('Planner/PlannerReportPrint.cfm?dts='+$('##DateEffective_date').val()+'&mission=#URL.Mission#&planner=0','process','','','POST','mapform')">
-		 							<img src="#SESSION.root#/images/print.png" alt="Requested Deliveries" border="0" align="absmiddle" title="Requested Deliveries"></a>
+							<a href="javascript:ptoken.navigate('Planner/PlannerReportPrint.cfm?dts='+$('##DateEffective_date').val()+'&mission=#URL.Mission#&planner=0','process','','','POST','mapform')">
+		 							<img src="#SESSION.root#/images/print.png" height="22" alt="Requested Deliveries" border="0" align="absmiddle" title="Requested Deliveries"></a>
 		 						
 							</td>		
 							
@@ -126,8 +126,8 @@
 							<td id="scheduled" align="left" style="padding-left:2px;border-top:0px solid gray" class="labellarge"></td>								
 							<td>
 							
-							<a href="javascript:ColdFusion.navigate('Planner/PlannerReportPrint.cfm?dts='+$('##DateEffective_date').val()+'&mission=#URL.Mission#&planner=1','process','','','POST','mapform')">
-		 						<img src="#SESSION.root#/images/print.png" align="absmiddle" alt="Scheduled deliveries" title="Scheduled Deliveries" border="0"></a>
+							<a href="javascript:ptoken.navigate('Planner/PlannerReportPrint.cfm?dts='+$('##DateEffective_date').val()+'&mission=#URL.Mission#&planner=1','process','','','POST','mapform')">
+		 						<img src="#SESSION.root#/images/print.png" height="22" align="absmiddle" alt="Scheduled deliveries" title="Scheduled Deliveries" border="0"></a>
 								</td>
 							<td id="addmarker" class="hide"></td>
 							

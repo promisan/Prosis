@@ -15,8 +15,8 @@
 		<div class="pane_clsSummaryPanelContainer" style="width:100%;height:#attributes.height#;">
 			
 			<div style="width:100%;height:auto;">
-			
-				<table width="100%" height="auto">
+						
+				<table width="100%" height="auto" align="center">
 								
 					<cfif trim(attributes.label) neq "">
 						<tr>

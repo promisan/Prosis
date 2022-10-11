@@ -9,8 +9,8 @@
 <cfparam name="url.city"         default = "">
 <cfparam name="url.address"      default = "">
 
-<cfparam name="url.latitude"     default="">
-<cfparam name="url.longitude"    default="">
+<cfparam name="url.latitude"     default="0">
+<cfparam name="url.longitude"    default="0">
 <cfparam name="url.width"        default="400">
 <cfparam name="url.height"       default="392">
 <cfparam name="url.format"       default="map">
@@ -19,7 +19,6 @@
 	<cfset url.latitude =  "45">
 	<cfset url.longitude = "-45">	
 </cfif>
-
 
 <cfparam name="url.markerbind"   default="">
 
@@ -36,7 +35,7 @@
 	
 	<cfset lat = url.latitude>
 	<cfset lng = url.longitude>
-		
+			
 	<!--- Hanno 07/12/2011 : limit the search here as the method is giving issues --->
 	
 	<cfinvoke component="service.maps.googlegeocoder3" 
@@ -74,31 +73,33 @@
 
 <cfoutput>
 
-<cfif sts neq "OK">
+<cfif sts eq "OK">
 	
-	<!---
-	
-	<table width="98%" valign="top" cellspacing="0" cellpadding="0" border="0">
+	<table width="98%" height="100%" valign="top">
+		
 		
 		<tr>
 		<td align="center"   			
 		    id="maploc"
 			valign="top"
-		    style="border:1px dotted gray;height:50px;padding-top:6px;font-weight:200" class="labelmedium"><cf_tl id="Location not found"></td>
+		    style="border:1px dotted gray;height:100%;padding-top:6px" class="labelmedium"><cf_tl id="Location not found">
+						
+			</td>
 		</tr>		
 						
 	</table>
 	
-	--->
-
 <cfelse>
 	
-	<table width="#url.width-20#" height="100%" align="center" cellspacing="0" cellpadding="0" border="0">
+	<table width="#url.width-20#" height="100%" align="center">
 		
 	<tr><td align="center" class="labelit" style="border-top:1px solid silver">
-		  		
-		<cftry>
-				
+			  	
+			<cfif lat eq "">
+				<cfset lat = "0">				
+				<cfset lng = "0">
+			</cfif>
+			
 			<cfmap name="gmap"
 			    centerlatitude="#lat#" 
 			    centerlongitude="#lng#" 	
@@ -106,7 +107,7 @@
 				collapsible="false" 			
 			    overview="true" 
 				continuousZoom="true"
-				height="#url.height-71#"
+				height="#url.height+10#"
 				width="#url.width-20#"
 				typecontrol="advanced" 
 				hideborder="true"
@@ -115,12 +116,9 @@
 				showmarkerwindow="true"
 			    showscale="true"					
 			    tip="#details.Formatted_Address#" 
-			    zoomlevel="#url.zoomlevel#"/> 			
+			    zoomlevel="#url.zoomlevel#"/> 		
 					
 			
-			<cfcatch><cf_tl id="MAP could not be loaded"></cfcatch>
-			
-		</cftry>	
 			
 	</td></tr>	
 	
@@ -143,18 +141,20 @@
 	<cfif url.mode eq "edit" or url.search eq "Yes">
 				<tr>
 		
-		  <td height="15" colspan="2" align="right" style="padding-right:14px;border-left:1px solid silver;border-right:1px solid silver;border-bottom:1px solid silver"> 
+		  <td height="15" colspan="2" align="center" style="padding-right:14px;border-left:1px solid silver;border-right:1px solid silver;border-bottom:1px solid silver"> 
 		  
-			  <table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+			  <table class="formpadding">
 			  
-			  <tr>
+			  <tr class="labelmedium2 fixlengthlist">
 			  <cfif url.scope neq "dialog">
-			  <td class="labelit" style="padding-left:4px">
-			  <a href="javascript:getmap('#url.scope#')"><font color="0080C0">&nbsp;&nbsp;&nbsp;<cf_tl id="Apply"></a>
-			  </td>									  
+			  <td align="center" style="padding-left:10px">
+			  <a href="javascript:getmap('#url.scope#')"><cf_tl id="Apply"></a>
+			  </td>		
+			  <td align="center">|</td>							  
 			  </cfif>
-			  <td>|<a href="javascript:mapaddress('#url.scope#')" class="labelit"><font color="0080C0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<cf_tl id="Show Address"></a></td>				 
-			  <td>|<a href="javascript:mapcoord('#url.scope#')" class="labelit"><font color="0080C0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<cf_tl id="Show Coordinates"></a></td>		
+			  <td align="center"><a href="javascript:mapaddress('#url.scope#')"><cf_tl id="Show Address"></a></td>		
+			  <td align="center">|</td>		 
+			  <td align="center"><a href="javascript:mapcoord('#url.scope#')"><cf_tl id="Show Coordinates"></a></td>		
 						 			  
 			  <cfif url.scope eq "dialog">
 			  		  

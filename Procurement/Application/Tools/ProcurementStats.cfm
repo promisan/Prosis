@@ -160,23 +160,40 @@
 
 <CF_DropTable dbName="AppsQuery"    full="yes" tblName="PurchaseInvoice">
 <CF_DropTable dbName="AppsQuery"    full="yes" tblName="PurchaseReceipt">
+<!---
 <CF_DropTable dbName="AppsPurchase" full="yes" tblName="skPurchase">
+--->
 
-<cfquery name="Class" 
-	datasource="AppsPurchase">
-		CREATE TABLE [skPurchase] (
-		[PurchaseNo] [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
-		[MatchingClass] [varchar] (7) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
-		[Currency] [varchar] (4) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
-		[OrderAmount] [float] NOT NULL CONSTRAINT [DF_skPurchase_OrderAmount] DEFAULT (0),
-		[OrderAmountObligation] [float] NOT NULL CONSTRAINT [DF_skPurchase_OrderAmountOblig] DEFAULT (0),
-		[ReceiptAmount] [float] NOT NULL CONSTRAINT [DF_skPurchase_ReceiptAmount] DEFAULT (0),
-		[StockedAmount] [float] NOT NULL CONSTRAINT [DF_skPurchase_StockAmount] DEFAULT (0),
-		[InvoiceAmount] [float] NOT NULL CONSTRAINT [DF_skPurchase_InvoiceAmo0unt] DEFAULT (0),
-		[Created] [datetime] NOT NULL CONSTRAINT [DF_skPurchase_Created] DEFAULT getDate(),
-		CONSTRAINT [PK_skPurchase] PRIMARY KEY  CLUSTERED 
-		([PurchaseNo],[Currency])  ON [PRIMARY] )
-</cfquery>
+<cftry>
+	
+	<cfquery name="Class" 
+		datasource="AppsPurchase">
+			CREATE TABLE [skPurchase] (
+			[PurchaseNo]      [varchar] (20) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+			[MatchingClass]   [varchar] (7) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+			[Currency]        [varchar] (4) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+			[OrderAmount]           [float] NOT NULL CONSTRAINT [DF_skPurchase_OrderAmount]      DEFAULT (0),
+			[OrderAmountObligation] [float] NOT NULL CONSTRAINT [DF_skPurchase_OrderAmountOblig] DEFAULT (0),
+			[ReceiptAmount]   [float] NOT NULL CONSTRAINT [DF_skPurchase_ReceiptAmount]          DEFAULT (0),
+			[StockedAmount]   [float] NOT NULL CONSTRAINT [DF_skPurchase_StockAmount]            DEFAULT (0),
+			[InvoiceAmount]   [float] NOT NULL CONSTRAINT [DF_skPurchase_InvoiceAmo0unt]         DEFAULT (0),
+			[Created]         [datetime] NOT NULL CONSTRAINT [DF_skPurchase_Created]             DEFAULT getDate(),
+			CONSTRAINT [PK_skPurchase] PRIMARY KEY  CLUSTERED ([PurchaseNo],[Currency])  ON [PRIMARY] )
+	</cfquery>
+	
+	<cfcatch>
+	
+		<cfquery name="Purchase" 
+		datasource="AppsPurchase">
+	    	DELETE FROM skPurchase		
+		    WHERE PurchaseNo IN (SELECT PurchaseNo 
+			                     FROM   Purchase 
+								 WHERE  ActionStatus < '4')
+	    </cfquery>
+		
+	</cfcatch>
+
+</cftry>
 
 <!--- ------------------------------- --->
 <!--- create a summary analysis table --->
@@ -198,6 +215,7 @@
 	             PurchaseLine L ON P.PurchaseNo = L.PurchaseNo INNER JOIN
 	             Ref_OrderType R ON P.OrderType = R.Code
 		WHERE    R.ReceiptEntry != '9'
+		AND      P.ActionStatus < '4'
 		GROUP BY P.PurchaseNo, L.Currency
 		
 		UNION
@@ -211,6 +229,7 @@
 	             PurchaseLine L ON P.PurchaseNo = L.PurchaseNo INNER JOIN
 	             Ref_OrderType R ON P.OrderType = R.Code
 		WHERE    R.ReceiptEntry = '9'
+		AND      P.ActionStatus < '4'
 		GROUP BY P.PurchaseNo, L.Currency
 		
 </cfquery>
@@ -219,6 +238,9 @@
 	datasource="AppsPurchase">
 	SELECT  *
 	FROM    skPurchase		
+	WHERE   PurchaseNo IN (SELECT PurchaseNo 
+			               FROM   Purchase 
+						   WHERE  ActionStatus < '4')
 </cfquery>
 
 <!--- amount invoiced --->
@@ -258,14 +280,14 @@
 				) AS PaidAmount 
 					
 			FROM       InvoicePurchase P INNER JOIN
-                  		   Invoice I ON P.InvoiceId = I.InvoiceId INNER JOIN
+                  	   Invoice I ON P.InvoiceId = I.InvoiceId INNER JOIN
                        Accounting.dbo.TransactionHeader GL ON I.InvoiceId = GL.ReferenceId INNER JOIN
-      		               Accounting.dbo.TransactionLine GLL ON GL.JournalSerialNo = GLL.JournalSerialNo AND GL.Journal = GLL.Journal
-			 WHERE     PurchaseNo = '#PurchaseNo#'  
-			 AND       I.ActionStatus != '9'
+      		           Accounting.dbo.TransactionLine GLL ON GL.JournalSerialNo = GLL.JournalSerialNo AND GL.Journal = GLL.Journal
+			 WHERE     PurchaseNo              = '#PurchaseNo#'  
+			 AND       I.ActionStatus         != '9'
 			 AND       GLL.TransactionSerialNo = '0'
-			 AND       GL.ActionStatus != '9'
-			 AND       GL.RecordStatus != '9'
+			 AND       GL.ActionStatus        != '9'
+			 AND       GL.RecordStatus        != '9'
 			 AND       (GLL.ParentJournal = '' or GLL.ParentJournal is NULL)
 			 GROUP BY  GLL.TransactionDate,
 			           GLL.Currency
@@ -335,9 +357,9 @@
 			</cfif>	
 			
 			<cf_exchangeRate 
-				        CurrencyFrom = "#Currency#" 
-				        CurrencyTo   = "#Curr#"
-						EffectiveDate = "#dateformat(DeliveryDate,CLIENT.DateFormatShow)#">
+			        CurrencyFrom = "#Currency#" 
+			        CurrencyTo   = "#Curr#"
+					EffectiveDate = "#dateformat(DeliveryDate,CLIENT.DateFormatShow)#">
 						
 			<cfif Exc eq "0" or Exc eq "">
 				<cfset exc = 1>
@@ -399,7 +421,7 @@
 			datasource="AppsPurchase">
 			UPDATE skPurchase
 			SET    StockedAmount = '#exp#'			
-			WHERE  PurchaseNo = '#PurchaseNo#'			
+			WHERE  PurchaseNo    = '#PurchaseNo#'			
 		</cfquery>		
 
 	</cfloop>		
@@ -558,7 +580,7 @@
 							
 		<cfelse>
 				
-			<!--- les relevant as accounting is always operational --->
+			<!--- les relevant as accounting is always operational 
 			
 			<cfquery name="PurchaseLines" 
 			datasource="AppsPurchase">
@@ -642,6 +664,8 @@
 				
 			</cfloop>		
 			
+			--->
+			
 		</cfif>	
 		
 	</cfif>
@@ -710,7 +734,7 @@ caused an issue for small differences
 	datasource="AppsPurchase">
 	UPDATE Purchase
 	SET    ActionStatus = '3'
-	WHERE  ActionStatus = '4' and ObligationStatus = '1' <!--- unless the PO was close manually --->
+	WHERE  ActionStatus = '4' and ObligationStatus = '1' <!--- unless the PO was close manually which then has value 0--->
 </cfquery>	
 
 <cfquery name="ResetAmounts" 
@@ -723,13 +747,14 @@ caused an issue for small differences
 	AND     OrderAmountBaseObligated <> OrderAmountBase
 </cfquery>	
 
+<!--- CLOSES THE PURCHASE ORDER IF IT IS FULLY BILLED --->
+
 <cfquery name="Update" 
 	datasource="AppsPurchase">
 	UPDATE  Purchase
 	SET     ActionStatus = '4'
-	FROM    skPurchase T,Purchase P
-	WHERE   T.PurchaseNo = P.PurchaseNo
-	AND     T.OrderAmount - T.InvoiceAmount < 0.05
+	FROM    skPurchase T INNER JOIN Purchase P ON T.PurchaseNo = P.PurchaseNo
+	WHERE   T.OrderAmount - T.InvoiceAmount < 0.05 <!--- within 5 cents the order is set as invoiced --->
 </cfquery>	
 
 <!--- clear orphaned invoices --->

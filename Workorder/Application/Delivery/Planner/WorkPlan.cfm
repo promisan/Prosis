@@ -4,6 +4,7 @@
 
 <cfparam name="url.WorkActionId" default="">
 <cfparam name="url.PositionNo"   default="0">
+<cfparam name="url.OccGroup"     default="14">
 <cfparam name="url.row"          default="">
 
 <cfif url.workactionid neq "">
@@ -87,12 +88,9 @@
 		AND        PA.DateExpiration >= #dts#
 		AND        PA.AssignmentStatus IN ('0', '1') 
 		AND        Pos.Mission = '#url.mission#' 
-		AND        EXISTS (
-						  SELECT  'X'
-	   				      FROM    PositionGroup G
-						  WHERE   PA.PositionNo = G.PositionNo
-		                  AND     PositionGroup = 'Driver'
-						  )
+		AND        PA.FunctionNo IN (SELECT FunctionNo 
+		                             FROM   Applicant.dbo.FunctionTitle 
+									 WHERE  OccupationalGroup = '#url.occgroup#')		
 		ORDER BY P.LastName 
 												 			     	     
 	</cfquery>	
@@ -118,7 +116,7 @@
 		<tr>
 			<td valign="top" style="padding:#padding#">
 			
-			<table width="100%" class="formpadding">	
+			<table width="100%">	
 			
 			<tr class="labelmedium"><td style="padding-left:#padding#;padding-right:10px"><cf_tl id="Actor">:</td>
 				<td>

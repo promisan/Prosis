@@ -131,14 +131,14 @@
 		
 		</cfloop>		
 				
-		<cfset thesheet    = SpreadsheetNew("my extract")>				
+		<cfset thesheet    = SpreadsheetNew("my extract","yes")>				
 		
 		<!--- Set the speadsheet meta info --->
 		<cfset info                 = StructNew()> 
 		<cfset info.title           = "#SESSION.welcome# Excel Engine"> 
 		<cfset info.category        = "Financials"> 
 		<cfset info.author          = "#SESSION.welcome# Excel Engine"> 
-		<cfset info.comments        = "Prepared by Hanno van Pelt December 2010"> 
+		<cfset info.comments        = "Revised by Hanno van Pelt October 2022"> 
 		<cfset spreadsheetaddInfo(thesheet,info)> 
 		
 		<!--- set the default formatting content --->

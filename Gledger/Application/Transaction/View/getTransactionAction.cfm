@@ -218,7 +218,7 @@
 		
 		 <tr class="labelmedium2 <cfif currentrow neq recordcount>linedotted</cfif> navigation_row fixlengthlist">	   
 						
-			<td align="center" style="padding-left:3px;padding-right:3px"><cfif actionstatus neq "5">#dateformat(ActionDate,"YYYY/MM")#</cfif></td>		
+			<td align="center" style="padding-left:3px;padding-right:3px"><cfif actionstatus neq "5">#dateformat(ActionDate,"dd-mm-yyyy")#</cfif></td>		
 			<td align="center" style="#st#;<cfif ActionStatus eq '9'>background-color:##FF808050<cfelseif actionstatus eq '5'>background-color:##e1e1e150</cfif>">#ActionStatus# <cfif ActionStatus eq "1">Issued<cfelseif ActionStatus eq "5">Voided<cfelse>Fail</cfif></td>
 			<td align="center" style="#st#">			
 			<cfif actionMode eq "2" and (actionstatus eq "1" or actionstatus eq '9')>	

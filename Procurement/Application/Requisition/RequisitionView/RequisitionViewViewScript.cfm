@@ -23,10 +23,8 @@ password="#SESSION.dbpw#">
 	
 	function facttablexls1(control,format,box) {  
 	    // here I could capture the client variable if this is better for large selections 
-		ptoken.navigate('RequisitionViewSelected.cfm','process','','','POST','formselected')
-	  	w = #CLIENT.width# - 80;
-	    h = #CLIENT.height# - 110;		
-		ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?ts="+new Date().getTime()+"&box="+box+"&data=1&controlid="+control+"&format="+format, "facttable");
+		ptoken.navigate('RequisitionViewSelected.cfm','process','','','POST','formselected')	  			
+		ptoken.open("#SESSION.root#/component/analysis/CrossTabLaunch.cfm?box="+box+"&data=1&controlid="+control+"&format="+format, "facttable");
 	}	
 	
 	function search() {

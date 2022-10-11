@@ -79,7 +79,7 @@
 
 	<table width="99%" align="center" cellspacing="0" cellpadding="0"> 
 	
-	<tr class="labelit">
+	<tr class="labelit fixlengthlist">
 	    <td></td>
 	    <td><cf_tl id="Branch"></td>
 		<td height="18" width="70"><cf_tl id="Schedule"></td>	
@@ -120,7 +120,7 @@
 			AND        WorkActionId is not NULL
 		 </cfquery>
 		
-		 <tr>		
+		 <tr class="fixlengthlist">		
 		 	
 		 	<td colspan="4" style="height:36px">				
 			     <table><tr><td style="padding-right:1px;padding-left:15px">
@@ -143,17 +143,16 @@
 						 
 		   
 			<td align="right" style="width:20px;padding-left:4px">
-			  <table cellspacing="0" cellpadding="0">
-			  <tr><td>
-		 		<a href="javascript:ColdFusion.navigate('Planner/PlannerReportPrint.cfm?dts=#URL.dts#&mission=#URL.Mission#&planid=#WorkPlanid#&scope=','process','','','POST','mapform')">
+			  <table>
+			  <tr>
+			  <td>
+		 		<a href="javascript:proken.navigate('Planner/PlannerReportPrint.cfm?dts=#URL.dts#&mission=#URL.Mission#&planid=#WorkPlanid#&scope=','process','','','POST','mapform')">
 		 			<img src="#SESSION.root#/images/print.png" height="16" width="16" align="absmiddle" alt="" border="0"></a>
-				</td>
-				 <td class="labellarge" align="right" style="padding-right:20px" colspan="#cols-3#"> <font size="2">#summary.recordcount#</td>
-			
-				</tr>	
-					</table>
+			  </td>
+			  <td class="labellarge" align="right" style="padding-right:20px" colspan="#cols-3#"> <font size="2">#summary.recordcount#</td>			
+			  </tr>	
+			  </table>
 		 	</td>
-		     	
 		 	
 		 </tr>
 		 
@@ -163,18 +162,18 @@
 
 	    <cfif url.mode eq "standard">
 			   
-			<tr class="line">
-				<td style="padding-left:10px" class="labelit">#planorder#.</td>			
+			<tr class="line fixlengthlist labelmedium">
+				<td style="padding-left:10px">#planorder#.</td>			
 				<cfif workactionid eq "">
-				<td class="labelit" width="70">#Schedule# <!--- #dateformat(DateTimePlanning,client.dateformatshow)# #timeformat(DateTimePlanning,"HH")# ---></td>				
-				<td class="labelmedium" colspan="6">#left(OrgUnitName,50)#</b></td>
+				<td width="70">#Schedule# <!--- #dateformat(DateTimePlanning,client.dateformatshow)# #timeformat(DateTimePlanning,"HH")# ---></td>				
+				<td colspan="6">#left(OrgUnitName,50)#</b></td>
 				<cfelse>
 				<cfset row = row+1>
-				<td class="labelit" width="70">#Schedule# <!--- #dateformat(DateTimePlanning,client.dateformatshow)# #timeformat(DateTimePlanning,"HH")# ---></td>
-				<td class="labelit">#CustomerName#</td>
-				<td class="labelit">#Address#</td>
-				<td class="labelit">#PostalCode#</td>
-				<td class="labelit">#City#</td>   
+				<td width="70">#Schedule# <!--- #dateformat(DateTimePlanning,client.dateformatshow)# #timeformat(DateTimePlanning,"HH")# ---></td>
+				<td>#CustomerName#</td>
+				<td>#Address#</td>
+				<td>#PostalCode#</td>
+				<td>#City#</td>   
 				<td><cfif len(MobileNumber) gte "5">#MobileNumber#<cfelse>#PhoneNumber#</cfif></td>   
 				<td><cfif DateTimeActual eq ""><font color="FF8000">Not confirmed</font><cfelse>#dateformat(DateTimeActual,client.dateformatshow)# #timeformat(DateTimeActual, "HH:MM")#</cfif></td>  	
 				</cfif>
@@ -216,7 +215,7 @@
 				 <cfelse>		
 				     <td class="labelit">
 						 <cfif workorderlineid neq "">					 
-							 <a class="navigation_action" href="javascript:detail('#workorderlineid#','workplan_#positionno#')"><font color="0080C0">#Schedule#</a>
+							 <a class="navigation_action" href="javascript:detail('#workorderlineid#','workplan_#positionno#')">#Schedule#</a>
 						 </cfif>
 					 </td>					
 					 <td class="labelit">#PostalCode#</td>

@@ -78,7 +78,7 @@
 			de  = document.getElementById('DateEvent');
 			ded = document.getElementById('DateEventDue');	
 			eff = document.getElementById('ActionDateEffective');
-			
+						
 			doc = document.getElementById('documentno');				
 			pos = document.getElementById('positionNo');
 			req = document.getElementById('requisitionNo');

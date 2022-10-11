@@ -86,7 +86,7 @@ password="#SESSION.dbpw#">
 
 <cfif URL.ID eq "{00000000-0000-0000-0000-000000000000}">
 
-    <cfset amount = "#numberformat(parent.standardcost,'__,__.__')#">
+    <cfset amount = "#numberformat(parent.standardcost,',.__')#">
 	
 	<cfif url.mode eq "workorder">
 	<cfset rqty = "1">
@@ -159,7 +159,7 @@ password="#SESSION.dbpw#">
 		
 	<table width="98%" align="center" class="formpadding">
 	<tr>
-	    <td colspan="5" height="20" class="labelmedium2" style="padding-top:5px;padding-left:1px"><b>#ItemDescription#</b></td>
+	    <td colspan="5" height="20" class="labelmedium2" style="padding-top:10px;padding-left:1px"><b>#ItemDescription#</b></td>
 	</tr>
 	
 	<tr><td height="1" colspan="5" class="linedotted"></td></tr>

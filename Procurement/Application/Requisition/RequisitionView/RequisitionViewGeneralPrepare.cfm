@@ -112,7 +112,8 @@
 			
 	</cfoutput>
 		
-</cfsavecontent>		
+</cfsavecontent>	
+
 
 <cfswitch expression="#URL.ID#">
 
@@ -139,7 +140,6 @@
 	<cfset title = "Search Result">		
 				
 </cfcase>
-
 
 <cfcase value="AUDIT">
 
@@ -409,9 +409,7 @@
 						#preservesinglequotes(annotationfilter)#
 																		 
 						ORDER BY #URL.Sort# <cfif url.sort eq "RequestDate">DESC</cfif> #URL.ID2# 
-				   </cfquery>
-				   
-				   				   
+				   </cfquery>				   				   
 				  				 							   
 	   <cfelse>
 	   	   	   
@@ -419,10 +417,13 @@
 		 		 		  		   		   
 		  <CF_DropTable dbName="AppsQuery" tblName="tmp#SESSION.acc#Requisition_N#FileNo#"> 	
 		  
+		  <cftransaction isolation="READ_UNCOMMITTED">
+		  
 	      <cfquery name="Set" 
 			datasource="AppsPurchase" 
 			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">
+			password="#SESSION.dbpw#">	
+			
 			SELECT L.*, 	
 			
 				   (SELECT Description 
@@ -434,8 +435,7 @@
 				   
 				   (SELECT  RequisitionPurpose 
 			     	  FROM  Requisition
-					 WHERE  Reference = L.Reference) as RequisitionPurpose,		
-											 
+					 WHERE  Reference = L.Reference) as RequisitionPurpose,											 
 			      
 				   P.PurchaseNo, 
 				   PH.ActionStatus   as PurchaseStatus, 
@@ -473,24 +473,20 @@
 					 					 
 			INTO   userQuery.dbo.tmp#SESSION.acc#Requisition_N#fileNo#
 			
-			FROM   RequisitionLine L, 
-			       Organization.dbo.Organization Org, 
-			       Status S,
-				   PurchaseLine P,
-				   Purchase PH,
-				   Ref_OrderType R,
-				   ItemMaster I
-				 
-			WHERE  P.PurchaseNo        = PH.PurchaseNo
-			AND    PH.OrderType        = R.Code
-			AND    I.Code              = L.ItemMaster 	         
-			AND    Org.Mission         = '#URL.Mission#'
+			FROM            RequisitionLine AS L INNER JOIN
+                         PurchaseLine AS P ON L.RequisitionNo = P.RequisitionNo INNER JOIN
+                         Purchase AS PH ON P.PurchaseNo = PH.PurchaseNo INNER JOIN
+                         Ref_OrderType AS R ON PH.OrderType = R.Code INNER JOIN
+                         Organization.dbo.Organization AS Org ON L.OrgUnit = Org.OrgUnit INNER JOIN
+                         ItemMaster AS I ON L.ItemMaster = I.Code INNER JOIN
+                         Status AS S ON L.ActionStatus = S.Status
+			
+							 
+			WHERE  Org.Mission         = '#URL.Mission#'
 	    	AND    Org.MandateNo       = '#Mandate.MandateNo#'
-			AND    Org.OrgUnit         = L.OrgUnit
-			AND    L.ActionStatus      = '#URL.ID1#'  <!--- 3 --->
-			AND    S.Status            = L.ActionStatus
-			AND    L.RequestType       IN ('Regular','Warehouse') 
-										
+			
+			AND    L.ActionStatus      = '#URL.ID1#'  <!--- 3 --->			
+			AND    L.RequestType       IN ('Regular','Warehouse') 										
 	    	AND    S.StatusClass       = 'Requisition'
 			AND    L.Period            = '#URL.Period#'
 			
@@ -504,18 +500,21 @@
 			    <!--- no filtering --->
 			<cfelse>
 				AND  #preserveSingleQuotes(UserRequestScope)# 					
-			</cfif>	
-			
-			AND L.RequisitionNo = P.RequisitionNo								
+			</cfif>				
+											
 			ORDER BY #URL.Sort# <cfif url.sort eq "RequestDate">DESC</cfif>
-			</cfquery>			
+						
+			</cfquery>				
 									
-			<!---						
-			<cftry>
+			<!---		
+				<cfoutput>#cfquery.executiontime#</cfoutput>									
+				<cftry>			
 			--->
+			
+			
 												   		   
 		   <cfquery name="Set" 
-			datasource="AppsQuery" 
+			datasource="AppsPurchase" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
 			
@@ -548,8 +547,10 @@
 							OfficerFirstName,
 							OfficerLastName,
 							Created
-			INTO   dbo.tmp#SESSION.acc#Requisition#fileNo#
-			FROM   dbo.tmp#SESSION.acc#Requisition_N#fileNo#
+							
+			INTO   userQuery.dbo.tmp#SESSION.acc#Requisition#fileNo#
+			
+			FROM   userQuery.dbo.tmp#SESSION.acc#Requisition_N#fileNo#
 							
 			<cfif URL.ID2 eq "ReceiptPartial"> 
 			
@@ -612,6 +613,8 @@
 											
 		   </cfquery>
 		   
+		   </cftransaction>
+		   
 		   <!---
 		   
 		   <cfcatch>
@@ -623,7 +626,9 @@
 		   
 		   </cftry>
 		   
-		   --->		 		  
+		   <cfoutput>#cfquery.executiontime#</cfoutput>			
+		   
+		   --->		 		     
     	   
 	   </cfif>
 	   
@@ -631,10 +636,10 @@
 	   datasource="AppsPurchase" 
 	   username="#SESSION.login#" 
 	   password="#SESSION.dbpw#">
-	    SELECT  Description
-	    FROM    Status
-	    WHERE   Status     = '#URL.ID1#' 
-		AND     StatusClass= 'Requisition'
+		    SELECT  Description
+		    FROM    Status
+		    WHERE   Status     = '#URL.ID1#' 
+			AND     StatusClass= 'Requisition'
 	   </cfquery>
 	  	      
 </cfcase>
@@ -666,7 +671,7 @@
 		    FROM   Ref_AuthorizationRole
 			WHERE Role = '#URL.Role#' 
 	</cfquery>
-      
+	      
    <cfquery name="Set" 
 	datasource="AppsPurchase" 
 	username="#SESSION.login#" 
@@ -752,7 +757,7 @@
 
 <cfcase value="WRF">
 
-xxxx
+
 
 </cfcase>
 
@@ -980,7 +985,7 @@ xxxx
 		 ORDER BY #URL.Sort# <cfif url.sort eq "RequestDate">DESC</cfif>, L.ActionStatus		 
 		 		
    </cfquery>   
-            	
+                  	
 </cfcase>
 
 </cfswitch>

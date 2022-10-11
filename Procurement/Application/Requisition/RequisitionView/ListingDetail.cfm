@@ -162,10 +162,10 @@
 					datasource="AppsPurchase"
 					username="#SESSION.login#"
 					password="#SESSION.dbpw#">
-					SELECT     *
-					FROM   PurchaseLineReceipt      
-					WHERE  RequisitionNo = '#RequisitionNo#'			  
-					AND    ActionStatus != '9'
+						SELECT     *
+						FROM   PurchaseLineReceipt      
+						WHERE  RequisitionNo = '#RequisitionNo#'			  
+						AND    ActionStatus != '9'
 					</cfquery>		
 								
 					<cfif Receipt.recordcount gt "0">
@@ -399,10 +399,12 @@
 
 		</td>		
 		
-		<td id="note#RequisitionNo#" width="30" style="padding-left:3px;padding-right:4px" align="right">		
+		<td id="note#RequisitionNo#" width="30" style="padding-left:3px;padding-right:4px" align="right">	
+			
 			<cf_annotationshow entity="ProcReq" 
 			                   keyvalue1="#requisitionno#" 
 							   docbox="note#RequisitionNo#">		
+		
 		</td>						
 		</TR>
 		
@@ -426,13 +428,13 @@
 				</cfquery>
 				
 				<cfquery name="check"
-						datasource="AppsOrganization"
-						username="#SESSION.login#"
-						password="#SESSION.dbpw#">
+					datasource="AppsOrganization"
+					username="#SESSION.login#"
+					password="#SESSION.dbpw#">
 						SELECT *
 						FROM   Organization
 						WHERE  OrgUnit = '#OrgUnitImplement#'					  
-					</cfquery>
+				</cfquery>
 								
 				<cfif check.recordcount eq "0">
 												
@@ -455,6 +457,7 @@
 					</cfquery>
 				
 				<cfelse>
+				  
 				
 					<cfquery name="Imp"
 						datasource="AppsOrganization"
@@ -500,71 +503,76 @@
 				
 		</cfif>	
 		
+				
 		<cfif countedtopics gte 1>
-				<tr class="navigation_row_child labelmedium" style="border-top:1px dotted silver;height:18px">
-				 <td></td>				
-				  <td colspan="9">				   				 
-					<cf_getRequisitionTopic RequisitionNo="#RequisitionNo#" TopicsPerRow="3">				
-				  </td>
-				</tr>
-		</cfif> 	 
-				
-		<tr id="#RequisitionNo#" class="#URL.view# navigation_row_child">
-				
-			<td></td>
-			<td align="center" colspan="9">
+			<tr class="navigation_row_child labelmedium" style="border-top:1px dotted silver;height:18px">
+			 <td></td>				
+			  <td colspan="9">				   				 
+				<cf_getRequisitionTopic RequisitionNo="#RequisitionNo#" TopicsPerRow="3">				
+			  </td>
+			</tr>
+		</cfif>
 						
-			<table width="95%" border="0" align="center" class="show" cellspacing="0" cellpadding="0">
-	
-				<cfquery name="funding"
-				datasource="AppsPurchase"
-				username="#SESSION.login#"
-				password="#SESSION.dbpw#">
-				SELECT  L.*, 
-				        P.ProgramName AS Description, 
-						O.CodeDisplay,
-						O.Description AS ObjectDescription
-				FROM    RequisitionLineFunding L LEFT OUTER JOIN
-                        Program.dbo.Ref_Object O ON L.ObjectCode = O.Code LEFT OUTER JOIN
-                        Program.dbo.Program P ON L.ProgramCode = P.ProgramCode				
-				WHERE RequisitionNo = '#RequisitionNo#'		  
-				</cfquery>		
-				
-				<cfset Per = "#Period#">										
-				
-				<cfloop query="funding">
-				   <tr bgcolor="DBF9E1" class="labelmedium">	
-				      <td height="20">&nbsp;</td>			     
-				      <td width="6%">#ProgramPeriod#</td> 
-					  <td width="6%">#Fund#</td>
-					  
-					  <cfquery name="Program" 
-						datasource="AppsProgram" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-							SELECT    P.*, Pe.Reference
-							FROM      Program P, ProgramPeriod Pe
-							WHERE     P.ProgramCode = '#ProgramCode#'	
-							AND       P.ProgramCode = Pe.ProgramCode
-							AND       Pe.Period = '#Per#'
-	    			</cfquery>
-					  
-				      <td width="20%">
-					   <a href="javascript:ViewProgram('#ProgramCode#','#Per#','#Program.ProgramClass#')">
-				         <cfif Program.reference neq "">#Program.Reference#<cfelse>#ProgramCode#</cfif>&nbsp;#Description#
-					   </a>					  
-					  </td>					  
-		 			  <td width="40%">#CodeDisplay# #ObjectDescription# <font size="1"><cfif objectcode neq codedisplay>[#ObjectCode#]</cfif></font></td>
-		 			  <td width="6%">#Percentage*100#%</td>
-					  <td width="11%">#DateFormat(Created, CLIENT.DateFormatShow)#</td>
-					  <td width="20%"></td>
-				   </tr>
-				</cfloop>
+		<cfif url.view neq "Hide">
+						
+			<tr id="#RequisitionNo#" class="#URL.view# navigation_row_child">
+					
+				<td></td>
+				<td align="center" colspan="9">
 							
-			</table>
-			</td>
-			
-		</tr>
+				<table width="95%" border="0" align="center" class="show" cellspacing="0" cellpadding="0">
+		
+					<cfquery name="funding"
+					datasource="AppsPurchase"
+					username="#SESSION.login#"
+					password="#SESSION.dbpw#">
+						SELECT  L.*, 
+						        P.ProgramName AS Description, 
+								O.CodeDisplay,
+								O.Description AS ObjectDescription
+						FROM    RequisitionLineFunding L LEFT OUTER JOIN
+		                        Program.dbo.Ref_Object O ON L.ObjectCode = O.Code LEFT OUTER JOIN
+		                        Program.dbo.Program P ON L.ProgramCode = P.ProgramCode				
+						WHERE RequisitionNo = '#RequisitionNo#'		  
+					</cfquery>		
+					
+					<cfset Per = "#Period#">										
+					
+					<cfloop query="funding">
+					   <tr bgcolor="DBF9E1" class="labelmedium">	
+					      <td height="20">&nbsp;</td>			     
+					      <td width="6%">#ProgramPeriod#</td> 
+						  <td width="6%">#Fund#</td>
+						  
+						  <cfquery name="Program" 
+							datasource="AppsProgram" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+								SELECT    P.*, Pe.Reference
+								FROM      Program P, ProgramPeriod Pe
+								WHERE     P.ProgramCode = '#ProgramCode#'	
+								AND       P.ProgramCode = Pe.ProgramCode
+								AND       Pe.Period = '#Per#'
+		    			</cfquery>
+						  
+					      <td width="20%">
+						   <a href="javascript:ViewProgram('#ProgramCode#','#Per#','#Program.ProgramClass#')">
+					         <cfif Program.reference neq "">#Program.Reference#<cfelse>#ProgramCode#</cfif>&nbsp;#Description#
+						   </a>					  
+						  </td>					  
+			 			  <td width="40%">#CodeDisplay# #ObjectDescription# <font size="1"><cfif objectcode neq codedisplay>[#ObjectCode#]</cfif></font></td>
+			 			  <td width="6%">#Percentage*100#%</td>
+						  <td width="11%">#DateFormat(Created, CLIENT.DateFormatShow)#</td>
+						  <td width="20%"></td>
+					   </tr>
+					</cfloop>
+								
+				</table>
+				</td>
+				
+			</tr>
+		
+		</cfif>
 		
 		<cfif parameter.RequisitionListingMode eq "1" and url.id neq "Org">
 		  	<cfset cl = "regular">

@@ -1,6 +1,4 @@
 
-
-
 <!--- Prosis template framework --->
 <cfsilent>
 	<proUsr>jmazariegos</proUsr>
@@ -110,42 +108,43 @@
 			    class="labelmedium line navigation_row fixlengthlist">
 			
 			<cfelse>
-									
+			
+												
 			<cfif deliverystatus eq "3">
-				<cfset cls = "##FFFFaF80">							
-			<cfelseif deliveryStatus eq "2">
-				<cfset cls = "##FFFFAF80">				
+				<cfset cls = "##80FF8080">							
+			<cfelseif deliveryStatus eq "2">			
+				<cfset cls = "##FFFF8080">				
 			<cfelse>
 				<cfset cls = "FFFFFF">		
 			</cfif>
 			
 			<tr id="#requisitionno#_1" 
-			   style="border-bottom:1px dotted silver;height:20px;border-top:1px solid silver;background-color:<cfif actionstatus eq '9'>##FEC5B880<cfelse>#cls#</cfif>" 
+			   style="border-bottom:1px dotted silver;height:20px;border-top:1px solid silver;" 
 			   class="labelmedium2 navigation_row fixlengthlist">
 			
 			</cfif>			
 						
-			<td style="height:23px" align="center">#CurrentRow#.</td>
+			<td style="height:23px;background-color:<cfif actionstatus eq '9'>##FEC5B880<cfelse>#cls#</cfif>" align="center">#CurrentRow#.</td>
 									
 			<cfif (URL.Mode eq "Edit" AND PO.ActionStatus eq "0") 
 			      or
 				  (Parameter.EditPurchaseAfterIssue eq "1" AND PO.ActionStatus eq "3" and DeliveryStatus eq "0" and URL.Mode eq "Edit")>
 				  
-				  <td align="center" style="padding-top:2px">					  
+				  <td align="center" style="padding-top:2px;background-color:<cfif actionstatus eq '9'>##FEC5B880<cfelse>#cls#</cfif>">					  
 				  	<cf_img icon="open" onclick="ProcReqEdit('#RequisitionNo#','dialog')">	  							  
 			  		</td>	
 				  													
-			        <td align="center" style="padding-top:1px">					
+			        <td align="center" style="padding-top:1px;background-color:<cfif actionstatus eq '9'>##FEC5B880<cfelse>#cls#</cfif>">					
 					<cf_img icon="edit" onclick="ProcLineEdit('#requisitionno#','edit');">										 
 					</td>
 				
 			<cfelse>
 			
-			<td align="center" style="padding-top:2px">					  
+			<td align="center" style="padding-top:2px;background-color:<cfif actionstatus eq '9'>##FEC5B880<cfelse>#cls#</cfif>">					  
 				  	<cf_img icon="open" onclick="ProcReqEdit('#RequisitionNo#','dialog')">	  							  
 			  </td>	
 			
-			  <td align="center" style="padding-top:2px">					  
+			  <td align="center" style="padding-top:2px;background-color:<cfif actionstatus eq '9'>##FEC5B880<cfelse>#cls#</cfif>">					  
 				  	<cf_img icon="edit" onclick="ProcLineEdit('#requisitionno#','view');">	  							  
 			  </td>				  
 				
@@ -189,7 +188,7 @@
 			<cfif lineReference neq ""><cfif CaseNo neq "">/</cfif>#LineReference#</cfif>
 			</td>
 			
-   		    <td style="border-left:1px solid gray;border-right:1px solid silver" align="right">
+   		    <td style="border-left:1px solid gray;border-right:1px solid silver;background-color:<cfif actionstatus eq '9'>##FEC5B880<cfelse>#cls#</cfif>" align="right">
 			#numberformat(OrderQuantity,',.___')#</td>
 		    <td  style="border-left:1px solid gray;border-right:1px solid silver;padding-left:4px">#OrderUoM#</td>
 			<td  style="text-align:right;border-left:1px solid gray;border-right:1px solid silver">

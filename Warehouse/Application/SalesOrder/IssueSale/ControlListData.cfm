@@ -10,15 +10,21 @@
 , so the stock can be issued to the customer picking it up etc --->
 
 
-- Customer buys, but will not take stuff home, so the sale is a transfer from warehouse to warehouse sold in order to get stock out from the on-hand.
+- Customer buys, but will not take stuff home, so the sale is transfer to a distribution location -/-8  + 8 followed by a sale 2 as it is no longer your stock.
+The transaction will then be handled based on the 2. distrubution = 2 from the location.
 
 <br>
 
-- The returning customer will come to pick-up his stuff and this screen will contain a listing of sales transactions that have not been fully depleted
+- This view contains a listing using ItemTransaction based on a dedicated warehouselocation.Distribution = 2 collection) and will show the record recorded against
+it ItemTransactionCollection with the balance.
 
 <br>
 
-- Opening the batch will allow you to deplete +/+ until it reaches 0 
+If the user obtains a line and click edit, a screenscreen will be shown on the balance and he/she can enter a quantity up to the balance. In the mobile we can allow for a signatue
+
+<br>
+
+- Opening will allow you to deplete +/+ until it reaches 0 
 
 <br>
 

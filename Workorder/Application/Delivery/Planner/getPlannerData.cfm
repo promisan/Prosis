@@ -1,5 +1,6 @@
 
 <cfparam name="form.activitymode" default="">
+<cfparam name="url.occgroup"      default="14">
 
 <cfquery name="getCountry"
 		datasource="appsOrganization" 
@@ -71,7 +72,7 @@
 		
 				 INNER JOIN Customer                           as C ON W.CustomerId   = C.CustomerId  
 				 
-				 LEFT OUTER JOIN System.dbo.PostalCode         as P ON C.PostalCode   = P.PostalCode AND Country = '#nat#'
+				 LEFT OUTER JOIN System.dbo.PostalCode         as P ON C.PostalCode   = P.PostalCode AND C.Country = '#nat#'
 				 
 		         INNER JOIN WorkOrderLine                      as WL ON W.WorkOrderId = WL.WorkOrderId 
 				 
@@ -193,7 +194,6 @@
 
 </cftransaction>
 
-
 <cfquery name="Actor"
 		datasource="appsEmployee" 
 		username="#SESSION.login#" 
@@ -213,12 +213,9 @@
 		AND        PA.DateExpiration >= #dts#
 		AND        PA.AssignmentStatus IN ('0', '1') 
 		AND        Pos.Mission = '#url.mission#' 
-		AND        EXISTS (
-						  SELECT  'X'
-	   				      FROM    PositionGroup G
-						  WHERE   PA.PositionNo = G.PositionNo
-		                  AND     PositionGroup = 'Driver'
-						  )
+		AND        PA.FunctionNo IN (SELECT FunctionNo 
+		                             FROM   Applicant.dbo.FunctionTitle 
+									 WHERE  OccupationalGroup = '#url.occgroup#')		
 		ORDER BY P.LastName 
 														 			     	     
 </cfquery>	

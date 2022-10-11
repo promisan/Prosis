@@ -518,7 +518,7 @@ password="#SESSION.dbpw#">
 								   <table style="width:100%">
 									
 									   <tr>									   
-									   	   <td id="customerinvoicebox" 
+									   	   <td id="customerinvoicebox" class="fixlength"
 										     style="background-color:99E8CA;height:26px;max-width:150px;min-width:150;font-size:14px;padding-left:5px;padding-top:1px">											 
 										    <cfinclude template="getCustomerBilling.cfm">		
 									   	   </td>							  	

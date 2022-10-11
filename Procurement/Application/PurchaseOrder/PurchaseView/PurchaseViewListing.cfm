@@ -1,4 +1,7 @@
 
+
+
+
 <cfparam name="URL.Mission"    default="">
 <cfparam name="URL.Period"     default="">
 <cfparam name="URL.OrderClass" default="">
@@ -80,6 +83,7 @@
 
 <cfoutput>
 
+
 <cfswitch expression="#URL.ID#">
 
 	<cfcase value="PEN">
@@ -107,11 +111,23 @@
 		<cfelse>
 			<cfset cls = "">
 		</cfif>
-			
-	    <cfif URL.ID1 eq "9">
-			<cfset condition = "WHERE PL.ActionStatus = '9' AND P.ActionStatus = '#URL.ID1#' AND P.Period = '#URL.Period#' AND P.Mission = '#URL.Mission#' #cls#">
+		
+		<cfif url.id1 eq "PendingReceipt">
+		
+		    <cfset condition = "WHERE P.ActionStatus IN ('3','4') AND PL.DeliveryStatus < '3' AND ObligationStatus = '1' AND ReceiptEntry = '0' AND P.Period = '#URL.Period#' AND P.Mission = '#URL.Mission#' #cls#">
+		     		
+		<cfelseif url.id1 eq "PendingInvoice">
+		
+		    <cfset condition = "WHERE P.ActionStatus = '3' AND P.Period = '#URL.Period#' AND P.Mission = '#URL.Mission#' #cls# AND P.PurchaseNo IN (SELECT PurchaseNo FROM skPurchase WHERE InvoiceAmount > 0)">		    
+		
 		<cfelse>
-			<cfset condition = "WHERE PL.ActionStatus != '9' AND P.ActionStatus = '#URL.ID1#' AND P.Period = '#URL.Period#' AND P.Mission = '#URL.Mission#' #cls#">
+			
+		    <cfif URL.ID1 eq "9">
+				<cfset condition = "WHERE PL.ActionStatus = '9' AND P.ActionStatus = '#URL.ID1#' AND P.Period = '#URL.Period#' AND P.Mission = '#URL.Mission#' #cls#">
+			<cfelse>
+				<cfset condition = "WHERE PL.ActionStatus != '9' AND P.ActionStatus = '#URL.ID1#' AND P.Period = '#URL.Period#' AND P.Mission = '#URL.Mission#' #cls#">
+			</cfif>
+		
 		</cfif>
 					  	
 		<cfset text = "">

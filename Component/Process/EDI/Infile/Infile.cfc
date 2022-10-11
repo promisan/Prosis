@@ -819,6 +819,8 @@
 					ORDER BY Created 								
 			</cfquery>
 			
+			<cfset dts = dateAdd("d",  0,  getLines.DocumentDate)>	
+			
 			<cfif getFirst.recordcount eq "1">								   
 							
 				<cfif month(getFirst.created) neq month(now()) or month(getLines.DocumentDate) neq month(now())>
@@ -826,17 +828,15 @@
 					<!--- FEL allows up to 5 days correction --->	
 					
 					<cfif datediff("d",  getLines.DocumentDate,  now()) lte 5> 	
+					    <!--- no change 
 					    <cfset dts = dateAdd("d",  0,  getLines.DocumentDate)>								
+						--->
 					<cfelseif datediff("d",  getFirst.created,  now()) lte 5> 	
 						 <cfset dts = dateAdd("d",  0,  getFirst.created)>							
 					<cfelse>
 					    <cfset dts = now()>				    						
-					</cfif>
-																
-				 <cfelse>
-				 
-				 	<cfset dts = now()>	
-					
+					</cfif>														
+									
 				</cfif>	
 								
 			<cfelse>	
@@ -847,16 +847,13 @@
 				
 			    	<!--- FEL allows up to 5 days correction --->	
 					<cfif datediff("d",  getLines.DocumentDate,  now()) lte 5> 	
-					    <cfset dts = dateAdd("d",  0,  getLines.DocumentDate)>		 						
+					     <!--- no change 
+					    <cfset dts = dateAdd("d",  0,  getLines.DocumentDate)>								
+						--->	 						
 					<cfelse>
-					    <cfset dts = now()>	
-					    			    
+					    <cfset dts = now()>						    			    
 					</cfif>					
-				
-				<cfelse>
-				 
-				 	<cfset dts = now()>	
-					
+									
 				</cfif>	
 							
 			</cfif>
@@ -1138,7 +1135,7 @@
 				<cfset revBase64DTE =  ToString(ToBinary(jSONDTE.archivo)) />				
 				
 				<cffile action="WRITE" file="#vLogsDirectory#\FEL_#vUniqueId#_Response_Signature_decoded_#RetryNo#.txt" output="#revBase64DTE#">
-				<cfsavecontent variable="SignedXml"><?xml version="1.0" encoding="utf-8"?><cfoutput>#revBase64DTE#</cfoutput></cfsavecontent>
+				<cfsavecontent variable="SignedXml"><cfoutput>#revBase64DTE#</cfoutput></cfsavecontent>
 
 				<cfset Base64SignedXML = ToBase64(toString(SignedXml)) />
 
@@ -3324,7 +3321,7 @@
 					<cfset revBase64DTE =  ToString(ToBinary(jSONDTE.archivo)) />
 	
 					<cffile action="WRITE" file="#vLogsDirectory#\NC_FEL_#GetTransaction.JournalTransactionNo#_Response_Signature_decoded.txt" output="#revBase64DTE#">
-					<cfsavecontent variable="SignedXml"><?xml version="1.0" encoding="utf-8"?>
+					<cfsavecontent variable="SignedXml">
 						<cfoutput>#revBase64DTE#</cfoutput>
 					</cfsavecontent>
 	

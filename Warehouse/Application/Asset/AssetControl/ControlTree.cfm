@@ -54,16 +54,13 @@
 <tr><td valign="top" colspan="2" style="padding-top:6px;padding-left:8px">
 
 <cfinclude template = "TreePreparation.cfm">	
-
-<!---
 					
 <cf_UItree name="tmaterials" bold="No" format="html" required="No">
     <cf_UItreeitem
-	  bind="cfc:Service.Process.Materials.Tree.getNodes({cftreeitemvalue},{cftreeitempath},'#url.Mission#')">
+	  bind="cfc:Service.Process.Materials.Tree.getNodesV2({cftreeitemvalue},{cftreeitempath},'#url.Mission#')">
    </cf_UItree>
    
-   --->
-
+<!---
    
 <cfform>
 	<cftree name="tmaterials" font="Calibri" fontsize="12" format="html" required="No">
@@ -71,6 +68,8 @@
 				  bind="cfc:Service.Process.Materials.Tree.getNodes({cftreeitemvalue},{cftreeitempath},'#url.Mission#')">  		 
 	</cftree>			
 </cfform>
+
+--->
 
 
 </td></tr></table>

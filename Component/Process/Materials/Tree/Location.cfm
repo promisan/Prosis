@@ -1,7 +1,7 @@
 
-			<cfswitch expression="#Level#">
+<cfswitch expression="#Level#">
 			
-			<cfcase value="1">
+		<cfcase value="1">
 
 				<cfquery name="Level01" 
 				  datasource="appsMaterials" 
@@ -53,51 +53,52 @@
 						<cfset arrayAppend(result,s)/>				
 				  </cfif>
 				  
-			</cfcase>
+		</cfcase>
 			
-			<cfcase value="2,3,4">
-			      <cfquery name="SubLevel" 
+		<cfcase value="2,3,4">
+		
+		      <cfquery name="SubLevel" 
+		      datasource="appsMaterials" 
+		      username="#SESSION.login#" 
+		      password="#SESSION.dbpw#">
+			      SELECT     DISTINCT TreeOrder, LocationName, Location, LocationCode 
+			      FROM       Location
+			 	  WHERE      ParentLocation   = '#vmid#'
+				  AND        Mission          = '#Mission#'
+				  ORDER BY   TreeOrder, LocationName 
+			  </cfquery>			
+		
+			  <cfloop query="SubLevel">
+				
+				  <cfset nme = replace(LocationName,"'","", "ALL")> 
+				  <cfset nme = replace(nme,',',"", "ALL")> 
+				  <cfset nme = replace(nme,'"',"", "ALL")> 
+		  
+				  <cfset s = StructNew()> 		
+				  <cfset s.value="#location#">
+			      <cfset s.display="#nme#">
+				  <cfset s.parent="#vmid#">					  
+				  <cfset s.expand="No">
+				  <cfset s.href="javascript:listshow('PHY','#Location#','#mission#')">				
+				  
+			      <cfquery name="Children" 
 			      datasource="appsMaterials" 
 			      username="#SESSION.login#" 
 			      password="#SESSION.dbpw#">
-				      SELECT     DISTINCT TreeOrder, LocationName, Location, LocationCode 
-				      FROM       Location
-				 	  WHERE      ParentLocation   = '#vmid#'
-					  AND        Mission          = '#Mission#'
-					  ORDER BY   TreeOrder, LocationName 
+				      SELECT    Count(1) as Total
+				      FROM      Location
+				 	  WHERE     ParentLocation   = '#location#'
+					  AND       Mission          = '#Mission#'
 				  </cfquery>			
-			
-					<cfloop query="SubLevel">
-					  <cfset nme = replace(LocationName,"'","", "ALL")> 
-					  <cfset nme = replace(nme,',',"", "ALL")> 
-					  <cfset nme = replace(nme,'"',"", "ALL")> 
-			  
-					  <cfset s = StructNew()> 		
-					  <cfset s.value="#location#">
-				      <cfset s.display="#nme#">
-					  <cfset s.parent="#vmid#">					  
-					  <cfset s.expand="No">
-					  <cfset s.href="javascript:listshow('PHY','#Location#','#mission#')">				
-					  
-				      <cfquery name="Children" 
-				      datasource="appsMaterials" 
-				      username="#SESSION.login#" 
-				      password="#SESSION.dbpw#">
-					      SELECT    Count(1) as Total
-					      FROM      Location
-					 	  WHERE     ParentLocation   = '#location#'
-						  AND       Mission          = '#Mission#'
-					  </cfquery>			
 
-					  <cfif Level eq 4 or children.total eq 0>
-	  						<cfset s.leafnode=true/>
-					  </cfif>
-					  
-		  			  <cfset arrayAppend(result,s)/>			
-					</cfloop>		
-			</cfcase>
-
+				  <cfif Level eq 4 or children.total eq 0>
+  						<cfset s.leafnode=true/>
+				  </cfif>
+				  
+	  			  <cfset arrayAppend(result,s)/>	
+				  		
+			  </cfloop>		
+				  
+		</cfcase>
 			
-			</cfswitch>
-
-			
+</cfswitch>			

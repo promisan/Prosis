@@ -88,7 +88,7 @@
 					
 		<tr>
 			<td colspan="2" align="left" style="padding-left:2px;padding-bottom:2px;" class="#cl#">
-				<a href="javascript:detail('#url.cfmapname#')"><font color="0080C0"><cf_tl id="Click for more details"></font></a>
+				<a href="javascript:detail('#url.cfmapname#')"><cf_tl id="Click for more details"></a>
 			</td>
 			</tr>
 		
@@ -189,7 +189,7 @@
 							   value="Apply" 
 							   class="button10g" 
 							   style="width:100;height:27" 
-							   onclick="ColdFusion.navigate('MAP/setDelivery.cfm?cfmapname=#url.cfmapname#','status#url.cfmapname#','','','POST','formdelivery')">
+							   onclick="ptoken.navigate('MAP/setDelivery.cfm?cfmapname=#url.cfmapname#','status#url.cfmapname#','','','POST','formdelivery')">
 					
 						</td>
 				    </tr>					
@@ -235,43 +235,44 @@
 		   <cfquery name="Deliveries"
 			datasource="appsWorkOrder" 
 			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">		
-			SELECT   A.DateTimePlanning, 	
-			         A.DateTimeActual,
-			         W.WorkOrderId,
-					 W.ServiceItem,
-					 WL.WorkOrderLine,
-					 WL.WorkOrderLineId,
-					 C.PostalCode,
-					 C.Address,
-					 C.City,
-					 C.MobileNumber,
-			         C.CustomerName,	
-					 Drv.PersonNo,      
-			         Drv.LastName, 
-					 T.TopicValue as DagDeel, 				 
-					 1 as Planned,
-					 (CASE WHEN A.DateTimeActual is NULL THEN 0 ELSE 1 END) as Actual
-		    FROM     WorkOrder AS W INNER JOIN
-	                 WorkOrderLine AS WL ON W.WorkOrderId = WL.WorkOrderId INNER JOIN
-					 WorkOrderLineAction AS A ON WL.WorkOrderId = A.WorkOrderId AND WL.WorkOrderLine = A.WorkOrderLine 
-					 <!--- planning data --->
-					 LEFT OUTER JOIN  WorkOrderLineTopic AS T ON WL.WorkOrderId  = T.WorkOrderId AND WL.WorkOrderLine = T.WorkOrderLine AND (T.Topic = 'f002p' AND T.Operational = 1) 
-					 LEFT OUTER JOIN  Employee.dbo.Person AS Drv ON WL.PersonNo = Drv.PersonNo 
-					 INNER JOIN Customer as C ON W.CustomerId = C.CustomerId 
-		   WHERE     W.Mission          = '#url.mission#'		
-		   AND       W.OrgUnitOwner     = '#url.cfmapname#' 	
-		   AND       WL.Operational     = '1'  	
-		   AND       A.DateTimePlanning = #dts#       
-		   AND       A.ActionClass      = 'Delivery' 		
-		   ORDER BY T.TopicValue
+			password="#SESSION.dbpw#">	
+				
+				SELECT   A.DateTimePlanning, 	
+				         A.DateTimeActual,
+				         W.WorkOrderId,
+						 W.ServiceItem,
+						 WL.WorkOrderLine,
+						 WL.WorkOrderLineId,
+						 C.PostalCode,
+						 C.Address,
+						 C.City,
+						 C.MobileNumber,
+				         C.CustomerName,	
+						 Drv.PersonNo,      
+				         Drv.LastName, 
+						 T.TopicValue as DagDeel, 				 
+						 1 as Planned,
+						 (CASE WHEN A.DateTimeActual is NULL THEN 0 ELSE 1 END) as Actual
+			    FROM     WorkOrder AS W INNER JOIN
+		                 WorkOrderLine AS WL ON W.WorkOrderId = WL.WorkOrderId INNER JOIN
+						 WorkOrderLineAction AS A ON WL.WorkOrderId = A.WorkOrderId AND WL.WorkOrderLine = A.WorkOrderLine 
+						 <!--- planning data --->
+						 LEFT OUTER JOIN  WorkOrderLineTopic AS T ON WL.WorkOrderId  = T.WorkOrderId AND WL.WorkOrderLine = T.WorkOrderLine AND (T.Topic = 'f002p' AND T.Operational = 1) 
+						 LEFT OUTER JOIN  Employee.dbo.Person AS Drv ON WL.PersonNo = Drv.PersonNo 
+						 INNER JOIN Customer as C ON W.CustomerId = C.CustomerId 
+			   WHERE     W.Mission          = '#url.mission#'		
+			   AND       W.OrgUnitOwner     = '#url.cfmapname#' 	
+			   AND       WL.Operational     = '1'  	
+			   AND       A.DateTimePlanning = #dts#       
+			   AND       A.ActionClass      = 'Delivery' 		
+			   ORDER BY T.TopicValue
 		     
 	 	</cfquery>	
 				 
 		<cfloop query="deliveries">
 		   <tr class="labelmedium" style="height:20px">
 		    <td style="padding-left:10px">#City#</td>
-		   	<td><a href="javascript:detail('#workorderlineid#')"><font color="0080C0">#CustomerName#</font></a></td>			
+		   	<td><a href="javascript:detail('#workorderlineid#')">#CustomerName#</a></td>			
 			<td>#DagDeel#</td>	
 			<td>#LastName#</td>			   
 		   </tr>

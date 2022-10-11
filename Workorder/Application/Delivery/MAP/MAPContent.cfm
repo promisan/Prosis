@@ -105,6 +105,7 @@
                             FROM     Organization
                             WHERE    Mission = '#url.mission#' AND (TreeUnit = 1)) 
 		AND       OA.AddressType = 'Home'
+		
 	</cfquery>
 	
 	
@@ -124,7 +125,7 @@
 	
 	<cfelse>
 	
-		<cfset nat = "NET">
+		<cfset nat = "NL">
 		<cfset lat = "0">
 		<cfset lng = "0">
 		
@@ -143,30 +144,31 @@
 	
 	<tr><td valign="top" bgcolor="white">	
 		
-			<table width="96%" height="100%">			
+			<table width="96%" height="100%" align="center">			
 							
 			<tr>
 			<td align="right" style="padding-top:11px;height:0;z-index:5;position:absolute;padding-left:400px">
 			
 				<table style="height:29px;border:0px inset dadada" align="right" bgcolor="FFFFFF">
-				       <tr>
+				       <tr class="labelmedium2">
 					    					  
-				         <td style="padding-bottom:2px;border-left:1px solid silver;padding-left:10px;padding-right:5px" class="labelit"><cf_tl id="Inquiry"></td>
+				         <td style="border-left:1px solid silver;padding-left:10px;padding-right:5px"><cf_tl id="Inquiry"></td>
 						 <td style="padding-right:15px"><input onclick="setoperation('inquiry')" checked type="radio" name="mapmode" id="mapmode" value="Inquiry"></td>
-						 <td style="padding-bottom:2px;padding-right:5px" class="labelit"><cf_tl id="Quick Visual Planner"></td>
-						 <td style="padding-right:10px"><input onclick="setoperation('planner')" type="radio" name="mapmode" id="mapmode" value="Inquiry"></td>
-						 
+						 <td style="padding-right:5px"><cf_tl id="Quick Visual Planner"></td>
+						 <td style="padding-right:10px"><input onclick="setoperation('planner')" type="radio" name="mapmode" id="mapmode" value="Inquiry"></td>						 
 						 <cfoutput>						
-					     <td bgcolor="ffffcf" class="labelmedium" style="border-left:1px solid silver;padding-top:1px;font-size:12px;padding-left:10px;height:20px">Scheduled:</td>
+					     <td bgcolor="ffffcf" class="labelmedium" style="border-left:1px solid silver;padding-top:1px;font-size:12px;padding-left:10px;height:20px"><cf_tl id="Scheduled">:</td>
 						 </cfoutput>					     
-						 <td bgcolor="ffffcf"  id="mapplanned" style="border-radius:3px;width:50px;padding-left:8px;padding-right:8px;font-size:18px;font-weight:bold"></td>	
+						 <td bgcolor="ffffcf" id="mapplanned" style="border-radius:3px;width:50px;padding-left:8px;padding-right:8px;font-size:18px;font-weight:bold">
+						 <!--- content box--->
+						 </td>	
 						
 				       </tr>
 			    </table>
 		   
 		    </td></tr>
 						
-			<tr><td style="padding-top:0px;padding-bottom:0px" valign="top">
+			<tr><td style="padding-top:0px;padding-bottom:0px" valign="middle" align="middle" >
 									
 			<cfmap name="gmap"	   
 			    centerlatitude   = "#lat#" 
@@ -175,8 +177,8 @@
 				collapsible      = "false" 			
 			    overview         = "true" 
 				continuouszoom   = "true"
-				height           = "#url.height-50#"
-				width            = "#w#"		
+				height           = "#url.height-75#"
+				width            = "#w-10#"		
 				zoomcontrol      = "large3d"
 				hideborder       = "true"		
 			    scrollwheelzoom  = "true" 		
@@ -184,7 +186,7 @@
 			    showscale        = "true"
 				markerbind       = "url:MAP/MAPDetail.cfm?date=#url.date#&mission=#url.mission#&cfmapname={cfmapname}&cfmapaddress={cfmapaddress}" 
 			    tip              = "#SESSION.welcome# Delivery Planner" 
-			    zoomlevel        = "9"> 	
+			    zoomlevel        = "11"> 	
 										
 					<cfif person eq "" and unitchecked neq "">	
 					
@@ -338,19 +340,19 @@
 									
 									<cfif getbranchaddress.markercolor neq "" and  getbranchaddress.markericon neq "">
 										
-										<cfmapitem name="#unit#" 
-								      	latitude="#details.latitude#" 
-							          	longitude="#details.longitude#" 	   
-									  	markericon="#session.root#/images/mapicons/#getbranchaddress.markercolor#_#getbranchaddress.markericon#.png"	
-								      	tip="Branch : #getbranchaddress.OrgUnitName#"/>
+										<cfmapitem name  = "#unit#" 
+								      	latitude         = "#details.latitude#" 
+							          	longitude        = "#details.longitude#" 	   
+									  	markericon       = "#session.root#/images/mapicons/#getbranchaddress.markercolor#_#getbranchaddress.markericon#.png"	
+								      	tip              = "Branch : #getbranchaddress.OrgUnitName#"/>
 										
 									<cfelse>
 									
-										<cfmapitem name="#unit#" 
-								      	latitude="#details.latitude#" 
-							          	longitude="#details.longitude#" 	   
-									  	markercolor="#getbranchaddress.markercolor#"	
-								      	tip="Branch : #getbranchaddress.OrgUnitName#"/>								
+										<cfmapitem name  = "#unit#" 
+								      	latitude         = "#details.latitude#" 
+							          	longitude        = "#details.longitude#" 	   
+									  	markercolor      = "#getbranchaddress.markercolor#"	
+								      	tip              = "Branch : #getbranchaddress.OrgUnitName#"/>								
 										
 									</cfif>		  	
 								
@@ -375,9 +377,9 @@
 					<cfset color_list[9]  = "Purple">
 					<cfset current_color = 0>
 					<cfset current_person = "">
-																					
+																										
 					<cfloop query="deliveries">		
-								
+																		
 						<cfset postal = replaceNoCase(PostalCode," ","","ALL")>	
 						<cfset postal = replaceNoCase(postal,"'","","ALL")>
 						<cfset postal = replaceNoCase(postal,"`","","ALL")> 
@@ -396,7 +398,7 @@
 							SELECT *
 							FROM   PostalCode
 							WHERE  Country    = '#nat#'
-							AND    PostalCode = '#Postal#'
+							AND    PostalCode = '#Postal#'							
 					   	</cfquery>	
 										
 						<cfset showmarker = "0">	
@@ -416,8 +418,7 @@
 									<cfset lon = itm>
 								</cfif>
 							
-							</cfloop>		
-												
+							</cfloop>												
 																	
 						<cfelseif Check.recordcount eq "1" 
 						       AND check.Latitude  neq "0" 
@@ -428,13 +429,14 @@
 							    <cfset lon        = check.longitude>					
 						
 						<cfelse>
-						
+												
 							<!--- not found or invalid latitude, so we obtain --->
+							
 						
 							<cfset vInit = GetTickCount()>
 														
 							<cfinvoke component="service.maps.googlegeocoder3" method="googlegeocoder3" returnvariable="details">	  
-							  <cfinvokeargument name="address" value="The Netherlands, #replace(PostalCode,' ','','ALL')#">
+							  <cfinvokeargument name="address" value="#nat#, #replace(PostalCode,' ','','ALL')#">
 							  <cfinvokeargument name="ShowDetails" value="false">
 						    </cfinvoke>		
 							
@@ -444,7 +446,9 @@
 									(left(details.latitude,1) eq "4" or left(details.latitude,1) eq "5" )
 									and 
 									(left(details.longitude,2) eq "3." or left(details.longitude,2) eq "4." or left(details.longitude,2) eq "5." or left(details.longitude,2) eq "6." )
-								)>											 
+								)>		
+								
+																	 
 								
 								<cfif check.recordcount eq "1">
 														
@@ -497,10 +501,10 @@
 									<cfset vInit = GetTickCount()>
 									
 									<cfinvoke component="service.maps.googlegeocoder3" method="googlegeocoder3" returnvariable="details">	  
-										   <cfinvokeargument name="address" value="The Netherlands,#city# #address#">
+										   <cfinvokeargument name="address" value="#nat#,#city# #address#">
 										   <cfinvokeargument name="ShowDetails" value="false">
 								    </cfinvoke>		
-									
+																		
 									<cfif Details.recordcount eq "1"  
 									  AND (Check.latitude eq -1 and Check.Longitude eq -1) or (Check.latitude eq 0 and Check.Longitude eq 0)>
 									

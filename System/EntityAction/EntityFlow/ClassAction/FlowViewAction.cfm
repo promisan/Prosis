@@ -130,7 +130,7 @@
 			<!---width="#w-6#"--->
 			<table style="width:170px;" height="#h-4#" id="d#drag#">		
 			   			  		   
-				<tr style="background-color:ffffaf;border-top:1px solid silver">
+				<tr class="fixlengthlist" style="background-color:ffffaf;border-top:1px solid silver">
 				   <td height="1" style="padding-left:3px" class="labelit" width="40%" id="b#Action.ActionCode#">
 				   
 					<cfif (accessWorkflow eq "EDIT" or accessWorkflow eq "ALL")>			
@@ -156,11 +156,12 @@
 
 			  <cfif (accessWorkflow eq "EDIT" or accessWorkflow eq "ALL") or url.scope eq "Object">
 		   						
-			   <tr style="cursor: pointer;" class="labelmedium fixlengthlist" 
+			   <tr style="cursor: pointer;" class="labelmedium" 
 				 onClick="stepinspect('#Action.ActionCode#','#URL.PublishNo#')">
+				 
 				 <!---#Boxcolor#--->
 			     <td colspan="3" title="#ActionDescription#" align="center" bgcolor="#Boxcolor#" id="bd#drag#"> 	
-				  <table><tr class="fixlengthlist"><td><cfif Action.ActionType eq "Decision"><font color="FFFFFF"></cfif>#ActionDescription# </td></tr>
+				  <table><tr class="fixlengthlist"><td><cfif Action.ActionType eq "Decision"><font color="FFFFFF"></cfif>#ActionDescription#</td></tr>
 				  <cfif ActionReference neq "">
 				  <tr><td><font size="1"><br>[#ActionReference#]</td></tr>
 				  </cfif>
@@ -172,8 +173,8 @@
   
 			   <tr>
 			   	<!---#Boxcolor#--->
-			     <td colspan="3" align="center" class="labelit" bgcolor="#Boxcolor#" id="bd#drag#">
-			     <cfif Action.ActionType eq "Decision"><font color="FFFFFF"></cfif>
+			     <td colspan="3" title="#ActionDescription#" align="center" class="labelit" bgcolor="#Boxcolor#" id="bd#drag#">
+			     <cfif Action.ActionType eq "Decision"><font color="FFFFFF"></cfif>				 
 			   	   #ActionDescription#<cfif ActionReference neq ""><font size="1"><br>[#ActionReference#]</cfif>
 			     </td>
 			   </tr>
@@ -234,7 +235,7 @@
 				   or url.connector eq action.actionparent>
 					    
 				<tr class="labelmedium fixlengthlist" style="background-color:##b0b0b080;height:15px;border-bottom:1px solid silver">
-					<td width="50%" id="b#Action.ActionCode#" style="padding-left:2px;padding-top:1px;padding-bottom:1px">
+					<td width="50%" id="b#Action.ActionCode#" style="padding-left:2px;padding-top:1px;padding-bottom:1px">					
 					<cfif (accessWorkflow eq "EDIT" or accessWorkflow eq "ALL")>			
 					    <a href="javascript:stepedit('#Action.actionCode#','#URL.PublishNo#')"><font color="000000">#Action.ActionCode#</a>
 					<cfelse>
@@ -282,9 +283,17 @@
 			
 						<tr style="cursor: pointer;" class="labelmedium fixlengthlist" 
 						   onClick="stepinspect('#Action.ActionCode#','#URL.PublishNo#')">
-						    <td colspan="3" class="fixlength" align="center" background="#SESSION.root#/images/decisionblue.jpg" id="b#Action.ActionCode#">
-						    #Action.ActionDescription# 		
-							<cfif Action.ActionReference neq ""><font size="1"><br>[#Action.ActionReference#]</cfif>					
+						   
+						    <td colspan="3" title="#action.ActionDescription#" align="center" background="#SESSION.root#/images/decisionblue.jpg" id="b#Action.ActionCode#">
+							
+							 <table align="center" style="width;100%">
+							  <tr class="fixlengthlist">
+							  <td align="center" title="#Action.ActionDescription#" style="max-width:150px">#Action.ActionDescription#</td></tr>
+							  <cfif Action.ActionReference neq "">
+							  <tr><td align="center"><font size="1">[#Action.ActionReference#]</td></tr>
+							  </cfif>
+							 </table>		
+											
 						    </td>
 						</tr>
 					
@@ -292,7 +301,7 @@
 														
 						<tr style="cursor: pointer;" class="labelmedium fixlengthlist" onClick="stepinspect('#Action.ActionCode#','#URL.PublishNo#')"
 						    id="b#Action.ActionCode#">
-							
+														
 						    <td colspan="3" align="center" bgcolor="#Boxcolor#" id="bd#drag#">
 																					
 							 <table align="center" style="width;100%">
@@ -314,11 +323,11 @@
 					</cfif>
 					
 				<cfelse>
-	
+					
 					<cfif Action.ActionType eq "Decision">
 							
 						<tr>
-						    <td colspan="3" class="labelit fixlength" align="center" 
+						    <td colspan="3" title="#Action.ActionDescription#" class="labelit fixlength" align="center" 
 							  background="#SESSION.root#/images/decisionblue.jpg" id="b#Action.ActionCode#">
 						    #Action.ActionDescription#
 						    </td>
@@ -327,7 +336,7 @@
 					<cfelse>
 									
 						<tr id="b#Action.ActionCode#">
-						    <td colspan="3" class="labelit fixlength" align="center" bgcolor="#Boxcolor#" id="bd#drag#">
+						    <td colspan="3" title="#Action.ActionDescription#" class="labelit fixlength" align="center" bgcolor="#Boxcolor#" id="bd#drag#">
 							#Action.ActionDescription#
 						    </td>
 							

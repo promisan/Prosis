@@ -286,11 +286,11 @@
 			<cfif (PendingInvoices.recordcount eq "0" and PendingReceipts.recordcount eq "0") or getAdministrator(PO.mission) eq "1">
 				
 				<cfif PO.ObligationStatus eq "1">
-				<a href="javascript:ColdFusion.navigate('ObligationStatus.cfm?id1=#url.id1#&setstatus=0','obligation')">
+				<a href="javascript:ptoken.navigate('ObligationStatus.cfm?id1=#url.id1#&setstatus=0','obligation')">
 				[<cf_tl id="Press to close">]
 				</a>
 				<cfelse>
-				<a href="javascript:ColdFusion.navigate('ObligationStatus.cfm?id1=#url.id1#&setstatus=1','obligation')">
+				<a href="javascript:ptoken.navigate('ObligationStatus.cfm?id1=#url.id1#&setstatus=1','obligation')">
 				[<cf_tl id="Press to re-open">]
 				</a>
 				</cfif>

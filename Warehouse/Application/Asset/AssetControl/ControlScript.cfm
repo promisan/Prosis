@@ -84,7 +84,7 @@
 	}
 
 	function newreceipt() {		    
-	    ptoken.open("#SESSION.root#/Warehouse/Application/Asset/AssetEntry/AssetEntry.cfm?scope=workorder&Mission=#URL.Mission#&ts="+new Date().getTime(), "newasset", "left=40, top=40, width=950, height=860, menubar=no, location=0, status=yes, toolbar=no, scrollbars=no, resizable=yes");								
+	    ptoken.open("#SESSION.root#/Warehouse/Application/Asset/AssetEntry/AssetEntry.cfm?scope=workorder&Mission=#URL.Mission#", "newasset");								
 	}	
 	
 	function refreshlist() {	

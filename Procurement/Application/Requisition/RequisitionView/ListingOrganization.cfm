@@ -47,10 +47,13 @@
 </cfif>
 
 <cfoutput>
-	 <form method="post" name="formselected" id="formselected">
+
+     <form method="post" name="formselected" id="formselected">
 		<input type="hidden" name="selectedlines" id="selectedlines" value="#QuotedValueList(requisition.requisitionno)#">
 	</form>
 </cfoutput>
+
+
 
 <cfoutput query="SearchResult" group="HierarchyCode">
 

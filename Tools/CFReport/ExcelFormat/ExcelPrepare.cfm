@@ -9,7 +9,11 @@
 <cfparam name="URL.Status"       default="1">
 <cfparam name="client.PvtRecord" default="8000">
 <cfset attach = "">
+<!--- changed to xlsx 
 <cfset vMaxRowsAllowed = 65535>
+--->
+<cfset vMaxRowsAllowed = 65535>
+
 
 <cfquery name="Output" 
 	datasource="appsSystem">
@@ -268,8 +272,8 @@
 	   dataquery        = "#xlsquery#"
 	   GroupByOne       = "#Group1.FieldName#"
 	   GroupByTwo       = "#Group2.FieldName#"   
-	   filename         = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#.xls" 
-	   filenamepreview  = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#_Preview.xls" 
+	   filename         = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#.xlsx" 
+	   filenamepreview  = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#_Preview.xlsx" 
 	   sheetname        = "#filename#"
 	   rowstart         = "2"
 	   returnvariable   = "excel">	
@@ -291,7 +295,7 @@
 	   datasource       = "#Output.DataSource#"
 	   dataquery        = "#xlsquery#"
 	   cols             = "#col#" 
-	   filename         = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#.xls" 
+	   filename         = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#.xlsx" 
 	   sheetname        = "#filename#"
 	   returnvariable   = "excel">
 
@@ -313,9 +317,9 @@
 			<!--- open the excel file --->
 			
 			<cfif batch eq 0>
-				ptoken.open("#SESSION.root#/cfrstage/getFile.cfm?file=#FileName#_Preview.xls","_blank") 
+				ptoken.open("#SESSION.root#/cfrstage/getFile.cfm?file=#FileName#_Preview.xlsx","_blank") 
 			<cfelse>
-				ptoken.open("#SESSION.root#/cfrstage/getFile.cfm?file=#FileName#.xls","_blank") 
+				ptoken.open("#SESSION.root#/cfrstage/getFile.cfm?file=#FileName#.xlsx","_blank") 
 			</cfif>
 			
 			<!--- show menu --->
@@ -329,7 +333,7 @@
 		<cfoutput>
 		<script language="JavaScript">			
 			ProsisUI.createWindow('maildialog', 'Mail Excel', '',{x:100,y:100,height:665,width:890,resizable:false,modal:true,center:true});
-			ptoken.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.xls&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
+			ptoken.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.xlsx&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
 	</script>	
 		</cfoutput>		
 		
@@ -338,7 +342,7 @@
 		<cfoutput>
 		<script language="JavaScript">		   
 		   ProsisUI.createWindow('maildialog', 'Mail Excel', '',{x:100,y:100,height:665,width:890,resizable:false,modal:true,center:true});
-		   ptoken.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.xls&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
+		   ptoken.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.xlsx&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
 		</script>	
 		</cfoutput>	
 	

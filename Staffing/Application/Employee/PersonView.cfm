@@ -128,15 +128,16 @@
 	  systemmodule="Staffing"
 	  functionclass="Window"
 	  functionName="Employee Dialog"	  
-	  label="s:#Employee.LastName# [#Employee.PersonNo#]">
-	  
+	  label="s:#Employee.LastName# [#Employee.PersonNo#]">	  
 
 <cfoutput>
 
 <script>
 				
-	function doStaffValidation() {
+	function doProjectValidation() {
+	    
 		ptoken.navigate('#session.root#/Staffing/Application/Employee/PersonViewValidation.cfm?systemfunctionid=#url.systemfunctionid#&mission=&PersonNo=#employee.personNo#', 'divValidation');		
+
 	}
 				
 </script>
@@ -187,7 +188,7 @@
 			
 		</cf_layoutArea>
 		
-        <cf_layoutarea size="220"  position="right" name="validationbox" initcollapsed="Yes" collapsible="Yes">
+        <cf_layoutarea size="220"  position="right" name="validationbox" initcollapsed="no" collapsible="Yes">
 		
 		   <cf_divscroll>
    			   <cfdiv id="divValidation" style="margin:5px;"> 	  
@@ -199,4 +200,4 @@
 
 </cfif>	
 
-<cfset AjaxOnLoad("function(){ doStaffValidation() }")>	
+<cfset AjaxOnLoad("function(){ doProjectValidation(); }")>	

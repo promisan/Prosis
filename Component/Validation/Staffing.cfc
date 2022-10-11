@@ -31,6 +31,51 @@
 			
 	</cffunction> 
 	
+	<cffunction name    = "Document" 
+		    access      = "remote" 
+		    returntype  = "any" 
+		    displayname = "validates at least one activity with an output" 
+		    output      = "true">	
+					
+			 <cfparam name="SystemFunctionId"   type="string"  default="">				
+			 <cfparam name="Object"             type="string"  default="PersonNo">	
+			 <cfparam name="ObjectKeyValue1"    type="string"  default="">	
+			 <cfparam name="ValidationCode"     type="string"  default="">	
+			 
+			 <cfset result.pass = "OK">
+			 
+			 <cfquery name="get"
+					datasource="AppsEmployee" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+					 SELECT       DocumentType, Description, EnableRemove, EnableEdit, VerifyDocumentNo, DocumentUsage, ListingOrder, OfficerUserId, OfficerLastName, OfficerFirstName, Created
+		             FROM         Ref_DocumentType
+		             WHERE        VerifyDocumentNo = '2' 
+					 AND          DocumentType NOT IN
+		                             (SELECT        DocumentType
+		                               FROM         PersonDocument
+		                               WHERE        PersonNo = '#ObjectKeyValue1#' 
+									   AND          DependentId IS NULL 
+									   AND          ActionStatus <> '9' 
+									   AND          (DateExpiration IS NULL OR DateExpiration >= GETDATE())
+									 )
+																		   
+	     	 </cfquery>
+			 
+			 <cfif get.recordcount gte "1">
+			 			 			
+						
+				<cfinvoke method    = "getValidationStruct" 					   
+				   ValidationCode   = "#ValidationCode#"
+				   PassCode			= "No"
+				   returnvariable   = "result">	
+				
+			  </cfif>
+			
+			  <cfreturn result>		   
+			 
+	</cffunction>		 
+	
 	<cffunction name    = "IncumbencyDouble" 
 		    access      = "remote" 
 		    returntype  = "any" 

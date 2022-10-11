@@ -31,7 +31,7 @@
 			
 	</cffunction>
 	
-	<cffunction name    = "document" 
+	<cffunction name    = "Document" 
 		    access      = "remote" 
 		    returntype  = "any" 
 		    displayname = "validates at least one activity with an output" 

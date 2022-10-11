@@ -1083,8 +1083,7 @@
 			--->
 							  
 			<cfif CheckMission.WorkflowEnabled eq "0" 
-			      or CheckMission.recordcount eq "0" 
-				  or EntityClass.recordcount eq "0">
+			      or CheckMission.recordcount eq "0">
 	        
 					<!--- no workflow or no workflowendable,
 					    clear the transaction immediately to status = 1 --->

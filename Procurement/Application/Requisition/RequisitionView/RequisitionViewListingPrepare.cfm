@@ -201,6 +201,10 @@
 </cfquery>	  
 
 </cftransaction>	
-	  	  		   	   
-<cflocation url="RequisitionViewGeneral.cfm?FileNo=#FileNo#&Period=#URL.Period#&Mission=#URL.Mission#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&Role=#url.role#" addtoken="No">
 
+<cfoutput>
+<script>
+ ptoken.location("RequisitionViewGeneral.cfm?FileNo=#FileNo#&Period=#URL.Period#&Mission=#URL.Mission#&ID=#URL.ID#&ID1=#URL.ID1#&ID2=#URL.ID2#&Role=#url.role#")
+</script>
+</cfoutput>
+	

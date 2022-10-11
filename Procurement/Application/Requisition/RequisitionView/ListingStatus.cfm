@@ -1,10 +1,9 @@
 
-
 <cfoutput>
 	
 	<cfif url.id eq "Loc">
 			
-			<cfquery name="Requisition" 
+		<cfquery name="Requisition" 
 			datasource="AppsQuery" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#">
@@ -21,14 +20,14 @@
 				</cfif> 	
 				AND L.ActionStatus != '0'	
 				ORDER BY #URL.Sort#
-			</cfquery>	
+		</cfquery>	
 				
     <cfelse>
 	
 		<cfquery name="Requisition" 
-			     datasource="AppsQuery" 
-			     username="#SESSION.login#" 
-			     password="#SESSION.dbpw#">
+		     datasource="AppsQuery" 
+		     username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
 			     SELECT   *
 			     FROM     tmp#SESSION.acc#Requisition#FileNo# 
 				 <cfif URL.ID eq "STA">
@@ -36,10 +35,10 @@
 				 </cfif>
 	    </cfquery>
 	
-	</cfif>
+	</cfif>	
 	
 	<cfoutput>
-	    <form method="post" name="formselected" id="formselected">
+	    <form method="post" name="formselected" id="formselected">		
 		<input type="hidden" name="selectedlines" id="selectedlines" value="#QuotedValueList(requisition.requisitionno)#">
 		</form>
 	</cfoutput>
@@ -63,6 +62,7 @@
 			<tr class="labelmedium"><td>
 			
 			 <cf_tl id="Export to Excel" var="vExport">
+			
 			
 			  <cfinvoke component="Service.Analysis.CrossTab"  
 				  method      = "ShowInquiry"
@@ -128,18 +128,17 @@
     <cfset previous = "">
 	<cfset current = "">
 		
-	<cfif currrowX gte first>
-															
+	<cfif currrowX gte first>	
+																
 			<cfloop query="Requisition">
-						
+												
 			     <cfset currrow = currrow + 1>
 			     <cfif currrow gte first and currrow lte last>
 				        <cfinclude template="ListingDetail.cfm">  
+						
 				 <cfelseif currrow gt last>         				
-					 <tr><td height="14" colspan="10">						 
-					 <cfinclude template="Navigation.cfm">						 
-					 </td></tr>
-					 
+				 
+					 <tr><td height="14" colspan="10"><cfinclude template="Navigation.cfm"></td></tr>					 
 					 <script>
 						Prosis.busy('no')
 					 </script>
@@ -148,7 +147,7 @@
 		         </cfif> 
 				
 		    </cfloop>
-			
+						
 	<cfelse>
 	
 		  <cfset currrow = CurrrowX> 

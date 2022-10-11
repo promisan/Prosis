@@ -58,7 +58,8 @@
 		<cfelse>
 		   <cfset  lng = itm>  		
 		</cfif>
-	</cfloop>		
+	</cfloop>	
+		
 			
 	<table width="100%" border="0" class="formpadding">
 			       
@@ -66,11 +67,12 @@
 			
 		    <td style="padding-top:5px"><cf_space spaces="#attributes.spaces#"></td>
 			
-			<td width="100%"></td>			
-									 										 		 
+			<td width="100%"></td>		
+															 										 		 
 			     <cfif client.googlemap eq "1">
 				 				 
 				 	<td rowspan="16" valign="top" align="center" style="padding-top:10px;z-index:10; position:relative;padding-left:3px;padding-right:15px;padding-bottom:2px;min-width:430;min-height:400">								 				
+										
 						<cfset maplink = "mapaddress()">	
 							
 						<cf_mapshow scope	  = "embed" 
@@ -83,6 +85,7 @@
 									country	  = "#getAddress.country#"
 									city	  = "#getAddress.AddressCity#"
 									address	  = "#getAddress.Address#">							
+									
 									
 					</td>
 					
@@ -378,8 +381,10 @@
 		 WHERE  AddressId = '#attributes.AddressId#'
 		 </cfif>		   
 	 </cfquery>
-	 
+	 	 
 	 <cfif CLIENT.googlemap eq "1" and (Form.cLatitude eq "" or Form.cLongitude eq "")>
+	 
+	 
 
 	 		<cfinvoke component="service.maps.googlegeocoder3" 
 	          	method="googlegeocoder3" 

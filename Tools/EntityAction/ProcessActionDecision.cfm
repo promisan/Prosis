@@ -18,7 +18,7 @@
  
     <td>	   
 	    <table id="processblock">
-		<tr>
+		<tr class="fixlengthlist">
 			
 		<input type="hidden" name="StatusOld" id="StatusOld" value="#ActionStatus#">  
 			
@@ -235,7 +235,7 @@
 				      
 			   <cfif Action.ActionDateInput eq "1">
 			   
-				   <td class="labelmedium2" style="padding-left:1px;padding-bottom:1px;padding-right:4px"><cf_tl id="on">:</td>
+				   <td class="labelmedium2" style="padding-left:1px;padding-top:1px;padding-right:4px"><cf_tl id="on">:</td>
 				   <td style="min-width:130px;">
 													
 							<cfif Action.ActionDateInput eq "">

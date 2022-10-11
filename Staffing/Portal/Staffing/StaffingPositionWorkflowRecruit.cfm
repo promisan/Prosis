@@ -30,7 +30,7 @@ password="#SESSION.dbpw#">
 		
 		  <cf_tl id="Initiate recruitment" var="1">
 	      <input title="Click to initiate a recruitment process for this position" 
-		  type="button" value="#lt_text#" class="button10g" DISABLED onclick="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')" 
+		  type="button" value="#lt_text#" class="button10g" <cfif getAdministrator eq "0">disabled</cfif> onclick="javascript:AddVacancy('#PositionNo#','#url.ajaxid#')" 
 		  style="border-radius:2px;width:100%;border:1px solid silver">			  
 			
 		</td>		

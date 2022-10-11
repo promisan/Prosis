@@ -88,7 +88,7 @@ password="#SESSION.dbpw#">
 		<td align="left" height="25" colspan="6">
 					<cfoutput>
 		    	      <select name="Vendor2" id="Vendor2" size="1" class="regularxl"
-	    	    	  onChange="ColdFusion.navigate('ReconcileViewInvoice.cfm?mission=#url.mission#&Period=#url.period#&vendorcode3=0&vendorcode2='+this.value,'invoicebox')">
+	    	    	  onChange="ptoken.navigate('ReconcileViewInvoice.cfm?mission=#url.mission#&Period=#url.period#&vendorcode3=0&vendorcode2='+this.value,'invoicebox')">
 					  
 					   <option value="">None</option>				  
 					  
@@ -105,12 +105,12 @@ password="#SESSION.dbpw#">
 		</tr>
 			
 	    <tr>
-		   		<td height="25" align="left" class="labelmedium" style="padding-left:4px;padding-right:10px">Staff/Consultant:</td>
+		   		<td height="25" align="left" class="labelmedium fixlength" style="padding-left:4px;padding-right:10px">Staff/Consultant:</td>
 				<td colspan="6" align="left" >
 					<cfoutput>
 		    	    <SELECT name="Vendor3" id="Vendor3" class="regularxl"
 					    size="1" style="color:black"
-	    	    	    onChange="ColdFusion.navigate('ReconcileViewInvoice.cfm?mission=#url.mission#&Period=#url.period#&vendorcode2=0&vendorcode3='+this.value,'invoicebox')">
+	    	    	    onChange="ptoken.navigate('ReconcileViewInvoice.cfm?mission=#url.mission#&Period=#url.period#&vendorcode2=0&vendorcode3='+this.value,'invoicebox')">
 					   <option value="">None</option>
 						 
 					   <cfloop query="Vendors3">

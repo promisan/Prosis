@@ -6,6 +6,7 @@
 	html="No" 	
 	jQuery="yes"
 	ValidateSession="Yes"
+	TreeTemplate= "Yes"
 	scroll="no">
 	
 <cfinclude template="ControlScript.cfm">

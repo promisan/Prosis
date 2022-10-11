@@ -58,16 +58,16 @@ password="#SESSION.dbpw#">
 			
     <table width="96%" align="center" class="formpadding">
 	
-	<TR class="fixlengthlist">
+	<TR >
     <TD class="labelmedium" style="padding-left:8px;min-width:133px"><cf_tl id="Address type">: <font color="FF0000">*</font</TD>
 	
     <TD>
 	
 		<table>
 		<tr>
-		<td>
+		<td class="fixlength">
 	
-	   	<select name="AddressType" required="No" class="regularxl enterastab" style="width:280px">
+	   	<select name="AddressType" required="No" class="regularxl enterastab" style="width:220px">
 		    <cfoutput query="AddressType">
 				<option value="#AddressType#">#Description#</option>
 			</cfoutput>

@@ -67,13 +67,13 @@
 	
 	<table width="97%" align="center" class="navigation_table">
 		
-	<tr class="fixrow labelmedium line">
-	   <td width="10%">Code</td>
-	   <td width="40%">Description</td>
-	   <td width="10%">Type</td>
-	   <td width="20%">Officer</td>
-	   <td width="80">Created</td>
-	   <td width="6%"></td>
+	<tr class="fixrow labelmedium line fixlengthlist">
+	   <td>Code</td>
+	   <td>Description</td>
+	   <td>Type</td>
+	   <td>Officer</td>
+	   <td></td>
+	   <td></td>
 	</tr>
 		
 	<cfoutput query="Action">
@@ -90,7 +90,7 @@
 		AND      A.EntityClass != '#URL.EntityClass#'
 		</cfquery>
 	
-	<tr class="line labelmedium navigation_row lines">
+	<tr class="line labelmedium navigation_row lines fixlengthlist">
 		<td class="ccode" style="padding-left:4px">#ActionCode#</td>
 		<td class="cdescription">#ActionDescription#</td>
 		<td>#ActionType#</td>
@@ -106,14 +106,14 @@
 		</td>
 	</tr>
 	
-	<cfset search = "#Action.ActionCode# #Action.ActionDescription#">
+	<cfset search = "#ActionCode# #ActionDescription#">
 		
 	<cfif Used.recordcount gte "1">
 	
-		<tr class="line" style="height:15px">
+		<tr class="line fixlengthlist lines" style="height:15px">
 		  <td style="display:none" class="csearch">#search#</td>
-		  <td colspan="1" align="right" style="padding-right:4px">
-		  <font size="1" color="6688aa">Used in draft:</font>	  
+		  <td align="right" style="padding-right:4px">
+		  <font size="1" color="6688aa">Used in draft:</font>	 
 		  </td>
 		  <td colspan="4"><font face="Verdana" size="1" color="gray">#Used.entityClassName# (#Used.EntityClass#)</td>
 		  <td></td>
@@ -121,16 +121,16 @@
 		</tr>
 		
 		<cfloop query="Used" startrow="2">
-		<tr class="line" style="height:15px">
+		<tr class="line  fixlengthlist lines" style="height:15px">
 			<td style="display:none" class="csearch">#search#</td>
 			<td></td>
-			<td colspan="4"> <font size="1" face="Verdana" color="gray">#entityClassName# (#Used.EntityClass#)</td>
+			<td colspan="5"> <font size="1" face="Verdana" color="gray">#entityClassName# (#Used.EntityClass#)</td>
 		</tr>
 		</cfloop>
 	
 	</cfif>
 	
-	<tr style="display:none" class="lines">
+	<tr style="display:none" class="lines fixlengthlist">
 	   <td style="display:none" class="csearch">#search#</td><td colspan="6" class="line"></td>
 	</tr>
 		

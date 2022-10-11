@@ -32,7 +32,7 @@
 			<td style="width:70%"><cfif parent.ApprovalDate eq ""><cf_tl id="Not available"><cfelse>#dateformat(Parent.ApprovalDate,client.dateformatshow)#</cfif></td>
 		</tr>
 				
-		<tr class="labelmedium">
+		<tr class="labelmedium line">
 			<td><cf_tl id="Classification Code">:</td>
 			<td style="width:70%">#Parent.ApprovalReference#</td>
 		</tr>
@@ -69,7 +69,7 @@
 			ORDER BY Created DESC
 	   </cfquery>	
 	
-		<tr><td style="padding-right:20px">
+		<tr><td colspan="2" style="padding-right:20px">
 			
 			 <cf_filelibraryN
 			    Box="primary"

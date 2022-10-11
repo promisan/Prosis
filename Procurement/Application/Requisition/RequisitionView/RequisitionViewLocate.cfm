@@ -111,7 +111,7 @@ password="#SESSION.dbpw#">
 		
 		<TR>
 	
-		<TD class="labelmedium2"><cf_tl id="Period">:</TD>
+		<TD class="labelmedium2 fixlength"><cf_tl id="Period">:</TD>
 				
 		<td align="left" valign="top">
 		<select name="period" id="period" size="1" class="regularxxl">
@@ -122,7 +122,7 @@ password="#SESSION.dbpw#">
 		    </select>
 		</td>	
 	
-		<TD class="labelmedium2"><cf_tl id="Status">:</TD>
+		<TD class="labelmedium2 fixlength"><cf_tl id="Status">:</TD>
 				
 		<td align="left" valign="top">
 			 <select name="actionstatus" id="actionstatus" size="1" class="regularxxl">
@@ -137,7 +137,7 @@ password="#SESSION.dbpw#">
 			
 		<TR>
 	
-		<TD class="labelmedium2">Class:</TD>
+		<TD class="labelmedium2 fixlength">Class:</TD>
 				
 		<td align="left" valign="top">
 		
@@ -150,7 +150,7 @@ password="#SESSION.dbpw#">
 			
 		</td>	
 		
-		<TD class="labelmedium2">Staff/Contractor:</TD>		
+		<TD class="labelmedium2 fixlength">Staff/Contractor:</TD>		
 				
 		<td align="left">
 		
@@ -158,12 +158,8 @@ password="#SESSION.dbpw#">
 			
 			<table>
 				<tr>
-							
-				<td style="padding-left:0px">
-				   <cf_securediv bind="url:#link#" id="employee">
-				</td>	
 				
-				<td style="padding-left:2px">
+				<td style="width:30px;padding-left:2px">
 				   <cf_selectlookup box        = "employee"
 						button     = "Yes"
 						link       = "#link#"
@@ -174,7 +170,11 @@ password="#SESSION.dbpw#">
 						type       = "employee"
 						des1       = "Selected">
 				</td>
-						
+							
+				<td style="padding-left:3px">
+				   <cf_securediv bind="url:#link#" id="employee">
+				</td>	
+					
 				</tr>	
 				
 			</table>
@@ -184,28 +184,23 @@ password="#SESSION.dbpw#">
 		</TR>
 		
 		<!--- Field: Pur_head.VendorName=CHAR;80;FALSE --->
-		<TR class="labelmedium2">
-		<TD><cf_tl id="Descriptive">:</TD>
+		<TR>
+		<TD class="labelmedium2 fixlength"><cf_tl id="Descriptive">:</TD>
 				
 		<td align="left">
 		   <input type="text" name="RequestDescription" id="RequestDescription" value="" size="20" class="regularxxl">
 		</td>	
 			
-		<TD>Program/Project:</TD>
+		<TD class="labelmedium2 fixlength">Program/Project:</TD>
 				
-		<td align="left">
+		<td>
 		
 			<cfoutput>
 		
-			<table cellspacing="0" cellpadding="0">
-			<tr>		  
-				  <td style="padding-left:2px">		  
-				  <input type="text" name="programdescription" id="programdescription" class="regularxxl" size="30" maxlength="80" readonly>
-				  <input type="hidden" name="programcode" id="programcode" readonly>
-					  
+			<table>
+			<tr>		
 			
-			</td>		
-			<td style="padding-left:2px">	
+			<td style="width:30px;padding-left:2px">	
 			  
 				   <img src="#SESSION.root#/Images/search.png" alt="Select item master" name="img5" 
 						  onMouseOver="document.img5.src='#SESSION.root#/Images/contract.gif'" 
@@ -214,6 +209,14 @@ password="#SESSION.dbpw#">
 						  onClick="selectprogram('#URL.mission#',document.getElementById('period').value,'applyprogram','')">
 						  
 				  </td>
+				    
+				  <td style="padding-left:3px">		  
+				  <input type="text" name="programdescription" id="programdescription" class="regularxxl" size="30" maxlength="80" readonly>
+				  <input type="hidden" name="programcode" id="programcode" readonly>
+					  
+			
+			</td>		
+			
 	        <td id="processmanual"></td>		
 			</tr>
 			</table>		
@@ -226,8 +229,8 @@ password="#SESSION.dbpw#">
 			
 		<!--- Field: Pur_head.AmountUSD=FLOAT;8;FALSE --->
 		
-		<TR class="labelmedium2">
-		<TD><cf_tl id="Requisition No">:</TD>
+		<TR>
+		<TD class="labelmedium2 fixlength"><cf_tl id="Requisition No">:</TD>
 		<TD>	
 		<input type="text" name="Reference" id="Reference" value="" size="20" class="regularxxl">
 		</TD>
@@ -243,21 +246,17 @@ password="#SESSION.dbpw#">
 		
 		<cfelse>
 			
-		<TD><cf_tl id="WorkOrder">:</TD>					 
+		<TD class="labelmedium2 fixlength"><cf_tl id="WorkOrder">:</TD>					 
 		<td>
 			
 			<cfparam name="url.workorderid" default="">
 		
 			<cfset link = "#SESSION.root#/Procurement/Application/Requisition/RequisitionView/getWorkorder.cfm?">	 	
 			
-			<table cellspacing="0" cellpadding="0">
+			<table style="width:100%">
 				<tr>
 				
-				<td style="padding-left:0px">
-				   <cfdiv bind="url:#link#workOrderId=#URL.WorkOrderId#&doFilter=#URL.DoFilter#" id="workorder"/>
-				</td>	
-				
-				<td style="padding-left:2px">
+				<td style="width:30px;padding-left:2px">
 				   <cf_selectlookup box = "workorder"
 						button       = "Yes"
 						link         = "#link#"
@@ -271,6 +270,11 @@ password="#SESSION.dbpw#">
 						class        = "workorder"
 						des1         = "workorderid">
 				</td>
+				
+				<td style="padding-left:0px;width:90%">				
+				   <cf_securediv bind="url:#link#workOrderId=#URL.WorkOrderId#&doFilter=#URL.DoFilter#" id="workorder">
+				</td>	
+			
 						
 				</tr>	
 				
@@ -282,14 +286,14 @@ password="#SESSION.dbpw#">
 				
 		</tr>	
 				
-		<TR class="labelmedium2">
-		<TD><cf_tl id="Job Case No">:</TD>
+		<TR>
+		<TD class="labelmedium2 fixlength"><cf_tl id="Job Case No">:</TD>
 				
 		<td align="left">
 		   <input type="text" name="CaseNo" id="CaseNo" value="" size="20" class="regularxxl">
 		</td>	
 		
-		<td><cf_tl id="Classification">:</td>
+		<td class="labelmedium2 fixlength"><cf_tl id="Classification">:</td>
 		<td>
 		<cf_annotationfilter>
 		</td>				
@@ -300,8 +304,8 @@ password="#SESSION.dbpw#">
 		
 		<cf_calendarscript>
 		
-		<TR class="labelmedium2">
-		<TD><cf_tl id="Prepared in period from">:</TD>
+		<TR>
+		<TD class="labelmedium2 fixlength"><cf_tl id="Prepared in period from">:</TD>
 		<TD>	
 		
 		 <cf_intelliCalendarDate9
@@ -312,7 +316,7 @@ password="#SESSION.dbpw#">
 			
 		</TD>
 		
-		<TD><cf_tl id="until">:</TD>
+		<TD class="labelmedium2 fixlength"><cf_tl id="until">:</TD>
 		<TD>
 		
 		<cf_intelliCalendarDate9

@@ -1,14 +1,6 @@
 <cfparam name="url.idmenu" default="">
 <cfparam name="url.positions" default="">
-
-<cf_screentop height="100%" 
-			  scroll="Yes" 
-			  html="No"
-			  layout="webapp" 
-			  label="Move Staffing positions" 
-			  banner="green"	
-			  user="no"		 
-			  line="No">				   
+			   
 <cfoutput>
 	
 	<cfif url.positions eq "">
@@ -39,9 +31,9 @@
 	
 	<cf_divscroll>
 	
-	<cfform id="moveForm" style="width:100%" onsubmit="return false" name="moveForm">
+	<cfform id="moveForm" style="width:95%" onsubmit="return false" name="moveForm">
 					  
-		<table width="95%" align="center" class="formpadding">
+		<table width="95%" align="center" class="formpadding formspacing">
 			
 		<cfif mandateStatus eq "locked">
 		
@@ -64,10 +56,10 @@
 		
 		<tr>
 			<td class="labelmedium" style="color:green" align="center" colspan="3">
-				<i>
+				
 					This action will move selected positions to a given, just as if they have been always there.
 					<br><br><span style="color:red">Important: This action cannot be reverted.</span>
-				</i>
+				
 			</td>
 		</tr>
 		
@@ -169,7 +161,7 @@
 		<table width="100%" class="navigation_table">
 		
 					
-			<tr class="labelmedium line">
+			<tr class="labelmedium line fixlengthlist">
 				<td width="100px">PositionNo</td>
 				<td>Current unit</td>
 				<td></td>
@@ -180,7 +172,7 @@
 					
 			<cfloop query="getPosition">
 			
-			<tr class="labelmedium line navigation_row" style="height:20px">
+			<tr class="labelmedium line navigation_row fixlengthlist" style="height:20px">
 				<td><cfif sourcePostNumber neq "">#SourcePostNumber#<cfelse>#PositionNo#</cfif></td>
 				<td>#orgunitname#</td>
 				<td>

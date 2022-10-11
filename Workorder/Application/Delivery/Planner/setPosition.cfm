@@ -22,6 +22,7 @@ password="#SESSION.dbpw#">
 	AND        PA.DateExpiration >= #dts#
 	AND        PA.AssignmentStatus IN ('0', '1') 
 	AND        Pos.PositionNo = '#url.positionno#' 	
+	
 </cfquery>	
 
 <cfoutput>

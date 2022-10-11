@@ -69,7 +69,7 @@
 								OR PhoneNumber      LIKE '#url.search#%' 
 								OR eMailAddress     LIKE '#url.search#%')
 			
-			AND        Mission = '#url.mission#' <!--- not so sure as we allow mixing now --->			
+			<!--- AND        Mission = '#url.mission#'  not so sure as we allow mixing now --->			
 			AND        Operational = 1
 			
 			<cfif Parameter.DefaultAddressType neq ''>
@@ -88,7 +88,7 @@
 	
 </cfif>	
 
-<table width="500" style="border:1px solid silver" bgcolor="white" id="tcustomer_search">
+<table width="470" style="border:1px solid silver" bgcolor="white" id="tcustomer_search">
 
 <input type="hidden" name="customerselectrow" id="customerselectrow" value="0">
 
@@ -157,13 +157,14 @@
 		<table width="100%" class="formpadding">
 		     
         <tbody>
-            <tr style="height:20px;padding: 5px;">
-                <td class="s0" style="width:60%;" dir="ltr"><p style="font-size: 15px;padding: 3px 0 0 10px;"><i class="fas fa-user-circle"></i> #get.CustomerName# </p></td>
-                <td class="s0" style="width:40%;" style="width:50%;" dir="ltr"><p style="font-size: 13px;"><b><cf_tl id="Tax"></b>: #get.Reference# </td>
+            <tr style="height:20px">
+                <td class="s0 fixlength" dir="ltr"><p style="font-size: 15px;padding: 3px 0 0 10px;"><i class="fas fa-user-circle"></i> #get.CustomerName# </p></td>
+                <td class="s0" style="width:25%;" dir="ltr"><p style="font-size: 13px;"><b><cf_tl id="Tax"></b>: #get.Reference# </td>
+				<td class="s0" style="text-align:right;width:15%;padding-right:5px" dir="ltr"><p style="font-size: 13px;">#get.Mission# </td>
             </tr>
             <tr style="height:20px;" class="line">
                 <td class="s0" style="width:60%;" dir="ltr"><p style="font-size: 12px;padding:1px 0 4px 12px;color:##555555;"><i class="fas fa-envelope-square"></i> #get.eMailAddress#</p></td>
-                <td class="s0" style="width:40%;" dir="ltr"><p style="font-size: 12px;padding:1px 0 4px 0;color:##555555;"> <b>##</b><span style="font-size:13px;padding-right:20px">#get.CustomerSerialNo#</span><i class="fas fa-phone-square"></i> #get.PhoneNumber#</p></td>
+                <td class="s0" colspan="2" style="width:40%;" dir="ltr"><p style="font-size: 12px;padding:1px 0 4px 0;color:##555555;"> <b>##</b><span style="font-size:13px;padding-right:20px">#get.CustomerSerialNo#</span><i class="fas fa-phone-square"></i> #get.PhoneNumber#</p></td>
             </tr>
 			<!---
             <cfif currentrow neq recordcount>

@@ -7,7 +7,7 @@
 </cfsilent>
 <!--- End Prosis template framework --->
 
-<cfif url.id neq "WHS" and url.id1 neq "locate">
+<cfif url.id neq "WHS">
 	<cf_screentop height="100%" jquery="Yes" scroll="Yes" html="No">		
 </cfif>
 

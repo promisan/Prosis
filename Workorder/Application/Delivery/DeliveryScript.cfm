@@ -4,7 +4,7 @@
 <cf_menuscript>
 <cf_DialogOrganization>
 <cf_PresentationScript>
-<cfajaximport tags="cfmap,cfdiv,cfwindow,cfform,cfprogressbar" params="#{googlemapkey='#client.googleMAPId#'}#">
+<cfajaximport tags="cfmap,cfdiv,cfform,cfprogressbar" params="#{googlemapkey='#client.googleMAPId#'}#">
 <cf_MapScript map="gmap">
 
 <cfinclude template="Notification/SMS/SMSScript.cfm">

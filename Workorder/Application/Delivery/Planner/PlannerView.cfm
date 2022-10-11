@@ -88,8 +88,7 @@
 							<tr><td align="center"><img src="#session.root#/images/Logos/WorkOrder/Planner/Planner.png" alt="" width="32" height="32" border="0"></td></tr>
 							<tr><td class="labelmedium" style="height:16px"><font color="0080C0"><u><cf_tl id="Wizard"></font></td></tr>
 						</table>
-						
-						
+												
 						</td>			
 						
 						--->			

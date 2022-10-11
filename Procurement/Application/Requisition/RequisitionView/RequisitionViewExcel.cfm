@@ -1,10 +1,10 @@
 
 <!--- Requisition --->
 
-<cfparam name="client.selected" default="">
+<cfparam name="session.selectedreq" default="">
 
-<cfif client.selected eq "">
- <cfset client.selected = "''">
+<cfif session.selectedreq eq "">
+ <cfset session.selectedreq = "''">
 </cfif>
 
 <cfquery name="Drop"
@@ -20,7 +20,7 @@
 	SELECT    R.*, Description as ItemMasterDescription, EntryClass
 	FROM      Purchase.dbo.RequisitionLine R INNER JOIN
 	          Purchase.dbo.ItemMaster I ON R.ItemMaster = I.Code
-	WHERE     R.RequisitionNo IN (	#preservesinglequotes(client.selected)# ) 
+	WHERE     R.RequisitionNo IN (	#preservesinglequotes(session.selectedreqs)# )  
 </cfquery> 
 
 <cfset table1   = "vwRequisitionListing#SESSION.acc#">	
@@ -46,7 +46,7 @@
 	          Purchase.dbo.RequisitionLineFunding L ON R.RequisitionNo = L.RequisitionNo LEFT OUTER JOIN 
 			  Program.dbo.Program P ON L.ProgramCode = P.ProgramCode INNER JOIN 
 			  Program.dbo.Ref_Object O ON L.ObjectCode = O.Code
-	WHERE     R.RequisitionNo IN (	#preservesinglequotes(client.selected)# ) 
+	WHERE     R.RequisitionNo IN (	#preservesinglequotes(session.selectedreqs)# ) 
 </cfquery> 
 
 <cfset table2   = "vwRequisitionFundListing#SESSION.acc#">	

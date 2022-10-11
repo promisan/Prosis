@@ -1,6 +1,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <cfoutput>
-<cfset vLimit = 480>
+<cfset vLimit = 485>
 <script>
     function getSignatureWidth() {
 	

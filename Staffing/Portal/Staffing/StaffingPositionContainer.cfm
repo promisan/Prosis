@@ -134,12 +134,17 @@
 		<tr class="labelmedium2 clsBig fixlengthlist">				   
 			  
 			  <cfif ApprovalPostGrade neq "" or ApprovalPostGrade neq "">		
-			    <td align="center" onclick="ViewPosition('#PositionParentId#')"
+			    <td align="center" onclick="ViewPosition('#PositionParentId#')" title="Classified as #ApprovalReference#"
 				  style="cursor:pointer;height:34px;background-color:##bfff80;padding-left:3px;padding-right:4px">		
 				  
-				  <u><cf_tl id="Classified"></u>
-				  
-				   <!---
+				  <cfif ApprovalReference eq "">
+				  Classified
+				  <cfelse>
+				   <u>#ApprovalReference#</u>
+				  </cfif>
+				  				  
+				 <!---
+				   
 				  <cf_UITooltip
 					id         = "position#PositionNo#"
 					ContentURL = "PositionDialogView.cfm?positionno=#PositionNo#"
@@ -149,8 +154,9 @@
 					ShowOn     = "click"
 					Height     = "200"
 					Duration   = "300">												  	  
-				      	<span style="font-size:10px"><cf_tl id="Classified"></span>#ApprovalReference#				  
-				  </cf_UItooltip>					    --->
+				      	#ApprovalReference#				  
+				  </cf_UItooltip>	
+				  --->				  
 				    	
 				 </td>	
 			  <cfelse>
@@ -180,7 +186,7 @@
 				  
 				      <cf_tl id="Request new Classification" var="1">
 				      <input title="Click to initiate a new classification request for this position" 
-					  type="button" value="#lt_text#" class="button10g" disabled onclick="javascript:AddClassification('#positionparentid#','#url.ajaxid#')" 
+					  type="button" value="#lt_text#" class="button10g" <cfif getAdministrator eq "0">disabled</cfif> onclick="javascript:AddClassification('#positionparentid#','#url.ajaxid#')" 
 					  style="border-radius:2px;width:100%;border:1px solid silver">			  
 					  
 					  <!--- 
@@ -238,7 +244,10 @@
 			SELECT     *
 			FROM       Assignment
 			WHERE      PositionNo = '#PositionNo#' 
-			AND        OrgUnit = '#orgUnitOperational#'
+			<cfif PositionGroup eq "float">
+			AND        OrgUnit = '#orgUnitOperational#'	
+			</cfif>
+			
 			<!--- AND        Incumbency != '0' --->
 			ORDER BY   Incumbency DESC		
 	    </cfquery>	
@@ -273,113 +282,102 @@
 				 </td>
 			</tr>	
 		
-		</cfif>	
-	
-		
-		<cfquery name="AssignDetail" dbtype="query">
-			SELECT     *
-			FROM       Assignment
-			WHERE      PositionNo = '#PositionNo#' 
-			AND        OrgUnit = '#orgUnitOperational#'		
-			ORDER BY   Incumbency DESC		
-	    </cfquery>		
-				
-		<tr class="clsBig"><td style="height:4px"></td></tr>	
-				 	
-		<cfif AssignDetail.recordcount neq "0">
-		
-			<cfif AssignDetail.recordcount gt "1">
-			
-				<tr class="clsBig"><td colspan="2" style="width:100%;height:25px;padding-left:5px">
-				
-					<table>
-					<tr>
-					
-						<cfloop query="AssignDetail"  startrow="1" endrow="2">
-									
-						<td style="cursor:pointer;padding-left:4px;padding-right:4px;border:0px solid silver;<cfif incumbency eq "0">background-color:ffffaf</cfif>"
-							onclick="$('.clsAssignment_#PositionNo#, .clsIncIcon_#PositionNo#').hide(); $('.clsAssignment_#AssignmentNo#, .clsIncIcon_#assignmentNo#').show(200);">
-								<table>
-									<tr class="labelmedium">
-										<td>
-											<cfset vThisIconStyle = "display:none;">
-											<cfif incumbency gt "0">
-												<cfset vThisIconStyle = "">
-											</cfif> 
-											<i class="clsIncIcon_#PositionNo# clsIncIcon_#assignmentNo# fa fa-check-circle" 
-												style="color:##4883AB; font-size:100%; padding-left:5px; padding-right:5px; #vThisIconStyle#" 
-												aria-hidden="true"></i>
-											<cfif incumbency gt "0"><cf_tl id="Post User"><cfelse><cf_tl id="Post Owner"></cfif>
-										</td>			
-										<td style="min-width:25px;height:21px" align="center">
-										
-										<cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#IndexNo#.jpg") and indexNo gt "0">                           		
-													<cfset pict = IndexNo>  																	    				   									    						
-											  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Personno#.jpg")>   
-													<cfset pict = Personno>	   																	
-											  <cfelse>				  
-													 <cfset pict = "">      
-											  </cfif>
-																				
-										 <cfif pict neq "">		
-										 
-										 	<cffile action="COPY" 
-													source="#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg" 
-							  		    			destination="#SESSION.rootPath#\CFRStage\EmployeePhoto\#pict#.jpg" nameconflict="OVERWRITE">
-										 								  
-											 <cfset  vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg?id=1">										  
-											 
-										 <cfelse>	
-										 										  					  
-											  <cfif Gender eq "Female">
-												  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-female.png">
-											  <cfelse>
-												  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-male.png">
-											  </cfif>											  
-											  
-										 </cfif>
-								
-										 <cfset size = "20px">														  
-										 <img src="#vPhoto#" class="img-circle clsRoundedPicture" style="height:#size#; width:#size#;">	
-													
-										</td>
-									</tr>
-								</table>	
-						</td>	
-						</cfloop>
+		</cfif>		
 						
-					</tr>
-					</table>
-					
-				</td>
-				</tr>
-				
-			<cfelse>
-			 
-				<tr class="clsBig"><td style="height:25px"></td></tr>					
-			
-			</cfif>
-			
-			
-		</cfif>	
+		<tr class="clsBig"><td style="height:4px"></td></tr>	
 		
 		</table>
 	
 	</td>
 	</tr>
+	
+	<cfif AssignDetail.recordcount neq "0">
+		
+		<cfif AssignDetail.recordcount gt "1">
+			
+		<tr class="clsBig"><td colspan="2" style="width:100%;height:24px;padding-left:5px;padding:1px">
+			
+				<table>
+				<tr>
+				
+					<cfloop query="AssignDetail"  startrow="1" endrow="2">
+								
+					<td style="cursor:pointer;padding-left:4px;padding-right:4px;border:1px solid silver;<cfif incumbency eq "0">background-color:ffffaf</cfif>"
+						onclick="$('.clsAssignment_#PositionNo#, .clsIncIcon_#PositionNo#').hide(); $('.clsAssignment_#AssignmentNo#, .clsIncIcon_#assignmentNo#').show(200);">
+							<table>
+								<tr class="labelmedium">
+									<td>
+										<cfset vThisIconStyle = "display:none;">
+										<cfif incumbency gt "0">
+											<cfset vThisIconStyle = "">
+										</cfif> 
+										<i class="clsIncIcon_#PositionNo# clsIncIcon_#assignmentNo# fa fa-check-circle" 
+											style="color:##4883AB; font-size:100%; padding-left:5px; padding-right:5px; #vThisIconStyle#" 
+											aria-hidden="true"></i>
+										<cfif incumbency gt "0"><cf_tl id="Post User"><cfelse><cf_tl id="Post Owner"></cfif>
+									</td>			
+									<td style="min-width:25px;height:21px" align="center">
+									
+									<cfif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#IndexNo#.jpg") and indexNo gt "0">                           		
+												<cfset pict = IndexNo>  																	    				   									    						
+										  <cfelseif FileExists("#SESSION.rootDocumentPath#\EmployeePhoto\#Personno#.jpg")>   
+												<cfset pict = Personno>	   																	
+										  <cfelse>				  
+												 <cfset pict = "">      
+										  </cfif>
+																			
+									 <cfif pict neq "">		
+									 
+									 	<cffile action="COPY" 
+												source="#SESSION.rootDocumentpath#\EmployeePhoto\#pict#.jpg" 
+						  		    			destination="#SESSION.rootPath#\CFRStage\EmployeePhoto\#pict#.jpg" nameconflict="OVERWRITE">
+									 								  
+										 <cfset  vPhoto = "#SESSION.root#\CFRStage\EmployeePhoto\#pict#.jpg?id=1">										  
+										 
+									 <cfelse>	
+									 										  					  
+										  <cfif Gender eq "Female">
+											  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-female.png">
+										  <cfelse>
+											  <cfset vPhoto = "#session.root#/Images/Logos/no-picture-male.png">
+										  </cfif>											  
+										  
+									 </cfif>
+							
+									 <cfset size = "20px">														  
+									 <img src="#vPhoto#" class="img-circle clsRoundedPicture" style="height:#size#; width:#size#;">	
+												
+									</td>
+								</tr>
+							</table>	
+					</td>	
+					</cfloop>
+					
+				</tr>
+				</table>
+				
+			</td>
+		</tr>
+				
+     	<cfelse>
+			 
+			<tr class="clsBig"><td style="height:1px"></td></tr>					
+			
+		</cfif>			
+			
+	</cfif>
 		
 	<tr><td style="height:100%">	
-	
-		
+			
 	<cf_divscroll>
+	
 	<table width="100%">	
 		
 	<cfif AssignDetail.recordcount neq "0">
 		
 		<cfset postgroup = PositionGroup>
 			
-		<cfloop query="AssignDetail" startrow="1" endrow="2">
-		
+		<cfloop query="AssignDetail" startrow="1" endrow="2">		
 		   		
 			<cfquery name="getContract" 
 				datasource="AppsEmployee" 
@@ -427,12 +425,12 @@
 			
 			<tr class="clsBig">
 				<td colspan="2" class="clsAssignment_#PositionNo# clsAssignment_#AssignmentNo#" valign="top" 
-				  style="height:100%;width:100%;padding-right:13px; #vDisplay#" id="ass#AssignmentNo#">					  		  		     
+				  style="height:100%;width:100%;padding-right:13px; #vDisplay#" id="ass#AssignmentNo#">		
+				  			  		  		     
 					<cfinclude template="StaffingPositionIncumbent.cfm">							 					
 				</td>					 
 			</tr>
-			
-			
+						
 			<cfset vDisplay = "">
 
 			<cfset vSmallStyleBG = "">
@@ -484,8 +482,12 @@
 			
 	</cf_divscroll>
 					
-	</td></tr>	
-				
+	</td>
+	
+	</tr>	
+	
+	
+	
 	
 </table>
 

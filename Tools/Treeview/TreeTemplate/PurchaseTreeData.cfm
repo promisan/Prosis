@@ -27,12 +27,12 @@
 			</cfquery>
 			
 			 <cfquery name="Parameter" 
-				     datasource="AppsPurchase" 
-				     username="#SESSION.login#" 
-				     password="#SESSION.dbpw#">
-				     SELECT *
-					 FROM  Ref_ParameterMission
-					 WHERE Mission = '#Attributes.Mission#'
+			     datasource="AppsPurchase" 
+			     username="#SESSION.login#" 
+			     password="#SESSION.dbpw#">
+			     SELECT *
+				 FROM  Ref_ParameterMission
+				 WHERE Mission = '#Attributes.Mission#'
 		     </cfquery>
 			
 			<cfoutput query="StatusList" group="StatusClass">
@@ -79,36 +79,36 @@
 				   <cfelse>
 							   
 					   <cfif Parameter.EnforceProgramBudget eq "1" and Status eq "1f">
-					   	<!--- hide status --->
+					   	    <!--- hide status --->
 					   <cfelseif Parameter.FundingClearPurchase eq "0" 
 					        and (Status eq "1f" or Status eq "1")>			   			   
-					    <!--- hide status --->
+					        <!--- hide status --->
 					   <cfelse>
 					   
-					       <cfquery name="Check" 
-						     datasource="AppsPurchase" 
-						     username="#SESSION.login#" 
-						     password="#SESSION.dbpw#">
-						     SELECT DISTINCT P.ActionStatus as Status, P.OrderClass, C.Description
-							 FROM   Purchase P, Ref_OrderClass C
-							 WHERE  P.Mission = '#Attributes.Mission#'
-							 AND    P.Period  = '#Attributes.Period#'
-							 AND    P.OrderClass = C.Code
-							 AND    ActionStatus = '#Status#' 
-							 <cfif getAdministrator(Attributes.Mission) eq "0">							
-							 <!--- has been given access through roles --->
-							 AND    P.OrderClass IN (SELECT ClassParameter 
-							                         FROM   Organization.dbo.OrganizationAuthorization
-													 WHERE  UserAccount = '#SESSION.acc#'
-													 AND    Mission     = '#Attributes.Mission#'   
-													 AND    ClassParameter = P.OrderClass
-													 AND    Role = 'ProcApprover')
-							 </cfif>						 
-					       </cfquery>
+					      <cfquery name="Check" 
+							     datasource="AppsPurchase" 
+							     username="#SESSION.login#" 
+							     password="#SESSION.dbpw#">
+							     SELECT DISTINCT P.ActionStatus as Status, P.OrderClass, C.Description
+								 FROM   Purchase P, Ref_OrderClass C
+								 WHERE  P.Mission    = '#Attributes.Mission#'
+								 AND    P.Period     = '#Attributes.Period#'
+								 AND    P.OrderClass = C.Code
+								 AND    ActionStatus = '#Status#' 
+								 <cfif getAdministrator(Attributes.Mission) eq "0">							
+								 <!--- has been given access through roles --->
+								 AND    P.OrderClass IN (SELECT ClassParameter 
+								                         FROM   Organization.dbo.OrganizationAuthorization
+														 WHERE  UserAccount = '#SESSION.acc#'
+														 AND    Mission     = '#Attributes.Mission#'   
+														 AND    ClassParameter = P.OrderClass
+														 AND    Role = 'ProcApprover')
+								 </cfif>						 
+						   </cfquery>
 						  						   
 						   <cfset par = "#StatusClass#_#Status#">
 					   
-						   <cfif Status eq "7" or Status eq "9">
+						   <cfif Status eq "7" or Status eq "9">						   	   
 						   								   
 							   <cfif Check.recordcount gte "1">
 	
@@ -153,7 +153,50 @@
 									</cfloop>			
 							
 							</cfif>
-												
+							
+							<cfif Status eq "3">
+							
+							      <cfset par = "#StatusClass#_#Status#_receipt">
+									
+								   <cf_UItreeitem value="#par#"
+							        display="<span style='font-size:14px;' class='labelit'>Pending Receipt</span>"
+									parent="#StatusClass#"	
+									target="right"	
+									href="PurchaseViewOpen.cfm?ID1=PendingReceipt&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"													
+							        expand="No">									
+																		
+									<cfloop query="Check">
+									
+										 <cf_UItreeitem value="#par#_#orderclass#"
+								        display="<span style='font-size:13px;' class='labelit'>#Description#</span>"
+										parent="#par#"	
+										target="right"	
+										href="PurchaseViewOpen.cfm?ID1=#status#&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#&orderclass=#orderclass#"														
+								        expand="No">	
+																		
+									</cfloop>	
+									
+								   <cfset par = "#StatusClass#_#Status#_invoice">
+									
+								   <cf_UItreeitem value="#par#"
+							        display="<span style='font-size:14px;' class='labelit'>Partial Invoice</span>"
+									parent="#StatusClass#"	
+									target="right"	
+									href="PurchaseViewOpen.cfm?ID1=PendingInvoice&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"													
+							        expand="No">									
+																		
+									<cfloop query="Check">
+									
+										 <cf_UItreeitem value="#par#_#orderclass#"
+								        display="<span style='font-size:13px;' class='labelit'>#Description#</span>"
+										parent="#par#"	
+										target="right"	
+										href="PurchaseViewOpen.cfm?ID1=#status#&ID=STA&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#&orderclass=#orderclass#"														
+								        expand="No">	
+																		
+									</cfloop>	
+							
+							</cfif>												
 					
 					    </cfif>	
 						   
