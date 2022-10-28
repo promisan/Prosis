@@ -197,19 +197,21 @@ password="#SESSION.dbpw#">
 
 <cf_layout attributeCollection="#attrib#">
 
-	<cf_layoutarea position="center" name="box">		
+	<cf_layoutarea position="center" name="box">	
 	   
 						
-				<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+				<table width="100%" height="100%" align="center">
 					
 					<tr><td valign="top" colspan="2" height="100%"> 
 																		    
 						<cf_divscroll>					
 										
-						<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+						<table width="100%" height="100%" align="center">
 						
 						<cfif url.entryscope eq "Profile">															
+						
 							<tr><td colspan="2"><cf_navigation_header1 toggle="Yes"></td></tr>									
+						
 						</cfif>						
 						
 						<cfquery name="getApplicableSkills" 
@@ -300,10 +302,7 @@ password="#SESSION.dbpw#">
 						<tr>
 						  <td height="100%" valign="top" style="padding-left:20px;padding-top:6px;padding-right:20px">
 						
-						  <table width="100%" 
-						      border="0" 
-							  cellspacing="0" 
-							  cellpadding="0" 							 
+						  <table width="100%" 						     						 
 							  navigationselected="fafafa" 
 							  navigationhover="transparent" 
 							  class="navigation_table">
@@ -391,12 +390,13 @@ password="#SESSION.dbpw#">
 										  
 												  <td style="height:26px;padding-left:4px;padding-top:2px" class="navigation_pointer"></td>										  	  		
 												  <td class="labelit" align="right" style="width:20px;padding-right:5px;padding-top:5px" valign="top">#cntRow#.</td>									
-												  <td class="hide" width="1%" class="ccontent">#Description#</td>	
+												  <td class="hide" width="1%" class="ccontent">#Description# </td>	
 																					  	
 												  <!--- show help and show right inspection --->												  
 												  											  
 												  <cfif len(Tooltip) gte "4">
-												  <td style="padding-top:3px;padding-right:4px; padding-top:1px width:16px;" onclick="toggleTopicHelp('#topic#');" valign="top"><img src="#session.root#/Images/info1_green.png" alt="" width="16" height="16" border="0"></td> <!--- kristhian --->
+												  <td style="padding-top:3px;padding-right:4px; padding-top:7px width:16px;" 
+												  onclick="toggleTopicHelp('#topic#');" valign="top"><img src="#session.root#/Images/info1_green.png" alt="" width="16" height="16" border="0"></td> <!--- kristhian --->
 												  <cfelse>
 												  <td style="width:16px;"></td>
 												  </cfif>
@@ -410,7 +410,7 @@ password="#SESSION.dbpw#">
 												  </cfif>
 												  														  				  
 												  <td width="50%"
-												    class="labelit ccontent action" 
+												    class="labelit ccontent action fixlength" 
 													onclick="showtopiccode('#topic#','#listcode#',document.getElementById('Value_#topic#_selected').value); toggleTopicHelp('#topic#');"
 													title="#vAssignmentTitle#"
 													valign="top"
@@ -418,7 +418,7 @@ password="#SESSION.dbpw#">
 												  </td>			
 												  
 												  <td style="width:600px;padding-left:4px;padding-right:5px;padding-top:1px;" valign="top">
-											  																														  										  										
+											  																												  										  										
 												   <cf_TopicEntry 
 												       Mode="#edit#"									   
 												       ApplicantNo="#URL.ApplicantNo#" 

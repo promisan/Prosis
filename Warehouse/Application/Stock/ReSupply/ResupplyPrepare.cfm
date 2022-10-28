@@ -109,12 +109,17 @@
 			
 		</cfif>
 		
-	<cfset cat = quotedvalueList(CategorySelect.Category)>
+	<cfset cat = valueList(CategorySelect.Category)>
  	
 </cfif>
 
-<cfset resupply.category    = cat>
+<cfif Form.Category eq "">
+	<cfset resupply.category    = "">
+<cfelse>
+    <cfset resupply.category    = replacenoCase(cat,"'","","ALL")>	
+</cfif>	
 <cfset resupply.programcode = prg>
+
 <cfset session.mysupply = resupply>
 
 <cfif url.restocking eq "undefined">
@@ -430,14 +435,7 @@
 			)
 									
 	</cfquery>
-		
-<!--- capture for next time --->
-
-<cfset resupply.category    = cat>
-<cfset resupply.programcode = prg>
-
-<cfset session.mysupply = resupply>
-
+	
 <cfquery name="get" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 

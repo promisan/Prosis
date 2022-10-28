@@ -140,14 +140,14 @@
 		        expand="#exp#">		
 				
 			<cf_UItreeitem value="Recovery_deduction"
-		        display="<span class='labelit' style='font-size:15px'>Deduction</span>"
+		        display="<span class='labelit' style='font-size:13px'>Deduction</span>"
 				parent="Recovery"	
 				target="right"						
 				href="EntitlementViewOpen.cfm?ID1=Deduction&ID=PCR&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
 		        expand="#exp#">		
 				
 			<cf_UItreeitem value="Recovery_contribution"
-		        display="<span class='labelit' style='font-size:15px'>Contribution</span>"
+		        display="<span class='labelit' style='font-size:13px'>Contribution</span>"
 				parent="Recovery"	
 				target="right"						
 				href="EntitlementViewOpen.cfm?ID1=Contribution&ID=PCR&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									

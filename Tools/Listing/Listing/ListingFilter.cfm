@@ -67,40 +67,16 @@
 			<cfset dsn = session.listingdata[box]['datasource']>	
 			
 			<cftry>						
-				<cfif fil gt ini>								
-			      <cfset filterselect = searchresult>				 
-				<cfelse>								
-				  <cfset filterselect = session.listingdata[attributes.box]['datasetinit']>					  
+				<cfif fil gt ini>											
+			      <cfset filterselect = searchresult>						 	 
+				<cfelse>												
+				  <cfset filterselect = session.listingdata[attributes.box]['datasetinit']>					  				 
 				</cfif>	  		
-			<cfcatch>						
+			<cfcatch>								
 				<cfset filterselect = searchresult>							
 			</cfcatch>
 			</cftry>	
-			
-			<!---
-									
-			<cfif condition eq "">
-			
-				<!--- prevent running the query --->
-				
-				<cfset filterselect = searchresult>
-																			
-			<cfelse>				
-							
-				<cfset sc = session.listingdata[box]['sql']>	
-				<cfset scfull = replaceNoCase(sc,condition,"")>		
-															
-				<cfquery name="filterselect" 
-				datasource="#attributes.datasource#" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#"> 			
-					#preserveSingleQuotes(scfull)# 
-				</cfquery>
-																								
-			</cfif>	
-			
-			--->
-			
+								
 			<cfif attributes.autofilter eq "auto">
 				<cfset filtertext = "gofilter('text',event)">
 				<cfset filterlist = "gofilter('list',event)">
@@ -111,10 +87,13 @@
 				<cfset filterclck = "">
 			</cfif>
 												
-			<cfset reset = "">					
-																				
+			<cfset reset   = "">	
+			<cfset filtermode = "">
+			
+			<cfset filtersql = session.listingdata[box]['sqlbase']>
+																												
 			<cfloop array="#attributes.listlayout#" index="current">	
-						
+									
 				<cfset row=row+1>
 									  								
 				<cfparam name="current.label"                    default="">	
@@ -167,7 +146,7 @@
 						
 						<cfif srt eq "">
 						   <cfset srt = fld>
-						</cfif>																		
+						</cfif>																	
 					
 						<cfif current.lookupscript neq "">
 						
@@ -176,76 +155,188 @@
 							<cfset lookup = replaceNoCase(current.lookupscript,"@fld","#fld# as DISPLAY")> 
 							<cfset lookup = replaceNoCase(lookup,"@code","#srh# as CODE")>
 							
-							<cfquery name="lookupdata" datasource="#dsn#" 
-							  username="#SESSION.login#" password="#SESSION.dbpw#">
+							<cfquery name="lookupdata" 
+							    datasource="#dsn#" 
+							    username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
 								#preservesingleQuotes(lookup)#
 							</cfquery>								
 						
 						<cfelse>	
 						
-						   																		
-							<cftry>		
-																											
-								<cfif current.lookupgroup eq "">	
-																																																												
-								 	<cfquery name="lookupdata" dbtype="query">
-									    SELECT   DISTINCT 
-										         #srh# AS CODE, 
-										         #displ# AS DISPLAY, 
-												 #srt# as SORT   
-							   			FROM     filterselect				
-										WHERE    #fld# is not NULL 	and #fld# != ''
-										ORDER BY #srt# 								 
-								    </cfquery>		
-																	
-									<!---
-									<cfoutput> DISTINCT = faster than group by  #cfquery.executiontime#</cfoutput>		
-									--->												
-																				
-								<cfelse>
-																
-									<cfquery name="lookupdata" dbtype="query">
-									
-									    SELECT   DISTINCT 
-										         #srh# AS CODE, 
-												 #displ# AS DISPLAY, 
-										         #current.lookupgroup#, 
-												 #srt# as SORT      
-							   			FROM     filterselect				
-										WHERE    #fld# is not NULL and #fld# != '' 	
-										ORDER BY #current.lookupgroup#,#srt#							 
-								    </cfquery>		
+						    <cfparam name="session.listingdata[box]['queryfiltermode']" default="">
+												  						
+						    <cfif session.listingdata[box]['queryfiltermode'] eq "" or filtermode eq "">
+												
+								<cfquery name="checkspeed" datasource="#attributes.datasource#">
+								    SELECT   TOP 1 *
+						   			FROM     (#preservesingleQuotes(filtersql)#) as B	
+									WHERE    #fld# is not NULL 	and #fld# != ''
+									ORDER BY #srt# 																	 
+							    </cfquery>		
+												
+							    <cfif session.acc eq "Administrator">
+									<cfoutput>-check:=#cfquery.executiontime#---</cfoutput>
+								</cfif>
 								
-								</cfif>		
-																							
-							<cfcatch>
-							
-								<cfset fld  = current.field>	
-								<cfset srh  = current.field>	
-																																					
-								<cfif current.lookupgroup eq "">		
-																																			
-								 	<cfquery name="lookupdata" dbtype="query">
-									    SELECT   DISTINCT #srh# AS CODE,#displ# AS DISPLAY, #srt# as SORT      
-							   			FROM     filterselect													
-										ORDER BY #srt# 								 
-								    </cfquery>		
+								<cfif cfquery.executiontime lte 750 and session.listingdata[box]['recordsinit'] gt 20000>								
+								    <cfset session.listingdata[box]['queryfiltermode'] = "db">								
+								<cfelse>								
+								    <cfset session.listingdata[box]['queryfiltermode'] = "query">								    
+								</cfif>	
 								
-								<cfelse>
-							
-									<cfquery name="lookupdata" dbtype="query">
-									    SELECT   DISTINCT #srh# AS CODE, #displ# AS DISPLAY #current.lookupgroup#, #srt# as SORT      
-							   			FROM     filterselect													
-										ORDER BY #current.lookupgroup#,#srt#							 
-								    </cfquery>		
-							
-								</cfif>				
-								
-							</cfcatch>
-														
-							</cftry>
+								<cfset filtermode = "set">
+															
+							</cfif>
+													
+													
+						    <!--- Hanno, we need to define what query is quicker the one that takes the base query 
+							   or the one that has the query of query values --->
 						
+						
+						    <cfif session.listingdata[box]['queryfiltermode'] eq "query">
+							
+							    <cftry>		
+																												
+									<cfif current.lookupgroup eq "">	
+																																																													
+									 	<cfquery name="lookupdata" dbtype="query">
+										    SELECT   DISTINCT 
+											         #srh# AS CODE, 
+											         #displ# AS DISPLAY, 
+													 #srt# as SORT   
+								   			FROM     filterselect				
+											WHERE    #fld# is not NULL 	and #fld# != ''
+											ORDER BY #srt# 								 
+									    </cfquery>		
+																		
+										<!---
+										<cfoutput> DISTINCT = faster than group by  #cfquery.executiontime#</cfoutput>		
+										--->												
+																					
+									<cfelse>
+																	
+										<cfquery name="lookupdata" dbtype="query">
+										
+										    SELECT   DISTINCT 
+											         #srh# AS CODE, 
+													 #displ# AS DISPLAY, 
+											         #current.lookupgroup#, 
+													 #srt# as SORT      
+								   			FROM     filterselect				
+											WHERE    #fld# is not NULL and #fld# != '' 	
+											ORDER BY #current.lookupgroup#,#srt#							 
+									    </cfquery>		
+									
+									</cfif>		
+																								
+								<cfcatch>
+								
+									<cfset fld  = current.field>	
+									<cfset srh  = current.field>	
+																																						
+									<cfif current.lookupgroup eq "">		
+																																				
+									 	<cfquery name="lookupdata" dbtype="query">
+										    SELECT   DISTINCT #srh# AS CODE,#displ# AS DISPLAY, #srt# as SORT      
+								   			FROM     filterselect													
+											ORDER BY #srt# 								 
+									    </cfquery>		
+									
+									<cfelse>
+								
+										<cfquery name="lookupdata" dbtype="query">
+										    SELECT   DISTINCT #srh# AS CODE, #displ# AS DISPLAY #current.lookupgroup#, #srt# as SORT      
+								   			FROM     filterselect													
+											ORDER BY #current.lookupgroup#,#srt#							 
+									    </cfquery>		
+								
+									</cfif>				
+									
+								</cfcatch>
+															
+								</cftry>
+								
+								<cfif session.acc eq "Administrator">
+									<cfoutput>qry:#cfquery.executiontime#</cfoutput> 
+								</cfif>
+							
+							<cfelse>
+															     									 
+																									
+								<cftry>		
+																												
+									<cfif current.lookupgroup eq "">	
+																																																																								
+									 	<cfquery name="lookupdata" datasource="#attributes.datasource#">
+										    SELECT   DISTINCT 
+											         #srh# AS CODE, 
+											         #displ# AS DISPLAY, 
+													 #srt# as SORT   
+								   			FROM     (#preservesingleQuotes(filtersql)#) as B			
+											WHERE    #fld# is not NULL 	and #fld# != ''
+											ORDER BY #srt# 								 
+									    </cfquery>											
+																		
+										<!---
+										<cfoutput> DISTINCT = faster than group by  #cfquery.executiontime#</cfoutput>		
+										--->												
+																					
+									<cfelse>
+																	
+										<cfquery name="lookupdata" datasource="#attributes.datasource#">
+										
+										    SELECT   DISTINCT 
+											         #srh# AS CODE, 
+													 #displ# AS DISPLAY, 
+											         #current.lookupgroup#, 
+													 #srt# as SORT      
+								   			FROM     (#preservesingleQuotes(filtersql)#) as B			
+											WHERE    #fld# is not NULL and #fld# != '' 	
+											ORDER BY #current.lookupgroup#,#srt#							 
+									    </cfquery>		
+										
+									</cfif>		
+																								
+								<cfcatch>
+								
+									<cfset fld  = current.field>	
+									<cfset srh  = current.field>	
+																																						
+									<cfif current.lookupgroup eq "">		
+																																				
+									 	<cfquery name="lookupdata" datasource="#attributes.datasource#">
+										    SELECT   DISTINCT #srh# AS CODE,#displ# AS DISPLAY, #srt# as SORT      
+								   			FROM     (#preservesingleQuotes(filtersql)#) as B												
+											ORDER BY #srt# 								 
+									    </cfquery>		
+									
+									<cfelse>
+								
+										<cfquery name="lookupdata" datasource="#attributes.datasource#">
+										    SELECT   DISTINCT #srh# AS CODE, #displ# AS DISPLAY #current.lookupgroup#, #srt# as SORT      
+								   			FROM     (#preservesingleQuotes(filtersql)#) as B												
+											ORDER BY #current.lookupgroup#,#srt#							 
+									    </cfquery>		
+								
+									</cfif>				
+									
+								</cfcatch>
+															
+								</cftry>	
+								
+								<cfif session.acc eq "Administrator">
+								<cfoutput>dbo:#fld#=#cfquery.executiontime#</cfoutput> 
+								</cfif>
+											
+								<!---			
+								<cfoutput>[db:#cfquery.executiontime#]</cfoutput>
+								--->
+								
+							</cfif>	
+								
 						</cfif>
+																														
 												
 						<cfif lookupdata.recordcount gte "2">						
 							<cfset showfield = "1">									
@@ -255,7 +346,7 @@
 
 						 <cfset showfield = "1">							 		
 				
-					</cfif>
+					</cfif>													
 											
 					<cfif showfield eq "1">					
 						
@@ -263,13 +354,25 @@
 					
 						<cfif cnt eq "1"><tr class="fixlengthlist"></cfif>
 						
-						<td style="<cfif cnt neq '1'>;padding-left:10px</cfif>" class="labelmedium">#Current.LabelFilter#: <cfif current.filtermode eq "4"></cfif>
-						<cfif current.filterforce eq "1"><font color="FF0000">*)</font></cfif>
+						<cfif current.filterforce eq "1">
 						
+						    <cfset iclr = "ffffaf">
 						
-						</td>
-																				
-						<td style="width:40%;padding:1px;padding-left:0px;z-index:#40-row#; position:relative;">	
+							<td style="<cfif cnt neq '1'>;padding-left:10px;</cfif>" class="labelmedium">#Current.LabelFilter#: 
+							<font color="FF0000">*)</font>												
+							</td>
+																					
+							<td style="padding:1px;z-index:#40-row#; position:relative">	
+						
+						<cfelse>
+						
+							<cfset iclr = "ffffff">
+							
+							<td style="<cfif cnt neq '1'>;padding-left:10px</cfif>" class="labelmedium">#Current.LabelFilter#:</td>
+																					
+							<td style="padding:1px;z-index:#40-row#; position:relative">	
+												
+						</cfif>
 																																					
 						<cfset val = evaluate("form.filter#current.field#")>
 						
@@ -293,7 +396,7 @@
 								  class       = "regularxxl" 
 								  message     = "Please select a #Current.LabelFilter#"
 								  required    = "#oblig#"
-								  style       = "width:100%" 
+								  style       = "width:100%;background-color:#iclr#" 
 								  size        = "30" 
 								  maxlength   = "30">
 								  
@@ -304,7 +407,7 @@
 							<cfcase value="text">		
 																				
 								<cfif current.filtermode eq "0" or current.filtermode eq "">									
-																																
+																																											
 								   <cfinput type="text" 
 								      name      = "filter#current.field#" 
 									  value     = "#val#" 
@@ -312,6 +415,7 @@
 									  class     = "regularxxl" 
 									  message   = "Please select a #Current.LabelFilter#"
 									  required  = "#oblig#"
+									  style     = "background-color:#iclr#" 
 									  size      = "30" 								 
 									  maxlength = "30">	
 									  
@@ -332,6 +436,7 @@
 											  value         = "#val#" 
 											  class         = "regularxxl" 
 											  size          = "20" 
+											  style         = "background-color:#iclr#" 
 											  message       = "Please select a #Current.LabelFilter#"
 											  required      = "#oblig#"
 											  typeahead     = "#current.searchtypeahead#"
@@ -351,6 +456,7 @@
 											  value          = "#val#" 
 											  class          = "regularxxl" 
 											  size           = "20"
+											  style          = "background-color:#iclr#" 
 											  message        = "Please select a #Current.LabelFilter#"
 											  required       = "#oblig#" 
 											  typeahead      = "#current.searchtypeahead#"
@@ -377,9 +483,8 @@
 												
 												<cfif val neq "">
 												
-													<cfquery name="checkDropdown" 
-													  dbtype="query">
-														 SELECT * 
+													<cfquery name="checkDropdown" dbtype="query">
+														 SELECT count(*) 
 														 FROM   lookupdata
 														 WHERE Code = '#val#'
 													 </cfquery>		
@@ -411,12 +516,9 @@
 												
 											<cfelse>
 											
-												<cfquery name="checkDropdown" 
-												  dbtype="query">
-													 SELECT * 
-													 FROM   lookupdata
-													 WHERE Code = '#val#'
-												 </cfquery>		
+												<cfquery name="checkDropdown" dbtype="query">
+													 SELECT count(*) FROM  lookupdata
+													 WHERE Code = '#val#'</cfquery>		
 
 												<cf_UISelect name   = "filter#current.field#"
 												    class           = "regularxxl" 
@@ -461,17 +563,8 @@
 																				
 										<cfset group = "Yes">
 										
-								<cfelseif current.filtermode eq "3">
-																									   								
-								        <!--- adjust val so we can ensure we find a value not as a subvalue --->
-																																														
-									 	<cfquery name="lookupdata" dbtype="query">
-										    SELECT   DISTINCT #fld# AS PK, 
-											         #displ# as DISPLAY   
-								   			FROM     filterselect				
-											WHERE    #fld# is not NULL   
-										    ORDER BY #current.fieldsort#
-									    </cfquery>	
+								<cfelseif current.filtermode eq "3">																																			
+									 	
 																																																																						
 										<cfif lookupdata.recordcount lte "4">
 										
@@ -484,12 +577,13 @@
 											<input type="hidden" name="filter#current.field#_checkbox" value="Yes">							
 																				
 											<cfloop query="lookupdata">
-											   <cfif pk neq "">												  
+											
+											   <cfif CODE neq "">												  
 											  	 <td><input class="radiol" type="checkbox" 
 													  id="filter#current.field#_#currentrow#" 
 													  name="filter#current.field#" 
-													  onclick="#filterclck#"
-													  value="#PK#|" <cfif findNoCase("#pk#|",val)>checked</cfif>></td>
+													  onclick="#filterlist#"
+													  value="#CODE#|" <cfif findNoCase("#CODE#|",val)>checked</cfif>></td>
 												 <td style="padding-top:2px;padding-left:3px;padding-right:10px" class="labelmedium2">#DISPLAY#</td>
 											   </cfif>
 											    <cfset reset =  "#reset#;document.getElementById('filter#current.field#_#currentrow#').checked=false">	 								  
@@ -506,7 +600,7 @@
 											     class          = "regularxxl"
 											     queryposition  = "below"
 											     query          = "#lookupdata#"
-											     value          = "PK"
+											     value          = "CODE"
 											     onchange       = "#filterlist#"
 											     message        = "Please select a value for #Current.LabelFilter#"
 											     required       = "#oblig#"
@@ -529,7 +623,7 @@
 								   								  									
 								   <table><tr><td style="padding-left:0px">
 								   
-								   <select name="filter#current.field#_operator" class="regularxl" style="height:28px">
+								   <select name="filter#current.field#_operator" class="regularxl" style="height:28px;background-color:#iclr#">
 		
 										<OPTION value="CONTAINS" <cfif ope eq "CONTAINS">selected</cfif>><cfoutput>#vcontains#</cfoutput>
 										<OPTION value="BEGINS_WITH" <cfif ope eq "BEGINS_WITH">selected</cfif>><cfoutput>#vbegins#</cfoutput>
@@ -546,7 +640,7 @@
 								   </td>
 								   
 								     <td style="padding-left:5px">
-									 										
+									 									 										
 								     <cfinput type    = "text" 
 								      name            = "filter#current.field#" 
 									  value           = "#val#" 
@@ -554,7 +648,7 @@
 									  message         = "Please select a #Current.LabelFilter#"
 									  required        = "#oblig#" 
 									  class           = "regularxxl" 									  
-									  style           = "width:100%" 								 
+									  style           = "width:100%;background-color:#iclr#" 								 
 									  maxlength       = "100">	
 									  
 									  <td>
@@ -575,7 +669,8 @@
 							   <cfinput type     = "text" 
 								      name       = "filter#current.field#" 
 									  value      = "#val#" 
-									  validate   = "float"									  
+									  validate   = "float"		
+									  						  
 									  style      = "text-align:right"
 									  required   = "#oblig#" 
 									  message    = "Incorrect numeric value #Current.LabelFilter#"
@@ -597,6 +692,7 @@
 								      name       = "filter#current.field#_to" 
 									  value      = "#val#" 
 									  validate   = "float"
+									  onkeyup    = "#filtertext#"	
 									  style      = "text-align:right"
 									  required   = "#oblig#" 
 									  class      = "regularxxl enterastab" 
@@ -619,7 +715,8 @@
 							   <cfinput type    = "text" 
 								      name      = "filter#current.field#" 
 									  value     = "#val#" 
-									  validate  = "float"									  
+									  validate  = "float"	
+									  onkeyup   = "#filtertext#"									  
 									  style     = "text-align:right"
 									  required  = "#oblig#" 
 									  message   = "Incorrect numeric value #Current.LabelFilter#"
@@ -637,16 +734,17 @@
 							     <cfparam name="form.filter#current.field#_to" default="">	
 								  <cfset val = evaluate("form.filter#current.field#_to")>	
 							   
-							     <cfinput type = "text" 
-								      name     = "filter#current.field#_to" 
-									  value    = "#val#" 
-									  validate = "float"
-									  style    = "text-align:right"
-									  required = "#oblig#" 
-									  class    = "regularxxl enterastab" 
-									  message  = "Incorrect numeric value #Current.LabelFilter#"
-									  size     = "8" 
-									  maxlength="20">
+							     <cfinput type  = "text" 
+								      name      = "filter#current.field#_to" 
+									  value     = "#val#" 
+									  validate  = "float"
+									  onkeyup   = "#filtertext#"	
+									  style     = "text-align:right"
+									  required  = "#oblig#" 									 
+									  message   = "Incorrect numeric value #Current.LabelFilter#"
+									  class     = "regularxxl enterastab" 
+									  size      = "8" 
+									  maxlength = "20">
 									  
 							   <cfset reset =  "#reset#;document.getElementById('filter#current.field#_to').value=''">	 
 							   							   							
@@ -661,6 +759,7 @@
 							          name="filter#current.field#" 
 									  id="filter#current.field#"
 									  class="regularxxl" 
+									  onkeyup   = "#filtertext#"	
 									  value="#val#" 
 									  size="50"
 									  maxlength="50">
@@ -683,6 +782,7 @@
 									FieldName="filter#current.field#_from" 
 									Default="#val#"
 									class="regularxxl"
+									onkeyup = "#filtertext#"	
 									manual="true"
 									AllowBlank="#blank#">									
 																		
@@ -702,7 +802,8 @@
 								     FieldName="filter#current.field#_to" 
 									 Default="#val#"
 									 class="regularxxl"
-									 manual="false"									 
+									 onkeyup = "#filtertext#"	
+									 manual="true"									 
 									 AllowBlank="#blank#">									
 									 
 								   <cfset reset =  "#reset#;document.getElementById('filter#current.field#_to').value=''">	 									  	 								 							

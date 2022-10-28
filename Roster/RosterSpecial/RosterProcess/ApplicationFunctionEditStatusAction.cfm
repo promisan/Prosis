@@ -30,6 +30,7 @@
 		AND      Id    = 'FUN'
 </cfquery>
 
+
 <cfinvoke component   = "Service.Access.Roster"  
 	  method          = "RosterStep" 
 	  Owner           = "#Attributes.Owner#"
@@ -75,7 +76,7 @@
 						
 					    </td>
 						
-						<td style="padding-left:6px;font-size:15px;font-weight:bold" class="labelmedium2"><!---#status#---> #Meaning#</td>
+						<td style="padding-left:6px;font-size:15px;font-weight:bold" class="labelmedium2"><!---#status#---> #Meaning#<br><font size="1">#StatusMemo#</td>
 						
 					</tr>
 						
@@ -114,17 +115,16 @@
 						<cfset ruleDescription = GetRule.Description>
 					 </cfif>
 					
-					<table width="100%" align="left"><tr><td width="15px">
+					<table width="100%" align="left"><tr><td valign="top" style="padding-top:3px" width="15px">
 				        <input type="radio" class="radiol" onclick="st('#Attributes.CurrentStatus#','#Status#','#Attributes.ApplicantNo#','#Attributes.FunctionId#')" id="status" name="status" value="#Status#">
 					 </td>
 					<td style="padding-top:1px;padding-left:3px" align="left">
 					    <table class="formpadding">
 							<tr class="labelmedium2">						 
-							 <td style="font-size:15px;padding-left:3px">#Meaning#</td>
-							 <td style="padding-top:4px;padding-left:4px">
+							 <td style="font-size:15px;padding-left:3px">#Meaning#<br><font size="1">#StatusMemo#</td>
+							 <td style="padding-top:4px;padding-left:4px;padding-top:4px">
 							<cfif ruleDescription neq "">
-								<img src="#client.root#/images/link.gif" 
-								  title="Process rule: #ruleDescription#" 
+								<img src="#client.root#/images/link.gif" title="Process rule: #ruleDescription#" 
 								  style="cursor:pointer; vertical-align:middle">
 							</cfif>
 							</td>

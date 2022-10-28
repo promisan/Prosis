@@ -38,17 +38,17 @@ password="#SESSION.dbpw#">
 		  <cfset url.id2 = "new">
 		</cfif>  
 				
-		    <TR class="line labelmedium2">
+		    <TR class="line labelmedium2" fixlengthlist>
 			   <td height="23" style="padding-left:3px" width="40">#.</td>
-			   <td width="50">Code</td>
-			   <td width="60%">Description</td>			  
-			   <td width="50">Def.</td>
-			   <td width="30" align="center">Active</td>
+			   <td><cf_tl id="Code"></td>
+			   <td><cf_tl id="Description"></td>			  
+			   <td><cf_tl id="Default"></td>
+			   <td align="center"><cf_tl id="Active"></td>
 			   <td colspan="2" align="right">
 		       <cfoutput>
 				 <cfif URL.ID2 neq "new">
 				     <A href="javascript:ptoken.navigate('#SESSION.root#/tools/topic/List.cfm?alias=#alias#&Code=#URL.Code#&ID2=new&systemmodule=#url.systemmodule#','#url.code#_list')">
-					 [Add]</a>
+					 [<cf_tl id="Add">]</a>
 				 </cfif>
 				 </cfoutput>&nbsp;
 			   </td>		  
@@ -108,8 +108,7 @@ password="#SESSION.dbpw#">
 							Message         = "Please enter a topic description"
 							MaxLength       = "50"						
 							Size            = "50"
-							Class           = "regularxxl">
-							
+							Class           = "regularxxl">							
 						
 		           </td>
 				  
@@ -117,14 +116,15 @@ password="#SESSION.dbpw#">
 				   <td align="center">
 				      <input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif "1" eq op>checked</cfif>>
 				   </td>
+				   <td></td>
 				   <td align="right">
 				   
-					<cfinput type="button" 
-						value="Update" 
-						name = "Update"
-						class="button10g" 
-						style="width:70" 
-						onClick="updateList('#code#_list','#url.code#','#url.systemmodule#','#alias#','edit')">
+					<cfinput type  = "button" 
+						   value   = "Update" 
+						   name    = "Update"
+						   class   = "button10g" 
+						   style   = "width:70" 
+						   onClick = "updateList('#code#_list','#url.code#','#url.systemmodule#','#alias#','edit')">
 						
 				   </td>
 					
@@ -139,6 +139,7 @@ password="#SESSION.dbpw#">
 				   <td>#de#</td>				   
 				   <td><cfif def eq "1">Yes</cfif></td>	
 				   <td align="center"><cfif op eq "0"><b>No</b><cfelse>Yes</cfif></td>
+				   <td>#dateformat(Created,client.dateformatshow)#</td>
 				  
 				   <td align="right" style="padding-top:2px">				  
 				   <table>					 
@@ -208,13 +209,15 @@ password="#SESSION.dbpw#">
 	        </td>
 			
 			 <td>
-				   	<cfinput type="Text" 
-				         name="ListValue" 
-						 message="You must enter a name" 
-						 required="Yes" 
-						 size="60" 
-						 maxlength="80" 
-						 class="regularxxl">
+			 
+			   	<cfinput type="Text" 
+			         name="ListValue" 
+					 message="You must enter a name" 
+					 required="Yes" 
+					 size="60" 
+					 maxlength="80" 
+					 class="regularxxl">
+					 
 			 </td>		
 				
 			<td>

@@ -56,11 +56,11 @@
 
 <cf_divscroll>
 
-	<table width="98%" cellspacing="0" cellpadding="0" class="formpadding navigation_table">
+	<table width="98%" class="formpadding navigation_table">
 	
-	<tr><td class="labellarge" style="height:30px"><cf_tl id="Depreciation History"></td></tr>
+	<tr><td class="labellarge" colspan="8" style="height:30px"><cf_tl id="Depreciation History"></td></tr>
 	
-	<tr class="labelmedium line">
+	<tr class="labelmedium line fixlengthlist">
 	    <td style="padding-left:10px"><cf_tl id="Entity"></td>
 		<td><cf_tl id="Date"></td>
 		<td><cf_tl id="Period"></td>	
@@ -74,7 +74,7 @@
 	</tr>
 	
 	<cfoutput query="Searchresult">
-		<tr class="line navigation_row labelmedium">
+		<tr class="line navigation_row labelmedium fixlengthlist">
 		<td style="padding-left:10px">#Mission#</td>
 		<td>#DateFormat(TransactionDate, CLIENT.DateFormatShow)#</td>
 		<td>#AccountPeriod#</td>	

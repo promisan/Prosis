@@ -47,7 +47,7 @@ function showinstruction() {
 
 function saveform(mde) {	
 	if (mde == "3") {
-	ColdFusion.navigate('ActionStepEditActionSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save='+mde,'verifytab','','','POST','actionform')	
+	ptoken.navigate('ActionStepEditActionSubmit.cfm?EntityCode=#URL.EntityCode#&EntityClass=#URL.EntityClass#&ActionCode=#url.actionCode#&PublishNo=#URL.PublishNo#&save='+mde,'verifytab','','','POST','actionform')	
 	ColdFusion.Layout.showTab('MethodList','verifytab')
 	ColdFusion.Layout.selectTab('MethodList','verifytab')
 	} else {

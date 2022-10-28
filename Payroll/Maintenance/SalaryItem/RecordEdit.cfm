@@ -65,14 +65,12 @@ password="#SESSION.dbpw#">
     <TR>
     <TD class="labelmedium"><cf_tl id="Code">:</TD>
     <TD>
+	   <table><tr><td>
   	   <cfinput type="text" name="PayrollItem" value="#get.PayrollItem#" message="Please enter a code" required="Yes" size="10" maxlength="30" class="regularxl">
        <input type="hidden" name="PayrollItemOld" value="#get.PayrollItem#" class="regular">
-    </TD>
-	</TR>
-	
-	 <TR>
-    <TD class="labelmedium"><cf_tl id="Operational">:</TD>
-    <TD style="padding-left:5px">
+	   </td>
+	   <TD style="padding-left:10px" class="labelmedium"><cf_tl id="Operational">:</TD>
+       <TD style="padding-left:5px">
 			
 		    <table><tr class="labelmedium2">
 			<td><input type="radio" class="radiol" name="Operational" id="Operational" <cfif get.Operational eq "1" or url.id1 eq "">checked</cfif> value="1"></td>
@@ -83,10 +81,14 @@ password="#SESSION.dbpw#">
 			</table>
 				
 		</td>
+	   
+	   </tr>
+	   </table>
+    </TD>
 	</TR>
-	
+		
    <TR>
-    <TD class="labelmedium"><cf_tl id="Entitlement Workflow">:</TD>
+    <TD class="fixlength labelmedium"><cf_tl id="Entitlement Workflow">:</TD>
     <TD>
   	  <select name="EntityClass" class="regularxl">
 	       <option value="">N/A</option>
@@ -95,6 +97,24 @@ password="#SESSION.dbpw#">
          	</cfloop>
 	    </select>
     </TD>
+	</TR>
+	
+	<TR>
+    <TD class="labelmedium"><cf_tl id="Default class">:</TD>
+     <TD>
+		    <table>
+			<tr class="labelmedium2">
+			    <td><INPUT type="radio" class="radiol" name="DefaultEntitlementClass" value="" <cfif get.DefaultEntitlementClass eq "">checked</cfif>></td>
+				<td style="padding-left:5px;padding-right:10px"><cf_tl id="Any"></td>
+				<td><INPUT type="radio" class="radiol" name="DefaultEntitlementClass" value="Payment" <cfif get.DefaultEntitlementClass eq "payment">checked</cfif>></td>
+				<td style="padding-left:5px;padding-right:10px"><cf_tl id="Payment">/<cf_tl id="Earning"></td>
+				<td><INPUT type="radio" class="radiol" name="DefaultEntitlementClass" value="Deduction" <cfif get.DefaultEntitlementClass eq "deduction">checked</cfif>></td>
+				<td style="padding-left:5px;padding-right:10px"><cf_tl id="Deduction">/<cf_tl id="Recovery"></td>		
+				<td><INPUT type="radio" class="radiol" name="DefaultEntitlementClass" value="Contribution" <cfif get.DefaultEntitlementClass eq "contribution">checked</cfif>></td>
+				<td style="padding-left:5px"><cf_tl id="Contribution"></td>							
+			</tr>
+			</table>				
+	</TD>
 	</TR>
 			
 	<TR>
@@ -216,7 +236,7 @@ password="#SESSION.dbpw#">
 		<tr><td height="3"></td></tr>	
 
 				<TR>
-			    <TD class="labelmedium" style="padding-right:5px"><cf_tl id="Entitlement registration overlap">:</TD>
+			    <TD class="labelmedium fixlength" style="padding-right:5px"><cf_tl id="Entitlement registration overlap">:</TD>
 			    <TD class="labelmedium" style="padding-left:10px">
 				   <table>
 				   <tr class="labelmedium">
@@ -230,7 +250,7 @@ password="#SESSION.dbpw#">
 				</TR>
 				
 				<TR>
-			    <TD class="labelmedium"><cf_tl id="Posting Multiplier">:</TD>
+			    <TD class="fixlength labelmedium"><cf_tl id="Posting Multiplier">:</TD>
 			    <TD style="padding-left:13px">
 				<cfif get.PaymentMultiplier eq "">
 				 <cfset m = 1>
@@ -257,17 +277,17 @@ password="#SESSION.dbpw#">
 			    <TD class="labelmedium"><cf_tl id="Settlement">:</TD>
 			    <TD>
 				
-				<table cellspacing="0" cellpadding="0">
+				<table width="600" cellspacing="0" cellpadding="0">
 				<tr><td style="padding-left:10px"><INPUT class="radiol" type="radio" name="Settlement" value="1" <cfif "1" eq get.settlement>checked</cfif>></td>
-					 <td style="padding-left:4px" class="labelmedium">Enabled</td>
+					 <td style="padding-left:2px" class="labelmedium">Enabled</td>
 				     <td style="padding-left:4px"><INPUT class="radiol" type="radio" name="Settlement" value="0" <cfif "1" neq get.settlement>checked</cfif>></td>
 					 <td style="padding-left:4px" class="labelmedium">Disabled</td>
 				</TD>
 																							
-				<TD style="padding-left:14px" class="labelit" align="right" style="cursor: pointer;">
-					<cf_UItooltip tooltip="Determines if calculated entitlements will be settled directly or settled in one or more specific months"><cf_tl id="Settle in Month(s)">:</cf_UItooltip>
+				<TD style="padding-left:14px;cursor: pointer;" class="labelit fixlength" align="right" title="Determines if calculated entitlements will be settled directly or settled in one or more specific months">
+					<cf_tl id="Settle in Month(s)">:
 				</TD>
-			    <TD  class="labelit" style="padding-left:4px">
+			    <TD class="labelit fixlength" style="padding-left:4px" title="0 = <cf_tl id="monthly">; |1|7| = <cf_tl id="jan/july">">
 				
 				<cfif get.SettlementMonth eq "">
 				 <cfset m = 0>
@@ -285,7 +305,7 @@ password="#SESSION.dbpw#">
 			       size="10"
 			       maxlength="10">
 				   
-				   (0 = <cf_tl id="monthly">; |1|7| = <cf_tl id="jan/july"> )
+				   0 = <cf_tl id="monthly">; |1|7| = <cf_tl id="jan/july"> 
 				   
 				   </td></tr></table>
 				  
@@ -293,7 +313,7 @@ password="#SESSION.dbpw#">
 				</TR>	
 						
 				<TR>
-			    <TD class="labelmedium"><cf_tl id="Only part of Final Payment">:</TD>
+			    <TD class="labelmedium fixlength"><cf_tl id="Only part of Final Payment">:</TD>
 			    <TD class="labelmedium">
 					<table><tr class="labelmedium">
 					<td style="padding-left:10px"><INPUT type="radio" class="radiol" name="ExpirationPayment" value="1" <cfif "1" eq get.ExpirationPayment or get.ExpirationPayment eq "">checked</cfif>></td>

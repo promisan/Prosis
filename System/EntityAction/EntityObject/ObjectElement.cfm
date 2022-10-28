@@ -37,7 +37,7 @@ password="#SESSION.dbpw#">
 	WHERE  E.EntityCode = '#URL.EntityCode#'
 	AND    E.DocumentType = '#URL.Type#'
 	AND    E.DocumentId NOT IN (SELECT DocumentId FROM Ref_EntityActionDocument)
-	ORDER BY DocumentOrder		
+	ORDER BY DocumentOrder	, DocumentCode
 </cfquery>
 
 <cfparam name="URL.ID2" default="new">   
@@ -354,8 +354,9 @@ password="#SESSION.dbpw#">
 			<cfif url.type neq "Attach" and url.type neq "Field" and url.type neq "Question"> 		
 				 
 				
-				<tr class="fixlenthlist">
-					<td class="labelmedium" style="font:6688aa;padding-left:20px;padding-right:5px" title="The relative path and file name under the root directory. Click on template name top view content.">										  
+				<tr>
+					<td class="labelmedium" style="padding-left:23px;padding-right:5px" 
+					  title="The relative path and file name under the root directory. Click on template name top view content.">										  
 					   <cfif url.type eq "Mail">Script&nbsp;file<cfelse>Path / File:</cfif>		   			 					
 					</td>
 					
@@ -363,7 +364,7 @@ password="#SESSION.dbpw#">
 					
 				    <table style="width:100%">
 										
-					<tr class="labelmedium fixlengthlist">
+					<tr class="labelmedium">
 					
 					<td width="90%">
 					
@@ -533,28 +534,28 @@ password="#SESSION.dbpw#">
 							
 							<cfelseif url.type eq "dialog" or url.type eq "session">
 							
-								<td class="labelmedium" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">
+								<td class="labelmedium fixlength" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">
 								
-								<cf_UIToolTip
-									tooltip="Define a stringlist (comma separated) and/or lookup table <br> in order select a value as part of a step in the workflow step config which will be passed <br> to the dialog at runtime under [url.wparam] to trigger customised behavior of the dialog form.">
-									<font color="808080">String&nbsp;list
-								</cf_UIToolTip>:
+									<cf_UIToolTip
+										tooltip="Define a stringlist (comma separated) and/or lookup table <br> in order select a value as part of a step in the workflow step config which will be passed <br> to the dialog at runtime under [url.wparam] to trigger customised behavior of the dialog form.">
+										String&nbsp
+									</cf_UIToolTip>:
 								
 								</td>
 								 <td>
 								 
-								<input type="Text" 
-							         name="DocumentStringList" 
-									 id="DocumentStringList"
-									 size="50" 
-									 maxlength="80" 
-									 class="regularxl">
+									<input type="Text" 
+								         name="DocumentStringList" 
+										 id="DocumentStringList"
+										 size="50" 
+										 maxlength="80" 
+										 class="regularxl">
 									 
 									 </td>
 									 
 									 </tr>
 									 
-									 <tr><td valign="top" class="labelmedium" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">Table List:</td><td>
+									 <tr><td valign="top" class="labelmedium fixlength" style="padding-top:6px;padding-right:5px;padding-left:23px;cursor:pointer">Table List:</td><td>
 									 <cfinclude template="ObjectElementDialog.cfm">
 									 </td>															
 							
@@ -579,13 +580,11 @@ password="#SESSION.dbpw#">
 															
 								<tr>
 								<td class="labelmedium" style="min-width:200px;padding-right:5px;padding-left:23px;cursor:pointer">
-								<cf_UIToolTip
-								tooltip="Select the format of document to be generated">
-								Layout:</cf_UIToolTip>
+								<cf_UIToolTip tooltip="Select the format of document to be generated">Layout:</cf_UIToolTip>
 								</td>
 								<td style="padding:3px">
 								  <select name="fieldlayout" id="fieldlayout" class="regularxl">
-								 	  <option value="HTM" selected>HTML</option>
+								 	  <option value="HTM" selected>HTML (recommended)</option>
 									  <option value="PDF">PDF</option>
 								  </select>
 								</td>
@@ -617,7 +616,7 @@ password="#SESSION.dbpw#">
 								
 								<tr>
 									<td class="labelmedium" style="padding-right:5px;padding-left:23px;cursor:pointer">
-									<cf_UIToolTip tooltip="Pointer to define if the template uses the standard framework for document generation which requires the user to select a language and formatting (letter, memo, fax)">
+									<cf_UIToolTip tooltip="Pointer to define if the template uses the standard framework for document generation which requires the user to select a language and formatting (nn_letter, nn_memo, nn_fax)">
 									Framework:</cf_UIToolTip>
 									</td>
 									<td  style="padding:3px"><input type="checkbox" class="radiol" name="DocumentFramework" id="DocumentFramework" value="1" checked>
@@ -634,7 +633,7 @@ password="#SESSION.dbpw#">
 								
 								<tr>
 									 <td class="labelmedium" style="padding-right:15px;padding-left:23px;cursor:pointer">
-									 <cf_UIToolTip tooltip="A context senstive value to be used for filtering at runtime valid reports.  Example: [norefresh] makes this document not being refreshed upon form submission.">
+									 <cf_UIToolTip tooltip="A stringlist used to define on the step the context under which the report should be created.">
 									 Usage Criteria:</cf_UIToolTip>
 									 </td>
 									 <td style="padding:3px">								 
@@ -649,7 +648,7 @@ password="#SESSION.dbpw#">
 								
 								<tr>
 									<td class="labelmedium" style="padding-right:5px;padding-left:23px;cursor:pointer">
-									<cf_UIToolTip tooltip="Add this password to the generate PDF of this report">PDF Password:</cf_UIToolTip>
+									<cf_UIToolTip tooltip="Add this password to the generated PDF of this report">PDF Password:</cf_UIToolTip>
 									</td>
 									<td style="padding:3px">								
 										<input type="Text" 
@@ -896,11 +895,11 @@ password="#SESSION.dbpw#">
 					   		<tr><td style="border-left:1px solid silver">
 							
 						     <input type="Checkbox"
-						       name="FieldRequired"
-							   class="radiol"
-							   id="FieldRequired"
-						       value="#fieldrequired#"
-							   <cfif fieldrequired eq "1">checked</cfif>>
+							       name="FieldRequired"
+								   class="radiol"
+								   id="FieldRequired"
+							       value="#fieldrequired#"
+								   <cfif fieldrequired eq "1">checked</cfif>>
 							  </td>
 							 
 							  <td style="padding-left:4px;border-left:1px solid silver">
@@ -945,19 +944,24 @@ password="#SESSION.dbpw#">
 				      <input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" <cfif "1" eq op>checked</cfif>>
 				   </td>
 				   <td colspan="2" align="center" style="border-right:1px solid silver">
-				   <cfif url.type neq "mail">
+				   
+				   <cfif url.type eq "mail">
+				   
 					   <input type="button" 
 					        value="Save" 
 							onclick="savemyfield('#URL.entitycode#','#nm#','#url.type#','#documentid#')"
 							class="button10g" 
 							style="width:50px;height:25px">
+							
 					<cfelse>
+					
 						<cfset ptn = "#nm#">
 						<input type="button" 
 					        value="Save" 
-							onclick="savemyfield('#URL.entitycode#','#nm#','#url.type#','#documentid#')"
+							onclick="savemyfield('#URL.entitycode#','#nm#','','#documentid#')"
 							class="button10g" 
 							style="width:50px;height:25px">
+							
 					</cfif>	
 					</td>
 			    </TR>	
@@ -966,15 +970,14 @@ password="#SESSION.dbpw#">
 								 
 				<tr bgcolor="ffffff">
 				   
-				    <td class="labelmedium" style="padding-left:20px">
+				    <td class="labelmedium" style="min-width:100px;cursor:pointer;padding-left:20px;padding-right:4px" title="The relative path and file name under the root directory. Click on template name top view content.">
 					
-					<cf_UIToolTip  tooltip="The relative path and file name under the root directory. Click on template name top view content.">
 					   <cfif url.type eq "Mail">Script&nbsp;file<cfelse>Path/File:</cfif>
-		   			</cf_UIToolTip>
+		   			
 					</td>
 				    <td colspan="7">
 					
-				    <table cellspacing="0" cellpadding="0">
+				    <table style="width:100%" cellspacing="0" cellpadding="0">
 															
 					<tr class="labelmedium">
 					<td>
@@ -989,7 +992,7 @@ password="#SESSION.dbpw#">
 		       			  maxresultsdisplayed="30"
 				          showautosuggestloadingicon="no"
 					      typeahead = "no"						  
-						  style="width:700"
+						  style="width:100%"
 						  maxlength = "80" 
 						  class="regularxl">
 						  					 					  
@@ -1003,7 +1006,7 @@ password="#SESSION.dbpw#">
 		       			  maxresultsdisplayed="30"
 				          showautosuggestloadingicon="no"
 					      typeahead = "no"
-						  style     = "width:760"
+						  style     = "width:100%"
 						  required  = "Yes" 						 
 						  maxlength = "80" 
 						  class     = "regularxl">	
@@ -1149,7 +1152,7 @@ password="#SESSION.dbpw#">
 							
 				<cfelseif url.type eq "dialog" or url.type eq "session">
 											
-							<tr>
+							<tr class="fixlengthlist">
 							<td style="padding-left:23px" class="labelit">String List:</td>
 							<td class="labelit"><cfinput type  = "Text" 
 								class          = "regularxl" 
@@ -1216,7 +1219,7 @@ password="#SESSION.dbpw#">
 							<td>
 							  <select name="DocumentEditor" id="DocumentEditor" class="regularxl">
 							 	  <option value="CK" <cfif DocumentEditor eq "CK">selected</cfif>>CK editor</option>
-								  <option value="FCK" <cfif DocumentEditor eq "FCK">selected</cfif>>FCK Editor</option>
+								  <option value="FCK" <cfif DocumentEditor eq "FCK">selected</cfif>>FCK Editor (deprecated)</option>
 							  </select>
 							</td>
 							
@@ -1246,7 +1249,7 @@ password="#SESSION.dbpw#">
 							
 							<tr>
 								 <td style="padding-left:23px;cursor:pointer;height:25px">
-								 <cf_UIToolTip	tooltip="A context senstive value to be used for filtering at runtime valid reports">Usage Criteria:</cf_UIToolTip>
+								 <cf_UIToolTip	tooltip="A stringlist used to define on the step the context under which the report should be created">Usage Criteria:</cf_UIToolTip>
 								 </td>
 								 
 								 <td>
@@ -1439,8 +1442,11 @@ password="#SESSION.dbpw#">
 						  </cfif>
 						  
 						  <td width="20" style="padding-top:3px;padding-left:2px">
-						  
-						   <cf_img icon="open" navigation="Yes" onclick="javascript:ptoken.navigate('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&Type=#URL.Type#&ID2=#nm#','ifield')">
+						  <cfif url.type eq "mail">
+						    <cf_img icon="open" navigation="Yes" onclick="javascript:ptoken.navigate('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&Type=#URL.Type#&ID2=#nm#','imail')">						
+						  <cfelse>
+						    <cf_img icon="open" navigation="Yes" onclick="javascript:ptoken.navigate('../../EntityObject/ObjectElement.cfm?EntityCode=#URL.EntityCode#&Type=#URL.Type#&ID2=#nm#','i#url.type#')">
+						  </cfif> 
 						   
 						  </td>						  
 						  

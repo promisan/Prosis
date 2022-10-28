@@ -112,11 +112,12 @@ function list(page) {
 
 </cfoutput>
 
+
 	<CFFORM onsubmit="return false"	name="candidateform" style="height:100%">		
 
 		<cfif URL.Scope neq "Inquiry">
 		
-			<table width="100%" height="99%">
+			<table height="99%" style="width:100%">
 			
 			<tr><td height="5"></td></tr>
 					
@@ -125,7 +126,7 @@ function list(page) {
 			<cf_screentop height="100%" jquery="Yes" scroll="No" html="No" menuAccess="Yes" SystemFunctionId="#url.idmenu#">
 			
 			<table width="100%" height="99%">
-			
+						
 				<tr><td height="5">
 							
 						<table width="98%" height="100%" align="center">
@@ -138,7 +139,7 @@ function list(page) {
 						
 							<table width="100%" align="center" align="center" class="formpadding">
 											
-								 <tr class="line">
+								 <tr class="line fixlengthlist">
 								 								  
 								    <cfif url.mission neq "">														
 									<td style="font-weight:200;height:50px;padding-left:10px;padding-top:8px;font-size:25px" class="labelmedium2">#url.mission# <cf_tl id="Patients"></td>						
@@ -206,14 +207,12 @@ function list(page) {
 					</tr>	 
 						 		
 			</cfif>
+											
+				<tr class="line fixlengthlist">
 				
-				<tr><td height="5"></td></tr>
-			
-				<tr class="line">
-				
-				<td height="20" name="search">				
+				<td height="20" name="search">					
 								
-					<table width="98%" align="center" class="formspacing">
+					<table class="formspacing" style="width:100%">
 							   						
 						<tr class="labelmedium2">
 							
@@ -262,7 +261,7 @@ function list(page) {
 							WHERE  Operational = 1
 						</cfquery>
 						
-						<select name="Roster" style="width:300px" class="regularxxl" onchange="formvalidate()">
+						<select name="Roster" style="width:98%" class="regularxxl" onchange="formvalidate()">
 						   <option value="" selected>All</option>
 						   <option value="1">Candidates cleared for at least one bucket</option>
 						   
@@ -304,7 +303,7 @@ function list(page) {
 						<!--- Field: Staff.LastName=CHAR;40;FALSE --->
 						<INPUT type="hidden" name="Crit2_FieldName" value="A.FullName">
 						<INPUT type="hidden" name="Crit2_FieldType" value="CHAR">
-						<TR class="labelmedium2">
+						<TR class="labelmedium2  fixlengthlist"">
 						<TD style="padding-left:10px"><cf_tl id="Full Name">:</TD>
 						<TD>
 						<SELECT name="Crit2_Operator" class="regularxl" style="border:0px">
@@ -326,7 +325,7 @@ function list(page) {
 							<TD style="padding-left:10px"><cf_tl id="Candidate Assessment">:</TD>
 							<TD>
 							
-							<select name="Assessment" class="regularxxl">
+							<select name="Assessment" style="width:98%" class="regularxxl">
 							   <option value="" selected>N/A</option>
 							   <option value="1">Candidates WITH a Skill Assessment</option>
 							   <option value="0">Candidates WITHOUT a Skill Assessment</option>
@@ -340,7 +339,7 @@ function list(page) {
 							
 							<TD>
 							
-							<select name="Assessment" class="regularxxl">
+							<select name="Assessment" style="width:98%"  class="regularxxl">
 							   <option value="" selected>N/A</option>
 							   <option value="1"><cf_tl id="Cleared"></option>
 							   <option value="0"><cf_tl id="Pending"></option>
@@ -352,7 +351,7 @@ function list(page) {
 						
 						</tr>
 										
-						<tr class="labelmedium2">
+						<tr class="labelmedium2  fixlengthlist"">
 					
 						<!--- Field: Staff.FirstName=CHAR;40;FALSE --->
 						<INPUT type="hidden" name="Crit3_FieldName" value="A.FirstName">
@@ -379,7 +378,7 @@ function list(page) {
 						
 						<TD style="padding-left:10px"><cf_tl id="Bucket Processed">:</TD>
 						<TD>
-						<select name="Filter" style="width: 250;" class="regularxxl">
+						<select name="Filter" style="width: 98%" class="regularxxl">
 						   <option value="" selected>All</option>
 						   <option value="1">Only candidates processed by <cfoutput>#SESSION.first# #SESSION.last#</cfoutput></option>
 						</select>
@@ -395,7 +394,7 @@ function list(page) {
 					    <INPUT type="hidden" name="Crit7_FieldName" value="A.PersonNo">
 						<INPUT type="hidden" name="Crit7_FieldType" value="CHAR">
 						
-						<TR class="labelmedium2">
+						<TR class="labelmedium2 fixlengthlist"">
 						<td style="padding-left:10px"><cf_tl id="Person Id">:</td>
 						<TD>
 						<SELECT name="Crit7_Operator" class="regularxl" style="border:0px">
@@ -440,7 +439,7 @@ function list(page) {
 											
 						</TR>		
 							
-						<TR class="labelmedium2">
+						<TR class="labelmedium2 fixlengthlist"">
 					
 						<!--- Field: Staff.FirstName=CHAR;40;FALSE --->
 						<INPUT type="hidden" name="Crit5_FieldName" value="A.EMailAddress">
@@ -495,7 +494,7 @@ function list(page) {
 						<INPUT type="hidden" name="Crit4_FieldType" value="CHAR">
 						<INPUT type="hidden" name="Crit4_Operator" value="CONTAINS">
 						
-						<TR class="labelmedium2">
+						<TR class="labelmedium2 fixlengthlist"">
 						<TD style="padding-left:10px;height:30px;"><cf_tl id="Gender">:</TD>		
 						<TD>
 							
@@ -508,7 +507,7 @@ function list(page) {
 							<TD style="padding-left:10px"><cf_tl id="Candidate status">:</TD>
 							<TD>
 							
-							<select name="CandidateStatus" style="width: 250;" class="regularxxl">
+							<select name="CandidateStatus" style="width:98%"  class="regularxxl">
 							   <option value="" selected>All but cancelled</option>
 							   <option value="0"><cf_tl id="Pending"></option>
 							   <option value="1"><cf_tl id="Accepted"></option>
@@ -581,11 +580,12 @@ function list(page) {
 		
 		</cfoutput>	
 		
-		<tr><td height="100%" width="100%" style="padding-left:20px;padding-right:20px;min-width:1200px" valign="top" id="result"></td></tr>
+		<tr><td height="100%" width="100%" style="padding-left:20px;padding-right:20px;" valign="top" id="result"></td></tr>
 	
 	</table>
 	
 	</cfform>	
+	
 	
 <cfif URL.Scope eq "Inquiry">	
 	<cf_screenbottom html="No">

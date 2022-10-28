@@ -87,7 +87,7 @@ password="#SESSION.dbpw#">
 												
 		<cfif URL.ID1 eq Account>
 									
-			<TR class="navigation_row labelmedium2 finxlengthlist">
+			<TR style="height:29px" class="navigation_row labelmedium2 fixlengthlist line">
 					
 		       <td>#AccountMission#<input type="hidden" name="Group" id="Group" value="#rl#"></td>		    					   						 						  
 			   <td><a href="javascript:ShowUser('#Account#')">#Account#</a></td>
@@ -101,9 +101,9 @@ password="#SESSION.dbpw#">
 					
 		<cfelse>
 		
-			<TR bgcolor="ffffff" class="navigation_row labelmedium2 fixlengthlist">
-			   <td style="padding-left:3px" height="25">#accountMission#</td>
-			   <td colspan="2">#LastName# <a href="javascript:ShowUser('#Account#')">(#rl#)</a></td>			  
+			<TR style="height:29px" bgcolor="ffffff" class="navigation_row labelmedium2 fixlengthlist line">
+			   <td style="font-size:17px" height="25">#accountMission#</td>
+			   <td style="font-size:17px" colspan="2">#LastName# <a href="javascript:ShowUser('#Account#')">(#rl#)</a></td>			  
 			   <td align="right">#OfficerUserId# (#dateformat(created,CLIENT.DateFormatShow)#)</td>
 			   <td align="center"><cfif op eq "0"><b>No</b></cfif></td>
 			   <td colspan="2" align="right">
@@ -119,9 +119,7 @@ password="#SESSION.dbpw#">
 		    </TR>	
 		
 		</cfif>
-		
-		<tr><td height="1" colspan="7" class="linedotted"></td></tr>
-		
+				
 		</cfloop>
 		</cfoutput>							
 												

@@ -19,13 +19,13 @@
 <cfoutput>
 	
 <form action="#session.root#/tools/annotation/AnnotationSubmit.cfm?box=#url.box#&entity=#url.entity#&key1=#url.key1#&key2=#url.key2#&key3=#url.key3#&key4=#url.key4#" 
-    method="POST" target="annotationprocess" style="height:98%">
+    method="POST" target="annotationprocess" style="height:97.5%">
 				
-	<table width="95%" height="98%" align="center">
+	<table width="95%" height="100%" align="center">
 			
 	<cfset ann = "">  	
 		
-	<tr><td colspan="3" style="padding-top:8px">
+	<tr><td colspan="3" style="padding-top:4px">
 	
 		<cfquery name="Other" 
 				 datasource="AppsSystem" 
@@ -40,7 +40,7 @@
 				 FROM   UserAnnotationRecord U, UserAnnotation R
 				 WHERE  U.Account      = R.Account
 				 AND    U.AnnotationId = R.AnnotationId
-				 AND    U.Account      != '#SESSION.acc#'
+				 -- AND    U.Account      != '#SESSION.acc#'
 				 AND    U.EntityCode   = '#url.entity#'			 
 				 AND    U.Scope        = 'Shared'
 				 <cfif key1 neq "">
@@ -58,25 +58,27 @@
 				 ORDER BY U.OfficerUserId	 		
 	    </cfquery>	
 		
-		<table width="100%" cellspacing="0" cellpadding="0" class="formpadding">
+		<table width="100%" class="formpadding navigation_table">
 		
-		<tr class="line labelmedium"><td colspan="4" style="font-size:20px">Shared Notes</td></tr>
+		<tr class="line labelmedium">
+		  <td colspan="4" style="font-size:20px"><cf_tl id="Shared Notes"></td>
+		</tr>
 		
 		<cfloop query="other">
 		
-			<tr class="labelmedium">
+			<tr class="labelmedium2 fixlengthlist navigation_row">
 				<td height="20" style="padding-right:4px">
 					<table>
 					 <tr><td bgcolor="#color#" style="width:15px;height:15px;border: 1px solid gray;"></td></tr>
 					</table>
 				</td>
-				<td width="60%">#Description#</td>
+				<td>#Description#</td>
 				<td>#OfficerFirstName# #OfficerLastName#</td>				
 				<td align="right">#dateformat(created,CLIENT.DateFormatShow)# #timeformat(created,"HH:MM")#</td>				
 			</tr>
 			
 			<cfif Annotation neq "">
-				<tr class="labelmedium line"><td></td><td colspan="3">#Annotation#</td></tr>		
+				<tr class="labelmedium line navigation_row_child"><td></td><td colspan="3">#Annotation#</td></tr>		
 			</cfif>
 		
 		</cfloop>
@@ -85,19 +87,17 @@
 	
 	</td>
 	</tr>
-	
-	<tr><td style="border-top:1px dotted silver"></td></tr>
-	
+		
 	<tr><td align="center" height="35">
 	
 		<!--- top menu --->
 				
-		<table width="100%" border="0" align="center" cellspacing="0" cellpadding="0" class="formpadding">	
+		<table width="100%" border="0" align="center" class="formpadding">	
 		
-		<tr>
+		<tr class="line">
 		
-			<cfset ht = "48">
-			<cfset wd = "48">
+			<cfset ht = "38">
+			<cfset wd = "38">
 		
 		    <cf_menutab item       = "1" 
 		            iconsrc    = "Memo.png" 
@@ -124,11 +124,10 @@
 		
 	</tr>							
 	
-	<tr><td height="1" colspan="1" class="line"></td></tr>
-
-	<tr><td height="100%">	
 	
-			<cf_divscroll style="height:100%"> 		
+	<tr><td height="96%">	
+	
+			<cf_divscroll style="height:96%"> 		
 	
 			<table width="100%" height="100%" align="center">	 
 					  
@@ -160,6 +159,7 @@
 
 </cfoutput>
 
+<cfset ajaxonload("doHighlight")>
 
 		
 	

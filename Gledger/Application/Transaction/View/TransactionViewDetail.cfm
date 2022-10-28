@@ -132,7 +132,7 @@
     <td width="100%" colspan="2">
 	
     <table width="100%" class="formpadding">
-	
+		
 	<cfif Transaction.RecordStatus eq "9">
 	    <cfset cl = "FED7CF">
 	  <cfelseif Transaction.ActionStatus eq "1">

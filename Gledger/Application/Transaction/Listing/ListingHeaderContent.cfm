@@ -13,12 +13,15 @@ password="#SESSION.dbpw#">
 				
 </cfquery>	
 
+<cf_wfpending entityCode="GLTransaction"  
+      table="#SESSION.acc#wfLedger" mailfields="No" IncludeCompleted="No">		
+	
 <cfoutput>
 	
 	<!--- pass the result to the script --->
 	<cfsavecontent variable="myquery">	
 	
-	    SELECT *, TransactionDate, Created
+	    SELECT *, TransactionDate, Created, DocumentDate
 		
 		FROM (	
 	
@@ -30,6 +33,10 @@ password="#SESSION.dbpw#">
 				  H.Description, 
 	              H.TransactionSource, H.TransactionSourceNo, H.TransactionSourceId, 
 				  H.TransactionReference, 
+				  
+				  (SELECT V.ActionDescriptionDue
+				   FROM   userQuery.dbo.#SESSION.acc#wfLedger V WHERE ObjectkeyValue4 = H.TransactionId) as ActionDescriptionDue,	 
+				  
 				  <cfif journal.TransactionCategory eq "Receivables">
 				  
 				  (CASE WHEN (SELECT  COUNT(DISTINCT JournalSerialNo)
@@ -58,6 +65,8 @@ password="#SESSION.dbpw#">
 		AND       H.RecordStatus != '9'
 		<cfif idstatus eq "outstanding">
 		AND       abs(H.AmountOutstanding) > 0.05 and MatchingRequired = 1
+		<cfelseif idstatus eq "pending">
+		AND       H.ActionStatus = '0'
 		</cfif>
 		
 		) as D
@@ -67,8 +76,8 @@ password="#SESSION.dbpw#">
 	
 	</cfsavecontent>
 	 
-
 </cfoutput>
+
 
 <cfquery name="outstanding" 
 datasource="AppsLedger" 
@@ -95,13 +104,15 @@ password="#SESSION.dbpw#">
 <cfset fields=ArrayNew(1)>
 
 <cfset itm = itm+1>
-<cfset fields[itm] = {label      = "Ser",                   
-					field      = "JournalSerialNo",					
-					align      = "center",
-					search     = "text"}>	
+<cfset fields[itm] = {label      = "Ser",  
+                    labelfilter  = "SerialNo",                 
+					field        = "JournalSerialNo",					
+					align        =  "center",
+					search       = "text"}>	
 
 <cfset itm = itm+1>
-<cfset fields[itm] = {label      = "No",                   
+<cfset fields[itm] = {label      = "No",    
+                    labelfilter  = "TransactionNo",                  
 					field      = "JournalTransactionNo",	
 					align      = "center",				
 					search     = "text"}>	
@@ -116,6 +127,7 @@ password="#SESSION.dbpw#">
 					formatted  = "dateformat(Created,CLIENT.DateFormatShow)",
 					search     = "date"}>						
 
+				
 <cfset itm = itm+1>
 
 <cf_tl id="Source" var="1">
@@ -123,7 +135,9 @@ password="#SESSION.dbpw#">
 					field      = "TransactionSource",
 					filtermode = "2",
 					column     = "common",
+					display   = "No",
 					search     = "text"}>						
+					
 					
 <cfset itm = itm+1>
 <cf_tl id="Date" var="1">								
@@ -133,21 +147,41 @@ password="#SESSION.dbpw#">
 					width      = "20",
 					align      = "center",
 					formatted  = "dateformat(TransactionDate,CLIENT.DateFormatShow)",
-					search     = "date"}>				
-					
+					search     = "date"}>		
+		
 					
 <cfset itm = itm+1>		
 <cf_tl id="Period" var="1">							
 <cfset fields[itm] = {label      = "#lt_text#",                   
 					field        = "TransactionPeriod",								
-					column       = "common",	
-					width        = "18",					
+					column       = "common",									
 					align        = "center",
-					filtermode   = "3",
-					search       = "text"}>							
+					display      = "No"}>												
 							
 				
 <cfif journal.TransactionCategory eq "Receivables">
+
+    <cfset itm = itm+1>		
+	<cf_tl id="Step" var="1">				
+	<cfset fields[itm] = {label      = "#lt_text#",                    
+					field        = "ActionDescriptionDue",					
+					labelfilter  = "#lt_text#",
+					filtermode    = "3",    
+					search        = "text",
+					search       = "text"}>		
+
+   <cfset itm = itm+1>
+   <cf_tl id="Document" var="1">								
+   <cfset fields[itm] = {label      = "#lt_text#",                   
+					field      = "DocumentDate",								
+					column     = "month",						
+					align      = "center",
+					formatted  = "dateformat(DocumentDate,CLIENT.DateFormatShow)",
+					search     = "date"}>	
+					
+	
+					
+	<cfif url.idStatus neq "pending">								
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="Invoice" var="1">						
@@ -155,12 +189,13 @@ password="#SESSION.dbpw#">
 	                    LabelFilter   = "#lt_text#",				
 						field         = "Invoiced",					
 						filtermode    = "3",    
-						column       = "common",
-						width         = "8",
+						column       = "common",						
 						search        = "text",
 						align         = "center",
 						formatted     = "Rating",
 						ratinglist    = "NA=Yellow,Issued=silver"}>							
+						
+	</cfif>					
 					
 </cfif>							
 
@@ -176,8 +211,7 @@ password="#SESSION.dbpw#">
 <cfset fields[itm] = {label      = "#lt_text#",                    
 					field        = "TransactionReference",					
 					labelfilter  = "Reference",
-					display      = "No",	
-					search       = "text"}>	
+					display      = "No"}>	
 					
 <cfset itm = itm+1>		
 <cf_tl id="Reference" var="1">				
@@ -212,6 +246,8 @@ password="#SESSION.dbpw#">
 					
 </cfif>		
 
+<cfif url.idstatus neq "Pending">
+
 <cfset itm = itm+1>	
 <cf_tl id="Status" var="1">						
 <cfset fields[itm] = {label       = "S", 	
@@ -222,6 +258,8 @@ password="#SESSION.dbpw#">
 					align         = "center",
 					formatted     = "Rating",
 					ratinglist    = "0=Yellow,1=Green,9=Red"}>					
+
+</cfif>
 					
 <cfset itm = itm+1>					
 <cfset fields[itm] = {label     = "Id",    					
@@ -232,17 +270,23 @@ password="#SESSION.dbpw#">
 	
 <cftry>
 
-<!---
-<cf_wfpending entityCode="ProcInvoice"  
-      table="#SESSION.acc#wfInvoice" mailfields="No" IncludeCompleted="No">							--->							
-	  
+<cfif url.idstatus eq "">
+   <cfset auto = "manual">
+   <cfset cach = "false">
+<cfelse>
+   <cfset auto = "auto">	
+   <cfset cach = "true">
+</cfif>
+
 						
 <cf_listing
     header        = "Header#url.journal#"
     box           = "Header#url.journal#_#url.id1#_#url.idstatus#"
 	link          = "#SESSION.root#/Gledger/Application/Transaction/Listing/ListingHeaderContent.cfm?#cgi.query_string#"
     html          = "No"
-	show          = "250"
+	show          = "300"
+	autofilter    = "#auto#"	
+	cachedisable  = "#cach#"
 	datasource    = "AppsLedger"
 	listquery     = "#myquery#"
 	listkey       = "TransactionId"		

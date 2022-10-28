@@ -1,12 +1,9 @@
 <cfparam name="Form.Operational"    default="1">
 <cfparam name="Form.ListValue"      default="">
 
-
-<cfif URL.ID2 neq "new">
-	<cfparam name="Form.GroupListCode"  default="#url.lc#">
-	<cfparam name="Form.Description"    default="#url.de#">
-	<cfparam name="Form.GroupListOrder" default="#url.lo#">
-</cfif>	
+<cfparam name="Form.GroupListCode"  default="#url.lc#">
+<cfparam name="Form.Description"    default="#url.de#">
+<cfparam name="Form.GroupListOrder" default="#url.lo#">
 
 <cfif Form.GroupListCode eq "">
 

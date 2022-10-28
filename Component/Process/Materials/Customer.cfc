@@ -36,75 +36,83 @@
 			     WHERE       Customerid = '#customerid#'			
 		 	</cfquery>
 			
-			<!--- field 1 --->
-			<cfset customer.threshold = threshold.ThresholdCredit>
-		
-			<cfquery name="get" 
-			 datasource="AppsLedger" 
-			 username="#SESSION.login#" 
-			 password="#SESSION.dbpw#">		
-			
-			 SELECT      TH.Currency, 
-			             SUM(TH.Amount) as Amount, 
-						 SUM(TH.AmountOutstanding) as AmountOutstanding
-		     FROM        TransactionHeader AS TH INNER JOIN
-		                 Materials.dbo.WarehouseBatch AS WB ON TH.TransactionSourceId = WB.BatchId
-		     WHERE       TH.TransactionCategory = 'Receivables' 
-			 AND         TH.AmountOutstanding > 0
-			 AND		 TH.RecordStatus != '9'
-			 AND         WB.CustomerIdInvoice = '#customerid#'
-			 AND         WB.Mission           = '#mission#'		
-			 GROUP BY TH.Currency 
-		 	</cfquery>
-			
-			<cfset outstanding = "0">
-			
-			<cfloop query="get">
-			
-				<cfif currency eq balancecurrency>
+			<cfif threshold.ThresholdCredit neq "">
 				
-					<cfset outstanding = outstanding + AmountOutstanding>
+				<!--- field 1 --->
+				<cfset customer.threshold = threshold.ThresholdCredit>
+			
+				<cfquery name="get" 
+				 datasource="AppsLedger" 
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">		
+				
+				 SELECT      TH.Currency, 
+				             SUM(TH.Amount) as Amount, 
+							 SUM(TH.AmountOutstanding) as AmountOutstanding
+			     FROM        TransactionHeader AS TH INNER JOIN
+			                 Materials.dbo.WarehouseBatch AS WB ON TH.TransactionSourceId = WB.BatchId
+			     WHERE       TH.TransactionCategory = 'Receivables' 
+				 AND         TH.AmountOutstanding > 0
+				 AND		 TH.RecordStatus != '9'
+				 AND         WB.CustomerIdInvoice = '#customerid#'
+				 AND         WB.Mission           = '#mission#'		
+				 GROUP BY TH.Currency 
+			 	</cfquery>
+				
+				<cfset outstanding = "0">
+				
+				<cfloop query="get">
+				
+					<cfif currency eq balancecurrency>
 					
-				<cfelse>	
-				
-					<cf_exchangeRate currencyFrom = "#currency#" 
-					                 currencyTo   = "#balancecurrency#">
-									 
-					<cfset amt = AmountOutstanding / exc>
-					<cfset outstanding = outstanding + amt>
-			
-				</cfif>
-			
-			</cfloop>
-			
-			<!--- field 2 --->
-			<cfset customer.Outstanding  = outstanding>	
-			
-			<cfif amount gte "0">
-			
-				<cf_exchangeRate currencyFrom = "#amountcurrency#" 
-	                 currencyTo   = "#balancecurrency#">
-			
-				<cfset amt = amount / exc>		
-				
-				<cfset bal = threshold.ThresholdCredit - outstanding - amt>
-				
-			<cfelse>
-			
-				<cfset bal = threshold.ThresholdCredit - outstanding>									
-			
-			</cfif>
-			
-			<cfif bal gte "0">
+						<cfset outstanding = outstanding + AmountOutstanding>
 						
-				<!--- field 3 --->
-				<cfset customer.result = "1">	
+					<cfelse>	
+					
+						<cf_exchangeRate currencyFrom = "#currency#" 
+						                 currencyTo   = "#balancecurrency#">
+										 
+						<cfset amt = AmountOutstanding / exc>
+						<cfset outstanding = outstanding + amt>
+				
+					</cfif>
+				
+				</cfloop>
+				
+				<!--- field 2 --->
+				<cfset customer.Outstanding  = outstanding>	
+				
+				<cfif amount gte "0">
+				
+					<cf_exchangeRate currencyFrom = "#amountcurrency#" 
+		                 currencyTo   = "#balancecurrency#">
+				
+					<cfset amt = amount / exc>		
+					
+					<cfset bal = threshold.ThresholdCredit - outstanding - amt>
+					
+				<cfelse>
+				
+					<cfset bal = threshold.ThresholdCredit - outstanding>									
+				
+				</cfif>
+				
+				<cfif bal gte "0">
+							
+					<!--- field 3 --->
+					<cfset customer.result = "1">	
+					
+				<cfelse>
+				
+					<cfset customer.result = "0">	
+					
+				</cfif>
 				
 			<cfelse>
 			
-				<cfset customer.result = "0">	
+				<cfset customer.result = "0">		
 				
-			</cfif>
+			</cfif>	
 			
 			<cfreturn customer>			
 					

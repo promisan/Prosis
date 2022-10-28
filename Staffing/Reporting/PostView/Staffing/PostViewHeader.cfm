@@ -20,6 +20,7 @@
 					   <td align="center" bgcolor="#cl#"style="background-color:#cl#;min-width:#cellspace#px;font-size:14px;border:1px solid gray;!important">	
 					       #Left(Resource.Code,5)#
 					       <cfset subT = subT & "-#Resource.CurrentRow#-">
+						   
 					   </td>	   
 					   <cfelse>				   	 
 					   <td align="center" bgcolor="#cl#" style="background-color:#cl#;min-width:#cellspace#px;font-size:14px;border:1px solid gray!important">	

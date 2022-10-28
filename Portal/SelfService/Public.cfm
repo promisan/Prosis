@@ -60,7 +60,7 @@
 	<cfset url.menuClass 					= "menu">
 	<cfset url.showNavigationOnFirstPage 	= "1">
 	<cfset url.showReload					= "0">
-
+	
 	<!--- HTML5 --->
 	<!DOCTYPE html>
 

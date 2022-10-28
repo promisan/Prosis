@@ -1,9 +1,9 @@
 
-<cfparam name="Attributes.bind"   default="">
-<cfparam name="Attributes.Id" 	  default="mydivcontent">
-<cfparam name="Attributes.Name"   default="">
-<cfparam name="Attributes.Style"  default="">
-<cfparam name="Attributes.Class"  default="">
+<cfparam name="Attributes.bind"        default="">
+<cfparam name="Attributes.Id" 	       default="mydivcontent">
+<cfparam name="Attributes.Name"        default="">
+<cfparam name="Attributes.Style"       default="">
+<cfparam name="Attributes.Class"       default="">
 <cfparam name="Attributes.bindOnLoad"  default="true">
 
 <cfset oSecurity = CreateObject("component","Service.Process.System.UserController")>

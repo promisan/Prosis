@@ -128,6 +128,8 @@
 		        
 		          <td align="left" valign="top" style="width:300px;padding-left:3px;padding-top:2px">
 				  
+				 
+				  
 				        <cf_UISelect name   = "category"
 						     class          = "regularxxl"						     
 						     query          = "#CategorySelect#"

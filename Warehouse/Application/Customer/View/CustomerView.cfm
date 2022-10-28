@@ -5,13 +5,11 @@
 
 <table width="97%" height="100%" align="center">
  
- <tr>
- 
+ <tr> 
    <td height="100%" style="padding-top:5px;padding-bottom:5px">
     <cfset url.systemfunctionid = url.idmenu>
     <cfinclude template="CustomerViewListing.cfm"> 
    </td>
  </tr>
  
-
 </table>

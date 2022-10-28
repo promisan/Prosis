@@ -192,7 +192,7 @@ password="#SESSION.dbpw#">
     <TR><TD height="5"></TD></TR>		
 	
 	<TR class="labelmedium2">
-    <TD style="width:20%;padding-left:20"><cf_tl id="Schedule">:</TD>
+    <TD class="fixlength" style="width:20%;padding-left:20"><cf_tl id="Schedule">:</TD>
     <TD>
     	
     	<cfoutput>
@@ -209,7 +209,7 @@ password="#SESSION.dbpw#">
 	</TR>
   
     <TR class="labelmedium2">
-    <TD style="padding-left:20"><cf_tl id="Effective">:</TD>
+    <TD class="fixlength" style="padding-left:20"><cf_tl id="Effective">:</TD>
     <TD>
 	
 		  <cf_intelliCalendarDate9
@@ -223,7 +223,7 @@ password="#SESSION.dbpw#">
 	</TR>
 	
 	<TR class="labelmedium2">
-    <TD style="padding-left:20"><cf_tl id="Expiration">:</TD>
+    <TD class="fixlength" style="padding-left:20"><cf_tl id="Expiration">:</TD>
     <TD>
 	
 	  <cf_intelliCalendarDate9
@@ -249,7 +249,7 @@ password="#SESSION.dbpw#">
 	</cfquery>
 							
 	<TR class="labelmedium2">
-	    <TD style="padding-left:20"><cf_tl id="Applies to">:</TD>
+	    <TD class="fixlength" style="padding-left:20"><cf_tl id="Applies to">:</TD>
 		<TD>
 		<select name="DependentId" class="regularxxl enterastab">
 			<option value=""><cf_tl id="Staffmember"></option>
@@ -261,7 +261,7 @@ password="#SESSION.dbpw#">
 	</tr>		
 			
 	<TR class="labelmedium2">
-    <TD style="padding-left:20"><cf_tl id="Payroll Item">:</TD>
+    <TD class="fixlength" style="padding-left:20"><cf_tl id="Payroll Item">:</TD>
     <TD>
 	  	<cfselect name="entitlement"
           size="1"
@@ -279,7 +279,7 @@ password="#SESSION.dbpw#">
 	</TR>		
 	
 	<TR class="labelmedium2">
-    <TD style="padding-left:20"><cf_tl id="Rate">:</TD>
+    <TD class="fixlength" style="padding-left:20"><cf_tl id="Rate">:</TD>
     <TD>
 	
 		<cfif schedules.paymentCurrency neq "">
@@ -310,7 +310,7 @@ password="#SESSION.dbpw#">
 		   required="Yes" 
 		   size="12" 
 		   maxlength="16" 
-		   style="text-align: right;padding-right:3px;height:30px">
+		   style="text-align: right;padding-right:3px;height:28px">
 		
 		</td></tr></table>
 			
@@ -318,7 +318,7 @@ password="#SESSION.dbpw#">
 	</TR>		
 	
     <TR class="labelmedium2">
-    <TD style="padding-left:20"><cf_tl id="Rate application">:</TD>
+    <TD class="fixlength" style="padding-left:20"><cf_tl id="Rate application">:</TD>
     <TD>
 	
 		<select name="Period" class="regularxxl">
@@ -335,7 +335,7 @@ password="#SESSION.dbpw#">
 	</TR>
 		
 	<TR class="labelmedium2">
-    <TD style="padding-left:20"><cf_tl id="Source Document">:</TD>
+    <TD class="fixlength" style="padding-left:20"><cf_tl id="Source Document">:</TD>
     <TD><input type="text" name="documentReference" class="regularxxl" size="20" maxlength="20"></TD>
 	</TR>
 	

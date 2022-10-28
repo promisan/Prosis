@@ -31,7 +31,7 @@
 			  <cfset s2 = "Agreed">
 			</cfif>			
 				 				 								
-				<tr><td height="4"></td></tr>							   
+				<tr><td height="10"></td></tr>							   
 									
 						<cfif URL.PublishNo eq "">
 						
@@ -89,7 +89,7 @@
 									<cfif Get.ActionParent eq "INIT">First action
 										<input type="hidden" name="ActionParent" id="ActionParent" value="">	
 									<cfelse>
-										<a href="javascript:stepedit('#Parent.ActionCode#')">
+										<a href="javascript:stepedit('#Parent.ActionCode#')" title="Configure workflow step">
 										#Parent.ActionCode# #Parent.ActionDescription#
 										</a>
 										<input type="hidden" name="ActionParent" id="ActionParent" value="#Parent.ActionCode#">	
@@ -141,14 +141,11 @@
 									<td style="padding-left:4px">
 										<cfinput class="regularxl" type="Text" value="#Get.ActionReference#"  name="ActionReference" message="Please enter an actor reference" required="No" size="18" maxlength="20">
 									</td>						
-									<td class="labelmedium">
-									<cf_UIToolTip tooltip="Check this box only if this action should not be availalble for interactive processing and is updated through a script or stored procedure">
-									&nbsp;&nbsp;API:&nbsp;
-									</cf_UIToolTip>
+									<td class="labelmedium" title="Check this box only if this action should not be available for interactive processing and is updated through a script or stored procedure">
+									&nbsp;&nbsp;API:&nbsp;									
 									</td>
 							        <TD height="25" class="labelmedium">
-									 <input type="checkbox" <cfif Get.ActionTrigger eq "External">checked</cfif> name="ActionTrigger" id="ActionTrigger" value="External">
-															
+									 <input type="checkbox" <cfif Get.ActionTrigger eq "External">checked</cfif> name="ActionTrigger" id="ActionTrigger" value="External">															
 									</td>
 								
 								</tr>

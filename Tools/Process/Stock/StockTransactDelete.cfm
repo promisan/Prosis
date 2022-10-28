@@ -100,6 +100,8 @@
 		           ,ConfirmationMemo
 		           ,QuantityReturned
 		           ,InvoiceId
+				   ,Journal
+				   ,JournalSerialNo				   
 		           ,OfficerUserId
 		           ,OfficerLastName
 		           ,OfficerFirstName
@@ -132,6 +134,8 @@
 		           ,ConfirmationMemo
 		           ,QuantityReturned
 		           ,InvoiceId
+				   ,Journal
+				   ,JournalSerialNo		
 		           ,OfficerUserId
 		           ,OfficerLastName
 		           ,OfficerFirstName

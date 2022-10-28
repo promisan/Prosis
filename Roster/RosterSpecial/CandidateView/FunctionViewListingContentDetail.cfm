@@ -18,7 +18,7 @@
 		<cfset per = URL.Page*250-250>
 		<cfset perT = "">
 
-    <table width="97.5%" class="navigation_table">	
+    <table width="100%" align="center" class="navigation_table">	
 					
 	<tr class="fixrow"><td colspan="14" colspan="#col#"><cfinclude template="Navigation.cfm"></td></tr>
 	
@@ -190,7 +190,7 @@
 												
 					<cfif currrow gte first and currrow lte last>
 											 
-						<tr id="#ApplicantNo#" class="line labelmedium2 navigation_row fixlengthlist">
+						<tr id="#ApplicantNo#" class="line labelmedium navigation_row fixlengthlist" style="height:22px">
 						    
 							<cfif mission eq "">
 						    <td align="center">
@@ -300,11 +300,11 @@
 									<tr>							
 									
 									<td title="Has one or more education records" style="padding:0 5px;border-right:1px solid ##efefef;" align="center">
-									    <cfif University gt 0><i class="fas fa-user-graduate" style="font-size: 15px;color: ##gray;"></cfif>
+									    <cfif University gt 0><i class="fas fa-user-graduate" style="font-size: 13px;color: ##gray;"></cfif>
 									</td>														
 												
-									<td title="Has one or more employment records" style="padding:0 5px;border-right:1px solid ##efefef;" align="center">
-										<cfif Employment gt 0><i class="fas fa-briefcase" style="font-size: 16px;color: ##gray;"></cfif>
+									<td title="Has one or more employment records" style="padding-top:1px;border-right:1px solid ##efefef;" align="center">
+										<cfif Employment gt 0><i class="fas fa-briefcase" style="font-size: 14px;color: ##gray;"></cfif>
 									</td>						
 									<td style="padding:0 5px;" align="center">
 										<cfif Language gt 0><span style="font-weight: 800;color: ##gray;">ENG</span></cfif>

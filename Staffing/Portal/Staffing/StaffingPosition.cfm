@@ -193,13 +193,13 @@
 		}
 		
 	</style>
-	
+
 	<cf_mobileRow class="clsMainContainer toggleScroll-y">
 		<cf_mobileRow>
-			<cf_MobileCell id="filter" class="clsFilterContainer toggleScroll-y hidden-xs col-sm-4 col-md-3 col-lg-2">
+			<cf_MobileCell id="filter" class="clsFilterContainer toggleScroll-y hidden-xs col-sm-5 col-md-4 col-lg-3">
 				<cfinclude template="StaffingOrganization.cfm">
 			</cf_MobileCell>
-			<cf_MobileCell id="main" class="clsMain col-sm-8 col-md-9 col-lg-10"></cf_MobileCell>			
+			<cf_MobileCell id="main" class="clsMain col-sm-7 col-md-8 col-lg-9"></cf_MobileCell>			
 		</cf_mobileRow>
 	</cf_mobileRow>
 

@@ -2,6 +2,8 @@
 <cfset cellspace = round(1000/Resource.recordcount)>	
 <cfif cellspace lt "39">
    <cfset cellspace = 39>	
+<cfelseif cellspace gt "100">
+   <cfset cellspace = 100>   
 </cfif>
 
 <cf_divscroll>

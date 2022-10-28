@@ -41,12 +41,16 @@
 				  WHERE  PositionNo = P.PositionNo 
 				  AND    Status != '9') as PositionGroup
 				 
-		FROM     userQuery.dbo.#SESSION.acc#Post#FileNo# P INNER JOIN
-	             Employee.dbo.PositionParent PP ON P.PositionParentId = PP.PositionParentId INNER JOIN
-	             Employee.dbo.Ref_PostClass R  ON P.PostClass        = R.PostClass INNER JOIN
-				 <!--- if this is an intermission loan we make this different and connect to P.OrgUnit = --->
-	             Organization Org ON  <cfif URL.ID4 neq ""> P.OrgUnit <cfelse> P.OrgUnitOperational </cfif> = Org.OrgUnit LEFT OUTER JOIN
-	             userQuery.dbo.#SESSION.acc#Assignment#FileNo# Ass ON P.PositionNo = Ass.PositionNo		 
+		FROM     userQuery.dbo.#SESSION.acc#Post#FileNo# P 
+		         INNER JOIN Employee.dbo.PositionParent PP ON P.PositionParentId = PP.PositionParentId 
+				 INNER JOIN Employee.dbo.Ref_PostClass R  ON P.PostClass        = R.PostClass 
+				 INNER JOIN  Organization Org ON  
+				 
+				 <!--- URL.ID4 is the other mission if this is an intermission loan we make this different and connect to P.OrgUnit = --->	            
+				 <cfif URL.ID4 neq ""> P.OrgUnit 
+				 <cfelse> (CASE WHEN P.MissionOperational = P.Mission THEN P.OrgUnitOperational ELSE PP.OrgUnitOperational END)  
+				 </cfif> = Org.OrgUnit 
+				 LEFT OUTER JOIN userQuery.dbo.#SESSION.acc#Assignment#FileNo# Ass ON P.PositionNo = Ass.PositionNo		 
 				 
 		WHERE    P.HierarchyCode >= '#HStart#' 
 		     AND P.HierarchyCode < '#HEnd#'				
@@ -88,7 +92,8 @@
 		AND     P.MandateNo = '#URL.Mandate#'				
 	 ORDER BY   P.HierarchyCode, P.ViewOrder, P.PostOrder, P.PositionNo 
 	 	 
-	</cfquery>	
+	</cfquery>
+	
 	
 </cfif>
 

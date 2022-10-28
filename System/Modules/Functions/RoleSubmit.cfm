@@ -96,10 +96,14 @@
 	</cfif>
 
 </cftransaction>
+
+
+<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
+<cfset mid = oSecurity.gethash()/> 
   	
 <script>
 	 <cfoutput>
-	 #ajaxLink('#SESSION.root#/System/Modules/Functions/Role.cfm?ID=#URL.ID#')#
+	 #ajaxLink('#SESSION.root#/System/Modules/Functions/Role.cfm?ID=#URL.ID#&mid=#mid#')#
 	 try { opener.functionrefresh('#URL.ID#') } catch(e) {}
 	 </cfoutput> 
 </script>	

@@ -3,7 +3,7 @@
 
 	<table width="97%" align="center" class="formpadding">
 		
-	<tr><td colspan="2" style="padding-top:5px;font-size:20px;height:35px" class="labellarge">Workflow Action <u>Listing</u></td></tr>
+	<tr><td colspan="2" style="padding-top:2px;font-size:18px;height:30px;font-weight:bold" class="labelmedium2">Workflow Action <u>Listing</u></td></tr>
 			
 	<input type="hidden" name="ActionType" id="ActionType" value="#Get.ActionType#">
 							
@@ -41,26 +41,23 @@
 	<cfinput type="Text" value="#Get.ActionURLDetails#"  name="ActionURLDetails" class="regularxl" required="No" size="77" maxlength="80">
 	</TD>
 	</TR>
-		
-	<tr><td colspan="2" style="font-size:20px;height:40px" class="labellarge">Workflow <u>Process Dialog</u></td></tr>	
+				
+	<tr><td colspan="2" style="font-size:18px;height:30px;font-weight:bold" class="labellarge">Workflow <u>Process Dialog</u></td></tr>	
 	
 	<tr>				
-	   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer"><cf_uitooltip tooltip="Allow actor to enter the processing date">Enable Process date:</cf_uitooltip></TD>
+	   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer;color:6688aa" title="Allow actor to enter the processing date">Enable Process date:</TD>
 		 <TD width="80%">
 		   <INPUT type="checkbox" class="radiol" name="ActionDateInput" id="ActionDateInput" value="1" <cfif Get.ActionDateInput eq "1">checked</cfif>>
 		 </td>			
-	</tr>	
-	
+	</tr>		
 		
 	<cfif Get.ActionType eq "Decision">	
 				
 			<TR>
-		    <TD valign="top" style="padding-left:10px;padding-top:3px" height="25" class="labelmedium">Descriptive decisions:</b></TD>
-		    <TD>
-						
-			<table>
-			
-			<tr><td style="padding:4px">
+		    <TD colspan="2" style="padding-left:10px;" height="25" class="labelmedium">Descriptive decision legs:</b></TD>		    
+			</tr>
+									
+			<tr><td style="padding-left:14px" colspan="2">
 						
 				<cfif URL.PublishNo eq "">	
 						
@@ -85,7 +82,7 @@
 								   class="regularxxl"
 								   maxlength="40">
 						    </td>
-							<td style="padding-left:6px"><font face="Calibri" size="2">Action:</td>
+							<td style="padding-left:6px" class="fixlength labelmedium"><cf_tl id="Action">:</td>
 							<td style="padding-left:6px;padding-right:4px">
 							<select style="width:270px" name="ActionGoToYes" id="ActionGoToYes" class="regularxxl">
 							<option value="" selected>Undefined</option>
@@ -117,7 +114,7 @@
 								  					  
 								   
 						    </td>
-							<td style="padding-left:6px" class="labelmedium">Action:</td>
+							<td style="padding-left:6px" class="fixlength labelmedium"><cf_tl id="Action">:</td>
 							<td style="padding-left:6px;padding-right:4px">
 							<select style="width:270px"  name="ActionGoToNo" id="ActionGoToNo" class="regularxxl">
 							<option value="" selected>Undefined</option>
@@ -143,8 +140,8 @@
 								<tr><td height="1"></td></tr>
 								<tr bgcolor="CEFFCE">
 									
-									<td width="40%" class="labelmedium" style="height:35px;padding-left:6px">Track A</td>
-									<td height="24" class="labelit" style="padding-left:6px">Label:</td>
+									<td width="40%" class="labelmedium" style="height:35px;padding-left:6px">Approve</td>
+									<td height="24" class="labelmedium" style="padding-left:6px">Label:</td>
 									<td style="padding-left:8px"><input type="text" 
 									       name="ActionGoToYesLabel" 
 										   id="ActionGoToYesLabel"
@@ -166,8 +163,8 @@
 								
 								<tr><td height="1"></td></tr>						
 								<tr bgcolor="FDDFDB">
-									<td height="24" class="labelmedium" style="height:35px;padding-left:6px">Track B</td>
-									<td style="padding-left:6px" class="labelit">Label:</td>
+									<td height="24" class="labelmedium" style="height:35px;padding-left:6px">Deny</td>
+									<td style="padding-left:6px" class="labelmedium">Label:</td>
 									<td style="padding-left:8px">
 									
 									      <input type="text" 
@@ -198,7 +195,6 @@
 									
 				</cfif>
 				
-				</table>
 			</td>
 			</tr>
 									
@@ -254,10 +250,8 @@
 		 <td valign="top" style="cursor:pointer">
 		 <table cellspacing="0" cellpadding="0">
 		 <tr><td height="3"></td></tr>
-		 <tr><td style"padding-left:10px" class="labelmedium">
-		 <cf_uitooltip tooltip="Write a SELECT query that should have at least one record as a result in order to trigger the embedded workflow:">
-		 Condition for Embedding:
-		 </cf_uitooltip>
+		 <tr><td style"padding-left:10px" class="labelmedium" tooltip="Write a SELECT query that should have at least one record as a result in order to trigger the embedded workflow:">		 
+		 Condition for Embedding:		 
 		 </td></tr></table>
 		 </td>
 		
@@ -283,10 +277,8 @@
 	</cfif>		
 	
 	<TR>
-		<TD style="cursor:pointer;padding-left:10px" class="labelmedium">
-		<cf_uitooltip tooltip="Show the standard document reference in the process dialog.">
-		Object Reference:
-		</cf_uitooltip>
+		<TD style="cursor:pointer;padding-left:10px" class="labelmedium" title="Show the standard document reference in the process dialog">		
+		Object Reference:		
 		</TD>
 		<TD class="labelmedium">
 		<table>
@@ -303,10 +295,10 @@
 	<cfif Get.ActionType eq "Action" or Get.ActionType eq "Decision">
 	
 	<TR>
-    <TD class="labelmedium" style="cursor:pointer;padding-left:10px">	
-	<cf_uitooltip  tooltip="Select a custom dialog which will be loaded once the step is processed">
+    <TD class="labelmedium" style="cursor:pointer;padding-left:10px" title="Select a custom dialog which will be loaded once the step is processed">	
+	
 	[TAB] Custom Dialog:
-	</cf_uitooltip>			
+		
 	</TD>
     <td>
 	     <table>
@@ -370,7 +362,7 @@
 		<table width="450" style="border:0px dotted silver" cellspacing="0" cellpadding="0" class="formpadding">
 		
 		<TR>
-			<TD width="30%" style="padding-left:4px;padding-right:10px" style="cursor:pointer"
+			<TD width="30%" style="padding-left:4px;padding-right:10px;cursor:pointer"
 			 title="Allow Processor to record a reference date and referenceNo" class="labelit">Reference/Date:</TD>
 			<TD>
 			<table cellspacing="0" cellpadding="0">
@@ -387,7 +379,7 @@
 		<!--- prevent embed within an embed --->
 					
 		<tr>				
-	   	 <TD style="padding-left:4px;cursor:pointer" class="labelit"><cf_uitooltip  tooltip="Memo entry box">Memo/Notes:</cf_uitooltip></TD>
+	   	 <TD style="padding-left:4px;cursor:pointer" title="Memo entry box" class="labelit">Memo/Notes:</TD>
 		 <TD>
 		 
 		 <table>
@@ -503,7 +495,7 @@
 	</TD>
 	</tr>		
 		
-	<tr><td style="font-size:20px;height:40px" class="labellarge">Ticklers/Notification</font></td></tr>
+	<tr><td style="font-size:18px;height:30px;font-weight:bold" class="labellarge">Ticklers/Notification</td></tr>
 	
 	<tr>				
    	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer" title="Once this action is due, the action will be presented for the actor under the [My Clearances] function">My Clearances</td>
@@ -548,14 +540,22 @@
 			
 			<tr>
 	 			<td class="labelmedium fixlength" style="padding-left:3px;">Apply Step jump:</TD>
-				<td style="padding-left:6px;"><input type="checkbox" class="radiol" name="notificationondue" id="notificationondue" value="1" <cfif Get.NotificationDueOnJump eq "1">checked</cfif>></td>	 
+				<td style="padding-left:3px">
+				
+					<table cellspacing="0" cellpadding="0">
+					
+					<tr>
+					    <td><input type="checkbox" class="radiol" name="notificationondue" id="notificationondue" value="1" <cfif Get.NotificationDueOnJump eq "1">checked</cfif>></td>	 
+				
+			 			<td class="labelmedium fixlength" style="padding-left:3px">Show explicit dialog:</TD>
+						<td style="padding-left:6px;"><input type="checkbox" class="radiol" <cfif Get.enableQuickProcess eq "1">disabled</cfif> name="notificationmanual" id="notificationmanual" value="1" <cfif Get.NotificationManual eq "1">checked</cfif>></td>	 
+					</tr>
+					
+					</table>
+					
+				</td>	
 			</tr>	
-			
-			<tr>
-	 			<td class="labelmedium fixlength" style="padding-left:3px">Show explicit dialog:</TD>
-				<td style="padding-left:6px;"><input type="checkbox" class="radiol" <cfif Get.enableQuickProcess eq "1">disabled</cfif> name="notificationmanual" id="notificationmanual" value="1" <cfif Get.NotificationManual eq "1">checked</cfif>></td>	 
-			</tr>
-			
+						
 			<tr>
 				<td class="labelmedium" style="padding-left:3px;" width="10%"><cf_tl id="Content"></td>
 				<td style="padding-left:6px">
@@ -606,7 +606,7 @@
 		
 	<tr><td height="1" class="line" colspan="2"></td></tr>
 		
-	<tr><td align="center" colspan="2">
+	<tr><td colspan="2">
 	
 			<cfif URL.PublishNo eq "">
 			<input class="button10g"  style="width:120;height:25" type="button" name="Delete" id="Delete" value="Remove" onClick="removeaction()">

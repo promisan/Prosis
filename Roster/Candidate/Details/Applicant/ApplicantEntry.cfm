@@ -389,11 +389,11 @@ password="#SESSION.dbpw#">
 	    <TR>
 	    <TD class="fixlength labelmedium"><cf_tl id="Last name">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD><cf_tl id="Please enter lastname" var="1" class="message">
-			<cfinput type="Text" onchange="validate()" class="regularxl enterastab" id="lastname" name="lastname" message="#lt_text#" required="Yes" size="40" maxlength="40" >			
+			<cfinput type="Text" onchange="validate()" style="width:98%" class="regularxl enterastab" id="lastname" name="lastname" message="#lt_text#" required="Yes" size="40" maxlength="40" >			
 		</TD>
 		  <TD class="fixlength labelmedium"><cf_tl id="Second Last name">:</TD>
 	    <TD><cf_tl id="Please enter lastname" var="1" class="message">
-			<cfinput type="Text" class="regularxl enterastab" id="lastname2" name="lastname2" message="#lt_text#" required="No" size="40" maxlength="40" >			
+			<cfinput type="Text" class="regularxl enterastab" id="lastname2" name="lastname2" message="#lt_text#" required="No" size="40" maxlength="40" style="width:98%" >			
 		</TD>
 		</TR>	
 		
@@ -469,7 +469,7 @@ password="#SESSION.dbpw#">
 		
 			<cfif tree eq "">
 		
-		    	<cfselect name="Nationality" id="Nationality" onchange="validate()" required="Yes" message="Select Nationality" class="regularxl enterastab">
+		    	<cfselect name="Nationality" id="Nationality" onchange="validate()" style="width:98%" required="Yes" message="Select Nationality" class="regularxl enterastab">
 				    <cfoutput query="Nation">
 						<option value="#Code#" <cfif last.Nationality eq code>selected</cfif>>#Name#</option>
 					</cfoutput>
@@ -487,7 +487,7 @@ password="#SESSION.dbpw#">
 		<TD class="fixlength labelmedium"><cf_tl id="2nd Nationality">:</TD>
 		<TD>
 	
-	  	    <cfselect name="NationalityAdditional" class="regularxl enterastab">
+	  	    <cfselect name="NationalityAdditional" style="width:98%" class="regularxl enterastab">
 				<option value=""><cf_tl id="N/A"></option>
 			    <cfoutput query="Nation">
 					<option value="#Code#">#Name#</option>
@@ -502,12 +502,12 @@ password="#SESSION.dbpw#">
 	    <TD class="fixlength labelmedium"><cf_tl id="E-mail Address">:<font color="FF0000">&nbsp;*</font></TD>
 	    <TD>
 			<cf_tl id="Please enter an e-mail address" var="1" class="message">
-			<cfinput type="Text" name="emailaddress" id="emailaddress" validate="email" message="#lt_text#" required="Yes" visible="Yes" enabled="Yes" size="40" maxlength="50" class="enterastab regularxl">
+			<cfinput type="Text" name="emailaddress" id="emailaddress" validate="email" style="width:98%" message="#lt_text#" required="Yes" visible="Yes" enabled="Yes" size="40" maxlength="50" class="enterastab regularxl">
 		</TD>
 		
 	    <TD class="fixlength labelmedium"><cf_tl id="Mobile Number">:</TD>
 	    <TD>		
-			<cfinput class="regularxl enterastab" type="text" name="MobileNumber" size="40" maxlength="50">			
+			<cfinput class="regularxl enterastab" type="text" name="MobileNumber" size="40" style="width:98%" maxlength="50">			
 		</TD>
 		</TR>
 					 

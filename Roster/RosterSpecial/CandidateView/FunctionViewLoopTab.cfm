@@ -65,7 +65,7 @@ function bucketsta() {
 	 <cf_tl id="Configuration" var="vText">
 	
 	 <cf_UItreeitem value="bck"
-		        display="<span style='font-size:17px;padding-top:10px;padding-bottom:5px;font-weight:bold' class='labelit'>#vText#</span>"
+		        display="<span style='font-size:17px;padding-top:15px;padding-bottom:15px;font-weight:bold' class='labelit'>#vText#</span>"
 				parent="root"								
 		        expand="Yes">	  
 	   
@@ -116,7 +116,7 @@ function bucketsta() {
 	<cf_tl id="Candidates" var="vCan">	
 	
 	<cf_UItreeitem value="can"
-		        display="<span style='font-size:17px;padding-top:10px;padding-bottom:5px;font-weight:bold' class='labelit'>#vCan#</span>"
+		        display="<span style='font-size:17px;padding-top:15px;padding-bottom:15px;font-weight:bold' class='labelit'>#vCan#</span>"
 				parent="root"								
 		        expand="Yes">	  
 	   		
@@ -276,7 +276,7 @@ function bucketsta() {
 		  </cfif>
 		  
 	<cf_UItreeitem value="aut"
-        display="<span style='font-size:17px;padding-top:10px;padding-bottom:5px;font-weight:bold' class='labelit'>Authorization Settings</span>"
+        display="<span style='font-size:17px;padding-top:15px;padding-bottom:15px;font-weight:bold' class='labelit'>Authorization Settings</span>"
 		parent="root"								
         expand="Yes">	  	  
 			

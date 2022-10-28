@@ -77,13 +77,25 @@ function applyaccount(acc,scope,fld) {
 				   
 				<cfif url.id1 neq "">
 				   
-				 <cf_menutab item  = "2" 
+					 <cf_menutab item  = "2" 
+				       iconsrc    = "Logos/System/Maintain.png" 
+					   iconwidth  = "#wd#" 
+					   iconheight = "#ht#" 
+					   targetitem = "1"
+					   name       = "Payroll and Ledger Posting"
+					   source     = "PayrollSchedule.cfm?id1=#url.id1#&idMenu=#url.idmenu#">
+				
+				</cfif>
+				
+				<cfif url.id1 neq "">
+				   
+				 <cf_menutab item  = "3" 
 			       iconsrc    = "Authorization.png" 
 				   iconwidth  = "#wd#" 
 				   iconheight = "#ht#" 
 				   targetitem = "1"
-				   name       = "Payroll and Ledger Posting"
-				   source     = "PayrollSchedule.cfm?id1=#url.id1#&idMenu=#url.idmenu#">
+				   name       = "Grant access"
+				   source     = "ItemRole.cfm?id=#url.id1#&idMenu=#url.idmenu#">
 				
 				</cfif>
 				

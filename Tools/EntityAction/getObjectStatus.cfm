@@ -2,7 +2,6 @@
 <cfparam name="url.objectid" default="">
 <cfparam name="session.authent" default="">
 
-
 <cfif session.authent neq "1">
 
     <cfoutput>
@@ -82,7 +81,13 @@
 		</script>
 		
 	</cfcatch>
-	
+			
 	</cftry>
 	
+	<cfoutput>
+		<img style="height:12px;padding-top:4px;cursor:pointer" src="#session.root#/images/logos/system/refresh.png" border="0" title="Last check #timeformat(now(),'hh:mm:ss')#">		
+	</cfoutput>
+	
 </cfif>	
+
+

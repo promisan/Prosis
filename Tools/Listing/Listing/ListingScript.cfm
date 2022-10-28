@@ -189,9 +189,9 @@ function attachopen(id) {
 function gofilter(mde,e) {
       
 	   switch (mde) {
-	    case 'text': keynum = e.keyCode ? e.keyCode : e.charCode; if (keynum == 13) { e.stopPropagation(); applyfilter('','1','content') };
-	    case 'list': applyfilter('','1','content');
-		case 'clck': applyfilter('','1','content'); 	   
+	    case 'text': keynum = e.keyCode ? e.keyCode : e.charCode; if (keynum == 13) { e.stopPropagation(); applyfilter('','1','content') };break; 
+	    case 'list': applyfilter('','1','content');break; 
+		case 'clck': applyfilter('','1','content');break; 	   
     }
 }	
   

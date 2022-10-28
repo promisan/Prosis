@@ -69,9 +69,12 @@
 	<cfset list = "">
 	<cfset cellspace = round(1000/Resource.recordcount)>	
 	
+	
 	<cfif Resource.recordcount gte "1">
 	<cfif cellspace lt "39">
 	   <cfset cellspace = 39>	
+	<cfelseif cellspace gt "100">
+	   <cfset cellspace = 100>   
 	</cfif>
 	</cfif>
 		

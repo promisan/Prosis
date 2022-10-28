@@ -320,14 +320,22 @@
 			<table cellspacing="0" cellpadding="0">
 			<tr>
                 <td>
-                    <input type="text" name="ActionReferenceNo" id="ActionReferenceNo" class="regularxl" value="#aref#">
-                <td  class="labelmedium" style="padding-left:20px"><span style="position: relative; top:2px;"><cf_tl id="Date">:</span></td>
-                <td>
+                    <input type="text" name="ActionReferenceNo" id="ActionReferenceNo" class="regularxxl" value="#aref#">
+					
+                <td  class="labelmedium" style="padding-left:20px"><cf_tl id="Date">:</td>
+                <td style="padding-left:4px">
+				
+				<cfif adte eq "">			   
+			   	   <cfset adte = now()>
+			    </cfif>
+			    
 				<cf_intelliCalendarDate9
 				FieldName="ActionReferenceDate" 
 				Default="#Dateformat(adte, CLIENT.DateFormatShow)#"
-				Class="regularxl"
+				Class="regularxxl"
 				AllowBlank="false">	
+				
+				
 			     </td>
 			     </td>
 			</tr>

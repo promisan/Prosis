@@ -12,13 +12,15 @@
 </cfif>	
 
 --->
+
+
 	
 <cfif url.content eq "1">
-
     <!--- -------------------------------------------------- --->
-	<!--- only content because apply/refresh/sort is pressed --->				
+	<!--- only content because apply/refresh/sort is pressed --->		
+		
 	<cfinclude template="ListingContentHTML.cfm">	
-	
+		
 <cfelse>
 
   <cfoutput>   
@@ -163,7 +165,10 @@
 						                <tr>									  					
 											<td class="#cl#" id="locate#attributes.box#" colspan="2" width="100%">											
 																						
-												<!--- show filter options --->																										
+												<!--- show filter options --->		
+																						
+												
+																																			
 												<cfinclude template="ListingFilter.cfm">																															
 											</td>    										
 										</tr>  								
@@ -179,12 +184,13 @@
 						<tr class="hide">
 						   	<td style="height:1px" id="#attributes.box#_ajax"></td>
 						</tr>		
-																
+						
+																						
 						<tr>
 						   	<td style="padding:3px;height:100%" width="100%" id="#attributes.box#_content">																										   			     						
 								<cfinclude template="ListingContentHTML.cfm">						  				  																		
 							</td>
-						</tr>					 
+						</tr>		 
 							   
 					</table> 
 				
@@ -415,7 +421,8 @@
 												
 								<table width="100%" align="right">							
 									<tr>																	
-									<td id="locate#attributes.box#" width="100%" class="#cl#">																											
+									<td id="locate#attributes.box#" width="100%" class="#cl#">								
+																																		
 									 	<cfinclude template="ListingFilter.cfm"> 															
 									</td>		
 																		
@@ -445,8 +452,10 @@
 					</cfif>		
 												
 				    <tr>
-					    <td height="100%" id="#attributes.box#_content" colspan="2" valign="top">																									
+					    <td height="100%" id="#attributes.box#_content" colspan="2" valign="top">
+																												
 							<cfinclude template="ListingContentHTML.cfm">	   																
+						
 						
 						</td>
 					</tr>	

@@ -1,6 +1,4 @@
 
-
-
 <cf_tl id="Vacant" var="1">
 <cfset tVacant=#lt_text#>
 
@@ -31,10 +29,10 @@
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
 	SELECT *
-	FROM  Organization O
-	WHERE Mission     = '#URL.ID2#'
-	AND   MandateNo   = '#URL.ID3#'
-	AND   OrgUnitCode = '#URL.ID1#'   	
+	FROM   Organization O
+	WHERE  Mission     = '#URL.ID2#'
+	AND    MandateNo   = '#URL.ID3#'
+	AND    OrgUnitCode = '#URL.ID1#'   	
 </cfquery>
 
 <cfinvoke component="Service.Access"  
@@ -235,22 +233,22 @@ FROM	(
 			
 			SELECT    <!--- PP.PositionParentId,		   --->
 			          PP.FunctionDescription as ParentFunction, 
-					  PP.PostGrade as ParentGrade,
-					  PP.DateEffective as ParentEffective,
-					  PP.DateExpiration as ParentExpiration,
+					  PP.PostGrade           as ParentGrade,
+					  PP.DateEffective       as ParentEffective,
+					  PP.DateExpiration      as ParentExpiration,
 					  PP.ApprovalReference,
-					  PP.PostGrade as ParentPostGrade,
-					  PP.PostType as ParentPostType,
+					  PP.PostGrade           as ParentPostGrade,
+					  PP.PostType            as ParentPostType,
 			          P.*, 
 					  Gr.PostOrder,
 					  A.AssignmentNo,
 					  A.PersonNo, 
 					  A.Incumbency,
-					  A.DateEffective as AssignmentStart, 
-					  A.DateExpiration as AssignmentEnd,
+					  A.DateEffective        as AssignmentStart, 
+					  A.DateExpiration       as AssignmentEnd,
 					  A.AssignmentClass,
 					  A.FunctionNo as FunctionNoAss,
-					  A.FunctionDescription as FunctionDescriptionAss,
+					  A.FunctionDescription  as FunctionDescriptionAss,
 					  Pers.IndexNo,
 					  Pers.LastName,
 					  Pers.FirstName,
@@ -301,11 +299,11 @@ FROM	(
 							<!--- AND  SPA.DateEffective < #incumdate# --->
 							ORDER BY SPA.Created DESC) as PostAdjustmentStep				  
 					
-			FROM      PositionParent PP INNER JOIN
-			          Position P ON PP.PositionParentId = P.PositionParentId INNER JOIN
-			          Ref_PostGrade Gr ON PP.PostGrade = Gr.PostGrade INNER JOIN
-			          PersonAssignment A ON P.PositionNo = A.PositionNo INNER JOIN
-					  Person Pers ON A.PersonNo = Pers.PersonNo 
+			FROM      PositionParent PP 
+			          INNER JOIN Position P ON PP.PositionParentId = P.PositionParentId 
+					  INNER JOIN Ref_PostGrade Gr ON PP.PostGrade = Gr.PostGrade 
+					  INNER JOIN PersonAssignment A ON P.PositionNo = A.PositionNo 
+					  INNER JOIN Person Pers ON A.PersonNo = Pers.PersonNo 
 					  
 			WHERE     PP.OrgUnitOperational = '#OrgUnit.OrgUnit#' 
 			AND       A.AssignmentStatus IN ('0','1')	

@@ -215,6 +215,7 @@ password="#SESSION.dbpw#">
 					  '#Function.OccupationalGroup#',
 					  '#Post.OrgUnitName#',
 					  '#Post.MissionOperational#',
+					  '#Edition.Owner#',
 					  '#Post.MissionOwner#',
 					  '#Post.SourcePostNumber#',
 					  '#Post.PositionNo#',
@@ -271,8 +272,7 @@ password="#SESSION.dbpw#">
 			      			 Status,
 			      			 OfficerUserId,
 			      			 OfficerLastName,
-			      			 OfficerFirstName,
-			      			 Created )
+			      			 OfficerFirstName)
 						VALUES (
 							'#rowguid#',
 							'#FunctionNo#',
@@ -291,12 +291,10 @@ password="#SESSION.dbpw#">
 							'1',
 							'#SESSION.Acc#',
 							'#SESSION.Last#',
-							'#SESSION.First#',
-							 getdate()
+							'#SESSION.First#'
 						)
 						
-					</cfquery>
-					
+					</cfquery>				
 					
 					<!--- post to competencies as well 16/8/2014 --->
 										
@@ -393,15 +391,13 @@ password="#SESSION.dbpw#">
 								 PostNumber,
 								 OfficerUserId,
 								 OfficerLastName,
-								 OfficerFirstName,
-								 Created)
+								 OfficerFirstName)
 					  VALUES ('#LastNo.DocumentNo#',
 					          '#PositionNo#',
 					          '#Post.SourcePostNumber#',
 							  '#SESSION.acc#',
 					    	  '#SESSION.last#',		  
-						  	  '#SESSION.first#',
-							  getdate())
+						  	  '#SESSION.first#')
 					  </cfquery>	
 				
 				</cfoutput>

@@ -56,6 +56,26 @@
 		WHERE PositionNo = '#Doc.PositionNo#'
 	</cfquery>
 	
+	<cfquery name="GetObjectClass" 
+	datasource="appsVacancy" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	    SELECT *
+	    FROM   Organization.dbo.OrganizationObject
+		WHERE  ObjectKeyValue2  = '#URL.ID1#'
+		AND    ObjectKeyValue1  = '#URL.ID#'
+	</cfquery>
+	
+	<cfif GetCandidateStatus.EntityClass neq "">
+	
+		<cfset wfclass = GetCandidateStatus.EntityClass>
+	
+	<cfelse>
+	
+		<cfset wfclass = GetObjectClass.EntityClass>
+	
+	</cfif>
+	
 	<cfset link = "Vactrack/Application/Candidate/CandidateEdit.cfm?ID=#URL.ID#&ID1=#URL.ID1#">
 			
 	   <cfif GetCandidate.Gender eq "M">
@@ -67,11 +87,11 @@
 	   <cfif (GetCandidateStatus.Status eq "2s" 
 		       or GetCandidateStatus.Status eq "9" 
 			   or GetCandidateStatus.Status eq "3")
-		       and GetCandidateStatus.EntityClass neq "">
+		       and wfclass neq "">
 			   					
 				   <cf_ActionListing TableWidth  = "100%"
 					    EntityCode       = "VacCandidate"
-						EntityClass      = "#GetCandidateStatus.EntityClass#"
+						EntityClass      = "#wfclass#"
 						EntityGroup      = "#Doc.Owner#"
 						EntityStatus     = ""
 						Mission          = "#Doc.Mission#"
@@ -86,11 +106,23 @@
 						DocumentStatus   = "#Doc.Status#">
 				
 		<cfelse>
+						
+								
+				<cfquery name="RevokeTrack" 
+				 datasource="AppsVacancy" 
+				 username="#SESSION.login#" 
+				 password="#SESSION.dbpw#">
+					 DELETE FROM Organization.dbo.OrganizationObject
+					 WHERE  ObjectKeyValue1 = '#URL.ID#' 
+					 AND    ObjectKeyValue2 = '#URL.ID1#'
+					 AND    EntityCode = 'VacCandidate' 
+					 AND    Operational  = 1 
+				</cfquery>
 		
 				<table width="100%" cellspacing="0" cellpadding="0">
 				<tr><td class="labelmedium">						
 				
-				<b><font color="FF0000">Attention :</font> Workflow has not been initalised. <cfoutput>Reference [#GetCandidateStatus.Status#]</cfoutput></b>
+				<b><font color="FF0000">Attention :</font> Workflow class has not been set. <cfoutput>Reference [#GetCandidateStatus.Status#]</cfoutput> Please initiate onboarding again.</b>
 				
 				<tr><td height="3"></td></tr>
 				<tr><td class="linedotted" colspan="12"></td></tr>

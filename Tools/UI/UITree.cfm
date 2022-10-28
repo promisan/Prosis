@@ -6,6 +6,9 @@
 <cfparam name="Attributes.href"     default="">
 <cfparam name="Attributes.target"   default="">
 <cfparam name="Attributes.Root"     default="Yes">
+<cfparam name="Attributes.checkbox" default="No">
+
+
 
 <cfif Attributes.expand eq "Yes">
     <cfset Attributes.expand = "true">
@@ -56,7 +59,7 @@
                 </cfif>
                 </ul>
             </div>
-            <cfset AjaxOnLoad("function(){ProsisUI.doTree('#ATTRIBUTES.id#');}")>
+            <cfset AjaxOnLoad("function(){ProsisUI.doTree('#ATTRIBUTES.id#','#Attributes.checkbox#');}")>
             </cfoutput>
         <cfelse>
             <cfoutput>
@@ -136,7 +139,7 @@
             </cffunction>
 
             <cfoutput>
-                <cfset AjaxOnLoad("function(){ProsisUI.doTreeBinder('#ATTRIBUTES.id#','#EncodeForURL(serviceURL)#','#method#',#getParameters()#);}")>
+                <cfset AjaxOnLoad("function(){ProsisUI.doTreeBinder('#ATTRIBUTES.id#','#EncodeForURL(serviceURL)#','#method#','#Attributes.checkbox#',#getParameters()#);}")>
             </cfoutput>
 
         </cfif>

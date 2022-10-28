@@ -190,6 +190,8 @@ password="#SESSION.dbpw#">
 <cfset tblr  = 3+Resource.RecordCount>
 <cfset subT = "">
 
+<cf_divscroll>
+
 	<table width="100%" height="100%">
 	<tr>
 	<td id="contentbox" align="center" valign="top" height="100%">
@@ -354,6 +356,8 @@ password="#SESSION.dbpw#">
 	
 	</td></tr>
 </table>
+
+</cf_divscroll>
 
 <cf_screenBottom layout="webapp">
 

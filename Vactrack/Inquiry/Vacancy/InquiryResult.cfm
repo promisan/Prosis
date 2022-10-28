@@ -269,7 +269,7 @@ password="#SESSION.dbpw#">
 									   
 									<tr><td style="padding-left:13px">
 									
-										<table>
+										<table class="formspacing">
 										
 										<cfset c = 0>
 										<cfset cnt = 1>
@@ -277,22 +277,29 @@ password="#SESSION.dbpw#">
 											<cfloop query="Person">
 												<cfif c eq "4">
 												    <cfset c = 0>
-													<tr>
+													<tr class="fixlengthlist">
 												</cfif>
 											    <cfif Name eq ""><td width="25%"><font color="gray">[<cf_tl id="no candidates">]</td>
 												
 												<cfelse>
-												
-													<cfif status eq "2s" or status eq "3">
-														<td bgcolor="ffffaf" style="border: 1px solid gray;padding-right:6px;border-radius:4px">
-															<cf_space spaces="52" class="labelmedium" label="#cnt#. #Name#" script="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#','0')">										 												
+																																																
+												    <cfif status eq "2s" or status eq "2">
+														<td bgcolor="ffffaf" onclick="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#','0')" class="fixlength" 
+														    style="height:24px;padding-left:12px;padding-right:12px;border-radius:10px;border:1px solid gray">	
+															#cnt#. #Name#										 												
+													<cfelseif status eq "3">
+														<td bgcolor="80FF80" onclick="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#','0')" class="fixlength" 
+														  style="height:24px;padding-left:12px;padding-right:12px;border-radius:10px;border:1px solid gray">	
+															#cnt#. #Name#	
+													<cfelseif status eq "9">	
+													    <td bgcolor="FF8080" class="fixlength" style="height:24px;padding-left:12px;padding-right:12px;border-radius:10px;border:1px solid gray;text-decoration: line-through;color: white;border-radius:10px">#cnt#. #Name#"</TD>		
 													<cfelse>
-														<td bgcolor="f4f4f4" style="height:24px;border: 1px solid gray;padding-right:6px;border-radius:4px">																												   
-															<cf_space spaces="52" class="labelmediumn" label="#cnt#. #Name#">												
+														<td bgcolor="f4f4f4" class="fixlength" style="height:24px;padding-left:12px;padding-right:12px;border-radius:10px;border:1px solid gray">																																										   
+															#cnt#. #Name#												
 														</TD>	
 													</cfif>								
 												 	</td>
-													<td style="width:1px"></td>
+													
 																							
 												</cfif>
 												<cfset c =  c + 1>

@@ -33,14 +33,14 @@
 				 ORDER BY M.MissionType							 								 
 			</cfquery>
 
-			<cfoutput query="MissionType">
+			<cfoutput query="MissionType">		  
 
-				<cfset s = StructNew()>
-				<cfset s.value   = "#MissionType#_type">
-				<cfset s.parent  = "">
-				<cfset s.display = "<span style='height:40px;padding-bottom:9px;padding-top:6px;padding-top:6px;font-size:20px;font-weight:bold'>#MissionType#</span>">
-				<cfset arrayAppend(result,s)/>
-				<cfset s.expand="true"/>
+				<cfset s          = StructNew()>
+				<cfset s.value    = "#MissionType#_type">
+				<cfset s.parent   = "">
+				<cfset s.display  = "<span style='font-weight:bold;font-size:22px;text-decoration: underline;' class='labelmedium'>#MissionType#</span>">
+				<cfset s.expand   = true/>
+				<cfset arrayAppend(result,s)/>				
 				
 			</cfoutput>
 
@@ -130,15 +130,24 @@
 					</cfquery>
 
 					<cfif AccessTree eq "READ" or AccessTree eq "EDIT" or AccessTree eq "ALL">
+											 
+						<cfset s = structNew()/>
+						<cfset s.value     = "xx#Mis#">
+						<cfset s.img       = "">
+						<cfset s.parent    =  "tree">
+						<cfset s.leafnode=true/>
+						<cfset s.expand    =  "false">
+						<cfset s.display   = "<span style='height:5px'></span>">
+						<cfset arrayAppend(result,s)/>						
 
 						<cfset s = StructNew()>
 						<cfset s.value   = "#mis#">
 						<cfset s.parent  = "root">
-						<cfset s.display = "<span class='labelit' style='padding-top:3px;padding-bottom:3px;font-size:17px'>#mis# [#total#]</span>">
+						<cfset s.display = "<span class='labelmedium' style='padding-top:1px;font-weight:bold;padding-bottom:1px;font-size:17px'>#mis# [#total#]</span>">
 						<cfset s.href    = "ControlListingTrack.cfm?ID=MIS&Mission=#Mis#&Status=0&Entity=Both&Parent=All">
 						<cfset s.target  = "right">
-						<cfset arrayAppend(result,s)/>
-						<cfset s.expand = exp/>
+						<cfset s.expand  = true/>
+						<cfset arrayAppend(result,s)/>						
 
 					</cfif>
 

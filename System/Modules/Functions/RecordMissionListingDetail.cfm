@@ -1,6 +1,6 @@
 <cfoutput>
 
-<table width="98%" border="0" align="center" cellspacing="0" cellpadding="0" align="center" class="formpadding">
+<table width="98%" align="center" align="center" class="formpadding">
 <tr><td height="5"></td></tr>
 <tr>
 	<td class="labelmedium">
@@ -20,7 +20,7 @@
 	</td>
 </tr>
 <tr>
-	<td colspan="2"><cfdiv bind="url:#link#" id="MissionRole"/>	</td>
+	<td colspan="2"><cf_securediv bind="url:#link#" id="MissionRole"/>	</td>
 </tr>
 </table>
 </cfoutput>

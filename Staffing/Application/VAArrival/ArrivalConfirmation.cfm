@@ -23,7 +23,7 @@ person this is currently logged (SESSION.acc) in
 
 <!--- select candidates with status 0 on that step --->
 
-<!---
+<!--- Track 1.0 2014 : nice to see 
 
 <cfquery name="SearchResult"
 datasource="AppsVacancy"
@@ -61,36 +61,72 @@ password="#SESSION.dbpw#">
 --->
 
 <!--- ----------------------------------------------------------------------------------------------- --->
-<!--- Hanno 27/10/2014 need to tune this query so it will show only if the last step has been reached --->
+<!--- Hanno 27/10/2014 need to tune this query so it will show ONLY if the last step has been reached --->
+<!--- Hanno 17/10/2022 was tuned --->
 <!--- ----------------------------------------------------------------------------------------------- --->
 
 <cfquery name="SearchResult"
 datasource="AppsVacancy"
 username="#SESSION.login#"
 password="#SESSION.dbpw#">
-	SELECT    DISTINCT 
-	          VA.DocumentNo, 
+	SELECT    VA.DocumentNo, 
 	          V.PostGrade, 
 			  V.FunctionalTitle, 
 			  VA.PersonNo, 
 			  A.*,
-			  (SELECT PositionNo FROM Employee.dbo.Position WHERE Positionno = VP.Positionno) as PositionLink
-	FROM      Document V,
-		      DocumentCandidate VA,
-		      Applicant.dbo.Applicant A,
-		      DocumentPost VP
-	WHERE     V.DocumentNo = VA.DocumentNo
-	 AND      V.Status     = '0'
-	 AND      V.Mission    = '#URL.ID1#'
-	 AND      V.DocumentNo = VP.DocumentNo
-	 AND      VP.PositionNo is not NULL
+			  
+			  (SELECT TOP 1 PositionNo
+               FROM   Vacancy.dbo.DocumentPost DP
+    		   WHERE  DP.DocumentNo = V.DocumentNo
+			   AND    DP.PositionNo IN (SELECT PositionNo 
+						               FROM   Employee.dbo.Position P
+									   WHERE  PositionNo = DP.PositionNo)) as PositionLink	 
+			  
+			  
+	FROM      Document V
+	          INNER JOIN DocumentCandidate VA ON V.DocumentNo = VA.DocumentNo
+		      INNER JOIN Applicant.dbo.Applicant A ON A.PersonNo   = VA.PersonNo
+			  
+	WHERE     V.Status     = '0'
+	 AND      V.Mission    = '#URL.ID1#'	 
 	 AND      VA.Status    = '2s'
-	 AND      VA.EntityClass is NOT NULL
-	 AND      A.PersonNo   = VA.PersonNo
+	 AND      VA.EntityClass is NOT NULL	 
+	 AND      V.DocumentNo IN (SELECT DocumentNo 
+	                          FROM   Vacancy.dbo.DocumentPost DP
+							  WHERE  DP.DocumentNo = V.DocumentNo
+							  AND    DP.PositionNo IN (SELECT PositionNo 
+							                           FROM   Employee.dbo.Position P
+													   WHERE  PositionNo = DP.PositionNo))	 
+
+	 <!--- show only if the last step is open --->												   
+	 AND      V.DocumentNo NOT IN (
 	 
+	 
+				 <!--- put this into a component for easy use 22/10/2022 --->
+	 
+							SELECT       ObjectKeyValue1
+							FROM         Organization.dbo.OrganizationObject AS OO INNER JOIN
+							             Organization.dbo.OrganizationObjectAction AS OOA ON OO.ObjectId = OOA.ObjectId
+							WHERE        OOA.ActionStatus = '0' 
+							AND          OO.Operational = 1 
+							AND          OOA.ActionCode NOT IN
+							                     (SELECT  P.ActionCode AS LastAction
+							                      FROM    Organization.dbo.Ref_EntityActionPublish AS P INNER JOIN
+							                              (SELECT    ActionPublishNo, MAX(ActionOrder) AS Last
+							                               FROM      Organization.dbo.Ref_EntityActionPublish AS P
+							                               WHERE     ActionPublishNo = OO.ActionPublishNo
+							                               GROUP BY ActionPublishNo) AS D ON P.ActionPublishNo = D.ActionPublishNo AND D.Last = P.ActionOrder) 
+							AND          OO.Mission = '#URL.ID1#'
+							AND          OO.EntityCode = 'VacCandidate' 
+							
+							)
+	 
+	 
+							  		 
 	 ORDER BY A.LastName,	A.FirstName	
 	 
-</cfquery>					   			   
+</cfquery>	
+  			   
 	
 <!--- Query returning search results --->
 
@@ -113,34 +149,34 @@ password="#SESSION.dbpw#">
 		
 		<TR>
 		<td colspan="2">
-		
+				
 		<table width="100%" align="center" class="navigation_table">
 		
-			<tr class="labelmedium linedotted fixlengthlist">
+			<tr class="labelmedium2 linedotted fixlengthlist fixrow">
 			    <TD></TD>
-			    <TD>Name</TD>
-				<TD align="left">IndexNo</TD>
-				<TD width="7%" align="left">Grade</TD>
-				<TD align="left">Track No</TD>
-				<TD width="40%" align="left">Functional title</TD>
-				<td align="right">Action</td>
+			    <TD><cf_tl id="Name"></TD>
+				<TD><cf_tl id="IndexNo"></TD>
+				<TD><cf_tl id="Grade"></TD>
+				<TD><cf_tl id="Track"></TD>
+				<TD><cf_tl id="Title"></TD>
+				<td align="right"><cf_tl id="OnBoard"></td>
 			</TR>
 					
 			<cfoutput query="SearchResult">
 			
-			<tr class="labelmedium navigation_row linedotted fixlengthlist">
+			<tr class="labelmedium2 navigation_row linedotted fixlengthlist" style="height:20px">
 			    <td height="20" style="padding-right:5px">#currentRow#.</td>
 			    <TD><a href="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#')">#LastName#, #FirstName#</a></TD>
-				<TD align="left"><a href="javascript:ShowPerson('#IndexNo#')"><font color="0080C0">#IndexNo#</a></TD>					
+				<TD align="left"><a href="javascript:ShowPerson('#IndexNo#')">#IndexNo#</a></TD>					
 				<td colspan="1" align="left">
 				      <!--- #Level.ContractLevel#/#Level.ContractStep# ---> #PostGrade#
 			    </td>
-				<TD align="left"><a href="javascript:showdocument('#documentNo#')"><font color="0080C0">#DocumentNo#</a></TD>
+				<TD align="left"><a href="javascript:showdocument('#documentNo#')">#DocumentNo#</a></TD>
 				<td align="left">#FunctionalTitle#</td>
 				<td align="right" style="padding-top:3px">	
 				
 				<cfif PositionLink neq "">
-				<cf_img icon="open" 
+				<cf_img icon="add" 
 				    navigation="Yes" 
 					onclick="selectposition('VAC','#URL.ID1#','0000','#PersonNo#','','#PersonNo#','#DocumentNo#')">	
 				</cfif>	

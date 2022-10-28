@@ -95,15 +95,12 @@
 	<cfif ShortList.recordcount eq "0">  this would load a different screen for this bucket only to a full view does not work, better to merge
 	bucket search with the full view in one container
 	--->
-		
-		<cf_screentop title="Full Roster search for vacancy #URL.DocNo#" html="No" scroll="no">   	
-					
-		<cfset url.wparam = "FULL">
-		<cfset url.owner  = Own>
-		<cfset url.mode   = "Vacancy">	
-		
+				
+	<cfset url.wparam = "FULL">
+	<cfset url.owner  = Own>
+	<cfset url.mode   = "Vacancy">	
 								
-		<cfinclude template="InitView.cfm">
+	<cfinclude template="InitView.cfm">
 	
 <cfelseif url.mode eq "ssa">	
 

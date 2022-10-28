@@ -785,8 +785,9 @@
 		<!--- filter positions to be shown --->
 		
 		<cfif getAdministrator(url.mission) eq "0">
-				
-		AND   P.PostType IN (
+		
+		
+		AND   Staff.PostType IN (
 							 SELECT ClassParameter 
 			    	         FROM   Organization.dbo.OrganizationAuthorization 
 					         WHERE  Mission        = '#URL.Mission#'

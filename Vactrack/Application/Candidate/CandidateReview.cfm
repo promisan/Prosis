@@ -114,9 +114,10 @@
 		WHERE  ( ActionDialog = 'INT' OR ActionDialogParameter = 'INTERVIEW' )
 			   AND ActionPublishNo = '#Object.ActionPublishNo#'
 	</cfquery>	
-			
-	<cfif url.wparam eq "SCORE" or (url.wparam eq "TEST" and Score.recordcount eq "0")>	
 	
+				
+	<cfif url.wparam eq "SCORE" or (url.wparam eq "TEST" and Score.recordcount eq "0")>	
+		
 		<cfset dialog = "Score">
 		<cfset checkText = "Pass">
 		
@@ -143,7 +144,7 @@
 		</cfif>
 		
 	<cfelseif url.wparam eq "TEST">	
-	
+		
 		<!--- the test interface by absence of the score allows ALSO scoring combined--->
 	
 		<cfset dialog = "Test">
@@ -246,6 +247,7 @@
 		FROM   Vacancy.dbo.DocumentCandidateAssessment OOA INNER JOIN System.dbo.UserNames U ON OOA.OfficerUserId = U.Account
 		WHERE  DocumentNo  = '#Object.ObjectKeyValue1#'
 		AND    ActionCode  = '#flowAction#'	
+		
 	</cfquery>
 	
 <cfif access.recordcount eq "0">
@@ -574,7 +576,7 @@ password="#SESSION.dbpw#">
 			WHERE FunctionId = '#Doc.FunctionId#'
 		</cfquery>
 	
-		<td><cf_tl id="VA No">:</td>
+		<td><cf_tl id="Job Opening">:</td>
 	    <td> 
 		   <cfif Bucket.ReferenceNo neq "">
 		   <A href="javascript:va('#Bucket.FunctionId#');">#Bucket.ReferenceNo#</a>
@@ -767,24 +769,26 @@ password="#SESSION.dbpw#">
 		<cfset stop = "0">
 				
 		<td style="width:38px;padding-left:4px;height:28px">
-		
+				
 			<table>
 			
 			<tr style="height;30px">
 					
-			<cfif dialog eq "Interview">					
-		    <td style="padding-top:8px">	
-			    <cfif processors eq "1">					
-				<cf_img icon="expand" toggle="yes" onclick="assessment('assessment#CurrentRow#','#Object.ObjectKeyValue1#','#personno#','#flowaction#')">				
-				</cfif>
-			</td>
+			<cfif dialog eq "Interview">	
+										
+			    <td style="padding-top:8px">				
+				    <cfif processors eq "1">					
+						<cf_img icon="expand" toggle="yes" onclick="assessment('assessment#CurrentRow#','#Object.ObjectKeyValue1#','#personno#','#flowaction#')">				
+					</cfif>
+				</td>
 				
 			<cfelseif dialog eq "SCORE">	
 						
 				<!--- this will allow us to score as well if no scoring interface is set in this flow --->
-			
-				<td style="padding-top:7px">
-					<cfif processors eq "1">	
+							
+				<td style="padding-top:7px">	
+					
+					<cfif processors eq "1">				
 				  	<cf_img icon="expand" toggle="yes" onclick="assessment('assessment#CurrentRow#','#Object.ObjectKeyValue1#','#personno#','#flowaction#')">							 
 					</cfif>
 				</td>				
@@ -792,12 +796,12 @@ password="#SESSION.dbpw#">
 				<!--- record content for scoring --->
 				
 				<cfif url.wParam eq "TEST">
-				
+								
 					<td style="padding-right:4px">		
 					<table>
 						<tr>
-							<td>		
-							<cfif reviewid neq "">
+							<td>									
+							<cfif reviewid neq "">							
 								<cf_securediv id="session_#reviewid#"  bind="url:#session.root#/tools/entityaction/session/setsession.cfm?actionid=#url.id#&entityreference=#reviewid#">							
 							</cfif>	
 							</td>
@@ -809,14 +813,15 @@ password="#SESSION.dbpw#">
 				</cfif>
 				
 			<cfelseif dialog eq "TEST">	
-											
+														
 				<!--- get test content for scoring --->
 				
 				<td style="padding-right:4px">
 				<table>
 					<tr>
 					<td>						
-					<cfif reviewid neq "">
+					
+					<cfif reviewid neq "">					
 						<cf_securediv id="session_#reviewid#"  bind="url:#session.root#/tools/entityaction/session/setsession.cfm?actionid=#url.id#&entityreference=#reviewid#">							
 					</cfif>					
 					</td>				
@@ -894,6 +899,8 @@ password="#SESSION.dbpw#">
 		</cfif>
 		
 		<td style="min-width:#tdsize#" align="left">
+		
+		
 	
 			<cfset cls = CandidateClass>
 			
@@ -1093,7 +1100,7 @@ password="#SESSION.dbpw#">
 					
 			<cfif Remarks neq "">
 			
-				<tr class="navigation_row_child labelmedium">
+				<tr class="navigation_row_child labelmedium2">
 					<td colspan="2"></td>
 					<td colspan="8">#Remarks#</td>
 				</tr>
@@ -1112,14 +1119,14 @@ password="#SESSION.dbpw#">
 				
 			<cfif OtherCandidates.recordcount gte 0>
 			
-				<tr class="navigation_row_child">				
+				<tr>				
 					<td colspan="10">				
 				    <table width="100%">
 						<cfloop query="OtherCandidates">
-						<tr><td class="labelmedium" style="padding-left:10px">				    
+						<tr><td class="labelmedium2" style="padding-left:10px;font-size:17px">				    
 						<font color="FF0000"><cf_tl id="Attention">:</font>
 						 <a href="javascript:showdocument('#OtherCandidates.DocumentNo#')">
-						 #Status#<cf_tl id="for">: #OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# #OtherCandidates.FunctionalTitle#</b></a>
+						 #Status#<cf_tl id="for">: <b>#OtherCandidates.Mission#&nbsp;#OtherCandidates.PostGrade# #OtherCandidates.FunctionalTitle#</a></b>
 					     </td>
 						</tr>
 						</cfloop>
@@ -1131,12 +1138,14 @@ password="#SESSION.dbpw#">
 			
 			<cfif stop eq "1">
 			
-				<tr class="navigation_row_child">				
+				<tr>				
 					<td colspan="10">
 				    <table width="100%">
-						<tr><td class="labelmedium" style="padding-left:10px">;
+						<tr><td class="labelmedium2" style="padding-left:10px;font-size:17px">
+							
+							<font color="FF0000"><cf_tl id="Attention">:</font> 
 							<a href="javascript:showdocumentcandidate('#Object.ObjectKeyValue1#','#PersonNo#')">
-							<font color="FF0000"><cf_tl id="Attention">:</font> <cf_tl id="This candidate has already a recruitment track." class="Message"></a>
+							<b><cf_tl id="This candidate has already a recruitment track." class="Message"></a></b>
 					    	</td>
 						</tr>
 					</table>

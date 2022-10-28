@@ -203,9 +203,9 @@
 	
 	<tr class="labelmedium2"><td style="border-bottom:1px solid silver" colspan="3"><cf_tl id="Selected units"></td></tr>
 				
-	<cfif Units.recordcount lte "20">
+	<cfif Units.recordcount lte "22">
 	
-	    <tr><td valign="top">
+	    <tr style="height:20px"><td valign="top">
 	
 			<table align="left" style="width:100%" class="navigation_table">
 					
@@ -215,13 +215,28 @@
 					<cfloop index="itm" list="#hierarchyCode#" delimiters="."><cfset cnt = cnt+1></cfloop>	
 					<cfif cnt eq "0">
 						<tr class="labelmedium linedotted" style="height:15px;background-color:f1f1f1">
-						<td style="padding-top:2px;padding-bottom:4px;padding-left:2px;font-size:15px;font-weight:bold" align="center" colspan="2">#OrgUnitName#</td>
+						<td style="height:30px;padding-top:1px;padding-bottom:2px;padding-left:2px;font-size:16px;font-weight:bold" align="center" colspan="2">#OrgUnitNameShort#</td>
 					<cfelse>		
 						<tr class="labelmedium linedotted navigation_row">	
-						<td style="padding-left:2px;font-weight:bold;font-size:13px;height:100%;padding-right:4px">				
-						<cfloop index="itm" from="1" to="#cnt#"><span style="border:0.5px solid white;border-right:0px;min-width:8px;height:100%;background-color:1A8CFF">&nbsp;&nbsp;</span></cfloop>
+						<cfif cnt eq "1">
+						   <cfset st = "background-color:6688aa;font-size:12px;">
+						<cfelseif cnt gte "3">
+						   <cfset st = "background-color:B0D8FF;font-size:11px;">
+						<cfelse>
+						   <cfset st = "background-color:1A8CFF;font-size:12px;">   
+						</cfif>
+																		
+						<td style="padding-left:2px;height:100%;padding-right:4px">				
+						<cfloop index="itm" from="1" to="#cnt#"><span style="border:0.5px solid white;border-right:0px;min-width:8px;height:100%;#st#">&nbsp;&nbsp;</span></cfloop>
 					    </td>
-						<td style="font-size:12px;padding-top:2px;padding-right:3px">#OrgUnitName#</td>
+						<cfif cnt eq "1">
+						   <cfset st = "font-weight:bold;font-size:12px;">
+						<cfelseif cnt gte "3">
+						   <cfset st = "font-style: italic;font-size:11px;">
+						<cfelse>
+						   <cfset st = "font-size:12px">   
+						</cfif>
+						<td style="#st#;padding-top:1px;padding-right:3px">#OrgUnitName#</td>
 					</cfif>
 						
 					<td valign="top" style="padding-top:2px;padding-left:1px;padding-right:2px">
@@ -249,13 +264,11 @@
 			
 		</td></tr>	
 		
-		
-
 	<cfelse>
 	
 		<!--- many orgunit, we scroll --->
 	
-		<tr><td style="width:100%;height:100%">
+		<tr style="height:20px"><td style="width:100%;height:100%">
 
 		<cf_divscroll>
 	
@@ -267,13 +280,27 @@
 					<cfloop index="itm" list="#hierarchyCode#" delimiters="."><cfset cnt = cnt+1></cfloop>	
 					<cfif cnt eq "0">
 						<tr class="labelmedium linedotted" style="height:15px;background-color:f1f1f1">
-						<td style="padding-top:2px;padding-bottom:4px;padding-left:1px;font-size:15px;font-weight:bold" align="center" colspan="2">#OrgUnitName#</td>
+						<td style="height:30px;padding-top:1px;padding-bottom:1px;padding-left:1px;font-size:16px;font-weight:bold" align="center" colspan="2">#OrgUnitNameShort#</td>
 					<cfelse>		
 						<tr class="labelmedium linedotted navigation_row">	
+						<cfif cnt eq "1">
+						   <cfset st = "background-color:6688aa">
+						<cfelseif cnt gte "3">
+						   <cfset st = "background-color:B0D8FF">
+						<cfelse>
+						   <cfset st = "background-color:1A8CFF">   
+						</cfif>
 						<td style="padding-left:1px;font-weight:bold;font-size:13px;height:100%;padding-right:4px">				
-						<cfloop index="itm" from="1" to="#cnt#"><span style="border:0.5px solid white;border-right:0px;min-width:8px;height:100%;background-color:1A8CFF">&nbsp;&nbsp;</span></cfloop>
+						<cfloop index="itm" from="1" to="#cnt#"><span style="border:0.5px solid white;border-right:0px;min-width:8px;height:100%;#st#">&nbsp;&nbsp;</span></cfloop>
 					    </td>
-						<td style="font-size:12px;padding-top:2px;padding-right:3px">#OrgUnitName#</td>
+						<cfif cnt eq "1">
+						   <cfset st = "font-weight:bold">
+						<cfelseif cnt gte "3">
+						   <cfset st = "font-style: italic;">						   
+						<cfelse>
+						   <cfset st = "">   
+						</cfif>
+						<td style="#st#;font-size:12px;padding-top:2px;padding-right:3px">#OrgUnitName#</td>
 					</cfif>
 						
 					<td valign="top" style="padding-left:1px;padding-right:2px">
@@ -295,7 +322,6 @@
 				<tr><td><button onclick="doFilter('unit')" style="background-color:1A8CFF;color:white;font-size:15px;width:100%;height:35px" class="button10g"><cf_tl id="Show Selected Units"></button></td></tr>
 			</table>
 		</td></tr>
-		
 				
 	</cfif>	
 

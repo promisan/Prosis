@@ -42,13 +42,13 @@ password="#SESSION.dbpw#">
 
 <td>	
 
-<table width="97%" class="formpadding" align="center">
+<table width="99%" class="formpadding" align="center">
 
     <TR>
-	<TD class="labelmedium"><cf_tl id="Received">:</TD>
+	<TD style="padding-left:2px" class="labelmedium"><cf_tl id="Received">:</TD>
 	<td colspan="1">	
 		<table cellspacing="0" cellpadding="0">
-			<tr><td>			
+			<tr class="fixlengthlist"><td>			
 			 <cf_intelliCalendarDate9
 				FieldName="datestart" 
 				Default="#st#"
@@ -68,30 +68,6 @@ password="#SESSION.dbpw#">
 		
 	</TD>
 	
-	<TD class="labelmedium"><cf_tl id="Recorded">:</TD>
-	<td>	
-		<table cellspacing="0" cellpadding="0">
-			<tr><td>			
-			 <cf_intelliCalendarDate9
-				FieldName="createdstart" 
-				Default="#rc#"
-				class="regularxl"
-				AllowBlank="True">	
-			</td>
-			<td>-</td>
-			<td>			
-			<cf_intelliCalendarDate9
-				FieldName="createdend" 
-				Default="#rc#"
-				class="regularxl"
-				AllowBlank="True">					
-			</td>
-			</tr>
-		</table>	
-		
-	</TD>
-	</tr>
-			
 	<cfquery name="Category" 
 		   datasource="appsMaterials" 
 		   username="#SESSION.login#" 
@@ -126,8 +102,7 @@ password="#SESSION.dbpw#">
 			</cfif>		
     </cfquery>	 
 	
-	<tr>
-	   <td class="labelmedium"><cf_tl id="Category">:</td>
+	<td class="labelmedium"><cf_tl id="Category">:</td>
 	   <td>
 	   
 	   <select name="Category" id="Category" class="regularxl" size="1" style="width:200px;font:10px">
@@ -139,8 +114,37 @@ password="#SESSION.dbpw#">
 	   
 	   
 	   </td>
+	
+	
+	</tr>
+	
+	
+	<tr>
 	   
-	   <td class="labelmedium"><cf_tl id="Current"><cf_tl id="Location">:</td>
+	   <TD style="padding-left:2px" class="labelmedium"><cf_tl id="Recorded">:</TD>
+	<td>	
+		<table cellspacing="0" cellpadding="0">
+			<tr class="fixlengthlist"><td>			
+			 <cf_intelliCalendarDate9
+				FieldName="createdstart" 
+				Default="#rc#"
+				class="regularxl"
+				AllowBlank="True">	
+			</td>
+			<td>-</td>
+			<td>			
+			<cf_intelliCalendarDate9
+				FieldName="createdend" 
+				Default="#rc#"
+				class="regularxl"
+				AllowBlank="True">					
+			</td>
+			</tr>
+		</table>	
+		
+	</TD>
+	   
+	   <td class="fixlength labelmedium"><cf_tl id="Current"><cf_tl id="Location">:</td>
 	   
 	   <td>
 	   
@@ -195,7 +199,7 @@ password="#SESSION.dbpw#">
 		ORDER BY Description
 	</cfquery>
 		
-	<TR>
+	<TR class="fixlengthlist">
 	<TD class="labelmedium"><cf_tl id="Make">:</TD>
 			
 		<td align="left" valign="top">
@@ -224,7 +228,7 @@ password="#SESSION.dbpw#">
 	
 	</tr>
 				
-	<TR>
+	<TR class="fixlengthlist">
 	
 		<td class="labelmedium" colspan="1"><cf_tl id="Descr.">/<cf_tl id="model">:</td>
 		<td colspan="1">	
@@ -256,7 +260,7 @@ password="#SESSION.dbpw#">
 		
 	</tr>
 	
-	<TR>
+	<TR class="fixlengthlist">
 				
 		<TD class="labelmedium"><cf_tl id="Barcode">/<cf_tl id="SerialNo">:</TD>
 				

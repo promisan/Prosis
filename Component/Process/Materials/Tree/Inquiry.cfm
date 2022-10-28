@@ -11,7 +11,7 @@
 	<cf_tl id="Received" var="1">
 	<cfset s = StructNew()> 
 	<cfset s.value = "today"> 
-	<cfset s.display = "<span class='labelit'>#dateformat(now(), CLIENT.DateFormatShow)# : <b>#lt_text#</span>"> 
+	<cfset s.display = "<span class='labelit'>#dateformat(now(), CLIENT.DateFormatShow)# : #lt_text#</span>"> 
 	<cfset s.parent  = "Special">
 	<cfset s.href    = "javascript:listshow('TOD','','#mission#')">
 	<cfset s.img     = "">
@@ -21,7 +21,7 @@
 	<cf_tl id="Recorded" var="1">
 	<cfset s = StructNew()> 
 	<cfset s.value = "entered"> 
-	<cfset s.display = "<span class='labelit'>#dateformat(now(), CLIENT.DateFormatShow)# : <b>#lt_text#</span>"> 
+	<cfset s.display = "<span class='labelit'>#dateformat(now(), CLIENT.DateFormatShow)# : #lt_text#</span>"> 
 	<cfset s.parent  = "Special">
 	<cfset s.href    = "javascript:listshow('REC','','#mission#')">
 	<cfset s.img     = "">

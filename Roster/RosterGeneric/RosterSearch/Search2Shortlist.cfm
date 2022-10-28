@@ -184,15 +184,14 @@ password="#SESSION.dbpw#">
 				<cfif getAssociatedBucket.RosterSearchMode eq "0">
 				AND      1=0 <!--- this will not likely happen --->
 				<cfelseif getAssociatedBucket.RosterSearchMode eq "1">
-				AND      F1.DocumentNo = '#Doc.DocumentNo#' 
-				
+				AND      F1.DocumentNo = '#Doc.DocumentNo#'  <!--- VA 1 - Bucket 1 --->				
 				<cfelse>		
 				AND      F1.GradeDeployment  IN ('#Doc.PostGrade#','#Doc.GradeDeployment#') 
 				<!---
-				AND     F.OccupationalGroup = '#Doc.OccGroup#' 
+				AND     F.OccupationalGroup = '#Doc.OccGroup#' <!--- same occ group --->
 				--->		
-				AND      F.FunctionClass     = '#Owner.FunctionClassSelect#'  
-				AND      R.Owner = '#Owner.Owner#' 
+				AND      F.FunctionClass     = '#Owner.FunctionClassSelect#'  <!--- same class --->
+				AND      R.Owner = '#Owner.Owner#' <!--- same owner --->
 				</cfif>
 			</cfquery>		
 						
@@ -235,7 +234,7 @@ password="#SESSION.dbpw#">
 			    <TD><cf_tl id="Function"></TD>
 			    <TD><cf_tl id="Level"></TD>
 				<td><cf_tl id="Track"></td>
-				<td><cf_tl id="VA"></td>
+				<td><cf_tl id="Opening"></td>
 				<TD align="right" style="padding-right:5px"><cf_tl id="Applications"></TD>
 				<TD align="right" style="padding-right:5px"><cf_tl id="Vetted"></TD>
 				<TD></TD>
@@ -243,38 +242,42 @@ password="#SESSION.dbpw#">
 				
 			<cfloop query="FunctionAll"> 
 			
-			<cfset rowClass="labelmedium2 line">
-			<cfif url.docno neq "">
-				<cfset rowClass= rowClass & " highLight2">
+			<cfif candidates gte "1">
+						
+				<cfset rowClass="labelmedium2 line">
+				<cfif url.docno neq "">
+					<cfset rowClass= rowClass & " highLight2">
+				</cfif>
+				
+				<TR class="#rowClass# line fixlengthlist" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#">
+				
+				    <TD style="padding-left:6px">#OrganizationDescription#</TD>
+				    <TD>#FunctionDescription#</TD>
+				    <TD>#GradeDescription#</TD>
+					<td><A href="javascript:showdocument('#DocumentNo#')">#DocumentNo#</a></td>
+					<td>#ReferenceNo#
+					</td>
+					<td style="padding-right:5px" align="right">#candidates#</td>
+					<td style="padding-right:5px" align="right">#VettedCandidates#</td>
+					<td align="right" style="padding-right:4px">
+					
+					<input type="hidden" id="function_#currentRow#"    name="function_#currentRow#" value="#FunctionNo#">
+					<input type="hidden" id="grade_#currentRow#"       name="grade_#currentRow#"    value="#GradeDeployment#">
+					<input type="hidden" id="org_#currentRow#"         name="org_#currentRow#"      value="#OrganizationCode#">
+					<input type="hidden" id="referenceNo_#currentRow#" name="referenceNo_#currentRow#"      value="#ReferenceNo#">
+					
+					<input type="checkbox" 
+						   class="radiol" 
+						   id="bucket_#currentRow#" 
+						   name="bucket_#currentRow#"  
+						   value="1" 
+						   onClick="hl(this,this.checked)"
+						   <cfif url.docno neq ""> checked </cfif> >
+					
+					</TD>
+				</TR>
+				
 			</cfif>
-			
-			<TR class="#rowClass# line fixlengthlist" bgcolor="#IIf(CurrentRow Mod 2, DE('FFFFFF'), DE('f6f6f6'))#">
-			
-			    <TD style="padding-left:6px">#OrganizationDescription#</TD>
-			    <TD>#FunctionDescription#</TD>
-			    <TD>#GradeDescription#</TD>
-				<td><A href="javascript:showdocument('#DocumentNo#')">#DocumentNo#</a></td>
-				<td>#ReferenceNo#
-				</td>
-				<td style="padding-right:5px" align="right">#candidates#</td>
-				<td style="padding-right:5px" align="right">#VettedCandidates#</td>
-				<td align="right" style="padding-right:4px">
-				
-				<input type="hidden" id="function_#currentRow#"    name="function_#currentRow#" value="#FunctionNo#">
-				<input type="hidden" id="grade_#currentRow#"       name="grade_#currentRow#"    value="#GradeDeployment#">
-				<input type="hidden" id="org_#currentRow#"         name="org_#currentRow#"      value="#OrganizationCode#">
-				<input type="hidden" id="referenceNo_#currentRow#" name="referenceNo_#currentRow#"      value="#ReferenceNo#">
-				
-				<input type="checkbox" 
-					   class="radiol" 
-					   id="bucket_#currentRow#" 
-					   name="bucket_#currentRow#"  
-					   value="1" 
-					   onClick="hl(this,this.checked)"
-					   <cfif url.docno neq ""> checked </cfif> >
-				
-				</TD>
-			</TR>
 					
 			</cfloop>
 				

@@ -282,7 +282,7 @@ function hl(itm,fld){
 				<img src="#SESSION.root#/images//users2.gif"
 						                     alt=""
 						                     border="0">&nbsp;&nbsp;Flow Action Workgroup
-											 <br><font size="2">Used for associating a workflow object to a specific workgroup</font></td></tr>
+											 <br><font size="2">Used for associating a workflow object to a specific workgroup (i.e price to be presented for receipt processing)</font></td></tr>
 				
 				<tr><td colspan="5" class="line"></td></tr>		
 				<tr><td height="4"></td></tr>		

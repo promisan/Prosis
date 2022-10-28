@@ -39,10 +39,8 @@
 			
 			<TR>
 			 
-	    		<TD width="25%" class="labelmedium" style="height:25;cursor:pointer;padding-left:10px;">
-				<cf_UIToolTip tooltip="Show the completed action in a different color">
-				Color of the completed step (Box):
-				</cf_UIToolTip>
+	    		<TD width="25%" class="labelmedium" style="height:25;cursor:pointer;padding-left:10px;" title="Show the completed action in a different color">
+				Color of the completed step (Box):				
 				</TD>
 	    		
 				<TD class="labelmedium">

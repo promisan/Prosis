@@ -270,10 +270,8 @@ password="#SESSION.dbpw#">
 		splitter    = "true"
 		overflow    = "scroll">
 		
-			<div id="dSummary">
-				<cfset URL.Owner = "#Get.Owner#">
-				<cfinclude template="ApplicantFunctionSummary.cfm">	
-			</div>	
+			<cf_securediv id="dSummary" bind="url:ApplicantFunctionSummary.cfm?id=#url.id#&idfunction=#url.idfunction#&&owner=#get.Owner#"/>
+				
 				
 	</cf_layoutarea>		
 		

@@ -56,6 +56,7 @@
 <cfset attributes.listlayout = session.listingdata[url.box]['listlayout']>
 
 <cfset attributes.cachedisable = "false">
+<cfset attributes.datasource = datasource>
 
 <!-- <cfform> -->
 <!--- now we render the filter again --->

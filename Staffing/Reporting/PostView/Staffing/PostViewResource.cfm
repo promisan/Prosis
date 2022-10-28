@@ -24,6 +24,7 @@
 
 	<cfif URL.Tree neq "Functional">
 	
+	
 		<!--- grade view --->
 		<cfquery name="ResourceInit" 
 		datasource="AppsEmployee" 
@@ -86,12 +87,13 @@
 			AND        Pos.DateEffective     <= '#DTE#'				
 			AND        Pos.DateExpiration    >= '#DTE#' 
 					
-			<cfif getAdministrator("*") eq "0">					
+			<cfif getAdministrator(mission) eq "0">							
 			AND        Pos.PostType IN ( #preservesingleQuotes(ptpe)# )													
 			</cfif>		
 										
 			ORDER BY   P.ViewOrder, GB.PostOrderBudget 
 		</cfquery>
+		
 	
 		<cfquery name="Subtotal" 
 		datasource="AppsEmployee" 
@@ -247,8 +249,8 @@
 	     <cfset c = (CLIENT.width-378)/(Resource.RecordCount+1)>
 	</cfif>
 	
-	<cfset c = int(c - 1)>	
-	<cfset cell  = c>
+	<cfset c = int(c - 1)>		
+	<cfset cell  = c> 		
 	<cfset tblc  = cell+20+(Resource.RecordCount*cell)>
 	<cfset tblw  = 272+tblc>
 	<cfset tblw1 = 4+tblw>

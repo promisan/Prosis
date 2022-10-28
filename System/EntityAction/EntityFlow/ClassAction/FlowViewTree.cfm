@@ -179,12 +179,12 @@
 		 	<!--- if box already is shown in flow, 
 			   do not show again, except for subflows --->
 		  		   
-		     <table height="100%" align="center" style="width:170px"
-		       style="cursor: pointer;"			  
+		     <table height="100%" align="center" style="width:170px;cursor: pointer;"			  
 		       onClick="stepinspect('#val#','#PublishNo#')"
 		       onMouseOver="showaction('#drag#','#val#','clsFlowActionHighlight labelit','clsFlowActionHighlight labelit')"
 			   onMouseOut="showaction('#drag#','#val#','labelit','labelit')">
-			   			   
+			   
+			 			   			   
 	   	  	   <tr class="labelmedium">
 				 <cfif type eq "Decision">
 				     <td align="center" style="padding-top:2px;padding-bottom:2px" background="#SESSION.root#/images/decisionblue.jpg"  id="#val##drag#">
@@ -198,10 +198,12 @@
 		     <cfset val  = Evaluate("#tree#.ActionCode")>
 			 			 
 			 <cfif type eq "Decision">			 		
-			  		<table width="100%" height="100%" align="center" style="width:170px;cursor: pointer;">		 
+			  		<table width="100%" height="100%" align="center" style="width:170px;cursor: pointer;">		
+					 
 			 <cfelse>
 					<cfset drag = drag + 1>
 					<table width="100%" id="d#drag#"  height="100%" style="width:170px;cursor: pointer;">			 
+					
 			 </cfif>
 			 			 
 			 <!---			 
@@ -259,11 +261,12 @@
 					
 					 <tr class="labelit fixlengthlist" style="font-size:15px;cursor: pointer;" onClick="stepinspect('#val#','#URL.PublishNo#')">
 					 
-				      <td style="padding-top:2px;padding-bottom:2px" colspan="3" align="center" id="bd#drag#" background="#SESSION.root#/images/decisionblue.jpg">
+				      <td style="padding-top:2px;padding-bottom:2px;max-width:100px" colspan="3" align="center" id="bd#drag#" background="#SESSION.root#/images/decisionblue.jpg">
 					  #ActionDescription# 
 					  <cfif ActionReference neq ""><font size="1"><br>[#ActionReference#]</cfif>	
 					  <cfset link   = "'#val#'">
 					  <cfset prior  = "#val#">
+					  
 					  
 					 </td>
 					 
@@ -272,7 +275,7 @@
 				<cfelse>
 								
 					 <tr class="labelmedium fixlengthlist" style="font-size:15px;cursor: pointer;" onClick="stepinspect('#val#','#URL.PublishNo#')">
-				      <td style="max-width:150px;padding-top:2px;padding-bottom:2px" class="fixlength" title="#actiondescription#" colspan="3" align="center" id="bd#drag#" bgcolor="#Boxcolor#">
+				      <td style="padding-top:2px;padding-bottom:2px;max-width:100px" title="#actiondescription#"  colspan="3" align="center" id="bd#drag#" bgcolor="#Boxcolor#">					  
 					  #ActionDescription# 						  
 					  <cfif ActionReference neq ""><font size="1"><br>[#ActionReference#]</cfif>		 
 					  <cfset link = "'#val#'">			
@@ -288,7 +291,7 @@
 				<cfif type eq "Decision">
 					
 						 <tr class="labelit fixlengthlist" style="font-size:15px;cursor: pointer;" >
-					      <td style="padding-top:2px;padding-bottom:2px" colspan="3" align="center" background="#SESSION.root#/images/decisionblue.jpg">
+					      <td style="padding-top:2px;padding-bottom:2px;max-width:100px" colspan="3" align="center" background="#SESSION.root#/images/decisionblue.jpg">
 						  #ActionDescription# 	
 						  <cfset link = "'#val#'">
 						  <cfset prior   = "#val#">
@@ -297,7 +300,7 @@
 				<cfelse>
 								
 						 <tr class="labelit fixlengthlist" style="font-size:15px;cursor: pointer;" >
-					      <td style="padding-top:2px;padding-bottom:2px" colspan="3" align="center" id="bd#drag#" bgcolor="#Boxcolor#">
+					      <td style="padding-top:2px;padding-bottom:2px;max-width:100px" colspan="3" align="center" id="bd#drag#" bgcolor="#Boxcolor#">
 						  #ActionDescription#		
 						  <cfset link = "'#val#'">			
 						  <input type="hidden" name="action#drag#" id="action#drag#" value="#val#">

@@ -50,7 +50,8 @@
 			 WHERE    S.PersonNo = A.PersonNo
 			 AND      S.ApplicantNo = '#attributes.applicantno#'		 
 		</cfquery>	
-						
+		
+								
 <cfelseif attributes.personNo neq "" and attributes.source neq "">		
 
 	<cfquery name="getCandidates" 
@@ -64,7 +65,7 @@
 		 AND      S.Source   = '#attributes.Source#'
 		 ORDER BY Created DESC
 	</cfquery>	
-	
+			
 	<cfset attributes.applicantNo = getCandidates.applicantNo>
 		
 <cfelseif attributes.personNo neq "" and attributes.owner neq "">	
@@ -77,20 +78,22 @@
 		password="#SESSION.dbpw#">
 	  	SELECT DefaultPHPSource
 	  	FROM   Ref_ParameterOwner
-		WHERE  Owner = '#attributes.Owner#'
+		WHERE  Owner = '#attributes.Owner#' 
 	</cfquery>
 	
 	<cfif PHPSource.DefaultPHPSource neq "">		
 		<cfset ssource = PHPSource.DefaultPHPSource>			
-	<cfelse>	
+	<cfelse>		
 		<cfset ssource = Parameter.PHPSource>	
 	</cfif>
-
+	
+	<!--- you can have several so we take only the last one --->
+		
 	<cfquery name="getCandidates" 
 	     datasource="AppsSelection" 
 	  	 username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">
-	     SELECT   A.*, S.ApplicantNo, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
+	     SELECT   TOP 1 A.*, S.ApplicantNo, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
 		 FROM     ApplicantSubmission S, Applicant.dbo.Applicant A
 		 WHERE    S.PersonNo = A.PersonNo
 		 AND      S.PersonNo = '#attributes.PersonNo#'		 
@@ -100,13 +103,16 @@
 				
 	<cfset attributes.applicantNo = getCandidates.applicantNo>	
 	
+	
 <cfelseif attributes.personNo neq "" and attributes.owner eq "">
+
+    <!--- you can have several so we take only the last one --->
 
 	<cfquery name="getCandidates" 
 	     datasource="AppsSelection" 
 	  	 username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">
-	     SELECT   A.*, S.ApplicantNo, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
+	     SELECT   TOP 1 A.*, S.ApplicantNo, S.SubmissionEdition, S.Source AS SSource, S.SubmissionId
 		 FROM     ApplicantSubmission S, Applicant.dbo.Applicant A
 		 WHERE    S.PersonNo = A.PersonNo
 		 AND      S.PersonNo = '#attributes.PersonNo#'		 

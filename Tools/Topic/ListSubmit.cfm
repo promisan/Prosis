@@ -34,8 +34,7 @@
 			DataSource      = "#alias#"
 			Key1Value       = "#URL.Code#"
 			Key2Value       = "#URL.ListCode#"
-			Name1           = "ListValue">			
-	
+			Name1           = "ListValue">		
 	
 	<cfif URL.ListDefault eq "1">
 	
@@ -72,18 +71,24 @@
 			     username="#SESSION.login#" 
 			     password="#SESSION.dbpw#">
 			     INSERT INTO Ref_TopicList
-			         (Code,
-					 ListCode,
-					 ListValue,
-					 ListOrder,
-					 ListDefault,
-					 Operational)
+				         (Code,
+						 ListCode,
+						 ListValue,
+						 ListOrder,
+						 ListDefault,
+						 OfficerUserId,
+						 OfficerLastName,
+						 OfficerFirstName,
+						 Operational)
 			      VALUES ('#URL.Code#',
-				      '#URL.ListCode#',
-					  '#URL.ListValue#',
-					  '#URL.ListOrder#',
-					  '#URL.ListDefault#',
-			      	  '#URL.Operational#')
+					      '#URL.ListCode#',
+						  '#URL.ListValue#',
+						  '#URL.ListOrder#',
+						  '#URL.ListDefault#',
+						  '#session.acc#',
+						  '#session.last#',
+						  '#session.first#',
+				      	  '#URL.Operational#')
 			</cfquery>
 			
 			<cfif systemmodule eq "Roster">		
@@ -118,10 +123,10 @@
 			  datasource="#alias#" 
 			  username="#SESSION.login#" 
 			  password="#SESSION.dbpw#">
-				  UPDATE Ref_TopicList
-				  SET    ListDefault = 0
-				  WHERE  ListCode <> '#URL.ListCode#'
-				   AND   Code = '#URL.Code#' 
+				  UPDATE  Ref_TopicList
+				  SET     ListDefault = 0
+				  WHERE   ListCode <> '#URL.ListCode#'
+				  AND     Code = '#URL.Code#' 
 		</cfquery>
 	
 	</cfif>

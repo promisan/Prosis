@@ -44,8 +44,7 @@
 	    	 
 		<cfset cnt = 0>
 		 
-		<cfparam name="Form.Select" default="">
-			  
+		<cfparam name="Form.Select" default="">			  
 		 	 
 		 <cfloop index="Item" list="#Form.Select#" delimiters="' ,">
 		 
@@ -71,23 +70,22 @@
 							 SearchId, 
 							 LastName, 
 							 FirstName, 
+							 Status,
 							 OfficerUserid, 
 							 OfficerLastName, 
-							 OfficerFirstName, 
-							 Created)
+							 OfficerFirstName)
 					 SELECT '#docno#', 
 					        '#Item#', 
 							'#URL.ID1#',
 							A.LastName, 
 							A.FirstName, 
+							'1',
 							'#SESSION.acc#', 
 							'#SESSION.last#', 
-							'#SESSION.first#', 
-							getDate()
-					 FROM   RosterSearchResult R, Applicant A
+							'#SESSION.first#'
+					 FROM   RosterSearchResult R INNER JOIN Applicant A ON R.PersonNo = A.PersonNo
 					 WHERE  R.PersonNo = '#Item#' 
-					 AND    R.SearchId =  '#URL.ID1#'
-					 AND    R.PersonNo = A.PersonNo
+					 AND    R.SearchId =  '#URL.ID1#'					
 			     </cfquery>
 			 
 			 </cfif>

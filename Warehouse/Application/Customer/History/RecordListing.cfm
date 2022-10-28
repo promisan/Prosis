@@ -64,7 +64,7 @@
 					   		   AND TL.JournalSerialNo = TH.JournalSerialNo
    							   AND TH.TransactionSourceId = B.BatchId
 							   AND TH.Reference = 'Settlement'					   
-					),0) as SettleCurrency,
+					),'') as SettleCurrency,
 					
 					B.OfficerUserId, 
 					B.OfficerLastName, 
@@ -192,7 +192,7 @@
 
 
 					  
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
+<table width="100%" height="100%">
 <tr><td style="padding:10px">	
 		
 	<cf_listing
@@ -200,7 +200,8 @@
 	    box            = "Invoices"
 		link           = "#SESSION.root#/warehouse/Application/Customer/History/RecordListing.cfm?customerid=#url.customerid#&systemfunctionid=null"
 	    html           = "No"
-	    show           = "40"		
+	    show           = "300"		
+		
 		datasource     = "AppsQuery"
 		listquery      = "#myquery#"		
 		listorder      = "BatchReference"

@@ -51,9 +51,9 @@ password="#SESSION.dbpw#">
 															
 			<cfif URL.ID1 eq rl>
 										
-				<TR>
+				<TR class="labelmedium2 line">
 							    					   						 						  
-				   <td class="labelit">#Mission#</td>
+				   <td style="font-size:17px">#Mission#</td>
 				   <td></td>
 				   <td></td>
 				   <td colspan="2" align="right">
@@ -63,21 +63,19 @@ password="#SESSION.dbpw#">
 						
 			<cfelse>
 			
-				<TR>
-				   <td class="labelit" width="60%" height="20">#rl#</td>
+				<TR class="labelmedium2 line">
+				   <td style="font-size:17px" width="60%" height="20">#rl#</td>
 				   <td></td>
-				   <td class="labelit" width="30%" align="right">#OfficerUserId# (#dateformat(created,CLIENT.DateFormatShow)#)</td>
+				   <td width="30%" align="right">#OfficerUserId# (#dateformat(created,CLIENT.DateFormatShow)#)</td>
 				   <td width="40"></td>
 				   <td align="right" style="padding-right:10px">
-				     <cf_img icon="delete" onclick="javascript:ColdFusion.navigate('#session.root#/System/Modules/Functions/TreeDenyPurge.cfm?ID=#URL.ID#&ID1=#rl#','itree')">					
+				     <cf_img icon="delete" onclick="javascript:ptoken.navigate('#session.root#/System/Modules/Functions/TreeDenyPurge.cfm?ID=#URL.ID#&ID1=#rl#','itree')">					
 				  </td>
 				   
 			    </TR>	
 			
 			</cfif>
-			
-			<tr><td height="1" colspan="6" class="linedotted"></td></tr>
-			
+						
 			</cfloop>
 			</cfoutput>
 							
@@ -88,7 +86,7 @@ password="#SESSION.dbpw#">
 				<TR>
 				
 				<td height="30">
-				   <cfselect name="Mission" class="regularxl">
+				   <cfselect name="Mission" class="regularxxl">
 		           <cfoutput query="Mission">
 				     <option value="#Mission#">#Mission#</option>
 				   </cfoutput>

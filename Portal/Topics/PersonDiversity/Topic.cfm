@@ -56,8 +56,7 @@ password="#SESSION.dbpw#">
 	     	WHERE  Mission = '#mission#'
 	</cfquery>	
 	
-	<cfset id = "#getMission.MissionPrefix#">
-	<cfset id = "1">
+	<cfset id = "map_#getMission.MissionPrefix#">
 			
 	<cf_ProsisMap 
 		id="#id#" 

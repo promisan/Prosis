@@ -16,22 +16,21 @@
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 					<cfoutput>	
 					
-					<tr class="labelmedium2"><td width="20%"><cf_tl id="Edition">:</td>
+					<tr class="labelmedium2 fixlengthlist"><td><cf_tl id="Edition">:</td>
 					    <td>#Function.EditionDescription#</td>
-						<td width="10%"><cf_tl id="Status">:</td>
+						<td><cf_tl id="Status">:</td>
 					    <td><cfif Function.SubmissionStatus eq "3">Locked<cfelse>In Process</cfif></td>						
 					</tr>						
-					<tr class="labelmedium2">	
-						<td width="20%"><cf_tl id="Reference">:</td>
+					<tr class="labelmedium2 fixlengthlist">	
+						<td><cf_tl id="Reference">:</td>
 					    <td>#Function.ReferenceNo#</td>								
-						<td width="10%"><cf_tl id="Period">:</td>
-					    <td>#dateformat(Function.DateEffective,client.dateformatshow)# - #dateFormat(Function.DateExpiration, client.dateformatshow)#
-						<cf_space spaces="53">
+						<td><cf_tl id="Period">:</td>
+					    <td>#dateformat(Function.DateEffective,client.dateformatshow)# - #dateFormat(Function.DateExpiration, client.dateformatshow)#						
 						</td>		
 					</tr>										
 					<cfif function.mission neq "">
-						<tr class="labelmedium2">
-					    <td width="20%"><cf_tl id="Entity">:</td>
+						<tr class="labelmedium2  fixlengthlist">
+					    <td><cf_tl id="Entity">:</td>
 					    <td>
 							<table>
 								<tr class="labelmedium2">
@@ -59,9 +58,9 @@
 						</td>
 						</tr>						
 					</cfif>									
-					<tr class="labelmedium2">					
-						<td width="150"><cf_tl id="Job Title">:</td>
-						<td style="padding-right:4px">
+					<tr class="labelmedium2 fixlengthlist">					
+						<td><cf_tl id="Job Title">:</td>
+						<td>
 						
 							#Function.GradeDeployment# 
 							<cfif Function.AnnouncementTitle neq "">#Function.AnnouncementTitle#<cfelse>#Function.FunctionDescription#</cfif> 
@@ -81,12 +80,12 @@
 							</cfif>					
 						
 						</td>			
-						<td width="10%"><cf_tl id="Owner">:</td>
+						<td><cf_tl id="Owner">:</td>
 					    <td>#Function.OwnerDescription#</td>						
 					   
 					</tr>		
 					  
-					<tr class="labelmedium2">					
+					<tr class="labelmedium2  fixlengthlist">					
 					   					   
 						<cfif Function.DocumentNo neq "">
 															
@@ -114,14 +113,14 @@
 						
 						</cfif>		
 						
-						<td width="10%"><cf_tl id="Class">:</td>
+						<td><cf_tl id="Class">:</td>
 					    <td>#Function.ExerciseClass#</td>				  					   
 					   				
 					</tr>			
 									   					   
 					<cfif Function.Memo neq "">
 						
-						<tr class="labelmedium2">																	
+						<tr class="labelmedium2  fixlengthlist">																	
 							<td><cf_tl id="Memo">:</td>
 						    <td colspan="3">#Function.Memo#</td>				 					   					   				
 						</tr>																				
@@ -152,7 +151,7 @@
 								
 								<cfif functionnew.recordcount gte "1"> 
 																				
-									<tr class="labelmedium2">
+									<tr class="labelmedium2 fixlengthlist">
 									<td><cf_tl id="Reassign To">:</td>
 								    <td colspan="3" valign="middle">
 									

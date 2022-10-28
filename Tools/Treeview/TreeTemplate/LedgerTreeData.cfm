@@ -67,14 +67,14 @@ password="#SESSION.dbpw#">
 			  <cf_tl id="Journal" var="vJournals">
 			  
 			  <cf_UItreeitem value="journal"
-			        display="<span style='font-size:18px;font-weight:bold;padding-top:5px' class='labelit'>#vJournals#</span>"						
+			        display="<span style='font-size:18px;font-weight:bold' class='labelit'>#vJournals#</span>"						
 					parent="root"							
 			        expand="Yes">	
 												  
 		      <cfoutput query="Category" group="Currency">		  
 			  
 			  	 <cf_UItreeitem value="journal_#Currency#"
-					        display="<span style='font-size:16px;padding-top:5px;color:green;font-weight:bold;' class='labelit'>#Currency#</span>"
+					        display="<span style='font-size:16px;padding:13px;color:green;font-weight:bold;' class='labelit'>#Currency#</span>"
 							parent="journal"											
 							target="right"
 					        expand="Yes">	
@@ -142,6 +142,15 @@ password="#SESSION.dbpw#">
 							<!--- only shown for Payable and receivables --->
 							
 							<cfif findNoCase(TransactionCategory,'Receivables,Payment,DirectPayment,Payables,Advances')>
+							
+							    <cf_tl id="Pending documents" var="pDocuments">
+									
+								<cf_UItreeitem value="#Journal#_pen"
+							        display="<span style='font-size:12px'>#pDocuments#</span>"
+									parent="#Journal#"																	
+									href="JournalViewOpen.cfm?ID=PEW&ID1=0&ID2=#Journal.Journal#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"							
+									target="right"
+							        expand="No">	 
 							
 								<cf_tl id="Open documents" var="vDocuments">
 									

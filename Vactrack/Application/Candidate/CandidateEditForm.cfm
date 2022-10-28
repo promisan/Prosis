@@ -29,12 +29,12 @@
 	  </cfoutput>
 	  
 	  <tr>
-	    <td style="height:30;padding-left:2px;font-weight:200" 
+	    <td style="padding-left:2px;font-size:18px" 
 		     colspan="1" align="left" class="labellarge">
 			
 		<cfif Doc.Status eq "9">
 		
-			<b><font color="FF0000"><cf_tl id="Document cancelled"></font></b>	
+			<font color="FF0000"><cf_tl id="Recruitment track was revoked"></font></b>	
 		
 		<cfelse>
 			   		
@@ -260,21 +260,21 @@
 					  ORDER BY DateEffective DESC
 				  </cfquery>
 			
-			<td style="padding-left:4px;border-right:0px solid silver"><cf_tl id="Grade">:</b></td>
+			<td class="fixlength" style="padding-left:4px;border-right:0px solid silver"><cf_tl id="Grade">:</b></td>
 			<td style="padding-left:4px;border-right:1px solid silver">
 			      <cfoutput>#Level.ContractLevel#<cfif Level.ContractStep neq "">/#Level.ContractStep#</cfif></cfoutput>
 			</td>
 			
 			<cfif getRelease.ParentOffice neq "">
 			
-		    <td style="padding-left:4px;border-right:0px solid silver"><cf_tl id="Parent Office">:</td>
+		    <td class="fixlength" style="padding-left:4px;border-right:0px solid silver"><cf_tl id="Parent Office">:</td>
 		    <td style="padding-left:3px;border-right:1px solid silver">
 			      <cfoutput>#getRelease.ParentOffice# #getRelease.ParentLocation#</cfoutput>
 		    </td>
 		
 		<cfelse>
 		
-		 <td style="padding-left:4px;;border-right:0px solid silver"><cf_tl id="Status">:</td>
+		 <td class="fixlength" style="padding-left:4px;;border-right:0px solid silver"><cf_tl id="Status">:</td>
 		 
 			<cfquery name="Assess" 
 				datasource="appsSelection" 
@@ -305,7 +305,7 @@
 		
 		<cfif GetReassignment.Mission neq "">
 		
-			<td style="color:gray;padding-left:4px;background-color:f1f1f1;;border-right:1px solid silver"><cf_tl id="Reassigned">:</td>
+			<td class="fixlength" style="color:gray;padding-left:4px;background-color:f1f1f1;;border-right:1px solid silver"><cf_tl id="Reassigned">:</td>
 			<td style="padding-left:3px">
 			
 			<cfif GetReassignment.Mission neq "">
@@ -324,7 +324,7 @@
 			
 			</td>
 		  
-			<td style="color:gray;padding-left:4px;background-color:f1f1f1;;border-right:1px solid silver"><cf_tl id="Through">:</td>
+			<td class="fixlength" style="color:gray;padding-left:4px;background-color:f1f1f1;;border-right:1px solid silver"><cf_tl id="Through">:</td>
 			
 	    	<TD style="padding-left:3px">
 			
@@ -338,14 +338,15 @@
 			
 		<cfelse>
 		
-			<td style="padding-left:4px" colspan="3"><cf_tl id="Expected Arrival"></td>
+			<td class="fixlength" style="padding-left:4px" colspan="3"><cf_tl id="Expected Arrival">:</td>
 			
 			<td style="color:gray;padding-left:4px;border-left:0px solid silver;border-right:1px solid silver">
 			  
 			
 			    <cfif Doc.Status eq "9" or GetCandidateStatus.Status eq "9">				
-						
-				  #dateformat(GetCandidateStatus.DateArrivalExpected,client.dateformatshow)#"					
+				  <cfoutput>
+				  #dateformat(GetCandidateStatus.DateArrivalExpected,client.dateformatshow)#	
+				  </cfoutput>						
 				
 				<cfelse>
 				

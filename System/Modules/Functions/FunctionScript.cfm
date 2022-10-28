@@ -12,12 +12,12 @@
 			}
 			
 			function showmissions(id, role, type){
-				var vWidth = $(document).width() - 100;
-			   	var vHeight = $(document).height() - 100;    
+				var vWidth = $(document).width() - 200;
+			   	var vHeight = $(document).height() - 200; 
+				var vWidth = 680;   
 			   
-			   	ColdFusion.Window.create('mydialog', 'Entity', '',{x:30,y:30,height:vHeight,width:vWidth,modal:false,center:true,closable:false});    
-			   	ColdFusion.Window.show('mydialog'); 				
-			   	ColdFusion.navigate("#SESSION.root#/System/Modules/Functions/RecordMissionListing.cfm?ID=" + id + "&role=" + role + "&alltype=" + type + "&ts="+new Date().getTime(),'mydialog'); 
+			   	ProsisUI.createWindow('mydialog', 'Entity', '',{x:30,y:30,height:vHeight,width:vWidth,modal:false,center:true,closable:true});    			   		
+			   	ptoken.navigate("#SESSION.root#/System/Modules/Functions/RecordMissionListing.cfm?ID=" + id + "&role=" + role + "&alltype=" + type + "&ts="+new Date().getTime(),'mydialog'); 
 			}
 			
 			function editSection(id, section) {
@@ -27,13 +27,12 @@
 				var vWidth = $(document).width() - 50;
 			   	var vHeight = $(document).height() - 50;    
 			   
-			   	ColdFusion.Window.create('mydialog', 'Sections', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true,closable:true});    
-			   	ColdFusion.Window.show('mydialog'); 				
-			   	ColdFusion.navigate("#SESSION.root#/System/Modules/PortalBuilder/Section/FunctionSectionEdit.cfm?id="+id+"&section="+section+"&ts="+new Date().getTime(),'mydialog'); 
+			   	ProsisUI.createWindow('mydialog', 'Sections', '',{x:30,y:30,height:vHeight,width:vWidth,modal:true,center:true,closable:true});    			   					
+			   	ptoken.navigate("#SESSION.root#/System/Modules/PortalBuilder/Section/FunctionSectionEdit.cfm?id="+id+"&section="+section+"&ts="+new Date().getTime(),'mydialog'); 
 			}
 			
 			function removeSection(id, section) {
-				ColdFusion.navigate('#SESSION.root#/System/Modules/PortalBuilder/Section/FunctionSectionDelete.cfm?id='+id+'&section='+section, 'contentbox1');
+				ptoken.navigate('#SESSION.root#/System/Modules/PortalBuilder/Section/FunctionSectionDelete.cfm?id='+id+'&section='+section, 'contentbox1');
 			}						
 						
 			function helpedit(mod,cde,cls,id,mid) {

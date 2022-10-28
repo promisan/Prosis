@@ -45,7 +45,7 @@ password="#SESSION.dbpw#">
 	
 		<cfoutput query="Schedule" group="Mission">
 		
-		<tr class="line"><td class="labelmedium" style="font-weight:200;padding-top:13px;font-size:26px" colspan="6">#Mission#</td></tr>
+		<tr class="line"><td class="labelmedium" style="padding-top:13px;font-size:26px" colspan="6">#Mission#</td></tr>
 		
 		<cfoutput>
 		
@@ -66,11 +66,11 @@ password="#SESSION.dbpw#">
 										
 			<tr>
 				<td colspan="6">
-					<table width="100%" cellspacing="0" cellpadding="0">
-					<tr><td class="labelmedium" style="font-weight:200;height:50px;padding-top:13px;font-size:26px">#Description# <font size="2">#SalarySchedule#</font>
-					</td><td align="right" valign="bottom" class="labelmedium" style="padding-bottom:3px;font-weight:200;">			
-						<cf_UItooltip tooltip="Allow this element to be selected as a direct manual entry per employee for the following schedules"><cf_tl id="Operational">:</cf_UItooltip>
-				  		<input type="checkbox" id="scheduleselect_#row#" class="radiol" name="scheduleselect_#row#" <cfif check.operational eq "1">checked</cfif>>&nbsp;
+					<table width="100%">
+					<tr><td class="labelmedium" style="font-weight:250;font-size:19px">#Description# <font size="2">#SalarySchedule#</font>
+					</td><td align="right" valign="bottom" class="labelmedium" style="font-weight:250;font-size:13px;padding-bottom:3px" title="Allow this element to be selected as a direct manual entry per employee for the following schedules">			
+						<cf_tl id="Operational">:
+				  		<input type="checkbox" id="scheduleselect_#row#" name="scheduleselect_#row#" <cfif check.operational eq "1">checked</cfif>>&nbsp;
 						</td>
 					</tr>
 					</table>
@@ -99,11 +99,11 @@ password="#SESSION.dbpw#">
 												
 			<tr class="labelmedium">
 							    						
-				<td style="padding-left:10px" width="100"><cf_tl id="Ledger Cost">:</td>
+				<td class="fixlength" style="padding-left:10px"><cf_tl id="Ledger Cost">:</td>
 				
 				<td><table>							
 					
-					<tr>
+					<tr class="fixlengthlist">
 					<td style="padding-left:1px">				    
 						<input type="text" id="glaccount_#row#" name="glaccount_#row#" size="11" value="#Check.GLAccount#"  class="regularxl" readonly style="background-color:ffffcf;width:100;padding-left:4px">
 					</td>
@@ -126,7 +126,7 @@ password="#SESSION.dbpw#">
 					<td style="padding-left:7px" width="100"><cf_tl id="Liability">:</td>
 					
 					<td><table>
-						<tr>
+						<tr class="fixlengthlist">
 													
 						<td style="padding-left:1px">				    
 							<input type="text" id="glaccountliability_#row#" name="glaccountliability_#row#" size="11" value="#Check.GLAccountLiability#"  class="regularxl" readonly style="background-color:ffffcf;width:102;padding-left:4px">
@@ -193,7 +193,9 @@ password="#SESSION.dbpw#">
 					
 					<td class="labelmedium" style="padding-top:5px;padding-left:20px">#schedule.mission# #Code#</td>
 					
-					<td><table>							
+					<td><table>		
+					
+					         <tr class="fixlength">					
 							
 							 <td style="padding-left:1px">				    
 								<input type="text" id="glaccount_#row#_#currentrow#" name="glaccount_#row#_#currentrow#" size="11" value="#CheckMe.GLAccount#"  class="regularxl" readonly style="width:100;padding-left:4px">
@@ -260,7 +262,7 @@ password="#SESSION.dbpw#">
 					<td style="padding-left:30px">#PostClass#:</td>
 					
 					<td><table>							
-						 <tr>
+						 <tr class="fixlengthlist">
 							 <td style="padding-left:1px">				    
 								<input type="text" id="glaccount_#row#_#currentrow#" name="glaccount_#row#_#currentrow#" size="11" value="#CheckMe.GLAccount#"  class="regularh" readonly style="width:100;padding-left:4px">
 							 </td>
@@ -291,7 +293,7 @@ password="#SESSION.dbpw#">
 					<td style="padding-left:30px">#PostClass#:</td>
 					<td>
 						<table>							
-							<tr>
+							<tr class="fixlengthlist">
 							<td style="padding-left:1px">				    
 								<input type="text" id="glaccountliability_#row#_#currentrow#" name="glaccountliability_#row#_#currentrow#" size="11" value="#CheckMe.GLAccountLiability#"  class="regularh" readonly style="width:100;padding-left:4px">
 							</td>
@@ -330,7 +332,7 @@ password="#SESSION.dbpw#">
 				</td>
 				<td style="padding-left:6px" width="100"><cf_tl id="Item Master">:</td>
 				<td colspan="3">
-					<cfdiv bind="url:ItemMaster.cfm?row=#row#&mission=#mission#&schedule=#salaryschedule#&item=#get.PayrollItem#&object={objectcode_#row#}" 
+					<cf_securediv bind="url:ItemMaster.cfm?row=#row#&mission=#mission#&schedule=#salaryschedule#&item=#get.PayrollItem#&object={objectcode_#row#}" 
 				  		id="master_#row#">				
 				</td>				
 												

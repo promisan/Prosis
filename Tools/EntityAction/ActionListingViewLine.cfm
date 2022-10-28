@@ -129,6 +129,7 @@
 			
 			   <td align="center" style="width:50px;">
 			   
+			   
 			    <cfset sub = "0">	
 			   			   			  	   
 				<cfswitch expression="#ActionStatus#">
@@ -279,7 +280,7 @@
 					<cfif Action eq "1" and (EntityAccess eq "EDIT" OR EntityAccess eq "READ" or EntityAccess eq "ALL" )>
 					
 					 <cfset vSquareStyle     = "padding:0px 0 0;border-radius:8px 0 0 8px;max-width:100%">		  
-										
+									
 						<cfif attributes.hideprocess eq "0" and ActionTrigger eq "">
 						    <cfif attributes.subflow eq "No">
 						    <cfset pr = "javascript:process('#ActionId#','#attributes.preventProcess#','#attributes.ajaxid#','#ProcessMode#')">
@@ -321,8 +322,16 @@
 									<tr>									
 									<td style="min-width:10px"></td>	
 									<cfif Dialog.DocumentMode eq "Popup">																									
-									<td align="center" class="labelmedium" style="width:100%;cursor: pointer;font-size:14px;line-height:14px;color:rgba(255,255,255,1);font-weight:400;height:25px;"
-										  onClick="<cfif Object_op eq 1>#Dialog.DocumentTemplate#('#actioncode#','#actionId#','#url.ajaxid#')</cfif>">#ActionDescription#</td>										  
+									<td align="center" class="labelmedium" style="cursor:pointer"
+										  onClick="<cfif Object_op eq 1>#Dialog.DocumentTemplate#('#actioncode#','#actionId#','#url.ajaxid#')</cfif>">
+										  <table><tr>
+										  <td style="padding-right:5px">
+										  <img title="Open Dialog to perform action" src="#session.root#/images/logos/system/dialog.png" style="height:15px" alt="" border="0">
+										  </td>
+										  <td style="width:100%;cursor: pointer;font-size:14px;line-height:14px;color:rgba(255,255,255,1);font-weight:400;height:25px;">#ActionDescription#</td></tr>
+										  </table>
+										  
+									  </td>										  
 									<cfelse>
 									<td align="center" class="labelmedium" style="width:100%;cursor: pointer;font-size:14px;line-height:14px;color:rgba(255,255,255,1);font-weight:400;"
 									  ondblClick="<cfif SESSION.isAdministrator eq 'Yes'>javascript:stepedit('#Actions.EntityCode#','#Actions.EntityClass#','#Actions.ActionPublishNo#','#ActionCode#')</cfif>"

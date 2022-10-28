@@ -39,7 +39,6 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 <cfif format.recordcount gte "1">
-
 	   
 <tr><td colspan="2" style="width:800px">
 
@@ -60,7 +59,7 @@ password="#SESSION.dbpw#">
 		<tr>
 		</cfif>  			    	  
 		
-		<td style="height:100px;border:0px solid silver">
+		<td style="height:100px">
 		
 		    <table style="width:96%;height:100%" align="center">
 				    		  		   
@@ -88,7 +87,7 @@ password="#SESSION.dbpw#">
 					<table>
 					<tr>
 					<td style="padding-left:5px;padding-right:8px"><img src="#session.root#/images/documentedit.png" style="height:30px;width:30px" alt="" border="0"></td>
-					<td style="padding-top:0px;font-weight:normal;font-size:17px">#DocumentDescription#</td>
+					<td class="fixlength" title="#DocumentDescription#"	style="padding-top:0px;font-weight:normal;font-size:17px">#DocumentDescription#</td>
 					</tr>
 					</table>					
 					</td>					
@@ -156,7 +155,7 @@ password="#SESSION.dbpw#">
 				   		   
 				   <cfif language.recordcount gte "2">
 				   
-				       <tr>	
+				       <tr class="fixlengthlist">	
 				   
 				   	   <td style="padding-left:20px"><cf_tl id="Language">:</td>
 					   
@@ -180,7 +179,7 @@ password="#SESSION.dbpw#">
 				   
 				   <cfif DocumentFramework eq "1">
 				   
-				       <tr>	
+				       <tr class="labelmedium2 fixlengthlist">	
 				   
 				   	   <td style="padding-left:20px"><cf_tl id="Layout">:</td> 					   
 					
@@ -300,12 +299,12 @@ password="#SESSION.dbpw#">
 				   	
 					<cfif signature.recordcount gte "1">
 					
-					    <tr class="labelmedium2">
+					    <tr class="labelmedium2 fixlengthlist"">
 						<td style="padding-left:20px"><cf_tl id="Signature">:</td>
 				   
-				        <td style="padding-right:20px" align="right">
+				        <td style="padding-right:20px" align="right" title="Legacy : Hardcoded signature box outside workflow">
 				   		<select name="signatureblock#documentcode#" id="signatureblock#documentcode#" 
-						   style="border-left:1px solid silver;border-right:1px solid silver" size="1" class="regularxxl">
+						   style="border-left:1px solid silver;border-right:1px solid silver;width:100%" size="1" class="regularxxl">
 						<cfloop query="Signature">
 						    <option value="#code#" <cfif Format.SignatureBlock eq "#Code#">selected</cfif>>#Code# #BlockLine1#</option>
 						</cfloop>

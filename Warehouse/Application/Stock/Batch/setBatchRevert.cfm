@@ -204,6 +204,8 @@ password="#SESSION.dbpw#">
 				TaxIncluded           = "#getshipping.taxIncluded#" 
 				SalesAmount           = "#getshipping.SalesAmount#"
 				SalesTax              = "#getshipping.SalesTax#"	
+				ARJournal             = "#getShipping.Journal#" 
+				ARJournalSerialNo     = "#getShipping.JournalSerialNo#"
 				
 				GLCurrency            = "#APPLICATION.BaseCurrency#"
 				GLAccountDebit        = "#GLAccountDebit#"

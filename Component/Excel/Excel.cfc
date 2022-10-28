@@ -108,7 +108,8 @@
 			 output="yes">
 				
 		<cfargument name="datasource"  type="string" required="true"   default="">
-		<cfargument name="dataquery"   type="string" required="true"   default="">				
+		<cfargument name="dataquery"   type="string" required="true"   default="">		
+		<cfargument name="format"      type="string" required="true"   default="xlsx">			
 		<cfargument name="cols"        type="array"  required="yes">				
 						
 		<cfargument name="filename"    type="string" required="true"   default="">
@@ -130,8 +131,12 @@
 			</cfif>	
 		
 		</cfloop>		
-				
-		<cfset thesheet    = SpreadsheetNew("my extract","yes")>				
+		
+		<cfif format eq "xls">
+			<cfset thesheet    = SpreadsheetNew("my extract","no")>				
+		<cfelse>
+			<cfset thesheet    = SpreadsheetNew("my extract","yes")>		 
+		</cfif>		
 		
 		<!--- Set the speadsheet meta info --->
 		<cfset info                 = StructNew()> 
@@ -466,11 +471,11 @@
 		</cffunction>				
 		
 		<cffunction name="ExcelSection"
-		        access="public"
-		        returntype="any"				 
-				output="yes"
+		        access       = "public"
+		        returntype   = "any"				 
+				output       = "yes"
 				verifyClient = "yes"
-		        displayname="Excel Table">
+		        displayname  = "Excel Table">
 				
 				<cfargument name="total"         type="numeric"      required="true"   default="1">						
 				<cfargument name="sectiondata"   type="query"        required="true"   default="">		

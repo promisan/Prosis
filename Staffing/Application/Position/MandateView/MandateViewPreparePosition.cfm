@@ -49,11 +49,15 @@
 		 datasource="AppsEmployee" 
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
-		    SELECT DISTINCT 
-			
-			 	   O.OrgUnit            as OrgUnitOwner,
-				   O.OrgUnitName        as OrgUnitOwnerName,
-			       O.OrgUnitNameShort   as OrgUnitOwnerNameShort,
+		 
+		 SELECT  O.OrgUnit            as OrgUnitOwner,
+				 O.OrgUnitName        as OrgUnitOwnerName,
+			     O.OrgUnitNameShort   as OrgUnitOwnerNameShort,
+				 S.*
+		 FROM (
+		 
+		           SELECT DISTINCT 			
+			 	 
 			       A.DateEffective       as DateEffectiveAssignment, 
 			       A.DateExpiration      as DateExpirationAssignment, 
 				   A.FunctionDescription as FunctionDescriptionActual,
@@ -67,50 +71,50 @@
 				   P.Gender,
 				   P.IndexNo, 
 				   
-				     <!--- retrieve group --->
+				   <!--- retrieve group --->
 		  
-					  (SELECT count(*) 
-					   FROM   PositionGroup
-					   WHERE  PositionNo = Po.PositionNo  AND Status != '9') as PositionGroup,
+				  (SELECT count(*) 
+				   FROM   PositionGroup
+				   WHERE  PositionNo = Po.PositionNo  AND Status != '9') as PositionGroup,
 				   
-				   (SELECT TOP 1 Contractlevel 
-					    FROM PersonContract C 
-						WHERE C.PersonNo = P.PersonNo 
-						AND  C.ActionStatus != '9' 
-						AND  C.DateEffective < #incumdate#
-						ORDER BY Created DESC) as ContractLevel,
+				  (SELECT   TOP 1 Contractlevel 
+				   FROM     PersonContract C 
+				   WHERE    C.PersonNo = P.PersonNo 
+				   AND      C.ActionStatus != '9' 
+				   AND      C.DateEffective < #incumdate#
+				  ORDER BY  Created DESC) as ContractLevel,
 					
-					(SELECT TOP 1 ContractStep 
-					    FROM PersonContract C 
-						WHERE C.PersonNo = P.PersonNo 
-						AND  C.ActionStatus != '9' 
-						AND  C.DateEffective < #incumdate#
-						ORDER BY Created DESC) as ContractStep,		
+				  (SELECT   TOP 1 ContractStep 
+				   FROM     PersonContract C 
+				   WHERE    C.PersonNo = P.PersonNo 
+				   AND      C.ActionStatus != '9' 
+				   AND      C.DateEffective < #incumdate#
+				   ORDER BY Created DESC) as ContractStep,		
 						
-					  (SELECT  TOP 1 ContractTime 
-					    FROM    PersonContract C 
-						WHERE   C.PersonNo = P.PersonNo 				
-						AND     C.ActionStatus != '9' 
-						AND     C.DateEffective < #incumdate#
-						ORDER BY Created DESC) as ContractTime,	
+				  (SELECT   TOP 1 ContractTime 
+				   FROM     PersonContract C 
+				   WHERE    C.PersonNo = P.PersonNo 				
+				   AND      C.ActionStatus != '9' 
+				   AND      C.DateEffective < #incumdate#
+				  O RDER BY Created DESC) as ContractTime,	
 					
-				   (SELECT TOP 1 PostAdjustmentLevel
-					   FROM PersonContractAdjustment SPA 
-						WHERE SPA.PersonNo = P.PersonNo 
-						AND  SPA.ActionStatus != '9' 
-						<!--- pending --->
-						 AND  SPA.DateEffective < #incumdate# 
-					     AND  (SPA.DateExpiration is NULL or SPA.DateExpiration >= #incumdate#)
-						ORDER BY Created DESC) as PostAdjustmentLevel,
+				  (SELECT TOP 1 PostAdjustmentLevel
+				   FROM PersonContractAdjustment SPA 
+				   WHERE SPA.PersonNo = P.PersonNo 
+				   AND  SPA.ActionStatus != '9' 
+					<!--- pending --->
+				   AND  SPA.DateEffective < #incumdate# 
+				   AND  (SPA.DateExpiration is NULL or SPA.DateExpiration >= #incumdate#)
+				   ORDER BY Created DESC) as PostAdjustmentLevel,
 						
-				  (SELECT TOP 1 PostAdjustmentStep
-					    FROM PersonContractAdjustment SPA 
-						WHERE SPA.PersonNo = P.PersonNo 
-						AND  SPA.ActionStatus != '9' 
-						<!--- pending --->
-						 AND  SPA.DateEffective < #incumdate# 
-					     AND  (SPA.DateExpiration is NULL or SPA.DateExpiration >= #incumdate#)
-						ORDER BY Created DESC) as PostAdjustmentStep,					   
+				   (SELECT TOP 1 PostAdjustmentStep
+				    FROM PersonContractAdjustment SPA 
+					WHERE SPA.PersonNo = P.PersonNo 
+					AND  SPA.ActionStatus != '9' 
+					<!--- pending --->
+					AND  SPA.DateEffective < #incumdate# 
+				    AND  (SPA.DateExpiration is NULL or SPA.DateExpiration >= #incumdate#)
+					ORDER BY Created DESC) as PostAdjustmentStep,					   
 				   
 				   O.OrgUnitName, 
 				   A.OrgUnit, 
@@ -125,25 +129,24 @@
 				   Po.LocationCode,
 				   Po.PositionParentId,
 				   Po.PostAuthorised,
-				   Po.FunctionDescription, 
+				   Po.FunctionDescription,
+				   (CASE WHEN Po.MissionOperational != PoMission THEN PP.OrgUnitOperational ELSE PO.OrgUnitOperational END) as OrgUnitOperational
 				   PO.OrgUnitOperational,
 				   PP.OrgUnitOperational as ParentOrgUnit,
 				   Po.PostGrade, 
 				   Po.SourcePostNumber, 
 				   Po.PostClass,				  
-						   (SELECT ActionStatus 
-						    FROM  PersonExtension 
-							WHERE Mission   = '#Position.Mission#'
-							AND   MandateNo = '#Position.MandateNo#'
-							AND   PersonNo  = A.PersonNo 
-							) as Extension,	
+				   (SELECT ActionStatus 
+				    FROM  PersonExtension 
+					WHERE Mission   = '#Position.Mission#'
+					AND   MandateNo = '#Position.MandateNo#'
+					AND   PersonNo  = A.PersonNo ) as Extension,	
 				   (SELECT LocationName FROM Location WHERE LocationCode = Po.LocationCode) as LocationName, 						  
 				   R.PresentationColor
 			FROM   PersonAssignment A, 
 			       Person P, 
 			       Position Po, 
-				   PositionParent PP,
-			       Organization.dbo.Organization O,				 
+				   PositionParent PP,			       		 
      			   Ref_PostClass R
 			WHERE  Po.PositionNo         = A.PositionNo
 			AND    A.PersonNo            = P.PersonNo
@@ -155,8 +158,11 @@
 			<cfif URL.Lay neq "Advanced">			
 			    AND  A.DateEffective  <= #incumdate#
 				AND  A.DateExpiration >= #Incumdate#
-			</cfif>				
-			ORDER BY A.DateExpiration DESC 
+			</cfif>		
+			
+			) as D INNER JOIN  Organization.dbo.Organization O ON D.OrgUnitOperational = O.OrgUnit
+					
+			ORDER BY D.DateExpiration DESC 
 			
 		</cfquery>
 		

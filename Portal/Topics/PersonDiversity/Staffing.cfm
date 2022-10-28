@@ -421,8 +421,7 @@
 <cf_tl id="Employees" var="vLblEmployee">
 <cf_tl id="out of" var="vLblOutOf">	
 
-<cfset id = "#getMission.MissionPrefix#">
-<cfset id = "1">
+<cfset id = "map_#getMission.MissionPrefix#">
 
 <cfset ajaxOnLoad("function(){  resetMap_#id#('0', '#getMax.maxValue#', '<span style=\'font-size:14px;\'><b>[[title]]</b>: [[value]]/#getTotal.Total# #vLblEmployee#</span>', [#vDataList#]); }")>
 

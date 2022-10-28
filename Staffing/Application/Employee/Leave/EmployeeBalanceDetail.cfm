@@ -302,11 +302,11 @@
 				
 				<tr style="height:28px;border-top:1px solid silver;" class="clsPrintContentDetail_#URL.LeaveType#_Line clsPrintContentDetail_#URL.LeaveType#_#LeaveYear#">	
 											 		
-					<TD bgcolor="C0F1C1" style="font-size:15px;padding-right:3px;border-left:1px solid silver;border-right:1px solid silver" align="right">#NumberFormat(sum.Credit,"__.__")#</TD>
+					<TD style="background-color:##C0F1C180;font-size:15px;padding-right:3px;border-left:1px solid silver;border-right:1px solid silver" align="right">#NumberFormat(sum.Credit,".__")#</TD>
 					<!---
 					<TD style="padding-left:3px" align="right"><cfif Adjustment eq "0">..<cfelse>#NumberFormat(sum.Adjustment,"__.__")#</cfif></TD>
 					--->			
-					<TD bgcolor="A6D2FF" style="font-size:15px;padding-right:3px;border-right:1px solid silver" align="right"><cfif sum.Taken eq "0">..<cfelse>#NumberFormat(sum.Taken,"__.__")#</cfif></TD>
+					<TD style="background-color:##A6D2FF80;font-size:15px;padding-right:3px;border-right:1px solid silver" align="right"><cfif sum.Taken eq "0">..<cfelse>#NumberFormat(sum.Taken,".__")#</cfif></TD>
 					<TD align="right" bgcolor="<cfif Balance lt 0>red</cfif>" style="<cfif Balance lt 0>color:white</cfif>;font-size:15px;padding-right:4px;border-right:1px solid silver">#NumberFormat(Balance,"__.__")#</TD>				 
 								
 				</tr>
@@ -346,21 +346,21 @@
 							<cfif Adjustment eq "0" or Memo eq "Threshold Reduction">
 							<TD colspan="2" style="padding-right:3px;border-right:1px solid silver" align="right"></TD>	
 							<cfelse>
-							<td bgcolor="yellow" style="padding-left:5px;border-right:0px solid silver">#Memo#:</td>
-							<td align="right" bgcolor="FED7CF" style="padding-right:3px;border-right:1px solid silver">#NumberFormat(Adjustment,"__.__")#</td>			
+							<td style="background-color:##ffffaf80;padding-left:5px;border-right:0px solid silver">#Memo#:</td>
+							<td align="right" style="background-color:##FED7CF80;padding-right:3px;border-right:1px solid silver">#NumberFormat(Adjustment,"__.__")#</td>			
 							</cfif>
-							<TD style="background-color:ffffaf;padding-right:3px;border-right:1px solid silver" align="right">#NumberFormat(Balance+Taken-Credit,"__.__")#</TD>			
+							<TD style="background-color:##ffffaf80;padding-right:3px;border-right:1px solid silver" align="right">#NumberFormat(Balance+Taken-Credit,"__.__")#</TD>			
 							<cfif Credit eq "0">
-							<TD bgcolor="f1f1f1" style="padding-right:3px;border-right:1px solid silver" align="right"></TD>		
+							<TD  style="background-color:##f1f1f180;padding-right:3px;border-right:1px solid silver" align="right"></TD>		
 							<cfelse>
-							<td align="right" bgcolor="C0F1C1" style="padding-right:3px;border-right:1px solid silver">#NumberFormat(Credit,".__")#</td>			
+							<td align="right" style="background-color:##C0F1C180;padding-right:3px;border-right:1px solid silver">#NumberFormat(Credit,".__")#</td>			
 							</cfif>
 							<cfif Taken eq "0">
 							<TD style="padding-right:3px;border-right:1px solid silver" align="right"></TD>
 							<cfelse>
-							<td align="right" bgcolor="A6D2FF" style="padding-right:3px;border-right:1px solid silver">#NumberFormat(Taken,".__")#</td>
+							<td align="right" style="background-color:##A6D2FF80;padding-right:3px;border-right:1px solid silver">#NumberFormat(Taken,".__")#</td>
 							</cfif>
-							<TD align="right" style="background-color:e4e4e4;padding-right:4px;border-right:1px solid silver">#NumberFormat(Balance,".__")#</TD>		
+							<TD align="right" style="background-color:##e4e4e480;padding-right:4px;border-right:1px solid silver">#NumberFormat(Balance,".__")#</TD>		
 							<cfif qType.leaveAccrual eq "2">
 							<td style="padding:2px">							
 							<cfif Balance gte "1" and dateEffective lte now() and access eq "ALL">

@@ -158,6 +158,12 @@
    <!--- <cfif Transaction.ActionStatus eq "0" and action.actionStatus neq "1"> --->
 	  
 	  <cfif get.ActionStatus eq "9" or get.recordstatus eq "9">
+	  
+	     <!--- do not show --->
+		 
+	  <cfelseif get.ActionStatus eq "0">
+	  
+	  	<!--- workflow controlled we wait until the step is completed --->	 
 			
 	  <cfelse> 
 	  
@@ -166,9 +172,10 @@
 				   <table>
 				    <tr>
 					
+																									
 					<cfif Action.ActionStatus neq "1">
 				  	
-						<td class="labelmedium2" style="height:20px;font-size:17px">				  
+						<td class="labelmedium2" style="height:20px;font-size:16px">				  
 						
 						    <cfif get.TransactionSource eq "SalesSeries" and Action.recordcount eq "0">
 							    <!--- we go the POS mode for the sales series, unlike accounting and workorder series  ---> 
@@ -176,6 +183,10 @@
 							<cfelse>
 							    <a href="javascript:NewTaxReceivable('','finance')"><cf_tl id="Issue Electronic Invoice"></a>
 							</cfif>
+							
+							<cfoutput>
+							<span style="font-size:14px">(#dateformat(get.documentdate,client.dateformatshow)#)</span>
+							</cfoutput>
 								
 						</td>	
 						
@@ -185,11 +196,13 @@
 					
 					<cfif get.TransactionSource eq "SalesSeries"> 
 				      
-				  		<td class="labelmedium2" style="height:20px;font-size:17px" colspan="6">				  		
+				  		<td class="labelmedium2" style="height:20px;font-size:16px" colspan="6">				  		
 				   			<a href="javascript:PrintReceivable()"><cf_tl id="Invoice"></a>				   		
 						</td>			
 					
 					</cfif>
+					
+					
 					
 				   </tr>	
 				   </table>

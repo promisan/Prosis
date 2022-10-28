@@ -57,6 +57,7 @@
 			AND   (R.PostType = '#param#' or R.PostType is NULL)
 			</cfif>
 			AND    R.Operational      = 1
+			AND    R.ActionStatus = '3'
 			AND    R.RosterSearchMode != '0'
 			AND   ((R.DateExpiration >= getDate() 
 			          OR R.DateExpiration is NULL 
@@ -83,6 +84,7 @@
 				AND   (R.PostType = '#param#' or R.PostType is NULL)
 				</cfif>
 				AND    R.Operational      = 1
+				AND    R.ActionStatus = '3'
 				AND    R.RosterSearchMode != '0'	
 				ORDER BY Created DESC	  	  
 			</cfquery>
@@ -203,13 +205,15 @@
 						
 					<table width="96%" align="center" class="formpadding navigation_table fixrow">
 					
-					  <tr class="labelmedium2">
-						  <td colspan="7" align="center" style="height:45px;font-size:18px">Please select the roster edition you need to search</td>					  
-						  <tr class="labelmedium2 line fixlengthlist">
+					  <tr class="labelmedium2 fixlengthlist fixrow">
+						  <td colspan="8" align="center" style="height:45px;font-size:18px">Please select the roster edition you need to search</td>	
+					  </tr>	  				  
+					  <tr class="labelmedium2 line fixlengthlist">
 						  <td>&nbsp;</td>
 						  <td colspan="2"><cf_tl id="Roster edition"></td>					  
 						  <td><cf_tl id="Owner"></td>
 						  <td><cf_tl id="Expiration"></td>
+						  <td><cf_tl id="Officer"></td>
 						  <td><cf_tl id="Buckets"></td>
 						  <td></td>
 				      </tr>
@@ -220,11 +224,10 @@
 					  
 						<cfoutput> 
 						
-					    	<TR class="navigation_row line labelmedium2 fixlengthlist">
+					    	<TR class="navigation_row line labelmedium2 fixlengthlist" style="height:22px">
 							     <td>&nbsp;</td>
 					   			 <td colspan="2" align="left"><cfif cl eq "#ExerciseClass#">#ExerciseClass#/</cfif>#EditionDescription#</td>
-					      		 
-								 
+					      		 								 
 								 <cfquery name="Own" 
 									datasource="AppsOrganization" 
 									username="#SESSION.login#" 
@@ -234,9 +237,9 @@
 									  WHERE Code = '#Owner#'				  
 								  </cfquery>
 								 				 
-								 <TD>#Own.Description#</TD>
-								 
+								 <TD>#Own.Description#</TD>								 
 								 <td>#dateformat(dateexpiration,CLIENT.DateFormatShow)#</td>
+								 <td>#OfficerLastName#</td>
 								 
 								 <td align="right">#Buckets#</td>
 								

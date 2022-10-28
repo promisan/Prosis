@@ -23,7 +23,7 @@
 	}
 </style>
 
-<table width="96%" height="100%" align="center">
+<table height="100%" align="center" style="width:100%;background-color:f8f8f8">
 	
 	<tr class="hide"><td id="process"></td></tr>	
 	
@@ -43,7 +43,7 @@
 		</td>
 	</tr>
 				
-	<tr><td width="100%" height="100%" style="padding:4px">
+	<tr><td width="100%" height="100%" align="center" style="padding-left:7px;padding-right:7px">
 	
 	<cfset vURLObjectId = replace(url.objectId,"-","","ALL")>
 			
@@ -56,7 +56,7 @@
 	<cfoutput>
 	<!--- container for show of interval check --->	
 	<tr class="hide">
-		<td id="communicatecomment_#url.objectid#"></td>
+		<td style="padding:3px" id="communicatecomment_#url.objectid#"></td>
 	</tr>
 	</cfoutput>
 		

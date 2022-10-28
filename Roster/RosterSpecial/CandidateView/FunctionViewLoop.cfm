@@ -333,14 +333,14 @@
 	<cf_layoutarea 
 	    position    = "left" 
 		name        = "treebox" 
-		maxsize     = "300" 		
-		size        = "300" 
-		minsize     = "300"
+		maxsize     = "270" 		
+		size        = "270" 
+		minsize     = "270"
 		collapsible = "true" 
 		splitter    = "true"
 		overflow    = "scroll">
    
-	<table width="99%" height="100%" cellspacing="0" cellpadding="0" align="center">
+	<table width="99%" height="100%" align="center">
 	
 	<tr>
 	<td width="260" valign="top">

@@ -476,74 +476,17 @@ password="#SESSION.dbpw#">
 	        display="<span style='font-size:15px;padding-top:1px;;padding-bottom:1px;font-weight:500' class='labelit'>#lt_text#</span>"
 			parent="base"							
 	        expand="No">	
-   
-   <cfquery name="Status" 
-	datasource="AppsVacancy" 
-	username="#SESSION.login#" 
-	password="#SESSION.dbpw#">
-	  SELECT DISTINCT R.*
-	  FROM   Ref_Status R, Document D
-	  WHERE  Class     = 'Document'
-	  AND    D.Status  = R.Status
-	  AND    D.Mission = '#Attributes.Mission#'
-	</cfquery>
-
-  <cfif Status.recordcount gt 0>
-  
-     <cf_tl id="Under Recruitment" var="1">     
-   
-     <cf_UItreeitem value="vac"
-        display="<span style='font-size:15px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
-		parent="view"							
-        expand="No">	    
-     
-  <cfloop query="Status">
-  
-	  <cfset Sta = Status>
-	  
-	   <cf_UItreeitem value="#sta#"
-			      display="<span style='font-size:13px' class='labelit'>#Description#</span>"
-				  parent="vac"					
-				  target="right"
-				  href="#SESSION.root#/Vactrack/Application/ControlView/ControlListing.cfm?ID=MIS&Mission=#Attributes.Mission#&ID2=#Sta#&IDArea=">	
-	 
-	 <!--- 
-	  <cfif Sta neq "0">
-	  
-			  <cftreeitem value="#sta#"
-			        display="#Description#"
-					parent="vac"	
-					target="right"							
-					href="#SESSION.root#/Vactrack/Application/ControlView/ControlListing.cfm?ID=MIS&Mission=#Attributes.Mission#&ID2=#Sta#&IDArea="
-			        expand="No">	
-	 
-	  <cfelse>
-	  
-	  		 <cftreeitem value="#sta#"
-			        display="#Description#"
-					parent="vac"	
-					target="right"							
-					href="#SESSION.root#/Vactrack/Application/ControlView/ControlListing.cfm?ID=MIS&Mission=#Attributes.Mission#&ID2=#Sta#&IDArea="
-			        expand="No">		
-	  
-	  </cfif>
-	  
-	  --->
-      
-  </cfloop>
-  
-  <cf_tl id="Arrival conformation" var="1">
+        
+  <cf_tl id="Arrival confirmation" var="1">
   
   <cf_UItreeitem value="arrival"
-			      display="<span style='font-size:13px' class='labelit'>#lt_text#</span>"
+			      display="<span style='font-size:14px' class='labelit'>#lt_text#</span>"
 				  parent="view"					
 				  target="right"
 				  href="../../VAArrival/ArrivalConfirmation.cfm?ID=ARR&ID1=#Attributes.Mission#&ID2=0&IDArea=">	
   
      
-  </cfif> 
-  
-    
+      
   <!--- ---------- --->
   <!--- -CONTRACT- --->
   <!--- ---------- --->
@@ -557,7 +500,7 @@ password="#SESSION.dbpw#">
   	<cf_tl id="Contractual status" var="1">
   
     <cf_UItreeitem value="contract"
-        display="<span style='font-size:15px;padding-top:1px;;padding-bottom:1px;font-weight:bold' class='labelit'>#lt_text#</span>"
+        display="<span style='font-size:14px;padding-top:1px;;padding-bottom:1px;' class='labelit'>#lt_text#</span>"
 		parent="view"	
 		href="../../Contract/ContractListing.cfm?header=1&ID=PAR&ID1=&Mission=#Attributes.Mission#&MandateNo=#MandateDefault#"						
         expand="No">	

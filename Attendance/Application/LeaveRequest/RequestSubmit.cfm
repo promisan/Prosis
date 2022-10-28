@@ -54,8 +54,8 @@
 	
   <cf_tl id="Your requested end date lies before the start date" var="vBefore">
   
-  <cf_alert message = "#vBefore#. \n\n#vNotAllowed#."
-  return = "back">
+  <cf_message message = "#vBefore#. \n\n#vNotAllowed#."
+  return = "no">
 
   <cfabort>
 
@@ -85,8 +85,8 @@ password="#SESSION.dbpw#">
   
   		<cf_tl id="but I am not able to define your current assignment" var="vAssignment">
   			
-        <cf_alert message = "#vSorry#, #vAssignment#. \n\n#requestCannot#!"
-        	return = "back">
+        <cf_message message = "#vSorry#, #vAssignment#. \n\n#requestCannot#!"
+        	return = "no">
         <cfabort>
   
 </cfif> 
@@ -106,8 +106,7 @@ password="#SESSION.dbpw#">
 
 	  <cf_tl id="but the determined mandate is not cleared yet" var="vMandate">
 	  	
-      <cf_alert message = "#vSorry#, #vMandate#. \n\n#requestCannot#!"
-        	return = "back">
+      <cf_message message = "#vSorry#, #vMandate#. \n\n#requestCannot#!" return = "no">
       <cfabort>
 
 </cfif>
@@ -133,7 +132,7 @@ new table Ref_LeaveTypeRule --->
 	<cfif CTO.Balance gte "7.5">
 			
 	  <cf_tl id="Please amend your request to consume CTO first before submitting any annual leave" var="vCTO">
-	  <cf_alert message = "#vCTO#. \n\nYour current balance: #CTO.Balance# hours" return = "back">
+	  <cf_message message = "#vCTO#. \n\nYour current balance: #CTO.Balance# hours" return = "no">
 	   
          <cfabort>
 							
@@ -197,8 +196,8 @@ password="#SESSION.dbpw#">
 	  <cf_tl id ="Contractual status can not be determined and your request can not be processed" var="vContractual">
 	  <cf_tl id ="Please contact your administrator" var="vContact">
 	  	
-      <cf_alert message = "#vContractual#. \n#vContact#!"
-           return = "back">
+      <cf_message message = "#vContractual#. \n#vContact#!"
+           return = "no">
       <cfabort>
 	  
 </cfif> 		
@@ -223,8 +222,8 @@ password="#SESSION.dbpw#">
 	
 	  <cf_tl id="Your request covers an attendance period which has been closed/cleared already" var="vClosed">
 	  	 	
-      <cf_alert message = "#vSorry#, #vClosed#!"
-                return = "back">
+      <cf_message message = "#vSorry#, #vClosed#!"
+                return = "no">
       <cfabort>
 </cfif> 	
 
@@ -262,9 +261,9 @@ password="#SESSION.dbpw#">
 			
 				<cfif Days gt LeaveTypeClass.LeaveMaximum>
 					  <cf_tl id="days exceeds the maximum continuous authorised days for" var="dayContinuous">	
-			
-		        	  <cf_alert message = "#yourRequest# #Days# #dayContinuous# #LeaveTypeClass.Description# [#LeaveTypeClass.LeaveMaximum#]. \n\n#requestCannot#!"
-			          return = "back">
+						
+		        	  <cf_message message = "#yourRequest# #Days# #dayContinuous# #LeaveTypeClass.Description# [#LeaveTypeClass.LeaveMaximum#]. \n\n#requestCannot#!"
+			          return = "no">
 		    	      <cfabort>
 					  
 			    </cfif> 

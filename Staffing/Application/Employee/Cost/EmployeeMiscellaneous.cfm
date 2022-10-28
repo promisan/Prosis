@@ -51,13 +51,18 @@
 </script>
 </cfoutput>
 
+
+
+
 <cfif URL.Status eq "">
           <cfset condition = "AND Status != '9'">
 <cfelseif URL.Status eq "0d">		  
-          <cfset condition = "AND Status = '0' AND DateEffective < getDate()+35">
-		  
-<cfelse>  <cfset condition = "AND Status = '#URL.Status#'">
+          <cfset condition = "AND Status = '0' AND DateEffective < getDate()+35">		  
+<cfelse>  
+       <cfset condition = "AND Status = '#URL.Status#'">
 </cfif>
+
+<cfinclude template="getAccess.cfm">
 
 <cfquery name="SearchResult" 
 datasource="AppsPayroll" 
@@ -78,6 +83,10 @@ password="#SESSION.dbpw#">
 	FROM     PersonMiscellaneous L INNER JOIN Ref_PayrollItem I ON L.PayrollItem = I.PayrollItem
 	WHERE    L.PersonNo = '#URL.ID#' 	
           	 #preserveSingleQuotes(condition)#
+	<cfif itm neq "">
+    AND      L.PayrollItem IN (#preservesingleQuotes(itm)#)
+	</cfif>		 			 
+			 
 	ORDER BY L.PayrollItem, 
 	         <cfif url.sort eq "doc">
 			 L.DocumentDate, 
@@ -90,7 +99,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 
 
-<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="formpadding">
+<table width="100%" align="center" class="formpadding">
 
 <tr><td height="10" style="padding-top:3px;padding-left:7px">	
 <cfset openmode = "show">
@@ -131,11 +140,13 @@ password="#SESSION.dbpw#">
 			   
 			 </SELECT>		
 			</td>
-			<cfoutput>
-		    <td align="right" style="padding-right:1px;width:20%">
-			<input type="button" value="New Entry" style="height:30px" class="button10g" onClick="javascript:entitlement('#URL.ID#','#URL.ID1#')">	 
-		    </td>
-			</cfoutput>
+			<cfif itm neq "">
+				<cfoutput>
+				    <td align="right" style="padding-right:1px;width:20%">
+					<input type="button" value="New Entry" style="height:26px" class="button10g" onClick="javascript:entitlement('#URL.ID#','#URL.ID1#')">	 
+				    </td>
+				</cfoutput>
+			</cfif>
 			</tr>
 		</table>
 	</td>

@@ -71,21 +71,21 @@ password="#SESSION.dbpw#">
 	
 		<cfif prior neq dateformat(MailDate,CLIENT.DateFormatShow)>
 		
-		<tr class="labelmedium line"><td style="font-size:13px;font-weight:bold">#dateformat(MailDate,"DDD")# #dateformat(MailDate,CLIENT.DateFormatShow)#</td></tr>
+		<tr class="labelmedium2 line"><td style="font-size:13px">#dateformat(MailDate,"DDD")# #dateformat(MailDate,CLIENT.DateFormatShow)#</td></tr>
 		
 		</cfif>
 		
 		<cfset prior = dateformat(MailDate,CLIENT.DateFormatShow)>
 		
-		<tr class="line navigation_row clsFilterRow clsFilterRow_#currentrow#">
+		<tr class="navigation_row clsFilterRow clsFilterRow_#currentrow#">
 			<td>
-				<table border="0" width="100%" align="center" class="formpadding"> 
+				<table border="0" width="100%" align="center" class="formpadding formspacing"> 
 				
 					<tr class="clsRow_#currentrow#">
 					    <!---
 						<td class="labelit" valign="top" width="50" style="padding-top:5px;padding-left:14px;padding-right:10px"><font color="0080C0">#currentrow#.<font color="0080C0"></b></td>
 						--->
-					    <td width="95%" style="padding-left:4px;padding-bottom:4px">
+					    <td width="95%" style="padding-left:4px;padding-bottom:1px">
 						 
 							 <table style="width:100%">
 							 <tr>
@@ -93,6 +93,9 @@ password="#SESSION.dbpw#">
 							    <!--- Picture --->
 								
 							 	<td style="width:35px">
+								
+								    <cfif session.acc neq OfficerUserId>	
+									
 									<cfif not FileExists("#session.rootdocumentpath#\EmployeePhoto\#OfficerUserId#.jpg")>
 									
 										<cfset vEmpPhotoPath = "#session.root#/images/logos/no-picture-male.png">	
@@ -107,37 +110,39 @@ password="#SESSION.dbpw#">
 										
 									</cfif>								
 									
-									<img src="#vEmpPhotoPath#" title="#OfficerFirstName# #OfficerLastName#" style="border-radius:20px;border:1px solid black;height:30px;" align="absmiddle">
+									<img src="#vEmpPhotoPath#" title="#OfficerFirstName# #OfficerLastName#" style="border-radius:20px;border:1px solid gray;height:30px;" align="absmiddle">
+									
+									</cfif>
 									
 								</td>
 								
 								<!--- name --->
-								
+																
 								<td style="padding-left:2px;">
 									<table width="100%">
 										<tr>
-											<td>
+											<td style="padding-right:4px">
 											<table width="100%">
-												<tr>
-												<td  style="padding-left:4px;height:20px;" class="labelmedium ccontent">
-												<table><tr><td>#OfficerFirstName# #OfficerLastName# : #TimeFormat(MailDate,"HH:MM")#</td></tr>												
-												</table>
-												</td>												
-												
+												<tr class="fixlengthlist">
+												<td align="<cfif officerUserId eq session.acc>right<cfelse>left</cfif>" style="border-radius:5px;padding-left:4px;height:20px;background-color:<cfif officerUserId eq session.acc>##E0F9FE<cfelse>##fffff</cfif>" class="labelmedium ccontent">
+
+												<table>
+																									
 												 <cfif session.acc eq OfficerUserId>		
 												 
-													  <td width="20" align="right" style="padding-top:3px">
+													  <td style="padding-top:2px" align="right">
 													   	  <cf_img icon="delete" onclick="ptoken.navigate('#session.root#/Tools/EntityAction/Details/Comment/CommentDelete.cfm?objectid=#objectid#&threadid=#threadid#&serialno=#serialno#','process')">
 													  </td>		
 													 
 													  <cfif getAdministrator("*") eq "1">												   
 													 											 
-															<td style="padding-left:4px;padding-right:8px" 
-															  style="cursor:pointer" align="right"
+															<td style="padding-top:1px;cursor:pointer;font-size:11px" 
 															  id="box_#threadid#_#serialno#" 
 															  onclick="ptoken.navigate('#session.root#/Tools/EntityAction/Details/Comment/setComment.cfm?objectid=#objectid#&threadid=#threadid#&serialno=#serialno#&field=mailscope&value='+document.getElementById('mailscope_#threadid#_#serialno#').value,'box_#threadid#_#serialno#')" 
-															  class="labelit ccontent"><font color="gray">
-															  <cfif MailScope eq "All"><cf_tl id="public"><cfelse><cf_tl id="support"></cfif></font>
+															  class="ccontent">
+															  <cfif MailScope eq "All">
+															  <img src="#session.root#/images/logos/system/public.png" style="height:17px" alt="" border="0">															  
+															  <cfelse><cf_tl id="support"></cfif>
 															
 																<cfif MailScope eq "All">
 																	<input type="hidden" id="mailscope_#threadid#_#serialno#" value="support">
@@ -149,12 +154,62 @@ password="#SESSION.dbpw#">
 														   
 													   </cfif>								   
 												   
-												 </cfif>
-												 
+												 </cfif>												
+												
+  												   <td style="font-size:11px" class="labelit"><cfif officerUserId neq session.acc><b>#OfficerFirstName# #OfficerLastName#</b></cfif><cfif dateformat(now(),client.dateformatshow) neq Dateformat(MailDate,client.dateformatshow)>#Dateformat(MailDate,"dd/mm/yy")#</cfif> #TimeFormat(MailDate,"HH:MM")#
+												   
+												   </td>
+												   </tr>
+												   </table>
+
+												</td>												
+												
 												 </tr>
 											</table>										
 											</td>
 										</tr>
+										
+										<!--- body --->
+						
+										<cfset vPriorityColor = "">
+										<cfif get.Priority eq "1">
+											<cfset vPriorityColor = "color:##FF0000;">
+										</cfif>
+										<cfset vMaxChars = 100>
+											
+										<tr class="clsRow_#currentrow#">
+																	
+											<td valign="top" style="padding-right:15px" class="ccontent">
+																	
+												<table width="98%" border="0" align="center">
+												
+													<input type="Hidden" value="1" id="commentListingMailBodyToggler_#currentrow#">
+													<cfset vMailBody = replace(Get.MailBody,"<strong>","<b>","ALL")>
+													<cfset vMailBody = replace(vMailBody,"</strong>","</b>","ALL")>
+													<cfset vMailBody = replace(vMailBody,"<em>","<i>","ALL")>
+													<cfset vMailBody = replace(vMailBody,"</em>","</i>","ALL")>
+													<div id="commentListingMailBodyContent_#currentrow#" style="display:none;">#vMailBody#</div>
+													
+													<tr>			
+																				
+																																									
+														<td valign="top" class="ccontent" id="commentListingMailBodyContainer_#currentrow#" 
+														 style="padding:1px;border:1px solid d1d1d1;#vPriorityColor#;padding-left:5px">
+																								
+															<div style="font-size:13px;color:<cfif officerUserId eq session.acc>black<cfelse>black</cfif>">#left(vMailBody,vMaxChars)# <cfif len(get.mailBody) gt vMaxChars>...</cfif></div>
+															
+															<cfif len(get.mailBody) gt vMaxChars>
+																<cf_tl id="more" var="1">
+																<a id="commentListingMailBodyTwistie_#currentrow#" style="font-size:10px;<cfif officerUserId eq session.acc>color:white</cfif>"													
+																	onclick="toggleCommentLength('##commentListingMailBodyContent_#currentrow#','##commentListingMailBodyContainer_#currentrow#','##commentListingMailBodyToggler_#currentrow#','##commentListingMailBodyTwistie_#currentrow#',#vMaxChars#);"> 
+																	 #lt_text#
+																</a>
+															</cfif>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>	
 																				
 									</table>
 								</td>
@@ -238,7 +293,7 @@ password="#SESSION.dbpw#">
 																																									
 							<tr class="clsRow_#currentrow# line" style="border-top:1px solid silver">
 							  
-							   <td style="padding-left:10px">
+							   <td style="padding-right:10px" align="right">
 							   
 							       <table width="100%">
 								   								   
@@ -260,46 +315,7 @@ password="#SESSION.dbpw#">
 					
 					    </cfif>	
 						
-						<!--- body --->
 						
-						<cfset vPriorityColor = "">
-						<cfif get.Priority eq "1">
-							<cfset vPriorityColor = "color:##FF0000;">
-						</cfif>
-						<cfset vMaxChars = 100>
-							
-						<tr class="clsRow_#currentrow#">
-													
-							<td valign="top" style="padding-top:0px;padding-left:20px;padding-right:15px" class="ccontent">
-													
-								<table width="98%" border="0" align="center">
-								
-									<input type="Hidden" value="1" id="commentListingMailBodyToggler_#currentrow#">
-									<cfset vMailBody = replace(Get.MailBody,"<strong>","<b>","ALL")>
-									<cfset vMailBody = replace(vMailBody,"</strong>","</b>","ALL")>
-									<cfset vMailBody = replace(vMailBody,"<em>","<i>","ALL")>
-									<cfset vMailBody = replace(vMailBody,"</em>","</i>","ALL")>
-									<div id="commentListingMailBodyContent_#currentrow#" style="display:none;">#vMailBody#</div>
-									
-									<tr>												
-																																					
-										<td valign="top" class="ccontent" id="commentListingMailBodyContainer_#currentrow#" 
-										 style="border-radius:4px;background-color:<cfif officerUserId eq session.acc>##462C94<cfelse>##e3e3e3</cfif>;padding:2px;border:1px solid d1d1d1;#vPriorityColor#">
-																				
-											<div style="padding:3px;padding-top:3px;font-size:13px;color:<cfif officerUserId eq session.acc>white<cfelse>black</cfif>">#left(vMailBody,vMaxChars)# <cfif len(get.mailBody) gt vMaxChars>...</cfif></div>
-											
-											<cfif len(get.mailBody) gt vMaxChars>
-												<cf_tl id="more" var="1">
-												<a id="commentListingMailBodyTwistie_#currentrow#" style="font-size:10px;<cfif officerUserId eq session.acc>color:white</cfif>"													
-													onclick="toggleCommentLength('##commentListingMailBodyContent_#currentrow#','##commentListingMailBodyContainer_#currentrow#','##commentListingMailBodyToggler_#currentrow#','##commentListingMailBodyTwistie_#currentrow#',#vMaxChars#);"> 
-													 #lt_text#
-												</a>
-											</cfif>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>	
 							
 	
 				</table>

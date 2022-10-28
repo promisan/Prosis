@@ -1,4 +1,3 @@
-			
 
 <cfif url.listgroupfield eq "" 
       or url.listgrouptotal eq "0" <!--- no summary requested --->
@@ -69,8 +68,9 @@
 								
 					  <cfset presentation = "group">
 					  
-				</cfif>			
-																															
+				</cfif>		
+				
+																																			
 				<cf_divscroll id="_divContentFields" overflowx="auto" height="#vContentHeight#">
 				
 					<div id="_divSubContent" class="clsListingContent">					
@@ -114,7 +114,6 @@
 							</cfif>
 							
 							<tr class="hidden"><td id="#attributes.box#_gridbox"></td></tr>		
-																	
 						
 						</table>	
 											
@@ -122,7 +121,8 @@
 										
 					</div>
 					
-				</cf_divscroll>																
+				</cf_divscroll>		
+																	
 				
 				<!--- we use those indicators in the listingscript to tell what to do --->
 								
@@ -134,8 +134,7 @@
 							
 			</td>		
 		</tr>	
-		
-				
+						
 		<tr style="border-top:1px solid silver">
 		   <td style="height:10px" id="#attributes.box#_content_nav" class="clsNoPrint">		   
 	       <cfinclude template="ListingNavigation.cfm">		   
@@ -145,7 +144,6 @@
 	</table>	
 	
 </cfoutput>	
-
 
 <script>
 	try { Prosis.busyRegion('no','_divSubContent') } catch(e) {}

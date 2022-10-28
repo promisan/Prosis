@@ -17,6 +17,7 @@
 		FROM         DocumentCandidate AS DC INNER JOIN
 		             Organization.dbo.OrganizationObject AS OO ON DC.DocumentNo = OO.ObjectKeyValue1 AND DC.PersonNo = OO.ObjectKeyValue2
 		WHERE        (OO.Operational = '1') AND (DC.DocumentNo = '#url.id#') AND (OO.EntityCode = 'VacCandidate')
+		AND          DC.Status <= '3'
 	</cfquery>
 	
 	<cfif LogStatus.recordcount gt "0">

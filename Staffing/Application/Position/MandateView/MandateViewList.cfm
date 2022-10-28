@@ -498,7 +498,7 @@
 		</cfquery>
 			
 	<cfelse>
-		
+				
 		  <!--- the first section can be cancelled at some point when UN is on supertrack --->
 		  	 				
 		  <cfquery name="CheckVacancy" 
@@ -714,8 +714,7 @@
 				<cfif url.postclass neq "">	  
 				AND      P.PostClass = '#URL.PostClass#'	  
 				</cfif>	 
-				
-								
+												
 				UNION ALL    <!--- add positions that are actually used in another unit --->
 				
 				SELECT   PP.Mission    as MissionUsed,
@@ -792,10 +791,12 @@
 						 Organization.dbo.Organization O
 						 
 				WHERE    P.PositionParentId    = PP.PositionParentId 
+				<!--- assignment unit is not the same as position parent --->
 				AND      PA.OrgUnit           != PP.OrgUnitOperational
 				AND      P.PositionNo          = PA.PositionNo
-				AND      PA.OrgUnit            = O.OrgUnit
-				
+				<!--- cross mission correction to it will take the budget unit --->
+				AND  	 (CASE WHEN P.MissionOperational = P.Mission THEN PA.OrgUnit ELSE PP.OrgUnitOperational END) = O.OrgUnit
+								
 				AND      PP.Mission            = '#URL.Mission#'
 				AND      PP.MandateNo          = '#URL.Mandate#'
 				 
@@ -817,11 +818,9 @@
 				<cfif url.postclass neq "">	  
 				AND      P.PostClass = '#URL.PostClass#'	  
 				</cfif>	  
-				
-															
+																			
 				ORDER BY PositionNo 	
-								
-							
+				
 			</cfquery>		
 							
 			<!---
@@ -910,6 +909,8 @@
 			     </cfif>				 	
 					  
 			</cfquery>
+			
+			
 			
 			<!---
 			<cfoutput>2.#cfquery.executiontime#</cfoutput>
@@ -1391,8 +1392,7 @@
 			   <cfelse>
 			      <input type="hidden" name="unit" id="unit" value="">
 			    </cfif>			
-				
-				
+								
 				<cfinclude template="MandateViewOrganization.cfm">
 					        
 			<cfelse>

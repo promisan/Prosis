@@ -35,24 +35,28 @@
 
     <td align="center">
 	
-	 <cfif FileExists("#SESSION.rootDocumentPath#/#path#/#dir#/#filter##dir#.jpg")>		 
-	 
+	 <cfif FileExists("#SESSION.rootDocumentPath#/#path#/#dir#/#filter##dir#.jpg")>			 
+		
+		    <cftry>
+		    <cfdirectory action = "create" directory="#SESSION.rootDocumentPath#\CFRStage\EmployeePhoto"/>
+			<cfcatch></cfcatch>
+			</cftry>
+		
+    		<cffile action="COPY" 
+				source="#SESSION.rootDocumentPath#/#path#/#dir#/#filter##dir#.jpg" 
+ 			   	destination="#SESSION.rootDocumentPath#\CFRStage\EmployeePhoto\#dir#.jpg" nameconflict="OVERWRITE">
+								
 	 		<cfset oSecurity = CreateObject("component","Service.Process.System.UserController")/>
-			<cfset mid = oSecurity.gethash()/> 
-			
-     		<cffile action="COPY" 
-					source="#SESSION.rootDocumentPath#/#path#/#dir#/#filter##dir#.jpg" 
-  			    	destination="#SESSION.rootDocumentPath#\CFRStage\EmployeePhoto\#dir#.jpg" nameconflict="OVERWRITE">
-				 
-				  <img src="#SESSION.root#/CFRStage/getFile.cfm?id=#dir#.jpg&mode=EmployeePhoto&mid=#mid#"
-					     alt    = "Photo of #dir#"
-					     border = "0"
-						 onclick="#edt#"
-					     align  = "absmiddle"
-						 style="cursor:pointer"
-						 height="#url.height#" width="#url.width#">	
-						 						
-			  
+			<cfset mid = oSecurity.gethash()/> 		
+			 
+			  <img src="#SESSION.root#/CFRStage/getFile.cfm?id=#dir#.jpg&mode=EmployeePhoto&mid=#mid#"
+				     alt     = "Photo of #dir#"
+				     border  = "0"
+					 onclick = "#edt#"
+				     align   = "absmiddle"
+					 style   = "cursor:pointer"
+					 height  = "#url.height#" 
+					 width   = "#url.width#">
 			  					 
   	 <cfelse>		 
 				

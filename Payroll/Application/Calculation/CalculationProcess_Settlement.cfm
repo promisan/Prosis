@@ -164,9 +164,8 @@ password="#SESSION.dbpw#">
 		<cfelse> 
 		 
 	    AND      ES.PayrollStart >= ( SELECT TOP 1 EntitlementEffective
-	                            FROM  userTransaction.dbo.sal#SESSION.thisprocess#Payroll
-								WHERE PersonNo = ES.PersonNo) 
-							
+	                                  FROM   userTransaction.dbo.sal#SESSION.thisprocess#Payroll
+								      WHERE  PersonNo = ES.PersonNo) 							
 								
 		AND      ES.PersonNo IN (SELECT PersonNo FROM  #staffbase# X WHERE  X.PersonNo = ES.PersonNo)  	  
 								 
@@ -256,13 +255,13 @@ password="#SESSION.dbpw#">
 	  <cfelse> 
 		 
 	    AND      H.PayrollStart >= ( SELECT TOP 1 EntitlementEffective
-	                            FROM  userTransaction.dbo.sal#SESSION.thisprocess#Payroll
-								WHERE PersonNo = H.PersonNo) 
+	                                 FROM  userTransaction.dbo.sal#SESSION.thisprocess#Payroll
+								     WHERE PersonNo = H.PersonNo) 
 							
 								
 		AND      H.PersonNo IN (SELECT PersonNo 
-		                         FROM   #staffbase# X 
-								 WHERE  X.PersonNo = H.PersonNo)  	  
+		                        FROM   #staffbase# X 
+								WHERE  X.PersonNo = H.PersonNo)  	  
 							 
 	  </cfif>			
 	  				 
@@ -322,10 +321,8 @@ password="#SESSION.dbpw#">
 		     I.settlement,
 		     I.SettlementMonth  	
 						
-		
-						 			 		 
+					 			 		 
 </cfquery>
-
 
 
 <!--- ----------------------------------------------------------------------------------------- --->
@@ -372,7 +369,12 @@ password="#SESSION.dbpw#">
 	                         WHERE    PersonNo    = S.PersonNo 
 							 AND      PayrollItem = S.PayrollItem 
 							 AND      Source      = S.Source
-							 AND      Mission     = '#Form.Mission#')
+							 AND      Mission     = '#Form.Mission#'
+							 <!--- added by hanno 19/10/2022 --->
+							 AND      PayrollStart >= ( SELECT TOP 1 EntitlementEffective
+	                                                    FROM   userTransaction.dbo.sal#SESSION.thisprocess#Payroll
+								                        WHERE  PersonNo = S.PersonNo) 								 
+							 )
 							 
 	AND          S.PersonNo IN (SELECT PersonNo 
 		                        FROM   #staffbase# X 

@@ -1,9 +1,9 @@
 
-<table width="100%" cellspacing="0" cellpadding="0">
+<table width="96%" cellspacing="0" cellpadding="0" align="center" class="formspacing formpadding">
 	
 	<cfoutput query="Color">
 		
-		<tr class="labelmedium">
+		<tr class="labelmedium2">
 		
 			<cfquery name="Check" 
 			 datasource="AppsSystem" 
@@ -46,7 +46,7 @@
 		</cfif>
 		
 		<tr id="box#currentrow#_personal" class="#cl#"><td></td><td height="100%" colspan="1" align="center">
-			<textarea class="regular" name="memo#currentrow#_personal" style="font-size:13px;padding:3px;width:100%;height:55px">#check.annotation#</textarea>	
+			<textarea class="regular" name="memo#currentrow#_personal" style="font-size:14px;padding:3px;width:100%;height:65px">#check.annotation#</textarea>	
 		   </td>
 		</tr>
 						

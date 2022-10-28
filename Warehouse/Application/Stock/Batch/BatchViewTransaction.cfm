@@ -298,7 +298,7 @@ function openreference(id) {
 						
 						<cfif fullaccess eq "GRANTED" and sid neq "" and url.stockorderid eq "">
 						
-												
+																		
 						<!--- added 15/4/2016 to prevent reverting a batch if the transaction has been shipped AND invoiced AR --->
 						
 							<cfquery name="checkPostingPOS"
@@ -310,23 +310,36 @@ function openreference(id) {
 								WHERE     TransactionSourceId = '#Batch.BatchId#' 
 								AND       TransactionSource   = 'WarehouseSeries'
 								AND       TransactionCategory != 'Inventory' 
-								AND       ActionStatus != '9'
-								AND       RecordStatus != '9'
+								AND       ActionStatus = '1'
+								AND       RecordStatus = '1'
 							</cfquery>
 							
 							<cfquery name="checkPostingShipping"
 								datasource="AppsMaterials" 
 								username="#SESSION.login#" 
 								password="#SESSION.dbpw#">
+								
+								SELECT    *
+								FROM      Accounting.dbo.TransactionHeader 
+								WHERE     TransactionSourceId = '#Batch.BatchId#' 
+								AND       TransactionSource   = 'SalesSeries'
+								AND       TransactionCategory = 'Receivables' 
+								AND       ActionStatus = '1'
+								AND       RecordStatus = '1'
+								
+							</cfquery>		
+							
+							<!--- the transaction is denied and revoke it will not work 
 								SELECT    *
 								FROM      ItemTransaction T INNER JOIN
 					                      ItemTransactionShipping TS ON T.TransactionId = TS.TransactionId INNER JOIN
 		            			          Accounting.dbo.TransactionHeader TH ON TS.Journal = TH.Journal AND TS.JournalSerialNo = TH.JournalSerialNo
 								WHERE     T.TransactionBatchNo = '#Batch.BatchNo#'
-								AND       TH.ActionStatus != '9'
-								AND       TH.RecordStatus != '9' 
-							</cfquery>	
-														
+								AND       TH.ActionStatus = '1'
+								AND       TH.RecordStatus = '1' 
+								
+							--->	
+																	
 						
 							<cfif checkPostingPOS.recordcount gte "1" or checkPostingShipping.recordcount gte "1">												
 								<font color="gray"><cf_tl id="Batch was billed">

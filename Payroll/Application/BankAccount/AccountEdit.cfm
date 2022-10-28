@@ -1,6 +1,4 @@
 
-
-
 <cf_screentop jquery="Yes" height="100%" scroll="yes" html="No" menuaccess="context">
 
 <cfparam name="url.refer" default="">
@@ -117,8 +115,8 @@ password="#SESSION.dbpw#">
 		    <TD><cf_tl id="Destination">:</TD>
 		    <TD>
 			
-				<INPUT type="radio" name="Destination" class="enterastab" value="Personal" <cfif Account.Destination eq "Personal">checked</cfif>> Personal
-				<INPUT type="radio" name="Destination" class="enterastab" value="Beneficiary" <cfif Account.Destination eq "Beneficiary">checked</cfif>> Beneficiary
+				<INPUT type="radio" class="radiol" name="Destination" class="enterastab" value="Personal" <cfif Account.Destination eq "Personal">checked</cfif>> Personal
+				<INPUT type="radio" class="radiol" name="Destination" class="enterastab" value="Beneficiary" <cfif Account.Destination eq "Beneficiary">checked</cfif>> Beneficiary
 				
 			</TD>
 			</TR>
@@ -160,9 +158,9 @@ password="#SESSION.dbpw#">
 			<TR class="labelmedium2">
 		    <TD style="height:26"><cf_tl id="Account type">:</TD>
 			<TD>
-		        <INPUT type="radio" class="enterastab" name="AccountType" value="Checking" <cfif AccountType eq "Checking">checked</cfif>> Checking
-				<INPUT type="radio" class="enterastab" name="AccountType" value="Savings" <cfif AccountType eq "Savings">checked</cfif>> Savings
-				<INPUT type="radio" class="enterastab" name="AccountType" value="Credit" <cfif AccountType eq "Credit">checked</cfif>> <cf_tl id="Credit Card">		
+		        <INPUT type="radio" class="enterastab" class="radiol" name="AccountType" value="Checking" <cfif AccountType eq "Checking">checked</cfif>> Checking
+				<INPUT type="radio" class="enterastab" class="radiol" name="AccountType" value="Savings" <cfif AccountType eq "Savings">checked</cfif>> Savings
+				<INPUT type="radio" class="enterastab" class="radiol" name="AccountType" value="Credit" <cfif AccountType eq "Credit">checked</cfif>> <cf_tl id="Credit Card">		
 			</TD>
 			</TR>
 				
@@ -213,7 +211,7 @@ password="#SESSION.dbpw#">
 			<TR class="labelmedium2">
 			    <td valign="top" style="padding-top:6px;"><font color="008000"><cf_tl id="Pay through">:</td>
 			    <TD valign="top" style="padding-top:0px;">
-			    	<cfdiv id="divAccountMission" bind="url:AccountMission.cfm?PersonNo=#Account.PersonNo#&AccountId=#Account.AccountId#">
+			    	<cf_securediv id="divAccountMission" bind="url:AccountMission.cfm?PersonNo=#Account.PersonNo#&AccountId=#Account.AccountId#">
 			    </TD>
 			</TR>
 						  			   
@@ -247,7 +245,7 @@ password="#SESSION.dbpw#">
 		     </td>
 		   </tr>
 		      
-		   <tr class="labelmedium22">
+		   <tr class="labelmedium2">
 		   
 		        <td colspan="2">
 				

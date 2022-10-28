@@ -17,9 +17,9 @@
 
 <cfcase value="ESP">
 	<cfset tProblem="Problema">
-	<cfset tNotification="NotificaciÃ³n">
-	<cfset tViolation="ViolaciÃ³n">
-	<cfset tAttention="AtenciÃ³n"> 		
+	<cfset tNotification="Notificación">
+	<cfset tViolation="Violación">
+	<cfset tAttention="Atención"> 		
 	<cfset tNotBeProcessed = "Su requerimiento no puede ser procesado">
 	<cfset tReturn = "Regresar">
 </cfcase>
@@ -110,13 +110,13 @@
 <tr><td colspan="2" height="100%" valign="center">
 
 <cfoutput>
-<table width="#Attributes.width#" height="#Attributes.height#" border="0" cellspacing="0" cellpadding="0" align="center">
+<table width="#Attributes.width#" height="#Attributes.height#" align="center">
 </cfoutput>
 
 <tr><td height="100%">
 
-	<table width="100%" bgcolor="ffffff" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-	<tr><td height="14"></td></TR>
+	<table width="100%" bgcolor="ffffff" height="100%" align="center">
+	<tr><td height="7"></td></TR>
 	
 	<cfif attributes.icon eq "Yes">
 		<cfif Attributes.subtext eq "Yes">
@@ -176,7 +176,7 @@
 	
 	</cfif>
 	
-	<tr><td height="26" colspan="3" align="center" valign="bottom">
+	
 	
 	<cfset vWidth = Len(Attributes.ButtonText)*10+30>
 	
@@ -187,6 +187,8 @@
 		</cfcase>
 		
 		<cfcase value="click">
+		
+		   <tr><td height="26" colspan="3" align="center" valign="bottom">
 			
 		   <button 
 		   		class="button10g" 
@@ -194,46 +196,68 @@
 		       	onClick="#preserveSingleQuotes(attributes.script)#">
 				#Attributes.ButtonText#		   
 			</button>   
+			
+			</td></tr>
 			   
 		</cfcase>
 		
 		<cfcase value="back">
 		
+		   <tr><td height="26" colspan="3" align="center" valign="bottom">
+		
 		   <button class="button10g" style="width:#vWidth#px" onClick="history.back()">
 			   #Attributes.ButtonText#
 		  </button> 
+		  
+		  </td></tr>
 			   
 		</cfcase>
 		
 		<cfcase value="backgo">
 		
+		   <tr><td height="26" colspan="3" align="center" valign="bottom">
+		
 		   <button class="button10g" style="width:#vWidth#px" type="button" onClick="history.go(-1)">
 				#Attributes.ButtonText#		   
-		   </button>	   
+		   </button>	
+		   
+		   </td></tr>   
 			   
 		</cfcase>
 		
 		<cfcase value="close">
 		
+			<tr><td height="26" colspan="3" align="center" valign="bottom">
+		
 		   <button class="button10g" style="width:#vWidth#px" onClick="window.close()">
 				#Attributes.ButtonText#	   
 		   </button>
+		   
+		   </td></tr>
 			   
 		</cfcase>
 		
 		<cfcase value="ajax">
 		
+		   <tr><td height="26" colspan="3" align="center" valign="bottom">
+		
 		   <button class="button10g" style="width:#vWidth#px" onClick="#ajaxLink(attributes.location)#">
 				#Attributes.ButtonText#	   
 		   </button>
+		   
+		   </td></tr>
 			   
 		</cfcase>
 		
 		<cfcase value="">
 		
+		   <tr><td height="26" colspan="3" align="center" valign="bottom">
+		
 		   <button class="button10g" style="width:#vWidth#px" onClick="parent.window.close(); opener.history.go()">
 			   #Attributes.ButtonText#
 		   </button>
+		   
+		   </td></tr>
 			   
 		</cfcase>
 		
@@ -266,16 +290,20 @@
 				  </cfif>
 				      
 			</cfif>   
+			
+			<tr><td height="26" colspan="3" align="center" valign="bottom">
 				
 		   <button class="button10g" style="width:#vWidth#px" onClick="javascript:#goto#">
 				#Attributes.ButtonText#	   
 		   </button>
+		   
+		   </td></tr>
 			   
 		</cfdefaultcase>
 	
 	</cfswitch>
 	
-	</td></tr>
+	
 	<tr><td height="10" colspan="3"></td></tr>
 	
 	</table>

@@ -1,6 +1,4 @@
 
-
-
 <cfparam name="URL.Ajax"     default="No">
 
 <cfif URL.Ajax eq "No">
@@ -20,9 +18,9 @@ There are three mode
 
 <table width="97%" height="100%" align="center" class="formpadding">	
     
-	<tr><td height="60">
+	<tr><td>
 		
-	<table width="100%" height="100%" style="min-width:960px;" align="center" cellspacing="0" cellpadding="0">		  		
+	<table width="100%" height="100%" style="min-width:960px;" align="center">		  		
 						
 			<cfset ht = "48">
 			<cfset wd = "48">
@@ -57,14 +55,14 @@ There are three mode
 				  
 				  <cfif get.recordcount eq "1">
 				  
-					  <td valign="top" style="padding-right:6px;padding-top:5px;border-right:0px solid gray">
+					  <td valign="top" style="padding-left:10px;padding-right:6px;padding-top:5px;border-right:0px solid gray">
 					  
 					  <input type="hidden" name="exerciseclass" id="exerciseclass" value="#get.Exerciseclass#">
 					  
-					  <table>
-					     <tr class="labelmedium"><td style="font-size:24px">#get.EditionDescription#</td></tr>
-						 <tr class="labelmedium"><td style="padding-left:5px;font-size:19px">#get.Exerciseclass# [#get.OfficerUserId#]</td></tr>
-						 <tr class="labelmedium"><td style="padding-left:5px;font-size:14px"><cf_tl id="Period">:&nbsp;#dateformat(get.DateEffective,client.dateformatshow)# - #dateformat(get.DateExpiration,client.dateformatshow)#</td></tr>
+					  <table style="width:100%">
+					     <tr class="labelmedium fixlengthlist"><td style="font-size:24px">#get.EditionDescription#</td></tr>
+						 <tr class="labelmedium fixlengthlist"><td style="padding-left:5px;font-size:19px">#get.Exerciseclass# [#get.OfficerUserId#]</td></tr>
+						 <tr class="labelmedium fixlengthlist"><td style="padding-left:5px;font-size:14px"><cf_tl id="Period">:&nbsp;#dateformat(get.DateEffective,client.dateformatshow)# - #dateformat(get.DateExpiration,client.dateformatshow)#</td></tr>
 						 
 					  </table>
 					  

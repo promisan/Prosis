@@ -3,8 +3,6 @@
 <cfparam name="attributes.jquery" 		default="no"> <!--- possible values: silver, flat --->
 <cfparam name="attributes.treeTemplate"	default="no"> <!--- possible values: silver, flat --->
 
-
-
 <cfoutput>
 
 	<link rel="stylesheet" href="#Session.root#/scripts/kendoui/styles/kendo.common.min.css" />
@@ -49,19 +47,15 @@
 			font-size: 14px;
 		}
 
-
-		.k-multiselect-wrap .k-select
-		{
+		.k-multiselect-wrap .k-select {
 			position: relative !important;
 		}
 
-		.k-list .k-item.k-state-hover.k-state-selected
-		{
+		.k-list .k-item.k-state-hover.k-state-selected {
 			background-color: ##1984c8  !important;
 		}
 
-		.k-list .k-item.k-state-selected
-		{
+		.k-list .k-item.k-state-selected {
 			background-color: ##1984c8  !important;
 		}
 
@@ -80,24 +74,23 @@
 		.k-loading-image {
 			background-image: none !important;
 		}
-		.k-loading-image::before
-		{
+		
+		.k-loading-image::before {
 			display:none !important;
 		}
 
-		.k-loading-image::after
-		{
+		.k-loading-image::after	{
 			display:none !important;
 		}
+
+		.k-in {
+			height: 16px;
+			margin: 1px 0;
+		}
+
 	</style>
 
-
-
-
-
-	<div id="_UIDialog" style="display:none">
-	</div>
-
+	<div id="_UIDialog" style="display:none"></div>
 
 	<script type="text/javascript">
 
@@ -169,8 +162,6 @@
 
 }
 
-
-
 _UIObject.prototype.minimizeWindow = function (f) {
 	$('##'+f).data("kendoWindow").minimize();
 
@@ -178,15 +169,9 @@ _UIObject.prototype.minimizeWindow = function (f) {
 
 _UIObject.prototype.last =  function() {
   if (_WINDOWS == null) 
-    return void 0;
-  
+    return void 0;  
     return _WINDOWS[_WINDOWS.length - 1];
-
 }
-
-
-
-
 
 _UIObject.prototype.setWindowTitle = function(t,c,fc){
 
@@ -516,11 +501,15 @@ _UIObject.prototype.doBreadCrumb = function(id,content){
 	var ts = $("##BreadCrumb_"+id).kendoBreadcrumb({navigational: true, items:content});
 }
 
-_UIObject.prototype.doTree = function(id){
+_UIObject.prototype.doTree = function(id,checkboxes){
 	_TREES.push(id);
 
 	$("##_"+id).show();
-	$("##"+id).kendoTreeView();
+	if (checkboxes == "No")
+		$("##"+id).kendoTreeView();
+	else {
+		$("##"+id).kendoTreeView({checkboxes: {checkChildren: true}});
+	}
 	_tree_view = $("##"+id).data("kendoTreeView");
 	if (_tree_view) {
 		_tree_view.bind("select", _tree_action);
@@ -534,7 +523,7 @@ _UIObject.prototype.doTree = function(id){
 
 }
 
-_UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,serviceData) {
+_UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,checkboxes,serviceData) {
 		console.log(serviceRoot);
 		console.log(serviceMethod);
 		console.log(serviceData);
@@ -567,11 +556,26 @@ _UIObject.prototype.doTreeBinder = function(id,serviceRoot,serviceMethod,service
 		else
 			console.log('Please enable tree template by adding Template = yes on ScreenTop')
 
-		$("##"+id).kendoTreeView({
-			dataSource: binder,
-			template: kendo.template(_html),
-			dataBound: _expand_to
-		});
+		if (checkboxes == "No")
+		{
+			$("##"+id).kendoTreeView({
+				dataSource: binder,
+				template: kendo.template(_html),
+				dataBound: _expand_to
+			});
+		}
+		else
+		{
+			$("##"+id).kendoTreeView({
+				checkboxes: {
+					checkChildren: true
+				},
+				dataSource: binder,
+				template: kendo.template(_html),
+				dataBound: _expand_to
+			});
+
+		}
 
 		_tree_view = $("##"+id).data("kendoTreeView");
 		if (_tree_view) {

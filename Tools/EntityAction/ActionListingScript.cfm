@@ -438,11 +438,12 @@
   }	
   
   <!--- checks the object status --->
-  function objectstatus(last,id,ajaxid) {	
+  function objectstatus(last,id,ajaxid) {	       
         try {       	  	    
-        	se = document.getElementById('communicate')		
-			if (se) {		
-			ptoken.navigate('#SESSION.root#/tools/EntityAction/getObjectStatus.cfm?lastaction='+last+'&objectid='+id+'&ajaxid='+ajaxid,'communicate',null,workflowerrorhandler)	 		 									
+        	se = document.getElementById('communicate_'+id)					
+			if (se) {	
+			_cf_loadingtexthtml='';					
+			ptoken.navigate('#SESSION.root#/tools/EntityAction/getObjectStatus.cfm?lastaction='+last+'&objectid='+id+'&ajaxid='+ajaxid,'communicate_'+id,null,workflowerrorhandler)	 		 									
 			}	
 		} catch(e) {}
   }		  

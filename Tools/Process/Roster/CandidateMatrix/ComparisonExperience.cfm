@@ -286,9 +286,11 @@ password="#SESSION.dbpw#">
 	<tr class="labelmedium2 navigation_row_child fixlengthlist" style="height:15px">
 				
 		<td colspan="4" title="#OrganizationName#" style="padding-left:15px"><b>#OrganizationName# <cfif OrganizationCity neq "">- #OrganizationCity#</cfif> #OrganizationCountry#</b></td>
-		<td colspan="4" align="center" style="border:1px solid silver;background-color:f1f1f1">
+		<td colspan="4" align="center" style="padding:3px">
+		<table><tr><td style="font-size:14px;border:1px solid silver;background-color:##A5E2EF80">
 		#DateFormat(ExperienceStart,"YYYY/MM")# -		 
-		<cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2030" ><cf_tl id="Todate"><cfelse>#DateFormat(ExperienceEnd,"YYYY/MM")#</cfif></b>
+		<cfif ExperienceEnd lt "01/01/40" or ExperienceEnd gt "01/01/2030" ><cf_tl id="Todate"><cfelse>#DateFormat(ExperienceEnd,"YYYY/MM")#</cfif>
+		</td></tr></table>
 		</td>
 				
 	</tr>
@@ -296,8 +298,8 @@ password="#SESSION.dbpw#">
 	<cfif SalaryCurrency neq "">
 	
 		<tr class="#vClass# navigation_row_child">			
-		<td colspan="8" style="padding-left:15px" class="labelit">		
-		    #SalaryCurrency# &nbsp;#NumberFormat(SalaryStart,'_,_')# - &nbsp;#NumberFormat(SalaryEnd,'_,_')#&nbsp;&nbsp;</b>			
+		<td colspan="8" style="padding-left:15px;padding-right:10px" class="labelit">		
+		    #SalaryCurrency# &nbsp;#NumberFormat(SalaryStart,'_,_')# - &nbsp;#NumberFormat(SalaryEnd,'_,_')#			
 		</td>
 		</tr>
 	
@@ -356,6 +358,7 @@ password="#SESSION.dbpw#">
 					AND    R.Topic = D.Topic
 					AND    R.Operational = 1 
 					</cfquery>	
+					
 						
 		   <cfif CLIENT.submission eq "Manual">
 						

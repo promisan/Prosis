@@ -90,11 +90,11 @@
 	    <tr><td height="3" colspan="2" stlye="width:800"></td></tr>
 		
 	   	<tr>
-		<td width="12%" style="height:25" class="labelmedium"><cf_tl id="Master Item"></td>
+		<td width="12%" style="height:25" class="fixlength labelmedium"><cf_tl id="Master Item"></td>
 		<td width="88%">
 		<table cellspacing="0" cellpadding="0">
 		
-		    <tr><td class="labelmedium">#Mission# - #Item.ItemDescription#</b></td>
+		    <tr><td class="fixlength labelmedium">#Mission# - #Item.ItemDescription#</b></td>
 			
 			<cfif accessmanager eq "EDIT" or accessmanager eq "ALL">
 			
@@ -128,7 +128,7 @@
 	    </tr>
 					   		
 	    <tr>
-		<td height="20" class="labelmedium"><cf_tl id="Description">:<font color="FF0000">*</font></td>
+		<td height="20" class="fixlength labelmedium"><cf_tl id="Description">:<font color="FF0000">*</font></td>
 		<td class="labelmedium">
 		
 			<cfif url.mode eq "edit">
@@ -151,7 +151,7 @@
 	    </tr>
 		
 		<tr>
-		<td height="18" class="labelmedium"><Cf_tl id="Make">:<font color="FF0000">*</font></td>
+		<td height="18" class="fixlength labelmedium"><Cf_tl id="Make">:<font color="FF0000">*</font></td>
 		<td class="labelmedium">
 		
 		    <cfif url.mode eq "edit"> 
@@ -173,7 +173,7 @@
 	    </tr>	
 						
 		<tr>
-		<td height="18" class="labelmedium"><cf_tl id="Model">:</td>
+		<td height="18" class="fixlength labelmedium"><cf_tl id="Model">:</td>
 		<td class="labelmedium"><cfif url.mode eq "edit">
 		    <input type="text" name="Model" id="Model" value="#Model#" size="40" maxlength="40" class="regularxl enterastab">
 			<cfelse>
@@ -183,7 +183,7 @@
 		</tr>
 				
 		<tr>
-		<td height="18" class="labelmedium"><cf_tl id="SerialNo">:</td>
+		<td height="18" class="fixlength labelmedium"><cf_tl id="SerialNo">:</td>
 		<td class="labelmedium">
 		
 		  <table cellspacing="0" cellpadding="0"><tr><td>
@@ -196,7 +196,7 @@
 		   
 		   </td>
 		   
-		   <td class="labelmedium" style="padding-left:8px" height="18"><cf_tl id="Barcode">:</td>
+		   <td class="fixlength labelmedium" style="padding-left:8px" height="18"><cf_tl id="Barcode">:</td>
 		   <td class="labelmedium" style="padding-left:5px"><cfif url.mode eq "edit">
 			<input type="text" name="Barcode" id="Barcode" value="#AssetBarCode#" size="10" maxlength="20" class="regularxl enterastab">
 			<cfelse>
@@ -205,7 +205,7 @@
 			
 		   </td>
 		   
-		   <td class="labelmedium" style="padding-left:8px" height="18"><cf_tl id="DecalNo">:</td>
+		   <td class="fixlength labelmedium" style="padding-left:8px" height="18"><cf_tl id="DecalNo">:</td>
 			<td class="labelmedium" style="padding-left:5px"><cfif url.mode eq "edit">
 				<input type="text" name="AssetDecalNo" id="AssetDecalNo" value="#AssetDecalNo#" size="20" maxlength="20" class="regularxl enterastab">
 				<cfelse>
@@ -214,7 +214,7 @@
 				
 			</td>
 			
-			<td class="labelmedium" style="padding-left:8px" height="18"><cf_tl id="Manufacturer">:</td>
+			<td class="fixlength labelmedium" style="padding-left:8px" height="18"><cf_tl id="Manufacturer">:</td>
 			<td class="labelmedium" style="padding-left:5px">
 			    <cfif url.mode eq "edit">
 			    <input type="text" name="MakeNo" id="MakeNo" value="#MakeNo#" size="20" maxlength="40" class="regularxl enterastab">
@@ -230,7 +230,7 @@
 		
 		<tr>
 
-			<td class="labelmedium" height="20"><cf_tl id="Program">:</td>
+			<td class="fixlength labelmedium" height="20"><cf_tl id="Program">:</td>
 			<td class="labelmedium" colspan="1">
 			
 			 <!--- Query returning search results --->
@@ -272,7 +272,7 @@
 		</tr>	
 		
 		<tr>
-		<td height="20" class="labelmedium"><cf_tl id="Receipt Date">:</td>
+		<td height="20" class="fixlength labelmedium"><cf_tl id="Receipt Date">:</td>
 		<td colspan="1" class="labelmedium" style="z-index:2; position:relative;">
 		
 			<cfif url.mode eq "edit">	
@@ -293,7 +293,7 @@
 		</tr>	
 		
 	    <tr>
-		<td height="18" class="labelmedium"><cf_tl id="Inspection No">:</td>
+		<td height="18" class="fixlength labelmedium"><cf_tl id="Inspection No">:</td>
 		<td>
 		<table width="0" cellspacing="0" cellpadding="0">
 		<tr><td class="labelmedium">
@@ -306,7 +306,7 @@
 					
 		</td>
 						
-		<td height="18" class="labelmedium" style="padding-left:8px"><cf_tl id="Inspection Date">:</td>
+		<td height="18" class="fixlength labelmedium" style="padding-left:8px"><cf_tl id="Inspection Date">:</td>
 		
 		<td colspan="1" style="padding-left:10px" style="z-index:1; position:relative;" class="labelmedium">
 			<cfif url.mode eq "edit">
@@ -333,7 +333,7 @@
 		<cfif Category.VolumeManagement eq "1">
 				
 			<tr>
-			<td height="20" class="labelmedium"><cf_tl id="Weight in kgs">:</td>
+			<td height="20" class="fixlength labelmedium"><cf_tl id="Weight in kgs">:</td>
 			<td>
 			
 			<table cellspacing="0" cellpadding="0">
@@ -358,7 +358,7 @@
 					
 			</td>
 			
-			<td height="20"  width="102" class="labelmedium"><cf_tl id="Volume in m3">:</td>
+			<td height="20"  width="102" class="fixlength labelmedium"><cf_tl id="Volume in m3">:</td>
 			<td class="labelmedium">
 			
 				<cfif url.mode eq "edit">
@@ -392,7 +392,7 @@
 		</cfif>
 				
 		<tr>
-			<td class="labelmedium" valign="top" style="padding-top:2px"><cf_tl id="Source">:</td>
+			<td class="fixlength labelmedium" valign="top" style="padding-top:2px"><cf_tl id="Source">:</td>
 			<td class="labelmedium">
 			
 			  <cfif url.mode eq "edit"> 
@@ -424,7 +424,7 @@
 		</tr>			
 				
 		<tr>
-			<td class="labelmedium" valign="top" style="padding-top:2px"><cf_tl id="Active Actions">:</td>
+			<td class="fixlength labelmedium" valign="top" style="padding-top:2px"><cf_tl id="Active Actions">:</td>
 			<td>
 				<cfquery name="ActionList" 
 					datasource="appsMaterials" 
@@ -528,15 +528,13 @@
 				
 		<cfinclude template="CustomFields.cfm">
 										
-		<tr><td height="18" class="labelmedium"><cf_tl id="Depreciation">:</td>
+		<tr><td height="18" class="fixlength labelmedium"><cf_tl id="Depreciation">:</td>
 		<td colspan="3">
 		<table cellspacing="0" cellpadding="0">
 			<tr><td>
-			<td height="20" class="labelmedium"><cf_tl id="Schedule">:</td>
-			<td class="labelmedium">&nbsp;<b>
-			#Scale.description#			
-			</td>
-			<td>&nbsp;&nbsp;&nbsp;</td>		
+			<td height="20" class="labelmedium"><cf_tl id="Schedule"></td>
+			<td style="padding-left:3px" class="labelmedium">#Scale.description#</td>
+			<td style="width:10px"></td>		
 			<td height="20" align="right" class="labelmedium"><cf_tl id="Year Start">:</td>
 			<td class="labelmedium">
 			  

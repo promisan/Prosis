@@ -261,19 +261,23 @@
 	<cfabort>
 </cfif>
 
-<cfif qValidateRecordCount.recordCount lte 45000>
+
+<cfset xlsformat = "xlsx">
+
+<cfif qValidateRecordCount.recordCount lte 25000>
 
 	<cfset batch = 0>	
-	
+		
 	<cfinvoke component = "Service.Excel.Excel"  
 	   method           = "ExcelTable" 
 	   datasource       = "#Output.DataSource#"
 	   cols             = "#col#"  <!--- array with fieldname, format, label, formula --->
+	   format           = "#xlsformat#"
 	   dataquery        = "#xlsquery#"
 	   GroupByOne       = "#Group1.FieldName#"
 	   GroupByTwo       = "#Group2.FieldName#"   
-	   filename         = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#.xlsx" 
-	   filenamepreview  = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#_Preview.xlsx" 
+	   filename         = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#.#xlsformat#" 
+	   filenamepreview  = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#_Preview.#xlsformat#" 
 	   sheetname        = "#filename#"
 	   rowstart         = "2"
 	   returnvariable   = "excel">	
@@ -295,14 +299,13 @@
 	   datasource       = "#Output.DataSource#"
 	   dataquery        = "#xlsquery#"
 	   cols             = "#col#" 
-	   filename         = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#.xlsx" 
+	   filename         = "#SESSION.rootDocumentPath#\CFRStage\User\#URL.acc#\#FileName#.#xlsformat#" 
 	   sheetname        = "#filename#"
 	   returnvariable   = "excel">
 
 </cfif>
-        
+       
 
-	
 <cfif status neq "9">
 
 	<cfif URL.Mode eq "View">
@@ -317,9 +320,9 @@
 			<!--- open the excel file --->
 			
 			<cfif batch eq 0>
-				ptoken.open("#SESSION.root#/cfrstage/getFile.cfm?file=#FileName#_Preview.xlsx","_blank") 
+				ptoken.open("#SESSION.root#/cfrstage/getFile.cfm?file=#FileName#_Preview.#xlsformat#","_blank") 
 			<cfelse>
-				ptoken.open("#SESSION.root#/cfrstage/getFile.cfm?file=#FileName#.xlsx","_blank") 
+				ptoken.open("#SESSION.root#/cfrstage/getFile.cfm?file=#FileName#.#xlsformat#","_blank") 
 			</cfif>
 			
 			<!--- show menu --->
@@ -333,8 +336,8 @@
 		<cfoutput>
 		<script language="JavaScript">			
 			ProsisUI.createWindow('maildialog', 'Mail Excel', '',{x:100,y:100,height:665,width:890,resizable:false,modal:true,center:true});
-			ptoken.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.xlsx&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
-	</script>	
+			ptoken.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.#xlsformat#&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
+	    </script>	
 		</cfoutput>		
 		
 	<cfelse>
@@ -342,7 +345,7 @@
 		<cfoutput>
 		<script language="JavaScript">		   
 		   ProsisUI.createWindow('maildialog', 'Mail Excel', '',{x:100,y:100,height:665,width:890,resizable:false,modal:true,center:true});
-		   ptoken.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.xlsx&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
+		   ptoken.navigate('#SESSION.root#/tools/cfreport/ExcelFormat/FormatExcelmail.cfm?ID1=Extracts&ID2=#FileName#.#xlsformat#&Source=ReportExcel&Sourceid=#URL.ID#&Mode=cfwindow&GUI=HTML','maildialog')				
 		</script>	
 		</cfoutput>	
 	

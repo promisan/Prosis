@@ -255,10 +255,13 @@
 						<cfabort>						
 						
 				    <cfelse>	
+					
 														
 						<cfif url.leaveType eq leaveType or url.leavetype eq "">
 						
-							<cfif URL.balancestatus eq "0">					
+							<cfif URL.balancestatus eq "0">		
+							
+					
 																				
 									<cfquery name="LastLeave" 
 										datasource="AppsEmployee" 
@@ -285,10 +288,11 @@
 									 Mission        = "#Contract.mission#"
 									 Mode           = "batch"
 									 BalanceStatus  = "#url.balancestatus#"
-									 StartDate      = "01/01/2017"
+									 StartDate      = "01/01/2001"
 									 EndDate        = "12/31/#Year(now())#">									 
 																										 
 							  <cfelse>
+						
 							  							  							  
 							  		<cfinvoke component = "Service.Process.Employee.Attendance"
 									 method         = "LeaveBalance" 
@@ -297,7 +301,7 @@
 									 Mission        = "#Contract.mission#"
 									 Mode           = "batch"
 									 BalanceStatus  = "#url.balancestatus#"
-									 StartDate      = "01/01/2017"
+									 StartDate      = "01/01/2001"
 									 EndDate        = "12/31/#Year(now())#">								  
 							  
 							  </cfif>		 							 
@@ -379,7 +383,7 @@
 				  <cfif url.webapp eq "">
 					  <cfif Last.Created gt "">
 						  <cfif access eq "EDIT" or access eq "ALL">						  
-				    		<input type="button" style="width:110px;height:18" value="Update" class="button10g clsNoPrint" onClick="calculate('0','1','#LeaveType#','#url.balancestatus#')">
+				    		<input type="button" style="width:110px;height:22" value="Update" class="button10g clsNoPrint" onClick="calculate('0','1','#LeaveType#','#url.balancestatus#')">
 						  </cfif>
 					  </cfif>
 				  </cfif>

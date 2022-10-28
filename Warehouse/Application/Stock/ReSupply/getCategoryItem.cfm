@@ -29,6 +29,7 @@
 				
 	</cfquery>
 	
+	
 	<cf_UISelect name   = "categoryitem"
 		     class          = "regularxxl"						     
 		     query          = "#CategoryItemSelect#"

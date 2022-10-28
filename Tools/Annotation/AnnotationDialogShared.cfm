@@ -1,5 +1,6 @@
 
-<table width="100%" cellspacing="0" cellpadding="0">
+
+<table width="96%" cellspacing="0" cellpadding="0" align="center" align="center" class="formspacing formpadding">
    	
 	<cfoutput query="Color">
 		

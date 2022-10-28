@@ -1,4 +1,5 @@
 
+
 <!--- we have 3 modes at this moment
 
 	Obtain the data
@@ -12,6 +13,8 @@
 <!--- -------------------------------------- --->
 
 <cfset ts = "0">
+
+
 
 <cfoutput>
 
@@ -175,6 +178,8 @@
 	<cfoutput>
 	
 		 <cfset listquery =  attributes.listquery>
+		 
+		 <cfset basequery = listquery>
 		
 		<!--- NEW : we are going to add fields to support the dimensional presentation --->
 		 
@@ -249,12 +254,8 @@
 						
 				</cfif>
 				
-				<!---
-				<cfif session.acc eq "esdnyrs3">
-				<cfoutput>#listquery#</cfoutput>				
-				</cfif>
-				--->
-					
+				<cfset basequery = listquery>
+									
 			</cfif>			
 		
 		</cfloop> 
@@ -492,8 +493,8 @@
 									
 		</cfif>
 					
-	</cfoutput>
-		
+	</cfoutput>	
+			
 	<!--- ------------------------------------------ --->
 	<!--- WE CHECK IF WE CAN TAKE THE CACHED VERSION --->
 	<!--- ------------------------------------------ --->			
@@ -580,6 +581,7 @@
 			WHERE  SystemFunctionId = '#URL.SystemFunctionId#'
 			AND    FunctionSerialNo = '1'
 		</cfquery>
+		
 																	
 		<cfif attributes.refresh eq "0" or url.content eq "0">
 						
@@ -673,7 +675,7 @@
 								username="#SESSION.login#" 
 								password="#SESSION.dbpw#"> 			
 								    #preserveSingleQuotes(sc)# 	
-							</cfquery>		
+							</cfquery>	
 						
 						</cftransaction>
 											
@@ -696,7 +698,7 @@
 					
 		</cfif>	
 		
-		<cfset ts = cfquery.executiontime>
+		<cfset ts = cfquery.executiontime>		
 				
 	<cfelse>
 				
@@ -714,8 +716,7 @@
 																
 			<cftry>
 									
-				<cftransaction isolation="read_uncommitted">	
-				
+				<cftransaction isolation="read_uncommitted">				
 															
 					<cfquery name="SearchResult" 
 						datasource="#attributes.datasource#" 
@@ -789,7 +790,7 @@
 		</cftry>
 		
 	</cfif>		
-			
+					
 	<!---
 		
 	<cfif url.listorder neq "">
@@ -826,20 +827,16 @@
 	</cfif>		
 	
 	--->
-	
-	<!---		
-	<cfset xxx = session.listingdata[box]['recordsinit']>
-	<cfoutput>#xxx#</cfoutput>
-	--->
-	
+		
 	<cfparam name="session.listingdata['#box#']['sqlsorting']" default="">
 	
-	<cfparam name="sc" default="">
 		
+	<cfparam name="sc" default="">
+	
 	<!--- to help clearing cache during development 
 	<cfset applycache = "0">
 	--->	
-								
+											
 	<cfif applycache eq "0" or (session.listingdata[box]['sqlsorting'] neq listsorting and sc neq "")>			
 									
 		<cfparam name="session.listingdata['#box#']['recordsinit']" default="-1">  	
@@ -855,7 +852,8 @@
 			<cfset session.listingdata[box]['annotation']       = attributes.annotation>		
 			<cfset session.listingdata[box]['listlayout']       = attributes.listlayout>
 			<cfset session.listingdata[box]['sqlorig']          = attributes.listquery>  	
-								
+			
+			<cfset session.listingdata[box]['sqlbase']          = basequery>  	 <!--- the passed query with no conditions --->				
 			<cfset session.listingdata[box]['sql']              = sc>                        <!--- the generated query --->		
 			<cfset session.listingdata[box]['sqlcondition']     = conditioncheck>	
 			<cfset session.listingdata[box]['sqlsorting']       = listsorting>							

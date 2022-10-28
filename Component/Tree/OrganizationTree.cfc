@@ -1142,7 +1142,11 @@
 					<cfset reduce = reduce/3>
 				</cfif>
 				
-				<cfset orglabel = orgunitname>
+				<cfif reduce eq "0">
+					<cfset orglabel = orgunitnameshort>
+				<cfelse>
+					<cfset orglabel = orgunitname>
+				</cfif>
 				<cfset orgshort = orgunitnameshort>
 				<cfset orgsize  = "#15-reduce#">
 
@@ -1162,7 +1166,11 @@
 
 					<cfif Log.recordcount gte "1">
 
+					    <cfif parent eq "">
+						<cfset orgshort = Log.orgunitnameshort>
+						<cfelse>
 						<cfset orglabel = Log.orgunitname>
+						</cfif>
 						<cfset orgshort = Log.orgunitnameshort>
 
 					</cfif>

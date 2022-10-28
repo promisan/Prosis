@@ -137,6 +137,7 @@ password="#SESSION.dbpw#">
 	</cfquery>	
 	
 	<cfset cnt = 0>
+	
 		
 	<cfloop query="Onboard">
 	
@@ -203,7 +204,7 @@ password="#SESSION.dbpw#">
 						mission       = "#mission.mission#"
 						BalanceStatus = "0"
 						Mode          = "batch"
-						StartDate     = "01/01/2017"  
+						StartDate     = "01/01/2001"  
 						EndDate       = "12/31/#Year(now())#">
 						
 			<!---			

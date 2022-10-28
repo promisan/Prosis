@@ -265,9 +265,9 @@
 			<cfset FEL.Phrase2 		   =  GetTaxSeries.Phrase2>
 
 			<cfif getTransaction.TransactionDate lte getTransaction.ActionBefore>
-			    <cfset FEL.ActionBefore = "#DateFormat(DateAdd('d',30,GetTransaction.TransactionDate),'YYYY-MM-DD')#">
+			    <cfset FEL.ActionBefore = "#DateFormat(DateAdd('d',30,GetTransaction.TransactionDate),'yyyy-mm-dd')#">
 			<cfelse>
-			    <cfset FEL.ActionBefore = "#DateFormat(GetTransaction.ActionBefore,'YYYY-MM-DD')#">
+			    <cfset FEL.ActionBefore = "#DateFormat(GetTransaction.ActionBefore,'yyyy-mm-dd')#">
 			</cfif>
 			
 			<!--- to be changed to make it taking from the transaction --->
@@ -875,7 +875,8 @@
 					
 						<dte:SAT ClaseDocumento="dte">
 							<dte:DTE ID="DatosCertificados">
-															
+							
+																						
 							<dte:DatosEmision ID="DatosEmision">
 										<dte:DatosGenerales CodigoMoneda="#FEL.Currency#" FechaHoraEmision="#DateFormat(dts,"yyyy-mm-dd")#T#TimeFormat(dts,"hh:mm:ssXXX")#" Tipo="#FEL.InvoiceType#"></dte:DatosGenerales>
 										<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#FEL.VendorReference#" CorreoEmisor="#FEL.VendorMail#" NITEmisor="#FEL.VendorNIT#" NombreComercial="#FEL.VendorName#" NombreEmisor="#FEL.VendorEntity#">										
@@ -1621,6 +1622,8 @@
 
 		<!--- ISO 8601 --->
 		
+		<cfset dts = dateAdd("d",  0,  now())>	<!--- this is the same a document date --->
+		
 		<cfset vInvoiceType   = GetWarehouseSeries.DocumentType>  <!--- this is AR or paid we know this on the level of the transaction --->
 		<cfset vNormalizedNit = Replace(vNIT,"-","","ALL")>
 		<cfset vNormalizedNit = Replace(vNormalizedNit,"C/F","CF","ALL")>
@@ -1638,12 +1641,12 @@
 							<dte:DTE ID="DatosCertificados">
 							
 							<dte:DatosEmision ID="DatosEmision">
-										<dte:DatosGenerales CodigoMoneda="#vCurrency#" FechaHoraEmision="#DateFormat(now(),"YYYY-MM-DD")#T#TimeFormat(now(),"hh:mm:ssXXX")#" Tipo="#vInvoiceType#"></dte:DatosGenerales>
-										<cfif GetWarehouseSeries.OrgUnitName eq "DR. JORGE MANUEL ALDANA SAENZ">
-											<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetWarehouseSeries.OrgUnitName#" NombreEmisor="#GetWarehouseSeries.OrgUnitName#">
-										<cfelse>
-											<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetWarehouseSeries.OrgUnitName#" NombreEmisor="#GetMission.MissionName#">
-										</cfif>
+								<dte:DatosGenerales CodigoMoneda="#vCurrency#" FechaHoraEmision="#DateFormat(dts,"yyyy-mm-dd")#T#TimeFormat(dta,"hh:mm:ssXXX")#" Tipo="#vInvoiceType#"></dte:DatosGenerales>
+								<cfif GetWarehouseSeries.OrgUnitName eq "DR. JORGE MANUEL ALDANA SAENZ">
+									<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetWarehouseSeries.OrgUnitName#" NombreEmisor="#GetWarehouseSeries.OrgUnitName#">
+								<cfelse>
+									<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#GetWarehouseDevice.Reference#" CorreoEmisor="#GetWarehouseSeries.UserEmail#" NITEmisor="#vNitEFACE#" NombreComercial="#GetWarehouseSeries.OrgUnitName#" NombreEmisor="#GetMission.MissionName#">
+								</cfif>
 								<dte:DireccionEmisor>
 								<dte:Direccion>#GetInvoice.Address#</dte:Direccion>
 									<dte:CodigoPostal>01001</dte:CodigoPostal>
@@ -1785,7 +1788,7 @@
 										<cfc:AbonosFacturaCambiaria xmlns:cfc="http://www.sat.gob.gt/dte/fel/CompCambiaria/0.1.0" Version="1" xsi:schemaLocation="http://www.sat.gob.gt/dte/fel/CompCambiaria/0.1.0 C:\Users\Desktop\SAT_FEL_FINAL_V1\Esquemas\GT_Complemento_Cambiaria-0.1.0.xsd">
 											<cfc:Abono>
 												<cfc:NumeroAbono>1</cfc:NumeroAbono>
-												<cfc:FechaVencimiento>#DateFormat(DateAdd("d",30,GetInvoice.TransactionDate),"YYYY-MM-DD")#</cfc:FechaVencimiento>
+												<cfc:FechaVencimiento>#DateFormat(DateAdd("d",30,GetInvoice.TransactionDate),"yyyy-mm-dd")#</cfc:FechaVencimiento>
 												<cfc:MontoAbono>#vInvoiceTotalAmount#</cfc:MontoAbono>
 											</cfc:Abono>
 										</cfc:AbonosFacturaCambiaria>
@@ -2142,9 +2145,9 @@
 			<cfset FEL.Phrase2 		   =  GetTaxSeries.Phrase2>
 
 			<cfif getTransaction.TransactionDate lte getTransaction.ActionBefore>
-			    <cfset FEL.ActionBefore = "#DateFormat(DateAdd('d',30,GetTransaction.TransactionDate),'YYYY-MM-DD')#">
+			    <cfset FEL.ActionBefore = "#DateFormat(DateAdd('d',30,GetTransaction.TransactionDate),'yyyy-mm-dd')#">
 			<cfelse>
-			    <cfset FEL.ActionBefore = "#DateFormat(GetTransaction.ActionBefore,'YYYY-MM-DD')#">
+			    <cfset FEL.ActionBefore = "#DateFormat(GetTransaction.ActionBefore,'yyyy-mm-dd')#">
 			</cfif>
 			
 			<!--- to be changed to make it taking from the transaction --->
@@ -2756,7 +2759,7 @@
 							<dte:DTE ID="DatosCertificados">
 															
 							<dte:DatosEmision ID="DatosEmision">
-										<dte:DatosGenerales CodigoMoneda="#FEL.Currency#" FechaHoraEmision="#DateFormat(dts,"YYYY-MM-DD")#T#TimeFormat(dts,"hh:mm:ssXXX")#" Tipo="#FEL.InvoiceType#"></dte:DatosGenerales>
+										<dte:DatosGenerales CodigoMoneda="#FEL.Currency#" FechaHoraEmision="#DateFormat(dts,"yyyy-mm-dd")#T#TimeFormat(dts,"hh:mm:ssXXX")#" Tipo="#FEL.InvoiceType#"></dte:DatosGenerales>
 										<dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="#FEL.VendorReference#" CorreoEmisor="#FEL.VendorMail#" NITEmisor="#FEL.VendorNIT#" NombreComercial="#FEL.VendorName#" NombreEmisor="#FEL.VendorEntity#">										
 								<dte:DireccionEmisor>
 								<dte:Direccion>#FEL.VendorAddress#</dte:Direccion>
@@ -3280,8 +3283,8 @@
 								<dte:GTAnulacionDocumento xmlns:ds="http://www.w3.org/2000/09/xmldsig##" xmlns:dte="http://www.sat.gob.gt/dte/fel/0.1.0" xmlns:n1="http://www.altova.com/samplexml/other-namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="0.1" xsi:schemaLocation="http://www.sat.gob.gt/dte/fel/0.1.0 C:\Users\User\Desktop\FEL\Esquemas\GT_AnulacionDocumento-0.1.0.xsd">
 					<dte:SAT>
 					<dte:AnulacionDTE ID="DatosCertificados">
-						<dte:DatosGenerales FechaEmisionDocumentoAnular="#GetInvoiceToCancel.ActionReference3#" 
-						    FechaHoraAnulacion="#DateFormat(now(),'YYYY-MM-DD')#T#TimeFormat(now(),'HH:MM:SS')#-06:00" ID="DatosAnulacion" 
+						<dte:DatosGenerales FechaEmisionDocumentoAnular="#dateformat(GetInvoiceToCancel.ActionDate,'yyyy-mm-dd')#T00:00:00-06:00" 
+						    FechaHoraAnulacion="#DateFormat(now(),'yyyy-mm-dd')#T#TimeFormat(now(),'HH:MM:SS')#-06:00" ID="DatosAnulacion" 
 							IDReceptor="#vNormalizedNit#" 
 							MotivoAnulacion="ANULACION" 
 							NITEmisor="#vNitEFACE#" 
@@ -3290,8 +3293,7 @@
 					</dte:SAT>
 					</dte:GTAnulacionDocumento>
 					</cfoutput>
-				</cfxml>
-						
+				</cfxml>						
 		
 				<cfset StringDTE = toString(XmlDTE)>
 	

@@ -320,8 +320,7 @@
 							    // se.className = "#class#" --->
 																						
 					</cfif>		
-					
-					
+										
 									
 				<!--- rating box --->	
 						
@@ -380,7 +379,7 @@
 				<!--- standard content --->														
 				
 				<cfelseif cnt eq "1" and drilltemplate neq "" and drillkey neq "" and attributes.drillrow eq "No">
-				
+								   				
 					<CFSET hascontent="Yes">
 								
 					 <cfif rowshow eq "1">
@@ -433,14 +432,15 @@
 								--->
 																																			
 					 </cfif>
+					
 																					
-				<cfelse>	
-				
+				<cfelse>					
+				    				
 					<!--- Hanno 11/1/2021 : does not work needs fixed size
 					<cfset cellstyle  = "text-overflow: ellipsis;overflow:hidden;white-space:nowrap">
 					--->
-					<cfset cellstyle  = "">
-				
+					
+					<cfset cellstyle  = "">				
 					<cfset fontcolor = "">	
 					
 					<cftry>	
@@ -448,8 +448,8 @@
 					<cfcatch>
 					    <cfset inner = "check format">
 					</cfcatch>
-					</cftry>
-																 
+					</cftry>					
+																										 
 					<cfif inner neq "" and current.functionscript neq "" and (url.ajaxid eq "content" or url.ajaxid eq "append")> <!--- somehow the inner would not work for a refresh --->
 						
 						 <cfparam name="current.functionfield" default="">
@@ -485,24 +485,35 @@
 						 					 	
 						 	<cfset cellclick  = "">	 
 							 
-					</cfif>		 							   		   		   									
+					</cfif>									
+													   		   		   									
 																					
 					<cfif url.ajaxid eq "content">	
 					
 						<cfif rowshow gte "2" and len(inner) gte "2">
 							<cfset hascontent = "Yes">															
-						</cfif>											
+						</cfif>		
+						
+						<!--- condition for colspan to prevent error --->
+						<cfif current.colspan gte "2">
 																																								
-						<td id="f#box#_#dkey#_#rowshow#_#cnt#" <cfif current.align neq "left">align="#current.align#"</cfif> class="#attributes.classcell# fixlengthlist" 
-						colspan="#current.colspan#" title="#inner#" style="#cellstyle#;#current.style#;#fclr#" <cfif len(cellclick) gte '2'>onClick="#cellclick#"</cfif>>#inner#</td>																			
-												
+						<td id="f#box#_#dkey#_#rowshow#_#cnt#" colspan="#current.colspan#" 
+						   align="<cfif current.align neq 'left'>#current.align#</cfif>" title="#inner#" onclick="#cellclick#" style="#cellstyle#;#current.style#;#fclr#" class="#attributes.classcell# fixlength">#inner#</td>	
+						   
+						<cfelse>
+																		
+						<td id="f#box#_#dkey#_#rowshow#_#cnt#" 
+						   align="<cfif current.align neq 'left'>#current.align#</cfif>" title="#inner#" onclick="#cellclick#" style="#cellstyle#;#current.style#;#fclr#" class="#attributes.classcell# fixlength">#inner#</td>	
+						
+						</cfif>   
+						  
+																		
 					 <cfelseif url.ajaxid eq "append">
 					 
 					    <!--- ---------- --->
 					 	<!--- APPEND ROW --->
 						<!--- ---------- --->
-						
-												
+																		
 						<cfscript>
 						
 						inner = URLEncodedFormat(inner)
@@ -537,6 +548,7 @@
 							    // se.className = "#class#" --->
 																						
 					</cfif>		
+										
 										
 				</cfif>
 							

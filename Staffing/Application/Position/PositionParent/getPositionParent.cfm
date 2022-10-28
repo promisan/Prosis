@@ -8,51 +8,50 @@
 		 WHERE PositionParentId = '#URL.ID2#'	 
 	</cfquery>
 	
-    <table width="98%" align="center" style="background-color:f1f1f1">
-	<tr><td height="3"></td></tr>
-	
+    <table width="98%" align="center">
+		
 	<cfoutput>
 	
-	<tr class="line labelmedium">
-	  <td colspan="4" style="padding-left:4px;height:30px;font-size:20px"><cf_tl id="Budget Position"></td>
+	<tr class="line labelmedium fixlengthlist">
+	  <td colspan="1" style="height:35px;font-size:20px"><cf_tl id="Budget Position"></td>
 	
-        <td height="20" style="padding-left:6px"><cf_tl id="Effective period">:</td>
+        <td><cf_tl id="Effective period">:</td>
         <td colspan="2"><b>#Dateformat(PositionParent.DateEffective, CLIENT.DateFormatShow)#
 		- #Dateformat(PositionParent.DateExpiration, CLIENT.DateFormatShow)#
 		</td>     	  
 	  </tr>  	    
 	  
-	   <tr class="labelmedium">
-        <td height="15" style="width:200px;min-width:200px;max-width:200px;padding-left:6px"><cf_tl id="Title">:</td>
-        <td colspan="1"><b>#PositionParent.FunctionDescription#</td>
-		<td height="15"><cf_tl id="Reference2">:</td>
-        <td colspan="1"><b>#PositionParent.ApprovalReference#</td>
+	   <tr class="labelmedium2 fixlengthlist" style="height:20px;background-color:f4f4f4">
+        <td style="padding-left:6px"><cf_tl id="Title">:</td>
+        <td><b>#PositionParent.FunctionDescription#</td>
+		<td><cf_tl id="Reference2">:</td>
+        <td><b>#PositionParent.ApprovalReference#</td>
       </tr>
 	 	 	  
-	  <tr class="labelmedium">
-        <td height="15" style="padding-left:6px"><cf_tl id="Post type">:</td>
-        <td colspan="1"><b>#PositionParent.PostType# (#PositionParent.Fund#)</td>
-		<td height="15"><cf_tl id="Approval">:</td>
-        <td width="100" colspan="1"><b>#dateformat(PositionParent.ApprovalDate,CLIENT.DateFormatShow)#</td>
+	  <tr class="labelmedium2 fixlengthlist" style="height:20px;background-color:f4f4f4">
+        <td style="padding-left:6px"><cf_tl id="Post type">:</td>
+        <td><b>#PositionParent.PostType# (#PositionParent.Fund#)</td>
+		<td><cf_tl id="Approval">:</td>
+        <td><b>#dateformat(PositionParent.ApprovalDate,CLIENT.DateFormatShow)#</td>
 		
       </tr>
 	  
-	   <tr class="labelmedium">
-        <td height="15" style="padding-left:6px"><cf_tl id="Grade">:</td>
-        <td colspan="1"><b>#PositionParent.PostGrade#</td>
-		<td height="15"><cf_tl id="Grade approved">:</td>
-        <td colspan="1"><b>#PositionParent.ApprovalPostGrade#</td>
+	   <tr class="labelmedium2 fixlengthlist" style="height:20px;background-color:f4f4f4">
+        <td style="padding-left:6px"><cf_tl id="Grade">:</td>
+        <td><b>#PositionParent.PostGrade#</td>
+		<td><cf_tl id="Grade approved">:</td>
+        <td><b>#PositionParent.ApprovalPostGrade#</td>
 		
       </tr>
 	  
 	  </cfoutput>
 	  
-	   <tr class="labelmedium">
-        <td valign="top" style="PADDING-TOP:5PX;padding-left:6px"><cf_tl id="Operational Structure">:</td>
+	   <tr class="labelmedium2" style="height:20px;background-color:f4f4f4">
+        <td valign="top" style="PADDING-TOP:2PX;padding-left:6px"><cf_tl id="Operational Structure">:</td>
 		
-		<td colspan="5" style="padding-top:4px">
+		<td colspan="3" style="border:1px solid silver">
 		
-		<table width="98%">		
+		<table width="100%">		
 		
 		<cfquery name="Level00" 
           datasource="AppsEmployee" 
@@ -118,24 +117,24 @@
 	   	   	      
 		   <cfif currentrow eq recordcount>
 			  
-			  <TR class="labelmedium" style="background-color:#cl#">		   		   	  
-	          <td style="min-width:100px;padding-left:#indent#px">
+			  <TR class="labelmedium fixlengthlist" style="background-color:#cl#">		   		   	  
+	          <td style="padding-left:#indent#px">
 			  <img src="#SESSION.root#/Images/bullet.gif" height="20"  border="0" align="absmiddle">	
 			  </td>          
 			  
 		   <cfelse>
 		   
-			  <TR class="labelit line" style="background-color:#cl#">		   		   	  
-	          <td style="min-width:100px;padding-left:#indent#px">
-			  <img src="#SESSION.root#/Images/bullet.gif" height="15"  border="0" align="absmiddle">	
+			  <TR class="labelit line fixlengthlist" style="background-color:#cl#">		   		   	  
+	          <td style="padding-left:#indent#px">
+			  <img src="#SESSION.root#/Images/bullet.gif" height="13"  border="0" align="absmiddle">	
 			  </td>	  
 			  
 		   </cfif>
 	       
-	       <td width="40%" style="padding-left:7px">#Mission# - #OrgUnitName#</td>
-	       <TD width="10%">#OrgUnitCode#</TD>
-	       <TD width="30%">#OrgUnitClass#</TD>
-		   <TD width="10%">#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>	 
+	       <td style="padding-left:7px">#Mission# - #OrgUnitName#</td>
+	       <TD>#OrgUnitCode#</TD>
+	       <TD>#OrgUnitClass#</TD>
+		   <TD>#DateFormat(DateExpiration, CLIENT.DateFormatShow)#</TD>	 
 	       </TR>
 		   
 		   <cfset Indent = indent+20>

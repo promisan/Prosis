@@ -134,7 +134,7 @@
 				   <td height="1" style="padding-left:3px" class="labelit" width="40%" id="b#Action.ActionCode#">
 				   
 					<cfif (accessWorkflow eq "EDIT" or accessWorkflow eq "ALL")>			
-					    <a style="color:black" href="javascript:stepedit('#Action.actionCode#','#URL.PublishNo#')">#Action.ActionCode#</a></td>
+					    <a style="color:black" title="Configure workflow step" href="javascript:stepedit('#Action.actionCode#','#URL.PublishNo#')">#Action.ActionCode#</a></td>
 					<cfelse>
 						#Action.ActionCode#</td>
 					</cfif>
@@ -281,7 +281,7 @@
 								
 					<cfif Action.ActionType eq "Decision">
 			
-						<tr style="cursor: pointer;" class="labelmedium fixlengthlist" 
+						<tr style="cursor: pointer;" title="Qucik step inspection" class="labelmedium fixlengthlist" 
 						   onClick="stepinspect('#Action.ActionCode#','#URL.PublishNo#')">
 						   
 						    <td colspan="3" title="#action.ActionDescription#" align="center" background="#SESSION.root#/images/decisionblue.jpg" id="b#Action.ActionCode#">
@@ -299,7 +299,7 @@
 					
 					<cfelse>
 														
-						<tr style="cursor: pointer;" class="labelmedium fixlengthlist" onClick="stepinspect('#Action.ActionCode#','#URL.PublishNo#')"
+						<tr style="cursor: pointer;" title="Qucik step inspection" class="labelmedium fixlengthlist" onClick="stepinspect('#Action.ActionCode#','#URL.PublishNo#')"
 						    id="b#Action.ActionCode#">
 														
 						    <td colspan="3" align="center" bgcolor="#Boxcolor#" id="bd#drag#">
@@ -422,18 +422,23 @@
 				<cfif Check.DueEntityStatus neq "">									
 					<td bgcolor="gray" align="center" title="[Due] sets document status to [#Check.DueEntityStatus#] through embedded option" class="labelit" style="height:15px;font-size:9px;color:white;width:20;border:1px solid gray">#Check.DueEntityStatus#</td>								
 				</cfif>
+				
+				<cfif Action.ActionTrigger eq "External">									
+					<td bgcolor="purple" align="center" title="Another external method is controlling this step" class="labelit" style="color:white;height:15px;font-size:9px;width:20;border:1px solid gray">E</td>								
+				</cfif>
+				
 				<cfloop query="scripts">			
 				    <cfif method eq "due">
-					<td bgcolor="FFFF00" align="center" class="labelit" style="height:15px;font-size:9px;color:white;width:20;border:1px solid gray">D</td>			
+					<td bgcolor="FFFF00" align="center" title="Due method" class="labelit" style="cursor:pointer;height:15px;font-size:9px;width:20;border:1px solid gray">D</td>			
 					</cfif>
 					<cfif method eq "deny">
-					<td bgcolor="red" align="center" class="labelit" style="height:15px;font-size:9px;color:white;width:20;border:1px solid gray">X</td>			
+					<td bgcolor="red" align="center" title="Deny method" class="labelit" style="cursor:pointer;height:15px;font-size:9px;color:white;width:20;border:1px solid gray">X</td>			
 					</cfif>
 					<cfif method eq "submission">
-					<td bgcolor="green" align="center" class="labelit" style="height:15px;font-size:9px;color:white;width:20;border:1px solid gray">A</td>			
+					<td bgcolor="green" align="center" title="Approve method" class="labelit" style="cursor:pointer;height:15px;font-size:9px;color:white;width:20;border:1px solid gray">A</td>			
 					</cfif>
 					<cfif method eq "condition">
-					<td bgcolor="white" align="center" class="labelit" style="height:15px;font-size:9px;color:white;width:20;border:1px solid gray">C</td>			
+					<td bgcolor="white" align="center" title="Condition method" class="labelit" style="cursor:pointer;height:15px;font-size:9px;color:white;width:20;border:1px solid gray">C</td>			
 					</cfif>
 				</cfloop>
 				

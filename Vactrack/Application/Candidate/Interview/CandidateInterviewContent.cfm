@@ -206,7 +206,7 @@ password="#SESSION.dbpw#">
 			WHERE FunctionId = '#Doc.FunctionId#'
 		</cfquery>
 	
-		<td><cf_tl id="VA No">:&nbsp;</td>
+		<td><cf_tl id="Job Opening">:&nbsp;</td>
 	    <TD bgcolor="white"> 
 		   <cfoutput><A href="javascript:va('#Bucket.FunctionId#');">#Bucket.ReferenceNo#</a></cfoutput>
 		</TD>

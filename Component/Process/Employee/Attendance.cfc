@@ -2090,7 +2090,7 @@
 						</cfif>
 				</cfquery>
 				
-				<cfif dateob lt lastBalance.DateExpiration>
+				<cfif dateob lt lastBalance.DateExpiration and lastBalance.DateExpiration lt now()+120>
 				   <cfset dateob=CreateDate(Year(lastBalance.DateExpiration),Month(lastBalance.DateExpiration),DaysInMonth(lastBalance.DateExpiration))>
 				</cfif>
 				
@@ -2354,8 +2354,7 @@
 						  					      
 					</cfloop>
 								    
-					<!--- now create a final process table --->
-					
+					<!--- now create a final process table --->					
 										
 					<cfquery name="resetleave" 
 					  datasource="AppsEmployee"   
@@ -2549,13 +2548,12 @@
 							 							 							  
 							  <cfif end gt CONTRACT.DateExpiration>
 							     <cfset END    = CreateDate(Year(CONTRACT.DateExpiration),Month(CONTRACT.DateExpiration),Day(CONTRACT.DateExpiration))>
-							  </cfif> 	
-							  
+							  </cfif> 								  
 							  							  						  
 							  <!--- ------------------------------------ --->
 							  <!--- ------ RECORD THE BALANCES---------- --->
-							  <!--- ------------------------------------ ---> 									 
-							  
+							  <!--- ------------------------------------ ---> 		
+							 							  
 							  <cfinvoke component  = "Service.Process.Employee.Attendance"
 							    Method             = "InsertBalanceRecord"
 								returnvariable     = "BAL"
@@ -2588,6 +2586,14 @@
 	
 							  <!--- added saveguard to no endlessly count --->
 							  <cfset count = 0>
+							  
+							  <!---
+							  <cfoutput>
+							  <script>
+							  alert('#dateformat(CONTRACT.DateExpiration,client.dateformatshow)#')
+							  </script>
+							  </cfoutput>
+							  --->
 																			  					  					                
 							  <cfloop condition="#DTE# lte #CONTRACT.DateExpiration# and #count# lt 70">
 							  
@@ -2619,7 +2625,7 @@
 							    </cfif>
 								 	 	 
 								 <cfset END  = CreateDate(Year(END),Month(END),Day(END))>		
-																 
+																								 
 								 <!--- record the monthly leave record --->								 
 								  <cfinvoke component  = "Service.Process.Employee.Attendance"
 								    Method             = "InsertBalanceRecord"

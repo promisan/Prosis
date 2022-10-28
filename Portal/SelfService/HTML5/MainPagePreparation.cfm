@@ -1,5 +1,4 @@
 
-
 <cfquery name="Main" 
 	datasource="AppsSystem">
 		SELECT 	*
@@ -125,12 +124,9 @@ the first 9random) value of the enabled scope languages for the portal instead a
 	
 </cfif>
 
-
 <!--- ------------------------------------ --->
 <!--- ------------------------------------ --->
 <!--- ------------------------------------ --->
-
-
 
 <cfif isDefined("client.mission")>
 	<cfif trim(client.mission) eq "">
@@ -159,6 +155,9 @@ the first 9random) value of the enabled scope languages for the portal instead a
 		AND		FunctionClass	= '#url.id#'
 		AND		MenuClass		= '#url.menuClass#'
 		AND		Operational		= 1
+		<cfif url.public eq "External">
+		AND     MenuOrder != '0'
+		</cfif>
 		ORDER BY MenuOrder ASC
 </cfquery>
 

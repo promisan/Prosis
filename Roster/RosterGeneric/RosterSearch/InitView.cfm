@@ -2,6 +2,7 @@
 <cfparam name="URL.mid"        default="">
 <cfparam name="url.wparam"     default="ALL">
 <cfparam name="URL.FunctionNo" default="0">
+<cfparam name="URL.Scope"      default="Embed">
 
 <cfif URL.FunctionNo eq "">
       <cfset URL.FunctionNo =  "0">
@@ -29,8 +30,7 @@
 <cfif url.mode eq "ssa">
 	
 	<cf_screentop label="Candidate search for procurement job: #URL.DocNo#" 
-	   height       = "100%" 
-	   bannerheight = "60"
+	   height       = "100%" 	  
 	   band         = "No" 
 	   html         = "No"
 	   jQuery       = "Yes" 
@@ -42,12 +42,15 @@
 
 <cfelseif URL.mode eq "Vacancy">
 	
+	<cfif url.scope eq "Embed">
+		<cfset sh = "No">
+	<cfelse>
+	    <cfset sh = "Yes">
+	</cfif>
 	<cf_screentop label="Candidate Search for recruitment track: #URL.DocNo#" 
-	   height    ="100%" 
-	   bannerheight="60"
+	   height    ="100%" 	   
 	   band      = "No" 
-	   html      = "No"  <!--- added the hide option here --->
-	   option    = "Perform a search"
+	   html      = "#sh#"  <!--- added the hide option here --->	   
 	   jQuery    = "Yes" 
 	   systemmodule = "Roster"
 	   layout    = "webapp" 

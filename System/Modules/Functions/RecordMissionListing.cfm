@@ -19,6 +19,8 @@ password="#SESSION.dbpw#">
 	WHERE  Role = '#URL.Role#'
 </cfquery>
 
+<!---
 <cf_screentop label="Grant Function/Role to Mission" option="[#GetFunction.SystemModule#  [#GetRole.Role# - #GetRole.Description#]" jquery="yes" height="100%" banner="yellow" scroll="Yes" layout="webapp" user="no">
+--->
 
 <cf_securediv id="irolen" bind="url:RecordMissionListingDetail.cfm?functionId=#URL.ID#&role=#url.Role#&allType=#url.allType#">

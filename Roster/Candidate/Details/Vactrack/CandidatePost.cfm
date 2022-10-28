@@ -20,16 +20,15 @@ SELECT *
  
   <tr>
   <td width="100%" colspan="1" align="center">
-  <table border="0" cellpadding="0" cellspacing="0" width="100%" class="formpadding">
+  <table border="0" width="100%" class="formpadding">
 
-<TR>
-	<TD class="labelit"><cf_tl id="Track no"></TD>
-    <TD class="labelit"><cf_tl id="Mission"></TD>
-	<TD class="labelit"><cf_tl id="Organization unit"></TD>
-    <TD class="labelit"><cf_tl id="Functional title"></TD>
-	<TD class="labelit"><cf_tl id="Grade"></TD>
+<TR class="labelmedium2 fixlengthlist line">
+	<TD><cf_tl id="Track no"></TD>
+    <TD><cf_tl id="Mission"></TD>
+	<TD><cf_tl id="Organization unit"></TD>
+    <TD><cf_tl id="Functional title"></TD>
+	<TD><cf_tl id="Grade"></TD>
 </TR>
-<tr><td colspan="5" height="1" class="linedotted"></td></tr>
 
 <cfif searchresult.recordcount eq "0">
 
@@ -41,15 +40,14 @@ SELECT *
 
 <cfoutput query="SearchResult">
 
-<tr bgcolor="ffffff">
-<TD class="labelit">
+<tr class="labelmedium2 fixlengthlist line">
+<TD>
 	<cfif #CLIENT.Submission# eq "Manual">
-	<A HREF ="javascript:showdocument('#DocumentNo#')"><font color="0080C0">
-	</cfif>#DocumentNo#</TD>
-<TD class="labelit">#Mission#</TD>
-<TD class="labelit">#OrganizationUnit#</TD>
-<TD class="labelit">#FunctionalTitle#</TD>
-<TD class="labelit">#PostGrade#</TD>
+	<A HREF ="javascript:showdocument('#DocumentNo#')"></cfif>#DocumentNo#</TD>
+<TD>#Mission#</TD>
+<TD>#OrganizationUnit#</TD>
+<TD>#FunctionalTitle#</TD>
+<TD>#PostGrade#</TD>
 </TR>
 
 </CFOUTPUT>

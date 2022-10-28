@@ -6,6 +6,7 @@
 <cfparam name="url.showNavigationOnFirstPage" 	default="0">
 <cfparam name="url.showReload" 					default="1">
 <cfparam name="url.showLogin" 					default="0">
+<cfparam name="url.public"   					default="internal">
 
 <cfset vPortalMode = url.mode>
 

@@ -34,7 +34,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 				<table width="100%"><tr>
 				
 						<td style="padding-left:5px" width="80">
-						<select name="Priority" id="Priority" class="regularxl" style="border:0px;width:90" title="Important comments will be shown as red and be tagges as such in the mail.">
+						<select name="Priority" id="Priority" class="regularxl" style="background-color:transparent;border:0px;width:90" title="Important comments will be shown as red and be tagges as such in the mail.">
 						        <option value="3"><cf_tl id="Normal"></option>			
 								<option value="1"><cf_tl id="Important"></option>
 								</select>
@@ -131,13 +131,13 @@ WHERE      ObjectId = '#URL.Objectid#'
 				
 				</cfif>
 				
-				<tr><td style="border-top:1px solid silver;padding-bottom:2px;padding-left:3px;padding-right:3px;">
+				<tr><td style="padding-top:4px;padding-bottom:2px;padding-left:3px;padding-right:3px;">
 
 					<cfif Attributes.ajax eq "No">
 																			
 					 <cf_textarea name="MailBody"	           		 
 						 init="Yes"							
-						 color="ffffff"	 
+						 color="f6f6f6"	 
 						 resize="false"		
 						 border="0" 
 						 toolbar="mini"
@@ -148,7 +148,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 					
 																									
 					 <cf_textarea name="MailBody"	           		 						 						
-						 color="ffffff"	 						 
+						 color="f6f6f6"	 						 
 						 resize="false"		
 						 border="0" 
 						 toolbar="mini" 
@@ -166,7 +166,7 @@ WHERE      ObjectId = '#URL.Objectid#'
 					<input type="hidden" name="SerialNo" id="SerialNo"      value="#URL.SerialNo#">						
 				</cfoutput>      
 				
-				<tr><td style="border-top:1px solid silver;padding-left:4px;padding-right:5px">				
+				<tr><td style="padding-left:4px;padding-right:5px">				
 								
 				<cf_filelibraryN
 					DocumentPath="#Object.EntityCode#"

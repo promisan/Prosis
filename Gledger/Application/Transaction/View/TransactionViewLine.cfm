@@ -9,9 +9,14 @@
 </cfquery>	
 
 <cfoutput>
+ 
 
 	<script>
 	
+	<cfif Header.actionStatus eq "1">	 
+	   history.go()	   
+	</cfif>
+				
 	try {
 	    parent.opener.reloadForm();		
 		} catch(e) {}	

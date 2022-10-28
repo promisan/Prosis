@@ -90,7 +90,7 @@ password="#SESSION.dbpw#">
 		</cfif>
 		AND    R.Operational      = 1
 		AND    R.RosterSearchMode != '0'	
-			  	  
+		  
 	</cfquery>
 
 </cfif>
@@ -199,7 +199,7 @@ password="#SESSION.dbpw#">
 
 <cfif URL.Mode neq "Limited">
 	
-	<table width="98%" height="100%" align="center">
+	<table width="100%" height="100%" align="center">
 		
 	<tr><td valign="top">
 	  
@@ -211,7 +211,7 @@ password="#SESSION.dbpw#">
 		 
 	 	<table width="100%" height="100%" border="0" align="center">
 		
-		<tr><td height="20">
+		<tr style="background-color:f1f1f1"><td height="20">
 				
 			 <table width="100%">
 			 <tr>
@@ -346,6 +346,8 @@ password="#SESSION.dbpw#">
 							AND      F.FunctionClass        = '#Owner.FunctionClassSelect#'  
 							--->
 							AND      F2.FunctionId          = F1.FunctionId		
+							
+
 																						
 						</cfquery>	
 									
@@ -381,9 +383,7 @@ password="#SESSION.dbpw#">
 						source     = "iframe:../../Candidate/Details/Applicant/ApplicantEntry.cfm?header=0&next=#url.mode#&id=#url.docno#">											
 							
 				</cfif>		
-				
-				<td style="width:10%"></td>	
-							 
+											 
 			 </tr>
 			 </table>
 						

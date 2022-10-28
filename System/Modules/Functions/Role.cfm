@@ -52,8 +52,6 @@ password="#SESSION.dbpw#">
 	AND    SystemFunctionId = '#URL.ID#'
 </cfquery>
 
-
-
 <cfform action="#SESSION.root#/System/Modules/Functions/RoleSubmit.cfm?ID=#URL.ID#&ID1=#URL.ID1#" method="POST" name="role">
 	
 <table width="100%" height="100%" align="center" class="navigation_table">
@@ -123,11 +121,11 @@ password="#SESSION.dbpw#">
 													
 			<cfif URL.ID1 eq Role>
 										
-				<TR class="labelmedium line fixlengthlist" bgcolor="ffffcf">				   		       					   						 						  
-				   <td style="padding-left:4px" height="25" width="25%">#Role#<input type="hidden" name="Role" id="Role" value="#Role#"></td>
-				   <td width="50%">
+				<TR class="labelmedium line2 fixlengthlist" style="height:30px" bgcolor="ffffcf">				   		       					   						 						  
+				   <td style="font-size:17px;padding-left:4px">#Role#<input type="hidden" name="Role" id="Role" value="#Role#"></td>
+				   <td>
 				   
-				    <table cellspacing="0" cellpadding="0">
+				    <table>
 					  <tr>
 					  
 					     <cfif accesslevels eq "2">
@@ -159,21 +157,22 @@ password="#SESSION.dbpw#">
 				  		  				   
 				   </td>					   				   
 				   <td align="center" width="5%">
+				   
 				   <cf_securediv id="divRoleMission_#URL.ID#_#Role#" bind="url:#SESSION.root#/System/Modules/Functions/Role_Mission.cfm?ID=#URL.ID#&role=#role#"></td>
-				   <td align="left" width="50" style="padding-right:4px">
-				   <cf_UIToolTip tooltip="Enabled or disabled">
+				   <td align="left" width="50" style="padding-right:4px" title="Enable or Disabled">
+				   
 				   	   <input class="radiol" type="checkbox" name="Operational" id="Operational" value="1" <cfif "1" eq Detail.Operational>checked</cfif>>					   
-					 </cf_UIToolTip>
+					
 					</td>
-				   <td align="right" style="padding-right:4px"><input type="submit" style="width:50;height:20" value="Save" class="button10g"></td>	
+				   <td align="right" style="padding-right:4px"><input type="submit" style="width:50;height:25" value="Save" class="button10g"></td>	
 			    </TR>				
 						
 			<cfelse>
 						
-				<TR class="labelmedium2 line navigation_row">
+				<TR class="labelmedium2 line navigation_row fixlengthlist" style="height:30px">
 								
-				   <td height="20" style="padding-left:4px;<cfif op eq '0'>background-color:##ff808080<cfelse>background-color:##80ff8050</cfif>;padding-left: 4px">#rl#</td>
-				   <td style="padding-left:4px" class="fixlength">				   
+				   <td style="font-size:17px;padding-left:4px;<cfif op eq '0'>background-color:##ff808080<cfelse>background-color:##80ff8050</cfif>;padding-left: 4px">#rl#</td>
+				   <td style="padding-left:8px">				   
 				   
 					  <table>
 					  <tr class="fixlengthlist">		
@@ -203,12 +202,12 @@ password="#SESSION.dbpw#">
 				   
 				   </td>		
 				   
-				   <td style="min-width:40px" title="operational"><cfif op eq "0">No</cfif></td>													
+				   <td title="operational"><cfif op eq "0">No</cfif></td>													
 				  				   
 				   <td colspan="3" align="right" style="min-width:80px">		
 					   <table align="right">
 					    <tr class="labelmedium2 fixlengthlist">
-						   	<td style="padding-left:3px;padding-right:8px"><cfdiv id="divRoleMission_#URL.ID#_#Role#" bind="url:#SESSION.root#/System/Modules/Functions/Role_Mission.cfm?ID=#URL.ID#&role=#role#"></td>
+						   	<td style="padding-left:3px;padding-right:8px"><cf_securediv id="divRoleMission_#URL.ID#_#Role#" bind="url:#SESSION.root#/System/Modules/Functions/Role_Mission.cfm?ID=#URL.ID#&role=#role#"></td>
 							<td align="right">#OfficerUserId#&nbsp;(#dateformat(created,CLIENT.DateFormatShow)#)</td>				 
 						   	<td style="padding-left:7px;padding-right:3px">
 								<table cellspacing="0" cellpadding="0">
@@ -226,9 +225,7 @@ password="#SESSION.dbpw#">
 						</tr>
 					   </table>
 				  </td>		
-				  
-				  
-				 		   
+					   
 			    </TR>	
 			
 			</cfif>
@@ -238,19 +235,14 @@ password="#SESSION.dbpw#">
 		</cfoutput>
 						
 		<cfif URL.ID1 eq "">
-												
-			<tr><td height="3"></td></tr>
-						
-			<TR>				 	   
+								
+		   <TR style="height:35px">				 	   
 			
 		   <td width="24%">
 		   
-		   <table><tr><td>
-			   <cf_UIToolTip tooltip="Enable or Disabled">
-			       <input type="checkbox" name="Operational" id="Operational" value="1" checked>
-			   </cf_UIToolTip>
-		   </td>
-		   
+		   <table><tr><td title="Enable or Disabled">			   
+			       <input type="checkbox" class="radiol" name="Operational" id="Operational" value="1" checked>
+			      </td>		   
 		   <td>
 			
 		   <cfselect name="Role"
@@ -260,7 +252,7 @@ password="#SESSION.dbpw#">
 	          value="Role"
 	          display="Label"
 	          visible="Yes"
-			  class="regularxl"
+			  class="regularxxl"
 	          enabled="Yes"
 	          onchange="ptoken.navigate('#SESSION.root#/System/Modules/Functions/RoleAdd.cfm?role='+this.value,'roleadd')"
 	          style="width:320px">
@@ -276,7 +268,7 @@ password="#SESSION.dbpw#">
 			 		  
 			<td colspan="3" align="right">
 			
-			    <input type="submit" name="add" id="add" value="Add" class="hide" style="width:90;height:22">
+			    <input type="submit" name="add" id="add" value="Add" class="hide" style="width:90;height:25px">
 				
 			</td>
 			    

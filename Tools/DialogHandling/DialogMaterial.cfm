@@ -46,9 +46,7 @@
 		ptoken.open(root + "/Warehouse/Application/SalesOrder/Quote/QuoteView.cfm?systemfunctionid="+functionid+"&RequestNo="+requestno, "quote"+requestno);	
 	}
 	
-	function batch(batch,mis,mode,functionid,trigger) {   
-	    w = #CLIENT.width# - 80;
-	    h = #CLIENT.height# - 165;
+	function batch(batch,mis,mode,functionid,trigger) {   	 
 		ptoken.open(root + "/Warehouse/Application/Stock/Batch/BatchView.cfm?trigger="+trigger+"&mode="+mode+"&mission="+mis+"&systemfunctionid="+functionid+"&batchno=" + batch, "batch"+batch);	
 	}
 	

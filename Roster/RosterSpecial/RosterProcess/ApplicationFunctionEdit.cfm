@@ -19,7 +19,7 @@
 	<input type="hidden" id="clCount"      name="clCount"      value="0">	
 </cfoutput>
 
-<table width="100%" style="min-width:1000px">
+<table width="100%" style="min-width:700px">
     
   <tr><td style="padding-top:3px" valign="top">
     
@@ -39,18 +39,18 @@
 			   
 	    <TD width="89%" colspan="2">
 		
-		    <table>
-			    <tr class="labelmedium" style="height:40px">
+		    <table style="width:100%">
+			    <tr class="labelmedium fixlengthlist" style="height:40px">
 			    <td style="padding-left:5px;font-size:20px">
 			    <cfoutput query="Get" maxrows=1><a href="javascript:gjp('#FunctionNo#','#GradeDeployment#')" title="Access Function detailed description">#FunctionDescription# <font size="1">[#FunctionNo#]</font></a></cfoutput>		
 				</td>		
 				<td style="padding-left:20px;padding-right:5px"><cf_tl id="Level"></td>
-				<TD style="font-size:20px;padding-left:20px;padding-right:5px">
+				<TD style="font-size:20px;padding-left:10px;padding-right:5px">
 					<cfoutput query="Get" maxrows=1><a href="javascript:gjp('#FunctionNo#','#GradeDeployment#')">#GradeDeployment#</a></cfoutput>
 					<cfoutput query="Get" maxrows=1>#OrganizationDescription#</cfoutput>
 				</TD>		
 				<cfif Get.ReferenceNo neq "">				
-			    	<td height="20" style="padding-left:20px"><cf_tl id="JO No"></td>
+			    	<td height="20" style="padding-left:10px"><cf_tl id="JO No"></td>
 				    <td style="padding-left:5px;font-size:20px"><cfoutput query="Get" maxrows=1>#ReferenceNo#</cfoutput></td>			
 				</cfif>					
 				</tr>		
@@ -127,8 +127,7 @@
    
    <tr>   
      <td colspan="2" style="padding-top:4px;padding-left:4px"><cf_DocumentCandidateReview PersonNo="#get.PersonNo#" Owner="#get.Owner#"></td>
-   </tr>
-   
+   </tr> 
    
       
    <cf_menuscript>
@@ -315,7 +314,7 @@
 						
 		<tr>
 		
-		<td colspan="1" height="99%" width="90%" valign="top">
+		<td colspan="1" height="99%" valign="top">
 			
 			<table border="0" align="center" width="100%">	
 		

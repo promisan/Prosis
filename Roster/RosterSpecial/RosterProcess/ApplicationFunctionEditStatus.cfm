@@ -86,7 +86,7 @@
 						
 						<tr>						
 						<td width="160" valign="top" id="setstatusbox" style="padding:8px">
-						
+												
 						<cf_ApplicationFunctionEditStatusAction
 							owner         = "#get.owner#"
 							functionid    = "#get.FunctionId#"
@@ -179,7 +179,7 @@
 		<tr><td colspan="2" style="padding-left:2px">
 
 		    <textarea class="regular" 		          
-				  style="width:99%;font-size:14px;padding:4px;height:75px" 				 
+				  style="width:100%;border:0px;font-size:14px;padding:4px;height:85px;background-color:f1f1f1" 				 
 				  name="ActionRemarks" 
 				  type="text"><cfoutput query="Get" maxrows=1>#RosterGroupMemo#</cfoutput></textarea>
 				  

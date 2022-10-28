@@ -339,9 +339,7 @@
 		<tr class="line">
 		
 			<td colspan="2" class="clsPrintContent" id="journalcontent" valign="top" style="padding-left:10px;height:100%">	
-			
-			<!---    <cfinclude template="JournalListingContent.cfm">		--->
-			
+						
 				<cfinclude template="JournalListingDetail.cfm">											
 			
 			</td>		

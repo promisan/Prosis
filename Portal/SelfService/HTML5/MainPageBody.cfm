@@ -762,10 +762,10 @@
 			
 					<cfset vCurrentRow = vCnt>
 					<cfset vCnt = vCnt + 1>
-					
-					<cfif vPortalMode eq "login">
+														
+					<cfif vPortalMode eq "login">				
 						<cfset vMenuURL = URLEncodedFormat("#SESSION.root#/Portal/SelfService/HTML5/PortalLanding.cfm?webapp=#url.id#&id=#url.id#&#functioncondition#&mission=#vThisMission#&systemFunctionId=#systemFunctionId#&menuClass=#url.menuClass#&mid=#url.mid#")>
-					<cfelseif vPortalMode eq "default">
+					<cfelseif vPortalMode eq "default">										
 						<cfset vMenuURL = URLEncodedFormat("#SESSION.root#/#Portal.FunctionDirectory#/#Portal.FunctionPath#?webapp=#url.id#&id=#url.id#&#functioncondition#&mission=#vThisMission#&systemFunctionId=#systemFunctionId#&menuClass=#url.menuclass#")>
 					</cfif>
 					

@@ -320,6 +320,8 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cftry>
 
     <cfparam name="SESSION.listingdata['#box#']['aggregate']"   default="">	
+	<cfparam name="SESSION.listingdata['#box#']['queryfiltermode']"   default="">	
+	
 	<cfset ts = SESSION.listingdata[box]['timestamp']>
     <cfcatch>
     	<cfset SESSION.listingdata[box]['timestamp'] = "#now()#">			
@@ -1156,8 +1158,8 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <!--- obtaining data listing --->	
 <!--- ---------------------- --->
 
-<cfinclude template="ListingData.cfm">
 
+<cfinclude template="ListingData.cfm">
 
 <!--- ---------------------- --->
 <!--- PRESENTING the result  --->
@@ -1168,8 +1170,9 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cfif url.ajaxid eq "content">
   
 	<cfif attributes.showlist eq "Yes">				
-		<!--- shows the listing as HTML and header --->			
-		<cfinclude template="ListingShow.cfm">																			
+		<!--- shows the listing as HTML and header --->		
+		<cfinclude template="ListingShow.cfm">	
+																				
 	</cfif>		
 
 <cfelseif url.ajaxid eq "new">
@@ -1193,13 +1196,16 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 
 </cfif>	
 
+
 <cfset session.listingdata[box]['listingpreparation'] = round((now()- listingtimestart)*100000000)/1000>
 
 <cfsavecontent variable="myscript">
+   
  	_cf_loadingtexthtml='';				
 	ptoken.navigate('#session.root#/tools/listing/Listing/setTime.cfm?box=#box#','#attributes.box#_performance');
     ptoken.navigate('#session.root#/tools/listing/Listing/setFilter.cfm?box=#box#','#attributes.box#_ajax'); 
 	$('##_divContentFields').scroll(function() {  $(this).find('.sticky').css('left', $(this).scrollLeft());});	
+	
 </cfsavecontent>
 
 <cfset AjaxOnLoad("function(){#myscript#}")>
@@ -1211,4 +1217,5 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <cfif appliedfilter eq "1" and attributes.calendar eq "9">
 	<cfset ajaxonload("doCalendar")>	
 </cfif>
+
 

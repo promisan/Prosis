@@ -898,7 +898,7 @@ a workflow created and also status = 0 is applies, then it will be picked up her
 
 							<input type="hidden"
 							id="workflowlinkprocess_#wfid#"
-							onclick="processline('#wfid#')">
+							onclick="processline('#wfid#');">
 
 						<cf_securediv id="#wfid#"  bind="url:#wflnk#?ajaxid=#wfid#">
 
