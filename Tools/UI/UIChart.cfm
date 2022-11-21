@@ -87,6 +87,14 @@
                         ],
                     </cfif>
 
+                <cfif Attributes.fontsize neq "">
+                    axisDefaults:
+                        {labels:
+                            {
+                                font: "#Attributes.fontsize#px Arial,Helvetica,sans-serif"
+                            }
+                        },
+                </cfif>
 
                 series:[
                 <cfloop array="#Session.chartSeries#" index="itm">

@@ -30,9 +30,10 @@
 	 SELECT   *
 	 FROM     OrganizationAuthorization 
 	 WHERE    Role = 'Support'
-	 AND      UserAccount = '#Param.account#' 
+	 AND      UserAccount = '#Param.account#' xxxx
 </cfquery>
-<!--- do not send mail if in trial mode --->
+
+<!--- do not send mail if in trial mode unless it is an addmin --->
 
 <cfif client.TrialMode neq "1" or Admin.recordcount gte "1">
 	
@@ -46,8 +47,8 @@
 			FROM      UserNamesGroup G INNER JOIN
 	                  UserReportMailing M ON G.AccountGroup = M.Account INNER JOIN
 	                  UserNames U ON G.Account = U.Account
-			WHERE     M.ReportId = '#URL.ReportId#'		
-			AND       U.Disabled = 0	  
+			WHERE     M.ReportId     = '#URL.ReportId#'		
+			AND       U.Disabled     = 0	  
 			AND       U.eMailAddress > ''  
 		</cfquery>
 			
@@ -71,36 +72,34 @@
 	</cfif>
 	
 	<cfset headercolor = "ffffff">
-
-		  
-<cfif User.DistributionEMail neq "">	
-
-
-<cfmail TO          = "#User.DistributionEMail#"
-	CC          = "#mail#"        
-	FROM        = "#SESSION.welcome# Reporter <#Layout.eMailAddress#>"
-	ReplyTo     = "#User.DistributionReplyTo#"
-	SUBJECT     = "REPORTER: #User.DistributionSubject#"
-	FAILTO      = "#fail#"			
-	mailerID    = "#Layout.Owner# [#Layout.SystemModule#]"
-	TYPE        = "html"
-	spoolEnable = "Yes"
-	wraptext    = "100">
-	
-	<cfinclude  template="ReportMailContent.cfm">
-	
-	<cfmailparam file="#SESSION.root#/Images/prosis-logo-300.png" contentid="logo" disposition="inline"/>
-    <cfmailparam file="#SESSION.root#/Images/prosis-logo-gray.png" contentid="logo-gray" disposition="inline"/>
-	
-	<cfif Param.DistributionMode eq "Attachment">	
-		<cfloop index="att" list="#attach#" delimiters=","> 
-			<cfmailparam file = "#SESSION.root#/CFRStage/User/#SESSION.acc#/#Att#">
-		</cfloop>   
-	</cfif>
-										
-</cfmail>		
+			  
+	<cfif User.DistributionEMail neq "">	
 		
-</cfif>
+		<cfmail TO      = "#User.DistributionEMail#"
+			CC          = "#mail#"        
+			FROM        = "#SESSION.welcome# Reporter <#Layout.eMailAddress#>"
+			REPLYTO     = "#User.DistributionReplyTo#"
+			SUBJECT     = "REPORTER: #User.DistributionSubject#"
+			FAILTO      = "#fail#"			
+			MAILERID    = "#Layout.Owner# [#Layout.SystemModule#]"
+			TYPE        = "html"
+			SPOOLENABLE = "Yes"
+			WRAPTEXT    = "100">
+			
+			<cfinclude  template="ReportMailContent.cfm">
+			
+			<cfmailparam file="#SESSION.root#/Images/prosis-logo-300.png" contentid="logo"       disposition="inline"/>
+		    <cfmailparam file="#SESSION.root#/Images/prosis-logo-gray.png" contentid="logo-gray" disposition="inline"/>
+			
+			<cfif Param.DistributionMode eq "Attachment">	
+				<cfloop index="att" list="#attach#" delimiters=","> 
+					<cfmailparam file = "#SESSION.rootDocumentPath#\CFRStage\User\#SESSION.acc#\#Att#">
+				</cfloop>   
+			</cfif>
+												
+		</cfmail>		
+			
+	</cfif>
 	
 </cfif>
 

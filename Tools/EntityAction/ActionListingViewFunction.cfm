@@ -75,6 +75,7 @@
 					
 					   <cfset url.objectid   = Object.ObjectId>
 					   <cfset url.actionCode = Actions.ActionCode>
+					   <cfset url.actionid   = Actions.ActionId>
 					   <cfset url.mode       = "note">
 					   <cfset url.detailedit = "No">
 					   <cfset url.box        = "myboxfnts">

@@ -1,6 +1,7 @@
 
 <cfparam name="attributes.name"   default="">
-<cfparam name="attributes.class"  default="labelmedium">
+<cfparam name="attributes.color"  default="black">
+<cfparam name="attributes.class"  default="labelmedium2">
 <cfparam name="attributes.title"  default="">
 <cfparam name="attributes.height" default="20">
 <cfparam name="attributes.mode"   default="Collapsed">
@@ -34,12 +35,14 @@
 		onClick="#preservesinglequotes(attributes.click)#">
 	
 	</td>	
-	<td width="100%" class="#attributes.class#"><a href="javascript:#preservesinglequotes(attributes.click)#">#attributes.title#</a></td>
+	<td width="100%" class="#attributes.class#" style="height:30px;font-size:20px">
+	<a style="color:#attributes.color#" href="javascript:#preservesinglequotes(attributes.click)#">#attributes.title#</a>
+	</td>
 			
 </tr>
 
 <cfif attributes.line eq "Yes">
-<tr><td height="1" colspan="2" class="linedotted"></td></tr>
+<tr><td height="1" colspan="2" class="line"></td></tr>
 </cfif>
 
 </cfoutput>

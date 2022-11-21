@@ -958,7 +958,7 @@ password="#SESSION.dbpw#">
 						<cfset ptn = "#nm#">
 						<input type="button" 
 					        value="Save" 
-							onclick="savemyfield('#URL.entitycode#','#nm#','','#documentid#')"
+							onclick="savemyfield('#URL.entitycode#','#nm#','#url.type#','#documentid#')"
 							class="button10g" 
 							style="width:50px;height:25px">
 							

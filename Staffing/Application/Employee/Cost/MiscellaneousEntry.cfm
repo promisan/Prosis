@@ -52,9 +52,11 @@ password="#SESSION.dbpw#">
 	ORDER BY L.DateEffective DESC 
 </cfquery>	
 
-<cfinclude template="getAccess.cfm">
+<cfinvoke component = "Service.Process.Payroll.PayrollItem"  
+   method           = "PayrollItem"   
+   returnvariable   = "accessItem">	   
 
-<cfif itm eq "">
+<cfif accessItem eq "">
 
 	<table width="98%" align="center" class="formpadding">
 	
@@ -73,7 +75,7 @@ password="#SESSION.dbpw#">
 	    FROM     Ref_PayrollItem
 		WHERE    Source IN ('Miscellaneous','Deduction')
 		AND      Operational = 1
-		AND      PayrollItem IN (#preservesingleQuotes(itm)#)
+		AND      PayrollItem IN (#preservesingleQuotes(accessItem)#)
 		ORDER BY Source DESC		
 	</cfquery>
 	

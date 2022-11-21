@@ -17,6 +17,18 @@
 	 WHERE     DocumentPathName = '#url.dir#' 	
 </cfquery>
 
+<cfoutput>
+	<cfset cnt = 0>
+	<cfloop index="suf" list="#url.source#" delimiters=".">
+	     <cfset cnt = cnt+1>
+		 <cfif cnt eq "2">
+		    <script>
+			 document.getElementById('ServerSuffix').value = '#suf#'
+			</script> 
+		 </cfif>
+	</cfloop>
+</cfoutput>
+
 <cfif getFilter.AttachExtensionFilter neq "NONE" and getFilter.AttachExtensionFilter neq "">
 	
 	<cfset accept = "0">
@@ -24,19 +36,24 @@
 	<cfloop index="itm" list="#getFilter.AttachExtensionFilter#">
 			
 		<cfif UCase(Right(itm,4)) eq UCase(Right(url.source,4))>			
-				<cfset accept = "1">				
+			<cfset accept = "1">				
 		<cfelseif UCase(Right(itm,5)) eq UCase(Right(url.source,5))>			
-				<cfset accept = "1">			
+			<cfset accept = "1">			
 		</cfif>
 				
 		<cfif accept eq "1" and url.destination neq "">
 		
-			<cfset accept = "0">
+		    <cfif suf neq "">
+				<cfset url.destination = "#url.destination#.#suf#">
+			</cfif>
+			
 		
+			<cfset accept = "0">
+								
 			<cfif UCase(Right(itm,4)) eq UCase(Right(url.destination,4))>			
-					<cfset accept = "1">				
+				<cfset accept = "1">				
 			<cfelseif UCase(Right(itm,5)) eq UCase(Right(url.destination,5))>			
-					<cfset accept = "1">			
+				<cfset accept = "1">			
 			</cfif>		
 		
 			<cfbreak>
@@ -55,7 +72,7 @@
 
 	<cfoutput>
 	<script>
-		ColdFusion.navigate('FileFormDialogSubmit.cfm?#url.box#&accept=0','submitbox')
+		ptoken.navigate('FileFormDialogSubmit.cfm?#url.box#&accept=0','submitbox')
 	</script>
 	</cfoutput>
 
@@ -108,7 +125,7 @@
 	
 	<cfoutput>
 	<script>
-		ColdFusion.navigate('FileFormDialogSubmit.cfm?box=#url.box#&accept=1','submitbox')
+		ptoken.navigate('FileFormDialogSubmit.cfm?box=#url.box#&accept=1','submitbox')
 	</script>
 	</cfoutput>
 	

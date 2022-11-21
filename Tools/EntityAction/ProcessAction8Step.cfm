@@ -28,6 +28,7 @@
    AND    O.EntityCode = R.EntityCode
    AND    O.Operational  = 1
 </cfquery>
+
 	
 <cfoutput query="Action">	
 
@@ -77,7 +78,7 @@
 		 AND       R.Method          = 'Embed'
 		 AND       MethodEnabled = 1
 	</cfquery>
-			
+		
 	<!--- define if condition for embedded workflow would work --->
 	<cfset embed = "0">
 	<cfset conembed = "1">
@@ -120,6 +121,7 @@
 			<cfset embed = "1">
 												
 	</cfif>		
+	
 	
 	<!--- if there is an embedded workflow for this action, show the action for the workflow instead --->	
 			
@@ -166,154 +168,164 @@
 		<cfform action="ProcessActionSubmit.cfm?windowmode=#url.windowmode#&wfmode=8&process=#URL.Process#&ID=#URL.ID#&ajaxId=#url.ajaxid#" 
 		  name="processaction"  id="processaction">		
 		  
-		  <table width="100%">
-		   					 	
-			<cfset wfmode = "8">	 		  		
-			<cfif ActionType eq "Action">
-			   <cfinclude template="ProcessActionAction.cfm"> 
-			<cfelse>
-			   <cfinclude template="ProcessActionDecision.cfm">
-	    	</cfif>		
+			  
+			  <table width="100%">
+			  
+			    <tr><td>
+			 			   					 	
+				<cfset wfmode = "8">	 		  		
+				<cfif ActionType eq "Action">
+				   <cfinclude template="ProcessActionAction.cfm"> 
+				<cfelse>
+				   <cfinclude template="ProcessActionDecision.cfm">
+		    	</cfif>		
+				
+				</td></tr>
+								 		
+				 <cfif EmbedFlow.recordcount eq "1" and embed neq "0">
+				
+					<cfset link = "#Object.ObjectURL#">		
 					
-			 <cfif EmbedFlow.recordcount eq "1" and embed neq "0">
-			
-				<cfset link = "#Object.ObjectURL#">				
-											
-				<cf_ActionListing 
-					EntityCode       = "#Object.EntityCode#"
-					EntityClass      = "#Action.EmbeddedClass#"
-					EntityGroup      = "#Object.EntityGroup#"
-					EntityStatus     = "#Object.EntityStatus#"
-					Mission          = "#Object.mission#"
-					OrgUnit          = "#Object.orgunit#"
-					PersonNo         = "#Object.PersonNo#" 
-					PersonEMail      = "#Object.PersonEMail#"
-					ObjectReference  = "#Object.ObjectReference#"
-					ObjectReference2 = "Embedded workflow"
-					ObjectKey4       = "#URL.ID#"
-					ObjectURL        = "#link#"
-					Show             = "Yes"
-					AjaxId           = "#URL.AjaxId#"
-					Toolbar          = "Yes"
-					Framecolor       = "ECF5FF"
-					CompleteFirst    = "No"
-					CloseBox         = "1">
-				
-			 </cfif>	
-			
-		   </td></tr>
-		  						
-		    <cfif entityaccess eq "EDIT" or entityaccess eq "ALL">	
-		   
-			   <cfset url.objectid = action.ObjectId>
-			   	
-			   <tr><td colspan="2" id="stepflyaccess">
-				   <cfinclude template="ActionListingFly.cfm">				 	   			   
-			   </td></tr>
-		   
-		    </cfif> 
-		   		   
-		   <cfparam name="w" default="184">  
-		   	    	   	   	   	     
-		   <cfif Action.EnableAttachment eq "1">
-		   			  			   
-			   <tr><td colspan="2" style="height:2px"></td></tr>
-			   	   
-			   <tr class="line">
-			   			   			  
-				   <td width="<cfoutput>#w#</cfoutput>" height="35" style="padding-left:9px" class="fixlength labelmedium"><cf_tl id="Other attachment(s)">:</td>
-				   <td style="width:90%">
-			       <table width="97%" cellspacing="0" cellpadding="0">
-				   <tr><td>
-				   <cfset mode         = "edit">
-				   <cfset box          = "att#currentrow#">
-				   <cfset script       = "no">
-				   <cfset EntityCode   = "#Object.EntityCode#">
-				   <cfset ActionId     = "#Action.ActionId#">				   
-					   <cfinclude template = "ProcessActionAttachment.cfm">		 				
-				   </td>
-				   </TR>
-				   </table>
-				   </td>
-				</tr>   
-					   
-		   </cfif> 
-		   
-		   <!---  not a collaborator --->							
-		   <cfif entityaccess eq "EDIT" or entityaccess eq "READ">		      	     
-			   	     	   				
-				<cfinclude template="ProcessActionMemoBase.cfm">
-				
-		   </cfif>		   
-		   
-		   
-		   <cfif entityaccess eq "EDIT">
-				
-				 <!--- element 1e of 3 MAIL MEMO --->
-		  	   	   
-		   		<cfquery name="Mail" 
-				 datasource="AppsOrganization"
-				 username="#SESSION.login#" 
-				 password="#SESSION.dbpw#">
-			   	  SELECT    *
-				  FROM      Ref_EntityDocument
-				  WHERE     EntityCode = '#Object.EntityCode#' 
-				  AND       DocumentType = 'mail' 
-				  AND       DocumentMode = 'Edit'
-				  AND       DocumentCode IN ('#Action.PersonMailAction#',
-				                             '#Action.PersonMailCode#',
-											 '#Action.DueMailCode#') 
-				</cfquery>
-				
-				<!--- mail object is defined as editable --->
-				
-				<cfif mail.recordcount gte "1">											
-					
-					 <cfquery name="Object" 
-						datasource="appsOrganization" 
-						username="#SESSION.login#" 
-						password="#SESSION.dbpw#">
-						SELECT    O.*, 
-						          A.ActionCode, 
-								  A.TriggerActionType, 
-								  A.TriggerActionId,
-								  R.PersonClass,
-								  AA.ActionDescription,
-								  AA.ActionCompleted,
-								  AA.ActionDenied,
-								  AA.ActionProcess,
-								  R.MailFrom,
-								  R.MailFromAddress,
-								  R.EntityDescription,
-								  C.EntityClassName
-						FROM      OrganizationObject O, 
-						          OrganizationObjectAction A,
-								  Ref_EntityActionPublish AA,  
-								  Ref_Entity R,
-								  Ref_EntityClass C
-						WHERE     O.ObjectId        = A.ObjectId 
-						AND       R.EntityCode      = O.EntityCode
-						AND       A.ActionPublishNo = AA.ActionPublishNo 
-						AND       A.ActionCode      = AA.ActionCode
-						AND       C.EntityCode      = O.EntityCode
-						AND       C.EntityClass     = O.EntityClass
-						AND       A.ActionId        = '#Action.ActionId#' 	
-						AND       O.Operational  = 1
-					</cfquery>	
-				
-					<cfinclude template="ProcessActionMailForm.cfm">
-				
-				</cfif>			
-				  			   
-		   	</cfif>	 
+					<tr><td>		
+												
+					<cf_ActionListing 
+						EntityCode       = "#Object.EntityCode#"
+						EntityClass      = "#Action.EmbeddedClass#"
+						EntityGroup      = "#Object.EntityGroup#"
+						EntityStatus     = "#Object.EntityStatus#"
+						Mission          = "#Object.mission#"
+						OrgUnit          = "#Object.orgunit#"
+						PersonNo         = "#Object.PersonNo#" 
+						PersonEMail      = "#Object.PersonEMail#"
+						ObjectReference  = "#Object.ObjectReference#"
+						ObjectReference2 = "Embedded workflow"
+						ObjectKey4       = "#URL.ID#"
+						ObjectURL        = "#link#"
+						Show             = "Yes"
+						AjaxId           = "#URL.AjaxId#"
+						Toolbar          = "Yes"
+						Framecolor       = "ECF5FF"
+						CompleteFirst    = "No"
+						CloseBox         = "1">
 						
-			</table>
+						</td></tr>
+					
+				 </cfif>	
+							  						
+			    <cfif entityaccess eq "EDIT" or entityaccess eq "ALL">	
+			   
+				   <cfset url.objectid = action.ObjectId>
+				   	
+				   <tr><td colspan="2" id="stepflyaccess">
+					   <cfinclude template="ActionListingFly.cfm">				 	   			   
+				   </td></tr>
+			   
+			    </cfif> 
+				
+						   		   
+			   <cfparam name="w" default="184">  
+			   	    	   	   	   	     
+			   <cfif Action.EnableAttachment eq "1">
+			   			  			   
+				   <tr><td colspan="2" style="height:2px"></td></tr>
+				   	   
+				   <tr class="line">
+				   			   			  
+					   <td width="<cfoutput>#w#</cfoutput>" height="35" style="padding-left:9px" class="fixlength labelmedium"><cf_tl id="Other attachment(s)">:</td>
+					   <td style="width:90%">
+				       <table width="97%" cellspacing="0" cellpadding="0">
+					   <tr><td>
+					   <cfset mode         = "edit">
+					   <cfset box          = "att#currentrow#">
+					   <cfset script       = "no">
+					   <cfset EntityCode   = "#Object.EntityCode#">
+					   <cfset ActionId     = "#Action.ActionId#">				   
+						   <cfinclude template = "ProcessActionAttachment.cfm">		 				
+					   </td>
+					   </TR>
+					   </table>
+					   </td>
+					</tr>   
+						   
+			   </cfif> 
+			 
+			   <!---  not a collaborator --->							
+			   <cfif entityaccess eq "EDIT" or entityaccess eq "READ">		      	     
+				   	     	   				
+					<cfinclude template="ProcessActionMemoBase.cfm">
+					
+			   </cfif>		   
+			   
+			   
+			   <cfif entityaccess eq "EDIT">
+					
+					 <!--- element 1e of 3 MAIL MEMO --->
+			  	   	   
+			   		<cfquery name="Mail" 
+					 datasource="AppsOrganization"
+					 username="#SESSION.login#" 
+					 password="#SESSION.dbpw#">
+				   	  SELECT    *
+					  FROM      Ref_EntityDocument
+					  WHERE     EntityCode = '#Object.EntityCode#' 
+					  AND       DocumentType = 'mail' 
+					  AND       DocumentMode = 'Edit'
+					  AND       DocumentCode IN ('#Action.PersonMailAction#',
+					                             '#Action.PersonMailCode#',
+												 '#Action.DueMailCode#') 
+					</cfquery>
+					
+					<!--- mail object is defined as editable --->
+					
+					<cfif mail.recordcount gte "1">											
+						
+						 <cfquery name="Object" 
+							datasource="appsOrganization" 
+							username="#SESSION.login#" 
+							password="#SESSION.dbpw#">
+							SELECT    O.*, 
+							          A.ActionCode, 
+									  A.TriggerActionType, 
+									  A.TriggerActionId,
+									  R.PersonClass,
+									  AA.ActionDescription,
+									  AA.ActionCompleted,
+									  AA.ActionDenied,
+									  AA.PersonMailObjectAttach,
+									  AA.ActionProcess,
+									  R.MailFrom,
+									  R.MailFromAddress,
+									  R.EntityDescription,
+									  C.EntityClassName
+							FROM      OrganizationObject O, 
+							          OrganizationObjectAction A,
+									  Ref_EntityActionPublish AA,  
+									  Ref_Entity R,
+									  Ref_EntityClass C
+							WHERE     O.ObjectId        = A.ObjectId 
+							AND       R.EntityCode      = O.EntityCode
+							AND       A.ActionPublishNo = AA.ActionPublishNo 
+							AND       A.ActionCode      = AA.ActionCode
+							AND       C.EntityCode      = O.EntityCode
+							AND       C.EntityClass     = O.EntityClass
+							AND       A.ActionId        = '#Action.ActionId#' 	
+							AND       O.Operational  = 1
+						</cfquery>	
+					
+						<cfinclude template="ProcessActionMailForm.cfm">
+					
+					</cfif>			
+					  			   
+			   	</cfif>	 
+				
+											
+				</table>
 												
 			</cfform>	
 			
 			</td>
 		</tr>
-		
+				
 		<tr><td width="100%" colspan="2">
 					   
 	   	   <cfform name="formcustomfield" id="formcustomfield" onsubmit="return false"> 	   
@@ -321,20 +333,49 @@
 		    </cfform>
 			
 	    </td>
-	    </tr>    
+	    </tr>   	
 		
-		 <!--- Element 1d of 3 ATTACHMENT DOCUMENT --->		  
-				  
-	   <cfinclude template="Report/DocumentAttach.cfm">	
-				
+		<cfquery name="Action" 
+		  datasource="AppsOrganization"
+		  username="#SESSION.login#" 
+		  password="#SESSION.dbpw#">
+		   SELECT *
+		   FROM   OrganizationObjectAction OA, 
+		          Ref_EntityActionPublish P,
+				  Ref_EntityAction A		
+		   WHERE  ActionId = '#URL.ID#' 
+		   AND    OA.ActionPublishNo = P.ActionPublishNo
+		   AND    OA.ActionCode = P.ActionCode  
+		   AND    OA.ActionCode = A.ActionCode 
+		</cfquery>	
+		
 		<!--- keep outside the BASE form --->
 		
-		<!--- Element 2 of 3 Embedded Custom dialog Functions --->		
-	 	<cfinclude template="ProcessActionFunction.cfm">		
-					
+		<!--- Element 1 of 3 Embedded Custom dialog Functions --->	
+							
+	 	<cfinclude template="ProcessActionFunction.cfm">	
+						
+		<!--- Element 1b of 3 ATTACHMENT DOCUMENT --->		  					  
+	    <cfinclude template="Report/DocumentAttach.cfm">	
+							
+		<cfquery name="Action" 
+		  datasource="AppsOrganization"
+		  username="#SESSION.login#" 
+		  password="#SESSION.dbpw#">
+		   SELECT *
+		   FROM   OrganizationObjectAction OA, 
+		          Ref_EntityActionPublish P,
+				  Ref_EntityAction A		
+		   WHERE  ActionId = '#URL.ID#' 
+		   AND    OA.ActionPublishNo = P.ActionPublishNo
+		   AND    OA.ActionCode = P.ActionCode  
+		   AND    OA.ActionCode = A.ActionCode 
+		</cfquery>
+							
 		<!--- Element 3 of 3 GENERATE DOCUMENT --->
-		<cfinclude template="Report/Document.cfm">  	
+		<cfinclude template="Report/Document.cfm">  				
 		
+				
 	</cfif>	 
 	
 	</table>
@@ -369,7 +410,6 @@
 	</td>
 	
 	</cfif>
-	
 	
 	
 	</tr>			

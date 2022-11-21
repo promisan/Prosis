@@ -8,7 +8,7 @@
 
 
 	<table align="left">	
-		<tr class="labelmedium" style="height:20px;border-top:0px solid silver">
+		<tr class="labelmedium" style="height:16px;border-top:0px solid silver">
 			<cfset lastMonthLastYear = dateAdd('m', -1, dateOb)>
 			<cf_tl id="Previous Year" var="1">
 			<td align="center" width="25px" style="cursor:pointer;padding-right:3px;" onclick="calendarmonth('#dateFormat(lastMonthLastYear,client.dateFormatShow)#','jump','standard','seldate');" title="#lt_text#" class="clsNoPrint">
@@ -19,17 +19,19 @@
 				<cfset monthStyle = "cursor:pointer;font-size:80%">
 				<cfset printClass = "clsNoPrint">
 				<cfif year(curDate) eq year(dateSelOb) and month(curDate) eq month(dateSelOb)>
-					<cfset monthStyle = "cursor:pointer;font-size:80%;height:17px; color:gray; background-color:e1e1e1;">
+					<cfset monthStyle = "cursor:pointer;font-size:80%;color:gray; background-color:e1e1e1;">
 					<cfset printClass = "clsMonthSelected">
 				</cfif>
 				
 				<td align="center" class="#printClass#" width="#url.CellWidth#" 
-				style="#monthStyle#; min-width:15px;cursor:pointer; padding-left:3px; padding-right:3px;border:1px solid d4d4d4;border-bottom:0px;padding-left:4px;" onclick="calendarmonth('#dateFormat(curDate,client.dateFormatShow)#','jump','standard','seldate');">				
+				style="border:1px solid silver;#monthStyle#;font-size:14px;min-width:40px;cursor:pointer" 
+				onclick="calendarmonth('#dateFormat(curDate,client.dateFormatShow)#','jump','standard','seldate');">				
 				    <cfif url.cellwidth lte 50>					    
 					    <cf_tl id="#Month(curdate)#">
 					<cfelse> 
 					    <cf_tl id="#left(MonthAsString(Month(curdate)),3)#">
-					</cfif>							
+					</cfif>		
+									
 						
 				</td>
 			</cfloop>

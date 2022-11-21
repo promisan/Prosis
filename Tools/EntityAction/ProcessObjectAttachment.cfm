@@ -1,5 +1,5 @@
 
-<table width="97%" height="100%" cellspacing="0" cellpadding="0" bgcolor="FFFFFF">
+<table width="97%" height="100%">
 <tr><td>
 	
 	<cfparam name="box"  default="1">
@@ -11,6 +11,7 @@
 		<cf_filelibraryN
 				DocumentPath  = "#EntityCode#"
 				SubDirectory  = "#ObjectId#" 
+				Mode          = "portal"
 				Filter        = "#DocumentCode#"
 				LoadScript    = "No"
 				AttachDialog  = "Yes"
@@ -26,6 +27,7 @@
 		<cf_filelibraryN
 				DocumentPath  = "#EntityCode#"
 				SubDirectory  = "#ObjectId#" 
+				Mode          = "portal"
 				Filter        = "#DocumentCode#"
 				LoadScript    = "No"
 				AttachDialog  = "Yes"				

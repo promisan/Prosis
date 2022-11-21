@@ -162,37 +162,58 @@
 								#preservesingleQuotes(lookup)#
 							</cfquery>								
 						
-						<cfelse>	
+						<cfelse>								
 						
-						    <cfparam name="session.listingdata[box]['queryfiltermode']" default="">
-												  						
-						    <cfif session.listingdata[box]['queryfiltermode'] eq "" or filtermode eq "">
-												
-								<cfquery name="checkspeed" datasource="#attributes.datasource#">
-								    SELECT   TOP 1 *
-						   			FROM     (#preservesingleQuotes(filtersql)#) as B	
-									WHERE    #fld# is not NULL 	and #fld# != ''
-									ORDER BY #srt# 																	 
-							    </cfquery>		
-												
-							    <cfif session.acc eq "Administrator">
-									<cfoutput>-check:=#cfquery.executiontime#---</cfoutput>
-								</cfif>
+						    <cfparam name="session.listingdata[box]['queryfiltermode']" default="">									
+							
+								<!--- hanno correction to have @fields converted --->
+							<cfset sc = filtersql>
+							<cfset fileNo = "1">	
+							<cfinclude template="../../../System/Modules/InquiryBuilder/QueryPreparationVars.cfm">
+				            <cfinclude template="../../../System/Modules/InquiryBuilder/QueryValidateReserved.cfm">   
+							<cfset filtersql = sc>		
+																			  						
+						    <cfif session.listingdata[box]['queryfiltermode'] eq "">
 								
-								<cfif cfquery.executiontime lte 750 and session.listingdata[box]['recordsinit'] gt 20000>								
-								    <cfset session.listingdata[box]['queryfiltermode'] = "db">								
-								<cfelse>								
-								    <cfset session.listingdata[box]['queryfiltermode'] = "query">								    
-								</cfif>	
+								     <cftry>											
+																											
+										<cfquery name="checkspeed" datasource="#attributes.datasource#">
+											SELECT   TOP 1 *
+											FROM     (#preservesingleQuotes(filtersql)#) as FilterLookupCheck	
+											WHERE    #fld# is not NULL 	and #fld# != '' 
+										</cfquery>	
+
+										<cfif session.acc eq "Administrator">
+											<cfoutput>-check:=#cfquery.executiontime#---</cfoutput>
+										</cfif>
+
+										<cfif cfquery.executiontime lte 750 and session.listingdata[box]['recordsinit'] gt 20000>				
+											<cfset session.listingdata[box]['queryfiltermode'] = "db">	
+										<cfelseif cfquery.executiontime lte 200>				
+											<cfset session.listingdata[box]['queryfiltermode'] = "db">				
+										<cfelse>								
+											<cfset session.listingdata[box]['queryfiltermode'] = "query">								    
+										</cfif>	
 								
-								<cfset filtermode = "set">
-															
-							</cfif>
-													
+								    <cfcatch>
+									
+									    <cfset session.listingdata[box]['queryfiltermode'] = "query">
+										
+										<cfif session.acc eq "Administrator">
+											<cfoutput>CATCH</cfoutput>
+										</cfif>
+										
+									</cfcatch>	
+									 
+								</cftry> 					    							
+																							
+							</cfif>		
+												
+							<cfset qryfiltermode = session.listingdata[box]['queryfiltermode']>
+											
 													
 						    <!--- Hanno, we need to define what query is quicker the one that takes the base query 
-							   or the one that has the query of query values --->
-						
+							   or the one that has the query of query values --->						
 						
 						    <cfif session.listingdata[box]['queryfiltermode'] eq "query">
 							
@@ -233,10 +254,8 @@
 								<cfcatch>
 								
 									<cfset fld  = current.field>	
-									<cfset srh  = current.field>	
-																																						
-									<cfif current.lookupgroup eq "">		
-																																				
+									<cfset srh  = current.field>																																							
+									<cfif current.lookupgroup eq "">																																				
 									 	<cfquery name="lookupdata" dbtype="query">
 										    SELECT   DISTINCT #srh# AS CODE,#displ# AS DISPLAY, #srt# as SORT      
 								   			FROM     filterselect													
@@ -258,40 +277,41 @@
 								</cftry>
 								
 								<cfif session.acc eq "Administrator">
-									<cfoutput>qry:#cfquery.executiontime#</cfoutput> 
+									<cfoutput>#qryfiltermode#:#cfquery.executiontime#</cfoutput> 
 								</cfif>
 							
-							<cfelse>
-															     									 
+							<cfelse>														     									 
 																									
 								<cftry>		
 																												
-									<cfif current.lookupgroup eq "">	
-																																																																								
+									<cfif current.lookupgroup eq "">																						
 									 	<cfquery name="lookupdata" datasource="#attributes.datasource#">
 										    SELECT   DISTINCT 
 											         #srh# AS CODE, 
 											         #displ# AS DISPLAY, 
 													 #srt# as SORT   
-								   			FROM     (#preservesingleQuotes(filtersql)#) as B			
+								   			FROM     (#preservesingleQuotes(filtersql)#)  as FilterLookupCheck			
 											WHERE    #fld# is not NULL 	and #fld# != ''
 											ORDER BY #srt# 								 
-									    </cfquery>											
-																		
+									    </cfquery>
+										
+										
+										
 										<!---
 										<cfoutput> DISTINCT = faster than group by  #cfquery.executiontime#</cfoutput>		
 										--->												
 																					
 									<cfelse>
 																	
-										<cfquery name="lookupdata" datasource="#attributes.datasource#">
+										<cfquery name="lookupdata" 
+												  datasource="#attributes.datasource#">
 										
 										    SELECT   DISTINCT 
 											         #srh# AS CODE, 
 													 #displ# AS DISPLAY, 
 											         #current.lookupgroup#, 
 													 #srt# as SORT      
-								   			FROM     (#preservesingleQuotes(filtersql)#) as B			
+								   			FROM     (#preservesingleQuotes(filtersql)#)  as FilterLookupCheck			
 											WHERE    #fld# is not NULL and #fld# != '' 	
 											ORDER BY #current.lookupgroup#,#srt#							 
 									    </cfquery>		
@@ -301,13 +321,11 @@
 								<cfcatch>
 								
 									<cfset fld  = current.field>	
-									<cfset srh  = current.field>	
-																																						
-									<cfif current.lookupgroup eq "">		
-																																				
+									<cfset srh  = current.field>																																						
+									<cfif current.lookupgroup eq "">																																				
 									 	<cfquery name="lookupdata" datasource="#attributes.datasource#">
 										    SELECT   DISTINCT #srh# AS CODE,#displ# AS DISPLAY, #srt# as SORT      
-								   			FROM     (#preservesingleQuotes(filtersql)#) as B												
+								   			FROM     (#preservesingleQuotes(filtersql)#)  as FilterLookupCheck							
 											ORDER BY #srt# 								 
 									    </cfquery>		
 									
@@ -315,7 +333,7 @@
 								
 										<cfquery name="lookupdata" datasource="#attributes.datasource#">
 										    SELECT   DISTINCT #srh# AS CODE, #displ# AS DISPLAY #current.lookupgroup#, #srt# as SORT      
-								   			FROM     (#preservesingleQuotes(filtersql)#) as B												
+								   			FROM     (#preservesingleQuotes(filtersql)#)  as FilterLookupCheck								
 											ORDER BY #current.lookupgroup#,#srt#							 
 									    </cfquery>		
 								
@@ -359,7 +377,8 @@
 						    <cfset iclr = "ffffaf">
 						
 							<td style="<cfif cnt neq '1'>;padding-left:10px;</cfif>" class="labelmedium">#Current.LabelFilter#: 
-							<font color="FF0000">*)</font>												
+							<font color="FF0000">*)</font>						
+								
 							</td>
 																					
 							<td style="padding:1px;z-index:#40-row#; position:relative">	

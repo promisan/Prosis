@@ -255,6 +255,7 @@ password="#SESSION.dbpw#">
 							    SELECT *
 								FROM   #SESSION.acc#Document#url.FileNo#
 								WHERE  DocumentNo = '#DocumentNo#'
+								ORDER BY Status DESC
 						    </cfquery>
 							
 							<cfif Person.name neq "">
@@ -275,16 +276,20 @@ password="#SESSION.dbpw#">
 										<cfset cnt = 1>
 																
 											<cfloop query="Person">
-												<cfif c eq "4">
+												<cfif c eq "6">
 												    <cfset c = 0>
 													<tr class="fixlengthlist">
 												</cfif>
 											    <cfif Name eq ""><td width="25%"><font color="gray">[<cf_tl id="no candidates">]</td>
 												
 												<cfelse>
-																																																
-												    <cfif status eq "2s" or status eq "2">
+												
+												     <cfif status eq "2s">
 														<td bgcolor="ffffaf" onclick="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#','0')" class="fixlength" 
+														    style="height:24px;padding-left:12px;padding-right:12px;border-radius:10px;border:1px solid gray">	
+															#cnt#. #Name#		 																																																
+												    <cfelseif status eq "2">
+														<td bgcolor="ffffef" class="fixlength" 
 														    style="height:24px;padding-left:12px;padding-right:12px;border-radius:10px;border:1px solid gray">	
 															#cnt#. #Name#										 												
 													<cfelseif status eq "3">

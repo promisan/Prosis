@@ -103,8 +103,7 @@
 		}
 
 		.clsUnit {
-			font-size: 200%; 
-			
+			font-size: 200%; 			
 			padding-bottom: 0px; 
 			padding-left: 15px; 
 			background-color: #ffffff;
@@ -115,7 +114,7 @@
 		}
 
 		.clsUnitContainer {
-			padding: 10px; 
+			padding: 5px; 
 			padding-top: 0px;
 		}
 
@@ -129,7 +128,7 @@
 			top: 0;
 			z-index:100;
 			background-color: #ffffff;
-			padding:7px;
+			padding:2px;
 		}
 
 		.clsFilterContainer {
@@ -137,8 +136,8 @@
 			top: 0;
 			z-index:100;
 			background-color:#FFFFFF;
-			padding-top:5px;
-			padding-bottom:5px;
+			padding-top:2px;
+			padding-bottom:2px;
 			overflow:auto;
 			height:98%;
 		}
@@ -193,13 +192,13 @@
 		}
 		
 	</style>
-
+	
 	<cf_mobileRow class="clsMainContainer toggleScroll-y">
 		<cf_mobileRow>
-			<cf_MobileCell id="filter" class="clsFilterContainer toggleScroll-y hidden-xs col-sm-5 col-md-4 col-lg-3">
+			<cf_MobileCell id="filter" style="padding-left:7px;padding-right:3px" class="clsFilterContainer toggleScroll-y hidden-xs col-sm-5 col-md-4 col-lg-3">
 				<cfinclude template="StaffingOrganization.cfm">
 			</cf_MobileCell>
-			<cf_MobileCell id="main" class="clsMain col-sm-7 col-md-8 col-lg-9"></cf_MobileCell>			
+			<cf_MobileCell id="main" style="padding-left:4px" class="clsMain col-sm-7 col-md-8 col-lg-9"></cf_MobileCell>			
 		</cf_mobileRow>
 	</cf_mobileRow>
 

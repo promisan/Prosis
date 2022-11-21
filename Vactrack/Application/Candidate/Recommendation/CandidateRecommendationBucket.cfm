@@ -14,11 +14,11 @@ c. function is part of an edition that is enabled
 d. does not exist in the default roster yet --->
 
 
-<table width="99%" align="left">
+<table width="100%" align="left">
 
 <tr class="line">
    	<td class="labellarge" style="font-size:20px;height:35px">
-	<cf_tl id="Roster for future selection">
+	<cf_tl id="Roster this candidate">
 	<!--- we take the default submission source to capture the bucket candidacy --->
 	<cfoutput>
 	<input type="hidden" id="source" name="Source" value="#Parameter.DefaultPHPEntry#">
@@ -163,6 +163,6 @@ d. does not exist in the default roster yet --->
 
 <cfset ajaxonload("doHighlight")>
 
-</cfif>
+
 
 

@@ -31,7 +31,7 @@
 	 AND      PA.AssignmentType  = 'Actual'
 	 ORDER BY Incumbency DESC						
  </cfquery>  
-		
+ 		
 <table align="center" style="height:100%;width:99%" border="0">
 
 	<tr>
@@ -58,7 +58,7 @@
 									value="#lt_text#" 
 									class="button10g" 
 									style="width:190;height:25px" 
-									onclick="javascript:eventadd('#URL.id#','person');">
+									onclick="javascript:eventadd('#URL.id#','person','','','');">
 							</cfoutput>
 							
 						</cfif>
@@ -168,33 +168,9 @@
 					 		 		
 					<cfloop query="EventsAll">
 					
-					<TR class="labelmedium2 navigation_row  fixlengthlist">		   
-										
-						   <td>
-						   		<cfif ActionStatus eq "0" or ActionStatus eq "1">
-								
-							   		<cf_img icon="edit" 
-			   							navigation="Yes" 
-			   							onClick="eventedit('#eventid#','person')">
-										
-								<cfelseif ActionStatus eq "3">
-																
-								    <cfif getAdministrator("#mission#")>
-									
-									<cf_img icon="open" 
-			   							navigation="Yes" 
-			   							onClick="eventedit('#eventid#','person')">
-										
-									<cfelse>
-									
-									<img src="#session.root#/Images/check.gif" 
-									   alt="" width="15" height="20" border="0">
-									</cfif>   
-								<!--- closed --->		
-							    </cfif>
-						   </td>
-						
-						   <td style="padding-top:8px">
+					<TR class="labelmedium2 navigation_row fixlengthlist" style="height:20px">		 
+					
+					        <td style="max-width:20px;padding-top:1px">
 						   
 						   	<cfif EntityClass neq "">
 						   			
@@ -208,13 +184,36 @@
 									
 						   	</cfif>
 												   
+						   </td>  
+										
+						   <td style="max-width:20px">
+						   		<cfif ActionStatus eq "0" or ActionStatus eq "1">
+								
+							   		<cf_img icon="edit" 
+			   							navigation="Yes" 
+			   							onClick="eventedit('#eventid#','person','0')">
+										
+								<cfelseif ActionStatus eq "3">
+																
+								    <cfif getAdministrator("#mission#")>
+									
+									<cf_img icon="open" 
+			   							navigation="Yes" 
+			   							onClick="eventedit('#eventid#','person','0')">
+										
+									<cfelse>
+									
+									<img src="#session.root#/Images/check.gif" 
+									   alt="" width="15" height="20" border="0">
+									</cfif>   
+								<!--- closed --->		
+							    </cfif>
 						   </td>
+						
+						  
 						   
 						   <td>#Mission#</td>
-						   <td>						   
-						   <a href="javascript:ViewPosition('#PositionNo#')">
-						   <cfif SourcePostNumber neq "">#SourcePostNumber#<cfelse>#PositionParentId#</cfif>
-						   </a></td>
+						   <td><a href="javascript:ViewPosition('#PositionNo#')"><cfif SourcePostNumber neq "">#SourcePostNumber#<cfelse>#PositionParentId#</cfif></a></td>
 			               <TD colspan="3">
 			               		<font color="808080">#TriggerDescription#:&nbsp;</font>#EventDescription#
 			               		<cfif ReasonDescription neq "">
@@ -230,7 +229,7 @@
 								<cfinvoke component="Service.Access"  
 							      method="org" 
 								  mission="#Mission#" 
-								 returnvariable="access">
+								  returnvariable="access">
 								 
 								<cfif access eq "ALL"> 
 													
@@ -241,7 +240,7 @@
 											
 								   				<td style="padding-left:5px">
 								   					<cf_img icon="delete" 					   						
-								   						onClick="javascript:eventdelete('#eventid#','person')">
+								   						onClick="javascript:eventdelete('#eventid#','0','person')">
 								   				</td>
 												
 								   			</cfif>
@@ -256,8 +255,9 @@
 					</TR>		
 				
 				    <cfif ActionDateEffective neq "" or ActionDateExpiration neq "" or remarks neq "">			
-						<tr class="labelmedium2 line" style="height:20px"><td colspan="2"></td>
-							<td colspan="3">#remarks#</font></td>					
+						<tr class="labelmedium2 line" style="height:20px">
+						    <td colspan="2"></td>
+							<td colspan="3" style="background-color:f1f1f1;padding-left:7px;font-size:12px">#remarks#</font></td>					
 							<td style="padding-left:4px" valign="top">
 								#dateformat(ActionDateEffective,client.dateformatshow)#	
 							</td>				
@@ -314,13 +314,13 @@
 					<cfelse>
 		
 						<tr id="box_#eventid#" class="hide"> 
-						    <td>
-							<td colspan="9" id="#eventid#"></td>	
+						    <td></td>
+						   	<td colspan="9" id="#eventid#"></td>	
 						</tr>
 		
 					</cfif>
 					
-					<tr style="height:1px"><td colspan="10" class="line"></tr>
+					
 							
 					</cfloop>		
 				

@@ -24,15 +24,15 @@
 		
 	<tr class="labelmedium line fixlengthlist">
 	  <td></td> 
-	  <td><cf_tl id="Timestamp"></td>
-	  <td><cf_tl id="Name"></td>
-	  <td><cf_tl id="Action"></td>
-	  <td><cf_tl id="Memo"></td>	 
+	  <td style="min-width:100px"><cf_tl id="Timestamp"></td>
+	  <td style="width:100%"><cf_tl id="Actor"></td>
+	  <td style="min-width:80px"><cf_tl id="Action"></td>
+	  <td style="min-width:200px"><cf_tl id="Memo"></td>	 
 	</tr>	
 		
 	<cfoutput query="Action">
 		
-		<tr class="labelmedium line navigation_row fixlengthlist" style="height:20px">
+		<tr class="labelmedium <cfif currentrow neq recordcount>line</cfif> navigation_row fixlengthlist" style="height:20px">
 		  <td>#currentRow#.</td> 
 		  <cfif (FileAction eq "Insert" or FileAction eq "update")>
 		  
@@ -42,7 +42,7 @@
 		     <cfset svr = "#att.server#">
 		  </cfif> 		
 		  			  	
-		  <td onclick="showfilelog('#attachmentid#','#serialno#')">
+		  <td onclick="showfilelog('#attachmentid#','#serialno#')">		
 		      <cfif FileExists("#svr#\#att.serverpath#\Logging\#att.attachmentid#\[#serialno#]_#att.fileName#")>	    
 			  <a href="##">#DateFormat(Created,CLIENT.DateFormatShow)# #TimeFormat(Created,"HH:MM")#</a>
 			  <cfelse>
@@ -60,9 +60,7 @@
 		</tr> 
 				
 	</cfoutput>		
-	
-	<tr><td style="height:3px"></td></tr>
-		
+			
 </table>
 
 <cfset ajaxonload("doHighlight")>

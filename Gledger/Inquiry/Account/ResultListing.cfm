@@ -1,6 +1,7 @@
 
 
 
+
 <cfparam name="URL.Mission"    default="">
 <cfparam name="URL.Period"     default="">
 <cfparam name="URL.GLCategory" default="Actuals">
@@ -81,6 +82,8 @@
 	</cfsavecontent>	
 		  
 </cfoutput>
+	
+	
 
 <!--- show person, status processing color and filter on raise by me --->
 
@@ -213,27 +216,28 @@
 <tr><td style="padding:6px">
 										
 	<cf_listing
-    	header        = "lsPurchase"
-    	box           = "lsPurchase"
-		link          = "#SESSION.root#/GLedger/Inquiry/Account/ResultListing.cfm?#cgi.query_string#"		
-    	html          = "No"
-		show	      = "100"
-		datasource    = "AppsLedger"
-		listquery     = "#myquery#"
-		listkey       = "GLAccount"
-		listgroup     = "AccountGroupDescription"	
-		listgrouporder = "AccountGroup"	
-		listorder      = "GLAccount"
-		listorderalias = ""
-		listorderdir   = "ASC"
-		headercolor    = "ffffff"
-		listlayout     = "#fields#"		
-		filterShow     = "Yes"
-		excelShow      = "Yes"
-		drillmode      = "tab"	
-		drillstring    = "mission=#url.mission#&orgunitOwner=#url.orgunit#&period=#url.period#&glcategory=#url.glcategory#"
-		drilltemplate  = "Gledger/Application/Lookup/AccountResult.cfm?account="
-		drillkey       = "GLAccount">
+    	header          = "lsResult"
+    	box             = "lsResult"
+		link            = "#SESSION.root#/GLedger/Inquiry/Account/ResultListing.cfm?#cgi.query_string#"		
+    	html            = "No"
+		show	        = "200"
+		datasource      = "AppsLedger"
+		queryfiltermode = "query"		
+		listquery       = "#myquery#"
+		listkey         = "GLAccount"
+		listgroup       = "AccountGroupDescription"	
+		listgrouporder  = "AccountGroup"	
+		listorder       = "GLAccount"
+		listorderalias  = ""
+		listorderdir    = "ASC"
+		headercolor     = "ffffff"
+		listlayout      = "#fields#"		
+		filterShow      = "Yes"
+		excelShow       = "Yes"
+		drillmode       = "tab"	
+		drillstring     = "mission=#url.mission#&orgunitOwner=#url.orgunit#&period=#url.period#&glcategory=#url.glcategory#"
+		drilltemplate   = "Gledger/Application/Lookup/AccountResult.cfm?account="
+		drillkey        = "GLAccount">
 
 </td></tr></table>
 

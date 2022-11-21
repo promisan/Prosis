@@ -4,6 +4,8 @@
 <cfparam name="url.lan"  default="0">
 <cfparam name="url.fil" default="">
 <cfparam name="url.frc" default="0">
+<cfparam name="url.frc" default="0">
+<cfparam name="url.prm" default="">
 
 <cfif url.op eq "true">
 	<cfparam name="operational" default="1">
@@ -44,6 +46,7 @@
 				   DocumentLanguageCode,
 				   ObjectFilter, 
 				   ForceDocument,
+				   UsageParameter,
 				   ListingOrder, 
 				   Operational)
 			  VALUES
@@ -54,6 +57,7 @@
 				   '#url.lan#',
 				   '#url.fil#',
 				   '#url.frc#',
+				   '#url.prm#',
 				   '#url.lo#',
 				   '#Operational#')		
 		</cfquery>
@@ -71,6 +75,7 @@
 				         Objectfilter         = '#url.fil#', 
 						 DocumentLanguageCode = '#url.lan#',
 						 ForceDocument        = '#force#',
+						 UsageParameter       = '#url.prm#',
 				         Operational          = '#Operational#' 
 				  WHERE  ActionCode           = '#URL.ActionCode#'
 				  AND    EntityCode           = '#URL.EntityCode#'
@@ -108,9 +113,9 @@
 			  username="#SESSION.login#" 
 			  password="#SESSION.dbpw#">
 			  INSERT INTO Ref_EntityActionPublishDocument
-			  (ActionPublishNo, ActionCode,DocumentLanguageCode, DocumentId, ListingOrder, Operational)
+			  (ActionPublishNo, ActionCode,DocumentLanguageCode, DocumentId, UsageParameter, ListingOrder, Operational)
 			  VALUES
-			  ('#URL.PublishNo#','#URL.ActionCode#','#url.lan#','#URL.ID2#','#url.lo#','#Operational#')		
+			  ('#URL.PublishNo#','#URL.ActionCode#','#url.lan#','#URL.ID2#','#url.prm#','#url.lo#','#Operational#')		
 		</cfquery>
 	
 	<cfelse>
@@ -122,14 +127,15 @@
 				  username="#SESSION.login#" 
 				  password="#SESSION.dbpw#">
 				  UPDATE  Ref_EntityActionPublishDocument
-				  SET     ListingOrder = '#url.lo#',
-				          Operational = '#Operational#',
+				  SET     ListingOrder         = '#url.lo#',
+				          Operational          = '#Operational#',
 						  DocumentLanguageCode = '#url.lan#',
-						  ForceDocument = '#force#',
-  						  Objectfilter = '#url.fil#'
-				  WHERE   ActionCode     = '#URL.ActionCode#'
-				  AND     ActionPublishNo = '#URL.PublishNo#'
-			   	  AND     DocumentId  = '#URL.ID2#'
+						  ForceDocument        = '#force#',
+						  UsageParameter       = '#url.prm#',
+  						  Objectfilter         = '#url.fil#'
+				  WHERE   ActionCode           = '#URL.ActionCode#'
+				  AND     ActionPublishNo      = '#URL.PublishNo#'
+			   	  AND     DocumentId           = '#URL.ID2#'
 			</cfquery>
 			
 			<cfcatch>

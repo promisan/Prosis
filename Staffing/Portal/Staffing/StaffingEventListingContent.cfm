@@ -59,25 +59,6 @@ password="#SESSION.dbpw#">
 
 </cfif>	
 
-<!---
-
-<cfquery name="qItems" 
-datasource="AppsEmployee" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">				   
-	SELECT   DocumentId,
-	         DocumentCode,
-			 DocumentDescription,
-			 FieldType,
-			 PortalShow
-	FROM     Organization.dbo.Ref_EntityDocument
-	WHERE    EntityCode='PersonEvent'
-	AND      DocumentType='field'	
-	AND      Operational = 1			   
-</cfquery>
-
---->
-
 <cfsavecontent variable="myquery">
 
 	<cfoutput>	  	
@@ -321,9 +302,7 @@ password="#SESSION.dbpw#">
 						Colspan       = "1",																																				
 						displayfilter = "yes",																																									
 						search        = "text",
-						filtermode    = "3"}>	
-						
-				
+						filtermode    = "3"}>				
 						
 	<cfset itm = itm+1>	
 	<cf_tl id="Level" var = "1">		
@@ -367,24 +346,23 @@ password="#SESSION.dbpw#">
 											
 	<cfset itm = itm+1>
 	<cf_tl id="Effective" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    	                   
-	     				field       = "ActionDateEffective",																																												
-						search      = "date",
+	<cfset fields[itm] = {label       = "#lt_text#",                    	                   
+	     				field         = "ActionDateEffective",																																												
+						search        = "date",
 						display       = "1",	
 						width         = "20",
 						displayfilter = "Yes",		
-						formatted   = "dateformat(ActionDateEffective,client.dateformatshow)"}>	
+						formatted     = "dateformat(ActionDateEffective,client.dateformatshow)"}>	
 						
 	<cfset itm = itm+1>
 	<cf_tl id="Expiry" var = "1">		
-	<cfset fields[itm] = {label     = "#lt_text#",                    	                   
-	     				field       = "ActionDateExpiration",																																												
-						search      = "date",
+	<cfset fields[itm] = {label       = "#lt_text#",                    	                   
+	     				field         = "ActionDateExpiration",																																												
+						search        = "date",
 						display       = "1",	
 						width         = "20",
 						displayfilter = "Yes",		
-						formatted   = "dateformat(ActionDateExpiration,client.dateformatshow)"}>	
-													
+						formatted     = "dateformat(ActionDateExpiration,client.dateformatshow)"}>														
 			
 	<cfset itm = itm+1>	
 	<cf_tl id="Submitter" var = "1">		
@@ -532,16 +510,14 @@ password="#SESSION.dbpw#">
 	    box                 = "myeventlisting_#url.unit#"
 		link                = "#SESSION.root#/Staffing/Portal/Staffing/StaffingEventListingContent.cfm?mission=#url.mission#&systemfunctionid=#url.systemfunctionid#&unit=#url.unit#&selection=#url.selection#"
 	    html                = "No"		
-		tableheight         = "460px"
+		tableheight         = "400px"
 		tablewidth          = "100%"
-		calendar            = "9" 
-		font                = "Calibri"
+		calendar            = "9" 		
 		datasource          = "AppsEmployee"
 		listquery           = "#myquery#"		
 		listorderfield      = "LastName"
 		listorder           = "LastName"
-		listorderdir        = "ASC"		
-		headercolor         = "ffffff"		
+		listorderdir        = "ASC"					
 		menu                = "#menu#"
 		showrows            = "1"
 		filtershow          = "No"

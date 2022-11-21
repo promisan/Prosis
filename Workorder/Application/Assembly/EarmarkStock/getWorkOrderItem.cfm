@@ -110,7 +110,7 @@
 			<select name="itemno"
 				  onchange="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Workorder/Application/Assembly/EarmarkStock/getItem.cfm?mode=details&mission=#url.mission#&workorderid=#url.workorderid#&itemno='+this.value,'itembox')"
 		          visible="Yes"
-				  style="height:30px;font-size:17px;10px;width:390px"
+				  style="height:30px;font-size:17px;10px;width:95%"
 		          enabled="Yes"
 		          id="itemno"
 		          class="regularxl">

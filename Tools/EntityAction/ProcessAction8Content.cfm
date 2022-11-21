@@ -13,7 +13,11 @@
 	</cfif>
 	
 	<cfoutput query="action">	
-			
+	
+	  <cfset processhide = "No">
+	  <cfset showProcess = "1">
+	  <cfset def         = "0">		
+	  			
 	  <cfif ActionReferenceShow eq "1"> 
 				   
 		  <tr><td style="background-color:white" colspan="2" valign="top">		
@@ -97,7 +101,18 @@
 							<span style="font-size:14px"><br>IndexNo ## #Person.IndexNo#</span>
 							</cfif>
 							<cfif Object.ObjectReference2 neq ""><br><span style="font-size:14px">#Object.ObjectReference2#</span></cfif>
-							</td>					
+							</td>	
+							
+							<td id="menutabs">
+							<table width="100%">
+							<tr>		
+								<cfset menumode = "menu">
+								<cfinclude template="ProcessAction8Tabs.cfm">
+								<td width="10%"></td>			
+						    </tr>
+							</table>	
+							
+							</td>				
 							<td align="right" style="background-color:white">
 							
 								<cfif getAdministrator("#Object.Mission#") eq "1">
@@ -125,12 +140,25 @@
 				    <td height="34" width="24%" style="background-color:white;font-size:16px;padding-left:10px">#Object.EntityDescription#:</td>
 					<td style="background-color:white">			
 					
+					
 						<table width="100%">
 							<tr class="labelmedium">
 							<td style="font-size:16px;background-color:white">
 							#Object.EntityClassName# /
 							#Object.ObjectReference# <cfif Object.ObjectReference2 neq "">(#Object.ObjectReference2#)</cfif>
-							</td>					
+							</td>	
+							
+							<td id="menutabs">
+							<table width="100%">
+							<tr>		
+								<cfset menumode = "menu">
+								<cfinclude template="ProcessAction8Tabs.cfm">
+								<td width="10%"></td>			
+						    </tr>
+							</table>	
+							
+							</td>		
+											
 							<td align="right" style="background-color:white">
 							
 								<cfif getAdministrator("#Object.Mission#") eq "1">
@@ -158,16 +186,11 @@
 			   
 		  </table>
 		  </td></tr> 	
-			  
-	   </cfif>	
-	
-	</cfoutput>
-	
-	<cfset processhide = "No">
-	<cfset showProcess = "1">
-	<cfset def         = "0">	
-			
-	<tr class="line">
+		  
+		  
+	  <cfelse>
+	  
+	  <tr class="line">
 	<td valign="top" colspan="2" height="30" id="menutabs">	
 		<table width="100%">
 		<tr>		
@@ -177,7 +200,12 @@
 	    </tr>
 		</table>	
 	</td></tr>
-		
+			  
+	   </cfif>	
+	
+	</cfoutput>
+	
+	
 	<tr><td height="100%" valign="top" style="border:0px solid silver">
 		<table width="100%" height="100%">				
 		<cfset menumode = "content">

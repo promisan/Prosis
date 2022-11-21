@@ -53,7 +53,8 @@
 		 SELECT  O.OrgUnit            as OrgUnitOwner,
 				 O.OrgUnitName        as OrgUnitOwnerName,
 			     O.OrgUnitNameShort   as OrgUnitOwnerNameShort,
-				 S.*
+				 O.OrgUnitName,
+				 D.*
 		 FROM (
 		 
 		           SELECT DISTINCT 			
@@ -96,7 +97,7 @@
 				   WHERE    C.PersonNo = P.PersonNo 				
 				   AND      C.ActionStatus != '9' 
 				   AND      C.DateEffective < #incumdate#
-				  O RDER BY Created DESC) as ContractTime,	
+				   ORDER BY Created DESC) as ContractTime,	
 					
 				  (SELECT TOP 1 PostAdjustmentLevel
 				   FROM PersonContractAdjustment SPA 
@@ -116,7 +117,7 @@
 				    AND  (SPA.DateExpiration is NULL or SPA.DateExpiration >= #incumdate#)
 					ORDER BY Created DESC) as PostAdjustmentStep,					   
 				   
-				   O.OrgUnitName, 
+				    
 				   A.OrgUnit, 
 				   A.PositionNo, 
 				   A.AssignmentNo,
@@ -130,8 +131,7 @@
 				   Po.PositionParentId,
 				   Po.PostAuthorised,
 				   Po.FunctionDescription,
-				   (CASE WHEN Po.MissionOperational != PoMission THEN PP.OrgUnitOperational ELSE PO.OrgUnitOperational END) as OrgUnitOperational
-				   PO.OrgUnitOperational,
+				   (CASE WHEN Po.MissionOperational != Po.Mission THEN PP.OrgUnitOperational ELSE PO.OrgUnitOperational END) as OrgUnitOperational,				   
 				   PP.OrgUnitOperational as ParentOrgUnit,
 				   Po.PostGrade, 
 				   Po.SourcePostNumber, 
@@ -151,8 +151,7 @@
 			WHERE  Po.PositionNo         = A.PositionNo
 			AND    A.PersonNo            = P.PersonNo
 			AND    Po.PositionNo         = '#URL.PositionNo#'
-			AND    Po.PositionParentId   = PP.PositionParentId						
-			AND    PP.OrgUnitOperational = O.OrgUnit
+			AND    Po.PositionParentId   = PP.PositionParentId									
 			AND    R.PostClass           = Po.PostClass
 			AND    A.AssignmentStatus   < '#Parameter.AssignmentShow#'			
 			<cfif URL.Lay neq "Advanced">			
@@ -162,7 +161,7 @@
 			
 			) as D INNER JOIN  Organization.dbo.Organization O ON D.OrgUnitOperational = O.OrgUnit
 					
-			ORDER BY D.DateExpiration DESC 
+			ORDER BY D.DateExpirationAssignment DESC 
 			
 		</cfquery>
 		

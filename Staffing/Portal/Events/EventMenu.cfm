@@ -11,17 +11,19 @@
 		FROM   Ref_PersonEvent RPE 
 		WHERE  Code IN (SELECT EventCode 
 		                FROM   Ref_PersonEventTrigger 
-						WHERE  EventTrigger = '#url.triggercode#')
+						WHERE  EventTrigger = '#url.triggercode#'
+						AND    ActionImpact = 'Action')
 		<cfif URL.mission neq "">
 		AND    Code IN (SELECT PersonEvent 
 			            FROM   Ref_PersonEventMission 
 						WHERE  Mission  = '#URL.mission#')
 		</cfif>		
 		<cfif url.portal eq "1">
-		AND   (EnablePortal = 1)
+		AND    EnablePortal = 1
 		</cfif>
 		ORDER BY ListingOrder	
 </cfquery>	
+
 
 <cfoutput query="qEvents">
 
@@ -37,7 +39,7 @@
 	</cfquery>
 	
 	<cfset vBg = "background:##EFEFEF;">
-	<cfif trim(EventMission.MenuColor) neq "">
+	<cfif trim(EventMission.MenuColor) neq "">	
 		<cfset vBg = "background:###EventMission.MenuColor#;">
 	</cfif>
 	
@@ -47,9 +49,11 @@
 		<cfelse>
 			<i class="fal fa-file-alt" style="font-size:140%; color:##FAFAFA;"></i>
 		</cfif>
-		<div style="font-size:75%; padding-top:10px; color:##FAFAFA;">#Description#</div>
+		<div style="font-size:60%; padding-top:10px; color:##FAFAFA;">#Description#</div>
+		<!---
 		<cfif trim(ActionInstruction) neq "">
 			<div style="font-size:50%; padding-top:5px;">#ActionInstruction#</div>
 		</cfif>
+		--->
 	</div>
 </cfoutput>

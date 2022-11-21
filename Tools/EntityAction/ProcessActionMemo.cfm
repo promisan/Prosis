@@ -65,7 +65,7 @@
 					 <tr id="memoblock">
 					 <td colspan="3"
 					    valign="top"
-					    style="padding-top:8px;padding-left:17px;padding-right:20px;border: solid 0px silver;">
+					    style="padding-top:8px;padding-left:17px;padding-right:20px;border: solid 1px silver;">
 						
 						<!--- removed toolBar="Basic" --->
 					
@@ -95,11 +95,10 @@
 						  <tr><td width="190" style="padding-left:5px" class="labelmedium"><cf_tl id="Memo">:</td></tr>			
 						  		 
 						  <tr><td height="100%" style="padding-left:15px;padding-right:16px">	
-						  
 						  								
 						  <textarea name   = "ActionMemo"
 						            class  = "regular"							
-						            style  = "border-radius:4px;font-size:13px;height:50; width:100%; padding:7px;border:1px solid d4d4d4;background: fafafa">#Doc.ActionMemo#</textarea>
+						            style  = "border-radius:4px;font-size:13px;height:60; width:100%; padding:7px;border:1px solid d4d4d4;background: fafafa">#Doc.ActionMemo#</textarea>
 						  </td></tr>		
 						  			 				
 						  <tr><td height="3"></td></tr>

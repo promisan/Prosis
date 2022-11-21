@@ -57,12 +57,12 @@ password="#SESSION.dbpw#">
 	password="#SESSION.dbpw#">
 	SELECT M.*, S.Description
 	<cfif lcase(url.module) eq 'selfservice' or (lcase(url.module) eq 'portal' and lcase(url.functionClass) eq 'portal') or lcase(url.module) eq 'pmobile'>
-	FROM  #client.LanPrefix#Ref_ModuleControl M, 
+	FROM  #client.LanPrefix#Ref_ModuleControl M 
 	<cfelse>
-	FROM  xl#client.languageId#_Ref_ModuleControl M, 
+	FROM  xl#client.languageId#_Ref_ModuleControl M 
 	</cfif>
-	      Ref_SystemModule S
-	WHERE M.SystemModule = S.SystemModule
+	INNER JOIN Ref_SystemModule S ON M.SystemModule = S.SystemModule
+	WHERE 1=1
 	<cfif lcase(url.module) neq 'selfservice' and (lcase(url.module) neq 'portal' and lcase(url.functionClass) neq 'portal') and lcase(url.module) neq 'pmobile'>
 	AND   M.Mission = '' <!--- generic --->
 	</cfif>
@@ -89,12 +89,12 @@ password="#SESSION.dbpw#">
 	password="#SESSION.dbpw#">
 	SELECT M.*, S.Description
 	<cfif lcase(url.module) eq 'selfservice' or (lcase(url.module) eq 'portal' and lcase(url.functionClass) eq 'portal') or lcase(url.module) eq 'pmobile'>
-	FROM  #client.LanPrefix#Ref_ModuleControl M, 
+	FROM  #client.LanPrefix#Ref_ModuleControl M 
 	<cfelse>
-	FROM  xl#client.languageId#_Ref_ModuleControl M, 
+	FROM  xl#client.languageId#_Ref_ModuleControl M 
 	</cfif>
-	      Ref_SystemModule S
-	WHERE M.SystemModule = S.SystemModule
+	INNER JOIN Ref_SystemModule S ON M.SystemModule = S.SystemModule
+	WHERE 1=1
 	<cfif lcase(url.module) neq 'selfservice' and (lcase(url.module) neq 'portal' and lcase(url.functionClass) neq 'portal') and lcase(url.module) neq 'pmobile'>
 	AND   M.Mission = '' <!--- generic --->
 	</cfif>
@@ -110,6 +110,7 @@ password="#SESSION.dbpw#">
 	<cfelse>
 	ORDER BY M.MenuClass,M.MenuOrder, M.SystemFunctionId 
 	</cfif>
+	
 	</cfquery>
 
 </cfif>
@@ -296,7 +297,7 @@ password="#SESSION.dbpw#">
 								
 									<tr>								
 										<td style="padding-left:14px;padding-right:4px;font-size:10px">						
-										#Dateformat(Created, "DD/MM/YY")# :
+										#Dateformat(Created, "dd/mm/yy")# :
 										<cfif menuclass eq "Builder">					
 											#OfficerLastname#						
 										<cfelse>				

@@ -2,40 +2,40 @@
 <!--- manual      --->
 
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Manuals"
-   FunctionName = "Payroll Manual"    
-   MenuOrder = "1"
-   MainMenuItem = "1"   
-   FunctionMemo = "Payroll manual"
+   SystemModule    = "Payroll" 
+   FunctionClass   = "Manuals"
+   FunctionName    = "Payroll Manual"    
+   MenuOrder       = "1"
+   MainMenuItem    = "1"   
+   FunctionMemo    = "Payroll manual"
    FunctionDirectory = "Manual/Payroll"
-   FunctionPath = "Payroll.pdf"
+   FunctionPath    = "Payroll.pdf"
    AccessUserGroup = "0">    
    
 <!--- application --->
    
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Application"
-   FunctionName = "Payroll Calculation and Review" 
-   MenuClass = "Mission"
-   MenuOrder = "1"
-   MainMenuItem = "1"   
-   FunctionMemo = "Process Payroll"
+   SystemModule    = "Payroll" 
+   FunctionClass   = "Application"
+   FunctionName    = "Payroll Calculation and Review" 
+   MenuClass       = "Mission"
+   MenuOrder       = "1"
+   MainMenuItem    = "1"   
+   FunctionMemo    = "Process Payroll"
    FunctionDirectory = "Payroll/Application"
-   FunctionPath = "ProcessSchedule/ProcessList.cfm"
+   FunctionPath    = "ProcessSchedule/ProcessList.cfm"
    AccessUserGroup = "0">
      
 <cf_ModuleInsertSubmit
-   SystemModule="Payroll" 
-   FunctionClass = "Application"
-   FunctionName = "Review Staff Contracts" 
-   MenuClass = "Mission"
-   MenuOrder = "2"
-   MainMenuItem = "1"   
-   FunctionMemo = "Contract and contract expiration"
+   SystemModule    = "Payroll" 
+   FunctionClass   = "Application"
+   FunctionName    = "Review Staff Contracts" 
+   MenuClass       = "Mission"
+   MenuOrder       = "2"
+   MainMenuItem    = "1"   
+   FunctionMemo    = "Contract and contract expiration"
    FunctionDirectory = "Payroll/Application"
-   FunctionPath = "Contracts/ContractSchedule.cfm"
+   FunctionPath    = "Contracts/ContractSchedule.cfm"
    AccessUserGroup = "0">  
    
 <cf_ModuleInsertSubmit

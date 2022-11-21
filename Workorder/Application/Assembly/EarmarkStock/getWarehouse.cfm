@@ -27,7 +27,7 @@
 	<cfoutput>
 	
 		<select name="warehouse" id="warehouse"
-		    class="regularxxl" style="font-size:20px;height:30px;width:100%"		
+		    class="regularxxl" style="font-size:20px;height:36px;width:100%"		
 			onchange="ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/getStockLevel.cfm?mission=#url.mission#&workorderidselect=#url.workorderid#&warehouse='+this.value+'&itemno='+document.getElementById('itemno').value+'&uom='+document.getElementById('uom').value+'&workorderid='+document.getElementById('workorderid').value+'&workorderline='+document.getElementById('workorderline').value,'stockbox');ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/setWarehouseTo.cfm?itemno='+document.getElementById('itemno').value+'&mission=#url.mission#&warehouse='+this.value,'boxtransferto')">
 			<cfloop query="Warehouse">
 				<option value="#Warehouse#">#WarehouseName#</option>

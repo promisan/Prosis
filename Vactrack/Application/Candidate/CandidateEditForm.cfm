@@ -53,6 +53,7 @@
 			        	<button name="RevokeTrack"
 					        id="RevokeTrack"
 					        value="Reset Candidate track"
+							title="Undo boarding track and REVERT candidate to initate onboarding of the recruitment document"
 					        type="button"
 							class="button10g" style="width:40px"				       
 					        onClick="revoke()">	

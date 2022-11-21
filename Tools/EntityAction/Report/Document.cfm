@@ -21,15 +21,15 @@ password="#SESSION.dbpw#">
              OrganizationObjectActionReport C ON R.DocumentId = C.DocumentId AND C.ActionId = '#URL.Id#'   
     WHERE    R.DocumentId IN (SELECT DocumentId 
 	                        FROM   Ref_EntityActionPublishDocument 
-							WHERE  ActionPublishNo = '#Action.ActionPublishNo#' 
-							AND    ActionCode      = '#Action.actioncode#' 
+							WHERE  ActionPublishNo = '#Object.ActionPublishNo#' 
+							AND    ActionCode      = '#Object.actioncode#' 
 							AND    Operational     = 1)
 	AND      R.DocumentType  = 'Report'	
 	AND      R.DocumentId IN (
 					SELECT  D.DocumentId
 				    FROM    Ref_EntityDocument D, 
 				            Ref_EntityActionDocument R		
-				    WHERE   R.ActionCode   = '#Action.ActionCode#'
+				    WHERE   R.ActionCode   = '#Object.ActionCode#'
 				    AND     R.DocumentId   = D.DocumentId 
 				    AND     D.DocumentType = 'report' 
 				    AND     (D.DocumentStringList = '' or D.DocumentStringList = '#Object.ObjectFilter#')				   

@@ -51,18 +51,18 @@
 	
 	     <table cellspacing="0" cellpadding="0" width="94%" align="center">
 		 
-		 	<tr class="line">
-				<td style="height:35px;padding-left:16px" class="labellarge" colspan="2">
+		 	<tr class="line fixlengthlist">
+				<td style="height:35px;padding-left:16px;font-size:18px" class="labellarge" colspan="2">
 				<cfif workorder.orgunit gt "0">
 				<a href="javascript:viewOrgUnit('#workorder.OrgUnit#')">#workorder.customername#</a>
 				<cfelse>
 				#workorder.customername#
 				</cfif>
 				</td>
-			    <td width="20%" class="labelmedium"><cf_tl id="WorkOrder No">:</td>
-			    <td style="padding-left:5px" class="labelmedium"><b>#workorder.Reference#</td>
-			    <td width="20%" style="padding-left:10px" height="26px" class="labelmedium"><cf_tl id="Order date">:</td>
-				<td style="padding-left:5px" class="labelmedium"><b>#dateformat(workorder.orderdate,client.dateformatshow)#</td>				  
+			    <td class="labelmedium"><cf_tl id="WorkOrder No">:</td>
+			    <td style="padding-left:5px;font-size:18px" class="labelmedium"><b>#workorder.Reference#</td>
+			    <td style="padding-left:10px" height="26px" class="labelmedium"><cf_tl id="Order date">:</td>
+				<td style="padding-left:5px;font-size:18px" class="labelmedium"><b>#dateformat(workorder.orderdate,client.dateformatshow)#</td>				  
 			</tr>	
 							
 			<tr>
@@ -82,9 +82,9 @@
 				
 			</tr>	
 			
-			<tr>
+			<tr class="fixlengthlist">
 			
-				<td style="height:45px;padding-left:15px" class="labelmedium"><cf_tl id="Ship from">:<cf_space spaces="30"></td>
+				<td style="height:45px;padding-left:15px" class="labelmedium"><cf_tl id="Ship from">:</td>
 		    	<td style="padding-left:16px" colspan="1">
 						
 				<cfquery name="warehouse" 
@@ -164,7 +164,7 @@
 				
 				  <td colspan="3" style="padding-left:10px;width:100px" height="32" class="labelmedium"><cf_tl id="Reference">:</td>
 					<td style="padding-left:3px">			
-					<input type="text" name="BatchReference" size="15" maxlength="20" class="regularxl">			
+					<input type="text" name="BatchReference" size="15" maxlength="20" class="regularxxl">			
 					</td>	
 					</tr>
 				

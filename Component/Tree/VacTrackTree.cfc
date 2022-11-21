@@ -137,7 +137,7 @@
 						<cfset s.parent    =  "tree">
 						<cfset s.leafnode=true/>
 						<cfset s.expand    =  "false">
-						<cfset s.display   = "<span style='height:5px'></span>">
+						<cfset s.display   = "<span style='height:1px'></span>">
 						<cfset arrayAppend(result,s)/>						
 
 						<cfset s = StructNew()>
@@ -155,6 +155,7 @@
 
 				<cfelseif find("_status",vmid) eq 0 and
 						find("_schedule",vmid) eq 0 and
+						find("_events",vmid) eq 0 and
 						find("_stage",vmid) eq 0 and
 						find("_org",vmid) eq 0 and
 						find("_parent",vmid) eq 0 and
@@ -181,11 +182,23 @@
 						<cfset s.value    = "#vmid#_schedule">
 						<cfset s.parent   = "root">
 						<cfset s.display  = "<span class='labelit' style='font-size:15px'>#vSchedule#</span>">
-						<cfset s.href     =  "../Schedule/ScheduleCalendar.cfm?ID=SCH&Mission=#vmid#&systemfunctionid=#systemfunctionid#">
+						<cfset s.href     =  "../Schedule/ScheduleCalendar.cfm?ID=REC&Mission=#vmid#&systemfunctionid=#systemfunctionid#">
 						<cfset s.target   = "right">
 						<cfset s.expand   = "true"/>
 						<cfset s.leafnode = false/>
 						<cfset arrayAppend(result,s)/>		
+						
+						<cf_tl id="Track Candidates" var="vCan">		
+		
+						<cfset s = StructNew()>
+						<cfset s.value     = "#vmid#_can">
+						<cfset s.parent    = "root">
+						<cfset s.href      = "ControlListingCandidate.cfm?ID=MIS&Mission=#vmid#&status=0&OrgUnitName=&HierarchyCode=&systemfunctionid=#systemfunctionid#">					
+						<cfset s.target    = "right">
+						<cfset s.display   = "<span class='labelit' style='font-size:15px'>#vCan#</span>">
+						<cfset s.expand    = "true"/>
+						<cfset s.leafnode  = false/>
+						<cfset arrayAppend(result,s)/>
 						
 						<cf_tl id="Post and Track" var="vPos">		
 		
@@ -199,17 +212,19 @@
 						<cfset s.leafnode = false/>
 						<cfset arrayAppend(result,s)/>
 						
-						<cf_tl id="Track Candidates" var="vCan">		
-		
+						<cf_tl id="Staff events" var="vEvents">
+						
 						<cfset s = StructNew()>
-						<cfset s.value     = "#vmid#_can">
-						<cfset s.parent    = "root">
-						<cfset s.href      = "ControlListingCandidate.cfm?ID=MIS&Mission=#vmid#&status=0&OrgUnitName=&HierarchyCode=&systemfunctionid=#systemfunctionid#">					
-						<cfset s.target    = "right">
-						<cfset s.display   = "<span class='labelit' style='font-size:15px'>#vCan#</span>">
-						<cfset s.expand    = "true"/>
-						<cfset s.leafnode  = false/>
-						<cfset arrayAppend(result,s)/>
+						<cfset s.value    = "#vmid#_events">
+						<cfset s.parent   = "root">
+						<cfset s.display  = "<span class='labelit' style='font-size:15px'>#vEvents#</span>">
+						<cfset s.href     =  "../Schedule/ScheduleCalendar.cfm?ID=EVT&Mission=#vmid#&systemfunctionid=#systemfunctionid#">
+						<cfset s.target   = "right">
+						<cfset s.expand   = "true"/>
+						<cfset s.leafnode = false/>
+						<cfset arrayAppend(result,s)/>		
+						
+						
 					
 					</cfoutput>
 
@@ -241,6 +256,7 @@
 										) as Total
 								FROM    Ref_Status R
 								WHERE   Class = 'Document'
+								AND     Status != '9'
 								ORDER BY R.Status
 						</cfquery>
 		
@@ -458,7 +474,7 @@
 						<cfset s.value    = "#mis#_parent,#OrgUnitCode#,#HierarchyRootUnit#">
 						<cfset s.parent   = "#mis#_schedule">
 						<cfset s.display  = "#desc1# [#qDocument.Total#]">
-						<cfset s.href     = "../Schedule/ScheduleCalendar.cfm?ID=SCH&Mission=#mis#&systemfunctionid=#systemfunctionid#&OrgUnitName=#OrgUnitName#&HierarchyCode=#HierarchyCode#">
+						<cfset s.href     = "../Schedule/ScheduleCalendar.cfm?ID=REC&Mission=#mis#&systemfunctionid=#systemfunctionid#&OrgUnitName=#OrgUnitName#&HierarchyCode=#HierarchyCode#">
 						<cfset s.target   = "right">
 						<cfset s.expand   = "false"/>
 						<cfset arrayAppend(result,s)/>
@@ -538,13 +554,94 @@
 							<cfset s = StructNew()>
 							<cfset s.value    = "#mis#_parent,#OrgUnitCode#,#HierarchyRootUnit#">
 							<cfset s.parent   = "#mis#_pos">
-							<cfset s.display  = "#desc1# [#qDocument.Total#]">
+							<cfset s.display  = "#desc1# [#qDocument.Total#]">							
 							<cfset s.href     = "ControlListingTrack.cfm?ID=MIS&Mission=#Mis#&HierarchyRootUnit=#HierarchyRootUnit#&OrgUnitName=#OrgUnitName#&HierarchyCode=#HierarchyCode#&systemfunctionid=#systemfunctionid#">
 							<cfset s.target   = "right">
 							<cfset s.expand   = "false"/>
 							<cfset arrayAppend(result,s)/>
 		
 						</cfloop>
+						
+				<cfelseif find("_events",vmid) neq 0>
+
+						<cfset mis = replace(vmid,"_events","")>
+						
+						<cfquery name="Mission"
+							datasource="AppsOrganization"
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT *
+							FROM   Ref_Mission
+							WHERE  Mission = '#mis#'
+						</cfquery>
+		
+						<cfquery name="Mandate"
+							datasource="AppsOrganization"
+							maxrows=1
+							username="#SESSION.login#"
+							password="#SESSION.dbpw#">
+							SELECT    *
+							FROM     Ref_Mandate
+							WHERE    Mission = '#mis#'
+							ORDER BY MandateDefault DESC, MandateNo DESC
+						</cfquery>
+		
+						<cfquery name="Level01"
+								datasource="AppsOrganization"
+								username="#SESSION.login#"
+								password="#SESSION.dbpw#">
+								SELECT *
+								FROM   Organization O
+								WHERE (O.ParentOrgUnit is NULL OR O.ParentOrgUnit = '')
+								AND   O.Mission = '#mis#'
+								<!---
+								AND   EXISTS (SELECT 'X'
+											  FROM Vacancy.dbo.Document D 
+												   INNER JOIN Vacancy.dbo.DocumentPost DP ON D.DocumentNo = DP.DocumentNo 
+												   INNER JOIN Employee.dbo.Position P ON DP.PositionNo = P.PositionNo
+												   INNER JOIN Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+												   INNER JOIN Userquery.dbo.#SESSION.acc#Doc3_#CLIENT.FileNo# T  ON T.ObjectKeyValue1 = D.DocumentNo
+											  WHERE D.Mission ='#mis#'
+											  AND   O.HierarchyRootUnit = O2.HierarchyRootUnit
+											  AND   D.Status != '9' )
+											  
+											  --->
+											  
+								AND   O.MandateNo = '#Mandate.MandateNo#'
+								ORDER BY TreeOrder, OrgUnitName
+						</cfquery>
+										
+						<cfloop query="level01">                  							
+		
+						    <cfquery datasource="AppsVacancy" name="qDocument">
+								SELECT COUNT(DISTINCT D.DocumentNo) as Total
+								FROM   Document D 
+									   INNER JOIN DocumentPost DP                  ON D.DocumentNo = DP.DocumentNo 
+									   INNER JOIN Employee.dbo.Position P          ON DP.PositionNo = P.PositionNo
+									   INNER JOIN Organization.dbo.Organization O2 ON O2.OrgUnit = P.OrgUnitOperational
+									   INNER JOIN userQuery.dbo.#session.acc#_#Mission.MissionPrefix#_VacancyTrack as T ON D.DocumentNo = T.ObjectKeyValue1
+								WHERE  O2.HierarchyCode like '#HierarchyCode#%'
+								AND    D.Mission        = '#mis#'
+								AND    O2.MandateNo     = '#Mandate.MandateNo#'
+								AND    D.Status = '0'
+							</cfquery>
+							
+							<cfif OrgUnitNameShort eq "">
+								<cfset desc1 = OrgUnitName>
+							<cfelse>
+								<cfset desc1 = OrgUnitNameShort>
+							</cfif>
+		
+							<cfset s = StructNew()>
+							<cfset s.value    = "#mis#_parent,#OrgUnitCode#,#HierarchyRootUnit#">
+							<cfset s.parent   = "#mis#_pos">
+							<cfset s.display  = "#desc1# [#qDocument.Total#]">
+							<cfset s.href     = "../Schedule/ScheduleCalendar.cfm?ID=EVT&Mission=#mis#&systemfunctionid=#systemfunctionid#&OrgUnitName=#OrgUnitName#&HierarchyCode=#HierarchyCode#">
+							<cfset s.target   = "right">
+							<cfset s.expand   = "false"/>
+							<cfset arrayAppend(result,s)/>
+		
+						</cfloop>		
 				
 				<cfelseif find("_pos",vmid) neq 0>
 

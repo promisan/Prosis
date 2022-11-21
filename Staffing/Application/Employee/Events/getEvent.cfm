@@ -1,6 +1,8 @@
 
 <cfparam name="URL.triggercode"  default="">
 <cfparam name="URL.eventid"      default="">
+
+<cfparam name="URL.scope"        default="">
 <cfparam name="URL.mission"      default="">
 <cfparam name="URL.portal"       default="0">
 <cfparam name="URL.personNo"     default="0">
@@ -90,7 +92,8 @@
 		<cfif url.portal eq "1">
 		AND   (EnablePortal = 1 or Code = '#qEvent.EventCode#')
 		</cfif>
-		ORDER BY ListingOrder		
+		ORDER BY ListingOrder	
+		
 </cfquery>
 
 <cfif qEvents.recordcount eq "0">
@@ -104,7 +107,12 @@
 			FROM   Ref_PersonEvent RPE 
 			WHERE  Code IN (SELECT EventCode 
 			                FROM   Ref_PersonEventTrigger 
-							WHERE  EventTrigger = '#url.triggercode#')
+							WHERE  EventTrigger = '#url.triggercode#'
+							<cfif url.scope eq "inquiry">
+                			AND   ActionImpact = 'Inquiry' <!--- we show only events that are to be used for inquiry --->
+							<cfelse>
+							AND   ActionImpact = 'Action'
+                 			</cfif>)
 			<cfif URL.mission neq "">
 			AND    Code IN (SELECT PersonEvent 
 				            FROM   Ref_PersonEventMission 
@@ -113,6 +121,7 @@
 			<cfif url.portal eq "1">
 			AND   (EnablePortal = 1 or Code = '#qEvent.EventCode#')
 			</cfif>
+			
 			ORDER BY ListingOrder		
 	</cfquery>
 

@@ -697,7 +697,7 @@ password="#SESSION.dbpw#">
 		password="#SESSION.dbpw#">
 			UPDATE  Vacancy.dbo.DocumentCandidate
 			SET     PositionNo = '#Form.PositionNo#'
-			WHERE   DocumentNo = '#URL.RecordId#',						
+			WHERE   DocumentNo = '#URL.RecordId#'						
 			AND     PersonNo   = '#URL.ApplicantNo#'
 	 </cfquery>
 	

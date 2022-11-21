@@ -47,7 +47,6 @@
 		AND    EventTrigger = '#URL.triggercode#'
 </cfquery>		
 	
-
 <cfquery name="qReasons" 
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
@@ -72,8 +71,9 @@
 	document.getElementById('actiondatelabeleffective').innerHTML = '#event.ActionPeriodLabel#'
 	document.getElementById('actiondatelabelexpiration').innerHTML = '#event.ActionPeriodLabel#'
 	
+	
 	<!--- show/hide expiration --->
-	<cfif Event.ActionPeriod eq "1">
+	<cfif Event.ActionPeriod eq "1">	        
 	   		document.getElementById("expirybox").className = "labelmedium"   
 	<cfelse>
 			document.getElementById("expirybox").className = "hide" 	
@@ -104,6 +104,11 @@
 		WHERE  PersonEvent    = '#url.eventcode#'
 		AND    Mission = '#url.mission#'			
 </cfquery>
+
+
+<script>
+  ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?triggercode=#url.triggercode#&eventcode=#url.eventcode#&eventid=#url.eventid#&preason=','dCondition');
+</script>
 
 <cfif getInstruction.Instruction neq "">
 

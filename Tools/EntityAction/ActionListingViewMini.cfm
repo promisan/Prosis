@@ -1,5 +1,6 @@
 <cfoutput>
 
+
 		<cfset vTextStyle       = "color:##FAFAFA; font-size:14px;">   		
 	
 		<cfif Actions.ActionFlowOrder lte CheckNext.ActionFlowOrder or CheckNext.ActionFlowOrder eq "">

@@ -129,18 +129,17 @@
 	
 <cfif user.recordcount gt "0">
 	
-    <table width="99%" align="center" border="0" cellspacing="0" cellpadding="0">	
+    <table width="99%" align="center" class="navigation_table" style="background-color:ffffaf">	
 					   
 	   <cfoutput query="User">
-	   
-			<tr><td colspan="7" class="linedotted"></td></tr>
-			<tr>
-			   	  <td class="labelsmall"><font color="808080">#currentrow#.</td>
-			      <td class="labelit"><font color="808080">#Account#</td>
-				  <td class="labelit"><font color="808080">#FirstName# #LastName#</td>	 
-				  <td class="labelit"><font color="808080">#DistributionEMail#</td>			 
+	   			
+			<tr class="labelmedium2 <cfif currentrow lt recordcount>line</cfif> navigation_row">
+			   	  <td>#currentrow#.</td>
+			      <td>#Account#</td>
+				  <td>#FirstName# #LastName#</td>	 
+				  <td>#DistributionEMail#</td>			 
 				  <td>				    
-				      <cf_img icon="delete" onclick="ptoken.navigate('#SESSION.root#/Tools/CFReport/HTML/FormHTMLSubscriptionUser.cfm?reportid=#url.reportid#&action=delete&Account=#Account#','box#url.reportid#')">					 
+				      <cf_img icon="delete" onclick="_cf_loadingtexthtml='';ptoken.navigate('#SESSION.root#/Tools/CFReport/HTML/FormHTMLSubscriptionUser.cfm?reportid=#url.reportid#&action=delete&Account=#Account#','box#url.reportid#')">					 
 				  </td>
 			</tr>      
 	       
@@ -152,4 +151,6 @@
 
 	<cf_compression>   
    
-</cfif>      
+</cfif>    
+
+<cfset ajaxOnLoad("doHighlight")>  

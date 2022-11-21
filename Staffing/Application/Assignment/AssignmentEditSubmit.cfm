@@ -66,8 +66,7 @@
 	
 	---> 
 				
-	<cfif LastAction.recordcount gte "1">
-	
+	<cfif LastAction.recordcount gte "1">	
 			
 		<cf_PAAssignmentAction 
 		      Action="Revert" 
@@ -559,12 +558,12 @@
 				     password="#SESSION.dbpw#">
 					 SELECT *
 					 FROM   PersonAssignment
-					 WHERE  AssignmentNo = '#Form.AssignmentNo#'
+					 WHERE  AssignmentNo = '#Form.AssignmentNo#'					
 					 </cfquery>
 					 
 					 <!-- the start date is the same we take the same source as it was --->
 					 
-					 <cfif getPrior.dateEffective eq str>
+					 <cfif getPrior.dateEffective lte str and getPrior.dateExpiration gte str>
 					 
 						 <cfset source = getPrior.source>
 						 <cfset srceid = getPrior.sourceId>
@@ -736,7 +735,30 @@
 				    	 WHERE  AssignmentNo = '#Form.AssignmentNo#' 
 				    </cfquery>	
 					
+					 <cfquery name="getPrior" 
+				     datasource="AppsEmployee" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">
+						 SELECT *
+						 FROM   PersonAssignment
+						 WHERE  AssignmentNo = '#Form.AssignmentNo#'
+					 </cfquery>
+					
 					<!--- create record for period until current date --->
+					
+					 <cfif getPrior.dateEffective lte str and getPrior.dateExpiration gte str>
+					 
+						 <cfset source = getPrior.source>
+						 <cfset srceid = getPrior.sourceId>
+						 <cfset srcper = getPrior.sourcePersonNo>
+					
+					 <cfelse>	 
+					 
+						 <cfset source = "Manual">
+						 <cfset srceid = "#Form.AssignmentNo#">
+						 <cfset srcper = "">
+					 
+					 </cfif>
 							
 					<cfquery name="InsertAssignment1" 
 				     datasource="AppsEmployee" 
@@ -757,7 +779,9 @@
 							 AssignmentType,
 							 Incumbency,
 							 Remarks,
+							 Source,
 							 SourceId,
+							 SourcePersonNo,
 							 OfficerUserId,
 							 OfficerLastName,
 							 OfficerFirstName)
@@ -775,7 +799,9 @@
 								 AssignmentType, 
 								 Incumbency, 
 								 Remarks, 
-								 '#Form.AssignmentNo#',
+								 '#source#',
+							     '#srceid#',
+							     '#srcper#',		
 							     '#SESSION.acc#', 
 								 '#SESSION.last#', 
 								 '#SESSION.first#'
@@ -816,7 +842,9 @@
 								 AssignmentType,
 								 Incumbency,
 								 Remarks,
-								 SourceId,
+								 Source,
+							     SourceId,
+							     SourcePersonNo,
 								 OfficerUserId,
 								 OfficerLastName,
 								 OfficerFirstName)
@@ -834,7 +862,9 @@
 									 AssignmentType, 
 									 '0', 
 									 'Lien assignment', 
-									 '#Form.AssignmentNo#',
+									 '#source#',
+							         '#srceid#',
+							          '#srcper#',		
 								     '#SESSION.acc#', 
 									 '#SESSION.last#', 
 									 '#SESSION.first#'
@@ -869,7 +899,9 @@
 							 AssignmentType,
 							 Incumbency,
 							 Remarks,
+							 Source,
 							 SourceId,
+							 SourcePersonNo,							
 						     OfficerUserId,
 							 OfficerLastName,
 							 OfficerFirstName)
@@ -891,7 +923,10 @@
 							  '#Form.AssignmentType#',
 							  '#Form.Incumbency#',
 							  '#Form.Remarks#',
-							  '#Form.AssignmentNo#',
+							  '#source#',
+							  '#srceid#',
+							  '#srcper#',	
+							  
 							  '#SESSION.acc#',
 							  '#SESSION.last#',
 							  '#SESSION.first#')

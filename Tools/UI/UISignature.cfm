@@ -8,8 +8,10 @@
 
     <cfif Attributes.Value eq "">
         <cfset vShow = "display:block;">
+        <cfset vShowValue = "display:none;">
     <cfelse>
         <cfset vShow = "display:none;">
+        <cfset vShowValue = "display:block;">
     </cfif>
     <div id="surface-container#Attributes.Mode#">
     <input type="hidden" name="SignatureValue" id="SignatureValue" value="#Attributes.Value#">
@@ -17,7 +19,7 @@
     <cfif Attributes.Mode eq "Desktop">
             
 			<div id="surface#Attributes.Mode#" style="#vShow#width: #Attributes.Width#px; height: #Attributes.Height#px;#Attributes.style#"></div>
-            <div id="image#Attributes.Mode#" style="width: #Attributes.Width#px; height: #Attributes.Height#px;#Attributes.style#">
+            <div id="image#Attributes.Mode#" style="#vShowValue#width: #Attributes.Width#px; height: #Attributes.Height#px;#Attributes.style#">
 			
                 <cfif Attributes.Value neq "">
                     <img src="#Attributes.Value#" style="width: #Attributes.Width#px; height: #Attributes.Height#px;">
@@ -29,7 +31,7 @@
             <div id="surface#Attributes.Mode#" style="#vShow#max-width:100%; height: #Attributes.Height#px;#Attributes.style#">
             </div>
 
-            <div id="image#Attributes.Mode#" style="width: #Attributes.Width#px; height: #Attributes.Height#px;#Attributes.style#">
+            <div id="image#Attributes.Mode#" style="#vShowValue#width: #Attributes.Width#px; height: #Attributes.Height#px;#Attributes.style#">
                 <cfif Attributes.Value neq "">
                     <img src="#Attributes.Value#" style="width: #Attributes.Width#px; height: #Attributes.Height#px;">
                 </cfif>

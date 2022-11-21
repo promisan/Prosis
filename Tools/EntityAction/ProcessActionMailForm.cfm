@@ -1,6 +1,7 @@
 
 <cfoutput>
 
+<cfset myattach = Object.PersonMailObjectAttach>
 
 <cfparam name="sendto"    default="">		
 
@@ -249,14 +250,14 @@
 </cfif>    				   			   
     
    <tr class="line">
-    <td colspan="2"id="mailblock2" style="font-weight:200;font-size:22px;height:46px;padding-top:10px;padding-left:10px" class="labelmedium">	
+    <td colspan="2"id="mailblock2" style="font-size:22px;height:46px;padding-top:10px;padding-left:10px" class="labelmedium">	
 	<cf_tl id="Mail to be sent upon submission">:
 	</td>
    </tr>
 	
-   <tr class="line">				
+   <tr>				
 	
-	<td colspan="2" id="mailblock1" style="padding-bottom:5px;padding-top:5px">
+	<td colspan="2" id="mailblock1" style="padding-bottom:3px;padding-top:3px">
 	
 		<cfparam name="mailfrom" default="">
 	   <input type="hidden" name="ActionMailFrom" value="#mailfrom#">
@@ -407,13 +408,14 @@
 		FROM   Ref_Entity
 		WHERE  EntityCode = '#Object.EntityCode#'		
 	</cfquery>
-	  
+	
+		  
 	  <cfparam name="rw" default="0">
-	  
+	  	  
 	  <!--- option to attach object related attachment has been turned on --->
-	  
-	  <cfif Action.PersonMailObjectAttach eq "1" and Entity.DocumentPathName neq "">
-	  													
+	   	  
+	  <cfif myattach eq "1" and Entity.DocumentPathName neq "">
+	  	  													
 			<cf_fileExist
 				DocumentPath  = "#Entity.DocumentPathName#"
 				SubDirectory  = "#Object.ObjectId#" 
@@ -456,12 +458,63 @@
 					
 				   </cfif>				 	
 			
-			</cfloop>					
+			</cfloop>		
+			
+			<!--- other objects --->
+						
+			<cfquery name="ActionMail" 
+			datasource="AppsOrganization" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT   *
+				FROM     OrganizationObjectActionMail
+				WHERE    ObjectId = '#Object.ObjectId#'
+				AND      SerialNo = 1 
+				AND      MailType != 'Action'
+			</cfquery>
+			
+			<cfloop query="ActionMail">		
+			
+			   <cf_fileExist
+				DocumentPath  = "#Entity.DocumentPathName#"
+				SubDirectory  = "#AttachmentId#" 
+				Filter        = ""					
+				ListInfo      = "all">	
+								
+				<cfloop query="filelist">
+				
+			
+					<cfquery name="qAttachment" 
+					  datasource="AppsSystem" 
+					  username="#SESSION.login#" 
+					  password="#SESSION.dbpw#"> 
+						SELECT * 
+						FROM   Attachment
+						WHERE  Reference        = '#ActionMail.AttachmentId#'
+						AND    DocumentPathName = '#Entity.DocumentPathName#'
+						AND    FileName         = '#name#'							
+					</cfquery>
+						
+					   
+					   <cfif qAttachment.fileStatus neq "9">
+									   				
+							<!--- was not deleted so we attach it to the array  --->
+							<cfset rw = rw +1>
+							<cfset mailatt[rw][1]="#directory#\#name#">	
+							<cfset mailatt[rw][2]="normal">	
+							<cfset mailatt[rw][3]="#name#">	
+							<cfset mailatt[rw][4]="#qAttachment.AttachmentMemo#">	
+						
+					   </cfif>				 	
+			
+			    </cfloop>	
+			
+			</cfloop>							
 				
 	</cfif> 
-		   
+				   
 	<cftry>
-		   
+			   
 		   <cfparam name="mailatt[1][1]" default="none">
 		   		   
 		   <cfif mailatt[1][1] neq "none">
@@ -487,6 +540,7 @@
 				   <cfparam name="mailatt[#Att#][4]" default="">
 				   				   
 				   <cftry>
+				   
 	
 					   <cfif mailatt[att][1] neq "none">
 					   
@@ -497,22 +551,22 @@
 							<!--- populate the attachment table so we can open it --->
 							
 							<cfset path = replaceNoCase(mailatt[att][1],mailatt[att][3],"")> 
-													
+																				
 							<cfquery name="InsertAtt" 
 								datasource="AppsSystem"
 								username="#SESSION.login#" 
 								password="#SESSION.dbpw#">
 								INSERT INTO Attachment 
-								(AttachmentId, 
-								 DocumentPathName, 
-								 Server, 
-								 ServerPath, 
-								 FileName, 
-								 FileStatus, 
-								 AttachmentMemo,
-								 OfficerUserId, 
-								 OfficerLastName, 
-								 OfficerFirstName)
+									(AttachmentId, 
+									 DocumentPathName, 
+									 Server, 
+									 ServerPath, 
+									 FileName, 
+									 FileStatus, 
+									 AttachmentMemo,
+									 OfficerUserId, 
+									 OfficerLastName, 
+									 OfficerFirstName)
 								VALUES ('#rowguid#',
 								        'Mail',
 										'Custom',
@@ -565,3 +619,5 @@
 </cfoutput>   
 
 <cfset AjaxOnLoad("initTextArea")>
+
+

@@ -15,7 +15,10 @@
 <cfif site.applicationserver eq Parameter.databaseServer>		
 	  <cfset svr = "">
 <cfelse>
+      <cfset svr = "">
+	  <!---
       <cfset svr = "[#Parameter.databaseServer#].">
+	  --->
 </cfif>
 
   <cfquery name="Delete" 
@@ -204,8 +207,6 @@
 			</td></tr>
 			
 			</cfoutput>
-			
-			
 			
 			
 			</table>

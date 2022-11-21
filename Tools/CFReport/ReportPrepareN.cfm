@@ -420,7 +420,15 @@
 		FROM Parameter
 		WHERE HostName = '#CGI.HTTP_HOST#'  
 	</cfquery>		
-																	
+	
+	<cfset pathl = len(SESSION.rootDocumentPath)>
+	 
+	<cfif mid(SESSION.rootDocumentPath,pathl,1) neq "\">
+	   <cfset filepath = "#SESSION.rootDocumentPath#\">
+	<cfelse>
+	   <cfset filepath = "#SESSION.rootDocumentPath#">	   
+	</cfif>   
+																		
 	<cfreport  
 	   template      = "#rootpath#\#Report.ReportPath#\#Report.TemplateReport#" 
 	   format        = "#Form.fileformat#" 
@@ -429,7 +437,7 @@
 	   permissions   = "#Report.OutputPermission#"
 	   ownerpassword = "#report.PasswordOwner#"
 	   userpassword  = "#report.PasswordUser#"
-	   filename      = "#SESSION.rootDocumentPath#\CFRStage\User\#SESSION.acc#\#attach#">
+	   filename      = "#filepath#CFRStage\User\#SESSION.acc#\#attach#">
 	 
 		    <cfreportparam name = "Table1"     value="#Table1#">
 			<cfreportparam name = "Table2"     value="#Table2#">

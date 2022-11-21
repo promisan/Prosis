@@ -178,9 +178,7 @@
 	
 	WHERE 1=1 
 	--condition
-	
-	ORDER BY W.ListingOrder, W.Created
-	
+		
 </cfsavecontent>
 
 <cfif url.portal eq "0" and customer.operational eq "1">

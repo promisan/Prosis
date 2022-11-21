@@ -1,5 +1,4 @@
 
-
 <cfparam name="url.mode"          default="regular">
 <cfparam name="url.detailedit"    default="yes">
 <cfparam name="url.box"           default="notecontainerdetail">
@@ -15,7 +14,7 @@
 <cfif url.sel neq "">
 	<cfset client.mailfilter = 	"AND #url.sel# = '#URL.val#'">
 </cfif>	  
-		  
+ 
 <cfquery name="Object" 
 datasource="AppsOrganization" 
 username="#SESSION.login#" 
@@ -24,6 +23,17 @@ SELECT     *
 FROM       OrganizationObject
 WHERE      ObjectId = '#URL.ObjectId#'	
 </cfquery>
+
+<cfif url.actionid neq "">
+	<cfquery name="Action" 
+	datasource="AppsOrganization" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+	SELECT     * 
+	FROM       OrganizationObjectAction
+	WHERE      ActionId = '#URL.ActionId#'	
+	</cfquery>
+</cfif>
 
 <cfquery name="Notes" 
 	datasource="AppsOrganization" 
@@ -52,11 +62,18 @@ WHERE      ObjectId = '#URL.ObjectId#'
 			  MailBody like '%#URL.filter#%'
 			)
 		</cfif>
+		<cfif url.actionid neq "">
+			<cfif action.actionStatus neq "0">
+			 AND    Created <= '#Action.OfficerDate#' 
+ 			</cfif>
+		</cfif>
+		
 		
 		ORDER BY Created DESC
 </cfquery>	
 		
 <table width="98%" cellspacing="0" cellpadding="0" class="navigation_table">	 
+
 
 	<tr class="hide"><td id="processnote"></td></tr>
 
@@ -117,18 +134,18 @@ WHERE      ObjectId = '#URL.ObjectId#'
 		
 			<cfoutput>
 		 
-			<tr>					
-				<td width="100%" colspan="9" style="padding-top:4px" height="20" class="labelit">
+			<tr class="line">					
+				<td width="100%" colspan="9" style="padding-top:4px" height="20" class="labelmedium2">
 				    <a href="javascript:noteentry('#url.objectid#','','','notes','','#url.mode#','#url.box#','#url.actioncode#')">
-					<font color="0080FF"><cf_tl id="Add Note"></font>
+					<cf_tl id="Add Action">
 					</a>
 					&nbsp;|&nbsp;
 				    <a href="javascript:noteentry('#url.objectid#','','','mail','','#url.mode#','#url.box#','#url.actioncode#')">
-					<font color="0080FF"><cf_tl id="Send Mail"></font>
+					<cf_tl id="Send Mail">
 					</a>
 			    </td>
 			</tr>
-			<tr><td height="1" class="linedotted" colspan="8"></td></tr>
+			
 			</cfoutput> 	 
 			
 		<cfelse>
@@ -171,9 +188,9 @@ WHERE      ObjectId = '#URL.ObjectId#'
              name="attach" type="file" listinfo="name">	
 							
 			<cfif url.mode eq "regular">						        
-		    <tr id="r#rowline#" class="navigation_row" onclick="show('#rowline#','#threadid#','#serialno#')">
+		    <tr id="r#rowline#" class="navigation_row" style="height:20px" onclick="show('#rowline#','#threadid#','#serialno#')">
 			<cfelse>				
-			<tr id="r#rowline#" class="navigation_row" onclick="show('#rowline#','#threadid#','#serialno#')">				
+			<tr id="r#rowline#" class="navigation_row" style="height:20px" onclick="show('#rowline#','#threadid#','#serialno#')">				
 			</cfif>
 							
 			<td>
@@ -182,7 +199,7 @@ WHERE      ObjectId = '#URL.ObjectId#'
 			 </cfif>
 			</td>
 			
-			<TD height="23" width="20" valign="top" align="center" style="padding-top:3px">
+			<TD valign="top" style="padding-top:3px">
 							
 			<cfif url.detailedit eq "Yes">
 			
@@ -195,30 +212,24 @@ WHERE      ObjectId = '#URL.ObjectId#'
 				<img src="#SESSION.root#/Images/#icn#" name="img5_#currentrow#" 
 				  onMouseOver="document.img5_#currentrow#.src='#SESSION.root#/Images/button.jpg'" 
 				  onMouseOut="document.img5_#currentrow#.src='#SESSION.root#/Images/#icn#'"				 
-				  style="cursor: pointer;" border="0" align="absmiddle" width="16" height="10"
+				  style="cursor: pointer;" border="0" align="absmiddle" width="16" height="15"
 				  onClick="noteentry('#objectid#','#threadid#','#serialno#','#mailtype#','','#url.mode#','#url.box#','#url.actioncode#')">
 				
 			</cfif> 
+			
 			</TD>
 			
-			<td width="20" valign="top" style="padding-top:3px">
+			<td width="20" valign="top" style="padding-top:5px">
 				<cfif attach.recordcount gte "1">				
 					 <img src="#SESSION.root#/Images/paperclip2.gif" alt="attachment" border="0" align="absmiddle">
-			    </cfif>
-				
+			    </cfif>				
 			</td>								
 			
-			<td colspan="3">				
-				
-				<table width="100%" cellspacing="0" cellpadding="0">
-				<tr><td class="labelit">#OfficerFirstName# #OfficerLastName#</td></tr>
-				<tr><td class="labelit"><cfif MailSubject neq "">#MailSubject#<cfelse>..</cfif></td></tr>
-				</table>
-			</td>	
+			<td colspan="4">#OfficerFirstName# #OfficerLastName# <cfif MailSubject neq "">: #MailSubject#<cfelse>..</cfif></td>	
 						
 			<td align="right" class="labelit">				
 			<cfif dateformat(maildate,CLIENT.DateFormatShow) neq dateformat(now(),CLIENT.DateFormatShow)>
-			#dateformat(MailDate,"DDD DD/MM")#
+			#dateformat(MailDate,"DDD dd/mm")#
 			<cfelse>
 			#timeformat(Created,"HH:MM")#
 			</cfif>						
@@ -227,6 +238,26 @@ WHERE      ObjectId = '#URL.ObjectId#'
 			<td width="3"></td>
 			
 			</tr>
+			
+			<cfif attach.recordcount gte "1">	
+			
+			<tr style="height:1px" class="navigation_row_child">
+			
+			<td colspan="9" id="#attachmentid#">		
+					
+				<cf_filelibraryN
+						DocumentPath="#Object.EntityCode#"
+						SubDirectory="#attachmentid#" 
+						Filter=""				
+						Width="100%"
+						Box = "#attachmentid#"
+						Insert="no"
+						Remove="no">			
+								
+				</td>
+			</tr>	
+			
+			</cfif>					
 							
 			<cfquery name="Thread" 
 			datasource="AppsOrganization" 
@@ -238,7 +269,8 @@ WHERE      ObjectId = '#URL.ObjectId#'
 				AND      SerialNo <> 1
 				ORDER BY SerialNo
 			</cfquery>	
-							
+			
+				
 			<cfif thread.recordcount gte "1">				
 			<tr><td class="linedotted" colspan="8"></td></tr>		
 			</cfif>
@@ -328,20 +360,24 @@ WHERE      ObjectId = '#URL.ObjectId#'
 			</cfif>			
 			
 			<cfif currentrow eq recordcount>
-			
+			    
 				<tr><td class="linedotted" colspan="8"></td></tr>		
+				
 			
 			</cfif>
 			
 			</cfloop>	
 			
 			<cfif thread.recordcount eq "0">
-			
+			    <!---
 				<tr><td class="linedotted" colspan="8"></td></tr>		
+				--->
 				
 			</cfif>
 							
 	</cfoutput>
+	
+	<cfif url.detailedit eq "Yes">
 	
 	<cfoutput>
 			<input type="hidden" name="rows" id="rows"        value="0">
@@ -349,6 +385,8 @@ WHERE      ObjectId = '#URL.ObjectId#'
 			<input type="hidden" name="serialno" id="serialno"    value="#Notes.serialno#">
 			<input type="hidden" name="total" id="total"       value="#rowline#">
 	</cfoutput>
+	
+	</cfif>
 	
 </table>
 	

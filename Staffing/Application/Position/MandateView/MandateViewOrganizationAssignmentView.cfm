@@ -132,7 +132,7 @@
 					datasource="AppsEmployee" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-					 SELECT     R.ShowInColor, R.ShowInView
+					 SELECT     R.ShowInColor, R.ShowInView, R.Description
 					 FROM       PositionGroup AS P INNER JOIN
 		                        Ref_Group AS R ON P.PositionGroup = R.GroupCode
 					 WHERE      P.PositionNo = '#PositionNo#'  AND Status != '9'
@@ -143,7 +143,7 @@
 				<tr>
 				<cfloop query="grouplist">
 					<cfif grouplist.ShowInView eq "1">
-						<td style="height:15px;min-width:8;background-color:#ShowInColor#;border:1px solid black"></td>			
+						<td title="#Description#" style="height:15px;min-width:8;background-color:#ShowInColor#;border:1px solid black"></td>			
 					</cfif>
 				</cfloop>
 				</tr>

@@ -192,6 +192,9 @@ password="#SESSION.dbpw#">
 	<cfparam name="Form.Operational" default="">
 	<cfparam name="Form.PostalCode" default="">
 	<cfparam name="Form.City" default="">
+	<cfparam name="Form.Country" default="">
+		
+			
 
 	<cfquery name="Update" 
 	datasource="#url.dsn#" 
@@ -199,23 +202,31 @@ password="#SESSION.dbpw#">
 	password="#SESSION.dbpw#">
 		UPDATE Customer
 			SET Mission        = '#Form.Mission#',
+		
 			    OrgUnit        = '#org#',
+
 			    CustomerName   = '#Form.CustomerName#',
+		
 				Reference      = '#form.Reference#', 				
 				Address        = '#Form.Address#', 
 				PostalCode     = '#Form.PostalCode#', 
+		
 				City           = '#Form.City#', 
+		
 				Country        = '#Form.Country#',
+         
 				PhoneNumber    = '#Form.PhoneNumber#', 
 				MobileNumber   = '#Form.MobileNumber#',
 				TaxExemption   = '#Form.TaxExemption#',
+
 				Terms          = '#Form.Terms#',
 				eMailAddress   = '#Form.EMailAddress#', 
-				Operational    = '#Form.Operational#',				
+				Operational    = '#Form.Operational#',	
+
 				Memo           = '#Form.Memo#'			
 		WHERE CustomerId   = '#Form.CustomerId#' 
 	</cfquery>
-	
+		
 	<!--- ------------------------------------------------------------ --->
 	<!--- there is just one customer for this unit, the name is synced --->
 	<!--- ------------------------------------------------------------ --->

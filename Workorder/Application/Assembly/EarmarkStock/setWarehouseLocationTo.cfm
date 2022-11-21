@@ -21,7 +21,7 @@
 <cfoutput>					
 						
 	<select name="locationto" id="locationto"
-	    class="regularxl" style="font-size:15px;height:25px;width:250px">
+	    class="regularxl" style="font-size:15px;height:36px;width:250px">
 		<cfif url.warehouse eq url.warehouseto>
 		  <option value="" selected><cf_tl id="Do not change"></option>		
 		</cfif>

@@ -129,11 +129,20 @@
 		<TR class="labelmedium">
 		   <td style="cursor: pointer;"><cf_tl id="Save as">:</td>
 		   <td style="padding-left:3px">
+		       
+			   <table><tr>
+			   <td>
 		        <cfoutput>
 				<INPUT type="text" name="ServerFile" id="ServerFile" size="30" class="regularxl" style="height:35px;width:98%"
 				 onchange="_cf_loadingtexthtml='';ptoken.navigate('FileFormPDF.cfm?box=#url.box#&dir=#url.dir#&source='+document.getElementById('uploadedfile').value+'&destination='+this.value,'pdf')"> 
 				</cfoutput>
-							
+			   </td>
+			   
+			   <td id="suffix">.<input type="text" id="ServerSuffix" name="ServerSuffix" style="border:1px solid silver;width:30px;text-align:center" readonly></td>								
+			   
+			   </tr>
+			   </table>			   
+			   
 		   </td>
 		</TR>
 		<tr class="labelit">

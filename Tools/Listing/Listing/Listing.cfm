@@ -179,6 +179,8 @@
 <cfparam name="setting[8]"                 default="auto">
 <cfparam name="attributes.autofilter"      default="#setting[8]#">
 
+<cfparam name="setting[9]"                 default="">
+<cfparam name="attributes.queryfiltermode" default="#setting[9]#">
 
 <!--- those variables come from the interface when selecting sorting and tree on the fly and
 we keep them in form field for easy pickup and are in listingshow.cfm --->
@@ -316,12 +318,23 @@ we keep them in form field for easy pickup and are in listingshow.cfm --->
 <!--- ------------------------------------------------------------------------------- ---> 
 
 <cfparam name="form.useCache" default="">  <!--- requested --->
+	
+	<cfif attributes.queryfiltermode eq "">
+	    <!--- is is going to be define --->
+		<cftry>
+		    <cfparam name="SESSION.listingdata[box]['queryfiltermode']" default="">	
+			<cfcatch>
+			    <cfset session.listingdata[box]['queryfiltermode'] = "">	
+			</cfcatch>
+		</cftry>
+	<cfelse>
+	    <!--- always hardcoded setting --->	
+		<cfset session.listingdata[box]['queryfiltermode'] = attributes.queryfiltermode>		    
+	</cfif>	
 
 <cftry>
 
-    <cfparam name="SESSION.listingdata['#box#']['aggregate']"   default="">	
-	<cfparam name="SESSION.listingdata['#box#']['queryfiltermode']"   default="">	
-	
+    <cfparam name="SESSION.listingdata['#box#']['aggregate']"       default="">		
 	<cfset ts = SESSION.listingdata[box]['timestamp']>
     <cfcatch>
     	<cfset SESSION.listingdata[box]['timestamp'] = "#now()#">			

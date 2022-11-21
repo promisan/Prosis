@@ -126,7 +126,7 @@
 
 <cfelseif url.workorderidselect eq "">
 
-	<tr><td class="labelmedium" colspan="5"><b><cf_tl id="Not earmarked"></b></td></tr>
+	<tr><td class="labelmedium2" colspan="5"><b><cf_tl id="Not earmarked"></b></td></tr>
 	
 	<cfif getStock.recordcount gte "1">
 	
@@ -150,13 +150,13 @@
 				
 			<cfoutput group="Reference">
 			
-				<tr class="labelit"><td colspan="3" style="padding-left:0px">#reference#</td>
+				<tr class="labelmedium"><td colspan="3" style="padding-left:0px">#reference#</td>
 				    <td colspan="2" align="right" style="padding-right:9px">#dateformat(OrderDate,client.dateformatshow)#</td>
 				</tr>
 			
 				<cfoutput group="WorkOrderLine">
 				
-					<tr class="labelit">
+					<tr class="labelmedium">
 					<td class="line" colspan="5" style="padding-left:0px">								
 						<a href="javascript:workorderlineopendialog('#workorderline.Workorderlineid#',document.getElementById('systemfunctionid').value)">
 						<cf_tl id="workorderline">:

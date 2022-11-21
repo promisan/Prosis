@@ -7,7 +7,7 @@
 	datasource="AppsEmployee" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT PE.*, P.FullName, RPE.EntityClass
+		SELECT PE.*, P.FullName, RPE.EntityClass, RPE.Description
 		FROM   PersonEvent PE
 			   INNER JOIN Person P ON PE.PersonNo = P.PersonNo
 			   LEFT OUTER JOIN Ref_PersonEvent RPE ON RPE.Code = PE.EventCode
@@ -91,6 +91,12 @@
 	
 </cfif>
 
+<cfif Event.EventCode eq "Inquiry">
+	<cfset autocomplete = "Yes">
+<cfelse>
+	<cfset autocomplete = "No">	
+</cfif>
+
 <cfif qEntityCode eq "PersonEvent">
 	
 	<cfif vPersonNo eq 0>
@@ -101,14 +107,17 @@
 			EntityStatus     = ""
 			Mission          = "#Event.Mission#"
 			PersonNo         = "#Event.PersonNo#" 
+			ObjectDue        = "#Event.DateEventDue#"
 			ObjectReference  = "#Event.FullName#"
-			ObjectReference2 = "#Event.Remarks#"			   
+			ObjectReference2 = "#Event.Description#"			   
 			ObjectKey4       = "#eventid#"
 			Ajaxid           = "#url.ajaxid#"
+			Autocomplete     = "#autocomplete#"		
 			Annotation       = "No"
 			Communicator     = "Yes"
 			Show             = "Mini"
 			HideCurrent      = "No"
+			CompleteFirst    = "Yes"
 			ToolBar          = "No"
 			ObjectURL        = "#wflink#">
 	
@@ -121,13 +130,15 @@
 			Mission          = "#Event.Mission#"
 			PersonNo         = "#Event.PersonNo#" 
 			ObjectReference  = "#Event.FullName#"
-			ObjectReference2 = "#Event.Remarks#"			   
+			ObjectReference2 = "#Event.Description#"			   
 			ObjectKey4       = "#eventid#"
 			ObjectKey1 		 = "#Event.PersonNo#"
 			Ajaxid           = "#url.ajaxid#"
+			Autocomplete     = "#autocomplete#"		
 			Annotation       = "No"
 			Communicator     = "Yes"
 			Show             = "Mini"
+			CompleteFirst    = "Yes"
 			HideCurrent      = "No"
 			ToolBar          = "No"
 			ObjectURL        = "#wflink#">

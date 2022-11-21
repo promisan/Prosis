@@ -234,8 +234,7 @@
 						<td><cfloop index="itm" list="#DistributioneMail#">#itm#<br></cfloop></td>
 					    <td>#FunctionName#</td>		
 						<td>#dateformat(now(),CLIENT.DateFormatShow)# #timeformat(now(),"HH:MM:SS")#</td>		
-					 </tr>
-					
+					 </tr>					
 						
 					<cfset answer1      = "t#Serial#Answer1">
 					<cfset answer2      = "t#Serial#Answer2">
@@ -524,13 +523,11 @@
 	</cfif>
 	
 	<table>
-	<tr><td style="padding-left:40px;font-size:30px" height="30" class="labelmedium2">	
-	Completed <cfif class eq "Trial"><br>Test Mode : No eMails were sent except for administrator account</cfif>	
+	<tr><td style="padding-left:30px;font-size:26px;padding-top:6px" height="30" class="labelmedium2">	
+	Completed <cfif class eq "Trial"><br><font size="2">Test Mode : No eMails were sent except for user account that are set as [support]</font></cfif>	
 	</td></tr>
 	</table>
 	
 	<script>
 		parent.Prosis.busy('no')
 	</script>
-	
-	

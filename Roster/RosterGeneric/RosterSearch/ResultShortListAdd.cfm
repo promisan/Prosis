@@ -58,6 +58,45 @@
 				 AND    DocumentNo = '#docno#'
 	    	 </cfquery>
 			 
+			 <!--- we check if the status has to be 0, 1 or 2 based on the workflow for that track --->
+			 
+			  <cfquery name="Workflow" 
+	    	 datasource="AppsVacancy" 
+		     username="#SESSION.login#" 
+	    	 password="#SESSION.dbpw#">
+			 SELECT   TOP (1) ActionDialogParameter
+             FROM     Ref_EntityActionPublish
+             WHERE    ActionPublishNo IN
+                             (SELECT      ActionPublishNo
+                               FROM       OrganizationObjectAction
+                               WHERE      ObjectId = (SELECT ObjectId 
+							                          FROM OrganizationObject 
+													  WHERE ObjectKeyValue1 = '#docno#' 
+													  AND EntityCode = 'Vacdocument' 
+													  AND (Operational = 1)
+							 )						  
+			 AND      ActionDialogParameter <> ''
+             ORDER BY ActionOrder
+			 </cfquery>
+			 
+			 <cfif workflow.actionDialogParameter eq "MARK">
+			 
+			    <cfset status = "0">
+			 
+			 <cfelseif workflow.actionDialogParameter eq "TEST">
+			 
+			 	<cfset status = "1">
+			 
+			 <cfelseif workflow.actionDialogParameter eq "INTERVIEW">
+			 
+			    <cfset status = "2">
+				
+			 <cfelse>
+			 
+			 	<cfset status = "1">	
+			 
+			 </cfif>
+			 
 			 <cfif Check.recordcount eq "0">
 		 
 				 <cfquery name="Add" 
@@ -79,7 +118,7 @@
 							'#URL.ID1#',
 							A.LastName, 
 							A.FirstName, 
-							'1',
+							'#status#',
 							'#SESSION.acc#', 
 							'#SESSION.last#', 
 							'#SESSION.first#'

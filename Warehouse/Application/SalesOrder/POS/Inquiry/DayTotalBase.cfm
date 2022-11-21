@@ -178,12 +178,14 @@
 	       <table cellspacing="0" cellpadding="0">
 				<tr class="labelmedium">
 				<cfoutput>
-					<td style="padding-left:0px"><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val()+'&conditionvalueattribute3=sale','salecontent_#condition#')" class="radiol" name="date_#condition#" id="date_#condition#" value="Sale" <cfif getCondition.ConditionValueAttribute3 eq "Sale">checked</cfif>></td>
-					<td class="labelmedium" style="padding-left:7px"><cf_tl id="Sale date"></td>		
+					<td style="padding-left:0px">
+					<input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val()+'&conditionvalueattribute3=sale','salecontent_#condition#')" class="radiol" name="date_#condition#" id="date_#condition#" value="Sale" <cfif getCondition.ConditionValueAttribute3 eq "Sale">checked</cfif>></td>
+					<td class="labelmedium" style="padding-left:7px"><cf_tl id="Transaction date"></td>		
 				</cfoutput>
 				<cfoutput>
-					<td style="padding-left:0px"><input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val()+'&conditionvalueattribute3=recorded','salecontent_#condition#')" class="radiol" name="date_#condition#" id="date_#condition#" value="Recorded" <cfif getCondition.ConditionValueAttribute3 eq "Recorded">checked</cfif>></td>
-					<td class="labelmedium" style="padding-left:7px"><cf_tl id="Recorded"></td>		
+					<td style="padding-left:0px">
+					<input type="radio" onclick="ptoken.navigate('#linksave#&conditionvalueattribute1='+$('input[name=currency_#condition#]:checked').val()+'&conditionvalueattribute2='+$('input[name=mode_#condition#]:checked').val()+'&conditionvalueattribute3=recorded','salecontent_#condition#')" class="radiol" name="date_#condition#" id="date_#condition#" value="Recorded" <cfif getCondition.ConditionValueAttribute3 eq "Recorded">checked</cfif>></td>
+					<td class="labelmedium" style="padding-left:7px"><cf_tl id="Document date"></td>		
 				</cfoutput>
 				
 				</tr>

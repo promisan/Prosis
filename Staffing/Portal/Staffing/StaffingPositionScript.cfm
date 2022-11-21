@@ -52,7 +52,7 @@
 		function AddEvent(per,pos,box,trg,cde,org) {    		
 		    if (document.body.clientHeight-60 >= 600) { ht = 600 } else { ht = document.body.clientHeight-40 }    		   
 			ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:100,y:100,height:ht,width:690,modal:true,resizable:false,center:true})    					
-		   	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?box='+box+'&portal=1&personNo='+per+'&positionno='+pos+'&orgunit='+org+'&trigger='+trg+'&code='+cde,'evdialog')		 	
+		   	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?box='+box+'&portal=1&personNo='+per+'&positionno='+pos+'&orgunit='+org+'&trigger='+trg+'&code='+cde+'&scope=unit','evdialog')		 	
 		}
 		
 		function checkevent() {
@@ -108,7 +108,7 @@
 			} else if (exp.value == '' && ebx.className!= 'hide') {		    
 				alert('Please specify Action expiration Date.');		
 			} else{		
-	    		ptoken.navigate('#SESSION.root#/Staffing/Application/employee/events/EventFormSubmit.cfm?box='+box+'&eventid='+id,'process','','','POST','eventform')		
+	    		ptoken.navigate('#SESSION.root#/Staffing/Application/employee/events/EventFormSubmit.cfm?portal=1&box='+box+'&eventid='+id,'process','','','POST','eventform')		
 			}
 		}
 	

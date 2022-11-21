@@ -221,7 +221,10 @@
 
 	<cfoutput>	    
 	
-		
+		<!--- container for show of interval check --->	
+		<tr class="hide">
+			<td colspan="<cfoutput>#col#</cfoutput>" id="communicate_#objectid#">testing</td>
+		</tr>
 		
 		<tr class="hide">
 			<td colspan="<cfoutput>#col#</cfoutput>" id="process"></td>
@@ -261,7 +264,8 @@
 						
 				<cfset refr = "1">
 						
-				<script>					    											
+				<script>	
+				    											
 					<cfset milsec = Actions.refreshInterval*1000>							
 					workflowrefresh_#left(objectid,8)# = setInterval('objectstatus("#checklastaction.officerDate#","#objectid#","#attributes.ajaxid#")',#milsec#) 																					
 				</script>
@@ -352,13 +356,7 @@
 		<cfif attributes.rowlabel eq "Yes">
 		
 			<tr class="labelmedium fixlengthlist line">
-			   <cfoutput>
-			   <td colspan="2" style="padding-left:10px"><cfif refr eq "1">
-			   <span id="communicate_#objectid#" style="padding-top:4px cursor:pointer" title="This workflow is under auto refresh mode">
-			     <img style="height:12px;padding-top:4px" src="#session.root#/images/logos/system/refresh.png" border="0">
-			   </span>
-			   </cfif><cf_tl id="Status"></td>		  
-			   </cfoutput>
+			   <td colspan="2" style="padding-left:10px"><cf_tl id="Status"><cfif refr eq "1">##</cfif></td>		  
 			   <td><cf_tl id="Action by"></td>
 			   <td><cf_tl id="Actor"></td>	
 			   <!---	  
@@ -546,13 +544,21 @@
 	</cfoutput>
 	
 <cfelse>
+
+    <cfif actions.recordcount eq "0">
+	
+		<table style="width:100%"><tr><td style="height:26px;font-weight:bold" align="center"><cf_tl id="Completed"></td></tr></table>
+	
+	<cfelse>
 			
 	<cfoutput query="Actions">
-								
+											
 			<cfset showaction = 1>
 			
 			<cfinclude template="ActionListingViewMini.cfm">			 
 											
 	</cfoutput>
+	
+	</cfif>
 	
 </cfif>	

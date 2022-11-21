@@ -55,6 +55,7 @@
 			
 		<cfif url.mode neq "attachmentmultiple">
 			
+			
 		    <cfset suf = "">	
 		    <cfloop index="itm" list="#url.id#" delimiters=".">
 				<cfset suf = itm>
@@ -122,11 +123,12 @@
 			<cfparam name="Form.ServerFile" default="#filename.ClientFile#">
 			 
 			<!--- new name of the uploaded file --->
-			<CFIF Form.ServerFile is ''>
+			<CFIF Form.ServerFile is "">
 				<CFSET NewServerFile = Replace(URL.ID1,' ','','ALL')&"_"&filename.ClientFile>
 			<CFELSE>
-				<CFSET NewServerFile = Replace(URL.ID1,' ','','ALL')&"_"&Form.ServerFile>
+				<CFSET NewServerFile = Replace(URL.ID1,' ','','ALL')&"_"&Form.ServerFile&"."&Form.ServerSuffix>
 			</CFIF>
+						
 			
 			<CFSET NewServerFile = Replace(NewServerFile,'""','','ALL')>
 			<CFSET NewServerFile = Replace(NewServerFile,"'",'','ALL')>

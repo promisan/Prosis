@@ -14,11 +14,11 @@
 
 </cfif>
 
-<table width="99%" height="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+<table width="99%" height="100%" align="center">
 
 <tr><td valign="top">
 
-<table width="100%" align="right" border="0" cellspacing="0" cellpadding="0" >
+<table width="100%" align="right">
 	 
 <cfset FileNo = round(Rand()*100)>  
     
@@ -70,7 +70,7 @@
 
 <tr><td colspan="2">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="formpadding;navigation_table">
+<table width="100%" align="center" class="formpadding;navigation_table">
 
 <cfif SearchResult.recordcount eq "0">
 	
@@ -88,12 +88,11 @@
 			  <cfset  color = "transparent">
 			  <cfset  ft = "black">
 			   <cfset st = "">
-			</cfif>
-									
+			</cfif>									
 						
-			<TR id="#currentrow#1" bgcolor="#color#" class="navigation_row labelmedium">
+			<TR id="#currentrow#1" style="background-color:#color#" class="navigation_row labelmedium fixlengthlist">
 						
-			<td width="30" align="center">
+			<td width="30" align="center" style="background-color:#color#">
 		
 				<img src="#SESSION.root#/Images/arrowright.gif" alt="View criteria" 
 					id="#currentrow#_subExp" border="0" class="show" 
@@ -107,7 +106,7 @@
 								
 			</td>
 			
-			<td width="10" align="center" style="padding-left:6px">
+			<td width="10" align="center" style="background-color:#color#">
 						 
 			     <cfif url.reportid neq reportid>				 
 					   <cf_img icon="print" onClick="reportme('#ReportId#')"> 				  				  
@@ -115,7 +114,7 @@
 			
 			</td>
 			
-			<td width="10" align="center" style="padding-left:6px">
+			<td width="10" align="center" style="background-color:#color#">
 			
 				<cfif url.reportid neq reportid>
 				    <cf_img icon="edit" navigation="Yes" onClick="resetme('#controlid#','#ReportId#')">					
@@ -123,7 +122,7 @@
 							  
 			</td>				
 									
-			<td width="10" align="center" style="padding-top:2px;padding-left:6px;padding-right:8px">
+			<td width="10" align="center" style="padding-top:2px;background-color:#color#">
 			
 			    <cfif url.reportid neq reportid>
 				 <cf_img icon="delete" onClick="purge('#ReportId#','#url.controlid#','#url.reportid#')">				 				
@@ -131,17 +130,17 @@
 				
 			</td>
 			
-			<td><font color="#ft#">#st#
+			<td style="background-color:#color#"><font color="#ft#">#st#
 			<cfif LayoutName eq "Export Fields to MS-Excel"><cf_tl id="Analysis"><cfelse>#LayoutName#</cfif></td>
-			<TD width="35%"><font color="#ft#">#st##DistributionSubject#</TD>
-			<TD><font color="#ft#">#st#<cfif DistributionPeriod neq "Manual">#DistributionPeriod# <cfif DistributionPeriod eq "Weekly">[#DistributionDOW#]<cfelseif DistributionPeriod eq "Monthly"><cfif DistributionDOM eq "1">[1st]<cfelse>[#DistributionDOM#th]</cfif></cfif></cfif></TD>
-			<TD><font color="#ft#">#st##FileFormat# (#lcase(left(DistributionMode,3))#)</TD>
-			<TD><font color="#ft#">#st##Dateformat(DateEffective, CLIENT.DateFormatShow)#-#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</TD>					 
-			<TD><font color="#ft#">
+			<TD style="background-color:#color#"><font color="#ft#">#st##DistributionSubject#</TD>
+			<TD style="background-color:#color#"><font color="#ft#">#st#<cfif DistributionPeriod neq "Manual">#DistributionPeriod# <cfif DistributionPeriod eq "Weekly">[#DistributionDOW#]<cfelseif DistributionPeriod eq "Monthly"><cfif DistributionDOM eq "1">[1st]<cfelse>[#DistributionDOM#th]</cfif></cfif></cfif></TD>
+			<TD style="background-color:#color#"><font color="#ft#">#st##FileFormat# (#lcase(left(DistributionMode,3))#)</TD>
+			<TD style="background-color:#color#"><font color="#ft#">#st##Dateformat(DateEffective, CLIENT.DateFormatShow)#-#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</TD>					 
+			<TD title="Last run" style="background-color:#color#"><font color="#ft#">
 			<cfif LastDate lt now() - 30 >
 			<img src="#SESSION.root#/Images/caution.gif" alt="Report was never launched" border="0"> 
 			Never<cfelse>#st##Dateformat(LastDate, CLIENT.DateFormatShow)#</cfif></TD>
-			<td><cf_UIToolTip tooltip="subscription date"><font color="#ft#">#st##Dateformat(Created, CLIENT.DateFormatShow)#</cf_UIToolTip></td>
+			<td title="Subscription date" style="background-color:#color#"><font color="#ft#">#st##Dateformat(Created, CLIENT.DateFormatShow)#</td>
 												
 		    </TR>
 			
@@ -151,13 +150,13 @@
 			  <td colspan="6"></td>
 			</tr>
 			
-			<tr><td></td><td colspan="7">
+			<tr class="<cfif currentrow neq recordcount>line</cfif>"><td></td><td colspan="7">
 			
-				<table width="98%" align="center" border="0" cellspacing="0" cellpadding="0">
+				<table width="98%" align="center">
 														
 					<cfset link = "#SESSION.root#/Tools/CFReport/HTML/FormHTMLSubscriptionUser.cfm?reportid=#reportid#">
 							
-					<tr><td height="20" colspan="2" align="left" class="labelit">
+					<tr><td height="20" colspan="2" align="left" class="labelmedium2">
 					
 					   <cf_selectlookup
 						    class    = "User"
@@ -182,11 +181,7 @@
 			</td>
 			<td colspan="6"></td>
 			</tr>
-			
-			<cfif currentrow neq recordcount>
-			<tr><td colspan="11" class="line"></td></tr>
-			</cfif>
-																										
+																													
 		</CFOUTPUT>	
 					
 	</cfif>		

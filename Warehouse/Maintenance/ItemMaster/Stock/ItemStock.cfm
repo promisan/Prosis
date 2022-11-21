@@ -85,7 +85,8 @@
 					  TransactionLot,
 					  WorkOrderId,
 					  ActionStatus			 						
-		</cfquery>	
+		</cfquery>			
+			
 							
 		<cfquery name="StockInternalRequest"
 			datasource="AppsMaterials" 
@@ -140,7 +141,8 @@
 					
 		</cfquery>		
 		
-		</cftransaction>				
+		</cftransaction>	
+			
 															
 		<cfloop query="UoMList">
 		
@@ -314,6 +316,9 @@
 			</tr>
 		
 		</cfif>		
+				   
+				   
+		
 		
 		<!--- ---------------------------------- --->
 		<!--- -------- procurement orders ------ --->
@@ -322,37 +327,63 @@
 		<cfif stockOrder.recordcount gte "1">	
 					
 		<tr class="labelmedium2" style="background-color:C4FFC4">		
-		   <td style="border:1px solid silver;font-size:15px;padding-left:4px"><cf_tl id="On Order"></td>		   
-		   
-		   <cfloop query="WarehouseList">				   			       
+		   <td style="border:1px solid silver;font-size:15px;padding-left:4px"><cf_tl id="On Order"></td>
+			   
+			   			  		   
+		   <cfloop query="WarehouseList">	
+			   
 			   	<cfquery name="getPO" dbtype="query">
 				   SELECT  SUM(Pending) as Pending FROM StockOrder WHERE Warehouse = '#warehouse#' AND UoM = '#unit#'
-			    </cfquery>	 			   
-			  	<td align="right" style="border:1px solid silver;min-width:100px;font-size:15px;padding-right:4px">#numberformat(getPO.Pending,'#pformat#')#</td>						   				
-				<cfif getPO.Pending neq "">
-					<cfset economic[warehouse] = economic[warehouse] + getPO.Pending>	
-				</cfif>													
+			    </cfquery>
+			   	
+			  	<td align="right" style="border:1px solid silver;min-width:100px;font-size:15px;padding-right:4px">#numberformat(getPO.Pending,'#pformat#')#</td>	
+			   				
+			   <cfif getPO.Pending neq "">
+							   				   
+				     <cfif economic[warehouse] neq "">
+				
+					      <cfset economic[warehouse] = economic[warehouse] + getPO.Pending>	
+						 
+					 <cfelse>
+						 
+					     <cfset economic[warehouse] = getPO.Pending>		 
+						
+					 </cfif>			   
+				 
+				</cfif>	
+					
 			</cfloop>	
+			    
 				
 			<cfquery name="getPO" dbtype="query">			   
 				  SELECT  SUM(Pending) as Pending FROM StockOrder WHERE UoM = '#unit#'															 
-			</cfquery>	 				
+			</cfquery>	 
+			   
 			<cfif getPO.Pending neq "">
-				<cfset economic[mission] = economic[mission] + getPO.Pending>	
+				
+				<cfif economic[mission] neq "">				
+				
+				     <cfset economic[mission] = economic[mission] + getPO.Pending>	
+					
+				 <cfelse>
+						 
+					 <cfset economic[mission] = getPO.Pending>		 
+						
+				 </cfif>	
 			</cfif>											
 			<td align="right" style="border:1px solid silver;min-width:100px;font-size:15px;padding-right:4px">#numberformat(getPO.Pending,'#pformat#')#</td>		
 							   
 		</tr>
 		
 		</cfif>
-		
+			   		
 		<tr class="labelmedium2" style="background-color:BFECFB">
 		   <td style="border:1px solid silver;font-size:15px;padding-left:4px"><cf_tl id="Economical">
 		   
 		    <cfloop query="WarehouseList">		
 			
 					<cfset val = evaluate(economic["#warehouse#"])>
-			   			
+									   			
 		   			<td align="right" style="border:1px solid silver;min-width:100px;font-size:15px;padding-right:4px">#numberformat(val,'#pformat#')#</td>						   
 													
 			</cfloop>	

@@ -63,8 +63,9 @@
 	
 	<tr><td colspan="4" valign="top" style="padding-top:4px;padding-right:2px">
 			
+			<!--- toolbar        = "basic" --->
+			
 		   <cf_textarea name="Instruction" id="Instruction"                                            		   
-			   toolbar        = "basic"
 			   resize         = "false"
 			   init           = "Yes"
 			   height         = "340"

@@ -56,7 +56,7 @@ and can be diabled --->
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT    R.*, A.ListingOrder, A.ObjectFilter,A.Operational as Valid
+		SELECT    R.*, A.ListingOrder, A.ObjectFilter,A.UsageParameter,A.Operational as Valid
 		FROM      Ref_EntityDocument R INNER JOIN
 		          Ref_EntityActionPublishDocument A ON R.DocumentId = A.DocumentId 
 				  	AND A.ActionPublishNo = '#URL.PublishNo#' 
@@ -73,7 +73,7 @@ and can be diabled --->
 		<cfif actionMode.ProcessMode gte "1">	
 		
 			UNION ALL
-			SELECT    *,0 as ListingOrder, '' as ObjectFilter, 0 as Valid
+			SELECT    *,0 as ListingOrder, '' as ObjectFilter, '' as UsageParameter, 0 as Valid
 			FROM      Ref_EntityDocument 			
 			WHERE     DocumentType IN  ('function')		
 			AND       Operational = '1'
@@ -131,7 +131,7 @@ and can be diabled --->
 	datasource="AppsOrganization" 
 	username="#SESSION.login#" 
 	password="#SESSION.dbpw#">
-		SELECT    R.*, A.ListingOrder, A.ObjectFilter, A.Operational as Valid
+		SELECT    R.*, A.ListingOrder, A.ObjectFilter, A.UsageParameter,A.Operational as Valid
 		FROM      Ref_EntityDocument R INNER JOIN
 		          Ref_EntityClassActionDocument A ON R.DocumentId = A.DocumentId 
 				  	AND A.EntityCode      = '#URL.EntityCode#' 
@@ -148,7 +148,7 @@ and can be diabled --->
 		
 			UNION ALL
 			
-			SELECT    *,0 as ListingOrder, '' as objectFilter, 0 as Valid
+			SELECT    *,0 as ListingOrder, '' as objectFilter, '' as UsageParameter, 0 as Valid
 			FROM      Ref_EntityDocument as R		
 			WHERE     R.DocumentType IN  ('function')	
 			
@@ -194,13 +194,13 @@ and can be diabled --->
 		    ORDER BY ObjectFilter
 		</cfquery>	  		
 		
-		 <TR class="line labelmedium fixrow">
+		 <TR class="line labelmedium fixrow fixlengthlist">
 		   <td style="min-width:40px;padding-left:5px"></td>	
 		   <td style="min-width:40px;padding-left:4px"><cf_tl id="Code"></td>
-		   <td width="40%"><cf_tl id="Description"></td>
-		   <td width="30%"><cf_tl id="Apply"></td>
-		   <td width="6%"><cf_tl id="Sort"></td>
-		   <td width="10%" align="center"><cf_tl id="Type"></td>		  
+		   <td><cf_tl id="Description"></td>
+		   <td><cf_tl id="Apply"></td>
+		   <td><cf_tl id="Sort"></td>
+		   <td align="center"><cf_tl id="Type"></td>		  
 		  	  
 	    </TR>	
 			
@@ -209,13 +209,13 @@ and can be diabled --->
 		<tr><td style="height:3px"></td></tr>		
 		
 		<cfif DocumentType eq "Attach">
-		<tr><td colspan="6" style="font-size:20px" class="labelmedium">Attachments</td></tr>
+		<tr class="fixlengthlist"><td colspan="6" style="height:38px;font-size:18px;font-weight:bold" class="labelmedium">Attachments</td></tr>
 		<cfelseif DocumentType eq "Field">
-		<tr><td colspan="6" style="font-size:20px" class="labelmedium">Custom Fields</td></tr>
+		<tr class="fixlengthlist"><td colspan="6" style="height:38px;font-size:18px;font-weight:bold" class="labelmedium">Custom Fields</td></tr>
 		<cfelseif DocumentType eq "dialog">
-		<tr><td colspan="6" style="font-size:20px" class="labelmedium">Custom Dialogs <font size="1">(not enabled yet, please use custom dialog on the standard setting tab)</td></tr>
+		<tr class="fixlengthlist"><td colspan="6" style="height:38px;font-size:18px;font-weight:bold" class="labelmedium">Custom Dialogs <font size="1">(not enabled yet, please use custom dialog on the standard setting tab)</td></tr>
 		<cfelse>		
-		<tr><td colspan="6" style="font-size:20px" class="labelmedium">Standard workflow-only dialogs</td></tr>
+		<tr class="fixlengthlist"><td colspan="6" style="height:38px;font-size:18px;font-weight:bold" class="labelmedium">Standard workflow-only dialogs</td></tr>
 		</cfif>						
 				
 		<cfoutput>		
@@ -225,6 +225,7 @@ and can be diabled --->
 			<cfset cd  = DocumentCode>
 			<cfset ord = ListingOrder>
 			<cfset fil = ObjectFilter>
+			<cfset prm = UsageParameter>
 						
 			<input type="hidden" name="Code" id="Code" value="<cfoutput>#cd#</cfoutput>">
 													
@@ -236,7 +237,7 @@ and can be diabled --->
 					   id="operational#currentrow#"
 					   value="1" 
 					   style="height:16;width:16"
-					   onclick="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+document.getElementById('objectfilter#currentrow#').value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+this.checked,'savedoc')"
+					   onclick="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+document.getElementById('objectfilter#currentrow#').value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&prm='+document.getElementById('usageparameter#currentrow#').value+'&op='+this.checked,'savedoc')"
 				    <cfif valid eq "1">checked</cfif>>
 				   </td>
 				   
@@ -265,7 +266,7 @@ and can be diabled --->
 				          enabled="Yes"
 						  selected="#fil#"
 						  style="border:0px;border-left:1px solid silver; border-right:1px solid silver"
-				          onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')"
+				          onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&prm='+document.getElementById('usageparameter#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')"
 				          id="objectfilter#currentrow#"
 				          class="regularxl">
 							   
@@ -284,7 +285,7 @@ and can be diabled --->
 					   		   id="objectfilter#currentrow#" 
 							   class="regularxl"	
 							   style="border:0px;border-left:1px solid silver; border-right:1px solid silver"			 						  					   
-							   onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')">
+							   onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&prm='+document.getElementById('usageparameter#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')">
 							   
 					    <option value="">any</option>
 					  	 <cfloop query="filter">
@@ -298,7 +299,7 @@ and can be diabled --->
 					   		   id="objectfilter#currentrow#" 
 							   class="regularxl"	
 							   style="border:0px;border-left:1px solid silver; border-right:1px solid silver"			 						  					   
-							   onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')">
+							   onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+this.value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&prm='+document.getElementById('usageparameter#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')">
 							   
 					       <option value="Insert">Insert</option>
 						   <option value="Inquiry" <cfif fil eq "Inquiry">selected</cfif>>Inquiry</option>
@@ -314,21 +315,42 @@ and can be diabled --->
 				   </td>
 				   
 				   <td>
-				      <input type="Text" 
-					       value="#ord#" 
-						   name="listingorder#currentrow#" 
-						   id="listingorder#currentrow#"
-						   required="No" 
-						   visible="Yes" 
-						   enabled="Yes" 
-						   style="text-align:center;border:0px;border-left:1px solid silver; border-right:1px solid silver"
-						   size="1" 
-						   onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+document.getElementById('objectfilter#currentrow#').value+'&lo='+this.value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')"
-						   maxlength="2" 
-						   class="regularxl">
+				      <input type    = "Text" 
+					       value     = "#ord#" 
+						   name      = "listingorder#currentrow#" 
+						   id        = "listingorder#currentrow#"
+						   required  = "No" 
+						   visible   = "Yes" 
+						   enabled   = "Yes" 						   
+						   style     = "text-align:center;border:0px;border-left:1px solid silver; border-right:1px solid silver"
+						   size      = "1" 
+						   onchange  = "ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+document.getElementById('objectfilter#currentrow#').value+'&lo='+this.value+'&prm='+document.getElementById('usageparameter#currentrow#').value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')"
+						   maxlength = "2" 
+						   class     = "regularxl">
 						   
 				   </td>
-				   <td align="center"> <cfif DocumentType eq "Field">#FieldType#</cfif></td>			  
+				   <td align="center"> 
+				   
+				    <cfif DocumentType eq "Field">#FieldType#				   
+ 				      <input type="hidden" name="usageparameter#currentrow#" id="usageparameter#currentrow#" value="">				   
+				    <cfelseif documenttype eq "attach">		
+					
+					    <select name="usageparameter#currentrow#" 		
+					   		   id="usageparameter#currentrow#" 
+							   class="regularxl"	
+							   title     = "Include attachment in the Process mail for this step"
+							   style="border:0px;border-left:1px solid silver; border-right:1px solid silver"			 						  					   
+							   onchange="ptoken.navigate('#SESSION.root#/System/EntityAction/EntityObject/WorkflowElement/ClassDocumentSubmit.cfm?EntityClass=#URL.EntityClass#&PublishNo=#URL.PublishNo#&entitycode=#URL.EntityCode#&actionCode=#URL.ActionCode#&ID2=#documentid#&fil='+document.getElementById('objectfilter#currentrow#').value+'&lo='+document.getElementById('listingorder#currentrow#').value+'&prm='+this.value+'&op='+document.getElementById('operational#currentrow#').checked,'savedoc')">					
+						   
+					    <option value="">None</option>
+						<option value="Mail" <cfif prm eq "Mail">selected</cfif>>Mail</option>
+					  	 
+						</select>	
+					 <cfelse>					
+					  <input type="hidden" value="" name="usageparameter#currentrow#" id="usageparameter#currentrow#">				   
+				   </cfif>
+				   
+				   </td>			  
 				   
 				  				   
 			   </TR>	

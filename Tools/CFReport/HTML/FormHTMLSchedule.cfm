@@ -1,16 +1,10 @@
 
-  <table width="98%" border="0" cellspacing="0" align="center">
-     
-	
+  <table width="99%" align="center">
+     	
 		<cfif SESSION.acc neq AnonymousUserId>
-		
-		    <!---
-			<tr class="line"><td style="height:45px;padding-left:5px;font-size:25px;font-weight:200" class="labelmedium" colspan="4">
-			<cf_tl id="Saved variants">			
-			</td></tr>																		
-			--->
+				   
 			<tr>
-				<td colspan="4" bgcolor="f4f4f4" id="subscriptions" style="padding-bottom:20px;border: 0px solid Silver">																
+				<td colspan="4" bgcolor="ffffcf" id="subscriptions" style="padding:2px;border: 1px solid Silver;border-top:0px">																
 				   <cfinclude template="FormHTMLSubscription.cfm">
 				</td>
 			</tr>				
@@ -19,10 +13,10 @@
      
    <tr>
 
-		 <td width="157" class="labelmedium">
-		 <cf_uitooltip tooltip="The envisioned recipient of this report.">		 
+		 <td width="157" class="labelmedium" style="cursor:hand" title="The envisioned recipient of this report">
+		 	 
 		 <cf_tl id="Reference">:
-		 </cf_uitooltip>
+		
 		 </td>	
 		 <td colspan="3" width="85%" style="padding: 2px;">
 				<cfinput type="Text" 
@@ -41,10 +35,10 @@
   
   <tr>	 	 
 				
-	 <td class="labelmedium">
-	  <cf_uitooltip tooltip="Send this report to mailing list.">		
+	 <td class="labelmedium" style="cursor:hand" title="Send this report to mailing list.">
+	  	
 	  <cf_tl id="Managed by">:
-	  </cf_uitooltip>
+	  
 	 </td>	
 	  <td colspan="3" width="85%" style="padding: 2px;">
 	  
@@ -73,21 +67,21 @@
 			 </cfquery>
 			 		 
 			    <cfselect name="AccountGroup" 
-							selected="#Current.AccountGroup#"
-					    	size="1" 
-							class="regularxl"
-							id="AccountGroup"
-							multiple="No"
-						    message="" 
-						   	required="No"
-							width="50"
-							style="width: 400;"							
-							label="Managed:"
-							query="ManagedBy"
-							queryPosition="below"
-							value="Account"
-							display="Name">
-							<option value="">--- <cf_tl id="n/a"> ---</option>
+					selected="#Current.AccountGroup#"
+			    	size="1" 
+					class="regularxl"
+					id="AccountGroup"
+					multiple="No"
+				    message="" 
+				   	required="No"
+					width="50"
+					style="width: 400;"							
+					label="Managed:"
+					query="ManagedBy"
+					queryPosition="below"
+					value="Account"
+					display="Name">
+					<option value="">--- <cf_tl id="n/a"> ---</option>
 			  </cfselect>	
 				 				 
 	 </td>		 
@@ -96,10 +90,8 @@
 	
   <tr>
 		 
-		 <td class="labelmedium">
-		  <cf_uitooltip tooltip="Subject of the eMail that will be sent to you.">		
-		  <cf_tl id="Variant Name">:
-		  </cf_uitooltip>
+		 <td class="labelmedium" style="cursor:hand" title="Subject of the eMail that will be sent to you.">		  	
+		  <cf_tl id="Variant Name">:		 
 		 </td>	
 		 <td style="padding: 2px;">						 
 				<cfinput type="Text" 
@@ -152,7 +144,7 @@
 			  
 			   <tr>	
 				<td class="labelmedium" style="padding:2px;padding-left:10px">
-		  	    <input type="radio" style="width:18;height:18" onclick="check('Daily')"    name="DistributionPeriod" id="DistributionPeriod" value="Daily" <cfif SelDistributionPeriod eq "Daily">checked</cfif>>
+		  	    <input type="radio" style="width:18;height:18" onclick="check('Daily')" name="DistributionPeriod" id="DistributionPeriod" value="Daily" <cfif SelDistributionPeriod eq "Daily">checked</cfif>>
 			    </td>
 				<td class="labelmedium" style="padding-left:5px;cursor:pointer" onclick="document.getElementsByName('DistributionPeriod')[1].click()"><cf_tl id="Daily"></td>
 			  </tr>

@@ -85,11 +85,11 @@ password="#SESSION.dbpw#">
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
 		    SELECT TOP 1 *
-		    FROM   OrganizationObject
+		    FROM   OrganizationObject O
 			WHERE  ObjectKeyValue1 = '#URL.ID#'
 			AND    ObjectKeyValue2 = '#PersonNo#'
-			AND    Operational  = 1
-			
+			AND    ObjectId IN (SELECT ObjectId FROM OrganizationObjectAction WHERE objectId = O.ObjectId)
+			AND    Operational  = 1			
 		</cfquery>
 	
 	    <cfif Check.recordcount eq "1">

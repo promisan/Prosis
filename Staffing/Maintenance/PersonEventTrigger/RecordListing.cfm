@@ -8,8 +8,6 @@ password="#SESSION.dbpw#">
 	Order by ListingOrder
 </cfquery>
 
-
-
 <cfset Page         = "0">
 <cfset add          = "1">
 <cfset save         = "0"> 
@@ -49,7 +47,7 @@ password="#SESSION.dbpw#">
 
 	<table width="94%" align="center" class="navigation_table">
 	
-		<tr class="labelmedium line">
+		<tr class="labelmedium line fixlengthlist fixrow">
 		    <td></td> 
 		    <td><cf_tl id="Code"></td>
 			<td><cf_tl id="Description"></td>
@@ -61,8 +59,8 @@ password="#SESSION.dbpw#">
 		
 		<cfoutput query="SearchResult">
 		   
-		    <tr height="20" class="labelmedium2 line navigation_row">
-				<td align="center" style="width:30px;padding-top:1px" id="processDelete"> 
+		    <tr height="20" class="labelmedium2 line navigation_row fixlengthlist">
+				<td style="width:30px;padding-top:1px" id="processDelete"> 
 					<table>
 						<tr>
 							<td>

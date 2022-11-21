@@ -885,31 +885,36 @@ password="#SESSION.dbpw#">
 						  FROM     Ref_PersonGroupList
 						  WHERE    GroupCode = '#Code#'
 						  AND      Operational = 1
-						  ORDER BY GroupListOrder
+						  ORDER BY GroupListCodeParent, GroupListOrder, GroupListCode
 					</cfquery>
 					
 					<cfquery name="PersonTopic" 
 					datasource="AppsEmployee" 
 					username="#SESSION.login#" 
 					password="#SESSION.dbpw#">
-						  SELECT   TOP 1 G.*,L.Description
+						  SELECT   TOP 1 G.*,L.Description, L.GroupListCodeParent
 						  FROM     PersonGroup G, Ref_PersonGroupList L
 						  WHERE    G.PersonNo      = '#URL.ID#'
 						  AND      G.GroupCode     = '#Code#'
 						  AND      L.GroupCode     = G.GroupCode
 						  AND      G.GroupListCode = L.GroupListCode
-						  ORDER BY L.GroupListOrder
+						  ORDER BY L.GroupListCodeParent,L.GroupListOrder, L.GroupListCode
 				    </cfquery>
 														
-					<select name="ListCode_#Code#" 
-					    required="No" 						
+					<cfselect name="ListCode_#Code#" 
+					    required="No" 		
+						query="List"
+						Display="Description"
+						Value="groupListCode"
+						Group="GroupListCodeParent"		
+						Selected="#PersonTopic.GroupListCode#"		
 						class="regularxl enterastab"
-						onchange="<cfif ActionCode neq ''>checkaction('#Code#',this.value,'group','#PersonTopic.Description#')</cfif>">
-						<cfloop query="List">
-							<option value="#GroupListCode#" <cfif PersonTopic.GroupListCode eq GroupListCode>selected</cfif>>#Description#</option>
-						</cfloop>
-					</select>
-					
+						queryposition="below"
+						onchange="javascript:<cfif ActionCode neq ''>checkaction('#Code#',this.value,'group','#PersonTopic.Description#')</cfif>">
+						
+						<option type="text" value="">-- select --</option>
+						
+					</cfselect>				
 					
 				</td>					
 				

@@ -141,8 +141,7 @@
 						filtermode		  = "3",					
 						search            = "text"}>		
 	
-	</cfif>						
-									
+	</cfif>										
 	
 	<cfif access eq "Full">
 						

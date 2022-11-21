@@ -27,8 +27,8 @@
 </cfquery>		  
 
 <cfset boxno = 0>
-<cfset ht = "64">
-<cfset wd = "64">
+<cfset ht = "40">
+<cfset wd = "40">
 
  <!--- tab for instructions --->			
 <cfinclude template="ProcessActionInstructions.cfm">	
@@ -37,9 +37,10 @@
 <cfif Embed.DocumentTemplate neq "">
    	   	  
 	   <!--- preload code for dialog embedded workflow --->
+	
 	   	   	  	   
 	   <cfif Embed.DocumentMode eq "Ajax">		
-	   	   	   	   
+	  	   	   	   	   
 		   <!--- disabled as embedding now within a iframe to prevent outbreak of long pages 		   
 		   <cfinclude template="../Input/TextAjax/InputRichTextScript.cfm">		   
 		   --->
@@ -82,6 +83,7 @@
 		 							
 		<cfelse>
 		
+				
 		   <cfset boxno = boxno+1>
 		   
 		    <cfif boxno eq "1">
@@ -103,14 +105,14 @@
 			
 		   <cfelse>		   	   
 
-		   	  <cf_menucontainer item="#boxno#" class="regular">					  
-				      <cfinclude template="ProcessAction8Embed.cfm">
+		   	  <cf_menucontainer item="#boxno#" class="regular">		
+				      <cfinclude template="ProcessAction8Embed.cfm">				
 			  </cf_menucontainer>		
 		   		   
 		   </cfif>	
 		  							
 		</cfif>		
-				   		   		  	   
+						   		   		  	   
 </cfif> 	
 
 <!--- tab for questionaire --->	   
@@ -128,6 +130,8 @@
 	   AND     OA.ActionCode = P.ActionCode 
 	   AND     A.ActionCode = P.ActionCode
 	</cfquery>
+	
+	
 
 <cfinclude template="ProcessActionQuestionaire.cfm">		 	
 
@@ -196,9 +200,9 @@
 	  	  	 			  	   	   
 	   <cf_menutab item  = "#boxno#" 
 	       iconsrc       = "Process-Submission.png" 
-		   iconwidth     = "64" 
+		   iconwidth     = "#wd#" 
 		   class         = "#cl#"						
-		   iconheight    = "64" 
+		   iconheight    = "#ht#" 
 		   name          = "#lt_text#"
 		   loadalways    = "No"
 		   source        = "ProcessAction8Step.cfm?process=#URL.process#&id=#url.id#&ajaxid=#url.ajaxid#">				
@@ -210,12 +214,15 @@
 	   <cfelse>
 	   	   <cfset cl = "hide">	   
 	   </cfif>
-	      
+	 	      
 		<cf_menucontainer item="#boxno#" class="#cl#">		
 		      <cfinclude template="ProcessAction8Step.cfm">
 		</cf_menucontainer>	  
    
 </cfif>
+
+
+
 
    <cfquery name="Action" 
 	 datasource="AppsOrganization"
@@ -318,6 +325,7 @@
 	   </cfif> 	
 	        
    </cfif>   
+   
   
     
    <cfif boxno eq "1">
@@ -335,3 +343,5 @@
    
    </cfif>
    
+
+  

@@ -6,6 +6,8 @@
 	<cfset url.portal = 1>
 </cfif>	
 
+<cfajaximport tags="cfdiv,cfwindow">
+
 <cf_screentop label="Events and Actions"
     	height="100%" 
 		scroll="yes" 
@@ -17,9 +19,11 @@
 		bootstrap="Yes">
 			
 <cf_actionListingScript>
+<cf_fileLibraryscript>
 <cf_calendarscript>
 
-<cfajaximport tags="cfdiv">
+<cf_textareascript>
+
 
 <cfinclude template="../../Application/Employee/Events/EventsScript.cfm">
 
@@ -54,8 +58,7 @@
 	     		Ext.Msg.alert('Effective date', 'Please specify an effective Date.');	
     		} else if (exp.value == '') {
 			    Ext.Msg.alert('Effective date', 'Please specify an expiration Date.'); 
-			} else {	
-					
+			} else {						
 		   	   ptoken.navigate('#SESSION.root#/Staffing/Portal/Events/EventFormSubmit.cfm?portal=#url.portal#&ajaxid='+ajaxid,ajaxid,'','','POST','eventform')		
 			}
 			   
@@ -135,7 +138,7 @@
 		<cfinclude template="EventMenu.cfm">
 	</div>
 	
-	<div class="col-lg-10 col-xs-8 col-lg-offset-2 col-xs-offset-4" id="eventBase" style="padding-left:40px;">
+	<div class="col-lg-10 col-xs-8 col-lg-offset-2 col-xs-offset-4" id="eventBase" style="padding-left:20px;">
 		<cfinclude template="EventBase.cfm">
 	</div>
 

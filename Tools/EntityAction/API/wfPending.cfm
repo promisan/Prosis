@@ -315,9 +315,7 @@ we do not reprocess the workflow status table --------------------- --->
 				username="#SESSION.login#"
 				password="#SESSION.dbpw#">
 				
-				SELECT     T.*, 	          
-						   AP.ActionOrder,
-						   
+				SELECT     T.*, 	          						   
 						     (SELECT   TOP 1 OfficerDate 
 							  FROM     #Attributes.ActionTable#
 							  WHERE    ObjectId = T.ObjectId
@@ -333,12 +331,14 @@ we do not reprocess the workflow status table --------------------- --->
 						   AP.ActionOrder,
 						   P.Owner        AS ParentOwner,
 						   P.ListingOrder AS ParentOrder, 
-					       P.Description  AS ParentDescription
+					       P.Description  AS ParentDescription,
+						   OO.PersonNo 	  AS ObjectPersonNo
 						   
 				INTO       dbo.#Attributes.Table#
 			    
 				FROM       userQuery.dbo.#SESSION.acc#wf2#fileNo# T 	          
 						   INNER JOIN Organization.dbo.Ref_EntityActionPublish AP ON T.ActionPublishNo = AP.ActionPublishNo AND T.ActionCode = AP.ActionCode
+						   INNER JOIN Organization.dbo.OrganizationObject OO ON T.ObjectId = OO.ObjectId
 						   LEFT OUTER JOIN Organization.dbo.Ref_EntityActionParent P ON T.EntityCode = P.EntityCode AND T.ParentCode = P.Code			   			  
 				</cfquery>	
 			

@@ -3,10 +3,10 @@
 <cfif trim(url.eventcode) eq "">
 
 	<div style="text-align:center;">
-		<h2>[ <cf_tl id="Select a request type"> ]</h2>
+		<h2>[ <cf_tl id="Please select your Service on the left Menu"> ]</h2>
 	</div>
 	
-<cfelse>		
+<cfelse>	
 	
 	<cfquery name="EventMission" 
 		datasource="AppsEmployee" 
@@ -40,7 +40,7 @@
 	
 	<cf_securediv 
 		id="divEventDetail" 
-		bind="url:#session.root#/staffing/portal/events/#vTemplate#?scope=portal&id=#url.personno#&mission=#url.mission#&event=#url.eventcode#&trigger=#url.triggercode#" 
+		bind="url:#session.root#/staffing/portal/events/#vTemplate#?portal=1&scope=personal&id=#url.personno#&mission=#url.mission#&event=#url.eventcode#&trigger=#url.triggercode#" 
 		style="height:97%">
 
 </cfif>

@@ -9,18 +9,20 @@
     ORDER BY ParentOffice, ParentLocation
 </cfquery>
 
+<!---
 <cf_screentop height="100%" 
     close="ProsisUI.closeWindow('myparent',true)" 
 	layout="webapp" 
 	html="no" 
 	scroll="yes" 
 	label="Parent Office">
+	--->
 
 <cf_divscroll>
 	  
 	<table width="96%" align="center" class="navigation_table">
 		
-	<TR class="labelmedium line fixrow">    
+	<TR class="labelmedium2 line fixrow fixlengthlist">    
 	    <td style="height:30px;padding-left:4px"><cf_tl id="Office"></TD>
 		<td></td>
 	    <td><cf_tl id="Location"></TD>
@@ -37,7 +39,7 @@
 			<cfset par = replace(ParentLocation, ",", "", "ALL")> 
 			<cfset par = replace(par, "'", "", "ALL")> 
 				
-			<TR class="line labelmedium navigation_row" style="height:20px">
+			<TR class="line labelmedium2 navigation_row fixlengthlist" style="height:20px">
 			 
 			 <cfif parentoffice neq prior>
 			 <td style="border-top:1px solid silver;font-size:14px;padding-left:4px">#ParentOffice#</td>
@@ -61,5 +63,3 @@
 </cf_divscroll>	
 
 <cfset ajaxonload("doHighlight")>
-
-<cf_screenbottom html="No">

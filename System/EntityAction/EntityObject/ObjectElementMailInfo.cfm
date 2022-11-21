@@ -1,7 +1,7 @@
 
 <cfparam name="URL.MailBody" default="Script">
 
-<cf_screentop height="100%" banner="gray" layout="webapp" label="#ucase(url.mailbody)# Mail Instructions" scroll="no">
+<cf_screentop height="100%" jquery="Yes" banner="gray" layout="webapp" label="#ucase(url.mailbody)# Mail Instructions" scroll="no">
 
 <script>
 
@@ -34,54 +34,58 @@
 <cfif url.mailbody eq "custom">
 
 	<table width="95%" cellspacing="0" cellpadding="0" align="center" class="formpadding">
-	<tr><td colspan="2" class="labelmedium">
+	<tr><td colspan="2" class="labelmedium2" style="padding-top:15px">
 	You may use the following tags in the custom mail text :
 	</td></tr>
-	
-	<tr><td colspan="2" class="linedotted"></td></tr>
-	
+		
 	<tr><td colspan="2">
 	
 	<cfoutput>
 	
-	<table width="96%" border="1" bordercolor="C0C0C0">
-	<tr>
+	<table width="96%" class="navigation_table">
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@entity</td><td style="padding:3px" class="labelmedium">The name of the workflow object</td>	
 	</tr>
-	<tr>
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@class</td><td style="padding:3px" class="labelmedium">The class name of the workflow object</td>	
 	</tr>
-	<tr>
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@link</td><td style="padding:3px" class="labelmedium">A hyperlink to the workflow object for a user to open in the browser</td>	
 	</tr>
-	<tr>
+	<tr class="line navigation_row">
+	<td style="width:100;padding:5px" class="labelmedium">@person</td><td style="padding:3px" class="labelmedium">The first and last name of the person for which the object was created</td>	
+	</tr>
+	<tr class="line navigation_row">
+	<td style="width:100;padding:5px" class="labelmedium">@candidate</td><td style="padding:3px" class="labelmedium">The first and last name of the candidate (person) for which the object was created</td>	
+	</tr>
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@user</td><td style="padding:3px" class="labelmedium">The first and last name of the person triggering this mail</td>	
 	</tr>
-	<tr>
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@ref1</td><td style="padding:3px" class="labelmedium">The reference (1) of the workflow object</td>	
 	</tr>
-	<tr>
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@ref2</td><td style="padding:3px" class="labelmedium">The reference (2) of the workflow object</td>	
 	</tr>
-	<tr>
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@action</td><td style="padding:3px" class="labelmedium">The name of the action</td>	
 	</tr>
-	<tr>
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@mission</td><td style="padding:3px" class="labelmedium">The name of the entity processing the object</td>	
 	</tr>
-	<tr>
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@owner</td><td style="padding:3px" class="labelmedium">The owner of the track</td>	
 	</tr>	
-	<tr>
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@holder</td><td style="padding:3px" class="labelmedium">The last and first name of the user that initiated the workflow object</td>	
 	</tr>
-	<tr>
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@ipaddress</td><td style="padding:3px" class="labelmedium">The IP address of the user that initiated the workflow object</td>	
 	</tr>
-	<tr>
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@today</td><td style="padding:3px" class="labelmedium">The date (#CLIENT.DateFormatShow#) the mail was triggered</td>	
 	</tr>
-	<tr>
+	<tr class="line navigation_row">
 	<td style="width:100;padding:5px" class="labelmedium">@time</td><td style="padding:3px" class="labelmedium">The time (HH:MM) the mail was triggered</td>	
 	</tr>
 	</table>
@@ -144,25 +148,44 @@
 		<tr><td></td></tr>
 		
 		<tr style="padding-left:15px;height:20px" class="labelmedium"><td style="padding-left:25px;height:20px">
-		a.	</td><td style="padding-left:10px">cfset <b>mailto</b> = "[mail address]"
+		a.	</td><td style="padding-left:10px">cfset <b>mailfrom</b> = "[mail from address]"
 		</td>
 		</tr>
 		
 		<tr style="padding-left:15px;height:20px" class="labelmedium"><td style="padding-left:25px;height:20px">
-		b.	</td><td style="padding-left:10px">cfset <b>mailcc</b> = "[mail address]"
+		b.	</td><td style="padding-left:10px">cfset <b>mailfromname</b> = "[mail from address name]"
 		</td>
 		</tr>
 		
 		<tr style="padding-left:15px;height:20px" class="labelmedium"><td style="padding-left:25px;height:20px">
-		c.	</td><td style="padding-left:10px">cfset <b>mailsubject</b> = "[mail address]"
+		c.	</td><td style="padding-left:10px">cfset <b>mailto</b> = "[mail to address]"
+		</td>
+		</tr>
+		
+		<tr style="padding-left:15px;height:20px" class="labelmedium"><td style="padding-left:25px;height:20px">
+		d.	</td><td style="padding-left:10px">cfset <b>mailcc</b> = "[mail cc address]"
+		</td>
+		</tr>
+		
+		<tr style="padding-left:15px;height:20px" class="labelmedium"><td style="padding-left:25px;height:20px">
+		e.	</td><td style="padding-left:10px">cfset <b>mailbcc</b> = "[mail bcc address]"
+		</td>
+		</tr>
+		
+		<tr style="padding-left:15px;height:20px" class="labelmedium"><td style="padding-left:25px;height:20px">
+		f.	</td><td style="padding-left:10px">cfset <b>mailsubject</b> = "[mail subject]"
 		</td></tr>
 		
 		<tr style="padding-left:15px;height:20px" class="labelmedium"><td style="padding-left:25px;height:20px">
-		d.	</td><td style="padding-left:10px">cfset <b>mailtext</b> = "[mail body]"
+		g.	</td><td style="padding-left:10px">cfset <b>mailtext</b> = "[mail body]"
 		</td></tr>
 		
 		<tr style="padding-left:15px;height:20px" class="labelmedium"><td style="padding-left:25px;height:20px">
-		e.	</td><td style="padding-left:10px">cfset <b>mailatt</b> = "[attachments as an array mailatt[n][1] in full path]"
+		h.	</td><td style="padding-left:10px">cfset <b>mailatt</b> = "[attachments as an array mailatt[n][1] in full path]"
+		</td></tr>
+		
+		<tr style="padding-left:15px;height:20px" class="labelmedium"><td style="padding-left:25px;height:20px">
+		i.	</td><td style="padding-left:10px">cfset <b>disclaimer</b> = "Y/N include the signature block of the person sending the mail"
 		</td></tr>
 				
 		<tr class="labelmedium"><td valign="top" style="padding-top:2px">

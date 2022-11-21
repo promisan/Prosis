@@ -21,7 +21,7 @@ password="#SESSION.dbpw#">
 	<!--- pass the result to the script --->
 	<cfsavecontent variable="myquery">	
 	
-	    SELECT *, TransactionDate, Created, DocumentDate
+	    SELECT *, TransactionDate, Created <cfif journal.TransactionCategory eq "Receivables">, DocumentDate</cfif>
 		
 		FROM (	
 	
@@ -125,9 +125,8 @@ password="#SESSION.dbpw#">
 					width      = "20",
 					align      = "center",
 					formatted  = "dateformat(Created,CLIENT.DateFormatShow)",
-					search     = "date"}>						
-
-				
+					search     = "date"}>	
+								
 <cfset itm = itm+1>
 
 <cf_tl id="Source" var="1">
@@ -138,48 +137,44 @@ password="#SESSION.dbpw#">
 					display   = "No",
 					search     = "text"}>						
 					
-					
 <cfset itm = itm+1>
 <cf_tl id="Date" var="1">								
-<cfset fields[itm] = {label      = "#lt_text#",                   
-					field      = "TransactionDate",								
-					column     = "month",	
-					width      = "20",
-					align      = "center",
-					formatted  = "dateformat(TransactionDate,CLIENT.DateFormatShow)",
-					search     = "date"}>		
-		
+<cfset fields[itm] = {label       = "#lt_text#",                   
+					field         = "TransactionDate",								
+					column        = "month",	
+					width         = "20",
+					align         = "center",
+					formatted     = "dateformat(TransactionDate,CLIENT.DateFormatShow)",
+					search        = "date"}>			
 					
 <cfset itm = itm+1>		
 <cf_tl id="Period" var="1">							
-<cfset fields[itm] = {label      = "#lt_text#",                   
-					field        = "TransactionPeriod",								
-					column       = "common",									
-					align        = "center",
-					display      = "No"}>												
+<cfset fields[itm] = {label       = "#lt_text#",                   
+					field         = "TransactionPeriod",								
+					column        = "common",									
+					align         = "center",
+					display       = "No"}>												
 							
 				
 <cfif journal.TransactionCategory eq "Receivables">
 
     <cfset itm = itm+1>		
 	<cf_tl id="Step" var="1">				
-	<cfset fields[itm] = {label      = "#lt_text#",                    
-					field        = "ActionDescriptionDue",					
-					labelfilter  = "#lt_text#",
+	<cfset fields[itm] = {label   = "#lt_text#",                    
+					field         = "ActionDescriptionDue",					
+					labelfilter   = "#lt_text#",
 					filtermode    = "3",    
 					search        = "text",
-					search       = "text"}>		
+					search        = "text"}>		
 
    <cfset itm = itm+1>
    <cf_tl id="Document" var="1">								
-   <cfset fields[itm] = {label      = "#lt_text#",                   
-					field      = "DocumentDate",								
-					column     = "month",						
-					align      = "center",
-					formatted  = "dateformat(DocumentDate,CLIENT.DateFormatShow)",
-					search     = "date"}>	
-					
-	
+   <cfset fields[itm] = {label    = "#lt_text#",                   
+					field         = "DocumentDate",								
+					column        = "month",						
+					align         = "center",
+					formatted     = "dateformat(DocumentDate,CLIENT.DateFormatShow)",
+					search        = "date"}>		
 					
 	<cfif url.idStatus neq "pending">								
 						
@@ -229,8 +224,7 @@ password="#SESSION.dbpw#">
 					width      = "25",
 					align      = "right",
 					formatted  = "numberformat(Amount,',.__')"}>	
-
-			
+		
 
 <cfif outstanding.recordcount gte "1">
 					
@@ -265,7 +259,6 @@ password="#SESSION.dbpw#">
 <cfset fields[itm] = {label     = "Id",    					
 					display    = "No",					
 					field      = "TransactionId"}>		
-	
 
 	
 <cftry>

@@ -69,7 +69,9 @@
 	   <cfif site.applicationserver eq Parameter.databaseServer>		
 		  <cfset svr = "">
 	   <cfelse>
-		   <cfset svr = "[#Parameter.databaseServer#].">
+	     <!--- correction on APP01
+		   <cfset svr = "[#Parameter.databaseServer#]."> --->
+		   <cfset svr = "">
 	   </cfif>
 		   
 	   <cfloop index="grp" list="1,2" delimiters=","> 

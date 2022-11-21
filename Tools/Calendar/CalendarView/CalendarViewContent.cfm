@@ -93,14 +93,14 @@
 
 	<cfoutput>
 	
-	<tr style="height:10px" class="labelmedium">
-		<td width="#url.cellw#" style="font-weight:200" align="center"><cf_tl id="_CalendarSunday"></td>
-		<td width="#url.cellw#" style="font-weight:200" align="center"><cf_tl id="_CalendarMonday"></td>
-		<td width="#url.cellw#" style="font-weight:200" align="center"><cf_tl id="_CalendarTuesday"></td>
-		<td width="#url.cellw#" style="font-weight:200" align="center"><cf_tl id="_CalendarWednesday"></td>
-		<td width="#url.cellw#" style="font-weight:200" align="center"><cf_tl id="_CalendarThursday"></td>
-		<td width="#url.cellw#" style="font-weight:200" align="center"><cf_tl id="_CalendarFriday"></td>
-		<td width="#url.cellw#" style="font-weight:200" align="center"><cf_tl id="_CalendarSaturday"></td>
+	<tr style="height:10px" class="labelmedium2">
+		<td width="#url.cellw#" style="border:1px solid silver;background-color:f1f1f1" align="center"><cf_tl id="_CalendarSunday"></td>
+		<td width="#url.cellw#" style="border:1px solid silver;background-color:f1f1f1" align="center"><cf_tl id="_CalendarMonday"></td>
+		<td width="#url.cellw#" style="border:1px solid silver;background-color:f1f1f1" align="center"><cf_tl id="_CalendarTuesday"></td>
+		<td width="#url.cellw#" style="border:1px solid silver;background-color:f1f1f1" align="center"><cf_tl id="_CalendarWednesday"></td>
+		<td width="#url.cellw#" style="border:1px solid silver;background-color:f1f1f1" align="center"><cf_tl id="_CalendarThursday"></td>
+		<td width="#url.cellw#" style="border:1px solid silver;background-color:f1f1f1" align="center"><cf_tl id="_CalendarFriday"></td>
+		<td width="#url.cellw#" style="border:1px solid silver;background-color:f1f1f1" align="center"><cf_tl id="_CalendarSaturday"></td>
 	</tr>
 	
 	</cfoutput>
@@ -226,10 +226,10 @@
   
   <cfif url.target neq "" and url.targetid eq "">
   
-	  <tr><td height="100%" colspan="7" id="calendartarget" style="padding-top:15px" valign="top" align="center">
-	    		
-	  	 <cfset url.selecteddate = dateob>					 
-
+	  <tr><td height="100%" colspan="7" id="calendartarget" style="border-top:1px solid silver;border-bottom:1px solid silver" 
+	    valign="top" align="center">
+			    		
+	  	 <cfset url.selecteddate = dateob>		
 	    <cfinclude template="#url.relativepath#/#url.target#">		 		 			 		
 		 	  
 	  </td></tr>

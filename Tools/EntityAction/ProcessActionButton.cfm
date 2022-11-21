@@ -14,7 +14,7 @@
 	
 	<cfoutput>	
 	
-	  <cf_tl id="Confirm" var="doit">
+	  <cf_tl id="Submit" var="doit">
 	  &nbsp;&nbsp;&nbsp;
 		   
 	  <!--- ------------------------------------------------------------- --->

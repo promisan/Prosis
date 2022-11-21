@@ -476,7 +476,7 @@
 
 			<cf_tl id="#dateformat(url.selecteddate,'MMMM')#" var="lblMonthTitle">
 			<cf_tl id="#dateformat(url.selecteddate,'DDDD')#" var="lblDayTitle">			
-			<font size="2">#lblDayTitle# #lblMonthTitle# #dateformat(url.selecteddate,"DD")#
+			<font size="2">#lblDayTitle# #lblMonthTitle# #dateformat(url.selecteddate,"dd")#
 						
 			</cfoutput>
 			
@@ -503,7 +503,7 @@
 				class="clsNoPrint" 
 				onclick="Prosis.busy('yes'); _cf_loadingtexthtml='';calendardetail('#dateformat(url.selecteddate,client.DateSQL)#','wide')">
             <h style="font-weight:normal;font-size:25px;padding-top:16px;color:gray">		
-			#dateformat(url.selecteddate,"DDDD, MMMM DD")# #dateformat(url.selecteddate,"YYYY")#
+			#dateformat(url.selecteddate,"DDDD, MMMM dd")# #dateformat(url.selecteddate,"YYYY")#
 			</h3>
 			
 			</td>

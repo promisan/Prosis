@@ -661,7 +661,7 @@ password="#SESSION.dbpw#">
 						   
 						   <font color="0080C0">#Person.LastName#:</font>	
 						    <font color="0080C0"><b>#timeformat(DateTimePlanningWorkplan,"HH:MM")#</b></font>
-						   #lsdateformat(DateTimePlanningWorkplan,"DD/MM/YYYY Dddd")# 						 
+						   #lsdateformat(DateTimePlanningWorkplan,"dd/mm/YYYY Dddd")# 						 
 						  
 						  
 							</a>
@@ -679,7 +679,7 @@ password="#SESSION.dbpw#">
 													   
  							#Person.LastName#: #timeformat(DateTimePlanningWorkplan,"HH:MM")#			
 						  
-						   #lsdateformat(DateTimePlanningWorkplan,"DD/MM/YYYY Dddd")#
+						   #lsdateformat(DateTimePlanningWorkplan,"dd/mm/YYYY Dddd")#
 						   					  					
 						  
 						  </cfif>						 		  
@@ -760,7 +760,7 @@ password="#SESSION.dbpw#">
 			</td>							
 										
 			<td>#OfficerLastName#</td>
-			<td>#dateformat(created,"DD/MM")# #timeformat(created,"HH:MM")#</td>
+			<td>#dateformat(created,"dd/MM")# #timeformat(created,"HH:MM")#</td>
 			
 			<td align="right">
 			

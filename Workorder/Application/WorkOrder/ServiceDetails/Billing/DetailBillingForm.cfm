@@ -821,9 +821,9 @@ password="#SESSION.dbpw#">
 					  <tr style="height:15px" class="labelmedium">
 						 <td>				 												   
 						 <cfif DateTimeScheduled neq "">
-						   <font color="F24F00">#dateformat(DateTimeScheduled,"DD/MM")# <font size="2">#timeformat(DateTimeScheduled,"HH:MM")#</font> 
+						   <font color="F24F00">#dateformat(DateTimeScheduled,"dd/mm")# <font size="2">#timeformat(DateTimeScheduled,"HH:MM")#</font> 
 						 <cfelse>
-						   <font color="0080C0">#dateformat(DateTimePlanning,"DD/MM")# <font size="2">#timeformat(DateTimePlanning,"HH:MM")#</font>
+						   <font color="0080C0">#dateformat(DateTimePlanning,"dd/mm")# <font size="2">#timeformat(DateTimePlanning,"HH:MM")#</font>
 						 </cfif>					 
 						 </td>						
 					 

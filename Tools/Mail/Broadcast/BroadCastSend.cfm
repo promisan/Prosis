@@ -58,7 +58,7 @@
 	<cfset to  = "">
 	<cfset bcc = "">
 	
-	<cfset recip = "0">
+	<cfset recip = "1">
 	
 	<cfdirectory action="LIST"
 	    directory = "#SESSION.rootDocumentPath#\Broadcast\#URL.BroadcastId#"
@@ -102,9 +102,11 @@
 								spoolEnable = "Yes">
 								
 								<table width="100%">
+								
 								<tr><td>#body#</td></tr>
 								
-								<tr><td height="1" bgcolor="silver"></td></tr>												
+								<tr><td height="1" bgcolor="silver"></td></tr>	
+																			
 								<tr>
 								 <td align="center">
 								 <font face="Verdana" size="1" color="black">
@@ -132,8 +134,7 @@
 									
 									 <cfmailparam file = "#SESSION.rootDocumentPath#\Broadcast\#URL.BroadcastId#\#Recipient.RecipientCode#\#name#">
 														
-								</cfloop>
-								
+								</cfloop>								
 		
 						    </cfmail>
 							
@@ -149,10 +150,10 @@
 							</cfquery>
 							
 							<cfif URL.SourcePath neq "">
-								<cfset URL.OrgUnit = Recipient.OrgUnit>
-								<cfset URL.RecipientId = recipientid>
-								<cfset URL.BroadCastId = Broadcast.BroadCastId>
-								<cfset URL.eMailAddress = eMailAddress>
+								<cfset URL.OrgUnit           = Recipient.OrgUnit>
+								<cfset URL.RecipientId       = recipientid>
+								<cfset URL.BroadCastId       = Broadcast.BroadCastId>
+								<cfset URL.eMailAddress      = eMailAddress>
 								<cfset URL.SubmissionEdition = Broadcast.BroadcastReference>
 								<cfinclude template="../../../Custom#Trim(URL.SourcePath)#MailConfirmation.cfm">	
 							</cfif>											

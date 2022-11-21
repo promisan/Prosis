@@ -111,7 +111,7 @@
 						<td><cf_tl id="Color"></td>							
 						<td><cf_tl id="UoM"></td>					
 						<td align="right"><cf_tl id="Sales Order"></td>													
-						<td style="cursor:pointer" align="right"><cf_UIToolTip  tooltip="Available earmarked stock"><cf_tl id="Earmarked"></cf_UIToolTip><cf_space spaces="15"></td>
+						<td style="cursor:pointer" align="right" title="Available earmarked stock"><cf_tl id="Earmarked"></td>
 						<cfif line.pointerSale eq "1">
 							<td align="right"><cf_tl id="Shipped"></td>
 						<cfelse>
@@ -125,7 +125,7 @@
 					
 						<cfset bal = quantity-shipped>
 													
-						<tr class="navigation_row line labelmedium fixlengthlist" style="height:22px">
+						<tr class="navigation_row line labelmedium2 fixlengthlist" style="height:25px">
 						
 							<td align="center">							    
 								
@@ -144,12 +144,12 @@
 							<td>#ItemDescription#</td>
 							<td>#ItemColor#</td>
 							<td>#uoMDescription#</td>																															
-							<td bgcolor="A8EFF2" align="right">#numberformat(Quantity,'__')#</td>																
-							<td align="right" bgcolor="ffffcf">
+							<td style="background-color:##A8EFF250" align="right">#numberformat(Quantity,'__')#</td>																
+							<td align="right" style="background-color:##ffffcf80">
 							
 								<table width="100%">
 									
-										<tr>																		
+										<tr class="labelmedium2">																		
 										<td width="20" style="padding-left:5px">										
 										<cf_img icon="expand" 
 												   id="ear_#WorkOrderItemId#" 
@@ -157,7 +157,7 @@
 												   onclick="toggleobjectbox('earmarkbox_#WorkOrderItemId#','earmark_#WorkOrderItemId#','Items/FinalProduct/getDetailLines.cfm?WorkOrderId=#URL.WorkOrderId#&drillid=#WorkOrderItemId#')"
 												   tooltip="See outsourcing for this quote.">										
 										</td>																			
-										<td align="right" class="labelit">#numberformat(Earmarked,'__')#</td>												
+										<td align="right">#numberformat(Earmarked,'__')#</td>												
 										</tr>
 								
 								</table>		
@@ -169,9 +169,9 @@
 								<td align="right" colspan="2"></td>
 								
 							<cfelse>
-								<td align="right" bgcolor="e1e1e1">#Shipped#</td>																
+								<td align="right" style="background-color:##e1e1e180">#Shipped#</td>																
 								<cfif bal gt 0>
-								<td bgcolor="ffffaf" align="right">#bal#</td>
+								<td style="background-color:##ffffaf80" align="right">#bal#</td>
 								<cfelse>
 								<td bgcolor="white" align="right">
 								<img src="#session.root#/images/check_icon.gif" width="18" height="18" alt="Completed" border="0">

@@ -172,9 +172,8 @@
 				<cfif hasWorkOrder gte 1>		
 				
 				<!--- standard --->	
-				<td style="cursor:pointer" class="cellcontent">
-				<font color="0080C0">
-				#CustomerName# <cfif OrgUnit neq "">[*]</cfif>
+				<td style="cursor:pointer" class="cellcontent">				
+				#CustomerName# <cfif OrgUnit neq ""><span title="has orgunit code">[*]</span></cfif>
 				</td>
 				<td align="right" class="cellcontent">[#hasWorkOrder#]</td>
 				<cfelse>

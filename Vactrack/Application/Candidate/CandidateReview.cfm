@@ -1136,7 +1136,7 @@ password="#SESSION.dbpw#">
 					
 			</cfif>
 			
-			<cfif stop eq "1">
+			<cfif stop eq "1" and EntityClass neq "">
 			
 				<tr>				
 					<td colspan="10">

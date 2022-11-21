@@ -281,7 +281,7 @@
 		
 			<tr>
 			    <td></td>
-                <td colspan="2" style="padding-right:10px;padding-left:5px;padding-top:2px;padding-bottom:2px">                    
+                <td colspan="2" style="padding-right:10px;padding-left:5px;padding-top:2px;padding-bottom:2px;<cfif InputMemoHTML eq '1'>border:1px solid silver</cfif>">                    
 				
 				<cfif entrymode eq "view">#Memo#<cfelse>
 				
@@ -295,7 +295,7 @@
 				   
 				  <cfelseif InputMemoSize eq "">
 				  
-					<textarea style="width:100%;height:50px;min-height:40px;" color="ffffff" 
+					<textarea style="width:99%;height:60px;min-height:40px;font-size:14px;padding:3px" color="ffffff" 
 					   onchange="#lkm#" name="memo_#left(QuestionId,8)#" id="memo_#left(QuestionId,8)#">#Memo#</textarea>
 				   
 				   <cfelse>

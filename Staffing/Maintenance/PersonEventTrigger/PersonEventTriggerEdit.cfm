@@ -40,7 +40,7 @@
 
     <tr><td></td></tr>
     <cfoutput>
-    <TR class="labelmedium">
+    <TR class="labelmedium2">
     <TD width="120">Code:</TD>
     <TD>
 	   <cfif url.code neq "">
@@ -72,14 +72,20 @@
     </TD>
 	</TR>
 	
-	<TR class="labelmedium">
-    <TD>Action Impact:</TD>
+	<TR class="labelmedium2">
+    <TD><cf_tl id="Impact">:</TD>
     <TD>
-  	   <cfinput type="Text" name="ActionImpact" value="#get.ActionImpact#" message="Please enter a action impact" required="Yes" size="20" maxlength="20" class="regularxl">
-    </TD>
+	<table><tr class="labelmedium2"><td>
+	<input type="radio" name="ActionImpact" value="Action" <cfif get.ActionImpact neq "Inquiry">checked</cfif>>
+	</td><td style="padding-top:3px">Used for Triggering an Action</td>
+	<td style="padding-left:6px">
+	<input type="radio" name="ActionImpact" value="Inquiry" <cfif get.ActionImpact eq "Inquiry">checked</cfif>>
+	</td><td style="padding-top:3px">Used for Facilitating an Inquiry</td>
+	</tr></table>
+	    </TD>
 	</TR>
 	
-	<TR class="labelmedium">
+	<TR class="labelmedium2">
     <TD>Reason Code:</TD>
     <TD>
   	   <cfquery name="getReason"

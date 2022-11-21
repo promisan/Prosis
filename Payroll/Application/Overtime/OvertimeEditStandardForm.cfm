@@ -331,12 +331,9 @@ password="#SESSION.dbpw#">
 
 </td></tr>
 
-<tr><td></td></tr>
-
 <tr><td class="line"></td></tr>  
-		
 	
- <cfif (Get.Status lte "2" and URL.Mode neq "") or access eq "all">
+ <cfif Get.Status lte "3" or access eq "ALL">	
  
 	  <cfoutput>	  
 	  

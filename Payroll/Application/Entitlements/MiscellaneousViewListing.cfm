@@ -10,6 +10,11 @@
 	   WHERE  Mission = '#url.mission#'
 </cfquery>
 
+<cfinvoke component = "Service.Process.Payroll.PayrollItem"  
+   method           = "PayrollItem"   
+   mission          = "#url.mission#"
+   returnvariable   = "accessItem">	   
+
 <cfoutput> 
 
 	<!--- body --->
@@ -33,15 +38,21 @@
 								 
 		        FROM         PersonMiscellaneous AS M INNER JOIN
 		                     Ref_PayrollItem AS R ON M.PayrollItem = R.PayrollItem INNER JOIN
-		                     Employee.dbo.Person AS P ON M.PersonNo = P.PersonNo	
+		                     Employee.dbo.Person AS P ON M.PersonNo = P.PersonNo								 
 							 
-							 <cfif url.id1 neq "">
-							AND M.EntitlementClass = '#url.id1#'
-							 </cfif>
+				WHERE      1=1 
+				<cfif accessItem neq "">
+				AND   R.PayrollItem IN (#preservesingleQuotes(accessItem)#)			 
+				</cfif>
+				<cfif url.id1 neq "">
+				AND M.EntitlementClass = '#url.id1#'
+				</cfif>
 				
 				) as B
 		
 		WHERE        Mission = '#url.mission#'	
+		
+		--condition
 	   
 	</cfsavecontent>
 	
@@ -76,9 +87,7 @@
 <cfset fields[itm] = {label       = "IndexNo",                  
 					field         = "IndexNo",					
 					search        = "text"}>	
-					
-
-					
+				
 <cfset itm = itm+1>						
 <cfset fields[itm] = {label       = "Name",                  
 					field         = "Name",
@@ -107,7 +116,7 @@
 <cfset fields[itm] = {label       = "Item",  					
                     labelfilter   = "Item",
 					field         = "PayrollItemName",	
-					filtermode    = "2",								
+					filtermode    = "3",								
 					search        = "text"}>		
 					
 <cfset itm = itm+1>							
@@ -155,26 +164,25 @@
 					field      = "Remarks",
 					rowLevel   = "2",
 					colspan    = "10",
-					align      = "center"}>						
+					align      = "center"}>		
 
-
-	<cf_listing
-		    header         = "PAS"
-		    box            = "PAS"
-			link           = "#SESSION.root#/Payroll/Application/Entitlements/MiscellaneousViewListing.cfm?id1=#url.id1#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
-		    html           = "No"
-			show           = "40"
-			datasource     = "appsPayroll"
-			listquery      = "#myquery#"			
-			listorder      = "Name"
-			listorderdir   = "ASC"
-			headercolor    = "ffffff"
-			listlayout     = "#fields#"
-			filterShow     = "Yes"
-			excelShow      = "Yes"
-			drillmode      = "tab"
-			rowshow        = "2"
-			drillargument  = "940;1190;false;false"	
-			drilltemplate  = "Staffing/Application/Employee/PersonView.cfm?id="
-			drillkey       = "PersonNo">
+<cf_listing
+	    header         = "PAS"
+	    box            = "PAS"
+		link           = "#SESSION.root#/Payroll/Application/Entitlements/MiscellaneousViewListing.cfm?id1=#url.id1#&mission=#url.mission#&systemfunctionid=#url.systemfunctionid#"
+	    html           = "No"
+		show           = "300"
+		datasource     = "appsPayroll"
+		listquery      = "#myquery#"			
+		listorder      = "Name"
+		listorderdir   = "ASC"
+		headercolor    = "ffffff"
+		listlayout     = "#fields#"
+		filterShow     = "Yes"
+		excelShow      = "Yes"
+		drillmode      = "tab"
+		rowshow        = "2"
+		drillargument  = "940;1190;false;false"	
+		drilltemplate  = "Staffing/Application/Employee/PersonView.cfm?Template=miscellaneous&id="
+		drillkey       = "PersonNo">
 	

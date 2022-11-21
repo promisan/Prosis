@@ -37,11 +37,11 @@
 	
 	<table width="96%" height="100%" align="center" border="0">
 	
-	<tr><td>
+	<tr><td valign="top">
 	
 	<cf_divscroll>
 	
-		<table width="98%" height="100%">
+		<table width="98%">
 		
 		<tr><td id="myprocess"></td></tr>
 		
@@ -51,8 +51,8 @@
 		    <cfoutput>
 			<table>
 			    <tr class="labelmedium2">
-				<td style="padding-top:2px;padding-left:14px;font-size:18px">#get.FirstName# #get.LastName#</td>
-				<td style="padding-top:2px;padding-left:14px;font-size:18px"><cf_tl id="Recommended">:</td>
+				<td style="font-weight:bold;padding-top:2px;padding-left:14px;font-size:20px">#get.FirstName# #get.LastName#</td>
+				<td style="padding-top:2px;padding-left:14px;font-size:18px"><cf_tl id="Recommended for selection">:</td>
 				<td style="padding-left:4px">
 				<input class = "Radiol" 
 				       style = "height:21px;width:21px" 
@@ -65,30 +65,40 @@
 			</table>
 			</cfoutput>
 		</tr>
-		
-		<tr><td style="height:2px"></td></tr>			
-				
-		<cfquery name="subAction" 
-		datasource="AppsOrganization" 
-		username="#SESSION.login#" 
-		password="#SESSION.dbpw#">
-			SELECT       D.DocumentId, D.DocumentCode, D.DocumentDescription, D.DocumentOrder, D.DocumentTemplate
-			FROM         Ref_EntityActionDocument AS A INNER JOIN
-			             Ref_EntityDocument AS D ON A.DocumentId = D.DocumentId
-			WHERE        A.ActionCode = '#url.actioncode#'
-			AND          DocumentType = 'activity'
-			AND          DocumentMode = 'notify'
-			ORDER BY     D.DocumentOrder		
-		</cfquery>
-		
-		<cfloop query="subaction">		
-		<tr class="labelmedium"><td colspan="2">
-		<cfinclude template="../../../../#DocumentTemplate#">
-		</td></tr>		
-		</cfloop>
+			
 						
 		<!--- make listing for this person by excluding existing selections if not '9' --->
 				
+		
+		
+		<tr class="labelmedium">
+		<td colspan="2" style="min-width:260px;padding-top:4px;height:40px;font-size:18px;padding-right:10px" colspan="1"><cf_tl id="Reason for recommendation">:
+		<span style="font-size:12px;color:gray">Please briefly explain the selection process and why the candidate is considered to be the most suitable
+		for the position based on <cfif get.Gender eq "F">her<cfelse>his</cfif> acquired experience versus the requirements of the job <b>(don't type out the PHP
+		but provide a brief assessment on what the candidate brings to the job)</b>. Please describe efforts made to attract a wide pool of female candidates with
+		the qualifications and experience for the job.</span>
+	    </td>
+		</tr>
+		
+		<tr class="labelmedium">
+		<td colspan="2" valign="top" align="center" style="padding-top:10px;padding-bottom:10px">
+		
+		 <cfquery name="Check" 
+		 datasource="AppsVacancy" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+			SELECT *
+			FROM  DocumentCandidateReview
+			WHERE DocumentNo = '#url.documentno#'
+			AND   PersonNo   = '#url.personno#'	 
+			AND   ActionCode = '#url.ActionCode#'  
+		 </cfquery>	
+		 
+		 <textarea style="padding:5px;border:1px solid silver;background-color:f1f1f1;height:100px;width:98%;font-size:13px;" class="regular"  name="ReviewMemo">#Check.ReviewMemo#</textarea>
+		
+		</td>
+		</tr>
+		
 		<cfif fun.recordcount eq "1">
 		
 			 <cfset url.id       = get.PersonNo>
@@ -157,9 +167,8 @@
 	
 			<cfif FunctionAll.recordcount gte "1">
 			
-				<tr class="labelmedium line">
-				<td style="height:40px;font-size:18px"><cf_tl id="Roster candidate"></td>
-				<td style="width:80%">				 
+				<tr class="labelmedium">				
+				<td style="width:80%" colspan="2">				 
 				
 				 <cfinclude template = "CandidateRecommendationBucket.cfm">			
 				
@@ -170,34 +179,28 @@
 		
 		</cfif>
 		
-		<tr class="labelmedium">
-		<td colspan="2" style="min-width:260px;padding-top:4px;height:40px;font-size:18px;padding-right:10px" colspan="1"><cf_tl id="Reason for recommendation">:
-		<span style="font-size:12px;color:gray">Please briefly explain the selection process and why the recommended candidate is considered to be the most suitable
-		for the position based on <cfif get.Gender eq "F">her<cfelse>his</cfif> acquired experience versus the requirements of the job <b>(don't type out the PHP
-		but provide a brief assessment on what the candidate brings to the job)</b>. Please describe efforts made to attract a wide pool of female candidates with
-		the qualifications and experience for the job.</span>
-	    </td>
-		</tr>
+		<tr><td style="height:2px"></td></tr>			
+				
+		<cfquery name="subAction" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT       D.DocumentId, D.DocumentCode, D.DocumentDescription, D.DocumentOrder, D.DocumentTemplate
+			FROM         Ref_EntityActionDocument AS A INNER JOIN
+			             Ref_EntityDocument AS D ON A.DocumentId = D.DocumentId
+			WHERE        A.ActionCode = '#url.actioncode#'
+			AND          DocumentType = 'activity'
+			AND          DocumentMode = 'notify'
+			AND          D.Operational = 1
+			ORDER BY     D.DocumentOrder		
+		</cfquery>
 		
-		<tr class="labelmedium">
-		<td colspan="2" valign="top" align="center" style="padding-top:10px;padding-bottom:10px;height:80%">
-		
-		 <cfquery name="Check" 
-		 datasource="AppsVacancy" 
-		 username="#SESSION.login#" 
-		 password="#SESSION.dbpw#">
-			SELECT *
-			FROM  DocumentCandidateReview
-			WHERE DocumentNo = '#url.documentno#'
-			AND   PersonNo   = '#url.personno#'	 
-			AND   ActionCode = '#url.ActionCode#'  
-		 </cfquery>	
-		 
-		 <textarea style="padding:5px;border:1px solid silver;background-color:f1f1f1;height:100px;width:98%;font-size:13px;" class="regular"  name="ReviewMemo">#Check.ReviewMemo#</textarea>
-		
-		</td>
-		</tr>
-		
+		<cfloop query="subaction">		
+		<tr class="labelmedium"><td colspan="2">		
+		<cfinclude template="../../../../#DocumentTemplate#">		
+		</td></tr>		
+		</cfloop>
+				
 		</table>
 	
 	</cf_divscroll>

@@ -1,5 +1,5 @@
 
-<cfajaximport tags="cfwindow,cfdiv">
+<cfajaximport tags="cfdiv">
 
 <cfparam name="url.workorderid"   default="BC45B157-EE35-066E-D6B7-BCE776B2F802">
 <cfparam name="url.workorderline" default="1">
@@ -60,7 +60,9 @@
 					
 					<tr>
 				       
-						<td style="padding-left:3px;padding-right:">
+						<td style="padding-left:3px">
+						
+
 						
 						<!--- define all workorder that are not closed and that have
 						transaction for items net earmarked in a positive --->
@@ -104,7 +106,7 @@
 					          display="reference"
 							  onchange="javascript:ptoken.navigate('#SESSION.root#/Workorder/Application/Assembly/EarmarkStock/getWorkorderItem.cfm?mission=#workorder.mission#&warehouse=#url.warehouse#&workorderid='+this.value,'itemselect')"
 					          visible="Yes"
-							  style="height:30px;font-size:17px;10px;width:335px"
+							  style="height:30px;font-size:17px;10px;width:94%"
 					          enabled="Yes"
 					          id="workorderidselect"
 					          class="regularxl">
@@ -190,9 +192,9 @@
 					<tr>						   
 						
 						<td style="padding-left:3px;padding-right:10px" id="boxwarehouse" class="hide">																
-																				
+																			
 								<select name="warehouse" id="warehouse"
-								    class="regularxl" style="font-size:20px;height:30px;width:100%"
+								    class="regularxl" style="font-size:20px;height:36px;width:100%"
 									onchange="ptoken.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/getStockLevel.cfm?mission=#workorder.mission#&warehouse='+this.value+'&itemno='+document.getElementById('itemno').value+'&uom='+document.getElementById('uom').value+'&workorderid='+document.getElementById('workorderid').value+'&workorderline='+document.getElementById('workorderline').value,'stockbox');ColdFusion.navigate('#SESSION.root#/WorkOrder/Application/Assembly/EarmarkStock/setWarehouseTo.cfm?itemno='+document.getElementById('itemno').value+'&mission=#workorder.mission#&warehouse='+this.value,'boxtransferto')">
 									<cfloop query="Warehouse">
 										<option value="#Warehouse#">#WarehouseName#</option>

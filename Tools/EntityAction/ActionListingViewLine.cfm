@@ -471,7 +471,7 @@
 					
 					</cfif>
 				</td>	
-							
+																		
 				<td style="padding-top:4px;width: auto; min-width: 120px;">
 				
 					<cfif OfficerDate neq "">
@@ -1156,6 +1156,7 @@
 			</cfif>		
 			
 			<cfinclude template="ActionListingViewFields.cfm">
+			
 			
 			<cfinclude template="ActionListingViewFunction.cfm">
 					

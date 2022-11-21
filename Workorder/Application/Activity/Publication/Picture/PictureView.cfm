@@ -81,11 +81,11 @@
 					</tr>
 					<tr>
 						<td class="labelit"><cf_tl id="Planned">:</td>
-						<td class="labelmedium">#dateFormat(getAction.DateTimeRequested,"DD/MM")# #timeFormat(getAction.DateTimeRequested,'hh:mm tt')#</td>
+						<td class="labelmedium">#dateFormat(getAction.DateTimeRequested,"dd/mm")# #timeFormat(getAction.DateTimeRequested,'hh:mm tt')#</td>
 					</tr>
 					<tr>
 						<td class="labelit"><cf_tl id="Completed">:</td>
-						<td class="labelmedium">#dateFormat(getAction.DateTimeActual,"DD/MM")# #timeFormat(getAction.DateTimeActual,'hh:mm tt')# <cf_tl id="by"> #getAction.ActionOfficerUserId#</td>
+						<td class="labelmedium">#dateFormat(getAction.DateTimeActual,"dd/mm")# #timeFormat(getAction.DateTimeActual,'hh:mm tt')# <cf_tl id="by"> #getAction.ActionOfficerUserId#</td>
 					</tr>
 					</cfoutput>
 					<tr><td height="5"></td></tr>

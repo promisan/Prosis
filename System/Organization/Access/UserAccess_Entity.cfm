@@ -264,12 +264,12 @@ function more(bx) {
 
 			<cfoutput query="AccessList" group="EntityCode">
 			
-			<tr class="fixrow">			
-				<td colspan="4" style="padding-top:6px;padding-bottom:3px">
+			<tr class="fixrow" style="background-color:white">			
+				<td colspan="4" style="padding:4px;background-color:white">
 					<table>
 					<tr>					
 						<td style="padding-left:1px"></td>
-						<td style="padding-left:4px" class="labellarge">#EntityDescription# (#EntityCode#)</td>				
+						<td style="padding-left:14px;font-size:18px;height:30px;font-weight:bold;padding-right:14px;border-radius:10px" class="labellarge">#EntityDescription# (#EntityCode#)</td>				
 					</tr>
 					</table>
 				</td>				
@@ -328,7 +328,7 @@ function more(bx) {
 				<cfif EntityGroup neq "">
 								   																							
 					<tr class="line">
-					<td width="60%" colspan="4">
+					<td width="60%" colspan="3">
 					
 						<table cellspacing="0" cellpadding="0" width="100%">
 						
@@ -446,7 +446,7 @@ function more(bx) {
 				  
 				  </td>
 				  					  
-				  <td width="20%" align="right" class="linedotted" style="padding-right:3px">				      						  				      
+				  <td align="right" class="linedotted" style="padding-right:3px">				      						  				      
 					  <cfinclude template="UserAccessSelectAction.cfm">				  						  
 				  </td>	
 				  

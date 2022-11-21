@@ -1,8 +1,15 @@
+
+<cfparam name="URL.event"     	default="">
+
 <cfparam name="URL.eventid" 	default="">
+
 <cfparam name="URL.portal"  	default="0">
+<cfparam name="URL.scope"    	default="">
+
 <cfparam name="URL.ptrigger" 	default="">
 <cfparam name="URL.pevent" 		default="">
 <cfparam name="URL.preason" 	default="">
+
 
 <cfif URL.eventId neq "">
 
@@ -12,7 +19,7 @@
 		 password="#SESSION.dbpw#">
 		 SELECT * 
 		 FROM   PersonEvent
-		 WHERE  EventId='#URL.eventId#'
+		 WHERE  EventId = '#URL.eventId#'
 	</cfquery>		 
 
 <cfelse>
@@ -51,7 +58,12 @@
 					<cfif url.portal eq "1">
 						AND   (PE.EnablePortal = 1 or Code = '#qEvent.EventTrigger#')
 					</cfif>
-					
+					<!--- we filter for the inquiry personal portal --->
+					<cfif url.scope eq "inquiry" and url.event eq "inquiry">
+					AND    ET.ActionImpact = 'inquiry'
+					<cfelseif url.event neq "">
+					AND    PE.Code = '#url.event#'					
+					</cfif>					
 		         )
 				 
 		<cfif url.PositionNo neq "">
@@ -69,7 +81,7 @@
         id="triggercode" 
 		style="width:95%" 
 		class="regularxxl" 
-		onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getEvent.cfm?personno=<cfoutput>#url.personno#</cfoutput>&triggercode='+this.value+'&eventid=&mission='+document.getElementById('mission').value+'&portal=<cfoutput>#url.portal#&pevent=#url.pevent#&preason=#url.preason#</cfoutput>','dEvent');">		
+		onchange="_cf_loadingtexthtml='';ptoken.navigate('<cfoutput>#SESSION.root#</cfoutput>/Staffing/Application/Employee/Events/getEvent.cfm?personno=<cfoutput>#url.personno#</cfoutput>&triggercode='+this.value+'&eventid=&mission='+document.getElementById('mission').value+'&portal=<cfoutput>#url.portal#&scope=#url.scope#&pevent=#url.pevent#&preason=#url.preason#</cfoutput>','dEvent');">		
 		<cfif qTriggers.recordcount gt "1">
 			<option value="">Please select...</option>
 		</cfif>

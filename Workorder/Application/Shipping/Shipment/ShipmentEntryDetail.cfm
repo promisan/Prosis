@@ -74,6 +74,7 @@
 		   PointerSale      = "0"  
 		   Mode             = "view"
 		   returnvariable   = "NotEarmarked">	
+			
 		   
 		<cfinvoke component = "Service.Process.WorkOrder.WorkorderLineItem"  
 		   method           = "InternalWorkOrder" 
@@ -172,6 +173,7 @@
 						 R.ItemDescription, 
 						 UoM.UoMDescription
 			
+						
 		</cfquery>		
 			
 			

@@ -62,7 +62,9 @@
        <cfset condition = "AND Status = '#URL.Status#'">
 </cfif>
 
-<cfinclude template="getAccess.cfm">
+<cfinvoke component = "Service.Process.Payroll.PayrollItem"  
+   method           = "PayrollItem"   
+   returnvariable   = "accessItem">	   
 
 <cfquery name="SearchResult" 
 datasource="AppsPayroll" 
@@ -83,8 +85,8 @@ password="#SESSION.dbpw#">
 	FROM     PersonMiscellaneous L INNER JOIN Ref_PayrollItem I ON L.PayrollItem = I.PayrollItem
 	WHERE    L.PersonNo = '#URL.ID#' 	
           	 #preserveSingleQuotes(condition)#
-	<cfif itm neq "">
-    AND      L.PayrollItem IN (#preservesingleQuotes(itm)#)
+	<cfif accessitem neq "">
+    AND      L.PayrollItem IN (#preservesingleQuotes(accessitem)#)
 	</cfif>		 			 
 			 
 	ORDER BY L.PayrollItem, 
@@ -140,7 +142,7 @@ password="#SESSION.dbpw#">
 			   
 			 </SELECT>		
 			</td>
-			<cfif itm neq "">
+			<cfif accessitem neq "">
 				<cfoutput>
 				    <td align="right" style="padding-right:1px;width:20%">
 					<input type="button" value="New Entry" style="height:26px" class="button10g" onClick="javascript:entitlement('#URL.ID#','#URL.ID1#')">	 

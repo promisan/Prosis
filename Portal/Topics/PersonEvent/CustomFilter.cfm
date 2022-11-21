@@ -100,12 +100,12 @@ password="#SESSION.dbpw#">
 				<td class="label" style="color:gray;padding-left:3px;padding-right:10px"></td>
 					<td style="padding-left:7px;padding-right:4px" class="labelit">
 						<input type="radio" class="radiol" name="layout_#thisDivName#" id="layout_#thisDivName#" value="Trigger" 
-							onclick="if ($('##divPersonEventDetail_#thisDivName#').length > 0) { ColdFusion.navigate('#link#&status='+$('##fldstatus_#thisDivName#').val()+'&actor='+$('##fldactor_#thisDivName#').val()+'&sort='+$('##fldsort_#thisDivName#').val()+'&stage='+$('##fldstage_#thisDivName#').val()+'&layout=Trigger','divPersonEventDetail_#thisDivName#');}"
+							onclick="if ($('##divPersonEventDetail_#thisDivName#').length > 0) { ptoken.navigate('#link#&status='+$('##fldstatus_#thisDivName#').val()+'&actor='+$('##fldactor_#thisDivName#').val()+'&sort='+$('##fldsort_#thisDivName#').val()+'&stage='+$('##fldstage_#thisDivName#').val()+'&layout=Trigger','divPersonEventDetail_#thisDivName#');}"
 							checked></td>
-					<td class="labelmedium" style="padding-right:4px"><cf_tl id="Trigger"></td>
+					<td class="labelmedium" style="padding-right:4px"><cf_tl id="Category"></td>
 					<td style="padding-left:7px;padding-right:4px" class="labelit">
 						<input type="radio" class="radiol" name="layout_#thisDivName#" id="layout_#thisDivName#" value="Event" 
-							onclick="if ($('##divPersonEventDetail_#thisDivName#').length > 0) { ColdFusion.navigate('#link#&status='+$('##fldstatus_#thisDivName#').val()+'&actor='+$('##fldactor_#thisDivName#').val()+'&sort='+$('##fldsort_#thisDivName#').val()+'&stage='+$('##fldstage_#thisDivName#').val()+'&layout=Event','divPersonEventDetail_#thisDivName#');}"
+							onclick="if ($('##divPersonEventDetail_#thisDivName#').length > 0) { ptoken.navigate('#link#&status='+$('##fldstatus_#thisDivName#').val()+'&actor='+$('##fldactor_#thisDivName#').val()+'&sort='+$('##fldsort_#thisDivName#').val()+'&stage='+$('##fldstage_#thisDivName#').val()+'&layout=Event','divPersonEventDetail_#thisDivName#');}"
 							></td>
 					<td class="labelmedium" style="padding-right:4px"><cf_tl id="Event"></td>				
 				

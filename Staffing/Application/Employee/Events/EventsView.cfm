@@ -1,6 +1,6 @@
 <cfparam name="url.scope" default="backoffice">
 
-<cfif url.scope eq "portal">
+<cfif url.scope eq "inquiry" or url.scope eq "unit" or url.scope eq "personal">
 	<cfset url.portal = 1>
 </cfif>	
 

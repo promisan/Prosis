@@ -35,8 +35,8 @@
 	<table style="width:100%">
 		
 		<tr class="labelmedium2"><td><cf_tl id="Reason for cancellation"></td></tr>		
-		<tr><td style="padding:10px" align="center"><textarea style="font-size:15px;padding:4px;width:97%;height:100px"></textarea></td></tr>		
-		<tr><td align="center" style="padding:4px"><input type="button" value="Submit" class="button10g" name="Memo" onclick="revokesubmit('#url.status#')"></td></tr>
+		<tr><td style="padding:10px" align="center"><textarea name="Memo" style="font-size:15px;padding:4px;width:97%;height:100px"></textarea></td></tr>		
+		<tr><td align="center" style="padding:4px"><input type="button" value="Submit" class="button10g" name="Submit" onclick="revokesubmit('#url.status#')"></td></tr>
 	
 	</table>
 	
@@ -51,8 +51,8 @@
 	<table style="width:100%">
 		
 		<tr class="labelmedium2"><td><cf_tl id="Reason for reinstatement"></td></tr>						
-		<tr><td style="padding:10px" align="center"><textarea style="font-size:15px;padding:4px;width:97%;height:100px"></textarea></td></tr>		
-		<tr><td align="center" style="padding:4px"><input type="button" value="Submit" class="button10g" name="Memo" onclick="revokesubmit('#url.status#')"></td></tr>
+		<tr><td style="padding:10px" align="center"><textarea name="Memo" style="font-size:15px;padding:4px;width:97%;height:100px"></textarea></td></tr>		
+		<tr><td align="center" style="padding:4px"><input type="button" value="Submit" class="button10g" name="Submit" onclick="revokesubmit('#url.status#')"></td></tr>
 	
 	</table>
 	

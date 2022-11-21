@@ -559,23 +559,25 @@
 									
 									<!--- only for regular listing enabled --->
 												
-									<cfif list eq "regular" and ShowSize eq "1">
+									<cfif list eq "regular">
 									
-								    	<td width="20%" class="cellcontent" nowrap><cfif attachment.AttachmentMemo eq "Detected"><font color="6688aa">#Attachment.OfficerFirstName# #Attachment.OfficerLastName#<cfelse>#Attachment.OfficerFirstName# #Attachment.OfficerLastName#</cfif></font></td>
+								    	<td width="20%" class="cellcontent" nowrap><cfif attachment.AttachmentMemo eq "Detected"><font color="6688aa">#Attachment.OfficerFirstName# #Attachment.OfficerLastName#<cfelse>#Attachment.OfficerFirstName# #Attachment.OfficerLastName#</cfif></font></td>								    	
 								    	
-								    	<cfif DocumentServerIsOp eq "0">
+										<cfif DocumentServerIsOp eq "0">
 									    	<TD width="10%" class="cellcontent" nowrap>#DateFormat(DateLastModified, CLIENT.DateFormatShow)#&nbsp;#TimeFormat(DateLastModified, "HH:MM")#&nbsp;</TD>
+											<cfif ShowSize eq "1">
 								    		<TD width="10%" class="cellcontent" style="padding-right:10px" align="right"><cfset kb = (Size/1024)> #numberFormat(kb, "_____._" )#kb</TD>	
+											</cfif>
 								    	</cfif>															
 																	
 										<td width="20" style="padding-right:7px">
 																				
 											<img src="#SESSION.root#/Images/Info.png" alt="Log" 
 												border="0" 
-												height="16" width="16"
+												height="18" width="18"
 												align="absmiddle" 
 												style="cursor: pointer;" 
-												onClick="logdocfile('#attachment.attachmentid#','#attbox#_#currentrow#')"> 				
+												onClick="logdocfile('#attachment.attachmentid#','#attbox#_#attachment.attachmentid#')"> 				
 														
 										</td>
 									
@@ -625,7 +627,7 @@
 										
 				                    </cfif>
 									
-									<tr class="hide" id="logbox#attbox#_#currentrow#"><td colspan="8" id="logboxcontent#attbox#_#currentrow#"></td></tr>
+									<tr class="hide" id="logbox#attbox#_#attachment.attachmentid#"><td colspan="8" id="logboxcontent#attbox#_#attachment.attachmentid#"></td></tr>
 									
 									<cfif currentrow neq recordcount>		
 										<tr class="line"><td colspan="8"></td></tr>
@@ -714,7 +716,7 @@
 								<TD width="100" align="right"></TD>						
 							</cfif>
 										
-							<td width="20">
+							<td width="20" style="padding-left:8px">
 										
 								<img src="#SESSION.root#/Images/info2.gif" 
 								    alt="Document Action Log" 

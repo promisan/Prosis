@@ -72,11 +72,11 @@ password="#SESSION.dbpw#">
 	WHERE       ActionId = '#url.id#'	
 </cfquery>
 
-<cfform method="POST" name="activityform">
+<cfform method="POST" name="activityform" style="height:97%">
 
 	<cfoutput>
 	<table class="formpadding formspacing" style="width:96%" align="center">
-		<tr><td style="min-width:200px"><cf_tl id="Activity"></td>
+		<tr class="labelmedium2"><td style="min-width:200px"><cf_tl id="Activity"></td>
 			<td style="width:100%">
 			<select name="DocumentId" class="regularxxl">
 				<cfloop query="ActionLookup">
@@ -85,7 +85,7 @@ password="#SESSION.dbpw#">
 			</select>		
 			</td>
 		</tr>	
-		<tr><td><cf_tl id="Due Date"></td>
+		<tr class="labelmedium2"><td><cf_tl id="Due Date"></td>
 		  <td>
 		  
 		  <table>
@@ -128,19 +128,17 @@ password="#SESSION.dbpw#">
 				</select>
 			</td>
 			
-			</tr>		
-					
+			</tr>				
 			
 		   </table>	
 		  
 		  </td>
 		</tr>
 		
-		<tr><td valign="top" style="padding-top:3px"><cf_tl id="Comment"></td>
+		<tr class="labelmedium2">
+		    <td valign="top" style="padding-top:5px"><cf_tl id="Comment"></td>
 			<td><textarea name="ActionMemo" style="font-size:14px;padding:3px;width:99%;height:40px">#get.ActionMemo#</textarea></td>
 		</tr>
-		
-		
 		
 		<cfquery name="mail" 
 		datasource="AppsOrganization" 
@@ -158,7 +156,7 @@ password="#SESSION.dbpw#">
 			<tr class="labelmedium line">
 			<td colspan="2" style="font-size:20px">
 				<table style="width:100%">
-				<tr class="labelmedium">
+				<tr class="labelmedium2">
 				<td style="font-size:20px;width:20px">
 				<a href="javascript:if (confirm('Resend this mail ?')) { ptoken.navigate('#session.root#/Vactrack/Application/Candidate/Action/ActionMailResend.cfm?documentno=#url.documentno#&personno=#url.personno#&actioncode=#url.actioncode#&actionid=#mail.actionid#&objectactionid=#url.actionid#','resend')}"><cf_tl id="Resend"></a>
 				</td>
@@ -226,7 +224,7 @@ password="#SESSION.dbpw#">
 				  
 				  <cfif getMail.recordcount lte "2">		
 				  
-				  	<td align="right">
+				  	<td>
 					
 					 <input type="hidden" id="MailDocumentId">	
 				  
@@ -296,6 +294,7 @@ password="#SESSION.dbpw#">
 			
 		</cfif>
 		
+		<tr><td id="actionsubmit"></td></tr>
 			
 		<tr><td colspan="2" align="center">
 		
@@ -306,9 +305,7 @@ password="#SESSION.dbpw#">
 				</tr>
 			</table>
 		
-		</td></tr>
-		
-		<tr><td id="actionsubmit"></td></tr>
+		</td></tr>		
 			
 	</table>
 	

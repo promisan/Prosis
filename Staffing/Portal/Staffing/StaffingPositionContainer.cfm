@@ -295,7 +295,7 @@
 		
 		<cfif AssignDetail.recordcount gt "1">
 			
-		<tr class="clsBig"><td colspan="2" style="width:100%;height:24px;padding-left:5px;padding:1px">
+		<tr class="clsBig"><td colspan="2" style="width:100%;height:24px;padding-left:5px">
 			
 				<table>
 				<tr>
@@ -361,7 +361,7 @@
 				
      	<cfelse>
 			 
-			<tr class="clsBig"><td style="height:1px"></td></tr>					
+			<tr class="clsBig"><td style="height:0px"></td></tr>					
 			
 		</cfif>			
 			
@@ -425,7 +425,7 @@
 			
 			<tr class="clsBig">
 				<td colspan="2" class="clsAssignment_#PositionNo# clsAssignment_#AssignmentNo#" valign="top" 
-				  style="height:100%;width:100%;padding-right:13px; #vDisplay#" id="ass#AssignmentNo#">		
+				  style="height:100%;width:100%;padding-right:6px; #vDisplay#" id="ass#AssignmentNo#">		
 				  			  		  		     
 					<cfinclude template="StaffingPositionIncumbent.cfm">							 					
 				</td>					 

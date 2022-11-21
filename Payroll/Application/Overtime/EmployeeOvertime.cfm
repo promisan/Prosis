@@ -284,7 +284,7 @@ password="#SESSION.dbpw#">
 	
 	<cfset row = 0>
 		
-	<tr class="line labelmedium"><td style="font-size:20px;padding-left:4px;font-weight:200" colspan="2">#Mission# #OvertimeYear#<td>
+	<tr class="line labelmedium"><td class="fixlength" style="font-size:20px;padding-left:4px" colspan="2">#Mission# #OvertimeYear#<td>
 	
 	<cfif url.ovtmode neq "Time">
 	

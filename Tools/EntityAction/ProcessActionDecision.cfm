@@ -14,11 +14,11 @@
  <tr><td height="4"></td></tr>
  <tr bgcolor="ffffff" height="50">
  
-    <td height="29" width="90" style="padding-left:10px" class="labelmedium2"><cf_tl id="Decision">:</td>
+    <td height="29" width="90" style="padding-left:10px;padding-right:10px" class="fixlength labelmedium2">#Action.ActionDescription#:</td>
  
     <td>	   
 	    <table id="processblock">
-		<tr class="fixlengthlist">
+		<tr>
 			
 		<input type="hidden" name="StatusOld" id="StatusOld" value="#ActionStatus#">  
 			
@@ -48,11 +48,11 @@
 		   
 	   </td>
 	    	
-	   <td id="d0"  class="labelmedium2" style="cursor: pointer;padding:0 10px 0 0;" onclick="document.getElementById('r0').click()">
+	   <td id="d0"  class="labelmedium2 fixlength" style="cursor: pointer;padding:0 10px 0 0;" onclick="document.getElementById('r0').click()">
 	       <img src="#SESSION.root#/Images/Pending.png" width="24" height="24"
 						   alt="Go back to previous step" border="0" 
 						   align="absmiddle">
-	       <span style="position: relative; top:2px;"><cf_tl id="Pending"></span></td>
+	       <span style="position: relative; top:2px;"><cf_tl id="Pending decision"></span></td>
 	   	  
 	   
 	   <cfif entityaccess eq "EDIT" or entityaccess eq "ALL">
@@ -235,7 +235,7 @@
 				      
 			   <cfif Action.ActionDateInput eq "1">
 			   
-				   <td class="labelmedium2" style="padding-left:1px;padding-top:1px;padding-right:4px"><cf_tl id="on">:</td>
+				   <td class="labelmedium2" style="padding-left:1px;padding-bottom:1px;padding-right:4px"><cf_tl id="on">:</td>
 				   <td style="min-width:130px;">
 													
 							<cfif Action.ActionDateInput eq "">
@@ -320,22 +320,14 @@
 			<table cellspacing="0" cellpadding="0">
 			<tr>
                 <td>
-                    <input type="text" name="ActionReferenceNo" id="ActionReferenceNo" class="regularxxl" value="#aref#">
-					
-                <td  class="labelmedium" style="padding-left:20px"><cf_tl id="Date">:</td>
-                <td style="padding-left:4px">
-				
-				<cfif adte eq "">			   
-			   	   <cfset adte = now()>
-			    </cfif>
-			    
+                    <input type="text" name="ActionReferenceNo" id="ActionReferenceNo" class="regularxl" value="#aref#">
+                <td  class="labelmedium" style="padding-left:20px"><span style="position: relative; top:2px;"><cf_tl id="Date">:</span></td>
+                <td>
 				<cf_intelliCalendarDate9
 				FieldName="ActionReferenceDate" 
 				Default="#Dateformat(adte, CLIENT.DateFormatShow)#"
-				Class="regularxxl"
+				Class="regularxl"
 				AllowBlank="false">	
-				
-				
 			     </td>
 			     </td>
 			</tr>

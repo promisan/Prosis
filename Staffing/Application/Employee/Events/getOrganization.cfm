@@ -35,12 +35,51 @@
 		 ORDER BY  HierarchyCode
 </cfquery>
 
-<select name="OrgUnit" class="regularxxl" style="width:95%">
+<cfif url.selected neq "">
+	
+	<select name="OrgUnit" class="regularxxl" style="width:95%">
+	
+		<cfoutput query="getOrganization">
+			<option value="#orgunit#" <cfif url.selected eq orgunit>selected</cfif>>#HierarchyCode# #OrgUnitName#</option>
+		</cfoutput>
+	
+	</select>
 
-	<cfoutput query="getOrganization">
-		<option value="#orgunit#" <cfif url.selected eq orgunit>selected</cfif>>#HierarchyCode# #OrgUnitName#</option>
-	</cfoutput>
+<cfelse>
+	
+	<cfquery name="Assignment" 
+		 datasource="AppsEmployee" 
+		 username="#SESSION.login#" 
+		 password="#SESSION.dbpw#">
+			 SELECT  *
+			 FROM    PersonAssignment
+			 WHERE   PersonNo = '#url.personno#'
+			 AND     AssignmentStatus IN ('0','1')
+			 AND     AssignmentClass = 'Regular'
+			 ORDER BY DateEffective DESC
+	</cfquery>		
+			
+	<select name="OrgUnit" class="regularxxl" style="width:95%">
+	
+	     <cfif url.scope eq "Inquiry">
+		 
+			 <cfoutput query="getOrganization">
+			    <cfif assignment.orgunit eq orgunit>
+				<option value="#orgunit#" selected>#HierarchyCode# #OrgUnitName#</option>
+				</cfif>
+			</cfoutput>
+		 
+		 <cfelse>
+		 
+			 <cfoutput query="getOrganization">
+				<option value="#orgunit#" <cfif assignment.orgunit eq orgunit>selected</cfif>>#HierarchyCode# #OrgUnitName#</option>
+			</cfoutput>
+		 
+		 </cfif>
+	
+	</select>
 
-</select>
+
+</cfif>
 
 		

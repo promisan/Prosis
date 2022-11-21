@@ -17,7 +17,7 @@
     <tr style="border-bottom:1px solid silver">
         <td>
             <div style="padding-left:3px; display:#vHidden#">
-               <button type="button"  onclick="javascript:getSignatureWidth()" id="bSign" <cfif Attributes.class neq "">class="#Attributes.Class#"</cfif>><cf_tl id="Sign"></button>
+               <button type="button"  onclick="javascript:getSignatureWidth()" id="bSign" <cfif Attributes.class neq "">class="#Attributes.Class#"</cfif>><cf_tl id="Signature"></button>
             </div>
         </td>
         <td>

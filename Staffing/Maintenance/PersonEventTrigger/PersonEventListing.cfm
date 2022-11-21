@@ -20,8 +20,8 @@
 
 <table width="100%" align="center" class="navigation_table">
 
-	<tr class="labelmedium line">
-	    <td align="center">
+	<tr class="labelmedium line fixlengthlist">
+	    <td>
 			<cfoutput>
 				<a href="javascript:editPE('#url.id1#','')">[Add]</a>
 			</cfoutput>
@@ -33,8 +33,8 @@
 	
 	<cfoutput query="SearchResult">
 	   
-	    <tr height="20" class="labelmedium linedotted navigation_row">
-			<td width="5%" style="padding-top:1px" id="processDeletePE"> 
+	    <tr height="20" class="labelmedium linedotted navigation_row fixlengthlist">
+			<td style="padding-top:1px" id="processDeletePE"> 
 				<table>
 					<tr>
 						<td>
@@ -61,9 +61,9 @@
 				</table>
 				
 			</td>		
-			<td class="cellcontent">#EventDescription#</td>
-			<td class="cellcontent">#ActionImpact#</td>
-			<td class="cellcontent">#ReasonDescription#</td>
+			<td>#EventDescription#</td>
+			<td>#ActionImpact#</td>
+			<td>#ReasonDescription#</td>
 	    </tr>
 		
 	</cfoutput>

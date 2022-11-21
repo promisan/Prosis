@@ -31,7 +31,7 @@
     
 	<td colspan="2" style="padding-left:10px;height:45px">   
 	
-    <table id="processblock"><tr class="fixlengthlist">
+    <table id="processblock"><tr>
 		
 	<input type="hidden" name="StatusOld" id="StatusOld" value="#ActionStatus#">  
 		
@@ -158,7 +158,8 @@
 		       
 			   <td class="#r#" id="d1a" style="padding-left:8px;padding-right:4px" title="#vLblTTGoTo#"></td>
 				      
-			   <td class="#r#" id="d1b" title="#vLblTTGoTo#">  			      
+			   <td class="#r#" id="d1b" title="#vLblTTGoTo#">  	
+			   			   		      
 				   <select style="width:240px;border:0px;background-color:f1f1f1" class="regularxxl"				   
 				     name="ActionCodeOnHold" id="ActionCodeOnHold"
 					 style="background: ffffff;" 
@@ -215,7 +216,8 @@
 			
 			   <tr> 
                    <td class="labelmedium2" style="padding-left:3px;padding-right:3px" title="#vLblTTNext#">
-		  
+		 
+				  
 		   <input type="radio" id="r2" style="cursor: pointer;" class="radiol"
 		   <cfif URL.Process neq "">disabled</cfif>
 		   name="actionstatus" value="2"  <cfif Status eq "2">checked</cfif>
@@ -278,8 +280,8 @@
       
    <td class="labelmedium" colspan="1" style="padding-left:7px" align="right" id="processnow">
 	 
-	    <cf_tl id="Apply" var="1">		
-			  	
+	    <cf_tl id="Submit" var="1">		
+
 	   	<input type="button" 
 		    name="saveaction" 
 			id="saveaction"
@@ -328,20 +330,15 @@
 		    <td class="labelmedium" style="padding-left:10px;"><cf_tl id="Action Reference">:</td>
 			<td>
 			<table cellspacing="0" cellpadding="0">
-			<tr><td><input type="text" name="ActionReferenceNo" id="ActionReferenceNo" class="regularxl" value="#aref#">
+			<tr><td>
+			<input type="text" name="ActionReferenceNo" id="ActionReferenceNo" class="regularxl" value="#aref#">
 			<td class="labelmedium" style="padding-left:20px"><cf_tl id="Date">:</td>				 
 			<td style="padding-left:10px">
-			
-			   <cfif adte eq "">			   
-			   	   <cfset adte = now()>
-			   </cfif>
-			    
 				<cf_intelliCalendarDate9
 				FieldName="ActionReferenceDate" 
 				Default="#Dateformat(adte, CLIENT.DateFormatShow)#"
 				Class="regularxl"
 				AllowBlank="false">	
-				
 			</td>
 			</td>
 			</tr>

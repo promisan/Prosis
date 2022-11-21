@@ -96,12 +96,12 @@ password="#SESSION.dbpw#">
 
 <cfif External.recordcount gte "1">
 
-<tr class="labelmedium line"><td colspan="2" style="padding-left:10px;height:45px;font-size:21px" colspan"2"><cf_tl id="Attachments"></td></tr>
+<tr class="labelmedium line"><td colspan="2" style="padding-top:10px;padding-left:10px;height:30px;font-size:20px" colspan"2"><cf_tl id="Attachments"></td></tr>
 	
 <tr><td colspan="2">
 
-<table width="100%" align="center">
-
+<table width="100%" align="center"> 
+	
 	<cfoutput query="External">
 	
 		<cfset l = len(DocumentDescription)>
@@ -121,11 +121,14 @@ password="#SESSION.dbpw#">
 			<cfset box = "b#currentrow#">
 			<cfset objectid = Object.objectid>
 			<cfset name     = documentDescription>
+			
 			<cfinclude template="../ProcessObjectAttachment.cfm">
+			
 			</td>
 		</tr>	
 	
 	</cfoutput>
+	
 	
 </TABLE>
 

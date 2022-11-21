@@ -782,7 +782,7 @@ password="#SESSION.dbpw#">
 											
 								<cfinclude template="AssignmentEditContinuous.cfm">
 								
-								<cfif cstr lt Position.DateExpiration>
+								<cfif cstr lt Position.DateExpiration and cstr gt st>
 											
 									<td class="labelmedium2">
 									

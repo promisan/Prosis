@@ -1,7 +1,7 @@
 <cfquery name="qEvent" 
-		 datasource="AppsEmployee" 
-		 username="#SESSION.login#" 
-		 password="#SESSION.dbpw#">
+	 datasource="AppsEmployee" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
 		 SELECT * 
 		 FROM   PersonEvent
 		 WHERE  EventId='#URL.eventId#'
@@ -30,9 +30,11 @@
 	CompleteCurrent  = "#enf#">	 
 	
 <cfoutput>
-<cfif url.scope eq "portal">
+
+<cfif url.scope eq "inquiry" or url.scope eq "personal">
 	<script>
-		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/Selfservice.cfm?id=#qEvent.PersonNo#&mission=#url.mission#&trigger=#url.trigger#&event=#url.event#','divEventDetail');
+	    <!--- we hide the interface --->
+		ptoken.navigate('#SESSION.root#/Staffing/Portal/Events/deleteEvent.cfm?id=#url.eventid#','process');
 	</script>
 <cfelse>
 	<script>

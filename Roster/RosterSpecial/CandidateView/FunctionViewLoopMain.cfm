@@ -29,9 +29,9 @@
 						</td>		
 					</tr>										
 					<cfif function.mission neq "">
-						<tr class="labelmedium2  fixlengthlist">
+						<tr class="labelmedium2 fixlengthlist">
 					    <td><cf_tl id="Entity">:</td>
-					    <td>
+					    <td style="padding-left:0px">
 							<table>
 								<tr class="labelmedium2">
 								
@@ -85,12 +85,13 @@
 					   
 					</tr>		
 					  
-					<tr class="labelmedium2  fixlengthlist">					
+					<tr class="labelmedium2">					
 					   					   
 						<cfif Function.DocumentNo neq "">
 															
-								<td><cf_tl id="Recruitment Request">:</td>
-							    <td>
+								<td class="fixlengthlist" style="padding-left:2px"><cf_tl id="Recruitment Request">:</td>
+							    <td colspan="3">
+								<table style="width:100%"><tr><td class="fixlengthlist">
 								<cfoutput>
 									<a href="javascript:showdocument('#Function.DocumentNo#')">#Function.DocumentNo#</a>
 								</cfoutput>  		
@@ -104,8 +105,94 @@
 								WHERE DocumentNo = '#Function.DocumentNo#'
 								</cfquery>
 															
-							    <cfoutput>#Doc.Mission# - #Doc.OrganizationUnit#</cfoutput></td>
+							    <cfoutput>#Doc.Mission# - #Doc.OrganizationUnit#</cfoutput>
+								
+								</td></tr>
+								
+								<tr>
+								
+								
+								<!--- Query returning search results --->
+								<cfquery name="Person"
+								datasource="AppsVacancy" 
+								username="#SESSION.login#" 
+								password="#SESSION.dbpw#">
+								    SELECT *, FirstName+' '+LastName as Name
+									FROM   DocumentCandidate
+									WHERE  DocumentNo IN (SELECT DocumentNo FROM Document WHERE FunctionId = '#Function.FunctionId#')
+									AND    Status IN ('3','2','2s')
+									ORDER BY Status DESC
+							    </cfquery>
+							
+								<cfif Person.name neq "">
+																	
+								<TR class="navigation_row_child">
+									<td></td>
+									
+									<table width="99%" align="center">
+										   
+										<tr><td>
+										
+											<table class="formspacing">
+											
+											<cfset c = 0>
+											<cfset cnt = 1>
+																	
+												<cfloop query="Person">
+													<cfif c eq "6">
+													    <cfset c = 0>
+														<tr class="fixlengthlist">
+													</cfif>
+												    <cfif Name eq ""><td width="25%"><font color="gray">[<cf_tl id="no candidates">]</td>
+													
+													<cfelse>
+													
+													     <cfif status eq "2s">
+															<td bgcolor="ffffaf" onclick="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#','0')" class="fixlength" 
+															    style="cursor:pointer;height:20px;padding-left:12px;padding-right:12px;border-radius:10px;border:1px solid gray">	
+																#cnt#. #Name#		 																																																
+													    <cfelseif status eq "2">
+															<td bgcolor="ffffef" class="fixlength" 
+															    style="height:20px;padding-left:12px;padding-right:12px;border-radius:10px;border:1px solid gray">	
+																#cnt#. #Name#										 												
+														<cfelseif status eq "3">
+															<td bgcolor="80FF80" onclick="javascript:showdocumentcandidate('#DocumentNo#','#PersonNo#','0')" class="fixlength" 
+															  style="height:20px;padding-left:12px;padding-right:12px;border-radius:10px;border:1px solid gray">	
+																#cnt#. #Name#	
+														<cfelseif status eq "9">	
+														    <td bgcolor="FF8080" class="fixlength" style="height:20px;padding-left:12px;padding-right:12px;border-radius:10px;border:1px solid gray;text-decoration: line-through;color: white;border-radius:10px">#cnt#. #Name#"</TD>		
+														<cfelse>
+															<td bgcolor="f4f4f4" class="fixlength" style="height:20px;padding-left:12px;padding-right:12px;border-radius:10px;border:1px solid gray">																																										   
+																#cnt#. #Name#												
+															</TD>	
+														</cfif>								
+													 	</td>
 														
+																								
+													</cfif>
+													<cfset c =  c + 1>
+													<cfset cnt = cnt + 1>
+											    </cfloop>
+												
+												</tr>
+																
+											</table>
+											
+										</td></tr>
+										</table>
+										</td>
+									</tr>
+								
+								</cfif>
+								
+								
+								</tr>
+								
+								
+								</table>
+								
+								</td>
+																						
 						<cfelse>													
 								
 								<td><cf_tl id="Recruitment Request">:</td>
@@ -113,8 +200,7 @@
 						
 						</cfif>		
 						
-						<td><cf_tl id="Class">:</td>
-					    <td>#Function.ExerciseClass#</td>				  					   
+							  					   
 					   				
 					</tr>			
 									   					   

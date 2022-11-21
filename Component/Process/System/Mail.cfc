@@ -27,12 +27,32 @@
 				WHERE     ObjectId = '#ObjectId#'
 			</cfquery>
 			
+			<cfquery name="Person" 
+				datasource="#DataSource#" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT    * 
+				FROM      Employee.dbo.Person 						
+				WHERE     PersonNo = '#Object.PersonNo#'
+			</cfquery>
+			
+			<cfquery name="Candidate" 
+				datasource="#DataSource#" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">
+				SELECT    * 
+				FROM      Applicant.dbo.Applicant 						
+				WHERE     PersonNo = '#Object.PersonNo#'
+			</cfquery>
+			
 			 <cfset htmllink = "<a href='#SESSION.root#/ActionView.cfm?id=#Object.Objectid#'><font color='0080FF'>Click here to process</font></a>">			  
 				  
 			  <cfset content = replaceNoCase( "#content#", "@link",     "#htmllink#",                                "ALL")>				
 			  <cfset content = replaceNoCase( "#content#", "@user",     "#SESSION.first# #SESSION.last#",            "ALL")>
 			  <cfset content = replaceNoCase( "#content#", "@ref1",     "#Object.ObjectReference#",                  "ALL")>
-			  <cfset content = replaceNoCase( "#content#", "@ref2",     "#Object.ObjectReference2#",                 "ALL")>			 
+			  <cfset content = replaceNoCase( "#content#", "@ref2",     "#Object.ObjectReference2#",                 "ALL")>		
+			  <cfset content = replaceNoCase( "#content#", "@person",   "#Person.FirstName# #Person.LastName#",      "ALL")>	
+			  <cfset content = replaceNoCase( "#content#", "@candidate","#Candidate.FirstName# #Candidate.LastName#","ALL")>		 	 
 			  <cfset content = replaceNoCase( "#content#", "@mission",  "#Object.Mission#",                          "ALL")>
 			  <cfset content = replaceNoCase( "#content#", "@owner",    "#Object.Owner#",                            "ALL")>
 			  <cfset content = replaceNoCase( "#content#", "@holder",   "#Object.OfficerFirstName# #Object.OfficerLastName#",       "ALL")>	

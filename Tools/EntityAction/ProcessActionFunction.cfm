@@ -22,7 +22,7 @@
 
 	<tr><td colspan="2">
 	
-		<table width="100%" cellspacing="0" cellpadding="0">
+		<table width="100%">
 					
 			<cfoutput query="function">	  
 			   		 					 
@@ -35,10 +35,10 @@
 				 <td id="#DocumentCode#">	
 				 				 
 				 <!--- define the targets --->
-								 		 
+				 								 		 
 				 <cfswitch expression="#DocumentCode#">
 					 <cfcase value="fnts">
-					 	<cfset sc = "#SESSION.root#/tools/entityaction/details/notes/NoteList.cfm?box=#DocumentCode#_#Object.ObjectId#&mode=note&objectid=#Object.ObjectId#&actioncode=#Action.ActionCode#">
+					 	<cfset sc = "#SESSION.root#/tools/entityaction/details/notes/NoteList.cfm?box=#DocumentCode#_#Object.ObjectId#&mode=note&objectid=#Object.ObjectId#&actioncode=#Action.ActionCode#&actionid=#url.id#">
 						<cfdiv bind="url:#sc#" id="#DocumentCode#_#Object.ObjectId#">		
 					 </cfcase>
 					 <cfcase value="fact">
@@ -46,11 +46,11 @@
 						<cfdiv bind="url:#sc#" id="#DocumentCode#_#Object.ObjectId#">		
 					 </cfcase>		  
 					 <cfcase value="fexp">
-			  		 	<cfset sc = "#SESSION.root#/tools/entityaction/details/cost/CostList.cfm?box=#DocumentCode#_#Object.ObjectId#&mode=cost&objectid=#Object.ObjectId#&actioncode=#Action.ActionCode#">
+			  		 	<cfset sc = "#SESSION.root#/tools/entityaction/details/cost/CostList.cfm?box=#DocumentCode#_#Object.ObjectId#&mode=cost&objectid=#Object.ObjectId#&actioncode=#Action.ActionCode#&actionid=#url.id#">
 						<cfdiv bind="url:#sc#" id="#DocumentCode#_#Object.ObjectId#">		
 					 </cfcase>		  
 					 <cfcase value="ftme"> 
-					 	<cfset sc = "#SESSION.root#/tools/entityaction/details/cost/CostList.cfm?box=#DocumentCode#_#Object.ObjectId#&mode=work&objectid=#Object.ObjectId#&actioncode=#Action.ActionCode#">
+					 	<cfset sc = "#SESSION.root#/tools/entityaction/details/cost/CostList.cfm?box=#DocumentCode#_#Object.ObjectId#&mode=work&objectid=#Object.ObjectId#&actioncode=#Action.ActionCode#&actionid=#url.id#">
 						<cfdiv bind="url:#sc#" id="#DocumentCode#_#Object.ObjectId#">		
 					 </cfcase>		 
 					 <cfcase value="ftpl"> 

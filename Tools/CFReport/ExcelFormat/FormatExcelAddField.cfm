@@ -7,6 +7,14 @@
     FROM     Parameter
 </cfquery>
 
+
+<cfquery name="Site" 
+	datasource="AppsInit">
+		SELECT * 
+		FROM   Parameter
+		WHERE  HostName = '#CGI.HTTP_HOST#'
+</cfquery>
+
 <cfquery name="Max" 
  datasource="appsSystem">
 	 SELECT   max(FieldNameOrder) as FieldNameOrder
@@ -113,6 +121,16 @@
 
 	<cfset ds = Output.DataSource>
 
+
+	<cfif site.applicationserver eq Parameter.databaseServer>		
+		  <cfset svr = "">
+	<cfelse>
+		  <cfset svr = "">
+		  <!---
+		  <cfset svr = "[#Parameter.databaseServer#].">
+		  --->
+	</cfif>	
+
 	<cfquery name="Fields" 
 	datasource="#ds#">
 		SELECT   C.name, C.userType 
@@ -120,7 +138,7 @@
 		WHERE    S.id = C.id
 		AND      S.name = '#URL.table#'	
 		AND      C.name NOT IN (SELECT FieldName 
-	                        FROM   [#Parameter.databaseServer#].System.dbo.UserReportOutput
+	                        FROM   #svr#.System.dbo.UserReportOutput
 	                        WHERE  UserAccount = '#SESSION.acc#'
 							AND    OutputId = '#URL.id#') 
 		ORDER BY C.ColId 
@@ -172,7 +190,7 @@
 
 	<cfquery name="Insert" 
 		 datasource="appsSystem">
-		 	UPDATE 	[#Parameter.databaseServer#].System.dbo.UserReportOutput
+		 	UPDATE 	#svr#.System.dbo.UserReportOutput
 			SET 	OutputShow = '1'
 			WHERE  	UserAccount = '#SESSION.acc#'
 			AND    	OutputId = '#URL.id#'

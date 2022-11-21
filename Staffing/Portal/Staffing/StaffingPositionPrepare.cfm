@@ -115,8 +115,7 @@
 						           ) AS D 
 				   INNER JOIN Person ON D.PersonNo = Person.PersonNo 
 				   INNER JOIN Organization.dbo.Organization O ON D.OrgUnitOperational = O.OrgUnit
-				WHERE       D.DateExpirationContract < getDate()+50
-		</cfquery>
+				WHERE       D.DateExpirationContract < getDate()+90		</cfquery>
 		
 		<!---
 		<cfoutput>#cfquery.executiontime#</cfoutput>

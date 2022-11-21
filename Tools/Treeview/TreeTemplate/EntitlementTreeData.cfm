@@ -1,9 +1,27 @@
+
+  <!--- obtain accesss --->
+	  
+   <cfinvoke component="Service.Access"
+		Method         = "contract"
+		Mission        = "#attributes.Mission#"			
+		Role           = "'ContractManager'"
+		ReturnVariable = "AccessContract">	
+			  
+  <cfinvoke component="Service.Access"
+		Method         = "payrollofficer"
+		Mission        = "#attributes.Mission#"			
+		Role           = "'PayrollOfficer'"
+		ReturnVariable = "AccessPayroll">	
+			
+	<cf_UItree
+		id="root"
+		root="no"
+		title="<span style='font-size:16px;color:gray;padding-bottom:3px;padding-top:3px'>#attributes.mission#</span>"	
+		expand="Yes">			
+	  
+	    <cfif AccessContract eq "NONE" and AccessPayroll eq "NONE">
 		
-<cf_UItree
-	id="root"
-	root="no"
-	title="<span style='font-size:16px;color:gray;padding-bottom:3px;padding-top:3px'>#attributes.mission#</span>"	
-	expand="Yes">			
+		<cfelse>
   		
 	   	<cf_tl id="Personnel Action" var="vAction">	  
 		
@@ -63,6 +81,7 @@
 				
 			</cfloop>			
 				
+		</cfif> 
 			  									
 		<cfquery name="TriggerList" 
 		    datasource="AppsPayroll" 
@@ -94,36 +113,40 @@
 			ORDER BY  TriggerGroup		
 						
 		</cfquery>
-					
-		<cfoutput query="TriggerList" group="TriggerGroup">
-					
-			<cfif TriggerGroup eq "Entitlement">
-				<cfset exp = "No">				
-			<cfelse>
-			    <cfset exp = "Yes">
-			</cfif>
-			
-			<cf_UItreeitem value="group_#TriggerGroup#"
-		        display="<span class='labelit' style='font-weight:bold;font-size:18px;padding-bottom:3px;padding-top:3px'>#TriggerGroup#</span>"
-				parent="root"	
-				target="right"						
-				href="EntitlementViewOpen.cfm?ID=GRP&ID1=#TriggerGroup#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
-		        expand="#exp#">								
 		
-			<cfoutput>
-			
-				<cf_UItreeitem value="#SalaryTrigger#"
-		        display="<span class='labelit' style='font-size:13px'>#Description#</span>"
-				parent="group_#TriggerGroup#"	
-				target="right"						
-				href="EntitlementViewOpen.cfm?ID=TRG&ID1=#SalaryTrigger#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
-		        expand="No">		
-							   
-			</cfoutput> 	
-					
-	    </cfoutput>	
+		<cfif AccessPayroll neq "NONE">
+							
+			<cfoutput query="TriggerList" group="TriggerGroup">
+						
+				<cfif TriggerGroup eq "Entitlement">
+					<cfset exp = "No">				
+				<cfelse>
+				    <cfset exp = "Yes">
+				</cfif>
 				
-		 <cf_tl id="Cost recovery" var="vCost">	
+				<cf_UItreeitem value="group_#TriggerGroup#"
+			        display="<span class='labelit' style='font-weight:bold;font-size:18px;padding-bottom:3px;padding-top:3px'>#TriggerGroup#</span>"
+					parent="root"	
+					target="right"						
+					href="EntitlementViewOpen.cfm?ID=GRP&ID1=#TriggerGroup#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
+			        expand="#exp#">								
+			
+				<cfoutput>
+				
+					<cf_UItreeitem value="#SalaryTrigger#"
+			        display="<span class='labelit' style='font-size:13px'>#Description#</span>"
+					parent="group_#TriggerGroup#"	
+					target="right"						
+					href="EntitlementViewOpen.cfm?ID=TRG&ID1=#SalaryTrigger#&Mission=#Attributes.Mission#&systemfunctionid=#url.systemfunctionid#"									
+			        expand="No">		
+								   
+				</cfoutput> 	
+						
+		    </cfoutput>	
+			
+		</cfif>	
+				
+		 <cf_tl id="Miscellaneous" var="vCost">	
 		 
 		 <cf_UItreeitem value="Recovery"
 		        display="<span class='labelit' style='font-weight:bold;font-size:18px;padding-bottom:3px;padding-top:3px'>#vCost#</span>"

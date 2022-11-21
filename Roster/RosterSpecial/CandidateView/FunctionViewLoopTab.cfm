@@ -224,7 +224,7 @@ function bucketsta() {
 					  <cfset myurl = "FunctionViewListing.cfm?tab=detail&owner=#function.owner#&idfunction=#url.idfunction#&process=1&expand=1&day=#day#&status=#status#&processstatus=#status#&meaning=#label#&processmeaning=#meaning#&orgunit=#orgunit#&total=5">
 					  
 					  <cf_UItreeitem value="#st#"
-					        display="<span style='font-size:14px' class='labelit'>#Label# <a id='count_#status#'>[#getStatus.counted#]</a></span>"
+					        display="<span style='font-size:14px' class='labelit' title='#StatusMemo#'>#Label# <a id='count_#status#'>[#getStatus.counted#]</a></span>"
 							parent="can"																			
 							target="right"
 							href="javascript:Prosis.busy('yes');_cf_loadingtexthtml='';ptoken.navigate('#myurl#','detail')"

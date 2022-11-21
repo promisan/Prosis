@@ -25,14 +25,14 @@
 		<cf_droptable dbname="AppsQuery" tblname="#SESSION.acc#_ErrorDistinct">
 					
 		<cfif ExecutionScope eq "Today">
-			<cfset vStartDate = DateFormat(now(),"YYYY-MM-DD")>	
+			<cfset vStartDate = DateFormat(now(),"YYYY-MM-dd")>
 		<cfelseif ExecutionScope eq "Yesterday">
-			<cfset vStartDate = DateFormat(now()-1,"YYYY-MM-DD")>
+			<cfset vStartDate = DateFormat(now()-1,"YYYY-MM-dd")>
 		<cfelse>
 			<cfset vStartDate = "">		
 		</cfif>
 		
-		<cfset vEndDate = DateFormat(now(),"YYYY-MM-DD")>	
+		<cfset vEndDate = DateFormat(now(),"YYYY-MM-dd")>
 
 		<!--- Get the errors depending on the scope --->
 		<cfquery name="GetErrors" 
@@ -58,7 +58,7 @@
 
 			WHERE   1=1
 			<cfif ExecutionScope neq "All">
-				AND ErrorTimeStamp BETWEEN 	'#DateFormat(vStartDate,"YYYY-MM-DD")# 00:00:00' AND '#DateFormat(vEndDate,"YYYY-MM-DD")# 23:59:59'
+				AND ErrorTimeStamp BETWEEN 	'#DateFormat(vStartDate,"YYYY-MM-dd")# 00:00:00' AND '#DateFormat(vEndDate,"YYYY-MM-dd")# 23:59:59'
 			</cfif>
 			
 			<cfif ExecutionScope neq "All">

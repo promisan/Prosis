@@ -95,8 +95,8 @@
 
 <cfset itm = itm + 1>					  
 <cfset fields[itm] = {label      = "Grade",                  					
-					  field      = "PostGradeBudget",		
-					  fieldsort  = "PostOrderBudget",		
+					  field      = "PostGrade",		
+					  fieldsort  = "PostOrder",		
 					  column     = "common",				  			
 					  search     = "text",
 					  filtermode = "3"}>					  					  
@@ -118,7 +118,7 @@
 					  field      = "FunctionalArea", 													
 					  search     = "text", 
 					  align      = "center",
-					  filtermode = "3"}>						  					  
+					  filtermode = "4"}>						  					  
 					  
 <cfset itm = itm+1>						
 <cfset fields[itm] = {label       = "I", 	
@@ -247,15 +247,14 @@
 <!--- embed|window|dialogajax|dialog|standard --->
 			
 <cf_listing header  = "PositionTrackDetail"
-    box             = "positiontrack_#url.mission#"
+    box             = "positiontrack_#url.mission#_#url.hierarchyCode#"
 	link            = "#SESSION.root#/Vactrack/Application/ControlView/ControlListingPositionContent.cfm?systemfunctionid=#url.systemfunctionid#&mission=#url.mission#&hierarchycode=#url.hierarchyCode#"
     html            = "No"		
-	datasource      = "AppsEmployee"
 	autofilter      = "manual"	
+	datasource      = "AppsEmployee"
 	listquery       = "#myPositionTracks#"
 	listorder       = "SourcePostNumber"
 	listorderalias  = ""
-	autofilter      = "manual"	
 	listorderdir    = "DESC"
 	headercolor     = "ffffff"				
 	tablewidth      = "100%"

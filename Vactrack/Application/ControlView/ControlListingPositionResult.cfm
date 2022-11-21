@@ -214,7 +214,7 @@
 	 									
 </cfsavecontent>
 
-<cfset url.item = "PostGradeBudget">
+<cfset url.item = "PostGrade">
 
 <cfsavecontent variable="qry">
 		<cfoutput>		
@@ -275,8 +275,8 @@
 	    username="#SESSION.login#" 
 	    password="#SESSION.dbpw#">
 			#preserveSingleQuotes(qry)#
-			GROUP BY PostGradeBudget, PostOrderBudget
-			ORDER BY PostOrderBudget	
+			GROUP BY PostGrade, PostOrder
+			ORDER BY PostOrder	
 		</cfquery>  
 	 
 	 </cfdefaultcase>

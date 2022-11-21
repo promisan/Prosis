@@ -1,15 +1,19 @@
 
 <cfoutput>
 
-
   <table style="width:100%;height:100%;<cfif incumbency eq "0">background-color:ffffaf</cfif>">
 					
 		 <tr>
-		 <td valign="top" style="width:100%;padding:2px">
+		 <td valign="top" style="width:100%;">
 		 
 			 <table style="width:100%">
+			 
+			 <tr class="labelmedium2">
+				 <td colspan="2" align="center" style="border-bottom:1px solid silver;height:30px;background-color:f4f4f4;padding-left:4px;font-weight:bold;font-size:17px">#FirstName# #LastName#</td>
+		     </tr>
+							 
 			 <tr>
-			  <td valign="top" style="width:85px;padding-left:4px;padding-right:10px;">
+			  <td valign="top" style="padding-top:4px;width:85px;padding-left:4px;padding-right:10px;">
 			 			  
 			  <table>
 				  <tr><td>
@@ -91,9 +95,7 @@
 				   <tr style="height:25px">					   					        
 						 <td colspan="3" style="width:100%">							 							 
 						 <table style="width:100%">
-							 <tr class="labelmedium2">
-								 <td colspan="2" style="font-weight:bold;font-size:17px">#FirstName# #LastName#</td>
-							 </tr>
+							
 							 <tr class="labelmedium2" style="height:20px">
 								 <td style="font-size:14px">
 								  <cfif getAdministrator("#mission#") eq "1">
@@ -231,11 +233,11 @@
 									   
 									   <cfif cleared.actionDateExpiration gt getContract.DateExpiration>
 									   
-									       #dateformat(Cleared.ActionDateExpiration,client.dateformatshow)# *
+									       #dateformat(Cleared.ActionDateExpiration,client.dateformatshow)# <span title="Has an contract event expiration date beyond the recorded contract expiration">*</span>
 										   										   									   									   
 									   <cfelse>
 									    
-										   <cfif dateDiff("d",now(),getContract.DateExpiration) lte 50>
+										   <cfif dateDiff("d",now(),getContract.DateExpiration) lte 90>
 										   <font color="FF0000">#dateformat(getContract.DateExpiration,client.dateformatshow)#</font>
 										   <cfset extendctr = "1">
 										   <cfelse>
@@ -363,7 +365,7 @@
 						   </td>
 						   <td align="right" style="padding-right:5px">
 						   	  <cfif getLastAssign.DateExpiration neq "">
-								   <cfif dateDiff("d",now(),getLastAssign.DateExpiration) lte 50>						   
+								   <cfif dateDiff("d",now(),getLastAssign.DateExpiration) lte 90>						   
 								       <span style="color:##FF0000;">#dateformat(getLastAssign.DateExpiration,client.dateformatshow)#</span>		
 									   <cfset extendass = "1">					   
 								   <cfelse>										   			   

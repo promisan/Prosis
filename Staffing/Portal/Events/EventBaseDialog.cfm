@@ -1,5 +1,16 @@
+
 <cfparam name="url.action" default="">
 <cfparam name="url.mode"  default="view">
+
+<cfif url.event eq "Inquiry">
+
+	<cfset url.scope = "inquiry">
+
+<cfelse>
+
+    <cfset url.scope = "personal">
+
+</cfif>
 
 <cfquery name="Event" 
 	datasource="AppsEmployee" 
@@ -40,68 +51,135 @@
 	 AND      PA.AssignmentType  = 'Actual'
 	 ORDER BY Incumbency DESC						
  </cfquery>  
+
+<cfif url.event eq "inquiry">
+    <cfset scope = "Inquiry">
+<cfelse>
+    <cfset scope = "Personal">
+</cfif>
 		
-<table align="center" style="height:100%;width:99%" border="0">
+<table align="left" style="height:100%;width:99%" border="0">
 
 	<tr>
 	<td>
 		<table width="100%">
-			<tr>
+			<tr class="fixrow">
 			
-			    <td colspan="2" style="padding-left:6px;padding-right:10px;padding-top:10px;font-size:34px" class="labellarge" colspan="2">						
+			    <td colspan="2" style="background-color:white;padding-top:5px;font-size:34px" class="fixlength labellarge" colspan="2">						
 					<cf_tl id="#Event.Description#">						
 				</td>
 				
-				<td align="right" style="padding-top:26px;padding-right:10px">
+				<td align="right" style="background-color:white;padding-top:5px;padding-right:10px">
 				    <!---
 					<cfif qEvents.recordcount gt 0 and OnBoard.recordcount gt 0>
 					--->
-					<cfif qEvents.recordcount gt 0>
-					
+					<cfif qEvents.recordcount gt 0 and scope eq "Personal">				     
+									
 						  <cf_tl id="New Request" var="1">		   
 						  <cfoutput>
 					    	<input type="button" 
 								value="#lt_text#" 
 								class="button10g" 
-								style="width:190;height:25px" 
-								onclick="javascript:eventportaladd('#URL.id#','portal','#url.mission#', '#url.trigger#', '#url.event#', '');">
+								style="width:190;height:35px;font-size:17px;background-color:1A8CFF;color:white;" 
+								onclick="javascript:eventadd('#URL.id#','#scope#','#url.mission#','','#url.event#');">
 						</cfoutput>
 						
 					</cfif>
 				</td>
 			</tr>
 			
+			<!--- is like a sub menu to click immeidately on the trigger --->
+			
+			<cfif url.scope eq "inquiry" and url.event eq "inquiry">
+			
 			<tr>
-			<td colspan="3">
-			<cfoutput>
-					#qevents.Instruction#				
-			</cfoutput>			
+			<td colspan="3" style="padding-bottom:8px;padding-top:13px;font-size:17px;"><cfoutput>Please select subject that best matches your request</cfoutput></td>
+			</tr>
+			
+			<tr>
+			<td colspan="3" style="padding-top:4px;background-color:f4f4f4">						
+						
+				<cfquery name="qTriggers" 
+					datasource="AppsEmployee" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">
+						SELECT   Code,
+						         Description,
+						         ListingOrder,
+						         OfficerUserId,
+						         OfficerLastName,
+						         OfficerFirstName,
+						         Created
+								 
+						FROM     Ref_EventTrigger
+						
+						WHERE    Code IN (
+								  	SELECT  EventTrigger
+									FROM    Ref_PersonEventTrigger ET 
+									        INNER JOIN Ref_PersonEvent PE         ON ET.EventCode=PE.Code 
+											INNER JOIN Ref_PersonEventMission REM ON REM.PersonEvent=ET.EventCode
+									WHERE   REM.Mission = '#url.mission#'
+									<cfif url.portal eq "1">
+									AND     PE.EnablePortal = 1
+									</cfif>
+									<!--- we filter for the inquiry personal portal --->					
+									AND    ET.ActionImpact = 'inquiry'
+											
+						         )		 
+						
+						<cfif url.scope eq "portal">
+						AND      Selfservice = 1
+						</cfif>
+						 
+						ORDER BY ListingOrder
+						
+				</cfquery>
+						
+			<table style="width:100%">
+			<cfset i = 0>
+			<cfoutput query="qTriggers">
+			   <cfset i = i+1> 
+			   <cfif i eq "1">
+			   <tr class="labelmedium2 fixlengthlist">
+			   </cfif>
+			      <td style="padding-left:20px;font-size:17px;font-weight:bold"><a href="javascript:eventadd('#URL.id#','#scope#','#url.mission#','#Code#','#url.event#');"><li>#Description#</li></a></td>
+			   <cfif i eq "3"> 	  
+ 			    </tr> <cfset i = 0>
+			   </cfif>	
+		   </cfoutput>
+			
+			</table>
 			</td>
+			</tr>
+			
+			
+						
+			
+			</cfif>
+			
+			<tr>
+			<td colspan="3" style="padding:6px;padding-top:15px"><cfoutput>#qevents.Instruction#</cfoutput></td>
 			</tr>
 						
 		</table>
 	</td>
 	</tr>
 
-	<tr><td style="padding-left:10px;padding-right:10px;height:100%;padding-top:20px">
+	<tr><td style="padding-left:10px;padding-right:10px;height:100%;padding-top:10px" valign="top">
 	
-		<cf_divscroll>	
-
+	    <cf_divscroll>
+	
 		<table width="100%" align="center" class="formpadding navigation_table"">
 					
-		<TR class="line labelmedium fixrow">
-			<td></td>
-			<td></td>
-			<!---
-  		    <td><cf_tl id="Entity"></td>  		     
-			--->
-		    <td><cf_tl id="Group">|<cf_tl id="Request"></td> 
-			
-			<td><cf_tl id="Effective"></td>  			
-			<td><cf_tl id="Expiration"></td>
-			<td><cf_tl id="Requested"></td>
-			<td width="5%"></td>	
-			<td><cf_tl id="Process"></td>  		
+		<TR class="line labelmedium fixrow fixlengthlist">
+		    <td style="background-color:white;"><cf_tl id="Reference"></td>  
+			<td style="background-color:white;min-width:60px;"></td>
+			<td style="background-color:white;min-width:70px;"></td>					    		     			
+		    <td style="background-color:white;"><cf_tl id="Category">|<cf_tl id="Request"></td> 			
+			<td style="background-color:white;"><cf_tl id="Requested"></td>
+			<td style="background-color:white;"><cf_tl id="Priority"></td>	
+			<td style="background-color:white;"></td>
+			<td style="background-color:white;"><cf_tl id="Status"></td>  		
 		</TR>
 		
 		<!--- define mission --->
@@ -129,10 +207,10 @@
 			<cfinvoke component = "Service.Access"  
 			   method           = "staffing" 
 			   mission          = "#Mission#" 			  			  
-			   returnvariable   = "accessStaffing">	   
-			
-			<cfif accessStaffing neq "NONE">
-			
+			   returnvariable   = "accessStaffing">	  
+			   			
+			<cfif accessStaffing neq "NONE" or accessStaffing eq "NONE">
+								
 				<cfquery name="EventsAll" 
 				datasource="AppsEmployee" 
 				username="#SESSION.login#" 
@@ -143,6 +221,7 @@
 						   RefPE.EntityClass,
 						   PE.PersonNo,
 						   PE.EventId,
+						   PE.EventSerialNo,
 						   PE.Mission,
 						   PE.PositionNo,
 						    (   SELECT SourcePostNumber
@@ -153,8 +232,8 @@
 							    FROM   Position
 							    WHERE  PositionNo = Pe.PositionNo					   
 						   ) as PositionParentId,	
-						   PE.DocumentNo,
-						   Pe.ContractNo,				  
+						   PE.DocumentNo,						  	
+						   Pe.EventPriority,		  
 						   PE.OfficerFirstName, 
 						   PE.OfficerLastName, 
 						   PE.ActionStatus,		
@@ -183,48 +262,98 @@
 					AND    PE.Personno = '#URL.ID#'
 					<!--- only his/her own --->
 					AND    PE.OfficerUserId = '#session.acc#'
-					<cfif trim(url.trigger) neq "">
-					AND 	ET.Code = '#url.trigger#'
-					</cfif>
-					<cfif trim(url.event) neq "">
-					AND 	PE.EventCode = '#url.event#'
-					</cfif>
+					
+					<cfif url.event eq "Inquiry">
+										
+					    AND RefPE.Code IN (SELECT EventCode 
+						                        FROM   Ref_PersonEventTrigger 
+												WHERE  EventTrigger = PE.EventTrigger 
+												AND    ActionImpact = 'Inquiry') 
+					
+					<cfelse>
+					
+						<cfif trim(url.trigger) neq "">
+						AND 	ET.Code = '#url.trigger#'
+						</cfif>
+						<cfif trim(url.event) neq "">
+						AND 	PE.EventCode = '#url.event#'
+						</cfif>
+						
+					</cfif>	
+					
 				    ORDER BY PE.Created DESC		
 				    	
 				</cfquery>
-			
+				
+											
 				<cfif EventsAll.recordcount neq "0">
 					 		 		
 					<cfloop query="EventsAll">
 					
-						<TR class="labelmedium navigation_row line">		   
-											
-							   <td style="padding-top:0px;padding-left:2px">
+					    <cfif actionStatus eq "3">
+												
+						   <cfset cl = "D6FEDF">
+						
+						<cfelse>
+						
+						   <cfset cl = "ffffff">
+							
+						</cfif>
+					
+						<TR class="labelmedium2 navigation_row line fixlengthlist" id="#eventid#_1" style="height:35px;background-color:#cl#">		   
+							
+								<td>#EventSerialNo#
+							   <!--- <cfif ActionDateExpiration gte ActionDateEffective>#dateformat(ActionDateExpiration,client.dateformatshow)#</cfif> --->
+							   </td>			
+							   <td align="right" style="padding-left:6px;max-width:50px">
 							   
-							   		<cfif ActionStatus eq "0" or ActionStatus eq "1">
+							   		<cfif ActionStatus eq "0">
 									
-							   		<cf_img icon="edit" 
-			   							navigation="Yes" 
-			   							onClick="eventedit('#eventid#','portal')">
-											
+									<input type="button" value="Edit" style="width:60px" name="Edit" class="button10g" 
+									   onClick="eventedit('#eventid#','#url.scope#','#url.portal#')">
+																   													
 									<cfelseif ActionStatus eq "3">
 																	
 									    <cfif getAdministrator("#mission#")>
+																				
+										<img src="#session.root#/Images/check_mark.gif" 
+										   alt="" width="20" height="20" border="0">
+										   
+										<!--- 
 										
 										<cf_img icon="open" 
 				   							navigation="Yes" 
-				   							onClick="eventportaledit('#eventid#','portal','#url.mission#', '#url.trigger#', '#url.event#', '');">
+				   							onClick="eventedit('#eventid#','#url.scope#','#url.mission#', '#url.trigger#', '#url.event#', '');">
+											--->
 											
 										<cfelse>
 										
 										<img src="#session.root#/Images/check.gif" 
 										   alt="" width="15" height="20" border="0">
 										</cfif>   
+										
 									<!--- closed --->		
 								    </cfif>
 							   </td>
 							
-							   <td style="width:10px;padding-top:8px">
+							   <td style="max-width:50px">
+							   
+							   <cfinvoke component="Service.Access"  
+								      method="org" 
+									  mission="#Mission#" 
+									  returnvariable="access">
+									 
+									<cfif access eq "ALL" or actionStatus eq "0"> 
+													
+											<cfif ActionStatus eq "0" or ActionStatus eq "1">		
+												
+												<input type="button" value="Cancel" style="width:60px" name="Edit" class="button10g" onClick="eventdelete('#eventid#','','#url.scope#')">
+								   															
+								   			</cfif>
+																				   
+									</cfif>
+							   
+							   </td>
 							   
 							    <!---
 							   	<cfif EntityClass neq "">
@@ -239,14 +368,9 @@
 										
 							   	</cfif>
 								--->
-													   
-							   </td>
-							   
-							   <!---
-							   <td>#Mission#</td>						   
-							   --->
-							   
-				               <TD width="50%" colspan="1">
+														   				   
+							  							   
+				               <TD colspan="1">
 				               		<font color="808080">#TriggerDescription#:&nbsp;</font>#EventDescription#
 				               		<cfif ReasonDescription neq "">
 										&nbsp;-&nbsp;#ReasonDescription#									               			
@@ -255,41 +379,18 @@
 									<a href="javascript:showdocument('#documentno#')">(#DocumentNo#)</a></font>
 									</cfif>
 				               	</TD>
-														
-							   
-							   <td>#dateformat(ActionDateEffective,client.dateformatshow)#</td>
-							   <td><cfif ActionDateExpiration gte ActionDateEffective>#dateformat(ActionDateExpiration,client.dateformatshow)#</cfif></td>
-							   
-								<td>#dateformat(created,client.dateformatshow)# #timeformat(created,"HH:MM")#<!--- officerLastName#---> </td>		               	
-								<td width="5%">
-				
-									<cfinvoke component="Service.Access"  
-								      method="org" 
-									  mission="#Mission#" 
-									  returnvariable="access">
-									 
-									<cfif access eq "ALL"> 
-														
-										<table>
-											<tr>
-												
-												<cfif ActionStatus eq "0" or ActionStatus eq "1">
-												
-									   				<td style="padding-left:5px">
-									   					<cf_img icon="delete" 					   						
-									   						onClick="javascript:eventportaldelete('#eventid#','portal','#url.mission#', '#url.trigger#', '#url.event#', '');">
-									   				</td>
-													
-									   			</cfif>
-												
-									   		</tr>
-									   	</table>
-									   
-									</cfif>
-				
-								</td>	
+														   
+								<td>#dateformat(created,client.dateformatshow)# #timeformat(created,"HH:MM")#</td>		               	
 								
-								 <td style="min-width:100px;padding-right:10px">						   
+								<cfif eventpriority eq 'High'>
+								<td align="center" style="background-color:<cfif eventpriority eq 'High'>FFB164</cfif>">#EventPriority#</td>
+								<cfelse>
+								<td><cf_tl id="Normal"></td>
+								</cfif>
+
+								<td style="width:20px"></td>	
+								
+								 <td style="min-width:100px;padding-right:10px;min-width:120px">						   
 							   
 								   <cfif EntityClass neq "">
 							
@@ -301,33 +402,19 @@
 										<cf_securediv id="#eventid#" bind="url:#client.root#/Staffing/Portal/Events/EventBaseDialogWorkflow.cfm?ajaxid=#eventid#">       															
 														
 									<cfelse>
-														
+																							
 									</cfif>				 						   
 								   
 							   </td>
 			
-						</TR>		
-					
-					<!---
-				
-				    <cfif ActionDateEffective neq "" or ActionDateExpiration neq "" or remarks neq "">			
-						<tr class="labelmedium line" style="height:20px"><td colspan="2"></td>
-							<td colspan="3">#remarks#</font></td>					
-							<td style="padding-left:4px" valign="top">
-								#dateformat(ActionDateEffective,client.dateformatshow)#	
-							</td>				
-							<td style="padding-left:4px" valign="top">
-								<cfif actionDateExpiration gt ActionDateEffective>
-								#dateformat(ActionDateExpiration,client.dateformatshow)#	
-								</cfif>
-							</td>	
-							<td></td>			
-							<td></td>
+						</TR>	
+						
+						
+						<tr class="labelmedium line fixlengthlist" id="#eventid#_2"><td colspan="2"></td>
+							<td colspan="7">#remarks#</td>								
 						</tr>	
-					</cfif>
 					
-					--->
-					
+										
 					<cf_filelibraryCheck
 							DocumentPath="PersonEvent"
 							SubDirectory="#PersonNo#" 
@@ -335,7 +422,7 @@
 							
 					<cfif files gte "1">		
 					
-					<tr style="height:1px">
+					<tr style="height:1px" id="#eventId#_3">
 					    <td colspan="2"></td>
 						<td colspan="6">
 										
@@ -352,8 +439,7 @@
 						<td></td>			
 					</tr>
 					
-					</cfif>
-									
+					</cfif>									
 							
 					</cfloop>		
 				
@@ -362,11 +448,13 @@
 			</cfif>
 			
 		</CFOUTPUT>
+		
+		<tr><td id="eventdetail"></td></tr>
 									
 		</table>	
 		
-		</cf_divscroll>	
-
+		</cf_divscroll>
+		
 </td></tr>
 
 </table>

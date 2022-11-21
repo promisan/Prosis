@@ -1,21 +1,26 @@
  <!--- query document holder determined by class --->
  
- <cfparam name="Attributes.actionId"    default="">
- <cfparam name="Attributes.mailobject"  default="">
- <cfparam name="Attributes.mailtype"    default="Action">
- <cfparam name="Attributes.mailfrom"    default="">
+ <cfparam name="Attributes.actionId"     default="">
+ <cfparam name="Attributes.mailobject"   default="">
+ <cfparam name="Attributes.mailtype"     default="Action">
+ <cfparam name="Attributes.mailfrom"     default="">
+ <cfparam name="Attributes.mailfromname" default="#session.first# #session.last#">
  
- <cfparam name="Attributes.sendTo"      default="">
- <cfparam name="Attributes.sendCc"      default="">
- <cfparam name="Attributes.sendBcc"     default="">
- <cfparam name="Attributes.sendAttObj"  default="">
+ <cfparam name="Attributes.sendTo"       default="">
+ <cfparam name="Attributes.sendCc"       default="">
+ <cfparam name="Attributes.sendBcc"      default="">
+ <cfparam name="Attributes.sendAttObj"   default="">
+ <cfparam name="Attributes.disclaimer"   default="Yes">
  
- <cfparam name="Attributes.sendSubject" default="">
+ <cfparam name="Attributes.sendSubject"  default="">
  
  <!--- body text --->
  <cfparam name="Attributes.sendText"     default=""> 
  <cfparam name="Attributes.sendPriority" default="1">
  
+ <cfset mailfrom       = Attributes.mailfrom>
+ <cfset mailfromname   = Attributes.mailfromname>
+ <cfset disclaimer     = Attributes.disclaimer>
  <cfset sendTo         = Attributes.sendTo>
  <cfset sendCc         = Attributes.sendCc>
  <cfset sendBcc        = Attributes.sendBcc>
@@ -33,6 +38,7 @@
 	          A.ActionCode, 
 			  A.TriggerActionType, 
 			  A.TriggerActionId,
+			  A.ActionPublishNo,
 			  R.PersonClass,
 			  AA.ActionViewMemo,
 			  AA.ActionDescription,
@@ -89,11 +95,11 @@
 </cfif>
 
 <!--- THEN we also set the attachment of the object defined attachments --->
+
+<cfparam name="rw" default="0">
 								
 <cfif attributes.sendAttObj eq "1" and Object.DocumentPathName neq "">
-
-		<cfparam name="rw" default="0">
-												
+														
 		<cf_fileExist
 			DocumentPath  = "#Object.DocumentPathName#"
 			SubDirectory  = "#Object.ObjectId#" 
@@ -134,10 +140,60 @@
 				
 			   </cfif>				
 		
-		</cfloop>					
+		</cfloop>		
+		
+		<!--- other objects --->
+						
+		<cfquery name="ActionMail" 
+		datasource="AppsOrganization" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT   *
+			FROM     OrganizationObjectActionMail
+			WHERE    ObjectId = '#Object.ObjectId#'
+			AND      SerialNo = 1 
+			AND      MailType != 'Action'
+		</cfquery>
+			
+		<cfloop query="ActionMail">		
+		
+		   <cf_fileExist
+			DocumentPath  = "#Object.DocumentPathName#"
+			SubDirectory  = "#AttachmentId#" 
+			Filter        = ""					
+			ListInfo      = "all">	
+							
+			<cfloop query="filelist">			
+		
+				<cfquery name="qAttachment" 
+				  datasource="AppsSystem" 
+				  username="#SESSION.login#" 
+				  password="#SESSION.dbpw#"> 
+					SELECT * 
+					FROM   Attachment
+					WHERE  Reference        = '#ActionMail.AttachmentId#'
+					AND    DocumentPathName = '#Object.DocumentPathName#'
+					AND    FileName         = '#name#'							
+				</cfquery>
+									   
+				<cfif qAttachment.fileStatus neq "9">
+								   				
+						<!--- was not deleted so we attach it to the array  --->
+						<cfset rw = rw +1>
+						<cfset mailatt[rw][1]="#directory#\#name#">	
+						<cfset mailatt[rw][2]="normal">	
+						<cfset mailatt[rw][3]="#name#">	
+						<cfset mailatt[rw][4]="#qAttachment.AttachmentMemo#">	
+					
+				</cfif>				 	
+		
+		    </cfloop>	
+		
+		</cfloop>								
 			
  </cfif>
-		
+ 
+ 	
 <!--- ---------------------------------------------------------------- --->		
 <!--- now we remove attachments that are not selected in the interface --->
 <!--- ---------------------------------------------------------------- --->
@@ -156,8 +212,62 @@
 		</cfif>
 	
 	</cfloop>
-
+		
 </cfif>
+ 
+ <!--- now we add attachments that have been set for attachment in the workflow for mail 
+  likely we no longer need this as they now seem to come double --->
+ 
+<cfquery name="qAttachmentObject" 
+	  datasource="AppsOrganization" 
+	  username="#SESSION.login#" 
+	  password="#SESSION.dbpw#"> 
+			  
+		  SELECT     R.DocumentDescription, R.DocumentId, R.EntityCode
+          FROM       Ref_EntityActionPublishDocument AS PD INNER JOIN
+                     Ref_EntityDocument AS R ON PD.DocumentId = R.DocumentId
+          WHERE      PD.UsageParameter = 'Mail' 
+		  AND        PD.ActionCode      = '#Object.ActionCode#' 
+		  AND        PD.ActionPublishNo = '#Object.ActionPublishNo#'
+		  AND        PD.Operational = 1
+		  AND        R.Operational = 1
+</cfquery>			  
+
+<cfloop query="qAttachmentObject">  
+
+	<cfquery name="qCheck" 
+		datasource="AppsSystem">
+		SELECT *
+	  	FROM   Ref_Attachment
+		WHERE  DocumentPathName = '#EntityCode#'
+    </cfquery>		
+	
+	<cfif qCheck.recordcount eq "1">  
+
+		<cfquery name="qAttachment" 
+			  datasource="AppsSystem" 
+			  username="#SESSION.login#" 
+			  password="#SESSION.dbpw#"> 			  
+			  SELECT     *
+              FROM       Attachment
+			  WHERE      Reference      = '#Object.Objectid#'
+			  AND        AttachmentMemo = '#DocumentDescription#'
+			  AND        FileStatus     = '1'		  
+		</cfquery>	
+								
+		<cfloop query="qAttachment">	
+					   		
+			<cfset rw = rw +1>
+			<cfset mailatt[rw][1]="#qCheck.DocumentFileServerRoot##qAttachmentObject.EntityCode#\#Object.Objectid#\#filename#">	
+			<cfset mailatt[rw][2]="normal">	
+			<cfset mailatt[rw][3]="#filename#">			
+			
+		</cfloop>			
+	
+	</cfif>   
+						
+</cfloop>
+
 
 <!--- we continue and complement whatever is needed here --->
 
@@ -188,18 +298,19 @@
 	FROM    System.dbo.Parameter
  </cfquery>	
  
- <cfif attributes.mailfrom neq "">
-    <cfset mailFromName  = "">  
-	<cfset mailFrom      = "#attributes.mailfrom#">
-	<cfset mailReply     = "">  
+ 
+ <cfif mailfrom neq "">
+    <cfset mailFromName  = "#mailfromname#">  
+	<cfset mailFrom      = "#mailfrom#">
+	<cfset mailReply     = "#mailfrom#">  	
  <cfelseif Object.MailFrom neq "">
     <cfset mailFromName  = "#Object.MailFrom#">  
 	<cfset mailFrom      = "#Object.MailFromAddress#">
-	<cfset mailReply     = "">
- <cfelseif client.eMail neq "">
+	<cfset mailReply     = "">	
+ <cfelseif client.eMail neq ""> 
     <cfset mailFromName  = "#SESSION.first# #SESSION.last#">
  	<cfset mailFrom      = "#client.eMail#">
-	<cfset mailReply     = "#mailfrom#">
+	<cfset mailReply     = "#mailfrom#">	
  <cfelseif client.eMailExt neq "">
     <cfset mailFromName  = "#SESSION.first# #SESSION.last#">
     <cfset mailFrom      = "#client.eMailExt#">
@@ -213,7 +324,7 @@
     <cfset mailfrom      = "#Param.DefaultEMail#">  
 	<cfset mailReply     = "#mailfrom#">
  </cfif>
-
+ 
 <!--- ---------------- --->
 <!--- ----- FAIL  ----- --->
 <!--- ----------------- ---> 
@@ -556,6 +667,7 @@
 	
 	</cfif>
 	
+	
 		
 	<!--- check if user turned off the validation for this entity, 
 	if not record is found let it go through --->
@@ -704,14 +816,15 @@
 			</cfswitch>	
 		
 		</cfif>
-				 
+						 
 		<!--- ----------------------------------- --->
 		<!--- ------------ATTACHMENTS ----------- --->
 		<!--- ----------------------------------- --->
-		       		
+			       		
 		 <cfif sendTo neq "" and sendSubject neq "">
 		 
-		        <cfparam name="attributes.sendattdoc" default="0">
+		        <cfparam name="attributes.sendAttdoc" default="0">
+				<cfparam name="attributes.sendAttPrior" default="0">
 
 				<cfif NOT isDefined("mailatt") or NOT isArray(mailatt)>
 					<cfset mailatt = ArrayNew(2)>
@@ -768,8 +881,8 @@
 						 <cfelse>
 						 WHERE    1=0
 						 </cfif>
-					</cfquery>
-					
+					</cfquery>											
+						
 					<cfoutput query="Document">
 					
 					        <cfif DocumentMode eq "AsIs" and DocumentLayout eq "PDF">
@@ -832,6 +945,8 @@
 							</cfif>
 					        	
 					</cfoutput>
+					
+					
 					
 					<!--- attention : this was moved as this is object mail 
 					
@@ -971,6 +1086,7 @@
 				<!--- ----------- --->
 				<!--- now we send --->
 				<!--- ----------- --->
+			
 				
 				<cfif Mail.MailTo eq "Recipient">
 				
@@ -1014,8 +1130,7 @@
 									#salutation# #RecipientName#<br>
 									#sendBody#
 								</cfoutput>
-							</cfsavecontent>		
-								
+							</cfsavecontent>									
 
 							<cfmail  FROM   = "#fromm#"
 										TO          = "#eMailAddress#"
@@ -1033,7 +1148,7 @@
 										
 										<br>
 										<!--- disclaimer added 17/10/2020 --->
-										<cf_maildisclaimer context="workflow action" id="mailid:#Attributes.ActionId#">		
+										<cf_maildisclaimer context="workflow action" disclaimer="#disclaimer#" id="mailid:#Attributes.ActionId#">		
 										
 										<cftry>
 											 		
@@ -1162,9 +1277,9 @@
 											 
 						</cfif>	 
 					  
-					</cfloop>				
-				
-				<cfelse>		
+					</cfloop>	
+									
+				<cfelse>					
 												
 						<cfmail FROM        = "#fromm#"
 								TO          = "#mailto#"
@@ -1181,7 +1296,7 @@
 								
 								<br>
 								<!--- disclaimer added 17/10/2020 --->
-								<cf_maildisclaimer context="workflow action" id="mailid:#Attributes.ActionId#">		
+								<cf_maildisclaimer context="workflow action" disclaimer="#disclaimer#" id="mailid:#Attributes.ActionId#">		
 												
 								
 								<!--- try to attach possible documents --->

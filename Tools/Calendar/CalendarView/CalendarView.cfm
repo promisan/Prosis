@@ -1,5 +1,4 @@
 
-
 <cfparam name="attributes.Name"            default="activecalendar">
 <cfparam name="attributes.FieldName"       default="seldate">
 <cfparam name="attributes.Title"           default="My Calendar">
@@ -48,13 +47,11 @@
 <cfparam name="attributes.showPrevious"    default="1">
 <cfparam name="attributes.showNext"        default="1">
 
-<cfif attributes.cellheight eq "fit">
+<cfif attributes.cellheight eq "fit" or attributes.scroll eq "Yes">
 	<cfset ht = "100%">
 <cfelse>
 	<cfset ht = "#attributes.cellheight*8#">	
 </cfif>
-
-
 
 <cfset dateob = createdate(attributes.year,attributes.month,attributes.day)>  
 
@@ -63,7 +60,7 @@
 <div class="clsPCalendarTitle" style="display:none;">#ucase(attributes.title)#</div>
 <div class="clsPCalendarView" style="height:#ht#;">
 
-<table width="100%" height="#ht#" cellspacing="0" cellpadding="0" style="<cfoutput>#attributes.style#</cfoutput>" class="formpadding clsPCalendarViewTable">
+<table width="100%" height="#ht#" style="<cfoutput>#attributes.style#</cfoutput>" class="formpadding clsPCalendarViewTable">
 
 		<!--- pass all variables --->
 		<cfset condition = replaceNoCase(attributes.condition,'&','|','ALL')>
@@ -112,21 +109,21 @@
 		
 		<td width="100%" style="padding:1px" align="left" valign="top">		
 													
-			<table width="100%" border="0" style="padding:2px;border:0px solid silver" cellspacing="0" cellpadding="0">
+			<table width="100%" border="0" style="padding:2px;border:0px solid silver">
 									
 			<tr class="clsNoPrint">			
 						
 			<cfif attributes.mode eq "standard">
 						
 				<td width="90%" colspan="2" style="padding-top:10px;height:35px" valign="top">
-					<table cellspacing="0" cellpadding="0" class="formpadding">
+					<table style="width:100%" class="formpadding">
 					
 					<cfoutput>
 					<tr>						
-						<td id="currentmonth" name="currentmonth" class="labellarge" style="font-weight:normal;font-size:31px;padding-left:4px; color:black;">						
+						<td id="currentmonth" name="currentmonth" class="labellarge" style="width:70px;font-weight:normal;font-size:31px;padding-left:4px; color:black;">						
 						#year(dateob)#
 						</td>
-						<td class="labellarge" style="padding-top:9px;padding-left:10px;font-size:22px;">#attributes.title#</td>
+						<td class="labellarge fixlength" style="padding-top:9px;padding-left:10px;font-size:22px;">#attributes.title#</td>
 						
 						<cfif attributes.showJump eq 1>
 						
@@ -167,8 +164,7 @@
 			</tr>
 			
 			<tr>						
-				<td colspan="2">	
-											
+				<td colspan="2">											
 				  		
 					<cf_securediv bind="url:#session.root#/tools/calendar/calendarView/CalendarViewMonthMenu.cfm?cellwidth=#attributes.cellwidth#&pdate=#dateFormat(dateob,client.dateFormatShow)#&showToday=#attributes.ShowToday#&showRefresh=#attributes.ShowRefresh#&ShowPrint=#attributes.ShowPrint#" id="divCalendarViewMonthMenu">					
 					
@@ -203,23 +199,22 @@
 								
 		<cfif attributes.mode eq "picker">
 		
-			<tr><td id="calendarcontent" valign="top" style="padding-top:1px" align="center" width="100%">													
-			
+			<tr><td id="calendarcontent" valign="top" style="padding-top:1px" align="center" width="100%">				
 				<cfinclude template="CalendarViewPicker.cfm">					 
 			</td></tr>
 		
 		<cfelse>
-		
-				
+						
 			<cfif url.scroll eq "Yes">
 							
-			<tr><td valign="top" style="border:0px solid gray;padding-top:7px;min-height:200px" align="center" height="#ht#" width="100%">							
+			<tr><td valign="top" style="padding-top:7px;min-height:200px;" align="center" height="100%" width="100%">							
 			
 			    <cf_divscroll id="calendarcontent" style="min-height:200px">				   												
 	    		<!--- details of the calendar fro this month --->
 				<cfinclude template="CalendarViewContent.cfm"> 								  	
 				</cf_divscroll>
 				</td>
+				
 			</tr>	
 				
 			<cfelse>
@@ -239,5 +234,3 @@
 </div>
 
 </cfoutput>
-
-

@@ -104,6 +104,14 @@
 		WHERE 	 Mission = '#Settle.mission#'
 		AND 	 SalarySchedule = '#Settle.SalarySchedule#' 
 </cfquery>
+	
+
+	<!--- disabled hanno
+
+encryption="40-bit"
+		  userpassword="#pwd#"
+		  permissions="AllowPrinting"	
+--->
 
 <cfdocument name="Payslip"
           filename="#url.filename#"
@@ -112,13 +120,10 @@
           margintop=".5"
           marginbottom=".5"
           marginright=".5"
-          marginleft=".5"
-		  userpassword="#pwd#"
-          orientation="portrait"
-          unit="cm"
-          encryption="128-bit"
-          permissions="AllowPrinting"         
-          overwrite="Yes"
+          marginleft=".5"			  
+          orientation="portrait"		 
+		  overwrite="Yes"	
+          unit="cm"                             
           backgroundvisible="No"
           bookmark="False"
           localurl="Yes">
