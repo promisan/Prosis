@@ -31,7 +31,9 @@
 			 SELECT * 
 			 FROM   PersonEvent
 			 WHERE  EventId='#URL.Id#'
-	</cfquery>		 
+	</cfquery>		
+	
+	<cfset url.mission = qEvent.Mission> 
 
 <cfelse>
 
@@ -50,6 +52,7 @@
 <cfform method="POST" name="eventform">
 
 <cfoutput>
+
 	<input type="hidden" id="pevent" 	name="pevent" 		value="#URL.pevent#">
 	<input type="hidden" id="preason" 	name="preason" 		value="#URL.preason#">
 	<input type="hidden" id="portal" 	name="portal" 		value="#URL.portal#">
@@ -79,7 +82,7 @@
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">
 					
-				<cfif getAdministrator('*') eq "1">
+				<cfif getAdministrator('*') eq "1" and url.portal eq "0" and url.mission eq "">
 									
 					SELECT Mission 
 					FROM   Organization.dbo.Ref_Mission
@@ -87,8 +90,15 @@
 					                   FROM   Organization.dbo.Ref_EntityMission  
 									   WHERE  EntityCode      = 'PersonEvent' 
 									   AND    WorkflowEnabled = 1)
-					AND  MissionStatus = '1'		
-					AND  Operational = 1		   
+						
+					AND  Operational = 1	
+					AND     Mission IN (SELECT Mission FROM Ref_PersonEventMission)	 
+					
+				<cfelseif url.mission neq "">  
+				
+				   SELECT Mission 
+					FROM   Organization.dbo.Ref_Mission
+					WHERE  Mission = '#url.mission#'					
 				
 				<cfelse>
 				
@@ -144,65 +154,6 @@
 			
 				<table>
 				<tr><td>
-			
-				<cfquery name="qMission" 
-				datasource="AppsEmployee" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">
-					
-					<cfif getAdministrator('*') eq "1">
-										
-						SELECT Mission 
-						FROM   Organization.dbo.Ref_Mission
-						WHERE  Mission IN (SELECT Mission 
-						                   FROM   Organization.dbo.Ref_EntityMission  
-										   WHERE  EntityCode      = 'PersonEvent' 
-										   AND    WorkflowEnabled = 1)
-						AND     Mission IN (SELECT Mission FROM Ref_PersonEventMission)				   
-					
-					<cfelse>
-					
-						<!--- Officer has access to mission --->
-						SELECT  DISTINCT Mission 
-						FROM    Organization.dbo.OrganizationAuthorization
-						WHERE   UserAccount = '#SESSION.acc#' 
-						AND     Mission IS NOT NULL
-						AND     Mission IN (SELECT Mission 
-						                    FROM   Organization.dbo.Ref_EntityMission  
-						                    WHERE  EntityCode  = 'PersonEvent' 
-										    AND    WorkflowEnabled = 1)
-						AND     Mission IN (SELECT Mission FROM Ref_PersonEventMission)	
-											
-						UNION
-						
-						<!--- Employee has had assignments or contracts in missions... --->
-						
-						SELECT DISTINCT MissionOperational 
-						FROM   Employee.dbo.Position 
-						WHERE  PositionNo IN (SELECT DISTINCT PositionNo 
-											  FROM   Employee.dbo.PersonAssignment
-											  WHERE  PersonNo = '#URL.PersonNo#' )
-						AND    Mission IN (SELECT Mission 
-				                           FROM   Organization.dbo.Ref_EntityMission  
-										   WHERE  EntityCode = 'PersonEvent' 
-										   AND    WorkflowEnabled = 1)
-						AND     Mission IN (SELECT Mission FROM Ref_PersonEventMission)					   
-										   						
-						UNION	
-						
-						SELECT DISTINCT Mission 
-						FROM   Employee.dbo.PersonContract
-						WHERE  PersonNo = '#URL.PersonNo#'
-						AND    Mission IN (SELECT Mission 
-						                   FROM   Organization.dbo.Ref_EntityMission  
-										   WHERE  EntityCode = 'PersonEvent' 
-										   AND    WorkflowEnabled=1)
-						AND     Mission IN (SELECT Mission FROM Ref_PersonEventMission)					   
-								
-						ORDER BY Mission		
-					</cfif>
-					
-				</cfquery>					
 				 
 				 <cfif url.positionNo eq ""> 	
 				 
@@ -236,8 +187,9 @@
 							 AND      PA.DateEffective   < getdate()																	 
 							 AND      PA.AssignmentStatus IN ('0','1')					 
 							 AND      PA.AssignmentType  = 'Actual'
-							 ORDER BY DateExpiration DESC, Incumbency DESC						
+							 ORDER BY DateExpiration DESC, Incumbency DESC					
 						 </cfquery>    
+						 
 					 
 					 </cfif>  
 					 
@@ -315,25 +267,25 @@
 				<td width="20%" style="padding-left:3px"><cf_tl id="Unit">:</td>								
 				<td>	
 				
-				<cfif qEvent.orgunit neq "">										
+				<cfif qEvent.orgunit neq "">												
 					<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?scope=#url.scope#&personno=#url.personno#&selected=#qEvent.orgunit#&mission={mission}"/>							
-				<cfelseif url.orgunit neq "">							
+				<cfelseif url.orgunit neq "">									
 					<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?scope=#url.scope#&personno=#url.personno#&selected=#url.orgunit#&mission={mission}"/>											
-				<cfelse>								
-				
+				<cfelse>			
+					
 				    <cfparam name="Position.OrgUnitOperational" default="">
 				   	<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?scope=#url.scope#&personno=#url.personno#&selected=#Position.OrgUnitOperational#&mission={mission}"/>											
 				</cfif>	
 				</td>				
 			</tr>		
 			
-			<cfif url.trigger eq ""> <!--- the trigger is not preset, in the teams portal the trigger is preset an we show relevant titles ---> 
+			<cfif url.trigger eq "" or qMission.recordcount gt "1" and url.scope neq "unit"> <!--- the trigger is not preset, in the teams portal the trigger is preset an we show relevant titles ---> 
 			
 			<tr class="labelmedium2">
 				
 				<td  style="padding-left:3px" width="20%"><cf_tl id="Category">:</td>
-			    <td style="padding-left:0px;font-size:16px">					    
-														    			
+			    <td style="padding-left:0px;font-size:16px">	
+												    			
 					<cf_securediv id="mynaturebox" bind="url:#session.root#/staffing/Application/Employee/Events/getTrigger.cfm?personno=#url.personno#&eventid=#URL.id#&mission={mission}&Positionno=#url.positionno#&scope=#url.scope#&portal=#url.portal#&ptrigger=#url.ptrigger#&preason=#url.preason#&pevent=#url.pevent#&event=#url.code#">						
 					
 				</td> 
@@ -526,12 +478,25 @@
 				</cfif></td>
 			    <td style="padding-left:0px" id="dEvent"></td> 								
 			</tr>
+			
+			<cfif URL.ID neq "">
+			
+			<tr class="hide"><td colspan="2" style="padding-left:16x;padding-right:6px" id="myinstruction"></td></tr>	
+			
+			
+			<cfelse>
+			
+			<tr><td colspan="2" style="padding-left:16x;padding-right:6px" id="myinstruction"></td></tr>	
+			
+			</cfif>					
+			
 
 			<tr id="reasonbox" class="labelmedium2 hide">				
 				<td style="padding-left:3px" width="20%"><cf_tl id="Reason">:</td>
 			    <td style="padding-left:0px" id="dReason"></td> 								
 			</tr>
-					
+			
+								
 			<tr class="hide"><td colspan="2" id="assignmentbox" style="padding-left:30px;padding-right:30px">
 				<cf_securediv bind="url:#session.root#/staffing/Application/Employee/Events/getAssignment.cfm?positionno=#qEvent.PositionNo#">															
 			</td></tr>
@@ -540,6 +505,7 @@
 				<td style="padding-left:3px" width="20%"><cf_tl id="Condition">:</td>
 			    <td style="padding-left:0px" id="dCondition"></td> 								
 			</tr>	
+			
 			
 			<cfif url.scope neq "inquiry">		
 									
@@ -601,11 +567,11 @@
 			
 			<cfif url.portal eq "0" or url.scope eq "inquiry">
 						
-				<tr class="labelmedium2">
+				<tr class="labelmedium2" id="boxremarks">
 				
 					<td valign="top" style="padding-left:3px;padding-top:5px" width="20%">
 					<table style="height:100%">
-					   <tr><td class="fixlength" valign="top"><cf_tl id="Detail of the request">:</td></tr>
+					   <tr><td class="fixlength" valign="top"><cf_tl id="Details of the request">:</td></tr>
 					   <tr><td valign="bottom" align="right" id="memcount_remarks"></td></tr>
 					</table>
 					</td>
@@ -619,7 +585,7 @@
 			    
 				</tr>	
 				
-				<tr class="labelmedium2">
+				<tr class="labelmedium2" id="boxpriority">
 	            <td style="padding-left:3px" >
 					<cfif url.scope eq "Inquiry">
 					<cf_tl id="Priority">:
@@ -698,7 +664,7 @@
 				
 				 </cfif>					
 										
-				<tr><td colspan="2">
+				<tr id="boxattachment" ><td colspan="2">
 			
 					<cfquery name="qCheck" 
 							 datasource="AppsSystem" 
@@ -750,7 +716,6 @@
 							
 			</cfif>
 				
-			<tr><td colspan="2" style="padding-left:16x;padding-right:6px" id="myinstruction"></td></tr>						
 			<tr><td colspan="2" class="line"></td></tr>			
 			
 			<tr>				
@@ -763,17 +728,18 @@
 						<cf_tl id="Close" var="1">		
 						  <input type="button"
 						   name="Close" 
+						   id="close"
 						   value="#lt_text#" 
 						   style="width:140;height:25px" 
 						   class="button10g" 
 						   onclick="try { ProsisUI.closeWindow('evdialog',true) } catch(e) {}">
 					</td>
-					<td>
+					<td id="submitform">
 					
 					 <cf_tl id="Submit" var="1">
 										
 						  <input type="button"
-						   name="Submit" 
+						   name="Submit" 						   
 						   value="#lt_text#" 
 						   style="width:140;height:25px" 
 						   class="button10g" 

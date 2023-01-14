@@ -10,9 +10,10 @@
 	    Value="#Form.Crit1_Value#">
 	
 </cfif>	
-	
+
+
 <cfif Form.Crit2_Value neq "">	
-	
+
 	<CF_Search_AppendCriteria
 	    FieldName="#Form.Crit2_FieldName#"
 	    FieldType="#Form.Crit2_FieldType#"
@@ -20,17 +21,16 @@
 	    Value="#Form.Crit2_Value#">
 
 </cfif>
-
-
-<cfif Form.Crit3_Value neq "">
+	
+<cfif Form.Crit3_Value neq "">	
 
 	<CF_Search_AppendCriteria
 	    FieldName="#Form.Crit3_FieldName#"
 	    FieldType="#Form.Crit3_FieldType#"
 	    Operator="#Form.Crit3_Operator#"
 	    Value="#Form.Crit3_Value#">
-	
-</cfif>	
+
+</cfif>
 
 
 <cfif Form.Crit4_Value neq "">
@@ -99,28 +99,7 @@
 	 <cfset url.datasource = "appsworkorder">
 </cfif>
 
-<cfquery name="Total" 
-datasource="#url.datasource#" 
-username="#SESSION.login#" 
-password="#SESSION.dbpw#">
-	SELECT count(*) as Total
-    FROM   Customer
-	WHERE   1=1
-	<cfif url.filter1value neq "">
-	AND    orgUnit IN (SELECT OrgUnit FROM Organization.dbo.Organization WHERE Mission = '#url.filter1value#')
-	</cfif>	
-	<cfif url.filter2value neq "">
-	AND    CustomerId IN (SELECT CustomerId FROM Workorder WHERE ServiceItem = '#url.filter2value#')
-	</cfif>	
-	<cfif criteria neq "">
-	AND    #preserveSingleQuotes(criteria)# 	
-	</cfif>
-</cfquery>
-
-<cf_pagecountN show="19" 
-               count="#Total.Total#">
-			   
-<cfset counted  = total.total>	
+<!--- get dataset --->
 
 <cf_verifyOperational module="WorkOrder" Warning="No">
 
@@ -128,8 +107,8 @@ password="#SESSION.dbpw#">
 	
 	<cfsavecontent variable="mycustomer">
 	
-		SELECT CustomerId, PersonNo, Reference,CustomerName,MobileNumber, PhoneNumber,eMailAddress,OrgUnit, CustomerSerialNo, Mission
-		FROM Customer
+		SELECT CustomerId, PersonNo, CustomerName,MobileNumber, (SELECT TOP 1 TaxCode FROM CustomerTaxCode WHERE CustomerId = C.CustomerId) as Reference, PhoneNumber,eMailAddress,OrgUnit, CustomerSerialNo, Mission
+		FROM Customer C	
 		
 	</cfsavecontent>
 
@@ -137,17 +116,45 @@ password="#SESSION.dbpw#">
 
 	<cfsavecontent variable="mycustomer">
 	
-		SELECT  CustomerId,Reference,PersonNo,CustomerName,MobileNumber, PhoneNumber,eMailAddress,OrgUnit,CustomerSerialNo, Mission
-		FROM    Customer		
-		UNION
-		SELECT  CustomerId,Reference,PersonNo,CustomerName,MobileNumber, PhoneNumber,eMailAddress, OrgUnit,CustomerSerialNo, Mission
-		FROM    WorkOrder.dbo.Customer
+		SELECT  CustomerId,PersonNo,CustomerName,MobileNumber,(SELECT TOP 1 TaxCode FROM CustomerTaxCode WHERE CustomerId = C.CustomerId) as Reference, PhoneNumber,eMailAddress,OrgUnit,CustomerSerialNo, Mission
+		FROM    Customer C
 		
-				
+		UNION
+		
+		SELECT  CustomerId,PersonNo,CustomerName,MobileNumber,(SELECT TOP 1 TaxCode FROM WorkOrder.dbo.CustomerTaxCode WHERE CustomerId = W.CustomerId) as Reference, PhoneNumber,eMailAddress, OrgUnit,CustomerSerialNo, Mission
+		FROM    WorkOrder.dbo.Customer W
+						
 	</cfsavecontent>
 
 </cfif>
 
+<cfquery name="Total" 
+datasource="#url.datasource#" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+
+	SELECT count(*) as Total
+    FROM   (#preservesinglequotes(mycustomer)#) as V
+	WHERE   1=1
+	
+	<cfif url.filter1value neq "">
+	AND    orgUnit IN (SELECT OrgUnit FROM Organization.dbo.Organization WHERE Mission = '#url.filter1value#')
+	</cfif>	
+	
+	<cfif url.filter2value neq "">
+	AND    CustomerId IN (SELECT CustomerId FROM Workorder WHERE ServiceItem = '#url.filter2value#') 
+	</cfif>	
+	
+	<cfif criteria neq "">
+	AND    #preserveSingleQuotes(criteria)# 	
+	</cfif>
+	
+</cfquery>
+
+<cf_pagecountN show="18" 
+               count="#Total.Total#">
+			   
+<cfset counted  = total.total>	
 
 <cfquery name="SearchResult" 
 datasource="#url.datasource#" 
@@ -155,25 +162,21 @@ username="#SESSION.login#"
 password="#SESSION.dbpw#">
 
 	SELECT TOP #last# *
-    FROM (#mycustomer#) as V
+    FROM   (#preservesinglequotes(mycustomer)#) as V
 	WHERE 1=1 
 	
 	<cfif url.filter1value neq "">
-	AND  OrgUnit IN (SELECT OrgUnit 
-	                 FROM   Organization.dbo.Organization 
-					 WHERE  Mission = '#url.filter1value#') 
+	AND  OrgUnit IN (SELECT OrgUnit FROM Organization.dbo.Organization WHERE  Mission = '#url.filter1value#') 
 	</cfif>	
 	
 	<cfif url.filter2value neq "">
-	AND  CustomerId IN (SELECT CustomerId 
-	                    FROM   Workorder 
-						WHERE  ServiceItem = '#url.filter2value#')
+	AND  CustomerId IN (SELECT CustomerId FROM   Workorder WHERE  ServiceItem = '#url.filter2value#') 
 	</cfif>	
 
 	<cfif criteria neq "">
 	AND  #preserveSingleQuotes(criteria)#
-	</cfif>
-	
+	</cfif>	
+		
 </cfquery>
 
 	<table width="100%" class="navigation_table">

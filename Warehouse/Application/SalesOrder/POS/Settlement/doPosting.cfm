@@ -2,6 +2,7 @@
 <cfparam name="url.batchid"           default="">
 <cfparam name="url.customerid"        default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.customeridinvoice" default="00000000-0000-0000-0000-000000000000">
+<cfparam name="url.referenceno"       default="">
 <cfparam name="url.addressid" 		  default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.warehouse"         default="BCN000">
 <cfparam name="url.currency"          default="QTZ">
@@ -47,6 +48,7 @@
 		   requestNo          = "#url.requestNo#"  
 		   customerid         = "#url.customerid#"
 		   customeridinvoice  = "#url.customeridinvoice#"
+		   referenceNo        = "#url.referenceNo#"
 		   addressid		  = "#url.addressid#"
 		   currency           = "#url.Currency#"
 		   transactiondate    = "#dateformat(dte,client.dateformatshow)#"		
@@ -66,6 +68,7 @@
 		   requestNo          = "#url.requestNo#"
 		   customerid         = "#url.customerid#"
 		   customeridinvoice  = "#url.customeridinvoice#"
+		   referenceNo        = "#url.referenceNo#"
 		   addressid		  = "#url.addressid#"
 		   currency           = "#url.Currency#"
 		   transactiondate    = "#dateformat(dte,client.dateformatshow)#"		
@@ -110,7 +113,27 @@
 				SELECT * 
 				FROM   WarehouseBatch B
 				WHERE  BatchNo = '#PriorBatch.ParentBatchNo#'				
-		</cfquery>			
+		</cfquery>
+			
+		<cfquery name="getPrior"
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT Journal,JournalSerialNo,DocumentAmount+ISNULL(ABS(AmountOutstanding),0) as Total 
+				FROM   TransactionHeader H
+				WHERE  TransactionSourceId = '#getParent.BatchId#'	
+				AND    TransactionCategory = 'Receipt'				
+		</cfquery>		
+		
+		<cfquery name="getNew"
+			datasource="AppsLedger" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT Journal,JournalSerialNo,DocumentAmount +ISNULL(ABS(AmountOutstanding),0) as Total 
+				FROM   TransactionHeader H
+				WHERE  TransactionSourceId = '#vBatchId#'	
+				AND    TransactionCategory = 'Receipt'			
+		</cfquery>		
 	
 		<cfquery name="getPriorSale"
 			datasource="AppsLedger" 
@@ -125,12 +148,12 @@
 		<cfquery name="getNewSale"
 			datasource="AppsLedger" 
 			username="#SESSION.login#" 
-			password="#SESSION.dbpw#">	
-					
+			password="#SESSION.dbpw#">
+			
 				SELECT Journal,JournalSerialNo,DocumentAmount +ISNULL(ABS(AmountOutstanding),0) as Total 
 				FROM   TransactionHeader H
 				WHERE  TransactionSourceId = '#vBatchId#'	
-				AND    TransactionCategory = 'Receivables'							
+				AND    TransactionCategory = 'Receivables'			
 				
 		</cfquery>
 		
@@ -142,7 +165,7 @@
 				SELECT SUM(DocumentAmount+ISNULL(ABS(AmountOutstanding),0)) as Total 
 				FROM   TransactionHeader H
 				WHERE  TransactionSourceId = '#getParent.BatchId#'	
-				AND    TransactionCategory = 'Receivables'				
+				AND    TransactionCategory = 'Receipt'				
 				
 		</cfquery>	
 		
@@ -168,7 +191,6 @@
 		
 		<cfif getPriorTotal.total eq getNewSaleTotal.Total>
 
-		        <!---
 				<cfquery name="setNew"
 					datasource="AppsMaterials"
 					username="#SESSION.login#"
@@ -177,7 +199,6 @@
 						SET    BatchReference = '#getParent.BatchReference#'
 						WHERE  BatchId = '#vBatchId#'
 				</cfquery>
-				--->
 
 				<cfset issueinv = "0">
 
@@ -198,7 +219,7 @@
 
 <cfif issueinv eq "0">
 
-	<!--- move the invoice actions to the new header --->
+	<!--- move the header actions --->
 	
 	<cfquery name="inherit"
 		datasource="AppsLedger" 
@@ -241,7 +262,6 @@
 		WHERE   Journal         = '#getPriorSale.Journal#'
 		AND     JournalSerialNo = '#getPriorSale.JournalSerialNo#'
 		AND     ActionCode      = 'Invoice'
-		AND     ActionStatus    = '1' <!--- 9/10/2022 only the succeeded one --->
 	
 	</cfquery>
 	
@@ -252,71 +272,6 @@
 	</script>
 
 <cfelse>
-
-    <!--- now we check if the sale correction is a real credit note. A credit note is that lines have lower quantity or disappeared --->
-	
-	  <cfquery name="getDataNew"
-				datasource="AppsLedger" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">		 
-	   SELECT    TL.Journal, TL.JournalSerialNo, TL.Reference, TL.ReferenceName, TL.ReferenceNo, TL.ReferenceUoM, 
-	             TL.ReferenceQuantity, TL.TransactionCurrency, TL.TransactionAmount
-       FROM      TransactionHeader AS TH INNER JOIN
-                 TransactionLine AS TL ON TH.Journal = TL.Journal AND TH.JournalSerialNo = TL.JournalSerialNo
-       WHERE     TH.TransactionSourceId IN ('0758752a-d06c-c75a-1ef7-7acea928db58') 
-	   AND       TH.TransactionCategory = 'Receivables' 
-	   AND       TL.TransactionSerialNo <> '0' 
-	   AND       TL.Reference = 'Sales Income'
-	  </cfquery>
-	  
-	  <cfquery name="getDataOld"
-				datasource="AppsLedger" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">		 
-	   SELECT    TL.Journal, TL.JournalSerialNo, TL.ReferenceNo, TL.ReferenceUoM, TL.ReferenceQuantity, TL.TransactionCurrency, TL.TransactionAmount
-       FROM      TransactionHeader AS TH INNER JOIN
-                 TransactionLine AS TL ON TH.Journal = TL.Journal AND TH.JournalSerialNo = TL.JournalSerialNo
-       WHERE     TH.TransactionSourceId IN ('f894c2d2-d700-bee8-0d77-96835d359f86') 
-	   AND       TH.TransactionCategory = 'Receivables' 
-	   AND       TL.TransactionSerialNo <> '0' 
-	   AND       TL.Reference = 'Sales Income'
-	  </cfquery>
-	  
-	  <cfset creditnote = "1">
-	  
-	  <cfif getDateOld.recordcount gt getDataNew.recordcount>
-	  
-	     <cfset creditnote = "0">
-		 
-	  <cfelse>
-	  
-	  	   <cfloop query="getDataNew">	 
-		   
-			   <cfquery name="getOld" dbtype="query">
-			       SELECT    *
-			       FROM      getDataOld
-				   WHERE     ReferenceNo = '#ReferenceNo#'
-			   </cfquery>
-			   		   
-		      	<cfif getOld.ReferenceQuantity lt ReferenceQuantity or getOld.recordcount eq "0">
-				
-					<cfset creditnote = "0">
-					
-				<cfelse>
-				
-				<!--- obtain the correction content --->	
-						
-				</cfif>
-		   
-		   </cfloop>
-	  
-	  </cfif> 
-	   
-	   
-	   
-	   
-	
-	
 			
 	<!--- checking if we need to revert through EDI manager 
 	Do note that url.batchid is different from vBatchId
@@ -327,8 +282,7 @@
 	
 	<cfif url.batchid neq "">
 	
-			<!--- get tax action --->
-			
+			<!--- post the tax action --->
 		 	<cfquery name="getAction"
 				datasource="AppsMaterials" 
 				username="#SESSION.login#" 
@@ -337,17 +291,14 @@
 				FROM   Accounting.dbo.TransactionHeader H
 					   INNER JOIN Accounting.dbo.TransactionHeaderAction A ON H.Journal = A.Journal AND H.JournalSerialNo=A.JournalSerialNo
 				WHERE  TransactionSourceId = '#URL.batchid#'
-				AND    TransactionCategory  = 'Receivables'		
-				AND    ActionCode           = 'Invoice'	
-				AND    ActionStatus         = '1'		
-				ORDER BY Created DESC						
+				AND    TransactionCategory  = 'Receivables'										
 		   	</cfquery>		   	
 		   
 		    <cfif url.scope neq "standalone">
 			
 		    	<cfif getAction.recordcount gt "0">
 			
-			   		<cfif getAction.ActionMode eq "2"> <!--- electronic --->
+			   		<cfif getAction.ActionMode eq "2">
 
 				   		<cfquery name="getBatch"
 							datasource="AppsMaterials" 
@@ -374,7 +325,8 @@
 		 	
 	</cfif>
 	
-	<!--- Depending on the sales mode, it triggers the EDI manager for adding up information at transactionHeaderAction --->
+	<!--- Depending on the sales mode, it triggers the EDI manager for adding up information at
+	transactionHeaderAction --->
 
 	<cfif url.scope eq "standalone">
 	
@@ -387,7 +339,6 @@
 			WHERE    Journal	     = '#getAction.Journal#'
 			AND      JournalSerialNo = '#getAction.JournalSerialNo#'
 			AND      ActionCode      = 'Invoice'	
-			AND      ActionStatus    = '1'
 			ORDER BY Created DESC		
 		</cfquery>		
 		
@@ -431,14 +382,14 @@
 			
 	<cfif url.scope eq "settlement" or url.scope eq "standard" >
 			<script>
-				ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#vBatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#"+"&ts="+new Date().getTime(), 'wsettle');		
+				ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#vBatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#", 'wsettle');		
 				ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Sale/applyCustomer.cfm?warehouse=#url.warehouse#",'customerbox')	
 				try { opener.applyfilter('1','','#url.customerid#') } catch(e) {}
 			</script>
 	<cfelseif url.scope eq "standalone">
 		<cfif qCheck.recordcount eq 0>
 			<script>
-				ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#vBatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#"+"&ts="+new Date().getTime(), 'wsettle');
+				ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#vBatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#", 'wsettle');
 			</script>
 		<cfelse>
 			<script>
@@ -448,7 +399,7 @@
 		</cfif>
 	<cfelse>	
 		<script>
-			ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#vBatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#&scope=#url.scope#"+"&ts="+new Date().getTime(), 'formembed');		
+			ptoken.navigate("#SESSION.root#/Warehouse/Application/Salesorder/POS/Settlement/SaleInvoice.cfm?actionid=#vActionId#&batchid=#vBatchId#&warehouse=#url.warehouse#&currency=#url.currency#&terminal=#url.terminal#&scope=#url.scope#", 'formembed');		
 		</script>
 	</cfif>	   
 		   

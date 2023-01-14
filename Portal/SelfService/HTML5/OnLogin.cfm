@@ -1,4 +1,5 @@
-<cf_param name="url.id" default="" type="string">
+<cf_param name="url.id" 	default="" type="string">
+<cf_param name="url.tab" 	default="" type="string">
 
 <cfquery name="qOnLogin" 
 	datasource="AppsSystem">
@@ -29,26 +30,27 @@
 
 <cfoutput>
 	<script>
+		var vURL = window.location.href.split("?");	
+		var vParams = "";
+		if (vURL.length == 2) {
+			vParams = "&" + vURL[1];
+		}
+
 		switch('#vLogIn_ValidationMethod#') {
 			case 'redirect':
-				var vURL = window.location.href.split("?");	
-				var vParams = "";
-				if (vURL.length == 2) {
-					vParams = "&" + vURL[1];
-				}
 				parent.window.location =  "#vLogIn_RedirectURL#&mid=#mid#"+vParams;
 				break;
 			case 'none':				
-				parent.window.location = "default.cfm?id=#url.id#&mid=#mid#";
+				parent.window.location = "default.cfm?mid=#mid#"+vParams;
 				break;
 			case 'confirm':
 				if (confirm('#vLogIn_Message#')) {
 					<cfif trim(vLogIn_CallbackTrue) neq "">
 						ptoken.navigate('#vLogIn_CallbackTrue#','_processAjax', function(){
-							parent.window.location = "default.cfm?id=#url.id#&mid=#mid#";
+							parent.window.location = "default.cfm?mid=#mid#"+vParam;
 						});
 					<cfelse>
-						parent.window.location = "default.cfm?id=#url.id#&mid=#mid#";
+						parent.window.location = "default.cfm?mid=#mid#"+vParam;
 					</cfif>
 				}else{
 					<cfif trim(vLogIn_CallbackFalse) neq "">
@@ -63,7 +65,7 @@
 			case 'alert':
 				alert('#vLogIn_Message#');
 				if ('#vLogIn_AfterAlertAction#' === 'login') {
-					parent.window.location = "default.cfm?id=#url.id#&mid=#mid#";
+					parent.window.location = "default.cfm?mid=#mid#"+vParam;
 				}
 				if ('#vLogIn_AfterAlertAction#' === 'logout') {
 					ptoken.navigate('#SESSION.root#/Portal/selfservice/HTML5/Logoff.cfm?host=#CGI.HTTP_HOST#&id=#url.id#','_processAjax');

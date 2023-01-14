@@ -19,26 +19,31 @@
 	
 	<cfif Validate.recordcount gt 0>
 		<font color="red">
-			<cf_tl id="Reference alreay exists">.
+			<cf_tl id="Taxcode already exists">.
 		</font>
 		<input type="hidden" value="0" name="validateReference" id="validateReference">
 	<cfelse>
-		<font color="#0080C0">
-			<cf_tl id="Reference is valid">.
+		<font color="0080C0">
+			<cf_tl id="Taxcode not in use">.
 		</font>
 		<input type="hidden" value="1" name="validateReference" id="validateReference">
 	</cfif>
 	
+	<!---
 	<script>
 	 document.getElementById('ReferenceDefault').checked = false
 	</script>
+	--->
 
 <cfelse>
-		<input type="hidden" value="0" name="validateReference" id="validateReference">
-		
+
+	<input type="hidden" value="0" name="validateReference" id="validateReference">
+	
+	 <!---	
 	 <script>
      	 document.getElementById('ReferenceDefault').checked = true
 	 </script>
+	 --->
 	 
 </cfif>
 

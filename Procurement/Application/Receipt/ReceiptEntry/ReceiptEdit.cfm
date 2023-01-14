@@ -15,7 +15,7 @@ password="#SESSION.dbpw#">
 </cfquery>
 		
     <cfif Object.recordcount gte "1">
-	
+
 		<cf_screentop height="100%"   
 			label         = "#lt_text# #url.id#" 
 			title         = "#url.id#"
@@ -30,7 +30,7 @@ password="#SESSION.dbpw#">
 			systemmodule  = "Procurement"
 			FunctionClass = "Window"
 			FunctionName  = "Receipt Document">
-		
+
 		<cf_layoutscript>
 		<cf_textareascript>
 		
@@ -38,7 +38,6 @@ password="#SESSION.dbpw#">
 
 		<cfparam name="url.summary" default="1">
 							
-		
 		<cf_layout attributeCollection="#attrib#">
 
 			<cf_layoutarea 

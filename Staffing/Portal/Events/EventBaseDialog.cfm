@@ -57,6 +57,8 @@
 <cfelse>
     <cfset scope = "Personal">
 </cfif>
+
+ <cf_divscroll>
 		
 <table align="left" style="height:100%;width:99%" border="0">
 
@@ -93,7 +95,7 @@
 			<cfif url.scope eq "inquiry" and url.event eq "inquiry">
 			
 			<tr>
-			<td colspan="3" style="padding-bottom:8px;padding-top:13px;font-size:17px;"><cfoutput>Please select subject that best matches your request</cfoutput></td>
+			<td colspan="3" style="padding-bottom:8px;padding-top:13px;font-size:17px;"><cfoutput>Please select the subject that best matches your request</cfoutput></td>
 			</tr>
 			
 			<tr>
@@ -151,9 +153,7 @@
 			</table>
 			</td>
 			</tr>
-			
-			
-						
+					
 			
 			</cfif>
 			
@@ -167,18 +167,16 @@
 
 	<tr><td style="padding-left:10px;padding-right:10px;height:100%;padding-top:10px" valign="top">
 	
-	    <cf_divscroll>
-	
 		<table width="100%" align="center" class="formpadding navigation_table"">
 					
 		<TR class="line labelmedium fixrow fixlengthlist">
 		    <td style="background-color:white;"><cf_tl id="Reference"></td>  
-			<td style="background-color:white;min-width:60px;"></td>
-			<td style="background-color:white;min-width:70px;"></td>					    		     			
+			<td style="background-color:white;min-width:60px;"></td>	
+			<td style="background-color:white;min-width:60px;"></td>								    		     			
 		    <td style="background-color:white;"><cf_tl id="Category">|<cf_tl id="Request"></td> 			
 			<td style="background-color:white;"><cf_tl id="Requested"></td>
 			<td style="background-color:white;"><cf_tl id="Priority"></td>	
-			<td style="background-color:white;"></td>
+			
 			<td style="background-color:white;"><cf_tl id="Status"></td>  		
 		</TR>
 		
@@ -304,56 +302,91 @@
 							
 								<td>#EventSerialNo#
 							   <!--- <cfif ActionDateExpiration gte ActionDateEffective>#dateformat(ActionDateExpiration,client.dateformatshow)#</cfif> --->
-							   </td>			
-							   <td align="right" style="padding-left:6px;max-width:50px">
+							   </td>		
+							   	
+							   <td align="right" style="padding-left:6px;max-width:100px;min-width:110px;" id="status_#eventid#">
+							   
+							        <table><tr><td>
 							   
 							   		<cfif ActionStatus eq "0">
 									
-									<input type="button" value="Edit" style="width:60px" name="Edit" class="button10g" 
+									<input type="button" value="Edit" style="width:45px" name="Edit" class="button10g" 
 									   onClick="eventedit('#eventid#','#url.scope#','#url.portal#')">
 																   													
 									<cfelseif ActionStatus eq "3">
 																	
 									    <cfif getAdministrator("#mission#")>
 																				
-										<img src="#session.root#/Images/check_mark.gif" 
-										   alt="" width="20" height="20" border="0">
-										   
-										<!--- 
-										
-										<cf_img icon="open" 
-				   							navigation="Yes" 
-				   							onClick="eventedit('#eventid#','#url.scope#','#url.mission#', '#url.trigger#', '#url.event#', '');">
-											--->
-											
+										<img src="#session.root#/Images/check.png"  title="Completed"
+										   alt="" width="25" height="25" border="0">
+																					
 										<cfelse>
 										
-										<img src="#session.root#/Images/check.gif" 
-										   alt="" width="15" height="20" border="0">
+										<img src="#session.root#/Images/check.png" title="Completed" 
+										   alt="" width="25" height="25" border="0">
 										</cfif>   
 										
 									<!--- closed --->		
 								    </cfif>
+									
+									<cfquery name="Mail" 
+									 datasource="AppsOrganization"
+									 username="#SESSION.login#" 
+									 password="#SESSION.dbpw#">
+										 SELECT TOP 1 * 
+										 FROM  OrganizationObjectActionMail OA
+										 WHERE ObjectId IN (SELECT ObjectId FROM OrganizationObject WHERE ObjectKeyValue4 = '#eventid#' and Operational = 1) 
+										 AND   ActionStatus != '8' <!--- 8= preparation --->
+								   </cfquery>	
+								   
+								   </td>
+								   
+								   <td style="max-width:50px;min-width:60px">
+							   
+								   <cfinvoke component="Service.Access"  
+									      method="org" 
+										  mission="#Mission#" 
+										  returnvariable="access">
+										 
+										<cfif actionStatus eq "0"> 
+														
+												<cfif ActionStatus eq "0" or ActionStatus eq "1">		
+													
+													<input type="button" value="Cancel" style="width:55px" name="Cancel" class="button10g" onClick="eventdelete('#eventid#','','#url.scope#')">
+									   															
+									   			</cfif>
+																					   
+										</cfif>
+							   
+							       </td>
+								   								   
+								   </tr></table>			
+								   
+								</td>   
+					
+								<td align="center" valign="middle" style="width: auto; min-width: 20px;"> 
+																	 
+									<cfif Mail.recordcount eq "1">
+									 										 	
+									 	<img src="#SESSION.root#/Images/Mail-Check.png" title="Show EMail that was sent" 
+							        	id="m#eventid#boxMax" 
+										border="0"						
+										width="32" 
+										class="regular" 
+										align="absmiddle" 
+										style="cursor: pointer;"
+										onClick="eventworkflowmail('m','#eventid#box','#mail.ObjectId#')">
+															
+										<img src="#SESSION.root#/Images/Mail-Open.png" 
+										id="m#eventid#boxMin" 
+										alt="Hide EMail" border="0" height="32"	width="32" align="absmiddle" 
+										class="Hide" style="cursor: pointer;"
+										onClick="eventworkflowmail('m','#eventid#box','#mail.ObjectId#')">
+																
+									</cfif>
 							   </td>
 							
-							   <td style="max-width:50px">
 							   
-							   <cfinvoke component="Service.Access"  
-								      method="org" 
-									  mission="#Mission#" 
-									  returnvariable="access">
-									 
-									<cfif access eq "ALL" or actionStatus eq "0"> 
-													
-											<cfif ActionStatus eq "0" or ActionStatus eq "1">		
-												
-												<input type="button" value="Cancel" style="width:60px" name="Edit" class="button10g" onClick="eventdelete('#eventid#','','#url.scope#')">
-								   															
-								   			</cfif>
-																				   
-									</cfif>
-							   
-							   </td>
 							   
 							    <!---
 							   	<cfif EntityClass neq "">
@@ -367,8 +400,7 @@
 									 onclick="workflowdrill('#eventid#','box_#eventid#')" mode="#vMode#">
 										
 							   	</cfif>
-								--->
-														   				   
+								--->														   				   
 							  							   
 				               <TD colspan="1">
 				               		<font color="808080">#TriggerDescription#:&nbsp;</font>#EventDescription#
@@ -387,33 +419,34 @@
 								<cfelse>
 								<td><cf_tl id="Normal"></td>
 								</cfif>
-
-								<td style="width:20px"></td>	
-								
+																
 								 <td style="min-width:100px;padding-right:10px;min-width:120px">						   
 							   
 								   <cfif EntityClass neq "">
 							
-										<input type	= "hidden" 
-										   	name 	= "workflowlink_#eventid#" 
-										   	id   	= "workflowlink_#eventid#"
-										   	value	= "#client.root#/Staffing/Portal/Events/EventBaseDialogWorkflow.cfm">	
+										<input type  	= "hidden" 
+										       name 	= "workflowlink_#eventid#" 
+										   	   id   	= "workflowlink_#eventid#"
+										   	   value	= "#client.root#/Staffing/Portal/Events/EventBaseDialogWorkflow.cfm">	
+										
+										
+										<input type     = "hidden" 
+										       id       = "workflowlinkprocess_#eventid#" 
+											   onclick  = "ptoken.navigate('#client.root#/Staffing/Portal/Events/EventBaseDialogStatus.cfm?id=#eventid#','status_#eventid#')"> 	
+										
 																									   
 										<cf_securediv id="#eventid#" bind="url:#client.root#/Staffing/Portal/Events/EventBaseDialogWorkflow.cfm?ajaxid=#eventid#">       															
-														
-									<cfelse>
-																							
+																																
 									</cfif>				 						   
 								   
 							   </td>
 			
-						</TR>	
+						</TR>						
 						
-						
-						<tr class="labelmedium line fixlengthlist" id="#eventid#_2"><td colspan="2"></td>
-							<td colspan="7">#remarks#</td>								
-						</tr>	
-					
+						<tr class="labelmedium line fixlengthlist" id="#eventid#_2">
+							<td colspan="9">#remarks#</td>								
+						</tr>		
+										
 										
 					<cf_filelibraryCheck
 							DocumentPath="PersonEvent"
@@ -423,8 +456,8 @@
 					<cfif files gte "1">		
 					
 					<tr style="height:1px" id="#eventId#_3">
-					    <td colspan="2"></td>
-						<td colspan="6">
+					   
+						<td colspan="8">
 										
 						<cf_filelibraryN
 							DocumentPath="PersonEvent"
@@ -452,12 +485,13 @@
 		<tr><td id="eventdetail"></td></tr>
 									
 		</table>	
-		
-		</cf_divscroll>
+			
 		
 </td></tr>
 
 </table>
+
+</cf_divscroll>
 
 <script>
 	Prosis.busy('no')

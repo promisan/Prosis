@@ -894,7 +894,13 @@
 		});
 		
 		//Default tab
-		carousel.showPane(0);
+		<cfoutput>
+			<cfif defaultTab.recordCount eq 0>
+				carousel.showPane(0);
+			<cfelse>
+				carousel.showPaneById('#defaultTab.SystemFunctionId#');
+			</cfif>
+		</cfoutput>
 		
 		//Hide menus
 		toggleMenuOverlay(false, '#MainMenu, #MainMenuOptions, #MainMenuClearances, #MainMenuLogin', '0px', function(){ 

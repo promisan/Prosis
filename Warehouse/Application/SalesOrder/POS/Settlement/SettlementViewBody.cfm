@@ -200,7 +200,7 @@
 								   name="Update" 
 								   id="Update" 
 								   value="#lt_text#" 							   
-								   onClick="saveline('#url.warehouse#','#url.customerid#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','#url.addressid#','#url.requestno#')">	
+								   onClick="saveline('#url.warehouse#','#url.customerid#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','#url.addressid#','#url.requestno#',document.getElementById('taxcode').value)">	
 							</cfoutput>	
 						</td>
 					</tr>
@@ -230,25 +230,63 @@
 		
 			<tr>
 			<td style="height:30px;padding-top:4px;padding-left:6px">
+				
 				<table style="width:100%">
 				<tr class="labelmedium">
-				<td valign="bottom" style="font-size:15px;padding-bottom:3px;padding-right:10px"><cf_tl id="Memo"></td>
+				   <td valign="bottom" colspan="2" style="font-size:15px;padding-bottom:3px;padding-right:10px"><cf_tl id="Memo"></td>
 				</tr>
+				
 				<tr>
-				<td>
+				<td colspan="2">
 				<input type  = "text" 
 				       name  = "transactionmemo" id="transactionmemo" 
 					   maxlength = "100" class="regularxl" 
-				       style = "font-size:20px;height:30px;width:98%;background-color:ffffcf">
+				       style = "font-size:20px;height:30px;width:99%;background-color:ffffcf">
 				</td>		
 				</tr>
+				
+				<cfoutput>
+				
+				<tr style="height:40px">
+			
+				<td style="font-size:15px;padding-right:10px" colspan="2">
+				
+				    <table><tr class="labelmedium2"><td style="padding-right:10px"><cf_tl id="Tax Code"></td>			
+				
+					<cfquery name="getCustomerInvoiceTax" 
+						  datasource="AppsMaterials" 
+						  username="#SESSION.login#" 
+						  password="#SESSION.dbpw#">
+					        SELECT    *
+					        FROM      CustomerTaxCode C 
+					        WHERE     C.CustomerId = '#url.CustomerId#'  
+							ORDER BY Source DESC                                                                                                                                           			  
+					</cfquery>
+			
+					 <td>
+										 
+						<select name="taxcode" id="taxcode" class="regularxxl" style="font-size:20px;background-color:ffffcf">
+						<cfloop query="getCustomerInvoiceTax">
+						<option value="#TaxCode#" <cfif currentrow eq "1">selected</cfif>>#TaxCode#</option>
+						</cfloop>
+						<option value="" <cfif getCustomerInvoiceTax.recordcount eq "0">selected</cfif>>CF</option>	
+						</select>
+					</td>	
+					</table>
+					</td></tr>		
+				
 				</table>
 				</td>
+				
+				</cfoutput>
 			</tr>
-							
+								
 			<tr>	
-				<td height="100%" valign="top" style="width:100%;padding-left:4px;padding-top:5px;padding-bottom:16px;padding-right:10px" id="dlines">
-				<cfinclude template="SettlementLines.cfm">		
+				<td height="100%" valign="top" style="width:100%;padding-left:4px;padding-top:5px;padding-bottom:16px;padding-right:10px">
+								
+				   <cfdiv id="dlines" 
+			        bind="url:#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/SettlementLines.cfm?RequestNo=#url.requestNo#&Warehouse=#url.warehouse#&Terminal=#url.terminal#&customerid=#url.customerid#&batchId=#url.batchid#&tm=#url.tm#&td=#url.td#&th=#url.th#&addressid=#url.addressid#&mid=#url.mid#&taxcode={taxcode}"/>
+					
 				</td>	
 			</tr>
 		

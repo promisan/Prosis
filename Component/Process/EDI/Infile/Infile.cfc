@@ -453,16 +453,17 @@
 
 					<cfset FEL.CustomerName       = "#Replace(Customer.CustomerName,"&","")#">  <!--- #Replace(GetInvoice.CustomerName,"&","")# --->
 					
-					<cfset vNIT = Customer.Reference>
-					<cfset vNit = Replace(vNIT," ","","ALL")>
-					<cfif vNIT eq "C/F" OR vNIT eq "C-F" or vNIT eq "">
-						<cfset vNIT = "CF">
-					</cfif>		
+					<!--- adjusted 10/1/2023 --->
+					<cfset vNIT = getTransaction.ReferenceNo>
+					<cfset vNit = Replace(vNIT," ","","ALL")> <!--- remove spaces --->
 					<cfset vNit = Replace(vNIT,"-","","ALL")>
+					<cfif vNIT eq "C/F" or vNIT eq "">
+						<cfset vNIT = "CF">
+					</cfif>							
 					<cfset vNit = UCASE(vNit)>
 										
-					<cfset FEL.CustomerNIT        = "#vNit#">  <!--- #vNormalizedNIT# --->
-					
+					<cfset FEL.CustomerNIT        = "#vNit#">  					
+										
 					<cfset FEL.CustomereMail      = "#Customer.eMailAddress#">
 					<cfset FEL.CustomerAddress    = "#Address.Address#">
 					<cfset FEL.CustomerPostalCode = "#Address.AddressPostalCode#">
@@ -686,7 +687,14 @@
 					<cfset FEL.CustomerState      = "Guatemala"> 
 					<cfset FEL.CustomerCountry    = "GT">
 						
-			</cfif>													
+			</cfif>		
+			
+			<!--- localised change of the class of the number --->
+			<cfif len(FEL.CustomerNIT) gte 10>
+				<cfset FEL.CustomerClass = "DPI">
+			<cfelse>
+				<cfset FEL.CustomerClass = "NIT">				
+			</cfif>									
 			
 			<!--- ------------------------- --->
 			<!--- --------3 of 4 Lines----- --->		
@@ -734,7 +742,7 @@
                  					           WHERE    TaxAccount = 0) <!--- we exclude lines that reflect tax as this is about Guate tax --->
 					AND      TL.AmountCredit > 0    <!--- only positive amounts to be reflected     --->
 					ORDER BY TL.TransactionSerialNo <!--- sorting of the lines in order of creation --->
-															
+																				
 			</cfquery>	
 				
 			<!--- ------------------------- --->	
@@ -795,6 +803,18 @@
 																	
 			<cfset FEL.Tax        = FEL.Taxable * FEL.TaxPercentage>						
 			<cfset FEL.Amount     = FEL.Taxable + FEL.Tax>	
+			
+			<!--- newly added 6/1/2023 --->
+			
+			<cfif vNIT eq "CF" and FEL.Amount gte GetWarehouse.SaleTaxCode>
+			
+				<!--- message --->
+				<script>
+					alert("Transaction not supported without NIT or DPI selected")
+				</script>
+				<cfabort>
+			
+			</cfif>		
 									
 			<!---						
 			v_TipoItem : default B, for now overruled only if ReferenceNo = item and has the itemclass = service
@@ -819,43 +839,51 @@
 					ORDER BY Created 								
 			</cfquery>
 			
-			<cfset dts = dateAdd("d",  0,  getLines.DocumentDate)>	
+			<cfif getLines.documentDate neq "">
+			     <cfset dts = dateAdd("d",  0,  getLines.DocumentDate)>	
+			<cfelse>
+			    <cfset dts = dateAdd("d",  0,  getLines.TransactionDate)>	
+			</cfif>
+						
+			<cfif getLines.documentDate neq "">
 			
-			<cfif getFirst.recordcount eq "1">								   
-							
-				<cfif month(getFirst.created) neq month(now()) or month(getLines.DocumentDate) neq month(now())>
-				
-					<!--- FEL allows up to 5 days correction --->	
+				<cfif getFirst.recordcount eq "1">			
+											
+					<cfif month(getFirst.created) neq month(now()) or month(getLines.DocumentDate) neq month(now())>
 					
-					<cfif datediff("d",  getLines.DocumentDate,  now()) lte 5> 	
-					    <!--- no change 
-					    <cfset dts = dateAdd("d",  0,  getLines.DocumentDate)>								
-						--->
-					<cfelseif datediff("d",  getFirst.created,  now()) lte 5> 	
-						 <cfset dts = dateAdd("d",  0,  getFirst.created)>							
-					<cfelse>
-					    <cfset dts = now()>				    						
-					</cfif>														
+						<!--- FEL allows up to 5 days correction --->	
+						
+						<cfif datediff("d",  getLines.DocumentDate,  now()) lte 5> 	
+						    <!--- no change 
+						    <cfset dts = dateAdd("d",  0,  getLines.DocumentDate)>								
+							--->
+						<cfelseif datediff("d",  getFirst.created,  now()) lte 5> 	
+							 <cfset dts = dateAdd("d",  0,  getFirst.created)>							
+						<cfelse>
+						    <cfset dts = now()>				    						
+						</cfif>														
+										
+					</cfif>	
 									
-				</cfif>	
-								
-			<cfelse>	
-			
-				<cfif month(getLines.DocumentDate) neq month(now())>
-								   					
-					<!--- 7/2/2022 I discussed with Ana and this is not the desired effect --->
+				<cfelse>	
 				
-			    	<!--- FEL allows up to 5 days correction --->	
-					<cfif datediff("d",  getLines.DocumentDate,  now()) lte 5> 	
-					     <!--- no change 
-					    <cfset dts = dateAdd("d",  0,  getLines.DocumentDate)>								
-						--->	 						
-					<cfelse>
-					    <cfset dts = now()>						    			    
-					</cfif>					
-									
-				</cfif>	
-							
+					<cfif month(getLines.DocumentDate) neq month(now())>
+									   					
+						<!--- 7/2/2022 I discussed with Ana and this is not the desired effect --->
+					
+				    	<!--- FEL allows up to 5 days correction --->	
+						<cfif datediff("d",  getLines.DocumentDate,  now()) lte 5> 	
+						     <!--- no change 
+						    <cfset dts = dateAdd("d",  0,  getLines.DocumentDate)>								
+							--->	 						
+						<cfelse>
+						    <cfset dts = now()>						    			    
+						</cfif>					
+										
+					</cfif>	
+								
+				</cfif>
+			
 			</cfif>
 						
 			<!--- this control a direct eMail from Infile
@@ -888,18 +916,36 @@
 									<dte:Pais>#FEL.VendorCountry#</dte:Pais>
 								</dte:DireccionEmisor>
 							</dte:Emisor>
+							
+							<cfif FEL.CustomerClass eq "NIT">
 														
-							<dte:Receptor CorreoReceptor="" IDReceptor="#FEL.customerNIT#" NombreReceptor="#FEL.CustomerName#">
-								
-									<dte:DireccionReceptor>
-										<dte:Direccion>#FEL.CustomerAddress#</dte:Direccion>
-										<dte:CodigoPostal>#FEL.CustomerPostalCode#</dte:CodigoPostal>
-										<dte:Municipio>#FEL.CustomerCity#</dte:Municipio>
-										<dte:Departamento>#FEL.CustomerState#</dte:Departamento>
-										<dte:Pais>#FEL.CustomerCountry#</dte:Pais>
-									</dte:DireccionReceptor>											
-								
-							</dte:Receptor>
+								<dte:Receptor CorreoReceptor="" IDReceptor="#FEL.customerNIT#" NombreReceptor="#FEL.CustomerName#">
+									
+										<dte:DireccionReceptor>
+											<dte:Direccion>#FEL.CustomerAddress#</dte:Direccion>
+											<dte:CodigoPostal>#FEL.CustomerPostalCode#</dte:CodigoPostal>
+											<dte:Municipio>#FEL.CustomerCity#</dte:Municipio>
+											<dte:Departamento>#FEL.CustomerState#</dte:Departamento>
+											<dte:Pais>#FEL.CustomerCountry#</dte:Pais>
+										</dte:DireccionReceptor>											
+									
+								</dte:Receptor>
+							
+							<cfelse>
+							
+								<dte:Receptor CorreoReceptor="" IDReceptor="#FEL.customerNIT#" NombreReceptor="#FEL.CustomerName#" TipoEspecial="CUI">
+									
+										<dte:DireccionReceptor>
+											<dte:Direccion>#FEL.CustomerAddress#</dte:Direccion>
+											<dte:CodigoPostal>#FEL.CustomerPostalCode#</dte:CodigoPostal>
+											<dte:Municipio>#FEL.CustomerCity#</dte:Municipio>
+											<dte:Departamento>#FEL.CustomerState#</dte:Departamento>
+											<dte:Pais>#FEL.CustomerCountry#</dte:Pais>
+										</dte:DireccionReceptor>											
+									
+								</dte:Receptor>
+														
+							</cfif>
 								
 							<dte:Frases>
 									<cfif FEL.Phrase1 eq "">
@@ -1304,8 +1350,8 @@
 
 			SELECT	C.FirstName,
 			C.LastName,
-<!---Infile utf 8 encoding testing  --->
-<!---C.CustomerName collate SQL_Latin1_General_Cp1251_CS_AS AS CustomerName,--->
+<!--- Infile utf 8 encoding testing  --->
+<!--- C.CustomerName collate SQL_Latin1_General_Cp1251_CS_AS AS CustomerName,--->
 			C.CustomerName,
 			C.FullName,
 			UPPER(C.Reference) AS NIT,
@@ -1628,6 +1674,23 @@
 		<cfset vNormalizedNit = Replace(vNIT,"-","","ALL")>
 		<cfset vNormalizedNit = Replace(vNormalizedNit,"C/F","CF","ALL")>
 		
+		<!--- newly added 6/1/2023 --->
+		
+		<cfquery name="FEL" dbtype="query">
+		 SELECT sum(SalesTotal) as Amount
+		 FROM getInvoice		
+		</cfquery>
+			
+		<cfif vNormalizedNit eq "CF" and FEL.Amount gt "2500">
+			
+			<!--- message --->
+			<script>
+				alert("Transaction not supported without NIT or DPI")
+			</script>
+			<cfabort>
+			
+		</cfif>		
+		
 		<cfxml variable="XmlDTE">
 			<cfoutput>
 				<?xml version="1.0" encoding="utf-8"?>
@@ -1733,16 +1796,16 @@
 												<cfset vSaleAmount = SalesTotal>
 											</cfif>
 											<cfif (vreccount eq "1" and TotalDiscounts gt "0")>
-												<cfset vTaxLine = numberformat(SalesTax + TotalTaxDiscounts ,"__.__")>
-												<cfset vOriginal = SchedulePrice*TransactionQuantity>
+												<cfset vTaxLine        = numberformat(SalesTax + TotalTaxDiscounts ,"__.__")>
+												<cfset vOriginal       = SchedulePrice*TransactionQuantity>
 												<cfset vTotalDiscounts = vSaleAmount-vOriginal>
-												<cfset vDiscountLine = trim(numberformat(vInvoiceTotalDiscount,"__.__"))>
-												<cfelseif (Abs(SchedulePrice*TransactionQuantity-vSaleAmount) gt 0.05)>
-												<cfset vOriginal = SchedulePrice*TransactionQuantity>
+												<cfset vDiscountLine   = trim(numberformat(vInvoiceTotalDiscount,"__.__"))>
+											<cfelseif (Abs(SchedulePrice*TransactionQuantity-vSaleAmount) gt 0.05)>
+												<cfset vOriginal       = SchedulePrice*TransactionQuantity>
 												<cfset vTotalDiscounts = vSaleAmount-vOriginal>
 												<cfset vInvoiceTotalDiscount = vTotalDiscounts + vInvoiceTotalDiscount>
-												<cfset vTaxLine = numberformat(SalesTax,"__.__")>
-												<cfset vDiscountLine = trim(numberformat(vTotalDiscounts,"__.__"))>
+												<cfset vTaxLine        = numberformat(SalesTax,"__.__")>
+												<cfset vDiscountLine   = trim(numberformat(vTotalDiscounts,"__.__"))>
 											<cfelse>
 												<cfset vTaxLine = numberformat(SalesTax,"__.__")>
 												<cfset vDiscountLine = 0>

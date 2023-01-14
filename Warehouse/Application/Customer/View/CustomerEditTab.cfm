@@ -65,9 +65,9 @@
 				var validateReference = document.getElementById('validateReference');
 				
 				if (validateReference.value == 0){
-					alert('Please enter a valid Reference.');
-					validateReference.focus();
-					return false;
+					// alert('Please enter a valid Reference.');
+					// validateReference.focus();
+					// return false;
 				}							
 				
 				ptoken.navigate('CustomerSubmit.cfm','contentbox1','','','POST','customerform');

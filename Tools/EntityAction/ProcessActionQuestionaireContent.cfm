@@ -111,11 +111,10 @@
 	    <td class="labelmedium" style="padding-top:2px;height:35px;font-size: 15px;font-weight:400;padding-left:4px">#currentrow#.</td>
 		<td><table style="width:90%">
 				<tr>
-				 		
-									
+				 											
 				<td class="labelmedium" style="cursor:pointer;font-size:17px;padding-left:4px">
 				
-				<cfif len(QuestionMemo) gte "5">
+				<cfif len(QuestionMemo) gte "200">
 				<cf_UITooltip
 					id         = "#QuestionId#"
 					ContentURL = "ProcessActionQuestionaireDetail.cfm?id=#questionid#"					
@@ -127,10 +126,15 @@
 				<cfelse>
 				#QuestionLabel#
 				</cfif>	
-				</td>
-							
+				</td>							
 				
 				</tr>
+				
+				<cfif len(QuestionMemo) lt "200">
+				
+				<tr><td style="padding-left:10px;font-size:12px">#QuestionMemo#</td></tr>
+				
+				</cfif>
 				
 			</table>
 		</td>		
@@ -247,7 +251,11 @@
 							</cfloop>
 							
 						<cfelse>
-												
+						
+						<td style="padding-left:6px" onclick="#lkt#">
+						<cf_UIRating id="score_#left(QuestionId,8)#" min="1" max="#inputmode#" selected="#score#">
+								
+								<!---				
 								<cfloop index="itm" from="1" to="#inputmode#">					
 								    
 									<td style="padding-left:6px"><input type="radio" class="radiol" name="score_#left(QuestionId,8)#" id="score_#left(QuestionId,8)#"
@@ -257,6 +265,9 @@
 									<td width="3"></td>
 															
 								</cfloop>
+								--->
+								
+							</td>	
 												
 						</cfif>
 								
@@ -361,19 +372,38 @@
 </cfoutput>
 
  <tr>
-		 <td colspan="3" align="right" height="25" style="padding-top:3px;padding-right:20px">						 					 
-										   
-				   <cfset nextbox = boxno+1>
-					 <cfoutput>			   					   					   					   					 		 
-					    <input type = "button" 
-						class       = "button10g" 
-						style       = "width:210px;height:29px;font-size:14px;"						
-						value       = "Next" 
-						onclick     = "document.getElementById('menu#nextbox#').click()">
-					</cfoutput>  				
+	 <td colspan="3" align="center" height="25" style="padding-top:3px;padding-right:20px">		
+		 
+       <cf_tl id="Submit" var="1">				 					 
+							   
+	   <cfset nextbox = boxno+1>
+	   
+	   <cfoutput>		
+		 
+		 <cfif nextbox gt "2">	   					   					   					   					 		 
+		 
+		    <input type = "button" 
+			class       = "button10g" 
+			style       = "width:210px;height:29px;font-size:14px;"						
+			value       = "#lt_text#" 
+			onclick     = "document.getElementById('menu#nextbox#').click()">
+			
+		 <cfelse>	
+		 
+		 <!-- Hanno 4/1/2023, there is only one tab in this questionaire step so we go to close it immediately --->
+									   					   					   					   					 		 
+		    <input type = "button" 
+			class       = "button10g" 
+			style       = "width:210px;height:29px;font-size:14px;"						
+			value       = "#lt_text#" 
+			onclick     = "document.getElementById('r2').click();document.getElementById('saveaction').click()">			  	
+			
+		 </cfif>	
+			
+		</cfoutput>  							
 										
-		 </td>
-	 </tr>
+	 </td>
+ </tr>
   
 </table>
 

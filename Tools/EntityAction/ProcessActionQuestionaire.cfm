@@ -26,6 +26,7 @@
 	<cfset entrymode = "workflow">
 	
 	<cfset boxno = boxno+1>
+	<cfset questionbox = "1">
 	
 	<cfif menumode eq "menu">
 	

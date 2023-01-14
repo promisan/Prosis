@@ -20,7 +20,37 @@
 	    ptoken.navigate('setQuantities.cfm?warehouse='+whs+'&WorkOrderItemId='+woid,'process');
 	    ptoken.navigate('ShipmentEntryDetailEarmarked.cfm?warehouse='+whs+'&WorkOrderItemId='+woid,woid);
 	}
-		
+
+	function searchBarcode(search,e,whs) {
+
+		if (e == null || e.keyCode == 13) {
+			if (search.value != '') {
+				if ($('#ship_reference_'+search.value))
+				{
+					id = $('#ship_reference_'+search.value).val();
+
+					if ($('#ship_'+id).is(':checked'))
+					{
+						v=0
+						$('#BarCode').val('');
+						$('#BarCode').focus();
+						alert('Already scanned on this batch')
+
+					}
+					else
+					{
+						$('#ship_'+id).attr('checked',true);
+						$('#BarCode').val('');
+						$('#BarCode').focus();
+						v=1
+					}
+				}
+				else
+					alert('not found');
+			}
+		}
+	}
+
 </script>
 
 <cf_dialogWorkOrder>

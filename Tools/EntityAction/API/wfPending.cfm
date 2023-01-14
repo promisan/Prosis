@@ -88,7 +88,8 @@ we do not reprocess the workflow status table --------------------- --->
 				 O.ObjectKeyValue2, 
 				 O.ObjectKeyValue3, 
 				 O.ObjectKeyValue4, 
-				 O.ActionPublishNo,
+				 O.ActionPublishNo,				
+				 
 				 MIN(A.ActionFlowOrder) AS ActionFlowOrder,	 <!--- take the lowest open action for reference --->      
 				 R1.EntityClass as EntityClassCode,
 		         R1.EntityClassName
@@ -119,7 +120,7 @@ we do not reprocess the workflow status table --------------------- --->
 				 O.ObjectKeyValue2, 
 				 O.ObjectKeyValue3, 
 				 O.ObjectKeyValue4, 
-				 O.ActionPublishNo,			
+				 O.ActionPublishNo,					 	
 				 R1.EntityClass,
 				 R1.EntityClassName
 				 
@@ -230,7 +231,16 @@ we do not reprocess the workflow status table --------------------- --->
 							(SELECT   ActionDescription
 							 FROM     Organization.dbo.Ref_EntityActionPublish 
 							 WHERE    ActionCode = O.ActionCode
-							 AND      ActionPublishNo = O.ActionPublishNo) as ActionDescriptionDue,											 
+							 AND      ActionPublishNo = O.ActionPublishNo) as ActionDescriptionDue,		
+							 							  
+							(SELECT   DISTINCT U.LastName+'  '
+			                 FROM     Organization.dbo.OrganizationObjectMail AS OM INNER JOIN
+			                          System.dbo.UserNames AS U ON OM.Account = U.Account AND U.AccountType = 'Individual'
+			                 WHERE    OM.eMailType != 'Reminder' 
+							 AND      OM.ObjectId   = O.ObjectId 
+							 AND      OM.ActionCode = O.ActionCode 
+			                 FOR XML PATH ( '' )) as NotifiedActor,						 
+							 									 
 							R.ParentCode,	
 							O.ActionMemo,						
 							getDate() as TimeStamp							
@@ -258,7 +268,16 @@ we do not reprocess the workflow status table --------------------- --->
 								(SELECT   ActionDescription
 								 FROM     Organization.dbo.Ref_EntityActionPublish 
 								 WHERE    ActionCode = O.ActionCode
-								 AND      ActionPublishNo = O.ActionPublishNo) as ActionDescriptionDue,												 
+								 AND      ActionPublishNo = O.ActionPublishNo) as ActionDescriptionDue,		
+								 
+							    (SELECT   DISTINCT U.LastName+'  '
+			                     FROM     Organization.dbo.OrganizationObjectMail AS OM INNER JOIN
+			                              System.dbo.UserNames AS U ON OM.Account = U.Account AND U.AccountType = 'Individual'
+			                     WHERE    OM.eMailType != 'Reminder' 
+							     AND      OM.ObjectId   = O.ObjectId 
+							     AND      OM.ActionCode = O.ActionCode 
+			                     FOR XML PATH ( '' )) as NotifiedActor,		
+							  										 
 								R.ParentCode,	
 								O.ActionMemo,						
 								getDate() as TimeStamp							

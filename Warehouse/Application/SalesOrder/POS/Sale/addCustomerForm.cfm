@@ -34,30 +34,36 @@
 	});
 		
 	function show_error_reference(form, ctrl, value, msg) {
+	    if (value != '') {
 	    Prosis.notification.show('Error', msg, 'error', 2500); //error, success, information       
+		}
 	}  
 	
 	function check_reference(form, ctrl, value) {
 	
-		 var validator = new EDI();
-		 validator.setSyncMode()
-		 try{
-		 	var vreturn = validator.CustomerValidate('#url.mission#','1',value,'appsOrganization');		 	
-		 	// console.log(vreturn);		 	
-		 	if (vreturn.STATUS=="OK")
-			 	return true;
-		 	else
-			 	return false;
-		}catch(ex) {
-			alert(ex.message);	
-		}		
+	     if (value != '') {
+		 
+			 var validator = new EDI();
+			 validator.setSyncMode()
+			 try{
+			 	var vreturn = validator.CustomerValidate('#url.mission#','1',value,'appsOrganization');		 	
+			 	// console.log(vreturn);		 	
+			 	if (vreturn.STATUS=="OK")
+				 	return true;
+			 	else
+				 	return false;
+			}catch(ex) {
+				alert(ex.message);	
+			}		
+			
+		} else { return true; }	
 	}
 
 	function getReferenceName() {
 		var validator = new EDI();
 		validator.setSyncMode()
 		try{
-			vReference = $('##reference').val()
+			vReference = $('##TaxCodeTax').val()
 			var vreturn = validator.CustomerValidate('#url.mission#','1',vReference,'appsOrganization');
 			console.log(vreturn);
 			if (vreturn.STATUS=="OK") {
@@ -93,34 +99,14 @@ password="#SESSION.dbpw#">
 
 <table width="100%" height="98%" border="0" bgcolor="white" cellspacing="0" cellpadding="0" align="center" class="formpadding">
  	  
-  <tr class="hide" height="2"><td colspan="2" id="customerresult"></td></tr>
+  <tr class="xxxxhide" height="2"><td colspan="2" id="customerresult"></td></tr>
       
   <tr>
     <td width="100%" class="header" valign="top">
 		
     <table border="0" width="93%" align="center" class="formpadding">
-		
-    <TR class="labelmedium">
-    <TD><cf_tl id="Customer Reference">: <font color="FF0000">*</font></TD>
-    <TD>
 	
-	<cf_tl id="Please enter" var="1" class="message">
-		
-	<cfinput type="Text"
-	       name="reference"
-		   id="reference"
-	       value="#url.reference#"
-		   class="regularxl enterastab"
-	       required="Yes" 		   
-		   message="#lt_text# #CLIENT.IndexNoName#"		
-		   onError="show_error_reference"  
-		   onvalidate="check_reference"
-		   onChange="getReferenceName()"
-		   size="10"
-	       maxlength="10">
-		
-	</TD>
-	</TR>	
+	
    		
 	<!--- Field: Name --->
     <TR class="labelmedium">
@@ -141,6 +127,62 @@ password="#SESSION.dbpw#">
 			
 		</TD>
 	</TR>
+	
+	<tr class="labelmedium">
+		<td><cf_tl id="Tax Code"> :</td>
+		<td style="height:30px">
+		    <table>
+			<tr class="labelmedium">
+			<td style="padding-left:0px">
+			
+			<cfinput type     = "Text"
+		       name       = "TaxCodeTax"
+			   id         = "TaxCodeTax"
+		       value      = "#url.reference#"
+			   class      = "regularxl enterastab"
+		       required   = "No" 		   
+			   message    = "Invalid #lt_text#"		
+			   onError    = "show_error_reference"  
+			   onvalidate = "check_reference"
+			   onChange   = "getReferenceName()"
+			   size       = "12"
+		       maxlength  = "120">
+			
+			</td>
+			<td style="padding-left:4px"><cf_tl id="Tax"></td>
+			<td style="padding-left:7px">
+			<input type="text" name="TaxCodeCivilian" size="13" maxlength="13" class="regularxl enterastab"></td>
+			<td style="padding-left:4px"><cf_tl id="Civilian"></td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	
+	<!---
+		
+    <TR class="labelmedium">
+    <TD><cf_tl id="Customer Reference">: <font color="FF0000">*</font></TD>
+    <TD>
+	
+	<cf_tl id="Please enter" var="1" class="message">
+		
+	<cfinput type     = "Text"
+	       name       = "reference"
+		   id         = "reference"
+	       value      = "#url.reference#"
+		   class      = "regularxl enterastab"
+	       required   = "Yes" 		   
+		   message    = "#lt_text# #CLIENT.IndexNoName#"		
+		   onError    = "show_error_reference"  
+		   onvalidate = "check_reference"
+		   onChange   = "getReferenceName()"
+		   size       = "12"
+	       maxlength  = "120">
+		
+	</TD>
+	</TR>	
+	
+	--->
 			
     <!--- Field: BirthDate --->
     <TR class="labelmedium">
@@ -166,8 +208,7 @@ password="#SESSION.dbpw#">
 		
 		</TD>
 	</TR>
-	
-	
+		
 	
     <!--- Field: Phone No. --->
     <TR class="labelmedium">
@@ -179,7 +220,7 @@ password="#SESSION.dbpw#">
 			
 		</TD>
 	</TR>
-	
+			
 	 <!--- Field: Mobile No. --->
     <TR class="labelmedium">
 	    <cf_tl id="Please enter a MobileNo" var="1" class="message">	
@@ -221,14 +262,11 @@ password="#SESSION.dbpw#">
 			</table>
 		</td>
 	</tr>
-	
-	
-		   
+			   
 	<TR class="line">
         <td class="labelmedium" valign="top" style="padding-top:5px"><cf_tl id="Remarks">:</td>
         <TD><textarea style="border-radius:2px;width:95%;height:50;font-size:15;padding:4px" class="regular enterastab" name="Memo"></textarea> </TD>
 	</TR>
-			
 	
     <tr><td colspan="2" height="30" align="center">  
 	

@@ -31,6 +31,39 @@ password="#SESSION.dbpw#">
 	WHERE  Mission = '#url.mission#'
 </cfquery>
 
+<cfset val = evaluate("Form.TaxCodeTax")>
+ 
+<cfif val neq "">
+	
+	<cfquery name="check" 
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT *
+		FROM   Customer C
+		WHERE  Mission = '#url.mission#'			
+		AND CustomerId IN (SELECT CustomerId FROM CustomerTaxCode WHERE CustomerId = C.CustomerId 
+		                                                          AND   source = 'Tax' 
+																  AND   TaxCode = '#val#')
+	</cfquery>
+
+<cfelse>
+	
+	<cfquery name="check" 
+	datasource="AppsMaterials" 
+	username="#SESSION.login#" 
+	password="#SESSION.dbpw#">
+		SELECT *
+		FROM   Customer C
+		WHERE  Mission = '#url.mission#'			
+		AND    CustomerName = '#Form.Name#'
+		AND    Reference = '#Parameter.CustomerDefaultReference#'
+	</cfquery>
+
+</cfif>
+
+<!--- superseded 
+
 <cfquery name="check" 
 datasource="AppsMaterials" 
 username="#SESSION.login#" 
@@ -55,6 +88,8 @@ password="#SESSION.dbpw#">
 	</cfif>
 </cfquery>
 
+--->
+
 <cfparam name="check.RecordCount" default="0">
 <cfparam name="url.force" default="0">
 
@@ -69,26 +104,12 @@ password="#SESSION.dbpw#">
 	<cfabort>
 
 <CFELSE>
-
-	<cfinvoke component  = "Service.Process.EDI.Manager"  
-		method           = "CustomerValidate" 
-		Mission          = "#url.Mission#"
-		Reference		 = "#Form.Reference#"	
-		CustomerName 	 = "#Form.Name#"
-		returnvariable	 = "stResponse">		
-	   
-	 <cfif stResponse.status neq "OK">
 	 
-	    <cfoutput>
-		 	<script>
-				alert("#stResponse.status#")
-			</script>
-		</cfoutput>
-		<cfabort>
-	 	 
-	 <cfelse>  	
-    
-	     <cfquery name="InsertCustomer" 
+	   <cftransaction> 
+	   
+	   <cfset val = evaluate("Form.TaxCodeTax")>
+	  	    
+	   <cfquery name="InsertCustomer" 
 	     datasource="AppsMaterials" 
 	     username="#SESSION.login#" 
 	     password="#SESSION.dbpw#">
@@ -108,22 +129,82 @@ password="#SESSION.dbpw#">
 				 OfficerFirstName,	
 				 Memo)
 		      VALUES ('#rowguid#',
-		          '#url.mission#',
-				  '#Form.Name#',
-				  '#Form.Reference#',			 
-				   #DOB#,
-				  '#Form.PhoneNumber#',
-				  '#Form.MobileNumber#',
-				  '#Form.PostalCode#',
-				  '#Form.eMailAddress#',		
-				  '#Form.TaxExemption#',				  	 			 
-				  '#SESSION.acc#',
-		    	  '#SESSION.last#',		  
-			  	  '#SESSION.first#',
-				  '#Form.Memo#')				  
-	        </cfquery>	
-		
-		</cfif>	
+		            '#url.mission#',
+				    '#Form.Name#',
+				    <cfif val eq "">
+					  '#Parameter.CustomerDefaultReference#',
+				    <cfelse>
+					  '#val#',
+				    </cfif>				     
+				     #DOB#,
+				    '#Form.PhoneNumber#',
+				    '#Form.MobileNumber#',
+				    '#Form.PostalCode#',
+				    '#Form.eMailAddress#',		
+				    '#Form.TaxExemption#',				  	 			 
+				    '#SESSION.acc#',
+		    	    '#SESSION.last#',		  
+			  	    '#SESSION.first#',
+				    '#Form.Memo#')				  
+	       </cfquery>	
+			
+			<!--- add Taxcode --->
+			
+			<cfloop index="itm" list="Tax,Civilian">
+			
+			    <cfset val = evaluate("Form.TaxCode#itm#")>
+												
+				<cfif val neq "">
+				
+				     <cfif itm eq "Tax">
+					 
+						<cfinvoke component  = "Service.Process.EDI.Manager"  
+							method           = "CustomerValidate" 
+							Mission          = "#url.Mission#"
+							Reference		 = "#val#"	
+							CustomerName 	 = "#Form.Name#"
+							returnvariable	 = "stResponse">		
+						   
+						 <cfif stResponse.status neq "OK">
+						 
+						    <cfoutput>
+							 	<script>
+									alert("#stResponse.status#")
+								</script>
+							</cfoutput>
+							<cfabort>
+							
+						 </cfif>
+	 
+	                 </cfif>	
+					 			
+					<cfquery name="InsertCustomer" 
+				     datasource="AppsMaterials" 
+				     username="#SESSION.login#" 
+				     password="#SESSION.dbpw#">		
+					  
+					 INSERT INTO CustomerTaxCode
+				        (CustomerId,
+						 Country,
+						 Source,
+						 TaxCode,					 
+						 OfficerUserId,
+						 OfficerLastName,
+						 OfficerFirstName)
+				      VALUES ('#rowguid#',
+				          'GT', <!--- hardcoded --->
+						  '#itm#',
+						  '#val#',					 	  	 			 
+						  '#SESSION.acc#',
+				    	  '#SESSION.last#',		  
+					  	  '#SESSION.first#')				  
+			        </cfquery>	
+				
+				</cfif>
+			 
+			 </cfloop>		
+			 
+			 </cftransaction>			
 		
 	<cfoutput>
 	

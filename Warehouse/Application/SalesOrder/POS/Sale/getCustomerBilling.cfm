@@ -7,6 +7,15 @@
 
 --->
 
+<cfquery name="get" 
+  datasource="AppsMaterials" 
+  username="#SESSION.login#" 
+  password="#SESSION.dbpw#">
+	    SELECT  *
+		FROM   Warehouse
+		WHERE  Warehouse = '#url.warehouse#'
+</cfquery>
+
 <cfparam name="url.customerid" default="00000000-0000-0000-0000-000000000000">
 
 <cfif url.customerid eq "" or url.customerid eq "insert">
@@ -14,6 +23,7 @@
 </cfif>
 
 <cfoutput>
+
 			
 	 <!--- take the same --->		
 			 
@@ -25,8 +35,36 @@
 	        FROM      Customer C 
 	        WHERE     C.CustomerId = '#url.CustomerId#'                                                                                                                                             			  
 	</cfquery>
+	
+	<cfif get.SaleMode eq "1" or get.SaleMode eq "3">
+		
+	<cfquery name="getCustomerInvoiceTax" 
+		  datasource="AppsMaterials" 
+		  username="#SESSION.login#" 
+		  password="#SESSION.dbpw#">
+	        SELECT    *
+	        FROM      CustomerTaxCode C 
+	        WHERE     C.CustomerId = '#url.CustomerId#'  
+			ORDER BY Source DESC                                                                                                                                           			  
+	</cfquery>
 
-	#getCustomerInvoice.CustomerName#	
+	<table><tr><td colspan="2">#getCustomerInvoice.CustomerName#</td></tr>
+	<tr><td colspan="2">
+		<select name="TaxCode" id="taxcode" class="regularxl">
+		<cfloop query="getCustomerInvoiceTax">
+		<option value="#TaxCode#" <cfif currentrow eq "1">selected</cfif>>#TaxCode#</option>
+		</cfloop>
+		<option value="CF" <cfif getCustomerInvoiceTax.recordcount eq "0">selected</cfif>>CF</option>	
+		</select>
+	</td></tr>
+	</table>
+	
+	<cfelse>
+	
+	#getCustomerInvoice.CustomerName#
+	
+	</cfif>
+	
 				
 	<script language="JavaScript">	  
 	   try {  	    

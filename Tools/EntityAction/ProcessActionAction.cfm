@@ -11,8 +11,7 @@
 <cf_tl id="Select This option to  keep the document at the CURRENT STEP for pending review" var="vLblTTPending">     		
 <cf_tl id="Select this option to GO TO the step in the drop down list" var="vLblTTGoTo">  
 <cf_tl id="Select this option to go to the NEXT STEP" var="vLblTTNext">     	
-  		
-
+  	
  <cfoutput>
  
  <tr class="line">
@@ -31,7 +30,8 @@
     
 	<td colspan="2" style="padding-left:10px;height:45px">   
 	
-    <table id="processblock"><tr>
+    <table id="processblock">
+	<tr>
 		
 	<input type="hidden" name="StatusOld" id="StatusOld" value="#ActionStatus#">  
 		
@@ -54,17 +54,17 @@
 	       <cfset Status = ActionStatus> 	
 	   </cfif>	    
 
-   <td style="cursor: pointer;" title="#vLblTTPending#">
-
-  		 <input style="cursor: pointer;" id="r0" class="radiol" type="radio" name="actionstatus" value="0"  <cfif Status eq "0">checked</cfif> onClick="_cf_loadingtexthtml='';updateTextArea();selectoption('d0','0');ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Pending','processnow');<cfif entityaccess eq 'EDIT'>ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess')</cfif>;">
-  
-   </td>
-        <td class="labelmedium2" style="padding-left:3px;padding-right:3px" title="#vLblTTPending#">
+	   <td style="cursor: pointer;" title="#vLblTTPending#">
+	
+	  		 <input style="cursor: pointer;" id="r0" class="radiol" type="radio" name="actionstatus" value="0"  <cfif Status eq "0">checked</cfif> onClick="_cf_loadingtexthtml='';updateTextArea();selectoption('d0','0');ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Pending','processnow');<cfif entityaccess eq 'EDIT'>ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess')</cfif>;">
+	  
+	   </td>
+       <td class="labelmedium2" style="padding-left:3px;padding-right:3px" title="#vLblTTPending#">
                     <img src="#SESSION.root#/Images/Pending.png" width="24" height="24"
 				   alt="Pending" border="0" 
 				   align="absmiddle">       
-    </td>
-           <td id="d0" class="labelmedium2" onclick="document.getElementById('r0').click()" style="padding-right:10px" title="#vLblTTPending#"><cf_tl id="Save"></td>
+       </td>
+       <td id="d0" class="labelmedium2" onclick="document.getElementById('r0').click()" style="padding-right:10px" title="#vLblTTPending#"><cf_tl id="Save"></td>
     
       	  
    <cfif action.ActionGoTo gte "1">
@@ -220,7 +220,7 @@
 				  
 		   <input type="radio" id="r2" style="cursor: pointer;" class="radiol"
 		   <cfif URL.Process neq "">disabled</cfif>
-		   name="actionstatus" value="2"  <cfif Status eq "2">checked</cfif>
+		   name="actionstatus" value="2"  <cfif Status eq "2" or status eq "0">checked</cfif>
 		   onClick="_cf_loadingtexthtml='';selectoption('d2','2');updateTextArea();ptoken.navigate('ProcessActionButton.cfm?wfmode=#wfmode#&PublishNo=#ActionPublishNo#&ActionCode=#ActionCode#&Method=Submission','processnow'); ptoken.navigate('#SESSION.root#/tools/EntityAction/ActionListingFly.cfm?mode=regular&objectid=#object.Objectid#&ActionPublishNo=#ActionPublishNo#&ActionCode=#ActionCode#','stepflyaccess');">
 		   
 		  </td>

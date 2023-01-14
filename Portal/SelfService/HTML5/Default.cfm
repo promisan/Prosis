@@ -5,6 +5,7 @@
 <cfparam name="SESSION.Authent"  default="">
 <cfparam name="url.mid"          default="">
 <cfparam name="url.showLogin" 	 default="0">
+<cf_param name="url.tab" 		 default="">
 
 <!--- check the contextual access for this user --->
 
@@ -41,7 +42,7 @@
 	
 	<cfoutput>
 		<script language="JavaScript">
-			parent.window.location = "public.cfm?id=#url.id#&mission=#url.mission#&showLogin=#url.showLogin#";
+			parent.window.location = "public.cfm?id=#url.id#&mission=#url.mission#&showLogin=#url.showLogin#&tab=#url.tab#";
 		</script>
 	</cfoutput>
 

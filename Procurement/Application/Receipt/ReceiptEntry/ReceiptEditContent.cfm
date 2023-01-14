@@ -16,7 +16,41 @@
 	 layout="webapp" 
 	 jquery="yes"
 	 line="no"
-	 user="yes">		 
+	 user="yes">	
+
+<!--- LABEL PRINTING --->
+<cfinclude template="../../../../Warehouse/Maintenance/Item/UoM/UoMLabel/ItemUoMLabelScript.cfm">
+
+<cfoutput>
+	<cf_tl id="Labels to print" var="vLabelsPrintConfirm">
+	<cf_tl id="You must select at least one item to print." var="vLabelsPrintError">
+	
+	<script>
+		$( document ).ready(function() {
+			launchQZ();
+		});
+
+		function printReceiptLabels(mission) {
+			var vItemsToPrint = $(".clsPrintLabelParameterCheckItem:checked");
+			var vPrintDescription = $("##fdescription").is(':checked');
+			var vPrintBarcode = $("##fbarcode").is(':checked');
+			var vPrintPriceParams = "";
+			$('.clsPrintLabelParameterCheckPrice:checked').each((i, el) => {
+				vPrintPriceParams += "&price" + $(el).val() + "=true";
+			});
+
+			if (vItemsToPrint.length > 0) {
+				if (confirm("#vLabelsPrintConfirm#: " + vItemsToPrint.length)) {
+					$(vItemsToPrint).each((i, el) => {
+						ptoken.navigate('#session.root#/procurement/application/receipt/barcode/barcodelistprint.cfm?mission=' + mission + '&description=' + vPrintDescription + '&barcode=' + vPrintBarcode + '&receiptid=' + $(el).val() + vPrintPriceParams, 'divPrintList');
+					});
+				}
+			} else {
+				alert('#vLabelsPrintError#');
+			}
+		}
+	</script>
+</cfoutput>	 
 
 <cfparam name="URL.Id" default="#URL.Id#">
   
@@ -192,6 +226,11 @@
 	  	h = #CLIENT.height# - 140;
 	  	ptoken.open("../../../../Tools/Mail/MailPrepare.cfm?Id=Mail&ID1=#URL.ID#&ID0=#tmp#","_blank", "left=30, top=30, width=800, height=600, toolbar=no, menubar=no, status=yes, scrollbars=no, resizable=no")
   	}
+	
+	function barcode(id) {		
+	    ProsisUI.createWindow('barcode', 'Barcode', '',{x:100,y:100,height:document.body.clientHeight-90,width:790,modal:true,center:true})
+		ptoken.navigate(root + "/Procurement/Application/Receipt/BarCode/BarcodeList.cfm?receiptid=#url.id#", "barcode");				
+	}
 		
 	function print() {
 		w = #CLIENT.width# - 100;
@@ -300,20 +339,29 @@
 		   <td align="right" style="padding-left:10px">
 		
 				<table>
-				<tr class="labelmedium2">				
-				<td style="padding-right:5px">
+				<tr class="labelmedium2">	
+				<td style="padding-left:4px">
+		       			 
+				<img src="#SESSION.root#/Images/adddocument.png"
+				     alt="Barcodes"
+				     border="0" height="32px" width="32px" align="bottom" style="cursor: pointer;" onClick="javascript:barcode()">
+				 
+				</td>
+				<td>|</td>	
+				<td style="padding-left:5px;padding-right:5px">
 				<select id="financial" onchange="reload()" class="regularxl">
 					<option value="0" <cfif url.presentation eq "0">selected</cfif>><cf_tl id="Standard"></option>
 					<option value="1" <cfif url.presentation eq "1">selected</cfif>><cf_tl id="Include Ledger"></option>
 					<option value="9" <cfif url.presentation eq "9">selected</cfif>><cf_tl id="Summary"></option>
 				</select>
 				</td>				
-				<td>|</td>				
+				<td>|</td>	
+		       
 				<td style="padding-left:4px">
 		       			 
 				<img src="#SESSION.root#/Images/mail.png"
 				     alt="eMail Routing Slip Invoicing Procedures"
-				     border="0" height="32px" width="32px" align="bottom" style="cursor: pointer;" onClick="javascript:mail()">
+				     border="0" height="35px" width="32px" align="bottom" style="cursor: pointer;" onClick="javascript:mail()">
 				 
 				</td>
 				<td>|</td>	

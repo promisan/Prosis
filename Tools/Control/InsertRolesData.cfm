@@ -2621,7 +2621,17 @@
 			  DocumentCode="PS1"
 			  DocumentDescription="Generate and Send Payslip"
 			  DocumentTemplate="Payroll/Application/Payroll/SalarySlipPreparation.cfm"
-			  DocumentMode="Embed">			  		    
+			  DocumentMode="Embed">		
+			  
+	<cf_insertEntityDocument
+		      Code="GLTransaction"   
+	          DocumentType="dialog" 
+			  DocumentCode="ACU"
+			  DocumentDescription="Update customer information"
+			  DocumentTemplate="GLedger/Workflow/Customer/Document.cfm"
+			  DocumentStringList=""
+			  DocumentMode="Embed">		
+			  		  	  		    
 
 </cfif>
 

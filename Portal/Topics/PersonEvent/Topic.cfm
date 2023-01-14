@@ -46,6 +46,7 @@ password="#SESSION.dbpw#">
 
 <cfif MissionList.recordcount gte "2">
 
+
 		<cf_pane id="Event" search="No">
 		
 		<cfset mis = valueList(MissionList.ConditionValue)>
@@ -60,19 +61,26 @@ password="#SESSION.dbpw#">
 			FROM     PersonEvent 
 			WHERE    Mission IN (#quotedValueList(MissionList.ConditionValue)#) 	
 			AND      DateEvent >= '01/01/2015'
+			AND      year(DateEvent) < 2030	
+			AND      ActionStatus <> '9'
 			UNION
 			SELECT   DISTINCT Year(ActionDateEffective) as Year
 			FROM     PersonEvent 
 			WHERE    Mission IN (#quotedValueList(MissionList.ConditionValue)#) 	
-			AND      ActionDateEffective >= '01/01/2015'			
+			AND      ActionDateEffective >= '01/01/2015'	
+			AND      ActionStatus <> '9'	
+			AND      year(ActionDateEffective) < 2030	
 			ORDER BY Year(DateEvent) DESC	
+			
 		</cfquery>		
+		
 		
 		<cfif PeriodList.year gte year(now())>
 			<cfset yr = year(now())>
 		<cfelse>
 			<cfset yr = PeriodList.year>	
-		</cfif>			
+		</cfif>		
+		
 						
 		<cf_paneItem         id  = "Event_all" 
 		       systemfunctionid  = "#systemfunctionid#"  
@@ -107,13 +115,17 @@ password="#SESSION.dbpw#">
 		FROM     PersonEvent 
 		WHERE    Mission = '#mission#' 	
 		AND      DateEvent >= '01/01/2015'
+		AND      year(DateEvent) < 2030	
+		AND      ActionStatus <> '9'
 
 		<!--- added by rfuentes because year 2021 was not showing in dppadpo --->
 		UNION
 		SELECT   DISTINCT Year(ActionDateEffective) as Year
 		FROM     PersonEvent 
 		WHERE    Mission = '#mission#' 	
-		AND      ActionDateEffective >= '01/01/2015'				
+		AND      ActionDateEffective >= '01/01/2015'		
+		AND      ActionStatus <> '9'	
+		AND      year(ActionDateEffective) < 2030			
 
 		ORDER BY Year(DateEvent) DESC	
 	</cfquery>	

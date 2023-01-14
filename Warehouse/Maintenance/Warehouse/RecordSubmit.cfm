@@ -249,6 +249,7 @@
 			   SaleMode             = '#Form.SaleMode#',
 			   SaleCurrency         = '#Form.SaleCurrency#',
 			   SaleDiscount         = '#Form.SaleDiscount#',
+			   SaleTaxCode          = '#Form.SaleTaxCode#',
 			   SaleBackground		= <cfif trim('Form.SaleBackground') neq "">'#Form.SaleBackground#'<cfelse>NULL</cfif>,
 			   TimeZone             = '#Form.TimeZone#',
 			   Operational          = '#Form.Operational#',

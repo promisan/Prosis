@@ -338,12 +338,24 @@
 			  
 			  <!--- create customer profile in both workorder and materials for this entity --->
 			  
+			  
+			  
 			  <cfif myForm.mission neq "">
+			  
+				   <cfquery name="MissionSelect" 
+				     datasource="AppsSelection">
+					 SELECT * FROM Organization.dbo.Ref_Mission
+					 WHERE Mission = '#myForm.mission#'
+				   </cfquery>	 
+			      
+			  
+			       <cf_assignid>
 								  
 				   <cfquery name="InsertCustomer" 
 				     datasource="AppsSelection">
 				  	   INSERT INTO WorkOrder.dbo.Customer
-					         	(PersonNo,
+					         	(CustomerId,
+								PersonNo,
 							 	Mission,
 								Reference,
 					  		 	CustomerName, 					 		 	
@@ -354,23 +366,57 @@
 							 	OfficerLastName,
 							 	OfficerFirstName,	
 							 	Created)
-				      	VALUES ('#LastNo.PersonNo#',
-					       	'#MyForm.Mission#', 
-							<cfqueryparam value="#MyForm.Reference#"     cfsqltype="CF_SQL_CHAR" maxlength="20">,
-				           	'#MyForm.firstname# #MyForm.lastname#',				  		  	
-						  	<cfqueryparam value="#MyForm.eMailAddress#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,		
-							<cfqueryparam value="#MyForm.MobileNumber#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,	
-							<cfqueryparam value="#MyForm.PhoneNumber#"   cfsqltype="CF_SQL_CHAR" maxlength="50">,			
-						  	'#SESSION.acc#',
-				    	  	'#SESSION.last#',		  
-					  	  	'#SESSION.first#',
-						  	getDate())
+				      	VALUES ('#rowguid#',
+						        '#LastNo.PersonNo#',
+					       	    '#MyForm.Mission#', 
+							    <cfqueryparam value="#MyForm.Reference#"     cfsqltype="CF_SQL_CHAR" maxlength="20">,
+				           	    '#MyForm.firstname# #MyForm.lastname#',				  		  	
+						  	    <cfqueryparam value="#MyForm.eMailAddress#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,		
+							    <cfqueryparam value="#MyForm.MobileNumber#"  cfsqltype="CF_SQL_CHAR" maxlength="50">,	
+							    <cfqueryparam value="#MyForm.PhoneNumber#"   cfsqltype="CF_SQL_CHAR" maxlength="50">,			
+						  	    '#SESSION.acc#',
+				    	  	    '#SESSION.last#',		  
+					  	  	    '#SESSION.first#',
+						  	    getDate())
 				  </cfquery>
+				  
+				  <!--- taxcode --->
+				  
+				  <cfloop index="itm" list="Tax">
+			
+				    <cfset val = evaluate("#MyForm.Reference#")>
+									
+					<cfif val neq "">
+				
+						<cfquery name="InsertCustomer" 
+     				     datasource="AppsSelection">
+						  
+						 INSERT INTO WorkOrder.dbo.CustomerTaxCode
+					        (CustomerId,
+							 Country,
+							 Source,
+							 TaxCode,					 
+							 OfficerUserId,
+							 OfficerLastName,
+							 OfficerFirstName)
+					      VALUES ('#rowguid#',
+					          '#missionselect.contrycode#', <!--- hardcoded --->
+							  '#itm#',
+							  '#val#',					 	  	 			 
+							  '#SESSION.acc#',
+					    	  '#SESSION.last#',		  
+						  	  '#SESSION.first#')				  
+				        </cfquery>	
+					
+					</cfif>
+			 
+				   </cfloop>		 
 				  
 				   <cfquery name="InsertCustomer" 
 				     datasource="AppsSelection">
 				  	   INSERT INTO Materials.dbo.Customer
-					         	(PersonNo,
+					         	(CustomerId,
+								PersonNo,
 							 	Mission,
 								Reference,
 					  		 	CustomerName, 	
@@ -381,7 +427,7 @@
 						 	 	OfficerUserId,
 							 	OfficerLastName,
 							 	OfficerFirstName)
-				      	VALUES ('#LastNo.PersonNo#',
+				      	VALUES ('#rowguid#','#LastNo.PersonNo#',
 					       	'#MyForm.Mission#', 
 							<cfqueryparam value="#MyForm.Reference#"     cfsqltype="CF_SQL_CHAR" maxlength="20">,
 				           	'#MyForm.firstname# #MyForm.lastname#',			
@@ -393,6 +439,38 @@
 				    	  	'#SESSION.last#',		  
 					  	  	'#SESSION.first#')
 				  </cfquery>
+				  
+				  <!--- taxcode --->
+				  
+				  <cfloop index="itm" list="Tax">
+			
+				    <cfset val = evaluate("#MyForm.Reference#")>
+									
+					<cfif val neq "">
+				
+						<cfquery name="InsertCustomer" 
+     				     datasource="AppsSelection">
+						  
+						 INSERT INTO CustomerTaxCode
+					        (CustomerId,
+							 Country,
+							 Source,
+							 TaxCode,					 
+							 OfficerUserId,
+							 OfficerLastName,
+							 OfficerFirstName)
+					      VALUES ('#rowguid#',
+					          '#missionselect.contrycode#', <!--- hardcoded --->
+							  '#itm#',
+							  '#val#',					 	  	 			 
+							  '#SESSION.acc#',
+					    	  '#SESSION.last#',		  
+						  	  '#SESSION.first#')				  
+				        </cfquery>	
+					
+					</cfif>
+			 
+				   </cfloop>	
 			  		  
 			  </cfif>			 
 						

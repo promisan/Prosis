@@ -35,17 +35,34 @@
 	
 	</cfif>
 					
-	<TR>
-    <TD class="labelmedium" style="padding-left:10px"><a href="##" title="Show additional information for this step in the workflow base screen">URL detail template:</b></TD>
-    <TD>
-	<cfinput type="Text" value="#Get.ActionURLDetails#"  name="ActionURLDetails" class="regularxl" required="No" size="77" maxlength="80">
-	</TD>
-	</TR>
+	<tr>
+	    <td class="labelmedium" style="padding-left:10px"><a href="##" title="Show additional information for this step in the workflow base screen">URL detail template:</b></TD>
+	    <td>
+		<cfinput type="Text" value="#Get.ActionURLDetails#"  name="ActionURLDetails" class="regularxl" required="No" size="77" maxlength="80">
+		</td>
+	</tr>
 				
 	<tr><td colspan="2" style="font-size:18px;height:30px;font-weight:bold" class="labellarge">Workflow <u>Process Dialog</u></td></tr>	
 	
 	<tr>				
-	   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer;color:6688aa" title="Allow actor to enter the processing date">Enable Process date:</TD>
+	   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer" title="Open dialog if active">Dialog open mode:</TD>
+		 <TD width="80%">
+		   <table>
+		   <tr><td>
+		   <INPUT type="radio" class="radiol" name="ActionDialogOpen" id="ActionDialogOpen" value="Manual" <cfif Get.ActionDialogOpen eq "Manual" or Get.ActionDialogOpen eq "">checked</cfif>>
+		   </td>
+		   <td style="padding-left:4px"><cf_tl id="Manually"></td>
+		   <td style="padding-left:10px">
+		   <INPUT type="radio" class="radiol" name="ActionDialogOpen" id="ActionDialogOpen" value="Auto" <cfif Get.ActionDialogOpen eq "Auto">checked</cfif>>
+		   </td>
+		   <td style="padding-left:4px"><cf_tl id="Auto open"></td>
+		   </tr>
+		   </table>
+		 </td>					
+	</tr>	
+	
+	<tr>				
+	   	 <TD class="labelmedium" style="padding-left:10px;cursor:pointer" title="Allow actor to enter the processing date">Enable Process date:</TD>
 		 <TD width="80%">
 		   <INPUT type="checkbox" class="radiol" name="ActionDateInput" id="ActionDateInput" value="1" <cfif Get.ActionDateInput eq "1">checked</cfif>>
 		 </td>			
@@ -74,13 +91,13 @@
 							</td>
 							<td style="height:35px;padding-left:6px">Label:</td>
 							<td style="padding-left:6px">
-							      <input type="text" 
-							       name="ActionGoToYesLabel" 
-								   id="ActionGoToYesLabel"
-								   value="#Get.ActionGoToYesLabel#" 
-			     				   size="25" 
-								   class="regularxxl"
-								   maxlength="40">
+							      <input type = "text" 
+							       name       = "ActionGoToYesLabel" 
+								   id         = "ActionGoToYesLabel"
+								   value      = "#Get.ActionGoToYesLabel#" 
+			     				   size       = "25" 
+								   class      = "regularxxl"
+								   maxlength  = "40">
 						    </td>
 							<td style="padding-left:6px" class="fixlength labelmedium"><cf_tl id="Action">:</td>
 							<td style="padding-left:6px;padding-right:4px">
@@ -104,14 +121,13 @@
 							<td style="height:35px;padding-left:6px" class="labelmedium">Label:</td>
 							<td style="padding-left:6px">
 							
-							      <input type="text"				       
-							       name="ActionGoToNoLabel" 
-								   id="ActionGoToNoLabel"
-								   value="#Get.ActionGoToNoLabel#" 
-			     				   size="25" 
-								   class="regularxxl"
-								   maxlength="40">
-								  					  
+							      <input type  = "text"				       
+							       name        = "ActionGoToNoLabel" 
+								   id          = "ActionGoToNoLabel"
+								   value       = "#Get.ActionGoToNoLabel#" 
+			     				   size        = "25" 
+								   class       = "regularxxl"
+								   maxlength   = "40">								  					  
 								   
 						    </td>
 							<td style="padding-left:6px" class="fixlength labelmedium"><cf_tl id="Action">:</td>
@@ -592,8 +608,7 @@
 				
 			</tr>		
 			
-			</tr>	
-			
+			</tr>				
 			
 	    </table>
 		

@@ -56,6 +56,7 @@
 	   addressid	      = "#url.addressid#"
 	   
 	   customeridinvoice  = "#url.customeridinvoice#"	   
+	   referenceNo        = "#url.referenceNo#"
 	   currency           = "#url.Currency#"
 	   transactiondate    = "#dateformat(dte,client.dateformatshow)#"
 	   transactionhour    = "#url.th#"

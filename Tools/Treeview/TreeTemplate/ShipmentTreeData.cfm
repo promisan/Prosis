@@ -182,9 +182,18 @@
 		 <cf_UItreeitem value="Billed"
 			        display="<span style='font-size:14px' class='labelit'>#pBilled# in #dateformat(now(), 'YYYY')#</span>"
 					parent="Listing"			
-					href="BillingView/BillingListing.cfm?systemfunctionid=#attributes.systemfunctionid#&ID1=Billing&ID=STA&Mission=#Attributes.Mission#"							
+					href="BillingView/BillingListing.cfm?systemfunctionid=#attributes.systemfunctionid#&ID2=YEAR&ID1=Billing&ID=STA&Mission=#Attributes.Mission#"							
 					target="right"
-			        expand="No">		
+			        expand="No">	
+					
+		 <cfset last = year(now())-1>				
+				
+		 <cf_UItreeitem value="Billed"
+			        display="<span style='font-size:14px' class='labelit'>#pBilled# in #last#</span>"
+					parent="Listing"			
+					href="BillingView/BillingListing.cfm?systemfunctionid=#attributes.systemfunctionid#&ID2=LASTYEAR&ID1=Billing&ID=STA&Mission=#Attributes.Mission#"							
+					target="right"
+			        expand="No">					
 	
 	</cf_UItree>
 

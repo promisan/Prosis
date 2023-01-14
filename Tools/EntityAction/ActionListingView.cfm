@@ -9,6 +9,7 @@
 			A.ActionParent,
 			A.ActionDescription,
 			A.ActionCompletedColor,
+			A.ActionDialogOpen,
 			A.ActionType,
 			A.EnableNotification,
 			A.NotificationManual,

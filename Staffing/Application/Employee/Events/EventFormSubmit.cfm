@@ -1,4 +1,5 @@
 <cfparam name="URL.EventId"             default="">
+<cfparam name="URL.Portal"              default="0">
 <cfparam name="URL.Box"                 default="">
 <cfparam name="URL.Scope"               default="">
 <cfparam name="FORM.OrgUnit"            default="">

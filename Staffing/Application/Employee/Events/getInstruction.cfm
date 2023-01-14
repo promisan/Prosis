@@ -9,5 +9,5 @@
 		AND    Mission = '#url.mission#'			
 </cfquery>
 
-<table style="width:98%;background-color:f4f4f4">
+<table style="width:98%">
 <tr><td style="padding-top:8px;padding-left:10px;padding-right:5px"><cfoutput>#getInstruction.Instruction#</cfoutput></td></tr></table>

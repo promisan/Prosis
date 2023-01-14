@@ -1,5 +1,5 @@
 
-<cfajaximport tags="cfform,cfdiv">
+<cfajaximport tags="cfform,cfdiv,cfwindow">
 
 <cf_menuscript>
 

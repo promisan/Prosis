@@ -1,13 +1,13 @@
-<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center" bordercolor="808080">
+<table width="100%" height="100%"  align="center">
 			
 		<tr><td height="100%" valign="top">
 		               
-		<table width="98%" height="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+		<table width="98%" border="0" align="center">
 							 			  
 			<tr><td height="4"></td></tr>
 			  
 			<tr>
-			<td height="30" valign="top">			  
+			<td style="height:30px" valign="top">			  
 			<table width="100%" border="0">
 			
 			    <tr class="line">
@@ -85,7 +85,7 @@
 					   
 					</tr>		
 					  
-					<tr class="labelmedium2">					
+					<tr class="labelmedium2">			
 					   					   
 						<cfif Function.DocumentNo neq "">
 															
@@ -273,7 +273,7 @@
 		  	</td>
 			</tr>			
 					
-			<tr><td height="99%" width="100%" valign="top" id="detail"></td></tr>
+			<tr><td style="height:100%" width="100%" valign="top" id="detail"></td></tr>
 			<tr><td height="5"></td></tr>
 					   
 		</table>

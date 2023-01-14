@@ -82,7 +82,7 @@ password="#SESSION.dbpw#">
 		<cfif fun eq "1">
         <td colspan="2" class="notify">#Position.PostClass# / #Position.PostGrade# / #Position.FunctionDescription# <cfif Position.SourcePostNumber neq "">#Position.SourcePostNumber#</cfif></td>
 		<cfelse>
-		<td colspan="2">#Position.PostClass# / #Position.PostGrade# / #Position.FunctionDescription# <cfif Position.SourcePostNumber neq "">#Position.SourcePostNumber#</cfif></td>
+		<td colspan="2">#Position.PostClass# / #Position.PostGrade# / #Position.FunctionDescription# <cfif Position.SourcePostNumber neq "">#Position.SourcePostNumber#</cfif><font size="1"> (Instance : #Position.PositionNo#)</font></td>
 		</cfif>
 		<td colspan="1" rowspan="4" valign="bottom" align="right">
 		

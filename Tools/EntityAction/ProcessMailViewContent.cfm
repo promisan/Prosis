@@ -124,6 +124,8 @@
 	 password="#SESSION.dbpw#">
 	 
 		 <cfif Action.NotificationGlobal eq "1">
+		
+		
 		 		 	 
 			 SELECT   A.UserAccount, 
 			          A.AccessLevel,  
@@ -149,6 +151,7 @@
 			 AND      U.AccountType = 'Individual'
 			   
 			 UNION
+			
 						 			 		 
 		 </cfif>
 		 

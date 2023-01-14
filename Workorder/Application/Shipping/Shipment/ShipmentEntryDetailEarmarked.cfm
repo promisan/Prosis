@@ -212,7 +212,8 @@ if this item is carried by the warehouse select WarehouseItem --->
 						datasource="AppsMaterials" 
 						username="#SESSION.login#" 
 						password="#SESSION.dbpw#">
-							SELECT    TransactionId, 
+							SELECT    TransactionId,
+									  TransactionSerialNo,
 							          ItemNo, 
 									  ItemDescription, 
 									  ItemPrecision,
@@ -268,7 +269,7 @@ if this item is carried by the warehouse select WarehouseItem --->
 								<td width="9%" align="right">
 																								
 									<cfset id = replace(transactionid,"-","","ALL")>
-																																										
+									<input type="hidden" value="#id#" name="ship_reference_#TransactionSerialNo#" id="ship_reference_#TransactionSerialNo#">
 									<input type="checkbox" 
 									 name="ship_#id#" 
 									 value="#numberformat(val,pformat)#" 		

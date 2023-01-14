@@ -463,6 +463,17 @@ the first 9random) value of the enabled scope languages for the portal instead a
 		AND		Operational		= 1
 </cfquery>
 
+<cfquery name="defaultTab" 
+	datasource="AppsSystem">
+		SELECT 	*
+		FROM	Ref_ModuleControl
+		WHERE	SystemModule	= 'SelfService'
+		AND		FunctionClass	= '#url.id#'
+		AND		MenuClass		= 'Process'
+		AND		Operational		= '1'
+		AND 	FunctionName 	= '#trim(url.tab)#'
+</cfquery>
+
 <cfif Main.MenuClass eq "Mission">
 
 	<cfquery name="thisMission" 

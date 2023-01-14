@@ -119,35 +119,27 @@
 	
 	function workflowreload(ajaxid) {		
 					
-		el = document.getElementById("workflowlink_"+ajaxid)		
-														
-		if (el) {
-						    
+		el = document.getElementById("workflowlink_"+ajaxid)																
+		if (el) {	
+		  		    
 			ln = el.value	
-									
-			try {			   		  
-			   document.getElementById("workflowlinkprocess_"+ajaxid).click()				      		   
-			} catch(e) {}											
-									
-			try {			 
-				cd = document.getElementById("workflowcondition_"+ajaxid).value;
-				_cf_loadingtexthtml="";
-				ptoken.navigate(ln+cd,ajaxid)
-				_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";	
-				
-				} catch(e) {	
-			
-			    _cf_loadingtexthtml="";											  	    
-			    ptoken.navigate(ln+'?ajaxid='+ajaxid,ajaxid)												
-				_cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";							
-				
+													
+			try { document.getElementById("workflowlinkprocess_"+ajaxid).click() } catch(e) {}																				
+			try { cd = document.getElementById("workflowcondition_"+ajaxid).value;
+				  _cf_loadingtexthtml="";				
+				  ptoken.navigate(ln+cd,ajaxid)				 
+				  _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";			
+				} catch(e) {				
+				  _cf_loadingtexthtml="";														  	    
+				  ptoken.navigate(ln+'?ajaxid='+ajaxid,ajaxid)															
+				  _cf_loadingtexthtml="<div><img src='<cfoutput>#SESSION.root#</cfoutput>/images/busy11.gif'/>";										
 				}			
-		}		
-		
+		 }				
     }		
 	  
-	  <!--- checks the comments status --->
-	  function commentstatus(last,id,ajaxid) {	       	  	    
+	<!--- checks the comments status --->
+	function commentstatus(last,id,ajaxid) {	       	  	    
+	
         se = document.getElementById('communicatecomment_'+id)				
 		if (se) {					
 		ptoken.navigate('#SESSION.root#/tools/EntityAction/getCommentStatus.cfm?last='+last+'&objectid='+id+'&ajaxid='+ajaxid,'communicatecomment_'+id,null,workflowerrorhandler)	 		 									
@@ -438,12 +430,11 @@
   }	
   
   <!--- checks the object status --->
-  function objectstatus(last,id,ajaxid) {	       
-        try {       	  	    
+  function objectstatus(last,id,ajaxid) {	
+        try {       		    	    
         	se = document.getElementById('communicate_'+id)					
-			if (se) {	
-			_cf_loadingtexthtml='';					
-			ptoken.navigate('#SESSION.root#/tools/EntityAction/getObjectStatus.cfm?lastaction='+last+'&objectid='+id+'&ajaxid='+ajaxid,'communicate_'+id,null,workflowerrorhandler)	 		 									
+			if (se) {				
+			ptoken.navigate('#SESSION.root#/tools/EntityAction/getObjectStatus.cfm?lastaction='+last+'&objectid='+id+'&ajaxid='+ajaxid,'communicate_'+id,null,workflowerrorhandler)	 		 												
 			}	
 		} catch(e) {}
   }		  

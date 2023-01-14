@@ -252,15 +252,9 @@
 <table width="100%" align="center">
   
   <cfif post eq "0">	
-  <tr>
-    <td align="center" class="labellarge" style="height:50px;;color:red"><cf_tl id="Credit limit surpassed"></td>
-  </tr>
+  <tr><td align="center" class="labellarge" style="height:50px;color:red"><cf_tl id="Credit limit surpassed"></td></tr>
   </cfif>
-  <tr>
-  		<td style="padding-left:15px">
-  		<cfinclude template="SettlementLines.cfm">
-  		</td>
-  </tr>
+  <tr><td style="padding-left:15px"><cfinclude template="SettlementLines.cfm"></td></tr>
   
 </table>
 	

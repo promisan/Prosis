@@ -5,13 +5,13 @@
 <cfoutput>
 					
 <cfif FindNoCase(".pdf", "#NameShow#")> 			
-	  <img src="#SESSION.root#/Images/document/pdf.png" height="32" align="absmiddle" alt="Open attachment" border="0" align="center">			  
+	  <img src="#SESSION.root#/Images/document/pdf.png" height="30" align="absmiddle" alt="Open attachment" border="0" align="center">			  
 
 <cfelseif FindNoCase(".swf", "#NameShow#")>			  
-	  <img src="#SESSION.root#/Images/flash_paper.gif" height="32" align="absmiddle" alt="Open Flash paper" border="0" align="center">
+	  <img src="#SESSION.root#/Images/flash_paper.gif" height="30" align="absmiddle" alt="Open Flash paper" border="0" align="center">
 
 <cfelseif FindNoCase(".cfm", "#NameShow#")>			  
-	  <img src="#SESSION.root#/Images/cf_cfm.gif" height="32" align="absmiddle" alt="Coldfusion Template" border="0" align="center">  
+	  <img src="#SESSION.root#/Images/cf_cfm.gif" height="30" align="absmiddle" alt="Coldfusion Template" border="0" align="center">  
 	  
 	  <cfif Remove eq "yes">
 		  <cfset openas = "edit"> 
@@ -20,7 +20,7 @@
 	  </cfif>	
 	  
 <cfelseif FindNoCase(".cfc", "#NameShow#")>			  
-	  <img src="#SESSION.root#/Images/cf_cfm.gif" height="32" align="absmiddle" alt="Coldfusion Template" border="0" align="center">  
+	  <img src="#SESSION.root#/Images/cf_cfm.gif" height="30" align="absmiddle" alt="Coldfusion Template" border="0" align="center">  
 	  
 	  <cfif Remove eq "yes">
 		  <cfset openas = "edit"> 
@@ -29,7 +29,7 @@
 	  </cfif>			  
 	  
 <cfelseif FindNoCase(".htm", "#NameShow#")>			  
-	  <img src="#SESSION.root#/Images/note.gif" height="32" align="absmiddle" alt="Coldfusion Template" border="0" align="center">  
+	  <img src="#SESSION.root#/Images/note.gif" height="30" align="absmiddle" alt="Coldfusion Template" border="0" align="center">  
 	  
 	  <cfif Remove eq "yes">
 		  <cfset openas = "edit"> 
@@ -39,7 +39,7 @@
 	 
 <cfelseif FindNoCase(".txt", "#NameShow#")>			  
 	 
-	  <img src="#SESSION.root#/Images/document/generic.png" align="absmiddle" height="32" alt="Text File" border="0" align="center">  				  				  
+	  <img src="#SESSION.root#/Images/document/generic.png" align="absmiddle" height="30" alt="Text File" border="0" align="center">  				  				  
 	  
 	  <cfif Remove eq "yes">
 		  <cfset openas = "edit"> 

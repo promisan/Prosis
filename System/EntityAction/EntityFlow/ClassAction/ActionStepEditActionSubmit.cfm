@@ -167,6 +167,7 @@
 					</cfif>
 				 
 				 </cfif>
+				 ActionDialogOpen          = '#Form.ActionDialogOpen#',
 				 ActionTrigger             = '#Form.ActionTrigger#',
 				 ActionReferenceShow       = '#Form.ActionReferenceShow#',
 				 ActionReferenceEntry      = '#Form.ActionReferenceEntry#',

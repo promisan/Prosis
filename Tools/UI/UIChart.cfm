@@ -11,6 +11,7 @@
 <cfparam name="Attributes.url"             default="">
 <cfparam name="Attributes.legend"          default="No">
 <cfparam name="Attributes.fontsize"        default="14">
+<!--- last change was made because of the size of the font requested by Hanno --->
 
 <cfif thisTag.executionmode is 'start'>
     <cfoutput>

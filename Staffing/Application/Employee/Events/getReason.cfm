@@ -61,7 +61,7 @@
 		WHERE 	 GroupCode   = '#qEvent.ReasonCode#' 
 		AND      Operational = '1'
 		ORDER BY GroupListOrder
-</cfquery>		
+</cfquery>	
 
 <cfoutput>
 
@@ -86,14 +86,15 @@
 			document.getElementById("unitbox").className     = "hide" 
 	<cfelseif Event.ActionPosition eq "0">		
 			document.getElementById("positionbox").className = "hide" 	
+			<cfif url.portal eq "0">
 			document.getElementById("unitbox").className     = "labelmedium" 
+			</cfif>
 	<cfelse>
 			document.getElementById("positionbox").className = "hide" 	
 			document.getElementById("unitbox").className     = "hide" 
 	</cfif>
 
 </script>
-
 
 <cfquery name="getInstruction" 
 	 datasource="AppsEmployee" 
@@ -106,9 +107,38 @@
 </cfquery>
 
 
+
 <script>
   ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?triggercode=#url.triggercode#&eventcode=#url.eventcode#&eventid=#url.eventid#&preason=','dCondition');
 </script>
+
+
+<cfif getInstruction.SubmissionMode eq "0">
+ 
+   <script>
+   try {
+    document.getElementById('submitform').className    = 'hide'   
+    document.getElementById('boxremarks').className    = 'hide'  
+    document.getElementById('boxpriority').className   = 'hide'  
+    document.getElementById('boxattachment').className = 'hide'
+   } catch(e) {}
+   </script>
+
+<cfelse>
+
+   <script>
+    try { 
+      document.getElementById('submitform').className    = 'regular'
+      document.getElementById('boxremarks').className    = 'labelmedium2'
+      document.getElementById('boxpriority').className   = 'labelmedium2'
+      document.getElementById('boxattachment').className = 'regular'
+	  } catch(e) {}
+	  
+   </script>
+   
+</cfif>
+
+
 
 <cfif getInstruction.Instruction neq "">
 
@@ -125,6 +155,7 @@
 </cfif>
 
 </cfoutput>
+
 
 <cfif qReasons.recordcount neq 0>
 
@@ -154,3 +185,4 @@
 	<input type="hidden" id="GroupCode"  name="GroupCode"  value="">
 
 </cfif>	
+

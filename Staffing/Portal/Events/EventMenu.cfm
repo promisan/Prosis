@@ -24,7 +24,6 @@
 		ORDER BY ListingOrder	
 </cfquery>	
 
-
 <cfoutput query="qEvents">
 
 	<cfquery name="EventMission" 

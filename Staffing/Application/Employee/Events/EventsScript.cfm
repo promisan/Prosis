@@ -39,14 +39,14 @@
 		   } else {
 		      wi = 900
 		   } 
-		ProsisUI.createWindow('evdialog', 'Human Resource request', '',{x:200,y:200,height:ht,width:wi,modal:true,resizable:true,center:true})    					
+		ProsisUI.createWindow('evdialog', 'HR Service Request / Advice', '',{x:200,y:200,height:ht,width:wi,modal:true,resizable:true,center:true})    					
     	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?scope='+scope+'&portal=#url.portal#&personNo='+personno+'&mission='+mis+'&trigger='+trigger+'&code='+code,'evdialog')		 	
     }
 	
 	function eventedit(key,scope,portal) {
     	Prosis.busy('yes');
     	_cf_loadingtexthtml='';		
-		ProsisUI.createWindow('evdialog', 'HR Event request', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
+		ProsisUI.createWindow('evdialog', 'HR Service Request / Advice', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
     	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/EventForm.cfm?scope='+scope+'&portal='+portal+'&id='+key,'evdialog')
 	}
     
@@ -62,15 +62,20 @@
     }    
 
     function checkreason() {	 
+	    alert('bb')
 	    por     = document.getElementById('portal');
 		scp     = document.getElementById('scope');	  	   
 	    mis     = document.getElementById('mission');
+		alert('cc')
 		tc      = document.getElementById('triggercode');
 		ev      = document.getElementById('eventcode');
 		rid     = document.getElementById('eventid');
+		alert('dd')
 		preason = document.getElementById('preason');	
 		
+		alert('ee')
     	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?portal='+por.value+'&scope='+scp.value+'&mission='+mis.value+'&triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value+'&preason='+preason.value,'dReason');		
+		alert('ff')
 		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value+'&preason='+preason.value,'dCondition');
     }
 	    

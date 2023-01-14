@@ -408,7 +408,7 @@ password="#SESSION.dbpw#">
 							  <td style="width:100%;padding-left:0px;border:0px solid gray;" class="regular">	
 							  
 							       <table width="100%">								  
-								   <tr><td id="customerbox" style="width:100%;background-color:##d4d4d4;max-height:26px;min-width:150px;height:26px;font-size:16px;padding-right:4px">					 						 								  								   
+								   <tr><td id="customerbox" class="fixlength" style="width:100%;background-color:##d4d4d4;max-height:26px;min-width:150px;height:26px;font-size:16px;padding-right:4px">					 						 								  								   
 								   <cfinclude template="applyCustomer.cfm">																				   
 								   </td>								  	
 								   </tr>
@@ -495,7 +495,7 @@ password="#SESSION.dbpw#">
 												
 							<tr>
 							
-							    <td width="100" onkeydown="if (event.keyCode==13) {$('##ItemSelect').focus(); }" style="border-top-left-radius:0px;border-bottom-left-radius:0px;border:0px solid silver" class="clsNoPrint"> 
+							    <td width="100" valign="top" onkeydown="if (event.keyCode==13) {$('##ItemSelect').focus(); }" style="border-top-left-radius:0px;border-bottom-left-radius:0px;border:0px solid silver" class="clsNoPrint"> 
 							
 								<input type="hidden" id="customerinvoiceidselect" name="customerinvoiceidselect" value="#url.customerid#">
 								<input type="hidden" id="customerinvoiceidselect_val" name="customerinvoiceidselect_val" value="">
@@ -519,8 +519,8 @@ password="#SESSION.dbpw#">
 									
 									   <tr>									   
 									   	   <td id="customerinvoicebox" class="fixlength"
-										     style="background-color:99E8CA;height:26px;max-width:150px;min-width:150;font-size:14px;padding-left:5px;padding-top:1px">											 
-										    <cfinclude template="getCustomerBilling.cfm">		
+										     style="background-color:99E8CA;height:26px;max-width:150px;min-width:150;font-size:14px;padding-left:5px;padding-top:1px">
+											 <cfinclude template="getCustomerBilling.cfm">		
 									   	   </td>							  	
 									   </tr>  								  
 								   
@@ -878,7 +878,7 @@ password="#SESSION.dbpw#">
 							
 							<tr class="clsNoPrint">
 							<td colspan="2" valign="bottom" align="center" style="padding-top:20px;padding-right:20px">
-												
+																				
 								<cfif get.SaleMode eq "1" or get.SaleMode eq "3">
 									<cfset vScriptFunction = "posreceivable('#url.warehouse#')">
 									<cf_tl id="Post Receivable" var="label1">

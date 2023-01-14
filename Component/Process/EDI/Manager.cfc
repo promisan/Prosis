@@ -101,7 +101,7 @@
 
 				<cfif Mode eq "2">
 				
-				    <!--- 2020 mode current for POS only --->
+				    <!--- 2020 mode current for POS only TO BE DEPRECATED --->
 				
 					<cfinvoke component = "Service.Process.EDI.#qmission.EDIMethod#"
 				      	method              = "SaleIssueV2"

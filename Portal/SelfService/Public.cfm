@@ -4,6 +4,7 @@
 <cf_param name="url.mission" 	default=""  type="String">
 <cf_param name="url.mid"        default=""  type="String">  <!--- type="GUID" --->
 <cf_param name="url.showLogin" 	default="0" type="Numeric">
+<cf_param name="url.tab" 		default="">
 
 <!--- check the contextual access for this user --->
 
@@ -50,7 +51,7 @@
 
 	<cfoutput>
 		<script>
-			parent.window.location = "default.cfm?id=#url.id#&mission=#url.mission#&showLogin=#url.showLogin#";
+			parent.window.location = "default.cfm?id=#url.id#&mission=#url.mission#&showLogin=#url.showLogin#&tab=#url.tab#";
 		</script>
 	</cfoutput>
 

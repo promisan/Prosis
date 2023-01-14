@@ -336,9 +336,9 @@ password="#SESSION.dbpw#">
 							 UoM,
 							 MinimumStock,
 							 MaximumStock,
+							 MinReorderQuantity,	
 							 <!---
-								 ReorderAutomatic,
-								 MinReorderQuantity,							
+								 ReorderAutomatic,												
 								 AveragePeriod,
 							 --->
 							 Restocking,
@@ -356,9 +356,10 @@ password="#SESSION.dbpw#">
 							 '#UoM#',
 							 '#min#',
 							 '#max#',
+							 '#Form.OfferMinimumQuantity#',
 							 <!---
 								 '#reord#',
-								 '#minre#',
+								 
 								 '#avgP#',
 							 --->
 							 '#restock#',

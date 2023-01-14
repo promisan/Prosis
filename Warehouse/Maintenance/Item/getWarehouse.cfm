@@ -18,7 +18,7 @@
 	<td><cf_tl id="Warehouse"></td>
 	<td><cf_tl id="Enable"></td>
     <td align="right"><cf_tl id="Min"></td>
-	<td align="right"><cf_tl id="Max"></td>
+	<td align="right"><cf_tl id="Max"></td>	
 	<td align="right"><cf_tl id="Tax"></td>
 	<td align="right"><cf_tl id="Mode"></td>	
 </tr>
@@ -74,7 +74,7 @@
 			enabled  = "Yes">  
   
   </td>
-  
+    
   <cfquery name="WarehouseCat" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 

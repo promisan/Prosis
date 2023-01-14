@@ -299,13 +299,27 @@ password="#SESSION.dbpw#">
         <td><cf_tl id="Class">:</td>
         <td colspan="2">#Position.PostClass# | #Position.VacancyActionClass# </td>
 	 </tr>
+	 
+	 <cfquery name="Period" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT *
+		    FROM   Position
+	    	WHERE  PositionParentId = '#Position.PositionParentId#'
+			ORDER BY DateEffective DESC
+	 </cfquery>	
+	 
+     <cfloop query="Period">
 	 	 	  	  	  
-	  <tr class="labelmedium2">
-        <td><cf_tl id="Effective for usage">:</td>
-        <td colspan="2">#Dateformat(Position.DateEffective, CLIENT.DateFormatShow)#
-		- #Dateformat(Position.DateExpiration, CLIENT.DateFormatShow)# | <font color="8000FF">#position.remarks#
-		</td>
-      </tr>
+		  <tr class="labelmedium2">
+	        <td><cfif currentrow eq "1"><cf_tl id="Effective for usage">:</cfif></td>
+	        <td colspan="2">#PositionNo#: #Dateformat(DateEffective, CLIENT.DateFormatShow)#
+			- #Dateformat(DateExpiration, CLIENT.DateFormatShow)# | <font color="8000FF">#remarks#
+			</td>
+	      </tr>
+	  
+	  </cfloop>
 	 	  
 	  </cfoutput>
 	   	   

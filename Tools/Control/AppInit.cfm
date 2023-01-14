@@ -15,6 +15,7 @@
 </cftry>
 
 <cfparam name="SESSION.authent" default="0">
+<cfparam name="CLIENT.lanPrefix" default="">
 
 <cfif SESSION.authent neq "1">
 	<cfset SESSION.acc = "">

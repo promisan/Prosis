@@ -41,7 +41,11 @@
 	AND         TransactionSource   = 'WorkOrderSeries' 
 	AND         TransactionCategory = 'Receivables' 
 	<cfif url.id1 eq "Billing">
-	AND         YEAR(Created) = #year(now())# 	
+		<cfif url.id2 eq "Year">
+		AND         YEAR(Created) = #year(now())# 	
+		<cfelseif url.id2 eq "LastYear">
+		AND         YEAR(Created) = #year(now())-1#
+		</cfif>
 	<cfelseif url.id1 eq "Pending">
 	AND         ActionStatus = '0' 
 	</cfif>
@@ -178,31 +182,34 @@
 	
 <!--- embed|window|dialogajax|dialog|standard --->
 
-<table width="100%" height="100%" cellspacing="0" cellpadding="0">
-<tr><td valign="top" height="700">
-							
-<cf_listing
-	    header            = "billing"
-	    box               = "lineshipment"
-		link              = "#SESSION.root#/WorkOrder/Application/Shipping/BillingView/BillingListingContent.cfm?systemfunctionid=#url.systemfunctionid#&id1=#url.id1#&Status=#url.status#&Mission=#URL.Mission#"
-	    html              = "No"				
-		tableheight       = "99%"
-		tablewidth        = "99%"
-		datasource        = "AppsLedger"		
-		listquery         = "#myquery#"		
-		listgroup         = "ReferenceName"
-		listorderfield    = "TransactionDate"		
-		listorderdir      = "ASC"
-		headercolor       = "ffffff"
-		show              = "35"				
-		filtershow        = "Yes"
-		excelshow         = "Yes" 	
-		screentop         = "No"	
-		listlayout        = "#fields#"
-		drillmode         = "tab" 
-		drillargument     = "950;1150;true;true"	
-		drilltemplate     = "/Gledger/Application/Transaction/View/TransactionView.cfm?id="
-		drillkey          = "TransactionId"
-		drillbox          = "blank">	
-		
-</td></tr></table>	
+<table width="100%" height="100%">
+	
+	<tr><td valign="top" height="700">
+								
+	<cf_listing
+		    header            = "billing"
+		    box               = "lineshipment"
+			link              = "#SESSION.root#/WorkOrder/Application/Shipping/BillingView/BillingListingContent.cfm?systemfunctionid=#url.systemfunctionid#&id1=#url.id1#&id2=#url.id2#&Status=#url.status#&Mission=#URL.Mission#"
+		    html              = "No"				
+			tableheight       = "99%"
+			tablewidth        = "99%"
+			datasource        = "AppsLedger"		
+			listquery         = "#myquery#"		
+			listgroup         = "ReferenceName"
+			listorderfield    = "TransactionDate"		
+			listorderdir      = "ASC"
+			headercolor       = "ffffff"
+			show              = "35"				
+			filtershow        = "Yes"
+			excelshow         = "Yes" 	
+			screentop         = "No"	
+			listlayout        = "#fields#"
+			drillmode         = "tab" 
+			drillargument     = "950;1150;true;true"	
+			drilltemplate     = "/Gledger/Application/Transaction/View/TransactionView.cfm?id="
+			drillkey          = "TransactionId"
+			drillbox          = "blank">	
+			
+	</td></tr>
+
+</table>	

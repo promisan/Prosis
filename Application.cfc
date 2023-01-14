@@ -26,7 +26,8 @@
 											    
 					<cfparam name="CLIENT.Timeout" default="40">
 					<cfparam name="SESSION.authent" default="0">
-					
+					<cfparam name="CLIENT.lanPrefix" default="">
+
 					<cfquery name="Linked" 
 						datasource="appsSystem">
 						SELECT * FROM ParameterLinkedServer

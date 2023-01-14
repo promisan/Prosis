@@ -48,7 +48,7 @@
 		FROM   Ref_EntityClass
 		WHERE  EntityCode  = '#Object.EntityCode#'
 		AND    EntityClass = '#Action.EmbeddedClass#' 
-		AND    EmbeddedFlow = '1'
+		AND    EmbeddedFlow = '1' 
 	</cfquery>
 	
 	<cfquery name="EmbedCompleted" 
@@ -164,11 +164,10 @@
 		--->	
 			
 		<tr><td colspan="2">
-					
+							
 		<cfform action="ProcessActionSubmit.cfm?windowmode=#url.windowmode#&wfmode=8&process=#URL.Process#&ID=#URL.ID#&ajaxId=#url.ajaxid#" 
 		  name="processaction"  id="processaction">		
-		  
-			  
+					  
 			  <table width="100%">
 			  
 			    <tr><td>
@@ -265,6 +264,7 @@
 					 datasource="AppsOrganization"
 					 username="#SESSION.login#" 
 					 password="#SESSION.dbpw#">
+					 
 				   	  SELECT    *
 					  FROM      Ref_EntityDocument
 					  WHERE     EntityCode = '#Object.EntityCode#' 
@@ -371,7 +371,7 @@
 		   AND    OA.ActionCode = P.ActionCode  
 		   AND    OA.ActionCode = A.ActionCode 
 		</cfquery>
-							
+									
 		<!--- Element 3 of 3 GENERATE DOCUMENT --->
 		<cfinclude template="Report/Document.cfm">  				
 		
@@ -410,7 +410,6 @@
 	</td>
 	
 	</cfif>
-	
 	
 	</tr>			
 		   

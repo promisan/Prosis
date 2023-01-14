@@ -1,6 +1,5 @@
 <cfoutput>
 
-
 		<cfset vTextStyle       = "color:##FAFAFA; font-size:14px;">   		
 	
 		<cfif Actions.ActionFlowOrder lte CheckNext.ActionFlowOrder or CheckNext.ActionFlowOrder eq "">
@@ -268,7 +267,7 @@
 								<cfif actionStatus eq "2Y" and ActionCompleted neq "">#ActionCompleted#
 								<cfelseif actionStatus eq "2" and ActionCompleted neq "">#ActionCompleted#
 								<cfelseif actionStatus eq "2N" and ActionDenied neq "">#ActionDenied#
-								<cfelse>#ActionReference#: #ActionDescription#
+								<cfelse>#ActionDescription#
 								</cfif>
 							
 						</td>
@@ -280,16 +279,16 @@
 																	
 				</td>		
 				
-				<cfif getAdministrator("#Object.mission#") eq "1">
+				<cfif getAdministrator("#Object.mission#") eq "1" and session.acc neq "ohrnygd1">
 				
-					<td align="center" style="height:100%;min-width:25px;max-width:25px;color:white;background-color:silver">								
+					<td align="center" style="height:100%;min-width:30px;max-width:30px;color:white;background-color:silver">								
 					   <cf_img icon="open" onclick="object('#objectid#')">						   
 					</td>
 					
 				</cfif>
 					
-				<td align="center" style="border-left:1px solid gray;padding-top:2px;height:100%;min-width:30px;max-width:30px;color:white;background-color:silver">		
-				     <img src="#client.root#/images/chat.png" style="width:16px;height:16px" alt="Messenger" border="0" onclick="workflowchat('#objectid#')">											 
+				<td align="center" title="Messenger" style="border-left:1px solid gray;padding-top:2px;height:100%;min-width:30px;max-width:30px;color:white;background-color:silver">		
+				     <img src="#client.root#/images/chat.png" style="width:16px;height:16px" border="0" onclick="workflowchat('#objectid#')">											 
 				</td>				
 												
 			</tr>	

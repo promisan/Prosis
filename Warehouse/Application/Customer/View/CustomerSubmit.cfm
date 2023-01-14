@@ -1,5 +1,8 @@
 
 <cfparam name="form.scope" default="listing">
+
+<!---
+
 <cfparam name="form.ReferenceDefault" default="">
 
 <cfif form.referenceDefault neq "">
@@ -7,6 +10,16 @@
 <cfelse>
 	<cfset ref = form.Reference>	
 </cfif>
+--->
+
+<cfquery name="Parameter" 
+datasource="AppsMaterials" 
+username="#SESSION.login#" 
+password="#SESSION.dbpw#">
+	SELECT CustomerDefaultReference
+	FROM   Ref_ParameterMission
+	WHERE  Mission = '#form.mission#'
+</cfquery>
 
 <cfif form.action eq "add">
 	
@@ -31,6 +44,8 @@
 	
 	</cfif>	
 	
+	<cfset val = evaluate("Form.TaxCodeTax")>
+	
 	<cfquery name="Insert" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
@@ -39,6 +54,7 @@
 			CustomerId,
 			Mission,			
 			PersonNo,
+			Reference,
 			<cfif form.OrgUnit neq "">
 			OrgUnit,
 			</cfif>
@@ -71,6 +87,11 @@
 			'#Form.CustomerId#',
 			'#Form.Mission#',			
 			'#Form.PersonNo#',
+			<cfif val eq "">
+			  '#Parameter.CustomerDefaultReference#',
+			 <cfelse>
+			  '#val#',
+			</cfif>
 			<cfif form.OrgUnit neq "">
 			'#Form.OrgUnit#',
 			</cfif>
@@ -101,6 +122,38 @@
 			'#SESSION.first#'
 		)
 	</cfquery>
+	
+	<cfloop index="itm" list="Tax,Civilian">
+			
+	    <cfset val = evaluate("Form.TaxCode#itm#")>
+						
+		<cfif val neq "">
+	
+			<cfquery name="InsertCustomer" 
+		     datasource="AppsMaterials" 
+		     username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">		
+			  
+			 INSERT INTO CustomerTaxCode
+		        (CustomerId,
+				 Country,
+				 Source,
+				 TaxCode,					 
+				 OfficerUserId,
+				 OfficerLastName,
+				 OfficerFirstName)
+		      VALUES ('#Form.CustomerId#',
+		          'GT', <!--- hardcoded --->
+				  '#itm#',
+				  '#val#',					 	  	 			 
+				  '#SESSION.acc#',
+		    	  '#SESSION.last#',		  
+			  	  '#SESSION.first#')				  
+	        </cfquery>	
+		
+		</cfif>
+			 
+	</cfloop>		 
 	
 	<!--- save details --->
 	
@@ -176,6 +229,8 @@
 	
 	</cfif>
 	
+	<cfset val = evaluate("Form.TaxCodeTax")>
+	
 	<cfquery name="Update" 
 	datasource="AppsMaterials" 
 	username="#SESSION.login#" 
@@ -183,10 +238,14 @@
 		UPDATE Customer
 		SET    CustomerName    = '#Form.CustomerName#',
 			   CustomerDOB     =  #DOB#,
-			   PersonNo        = '#Form.PersonNo#',
-			   Reference       = '#ref#',
+			   PersonNo        = '#Form.PersonNo#',			  
 			   <cfif form.OrgUnit neq "">
 			   OrgUnit		   = '#Form.OrgUnit#',
+			   </cfif>
+			   <cfif val eq "">
+			   Reference       = '#Parameter.CustomerDefaultReference#',
+			   <cfelse>
+			   Reference       = '#val#',
 			   </cfif>
 			   PhoneNumber     = '#Form.PhoneNumber#',
 			   MobileNumber    = '#Form.MobileNumber#',
@@ -200,6 +259,51 @@
 		WHERE CustomerId       = '#Form.CustomerId#'
 		AND   Mission          = '#Form.Mission#'
 	</cfquery>
+	
+	<cfloop index="itm" list="Tax,Civilian">
+			
+	    <cfset val = evaluate("Form.TaxCode#itm#")>
+		
+		   <cfquery name="ResetTaxCode" 
+		     datasource="AppsMaterials" 
+		     username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">
+			 				  
+				 DELETE FROM CustomerTaxCode
+				 WHERE  CustomerId = '#Form.customerid#'
+				        AND Country    = 'GT' 
+					    AND Source     = '#itm#'			  
+						
+	        </cfquery>	
+						
+		<cfif val neq "">	    
+	
+			<cfquery name="InsertCustomer" 
+		     datasource="AppsMaterials" 
+		     username="#SESSION.login#" 
+		     password="#SESSION.dbpw#">		
+			  
+				 INSERT INTO CustomerTaxCode
+			        (CustomerId,
+					 Country,
+					 Source,
+					 TaxCode,					 
+					 OfficerUserId,
+					 OfficerLastName,
+					 OfficerFirstName)
+			      VALUES ('#Form.CustomerId#',
+			          'GT', <!--- hardcoded --->
+					  '#itm#',
+					  '#val#',					 	  	 			 
+					  '#SESSION.acc#',
+			    	  '#SESSION.last#',		  
+				  	  '#SESSION.first#')	
+					  			  
+	        </cfquery>	
+		
+		</cfif>
+	 
+	 </cfloop>		 
 	
 	<cfset customerid = form.customerid>	
 	<cfinclude template="CustomerSubmitTopic.cfm">

@@ -97,7 +97,7 @@
 		ObjectId         = "#Object.ObjectId#"
 		ActionId         = "#Action.ActionId#"
 		actioncode       = "#Action.ActionCode#"
-		actionpublishno  = "#Action.ActionPublishNo#"	>		
+		actionpublishno  = "#Action.ActionPublishNo#">		
 		
 	<cf_ProcessActionMethod
 		methodname       = "Submission"
@@ -122,12 +122,12 @@
 		 username="#SESSION.login#" 
 		 password="#SESSION.dbpw#">
 		 UPDATE OrganizationObjectAction 		
-		 SET    ActionStatus = '#act#',
+		 SET    ActionStatus     = '#act#',
 			    OfficerUserId    = '#SESSION.acc#',
 			    OfficerLastName  = '#SESSION.last#',
 			    OfficerFirstName = '#SESSION.first#',
 			    OfficerDate      = getDate()
-		 WHERE  ActionId = '#ID#' 
+		 WHERE  ActionId         = '#ID#' 
 	</cfquery>
 	
 	<!--- define next action and eMail notification --->

@@ -31,7 +31,7 @@
 		     Ref_AssignmentClass C		   
 	WHERE    A.PersonNo        = P.PersonNo
 	AND      A.OrgUnit         = O.OrgUnit
-	AND      A.PositionNo      = '#URL.ID#'
+	AND      Pos.PositionParentId      IN (SELECT PositionParentId FROM Position WHERE PositionNo = '#URL.ID#')
 	AND      C.AssignmentClass = A.AssignmentClass
 	AND      A.PositionNo      = Pos.PositionNo
 	AND      A.AssignmentStatus < '#Parameter.AssignmentShow#' 
@@ -123,7 +123,7 @@
 			   <td>#Incumbency#%</TD>
 			   <td>#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
 		       <td>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
-			   <td>#Dateformat(Created, CLIENT.DateFormatShow)# #Timeformat(Created, "HH:MM")#</td>
+			   <td title="#officerFirstName# #OfficerLastName#">#Dateformat(Created, CLIENT.DateFormatShow)# #Timeformat(Created, "HH:MM")#</td>
 		    </tr>
 			 
 			<cfif OrgUnit neq OrgUnitOperational>
@@ -223,7 +223,7 @@
 				   <td style="padding-right:8px">#Incumbency#%</TD>
 				   <td>#Dateformat(DateEffective, CLIENT.DateFormatShow)#</td>
 			       <td>#Dateformat(DateExpiration, CLIENT.DateFormatShow)#</td>
-				   <td style="min-width:120px">#Dateformat(Created, CLIENT.DateFormatShow)# #Timeformat(Created, "HH:MM")#</td>
+				   <td title="#officerFirstName# #OfficerLastName#" style="min-width:120px">#Dateformat(Created, CLIENT.DateFormatShow)# #Timeformat(Created, "HH:MM")#</td>
 			    </tr>
 				<cfif Remarks neq "">
 			     <TR class="navigation_row_child Line fixlengthlist">

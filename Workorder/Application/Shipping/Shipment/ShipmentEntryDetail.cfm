@@ -44,6 +44,18 @@
 	   
 </td>
 
+<td>
+	<input type    = "text"
+		   onkeyup   = "searchBarcode(this, event)"
+		   name      = "BarCode"
+		   id        = "BarCode"
+		   tabindex  = "1000"
+		   onfocus   = "this.style.border='2px solid ##6483a2'"
+		   onblur    = "this.style.border='1px solid silver'"
+		   class     = "regularxl"
+		   style     = "border-radius:0px;height:33px; width:100%;min-width:100px;">
+</td>
+
 <!--- get the sales workorder items for each workorderline --->
 
 <cfquery name="getLines" 

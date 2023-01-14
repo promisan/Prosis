@@ -22,14 +22,14 @@ password="#SESSION.dbpw#">
     WHERE    R.DocumentId IN (SELECT DocumentId 
 	                        FROM   Ref_EntityActionPublishDocument 
 							WHERE  ActionPublishNo = '#Object.ActionPublishNo#' 
-							AND    ActionCode      = '#Object.actioncode#' 
+							AND    ActionCode      = '#Action.actioncode#' 
 							AND    Operational     = 1)
 	AND      R.DocumentType  = 'Report'	
 	AND      R.DocumentId IN (
 					SELECT  D.DocumentId
 				    FROM    Ref_EntityDocument D, 
 				            Ref_EntityActionDocument R		
-				    WHERE   R.ActionCode   = '#Object.ActionCode#'
+				    WHERE   R.ActionCode   = '#Action.ActionCode#'
 				    AND     R.DocumentId   = D.DocumentId 
 				    AND     D.DocumentType = 'report' 
 				    AND     (D.DocumentStringList = '' or D.DocumentStringList = '#Object.ObjectFilter#')				   

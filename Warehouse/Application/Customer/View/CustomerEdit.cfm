@@ -72,10 +72,22 @@ password="#SESSION.dbpw#">
 	</td>
 	</tr>
 	
-	<tr class="labelmedium2">
-		<td width="18%"> <cf_tl id="Reference"> : <font color="red">*</font></td>
-		<td>
-		
+	<tr class="labelmedium">
+		<td><cf_tl id="Tax Code"> :</td>
+		<td style="height:30px">
+		    <table>			
+			<tr class="labelmedium">
+			
+			<cfquery name="getTax" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">		
+				  SELECT *
+				  FROM  CustomerTaxCode
+				  WHERE CustomerId = '#url.drillid#'
+				  AND   Source = 'Tax'
+			</cfquery>		
+			 
 			<input name="Scope"   type="hidden" value="#url.scope#">
 		
 			<cfif url.drillid eq "">
@@ -91,7 +103,50 @@ password="#SESSION.dbpw#">
 				<input name="CustomerId" type="hidden" value="#Customer.CustomerId#">
 				<cfset CustomerId = Customer.CustomerId>
 				<cfset mission    = Customer.Mission>
-			</cfif>			
+			</cfif>			  
+				       			
+			<td style="padding-left:0px"><input type="text" value="#getTax.TaxCode#" name="TaxCodeTax" size="13" maxlength="13" class="regularxxl enterastab"
+			 onKeyUp ="_cf_loadingtexthtml='';	ptoken.navigate('ValidateReference.cfm?customerid=#url.drillid#&reference='+this.value+'&mission=#url.mission#','id_validateReference');"></td>
+			<td style="padding-left:4px"><cf_tl id="Tax"></td>
+			<td id="id_validateReference" style="padding-left:5px;">
+				 	<input type="hidden" value="1" name="validateReference" id="validateReference">
+			</td>
+			
+			<cfquery name="getTax" 
+				datasource="AppsMaterials" 
+				username="#SESSION.login#" 
+				password="#SESSION.dbpw#">		
+				  SELECT *
+				  FROM  CustomerTaxCode
+				  WHERE CustomerId = '#url.drillid#'
+				  AND   Source = 'Civilian'
+			 </cfquery>		  
+			 
+			<td style="padding-left:7px"><input type="text" value="#getTax.TaxCode#" name="TaxCodeCivilian" size="13" maxlength="13" class="regularxxl enterastab"></td>
+			<td style="padding-left:4px"><cf_tl id="Civilian"></td>
+			
+			</tr>
+						
+			</table>
+		</td>
+	</tr>
+	
+	<cfquery name="Parameter" 
+			datasource="AppsMaterials" 
+			username="#SESSION.login#" 
+			password="#SESSION.dbpw#">
+				SELECT *
+				FROM   Ref_ParameterMission
+				WHERE  Mission = '#url.mission#'
+			</cfquery>
+	
+	<!---
+	
+	<tr class="labelmedium2">
+		<td width="18%"> <cf_tl id="Reference"> : <font color="red">*</font></td>
+		<td>
+		
+			
 								
 			<cfquery name="Parameter" 
 			datasource="AppsMaterials" 
@@ -142,39 +197,41 @@ password="#SESSION.dbpw#">
 						 
 						  <td style="padding-left:3px">
 						  
-						  <cfif ref eq "">
-						 
-						  <input type="checkbox" 
-							  name="ReferenceDefault" 
-							  id="ReferenceDefault" 
-							  checked
-							  value="#Parameter.CustomerDefaultReference#" 
-							  class="radiol enterastab" 
-							  onclick="document.getElementById('Reference').value=''"
-							  onKeyUp="_cf_loadingtexthtml='';	ptoken.navigate('ValidateReference.cfm?customerid=#CustomerId#&reference='+this.value+'&mission=#url.mission#','id_validateReference');" message="Please enter Reference.">		
-							  
-						  <cfelse>
-						  
-						   <input type="checkbox" 
-							  name="ReferenceDefault" 
-							  id="ReferenceDefault" 							  
-							  value="#Parameter.CustomerDefaultReference#" 
-							  class="radiol enterastab" 
-							  onclick="document.getElementById('Reference').value=''"
-							  onKeyUp="_cf_loadingtexthtml='';	ptoken.navigate('ValidateReference.cfm?customerid=#CustomerId#&reference='+this.value+'&mission=#url.mission#','id_validateReference');" message="Please enter Reference.">		
-							
-						  
-						  </cfif>	  
+							  <cfif ref eq "">
 							 
-						 </td>  
-						 
+							  <input type = "checkbox" 
+								  name    = "ReferenceDefault" 
+								  id      = "ReferenceDefault" 
+								  checked
+								  value   = "#Parameter.CustomerDefaultReference#" 
+								  class   = "radiol enterastab" 
+								  onclick = "document.getElementById('Reference').value=''"
+								  onKeyUp = "_cf_loadingtexthtml='';ptoken.navigate('ValidateReference.cfm?customerid=#CustomerId#&reference='+this.value+'&mission=#url.mission#','id_validateReference');" message="Please enter Reference.">		
+								  
+							  <cfelse>
+							  
+							   <input type= "checkbox" 
+								  name    = "ReferenceDefault" 
+								  id      = "ReferenceDefault" 							  
+								  value   = "#Parameter.CustomerDefaultReference#" 
+								  class   = "radiol enterastab" 
+								  onclick = "document.getElementById('Reference').value=''"
+								  onKeyUp = "_cf_loadingtexthtml='';ptoken.navigate('ValidateReference.cfm?customerid=#CustomerId#&reference='+this.value+'&mission=#url.mission#','id_validateReference');" message="Please enter Reference.">									
+							  
+							  </cfif>	  
+							 
+						 </td>  		 
 						 
 		 			   </tr>
+					   
 					</table>
 			
 			</cfif>
 		</td>
 	</tr>
+	
+	--->
+	
 	<tr class="labelmedium2">
 		<td><cf_tl id="Name"> : <font color="red">*</font></td>
 		<td style="width:80%">
@@ -451,8 +508,6 @@ password="#SESSION.dbpw#">
 		</td>
 	</tr>
 	
-	
-	
 	<tr class="labelmedium2">
 		<td><cf_tl id="eMailAddress"> :</td>
 		<td>
@@ -541,6 +596,8 @@ password="#SESSION.dbpw#">
 	</tr>
 	</cfif>
 	--->
+	
+	
 	
 	<tr class="labelmedium2">
 		<td><cf_tl id="Credit Threshold">#application.basecurrency#:</td>

@@ -261,9 +261,7 @@
 					AND       PriceSchedule = '#PriceSchedule#'		
 					ORDER BY  DateEffective DESC																							
 		        </cfquery>		
-										
-				
-										   												
+														   												
 				<cfif getPrice.recordcount eq "1">
 						
 															
@@ -272,8 +270,7 @@
 					 <cfset sale.price         = getPrice.SalesPrice>
 					 <cfset sale.taxcode       = getPrice.TaxCode>				 
 					 					 
-				<cfelse>		
-				
+				<cfelse>					
 				
 					<cfquery name="getDefault" 
 						datasource="AppsMaterials" 
@@ -1525,6 +1522,7 @@
 			<!-- the below 3 fields can be derrived now --->
 			<cfargument name="Customerid"         type="GUID"    required="true"   default="">
 			<cfargument name="CustomeridInvoice"  type="GUID"    required="true"   default="">
+			<cfargument name="ReferenceNo"        type="string"  required="true"   default="">
 			<cfargument name="AddressId"  		  type="GUID"    required="true"   default="00000000-0000-0000-0000-000000000000">
 						
 			<cfargument name="Currency"           type="string"  required="true"   default="">
@@ -1559,6 +1557,9 @@
 				     <cfset BatchNo = 10000+BatchNo>
 				</cfif>
 			</cfif>
+			
+			<!--- remove --->
+			<cfset batchNo = batchNo + 100000>
 			
 			<cfset vParentBatchNo = "">
 			
@@ -2383,6 +2384,10 @@
 					<cfset relnme   = Customer.CustomerName>
 					<cfset relref   = Customer.Reference> 				
 				
+				</cfif>
+				
+				<cfif ReferenceNo neq "">				
+				    <cfset relref = ReferenceNo>				
 				</cfif>
 												
 				<cfif addressid neq "" and addressid neq "00000000-0000-0000-0000-000000000000">

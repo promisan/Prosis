@@ -24,7 +24,6 @@
 
 <cf_textareascript>
 
-
 <cfinclude template="../../Application/Employee/Events/EventsScript.cfm">
 
 <cfoutput>
@@ -63,6 +62,28 @@
 			}
 			   
 		}
+		
+		function eventworkflowmail(box,row,id) {
+			
+			ep = document.getElementById(box+row+"Max")
+			co = document.getElementById(box+row+"Min")	
+			
+			if (ep.className == "hide") {
+			
+				ep.className = "regular"
+				co.className = "hide"				
+			
+			} else {
+			
+				ep.className = "hide"
+				co.className = "regular"
+				
+				ProsisUI.createWindow(box+row, 'Messages', '',{x:200,y:200,height:document.body.clientHeight-100,width:document.body.clientWidth-200,modal:true,resizable:false,center:true})    					
+			    url = "#SESSION.root#/tools/EntityAction/ActionListingViewMail.cfm?objectid="+id;
+		        ptoken.navigate(url,box+row)	
+				
+		    }		
+		  }	
 		
 	</script>
 	
@@ -132,14 +153,48 @@
 
 </cfif>
 
-<div class="row" style="min-width:100%; width:100%; padding:10px;">
+<cfquery name="qEvents" 
+	 datasource="AppsEmployee" 
+	 username="#SESSION.login#" 
+	 password="#SESSION.dbpw#">
+		SELECT Code,
+		       Description,
+			   ActionInstruction
+		FROM   Ref_PersonEvent RPE 
+		WHERE  Code IN (SELECT EventCode 
+		                FROM   Ref_PersonEventTrigger 
+						WHERE  EventTrigger = '#url.triggercode#'
+						AND    ActionImpact = 'Action')
+		<cfif URL.mission neq "">
+		AND    Code IN (SELECT PersonEvent 
+			            FROM   Ref_PersonEventMission 
+						WHERE  Mission  = '#URL.mission#')
+		</cfif>		
+		<cfif url.portal eq "1">
+		AND    EnablePortal = 1
+		</cfif>
+		ORDER BY ListingOrder	
+</cfquery>	
 
+<div class="row" style="min-width:100%; width:100%; padding:4px;">
+
+    <cfif qEvents.recordcount gte "2">
+	
 	<div class="col-lg-2 col-xs-4 clsEventMenu toggleScroll-y">
 		<cfinclude template="EventMenu.cfm">
-	</div>
+	</div>	
 	
-	<div class="col-lg-10 col-xs-8 col-lg-offset-2 col-xs-offset-4" id="eventBase" style="padding-left:20px;">
+	<div class="col-lg-10 col-xs-8 col-lg-offset-2 col-xs-offset-4" id="eventBase" style="padding-left:20px;">	    
 		<cfinclude template="EventBase.cfm">
 	</div>
+	
+	<cfelse>
+	    <DIV style="padding-left:35px">
+		<cfset url.eventcode = qEvents.Code>
+		<cfset url.personno = url.id>
+		<cfinclude template="EventBase.cfm">
+		</DIV>
+		
+	</cfif>
 
 </div>

@@ -1,5 +1,4 @@
 
-
 <cfquery name="Action" 
 	 datasource="AppsOrganization"
 	 username="#SESSION.login#" 
@@ -129,9 +128,7 @@
 	   AND     OA.ActionPublishNo = P.ActionPublishNo
 	   AND     OA.ActionCode = P.ActionCode 
 	   AND     A.ActionCode = P.ActionCode
-	</cfquery>
-	
-	
+	</cfquery>	
 
 <cfinclude template="ProcessActionQuestionaire.cfm">		 	
 
@@ -220,9 +217,6 @@
 		</cf_menucontainer>	  
    
 </cfif>
-
-
-
 
    <cfquery name="Action" 
 	 datasource="AppsOrganization"
@@ -326,14 +320,24 @@
 	        
    </cfif>   
    
-  
-    
+   <cfparam name="questionbox" default="0">
+   
+   <!---
+             
    <cfif boxno eq "1">
    
 	   <!--- we hide the menu, to make the screen look more simply --->
 	   <script>
 		   try { document.getElementById('menutabs').className = 'hide' } catch(e) { }	
-	    </script>
+	   </script>
+		
+  <cfelseif boxno eq "2" and questionbox eq "1">	
+  
+       <!--- we hide the menu, to make the screen look more simple --->
+	   <script>
+		   try { document.getElementById('menutabs').className = 'hide' } catch(e) { }	
+		    try { document.getElementById('menu1').click() } catch(e) { }	
+	   </script>
 	        
    <cfelseif menumode eq "content" and boxno gte "2">
       	 	  
@@ -343,5 +347,6 @@
    
    </cfif>
    
+   --->
 
   

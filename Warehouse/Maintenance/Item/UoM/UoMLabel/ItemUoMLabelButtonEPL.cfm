@@ -1,3 +1,4 @@
+<cfparam name="url.directprint" 	default="0">
 
 <cfquery name="Get" 
 	datasource="AppsMaterials" 
@@ -99,18 +100,35 @@
 	<!--- object to print --->
 	<cfset oToPrint = serializeJSON(toPrint)>
 
-	<cf_tl id="Print Labels" var="vPrintLabel">
-	<input 
-		type="button" 
-		value="#vPrintLabel#" 
-		style="width:200px" 
-		class="button10g" 
-	   	onclick='javascript:printLabelEPL("#UCASE(TRIM(Get.ItemBarCode))#","#url.item#","#url.uom#",#oToPrint#,#url.fqty#,#url.fbarcode#);'>
+	<cfif url.directprint eq "0">
+
+		<cf_tl id="Print Labels" var="vPrintLabel">
+		<input 
+			type="button" 
+			value="#vPrintLabel#" 
+			style="width:200px" 
+			class="button10g" 
+			onclick='javascript:printLabelEPL("#UCASE(TRIM(Get.ItemBarCode))#","#url.item#","#url.uom#",#oToPrint#,#url.fqty#,#url.fbarcode#);'>
+		
+		<script>
+			$( document ).ready(function() {
+				launchQZ();
+			});
+		</script>
+
+	<cfelse>
+
+		<script>
+			console.log("#UCASE(TRIM(Get.ItemBarCode))#");
+			console.log("#url.item#");
+			console.log("#url.uom#");
+			console.log(#oToPrint#);
+			console.log(#url.fqty#);
+			console.log(#url.fbarcode#);
+			//printLabelEPL("#UCASE(TRIM(Get.ItemBarCode))#","#url.item#","#url.uom#",#oToPrint#,#url.fqty#,#url.fbarcode#);
+		</script>
+
+	</cfif>
+
 	
 </cfoutput>
-
-<script>
-	$( document ).ready(function() {
-		launchQZ();
-	});
-</script>

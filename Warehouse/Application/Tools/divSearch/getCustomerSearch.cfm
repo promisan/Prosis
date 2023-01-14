@@ -60,18 +60,31 @@
 		datasource="AppsMaterials" 
 		username="#SESSION.login#" 
 		password="#SESSION.dbpw#">
-			SELECT     TOP 20 A.*			
+			SELECT     TOP 12 A.*			
 			FROM       Customer A 				
 						
-			WHERE      (Reference LIKE '%#url.search#%' 
+			WHERE      (
+			
+			          EXISTS (	SELECT 'X'
+								FROM   CustomerTaxCode CA
+								WHERE  CA.CustomerId  = A.CustomerId
+								AND    CA.TaxCode LIKE '%#url.search#%' )	
+											
+								<!--- Reference LIKE '%#url.search#%'  --->
+								
 			                    OR CustomerSerialNo LIKE '%#url.search#%' 
 			                    OR CustomerName     LIKE '%#url.search#%' 
 								OR PhoneNumber      LIKE '#url.search#%' 
-								OR eMailAddress     LIKE '#url.search#%')
+								OR eMailAddress     LIKE '#url.search#%'
+								
+						)
 			
-			<!--- AND        Mission = '#url.mission#'  not so sure as we allow mixing now --->			
+			<cfif Parameter.CustomerSearch eq '0'>
+			AND        Mission = '#url.mission#'  <!--- for Samaliz we allow for multiple --->
+		    </cfif>	
+				
 			AND        Operational = 1
-			
+									
 			<cfif Parameter.DefaultAddressType neq ''>
 			AND        EXISTS (	SELECT 'X'
 								FROM   CustomerAddress CA

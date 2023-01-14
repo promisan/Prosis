@@ -276,8 +276,8 @@ password="#SESSION.dbpw#">
 	    </tr>   
 								
 		<tr class="labelmedium">
-		  <td width="5%" valign="top" style="padding-top:3px;padding-left:10px">
-		   <cf_img icon="open" onclick="javascript:EditPosition('#PositionChild.Mission#','#PositionChild.MandateNo#','#PositionChild.PositionNo#')">		   
+		  <td width="5%" valign="top" title="Instance:#PositionChild.PositionNo#" style="padding-top:3px;padding-left:10px">
+		   <cf_img icon="open" title="Instance:#PositionChild.PositionNo#" onclick="javascript:EditPosition('#PositionChild.Mission#','#PositionChild.MandateNo#','#PositionChild.PositionNo#')">		   
 		  </td>	    
 		  <td width="100" style="padding-top:2px" valign="top">#DateFormat(PositionChild.DateEffective, CLIENT.DateFormatShow)#</td>
 		  <td width="100" style="padding-top:2px" valign="top">#DateFormat(PositionChild.DateExpiration, CLIENT.DateFormatShow)#</td>

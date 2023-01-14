@@ -93,11 +93,11 @@
 		<cfargument name="OrgUnit"   type="string" default="">
 		<cfargument name="Mission"   type="string" default="">
 		<cfargument name="Warehouse" type="string" default="">				
-		
-		<cfif getAdministrator(mission) eq "1">
+							
+		<cfif getAdministrator("*") eq "1">
 				
 			<CFSET AccessRight = "GRANTED">	
-							
+										
 		<cfelseif not IsValid("GUID", SystemFunctionId)>
 					
 			<CFSET AccessRight = "DENIED">
@@ -139,7 +139,7 @@
 				<cfset OrgUnit = unit>
 					
 			</cfif>
-						
+									
 			<cfif mission neq "">
 			
 			   <cftransaction isolation="read_uncommitted">	
@@ -161,13 +161,13 @@
 			   </cfif>
 					
 			</cfif>		
-					
+								
 			<cfif deny eq "Yes">		
 					
 				 <CFSET AccessRight = "DENIED">
 					
 			<cfelse>
-			
+						
 			 <cftransaction isolation="read_uncommitted">
 				 <cfquery name="Module" datasource="AppsSystem" 
 		           username="#SESSION.login#" password="#SESSION.dbpw#">
@@ -183,7 +183,8 @@
 				   WHERE    SystemFunctionId = '#SystemFunctionId#' 
 				   AND      Operational = 1
 		          </cfquery>
-				
+				  
+				  				
 				  <cfquery name="FunctionGroup" datasource="AppsSystem" 
 		           username="#SESSION.login#" password="#SESSION.dbpw#">
 				   SELECT   DISTINCT SystemFunctionId
@@ -199,14 +200,14 @@
 		            <CFSET AccessRight = "GRANTED">  
 					
 				<cfelseif getAdministrator("*") eq "1" and (Module.FunctionClass eq "Maintain" or Module.FunctionClass eq "System")>
-				
+				    
 					<!--- local administrator access to maintenance --->				
 					<CFSET AccessRight = "GRANTED">	
 				 				
 				<cfelseif Role eq "" and 
 				        FunctionRole.recordcount eq "0" and FunctionGroup.recordcount eq "0">		
-				
-					<cfif Module.EnableAnonymous eq "1">
+								
+					<cfif Module.EnableAnonymous eq "1">					
 				          <CFSET AccessRight = "GRANTED">
 					<cfelse>
 					      <CFSET AccessRight = "DENIED">

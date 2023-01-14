@@ -654,9 +654,9 @@ password="#SESSION.dbpw#">
 				
 				</td>
 				
-				<TD style="padding-left:5px"><cf_tl id="Maximum POS discount">:</TD>
+				<TD style="padding-left:8px"><cf_tl id="POS discount">:</TD>
 				<td style="padding-left:0px">
-					<cfinput class="regularxl" style="padding-left:3px;text-align:right" type="Text" name="SaleDiscount" id="SaleDiscount" value="#Get.SaleDiscount#" size="3" maxlength="3">%
+					<cfinput class="regularxl" style="padding-left:3px;text-align:right;padding-right:3px;" type="Text" name="SaleDiscount" id="SaleDiscount" value="#Get.SaleDiscount#" size="3" maxlength="3">%
 			    </td>
 				
 				<td style="padding-left:4px">
@@ -678,6 +678,11 @@ password="#SESSION.dbpw#">
 				</select>
 				
 				</td>
+				
+				<TD style="padding-left:5px"><cf_tl id="Taxcode condition">:</TD>
+				<td style="padding-left:0px">
+					<cfinput class="regularxl" style="padding-left:3px;text-align:right;padding-right:3px;" type="Text" name="SaleTaxCode" id="SaleTaxCode" value="#Get.SaleTaxCode#" size="6" maxlength="6">
+			    </td>
 				
 				<TD class="hide labelmedium" style="padding-left:0px"><cf_tl id="Sales Background">:</TD>
 		    	<TD class="hide">

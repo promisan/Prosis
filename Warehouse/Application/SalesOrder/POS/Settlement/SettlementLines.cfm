@@ -1,9 +1,12 @@
+<cfparam name="url.taxcode"  default="">
 <cfparam name="url.addressid"  default="00000000-0000-0000-0000-000000000000">
 <cfparam name="url.scope"  default="settlement">
+
 
 <cfif URL.addressid eq "">
 	<cfset URL.addressid = "00000000-0000-0000-0000-000000000000">
 </cfif>
+
 
 <cfquery name="getSettle"
  datasource="AppsTransaction" 
@@ -96,14 +99,14 @@
 
 <table id="tsettlement" name="tsettlement" align="center" width="100%" height="100%" class="navigation_table">
 
-<tr class="line settlement_title">
+<tr class="line settlement_title" style="height:31px">
 	
 	<td style="width:20px"></td>
 	<td style="width:20px"></td>
-	<td width="55%" style="font: medium Calibri;"><cf_tl id="Type"></td>	
-	<td align="right" style="font: medium Calibri;"></td>
-	<td width="15%" align="right" style="font: medium Calibri;"><cf_tl id="Amount"></td>
-	<td width="15%" align="right" style="font: medium Calibri;">#getSale.SalesCurrency#</td>
+	<td width="55%"><cf_tl id="Type"></td>	
+	<td align="right"></td>
+	<td width="15%" align="right"><cf_tl id="Amount"></td>
+	<td width="15%" align="right">#getSale.SalesCurrency#</td>
 	<td width="2%"></td>		
 </tr>
 
@@ -125,14 +128,14 @@
 				
 		<td style="padding-left:10px;padding-right:7px">#currentrow#.</td>
 		<td style="padding-right:7px;padding-top:1px">
-		
+				
 		<img src="#SESSION.root#/images/delete5.gif" 
 		     alt="#lt_text#" 
 			 border="0" 
 			 width="16" height="16"
 			 style="cursor:pointer" 
 			 class="navigation_action"
-		     onclick="_cf_loadingtexthtml='';deletesettlement('#url.warehouse#','#url.customerid#','#getSettle.TransactionId#','#url.terminal#','#url.batchid#','#url.td#','#url.th#','#url.tm#','#Mode#')">
+		     onclick="deletesettlement('#url.warehouse#','#url.customerid#','#getSettle.TransactionId#','#url.terminal#','#url.batchid#','#url.td#','#url.th#','#url.tm#','#Mode#')">
 				
 		</td>
 		<td>#Description#</td>
@@ -205,8 +208,7 @@
 	    <cfif getDiscounted.recordCount gt 0>
 			<cfset vDiscount = getDiscounted.SettleAmount>
 		</cfif>
-		
-		<tr><td colspan="7" class="line"></td></tr>	
+				
 		<tr class="settlement_title" height="50">		
 			<td colspan="5" align="right" style="padding-left:20px;font: large Calibri;"><cf_tl id="Discounted"></td>
 			<td align="right" style="font: large Calibri;">#NumberFormat((vTotal - vDiscount), ',.__')# </td>
@@ -235,9 +237,9 @@
 		
 		<tr><td colspan="7" class="line"></td></tr>			
 		<tr height="45">
+		    
 			<td colspan="5" align="right" style="padding-right:20px" class="labellarge"><cf_tl id="Total"></td>
-			<td align="right" class="labellarge" style="font-size:30px">#NumberFormat(getSale.sTotal, ',.__')#
-			 </td>
+			<td align="right" class="labellarge" style="font-size:30px">#NumberFormat(getSale.sTotal, ',.__')#</td>
 			<td></td>
 		</tr>
 		
@@ -329,8 +331,7 @@
 			</cfif>
 			
 		</cfif>	
-		
-		
+				
 		<cfif NumberFormat(vTotal, '.__') gte NumberFormat(getSale.sTotal, '.__') or (URL.scope eq "standalone" and vTotal gt 0)>
 		
 			<tr><td colspan="7" class="linedotted"></td></tr>	
@@ -339,7 +340,7 @@
 				
 			<tr class="settlement_title" height="100%">
 				
-					<td colspan="7" align="center" valign="bottom" style="padding-bottom:10px">
+					<td colspan="7" align="center" valign="bottom" style="padding-bottom:10px" id="process">
 										
 					<cf_tl id="Invoice"    var="label1">
 					<cf_tl id="Electronic" var="label2">
@@ -376,11 +377,11 @@
 							AND		Area      = 'SETTLE'
 							AND		Currency  = '#getSale.SalesCurrency#'
 					</cfquery> 
-					
+															
 					<cfif getWarehouseJournal.TransactionMode eq "2">
-					
+															
 						<cfif getSale.sTotal neq "0">
-						
+									
 						      <cfquery name="Tax" 
 							  datasource="AppsSystem" 
 							  username="#SESSION.login#" 
@@ -389,53 +390,42 @@
 									FROM   Organization.dbo.Ref_Mission
 									WHERE  Mission = '#warehouse.Mission#'												   
 						   </cfquery>
+						   
+						   <cfif getSale.sTotal gte warehouse.saleTaxCode and taxcode eq "">
+						   
+						       <!--- not supported in Guatemala make this a setting per store --->
+						   
+						   <cfelse>
 						  				
-						   <cfif tax.EDIMethod neq "">		   
-						 
-								<cfquery name="getTaxUnit"
-									datasource="AppsMaterials"
-									username="#SESSION.login#"
-									password="#SESSION.dbpw#">
-										SELECT TaxOrgUnitEDI
-										FROM WarehouseTerminal
-										WHERE TerminalName='#url.terminal#'
-								</cfquery>
-	
-								<cfquery name="qSeriesCheck"
-										datasource="AppsOrganization"
+							   <cfif tax.EDIMethod neq "">		   
+							 
+									<cfquery name="getTaxUnit"
+										datasource="AppsMaterials"
 										username="#SESSION.login#"
 										password="#SESSION.dbpw#">
-										SELECT  *
-										FROM    OrganizationTaxSeries
-										WHERE   OrgUnit = '#getTaxUnit.TaxOrgUnitEDI#'
-										AND     SeriesType = 'Invoice'
-										AND     Operational = 1
-										ORDER BY Created DESC
-								</cfquery>
-	
-								<cfif qSeriesCheck.SubmissionMode eq "2">
-								
-									<!--- legacy layout based on IransactionLineShipping --->
-								
-									<cf_button2
-										text		 = "#label4#"
-										subtext		 = "#label1#"
-										id			 = "postsettlementbutton1"
-										bgColor		 = "##52b3d9"
-										textsize	 = "24px"
-										subtextsize	 = "15px"
-										height		 = "80px"
-										width		 = "200px"
-										textColor	 = "##F2F2F2"
-										borderRadius = "5px"
-										onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','2','#url.addressid#','#url.requestno#')">
-										
-								<cfelse>
-								
-									<!--- we take new default mode --->
+											SELECT TaxOrgUnitEDI
+											FROM WarehouseTerminal
+											WHERE TerminalName='#url.terminal#'
+									</cfquery>
+		
+									<cfquery name="qSeriesCheck"
+											datasource="AppsOrganization"
+											username="#SESSION.login#"
+											password="#SESSION.dbpw#">
+											SELECT  *
+											FROM    OrganizationTaxSeries
+											WHERE   OrgUnit = '#getTaxUnit.TaxOrgUnitEDI#'
+											AND     SeriesType = 'Invoice'
+											AND     Operational = 1
+											ORDER BY Created DESC
+									</cfquery>
+		
+									<cfif qSeriesCheck.SubmissionMode eq "2">
+																	
+										<!--- legacy layout based on IransactionLineShipping --->
 									
-									<cf_button2
-											text		 = "#label2#"
+										<cf_button2
+											text		 = "#label4#"
 											subtext		 = "#label1#"
 											id			 = "postsettlementbutton1"
 											bgColor		 = "##52b3d9"
@@ -445,13 +435,33 @@
 											width		 = "200px"
 											textColor	 = "##F2F2F2"
 											borderRadius = "5px"
-											onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','3','#url.addressid#','#url.requestno#')">
+											onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','2','#url.addressid#','#url.requestno#',document.getElementById('taxcode').value)">
+											
+									<cfelse>
+																									
+										<!--- we take new default mode --->
+										
+										<cf_button2
+												text		 = "#label2#"
+												subtext		 = "#label1#"
+												id			 = "postsettlementbutton1"
+												bgColor		 = "##52b3d9"
+												textsize	 = "24px"
+												subtextsize	 = "15px"
+												height		 = "80px"
+												width		 = "200px"
+												textColor	 = "##F2F2F2"
+												borderRadius = "5px"
+												onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','3','#url.addressid#','#url.requestno#',document.getElementById('taxcode').value)">
+									</cfif>
+								
 								</cfif>
-							
-							</cfif>
+								
+							</cfif>	
 
 						</cfif>
 						
+						<!---												
 							<cf_button2
 							text		 = "#label3#" 
 							subtext		 = "#label1#"
@@ -463,7 +473,8 @@
 							width		 = "200px"							
 							textColor	 = "##F2F2F2"
 							borderRadius = "5px"
-							onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','1','#url.addressid#','#url.requestno#')">
+							onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','1','#url.addressid#','#url.requestno#',document.getElementById('taxcode').value)">
+							--->
 							
 					<cfelse>		
 							
@@ -479,7 +490,8 @@
 							width		 = "200px"							
 							textColor	 = "##F2F2F2"
 							borderRadius = "5px"
-							onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','1','#url.addressid#','#url.requestno#')">							
+							onclick	     = "postsettlement('#url.warehouse#','#url.customerid#','#customeridinvoice#','#getSale.SalesCurrency#','#url.batchid#','#url.terminal#','#url.td#','#url.th#','#url.tm#','1','#url.addressid#','#url.requestno#',document.getElementById('taxcode').value)">							
+							
 					</cfif>		
 											   
 					</td>
