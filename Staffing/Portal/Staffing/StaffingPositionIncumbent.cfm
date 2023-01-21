@@ -182,8 +182,9 @@
 						   </cfif>
 						   <td align="right" class="fixlength" style="padding-right:5px">#getContract.ContractLevel# | #getContract.ContractStep#</td>
 					   </tr>
-						   								   
-					   <cfif Postgroup eq "Used" and PostGrade neq getContract.ContractLevel and incumbency eq "100">   
+						   				
+										   
+					   <cfif (Postgroup eq "Used" or PostGroup eq "Float") and PostGrade neq getContract.ContractLevel and incumbency eq "100">   
 						   
 						   	<tr>
 							 								   
