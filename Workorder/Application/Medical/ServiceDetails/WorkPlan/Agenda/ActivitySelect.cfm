@@ -122,7 +122,7 @@
 					  
 			 <select name="orgunitimplementer" id="orgunitimplementer" 
 				 onchange="try{schedule()}catch(e){};calendarmonth(document.getElementById('currentdate').value,'none','standard','seldate','orgunit='+this.value);ptoken.navigate('#session.root#/WorkOrder/Application/Medical/ServiceDetails/WorkPlan/Agenda/ActivitySelectPerson.cfm?mission=#url.mission#&orgunit='+this.value+'&selecteddate=#url.selecteddate#','unitcontent')"
-				 style="width:200px;font-size:17px;height:27px" 
+				 style="width:200px;font-size:17px;height:30px" 
 				 class="regularxl">  
 			 
 			 	   <cfset match      = "0"> 
@@ -159,9 +159,7 @@
 		    <cfset url.orgunit = unit.orgunit>			
 		</cfif>
 												
-		<cfinclude template="ActivitySelectPerson.cfm">		
-		
-		
+		<cfinclude template="ActivitySelectPerson.cfm">			
 			
 		</td></tr>
 			

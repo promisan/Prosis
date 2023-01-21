@@ -56,6 +56,7 @@ password="#SESSION.dbpw#">
 	AND           S.SalaryEffective    <= #dte#
 	AND           S.SalaryFirstApplied <= #dte# 
 	ORDER BY      S.SalaryFirstApplied DESC	
+	
 </cfquery>
 
 <cfset caller.payroll = payrollscale>

@@ -19,12 +19,16 @@
 			username="#SESSION.login#"
 			password="#SESSION.dbpw#">
 			SELECT *
-			FROM   CustomerRequest
+			FROM   CustomerRequest L
 			WHERE  Warehouse  = '#getRequest.Warehouse#'
 			AND    CustomerID = '#getRequest.Customerid#'
 			AND    AddressId  = '#getRequest.AddressId#'		
 			AND    ActionStatus != '9' 
-			AND    BatchNo is NULL		
+			AND    BatchNo is NULL	
+			AND    (RequestNo NOT IN (SELECT Requestno 
+			                         FROM CustomerRequestLine 
+									 WHERE RequestNo = L.RequestNo 
+									 AND BatchId is not NULL) or RequestNo = '#url.requestNo#')
 			ORDER BY RequestNo DESC		
 	</cfquery>
 	

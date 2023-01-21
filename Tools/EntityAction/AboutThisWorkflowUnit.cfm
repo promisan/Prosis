@@ -15,5 +15,5 @@
 			WHERE  OrgUnit = '#url.orgunit#'				
 	</cfquery>	
 	
-	<cfoutput>#get.OrgUnitName#</cfoutput>
+	
 			   

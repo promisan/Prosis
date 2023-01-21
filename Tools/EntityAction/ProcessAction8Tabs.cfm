@@ -301,7 +301,7 @@
 				   iconwidth  = "#wd#" 	
 				   tabid      = "document"	  					
 				   button     = "yes"			   
-				   iconheight = "64"
+				   iconheight = "#ht#"
 				   source     = "ProcessAction8TabsDocument.cfm?id=#URL.ID#&action=open" 
 				   name       = "#lt_text#">	
 							   
@@ -321,8 +321,6 @@
    </cfif>   
    
    <cfparam name="questionbox" default="0">
-   
-   <!---
              
    <cfif boxno eq "1">
    
@@ -347,6 +345,5 @@
    
    </cfif>
    
-   --->
 
   

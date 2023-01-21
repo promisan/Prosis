@@ -17,12 +17,12 @@ function more(bx) {
 	ic   = document.getElementsByName(bx)
 					 		 
 	if (icM.className == "hide") {
-	     cl = "" 
-		 icM.className = "regular"
+	     cl = "line" 
+		 icM.className = "regular line"
 		 icE.className = "hide"
 		 } else {
 		 cl = "hide"
-		 icE.className = "regular"
+		 icE.className = "regular line"
 		 icM.className = "hide"
 		 }
 	
@@ -116,19 +116,32 @@ function more(bx) {
 			datasource="AppsOrganization" 
 			username="#SESSION.login#" 
 			password="#SESSION.dbpw#"> 		 
-			 SELECT   DISTINCT R.MissionOwner
+			 SELECT   DISTINCT R.MissionOwner as MissionOwner
 			 FROM     Employee.dbo.Position AS P INNER JOIN
 	                  Organization AS O ON P.OrgUnitAdministrative = O.OrgUnit INNER JOIN
 	                  Ref_Mission AS R ON O.Mission = R.Mission
 			 WHERE    P.Mission = '#url.mission#' 
+			 
+			 UNION 			 
+			 
+			 SELECT   DISTINCT Owner as MissionOwner
+             FROM     Vacancy.dbo.Document
+             WHERE    Mission = '#url.mission#'
+			 
+			 UNION
+			 
+			 SELECT   R.MissionOwner as MissionOwner
+             FROM     Organization.dbo.Ref_Mission AS R 
+             WHERE    R.Mission = '#url.mission#'
+			 
 		 </cfquery>
 		 
 		 <cfif owner.recordcount gte "1">
 		     <cfset ownerlist = "#QuotedValueList(owner.MissionOwner)#">
 		 <cfelse>
 			 <cfset ownerlist = "'#mission.MissionOwner#'">
-		 </cfif>	
-		 
+		 </cfif>
+		 		 
 	 <cfelse>	  
 	 
 		 <cfset ownerlist = "">
@@ -163,6 +176,7 @@ function more(bx) {
 							</cfif>
 					
 			WHERE   E.Role = '#URL.ID#'		
+			
 			
 			<cfif url.mission neq "">
 			
@@ -209,7 +223,9 @@ function more(bx) {
 									
 						OR EA.ActionType = 'Create'		
 						)	
-			</cfif>													
+						
+			</cfif>		
+														
 			AND     EA.Operational = 1 
 			
 								
@@ -264,12 +280,12 @@ function more(bx) {
 
 			<cfoutput query="AccessList" group="EntityCode">
 			
-			<tr class="fixrow" style="background-color:white">			
-				<td colspan="4" style="padding:4px;background-color:white">
+			<tr class="fixrow" style="background-color:white;height:40px">			
+				<td colspan="4" style="padding:4px">
 					<table>
 					<tr>					
 						<td style="padding-left:1px"></td>
-						<td style="padding-left:14px;font-size:18px;height:30px;font-weight:bold;padding-right:14px;border-radius:10px" class="labellarge">#EntityDescription# (#EntityCode#)</td>				
+						<td style="padding-left:14px;font-size:18px;height:30px;font-weight:bold;padding-right:14px" class="labellarge">#EntityDescription# (#EntityCode#)</td>				
 					</tr>
 					</table>
 				</td>				
@@ -327,10 +343,10 @@ function more(bx) {
 						    									
 				<cfif EntityGroup neq "">
 								   																							
-					<tr class="line">
+					<tr class="line fixrow240">
 					<td width="60%" colspan="3">
 					
-						<table cellspacing="0" cellpadding="0" width="100%">
+						<table width="100%">
 						
 						<tr><td width="20" style="height:20px;padding-left:14px;padding-right:5px">
 															
@@ -395,10 +411,9 @@ function more(bx) {
 					<cfset cl = "regular">
 				   
 				</cfif>
-								
+							
 						
 				<cfoutput>	
-				
 																																					
 				<input type="hidden" name="#ms#_classparameter_#CurrentRow#" id="#ms#_classparameter_#CurrentRow#" value="#ActionCode#">
 				<input type="hidden" name="#ms#_groupparameter_#CurrentRow#" id="#ms#_groupparameter_#CurrentRow#" value="#EntityGroup#">
@@ -407,20 +422,23 @@ function more(bx) {
 																				 				 
 				 <cfif accesslvl neq "">
 				 
-				 <tr id="i#url.mission##row#" name="i#url.mission##row#" class="regular navigation_row">
+				 <tr id="i#url.mission##row#" name="i#url.mission##row#" class="regular navigation_row line">
 				 
 				 <cfelse>  
 				 
-				 <tr id="i#url.mission##row#" name="i#url.mission##row#" class="#cl# navigation_row">
+				 <tr id="i#url.mission##row#" name="i#url.mission##row#" class="#cl# navigation_row line">
 				   
 				 </cfif>
 				 				 								
-				  <td class="labelmedium linedotted" style="padding-left:10px"></td>
-				  <td class="labelmedium linedotted" valign="top" style="padding-top:4px;padding-right:8px">#ActionCode#:&nbsp;<cfif actiontype neq "Action"><font color="008000" style="font-weight:bold">#ActionType#</cfif></font> #ActionDescription#</td>				 			  
-				  <td class="labelmedium linedotted" style="padding:1px;padding-right:3px">
+				  <td class="labelmedium" style="padding-left:10px"></td>
+				  <td class="labelmedium" style="padding-top:4px;padding-right:8px">#ActionCode#:</td>				 			  
+				  <td class="labelmedium fixlength" style="width:80%;padding:1px;padding-right:3px">
 				  
-					   <table width="100%" style="border:1px solid gray">
-											  
+				     <cfif actiontype neq "Action"><font color="008000" style="font-weight:bold">#ActionType#</cfif></font> #ActionDescription#
+				  
+				   <table>
+					<tr class="labelit fixlengthlist">
+																  
 					   <cfquery name="Used" 
 							datasource="AppsOrganization" 
 							username="#SESSION.login#" 
@@ -435,26 +453,26 @@ function more(bx) {
 					     </cfquery>	
 						 
 						 <cfloop query="used">
-							 <tr>
-							 <td style="padding-left:4px" class="labelit">
+							
+							 <td style="padding-left:4px">
 							    <a href="##" title="Workflow and the position where this action is used."> #entityclass#
 							 </td>						 
 							 <td style="padding-right:4px" align="right"><font size="1"> [#actionorder#]</font></td>
-							 </tr>
+							
 						 </cfloop>
-						 </table>
+						 </tr>
+					 </table>						      
 				  
 				  </td>
-				  					  
-				  <td align="right" class="linedotted" style="padding-right:3px">				      						  				      
+								  					  
+				  <td align="right" style="padding-right:3px;width:100px">				      						  				      
 					  <cfinclude template="UserAccessSelectAction.cfm">				  						  
 				  </td>	
 				  
 				  <cfset cnt=cnt+1>
 					  			 
 				</tr>	
-							
-																									
+																								
 				</cfoutput>
 							
 			</cfif>					

@@ -238,6 +238,7 @@ if this item is carried by the warehouse select WarehouseItem --->
 							--->
 							
 							GROUP BY  TransactionId, 
+									  TransactionSerialNo,
 							          ItemNo, 
 									  ItemDescription, 
 									  ItemPrecision,
@@ -272,6 +273,7 @@ if this item is carried by the warehouse select WarehouseItem --->
 									<input type="hidden" value="#id#" name="ship_reference_#TransactionSerialNo#" id="ship_reference_#TransactionSerialNo#">
 									<input type="checkbox" 
 									 name="ship_#id#" 
+									 id="ship_#id#"
 									 value="#numberformat(val,pformat)#" 		
 									 onclick="_cf_loadingtexthtml='';ptoken.navigate('setTotal.cfm?mode=individual&workorderid=#get.workorderid#&warehouse=#url.warehouse#','totals','','','POST','shipmentform')"						
 									 style="width:60px;text-align:right">								  
@@ -297,3 +299,5 @@ if this item is carried by the warehouse select WarehouseItem --->
 	</table>			
 
 </cfif>
+
+<cfset AjaxOnLoad("function(){doBarCodeSelection();}")>

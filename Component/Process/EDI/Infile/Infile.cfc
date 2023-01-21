@@ -450,10 +450,10 @@
 							AND     T.SeriesType  = 'Invoice'
 							AND     T.Operational = 1
 					</cfquery>													
-
-					<cfset FEL.CustomerName       = "#Replace(Customer.CustomerName,"&","")#">  <!--- #Replace(GetInvoice.CustomerName,"&","")# --->
 					
 					<!--- adjusted 10/1/2023 --->
+						
+					<cfset FEL.CustomerName       = "#Replace(getTransaction.ReferenceName,"&","")#"> 	
 					<cfset vNIT = getTransaction.ReferenceNo>
 					<cfset vNit = Replace(vNIT," ","","ALL")> <!--- remove spaces --->
 					<cfset vNit = Replace(vNIT,"-","","ALL")>
@@ -690,7 +690,7 @@
 			</cfif>		
 			
 			<!--- localised change of the class of the number --->
-			<cfif len(FEL.CustomerNIT) gte 10>
+			<cfif len(FEL.CustomerNIT) gte 12>
 				<cfset FEL.CustomerClass = "DPI">
 			<cfelse>
 				<cfset FEL.CustomerClass = "NIT">				

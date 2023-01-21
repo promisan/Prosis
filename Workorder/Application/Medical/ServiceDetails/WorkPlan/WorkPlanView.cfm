@@ -1,5 +1,5 @@
 
-
+<cfparam name="#url.mission" default="Bambino">
 <cfparam name="url.date" default="#dateformat(now(),client.dateformatshow)#">
 
 <cfset dateValue = "">
@@ -45,7 +45,7 @@
 
 <cf_tl id="Do you want to reschedule" var="txt">
 
-<cfajaximport tags="cfmap,cfdiv,cfwindow" params="#{googlemapkey='#client.googleMAPId#'}#">	 
+<cfajaximport tags="cfmap,cfdiv" params="#{googlemapkey='#client.googleMAPId#'}#">	 
 
 <cfinclude template="../Notification/SMTP/SMTPScript.cfm">
 
@@ -211,6 +211,8 @@
 					collapsible = "true"
 					size        = "33%" 
 					minsize     = "350">				
+					
+					
 	
 					<table width="100%" height="98%">
 						<tr>
@@ -224,6 +226,7 @@
 							</td>
 						</tr>
 					</table>
+					
 									
 				</cf_layoutarea>
 				

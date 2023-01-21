@@ -87,7 +87,7 @@ password="#SESSION.dbpw#">
 	</TD>
 	</tr>
 		<TR>
-    <TD valign="top" style="padding-top:5px" class="labelmedium"><cf_tl id="Description">:<font color="FF0000">*</font></TD>
+    <TD valign="top" style="min-width:200px;padding-top:5px" class="labelmedium"><cf_tl id="Description">:<font color="FF0000">*</font></TD>
     <TD>
 	
 	<cf_LanguageInput
@@ -109,20 +109,20 @@ password="#SESSION.dbpw#">
 	<table class="formspacing">
 				
 		<TR class="labelit">
-		<TD><cf_uitooltip tooltip="Functional Title Prefix like : <b>Chief">Prefix:</cf_uitooltip></TD>
+		<TD><cf_uitooltip tooltip="Functional Title Prefix like : Chief">Prefix:</cf_uitooltip></TD>
 	    <TD>
 	  	   <cfinput type="Text" name="FunctionPrefix" value="" required="No" size="30" maxlength="30" class="regularxl">
 	    </TD>
 		</tr>
 		
 		<tr class="labelit">
-		<TD><cf_uitooltip tooltip="Functional Title Prefix like : <b>Finance">Keyword:</cf_uitooltip></TD>
+		<TD><cf_uitooltip tooltip="Functional Title Prefix like : Finance">Keyword:</cf_uitooltip></TD>
 		<TD>
 	  	   <cfinput type="Text" name="FunctionKeyword" value="" required="No" size="60" maxlength="100" class="regularxl">
 	    </TD>
 		</tr>
 		<tr class="labelit">
-		<TD><cf_uitooltip tooltip="Functional Title Prefix like : <b>Officer">Suffix:</cf_uitooltip></TD>
+		<TD><cf_uitooltip tooltip="Functional Title Prefix like : Officer">Suffix:</cf_uitooltip></TD>
 		<TD>
 	  	   <cfinput type="Text" name="FunctionSuffix" value="" required="No" size="30" maxlength="30" class="regularxl">
 	    </TD>

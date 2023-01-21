@@ -16,7 +16,12 @@
 
 <cfset l = len(textstr)>
 
-<cfset fill = (l*20)/sze>
+<cftry>
+	<cfset fill = (l*20)/sze>
+	<cfcatch>
+		<cfset fill = 100>
+	</cfcatch>
+</cftry>
 
 <table>
 	

@@ -121,6 +121,6 @@ functioncondition = "tab",
 		excelShow     = "Yes"
 		CacheDisable  = "Yes"
 		drillmode     = "tab"	
-		drillstring   = "mode=list"
+		drillstring   = "mode=list&idmenu=#url.systemfunctionid#"
 		drilltemplate = "../Staffing/Maintenance/PersonEvent/RecordEdit.cfm?id1="
 		drillkey      = "Code">					

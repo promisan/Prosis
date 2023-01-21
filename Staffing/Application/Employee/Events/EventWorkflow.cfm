@@ -100,7 +100,7 @@
 			EntityClass      = "#entityclass#"
 			EntityStatus     = ""
 			Mission          = "#Event.Mission#"
-			OrgUnit          = "#Event.OrgUnit#" 
+			
 			PersonNo         = "#Event.PersonNo#" 
 			ObjectDue        = "#Event.DateEventDue#"
 			ObjectReference  = "#Event.FullName#"
@@ -121,7 +121,7 @@
 			EntityClass      = "#entityclass#"
 			EntityStatus     = ""
 			Mission          = "#Event.Mission#"
-			OrgUnit          = "#Event.OrgUnit#" 
+			
 			PersonNo         = "#Event.PersonNo#" 
 			ObjectDue        = "#Event.DateEventDue#"
 			ObjectReference  = "#Event.FullName#"

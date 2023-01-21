@@ -111,8 +111,8 @@
 <cfelseif URL.Mode eq "new">		
 
 	     <script>
-			 window.close()
-			 opener.history.go()
+			// window.close()
+			// opener.history.go()
 		</script>	
  
 <cfelseif URL.Mode eq "Dialog">
@@ -128,8 +128,9 @@
 <cfelse>		
 
 		<cfparam name="url.mid" default="">
-		<script>
+		<script>		
 			#ajaxLink('#SESSION.root#/system/access/Membership/UserMemberList.cfm?id=#URL.acc#&mid=#url.mid#')#
+			
 		</script>
 
 </cfif>	

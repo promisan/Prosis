@@ -44,17 +44,15 @@
 		FROM      System.dbo.LanguageSource
 		WHERE     TableCode = '#Attributes.TableCode#' 
 	</cfquery>
-	
-							
+									
 	<cfif Source.recordcount neq "1">
 			
 		<!--- do nothing, this will throw an error --->
 		
 		<CFSET Caller.lt_content    = "not found">
-		
-			
+					
 	<cfelse>
-		
+				
 			<cfset key1   = "#Source.KeyFieldName#">
 			<cfset key2   = "#Source.KeyFieldName2#">
 			<cfset key3   = "#Source.KeyFieldName3#">
@@ -202,7 +200,7 @@
 						</cfif>
 						
 						<tr>
-						 
+												 
 						   <cfif Attributes.Label eq "Yes">
 							 <td style="padding-top:1px;padding-bottom:1px">							    
 							 	<label>

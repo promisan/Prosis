@@ -163,6 +163,7 @@ password="#SESSION.dbpw#">
 							Mission          = "#url.Mission#"
 							Reference		 = "#val#"	
 							CustomerName 	 = "#Form.Name#"
+							DataSource       = "AppsMaterials"
 							returnvariable	 = "stResponse">		
 						   
 						 <cfif stResponse.status neq "OK">

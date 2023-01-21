@@ -573,6 +573,8 @@
 				     
 				   <cfelse>
 				   
+				    <tr>
+				   
 				    <td height="20" colspan="13">
 						<table width="100%">
 						<td colspan="1" align="right" style="padding-top:4px">	
@@ -610,9 +612,11 @@
 				</CFOUTPUT>
 				
 				</table>
+				
 				</cf_divscroll>
 				
-				</td></tr>
+				</td>
+				</tr>
 								
 				<td colspan="14" height="23">
 					<table width="100%" align="right">

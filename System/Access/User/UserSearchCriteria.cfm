@@ -5,8 +5,6 @@
 <cfparam name="form.HostAccess"    default="">
 <cfparam name="form.SystemModule"  default="">
 
-
-
 <cfif Form.Status eq "">
     <cfset crit = "">
 <cfelse>	

@@ -181,7 +181,23 @@
    BrowserSupport    = "2"
    FunctionMemo      = "Workplan"
    ScriptName        = "medicalbilling" 
-   FunctionIcon      = "Maintain">        
+   FunctionIcon      = "Maintain">     
+   
+<!--- ---------------- --->   
+<!--- follow-up task-- --->
+<!--- ---------------- --->     
+    
+<cf_ModuleInsertSubmit
+   SystemModule      = "WorkOrder" 
+   FunctionClass     = "Followup"
+   FunctionName      = "Observations" 
+   MenuClass         = "Schedule"
+   MenuOrder         = "1"
+   MainMenuItem      = "0"
+   BrowserSupport    = "2"
+   FunctionMemo      = "Workplan"
+   ScriptName        = "observationlist"   
+   FunctionIcon      = "Maintain">         
            
 
 <!--- --------------- --->   

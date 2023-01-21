@@ -1,5 +1,7 @@
 
 <cfparam name="url.workorderid" default="6E73726E-F11F-A592-6067-8B1C722B4371">
+<cfparam name="url.transactionserialno" default="">
+
 
 <cf_screentop jQuery="Yes" html="Yes" scroll="Yes" layout="webapp" banner="gray" label="WorkOrder Shipment">
 
@@ -40,16 +42,36 @@
 					else
 					{
 						$('#ship_'+id).attr('checked',true);
+						$('#lines').animate({
+							scrollTop: $('#ship_'+id).offset().top
+						}, 2000);						
 						$('#BarCode').val('');
 						$('#BarCode').focus();
 						v=1
 					}
-				}
-				else
-					alert('not found');
-			}
-		}
+				 }
+				 else
+				 	alert('not found');
+			 }
+		 }
+	 }
+	 	
+	function initBarCode()
+	{
+    	$('#BarCode').focus();
+		<cfoutput>
+		<cfif url.transactionserialno neq "">
+			$('##BarCode').val('#url.transactionserialNo#');
+			$('##BarCode').trigger(jQuery.Event('keyup', { keyCode: 13 }));
+		</cfif>
+		</cfoutput>
 	}
+
+	function doBarCodeSelection()
+	{
+		$('#BarCode').trigger(jQuery.Event('keyup', { keyCode: 13 }));
+	}
+		
 
 </script>
 
@@ -192,10 +214,23 @@
 					  
 				</td>	
 				
-				  <td colspan="3" style="padding-left:10px;width:100px" height="32" class="labelmedium"><cf_tl id="Reference">:</td>
+				  	<td colspan="3" style="padding-left:10px;width:100px" height="32" class="labelmedium"><cf_tl id="Reference">:</td>
 					<td style="padding-left:3px">			
-					<input type="text" name="BatchReference" size="15" maxlength="20" class="regularxxl">			
+					<input type="text" name="BatchReference" id="BatchReference" size="15" maxlength="20" class="regularxxl">			
 					</td>	
+					<td>TransactionSerialNo:</td>
+					<td>
+
+						<input type    = "text" 
+							onkeyup   = "searchBarcode(this, event)" 							 
+							name      = "BarCode" 
+							id        = "BarCode"
+							tabindex  = "1000" 
+							onfocus   = "this.style.border='2px solid ##6483a2'" 
+							onblur    = "this.style.border='1px solid silver'"
+							class     = "regularxl"
+							style     = "border-radius:0px;height:33px; width:100%;min-width:100px;">					
+					</td>		
 					</tr>
 				
 				</table></td>		
@@ -261,3 +296,4 @@
 	</table>
 	
 </form>
+<cfset AjaxOnLoad("function(){initBarCode();}")>

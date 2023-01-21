@@ -74,6 +74,18 @@
 			</td>
 	</tr>		
 	
+	<tr><td colspan="4" style="height:40px">
+	<table align="center" class="formspacing">
+	   <tr class="labelmedium">
+	   	<td>Show event submission button</td>
+		<td><input class="radiol" type="checkbox" name="SubmissionMode" value="1" <cfif Mission.SubmissionMode eq "1">checked</cfif>></td>
+		<td style="padding-left:10px">Enforce orgunit from portal</td>
+		<td><input class="radiol" type="checkbox" name="OrgUnitMode" value="1" <cfif Mission.OrgUnitMode eq "1">checked</cfif>></td>
+		</tr>
+	</table>
+	
+	</td></tr>
+	
 	<tr><td colspan="4" style="height:40px" id="process">
 	<table align="center" class="formspacing">
 	   <tr>

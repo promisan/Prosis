@@ -1,5 +1,4 @@
 
-
 <!--- actors we obtain the enabled fly-actors for this action and allow them to record inputs (descision and comment --->
 
 <cfset dec = evaluate("Form.#url.userAccount#_Decision")>
@@ -22,7 +21,12 @@
 
 </cfif>
 
+<cfoutput>
 <script>
-	Prosis.busy('no')
+   Prosis.busy('no')
+   alert('#session.root#/tools/entityaction/details/actor/setResult.cfm?objectid=#url.objectid#&actioncode=#url.actioncode#')
+   ptoken.navigate('#session.root#/tools/entityaction/details/actor/setResult.cfm?objectid=#url.objectid#&actioncode=#url.actioncode#','resultuser')
+   
 </script>
+</cfoutput>
 	

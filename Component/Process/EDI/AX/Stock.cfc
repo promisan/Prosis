@@ -107,9 +107,7 @@
 		
 		<cfset qty  = 0>
 		<cfset omit = "">
-		
-		
-		
+						
 		<cfloop query="transaction">
 		
 		  <cfif not find(transactionid,omit)>
@@ -201,9 +199,12 @@
 				WHERE       Mission   = '#filtermission#'
 				AND         ItemNo    = '#filterItemNo#'
 				AND         TransactionQuantity <> 0
-				ORDER BY    TransactionDate, TransactionType DESC  <!--- always first the receipts and d-transactions if postivie --->			
+				ORDER BY    TransactionDate, TransactionQuantity DESC  <!--- adjusted 11/1/2023 --->			
+									
 																
 		</cfquery>	
+		
+		<!--- was ORDER BY    TransactionDate, TransactionType DESC  always first the receipts and d-transactions if postivie  --->	
 		
 		<cfset init = "1">	
 		
@@ -236,7 +237,7 @@
 				 	<!--- no change --->
 				 
 				 </cfif>
-			
+				 			
 			     <cfquery name="transaction" 
 						datasource="#Datasource#" 
 						username="#SESSION.login#" 
@@ -274,8 +275,7 @@
 								AND         ItemNo        = '#filterItemNo#'
 								AND         SelectionDate = '#transactiondate#'
 							</cfquery>	
-								
-						
+							
 						<cfelse>
 																		   						
 							<cfquery name="addprice" 
@@ -303,17 +303,19 @@
 			
 					<cfset val    = (stock * price) + TransactionValue>					
 					<cfset stock  = stock + TransactionQuantity>
-				
+					<cfset stock = round(stock * 1000)/1000>
+														
 				    <!--- this purchase price --->	
 					<cfset prict  = round( TransactionValue * 100000 / TransactionQuantity ) / 100000>
-					
+										
 					<!--- new calculated price after receipt --->	
 					<cfif stock neq "0">
 					    <cfset price  = round( val * 100000 / stock)/100000>
 					<cfelse>
-					    <cfset price = "0">
+					     #price#
+					    <!--- <cfset price = "0"> --->
 					</cfif>
-										
+															
 					<cfif price neq "0" and price lte "1000000">
 					
 						<cfquery name="check" 
@@ -381,7 +383,7 @@
 						<!--- this a correcion in case the very first line is negative Lucia 8/1/2022 : 008240 --->
 					
 						<cfset price = round(TransactionValue*100000/TransactionQuantity)/100000>
-					
+											
 						<cfset stock      = stock + Transactionquantity> 
 					    <cfset value      = Transactionquantity * price> 
 						
@@ -403,7 +405,7 @@
 					
 						<cfset stock      = stock + Transactionquantity>										
 						<cfset value      = Transactionquantity * price>
-																		
+																														
 						<cfquery name="transaction" 
 						datasource="#Datasource#" 
 						username="#SESSION.login#" 
@@ -447,12 +449,8 @@
 					</cfif>						
 		
 			</cfif>		
-			
-			
-		
-		</cfoutput>		
-		
-		
+					
+		</cfoutput>			
 		
 </cffunction>	
 
@@ -573,7 +571,8 @@
 			<cfargument name="Mission"             type="string"  required="true"   default="">						
 			<cfargument name="Warehouse"           type="string"  required="false"  default="">		
 			<cfargument name="Location"            type="string"  required="false"  default="">		
-									
+			
+			<cfargument name="currency"            type="string"  required="false"  default="GTQ"> 						
 			<cfargument name="PriceSchedule"       type="string"  required="false"  default="CFI"> 
 			
 			<cfargument name="Make"                type="string"  required="true"   default="">
@@ -605,25 +604,30 @@
 				</cfif>
 			
 			</cfloop>
-						
-			<cfquery name="get" 
-				datasource="hubEnterprise" 
-				username="#SESSION.login#" 
-				password="#SESSION.dbpw#">		
-				SELECT    *
-                FROM      PriceSchedule
-                WHERE     FieldDefault = 1 AND Mission = '#mission#'
-			</cfquery>	
+				
 			
-			<cfset PriceSchedule = get.PriceSchedule>
-		
+			<cfif priceSchedule eq "">
+			
+				<cfquery name="get" 
+					datasource="hubEnterprise" 
+					username="#SESSION.login#" 
+					password="#SESSION.dbpw#">		
+					SELECT    *
+	                FROM      PriceSchedule
+	                WHERE     FieldDefault = 1 AND Mission = '#mission#'
+				</cfquery>	
+				
+				<cfset PriceSchedule = get.PriceSchedule>
+				
+		     </cfif>
+		     
 			
 			<cfquery name="stock" 
 				datasource="hubEnterprise" 
 				username="#SESSION.login#" 
 				password="#SESSION.dbpw#">		
-										
-				SELECT TOP 800 *
+																						
+				SELECT TOP 700 *
 				
 				FROM (			
 			
@@ -658,25 +662,53 @@
 							I.ItemClass, 
 							I.ItemUoM, 
 							I.ItemDetail, 	
+							'#PriceSchedule#' as PriceSchedule,
+							
+							'#currency#' as Currency,														
+							
+							<!---  linked to Prosis Price Hub now
+								-- P.PriceSchedule,
+								-- P.Currency,
+								-- P.Price*PriceMultiplier as Price,
+								-- P.PriceMin*PriceMultiplier as PriceSaleMin,
+								-- P.PriceMax*PriceMultiplier as PriceSaleMax,  							
+							--->
 														
-							P.PriceSchedule,
-							P.Currency,
-							 
-							P.Price*PriceMultiplier as Price,
-							P.PriceMin*PriceMultiplier as PriceSaleMin, 
-							P.PriceMax*PriceMultiplier as PriceSaleMax, 
+							((SELECT   TOP 1 ISNULL(SalesPrice,0)
+                             FROM     Materials.dbo.ItemUoMPrice
+                             WHERE    Mission         = '#mission#' 
+							 AND      ItemNo          = T.ItemNo 
+							 AND      PriceSchedule   = '#priceSchedule#' 
+							 AND      Promotion       = '0' 
+							 AND      Currency        = '#currency#'
+                             ORDER BY DateEffective DESC)) as PriceSaleMax,													  	
 							
 							I.PriceMultiplier,
 							I.UsageMultiplier,
+							
+							((SELECT   TOP 1 ISNULL(SalesPrice,0)
+                             FROM     Materials.dbo.ItemUoMPrice
+                             WHERE    Mission         = '#mission#' 
+							 AND      ItemNo          = T.ItemNo 
+							 AND      PriceSchedule   = '#priceSchedule#' 
+							 AND      Promotion       = '1' 
+							 AND      Currency        = '#currency#'
+                             ORDER BY DateEffective DESC)) as PromotionPrice,
+							
+							<!--- has to be moved to the price hub 
 																						 
 							(   SELECT TOP (1) Price
 								FROM    EnterpriseHub.dbo.ItemPromotion IP INNER JOIN (SELECT  TOP (1) Mission, ItemNo, DateEffective
-								FROM    EnterpriseHub.dbo.ItemPromotion
-								WHERE   Mission = I.Mission 
-								AND     ItemNo  = I.ItemNo
-								ORDER BY DateEffective  DESC) as D ON IP.Mission = D.Mission AND IP.ItemNo = D.ItemNo and IP.DateEffective = D.DateEffective
+																						FROM    EnterpriseHub.dbo.ItemPromotion
+																						WHERE   Mission = I.Mission 
+																						AND     ItemNo  = I.ItemNo
+																						ORDER BY DateEffective  DESC) as D 
+									ON IP.Mission = D.Mission AND IP.ItemNo = D.ItemNo and IP.DateEffective = D.DateEffective
 								WHERE IP.DateExpiration >= getDate()
-								ORDER BY Price ) as PromotionPrice,	 							 
+								ORDER BY Price ) as PromotionPrice11,	
+								
+							--->	 	
+												 
 								 
 							 I.Operational, 
 							 T.ItemPrecision,
@@ -708,13 +740,13 @@
 							  AND      R.Mission            = I.Mission 
 							  AND      PLR.Warehouse        = S.Warehouse 
 							  AND      PLR.WarehouseItemNo  = T.ItemNo
-							  -- AND      PLR.WarehouseUoM     = L.UoM  <!--- not relevant --->
+							  <!--- AND      PLR.WarehouseUoM     = L.UoM   not relevant --->
 							  ) as StockInTransit,	
 							 												 	   
 							 (SELECT   ISNULL(SUM(TransactionQuantity),0)
 							  FROM     Materials.dbo.vwCustomerRequest
 							  WHERE    ItemNo          = T.ItemNo
-							  -- AND      TransactionUoM  = T.UoM
+							  <!--- AND      TransactionUoM  = T.UoM --->
 							  AND      Warehouse       = S.Warehouse
 							  AND      BatchNo IS NULL 
 							  AND      RequestClass = 'QteReserve' 
@@ -726,6 +758,9 @@
 				            INNER JOIN ItemStock AS S ON I.Mission = S.Mission AND I.ItemNo = S.ItemNo
 							INNER JOIN Warehouse AS W ON S.Mission = W.Mission AND S.Warehouse = W.Warehouse AND W.Operation = 1 
 							INNER JOIN Materials.dbo.Item T ON I.ItemNo = T.ItemNoExternal 
+							
+							<!---
+							
 							INNER JOIN		
 												
 								(SELECT    T.*
@@ -744,9 +779,15 @@
 									AND  T.DateEffective = S.DateEffective
 										   
 												   
-								) as P ON P.Mission = W.Mission AND P.ItemNo = I.ItemNo AND P.Mission = I.Mission AND PriceSchedule = '#Priceschedule#'									
-							
-				WHERE       S.Mission = '#mission#' 
+								) as P ON P.Mission = W.Mission AND P.ItemNo = I.ItemNo AND P.Mission = I.Mission AND PriceSchedule = '#Priceschedule#'		
+								
+								--->
+														
+				<cfif mission eq "Mariscal">			
+				WHERE   1=1  --   S.Mission = '#mission#' 
+				<cfelse>
+				WHERE    S.Mission = '#mission#'
+				</cfif>
 				AND         I.Operational = 1
 				AND         W.Operation = 1
 				AND         S.SelectionDate = CAST(GETDATE() AS Date) 
@@ -812,7 +853,10 @@
 				) as D
 				
 				WHERE 1=1
-								
+				
+				<!--- as items are in transit --->				
+				-- AND  PriceSaleMax is not NULL
+												
 				<cfif SettingOnHand eq "1">
 				AND        StockOnSale   > 0
 				</cfif>
@@ -826,10 +870,8 @@
 				</cfif>
 				
 				ORDER BY ItemName, WarehouseName
-				
-				
-																			
-			</cfquery>			
+																											
+			</cfquery>					
 							
 			<cfreturn stock>	
 		

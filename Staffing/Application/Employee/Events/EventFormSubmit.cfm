@@ -31,9 +31,19 @@
 
 <cfset vDocumentNo =0>
 
-<!--- Position will rule the orgunit --->
+<cfquery name="CheckUnit" 
+		datasource="AppsEmployee" 
+		username="#SESSION.login#" 
+		password="#SESSION.dbpw#">
+			SELECT *
+			FROM   Ref_PersonEventMission
+			WHERE  PersonEvent = '#form.EventCode#'
+			AND    Mission     = '#Form.Mission#'
+</cfquery>	
 
-<cfif FORM.PositionNo neq "">
+<!--- Position will rule the orgunit unless it is disabled on the entity --->
+
+<cfif FORM.PositionNo neq "" and checkUnit.OrgUnitMode eq "0">
 	
 	<cfquery name="Position" 
 		datasource="AppsEmployee" 
@@ -47,6 +57,8 @@
 	<cfset org = Position.OrgUnitOperational>
 	
 <cfelse>
+
+    <!--- we take the determined orgunit --->
 
     <cfset org = FORM.OrgUnit>
 
@@ -220,6 +232,7 @@
 	</cfquery>	
 
 </cfif>
+
 
 <cfif url.box neq ""> <!--- this mode is to show the portal only the workflow object --->
 

@@ -213,16 +213,15 @@ WHERE   Role = '#URL.ID#'
 <table width="98%" height="100%" align="center">
              
 	<tr><td height="100%">
-			
-	<cfform action="#link#?box=#url.box#&Mission=#URL.Mission#&ID=#URL.ID#&ACC=#URL.ACC#&ID2=#URL.ID2#&ID4=#URL.ID4#&requestid=#url.requestid#" 
-	   method="POST" name="formaccess" target="resulting" style="height:100%">	
+					
+	<cfform name="formaccess" style="height:100%">	
 	   
 	 	<cfoutput>
 		<table width="100%" height="100%" align="center">
 		
 		<tr class="line">
 		   <td height="10" colspan="4" style="padding-top:4px">
-		  
+		   
 		   <table width="100%" align="center">
 		    <tr>
 			   <td align="center" width="10%">
@@ -340,7 +339,8 @@ WHERE   Role = '#URL.ID#'
 					
 		</cfoutput>
 			
-		<tr><td height="100%" colspan="4">
+		<tr><td height="100%" colspan="4" style="width:100%">
+		
 		
 			<cf_divscroll>
 					
@@ -527,7 +527,7 @@ WHERE   Role = '#URL.ID#'
 					   </cfquery>		
 					   					   					   
 					    <cfif AccessGranted.recordcount gte "1">						
-						<td colspan="4" id="s_#mission#" class="labelmedium2" style="padding-left:6px" align="right">																								
+						<td colspan="4" id="s_#mission#" class="labelmedium2" style="padding-left:6px" align="right">																							
 						<cfelse>						
 						<td colspan="4" id="s_#mission#" class="hide" style="padding-left:6px" align="right">												
 						</cfif>
@@ -825,15 +825,19 @@ WHERE   Role = '#URL.ID#'
 			    <table>
 			    <tr><td>
 											    
-				<cfif URL.ID1 neq "Object" and url.id1 neq "Tree">												
-				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="try {parent.parent.ProsisUI.closeWindow('myaccess') } catch(e) { parent.ProsisUI.closeWindow('myaccess') }">
+				<cfif URL.ID1 neq "Object" and url.id1 neq "Tree">															
+				     <input type="button" class="button10g" name="close" id="close" value="Close" onClick="try {parent.parent.ProsisUI.closeWindow('myaccess') } catch(e) { parent.ProsisUI.closeWindow('myaccess') }">
 				<cfelse>											
-				<input type="button" class="button10g" name="close" id="close" value="Close" onClick="try {parent.parent.ProsisUI.closeWindow('userdialog') } catch(e) { parent.ProsisUI.closeWindow('userdialog') }">
+					<input type="button" class="button10g" name="close" id="close" value="Close" onClick="try {parent.parent.ProsisUI.closeWindow('userdialog') } catch(e) { parent.ProsisUI.closeWindow('userdialog') }">
 				</cfif>
 				
-				</td><td style="padding-left:2px">
-				   	<input type="submit" class="button10g"  style="height:27px;width:200px" value="Apply" onclick="Prosis.busy('yes');">			
+							
+				</td>
+				<cfoutput>
+				<td style="padding-left:2px">
+				   	<input type="submit" class="button10g"  style="height:27px;width:200px" value="Apply" onclick="Prosis.busy('yes');ptoken.navigate('#link#?box=#url.box#&Mission=#URL.Mission#&ID=#URL.ID#&ACC=#URL.ACC#&ID2=#URL.ID2#&ID4=#URL.ID4#&requestid=#url.requestid#','accessgo','','','POST','formaccess')">			
 					</td>
+					</cfoutput>	
 				</tr>
 				</table>				
 				</td>		
@@ -846,16 +850,7 @@ WHERE   Role = '#URL.ID#'
 		<!--- processing box use this box for trouble shooting queries --->
 		<!--- -------------------------------------------------------- --->
 		
-		<tr><td class="hide" colspan="6">
-						
-			<iframe name="resulting"
-			   id="resulting"
-			   width="100%"
-			   height="100%"
-			   scrolling="yes"
-			   frameborder="1"></iframe>
-					
-		</td></tr>
+		<tr><td class="xxxhide" colspan="6" id="accessgo"></td></tr>
 		
 		<tr><td style="padding:6px"></td></tr>
 		

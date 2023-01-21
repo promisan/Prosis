@@ -4,11 +4,18 @@
 <cfparam name="session.acc"   default="" type="string">
 <cfparam name="client.dateformatshow"   default="DD/MM/YYYY" type="string">
 
+
 <cfset logon = session.acc>
+<cfajaximport>
+<cf_SystemScript>
 
 <cf_tl id="Password Reset" var="1">
 
-<cf_screentop height="100%" jquery="Yes" html="yes" banner="bluedark" layout="webapp" bannerheight="50" scroll="No" label="#lt_text# - #SESSION.welcome#" user="No" validateSession="No">
+
+<script src="Scripts/jQuery/jquery.js" type="text/javascript"></script>
+
+
+
 
 <cf_tl id="Please enter a user account" var="lblErrorAccount">
 
@@ -17,7 +24,7 @@
 
 		function process(){
 			if (document.getElementById('account').value.length > 0) { 
-					ptoken.navigate('#SESSION.root#/PasswordAssistSubmit.cfm?mode=#url.mode#','process','','','POST','assist');
+					ptoken.navigate('PasswordAssistSubmit.cfm?mode=#url.mode#','process','','','POST','assist');
 			} else{ 
 				alert('#lblErrorAccount#');
 			}
@@ -25,6 +32,7 @@
 
 	</script>
 </cfoutput>
+
 
 <!--- obtain the mode --->
 <style>
@@ -64,7 +72,7 @@
 <table width="80%" height="80%" align="center" class="formpadding" style="max-width: 650px;">
 	<tr>
         <td>
-            <cfoutput><img src="#session.root#/Images/prosis-logo-300.png" alt="" border="0" height="42" width="150" style="margin: 25px 0;"></cfoutput>
+            <cfoutput><img src="Images/Prosis-Logo-blue.png" alt="" border="0" height="42" width="150" style="margin: 25px 0;"></cfoutput>
         </td>
     </tr>
 	<tr bgcolor="#f6f6f6" style="background-color: #f6f6f6;">
@@ -102,7 +110,7 @@
 								
 					<tr>
 						<td class="labellarge" style="font-size:18px"><font color="808080">
-						  <img src="#session.root#/images/finger.gif" alt="" border="0">
+						  <img src="images/finger.gif" alt="" border="0">
 					  		<cf_tl id="eMail is sent to the registered e-Mail under your account.">
 						</td>
 					</tr>

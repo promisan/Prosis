@@ -2,28 +2,21 @@
 <cfparam name="URL.ID" default="Individual">
 <cfparam name="URL.Mode" default="">
 
+
+<cfoutput>
+
 <script language="JavaScript">
-
-function mhl(itm,fld) {
-	
-	 ie = document.all?1:0
-	 ns4 = document.layers?1:0
-
-     if (ie){
-          while (itm.tagName!="TR")
-          {itm=itm.parentElement;}
-     }else{
-          while (itm.tagName!="TR")
-          {itm=itm.parentNode;}
-     }
-		 	 		 	
-	 if (fld != false) {
-	    itm.className = "highLight2 labelmedium";
-  	 } else { itm.className = "labelmedium"; }
-	 
-	 }
+    		 
+	function formvalidate() {
+		document.userenter.onsubmit() 
+		if( _CF_error_messages.length == 0 ) {            
+			  ptoken.navigate('UserEntrySubmit.cfm?mode=#URL.Mode#','result','','','POST','userenter')	 
+		 }   
+	}	 
 
 </script>
+
+</cfoutput>
 
 <cfquery name="Group" 
 datasource="appsSystem" 
@@ -103,11 +96,17 @@ password="#SESSION.dbpw#">
 
 </cfif>
 
+<cfif url.mode eq "">
+     <cfset html = "Yes">
+<cfelse>
+	<cfset html= "No">
+</cfif>
+
 <cfif URL.ID eq "Individual">
-	<cf_ScreenTop height="100%" html="no" jquery="Yes" band="no" layout="webapp" 
+	<cf_ScreenTop height="100%" html="#html#" jquery="Yes" band="no" layout="webapp" 
 	label="Register User Account" scroll="Yes">
 <cfelse>
-	<cf_ScreenTop height="100%" html="yes" jquery="Yes" band="No" layout="webapp" banner="blue"  label="Register User Group" scroll="No">
+	<cf_ScreenTop height="100%" html="#html#" jquery="Yes" band="No" layout="webapp" banner="blue"  label="Register User Group" scroll="No">
 </cfif>
 
 <cf_dialogStaffing>
@@ -117,7 +116,7 @@ password="#SESSION.dbpw#">
 
 <!--- Entry form --->
 
-<cfform action="UserEntrySubmit.cfm?mode=#URL.Mode#" style="height:97%" method="POST" target="result" name="userenter">
+<cfform style="height:97%" name="userenter" onsubmit="return false">
 
 <table width="96%" border="0" height="100%"      
 	   class="formpadding"
@@ -195,11 +194,18 @@ password="#SESSION.dbpw#">
 <tr><td height="1" colspan="1" class="line"></td></tr>	
 	
 <tr><td align="center" colspan="2">
-		<input class="button10g" type="button" value="Close" onClick="parent.ProsisUI.closeWindow('newaccount')">
-		<INPUT class="button10g" type="submit" value="Save">
+        <table>
+		<tr>
+		<cfif url.mode neq "">
+		<td><input class="button10g" type="button" value="Close" onClick="parent.ProsisUI.closeWindow('newaccount')"></td>
+		<cfelse>
+		<td><input class="button10g" type="button" value="Close" onClick="window.close()"></td>
+		</cfif>
+		<td><INPUT class="button10g" type="button" value="Save" onclick="javascript:formvalidate()"></td></tr>
+		</table>
 	</td></tr>
 	
-	<tr class="hide"><td><iframe name="result" id="result"></iframe></td></tr>
+	<tr class="hide"><td id="result"></td></tr>
 
 </table>
 

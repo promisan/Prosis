@@ -1,3 +1,5 @@
+<cfparam name="url.mid" default="">
+
 	<table border="0" width="100%" height="100%">
 	
 	<cfquery name="qType" 
@@ -259,18 +261,19 @@
 						  password="#SESSION.dbpw#">
 					        SELECT    *
 					        FROM      CustomerTaxCode C 
-					        WHERE     C.CustomerId = '#url.CustomerId#'  
+					        WHERE     C.CustomerId = '#url.customeridinvoice#'  
 							ORDER BY Source DESC                                                                                                                                           			  
 					</cfquery>
-			
+								
 					 <td>
 										 
 						<select name="taxcode" id="taxcode" class="regularxxl" style="font-size:20px;background-color:ffffcf">
-						<cfloop query="getCustomerInvoiceTax">
-						<option value="#TaxCode#" <cfif currentrow eq "1">selected</cfif>>#TaxCode#</option>
-						</cfloop>
-						<option value="" <cfif getCustomerInvoiceTax.recordcount eq "0">selected</cfif>>CF</option>	
+							<cfloop query="getCustomerInvoiceTax">
+							<option value="#TaxCode#" <cfif currentrow eq "1">selected</cfif>>#TaxCode#</option>
+							</cfloop>
+							<option value="" <cfif getCustomerInvoiceTax.recordcount eq "0">selected</cfif>>CF</option>	
 						</select>
+						
 					</td>	
 					</table>
 					</td></tr>		
@@ -282,9 +285,9 @@
 			</tr>
 								
 			<tr>	
-				<td height="100%" valign="top" style="width:100%;padding-left:4px;padding-top:5px;padding-bottom:16px;padding-right:10px">
-								
-				   <cfdiv id="dlines" 
+				<td height="100%" valign="top" style="width:100%;padding-left:4px;padding-top:5px;padding-bottom:16px;padding-right:10px" id="dlines">								
+
+				   <cfdiv  
 			        bind="url:#session.root#/Warehouse/Application/SalesOrder/POS/Settlement/SettlementLines.cfm?RequestNo=#url.requestNo#&Warehouse=#url.warehouse#&Terminal=#url.terminal#&customerid=#url.customerid#&batchId=#url.batchid#&tm=#url.tm#&td=#url.td#&th=#url.th#&addressid=#url.addressid#&mid=#url.mid#&taxcode={taxcode}"/>
 					
 				</td>	

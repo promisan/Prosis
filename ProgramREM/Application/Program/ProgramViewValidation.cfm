@@ -1,4 +1,6 @@
-<cfinvoke component 	  = "Service.Validation.Controller"  
+
+<cfparam name="url.PositionNo" default="">
+<cfinvoke component 	  = "Service.Validation.Controller"
    method           	  = "Control" 
    systemFunctionId 	  = "#url.systemfunctionid#"		
    mission          	  = "#url.mission#"	  

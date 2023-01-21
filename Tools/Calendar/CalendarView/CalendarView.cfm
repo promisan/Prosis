@@ -105,7 +105,7 @@
 		<input type="hidden"    id="showPrint"           name="showPrint"          value="#attributes.showPrint#">		
 		<input type="hidden"    id="showRefresh"         name="showRefresh"        value="#attributes.showRefresh#">		
 										
-		<tr bgcolor="white" class="line">
+		<tr bgcolor="white">
 		
 		<td width="100%" style="padding:1px" align="left" valign="top">		
 													

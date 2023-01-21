@@ -670,6 +670,7 @@ function possettlement(s,modid) {
 	mis   = document.getElementById("mission").value	
 	req   = document.getElementById("RequestNo").value
 	cus   = document.getElementById("customeridselect").value
+	inv   = document.getElementById("customerinvoiceidselect").value
 	bat   = document.getElementById("batchid").value		
 	ter   = document.getElementById("terminal").value
 	tr_d  = document.getElementById("transaction_date").value	
@@ -681,7 +682,7 @@ function possettlement(s,modid) {
 		    
 	    try { ProsisUI.closeWindow('wsettle',true)} catch(e){};
 	    ProsisUI.createWindow('wsettle', 'Settlement', '',{x:100,y:100,width:1080,height:690,resizable:false,modal:true,center:true})		
-		ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Settlement/SettleView.cfm?RequestNo="+req+"&warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&batchid="+bat+"&td="+tr_d+"&th="+tr_h+"&tm="+tr_m+"&addressid="+addr,'wsettle');
+		ptoken.navigate("#SESSION.root#/Warehouse/Application/SalesOrder/POS/Settlement/SettleView.cfm?RequestNo="+req+"&warehouse="+whs+"&terminal="+ter+"&customerid="+cus+"&customeridinvoice="+inv+"&batchid="+bat+"&td="+tr_d+"&th="+tr_h+"&tm="+tr_m+"&addressid="+addr,'wsettle');
 		
 	} else {  Ext.MessageBox.alert('Information', '#vValidCustomerMessage#'); }
 	 

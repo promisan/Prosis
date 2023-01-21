@@ -14,6 +14,7 @@
 			A.EnableNotification,
 			A.NotificationManual,
 			A.ActionDialog,
+			A.ActionDialogOpen,
 			
 			<!--- language --->
 			A.ActionDescription,

@@ -47,7 +47,6 @@
 						<cf_tl id="Password">:
 					</td>			  
 					<td style="padding-left:10px;">
-					
 						<input type="password" 
 						   name="password" 
 						   required="yes" 
@@ -69,6 +68,7 @@
 				</tr>		
 				<tr>
 					<td colspan="5" align="right" style="padding-left:70px; padding-top:6px">		
+					xxx
 						<table cellspacing="0" cellpadding="0" align="right">
 							<tr>
 							
@@ -118,7 +118,13 @@
 										</td>
 										
 									 </cfif>	
-								
+								<cfelse>
+										<td></td>
+										<td></td>
+										<td>
+											<a href="PasswordAssist.cfm" target="_top" style="color:<cfoutput>#color#</cfoutput>">Forgot password</a>
+										</td>								
+
 								</cfif>								
 								
 							</tr>
@@ -138,6 +144,7 @@
 					
 					<cfif Parameter.ApplicationLogon neq "">
 						<td>		
+
 							<table width="100%">
 								<tr>
 									<td>
@@ -156,7 +163,7 @@
 						</td>
 					<cfelse>
 						<td class="labelit fixlength" style="color:<cfoutput>#color#</cfoutput>; font-size:14px" align="right">
-							
+
 							<cfif Parameter.ApplicationLogonLabel neq "">
 								#Parameter.ApplicationLogonLabel#
 							<cfelse>
@@ -280,6 +287,14 @@
 										
 									</cfif>	
 									
+								<cfelse>
+										<td></td>
+										<td></td>
+										<td>
+											<a href="PasswordAssist.cfm" target="_top" style="color:<cfoutput>#color#</cfoutput>">Forgot password</a>
+										</td>								
+
+
 								</cfif>
 								
 							</tr>

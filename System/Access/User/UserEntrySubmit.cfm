@@ -97,7 +97,7 @@ password="#SESSION.dbpw#">
 
 <cfquery name="Parameter" datasource="AppsSystem">
 	SELECT TOP 1 LogonAccountSize
-	FROM Parameter
+	FROM   Parameter
 </cfquery>
 
 <cfquery name="CheckPK" 
@@ -139,8 +139,8 @@ password="#SESSION.dbpw#">
 	
 		 <script language = "JavaScript">
 			
-			alert("An account code #account# was already registered.");
-			window.close();    
+			alert("An account code #account# was already registered.");			
+			parent.ProsisUI.closeWindow('newaccount')							
 		    var account = "#CheckPK.account#";		  
 				
 		     w = 90
@@ -167,7 +167,8 @@ password="#SESSION.dbpw#">
 			alert("The account: #account# does not comply with proper user account format");
 		 </script>	  
 		</cfoutput>	
-<cfelse>	
+		
+<cfelse>
 
 <cfinvoke component = "Service.Authorization.PasswordCheck"  
 		  method    = "generateRandomPassword"
@@ -251,11 +252,12 @@ password="#SESSION.dbpw#">
 	
 		<cfset URL.acc = "#Account#">
 		<cfset URL.mode = "new">
+		
 		<cfinclude template="../Membership/UserMemberSubmit.cfm">   
 		
-		<script>
-		    		
-			parent.todays()	
+		<script>	
+				    					
+			parent.todays('yes')	
 			parent.ProsisUI.closeWindow('newaccount')	
 				
 		</script>	 	

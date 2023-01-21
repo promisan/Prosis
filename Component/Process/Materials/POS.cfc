@@ -1558,9 +1558,7 @@
 				</cfif>
 			</cfif>
 			
-			<!--- remove --->
-			<cfset batchNo = batchNo + 100000>
-			
+						
 			<cfset vParentBatchNo = "">
 			
 			<cfif BatchId neq "">

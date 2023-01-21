@@ -271,8 +271,7 @@
 					<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?scope=#url.scope#&personno=#url.personno#&selected=#qEvent.orgunit#&mission={mission}"/>							
 				<cfelseif url.orgunit neq "">									
 					<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?scope=#url.scope#&personno=#url.personno#&selected=#url.orgunit#&mission={mission}"/>											
-				<cfelse>			
-					
+				<cfelse>					
 				    <cfparam name="Position.OrgUnitOperational" default="">
 				   	<cf_securediv id="myunitbox" bind="url:#session.root#/staffing/application/Employee/Events/getOrganization.cfm?scope=#url.scope#&personno=#url.personno#&selected=#Position.OrgUnitOperational#&mission={mission}"/>											
 				</cfif>	

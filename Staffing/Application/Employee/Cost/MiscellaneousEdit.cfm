@@ -37,7 +37,7 @@ password="#SESSION.dbpw#">
 
       <cfset edit = "0">	
 
-<cfelseif getAdministrator("#Entitlement.Mission#") eq "1" 
+<cfelseif (getAdministrator("#Entitlement.Mission#") eq "1" and Entitlement.Status neq "5")
       or  Entitlement.Status eq "0" 
 	  or (Status eq "2" and EntityClass eq "")>
 	  

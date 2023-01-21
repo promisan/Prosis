@@ -29,11 +29,8 @@
    function eventadd(personno,scope,mis,trigger,code) {    	
     	Prosis.busy('yes');
     	_cf_loadingtexthtml='';		
-		if (document.body.clientHeight < 800) {
-		      ht = document.body.clientHeight-100
-		   } else {
-		      ht = 900
-		   }
+		
+		ht = document.body.clientHeight-70		   
 		if (document.body.clientWidth < 800) {
 		      wi = document.body.clientWidth-100
 		   } else {
@@ -61,21 +58,16 @@
     	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getEvent.cfm?portal='+por.value+'&scope='+scp.value+'&personno='+per.value+'&triggercode='+tc.value+'&eventid='+rid.value+'&mission='+mis.value+'&pevent='+pevent.value,'dEvent')
     }    
 
-    function checkreason() {	 
-	    alert('bb')
+    function checkreason() {	 	    
 	    por     = document.getElementById('portal');
 		scp     = document.getElementById('scope');	  	   
-	    mis     = document.getElementById('mission');
-		alert('cc')
+	    mis     = document.getElementById('mission');		
 		tc      = document.getElementById('triggercode');
 		ev      = document.getElementById('eventcode');
-		rid     = document.getElementById('eventid');
-		alert('dd')
+		rid     = document.getElementById('eventid');		
 		preason = document.getElementById('preason');	
-		
-		alert('ee')
-    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?portal='+por.value+'&scope='+scp.value+'&mission='+mis.value+'&triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value+'&preason='+preason.value,'dReason');		
-		alert('ff')
+				
+    	ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getReason.cfm?portal='+por.value+'&scope='+scp.value+'&mission='+mis.value+'&triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value+'&preason='+preason.value,'dReason');				
 		ptoken.navigate('#SESSION.root#/Staffing/Application/Employee/Events/getCondition.cfm?triggercode='+tc.value+'&eventcode='+ev.value+'&eventid='+rid.value+'&preason='+preason.value,'dCondition');
     }
 	    
@@ -90,6 +82,7 @@
 		
 	function eventsubmit(id,box,portal,scope) {
 	
+	  
 		tc  = document.getElementById('triggercode');
 		ev  = document.getElementById('eventcode');
 		de  = document.getElementById('DateEvent');
@@ -109,28 +102,42 @@
 		rbx = document.getElementById('requisitionbox');
 		ebx = document.getElementById('expirybox');	
 				
+				
 		if (pos.value=='' && pbx.className!= 'hide') {
+		    
 			Ext.Msg.alert('Position', 'Please specify a position.');			
 		} else if (tc.value  == '')   {
+		    
 			Ext.Msg.alert('Trigger', 'Please specify an event trigger.');
 		} else if (doc.value  == '' && dbx.className!= 'hide')   {
+		   
 			Ext.Msg.alert('Document', 'Please specify a Recruitment Document.');	
 		} else if (req.value=='' && rbx.className!='hide'){
+		    
 			Ext.Msg.alert('Requisition', 'Please specify Requisition No.');
 		} else if (pri.checked && prm.value ==''){
+		   
 			Ext.Msg.alert('High Priority', 'Please specify a reason.');	
 		} else if (ev.value  == '')   {
+		  
 			Ext.Msg.alert('Event', 'Please specify an event action.');		
 		} else if (de.value  == '')   {
+		
 			Ext.Msg.alert('Request date', 'Please specify Event Date.');
 		} else if (ded.value == '')  {
+		
 			Ext.Msg.alert('Due date', 'Please specify Due Date.');
+			
 		} else if (eff.value == '')  {
+		
 			Ext.Msg.alert('Effective date', 'Please specify an effective Date.');	
+			
 		} else if (exp.value == '' && ebx.className!= 'hide') {
+		
 			Ext.Msg.alert('Expiration date', 'Please specify an expiration Date.');		
 		} 
 		else{		
+		   
     		ptoken.navigate('#SESSION.root#/Staffing/Application/employee/events/EventFormSubmit.cfm?portal='+portal+'&scope='+scope+'&box='+box+'&eventid='+id,'process','','','POST','eventform')		
 		}
 	}
