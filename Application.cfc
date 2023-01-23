@@ -6,7 +6,8 @@
 	<cfset THIS.ApplicationTimeout     = CreateTimeSpan( 0, 24, 180, 0 ) />
 	<cfset THIS.SessionManagement      = true />
 	<cfset THIS.clientmanagement       = true />
-	<cfset THIS.scriptprotect          = "all" />	
+	<cfset THIS.scriptprotect          = "all" />
+	<Cfset This.loginstorage="Session"/>
 	<cfset THIS.SessionTimeout         = CreateTimeSpan(0,24,180,0)/>        
 	<cfset THIS.wschannels             = [{name="validatorchannel"}]>
 	<cfset THIS.sessioncookie.httponly = true>
